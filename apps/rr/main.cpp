@@ -175,7 +175,7 @@ void ProcessCommandLineArguments(int argc, char* argv[], Args& args)
 {
     char c;
 
-    while ((c = GetOptions(argc, argv, (const char*) ("puo:c:v:n:d:t:l:m:s:e:z:"))) != -1)
+    while ((c = GetOptions(argc, argv, (const char*) ("puo:c:v:n:d:t:l:m:s:e:z:"))) != (char)(-1))
     {
         switch (c)
         {
