@@ -96,8 +96,15 @@
 // all the documentation goes here.
 %include "rr_docstrings.i"
 
- // the integrator listener is a shared ptr
+// the integrator listener is a shared ptr
+// C++ 11 has this in the std namespace.
+#if (__cplusplus >= 201103L) || defined(_MSC_VER)
+#define SWIG_SHARED_PTR_SUBNAMESPACE
+#else
 #define SWIG_SHARED_PTR_SUBNAMESPACE tr1
+#endif
+
+
 %include "std_shared_ptr.i"
 
 %shared_ptr(rr::PyIntegratorListener)
