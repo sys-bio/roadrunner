@@ -167,8 +167,6 @@ public:
 
     std::string mCurrentSBML;
 
-    std::string mFilename;
-
     /**
      * structural analysis library.
      */
@@ -237,7 +235,6 @@ public:
                 mSteadyStateSelection(),
                 model(0),
                 mCurrentSBML(),
-                mFilename(),
                 mLS(0),
                 simulateOpt(),
                 mInstanceID(0),
