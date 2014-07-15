@@ -975,7 +975,7 @@ TEST(955) { CHECK(RunTest("l2v4", 955)); }
 TEST(956) { CHECK(RunTest("l2v4", 956)); }
 TEST(957) { CHECK(RunTest("l2v4", 957)); }
 TEST(958) { CHECK(RunTest("l2v4", 958)); }
-//TEST(959) { CHECK(RunTest("l2v4", 959)); }
+TEST(959) { CHECK(RunTest("l2v4", 959)); }
 TEST(960) { CHECK(RunTest("l3v1", 960)); }
 TEST(961) { CHECK(RunTest("l3v1", 961)); }
 TEST(962) { CHECK(RunTest("l3v1", 962)); }
@@ -1278,9 +1278,9 @@ SUITE(SBML_TEST_SUITE_EVENTS)
 {
     TEST(26) { CHECK(RunTest("l2v4", 26)); }
     TEST(41) { CHECK(RunTest("l2v4", 41)); }
-    TEST(71)  { CHECK(RunTest("l2v4", 71));  }
+    TEST(71) { CHECK(RunTest("l2v4", 71)); }
     TEST(72) { CHECK(RunTest("l2v4", 72)); }
-    TEST(73)  { CHECK(RunTest("l2v4", 73));  }
+    TEST(73) { CHECK(RunTest("l2v4", 73)); }
     TEST(74) { CHECK(RunTest("l2v4", 74)); }
 
     TEST(351) { CHECK(RunTest("l2v4", 351)); }
@@ -1480,7 +1480,7 @@ SUITE(SBML_TEST_SUITE_EVENTS)
     TEST(956) { CHECK(RunTest("l2v4", 956)); }
     TEST(957) { CHECK(RunTest("l2v4", 957)); }
     TEST(958) { CHECK(RunTest("l2v4", 958)); }
-    //TEST(959) { CHECK(RunTest("l2v4", 959)); } // TODO:  BUG HANDLING TRIG FUNCTIONS
+    TEST(959) { CHECK(RunTest("l2v4", 959)); }
     TEST(960) { CHECK(RunTest("l3v1", 960)); }
     TEST(961) { CHECK(RunTest("l3v1", 961)); }
     TEST(962) { CHECK(RunTest("l3v1", 962)); }
@@ -1615,8 +1615,6 @@ SUITE(SBML_TEST_SUITE_C_FAIL)
 
     TEST(950) { CHECK_EQUAL(false, RunTest("l2v4", 950)); } // TODO:  HANDLE INF AND NAN IN INPUT AND OUTPUT
     TEST(951) { CHECK_EQUAL(false, RunTest("l2v4", 951)); } // TODO:  HANDLE INF AND NAN IN INPUT AND OUTPUT
-
-    TEST(959) { CHECK_EQUAL(false, RunTest("l2v4", 959)); } // TODO:  BUG HANDLING TRIG FUNCTIONS
 
     TEST(981)  { CHECK_EQUAL(false, RunTest("l3v1", 981  )); } // CSymbolDelay
     TEST(982)  { CHECK_EQUAL(false, RunTest("l3v1", 982  )); } // CSymbolDelay
