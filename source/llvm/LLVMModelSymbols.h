@@ -62,7 +62,7 @@ public:
     const SymbolForest& getInitialAssignmentRules() const;
 
     /**
-     * contains the intial symbols along with the intial assignments which
+     * contains the initial symbols along with the initial assignments which
      * override the initial values.
      */
     const SymbolForest& getInitialValues() const;

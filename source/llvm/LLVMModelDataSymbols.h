@@ -348,7 +348,7 @@ public:
      * be a dependent floating species.
      *
      * It can however have independent initial conditions defined
-     * either by intial values or initial assignment rules.
+     * either by initial values or initial assignment rules.
      */
     bool isConservedMoietySpecies(const std::string& symbol) const;
 
