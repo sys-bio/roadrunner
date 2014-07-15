@@ -852,7 +852,7 @@ void RoadRunner::load(const string& uriOrSbml, const LoadSBMLOptions *options)
 
     get_self();
 
-    impl->mCurrentSBML = SBMLReader::read(uriOrSbml, impl->mFilename);
+    impl->mCurrentSBML = SBMLReader::read(uriOrSbml);
 
     //clear temp folder of roadrunner generated files, only if roadRunner instance == 1
     Log(lDebug)<<"Loading SBML into simulator";
@@ -870,7 +870,7 @@ void RoadRunner::load(const string& uriOrSbml, const LoadSBMLOptions *options)
     {
         impl->conservedMoietyAnalysis = options->modelGeneratorOpt
                 & LoadSBMLOptions::CONSERVED_MOIETIES;
-        impl->model = impl->mModelGenerator->createModel(impl->mCurrentSBML, options->modelGeneratorOpt, impl->mFilename);
+        impl->model = impl->mModelGenerator->createModel(impl->mCurrentSBML, options->modelGeneratorOpt);
     }
     else
     {
@@ -878,7 +878,7 @@ void RoadRunner::load(const string& uriOrSbml, const LoadSBMLOptions *options)
         opt.modelGeneratorOpt = getConservedMoietyAnalysis() ?
                 opt.modelGeneratorOpt | LoadSBMLOptions::CONSERVED_MOIETIES :
                 opt.modelGeneratorOpt & ~LoadSBMLOptions::CONSERVED_MOIETIES;
-        impl->model = impl->mModelGenerator->createModel(impl->mCurrentSBML, opt.modelGeneratorOpt, impl->mFilename);
+        impl->model = impl->mModelGenerator->createModel(impl->mCurrentSBML, opt.modelGeneratorOpt);
     }
 
     updateIntegrator();
@@ -3730,5 +3730,4 @@ void RoadRunner::_setSimulateOptions(const SimulateOptions* opt)
 #if defined(_WIN32)
 #pragma comment(lib, "IPHLPAPI.lib") //Becuase of poco needing this
 #endif
-
 
