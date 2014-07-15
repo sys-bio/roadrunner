@@ -65,7 +65,6 @@ public:
      */
     virtual IntegratorListenerPtr getListener();
 
-
     /**
      * implement dictionary interface
      */
@@ -78,6 +77,16 @@ public:
     virtual int deleteValue(const std::string& key);
 
     virtual std::vector<std::string> getKeys() const;
+
+    /**
+     * get a description of this object, compatable with python __str__
+     */
+    virtual std::string toString() const;
+
+    /**
+     * get a short descriptions of this object, compatable with python __repr__.
+     */
+    virtual std::string toRepr() const;
 
 private:
     ExecutableModel *model;
@@ -117,11 +126,14 @@ private:
         return stoichData[species * stoichCols + reaction];
     }
 
+    unsigned long seed;
+
+    /**
+     * set the seed into the random engine.
+     */
+    void setEngineSeed(unsigned long seed);
+
     unsigned long getSeed() const;
-
-    void setSeed(unsigned long);
-
-
 };
 
 } /* namespace rr */

@@ -32,7 +32,8 @@ GillespieIntegrator::GillespieIntegrator(ExecutableModel* m,
         stoichScale(1.0),
         stoichRows(0),
         stoichCols(0),
-        stoichData(0)
+        stoichData(0),
+        seed(5489UL) // default value for mersene twister
 {
     if (o)
     {
@@ -57,7 +58,7 @@ GillespieIntegrator::GillespieIntegrator(ExecutableModel* m,
     // fill stoichData
     model->getStoichiometryMatrix(&stoichRows, &stoichCols, &stoichData);
 
-
+    setEngineSeed(seed);
 }
 
 GillespieIntegrator::~GillespieIntegrator()
@@ -93,7 +94,8 @@ void GillespieIntegrator::setSimulateOptions(const SimulateOptions* o)
         {
             // variant at the moment can only do signed numbers.
             unsigned long seed = options.getValue("seed").convert<unsigned long>();
-            setSeed(seed);
+            this->seed = seed;
+            setEngineSeed(seed);
         }
     }
 }
@@ -249,15 +251,21 @@ void GillespieIntegrator::setValue(const std::string& key,
         if (value.isNumeric())
         {
             unsigned long seed = value.convert<unsigned long>();
-            setSeed(seed);
+            this->seed = seed;
+            setEngineSeed(seed);
         }
         else
         {
             Log(Logger::LOG_WARNING) << "could not set randon number seed with value: "
                     << value.toString();
         }
-
-        options.setValue("seed", value);
+    }
+    else
+    {
+        std::string err = "invalid key: \"";
+        err += key;
+        err += "\"";
+        throw std::invalid_argument(err);
     }
 }
 
@@ -275,7 +283,10 @@ Variant GillespieIntegrator::getValue(const std::string& key) const
         return Variant(pthis->urand());
     }
 
-    return Variant();
+    std::string err = "invalid key: \"";
+    err += key;
+    err += "\"";
+    throw std::invalid_argument(err);
 }
 
 bool GillespieIntegrator::hasKey(const std::string& key) const
@@ -298,23 +309,10 @@ std::vector<std::string> GillespieIntegrator::getKeys() const
 
 unsigned long GillespieIntegrator::getSeed() const
 {
-    try
-    {
-        if (options.hasKey("seed"))
-        {
-            return options.getValue("seed").convert<unsigned long>();
-        }
-    }
-    catch(std::exception& e)
-    {
-        Log(Logger::LOG_INFORMATION) << "failed to get seed from dict: "
-                << e.what() << ", returning default value";
-    }
-    // default value for mersene twister
-    return 5489UL;
+    return seed;
 }
 
-void GillespieIntegrator::setSeed(unsigned long seed)
+void GillespieIntegrator::setEngineSeed(unsigned long seed)
 {
     Log(Logger::LOG_INFORMATION) << "Using user specified seed value: " << seed;
 
@@ -324,6 +322,34 @@ void GillespieIntegrator::setSeed(unsigned long seed)
 #else
     srand48(seed);
 #endif
+}
+
+std::string GillespieIntegrator::toString() const
+{
+    std::stringstream ss;
+    ss << "< roadrunner.GillespieIntegrator() { "
+            << "this: " << (void*)this << ", " << std::endl;
+
+    std::vector<std::string> keys = getKeys();
+
+    for(std::vector<std::string>::iterator i = keys.begin(); i != keys.end(); ++i)
+    {
+        ss << "'" << *i << "' : ";
+        ss << getValue(*i).toString();
+        ss << std::endl;
+    }
+
+    ss << "}>";
+
+    return ss.str();
+}
+
+std::string GillespieIntegrator::toRepr() const
+{
+    std::stringstream ss;
+    ss << "< roadrunner.GillespieIntegrator() { 'this' : "
+            << (void*)this << " }>";
+    return ss.str();
 }
 
 } /* namespace rr */

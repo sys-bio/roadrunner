@@ -620,11 +620,12 @@ void CVODEIntegrator::loadConfig(const _xmlDoc* doc)
 
 void CVODEIntegrator::setValue(const std::string& key, const rr::Variant& value)
 {
+    throw std::invalid_argument("invalid key: " + key);
 }
 
 Variant CVODEIntegrator::getValue(const std::string& key) const
 {
-    return Variant();
+    throw std::invalid_argument("invalid key: " + key);
 }
 
 bool CVODEIntegrator::hasKey(const std::string& key) const
@@ -642,6 +643,19 @@ std::vector<std::string> CVODEIntegrator::getKeys() const
     return std::vector<std::string>();
 }
 
+
+std::string CVODEIntegrator::toString() const
+{
+    return toRepr();
+}
+
+std::string CVODEIntegrator::toRepr() const
+{
+    std::stringstream ss;
+    ss << "< roadrunner.CVODEIntegrator() { 'this' : "
+            << (void*)this << " }>";
+    return ss.str();
+}
 
 static std::string cvodeDecodeError(int cvodeError, bool exInfo)
 {
@@ -830,4 +844,3 @@ void cvodeErrHandler(int error_code, const char *module, const char *function,
 }
 
 }
-

@@ -371,6 +371,23 @@ std::string SimulateOptions::toString() const
     return ss.str();
 }
 
+SimulateOptions::Integrator SimulateOptions::getIntegratorId(const std::string& _name)
+{
+    std::string name = _name;
+    std::transform(name.begin(), name.end(), name.begin(), ::toupper);
+
+    for (unsigned i = 0; i < INTEGRATOR_END; ++i) {
+        std::string iname = getIntegratorName((Integrator)i);
+        std::transform(iname.begin(), iname.end(), iname.begin(), ::toupper);
+
+        if (iname == name) {
+            return (Integrator)i;
+        }
+    }
+
+    throw std::invalid_argument("invalid integrator name");
+}
+
 void SimulateOptions::tweakTolerances()
 {
     if (integrator == CVODE)
@@ -386,5 +403,20 @@ void SimulateOptions::tweakTolerances()
     }
 }
 
+std::string SimulateOptions::getIntegratorName(Integrator integrator)
+{
+    static const char* names[] = {"cvode", "gillespie"};
+
+    if (integrator >= 0 && integrator < INTEGRATOR_END)
+    {
+        return names[integrator];
+    }
+    else
+    {
+        throw std::invalid_argument("Invalid integrator value");
+    }
+}
+
 } /* namespace rr */
+
 

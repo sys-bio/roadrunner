@@ -82,6 +82,16 @@ public:
 
     virtual std::vector<std::string> getKeys() const;
 
+    /**
+     * get a description of this object, compatable with python __str__
+     */
+    virtual std::string toString() const;
+
+    /**
+     * get a short descriptions of this object, compatable with python __repr__.
+     */
+    virtual std::string toRepr() const;
+
 private:
 
     static const int mDefaultMaxNumSteps;

@@ -108,7 +108,14 @@ public:
      * get a pointer to the integrator which is currently being used to
      * time evolve the system.
      */
-    Integrator* getIntegrator();
+    Integrator *getIntegrator();
+
+    /**
+     * gets a pointer to a specific integrator.
+     *
+     * Throws a std::invalid_argument if intg is not valid.
+     */
+    Integrator *getIntegrator(SimulateOptions::Integrator intg);
 
     bool isModelLoaded();
 

@@ -100,6 +100,20 @@ public:
      */
     virtual IntegratorListenerPtr getListener() = 0;
 
+    /**
+     * get a description of this object, compatable with python __str__
+     */
+    virtual std::string toString() const = 0;
+
+    /**
+     * get a short descriptions of this object, compatable with python __repr__.
+     */
+    virtual std::string toRepr() const = 0;
+
+    /**
+     * this is an interface, provide virtual dtor as instances are
+     * returned from New which must be deleted.
+     */
     virtual ~Integrator() {};
 
     /**

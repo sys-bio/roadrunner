@@ -518,9 +518,10 @@ PyObject *Integrator_NewPythonObj(rr::Integrator* i) {
 
 %ignore rr::RoadRunner::getOptions;
 
-//%rename (_simulate) rr::RoadRunner::simulate;
 %ignore rr::RoadRunner::simulate;
 
+%rename (_getCurrentIntegrator) rr::RoadRunner::getIntegrator(); 
+%rename (_getIntegrator) rr::RoadRunner::getIntegrator(SimulateOptions::Integrator);
 
 %ignore rr::Config::getInt;
 %ignore rr::Config::getString;
@@ -543,6 +544,8 @@ PyObject *Integrator_NewPythonObj(rr::Integrator* i) {
 %ignore rr::Integrator::hasKey;
 %ignore rr::Integrator::deleteValue;
 %ignore rr::Integrator::getKeys;
+%rename (__str__) rr::Integrator::toString;
+%rename (__repr__) rr::Integrator::toRepr;
 
 
 // rename these, the injected python code will take care of
@@ -981,14 +984,14 @@ namespace std { class ostream{}; }
         __swig_getmethods__["conservedMoietyAnalysis"] = _getConservedMoietyAnalysis
         __swig_setmethods__["conservedMoietyAnalysis"] = _setConservedMoietyAnalysis
         __swig_getmethods__["model"] = _getModel
-        __swig_getmethods__["integrator"] = getIntegrator
+        __swig_getmethods__["integrator"] = _getCurrentIntegrator
 
         if _newclass:
             selections = property(_getSelections, _setSelections)
             steadyStateSelections = property(_getSteadyStateSelections, _setSteadyStateSelections)
             conservedMoietyAnalysis=property(_getConservedMoietyAnalysis, _setConservedMoietyAnalysis)
             model = property(getModel)
-            integrator = property(getIntegrator)
+            integrator = property(_getCurrentIntegrator)
 
 
         def keys(self, types=_roadrunner.SelectionRecord_ALL):
@@ -1021,6 +1024,21 @@ namespace std { class ostream{}; }
             """
             return self.values(types).__iter__()
 
+        def getIntegrator(self, iname):
+            """
+            Get the integrator based on its name. 
+            """
+            id = SimulateOptions.getIntegratorId(iname)
+            return self._getIntegrator(id)
+
+        def setIntegrator(self, iname):
+            """
+            set the default integrator.
+            """
+            id = SimulateOptions.getIntegratorId(iname)
+            opt = self.simulateOptions
+            opt.integrator = id
+            self.simulateOptions = opt
 
         def simulate(self, *args, **kwargs):
             """

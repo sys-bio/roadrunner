@@ -3688,6 +3688,38 @@ const DoubleMatrix* RoadRunner::getSimulationData() const
     return &impl->simulationResult;
 }
 
+Integrator* RoadRunner::getIntegrator(SimulateOptions::Integrator intg)
+{
+    get_self();
+
+    if(self.model)
+    {
+        // check if valid range
+        if (intg >= SimulateOptions::INTEGRATOR_END)
+        {
+            std::stringstream ss;
+            ss << "Invalid integrator of " << self.simulateOpt.integrator
+                    << ", integrator must be >= 0 and < "
+                    << SimulateOptions::INTEGRATOR_END;
+            throw std::invalid_argument(ss.str());
+        }
+
+        if (self.integrators[intg] == 0)
+        {
+            // make a copy and set the integrator
+            SimulateOptions opt = self.simulateOpt;
+            opt.integrator = intg;
+
+            self.integrators[intg]
+                    = Integrator::New(&opt, self.model);
+        }
+
+        return self.integrators[intg];
+    }
+
+    return 0;
+}
+
 void RoadRunner::_setSimulateOptions(const SimulateOptions* opt)
 {
     get_self();
