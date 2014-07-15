@@ -984,7 +984,7 @@ C_DECL_SPEC RRDoubleMatrixPtr rrcCallConv getConservationMatrix(RRHandle handle)
 // --------------------------------------------------------------------------------
 
 /*!
- \brief Reset all floating species concentrations to their intial conditions
+ \brief Reset all floating species concentrations to their initial conditions
 
  Example: \code status = reset (RRHandle handle); \endcode
 
