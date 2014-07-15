@@ -191,6 +191,11 @@ private:
     rr::conservation::ConservedMoietyConverter *moietyConverter;
 
     void initFunctionPassManager();
+
+    /**
+     * free any memory this class allocated.
+     */
+    void cleanup();
 };
 
 

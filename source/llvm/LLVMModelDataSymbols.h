@@ -314,6 +314,8 @@ public:
 
     bool isIndependentBoundarySpecies(const std::string& id) const;
 
+    bool isBoundarySpecies(const std::string& id) const;
+
     bool isIndependentGlobalParameter(const std::string& id) const;
 
     bool isIndependentCompartment(const std::string& id) const;
@@ -633,9 +635,14 @@ private:
 
     /**
      * determine is this species can be used as a species reference,
-     * if not, logs the reason why its not valid.
+     * in the sense that it will add a column to the stochiometry
+     * matrix.
+     *
+     * Boundary species are not consumed or produced in reactions.
+     * If this is invalid float species, such as its defined by a rule
+     * this will log the reason.
      */
-    bool isValidSpeciesReference(const libsbml::SimpleSpeciesReference*,
+    bool isValidFloatingSpeciesReference(const libsbml::SimpleSpeciesReference*,
             const std::string& reacOrProd);
 
     /**

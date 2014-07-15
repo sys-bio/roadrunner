@@ -96,7 +96,10 @@ llvm::Value* ModelInitialValueSymbolResolver::loadSymbolValue(
                 modelSymbols.getAssigmentRules().find(symbol);
         if (i != modelSymbols.getAssigmentRules().end())
         {
-            return ASTNodeCodeGen(builder, *this).codeGen(i->second);
+            recursiveSymbolPush(symbol);
+            Value* result = ASTNodeCodeGen(builder, *this).codeGen(i->second);
+            recursiveSymbolPop();
+            return result;
         }
     }
 
@@ -123,15 +126,35 @@ llvm::Value* ModelInitialValueSymbolResolver::loadSymbolValue(
         }
     }
 
+
     else if (modelDataSymbols.isIndependentInitCompartment(symbol))
     {
-        return mdbuilder.createInitCompLoad(symbol);
+        if (symbolStack.size())
+        {
+            return mdbuilder.createCompLoad(symbol);
+        }
+        else
+        {
+            return mdbuilder.createInitCompLoad(symbol);
+        }
     }
 
-
+    // if we are in a rule, (symbolStack.size > 0), then we want to
+    // get the current values of compartments or symbols,
+    // so we can modify a parameters, and have any assigment rules
+    // used for init values pick up this value.
+    // if we're not in a rule, then the init resolver
+    // returns the init value.
     else if (modelDataSymbols.isIndependentInitGlobalParameter(symbol))
     {
-        return mdbuilder.createInitGlobalParamLoad(symbol);
+        if (symbolStack.size())
+        {
+            return mdbuilder.createGlobalParamLoad(symbol);
+        }
+        else
+        {
+            return mdbuilder.createInitGlobalParamLoad(symbol);
+        }
     }
 
     /*************************************************************************/

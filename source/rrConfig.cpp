@@ -124,6 +124,9 @@ static Variant values[] =  {
     Variant(1.e-10),   // CVODE_MIN_ABSOLUTE
     Variant(1.e-5),    // CVODE_MIN_RELATIVE
     Variant(true),     // SIMULATEOPTIONS_COPY_RESULT
+    Variant(1.e-4),    // STEADYSTATE_RELATIVE
+    Variant(100),      // STEADYSTATE_MAXIMUM_NUM_STEPS
+    Variant(1.e-16)    // STEADYSTATE_MINIMUM_DAMPING
 };
 
 static bool initialized = false;
@@ -189,6 +192,9 @@ static void getKeyNames(StringIntMap& keys)
     keys["CVODE_MIN_ABSOLUTE"] = rr::Config::CVODE_MIN_ABSOLUTE;
     keys["CVODE_MIN_RELATIVE"] = rr::Config::CVODE_MIN_RELATIVE;
     keys["SIMULATEOPTIONS_COPY_RESULT"] = rr::Config::SIMULATEOPTIONS_COPY_RESULT;
+    keys["STEADYSTATE_RELATIVE"] = rr::Config::STEADYSTATE_RELATIVE;
+    keys["STEADYSTATE_MAXIMUM_NUM_STEPS"] = rr::Config::STEADYSTATE_MAXIMUM_NUM_STEPS;
+    keys["STEADYSTATE_MINIMUM_DAMPING"] = rr::Config::STEADYSTATE_MINIMUM_DAMPING;
 
     assert(rr::Config::CONFIG_END == sizeof(values) / sizeof(Variant) &&
             "values array size different than CONFIG_END");

@@ -143,6 +143,10 @@ public:
     virtual void computeConservedTotals();
 
 
+    /**
+     * copy (but do not evaluate) existing rate rules values into
+     * a buffer.
+     */
     virtual void getRateRuleValues(double *rateRuleValues);
 
 
@@ -509,6 +513,12 @@ public:
 
     virtual double getFloatingSpeciesAmountRate(int index,
             const double *reactionRates);
+
+    /**
+     * calculate rate rule values.
+     * TODO redo this function, not very effecient.
+     */
+    int getRateRueRates(int len, int const *indx, double *values);
 
 private:
 

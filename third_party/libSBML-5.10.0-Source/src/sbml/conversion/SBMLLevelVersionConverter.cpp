@@ -109,13 +109,21 @@ SBMLLevelVersionConverter::clone () const
 ConversionProperties
 SBMLLevelVersionConverter::getDefaultProperties() const
 {
-  static ConversionProperties prop;
-  prop.setTargetNamespaces(new SBMLNamespaces()); // default namespaces
-  prop.addOption("strict", true,
-                 "Whether validity should be strictly preserved");
-  prop.addOption("setLevelAndVersion", true, 
-                 "Convert the model to a given Level and Version of SBML");
-  return prop;
+	static bool init = false;	
+	static ConversionProperties prop;
+
+	// TODO race condition if multi-threaded, is this OK?
+	if (!init) {
+		SBMLNamespaces ns; // default namespaces
+		prop.setTargetNamespaces(&ns); // clones the ns 
+		prop.addOption("strict", true,
+					   "Whether validity should be strictly preserved");
+		prop.addOption("setLevelAndVersion", true, 
+					   "Convert the model to a given Level and Version of SBML");
+		init = true;
+	}
+
+	return prop;
 }
 
 

@@ -114,6 +114,20 @@ public:
 
     bool isBool() const;
 
+    /**
+     * true if empty.
+     */
+    bool isEmpty() const;
+
+    /**
+     * true if this is a signed number.
+     */
+    bool isSigned() const;
+
+
+
+
+
 private:
     /**
      * private implementation, this gives us the flexibility to use

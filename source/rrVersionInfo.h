@@ -9,8 +9,8 @@ namespace rr {
 
 #define RR_VERSION_MAJOR 1
 #define RR_VERSION_MINOR 2
-#define RR_VERSION_PATCH 1
-#define RR_VERSION_STR "1.2.3_beta4"
+#define RR_VERSION_PATCH 3
+#define RR_VERSION_STR "1.2.3_beta7"
 
 #define RR_STRINGIZE2(s) #s
 #define RR_STRINGIZE(s) RR_STRINGIZE2(s)

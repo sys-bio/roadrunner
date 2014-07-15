@@ -970,6 +970,13 @@ void LLVMExecutableModel::getIds(int types, std::list<std::string> &ids)
         }
     }
 
+    if (checkExact(SelectionRecord::GLOBAL_PARAMETER_RATE, types)) {
+
+        for (int i = 0; i < symbols->getRateRuleSize(); ++i) {
+            ids.push_back(symbols->getRateRuleId(i) + "'");
+        }
+    }
+
     if (SelectionRecord::STATE_VECTOR == types) {
         int stateVectorSize = getStateVector(0);
         for (int i = 0; i < stateVectorSize; ++i) {
@@ -1037,6 +1044,9 @@ double LLVMExecutableModel::getValue(const std::string& id)
         break;
     case SelectionRecord::FLOATING_AMOUNT_RATE:
         getFloatingSpeciesAmountRates(1, &index, &result);
+        break;
+    case SelectionRecord::GLOBAL_PARAMETER_RATE:
+        getRateRueRates(1, &index, &result);
         break;
     case SelectionRecord::INITIAL_FLOATING_AMOUNT:
         getFloatingSpeciesInitAmounts(1, &index, &result);
@@ -1146,7 +1156,9 @@ const rr::SelectionRecord& LLVMExecutableModel::getSelection(const std::string& 
             }
             else
             {
-                throw LLVMException("Invalid id '" + str + "' for floating amount rate");
+                // this will throw if there is no rate rule for the symbol.
+                sel.index = symbols->getRateRuleIndex(sel.p1);
+                sel.selectionType = SelectionRecord::GLOBAL_PARAMETER_RATE;
             }
             break;
 
@@ -1498,6 +1510,35 @@ int LLVMExecutableModel::getFloatingSpeciesAmountRates(int len,
         uint j = indx ? indx[i] : i;
         assert(j < modelData->numIndFloatingSpecies && "index out of range");
         values[i] = amountRates[j];
+    }
+
+    free(dydt);
+    return len;
+}
+
+
+int LLVMExecutableModel::getRateRueRates(int len,
+        int const *indx, double *values)
+{
+    uint dydtSize = modelData->numRateRules;
+    double* dydt = (double*)calloc(dydtSize, sizeof(double));
+
+    // this will also move to a parameter for the evalRateRules func...
+    modelData->rateRuleRates = dydt;
+    evalRateRuleRatesPtr(modelData);
+    modelData->rateRuleRates = 0;
+
+    for (uint i = 0; i < len; ++i)
+    {
+        uint j = indx ? indx[i] : i;
+
+        if (j > modelData->numRateRules) {
+            std::stringstream ss;
+            ss << "index " << j << " out of range";
+            free(dydt);
+            throw std::out_of_range(ss.str());
+        }
+        values[i] = dydt[j];
     }
 
     free(dydt);

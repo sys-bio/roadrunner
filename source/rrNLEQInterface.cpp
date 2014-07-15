@@ -3,11 +3,11 @@
 #include "rrExecutableModel.h"
 #include "rrStringUtils.h"
 #include "rrUtils.h"
-#include "rrRoadRunner.h"
 #include "nleq/nleq1.h"
 #include "rrLogger.h"
 #include "rrUtils.h"
 #include "rrException.h"
+#include "rrConfig.h"
 
 #include <Poco/ThreadLocal.h>
 #include <assert.h>
@@ -39,7 +39,6 @@ static bool isWarning(int e)
 }
 
 NLEQInterface::NLEQInterface(ExecutableModel *_model) :
-    SteadyStateSolver("NLEQ2", "NLEQ2 Steady State Solver"),
     IWK(0),
     LIWK(0),
     LWRK(0),
@@ -49,10 +48,9 @@ NLEQInterface::NLEQInterface(ExecutableModel *_model) :
     iopt(0),
     model(0),
     nOpts(50),
-    defaultMaxInterations(100),
-    maxIterations(defaultMaxInterations),
-    defaultTolerance(1.e-4),
-    relativeTolerance(defaultTolerance)
+    maxIterations(Config::getInt(Config::STEADYSTATE_MAXIMUM_NUM_STEPS)),
+    relativeTolerance(Config::getDouble(Config::STEADYSTATE_RELATIVE)),
+    minDamping(Config::getDouble(Config::STEADYSTATE_MINIMUM_DAMPING))
 {
     model = _model;
 
@@ -110,7 +108,7 @@ void NLEQInterface::setup()
         RWK[i] = 0.0;
     }
 
-    RWK[22 - 1] = 1E-16; // Minimal allowed damping factor
+    RWK[22 - 1] = minDamping; // Minimal allowed damping factor
 }
 
 bool NLEQInterface::isAvailable()

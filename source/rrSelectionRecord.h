@@ -97,6 +97,8 @@ public:
         FLOATING_AMOUNT_RATE =              FLOATING | RATE | DEPENDENT,
         FLOATING_CONCENTRATION_RATE =       FLOATING | CONCENTRATION | RATE | DEPENDENT,
 
+        GLOBAL_PARAMETER_RATE =             _GLOBAL_PARAMETER | RATE,
+
         /**
          * reaction rate, always current
          */

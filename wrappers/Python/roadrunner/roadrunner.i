@@ -199,6 +199,15 @@
 }
 
 
+%typemap(out) const rr::Variant {
+    try {
+        $result = Variant_to_py($1);
+    } catch (const std::exception& e) {
+        SWIG_exception(SWIG_RuntimeError, e.what());
+    }
+}
+
+
 
 %typemap(in) const rr::Variant& (rr::Variant temp) {
 
@@ -518,6 +527,22 @@ PyObject *Integrator_NewPythonObj(rr::Integrator* i) {
 %ignore rr::Config::getBool;
 %ignore rr::Config::getDouble;
 
+// ignore SimulateOptions key access methods, 
+// these are replaced by python dictionary protocol. 
+%ignore rr::SimulateOptions::setValue;
+%ignore rr::SimulateOptions::getValue;
+%ignore rr::SimulateOptions::hasKey;
+%ignore rr::SimulateOptions::deleteValue;
+%ignore rr::SimulateOptions::getKeys;
+
+
+// ignore SimulateOptions key access methods, 
+// these are replaced by python dictionary protocol. 
+%ignore rr::Integrator::setValue;
+%ignore rr::Integrator::getValue;
+%ignore rr::Integrator::hasKey;
+%ignore rr::Integrator::deleteValue;
+%ignore rr::Integrator::getKeys;
 
 
 // rename these, the injected python code will take care of
@@ -1128,6 +1153,11 @@ namespace std { class ostream{}; }
                 Specify the maximum number of steps the internal integrator will use before
                 reaching the user specified time span. Uses the integrator default value if <= 0.
 
+            seed
+                Specify a seed to use for the random number generator for stochastic simulations.
+                The seed is used whenever the integrator is reset, i.e. `r.reset()`.
+                If no seed is specified, the current system time is used for seed. 
+
 
             :returns: a numpy array with each selected output time series being a
              column vector, and the 0'th column is the simulation time.
@@ -1139,6 +1169,9 @@ namespace std { class ostream{}; }
             haveSteps = False
             haveVariableStep = False
             o = self.simulateOptions
+
+            # did the options originally have a seed, if so, don't delete it when we're done
+            hadSeed = "seed" in o
 
             # check if we have just a sim options
             if len(args) >= 1:
@@ -1201,9 +1234,8 @@ namespace std { class ostream{}; }
                         o.integrator = SimulateOptions.CVODE
                     else:
                         raise Exception("{0} is invalid argument for integrator".format(v))
-
                     continue
-
+                
                 # specifying selections:
                 if k == "selections" or k == "sel":
                     self.selections = v
@@ -1219,6 +1251,11 @@ namespace std { class ostream{}; }
                 if k == "variableStep":
                     haveVariableStep = True
                     o.variableStep = v
+                    continue
+
+                # check if specifying seed for RNG. 
+                if k == "seed":         
+                    o["seed"] = v
                     continue
 
                 # look through all the attributes of the SimulateOptions class,
@@ -1245,6 +1282,9 @@ namespace std { class ostream{}; }
 
             # the options are set up, now actually run the simuation...
             result = self._simulate(o)
+
+            if not hadSeed:
+                del o["seed"]
 
             if doPlot:
                 self.plot(show)
@@ -1389,6 +1429,41 @@ namespace std { class ostream{}; }
         SimulateOptions *pThis = $self;
         SimulateOptions *other = new SimulateOptions(*pThis);
         return SWIG_NewPointerObj(SWIG_as_voidptr(other), SWIGTYPE_p_rr__SimulateOptions, SWIG_POINTER_OWN );
+    }
+
+    PyObject *keys() {
+        std::vector<std::string> keys = $self->getKeys();
+
+        unsigned size = keys.size();
+
+        PyObject* pyList = PyList_New(size);
+
+        unsigned j = 0;
+
+        for (std::vector<std::string>::const_iterator i = keys.begin(); i != keys.end(); ++i)
+        {
+            const std::string& key  = *i;
+            PyObject* pyStr = PyString_FromString(key.c_str());
+            PyList_SET_ITEM(pyList, j++, pyStr);
+        }
+
+        return pyList;
+    }
+
+    const rr::Variant& __getitem__(const std::string& id) {
+        return ($self)->getValue(id);
+    }
+
+    void __setitem__(const std::string& key, const rr::Variant& value) {
+        ($self)->setValue(key, value);
+    }
+
+    void __delitem__(const std::string& key) {
+        ($self)->deleteValue(key);
+    }
+
+    bool __contains__(const std::string& key) {
+        return $self->hasKey(key);
     }
 
 }
@@ -2367,6 +2442,42 @@ namespace std { class ostream{}; }
 
         Log(rr::Logger::LOG_INFORMATION) << __FUNC__ << ", current use count after clear: " << current.use_count();
     }
+
+    PyObject *keys() {
+        std::vector<std::string> keys = $self->getKeys();
+
+        unsigned size = keys.size();
+
+        PyObject* pyList = PyList_New(size);
+
+        unsigned j = 0;
+
+        for (std::vector<std::string>::const_iterator i = keys.begin(); i != keys.end(); ++i)
+        {
+            const std::string& key  = *i;
+            PyObject* pyStr = PyString_FromString(key.c_str());
+            PyList_SET_ITEM(pyList, j++, pyStr);
+        }
+
+        return pyList;
+    }
+
+    const rr::Variant __getitem__(const std::string& id) {
+        return ($self)->getValue(id);
+    }
+
+    void __setitem__(const std::string& key, const rr::Variant& value) {
+        ($self)->setValue(key, value);
+    }
+
+    void __delitem__(const std::string& key) {
+        ($self)->deleteValue(key);
+    }
+
+    bool __contains__(const std::string& key) {
+        return $self->hasKey(key);
+    }
+
 
     // we want to get the listener back as a PyIntegratorListener, however
     // swig won't let us ignore by return value and if we ignore getListener,

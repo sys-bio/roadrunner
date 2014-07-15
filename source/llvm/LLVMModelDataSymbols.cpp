@@ -519,6 +519,13 @@ bool LLVMModelDataSymbols::isIndependentBoundarySpecies(
             i->second < independentBoundarySpeciesSize;
 }
 
+bool LLVMModelDataSymbols::isBoundarySpecies(
+        const std::string& id) const
+{
+    StringUIntMap::const_iterator i = boundarySpeciesMap.find(id);
+    return i != boundarySpeciesMap.end();
+}
+
 bool LLVMModelDataSymbols::isIndependentGlobalParameter(
         const std::string& id) const
 {
@@ -1032,7 +1039,7 @@ void LLVMModelDataSymbols::initReactions(const libsbml::Model* model)
         {
             const SimpleSpeciesReference *r = reactants->get(j);
 
-            if (isValidSpeciesReference(r, "reactant"))
+            if (isValidFloatingSpeciesReference(r, "reactant"))
             {
                 // at this point, we'd better have a floating species
                 uint speciesIdx = getFloatingSpeciesIndex(r->getSpecies());
@@ -1107,7 +1114,7 @@ void LLVMModelDataSymbols::initReactions(const libsbml::Model* model)
             const SimpleSpeciesReference *p = products->get(j);
             // products had better be in the stoich matrix.
 
-            if (isValidSpeciesReference(p, "product"))
+            if (isValidFloatingSpeciesReference(p, "product"))
             {
                 uint speciesIdx = getFloatingSpeciesIndex(p->getSpecies());
 
@@ -1177,7 +1184,7 @@ void LLVMModelDataSymbols::initReactions(const libsbml::Model* model)
 
 
 
-bool LLVMModelDataSymbols::isValidSpeciesReference(
+bool LLVMModelDataSymbols::isValidFloatingSpeciesReference(
         const libsbml::SimpleSpeciesReference* ref, const std::string& reacOrProd)
 {
     string id = ref->getSpecies();
@@ -1187,46 +1194,34 @@ bool LLVMModelDataSymbols::isValidSpeciesReference(
     {
         return true;
     }
-    else
+
+    if (isBoundarySpecies(id))
     {
-        string id = ref->getSpecies();
-        string err = "the species reference with id ";
-        err += string("\'" + ref->getId() + "\', ");
-        err += "which references species ";
-        string("\'" + id + "\', ");
-        err += "is NOT a valid " + reacOrProd + " reference, ";
-        // figure out what kind of thing we have and give a warning
-        if (hasAssignmentRule(id))
-        {
-            err += "it is defined by an assignment rule";
-        }
-        else if (hasRateRule(id))
-        {
-            err += "it is defined by rate rule";
-        }
-        else if (isIndependentBoundarySpecies(id))
-        {
-            err += "it is a boundary species";
-        }
-        else
-        {
-            err += "it is not a species";
-        }
-
-        err += ", it will be ignored.";
-
-        if  (isIndependentBoundarySpecies(id))
-        {
-            // fairly common
-            Log(Logger::LOG_DEBUG) << err;
-        }
-        else
-        {
-            // serious error
-            Log(Logger::LOG_WARNING) << err;
-        }
         return false;
     }
+
+    string err = "the species reference with id ";
+    err += string("\'" + ref->getId() + "\', ");
+    err += "which references species ";
+    string("\'" + id + "\', ");
+    err += "is NOT a valid " + reacOrProd + " reference, ";
+    // figure out what kind of thing we have and give a warning
+    if (hasAssignmentRule(id))
+    {
+        err += "it is defined by an assignment rule";
+    }
+    else if (hasRateRule(id))
+    {
+        err += "it is defined by rate rule";
+    }
+    else
+    {
+        err += "it is not a species";
+    }
+
+    Log(Logger::LOG_WARNING) << err;
+
+    return false;
 }
 
 void LLVMModelDataSymbols::displayCompartmentInfo()

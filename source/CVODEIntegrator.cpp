@@ -618,6 +618,31 @@ void CVODEIntegrator::loadConfig(const _xmlDoc* doc)
 }
 
 
+void CVODEIntegrator::setValue(const std::string& key, const rr::Variant& value)
+{
+}
+
+Variant CVODEIntegrator::getValue(const std::string& key) const
+{
+    return Variant();
+}
+
+bool CVODEIntegrator::hasKey(const std::string& key) const
+{
+    return false;
+}
+
+int CVODEIntegrator::deleteValue(const std::string& key)
+{
+    return -1;
+}
+
+std::vector<std::string> CVODEIntegrator::getKeys() const
+{
+    return std::vector<std::string>();
+}
+
+
 static std::string cvodeDecodeError(int cvodeError, bool exInfo)
 {
     std::string result;

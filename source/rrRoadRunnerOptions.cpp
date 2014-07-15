@@ -312,6 +312,12 @@ std::vector<std::string> SimulateOptions::getKeys() const
     return keys;
 }
 
+int SimulateOptions::deleteValue(const std::string& key)
+{
+    return values.erase(key);
+}
+
+
 #define BITFIELD2STR(bf) rr::toString((bool)((bf) ? true : false))
 
 
@@ -381,5 +387,4 @@ void SimulateOptions::tweakTolerances()
 }
 
 } /* namespace rr */
-
 

@@ -11,6 +11,7 @@
 #include "rrLogger.h"
 #include "rrOSSpecifics.h"
 #include "rrRoadRunnerOptions.h"
+#include "Dictionary.h"
 #include <stdexcept>
 
 #if (__cplusplus >= 201103L) || defined(_MSC_VER)
@@ -68,7 +69,7 @@ typedef cxx11_ns::shared_ptr<IntegratorListener> IntegratorListenerPtr;
  *
  * The Integrator is only valid if attached to a model.
  */
-class RR_DECLSPEC Integrator
+class RR_DECLSPEC Integrator : public Dictionary
 {
 public:
 

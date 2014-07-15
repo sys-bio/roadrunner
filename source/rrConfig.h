@@ -365,6 +365,12 @@ public:
          */
         SIMULATEOPTIONS_COPY_RESULT,
 
+        STEADYSTATE_RELATIVE,
+
+        STEADYSTATE_MAXIMUM_NUM_STEPS,
+
+        STEADYSTATE_MINIMUM_DAMPING,
+
         /**
          * Needs to be the last item in the enum, no mater how many
          * other items are added, this is used internally to create

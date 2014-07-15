@@ -1,17 +1,14 @@
-#pragma hdrstop
 #include "rrSteadyStateSolver.h"
+#include "rrNLEQInterface.h"
 
 
 namespace rr
 {
 
-SteadyStateSolver::SteadyStateSolver(const std::string& funcName, const std::string& description)
+SteadyStateSolver* rr::SteadyStateSolver::New(const SteadyStateOptions*,
+        ExecutableModel* m)
 {
+    return new NLEQInterface(m);
 }
-
-SteadyStateSolver::~SteadyStateSolver()
-{
-}
-
 
 }

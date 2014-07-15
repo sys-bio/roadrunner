@@ -13,36 +13,57 @@ namespace rr
 /**
  * @internal
  */
-class RR_DECLSPEC NLEQInterface : public SteadyStateSolver,
-    public Configurable
+class RR_DECLSPEC NLEQInterface : public SteadyStateSolver
 {
-protected:
-    int                             nOpts;
-    long                           *IWK;
-    long                            LIWK;
-    long                            LWRK;
-    double                         *RWK;
-    double                         *XScal;
-    long                            ierr;
-    long                           *iopt;
-    ExecutableModel                *model;     // Model generated from the SBML. Static so we can access it from standalone function
-    long                            n;
-    void                            setup();
 
 public:
-    /// <summary>
-    /// Creates a new Instance of NLEQ for the given Model
-    /// </summary>
-    /// <param name="model">the model to create NLEQ for</param>
+    /**
+     * Creates a new Instance of NLEQ for the given Model
+     */
     NLEQInterface(ExecutableModel *_model = NULL);
+
     ~NLEQInterface();
 
-    bool                            isAvailable();
+    /**
+     * Thea actual solver routine making the call to NLEQ1
+     *
+     * @param yin Array of Model variables
+     * @return sums of squares
+     */
+    double solve(const vector<double>& yin);
 
-    int                             defaultMaxInterations;
-    int                             maxIterations;
-    double                          defaultTolerance;
-    double                          relativeTolerance;
+    /**
+     * creates a new xml element that represent the current state of this
+     * Configurable object and all if its child objects.
+     */
+    virtual _xmlNode *createConfigNode();
+
+    /**
+     * Given an xml element, the Configurable object should pick its needed
+     * values that are stored in the element and use them to set its
+     * internal configuration state.
+     */
+    virtual void loadConfig(const _xmlDoc* doc);
+
+
+private:
+    int nOpts;
+    long *IWK;
+    long LIWK;
+    long LWRK;
+    double *RWK;
+    double *XScal;
+    long ierr;
+    long *iopt;
+    ExecutableModel *model; // Model generated from the SBML. Static so we can access it from standalone function
+    long n;
+    void setup();
+
+    bool isAvailable();
+
+    int maxIterations;
+    double relativeTolerance;
+    double minDamping;
 
 
     /// <summary>
@@ -81,26 +102,10 @@ public:
     /// <returns>the Number of Model Evaluations For Jacobian</returns>
     int                             getNumberOfModelEvaluationsForJacobian();
 
-    /// <summary>
-    /// Thea actual solver routine making the call to NLEQ1
-    /// </summary>
-    /// <param name="yin">Array of Model variables</param>
-    /// <returns>sums of squares </returns>
-    double                          solve(const vector<double>& yin);
+
     double                          computeSumsOfSquares();
 
-    /**
-     * creates a new xml element that represent the current state of this
-     * Configurable object and all if its child objects.
-     */
-    virtual _xmlNode *createConfigNode();
 
-    /**
-     * Given an xml element, the Configurable object should pick its needed
-     * values that are stored in the element and use them to set its
-     * internal configuration state.
-     */
-    virtual void loadConfig(const _xmlDoc* doc);
 
 };
 }
