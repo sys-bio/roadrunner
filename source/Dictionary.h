@@ -15,7 +15,7 @@
 
 namespace rr {
 
-class Dictionary
+class RR_DECLSPEC Dictionary
 {
 public:
     /**
