@@ -982,7 +982,7 @@ TEST(954) { CHECK(RunTest("l2v4", 954)); }
 TEST(956) { CHECK(RunTest("l2v4", 956)); }
 //TEST(957) { CHECK(RunTest("l2v4", 957)); }
 //TEST(958) { CHECK(RunTest("l2v4", 958)); }
-//TEST(959) { CHECK(RunTest("l2v4", 959)); }
+TEST(959) { CHECK(RunTest("l2v4", 959)); }
 TEST(960) { CHECK(RunTest("l2v4", 960)); }
 TEST(961) { CHECK(RunTest("l2v4", 961)); }
 //TEST(962) { CHECK(RunTest("l2v4", 962)); }
@@ -1009,7 +1009,9 @@ TEST(974) { CHECK(RunTest("l2v4", 974)); }
 TEST(975) { CHECK(RunTest("l2v4", 975)); }
 TEST(976) { CHECK(RunTest("l2v4", 976)); }
 TEST(977) { CHECK(RunTest("l2v4", 977)); }
-//TEST(978) { CHECK(RunTest("l2v4", 978)); }
+#ifdef BUILD_LLVM
+TEST(978) { CHECK(RunTest("l2v4", 978)); } //Will crash the legacy C version.
+#endif
 TEST(979) { CHECK(RunTest("l2v4", 979)); }
 TEST(980) { CHECK(RunTest("l2v4", 980)); }
 }

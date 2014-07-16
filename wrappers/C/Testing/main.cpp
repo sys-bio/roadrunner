@@ -80,8 +80,8 @@ int main(int argc, char* argv[])
 
     if(args.Suites.find('B') != std::string::npos)
     {
-        clog<<"Running Suite TEST_MODEL_1\n";
-        runner1.RunTestsIf(Test::GetTestList(), "TEST_MODEL_1",          True(), 0);
+        clog<<"Running Suite TEST_MODELS\n";
+        runner1.RunTestsIf(Test::GetTestList(), "TEST_MODELS",          True(), 0);
     }
 
     if(args.Suites.find('C') != std::string::npos)

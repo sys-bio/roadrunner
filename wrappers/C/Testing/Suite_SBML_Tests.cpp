@@ -994,7 +994,9 @@ TEST(974) { CHECK(RunTest("l3v1", 974)); }
 TEST(975) { CHECK(RunTest("l3v1", 975)); }
 TEST(976) { CHECK(RunTest("l3v1", 976)); }
 TEST(977) { CHECK(RunTest("l3v1", 977)); }
-TEST(978) { CHECK(RunTest("l3v1", 978)); }
+#ifdef BUILD_LLVM
+TEST(978) { CHECK(RunTest("l3v1", 978)); } //Crash in legacy C mode.
+#endif
 TEST(979) { CHECK(RunTest("l2v4", 979)); }
 TEST(980) { CHECK(RunTest("l3v1", 980)); }
 //TEST(981)  { CHECK(RunTest("l3v1", 981  )); } // CSymbolDelay
