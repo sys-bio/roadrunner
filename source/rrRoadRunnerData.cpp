@@ -448,6 +448,50 @@ ostream& operator << (ostream& ss, const RoadRunnerData& data)
     return ss;
 }
 
+
+bool RoadRunnerData::writeSimpleOutput(ostream& ss) const
+{
+    //Check that the dimensions of col header and data is ok
+    if(!check())
+    {
+        Log(Logger::LOG_ERROR)<<"Can't write data.. the dimension of the header don't agree with nr of cols of data";
+        return true;
+    }
+
+    for (size_t col=0; col<mColumnNames.size(); col++) {
+      if (col > 0) {
+        ss << ",";
+      }
+      ss << mColumnNames[col];
+    }
+    ss << endl;
+    for(u_int row = 0; row < mTheData.RSize(); row++)
+    {
+        for(u_int col = 0; col < mTheData.CSize(); col++)
+        {
+            if(col == 0)
+            {
+                ss<<setprecision(mTimePrecision)<<mTheData(row, col);
+            }
+            else
+            {
+                ss<<setprecision(mDataPrecision)<<mTheData(row, col);
+            }
+
+            if(col <mTheData.CSize() -1)
+            {
+                ss << ",";
+            }
+            else
+            {
+                ss << endl;
+            }
+        }
+    }
+    return false;
+}
+
+
 //Stream data from a file
 istream& operator >> (istream& ss, RoadRunnerData& data)
 {

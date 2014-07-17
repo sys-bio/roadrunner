@@ -139,6 +139,21 @@ bool SBMLTestSuiteSimulation_CAPI::SaveResult()
     ofstream fs(resultFileName.c_str());
     fs << mResultData;
     fs.close();
+// Uncomment the following to output the results in straight .csv format.
+/*
+    //In a format that sbml.org (and a human) would understand:
+    resultFileName = joinPath(mDataOutputFolder, "rrCAPI_std_" + mModelFileName);
+    resultFileName = changeFileExtensionTo(resultFileName, ".csv");
+
+    if(!mResultHandle)
+    {
+        return false;
+    }
+
+    fs.open(resultFileName.c_str());
+    mResultData.writeSimpleOutput(fs);
+    fs.close();
+*/
     return true;
 }
 
