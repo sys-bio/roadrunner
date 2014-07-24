@@ -178,6 +178,7 @@ if(RR_BUILD_SHARED_CORE)
             sbml
             dl
             f2c${staticLibExt}
+            ${ZLIB_LIBRARIES} # LLVM implcit dep
             )
     else()
         target_link_libraries (${target}
@@ -268,6 +269,7 @@ if(UNIX)
         xml2
         dl
         pthread
+        ${ZLIB_LIBRARIES} # LLVM implcit dep
         )
 endif(UNIX)
 

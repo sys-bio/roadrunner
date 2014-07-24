@@ -63,6 +63,14 @@ else()
     find_package(LLVM)
 endif()
 
+if("${CMAKE_CXX_COMPILER_ID}" STREQUAL "Clang")
+    # llvm-config specifies flags that clang doesn't understand... causes warning spew
+    string(REGEX REPLACE "-Wno-maybe-uninitialized" "" LLVM_DEFINITIONS ${LLVM_DEFINITIONS})
+endif()
+
+# llvm now depends on zlib but llvm-config doesn't specify -lz (r213823)
+find_package(ZLIB)
+
 # should we build and install Testing tools?
 option (BUILD_TEST_TOOLS "Build and install test tools" OFF)
 
