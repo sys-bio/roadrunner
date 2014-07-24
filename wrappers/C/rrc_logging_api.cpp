@@ -32,7 +32,7 @@ bool rrcCallConv enableLoggingToFile(RRHandle handle)
 {
     start_try
         char* tempFolder = getTempFolder(handle);
-        string logFile = joinPath(tempFolder, "RoadRunner.log") ;
+        string logFile = "RoadRunner.log"; // TODO: find permanent fix
         rr::freeText(tempFolder);
 
         Logger::enableFileLogging(logFile);
