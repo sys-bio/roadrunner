@@ -69,7 +69,9 @@ if("${CMAKE_CXX_COMPILER_ID}" STREQUAL "Clang")
 endif()
 
 # llvm now depends on zlib but llvm-config doesn't specify -lz (r213823)
-find_package(ZLIB)
+if(UNIX)
+    find_package(ZLIB)
+endif(UNIX)
 
 # should we build and install Testing tools?
 option (BUILD_TEST_TOOLS "Build and install test tools" OFF)
