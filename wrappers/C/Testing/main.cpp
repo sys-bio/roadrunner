@@ -203,7 +203,7 @@ bool setup(Args& args)
 void ProcessCommandLineArguments(int argc, char* argv[], Args& args)
 {
     char c;
-    while ((c = GetOptions(argc, argv, ("m:r:t:vs:c:"))) != -1)
+    while ((c = GetOptions(argc, argv, ("m:r:t:vs:c:"))) != (char)(-1))
     {
         switch (c)
         {
