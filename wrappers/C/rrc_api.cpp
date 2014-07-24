@@ -45,6 +45,7 @@
 #include <sstream>
 #include <fstream>
 #include "rrRoadRunner.h"
+#include "rrRoadRunnerOptions.h"
 #include "rrExecutableModel.h"
 #include "rrCompiler.h"
 #include "rrLogger.h"
@@ -1826,6 +1827,29 @@ vector<double> rr_getRatesOfChange(RoadRunner* rr)
     vector<double> result(mModel->getNumFloatingSpecies());
     mModel->getFloatingSpeciesAmountRates(result.size(), 0, &result[0]);
     return result;
+}
+/* This is where we left off with Sauro/Andy
+C_DECL_SPEC bool rrcCallConv getSeed(RRHandle h, long* result) {
+
+   try {
+ 	   RoadRunner *r = (RoadRunner*)h;
+
+        // grab the integrator, if this requested integrator does not
+        // exist yet, it is created.
+	    Integrator *intg = r->getIntegrator(SimulateOptions::GILLESPIE);
+
+        // get the seed from the 'seed' key.
+        // the integrator implements the Dictionary interface, 
+        // which means that it can store arbitrary data types, 
+        // so we have to convert that value to long.
+	    *result = intg->getValue("seed").convert<long>();
+
+        return true;
+   }
+   catch (std::exception& e) {
+      return false;
+   }
+*/
 }
 
 }

@@ -77,28 +77,28 @@ enum
 };
 /*!
  \brief Enable logging to console
- \return Returns true if succesful, false otherwise
+ \return Returns true if successful, false otherwise
  \ingroup logging
 */
 C_DECL_SPEC bool rrcCallConv enableLoggingToConsole(void);
 
 /*!
  \brief Disable logging to console
- \return Returns true if succesful, false otherwise
+ \return Returns true if successful, false otherwise
  \ingroup logging
 */
 C_DECL_SPEC bool rrcCallConv disableLoggingToConsole(void);
 
 /*!
  \brief Enable logging to logFile
- \return Returns true if succesful, false otherwise
+ \return Returns true if successful, false otherwise
  \ingroup logging
 */
 C_DECL_SPEC bool rrcCallConv enableLoggingToFile(RRHandle handle);
 
 /*!
  \brief Disable logging to logFile
- \return Returns true if succesful, false otherwise
+ \return Returns true if successful, false otherwise
  \ingroup logging
 */
 C_DECL_SPEC bool rrcCallConv disableLoggingToFile();
@@ -112,10 +112,10 @@ C_DECL_SPEC bool rrcCallConv disableLoggingToFile();
 
  Example: \code setLogLevel ("DEBUG4") \endcode
 
- Wiil show log messages with levels DEBUG4, DEBUG3 -> Error
+ Will show log messages with levels DEBUG4, DEBUG3 -> Error
 
  \param lvl Pointer to the logging level string.
- \return Returns true if succesful
+ \return Returns true if successful
  \ingroup logging
 */
 C_DECL_SPEC bool rrcCallConv setLogLevel(const char* lvl);
