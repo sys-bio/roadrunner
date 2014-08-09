@@ -23,6 +23,7 @@
 using namespace std;
 namespace rr {
 
+  // DEPRECATED: use ModelGenerator::New (JKM)
 ModelGenerator* ModelGeneratorFactory::createModelGenerator(const string& compiler, const string& tempFolder,
             const string& supportCodeFolder)
 {
