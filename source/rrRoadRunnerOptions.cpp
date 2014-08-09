@@ -62,6 +62,9 @@ LoadSBMLOptions::LoadSBMLOptions()
     if (Config::getBool(Config::LOADSBMLOPTIONS_USE_MCJIT))
         modelGeneratorOpt |= LoadSBMLOptions::USE_MCJIT;
 
+    if (Config::getBool(Config::LOADSBMLOPTIONS_USE_GPUSIM))
+        modelGeneratorOpt |= LoadSBMLOptions::USE_GPUSIM;
+
     loadFlags = 0;
 }
 
