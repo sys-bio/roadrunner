@@ -131,7 +131,17 @@ struct RR_DECLSPEC LoadSBMLOptions
          * The MCJIT is the new LLVM JIT engine, it is not as well tested as the
          * original JIT engine. Does NOT work on LLVM 3.1
          */
-        USE_MCJIT =                       (0x1 << 10)
+        USE_MCJIT =                       (0x1 << 10),
+
+        /**
+         * Use the GPU simulation engine.
+         *
+         * Defaults to false.
+         *
+         * The GPU sim engine generates the model evaluation code and integration
+	 * code on the GPU.
+         */
+        USE_GPUSIM =                       (0x1 << 11)
     };
 
     enum LoadOpt
