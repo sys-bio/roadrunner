@@ -68,6 +68,10 @@ if("${CMAKE_CXX_COMPILER_ID}" STREQUAL "Clang")
     string(REGEX REPLACE "-Wno-maybe-uninitialized" "" LLVM_DEFINITIONS ${LLVM_DEFINITIONS})
 endif()
 
+
+option (BUILD_GPUSIM "Build the GPU back end" ON)
+set(BUILD_GPUSIM ON)
+
 # llvm now depends on zlib but llvm-config doesn't specify -lz (r213823)
 if(UNIX)
     find_package(ZLIB)
