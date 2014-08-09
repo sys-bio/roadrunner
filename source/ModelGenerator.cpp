@@ -7,6 +7,9 @@
 #pragma hdrstop
 #include "ModelGenerator.h"
 
+#if defined(BUILD_GPUSIM)
+#include "gpu/GPUSimModelGenerator.h"
+#endif
 
 #if defined(BUILD_LLVM)
 #include "llvm/LLVMModelGenerator.h"
@@ -28,6 +31,19 @@ ModelGenerator* ModelGenerator::New(const string& compiler, const string& tempFo
 {
     Log(Logger::LOG_INFORMATION) << "createing model generator, compiler: \"" << compiler << "\"";
 
+#if defined(BUILD_GPUSIM)
+    {
+	string ucomp = compiler;
+	std::transform(ucomp.begin(), ucomp.end(),ucomp.begin(), ::toupper);
+	
+	if (ucomp == "GPUSIM")
+	{
+	    Log(Logger::LOG_INFORMATION) << "Creating GPU based model generator.";
+	    return new rrgpu::GPUSimModelGenerator(compiler);
+	}
+    }
+#endif
+    
 #if defined(BUILD_LLVM) && !defined(BUILD_LEGACY_C)
 
     Log(Logger::LOG_INFORMATION) << "Creating LLVM based model generator.";
@@ -58,8 +74,8 @@ ModelGenerator* ModelGenerator::New(const string& compiler, const string& tempFo
     return new CModelGenerator(tempFolder, supportCodeFolder, compiler);
 #endif
 
-#if !defined(BUILD_LLVM) && !defined(BUILD_LEGACY_C)
-#error Must built at least one ModelGenerator backend, either BUILD_LLVM or BUILD_LEGACY_C
+#if !defined(BUILD_LLVM) && !defined(BUILD_LEGACY_C) && !defined(BUILD_GPUSIM)
+#error Must built at least one ModelGenerator backend, either BUILD_LLVM or BUILD_LEGACY_C or BUILD_GPUSIM
 #endif
 
 
