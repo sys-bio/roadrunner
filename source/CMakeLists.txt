@@ -93,6 +93,16 @@ if(BUILD_LLVM)
         )
 endif(BUILD_LLVM)
 
+# Add the GPUSim sources to compilation
+if(BUILD_GPUSIM)
+    set(rrSources
+        ${rrSources}
+        gpu/GPUSimCompiler
+#         gpu/GPUSimExecutableModel
+        gpu/GPUSimModelGenerator
+        )
+endif(BUILD_GPUSIM)
+
 if(BUILD_LEGACY_C)
     set(rrSources
         ${rrSources}
