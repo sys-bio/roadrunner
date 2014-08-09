@@ -154,6 +154,16 @@ public:
          */
         LOADSBMLOPTIONS_USE_MCJIT,
 
+        /**
+         * Use the GPU simulation engine.
+         *
+         * Defaults to false.
+         *
+         * The GPU sim engine generates the model evaluation code and integration
+	 * code on the GPU.
+         */
+        LOADSBMLOPTIONS_USE_GPUSIM,
+
 
         /**
          * The number of steps at which the output is sampled. The samples are evenly spaced.
