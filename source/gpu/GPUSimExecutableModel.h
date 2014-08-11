@@ -397,6 +397,34 @@ public:
     #endif /***********************************************************************/
     /******************************************************************************/
 
+    /******************************* Events Section *******************************/
+    #if (1) /**********************************************************************/
+    /******************************************************************************/
+
+    virtual int getNumEvents();
+    virtual int getEventTriggers(int len, const int *indx, unsigned char *values);
+
+    virtual void applyEvents(double timeEnd, const unsigned char* previousEventStatus,
+                const double *initialState, double* finalState);
+
+    virtual int applyPendingEvents(const double *stateVector, double timeEnd, double tout);
+
+    virtual void getEventRoots(double time, const double* y, double* gdot);
+
+    virtual double getNextPendingEventTime(bool pop);
+
+    virtual int getPendingEventSize();
+
+    virtual void resetEvents();
+
+    virtual int getEventIndex(const std::string& eid);
+    virtual std::string getEventId(int index);
+    virtual void setEventListener(int index, rr::EventListenerPtr eventHandler);
+    virtual rr::EventListenerPtr getEventListener(int index);
+
+    /******************************* Events Section *******************************/
+     #endif /**********************************************************************/
+    /******************************************************************************/
 
 private:
 
