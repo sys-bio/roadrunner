@@ -9,7 +9,7 @@
  */
 #pragma hdrstop
 #include "GPUSimModelGenerator.h"
-// #include "GPUSimExecutableModel.h"
+#include "GPUSimExecutableModel.h"
 // #include "ModelGeneratorContext.h"
 #include "ModelResources.h"
 #include "rrUtils.h"
@@ -50,7 +50,7 @@ static ModelPtrMap cachedModels;
 //     dst->context = src->context;
 //     dst->executionEngine = src->executionEngine;
 //     dst->errStr = src->errStr;
-// 
+//
 //     dst->evalInitialConditionsPtr = src->evalInitialConditionsPtr;
 //     dst->evalReactionRatesPtr = src->evalReactionRatesPtr;
 //     dst->getBoundarySpeciesAmountPtr = src->getBoundarySpeciesAmountPtr;
@@ -98,11 +98,6 @@ ExecutableModel* GPUSimModelGenerator::createModel(const std::string& sbml,
 {
     bool forceReCompile = options & ModelGenerator::RECOMPILE;
 
-//     if (compilerStr.find("USE_MCJIT") != compilerStr.npos) {
-//         Log(Logger::LOG_NOTICE) << "Found USE_MCJIT in compilerStr";
-//         options |= ModelGenerator::USE_MCJIT;
-//     }
-
     std::string md5;
 
     if (!forceReCompile)
@@ -135,7 +130,7 @@ ExecutableModel* GPUSimModelGenerator::createModel(const std::string& sbml,
         {
             Log(Logger::LOG_DEBUG) << "found a cached model for " << md5;
             throw_gpusim_exception("not implemented yet");
-//             return new GPUSimExecutableModel(sp, createModelData(*sp->symbols));
+            return new GPUSimExecutableModel();
         }
         else
         {
@@ -187,7 +182,7 @@ ExecutableModel* GPUSimModelGenerator::createModel(const std::string& sbml,
     }
 
     throw_gpusim_exception("not implemented yet");
-//     return new GPUSimExecutableModel(rc, modelData);
+    return new GPUSimExecutableModel();
 }
 
 Compiler* GPUSimModelGenerator::getCompiler()
