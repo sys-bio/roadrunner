@@ -124,8 +124,6 @@ public:
     virtual int getCompartmentVolumes(int len, int const *indx,
             double *values);
 
-    virtual int getNumRules();
-
 
 
     virtual int getNumLocalParameters(int reactionId);
@@ -308,6 +306,8 @@ public:
     virtual int getConservedMoietyValues(int len, int const *indx, double *values);
     virtual int setConservedMoietyValues(int len, int const *indx,
             const double *values);
+
+    virtual int getNumRateRules();
 
 
     /**
