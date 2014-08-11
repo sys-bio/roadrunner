@@ -8,7 +8,7 @@
 #  LLVM_LIBRARIES          - list of llvm libs for working with modules.
 #                      This is a list of absolute path file names, which is
 #                      evidently the cmake convention.
-#  LLVM_DEFINITIONS     - flags to add to the CXX compiler for llvm support
+#  LLVM_FLAGS     - flags to add to the CXX compiler for llvm support
 #  LLVM_VERSION_MAJOR
 #  LLVM_VERSION_MINOR
 #  LLVM_VERSION_PATCH
@@ -105,42 +105,42 @@ if (LLVM_CONFIG_EXECUTABLE)
     # C++ Flags, strip out stuff that CMake build adds
     execute_process(
         COMMAND ${LLVM_CONFIG_EXECUTABLE} --cxxflags
-        OUTPUT_VARIABLE LLVM_DEFINITIONS
+        OUTPUT_VARIABLE LLVM_FLAGS
         OUTPUT_STRIP_TRAILING_WHITESPACE
         )
     # strip this from llvm's version, we should add this ourselves in
     # production mode to main CFLAGS
-    STRING(REPLACE "-DNDEBUG" "" LLVM_DEFINITIONS ${LLVM_DEFINITIONS})
-    STRING(REPLACE "-D_DEBUG" "" LLVM_DEFINITIONS ${LLVM_DEFINITIONS})
+    STRING(REPLACE "-DNDEBUG" "" LLVM_FLAGS ${LLVM_FLAGS})
+    STRING(REPLACE "-D_DEBUG" "" LLVM_FLAGS ${LLVM_FLAGS})
     # remove optimization from flags, our cmake build will decide what optimization to use
-    STRING(REGEX REPLACE "-O[0-9]" "" LLVM_DEFINITIONS ${LLVM_DEFINITIONS})
-    STRING(REPLACE "-fno-rtti" "" LLVM_DEFINITIONS ${LLVM_DEFINITIONS})
-    STRING(REPLACE "-fno-exceptions" "" LLVM_DEFINITIONS ${LLVM_DEFINITIONS})
+    STRING(REGEX REPLACE "-O[0-9]" "" LLVM_FLAGS ${LLVM_FLAGS})
+    STRING(REPLACE "-fno-rtti" "" LLVM_FLAGS ${LLVM_FLAGS})
+    STRING(REPLACE "-fno-exceptions" "" LLVM_FLAGS ${LLVM_FLAGS})
     # this causes problems as most other libs compiled without this.
     # should be OK linking to LLVM as this just results in a slightly larger lib (I think, I hope...)
-    string(REPLACE "-fvisibility-inlines-hidden" "" LLVM_DEFINITIONS ${LLVM_DEFINITIONS})
+    string(REPLACE "-fvisibility-inlines-hidden" "" LLVM_FLAGS ${LLVM_FLAGS})
 
     # remove extra warnings that the llvm-config added
-    STRING(REPLACE "-Wcast-qual" "" LLVM_DEFINITIONS ${LLVM_DEFINITIONS})
-    STRING(REPLACE "-Woverloaded-virtual" "" LLVM_DEFINITIONS ${LLVM_DEFINITIONS})
+    STRING(REPLACE "-Wcast-qual" "" LLVM_FLAGS ${LLVM_FLAGS})
+    STRING(REPLACE "-Woverloaded-virtual" "" LLVM_FLAGS ${LLVM_FLAGS})
  
     # some LLVMs add these options
     # -Wall -W -Wno-unused-parameter -Wwrite-strings -Wno-missing-field-initializers -pedantic 
     # -Wno-long-long -Wno-uninitialized -Wnon-virtual-dtor
 
 
-    STRING(REPLACE "-Wall" "" LLVM_DEFINITIONS ${LLVM_DEFINITIONS})
-    STRING(REPLACE "-W " "" LLVM_DEFINITIONS ${LLVM_DEFINITIONS})
-    STRING(REPLACE "-Wno-unused-parameter" "" LLVM_DEFINITIONS ${LLVM_DEFINITIONS})
-    STRING(REPLACE "-Wwrite-strings" "" LLVM_DEFINITIONS ${LLVM_DEFINITIONS})
-    STRING(REPLACE "-Wno-missing-field-initializers" "" LLVM_DEFINITIONS ${LLVM_DEFINITIONS})
-    STRING(REPLACE "-pedantic" "" LLVM_DEFINITIONS ${LLVM_DEFINITIONS})
-    STRING(REPLACE "-Wno-long-long" "" LLVM_DEFINITIONS ${LLVM_DEFINITIONS})
-    STRING(REPLACE "-Wno-uninitialized" "" LLVM_DEFINITIONS ${LLVM_DEFINITIONS})
-    STRING(REPLACE "-Wnon-virtual-dtor" "" LLVM_DEFINITIONS ${LLVM_DEFINITIONS})
+    STRING(REPLACE "-Wall" "" LLVM_FLAGS ${LLVM_FLAGS})
+    STRING(REPLACE "-W " "" LLVM_FLAGS ${LLVM_FLAGS})
+    STRING(REPLACE "-Wno-unused-parameter" "" LLVM_FLAGS ${LLVM_FLAGS})
+    STRING(REPLACE "-Wwrite-strings" "" LLVM_FLAGS ${LLVM_FLAGS})
+    STRING(REPLACE "-Wno-missing-field-initializers" "" LLVM_FLAGS ${LLVM_FLAGS})
+    STRING(REPLACE "-pedantic" "" LLVM_FLAGS ${LLVM_FLAGS})
+    STRING(REPLACE "-Wno-long-long" "" LLVM_FLAGS ${LLVM_FLAGS})
+    STRING(REPLACE "-Wno-uninitialized" "" LLVM_FLAGS ${LLVM_FLAGS})
+    STRING(REPLACE "-Wnon-virtual-dtor" "" LLVM_FLAGS ${LLVM_FLAGS})
 
 
-    MESSAGE(STATUS "LLVM_DEFINITIONS: " ${LLVM_DEFINITIONS})
+    MESSAGE(STATUS "LLVM_FLAGS: " ${LLVM_FLAGS})
 
 
 
