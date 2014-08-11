@@ -83,6 +83,12 @@ public:
      */
     virtual void reset();
 
+    /**
+     * reset the model according to a bitfield specified by the
+     * SelectionRecord::SelectionType values.
+     */
+    virtual void reset(int options);
+
 
 
     virtual int getNumIndFloatingSpecies();

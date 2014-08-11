@@ -317,6 +317,11 @@ void GPUSimExecutableModel::reset()
     throw_gpusim_exception("not supported");
 }
 
+void GPUSimExecutableModel::reset(int options)
+{
+    throw_gpusim_exception("not supported");
+}
+
 bool GPUSimExecutableModel::getConservedSumChanged()
 {
     throw_gpusim_exception("not supported");
