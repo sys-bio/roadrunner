@@ -98,7 +98,7 @@ if(BUILD_GPUSIM)
     set(rrSources
         ${rrSources}
         gpu/GPUSimCompiler
-#         gpu/GPUSimExecutableModel
+        gpu/GPUSimExecutableModel
         gpu/GPUSimModelGenerator
         )
 endif(BUILD_GPUSIM)
