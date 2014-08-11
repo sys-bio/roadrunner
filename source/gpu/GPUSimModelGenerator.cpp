@@ -98,10 +98,10 @@ ExecutableModel* GPUSimModelGenerator::createModel(const std::string& sbml,
 {
     bool forceReCompile = options & ModelGenerator::RECOMPILE;
 
-    if (compilerStr.find("USE_MCJIT") != compilerStr.npos) {
-        Log(Logger::LOG_NOTICE) << "Found USE_MCJIT in compilerStr";
-        options |= ModelGenerator::USE_MCJIT;
-    }
+//     if (compilerStr.find("USE_MCJIT") != compilerStr.npos) {
+//         Log(Logger::LOG_NOTICE) << "Found USE_MCJIT in compilerStr";
+//         options |= ModelGenerator::USE_MCJIT;
+//     }
 
     std::string md5;
 
