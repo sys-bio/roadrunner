@@ -65,7 +65,7 @@ endif()
 
 if("${CMAKE_CXX_COMPILER_ID}" STREQUAL "Clang")
     # llvm-config specifies flags that clang doesn't understand... causes warning spew
-    string(REGEX REPLACE "-Wno-maybe-uninitialized" "" LLVM_DEFINITIONS ${LLVM_DEFINITIONS})
+    string(REGEX REPLACE "-Wno-maybe-uninitialized" "" LLVM_FLAGS ${LLVM_FLAGS})
 endif()
 
 
@@ -238,11 +238,12 @@ if(BUILD_LLVM)
     message(STATUS "using LLVM, version ${LLVM_VERSION_MAJOR}.${LLVM_VERSION_MINOR}.${LLVM_VERSION_PATCH}")
 
     message(STATUS "LLVM_LIBRARIES: ${LLVM_LIBRARIES}")
-    message(STATUS "LLVM_DEFINITIONS: ${LLVM_DEFINITIONS}")
+    message(STATUS "LLVM_FLAGS: ${LLVM_FLAGS}")
     message(STATUS "LLVM_INCLUDE_DIRS: ${LLVM_INCLUDE_DIRS}")
     message(STATUS "LLVM_LIBRARY_DIRS: ${LLVM_LIBRARY_DIRS}")
     add_definitions(-DBUILD_LLVM)
-    add_definitions(${LLVM_DEFINITIONS})
+    # Don't use add_definitions for LLVM flags per http://stackoverflow.com/questions/13638408/cmake-override-compile-flags-for-single-files
+    set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} ${LLVM_FLAGS}")
     include_directories(${LLVM_INCLUDE_DIRS})
 else()
     message(STATUS "NOT using LLVM")
@@ -255,6 +256,13 @@ else()
     message(STATUS "not building legacy C backend")
 endif(BUILD_LEGACY_C)
 
+if(BUILD_GPUSIM)
+    if(NOT ${CMAKE_CXX_FLAGS} MATCHES ".*-std=c\\+\\+11.*")
+	message(WARNING "C++11 will be enabled for GPUSIM (required)")
+    endif()
+else()
+    message(STATUS "NOT building GPUSIM")
+endif(BUILD_GPUSIM)
 
 # We alway have to build the roadrunner core, everything depends on this
 add_subdirectory(source)
