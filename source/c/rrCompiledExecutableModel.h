@@ -65,6 +65,13 @@ public:
      */
     virtual void reset();
 
+    /**
+     * reset the model accordign to a bitfield specified by the
+     * SelectionRecord::SelectionType values.
+     */
+    virtual void reset(int options);
+
+
     enum StateStackOptions
     {
         /**
@@ -215,7 +222,7 @@ public:
     virtual int getCompartmentVolumes(int len, int const *indx,
             double *values);
 
-    virtual int getNumRules();
+    virtual int getNumRateRules();
 
     /**
      * get the number of reactions the model has

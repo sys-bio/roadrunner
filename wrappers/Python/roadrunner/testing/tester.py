@@ -240,7 +240,7 @@ def checkStoichiometryMatrix(rrInstance, testId):
     errorFlag = False
     m = rrInstance.model.getNumFloatingSpecies()
     n = rrInstance.model.getNumReactions();
-    st = rrInstance.model.getStoichiometryMatrix()
+    st = rrInstance.model.getCurrentStoichiometryMatrix()
     for i in range(0,m):
         line = readLine ()
         words = line.split()
@@ -866,6 +866,61 @@ def setGetReset(rrInstance, testId):
   print passMsg (errorFlag)
 
 
+def checkJacobian(r, testId):
+    # TODO need to update python 2.x printing
+    print string.ljust ("Check " + testId, rpadding),
+    import testfiles
+    from roadrunner import Config
+    import numpy as n
+
+    errors = False
+
+    # max difference between reduced and full
+    maxDiff = 2e-10
+
+    # get the name from the file
+
+    fname = readLine()
+
+    r=testfiles.getRoadRunner(fname)
+
+    # save the old value
+    saved = Config.getValue(Config.ROADRUNNER_JACOBIAN_MODE)
+
+    # set to amounts mode
+    Config.setValue(Config.ROADRUNNER_JACOBIAN_MODE, Config.ROADRUNNER_JACOBIAN_MODE_AMOUNTS)
+
+    full = r.getFullJacobian()
+    reduced = r.getReducedJacobian()
+
+    m = n.max(n.abs(reduced-full))
+    if (m > maxDiff):
+        errors = True
+        print("Jacobians different in amounts mode, max difference: " + str(m))
+
+    # set to conc mode
+    Config.setValue(Config.ROADRUNNER_JACOBIAN_MODE, Config.ROADRUNNER_JACOBIAN_MODE_CONCENTRATIONS)
+
+    full = r.getFullJacobian()
+    reduced = r.getReducedJacobian()
+
+    m = n.max(n.abs(reduced-full))
+    if (m > maxDiff):
+        errors = True
+        print("Jacobians different in concentrations mode, max difference: " + str(m))
+
+    # restore previous value
+    Config.setValue(Config.ROADRUNNER_JACOBIAN_MODE, saved)
+
+    print passMsg(errors)
+    
+
+    
+
+    
+    
+
+
 def scriptTests():
     print
     print "Testing Set and Get Functions"
@@ -933,6 +988,8 @@ functions = {'[Compute Steady State]': myComputeSteadyState,
 #             '[Get Reaction Rates Ex]': checkGetReactionRatesEx,
 #             '[Get Rates of Change Ex]': checkGetRatesOfChangeEx,
 #             '[Get Rate of Change by Index]': checkRateRateOfChangeByIndex,
+             '[Amount/Concentration Jacobians]' : checkJacobian
+             
               }
 
 # -----------------------------------------------------------------------

@@ -151,26 +151,27 @@ def setup(*args):
 
 
     _setup(name='pylibroadrunner',
-           author='Andy Somogyi, Herbert Sauro',
-           author_email='somogyie@indiana.edu',
-          version=_version,
-          description='libRoadRunner SBML JIT compiler and simulation library',
-          url='http://libroadrunner.org',
-          packages=['roadrunner', 'roadrunner.testing'],
-          package_dir={
-              "roadrunner" : "site-packages/roadrunner",
-              "roadrunner.testing" : "site-packages/roadrunner/testing"
-          },
-          package_data={
-              # add dll, won't hurt unix, not there anyway
-              "roadrunner" : ["_roadrunner." + _sharedLibExt(), "*.dll", "*.txt" ],  
-              "roadrunner.testing" : ["*.xml", "*.txt", "*.dat", "dsmts/*.xml", "dsmts/*.csv"]
-          },
-          cmdclass={'sdist' : _RoadRunnerSDist},
-
-          # fake out the command line args
-          script_name = 'setup.py',
-          script_args = args
+        author='Andy Somogyi, Herbert Sauro',
+        author_email='somogyie@indiana.edu',
+        version=_version,
+        description='libRoadRunner SBML JIT compiler and simulation library',
+        url='http://libroadrunner.org',
+        packages=['roadrunner', 'roadrunner.testing', 'roadrunner.stochastic'],
+        package_dir={
+            "roadrunner" : "site-packages/roadrunner",
+            "roadrunner.testing" : "site-packages/roadrunner/testing",
+            "roadrunner.stochastic" : "site-packages/roadrunner/stochastic"
+        },
+        package_data={
+            # add dll, won't hurt unix, not there anyway
+            "roadrunner" : ["_roadrunner." + _sharedLibExt(), "*.dll", "*.txt" ],  
+            "roadrunner.testing" : ["*.xml", "*.txt", "*.dat", "dsmts/*.xml", "dsmts/*.csv"]
+        },
+        cmdclass={'sdist' : _RoadRunnerSDist},
+           
+        # fake out the command line args
+        script_name = 'setup.py',
+        script_args = args
     )
 
     #change dir back

@@ -134,4 +134,10 @@ install(
     FILES_MATCHING PATTERN "*.*"
 )
 
+install(
+    DIRECTORY stochastic
+    DESTINATION ${RR_PACKAGE_DIR}
+    FILES_MATCHING PATTERN "*.*"
+)
+
 

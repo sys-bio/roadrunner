@@ -455,7 +455,7 @@ istream& operator >> (istream& ss, RoadRunnerData& data)
     std::string oneLine((std::istreambuf_iterator<char>(ss)), std::istreambuf_iterator<char>());
 
     //This is pretty inefficient
-    string tempFileName = joinPath(getUsersTempDataFolder(), "rrTempFile.dat");
+    string tempFileName = joinPath(getTempDir(), "rrTempFile.dat");
     ofstream tempFile(tempFileName.c_str());
 
     tempFile << oneLine;

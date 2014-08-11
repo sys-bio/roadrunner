@@ -144,7 +144,7 @@ RRHandle rrcCallConv createRRInstance()
 {
     start_try
         string rrInstallFolder(getParentFolder(getRRCAPILocation()));
-        return new RoadRunner("", getUsersTempDataFolder(), joinPath(rrInstallFolder, "rr_support"));
+        return new RoadRunner("", getTempDir(), joinPath(rrInstallFolder, "rr_support"));
     catch_ptr_macro
 }
 
@@ -170,7 +170,7 @@ RRHandle rrcCallConv createRRInstanceEx(const char* tempFolder, const char* comp
         }
         else
         {
-            return new RoadRunner(compiler, getUsersTempDataFolder(), joinPath(rrInstallFolder, "rr_support"));
+            return new RoadRunner(compiler, getTempDir(), joinPath(rrInstallFolder, "rr_support"));
         }
     catch_ptr_macro
 }
@@ -618,10 +618,9 @@ RRCDataPtr rrcCallConv getSimulationResult(RRHandle handle)
 {
     start_try
         RoadRunner* rri = castToRoadRunner(handle);
-        RoadRunnerData result = *rri->getSimulationResult();
 
         //Extract the data and return struct..
-        return  createRRCData(result);
+        return  createRRCData(*rri);
     catch_ptr_macro
 }
 

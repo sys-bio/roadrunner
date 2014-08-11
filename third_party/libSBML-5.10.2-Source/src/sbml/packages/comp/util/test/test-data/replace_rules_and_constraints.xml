@@ -1,0 +1,250 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<sbml xmlns="http://www.sbml.org/sbml/level3/version1/core" xmlns:comp="http://www.sbml.org/sbml/level3/version1/comp/version1" level="3" version="1" comp:required="true">
+  <model metaid="iBioSim1" id="CompTest3_antimony_roundtrip" name="CompTest">
+    <listOfCompartments>
+      <compartment id="Cell" spatialDimensions="3" size="1" constant="true">
+        <comp:listOfReplacedElements>
+          <comp:replacedElement comp:portRef="Cell" comp:submodelRef="C1"/>
+        </comp:listOfReplacedElements>
+      </compartment>
+    </listOfCompartments>
+    <listOfSpecies>
+      <species metaid="iBioSim25" id="S1" compartment="Cell" initialConcentration="0" hasOnlySubstanceUnits="false" boundaryCondition="false" constant="false"/>
+      <species metaid="iBioSim26" id="S2" compartment="Cell" initialConcentration="0" hasOnlySubstanceUnits="false" boundaryCondition="false" constant="false"/>
+    </listOfSpecies>
+    <listOfParameters>
+      <parameter metaid="iBioSim2" id="topKf" value="3" constant="true"/>
+      <parameter metaid="iBioSim3" id="kr_f" name="Forward repression binding rate" value="0.5" constant="true"/>
+      <parameter metaid="iBioSim4" id="kr_r" name="Reverse repression binding rate" value="1" constant="true"/>
+      <parameter metaid="iBioSim5" id="ka_f" name="Forward activation binding rate" value="0.0033" constant="true"/>
+      <parameter metaid="iBioSim6" id="ka_r" name="Reverse activation binding rate" value="1" constant="true"/>
+      <parameter metaid="iBioSim7" id="kc_f" name="Forward complex formation rate" value="0.05" constant="true"/>
+      <parameter metaid="iBioSim8" id="kc_r" name="Reverse complex formation rate" value="1" constant="true"/>
+      <parameter metaid="iBioSim9" id="ko_f" name="Forward RNAP binding rate" value="0.033" constant="true"/>
+      <parameter metaid="iBioSim10" id="ko_r" name="Reverse RNAP binding rate" value="1" constant="true"/>
+      <parameter metaid="iBioSim11" id="kao_f" name="Forward activated RNAP binding rate" value="1" constant="true"/>
+      <parameter metaid="iBioSim12" id="kao_r" name="Reverse activated RNAP binding rate" value="1" constant="true"/>
+      <parameter metaid="iBioSim13" id="kmdiff_f" name="Forward membrane diffusion rate" value="1" constant="true"/>
+      <parameter metaid="iBioSim14" id="kmdiff_r" name="Reverse membrane diffusion rate" value="0.01" constant="true"/>
+      <parameter metaid="iBioSim15" id="kd" name="Degradation rate" value="0.0075" constant="true"/>
+      <parameter metaid="iBioSim16" id="kecd" name="Extracellular degradation rate" value="0.005" constant="true"/>
+      <parameter metaid="iBioSim17" id="nc" name="Stoichiometry of binding" value="2" constant="true"/>
+      <parameter metaid="iBioSim18" id="nr" name="Initial RNAP count" value="30" constant="true"/>
+      <parameter metaid="iBioSim19" id="ko" name="Open complex production rate" value="0.05" constant="true"/>
+      <parameter metaid="iBioSim20" id="kb" name="Basal production rate" value="0.0001" constant="true"/>
+      <parameter metaid="iBioSim21" id="ng" name="Initial promoter count" value="2" constant="true"/>
+      <parameter metaid="iBioSim22" id="np" name="Stoichiometry of production" value="10" constant="true"/>
+      <parameter metaid="iBioSim23" id="ka" name="Activated production rate" value="0.25" constant="true"/>
+      <parameter metaid="iBioSim24" id="kecdiff" name="Extracellular diffusion rate" value="1" constant="true"/>
+    </listOfParameters>
+    <listOfRules>
+      <rateRule metaid="rule0" variable="S1">
+        <math xmlns="http://www.w3.org/1998/Math/MathML">
+          <cn type="integer"> 1 </cn>
+        </math>
+        <comp:listOfReplacedElements>
+          <comp:replacedElement comp:portRef="rule__iBioSim7" comp:submodelRef="C1"/>
+        </comp:listOfReplacedElements>
+      </rateRule>
+    </listOfRules>
+    <listOfConstraints>
+      <constraint metaid="foo">
+        <math xmlns="http://www.w3.org/1998/Math/MathML">
+          <apply>
+            <eq/>
+            <cn type="integer"> 2 </cn>
+            <cn type="integer"> 2 </cn>
+          </apply>
+        </math>
+        <comp:listOfReplacedElements>
+          <comp:replacedElement comp:portRef="constraint__constraint0" comp:submodelRef="C1"/>
+        </comp:listOfReplacedElements>
+      </constraint>
+    </listOfConstraints>
+    <comp:listOfSubmodels>
+      <comp:submodel metaid="iBioSim27" comp:id="C1" comp:modelRef="CompModel">
+        <comp:listOfDeletions>
+          <comp:deletion comp:portRef="unit_perSecond"/>
+          <comp:deletion comp:portRef="event__event0"/>
+          <comp:deletion comp:portRef="event__event1"/>
+        </comp:listOfDeletions>
+      </comp:submodel>
+    </comp:listOfSubmodels>
+    <comp:listOfPorts>
+      <comp:port sboTerm="SBO:0000601" comp:idRef="Cell" comp:id="Cell"/>
+      <comp:port sboTerm="SBO:0000601" comp:idRef="C1" comp:id="R1__C1">
+        <comp:sBaseRef comp:portRef="R1"/>
+      </comp:port>
+      <comp:port sboTerm="SBO:0000601" comp:idRef="C1" comp:id="R3__C1">
+        <comp:sBaseRef comp:portRef="R3"/>
+      </comp:port>
+      <comp:port sboTerm="SBO:0000601" comp:idRef="C1" comp:id="R1_kf0__C1">
+        <comp:sBaseRef comp:portRef="R1_kf0"/>
+      </comp:port>
+      <comp:port sboTerm="SBO:0000601" comp:idRef="C1" comp:id="S2__C1">
+        <comp:sBaseRef comp:portRef="S2"/>
+      </comp:port>
+    </comp:listOfPorts>
+    
+  </model>
+  <comp:listOfModelDefinitions>
+    <comp:modelDefinition metaid="CompModel__iBioSim1" id="CompModel" name="CompModel">
+      <listOfUnitDefinitions>
+        <unitDefinition id="perSecond">
+          <listOfUnits>
+            <unit kind="second" exponent="-1" scale="0" multiplier="1"/>
+          </listOfUnits>
+        </unitDefinition>
+      </listOfUnitDefinitions>
+      <listOfCompartments>
+        <compartment id="Cell" spatialDimensions="3" size="1" constant="true"/>
+      </listOfCompartments>
+      <listOfSpecies>
+        <species metaid="CompModel__iBioSim2" id="S1" compartment="Cell" initialConcentration="0" hasOnlySubstanceUnits="false" boundaryCondition="false" constant="false"/>
+        <species metaid="CompModel__iBioSim3" id="S2" compartment="Cell" initialConcentration="0" hasOnlySubstanceUnits="false" boundaryCondition="false" constant="false"/>
+      </listOfSpecies>
+      <listOfParameters>
+        <parameter metaid="CompModel__iBioSim8" id="R3_kf0" value="1" constant="true"/>
+        <parameter metaid="CompModel__iBioSim9" id="R1_kf0" value="1" constant="true"/>
+        <parameter metaid="CompModel__iBioSim10" id="V1" constant="false"/>
+        <parameter metaid="CompModel__iBioSim11" id="V2" value="0" constant="false"/>
+        <parameter metaid="CompModel__iBioSim12" id="x" constant="true"/>
+        <parameter metaid="CompModel__iBioSim13" id="R1_kf" value="0.1" constant="true"/>
+        <parameter metaid="CompModel__iBioSim14" id="R3_kf" value="0.1" constant="true"/>
+        <parameter metaid="CompModel__iBioSim38" id="R1_kr" value="1" constant="true"/>
+        <parameter metaid="CompModel__iBioSim39" id="R3_kr" value="1" constant="true"/>
+        <parameter metaid="CompModel__iBioSim16" id="kd" name="Degradation rate" value="0.0075" constant="true"/>
+        <parameter metaid="CompModel__iBioSim19" id="kmdiff_f" name="Forward membrane diffusion rate" value="1" constant="true"/>
+        <parameter metaid="CompModel__iBioSim20" id="kmdiff_r" name="Reverse membrane diffusion rate" value="0.01" constant="true"/>
+        <parameter metaid="CompModel__iBioSim21" id="kecd" name="Extracellular degradation rate" value="0.005" constant="true"/>
+        <parameter metaid="CompModel__iBioSim22" id="kecdiff" name="Extracellular diffusion rate" value="1" constant="true"/>
+        <parameter metaid="CompModel__iBioSim23" id="np" name="Stoichiometry of production" value="10" constant="true"/>
+        <parameter metaid="CompModel__iBioSim24" id="ko" name="Open complex production rate" value="0.05" constant="true"/>
+      </listOfParameters>
+      <listOfRules>
+        <assignmentRule metaid="CompModel__iBioSim6" variable="V1">
+          <math xmlns="http://www.w3.org/1998/Math/MathML">
+            <apply>
+              <plus/>
+              <ci> S1 </ci>
+              <ci> S2 </ci>
+            </apply>
+          </math>
+        </assignmentRule>
+        <rateRule metaid="CompModel__iBioSim7" variable="V2">
+          <math xmlns="http://www.w3.org/1998/Math/MathML">
+            <apply>
+              <times/>
+              <ci> S1 </ci>
+              <ci> S2 </ci>
+            </apply>
+          </math>
+        </rateRule>
+      </listOfRules>
+      <listOfConstraints>
+        <constraint metaid="CompModel__constraint0">
+          <math xmlns="http://www.w3.org/1998/Math/MathML">
+            <apply>
+              <eq/>
+              <cn type="integer"> 1 </cn>
+              <cn type="integer"> 1 </cn>
+            </apply>
+          </math>
+        </constraint>
+      </listOfConstraints>
+      <listOfReactions>
+        <reaction metaid="CompModel__iBioSim4" id="R1" reversible="false" fast="false">
+          <listOfReactants>
+            <speciesReference species="S1" stoichiometry="1" constant="true"/>
+          </listOfReactants>
+          <listOfProducts>
+            <speciesReference species="S2" stoichiometry="1" constant="true"/>
+          </listOfProducts>
+          <kineticLaw>
+            <math xmlns="http://www.w3.org/1998/Math/MathML">
+              <apply>
+                <times/>
+                <ci> R1_kf0 </ci>
+                <ci> S1 </ci>
+              </apply>
+            </math>
+          </kineticLaw>
+        </reaction>
+        <reaction metaid="CompModel__iBioSim5" id="R3" reversible="false" fast="false">
+          <listOfReactants>
+            <speciesReference species="S2" stoichiometry="1" constant="true"/>
+          </listOfReactants>
+          <listOfProducts>
+            <speciesReference species="S1" stoichiometry="1" constant="true"/>
+          </listOfProducts>
+          <kineticLaw>
+            <math xmlns="http://www.w3.org/1998/Math/MathML">
+              <apply>
+                <times/>
+                <ci> R3_kf0 </ci>
+                <ci> S2 </ci>
+              </apply>
+            </math>
+          </kineticLaw>
+        </reaction>
+      </listOfReactions>
+      <listOfEvents>
+        <event id="event0" useValuesFromTriggerTime="false">
+          <trigger initialValue="false" persistent="false">
+            <math xmlns="http://www.w3.org/1998/Math/MathML">
+              <apply>
+                <geq/>
+                <csymbol encoding="text" definitionURL="http://www.sbml.org/sbml/symbols/time"> t </csymbol>
+                <cn type="integer"> 100 </cn>
+              </apply>
+            </math>
+          </trigger>
+          <delay>
+            <math xmlns="http://www.w3.org/1998/Math/MathML">
+              <cn type="integer"> 10 </cn>
+            </math>
+          </delay>
+          <listOfEventAssignments>
+            <eventAssignment variable="S1">
+              <math xmlns="http://www.w3.org/1998/Math/MathML">
+                <cn type="integer"> 10 </cn>
+              </math>
+            </eventAssignment>
+          </listOfEventAssignments>
+        </event>
+        <event id="event1" useValuesFromTriggerTime="false">
+          <trigger initialValue="false" persistent="false">
+            <math xmlns="http://www.w3.org/1998/Math/MathML">
+              <true/>
+            </math>
+          </trigger>
+          <delay>
+            <math xmlns="http://www.w3.org/1998/Math/MathML">
+              <cn type="integer"> 100 </cn>
+            </math>
+          </delay>
+          <listOfEventAssignments>
+            <eventAssignment variable="S2">
+              <math xmlns="http://www.w3.org/1998/Math/MathML">
+                <cn type="integer"> 100 </cn>
+              </math>
+            </eventAssignment>
+          </listOfEventAssignments>
+        </event>
+      </listOfEvents>
+      
+      <comp:listOfPorts>
+        <comp:port comp:idRef="Cell" comp:id="Cell"/>
+        <comp:port comp:idRef="R1" comp:id="R1"/>
+        <comp:port comp:idRef="R3" comp:id="R3"/>
+        <comp:port comp:idRef="event0" comp:id="event__event0"/>
+        <comp:port comp:idRef="R1_kf0" comp:id="R1_kf0"/>
+        <comp:port comp:unitRef="perSecond" comp:id="unit_perSecond"/>
+        <comp:port comp:idRef="S2" comp:id="S2"/>
+        <comp:port comp:metaIdRef="CompModel__iBioSim7" comp:id="rule__iBioSim7"/>
+        <comp:port comp:idRef="event1" comp:id="event__event1"/>
+        <comp:port comp:metaIdRef="CompModel__constraint0" comp:id="constraint__constraint0"/>
+      </comp:listOfPorts>
+    </comp:modelDefinition>
+  </comp:listOfModelDefinitions>
+</sbml>

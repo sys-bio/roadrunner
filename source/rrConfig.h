@@ -382,6 +382,64 @@ public:
         STEADYSTATE_MINIMUM_DAMPING,
 
         /**
+         * Determines the mode that the RoadRunner Jacobian calculations will be
+         * be performed in.  The Jacobian can be calculated either with respect to
+         * amounts or concentrations. Default is concentrations.
+         *
+         * This can be either ROADRUNNER_JACOBIAN_MODE_AMOUNTS or
+         * ROADRUNNER_JACOBIAN_MODE_CONCENTRATIONS.
+         */
+        ROADRUNNER_JACOBIAN_MODE,
+
+        /**
+         * Directory path where roadrunner should store temp files. If empty, the
+         * system specified temp dir is used. Paths may have enviormnent variables, i.e.
+         * ${HOME}/tmp
+         *
+         * May have environment variables contained in the path.
+         * On Unix, a tilde as first character in the path is
+         * replaced with the path to user's home directory.
+         */
+        TEMP_DIR_PATH,
+
+        /**
+         * Path to where the logger should write a roadrunner log file. If no path
+         * is specified, the log file will be written as a "roadrunner.log" in the
+         * temp dir.
+         *
+         * May have environment variables contained in the path.
+         * On Unix, a tilde as first character in the path is
+         * replaced with the path to user's home directory.
+         */
+        LOGGER_LOG_FILE_PATH,
+
+        // add lots of space so not to conflict with other branches.
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+        /**
          * Needs to be the last item in the enum, no mater how many
          * other items are added, this is used internally to create
          * a static array.
@@ -393,6 +451,13 @@ public:
     {
         ROADRUNNER_DISABLE_WARNINGS_STEADYSTATE          =  (0x1 << 0),  // => 0x00000001
         ROADRUNNER_DISABLE_WARNINGS_CONSERVED_MOIETY     =  (0x1 << 1)   // => 0x00000010
+    };
+
+
+    enum ROADRUNNER_JACOBIAN_MODE_VALUES
+    {
+        ROADRUNNER_JACOBIAN_MODE_AMOUNTS = 0,
+        ROADRUNNER_JACOBIAN_MODE_CONCENTRATIONS
     };
 
     /**

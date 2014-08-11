@@ -447,7 +447,7 @@ public:
     virtual int setConservedMoietyValues(int len, int const *indx,
             const double *values) = 0;
 
-    virtual int getNumRules() = 0;
+    virtual int getNumRateRules() = 0;
 
     /**
      * get the number of reactions the model has
@@ -672,6 +672,12 @@ public:
      */
     virtual double getFloatingSpeciesAmountRate(int index,
             const double *reactionRates) = 0;
+
+    /**
+     * reset the model accordign to a bitfield specified by the
+     * SelectionRecord::SelectionType values.
+     */
+    virtual void reset(int options) = 0;
 };
 
 

@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<sbml xmlns="http://www.sbml.org/sbml/level3/version1/core" xmlns:comp="http://www.sbml.org/sbml/level3/version1/comp/version1" level="3" version="1" comp:required="true">
+  <model>
+    <listOfParameters>
+      <parameter id="param1" constant="true">
+        <comp:listOfReplacedElements>
+          <comp:replacedElement comp:idRef="subparam1" comp:submodelRef="submod1"/>
+        </comp:listOfReplacedElements>
+      </parameter>
+    </listOfParameters>
+    <comp:listOfSubmodels>
+      <comp:submodel comp:id="submod1" comp:modelRef="Mod1"/>
+    </comp:listOfSubmodels>
+  </model>
+  <comp:listOfModelDefinitions>
+    <comp:modelDefinition id="Mod1">
+      <listOfParameters>
+        <parameter id="subparam1" constant="true"/>
+      </listOfParameters>
+    </comp:modelDefinition>
+  </comp:listOfModelDefinitions>
+</sbml>

@@ -97,8 +97,18 @@ public:
 
     /**
      * turns on file logging to the given file as the given level.
+     *
+     * If fileName is an empty string, then this will use the file
+     * specified in the Config::LOGGER_LOG_FILE_PATH. If this is empty,
+     * a file called "roadrunner.log" will be created in the
+     * temp directory.
+     *
+     * The temp directory may be specified via Config::TEMP_DIR_PATH.
+     * If this is empty, then the system spefified temp dir is
+     * used.
      */
-    static void enableFileLogging(const std::string& fileName, int level = LOG_CURRENT);
+    static void enableFileLogging(const std::string& fileName = "",
+            int level = LOG_CURRENT);
 
     /**
      * turns off file logging, but has no effect on console logging.

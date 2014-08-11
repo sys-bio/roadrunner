@@ -31,11 +31,7 @@ bool rrcCallConv disableLoggingToConsole()
 bool rrcCallConv enableLoggingToFile(RRHandle handle)
 {
     start_try
-        char* tempFolder = getTempFolder(handle);
-        string logFile = joinPath(tempFolder, "RoadRunner.log") ;
-        rr::freeText(tempFolder);
-
-        Logger::enableFileLogging(logFile);
+        Logger::enableFileLogging();
         return true;
     catch_bool_macro
 }

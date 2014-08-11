@@ -1,0 +1,400 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<sbml xmlns="http://www.sbml.org/sbml/level3/version1/core" xmlns:comp="http://www.sbml.org/sbml/level3/version1/comp/version1" level="3" version="1" comp:required="true">
+  <model id="QTPop">
+    <listOfFunctionDefinitions>
+      <functionDefinition id="get2DArrayElement" name="get2DArrayElement">
+        <math xmlns="http://www.w3.org/1998/Math/MathML">
+          <lambda>
+            <bvar>
+              <ci> a </ci>
+            </bvar>
+            <bvar>
+              <ci> b </ci>
+            </bvar>
+            <bvar>
+              <ci> c </ci>
+            </bvar>
+            <ci> a </ci>
+          </lambda>
+        </math>
+      </functionDefinition>
+    </listOfFunctionDefinitions>
+    <listOfUnitDefinitions>
+      <unitDefinition id="u_1_second_n1">
+        <listOfUnits>
+          <unit kind="second" exponent="-1" scale="0" multiplier="1"/>
+        </listOfUnits>
+      </unitDefinition>
+    </listOfUnitDefinitions>
+    <listOfCompartments>
+      <compartment id="default" spatialDimensions="3" size="1" constant="true">
+        <annotation><custom xmlns="http://custom/namespace">EnclosingCompartment</custom></annotation>
+      </compartment>
+    </listOfCompartments>
+    <listOfSpecies>
+      <species id="LuxI" compartment="default" initialAmount="0" hasOnlySubstanceUnits="true" boundaryCondition="false" constant="false">
+        <annotation><custom xmlns="http://custom/namespace">Type=Grid</custom></annotation>
+      </species>
+    </listOfSpecies>
+    <listOfParameters>
+      <parameter id="kr_f" name="Forward repression binding rate" value="0.5" constant="true"/>
+      <parameter id="kr_r" name="Reverse repression binding rate" value="1" constant="true"/>
+      <parameter id="ka_f" name="Forward activation binding rate" value="0.0033" constant="true"/>
+      <parameter id="ka_r" name="Reverse activation binding rate" value="1" constant="true"/>
+      <parameter id="kc_f" name="Forward complex formation rate" value="0.05" constant="true"/>
+      <parameter id="kc_r" name="Reverse complex formation rate" value="1" constant="true"/>
+      <parameter id="ko_f" name="Forward RNAP binding rate" value="0.033" constant="true"/>
+      <parameter id="ko_r" name="Reverse RNAP binding rate" value="1" constant="true"/>
+      <parameter id="kao_f" name="Forward activated RNAP binding rate" value="1" constant="true"/>
+      <parameter id="kao_r" name="Reverse activated RNAP binding rate" value="1" constant="true"/>
+      <parameter id="kmdiff_f" name="Forward membrane diffusion rate" value="1" constant="true"/>
+      <parameter id="kmdiff_r" name="Reverse membrane diffusion rate" value="0.01" constant="true"/>
+      <parameter id="kd" name="Degradation rate" value="0.0075" constant="true"/>
+      <parameter id="kecd" name="Extracellular degradation rate" value="0.005" constant="true"/>
+      <parameter id="nc" name="Stoichiometry of binding" value="2" constant="true"/>
+      <parameter id="nr" name="Initial RNAP count" value="30" constant="true"/>
+      <parameter id="ko" name="Open complex production rate" value="0.05" constant="true"/>
+      <parameter id="kb" name="Basal production rate" value="0.0001" constant="true"/>
+      <parameter id="ng" name="Initial promoter count" value="2" constant="true"/>
+      <parameter id="np" name="Stoichiometry of production" value="10" constant="true"/>
+      <parameter id="ka" name="Activated production rate" value="0.25" constant="true"/>
+      <parameter id="kecdiff" name="Extracellular diffusion rate" value="1" constant="true"/>
+      <parameter id="QuorumTrigger__locations" constant="false">
+        <annotation><custom xmlns="http://custom/namespace">(0,0)=[[C1]], (0,1)=[[C2]], (0,2)=[[C3]], (0,3)=[[C4]], (1,0)=[[C9]], (1,1)=[[C10]], (1,2)=[[C11]], (1,3)=[[C12]], (2,0)=[[C17]], (2,1)=[[C18]], (2,2)=[[C19]], (2,3)=[[C20]], (3,0)=[[C25]], (3,1)=[[C26]], (3,2)=[[C27]], (3,3)=[[C28]]</custom></annotation>
+      </parameter>
+      <parameter id="QuorumTrigger_size" value="16" constant="false"/>
+    </listOfParameters>
+    <listOfReactions>
+      <reaction id="Degradation_LuxI" reversible="false" fast="false" compartment="default">
+        <annotation><custom xmlns="http://custom/namespace">Type=Grid</custom></annotation>
+        <listOfReactants>
+          <speciesReference species="LuxI" stoichiometry="1" constant="false"/>
+        </listOfReactants>
+        <kineticLaw>
+          <math xmlns="http://www.w3.org/1998/Math/MathML">
+            <apply>
+              <times/>
+              <ci> kecd </ci>
+              <apply>
+                <ci> get2DArrayElement </ci>
+                <ci> LuxI </ci>
+                <ci> i </ci>
+                <ci> j </ci>
+              </apply>
+            </apply>
+          </math>
+          <listOfLocalParameters>
+            <localParameter id="i">
+              <annotation>
+                <array:array xmlns:array="http://www.fakeuri.com" array:min="0" array:max="4"/>
+              </annotation>
+            </localParameter>
+            <localParameter id="j">
+              <annotation>
+                <array:array xmlns:array="http://www.fakeuri.com" array:min="0" array:max="4"/>
+              </annotation>
+            </localParameter>
+            <localParameter id="kecd" value="0.005" units="u_1_second_n1"/>
+          </listOfLocalParameters>
+        </kineticLaw>
+      </reaction>
+      <reaction id="Diffusion_LuxI_Above" reversible="true" fast="false" compartment="default">
+        <annotation><custom xmlns="http://custom/namespace">Type=Grid</custom></annotation>
+        <listOfReactants>
+          <speciesReference species="LuxI" stoichiometry="1" constant="false"/>
+        </listOfReactants>
+        <listOfProducts>
+          <speciesReference species="LuxI" stoichiometry="1" constant="false"/>
+        </listOfProducts>
+        <kineticLaw>
+          <math xmlns="http://www.w3.org/1998/Math/MathML">
+            <apply>
+              <minus/>
+              <apply>
+                <times/>
+                <ci> kecdiff </ci>
+                <apply>
+                  <ci> get2DArrayElement </ci>
+                  <ci> LuxI </ci>
+                  <ci> i </ci>
+                  <ci> j </ci>
+                </apply>
+              </apply>
+              <apply>
+                <times/>
+                <ci> kecdiff </ci>
+                <apply>
+                  <ci> get2DArrayElement </ci>
+                  <ci> LuxI </ci>
+                  <apply>
+                    <minus/>
+                    <ci> i </ci>
+                    <cn type="integer"> 1 </cn>
+                  </apply>
+                  <apply>
+                    <plus/>
+                    <ci> j </ci>
+                    <cn type="integer"> 0 </cn>
+                  </apply>
+                </apply>
+              </apply>
+            </apply>
+          </math>
+          <listOfLocalParameters>
+            <localParameter id="i">
+              <annotation>
+                <array:array xmlns:array="http://www.fakeuri.com" array:min="0" array:max="4"/>
+              </annotation>
+            </localParameter>
+            <localParameter id="j">
+              <annotation>
+                <array:array xmlns:array="http://www.fakeuri.com" array:min="0" array:max="4"/>
+              </annotation>
+            </localParameter>
+            <localParameter id="kecdiff" value="1" units="u_1_second_n1"/>
+          </listOfLocalParameters>
+        </kineticLaw>
+      </reaction>
+      <reaction id="Diffusion_LuxI_Below" reversible="true" fast="false" compartment="default">
+        <annotation><custom xmlns="http://custom/namespace">Type=Grid</custom></annotation>
+        <listOfReactants>
+          <speciesReference species="LuxI" stoichiometry="1" constant="false"/>
+        </listOfReactants>
+        <listOfProducts>
+          <speciesReference species="LuxI" stoichiometry="1" constant="false"/>
+        </listOfProducts>
+        <kineticLaw>
+          <math xmlns="http://www.w3.org/1998/Math/MathML">
+            <apply>
+              <minus/>
+              <apply>
+                <times/>
+                <ci> kecdiff </ci>
+                <apply>
+                  <ci> get2DArrayElement </ci>
+                  <ci> LuxI </ci>
+                  <ci> i </ci>
+                  <ci> j </ci>
+                </apply>
+              </apply>
+              <apply>
+                <times/>
+                <ci> kecdiff </ci>
+                <apply>
+                  <ci> get2DArrayElement </ci>
+                  <ci> LuxI </ci>
+                  <apply>
+                    <plus/>
+                    <ci> i </ci>
+                    <cn type="integer"> 1 </cn>
+                  </apply>
+                  <apply>
+                    <plus/>
+                    <ci> j </ci>
+                    <cn type="integer"> 0 </cn>
+                  </apply>
+                </apply>
+              </apply>
+            </apply>
+          </math>
+          <listOfLocalParameters>
+            <localParameter id="i">
+              <annotation>
+                <array:array xmlns:array="http://www.fakeuri.com" array:min="0" array:max="4"/>
+              </annotation>
+            </localParameter>
+            <localParameter id="j">
+              <annotation>
+                <array:array xmlns:array="http://www.fakeuri.com" array:min="0" array:max="4"/>
+              </annotation>
+            </localParameter>
+            <localParameter id="kecdiff" value="1" units="u_1_second_n1"/>
+          </listOfLocalParameters>
+        </kineticLaw>
+      </reaction>
+      <reaction id="Diffusion_LuxI_Left" reversible="true" fast="false" compartment="default">
+        <annotation><custom xmlns="http://custom/namespace">Type=Grid</custom></annotation>
+        <listOfReactants>
+          <speciesReference species="LuxI" stoichiometry="1" constant="false"/>
+        </listOfReactants>
+        <listOfProducts>
+          <speciesReference species="LuxI" stoichiometry="1" constant="false"/>
+        </listOfProducts>
+        <kineticLaw>
+          <math xmlns="http://www.w3.org/1998/Math/MathML">
+            <apply>
+              <minus/>
+              <apply>
+                <times/>
+                <ci> kecdiff </ci>
+                <apply>
+                  <ci> get2DArrayElement </ci>
+                  <ci> LuxI </ci>
+                  <ci> i </ci>
+                  <ci> j </ci>
+                </apply>
+              </apply>
+              <apply>
+                <times/>
+                <ci> kecdiff </ci>
+                <apply>
+                  <ci> get2DArrayElement </ci>
+                  <ci> LuxI </ci>
+                  <apply>
+                    <plus/>
+                    <ci> i </ci>
+                    <cn type="integer"> 0 </cn>
+                  </apply>
+                  <apply>
+                    <minus/>
+                    <ci> j </ci>
+                    <cn type="integer"> 1 </cn>
+                  </apply>
+                </apply>
+              </apply>
+            </apply>
+          </math>
+          <listOfLocalParameters>
+            <localParameter id="i">
+              <annotation>
+                <array:array xmlns:array="http://www.fakeuri.com" array:min="0" array:max="4"/>
+              </annotation>
+            </localParameter>
+            <localParameter id="j">
+              <annotation>
+                <array:array xmlns:array="http://www.fakeuri.com" array:min="0" array:max="4"/>
+              </annotation>
+            </localParameter>
+            <localParameter id="kecdiff" value="1" units="u_1_second_n1"/>
+          </listOfLocalParameters>
+        </kineticLaw>
+      </reaction>
+      <reaction id="Diffusion_LuxI_Right" reversible="true" fast="false" compartment="default">
+        <annotation><custom xmlns="http://custom/namespace">Type=Grid</custom></annotation>
+        <listOfReactants>
+          <speciesReference species="LuxI" stoichiometry="1" constant="false"/>
+        </listOfReactants>
+        <listOfProducts>
+          <speciesReference species="LuxI" stoichiometry="1" constant="false"/>
+        </listOfProducts>
+        <kineticLaw>
+          <math xmlns="http://www.w3.org/1998/Math/MathML">
+            <apply>
+              <minus/>
+              <apply>
+                <times/>
+                <ci> kecdiff </ci>
+                <apply>
+                  <ci> get2DArrayElement </ci>
+                  <ci> LuxI </ci>
+                  <ci> i </ci>
+                  <ci> j </ci>
+                </apply>
+              </apply>
+              <apply>
+                <times/>
+                <ci> kecdiff </ci>
+                <apply>
+                  <ci> get2DArrayElement </ci>
+                  <ci> LuxI </ci>
+                  <apply>
+                    <plus/>
+                    <ci> i </ci>
+                    <cn type="integer"> 0 </cn>
+                  </apply>
+                  <apply>
+                    <plus/>
+                    <ci> j </ci>
+                    <cn type="integer"> 1 </cn>
+                  </apply>
+                </apply>
+              </apply>
+            </apply>
+          </math>
+          <listOfLocalParameters>
+            <localParameter id="i">
+              <annotation>
+                <array:array xmlns:array="http://www.fakeuri.com" array:min="0" array:max="4"/>
+              </annotation>
+            </localParameter>
+            <localParameter id="j">
+              <annotation>
+                <array:array xmlns:array="http://www.fakeuri.com" array:min="0" array:max="4"/>
+              </annotation>
+            </localParameter>
+            <localParameter id="kecdiff" value="1" units="u_1_second_n1"/>
+          </listOfLocalParameters>
+        </kineticLaw>
+      </reaction>
+      <reaction id="MembraneDiffusion_LuxI" reversible="true" fast="false" compartment="default">
+        <annotation><custom xmlns="http://custom/namespace">Type=Grid</custom></annotation>
+        <listOfReactants>
+          <speciesReference species="LuxI" stoichiometry="1" constant="false"/>
+        </listOfReactants>
+        <listOfProducts>
+          <speciesReference species="LuxI" stoichiometry="1" constant="false"/>
+        </listOfProducts>
+        <kineticLaw>
+          <math xmlns="http://www.w3.org/1998/Math/MathML">
+            <apply>
+              <minus/>
+              <apply>
+                <times/>
+                <apply>
+                  <ci> get2DArrayElement </ci>
+                  <ci> kmdiff_f </ci>
+                  <ci> i </ci>
+                  <ci> j </ci>
+                </apply>
+                <apply>
+                  <ci> get2DArrayElement </ci>
+                  <ci> LuxI </ci>
+                  <ci> i </ci>
+                  <ci> j </ci>
+                </apply>
+              </apply>
+              <apply>
+                <times/>
+                <apply>
+                  <ci> get2DArrayElement </ci>
+                  <ci> kmdiff_r </ci>
+                  <ci> i </ci>
+                  <ci> j </ci>
+                </apply>
+                <apply>
+                  <ci> get2DArrayElement </ci>
+                  <ci> LuxI </ci>
+                  <ci> i </ci>
+                  <ci> j </ci>
+                </apply>
+              </apply>
+            </apply>
+          </math>
+          <listOfLocalParameters>
+            <localParameter id="i">
+              <annotation>
+                <array:array xmlns:array="http://www.fakeuri.com" array:min="0" array:max="4"/>
+              </annotation>
+            </localParameter>
+            <localParameter id="j">
+              <annotation>
+                <array:array xmlns:array="http://www.fakeuri.com" array:min="0" array:max="4"/>
+              </annotation>
+            </localParameter>
+          </listOfLocalParameters>
+        </kineticLaw>
+      </reaction>
+    </listOfReactions>
+    
+    <comp:listOfSubmodels>
+      <comp:submodel comp:id="GRID__QuorumTrigger" comp:modelRef="QuorumTrigger">
+        <annotation><custom xmlns="http://custom/namespace">Count=16</custom></annotation>
+      </comp:submodel>
+    </comp:listOfSubmodels>
+  </model>
+  <comp:listOfExternalModelDefinitions>
+    <comp:externalModelDefinition comp:id="QuorumTrigger" comp:source="QuorumTrigger.xml">
+      <annotation/>
+    </comp:externalModelDefinition>
+  </comp:listOfExternalModelDefinitions>
+</sbml>

@@ -234,7 +234,7 @@ C_DECL_SPEC bool rrcCallConv isListItemDouble (RRListItemPtr item);
  \brief Returns true or false if the list item is a character array
 
  \param[in] item The list
- \return If true, then the list item holds an characeter array
+ \return If true, then the list item holds an character array
  \ingroup list
 */
 C_DECL_SPEC bool rrcCallConv isListItemString (RRListItemPtr item);
@@ -378,7 +378,7 @@ C_DECL_SPEC RRVectorPtr rrcCallConv createVector (int size);
  \param vector A pointer to the vector variable type
  \param index An integer indicating the ith element to retrieve (indexing is from zero)
  \param value A pointer to the retrieved double value
- \return Returns true if succesful
+ \return Returns true if successful
  \ingroup helperRoutines
 */
 C_DECL_SPEC bool rrcCallConv getVectorElement (RRVectorPtr vector, int index, double* value);
@@ -394,7 +394,7 @@ C_DECL_SPEC bool rrcCallConv getVectorElement (RRVectorPtr vector, int index, do
  \param vector A pointer to the vector variable type
  \param index An integer indicating the ith element to set (indexing is from zero)
  \param value The value to store in the vector at the indexth position
- \return Returns true if succesful
+ \return Returns true if successful
  \ingroup helperRoutines
 */
 C_DECL_SPEC bool rrcCallConv setVectorElement (RRVectorPtr vector, int index, double value);
@@ -452,7 +452,7 @@ C_DECL_SPEC int rrcCallConv getMatrixNumCols (RRDoubleMatrixPtr m);
  \param[in] r The row index to the matrix
  \param[in] c The column index to the matrix
  \param[out] value The retrieved value from the matrix
- \return Returns True if succesful
+ \return Returns True if successful
  \ingroup helperRoutines
 */
 C_DECL_SPEC bool rrcCallConv getMatrixElement (RRDoubleMatrixPtr m, int r, int c, double* value);
@@ -471,7 +471,7 @@ C_DECL_SPEC bool rrcCallConv getMatrixElement (RRDoubleMatrixPtr m, int r, int c
  \param[in] r The row index to the matrix
  \param[in] c The column index to the matrix
  \param[out] value The value to set to the matrix element
- \return Returns True if succesful
+ \return Returns True if successful
  \ingroup helperRoutines
 */
 C_DECL_SPEC bool rrcCallConv setMatrixElement (RRDoubleMatrixPtr m, int r, int c, double value);
@@ -491,7 +491,7 @@ C_DECL_SPEC bool rrcCallConv setMatrixElement (RRDoubleMatrixPtr m, int r, int c
  \param[in] r The row index to the matrix
  \param[in] c The column index to the matrix
  \param[out] value The retrieved value from the matrix
- \return Returns True if succesful
+ \return Returns True if successful
  \ingroup helperRoutines
 */
 C_DECL_SPEC bool rrcCallConv getComplexMatrixElement (RRComplexMatrixPtr m, int r, int c, RRComplexPtr value);
@@ -511,7 +511,7 @@ C_DECL_SPEC bool rrcCallConv getComplexMatrixElement (RRComplexMatrixPtr m, int 
  \param[in] r The row index to the matrix
  \param[in] c The column index to the matrix
  \param[out] value The value to set to the complex matrix element
- \return Returns True if succesful
+ \return Returns True if successful
  \ingroup helperRoutines
 */
 C_DECL_SPEC bool rrcCallConv setComplexMatrixElement (RRComplexMatrixPtr m, int r, int c, RRComplexPtr value);
@@ -525,7 +525,7 @@ C_DECL_SPEC bool rrcCallConv setComplexMatrixElement (RRComplexMatrixPtr m, int 
 C_DECL_SPEC RRCDataPtr rrcCallConv createRRCData(RRDataHandle rrData);
 
 /*!
- \brief Retrieve the number of rows in the given RoadRunner numberical data (returned from simulate(RRHandle handle))
+ \brief Retrieve the number of rows in the given RoadRunner numerical data (returned from simulate(RRHandle handle))
 
  Example: \code nRows = getRRDataNumRows (result); \endcode
 
@@ -536,7 +536,7 @@ C_DECL_SPEC RRCDataPtr rrcCallConv createRRCData(RRDataHandle rrData);
 C_DECL_SPEC int rrcCallConv getRRDataNumRows (RRCDataPtr rrData);
 
 /*!
- \brief Retrieve the number of columns in the given rrData data (returned form simulat(RRHandle handle))
+ \brief Retrieve the number of columns in the given rrData data (returned form simulate(RRHandle handle))
 
  Example: \code nRows = getResultNumCols (rrData); \endcode
 
@@ -557,7 +557,7 @@ C_DECL_SPEC int rrcCallConv getRRDataNumCols (RRCDataPtr rrData);
  \param[in] r -The row index to the rrData data
  \param[in] c - The column index to the rrData data
  \param[out] value - The retrieved value from the rrData data
- \return Returns true if succesful
+ \return Returns true if successful
  \ingroup helperRoutines
 */
 C_DECL_SPEC bool rrcCallConv getRRCDataElement (RRCDataPtr rrData, int r, int c, double *value);
@@ -656,7 +656,7 @@ C_DECL_SPEC char* rrcCallConv listToString(const RRListPtr list);
  \brief Writes RoadRunner data to file
  \param handle Handle to a Roadrunner Instance
  \param fileNameAndPath Pointer to string holding the file(with path) to write data to
- \return Returna a boolean indicating the result
+ \return Returns a boolean indicating the result
  \ingroup helperRoutines
 */
 C_DECL_SPEC bool rrcCallConv writeRRData(RRHandle handle, const char* fileNameAndPath);
@@ -668,7 +668,7 @@ C_DECL_SPEC bool rrcCallConv writeRRData(RRHandle handle, const char* fileNameAn
  \brief Compiles source code
  \param handle Handle to a RRInstance
  \param sourceFileNameAndPath Pointer to string holding the file(with path) to compile
- \return Returna a boolean indicating the result
+ \return Returns a boolean indicating the result
  \ingroup helperRoutines
 */
 C_DECL_SPEC bool rrcCallConv compileSource(RRHandle handle, const char* sourceFileNameAndPath);

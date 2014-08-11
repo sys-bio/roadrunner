@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- The file 'new_aggregate.xml' is actually in the subdirectory 'subdir', so you have to tell the converter to look there, or this model cannot be flattened.-->
+<sbml xmlns="http://www.sbml.org/sbml/level3/version1/core" xmlns:comp="http://www.sbml.org/sbml/level3/version1/comp/version1" level="3" version="1" comp:required="true">
+  <model>
+    <comp:listOfSubmodels>
+      <comp:submodel comp:id="A" comp:modelRef="EM1"/>
+    </comp:listOfSubmodels>
+  </model>
+  <comp:listOfExternalModelDefinitions>
+    <comp:externalModelDefinition comp:id="EM1" comp:source="new_aggregate.xml" comp:modelRef="enzyme"/>
+  </comp:listOfExternalModelDefinitions>
+</sbml>
