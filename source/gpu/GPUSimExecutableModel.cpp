@@ -403,7 +403,7 @@ void GPUSimExecutableModel::evalReactionRates()
     throw_gpusim_exception("not supported");
 }
 
-int GPUSimExecutableModel::getNumRules()
+int GPUSimExecutableModel::getNumRateRules()
 {
     throw_gpusim_exception("not supported");
 }
