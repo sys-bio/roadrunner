@@ -65,7 +65,7 @@ int main(int argc, char* argv[])
      fstream aFile(reportFile.c_str(), ios::out);
     if(!aFile)
     {
-        cerr<<"Failed opening report file: "<<reportFile<<" in rrc_api testing executable.\n";
+        cerr<<"Failed opening report file: "<< reportFile <<" in rrc_api testing executable.\n";
         return false;
     }
 
@@ -100,14 +100,14 @@ int main(int argc, char* argv[])
     {
 
         clog << "Running Suite SBML_l2v4\n";
-        clog << "ModelPath " << gTSModelsPath;
+        clog << "ModelPath " << gTSModelsPath << endl;
         runner1.RunTestsIf(Test::GetTestList(), "SBML_TEST_SUITE", True(), 0);
     }
     if (args.Suites.find('F') != std::string::npos)
     {
 
         clog << "Running Suite Valgrind SBML_TEST_SUITE_VG1\n";
-        clog << "ModelPath " << gTSModelsPath;
+        clog << "ModelPath " << gTSModelsPath<< endl;
         runner1.RunTestsIf(Test::GetTestList(), "SBML_TEST_SUITE_VG1", True(),
                 0);
     }
@@ -116,7 +116,7 @@ int main(int argc, char* argv[])
     {
 
         clog << "Running Suite Valgrind SBML_TEST_SUITE_VG2\n";
-        clog << "ModelPath " << gTSModelsPath;
+        clog << "ModelPath " << gTSModelsPath << endl;
         runner1.RunTestsIf(Test::GetTestList(), "SBML_TEST_SUITE_VG2", True(),
                 0);
     }
@@ -125,7 +125,7 @@ int main(int argc, char* argv[])
     {
 
         clog << "Running Suite Valgrind SBML_TEST_SUITE_RATE_RULES\n";
-        clog << "ModelPath " << gTSModelsPath;
+        clog << "ModelPath " << gTSModelsPath << endl;
         runner1.RunTestsIf(Test::GetTestList(), "SBML_TEST_SUITE_RATE_RULES", True(),
                 0);
     }
@@ -134,7 +134,7 @@ int main(int argc, char* argv[])
     {
 
         clog << "Running Suite Valgrind SBML_TEST_SUITE_EVENTS\n";
-        clog << "ModelPath " << gTSModelsPath;
+        clog << "ModelPath " << gTSModelsPath << endl;
         runner1.RunTestsIf(Test::GetTestList(), "SBML_TEST_SUITE_EVENTS", True(),
                 0);
     }
@@ -151,7 +151,7 @@ int main(int argc, char* argv[])
     if (args.Suites.find('K') != std::string::npos)
     {
         clog << "Running Suite SBML_TEST_SUITE_LONGTIME\n";
-        clog << "ModelPath " << gTSModelsPath;
+        clog << "ModelPath " << gTSModelsPath<< endl;
         runner1.RunTestsIf(Test::GetTestList(), "SBML_TEST_SUITE_LONGTIME", True(),
                            0);
     }
@@ -160,8 +160,17 @@ int main(int argc, char* argv[])
     if (args.Suites.find('L') != std::string::npos)
     {
         clog << "Running Suite SBML_TEST_SUITE_COMP\n";
-        clog << "ModelPath " << gTSModelsPath;
+        clog << "ModelPath " << gTSModelsPath<< endl;
         runner1.RunTestsIf(Test::GetTestList(), "SBML_TEST_SUITE_COMP", True(), 0);
+    }
+
+
+    // composite model package.
+    if (args.Suites.find('M') != std::string::npos)
+    {
+        clog << "Running Suite SBML_TEST_SUITE_FBC\n";
+        clog << "ModelPath " << gTSModelsPath << endl;
+        runner1.RunTestsIf(Test::GetTestList(), "SBML_TEST_SUITE_FBC", True(), 0);
     }
 
 

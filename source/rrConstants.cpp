@@ -24,6 +24,7 @@ const float         gFloatNaN                    = std::numeric_limits<float>::q
 const string        gEmptyModelMessage             = "A model needs to be loaded before one can use this method";
 
 
+#if defined(_WIN32) || defined(__CODEGEARC__)
     const char           gPathSeparator      = '\\';
     const string        gExeSuffix          = ".exe";
 #elif defined(__unix__) || defined(__APPLE__)
