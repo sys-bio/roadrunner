@@ -581,5 +581,73 @@ int GPUSimExecutableModel::getGlobalParameterInitValues(int len, const int *indx
 #endif /***********************************************************************/
 /******************************************************************************/
 
+/******************************* Events Section *******************************/
+#if (1) /**********************************************************************/
+/******************************************************************************/
+
+int getNumEvents()
+{
+    throw_gpusim_exception("not supported");
+}
+
+int getEventTriggers(int len, const int *indx, unsigned char *values)
+{
+    throw_gpusim_exception("not supported");
+}
+
+void applyEvents(double timeEnd, const unsigned char* previousEventStatus,
+	    const double *initialState, double* finalState)
+{
+    throw_gpusim_exception("not supported");
+}
+
+int applyPendingEvents(const double *stateVector, double timeEnd, double tout)
+{
+    throw_gpusim_exception("not supported");
+}
+
+void getEventRoots(double time, const double* y, double* gdot)
+{
+    throw_gpusim_exception("not supported");
+}
+
+double getNextPendingEventTime(bool pop)
+{
+    throw_gpusim_exception("not supported");
+}
+
+int getPendingEventSize()
+{
+    throw_gpusim_exception("not supported");
+}
+
+void resetEvents()
+{
+    throw_gpusim_exception("not supported");
+}
+
+int getEventIndex(const std::string& eid)
+{
+    throw_gpusim_exception("not supported");
+}
+
+std::string getEventId(int index)
+{
+    throw_gpusim_exception("not supported");
+}
+
+void setEventListener(int index, rr::EventListenerPtr eventHandler)
+{
+    throw_gpusim_exception("not supported");
+}
+
+rr::EventListenerPtr getEventListener(int index)
+{
+    throw_gpusim_exception("not supported");
+}
+
+/******************************* Events Section *******************************/
+  #endif /**********************************************************************/
+/******************************************************************************/
 
 } /* namespace rrgpu */
