@@ -162,14 +162,21 @@ C_DECL_SPEC RRStringArrayPtr               createList(const rrc::StringList& lis
 */
 C_DECL_SPEC RRListPtr                      createArrayList(const ArrayList& list);
 
-//Result data
-/*!
- \brief Creates a RRData structure from rr::RoadRunnerData object
- \param[in] data  Input RoadRunner data
- \return A handle to a RRData structure. Null if it fails
- \ingroup cpp_support
-*/
+/**
+ * @deprecated
+ *
+ * RoadRunnerData is going away.
+ */
 C_DECL_SPEC RRCDataPtr    createRRCData(const rr::RoadRunnerData& data);
+
+/**
+ * Creates an RRCDataPtr from the current state of a RoadRunner object.
+ *
+ * This may be used directly after RoadRunner::simulate() has been called
+ * to package up the simulation result data and column names into one of
+ * these RRCDataPtr structs.
+ */
+C_DECL_SPEC RRCDataPtr    createRRCData(const rr::RoadRunner&);
 
 }
 #endif

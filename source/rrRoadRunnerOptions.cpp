@@ -293,7 +293,7 @@ bool SimulateOptions::hasKey(const std::string& key) const
 
 SimulateOptions::IntegratorType SimulateOptions::getIntegratorType(Integrator i)
 {
-    if (i == CVODE) {
+    if (i == CVODE || i == RK4) {
         return DETERMINISTIC;
     } else {
         return STOCHASTIC;
@@ -325,59 +325,90 @@ std::string SimulateOptions::toString() const
 {
     std::stringstream ss;
 
+    ss << "< roadrunner.SimulateOptions() " << endl << "{ "
+            << endl << "'this' : " << (void*)this << ", " << std::endl;
+
     ss << "integrator: ";
     if (integrator == CVODE) {
-        ss << "cvode" << std::endl;
+        ss << "\"cvode\"," << std::endl;
     }
 
     else if (integrator == GILLESPIE ) {
-        ss << "gillespie" << std::endl;
+        ss << "\"gillespie\"," << std::endl;
     }
 
     else {
-        ss << "unknown" << std::endl;
+        ss << "\"unknown\"," << std::endl;
     }
 
-    ss << "stiff: " << BITFIELD2STR(integratorFlags & STIFF) << std::endl;
+    ss << "'stiff' : " << BITFIELD2STR(integratorFlags & STIFF) << "," << std::endl;
 
-    ss << "multiStep: " << BITFIELD2STR(integratorFlags & MULTI_STEP) << std::endl;
+    ss << "'multiStep' : " << BITFIELD2STR(integratorFlags & MULTI_STEP) << "," <<  std::endl;
 
-    ss << "variableStep: " << BITFIELD2STR(integratorFlags & VARIABLE_STEP) << std::endl;
+    ss << "'variableStep' : " << BITFIELD2STR(integratorFlags & VARIABLE_STEP) << "," <<  std::endl;
 
-    ss << "reset: " << BITFIELD2STR(flags & RESET_MODEL) << std::endl;
+    ss << "'reset' : " << BITFIELD2STR(flags & RESET_MODEL) << "," <<  std::endl;
 
-    ss << "structuredResult: " << BITFIELD2STR(flags & STRUCTURED_RESULT) << std::endl;
+    ss << "'structuredResult' : " << BITFIELD2STR(flags & STRUCTURED_RESULT) << "," <<  std::endl;
 
-    ss << "copyResult: " << BITFIELD2STR(flags & COPY_RESULT) << std::endl;
+    ss << "'copyResult' : " << BITFIELD2STR(flags & COPY_RESULT) << "," <<  std::endl;
 
-    ss << "steps: " << steps << std::endl;
+    ss << "'steps' : " << steps << "," <<  std::endl;
 
-    ss << "start: " << start << std::endl;
+    ss << "'start' : " << start << "," <<  std::endl;
 
-    ss << "duration: " << duration << std::endl;
+    ss << "'duration' : " << duration << "," <<  std::endl;
 
-    ss << "relative: " << relative << std::endl;
+    ss << "'relative' : " << relative << "," <<  std::endl;
 
-    ss << "absolute: " << absolute << std::endl;
+    ss << "'absolute' : " << absolute << "," <<  std::endl;
 
-    ss << "initialTimeStep: " << initialTimeStep << std::endl;
+    ss << "'initialTimeStep' : " << initialTimeStep << "," <<  std::endl;
 
-    ss << "minimumTimeStep: " << minimumTimeStep << std::endl;
+    ss << "'minimumTimeStep' : " << minimumTimeStep << "," <<  std::endl;
 
-    ss << "maximumTimeStep: " << maximumTimeStep << std::endl;
+    ss << "'maximumTimeStep' : " << maximumTimeStep << "," <<  std::endl;
 
-    ss << "maximumNumSteps: " << maximumNumSteps << std::endl;
+    ss << "'maximumNumSteps' : " << maximumNumSteps;
+
+    std::vector<std::string> keys = getKeys();
+
+    if (keys.size() > 0) {
+        ss << "," << std::endl;
+    }
+
+    for(std::vector<std::string>::iterator i = keys.begin(); i != keys.end(); ++i)
+    {
+        ss << "'" << *i << "' : ";
+        ss << getValue(*i).toString();
+
+        if (std::distance(i, keys.end()) > 1) {
+            ss << ", " << std::endl;
+        }
+    }
+
+    ss << std::endl << "}>";
 
     return ss.str();
 }
 
-SimulateOptions::Integrator SimulateOptions::getIntegratorId(const std::string& _name)
+
+
+std::string SimulateOptions::toRepr() const
+{
+    std::stringstream ss;
+    ss << "< roadrunner.SimulateOptions() { 'this' : "
+            << (void*)this << " }>";
+    return ss.str();
+}
+
+SimulateOptions::Integrator SimulateOptions::getIntegratorIdFromName(const std::string& _name)
 {
     std::string name = _name;
     std::transform(name.begin(), name.end(), name.begin(), ::toupper);
 
     for (unsigned i = 0; i < INTEGRATOR_END; ++i) {
-        std::string iname = getIntegratorName((Integrator)i);
+        std::string iname = getIntegratorNameFromId((Integrator)i);
         std::transform(iname.begin(), iname.end(), iname.begin(), ::toupper);
 
         if (iname == name) {
@@ -387,6 +418,7 @@ SimulateOptions::Integrator SimulateOptions::getIntegratorId(const std::string& 
 
     throw std::invalid_argument("invalid integrator name");
 }
+
 
 void SimulateOptions::tweakTolerances()
 {
@@ -403,9 +435,33 @@ void SimulateOptions::tweakTolerances()
     }
 }
 
-std::string SimulateOptions::getIntegratorName(Integrator integrator)
+void SimulateOptions::setIntegrator(Integrator value)
 {
-    static const char* names[] = {"cvode", "gillespie"};
+    // set the value
+    integrator = value;
+
+    // adjust the value of the VARIABLE_STEP based on wether we are choosing
+    // stochastic or deterministic integrator.
+    bool vs = false;
+
+    if (rr::SimulateOptions::getIntegratorType(value) == rr::SimulateOptions::STOCHASTIC) {
+        vs = rr::Config::getBool(rr::Config::SIMULATEOPTIONS_STOCHASTIC_VARIABLE_STEP);
+    }
+
+    else if (rr::SimulateOptions::getIntegratorType(value) == rr::SimulateOptions::DETERMINISTIC) {
+        vs = rr::Config::getBool(rr::Config::SIMULATEOPTIONS_DETERMINISTIC_VARIABLE_STEP);
+    }
+
+    if (vs) {
+        integratorFlags |= rr::SimulateOptions::VARIABLE_STEP;
+    } else {
+        integratorFlags &= ~rr::SimulateOptions::VARIABLE_STEP;
+    }
+}
+
+std::string SimulateOptions::getIntegratorNameFromId(Integrator integrator)
+{
+    static const char* names[] = {"cvode", "gillespie", "rk4"};
 
     if (integrator >= 0 && integrator < INTEGRATOR_END)
     {

@@ -185,7 +185,7 @@ LLVMModelDataSymbols::LLVMModelDataSymbols(const libsbml::Model *model,
     }
 
     // get the compartments, need to reorder them to set the independent ones
-    // first
+    // first. Make sure compartments is called *before* float species.
     initCompartments(model);
 
 
@@ -667,6 +667,9 @@ void LLVMModelDataSymbols::initGlobalParameters(const libsbml::Model* model,
     if (conservedMoieties)
     {
         conservedMoietyGlobalParameter.resize(indParam.size(), false);
+
+        // allocate space, could be up this many.
+        conservedMoietyGlobalParameterIndex.reserve(indParam.size());
     }
 
     for (list<string>::const_iterator i = indParam.begin();
@@ -679,8 +682,13 @@ void LLVMModelDataSymbols::initGlobalParameters(const libsbml::Model* model,
         if (conservedMoieties)
         {
             const Parameter* p = parameters->get(*i);
-            conservedMoietyGlobalParameter[pi] =
-                    ConservationExtension::getConservedMoiety(*p);
+            bool isCons = ConservationExtension::getConservedMoiety(*p);
+            conservedMoietyGlobalParameter[pi] = isCons;
+
+            if (isCons)
+            {
+                conservedMoietyGlobalParameterIndex.push_back(pi);
+            }
         }
     }
 
@@ -856,6 +864,22 @@ void LLVMModelDataSymbols::initFloatingSpecies(const libsbml::Model* model,
     {
         uint si = floatingSpeciesMap.size();
         floatingSpeciesMap[*i] = si;
+
+        // now that we know how many float species we have, we
+        // can map these to the conserved moieties.
+        // assume that the cm order (T vector) matches the order
+        // that the CM species were added.
+        if (computeAndAssignConsevationLaws)
+        {
+            // look in the set we just made
+            if (conservedMoietySpeciesSet.find(*i) !=
+                    conservedMoietySpeciesSet.end())
+            {
+                // keep incrementing the size each time we add one.
+                uint cmIndex = floatingSpeciesToConservedMoietyIdMap.size();
+                floatingSpeciesToConservedMoietyIdMap[si] = cmIndex;
+            }
+        }
     }
 
     // stuff the species in the map
@@ -876,6 +900,27 @@ void LLVMModelDataSymbols::initFloatingSpecies(const libsbml::Model* model,
     // finally set how many ind species we've found
     independentFloatingSpeciesSize = indFltSpecies.size();
     independentInitFloatingSpeciesSize = indInitFltSpecies.size();
+
+    // map the float species to their compartments.
+    floatingSpeciesCompartmentIndices.resize(floatingSpeciesMap.size());
+
+    for(StringUIntMap::const_iterator i = floatingSpeciesMap.begin();
+            i != floatingSpeciesMap.end(); ++i)
+    {
+        const Species* s = model->getSpecies(i->first);
+        assert(s && "known species is NULL");
+        StringUIntMap::const_iterator j =
+                compartmentsMap.find(s->getCompartment());
+        if (j == compartmentsMap.end())
+        {
+            throw_llvm_exception("species " + s->getId() +
+                    " references unknown compartment " + s->getCompartment());
+        }
+
+        assert(i->second < floatingSpeciesCompartmentIndices.size());
+        assert(j->second < compartmentsMap.size());
+        floatingSpeciesCompartmentIndices[i->second] = j->second;
+    }
 
     if (Logger::LOG_DEBUG <= getLogger().getLevel())
     {
@@ -990,6 +1035,27 @@ std::string LLVMModelDataSymbols::getGlobalParameterId(uint indx) const
     }
 
     throw std::out_of_range("attempted to access global parameter id at index " + rr::toString(indx));
+}
+
+uint LLVMModelDataSymbols::getCompartmentIndexForFloatingSpecies(
+        uint floatIndex) const
+{
+    if (floatIndex >= floatingSpeciesCompartmentIndices.size())
+    {
+         throw std::out_of_range(std::string("index out of range in ") + __FUNC__);
+    }
+    return floatingSpeciesCompartmentIndices[floatIndex];
+}
+
+bool LLVMModelDataSymbols::isConservedMoietySpecies(uint id, uint& result) const
+{
+    UIntUIntMap::const_iterator i = floatingSpeciesToConservedMoietyIdMap.find(id);
+    if (i != floatingSpeciesToConservedMoietyIdMap.end())
+    {
+        result = i->second;
+        return true;
+    }
+    return false;
 }
 
 /**
@@ -1461,5 +1527,49 @@ uint LLVMModelDataSymbols::getEventIndex(const std::string& id) const
     }
 }
 
+uint LLVMModelDataSymbols::getConservedMoietySize() const
+{
+    return conservedMoietyGlobalParameterIndex.size();
+}
+
+uint LLVMModelDataSymbols::getConservedMoietyGlobalParameterIndex(
+        uint cmIndex) const
+{
+    if (cmIndex >= conservedMoietyGlobalParameterIndex.size())
+    {
+        throw std::out_of_range("attempt to access conserved moiety to global "
+                "param array at index" + rr::toString(cmIndex));
+    }
+    return conservedMoietyGlobalParameterIndex[cmIndex];
+}
+
+std::string LLVMModelDataSymbols::getConservedMoietyId(uint indx) const
+{
+    return getGlobalParameterId(
+            getConservedMoietyGlobalParameterIndex(indx));
+}
+
+uint LLVMModelDataSymbols::getConservedMoietyIndex(
+        const std::string& name) const
+{
+    // rarely used method, less space than another map...
+
+    // throws if not found.
+    uint gp = getGlobalParameterIndex(name);
+
+    for (std::vector<uint>::const_iterator i =
+            conservedMoietyGlobalParameterIndex.begin();
+            i != conservedMoietyGlobalParameterIndex.end(); ++i)
+    {
+        if (*i == gp)
+        {
+            return *i;
+        }
+    }
+
+    throw std::out_of_range("The symbol \"" + name + "\" is not a conserved moeity");
+}
+
 } /* namespace rr */
+
 

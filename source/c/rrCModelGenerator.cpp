@@ -22,6 +22,14 @@ using namespace std;
 using namespace ls;
 using namespace libsbml;
 
+static string getSupportCodeDir(const std::string supdir) {
+    if (supdir.empty()) {
+        return joinPath("..", "rr_support");
+    } else {
+        return supdir;
+    }
+}
+
 
 
 Mutex               CModelGenerator::mCompileMutex;
@@ -29,10 +37,14 @@ Mutex               CModelGenerator::mCompileMutex;
 CModelGenerator::CModelGenerator(const string& tempFolder, const string& supportCodeFolder, const string& compiler)
 :
 CompiledModelGenerator(),
-mTempFileFolder(tempFolder),
-mCompiler(supportCodeFolder, compiler),
+mCompiler(getSupportCodeDir(supportCodeFolder), compiler),
 mModelLib(0)
 {
+    if (tempFolder.empty()) {
+        mTempFileFolder = getTempDir();
+    } else {
+        mTempFileFolder = tempFolder;
+    }
 }
 
 CModelGenerator::~CModelGenerator()
@@ -2449,14 +2461,14 @@ ExecutableModel *CModelGenerator::createModel(const string& sbml, LibStructural 
     else
     {
         Log(Logger::LOG_ERROR)<<"Failed to create model from DLL";
-        model = NULL;        
+        model = NULL;
     }
 
     if(!model)
     {
         throw(CoreException("Failed creating model"));
     }
-    
+
 
     //Finally intitilaize the model..
     model->evalInitialConditions();

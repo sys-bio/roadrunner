@@ -620,17 +620,43 @@ void CVODEIntegrator::loadConfig(const _xmlDoc* doc)
 
 void CVODEIntegrator::setValue(const std::string& key, const rr::Variant& value)
 {
+    if (key == "BDFMaxOrder")
+    {
+        mMaxBDFOrder = value.convert<int>();
+        if (options.integratorFlags & SimulateOptions::STIFF)
+        {
+            CVodeSetMaxOrd(mCVODE_Memory, mMaxBDFOrder);
+        }
+        return;
+    }
+    else if (key == "AdamsMaxOrder")
+    {
+        mMaxAdamsOrder = value.convert<int>();
+        if (!(options.integratorFlags & SimulateOptions::STIFF))
+        {
+            CVodeSetMaxOrd(mCVODE_Memory, mMaxAdamsOrder);
+        }
+        return;
+    }
     throw std::invalid_argument("invalid key: " + key);
 }
 
 Variant CVODEIntegrator::getValue(const std::string& key) const
 {
+    if (key == "BDFMaxOrder")
+    {
+        return mMaxBDFOrder;
+    }
+    else if (key == "AdamsMaxOrder")
+    {
+        return mMaxAdamsOrder;
+    }
     throw std::invalid_argument("invalid key: " + key);
 }
 
 bool CVODEIntegrator::hasKey(const std::string& key) const
 {
-    return false;
+    return key == "BDFMaxOrder" || key == "AdamsMaxOrder";
 }
 
 int CVODEIntegrator::deleteValue(const std::string& key)
@@ -640,13 +666,34 @@ int CVODEIntegrator::deleteValue(const std::string& key)
 
 std::vector<std::string> CVODEIntegrator::getKeys() const
 {
-    return std::vector<std::string>();
+    std::vector<std::string> keys;
+    keys.push_back("BDFMaxOrder");
+    keys.push_back("AdamsMaxOrder");
+    return keys;
 }
 
 
 std::string CVODEIntegrator::toString() const
 {
-    return toRepr();
+    std::stringstream ss;
+    ss << "< roadrunner.CVODEIntegrator() " << endl << "{ "
+            << endl << "'this' : " << (void*)this << ", " << std::endl;
+
+    std::vector<std::string> keys = getKeys();
+
+    for(std::vector<std::string>::iterator i = keys.begin(); i != keys.end(); ++i)
+    {
+        ss << "'" << *i << "' : ";
+        ss << getValue(*i).toString();
+
+        if (i + 1 < keys.end()) {
+            ss << ", " << std::endl;
+        }
+    }
+
+    ss << endl << "}>";
+
+    return ss.str();
 }
 
 std::string CVODEIntegrator::toRepr() const
@@ -655,6 +702,11 @@ std::string CVODEIntegrator::toRepr() const
     ss << "< roadrunner.CVODEIntegrator() { 'this' : "
             << (void*)this << " }>";
     return ss.str();
+}
+
+std::string CVODEIntegrator::getName() const
+{
+    return "cvode";
 }
 
 static std::string cvodeDecodeError(int cvodeError, bool exInfo)
@@ -844,3 +896,5 @@ void cvodeErrHandler(int error_code, const char *module, const char *function,
 }
 
 }
+
+

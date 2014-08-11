@@ -1,3 +1,126 @@
+-- Version 1.2.5
+*  New parallel ensemble function and 'roadrunner.stochastic' python module.
+
+*  Added new example files to python package.
+
+*  New function in C API to create RRDataPtr directly from RoadRunner object, 
+   completly bypassing RoadRunnerData C++ object. 
+
+*  Conserved moiety species amounts and concentrations are directly mutable. 
+
+*  RoadRunner.reset is now very flexible, can reset a variety of values based on args.
+
+-- Version 1.2.4
+*   Extended information such as git branch and last commit available via 
+    getVersionStr()
+
+*   Test case for reduced / full Jacobian in both amount and concentration mode. 
+
+*   Reduced Jacobian now works in either amount or concentration mode.
+
+*   Added getFloatingSpeciesConcentrationRates() function to get rates of change
+    of floating species concentrations. 
+
+*   Made model reset smarter when resetting model with conserved moieties. If users
+    changes CMs, they will only be reset if users also changes init species cond.
+
+*   Correctly display CM ids.
+
+*   Major cleanup in handling temp dir path, added config value for specifiying
+    tmp dir and log file path. 
+
+*   Added model checks to getCurrentSBML, fixes with CM is enabled. 
+
+*   Merged Alex's documentation updates to C API. 
+
+*   Fixed bug with CM being displayed twice in items. 
+
+*   Fix bug when getting stoich matrix when CM is enabled. 
+
+*   New Runge-Kutta integrator, available via simulate using integrator="rk4". 
+
+*   Full Jacobian works in either concentration or amount mode. 
+
+*   Update make_docs.sh shell script to work with spaces in directory names. 
+
+*   More user proofing and robustness. 
+
+-- Version 1.2.3
+*   Improvments to error and display messeges.
+
+*   Integrator state is NOT reset when changing integrators, i.e. if one does a 
+
+       r.simulate(integrator="gillepsie") 
+       r.simulate(integrator="cvode") 
+       r.simulate(integrator="gillepsie") 
+
+    the state of the integrators (including the random number stream) continues from 
+    the previous state. 
+
+*   The 'seed' keyword argument to simulate resets the RNG to the given seed. All subsequent
+    calls to simulate pick up the RNG in its current state. The RNG is ONLY reset when the 
+    'seed' keyword argument is given. 
+
+*   Integrators now implement the dictionary protocol. For example, when using the Gilespie
+    integrator, it supports the following keys:
+
+        r.getIntegrator().keys()
+        ['seed', 'rand']
+
+*   The 'rand' value grabs the next random number from the stream, and the 'seed' resets the RNG 
+    to the given seed. 
+
+*   User specifiable RNG seed. The seed can be specified either via an optional 'seed' argument to
+        simulate, i.e.
+
+        r.simulate(0, 10, seed=23)
+
+    Or, can be specified via the SimulateOptions object, either with a new one, or the existing one:
+
+        o = SimulateOptions()
+        o.start = 0
+        o.end = 10
+        o.integrator = SimulateOptions.GILLESPIE
+        o['seed'] = 23 # SimulatOptions behaves as a dictionary, any new integrator specific values
+                       # can be added here.
+        r.simulate(o)
+
+    Or, the existing one can be modified:
+
+        r.simulateOptions['seed'] = 23
+
+    To get back to the default behavior of using the system time, just delete this value from the
+    existing object:
+
+        del r.simulatOptions['seed']
+
+*   Fixed an issue with conserved moieties not being calculated correctly with multi-compartment
+    models.
+
+*   Added getFullStoichiometryMatrix() and getReducedStochiometryMatrix() methods to RoadRunner
+    object. 
+
+*   Cleanup in steady state solver, introduced new configuration parameters for steady state solver:
+
+      STEADYSTATE_RELATIVE,
+      STEADYSTATE_MAXIMUM_NUM_STEPS,
+      STEADYSTATE_MINIMUM_DAMPING
+
+*   Initial value assignment rules now access the present value of parameters rather than their
+    initial value. 
+
+*   Never-ending memory leak fixes in libSBML. 
+
+*   Added support for global parameter rates via selections if the global parameter has a rate rule. 
+
+*   Fixed atanh but on Windows. 
+
+*   Fixed bug with incorrect model resetting when changing integrators. 
+
+*   Fixed row/column major bug with Python API. 
+
+*   python RoadRunner simulate returns (optionally) a copy of the simulation result.
+
 -- Version 1.2.2
 *   Fixed bug in Python simulate method not accepting 4'th position argument in certain cases.
 

@@ -5,9 +5,18 @@
  *      Author: andy
  */
 
-#include <PyUtils.h>
 #include <stdexcept>
 #include <string>
+
+// wierdness on OSX clang, this needs to be included before python.h,
+// otherwise compile pukes with:
+// localefwd.h error: too many arguments provided to function-like macro invocation
+#include <sstream>
+#include <PyUtils.h>
+
+
+
+
 
 using namespace std;
 
@@ -89,7 +98,23 @@ Variant Variant_from_py(PyObject* py)
 
     else if (PyLong_Check(py))
     {
+        // need to check for overflow.
         var = (long)PyLong_AsLong(py);
+
+        // Borrowed reference.
+        PyObject* err = PyErr_Occurred();
+        if (err) {
+            std::stringstream ss;
+            ss << "Could not convert Python long to C ";
+            ss << sizeof(long) * 8 << " bit long: ";
+            ss << std::string(PyString_AsString(err));
+
+            // clear error, raise our own
+            PyErr_Clear();
+
+            invalid_argument(ss.str());
+        }
+
         return var;
     }
 

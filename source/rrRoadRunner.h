@@ -196,10 +196,28 @@ public:
     std::string getSBML();
 
     /**
-     * Reset the simulator back to the initial conditions specified in the SBML model,
-     * provided an SBML model is loaded.
+     * Picks up default options from config.
+     *
+     * The current default is
+     * SelectionRecord::TIME | SelectionRecord::RATE | SelectionRecord::FLOATING.
      */
     void reset();
+
+    /**
+     * reset the model accordign to a bitfield specified by the
+     * SelectionRecord::SelectionType values.
+     *
+     * Note, this would make more sense as an unsigned, however SWIG has issues mapping
+     * an enum to an unsigned, but seems to map enums just fine to an int.
+     *
+     * For example, to reset the floating species, time and rate rule values:
+     * @code
+     * r.reset(SelectionRecord::TIME | SelectionRecord::RATE | SelectionRecord::FLOATING);
+     * @endcode
+     *
+     * @param options a bitmask made from the SelectionRecord::SelectionTypes values.
+     */
+    void reset(int options);
 
     /**
      * @internal
@@ -549,9 +567,8 @@ public:
     RR_DEPRECATED(double getReactionRate(const int& index));
 
     /**
-     * @deprecated
      * @internal
-     * Returns the rate of changes of a species by its index
+     * @deprecated
      */
     RR_DEPRECATED(double getRateOfChange(const int& index));
 
@@ -725,11 +742,6 @@ public:
     RR_DEPRECATED(std::vector<std::string> getGlobalParameterIds());
 
     /**
-     * The C back end requires this to be called to update
-     * model variables if anyting is changes. Does nothing
-     * in LLVM back end as everything is automatically handled
-     * with lazy evaluation.
-     *
      * @internal
      * @deprecated
      */
@@ -844,10 +856,11 @@ private:
     std::vector<SelectionRecord> getSelectionList();
 
     /**
-     * sets the options and updates the integrator an any
-     * other depedent bits.
+     * The simulateOptions may be changed at any time. This updates
+     * the integrators just before they are used with the
+     * potentially changed options.
      */
-    void _setSimulateOptions(const SimulateOptions* opt);
+    void updateSimulateOptions();
 
     /**
      * private implementation class, can only access if inside

@@ -42,12 +42,6 @@ RR_DECLSPEC string              trim(const string& str, const char& toTrim = ' '
 RR_DECLSPEC bool                startsWith(const string& src, const string& sub);
 RR_DECLSPEC bool                endsWith(const string& src, const string& sub);
 
-//Can't use va_arg for non pod data.. :(
-RR_DECLSPEC string              joinPath(const string& p1, const string& p2, const char pathSeparator = gPathSeparator);
-RR_DECLSPEC string              joinPath(const string& p1, const string& p2, const string& p3, const char pathSeparator = gPathSeparator);
-RR_DECLSPEC string              joinPath(const string& p1, const string& p2, const string& p3, const string& p4, const char pathSeparator = gPathSeparator);
-RR_DECLSPEC string              joinPath(const string& p1, const string& p2, const string& p3, const string& p4, const string& p5, const char pathSeparator = gPathSeparator);
-
 //conversions
 RR_DECLSPEC string              intToStr(const int& nt);
 RR_DECLSPEC int                 strToInt(const string& nt);

@@ -7,6 +7,7 @@
 #include <sstream>
 #include <cstring>
 #include "rrStringUtils.h"
+#include "rrUtils.h"
 //---------------------------------------------------------------------------
 
 using namespace std;
@@ -152,65 +153,6 @@ int getNumberOfFunctionArguments(const string& expression)
          return -1;
      }
      return nrOfArgs;
-}
-
-//    double result = 0.0;
-//    int i;
-//    va_list listPointer;
-//    va_start(listPointer, nrOfArguments);
-//
-//    for(i = 0; i < nrOfArguments; i++)
-//    {
-//        // Get an argument.  Must know
-//        // the type of the arg to retrieve
-//        // it from the va_list.
-//        double arg = va_arg( listPointer, double);
-//
-///*        printf("The %dth arg is %f\n", i, arg);*/
-//        if(arg == 1.0)
-//        {
-//            result = 1.0;
-//            break;
-//        }
-//    }
-//    va_end( listPointer );
-//    return result;
-
-string joinPath(const string& aPath, const string& aFile, const char pathSeparator)
-{
-    //Just check the paths last position. it has to be a "/"
-    //Otherwise, add it before joining
-    if(aPath.size() > 0)
-    {
-        if(aPath[aPath.size() - 1] == pathSeparator)
-        {
-            return aPath + aFile;
-        }
-        else
-        {
-            return aPath + pathSeparator + aFile;
-        }
-    }
-
-    return aFile;
-}
-
-string joinPath(const string& p1, const string& p2, const string& p3, const char pathSeparator)
-{
-    string tmp(joinPath(p1, p2, pathSeparator));
-    return joinPath(tmp, p3, pathSeparator);
-}
-
-string joinPath(const string& p1, const string& p2, const string& p3, const string& p4, const char pathSeparator)
-{
-    string tmp(joinPath(p1, p2, p3, pathSeparator));
-    return joinPath(tmp, p4, pathSeparator);
-}
-
-string joinPath(const string& p1, const string& p2, const string& p3, const string& p4, const string& p5, const char pathSeparator)
-{
-    string tmp(joinPath(p1, p2, p3, p4, pathSeparator));
-    return joinPath(tmp, p5, pathSeparator);
 }
 
 string tabs(const int& nr)
@@ -956,4 +898,3 @@ string append(const string& s1, const unsigned int& s2, const string& s3, const 
 }
 
 }
-

@@ -17,8 +17,8 @@ int main()
        exit(-1);
     }
 
-    RRDataHandle output = simulateEx (rrHandle, 0, 10, 10);  // start time, end time, and number of points
-    RRCData* cOutput = createRRCData(output);
+    simulateEx (rrHandle, 0, 10, 10);  // start time, end time, and number of points
+    RRCData* cOutput = getSimulationResult(rrHandle);
 
     int index = 0;
     for(int col = 0; col < cOutput->CSize; col++)

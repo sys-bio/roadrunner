@@ -88,6 +88,11 @@ public:
      */
     virtual std::string toRepr() const;
 
+    /**
+     * get the name of this integrator
+     */
+    virtual std::string getName() const;
+
 private:
     ExecutableModel *model;
     SimulateOptions options;
@@ -132,6 +137,8 @@ private:
      * set the seed into the random engine.
      */
     void setEngineSeed(unsigned long seed);
+
+    void setSeed(const Variant& var);
 
     unsigned long getSeed() const;
 };

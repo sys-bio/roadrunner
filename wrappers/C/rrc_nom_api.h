@@ -59,7 +59,7 @@ extern "C"
 /*!
  \brief Returns the number of rules in the current model
  \param[in] handle Handle to a RoadRunner instance
- \return Returns an integer larger or equal to 0 if succesful, or -1 on failure
+ \return Returns an integer larger or equal to 0 if successful, or -1 on failure
  \ingroup NOM functions
 */
 C_DECL_SPEC int rrcCallConv getNumberOfRules(RRHandle handle);
@@ -67,7 +67,7 @@ C_DECL_SPEC int rrcCallConv getNumberOfRules(RRHandle handle);
 /*!
  \brief Returns the name of currently loaded SBML model
  \param[in] handle Handle to a RoadRunner instance
- \return Returns a char* containing the name if succesful, NULL otherwise
+ \return Returns a char* containing the name if successful, NULL otherwise
  \ingroup NOM functions
 */
 C_DECL_SPEC char* rrcCallConv getModelName(RRHandle handle);

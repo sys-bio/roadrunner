@@ -707,6 +707,11 @@ string CompiledExecutableModel::getInfo()
     return info.str();
 }
 
+void CompiledExecutableModel::reset(int options)
+{
+    reset();
+}
+
 
 void CompiledExecutableModel::reset()
 {
@@ -745,7 +750,7 @@ void CompiledExecutableModel::print(std::ostream &stream)
     stream << mData;
 }
 
-int CompiledExecutableModel::getNumRules()
+int CompiledExecutableModel::getNumRateRules()
 {
     return ms.mNumRules;
 }

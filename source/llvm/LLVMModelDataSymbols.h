@@ -14,6 +14,16 @@
 #include "LLVMModelData.h"
 #include "rrExecutableModel.h"
 
+#if (__cplusplus >= 201103L) || defined(_MSC_VER)
+#include <memory>
+#include <unordered_map>
+#define cxx11_ns std
+#else
+#include <tr1/memory>
+#include <tr1/unordered_map>
+#define cxx11_ns std::tr1
+#endif
+
 #include <map>
 #include <set>
 #include <list>
@@ -125,6 +135,7 @@ public:
 
     typedef std::map<std::string, uint> StringUIntMap;
     typedef std::pair<std::string, uint> StringUIntPair;
+    typedef cxx11_ns::unordered_map<uint, uint> UIntUIntMap;
 
     enum SpeciesReferenceType
     {
@@ -200,9 +211,10 @@ public:
      */
     uint getIndependentFloatingSpeciesSize() const;
 
-
-
-
+    /**
+     * index of a global param given its name.
+     * @throw exception if invalid name.
+     */
     uint getGlobalParameterIndex(std::string const&) const;
 
     uint getRateRuleIndex(std::string const&) const;
@@ -353,6 +365,17 @@ public:
     bool isConservedMoietySpecies(const std::string& symbol) const;
 
     /**
+     * checks if the given floating species id corresponds to
+     * to a conserved moiety species.
+     *
+     * @param id index of floating species
+     * @param [out] result the index of the conserved moiety if this
+     * is a conserved moiety species.
+     * @returns true or false if this is a cm species or not.
+     */
+    bool isConservedMoietySpecies(uint id, uint &result) const;
+
+    /**
      * check if the global parameter with the given id is a
      * conserved moiety.
      */
@@ -363,6 +386,26 @@ public:
      * by assignment rules.
      */
     uint getConservedSpeciesSize() const;
+
+    /**
+     * get the number of conserved moieties.
+     */
+    uint getConservedMoietySize() const;
+
+    /**
+     * get the index of a global parameter given a conserved moiety index.
+     */
+    uint getConservedMoietyGlobalParameterIndex(uint cmIndex) const;
+
+    /**
+     * find the id of the given conserved moiety index.
+     */
+    std::string getConservedMoietyId(uint indx) const;
+
+    /**
+     * get the id of a conserved moiety given its name.
+     */
+    uint getConservedMoietyIndex(const std::string& name) const;
 
 private:
 
@@ -375,6 +418,23 @@ private:
      * global parameter id conserved moiety status.
      */
     std::vector<bool> conservedMoietyGlobalParameter;
+
+    /**
+     * the index of a global parameter from a conserved moeity
+     * index.
+     *
+     * This array will be the size of the number of CM, each value
+     * of this array will be a global parameter index.
+     */
+    std::vector<uint> conservedMoietyGlobalParameterIndex;
+
+    /**
+     * map of floating species ids to conserved moiety ids.
+     *
+     * assume conserved moeity speces are stored in the sbml
+     * in the same order as the conserved moieties.
+     */
+    UIntUIntMap floatingSpeciesToConservedMoietyIdMap;
 
 
 /*****************************************************************************/
@@ -454,6 +514,11 @@ public:
     uint getCompartmentInitIndex(const std::string& symbol) const;
 
     /**
+     * get the index of a compartment for a float species.
+     */
+    uint getCompartmentIndexForFloatingSpecies(uint floatIndex) const;
+
+    /**
      * get the index of a global parameter initial value
      *
      * has the same index as the run time global parameter.
@@ -521,6 +586,11 @@ private:
      * compartments not defined by any rules.
      */
     uint independentInitCompartmentSize;
+
+    /**
+     * index of compartments for each float species.
+     */
+    std::vector<uint> floatingSpeciesCompartmentIndices;
 
 /************************ End Initial Conditions Section *********************/
 #endif /**********************************************************************/
