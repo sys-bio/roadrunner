@@ -11,6 +11,10 @@
 #include <stdexcept>
 #include "rrLogger.h"
 #include "rrOSSpecifics.h"
+#include "platform/Backtrace.h"
+
+namespace rr
+{
 
 namespace rrgpu
 {
@@ -26,6 +30,7 @@ public:
     explicit GPUSimException(const std::string& what, const std::string &where) :
             std::runtime_error(what + ", at " + where)
     {
+        rr::dumpBacktrace(std::cerr);
     }
 };
 
@@ -37,6 +42,8 @@ public:
         }
 
 
-}
+} // namespace rrgpu
+
+} // namespace rr
 
 #endif /* RRGPUSimEXCEPTION_H_ */
