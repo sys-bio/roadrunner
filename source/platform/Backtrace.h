@@ -1,16 +1,39 @@
-#ifndef rrPlatformH
-#define rrPlatformH
+// == PREAMBLE ================================================
+
+// * Licensed under the Apache License, Version 2.0; see README
+
+/*
+ * Backtrace.h
+ *
+ *  Created on: Aug 13, 2014
+ *      Author: JKM
+ */
+
+#ifndef rrBacktraceH
+#define rrBacktraceH
+
+// == INCLUDES ================================================
+
 #include "rrExporter.h"
 
-// backtrace dumping in libstdc++
-#if defined(__GLIBCXX__)
-#include <execinfo.h>
-#include <cxxabi.h>
-#endif
+// == CODE ====================================================
+
+#ifdef __cplusplus
+
+#include <iostream>
 
 namespace rr
 {
-    
+
+/**
+ * @author JKM
+ * @brief Dump a backtrace of the caller
+ * @param[out] s Steam to dump backtrace to
+ */
+void dumpBacktrace(std::ostream& s);
+
 } // namespace rr
 
-#endif
+#endif // __cplusplus
+
+#endif // rrBacktraceH
