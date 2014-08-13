@@ -13,8 +13,8 @@
  *      Author: JKM
  */
 
-#ifndef rrnullptrH
-#define rrnullptrH
+#ifndef rr_platfomr_nullptrH
+#define rr_platfomr_nullptrH
 
 // == CODE ====================================================
 
