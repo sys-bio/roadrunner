@@ -179,7 +179,6 @@ double GPUSimExecutableModel::getFloatingSpeciesAmountRate(int index,
 
 void GPUSimExecutableModel::testConstraints()
 {
-    throw_gpusim_exception("not supported");
 }
 
 std::string GPUSimExecutableModel::getInfo()
@@ -322,7 +321,7 @@ void GPUSimExecutableModel::reset()
 
 void GPUSimExecutableModel::reset(int options)
 {
-    throw_gpusim_exception("not supported");
+
 }
 
 bool GPUSimExecutableModel::getConservedSumChanged()
