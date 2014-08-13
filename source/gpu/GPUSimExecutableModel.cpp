@@ -590,63 +590,63 @@ int GPUSimExecutableModel::getGlobalParameterInitValues(int len, const int *indx
 #if (1) /**********************************************************************/
 /******************************************************************************/
 
-int getNumEvents()
+int GPUSimExecutableModel::getNumEvents()
 {
     throw_gpusim_exception("not supported");
 }
 
-int getEventTriggers(int len, const int *indx, unsigned char *values)
+int GPUSimExecutableModel::getEventTriggers(int len, const int *indx, unsigned char *values)
 {
     throw_gpusim_exception("not supported");
 }
 
-void applyEvents(double timeEnd, const unsigned char* previousEventStatus,
+void GPUSimExecutableModel::applyEvents(double timeEnd, const unsigned char* previousEventStatus,
 	    const double *initialState, double* finalState)
 {
     throw_gpusim_exception("not supported");
 }
 
-int applyPendingEvents(const double *stateVector, double timeEnd, double tout)
+int GPUSimExecutableModel::applyPendingEvents(const double *stateVector, double timeEnd, double tout)
 {
     throw_gpusim_exception("not supported");
 }
 
-void getEventRoots(double time, const double* y, double* gdot)
+void GPUSimExecutableModel::getEventRoots(double time, const double* y, double* gdot)
 {
     throw_gpusim_exception("not supported");
 }
 
-double getNextPendingEventTime(bool pop)
+double GPUSimExecutableModel::getNextPendingEventTime(bool pop)
 {
     throw_gpusim_exception("not supported");
 }
 
-int getPendingEventSize()
+int GPUSimExecutableModel::getPendingEventSize()
 {
     throw_gpusim_exception("not supported");
 }
 
-void resetEvents()
+void GPUSimExecutableModel::resetEvents()
 {
     throw_gpusim_exception("not supported");
 }
 
-int getEventIndex(const std::string& eid)
+int GPUSimExecutableModel::getEventIndex(const std::string& eid)
 {
     throw_gpusim_exception("not supported");
 }
 
-std::string getEventId(int index)
+std::string GPUSimExecutableModel::getEventId(int index)
 {
     throw_gpusim_exception("not supported");
 }
 
-void setEventListener(int index, rr::EventListenerPtr eventHandler)
+void GPUSimExecutableModel::setEventListener(int index, rr::EventListenerPtr eventHandler)
 {
     throw_gpusim_exception("not supported");
 }
 
-rr::EventListenerPtr getEventListener(int index)
+rr::EventListenerPtr GPUSimExecutableModel::getEventListener(int index)
 {
     throw_gpusim_exception("not supported");
 }
