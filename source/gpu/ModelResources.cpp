@@ -14,6 +14,9 @@
 using rr::Logger;
 using rr::getLogger;
 
+namespace rr
+{
+
 namespace rrgpu
 {
 
@@ -26,4 +29,6 @@ ModelResources::~ModelResources()
     Log(Logger::LOG_DEBUG) << __FUNC__;
 }
 
-} /* namespace rrgpu */
+} // namespace rrgpu
+
+} // namespace rr

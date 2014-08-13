@@ -13,6 +13,9 @@
 
 #include "rrCompiler.h"
 
+namespace rr
+{
+
 namespace rrgpu
 {
 
@@ -64,5 +67,7 @@ public:
     virtual std::string getVersion();
 };
 
-} /* namespace rr */
+} // namespace rrgpu
+
+} // namespace rr
 #endif /* GPUSimCompilerH */

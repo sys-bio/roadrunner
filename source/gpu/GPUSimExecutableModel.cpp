@@ -56,6 +56,9 @@ static void dump_array(std::ostream &os, int n, const numeric_type *p)
     }
 }
 
+namespace rr
+{
+
 namespace rrgpu
 {
 
@@ -655,4 +658,6 @@ rr::EventListenerPtr GPUSimExecutableModel::getEventListener(int index)
   #endif /**********************************************************************/
 /******************************************************************************/
 
-} /* namespace rrgpu */
+} // namespace rrgpu
+
+} // namespace rr

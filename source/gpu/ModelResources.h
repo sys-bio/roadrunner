@@ -9,6 +9,9 @@
 #ifndef CACHEDMODEL_H_
 #define CACHEDMODEL_H_
 
+namespace rr
+{
+
 namespace rrgpu
 {
 
@@ -19,5 +22,7 @@ public:
     ~ModelResources();
 };
 
-} /* namespace rrllvm */
+} // namespace rrgpu
+
+} // namespace rr
 #endif /* CACHEDMODEL_H_ */

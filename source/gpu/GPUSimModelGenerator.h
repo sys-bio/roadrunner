@@ -23,6 +23,9 @@
 #define cxx11_ns std::tr1
 #endif
 
+namespace rr
+{
+
 namespace rrgpu
 {
 
@@ -83,5 +86,7 @@ private:
     std::string compilerStr;
 };
 
-} /* namespace rr */
+} // namespace rrgpu
+
+} // namespace rr
 #endif /* rrGPUSimModelGeneratorH */

@@ -41,6 +41,9 @@
 
 #include <map>
 
+namespace rr
+{
+
 namespace rrgpu
 {
 
@@ -438,5 +441,7 @@ private:
     friend void copyCachedModel(a_type* src, b_type* dst);
 };
 
-} /* namespace rrgpu */
+} // namespace rrgpu
+
+} // namespace rr
 #endif /* GPUSimExecutableModelH */

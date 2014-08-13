@@ -14,7 +14,9 @@
 #include <sstream>
 #include <ctime>
 
-using namespace rr;
+namespace rr
+{
+
 namespace rrgpu
 {
 
@@ -78,6 +80,6 @@ std::string GPUSimCompiler::getVersion()
     return ss.str();
 }
 
-} /* namespace rr */
+} // namespace rrgpu
 
-
+} // namespace rr

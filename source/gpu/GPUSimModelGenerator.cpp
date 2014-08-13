@@ -24,6 +24,9 @@ using rr::ExecutableModel;
 using rr::ModelGenerator;
 using rr::Compiler;
 
+namespace rr
+{
+
 namespace rrgpu
 {
 
@@ -195,6 +198,6 @@ bool GPUSimModelGenerator::setCompiler(const std::string& compiler)
     return true;
 }
 
-} /* namespace rrllvm */
+} // namespace rrgpu
 
-
+} // namespace rr
