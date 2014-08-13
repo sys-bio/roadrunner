@@ -9,6 +9,7 @@
 #include "CVODEIntegrator.h"
 #include "GillespieIntegrator.h"
 #include "RK4Integrator.h"
+#include "gpu/GPUSimIntegrator.h"
 
 namespace rr
 {
@@ -24,6 +25,10 @@ Integrator* Integrator::New(const SimulateOptions* opt, ExecutableModel* m)
     else if(opt->integrator == SimulateOptions::RK4)
     {
         result = new RK4Integrator(m, opt);
+    }
+    else if(opt->integrator == SimulateOptions::GPUSIM)
+    {
+        result = new rrgpu::GPUSimIntegrator(m, opt);
     }
     else
     {
