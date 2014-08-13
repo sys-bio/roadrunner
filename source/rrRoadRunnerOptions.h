@@ -232,6 +232,11 @@ public:
         RK4, 
 
         /**
+         * Basic gpu integrator
+         */
+        GPUSIM,
+
+        /**
          * Always has to be at the end, this way, this value indicates
          * how many integrators we have. 
          */

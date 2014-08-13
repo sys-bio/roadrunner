@@ -98,6 +98,9 @@ static void getConfigValues(SimulateOptions *s)
     else if (Config::getString(Config::SIMULATEOPTIONS_INTEGRATOR) == "GILLESPIE") {
         s->integrator = SimulateOptions::GILLESPIE;
     }
+    else if (Config::getString(Config::SIMULATEOPTIONS_INTEGRATOR) == "GPUSIM") {
+        s->integrator = SimulateOptions::GPUSIM;
+    }
     else {
         Log(Logger::LOG_WARNING) << "Invalid integrator specified in configuration: "
                 << Config::getString(Config::SIMULATEOPTIONS_INTEGRATOR)
@@ -296,7 +299,7 @@ bool SimulateOptions::hasKey(const std::string& key) const
 
 SimulateOptions::IntegratorType SimulateOptions::getIntegratorType(Integrator i)
 {
-    if (i == CVODE || i == RK4) {
+    if (i == CVODE || i == RK4 || i == GPUSIM) {
         return DETERMINISTIC;
     } else {
         return STOCHASTIC;
@@ -338,6 +341,10 @@ std::string SimulateOptions::toString() const
 
     else if (integrator == GILLESPIE ) {
         ss << "\"gillespie\"," << std::endl;
+    }
+
+    else if (integrator == GPUSIM ) {
+        ss << "\"gpusim\"," << std::endl;
     }
 
     else {
@@ -464,7 +471,7 @@ void SimulateOptions::setIntegrator(Integrator value)
 
 std::string SimulateOptions::getIntegratorNameFromId(Integrator integrator)
 {
-    static const char* names[] = {"cvode", "gillespie", "rk4"};
+    static const char* names[] = {"cvode", "gillespie", "rk4",  "gpusim"};
 
     if (integrator >= 0 && integrator < INTEGRATOR_END)
     {
