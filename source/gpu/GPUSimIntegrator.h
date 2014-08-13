@@ -1,5 +1,5 @@
-#ifndef rrCvodeInterfaceH
-#define rrCvodeInterfaceH
+#ifndef rrGPUSimIntegratorH
+#define rrGPUSimIntegratorH
 
 #include "Integrator.h"
 #include "rrRoadRunnerOptions.h"
