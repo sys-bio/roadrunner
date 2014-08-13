@@ -8,6 +8,7 @@
 #include "ModelResources.h"
 
 #include <rrLogger.h>
+#include "rrOSSpecifics.h"
 #include <list>
 
 using rr::Logger;
@@ -25,4 +26,4 @@ ModelResources::~ModelResources()
     Log(Logger::LOG_DEBUG) << __FUNC__;
 }
 
-} /* namespace rrllvm */
+} /* namespace rrgpu */
