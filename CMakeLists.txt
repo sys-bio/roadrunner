@@ -257,6 +257,7 @@ else()
 endif(BUILD_LEGACY_C)
 
 if(BUILD_GPUSIM)
+    add_definitions(-DBUILD_GPUSIM)
     if(NOT ${CMAKE_CXX_FLAGS} MATCHES ".*-std=c\\+\\+11.*")
 	message(WARNING "C++11 will be enabled for GPUSIM (required)")
     endif()
