@@ -33,6 +33,9 @@ auto Backtrace::fromHere() -> BacktracePtr {
 #ifdef WINVER
     assert(0 && "FATAL: implement backtrace on Windows");
 #endif
+#if !defined(__GLIBC__)
+    assert(0 && "FATAL: no backtrace support on this platform");
+#endif
 #   ifdef __GLIBC__
     return BacktracePtr(new libstdcxx_Backtrace());
 #   endif
@@ -199,12 +202,16 @@ void libstdcxx_Backtrace::setStartDepth(int start) {
 
 #     endif // __GLIBC__
 
-std::string btStringFromHere() {
+std::string btStringFromDepth(int depth) {
     std::stringstream ss;
     Backtrace::BacktracePtr bt = Backtrace::fromHere();
-    bt->setStartDepth(2);
+    bt->setStartDepth(2+depth);
     bt->dump(ss);
     return ss.str();
+}
+
+std::string btStringFromHere() {
+    return btStringFromDepth(0);
 }
 
 } // namespace rr

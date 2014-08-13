@@ -89,6 +89,12 @@ private:
 
 std::string btStringFromHere();
 
+/**
+ * @author JKM
+ * @brief Print backtrace starting at given depth
+ */
+std::string btStringFromDepth(int depth);
+
 } // namespace rr
 
 #endif // __cplusplus
