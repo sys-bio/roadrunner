@@ -84,6 +84,7 @@ set(rrSources
     conservation/ConservationDocumentPlugin
     conservation/ConservedMoietyPlugin
     conservation/ConservedMoietyConverter
+    platform/Backtrace.cpp
     )
 
 # Add the LLVM sources to compilation
