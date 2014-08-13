@@ -28,9 +28,8 @@ public:
     }
 
     explicit GPUSimException(const std::string& what, const std::string &where) :
-            std::runtime_error(what + ", at " + where)
+            std::runtime_error(what + ", at " + where + "\n\n" + btStringFromHere())
     {
-        rr::dumpBacktrace(std::cerr);
     }
 };
 
