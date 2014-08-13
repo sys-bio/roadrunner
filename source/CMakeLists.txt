@@ -135,6 +135,7 @@ if(BUILD_GPUSIM)
         ${rrSources}
         gpu/GPUSimCompiler
         gpu/GPUSimExecutableModel
+        gpu/GPUSimIntegrator
         gpu/GPUSimModelGenerator
         gpu/ModelResources
         )
