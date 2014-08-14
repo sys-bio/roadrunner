@@ -18,7 +18,8 @@
 #include "rrSelectionRecord.h"
 #include "conservation/ConservedMoietyConverter.h"
 #include "conservation/ConservationExtension.h"
-#include "AccessPtrIterator.hpp"
+#include "patterns/AccessPtrIterator.hpp"
+#include "patterns/Range.hpp"
 
 #include <memory>
 #include <set>
@@ -38,6 +39,9 @@ public:
     FloatingSpecies(const std::string& id)
       : id_(id) {}
 
+    /// Return true if @ref id matches this object's id
+    bool matchId(const std::string& id) { return id_ == id; }
+
     void setIsConservedMoiety(bool val) { consrvMoity_ = val; }
     bool getIsConservedMoiety() const { return consrvMoity_; }
 
@@ -56,14 +60,39 @@ protected:
 class RR_DECLSPEC ModelRule
 {
 public:
-    virtual bool contains(const FloatingSpecies* s) {
+    virtual bool contains(const FloatingSpecies* s) const {
+        return false;
+    }
+
+    virtual bool isAssignmentRule() const {
+        return false;
+    }
+
+    virtual bool isInitialAssignmentRule() const {
         return false;
     }
 };
 
 class RR_DECLSPEC AssignmentRule : public ModelRule
 {
+public:
+    AssignmentRule(const std::string& variable) {}
 
+    bool isAssignmentRule() const {
+        return true;
+    }
+};
+
+class RR_DECLSPEC RateRule : public ModelRule
+{
+public:
+    RateRule(const std::string& id) {}
+};
+
+class RR_DECLSPEC AlgebraicRule : public ModelRule
+{
+public:
+    AlgebraicRule(const std::string& formula) {}
 };
 
 class RR_DECLSPEC InitialAssignmentRule : public ModelRule
@@ -71,6 +100,10 @@ class RR_DECLSPEC InitialAssignmentRule : public ModelRule
 public:
     InitialAssignmentRule(const std::string& symbol)
       : symbol_(symbol) {}
+
+    bool isInitialAssignmentRule() const {
+        return true;
+    }
 
 protected:
     std::string symbol_;
@@ -83,7 +116,7 @@ protected:
     typedef std::vector<ModelRulePtr> Rules;
 public:
     typedef AccessPtrIterator<Rules::iterator> iterator;
-    typedef AccessPtrIterator<Rules::iterator> const_iterator;
+    typedef AccessPtrIterator<Rules::const_iterator> const_iterator;
 
     iterator begin() { return iterator(rules_.begin()); }
     iterator end() { return iterator(rules_.end()); }
@@ -92,7 +125,7 @@ public:
     const_iterator end() const { return const_iterator(rules_.begin()); }
 
     /// Return true if there is a rule that references @ref s
-    bool contains(const FloatingSpecies* s) {
+    bool contains(const FloatingSpecies* s) const {
         for(const ModelRule* r : *this)
             if(r->contains(s))
                 return true;
@@ -114,6 +147,8 @@ protected:
 class RR_DECLSPEC GPUSimModel
 {
 protected:
+    typedef std::unique_ptr<ModelRule> ModelRulePtr;
+    typedef std::unique_ptr<FloatingSpecies> FloatingSpeciesPtr;
     typedef std::vector<FloatingSpeciesPtr> FloatingSpeciesCollection;
 public:
 
@@ -146,17 +181,18 @@ public:
     /// Find the floating species with the given id; throw if nonexistent
     FloatingSpecies* findFloatingSpeciesById(const std::string& id);
 
-protected:
-    typedef std::unique_ptr<ModelRule> ModelRulePtr;
-    typedef std::unique_ptr<FloatingSpecies> FloatingSpeciesPtr;
+    bool hasInitialAssignmentRule(const FloatingSpecies* s);
 
+    bool hasAssignmentRule(const FloatingSpecies* s);
+
+protected:
     /// Returns the document access pointer
     libsbml::SBMLDocument* getDocument();
 
     /// Returns the document access pointer
     const libsbml::SBMLDocument* getDocument() const;
 
-    bool isIndependentElement(const std::string& id) const;
+//     bool isIndependentElement(const std::string& id) const;
 
     /**
      * checks if the given symbol is an init value for an independent
@@ -166,7 +202,7 @@ protected:
      * initial condtions as in this case, the assignment rule only applies
      * at time t > 0.
      */
-    bool isIndependentInitFloatingSpecies(const std::string& symbol) const;
+//     bool isIndependentInitFloatingSpecies(const std::string& symbol) const;
 
     /**
      * Is this sbml element an independent initial value.
@@ -177,11 +213,11 @@ protected:
      * Independent initial values do not have assignment or
      * initial assigment rules, but may have rate rules.
      */
-    bool isIndependentInitElement(const std::string& symbol) const;
+//     bool isIndependentInitElement(const std::string& symbol) const;
 
-    bool isIndependentInitCompartment(const std::string& symbol) const;
+//     bool isIndependentInitCompartment(const std::string& symbol) const;
 
-    void initCompartments();
+//     void initCompartments();
 
     /// Forward to @ref ModelRules
     void addRule(ModelRulePtr&& r) {
@@ -203,12 +239,6 @@ protected:
     SBMLDocumentPtr ownedDoc;
 
     ModelRules rules_;
-
-    /**
-     * the set of rule, these contain the variable name of the rule so that
-     * we can quickly see if a symbol has an associated rule.
-     */
-//     std::set<std::string> assigmentRules;
 
     FloatingSpeciesCollection floatingSpecies_;
 };

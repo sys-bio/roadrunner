@@ -104,15 +104,15 @@ GPUSimModel::GPUSimModel(std::string const &sbml, unsigned options) {
 //     modelName = getDocument()->getModel()->getName();
 
     // add species initially without props so they can be referenced by rules
-    for (uint i = 0; i < model->getListOfSpecies()->size(); ++i) {
-        const Species *s = model->getListOfSpecies()->get(i);
+    for (uint i = 0; i < getDocument()->getModel()->getListOfSpecies()->size(); ++i) {
+        const libsbml::Species *s = getDocument()->getModel()->getListOfSpecies()->get(i);
 
         if (s->getBoundaryCondition())
             continue;
 
         const std::string& sid = s->getId();
 
-        addSpecies(FloatingSpeciesPtr(sid));
+        addSpecies(FloatingSpeciesPtr(new FloatingSpecies(sid)));
     }
 
     // read SBML rules and add them to the model
@@ -122,21 +122,19 @@ GPUSimModel::GPUSimModel(std::string const &sbml, unsigned options) {
         {
             const libsbml::Rule *rule = rules->get(i);
 
+            // assignment rule
             if (dynamic_cast<const libsbml::AssignmentRule*>(rule))
-            {
-                assigmentRules.insert(rule->getVariable());
-            }
+                addRule(ModelRulePtr(new AssignmentRule(rule->getVariable())));
+            // rate rule
             else if (dynamic_cast<const libsbml::RateRule*>(rule))
-            {
-//                 uint rri = rateRules.size();
-//                 rateRules[rule->getId()] = rri;
-            }
-            else if (dynamic_cast<const libsbml::AlgebraicRule*>(rule))
-            {
+                addRule(ModelRulePtr(new RateRule(rule->getId())));
+            // algebraic rule
+            else if (dynamic_cast<const libsbml::AlgebraicRule*>(rule)) {
                 char* formula = SBML_formulaToString(rule->getMath());
                 Log(Logger::LOG_WARNING)
-                    << "Unable to handle algebraic rules. Formula '0 = "
+                    << "Unable to handle algebraic rules. Formula '"
                     << formula << "' ignored.";
+                addRule(ModelRulePtr(new AlgebraicRule(std::string(formula))));
                 free(formula);
             }
         }
@@ -149,13 +147,14 @@ GPUSimModel::GPUSimModel(std::string const &sbml, unsigned options) {
 
         for (unsigned i = 0; i < initAssignmentList->size(); ++i) {
             const libsbml::InitialAssignment *ia = initAssignmentList->get(i);
+
             addRule(ModelRulePtr(new InitialAssignmentRule(ia->getSymbol())));
         }
     }
 
     // figure out 'fully' indendent floating species -- those without rules.
-    for (uint i = 0; i < model->getListOfSpecies()->size(); ++i) {
-        const Species *s = model->getListOfSpecies()->get(i);
+    for (uint i = 0; i < getDocument()->getModel()->getListOfSpecies()->size(); ++i) {
+        const libsbml::Species *s = getDocument()->getModel()->getListOfSpecies()->get(i);
 
         if (s->getBoundaryCondition())
             continue;
@@ -167,14 +166,13 @@ GPUSimModel::GPUSimModel(std::string const &sbml, unsigned options) {
         if (getRules().contains(species))
             species->setIsIndependent(false);
 
+        species->setIsConservedMoiety(conservation::ConservationExtension::getConservedMoiety(*s));
+
         // conserved moiety species assignment rules do not apply at
         // time t < 0
         species->setIsIndepInitFltSpecies(
-          !hasInitialAssignmentRule(sid) &&
-          (!hasAssignmentRule(sid) || conservedMoiety));
-
-        if (conservedMoiety)
-            species_->setIsConservedMoiety(ConservationExtension::getConservedMoiety(*s));
+          !hasInitialAssignmentRule(species) &&
+          (!hasAssignmentRule(species) || species->getIsConservedMoiety()));
     }
 
     // get the compartments, need to reorder them to set the independent ones
@@ -216,24 +214,38 @@ FloatingSpecies* GPUSimModel::findFloatingSpeciesById(const std::string& id) {
     throw_gpusim_exception("No such floating species for id \"" + id + "\"");
 }
 
+bool GPUSimModel::hasInitialAssignmentRule(const FloatingSpecies* s) {
+    for(const ModelRule* r : getRules())
+        if (r->isInitialAssignmentRule() && r->contains(s))
+            return true;
+    return false;
+}
+
+bool GPUSimModel::hasAssignmentRule(const FloatingSpecies* s) {
+    for(const ModelRule* r : getRules())
+        if (r->isAssignmentRule() && r->contains(s))
+            return true;
+    return false;
+}
+
 // from LLVMModelDataSymbols
-void GPUSimModel::initFloatingSpecies(bool computeAndAssignConsevationLaws) {
-    const ListOfSpecies *species = model->getListOfSpecies();
+// void GPUSimModel::initFloatingSpecies(bool computeAndAssignConsevationLaws) {
+//     const ListOfSpecies *species = model->getListOfSpecies();
+//
+//
+// }
 
-
-}
-
-bool GPUSimModel::isIndependentElement(const FloatingSpecies& s) const
-{
-    return rateRules.find(id) == rateRules.end() &&
-            assigmentRules.find(id) == assigmentRules.end();
-}
-
-bool GPUSimModel::isIndependentInitFloatingSpecies(const std::string& id) const
-{
-    return !rateRules.contains(id) &&
-            !assigmentRules.contains(id);
-}
+// bool GPUSimModel::isIndependentElement(const FloatingSpecies& s) const
+// {
+//     return rateRules.find(id) == rateRules.end() &&
+//             assigmentRules.find(id) == assigmentRules.end();
+// }
+//
+// bool GPUSimModel::isIndependentInitFloatingSpecies(const std::string& id) const
+// {
+//     return !rateRules.contains(id) &&
+//             !assigmentRules.contains(id);
+// }
 
 } // namespace rrgpu
 
