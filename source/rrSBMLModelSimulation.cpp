@@ -67,7 +67,7 @@ bool SBMLModelSimulation::SetModelFileName(const string& name)
 
     if(!fileExists(joinPath(mModelFilePath, mModelFileName)))
     {
-        Log(Logger::LOG_ERROR)<<"The file: "<<joinPath(mModelFilePath, mModelFileName)<<" don't exist.";
+        Log(Logger::LOG_ERROR)<<"The file: "<<joinPath(mModelFilePath, mModelFileName)<<" doesn't exist.";
         return false;
     }
 

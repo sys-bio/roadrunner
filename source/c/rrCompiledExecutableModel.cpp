@@ -269,7 +269,7 @@ int CompiledExecutableModel::getStateVector(double* stateVector)
     }
 
     vector<double> dTemp(mData.numRateRules, 0);
-    getRateRuleValues(&dTemp[0]);
+    getRateRuleValues(mData.numRateRules==0 ? NULL : &dTemp[0]);
 
     for (int i = 0; i < mData.numRateRules; i++)
     {
@@ -611,9 +611,10 @@ void CompiledExecutableModel::getStateVectorRate(double timein, const double *y,
     if (y == 0)
     {
         // use current state
-        vector<double> currentState(getStateVector(0), 0.0);
-        getStateVector(&currentState[0]);
-        cevalModel(&mData, timein, &currentState[0]);
+        int sv = getStateVector(0);
+        vector<double> currentState(sv, 0.0);
+        getStateVector(sv==0 ? NULL : &currentState[0]);
+        cevalModel(&mData, timein, sv==0 ? NULL : &currentState[0]);
     }
     else
     {
@@ -641,9 +642,10 @@ void CompiledExecutableModel::evalEvents(const double timeIn, const double*y)
     if (y == 0)
     {
         // use current state
-        vector<double> currentState(getStateVector(0), 0.0);
-        getStateVector(&currentState[0]);
-        cevalEvents(&mData, timeIn, &currentState[0]);
+        int sv = getStateVector(0);
+        vector<double> currentState(sv, 0.0);
+        getStateVector(sv==0 ? NULL : &currentState[0]);
+        cevalEvents(&mData, timeIn, sv==0 ? NULL : &currentState[0]);
     }
     else
     {
@@ -1114,7 +1116,7 @@ void CompiledExecutableModel::applyEvents(double timeEnd,
                 vector<int> removeEvents;
                 vector<int> additionalEvents = retestEvents(timeEnd, handled, removeEvents);
 
-                std::copy (additionalEvents.begin(), additionalEvents.end(), firedEvents.end());
+                firedEvents.insert(firedEvents.end(), additionalEvents.begin(), additionalEvents.end());
 
                 for (int j = 0; j < additionalEvents.size(); j++)
                 {

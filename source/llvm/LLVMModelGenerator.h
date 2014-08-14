@@ -57,7 +57,7 @@ public:
     /**
      * Create an executable model from an sbml string
      */
-    virtual  rr::ExecutableModel *createModel(const std::string& sbml, uint options);
+    virtual  rr::ExecutableModel *createModel(const std::string& sbml, uint options, const std::string& filename);
 
 
     /**

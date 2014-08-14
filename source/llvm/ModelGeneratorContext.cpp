@@ -17,6 +17,7 @@
 #include "rrConfig.h"
 
 #include <sbml/SBMLReader.h>
+#include <sbml/conversion/SBMLConverterRegistry.h>
 #include <string>
 #include <vector>
 #include <math.h>
@@ -44,7 +45,7 @@ static Function* createGlobalMappingFunction(const char* funcName,
  * returns a VALID sbml document, if the doc has any error,
  * an exception is thrown.
  */
-static SBMLDocument *checkedReadSBMLFromString(const char* xml);
+static SBMLDocument *checkedReadSBMLFromString(const char* xml, const string& filename);
 
 // MSVC 2010 and earlier do not include the hyperbolic functions, define there here
 // MSVC++ 11.0 _MSC_VER == 1700 (Visual Studio 2012)
@@ -70,7 +71,7 @@ double atanh(double value)
 #endif
 
 ModelGeneratorContext::ModelGeneratorContext(std::string const &sbml,
-    unsigned options) :
+    unsigned options, const std::string& filename) :
         ownedDoc(0),
         doc(0),
         symbols(0),
@@ -86,7 +87,7 @@ ModelGeneratorContext::ModelGeneratorContext(std::string const &sbml,
 {
     try
     {
-        ownedDoc = checkedReadSBMLFromString(sbml.c_str());
+        ownedDoc = checkedReadSBMLFromString(sbml.c_str(), filename);
 
         if (options & rr::ModelGenerator::CONSERVED_MOIETIES)
         {
@@ -692,25 +693,74 @@ static Function* createGlobalMappingFunction(const char* funcName,
     return Function::Create(funcType, Function::InternalLinkage, funcName, module);
 }
 
-static SBMLDocument *checkedReadSBMLFromString(const char* xml)
+static SBMLDocument *checkedReadSBMLFromString(const char* xml, const string& filename)
 {
     SBMLDocument *doc = readSBMLFromString(xml);
+    doc->setLocationURI(filename); //<-- Need to set this filename in case there are external model definitions.
 
     if (doc)
     {
+        doc->setConsistencyChecksForConversion(LIBSBML_CAT_UNITS_CONSISTENCY, false);
+        doc->checkConsistency(); //Tests for errors not found in 'readSBMLFromString'.
         if (doc->getModel() == 0)
         {
             // fatal error
             SBMLErrorLog *log = doc->getErrorLog();
             string errors = log ? log->toString() : " NULL SBML Error Log";
             delete doc;
-            throw_llvm_exception("Fatal SBML error, no model, errors in sbml document: " + errors);
+            throw_llvm_exception("Fatal SBML error: no model.  Errors in sbml document: " + errors);
         }
-        else if (doc->getNumErrors() > 0)
+        else if (doc->getErrorLog()->getNumFailsWithSeverity(libsbml::LIBSBML_SEV_ERROR) > 0)
         {
             SBMLErrorLog *log = doc->getErrorLog();
-            string errors = log ? log->toString() : " NULL SBML Error Log";
-            Log(rr::Logger::LOG_WARNING) << "Warning, errors found in sbml document: " + errors;
+            stringstream errmsg;
+            for (unsigned long e=0; e<log->getNumErrors(); e++) {
+              const SBMLError* error = log->getError(e);
+              if (error->getSeverity() >= LIBSBML_SEV_ERROR) {
+                errmsg << " * " << error->getMessage() << endl;
+              }
+            }
+            Log(rr::Logger::LOG_WARNING) << "The following errors were found in this SBML document:  " << endl << errmsg.str();
+        }
+        if (doc->getPlugin("comp") != NULL) {
+            libsbml::ConversionProperties props;
+            props.addOption("flatten comp");
+            props.addOption("performValidation", false);
+
+            libsbml::SBMLConverter* converter = SBMLConverterRegistry::getInstance().getConverterFor(props);
+            if (converter != NULL) {
+                //We can flatten the model!  When we can't, we fall through below and warn the user about the 'comp' package still being present.
+                converter->setDocument(doc);
+                if (converter->convert() != libsbml::LIBSBML_OPERATION_SUCCESS) {
+                    SBMLErrorLog* log = doc->getErrorLog();
+                    if (log->getNumFailsWithSeverity(LIBSBML_SEV_ERROR) != 0) {
+                      stringstream errmsg;
+                      for (unsigned long e=0; e<log->getNumErrors(); e++) {
+                        const SBMLError* error = log->getError(e);
+                        if (error->getSeverity() >= LIBSBML_SEV_ERROR) {
+                          errmsg << " * " << error->getMessage() << endl;
+                        }
+                      }
+                      Log(rr::Logger::LOG_WARNING) << "Unable to flatten this 'comp' model due to the following errors: " << endl << errmsg.str();
+                    }
+                }
+            }
+        }
+        XMLNamespaces *ns = doc->getSBMLNamespaces()->getNamespaces();
+        
+        for (int i = 0; i < ns->getLength(); i++)
+        {
+            std::string nsURI = ns->getURI(i);
+            std::string package = ns->getPrefix(i);
+            if (doc->isSetPackageRequired(nsURI)) {
+                //Only namespaces with a 'required' attribute are official SBML packages.
+                if (doc->getPackageRequired(nsURI) == true) {
+                    Log(rr::Logger::LOG_WARNING) << "Warning: ignoring required package '" + package + "'.";
+                }
+                else {
+                    Log(rr::Logger::LOG_NOTICE) << "Notice: ignoring non-required package '" + package + "'.";
+                }
+            }
         }
     }
     else
@@ -726,5 +776,3 @@ static SBMLDocument *checkedReadSBMLFromString(const char* xml)
 
 
 } /* namespace rr */
-
-

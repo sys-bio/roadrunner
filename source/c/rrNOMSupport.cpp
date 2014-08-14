@@ -4,6 +4,7 @@
 #include "sbml/SBMLDocument.h"
 #include "sbml/math/FormulaFormatter.h"
 #include "sbml/common/libsbml-version.h"
+#include <sbml/conversion/SBMLConverterRegistry.h>
 #include "rrLogger.h"
 #include "rrNOMSupport.h"
 #include "rrStringUtils.h"
@@ -1457,9 +1458,9 @@ void NOMSupport::reorderRules(SBMLDocument& doc, Model& model)
     }
 }
 
-void NOMSupport::loadSBML(const string& var0, const string& sTimeSymbol)
+void NOMSupport::loadSBML(const string& var0, const string& sTimeSymbol, const std::string& filename)
 {
-    loadSBML(var0);
+    loadSBML(var0, filename);
     if(!mModel)
     {
         Log(Logger::LOG_ERROR)<<"No model is allocated in function "<<__FUNC__<<" file "<<__FILE__;
@@ -1693,7 +1694,7 @@ string NOMSupport::getInitialAssignmentFor(const string& sbmlId)
     return string("");
 }
 
-void NOMSupport::loadSBML(const string& sbmlStr)
+void NOMSupport::loadSBML(const string& sbmlStr, const std::string& filename)
 {
     delete mSBMLDoc;
     // model is owned by the sbml doc.
@@ -1701,6 +1702,77 @@ void NOMSupport::loadSBML(const string& sbmlStr)
 //            Namespaces.Add(match.Value);
 //            prefixes.Add(prefix);
     mSBMLDoc = readSBMLFromString(sbmlStr.c_str());
+    if (mSBMLDoc)
+    {
+        //mSBMLDoc->setConsistencyChecksForConversion(LIBSBML_CAT_UNITS_CONSISTENCY, false);
+        //mSBMLDoc->checkConsistency(); //Tests for errors not found in 'readSBMLFromString'.
+        if (mSBMLDoc->getModel() == 0)
+        {
+            // fatal error
+            SBMLErrorLog *log = mSBMLDoc->getErrorLog();
+            string errors = log ? log->toString() : " NULL SBML Error Log";
+            delete mSBMLDoc;
+            throw NOMException("Fatal SBML error: no model.  Errors in sbml document: " + errors);
+        }
+        else if (mSBMLDoc->getErrorLog()->getNumFailsWithSeverity(libsbml::LIBSBML_SEV_ERROR) > 0)
+        {
+            SBMLErrorLog *log = mSBMLDoc->getErrorLog();
+            stringstream errmsg;
+            for (unsigned long e=0; e<log->getNumErrors(); e++) {
+              const SBMLError* error = log->getError(e);
+              if (error->getSeverity() >= LIBSBML_SEV_ERROR) {
+                errmsg << " * " << error->getMessage() << endl;
+              }
+            }
+            Log(rr::Logger::LOG_WARNING) << "The following errors were found in this SBML document:  " << endl << errmsg.str();
+        }
+        if (mSBMLDoc->getPlugin("comp") != NULL) {
+            libsbml::ConversionProperties props;
+            mSBMLDoc->setLocationURI(filename); //<-- Need to set the filename in case there are external model definitions.
+            props.addOption("flatten comp");
+            props.addOption("performValidation", false);
+
+            libsbml::SBMLConverter* converter = SBMLConverterRegistry::getInstance().getConverterFor(props);
+            if (converter != NULL) {
+                //We can flatten the model!  When we can't, we fall through below and warn the user about the 'comp' package still being present.
+                converter->setDocument(mSBMLDoc);
+                if (converter->convert() != libsbml::LIBSBML_OPERATION_SUCCESS) {
+                    SBMLErrorLog* log = mSBMLDoc->getErrorLog();
+                    if (log->getNumFailsWithSeverity(LIBSBML_SEV_ERROR) != 0) {
+                      stringstream errmsg;
+                      for (unsigned long e=0; e<log->getNumErrors(); e++) {
+                        const SBMLError* error = log->getError(e);
+                        if (error->getSeverity() >= LIBSBML_SEV_ERROR) {
+                          errmsg << " * " << error->getMessage() << endl;
+                        }
+                      }
+                      Log(rr::Logger::LOG_WARNING) << "Unable to flatten this 'comp' model due to the following errors: " << endl << errmsg.str();
+                    }
+                }
+            }
+        }
+        XMLNamespaces *ns = mSBMLDoc->getSBMLNamespaces()->getNamespaces();
+        
+        for (int i = 0; i < ns->getLength(); i++)
+        {
+            std::string nsURI = ns->getURI(i);
+            std::string package = ns->getPrefix(i);
+            if (mSBMLDoc->isSetPackageRequired(nsURI)) {
+                //Only namespaces with a 'required' attribute are official SBML packages.
+                if (mSBMLDoc->getPackageRequired(nsURI) == true) {
+                    Log(rr::Logger::LOG_WARNING) << "Warning: ignoring required package '" + package + "'.";
+                }
+                else {
+                    Log(rr::Logger::LOG_NOTICE) << "Notice: ignoring non-required package '" + package + "'.";
+                }
+            }
+        }
+    }
+    else
+    {
+        delete mSBMLDoc;
+        throw NOMException("readSBMLFromString returned NULL, no further information available");
+    }
     mModel = mSBMLDoc->getModel();
     if (mModel == NULL)
     {

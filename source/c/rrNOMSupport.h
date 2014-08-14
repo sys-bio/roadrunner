@@ -184,8 +184,8 @@ public:
 
     void                    loadFromFile(const string& fileName);
     void                    loadParameterPromotedSBML(const string& var0, const string& sTimeSymbol);
-    void                    loadSBML(const string& var0);
-    void                    loadSBML(const string& var0, const string& sTimeSymbol);
+    void                    loadSBML(const string& var0, const std::string& filename);
+    void                    loadSBML(const string& var0, const string& sTimeSymbol, const std::string& filename);
 
     void                    setAnnotation(const string& sId, const string& sAnnotation);
     void                    setModelId(const string& sId);

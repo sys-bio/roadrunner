@@ -23,7 +23,7 @@ public:
     CModelGenerator(const string& tempFolder, const string& supportCodeFolder, const string& compiler);
     virtual                            ~CModelGenerator();
 
-    virtual  ExecutableModel            *createModel(const string& sbml, uint options);
+    virtual  ExecutableModel            *createModel(const string& sbml, uint options, const std::string& filename);
 
     virtual bool                        setTemporaryDirectory(const string& path);
 
@@ -58,7 +58,8 @@ private:
      * The caller own this.
      */
     ExecutableModel                     *createModel(const string& sbml, ls::LibStructural *ls,
-                                                     bool forceReCompile, bool computeAndAssignConsevationLaws);
+                                                     bool forceReCompile, bool computeAndAssignConsevationLaws, 
+                                                     const std::string& filename);
 
     CodeBuilder                         mHeader;
     CodeBuilder                         mSource;
@@ -150,7 +151,7 @@ private:
     string                              generateModelCode(const string& sbmlStr, LibStructural *ls, NOMSupport *nom,
                                                           const bool& _computeAndAssignConsevationLaws = false);
 
-    static bool                         loadSBMLIntoNOM(NOMSupport &nom, const string& sbml);
+    static bool                         loadSBMLIntoNOM(NOMSupport &nom, const string& sbml, const std::string& filename);
 
 };
 

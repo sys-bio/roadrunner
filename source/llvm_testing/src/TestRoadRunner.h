@@ -51,7 +51,7 @@ public:
 
     static SelectionRecord testsel(const std::string& str);
 
-    static std::string read_uri(const std::string& uri);
+    static std::string read_uri(const std::string& uri, std::string& filename);
 
     static void steadyState(const std::string& uri);
 

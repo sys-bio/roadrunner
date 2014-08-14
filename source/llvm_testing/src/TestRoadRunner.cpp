@@ -144,11 +144,11 @@ void TestRoadRunner::compareReference()
     simulation->SaveModelAsXML(dataOutputFolder);
     if (!result)
     {
-        Log(Logger::LOG_NOTICE) << "Test failed..\n";
+        Log(Logger::LOG_NOTICE) << "Test failed.\n";
     }
     else
     {
-        Log(Logger::LOG_NOTICE) << "Test passed..\n";
+        Log(Logger::LOG_NOTICE) << "Test passed.\n";
     }
 }
 
@@ -276,11 +276,11 @@ bool RunTest(const string& version, int caseNumber)
         simulation.SaveModelAsXML(dataOutputFolder);
         if(!result)
         {
-            clog<<"\t\tTest failed..\n";
+            clog<<"\t\tTest failed.\n";
         }
         else
         {
-            clog<<"\t\tTest passed..\n";
+            clog<<"\t\tTest passed.\n";
         }
     }
     catch(rr::Exception& ex)
@@ -302,10 +302,10 @@ SelectionRecord TestRoadRunner::testsel(const std::string& str)
     return SelectionRecord(str);
 }
 
-std::string TestRoadRunner::read_uri(const std::string& uri)
+std::string TestRoadRunner::read_uri(const std::string& uri, std::string& filename)
 {
 
-    return SBMLReader::read(uri);
+    return SBMLReader::read(uri, filename);
 
     /*
 

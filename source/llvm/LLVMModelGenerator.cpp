@@ -112,7 +112,7 @@ void testtt()
 
 
 ExecutableModel* LLVMModelGenerator::createModel(const std::string& sbml,
-        uint options)
+        uint options, const std::string& filename)
 {
     bool forceReCompile = options & ModelGenerator::RECOMPILE;
 
@@ -160,7 +160,7 @@ ExecutableModel* LLVMModelGenerator::createModel(const std::string& sbml,
 
 
 
-    ModelGeneratorContext context(sbml, options);
+    ModelGeneratorContext context(sbml, options, filename);
 
     rc->evalInitialConditionsPtr =
             EvalInitialConditionsCodeGen(context).createFunction();

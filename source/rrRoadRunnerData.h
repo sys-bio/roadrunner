@@ -105,6 +105,7 @@ public:
 
     const DoubleMatrix& getWeights() const;
 
+    bool writeSimpleOutput(std::ostream& ss) const;
 
 protected:
 

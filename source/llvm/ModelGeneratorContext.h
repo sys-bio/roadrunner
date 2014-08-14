@@ -70,7 +70,7 @@ public:
     /**
      * load the sbml document from a string.
      */
-    ModelGeneratorContext(std::string const &sbml, unsigned loadSBMLOptions);
+    ModelGeneratorContext(std::string const &sbml, unsigned loadSBMLOptions, std::string const &filename);
 
     /**
      * attach to an existing sbml document, we borrow a reference to this

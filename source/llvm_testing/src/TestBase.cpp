@@ -63,7 +63,7 @@ TestBase::TestBase(const std::string& compiler, const std::string& version, int 
 
     LoadSBMLOptions opt;
 
-    model = generator->createModel(sbml, opt.modelGeneratorOpt);
+    model = generator->createModel(sbml, opt.modelGeneratorOpt, fileName);
 
     delete generator;
 }

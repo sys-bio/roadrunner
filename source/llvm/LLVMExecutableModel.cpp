@@ -1902,8 +1902,8 @@ void LLVMExecutableModel::applyEvents(double timeEnd,
 
     vector<unsigned char> currEventStatus(modelData->numEvents);
 
-    unsigned char *p1 = &prevEventState[0];
-    unsigned char *p2 = &currEventStatus[0];
+    unsigned char *p1 = (prevEventState.size() ==0 ? NULL : &prevEventState[0]);
+    unsigned char *p2 = (currEventStatus.size()==0 ? NULL : &currEventStatus[0]);
 
     pendingEvents.eraseExpiredEvents();
 
@@ -1931,10 +1931,10 @@ int LLVMExecutableModel::applyPendingEvents(const double *stateVector,
     vector<unsigned char> prevEventState(modelData->numEvents);
     vector<unsigned char> currEventStatus(modelData->numEvents);
 
-    getEventTriggers(prevEventState.size(), 0, &prevEventState[0]);
+    getEventTriggers(prevEventState.size(), 0, (prevEventState.size()==0 ? NULL : &prevEventState[0]));
 
-    unsigned char *p1 = &prevEventState[0];
-    unsigned char *p2 = &currEventStatus[0];
+    unsigned char *p1 = (prevEventState.size()==0 ? NULL : &prevEventState[0]);
+    unsigned char *p2 = (currEventStatus.size()==0 ? NULL : &currEventStatus[0]);
 
     pendingEvents.eraseExpiredEvents();
 

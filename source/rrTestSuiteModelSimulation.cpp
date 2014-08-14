@@ -139,7 +139,7 @@ bool TestSuiteModelSimulation::CreateErrorData()
     //Check that result data and reference data has the same dimensions
     if(mResultData.cSize() != mReferenceData.cSize() || mResultData.rSize() != mReferenceData.rSize())
     {
-        mNrOfFailingPoints = mResultData.rSize();
+        mNrOfFailingPoints++;
         return false;
     }
 
@@ -188,6 +188,7 @@ bool TestSuiteModelSimulation::SaveAllData()
        mErrorData.dimension()  != mReferenceData.dimension() )
     {
         Log(lWarning)<<"Data dimensions are not equal, not saving to one file..";
+        mNrOfFailingPoints++;
         return false;
     }
     for(int row = 0; row < mResultData.rSize(); row++)

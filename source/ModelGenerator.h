@@ -166,7 +166,7 @@ public:
      * enumeration.
      */
     virtual ExecutableModel *createModel(const std::string& sbml,
-            unsigned int options) = 0;
+            unsigned int options, const std::string& filename) = 0;
 
     /**
      * Get the compiler object that the model generator is using to

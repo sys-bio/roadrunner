@@ -803,7 +803,8 @@ int PyConservedMoietyConverter::setDocument(const std::string& fileOrPath)
     delete doc;
     doc = 0;
 
-    std::string sbml = rr::SBMLReader::read(fileOrPath);
+    std::string nofile;
+    std::string sbml = rr::SBMLReader::read(fileOrPath, nofile);
 
     libsbml::SBMLReader reader;
 
