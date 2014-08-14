@@ -134,7 +134,7 @@ ExecutableModel* GPUSimModelGenerator::createModel(const std::string& sbml,
             Log(Logger::LOG_DEBUG) << "found a cached model for " << md5;
             throw_gpusim_exception("not implemented yet");
 	    // must have ability to relocate resources
-//             return new GPUSimExecutableModel();
+//             return new GPUSimExecutableModel(sbml, options);
         }
         else
         {
@@ -185,7 +185,7 @@ ExecutableModel* GPUSimModelGenerator::createModel(const std::string& sbml,
         cachedModelsMutex.unlock();
     }
 
-    return new GPUSimExecutableModel();
+    return new GPUSimExecutableModel(sbml, options);
 }
 
 Compiler* GPUSimModelGenerator::getCompiler()
