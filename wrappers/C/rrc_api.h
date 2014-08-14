@@ -546,6 +546,15 @@ C_DECL_SPEC RRCDataPtr rrcCallConv simulate(RRHandle handle);
 */
 C_DECL_SPEC RRCDataPtr rrcCallConv getSimulationResult(RRHandle handle);
 
+/*!
+ \brief Retrieve a handle to RoadRunners internal data
+ \param[in] handle Handle to a RoadRunner instance
+ \return Returns an array (RRCDataPtr) of columns containing the results of the
+ simulation including string labels for the individual columns. The client is
+ responsible for freeing the resulting RRCDataPtr structure.
+ \ingroup simulation
+*/
+C_DECL_SPEC RRCDataPtr rrcCallConv getRoadRunnerData(RRHandle handle);
 
 /*!
  \brief Carry out a time-course simulation based on the given arguments, time start,
