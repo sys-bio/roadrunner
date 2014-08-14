@@ -62,7 +62,17 @@ namespace rr
 namespace rrgpu
 {
 
-GPUSimExecutableModel::GPUSimExecutableModel()
+  /**
+ * checks if the bitfield value has all the flags
+ * in type (equiv to checkExact but with a more accurate
+ * name)
+ */
+inline bool checkBitfieldSubset(uint32_t type, uint32_t value) {
+    return (value & type) == type;
+}
+
+GPUSimExecutableModel::GPUSimExecutableModel(std::string const &sbml, unsigned loadSBMLOptions)
+    : GPUSimModel(sbml, loadSBMLOptions)
 {
 }
 
