@@ -136,6 +136,7 @@ if(BUILD_GPUSIM)
         gpu/GPUSimCompiler
         gpu/GPUSimExecutableModel
         gpu/GPUSimIntegrator
+        gpu/GPUSimModel
         gpu/GPUSimModelGenerator
         gpu/ModelResources
         )
