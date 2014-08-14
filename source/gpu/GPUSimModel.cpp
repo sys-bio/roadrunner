@@ -96,6 +96,108 @@ GPUSimModel::GPUSimModel(std::string const &sbml, unsigned options) {
     if(!moietyConverter)
         ownedDoc = SBMLDocumentPtr(doc);
     // use getDocument from now on
+
+//     assert(sizeof(modelDataFieldsNames) / sizeof(const char*)
+//             == NotSafe_FloatingSpeciesAmounts + 1
+//             && "wrong number of items in modelDataFieldsNames");
+
+//     modelName = getDocument()->getModel()->getName();
+
+    // add species initially without props so they can be referenced by rules
+    for (uint i = 0; i < model->getListOfSpecies()->size(); ++i) {
+        const Species *s = model->getListOfSpecies()->get(i);
+
+        if (s->getBoundaryCondition())
+            continue;
+
+        const std::string& sid = s->getId();
+
+        addSpecies(FloatingSpeciesPtr(sid));
+    }
+
+    // read SBML rules and add them to the model
+    {
+        const libsbml::ListOfRules * rules = getDocument()->getModel()->getListOfRules();
+        for (unsigned i = 0; i < rules->size(); ++i)
+        {
+            const libsbml::Rule *rule = rules->get(i);
+
+            if (dynamic_cast<const libsbml::AssignmentRule*>(rule))
+            {
+                assigmentRules.insert(rule->getVariable());
+            }
+            else if (dynamic_cast<const libsbml::RateRule*>(rule))
+            {
+//                 uint rri = rateRules.size();
+//                 rateRules[rule->getId()] = rri;
+            }
+            else if (dynamic_cast<const libsbml::AlgebraicRule*>(rule))
+            {
+                char* formula = SBML_formulaToString(rule->getMath());
+                Log(Logger::LOG_WARNING)
+                    << "Unable to handle algebraic rules. Formula '0 = "
+                    << formula << "' ignored.";
+                free(formula);
+            }
+        }
+    }
+
+    // SBML initial assignment rules
+    {
+        const libsbml::ListOfInitialAssignments *initAssignmentList =
+                getDocument()->getModel()->getListOfInitialAssignments();
+
+        for (unsigned i = 0; i < initAssignmentList->size(); ++i) {
+            const libsbml::InitialAssignment *ia = initAssignmentList->get(i);
+            addRule(ModelRulePtr(new InitialAssignmentRule(ia->getSymbol())));
+        }
+    }
+
+    // figure out 'fully' indendent floating species -- those without rules.
+    for (uint i = 0; i < model->getListOfSpecies()->size(); ++i) {
+        const Species *s = model->getListOfSpecies()->get(i);
+
+        if (s->getBoundaryCondition())
+            continue;
+
+        const std::string& sid = s->getId();
+
+        FloatingSpecies* species = findFloatingSpeciesById(sid);
+
+        if (getRules().contains(species))
+            species->setIsIndependent(false);
+
+        // conserved moiety species assignment rules do not apply at
+        // time t < 0
+        species->setIsIndepInitFltSpecies(
+          !hasInitialAssignmentRule(sid) &&
+          (!hasAssignmentRule(sid) || conservedMoiety));
+
+        if (conservedMoiety)
+            species_->setIsConservedMoiety(ConservationExtension::getConservedMoiety(*s));
+    }
+
+    // get the compartments, need to reorder them to set the independent ones
+    // first. Make sure compartments is called *before* float species.
+//     initCompartments();
+
+
+    // process the floating species
+//     initFloatingSpecies(getDocument()->getModel(), options & rr::ModelGenerator::CONSERVED_MOIETIES);
+
+    // display compartment info. We need to get the compartments before the
+    // so we can get the species compartments. But the struct anal dumps
+    // a bunch of stuff, so to keep things looking nice in the log, we
+    // display the compartment info here.
+//     displayCompartmentInfo();
+
+//     initBoundarySpecies(getDocument()->getModel());
+
+//     initGlobalParameters(getDocument()->getModel(), options & rr::ModelGenerator::CONSERVED_MOIETIES);
+
+//     initReactions(getDocument()->getModel());
+
+//     initEvents(getDocument()->getModel());
 }
 
 libsbml::SBMLDocument* GPUSimModel::getDocument() {
@@ -105,6 +207,32 @@ libsbml::SBMLDocument* GPUSimModel::getDocument() {
         return ownedDoc.get();
     else
         throw_gpusim_exception("Missing SBML document");
+}
+
+FloatingSpecies* GPUSimModel::findFloatingSpeciesById(const std::string& id) {
+    for(FloatingSpecies* s : getFloatingSpecies())
+        if(s->matchId(id))
+            return s;
+    throw_gpusim_exception("No such floating species for id \"" + id + "\"");
+}
+
+// from LLVMModelDataSymbols
+void GPUSimModel::initFloatingSpecies(bool computeAndAssignConsevationLaws) {
+    const ListOfSpecies *species = model->getListOfSpecies();
+
+
+}
+
+bool GPUSimModel::isIndependentElement(const FloatingSpecies& s) const
+{
+    return rateRules.find(id) == rateRules.end() &&
+            assigmentRules.find(id) == assigmentRules.end();
+}
+
+bool GPUSimModel::isIndependentInitFloatingSpecies(const std::string& id) const
+{
+    return !rateRules.contains(id) &&
+            !assigmentRules.contains(id);
 }
 
 } // namespace rrgpu
