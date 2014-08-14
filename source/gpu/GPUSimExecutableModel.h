@@ -11,6 +11,7 @@
 #ifndef GPUSimExecutableModelH
 #define GPUSimExecutableModelH
 
+#include "GPUSimModel.h"
 #include "rrExecutableModel.h"
 
 // #include "EvalInitialConditionsCodeGen.h"
@@ -49,7 +50,7 @@ namespace rrgpu
 
 class ModelResources;
 
-class RR_DECLSPEC GPUSimExecutableModel: public rr::ExecutableModel
+class RR_DECLSPEC GPUSimExecutableModel: public ExecutableModel, public GPUSimModel
 {
 public:
 
@@ -57,7 +58,7 @@ public:
      * the default ctor just zeros out all our private bits, then
      * the main construction is handled by the model generator.
      */
-    GPUSimExecutableModel();
+    GPUSimExecutableModel(std::string const &sbml, unsigned loadSBMLOptions);
 
 
     virtual ~GPUSimExecutableModel();
