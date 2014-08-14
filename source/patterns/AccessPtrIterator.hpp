@@ -64,9 +64,6 @@ protected:
     Iterator i_;
 };
 
-template <class
-class
-
 } // namespace rr
 
 #endif // rrAccessPtrIterH
