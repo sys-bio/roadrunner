@@ -30,6 +30,7 @@ template <class Iterator>
 class Range {
 public:
     typedef Iterator IteratorType;
+    typedef Iterator iterator;
 
     /// Construct from begin/end iterators
     Range(IteratorType begin, IteratorType end)
