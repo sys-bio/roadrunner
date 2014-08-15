@@ -28,16 +28,18 @@ namespace rr
  * @details Use this class with a custom type that defines
  * non-standard begin/end functions. The result is an object
  * with the usual begin/end iterator semantics, which enables
- * use within a range-based for loop, among other things.
+ * use within range-based for loops, among other things.
  * @verbat
  * // example usage
  * class graph {
+ *     // node iterators
  *     node_iterator nodes_begin();
  *     node_iterator nodes_end();\n
  *     // return a range of all nodes
  *     Range<graph::node_iterator> nodes() {
  *         return Range<graph::node_iterator>(g.nodes_begin(), g.nodes_end());
  *     }\n
+ *     // edge iterators
  *     edge_iterator edges_begin();
  *     edge_iterator edges_end();\n
  *     // return a range of all edges
