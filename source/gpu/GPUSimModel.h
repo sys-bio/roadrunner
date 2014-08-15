@@ -20,6 +20,7 @@
 #include "conservation/ConservationExtension.h"
 #include "patterns/AccessPtrIterator.hpp"
 #include "patterns/Range.hpp"
+#include "patterns/MultiIterator.hpp"
 
 #include <memory>
 #include <set>
@@ -32,13 +33,24 @@ namespace rr
 namespace rrgpu
 {
 
+class RR_DECLSPEC ModelElement
+{
+public:
+    virtual ~ModelElement();
 
-class RR_DECLSPEC FloatingSpecies
+    virtual bool matchesType(int typebits) const { return false; }
+
+    virtual std::string getId() const = 0;
+};
+
+class RR_DECLSPEC FloatingSpecies : public ModelElement
 {
 public:
     FloatingSpecies(const std::string& id)
       : id_(id) {}
 
+    void settId(const std::string& id) { id_ = id; }
+    std::string getId() const { return id_; }
     /// Return true if @ref id matches this object's id
     bool matchId(const std::string& id) { return id_ == id; }
 
@@ -50,16 +62,28 @@ public:
 
     void setIsIndependent(bool val) { isIndependent_ = val; }
     bool getIsIndependent() const { return isIndependent_; }
+
+    void setIndex(int index) { index_ = index; }
+    int getIndex() const { return index_; }
+
+    virtual bool matchesType(int typebits) const {
+        return ((typebits & SelectionRecord::FLOATING) &&
+                (((typebits & SelectionRecord::INDEPENDENT) && getIsIndependent()) || ((typebits & SelectionRecord::DEPENDENT) && !getIsIndependent())) //&&
+//                 (typebits & SelectionRecord::INITIAL) == getIsIndepInitFltSpecies()
+        );
+    }
 protected:
     std::string id_;
     bool consrvMoity_ = false;
     bool indInitFltSpc_ = false;
     bool isIndependent_ = false;
+    int index_ = 0;
 };
 
-class RR_DECLSPEC ModelRule
+class RR_DECLSPEC ModelRule : public ModelElement
 {
 public:
+
     virtual bool contains(const FloatingSpecies* s) const {
         return false;
     }
@@ -76,6 +100,8 @@ public:
 class RR_DECLSPEC AssignmentRule : public ModelRule
 {
 public:
+    std::string getId() const { return ""; }
+
     AssignmentRule(const std::string& variable) {}
 
     bool isAssignmentRule() const {
@@ -86,18 +112,24 @@ public:
 class RR_DECLSPEC RateRule : public ModelRule
 {
 public:
+    std::string getId() const { return ""; }
+
     RateRule(const std::string& id) {}
 };
 
 class RR_DECLSPEC AlgebraicRule : public ModelRule
 {
 public:
+    std::string getId() const { return ""; }
+
     AlgebraicRule(const std::string& formula) {}
 };
 
 class RR_DECLSPEC InitialAssignmentRule : public ModelRule
 {
 public:
+    std::string getId() const { return symbol_; }
+
     InitialAssignmentRule(const std::string& symbol)
       : symbol_(symbol) {}
 
@@ -147,17 +179,26 @@ protected:
 class RR_DECLSPEC GPUSimModel
 {
 protected:
+    /// Owning model rule pointer
     typedef std::unique_ptr<ModelRule> ModelRulePtr;
+    /// Owning floating species pointer
     typedef std::unique_ptr<FloatingSpecies> FloatingSpeciesPtr;
+    /// Collection of all floating species
     typedef std::vector<FloatingSpeciesPtr> FloatingSpeciesCollection;
 public:
+    /// Iterator for all model elements
+//     typedef MultiIteratorT<MultiIteratorRegPol<std::vector<int>>, ModelElement, FloatingSpeciesCollection, ModelRules> ModelElementsIterator;
+    typedef std::vector<ModelElement*> ModelElements;
+    typedef std::vector<const ModelElement*> ConstModelElements;
 
     // SBML string ctor
     GPUSimModel(std::string const &sbml, unsigned loadSBMLOptions);
 
-    // -- iterator section --
+    // -- accessor/iterator section --
 
+    /// Iterator for floating species access pointer
     typedef AccessPtrIterator<FloatingSpeciesCollection::iterator> FloatingSpeciesIterator;
+    /// Const iterator for floating species access pointer
     typedef AccessPtrIterator<FloatingSpeciesCollection::const_iterator> FloatingSpeciesConstIterator;
 
     typedef Range<FloatingSpeciesIterator> FloatingSpeciesRange;
@@ -173,7 +214,28 @@ public:
         return FloatingSpeciesConstRange(floatingSpecies_);
     }
 
-    // -- end iterator section --
+    /// Get all model elements
+    ModelElements getElements() {
+        ModelElements elts;
+        for(ModelElement* e : getFloatingSpecies())
+            elts.push_back(e);
+        for(ModelElement* e : getRules())
+            elts.push_back(e);
+        return elts;
+    }
+
+    ConstModelElements getElements() const {
+        ConstModelElements elts;
+        for(const ModelElement* e : getFloatingSpecies())
+            elts.push_back(e);
+        for(const ModelElement* e : getRules())
+            elts.push_back(e);
+        return elts;
+    }
+
+    virtual void getIds(int types, std::list<std::string> &ids);
+
+    // -- end accessor/iterator section --
 
     /// Get the rules included in this model
     const ModelRules& getRules() const { return rules_; }
@@ -219,7 +281,7 @@ protected:
 
 //     void initCompartments();
 
-    /// Forward to @ref ModelRules
+    /// Forward new rule to @ref ModelRules
     void addRule(ModelRulePtr&& r) {
         rules_.addRule(std::move(r));
     }
