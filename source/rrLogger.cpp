@@ -9,9 +9,8 @@
 
 #if defined(WIN32)
 #include <Poco/WindowsConsoleChannel.h>
-#else
-#include <Poco/ConsoleChannel.h>
 #endif
+#include <Poco/ConsoleChannel.h>
 #include <Poco/SimpleFileChannel.h>
 #include <Poco/SplitterChannel.h>
 #include <Poco/FormattingChannel.h>
@@ -42,7 +41,12 @@ using Poco::FormattingChannel;
 using Poco::PatternFormatter;
 using Poco::Mutex;
 
+// console channel can't write colored output to win32 console correctly. 
+#if defined(WIN32)
+static bool coloredOutput = false;
+#else
 static bool coloredOutput = true;
+#endif
 
 // owned by poco, it takes care of clearing in static dtor.
 static Poco::Logger *pocoLogger = 0;
@@ -591,19 +595,10 @@ void Logger::setConsoleStream(std::ostream* os)
 {
     Mutex::ScopedLock lock(loggerMutex);
 
-    std::clog << __PRETTY_FUNCTION__ << std::endl;
-
     if (os != consoleStream) {
-
-        //std::clog << __PRETTY_FUNCTION__ << ", setting new console stream" << std::endl;
         consoleStream = os;
-
         disableConsoleLogging();
         enableConsoleLogging();
-    }
-    else
-    {
-        //std::clog << __PRETTY_FUNCTION__ << ", NOT setting new console stream" << std::endl;
     }
 }
 
