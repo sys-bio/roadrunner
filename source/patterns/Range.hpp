@@ -52,7 +52,7 @@ namespace rr
  * for (node n : g.nodes())
  *     std::cout << n << std::endl;\n
  * // loop over edges
- * for (edge e : g.edges)
+ * for (edge e : g.edges())
  *     std::cout << e << std::endl;
  * @endverbat
  */
