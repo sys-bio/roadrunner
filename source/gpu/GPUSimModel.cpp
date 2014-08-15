@@ -28,6 +28,8 @@ namespace rr
 namespace rrgpu
 {
 
+// --* Global *--
+
 static libsbml::SBMLDocument *checkedReadSBMLFromString(const char* xml) {
     libsbml::SBMLDocument *doc = libsbml::readSBMLFromString(xml);
 
@@ -55,6 +57,12 @@ static libsbml::SBMLDocument *checkedReadSBMLFromString(const char* xml) {
     }
     return doc;
 }
+
+// --* ModelElement *--
+
+ModelElement::~ModelElement() {}
+
+// --* GPUSimModel *--
 
 GPUSimModel::GPUSimModel(std::string const &sbml, unsigned options) {
 //     typedef std::unique_ptr<libsbml::SBMLDocument> SBMLDocumentPtr;
@@ -163,6 +171,8 @@ GPUSimModel::GPUSimModel(std::string const &sbml, unsigned options) {
 
         FloatingSpecies* species = findFloatingSpeciesById(sid);
 
+        species->setIndex((int)i);
+
         if (getRules().contains(species))
             species->setIsIndependent(false);
 
@@ -226,6 +236,16 @@ bool GPUSimModel::hasAssignmentRule(const FloatingSpecies* s) {
         if (r->isAssignmentRule() && r->contains(s))
             return true;
     return false;
+}
+
+void GPUSimModel::getIds(int types, std::list<std::string> &ids) {
+    std::cerr << "GPUSimModel::getIds\n";
+    for(const ModelElement* e : getElements()) {
+        if(e->matchesType(types)) {
+          std::cerr << e->getId() << "\n";
+            ids.push_back(e->getId());
+        }
+    }
 }
 
 // from LLVMModelDataSymbols
