@@ -1,9 +1,7 @@
 /*
  * GPUSimExecutableModel.cpp
  *
- * Author: Andy Somogyi,
- *     email decode: V1 = "."; V2 = "@"; V3 = V1;
- *     andy V1 somogyi V2 gmail V3 com
+ * Author: JKM
  */
 #pragma hdrstop
 #include "GPUSimExecutableModel.h"
@@ -269,9 +267,8 @@ std::string GPUSimExecutableModel::getInfo()
     return stream.str();
 }
 
-int GPUSimExecutableModel::getFloatingSpeciesIndex(const string& id)
-{
-    throw_gpusim_exception("not supported");
+int GPUSimExecutableModel::getFloatingSpeciesIndex(const string& id) {
+    return findFloatingSpeciesById(id)->getIndex();
 }
 
 string GPUSimExecutableModel::getFloatingSpeciesId(int index)
@@ -360,13 +357,11 @@ void GPUSimExecutableModel::print(std::ostream &stream)
     stream << getInfo();
 }
 
-void GPUSimExecutableModel::getIds(int types, std::list<std::string> &ids)
-{
-    throw_gpusim_exception("not supported");
+void GPUSimExecutableModel::getIds(int types, std::list<std::string> &ids) {
+    GPUSimModel::getIds(types,ids);
 }
 
-int GPUSimExecutableModel::getSupportedIdTypes()
-{
+int GPUSimExecutableModel::getSupportedIdTypes() {
     return SelectionRecord::TIME |
         SelectionRecord::BOUNDARY_CONCENTRATION |
         SelectionRecord::FLOATING_CONCENTRATION |
