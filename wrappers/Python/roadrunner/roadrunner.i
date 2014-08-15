@@ -42,7 +42,8 @@
     #include <assert.h>
     #include <math.h>
     #include <cmath>
-    #include <PyUtils.h>
+    #include "PyUtils.h"
+    #include "PyLoggerStream.h"
 
     // make a python obj out of the C++ ExecutableModel, this is used by the PyEventListener
     // class. This function is defined later in this compilation unit.
@@ -255,6 +256,7 @@
 
 %init %{
 import_array();
+rr::PyLoggerStream::init();
 %}
 
 %{

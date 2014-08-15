@@ -50,6 +50,9 @@ volatile int logLevel = -1;
 const Logger::Level defaultLogLevel = Logger::LOG_NOTICE;
 static std::string logFileName;
 
+// pointer to an object created elsewhere. Ideally static.
+static std::ostream* consoleStream = &std::clog;
+
 // ******** The RoadRunner Logging Chain *************//
 // pocoLogger
 //     |-> FormattingChannel
@@ -79,25 +82,57 @@ static PatternFormatter *getPatternFormatter();
 static Channel *createConsoleChannel()
 {
 #if defined(WIN32)
-    if (coloredOutput) {
-        Poco::WindowsColorConsoleChannel *c = new Poco::WindowsColorConsoleChannel();
+    if (consoleStream == &std::clog || consoleStream == &std::cout
+            || consoleStream == &std::cerr) {
+        // WIN32 system console mode
+        if (coloredOutput) {
+            // WIN32 color console output
+            Poco::WindowsColorConsoleChannel *c =
+                    new Poco::WindowsColorConsoleChannel();
 
-        c->setProperty("traceColor", "gray");
-        c->setProperty("debugColor", "brown");
-        c->setProperty("informationColor", "green");
-        c->setProperty("noticeColor", "blue");
-        c->setProperty("warningColor", "yellow");
-        c->setProperty("errorColor", "magenta");
-        c->setProperty("criticalColor", "lightRed");
-        c->setProperty("fatalColor", "red");
+            c->setProperty("traceColor", "gray");
+            c->setProperty("debugColor", "brown");
+            c->setProperty("informationColor", "green");
+            c->setProperty("noticeColor", "blue");
+            c->setProperty("warningColor", "lightMagenta");
+            c->setProperty("errorColor", "magenta");
+            c->setProperty("criticalColor", "lightRed");
+            c->setProperty("fatalColor", "red");
 
-        return c;
+            return c;
+        } else {
+            // WIN32 non-color console output
+            return new Poco::ConsoleChannel(*consoleStream);
+        }
     } else {
-        return new Poco::WindowsConsoleChannel();
+        // WIN32 python (or alternate stream) mode.
+        if (coloredOutput) {
+            // WIN32 Python color output
+            Poco::ColorConsoleChannel *c =
+                    new Poco::ColorConsoleChannel(*consoleStream);
+
+            c->setProperty("traceColor", "gray");
+            c->setProperty("debugColor", "brown");
+            c->setProperty("informationColor", "green");
+            c->setProperty("noticeColor", "blue");
+            c->setProperty("warningColor", "lightMagenta");
+            c->setProperty("errorColor", "magenta");
+            c->setProperty("criticalColor", "lightRed");
+            c->setProperty("fatalColor", "red");
+
+            return c;
+
+        } else {
+            // WIN32 Python non-color output
+            return new Poco::ConsoleChannel(*consoleStream);
+        }
     }
+
 #else
     if (coloredOutput) {
-        Poco::ColorConsoleChannel *c = new Poco::ColorConsoleChannel();
+        Poco::ColorConsoleChannel *c =
+                new Poco::ColorConsoleChannel(*consoleStream);
+
 
         c->setProperty("traceColor", "gray");
         c->setProperty("debugColor", "brown");
@@ -110,7 +145,7 @@ static Channel *createConsoleChannel()
 
         return c;
     } else {
-        return new Poco::ConsoleChannel();
+        return new Poco::ConsoleChannel(*consoleStream);
     }
 #endif
 }
@@ -552,5 +587,26 @@ std::ostream& LoggingBuffer::stream()
     return buffer;
 }
 
+void Logger::setConsoleStream(std::ostream* os)
+{
+    Mutex::ScopedLock lock(loggerMutex);
+
+    std::clog << __PRETTY_FUNCTION__ << std::endl;
+
+    if (os != consoleStream) {
+
+        //std::clog << __PRETTY_FUNCTION__ << ", setting new console stream" << std::endl;
+        consoleStream = os;
+
+        disableConsoleLogging();
+        enableConsoleLogging();
+    }
+    else
+    {
+        //std::clog << __PRETTY_FUNCTION__ << ", NOT setting new console stream" << std::endl;
+    }
 }
+
+}
+
 
