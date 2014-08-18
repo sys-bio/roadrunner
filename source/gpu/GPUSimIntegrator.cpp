@@ -51,13 +51,18 @@ void GPUSimIntegrator::setSimulateOptions(const SimulateOptions* o)
 
 double GPUSimIntegrator::integrate(double timeStart, double hstep)
 {
+    Log(lDebug3)<<"---------------------------------------------------";
+    Log(lDebug3)<<"--- O N E     S T E P      ( "<<mOneStepCount<< " ) ";
+    Log(lDebug3)<<"---------------------------------------------------";
+
+    mOneStepCount++;
     throw_gpusim_exception("not supported");
 }
-
 
 void GPUSimIntegrator::restart(double time)
 {
 }
+
 _xmlNode* GPUSimIntegrator::createConfigNode()
 {
     throw_gpusim_exception("not supported");
