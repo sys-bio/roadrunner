@@ -252,6 +252,44 @@ string getCurrentExeFolder()
 
 }
 
+string getRoadrunnerExe()
+{
+#if defined(_WIN32) || defined(__WIN32__)
+    char path[MAX_PATH];
+    if(GetModuleFileNameA(NULL, path, ARRAYSIZE(path)) != 0)
+    {
+        return path;
+    }
+    return "";
+#elif defined(__APPLE__)
+    char exepath[PATH_MAX+1] = {0};
+    unsigned  bufsize = sizeof(exepath);
+    if (_NSGetExecutablePath(exepath, &bufsize) == 0)
+    {
+        return exepath;
+    }
+    else
+    {
+        Log(Logger::LOG_ERROR) << "_NSGetExecutablePath failed";
+        return "";
+    }
+#elif defined (__linux)
+    char arg1[20];
+    char exepath[PATH_MAX+1] = {0};
+
+    sprintf( arg1, "/proc/%d/exe", getpid() );
+    ssize_t r = readlink( arg1, exepath, 1024 );
+
+    if (r < 0)
+    {
+        throw rr::Exception(string("error readlink(") + string((char*)arg1) + string(") failed"));
+    }
+
+    return exepath;
+#endif
+
+}
+
 string getParentFolder(const string& path)
 {
     if (path.empty()) {
