@@ -6,7 +6,6 @@
 #pragma hdrstop
 #include "GPUSimExecutableModel.h"
 #include "ModelResources.h"
-#include "GPUSimException.h"
 #include "rrSparse.h"
 #include "rrLogger.h"
 #include "rrException.h"
@@ -15,6 +14,10 @@
 #include <iomanip>
 #include <cstdlib>
 #include <sstream>
+
+#if RR_GPUSIM_USE_LLVM_MODEL
+#include "llvm/LLVMModelGenerator.h"
+#endif
 
 using rr::Logger;
 using rr::getLogger;
@@ -72,6 +75,11 @@ inline bool checkBitfieldSubset(uint32_t type, uint32_t value) {
 GPUSimExecutableModel::GPUSimExecutableModel(std::string const &sbml, unsigned loadSBMLOptions)
     : GPUSimModel(sbml, loadSBMLOptions)
 {
+#if RR_GPUSIM_USE_LLVM_MODEL
+    rrllvm::LLVMModelGenerator modelGenerator{Compiler::getDefaultCompiler()};
+    llvmmodel_.reset(dynamic_cast<rrllvm::LLVMExecutableModel*>(modelGenerator.createModel(sbml, loadSBMLOptions)));
+    assert(llvmmodel_ && "Internal error (no model)");
+#endif
 }
 
 GPUSimExecutableModel::~GPUSimExecutableModel()
@@ -147,10 +155,13 @@ void GPUSimExecutableModel::computeConservedTotals()
 }
 
 
-int GPUSimExecutableModel::getFloatingSpeciesConcentrations(int len, int const *indx,
-        double *values)
-{
+int GPUSimExecutableModel::getFloatingSpeciesConcentrations(int len, int const *indx, double *values) {
+#if RR_GPUSIM_USE_LLVM_MODEL
+    checkLLVMModel();
+    return llvmmodel_->getFloatingSpeciesConcentrations(len,  indx,  values);
+#else
     throw_gpusim_exception("not supported");
+#endif
 }
 
 void GPUSimExecutableModel::getRateRuleValues(double *rateRuleValues)
@@ -174,8 +185,10 @@ void GPUSimExecutableModel::computeAllRatesOfChange()
     throw_gpusim_exception("not supported");
 }
 
-void GPUSimExecutableModel::getStateVectorRate(double time, const double *y, double *dydt)
-{
+void GPUSimExecutableModel::getStateVectorRate(double time, const double *y, double *dydt) {
+    if (!y && !dydt)
+        // does nothing
+        return;
     throw_gpusim_exception("not supported");
 }
 
@@ -323,12 +336,24 @@ void GPUSimExecutableModel::evalInitialConditions()
 
 void GPUSimExecutableModel::reset()
 {
-    throw_gpusim_exception("not supported");
+    uint options = rr::Config::getInt(rr::Config::MODEL_RESET);
+    Log(Logger::LOG_DEBUG) << "calling reset with default values: " << options;
+    reset(options);
 }
 
 void GPUSimExecutableModel::reset(int options)
 {
+//     throw_gpusim_exception("not supported");
+    // resets the initial conditions
+    if ((options & SelectionRecord::INITIAL)) {
+        Log(Logger::LOG_INFORMATION) << "resetting init conditions";
+//         evalInitialConditions();
+    }
 
+#if RR_GPUSIM_USE_LLVM_MODEL
+    checkLLVMModel();
+    llvmmodel_->reset(options);
+#endif
 }
 
 bool GPUSimExecutableModel::getConservedSumChanged()
@@ -343,7 +368,12 @@ void GPUSimExecutableModel::setConservedSumChanged(bool val)
 
 int GPUSimExecutableModel::getStateVector(double* stateVector)
 {
+#if RR_GPUSIM_USE_LLVM_MODEL
+    checkLLVMModel();
+    return llvmmodel_->getStateVector(stateVector);
+#else
     throw_gpusim_exception("not supported");
+#endif
 }
 
 int GPUSimExecutableModel::setStateVector(const double* stateVector)
@@ -597,8 +627,7 @@ int GPUSimExecutableModel::getGlobalParameterInitValues(int len, const int *indx
 #if (1) /**********************************************************************/
 /******************************************************************************/
 
-int GPUSimExecutableModel::getNumEvents()
-{
+int GPUSimExecutableModel::getNumEvents() {
     throw_gpusim_exception("not supported");
 }
 
