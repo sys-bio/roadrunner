@@ -1,5 +1,19 @@
+// == PREAMBLE ================================================
+
+// * Licensed under the Apache License, Version 2.0; see README
+
+/*
+ * GPUSimModel.h
+ *
+ *  Created on: Aug 14, 2014
+ *
+ * Author: JKM
+ */
+
 #ifndef rrGPUSimIntegratorH
 #define rrGPUSimIntegratorH
+
+// == INCLUDES ================================================
 
 #include "Integrator.h"
 #include "rrRoadRunnerOptions.h"
@@ -7,6 +21,8 @@
 
 #include <string>
 #include <vector>
+
+// == CODE ====================================================
 
 /**
  * CVode vector struct
@@ -26,7 +42,7 @@ namespace rrgpu
 
 /**
  * @internal
- * The integrator implemented by CVODE.
+ * The integrator
  */
 class GPUSimIntegrator : public Integrator
 {
@@ -101,6 +117,7 @@ public:
     virtual std::string getName() const;
 
 private:
+    int mOneStepCount=0;
 };
 
 } // namespace rrgpu
