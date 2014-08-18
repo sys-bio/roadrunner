@@ -10,8 +10,8 @@
  * Author: JKM
  */
 
-#ifndef GPUSimModelH
-#define GPUSimModelH
+#ifndef rrGPUSimModelH
+#define rrGPUSimModelH
 
 // == INCLUDES ================================================
 
@@ -20,7 +20,7 @@
 #include "conservation/ConservationExtension.h"
 #include "patterns/AccessPtrIterator.hpp"
 #include "patterns/Range.hpp"
-#include "patterns/MultiIterator.hpp"
+// #include "patterns/MultiIterator.hpp"
 
 #include <memory>
 #include <set>
@@ -57,6 +57,7 @@ public:
     void setIsConservedMoiety(bool val) { consrvMoity_ = val; }
     bool getIsConservedMoiety() const { return consrvMoity_; }
 
+    // depreacte? 
     void setIsIndepInitFltSpecies(bool val) { indInitFltSpc_ = val; }
     bool getIsIndepInitFltSpecies() const { return indInitFltSpc_; }
 
