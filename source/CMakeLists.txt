@@ -87,6 +87,8 @@ set(rrSources
     platform/Backtrace.cpp
     )
 
+#     set_source_files_properties(platform/Backtrace.cpp PROPERTIES COMPILE_FLAGS "-Wno-format")
+
 # Add the LLVM sources to compilation
 if(BUILD_LLVM)
     set(rrSources
@@ -263,72 +265,81 @@ if(RR_BUILD_SHARED_CORE)
 
 endif(RR_BUILD_SHARED_CORE)
 
-# static allways gets build
+# NO MOAR!
+if(RR_BUILD_STATIC)
 
-add_library(${target}-static STATIC ${rrSources})
+    add_library(${target}-static STATIC ${rrSources})
 
-set_property(TARGET ${target}-static
-    PROPERTY COMPILE_DEFINITIONS
-    STATIC_RR
-    LIBSBML_USE_CPP_NAMESPACE
-    LIBSBML_STATIC
-    LIBLAX_STATIC
-    STATIC_LIBSTRUCT
-    STATIC_PUGI
-    STATIC_NLEQ
-    POCO_STATIC
-    POCO_NO_AUTOMATIC_LIBS
-    )
-
-#libraries to link with static lib
-#======== We need to split up this one to satisfy linking in both windows and posix.
-#=== windows need libsbml-static and libf2c and posix uses sbml-static and f2c
-if(BUILD_LLVM)
-    target_link_libraries(${target}-static
-        ${LLVM_LIBRARIES}
+    set_property(TARGET ${target}-static
+        PROPERTY COMPILE_DEFINITIONS
+        STATIC_RR
+        LIBSBML_USE_CPP_NAMESPACE
+        LIBSBML_STATIC
+        LIBLAX_STATIC
+        STATIC_LIBSTRUCT
+        STATIC_PUGI
+        STATIC_NLEQ
+        POCO_STATIC
+        POCO_NO_AUTOMATIC_LIBS
         )
-endif(BUILD_LLVM)
+
+    #libraries to link with static lib
+    #======== We need to split up this one to satisfy linking in both windows and posix.
+    #=== windows need libsbml-static and libf2c and posix uses sbml-static and f2c
+    if(BUILD_LLVM)
+        target_link_libraries(${target}-static
+            ${LLVM_LIBRARIES}
+            )
+    endif(BUILD_LLVM)
 
 
-target_link_libraries (${target}-static
-    sundials_cvode
-    sundials_nvecserial
-    blas
-    lapack
-    nleq-static
-    rr-libstruct-static
-    PocoNet
-    PocoFoundation
-    )
-
-if(WIN32)
     target_link_libraries (${target}-static
-        libsbml-static
-        libf2c
-    ws2_32
-    iphlpapi
+        sundials_cvode
+        sundials_nvecserial
+        blas
+        lapack
+        nleq-static
+        rr-libstruct-static
+        PocoNet
+        PocoFoundation
         )
-endif(WIN32)
+
+    if(WIN32)
+        target_link_libraries (${target}-static
+            libsbml-static
+            libf2c
+        ws2_32
+        iphlpapi
+            )
+    endif(WIN32)
 
 
-if(UNIX)
-    target_link_libraries (${target}-static
-        sbml-static
-        f2c
-        xml2
-        dl
-        pthread
-        ${ZLIB_LIBRARIES} # LLVM implcit dep
+    if(UNIX)
+        target_link_libraries (${target}-static
+            sbml-static
+            f2c
+            xml2
+            dl
+            pthread
+            ${ZLIB_LIBRARIES} # LLVM implcit dep
+            )
+    endif(UNIX)
+
+    #Libxml we can't build right now
+    if(${BORLAND})
+        target_link_libraries (${target}-static libxml2_xe)
+    endif()
+
+    if(${MSVC})
+        target_link_libraries(${target}-static libxml2)
+    endif()
+
+    #if(INSTALL_STATIC_LIB)
+    install(TARGETS ${target}-static
+        LIBRARY DESTINATION lib COMPONENT rr_core
+        ARCHIVE DESTINATION lib COMPONENT rr_core
         )
-endif(UNIX)
-
-#Libxml we can't build right now
-if(${BORLAND})
-    target_link_libraries (${target}-static libxml2_xe)
-endif()
-
-if(${MSVC})
-    target_link_libraries(${target}-static libxml2)
+    #endif()
 endif()
 
 if(BUILD_TEST_TOOLS)
@@ -340,13 +351,6 @@ endif()
 
 #--- INSTALL STUFF
 if(${INSTALL_CXX_API})
-
-    #if(INSTALL_STATIC_LIB)
-    install(TARGETS ${target}-static
-        LIBRARY DESTINATION lib COMPONENT rr_core
-        ARCHIVE DESTINATION lib COMPONENT rr_core
-        )
-    #endif()
 
     #=== HEADERS
     set(subfolders

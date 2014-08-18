@@ -43,9 +43,15 @@ if(WIN32)
         STATIC_RR
         )
 
+if(RR_BUILD_STATIC)
     target_link_libraries ( ${target}
         roadrunner-static
         )
+elseif(RR_BUILD_SHARED_CORE)
+    target_link_libraries ( ${target}
+        roadrunner
+        )
+endif()
 
 else() #Unix
     # OSX flags:
@@ -64,6 +70,7 @@ else() #Unix
         STATIC_LIBSTRUCT
         )
 
+if(RR_BUILD_STATIC)
     target_link_libraries ( ${target}
         roadrunner-static
         rr-libstruct-static
@@ -74,6 +81,19 @@ else() #Unix
         f2c
         pthread
         )
+elseif(RR_BUILD_SHARED_CORE)
+    target_link_libraries ( ${target}
+        roadrunner
+        rr-libstruct-static
+        nleq-static
+        sbml
+        lapack
+        blas
+        f2c
+        pthread
+        )
+endif()
+
 endif()
 
 add_subdirectory(Apps)
