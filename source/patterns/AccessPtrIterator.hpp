@@ -28,7 +28,8 @@ namespace rr
  * for an owning pointer (e.g. std::unique_ptr)
  * @details Usually, an object that owns a resource does not
  * expose the owning pointer externally. Instead, use this class,
- * especially with containers, to retrieve access pointers
+ * especially with containers of owning pointers, to retrieve access
+ * pointers.
  */
 template <class Iterator>
 class AccessPtrIterator {
