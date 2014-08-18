@@ -31,6 +31,12 @@ endif(WIN32)
 # add cmake files to find things, prepend with our path
 SET(CMAKE_MODULE_PATH ${PROJECT_SOURCE_DIR}/cmake/ ${CMAKE_MODULE_PATH})
 
+find_package(CUDA)
+if (CUDA_FOUND)
+    set(WITH_CUDA TRUE CACHE BOOL "Use CUDA")
+else()
+    set(WITH_CUDA FALSE)
+endif()
 
 set(LLVM_INSTALL_PREFIX CACHE PATH "If LLVM was built using CMake, this is the location where it was installed")
 
