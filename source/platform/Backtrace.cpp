@@ -172,7 +172,14 @@ std::string libstdcxx_Backtrace::getLocation(char* btsym) const {
     *p = '\0';
 
     void* addr = nullptr;
-    sscanf(btsym, "0x%x", (uintptr_t*)&addr);
+//     if (sizeof(uintptr_t) == sizeof(unsigned int))
+    // would be nicer to use sizeof line but compiler has
+    // a panic attack about a branch that is never taken
+#   if defined(__LP64__) || defined (_LP64)
+        sscanf(btsym, "0x%lx", (uintptr_t*)&addr);
+#   else
+        sscanf(btsym, "0x%x", (uintptr_t*)&addr);
+#   endif
 //     std::cerr << "addr = " << addr << "\n";
 
     Dl_info dlinfo;
@@ -180,6 +187,7 @@ std::string libstdcxx_Backtrace::getLocation(char* btsym) const {
         std::cerr << "Internal: dladdr bad address\n";
     }
 
+    // TODO: dynamically grow
     char sbuf[512];
     sprintf(sbuf, "addr2line %p -e %s", (void*)((char*)addr-(char*)dlinfo.dli_fbase), object_name.c_str());
 //     std::cerr << sbuf << "\n";
