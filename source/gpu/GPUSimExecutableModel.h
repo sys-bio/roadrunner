@@ -1,18 +1,23 @@
+// == PREAMBLE ================================================
+
+// * Licensed under the Apache License, Version 2.0; see README
+
 /*
  * GPUSimExecutableModel.h
  *
- *  Created on: Jun 3, 2013
+ *  Created on: Aug 14, 2014
  *
- * Author: Andy Somogyi,
- *     email decode: V1 = "."; V2 = "@"; V3 = V1;
- *     andy V1 somogyi V2 gmail V3 com
+ * Author: JKM
  */
 
-#ifndef GPUSimExecutableModelH
-#define GPUSimExecutableModelH
+#ifndef rrGPUSimExecutableModelH
+#define rrGPUSimExecutableModelH
+
+// == INCLUDES ================================================
 
 #include "GPUSimModel.h"
 #include "rrExecutableModel.h"
+#include "GPUSimException.h"
 
 // #include "EvalInitialConditionsCodeGen.h"
 // #include "EvalReactionRatesCodeGen.h"
@@ -29,6 +34,11 @@
 // #include "EventQueue.h"
 #include "rrSelectionRecord.h"
 
+#define RR_GPUSIM_USE_LLVM_MODEL 1
+
+#if RR_GPUSIM_USE_LLVM_MODEL
+#   include "llvm/LLVMExecutableModel.h"
+#endif
 
 #if (__cplusplus >= 201103L) || defined(_MSC_VER)
 #include <memory>
@@ -41,6 +51,8 @@
 #endif
 
 #include <map>
+
+// == CODE ====================================================
 
 namespace rr
 {
@@ -440,6 +452,13 @@ private:
 
     template <typename a_type, typename b_type>
     friend void copyCachedModel(a_type* src, b_type* dst);
+
+#if RR_GPUSIM_USE_LLVM_MODEL
+    // just throws exc if no model
+    void checkLLVMModel() const { if (!llvmmodel_) throw_gpusim_exception("No LLVM Model"); }
+
+    std::unique_ptr<rrllvm::LLVMExecutableModel> llvmmodel_;
+#endif
 };
 
 } // namespace rrgpu
