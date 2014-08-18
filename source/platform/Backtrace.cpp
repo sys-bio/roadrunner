@@ -13,6 +13,7 @@
 
 #include "Backtrace.h"
 #include "nullptr.h"
+#include "rrUtils.h"
 
 // backtrace dumping in libstdc++
 #if defined(__GLIBCXX__)
@@ -23,6 +24,10 @@
 #include <sstream>
 #include <cassert>
 #include <string.h>
+
+#   ifdef __GLIBC__
+#   include <dlfcn.h>
+#   endif
 
 // == CODE ====================================================
 
@@ -70,6 +75,7 @@ void libstdcxx_Backtrace::dump(std::ostream& s) const {
         else
             s << "* " << symbols[i] << "\n";
         s << "   in " << getLocation(symbols[i]) << "\n";
+//         s << "   in " << symbols[i] << "\n";
 
     }
 
@@ -124,6 +130,17 @@ std::string libstdcxx_Backtrace::getLocation(char* btsym) const {
     char* newstr = (char*)malloc((strlen(btsym)+1)*sizeof(char));
     btsym = strcpy(newstr, btsym);
 
+    int m=0;
+    char* p = btsym;
+    // find '(' (end of file name / start of symbol)
+    while (p && *p != '(') {
+        ++m;
+        ++p;
+    }
+    std::string object_name(btsym, 0, m);
+//     std::cerr << "object_name = " << object_name << "\n";
+
+    // find '[' (start of absolute address)
     while (btsym && *btsym != '[')
         ++btsym;
     if (!btsym) {
@@ -140,7 +157,7 @@ std::string libstdcxx_Backtrace::getLocation(char* btsym) const {
         return "";
     }
 
-    char* p = btsym;
+    p = btsym;
     ++p;
     while (p && *p != ']')
         ++p;
@@ -154,8 +171,17 @@ std::string libstdcxx_Backtrace::getLocation(char* btsym) const {
     }
     *p = '\0';
 
-    char sbuf[256];
-    sprintf(sbuf, "addr2line %s -e /home/poltergeist/home/devel/install/roadrunner/bin/rr",  btsym);
+    void* addr = nullptr;
+    sscanf(btsym, "0x%x", (uintptr_t*)&addr);
+//     std::cerr << "addr = " << addr << "\n";
+
+    Dl_info dlinfo;
+    if (!dladdr(addr, &dlinfo)) {
+        std::cerr << "Internal: dladdr bad address\n";
+    }
+
+    char sbuf[512];
+    sprintf(sbuf, "addr2line %p -e %s", (void*)((char*)addr-(char*)dlinfo.dli_fbase), object_name.c_str());
 //     std::cerr << sbuf << "\n";
 
     FILE* f = popen(sbuf,  "r");
