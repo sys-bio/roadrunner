@@ -187,9 +187,13 @@ std::string libstdcxx_Backtrace::getLocation(char* btsym) const {
         std::cerr << "Internal: dladdr bad address\n";
     }
 
+    // there apparently is no portable way to do this
+    if (object_name.find(".so") != std::string::npos)
+        addr = (void*)((char*)addr-(char*)dlinfo.dli_fbase);
+
     // TODO: dynamically grow
     char sbuf[512];
-    sprintf(sbuf, "addr2line %p -e %s", (void*)((char*)addr-(char*)dlinfo.dli_fbase), object_name.c_str());
+    sprintf(sbuf, "addr2line %p -e %s", addr, object_name.c_str());
 //     std::cerr << sbuf << "\n";
 
     FILE* f = popen(sbuf,  "r");
