@@ -19,6 +19,8 @@
 #include <assert.h>
 #include <Poco/Logger.h>
 
+void launchKern();
+
 
 using namespace std;
 namespace rr
@@ -56,6 +58,8 @@ double GPUSimIntegrator::integrate(double timeStart, double hstep)
     Log(lDebug3)<<"---------------------------------------------------";
 
     mOneStepCount++;
+
+    launchKern();
     throw_gpusim_exception("not supported");
 }
 
