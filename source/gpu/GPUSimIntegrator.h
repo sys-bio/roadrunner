@@ -2,8 +2,16 @@
 
 // * Licensed under the Apache License, Version 2.0; see README
 
+// == FILEDOC =================================================
+
+/** @file GPUSimIntegrator.h
+  * @brief GPUSim integrator
+**/
+
+// == FILEINFO ================================================
+
 /*
- * GPUSimModel.h
+ * GPUSimIntegrator.h
  *
  *  Created on: Aug 14, 2014
  *
@@ -42,7 +50,7 @@ namespace rrgpu
 
 /**
  * @internal
- * The integrator
+ * @brief GPU-based integrator
  */
 class GPUSimIntegrator : public Integrator
 {
