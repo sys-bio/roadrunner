@@ -49,7 +49,7 @@ include_directories(
     ${THIRD_PARTY_INSTALL_FOLDER}/include/cvode
     )
 
-set(rrSources
+set(rrCoreSources
     rrConfig
     rrSteadyStateSolver
     Configurable
@@ -84,15 +84,16 @@ set(rrSources
     conservation/ConservationDocumentPlugin
     conservation/ConservedMoietyPlugin
     conservation/ConservedMoietyConverter
-    platform/Backtrace.cpp
     )
+
+# initial sources (core)
+set(rrSources ${rrCoreSources})
 
 #     set_source_files_properties(platform/Backtrace.cpp PROPERTIES COMPILE_FLAGS "-Wno-format")
 
-# Add the LLVM sources to compilation
+# Sources for the LLVM component
 if(BUILD_LLVM)
-    set(rrSources
-        ${rrSources}
+    set(rrLLVMSources
         llvm/AssignmentRuleEvaluator
         llvm/ASTNodeCodeGen
         llvm/ASTNodeFactory
@@ -129,21 +130,42 @@ if(BUILD_LLVM)
         llvm/EvalVolatileStoichCodeGen
         llvm/SBMLInitialValueSymbolResolver
         )
+
+    # set up appropriate flags for using LLVM
+    set_source_files_properties(${rrLLVMSources} PROPERTIES COMPILE_FLAGS ${LLVM_FLAGS})
+    # add LLVM-based model sources to list
+    set(rrSources ${rrSources} ${rrLLVMSources})
 endif(BUILD_LLVM)
 
-# Add the GPUSim sources to compilation
+# Sources for the GPUSim component
 if(BUILD_GPUSIM)
-    set(rrSources
-        ${rrSources}
-        gpu/GPUSimCompiler
-        gpu/GPUSimExecutableModel
-        gpu/GPUSimIntegrator
-        gpu/GPUSimModel
-        gpu/GPUSimModelGenerator
-        gpu/ModelResources
+    set(rrGPUSIMCoreSources
+        gpu/GPUSimCompiler.cpp
+        gpu/GPUSimExecutableModel.cpp
+        gpu/GPUSimIntegrator.cpp
+        gpu/GPUSimModel.cpp
+        gpu/GPUSimModelGenerator.cpp
+        gpu/ModelResources.cpp
+        platform/Backtrace.cpp
         )
+
+    # a system without C++11 will not have the hardware to run the GPU sim anyway
+    set_source_files_properties(${rrGPUSIMCoreSources} PROPERTIES COMPILE_FLAGS "-std=c++11")
+    # TODO: eliminate these when GPU model generator is not dependent on LLVM
+    set_source_files_properties(${rrGPUSIMCoreSources} PROPERTIES COMPILE_FLAGS ${LLVM_FLAGS})
+
+    # add GPU sim sources to list
+    set(rrSources ${rrSources} ${rrGPUSIMCoreSources})
+
+    if (WITH_CUDA)
+        cuda_add_library(CudaRKInt SHARED gpu/CudaRKInt.cu)
+        set_source_files_properties(gpu/CudaRKInt.cu PROPERTIES COMPILE_FLAGS --compiler-bindir=gcc)
+#         set_target_properties(CudaRKInt PROPERTIES COMPILE_FLAGS --compiler-bindir=gcc)
+#         install(TARGETS CudaRKInt DESTINATION lib)
+    endif()
 endif(BUILD_GPUSIM)
 
+# Sources for the C code-generating component
 if(BUILD_LEGACY_C)
     set(rrSources
         ${rrSources}
@@ -175,10 +197,8 @@ if(BUILD_LEGACY_C)
         )
 endif(BUILD_LEGACY_C)
 
-
-# set up linking libs
+# Build shared roadrunner lib if enabled
 if(RR_BUILD_SHARED_CORE)
-    #Link with static libs
     add_library(${target} SHARED ${rrSources})
 
     set_property(TARGET ${target}
@@ -265,7 +285,7 @@ if(RR_BUILD_SHARED_CORE)
 
 endif(RR_BUILD_SHARED_CORE)
 
-# NO MOAR!
+# Build the static roadruner library if enabled
 if(RR_BUILD_STATIC)
 
     add_library(${target}-static STATIC ${rrSources})
@@ -349,7 +369,7 @@ if(BUILD_TEST_TOOLS)
     add_subdirectory(testing)
 endif()
 
-#--- INSTALL STUFF
+# Install header files
 if(${INSTALL_CXX_API})
 
     #=== HEADERS
