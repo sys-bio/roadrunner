@@ -161,8 +161,10 @@ if(BUILD_GPUSIM)
         cuda_add_library(CudaRKInt SHARED gpu/CudaRKInt.cu)
         set_source_files_properties(gpu/CudaRKInt.cu PROPERTIES COMPILE_FLAGS --compiler-bindir=gcc)
 #         set_target_properties(CudaRKInt PROPERTIES COMPILE_FLAGS --compiler-bindir=gcc)
-#         install(TARGETS CudaRKInt DESTINATION lib)
+        install(TARGETS CudaRKInt DESTINATION lib)
     endif()
+
+    set(GPUSIM_LIBS CudaRKInt)
 endif(BUILD_GPUSIM)
 
 # Sources for the C code-generating component
@@ -283,6 +285,13 @@ if(RR_BUILD_SHARED_CORE)
             )
     endif(BUILD_LLVM)
 
+    # Link with GPU code if built
+    if(BUILD_GPUSIM AND WITH_CUDA)
+        target_link_libraries(${target}
+            ${GPUSIM_LIBS}
+            )
+    endif()
+
 endif(RR_BUILD_SHARED_CORE)
 
 # Build the static roadruner library if enabled
@@ -304,15 +313,23 @@ if(RR_BUILD_STATIC)
         )
 
     #libraries to link with static lib
-    #======== We need to split up this one to satisfy linking in both windows and posix.
-    #=== windows need libsbml-static and libf2c and posix uses sbml-static and f2c
+
     if(BUILD_LLVM)
         target_link_libraries(${target}-static
             ${LLVM_LIBRARIES}
             )
     endif(BUILD_LLVM)
 
+    # Link with GPU code if built
+    if(BUILD_GPUSIM AND WITH_CUDA)
+        target_link_libraries(${target}
+            ${GPUSIM_LIBS}
+            )
+    endif()
 
+
+    #======== We need to split up this one to satisfy linking in both windows and posix.
+    #=== windows need libsbml-static and libf2c and posix uses sbml-static and f2c
     target_link_libraries (${target}-static
         sundials_cvode
         sundials_nvecserial
