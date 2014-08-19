@@ -119,6 +119,10 @@ std::string GPUSimIntegrator::getName() const
     return "gpusim";
 }
 
+Integrator* CreateGPUSimIntegrator(ExecutableModel* oModel, const SimulateOptions* options) {
+    return new GPUSimIntegrator(oModel, options);
+}
+
 } // namespace rrgpu
 
 } // namespace rr
