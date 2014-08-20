@@ -1,5 +1,6 @@
 #pragma hdrstop
 #include "GPUSimIntegrator.h"
+#include "GPUSimIntegratorInt.h"
 #include "GPUSimException.h"
 #include "rrExecutableModel.h"
 #include "rrException.h"
@@ -19,7 +20,7 @@
 #include <assert.h>
 #include <Poco/Logger.h>
 
-void launchKern();
+void launchKern(rr::rrgpu::GPUSimIntegratorInt& intf);
 
 
 using namespace std;
@@ -38,9 +39,12 @@ IntegratorListenerPtr GPUSimIntegrator::getListener()
     throw_gpusim_exception("not supported");
 }
 
-GPUSimIntegrator::GPUSimIntegrator(ExecutableModel *aModel, const SimulateOptions* options)
+GPUSimIntegrator::GPUSimIntegrator(ExecutableModel *model, const SimulateOptions* options)
 {
     Log(Logger::LOG_INFORMATION) << "creating GPUSimIntegrator";
+    model_ = dynamic_cast<GPUSimExecutableModel*>(model);
+    if (!model_)
+        throw_gpusim_exception("Wrong model type (expected GPUSimExecutableModel)");
 }
 
 GPUSimIntegrator::~GPUSimIntegrator()
@@ -59,7 +63,9 @@ double GPUSimIntegrator::integrate(double timeStart, double hstep)
 
     mOneStepCount++;
 
-    launchKern();
+    GPUSimIntegratorInt intf(this);
+
+    launchKern(intf);
     throw_gpusim_exception("not supported");
 }
 

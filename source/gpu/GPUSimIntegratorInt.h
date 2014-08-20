@@ -39,7 +39,7 @@ class GPUSimIntegrator;
  * @brief Interface for calling host integrator functions
  * @details Called by device
  */
-class GPUSimIntegratorInt : public Integrator
+class GPUSimIntegratorInt
 {
 public:
     GPUSimIntegratorInt(GPUSimIntegrator* parent)
@@ -54,6 +54,7 @@ public:
     void evalRate(double time, const double *y, double* dydt=0);
 
 private:
+    GPUSimIntegrator* parent_;
 };
 
 } // namespace rrgpu
