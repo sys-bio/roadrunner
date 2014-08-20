@@ -133,6 +133,20 @@ void GPUSimIntegrator::evalRate(double time, const double *y, double* dydt) {
     model_->getStateVectorRate(time, y, dydt);
 }
 
+void GPUSimIntegrator::evalRatef(float time, const float *y, float* dydt) {
+    // thank you for rejecting N3820, C++ committee, and making
+    // this implementation exponentially more complicated
+    double* yy = new double[getStateVectorSize()];
+    double* dyy = new double[getStateVectorSize()];
+    evalRate(time, yy, dyy);
+    delete yy;
+    delete dyy;
+}
+
+int GPUSimIntegrator::getStateVectorSize() const {
+    return model_->getStateVector(NULL);
+}
+
 Integrator* CreateGPUSimIntegrator(ExecutableModel* oModel, const SimulateOptions* options) {
     return new GPUSimIntegrator(oModel, options);
 }
