@@ -23,6 +23,22 @@
 using namespace std;
 namespace rr {
 
+
+std::string Compiler::getDefaultCompiler()
+{
+#if defined(BUILD_LLVM)
+    return "LLVM";
+#else
+    #if defined(_WIN32)
+        return joinPath("..", "compilers", "tcc", "tcc.exe");
+    #else
+        // the default compiler on Unix systems is 'cc', the standard enviornment
+        // for the default compiler is 'CC'.
+        return getenv("CC") ? getenv("CC") : "gcc";
+    #endif
+#endif
+}
+
 ModelGenerator* ModelGenerator::New(const string& compiler, const string& tempFolder,
             const string& supportCodeFolder)
 {

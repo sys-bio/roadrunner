@@ -1,6 +1,8 @@
 #pragma hdrstop
 #include "rrLogger.h"
 #include "rrOSSpecifics.h"
+#include "rrConfig.h"
+#include "rrUtils.h"
 
 #include <Poco/Logger.h>
 #include <Poco/AsyncChannel.h>
@@ -18,6 +20,8 @@
 #include <Poco/AutoPtr.h>
 #include <Poco/LogStream.h>
 #include <Poco/Mutex.h>
+#include <Poco/File.h>
+#include <Poco/Path.h>
 
 #include <iostream>
 #include <map>
@@ -235,12 +239,44 @@ void Logger::enableFileLogging(const std::string& fileName, int level)
 
     Logger::setLevel(level);
 
+    // close the current file log and re-create it.
+    disableFileLogging();
+
     if (!simpleFileChannel)
     {
+        std::string realName;
+
+        // figure out what file name to use
+        if (fileName.length() == 0) {
+            // none given, use one from config.
+            realName = Config::getString(Config::LOGGER_LOG_FILE_PATH);
+        }
+
+        if (realName.length() == 0) {
+            // default log name.
+            realName = joinPath(getTempDir(), "roadrunner.log");
+        } else {
+            // expand any env vars and make absolute path.
+            realName = Poco::Path::expand(realName);
+            Poco::Path path(realName);
+            realName = path.makeAbsolute().toString();
+        }
+
+        // check if the path is writable
+        Poco::Path p(realName);
+        Poco::File fdir = p.parent();
+        if(!fdir.exists())
+        {
+            realName = joinPath(getTempDir(), "roadrunner.log");
+            Log(Logger::LOG_ERROR) << "The specified log file directory path, "
+                    << fdir.path() << " does not exist, using default log file path: "
+                    << realName;
+        }
+
         SplitterChannel *splitter = getSplitterChannel();
 
         simpleFileChannel = new SimpleFileChannel();
-        simpleFileChannel->setProperty("path", fileName);
+        simpleFileChannel->setProperty("path", realName);
         simpleFileChannel->setProperty("rotation", "never");
 
         logFileName = simpleFileChannel->getProperty("path");

@@ -8,6 +8,7 @@
 #include "rrc_types.h"
 #include "rrc_utilities.h"
 #include "rrStringUtils.h"
+#include "rrRoadRunner.h"
 
 namespace rrc
 {
@@ -37,21 +38,6 @@ RoadRunner* castToRoadRunner(RRHandle handle)
         throw(ex);
     }
 }
-
-RoadRunnerData* castToRRData(rrc::RRDataHandle handle)
-{
-    RoadRunnerData* rrd = (RoadRunnerData*) handle;
-    if(rrd) //Will only fail if handle is NULL...
-    {
-        return rrd;
-    }
-    else
-    {
-        Exception ex("Failed to cast to a valid RoadRunner Data object");
-        throw(ex);
-    }
-}
-
 
 RRDoubleMatrix* createMatrix(const ls::DoubleMatrix* mat)
 {
@@ -415,6 +401,40 @@ RRCDataPtr createRRCData(const RoadRunnerData& result)
                 rrCData->Weights[index] = result.getWeight(row, col);
             }
             ++index;
+        }
+    }
+    return rrCData;
+}
+
+RRCDataPtr createRRCData(const RoadRunner& tmp)
+{
+    // TODO make roadrunner const correct
+    RoadRunner& r = const_cast<RoadRunner&>(tmp);
+
+    RRCData* rrCData  = new RRCData;
+    memset(rrCData, 0, sizeof(RRCData));
+
+    // create columns info
+    const std::vector<SelectionRecord> &selections = r.getSelections();
+    rrCData->ColumnHeaders = new char*[selections.size()];
+    for(int i = 0; i < selections.size(); ++i)
+    {
+        rrCData->ColumnHeaders[i] = rr::createText(selections[i].to_string());
+    }
+
+    const DoubleMatrix& result = *r.getSimulationData();
+
+    rrCData->RSize = result.RSize();
+    rrCData->CSize = result.CSize();
+    int size = rrCData->RSize*rrCData->CSize;
+    rrCData->Data = new double[size];
+
+    int index = 0;
+    for(int row = 0; row < rrCData->RSize; row++)
+    {
+        for(int col = 0; col < rrCData->CSize; col++)
+        {
+            rrCData->Data[index++] = result(row, col);
         }
     }
     return rrCData;

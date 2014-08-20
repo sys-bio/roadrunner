@@ -49,8 +49,6 @@ namespace rrc { extern "C" {
 /*!@brief Void pointer to a RoadRunner instance */
 typedef void* RRHandle; /*! Void pointer to a RoadRunner instance */
 
-/*!@brief Void pointer to a RoadRunner data instance */
-typedef void* RRDataHandle;
 
 // ===================================== C TYPES =====================================
 
@@ -66,8 +64,8 @@ typedef struct RRVector
 /*!@brief Structure for a simple vector of strings */
 typedef struct RRStringArray
 {
-    int             Count;		            /*!< The number of elements in the string array */
-    char**          String;		            /*!< Points to an array of string items */
+    int             Count;                    /*!< The number of elements in the string array */
+    char**          String;                    /*!< Points to an array of string items */
 } *RRStringArrayPtr;                        /*!< Pointer to RRStringListHandle struct */
 
 /*!@struct*/
@@ -108,7 +106,7 @@ typedef struct RRComplexMatrix
 } *RRComplexMatrixPtr;                      /*!< Pointer to RRDoubleMatrixPtr struct */
 
 /*!@struct*/
-/*!@brief Structure for the result type from the simulate calls */
+/*!@brief Structure for the result type from the simulate calls. The client is responsible for freeing the RRCDataPtr. */
 typedef struct RRCData
 {
     int             RSize;                  /*!< The number of rows in the data matrix */

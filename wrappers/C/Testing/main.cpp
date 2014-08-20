@@ -155,6 +155,14 @@ int main(int argc, char* argv[])
                            0);
     }
 
+    // composite model package.
+    if (args.Suites.find('L') != std::string::npos)
+    {
+        clog << "Running Suite SBML_TEST_SUITE_COMP\n";
+        clog << "ModelPath " << gTSModelsPath;
+        runner1.RunTestsIf(Test::GetTestList(), "SBML_TEST_SUITE_COMP", True(), 0);
+    }
+
 
     //Finish outputs result to xml file
     runner1.Finish();

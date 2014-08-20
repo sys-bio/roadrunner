@@ -53,7 +53,7 @@ int main(int argc, char * argv[])
 
         if(args.UseOSTempFolder)
         {
-            args.TempDataFolder = getUsersTempDataFolder();
+            args.TempDataFolder = getTempDir();
         }
 
         if(args.TempDataFolder == ".")

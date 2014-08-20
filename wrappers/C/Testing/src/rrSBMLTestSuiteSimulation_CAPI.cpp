@@ -20,18 +20,12 @@ RoadRunnerData convertCAPIResultData(RRCDataPtr        resultsHandle);
 SBMLTestSuiteSimulation_CAPI::SBMLTestSuiteSimulation_CAPI(const string& dataOutputFolder, const string& modelFilePath, const string& modelFileName)
 :
         rr::TestSuiteModelSimulation(dataOutputFolder, modelFilePath, modelFileName),
-        mRRHandle(NULL),
-        mResultHandle(NULL)
+        mRRHandle(NULL)
 {
 }
 
 SBMLTestSuiteSimulation_CAPI::~SBMLTestSuiteSimulation_CAPI()
 {
-    // we own the result, but not the RR instance.
-    if(mResultHandle)
-    {
-        freeRRCData(mResultHandle);
-    }
 }
 
 void SBMLTestSuiteSimulation_CAPI::UseHandle(RRHandle handle)
@@ -109,16 +103,18 @@ bool SBMLTestSuiteSimulation_CAPI::Simulate()
         return false;
     }
 
-    //Todo: Bisare
-    simulate(mRRHandle);
-    mResultHandle = getSimulationResult(mRRHandle);
+    RRCDataPtr resultData = NULL;
 
-    if(mResultHandle)
+    if (!(resultData = simulate(mRRHandle)))
     {
-        mResultData = convertCAPIResultData(mResultHandle);
+        Log(Logger::LOG_ERROR) << "Failed simulate in test " << mCurrentCaseNumber
+                << ", error: " << rrc::getLastError();
+        return false;
     }
 
-    return mResultHandle ? true : false;
+    mResultData = convertCAPIResultData(resultData);
+    freeRRCData(resultData);
+    return true;
 }
 
 RoadRunnerData SBMLTestSuiteSimulation_CAPI::GetResult()
@@ -131,10 +127,6 @@ bool SBMLTestSuiteSimulation_CAPI::SaveResult()
     string resultFileName(joinPath(mDataOutputFolder, "rrCAPI_" + mModelFileName));
     resultFileName = changeFileExtensionTo(resultFileName, ".csv");
 
-    if(!mResultHandle)
-    {
-        return false;
-    }
 
     ofstream fs(resultFileName.c_str());
     fs << mResultData;

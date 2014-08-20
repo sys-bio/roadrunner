@@ -77,15 +77,6 @@ C_DECL_SPEC void                        setError(const string& err);
 */
 C_DECL_SPEC rr::RoadRunner*             castToRoadRunner(RRHandle rrHandle);
 
-/*!
- \brief Cast a RoadRunner Data handle to RoadRunner Data instance pointer, throws if it fails
- \param[in] handle  A handle to a roadrunner data instance
- \return Pointer to a roadrunner data instance
- \ingroup cpp_support
-*/
-C_DECL_SPEC rr::RoadRunnerData*         castToRRData(RRDataHandle rrDataHandle);
-
-
 
 /*!
  \brief Copy a C vector to a std::vector
@@ -162,14 +153,21 @@ C_DECL_SPEC RRStringArrayPtr               createList(const rrc::StringList& lis
 */
 C_DECL_SPEC RRListPtr                      createArrayList(const ArrayList& list);
 
-//Result data
-/*!
- \brief Creates a RRData structure from rr::RoadRunnerData object
- \param[in] data  Input RoadRunner data
- \return A handle to a RRData structure. Null if it fails
- \ingroup cpp_support
-*/
+/**
+ * @deprecated
+ *
+ * RoadRunnerData is going away.
+ */
 C_DECL_SPEC RRCDataPtr    createRRCData(const rr::RoadRunnerData& data);
+
+/**
+ * Creates an RRCDataPtr from the current state of a RoadRunner object.
+ *
+ * This may be used directly after RoadRunner::simulate() has been called
+ * to package up the simulation result data and column names into one of
+ * these RRCDataPtr structs.
+ */
+C_DECL_SPEC RRCDataPtr    createRRCData(const rr::RoadRunner&);
 
 }
 #endif

@@ -71,15 +71,23 @@ void Variant::assign(const std::type_info& info, const void* p)
 {
     TRY_ASSIGN(std::string);
 
-    TRY_ASSIGN(int);
-
     TRY_ASSIGN(long);
+
+    TRY_ASSIGN(bool);
 
     TRY_ASSIGN(float);
 
     TRY_ASSIGN(double);
 
-    TRY_ASSIGN(bool);
+    TRY_ASSIGN(unsigned long);
+
+    TRY_ASSIGN(int);
+
+    TRY_ASSIGN(unsigned int);
+
+    TRY_ASSIGN(char);
+
+    TRY_ASSIGN(unsigned char);
 
     string msg = "could not assign type ";
     msg += info.name();
@@ -185,6 +193,16 @@ bool Variant::isBool() const
             return;                                \
         }
 
+bool Variant::isEmpty() const
+{
+    return self->var.isEmpty();
+}
+
+bool Variant::isSigned() const
+{
+    return self->var.isSigned();
+}
+
 void Variant::convert_to(const std::type_info& info, void* p) const
 {
     try
@@ -199,9 +217,15 @@ void Variant::convert_to(const std::type_info& info, void* p) const
 
         TRY_CONVERT_TO(double);
 
+        TRY_CONVERT_TO(unsigned long);
+
         TRY_CONVERT_TO(int);
 
+        TRY_CONVERT_TO(unsigned int);
 
+        TRY_CONVERT_TO(char);
+
+        TRY_CONVERT_TO(unsigned char);
     }
     catch(Poco::SyntaxException& ex)
     {
@@ -226,3 +250,5 @@ void Variant::convert_to(const std::type_info& info, void* p) const
 }
 
 } /* namespace rr */
+
+

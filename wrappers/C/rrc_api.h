@@ -183,12 +183,12 @@ C_DECL_SPEC char* rrcCallConv getlibSBMLVersion(RRHandle handle);
  /*!
  \brief Set the path to the temporary folder where the C code will be stored
 
- When cRoadRunner is run in C generation mode its uses a temporary folder to store the
+ When RoadRunner is run in C generation mode its uses a temporary folder to store the
  generated C source code. This method can be used to set the temporary folder path if necessary.
  \param[in] handle Handle to a RoadRunner instance
- \param[in] folder Pointer to string holdind folder path
+ \param[in] folder Pointer to string holding folder path
 
- \return Returns true if succesful
+ \return Returns true if successful
  \ingroup utility                                                 onsole
 */
 C_DECL_SPEC bool rrcCallConv setTempFolder(RRHandle handle, const char* folder);
@@ -196,9 +196,9 @@ C_DECL_SPEC bool rrcCallConv setTempFolder(RRHandle handle, const char* folder);
 /*!
  \brief Retrieve the current temporary folder path
 
- When cRoadRunner is run in C generation mode its uses a temporary folder to store the
+ When RoadRunner is run in C generation mode its uses a temporary folder to store the
  generate C source code. This method can be used to get the current value
- for the the temporary folder path.
+ for the temporary folder path.
  \param[in] handle Handle to a RoadRunner instance
  \return Returns null if it fails, otherwise it returns the path
  \ingroup utility
@@ -226,7 +226,7 @@ C_DECL_SPEC char* rrcCallConv getRRCAPILocation(void);
  \brief Set the path and filename to the compiler to be used by roadrunner.
  \param[in] handle Handle to a RoadRunner instance
  \param[in] fNameWithPath Pointer to string holding the fileName and path to a compiler
- \return Returns true if succesful
+ \return Returns true if successful
  \ingroup utility
 */
 C_DECL_SPEC bool rrcCallConv setCompiler(RRHandle handle, const char* fNameWithPath);
@@ -242,7 +242,7 @@ C_DECL_SPEC char* rrcCallConv getCompiler(RRHandle handle);
  \param[in] handle Handle to a RoadRunner instance
 
  \param[in] folder Pointer to string holding the path to a compiler
- \return Returns true if succesful
+ \return Returns true if successful
  \ingroup utility
 */
 C_DECL_SPEC bool rrcCallConv setCompilerLocation(RRHandle handle, const char* folder);
@@ -251,7 +251,7 @@ C_DECL_SPEC bool rrcCallConv setCompilerLocation(RRHandle handle, const char* fo
  \brief Get the path to a folder containing the compiler being used.
  \param[in] handle Handle to a RoadRunner instance
 
- \return Returns the path if succesful, NULL otherwise
+ \return Returns the path if successful, NULL otherwise
  \ingroup utility
 */
 
@@ -261,7 +261,7 @@ C_DECL_SPEC char* rrcCallConv getCompilerLocation(RRHandle handle);
  \brief Set the path to a folder containing support code for model generation.
  \param[in] handle Handle to a RoadRunner instance
  \param[in] folder Pointer to string holding the path to the support code folder
- \return Returns true if succesful
+ \return Returns true if successful
  \ingroup utility
 */
 C_DECL_SPEC bool rrcCallConv setSupportCodeFolder(RRHandle handle, const char* folder);
@@ -270,7 +270,7 @@ C_DECL_SPEC bool rrcCallConv setSupportCodeFolder(RRHandle handle, const char* f
  \brief Get the path to a folder containing support code.
 
  \param[in] handle Handle to a RoadRunner instance
- \return Returns the path if succesful, NULL otherwise
+ \return Returns the path if successful, NULL otherwise
  \ingroup utility
 */
 
@@ -279,13 +279,13 @@ C_DECL_SPEC char* rrcCallConv getSupportCodeFolder(RRHandle handle);
 /*!
  \brief Set the runtime generation option [Not yet implemented]
 
- cRoadRunner can either execute a model by generating, compiling and linking self-generated
+ RoadRunner can either execute a model by generating, compiling and linking self-generated
  C code or it can employ an internal interpreter to evaluate the model equations. The
  later method is useful when the OS forbids the compiling of externally generated code.
 
  \param[in] handle Handle to a RoadRunner instance
- \param[in] mode is set to 0 cRoadRunner generates C Code,
- if set to 1 cRoadRunner uses its internal math interpreter.
+ \param[in] mode is set to 0 RoadRunner generates C Code,
+ if set to 1 RoadRunner uses its internal math interpreter.
  \return Returns false if it fails,
  \ingroup utility
 */
@@ -330,7 +330,7 @@ C_DECL_SPEC bool rrcCallConv setComputeAndAssignConservationLaws(RRHandle handle
  \brief Load a model from an SBML string
  \param[in] handle Handle to a RoadRunner instance
  \param[in] sbml string
- \return Returns true if sucessful
+ \return Returns true if successful
  \ingroup loadsave
 */
 C_DECL_SPEC bool rrcCallConv loadSBML(RRHandle handle, const char* sbml);
@@ -340,7 +340,7 @@ C_DECL_SPEC bool rrcCallConv loadSBML(RRHandle handle, const char* sbml);
  \param[in] handle Handle to a RoadRunner instance
  \param[in] sbml string
  \param[in] forceRecompile boolean. True means the model is recompiled. False causes roadrunner to use an already compiled model
- \return Returns true if sucessful
+ \return Returns true if successful
  \ingroup loadsave
 */
 C_DECL_SPEC bool rrcCallConv loadSBMLEx(RRHandle handle, const char* sbml, bool forceRecompile);
@@ -349,7 +349,7 @@ C_DECL_SPEC bool rrcCallConv loadSBMLEx(RRHandle handle, const char* sbml, bool 
  \brief Load a model from a SBML file
  \param[in] handle Handle to a RoadRunner instance
  \param[in] fileName file name (or full path) to file that holds the SBML model
- \return Returns true if sucessful
+ \return Returns true if successful
  \ingroup loadsave
 */
 //C_DECL_SPEC bool rrcCallConv loadSBMLFromFile(const char* fileName);
@@ -360,7 +360,7 @@ C_DECL_SPEC bool rrcCallConv loadSBMLFromFile(RRHandle handle, const char* fileN
  \param[in] handle Handle to a RoadRunner instance
  \param[in] fileName file name (or full path) to file that holds the SBML model
  \param[in] forceRecompile Boolean that forces recompilation if true. If false, no compilation occur if model dll exists
- \return Returns true if sucessful
+ \return Returns true if successful
  \ingroup loadsave
 */
 C_DECL_SPEC bool rrcCallConv loadSBMLFromFileE(RRHandle handle, const char* fileName, bool forceRecompile);
@@ -368,7 +368,7 @@ C_DECL_SPEC bool rrcCallConv loadSBMLFromFileE(RRHandle handle, const char* file
 /*!
  \brief Unload current model
  \param[in] handle Handle to a RoadRunner instance
- \return Returns true if sucessful
+ \return Returns true if successful
  \ingroup loadsave
 */
 C_DECL_SPEC bool rrcCallConv unLoadModel(RRHandle handle);
@@ -385,7 +385,7 @@ C_DECL_SPEC bool rrcCallConv isModelLoaded(RRHandle handle);
  \brief Load simulation settings from a file
  \param[in] handle Handle to a RoadRunner instance
  \param[in] fileName file name (or full path) to file that holds simulation settings
- \return Returns true if sucessful
+ \return Returns true if successful
  \ingroup loadsave
 */
 
@@ -428,7 +428,7 @@ C_DECL_SPEC char* rrcCallConv getParamPromotedSBML(RRHandle handle, const char* 
  \brief Set the simulator's capabilities
  \param[in] handle Handle to a RoadRunner instance
  \param[out] caps An XML string that specifies the simulators capabilities
- \return Returns true if sucessful
+ \return Returns true if successful
  \ingroup simulation
 */
 C_DECL_SPEC bool rrcCallConv setConfigurationXML (RRHandle handle, const char* caps);
@@ -472,7 +472,7 @@ C_DECL_SPEC char* rrcCallConv getConfigurationXML(RRHandle handle);
  \brief Set the time start for a time course simulation
  \param[in] handle Handle to a RoadRunner instance
  \param[in] timeStart
- \return Returns True if sucessful
+ \return Returns True if successful
  \ingroup simulation
 */
 C_DECL_SPEC bool rrcCallConv setTimeStart(RRHandle handle, double timeStart);
@@ -481,7 +481,7 @@ C_DECL_SPEC bool rrcCallConv setTimeStart(RRHandle handle, double timeStart);
  \brief Set the time end for a time course simulation
  \param[in] handle Handle to a RoadRunner instance
  \param[in] timeEnd
- \return Returns true if sucessful
+ \return Returns true if successful
  \ingroup simulation
 */
 C_DECL_SPEC bool rrcCallConv setTimeEnd(RRHandle handle, double timeEnd);
@@ -490,7 +490,7 @@ C_DECL_SPEC bool rrcCallConv setTimeEnd(RRHandle handle, double timeEnd);
  \brief Set the number of points to generate in a time course simulation
  \param[in] handle Handle to a RoadRunner instance
  \param[in] numberOfPoints Number of points to generate in the time course simulation
- \return Returns true if sucessful
+ \return Returns true if successful
  \ingroup simulation
 */
 C_DECL_SPEC bool rrcCallConv setNumPoints(RRHandle handle, int numberOfPoints);
@@ -509,7 +509,7 @@ C_DECL_SPEC bool rrcCallConv setNumPoints(RRHandle handle, int numberOfPoints);
 
  \param[in] handle Handle to a RoadRunner instance
  \param[in] list A string of Ids separated by spaces <b>or</b> comma characters
- \return Returns true if sucessful
+ \return Returns true if successful
  \ingroup simulation
 */
 C_DECL_SPEC bool rrcCallConv setTimeCourseSelectionList(RRHandle handle, const char* list);
@@ -525,31 +525,27 @@ C_DECL_SPEC bool rrcCallConv setTimeCourseSelectionList(RRHandle handle, const c
 C_DECL_SPEC RRStringArrayPtr rrcCallConv getTimeCourseSelectionList(RRHandle handle);
 
 /*!
- \brief Carry out a time-course simulation, use setTimeStart, setTimeEnd and
-setNumPoints etc to set the simulation characteristics.
+ \brief Carry out a time-course simulation. setTimeStart, setTimeEnd,
+ setNumPoints, etc are used to set the simulation characteristics.
 
  \param[in] handle Handle to a RoadRunner instance
- \return Returns a handle to roadrunners internal data object.
+ \return Returns an array (RRCDataPtr) of columns containing the results of the
+ simulation including string labels for the individual columns. The client is
+ responsible for freeing the resulting RRCDataPtr structure.
  \ingroup simulation
 */
-C_DECL_SPEC RRDataHandle rrcCallConv simulate(RRHandle handle);
+C_DECL_SPEC RRCDataPtr rrcCallConv simulate(RRHandle handle);
 
 /*!
  \brief Retrieve the result of the last simulation.
  \param[in] handle Handle to a RoadRunner instance
- \return Returns an handle to roadrunners internal data object
  \return Returns an array (RRCDataPtr) of columns containing the results of the
- simulation including string labels for the individual columms.
- \ingroup simulation
-*/C_DECL_SPEC RRCDataPtr rrcCallConv getSimulationResult(RRHandle handle);
-
-/*!
- \brief Retrieve a handle to RoadRunners internal data
- \param[in] handle Handle to a RoadRunner instance
- \return Returns an handle to roadrunners internal data object
+ simulation including string labels for the individual columns. The client is
+ responsible for freeing the resulting RRCDataPtr structure.
  \ingroup simulation
 */
-C_DECL_SPEC RRDataHandle rrcCallConv getRoadRunnerData(RRHandle handle);
+C_DECL_SPEC RRCDataPtr rrcCallConv getSimulationResult(RRHandle handle);
+
 
 /*!
  \brief Carry out a time-course simulation based on the given arguments, time start,
@@ -570,11 +566,12 @@ C_DECL_SPEC RRDataHandle rrcCallConv getRoadRunnerData(RRHandle handle);
  \param[in] timeStart Time start
  \param[in] timeEnd Time end
  \param[in] numberOfPoints Number of points to generate
-
- \return Returns a handle to roadrunners internal data object.
+ \return Returns an array (RRCDataPtr) of columns containing the results of the
+ simulation including string labels for the individual columns. The client is
+ responsible for freeing the resulting RRCDataPtr structure.
  \ingroup simulation
 */
-C_DECL_SPEC RRDataHandle rrcCallConv simulateEx(RRHandle handle, const double timeStart, const double timeEnd, const int numberOfPoints);
+C_DECL_SPEC RRCDataPtr rrcCallConv simulateEx(RRHandle handle, const double timeStart, const double timeEnd, const int numberOfPoints);
 
 /*!
  \brief Carry out a one step integration of the model
@@ -647,7 +644,7 @@ C_DECL_SPEC bool rrcCallConv steadyState(RRHandle handle, double* value);
  Example: \code RRVectorHandle values = computeSteadyStateValues (void); \endcode
 
  \param[in] handle Handle to a RoadRunner instance
- \return Returns the vector of steady state values or null if an error occured. The order of
+ \return Returns the vector of steady state values or null if an error occurred. The order of
  species in the vector is indicated by the order of species Ids in a call to getFloatingSpeciesIds(void)
  \ingroup steadystate
 */
@@ -697,8 +694,8 @@ C_DECL_SPEC RRStringArrayPtr rrcCallConv getSteadyStateSelectionList(RRHandle ha
 
  \param[in] handle Handle to a RoadRunner instance
  \param symbolId The symbol that we wish to obtain the value for
- \param value The value that will be retrievd
- \return Returns true if succesful
+ \param value The value that will be retrieved
+ \return Returns true if successful
  \ingroup state
 */
 C_DECL_SPEC bool rrcCallConv getValue(RRHandle handle, const char* symbolId, double* value);
@@ -712,7 +709,7 @@ C_DECL_SPEC bool rrcCallConv getValue(RRHandle handle, const char* symbolId, dou
  \param[in] handle Handle to a RoadRunner instance
  \param symbolId The symbol that we wish to set the value
  \param value The value that will be set to the symbol
- \return Returns true if succesful
+ \return Returns true if successful
  \ingroup state
 */
 C_DECL_SPEC bool rrcCallConv setValue(RRHandle handle, const char* symbolId, const double value);
@@ -724,7 +721,7 @@ C_DECL_SPEC bool rrcCallConv setValue(RRHandle handle, const char* symbolId, con
  Example: \code RRVectorPtr values = getFloatingSpeciesConcentrations (void); \endcode
 
  \param[in] handle Handle to a RoadRunner instance
- \return Returns the vector of flaoting species concentrations or null if an error occured
+ \return Returns the vector of floating species concentrations or null if an error occurred
  \ingroup floating
 */
 C_DECL_SPEC RRVectorPtr rrcCallConv getFloatingSpeciesConcentrations(RRHandle handle);
@@ -736,7 +733,7 @@ C_DECL_SPEC RRVectorPtr rrcCallConv getFloatingSpeciesConcentrations(RRHandle ha
  Example: \code RRVectorPtr values = getBoundarySpeciesConcentrations (void); \endcode
 
  \param[in] handle Handle to a RoadRunner instance
- \return Returns the vector of boundary species concentrations or null if an error occured
+ \return Returns the vector of boundary species concentrations or null if an error occurred
  \ingroup boundary
 */
 C_DECL_SPEC RRVectorPtr rrcCallConv getBoundarySpeciesConcentrations(RRHandle handle);
@@ -746,12 +743,12 @@ C_DECL_SPEC RRVectorPtr rrcCallConv getBoundarySpeciesConcentrations(RRHandle ha
 // --------------------------------------------------------------------------------
 
 /*!
- \brief Retrieve the values for all the lgobal parameter values in a vector
+ \brief Retrieve the values for all the global parameter values in a vector
 
  Example: \code RRVectorPtr values = getGlobalParameterValues (void); \endcode
 
  \param[in] handle Handle to a RoadRunner instance
- \return Returns the vector of global parameter values or null if an error occured
+ \return Returns the vector of global parameter values or null if an error occurred
  \ingroup parameters
 */
 C_DECL_SPEC RRVectorPtr rrcCallConv getGlobalParameterValues(RRHandle handle);
@@ -984,7 +981,7 @@ C_DECL_SPEC RRDoubleMatrixPtr rrcCallConv getConservationMatrix(RRHandle handle)
 // --------------------------------------------------------------------------------
 
 /*!
- \brief Reset all floating species concentrations to their intial conditions
+ \brief Reset all floating species concentrations to their initial conditions
 
  Example: \code status = reset (RRHandle handle); \endcode
 
@@ -1038,7 +1035,7 @@ C_DECL_SPEC RRStringArrayPtr rrcCallConv getFloatingSpeciesInitialConditionIds(R
  Example: \code number = getNumberOfReactions (RRHandle handle); \endcode
 
  \param[in] handle Handle to a RoadRunner instance
- \return Returns -1 if it fails, if succesful it return 0 or more, indicating the number of reactions
+ \return Returns -1 if it fails, if successful it return 0 or more, indicating the number of reactions
  \ingroup reaction
 */
 C_DECL_SPEC int rrcCallConv getNumberOfReactions(RRHandle handle);
@@ -1195,7 +1192,7 @@ C_DECL_SPEC int rrcCallConv getNumberOfIndependentSpecies(RRHandle handle);
  \brief Obtain the list of reaction Ids
 
  \param[in] handle Handle to a RoadRunner instance
- \return Returns null if it fails, if succesful it returns a pointer to a RRStringArrayPtr struct
+ \return Returns null if it fails, if successful it returns a pointer to a RRStringArrayPtr struct
  \ingroup reaction
 */
 C_DECL_SPEC RRStringArrayPtr rrcCallConv getReactionIds(RRHandle handle);
@@ -1204,7 +1201,7 @@ C_DECL_SPEC RRStringArrayPtr rrcCallConv getReactionIds(RRHandle handle);
  \brief Obtain the list of boundary species Ids
 
  \param[in] handle Handle to a RoadRunner instance
- \return Returns null if it fails, if succesful it returns a pointer to a RRStringArrayPtr struct
+ \return Returns null if it fails, if successful it returns a pointer to a RRStringArrayPtr struct
  \ingroup boundary
 */
 C_DECL_SPEC RRStringArrayPtr rrcCallConv getBoundarySpeciesIds(RRHandle handle);
@@ -1213,7 +1210,7 @@ C_DECL_SPEC RRStringArrayPtr rrcCallConv getBoundarySpeciesIds(RRHandle handle);
  \brief Obtain the list of floating species Id
 
  \param[in] handle Handle to a RoadRunner instance
- \return Returns null if it fails, if succesful it returns a pointer to a RRStringArrayPtr struct
+ \return Returns null if it fails, if successful it returns a pointer to a RRStringArrayPtr struct
  \ingroup floating
 */
 C_DECL_SPEC RRStringArrayPtr rrcCallConv getFloatingSpeciesIds(RRHandle handle);
@@ -1222,7 +1219,7 @@ C_DECL_SPEC RRStringArrayPtr rrcCallConv getFloatingSpeciesIds(RRHandle handle);
  \brief Obtain the list of global parameter Ids
 
  \param[in] handle Handle to a RoadRunner instance
- \return Returns null if it fails, if succesful it returns a pointer to a RRStringArrayPtr struct
+ \return Returns null if it fails, if successful it returns a pointer to a RRStringArrayPtr struct
  \ingroup parameters
 */
 C_DECL_SPEC RRStringArrayPtr rrcCallConv getGlobalParameterIds(RRHandle handle);
@@ -1233,7 +1230,7 @@ C_DECL_SPEC RRStringArrayPtr rrcCallConv getGlobalParameterIds(RRHandle handle);
  Example: \code str = getCompartmentIds (RRHandle handle); \endcode
 
  \param[in] handle Handle to a RoadRunner instance
- \return Returns -1 if it fails, if succesful it returns a pointer to a RRStringArrayPtr struct
+ \return Returns -1 if it fails, if successful it returns a pointer to a RRStringArrayPtr struct
  \ingroup compartment
 */
 C_DECL_SPEC RRStringArrayPtr rrcCallConv getCompartmentIds(RRHandle handle);
@@ -1242,7 +1239,7 @@ C_DECL_SPEC RRStringArrayPtr rrcCallConv getCompartmentIds(RRHandle handle);
  \brief Obtain the list of eigenvalue Ids
 
  \param[in] handle Handle to a RoadRunner instance
- \return Returns -1 if it fails, if succesful it returns a pointer to a RRStringArrayPtr struct
+ \return Returns -1 if it fails, if successful it returns a pointer to a RRStringArrayPtr struct
  \ingroup state
 */
 C_DECL_SPEC RRStringArrayPtr rrcCallConv getEigenvalueIds(RRHandle handle);
@@ -1251,7 +1248,7 @@ C_DECL_SPEC RRStringArrayPtr rrcCallConv getEigenvalueIds(RRHandle handle);
  \brief Obtain the list of all available symbols
 
  \param[in] handle Handle to a RoadRunner instance
- \return Returns -1 if it fails, if succesful it returns a pointer to a RRListHandle struct
+ \return Returns -1 if it fails, if successful it returns a pointer to a RRListHandle struct
  \ingroup state
 */
 C_DECL_SPEC RRListPtr rrcCallConv getAvailableTimeCourseSymbols(RRHandle handle);
@@ -1260,7 +1257,7 @@ C_DECL_SPEC RRListPtr rrcCallConv getAvailableTimeCourseSymbols(RRHandle handle)
  \brief Obtain the list of all available steady state symbols
 
  \param[in] handle Handle to a RoadRunner instance
- \return Returns -1 if it fails, if succesful it returns a pointer to a RRListPtr struct
+ \return Returns -1 if it fails, if successful it returns a pointer to a RRListPtr struct
  \ingroup state
 */
 C_DECL_SPEC RRListPtr rrcCallConv getAvailableSteadyStateSymbols(RRHandle handle);
@@ -1273,7 +1270,7 @@ C_DECL_SPEC RRListPtr rrcCallConv getAvailableSteadyStateSymbols(RRHandle handle
  \brief Obtain the list of elasticity coefficient Ids
 
  \param[in] handle Handle to a RoadRunner instance
- \return Returns null if it fails, if succesful it returns a list
+ \return Returns null if it fails, if successful it returns a list
  \ingroup mca
 */
 C_DECL_SPEC RRListPtr rrcCallConv getElasticityCoefficientIds(RRHandle handle);
@@ -1282,7 +1279,7 @@ C_DECL_SPEC RRListPtr rrcCallConv getElasticityCoefficientIds(RRHandle handle);
  \brief Obtain the list of unscaled flux control coefficient Ids
 
  \param[in] handle Handle to a RoadRunner instance
- \return Returns null if it fails, if succesful it returns a list of Ids
+ \return Returns null if it fails, if successful it returns a list of Ids
  \ingroup mca
 */
 C_DECL_SPEC RRListPtr rrcCallConv getUnscaledFluxControlCoefficientIds(RRHandle handle);
@@ -1291,7 +1288,7 @@ C_DECL_SPEC RRListPtr rrcCallConv getUnscaledFluxControlCoefficientIds(RRHandle 
  \brief Obtain the list of flux control coefficient Ids
 
  \param[in] handle Handle to a RoadRunner instance
- \return Returns null if it fails, if succesful it returns a list of Ids
+ \return Returns null if it fails, if successful it returns a list of Ids
  \ingroup mca
 */
 C_DECL_SPEC RRListPtr rrcCallConv getFluxControlCoefficientIds(RRHandle handle);
@@ -1300,7 +1297,7 @@ C_DECL_SPEC RRListPtr rrcCallConv getFluxControlCoefficientIds(RRHandle handle);
  \brief Obtain the list of unscaled concentration control coefficient Ids
 
  \param[in] handle Handle to a RoadRunner instance
- \return Returns null if it fails, if succesful it returns a list of Ids
+ \return Returns null if it fails, if successful it returns a list of Ids
  \ingroup mca
 */
 C_DECL_SPEC RRListPtr rrcCallConv getUnscaledConcentrationControlCoefficientIds(RRHandle handle);
@@ -1309,7 +1306,7 @@ C_DECL_SPEC RRListPtr rrcCallConv getUnscaledConcentrationControlCoefficientIds(
  \brief Obtain the list of concentration coefficient Ids
 
  \param[in] handle Handle to a RoadRunner instance
- \return Returns null if it fails, if succesful it returns a list of Ids
+ \return Returns null if it fails, if successful it returns a list of Ids
  \ingroup mca
 */
 C_DECL_SPEC RRListPtr rrcCallConv getConcentrationControlCoefficientIds(RRHandle handle);
@@ -1389,7 +1386,7 @@ C_DECL_SPEC RRDoubleMatrixPtr rrcCallConv getScaledFluxControlCoefficientMatrix(
  \param[in] handle Handle to a RoadRunner instance
  \param[in] variable This is the dependent variable of the coefficient, for example a flux or species concentration
  \param[in] parameter This is the independent parameter, for example a kinetic constant or boundary species
- \param[out] value This is the value of the unscaled control coefficeint returns to the caller
+ \param[out] value This is the value of the unscaled control coefficient returns to the caller
  \return Returns true if successful
  \ingroup mca
 */
@@ -1401,7 +1398,7 @@ C_DECL_SPEC bool rrcCallConv getuCC (RRHandle handle, const char* variable, cons
  \param[in] handle Handle to a RoadRunner instance
  \param[in] variable This is the dependent variable of the coefficient, for example a flux or species concentration
  \param[in] parameter This is the independent parameter, for example a kinetic constant or boundary species
- \param[out] value This is the value of the control coefficeint returns to the caller
+ \param[out] value This is the value of the control coefficient returns to the caller
  \return Returns true if successful
  \ingroup mca
 */
@@ -1431,9 +1428,198 @@ C_DECL_SPEC bool rrcCallConv getEE(RRHandle handle, const char* name, const char
 */
 C_DECL_SPEC bool rrcCallConv getuEE(RRHandle handle, const char* name, const char* species, double* value);
 
-// What's this, not sure if we need it?
-C_DECL_SPEC bool rrcCallConv getScaledFloatingSpeciesElasticity(RRHandle handle, const char* reactionName, const char* speciesName, double* value);
+// --------------------------------------------------------------------------------
+// Stochastic methods
+// --------------------------------------------------------------------------------
 
+/*!
+ \brief Determine the current seed used by the random generator
+
+ \param[in] handle Handle to a RoadRunner instance
+ \param[out] seed This is the value of the current seed, returned to the caller
+ \return Returns true if successful
+ \ingroup stochastic
+*/
+C_DECL_SPEC bool rrcCallConv getSeed(RRHandle handle, long* seed);
+
+/*!
+ \brief Set the current seed used by the random generator
+
+ \param[in] handle Handle to a RoadRunner instance
+ \param[out] seed This is the value the caller will set the seed to
+ \return Returns true if successful
+ \ingroup stochastic
+*/
+C_DECL_SPEC bool rrcCallConv setSeed(RRHandle handle, long seed);
+
+/*!
+ \brief Carry out a time-course simulation using the Gillespie algorithm with
+ variable step size. setTimeStart, setTimeEnd, etc are used to set the simulation
+ characteristics.
+
+ \param[in] handle Handle to a RoadRunner instance
+ \return Returns an array (RRCDataPtr) of columns containing the results of the
+ simulation including string labels for the individual columns. The client is
+ responsible for freeing the resulting RRCDataPtr structure.
+ \ingroup stochastic
+*/
+C_DECL_SPEC RRCDataPtr rrcCallConv gillespie(RRHandle handle);
+
+/*!
+ \brief Carry out a time-course simulation using the Gillespie algorithm based
+ on the given arguments, time start, time end and number of points.
+
+ Example:
+ \code
+    RRCDataPtr m;
+
+    double timeStart = 0.0;
+    double timeEnd = 25;
+
+    m = gillespieEx (rrHandle, timeStart, timeEnd);
+    \endcode
+
+ \param[in] handle Handle to a RoadRunner instance
+ \param[in] timeStart Time start
+ \param[in] timeEnd Time end
+ \return Returns an array (RRCDataPtr) of columns containing the results of the
+ simulation including string labels for the individual columns. The client is
+ responsible for freeing the resulting RRCDataPtr structure.
+ \ingroup stochastic
+*/
+C_DECL_SPEC RRCDataPtr rrcCallConv gillespieEx(RRHandle handle, double timeStart, double timeEnd);
+
+/*!
+ \brief Carry out a time-course simulation using the Gillespie algorithm with
+ fixed step size. setTimeStart, setTimeEnd, setNumPoints, etc are used to set
+ the simulation characteristics.
+
+ \param[in] handle Handle to a RoadRunner instance
+ \return Returns an array (RRCDataPtr) of columns containing the results of the
+ simulation including string labels for the individual columns. The client is
+ responsible for freeing the resulting RRCDataPtr structure.
+ \ingroup stochastic
+*/
+C_DECL_SPEC RRCDataPtr rrcCallConv gillespieOnGrid(RRHandle handle);
+
+/*!
+ \brief Carry out a time-course simulation using the Gillespie algorithm with
+ fixed step size based on the given arguments, time start, time end, and
+ number of points.
+
+ Example:
+ \code
+    RRCDataPtr m;
+
+    double timeStart = 0.0;
+    double timeEnd = 25;
+    int numberOfPoints = 200;
+
+    m = gillespieOnGridEx (rrHandle, timeStart, timeEnd, numberOfPoints);
+    \endcode
+
+ \param[in] handle Handle to a RoadRunner instance
+ \param[in] timeStart Time start
+ \param[in] timeEnd Time end
+ \param[in] numberOfPoints Fixed number of points to generate
+ \return Returns an array (RRCDataPtr) of columns containing the results of the
+ simulation including string labels for the individual columns. The client is
+ responsible for freeing the resulting RRCDataPtr structure.
+ \ingroup stochastic
+*/
+C_DECL_SPEC RRCDataPtr rrcCallConv gillespieOnGridEx(RRHandle handle, double timeStart, double timeEnd, int numberOfPoints);
+
+/*!
+ \brief Carry out a series of time-course simulations using the Gillespie
+ algorithm with fixed step size, then return the average of the simulations.
+ setTimeStart, setTimeEnd, setNumPoints, etc are used to set the simulation
+ characteristics.
+
+ \param[in] handle Handle to a RoadRunner instance
+ \param[in] numberOfSimulations Number of simulations to perform
+ \return Returns an array (RRCDataPtr) of columns containing the average of the
+ results of the simulations including string labels for the individual columns.
+ The client is responsible for freeing the resulting RRCDataPtr structure.
+ \ingroup stochastic
+*/
+C_DECL_SPEC RRCDataPtr rrcCallConv gillespieMeanOnGrid(RRHandle handle, int numberOfSimulations);
+
+/*!
+ \brief Carry out a series of time-course simulations using the Gillespie
+ algorithm with fixed step size, then return the average of the simulations.
+ Based on the given arguments, time start, time end, and number of points.
+
+ Example:
+ \code
+    RRCDataPtr m;
+
+    double timeStart = 0.0;
+    double timeEnd = 25;
+    int numberOfPoints = 200;
+    int numberOfSimulations = 10;
+
+    m = gillespieMeanOnGridEx (rrHandle, timeStart, timeEnd, numberOfPoints, numberOfSimulations);
+    \endcode
+
+ \param[in] handle Handle to a RoadRunner instance
+ \param[in] timeStart Time start
+ \param[in] timeEnd Time end
+ \param[in] numberOfPoints Fixed number of points to generate
+ \param[in] numberOfSimulations Number of simulations to perform
+ \return Returns an array (RRCDataPtr) of columns containing the average of the
+ results of the simulation including string labels for the individual columns.
+ The client is responsible for freeing the resulting RRCDataPtr structure.
+ \ingroup stochastic
+*/
+C_DECL_SPEC RRCDataPtr rrcCallConv gillespieMeanOnGridEx(RRHandle handle, double timeStart, double timeEnd, int numberOfPoints, int numberOfSimulations);
+
+/*!
+ \brief Carry out a series of time-course simulations using the Gillespie
+ algorithm with fixed step size, then return the average and standard
+ deviation of the simulations. setTimeStart, setTimeEnd, setNumPoints, etc
+ are used to set the simulation characteristics.
+
+ \param[in] handle Handle to a RoadRunner instance
+ \param[in] numberOfSimulations Number of simulations to perform
+ \return Returns an array (RRCDataPtr) of columns containing the average of the
+ results of the simulations including string labels for the individual columns.
+ The averages are in Data and the standard deviations are in Weights.
+ The client is responsible for freeing the resulting RRCDataPtr structure.
+ \ingroup stochastic
+*/
+C_DECL_SPEC RRCDataPtr rrcCallConv gillespieMeanSDOnGrid(RRHandle handle, int numberOfSimulations);
+
+
+/*!
+ \brief Carry out a series of time-course simulations using the Gillespie
+ algorithm with fixed step size, then return the average and standard deviation
+ of the simulations. Based on the given arguments, time start, time end, number
+ of points, and number of simulations.
+
+ Example:
+ \code
+    RRCDataPtr m;
+
+    double timeStart = 0.0;
+    double timeEnd = 25;
+    int numberOfPoints = 200;
+    int numberOfSimulations = 10;
+
+    m = gillespieMeanSDOnGridEx (rrHandle, timeStart, timeEnd, numberOfPoints, numberOfSimulations);
+    \endcode
+
+ \param[in] handle Handle to a RoadRunner instance
+ \param[in] timeStart Time start
+ \param[in] timeEnd Time end
+ \param[in] numberOfPoints Fixed number of points to generate
+ \param[in] numberOfSimulations Number of simulations to perform
+ \return Returns an array (RRCDataPtr) of columns containing the average of the
+ results of the simulation including string labels for the individual columns. The
+ average values are in Data and the standard deviations are in Weights. The client is
+ responsible for freeing the resulting RRCDataPtr structure.
+ \ingroup stochastic
+*/
+C_DECL_SPEC RRCDataPtr rrcCallConv gillespieMeanSDOnGridEx(RRHandle handle, double timeStart, double timeEnd, int numberOfSteps, int numberOfSimulations);
 
 #if defined( __cplusplus)
 }
@@ -1448,98 +1634,114 @@ C_DECL_SPEC bool rrcCallConv getScaledFloatingSpeciesElasticity(RRHandle handle,
  *
  * RoadRunner is a SBML compliant high performance and portable simulation engine
  * for systems and synthetic biology. To run a simple SBML model
- * and generate time series data we would call:
+ * and generate time series data we would write the following code:
  *
  \code
- main()
- {
-    if (!loadSBMLFromFile (rrHandle, "mymodel.xml"))
-        exit();
+#undef __cplusplus
+#define STATIC_RRC
+#include <stdio.h>
+#include <stdlib.h>
+#include "rrc_api.h"
+#include "rrc_types.h"
+#include "rrc_utilities.h"
+int main (int argc, char *argv[]) {
+    RRHandle rrHandle;
+    RRCDataPtr result;
 
-    result = simulate (0, 10, 100);
+    printf ("Starting Test Program %s\n", argv[0]);
+    rrHandle = createRRInstance();
+    if (!loadSBMLFromFile (rrHandle, "feedback.xml")) {
+        printf ("Failed to load model: %s\n", getLastError ());
+        getchar ();
+        exit (0);
+    }
+    result = simulateEx (rrHandle, 0, 10, 100);
     printf (rrDataToString (result));
-    return 0;
- }
+    freeRRCData(result);
+
+    getchar ();
+    exit (0);
+}
  \endcode
 
-More complex example, using C API from C++:
+More complex example, using C API:
 \code
-#include <iostream>
-#include <iomanip>
+#undef __cplusplus
+#define STATIC_RRC
+#include <stdio.h>
+#include <stdlib.h>
 #include "rrc_api.h"
-
-using namespace std;
-using namespace rrc;
-int main()
-{
-    char* modelFile("../models/test_1.xml");
-    RRHandle rrHandle = createRRInstance();
-
-    if (!loadSBML(rrHandle, modelFile))
-    {
-       cout << "Error while loading SBML file\n";
-       cout << "Error message: "<< getLastError() <<endl;
-       exit(-1);
-    }
-
-    RRDataHandle output = simulateEx (rrHandle, 0, 10, 10);  // start time, end time, and number of points
-    RRCData* cOutput = createRRCData(output);
-
-    int index = 0;
-    //Print out column headers.. typically time and species.
-    for(int col = 0; col < cOutput->CSize; col++)
-    {
-        cout<<setw(20)<<left<<cOutput->ColumnHeaders[index++];
-        if(col < cOutput->CSize -1)
-        {
-            cout<<"\t";
-        }
-    }
-    cout<<"\n";
-    index =0;
-    //Print out the data
-    for(int row = 0; row < cOutput->RSize; row++)
-    {
-        for(int col = 0; col < cOutput->CSize; col++)
-        {
-            cout<<setw(20)<<left<<cOutput->Data[index++];
-            if(col < cOutput->CSize -1)
-            {
-                cout<<"\t";
-            }
-        }
-        cout<<"\n";
+#include "rrc_types.h"
+#include "rrc_utilities.h"
+int main (int argc, char *argv[]) {
+   RRHandle rrHandle;
+   RRCDataPtr result;
+   int index;
+   int col;
+   int row;
+   printf ("Starting Test Program %s\n", argv[0]);
+   rrHandle = createRRInstance();
+   if (!loadSBML (rrHandle, "feedback.xml")) {
+      printf ("Error while loading SBML file\n");
+      printf ("Error message: %s\n", getLastError());
+      getchar ();
+      exit (0);
+   }
+   result = simulateEx (rrHandle, 0, 10, 10);  // start time, end time, and number of points
+   index = 0;
+   // Print out column headers... typically time and species.
+   for (col = 0; col < result->CSize; col++)
+   {
+      printf ("%10s", result->ColumnHeaders[index++]);
+      if (col < result->CSize - 1)
+      {
+         printf ("\t");
       }
-
-    //Cleanup
-    freeRRCData (cOutput);
-    freeRRInstance (rrHandle);
-    return 0;
-}
+   }
+   printf ("\n");
+   index = 0;
+   // Print out the data
+   for (row = 0; row < result->RSize; row++)
+   {
+      for (col = 0; col < result->CSize; col++)
+      {
+         printf ("%10f", result->Data[index++]);
+         if (col < result->CSize -1)
+         {
+            printf ("\t");
+         }
+      }
+   printf ("\n");
+   }
+   //Cleanup
+   freeRRCData (result);
+   freeRRInstance (rrHandle);
+   getchar ();
+   exit (0);
 
 \endcode
 
-Would create output like below
+Would create output as shown below:
 
 \code
-loading model file: ..\models\test_1.xml
+Starting Test Program: <File path Here>
 Notice: Creating C based model generator using ..\compilers\tcc\tcc.exe compiler.
-time                    [S1]                    [S2]
-0                       0.00015                 0
-1.11111                 4.93788e-05             0.000100621
-2.22222                 1.62551e-05             0.000133745
-3.33333                 5.3511e-06              0.000144649
-4.44444                 1.76156e-06             0.000148238
-5.55556                 5.79896e-07             0.00014942
-6.66667                 1.90857e-07             0.000149809
-7.77778                 6.28294e-08             0.000149937
-8.88889                 2.05731e-08             0.000149979
-10                      6.74739e-09             0.000149993
+     time            [S1]            [S2]            [S3]            [S4]
+ 0.000000        0.000000        0.000000        0.000000        0.000000
+ 1.111111        3.295975        1.677255        1.121418        1.074708
+ 2.222222        0.971810        1.658970        1.841065        2.192728
+ 3.333333        0.137340        0.501854        1.295138        2.444883
+ 4.444445        0.141470        0.200937        0.549172        1.505662
+ 5.555556        1.831017        1.317792        1.129982        1.351300
+ 6.666667        0.306310        0.775477        1.304950        1.952076
+ 7.777778        0.193459        0.268986        0.628542        1.483161
+ 8.888889        1.566864        1.219950        1.105718        1.370199
+10.000000        0.269437        0.678127        1.199353        1.868247
 
 \endcode
-* \section install_sec Installation
+ * \section install_sec Installation
  *
- * Installation documentation is provided in the main google code page.
+ * Installation documentation is provided at libRoadRunner.org.
 
  * \section license_sec License
  * Copyright (C) 2012
@@ -1581,13 +1783,13 @@ time                    [S1]                    [S2]
  \brief Read and write models to files or strings. Support for SBML formats.
 
  \defgroup utility Utility functions
- \brief Various miscellaneous routines that return useful inforamtion about the library
+ \brief Various miscellaneous routines that return useful information about the library
 
  \defgroup errorfunctions Error handling functions
- \brief Error handlining routines
+ \brief Error handling routines
 
  \defgroup logging Logging functionality
- \brief RoadRunners logging routines
+ \brief RoadRunner logging routines
 
  \defgroup state Current state of system
  \brief Compute derivatives, fluxes, and other values of the system at the current state
@@ -1622,6 +1824,9 @@ time                    [S1]                    [S2]
  \defgroup mca Metabolic control analysis
  \brief Calculate control coefficients and sensitivities
 
+ \defgroup stochastic Stochastic simulations
+ \brief Stochastic simulation algorithms
+
  \defgroup Stoich Stoichiometry analysis
  \brief Linear algebra based methods for analyzing a reaction network
 
@@ -1632,17 +1837,17 @@ time                    [S1]                    [S2]
  \brief Linear algebra utility functions
 
  \defgroup list List handling routines
- \brief Some methods return lists (heterogeneous arrayts of data),
- these routines make it easier to manipulate listse
+ \brief Some methods return lists (heterogeneous arrays of data),
+ these routines make it easier to manipulate lists
 
  \defgroup helperRoutines Helper routines
- \brief Helper routines for acessing the various C API types, eg lists and arrays
+ \brief Helper routines for accessing the various C API types, eg lists and arrays
 
  \defgroup toString ToString routines
  \brief Render various result data types as strings
 
  \defgroup stringArray StringArray routines
- \brief Utility rountines to deal with the string array type
+ \brief Utility routines to deal with the string array type
 
  \defgroup freeRoutines Free memory routines
  \brief Routines that should be used to free various data structures generated during the course of using the library

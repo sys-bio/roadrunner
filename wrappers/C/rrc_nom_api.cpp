@@ -31,7 +31,7 @@ int rrcCallConv getNumberOfRules(RRHandle handle)
             Log(Logger::LOG_WARNING)<<"Model is not allocated.";
             return -1;
         }
-        int value = rri->getModel()->getNumRules();
+        int value = rri->getModel()->getNumRateRules();
         return value;
     catch_int_macro
 }
