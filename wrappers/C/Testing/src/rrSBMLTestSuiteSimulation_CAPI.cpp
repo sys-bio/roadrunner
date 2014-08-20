@@ -103,19 +103,11 @@ bool SBMLTestSuiteSimulation_CAPI::Simulate()
         return false;
     }
 
-    if (!simulate(mRRHandle))
-    {
-        Log(Logger::LOG_ERROR) << "Failed simulate in test " << mCurrentCaseNumber
-                << ", error: " << rrc::getLastError();
-        return false;
-    }
-
     RRCDataPtr resultData = NULL;
 
-    if (!(resultData = getSimulationResult(mRRHandle)))
+    if (!(resultData = simulate(mRRHandle)))
     {
-        Log(Logger::LOG_ERROR) << "Failed getting simulation result "
-                << mCurrentCaseNumber
+        Log(Logger::LOG_ERROR) << "Failed simulate in test " << mCurrentCaseNumber
                 << ", error: " << rrc::getLastError();
         return false;
     }

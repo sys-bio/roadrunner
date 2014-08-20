@@ -12,7 +12,6 @@ class TestSuiteSimulation : public rr::TestSuiteModelSimulation
 {
     private:
         RRHandle           mRRHandle;
-        RRCDataPtr         mResultHandle;
 
     public:
                             TestSuiteSimulation(const string& dataOutputFolder = "", const string& modelFilePath = "", const string& modelFileName = "");

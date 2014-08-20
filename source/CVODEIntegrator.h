@@ -110,15 +110,12 @@ private:
 
     static const int mDefaultMaxAdamsOrder;
     static const int mDefaultMaxBDFOrder;
-    double mLastTimeValue;
     double mLastEvent;
 
     /**
      * the shared model object, owned by RoadRunner.
      */
     ExecutableModel* mModel;
-
-    int mOneStepCount;
 
     bool mFollowEvents;
 

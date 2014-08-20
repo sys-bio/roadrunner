@@ -77,15 +77,6 @@ C_DECL_SPEC void                        setError(const string& err);
 */
 C_DECL_SPEC rr::RoadRunner*             castToRoadRunner(RRHandle rrHandle);
 
-/*!
- \brief Cast a RoadRunner Data handle to RoadRunner Data instance pointer, throws if it fails
- \param[in] handle  A handle to a roadrunner data instance
- \return Pointer to a roadrunner data instance
- \ingroup cpp_support
-*/
-C_DECL_SPEC rr::RoadRunnerData*         castToRRData(RRDataHandle rrDataHandle);
-
-
 
 /*!
  \brief Copy a C vector to a std::vector

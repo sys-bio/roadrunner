@@ -59,14 +59,6 @@ char* rrcCallConv createTextMemory(const int count)
     return rr::createText(count);
 }
 
-RRCDataPtr rrcCallConv createRRCData(RRDataHandle rrDataHandle)
-{
-    start_try
-        RoadRunnerData* data = castToRRData(rrDataHandle);
-        return rrc::createRRCData((*data));
-    catch_ptr_macro
-}
-
 // -------------------------------------------------------------------
 // List Routines
 // -------------------------------------------------------------------
@@ -603,15 +595,6 @@ char*  rrcCallConv getRRDataColumnLabel (RRCDataPtr result, int column)
     return result->ColumnHeaders[column];
 }
 
-//====================== DATA WRITING ROUTINES ======================
-bool rrcCallConv writeRRData(RRDataHandle dataHandle, const char* fileNameAndPath)
-{
-    start_try
-        RoadRunnerData *data = castToRRData(dataHandle);
-
-        return data->writeTo(fileNameAndPath);
-    catch_bool_macro
-}
 
 // Utility functions ==========================================================
 int rrcCallConv getNumberOfStringElements (const RRStringArrayPtr list)
@@ -659,17 +642,6 @@ char* rrcCallConv stringArrayToString (const RRStringArrayPtr list)
         }
 
         return rr::createText(resStr.str());
-    catch_ptr_macro
-}
-
-char* rrcCallConv rrDataToString(RRDataHandle rrData)
-{
-    start_try
-        RoadRunnerData* data = castToRRData(rrData);
-
-        stringstream str;
-        str <<(*data);
-        return rr::createText(str.str());
     catch_ptr_macro
 }
 

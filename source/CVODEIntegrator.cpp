@@ -93,9 +93,7 @@ CVODEIntegrator::CVODEIntegrator(ExecutableModel *aModel, const SimulateOptions*
 :
 mStateVector(NULL),
 mCVODE_Memory(NULL),
-mLastTimeValue(0),
 mLastEvent(0),
-mOneStepCount(0),
 mFollowEvents(true),
 mMaxAdamsOrder(mDefaultMaxAdamsOrder),
 mMaxBDFOrder(mDefaultMaxBDFOrder),
@@ -191,11 +189,8 @@ void CVODEIntegrator::reInit(double t0)
 
 double CVODEIntegrator::integrate(double timeStart, double hstep)
 {
-    Log(lDebug3)<<"---------------------------------------------------";
-    Log(lDebug3)<<"--- O N E     S T E P      ( "<<mOneStepCount<< " ) ";
-    Log(lDebug3)<<"---------------------------------------------------";
-
-    mOneStepCount++;
+    Log(Logger::LOG_DEBUG) << "CVODEIntegrator::integrate("
+            << timeStart <<", " << hstep << ")";
 
     double timeEnd = 0.0;
     double tout = timeStart + hstep;
@@ -208,8 +203,7 @@ double CVODEIntegrator::integrate(double timeStart, double hstep)
     // get the original event status
     vector<unsigned char> eventStatus(mModel->getEventTriggers(0, 0, 0), false);
 
-
-    // here we stop for a too small timestep ... this seems troublesome to me ...
+    // loop until machine epislon
     while (tout - timeEnd >= 1E-16)
     {
         // here we bail in case we have no ODEs set up with CVODE ... though we should
@@ -219,11 +213,6 @@ double CVODEIntegrator::integrate(double timeStart, double hstep)
             mModel->convertToAmounts();
             mModel->getStateVectorRate(tout, 0, 0);
             return tout;
-        }
-
-        if (mLastTimeValue > timeStart)
-        {
-            restart(timeStart);
         }
 
         double nextTargetEndTime = tout;
@@ -242,10 +231,7 @@ double CVODEIntegrator::integrate(double timeStart, double hstep)
 
         if (nResult == CV_ROOT_RETURN && mFollowEvents)
         {
-            Log(Logger::LOG_DEBUG) << ("---------------------------------------------------");
-            Log(Logger::LOG_DEBUG) << "--- E V E N T   ( " << mOneStepCount << ", time: " << timeEnd << " ) ";
-            Log(Logger::LOG_DEBUG) << ("---------------------------------------------------");
-
+            Log(Logger::LOG_DEBUG) << "Event detected at time " << timeEnd;
 
             bool tooCloseToStart = fabs(timeEnd - mLastEvent) > options.relative;
 
@@ -285,8 +271,6 @@ double CVODEIntegrator::integrate(double timeStart, double hstep)
         {
             handleCVODEError(nResult);
         }
-
-        mLastTimeValue = timeEnd;
 
         try
         {
