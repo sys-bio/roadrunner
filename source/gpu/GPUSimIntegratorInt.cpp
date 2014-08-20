@@ -29,6 +29,14 @@ void GPUSimIntegratorInt::evalRate(double time, const double *y, double* dydt) {
     parent_->evalRate(time, y, dydt);
 }
 
+void GPUSimIntegratorInt::evalRatef(float time, const float *y, float* dydt) {
+    parent_->evalRatef(time, y, dydt);
+}
+
+int GPUSimIntegratorInt::getStateVectorSize() const {
+    return parent_->getStateVectorSize();
+}
+
 } // namespace rrgpu
 
 } // namespace rr

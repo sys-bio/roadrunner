@@ -53,6 +53,12 @@ public:
      */
     void evalRate(double time, const double *y, double* dydt=0);
 
+    /// eval rate using floats
+    void evalRatef(float time, const float *y, float* dydt=0);
+
+    /// Gets the size of the state vector
+    int getStateVectorSize() const;
+
 private:
     GPUSimIntegrator* parent_;
 };
