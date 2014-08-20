@@ -62,6 +62,10 @@ namespace rrgpu
 
 class ModelResources;
 
+/**
+ * @author JKM
+ * @brief GPU-based executable model
+ */
 class RR_DECLSPEC GPUSimExecutableModel: public ExecutableModel, public GPUSimModel
 {
 public:

@@ -123,6 +123,10 @@ std::string GPUSimIntegrator::getName() const
     return "gpusim";
 }
 
+void GPUSimIntegrator::evalRate(double time, const double *y, double* dydt) {
+    model_->getStateVectorRate(time, y, dydt);
+}
+
 Integrator* CreateGPUSimIntegrator(ExecutableModel* oModel, const SimulateOptions* options) {
     return new GPUSimIntegrator(oModel, options);
 }

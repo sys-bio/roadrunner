@@ -25,6 +25,7 @@
 
 #include "Integrator.h"
 #include "rrRoadRunnerOptions.h"
+#include "GPUSimExecutableModel.h"
 #include "Configurable.h"
 
 #include <string>
@@ -49,6 +50,7 @@ namespace rrgpu
 {
 
 /**
+ * @author JKM
  * @internal
  * @brief GPU-based integrator
  */
@@ -124,7 +126,17 @@ public:
      */
     virtual std::string getName() const;
 
+    /** @brief Wrapper for model evaluation
+     * @param[in] time The time coordinate at which to evaluate the model
+     * @param[in] y The state vector (consists of species concentrations)
+     * @param[out] dydt The computed rates
+     * @sa ExecutableModel::getStateVectorRate
+     */
+    void evalRate(double time, const double *y, double* dydt=0);
+
 private:
+    /// Non-owning
+    GPUSimExecutableModel* model_;
     int mOneStepCount=0;
 };
 
