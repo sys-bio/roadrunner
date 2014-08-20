@@ -8,4 +8,5 @@ __global__ void kern() {
 void launchKern() {
     printf("launchKern\n");
     kern<<<1, 1>>>();
+    cudaDeviceSynchronize();
 }
