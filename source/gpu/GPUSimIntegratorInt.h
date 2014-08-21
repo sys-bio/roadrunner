@@ -53,6 +53,11 @@ public:
      */
     void evalRate(double time, const double *y, double* dydt=0);
 
+    // overload
+    void evalRate(float time, const float *y, float* dydt=0) {
+        evalRatef(time, y, dydt);
+    }
+
     /// eval rate using floats
     void evalRatef(float time, const float *y, float* dydt=0);
 
