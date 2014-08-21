@@ -43,6 +43,8 @@ namespace rrgpu
 namespace dom
 {
 
+typedef std::string BDOM_String;
+
 /**
  * @author JKM
  * @brief Data type
@@ -51,10 +53,14 @@ namespace dom
  */
 class Type {
 public:
-    typedef std::string String;
+    typedef BDOM_String String;
     Type(const String& val, int tag)
       :  val_(val) {
 
+    }
+
+    virtual void serialize(std::ostream& os) const {
+        os << val_;
     }
 
 protected:
