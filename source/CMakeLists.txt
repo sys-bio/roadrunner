@@ -147,13 +147,15 @@ if(BUILD_GPUSIM)
         gpu/GPUSimModel.cpp
         gpu/GPUSimModelGenerator.cpp
         gpu/ModelResources.cpp
+        gpu/bdom/BaseTypes.cpp
         platform/Backtrace.cpp
         )
 
-    # a system without C++11 will not have the hardware to run the GPU sim anyway
-    set_source_files_properties(${rrGPUSIMCoreSources} PROPERTIES COMPILE_FLAGS "-std=c++11")
-    # TODO: eliminate these when GPU model generator is not dependent on LLVM
-    set_source_files_properties(${rrGPUSIMCoreSources} PROPERTIES COMPILE_FLAGS ${LLVM_FLAGS})
+    source_group(rrGPUSIMCore FILES ${rrGPUSIMCoreSources})
+
+    # FIXME: why does this line cause the asinine build system to do a full
+    # rebuild when a single source file is added to rrGPUSIMCoreSources?
+    set_source_files_properties(${rrGPUSIMCoreSources} PROPERTIES COMPILE_FLAGS "-std=c++11 ${LLVM_FLAGS}")
 
     # add GPU sim sources to list
     set(rrSources ${rrSources} ${rrGPUSIMCoreSources})
