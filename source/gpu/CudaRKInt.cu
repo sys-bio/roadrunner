@@ -10,9 +10,10 @@ typedef float RKReal;
 #define RK4BLOCKS 4
 
 #define RK_COEF_LEN RK4BLOCKS*RK4BLOCKS*n
-// size in bytes of the RK coefficients with quad buffering etc.
+#define RK_COEF_OFFSET(gen, idx, component) gen*RK4BLOCKS*n + idx*n + component
 
 #define RK_STATE_VEC_LEN RK4BLOCKS*n*sizeof(RKReal)
+#define RK_STATE_VEC_OFFSET(idx, component) idx*n + component
 
 #define RK_TIME_VEC_LEN RK4BLOCKS
 
@@ -22,7 +23,7 @@ typedef float RKReal;
  * @param[in] n The size of the state vector
  * @param[in] y The state vector
  */
-__global__ void kern(int n,  RKReal h) {
+__global__ void kern(int n,  RKReal h, GPUSimIntegratorInt& intf) {
     extern __shared__ RKReal k[];
     RKReal* f = &k[RK4BLOCKS*RK4BLOCKS*n];
     RKReal* t = &f[RK_STATE_VEC_LEN];
@@ -34,33 +35,31 @@ __global__ void kern(int n,  RKReal h) {
     // y ∈ ℝ(n)
     // so, to access k use pattern
     // offset = generation*RK4BLOCKS*n + block*n + i
-    // where i is the index in ℝ(n)
+    // where i is the index of the ith component in ℝ(n)
     // and block corresponds to the index of the coefficient k1..4
 
     // initialize k
     for (int j=0; j<RK4BLOCKS; ++j) {
-        k[j*RK4BLOCKS*n + blockIdx.x*n + threadIdx.x] = 0;
+        k[RK_COEF_OFFSET(j, blockIdx.x, threadIdx.x)] = 0;
+        printf("k[RK_COEF_OFFSET(%d, %d, %d)] = %f\n", j, blockIdx.x, threadIdx.x, k[RK_COEF_OFFSET(j, blockIdx.x, threadIdx.x)]);
 //         printf("k[%d*%d*%d + %d*%d + %d] = %f\n", j, RK4BLOCKS, n, blockIdx.x, n, threadIdx.x, k[j*RK4BLOCKS*n + blockIdx.x*n + threadIdx.x]);
-        printf("k[%d*%d*%d + %d*%d + %d], offset = %d\n", j, RK4BLOCKS, n, blockIdx.x, n, threadIdx.x, j*RK4BLOCKS*n + blockIdx.x*n + threadIdx.x);
+//         printf("k[%d*%d*%d + %d*%d + %d], offset = %d\n", j, RK4BLOCKS, n, blockIdx.x, n, threadIdx.x, j*RK4BLOCKS*n + blockIdx.x*n + threadIdx.x);
     }
 //
 //     // initialize state vector
     f[blockIdx.x*n + threadIdx.x] = 0;
-//     printf("f[%d*%d + %d] = %f\n", blockIdx.x, n, threadIdx.x, f[blockIdx.x*n + threadIdx.x]);
+    printf("f[%d*%d + %d] = %f\n", blockIdx.x, n, threadIdx.x, f[blockIdx.x*n + threadIdx.x]);
 
     // initialize time vector
-//     t[0] = 0;
-//     t[1] = 0.5*h; // 0.5f?
-//     t[2] = 0.5*h;
-//     t[3] = h;
-//
-//     // current generation
-//     int m=0;
-//
-//     while (m < RK4BLOCKS) {
-// //         k[m*RK4BLOCKS*n + blockIdx.x*n + threadIdx.x] = f[blockIdx.x*n + threadIdx.x];
-//         ++m;
-//     }
+    t[0] = 0;
+    t[1] = 0.5*h; // 0.5f?
+    t[2] = 0.5*h; // 0.5f?
+    t[3] = h;
+
+    // current generation
+    int m=0;
+
+    // model evaluation
 
 }
 
@@ -69,7 +68,7 @@ __global__ void kern(int n,  RKReal h) {
 #define RK_STATE_VEC_SIZE RK_STATE_VEC_LEN*sizeof(RKReal)
 #define RK_TIME_VEC_SIZE RK_TIME_VEC_LEN*sizeof(RKReal)
 
-void launchKern(GPUSimIntegratorInt& intf) {
+void GPUIntMESerial(GPUSimIntegratorInt& intf) {
     int n = intf.getStateVectorSize();
 
     printf("launchKern state vec size %d\n", n);
@@ -95,7 +94,7 @@ void launchKern(GPUSimIntegratorInt& intf) {
     // shared mem for state vectors: RK4BLOCKS*n*sizeof(float)
     // set to size of the state vector*4 because it is
     // quadruple buffered (enables concurrent execution)
-    kern<<<RK4BLOCKS, n, shared_mem_size>>>(n, 0.1);
+    kern<<<RK4BLOCKS, n, shared_mem_size>>>(n, 0.1, intf);
 //     kern<<<4, n
 //         >>>(n, 0.1);
 

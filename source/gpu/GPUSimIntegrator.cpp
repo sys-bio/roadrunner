@@ -20,7 +20,7 @@
 #include <assert.h>
 #include <Poco/Logger.h>
 
-void launchKern(rr::rrgpu::GPUSimIntegratorInt& intf);
+void GPUIntMESerial(rr::rrgpu::GPUSimIntegratorInt& intf);
 
 
 using namespace std;
@@ -65,7 +65,7 @@ double GPUSimIntegrator::integrate(double timeStart, double hstep)
 
     GPUSimIntegratorInt intf(this);
 
-    launchKern(intf);
+    GPUIntMESerial(intf);
     throw_gpusim_exception("not supported");
 }
 
