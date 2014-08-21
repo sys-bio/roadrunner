@@ -15,7 +15,7 @@
  *
  *  Created on: Aug 14, 2014
  *
- * Author: JKM
+ *  Author: JKM
  */
 
 #ifndef rrGPUSimIntegratorH

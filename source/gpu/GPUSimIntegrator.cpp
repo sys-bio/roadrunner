@@ -2,6 +2,7 @@
 #include "GPUSimIntegrator.h"
 #include "GPUSimIntegratorInt.h"
 #include "GPUSimException.h"
+#include "bdom/BaseTypes.hpp"
 #include "rrExecutableModel.h"
 #include "rrException.h"
 #include "rrLogger.h"
@@ -63,9 +64,9 @@ double GPUSimIntegrator::integrate(double timeStart, double hstep)
 
     mOneStepCount++;
 
-    GPUSimIntegratorInt intf(this);
+//     GPUSimIntegratorInt intf(this);
 
-    GPUIntMESerial(intf);
+//     GPUIntMESerial(intf);
     throw_gpusim_exception("not supported");
 }
 
