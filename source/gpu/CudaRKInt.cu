@@ -57,7 +57,7 @@ __global__ void kern(int n,  RKReal h, GPUSimIntegratorInt& intf) {
     t[3] = h;
 
     // current generation
-    int m=0;
+//     int m=0;
 
     // model evaluation
 
