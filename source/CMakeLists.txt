@@ -148,6 +148,7 @@ if(BUILD_GPUSIM)
         gpu/GPUSimModelGenerator.cpp
         gpu/ModelResources.cpp
         gpu/bdom/BaseTypes.cpp
+        gpu/bdom/Structures.cpp
         platform/Backtrace.cpp
         )
 
