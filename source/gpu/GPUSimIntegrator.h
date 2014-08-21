@@ -134,6 +134,11 @@ public:
      */
     void evalRate(double time, const double *y, double* dydt=0);
 
+    // overload
+    void evalRate(float time, const float *y, float* dydt=0) {
+        evalRatef(time, y, dydt);
+    }
+
     void evalRatef(float time, const float *y, float* dydt=0);
 
     /// Gets the size of the state vector
