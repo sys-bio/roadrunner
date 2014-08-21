@@ -35,7 +35,10 @@ public:
      * the Python sys.stderr object and attach it
      * to the roadrunner Logger.
      */
-    static void init();
+    static void enablePythonLogging();
+
+
+    static void disablePythonLogging();
 
     PyLoggerStream();
 

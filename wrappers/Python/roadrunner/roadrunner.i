@@ -256,7 +256,6 @@
 
 %init %{
 import_array();
-rr::PyLoggerStream::init();
 %}
 
 %{
@@ -2439,6 +2438,16 @@ namespace std { class ostream{}; }
             """
             return self.values(types).__iter__()
     %}
+}
+
+%extend rr::Logger {
+    static void enablePythonLogging() {
+        PyLoggerStream::enablePythonLogging();
+    }
+
+    static void disablePythonLogging() {
+        PyLoggerStream::disablePythonLogging();
+    }
 }
 
 %extend rr::Integrator {

@@ -120,7 +120,7 @@ static PyLoggerStream pyLoggerStream;
 static std::ostream pyostream(&pyLoggerStream);
 
 
-void PyLoggerStream::init()
+void PyLoggerStream::enablePythonLogging()
 {
     PyGILState gstate;
 
@@ -136,6 +136,16 @@ void PyLoggerStream::init()
 
     pyLoggerStream.setPyStream(pyerr);
     Logger::setConsoleStream(&pyostream);
+}
+
+
+void PyLoggerStream::disablePythonLogging()
+{
+    PyGILState gstate;
+
+    Logger::setConsoleStream(&std::clog);
+
+    pyLoggerStream.freePyObjects();
 }
 
 PyLoggerStream::PyLoggerStream(const PyLoggerStream& other):
