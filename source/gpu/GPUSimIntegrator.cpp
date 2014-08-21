@@ -3,6 +3,7 @@
 #include "GPUSimIntegratorInt.h"
 #include "GPUSimException.h"
 #include "bdom/BaseTypes.hpp"
+#include "bdom/Structures.hpp"
 #include "rrExecutableModel.h"
 #include "rrException.h"
 #include "rrLogger.h"
