@@ -28,6 +28,9 @@
 // == INCLUDES ================================================
 
 # include "BaseTypes.hpp"
+# include "gpu/GPUSimException.h"
+
+# include <unordered_map>
 
 // == CODE ====================================================
 
@@ -41,8 +44,14 @@ namespace rrgpu
 namespace dom
 {
 
+/**
+ * @author JKM
+ * @brief A class to encapsulate variable declarations
+ */
 class Variable {
 public:
+    ~Variable() {}
+
     typedef Type::String String;
     Variable(const String& name, Type* type)
       : name_(name), type_(type) {
@@ -55,14 +64,112 @@ public:
         os << name_;
     }
 
+    const String& getName() const { return name_; }
+    void setName(const String& name) { name_ = name; }
+
 protected:
     String name_;
     Type* type_ = nullptr;
 };
 
+/**
+ * @author JKM
+ * @brief A function parameter is a subclass of variable
+ */
+class FunctionParameter : public Variable {
+public:
+    using Variable::Variable;
+
+protected:
+};
+
+/**
+ * @author JKM
+ * @brief A class to encapsulate expressions
+ */
 class Expression {
 public:
     Expression() {}
+    ~Expression() {}
+
+    virtual void serialize(std::ostream& os) const = 0;
+};
+typedef std::unique_ptr<Expression> ExpressionPtr;
+
+class Function;
+
+/**
+ * @author JKM
+ * @brief arg map
+ */
+// class FunctionArgMap {
+// public:
+//     /// Does not take ownership
+//     FunctionCallExpression(Function*) {}
+//
+// protected:
+//     std::unordered_map<Variable*>
+// };
+
+/**
+ * @author JKM
+ * @brief A class to encapsulate expressions
+ */
+class FunctionCallExpression : public Expression {
+public:
+    /// Does not take ownership
+    FunctionCallExpression(Function* func)
+      :  func_(func) {}
+
+    /// Pass the var @ref v as the arg @ref p of the function
+    void passArgument(FunctionParameter* p, Variable* v);
+
+    virtual void serialize(std::ostream& os) const;
+
+protected:
+    /// non-owning
+    Function* func_;
+    typedef std::unordered_map<FunctionParameter*, Variable*> FunctionArgMap;
+    FunctionArgMap argmap_;
+};
+
+/**
+ * @author JKM
+ * @brief A statement
+ */
+class Statement {
+public:
+    Statement() {}
+    ~Statement() {}
+};
+typedef std::unique_ptr<Statement> StatementPtr;
+
+/**
+ * @author JKM
+ * @brief A statement containing an expression
+ */
+class ExpressionStatement : public Statement {
+public:
+
+    ExpressionStatement(ExpressionPtr&& exp)
+      : exp_(std::move(exp)) {}
+
+    Expression* getExpression() {
+        if (!exp_)
+            throw_gpusim_exception("No expression");
+        return exp_.get();
+    }
+
+    const Expression* getExpression() const {
+        if (!exp_)
+            throw_gpusim_exception("No expression");
+        return exp_.get();
+    }
+
+    virtual void serialize(std::ostream& os) const;
+
+protected:
+    ExpressionPtr exp_;
 };
 
 } // namespace dom
