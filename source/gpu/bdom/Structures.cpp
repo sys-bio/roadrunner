@@ -26,6 +26,8 @@ namespace rrgpu
 namespace dom
 {
 
+Block::~Block() {}
+
 void Function::serialize(std::ostream& os) const {
     // serialize the header
     returnTp_->serialize(os);
