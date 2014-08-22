@@ -69,7 +69,10 @@ protected:
 
 /**
  * @author JKM
- * @brief Base data types (singleton)
+ * @brief Singleton for accessing base data types
+ * @details There is only one instance of this class,
+ * accessible via the @ref get method. The class keeps
+ * track of all types
  */
 class BaseTypes {
 protected:
@@ -93,10 +96,12 @@ public:
         return *self_;
     }
 
+    /// Get the type associated with the given tag
     Type* getType(TYPE_TAG tag) {
         return types_.at(tag).get();
     }
 
+    /// Fetch the singleton and get the type associated with the given tag
     static Type* getTp(TYPE_TAG tag) {
         return get().getType(tag);
     }
