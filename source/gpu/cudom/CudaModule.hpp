@@ -46,8 +46,23 @@ namespace dom
  */
 class CudaFunction : public Function {
 public:
+    using Function::Function;
     virtual void serialize(std::ostream& os) const;
 };
+
+/**
+ * @author JKM
+ * @brief CUDA function
+ */
+class CudaKernel : public CudaFunction {
+public:
+    using CudaFunction::CudaFunction;
+
+    ~CudaKernel() {}
+
+    virtual void serialize(std::ostream& os) const;
+};
+typedef std::unique_ptr<CudaKernel> CudaKernelPtr;
 
 /**
  * @author JKM
@@ -55,11 +70,17 @@ public:
  */
 class CudaModule : public Module {
 public:
+    typedef std::unique_ptr<CudaFunction> CudaFunctionPtr;
+
     /// Serialize to a .cu source file
-    virtual void serialize(std::ostream& os);
+    virtual void serialize(std::ostream& os) const;
 
     void addFunction(CudaFunction&& f) {
         func_.emplace_back(new CudaFunction(std::move(f)));
+    }
+
+    void addFunction(CudaFunctionPtr&& f) {
+        func_.emplace_back(std::move(f));
     }
 };
 
