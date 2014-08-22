@@ -49,25 +49,44 @@ namespace dom
 class Block {
 public:
     Block() {}
+    Block(const Block&) = delete;
+    Block(Block&&) = default;
+    ~Block();
+
+    void addStatement(StatementPtr&& stmt) {
+        stmts_.emplace_back(std::move(stmt));
+    }
 
     virtual void serialize(std::ostream& os) {}
+
+protected:
+    typedef std::vector<StatementPtr> Statements;
+    Statements stmts_;
 };
 
 class Function : public Block {
 protected:
-    typedef std::unique_ptr<Variable> VariablePtr;
-    typedef std::vector<VariablePtr> Args;
+    typedef std::unique_ptr<FunctionParameter> FunctionParameterPtr;
+    typedef std::vector<FunctionParameterPtr> Args;
 public:
     typedef Type::String String;
 
     /// Ctor: initialize member vars
-    Function(const String& name, Type* returnTp, std::initializer_list<Variable> args)
+    Function(const String& name, Type* returnTp)
       : name_(name), returnTp_(returnTp) {
-        for (const Variable& a : args)
-            args_.emplace_back(new Variable(a));
+    }
+
+    /// Ctor: initialize member vars with arg list
+    Function(const String& name, Type* returnTp, std::initializer_list<FunctionParameter> args)
+      : Function(name, returnTp) {
+        for (const FunctionParameter& a : args)
+            args_.emplace_back(new FunctionParameter(a));
     }
 
     virtual void serialize(std::ostream& os) const;
+
+    const String& getName() const { return name_; }
+    void setName(const String& name) { name_ = name; }
 
     typedef AccessPtrIterator<Args::iterator> ArgIterator;
     typedef AccessPtrIterator<Args::const_iterator> ConstArgIterator;
@@ -95,7 +114,16 @@ protected:
     Functions func_;
 public:
     /// Serialize to a source file
-    virtual void serialize(std::ostream& os) = 0;
+    virtual void serialize(std::ostream& os) const = 0;
+
+    typedef AccessPtrIterator<Functions::iterator> FunctionIterator;
+    typedef AccessPtrIterator<Functions::const_iterator> ConstFunctionIterator;
+
+    typedef Range<FunctionIterator> FunctionRange;
+    typedef Range<ConstFunctionIterator> ConstFunctionRange;
+
+    FunctionRange getFunctions() { return FunctionRange(func_); }
+    ConstFunctionRange getFunctions() const { return ConstFunctionRange(func_); }
 };
 
 
