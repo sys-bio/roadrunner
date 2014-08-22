@@ -60,6 +60,7 @@ protected:
 public:
     typedef Type::String String;
 
+    /// Ctor: initialize member vars
     Function(const String& name, Type* returnTp, std::initializer_list<Variable> args)
       : name_(name), returnTp_(returnTp) {
         for (const Variable& a : args)
@@ -82,6 +83,21 @@ protected:
     Type* returnTp_;
     Args args_;
 };
+
+/**
+ * @author JKM
+ * @brief module
+ */
+class Module {
+protected:
+    typedef std::unique_ptr<Function> FunctionPtr;
+    typedef std::vector<FunctionPtr> Functions;
+    Functions func_;
+public:
+    /// Serialize to a source file
+    virtual void serialize(std::ostream& os) = 0;
+};
+
 
 } // namespace dom
 
