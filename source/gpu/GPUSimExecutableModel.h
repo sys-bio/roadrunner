@@ -2,6 +2,15 @@
 
 // * Licensed under the Apache License, Version 2.0; see README
 
+// == FILEDOC =================================================
+
+/** @file GPUSimExecutableModel.h
+  * @author JKM
+  * @date 08/14/2014
+  * @copyright Apache License, Version 2.0
+  * @brief A model which is compiled for and runs on the GPU
+**/
+
 /*
  * GPUSimExecutableModel.h
  *
