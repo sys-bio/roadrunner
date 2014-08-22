@@ -140,6 +140,7 @@ endif(BUILD_LLVM)
 # Sources for the GPUSim component
 if(BUILD_GPUSIM)
     set(rrGPUSIMCoreSources
+        gpu/CudaGenerator.cpp
         gpu/GPUSimCompiler.cpp
         gpu/GPUSimExecutableModel.cpp
         gpu/GPUSimIntegrator.cpp
@@ -148,6 +149,7 @@ if(BUILD_GPUSIM)
         gpu/GPUSimModelGenerator.cpp
         gpu/ModelResources.cpp
         gpu/bdom/BaseTypes.cpp
+        gpu/bdom/Expressions.cpp
         gpu/bdom/Structures.cpp
         gpu/cudom/CudaModule.cpp
         platform/Backtrace.cpp
