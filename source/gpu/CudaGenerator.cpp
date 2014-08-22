@@ -28,7 +28,15 @@ namespace dom
 
 void CudaGenerator::generate(const GPUSimModel& model) {
     CudaModule mod;
-//     mod.addFunction()
+    CudaKernelPtr kernel(new CudaKernel("GPUIntMEBlockedRK4", BaseTypes::getTp(BaseTypes::VOID)));
+    CudaModule::CudaFunctionPtr entry(new CudaFunction("entryPoint", BaseTypes::getTp(BaseTypes::VOID)));
+
+    // call the kernel
+    ExpressionPtr calltokern(new FunctionCallExpression(kernel.get()));
+    entry->addStatement(StatementPtr(new ExpressionStatement(std::move(calltokern))));
+
+    mod.addFunction(std::move(kernel));
+    mod.addFunction(std::move(entry));
 }
 
 } // namespace dom
