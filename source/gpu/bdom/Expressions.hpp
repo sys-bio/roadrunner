@@ -96,6 +96,36 @@ public:
 };
 typedef std::unique_ptr<Expression> ExpressionPtr;
 
+inline Serializer& operator<<(Serializer& s,  const Expression& e) {
+    e.serialize(s);
+    return s;
+}
+
+/**
+ * @author JKM
+ * @brief A class to encapsulate literals
+ */
+class LiteralExpression : public Expression {
+public:
+    LiteralExpression() {}
+
+    virtual void serialize(Serializer& s) const = 0;
+};
+
+/**
+ * @author JKM
+ * @brief A class to encapsulate literals
+ */
+class LiteralIntExpression : public Expression {
+public:
+    LiteralIntExpression(int i) : i_(i) {}
+
+    virtual void serialize(Serializer& s) const;
+
+protected:
+    int i_=0;
+};
+
 class Function;
 
 /**

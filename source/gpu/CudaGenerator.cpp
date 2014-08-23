@@ -34,7 +34,7 @@ void CudaGenerator::generate(const GPUSimModel& model) {
     CudaModule::CudaFunctionPtr entry(new CudaFunction("entryPoint", BaseTypes::getTp(BaseTypes::VOID)));
 
     // call the kernel
-    ExpressionPtr calltokern(new FunctionCallExpression(kernel.get()));
+    ExpressionPtr calltokern(new CudaKernelCallExpression(1, 1, 1, kernel.get()));
     entry->addStatement(StatementPtr(new ExpressionStatement(std::move(calltokern))));
 
     mod.addFunction(std::move(kernel));

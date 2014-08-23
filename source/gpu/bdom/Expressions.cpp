@@ -35,11 +35,17 @@ void FunctionCallExpression::passArgument(FunctionParameter* p, Variable* v) {
 }
 
 void FunctionCallExpression::serialize(Serializer& s) const {
+    if (func_->requiresSpecialCallingConvention())
+        throw_gpusim_exception("Function call requires special calling convention; cannot serialize");
     s << func_->getName() << "(";
     for (auto p : argmap_) {
         s << p.second->getName();
     }
     s << ")";
+}
+
+void LiteralIntExpression::serialize(Serializer& s) const {
+    s << i_;
 }
 
 void ExpressionStatement::serialize(Serializer& s) const {

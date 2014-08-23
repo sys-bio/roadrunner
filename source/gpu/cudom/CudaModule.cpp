@@ -36,6 +36,32 @@ void CudaKernel::serialize(Serializer& s) const {
     CudaFunction::serialize(s);
 }
 
+CudaKernelCallExpression::CudaKernelCallExpression(int nblocks, int nthreads, int shared_mem_size, Function* func) : FunctionCallExpression(func) {
+    CudaKernel* k = dynamic_cast<CudaKernel*>(func);
+    if (!k)
+        throw_gpusim_exception("Not a CUDA kernel");
+
+    nblocks_.reset(new LiteralIntExpression(nblocks));
+    nthreads_.reset(new LiteralIntExpression(nthreads));
+    shared_mem_size_.reset(new LiteralIntExpression(shared_mem_size));
+}
+
+void CudaKernelCallExpression::serialize(Serializer& s) const {
+    s << func_->getName();
+    s << "<<<";
+    s << *nblocks_;
+    s << ", ";
+    s << *nthreads_;
+    s << ", ";
+    s << *shared_mem_size_;
+    s << ">>>";
+    s << "(";
+    for (auto p : argmap_) {
+        s << p.second->getName();
+    }
+    s << ")";
+}
+
 void CudaModule::serialize(Serializer& s) const {
     for (Function* f : getFunctions()) {
         f->serialize(s);

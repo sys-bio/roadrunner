@@ -93,7 +93,7 @@ public:
             args_.emplace_back(new FunctionParameter(a));
     }
 
-    virtual void serialize(Serializer& s) const;
+    virtual bool requiresSpecialCallingConvention() const { return false; }
 
     const String& getName() const { return name_; }
     void setName(const String& name) { name_ = name; }
@@ -106,6 +106,8 @@ public:
 
     ArgRange getArgs() { return ArgRange(args_); }
     ConstArgRange getArgs() const { return ConstArgRange(args_); }
+
+    virtual void serialize(Serializer& s) const;
 
 protected:
     String name_;

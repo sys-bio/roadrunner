@@ -60,9 +60,27 @@ public:
 
     ~CudaKernel() {}
 
+    virtual bool requiresSpecialCallingConvention() const { return true; }
+
     virtual void serialize(Serializer& s) const;
 };
 typedef std::unique_ptr<CudaKernel> CudaKernelPtr;
+
+/**
+ * @author JKM
+ * @brief A class to encapsulate expressions
+ */
+class CudaKernelCallExpression : public FunctionCallExpression {
+public:
+    CudaKernelCallExpression(int nblocks, int nthreads, int shared_mem_size, Function* func);
+
+    virtual void serialize(Serializer& s) const;
+
+protected:
+    ExpressionPtr nblocks_;
+    ExpressionPtr nthreads_;
+    ExpressionPtr shared_mem_size_;
+};
 
 /**
  * @author JKM
