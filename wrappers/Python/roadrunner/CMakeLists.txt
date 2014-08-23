@@ -19,9 +19,6 @@ include_directories(
 
 SET_SOURCE_FILES_PROPERTIES(roadrunner.i PROPERTIES CPLUSPLUS ON)
 SET_SOURCE_FILES_PROPERTIES(roadrunner.i PROPERTIES SWIG_FLAGS "-threads")
-if (BUILD_LLVM)
-    SET_SOURCE_FILES_PROPERTIES(roadrunner.i PROPERTIES COMPILE_FLAGS "${LLVM_DEFINITIONS}")
-endif ()
 
 SWIG_ADD_MODULE(roadrunner python roadrunner.i PyUtils)
 

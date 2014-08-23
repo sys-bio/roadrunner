@@ -207,7 +207,11 @@ private:
     }
 };
 
-
+/**
+ * listeners are shared objects, so use std smart pointers
+ * to manage them.
+ */
+typedef cxx11_ns::shared_ptr<rr::PyIntegratorListener> PyIntegratorListenerPtr;
 
 
 }
