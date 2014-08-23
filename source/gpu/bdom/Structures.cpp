@@ -29,15 +29,18 @@ namespace dom
 Block::~Block() {}
 
 void Block::serialize(Serializer& s) const {
-    s << "{" <<  nl;
-    s.newline();
+    s << "{";
+    {
+        IndentationBumper b(s);
+        s << nl;
 
-    for (const Statement* t : getStatements()) {
-        t->serialize(s);
-//         s << "\n";
+        for (const Statement* t : getStatements()) {
+            t->serialize(s);
+    //         s << nl;
+        }
     }
 
-    s << "}" <<  nl;
+    s << "}" << nl;
 }
 
 void Function::serialize(Serializer& s) const {
