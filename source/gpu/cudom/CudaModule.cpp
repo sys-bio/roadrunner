@@ -27,17 +27,20 @@ namespace rrgpu
 namespace dom
 {
 
-void CudaFunction::serialize(std::ostream& os) const {
-    Function::serialize(os);
+void CudaFunction::serialize(Serializer& s) const {
+    Function::serialize(s);
 }
 
-void CudaKernel::serialize(std::ostream& os) const {
-    CudaFunction::serialize(os);
+void CudaKernel::serialize(Serializer& s) const {
+    s << "__global__" << " ";
+    CudaFunction::serialize(s);
 }
 
-void CudaModule::serialize(std::ostream& os) const {
-    for (Function* f : getFunctions())
-        f->serialize(os);
+void CudaModule::serialize(Serializer& s) const {
+    for (Function* f : getFunctions()) {
+        f->serialize(s);
+        s << "\n";
+    }
 }
 
 } // namespace dom

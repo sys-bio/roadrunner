@@ -47,7 +47,7 @@ namespace dom
 class CudaFunction : public Function {
 public:
     using Function::Function;
-    virtual void serialize(std::ostream& os) const;
+    virtual void serialize(Serializer& s) const;
 };
 
 /**
@@ -60,7 +60,7 @@ public:
 
     ~CudaKernel() {}
 
-    virtual void serialize(std::ostream& os) const;
+    virtual void serialize(Serializer& s) const;
 };
 typedef std::unique_ptr<CudaKernel> CudaKernelPtr;
 
@@ -73,7 +73,7 @@ public:
     typedef std::unique_ptr<CudaFunction> CudaFunctionPtr;
 
     /// Serialize to a .cu source file
-    virtual void serialize(std::ostream& os) const;
+    virtual void serialize(Serializer& s) const;
 
     void addFunction(CudaFunction&& f) {
         func_.emplace_back(new CudaFunction(std::move(f)));
