@@ -27,6 +27,8 @@
 
 // == INCLUDES ================================================
 
+# include "Serializer.hpp"
+
 # include <memory>
 # include <mutex>
 # include <vector>
@@ -59,8 +61,8 @@ public:
 
     }
 
-    virtual void serialize(std::ostream& os) const {
-        os << val_;
+    virtual void serialize(Serializer& s) const {
+        s << val_;
     }
 
 protected:
