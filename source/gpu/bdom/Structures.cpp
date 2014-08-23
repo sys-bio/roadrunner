@@ -28,18 +28,35 @@ namespace dom
 
 Block::~Block() {}
 
-void Function::serialize(std::ostream& os) const {
+void Block::serialize(Serializer& s) const {
+    s << "{" <<  nl;
+    s.newline();
+
+    for (const Statement* t : getStatements()) {
+        t->serialize(s);
+//         s << "\n";
+    }
+
+    s << "}" <<  nl;
+}
+
+void Function::serialize(Serializer& s) const {
     // serialize the header
-    returnTp_->serialize(os);
-    os << " ";
-    os << name_;
-    os << "(";
+    returnTp_->serialize(s);
+    s << " ";
+    s << name_;
+    s << "(";
 
     int n=0;
     for (const Variable* arg : getArgs()) {
-        os << (n ? ", " : "");
-        arg->serialize(os);
+        s << (n ? ", " : "");
+        arg->serialize(s);
     }
+
+    s << ") ";
+
+    // serialize the body
+    Block::serialize(s);
 }
 
 } // namespace dom

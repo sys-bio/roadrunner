@@ -47,6 +47,8 @@ namespace dom
 {
 
 class Block {
+protected:
+    typedef std::vector<StatementPtr> Statements;
 public:
     Block() {}
     Block(const Block&) = delete;
@@ -57,10 +59,18 @@ public:
         stmts_.emplace_back(std::move(stmt));
     }
 
-    virtual void serialize(std::ostream& os) {}
+    typedef AccessPtrIterator<Statements::iterator> StatementIterator;
+    typedef AccessPtrIterator<Statements::const_iterator> ConstStatementIterator;
+
+    typedef Range<StatementIterator> StatementRange;
+    typedef Range<ConstStatementIterator> ConstStatementRange;
+
+    StatementRange getStatements() { return StatementRange(stmts_); }
+    ConstStatementRange getStatements() const { return ConstStatementRange(stmts_); }
+
+    virtual void serialize(Serializer& s) const;
 
 protected:
-    typedef std::vector<StatementPtr> Statements;
     Statements stmts_;
 };
 
@@ -83,7 +93,7 @@ public:
             args_.emplace_back(new FunctionParameter(a));
     }
 
-    virtual void serialize(std::ostream& os) const;
+    virtual void serialize(Serializer& s) const;
 
     const String& getName() const { return name_; }
     void setName(const String& name) { name_ = name; }
@@ -114,7 +124,7 @@ protected:
     Functions func_;
 public:
     /// Serialize to a source file
-    virtual void serialize(std::ostream& os) const = 0;
+    virtual void serialize(Serializer& s) const = 0;
 
     typedef AccessPtrIterator<Functions::iterator> FunctionIterator;
     typedef AccessPtrIterator<Functions::const_iterator> ConstFunctionIterator;
