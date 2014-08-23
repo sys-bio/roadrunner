@@ -26,8 +26,11 @@
 
 // == INCLUDES ================================================
 
+# include <iostream>
 # include <fstream>
 # include <typeinfo>
+# include <memory>
+# include <cassert>
 
 // == CODE ====================================================
 
@@ -41,13 +44,32 @@ namespace rrgpu
 namespace dom
 {
 
+typedef std::string BDOM_String;
+
 template <
     class CharT,
     class Traits = std::char_traits<CharT>
     >
-class SerializerT : public std::basic_ofstream<CharT, Traits> {
+class SerializerT : public std::basic_ostream<CharT, Traits> {
 public:
-    using std::basic_ofstream<CharT, Traits>::basic_ofstream;
+    typedef BDOM_String String;
+    using std::basic_ostream<CharT, Traits>::basic_ostream;
+
+    SerializerT(const String& file)
+      :
+//         sbuf_(new std::basic_filebuf<CharT, Traits>()),
+        SerializerT(new std::basic_filebuf<char>()) {
+//         this->init(sbuf_.get());
+        std::basic_filebuf<char>* fb = dynamic_cast<std::basic_filebuf<char>*>(this->rdbuf());
+        assert(fb);
+        sbuf_.reset(fb);
+        sbuf_->open(file, std::ios_base::out|std::ios_base::trunc);
+        *this << "xyz\n";
+        sbuf_->close();
+    }
+
+//     SerializerT(const String& file) {
+//     }
 
     void changeIndentation(int amount) {
         ind_ += amount;
@@ -55,12 +77,14 @@ public:
 
     void newline() {
         *this << "\n";
+        std::cerr << "ind_ = " << ind_ << "\n";
         for (int i=0; i<ind_; ++i)
             *this << " ";
     }
 
 protected:
-    int ind_;
+    int ind_=0;
+    std::unique_ptr<std::basic_filebuf<CharT, Traits>> sbuf_;
 };
 
 typedef SerializerT<char> Serializer;
