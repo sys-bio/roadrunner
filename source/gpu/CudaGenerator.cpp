@@ -14,6 +14,8 @@
 
 # include "CudaGenerator.hpp"
 
+#include <fstream>
+
 // == CODE ====================================================
 
 
@@ -37,6 +39,9 @@ void CudaGenerator::generate(const GPUSimModel& model) {
 
     mod.addFunction(std::move(kernel));
     mod.addFunction(std::move(entry));
+
+    Serializer s("/tmp/rr_cuda_model.cu");
+    mod.serialize(s);
 }
 
 } // namespace dom
