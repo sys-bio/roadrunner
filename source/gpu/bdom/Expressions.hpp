@@ -58,10 +58,10 @@ public:
 
     }
 
-    virtual void serialize(std::ostream& os) const {
-        type_->serialize(os);
-        os << String(" ");
-        os << name_;
+    virtual void serialize(Serializer& s) const {
+        type_->serialize(s);
+        s << String(" ");
+        s << name_;
     }
 
     const String& getName() const { return name_; }
@@ -92,7 +92,7 @@ public:
     Expression() {}
     ~Expression() {}
 
-    virtual void serialize(std::ostream& os) const = 0;
+    virtual void serialize(Serializer& s) const = 0;
 };
 typedef std::unique_ptr<Expression> ExpressionPtr;
 
@@ -124,7 +124,7 @@ public:
     /// Pass the var @ref v as the arg @ref p of the function
     void passArgument(FunctionParameter* p, Variable* v);
 
-    virtual void serialize(std::ostream& os) const;
+    virtual void serialize(Serializer& s) const;
 
 protected:
     /// non-owning
@@ -141,6 +141,8 @@ class Statement {
 public:
     Statement() {}
     ~Statement() {}
+
+    virtual void serialize(Serializer& s) const = 0;
 };
 typedef std::unique_ptr<Statement> StatementPtr;
 
@@ -166,7 +168,7 @@ public:
         return exp_.get();
     }
 
-    virtual void serialize(std::ostream& os) const;
+    virtual void serialize(Serializer& s) const;
 
 protected:
     ExpressionPtr exp_;

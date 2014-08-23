@@ -34,17 +34,17 @@ void FunctionCallExpression::passArgument(FunctionParameter* p, Variable* v) {
         throw_gpusim_exception("Parameter already mapped");
 }
 
-void FunctionCallExpression::serialize(std::ostream& os) const {
-    os << func_->getName() << "(";
+void FunctionCallExpression::serialize(Serializer& s) const {
+    s << func_->getName() << "(";
     for (auto p : argmap_) {
-        os << p.second->getName();
+        s << p.second->getName();
     }
-    os << ")";
+    s << ")";
 }
 
-void ExpressionStatement::serialize(std::ostream& os) const {
-    getExpression()->serialize(os);
-    os << ";\n";
+void ExpressionStatement::serialize(Serializer& s) const {
+    getExpression()->serialize(s);
+    s << ";" << nl;
 }
 
 } // namespace dom
