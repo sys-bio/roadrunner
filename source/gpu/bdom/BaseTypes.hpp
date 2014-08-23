@@ -45,8 +45,6 @@ namespace rrgpu
 namespace dom
 {
 
-typedef std::string BDOM_String;
-
 /**
  * @author JKM
  * @brief Data type
