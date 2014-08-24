@@ -98,6 +98,10 @@ public:
     const String& getName() const { return name_; }
     void setName(const String& name) { name_ = name; }
 
+    /// Declared with extern "C"
+    bool hasCLinkage() const { return clink_; }
+    void setHasCLinkage(bool val) { clink_ = val; }
+
     typedef AccessPtrIterator<Args::iterator> ArgIterator;
     typedef AccessPtrIterator<Args::const_iterator> ConstArgIterator;
 
@@ -110,9 +114,12 @@ public:
     virtual void serialize(Serializer& s) const;
 
 protected:
+    void serializeHeader(Serializer& s) const;
+
     String name_;
     Type* returnTp_;
     Args args_;
+    bool clink_ = false;
 };
 
 /**

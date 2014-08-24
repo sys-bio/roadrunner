@@ -45,6 +45,16 @@ void Block::serialize(Serializer& s) const {
 
 void Function::serialize(Serializer& s) const {
     // serialize the header
+    serializeHeader(s);
+
+    // serialize the body
+    Block::serialize(s);
+}
+
+void Function::serializeHeader(Serializer& s) const {
+    if (hasCLinkage())
+        s << "extern \"C\" ";
+
     returnTp_->serialize(s);
     s << " ";
     s << name_;
@@ -57,9 +67,6 @@ void Function::serialize(Serializer& s) const {
     }
 
     s << ") ";
-
-    // serialize the body
-    Block::serialize(s);
 }
 
 } // namespace dom
