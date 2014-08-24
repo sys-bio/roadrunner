@@ -59,6 +59,11 @@ public:
         stmts_.emplace_back(std::move(stmt));
     }
 
+    /// Convert @ref exp to a statment
+    void addStatement(ExpressionPtr&& exp) {
+        stmts_.emplace_back(StatementPtr(new ExpressionStatement(std::move(exp))));
+    }
+
     typedef AccessPtrIterator<Statements::iterator> StatementIterator;
     typedef AccessPtrIterator<Statements::const_iterator> ConstStatementIterator;
 
@@ -76,14 +81,20 @@ protected:
 
 class Function : public Block {
 protected:
-    typedef std::unique_ptr<FunctionParameter> FunctionParameterPtr;
+//     typedef std::unique_ptr<FunctionParameter> FunctionParameterPtr;
     typedef std::vector<FunctionParameterPtr> Args;
 public:
     typedef Type::String String;
 
-    /// Ctor: initialize member vars
+    /// Ctor: name / type
     Function(const String& name, Type* returnTp)
       : name_(name), returnTp_(returnTp) {
+    }
+
+    /// One-arg ctor
+    Function(const String& name, Type* returnTp, FunctionParameterPtr&& u)
+      : name_(name), returnTp_(returnTp) {
+        args_.emplace_back(std::move(u));
     }
 
     /// Ctor: initialize member vars with arg list
@@ -111,6 +122,10 @@ public:
     ArgRange getArgs() { return ArgRange(args_); }
     ConstArgRange getArgs() const { return ConstArgRange(args_); }
 
+    const FunctionParameter* getPositionalParam(int i) const {
+        return args_.at(i).get();
+    }
+
     virtual void serialize(Serializer& s) const;
 
 protected:
@@ -121,6 +136,7 @@ protected:
     Args args_;
     bool clink_ = false;
 };
+typedef std::unique_ptr<Function> FunctionPtr;
 
 /**
  * @author JKM
