@@ -49,7 +49,7 @@ void CudaGenerator::generate(const GPUSimModel& model) {
     entry->addStatement(ExpressionPtr(new FunctionCallExpression(mod.getPrintf(), ExpressionPtr(new StringLiteralExpression("in cuda\\n")))));
 
     // call the kernel
-    ExpressionPtr calltokern(new CudaKernelCallExpression(1, 1, 1, kernel.get()));
+    ExpressionPtr calltokern(new CudaKernelCallExpression(1, 10, 1, kernel.get()));
     entry->addStatement(StatementPtr(new ExpressionStatement(std::move(calltokern))));
 
     // cudaDeviceSynchronize
