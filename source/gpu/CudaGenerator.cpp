@@ -15,6 +15,7 @@
 # include "CudaGenerator.hpp"
 
 #include <fstream>
+#include <sstream>
 
 // == CODE ====================================================
 
@@ -40,8 +41,24 @@ void CudaGenerator::generate(const GPUSimModel& model) {
     mod.addFunction(std::move(kernel));
     mod.addFunction(std::move(entry));
 
-    Serializer s("/tmp/rr_cuda_model.cu");
-    mod.serialize(s);
+    {
+        Serializer s("/tmp/rr_cuda_model.cu");
+        mod.serialize(s);
+    }
+
+    FILE* pp = popen("nvcc -M -D__CUDACC__ -ccbin gcc -m32 -I/home/jkm/devel/src/roadrunner/source --ptxas-options=-v --compiler-options '-fPIC' -o /tmp/rr_cuda_model.so --shared /tmp/rr_cuda_model.cu 2>&1 >/dev/null", "r");
+
+    char err[512];
+    fgets(err, 512, pp);
+
+    int code = pclose(pp);
+    std::cerr << "Return code: " << code << "\n";
+
+    if(code/256) {
+        std::stringstream ss;
+        ss << "Compiler errors:\n" << err << "\n";
+        throw_gpusim_exception(ss.str());
+    }
 }
 
 } // namespace dom
