@@ -86,6 +86,7 @@ public:
         INT,
         UNSIGNED_INT,
         SIZE_T,
+        CSTR,
         BASE_TYPES_END
     };
 
@@ -118,6 +119,7 @@ private:
         types_.emplace_back(new Type("int", INT));
         types_.emplace_back(new Type("unsigned int", UNSIGNED_INT));
         types_.emplace_back(new Type("size_t", SIZE_T));
+        types_.emplace_back(new Type("char*", SIZE_T));
     }
 
     BaseTypes(const BaseTypes& other);
