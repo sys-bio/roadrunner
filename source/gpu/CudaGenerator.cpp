@@ -39,12 +39,21 @@ void CudaGenerator::generate(const GPUSimModel& model) {
 
     CudaKernelPtr kernel(new CudaKernel("GPUIntMEBlockedRK4", BaseTypes::getTp(BaseTypes::VOID)));
 
+    // printf
+    kernel->addStatement(ExpressionPtr(new FunctionCallExpression(mod.getPrintf(), ExpressionPtr(new StringLiteralExpression("in kernel\\n")))));
+
     CudaModule::CudaFunctionPtr entry(new CudaFunction(entryName, BaseTypes::getTp(BaseTypes::VOID)));
 //     entry->setHasCLinkage(true);
+
+    // printf
+    entry->addStatement(ExpressionPtr(new FunctionCallExpression(mod.getPrintf(), ExpressionPtr(new StringLiteralExpression("in cuda\\n")))));
 
     // call the kernel
     ExpressionPtr calltokern(new CudaKernelCallExpression(1, 1, 1, kernel.get()));
     entry->addStatement(StatementPtr(new ExpressionStatement(std::move(calltokern))));
+
+    // cudaDeviceSynchronize
+    entry->addStatement(ExpressionPtr(new FunctionCallExpression(mod.getCudaDeviceSynchronize())));
 
     mod.addFunction(std::move(kernel));
     mod.addFunction(std::move(entry));
@@ -58,7 +67,7 @@ void CudaGenerator::generate(const GPUSimModel& model) {
 
     // compile the module
 
-    FILE* pp = popen("nvcc -D__CUDACC__ -ccbin gcc -m32 -I/home/jkm/devel/src/roadrunner/source --ptxas-options=-v --compiler-options '-fPIC' --shared -o /tmp/rr_cuda_model.so /tmp/rr_cuda_model.cu 2>&1 >/dev/null", "r");
+    FILE* pp = popen("nvcc -D__CUDACC__ -ccbin gcc -m32 -I/home/jkm/devel/src/roadrunner/source --ptxas-options=-v --compiler-options '-fPIC' -Drr_cuda_model_EXPORTS -Xcompiler ,\"-fPIC\",\"-fPIC\",\"-g\" -DNVCC --shared -o /tmp/rr_cuda_model.so /tmp/rr_cuda_model.cu 2>&1 >/dev/null", "r");
 
 #define SBUFLEN 512
     char sbuf[SBUFLEN];
