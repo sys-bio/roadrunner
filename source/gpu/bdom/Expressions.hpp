@@ -82,6 +82,7 @@ public:
 
 protected:
 };
+typedef std::unique_ptr<FunctionParameter> FunctionParameterPtr;
 
 /**
  * @author JKM
@@ -116,6 +117,7 @@ public:
  * @author JKM
  * @brief A class to encapsulate literals
  */
+//TODO: rename IntLiteralExpression
 class LiteralIntExpression : public Expression {
 public:
     LiteralIntExpression(int i) : i_(i) {}
@@ -124,6 +126,20 @@ public:
 
 protected:
     int i_=0;
+};
+
+/**
+ * @author JKM
+ * @brief A class to encapsulate string literals
+ */
+class StringLiteralExpression : public Expression {
+public:
+    StringLiteralExpression(const std::string s) : s_(s) {}
+
+    virtual void serialize(Serializer& s) const;
+
+protected:
+    std::string s_;
 };
 
 class Function;
@@ -143,23 +159,37 @@ class Function;
 
 /**
  * @author JKM
- * @brief A class to encapsulate expressions
+ * @brief A function call expression
+ * @details Represents a call to a function. Expressions
+ * may be used to pass parameters.
  */
 class FunctionCallExpression : public Expression {
 public:
     /// Does not take ownership
-    FunctionCallExpression(Function* func)
+    FunctionCallExpression(const Function* func)
       :  func_(func) {}
 
-    /// Pass the var @ref v as the arg @ref p of the function
-    void passArgument(FunctionParameter* p, Variable* v);
+    /// Takes ownership of args (direct all outcry to the C++ committee)
+//     FunctionCallExpression(const Function* func, std::initializer_list<Expression*> args);
 
+    FunctionCallExpression(const Function* func, ExpressionPtr&& u)
+      :  func_(func) {
+        passMappedArgument(std::move(u), getPositionalParam(0));
+    }
+
+    /// Pass the exp @ref v as the arg @ref p of the function
+    void passMappedArgument(ExpressionPtr&& v, const FunctionParameter* p);
+
+    const FunctionParameter* getPositionalParam(int i) const;
+
+    /// Serialize this object to a document
     virtual void serialize(Serializer& s) const;
 
 protected:
-    /// non-owning
-    Function* func_;
-    typedef std::unordered_map<FunctionParameter*, Variable*> FunctionArgMap;
+    /// Target function (non-owning)
+    const Function* func_;
+    typedef std::unordered_map<const FunctionParameter*, ExpressionPtr> FunctionArgMap;
+    /// Arguments
     FunctionArgMap argmap_;
 };
 
