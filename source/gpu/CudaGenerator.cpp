@@ -14,6 +14,8 @@
 
 # include "CudaGenerator.hpp"
 
+#include "Poco/SharedLibrary.h"
+
 #include <fstream>
 #include <sstream>
 
@@ -31,8 +33,14 @@ namespace dom
 
 void CudaGenerator::generate(const GPUSimModel& model) {
     CudaModule mod;
+    std::string entryName = "cuEntryPoint";
+
+    // construct the DOM
+
     CudaKernelPtr kernel(new CudaKernel("GPUIntMEBlockedRK4", BaseTypes::getTp(BaseTypes::VOID)));
-    CudaModule::CudaFunctionPtr entry(new CudaFunction("entryPoint", BaseTypes::getTp(BaseTypes::VOID)));
+
+    CudaModule::CudaFunctionPtr entry(new CudaFunction(entryName, BaseTypes::getTp(BaseTypes::VOID)));
+//     entry->setHasCLinkage(true);
 
     // call the kernel
     ExpressionPtr calltokern(new CudaKernelCallExpression(1, 1, 1, kernel.get()));
@@ -41,24 +49,61 @@ void CudaGenerator::generate(const GPUSimModel& model) {
     mod.addFunction(std::move(kernel));
     mod.addFunction(std::move(entry));
 
+    // serialize the module to a document
+
     {
         Serializer s("/tmp/rr_cuda_model.cu");
         mod.serialize(s);
     }
 
-    FILE* pp = popen("nvcc -M -D__CUDACC__ -ccbin gcc -m32 -I/home/jkm/devel/src/roadrunner/source --ptxas-options=-v --compiler-options '-fPIC' -o /tmp/rr_cuda_model.so --shared /tmp/rr_cuda_model.cu 2>&1 >/dev/null", "r");
+    // compile the module
 
-    char err[512];
-    fgets(err, 512, pp);
+    FILE* pp = popen("nvcc -D__CUDACC__ -ccbin gcc -m32 -I/home/jkm/devel/src/roadrunner/source --ptxas-options=-v --compiler-options '-fPIC' --shared -o /tmp/rr_cuda_model.so /tmp/rr_cuda_model.cu 2>&1 >/dev/null", "r");
+
+#define SBUFLEN 512
+    char sbuf[SBUFLEN];
+    fgets(sbuf, SBUFLEN, pp);
 
     int code = pclose(pp);
+    pp = NULL;
     std::cerr << "Return code: " << code << "\n";
 
     if(code/256) {
         std::stringstream ss;
-        ss << "Compiler errors:\n" << err << "\n";
+        ss << "Compiler errors:\n" << sbuf << "\n";
         throw_gpusim_exception(ss.str());
     }
+
+    // get the mangled name of the entry point
+
+    pp = popen("nm -g /tmp/rr_cuda_model.so | grep -ohe '_.*cuEntryPoint[^\\s]*$'", "r");
+
+    fgets(sbuf, SBUFLEN, pp);
+    std::string entryMangled{sbuf};
+    while(entryMangled.back() == '\n' && entryMangled.size())
+        entryMangled = std::string(entryMangled,0,entryMangled.size()-1);
+
+    pclose(pp);
+
+    // load the module
+
+    Poco::SharedLibrary so;
+    try {
+        so.load("/tmp/rr_cuda_model.so");
+    } catch(Poco::LibraryLoadException e) {
+        throw_gpusim_exception("Cannot load lib: " + e.message());
+    }
+
+//     std::cerr << "Loading symbol " + entryMangled + "\n";
+    if(!so.hasSymbol(entryMangled))
+        throw_gpusim_exception("Lib has no symbol \"" + entryMangled + "\"");
+
+    typedef void (*EntryPointSig)();
+    EntryPointSig entryPoint;
+    entryPoint = (EntryPointSig)so.getSymbol(entryMangled);
+
+    entryPoint();
+
 }
 
 } // namespace dom
