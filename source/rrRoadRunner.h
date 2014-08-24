@@ -4,7 +4,6 @@
 #include "rrOSSpecifics.h"
 #include "rr-libstruct/lsMatrix.h"
 #include "rrSelectionRecord.h"
-#include "rrRoadRunnerData.h"
 #include "rrRoadRunnerOptions.h"
 #include "Configurable.h"
 
@@ -24,6 +23,11 @@ class ModelGenerator;
 class SBMLModelSimulation;
 class ExecutableModel;
 class Integrator;
+
+using ls::Matrix;
+using ls::DoubleMatrix;
+using ls::Complex;
+using ls::ComplexMatrix;
 
 /**
  * The main RoadRunner class.
@@ -162,12 +166,6 @@ public:
     const DoubleMatrix* getSimulationData() const;
 
     #ifndef SWIG // deprecated methods not SWIG'ed
-
-    /**
-     * Use getSimulationData() instead.
-     * Also, can use the RoadRunnerData::RoadRunnerData(const RoadRunner*) ctor
-     */
-    RR_DEPRECATED(rr::RoadRunnerData *getSimulationResult());
 
     #endif
 
@@ -834,7 +832,7 @@ private:
     /**
      * the LibStruct is normally null, only created on demand here.
      */
-    LibStructural* getLibStruct();
+    ls::LibStructural* getLibStruct();
 
     /**
      * If the specified integrator does not exist, create it, and point the

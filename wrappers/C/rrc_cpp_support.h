@@ -153,12 +153,6 @@ C_DECL_SPEC RRStringArrayPtr               createList(const rrc::StringList& lis
 */
 C_DECL_SPEC RRListPtr                      createArrayList(const ArrayList& list);
 
-/**
- * @deprecated
- *
- * RoadRunnerData is going away.
- */
-C_DECL_SPEC RRCDataPtr    createRRCData(const rr::RoadRunnerData& data);
 
 /**
  * Creates an RRCDataPtr from the current state of a RoadRunner object.

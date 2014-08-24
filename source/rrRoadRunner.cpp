@@ -500,7 +500,7 @@ string RoadRunner::getExtendedVersionInfo()
 
 
 
-LibStructural* RoadRunner::getLibStruct()
+ls::LibStructural* RoadRunner::getLibStruct()
 {
     Mutex::ScopedLock lock(roadRunnerMutex);
 
@@ -663,14 +663,6 @@ void RoadRunner::updateIntegrator()
 
         self.integrator->setSimulateOptions(&self.simulateOpt);
     }
-}
-
-RoadRunnerData *RoadRunner::getSimulationResult()
-{
-    // set the data into the RoadRunnerData struct
-    populateResult();
-
-    return &impl->mRoadRunnerData;
 }
 
 
