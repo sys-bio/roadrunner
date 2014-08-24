@@ -56,13 +56,17 @@ void CudaKernelCallExpression::serialize(Serializer& s) const {
     s << *shared_mem_size_;
     s << ">>>";
     s << "(";
-    for (auto p : argmap_) {
-        s << p.second->getName();
+    for (auto const &p : argmap_) {
+        s << *p.second;
     }
     s << ")";
 }
 
 void CudaModule::serialize(Serializer& s) const {
+    s << "#include <stdlib.h>\n";
+    s << "#include <stdio.h>\n";
+    s << "\n";
+
     for (Function* f : getFunctions()) {
         f->serialize(s);
         s << "\n";

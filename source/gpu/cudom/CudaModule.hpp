@@ -90,6 +90,16 @@ class CudaModule : public Module {
 public:
     typedef std::unique_ptr<CudaFunction> CudaFunctionPtr;
 
+    CudaModule()
+      : printf_(new Function("printf",
+                             BaseTypes::getTp(BaseTypes::INT),
+                             FunctionParameterPtr(new FunctionParameter("format_str", BaseTypes::getTp(BaseTypes::CSTR))))),
+        cudaDeviceSynchronize_(new Function("cudaDeviceSynchronize",
+                                            BaseTypes::getTp(BaseTypes::VOID)))
+        {
+
+    }
+
     /// Serialize to a .cu source file
     virtual void serialize(Serializer& s) const;
 
@@ -100,6 +110,18 @@ public:
     void addFunction(CudaFunctionPtr&& f) {
         func_.emplace_back(std::move(f));
     }
+
+    const Function* getPrintf() {
+        return printf_.get();
+    }
+
+    const Function* getCudaDeviceSynchronize() {
+        return cudaDeviceSynchronize_.get();
+    }
+
+protected:
+    FunctionPtr printf_;
+    FunctionPtr cudaDeviceSynchronize_;
 };
 
 } // namespace dom
