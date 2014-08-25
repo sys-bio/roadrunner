@@ -37,13 +37,37 @@ void CudaGenerator::generate(const GPUSimModel& model) {
 
     // construct the DOM
 
+    // macros
+    Macro* RK4ORDER = mod.addMacro(Macro("RK4ORDER", "4"));
+
+    mod.addMacro(Macro("RK_COEF_LEN", "RK4ORDER*RK4ORDER*n"));
+    mod.addMacro(Macro("RK_COEF_OFFSET", "gen*RK4BLOCKS*n + idx*n + component", "gen", "idx", "component"));
+
+    mod.addMacro(Macro("RK_STATE_VEC_LEN", "RK4ORDER*n"));
+    mod.addMacro(Macro("RK_STATE_VEC_OFFSET", "idx*n + component", "idx", "component"));
+
+    mod.addMacro(Macro("RK_TIME_VEC_LEN", "RK4ORDER"));
+
     // typedef for float
     mod.addStatement(StatementPtr(new TypedefStatement(BaseTypes::getTp(BaseTypes::FLOAT), "RKReal")));
 
     CudaKernelPtr kernel(new CudaKernel("GPUIntMEBlockedRK4", BaseTypes::getTp(BaseTypes::VOID)));
 
-    // printf
-    kernel->addStatement(ExpressionPtr(new FunctionCallExpression(mod.getPrintf(), ExpressionPtr(new StringLiteralExpression("in kernel\\n")))));
+    // generate the kernel
+    {
+        // printf
+        kernel->addStatement(ExpressionPtr(new FunctionCallExpression(mod.getPrintf(), ExpressionPtr(new StringLiteralExpression("in kernel\\n")))));
+
+        ForStatementPtr init_k_loop(new ForStatement());
+
+        Variable* j = init_k_loop->addVariable(Variable(BaseTypes::getTp(BaseTypes::INT), "j"));
+
+        init_k_loop->setInitExp(ExpressionPtr(new VariableInitExpression(j, ExpressionPtr(new LiteralIntExpression(1)))));
+        init_k_loop->setCondExp(ExpressionPtr(new LTComparisonExpression(ExpressionPtr(new VariableRefExpression(j)), ExpressionPtr(new MacroExpression(RK4ORDER)))));
+        init_k_loop->setLoopExp(ExpressionPtr(new PreincrementExpression(ExpressionPtr(new VariableRefExpression(j)))));
+
+        kernel->addStatement(std::move(init_k_loop));
+    }
 
     CudaModule::CudaFunctionPtr entry(new CudaFunction(entryName, BaseTypes::getTp(BaseTypes::VOID)));
 //     entry->setHasCLinkage(true);
@@ -55,7 +79,7 @@ void CudaGenerator::generate(const GPUSimModel& model) {
     ExpressionPtr calltokern(new CudaKernelCallExpression(1, 10, 1, kernel.get()));
     entry->addStatement(StatementPtr(new ExpressionStatement(std::move(calltokern))));
 
-    // cudaDeviceSynchronize
+    // call cudaDeviceSynchronize
     entry->addStatement(ExpressionPtr(new FunctionCallExpression(mod.getCudaDeviceSynchronize())));
 
     mod.addFunction(std::move(kernel));
@@ -88,14 +112,24 @@ void CudaGenerator::generate(const GPUSimModel& model) {
 
     // get the mangled name of the entry point
 
-    pp = popen("nm -g /tmp/rr_cuda_model.so | grep -ohe '_.*cuEntryPoint[^\\s]*$'", "r");
+    std::string demangleCmd = "nm -g /tmp/rr_cuda_model.so | grep -ohe '_.*" + entryName + "[^\\s]*$'";
+    pp = popen(demangleCmd.c_str(), "r");
 
     fgets(sbuf, SBUFLEN, pp);
     std::string entryMangled{sbuf};
+
+    code = pclose(pp);
+
+    if(code/256) {
+        std::stringstream ss;
+        ss << "Could not find symbol: " << entryName << "\n";
+        throw_gpusim_exception(ss.str());
+    }
+
+    // strip newline
+
     while(entryMangled.back() == '\n' && entryMangled.size())
         entryMangled = std::string(entryMangled,0,entryMangled.size()-1);
-
-    pclose(pp);
 
     // load the module
 
