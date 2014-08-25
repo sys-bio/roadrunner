@@ -1,10 +1,11 @@
 // == PREAMBLE ================================================
 
 // * Licensed under the Apache License, Version 2.0; see README
+//   -- USE AT YOUR OWN RISK --
 
 // == FILEDOC =================================================
 
-/** @file gpu/bdom/Structures.h
+/** @file gpu/bdom/Structures.hpp
   * @author JKM
   * @date 08/21/2014
   * @copyright Apache License, Version 2.0
@@ -46,6 +47,13 @@ namespace rrgpu
 namespace dom
 {
 
+/**
+ * @author JKM
+ * @brief A block of code
+ * @details Blocks are the basic unit of code.
+ * They appear in function bodies, if statments,
+ * loops, etc.
+ */
 class Block {
 protected:
     typedef std::vector<StatementPtr> Statements;
@@ -79,12 +87,17 @@ protected:
     Statements stmts_;
 };
 
+/**
+ * @author JKM
+ * @brief A function
+ */
 class Function : public Block {
 protected:
 //     typedef std::unique_ptr<FunctionParameter> FunctionParameterPtr;
     typedef std::vector<FunctionParameterPtr> Args;
 public:
     typedef Type::String String;
+    typedef std::size_t size_type;
 
     /// Ctor: name / type
     Function(const String& name, Type* returnTp)
@@ -113,6 +126,12 @@ public:
     bool hasCLinkage() const { return clink_; }
     void setHasCLinkage(bool val) { clink_ = val; }
 
+    /// Get the number of regular positional parameters
+    size_type getNumPositionalParams() const {
+        return args_.size();
+    }
+
+    //TODO: rename arg -> param
     typedef AccessPtrIterator<Args::iterator> ArgIterator;
     typedef AccessPtrIterator<Args::const_iterator> ConstArgIterator;
 
