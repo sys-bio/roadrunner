@@ -26,7 +26,20 @@ namespace rrgpu
 namespace dom
 {
 
-
+void Macro::serialize(Serializer& s) const {
+    s << "#define " << getName();
+    if (argCount()) {
+        s << "(";
+        int n=0;
+        for (MacroArg* arg : getArgs()) {
+            if (n++)
+                s << ", ";
+            s << *arg;
+        }
+        s << ")";
+    }
+    s << " " << getContent() << "\n";
+}
 
 } // namespace dom
 
