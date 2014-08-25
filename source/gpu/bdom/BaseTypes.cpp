@@ -26,6 +26,13 @@ namespace rrgpu
 namespace dom
 {
 
+void Type::addAlias(AliasType* other) {
+    for (AliasType* a : aliases())
+        if (a->getName() == other->getName())
+            throw_gpusim_exception("Type already has an alias with name " + a->getName());
+    aliases_.emplace_back(other);
+}
+
 void BaseType::serialize(Serializer& s) const {
     s << val_;
 }

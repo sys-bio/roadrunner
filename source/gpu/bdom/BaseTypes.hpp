@@ -50,18 +50,23 @@ namespace dom
 {
 
 class TypeTransition;
+class AliasType;
 
 /**
  * @author JKM
  * @brief Data type
- * @details Types are unique'd so type equality is deduced
- * via pointer comparison
+ * @details Types are unique'd (except for aliases) so type
+ * equality is deduced via @ref isIdentical (which is a wrapper
+ * for a dealiased pointer comparison)
  */
 class Type {
 protected:
     typedef std::list<TypeTransition*> Transitions;
     typedef Range<Transitions::iterator> TransitionRange;
     typedef Range<Transitions::const_iterator> TransitionConstRange;
+    typedef std::list<AliasType*> Aliases;
+    typedef Range<Aliases::iterator> AliasRange;
+    typedef Range<Aliases::const_iterator> AliasConstRange;
 public:
     typedef BDOM_String String;
 
@@ -78,12 +83,29 @@ public:
         tx_.emplace_back(t);
     }
 
+    void addAlias(AliasType* other);
+
+    AliasRange aliases() { return AliasRange(aliases_); }
+
+    AliasConstRange aliases() const { return AliasConstRange(aliases_); }
+
+    /// Used to remove aliases for type comparison
+    virtual Type* dealias() { return this; }
+
+    /// Used to remove aliases for type comparison
+    virtual const Type* dealias() const { return this; }
+
+    virtual bool isIdentical(const Type* other) const {
+        return dealias() == other->dealias();
+    }
+
 protected:
     /// Used in @ref serialize to build representation (adding *'s and &'s)
 //     virtual std::string buildRep();
 
     Transitions tx_;
     Type* root_ = nullptr;
+    Aliases aliases_;
 };
 
 inline Serializer& operator<<(Serializer& s,  const Type& t) {
@@ -138,8 +160,52 @@ public:
     virtual void serialize(Serializer& s) const;
 
 protected:
+    /// Non-owning
     Type* root_ = nullptr;
 };
+
+/**
+ * @author JKM
+ * @brief An alias to another type
+ * @details Defined in e.g. a typedef
+ */
+class AliasType : public Type {
+public:
+    AliasType(Type* target, const std::string& alias)
+      : target_(target), name_(alias) {
+
+    }
+
+    Type* getTarget() {
+        if (!target_)
+            throw_gpusim_exception("Alias has no target type");
+        return target_;
+    }
+
+    const Type* getTarget() const {
+        if (!target_)
+            throw_gpusim_exception("Alias has no target type");
+        return target_;
+    }
+
+    const std::string& getName() const { return name_; }
+
+    virtual void serialize(Serializer& s) const;
+
+    virtual Type* dealias() {
+        return getTarget()->dealias();
+    }
+
+    virtual const Type* dealias() const {
+        return getTarget()->dealias();
+    }
+
+protected:
+    std::string name_;
+    /// Non-owning
+    Type* target_ = nullptr;
+};
+typedef std::unique_ptr<AliasType> AliasTypePtr;
 
 /**
  * @author JKM
@@ -180,7 +246,7 @@ public:
             throw_gpusim_exception("No such participant type");
     }
 
-    virtual bool isIdentical(TypeTransition* other) = 0;
+    virtual bool isEquivalent(TypeTransition* other) = 0;
 
 protected:
     /// Non-owning
@@ -201,7 +267,7 @@ public:
     TypeTransitionAddPtr(Type* from, Type* to)
       : TypeTransition(from, to) {}
 
-    virtual bool isIdentical(TypeTransition* other) {
+    virtual bool isEquivalent(TypeTransition* other) {
         if(auto x = dynamic_cast<TypeTransitionAddPtr*>(other))
             return getFrom() == x->getFrom();
         return false;
@@ -264,6 +330,12 @@ public:
             return addType(std::move(newtype));
     }
 
+    Type* newAliasType(Type* target, const std::string& alias) {
+        AliasTypePtr a(new AliasType(target, alias));
+        target->addAlias(a.get());
+        return addType(std::move(a));
+    }
+
 protected:
 
     /**
@@ -272,7 +344,7 @@ protected:
      */
     Type* regTransition(TypeTransitionPtr&& tx) {
         for(TypeTransition* t : tx->getFrom()->transitions())
-            if(tx->isIdentical(t))
+            if(tx->isEquivalent(t))
                 return t->getTo();
         tx->getFrom()->addTransition(tx.get());
         tx->getTo()->addTransition(tx.get());
