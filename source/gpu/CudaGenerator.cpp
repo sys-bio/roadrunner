@@ -49,12 +49,15 @@ void CudaGenerator::generate(const GPUSimModel& model) {
     mod.addMacro(Macro("RK_TIME_VEC_LEN", "RK4ORDER"));
 
     // typedef for float
-    mod.addStatement(StatementPtr(new TypedefStatement(BaseTypes::getTp(BaseTypes::FLOAT), "RKReal")));
+    Type* RKReal = TypedefStatement::selfCast(mod.addStatement(StatementPtr(new TypedefStatement(BaseTypes::getTp(BaseTypes::FLOAT), "RKReal"))))->getAlias();
 
     CudaKernelPtr kernel(new CudaKernel("GPUIntMEBlockedRK4", BaseTypes::getTp(BaseTypes::VOID)));
 
     // generate the kernel
     {
+        // declare shared memory
+        kernel->addStatement(ExpressionPtr(new CudaVariableDeclarationExpression(kernel->addVariable(Variable(BaseTypes::get().addArray(RKReal), "k")), true)));
+
         // printf
         kernel->addStatement(ExpressionPtr(new FunctionCallExpression(mod.getPrintf(), ExpressionPtr(new StringLiteralExpression("in kernel\\n")))));
 
