@@ -1,6 +1,7 @@
 // == PREAMBLE ================================================
 
 // * Licensed under the Apache License, Version 2.0; see README
+//   -- USE AT YOUR OWN RISK --
 
 // == FILEDOC =================================================
 
