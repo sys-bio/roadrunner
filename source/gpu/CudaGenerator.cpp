@@ -37,6 +37,9 @@ void CudaGenerator::generate(const GPUSimModel& model) {
 
     // construct the DOM
 
+    // typedef for float
+    mod.addStatement(StatementPtr(new TypedefStatement(BaseTypes::getTp(BaseTypes::FLOAT), "RKReal")));
+
     CudaKernelPtr kernel(new CudaKernel("GPUIntMEBlockedRK4", BaseTypes::getTp(BaseTypes::VOID)));
 
     // printf
