@@ -2,9 +2,6 @@
 #include "GPUSimIntegrator.h"
 #include "GPUSimIntegratorInt.h"
 #include "GPUSimException.h"
-#include "CudaGenerator.hpp"
-#include "bdom/BaseTypes.hpp"
-#include "bdom/Structures.hpp"
 #include "rrExecutableModel.h"
 #include "rrException.h"
 #include "rrLogger.h"
@@ -69,8 +66,7 @@ double GPUSimIntegrator::integrate(double timeStart, double hstep)
 //     GPUSimIntegratorInt intf(this);
 
 //     GPUIntMESerial(intf);
-    dom::CudaGenerator generator;
-    generator.generate(*model_);
+    model_->generateModel();
     throw_gpusim_exception("not supported");
 }
 
