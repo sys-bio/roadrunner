@@ -150,6 +150,7 @@ if(BUILD_GPUSIM)
         gpu/ModelResources.cpp
         gpu/bdom/BaseTypes.cpp
         gpu/bdom/Expressions.cpp
+        gpu/bdom/Preproc.cpp
         gpu/bdom/Serializer.cpp
         gpu/bdom/Structures.cpp
         gpu/cudom/CudaModule.cpp
