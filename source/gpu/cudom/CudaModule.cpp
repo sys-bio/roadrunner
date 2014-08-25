@@ -67,6 +67,12 @@ void CudaModule::serialize(Serializer& s) const {
     s << "#include <stdio.h>\n";
     s << "\n";
 
+    serializeMacros(s);
+    s << "\n";
+
+    serializeStatements(s);
+    s <<  "\n";
+
     for (Function* f : getFunctions()) {
         f->serialize(s);
         s << "\n";

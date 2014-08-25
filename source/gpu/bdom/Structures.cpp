@@ -31,16 +31,20 @@ Block::~Block() {}
 void Block::serialize(Serializer& s) const {
     s << "{";
     {
-        IndentationBumper b(s);
-        s << nl;
-
-        for (const Statement* t : getStatements()) {
-            t->serialize(s);
-    //         s << nl;
-        }
+        serializeContents(s);
     }
 
     s << "}" << nl;
+}
+
+void Block::serializeContents(Serializer& s) const {
+    IndentationBumper b(s);
+    s << nl;
+
+    for (const Statement* t : getStatements()) {
+        t->serialize(s);
+//         s << nl;
+    }
 }
 
 void Function::serialize(Serializer& s) const {
@@ -67,6 +71,29 @@ void Function::serializeHeader(Serializer& s) const {
     }
 
     s << ") ";
+}
+
+void Module::serializeMacros(Serializer& s) const {
+    for (Macro* m : getMacros()) {
+        m->serialize(s);
+    }
+}
+
+ForStatement::ForStatement() {
+
+}
+
+ForStatement::ForStatement(ExpressionPtr&& init_exp, ExpressionPtr&& cond_exp, ExpressionPtr&& loop_exp)
+  : init_exp_(std::move(init_exp)),
+  cond_exp_(std::move(cond_exp)),
+  loop_exp_(std::move(loop_exp))
+  {
+
+}
+
+void ForStatement::serialize(Serializer& s) const {
+    s << "for (" << *getInitExp() << ";" << *getCondExp() << ";" << *getLoopExp() << ") ";
+    s << getBody();
 }
 
 } // namespace dom

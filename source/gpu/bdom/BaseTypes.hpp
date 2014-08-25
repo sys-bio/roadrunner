@@ -49,6 +49,9 @@ namespace rrgpu
 namespace dom
 {
 
+template <class T>
+using DomOwningPtr = std::unique_ptr<T>;
+
 class TypeTransition;
 class AliasType;
 
@@ -205,7 +208,7 @@ protected:
     /// Non-owning
     Type* target_ = nullptr;
 };
-typedef std::unique_ptr<AliasType> AliasTypePtr;
+typedef DomOwningPtr<AliasType> AliasTypePtr;
 
 /**
  * @author JKM
@@ -254,7 +257,7 @@ protected:
     /// Non-owning
     Type* to_ = nullptr;
 };
-typedef std::unique_ptr<TypeTransition> TypeTransitionPtr;
+typedef DomOwningPtr<TypeTransition> TypeTransitionPtr;
 
 /**
  * @author JKM
@@ -285,8 +288,8 @@ protected:
  */
 class BaseTypes {
 protected:
-    typedef std::unique_ptr<BaseTypes> SelfPtr;
-    typedef std::unique_ptr<Type> TypePtr;
+    typedef DomOwningPtr<BaseTypes> SelfPtr;
+    typedef DomOwningPtr<Type> TypePtr;
     typedef std::vector<TypePtr> Types;
     typedef std::vector<TypeTransitionPtr> Transitions;
 public:

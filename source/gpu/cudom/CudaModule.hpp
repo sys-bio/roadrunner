@@ -94,7 +94,7 @@ public:
     CudaModule()
       : printf_(new Function("printf",
                              BaseTypes::getTp(BaseTypes::INT),
-                             FunctionParameterPtr(new FunctionParameter("format_str", BaseTypes::getTp(BaseTypes::CSTR))))),
+                             FunctionParameterPtr(new FunctionParameter(BaseTypes::getTp(BaseTypes::CSTR), "format_str")))),
         cudaDeviceSynchronize_(new Function("cudaDeviceSynchronize",
                                             BaseTypes::getTp(BaseTypes::VOID)))
         {

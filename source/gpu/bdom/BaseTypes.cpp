@@ -41,6 +41,10 @@ void PointerType::serialize(Serializer& s) const {
     s << *getRoot() << "*";
 }
 
+void AliasType::serialize(Serializer& s) const {
+    s << getName();
+}
+
 // std::string buildRep() {
 //     assert(root_);
 //

@@ -174,6 +174,16 @@ protected:
     Serializer& s_;
 };
 
+class SerializableElement {
+public:
+    virtual void serialize(Serializer& s) const = 0;
+};
+
+inline Serializer& operator<<(Serializer& s, const SerializableElement& e) {
+    e.serialize(s);
+    return s;
+}
+
 } // namespace dom
 
 } // namespace rrgpu

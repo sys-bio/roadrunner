@@ -51,7 +51,7 @@ namespace dom
  * @author JKM
  * @brief A block of code
  * @details Blocks are the basic unit of code.
- * They appear in function bodies, if statments,
+ * They appear in function bodies, if statements,
  * loops, etc.
  */
 class Block {
@@ -67,7 +67,7 @@ public:
         stmts_.emplace_back(std::move(stmt));
     }
 
-    /// Convert @ref exp to a statment
+    /// Convert @ref exp to a statement
     void addStatement(ExpressionPtr&& exp) {
         stmts_.emplace_back(StatementPtr(new ExpressionStatement(std::move(exp))));
     }
@@ -83,9 +83,67 @@ public:
 
     virtual void serialize(Serializer& s) const;
 
+    /// Don't serialize the delimiting braces
+    virtual void serializeContents(Serializer& s) const;
+
 protected:
     Statements stmts_;
 };
+
+inline Serializer& operator<<(Serializer& s,  const Block& b) {
+    b.serialize(s);
+    return s;
+}
+
+/**
+ * @author JKM
+ * @brief A statement containing a for loop
+ */
+class ForStatement : public Statement, public Scope {
+protected:
+    typedef std::vector<VariablePtr> Variables;
+public:
+    /// Empty ctor
+    ForStatement();
+
+    /// Ctor for typedef @a target @a alias
+    ForStatement(ExpressionPtr&& init_exp, ExpressionPtr&& cond_exp, ExpressionPtr&& loop_exp);
+
+    Expression* getInitExp() { return init_exp_.get(); }
+    const Expression* getInitExp() const { return init_exp_.get(); }
+    void setInitExp(ExpressionPtr&& init_exp) { init_exp_ = std::move(init_exp); }
+
+    Expression* getCondExp() { return cond_exp_.get(); }
+    const Expression* getCondExp() const { return cond_exp_.get(); }
+    void setCondExp(ExpressionPtr&& cond_exp) { cond_exp_ = std::move(cond_exp); }
+
+    Expression* getLoopExp() { return loop_exp_.get(); }
+    const Expression* getLoopExp() const { return loop_exp_.get(); }
+    void setLoopExp(ExpressionPtr&& loop_exp) { loop_exp_ = std::move(loop_exp); }
+
+    Block& getBody() { return body_; }
+    const Block& getBody() const { return body_; }
+
+    Variable* addVariable(VariablePtr&& var) {
+        vars_.emplace_back(std::move(var));
+        return vars_.back().get();
+    }
+
+    Variable* addVariable(Variable&& var) {
+        return addVariable(VariablePtr(new Variable(std::move(var))));
+    }
+
+    virtual void serialize(Serializer& s) const;
+
+protected:
+    ExpressionPtr init_exp_;
+    ExpressionPtr cond_exp_;
+    ExpressionPtr loop_exp_;
+
+    Block body_;
+    Variables vars_;
+};
+typedef DomOwningPtr<ForStatement> ForStatementPtr;
 
 /**
  * @author JKM
@@ -93,7 +151,7 @@ protected:
  */
 class Function : public Block {
 protected:
-//     typedef std::unique_ptr<FunctionParameter> FunctionParameterPtr;
+//     typedef DomOwningPtr<FunctionParameter> FunctionParameterPtr;
     typedef std::vector<FunctionParameterPtr> Args;
 public:
     typedef Type::String String;
@@ -119,11 +177,14 @@ public:
 
     virtual bool requiresSpecialCallingConvention() const { return false; }
 
+    /// Get the name of the function
     const String& getName() const { return name_; }
+    /// Set the name of the function
     void setName(const String& name) { name_ = name; }
 
-    /// Declared with extern "C"
+    /// Declared with 'extern "C"'?
     bool hasCLinkage() const { return clink_; }
+    /// Set whether func has C linkage (will be serialized with 'extern "C"')
     void setHasCLinkage(bool val) { clink_ = val; }
 
     /// Get the number of regular positional parameters
@@ -141,13 +202,16 @@ public:
     ArgRange getArgs() { return ArgRange(args_); }
     ConstArgRange getArgs() const { return ConstArgRange(args_); }
 
+    /// Get the function parameter at position @ref i (zero-offset)
     const FunctionParameter* getPositionalParam(int i) const {
         return args_.at(i).get();
     }
 
+    /// Serialize method
     virtual void serialize(Serializer& s) const;
 
 protected:
+    /// Serialize the header only
     void serializeHeader(Serializer& s) const;
 
     String name_;
@@ -155,17 +219,22 @@ protected:
     Args args_;
     bool clink_ = false;
 };
-typedef std::unique_ptr<Function> FunctionPtr;
+typedef DomOwningPtr<Function> FunctionPtr;
 
 /**
  * @author JKM
  * @brief module
  */
+// TODO: derive both this and Block from a common ancestor
 class Module {
 protected:
-    typedef std::unique_ptr<Function> FunctionPtr;
+    typedef DomOwningPtr<Function> FunctionPtr;
     typedef std::vector<FunctionPtr> Functions;
     Functions func_;
+    typedef std::vector<StatementPtr> Statements;
+    Statements stmts_;
+    typedef std::vector<MacroPtr> Macros;
+    Macros macros_;
 public:
     /// Serialize to a source file
     virtual void serialize(Serializer& s) const = 0;
@@ -178,6 +247,48 @@ public:
 
     FunctionRange getFunctions() { return FunctionRange(func_); }
     ConstFunctionRange getFunctions() const { return ConstFunctionRange(func_); }
+
+    void addStatement(StatementPtr&& stmt) {
+        stmts_.emplace_back(std::move(stmt));
+    }
+
+    typedef AccessPtrIterator<Statements::iterator> StatementIterator;
+    typedef AccessPtrIterator<Statements::const_iterator> ConstStatementIterator;
+
+    typedef Range<StatementIterator> StatementRange;
+    typedef Range<ConstStatementIterator> ConstStatementRange;
+
+    StatementRange getStatements() { return StatementRange(stmts_); }
+    ConstStatementRange getStatements() const { return ConstStatementRange(stmts_); }
+
+    Macro* addMacro(MacroPtr&& mac) {
+        macros_.emplace_back(std::move(mac));
+        return macros_.back().get();
+    }
+
+    Macro* addMacro(Macro&& mac) {
+        macros_.emplace_back(new Macro(std::move(mac)));
+        return macros_.back().get();
+    }
+
+    typedef AccessPtrIterator<Macros::iterator> MacroIterator;
+    typedef AccessPtrIterator<Macros::const_iterator> ConstMacroIterator;
+
+    typedef Range<MacroIterator> MacroRange;
+    typedef Range<ConstMacroIterator> ConstMacroRange;
+
+    MacroRange getMacros() { return MacroRange(macros_); }
+    ConstMacroRange getMacros() const { return ConstMacroRange(macros_); }
+
+protected:
+    void serializeMacros(Serializer& s) const;
+
+    void serializeStatements(Serializer& s) const {
+        for (Statement* m : getStatements()) {
+            m->serialize(s);
+            s << "\n";
+        }
+    }
 };
 
 
