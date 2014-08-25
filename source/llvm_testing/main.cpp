@@ -10,6 +10,8 @@
 #include "rrConfig.h"
 #include "rrUtils.h"
 
+#include "SBMLValidator.h"
+
 #include "ConfigurableTest.h"
 
 #include "rrRoadRunner.h"
@@ -306,6 +308,29 @@ int reset_test(int argc, char* argv[])
     return -1;
 }
 
+
+int validate_test(int argc, char* argv[])
+{
+    try {
+        if (argc < 3)
+        {
+            cout << "usage: llvm_testing validate fname";
+            return -1;
+        }
+
+
+        std::string errors = rr::validateSBML(argv[2], (rr::ValidateSBML)0);
+
+        cout << errors << endl;
+
+    }
+    catch(std::exception& e) {
+        cout << e.what();
+    }
+    return -1;
+}
+
+
 int main(int argc, char* argv[])
 {
     if (argc < 2) {
@@ -331,6 +356,10 @@ int main(int argc, char* argv[])
 
     if(strcmp("reset", argv[1]) == 0) {
         return reset_test(argc, argv);
+    }
+
+    if(strcmp("validate", argv[1]) == 0) {
+        return validate_test(argc, argv);
     }
 
     cout << "error, invalid test name: " << argv[1] << endl;

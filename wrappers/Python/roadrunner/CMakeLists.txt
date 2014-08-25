@@ -20,7 +20,7 @@ include_directories(
 SET_SOURCE_FILES_PROPERTIES(roadrunner.i PROPERTIES CPLUSPLUS ON)
 SET_SOURCE_FILES_PROPERTIES(roadrunner.i PROPERTIES SWIG_FLAGS "-threads")
 
-SWIG_ADD_MODULE(roadrunner python roadrunner.i PyUtils)
+SWIG_ADD_MODULE(roadrunner python roadrunner.i PyUtils PyLoggerStream)
 
 
 

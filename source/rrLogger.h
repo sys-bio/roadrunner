@@ -260,6 +260,22 @@ public:
      * LoggingBuffer via the Log macro.
      */
     static void log(Level level, const std::string& msg);
+
+#ifndef SWIG // don't expose this to SWIG
+
+    /**
+     * Set a pointer to an ostream object where the console logger should
+     * log to.
+     *
+     * Normally, this points to std::clog.
+     *
+     * This is here so that the Logger can properly re-direct to the
+     * Python sys.stderr object as the QT IPython console only
+     * reads output from the python sys.stdout and sys.stderr
+     * file objects and not the C++ file streams.
+     */
+    static void setConsoleStream(std::ostream *os);
+#endif
 };
 
 /**
