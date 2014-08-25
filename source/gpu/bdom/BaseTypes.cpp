@@ -26,6 +26,19 @@ namespace rrgpu
 namespace dom
 {
 
+void BaseType::serialize(Serializer& s) const {
+    s << val_;
+}
+
+void PointerType::serialize(Serializer& s) const {
+    s << *getRoot() << "*";
+}
+
+// std::string buildRep() {
+//     assert(root_);
+//
+// }
+
 BaseTypes::SelfPtr BaseTypes::self_;
 std::once_flag BaseTypes::once_;
 
