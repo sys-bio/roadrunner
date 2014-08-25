@@ -18,6 +18,8 @@
 // by SWIG.  Include include files or definitions that are required
 // for the module to build correctly.
 
+
+
 %{
     #define SWIG_FILE_WITH_INIT
     #include <numpy/arrayobject.h>
@@ -35,6 +37,7 @@
     #include <rrConfig.h>
     #include <conservation/ConservationExtension.h>
     #include "conservation/ConservedMoietyConverter.h"
+    #include "SBMLValidator.h"
     #include <cstddef>
     #include <map>
     #include <rrVersionInfo.h>
@@ -53,6 +56,12 @@
 
     #include "PyEventListener.h"
     #include "PyIntegratorListener.h"
+
+    using ls::Matrix;
+    using ls::DoubleMatrix;
+    using ls::Complex;
+    using ls::ComplexMatrix;
+
 
 // Windows is just so special...
 #ifdef _WIN32
@@ -74,6 +83,7 @@
 
 
 %}
+
 
 %naturalvar;
 
@@ -735,32 +745,7 @@ namespace std { class ostream{}; }
 %include "PyEventListener.h"
 %include "PyIntegratorListener.h"
 %include <rrConfig.h>
-
- /*
-%extend std::vector<rr::SelectionRecord>
-{
-    std::string __repr__() {
-        std::stringstream s;
-        std::vector<rr::SelectionRecord> &p = *($self);
-
-        s << "[";
-
-        for (int i = 0; i < p.size(); ++i)
-        {
-            s << "\"" << p[i].to_string() << "\"";
-
-            if (i + 1 < p.size())
-            {
-                s << ", ";
-            }
-        }
-
-        s << "]";
-
-        return s.str();
-    }
-}
- */
+%include <SBMLValidator.h>
 
 
 %extend rr::RoadRunner

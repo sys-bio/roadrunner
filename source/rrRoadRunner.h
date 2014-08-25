@@ -24,11 +24,6 @@ class SBMLModelSimulation;
 class ExecutableModel;
 class Integrator;
 
-using ls::Matrix;
-using ls::DoubleMatrix;
-using ls::Complex;
-using ls::ComplexMatrix;
-
 /**
  * The main RoadRunner class.
  *
@@ -157,13 +152,13 @@ public:
      * @returns a RoadRunnerData object which is owned by the the RoadRunner
      * object if successfull, 0 on failure.
      */
-    const DoubleMatrix *simulate(const SimulateOptions* options = 0);
+    const ls::DoubleMatrix *simulate(const SimulateOptions* options = 0);
 
     /**
      * RoadRunner keeps a copy of the simulation data around until the
      * next call to simulate. This matrix can be obtained here.
      */
-    const DoubleMatrix* getSimulationData() const;
+    const ls::DoubleMatrix* getSimulationData() const;
 
     #ifndef SWIG // deprecated methods not SWIG'ed
 
@@ -358,7 +353,7 @@ public:
      */
     ls::DoubleMatrix getEigenvalues();
 
-    std::vector<Complex> getEigenvaluesCpx();
+    std::vector<ls::Complex> getEigenvaluesCpx();
 
     ls::DoubleMatrix getLinkMatrix();
 
@@ -409,7 +404,7 @@ public:
             const string& parameterName);
 
 
-    Matrix<double> getFrequencyResponse(double startFrequency,
+    ls::DoubleMatrix getFrequencyResponse(double startFrequency,
             int numberOfDecades, int numberOfPoints,
             const string& parameterName, const string& variableName,
             bool useDB, bool useHz);

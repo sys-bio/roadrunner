@@ -220,7 +220,6 @@ void PyLoggerStream::freePyObjects()
             flush = NULL;
         }
     } else {
-        std::cout << "python not initialized " << std::endl;
         stream = NULL;
         write = NULL;
         flush = NULL;

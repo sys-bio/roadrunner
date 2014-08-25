@@ -79,6 +79,7 @@ set(rrSources
     rrSparse
     rrSBMLModelSimulation
     rrSBMLReader
+    SBMLValidator
     Variant
     conservation/ConservationExtension
     conservation/ConservationDocumentPlugin

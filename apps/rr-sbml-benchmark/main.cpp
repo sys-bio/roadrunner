@@ -23,6 +23,7 @@
 
 using namespace rr;
 using namespace std;
+using ls::DoubleMatrix;
 
 // copasi test suite called like
 // ./sbml-testsuite ~/src/sbml_test/cases/semantic 00221 ~/tmp/copasi 2 4
