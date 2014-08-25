@@ -12,7 +12,8 @@ typedef float RKReal;
 #define RK_COEF_LEN RK4BLOCKS*RK4BLOCKS*n
 #define RK_COEF_OFFSET(gen, idx, component) gen*RK4BLOCKS*n + idx*n + component
 
-#define RK_STATE_VEC_LEN RK4BLOCKS*n*sizeof(RKReal)
+// #define RK_STATE_VEC_LEN RK4BLOCKS*n*sizeof(RKReal) // FIXME?
+#define RK_STATE_VEC_LEN RK4BLOCKS*n
 #define RK_STATE_VEC_OFFSET(idx, component) idx*n + component
 
 #define RK_TIME_VEC_LEN RK4BLOCKS
