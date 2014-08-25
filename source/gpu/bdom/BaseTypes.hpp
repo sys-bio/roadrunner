@@ -202,10 +202,9 @@ public:
       : TypeTransition(from, to) {}
 
     virtual bool isIdentical(TypeTransition* other) {
-        auto x = dynamic_cast<TypeTransitionAddPtr*>(other);
-        if(!x)
-            return false;
-        return getFrom() == x->getFrom() && getTo() == x->getTo();
+        if(auto x = dynamic_cast<TypeTransitionAddPtr*>(other))
+            return getFrom() == x->getFrom();
+        return false;
     }
 
 protected:
@@ -231,6 +230,8 @@ public:
         INT,
         UNSIGNED_INT,
         SIZE_T,
+        FLOAT,
+        DOUBLE,
         CHAR,
         CSTR,
         BASE_TYPES_END
@@ -256,9 +257,8 @@ public:
     /// Return the unique type formed by adding a pointer to an existing type
     Type* addPointer(Type* t) {
         TypePtr newtype(new PointerType(t));
-        Type* preempt = regTransition(TypeTransitionPtr(new TypeTransitionAddPtr(t, newtype.get())));
         // if the type already exists, do not register a new one
-        if(preempt)
+        if(Type* preempt = regTransition(TypeTransitionPtr(new TypeTransitionAddPtr(t, newtype.get()))))
             return preempt;
         else
             return addType(std::move(newtype));
@@ -298,6 +298,8 @@ private:
         types_.emplace_back(new BaseType("int", INT));
         types_.emplace_back(new BaseType("unsigned int", UNSIGNED_INT));
         types_.emplace_back(new BaseType("size_t", SIZE_T));
+        types_.emplace_back(new BaseType("float", FLOAT));
+        types_.emplace_back(new BaseType("double", DOUBLE));
         types_.emplace_back(new BaseType("char", CHAR));
         addPointer(types_.back().get()); // CSTR
     }
