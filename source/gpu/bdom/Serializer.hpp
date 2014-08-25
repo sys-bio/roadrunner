@@ -1,10 +1,11 @@
 // == PREAMBLE ================================================
 
 // * Licensed under the Apache License, Version 2.0; see README
+//   -- USE AT YOUR OWN RISK --
 
 // == FILEDOC =================================================
 
-/** @file gpu/bdom/Serializer.h
+/** @file gpu/bdom/Serializer.hpp
   * @author JKM
   * @date 08/22/2014
   * @copyright Apache License, Version 2.0
