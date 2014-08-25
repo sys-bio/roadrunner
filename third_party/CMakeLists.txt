@@ -156,7 +156,7 @@ endif()
 #set(CMAKE_MODULE_PATH libSBML-5.10.0-Source ${CMAKE_MODULE_PATH})
 #add_subdirectory(libSBML-5.10.0-Source)
 
-set(RR_LIBSBML "libSBML-5.10.0-Source")
+set(RR_LIBSBML "libSBML-5.10.2-Source")
 set(LIBSBML_ROOT_SOURCE_DIR "${CMAKE_SOURCE_DIR}/${RR_LIBSBML}" CACHE PATH
     "Path to the libsbml root source directory")
 set(LIBSBML_ROOT_BINARY_DIR "${CMAKE_BINARY_DIR}" CACHE PATH

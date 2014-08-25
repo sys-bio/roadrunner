@@ -4,7 +4,6 @@
 #include "rrOSSpecifics.h"
 #include "rr-libstruct/lsMatrix.h"
 #include "rrSelectionRecord.h"
-#include "rrRoadRunnerData.h"
 #include "rrRoadRunnerOptions.h"
 #include "Configurable.h"
 
@@ -153,21 +152,15 @@ public:
      * @returns a RoadRunnerData object which is owned by the the RoadRunner
      * object if successfull, 0 on failure.
      */
-    const DoubleMatrix *simulate(const SimulateOptions* options = 0);
+    const ls::DoubleMatrix *simulate(const SimulateOptions* options = 0);
 
     /**
      * RoadRunner keeps a copy of the simulation data around until the
      * next call to simulate. This matrix can be obtained here.
      */
-    const DoubleMatrix* getSimulationData() const;
+    const ls::DoubleMatrix* getSimulationData() const;
 
     #ifndef SWIG // deprecated methods not SWIG'ed
-
-    /**
-     * Use getSimulationData() instead.
-     * Also, can use the RoadRunnerData::RoadRunnerData(const RoadRunner*) ctor
-     */
-    RR_DEPRECATED(rr::RoadRunnerData *getSimulationResult());
 
     #endif
 
@@ -360,7 +353,7 @@ public:
      */
     ls::DoubleMatrix getEigenvalues();
 
-    std::vector<Complex> getEigenvaluesCpx();
+    std::vector<ls::Complex> getEigenvaluesCpx();
 
     ls::DoubleMatrix getLinkMatrix();
 
@@ -411,7 +404,7 @@ public:
             const string& parameterName);
 
 
-    Matrix<double> getFrequencyResponse(double startFrequency,
+    ls::DoubleMatrix getFrequencyResponse(double startFrequency,
             int numberOfDecades, int numberOfPoints,
             const string& parameterName, const string& variableName,
             bool useDB, bool useHz);
@@ -834,7 +827,7 @@ private:
     /**
      * the LibStruct is normally null, only created on demand here.
      */
-    LibStructural* getLibStruct();
+    ls::LibStructural* getLibStruct();
 
     /**
      * If the specified integrator does not exist, create it, and point the

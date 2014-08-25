@@ -8,6 +8,9 @@
 #include "ConfigurableTest.h"
 #include "rrRoadRunner.h"
 #include <iostream>
+#include <fstream>
+#include <sstream>
+
 
 using namespace std;
 

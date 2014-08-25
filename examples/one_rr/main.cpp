@@ -31,7 +31,7 @@ int main(int argc, char** argv)
         Log(lInfo)<<" ---------- SIMULATE ---------------------";
 
         rr1.simulate();
-        Log(lInfo)<<"Data:"<<*(rr1.getSimulationResult());
+        Log(lInfo)<<"Data:"<<*(rr1.getSimulationData());
     }
     catch(const Exception& ex)
     {

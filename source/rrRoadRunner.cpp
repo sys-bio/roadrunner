@@ -24,6 +24,7 @@
 #include "rrSteadyStateSolver.h"
 #include "rrSBMLReader.h"
 #include "rrConfig.h"
+#include "SBMLValidator.h"
 
 #include <sbml/conversion/SBMLLocalParameterConverter.h>
 
@@ -154,8 +155,6 @@ public:
 
     const double mSteadyStateThreshold;
     ls::DoubleMatrix simulationResult;
-    RoadRunnerData mRoadRunnerData;
-
 
     /**
      * Points to the current integrator. This is a pointer into the
@@ -227,7 +226,6 @@ public:
                 mDiffStepSize(0.05),
                 mSteadyStateThreshold(1.E-2),
                 simulationResult(),
-                mRoadRunnerData(),
                 integrator(0),
                 mSelectionList(),
                 mModelGenerator(0),
@@ -249,7 +247,6 @@ public:
                 mDiffStepSize(0.05),
                 mSteadyStateThreshold(1.E-2),
                 simulationResult(),
-                mRoadRunnerData(),
                 integrator(0),
                 mSelectionList(),
                 mModelGenerator(0),
@@ -500,7 +497,7 @@ string RoadRunner::getExtendedVersionInfo()
 
 
 
-LibStructural* RoadRunner::getLibStruct()
+ls::LibStructural* RoadRunner::getLibStruct()
 {
     Mutex::ScopedLock lock(roadRunnerMutex);
 
@@ -663,14 +660,6 @@ void RoadRunner::updateIntegrator()
 
         self.integrator->setSimulateOptions(&self.simulateOpt);
     }
-}
-
-RoadRunnerData *RoadRunner::getSimulationResult()
-{
-    // set the data into the RoadRunnerData struct
-    populateResult();
-
-    return &impl->mRoadRunnerData;
 }
 
 
@@ -857,19 +846,33 @@ void RoadRunner::load(const string& uriOrSbml, const LoadSBMLOptions *options)
 
     self.deleteIntegrators();
 
-    if (options)
-    {
-        impl->conservedMoietyAnalysis = options->modelGeneratorOpt
-                & LoadSBMLOptions::CONSERVED_MOIETIES;
-        impl->model = impl->mModelGenerator->createModel(impl->mCurrentSBML, options->modelGeneratorOpt);
-    }
-    else
-    {
-        LoadSBMLOptions opt;
-        opt.modelGeneratorOpt = getConservedMoietyAnalysis() ?
-                opt.modelGeneratorOpt | LoadSBMLOptions::CONSERVED_MOIETIES :
-                opt.modelGeneratorOpt & ~LoadSBMLOptions::CONSERVED_MOIETIES;
-        impl->model = impl->mModelGenerator->createModel(impl->mCurrentSBML, opt.modelGeneratorOpt);
+    // the following lines load and compile the model. If anything fails here,
+    // we validate the model to provide explicit details about where it
+    // failed. Its *VERY* expensive to pre-validate the model.
+    try {
+        if (options)
+        {
+            impl->conservedMoietyAnalysis = options->modelGeneratorOpt
+                    & LoadSBMLOptions::CONSERVED_MOIETIES;
+            impl->model = impl->mModelGenerator->createModel(impl->mCurrentSBML, options->modelGeneratorOpt);
+        }
+        else
+        {
+            LoadSBMLOptions opt;
+            opt.modelGeneratorOpt = getConservedMoietyAnalysis() ?
+                    opt.modelGeneratorOpt | LoadSBMLOptions::CONSERVED_MOIETIES :
+                    opt.modelGeneratorOpt & ~LoadSBMLOptions::CONSERVED_MOIETIES;
+            impl->model = impl->mModelGenerator->createModel(impl->mCurrentSBML, opt.modelGeneratorOpt);
+        }
+    } catch (std::exception&) {
+        string errors = validateSBML(impl->mCurrentSBML);
+
+        if(!errors.empty()) {
+            Log(Logger::LOG_ERROR) << "Invalid SBML: " << endl << errors;
+        }
+
+        // re-throw the exception
+        throw;
     }
 
     updateIntegrator();
@@ -958,8 +961,6 @@ bool RoadRunner::populateResult()
         list[i] = impl->mSelectionList[i].to_string();
     }
 
-    impl->mRoadRunnerData.setColumnNames(list);
-    impl->mRoadRunnerData.setData(impl->simulationResult);
     return true;
 }
 
@@ -3748,10 +3749,6 @@ void RoadRunner::updateSimulateOptions()
     {
         reset(); // reset back to initial conditions
     }
-
-    // set how the result should be returned to python
-    self.mRoadRunnerData.structuredResult =
-            self.simulateOpt.flags & SimulateOptions::STRUCTURED_RESULT;
 }
 
 
