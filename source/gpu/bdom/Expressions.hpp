@@ -1,10 +1,11 @@
 // == PREAMBLE ================================================
 
 // * Licensed under the Apache License, Version 2.0; see README
+//   -- USE AT YOUR OWN RISK --
 
 // == FILEDOC =================================================
 
-/** @file gpu/bdom/Expressions.h
+/** @file gpu/bdom/Expressions.hpp
   * @author JKM
   * @date 08/21/2014
   * @copyright Apache License, Version 2.0
