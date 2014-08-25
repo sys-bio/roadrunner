@@ -43,6 +43,27 @@ namespace dom
 
 /**
  * @author JKM
+ * @brief Variable initialization expressions
+ */
+class CudaVariableDeclarationExpression : public VariableDeclarationExpression {
+public:
+    /// Ctor
+    CudaVariableDeclarationExpression(Variable* var, bool shared=false)
+      : VariableDeclarationExpression(var), cuda_shared_(shared) {}
+
+    /// Is this a shared memory declaration?
+    bool isShared() const { return cuda_shared_; }
+    /// Set whether this is a shared memory declaration?
+    void setIsShared(bool val) { cuda_shared_ = val; }
+
+    virtual void serialize(Serializer& s) const;
+
+protected:
+    bool cuda_shared_ = false;
+};
+
+/**
+ * @author JKM
  * @brief CUDA function
  */
 class CudaFunction : public Function {

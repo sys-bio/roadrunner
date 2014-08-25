@@ -41,6 +41,18 @@ void PointerType::serialize(Serializer& s) const {
     s << *getRoot() << "*";
 }
 
+void ArrayType::serialize(Serializer& s) const {
+    serializeFirstPart(s);
+}
+
+void ArrayType::serializeFirstPart(Serializer& s) const {
+    s << *getRoot();
+}
+
+void ArrayType::serializeSecondPart(Serializer& s) const {
+    s << "[]";
+}
+
 void AliasType::serialize(Serializer& s) const {
     s << getName();
 }

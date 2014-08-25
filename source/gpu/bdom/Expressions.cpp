@@ -31,6 +31,13 @@ namespace dom
 //
 // }
 
+void Variable::serialize(Serializer& s) const {
+    type_->serializeFirstPart(s);
+    s << String(" ");
+    s << name_;
+    type_->serializeSecondPart(s);
+}
+
 void VariableRefExpression::serialize(Serializer& s) const {
     s << getVariable()->getName();
 }

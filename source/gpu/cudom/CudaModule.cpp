@@ -27,6 +27,12 @@ namespace rrgpu
 namespace dom
 {
 
+void CudaVariableDeclarationExpression::serialize(Serializer& s) const {
+    if (isShared())
+        s << "extern __shared__ ";
+    VariableDeclarationExpression::serialize(s);
+}
+
 void CudaFunction::serialize(Serializer& s) const {
     Function::serialize(s);
 }

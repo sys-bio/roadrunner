@@ -57,19 +57,21 @@ namespace dom
 class Block {
 protected:
     typedef std::vector<StatementPtr> Statements;
+    typedef std::vector<VariablePtr> Variables;
 public:
     Block() {}
     Block(const Block&) = delete;
     Block(Block&&) = default;
     ~Block();
 
-    void addStatement(StatementPtr&& stmt) {
+    Statement* addStatement(StatementPtr&& stmt) {
         stmts_.emplace_back(std::move(stmt));
+        return stmts_.back().get();
     }
 
     /// Convert @ref exp to a statement
-    void addStatement(ExpressionPtr&& exp) {
-        stmts_.emplace_back(StatementPtr(new ExpressionStatement(std::move(exp))));
+    Statement* addStatement(ExpressionPtr&& exp) {
+        return addStatement(StatementPtr(new ExpressionStatement(std::move(exp))));
     }
 
     typedef AccessPtrIterator<Statements::iterator> StatementIterator;
@@ -86,8 +88,18 @@ public:
     /// Don't serialize the delimiting braces
     virtual void serializeContents(Serializer& s) const;
 
+    Variable* addVariable(VariablePtr&& var) {
+        vars_.emplace_back(std::move(var));
+        return vars_.back().get();
+    }
+
+    Variable* addVariable(Variable&& var) {
+        return addVariable(VariablePtr(new Variable(std::move(var))));
+    }
+
 protected:
     Statements stmts_;
+    Variables vars_;
 };
 
 inline Serializer& operator<<(Serializer& s,  const Block& b) {
@@ -248,8 +260,14 @@ public:
     FunctionRange getFunctions() { return FunctionRange(func_); }
     ConstFunctionRange getFunctions() const { return ConstFunctionRange(func_); }
 
-    void addStatement(StatementPtr&& stmt) {
+    Statement* addStatement(StatementPtr&& stmt) {
         stmts_.emplace_back(std::move(stmt));
+        return stmts_.back().get();
+    }
+
+    /// Convert @ref exp to a statement
+    Statement* addStatement(ExpressionPtr&& exp) {
+        return addStatement(StatementPtr(new ExpressionStatement(std::move(exp))));
     }
 
     typedef AccessPtrIterator<Statements::iterator> StatementIterator;

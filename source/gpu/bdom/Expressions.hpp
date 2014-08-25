@@ -69,11 +69,7 @@ public:
 
     virtual ~Variable() {}
 
-    virtual void serialize(Serializer& s) const {
-        type_->serialize(s);
-        s << String(" ");
-        s << name_;
-    }
+    virtual void serialize(Serializer& s) const;
 
     const String& getName() const { return name_; }
     void setName(const String& name) { name_ = name; }
@@ -192,7 +188,7 @@ protected:
  */
 class VariableDeclarationExpression : public Expression {
 public:
-    /// Ctor for type, var name, and initial value
+    /// Ctor
     VariableDeclarationExpression(Variable* var)
       : var_(var) {}
 
@@ -514,6 +510,13 @@ public:
     const Type* getAlias() const { return alias_; }
 
     virtual void serialize(Serializer& s) const;
+
+    static TypedefStatement* selfCast(Statement* s) {
+        TypedefStatement* result = dynamic_cast<TypedefStatement*>(s);
+        if (!result)
+            throw_gpusim_exception("Not a TypedefStatement");
+        return result;
+    }
 
 protected:
     Type* target_;

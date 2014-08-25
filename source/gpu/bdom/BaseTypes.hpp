@@ -77,6 +77,12 @@ public:
 
     virtual void serialize(Serializer& s) const = 0;
 
+    /// Before the variable name
+    virtual void serializeFirstPart(Serializer& s) const { serialize(s); }
+
+    /// After the variable name (e.g. [] for arrays)
+    virtual void serializeSecondPart(Serializer& s) const {}
+
     TransitionRange transitions() { return TransitionRange(tx_); }
 
     TransitionConstRange transitions() const { return TransitionConstRange(tx_); }
@@ -161,6 +167,42 @@ public:
     }
 
     virtual void serialize(Serializer& s) const;
+
+protected:
+    /// Non-owning
+    Type* root_ = nullptr;
+};
+
+/**
+ * @author JKM
+ * @brief A pointer to a type
+ */
+class ArrayType : public Type {
+public:
+    ArrayType(Type* root)
+      : root_(root) {
+
+    }
+
+    Type* getRoot() {
+        if (!root_)
+            throw_gpusim_exception("Array has no root type");
+        return root_;
+    }
+
+    const Type* getRoot() const {
+        if (!root_)
+            throw_gpusim_exception("Array has no root type");
+        return root_;
+    }
+
+    virtual void serialize(Serializer& s) const;
+
+    /// Before the variable name
+    virtual void serializeFirstPart(Serializer& s) const;
+
+    /// After the variable name (e.g. [] for arrays)
+    virtual void serializeSecondPart(Serializer& s) const;
 
 protected:
     /// Non-owning
@@ -281,6 +323,26 @@ protected:
 
 /**
  * @author JKM
+ * @brief Add array transition
+ * @details Given a type, get the array type
+ * (char -> char[] etc.)
+ */
+class TypeTransitionAddArray : public TypeTransition {
+public:
+    TypeTransitionAddArray(Type* from, Type* to)
+      : TypeTransition(from, to) {}
+
+    virtual bool isEquivalent(TypeTransition* other) {
+        if(auto x = dynamic_cast<TypeTransitionAddArray*>(other))
+            return getFrom() == x->getFrom();
+        return false;
+    }
+
+protected:
+};
+
+/**
+ * @author JKM
  * @brief Singleton for accessing base data types
  * @details There is only one instance of this class,
  * accessible via the @ref get method. The class keeps
@@ -337,6 +399,16 @@ public:
         AliasTypePtr a(new AliasType(target, alias));
         target->addAlias(a.get());
         return addType(std::move(a));
+    }
+
+    /// Return the unique type formed by making an array of an existing type
+    Type* addArray(Type* t) {
+        TypePtr newtype(new ArrayType(t));
+        // if the type already exists, do not register a new one
+        if(Type* preempt = regTransition(TypeTransitionPtr(new TypeTransitionAddArray(t, newtype.get()))))
+            return preempt;
+        else
+            return addType(std::move(newtype));
     }
 
 protected:
