@@ -24,6 +24,7 @@
 #include "rrSteadyStateSolver.h"
 #include "rrSBMLReader.h"
 #include "rrConfig.h"
+#include "SBMLValidator.h"
 
 #include <sbml/conversion/SBMLLocalParameterConverter.h>
 
@@ -845,19 +846,33 @@ void RoadRunner::load(const string& uriOrSbml, const LoadSBMLOptions *options)
 
     self.deleteIntegrators();
 
-    if (options)
-    {
-        impl->conservedMoietyAnalysis = options->modelGeneratorOpt
-                & LoadSBMLOptions::CONSERVED_MOIETIES;
-        impl->model = impl->mModelGenerator->createModel(impl->mCurrentSBML, options->modelGeneratorOpt);
-    }
-    else
-    {
-        LoadSBMLOptions opt;
-        opt.modelGeneratorOpt = getConservedMoietyAnalysis() ?
-                opt.modelGeneratorOpt | LoadSBMLOptions::CONSERVED_MOIETIES :
-                opt.modelGeneratorOpt & ~LoadSBMLOptions::CONSERVED_MOIETIES;
-        impl->model = impl->mModelGenerator->createModel(impl->mCurrentSBML, opt.modelGeneratorOpt);
+    // the following lines load and compile the model. If anything fails here,
+    // we validate the model to provide explicit details about where it
+    // failed. Its *VERY* expensive to pre-validate the model.
+    try {
+        if (options)
+        {
+            impl->conservedMoietyAnalysis = options->modelGeneratorOpt
+                    & LoadSBMLOptions::CONSERVED_MOIETIES;
+            impl->model = impl->mModelGenerator->createModel(impl->mCurrentSBML, options->modelGeneratorOpt);
+        }
+        else
+        {
+            LoadSBMLOptions opt;
+            opt.modelGeneratorOpt = getConservedMoietyAnalysis() ?
+                    opt.modelGeneratorOpt | LoadSBMLOptions::CONSERVED_MOIETIES :
+                    opt.modelGeneratorOpt & ~LoadSBMLOptions::CONSERVED_MOIETIES;
+            impl->model = impl->mModelGenerator->createModel(impl->mCurrentSBML, opt.modelGeneratorOpt);
+        }
+    } catch (std::exception&) {
+        string errors = validateSBML(impl->mCurrentSBML);
+
+        if(!errors.empty()) {
+            Log(Logger::LOG_ERROR) << "Invalid SBML: " << endl << errors;
+        }
+
+        // re-throw the exception
+        throw;
     }
 
     updateIntegrator();
