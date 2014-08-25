@@ -88,6 +88,8 @@ public:
 
     virtual ~GPUSimExecutableModel();
 
+    void generateModel();
+
     /**
      * get the name of the model
      */
