@@ -136,17 +136,19 @@ void CudaGenerator::generate(const GPUSimModel& model) {
 
     // load the module
 
+    std::string libname = "/tmp/rr_cuda_model.so";
     Poco::SharedLibrary so;
     try {
-        so.load("/tmp/rr_cuda_model.so");
+        so.load(libname);
     } catch(Poco::LibraryLoadException e) {
         throw_gpusim_exception("Cannot load lib: " + e.message());
     }
 
-//     std::cerr << "Loading symbol " + entryMangled + "\n";
+    Log(Logger::LOG_DEBUG) << "Loading symbol " << entryMangled << " in " << libname;
     if(!so.hasSymbol(entryMangled))
-        throw_gpusim_exception("Lib has no symbol \"" + entryMangled + "\"");
+        throw_gpusim_exception("Lib " + libname + " has no symbol \"" + entryMangled + "\"");
 
+    Log(Logger::LOG_TRACE) << "Entering CUDA code";
     typedef void (*EntryPointSig)();
     EntryPointSig entryPoint;
     entryPoint = (EntryPointSig)so.getSymbol(entryMangled);
