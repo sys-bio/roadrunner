@@ -235,6 +235,28 @@ protected:
     ExpressionPtr exp_;
 };
 
+/**
+ * @author JKM
+ * @brief A statement containing a typedef
+ */
+class TypedefStatement : public Statement {
+public:
+    /// Ctor for typedef @a target @a alias
+    TypedefStatement(Type* target, const std::string& alias);
+
+    Type* getTarget() { return target_; }
+    const Type* getTarget() const { return target_; }
+
+    Type* getAlias() { return alias_; }
+    const Type* getAlias() const { return alias_; }
+
+    virtual void serialize(Serializer& s) const;
+
+protected:
+    Type* target_;
+    Type* alias_;
+};
+
 } // namespace dom
 
 } // namespace rrgpu
