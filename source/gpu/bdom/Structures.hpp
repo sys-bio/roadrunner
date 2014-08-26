@@ -49,20 +49,17 @@ namespace dom
 
 /**
  * @author JKM
- * @brief A block of code
- * @details Blocks are the basic unit of code.
- * They appear in function bodies, if statements,
- * loops, etc.
+ * @brief Superclass of block / module
  */
-class Block {
+class StatementContainer {
 protected:
     typedef std::vector<StatementPtr> Statements;
     typedef std::vector<VariablePtr> Variables;
 public:
-    Block() {}
-    Block(const Block&) = delete;
-    Block(Block&&) = default;
-    ~Block();
+    StatementContainer() {}
+    StatementContainer(const StatementContainer&) = delete;
+    StatementContainer(StatementContainer&&) = default;
+    virtual ~StatementContainer() {}
 
     Statement* addStatement(StatementPtr&& stmt) {
         stmts_.emplace_back(std::move(stmt));
@@ -83,11 +80,6 @@ public:
     StatementRange getStatements() { return StatementRange(stmts_); }
     ConstStatementRange getStatements() const { return ConstStatementRange(stmts_); }
 
-    virtual void serialize(Serializer& s) const;
-
-    /// Don't serialize the delimiting braces
-    virtual void serializeContents(Serializer& s) const;
-
     Variable* addVariable(VariablePtr&& var) {
         vars_.emplace_back(std::move(var));
         return vars_.back().get();
@@ -97,9 +89,28 @@ public:
         return addVariable(VariablePtr(new Variable(std::move(var))));
     }
 
+    virtual void serialize(Serializer& s) const;
+
 protected:
     Statements stmts_;
     Variables vars_;
+};
+
+/**
+ * @author JKM
+ * @brief A block of code
+ * @details Blocks are the basic unit of code.
+ * They appear in function bodies, if statements,
+ * loops, etc.
+ */
+class Block : public StatementContainer {
+public:
+    Block() {}
+    Block(const Block&) = delete;
+    Block(Block&&) = default;
+    ~Block() {}
+
+    virtual void serialize(Serializer& s) const;
 };
 
 inline Serializer& operator<<(Serializer& s,  const Block& b) {
@@ -120,6 +131,21 @@ public:
 
     /// Ctor for typedef @a target @a alias
     ForStatement(ExpressionPtr&& init_exp, ExpressionPtr&& cond_exp, ExpressionPtr&& loop_exp);
+
+    /// Shortcut for constructing an owning pointer
+    static DomOwningPtr<ForStatement> make() {
+        return DomOwningPtr<ForStatement>(new ForStatement());
+    }
+
+    /// Shortcut for inserting into a code block / module
+    static ForStatement* insert(StatementContainer& c) {
+        return downcast(c.addStatement(make()));
+    }
+
+    /// Shortcut for inserting into a code block / module
+    static ForStatement* insert(StatementContainer* c) {
+        return downcast(c->addStatement(make()));
+    }
 
     Expression* getInitExp() { return init_exp_.get(); }
     const Expression* getInitExp() const { return init_exp_.get(); }
@@ -147,6 +173,7 @@ public:
 
     virtual void serialize(Serializer& s) const;
 
+    // TODO: replace with LLVM-style casting
     static ForStatement* downcast(Statement* s) {
         auto result = dynamic_cast<ForStatement*>(s);
         if (!result)
@@ -245,13 +272,11 @@ typedef DomOwningPtr<Function> FunctionPtr;
  * @brief module
  */
 // TODO: derive both this and Block from a common ancestor
-class Module {
+class Module : public StatementContainer {
 protected:
     typedef DomOwningPtr<Function> FunctionPtr;
     typedef std::vector<FunctionPtr> Functions;
     Functions func_;
-    typedef std::vector<StatementPtr> Statements;
-    Statements stmts_;
     typedef std::vector<MacroPtr> Macros;
     Macros macros_;
 public:
@@ -266,25 +291,6 @@ public:
 
     FunctionRange getFunctions() { return FunctionRange(func_); }
     ConstFunctionRange getFunctions() const { return ConstFunctionRange(func_); }
-
-    Statement* addStatement(StatementPtr&& stmt) {
-        stmts_.emplace_back(std::move(stmt));
-        return stmts_.back().get();
-    }
-
-    /// Convert @ref exp to a statement
-    Statement* addStatement(ExpressionPtr&& exp) {
-        return addStatement(StatementPtr(new ExpressionStatement(std::move(exp))));
-    }
-
-    typedef AccessPtrIterator<Statements::iterator> StatementIterator;
-    typedef AccessPtrIterator<Statements::const_iterator> ConstStatementIterator;
-
-    typedef Range<StatementIterator> StatementRange;
-    typedef Range<ConstStatementIterator> ConstStatementRange;
-
-    StatementRange getStatements() { return StatementRange(stmts_); }
-    ConstStatementRange getStatements() const { return ConstStatementRange(stmts_); }
 
     Macro* addMacro(MacroPtr&& mac) {
         macros_.emplace_back(std::move(mac));
@@ -309,10 +315,7 @@ protected:
     void serializeMacros(Serializer& s) const;
 
     void serializeStatements(Serializer& s) const {
-        for (Statement* m : getStatements()) {
-            m->serialize(s);
-            s << "\n";
-        }
+        StatementContainer::serialize(s);
     }
 };
 

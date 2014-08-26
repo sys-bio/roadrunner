@@ -62,13 +62,15 @@ void CudaGenerator::generate(const GPUSimModel& model) {
         kernel->addStatement(ExpressionPtr(new FunctionCallExpression(mod.getPrintf(), ExpressionPtr(new StringLiteralExpression("in kernel\\n")))));
 
         // init k
-        ForStatement* init_k_loop = ForStatement::downcast(kernel->addStatement(StatementPtr(new ForStatement())));
+        ForStatement* init_k_loop = ForStatement::downcast(kernel->addStatement(ForStatement::make()));
 
         Variable* j = init_k_loop->addVariable(Variable(BaseTypes::getTp(BaseTypes::INT), "j"));
 
         init_k_loop->setInitExp(ExpressionPtr(new VariableInitExpression(j, ExpressionPtr(new LiteralIntExpression(1)))));
         init_k_loop->setCondExp(ExpressionPtr(new LTComparisonExpression(ExpressionPtr(new VariableRefExpression(j)), ExpressionPtr(new MacroExpression(RK4ORDER)))));
         init_k_loop->setLoopExp(ExpressionPtr(new PreincrementExpression(ExpressionPtr(new VariableRefExpression(j)))));
+
+//         init_k_loop->getBody()->addStatement(StatementPtr())
     }
 
     CudaModule::CudaFunctionPtr entry(new CudaFunction(entryName, BaseTypes::getTp(BaseTypes::VOID)));
