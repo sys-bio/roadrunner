@@ -314,7 +314,7 @@ public:
 
     virtual bool isEquivalent(TypeTransition* other) {
         if(auto x = dynamic_cast<TypeTransitionAddPtr*>(other))
-            return getFrom() == x->getFrom();
+            return getFrom()->isIdentical(x->getFrom());
         return false;
     }
 
@@ -334,7 +334,7 @@ public:
 
     virtual bool isEquivalent(TypeTransition* other) {
         if(auto x = dynamic_cast<TypeTransitionAddArray*>(other))
-            return getFrom() == x->getFrom();
+            return getFrom()->isIdentical(x->getFrom());
         return false;
     }
 
