@@ -142,6 +142,11 @@ const FunctionParameter* FunctionCallExpression::getPositionalParam(int i) const
     return func_->getPositionalParam(i);
 }
 
+const Expression* FunctionCallExpression::getPositionalArg(int i) const {
+    const FunctionParameter* param = getPositionalParam(i);
+    return getMappedArgument(param);
+}
+
 FunctionCallExpression::size_type FunctionCallExpression::getNumPositionalParams() const {
     return func_->getNumPositionalParams();
 }

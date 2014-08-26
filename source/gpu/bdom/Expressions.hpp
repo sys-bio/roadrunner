@@ -638,6 +638,14 @@ public:
     virtual ExpressionPtr clone() const {
         return ExpressionPtr(new AssignmentExpression(*this));
     }
+
+    // TODO: replace with LLVM-style casting
+    static AssignmentExpression* downcast(Expression* e) {
+        auto result = dynamic_cast<AssignmentExpression*>(e);
+        if (!result)
+            throw_gpusim_exception("Downcast failed: incorrect type");
+        return result;
+    }
 };
 
 /**
@@ -792,6 +800,8 @@ class Function;
  * @brief A function call expression
  * @details Represents a call to a function. Expressions
  * may be used to pass parameters.
+ * @note Convention: parameters are declared in the function header.
+ * @a Arguments are the expressions passed to the function.
  */
 class FunctionCallExpression : public Expression {
 public:
@@ -833,7 +843,15 @@ public:
         return argmap_.count(p);
     }
 
+    const Expression* getMappedArgument(const FunctionParameter* p) const {
+        if (!hasMappedArgument(p))
+            throw_gpusim_exception("No argument mapped to parameter");
+        return argmap_.find(p)->second.get();
+    }
+
     const FunctionParameter* getPositionalParam(int i) const;
+
+    const Expression* getPositionalArg(int i) const;
 
     size_type getNumPositionalParams() const;
 

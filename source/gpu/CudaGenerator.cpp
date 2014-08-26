@@ -82,20 +82,22 @@ void CudaGenerator::generate(GPUSimExecutableModel& model) {
 //         ExpressionStatement::insert(init_k_loop->getBody(), AssignmentExpression(VariableRefExpression(z), LiteralIntExpression(1)));
 //         init_k_loop->getBody().addStatement(StatementPtr(new ExpressionStatement(AssignmentExpression(VariableRefExpression(z), LiteralIntExpression(1)))));
 
-        ExpressionStatement::insert(init_k_loop->getBody(), AssignmentExpression(
+        AssignmentExpression* k_init_assn =
+            AssignmentExpression::downcast(ExpressionStatement::insert(init_k_loop->getBody(), AssignmentExpression(
             ArrayIndexExpression(k,
             MacroExpression(RK_COEF_OFFSET,
             VariableRefExpression(j),
             kernel->getThreadIdx(CudaKernel::IndexComponent::x),
             kernel->getBlockIdx (CudaKernel::IndexComponent::x))),
-            LiteralIntExpression(0)));
+            LiteralIntExpression(0)))->getExpression());
 
         ExpressionStatement::insert(init_k_loop->getBody(), FunctionCallExpression(
             mod.getPrintf(),
-            StringLiteralExpression("k[RK_COEF_OFFSET(%d, %d, %d)] = 0\\n"),
+            StringLiteralExpression("k[RK_COEF_OFFSET(%d, %d, %d)] = %f\\n"),
             VariableRefExpression(j),
             kernel->getThreadIdx(CudaKernel::IndexComponent::x),
-            kernel->getBlockIdx (CudaKernel::IndexComponent::x)
+            kernel->getBlockIdx (CudaKernel::IndexComponent::x),
+            k_init_assn->getLHS()->clone()
           ));
     }
 
