@@ -91,9 +91,53 @@ public:
 
     ~CudaKernel() {}
 
+    enum class IndexComponent {
+        x,
+        y,
+        z
+    };
+
+    /// Get the expression for threadIdx
+    VariableRefExpression getThreadIdx() const {
+        return VariableRefExpression(threadidx_.get());
+    }
+
+    /// Get the expression for threadIdx with the specified component
+    MemberAccessExpression getThreadIdx(IndexComponent c) const {
+        switch (c) {
+            case IndexComponent::x:
+                return MemberAccessExpression(getThreadIdx(), SymbolExpression("x"));
+            case IndexComponent::y:
+                return MemberAccessExpression(getThreadIdx(), SymbolExpression("y"));
+            case IndexComponent::z:
+                return MemberAccessExpression(getThreadIdx(), SymbolExpression("z"));
+        }
+    }
+
+    /// Get the expression for blockIdx
+    VariableRefExpression getBlockIdx() const {
+        return VariableRefExpression(blockidx_.get());
+    }
+
+    /// Get the expression for blockIdx with the specified component
+    MemberAccessExpression getBlockIdx(IndexComponent c) const {
+        switch (c) {
+            case IndexComponent::x:
+                return MemberAccessExpression(getBlockIdx(), SymbolExpression("x"));
+            case IndexComponent::y:
+                return MemberAccessExpression(getBlockIdx(), SymbolExpression("y"));
+            case IndexComponent::z:
+                return MemberAccessExpression(getBlockIdx(), SymbolExpression("z"));
+        }
+    }
+
     virtual bool requiresSpecialCallingConvention() const { return true; }
 
     virtual void serialize(Serializer& s) const;
+
+protected:
+    VariablePtr threadidx_{new Variable(BaseTypes::getTp(BaseTypes::INT), "threadIdx")};
+    VariablePtr blockidx_ {new Variable(BaseTypes::getTp(BaseTypes::INT), "blockIdx")};
 };
 typedef std::unique_ptr<CudaKernel> CudaKernelPtr;
 

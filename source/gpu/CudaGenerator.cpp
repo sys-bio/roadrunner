@@ -44,7 +44,7 @@ void CudaGenerator::generate(GPUSimExecutableModel& model) {
     Macro* RK4ORDER = mod.addMacro(Macro("RK4ORDER", "4"));
 
     mod.addMacro(Macro("RK_COEF_LEN", "RK4ORDER*RK4ORDER*n"));
-    mod.addMacro(Macro("RK_COEF_OFFSET", "gen*RK4BLOCKS*n + idx*n + component", "gen", "idx", "component"));
+    Macro* RK_COEF_OFFSET = mod.addMacro(Macro("RK_COEF_OFFSET", "gen*RK4ORDER*n + idx*n + component", "gen", "idx", "component"));
 
     mod.addMacro(Macro("RK_STATE_VEC_LEN", "RK4ORDER*n"));
     mod.addMacro(Macro("RK_STATE_VEC_OFFSET", "idx*n + component", "idx", "component"));
@@ -79,9 +79,15 @@ void CudaGenerator::generate(GPUSimExecutableModel& model) {
 //         ExpressionStatement::insert(init_k_loop->getBody(), AssignmentExpression(VariableRefExpression(z), LiteralIntExpression(1)));
 //         init_k_loop->getBody().addStatement(StatementPtr(new ExpressionStatement(AssignmentExpression(VariableRefExpression(z), LiteralIntExpression(1)))));
 
-        ExpressionStatement::insert(init_k_loop->getBody(), AssignmentExpression(ArrayIndexExpression(k, VariableRefExpression(j)), LiteralIntExpression(0)));
+        ExpressionStatement::insert(init_k_loop->getBody(), AssignmentExpression(
+            ArrayIndexExpression(k,
+            MacroExpression(RK_COEF_OFFSET,
+            VariableRefExpression(j),
+            kernel->getThreadIdx(CudaKernel::IndexComponent::x),
+            kernel->getBlockIdx (CudaKernel::IndexComponent::x))),
+            LiteralIntExpression(0)));
 
-        ExpressionStatement::insert(init_k_loop->getBody(), FunctionCallExpression(mod.getPrintf(), StringLiteralExpression("k[%d] = 0\\n"), VariableRefExpression(j)));
+//         ExpressionStatement::insert(init_k_loop->getBody(), FunctionCallExpression(mod.getPrintf(), StringLiteralExpression("k[%d] = %f\\n"), VariableRefExpression(j), ArrayIndexExpression(k, VariableRefExpression(j))));
     }
 
     CudaModule::CudaFunctionPtr entry(new CudaFunction(entryName, BaseTypes::getTp(BaseTypes::VOID)));

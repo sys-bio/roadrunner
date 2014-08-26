@@ -72,6 +72,7 @@ protected:
     typedef Range<Aliases::const_iterator> AliasConstRange;
 public:
     typedef BDOM_String String;
+    typedef std::size_t size_type;
 
     virtual ~Type() {}
 

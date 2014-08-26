@@ -36,10 +36,10 @@ void Variable::serialize(Serializer& s) const {
     type_->serializeSecondPart(s);
 }
 
-// -- VariableRefExpression --
+// -- SymbolExpression --
 
-void VariableRefExpression::serialize(Serializer& s) const {
-    s << getVariable()->getName();
+void SymbolExpression::serialize(Serializer& s) const {
+    s << getSymbol();
 }
 
 // -- ArrayIndexExpression --
@@ -65,8 +65,29 @@ void VariableInitExpression::serialize(Serializer& s) const {
 
 // -- MacroExpression --
 
+MacroExpression::size_type MacroExpression::argCount() const {
+    return mac_->argCount();
+}
+
+bool MacroExpression::isVarargs() const {
+    return mac_->isVarargs();
+}
+
+void MacroExpression::passArgument(ExpressionPtr&& v) {
+    if (args_.size() >= mac_->argCount())
+        throw_gpusim_exception("Macro overflow: cannot pass argument");
+    args_.emplace_back(std::move(v));
+}
+
 void MacroExpression::serialize(Serializer& s) const {
     s << getMacro()->getName();
+    if (args_.size()) {
+        s << "(";
+        int n=0;
+        for (auto const &a :  args_)
+            s << (n++ ? ", " : "") << *a;
+        s << ")";
+    }
 }
 
 // -- PreincrementExpression --
@@ -80,6 +101,15 @@ void PreincrementExpression::serialize(Serializer& s) const {
 void AssignmentExpression::serialize(Serializer& s) const {
     s << *getLHS();
     s << " = ";
+    s << *getRHS();
+}
+
+// -- MemberAccessExpression --
+
+void MemberAccessExpression::serialize(Serializer& s) const {
+    checkRHSIsSymbol();
+    s << *getLHS();
+    s << ".";
     s << *getRHS();
 }
 

@@ -112,6 +112,14 @@ public:
         args_.emplace_back(new MacroArg(name));
     }
 
+    bool isVarargs() const {
+        return is_varargs_;
+    }
+
+    void setIsVarargs(bool val) {
+        is_varargs_ = val;
+    }
+
     const String& getName() const { return name_; }
     void setName(const String& name) { name_ = name; }
 
@@ -135,6 +143,7 @@ protected:
     String name_;
     String content_;
     Args args_;
+    bool is_varargs_ = false;
 };
 typedef DomOwningPtr<Macro> MacroPtr;
 

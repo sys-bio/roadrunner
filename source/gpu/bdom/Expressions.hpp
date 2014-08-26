@@ -189,7 +189,48 @@ public:
  * @brief An expression to simply reference a variable
  * @details Just serializes the variable's name
  */
-class VariableRefExpression : public Expression {
+class SymbolExpression : public Expression {
+public:
+    SymbolExpression() {}
+    /**
+     * @brief Ctor
+     * @param[in] sym The symbol string
+     */
+    SymbolExpression(const String& sym)
+      : sym_(sym) {}
+
+    /**
+     * @brief Returns the symbol string
+     * @note May be computed differently in derived classes
+     * (e.g. @ref VariableRefExpression uses the variable name
+     * instead of @ref sym_)
+     */
+    virtual String getSymbol() const {
+        if (!sym_.size())
+            throw_gpusim_exception("No symbol set");
+        return sym_;
+    }
+
+    virtual void serialize(Serializer& s) const;
+
+    // TODO: replace with LLVM-style casting
+    static SymbolExpression* downcast(Expression* s) {
+        auto result = dynamic_cast<SymbolExpression*>(s);
+        if (!result)
+            throw_gpusim_exception("Downcast failed: incorrect type");
+        return result;
+    }
+
+protected:
+    String sym_;
+};
+
+/**
+ * @author JKM
+ * @brief An expression to simply reference a variable
+ * @details Just serializes the variable's name
+ */
+class VariableRefExpression : public SymbolExpression {
 public:
     /// Ctor for type, var name, and initial value
     VariableRefExpression(Variable* var)
@@ -206,7 +247,7 @@ public:
         return var_;
     }
 
-    virtual void serialize(Serializer& s) const;
+    virtual String getSymbol() const { return getVariable()->getName(); }
 
 protected:
     Variable* var_;
@@ -312,25 +353,73 @@ protected:
  */
 class MacroExpression : public Expression {
 public:
-    /// Ctor
+    typedef Type::size_type size_type;
+    /**
+     * @brief No-arg ctor
+     * @note Does not take ownership of @ref mac
+     */
     MacroExpression(Macro* mac)
       : mac_(mac) {}
 
+    /// N-arg ctor
+    template <class... Args>
+    MacroExpression(Macro* mac, Args&&... args)
+      :  mac_(mac) {
+        passArguments(std::forward<Args>(args)...);
+    }
+
+    /// Get the macro
     Macro* getMacro() {
         if (!mac_)
             throw_gpusim_exception("No macro set");
         return mac_;
     }
+    /// Get the macro
     const Macro* getMacro() const {
         if (!mac_)
             throw_gpusim_exception("No macro set");
         return mac_;
     }
 
+    bool hasMappedArgument(size_type i) const {
+        return i < args_.size();
+    }
+
+    size_type argCount() const;
+
+    bool isVarargs() const;
+
+    /// Pass @ref v as the next positional or variadic argument
+    void passArgument(ExpressionPtr&& v);
+
+    /**
+     * @brief Pass @ref v as the next positional or variadic argument
+     * @details Automatically creates an owning pointer and passes it
+     * to the other signature
+     */
+    template <class ExpressionT>
+    void passArgument(ExpressionT&& v) {
+        passArgument(ExpressionPtr(new ExpressionT(std::move(v))));
+    }
+
+    /**
+     * @brief Pass @ref v as the next positional or variadic argument
+     * @details N-ary version for use with corresponding ctor
+     */
+    template <class ExpressionT, class... Args>
+    void passArguments(ExpressionT&& arg, Args&&... args) {
+        passArgument(std::move(arg));
+        passArguments(std::forward<Args>(args)...);
+    }
+
+    void passArguments() {}
+
     virtual void serialize(Serializer& s) const;
 
 protected:
     Macro* mac_;
+    typedef std::vector<ExpressionPtr> Args;
+    Args args_;
 };
 
 /**
@@ -431,6 +520,44 @@ public:
 
 /**
  * @author JKM
+ * @brief Expression to access a member of an object
+ * @details Example: @a obj.symbol where @a obj is an object
+ * (class, struct) and @a symbol is a member of @a obj
+ * @note The RHS expression must be a symbol in a member access
+ * expression
+ */
+class MemberAccessExpression : public BinaryExpression {
+public:
+    MemberAccessExpression(ExpressionPtr&& lhs, ExpressionPtr&& rhs)
+      : BinaryExpression(std::move(lhs), std::move(rhs)) {
+        checkRHSIsSymbol();
+    }
+
+    template <class LHSExpression>
+    MemberAccessExpression(LHSExpression&& lhs, SymbolExpression&& rhs)
+      : BinaryExpression(std::move(lhs), std::move(rhs)) {
+    }
+
+    /**
+     * @brief Ctor for left and right expressions
+     * @note @a RHSExpression must be convertible to
+     * @ref SymbolExpression
+     */
+    template <class LHSExpression, class RHSExpression>
+    MemberAccessExpression(LHSExpression&& lhs, RHSExpression&& rhs)
+      : BinaryExpression(std::move(lhs), std::move(rhs)) {
+        checkRHSIsSymbol();
+    }
+
+    void checkRHSIsSymbol() const {
+        SymbolExpression::downcast(rhs_.get());
+    }
+
+    virtual void serialize(Serializer& s) const;
+};
+
+/**
+ * @author JKM
  * @brief Variable initialization expressions
  */
 class LTComparisonExpression : public BinaryExpression {
@@ -487,26 +614,13 @@ class Function;
 
 /**
  * @author JKM
- * @brief arg map
- */
-// class FunctionArgMap {
-// public:
-//     /// Does not take ownership
-//     FunctionCallExpression(Function*) {}
-//
-// protected:
-//     std::unordered_map<Variable*>
-// };
-
-/**
- * @author JKM
  * @brief A function call expression
  * @details Represents a call to a function. Expressions
  * may be used to pass parameters.
  */
 class FunctionCallExpression : public Expression {
 public:
-    typedef std::size_t size_type;
+    typedef Type::size_type size_type;
 
     /// Does not take ownership
     FunctionCallExpression(const Function* func)
