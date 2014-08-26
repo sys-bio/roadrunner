@@ -113,6 +113,14 @@ void MemberAccessExpression::serialize(Serializer& s) const {
     s << *getRHS();
 }
 
+// -- ProductExpression --
+
+void ProductExpression::serialize(Serializer& s) const {
+    s << *getLHS();
+    s << "*";
+    s << *getRHS();
+}
+
 // -- LTComparisonExpression --
 
 void LTComparisonExpression::serialize(Serializer& s) const {
