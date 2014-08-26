@@ -506,6 +506,8 @@ class Function;
  */
 class FunctionCallExpression : public Expression {
 public:
+    typedef std::size_t size_type;
+
     /// Does not take ownership
     FunctionCallExpression(const Function* func)
       :  func_(func) {}
@@ -513,25 +515,74 @@ public:
     /// Takes ownership of args (direct all outcry to the C++ committee)
 //     FunctionCallExpression(const Function* func, std::initializer_list<Expression*> args);
 
+    /// One-arg ctor
     FunctionCallExpression(const Function* func, ExpressionPtr&& u)
       :  func_(func) {
         passMappedArgument(std::move(u), getPositionalParam(0));
     }
 
+    /// N-arg ctor
+    template <class... Args>
+    FunctionCallExpression(const Function* func, Args&&... args)
+      :  func_(func) {
+        passArguments(std::forward<Args>(args)...);
+    }
+
     /// Pass the exp @ref v as the arg @ref p of the function
     void passMappedArgument(ExpressionPtr&& v, const FunctionParameter* p);
 
+    bool hasMappedArgument(const FunctionParameter* p) const {
+        return argmap_.count(p);
+    }
+
     const FunctionParameter* getPositionalParam(int i) const;
+
+    size_type getNumPositionalParams() const;
+
+    bool isVarargs() const;
+
+    /// Pass @ref v as the next positional or variadic argument
+    void passArgument(ExpressionPtr&& v);
+
+    /**
+     * @brief Pass @ref v as the next positional or variadic argument
+     * @details Automatically creates an owning pointer and passes it
+     * to the other signature
+     */
+    template <class ExpressionT>
+    void passArgument(ExpressionT&& v) {
+        passArgument(ExpressionPtr(new ExpressionT(std::move(v))));
+    }
+
+    /**
+     * @brief Pass @ref v as the next positional or variadic argument
+     * @details N-ary version for use with corresponding ctor
+     */
+    template <class ExpressionT, class... Args>
+    void passArguments(ExpressionT&& arg, Args&&... args) {
+        passArgument(std::move(arg));
+        passArguments(std::forward<Args>(args)...);
+    }
+
+    void passArguments() {}
 
     /// Serialize this object to a document
     virtual void serialize(Serializer& s) const;
 
 protected:
+    void passExtraArg(ExpressionPtr&& v) {
+        extra_args_.emplace_back(std::move(v));
+    }
+
     /// Target function (non-owning)
     const Function* func_;
     typedef std::unordered_map<const FunctionParameter*, ExpressionPtr> FunctionArgMap;
     /// Arguments
     FunctionArgMap argmap_;
+
+    typedef std::vector<ExpressionPtr> ExtraArgs;
+    /// Extra arguments for variadic functions
+    ExtraArgs extra_args_;
 };
 
 class Statement;

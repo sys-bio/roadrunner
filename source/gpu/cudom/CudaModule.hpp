@@ -105,6 +105,15 @@ class CudaKernelCallExpression : public FunctionCallExpression {
 public:
     CudaKernelCallExpression(int nblocks, int nthreads, int shared_mem_size, Function* func);
 
+    /// N-arg ctor
+    template <class... Args>
+    CudaKernelCallExpression(int nblocks, int nthreads, int shared_mem_size, Function* func, Args&&... args)
+      : FunctionCallExpression(func, std::forward<Args>(args)...) {
+        nblocks_.reset(new LiteralIntExpression(nblocks));
+        nthreads_.reset(new LiteralIntExpression(nthreads));
+        shared_mem_size_.reset(new LiteralIntExpression(shared_mem_size));
+    }
+
     virtual void serialize(Serializer& s) const;
 
 protected:
@@ -128,7 +137,7 @@ public:
         cudaDeviceSynchronize_(new Function("cudaDeviceSynchronize",
                                             BaseTypes::getTp(BaseTypes::VOID)))
         {
-
+        printf_->setIsVarargs(true);
     }
 
     /// Serialize to a .cu source file

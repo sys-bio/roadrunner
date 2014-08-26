@@ -27,7 +27,7 @@
 // == INCLUDES ================================================
 
 # include "gpu/cudom/CudaModule.hpp"
-# include "GPUSimModel.h"
+# include "GPUSimExecutableModel.h"
 
 // == CODE ====================================================
 
@@ -47,7 +47,7 @@ namespace dom
   */
 class CudaGenerator {
 public:
-    void generate(const GPUSimModel& model);
+    void generate(GPUSimExecutableModel& model);
 };
 
 } // namespace dom

@@ -104,13 +104,42 @@ const FunctionParameter* FunctionCallExpression::getPositionalParam(int i) const
     return func_->getPositionalParam(i);
 }
 
+FunctionCallExpression::size_type FunctionCallExpression::getNumPositionalParams() const {
+    return func_->getNumPositionalParams();
+}
+
+bool FunctionCallExpression::isVarargs() const {
+    return func_->isVarargs();
+}
+
+void FunctionCallExpression::passArgument(ExpressionPtr&& v) {
+    for(size_type i=0; i<getNumPositionalParams(); ++i) {
+        if (!hasMappedArgument(getPositionalParam(i))) {
+            passMappedArgument(std::move(v), getPositionalParam(i));
+            return;
+        }
+    }
+    if (isVarargs()) {
+        passExtraArg(std::move(v));
+        return;
+    }
+    throw_gpusim_exception("Cannot pass argument: out of parameters");
+}
+
 void FunctionCallExpression::serialize(Serializer& s) const {
     if (func_->requiresSpecialCallingConvention())
         throw_gpusim_exception("Function call requires special calling convention; cannot serialize");
     s << func_->getName() << "(";
+    int n=0;
     for (auto const &p : argmap_) {
-        s << *p.second;
+        s << (n++ ? ", " : "") << *p.second;
     }
+    if (isVarargs()) {
+        for (auto const &p : extra_args_) {
+            s << (n++ ? ", " : "") << *p;
+        }
+    } else if(extra_args_.size())
+        throw_gpusim_exception("Sanity check failed: have extra args but function is not marked variadic");
     s << ")";
 }
 

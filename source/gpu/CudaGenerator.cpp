@@ -31,9 +31,12 @@ namespace rrgpu
 namespace dom
 {
 
-void CudaGenerator::generate(const GPUSimModel& model) {
+void CudaGenerator::generate(GPUSimExecutableModel& model) {
     CudaModule mod;
     std::string entryName = "cuEntryPoint";
+
+    // get the size of the state vector
+    int n = model.getStateVector(NULL);
 
     // construct the DOM
 
@@ -51,7 +54,7 @@ void CudaGenerator::generate(const GPUSimModel& model) {
     // typedef for float
     Type* RKReal = TypedefStatement::downcast(mod.addStatement(StatementPtr(new TypedefStatement(BaseTypes::getTp(BaseTypes::FLOAT), "RKReal"))))->getAlias();
 
-    CudaKernelPtr kernel(new CudaKernel("GPUIntMEBlockedRK4", BaseTypes::getTp(BaseTypes::VOID)));
+    CudaKernelPtr kernel(new CudaKernel("GPUIntMEBlockedRK4", BaseTypes::getTp(BaseTypes::VOID), {FunctionParameter(BaseTypes::getTp(BaseTypes::INT), "n")}));
 
     // generate the kernel
     {
@@ -67,7 +70,7 @@ void CudaGenerator::generate(const GPUSimModel& model) {
 
         Variable* j = init_k_loop->addVariable(Variable(BaseTypes::getTp(BaseTypes::INT), "j"));
 
-        init_k_loop->setInitExp(ExpressionPtr(new VariableInitExpression(j, ExpressionPtr(new LiteralIntExpression(1)))));
+        init_k_loop->setInitExp(ExpressionPtr(new VariableInitExpression(j, ExpressionPtr(new LiteralIntExpression(0)))));
         init_k_loop->setCondExp(ExpressionPtr(new LTComparisonExpression(ExpressionPtr(new VariableRefExpression(j)), ExpressionPtr(new MacroExpression(RK4ORDER)))));
         init_k_loop->setLoopExp(ExpressionPtr(new PreincrementExpression(ExpressionPtr(new VariableRefExpression(j)))));
 
@@ -76,7 +79,9 @@ void CudaGenerator::generate(const GPUSimModel& model) {
 //         ExpressionStatement::insert(init_k_loop->getBody(), AssignmentExpression(VariableRefExpression(z), LiteralIntExpression(1)));
 //         init_k_loop->getBody().addStatement(StatementPtr(new ExpressionStatement(AssignmentExpression(VariableRefExpression(z), LiteralIntExpression(1)))));
 
-        ExpressionStatement::insert(init_k_loop->getBody(), AssignmentExpression(ArrayIndexExpression(k, LiteralIntExpression(0)), LiteralIntExpression(0)));
+        ExpressionStatement::insert(init_k_loop->getBody(), AssignmentExpression(ArrayIndexExpression(k, VariableRefExpression(j)), LiteralIntExpression(0)));
+
+        ExpressionStatement::insert(init_k_loop->getBody(), FunctionCallExpression(mod.getPrintf(), StringLiteralExpression("k[%d] = 0\\n"), VariableRefExpression(j)));
     }
 
     CudaModule::CudaFunctionPtr entry(new CudaFunction(entryName, BaseTypes::getTp(BaseTypes::VOID)));
@@ -86,8 +91,7 @@ void CudaGenerator::generate(const GPUSimModel& model) {
     entry->addStatement(ExpressionPtr(new FunctionCallExpression(mod.getPrintf(), ExpressionPtr(new StringLiteralExpression("in cuda\\n")))));
 
     // call the kernel
-    ExpressionPtr calltokern(new CudaKernelCallExpression(1, 10, 1, kernel.get()));
-    entry->addStatement(StatementPtr(new ExpressionStatement(std::move(calltokern))));
+    ExpressionStatement::insert(entry.get(), CudaKernelCallExpression(n, 4, 1, kernel.get(), LiteralIntExpression(n)));
 
     // call cudaDeviceSynchronize
     entry->addStatement(ExpressionPtr(new FunctionCallExpression(mod.getCudaDeviceSynchronize())));

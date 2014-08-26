@@ -56,8 +56,13 @@ void Function::serializeHeader(Serializer& s) const {
 
     int n=0;
     for (const Variable* arg : getArgs()) {
-        s << (n ? ", " : "");
+        s << (n++ ? ", " : "");
         arg->serialize(s);
+    }
+
+    if (isVarargs()) {
+        s << (n++ ? ", " : "");
+        s << "...";
     }
 
     s << ") ";

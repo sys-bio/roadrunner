@@ -152,7 +152,7 @@ protected:
     typedef std::vector<FunctionParameterPtr> Args;
 public:
     typedef Type::String String;
-    typedef std::size_t size_type;
+    typedef FunctionCallExpression::size_type size_type;
 
     /// Ctor: name / type
     Function(const String& name, Type* returnTp)
@@ -204,6 +204,15 @@ public:
         return args_.at(i).get();
     }
 
+    /// Return true if variadic function
+    bool isVarargs() const {
+        return is_varargs_;
+    }
+
+    void setIsVarargs(bool val) {
+        is_varargs_ = val;
+    }
+
     /// Serialize method
     virtual void serialize(Serializer& s) const;
 
@@ -215,6 +224,7 @@ protected:
     Type* returnTp_;
     Args args_;
     bool clink_ = false;
+    bool is_varargs_ = false;
 };
 typedef DomOwningPtr<Function> FunctionPtr;
 
