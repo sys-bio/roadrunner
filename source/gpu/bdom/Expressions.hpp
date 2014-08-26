@@ -165,6 +165,9 @@ public:
     virtual ~Expression() {}
 
     virtual void serialize(Serializer& s) const = 0;
+
+    /// Deep copy
+    virtual DomOwningPtr<Expression> clone() const = 0;
 };
 typedef DomOwningPtr<Expression> ExpressionPtr;
 
@@ -182,6 +185,10 @@ public:
     EmptyExpression() {}
 
     virtual void serialize(Serializer& s) const {}
+
+    virtual ExpressionPtr clone() const {
+        return ExpressionPtr(new EmptyExpression());
+    }
 };
 
 /**
@@ -199,6 +206,10 @@ public:
     SymbolExpression(const String& sym)
       : sym_(sym) {}
 
+    /// Copy ctor
+    SymbolExpression(const SymbolExpression& other)
+      : sym_(other.sym_) {}
+
     /**
      * @brief Returns the symbol string
      * @note May be computed differently in derived classes
@@ -212,6 +223,10 @@ public:
     }
 
     virtual void serialize(Serializer& s) const;
+
+    virtual ExpressionPtr clone() const {
+        return ExpressionPtr(new SymbolExpression(*this));
+    }
 
     // TODO: replace with LLVM-style casting
     static SymbolExpression* downcast(Expression* s) {
@@ -236,6 +251,10 @@ public:
     VariableRefExpression(Variable* var)
       : var_(var) {}
 
+    /// Copy ctor
+    VariableRefExpression(const VariableRefExpression& other)
+      : var_(other.var_) {}
+
     Variable* getVariable() {
         if (!var_)
             throw_gpusim_exception("No variable set");
@@ -248,6 +267,10 @@ public:
     }
 
     virtual String getSymbol() const { return getVariable()->getName(); }
+
+    virtual ExpressionPtr clone() const {
+        return ExpressionPtr(new VariableRefExpression(*this));
+    }
 
 protected:
     Variable* var_;
@@ -263,6 +286,10 @@ public:
     TypeRefExpression(const Type* tp)
       : tp_(tp) {}
 
+    /// Copy ctor
+    TypeRefExpression(const TypeRefExpression& other)
+      : tp_(other.tp_) {}
+
     const Type* getType() const {
         if (!tp_)
             throw_gpusim_exception("No variable set");
@@ -271,6 +298,10 @@ public:
 
     virtual void serialize(Serializer& s) const {
         s << *tp_;
+    }
+
+    virtual ExpressionPtr clone() const {
+        return ExpressionPtr(new TypeRefExpression(*this));
     }
 
 protected:
@@ -283,14 +314,27 @@ protected:
  * @details Just serializes the variable's name
  */
 class ArrayIndexExpression : public VariableRefExpression {
-public:
-    /// Ctor for type, var name, and initial value
+public:/**
+     * @brief Construct from @ref var and an index expression owning pointer
+     */
     ArrayIndexExpression(Variable* var, ExpressionPtr&& index_exp)
       : VariableRefExpression(var), index_exp_(std::move(index_exp)) {}
 
+    /**
+     * @brief Construct from @ref var and an index expression
+     * @details Index into an array/object var[$index_exp], where
+     * $index_exp will be replace with its corresponding serialized
+     * value
+     * @param[in] var The array to index into
+     * @param[in] index_exp The index expression
+     */
     template <class ExpressionT>
     ArrayIndexExpression(Variable* var, ExpressionT index_exp)
       : ArrayIndexExpression(var, ExpressionPtr(new ExpressionT(std::move(index_exp)))) {}
+
+    /// Copy ctor
+    ArrayIndexExpression(const ArrayIndexExpression& other)
+      : VariableRefExpression(other), index_exp_(other.index_exp_->clone()) {}
 
     /// Get the expression used to index into the array
     Expression* getIndexExp() {
@@ -307,8 +351,11 @@ public:
 
     virtual void serialize(Serializer& s) const;
 
+    virtual ExpressionPtr clone() const {
+        return ExpressionPtr(new ArrayIndexExpression(*this));
+    }
+
 protected:
-    Variable* var_;
     ExpressionPtr index_exp_;
 };
 
@@ -321,6 +368,10 @@ public:
     /// Ctor
     VariableDeclarationExpression(Variable* var)
       : var_(var) {}
+
+    /// Copy ctor
+    VariableDeclarationExpression(const VariableDeclarationExpression& other)
+      : var_(other.var_) {}
 
     Type* getType() { return getVariable()->getType(); }
     const Type* getType() const { return getVariable()->getType(); }
@@ -338,6 +389,10 @@ public:
 
     virtual void serialize(Serializer& s) const;
 
+    virtual ExpressionPtr clone() const {
+        return ExpressionPtr(new VariableDeclarationExpression(*this));
+    }
+
 protected:
     Variable* var_;
 };
@@ -354,6 +409,10 @@ public:
         value_ = std::move(value_exp);
     }
 
+    /// Copy ctor
+    VariableInitExpression(const VariableInitExpression& other)
+      : VariableDeclarationExpression(other), value_(other.value_->clone()) {}
+
     Expression* getValue() {
         if (!value_)
             throw_gpusim_exception("No variable set");
@@ -366,6 +425,10 @@ public:
     }
 
     virtual void serialize(Serializer& s) const;
+
+    virtual ExpressionPtr clone() const {
+        return ExpressionPtr(new VariableInitExpression(*this));
+    }
 
 protected:
     ExpressionPtr value_;
@@ -390,6 +453,13 @@ public:
     MacroExpression(Macro* mac, Args&&... args)
       :  mac_(mac) {
         passArguments(std::forward<Args>(args)...);
+    }
+
+    /// Copy ctor
+    MacroExpression(const MacroExpression& other)
+      : mac_(other.mac_) {
+        for (auto const & arg :  other.args_)
+            args_.emplace_back(arg->clone());
     }
 
     /// Get the macro
@@ -440,6 +510,10 @@ public:
 
     virtual void serialize(Serializer& s) const;
 
+    virtual ExpressionPtr clone() const {
+        return ExpressionPtr(new MacroExpression(*this));
+    }
+
 protected:
     Macro* mac_;
     typedef std::vector<ExpressionPtr> Args;
@@ -455,6 +529,10 @@ public:
     UnaryExpression(ExpressionPtr&& operand)
       : operand_(std::move(operand)) {
     }
+
+    /// Copy ctor
+    UnaryExpression(const UnaryExpression& other)
+      : operand_(other.operand_->clone()) {}
 
     Expression* getOperand() {
         if (!operand_)
@@ -484,7 +562,15 @@ public:
       : UnaryExpression(std::move(operand)) {
     }
 
+    /// Copy ctor
+    PreincrementExpression(const PreincrementExpression& other)
+      : UnaryExpression(other) {}
+
     virtual void serialize(Serializer& s) const;
+
+    virtual ExpressionPtr clone() const {
+        return ExpressionPtr(new PreincrementExpression(*this));
+    }
 };
 
 /**
@@ -501,6 +587,10 @@ public:
     BinaryExpression(LHSExpression&& lhs, RHSExpression&& rhs)
       : lhs_(new LHSExpression(std::move(lhs))), rhs_(new RHSExpression(std::move(rhs))) {
     }
+
+    /// Copy ctor
+    BinaryExpression(const BinaryExpression& other)
+      : lhs_(other.lhs_->clone()), rhs_(other.rhs_->clone()) {}
 
     Expression* getLHS() {
         if (!lhs_)
@@ -539,7 +629,15 @@ class AssignmentExpression : public BinaryExpression {
 public:
     using BinaryExpression::BinaryExpression;
 
+    /// Copy ctor
+    AssignmentExpression(const AssignmentExpression& other)
+      : BinaryExpression(other) {}
+
     virtual void serialize(Serializer& s) const;
+
+    virtual ExpressionPtr clone() const {
+        return ExpressionPtr(new AssignmentExpression(*this));
+    }
 };
 
 /**
@@ -562,6 +660,10 @@ public:
       : BinaryExpression(std::move(lhs), std::move(rhs)) {
     }
 
+    /// Copy ctor
+    MemberAccessExpression(const MemberAccessExpression& other)
+      : BinaryExpression(other) {}
+
     /**
      * @brief Ctor for left and right expressions
      * @note @a RHSExpression must be convertible to
@@ -578,6 +680,10 @@ public:
     }
 
     virtual void serialize(Serializer& s) const;
+
+    virtual ExpressionPtr clone() const {
+        return ExpressionPtr(new MemberAccessExpression(*this));
+    }
 };
 
 /**
@@ -589,7 +695,15 @@ class ProductExpression : public BinaryExpression {
 public:
     using BinaryExpression::BinaryExpression;
 
+    /// Copy ctor
+    ProductExpression(const ProductExpression& other)
+      : BinaryExpression(other) {}
+
     virtual void serialize(Serializer& s) const;
+
+    virtual ExpressionPtr clone() const {
+        return ExpressionPtr(new ProductExpression(*this));
+    }
 };
 
 /**
@@ -598,12 +712,21 @@ public:
  */
 class LTComparisonExpression : public BinaryExpression {
 public:
+    using BinaryExpression::BinaryExpression;
     /// Ctor for lhs & rhs
-    LTComparisonExpression(ExpressionPtr&& lhs, ExpressionPtr&& rhs)
-      : BinaryExpression(std::move(lhs), std::move(rhs)) {
-    }
+//     LTComparisonExpression(ExpressionPtr&& lhs, ExpressionPtr&& rhs)
+//       : BinaryExpression(std::move(lhs), std::move(rhs)) {
+//     }
+
+    /// Copy ctor
+    LTComparisonExpression(const LTComparisonExpression& other)
+      : BinaryExpression(other) {}
 
     virtual void serialize(Serializer& s) const;
+
+    virtual ExpressionPtr clone() const {
+        return ExpressionPtr(new LTComparisonExpression(*this));
+    }
 };
 
 /**
@@ -622,11 +745,19 @@ public:
  * @brief A class to encapsulate literals
  */
 //TODO: rename IntLiteralExpression
-class LiteralIntExpression : public Expression {
+class LiteralIntExpression : public LiteralExpression {
 public:
     LiteralIntExpression(int i) : i_(i) {}
 
+    /// Copy ctor
+    LiteralIntExpression(const LiteralIntExpression& other)
+      : i_(other.i_) {}
+
     virtual void serialize(Serializer& s) const;
+
+    virtual ExpressionPtr clone() const {
+        return ExpressionPtr(new LiteralIntExpression(*this));
+    }
 
 protected:
     int i_=0;
@@ -636,11 +767,19 @@ protected:
  * @author JKM
  * @brief A class to encapsulate string literals
  */
-class StringLiteralExpression : public Expression {
+class StringLiteralExpression : public LiteralExpression {
 public:
     StringLiteralExpression(const std::string s) : s_(s) {}
 
+    /// Copy ctor
+    StringLiteralExpression(const StringLiteralExpression& other)
+      : s_(other.s_) {}
+
     virtual void serialize(Serializer& s) const;
+
+    virtual ExpressionPtr clone() const {
+        return ExpressionPtr(new StringLiteralExpression(*this));
+    }
 
 protected:
     std::string s_;
@@ -676,6 +815,15 @@ public:
     FunctionCallExpression(const Function* func, Args&&... args)
       :  func_(func) {
         passArguments(std::forward<Args>(args)...);
+    }
+
+    /// Copy ctor
+    FunctionCallExpression(const FunctionCallExpression& other)
+      : func_(other.func_) {
+        for (auto const &argpair : other.argmap_)
+            argmap_.emplace(argpair.first, argpair.second->clone());
+        for (auto const &arg : other.extra_args_)
+            extra_args_.emplace_back(arg->clone());
     }
 
     /// Pass the exp @ref v as the arg @ref p of the function
@@ -718,6 +866,10 @@ public:
 
     /// Serialize this object to a document
     virtual void serialize(Serializer& s) const;
+
+    virtual ExpressionPtr clone() const {
+        return ExpressionPtr(new FunctionCallExpression(*this));
+    }
 
 protected:
     void passExtraArg(ExpressionPtr&& v) {
