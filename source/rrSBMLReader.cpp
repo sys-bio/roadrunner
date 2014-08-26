@@ -174,8 +174,8 @@ static string flatten_comp(const string& sbml, const std::string fname)
 
     writer.writeSBML(doc, stream);
 
-    delete doc;
     delete converter;
+    delete doc;
 
     return stream.str();
 }

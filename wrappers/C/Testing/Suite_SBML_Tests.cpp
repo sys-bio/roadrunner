@@ -966,8 +966,8 @@ TEST(946) { CHECK(RunTest("l2v4", 946)); }
 TEST(947) { CHECK(RunTest("l2v4", 947)); }
 TEST(948) { CHECK(RunTest("l2v4", 948)); }
 TEST(949) { CHECK(RunTest("l2v4", 949)); }
-//TEST(950) { CHECK(RunTest("l2v4", 950)); }
-//TEST(951) { CHECK(RunTest("l2v4", 951)); }
+TEST(950) { CHECK(RunTest("l2v4", 950)); }
+TEST(951) { CHECK(RunTest("l2v4", 951)); }
 TEST(952) { CHECK(RunTest("l3v1", 952)); }
 TEST(953) { CHECK(RunTest("l3v1", 953)); }
 TEST(954) { CHECK(RunTest("l2v4", 954)); }
