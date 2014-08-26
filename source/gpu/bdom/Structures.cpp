@@ -26,12 +26,6 @@ namespace rrgpu
 namespace dom
 {
 
-void StatementContainer::serialize(Serializer& s) const {
-    for (Statement* m : getStatements()) {
-        m->serialize(s);
-    }
-}
-
 void Block::serialize(Serializer& s) const {
     s << "{";
     {

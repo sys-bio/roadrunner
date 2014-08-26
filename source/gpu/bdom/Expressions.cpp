@@ -27,9 +27,7 @@ namespace rrgpu
 namespace dom
 {
 
-// FunctionCallExpression::FunctionCallExpression(const Function* func, std::initializer_list<Expression*> args) {
-//
-// }
+// -- Variable --
 
 void Variable::serialize(Serializer& s) const {
     type_->serializeFirstPart(s);
@@ -38,13 +36,19 @@ void Variable::serialize(Serializer& s) const {
     type_->serializeSecondPart(s);
 }
 
+// -- VariableRefExpression --
+
 void VariableRefExpression::serialize(Serializer& s) const {
     s << getVariable()->getName();
 }
 
+// -- VariableDeclarationExpression --
+
 void VariableDeclarationExpression::serialize(Serializer& s) const {
     s << *getVariable();
 }
+
+// -- VariableInitExpression --
 
 void VariableInitExpression::serialize(Serializer& s) const {
     VariableDeclarationExpression::serialize(s);
@@ -52,13 +56,19 @@ void VariableInitExpression::serialize(Serializer& s) const {
     s << *getValue();
 }
 
+// -- MacroExpression --
+
 void MacroExpression::serialize(Serializer& s) const {
     s << getMacro()->getName();
 }
 
+// -- PreincrementExpression --
+
 void PreincrementExpression::serialize(Serializer& s) const {
     s << "++" << *getOperand();
 }
+
+// -- AssignmentExpression --
 
 void AssignmentExpression::serialize(Serializer& s) const {
     s << *getLHS();
@@ -66,11 +76,15 @@ void AssignmentExpression::serialize(Serializer& s) const {
     s << *getRHS();
 }
 
+// -- LTComparisonExpression --
+
 void LTComparisonExpression::serialize(Serializer& s) const {
     s << *getLHS();
     s << " < ";
     s << *getRHS();
 }
+
+// -- FunctionCallExpression --
 
 void FunctionCallExpression::passMappedArgument(ExpressionPtr&& v, const FunctionParameter* p) {
     if (!argmap_.count(p)) {
@@ -93,18 +107,43 @@ void FunctionCallExpression::serialize(Serializer& s) const {
     s << ")";
 }
 
+// -- LiteralIntExpression --
+
 void LiteralIntExpression::serialize(Serializer& s) const {
     s << i_;
 }
+
+// -- StringLiteralExpression --
 
 void StringLiteralExpression::serialize(Serializer& s) const {
     s << "\"" << s_ << "\"";
 }
 
+// -- StatementContainer --
+
+void StatementContainer::serialize(Serializer& s) const {
+    for (Statement* m : getStatements()) {
+        m->serialize(s);
+    }
+}
+
+Statement* StatementContainer::addStatement(StatementPtr&& stmt) {
+    stmts_.emplace_back(std::move(stmt));
+    return stmts_.back().get();
+}
+
+Statement* StatementContainer::addStatement(ExpressionPtr&& exp) {
+    return addStatement(StatementPtr(new ExpressionStatement(std::move(exp))));
+}
+
+// -- ExpressionStatement --
+
 void ExpressionStatement::serialize(Serializer& s) const {
     getExpression()->serialize(s);
     s << ";" << nl;
 }
+
+// -- TypedefStatement --
 
 TypedefStatement::TypedefStatement(Type* target, const std::string& alias)
   : target_(target), alias_(BaseTypes::get().newAliasType(target, alias)) {

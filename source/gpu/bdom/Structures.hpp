@@ -49,55 +49,6 @@ namespace dom
 
 /**
  * @author JKM
- * @brief Superclass of block / module
- */
-class StatementContainer {
-protected:
-    typedef std::vector<StatementPtr> Statements;
-    typedef std::vector<VariablePtr> Variables;
-public:
-    StatementContainer() {}
-    StatementContainer(const StatementContainer&) = delete;
-    StatementContainer(StatementContainer&&) = default;
-    virtual ~StatementContainer() {}
-
-    Statement* addStatement(StatementPtr&& stmt) {
-        stmts_.emplace_back(std::move(stmt));
-        return stmts_.back().get();
-    }
-
-    /// Convert @ref exp to a statement
-    Statement* addStatement(ExpressionPtr&& exp) {
-        return addStatement(StatementPtr(new ExpressionStatement(std::move(exp))));
-    }
-
-    typedef AccessPtrIterator<Statements::iterator> StatementIterator;
-    typedef AccessPtrIterator<Statements::const_iterator> ConstStatementIterator;
-
-    typedef Range<StatementIterator> StatementRange;
-    typedef Range<ConstStatementIterator> ConstStatementRange;
-
-    StatementRange getStatements() { return StatementRange(stmts_); }
-    ConstStatementRange getStatements() const { return ConstStatementRange(stmts_); }
-
-    Variable* addVariable(VariablePtr&& var) {
-        vars_.emplace_back(std::move(var));
-        return vars_.back().get();
-    }
-
-    Variable* addVariable(Variable&& var) {
-        return addVariable(VariablePtr(new Variable(std::move(var))));
-    }
-
-    virtual void serialize(Serializer& s) const;
-
-protected:
-    Statements stmts_;
-    Variables vars_;
-};
-
-/**
- * @author JKM
  * @brief A block of code
  * @details Blocks are the basic unit of code.
  * They appear in function bodies, if statements,
