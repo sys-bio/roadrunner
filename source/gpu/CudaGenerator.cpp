@@ -56,7 +56,8 @@ void CudaGenerator::generate(const GPUSimModel& model) {
     // generate the kernel
     {
         // declare shared memory
-        kernel->addStatement(ExpressionPtr(new CudaVariableDeclarationExpression(kernel->addVariable(Variable(BaseTypes::get().addArray(RKReal), "k")), true)));
+//         kernel->addStatement(ExpressionPtr(new CudaVariableDeclarationExpression(kernel->addVariable(Variable(BaseTypes::get().addArray(RKReal), "k")), true)));
+        Variable* k = CudaVariableDeclarationExpression::downcast(ExpressionStatement::insert(*kernel, CudaVariableDeclarationExpression(kernel->addVariable(Variable(BaseTypes::get().addArray(RKReal), "k")), true))->getExpression())->getVariable();
 
         // printf
         kernel->addStatement(ExpressionPtr(new FunctionCallExpression(mod.getPrintf(), ExpressionPtr(new StringLiteralExpression("in kernel\\n")))));
@@ -70,9 +71,12 @@ void CudaGenerator::generate(const GPUSimModel& model) {
         init_k_loop->setCondExp(ExpressionPtr(new LTComparisonExpression(ExpressionPtr(new VariableRefExpression(j)), ExpressionPtr(new MacroExpression(RK4ORDER)))));
         init_k_loop->setLoopExp(ExpressionPtr(new PreincrementExpression(ExpressionPtr(new VariableRefExpression(j)))));
 
-        Variable* z = init_k_loop->addVariable(Variable(BaseTypes::getTp(BaseTypes::INT), "z"));
+//         Variable* z = init_k_loop->addVariable(Variable(BaseTypes::getTp(BaseTypes::INT), "z"));
 
-        ExpressionStatement::insert(init_k_loop->getBody(), ExpressionPtr(new AssignmentExpression(VariableRefExpression(z), LiteralIntExpression(1))));
+//         ExpressionStatement::insert(init_k_loop->getBody(), AssignmentExpression(VariableRefExpression(z), LiteralIntExpression(1)));
+//         init_k_loop->getBody().addStatement(StatementPtr(new ExpressionStatement(AssignmentExpression(VariableRefExpression(z), LiteralIntExpression(1)))));
+
+        ExpressionStatement::insert(init_k_loop->getBody(), AssignmentExpression(ArrayIndexExpression(k, LiteralIntExpression(0)), LiteralIntExpression(0)));
     }
 
     CudaModule::CudaFunctionPtr entry(new CudaFunction(entryName, BaseTypes::getTp(BaseTypes::VOID)));

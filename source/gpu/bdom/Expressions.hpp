@@ -10,7 +10,7 @@
   * @date 08/21/2014
   * @copyright Apache License, Version 2.0
   * @brief Expressions
-  * @details if (x != 1) { ++y; }
+  * @details Example: if (x != 1) { ++y; }
 **/
 
 #ifndef rrGPU_BDOM_Expressions_H
@@ -34,6 +34,7 @@
         return DomOwningPtr<TypeName>(new TypeName()); \
     }
 
+/// Use insert(container, ctor_args...) to insert a statement into a container (e.g. @ref Block)
 # define INSERT_STD_STMT_CODE(TypeName)                                                            \
     /* Shortcut for inserting into a code block / module */                                        \
     template<typename... Args>                                                                     \
@@ -209,6 +210,41 @@ public:
 
 protected:
     Variable* var_;
+};
+
+/**
+ * @author JKM
+ * @brief An expression to simply reference a variable
+ * @details Just serializes the variable's name
+ */
+class ArrayIndexExpression : public VariableRefExpression {
+public:
+    /// Ctor for type, var name, and initial value
+    ArrayIndexExpression(Variable* var, ExpressionPtr&& index_exp)
+      : VariableRefExpression(var), index_exp_(std::move(index_exp)) {}
+
+    template <class ExpressionT>
+    ArrayIndexExpression(Variable* var, ExpressionT index_exp)
+      : ArrayIndexExpression(var, ExpressionPtr(new ExpressionT(std::move(index_exp)))) {}
+
+    /// Get the expression used to index into the array
+    Expression* getIndexExp() {
+        if (!index_exp_)
+            throw_gpusim_exception("No index expression set");
+        return index_exp_.get();
+    }
+    /// Get Expression expression used to index into the array
+    const Expression* getIndexExp() const {
+        if (!index_exp_)
+            throw_gpusim_exception("No index expression set");
+        return index_exp_.get();
+    }
+
+    virtual void serialize(Serializer& s) const;
+
+protected:
+    Variable* var_;
+    ExpressionPtr index_exp_;
 };
 
 /**
@@ -566,6 +602,10 @@ public:
 
     ExpressionStatement(ExpressionPtr&& exp)
       : exp_(std::move(exp)) {}
+
+    template <class ExpressionT>
+    ExpressionStatement(ExpressionT&& exp)
+      : exp_(new ExpressionT(std::move(exp))) {}
 
     Expression* getExpression() {
         if (!exp_)

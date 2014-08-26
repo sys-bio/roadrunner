@@ -42,6 +42,13 @@ void VariableRefExpression::serialize(Serializer& s) const {
     s << getVariable()->getName();
 }
 
+// -- ArrayIndexExpression --
+
+void ArrayIndexExpression::serialize(Serializer& s) const {
+    VariableRefExpression::serialize(s);
+    s << "[" << *getIndexExp()<< "]";
+}
+
 // -- VariableDeclarationExpression --
 
 void VariableDeclarationExpression::serialize(Serializer& s) const {

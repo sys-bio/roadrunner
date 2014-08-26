@@ -58,6 +58,15 @@ public:
 
     virtual void serialize(Serializer& s) const;
 
+
+    // TODO: replace with LLVM-style casting
+    static CudaVariableDeclarationExpression* downcast(Expression* s) {
+        auto result = dynamic_cast<CudaVariableDeclarationExpression*>(s);
+        if (!result)
+            throw_gpusim_exception("Downcast failed: incorrect type");
+        return result;
+    }
+
 protected:
     bool cuda_shared_ = false;
 };
