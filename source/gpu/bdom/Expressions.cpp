@@ -60,6 +60,12 @@ void PreincrementExpression::serialize(Serializer& s) const {
     s << "++" << *getOperand();
 }
 
+void AssignmentExpression::serialize(Serializer& s) const {
+    s << *getLHS();
+    s << " = ";
+    s << *getRHS();
+}
+
 void LTComparisonExpression::serialize(Serializer& s) const {
     s << *getLHS();
     s << " < ";

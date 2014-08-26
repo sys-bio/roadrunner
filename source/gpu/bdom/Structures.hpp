@@ -147,6 +147,13 @@ public:
 
     virtual void serialize(Serializer& s) const;
 
+    static ForStatement* downcast(Statement* s) {
+        auto result = dynamic_cast<ForStatement*>(s);
+        if (!result)
+            throw_gpusim_exception("Downcast failed: incorrect type");
+        return result;
+    }
+
 protected:
     ExpressionPtr init_exp_;
     ExpressionPtr cond_exp_;

@@ -352,6 +352,20 @@ protected:
  * @author JKM
  * @brief Variable initialization expressions
  */
+class AssignmentExpression : public BinaryExpression {
+public:
+    /// Ctor for lhs & rhs
+    AssignmentExpression(ExpressionPtr&& lhs, ExpressionPtr&& rhs)
+      : BinaryExpression(std::move(lhs), std::move(rhs)) {
+    }
+
+    virtual void serialize(Serializer& s) const;
+};
+
+/**
+ * @author JKM
+ * @brief Variable initialization expressions
+ */
 class LTComparisonExpression : public BinaryExpression {
 public:
     /// Ctor for lhs & rhs
@@ -511,7 +525,7 @@ public:
 
     virtual void serialize(Serializer& s) const;
 
-    static TypedefStatement* selfCast(Statement* s) {
+    static TypedefStatement* downcast(Statement* s) {
         TypedefStatement* result = dynamic_cast<TypedefStatement*>(s);
         if (!result)
             throw_gpusim_exception("Not a TypedefStatement");

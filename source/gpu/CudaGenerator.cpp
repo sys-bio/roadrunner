@@ -49,7 +49,7 @@ void CudaGenerator::generate(const GPUSimModel& model) {
     mod.addMacro(Macro("RK_TIME_VEC_LEN", "RK4ORDER"));
 
     // typedef for float
-    Type* RKReal = TypedefStatement::selfCast(mod.addStatement(StatementPtr(new TypedefStatement(BaseTypes::getTp(BaseTypes::FLOAT), "RKReal"))))->getAlias();
+    Type* RKReal = TypedefStatement::downcast(mod.addStatement(StatementPtr(new TypedefStatement(BaseTypes::getTp(BaseTypes::FLOAT), "RKReal"))))->getAlias();
 
     CudaKernelPtr kernel(new CudaKernel("GPUIntMEBlockedRK4", BaseTypes::getTp(BaseTypes::VOID)));
 
@@ -61,15 +61,14 @@ void CudaGenerator::generate(const GPUSimModel& model) {
         // printf
         kernel->addStatement(ExpressionPtr(new FunctionCallExpression(mod.getPrintf(), ExpressionPtr(new StringLiteralExpression("in kernel\\n")))));
 
-        ForStatementPtr init_k_loop(new ForStatement());
+        // init k
+        ForStatement* init_k_loop = ForStatement::downcast(kernel->addStatement(StatementPtr(new ForStatement())));
 
         Variable* j = init_k_loop->addVariable(Variable(BaseTypes::getTp(BaseTypes::INT), "j"));
 
         init_k_loop->setInitExp(ExpressionPtr(new VariableInitExpression(j, ExpressionPtr(new LiteralIntExpression(1)))));
         init_k_loop->setCondExp(ExpressionPtr(new LTComparisonExpression(ExpressionPtr(new VariableRefExpression(j)), ExpressionPtr(new MacroExpression(RK4ORDER)))));
         init_k_loop->setLoopExp(ExpressionPtr(new PreincrementExpression(ExpressionPtr(new VariableRefExpression(j)))));
-
-        kernel->addStatement(std::move(init_k_loop));
     }
 
     CudaModule::CudaFunctionPtr entry(new CudaFunction(entryName, BaseTypes::getTp(BaseTypes::VOID)));
