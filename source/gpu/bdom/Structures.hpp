@@ -272,12 +272,24 @@ public:
     MacroRange getMacros() { return MacroRange(macros_); }
     ConstMacroRange getMacros() const { return ConstMacroRange(macros_); }
 
+    Function* getSizeof() {
+        return sizeof_.get();
+    }
+
+    const Function* getSizeof() const {
+        return sizeof_.get();
+    }
+
 protected:
     void serializeMacros(Serializer& s) const;
 
     void serializeStatements(Serializer& s) const {
         StatementContainer::serialize(s);
     }
+
+    FunctionPtr sizeof_{new Function("sizeof",
+                            BaseTypes::getTp(BaseTypes::SIZE_T),
+                            FunctionParameterPtr(new FunctionParameter(BaseTypes::getTp(BaseTypes::ANY), "exp")))};
 };
 
 

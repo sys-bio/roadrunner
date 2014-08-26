@@ -255,6 +255,30 @@ protected:
 
 /**
  * @author JKM
+ * @brief An expression to reference a type
+ */
+class TypeRefExpression : public Expression {
+public:
+    /// Ctor
+    TypeRefExpression(const Type* tp)
+      : tp_(tp) {}
+
+    const Type* getType() const {
+        if (!tp_)
+            throw_gpusim_exception("No variable set");
+        return tp_;
+    }
+
+    virtual void serialize(Serializer& s) const {
+        s << *tp_;
+    }
+
+protected:
+    const Type* tp_;
+};
+
+/**
+ * @author JKM
  * @brief An expression to simply reference a variable
  * @details Just serializes the variable's name
  */
@@ -552,6 +576,18 @@ public:
     void checkRHSIsSymbol() const {
         SymbolExpression::downcast(rhs_.get());
     }
+
+    virtual void serialize(Serializer& s) const;
+};
+
+/**
+ * @author JKM
+ * @brief Product expression
+ * @details x*y
+ */
+class ProductExpression : public BinaryExpression {
+public:
+    using BinaryExpression::BinaryExpression;
 
     virtual void serialize(Serializer& s) const;
 };

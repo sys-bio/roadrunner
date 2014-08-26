@@ -79,6 +79,14 @@ class CudaFunction : public Function {
 public:
     using Function::Function;
     virtual void serialize(Serializer& s) const;
+
+    // TODO: replace with LLVM-style casting
+    static CudaFunction* downcast(Function* f) {
+        auto result = dynamic_cast<CudaFunction*>(f);
+        if (!result)
+            throw_gpusim_exception("Downcast failed: incorrect type");
+        return result;
+    }
 };
 
 /**
@@ -158,7 +166,26 @@ public:
         shared_mem_size_.reset(new LiteralIntExpression(shared_mem_size));
     }
 
+    /// Set the expression for the shared memory size
+    void setSharedMemSize(ExpressionPtr&& exp) {
+        shared_mem_size_ = std::move(exp);
+    }
+
+    /// Set the expression for the shared memory size
+    template <class ExpressionT>
+    void setSharedMemSize(ExpressionT&& exp) {
+        setSharedMemSize(ExpressionPtr(new ExpressionT(std::move(exp))));
+    }
+
     virtual void serialize(Serializer& s) const;
+
+    // TODO: replace with LLVM-style casting
+    static CudaKernelCallExpression* downcast(Expression* s) {
+        auto result = dynamic_cast<CudaKernelCallExpression*>(s);
+        if (!result)
+            throw_gpusim_exception("Downcast failed: incorrect type");
+        return result;
+    }
 
 protected:
     ExpressionPtr nblocks_;
@@ -187,15 +214,16 @@ public:
     /// Serialize to a .cu source file
     virtual void serialize(Serializer& s) const;
 
-    void addFunction(CudaFunction&& f) {
-        func_.emplace_back(new CudaFunction(std::move(f)));
+    CudaFunction* addFunction(CudaFunction&& f) {
+        return addFunction(CudaFunctionPtr(new CudaFunction(std::move(f))));
     }
 
-    void addFunction(CudaFunctionPtr&& f) {
+    CudaFunction* addFunction(CudaFunctionPtr&& f) {
         func_.emplace_back(std::move(f));
+        return CudaFunction::downcast(func_.back().get());
     }
 
-    const Function* getPrintf() {
+    const Function* getPrintf() const {
         return printf_.get();
     }
 

@@ -43,8 +43,9 @@ void CudaGenerator::generate(GPUSimExecutableModel& model) {
     // macros
     Macro* RK4ORDER = mod.addMacro(Macro("RK4ORDER", "4"));
 
-    mod.addMacro(Macro("RK_COEF_LEN", "RK4ORDER*RK4ORDER*n"));
+    Macro* RK_COEF_LEN = mod.addMacro(Macro("RK_COEF_LEN", "RK4ORDER*RK4ORDER*n"));
     Macro* RK_COEF_OFFSET = mod.addMacro(Macro("RK_COEF_OFFSET", "gen*RK4ORDER*n + idx*n + component", "gen", "idx", "component"));
+//     Macro* RK_COEF_SIZE = mod.addMacro(Macro("RK_COEF_SIZE", ""));
 
     mod.addMacro(Macro("RK_STATE_VEC_LEN", "RK4ORDER*n"));
     mod.addMacro(Macro("RK_STATE_VEC_OFFSET", "idx*n + component", "idx", "component"));
@@ -90,20 +91,24 @@ void CudaGenerator::generate(GPUSimExecutableModel& model) {
 //         ExpressionStatement::insert(init_k_loop->getBody(), FunctionCallExpression(mod.getPrintf(), StringLiteralExpression("k[%d] = %f\\n"), VariableRefExpression(j), ArrayIndexExpression(k, VariableRefExpression(j))));
     }
 
-    CudaModule::CudaFunctionPtr entry(new CudaFunction(entryName, BaseTypes::getTp(BaseTypes::VOID)));
+    CudaFunction* entry = mod.addFunction(CudaFunction(entryName, BaseTypes::getTp(BaseTypes::VOID)));
 //     entry->setHasCLinkage(true);
 
-    // printf
-    entry->addStatement(ExpressionPtr(new FunctionCallExpression(mod.getPrintf(), ExpressionPtr(new StringLiteralExpression("in cuda\\n")))));
+    // generate the entry
+    {
+        // printf
+        entry->addStatement(ExpressionPtr(new FunctionCallExpression(mod.getPrintf(), ExpressionPtr(new StringLiteralExpression("in cuda\\n")))));
 
-    // call the kernel
-    ExpressionStatement::insert(entry.get(), CudaKernelCallExpression(n, 4, 1, kernel.get(), LiteralIntExpression(n)));
+        // call the kernel
+        CudaKernelCallExpression* kernel_call = CudaKernelCallExpression::downcast(ExpressionStatement::insert(entry, CudaKernelCallExpression(n, 4, 1, kernel.get(), LiteralIntExpression(n)))->getExpression());
 
-    // call cudaDeviceSynchronize
-    entry->addStatement(ExpressionPtr(new FunctionCallExpression(mod.getCudaDeviceSynchronize())));
+        kernel_call->setSharedMemSize(ProductExpression(MacroExpression(RK_COEF_LEN), FunctionCallExpression(mod.getSizeof(), TypeRefExpression(BaseTypes::getTp(BaseTypes::FLOAT)))));
+
+        // call cudaDeviceSynchronize
+        entry->addStatement(ExpressionPtr(new FunctionCallExpression(mod.getCudaDeviceSynchronize())));
+    }
 
     mod.addFunction(std::move(kernel));
-    mod.addFunction(std::move(entry));
 
     // serialize the module to a document
 

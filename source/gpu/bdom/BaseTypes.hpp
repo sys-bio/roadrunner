@@ -358,6 +358,7 @@ protected:
 public:
     enum TYPE_TAG {
 //         BASE_TYPES_BEGIN,
+        ANY,
         VOID,
         INT,
         UNSIGNED_INT,
@@ -442,6 +443,7 @@ protected:
 private:
     // there can be only one!
     BaseTypes() {
+        types_.emplace_back(new BaseType("any", ANY));
         types_.emplace_back(new BaseType("void", VOID));
         types_.emplace_back(new BaseType("int", INT));
         types_.emplace_back(new BaseType("unsigned int", UNSIGNED_INT));
