@@ -41,21 +41,23 @@ void CudaGenerator::generate(GPUSimExecutableModel& model) {
     // construct the DOM
 
     // macros
+    Macro* N = mod.addMacro(Macro("N", std::to_string(n)));
+
     Macro* RK4ORDER = mod.addMacro(Macro("RK4ORDER", "4"));
 
-    Macro* RK_COEF_LEN = mod.addMacro(Macro("RK_COEF_LEN", "RK4ORDER*RK4ORDER*n"));
-    Macro* RK_COEF_OFFSET = mod.addMacro(Macro("RK_COEF_OFFSET", "gen*RK4ORDER*n + idx*n + component", "gen", "idx", "component"));
+    Macro* RK_COEF_LEN = mod.addMacro(Macro("RK_COEF_LEN", "RK4ORDER*RK4ORDER*N"));
+    Macro* RK_COEF_OFFSET = mod.addMacro(Macro("RK_COEF_OFFSET", "gen*RK4ORDER*N + idx*N + component", "gen", "idx", "component"));
 //     Macro* RK_COEF_SIZE = mod.addMacro(Macro("RK_COEF_SIZE", ""));
 
-    mod.addMacro(Macro("RK_STATE_VEC_LEN", "RK4ORDER*n"));
-    mod.addMacro(Macro("RK_STATE_VEC_OFFSET", "idx*n + component", "idx", "component"));
+    mod.addMacro(Macro("RK_STATE_VEC_LEN", "RK4ORDER*N"));
+    mod.addMacro(Macro("RK_STATE_VEC_OFFSET", "idx*N + component", "idx", "component"));
 
     mod.addMacro(Macro("RK_TIME_VEC_LEN", "RK4ORDER"));
 
     // typedef for float
     Type* RKReal = TypedefStatement::downcast(mod.addStatement(StatementPtr(new TypedefStatement(BaseTypes::getTp(BaseTypes::FLOAT), "RKReal"))))->getAlias();
 
-    CudaKernelPtr kernel(new CudaKernel("GPUIntMEBlockedRK4", BaseTypes::getTp(BaseTypes::VOID), {FunctionParameter(BaseTypes::getTp(BaseTypes::INT), "n")}));
+    CudaKernel* kernel = CudaKernel::downcast(mod.addFunction(CudaKernel("GPUIntMEBlockedRK4", BaseTypes::getTp(BaseTypes::VOID), {FunctionParameter(BaseTypes::getTp(BaseTypes::INT), "n")})));
 
     // generate the kernel
     {
@@ -88,7 +90,13 @@ void CudaGenerator::generate(GPUSimExecutableModel& model) {
             kernel->getBlockIdx (CudaKernel::IndexComponent::x))),
             LiteralIntExpression(0)));
 
-//         ExpressionStatement::insert(init_k_loop->getBody(), FunctionCallExpression(mod.getPrintf(), StringLiteralExpression("k[%d] = %f\\n"), VariableRefExpression(j), ArrayIndexExpression(k, VariableRefExpression(j))));
+        ExpressionStatement::insert(init_k_loop->getBody(), FunctionCallExpression(
+            mod.getPrintf(),
+            StringLiteralExpression("k[RK_COEF_OFFSET(%d, %d, %d)] = 0\\n"),
+            VariableRefExpression(j),
+            kernel->getThreadIdx(CudaKernel::IndexComponent::x),
+            kernel->getBlockIdx (CudaKernel::IndexComponent::x)
+          ));
     }
 
     CudaFunction* entry = mod.addFunction(CudaFunction(entryName, BaseTypes::getTp(BaseTypes::VOID)));
@@ -100,15 +108,13 @@ void CudaGenerator::generate(GPUSimExecutableModel& model) {
         entry->addStatement(ExpressionPtr(new FunctionCallExpression(mod.getPrintf(), ExpressionPtr(new StringLiteralExpression("in cuda\\n")))));
 
         // call the kernel
-        CudaKernelCallExpression* kernel_call = CudaKernelCallExpression::downcast(ExpressionStatement::insert(entry, CudaKernelCallExpression(n, 4, 1, kernel.get(), LiteralIntExpression(n)))->getExpression());
+        CudaKernelCallExpression* kernel_call = CudaKernelCallExpression::downcast(ExpressionStatement::insert(entry, CudaKernelCallExpression(n, 4, 1, kernel, LiteralIntExpression(n)))->getExpression());
 
         kernel_call->setSharedMemSize(ProductExpression(MacroExpression(RK_COEF_LEN), FunctionCallExpression(mod.getSizeof(), TypeRefExpression(BaseTypes::getTp(BaseTypes::FLOAT)))));
 
         // call cudaDeviceSynchronize
         entry->addStatement(ExpressionPtr(new FunctionCallExpression(mod.getCudaDeviceSynchronize())));
     }
-
-    mod.addFunction(std::move(kernel));
 
     // serialize the module to a document
 

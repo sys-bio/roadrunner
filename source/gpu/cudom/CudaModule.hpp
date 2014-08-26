@@ -97,6 +97,7 @@ class CudaKernel : public CudaFunction {
 public:
     using CudaFunction::CudaFunction;
 
+    CudaKernel(CudaKernel&& other) = default;
     ~CudaKernel() {}
 
     enum class IndexComponent {
@@ -142,6 +143,14 @@ public:
     virtual bool requiresSpecialCallingConvention() const { return true; }
 
     virtual void serialize(Serializer& s) const;
+
+    // TODO: replace with LLVM-style casting
+    static CudaKernel* downcast(Function* f) {
+        auto result = dynamic_cast<CudaKernel*>(f);
+        if (!result)
+            throw_gpusim_exception("Downcast failed: incorrect type");
+        return result;
+    }
 
 protected:
     VariablePtr threadidx_{new Variable(BaseTypes::getTp(BaseTypes::INT), "threadIdx")};
@@ -216,6 +225,10 @@ public:
 
     CudaFunction* addFunction(CudaFunction&& f) {
         return addFunction(CudaFunctionPtr(new CudaFunction(std::move(f))));
+    }
+
+    CudaFunction* addFunction(CudaKernel&& f) {
+        return addFunction(CudaFunctionPtr(new CudaKernel(std::move(f))));
     }
 
     CudaFunction* addFunction(CudaFunctionPtr&& f) {
