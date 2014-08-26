@@ -70,7 +70,9 @@ void CudaGenerator::generate(const GPUSimModel& model) {
         init_k_loop->setCondExp(ExpressionPtr(new LTComparisonExpression(ExpressionPtr(new VariableRefExpression(j)), ExpressionPtr(new MacroExpression(RK4ORDER)))));
         init_k_loop->setLoopExp(ExpressionPtr(new PreincrementExpression(ExpressionPtr(new VariableRefExpression(j)))));
 
-//         init_k_loop->getBody()->addStatement(StatementPtr())
+        Variable* z = init_k_loop->addVariable(Variable(BaseTypes::getTp(BaseTypes::INT), "z"));
+
+        ExpressionStatement::insert(init_k_loop->getBody(), ExpressionPtr(new AssignmentExpression(VariableRefExpression(z), LiteralIntExpression(1))));
     }
 
     CudaModule::CudaFunctionPtr entry(new CudaFunction(entryName, BaseTypes::getTp(BaseTypes::VOID)));

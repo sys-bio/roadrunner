@@ -26,6 +26,35 @@
 #   error "This file requires C++11 support in order to compile"
 #endif
 
+// hack to get needed functions (redo with CRTP later maybe)
+# define INSERT_STD_MAKE_CODE(TypeName)                \
+                                                       \
+    /// Shortcut for constructing an owning pointer    \
+    static DomOwningPtr<TypeName> make() {             \
+        return DomOwningPtr<TypeName>(new TypeName()); \
+    }
+
+# define INSERT_STD_STMT_CODE(TypeName)                                                            \
+    /* Shortcut for inserting into a code block / module */                                        \
+    template<typename... Args>                                                                     \
+    static TypeName* insert(StatementContainer& c, Args&&... args) {                               \
+        return downcast(c.addStatement(StatementPtr(new TypeName(std::forward<Args>(args)...))));  \
+    }                                                                                              \
+                                                                                                   \
+    /* Shortcut for inserting into a code block / module */                                        \
+    template<typename... Args>                                                                     \
+    static TypeName* insert(StatementContainer* c, Args&&... args) {                               \
+        return downcast(c->addStatement(StatementPtr(new TypeName(std::forward<Args>(args)...)))); \
+    }                                                                                              \
+                                                                                                   \
+    /* TODO: replace with LLVM-style casting */                                                    \
+    static TypeName* downcast(Statement* s) {                                                      \
+        auto result = dynamic_cast<TypeName*>(s);                                                  \
+        if (!result)                                                                               \
+            throw_gpusim_exception("Downcast failed: incorrect type");                             \
+        return result;                                                                             \
+    }
+
 // == INCLUDES ================================================
 
 # include "BaseTypes.hpp"
@@ -319,6 +348,11 @@ public:
       : lhs_(std::move(lhs)), rhs_(std::move(rhs)) {
     }
 
+    template <class LHSExpression, class RHSExpression>
+    BinaryExpression(LHSExpression&& lhs, RHSExpression&& rhs)
+      : lhs_(new LHSExpression(std::move(lhs))), rhs_(new RHSExpression(std::move(rhs))) {
+    }
+
     Expression* getLHS() {
         if (!lhs_)
             throw_gpusim_exception("No LHS set");
@@ -354,10 +388,7 @@ protected:
  */
 class AssignmentExpression : public BinaryExpression {
 public:
-    /// Ctor for lhs & rhs
-    AssignmentExpression(ExpressionPtr&& lhs, ExpressionPtr&& rhs)
-      : BinaryExpression(std::move(lhs), std::move(rhs)) {
-    }
+    using BinaryExpression::BinaryExpression;
 
     virtual void serialize(Serializer& s) const;
 };
@@ -547,6 +578,8 @@ public:
             throw_gpusim_exception("No expression");
         return exp_.get();
     }
+
+    INSERT_STD_STMT_CODE(ExpressionStatement)
 
     virtual void serialize(Serializer& s) const;
 
