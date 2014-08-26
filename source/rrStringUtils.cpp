@@ -587,20 +587,20 @@ bool toBool(const string& str)
 
 double toDouble(const string& str)
 {
-    // The MSVC strtod is buggy in that it does not parse InF and NaN values, 
-    // so have to compensate. 
+    // The MSVC strtod is buggy in that it does not parse InF and NaN values,
+    // so have to compensate.
     // go ahead and have the same behavior on all platforms so its easier
     // to diagnose issues.
     const char* cstr = str.c_str();
     char* endptr = const_cast<char*>(cstr);
     double result = ::strtod(cstr, &endptr);
 
-    if (endptr > cstr) 
+    if (endptr > cstr)
     {
         return result;
     }
 
-    if(str.length() == 0) 
+    if(str.length() == 0)
     {
         return 0;
     }
@@ -612,7 +612,7 @@ double toDouble(const string& str)
     }
 
     string s = str;
-    std::transform(s.begin(), s.end(), s.begin(), std::toupper);
+    std::transform(s.begin(), s.end(), s.begin(), ::toupper);
 
     if(s.find("NAN") != std::string::npos || s == "-")
     {
