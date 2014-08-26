@@ -35,6 +35,8 @@ class RR_DECLSPEC SBMLReader
 public:
 
     static std::string read(const std::string& sbml_or_uri);
+
+    static std::string test(const std::string& sbml_or_uri);
 };
 
 }
