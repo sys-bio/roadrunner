@@ -88,13 +88,8 @@ static bool is_sbml(const std::string& str)
  * extract the <sbml...> tag from an sbml document.
  * This regex should stop at the first match.
  */
-static const Poco::RegularExpression sbml_re("<\\s*sbml\\s*.*?>",  RegularExpression::RE_UNGREEDY);
-static string get_sbml_tag(const std::string& sbml) {
-    string match;
-    sbml_re.extract(sbml, match);
-    return match;
-}
-
+static const Poco::RegularExpression sbml_re("<\\s*sbml\\s*.*?>",
+        RegularExpression::RE_UNGREEDY);
 
 /**
  * Check if the given sbml string uses the composite extension.
@@ -106,20 +101,17 @@ static string get_sbml_tag(const std::string& sbml) {
  *     xmlns:comp="http://www.sbml.org/sbml/level3/version1/comp/version1"
  *     level="3" version="1" comp:required="false">
  */
-
 static bool has_comp(const string& sbml) {
     string sbmlss; // sbml substring, avoid looking in entire document.
     sbml_re.extract(sbml, sbmlss);
-    static const string compns = "http://www.sbml.org/sbml/level3/version1/comp/version1";
+    static const string compns =
+            "http://www.sbml.org/sbml/level3/version1/comp/version1";
     return sbmlss.find(compns) != string::npos;
 }
 
-
-std::string SBMLReader::test(const std::string& sbml_or_uri)
-{
-    return get_sbml_tag(sbml_or_uri);
-}
-
+/**
+ * flatten a comp model.
+ */
 static string flatten_comp(const string& sbml, const std::string fname)
 {
     Log(Logger::LOG_NOTICE) << "flattening model " << fname;
@@ -189,13 +181,17 @@ static string flatten_comp(const string& sbml, const std::string fname)
 }
 
 
-
-
-
 std::string SBMLReader::read(const std::string& str)
 {
     if (is_sbml(str))
     {
+        if(has_comp(str))
+        {
+            Log(Logger::LOG_WARNING) <<
+                    "Unable to flatten odel read from string which has comp "
+                    "extension, libSBML needs the full file path for flatening "
+                    "to work, ";
+        }
         return str;
     }
 
