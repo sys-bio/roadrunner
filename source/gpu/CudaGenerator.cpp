@@ -198,9 +198,10 @@ void CudaGeneratorImpl::generate(GPUSimExecutableModel& model) {
 
         kernel_call->setNumBlocks(MacroExpression(N));
 
-        kernel_call->setSharedMemSize(SumExpression(
+        kernel_call->setSharedMemSize(SumExpression(SumExpression(
             ProductExpression(MacroExpression(RK_COEF_LEN), FunctionCallExpression(mod.getSizeof(), TypeRefExpression(RKReal))), // Coefficient size
-            ProductExpression(MacroExpression(RK_STATE_VEC_LEN), FunctionCallExpression(mod.getSizeof(), TypeRefExpression(RKReal))) // State vector size
+            ProductExpression(MacroExpression(RK_STATE_VEC_LEN), FunctionCallExpression(mod.getSizeof(), TypeRefExpression(RKReal)))), // State vector size
+            ProductExpression(MacroExpression(RK_TIME_VEC_LEN), FunctionCallExpression(mod.getSizeof(), TypeRefExpression(RKReal))) // Time vector size
             ));
 
         // call cudaDeviceSynchronize
