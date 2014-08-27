@@ -163,11 +163,17 @@ void GPUSimExecutableModel::computeConservedTotals()
 
 
 int GPUSimExecutableModel::getFloatingSpeciesConcentrations(int len, int const *indx, double *values) {
+    Log(Logger::LOG_TRACE) << "GPUSimExecutableModel::getFloatingSpeciesConcentrations: len = " << len << ", indx = " << indx << ", values = " << values;
 #if RR_GPUSIM_USE_LLVM_MODEL
+//     throw_gpusim_exception("GPUSimExecutableModel::getFloatingSpeciesConcentrations");
     checkLLVMModel();
     return llvmmodel_->getFloatingSpeciesConcentrations(len,  indx,  values);
 #else
-    throw_gpusim_exception("not supported");
+    for (int k=0; k<len; ++k) {
+        values[indx[k]] = 123.;
+    }
+    return len;
+//     throw_gpusim_exception("not supported");
 #endif
 }
 
@@ -379,7 +385,10 @@ int GPUSimExecutableModel::getStateVector(double* stateVector)
     checkLLVMModel();
     return llvmmodel_->getStateVector(stateVector);
 #else
-    throw_gpusim_exception("not supported");
+    Log(Logger::LOG_TRACE) << "GPUSimExecutableModel::getStateVector: len of state vector = " << getNumIndepFloatingSpecies();
+    if (!stateVector)
+        return getNumIndepFloatingSpecies();
+    throw_gpusim_exception("getStateVector (non-null) not supported");
 #endif
 }
 

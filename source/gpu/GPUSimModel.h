@@ -77,7 +77,7 @@ protected:
     std::string id_;
     bool consrvMoity_ = false;
     bool indInitFltSpc_ = false;
-    bool isIndependent_ = false;
+    bool isIndependent_ = true;
     int index_ = 0;
 };
 
@@ -187,6 +187,8 @@ protected:
     /// Collection of all floating species
     typedef std::vector<FloatingSpeciesPtr> FloatingSpeciesCollection;
 public:
+    typedef std::size_t size_type;
+
     /// Iterator for all model elements
 //     typedef MultiIteratorT<MultiIteratorRegPol<std::vector<int>>, ModelElement, FloatingSpeciesCollection, ModelRules> ModelElementsIterator;
     typedef std::vector<ModelElement*> ModelElements;
@@ -213,6 +215,14 @@ public:
     /// Get all floating species (const)
     FloatingSpeciesConstRange getFloatingSpecies() const {
         return FloatingSpeciesConstRange(floatingSpecies_);
+    }
+
+    size_type getNumIndepFloatingSpecies() const {
+        size_type result = 0;
+        for (const FloatingSpecies* f : getFloatingSpecies())
+            if (f->getIsIndependent())
+                result++;
+        return result;
     }
 
     /// Get all model elements

@@ -43,7 +43,13 @@
 // #include "EventQueue.h"
 #include "rrSelectionRecord.h"
 
-#define RR_GPUSIM_USE_LLVM_MODEL 1
+#define RR_GPUSIM_USE_LLVM_MODEL 0
+
+# if RR_GPUSIM_USE_LLVM_MODEL
+# if !defined(BUILD_LLVM)
+#     error "Must be building LLVM to specify RR_GPUSIM_USE_LLVM_MODEL"
+# endif
+# endif
 
 #if RR_GPUSIM_USE_LLVM_MODEL
 #   include "llvm/LLVMExecutableModel.h"
