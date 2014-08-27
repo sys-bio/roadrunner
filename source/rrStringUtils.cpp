@@ -6,9 +6,10 @@
 #include <time.h>
 #include <sstream>
 #include <cstring>
+#include <cctype>
 #include "rrStringUtils.h"
 #include "rrUtils.h"
-//---------------------------------------------------------------------------
+#include "rrLogger.h"
 
 using namespace std;
 namespace rr
@@ -586,15 +587,55 @@ bool toBool(const string& str)
 
 double toDouble(const string& str)
 {
-    if(!str.size())
-        return 0;
+    // The MSVC strtod is buggy in that it does not parse InF and NaN values,
+    // so have to compensate.
+    // go ahead and have the same behavior on all platforms so its easier
+    // to diagnose issues.
+    const char* cstr = str.c_str();
+    char* endptr = const_cast<char*>(cstr);
+    double result = ::strtod(cstr, &endptr);
 
-    if(str == "-")
+    if (endptr > cstr)
     {
-        return gDoubleNaN;
+        return result;
     }
-    char *endptr = NULL;
-    return strtod(str.c_str(), &endptr);
+
+    if(str.length() == 0)
+    {
+        return 0;
+    }
+
+    if(!str.size())
+    {
+        Log(Logger::LOG_WARNING) << "returning 0.0 for empty string in toDouble()";
+        return 0;
+    }
+
+    string s = str;
+    std::transform(s.begin(), s.end(), s.begin(), ::toupper);
+
+    if(s.find("NAN") != std::string::npos || s == "-")
+    {
+        return std::numeric_limits<double>::quiet_NaN();
+    }
+
+    size_t inf = s.find("INF");
+
+    if(inf != std::string::npos)
+    {
+        size_t negpos = s.find("-");
+        if(negpos != std::string::npos && negpos < inf) // -inf
+        {
+            return -std::numeric_limits<double>::infinity();
+        }
+        else // +inf
+        {
+            return std::numeric_limits<double>::infinity();
+        }
+    }
+
+    Log(Logger::LOG_WARNING) << "could not parse string \"" << str << "\" to double, returning NaN";
+    return std::numeric_limits<double>::quiet_NaN();
 }
 
 complex<double> toComplex(const string& str)

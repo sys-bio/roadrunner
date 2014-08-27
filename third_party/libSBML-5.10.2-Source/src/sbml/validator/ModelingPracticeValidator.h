@@ -43,7 +43,7 @@
 
 LIBSBML_CPP_NAMESPACE_BEGIN
 
-class ModelingPracticeValidator: public Validator
+class LIBSBML_EXTERN ModelingPracticeValidator: public Validator
 {
 public:
 

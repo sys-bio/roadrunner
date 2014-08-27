@@ -43,7 +43,7 @@
 
 LIBSBML_CPP_NAMESPACE_BEGIN
 
-class L1CompatibilityValidator: public Validator
+class LIBSBML_EXTERN L1CompatibilityValidator: public Validator
 {
 public:
 

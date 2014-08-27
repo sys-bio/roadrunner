@@ -2985,39 +2985,29 @@ vector<double> RoadRunner::getSelectedValues()
 static std::vector<std::string> createSelectionList(const SimulateOptions& o)
 {
     //read from settings the variables found in the amounts and concentrations lists
-    std::vector<std::string> theList;
-    SelectionRecord record;
+    std::vector<std::string> result;
 
-    theList.push_back("time");
+    // have an implied time
+    result.push_back("time");
 
-    int nrOfVars = o.variables.size();
-
-    for(int i = 0; i < o.amounts.size(); i++)
+    // need to add them in order
+    for(vector<string>::const_iterator var = o.variables.begin();
+            var != o.variables.end(); ++var)
     {
-        theList.push_back(o.amounts[i]);        //In the setSelection list below, the [] selects the correct 'type'
-    }
-
-    for(int i = 0; i < o.concentrations.size(); i++)
-    {
-        theList.push_back("[" + o.concentrations[i] + "]");
-    }
-
-    //We may have variables
-    //A variable 'exists' only in "variables", not in the amount or concentration section
-
-    for(int i = 0; i < o.variables.size(); i++)
-    {
-        string aVar = o.variables[i];
-
-        if ((find(o.amounts.begin(), o.amounts.end(), aVar) == o.amounts.end()) &&
-                (find(o.concentrations.begin(), o.concentrations.end(), aVar)
-                        == o.concentrations.end()))
+        if (find(o.concentrations.begin(), o.concentrations.end(), *var)
+                != o.concentrations.end())
         {
-            theList.push_back(o.variables[i]);
+            result.push_back("[" + *var + "]");
         }
+
+        else
+        {
+            result.push_back(*var);
+        }
+
     }
 
-    return theList;
+    return result;
 }
 
 
