@@ -95,6 +95,10 @@ void CudaGeneratorImpl::generate(GPUSimExecutableModel& model) {
 
     CudaKernel* kernel = CudaKernel::downcast(mod.addFunction(CudaKernel("GPUIntMEBlockedRK4", BaseTypes::getTp(BaseTypes::VOID), {FunctionParameter(RKReal, "h")})));
 
+    // the step size
+    const FunctionParameter* h = kernel->getPositionalParam(0);
+    assert(h->getType()->isIdentical(RKReal) && "h has wrong type - signature of kernel changed? ");
+
     // generate the kernel
     {
         // declare shared memory
@@ -154,6 +158,31 @@ void CudaGeneratorImpl::generate(GPUSimExecutableModel& model) {
             kernel->getBlockIdx (CudaKernel::IndexComponent::x),
             f_init_assn->getLHS()->clone()
           ));
+
+        // initialize t (the time vector)
+        AssignmentExpression* t_init_assn0 =
+            AssignmentExpression::downcast(ExpressionStatement::insert(*kernel,
+            AssignmentExpression(
+                ArrayIndexExpression(t, LiteralIntExpression(0)),
+              LiteralIntExpression(0)))->getExpression());
+
+        AssignmentExpression* t_init_assn1 =
+            AssignmentExpression::downcast(ExpressionStatement::insert(*kernel,
+            AssignmentExpression(
+                ArrayIndexExpression(t, LiteralIntExpression(1)),
+              ProductExpression(RealLiteralExpression(0.5), VariableRefExpression(h))))->getExpression());
+
+        AssignmentExpression* t_init_assn2 =
+            AssignmentExpression::downcast(ExpressionStatement::insert(*kernel,
+            AssignmentExpression(
+                ArrayIndexExpression(t, LiteralIntExpression(2)),
+              ProductExpression(RealLiteralExpression(0.5), VariableRefExpression(h))))->getExpression());
+
+        AssignmentExpression* t_init_assn3 =
+            AssignmentExpression::downcast(ExpressionStatement::insert(*kernel,
+            AssignmentExpression(
+                ArrayIndexExpression(t, LiteralIntExpression(3)),
+              VariableRefExpression(h)))->getExpression());
     }
 
     CudaFunction* entry = mod.addFunction(CudaFunction(entryName, BaseTypes::getTp(BaseTypes::VOID), {FunctionParameter(RKReal, "h")}));
@@ -166,6 +195,8 @@ void CudaGeneratorImpl::generate(GPUSimExecutableModel& model) {
 
         // call the kernel
         CudaKernelCallExpression* kernel_call = CudaKernelCallExpression::downcast(ExpressionStatement::insert(entry, CudaKernelCallExpression(n, 4, 1, kernel, VariableRefExpression(entry->getPositionalParam(0))))->getExpression());
+
+        kernel_call->setNumBlocks(MacroExpression(N));
 
         kernel_call->setSharedMemSize(SumExpression(
             ProductExpression(MacroExpression(RK_COEF_LEN), FunctionCallExpression(mod.getSizeof(), TypeRefExpression(RKReal))), // Coefficient size

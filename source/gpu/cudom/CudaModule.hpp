@@ -175,6 +175,17 @@ public:
         shared_mem_size_.reset(new LiteralIntExpression(shared_mem_size));
     }
 
+    /// Set the expression for the number of blocks
+    void setNumBlocks(ExpressionPtr&& exp) {
+        nblocks_ = std::move(exp);
+    }
+
+    /// Set the expression for the number of blocks
+    template <class ExpressionT>
+    void setNumBlocks(ExpressionT&& exp) {
+        setNumBlocks(ExpressionPtr(new ExpressionT(std::move(exp))));
+    }
+
     /// Set the expression for the shared memory size
     void setSharedMemSize(ExpressionPtr&& exp) {
         shared_mem_size_ = std::move(exp);

@@ -842,6 +842,28 @@ protected:
  * @author JKM
  * @brief A class to encapsulate string literals
  */
+class RealLiteralExpression : public LiteralExpression {
+public:
+    RealLiteralExpression(const double v) : v_(v) {}
+
+    /// Copy ctor
+    RealLiteralExpression(const RealLiteralExpression& other)
+      : v_(other.v_) {}
+
+    virtual void serialize(Serializer& s) const;
+
+    virtual ExpressionPtr clone() const {
+        return ExpressionPtr(new RealLiteralExpression(*this));
+    }
+
+protected:
+    double v_;
+};
+
+/**
+ * @author JKM
+ * @brief A class to encapsulate string literals
+ */
 class StringLiteralExpression : public LiteralExpression {
 public:
     StringLiteralExpression(const std::string s) : s_(s) {}

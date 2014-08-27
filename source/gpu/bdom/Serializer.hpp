@@ -117,6 +117,13 @@ public:
         return *this;
     }
 
+    SerializerT& operator<<(double v) {
+        doIndent();
+        assert(os_);
+        *os_ << v;
+        return *this;
+    }
+
     void changeIndentation(int amount) {
         ind_ += amount;
     }

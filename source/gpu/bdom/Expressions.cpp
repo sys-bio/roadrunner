@@ -206,6 +206,12 @@ void LiteralIntExpression::serialize(Serializer& s) const {
     s << i_;
 }
 
+// -- RealLiteralExpression --
+
+void RealLiteralExpression::serialize(Serializer& s) const {
+    s << v_;
+}
+
 // -- StringLiteralExpression --
 
 void StringLiteralExpression::serialize(Serializer& s) const {
