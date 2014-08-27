@@ -53,7 +53,7 @@ void libstdcxx_Backtrace::dump(std::ostream& s) const {
 
     void** addrbuf = nullptr;
     int max = 32;
-    int size;
+    int size = 0; // will reset later
     do {
         free(addrbuf);
 

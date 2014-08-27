@@ -127,6 +127,14 @@ void ProductExpression::serialize(Serializer& s) const {
     s << *getRHS();
 }
 
+// -- SumExpression --
+
+void SumExpression::serialize(Serializer& s) const {
+    s << *getLHS();
+    s << " + ";
+    s << *getRHS();
+}
+
 // -- LTComparisonExpression --
 
 void LTComparisonExpression::serialize(Serializer& s) const {
