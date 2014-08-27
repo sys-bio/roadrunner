@@ -64,9 +64,7 @@ void CudaKernelCallExpression::serialize(Serializer& s) const {
     s << *shared_mem_size_;
     s << ">>>";
     s << "(";
-    for (auto const &p : argmap_) {
-        s << *p.second;
-    }
+    serializeArgs(s);
     s << ")";
 }
 

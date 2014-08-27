@@ -187,6 +187,11 @@ void FunctionCallExpression::serialize(Serializer& s) const {
     if (func_->requiresSpecialCallingConvention())
         throw_gpusim_exception("Function call requires special calling convention; cannot serialize");
     s << func_->getName() << "(";
+    serializeArgs(s);
+    s << ")";
+}
+
+void FunctionCallExpression::serializeArgs(Serializer& s) const {
     int n=0;
     for (n=0; n<(int)getNumPositionalParams();++n) {
         s << (n ? ", " : "") << *getMappedArgument(getPositionalParam(n));
@@ -197,7 +202,6 @@ void FunctionCallExpression::serialize(Serializer& s) const {
         }
     } else if(extra_args_.size())
         throw_gpusim_exception("Sanity check failed: have extra args but function is not marked variadic");
-    s << ")";
 }
 
 // -- LiteralIntExpression --

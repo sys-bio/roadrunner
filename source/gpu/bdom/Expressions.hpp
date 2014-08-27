@@ -974,6 +974,8 @@ public:
     /// Serialize this object to a document
     virtual void serialize(Serializer& s) const;
 
+    virtual void serializeArgs(Serializer& s) const;
+
     virtual ExpressionPtr clone() const {
         return ExpressionPtr(new FunctionCallExpression(*this));
     }
