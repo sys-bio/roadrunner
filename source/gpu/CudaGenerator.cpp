@@ -103,10 +103,12 @@ void CudaGeneratorImpl::generate(GPUSimExecutableModel& model) {
 
         Variable* f = VariableInitExpression::downcast(ExpressionStatement::insert(*kernel, VariableInitExpression(kernel->addVariable(Variable(BaseTypes::get().addPointer(RKReal), "f")), ReferenceExpression(ArrayIndexExpression(k, MacroExpression(RK_COEF_LEN)))))->getExpression())->getVariable();
 
+        Variable* t = VariableInitExpression::downcast(ExpressionStatement::insert(*kernel, VariableInitExpression(kernel->addVariable(Variable(BaseTypes::get().addPointer(RKReal), "t")), ReferenceExpression(ArrayIndexExpression(f, MacroExpression(RK_STATE_VEC_LEN)))))->getExpression())->getVariable();
+
         // printf
         kernel->addStatement(ExpressionPtr(new FunctionCallExpression(mod.getPrintf(), ExpressionPtr(new StringLiteralExpression("in kernel\\n")))));
 
-        // init k
+        // initialize k (the RK coefficients)
         ForStatement* init_k_loop = ForStatement::downcast(kernel->addStatement(ForStatement::make()));
 
         Variable* j = init_k_loop->addVariable(Variable(BaseTypes::getTp(BaseTypes::INT), "j"));
@@ -115,11 +117,7 @@ void CudaGeneratorImpl::generate(GPUSimExecutableModel& model) {
         init_k_loop->setCondExp(ExpressionPtr(new LTComparisonExpression(ExpressionPtr(new VariableRefExpression(j)), ExpressionPtr(new MacroExpression(RK4ORDER)))));
         init_k_loop->setLoopExp(ExpressionPtr(new PreincrementExpression(ExpressionPtr(new VariableRefExpression(j)))));
 
-//         Variable* z = init_k_loop->addVariable(Variable(BaseTypes::getTp(BaseTypes::INT), "z"));
-
-//         ExpressionStatement::insert(init_k_loop->getBody(), AssignmentExpression(VariableRefExpression(z), LiteralIntExpression(1)));
-//         init_k_loop->getBody().addStatement(StatementPtr(new ExpressionStatement(AssignmentExpression(VariableRefExpression(z), LiteralIntExpression(1)))));
-
+        // init expression for k
         AssignmentExpression* k_init_assn =
             AssignmentExpression::downcast(ExpressionStatement::insert(init_k_loop->getBody(), AssignmentExpression(
             ArrayIndexExpression(k,
@@ -129,6 +127,7 @@ void CudaGeneratorImpl::generate(GPUSimExecutableModel& model) {
             kernel->getBlockIdx (CudaKernel::IndexComponent::x))),
             LiteralIntExpression(0)))->getExpression());
 
+        // printf showing the init'd value of k
         ExpressionStatement::insert(init_k_loop->getBody(), FunctionCallExpression(
             mod.getPrintf(),
             StringLiteralExpression("k[RK_COEF_GET_OFFSET(%d, %d, %d)] = %f\\n"),
@@ -138,8 +137,23 @@ void CudaGeneratorImpl::generate(GPUSimExecutableModel& model) {
             k_init_assn->getLHS()->clone()
           ));
 
-        // init f (the state vector)
-//         ExpressionStatement::insert(*kernel, ArrayIndexExpression(f, ))
+        // initialize f (the state vector)
+        AssignmentExpression* f_init_assn =
+            AssignmentExpression::downcast(ExpressionStatement::insert(*kernel,
+            AssignmentExpression(
+                ArrayIndexExpression(f,
+        MacroExpression(RK_STATE_VEC_GET_OFFSET,
+        kernel->getThreadIdx(CudaKernel::IndexComponent::x),
+        kernel->getBlockIdx (CudaKernel::IndexComponent::x))),
+              LiteralIntExpression(0)))->getExpression());
+
+        ExpressionStatement::insert(*kernel, FunctionCallExpression(
+            mod.getPrintf(),
+            StringLiteralExpression("f[RK_STATE_VEC_GET_OFFSET(%d, %d)] = %f\\n"),
+            kernel->getThreadIdx(CudaKernel::IndexComponent::x),
+            kernel->getBlockIdx (CudaKernel::IndexComponent::x),
+            f_init_assn->getLHS()->clone()
+          ));
     }
 
     CudaFunction* entry = mod.addFunction(CudaFunction(entryName, BaseTypes::getTp(BaseTypes::VOID), {FunctionParameter(RKReal, "h")}));
