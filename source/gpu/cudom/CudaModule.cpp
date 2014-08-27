@@ -34,6 +34,8 @@ void CudaVariableDeclarationExpression::serialize(Serializer& s) const {
 }
 
 void CudaFunction::serialize(Serializer& s) const {
+    if (getIsDeviceFun())
+        s << "__device__" << " ";
     Function::serialize(s);
 }
 

@@ -87,6 +87,14 @@ public:
             throw_gpusim_exception("Downcast failed: incorrect type");
         return result;
     }
+
+    bool getIsDeviceFun() const { return is_device_fun_; }
+
+    void setIsDeviceFun(bool val) { is_device_fun_ = val; }
+
+protected:
+    /// True if fun has __device__ specifier
+    bool is_device_fun_ = false;
 };
 
 /**
