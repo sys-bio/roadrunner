@@ -109,6 +109,10 @@ public:
         return dealias() == other->dealias();
     }
 
+    virtual size_type Sizeof() {
+        throw_gpusim_exception("Size not defined for this type");
+    }
+
 protected:
     /// Used in @ref serialize to build representation (adding *'s and &'s)
 //     virtual std::string buildRep();
@@ -130,10 +134,12 @@ inline Serializer& operator<<(Serializer& s,  const Type& t) {
  */
 class BaseType : public Type {
 public:
-    BaseType(const String& val, int tag)
-      :  val_(val) {
+    BaseType(const String& val, int tag, size_type size)
+      :  val_(val), size_(size) {
 
     }
+
+    virtual size_type Sizeof() { return size_; }
 
     virtual void serialize(Serializer& s) const;
 
@@ -142,6 +148,7 @@ protected:
 //     virtual std::string buildRep();
 
     String val_;
+    size_type size_;
 };
 
 /**
@@ -235,6 +242,8 @@ public:
     }
 
     const std::string& getName() const { return name_; }
+
+    virtual size_type Sizeof() { return dealias()->Sizeof(); }
 
     virtual void serialize(Serializer& s) const;
 
@@ -443,14 +452,14 @@ protected:
 private:
     // there can be only one!
     BaseTypes() {
-        types_.emplace_back(new BaseType("any", ANY));
-        types_.emplace_back(new BaseType("void", VOID));
-        types_.emplace_back(new BaseType("int", INT));
-        types_.emplace_back(new BaseType("unsigned int", UNSIGNED_INT));
-        types_.emplace_back(new BaseType("size_t", SIZE_T));
-        types_.emplace_back(new BaseType("float", FLOAT));
-        types_.emplace_back(new BaseType("double", DOUBLE));
-        types_.emplace_back(new BaseType("char", CHAR));
+        types_.emplace_back(new BaseType("any", ANY, 0));
+        types_.emplace_back(new BaseType("void", VOID, 0));
+        types_.emplace_back(new BaseType("int", INT, 4));
+        types_.emplace_back(new BaseType("unsigned int", UNSIGNED_INT, 4));
+        types_.emplace_back(new BaseType("size_t", SIZE_T, 4));
+        types_.emplace_back(new BaseType("float", FLOAT, 4));
+        types_.emplace_back(new BaseType("double", DOUBLE, 8));
+        types_.emplace_back(new BaseType("char", CHAR, 1));
         addPointer(types_.back().get()); // CSTR
     }
 

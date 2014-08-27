@@ -31,7 +31,7 @@ namespace rrgpu
 namespace dom
 {
 
-void CudaGenerator::generate(GPUSimExecutableModel& model) {
+void CudaGenerator::generate(GPUSimExecutableModel& model, double h) {
     CudaModule mod;
     std::string entryName = "cuEntryPoint";
 
@@ -54,16 +54,18 @@ void CudaGenerator::generate(GPUSimExecutableModel& model) {
 
     mod.addMacro(Macro("RK_TIME_VEC_LEN", "RK4ORDER"));
 
-    // typedef for float
+    // typedef for float or double
     Type* RKReal = TypedefStatement::downcast(mod.addStatement(StatementPtr(new TypedefStatement(BaseTypes::getTp(BaseTypes::FLOAT), "RKReal"))))->getAlias();
 
-    CudaKernel* kernel = CudaKernel::downcast(mod.addFunction(CudaKernel("GPUIntMEBlockedRK4", BaseTypes::getTp(BaseTypes::VOID), {FunctionParameter(BaseTypes::getTp(BaseTypes::INT), "n")})));
+    CudaKernel* kernel = CudaKernel::downcast(mod.addFunction(CudaKernel("GPUIntMEBlockedRK4", BaseTypes::getTp(BaseTypes::VOID), {FunctionParameter(RKReal, "h")})));
 
     // generate the kernel
     {
         // declare shared memory
 //         kernel->addStatement(ExpressionPtr(new CudaVariableDeclarationExpression(kernel->addVariable(Variable(BaseTypes::get().addArray(RKReal), "k")), true)));
         Variable* k = CudaVariableDeclarationExpression::downcast(ExpressionStatement::insert(*kernel, CudaVariableDeclarationExpression(kernel->addVariable(Variable(BaseTypes::get().addArray(RKReal), "k")), true))->getExpression())->getVariable();
+
+        Variable* f = VariableInitExpression::downcast(ExpressionStatement::insert(*kernel, VariableInitExpression(kernel->addVariable(Variable(BaseTypes::get().addPointer(RKReal), "f")), ReferenceExpression(ArrayIndexExpression(k, MacroExpression(RK_COEF_LEN)))))->getExpression())->getVariable();
 
         // printf
         kernel->addStatement(ExpressionPtr(new FunctionCallExpression(mod.getPrintf(), ExpressionPtr(new StringLiteralExpression("in kernel\\n")))));
@@ -101,7 +103,7 @@ void CudaGenerator::generate(GPUSimExecutableModel& model) {
           ));
     }
 
-    CudaFunction* entry = mod.addFunction(CudaFunction(entryName, BaseTypes::getTp(BaseTypes::VOID)));
+    CudaFunction* entry = mod.addFunction(CudaFunction(entryName, BaseTypes::getTp(BaseTypes::VOID), {FunctionParameter(RKReal, "h")}));
 //     entry->setHasCLinkage(true);
 
     // generate the entry
@@ -110,9 +112,9 @@ void CudaGenerator::generate(GPUSimExecutableModel& model) {
         entry->addStatement(ExpressionPtr(new FunctionCallExpression(mod.getPrintf(), ExpressionPtr(new StringLiteralExpression("in cuda\\n")))));
 
         // call the kernel
-        CudaKernelCallExpression* kernel_call = CudaKernelCallExpression::downcast(ExpressionStatement::insert(entry, CudaKernelCallExpression(n, 4, 1, kernel, LiteralIntExpression(n)))->getExpression());
+        CudaKernelCallExpression* kernel_call = CudaKernelCallExpression::downcast(ExpressionStatement::insert(entry, CudaKernelCallExpression(n, 4, 1, kernel, VariableRefExpression(entry->getPositionalParam(0))))->getExpression());
 
-        kernel_call->setSharedMemSize(ProductExpression(MacroExpression(RK_COEF_LEN), FunctionCallExpression(mod.getSizeof(), TypeRefExpression(BaseTypes::getTp(BaseTypes::FLOAT)))));
+        kernel_call->setSharedMemSize(ProductExpression(MacroExpression(RK_COEF_LEN), FunctionCallExpression(mod.getSizeof(), TypeRefExpression(RKReal))));
 
         // call cudaDeviceSynchronize
         entry->addStatement(ExpressionPtr(new FunctionCallExpression(mod.getCudaDeviceSynchronize())));
@@ -179,11 +181,14 @@ void CudaGenerator::generate(GPUSimExecutableModel& model) {
         throw_gpusim_exception("Lib " + libname + " has no symbol \"" + entryMangled + "\"");
 
     Log(Logger::LOG_TRACE) << "Entering CUDA code";
-    typedef void (*EntryPointSig)();
+    typedef void (*EntryPointSig)(float);
+    // ensure that the function has the correct signature
+    assert(sizeof(float) == RKReal->Sizeof());
     EntryPointSig entryPoint;
     entryPoint = (EntryPointSig)so.getSymbol(entryMangled);
 
-    entryPoint();
+    return;
+    entryPoint(h);
 
 }
 

@@ -66,7 +66,7 @@ double GPUSimIntegrator::integrate(double timeStart, double hstep)
 //     GPUSimIntegratorInt intf(this);
 
 //     GPUIntMESerial(intf);
-    model_->generateModel();
+    model_->generateModel(hstep);
     throw_gpusim_exception("not supported");
 }
 

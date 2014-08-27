@@ -86,9 +86,9 @@ GPUSimExecutableModel::~GPUSimExecutableModel() {
     Log(Logger::LOG_DEBUG) << __FUNC__;
 }
 
-void GPUSimExecutableModel::generateModel() {
+void GPUSimExecutableModel::generateModel(double h) {
     dom::CudaGenerator generator;
-    generator.generate(*this);
+    generator.generate(*this, h);
 }
 
 string GPUSimExecutableModel::getModelName()

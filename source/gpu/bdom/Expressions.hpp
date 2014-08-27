@@ -248,18 +248,18 @@ protected:
 class VariableRefExpression : public SymbolExpression {
 public:
     /// Ctor for type, var name, and initial value
-    VariableRefExpression(Variable* var)
+    VariableRefExpression(const Variable* var)
       : var_(var) {}
 
     /// Copy ctor
     VariableRefExpression(const VariableRefExpression& other)
       : var_(other.var_) {}
 
-    Variable* getVariable() {
-        if (!var_)
-            throw_gpusim_exception("No variable set");
-        return var_;
-    }
+//     Variable* getVariable() {
+//         if (!var_)
+//             throw_gpusim_exception("No variable set");
+//         return var_;
+//     }
     const Variable* getVariable() const {
         if (!var_)
             throw_gpusim_exception("No variable set");
@@ -273,7 +273,7 @@ public:
     }
 
 protected:
-    Variable* var_;
+    const Variable* var_;
 };
 
 /**
@@ -392,6 +392,13 @@ public:
     virtual ExpressionPtr clone() const {
         return ExpressionPtr(new VariableDeclarationExpression(*this));
     }
+    // TODO: replace with LLVM-style casting
+    static VariableDeclarationExpression* downcast(Expression* s) {
+        auto result = dynamic_cast<VariableDeclarationExpression*>(s);
+        if (!result)
+            throw_gpusim_exception("Downcast failed: incorrect type");
+        return result;
+    }
 
 protected:
     Variable* var_;
@@ -403,10 +410,17 @@ protected:
  */
 class VariableInitExpression : public VariableDeclarationExpression {
 public:
-    /// Ctor for type, var name, and initial value
+    /// Ctor for var and initial value
     VariableInitExpression(Variable* var, ExpressionPtr&& value_exp)
       : VariableDeclarationExpression(var) {
         value_ = std::move(value_exp);
+    }
+
+    template <class InitialValExp>
+    /// Ctor for var and initial value
+    VariableInitExpression(Variable* var, InitialValExp&& value_exp)
+      : VariableDeclarationExpression(var) {
+        value_ = ExpressionPtr(new InitialValExp(std::move(value_exp)));
     }
 
     /// Copy ctor
@@ -534,6 +548,14 @@ public:
     UnaryExpression(const UnaryExpression& other)
       : operand_(other.operand_->clone()) {}
 
+    // freaking idiotic C++
+    // how do they manage to make it such a mess?
+    // http://stackoverflow.com/questions/7863603/how-to-make-template-rvalue-reference-parameter-only-bind-to-rvalue-reference
+//     template <class OperandExpression, class = typename std::enable_if<!std::is_lvalue_reference<OperandExpression>::value>::type >
+//     UnaryExpression(OperandExpression&& operand)
+//       : operand_(new OperandExpression(std::move(operand))) {
+//     }
+
     Expression* getOperand() {
         if (!operand_)
             throw_gpusim_exception("No LHS set");
@@ -549,6 +571,31 @@ public:
 
 protected:
     ExpressionPtr operand_;
+};
+
+/**
+ * @author JKM
+ * @brief Take reference (usu. address of) of an expression
+ * @details e.g. &obj
+ */
+class ReferenceExpression : public UnaryExpression {
+public:
+    using UnaryExpression::UnaryExpression;
+
+    template <class OperandExpression, class = typename std::enable_if<!std::is_lvalue_reference<OperandExpression>::value>::type, class = typename std::enable_if<!std::is_same<OperandExpression, ReferenceExpression >::value>::type >
+    ReferenceExpression(OperandExpression&& operand)
+      : UnaryExpression(ExpressionPtr(new OperandExpression(std::move(operand)))) {
+    }
+
+    /// Copy ctor
+    ReferenceExpression(const ReferenceExpression& other)
+      : UnaryExpression(other) {}
+
+    virtual void serialize(Serializer& s) const;
+
+    virtual ExpressionPtr clone() const {
+        return ExpressionPtr(new ReferenceExpression(*this));
+    }
 };
 
 /**

@@ -47,7 +47,7 @@ namespace dom
   */
 class CudaGenerator {
 public:
-    void generate(GPUSimExecutableModel& model);
+    void generate(GPUSimExecutableModel& model, double h);
 };
 
 } // namespace dom
