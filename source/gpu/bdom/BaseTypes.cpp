@@ -38,6 +38,8 @@ void BaseType::serialize(Serializer& s) const {
 }
 
 void PointerType::serialize(Serializer& s) const {
+    if (isVolatile())
+        s << "volatile ";
     s << *getRoot() << "*";
 }
 

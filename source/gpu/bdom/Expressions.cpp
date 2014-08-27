@@ -188,8 +188,8 @@ void FunctionCallExpression::serialize(Serializer& s) const {
         throw_gpusim_exception("Function call requires special calling convention; cannot serialize");
     s << func_->getName() << "(";
     int n=0;
-    for (auto const &p : argmap_) {
-        s << (n++ ? ", " : "") << *p.second;
+    for (n=0; n<(int)getNumPositionalParams();++n) {
+        s << (n ? ", " : "") << *getMappedArgument(getPositionalParam(n));
     }
     if (isVarargs()) {
         for (auto const &p : extra_args_) {

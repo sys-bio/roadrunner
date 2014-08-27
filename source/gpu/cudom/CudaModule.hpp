@@ -234,7 +234,16 @@ public:
                              BaseTypes::getTp(BaseTypes::INT),
                              FunctionParameterPtr(new FunctionParameter(BaseTypes::getTp(BaseTypes::CSTR), "format_str")))),
         cudaDeviceSynchronize_(new Function("cudaDeviceSynchronize",
-                                            BaseTypes::getTp(BaseTypes::VOID)))
+                                            BaseTypes::getTp(BaseTypes::VOID))),
+        cudamalloc_(new Function("cudaMalloc",
+          BaseTypes::getTp(BaseTypes::PVOID),
+          {FunctionParameter(BaseTypes::getTp(BaseTypes::PVOID), "var"),
+           FunctionParameter(BaseTypes::getTp(BaseTypes::SIZE_T), "nbytes")}
+          )),
+        cudafree_(new Function("cudaFree",
+          BaseTypes::getTp(BaseTypes::VOID),
+          {FunctionParameter(BaseTypes::getTp(BaseTypes::PVOID), "memblock")}
+          ))
         {
         printf_->setIsVarargs(true);
     }
@@ -263,9 +272,19 @@ public:
         return cudaDeviceSynchronize_.get();
     }
 
+    const Function* getCudaMalloc() const {
+        return cudamalloc_.get();
+    }
+
+    const Function* getCudaFree() const {
+        return cudafree_.get();
+    }
+
 protected:
     FunctionPtr printf_;
     FunctionPtr cudaDeviceSynchronize_;
+    FunctionPtr cudamalloc_;
+    FunctionPtr cudafree_;
 };
 
 } // namespace dom

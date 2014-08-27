@@ -95,6 +95,8 @@ void CudaGeneratorImpl::generate(GPUSimExecutableModel& model) {
 
     Type* pRKReal = BaseTypes::get().addPointer(RKReal);
 
+    Type* pRKReal_volatile = BaseTypes::get().addVolatile(pRKReal);
+
     CudaFunction* PrintCoefs = mod.addFunction(CudaFunction("PrintCoefs", BaseTypes::getTp(BaseTypes::VOID), {FunctionParameter(pRKReal, "k")}));
 
     PrintCoefs->setIsDeviceFun(true);
@@ -102,7 +104,7 @@ void CudaGeneratorImpl::generate(GPUSimExecutableModel& model) {
     // printf
     PrintCoefs->addStatement(ExpressionPtr(new FunctionCallExpression(mod.getPrintf(), ExpressionPtr(new StringLiteralExpression("PrintCoefs\\n")))));
 
-    CudaKernel* kernel = CudaKernel::downcast(mod.addFunction(CudaKernel("GPUIntMEBlockedRK4", BaseTypes::getTp(BaseTypes::VOID), {FunctionParameter(RKReal, "h")})));
+    CudaKernel* kernel = CudaKernel::downcast(mod.addFunction(CudaKernel("GPUIntMEBlockedRK4", BaseTypes::getTp(BaseTypes::VOID), {FunctionParameter(RKReal, "h"), FunctionParameter(pRKReal_volatile, "k_global")})));
 
     // the step size
     const FunctionParameter* h = kernel->getPositionalParam(0);
@@ -207,8 +209,16 @@ void CudaGeneratorImpl::generate(GPUSimExecutableModel& model) {
         // printf
         entry->addStatement(ExpressionPtr(new FunctionCallExpression(mod.getPrintf(), ExpressionPtr(new StringLiteralExpression("in cuda\\n")))));
 
+        // allocate mem for coefs
+        Variable* k_global =
+            VariableDeclarationExpression::downcast(ExpressionStatement::insert(entry,
+            VariableDeclarationExpression(entry->addVariable(Variable(pRKReal, "k_global"))))->getExpression())->getVariable();
+        entry->addStatement(ExpressionPtr(new FunctionCallExpression(mod.getCudaMalloc(),
+        ReferenceExpression(VariableRefExpression(k_global)),
+        ProductExpression(MacroExpression(RK_COEF_LEN), FunctionCallExpression(mod.getSizeof(), TypeRefExpression(RKReal))))));
+
         // call the kernel
-        CudaKernelCallExpression* kernel_call = CudaKernelCallExpression::downcast(ExpressionStatement::insert(entry, CudaKernelCallExpression(n, 4, 1, kernel, VariableRefExpression(entry->getPositionalParam(0))))->getExpression());
+        CudaKernelCallExpression* kernel_call = CudaKernelCallExpression::downcast(ExpressionStatement::insert(entry, CudaKernelCallExpression(n, 4, 1, kernel, VariableRefExpression(entry->getPositionalParam(0)), VariableRefExpression(k_global)))->getExpression());
 
         kernel_call->setNumBlocks(MacroExpression(N));
 
@@ -217,6 +227,9 @@ void CudaGeneratorImpl::generate(GPUSimExecutableModel& model) {
             ProductExpression(MacroExpression(RK_STATE_VEC_LEN), FunctionCallExpression(mod.getSizeof(), TypeRefExpression(RKReal)))), // State vector size
             ProductExpression(MacroExpression(RK_TIME_VEC_LEN), FunctionCallExpression(mod.getSizeof(), TypeRefExpression(RKReal))) // Time vector size
             ));
+
+        // free the global coef mem
+        entry->addStatement(ExpressionPtr(new FunctionCallExpression(mod.getCudaFree(), VariableRefExpression(k_global))));
 
         // call cudaDeviceSynchronize
         entry->addStatement(ExpressionPtr(new FunctionCallExpression(mod.getCudaDeviceSynchronize())));

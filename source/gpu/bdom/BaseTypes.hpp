@@ -74,9 +74,31 @@ public:
     typedef BDOM_String String;
     typedef std::size_t size_type;
 
+    Type() {}
+
+    Type(Type* root)
+      : root_(root) {
+
+    }
+
+    Type(const Type& other)
+      : root_(other.root_), is_volatile_(other.is_volatile_) {
+
+    }
+
     virtual ~Type() {}
 
+    bool isVolatile() const {
+        return is_volatile_;
+    }
+
+    void setIsVolatile(bool val) {
+        is_volatile_ = val;
+    }
+
     virtual void serialize(Serializer& s) const = 0;
+
+    virtual DomOwningPtr<Type> clone() const = 0;
 
     /// Before the variable name
     virtual void serializeFirstPart(Serializer& s) const { serialize(s); }
@@ -118,9 +140,12 @@ protected:
 //     virtual std::string buildRep();
 
     Transitions tx_;
+    /// Non-owning
     Type* root_ = nullptr;
     Aliases aliases_;
+    bool is_volatile_ = false;
 };
+typedef DomOwningPtr<Type> TypePtr;
 
 inline Serializer& operator<<(Serializer& s,  const Type& t) {
     t.serialize(s);
@@ -139,9 +164,16 @@ public:
 
     }
 
+    BaseType(const BaseType& other)
+      : Type(other) {}
+
     virtual size_type Sizeof() { return size_; }
 
     virtual void serialize(Serializer& s) const;
+
+    virtual TypePtr clone() const {
+        return TypePtr(new BaseType(*this));
+    }
 
 protected:
     /// Used in @ref serialize to build representation (adding *'s and &'s)
@@ -158,9 +190,12 @@ protected:
 class PointerType : public Type {
 public:
     PointerType(Type* root)
-      : root_(root) {
+      : Type(root) {
 
     }
+
+    PointerType(const PointerType& other)
+      : Type(other) {}
 
     Type* getRoot() {
         if (!root_)
@@ -176,9 +211,9 @@ public:
 
     virtual void serialize(Serializer& s) const;
 
-protected:
-    /// Non-owning
-    Type* root_ = nullptr;
+    virtual TypePtr clone() const {
+        return TypePtr(new PointerType(*this));
+    }
 };
 
 /**
@@ -188,9 +223,12 @@ protected:
 class ArrayType : public Type {
 public:
     ArrayType(Type* root)
-      : root_(root) {
+      : Type(root) {
 
     }
+
+    ArrayType(const ArrayType& other)
+      : Type(other) {}
 
     Type* getRoot() {
         if (!root_)
@@ -212,9 +250,9 @@ public:
     /// After the variable name (e.g. [] for arrays)
     virtual void serializeSecondPart(Serializer& s) const;
 
-protected:
-    /// Non-owning
-    Type* root_ = nullptr;
+    virtual TypePtr clone() const {
+        return TypePtr(new ArrayType(*this));
+    }
 };
 
 /**
@@ -228,6 +266,9 @@ public:
       : target_(target), name_(alias) {
 
     }
+
+    AliasType(const AliasType& other)
+      : Type(other), target_(other.target_), name_(other.name_) {}
 
     Type* getTarget() {
         if (!target_)
@@ -253,6 +294,10 @@ public:
 
     virtual const Type* dealias() const {
         return getTarget()->dealias();
+    }
+
+    virtual TypePtr clone() const {
+        return TypePtr(new AliasType(*this));
     }
 
 protected:
@@ -333,6 +378,24 @@ protected:
 
 /**
  * @author JKM
+ * @brief Make the type volatile
+ */
+class TypeTransitionAddVolatile : public TypeTransition {
+public:
+    TypeTransitionAddVolatile(Type* from, Type* to)
+      : TypeTransition(from, to) {}
+
+    virtual bool isEquivalent(TypeTransition* other) {
+        if(auto x = dynamic_cast<TypeTransitionAddVolatile*>(other))
+            return getFrom()->isIdentical(x->getFrom());
+        return false;
+    }
+
+protected:
+};
+
+/**
+ * @author JKM
  * @brief Add array transition
  * @details Given a type, get the array type
  * (char -> char[] etc.)
@@ -361,7 +424,6 @@ protected:
 class BaseTypes {
 protected:
     typedef DomOwningPtr<BaseTypes> SelfPtr;
-    typedef DomOwningPtr<Type> TypePtr;
     typedef std::vector<TypePtr> Types;
     typedef std::vector<TypeTransitionPtr> Transitions;
 public:
@@ -369,6 +431,7 @@ public:
 //         BASE_TYPES_BEGIN,
         ANY,
         VOID,
+        PVOID,
         INT,
         UNSIGNED_INT,
         SIZE_T,
@@ -401,6 +464,18 @@ public:
         TypePtr newtype(new PointerType(t));
         // if the type already exists, do not register a new one
         if(Type* preempt = regTransition(TypeTransitionPtr(new TypeTransitionAddPtr(t, newtype.get()))))
+            return preempt;
+        else
+            return addType(std::move(newtype));
+    }
+
+    /// Return the unique type formed by adding a pointer to an existing type
+    // FIXME: can't always detect this with transitions
+    Type* addVolatile(Type* t) {
+        TypePtr newtype(t->clone());
+        newtype->setIsVolatile(true);
+        // if the type already exists, do not register a new one
+        if(Type* preempt = regTransition(TypeTransitionPtr(new TypeTransitionAddVolatile(t, newtype.get()))))
             return preempt;
         else
             return addType(std::move(newtype));
@@ -454,6 +529,7 @@ private:
     BaseTypes() {
         types_.emplace_back(new BaseType("any", ANY, 0));
         types_.emplace_back(new BaseType("void", VOID, 0));
+        addPointer(types_.back().get()); // PVOID
         types_.emplace_back(new BaseType("int", INT, 4));
         types_.emplace_back(new BaseType("unsigned int", UNSIGNED_INT, 4));
         types_.emplace_back(new BaseType("size_t", SIZE_T, 4));
