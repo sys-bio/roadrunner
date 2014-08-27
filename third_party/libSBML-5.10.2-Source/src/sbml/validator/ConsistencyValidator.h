@@ -44,7 +44,7 @@
 
 LIBSBML_CPP_NAMESPACE_BEGIN
 
-class ConsistencyValidator: public Validator
+class LIBSBML_EXTERN ConsistencyValidator: public Validator
 {
 public:
 

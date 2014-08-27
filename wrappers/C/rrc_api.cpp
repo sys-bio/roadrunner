@@ -796,15 +796,6 @@ char* rrcCallConv getLastError()
     return gLastError;
 }
 
-bool rrcCallConv reset(RRHandle handle)
-{
-    start_try
-        RoadRunner* rri = castToRoadRunner(handle);
-        rri->reset();
-        return true;
-    catch_bool_macro
-}
-
 int rrcCallConv getNumberOfReactions(RRHandle handle)
 {
      start_try
@@ -1959,5 +1950,31 @@ C_DECL_SPEC RRCDataPtr rrcCallConv gillespieMeanSDOnGridEx(RRHandle handle, doub
     }
 }
 
+bool rrcCallConv reset(RRHandle handle)
+{
+    start_try
+        RoadRunner* rri = castToRoadRunner(handle);
+        rri->reset();
+        return true;
+    catch_bool_macro
+}
+
+bool rrcCallConv resetAll(RRHandle handle)
+{
+    start_try
+        RoadRunner* rri = castToRoadRunner(handle);
+        rri->reset(SelectionRecord::TIME | SelectionRecord::RATE | SelectionRecord::FLOATING | SelectionRecord::GLOBAL_PARAMETER);
+        return true;
+    catch_bool_macro
+}
+
+bool rrcCallConv resetToOrigin(RRHandle handle)
+{
+    start_try
+        RoadRunner* rri = castToRoadRunner(handle);
+    rri->reset(SelectionRecord::ALL);
+        return true;
+    catch_bool_macro
+}
 
 }

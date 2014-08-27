@@ -38,6 +38,7 @@
     #include <conservation/ConservationExtension.h>
     #include "conservation/ConservedMoietyConverter.h"
     #include "SBMLValidator.h"
+    #include "rrSBMLReader.h"
     #include <cstddef>
     #include <map>
     #include <rrVersionInfo.h>
@@ -753,6 +754,7 @@ namespace std { class ostream{}; }
 %include "PyIntegratorListener.h"
 %include <rrConfig.h>
 %include <SBMLValidator.h>
+%include <rrSBMLReader.h>
 
 
 %extend rr::RoadRunner

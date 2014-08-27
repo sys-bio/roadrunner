@@ -44,7 +44,7 @@
 
 LIBSBML_CPP_NAMESPACE_BEGIN
 
-class OverdeterminedValidator: public Validator
+class LIBSBML_EXTERN OverdeterminedValidator: public Validator
 {
 public:
 

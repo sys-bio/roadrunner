@@ -1114,7 +1114,10 @@ void CompiledExecutableModel::applyEvents(double timeEnd,
                 vector<int> removeEvents;
                 vector<int> additionalEvents = retestEvents(timeEnd, handled, removeEvents);
 
-                std::copy (additionalEvents.begin(), additionalEvents.end(), firedEvents.end());
+
+                // buggy MSVC stdlib has issues with copy, so have to insert
+                // std::copy (additionalEvents.begin(), additionalEvents.end(), firedEvents.end());
+                firedEvents.insert(firedEvents.end(), additionalEvents.begin(), additionalEvents.end());
 
                 for (int j = 0; j < additionalEvents.size(); j++)
                 {
