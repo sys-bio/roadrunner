@@ -74,7 +74,7 @@ inline bool checkBitfieldSubset(uint32_t type, uint32_t value) {
 }
 
 GPUSimExecutableModel::GPUSimExecutableModel(std::string const &sbml, unsigned loadSBMLOptions)
-    : GPUSimModel(sbml, loadSBMLOptions) {
+    : GPUSimModel(sbml, loadSBMLOptions), generator_(new dom::CudaGenerator()) {
 #if RR_GPUSIM_USE_LLVM_MODEL
     rrllvm::LLVMModelGenerator modelGenerator{Compiler::getDefaultCompiler()};
     llvmmodel_.reset(dynamic_cast<rrllvm::LLVMExecutableModel*>(modelGenerator.createModel(sbml, loadSBMLOptions)));
@@ -86,9 +86,12 @@ GPUSimExecutableModel::~GPUSimExecutableModel() {
     Log(Logger::LOG_DEBUG) << __FUNC__;
 }
 
-void GPUSimExecutableModel::generateModel(double h) {
-    dom::CudaGenerator generator;
-    generator.generate(*this, h);
+void GPUSimExecutableModel::generateModel() {
+    generator_->generate(*this);
+}
+
+GPUSimExecutableModel::EntryPointSig GPUSimExecutableModel::getEntryPoint() {
+    return generator_->getEntryPoint();
 }
 
 string GPUSimExecutableModel::getModelName()

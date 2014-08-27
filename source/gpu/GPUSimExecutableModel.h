@@ -71,6 +71,10 @@ namespace rrgpu
 
 class ModelResources;
 
+namespace dom {
+class CudaGenerator;
+}
+
 /**
  * @author JKM
  * @brief GPU-based executable model
@@ -78,6 +82,7 @@ class ModelResources;
 class RR_DECLSPEC GPUSimExecutableModel: public ExecutableModel, public GPUSimModel
 {
 public:
+    typedef void (*EntryPointSig)(float);
 
     /**
      * the default ctor just zeros out all our private bits, then
@@ -88,7 +93,9 @@ public:
 
     virtual ~GPUSimExecutableModel();
 
-    void generateModel(double h);
+    void generateModel();
+
+    EntryPointSig getEntryPoint();
 
     /**
      * get the name of the model
@@ -467,6 +474,8 @@ private:
 
     template <typename a_type, typename b_type>
     friend void copyCachedModel(a_type* src, b_type* dst);
+
+    std::unique_ptr<dom::CudaGenerator> generator_;
 
 #if RR_GPUSIM_USE_LLVM_MODEL
     // just throws exc if no model

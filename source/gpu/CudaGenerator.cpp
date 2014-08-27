@@ -31,7 +31,43 @@ namespace rrgpu
 namespace dom
 {
 
-void CudaGenerator::generate(GPUSimExecutableModel& model, double h) {
+class CudaGeneratorImpl {
+public:
+    typedef CudaGenerator::EntryPointSig EntryPointSig;
+
+    void generate(GPUSimExecutableModel& model);
+
+    EntryPointSig getEntryPoint();
+
+protected:
+    EntryPointSig entry_ = nullptr;
+    Poco::SharedLibrary so_;
+};
+
+CudaGenerator::CudaGenerator()
+  :  impl_(new CudaGeneratorImpl()) {
+
+}
+
+CudaGenerator::~CudaGenerator() {
+
+}
+
+void CudaGenerator::generate(GPUSimExecutableModel& model) {
+    impl_->generate(model);
+}
+
+CudaGenerator::EntryPointSig CudaGenerator::getEntryPoint() {
+    return impl_->getEntryPoint();
+}
+
+CudaGeneratorImpl::EntryPointSig CudaGeneratorImpl::getEntryPoint() {
+    if (!entry_)
+        throw_gpusim_exception("No entry point set (did you forget to call generate first?)");
+    return entry_;
+}
+
+void CudaGeneratorImpl::generate(GPUSimExecutableModel& model) {
     CudaModule mod;
     std::string entryName = "cuEntryPoint";
 
@@ -169,26 +205,23 @@ void CudaGenerator::generate(GPUSimExecutableModel& model, double h) {
     // load the module
 
     std::string libname = "/tmp/rr_cuda_model.so";
-    Poco::SharedLibrary so;
+
     try {
-        so.load(libname);
+        so_.load(libname);
     } catch(Poco::LibraryLoadException e) {
         throw_gpusim_exception("Cannot load lib: " + e.message());
     }
 
     Log(Logger::LOG_DEBUG) << "Loading symbol " << entryMangled << " in " << libname;
-    if(!so.hasSymbol(entryMangled))
+    if(!so_.hasSymbol(entryMangled))
         throw_gpusim_exception("Lib " + libname + " has no symbol \"" + entryMangled + "\"");
 
     Log(Logger::LOG_TRACE) << "Entering CUDA code";
-    typedef void (*EntryPointSig)(float);
+
     // ensure that the function has the correct signature
     assert(sizeof(float) == RKReal->Sizeof());
-    EntryPointSig entryPoint;
-    entryPoint = (EntryPointSig)so.getSymbol(entryMangled);
 
-    return;
-    entryPoint(h);
+    entry_ = (EntryPointSig)so_.getSymbol(entryMangled);
 
 }
 

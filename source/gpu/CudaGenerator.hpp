@@ -41,13 +41,27 @@ namespace rrgpu
 namespace dom
 {
 
+class CudaGeneratorImpl;
+
 /**
   * @author JKM
   * @brief CUDA generator
+  * @note Uses PIMPL
   */
 class CudaGenerator {
 public:
-    void generate(GPUSimExecutableModel& model, double h);
+    typedef GPUSimExecutableModel::EntryPointSig EntryPointSig;
+
+    CudaGenerator();
+
+    ~CudaGenerator();
+
+    void generate(GPUSimExecutableModel& model);
+
+    EntryPointSig getEntryPoint();
+
+protected:
+    std::unique_ptr<CudaGeneratorImpl> impl_;
 };
 
 } // namespace dom
