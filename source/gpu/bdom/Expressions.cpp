@@ -259,6 +259,12 @@ void TypedefStatement::serialize(Serializer& s) const {
     s << ";" << nl;
 }
 
+// -- BreakStatement --
+
+void BreakStatement::serialize(Serializer& s) const {
+    s << "break;" << nl;
+}
+
 } // namespace dom
 
 } // namespace rrgpu

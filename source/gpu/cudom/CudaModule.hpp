@@ -194,6 +194,17 @@ public:
         setNumBlocks(ExpressionPtr(new ExpressionT(std::move(exp))));
     }
 
+    /// Set the expression for the number of blocks
+    void setNumThreads(ExpressionPtr&& exp) {
+        nthreads_ = std::move(exp);
+    }
+
+    /// Set the expression for the number of blocks
+    template <class ExpressionT>
+    void setNumThreads(ExpressionT&& exp) {
+        setNumThreads(ExpressionPtr(new ExpressionT(std::move(exp))));
+    }
+
     /// Set the expression for the shared memory size
     void setSharedMemSize(ExpressionPtr&& exp) {
         shared_mem_size_ = std::move(exp);

@@ -144,6 +144,141 @@ typedef DomOwningPtr<ForStatement> ForStatementPtr;
 
 /**
  * @author JKM
+ * @brief A label
+ */
+class Label : public Statement {
+public:
+
+    virtual void serialize(Serializer& s) const = 0;
+
+    // TODO: replace with LLVM-style casting
+    static Label* downcast(Statement* s) {
+        auto result = dynamic_cast<Label*>(s);
+        if (!result)
+            throw_gpusim_exception("Downcast failed: incorrect type");
+        return result;
+    }
+
+};
+typedef DomOwningPtr<Label> LabelPtr;
+
+/**
+ * @author JKM
+ * @brief A case label
+ */
+class CaseLabel : public Label {
+public:
+    CaseLabel(ExpressionPtr&& val)
+      : val_(std::move(val)) {}
+
+    /// Copy ctor
+    CaseLabel(const CaseLabel& other)
+      : val_(other.val_->clone()) {}
+
+    const Expression* getValue() const { return val_.get(); }
+
+    virtual void serialize(Serializer& s) const;
+
+    virtual DomOwningPtr<CaseLabel> clone() const {
+        return DomOwningPtr<CaseLabel>(new CaseLabel(*this));
+    }
+
+protected:
+    ExpressionPtr val_;
+};
+typedef DomOwningPtr<CaseLabel> CaseLabelPtr;
+
+/**
+ * @author JKM
+ * @brief A case label
+ */
+class DefaultLabel : public Label {
+public:
+    DefaultLabel() {}
+
+    /// Copy ctor
+    DefaultLabel(const DefaultLabel& other) {}
+
+    virtual void serialize(Serializer& s) const;
+
+    virtual DomOwningPtr<DefaultLabel> clone() const {
+        return DomOwningPtr<DefaultLabel>(new DefaultLabel(*this));
+    }
+};
+typedef DomOwningPtr<DefaultLabel> DefaultLabelPtr;
+
+/**
+ * @author JKM
+ * @brief A statement containing a switch
+ */
+class SwitchStatement : public Statement, public Scope {
+public:
+    /// Empty ctor
+    SwitchStatement(ExpressionPtr&& exp);
+
+    /// Shortcut for constructing an owning pointer
+    static DomOwningPtr<SwitchStatement> make(ExpressionPtr&& exp) {
+        return DomOwningPtr<SwitchStatement>(new SwitchStatement(std::move(exp)));
+    }
+
+    /// Shortcut for inserting into a code block / module
+    static SwitchStatement* insert(StatementContainer& c, ExpressionPtr&& exp) {
+        return downcast(c.addStatement(make(std::move(exp))));
+    }
+
+    /// Shortcut for inserting into a code block / module
+    template <class SwitchExpressionT>
+    static SwitchStatement* insert(StatementContainer& c, SwitchExpressionT&& exp) {
+        return insert(c, ExpressionPtr(new SwitchExpressionT(exp)));
+    }
+
+    /// Shortcut for inserting into a code block / module
+    static SwitchStatement* insert(StatementContainer* c, ExpressionPtr&& exp) {
+        return downcast(c->addStatement(make(std::move(exp))));
+    }
+    Expression* getExpression() const {
+        if (!exp_)
+            throw_gpusim_exception("No switch variable set");
+        return exp_.get();
+    }
+
+    Block& getBody() { return body_; }
+    const Block& getBody() const { return body_; }
+
+    Label* addCase(ExpressionPtr&& val) {
+        return Label::downcast(getBody().addStatement(StatementPtr(new CaseLabel(std::move(val)))));
+    }
+
+    template <class ValueExpressionT>
+    Label* addCase(ValueExpressionT&& val) {
+        return addCase(ExpressionPtr(new ValueExpressionT(std::move(val))));
+    }
+
+    Label* addDefault() {
+        cases_.emplace_back(new DefaultLabel());
+        return cases_.back().get();
+    }
+
+    virtual void serialize(Serializer& s) const;
+
+    // TODO: replace with LLVM-style casting
+    static SwitchStatement* downcast(Statement* s) {
+        auto result = dynamic_cast<SwitchStatement*>(s);
+        if (!result)
+            throw_gpusim_exception("Downcast failed: incorrect type");
+        return result;
+    }
+
+protected:
+    ExpressionPtr exp_ = nullptr;
+    Block body_;
+    typedef std::vector<LabelPtr> Cases;
+    Cases cases_;
+};
+typedef DomOwningPtr<SwitchStatement> SwitchStatementPtr;
+
+/**
+ * @author JKM
  * @brief A function
  */
 class Function : public Block {

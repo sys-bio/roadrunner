@@ -1118,6 +1118,25 @@ protected:
     Type* alias_;
 };
 
+/**
+ * @author JKM
+ * @brief A statement containing a typedef
+ */
+class BreakStatement : public Statement {
+public:
+    /// Ctor for typedef @a target @a alias
+    BreakStatement() {}
+
+    virtual void serialize(Serializer& s) const;
+
+    static BreakStatement* downcast(Statement* s) {
+        BreakStatement* result = dynamic_cast<BreakStatement*>(s);
+        if (!result)
+            throw_gpusim_exception("Not a BreakStatement");
+        return result;
+    }
+};
+
 } // namespace dom
 
 } // namespace rrgpu

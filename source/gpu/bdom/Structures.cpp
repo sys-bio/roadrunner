@@ -68,11 +68,15 @@ void Function::serializeHeader(Serializer& s) const {
     s << ") ";
 }
 
+// -- Module --
+
 void Module::serializeMacros(Serializer& s) const {
     for (Macro* m : getMacros()) {
         m->serialize(s);
     }
 }
+
+// -- ForStatement --
 
 ForStatement::ForStatement() {
 
@@ -90,6 +94,31 @@ void ForStatement::serialize(Serializer& s) const {
     s << "for (" << *getInitExp() << ";" << *getCondExp() << ";" << *getLoopExp() << ") ";
     s << getBody();
 }
+
+// -- CaseLabel --
+
+void CaseLabel::serialize(Serializer& s) const {
+    s << "case " << *getValue() << ":" << nl;
+}
+
+// -- CaseLabel --
+
+void DefaultLabel::serialize(Serializer& s) const {
+    s << "default:" << nl;
+}
+
+// -- SwitchStatement --
+
+SwitchStatement::SwitchStatement(ExpressionPtr&& exp)
+  : exp_(std::move(exp)) {
+
+}
+
+void SwitchStatement::serialize(Serializer& s) const {
+    s << "switch (" << *getExpression() << ")";
+    s << getBody();
+}
+
 
 } // namespace dom
 
