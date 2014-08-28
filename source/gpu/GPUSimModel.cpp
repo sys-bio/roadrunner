@@ -12,7 +12,6 @@
 // == INCLUDES ================================================
 
 #include "GPUSimModel.h"
-#include "GPUSimException.h"
 #include "GPUSimModelGenerator.h"
 #include "rrConfig.h"
 // #include "nullptr.h"
@@ -169,7 +168,7 @@ GPUSimModel::GPUSimModel(std::string const &sbml, unsigned options) {
 
         const std::string& sid = s->getId();
 
-        FloatingSpecies* species = findFloatingSpeciesById(sid);
+        FloatingSpecies* species = getFloatingSpeciesById(sid);
 
         species->setIndex((int)i);
 
@@ -221,8 +220,15 @@ const libsbml::Model* GPUSimModel::getModel() {
     return getDocument()->getModel();
 }
 
-FloatingSpecies* GPUSimModel::findFloatingSpeciesById(const std::string& id) {
+FloatingSpecies* GPUSimModel::getFloatingSpeciesById(const std::string& id) {
     for(FloatingSpecies* s : getFloatingSpecies())
+        if(s->matchId(id))
+            return s;
+    throw_gpusim_exception("No such floating species for id \"" + id + "\"");
+}
+
+const FloatingSpecies* GPUSimModel::getFloatingSpeciesById(const std::string& id) const {
+    for(const FloatingSpecies* s : getFloatingSpecies())
         if(s->matchId(id))
             return s;
     throw_gpusim_exception("No such floating species for id \"" + id + "\"");
@@ -235,11 +241,29 @@ bool GPUSimModel::hasInitialAssignmentRule(const FloatingSpecies* s) {
     return false;
 }
 
-bool GPUSimModel::hasAssignmentRule(const FloatingSpecies* s) {
+bool GPUSimModel::hasAssignmentRule(const FloatingSpecies* s) const {
     for(const ModelRule* r : getRules())
         if (r->isAssignmentRule() && r->contains(s))
             return true;
     return false;
+}
+
+int GPUSimModel::getStateVecComponent(const FloatingSpecies* q) const {
+    int n=0;
+    for(const FloatingSpecies* s : getFloatingSpecies()) {
+        if (s == q) {
+            if (!s->getIsIndependent())
+                throw_gpusim_exception("Floating species \"" + s->getId() + "\" is not independent (hence not part of the state vector)");
+            return n;
+        }
+        if (s->getIsIndependent())
+            ++n;
+    }
+    throw_gpusim_exception("No such floating species \"" + q->getId() + "\"");
+}
+
+GPUSimModel::ReactionSide GPUSimModel::getReactionSide(const Reaction* r, const FloatingSpecies* s) const {
+    return r->getSide(s);
 }
 
 void GPUSimModel::getIds(int types, std::list<std::string> &ids) {

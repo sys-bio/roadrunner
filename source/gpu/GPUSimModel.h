@@ -2,6 +2,12 @@
 
 // * Licensed under the Apache License, Version 2.0; see README
 
+// == FILEDOC =================================================
+
+/** @file GPUSimModel.h
+  * @brief Classes and data structures for representing the model
+**/
+
 /*
  * GPUSimModel.h
  *
@@ -16,6 +22,7 @@
 // == INCLUDES ================================================
 
 #include "rrSelectionRecord.h"
+#include "GPUSimException.h"
 #include "conservation/ConservedMoietyConverter.h"
 #include "conservation/ConservationExtension.h"
 #include "patterns/AccessPtrIterator.hpp"
@@ -52,12 +59,12 @@ public:
     void settId(const std::string& id) { id_ = id; }
     std::string getId() const { return id_; }
     /// Return true if @ref id matches this object's id
-    bool matchId(const std::string& id) { return id_ == id; }
+    bool matchId(const std::string& id) const { return id_ == id; }
 
     void setIsConservedMoiety(bool val) { consrvMoity_ = val; }
     bool getIsConservedMoiety() const { return consrvMoity_; }
 
-    // depreacte? 
+    // deprecate?
     void setIsIndepInitFltSpecies(bool val) { indInitFltSpc_ = val; }
     bool getIsIndepInitFltSpecies() const { return indInitFltSpc_; }
 
@@ -79,6 +86,77 @@ protected:
     bool indInitFltSpc_ = false;
     bool isIndependent_ = true;
     int index_ = 0;
+};
+
+class RR_DECLSPEC ReactionParticipant
+{
+public:
+    enum class ReactionSide {
+        Reactant,
+        Product,
+        Both
+    };
+
+    ReactionParticipant(const FloatingSpecies* spec, ReactionSide side)
+      : spec_(spec), side_(side) {
+        checkSide();
+    }
+
+    void checkSide() {
+        if (side_ == ReactionSide::Both)
+            throw_gpusim_exception("Side 'both' is not supported");
+    }
+
+    const FloatingSpecies* getSpecies() const { return spec_; }
+
+    ReactionSide getSide() const { return side_; }
+
+protected:
+    const FloatingSpecies* spec_ = nullptr;
+    ReactionSide side_;
+};
+
+class RR_DECLSPEC Reaction : public ModelElement
+{
+public:
+    typedef ReactionParticipant::ReactionSide ReactionSide;
+
+    Reaction(const std::string& id)
+      : id_(id) {}
+
+    void settId(const std::string& id) { id_ = id; }
+    std::string getId() const { return id_; }
+    /// Return true if @ref id matches this object's id
+    bool matchId(const std::string& id) { return id_ == id; }
+
+    void addParticipant(const FloatingSpecies* spec, ReactionSide side) {
+        if (isParticipant(spec))
+            throw_gpusim_exception("Floating species \"" + spec->getId() + "\" is already a participant in the reaction");
+        addParticipantForce(spec, side);
+    }
+
+    void addParticipantForce(const FloatingSpecies* spec, ReactionSide side) {
+        part_.emplace_back(new ReactionParticipant(spec, side));
+    }
+
+    bool isParticipant(const FloatingSpecies* spec) const {
+        for (auto const & p : part_)
+            if (p->getSpecies() == spec)
+                return true;
+        return false;
+    }
+
+    ReactionSide getSide(const FloatingSpecies* spec) const {
+        for (auto const & p : part_)
+            if (p->getSpecies() == spec)
+                return p->getSide();
+        throw_gpusim_exception("Floating species \"" + spec->getId() + "\" is not a participant in the reaction");
+    }
+protected:
+    std::string id_;
+    typedef std::unique_ptr<ReactionParticipant> ReactionParticipantPtr;
+    typedef std::vector<ReactionParticipantPtr> Participants;
+    Participants part_;
 };
 
 class RR_DECLSPEC ModelRule : public ModelElement
@@ -194,6 +272,8 @@ public:
     typedef std::vector<ModelElement*> ModelElements;
     typedef std::vector<const ModelElement*> ConstModelElements;
 
+    typedef ReactionParticipant::ReactionSide ReactionSide;
+
     // SBML string ctor
     GPUSimModel(std::string const &sbml, unsigned loadSBMLOptions);
 
@@ -251,12 +331,66 @@ public:
     /// Get the rules included in this model
     const ModelRules& getRules() const { return rules_; }
 
-    /// Find the floating species with the given id; throw if nonexistent
-    FloatingSpecies* findFloatingSpeciesById(const std::string& id);
+    // -- Species --
+
+    /**
+     * @brief Find the floating species with the given id
+     * @note Throws if nonexistent
+     */
+    FloatingSpecies* getFloatingSpeciesById(const std::string& id);
+
+    /**
+     * @brief Find the floating species with the given id
+     * @note Throws if nonexistent
+     */
+    const FloatingSpecies* getFloatingSpeciesById(const std::string& id) const;
 
     bool hasInitialAssignmentRule(const FloatingSpecies* s);
 
-    bool hasAssignmentRule(const FloatingSpecies* s);
+    bool hasAssignmentRule(const FloatingSpecies* s) const;
+
+    /**
+     * @brief Gets the component of the state vector
+     * which represents the conc. of @ref s
+     */
+    int getStateVecComponent(const FloatingSpecies* s) const;
+
+    /**
+     * @details Given a component of the state vector,
+     * determine which side (if any) of the reaction
+     * it is on
+     */
+    ReactionSide getReactionSide(const Reaction* r, const FloatingSpecies* s) const;
+
+    /**
+     * @brief Return 0, 1, or -1 depending on the side of the species
+     * @return 1 if @ref species_id is a product, -1 if @ref species_id
+     * is a reactant, and 0 if @ref species_id does not participate in the
+     * reaction
+     * @details Given a component of the state vector,
+     * determine which side (if any) of the reaction
+     * it is on
+     */
+    int getReactionSideFac(const Reaction* r, const FloatingSpecies* s) const {
+        if (!r->isParticipant(s))
+            return 0;
+        switch (getReactionSide(r, s)) {
+            case ReactionSide::Reactant:
+                return -1;
+            case ReactionSide::Product:
+                return 1;
+            default:
+                assert(0 && "Should not happen");
+        }
+    }
+
+    // -- Reactions --
+
+    /**
+     * @brief Find the floating species with the given id
+     * @note Throws if nonexistent
+     */
+    const Reaction* getReactionById(const std::string& id) const;
 
     /// Returns the document access pointer
     libsbml::SBMLDocument* getDocument();

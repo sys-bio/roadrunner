@@ -31,27 +31,40 @@ namespace rrgpu
 namespace dom
 {
 
+class CudaGeneratorSBML {
+public:
+    /**
+     * @brief
+     * @details Given a component of the state vector,
+     * determine which side (if any) of the reaction
+     * it is on
+     */
+    int getReactionSide(const std::string& species_id);
+};
+
 class CudaGeneratorImpl {
 public:
     typedef CudaGenerator::EntryPointSig EntryPointSig;
 
-    ExpressionPtr generateEvalExp(GPUSimExecutableModel& model, int component);
+    /// Ctor
+    CudaGeneratorImpl(GPUSimExecutableModel& mod)
+      : mod_(mod) {}
+
+    ExpressionPtr generateEvalExp(int component);
 
     ExpressionPtr generateExp(const libsbml::ASTNode* node);
-
-    int getComponent(GPUSimExecutableModel& exemodel, const std::string& speciesRef);
-
-    void generate(GPUSimExecutableModel& model);
+    void generate();
 
     EntryPointSig getEntryPoint();
 
 protected:
     EntryPointSig entry_ = nullptr;
     Poco::SharedLibrary so_;
+    CudaGeneratorSBML sbmlgen_;
+    GPUSimExecutableModel& mod_;
 };
 
-CudaGenerator::CudaGenerator()
-  :  impl_(new CudaGeneratorImpl()) {
+CudaGenerator::CudaGenerator() {
 
 }
 
@@ -60,7 +73,8 @@ CudaGenerator::~CudaGenerator() {
 }
 
 void CudaGenerator::generate(GPUSimExecutableModel& model) {
-    impl_->generate(model);
+    impl_.reset(new CudaGeneratorImpl(model));
+    impl_->generate();
 }
 
 CudaGenerator::EntryPointSig CudaGenerator::getEntryPoint() {
@@ -84,16 +98,15 @@ ExpressionPtr CudaGeneratorImpl::generateExp(const libsbml::ASTNode* node) {
     }
 }
 
-ExpressionPtr CudaGeneratorImpl::generateEvalExp(GPUSimExecutableModel& exemodel, int component) {
-    const libsbml::Model* model = exemodel.getModel();
+ExpressionPtr CudaGeneratorImpl::generateEvalExp(int component) {
+    const libsbml::Model* model = mod_.getModel();
     const libsbml::ListOfReactions* rxns = model->getListOfReactions();
     for (int rxn_i=0; rxn_i<model->getNumReactions(); ++rxn_i) {
         const libsbml::Reaction* rxn = rxns->get(rxn_i);
         int num_reactants = rxn->getNumReactants();
         for (int reactant_i=0; reactant_i<num_reactants; ++reactant_i) {
             std::string species_str = rxn->getReactant(reactant_i)->getSpecies();
-            int reactant_component = getComponent(exemodel, species_str);
-//             std::cerr << "reactant_component = " <<  reactant_component << " for " << species_str <<  "\n";
+            int reactant_component = mod_.getStateVecComponent(mod_.getFloatingSpeciesById(species_str));
             if (reactant_component == component) {
                 const libsbml::KineticLaw* klaw = rxn->getKineticLaw();
                 const libsbml::ASTNode* math = klaw->getMath();
@@ -103,7 +116,7 @@ ExpressionPtr CudaGeneratorImpl::generateEvalExp(GPUSimExecutableModel& exemodel
         int num_products = rxn->getNumProducts();
         for (int product_i=0; product_i<num_products; ++product_i) {
             std::string species_str = rxn->getProduct(product_i)->getSpecies();
-            int product_component = getComponent(exemodel, species_str);
+            int product_component = mod_.getStateVecComponent(mod_.getFloatingSpeciesById(species_str));
             if (product_component == component) {
                 const libsbml::KineticLaw* klaw = rxn->getKineticLaw();
                 const libsbml::ASTNode* math = klaw->getMath();
@@ -115,24 +128,12 @@ ExpressionPtr CudaGeneratorImpl::generateEvalExp(GPUSimExecutableModel& exemodel
     return ExpressionPtr(new LiteralIntExpression(0));
 }
 
-int CudaGeneratorImpl::getComponent(GPUSimExecutableModel& exemodel, const std::string& speciesRef) {
-    const libsbml::Model* model = exemodel.getModel();
-    const libsbml::ListOfSpecies* species = model->getListOfSpecies();
-
-    for (int i=0; i<model->getNumSpecies(); ++i) {
-        if (speciesRef == species->get(i)->getId())
-            return i;
-    }
-
-    throw_gpusim_exception("No such species \"" + speciesRef + "\"");
-}
-
-void CudaGeneratorImpl::generate(GPUSimExecutableModel& model) {
+void CudaGeneratorImpl::generate() {
     CudaModule mod;
     std::string entryName = "cuEntryPoint";
 
     // get the size of the state vector
-    int n = model.getStateVector(NULL);
+    int n = mod_.getStateVector(NULL);
 
     // construct the DOM
 
@@ -288,7 +289,7 @@ void CudaGeneratorImpl::generate(GPUSimExecutableModel& model) {
                     VariableRefExpression(j),
                     MacroExpression(RK_GET_INDEX),
                     LiteralIntExpression(component)))),
-                    generateEvalExp(model, component)))->getExpression());
+                    generateEvalExp(component)))->getExpression());
 
                 component_switch->addBreak();
             }

@@ -294,7 +294,7 @@ std::string GPUSimExecutableModel::getInfo()
 }
 
 int GPUSimExecutableModel::getFloatingSpeciesIndex(const string& id) {
-    return findFloatingSpeciesById(id)->getIndex();
+    return getFloatingSpeciesById(id)->getIndex();
 }
 
 string GPUSimExecutableModel::getFloatingSpeciesId(int index)
