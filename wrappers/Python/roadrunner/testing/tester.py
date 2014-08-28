@@ -866,10 +866,9 @@ def setGetReset(rrInstance, testId):
     print passMsg (errorFlag)
 
 
-def checkJacobian(r, testId):
+def checkJacobian(rrInstance, testId):
     # TODO need to update python 2.x printing
     print string.ljust ("Check " + testId, rpadding),
-    import testfiles
     from roadrunner import Config
     import numpy as n
 
@@ -878,20 +877,14 @@ def checkJacobian(r, testId):
     # max difference between reduced and full
     maxDiff = 2e-10
 
-    # get the name from the file
-
-    fname = readLine()
-
-    r=testfiles.getRoadRunner(fname)
-
     # save the old value
     saved = Config.getValue(Config.ROADRUNNER_JACOBIAN_MODE)
 
     # set to amounts mode
     Config.setValue(Config.ROADRUNNER_JACOBIAN_MODE, Config.ROADRUNNER_JACOBIAN_MODE_AMOUNTS)
 
-    full = r.getFullJacobian()
-    reduced = r.getReducedJacobian()
+    full = rrInstance.getFullJacobian()
+    reduced = rrInstance.getReducedJacobian()
 
     m = n.max(n.abs(reduced-full))
     if (m > maxDiff):
@@ -901,8 +894,8 @@ def checkJacobian(r, testId):
     # set to conc mode
     Config.setValue(Config.ROADRUNNER_JACOBIAN_MODE, Config.ROADRUNNER_JACOBIAN_MODE_CONCENTRATIONS)
 
-    full = r.getFullJacobian()
-    reduced = r.getReducedJacobian()
+    full = rrInstance.getFullJacobian()
+    reduced = rrInstance.getReducedJacobian()
 
     m = n.max(n.abs(reduced-full))
     if (m > maxDiff):
