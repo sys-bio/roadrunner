@@ -35,6 +35,10 @@ class CudaGeneratorImpl {
 public:
     typedef CudaGenerator::EntryPointSig EntryPointSig;
 
+    ExpressionPtr generateEvalExp(GPUSimExecutableModel& model, int component);
+
+    int getComponent(GPUSimExecutableModel& exemodel, const std::string& speciesRef);
+
     void generate(GPUSimExecutableModel& model);
 
     EntryPointSig getEntryPoint();
@@ -65,6 +69,25 @@ CudaGeneratorImpl::EntryPointSig CudaGeneratorImpl::getEntryPoint() {
     if (!entry_)
         throw_gpusim_exception("No entry point set (did you forget to call generate first?)");
     return entry_;
+}
+
+ExpressionPtr CudaGeneratorImpl::generateEvalExp(GPUSimExecutableModel& exemodel, int component) {
+    const libsbml::Model* model = exemodel.getModel();
+    const libsbml::ListOfReactions* rxns = model->getListOfReactions();
+    for (int i=0; i<model->getNumReactions(); ++i) {
+        const libsbml::Reaction* rxn = rxns->get(i);
+        const libsbml::KineticLaw* klaw = rxn->getKineticLaw();
+        const libsbml::ASTNode* math = klaw->getMath();
+    }
+
+    return ExpressionPtr(new LiteralIntExpression(0));
+}
+
+int CudaGeneratorImpl::getComponent(GPUSimExecutableModel& exemodel, const std::string& speciesRef) {
+    const libsbml::Model* model = exemodel.getModel();
+    const libsbml::ListOfSpecies* species = model->getListOfSpecies();
+
+    return 0;
 }
 
 void CudaGeneratorImpl::generate(GPUSimExecutableModel& model) {
@@ -218,16 +241,20 @@ void CudaGeneratorImpl::generate(GPUSimExecutableModel& model) {
 
             SwitchStatement* component_switch = SwitchStatement::insert(update_coef_loop->getBody(), MacroExpression(RK_GET_COMPONENT));
 
-            component_switch->addCase(LiteralIntExpression(0));
+            for (int component=0; component<n; ++component) {
+                component_switch->addCase(LiteralIntExpression(component));
 
-            AssignmentExpression* k_assn =
-                AssignmentExpression::downcast(ExpressionStatement::insert(component_switch->getBody(), AssignmentExpression(
-                ArrayIndexExpression(k,
-                MacroExpression(RK_COEF_GET_OFFSET,
-                VariableRefExpression(j),
-                MacroExpression(RK_GET_INDEX),
-                MacroExpression(RK_GET_COMPONENT))),
-                LiteralIntExpression(0)))->getExpression());
+                AssignmentExpression* k_assn =
+                    AssignmentExpression::downcast(ExpressionStatement::insert(component_switch->getBody(), AssignmentExpression(
+                    ExpressionPtr(new ArrayIndexExpression(k,
+                    MacroExpression(RK_COEF_GET_OFFSET,
+                    VariableRefExpression(j),
+                    MacroExpression(RK_GET_INDEX),
+                    LiteralIntExpression(component)))),
+                    generateEvalExp(model, component)))->getExpression());
+
+                component_switch->addBreak();
+            }
         }
     }
 

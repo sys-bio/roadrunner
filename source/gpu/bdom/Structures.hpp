@@ -259,6 +259,10 @@ public:
         return cases_.back().get();
     }
 
+    void addBreak() {
+        getBody().addStatement(StatementPtr(new BreakStatement()));
+    }
+
     virtual void serialize(Serializer& s) const;
 
     // TODO: replace with LLVM-style casting
