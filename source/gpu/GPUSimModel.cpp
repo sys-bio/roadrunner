@@ -217,6 +217,10 @@ libsbml::SBMLDocument* GPUSimModel::getDocument() {
         throw_gpusim_exception("Missing SBML document");
 }
 
+const libsbml::Model* GPUSimModel::getModel() {
+    return getDocument()->getModel();
+}
+
 FloatingSpecies* GPUSimModel::findFloatingSpeciesById(const std::string& id) {
     for(FloatingSpecies* s : getFloatingSpecies())
         if(s->matchId(id))

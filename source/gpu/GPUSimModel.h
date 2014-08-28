@@ -258,9 +258,12 @@ public:
 
     bool hasAssignmentRule(const FloatingSpecies* s);
 
-protected:
     /// Returns the document access pointer
     libsbml::SBMLDocument* getDocument();
+
+    const libsbml::Model* getModel();
+
+protected:
 
     /// Returns the document access pointer
     const libsbml::SBMLDocument* getDocument() const;
