@@ -102,6 +102,12 @@ void ReferenceExpression::serialize(Serializer& s) const {
     s << "&" << *getOperand();
 }
 
+// -- UnaryMinusExpression --
+
+void UnaryMinusExpression::serialize(Serializer& s) const {
+    s << "-" << *getOperand();
+}
+
 // -- AssignmentExpression --
 
 void AssignmentExpression::serialize(Serializer& s) const {

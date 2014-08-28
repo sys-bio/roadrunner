@@ -600,6 +600,31 @@ public:
 
 /**
  * @author JKM
+ * @brief Take reference (usu. address of) of an expression
+ * @details e.g. &obj
+ */
+class UnaryMinusExpression : public UnaryExpression {
+public:
+    using UnaryExpression::UnaryExpression;
+
+    template <class OperandExpression, class = typename std::enable_if<!std::is_lvalue_reference<OperandExpression>::value>::type, class = typename std::enable_if<!std::is_same<OperandExpression, UnaryMinusExpression >::value>::type >
+    UnaryMinusExpression(OperandExpression&& operand)
+      : UnaryExpression(ExpressionPtr(new OperandExpression(std::move(operand)))) {
+    }
+
+    /// Copy ctor
+    UnaryMinusExpression(const UnaryMinusExpression& other)
+      : UnaryExpression(other) {}
+
+    virtual void serialize(Serializer& s) const;
+
+    virtual ExpressionPtr clone() const {
+        return ExpressionPtr(new UnaryMinusExpression(*this));
+    }
+};
+
+/**
+ * @author JKM
  * @brief Pre-increment operator
  * @details e.g. ++j
  */

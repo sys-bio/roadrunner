@@ -37,6 +37,8 @@ public:
 
     ExpressionPtr generateEvalExp(GPUSimExecutableModel& model, int component);
 
+    ExpressionPtr generateExp(const libsbml::ASTNode* node);
+
     int getComponent(GPUSimExecutableModel& exemodel, const std::string& speciesRef);
 
     void generate(GPUSimExecutableModel& model);
@@ -71,13 +73,43 @@ CudaGeneratorImpl::EntryPointSig CudaGeneratorImpl::getEntryPoint() {
     return entry_;
 }
 
+ExpressionPtr CudaGeneratorImpl::generateExp(const libsbml::ASTNode* node) {
+    switch (node->getType()) {
+        case libsbml::AST_TIMES:
+            return ExpressionPtr(new ProductExpression(generateExp(node->getChild(0)), generateExp(node->getChild(1))));
+        case libsbml::AST_NAME:
+            return ExpressionPtr(new LiteralIntExpression(12345));
+        default:
+            return ExpressionPtr(new LiteralIntExpression(0));
+    }
+}
+
 ExpressionPtr CudaGeneratorImpl::generateEvalExp(GPUSimExecutableModel& exemodel, int component) {
     const libsbml::Model* model = exemodel.getModel();
     const libsbml::ListOfReactions* rxns = model->getListOfReactions();
-    for (int i=0; i<model->getNumReactions(); ++i) {
-        const libsbml::Reaction* rxn = rxns->get(i);
-        const libsbml::KineticLaw* klaw = rxn->getKineticLaw();
-        const libsbml::ASTNode* math = klaw->getMath();
+    for (int rxn_i=0; rxn_i<model->getNumReactions(); ++rxn_i) {
+        const libsbml::Reaction* rxn = rxns->get(rxn_i);
+        int num_reactants = rxn->getNumReactants();
+        for (int reactant_i=0; reactant_i<num_reactants; ++reactant_i) {
+            std::string species_str = rxn->getReactant(reactant_i)->getSpecies();
+            int reactant_component = getComponent(exemodel, species_str);
+//             std::cerr << "reactant_component = " <<  reactant_component << " for " << species_str <<  "\n";
+            if (reactant_component == component) {
+                const libsbml::KineticLaw* klaw = rxn->getKineticLaw();
+                const libsbml::ASTNode* math = klaw->getMath();
+                return generateExp(math);
+            }
+        }
+        int num_products = rxn->getNumProducts();
+        for (int product_i=0; product_i<num_products; ++product_i) {
+            std::string species_str = rxn->getProduct(product_i)->getSpecies();
+            int product_component = getComponent(exemodel, species_str);
+            if (product_component == component) {
+                const libsbml::KineticLaw* klaw = rxn->getKineticLaw();
+                const libsbml::ASTNode* math = klaw->getMath();
+                return ExpressionPtr(new UnaryMinusExpression(generateExp(math)));
+            }
+        }
     }
 
     return ExpressionPtr(new LiteralIntExpression(0));
@@ -87,7 +119,12 @@ int CudaGeneratorImpl::getComponent(GPUSimExecutableModel& exemodel, const std::
     const libsbml::Model* model = exemodel.getModel();
     const libsbml::ListOfSpecies* species = model->getListOfSpecies();
 
-    return 0;
+    for (int i=0; i<model->getNumSpecies(); ++i) {
+        if (speciesRef == species->get(i)->getId())
+            return i;
+    }
+
+    throw_gpusim_exception("No such species \"" + speciesRef + "\"");
 }
 
 void CudaGeneratorImpl::generate(GPUSimExecutableModel& model) {
