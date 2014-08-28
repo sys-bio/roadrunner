@@ -65,7 +65,7 @@ int main(int argc, char* argv[])
      fstream aFile(reportFile.c_str(), ios::out);
     if(!aFile)
     {
-        cerr<<"Failed opening report file: "<<reportFile<<" in rrc_api testing executable.\n";
+        cerr<<"Failed opening report file: "<< reportFile <<" in rrc_api testing executable.\n";
         return false;
     }
 
@@ -80,8 +80,8 @@ int main(int argc, char* argv[])
 
     if(args.Suites.find('B') != std::string::npos)
     {
-        clog<<"Running Suite TEST_MODEL_1\n";
-        runner1.RunTestsIf(Test::GetTestList(), "TEST_MODEL_1",          True(), 0);
+        clog<<"Running Suite TEST_MODELS\n";
+        runner1.RunTestsIf(Test::GetTestList(), "TEST_MODELS",          True(), 0);
     }
 
     if(args.Suites.find('C') != std::string::npos)
@@ -100,14 +100,14 @@ int main(int argc, char* argv[])
     {
 
         clog << "Running Suite SBML_l2v4\n";
-        clog << "ModelPath " << gTSModelsPath;
+        clog << "ModelPath " << gTSModelsPath << endl;
         runner1.RunTestsIf(Test::GetTestList(), "SBML_TEST_SUITE", True(), 0);
     }
     if (args.Suites.find('F') != std::string::npos)
     {
 
         clog << "Running Suite Valgrind SBML_TEST_SUITE_VG1\n";
-        clog << "ModelPath " << gTSModelsPath;
+        clog << "ModelPath " << gTSModelsPath<< endl;
         runner1.RunTestsIf(Test::GetTestList(), "SBML_TEST_SUITE_VG1", True(),
                 0);
     }
@@ -116,7 +116,7 @@ int main(int argc, char* argv[])
     {
 
         clog << "Running Suite Valgrind SBML_TEST_SUITE_VG2\n";
-        clog << "ModelPath " << gTSModelsPath;
+        clog << "ModelPath " << gTSModelsPath << endl;
         runner1.RunTestsIf(Test::GetTestList(), "SBML_TEST_SUITE_VG2", True(),
                 0);
     }
@@ -125,7 +125,7 @@ int main(int argc, char* argv[])
     {
 
         clog << "Running Suite Valgrind SBML_TEST_SUITE_RATE_RULES\n";
-        clog << "ModelPath " << gTSModelsPath;
+        clog << "ModelPath " << gTSModelsPath << endl;
         runner1.RunTestsIf(Test::GetTestList(), "SBML_TEST_SUITE_RATE_RULES", True(),
                 0);
     }
@@ -134,7 +134,7 @@ int main(int argc, char* argv[])
     {
 
         clog << "Running Suite Valgrind SBML_TEST_SUITE_EVENTS\n";
-        clog << "ModelPath " << gTSModelsPath;
+        clog << "ModelPath " << gTSModelsPath << endl;
         runner1.RunTestsIf(Test::GetTestList(), "SBML_TEST_SUITE_EVENTS", True(),
                 0);
     }
@@ -142,7 +142,8 @@ int main(int argc, char* argv[])
     if (args.Suites.find('J') != std::string::npos)
     {
         clog << "Running Suite SBML_TEST_SUITE_C_FAILS\n";
-        clog << "ModelPath " << gTSModelsPath;
+        clog << "ModelPath " << gTSModelsPath << endl;
+        clog << "NOTE:  all of the following tests *should* fail!" << endl;
         runner1.RunTestsIf(Test::GetTestList(), "SBML_TEST_SUITE_C_FAIL", True(),
                 0);
     }
@@ -150,7 +151,7 @@ int main(int argc, char* argv[])
     if (args.Suites.find('K') != std::string::npos)
     {
         clog << "Running Suite SBML_TEST_SUITE_LONGTIME\n";
-        clog << "ModelPath " << gTSModelsPath;
+        clog << "ModelPath " << gTSModelsPath<< endl;
         runner1.RunTestsIf(Test::GetTestList(), "SBML_TEST_SUITE_LONGTIME", True(),
                            0);
     }
@@ -159,8 +160,17 @@ int main(int argc, char* argv[])
     if (args.Suites.find('L') != std::string::npos)
     {
         clog << "Running Suite SBML_TEST_SUITE_COMP\n";
-        clog << "ModelPath " << gTSModelsPath;
+        clog << "ModelPath " << gTSModelsPath<< endl;
         runner1.RunTestsIf(Test::GetTestList(), "SBML_TEST_SUITE_COMP", True(), 0);
+    }
+
+
+    // composite model package.
+    if (args.Suites.find('M') != std::string::npos)
+    {
+        clog << "Running Suite SBML_TEST_SUITE_FBC\n";
+        clog << "ModelPath " << gTSModelsPath << endl;
+        runner1.RunTestsIf(Test::GetTestList(), "SBML_TEST_SUITE_FBC", True(), 0);
     }
 
 
@@ -174,12 +184,15 @@ bool setup(Args& args)
     string thisExeFolder = getCurrentExeFolder();
     clog<<"RoadRunner bin location is: "<<thisExeFolder<<endl;
 
-    //Assume(!) this is the bin folder of roadrunner install
     gRRInstallFolder     = getParentFolder(thisExeFolder);
     gDebug               = args.EnableLogging;
     gTSModelsPath        = args.ModelsFilePath;
     gTempFolder          = args.TempDataFolder;
-    gTestDataFolder      = joinPath(gRRInstallFolder, "testing");
+    gTestDataFolder      = args.TestDataFolder;
+    if (gTestDataFolder == "") {
+      //If not set by the user, assume this is the bin folder of roadrunner install
+      gTestDataFolder      = joinPath(gRRInstallFolder, "testing");
+    }
 
     gCompiler = args.compiler;
     Log(Logger::LOG_NOTICE) << "Using compiler " << gCompiler;
@@ -187,8 +200,8 @@ bool setup(Args& args)
 
     if(args.Suites.size() == 0)
     {
-        //Run all
-        args.Suites = "ABCDE";
+        //Run all the non-duplicated tests.
+        args.Suites = "ABCDEJ";
     }
 
     setInstallFolder(gRRInstallFolder.c_str());
@@ -211,7 +224,7 @@ bool setup(Args& args)
 void ProcessCommandLineArguments(int argc, char* argv[], Args& args)
 {
     char c;
-    while ((c = GetOptions(argc, argv, ("m:r:t:vs:c:"))) != -1)
+    while ((c = GetOptions(argc, argv, ("m:r:t:vs:c:i:"))) != -1)
     {
         switch (c)
         {
@@ -221,6 +234,7 @@ void ProcessCommandLineArguments(int argc, char* argv[], Args& args)
             case ('v'): args.EnableLogging      = true;     break;
             case ('s'): args.Suites             = rrOptArg; break;
             case ('c'): args.compiler           = rrOptArg; break;
+            case ('i'): args.TestDataFolder     = rrOptArg; break;
             case ('?'): cout << Usage(argv[0]) << endl;     break;
             default:
             {

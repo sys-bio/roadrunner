@@ -4,6 +4,7 @@ set(target rr)
 add_executable(${target} 
 main.cpp 
 Args.cpp
+Args.h
 )
 
 add_definitions(
