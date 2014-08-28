@@ -30,22 +30,6 @@ rpadding = 45
 sbmlStr = ''
 JarnacStr = ''
 
-def defaultTestFilePath():
-    """
-    get the full path of the default data file
-    """
-    me = os.path.realpath(__file__)
-    base = os.path.split(me)[0]
-    testfile = os.path.join(base, 'results_roadRunnerTest_1.txt')
-
-    if os.path.isfile(testfile):
-        return testfile
-    else:
-        raise Exception('instalation error, test file, ' + testfile + ' does not exist')
-
-
-
-
 # --------------------------------------------------------------------------
 # SUPPORT ROUTINES
 # --------------------------------------------------------------------------
@@ -100,17 +84,6 @@ def getJarnacStr ():
         JarnacStr = JarnacStr + line
         line = fHandle.readline()
     return JarnacStr
-
-def loadSBMLModelFromTestFile ():
-    testId = jumpToNextTest()
-    if testId == '[SBML]':
-        return getSBMLStr ()
-
-
-def loadJarnacModelFromTestFile ():
-    testId = jumpToNextTest ()
-    if testId == '[JARNAC]':
-        return getJarnacStr ()
 
 # ------------------------------------------------------------------------
 # TESTS START HERE
@@ -1019,8 +992,15 @@ def runTester (testDir=None):
 
         # set the globals, these should be class instance vars...
         fHandle = open (file, 'r')
-        sbmlStr = loadSBMLModelFromTestFile ()
-        JarnacStr = loadJarnacModelFromTestFile ()
+        testId = jumpToNextTest()
+
+        if testId == '[SBML]':
+            sbmlStr = getSBMLStr ()
+            testId = jumpToNextTest()
+        
+        if testId == '[JARNAC]':
+            JarnacStr = getJarnacStr ()
+            testId = jumpToNextTest()
 
         print "\n", "Info:"+ "\n"
 
@@ -1034,7 +1014,6 @@ def runTester (testDir=None):
         print
 
         # Load any initialization actions
-        testId = jumpToNextTest()
         if testId == '[INITIALIZATION]':
             testId = jumpToNextTest ()
             while testId != '[END_INITIALIZATION]':
@@ -1044,6 +1023,7 @@ def runTester (testDir=None):
                 else:
                     print 'No initialization function found for ' + testId
                 testId = jumpToNextTest()
+            testId = jumpToNextTest()
 
         # Load the model into RoadRunner
         if rrInstance.load(sbmlStr) == False:
@@ -1052,7 +1032,6 @@ def runTester (testDir=None):
             raise
 
         # Now start the tests proper
-        testId = jumpToNextTest()
         if testId == '[START_TESTS]':
             testId = jumpToNextTest()
             while testId != '[END_TESTS]':
