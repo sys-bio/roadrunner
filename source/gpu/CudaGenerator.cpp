@@ -341,6 +341,10 @@ void CudaGeneratorImpl::generate() {
         entry->addStatement(ExpressionPtr(new FunctionCallExpression(mod.getCudaDeviceSynchronize())));
     }
 
+    auto generate_finish = std::chrono::high_resolution_clock::now();
+
+    Log(Logger::LOG_INFORMATION) << "Generating model DOM took " << std::chrono::duration_cast<std::chrono::milliseconds>(generate_finish - generate_start).count() << " ms";
+
     auto serialize_start = std::chrono::high_resolution_clock::now();
 
     // serialize the module to a document
@@ -349,6 +353,10 @@ void CudaGeneratorImpl::generate() {
         Serializer s("/tmp/rr_cuda_model.cu");
         mod.serialize(s);
     }
+
+    auto serialize_finish = std::chrono::high_resolution_clock::now();
+
+    Log(Logger::LOG_INFORMATION) << "Serializing model took " << std::chrono::duration_cast<std::chrono::milliseconds>(serialize_finish - serialize_start).count() << " ms";
 
     auto compile_start = std::chrono::high_resolution_clock::now();
 
@@ -392,6 +400,10 @@ void CudaGeneratorImpl::generate() {
     while(entryMangled.back() == '\n' && entryMangled.size())
         entryMangled = std::string(entryMangled,0,entryMangled.size()-1);
 
+    auto compile_finish = std::chrono::high_resolution_clock::now();
+
+    Log(Logger::LOG_INFORMATION) << "Compiling model took " << std::chrono::duration_cast<std::chrono::milliseconds>(compile_finish - compile_start).count() << " ms";
+
     auto load_start = std::chrono::high_resolution_clock::now();
 
     // load the module
@@ -414,6 +426,10 @@ void CudaGeneratorImpl::generate() {
     assert(sizeof(float) == RKReal->Sizeof());
 
     entry_ = (EntryPointSig)so_.getSymbol(entryMangled);
+
+    auto load_finish = std::chrono::high_resolution_clock::now();
+
+    Log(Logger::LOG_INFORMATION) << "Loading model took " << std::chrono::duration_cast<std::chrono::milliseconds>(load_finish - load_start).count() << " ms";
 
 }
 
