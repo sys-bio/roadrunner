@@ -5,7 +5,7 @@ set(target run_test_suite)
 
 set(tests
     Suite_Core_Tests
-    Suite_TestModel_1
+    Suite_TestModel
     Suite_SBML_Tests
     Suite_NOM_Tests
     Suite_LibStruct_Tests

@@ -5,6 +5,10 @@
 #include "UnitTest++.h"
 #include "rrc_api.h"
 #include "src/TestUtils.h"
+#include "Suite_TestModel.h"
+
+#include "Poco/Path.h"
+#include "Poco/Glob.h"
 
 //using..
 using namespace std;
@@ -13,30 +17,87 @@ using namespace ls;
 using namespace rrc;
 using namespace rr;
 
-using rr::joinPath;
-using rr::fileExists;
-
-extern string   gTempFolder;
-extern string   gTestDataFolder;
+extern string gTempFolder;
+extern string gTestDataFolder;
 extern string gCompiler;
 
 //This tests is mimicking the Python tests
-SUITE(TEST_MODEL_1)
+SUITE(TEST_MODEL)
 {
-string TestDataFileName     = "Test_1.dat";
-IniFile iniFile;
-string TestModelFileName;
-RRHandle gRR = NULL;
+    // the current test data file that the test suite is using.
+    string TestDataFileName;
+
+    // the current ini file that the test suite is using.
+    IniFile iniFile;
+
+    // global test model file name (pulled from dat file).
+    string TestModelFileName;
+
+    // global RoadRunner ptr
+    RRHandle gRR = NULL;
+
+    std::set<std::string> getTestFiles(const std::string& dir)
+    {
+        Poco::Path path;
+
+        if(dir.length() == 0)
+        {
+            // default testing dir
+            // path of current prog
+            string prog = rr::getCurrentExeFolder();
+
+            Log(Logger::LOG_NOTICE) << "prog: " << prog;
+
+            path = Poco::Path(prog);
+
+            Log(Logger::LOG_NOTICE) << "path: " << path.toString();
+
+            path.makeParent();
+
+
+            Log(Logger::LOG_NOTICE) << "popdir: " << path.toString();
+
+            path.pushDirectory("testing");
+
+            path.makeAbsolute();
+
+            Log(Logger::LOG_NOTICE) << "Looking in " << path.toString() << " for test files";
+        }
+        else
+        {
+            path = Poco::Path(dir);
+
+            path.makeAbsolute();
+
+            Log(Logger::LOG_NOTICE) << "Looking in " << path.toString() << " for test files";
+        }
+
+        path.setFileName("Test*.dat");
+
+        std::set<std::string> files;
+
+        Poco::Glob::glob(path, files);
+
+        return files;
+    }
+
+    void setTestFile(const std::string& filePath)
+    {
+        TestDataFileName = filePath;
+    }
 
     TEST(DATA_FILES)
     {
-        gRR                         = createRRInstanceEx(gTempFolder.c_str(), gCompiler.c_str());
-        string testDataFileName     = joinPath(gTestDataFolder, TestDataFileName);
-        clog<<"Checking file: "<<testDataFileName<<endl;
-        CHECK(fileExists(testDataFileName));
-        CHECK(iniFile.Load(testDataFileName));
+        Log(Logger::LOG_NOTICE) << "Running Test Suite TEST_MODEL on " << TestDataFileName;
 
-        clog<<"Loaded test data from file: "<< testDataFileName;
+        gRR = createRRInstanceEx(gTempFolder.c_str(), gCompiler.c_str());
+
+        // need to re-assign it, Load does not clear old data.;
+        iniFile.Clear();
+
+        CHECK(fileExists(TestDataFileName));
+        CHECK(iniFile.Load(TestDataFileName));
+
         if(iniFile.GetSection("SBML_FILES"))
         {
             IniSection* sbml = iniFile.GetSection("SBML_FILES");

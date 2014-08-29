@@ -11,6 +11,8 @@
 #include "rrRoadRunner.h"
 #include "rrConfig.h"
 
+#include "Suite_TestModel.h"
+
 using namespace std;
 using namespace rr;
 using namespace rrc;
@@ -80,8 +82,15 @@ int main(int argc, char* argv[])
 
     if(args.Suites.find('B') != std::string::npos)
     {
-        clog<<"Running Suite TEST_MODEL_1\n";
-        runner1.RunTestsIf(Test::GetTestList(), "TEST_MODEL_1",          True(), 0);
+        // run the test model test over multiple data files.
+        std::set<string> files = SuiteTEST_MODEL::getTestFiles();
+
+        for (std::set<string>::const_iterator i = files.begin();
+                i != files.end(); ++i)
+        {
+            SuiteTEST_MODEL::setTestFile(*i);
+            runner1.RunTestsIf(Test::GetTestList(), "TEST_MODEL", True(), 0);
+        }
     }
 
     if(args.Suites.find('C') != std::string::npos)
