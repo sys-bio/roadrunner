@@ -84,8 +84,6 @@ if(RR_BUILD_STATIC)
 elseif(RR_BUILD_SHARED_CORE)
     target_link_libraries ( ${target}
         roadrunner
-        rr-libstruct-static
-        nleq-static
         sbml
         lapack
         blas
