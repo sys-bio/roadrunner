@@ -1,3 +1,10 @@
+/*
+ * GPUSimIntegrator.cpp
+ *
+ *  Created on: Aug 13, 2014
+ *      Author: JKM
+ */
+
 #pragma hdrstop
 #include "GPUSimIntegrator.h"
 #include "GPUSimIntegratorInt.h"
