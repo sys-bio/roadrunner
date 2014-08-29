@@ -136,12 +136,12 @@ GPUSimModel::GPUSimModel(std::string const &sbml, unsigned options) {
 
         // add reactants
         for (uint i_react=0; i_react < sbmlrxn->getNumReactants(); ++i_react) {
-            r->addReactant(getFloatingSpeciesById(sbmlrxn->getReactant(i_react)->getId()));
+            r->addReactant(getFloatingSpeciesById(sbmlrxn->getReactant(i_react)->getSpecies()));
         }
 
         // add products
         for (uint i_prod=0; i_prod < sbmlrxn->getNumProducts(); ++i_prod) {
-            r->addProduct(getFloatingSpeciesById(sbmlrxn->getProduct(i_prod)->getId()));
+            r->addProduct(getFloatingSpeciesById(sbmlrxn->getProduct(i_prod)->getSpecies()));
         }
     }
 
