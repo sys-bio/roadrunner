@@ -4,18 +4,21 @@ PROJECT(RR_C_API_Tests)
 set(target run_test_suite)
 
 set(tests
-    Suite_Core_Tests
-    Suite_TestModel
-    Suite_SBML_Tests
-    Suite_NOM_Tests
-    Suite_LibStruct_Tests
+    Suite_Core_Tests.cpp
+    Suite_TestModel.cpp
+    Suite_SBML_Tests.cpp
+    Suite_NOM_Tests.cpp
+    Suite_LibStruct_Tests.cpp
     )
 
 add_executable( ${target}
     main.cpp
     src/Args.cpp
-    src/TestUtils
-    src/rrSBMLTestSuiteSimulation_CAPI
+    src/TestUtils.cpp
+    src/rrSBMLTestSuiteSimulation_CAPI.cpp
+    src/Args.h
+    src/TestUtils.h
+    src/rrSBMLTestSuiteSimulation_CAPI.h
     ${tests}
     )
 

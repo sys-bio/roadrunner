@@ -58,21 +58,17 @@ SUITE(TEST_MODEL)
             Log(Logger::LOG_NOTICE) << "popdir: " << path.toString();
 
             path.pushDirectory("testing");
-
-            path.makeAbsolute();
-
-            Log(Logger::LOG_NOTICE) << "Looking in " << path.toString() << " for test files";
         }
         else
         {
-            path = Poco::Path(dir);
-
-            path.makeAbsolute();
-
-            Log(Logger::LOG_NOTICE) << "Looking in " << path.toString() << " for test files";
+            path = Poco::Path(dir + "\\");
         }
 
-        path.setFileName("Test*.dat");
+        path.makeAbsolute();
+
+        Log(Logger::LOG_NOTICE) << "Looking in " << path.toString() << " for test files";
+
+        path.setFileName("*.dat");
 
         std::set<std::string> files;
 
@@ -127,9 +123,9 @@ SUITE(TEST_MODEL)
         IniSection* aSection = iniFile.GetSection("Set Steady State Selection List");
         if(!aSection || !gRR)
         {
-            CHECK(false);
             return;
         }
+        clog<< endl << "==== SET_STEADY_STATE_SELECTION_LIST ====" << endl << endl;
 
         IniKey* aKey = aSection->GetKey("list");
         if(!aKey)
@@ -147,9 +143,9 @@ SUITE(TEST_MODEL)
         IniSection* aSection = iniFile.GetSection("Get Steady State Selection List");
         if(!aSection || !gRR)
         {
-            CHECK(false);
             return;
         }
+        clog<< endl << "==== GET_STEADY_STATE_SELECTION_LIST ====" << endl << endl;
 
         IniKey* aKey = aSection->GetKey("list");
         if(!aKey)
@@ -189,9 +185,9 @@ SUITE(TEST_MODEL)
         IniSection* aSection = iniFile.GetSection("Species Concentrations");
         if(!aSection || !gRR)
         {
-            CHECK(false);
             return;
         }
+        clog<< endl << "==== SPECIES_CONCENTRATIONS ====" << endl << endl;
 
         for(int i = 0 ; i < aSection->KeyCount(); i++)
         {
@@ -220,9 +216,9 @@ SUITE(TEST_MODEL)
         IniSection* aSection = iniFile.GetSection("Get Species Initial Concentrations");
         if(!aSection || !gRR)
         {
-            CHECK(false);
             return;
         }
+        clog<< endl << "==== GET_SPECIES_INITIAL_CONCENTRATIONS ====" << endl << endl;
 
         for(int i = 0 ; i < aSection->KeyCount(); i++)
         {
@@ -248,9 +244,9 @@ SUITE(TEST_MODEL)
         IniSection* aSection = iniFile.GetSection("Get Species Initial Concentrations By Index");
         if(!aSection || !gRR)
         {
-            CHECK(false);
             return;
         }
+        clog<< endl << "==== GET_SPECIES_INITIAL_CONCENTRATION_BY_INDEX ====" << endl << endl;
 
         RRStringArray *arr = getFloatingSpeciesIds(gRR);
         for(int i = 0 ; i < aSection->KeyCount(); i++)
@@ -277,9 +273,9 @@ SUITE(TEST_MODEL)
         IniSection* aSection = iniFile.GetSection("Set Species Initial Concentrations By Index");
         if(!aSection || !gRR)
         {
-            CHECK(false);
             return;
         }
+        clog<< endl << "==== SET_SPECIES_INITIAL_CONCENTRATION_BY_INDEX ====" << endl << endl;
 
         RRStringArray *arr = getFloatingSpeciesIds(gRR);
         for(int i = 0 ; i < aSection->KeyCount(); i++)
@@ -315,9 +311,9 @@ SUITE(TEST_MODEL)
         IniSection* aSection = iniFile.GetSection("Set Species Initial Concentrations");
         if(!aSection || !gRR)
         {
-            CHECK(false);
             return;
         }
+        clog<< endl << "==== SET_SPECIES_INITIAL_CONCENTRATIONS ====" << endl << endl;
 
         for(int i = 0 ; i < aSection->KeyCount(); i++)
         {
@@ -353,9 +349,9 @@ SUITE(TEST_MODEL)
         IniSection* aSection = iniFile.GetSection("Fluxes");
         if(!aSection || !gRR)
         {
-            CHECK(false);
             return;
         }
+        clog<< endl << "==== FLUXES ====" << endl << endl;
 
         for(int i = 0 ; i < aSection->KeyCount(); i++)
         {
@@ -380,9 +376,9 @@ SUITE(TEST_MODEL)
         IniSection* aSection = iniFile.GetSection("Full Jacobian");
         if(!aSection)
         {
-            CHECK(false);
             return;
         }
+        clog<< endl << "==== FULL_JACOBIAN ====" << endl << endl;
 
         RRDoubleMatrixPtr       jActual     = getFullJacobian(gRR);
         ls::DoubleMatrix     jRef        = getDoubleMatrixFromString(aSection->GetNonKeysAsString());
@@ -410,9 +406,9 @@ SUITE(TEST_MODEL)
         IniSection* aSection = iniFile.GetSection("Individual EigenValues");
         if(!aSection)
         {
-            CHECK(false);
             return;
         }
+        clog<< endl << "==== INDIVIDUAL_EIGENVALUES ====" << endl << endl;
 
         for(int i = 0 ; i < aSection->KeyCount(); i++)
         {
@@ -429,7 +425,7 @@ SUITE(TEST_MODEL)
             }
 
             clog<<"EigenValue "<<i<<": "<<val<<endl;
-            CHECK_CLOSE(aKey->AsFloat(), val, 1e-6);
+            CHECK_CLOSE(aKey->AsFloat(), val, 1e-5);
         }
     }
 
@@ -444,9 +440,9 @@ SUITE(TEST_MODEL)
         //Read in the reference data, from the ini file
         if(!aSection || !gRR)
         {
-            CHECK(false);
             return;
         }
+        clog<< endl << "==== GET_EIGENVALUE_MATRIX ====" << endl << endl;
 
         ls::DoubleMatrix     ref = getDoubleMatrixFromString(aSection->GetNonKeysAsString());
 
@@ -476,7 +472,7 @@ SUITE(TEST_MODEL)
             {
                 CHECK(false);
             }
-            CHECK_CLOSE(ref(i,0), val, 1e-6);
+            CHECK_CLOSE(ref(i,0), val, 1e-5);
 
         }
         freeMatrix(matrix);
@@ -493,9 +489,9 @@ SUITE(TEST_MODEL)
         IniSection* aSection = iniFile.GetSection("Stoichiometry Matrix");
         if(!aSection || !gRR)
         {
-            CHECK(false);
             return;
         }
+        clog<< endl << "==== STOICHIOMETRY_MATRIX ====" << endl << endl;
 
         ls::DoubleMatrix     ref         = getDoubleMatrixFromString(aSection->GetNonKeysAsString());
 
@@ -532,16 +528,15 @@ SUITE(TEST_MODEL)
 
     TEST(LINK_MATRIX)
     {
-        clog<<"\n==== LINK_MATRIX ====\n\n";
         CHECK(gRR!=NULL);
 
         //Read in the reference data, from the ini file
         IniSection* aSection = iniFile.GetSection("Link Matrix");
         if(!aSection || !gRR)
         {
-            CHECK(false);
             return;
         }
+        clog<< endl << "==== LINK_MATRIX ====" << endl << endl;
 
            ls::DoubleMatrix     ref         = getDoubleMatrixFromString(aSection->GetNonKeysAsString());
 
@@ -578,16 +573,15 @@ SUITE(TEST_MODEL)
 
     TEST(UNSCALED_ELASTICITY_MATRIX)
     {
-        clog<<"\n==== UNSCALED_ELASTICITY_MATRIX ====\n\n";
         CHECK(gRR!=NULL);
 
         //Read in the reference data, from the ini file
         IniSection* aSection = iniFile.GetSection("Unscaled Elasticity Matrix");
         if(!aSection || !gRR)
         {
-            CHECK(false);
             return;
         }
+        clog<<"\n==== UNSCALED_ELASTICITY_MATRIX ====\n\n";
 
            ls::DoubleMatrix     ref         = getDoubleMatrixFromString(aSection->GetNonKeysAsString());
 
@@ -624,16 +618,15 @@ SUITE(TEST_MODEL)
 
     TEST(SCALED_ELASTICITY_MATRIX)
     {
-        clog<<"\n==== SCALED_ELASTICITY_MATRIX ====\n\n";
         CHECK(gRR!=NULL);
 
         //Read in the reference data, from the ini file
         IniSection* aSection = iniFile.GetSection("Scaled Elasticity Matrix");
         if(!aSection || !gRR)
         {
-            CHECK(false);
             return;
         }
+        clog<<"\n==== SCALED_ELASTICITY_MATRIX ====\n\n";
 
         ls::DoubleMatrix     ref         = getDoubleMatrixFromString(aSection->GetNonKeysAsString());
 
@@ -665,7 +658,7 @@ SUITE(TEST_MODEL)
             {
                 CHECK(false);
             }
-            CHECK_CLOSE(ref(i,0), val, 1e-6);
+            CHECK_CLOSE(ref(i,0), val, 1e-5);
 
         }
         freeMatrix(matrix);
@@ -673,7 +666,6 @@ SUITE(TEST_MODEL)
 
     TEST(UNSCALED_CONCENTRATION_CONTROL_MATRIX)
     {
-        clog<<"\n==== UNSCALED_CONCENTRATION_CONTROL_MATRIX ====\n\n";
 
         CHECK(gRR!=NULL);
 
@@ -681,9 +673,9 @@ SUITE(TEST_MODEL)
         IniSection* aSection = iniFile.GetSection("UnScaled Concentration Control Matrix");
         if(!aSection || !gRR)
         {
-            CHECK(false);
             return;
         }
+        clog<<"\n==== UNSCALED_CONCENTRATION_CONTROL_MATRIX ====\n\n";
 
         ls::DoubleMatrix     ref         = getDoubleMatrixFromString(aSection->GetNonKeysAsString());
 
@@ -721,16 +713,15 @@ SUITE(TEST_MODEL)
 
     TEST(SCALED_CONCENTRATION_CONTROL_MATRIX)
     {
-        clog<<"\n==== SCALED_CONCENTRATION_CONTROL_MATRIX ====\n\n";
         CHECK(gRR!=NULL);
 
         //Read in the reference data, from the ini file
         IniSection* aSection = iniFile.GetSection("Scaled Concentration Control Matrix");
         if(!aSection || !gRR)
         {
-            CHECK(false);
             return;
         }
+        clog<<"\n==== SCALED_CONCENTRATION_CONTROL_MATRIX ====\n\n";
 
         ls::DoubleMatrix     ref         = getDoubleMatrixFromString(aSection->GetNonKeysAsString());
 
@@ -768,16 +759,15 @@ SUITE(TEST_MODEL)
 
     TEST(UNSCALED_FLUX_CONTROL_MATRIX)
     {
-        clog<<"\n==== UNSCALED_FLUX_CONTROL_MATRIX ====\n\n";
         CHECK(gRR!=NULL);
 
         //Read in the reference data, from the ini file
         IniSection* aSection = iniFile.GetSection("Unscaled Flux Control Matrix");
         if(!aSection || !gRR)
         {
-            CHECK(false);
             return;
         }
+        clog<<"\n==== UNSCALED_FLUX_CONTROL_MATRIX ====\n\n";
 
         ls::DoubleMatrix     ref         = getDoubleMatrixFromString(aSection->GetNonKeysAsString());
 
@@ -815,16 +805,15 @@ SUITE(TEST_MODEL)
 
     TEST(SCALED_FLUX_CONTROL_MATRIX)
     {
-        clog<<"\n==== SCALED_FLUX_CONTROL_MATRIX ====\n\n";
         CHECK(gRR!=NULL);
 
         //Read in the reference data, from the ini file
         IniSection* aSection = iniFile.GetSection("Scaled Flux Control Matrix");
         if(!aSection || !gRR)
         {
-            CHECK(false);
             return;
         }
+        clog<< endl << "==== SCALED_FLUX_CONTROL_MATRIX ====" << endl << endl;
 
         ls::DoubleMatrix     ref         = getDoubleMatrixFromString(aSection->GetNonKeysAsString());
 
@@ -865,9 +854,9 @@ SUITE(TEST_MODEL)
         IniSection* aSection = iniFile.GetSection("Floating Species Ids");
         if(!aSection || !gRR)
         {
-            CHECK(false);
             return;
         }
+        clog<< endl << "==== FLOATING_SPECIES_IDS ====" << endl << endl;
 
         IniKey* aKey = aSection->GetKey("list");
         if(!aKey)
@@ -897,9 +886,9 @@ SUITE(TEST_MODEL)
         IniSection* aSection = iniFile.GetSection("Boundary Species Ids");
         if(!aSection || !gRR)
         {
-            CHECK(false);
             return;
         }
+        clog<< endl << "==== BOUNDARY_SPECIES_IDS ====" << endl << endl;
 
         IniKey* aKey = aSection->GetKey("list");
         if(!aKey)
@@ -929,9 +918,9 @@ SUITE(TEST_MODEL)
         IniSection* aSection = iniFile.GetSection("Global Parameter Ids");
         if(!aSection || !gRR)
         {
-            CHECK(false);
             return;
         }
+        clog<< endl << "==== GLOBAL_PARAMETER_IDS ====" << endl << endl;
 
         IniKey* aKey = aSection->GetKey("list");
         if(!aKey)
@@ -961,9 +950,9 @@ SUITE(TEST_MODEL)
         IniSection* aSection = iniFile.GetSection("Compartment Ids");
         if(!aSection || !gRR)
         {
-            CHECK(false);
             return;
         }
+        clog<< endl << "==== COMPARTMENT_IDS ====" << endl << endl;
 
         IniKey* aKey = aSection->GetKey("list");
         if(!aKey)
@@ -993,9 +982,9 @@ SUITE(TEST_MODEL)
         IniSection* aSection = iniFile.GetSection("Reaction Ids");
         if(!aSection || !gRR)
         {
-            CHECK(false);
             return;
         }
+        clog<< endl << "==== REACTION_IDS ====" << endl << endl;
 
         IniKey* aKey = aSection->GetKey("list");
         if(!aKey)
@@ -1025,9 +1014,9 @@ SUITE(TEST_MODEL)
         IniSection* aSection = iniFile.GetSection("Species Initial Condition Ids");
         if(!aSection || !gRR)
         {
-            CHECK(false);
             return;
         }
+        clog<< endl << "==== SPECIES_INITIAL_CONDITION_IDS ====" << endl << endl;
 
         IniKey* aKey = aSection->GetKey("list");
         if(!aKey)
@@ -1057,9 +1046,9 @@ SUITE(TEST_MODEL)
         IniSection* aSection = iniFile.GetSection("Get Eigenvalue Ids");
         if(!aSection || !gRR)
         {
-            CHECK(false);
             return;
         }
+        clog<< endl << "==== GET_EIGENVALUE_IDS ====" << endl << endl;
 
         IniKey* aKey = aSection->GetKey("list");
         if(!aKey)
@@ -1089,9 +1078,9 @@ SUITE(TEST_MODEL)
         IniSection* aSection = iniFile.GetSection("Get Rates Of Change Ids");
         if(!aSection || !gRR)
         {
-            CHECK(false);
             return;
         }
+        clog<< endl << "==== GET_RATES_OF_CHANGE_IDS ====" << endl << endl;
 
         IniKey* aKey = aSection->GetKey("list");
         if(!aKey)
@@ -1124,9 +1113,9 @@ SUITE(TEST_MODEL)
         IniSection* aSection = iniFile.GetSection("Set Steady State Selection List 2");
         if(!aSection || !gRR)
         {
-            CHECK(false);
             return;
         }
+        clog<< endl << "==== SET_STEADY_STATE_SELECTION_LIST_2 ====" << endl << endl;
 
         IniKey* aKey = aSection->GetKey("list");
         if(!aKey)
@@ -1144,9 +1133,9 @@ SUITE(TEST_MODEL)
         IniSection* aSection = iniFile.GetSection("Get Steady State Selection List 2");
         if(!aSection || !gRR)
         {
-            CHECK(false);
             return;
         }
+        clog<< endl << "==== GET_STEADY_STATE_SELECTION_LIST_2 ====" << endl << endl;
 
         IniKey* aKey = aSection->GetKey("list");
         if(!aKey)
@@ -1179,9 +1168,9 @@ SUITE(TEST_MODEL)
         IniSection* aSection = iniFile.GetSection("Set Time Course Selection List");
         if(!aSection || !gRR)
         {
-            CHECK(false);
             return;
         }
+        clog<< endl << "==== SET_TIME_COURSE_SELECTION_LIST ====" << endl << endl;
 
         IniKey* aKey = aSection->GetKey("list");
         if(!aKey)
@@ -1199,9 +1188,9 @@ SUITE(TEST_MODEL)
         IniSection* aSection = iniFile.GetSection("Get Time Course Selection List");
         if(!aSection || !gRR)
         {
-            CHECK(false);
             return;
         }
+        clog<< endl << "==== GET_TIME_COURSE_SELECTION_LIST ====" << endl << endl;
 
         IniKey* aKey = aSection->GetKey("list");
         if(!aKey)
@@ -1231,9 +1220,9 @@ SUITE(TEST_MODEL)
         IniSection* aSection = iniFile.GetSection("Compute Steady State Values");
         if(!aSection || !gRR)
         {
-            CHECK(false);
             return;
         }
+        clog<< endl << "==== COMPUTE_STEADY_STATE_VALUES ====" << endl << endl;
 
         RRVector* values = computeSteadyStateValues(gRR);
 
@@ -1264,9 +1253,9 @@ SUITE(TEST_MODEL)
         IniSection* aSection = iniFile.GetSection("Floating Species Concentrations");
         if(!aSection || !gRR)
         {
-            CHECK(false);
             return;
         }
+        clog<< endl << "==== FLOATING_SPECIES_CONCENTRATIONS ====" << endl << endl;
 
         RRVector* values = getFloatingSpeciesConcentrations(gRR);
 
@@ -1289,7 +1278,7 @@ SUITE(TEST_MODEL)
         freeVector(values);
     }
 
-        TEST(BOUNDARY_SPECIES_CONCENTRATIONS)
+    TEST(BOUNDARY_SPECIES_CONCENTRATIONS)
     {
         CHECK(gRR!=NULL);
 
@@ -1297,9 +1286,9 @@ SUITE(TEST_MODEL)
         IniSection* aSection = iniFile.GetSection("Boundary Species Concentrations");
         if(!aSection || !gRR)
         {
-            CHECK(false);
             return;
         }
+        clog<< endl << "==== BOUNDARY_SPECIES_CONCENTRATIONS ====" << endl << endl;
 
         RRVector* values = getBoundarySpeciesConcentrations(gRR);
 
@@ -1330,9 +1319,9 @@ SUITE(TEST_MODEL)
         IniSection* aSection = iniFile.GetSection("Get Global Parameter Values");
         if(!aSection || !gRR)
         {
-            CHECK(false);
             return;
         }
+        clog<< endl << "==== GET_GLOBABL_PARAMETER_VALUES ====" << endl << endl;
 
         IniKey* aKey = aSection->GetKey("list");
         if(!aKey)
@@ -1371,9 +1360,9 @@ SUITE(TEST_MODEL)
         IniSection* aSection = iniFile.GetSection("Get Initial Floating Species Concs");
         if(!aSection || !gRR)
         {
-            CHECK(false);
             return;
         }
+        clog<< endl << "==== GET_INITIAL_FLOATING_SPECIES_CONCENTRATIONS ====" << endl << endl;
 
         IniKey* aKey = aSection->GetKey("list");
         if(!aKey)
@@ -1412,9 +1401,9 @@ SUITE(TEST_MODEL)
         IniSection* aSection = iniFile.GetSection("Get Reaction Rates");
         if(!aSection || !gRR)
         {
-            CHECK(false);
             return;
         }
+        clog<< endl << "==== GET_REACTION_RATES ====" << endl << endl;
 
         IniKey* aKey = aSection->GetKey("list");
         if(!aKey)
@@ -1453,9 +1442,9 @@ SUITE(TEST_MODEL)
         IniSection* aSection = iniFile.GetSection("Get Reaction Rates");
         if(!aSection || !gRR)
         {
-            CHECK(false);
             return;
         }
+        clog<< endl << "==== GET_REACTION_RATE_BY_INDEX ====" << endl << endl;
 
         IniKey* aKey = aSection->GetKey("list");
         if(!aKey)
@@ -1492,9 +1481,9 @@ SUITE(TEST_MODEL)
         IniSection* aSection = iniFile.GetSection("Number of Dependent Species");
         if(!aSection)
         {
-            CHECK(false);
             return;
         }
+        clog<< endl << "==== NUMBER_OF_DEPENDENT_SPECIES ====" << endl << endl;
 
         if(aSection->KeyCount() < 1)
         {
@@ -1512,9 +1501,9 @@ SUITE(TEST_MODEL)
         IniSection* aSection = iniFile.GetSection("Number of Independent Species");
         if(!aSection)
         {
-            CHECK(false);
             return;
         }
+        clog<< endl << "==== NUMBER_OF_INDEPENDENT_SPECIES ====" << endl << endl;
 
         if(aSection->KeyCount() < 1)
         {
@@ -1527,14 +1516,14 @@ SUITE(TEST_MODEL)
           CHECK(aKey->AsInt() ==  val);
     }
 
-        TEST(NUMBER_OF_RULES)
+    TEST(NUMBER_OF_RULES)
     {
         IniSection* aSection = iniFile.GetSection("Number of Rules");
         if(!aSection)
         {
-            CHECK(false);
             return;
         }
+        clog<< endl << "==== NUMBER_OF_RULES ====" << endl << endl;
 
         if(aSection->KeyCount() < 1)
         {
@@ -1555,9 +1544,9 @@ SUITE(TEST_MODEL)
         IniSection* aSection = iniFile.GetSection("Get Rates Of Change");
         if(!aSection || !gRR)
         {
-            CHECK(false);
             return;
         }
+        clog<< endl << "==== GET_RATES_OF_CHANGE ====" << endl << endl;
 
         IniKey* aKey = aSection->GetKey("list");
         if(!aKey)
@@ -1595,9 +1584,9 @@ SUITE(TEST_MODEL)
         IniSection* aSection = iniFile.GetSection("Get Reaction Rates Ex");
         if(!aSection || !gRR)
         {
-            CHECK(false);
             return;
         }
+        clog<< endl << "==== GET_REACTION_RATES_EX ====" << endl << endl;
 
         IniKey* conc = aSection->GetKey("list1");
         if(!conc)
@@ -1653,9 +1642,9 @@ SUITE(TEST_MODEL)
         IniSection* aSection = iniFile.GetSection("Get Rates Of Change Ex");
         if(!aSection || !gRR)
         {
-            CHECK(false);
             return;
         }
+        clog<< endl << "==== GET_RATES_OF_CHANGE_EX ====" << endl << endl;
 
         IniKey* conc = aSection->GetKey("list1");
         if(!conc)
@@ -1711,9 +1700,9 @@ SUITE(TEST_MODEL)
         IniSection* aSection = iniFile.GetSection("Get Rates Of Change Ex");
         if(!aSection || !gRR)
         {
-            CHECK(false);
             return;
         }
+        clog<< endl << "==== GET_RATE_OF_CHANGE_BY_INDEX ====" << endl << endl;
 
         IniKey* conc = aSection->GetKey("list1");
         if(!conc)

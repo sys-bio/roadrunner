@@ -4,16 +4,18 @@ PROJECT(RR_CXX_API_TESTS)
 set(target cxx_api_tests)
 
 set(tests
-tests/base
-tests/sbml_test_suite
-tests/steady_state
-tests/stoichiometric
+tests/base.cpp
+tests/sbml_test_suite.cpp
+tests/steady_state.cpp
+tests/stoichiometric.cpp
 )
 
 add_executable( ${target} 
-main
-src/Args
-src/rrTestUtils
+main.cpp
+src/Args.cpp
+src/rrTestUtils.cpp
+src/Args.h
+src/rrTestUtils.h
 ${tests}
 )
 

@@ -1,0 +1,94 @@
+# Input model for the data below is Test_3.xml. This model file can be found in roadrunners reference_data folder.
+
+[SBML_FILES]
+FNAME1=Test_3.xml
+
+[Set Steady State Selection List]
+list=[S1] [S2] [S3]
+
+[Get Steady State Selection List]
+list=[S1] [S2] [S3]
+
+[Species Concentrations]
+[S1] = 0.290421
+[S2] = 0.331244
+[S3] = 0.388541
+
+[Get Species Initial Concentrations]
+init([S1]) = 0.1
+init([S2]) = 0.25
+init([S3]) = 0.1
+
+[Fluxes]
+J1 = 0.427395
+J2 = 0.213697
+J3 = 0.213697
+J4 = 0.213697
+
+[Full Jacobian]
+	-2.15	0.27	0.09
+	1.1	-1.07	0.09
+	0.4	0.4	-0.64
+
+[Individual Eigenvalues]
+S1= -2.37948  0
+S2= -1.02054  0
+S3= -0.459983 0
+
+[Eigenvalue Matrix]
+-2.37948  0
+-1.02054  0
+-0.459983 0
+
+[Stoichiometry Matrix]
+         1         -1         -1          0
+         0          1         -1          0
+         0          0          1         -1
+
+[Link Matrix]
+         1          0          0
+         0          1          0
+         0          0          1
+
+[Unscaled Elasticity Matrix]
+     -0.25          0          0
+      1.5        -0.67         0
+      0.4          0.4        -0.09
+      0            0           0.55
+
+[Scaled Elasticity Matrix]
+-0.169879         0          0
+ 2.03854     -1.03854        0
+ 0.543611     0.620025     -0.163636
+       0          0          1
+
+[Unscaled Concentration Control Matrix]
+0.580841	-0.393912	-0.659803	-0.107968
+0.662489	0.537153	-1.60027	-0.261862
+0.777081	0.0895256	0.149955	-1.79364
+
+[Scaled Concentration Control Matrix]
+0.85479	-0.289848	-0.485496	-0.0794448
+0.85479	0.346536	-1.03239	-0.168936
+0.85479	0.0492391	0.0824754	-0.986504
+
+[Unscaled Flux Control Matrix]
+0.85479	0.0984781	0.164951	0.026992
+0.427395	0.0492391	0.0824754	0.013496
+0.427395	0.0492391	0.0824754	0.013496
+0.427395	0.0492391	0.0824754	0.013496
+
+[Scaled Flux Control Matrix]
+0.85479	0.0492391	0.0824754	0.013496
+0.85479	0.0492391	0.0824754	0.013496
+0.85479	0.0492391	0.0824754	0.013496
+0.85479	0.0492391	0.0824754	0.013496
+
+[Get Reaction Rates]
+list = 0.427395 0.213697 0.213697 0.213697
+
+[Get Reaction Rate By Index]
+list = 0.427395 0.213697 0.213697 0.213697
+
+[Get Rates Of Change]
+list=0 0 0

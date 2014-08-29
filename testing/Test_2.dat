@@ -1,0 +1,142 @@
+# Input model for the data below is Test_2.xml. This model file can be found in roadrunners reference_data folder.
+
+[SBML_FILES]
+FNAME1=Test_2.xml
+
+[Set Steady State Selection List]
+list=[S1] [S2] [S3]
+
+[Get Steady State Selection List]
+list=[S1] [S2] [S3]
+
+[Species Concentrations]
+[S1] = 1.15846994535519
+[S2] = -0.546448087431694
+[S3] = 0.382513661202186
+
+[Get Species Initial Concentrations By Index]
+0 = 0.1
+1 = 0.25
+2 = 0.1
+
+[Set Species Initial Concentrations By Index]
+0 = 0.34
+1 = 0.35
+2 = 0.36
+
+[Get Species Initial Concentrations]
+init([S1]) = 0.1
+init([S2]) = 0.25
+init([S3]) = 0.1
+
+[Set Species Initial Concentrations]
+init([S1]) = 0.34
+init([S2]) = 0.35
+init([S3]) = 0.36
+
+[Fluxes]
+J1 = 0.420765
+J2 = 0.210383
+J3 = 0.210383
+J4 = 0.210383
+
+[Full Jacobian]
+	-1.05	-0.333000000000001	0.0900000000000004
+	-0.25	-0.467000000000001	0.0900000000000004
+	0.4	0.400000000000001	-0.640000000000002
+
+[Individual Eigenvalues]
+S1= -1.268443760927010 0
+S2= -0.580243796027970  0
+S3= -0.308312443045018 0
+
+[Eigenvalue Matrix]
+-1.268443760927010 0
+-0.580243796027970 0
+-0.308312443045018 0
+
+[Stoichiometry Matrix]
+         1         -1         -1          0
+         0          1         -1          0
+         0          0          1         -1
+
+[Link Matrix]
+         1          0          0
+         0          1          0
+         0          0          1
+
+[Unscaled Elasticity Matrix]
+     -0.5          0           0
+      0.15        -0.067       0
+      0.4          0.4        -0.09
+      0            0           0.55
+
+[Scaled Elasticity Matrix]
+-1.37662          0          0
+ 0.825974    0.174026        0
+ 2.2026      -1.03896        -0.163636
+       0          0          1
+
+#[Unscaled Concentration Control Matrix]
+# 5.6969487 -4.7676838 -0.79858703 -0.13067788
+# 1.3002774  0.4334258 0.072598821  -1.806302
+# 2.0804438 0.69348128 -2.3838419 -0.39008322
+
+#[Scaled Concentration Control Matrix]
+#0.715152565880724 -0.598499560612292 -0.100248676402559 -0.0164043288658731
+#0.715152565880721 0.238384188626906 0.039929351595007 -0.993466106102634
+#0.715152565880721 0.238384188626906 -0.819445648404993 -0.134091106102633
+
+#[Unscaled Flux Control Matrix]
+#0.71515257 0.23838419 0.039929352 0.0065338939
+#0.71515257 0.23838419 0.039929352 0.0065338939
+#0.71515257 0.23838419 0.039929352 0.0065338939
+#0.71515257 0.23838419 0.039929352 0.0065338939
+
+#[Scaled Flux Control Matrix]
+#0.715152565880722 0.238384188626906 0.0399293515950069 0.00653389389736468
+#0.715152565880722 0.238384188626906 0.0399293515950069 0.00653389389736467
+#0.715152565880722 0.238384188626906 0.039929351595007 0.00653389389736467
+#0.715152565880722 0.238384188626906 0.0399293515950071 0.0065338938973647
+
+#[Individual Unscaled Flux Control Coefficients]
+
+[Boundary Species Concentrations]
+l1=0
+l2=0
+l3=1
+l4=0
+
+[Get Global Parameter Values]
+list=10    0.1   0.05    1   0.15   0.067    1    0.4    0.09    1   0.55   0.01
+
+[Get Reaction Rates]
+list = 0.420765 0.210383 0.210383 0.210383
+
+[Get Reaction Rate By Index]
+list = 0.420765 0.210383 0.210383 0.210383
+
+[Number of Dependent Species]
+val=0
+
+[Number of Independent Species]
+val=3
+
+[Number Of Rules]
+val=0
+
+[Get Rates Of Change]
+list=0 0 0
+
+[Get Reaction Rates Ex]
+list1=1 2 3
+list2=0.5 0.016 0.93 1.65
+
+[Get Rates of Change Ex]
+list1=1 2 3
+list2=-0.446 -0.914 -0.72
+
+[Get Rate of Change by Index]
+list1=1 2 3
+list2=-0.446 -0.914 -0.72
+
