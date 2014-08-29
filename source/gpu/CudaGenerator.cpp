@@ -50,6 +50,10 @@ public:
     CudaGeneratorImpl(GPUSimExecutableModel& mod)
       : mod_(mod) {}
 
+    ExpressionPtr generateReactionRateExp(const Reaction* r);
+
+    ExpressionPtr accumulate(ExpressionPtr&& sum, ExpressionPtr&& item, bool invert);
+
     ExpressionPtr generateEvalExp(int component);
 
     ExpressionPtr generateExp(const libsbml::ASTNode* node);
@@ -106,34 +110,31 @@ ExpressionPtr CudaGeneratorImpl::generateReactionRateExp(const Reaction* r) {
 # endif
 }
 
-ExpressionPtr CudaGeneratorImpl::generateEvalExp(const Reaction* r, int factor, ExpressionPtr&& exp) {
-    switch (factor) {
-        case 0:
-            assert(0, "Should not happen");
-        case 1:
-            return generateReactionRateExp(r);
-        case -1:
-            return generateReactionRateExp(r);
-        default:
-            assert(0, "Should not happen");
-    }
+ExpressionPtr CudaGeneratorImpl::accumulate(ExpressionPtr&& sum, ExpressionPtr&& item, bool invert) {
+    if (sum)
+        return invert ?
+            ExpressionPtr(new SubtractExpression(std::move(sum), std::move(item))) :
+            ExpressionPtr(new SumExpression(std::move(sum), std::move(item)));
+    else
+        return invert ?
+            ExpressionPtr(new UnaryMinusExpression(std::move(item))) :
+            ExpressionPtr(std::move(item));
 }
 
-ExpressionPtr CudaGeneratorImpl::generateEvalExp(int component, ExpressionPtr&& exp) {
-    const libsbml::Model* model = mod_.getModel();
-    const libsbml::ListOfReactions* rxns = model->getListOfReactions();
-    for (int rxn_i=0; rxn_i<model->getNumReactions(); ++rxn_i) {
-        const libsbml::Reaction* rxn = rxns->get(rxn_i);
-        const Reaction* r = mod_.getReactionById(rxn->getId());
-        for (int reactant_i=0; reactant_i<rxn->getNumReactants(); ++reactant_i)
-            if (int factor = getReactionSideFac(mod_.getFloatingSpeciesById(rxn->getReactant(reactant_i)->getSpecies())))
-                return generateEvalExp(r, component, factor, std::move(exp));
-        for (int product_i=0; product_i<rxn->getNumProducts(); ++product_i)
-            if (int factor = getReactionSideFac(mod_.getFloatingSpeciesById(rxn->getReactant(product_i)->getSpecies())))
-                return ExpressionPtr(new UnaryMinusExpression(generateEvalExp(r, component, factor, std::move(exp))));
-    }
+ExpressionPtr CudaGeneratorImpl::generateEvalExp(int component) {
+    // get the species corresponding to this component in the state vec
+    const FloatingSpecies* s = mod_.getFloatingSpeciesFromSVComponent(component);
 
-    return ExpressionPtr(new LiteralIntExpression(0));
+    // accumulate reaction rates in this expression
+    ExpressionPtr sum;
+
+    for (const Reaction* r : mod_.getReactions())
+        if (int factor = mod_.getReactionSideFac(r, s)) {
+            assert((factor == 1 || factor == -1) && "Should not happen");
+            sum = accumulate(std::move(sum), generateReactionRateExp(r), factor);
+        }
+
+    return std::move(sum);
 }
 
 void CudaGeneratorImpl::generate() {

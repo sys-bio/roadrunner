@@ -141,6 +141,14 @@ void SumExpression::serialize(Serializer& s) const {
     s << *getRHS();
 }
 
+// -- SubtractExpression --
+
+void SubtractExpression::serialize(Serializer& s) const {
+    s << *getLHS();
+    s << " + ";
+    s << *getRHS();
+}
+
 // -- LTComparisonExpression --
 
 void LTComparisonExpression::serialize(Serializer& s) const {

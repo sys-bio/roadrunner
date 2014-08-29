@@ -131,7 +131,8 @@ GPUSimModel::GPUSimModel(std::string const &sbml, unsigned options) {
         if (sbmlrxn->getFast())
             throw_gpusim_exception("Fast reactions not yet supported");
 
-        Reaction* r = addReaction(ReactionPtr(new Reaction(sid)));
+        Reaction* r = addReaction(ReactionPtr(new Reaction(id)));
+        r->setSBMLReaction(sbmlrxn);
 
         // add reactants
         for (uint i_react=0; i_react < sbmlrxn->getNumReactants(); ++i_react) {
@@ -288,13 +289,27 @@ int GPUSimModel::getStateVecComponent(const FloatingSpecies* q) const {
     for(const FloatingSpecies* s : getFloatingSpecies()) {
         if (s == q) {
             if (!s->getIsIndependent())
-                throw_gpusim_exception("Floating species \"" + s->getId() + "\" is not independent (hence not part of the state vector)");
+                throw_gpusim_exception("Sanity check failed: Floating species \"" + s->getId() + "\" is not independent (hence not part of the state vector)");
             return n;
         }
         if (s->getIsIndependent())
             ++n;
     }
     throw_gpusim_exception("No such floating species \"" + q->getId() + "\"");
+}
+
+const FloatingSpecies* GPUSimModel::getFloatingSpeciesFromSVComponent(int i) const {
+    int n=0;
+    for(const FloatingSpecies* s : getFloatingSpecies()) {
+        if (n == i) {
+            if (!s->getIsIndependent())
+                throw_gpusim_exception("Sanity check failed: Floating species \"" + s->getId() + "\" is not independent (hence not part of the state vector)");
+            return s;
+        }
+        if (s->getIsIndependent())
+            ++n;
+    }
+    throw_gpusim_exception("No such floating species for state vec component " + std::to_string(i) + "");
 }
 
 GPUSimModel::ReactionSide GPUSimModel::getReactionSide(const Reaction* r, const FloatingSpecies* s) const {

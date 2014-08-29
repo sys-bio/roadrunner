@@ -172,12 +172,12 @@ public:
         return sbmlrxn_;
     }
 
-    void setSBMLReaction(const libsbml::Reaction* r) const {
+    void setSBMLReaction(const libsbml::Reaction* r) {
         sbmlrxn_ = r;
     }
-    
+
     const libsbml::ASTNode* getSBMLMath() const {
-        return getSBMLReaction->getKineticLaw()->getMath();
+        return getSBMLReaction()->getKineticLaw()->getMath();
     }
 # endif
 protected:
@@ -391,6 +391,11 @@ public:
     int getStateVecComponent(const FloatingSpecies* s) const;
 
     /**
+     * @brief Inverse of @ref getStateVecComponent
+     */
+    const FloatingSpecies* getFloatingSpeciesFromSVComponent(int i) const;
+
+    /**
      * @details Given a component of the state vector,
      * determine which side (if any) of the reaction
      * it is on
@@ -426,6 +431,28 @@ public:
      * @note Throws if nonexistent
      */
     const Reaction* getReactionById(const std::string& id) const;
+
+    /// Iterator for floating species access pointer
+    typedef AccessPtrIterator<ReactionCollection::iterator> ReactionIterator;
+    /// Const iterator for floating species access pointer
+    typedef AccessPtrIterator<ReactionCollection::const_iterator> ReactionConstIterator;
+
+    typedef Range<ReactionIterator> ReactionRange;
+    typedef Range<ReactionConstIterator> ReactionConstRange;
+
+    /// Get all floating species
+    ReactionRange getReactions() {
+        return ReactionRange(reactions_);
+    }
+
+    /// Get all floating species (const)
+    ReactionConstRange getReactions() const {
+        return ReactionConstRange(reactions_);
+    }
+
+    size_type reactionCount() const {
+        return reactions_.size();
+    }
 
 # if GPUSIM_MODEL_USE_SBML
     /// Returns the document access pointer
@@ -478,7 +505,7 @@ protected:
     /// Add a reaction
     Reaction* addReaction(ReactionPtr&& r) {
         reactions_.emplace_back(std::move(r));
-        return reactions_.back();
+        return reactions_.back().get();
     }
 
     typedef std::unique_ptr<conservation::ConservedMoietyConverter> ConservedMoietyConverterPtr;

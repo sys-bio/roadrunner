@@ -808,6 +808,26 @@ public:
 
 /**
  * @author JKM
+ * @brief Sum expression
+ * @details x + y
+ */
+class SubtractExpression : public BinaryExpression {
+public:
+    using BinaryExpression::BinaryExpression;
+
+    /// Copy ctor
+    SubtractExpression(const SubtractExpression& other)
+      : BinaryExpression(other) {}
+
+    virtual void serialize(Serializer& s) const;
+
+    virtual ExpressionPtr clone() const {
+        return ExpressionPtr(new SubtractExpression(*this));
+    }
+};
+
+/**
+ * @author JKM
  * @brief Variable initialization expressions
  */
 class LTComparisonExpression : public BinaryExpression {
