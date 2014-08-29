@@ -56,7 +56,12 @@ public:
 
     ExpressionPtr generateEvalExp(int component);
 
-    ExpressionPtr generateExp(const libsbml::ASTNode* node);
+# if GPUSIM_MODEL_USE_SBML
+    ExpressionPtr generateExpForSBMLASTNode(const Reaction* r, const libsbml::ASTNode* node);
+# else
+# error "Need SBML"
+# endif
+
     void generate();
 
     EntryPointSig getEntryPoint();
@@ -91,20 +96,28 @@ CudaGeneratorImpl::EntryPointSig CudaGeneratorImpl::getEntryPoint() {
     return entry_;
 }
 
-ExpressionPtr CudaGeneratorImpl::generateExp(const libsbml::ASTNode* node) {
+# if GPUSIM_MODEL_USE_SBML
+ExpressionPtr CudaGeneratorImpl::generateExpForSBMLASTNode(const Reaction* r, const libsbml::ASTNode* node) {
+    assert(r && node);
     switch (node->getType()) {
         case libsbml::AST_TIMES:
-            return ExpressionPtr(new ProductExpression(generateExp(node->getChild(0)), generateExp(node->getChild(1))));
+            return ExpressionPtr(new ProductExpression(generateExpForSBMLASTNode(r, node->getChild(0)), generateExpForSBMLASTNode(r, node->getChild(1))));
         case libsbml::AST_NAME:
-            return ExpressionPtr(new LiteralIntExpression(12345));
+            if (r->isParameter(node->getName()))
+                return ExpressionPtr(new RealLiteralExpression(r->getParameterVal(node->getName())));
+            else
+                return ExpressionPtr(new LiteralIntExpression(12345));
         default:
             return ExpressionPtr(new LiteralIntExpression(0));
     }
 }
+# else
+# error "Need SBML"
+# endif
 
 ExpressionPtr CudaGeneratorImpl::generateReactionRateExp(const Reaction* r) {
 # if GPUSIM_MODEL_USE_SBML
-    return generateExp(r->getSBMLMath());
+    return generateExpForSBMLASTNode(r, r->getSBMLMath());
 # else
 # error "Need SBML"
 # endif
@@ -131,7 +144,7 @@ ExpressionPtr CudaGeneratorImpl::generateEvalExp(int component) {
     for (const Reaction* r : mod_.getReactions())
         if (int factor = mod_.getReactionSideFac(r, s)) {
             assert((factor == 1 || factor == -1) && "Should not happen");
-            sum = accumulate(std::move(sum), generateReactionRateExp(r), factor);
+            sum = accumulate(std::move(sum), generateReactionRateExp(r), factor==-1);
         }
 
     return std::move(sum);

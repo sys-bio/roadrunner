@@ -123,6 +123,7 @@ protected:
 class RR_DECLSPEC Reaction : public ModelElement
 {
 public:
+    typedef std::string String;
     typedef ReactionParticipant::ReactionSide ReactionSide;
 
     Reaction(const std::string& id)
@@ -167,6 +168,10 @@ public:
         throw_gpusim_exception("Floating species \"" + spec->getId() + "\" is not a participant in the reaction");
     }
 
+    bool isParameter(const String& p) const;
+
+    double getParameterVal(const String& p) const;
+
 # if GPUSIM_MODEL_USE_SBML
     const libsbml::Reaction* getSBMLReaction() const {
         return sbmlrxn_;
@@ -174,6 +179,10 @@ public:
 
     void setSBMLReaction(const libsbml::Reaction* r) {
         sbmlrxn_ = r;
+    }
+
+    void setSBMLModel(const libsbml::Model* m) {
+        sbmlmodel_ = m;
     }
 
     const libsbml::ASTNode* getSBMLMath() const {
@@ -187,6 +196,7 @@ protected:
     Participants part_;
 # if GPUSIM_MODEL_USE_SBML
     const libsbml::Reaction* sbmlrxn_ = nullptr;
+    const libsbml::Model* sbmlmodel_ = nullptr;
 # endif
 };
 

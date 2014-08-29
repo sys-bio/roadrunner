@@ -61,6 +61,39 @@ static libsbml::SBMLDocument *checkedReadSBMLFromString(const char* xml) {
 
 ModelElement::~ModelElement() {}
 
+// --* Reaction *--
+
+bool Reaction::isParameter(const String& p) const {
+# if GPUSIM_MODEL_USE_SBML
+    // Level 2
+    assert(sbmlmodel_ && "Need to set sbmlmodel_");
+    const libsbml::ListOfParameters* params = sbmlmodel_->getListOfParameters();
+    for (int i=0; i<sbmlmodel_->getNumParameters(); ++i) {
+        const libsbml::Parameter* x = params->get(i);
+        if (x->getId() == p)
+            return true;
+    }
+    return false;
+# else
+# error "Need SBML"
+# endif
+}
+
+double Reaction::getParameterVal(const String& p) const {
+# if GPUSIM_MODEL_USE_SBML
+    assert(sbmlmodel_ && "Need to set sbmlmodel_");
+    const libsbml::ListOfParameters* params = sbmlmodel_->getListOfParameters();
+    for (int i=0; i<sbmlmodel_->getNumParameters(); ++i) {
+        const libsbml::Parameter* x = params->get(i);
+        if (x->getId() == p)
+            return x->getValue();
+    }
+    throw_gpusim_exception("No such parameter \"" + p + "\"");
+# else
+# error "Need SBML"
+# endif
+}
+
 // --* GPUSimModel *--
 
 GPUSimModel::GPUSimModel(std::string const &sbml, unsigned options) {
@@ -133,6 +166,7 @@ GPUSimModel::GPUSimModel(std::string const &sbml, unsigned options) {
 
         Reaction* r = addReaction(ReactionPtr(new Reaction(id)));
         r->setSBMLReaction(sbmlrxn);
+        r->setSBMLModel(getDocument()->getModel());
 
         // add reactants
         for (uint i_react=0; i_react < sbmlrxn->getNumReactants(); ++i_react) {
@@ -317,10 +351,10 @@ GPUSimModel::ReactionSide GPUSimModel::getReactionSide(const Reaction* r, const 
 }
 
 void GPUSimModel::getIds(int types, std::list<std::string> &ids) {
-    std::cerr << "GPUSimModel::getIds\n";
+//     Log(Logger::LOG_DEBUG) << "GPUSimModel::getIds\n";
     for(const ModelElement* e : getElements()) {
         if(e->matchesType(types)) {
-          std::cerr << e->getId() << "\n";
+          Log(Logger::LOG_DEBUG) << e->getId() << "\n";
             ids.push_back(e->getId());
         }
     }
