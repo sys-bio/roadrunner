@@ -16,6 +16,15 @@ rrLib.loadSBMLFromFile.restype = c_bool
 result = rrLib.loadSBMLFromFile(rr, '/home/jkm/devel/models/decayModel.xml'.encode('ascii'))
 print('  result = {}'.format(result))
 
+# set the simulation parameters
+rrLib.setTimeStart.restype = c_bool
+rrLib.setTimeEnd.restype = c_bool
+rrLib.setNumPoints.restype = c_bool
+
+rrLib.setTimeStart(rr, c_double(0.))
+rrLib.setTimeEnd(rr, c_double(50.))
+rrLib.setNumPoints(rr, 11)
+
 # simulate the model
 print('Simulate')
 rrLib.simulate.restype = c_void_p
