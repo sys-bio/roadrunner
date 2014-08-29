@@ -138,6 +138,8 @@ ExpressionPtr CudaGeneratorImpl::generateEvalExp(int component) {
 }
 
 void CudaGeneratorImpl::generate() {
+    auto generate_start = std::chrono::high_resolution_clock::now();
+
     CudaModule mod;
     std::string entryName = "cuEntryPoint";
 
@@ -339,12 +341,16 @@ void CudaGeneratorImpl::generate() {
         entry->addStatement(ExpressionPtr(new FunctionCallExpression(mod.getCudaDeviceSynchronize())));
     }
 
+    auto serialize_start = std::chrono::high_resolution_clock::now();
+
     // serialize the module to a document
 
     {
         Serializer s("/tmp/rr_cuda_model.cu");
         mod.serialize(s);
     }
+
+    auto compile_start = std::chrono::high_resolution_clock::now();
 
     // compile the module
 
@@ -385,6 +391,8 @@ void CudaGeneratorImpl::generate() {
 
     while(entryMangled.back() == '\n' && entryMangled.size())
         entryMangled = std::string(entryMangled,0,entryMangled.size()-1);
+
+    auto load_start = std::chrono::high_resolution_clock::now();
 
     // load the module
 
