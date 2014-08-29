@@ -68,7 +68,8 @@ SUITE(TEST_MODEL)
 
         Log(Logger::LOG_NOTICE) << "Looking in " << path.toString() << " for test files";
 
-        path.setFileName("*.dat");
+        // for the time being, use this name convention, NOM_Test.dat is there.
+        path.setFileName("Test*.dat");
 
         std::set<std::string> files;
 
