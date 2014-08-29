@@ -104,22 +104,44 @@ GPUSimModel::GPUSimModel(std::string const &sbml, unsigned options) {
         ownedDoc = SBMLDocumentPtr(doc);
     // use getDocument from now on
 
+    // from LLVM component - should keep?
 //     assert(sizeof(modelDataFieldsNames) / sizeof(const char*)
 //             == NotSafe_FloatingSpeciesAmounts + 1
 //             && "wrong number of items in modelDataFieldsNames");
 
-//     modelName = getDocument()->getModel()->getName();
-
-    // add species initially without props so they can be referenced by rules
+    // add floating species initially without props so they can be referenced by rules
     for (uint i = 0; i < getDocument()->getModel()->getListOfSpecies()->size(); ++i) {
         const libsbml::Species *s = getDocument()->getModel()->getListOfSpecies()->get(i);
 
+        // not a floating species
         if (s->getBoundaryCondition())
             continue;
 
-        const std::string& sid = s->getId();
+        const std::string& id = s->getId();
 
-        addSpecies(FloatingSpeciesPtr(new FloatingSpecies(sid)));
+        addSpecies(FloatingSpeciesPtr(new FloatingSpecies(id)));
+    }
+
+    // add reactions
+    for (uint i = 0; i < getDocument()->getModel()->getListOfReactions()->size(); ++i) {
+        const libsbml::Reaction *sbmlrxn = getDocument()->getModel()->getListOfReactions()->get(i);
+
+        const std::string& id = sbmlrxn->getId();
+
+        if (sbmlrxn->getFast())
+            throw_gpusim_exception("Fast reactions not yet supported");
+
+        Reaction* r = addReaction(ReactionPtr(new Reaction(sid)));
+
+        // add reactants
+        for (uint i_react=0; i_react < sbmlrxn->getNumReactants(); ++i_react) {
+            r->addReactant(getFloatingSpeciesById(sbmlrxn->getReactant(i_react)->getId()));
+        }
+
+        // add products
+        for (uint i_prod=0; i_prod < sbmlrxn->getNumProducts(); ++i_prod) {
+            r->addProduct(getFloatingSpeciesById(sbmlrxn->getProduct(i_prod)->getId()));
+        }
     }
 
     // read SBML rules and add them to the model
@@ -207,7 +229,18 @@ GPUSimModel::GPUSimModel(std::string const &sbml, unsigned options) {
 //     initEvents(getDocument()->getModel());
 }
 
+# if GPUSIM_MODEL_USE_SBML
+
 libsbml::SBMLDocument* GPUSimModel::getDocument() {
+    if(moietyConverter)
+        return moietyConverter->getDocument();
+    else if(ownedDoc)
+        return ownedDoc.get();
+    else
+        throw_gpusim_exception("Missing SBML document");
+}
+
+const libsbml::SBMLDocument* GPUSimModel::getDocument() const {
     if(moietyConverter)
         return moietyConverter->getDocument();
     else if(ownedDoc)
@@ -219,6 +252,8 @@ libsbml::SBMLDocument* GPUSimModel::getDocument() {
 const libsbml::Model* GPUSimModel::getModel() {
     return getDocument()->getModel();
 }
+
+# endif
 
 FloatingSpecies* GPUSimModel::getFloatingSpeciesById(const std::string& id) {
     for(FloatingSpecies* s : getFloatingSpecies())

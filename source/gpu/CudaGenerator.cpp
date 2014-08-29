@@ -98,31 +98,39 @@ ExpressionPtr CudaGeneratorImpl::generateExp(const libsbml::ASTNode* node) {
     }
 }
 
-ExpressionPtr CudaGeneratorImpl::generateEvalExp(int component) {
+ExpressionPtr CudaGeneratorImpl::generateReactionRateExp(const Reaction* r) {
+# if GPUSIM_MODEL_USE_SBML
+    return generateExp(r->getSBMLMath());
+# else
+# error "Need SBML"
+# endif
+}
+
+ExpressionPtr CudaGeneratorImpl::generateEvalExp(const Reaction* r, int factor, ExpressionPtr&& exp) {
+    switch (factor) {
+        case 0:
+            assert(0, "Should not happen");
+        case 1:
+            return generateReactionRateExp(r);
+        case -1:
+            return generateReactionRateExp(r);
+        default:
+            assert(0, "Should not happen");
+    }
+}
+
+ExpressionPtr CudaGeneratorImpl::generateEvalExp(int component, ExpressionPtr&& exp) {
     const libsbml::Model* model = mod_.getModel();
     const libsbml::ListOfReactions* rxns = model->getListOfReactions();
     for (int rxn_i=0; rxn_i<model->getNumReactions(); ++rxn_i) {
         const libsbml::Reaction* rxn = rxns->get(rxn_i);
-        int num_reactants = rxn->getNumReactants();
-        for (int reactant_i=0; reactant_i<num_reactants; ++reactant_i) {
-            std::string species_str = rxn->getReactant(reactant_i)->getSpecies();
-            int reactant_component = mod_.getStateVecComponent(mod_.getFloatingSpeciesById(species_str));
-            if (reactant_component == component) {
-                const libsbml::KineticLaw* klaw = rxn->getKineticLaw();
-                const libsbml::ASTNode* math = klaw->getMath();
-                return generateExp(math);
-            }
-        }
-        int num_products = rxn->getNumProducts();
-        for (int product_i=0; product_i<num_products; ++product_i) {
-            std::string species_str = rxn->getProduct(product_i)->getSpecies();
-            int product_component = mod_.getStateVecComponent(mod_.getFloatingSpeciesById(species_str));
-            if (product_component == component) {
-                const libsbml::KineticLaw* klaw = rxn->getKineticLaw();
-                const libsbml::ASTNode* math = klaw->getMath();
-                return ExpressionPtr(new UnaryMinusExpression(generateExp(math)));
-            }
-        }
+        const Reaction* r = mod_.getReactionById(rxn->getId());
+        for (int reactant_i=0; reactant_i<rxn->getNumReactants(); ++reactant_i)
+            if (int factor = getReactionSideFac(mod_.getFloatingSpeciesById(rxn->getReactant(reactant_i)->getSpecies())))
+                return generateEvalExp(r, component, factor, std::move(exp));
+        for (int product_i=0; product_i<rxn->getNumProducts(); ++product_i)
+            if (int factor = getReactionSideFac(mod_.getFloatingSpeciesById(rxn->getReactant(product_i)->getSpecies())))
+                return ExpressionPtr(new UnaryMinusExpression(generateEvalExp(r, component, factor, std::move(exp))));
     }
 
     return ExpressionPtr(new LiteralIntExpression(0));

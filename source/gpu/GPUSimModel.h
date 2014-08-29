@@ -19,6 +19,10 @@
 #ifndef rrGPUSimModelH
 #define rrGPUSimModelH
 
+// == MACROS ==================================================
+
+# define GPUSIM_MODEL_USE_SBML 1
+
 // == INCLUDES ================================================
 
 #include "rrSelectionRecord.h"
@@ -129,14 +133,24 @@ public:
     /// Return true if @ref id matches this object's id
     bool matchId(const std::string& id) { return id_ == id; }
 
+    /// Add a participant (reactant or product)
     void addParticipant(const FloatingSpecies* spec, ReactionSide side) {
         if (isParticipant(spec))
             throw_gpusim_exception("Floating species \"" + spec->getId() + "\" is already a participant in the reaction");
         addParticipantForce(spec, side);
     }
 
+    /// Does not check if the species is already present in the reaction
     void addParticipantForce(const FloatingSpecies* spec, ReactionSide side) {
         part_.emplace_back(new ReactionParticipant(spec, side));
+    }
+
+    void addReactant(const FloatingSpecies* spec) {
+        addParticipant(spec, ReactionSide::Reactant);
+    }
+
+    void addProduct(const FloatingSpecies* spec) {
+        addParticipant(spec, ReactionSide::Product);
     }
 
     bool isParticipant(const FloatingSpecies* spec) const {
@@ -152,11 +166,28 @@ public:
                 return p->getSide();
         throw_gpusim_exception("Floating species \"" + spec->getId() + "\" is not a participant in the reaction");
     }
+
+# if GPUSIM_MODEL_USE_SBML
+    const libsbml::Reaction* getSBMLReaction() const {
+        return sbmlrxn_;
+    }
+
+    void setSBMLReaction(const libsbml::Reaction* r) const {
+        sbmlrxn_ = r;
+    }
+    
+    const libsbml::ASTNode* getSBMLMath() const {
+        return getSBMLReaction->getKineticLaw()->getMath();
+    }
+# endif
 protected:
     std::string id_;
     typedef std::unique_ptr<ReactionParticipant> ReactionParticipantPtr;
     typedef std::vector<ReactionParticipantPtr> Participants;
     Participants part_;
+# if GPUSIM_MODEL_USE_SBML
+    const libsbml::Reaction* sbmlrxn_ = nullptr;
+# endif
 };
 
 class RR_DECLSPEC ModelRule : public ModelElement
@@ -264,6 +295,10 @@ protected:
     typedef std::unique_ptr<FloatingSpecies> FloatingSpeciesPtr;
     /// Collection of all floating species
     typedef std::vector<FloatingSpeciesPtr> FloatingSpeciesCollection;
+    /// Owning pointer to reaction
+    typedef std::unique_ptr<Reaction> ReactionPtr;
+    /// Collection of all reactions
+    typedef std::vector<ReactionPtr> ReactionCollection;
 public:
     typedef std::size_t size_type;
 
@@ -392,15 +427,17 @@ public:
      */
     const Reaction* getReactionById(const std::string& id) const;
 
+# if GPUSIM_MODEL_USE_SBML
     /// Returns the document access pointer
     libsbml::SBMLDocument* getDocument();
 
-    const libsbml::Model* getModel();
-
-protected:
-
     /// Returns the document access pointer
     const libsbml::SBMLDocument* getDocument() const;
+
+    const libsbml::Model* getModel();
+# endif
+
+protected:
 
 //     bool isIndependentElement(const std::string& id) const;
 
@@ -438,6 +475,12 @@ protected:
         floatingSpecies_.emplace_back(std::move(s));
     }
 
+    /// Add a reaction
+    Reaction* addReaction(ReactionPtr&& r) {
+        reactions_.emplace_back(std::move(r));
+        return reactions_.back();
+    }
+
     typedef std::unique_ptr<conservation::ConservedMoietyConverter> ConservedMoietyConverterPtr;
     /**
      * the moiety converter, for the time being owns the
@@ -445,12 +488,15 @@ protected:
      */
     ConservedMoietyConverterPtr moietyConverter;
 
+# if GPUSIM_MODEL_USE_SBML
     typedef std::unique_ptr<libsbml::SBMLDocument> SBMLDocumentPtr;
     SBMLDocumentPtr ownedDoc;
+# endif
 
     ModelRules rules_;
 
     FloatingSpeciesCollection floatingSpecies_;
+    ReactionCollection reactions_;
 };
 
 } // namespace rrgpu
