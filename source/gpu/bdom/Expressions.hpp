@@ -651,13 +651,27 @@ public:
  */
 class BinaryExpression : public Expression {
 public:
+    /// Construct from expression pointers
     BinaryExpression(ExpressionPtr&& lhs, ExpressionPtr&& rhs)
       : lhs_(std::move(lhs)), rhs_(std::move(rhs)) {
     }
 
+    /// Template where both sides are expression rvalues
     template <class LHSExpression, class RHSExpression>
     BinaryExpression(LHSExpression&& lhs, RHSExpression&& rhs)
       : lhs_(new LHSExpression(std::move(lhs))), rhs_(new RHSExpression(std::move(rhs))) {
+    }
+
+    /// Template where only the left side is an expression rvalue
+    template <class LHSExpression>
+    BinaryExpression(LHSExpression&& lhs, ExpressionPtr&& rhs)
+      : lhs_(new LHSExpression(std::move(lhs))), rhs_(std::move(rhs)) {
+    }
+
+    /// Template where only the right side is an expression rvalue
+    template <class RHSExpression>
+    BinaryExpression(ExpressionPtr&& lhs, RHSExpression&& rhs)
+      : lhs_(std::move(lhs)), rhs_(new RHSExpression(std::move(rhs))) {
     }
 
     /// Copy ctor

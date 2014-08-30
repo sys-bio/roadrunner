@@ -67,10 +67,30 @@ public:
     EntryPointSig getEntryPoint();
 
 protected:
+
+    ExpressionPtr getK(ExpressionPtr&& generation, ExpressionPtr&& index, ExpressionPtr&& component) {
+        return ExpressionPtr(new ArrayIndexExpression(k,
+                MacroExpression(RK_COEF_GET_OFFSET,
+                std::move(generation),
+                std::move(index),
+                std::move(component))));
+    }
+
+    template <class GenerationExpression, class IndexExpression, class ComponentExpression>
+    ExpressionPtr getK(GenerationExpression&& generation, IndexExpression&& index, ComponentExpression&& component) {
+        return getK(
+                ExpressionPtr(new GenerationExpression(std::move(generation))),
+                ExpressionPtr(new IndexExpression(std::move(index))),
+                ExpressionPtr(new ComponentExpression(std::move(component))));
+    }
+
     EntryPointSig entry_ = nullptr;
     Poco::SharedLibrary so_;
     CudaGeneratorSBML sbmlgen_;
     GPUSimExecutableModel& mod_;
+    // the RK coefficients
+    Variable* k = nullptr;
+    Macro* RK_COEF_GET_OFFSET = nullptr;
 };
 
 CudaGenerator::CudaGenerator() {
@@ -167,7 +187,7 @@ void CudaGeneratorImpl::generate() {
     Macro* RK4ORDER = mod.addMacro(Macro("RK4ORDER", "4"));
 
     Macro* RK_COEF_LEN = mod.addMacro(Macro("RK_COEF_LEN", "RK4ORDER*RK4ORDER*N"));
-    Macro* RK_COEF_GET_OFFSET = mod.addMacro(Macro("RK_COEF_GET_OFFSET", "gen*RK4ORDER*N + idx*N + component", "gen", "idx", "component"));
+    RK_COEF_GET_OFFSET = mod.addMacro(Macro("RK_COEF_GET_OFFSET", "gen*RK4ORDER*N + idx*N + component", "gen", "idx", "component"));
 //     Macro* RK_COEF_SIZE = mod.addMacro(Macro("RK_COEF_SIZE", ""));
 
     Macro* RK_GET_INDEX = mod.addMacro(Macro("RK_GET_INDEX", "(threadIdx.x%N)"));
@@ -205,7 +225,7 @@ void CudaGeneratorImpl::generate() {
 //         kernel->addStatement(ExpressionPtr(new CudaVariableDeclarationExpression(kernel->addVariable(Variable(BaseTypes::get().addArray(RKReal), "k")), true)));
         Variable* shared_buf = CudaVariableDeclarationExpression::downcast(ExpressionStatement::insert(*kernel, CudaVariableDeclarationExpression(kernel->addVariable(Variable(BaseTypes::get().addArray(RKReal), "shared_buf")), true))->getExpression())->getVariable();
 
-        Variable* k = VariableInitExpression::downcast(ExpressionStatement::insert(*kernel, VariableInitExpression(kernel->addVariable(Variable(pRKReal, "k")), ReferenceExpression(ArrayIndexExpression(shared_buf, LiteralIntExpression(0)))))->getExpression())->getVariable();
+        k = VariableInitExpression::downcast(ExpressionStatement::insert(*kernel, VariableInitExpression(kernel->addVariable(Variable(pRKReal, "k")), ReferenceExpression(ArrayIndexExpression(shared_buf, LiteralIntExpression(0)))))->getExpression())->getVariable();
 
         Variable* f = VariableInitExpression::downcast(ExpressionStatement::insert(*kernel, VariableInitExpression(kernel->addVariable(Variable(pRKReal, "f")), ReferenceExpression(ArrayIndexExpression(k, MacroExpression(RK_COEF_LEN)))))->getExpression())->getVariable();
 
@@ -227,11 +247,7 @@ void CudaGeneratorImpl::generate() {
             // init expression for k
             AssignmentExpression* k_init_assn =
                 AssignmentExpression::downcast(ExpressionStatement::insert(init_k_loop->getBody(), AssignmentExpression(
-                ArrayIndexExpression(k,
-                MacroExpression(RK_COEF_GET_OFFSET,
-                VariableRefExpression(j),
-                MacroExpression(RK_GET_INDEX),
-                MacroExpression(RK_GET_COMPONENT))),
+                getK(VariableRefExpression(j), MacroExpression(RK_GET_INDEX), MacroExpression(RK_GET_COMPONENT)),
                 LiteralIntExpression(0)))->getExpression());
 
             // printf showing the init'd value of k
