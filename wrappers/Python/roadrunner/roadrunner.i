@@ -413,7 +413,6 @@ PyObject *Integrator_NewPythonObj(rr::Integrator* i) {
 //%ignore rr::RoadRunner::computeSteadyStateValue;
 //%ignore rr::RoadRunner::getFullJacobian;
 %ignore rr::RoadRunner::getReactionRate;
-//%ignore rr::RoadRunner::loadSBML;
 %ignore rr::RoadRunner::computeSteadyStateValues;
 %ignore rr::RoadRunner::getFullReorderedJacobian;
 %ignore rr::RoadRunner::getReactionRates;
@@ -534,6 +533,8 @@ PyObject *Integrator_NewPythonObj(rr::Integrator* i) {
 
 %rename (_getCurrentIntegrator) rr::RoadRunner::getIntegrator();
 %rename (_getIntegrator) rr::RoadRunner::getIntegrator(SimulateOptions::Integrator);
+%rename (_load) rr::RoadRunner::load;
+
 
 %ignore rr::Config::getInt;
 %ignore rr::Config::getString;
@@ -1002,6 +1003,10 @@ namespace std { class ostream{}; }
 
             model = self.getModel()
 
+            # can't make properties without a model. 
+            if model is None:
+                return 
+
             def mk_fget(sel): return lambda self: model.__getitem__(sel)
             def mk_fset(sel): return lambda self, val: model.__setitem__(sel, val)
 
@@ -1038,6 +1043,13 @@ namespace std { class ostream{}; }
        
         # set the ctor to use the new init
         __init__ = _new_init
+
+        
+
+
+        def load(self, *args):
+            self._load(*args)
+            RoadRunner._makeProperties(self) 
 
 
         def keys(self, types=_roadrunner.SelectionRecord_ALL):
