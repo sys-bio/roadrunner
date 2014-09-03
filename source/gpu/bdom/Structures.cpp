@@ -95,6 +95,18 @@ void ForStatement::serialize(Serializer& s) const {
     s << getBody();
 }
 
+// -- IfStatement --
+
+IfStatement::IfStatement(ExpressionPtr&& condition)
+  : condition_(std::move(condition)) {
+
+}
+
+void IfStatement::serialize(Serializer& s) const {
+    s << "if (" << *getCondExp() << ") ";
+    s << getBody();
+}
+
 // -- CaseLabel --
 
 void CaseLabel::serialize(Serializer& s) const {

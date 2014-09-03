@@ -144,6 +144,39 @@ typedef DomOwningPtr<ForStatement> ForStatementPtr;
 
 /**
  * @author JKM
+ * @brief A statement containing a typedef
+ */
+class IfStatement : public Statement {
+public:
+    /// Ctor for typedef @a target @a alias
+    IfStatement(ExpressionPtr&& condition);
+
+    Expression* getCondExp() { return condition_.get(); }
+    const Expression* getCondExp() const { return condition_.get(); }
+    void setCondExp(ExpressionPtr&& cond_exp) { condition_ = std::move(cond_exp); }
+
+    Block& getBody() { return body_; }
+    const Block& getBody() const { return body_; }
+
+    virtual void serialize(Serializer& s) const;
+
+    // TODO: replace with LLVM-style casting
+    static IfStatement* downcast(Statement* s) {
+        auto result = dynamic_cast<IfStatement*>(s);
+        if (!result)
+            throw_gpusim_exception("Downcast failed: incorrect type");
+        return result;
+    }
+
+protected:
+    ExpressionPtr condition_;
+
+    Block body_;
+};
+typedef DomOwningPtr<IfStatement> IfStatementPtr;
+
+/**
+ * @author JKM
  * @brief A label
  */
 class Label : public Statement {

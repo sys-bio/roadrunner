@@ -763,6 +763,35 @@ public:
 
 /**
  * @author JKM
+ * @brief Equality comparison (==)
+ */
+class EqualityCompExpression : public BinaryExpression {
+public:
+    using BinaryExpression::BinaryExpression;
+
+    /// Copy ctor
+    EqualityCompExpression(const EqualityCompExpression& other)
+      : BinaryExpression(other) {}
+
+    virtual void serialize(Serializer& s) const;
+
+    virtual ExpressionPtr clone() const {
+        return ExpressionPtr(new EqualityCompExpression(*this));
+    }
+
+    virtual int getPrecedence() const { return PREC_GRP15; }
+
+    // TODO: replace with LLVM-style casting
+    static EqualityCompExpression* downcast(Expression* e) {
+        auto result = dynamic_cast<EqualityCompExpression*>(e);
+        if (!result)
+            throw_gpusim_exception("Downcast failed: incorrect type");
+        return result;
+    }
+};
+
+/**
+ * @author JKM
  * @brief Expression to access a member of an object
  * @details Example: @a obj.symbol where @a obj is an object
  * (class, struct) and @a symbol is a member of @a obj
@@ -1021,6 +1050,8 @@ public:
             extra_args_.emplace_back(arg->clone());
     }
 
+    const Function* getFunction() const { return func_; }
+
     /// Pass the exp @ref v as the arg @ref p of the function
     void passMappedArgument(ExpressionPtr&& v, const FunctionParameter* p);
 
@@ -1074,6 +1105,22 @@ public:
 
     virtual ExpressionPtr clone() const {
         return ExpressionPtr(new FunctionCallExpression(*this));
+    }
+
+    // TODO: replace with LLVM-style casting
+    static FunctionCallExpression* downcast(Expression* s) {
+        auto result = dynamic_cast<FunctionCallExpression*>(s);
+        if (!result)
+            throw_gpusim_exception("Downcast failed: incorrect type");
+        return result;
+    }
+
+    // TODO: replace with LLVM-style casting
+    static const FunctionCallExpression* downcast(const Expression* s) {
+        auto result = dynamic_cast<const FunctionCallExpression*>(s);
+        if (!result)
+            throw_gpusim_exception("Downcast failed: incorrect type");
+        return result;
     }
 
 protected:

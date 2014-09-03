@@ -132,6 +132,14 @@ void AssignmentExpression::serialize(Serializer& s) const {
     serializeGroupedExp(s, getRHS());
 }
 
+// -- EqualityCompExpression --
+
+void EqualityCompExpression::serialize(Serializer& s) const {
+    serializeGroupedExp(s, getLHS());
+    s << " == ";
+    serializeGroupedExp(s, getRHS());
+}
+
 // -- MemberAccessExpression --
 
 void MemberAccessExpression::serialize(Serializer& s) const {
@@ -207,6 +215,7 @@ void FunctionCallExpression::passArgument(ExpressionPtr&& v) {
         }
     }
     if (isVarargs()) {
+//         Log(Logger::LOG_DEBUG) << "Passing extra argument to " << getFunction()->getName() << "\n";
         passExtraArg(std::move(v));
         return;
     }

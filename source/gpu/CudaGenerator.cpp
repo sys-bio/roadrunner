@@ -410,6 +410,32 @@ void CudaGeneratorImpl::generate() {
                             getK(LiteralIntExpression(3), MacroExpression(RK_GET_COMPONENT))
                           )))
               ));
+
+            update_coef_loop->getBody().addStatement(ExpressionPtr(new FunctionCallExpression(mod.getCudaSyncThreads())));
+
+            IfStatement* if_thd1 = IfStatement::downcast(update_coef_loop->getBody().addStatement(StatementPtr(new IfStatement(
+                ExpressionPtr(new EqualityCompExpression(kernel->getThreadIdx(CudaKernel::IndexComponent::x), LiteralIntExpression(0)))
+              ))));
+
+            std::string sv_fmt_str = "statvec ";
+            for (int component=0; component<n; ++component)
+                sv_fmt_str += "%f ";
+            sv_fmt_str += "\\n";
+
+            // print the state vector
+            FunctionCallExpression* printf_statevec = FunctionCallExpression::downcast(ExpressionStatement::insert(if_thd1->getBody(), FunctionCallExpression(
+                    mod.getPrintf(),
+                     StringLiteralExpression(sv_fmt_str)
+                  ))->getExpression());
+
+//             Log(Logger::LOG_DEBUG) << "State vec printf\n";
+            for (int component=0; component<n; ++component)
+                printf_statevec->passArgument(ExpressionPtr(
+                    new ArrayIndexExpression(f,
+                        MacroExpression(RK_STATE_VEC_GET_OFFSET,
+                        SumExpression(VariableRefExpression(rk_gen), LiteralIntExpression(1)),
+                        LiteralIntExpression(component)))
+                  ));
         }
     }
 
