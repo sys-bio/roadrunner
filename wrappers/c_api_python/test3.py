@@ -1,4 +1,4 @@
-#import numpy as np
+import numpy as np
 from ctypes import *
 
 rrLib = cdll.LoadLibrary('../lib/libroadrunner_c_api.so')
