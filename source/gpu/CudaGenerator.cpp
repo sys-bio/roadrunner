@@ -70,11 +70,15 @@ public:
 
 protected:
 
-    ExpressionPtr getK(ExpressionPtr&& index, ExpressionPtr&& component) {
-        return ExpressionPtr(new ArrayIndexExpression(k,
+    ExpressionPtr getRKCoef(const Variable* coef, ExpressionPtr&& index, ExpressionPtr&& component) {
+        return ExpressionPtr(new ArrayIndexExpression(coef,
                 MacroExpression(RK_COEF_GET_OFFSET,
                 std::move(index),
                 std::move(component))));
+    }
+
+    ExpressionPtr getK(ExpressionPtr&& index, ExpressionPtr&& component) {
+        return getRKCoef(k, std::move(index), std::move(component));
     }
 
     /**
@@ -232,7 +236,8 @@ void CudaGeneratorImpl::generate() {
     Macro* RK4ORDER = mod.addMacro(Macro("RK4ORDER", "4"));
 
     Macro* RK_COEF_LEN = mod.addMacro(Macro("RK_COEF_LEN", "RK4ORDER*RK4ORDER*N"));
-    RK_COEF_GET_OFFSET = mod.addMacro(Macro("RK_COEF_GET_OFFSET", "RK4ORDER*N + idx*N + component","idx", "component"));
+//     RK_COEF_GET_OFFSET = mod.addMacro(Macro("RK_COEF_GET_OFFSET", "RK4ORDER*N + idx*N + component","idx", "component"));
+    RK_COEF_GET_OFFSET = mod.addMacro(Macro("RK_COEF_GET_OFFSET", "idx*N + component","idx", "component"));
 //     Macro* RK_COEF_SIZE = mod.addMacro(Macro("RK_COEF_SIZE", ""));
 
 //     Macro* RK_GET_INDEX = mod.addMacro(Macro("RK_GET_INDEX", "(threadIdx.x%N)"));
@@ -253,10 +258,35 @@ void CudaGeneratorImpl::generate() {
 
     CudaFunction* PrintCoefs = mod.addFunction(CudaFunction("PrintCoefs", BaseTypes::getTp(BaseTypes::VOID), {FunctionParameter(pRKReal, "k")}));
 
-    PrintCoefs->setIsDeviceFun(true);
+    {
+        PrintCoefs->setIsDeviceFun(true);
 
-    // printf
-    PrintCoefs->addStatement(ExpressionPtr(new FunctionCallExpression(mod.getPrintf(), ExpressionPtr(new StringLiteralExpression("PrintCoefs\\n")))));
+        IfStatement* if_thd1 = IfStatement::downcast(PrintCoefs->addStatement(StatementPtr(new IfStatement(
+                    ExpressionPtr(new EqualityCompExpression(mod.getThreadIdx(CudaModule::IndexComponent::x), LiteralIntExpression(0)))
+                ))));
+
+        // printf
+        if_thd1->getBody().addStatement(ExpressionPtr(new FunctionCallExpression(mod.getPrintf(), ExpressionPtr(new StringLiteralExpression("PrintCoefs\\n")))));
+
+        std::string printcoef_fmt_str;
+        for (int rk_index=0; rk_index<4; ++rk_index) {
+            for (int component=0; component<n; ++component)
+                printcoef_fmt_str += "%f ";
+            printcoef_fmt_str += "\\n";
+        }
+
+        FunctionCallExpression* printf_coef = FunctionCallExpression::downcast(ExpressionStatement::insert(if_thd1->getBody(), FunctionCallExpression(
+                        mod.getPrintf(),
+                        StringLiteralExpression(printcoef_fmt_str)
+                    ))->getExpression());
+
+        for (int rk_index=0; rk_index<4; ++rk_index) {
+            for (int component=0; component<n; ++component)
+                        printf_coef->passArgument(
+                            getRKCoef(PrintCoefs->getPositionalParam(0), ExpressionPtr(new LiteralIntExpression(rk_index)), ExpressionPtr(new LiteralIntExpression(component)))
+                          );
+        }
+    }
 
     CudaKernel* kernel = CudaKernel::downcast(mod.addFunction(CudaKernel("GPUIntMEBlockedRK4", BaseTypes::getTp(BaseTypes::VOID), {FunctionParameter(RKReal, "h"), FunctionParameter(pRKReal_volatile, "k_global")})));
 
@@ -353,8 +383,11 @@ void CudaGeneratorImpl::generate() {
                 ArrayIndexExpression(t, LiteralIntExpression(3)),
               VariableRefExpression(h)))->getExpression());
 
-        // print coefs
-        kernel->addStatement(ExpressionPtr(new FunctionCallExpression(PrintCoefs, VariableRefExpression(k))));
+        {
+            // print coefs
+            kernel->addStatement(ExpressionPtr(new FunctionCallExpression(PrintCoefs, VariableRefExpression(k))));
+            kernel->addStatement(ExpressionPtr(new FunctionCallExpression(mod.getCudaSyncThreads())));
+        }
 
         // main integration loop
         {
@@ -413,29 +446,42 @@ void CudaGeneratorImpl::generate() {
 
             update_coef_loop->getBody().addStatement(ExpressionPtr(new FunctionCallExpression(mod.getCudaSyncThreads())));
 
-            IfStatement* if_thd1 = IfStatement::downcast(update_coef_loop->getBody().addStatement(StatementPtr(new IfStatement(
-                ExpressionPtr(new EqualityCompExpression(kernel->getThreadIdx(CudaKernel::IndexComponent::x), LiteralIntExpression(0)))
-              ))));
+            {
+                IfStatement* if_thd1 = IfStatement::downcast(update_coef_loop->getBody().addStatement(StatementPtr(new IfStatement(
+                    ExpressionPtr(new EqualityCompExpression(kernel->getThreadIdx(CudaKernel::IndexComponent::x), LiteralIntExpression(0)))
+                ))));
 
-            std::string sv_fmt_str = "statvec ";
-            for (int component=0; component<n; ++component)
-                sv_fmt_str += "%f ";
-            sv_fmt_str += "\\n";
+                std::string sv_fmt_str = "statvec ";
+                for (int component=0; component<n; ++component)
+                    sv_fmt_str += "%f ";
+                sv_fmt_str += "\\n";
 
-            // print the state vector
-            FunctionCallExpression* printf_statevec = FunctionCallExpression::downcast(ExpressionStatement::insert(if_thd1->getBody(), FunctionCallExpression(
-                    mod.getPrintf(),
-                     StringLiteralExpression(sv_fmt_str)
-                  ))->getExpression());
+                // print the state vector
+                FunctionCallExpression* printf_statevec = FunctionCallExpression::downcast(ExpressionStatement::insert(if_thd1->getBody(), FunctionCallExpression(
+                        mod.getPrintf(),
+                        StringLiteralExpression(sv_fmt_str)
+                    ))->getExpression());
 
-//             Log(Logger::LOG_DEBUG) << "State vec printf\n";
-            for (int component=0; component<n; ++component)
-                printf_statevec->passArgument(ExpressionPtr(
-                    new ArrayIndexExpression(f,
-                        MacroExpression(RK_STATE_VEC_GET_OFFSET,
-                        SumExpression(VariableRefExpression(rk_gen), LiteralIntExpression(1)),
-                        LiteralIntExpression(component)))
-                  ));
+    //             Log(Logger::LOG_DEBUG) << "State vec printf\n";
+                for (int component=0; component<n; ++component)
+                    printf_statevec->passArgument(ExpressionPtr(
+                        new ArrayIndexExpression(f,
+                            MacroExpression(RK_STATE_VEC_GET_OFFSET,
+                            SumExpression(VariableRefExpression(rk_gen), LiteralIntExpression(1)),
+                            LiteralIntExpression(component)))
+                    ));
+
+                ExpressionStatement::insert(if_thd1->getBody(), FunctionCallExpression(
+                        mod.getPrintf(),
+                        StringLiteralExpression("h = %f\\n"),
+                        VariableRefExpression(h)
+                    ));
+            }
+            {
+                // print coefs
+                update_coef_loop->getBody().addStatement(ExpressionPtr(new FunctionCallExpression(mod.getCudaSyncThreads())));
+                update_coef_loop->getBody().addStatement(ExpressionPtr(new FunctionCallExpression(PrintCoefs, VariableRefExpression(k))));
+            }
         }
     }
 

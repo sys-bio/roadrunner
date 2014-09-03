@@ -317,7 +317,7 @@ class ArrayIndexExpression : public VariableRefExpression {
 public:/**
      * @brief Construct from @ref var and an index expression owning pointer
      */
-    ArrayIndexExpression(Variable* var, ExpressionPtr&& index_exp)
+    ArrayIndexExpression(const Variable* var, ExpressionPtr&& index_exp)
       : VariableRefExpression(var), index_exp_(std::move(index_exp)) {}
 
     /**
@@ -329,7 +329,7 @@ public:/**
      * @param[in] index_exp The index expression
      */
     template <class ExpressionT>
-    ArrayIndexExpression(Variable* var, ExpressionT index_exp)
+    ArrayIndexExpression(const Variable* var, ExpressionT index_exp)
       : ArrayIndexExpression(var, ExpressionPtr(new ExpressionT(std::move(index_exp)))) {}
 
     /// Copy ctor

@@ -262,6 +262,29 @@ public:
         printf_->setIsVarargs(true);
     }
 
+    enum class IndexComponent {
+        x,
+        y,
+        z
+    };
+
+    /// Get the expression for threadIdx
+    VariableRefExpression getThreadIdx() const {
+        return VariableRefExpression(threadidx_.get());
+    }
+
+    /// Get the expression for threadIdx with the specified component
+    MemberAccessExpression getThreadIdx(IndexComponent c) const {
+        switch (c) {
+            case IndexComponent::x:
+                return MemberAccessExpression(getThreadIdx(), SymbolExpression("x"));
+            case IndexComponent::y:
+                return MemberAccessExpression(getThreadIdx(), SymbolExpression("y"));
+            case IndexComponent::z:
+                return MemberAccessExpression(getThreadIdx(), SymbolExpression("z"));
+        }
+    }
+
     /// Serialize to a .cu source file
     virtual void serialize(Serializer& s) const;
 
@@ -304,6 +327,8 @@ protected:
     FunctionPtr cudamalloc_;
     FunctionPtr cudafree_;
     FunctionPtr cudaSyncThreads_;
+
+    VariablePtr threadidx_{new Variable(BaseTypes::getTp(BaseTypes::INT), "threadIdx")};
 };
 
 } // namespace dom
