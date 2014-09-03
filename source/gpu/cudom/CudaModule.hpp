@@ -254,6 +254,9 @@ public:
         cudafree_(new Function("cudaFree",
           BaseTypes::getTp(BaseTypes::VOID),
           {FunctionParameter(BaseTypes::getTp(BaseTypes::PVOID), "memblock")}
+          )),
+        cudaSyncThreads_(new Function("__syncthreads",
+          BaseTypes::getTp(BaseTypes::VOID)
           ))
         {
         printf_->setIsVarargs(true);
@@ -291,11 +294,16 @@ public:
         return cudafree_.get();
     }
 
+    const Function* getCudaSyncThreads() {
+        return cudaSyncThreads_.get();
+    }
+
 protected:
     FunctionPtr printf_;
     FunctionPtr cudaDeviceSynchronize_;
     FunctionPtr cudamalloc_;
     FunctionPtr cudafree_;
+    FunctionPtr cudaSyncThreads_;
 };
 
 } // namespace dom

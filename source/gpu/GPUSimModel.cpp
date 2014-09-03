@@ -239,6 +239,9 @@ GPUSimModel::GPUSimModel(std::string const &sbml, unsigned options) {
         species->setIsIndepInitFltSpecies(
           !hasInitialAssignmentRule(species) &&
           (!hasAssignmentRule(species) || species->getIsConservedMoiety()));
+
+        if (s->isSetInitialConcentration())
+            species->setInitialConcentration(s->getInitialConcentration());
     }
 
     // get the compartments, need to reorder them to set the independent ones

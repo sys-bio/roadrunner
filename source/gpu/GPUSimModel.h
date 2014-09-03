@@ -27,6 +27,8 @@
 
 #include "rrSelectionRecord.h"
 #include "GPUSimException.h"
+#include "GPUSimReal.h"
+#include "GPUSimReal.h"
 #include "conservation/ConservedMoietyConverter.h"
 #include "conservation/ConservationExtension.h"
 #include "patterns/AccessPtrIterator.hpp"
@@ -75,6 +77,9 @@ public:
     void setIsIndependent(bool val) { isIndependent_ = val; }
     bool getIsIndependent() const { return isIndependent_; }
 
+    void setInitialConcentration(Real val) { init_conc_ = val; }
+    Real getInitialConcentration() const { return init_conc_; }
+
     void setIndex(int index) { index_ = index; }
     int getIndex() const { return index_; }
 
@@ -90,6 +95,7 @@ protected:
     bool indInitFltSpc_ = false;
     bool isIndependent_ = true;
     int index_ = 0;
+    Real init_conc_ = 0.;
 };
 
 class RR_DECLSPEC ReactionParticipant
@@ -126,13 +132,13 @@ public:
     typedef std::string String;
     typedef ReactionParticipant::ReactionSide ReactionSide;
 
-    Reaction(const std::string& id)
+    Reaction(const String& id)
       : id_(id) {}
 
-    void settId(const std::string& id) { id_ = id; }
-    std::string getId() const { return id_; }
+    void settId(const String& id) { id_ = id; }
+    String getId() const { return id_; }
     /// Return true if @ref id matches this object's id
-    bool matchId(const std::string& id) { return id_ == id; }
+    bool matchId(const String& id) { return id_ == id; }
 
     /// Add a participant (reactant or product)
     void addParticipant(const FloatingSpecies* spec, ReactionSide side) {
@@ -159,6 +165,21 @@ public:
             if (p->getSpecies() == spec)
                 return true;
         return false;
+    }
+
+    bool isParticipant(const String& id) const {
+        for (auto const & p : part_)
+            if (p->getSpecies()->getId() == id)
+                return true;
+        return false;
+    }
+
+    /// Get the species from an id if it participates in the reaction
+    const FloatingSpecies* getSpecies(const String& id) const {
+        for (auto const & p : part_)
+            if (p->getSpecies()->getId() == id)
+                return p->getSpecies();
+        throw_gpusim_exception("No such participant \"" + id +"\"");
     }
 
     ReactionSide getSide(const FloatingSpecies* spec) const {

@@ -108,53 +108,69 @@ void UnaryMinusExpression::serialize(Serializer& s) const {
     s << "-" << *getOperand();
 }
 
+// -- BinaryExpression --
+
+bool BinaryExpression::needGroup(const Expression* e) const {
+    if (const PrecedenceExpression* x = dynamic_cast<const PrecedenceExpression*>(e))
+        if (x->getPrecedence() > getPrecedence())
+            return true;
+    return false;
+}
+
+void BinaryExpression::serializeGroupedExp(Serializer& s, const Expression* e) const {
+    if (needGroup(e))
+        s << "(" << *e << ")";
+    else
+        s << *e;
+}
+
 // -- AssignmentExpression --
 
 void AssignmentExpression::serialize(Serializer& s) const {
-    s << *getLHS();
+    serializeGroupedExp(s, getLHS());
     s << " = ";
-    s << *getRHS();
+    serializeGroupedExp(s, getRHS());
 }
 
 // -- MemberAccessExpression --
 
 void MemberAccessExpression::serialize(Serializer& s) const {
     checkRHSIsSymbol();
-    s << *getLHS();
+    serializeGroupedExp(s, getLHS());
     s << ".";
-    s << *getRHS();
+    serializeGroupedExp(s, getRHS());
 }
 
 // -- ProductExpression --
 
 void ProductExpression::serialize(Serializer& s) const {
-    s << *getLHS();
+    serializeGroupedExp(s, getLHS());
     s << "*";
-    s << *getRHS();
+    serializeGroupedExp(s, getRHS());
 }
 
 // -- SumExpression --
 
 void SumExpression::serialize(Serializer& s) const {
-    s << *getLHS();
+    serializeGroupedExp(s, getLHS());
     s << " + ";
-    s << *getRHS();
+    serializeGroupedExp(s, getRHS());
 }
 
 // -- SubtractExpression --
 
 void SubtractExpression::serialize(Serializer& s) const {
-    s << *getLHS();
+    serializeGroupedExp(s, getLHS());
     s << " + ";
-    s << *getRHS();
+    serializeGroupedExp(s, getRHS());
 }
 
 // -- LTComparisonExpression --
 
 void LTComparisonExpression::serialize(Serializer& s) const {
-    s << *getLHS();
+    serializeGroupedExp(s, getLHS());
     s << " < ";
-    s << *getRHS();
+    serializeGroupedExp(s, getRHS());
 }
 
 // -- FunctionCallExpression --

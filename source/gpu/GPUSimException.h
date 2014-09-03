@@ -2,7 +2,7 @@
  * GPUSimException.h
  *
  *  Created on: Jun 30, 2013
- *      Author: andy
+ *      Author: JKM
  */
 
 #ifndef RRGPUSimEXCEPTION_H_

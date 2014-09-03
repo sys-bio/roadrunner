@@ -645,11 +645,32 @@ public:
     }
 };
 
+class PrecedenceExpression : public Expression {
+public:
+    enum {
+        // http://en.cppreference.com/w/cpp/language/operator_precedence
+        PREC_GRP1, // ::
+        PREC_GRP2,   // suffix ++, --, (), [], fct-style cast
+        PREC_GRP3, // prefix ++, --, unary +, -, !, ~, (type), * (indir), &, sizeof, new, new[], delete, delete[]
+        PREC_GRP4, // .*   ->*
+        PREC_GRP5, // * / %
+        PREC_GRP6, // + -
+        PREC_GRP7, // << >>
+        PREC_GRP8, // < <= > >=
+        PREC_GRP15 // ?: = += -= *= /= %= <<= >>= &= ^= |=
+    };
+
+    virtual int getPrecedence() const = 0;
+
+    virtual void serialize(Serializer& s) const = 0;
+
+};
+
 /**
  * @author JKM
  * @brief Variable initialization expressions
  */
-class BinaryExpression : public Expression {
+class BinaryExpression : public PrecedenceExpression {
 public:
     /// Construct from expression pointers
     BinaryExpression(ExpressionPtr&& lhs, ExpressionPtr&& rhs)
@@ -703,6 +724,10 @@ public:
     virtual void serialize(Serializer& s) const = 0;
 
 protected:
+    // to enforce operator precedence
+    bool needGroup(const Expression*) const;
+    void serializeGroupedExp(Serializer& s, const Expression* e) const;
+
     ExpressionPtr lhs_;
     ExpressionPtr rhs_;
 };
@@ -724,6 +749,8 @@ public:
     virtual ExpressionPtr clone() const {
         return ExpressionPtr(new AssignmentExpression(*this));
     }
+
+    virtual int getPrecedence() const { return PREC_GRP15; }
 
     // TODO: replace with LLVM-style casting
     static AssignmentExpression* downcast(Expression* e) {
@@ -773,6 +800,8 @@ public:
         SymbolExpression::downcast(rhs_.get());
     }
 
+    virtual int getPrecedence() const { return PREC_GRP4; }
+
     virtual void serialize(Serializer& s) const;
 
     virtual ExpressionPtr clone() const {
@@ -792,6 +821,8 @@ public:
     /// Copy ctor
     ProductExpression(const ProductExpression& other)
       : BinaryExpression(other) {}
+
+    virtual int getPrecedence() const { return PREC_GRP5; }
 
     virtual void serialize(Serializer& s) const;
 
@@ -813,6 +844,8 @@ public:
     SumExpression(const SumExpression& other)
       : BinaryExpression(other) {}
 
+    virtual int getPrecedence() const { return PREC_GRP6; }
+
     virtual void serialize(Serializer& s) const;
 
     virtual ExpressionPtr clone() const {
@@ -832,6 +865,8 @@ public:
     /// Copy ctor
     SubtractExpression(const SubtractExpression& other)
       : BinaryExpression(other) {}
+
+    virtual int getPrecedence() const { return PREC_GRP6; }
 
     virtual void serialize(Serializer& s) const;
 
@@ -855,6 +890,8 @@ public:
     /// Copy ctor
     LTComparisonExpression(const LTComparisonExpression& other)
       : BinaryExpression(other) {}
+
+    virtual int getPrecedence() const { return PREC_GRP8; }
 
     virtual void serialize(Serializer& s) const;
 
