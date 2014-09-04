@@ -232,7 +232,7 @@ public:
         RK4, 
 
         /**
-         * Basic gpu integrator
+         * GPU integrator
          */
         GPUSIM,
 

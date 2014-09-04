@@ -1229,8 +1229,33 @@ const DoubleMatrix* RoadRunner::simulate(const SimulateOptions* opt)
     // evalute the model with its current state
     self.model->getStateVectorRate(timeStart, 0, 0);
 
+    // GPU integration must be performed entirely in the GPU
+    if (self.simulateOpt.integrator == SimulateOptions::GPUSIM)
+    {
+        Log(Logger::LOG_INFORMATION)
+          << "Performing GPU integration for "
+          << self.simulateOpt.steps + 1
+          << "steps";
+
+        int numPoints = self.simulateOpt.steps + 1;
+
+        if (numPoints <= 1)
+            numPoints = 2;
+
+        double hstep = (timeEnd - timeStart) / (numPoints - 1);
+        int nrCols = self.mSelectionList.size();
+
+        Log(Logger::LOG_DEBUG) << "starting simulation with " << nrCols << " selected columns";
+
+        // ignored if same
+        self.simulationResult.resize(self.simulateOpt.steps + 1, nrCols);
+
+        self.integrator->restart(timeStart);
+
+        self.integrator->integrate(timeStart, hstep);
+    }
     // Variable Time Step Integration
-    if (self.simulateOpt.integratorFlags & SimulateOptions::VARIABLE_STEP )
+    else if (self.simulateOpt.integratorFlags & SimulateOptions::VARIABLE_STEP )
     {
         Log(Logger::LOG_INFORMATION) << "Performing variable step integration";
 
