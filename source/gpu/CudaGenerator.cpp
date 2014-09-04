@@ -205,7 +205,7 @@ ExpressionPtr CudaGeneratorImpl::generateReactionRateExp(const Reaction* r, int 
 ExpressionPtr CudaGeneratorImpl::accumulate(ExpressionPtr&& sum, ExpressionPtr&& item, bool invert) {
     if (sum)
         return invert ?
-            ExpressionPtr(new SubtractExpression(std::move(sum), std::move(item))) :
+            ExpressionPtr(new SubtractionExpression(std::move(sum), std::move(item))) :
             ExpressionPtr(new SumExpression(std::move(sum), std::move(item)));
     else
         return invert ?
@@ -434,7 +434,9 @@ void CudaGeneratorImpl::generate() {
 
             update_coef_loop->setInitExp(ExpressionPtr(new VariableInitExpression(rk_gen, ExpressionPtr(new LiteralIntExpression(0)))));
 
-            update_coef_loop->setCondExp(ExpressionPtr(new LTComparisonExpression(ExpressionPtr(new VariableRefExpression(rk_gen)), ExpressionPtr(new LiteralIntExpression(1)))));
+            update_coef_loop->setCondExp(ExpressionPtr(new LTComparisonExpression(ExpressionPtr(new VariableRefExpression(rk_gen)), ExpressionPtr(
+                new SubtractionExpression(VariableRefExpression(km), LiteralIntExpression(1))
+              ))));
 
             update_coef_loop->setLoopExp(ExpressionPtr(new PreincrementExpression(ExpressionPtr(new VariableRefExpression(rk_gen)))));
 
@@ -586,7 +588,17 @@ void CudaGeneratorImpl::generate() {
             ProductExpression(MacroExpression(RK_TIME_VEC_LEN), FunctionCallExpression(mod.getSizeof(), TypeRefExpression(RKReal))) // Time vector size
             ));
 
-        // free the global coef mem
+        // copy device results to passed parameters
+        entry->addStatement(ExpressionPtr(
+            new FunctionCallExpression(
+                mod.getCudaMemcpy(),
+                VariableRefExpression(kv),
+                VariableRefExpression(results),
+                ProductExpression(ProductExpression(VariableRefExpression(km), MacroExpression(N)), FunctionCallExpression(mod.getSizeof(), TypeRefExpression(RKReal))),
+                SymbolExpression("cudaMemcpyDeviceToHost")
+              )));
+
+        // free the result mem
         entry->addStatement(ExpressionPtr(new FunctionCallExpression(mod.getCudaFree(), VariableRefExpression(results))));
 
         // call cudaDeviceSynchronize

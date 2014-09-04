@@ -897,8 +897,8 @@ public:
 
 /**
  * @author JKM
- * @brief Sum expression
- * @details x + y
+ * @brief Subtraction expression
+ * @details x - y
  */
 class SubtractionExpression : public BinaryExpression {
 public:
@@ -922,6 +922,7 @@ public:
  * @brief Sum expression
  * @details x + y
  */
+// DEPRECATED
 class SubtractExpression : public BinaryExpression {
 public:
     using BinaryExpression::BinaryExpression;
