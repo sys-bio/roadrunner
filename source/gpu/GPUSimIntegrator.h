@@ -77,6 +77,13 @@ public:
     virtual double integrate(double t0, double tf);
 
     /**
+     * @brief Performs integration on the specified time values
+     * @param[in] t The array of time values
+     * @param[in] n The length of the array
+     */
+    TimecourseIntegrationResultsPtr integrate(const TimecourseIntegrationParameters& p);
+
+    /**
      * copies the state vector out of the model and into the integrator vector,
      * re-initializes the integrator.
      */

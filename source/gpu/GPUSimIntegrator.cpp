@@ -62,20 +62,35 @@ void GPUSimIntegrator::setSimulateOptions(const SimulateOptions* o)
 {
 }
 
-double GPUSimIntegrator::integrate(double timeStart, double hstep)
-{
-    Log(lDebug3)<<"---------------------------------------------------";
-    Log(lDebug3)<<"--- O N E     S T E P      ( "<<mOneStepCount<< " ) ";
-    Log(lDebug3)<<"---------------------------------------------------";
+double GPUSimIntegrator::integrate(double t0, double tf) {
+    throw_gpusim_exception("Use other sig");
+}
 
-    mOneStepCount++;
+TimecourseIntegrationResultsPtr GPUSimIntegrator::integrate(const TimecourseIntegrationParameters& p)
+{
+    TimecourseIntegrationResultsPtr results(new TimecourseIntegrationResultsRealVector());
+    TimecourseIntegrationResultsRealVector* realvec = (TimecourseIntegrationResultsRealVector*)results.get();
 
 //     GPUSimIntegratorInt intf(this);
 
 //     GPUIntMESerial(intf);
-    model_->generateModel();
-    model_->getEntryPoint()(hstep);
-    throw_gpusim_exception("not supported");
+    std::size_t elt_size = sizeof(float);
+    void* values = malloc(p.getTimevalueCount()*model_->getNumIndepFloatingSpecies()*elt_size);
+    model_->refresh();
+    float* tval = p.getTimevaluesHeapArrayFlt();
+
+//     model_->getEntryPoint()(tval, (float*)values);
+
+    realvec->setTimevalueCount(p.getTimevalueCount());
+    realvec->setVectorLength(model_->getNumIndepFloatingSpecies());
+    for (TimecourseIntegrationResultsRealVector::size_type i=0; i<realvec->getTimevalueCount(); ++i)
+        for (TimecourseIntegrationResultsRealVector::size_type j=0; j<realvec->getVectorLength(); ++j)
+            realvec->setValue(i, j, i+j);
+
+    free(values);
+    free(tval);
+
+    return results;
 }
 
 void GPUSimIntegrator::restart(double time)

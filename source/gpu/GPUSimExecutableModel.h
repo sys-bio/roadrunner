@@ -99,9 +99,24 @@ public:
 
     virtual ~GPUSimExecutableModel();
 
-    void generateModel();
+    // -- Useful functions --
 
+    /// Should run generateModel?
+    bool modelIsOutdated() const {
+        return outdated_;
+    }
+
+    /// Rebuild model if outdated
+    void refresh() {
+        if (modelIsOutdated())
+            generateModel();
+        outdated_ = false;
+    }
+
+    /// Get the entry point into the GPU code
     EntryPointSig getEntryPoint();
+
+    // -- Inherited functions (mostly useless) --
 
     /**
      * get the name of the model
@@ -478,10 +493,16 @@ public:
 
 private:
 
+    /// Rebuild model
+    void generateModel();
+
     template <typename a_type, typename b_type>
     friend void copyCachedModel(a_type* src, b_type* dst);
 
     std::unique_ptr<dom::CudaGenerator> generator_;
+
+    /// True when model needs to be rebuild because of changes etc.
+    bool outdated_ = true;
 
 #if RR_GPUSIM_USE_LLVM_MODEL
     // just throws exc if no model

@@ -1252,7 +1252,32 @@ const DoubleMatrix* RoadRunner::simulate(const SimulateOptions* opt)
 
         self.integrator->restart(timeStart);
 
-        self.integrator->integrate(timeStart, hstep);
+        TimecourseIntegrationParameters p;
+        for (int i = 0; i < self.simulateOpt.steps + 1; ++i)
+            p.addTimevalue(timeStart + i*hstep);
+
+        TimecourseIntegrationResultsPtr r = self.integrator->integrate(p);
+
+        for (int irow=0; irow < self.simulateOpt.steps + 1; ++irow)
+            for (u_int j=0; j<impl->mSelectionList.size(); ++j) {
+                double val;
+                const SelectionRecord& record = impl->mSelectionList[j];
+                switch (record.selectionType) {
+                    case SelectionRecord::TIME:
+                        val = p.getTimevalue((std::size_t)irow);
+                        break;
+                    case SelectionRecord::FLOATING_CONCENTRATION:
+                        val = r->getValue((std::size_t)irow, record.index).getReal();
+                        break;
+                    default: {
+                        std::stringstream ss;
+                        ss << record.selectionType;
+                        throw CoreException("Unknown selection record " + ss.str());
+                    }
+                }
+                self.simulationResult(irow, j) = val;
+            }
+
     }
     // Variable Time Step Integration
     else if (self.simulateOpt.integratorFlags & SimulateOptions::VARIABLE_STEP )
