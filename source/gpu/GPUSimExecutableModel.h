@@ -88,7 +88,7 @@ class CudaGenerator;
 class RR_DECLSPEC GPUSimExecutableModel: public ExecutableModel, public GPUSimModel
 {
 public:
-    typedef void (*EntryPointSig)(int, float*, float*);
+    typedef void (*EntryPointSig)(int m, float* t, float* v);
 
     /**
      * the default ctor just zeros out all our private bits, then

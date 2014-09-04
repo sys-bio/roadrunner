@@ -266,9 +266,9 @@ void CudaGeneratorImpl::generate() {
 
     Macro* RK4ORDER = mod.addMacro(Macro("RK4ORDER", "4"));
 
-    Macro* RK_COEF_LEN = mod.addMacro(Macro("RK_COEF_LEN", "RK4ORDER*N"));
+    Macro* RK_COEF_LEN = mod.addMacro(Macro("RK_COEF_LEN", "(RK4ORDER*N)"));
 //     RK_COEF_GET_OFFSET = mod.addMacro(Macro("RK_COEF_GET_OFFSET", "RK4ORDER*N + idx*N + component","idx", "component"));
-    RK_COEF_GET_OFFSET = mod.addMacro(Macro("RK_COEF_GET_OFFSET", "(idx*N + component)","idx", "component"));
+    RK_COEF_GET_OFFSET = mod.addMacro(Macro("RK_COEF_GET_OFFSET", "((idx)*N + (component))","idx", "component"));
 //     Macro* RK_COEF_SIZE = mod.addMacro(Macro("RK_COEF_SIZE", ""));
 
 //     Macro* RK_GET_INDEX = mod.addMacro(Macro("RK_GET_INDEX", "(threadIdx.x%N)"));
@@ -276,7 +276,7 @@ void CudaGeneratorImpl::generate() {
     Macro* RK_GET_COMPONENT = mod.addMacro(Macro("RK_GET_COMPONENT", "(threadIdx.x/32)"));
 
     Macro* RK_STATE_VEC_LEN = mod.addMacro(Macro("RK_STATE_VEC_LEN", "(km*N)"));
-    RK_STATE_VEC_GET_OFFSET = mod.addMacro(Macro("RK_STATE_VEC_GET_OFFSET", "(gen*N + component)", "gen", "component"));
+    RK_STATE_VEC_GET_OFFSET = mod.addMacro(Macro("RK_STATE_VEC_GET_OFFSET", "((gen)*N + (component))", "gen", "component"));
 
     Macro* RK_TIME_VEC_LEN = mod.addMacro(Macro("RK_TIME_VEC_LEN", "km"));
 
@@ -394,6 +394,19 @@ void CudaGeneratorImpl::generate() {
                 component_switch->addBreak();
             }
         }
+
+        // initialize the time values
+        kernel->addStatement(ExpressionPtr(
+            new FunctionCallExpression(
+                mod.getRegMemcpy(),
+                VariableRefExpression(t),
+                VariableRefExpression(kt),
+                ProductExpression(
+                    VariableRefExpression(km), FunctionCallExpression(mod.getSizeof(), TypeRefExpression(RKReal))
+                  )
+              )));
+
+        kernel->addStatement(ExpressionPtr(new FunctionCallExpression(mod.getCudaSyncThreads())));
 
         // initialize t (the time vector)
 //         AssignmentExpression* t_init_assn0 =
@@ -562,6 +575,16 @@ void CudaGeneratorImpl::generate() {
         entry->addStatement(ExpressionPtr(new FunctionCallExpression(mod.getCudaMalloc(),
         ReferenceExpression(VariableRefExpression(tvals)),
         ProductExpression(VariableRefExpression(km), FunctionCallExpression(mod.getSizeof(), TypeRefExpression(RKReal))))));
+
+        // copy tvalues to device memory
+        entry->addStatement(ExpressionPtr(
+            new FunctionCallExpression(
+                mod.getCudaMemcpy(),
+                VariableRefExpression(tvals),
+                VariableRefExpression(kt),
+                ProductExpression(VariableRefExpression(km), FunctionCallExpression(mod.getSizeof(), TypeRefExpression(RKReal))),
+                SymbolExpression("cudaMemcpyHostToDevice")
+              )));
 
         // allocate mem for results
         Variable* results =

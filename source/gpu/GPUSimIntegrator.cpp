@@ -72,20 +72,24 @@ TimecourseIntegrationResultsPtr GPUSimIntegrator::integrate(const TimecourseInte
     TimecourseIntegrationResultsRealVector* realvec = (TimecourseIntegrationResultsRealVector*)results.get();
 
 //     GPUSimIntegratorInt intf(this);
+    realvec->setTimevalueCount(p.getTimevalueCount());
+    realvec->setVectorLength(model_->getNumIndepFloatingSpecies());
 
 //     GPUIntMESerial(intf);
-    std::size_t elt_size = sizeof(float);
-    void* values = malloc(p.getTimevalueCount()*model_->getNumIndepFloatingSpecies()*elt_size);
+    float* values = (float*)malloc(realvec->getTimevalueCount()*realvec->getVectorLength()*sizeof(float));
     model_->refresh();
     float* tval = p.getTimevaluesHeapArrayFlt();
 
-//     model_->getEntryPoint()(tval, (float*)values);
+    Log(Logger::LOG_DEBUG) << "GPUSimIntegrator time values:";
+    for (TimecourseIntegrationResultsRealVector::size_type i=0; i<realvec->getTimevalueCount(); ++i)
+        Log(Logger::LOG_DEBUG) << tval[i];
 
-    realvec->setTimevalueCount(p.getTimevalueCount());
-    realvec->setVectorLength(model_->getNumIndepFloatingSpecies());
+    model_->getEntryPoint()((int)realvec->getTimevalueCount(), tval, values);
+
     for (TimecourseIntegrationResultsRealVector::size_type i=0; i<realvec->getTimevalueCount(); ++i)
         for (TimecourseIntegrationResultsRealVector::size_type j=0; j<realvec->getVectorLength(); ++j)
-            realvec->setValue(i, j, i+j);
+            realvec->setValue(i, j, values[i*realvec->getVectorLength() + j]);
+//             realvec->setValue(i, j, i+j);
 
     free(values);
     free(tval);
