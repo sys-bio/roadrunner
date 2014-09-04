@@ -165,6 +165,14 @@ void SumExpression::serialize(Serializer& s) const {
     serializeGroupedExp(s, getRHS());
 }
 
+// -- SubtractionExpression --
+
+void SubtractionExpression::serialize(Serializer& s) const {
+    serializeGroupedExp(s, getLHS());
+    s << " - ";
+    serializeGroupedExp(s, getRHS());
+}
+
 // -- SubtractExpression --
 
 void SubtractExpression::serialize(Serializer& s) const {

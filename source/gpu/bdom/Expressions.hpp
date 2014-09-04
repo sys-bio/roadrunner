@@ -249,11 +249,17 @@ class VariableRefExpression : public SymbolExpression {
 public:
     /// Ctor for type, var name, and initial value
     VariableRefExpression(const Variable* var)
-      : var_(var) {}
+      : var_(var) {
+        if (!var_)
+            throw_gpusim_exception("No variable set");
+    }
 
     /// Copy ctor
     VariableRefExpression(const VariableRefExpression& other)
-      : var_(other.var_) {}
+      : var_(other.var_) {
+        if (!var_)
+            throw_gpusim_exception("No variable set");
+    }
 
 //     Variable* getVariable() {
 //         if (!var_)
@@ -414,6 +420,8 @@ public:
     VariableInitExpression(Variable* var, ExpressionPtr&& value_exp)
       : VariableDeclarationExpression(var) {
         value_ = std::move(value_exp);
+        if (!var_)
+            throw_gpusim_exception("No variable set");
     }
 
     template <class InitialValExp>
@@ -421,11 +429,16 @@ public:
     VariableInitExpression(Variable* var, InitialValExp&& value_exp)
       : VariableDeclarationExpression(var) {
         value_ = ExpressionPtr(new InitialValExp(std::move(value_exp)));
+        if (!var_)
+            throw_gpusim_exception("No variable set");
     }
 
     /// Copy ctor
     VariableInitExpression(const VariableInitExpression& other)
-      : VariableDeclarationExpression(other), value_(other.value_->clone()) {}
+      : VariableDeclarationExpression(other), value_(other.value_->clone()) {
+        if (!var_)
+            throw_gpusim_exception("No variable set");
+    }
 
     Expression* getValue() {
         if (!value_)
@@ -879,6 +892,28 @@ public:
 
     virtual ExpressionPtr clone() const {
         return ExpressionPtr(new SumExpression(*this));
+    }
+};
+
+/**
+ * @author JKM
+ * @brief Sum expression
+ * @details x + y
+ */
+class SubtractionExpression : public BinaryExpression {
+public:
+    using BinaryExpression::BinaryExpression;
+
+    /// Copy ctor
+    SubtractionExpression(const SubtractionExpression& other)
+      : BinaryExpression(other) {}
+
+    virtual int getPrecedence() const { return PREC_GRP6; }
+
+    virtual void serialize(Serializer& s) const;
+
+    virtual ExpressionPtr clone() const {
+        return ExpressionPtr(new SubtractionExpression(*this));
     }
 };
 

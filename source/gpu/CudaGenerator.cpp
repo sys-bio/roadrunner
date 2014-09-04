@@ -124,7 +124,7 @@ protected:
     Macro* RK_COEF_GET_OFFSET = nullptr;
     Macro* RK_STATE_VEC_GET_OFFSET = nullptr;
 
-    const FunctionParameter* h = nullptr;
+    Variable* h = nullptr;
     Variable* rk_gen = nullptr;
     Variable* k = nullptr;
     Variable* f = nullptr;
@@ -266,19 +266,19 @@ void CudaGeneratorImpl::generate() {
 
     Macro* RK4ORDER = mod.addMacro(Macro("RK4ORDER", "4"));
 
-    Macro* RK_COEF_LEN = mod.addMacro(Macro("RK_COEF_LEN", "RK4ORDER*RK4ORDER*N"));
+    Macro* RK_COEF_LEN = mod.addMacro(Macro("RK_COEF_LEN", "RK4ORDER*N"));
 //     RK_COEF_GET_OFFSET = mod.addMacro(Macro("RK_COEF_GET_OFFSET", "RK4ORDER*N + idx*N + component","idx", "component"));
-    RK_COEF_GET_OFFSET = mod.addMacro(Macro("RK_COEF_GET_OFFSET", "idx*N + component","idx", "component"));
+    RK_COEF_GET_OFFSET = mod.addMacro(Macro("RK_COEF_GET_OFFSET", "(idx*N + component)","idx", "component"));
 //     Macro* RK_COEF_SIZE = mod.addMacro(Macro("RK_COEF_SIZE", ""));
 
 //     Macro* RK_GET_INDEX = mod.addMacro(Macro("RK_GET_INDEX", "(threadIdx.x%N)"));
 
     Macro* RK_GET_COMPONENT = mod.addMacro(Macro("RK_GET_COMPONENT", "(threadIdx.x/32)"));
 
-    Macro* RK_STATE_VEC_LEN = mod.addMacro(Macro("RK_STATE_VEC_LEN", "RK4ORDER*N"));
-    RK_STATE_VEC_GET_OFFSET = mod.addMacro(Macro("RK_STATE_VEC_GET_OFFSET", "gen*N + component", "gen", "component"));
+    Macro* RK_STATE_VEC_LEN = mod.addMacro(Macro("RK_STATE_VEC_LEN", "(km*N)"));
+    RK_STATE_VEC_GET_OFFSET = mod.addMacro(Macro("RK_STATE_VEC_GET_OFFSET", "(gen*N + component)", "gen", "component"));
 
-    Macro* RK_TIME_VEC_LEN = mod.addMacro(Macro("RK_TIME_VEC_LEN", "RK4ORDER"));
+    Macro* RK_TIME_VEC_LEN = mod.addMacro(Macro("RK_TIME_VEC_LEN", "km"));
 
     // typedef for float or double
     Type* RKReal = TypedefStatement::downcast(mod.addStatement(StatementPtr(new TypedefStatement(BaseTypes::getTp(BaseTypes::FLOAT), "RKReal"))))->getAlias();
@@ -319,14 +319,20 @@ void CudaGeneratorImpl::generate() {
         }
     }
 
-    CudaKernel* kernel = CudaKernel::downcast(mod.addFunction(CudaKernel("GPUIntMEBlockedRK4", BaseTypes::getTp(BaseTypes::VOID), {FunctionParameter(RKReal, "h"), FunctionParameter(pRKReal_volatile, "k_global")})));
+    CudaKernel* kernel = CudaKernel::downcast(mod.addFunction(CudaKernel("GPUIntMEBlockedRK4", BaseTypes::getTp(BaseTypes::VOID), {FunctionParameter(BaseTypes::getTp(BaseTypes::INT), "km"), FunctionParameter(pRKReal, "kt"), FunctionParameter(pRKReal, "kv")})));
 
     // the step size
-    h = kernel->getPositionalParam(0);
-    assert(h->getType()->isIdentical(RKReal) && "h has wrong type - signature of kernel changed? ");
+    assert(kernel->getNumPositionalParams() == 3 && "wrong num of params - signature of kernel changed?");
+    assert(kernel->getPositionalParam(0)->getType()->isIdentical(BaseTypes::getTp(BaseTypes::INT)) && "param has wrong type - signature of kernel changed? ");
+    assert(kernel->getPositionalParam(1)->getType()->isIdentical(pRKReal) && "param has wrong type - signature of kernel changed? ");
+    assert(kernel->getPositionalParam(2)->getType()->isIdentical(pRKReal) && "param has wrong type - signature of kernel changed? ");
 
     // generate the kernel
     {
+        const FunctionParameter* km = kernel->getPositionalParam(0);
+        const FunctionParameter* kt = kernel->getPositionalParam(1);
+        const FunctionParameter* kv = kernel->getPositionalParam(2);
+
         // declare shared memory
 //         kernel->addStatement(ExpressionPtr(new CudaVariableDeclarationExpression(kernel->addVariable(Variable(BaseTypes::get().addArray(RKReal), "k")), true)));
         Variable* shared_buf = CudaVariableDeclarationExpression::downcast(ExpressionStatement::insert(*kernel, CudaVariableDeclarationExpression(kernel->addVariable(Variable(BaseTypes::get().addArray(RKReal), "shared_buf")), true))->getExpression())->getVariable();
@@ -390,29 +396,29 @@ void CudaGeneratorImpl::generate() {
         }
 
         // initialize t (the time vector)
-        AssignmentExpression* t_init_assn0 =
-            AssignmentExpression::downcast(ExpressionStatement::insert(*kernel,
-            AssignmentExpression(
-                ArrayIndexExpression(t, LiteralIntExpression(0)),
-              LiteralIntExpression(0)))->getExpression());
-
-        AssignmentExpression* t_init_assn1 =
-            AssignmentExpression::downcast(ExpressionStatement::insert(*kernel,
-            AssignmentExpression(
-                ArrayIndexExpression(t, LiteralIntExpression(1)),
-              ProductExpression(RealLiteralExpression(0.5), VariableRefExpression(h))))->getExpression());
-
-        AssignmentExpression* t_init_assn2 =
-            AssignmentExpression::downcast(ExpressionStatement::insert(*kernel,
-            AssignmentExpression(
-                ArrayIndexExpression(t, LiteralIntExpression(2)),
-              ProductExpression(RealLiteralExpression(0.5), VariableRefExpression(h))))->getExpression());
-
-        AssignmentExpression* t_init_assn3 =
-            AssignmentExpression::downcast(ExpressionStatement::insert(*kernel,
-            AssignmentExpression(
-                ArrayIndexExpression(t, LiteralIntExpression(3)),
-              VariableRefExpression(h)))->getExpression());
+//         AssignmentExpression* t_init_assn0 =
+//             AssignmentExpression::downcast(ExpressionStatement::insert(*kernel,
+//             AssignmentExpression(
+//                 ArrayIndexExpression(t, LiteralIntExpression(0)),
+//               LiteralIntExpression(0)))->getExpression());
+//
+//         AssignmentExpression* t_init_assn1 =
+//             AssignmentExpression::downcast(ExpressionStatement::insert(*kernel,
+//             AssignmentExpression(
+//                 ArrayIndexExpression(t, LiteralIntExpression(1)),
+//               ProductExpression(RealLiteralExpression(0.5), VariableRefExpression(h))))->getExpression());
+//
+//         AssignmentExpression* t_init_assn2 =
+//             AssignmentExpression::downcast(ExpressionStatement::insert(*kernel,
+//             AssignmentExpression(
+//                 ArrayIndexExpression(t, LiteralIntExpression(2)),
+//               ProductExpression(RealLiteralExpression(0.5), VariableRefExpression(h))))->getExpression());
+//
+//         AssignmentExpression* t_init_assn3 =
+//             AssignmentExpression::downcast(ExpressionStatement::insert(*kernel,
+//             AssignmentExpression(
+//                 ArrayIndexExpression(t, LiteralIntExpression(3)),
+//               VariableRefExpression(h)))->getExpression());
 
         {
             // print coefs
@@ -431,6 +437,16 @@ void CudaGeneratorImpl::generate() {
             update_coef_loop->setCondExp(ExpressionPtr(new LTComparisonExpression(ExpressionPtr(new VariableRefExpression(rk_gen)), ExpressionPtr(new LiteralIntExpression(1)))));
 
             update_coef_loop->setLoopExp(ExpressionPtr(new PreincrementExpression(ExpressionPtr(new VariableRefExpression(rk_gen)))));
+
+            // get step size
+            h = update_coef_loop->addVariable(Variable(RKReal, "h"));
+            VariableInitExpression::downcast(ExpressionStatement::insert(update_coef_loop->getBody(),
+            VariableInitExpression(h,
+              SubtractionExpression(
+                  ArrayIndexExpression(t, SumExpression(VariableRefExpression(rk_gen), LiteralIntExpression(1))),
+                  ArrayIndexExpression(t, VariableRefExpression(rk_gen))
+              )
+              ))->getExpression());
 
             for (int rk_index=0; rk_index<4; ++rk_index) {
                 SwitchStatement* component_switch = SwitchStatement::insert(update_coef_loop->getBody(), MacroExpression(RK_GET_COMPONENT));
@@ -514,26 +530,53 @@ void CudaGeneratorImpl::generate() {
                 update_coef_loop->getBody().addStatement(ExpressionPtr(new FunctionCallExpression(PrintCoefs, VariableRefExpression(k))));
             }
         }
+
+        // copy results to passed parameters
+        kernel->addStatement(ExpressionPtr(
+            new FunctionCallExpression(
+                mod.getRegMemcpy(),
+                VariableRefExpression(kv),
+                VariableRefExpression(f),
+                ProductExpression(ProductExpression(VariableRefExpression(km), MacroExpression(N)), FunctionCallExpression(mod.getSizeof(), TypeRefExpression(RKReal)))
+              )));
     }
 
-    CudaFunction* entry = mod.addFunction(CudaFunction(entryName, BaseTypes::getTp(BaseTypes::VOID), {FunctionParameter(RKReal, "h")}));
+    CudaFunction* entry = mod.addFunction(CudaFunction(entryName, BaseTypes::getTp(BaseTypes::VOID), {FunctionParameter(BaseTypes::getTp(BaseTypes::INT), "km"), FunctionParameter(pRKReal, "kt"), FunctionParameter(pRKReal, "kv")}));
 //     entry->setHasCLinkage(true);
 
     // generate the entry
     {
+        const FunctionParameter* km = entry->getPositionalParam(0);
+        const FunctionParameter* kt = entry->getPositionalParam(1);
+        const FunctionParameter* kv = entry->getPositionalParam(2);
+
         // printf
         entry->addStatement(ExpressionPtr(new FunctionCallExpression(mod.getPrintf(), ExpressionPtr(new StringLiteralExpression("in cuda\\n")))));
 
-        // allocate mem for coefs
-        Variable* k_global =
+        // allocate mem for tvalues
+        Variable* tvals =
             VariableDeclarationExpression::downcast(ExpressionStatement::insert(entry,
-            VariableDeclarationExpression(entry->addVariable(Variable(pRKReal, "k_global"))))->getExpression())->getVariable();
+            VariableDeclarationExpression(entry->addVariable(Variable(pRKReal, "tvals"))))->getExpression())->getVariable();
         entry->addStatement(ExpressionPtr(new FunctionCallExpression(mod.getCudaMalloc(),
-        ReferenceExpression(VariableRefExpression(k_global)),
-        ProductExpression(MacroExpression(RK_COEF_LEN), FunctionCallExpression(mod.getSizeof(), TypeRefExpression(RKReal))))));
+        ReferenceExpression(VariableRefExpression(tvals)),
+        ProductExpression(VariableRefExpression(km), FunctionCallExpression(mod.getSizeof(), TypeRefExpression(RKReal))))));
+
+        // allocate mem for results
+        Variable* results =
+            VariableDeclarationExpression::downcast(ExpressionStatement::insert(entry,
+            VariableDeclarationExpression(entry->addVariable(Variable(pRKReal, "results"))))->getExpression())->getVariable();
+        entry->addStatement(ExpressionPtr(new FunctionCallExpression(mod.getCudaMalloc(),
+        ReferenceExpression(VariableRefExpression(results)),
+        ProductExpression(ProductExpression(VariableRefExpression(km), MacroExpression(N)), FunctionCallExpression(mod.getSizeof(), TypeRefExpression(RKReal))))));
 
         // call the kernel
-        CudaKernelCallExpression* kernel_call = CudaKernelCallExpression::downcast(ExpressionStatement::insert(entry, CudaKernelCallExpression(1, 1, 1, kernel, VariableRefExpression(entry->getPositionalParam(0)), VariableRefExpression(k_global)))->getExpression());
+        CudaKernelCallExpression* kernel_call = CudaKernelCallExpression::downcast(ExpressionStatement::insert(entry,
+        CudaKernelCallExpression(1, 1, 1,
+        kernel,
+        VariableRefExpression(km),
+        VariableRefExpression(tvals),
+        VariableRefExpression(results)
+          ))->getExpression());
 
         kernel_call->setNumThreads(ProductExpression(MacroExpression(N), LiteralIntExpression(32)));
 
@@ -544,7 +587,7 @@ void CudaGeneratorImpl::generate() {
             ));
 
         // free the global coef mem
-        entry->addStatement(ExpressionPtr(new FunctionCallExpression(mod.getCudaFree(), VariableRefExpression(k_global))));
+        entry->addStatement(ExpressionPtr(new FunctionCallExpression(mod.getCudaFree(), VariableRefExpression(results))));
 
         // call cudaDeviceSynchronize
         entry->addStatement(ExpressionPtr(new FunctionCallExpression(mod.getCudaDeviceSynchronize())));

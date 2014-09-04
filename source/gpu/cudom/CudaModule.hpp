@@ -255,6 +255,19 @@ public:
           BaseTypes::getTp(BaseTypes::VOID),
           {FunctionParameter(BaseTypes::getTp(BaseTypes::PVOID), "memblock")}
           )),
+        cudamemcpy_(new Function("cudaMemcpy",
+          BaseTypes::getTp(BaseTypes::VOID),
+          {FunctionParameter(BaseTypes::getTp(BaseTypes::PVOID), "dst"),
+           FunctionParameter(BaseTypes::getTp(BaseTypes::PVOID), "src"),
+           FunctionParameter(BaseTypes::getTp(BaseTypes::SIZE_T), "count"),
+           FunctionParameter(BaseTypes::getTp(BaseTypes::SIZE_T), "kind")}
+          )),
+        regmemcpy_(new Function("memcpy",
+          BaseTypes::getTp(BaseTypes::VOID),
+          {FunctionParameter(BaseTypes::getTp(BaseTypes::PVOID), "dst"),
+           FunctionParameter(BaseTypes::getTp(BaseTypes::PVOID), "src"),
+           FunctionParameter(BaseTypes::getTp(BaseTypes::SIZE_T), "count")}
+          )),
         cudaSyncThreads_(new Function("__syncthreads",
           BaseTypes::getTp(BaseTypes::VOID)
           ))
@@ -317,6 +330,14 @@ public:
         return cudafree_.get();
     }
 
+    const Function* getCudaMemcpy() const {
+        return cudamemcpy_.get();
+    }
+
+    const Function* getRegMemcpy() const {
+        return regmemcpy_.get();
+    }
+
     const Function* getCudaSyncThreads() {
         return cudaSyncThreads_.get();
     }
@@ -326,6 +347,8 @@ protected:
     FunctionPtr cudaDeviceSynchronize_;
     FunctionPtr cudamalloc_;
     FunctionPtr cudafree_;
+    FunctionPtr cudamemcpy_;
+    FunctionPtr regmemcpy_;
     FunctionPtr cudaSyncThreads_;
 
     VariablePtr threadidx_{new Variable(BaseTypes::getTp(BaseTypes::INT), "threadIdx")};
