@@ -50,11 +50,15 @@ void gf_strfree(char* str) {
 }
 
 
-/// Imported from graphfab
+/**
+ * @brief Get the UTF-8 encoded buffer for a Python string
+ * @details Imported from graphfab
+ * @note Caller must free the buffer using @ref gf_strfree
+ */
 char* rrPyString_getString(PyObject* uni) {
     char* str = NULL;
-    #pragma message "RR_PYTHON_VERSION = " EXPAND_AND_STRINGIFY(RR_PYTHON_VERSION)
-#if RR_PYTHON_VERSION == 3
+//     #pragma message "PY_MAJOR_VERSION = " EXPAND_AND_STRINGIFY(PY_MAJOR_VERSION)
+#if PY_MAJOR_VERSION == 3
     PyObject* bytes = PyUnicode_AsUTF8String(uni);
     str = gf_strclone(PyBytes_AsString(bytes));
     Py_XDECREF(bytes);
@@ -64,7 +68,7 @@ char* rrPyString_getString(PyObject* uni) {
     return str;
 }
 
-std::string rrPyString_getStdString(PyObject* uni) {
+std::string rrPyString_getCPPString(PyObject* uni) {
     char* cstr = rrPyString_getString(uni);
     std::string str(cstr);
     gf_strfree(cstr);
@@ -92,7 +96,7 @@ int rrPyCompareString(PyObject* uni, const char* str) {
 
 /// Imported from graphfab
 PyObject* rrPyString_FromString(const char* s) {
-#if RR_PYTHON_VERSION == 3
+#if PY_MAJOR_VERSION == 3
     return PyUnicode_FromString(s);
 #else
     return PyString_FromString(s);
@@ -101,7 +105,7 @@ PyObject* rrPyString_FromString(const char* s) {
 
 /// Imported from graphfab
 PyObject* rrPyString_FromStringAndSize(const char* s, Py_ssize_t size) {
-#if RR_PYTHON_VERSION == 3
+#if PY_MAJOR_VERSION == 3
     return PyUnicode_FromStringAndSize(s, size);
 #else
     return PyString_FromStringAndSize(s, size);
@@ -136,7 +140,7 @@ PyObject* Variant_to_py(const Variant& var)
     }
 
     if (type == typeid(int)) {
-# if RR_PYTHON_VERSION == 3
+# if PY_MAJOR_VERSION == 3
         // http://python3porting.com/cextensions.html
         return PyLong_FromLong(var.convert<long>());
 # else
@@ -154,7 +158,7 @@ PyObject* Variant_to_py(const Variant& var)
     }
 
     if (type == typeid(unsigned char)) {
-# if RR_PYTHON_VERSION == 3
+# if PY_MAJOR_VERSION == 3
         // http://python3porting.com/cextensions.html
         return PyLong_FromLong(var.convert<long>());
 # else
@@ -179,13 +183,13 @@ Variant Variant_from_py(PyObject* py)
         return var;
     }
 
-# if RR_PYTHON_VERSION == 3
+# if PY_MAJOR_VERSION == 3
     if (PyUnicode_Check(py))
 # else
     if (PyString_Check(py))
 # endif
     {
-        var = rrPyString_getStdString(py);
+        var = rrPyString_getCPPString(py);
         return var;
     }
 
@@ -206,7 +210,7 @@ Variant Variant_from_py(PyObject* py)
             std::stringstream ss;
             ss << "Could not convert Python long to C ";
             ss << sizeof(long) * 8 << " bit long: ";
-            ss << rrPyString_getStdString(err);
+            ss << rrPyString_getCPPString(err);
 
             // clear error, raise our own
             PyErr_Clear();
@@ -217,13 +221,13 @@ Variant Variant_from_py(PyObject* py)
         return var;
     }
 
-# if RR_PYTHON_VERSION == 3
+# if PY_MAJOR_VERSION == 3
     else if (PyLong_Check(py))
 # else
     else if (PyInt_Check(py))
 # endif
     {
-# if RR_PYTHON_VERSION == 3
+# if PY_MAJOR_VERSION == 3
         var = PyLong_AsLong(py);
 # else
         var = (int)PyInt_AsLong(py);
