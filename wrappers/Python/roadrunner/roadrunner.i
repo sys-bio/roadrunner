@@ -1314,7 +1314,7 @@ namespace std { class ostream{}; }
 
 
             # go through the list of keyword args
-            for k,v in kwargs.iteritems():
+            for k,v in kwargs.items():
 
                 # changing integrators.
                 if k == "integrator":
