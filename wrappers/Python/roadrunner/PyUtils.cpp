@@ -50,10 +50,14 @@ void gf_strfree(char* str) {
 }
 
 
-/// Imported from graphfab
+/**
+ * @brief Get the UTF-8 encoded buffer for a Python string
+ * @details Imported from graphfab
+ * @note Caller must free the buffer using @ref gf_strfree
+ */
 char* rrPyString_getString(PyObject* uni) {
     char* str = NULL;
-    #pragma message "RR_PYTHON_VERSION = " EXPAND_AND_STRINGIFY(RR_PYTHON_VERSION)
+//     #pragma message "RR_PYTHON_VERSION = " EXPAND_AND_STRINGIFY(RR_PYTHON_VERSION)
 #if RR_PYTHON_VERSION == 3
     PyObject* bytes = PyUnicode_AsUTF8String(uni);
     str = gf_strclone(PyBytes_AsString(bytes));
@@ -64,7 +68,7 @@ char* rrPyString_getString(PyObject* uni) {
     return str;
 }
 
-std::string rrPyString_getStdString(PyObject* uni) {
+std::string rrPyString_getCPPString(PyObject* uni) {
     char* cstr = rrPyString_getString(uni);
     std::string str(cstr);
     gf_strfree(cstr);
