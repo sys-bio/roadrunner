@@ -3,7 +3,17 @@
  *
  *  Created on: Apr 27, 2014
  *      Author: andy
+ *      Contrib: JKM 2014
  */
+
+/** @file PyUtils.h
+  * @author Andy
+  * @author JKM
+  * @date 04/27/2014 Creation date
+  * @date 09/04/2014 Add support for Python 3
+  * @copyright Apache License, Version 2.0
+  * @brief Low-level functions used in the Python wrapper
+**/
 
 #ifndef PYUTILS_H_
 #define PYUTILS_H_
