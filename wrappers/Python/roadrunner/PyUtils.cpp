@@ -3,6 +3,7 @@
  *
  *  Created on: Apr 27, 2014
  *      Author: andy
+ *      Contrib: JKM 2014
  */
 
 #include <stdexcept>
@@ -23,6 +24,90 @@ using namespace std;
 namespace rr
 {
 
+/// Imported from graphfab
+#define STRINGIFY(x) #x
+/// Imported from graphfab
+#define EXPAND_AND_STRINGIFY(x) STRINGIFY(x)
+
+/// Imported from graphfab
+char* gf_strclone(const char* src) {
+    if(!src) {
+        assert(0 && "gf_strclone passed null arg");
+        return NULL;
+    } else {
+        size_t size = strlen(src)+1;
+        char* dst = (char*)malloc(size*sizeof(char));
+
+        memcpy(dst, src, size); // copies null char
+
+        return dst;
+    }
+}
+
+/// Imported from graphfab
+void gf_strfree(char* str) {
+    free(str);
+}
+
+
+/// Imported from graphfab
+char* rrPyString_getString(PyObject* uni) {
+    char* str = NULL;
+    #pragma message "RR_PYTHON_VERSION = " EXPAND_AND_STRINGIFY(RR_PYTHON_VERSION)
+#if RR_PYTHON_VERSION == 3
+    PyObject* bytes = PyUnicode_AsUTF8String(uni);
+    str = gf_strclone(PyBytes_AsString(bytes));
+    Py_XDECREF(bytes);
+#else
+    str = gf_strclone(PyString_AsString(uni));
+#endif
+    return str;
+}
+
+std::string rrPyString_getStdString(PyObject* uni) {
+    char* cstr = rrPyString_getString(uni);
+    std::string str(cstr);
+    gf_strfree(cstr);
+    return str;
+}
+
+/// Imported from graphfab
+int rrPyCompareString(PyObject* uni, const char* str) {
+    #if SAGITTARIUS_DEBUG_LEVEL >= 2
+    {
+        printf("PyCompareString started\n");
+    }
+    #endif
+    {
+        char* s = rrPyString_getString(uni);
+        int cmp = !strcmp(s,str);
+        gf_strfree(s);
+
+        if(cmp)
+            return 1;
+        else
+            return 0;
+    }
+}
+
+/// Imported from graphfab
+PyObject* rrPyString_FromString(const char* s) {
+#if RR_PYTHON_VERSION == 3
+    return PyUnicode_FromString(s);
+#else
+    return PyString_FromString(s);
+#endif
+}
+
+/// Imported from graphfab
+PyObject* rrPyString_FromStringAndSize(const char* s, Py_ssize_t size) {
+#if RR_PYTHON_VERSION == 3
+    return PyUnicode_FromStringAndSize(s, size);
+#else
+    return PyString_FromStringAndSize(s, size);
+#endif
+}
+
 
 PyObject* Variant_to_py(const Variant& var)
 {
@@ -35,7 +120,7 @@ PyObject* Variant_to_py(const Variant& var)
     }
 
     if (type == typeid(std::string)) {
-        return PyString_FromString(var.convert<string>().c_str());
+        return rrPyString_FromString(var.convert<string>().c_str());
     }
 
     if (type == typeid(bool)) {
@@ -51,7 +136,12 @@ PyObject* Variant_to_py(const Variant& var)
     }
 
     if (type == typeid(int)) {
+# if RR_PYTHON_VERSION == 3
+        // http://python3porting.com/cextensions.html
+        return PyLong_FromLong(var.convert<long>());
+# else
         return PyInt_FromLong(var.convert<long>());
+# endif
     }
 
     if (type == typeid(unsigned int)) {
@@ -60,11 +150,16 @@ PyObject* Variant_to_py(const Variant& var)
 
     if (type == typeid(char)) {
         char c = var.convert<char>();
-        return PyString_FromStringAndSize(&c, 1);
+        return rrPyString_FromStringAndSize(&c, 1);
     }
 
     if (type == typeid(unsigned char)) {
+# if RR_PYTHON_VERSION == 3
+        // http://python3porting.com/cextensions.html
+        return PyLong_FromLong(var.convert<long>());
+# else
         return PyInt_FromLong(var.convert<long>());
+# endif
     }
 
     if (type == typeid(float) || type == typeid(double)) {
@@ -84,9 +179,13 @@ Variant Variant_from_py(PyObject* py)
         return var;
     }
 
+# if RR_PYTHON_VERSION == 3
+    if (PyUnicode_Check(py))
+# else
     if (PyString_Check(py))
+# endif
     {
-        var = std::string(PyString_AsString(py));
+        var = rrPyString_getStdString(py);
         return var;
     }
 
@@ -107,7 +206,7 @@ Variant Variant_from_py(PyObject* py)
             std::stringstream ss;
             ss << "Could not convert Python long to C ";
             ss << sizeof(long) * 8 << " bit long: ";
-            ss << std::string(PyString_AsString(err));
+            ss << rrPyString_getStdString(err);
 
             // clear error, raise our own
             PyErr_Clear();
@@ -118,9 +217,17 @@ Variant Variant_from_py(PyObject* py)
         return var;
     }
 
+# if RR_PYTHON_VERSION == 3
+    else if (PyLong_Check(py))
+# else
     else if (PyInt_Check(py))
+# endif
     {
+# if RR_PYTHON_VERSION == 3
+        var = PyLong_AsLong(py);
+# else
         var = (int)PyInt_AsLong(py);
+# endif
         return var;
     }
 
