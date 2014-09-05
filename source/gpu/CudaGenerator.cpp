@@ -48,7 +48,10 @@ public:
 
     /// Ctor
     CudaGeneratorImpl(GPUSimExecutableModel& mod)
-      : mod_(mod) {}
+      : mod_(mod) {
+        if (Logger::getLevel() >= Logger::LOG_TRACE)
+            enableDiagnostics();
+    }
 
     ExpressionPtr generateReactionRateExp(const Reaction* r, int rk_index);
 
@@ -64,9 +67,21 @@ public:
 # error "Need SBML"
 # endif
 
+    /// Generate the model code
     void generate();
 
+    /// Entry point into generated code
     EntryPointSig getEntryPoint();
+
+    /// Return true if diagnostics should be emitted from the GPU code
+    bool diagnosticsEnabled() const {
+        return diag_;
+    }
+
+    /// Enable diagnostics dumped directly from the GPU
+    void enableDiagnostics() {
+        diag_ = true;
+    }
 
 protected:
 
@@ -128,6 +143,7 @@ protected:
     Variable* rk_gen = nullptr;
     Variable* k = nullptr;
     Variable* f = nullptr;
+    bool diag_ = false;
 };
 
 CudaGenerator::CudaGenerator() {
@@ -227,27 +243,6 @@ ExpressionPtr CudaGeneratorImpl::generateEvalExp(int component, int rk_index) {
         }
 
     return std::move(sum);
-    // expand for RK coefficients
-//     if (rk_index == 0)
-//         return std::move(sum);
-//     else if (rk_index == 1 || rk_index == 2)
-//         return ExpressionPtr(
-//             new SumExpression(
-//                 std::move(sum),
-//                 ProductExpression(
-//                     ProductExpression(RealLiteralExpression(0.5),VariableRefExpression(h)),
-//                     getK(LiteralIntExpression(rk_index-1), LiteralIntExpression(component))
-//                   )));
-//     else if (rk_index == 3)
-//         return ExpressionPtr(
-//             new SumExpression(
-//                 std::move(sum),
-//                 ProductExpression(
-//                     VariableRefExpression(h),
-//                     getK(LiteralIntExpression(rk_index-1), LiteralIntExpression(component))
-//                   )));
-//     else
-//         assert(0 && "Should not happen (0 <= rk_index < 4)");
 }
 
 void CudaGeneratorImpl::generate() {
@@ -267,11 +262,7 @@ void CudaGeneratorImpl::generate() {
     Macro* RK4ORDER = mod.addMacro(Macro("RK4ORDER", "4"));
 
     Macro* RK_COEF_LEN = mod.addMacro(Macro("RK_COEF_LEN", "(RK4ORDER*N)"));
-//     RK_COEF_GET_OFFSET = mod.addMacro(Macro("RK_COEF_GET_OFFSET", "RK4ORDER*N + idx*N + component","idx", "component"));
     RK_COEF_GET_OFFSET = mod.addMacro(Macro("RK_COEF_GET_OFFSET", "((idx)*N + (component))","idx", "component"));
-//     Macro* RK_COEF_SIZE = mod.addMacro(Macro("RK_COEF_SIZE", ""));
-
-//     Macro* RK_GET_INDEX = mod.addMacro(Macro("RK_GET_INDEX", "(threadIdx.x%N)"));
 
     Macro* RK_GET_COMPONENT = mod.addMacro(Macro("RK_GET_COMPONENT", "(threadIdx.x/32)"));
 
@@ -334,7 +325,6 @@ void CudaGeneratorImpl::generate() {
         const FunctionParameter* kv = kernel->getPositionalParam(2);
 
         // declare shared memory
-//         kernel->addStatement(ExpressionPtr(new CudaVariableDeclarationExpression(kernel->addVariable(Variable(BaseTypes::get().addArray(RKReal), "k")), true)));
         Variable* shared_buf = CudaVariableDeclarationExpression::downcast(ExpressionStatement::insert(*kernel, CudaVariableDeclarationExpression(kernel->addVariable(Variable(BaseTypes::get().addArray(RKReal), "shared_buf")), true))->getExpression())->getVariable();
 
         k = VariableInitExpression::downcast(ExpressionStatement::insert(*kernel, VariableInitExpression(kernel->addVariable(Variable(pRKReal, "k")), ReferenceExpression(ArrayIndexExpression(shared_buf, LiteralIntExpression(0)))))->getExpression())->getVariable();
@@ -343,8 +333,10 @@ void CudaGeneratorImpl::generate() {
 
         Variable* t = VariableInitExpression::downcast(ExpressionStatement::insert(*kernel, VariableInitExpression(kernel->addVariable(Variable(pRKReal, "t")), ReferenceExpression(ArrayIndexExpression(f, MacroExpression(RK_STATE_VEC_LEN)))))->getExpression())->getVariable();
 
-        // printf
-        kernel->addStatement(ExpressionPtr(new FunctionCallExpression(mod.getPrintf(), ExpressionPtr(new StringLiteralExpression("in kernel\\n")))));
+        if (diagnosticsEnabled()) {
+            // printf
+            kernel->addStatement(ExpressionPtr(new FunctionCallExpression(mod.getPrintf(), ExpressionPtr(new StringLiteralExpression("in kernel\\n")))));
+        }
 
         {
             // initialize k (the RK coefficients)
@@ -356,14 +348,16 @@ void CudaGeneratorImpl::generate() {
                     getK(LiteralIntExpression(i), MacroExpression(RK_GET_COMPONENT)),
                     LiteralIntExpression(0)))->getExpression());
 
-                // printf showing the init'd value of k
-                ExpressionStatement::insert(*kernel, FunctionCallExpression(
-                    mod.getPrintf(),
-                    StringLiteralExpression("k[RK_COEF_GET_OFFSET(%d, %d)] = %f\\n"),
-                    LiteralIntExpression(i),
-                    MacroExpression(RK_GET_COMPONENT),
-                    k_init_assn->getLHS()->clone()
-                ));
+                if (diagnosticsEnabled()) {
+                    // printf showing the init'd value of k
+                    ExpressionStatement::insert(*kernel, FunctionCallExpression(
+                        mod.getPrintf(),
+                        StringLiteralExpression("k[RK_COEF_GET_OFFSET(%d, %d)] = %f\\n"),
+                        LiteralIntExpression(i),
+                        MacroExpression(RK_GET_COMPONENT),
+                        k_init_assn->getLHS()->clone()
+                    ));
+                }
             }
         }
 
@@ -383,13 +377,15 @@ void CudaGeneratorImpl::generate() {
                 LiteralIntExpression(component))),
                     RealLiteralExpression(mod_.getFloatingSpeciesFromSVComponent(component)->getInitialConcentration())))->getExpression());
 
-                ExpressionStatement::insert(component_switch->getBody(), FunctionCallExpression(
-                    mod.getPrintf(),
-                    StringLiteralExpression("f[RK_STATE_VEC_GET_OFFSET(%d, %d)] = %f\\n"),
-                    LiteralIntExpression(0),
-                    LiteralIntExpression(component),
-                    f_init_assn->getLHS()->clone()
-                ));
+                if (diagnosticsEnabled()) {
+                    ExpressionStatement::insert(component_switch->getBody(), FunctionCallExpression(
+                        mod.getPrintf(),
+                        StringLiteralExpression("f[RK_STATE_VEC_GET_OFFSET(%d, %d)] = %f\\n"),
+                        LiteralIntExpression(0),
+                        LiteralIntExpression(component),
+                        f_init_assn->getLHS()->clone()
+                    ));
+                }
 
                 component_switch->addBreak();
             }
@@ -408,32 +404,7 @@ void CudaGeneratorImpl::generate() {
 
         kernel->addStatement(ExpressionPtr(new FunctionCallExpression(mod.getCudaSyncThreads())));
 
-        // initialize t (the time vector)
-//         AssignmentExpression* t_init_assn0 =
-//             AssignmentExpression::downcast(ExpressionStatement::insert(*kernel,
-//             AssignmentExpression(
-//                 ArrayIndexExpression(t, LiteralIntExpression(0)),
-//               LiteralIntExpression(0)))->getExpression());
-//
-//         AssignmentExpression* t_init_assn1 =
-//             AssignmentExpression::downcast(ExpressionStatement::insert(*kernel,
-//             AssignmentExpression(
-//                 ArrayIndexExpression(t, LiteralIntExpression(1)),
-//               ProductExpression(RealLiteralExpression(0.5), VariableRefExpression(h))))->getExpression());
-//
-//         AssignmentExpression* t_init_assn2 =
-//             AssignmentExpression::downcast(ExpressionStatement::insert(*kernel,
-//             AssignmentExpression(
-//                 ArrayIndexExpression(t, LiteralIntExpression(2)),
-//               ProductExpression(RealLiteralExpression(0.5), VariableRefExpression(h))))->getExpression());
-//
-//         AssignmentExpression* t_init_assn3 =
-//             AssignmentExpression::downcast(ExpressionStatement::insert(*kernel,
-//             AssignmentExpression(
-//                 ArrayIndexExpression(t, LiteralIntExpression(3)),
-//               VariableRefExpression(h)))->getExpression());
-
-        {
+        if (diagnosticsEnabled()) {
             // print coefs
             kernel->addStatement(ExpressionPtr(new FunctionCallExpression(PrintCoefs, VariableRefExpression(k))));
             kernel->addStatement(ExpressionPtr(new FunctionCallExpression(mod.getCudaSyncThreads())));
@@ -508,12 +479,12 @@ void CudaGeneratorImpl::generate() {
 
             update_coef_loop->getBody().addStatement(ExpressionPtr(new FunctionCallExpression(mod.getCudaSyncThreads())));
 
-            {
+            if (diagnosticsEnabled()) {
                 IfStatement* if_thd1 = IfStatement::downcast(update_coef_loop->getBody().addStatement(StatementPtr(new IfStatement(
                     ExpressionPtr(new EqualityCompExpression(kernel->getThreadIdx(CudaKernel::IndexComponent::x), LiteralIntExpression(0)))
                 ))));
 
-                std::string sv_fmt_str = "statvec ";
+                std::string sv_fmt_str = "statevec ";
                 for (int component=0; component<n; ++component)
                     sv_fmt_str += "%f ";
                 sv_fmt_str += "\\n";
@@ -524,7 +495,6 @@ void CudaGeneratorImpl::generate() {
                         StringLiteralExpression(sv_fmt_str)
                     ))->getExpression());
 
-    //             Log(Logger::LOG_DEBUG) << "State vec printf\n";
                 for (int component=0; component<n; ++component)
                     printf_statevec->passArgument(ExpressionPtr(
                         new ArrayIndexExpression(f,
@@ -533,13 +503,13 @@ void CudaGeneratorImpl::generate() {
                             LiteralIntExpression(component)))
                     ));
 
-                ExpressionStatement::insert(if_thd1->getBody(), FunctionCallExpression(
-                        mod.getPrintf(),
-                        StringLiteralExpression("h = %f\\n"),
-                        VariableRefExpression(h)
-                    ));
+                    ExpressionStatement::insert(if_thd1->getBody(), FunctionCallExpression(
+                            mod.getPrintf(),
+                            StringLiteralExpression("h = %f\\n"),
+                            VariableRefExpression(h)
+                        ));
             }
-            {
+            if (diagnosticsEnabled()) {
                 // print coefs
                 update_coef_loop->getBody().addStatement(ExpressionPtr(new FunctionCallExpression(mod.getCudaSyncThreads())));
                 update_coef_loop->getBody().addStatement(ExpressionPtr(new FunctionCallExpression(PrintCoefs, VariableRefExpression(k))));
@@ -557,7 +527,6 @@ void CudaGeneratorImpl::generate() {
     }
 
     CudaFunction* entry = mod.addFunction(CudaFunction(entryName, BaseTypes::getTp(BaseTypes::VOID), {FunctionParameter(BaseTypes::getTp(BaseTypes::INT), "km"), FunctionParameter(pRKReal, "kt"), FunctionParameter(pRKReal, "kv")}));
-//     entry->setHasCLinkage(true);
 
     // generate the entry
     {
@@ -565,8 +534,10 @@ void CudaGeneratorImpl::generate() {
         const FunctionParameter* kt = entry->getPositionalParam(1);
         const FunctionParameter* kv = entry->getPositionalParam(2);
 
-        // printf
-        entry->addStatement(ExpressionPtr(new FunctionCallExpression(mod.getPrintf(), ExpressionPtr(new StringLiteralExpression("in cuda\\n")))));
+        if (diagnosticsEnabled()) {
+            // printf
+            entry->addStatement(ExpressionPtr(new FunctionCallExpression(mod.getPrintf(), ExpressionPtr(new StringLiteralExpression("in cuda\\n")))));
+        }
 
         // allocate mem for tvalues
         Variable* tvals =

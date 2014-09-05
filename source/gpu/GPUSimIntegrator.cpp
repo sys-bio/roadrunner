@@ -80,9 +80,9 @@ TimecourseIntegrationResultsPtr GPUSimIntegrator::integrate(const TimecourseInte
     model_->refresh();
     float* tval = p.getTimevaluesHeapArrayFlt();
 
-    Log(Logger::LOG_DEBUG) << "GPUSimIntegrator time values:";
-    for (TimecourseIntegrationResultsRealVector::size_type i=0; i<realvec->getTimevalueCount(); ++i)
-        Log(Logger::LOG_DEBUG) << tval[i];
+//     Log(Logger::LOG_DEBUG) << "GPUSimIntegrator time values:";
+//     for (TimecourseIntegrationResultsRealVector::size_type i=0; i<realvec->getTimevalueCount(); ++i)
+//         Log(Logger::LOG_DEBUG) << tval[i];
 
     model_->getEntryPoint()((int)realvec->getTimevalueCount(), tval, values);
 
