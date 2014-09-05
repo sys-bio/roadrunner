@@ -14,10 +14,19 @@
 namespace rr
 {
 
+char* rrPyString_getString(PyObject* uni);
+
+int rrPyCompareString(PyObject* uni, const char* str);
+
+PyObject* rrPyString_FromString(const char* s);
+
+PyObject* rrPyString_FromString(const char* s);
+
+PyObject* rrPyString_FromStringAndSize(const char* s, Py_ssize_t size);
+
 PyObject *Variant_to_py(const Variant& var);
 
 Variant Variant_from_py(PyObject *py);
-
 
 } /* namespace rr */
 

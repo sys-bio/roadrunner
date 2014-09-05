@@ -71,8 +71,9 @@ else()
 endif()
 
 if("${CMAKE_CXX_COMPILER_ID}" STREQUAL "Clang")
-    # llvm-config specifies flags that clang doesn't understand... causes warning spew
-    string(REGEX REPLACE "-Wno-maybe-uninitialized" "" LLVM_FLAGS ${LLVM_FLAGS})
+    # JKM: this is complicated and stems from the fact that llvm-config returns flags
+    # engineered for its original host compiler. Leave this commented for now.
+    # string(REGEX REPLACE "-Wno-maybe-uninitialized" "" LLVM_FLAGS ${LLVM_FLAGS})
 endif()
 
 
@@ -95,6 +96,8 @@ option(BUILD_LEGACY_C "Build the legacy C code generating backend (deprecated)")
 
 # should we build the swig python wrapper?
 option (BUILD_PYTHON "build the SWIG generated python wrapper" OFF)
+
+set(RR_PYTHON_VERSION "2" CACHE STRING "Version of Python to use")
 
 if(BUILD_LLVM AND NOT LLVM_FOUND)
     message(FATAL_ERROR "BUILD_LLVM is enabled, but no LLVM installation was found")
