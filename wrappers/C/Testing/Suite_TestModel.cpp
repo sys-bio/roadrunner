@@ -5,6 +5,10 @@
 #include "UnitTest++.h"
 #include "rrc_api.h"
 #include "src/TestUtils.h"
+#include "Suite_TestModel.h"
+
+#include "Poco/Path.h"
+#include "Poco/Glob.h"
 
 //using..
 using namespace std;
@@ -13,30 +17,84 @@ using namespace ls;
 using namespace rrc;
 using namespace rr;
 
-using rr::joinPath;
-using rr::fileExists;
-
-extern string   gTempFolder;
-extern string   gTestDataFolder;
+extern string gTempFolder;
+extern string gTestDataFolder;
 extern string gCompiler;
 
 //This tests is mimicking the Python tests
-SUITE(TEST_MODEL_1)
+SUITE(TEST_MODEL)
 {
-string TestDataFileName     = "Test_1.dat";
-IniFile iniFile;
-string TestModelFileName;
-RRHandle gRR = NULL;
+    // the current test data file that the test suite is using.
+    string TestDataFileName;
+
+    // the current ini file that the test suite is using.
+    IniFile iniFile;
+
+    // global test model file name (pulled from dat file).
+    string TestModelFileName;
+
+    // global RoadRunner ptr
+    RRHandle gRR = NULL;
+
+    std::set<std::string> getTestFiles(const std::string& dir)
+    {
+        Poco::Path path;
+
+        if(dir.length() == 0)
+        {
+            // default testing dir
+            // path of current prog
+            string prog = rr::getCurrentExeFolder();
+
+            Log(Logger::LOG_NOTICE) << "prog: " << prog;
+
+            path = Poco::Path(prog);
+
+            Log(Logger::LOG_NOTICE) << "path: " << path.toString();
+
+            path.makeParent();
+
+
+            Log(Logger::LOG_NOTICE) << "popdir: " << path.toString();
+
+            path.pushDirectory("testing");
+        }
+        else
+        {
+            path = Poco::Path(dir + "\\");
+        }
+
+        path.makeAbsolute();
+
+        Log(Logger::LOG_NOTICE) << "Looking in " << path.toString() << " for test files";
+
+        // for the time being, use this name convention, NOM_Test.dat is there.
+        path.setFileName("Test*.dat");
+
+        std::set<std::string> files;
+
+        Poco::Glob::glob(path, files);
+
+        return files;
+    }
+
+    void setTestFile(const std::string& filePath)
+    {
+        TestDataFileName = filePath;
+    }
 
     TEST(DATA_FILES)
     {
-        gRR                         = createRRInstanceEx(gTempFolder.c_str(), gCompiler.c_str());
-        string testDataFileName     = joinPath(gTestDataFolder, TestDataFileName);
-        clog<<"Checking file: "<<testDataFileName<<endl;
-        CHECK(fileExists(testDataFileName));
-        CHECK(iniFile.Load(testDataFileName));
+        Log(Logger::LOG_NOTICE) << "Running Test Suite TEST_MODEL on " << TestDataFileName;
 
-        clog<<"Loaded test data from file: "<< testDataFileName;
+        gRR = createRRInstanceEx(gTempFolder.c_str(), gCompiler.c_str());
+
+        // need to re-assign it, Load does not clear old data.;
+        iniFile.Clear();
+
+        CHECK(fileExists(TestDataFileName));
+        CHECK(iniFile.Load(TestDataFileName));
+
         if(iniFile.GetSection("SBML_FILES"))
         {
             IniSection* sbml = iniFile.GetSection("SBML_FILES");
@@ -66,9 +124,9 @@ RRHandle gRR = NULL;
         IniSection* aSection = iniFile.GetSection("Set Steady State Selection List");
         if(!aSection || !gRR)
         {
-            CHECK(false);
             return;
         }
+        clog<< endl << "==== SET_STEADY_STATE_SELECTION_LIST ====" << endl << endl;
 
         IniKey* aKey = aSection->GetKey("list");
         if(!aKey)
@@ -86,9 +144,9 @@ RRHandle gRR = NULL;
         IniSection* aSection = iniFile.GetSection("Get Steady State Selection List");
         if(!aSection || !gRR)
         {
-            CHECK(false);
             return;
         }
+        clog<< endl << "==== GET_STEADY_STATE_SELECTION_LIST ====" << endl << endl;
 
         IniKey* aKey = aSection->GetKey("list");
         if(!aKey)
@@ -128,9 +186,9 @@ RRHandle gRR = NULL;
         IniSection* aSection = iniFile.GetSection("Species Concentrations");
         if(!aSection || !gRR)
         {
-            CHECK(false);
             return;
         }
+        clog<< endl << "==== SPECIES_CONCENTRATIONS ====" << endl << endl;
 
         for(int i = 0 ; i < aSection->KeyCount(); i++)
         {
@@ -159,9 +217,9 @@ RRHandle gRR = NULL;
         IniSection* aSection = iniFile.GetSection("Get Species Initial Concentrations");
         if(!aSection || !gRR)
         {
-            CHECK(false);
             return;
         }
+        clog<< endl << "==== GET_SPECIES_INITIAL_CONCENTRATIONS ====" << endl << endl;
 
         for(int i = 0 ; i < aSection->KeyCount(); i++)
         {
@@ -187,9 +245,9 @@ RRHandle gRR = NULL;
         IniSection* aSection = iniFile.GetSection("Get Species Initial Concentrations By Index");
         if(!aSection || !gRR)
         {
-            CHECK(false);
             return;
         }
+        clog<< endl << "==== GET_SPECIES_INITIAL_CONCENTRATION_BY_INDEX ====" << endl << endl;
 
         RRStringArray *arr = getFloatingSpeciesIds(gRR);
         for(int i = 0 ; i < aSection->KeyCount(); i++)
@@ -216,9 +274,9 @@ RRHandle gRR = NULL;
         IniSection* aSection = iniFile.GetSection("Set Species Initial Concentrations By Index");
         if(!aSection || !gRR)
         {
-            CHECK(false);
             return;
         }
+        clog<< endl << "==== SET_SPECIES_INITIAL_CONCENTRATION_BY_INDEX ====" << endl << endl;
 
         RRStringArray *arr = getFloatingSpeciesIds(gRR);
         for(int i = 0 ; i < aSection->KeyCount(); i++)
@@ -254,9 +312,9 @@ RRHandle gRR = NULL;
         IniSection* aSection = iniFile.GetSection("Set Species Initial Concentrations");
         if(!aSection || !gRR)
         {
-            CHECK(false);
             return;
         }
+        clog<< endl << "==== SET_SPECIES_INITIAL_CONCENTRATIONS ====" << endl << endl;
 
         for(int i = 0 ; i < aSection->KeyCount(); i++)
         {
@@ -292,9 +350,9 @@ RRHandle gRR = NULL;
         IniSection* aSection = iniFile.GetSection("Fluxes");
         if(!aSection || !gRR)
         {
-            CHECK(false);
             return;
         }
+        clog<< endl << "==== FLUXES ====" << endl << endl;
 
         for(int i = 0 ; i < aSection->KeyCount(); i++)
         {
@@ -319,9 +377,9 @@ RRHandle gRR = NULL;
         IniSection* aSection = iniFile.GetSection("Full Jacobian");
         if(!aSection)
         {
-            CHECK(false);
             return;
         }
+        clog<< endl << "==== FULL_JACOBIAN ====" << endl << endl;
 
         RRDoubleMatrixPtr       jActual     = getFullJacobian(gRR);
         ls::DoubleMatrix     jRef        = getDoubleMatrixFromString(aSection->GetNonKeysAsString());
@@ -349,9 +407,9 @@ RRHandle gRR = NULL;
         IniSection* aSection = iniFile.GetSection("Individual EigenValues");
         if(!aSection)
         {
-            CHECK(false);
             return;
         }
+        clog<< endl << "==== INDIVIDUAL_EIGENVALUES ====" << endl << endl;
 
         for(int i = 0 ; i < aSection->KeyCount(); i++)
         {
@@ -368,7 +426,7 @@ RRHandle gRR = NULL;
             }
 
             clog<<"EigenValue "<<i<<": "<<val<<endl;
-            CHECK_CLOSE(aKey->AsFloat(), val, 1e-6);
+            CHECK_CLOSE(aKey->AsFloat(), val, 1e-5);
         }
     }
 
@@ -383,9 +441,9 @@ RRHandle gRR = NULL;
         //Read in the reference data, from the ini file
         if(!aSection || !gRR)
         {
-            CHECK(false);
             return;
         }
+        clog<< endl << "==== GET_EIGENVALUE_MATRIX ====" << endl << endl;
 
         ls::DoubleMatrix     ref = getDoubleMatrixFromString(aSection->GetNonKeysAsString());
 
@@ -415,7 +473,7 @@ RRHandle gRR = NULL;
             {
                 CHECK(false);
             }
-            CHECK_CLOSE(ref(i,0), val, 1e-6);
+            CHECK_CLOSE(ref(i,0), val, 1e-5);
 
         }
         freeMatrix(matrix);
@@ -432,9 +490,9 @@ RRHandle gRR = NULL;
         IniSection* aSection = iniFile.GetSection("Stoichiometry Matrix");
         if(!aSection || !gRR)
         {
-            CHECK(false);
             return;
         }
+        clog<< endl << "==== STOICHIOMETRY_MATRIX ====" << endl << endl;
 
         ls::DoubleMatrix     ref         = getDoubleMatrixFromString(aSection->GetNonKeysAsString());
 
@@ -471,16 +529,15 @@ RRHandle gRR = NULL;
 
     TEST(LINK_MATRIX)
     {
-        clog<<"\n==== LINK_MATRIX ====\n\n";
         CHECK(gRR!=NULL);
 
         //Read in the reference data, from the ini file
         IniSection* aSection = iniFile.GetSection("Link Matrix");
         if(!aSection || !gRR)
         {
-            CHECK(false);
             return;
         }
+        clog<< endl << "==== LINK_MATRIX ====" << endl << endl;
 
            ls::DoubleMatrix     ref         = getDoubleMatrixFromString(aSection->GetNonKeysAsString());
 
@@ -517,16 +574,15 @@ RRHandle gRR = NULL;
 
     TEST(UNSCALED_ELASTICITY_MATRIX)
     {
-        clog<<"\n==== UNSCALED_ELASTICITY_MATRIX ====\n\n";
         CHECK(gRR!=NULL);
 
         //Read in the reference data, from the ini file
         IniSection* aSection = iniFile.GetSection("Unscaled Elasticity Matrix");
         if(!aSection || !gRR)
         {
-            CHECK(false);
             return;
         }
+        clog<<"\n==== UNSCALED_ELASTICITY_MATRIX ====\n\n";
 
            ls::DoubleMatrix     ref         = getDoubleMatrixFromString(aSection->GetNonKeysAsString());
 
@@ -563,16 +619,15 @@ RRHandle gRR = NULL;
 
     TEST(SCALED_ELASTICITY_MATRIX)
     {
-        clog<<"\n==== SCALED_ELASTICITY_MATRIX ====\n\n";
         CHECK(gRR!=NULL);
 
         //Read in the reference data, from the ini file
         IniSection* aSection = iniFile.GetSection("Scaled Elasticity Matrix");
         if(!aSection || !gRR)
         {
-            CHECK(false);
             return;
         }
+        clog<<"\n==== SCALED_ELASTICITY_MATRIX ====\n\n";
 
         ls::DoubleMatrix     ref         = getDoubleMatrixFromString(aSection->GetNonKeysAsString());
 
@@ -604,7 +659,7 @@ RRHandle gRR = NULL;
             {
                 CHECK(false);
             }
-            CHECK_CLOSE(ref(i,0), val, 1e-6);
+            CHECK_CLOSE(ref(i,0), val, 1e-5);
 
         }
         freeMatrix(matrix);
@@ -612,7 +667,6 @@ RRHandle gRR = NULL;
 
     TEST(UNSCALED_CONCENTRATION_CONTROL_MATRIX)
     {
-        clog<<"\n==== UNSCALED_CONCENTRATION_CONTROL_MATRIX ====\n\n";
 
         CHECK(gRR!=NULL);
 
@@ -620,9 +674,9 @@ RRHandle gRR = NULL;
         IniSection* aSection = iniFile.GetSection("UnScaled Concentration Control Matrix");
         if(!aSection || !gRR)
         {
-            CHECK(false);
             return;
         }
+        clog<<"\n==== UNSCALED_CONCENTRATION_CONTROL_MATRIX ====\n\n";
 
         ls::DoubleMatrix     ref         = getDoubleMatrixFromString(aSection->GetNonKeysAsString());
 
@@ -660,16 +714,15 @@ RRHandle gRR = NULL;
 
     TEST(SCALED_CONCENTRATION_CONTROL_MATRIX)
     {
-        clog<<"\n==== SCALED_CONCENTRATION_CONTROL_MATRIX ====\n\n";
         CHECK(gRR!=NULL);
 
         //Read in the reference data, from the ini file
         IniSection* aSection = iniFile.GetSection("Scaled Concentration Control Matrix");
         if(!aSection || !gRR)
         {
-            CHECK(false);
             return;
         }
+        clog<<"\n==== SCALED_CONCENTRATION_CONTROL_MATRIX ====\n\n";
 
         ls::DoubleMatrix     ref         = getDoubleMatrixFromString(aSection->GetNonKeysAsString());
 
@@ -707,16 +760,15 @@ RRHandle gRR = NULL;
 
     TEST(UNSCALED_FLUX_CONTROL_MATRIX)
     {
-        clog<<"\n==== UNSCALED_FLUX_CONTROL_MATRIX ====\n\n";
         CHECK(gRR!=NULL);
 
         //Read in the reference data, from the ini file
         IniSection* aSection = iniFile.GetSection("Unscaled Flux Control Matrix");
         if(!aSection || !gRR)
         {
-            CHECK(false);
             return;
         }
+        clog<<"\n==== UNSCALED_FLUX_CONTROL_MATRIX ====\n\n";
 
         ls::DoubleMatrix     ref         = getDoubleMatrixFromString(aSection->GetNonKeysAsString());
 
@@ -754,16 +806,15 @@ RRHandle gRR = NULL;
 
     TEST(SCALED_FLUX_CONTROL_MATRIX)
     {
-        clog<<"\n==== SCALED_FLUX_CONTROL_MATRIX ====\n\n";
         CHECK(gRR!=NULL);
 
         //Read in the reference data, from the ini file
         IniSection* aSection = iniFile.GetSection("Scaled Flux Control Matrix");
         if(!aSection || !gRR)
         {
-            CHECK(false);
             return;
         }
+        clog<< endl << "==== SCALED_FLUX_CONTROL_MATRIX ====" << endl << endl;
 
         ls::DoubleMatrix     ref         = getDoubleMatrixFromString(aSection->GetNonKeysAsString());
 
@@ -804,9 +855,9 @@ RRHandle gRR = NULL;
         IniSection* aSection = iniFile.GetSection("Floating Species Ids");
         if(!aSection || !gRR)
         {
-            CHECK(false);
             return;
         }
+        clog<< endl << "==== FLOATING_SPECIES_IDS ====" << endl << endl;
 
         IniKey* aKey = aSection->GetKey("list");
         if(!aKey)
@@ -836,9 +887,9 @@ RRHandle gRR = NULL;
         IniSection* aSection = iniFile.GetSection("Boundary Species Ids");
         if(!aSection || !gRR)
         {
-            CHECK(false);
             return;
         }
+        clog<< endl << "==== BOUNDARY_SPECIES_IDS ====" << endl << endl;
 
         IniKey* aKey = aSection->GetKey("list");
         if(!aKey)
@@ -868,9 +919,9 @@ RRHandle gRR = NULL;
         IniSection* aSection = iniFile.GetSection("Global Parameter Ids");
         if(!aSection || !gRR)
         {
-            CHECK(false);
             return;
         }
+        clog<< endl << "==== GLOBAL_PARAMETER_IDS ====" << endl << endl;
 
         IniKey* aKey = aSection->GetKey("list");
         if(!aKey)
@@ -900,9 +951,9 @@ RRHandle gRR = NULL;
         IniSection* aSection = iniFile.GetSection("Compartment Ids");
         if(!aSection || !gRR)
         {
-            CHECK(false);
             return;
         }
+        clog<< endl << "==== COMPARTMENT_IDS ====" << endl << endl;
 
         IniKey* aKey = aSection->GetKey("list");
         if(!aKey)
@@ -932,9 +983,9 @@ RRHandle gRR = NULL;
         IniSection* aSection = iniFile.GetSection("Reaction Ids");
         if(!aSection || !gRR)
         {
-            CHECK(false);
             return;
         }
+        clog<< endl << "==== REACTION_IDS ====" << endl << endl;
 
         IniKey* aKey = aSection->GetKey("list");
         if(!aKey)
@@ -964,9 +1015,9 @@ RRHandle gRR = NULL;
         IniSection* aSection = iniFile.GetSection("Species Initial Condition Ids");
         if(!aSection || !gRR)
         {
-            CHECK(false);
             return;
         }
+        clog<< endl << "==== SPECIES_INITIAL_CONDITION_IDS ====" << endl << endl;
 
         IniKey* aKey = aSection->GetKey("list");
         if(!aKey)
@@ -996,9 +1047,9 @@ RRHandle gRR = NULL;
         IniSection* aSection = iniFile.GetSection("Get Eigenvalue Ids");
         if(!aSection || !gRR)
         {
-            CHECK(false);
             return;
         }
+        clog<< endl << "==== GET_EIGENVALUE_IDS ====" << endl << endl;
 
         IniKey* aKey = aSection->GetKey("list");
         if(!aKey)
@@ -1028,9 +1079,9 @@ RRHandle gRR = NULL;
         IniSection* aSection = iniFile.GetSection("Get Rates Of Change Ids");
         if(!aSection || !gRR)
         {
-            CHECK(false);
             return;
         }
+        clog<< endl << "==== GET_RATES_OF_CHANGE_IDS ====" << endl << endl;
 
         IniKey* aKey = aSection->GetKey("list");
         if(!aKey)
@@ -1063,9 +1114,9 @@ RRHandle gRR = NULL;
         IniSection* aSection = iniFile.GetSection("Set Steady State Selection List 2");
         if(!aSection || !gRR)
         {
-            CHECK(false);
             return;
         }
+        clog<< endl << "==== SET_STEADY_STATE_SELECTION_LIST_2 ====" << endl << endl;
 
         IniKey* aKey = aSection->GetKey("list");
         if(!aKey)
@@ -1083,9 +1134,9 @@ RRHandle gRR = NULL;
         IniSection* aSection = iniFile.GetSection("Get Steady State Selection List 2");
         if(!aSection || !gRR)
         {
-            CHECK(false);
             return;
         }
+        clog<< endl << "==== GET_STEADY_STATE_SELECTION_LIST_2 ====" << endl << endl;
 
         IniKey* aKey = aSection->GetKey("list");
         if(!aKey)
@@ -1118,9 +1169,9 @@ RRHandle gRR = NULL;
         IniSection* aSection = iniFile.GetSection("Set Time Course Selection List");
         if(!aSection || !gRR)
         {
-            CHECK(false);
             return;
         }
+        clog<< endl << "==== SET_TIME_COURSE_SELECTION_LIST ====" << endl << endl;
 
         IniKey* aKey = aSection->GetKey("list");
         if(!aKey)
@@ -1138,9 +1189,9 @@ RRHandle gRR = NULL;
         IniSection* aSection = iniFile.GetSection("Get Time Course Selection List");
         if(!aSection || !gRR)
         {
-            CHECK(false);
             return;
         }
+        clog<< endl << "==== GET_TIME_COURSE_SELECTION_LIST ====" << endl << endl;
 
         IniKey* aKey = aSection->GetKey("list");
         if(!aKey)
@@ -1170,9 +1221,9 @@ RRHandle gRR = NULL;
         IniSection* aSection = iniFile.GetSection("Compute Steady State Values");
         if(!aSection || !gRR)
         {
-            CHECK(false);
             return;
         }
+        clog<< endl << "==== COMPUTE_STEADY_STATE_VALUES ====" << endl << endl;
 
         RRVector* values = computeSteadyStateValues(gRR);
 
@@ -1203,9 +1254,9 @@ RRHandle gRR = NULL;
         IniSection* aSection = iniFile.GetSection("Floating Species Concentrations");
         if(!aSection || !gRR)
         {
-            CHECK(false);
             return;
         }
+        clog<< endl << "==== FLOATING_SPECIES_CONCENTRATIONS ====" << endl << endl;
 
         RRVector* values = getFloatingSpeciesConcentrations(gRR);
 
@@ -1228,7 +1279,7 @@ RRHandle gRR = NULL;
         freeVector(values);
     }
 
-        TEST(BOUNDARY_SPECIES_CONCENTRATIONS)
+    TEST(BOUNDARY_SPECIES_CONCENTRATIONS)
     {
         CHECK(gRR!=NULL);
 
@@ -1236,9 +1287,9 @@ RRHandle gRR = NULL;
         IniSection* aSection = iniFile.GetSection("Boundary Species Concentrations");
         if(!aSection || !gRR)
         {
-            CHECK(false);
             return;
         }
+        clog<< endl << "==== BOUNDARY_SPECIES_CONCENTRATIONS ====" << endl << endl;
 
         RRVector* values = getBoundarySpeciesConcentrations(gRR);
 
@@ -1269,9 +1320,9 @@ RRHandle gRR = NULL;
         IniSection* aSection = iniFile.GetSection("Get Global Parameter Values");
         if(!aSection || !gRR)
         {
-            CHECK(false);
             return;
         }
+        clog<< endl << "==== GET_GLOBABL_PARAMETER_VALUES ====" << endl << endl;
 
         IniKey* aKey = aSection->GetKey("list");
         if(!aKey)
@@ -1310,9 +1361,9 @@ RRHandle gRR = NULL;
         IniSection* aSection = iniFile.GetSection("Get Initial Floating Species Concs");
         if(!aSection || !gRR)
         {
-            CHECK(false);
             return;
         }
+        clog<< endl << "==== GET_INITIAL_FLOATING_SPECIES_CONCENTRATIONS ====" << endl << endl;
 
         IniKey* aKey = aSection->GetKey("list");
         if(!aKey)
@@ -1351,9 +1402,9 @@ RRHandle gRR = NULL;
         IniSection* aSection = iniFile.GetSection("Get Reaction Rates");
         if(!aSection || !gRR)
         {
-            CHECK(false);
             return;
         }
+        clog<< endl << "==== GET_REACTION_RATES ====" << endl << endl;
 
         IniKey* aKey = aSection->GetKey("list");
         if(!aKey)
@@ -1392,9 +1443,9 @@ RRHandle gRR = NULL;
         IniSection* aSection = iniFile.GetSection("Get Reaction Rates");
         if(!aSection || !gRR)
         {
-            CHECK(false);
             return;
         }
+        clog<< endl << "==== GET_REACTION_RATE_BY_INDEX ====" << endl << endl;
 
         IniKey* aKey = aSection->GetKey("list");
         if(!aKey)
@@ -1431,9 +1482,9 @@ RRHandle gRR = NULL;
         IniSection* aSection = iniFile.GetSection("Number of Dependent Species");
         if(!aSection)
         {
-            CHECK(false);
             return;
         }
+        clog<< endl << "==== NUMBER_OF_DEPENDENT_SPECIES ====" << endl << endl;
 
         if(aSection->KeyCount() < 1)
         {
@@ -1451,9 +1502,9 @@ RRHandle gRR = NULL;
         IniSection* aSection = iniFile.GetSection("Number of Independent Species");
         if(!aSection)
         {
-            CHECK(false);
             return;
         }
+        clog<< endl << "==== NUMBER_OF_INDEPENDENT_SPECIES ====" << endl << endl;
 
         if(aSection->KeyCount() < 1)
         {
@@ -1466,14 +1517,14 @@ RRHandle gRR = NULL;
           CHECK(aKey->AsInt() ==  val);
     }
 
-        TEST(NUMBER_OF_RULES)
+    TEST(NUMBER_OF_RULES)
     {
         IniSection* aSection = iniFile.GetSection("Number of Rules");
         if(!aSection)
         {
-            CHECK(false);
             return;
         }
+        clog<< endl << "==== NUMBER_OF_RULES ====" << endl << endl;
 
         if(aSection->KeyCount() < 1)
         {
@@ -1494,9 +1545,9 @@ RRHandle gRR = NULL;
         IniSection* aSection = iniFile.GetSection("Get Rates Of Change");
         if(!aSection || !gRR)
         {
-            CHECK(false);
             return;
         }
+        clog<< endl << "==== GET_RATES_OF_CHANGE ====" << endl << endl;
 
         IniKey* aKey = aSection->GetKey("list");
         if(!aKey)
@@ -1534,9 +1585,9 @@ RRHandle gRR = NULL;
         IniSection* aSection = iniFile.GetSection("Get Reaction Rates Ex");
         if(!aSection || !gRR)
         {
-            CHECK(false);
             return;
         }
+        clog<< endl << "==== GET_REACTION_RATES_EX ====" << endl << endl;
 
         IniKey* conc = aSection->GetKey("list1");
         if(!conc)
@@ -1592,9 +1643,9 @@ RRHandle gRR = NULL;
         IniSection* aSection = iniFile.GetSection("Get Rates Of Change Ex");
         if(!aSection || !gRR)
         {
-            CHECK(false);
             return;
         }
+        clog<< endl << "==== GET_RATES_OF_CHANGE_EX ====" << endl << endl;
 
         IniKey* conc = aSection->GetKey("list1");
         if(!conc)
@@ -1650,9 +1701,9 @@ RRHandle gRR = NULL;
         IniSection* aSection = iniFile.GetSection("Get Rates Of Change Ex");
         if(!aSection || !gRR)
         {
-            CHECK(false);
             return;
         }
+        clog<< endl << "==== GET_RATE_OF_CHANGE_BY_INDEX ====" << endl << endl;
 
         IniKey* conc = aSection->GetKey("list1");
         if(!conc)

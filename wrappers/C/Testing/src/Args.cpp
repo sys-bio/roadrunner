@@ -13,7 +13,10 @@ Args::Args()
 ModelsFilePath(""),
 ResultOutputFile(""),
 TempDataFolder("."),
-EnableLogging(false)
+EnableLogging(false),
+Suites(""),
+compiler(""),
+TestDataFolder("")
 {}
 
 string Usage(const string& prg)

@@ -420,7 +420,6 @@ PyObject *Integrator_NewPythonObj(rr::Integrator* i) {
 //%ignore rr::RoadRunner::computeSteadyStateValue;
 //%ignore rr::RoadRunner::getFullJacobian;
 %ignore rr::RoadRunner::getReactionRate;
-//%ignore rr::RoadRunner::loadSBML;
 %ignore rr::RoadRunner::computeSteadyStateValues;
 %ignore rr::RoadRunner::getFullReorderedJacobian;
 %ignore rr::RoadRunner::getReactionRates;
@@ -541,6 +540,8 @@ PyObject *Integrator_NewPythonObj(rr::Integrator* i) {
 
 %rename (_getCurrentIntegrator) rr::RoadRunner::getIntegrator();
 %rename (_getIntegrator) rr::RoadRunner::getIntegrator(SimulateOptions::Integrator);
+%rename (_load) rr::RoadRunner::load;
+
 
 %ignore rr::Config::getInt;
 %ignore rr::Config::getString;
@@ -967,12 +968,7 @@ namespace std { class ostream{}; }
 
    %pythoncode %{
         def getModel(self):
-            if self.options.disablePythonDynamicProperties:
-                return self._getModel()
-            else:
-                m = self._getModel();
-                m._makeProperties()
-                return m
+            return self._getModel()
 
         __swig_getmethods__["selections"] = _getSelections
         __swig_setmethods__["selections"] = _setSelections
@@ -989,6 +985,78 @@ namespace std { class ostream{}; }
             conservedMoietyAnalysis=property(_getConservedMoietyAnalysis, _setConservedMoietyAnalysis)
             model = property(getModel)
             integrator = property(_getCurrentIntegrator)
+
+
+        # static list of properties added to the RoadRunner
+        # class object
+        _properties = []
+
+        def _makeProperties(self):
+
+            #global _properties
+       
+            # always clear the old properties
+            for s in RoadRunner._properties:
+                del RoadRunner.__swig_getmethods__[s]
+                del RoadRunner.__swig_setmethods__[s]
+                delattr(RoadRunner, s)
+
+            # properties now empty
+            RoadRunner._properties = []
+
+            # check if we should make new properties
+            if Config.getValue(Config.ROADRUNNER_DISABLE_PYTHON_DYNAMIC_PROPERTIES):
+                return
+
+            model = self.getModel()
+
+            # can't make properties without a model. 
+            if model is None:
+                return 
+
+            def mk_fget(sel): return lambda self: model.__getitem__(sel)
+            def mk_fset(sel): return lambda self, val: model.__setitem__(sel, val)
+
+            def makeProperty(name, sel):
+                fget = mk_fget(sel)
+                fset = mk_fset(sel)
+                RoadRunner.__swig_getmethods__[name] = fget
+                RoadRunner.__swig_setmethods__[name] = fset
+                setattr(RoadRunner, name, property(fget, fset))
+                RoadRunner._properties.append(name)
+
+            for s in model.getFloatingSpeciesIds():
+                makeProperty(s, "[" + s + "]")  # concentrations
+                makeProperty(s + "_amt", s)     # amounts
+
+
+            for s in model.getBoundarySpeciesIds():
+                makeProperty(s, "[" + s + "]")  # concentrations
+                makeProperty(s + "_amt", s)     # amounts
+
+
+            for s in model.getGlobalParameterIds() + model.getCompartmentIds() + model.getReactionIds():
+                makeProperty(s, s)
+
+
+
+        # Set up the python dyanic properties for model access, 
+        # save the original init method
+        _swig_init = __init__  
+
+        def _new_init(self, *args):
+            RoadRunner._swig_init(self, *args)
+            RoadRunner._makeProperties(self)
+       
+        # set the ctor to use the new init
+        __init__ = _new_init
+
+        
+
+
+        def load(self, *args):
+            self._load(*args)
+            RoadRunner._makeProperties(self) 
 
 
         def keys(self, types=_roadrunner.SelectionRecord_ALL):
@@ -1375,8 +1443,6 @@ namespace std { class ostream{}; }
 
             if show:
                 p.show()
-
-
     %}
 }
 
@@ -2372,35 +2438,6 @@ namespace std { class ostream{}; }
     }
 
     %pythoncode %{
-        def _makeProperties(self) :
-
-            def mk_fget(sel): return lambda self: self.__getitem__(sel)
-            def mk_fset(sel): return lambda self, val: self.__setitem__(sel, val)
-
-            for s in self.getFloatingSpeciesIds():
-                sel = "[" + s + "]"
-                fget = mk_fget(sel)
-                fset = mk_fset(sel)
-                self.__class__.__swig_getmethods__[s] = fget
-                self.__class__.__swig_setmethods__[s] = fset
-                setattr(self.__class__, s, property(fget, fset))
-
-                fget = mk_fget(s)
-                fset = mk_fset(s)
-                name = s + "_amt"
-                self.__class__.__swig_getmethods__[name] = fget
-                self.__class__.__swig_setmethods__[name] = fset
-                setattr(self.__class__, name, property(fget, fset))
-
-            ids = self.getGlobalParameterIds() + self.getCompartmentIds() + \
-                self.getReactionIds()
-
-            for s in ids:
-                fget = mk_fget(s)
-                fset = mk_fset(s)
-                self.__class__.__swig_getmethods__[s] = fget
-                self.__class__.__swig_setmethods__[s] = fset
-                setattr(self.__class__, s, property(fget, fset))
 
         def keys(self, types=_roadrunner.SelectionRecord_ALL):
             return self.getIds(types)

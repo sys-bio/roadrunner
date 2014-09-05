@@ -3,19 +3,25 @@ PROJECT(tests)
 
 set(tests
     README.txt
-    NOM_Test.dat
-    LibStructTest.dat
-    Test_1.dat
-    Test_1.xml
     Test_1.txt
     ModelSourceTest.h
     ModelSourceTest.c
-    feedback.xml
 )
-
-
 install(
     FILES ${tests}
     DESTINATION testing 	COMPONENT testing
+)
+
+file(GLOB datfiles "${CMAKE_CURRENT_SOURCE_DIR}/*.dat")
+install(
+    FILES ${datfiles}
+    DESTINATION testing COMPONENT testing
+)
+
+
+file(GLOB xmlfiles "${CMAKE_CURRENT_SOURCE_DIR}/*.xml")
+install(
+    FILES ${xmlfiles}
+    DESTINATION testing COMPONENT testing
 )
 
