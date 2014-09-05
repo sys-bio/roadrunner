@@ -873,10 +873,11 @@ private:
  \par
 
  \par Dependencies
- The RoadRunner library depend on several third-party libraries, CLapack, libSBML (libxml2), Sundials, NLEQ, and Poco. These are provided with the binary installation where necessary.
+ The RoadRunner library depends on several third-party libraries, CLapack, libSBML (libxml2), Sundials, NLEQ, and Poco. These are provided with the binary installation where necessary.
  \par
 
  \author Andy Somogyi (andy.somogyi@gmail.com, somogyie@indiana.edu)
+ \author J Kyle Medley (medleyj uw.dot.edu)
  \author Totte Karlsson (totte@dunescientific.com)
  \author Herbert M. Sauro  (hsauro@u.washington.edu)
 
