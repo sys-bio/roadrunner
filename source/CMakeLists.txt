@@ -160,7 +160,7 @@ if(BUILD_GPUSIM)
 
     source_group(rrGPUSIMCore FILES ${rrGPUSIMCoreSources})
 
-    # FIXME: why does this line cause the asinine build system to do a full
+    # FIXME: why does this line cause the build system to do a full
     # rebuild when a single source file is added to rrGPUSIMCoreSources?
     set_source_files_properties(${rrGPUSIMCoreSources} PROPERTIES COMPILE_FLAGS "-std=c++11 ${LLVM_FLAGS}")
 
