@@ -6,6 +6,7 @@
  */
 
 #include <PyLoggerStream.h>
+#include <PyUtils.h>
 
 
 namespace rr
@@ -82,7 +83,7 @@ std::streamsize PyLoggerStream::xsputn (const char* s,
     }
 
     // new python object
-    PyObject* pystr = PyString_FromStringAndSize(s, num);
+    PyObject* pystr = rrPyString_FromStringAndSize(s, num);
 
     // new py object
     PyObject* args = PyTuple_New(1);
