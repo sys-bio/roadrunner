@@ -146,13 +146,13 @@ GPUSimModel::GPUSimModel(std::string const &sbml, unsigned options) {
     for (uint i = 0; i < getDocument()->getModel()->getListOfSpecies()->size(); ++i) {
         const libsbml::Species *s = getDocument()->getModel()->getListOfSpecies()->get(i);
 
-        // not a floating species
-        if (s->getBoundaryCondition())
-            continue;
-
         const std::string& id = s->getId();
 
-        addSpecies(FloatingSpeciesPtr(new FloatingSpecies(id)));
+        // not a floating species
+        if (s->getBoundaryCondition())
+            addSpecies(BoundarySpeciesPtr(new BoundarySpecies(id)));
+        else
+            addSpecies(FloatingSpeciesPtr(new FloatingSpecies(id)));
     }
 
     // add reactions

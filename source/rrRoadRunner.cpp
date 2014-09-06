@@ -849,7 +849,7 @@ void RoadRunner::load(const string& uriOrSbml, const LoadSBMLOptions *options)
     // the following lines load and compile the model. If anything fails here,
     // we validate the model to provide explicit details about where it
     // failed. Its *VERY* expensive to pre-validate the model.
-    try {
+//     try {
         if (options)
         {
             impl->conservedMoietyAnalysis = options->modelGeneratorOpt
@@ -864,16 +864,17 @@ void RoadRunner::load(const string& uriOrSbml, const LoadSBMLOptions *options)
                     opt.modelGeneratorOpt & ~LoadSBMLOptions::CONSERVED_MOIETIES;
             impl->model = impl->mModelGenerator->createModel(impl->mCurrentSBML, opt.modelGeneratorOpt);
         }
-    } catch (std::exception&) {
-        string errors = validateSBML(impl->mCurrentSBML);
-
-        if(!errors.empty()) {
-            Log(Logger::LOG_ERROR) << "Invalid SBML: " << endl << errors;
-        }
-
-        // re-throw the exception
-        throw;
-    }
+//     }
+//     catch (std::exception&) {
+//         string errors = validateSBML(impl->mCurrentSBML);
+//
+//         if(!errors.empty()) {
+//             Log(Logger::LOG_ERROR) << "Invalid SBML: " << endl << errors;
+//         }
+//
+//         // re-throw the exception
+//         throw;
+//     }
 
     updateIntegrator();
 

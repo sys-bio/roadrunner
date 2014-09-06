@@ -56,10 +56,10 @@ public:
     virtual std::string getId() const = 0;
 };
 
-class RR_DECLSPEC FloatingSpecies : public ModelElement
+class RR_DECLSPEC Species : public ModelElement
 {
 public:
-    FloatingSpecies(const std::string& id)
+    Species(const std::string& id)
       : id_(id) {}
 
     void settId(const std::string& id) { id_ = id; }
@@ -70,15 +70,40 @@ public:
     void setIsConservedMoiety(bool val) { consrvMoity_ = val; }
     bool getIsConservedMoiety() const { return consrvMoity_; }
 
+    void setInitialConcentration(Real val) { init_conc_ = val; }
+    Real getInitialConcentration() const { return init_conc_; }
+
+    virtual bool matchesType(int typebits) const = 0;
+protected:
+    std::string id_;
+    bool consrvMoity_ = false;
+    Real init_conc_ = 0.;
+};
+
+class RR_DECLSPEC BoundarySpecies : public Species
+{
+public:
+    BoundarySpecies(const std::string& id)
+      : Species(id) {}
+
+    virtual bool matchesType(int typebits) const {
+        return false;
+    }
+protected:
+};
+
+class RR_DECLSPEC FloatingSpecies : public Species
+{
+public:
+    FloatingSpecies(const std::string& id)
+      : Species(id) {}
+
     // deprecate?
     void setIsIndepInitFltSpecies(bool val) { indInitFltSpc_ = val; }
     bool getIsIndepInitFltSpecies() const { return indInitFltSpc_; }
 
     void setIsIndependent(bool val) { isIndependent_ = val; }
     bool getIsIndependent() const { return isIndependent_; }
-
-    void setInitialConcentration(Real val) { init_conc_ = val; }
-    Real getInitialConcentration() const { return init_conc_; }
 
     void setIndex(int index) { index_ = index; }
     int getIndex() const { return index_; }
@@ -90,8 +115,6 @@ public:
         );
     }
 protected:
-    std::string id_;
-    bool consrvMoity_ = false;
     bool indInitFltSpc_ = false;
     bool isIndependent_ = true;
     int index_ = 0;
@@ -107,7 +130,7 @@ public:
         Both
     };
 
-    ReactionParticipant(const FloatingSpecies* spec, ReactionSide side)
+    ReactionParticipant(const Species* spec, ReactionSide side)
       : spec_(spec), side_(side) {
         checkSide();
     }
@@ -117,12 +140,41 @@ public:
             throw_gpusim_exception("Side 'both' is not supported");
     }
 
-    const FloatingSpecies* getSpecies() const { return spec_; }
+    const Species* getSpecies() const { return spec_; }
+
+    bool isFloatingSpecies() const {
+        if (dynamic_cast<const FloatingSpecies*>(spec_))
+            return true;
+        else
+            return false;
+    }
+
+    /**
+     * @note Throws if not a floating species
+     */
+    const FloatingSpecies* getFloatingSpecies() const {
+        auto p = dynamic_cast<const FloatingSpecies*>(spec_);
+        if (p)
+            return p;
+        else
+            throw_gpusim_exception("Not a floating species");
+    }
+
+    /**
+     * @note Throws if not a boundary species
+     */
+    const BoundarySpecies* getBoundarySpecies() const {
+        auto p = dynamic_cast<const BoundarySpecies*>(spec_);
+        if (p)
+            return p;
+        else
+            throw_gpusim_exception("Not a boundary species");
+    }
 
     ReactionSide getSide() const { return side_; }
 
 protected:
-    const FloatingSpecies* spec_ = nullptr;
+    const Species* spec_ = nullptr;
     ReactionSide side_;
 };
 
@@ -141,26 +193,26 @@ public:
     bool matchId(const String& id) { return id_ == id; }
 
     /// Add a participant (reactant or product)
-    void addParticipant(const FloatingSpecies* spec, ReactionSide side) {
+    void addParticipant(const Species* spec, ReactionSide side) {
         if (isParticipant(spec))
             throw_gpusim_exception("Floating species \"" + spec->getId() + "\" is already a participant in the reaction");
         addParticipantForce(spec, side);
     }
 
     /// Does not check if the species is already present in the reaction
-    void addParticipantForce(const FloatingSpecies* spec, ReactionSide side) {
+    void addParticipantForce(const Species* spec, ReactionSide side) {
         part_.emplace_back(new ReactionParticipant(spec, side));
     }
 
-    void addReactant(const FloatingSpecies* spec) {
+    void addReactant(const Species* spec) {
         addParticipant(spec, ReactionSide::Reactant);
     }
 
-    void addProduct(const FloatingSpecies* spec) {
+    void addProduct(const Species* spec) {
         addParticipant(spec, ReactionSide::Product);
     }
 
-    bool isParticipant(const FloatingSpecies* spec) const {
+    bool isParticipant(const Species* spec) const {
         for (auto const & p : part_)
             if (p->getSpecies() == spec)
                 return true;
@@ -175,14 +227,24 @@ public:
     }
 
     /// Get the species from an id if it participates in the reaction
-    const FloatingSpecies* getSpecies(const String& id) const {
+    const Species* getSpecies(const String& id) const {
         for (auto const & p : part_)
             if (p->getSpecies()->getId() == id)
                 return p->getSpecies();
         throw_gpusim_exception("No such participant \"" + id +"\"");
     }
 
-    ReactionSide getSide(const FloatingSpecies* spec) const {
+    /**
+     * @note Throws if not a floating species
+     */
+    const FloatingSpecies* getFloatingSpecies(const String& id) const {
+        for (auto const & p : part_)
+            if (p->isFloatingSpecies() && p->getFloatingSpecies()->getId() == id)
+                return p->getFloatingSpecies();
+        throw_gpusim_exception("No such participant \"" + id +"\"");
+    }
+
+    ReactionSide getSide(const Species* spec) const {
         for (auto const & p : part_)
             if (p->getSpecies() == spec)
                 return p->getSide();
@@ -324,8 +386,12 @@ protected:
     typedef std::unique_ptr<ModelRule> ModelRulePtr;
     /// Owning floating species pointer
     typedef std::unique_ptr<FloatingSpecies> FloatingSpeciesPtr;
+    /// Owning boundary species pointer
+    typedef std::unique_ptr<BoundarySpecies> BoundarySpeciesPtr;
     /// Collection of all floating species
     typedef std::vector<FloatingSpeciesPtr> FloatingSpeciesCollection;
+    /// Collection of all boundary species
+    typedef std::vector<BoundarySpeciesPtr> BoundarySpeciesCollection;
     /// Owning pointer to reaction
     typedef std::unique_ptr<Reaction> ReactionPtr;
     /// Collection of all reactions
@@ -529,6 +595,10 @@ protected:
         rules_.addRule(std::move(r));
     }
 
+    void addSpecies(BoundarySpeciesPtr&& s) {
+        boundarySpecies_.emplace_back(std::move(s));
+    }
+
     void addSpecies(FloatingSpeciesPtr&& s) {
         floatingSpecies_.emplace_back(std::move(s));
     }
@@ -554,6 +624,7 @@ protected:
     ModelRules rules_;
 
     FloatingSpeciesCollection floatingSpecies_;
+    BoundarySpeciesCollection boundarySpecies_;
     ReactionCollection reactions_;
 };
 

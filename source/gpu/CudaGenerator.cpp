@@ -199,7 +199,7 @@ ExpressionPtr CudaGeneratorImpl::generateExpForSBMLASTNode(const Reaction* r, co
             if (r->isParameter(node->getName()))
                 return ExpressionPtr(new RealLiteralExpression(r->getParameterVal(node->getName())));
             if (r->isParticipant(node->getName()))
-                return getVecRK(r->getSpecies(node->getName()), rk_index);
+                return getVecRK(r->getFloatingSpecies(node->getName()), rk_index);
             else
                 return ExpressionPtr(new LiteralIntExpression(12345));
         default:
