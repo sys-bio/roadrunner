@@ -32,7 +32,8 @@ GillespieIntegrator::GillespieIntegrator(ExecutableModel* m,
         stoichScale(1.0),
         stoichRows(0),
         stoichCols(0),
-        stoichData(0)
+        stoichData(0),
+        seed(5489UL) // default value for mersene twister
 {
     if (o)
     {
@@ -57,7 +58,7 @@ GillespieIntegrator::GillespieIntegrator(ExecutableModel* m,
     // fill stoichData
     model->getStoichiometryMatrix(&stoichRows, &stoichCols, &stoichData);
 
-
+    setEngineSeed(seed);
 }
 
 GillespieIntegrator::~GillespieIntegrator()
@@ -82,12 +83,16 @@ void GillespieIntegrator::setSimulateOptions(const SimulateOptions* o)
             Log(Logger::LOG_NOTICE) << "new stoichScale: " << stoichScale;
         }
 
-
         if(options.hasKey("timeScale"))
         {
             Log(Logger::LOG_NOTICE) << "getting timeScale";
             timeScale = options.getValue("timeScale").convert<double>();
             Log(Logger::LOG_NOTICE) << "new timeScale: " << timeScale;
+        }
+
+        if(options.hasKey("seed") && !options.getValue("seed").isEmpty())
+        {
+            setSeed(options.getValue("seed"));
         }
     }
 }
@@ -214,36 +219,6 @@ double GillespieIntegrator::integrate(double t, double hstep)
 
 void GillespieIntegrator::restart(double t0)
 {
-    long seed = 0;
-#ifdef RR_CXX_RANDOM
-    if (options.hasKey("seed"))
-    {
-        // variant at the moment can only do signed numbers.
-        seed = options.getValue("seed").convert<long>();
-        Log(Logger::LOG_INFORMATION) << "Using user specified seed value: " << seed;
-    }
-    else
-    {
-        seed = (long)std::time(0);
-        Log(Logger::LOG_INFORMATION) << "Using system time for seed value: " << seed;
-    }
-    // MSVC needs an explicit cast, fail to compile otherwise.
-    engine.seed((unsigned long)seed);
-#else
-    if (options.hasKey("seed"))
-    {
-        seed = options.getValue("seed").convert<long>();
-        Log(Logger::LOG_INFORMATION) << "Using user specified seed value: " << seed;
-    }
-    else
-    {
-        timeval tv = {0, 0};
-        gettimeofday(&tv, 0);
-        seed = (long)(tv.tv_sec * tv.tv_usec);
-        Log(Logger::LOG_INFORMATION) << "Using system time for seed value: " << seed;
-    }
-    srand48(seed);
-#endif
 }
 
 void GillespieIntegrator::setListener(IntegratorListenerPtr)
@@ -264,4 +239,137 @@ double GillespieIntegrator::urand()
 #endif
 }
 
+
+void GillespieIntegrator::setSeed(const rr::Variant& value)
+{
+    try
+    {
+        unsigned long seed = value.convert<unsigned long>();
+        this->seed = seed;
+        setEngineSeed(seed);
+    }
+    catch(std::exception& e)
+    {
+        std::stringstream ss;
+        ss << "Could not convert the value \"" << value.toString();
+        ss << "\" to an unsigned long integer. " << endl;
+        ss << "The seed must be a number between 0 and ";
+        ss << std::numeric_limits<unsigned long>::max();
+        ss << "; error message: " << e.what() << ".";
+        throw std::invalid_argument(ss.str());
+    }
+}
+
+void GillespieIntegrator::setValue(const std::string& key,
+        const rr::Variant& value)
+{
+    if (key == "seed")
+    {
+        setSeed(value);
+    }
+    else if (key == "rand")
+    {
+        std::invalid_argument("'rand' is a read only value");
+    }
+    else
+    {
+        std::string err = "invalid key: \"";
+        err += key;
+        err += "\"";
+        throw std::invalid_argument(err);
+    }
+}
+
+Variant GillespieIntegrator::getValue(const std::string& key) const
+{
+    if (key == "seed")
+    {
+        return Variant(getSeed());
+    }
+    else if(key == "rand")
+    {
+        // cheating
+        GillespieIntegrator *pthis = const_cast<GillespieIntegrator*>(this);
+        return Variant(pthis->urand());
+    }
+
+    std::string err = "invalid key: \"";
+    err += key;
+    err += "\"";
+    throw std::invalid_argument(err);
+}
+
+bool GillespieIntegrator::hasKey(const std::string& key) const
+{
+    return key == "seed" || key == "rand";
+}
+
+int GillespieIntegrator::deleteValue(const std::string& key)
+{
+    return -1;
+}
+
+std::vector<std::string> GillespieIntegrator::getKeys() const
+{
+    std::vector<std::string> result;
+    result.push_back("seed");
+    result.push_back("rand");
+    return result;
+}
+
+unsigned long GillespieIntegrator::getSeed() const
+{
+    return seed;
+}
+
+void GillespieIntegrator::setEngineSeed(unsigned long seed)
+{
+    Log(Logger::LOG_INFORMATION) << "Using user specified seed value: " << seed;
+
+#ifdef RR_CXX_RANDOM
+    // MSVC needs an explicit cast, fail to compile otherwise.
+    engine.seed((unsigned long)seed);
+#else
+    srand48(seed);
+#endif
+}
+
+std::string GillespieIntegrator::toString() const
+{
+    std::stringstream ss;
+    ss << "< roadrunner.GillespieIntegrator() " << endl << "{ "
+            << endl << "'this' : " << (void*)this << ", " << std::endl;
+
+    std::vector<std::string> keys = getKeys();
+
+    for(std::vector<std::string>::iterator i = keys.begin(); i != keys.end(); ++i)
+    {
+        ss << "'" << *i << "' : ";
+        ss << getValue(*i).toString();
+
+        if (i + 1 < keys.end()) {
+            ss << ", " << std::endl;
+        }
+    }
+
+    ss << endl << "}>";
+
+    return ss.str();
+}
+
+std::string GillespieIntegrator::toRepr() const
+{
+    std::stringstream ss;
+    ss << "< roadrunner.GillespieIntegrator() { 'this' : "
+            << (void*)this << " }>";
+    return ss.str();
+}
+
+
+std::string GillespieIntegrator::getName() const
+{
+    return "gillespie";
+}
+
 } /* namespace rr */
+

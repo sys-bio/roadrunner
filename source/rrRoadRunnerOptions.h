@@ -199,10 +199,33 @@ public:
 
     /**
      * the list of ODE solvers RoadRunner currently supports.
+     *
+     * The last item, INTEGRATOR_END needs to always be the last item
+     * it is not a valid integrator, just used to indicate how many
+     * we have.
      */
     enum Integrator
     {
-        CVODE,  GILLESPIE
+        /**
+         * The default CVODE integrator from the Sundials package.
+         */
+        CVODE = 0,  
+
+        /**
+         * Basic Gillespie stochastic integrator. 
+         */
+        GILLESPIE, 
+
+        /**
+         * Basic Runge-Kutta fourth order integrator.
+         */
+        RK4, 
+
+        /**
+         * Always has to be at the end, this way, this value indicates
+         * how many integrators we have. 
+         */
+        INTEGRATOR_END
     };
 
     /**
@@ -217,6 +240,17 @@ public:
      * get the type of integrator.
      */
     static IntegratorType getIntegratorType(Integrator i);
+
+    /**
+     * get the textual name of the integrator.
+     */
+    static std::string getIntegratorNameFromId(Integrator);
+
+    /**
+     * mape the textual name of an integrator to its
+     * enumerated id.
+     */
+    static Integrator getIntegratorIdFromName(const std::string& name);
 
 
     enum IntegratorFlags
@@ -390,9 +424,14 @@ public:
     std::vector<std::string> getKeys() const;
 
     /**
-     * get the textual form of this object.
+     * get a description of this object, compatable with python __str__
      */
     std::string toString() const;
+
+    /**
+     * get a short descriptions of this object, compatable with python __repr__.
+     */
+    std::string toRepr() const;
 
     /**
      * Integration tolerance is very integrator specific.
@@ -401,6 +440,13 @@ public:
      * current integrator to meed the SBML test suite requirements.
      */
     void tweakTolerances();
+
+
+    /**
+     * set the integrator field, and also update the variable step
+     * options to be appropriate for the current values.
+     */
+    void setIntegrator(Integrator value);
 
 private:
 

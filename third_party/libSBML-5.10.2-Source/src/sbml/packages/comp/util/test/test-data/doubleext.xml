@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<sbml xmlns="http://www.sbml.org/sbml/level3/version1/core" xmlns:comp="http://www.sbml.org/sbml/level3/version1/comp/version1" level="3" version="1" comp:required="true">
+  <model>
+    <comp:listOfSubmodels>
+      <comp:submodel comp:id="A" comp:modelRef="EM1"/>
+    </comp:listOfSubmodels>
+  </model>
+  <comp:listOfExternalModelDefinitions>
+    <comp:externalModelDefinition comp:id="EM1" comp:source="enzyme_identical.xml" comp:modelRef="ExtMod1"/>
+  </comp:listOfExternalModelDefinitions>
+</sbml>

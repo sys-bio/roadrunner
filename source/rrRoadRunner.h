@@ -4,7 +4,6 @@
 #include "rrOSSpecifics.h"
 #include "rr-libstruct/lsMatrix.h"
 #include "rrSelectionRecord.h"
-#include "rrRoadRunnerData.h"
 #include "rrRoadRunnerOptions.h"
 #include "Configurable.h"
 
@@ -108,7 +107,14 @@ public:
      * get a pointer to the integrator which is currently being used to
      * time evolve the system.
      */
-    Integrator* getIntegrator();
+    Integrator *getIntegrator();
+
+    /**
+     * gets a pointer to a specific integrator.
+     *
+     * Throws a std::invalid_argument if intg is not valid.
+     */
+    Integrator *getIntegrator(SimulateOptions::Integrator intg);
 
     bool isModelLoaded();
 
@@ -146,21 +152,15 @@ public:
      * @returns a RoadRunnerData object which is owned by the the RoadRunner
      * object if successfull, 0 on failure.
      */
-    const DoubleMatrix *simulate(const SimulateOptions* options = 0);
+    const ls::DoubleMatrix *simulate(const SimulateOptions* options = 0);
 
     /**
      * RoadRunner keeps a copy of the simulation data around until the
      * next call to simulate. This matrix can be obtained here.
      */
-    const DoubleMatrix* getSimulationData() const;
+    const ls::DoubleMatrix* getSimulationData() const;
 
     #ifndef SWIG // deprecated methods not SWIG'ed
-
-    /**
-     * Use getSimulationData() instead.
-     * Also, can use the RoadRunnerData::RoadRunnerData(const RoadRunner*) ctor
-     */
-    RR_DEPRECATED(rr::RoadRunnerData *getSimulationResult());
 
     #endif
 
@@ -189,10 +189,28 @@ public:
     std::string getSBML();
 
     /**
-     * Reset the simulator back to the initial conditions specified in the SBML model,
-     * provided an SBML model is loaded.
+     * Picks up default options from config.
+     *
+     * The current default is
+     * SelectionRecord::TIME | SelectionRecord::RATE | SelectionRecord::FLOATING.
      */
     void reset();
+
+    /**
+     * reset the model accordign to a bitfield specified by the
+     * SelectionRecord::SelectionType values.
+     *
+     * Note, this would make more sense as an unsigned, however SWIG has issues mapping
+     * an enum to an unsigned, but seems to map enums just fine to an int.
+     *
+     * For example, to reset the floating species, time and rate rule values:
+     * @code
+     * r.reset(SelectionRecord::TIME | SelectionRecord::RATE | SelectionRecord::FLOATING);
+     * @endcode
+     *
+     * @param options a bitmask made from the SelectionRecord::SelectionTypes values.
+     */
+    void reset(int options);
 
     /**
      * @internal
@@ -335,7 +353,7 @@ public:
      */
     ls::DoubleMatrix getEigenvalues();
 
-    std::vector<Complex> getEigenvaluesCpx();
+    std::vector<ls::Complex> getEigenvaluesCpx();
 
     ls::DoubleMatrix getLinkMatrix();
 
@@ -386,7 +404,7 @@ public:
             const string& parameterName);
 
 
-    Matrix<double> getFrequencyResponse(double startFrequency,
+    ls::DoubleMatrix getFrequencyResponse(double startFrequency,
             int numberOfDecades, int numberOfPoints,
             const string& parameterName, const string& variableName,
             bool useDB, bool useHz);
@@ -542,9 +560,8 @@ public:
     RR_DEPRECATED(double getReactionRate(const int& index));
 
     /**
-     * @deprecated
      * @internal
-     * Returns the rate of changes of a species by its index
+     * @deprecated
      */
     RR_DEPRECATED(double getRateOfChange(const int& index));
 
@@ -718,11 +735,6 @@ public:
     RR_DEPRECATED(std::vector<std::string> getGlobalParameterIds());
 
     /**
-     * The C back end requires this to be called to update
-     * model variables if anyting is changes. Does nothing
-     * in LLVM back end as everything is automatically handled
-     * with lazy evaluation.
-     *
      * @internal
      * @deprecated
      */
@@ -815,13 +827,13 @@ private:
     /**
      * the LibStruct is normally null, only created on demand here.
      */
-    LibStructural* getLibStruct();
+    ls::LibStructural* getLibStruct();
 
     /**
-     * create and initialize the integrator based on the value specified
-     * in the simulateOptions struct.
+     * If the specified integrator does not exist, create it, and point the
+     * integrator pointer to it.
      */
-    void createIntegrator();
+    void updateIntegrator();
 
     bool createDefaultSelectionLists();
 
@@ -837,10 +849,11 @@ private:
     std::vector<SelectionRecord> getSelectionList();
 
     /**
-     * sets the options and updates the integrator an any
-     * other depedent bits.
+     * The simulateOptions may be changed at any time. This updates
+     * the integrators just before they are used with the
+     * potentially changed options.
      */
-    void _setSimulateOptions(const SimulateOptions* opt);
+    void updateSimulateOptions();
 
     /**
      * private implementation class, can only access if inside

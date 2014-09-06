@@ -6,8 +6,10 @@
 #include <time.h>
 #include <sstream>
 #include <cstring>
+#include <cctype>
 #include "rrStringUtils.h"
-//---------------------------------------------------------------------------
+#include "rrUtils.h"
+#include "rrLogger.h"
 
 using namespace std;
 namespace rr
@@ -152,65 +154,6 @@ int getNumberOfFunctionArguments(const string& expression)
          return -1;
      }
      return nrOfArgs;
-}
-
-//    double result = 0.0;
-//    int i;
-//    va_list listPointer;
-//    va_start(listPointer, nrOfArguments);
-//
-//    for(i = 0; i < nrOfArguments; i++)
-//    {
-//        // Get an argument.  Must know
-//        // the type of the arg to retrieve
-//        // it from the va_list.
-//        double arg = va_arg( listPointer, double);
-//
-///*        printf("The %dth arg is %f\n", i, arg);*/
-//        if(arg == 1.0)
-//        {
-//            result = 1.0;
-//            break;
-//        }
-//    }
-//    va_end( listPointer );
-//    return result;
-
-string joinPath(const string& aPath, const string& aFile, const char pathSeparator)
-{
-    //Just check the paths last position. it has to be a "/"
-    //Otherwise, add it before joining
-    if(aPath.size() > 0)
-    {
-        if(aPath[aPath.size() - 1] == pathSeparator)
-        {
-            return aPath + aFile;
-        }
-        else
-        {
-            return aPath + pathSeparator + aFile;
-        }
-    }
-
-    return aFile;
-}
-
-string joinPath(const string& p1, const string& p2, const string& p3, const char pathSeparator)
-{
-    string tmp(joinPath(p1, p2, gPathSeparator));
-    return joinPath(tmp, p3, gPathSeparator);
-}
-
-string joinPath(const string& p1, const string& p2, const string& p3, const string& p4, const char pathSeparator)
-{
-    string tmp(joinPath(p1, p2, p3, gPathSeparator));
-    return joinPath(tmp, p4, gPathSeparator);
-}
-
-string joinPath(const string& p1, const string& p2, const string& p3, const string& p4, const string& p5, const char pathSeparator)
-{
-    string tmp(joinPath(p1, p2, p3, p4, gPathSeparator));
-    return joinPath(tmp, p5, gPathSeparator);
 }
 
 string tabs(const int& nr)
@@ -644,15 +587,55 @@ bool toBool(const string& str)
 
 double toDouble(const string& str)
 {
-    if(!str.size())
-        return 0;
+    // The MSVC strtod is buggy in that it does not parse InF and NaN values,
+    // so have to compensate.
+    // go ahead and have the same behavior on all platforms so its easier
+    // to diagnose issues.
+    const char* cstr = str.c_str();
+    char* endptr = const_cast<char*>(cstr);
+    double result = ::strtod(cstr, &endptr);
 
-    if(str == "-")
+    if (endptr > cstr)
     {
-        return gDoubleNaN;
+        return result;
     }
-    char *endptr = NULL;
-    return strtod(str.c_str(), &endptr);
+
+    if(str.length() == 0)
+    {
+        return 0;
+    }
+
+    if(!str.size())
+    {
+        Log(Logger::LOG_WARNING) << "returning 0.0 for empty string in toDouble()";
+        return 0;
+    }
+
+    string s = str;
+    std::transform(s.begin(), s.end(), s.begin(), ::toupper);
+
+    if(s.find("NAN") != std::string::npos || s == "-")
+    {
+        return std::numeric_limits<double>::quiet_NaN();
+    }
+
+    size_t inf = s.find("INF");
+
+    if(inf != std::string::npos)
+    {
+        size_t negpos = s.find("-");
+        if(negpos != std::string::npos && negpos < inf) // -inf
+        {
+            return -std::numeric_limits<double>::infinity();
+        }
+        else // +inf
+        {
+            return std::numeric_limits<double>::infinity();
+        }
+    }
+
+    Log(Logger::LOG_WARNING) << "could not parse string \"" << str << "\" to double, returning NaN";
+    return std::numeric_limits<double>::quiet_NaN();
 }
 
 complex<double> toComplex(const string& str)

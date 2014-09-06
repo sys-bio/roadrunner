@@ -8,6 +8,7 @@
 #include "rrc_types.h"
 #include "rrc_utilities.h"
 #include "rrStringUtils.h"
+#include "rrRoadRunner.h"
 
 namespace rrc
 {
@@ -37,21 +38,6 @@ RoadRunner* castToRoadRunner(RRHandle handle)
         throw(ex);
     }
 }
-
-RoadRunnerData* castToRRData(rrc::RRDataHandle handle)
-{
-    RoadRunnerData* rrd = (RoadRunnerData*) handle;
-    if(rrd) //Will only fail if handle is NULL...
-    {
-        return rrd;
-    }
-    else
-    {
-        Exception ex("Failed to cast to a valid RoadRunner Data object");
-        throw(ex);
-    }
-}
-
 
 RRDoubleMatrix* createMatrix(const ls::DoubleMatrix* mat)
 {
@@ -329,92 +315,37 @@ RRList* createArrayList(const rrc::ArrayList& aList)
     return theList;
 }
 
-//RRParameterHandle createParameter(const rr::BaseParameter& para)
-//{
-//    if(para.getType() == "bool")
-//    {
-//        Parameter<bool> *thePara = dynamic_cast< Parameter<bool>* >(const_cast< BaseParameter* >(&para));
-//
-//        RRParameter* aPara     = new RRParameter;
-//        aPara->ParaType     = ptBool;
-//        aPara->data.bValue     = thePara->getValue();
-//        aPara->mName        = rr::createText(thePara->getName());
-//        aPara->mHint        = rr::createText(thePara->getHint());
-//        return aPara;
-//    }
-//
-//    if(para.getType() == "integer")
-//    {
-//        Parameter<int> *thePara = dynamic_cast< Parameter<int>* >(const_cast< BaseParameter* >(&para));
-//
-//        RRParameter* aPara     = new RRParameter;
-//        aPara->ParaType     = ptInteger;
-//        aPara->data.iValue     = thePara->getValue();
-//        aPara->mName        = rr::createText(thePara->getName());
-//        aPara->mHint        = rr::createText(thePara->getHint());
-//        return aPara;
-//    }
-//
-//    if(para.getType() == "double")
-//    {
-//        Parameter<double> *thePara = dynamic_cast< Parameter<double>* >(const_cast< BaseParameter* >(&para));
-//
-//        RRParameter* aPara     = new RRParameter;
-//        aPara->ParaType     = ptInteger;
-//        aPara->data.iValue     = thePara->getValue();
-//        aPara->mName        = rr::createText(thePara->getName());
-//        aPara->mHint        = rr::createText(thePara->getHint());
-//        return aPara;
-//    }
-//
-//    if(para.getType() == "vector")
-//    {
-//        Parameter<RRVector*> *thePara = dynamic_cast< Parameter<RRVector*>* >(const_cast< BaseParameter* >(&para));
-//
-//        RRParameter* aPara     = new RRParameter;
-//        aPara->ParaType     = ptVector;
-//        aPara->data.vValue     = thePara->getValue();
-//        aPara->mName        = rr::createText(thePara->getName());
-//        aPara->mHint        = rr::createText(thePara->getHint());
-//        return aPara;
-//    }
-//    return NULL;
-//}
 
 
-RRCDataPtr createRRCData(const RoadRunnerData& result)
+RRCDataPtr createRRCData(const RoadRunner& tmp)
 {
+    // TODO make roadrunner const correct
+    RoadRunner& r = const_cast<RoadRunner&>(tmp);
+
     RRCData* rrCData  = new RRCData;
     memset(rrCData, 0, sizeof(RRCData));
 
-    rrCData->ColumnHeaders = new char*[result.cSize()];
-    for(int i = 0; i < result.cSize(); i++)
+    // create columns info
+    const std::vector<SelectionRecord> &selections = r.getSelections();
+    rrCData->ColumnHeaders = new char*[selections.size()];
+    for(int i = 0; i < selections.size(); ++i)
     {
-        rrCData->ColumnHeaders[i] = rr::createText(result.getColumnNames()[i]);
+        rrCData->ColumnHeaders[i] = rr::createText(selections[i].to_string());
     }
 
-    rrCData->RSize = result.rSize();
-    rrCData->CSize = result.cSize();
+    const DoubleMatrix& result = *r.getSimulationData();
+
+    rrCData->RSize = result.RSize();
+    rrCData->CSize = result.CSize();
     int size = rrCData->RSize*rrCData->CSize;
     rrCData->Data = new double[size];
 
-    if(result.hasWeights())
-    {
-        rrCData->Weights = new double[size];
-    }
-
     int index = 0;
-    //The data layout is simple row after row, in one single long row...
     for(int row = 0; row < rrCData->RSize; row++)
     {
         for(int col = 0; col < rrCData->CSize; col++)
         {
-            rrCData->Data[index] = result(row, col);
-            if(result.hasWeights())
-            {
-                rrCData->Weights[index] = result.getWeight(row, col);
-            }
-            ++index;
+            rrCData->Data[index++] = result(row, col);
         }
     }
     return rrCData;

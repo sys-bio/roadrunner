@@ -3,7 +3,6 @@
 #include "rrExecutableModel.h"
 #include "rrStringUtils.h"
 #include "rrUtils.h"
-#include "rrRoadRunner.h"
 #include "nleq/nleq1.h"
 #include "rrLogger.h"
 #include "rrUtils.h"

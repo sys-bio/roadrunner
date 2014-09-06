@@ -1,15 +1,16 @@
 #pragma hdrstop
 #include "rrLogger.h"
 #include "rrOSSpecifics.h"
+#include "rrConfig.h"
+#include "rrUtils.h"
 
 #include <Poco/Logger.h>
 #include <Poco/AsyncChannel.h>
 
 #if defined(WIN32)
 #include <Poco/WindowsConsoleChannel.h>
-#else
-#include <Poco/ConsoleChannel.h>
 #endif
+#include <Poco/ConsoleChannel.h>
 #include <Poco/SimpleFileChannel.h>
 #include <Poco/SplitterChannel.h>
 #include <Poco/FormattingChannel.h>
@@ -18,6 +19,8 @@
 #include <Poco/AutoPtr.h>
 #include <Poco/LogStream.h>
 #include <Poco/Mutex.h>
+#include <Poco/File.h>
+#include <Poco/Path.h>
 
 #include <iostream>
 #include <map>
@@ -38,13 +41,21 @@ using Poco::FormattingChannel;
 using Poco::PatternFormatter;
 using Poco::Mutex;
 
+// console channel can't write colored output to win32 console correctly. 
+#if defined(WIN32)
+static bool coloredOutput = false;
+#else
 static bool coloredOutput = true;
+#endif
 
 // owned by poco, it takes care of clearing in static dtor.
 static Poco::Logger *pocoLogger = 0;
 volatile int logLevel = -1;
 const Logger::Level defaultLogLevel = Logger::LOG_NOTICE;
 static std::string logFileName;
+
+// pointer to an object created elsewhere. Ideally static.
+static std::ostream* consoleStream = &std::clog;
 
 // ******** The RoadRunner Logging Chain *************//
 // pocoLogger
@@ -75,25 +86,57 @@ static PatternFormatter *getPatternFormatter();
 static Channel *createConsoleChannel()
 {
 #if defined(WIN32)
-    if (coloredOutput) {
-        Poco::WindowsColorConsoleChannel *c = new Poco::WindowsColorConsoleChannel();
+    if (consoleStream == &std::clog || consoleStream == &std::cout
+            || consoleStream == &std::cerr) {
+        // WIN32 system console mode
+        if (coloredOutput) {
+            // WIN32 color console output
+            Poco::WindowsColorConsoleChannel *c =
+                    new Poco::WindowsColorConsoleChannel();
 
-        c->setProperty("traceColor", "gray");
-        c->setProperty("debugColor", "brown");
-        c->setProperty("informationColor", "green");
-        c->setProperty("noticeColor", "blue");
-        c->setProperty("warningColor", "yellow");
-        c->setProperty("errorColor", "magenta");
-        c->setProperty("criticalColor", "lightRed");
-        c->setProperty("fatalColor", "red");
+            c->setProperty("traceColor", "gray");
+            c->setProperty("debugColor", "brown");
+            c->setProperty("informationColor", "green");
+            c->setProperty("noticeColor", "blue");
+            c->setProperty("warningColor", "lightMagenta");
+            c->setProperty("errorColor", "magenta");
+            c->setProperty("criticalColor", "lightRed");
+            c->setProperty("fatalColor", "red");
 
-        return c;
+            return c;
+        } else {
+            // WIN32 non-color console output
+            return new Poco::ConsoleChannel(*consoleStream);
+        }
     } else {
-        return new Poco::WindowsConsoleChannel();
+        // WIN32 python (or alternate stream) mode.
+        if (coloredOutput) {
+            // WIN32 Python color output
+            Poco::ColorConsoleChannel *c =
+                    new Poco::ColorConsoleChannel(*consoleStream);
+
+            c->setProperty("traceColor", "gray");
+            c->setProperty("debugColor", "brown");
+            c->setProperty("informationColor", "green");
+            c->setProperty("noticeColor", "blue");
+            c->setProperty("warningColor", "lightMagenta");
+            c->setProperty("errorColor", "magenta");
+            c->setProperty("criticalColor", "lightRed");
+            c->setProperty("fatalColor", "red");
+
+            return c;
+
+        } else {
+            // WIN32 Python non-color output
+            return new Poco::ConsoleChannel(*consoleStream);
+        }
     }
+
 #else
     if (coloredOutput) {
-        Poco::ColorConsoleChannel *c = new Poco::ColorConsoleChannel();
+        Poco::ColorConsoleChannel *c =
+                new Poco::ColorConsoleChannel(*consoleStream);
+
 
         c->setProperty("traceColor", "gray");
         c->setProperty("debugColor", "brown");
@@ -106,7 +149,7 @@ static Channel *createConsoleChannel()
 
         return c;
     } else {
-        return new Poco::ConsoleChannel();
+        return new Poco::ConsoleChannel(*consoleStream);
     }
 #endif
 }
@@ -235,12 +278,44 @@ void Logger::enableFileLogging(const std::string& fileName, int level)
 
     Logger::setLevel(level);
 
+    // close the current file log and re-create it.
+    disableFileLogging();
+
     if (!simpleFileChannel)
     {
+        std::string realName;
+
+        // figure out what file name to use
+        if (fileName.length() == 0) {
+            // none given, use one from config.
+            realName = Config::getString(Config::LOGGER_LOG_FILE_PATH);
+        }
+
+        if (realName.length() == 0) {
+            // default log name.
+            realName = joinPath(getTempDir(), "roadrunner.log");
+        } else {
+            // expand any env vars and make absolute path.
+            realName = Poco::Path::expand(realName);
+            Poco::Path path(realName);
+            realName = path.makeAbsolute().toString();
+        }
+
+        // check if the path is writable
+        Poco::Path p(realName);
+        Poco::File fdir = p.parent();
+        if(!fdir.exists())
+        {
+            realName = joinPath(getTempDir(), "roadrunner.log");
+            Log(Logger::LOG_ERROR) << "The specified log file directory path, "
+                    << fdir.path() << " does not exist, using default log file path: "
+                    << realName;
+        }
+
         SplitterChannel *splitter = getSplitterChannel();
 
         simpleFileChannel = new SimpleFileChannel();
-        simpleFileChannel->setProperty("path", fileName);
+        simpleFileChannel->setProperty("path", realName);
         simpleFileChannel->setProperty("rotation", "never");
 
         logFileName = simpleFileChannel->getProperty("path");
@@ -516,5 +591,17 @@ std::ostream& LoggingBuffer::stream()
     return buffer;
 }
 
+void Logger::setConsoleStream(std::ostream* os)
+{
+    Mutex::ScopedLock lock(loggerMutex);
+
+    if (os != consoleStream) {
+        consoleStream = os;
+        disableConsoleLogging();
+        enableConsoleLogging();
+    }
 }
+
+}
+
 

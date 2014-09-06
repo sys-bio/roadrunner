@@ -24,6 +24,7 @@
 #include "rrSteadyStateSolver.h"
 #include "rrSBMLReader.h"
 #include "rrConfig.h"
+#include "SBMLValidator.h"
 
 #include <sbml/conversion/SBMLLocalParameterConverter.h>
 
@@ -102,6 +103,17 @@ static double          getAdjustment(Complex& z);
 typedef std::list<std::vector<double> > DoubleVectorList;
 
 
+/**
+ * check if metabolic control analysis is valid for the model.
+ *
+ * In effect, this checks that the the model is a pure
+ * reaction-kinetics model with no rate rules, no events.
+ *
+ * Throws an invaid arg exception if not valid.
+ */
+static void metabolicControlCheck(ExecutableModel *model);
+
+
 
 //The instance count increases/decreases as instances are created/destroyed.
 static int mInstanceCount = 0;
@@ -128,25 +140,28 @@ enum ParameterType
 #define get_self() RoadRunnerImpl& self = *(this->impl);
 
 /**
+ * check if a model is loaded.
+ */
+#define check_model() { if (!impl->model) { throw std::logic_error(gEmptyModelMessage); } }
+
+/**
  * implemention class, hide all details here.
  */
 class RoadRunnerImpl {
 public:
 
     int mInstanceID;
-    bool mUseKinsol;
     const double mDiffStepSize;
 
     const double mSteadyStateThreshold;
     ls::DoubleMatrix simulationResult;
-    RoadRunnerData mRoadRunnerData;
-
 
     /**
-     * The Cvode object get created just after a model is created, it then
-     * gets a reference to the model and holds on to it.
+     * Points to the current integrator. This is a pointer into the
+     * integtators array.
      */
-    class Integrator *integrator;
+    Integrator *integrator;
+
     std::vector<SelectionRecord> mSelectionList;
 
     /**
@@ -178,26 +193,9 @@ public:
     SimulateOptions simulateOpt;
 
     /**
-     * copy of simualte opt which is returned to clients.
-     *
-     * used so we can determine if the options have changed.
-     */
-    SimulateOptions copySimulateOpt;
-
-    /**
-     * The sim options may be requested via getSimulateOptions. In this
-     * case, the caller may modify it, so we assume its dirty.
-     *
-     * These options are re-loaded into the integrator in simulate and
-     * oneStep.
-     */
-    bool dirtySimulateOptions;
-
-    /**
      * various general options that can be modified by external callers.
      */
     RoadRunnerOptions roadRunnerOptions;
-
 
     /**
      * the xml string that is given in setConfigurationXML.
@@ -206,17 +204,28 @@ public:
      */
     std::string configurationXML;
 
+    /**
+     * store the integrators in a map. When the integrator is switched,
+     * this way it saves the previous state. Usefull for correct
+     * stream of random numbers for stochastic integrators.
+     *
+     * This is an array of pointers which are allocated by createIntegrator(),
+     * these are freed in the dtor, but kept around for the lifetime of
+     * this object.
+     */
+    Integrator*  integrators[SimulateOptions::INTEGRATOR_END];
 
+    /**
+     * TODO get rid of this garbage
+     */
     friend class aFinalizer;
 
 
     RoadRunnerImpl(const std::string& uriOrSBML,
             const LoadSBMLOptions* options) :
-                mUseKinsol(false),
                 mDiffStepSize(0.05),
                 mSteadyStateThreshold(1.E-2),
                 simulationResult(),
-                mRoadRunnerData(),
                 integrator(0),
                 mSelectionList(),
                 mModelGenerator(0),
@@ -226,19 +235,18 @@ public:
                 mCurrentSBML(),
                 mLS(0),
                 simulateOpt(),
-                mInstanceID(0),
-                dirtySimulateOptions(true)
+                mInstanceID(0)
     {
+        // have to init integrators the hard way in c++98
+        memset((void*)integrators, 0, sizeof(integrators)/sizeof(char));
     }
 
 
     RoadRunnerImpl(const string& _compiler, const string& _tempDir,
             const string& _supportCodeDir) :
-                mUseKinsol(false),
                 mDiffStepSize(0.05),
                 mSteadyStateThreshold(1.E-2),
                 simulationResult(),
-                mRoadRunnerData(),
                 integrator(0),
                 mSelectionList(),
                 mModelGenerator(0),
@@ -248,9 +256,10 @@ public:
                 mCurrentSBML(),
                 mLS(0),
                 simulateOpt(),
-                mInstanceID(0),
-                dirtySimulateOptions(true)
+                mInstanceID(0)
     {
+        // have to init integrators the hard way in c++98
+        memset((void*)integrators, 0, sizeof(integrators)/sizeof(char));
     }
 
     ~RoadRunnerImpl()
@@ -259,8 +268,10 @@ public:
 
         delete mModelGenerator;
         delete model;
-        delete integrator;
         delete mLS;
+
+        deleteIntegrators();
+
         mInstanceCount--;
     }
 
@@ -346,6 +357,16 @@ public:
     {
         setParameterValue(parameterType, parameterIndex, originalValue + increment);
     }
+
+
+    void deleteIntegrators()
+    {
+        for (int i = 0; i < SimulateOptions::INTEGRATOR_END; ++i)
+        {
+            delete integrators[i];
+            integrators[i] = 0;
+        }
+    }
 };
 
 
@@ -365,21 +386,9 @@ RoadRunner::RoadRunner(const std::string& uriOrSBML,
             impl(new RoadRunnerImpl(uriOrSBML, options))
 {
 
-#if defined(BUILD_LLVM)
-    string compiler =  "LLVM" ;
-#else
-    string compiler = gDefaultCompiler;
-#endif
+    impl->mModelGenerator = ModelGenerator::New(Compiler::getDefaultCompiler(), "", "");
 
-    // for now, dump out who we are
-    Log(Logger::LOG_DEBUG) << __FUNC__ << "compiler: " << compiler <<
-            ", tempDir:" << gDefaultTempFolder << ", supportCodeDir: " <<
-            gDefaultSupportCodeFolder;
-
-    impl->mModelGenerator = ModelGenerator::New(compiler,
-            gDefaultTempFolder, gDefaultSupportCodeFolder);
-
-    setTempDir(gDefaultTempFolder);
+    setTempDir(getTempDir());
 
     if (!uriOrSBML.empty()) {
         load(uriOrSBML, options);
@@ -392,20 +401,13 @@ RoadRunner::RoadRunner(const std::string& uriOrSBML,
 
 
 RoadRunner::RoadRunner(const string& _compiler, const string& _tempDir,
-        const string& _supportCodeDir) :
-        impl(new RoadRunnerImpl(_compiler, _tempDir, _supportCodeDir))
+        const string& supportCodeDir) :
+        impl(new RoadRunnerImpl(_compiler, _tempDir, supportCodeDir))
 {
+    string compiler = _compiler.empty()
+            ? Compiler::getDefaultCompiler() : _compiler;
 
-
-#if defined(BUILD_LLVM)
-    string compiler = _compiler.empty() ? "LLVM" : _compiler;
-#else
-    string compiler = _compiler.empty() ? gDefaultCompiler : _compiler;
-#endif
-
-    string tempDir = _tempDir.empty() ? gDefaultTempFolder : _tempDir;
-    string supportCodeDir = _supportCodeDir.empty() ?
-            gDefaultSupportCodeFolder : _supportCodeDir;
+    string tempDir = _tempDir.empty() ? getTempDir() : _tempDir;
 
     // for now, dump out who we are
     Log(Logger::LOG_DEBUG) << __FUNC__ << "compiler: " << compiler <<
@@ -444,20 +446,21 @@ vector<SelectionRecord> RoadRunner::getSelectionList()
 
 string RoadRunner::getInfo()
 {
+    updateSimulateOptions();
+
     stringstream ss;
     ss << "<roadrunner.RoadRunner() { " << std::endl;
-    ss << "this: " << (void*)(this) << std::endl;
-    ss << "modelLoaded : " << (impl->model == NULL ? "false" : "true") << std::endl;
+    ss << "'this' : " << (void*)(this) << std::endl;
+    ss << "'modelLoaded' : " << (impl->model == NULL ? "false" : "true") << std::endl;
+
     if(impl->model)
     {
-        ss << "modelName: " <<  impl->model->getModelName() << std::endl;
+        ss << "'modelName' : " <<  impl->model->getModelName() << std::endl;
     }
 
-    ss << impl->simulateOpt.toString();
-
-    ss << "libSBMLVersion: " << getVersionStr(VERSIONSTR_LIBSBML) << std::endl;
-    ss << "jacobianStepSize: " << impl->roadRunnerOptions.jacobianStepSize << std::endl;
-    ss << "conservedMoietyAnalysis: " << rr::toString(impl->conservedMoietyAnalysis) << std::endl;
+    ss << "'libSBMLVersion' : " << getVersionStr(VERSIONSTR_LIBSBML) << std::endl;
+    ss << "'jacobianStepSize' : " << impl->roadRunnerOptions.jacobianStepSize << std::endl;
+    ss << "'conservedMoietyAnalysis' : " << rr::toString(impl->conservedMoietyAnalysis) << std::endl;
 
 #if defined(BUILD_LEGACY_C)
     ss<<"Temporary folder: "        <<    getTempDir()<<endl;
@@ -465,6 +468,19 @@ string RoadRunner::getInfo()
     ss<<"Support Code Folder: "     <<    getCompiler()->getSupportCodeFolder() << endl;
     ss<<"Working Directory: "       <<    getCWD() << endl;
 #endif
+
+    ss << "'simulateOptions' : " << endl;
+    ss << impl->simulateOpt.toString();
+    ss << ", " << endl;
+
+    ss << "'integrator' : " << endl;
+    if(impl->integrator) {
+        ss << impl->integrator->toString();
+        ss << endl;
+    }
+    else {
+        ss << "Null" << endl;
+    }
 
     ss << "}>";
 
@@ -481,7 +497,7 @@ string RoadRunner::getExtendedVersionInfo()
 
 
 
-LibStructural* RoadRunner::getLibStruct()
+ls::LibStructural* RoadRunner::getLibStruct()
 {
     Mutex::ScopedLock lock(roadRunnerMutex);
 
@@ -498,8 +514,7 @@ LibStructural* RoadRunner::getLibStruct()
     }
     else
     {
-        throw Exception("could not create structural analysis with no loaded sbml");
-        return 0;
+        throw std::invalid_argument("could not create structural analysis with no loaded sbml");
     }
 }
 
@@ -521,12 +536,12 @@ bool RoadRunner::isModelLoaded()
 
 void RoadRunner::setSimulateOptions(const SimulateOptions& settings)
 {
-    impl->copySimulateOpt = settings;
+    impl->simulateOpt = settings;
 }
 
 SimulateOptions& RoadRunner::getSimulateOptions()
 {
-    return impl->copySimulateOpt;
+    return impl->simulateOpt;
 }
 
 bool RoadRunner::getConservedMoietyAnalysis()
@@ -614,28 +629,37 @@ string RoadRunner::getParamPromotedSBML(const string& sbml)
     return stream.str();
 }
 
-void RoadRunner::createIntegrator()
+/**
+ * RoadRunner keeps all the created integrators around. If the requested integrator
+ * has not been created, this method creates one, and sets self.integrator
+ * to point to it.
+ */
+void RoadRunner::updateIntegrator()
 {
-    if(impl->model)
+    get_self();
+
+    if(self.model)
     {
-        if(impl->integrator)
+        // check if valid range
+        if (self.simulateOpt.integrator >= SimulateOptions::INTEGRATOR_END)
         {
-            delete impl->integrator;
+            std::stringstream ss;
+            ss << "Invalid integrator of " << self.simulateOpt.integrator
+                    << ", integrator must be >= 0 and < "
+                    << SimulateOptions::INTEGRATOR_END;
+            throw std::invalid_argument(ss.str());
         }
 
-        impl->integrator = Integrator::New(&impl->simulateOpt, impl->model);
+        if (self.integrators[self.simulateOpt.integrator] == 0)
+        {
+            self.integrators[self.simulateOpt.integrator]
+                    = Integrator::New(&self.simulateOpt, self.model);
+        }
 
-        // reset the simulation state
-        reset();
+        self.integrator = self.integrators[self.simulateOpt.integrator];
+
+        self.integrator->setSimulateOptions(&self.simulateOpt);
     }
-}
-
-RoadRunnerData *RoadRunner::getSimulationResult()
-{
-    // set the data into the RoadRunnerData struct
-    populateResult();
-
-    return &impl->mRoadRunnerData;
 }
 
 
@@ -806,6 +830,8 @@ void RoadRunner::load(const string& uriOrSbml, const LoadSBMLOptions *options)
 {
     Mutex::ScopedLock lock(roadRunnerMutex);
 
+    get_self();
+
     impl->mCurrentSBML = SBMLReader::read(uriOrSbml);
 
     //clear temp folder of roadrunner generated files, only if roadRunner instance == 1
@@ -818,23 +844,40 @@ void RoadRunner::load(const string& uriOrSbml, const LoadSBMLOptions *options)
     delete impl->model;
     impl->model = 0;
 
-    if (options)
-    {
-        impl->conservedMoietyAnalysis = options->modelGeneratorOpt
-                & LoadSBMLOptions::CONSERVED_MOIETIES;
-        impl->model = impl->mModelGenerator->createModel(impl->mCurrentSBML, options->modelGeneratorOpt);
-    }
-    else
-    {
-        LoadSBMLOptions opt;
-        opt.modelGeneratorOpt = getConservedMoietyAnalysis() ?
-                opt.modelGeneratorOpt | LoadSBMLOptions::CONSERVED_MOIETIES :
-                opt.modelGeneratorOpt & ~LoadSBMLOptions::CONSERVED_MOIETIES;
-        impl->model = impl->mModelGenerator->createModel(impl->mCurrentSBML, opt.modelGeneratorOpt);
+    self.deleteIntegrators();
+
+    // the following lines load and compile the model. If anything fails here,
+    // we validate the model to provide explicit details about where it
+    // failed. Its *VERY* expensive to pre-validate the model.
+    try {
+        if (options)
+        {
+            impl->conservedMoietyAnalysis = options->modelGeneratorOpt
+                    & LoadSBMLOptions::CONSERVED_MOIETIES;
+            impl->model = impl->mModelGenerator->createModel(impl->mCurrentSBML, options->modelGeneratorOpt);
+        }
+        else
+        {
+            LoadSBMLOptions opt;
+            opt.modelGeneratorOpt = getConservedMoietyAnalysis() ?
+                    opt.modelGeneratorOpt | LoadSBMLOptions::CONSERVED_MOIETIES :
+                    opt.modelGeneratorOpt & ~LoadSBMLOptions::CONSERVED_MOIETIES;
+            impl->model = impl->mModelGenerator->createModel(impl->mCurrentSBML, opt.modelGeneratorOpt);
+        }
+    } catch (std::exception&) {
+        string errors = validateSBML(impl->mCurrentSBML);
+
+        if(!errors.empty()) {
+            Log(Logger::LOG_ERROR) << "Invalid SBML: " << endl << errors;
+        }
+
+        // re-throw the exception
+        throw;
     }
 
-    //Finally intitilaize the model..
-    createIntegrator();
+    updateIntegrator();
+
+    reset();
 
     if (!options || !(options->loadFlags & LoadSBMLOptions::NO_DEFAULT_SELECTIONS))
     {
@@ -883,13 +926,18 @@ bool RoadRunner::unLoadModel()
     return false;
 }
 
-//Reset the simulator back to the initial conditions specified in the SBML model
 void RoadRunner::reset()
+{
+    uint opt = rr::Config::getInt(rr::Config::MODEL_RESET);
+    reset(opt);
+}
+
+void RoadRunner::reset(int options)
 {
     if (impl->model)
     {
         // model gets set to before time = 0
-        impl->model->reset();
+        impl->model->reset(options);
 
         impl->integrator->restart(0.0);
 
@@ -913,8 +961,6 @@ bool RoadRunner::populateResult()
         list[i] = impl->mSelectionList[i].to_string();
     }
 
-    impl->mRoadRunnerData.setColumnNames(list);
-    impl->mRoadRunnerData.setData(impl->simulationResult);
     return true;
 }
 
@@ -940,12 +986,6 @@ double RoadRunner::steadyState()
         Log(Logger::LOG_WARNING) << "Conserved Moiety Analysis may be enabled via the conservedMoeityAnalysis property or "
                                     "via the configuration file or the Config class setValue, see roadrunner documentation";
         Log(Logger::LOG_WARNING) << "to remove this warning, set ROADRUNNER_DISABLE_WARNINGS to 1 or 3 in the config file";
-    }
-
-    if (impl->mUseKinsol)
-    {
-        Log(Logger::LOG_ERROR) << "Kinsol solver is not enabled...";
-        throw Exception("Kinsol solver is not enabled");
     }
 
     SteadyStateSolver *steadyStateSolver = SteadyStateSolver::New(0, impl->model);
@@ -1175,8 +1215,13 @@ void RoadRunner::evalModel()
 const DoubleMatrix* RoadRunner::simulate(const SimulateOptions* opt)
 {
     get_self();
+    check_model();
 
-    _setSimulateOptions(opt);
+    if (opt) {
+        self.simulateOpt = *opt;
+    }
+
+    updateSimulateOptions();
 
     const double timeEnd = self.simulateOpt.duration + self.simulateOpt.start;
     const double timeStart = self.simulateOpt.start;
@@ -1187,7 +1232,7 @@ const DoubleMatrix* RoadRunner::simulate(const SimulateOptions* opt)
     // Variable Time Step Integration
     if (self.simulateOpt.integratorFlags & SimulateOptions::VARIABLE_STEP )
     {
-        Log(Logger::LOG_NOTICE) << "Performing variable step integration";
+        Log(Logger::LOG_INFORMATION) << "Performing variable step integration";
 
         DoubleVectorList results;
         std::vector<double> row(self.mSelectionList.size());
@@ -1242,7 +1287,7 @@ const DoubleMatrix* RoadRunner::simulate(const SimulateOptions* opt)
     else if(SimulateOptions::getIntegratorType(self.simulateOpt.integrator) ==
             SimulateOptions::STOCHASTIC)
     {
-        Log(Logger::LOG_NOTICE)
+        Log(Logger::LOG_INFORMATION)
                 << "Performing stochastic fixed step integration for "
                 << self.simulateOpt.steps + 1 << " steps";
 
@@ -1360,12 +1405,8 @@ const DoubleMatrix* RoadRunner::simulate(const SimulateOptions* opt)
 
 double RoadRunner::integrate(double t0, double tf, const SimulateOptions* o)
 {
-    if (!impl->model)
-    {
-        throw CoreException(gEmptyModelMessage);
-    }
-
-    _setSimulateOptions(o);
+    check_model();
+    updateSimulateOptions();
 
     try
     {
@@ -1383,17 +1424,8 @@ double RoadRunner::integrate(double t0, double tf, const SimulateOptions* o)
 double RoadRunner::oneStep(const double currentTime, const double stepSize, const bool reset)
 {
     get_self();
-
-    if (!self.model)
-    {
-        throw CoreException(gEmptyModelMessage);
-    }
-
-    self.copySimulateOpt.flags = reset ?
-            self.copySimulateOpt.flags | SimulateOptions::RESET_MODEL :
-            self.copySimulateOpt.flags & ~SimulateOptions::RESET_MODEL;
-
-    _setSimulateOptions(0);
+    check_model();
+    updateSimulateOptions();
 
     try
     {
@@ -1409,56 +1441,34 @@ double RoadRunner::oneStep(const double currentTime, const double stepSize, cons
 
 DoubleMatrix RoadRunner::getEigenvalues()
 {
-    try
+    check_model();
+
+    vector<Complex> vals = getEigenvaluesCpx();
+
+    DoubleMatrix result(vals.size(), 2);
+
+    for (int i = 0; i < vals.size(); i++)
     {
-        if (!impl->model)
-        {
-            throw CoreException(gEmptyModelMessage);
-        }
-
-        vector<Complex> vals = getEigenvaluesCpx();
-
-        DoubleMatrix result(vals.size(), 2);
-
-        for (int i = 0; i < vals.size(); i++)
-        {
-            result[i][0] = std::real(vals[i]);
-            result[i][1] = imag(vals[i]);
-        }
-        return result;
+        result[i][0] = std::real(vals[i]);
+        result[i][1] = imag(vals[i]);
     }
-    catch (const Exception& e)
-    {
-        throw CoreException("Unexpected error from getEigenvalues()", e.Message());
-    }
+    return result;
 }
-
-
 
 vector< Complex > RoadRunner::getEigenvaluesCpx()
 {
-    try
-    {
-        if (!impl->model)
-        {
-            throw CoreException(gEmptyModelMessage);
-        }
+    check_model();
 
-        DoubleMatrix mat;
-        if (impl->conservedMoietyAnalysis)
-        {
-           mat = getReducedJacobian();
-        }
-        else
-        {
-           mat = getFullJacobian();
-        }
-        return ls::getEigenValues(mat);
-    }
-    catch (const Exception& e)
+    DoubleMatrix mat;
+    if (impl->conservedMoietyAnalysis)
     {
-        throw CoreException("Unexpected error from getEigenvalues()", e.Message());
+        mat = getReducedJacobian();
     }
+    else
+    {
+        mat = getFullJacobian();
+    }
+    return ls::getEigenValues(mat);
 }
 
 DoubleMatrix RoadRunner::getFullJacobian()
@@ -1493,86 +1503,92 @@ DoubleMatrix RoadRunner::getFullJacobian()
 
 DoubleMatrix RoadRunner::getFullReorderedJacobian()
 {
-    try
-    {
-        if (impl->model)
-        {
-            LibStructural *ls = getLibStruct();
-            DoubleMatrix uelast = getUnscaledElasticityMatrix();
-            DoubleMatrix *rsm = ls->getStoichiometryMatrix();
-            return mult(*rsm, uelast);
-        }
-        throw CoreException(gEmptyModelMessage);
-    }
-    catch (const Exception& e)
-    {
-        throw CoreException("Unexpected error from fullJacobian()", e.Message());
-    }
+    check_model();
+
+    LibStructural *ls = getLibStruct();
+    DoubleMatrix uelast = getUnscaledElasticityMatrix();
+    DoubleMatrix *rsm = ls->getStoichiometryMatrix();
+    return mult(*rsm, uelast);
 }
 
 DoubleMatrix RoadRunner::getReducedJacobian(double h)
 {
     get_self();
 
-    if (!self.model)
-    {
-        throw CoreException(gEmptyModelMessage);
-    }
+    check_model();
 
     if (h <= 0)
     {
         h = self.roadRunnerOptions.jacobianStepSize;
     }
 
-    // need 2h for for central difference
-    double inv2h = 1.0 / (2.0 * h);
-
-    int svSize = self.model->getStateVector(0);
     int nIndSpecies = self.model->getNumIndFloatingSpecies();
-    int nRates = self.model->getNumRules();
 
-    // need 3 buffers, state vector and 2 for state vector
-    // rate for central difference.
-    std::vector<double> yv(svSize);
-    std::vector<double> dy0v(svSize);
-    std::vector<double> dy1v(svSize);
+    // result matrix
+    DoubleMatrix jac(nIndSpecies, nIndSpecies);
 
-    double* y = &yv[0];
+    // need 2 buffers for rate central difference.
+    std::vector<double> dy0v(nIndSpecies);
+    std::vector<double> dy1v(nIndSpecies);
+
     double* dy0 = &dy0v[0];
     double* dy1 = &dy1v[0];
 
+    // function pointers to the model get values and get init values based on
+    // if we are doing amounts or concentrations.
+    typedef int (ExecutableModel::*GetValueFuncPtr)(int len, int const *indx,
+            double *values);
+    typedef int (ExecutableModel::*SetValueFuncPtr)(int len, int const *indx,
+                    double const *values);
 
+    GetValueFuncPtr getValuePtr = 0;
+    GetValueFuncPtr getRateValuePtr = 0;
+    SetValueFuncPtr setValuePtr = 0;
 
-    // grab the current state vector
-    self.model->getStateVector(y);
-
-    // state vector is packed such that first elements are
-    // rate rules, final elements are species.
-    const int speciesZero = svSize - nIndSpecies;
-
-    DoubleMatrix jac(nIndSpecies, nIndSpecies);
-
-    double time = self.model->getTime();
-
-    for (int i = speciesZero; i < nIndSpecies; ++i)
+    if (Config::getValue(Config::ROADRUNNER_JACOBIAN_MODE).convert<unsigned>()
+            == Config::ROADRUNNER_JACOBIAN_MODE_AMOUNTS)
     {
-        double savedVal = y[i];
+        Log(Logger::LOG_DEBUG) << "getReducedJacobian in AMOUNT mode";
+        getValuePtr =     &ExecutableModel::getFloatingSpeciesAmounts;
+        getRateValuePtr = &ExecutableModel::getFloatingSpeciesAmountRates;
+        setValuePtr =     &ExecutableModel::setFloatingSpeciesAmounts;
+    }
+    else
+    {
+        Log(Logger::LOG_DEBUG) << "getReducedJacobian in CONCENTRATION mode";
+        getValuePtr =     &ExecutableModel::getFloatingSpeciesConcentrations;
+        getRateValuePtr = &ExecutableModel::getFloatingSpeciesAmountRates;
+        setValuePtr =     &ExecutableModel::setFloatingSpeciesConcentrations;
+    }
 
-        y[i] = savedVal + h;
+    for (int i = 0; i < nIndSpecies; ++i)
+    {
+        double savedVal = 0;
+        double y = 0;
 
-        self.model->getStateVectorRate(time, y, dy0);
+        // current value of species i
+        (self.model->*getValuePtr)(1, &i, &savedVal);
 
-        y[i] = savedVal - h;
+        // get the entire rate of change for all the species with
+        // species i being value(i) + h;
+        y = savedVal + h;
+        (self.model->*setValuePtr)(1, &i, &y);
+        (self.model->*getRateValuePtr)(nIndSpecies, 0, dy0);
 
-        self.model->getStateVectorRate(time, y, dy1);
 
-        y[i] = savedVal;
+        // get the entire rate of change for all the species with
+        // species i being value(i) - h;
+        y = savedVal - h;
+        (self.model->*setValuePtr)(1, &i, &y);
+        (self.model->*getRateValuePtr)(nIndSpecies, 0, dy1);
+
+        // restore original value
+        (self.model->*setValuePtr)(1, &i, &savedVal);
 
         // matrix is row-major, so have to copy by elements
        for (int j = 0; j < nIndSpecies; ++j)
        {
-           jac(j, i - speciesZero) =
-                   (dy0[speciesZero + j] - dy1[speciesZero + j]) / (2.0*h) ;
+           jac(j, i) = (dy0[j] - dy1[j]) / (2.0*h) ;
        }
     }
     return jac;
@@ -1590,40 +1606,37 @@ DoubleMatrix RoadRunner::getLinkMatrix()
 
 DoubleMatrix RoadRunner::getReducedStoichiometryMatrix()
 {
-    if (!impl->model)
-    {
-        throw CoreException(gEmptyModelMessage);
-    }
+    check_model();
+
     // pointer to owned matrix
     return *getLibStruct()->getNrMatrix();
 }
 
 DoubleMatrix RoadRunner::getNrMatrix()
 {
-    if (!impl->model)
-    {
-        throw CoreException(gEmptyModelMessage);
-    }
+    check_model();
+
     // pointer to owned matrix
     return *getLibStruct()->getNrMatrix();
 }
 
 DoubleMatrix RoadRunner::getFullStoichiometryMatrix()
 {
-    if (!impl->model)
-    {
-        throw CoreException(gEmptyModelMessage);
+    check_model();
+
+    if (impl->conservedMoietyAnalysis) {
+        // pointer to mat owned by ls
+        return *getLibStruct()->getReorderedStoichiometryMatrix();
     }
+
     // pointer to owned matrix
     return *getLibStruct()->getStoichiometryMatrix();
 }
 
 DoubleMatrix RoadRunner::getL0Matrix()
 {
-    if (!impl->model)
-    {
-        throw CoreException(gEmptyModelMessage);
-    }
+    check_model();
+
     // the libstruct getL0Matrix returns a NEW matrix,
     // nice consistent API yes?!?!?
     DoubleMatrix *tmp = getLibStruct()->getL0Matrix();
@@ -1803,13 +1816,6 @@ static void setSBMLValue(libsbml::Model* model, const string& id, double value)
         oCompartment->setVolume(value); return;
     }
 
-    libsbml::Parameter* oParameter = model->getParameter(id);
-    if (oParameter != NULL)
-    {
-        oParameter->setValue(value);
-        return;
-    }
-
     for (int i = 0; i < model->getNumReactions(); i++)
     {
         libsbml::Reaction* reaction = model->getReaction(i);
@@ -1839,13 +1845,17 @@ static void setSBMLValue(libsbml::Model* model, const string& id, double value)
 
 string RoadRunner::getCurrentSBML()
 {
+    check_model();
+
+    get_self();
+
     libsbml::SBMLReader reader;
     std::stringstream stream;
     libsbml::SBMLDocument *doc = 0;
     libsbml::Model *model = 0;
 
     try {
-        doc = reader.readSBMLFromString(impl->mCurrentSBML); // new doc
+        doc = reader.readSBMLFromString(self.mCurrentSBML); // new doc
         model = doc->getModel(); // owned by doc
 
         vector<string> array = getFloatingSpeciesIds();
@@ -1877,16 +1887,31 @@ string RoadRunner::getCurrentSBML()
         {
             double value = 0;
             impl->model->getGlobalParameterValues(1, &i, &value);
-            setSBMLValue(model, array[i], value);
+
+            libsbml::Parameter* param = model->getParameter(array[i]);
+            if (param != NULL)
+            {
+                param->setValue(value);
+            }
+            else
+            {
+                // sanity check, just make sure that this is a conserved moeity
+                if (self.model->getConservedMoietyIndex(array[i]) < 0)
+                {
+                    throw std::logic_error("The global parameter name "
+                            + array[i] + " could not be found in the SBML model, "
+                            " and it is not a conserved moiety");
+                }
+            }
         }
 
         libsbml::SBMLWriter writer;
         writer.writeSBML(doc, stream);
     }
-    catch(std::exception& e) {
+    catch(std::exception&) {
         delete doc;
         doc = 0;
-        throw(e);
+        throw; // re-throw exception.
     }
 
     delete doc;
@@ -2459,8 +2484,41 @@ double RoadRunner::getCC(const string& variableName, const string& parameterName
 
 double RoadRunner::getUnscaledSpeciesElasticity(int reactionId, int speciesIndex)
 {
-    // TODO this will not work corrrectly where there are rate rules
     get_self();
+
+    check_model();
+
+    // make sure no rate rules or events
+    metabolicControlCheck(self.model);
+
+    // function pointers to the model get values and get init values based on
+    // if we are doing amounts or concentrations.
+    typedef int (ExecutableModel::*GetValueFuncPtr)(int len, int const *indx,
+            double *values);
+    typedef int (ExecutableModel::*SetValueFuncPtr)(int len, int const *indx,
+                    double const *values);
+
+    GetValueFuncPtr getValuePtr = 0;
+    GetValueFuncPtr getInitValuePtr = 0;
+    SetValueFuncPtr setValuePtr = 0;
+    SetValueFuncPtr setInitValuePtr = 0;
+
+    if (Config::getValue(Config::ROADRUNNER_JACOBIAN_MODE).convert<unsigned>()
+            == Config::ROADRUNNER_JACOBIAN_MODE_AMOUNTS)
+    {
+        getValuePtr = &ExecutableModel::getFloatingSpeciesAmounts;
+        getInitValuePtr = &ExecutableModel::getFloatingSpeciesInitAmounts;
+        setValuePtr = &ExecutableModel::setFloatingSpeciesAmounts;
+        setInitValuePtr = &ExecutableModel::setFloatingSpeciesInitAmounts;
+    }
+    else
+    {
+        getValuePtr = &ExecutableModel::getFloatingSpeciesConcentrations;
+        getInitValuePtr = &ExecutableModel::getFloatingSpeciesInitConcentrations;
+        setValuePtr = &ExecutableModel::setFloatingSpeciesConcentrations;
+        setInitValuePtr = &ExecutableModel::setFloatingSpeciesInitConcentrations;
+    }
+
     double value;
     double originalConc = 0;
     double result = std::numeric_limits<double>::quiet_NaN();
@@ -2471,28 +2529,28 @@ double RoadRunner::getUnscaledSpeciesElasticity(int reactionId, int speciesIndex
     // this causes a reset, so need to save the current amounts to set them back
     // as init conditions.
     std::vector<double> conc(self.model->getNumFloatingSpecies());
-    self.model->getFloatingSpeciesConcentrations(conc.size(), 0, &conc[0]);
+    (self.model->*getValuePtr)(conc.size(), 0, &conc[0]);
 
     // save the original init values
     std::vector<double> initConc(self.model->getNumFloatingSpecies());
-    self.model->getFloatingSpeciesInitConcentrations(initConc.size(), 0, &initConc[0]);
+    (self.model->*getInitValuePtr)(initConc.size(), 0, &initConc[0]);
 
     // get the original value
-    self.model->getFloatingSpeciesConcentrations(1, &speciesIndex, &originalConc);
+    (self.model->*getValuePtr)(1, &speciesIndex, &originalConc);
 
     // now we start changing things
     try
     {
         // set init amounts to current amounts, restore them later.
         // have to do this as this is only way to set conserved moiety values
-        self.model->setFloatingSpeciesInitConcentrations(conc.size(), 0, &conc[0]);
+        (self.model->*setInitValuePtr)(conc.size(), 0, &conc[0]);
 
         // sanity check
         assert(originalConc == conc[speciesIndex]);
         double tmp = 0;
-        self.model->getFloatingSpeciesInitConcentrations(1, &speciesIndex, &tmp);
+        (self.model->*getInitValuePtr)(1, &speciesIndex, &tmp);
         assert(originalConc == tmp);
-        self.model->getFloatingSpeciesConcentrations(1, &speciesIndex, &tmp);
+        (self.model->*getValuePtr)(1, &speciesIndex, &tmp);
         assert(originalConc == tmp);
 
         // things check out, start fiddling...
@@ -2504,23 +2562,23 @@ double RoadRunner::getUnscaledSpeciesElasticity(int reactionId, int speciesIndex
         }
 
         value = originalConc + hstep;
-        self.model->setFloatingSpeciesInitConcentrations(1, &speciesIndex, &value);
+        (self.model->*setInitValuePtr)(1, &speciesIndex, &value);
 
         double fi = 0;
         self.model->getReactionRates(1, &reactionId, &fi);
 
         value = originalConc + 2*hstep;
-        self.model->setFloatingSpeciesInitConcentrations(1, &speciesIndex, &value);
+        (self.model->*setInitValuePtr)(1, &speciesIndex, &value);
         double fi2 = 0;
         self.model->getReactionRates(1, &reactionId, &fi2);
 
         value = originalConc - hstep;
-        self.model->setFloatingSpeciesInitConcentrations(1, &speciesIndex, &value);
+        (self.model->*setInitValuePtr)(1, &speciesIndex, &value);
         double fd = 0;
         self.model->getReactionRates(1, &reactionId, &fd);
 
         value = originalConc - 2*hstep;
-        self.model->setFloatingSpeciesInitConcentrations(1, &speciesIndex, &value);
+        (self.model->*setInitValuePtr)(1, &speciesIndex, &value);
         double fd2 = 0;
         self.model->getReactionRates(1, &reactionId, &fd2);
 
@@ -2535,22 +2593,23 @@ double RoadRunner::getUnscaledSpeciesElasticity(int reactionId, int speciesIndex
     catch(const std::exception& e)
     {
         // What ever happens, make sure we restore the species level
-        self.model->setFloatingSpeciesInitConcentrations(
+        (self.model->*setInitValuePtr)(
                 initConc.size(), 0, &initConc[0]);
 
         // only set the indep species, setting dep species is not permitted.
-        self.model->setFloatingSpeciesConcentrations(
+        (self.model->*setValuePtr)(
                 self.model->getNumIndFloatingSpecies(), 0, &conc[0]);
 
-        throw e;
+        // re-throw the exception.
+        throw;
     }
 
     // What ever happens, make sure we restore the species level
-    self.model->setFloatingSpeciesInitConcentrations(
+    (self.model->*setInitValuePtr)(
             initConc.size(), 0, &initConc[0]);
 
     // only set the indep species, setting dep species is not permitted.
-    self.model->setFloatingSpeciesConcentrations(
+    (self.model->*setValuePtr)(
             self.model->getNumIndFloatingSpecies(), 0, &conc[0]);
 
     return result;
@@ -2878,16 +2937,14 @@ vector<double> RoadRunner::getReactionRates()
 
 Integrator* RoadRunner::getIntegrator()
 {
+    updateSimulateOptions();
     return impl->integrator;
 }
 
 
 void RoadRunner::setValue(const string& sId, double dValue)
 {
-    if (!impl->model)
-    {
-        throw CoreException(gEmptyModelMessage);
-    }
+    check_model();
 
     impl->model->setValue(sId, dValue);
 
@@ -2928,39 +2985,29 @@ vector<double> RoadRunner::getSelectedValues()
 static std::vector<std::string> createSelectionList(const SimulateOptions& o)
 {
     //read from settings the variables found in the amounts and concentrations lists
-    std::vector<std::string> theList;
-    SelectionRecord record;
+    std::vector<std::string> result;
 
-    theList.push_back("time");
+    // have an implied time
+    result.push_back("time");
 
-    int nrOfVars = o.variables.size();
-
-    for(int i = 0; i < o.amounts.size(); i++)
+    // need to add them in order
+    for(vector<string>::const_iterator var = o.variables.begin();
+            var != o.variables.end(); ++var)
     {
-        theList.push_back(o.amounts[i]);        //In the setSelection list below, the [] selects the correct 'type'
-    }
-
-    for(int i = 0; i < o.concentrations.size(); i++)
-    {
-        theList.push_back("[" + o.concentrations[i] + "]");
-    }
-
-    //We may have variables
-    //A variable 'exists' only in "variables", not in the amount or concentration section
-
-    for(int i = 0; i < o.variables.size(); i++)
-    {
-        string aVar = o.variables[i];
-
-        if ((find(o.amounts.begin(), o.amounts.end(), aVar) == o.amounts.end()) &&
-                (find(o.concentrations.begin(), o.concentrations.end(), aVar)
-                        == o.concentrations.end()))
+        if (find(o.concentrations.begin(), o.concentrations.end(), *var)
+                != o.concentrations.end())
         {
-            theList.push_back(o.variables[i]);
+            result.push_back("[" + *var + "]");
         }
+
+        else
+        {
+            result.push_back(*var);
+        }
+
     }
 
-    return theList;
+    return result;
 }
 
 
@@ -3638,54 +3685,79 @@ const DoubleMatrix* RoadRunner::getSimulationData() const
     return &impl->simulationResult;
 }
 
-void RoadRunner::_setSimulateOptions(const SimulateOptions* opt)
+Integrator* RoadRunner::getIntegrator(SimulateOptions::Integrator intg)
 {
     get_self();
 
-    if (opt && opt != &self.copySimulateOpt)
+    if(self.model)
     {
-        self.copySimulateOpt = *opt;
+        // check if valid range
+        if (intg >= SimulateOptions::INTEGRATOR_END)
+        {
+            std::stringstream ss;
+            ss << "Invalid integrator of " << self.simulateOpt.integrator
+                    << ", integrator must be >= 0 and < "
+                    << SimulateOptions::INTEGRATOR_END;
+            throw std::invalid_argument(ss.str());
+        }
+
+        if (self.integrators[intg] == 0)
+        {
+            // make a copy and set the integrator
+            SimulateOptions opt = self.simulateOpt;
+            opt.integrator = intg;
+
+            self.integrators[intg]
+                    = Integrator::New(&opt, self.model);
+        }
+
+        return self.integrators[intg];
     }
 
-    if (self.copySimulateOpt.duration < 0 || self.copySimulateOpt.start < 0
-            || self.copySimulateOpt.steps <= 0 )
+    return 0;
+}
+
+void RoadRunner::updateSimulateOptions()
+{
+    get_self();
+
+    if (self.simulateOpt.duration < 0 || self.simulateOpt.start < 0
+            || self.simulateOpt.steps <= 0 )
     {
-        throw CoreException("duration, startTime and steps must be positive");
+        throw std::invalid_argument("duration, startTime and steps must be positive");
     }
-
-    // reload self.integrator if different
-    bool reloadIntegrator = self.simulateOpt.integrator
-            != self.copySimulateOpt.integrator;
-
-    self.simulateOpt = self.copySimulateOpt;
 
     // This one creates the list of what we will look at in the result
     // uses values (potentially) from simulate options.
     createTimeCourseSelectionList();
 
-    if (reloadIntegrator)
-    {
-        // this sets integrator options, uses self.simulateOpt
-        createIntegrator();
-    }
-    else
-    {
-        self.integrator->setSimulateOptions(&self.simulateOpt);
-    }
+    // updates the integrator to what was specified by simulateOptions,
+    // no effect if already using this integrator.
+    updateIntegrator();
 
     if (self.simulateOpt.flags & SimulateOptions::RESET_MODEL)
     {
         reset(); // reset back to initial conditions
     }
+}
 
-    // set how the result should be returned to python
-    self.mRoadRunnerData.structuredResult =
-            self.simulateOpt.flags & SimulateOptions::STRUCTURED_RESULT;
+
+static void metabolicControlCheck(ExecutableModel *model)
+{
+    static const char* e1 = "Metabolic control analysis only valid "
+            "for primitive reaction kinetics models. ";
+    if (model->getNumRateRules() > 0)
+    {
+        throw std::invalid_argument(string(e1) + "This model has rate rules");
+    }
+
+    if (model->getNumEvents() > 0)
+    {
+        throw std::invalid_argument(string(e1) + "This model has events");
+    }
 }
 
 } //namespace
-
-
 
 #if defined(_WIN32)
 #pragma comment(lib, "IPHLPAPI.lib") //Becuase of poco needing this

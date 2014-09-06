@@ -69,8 +69,35 @@ RR_DECLSPEC string          getCurrentExeFolder();
  */
 RR_DECLSPEC std::string getCurrentSharedLibDir();
 
+/**
+ * Get a temporary directory path.
+ *
+ * If the config specifies a TEMP_DIR entry, this is used, if not
+ * this will return the system specified temporary directory.
+ */
+RR_DECLSPEC std::string getTempDir();
 
-RR_DECLSPEC string          getUsersTempDataFolder();
+/**
+ * Join two file paths together.
+ */
+RR_DECLSPEC std::string joinPath(const string& p1, const string& p2,
+        const char pathSeparator = gPathSeparator);
+
+/**
+ * join three file paths together.
+ */
+RR_DECLSPEC std::string joinPath(const string& p1, const string& p2,
+        const string& p3, const char pathSeparator = gPathSeparator);
+
+RR_DECLSPEC std::string joinPath(const string& p1, const string& p2,
+        const string& p3, const string& p4, const char pathSeparator =
+                gPathSeparator);
+
+RR_DECLSPEC std::string joinPath(const string& p1, const string& p2,
+        const string& p3, const string& p4, const string& p5,
+        const char pathSeparator = gPathSeparator);
+
+
 RR_DECLSPEC string          getCWD();
 RR_DECLSPEC const char      getPathSeparator();
 

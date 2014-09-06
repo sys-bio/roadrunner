@@ -39,6 +39,7 @@
 #include "rrLogger.h"
 #include "rrSelectionRecord.h"
 #include "rrException.h"
+#include "rrConfig.h"
 
 // Most Unix systems have a getch in libcurses, but this introduces
 // an un-needed depencency, as we can write our own getch easily.
@@ -138,26 +139,32 @@ string getDateTime()
     return buf;
 }
 
-string getUsersTempDataFolder()
+string getTempDir()
 {
-    //Default for temporary data output is the users AppData/Local/Temp Folder
-    //  Gets the temp path env string (no guarantee it's a valid path).
-#if defined(WIN32)
-    TCHAR lpTempPathBuffer[MAX_PATH];
-    DWORD dwRetVal = GetTempPathA(MAX_PATH, lpTempPathBuffer); // buffer for path
-    if (dwRetVal > MAX_PATH || (dwRetVal == 0))
-    {
-        Log(Logger::LOG_ERROR)<<"GetTempPath failed";
-    }
-    else
-    {
-        Log(lDebug3)<<"Users temporary files folder is: "<<string(lpTempPathBuffer);
+    std::string tmpPath = Config::getString(Config::TEMP_DIR_PATH);
+
+    if(tmpPath.length() > 0) {
+        tmpPath = Poco::Path::expand(tmpPath);
+        Poco::Path path(tmpPath);
+        path = path.makeAbsolute();
+        path = path.makeDirectory();
+        Poco::File file(path);
+
+        if (file.exists() && file.isDirectory()) {
+            tmpPath = path.toString();
+            Log(Logger::LOG_DEBUG) << "getTempDir(): " << tmpPath;
+            return tmpPath;
+        } else {
+            Log(Logger::LOG_WARNING) << "Temp dir path specified in config, \""
+                    << tmpPath << "\" is not a valid path, returning sytem tmp path: "
+                    << Poco::Path::temp();
+        }
     }
 
-    return string(lpTempPathBuffer);
-#else
-return ".";
-#endif
+    Poco::Path temp(Poco::Path::temp());
+    tmpPath = temp.makeAbsolute().toString();
+    Log(Logger::LOG_DEBUG) << "getTempDir(): " << tmpPath;
+    return tmpPath;
 }
 
 std::string getCurrentSharedLibDir()
@@ -247,31 +254,13 @@ string getCurrentExeFolder()
 
 string getParentFolder(const string& path)
 {
-    if(path.size() < 1)
-    {
+    if (path.empty()) {
         return "";
     }
-    vector<string> fldrs = splitString(path, gPathSeparator);
-    string parent("");
-    if(fldrs.size() > 1)
-    {
-        for(int i = 0; i < fldrs.size() -1; i++)
-        {
-            parent = joinPath(parent, fldrs[i]);
-        }
 
-        string pathSep;
-        pathSep.push_back(gPathSeparator);
-        if(path.compare(0,1, pathSep) == 0)
-        {
-            parent = gPathSeparator + parent;
-        }
-        return parent;
-    }
-    else
-    {
-        return path;
-    }
+    Poco::Path p(path);
+    p = p.makeParent();
+    return p.toString();
 }
 
 string getCWD()
@@ -607,6 +596,39 @@ double* createVector(const vector<double>& vec)
           avec[i] = vec[i];
     }
     return avec;
+}
+
+string joinPath(const string& base, const string& file, const char pathSeparator)
+{
+    if (base.empty()) {
+        return file;
+    }
+
+    if (file.empty()) {
+        return base;
+    }
+
+    Poco::Path basePath(base);
+    basePath.append(Poco::Path(file));
+    return basePath.toString();
+}
+
+string joinPath(const string& p1, const string& p2, const string& p3, const char pathSeparator)
+{
+    string tmp(joinPath(p1, p2, gPathSeparator));
+    return joinPath(tmp, p3, gPathSeparator);
+}
+
+string joinPath(const string& p1, const string& p2, const string& p3, const string& p4, const char pathSeparator)
+{
+    string tmp(joinPath(p1, p2, p3, gPathSeparator));
+    return joinPath(tmp, p4, gPathSeparator);
+}
+
+string joinPath(const string& p1, const string& p2, const string& p3, const string& p4, const string& p5, const char pathSeparator)
+{
+    string tmp(joinPath(p1, p2, p3, p4, gPathSeparator));
+    return joinPath(tmp, p5, gPathSeparator);
 }
 
 

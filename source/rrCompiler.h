@@ -66,6 +66,8 @@ public:
      */
     virtual std::string getVersion() = 0;
 
+    static std::string getDefaultCompiler();
+
 protected:
     virtual ~Compiler() {};
 };

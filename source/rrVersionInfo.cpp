@@ -5,7 +5,14 @@
 #include <sbml/common/libsbml-version.h>
 
 
+// has to be the very last include, has some static functions that
+// get compiled into this unit. 
+#include "GitInfo.h"
+
+
 namespace rr {
+
+
 
 std::string getVersionStr(unsigned options)
 {
@@ -66,7 +73,28 @@ std::string getVersionStr(unsigned options)
     if (options & VERSIONSTR_LIBSBML)
     {
         result += std::string("LibSBML Version: ") + std::string(LIBSBML_DOTTED_VERSION);
+
+        if (options & VERSIONSTR_GIT_BRANCH)
+        {
+            result += std::string("; ");
+        }
     }
+
+    if (options & VERSIONSTR_GIT_BRANCH)
+    {
+        result += std::string("Git branch: ") + std::string(getGitBranch());
+
+        if (options & VERSIONSTR_GIT_COMMIT)
+        {
+            result += std::string("; ");
+        }
+    }
+
+
+    if (options & VERSIONSTR_GIT_COMMIT)
+    {
+        result += std::string("Git commit sha: ") + std::string(getGitLastCommit());
+    }        
 
     return result;
 }

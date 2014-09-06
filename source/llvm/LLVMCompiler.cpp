@@ -63,10 +63,10 @@ std::string LLVMCompiler::getDefaultTargetTriple()
 
 std::string LLVMCompiler::getProcessTriple()
 {
-#if (LLVM_VERSION_MAJOR >= 3) && (LLVM_VERSION_MINOR >= 2)
+#if (LLVM_VERSION_MAJOR >= 3) && (LLVM_VERSION_MINOR > 2)
     return llvm::sys::getProcessTriple();
 #else
-    return "getProcessTriple() is not support on LLVM < 3.2";
+    return "getProcessTriple() is not support on LLVM <= 3.2";
 #endif
 }
 
