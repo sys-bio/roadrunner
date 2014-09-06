@@ -49,6 +49,12 @@
     #include "PyUtils.h"
     #include "PyLoggerStream.h"
 
+    #if (__cplusplus >= 201103L) || defined(_MSC_VER)
+    #   define cxx11_ns__ std
+    #else
+    #   define cxx11_ns__ std::tr1
+    #endif
+
     // make a python obj out of the C++ ExecutableModel, this is used by the PyEventListener
     // class. This function is defined later in this compilation unit.
     PyObject *ExecutableModel_NewPythonObj(rr::ExecutableModel*);
@@ -58,11 +64,9 @@
     #include "PyEventListener.h"
     #include "PyIntegratorListener.h"
 
-    using ls::Matrix;
-    using ls::DoubleMatrix;
-    using ls::Complex;
-    using ls::ComplexMatrix;
-
+namespace rr {
+    typedef cxx11_ns__::shared_ptr<rr::PyIntegratorListener> PyIntegratorListenerPtr;
+}
 
 // Windows is just so special...
 #ifdef _WIN32
@@ -1314,7 +1318,7 @@ namespace std { class ostream{}; }
 
 
             # go through the list of keyword args
-            for k,v in kwargs.iteritems():
+            for k,v in kwargs.items():
 
                 # changing integrators.
                 if k == "integrator":

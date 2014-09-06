@@ -1349,7 +1349,7 @@ const DoubleMatrix* RoadRunner::simulate(const SimulateOptions* opt)
     else
     {
         Log(Logger::LOG_INFORMATION)
-                << "Perfroming deterministic fixed step integration for  "
+                << "Performing deterministic fixed step integration for  "
                 << self.simulateOpt.steps + 1 << " steps";
 
         int numPoints = self.simulateOpt.steps + 1;
@@ -1381,7 +1381,7 @@ const DoubleMatrix* RoadRunner::simulate(const SimulateOptions* opt)
                 Log(Logger::LOG_DEBUG)<<"Step "<<i;
                 double itime = self.integrator->integrate(tout, hstep);
 
-                // the test suite is extremly sensetive to time differences,
+                // the test suite is extremely sensitive to time differences,
                 // so need to use the *exact* time here. occasionally the integrator
                 // will return a value just slightly off from the exact time
                 // value.

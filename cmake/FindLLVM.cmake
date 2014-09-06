@@ -52,13 +52,14 @@ function(TRANSFORM_VERSION numerical_result version)
     set(${numerical_result} ${internal_numerical_result} PARENT_SCOPE)
 endfunction(TRANSFORM_VERSION)
 
-
+if(NOT DEFINED LLVM_CONFIG_EXECUTABLE)
 find_program(LLVM_CONFIG_EXECUTABLE
     NAMES llvm-config-${LLVM_MIN_VERSION_TEXT} llvm-config
     PATHS /opt/local/bin /usr/local/bin
     HINTS "$ENV{LLVM_DIR}/bin"
     DOC "llvm-config executable"
     )
+endif()
 
 if (LLVM_CONFIG_EXECUTABLE)
     message(STATUS "LLVM llvm-config found at: ${LLVM_CONFIG_EXECUTABLE}")
