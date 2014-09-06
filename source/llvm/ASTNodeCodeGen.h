@@ -79,6 +79,13 @@ private:
      */
     llvm::Value *toBoolean(llvm::Value *value);
 
+    /**
+     * coerces a value to a double
+     *
+     * If value is already a boolean, it is unchanged.
+     */
+    llvm::Value *toDouble(llvm::Value* value);
+
 
     llvm::IRBuilder<> &builder;
     LoadSymbolResolver &resolver;

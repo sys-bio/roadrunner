@@ -54,7 +54,34 @@ LLVMModelSymbols::LLVMModelSymbols(const libsbml::Model *m, LLVMModelDataSymbols
                 " initial value: " << param->getValue();
 
         ASTNode *value = nodes.create(AST_REAL);
-        value->setValue(param->getValue());
+
+        if (param->isSetValue())
+        {
+            value->setValue(param->getValue());
+        }
+        else
+        {
+            // check if we have an initial assignment for this param.
+            const string& id = param->getId();
+            if (model->getInitialAssignment(id) == NULL &&
+                    model->getAssignmentRule(id) == NULL)
+            {
+                Log(Logger::LOG_WARNING) << "Global parameter, \'"
+                        << param->getId() << "\' missing value and missing init "
+                        "assignment and assignment rule!, defaulting value to 0.0.";
+                Log(Logger::LOG_WARNING) << "This probably is NOT what you want "
+                        "with global parameter \'" << param->getId() << "\'.";
+                value->setValue(0.0);
+            }
+            else
+            {
+                Log(Logger::LOG_INFORMATION) << "parameter " << param->getId()
+                        << " missing value, but has init rule or rule, setting "
+                        " value to " << param->getValue();
+                value->setValue(param->getValue());
+            }
+        }
+
         initialValues.globalParameters[param->getId()] = value;
     }
 

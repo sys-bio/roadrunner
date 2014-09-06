@@ -20,18 +20,12 @@ RoadRunnerData convertCAPIResultData(RRCDataPtr        resultsHandle);
 SBMLTestSuiteSimulation_CAPI::SBMLTestSuiteSimulation_CAPI(const string& dataOutputFolder, const string& modelFilePath, const string& modelFileName)
 :
         rr::TestSuiteModelSimulation(dataOutputFolder, modelFilePath, modelFileName),
-        mRRHandle(NULL),
-        mResultHandle(NULL)
+        mRRHandle(NULL)
 {
 }
 
 SBMLTestSuiteSimulation_CAPI::~SBMLTestSuiteSimulation_CAPI()
 {
-    // we own the result, but not the RR instance.
-    if(mResultHandle)
-    {
-        freeRRCData(mResultHandle);
-    }
 }
 
 void SBMLTestSuiteSimulation_CAPI::UseHandle(RRHandle handle)
@@ -109,16 +103,18 @@ bool SBMLTestSuiteSimulation_CAPI::Simulate()
         return false;
     }
 
-    //Todo: Bisare
-    simulate(mRRHandle);
-    mResultHandle = getSimulationResult(mRRHandle);
+    RRCDataPtr resultData = NULL;
 
-    if(mResultHandle)
+    if (!(resultData = simulate(mRRHandle)))
     {
-        mResultData = convertCAPIResultData(mResultHandle);
+        Log(Logger::LOG_ERROR) << "Failed simulate in test " << mCurrentCaseNumber
+                << ", error: " << rrc::getLastError();
+        return false;
     }
 
-    return mResultHandle ? true : false;
+    mResultData = convertCAPIResultData(resultData);
+    freeRRCData(resultData);
+    return true;
 }
 
 RoadRunnerData SBMLTestSuiteSimulation_CAPI::GetResult()
@@ -131,14 +127,25 @@ bool SBMLTestSuiteSimulation_CAPI::SaveResult()
     string resultFileName(joinPath(mDataOutputFolder, "rrCAPI_" + mModelFileName));
     resultFileName = changeFileExtensionTo(resultFileName, ".csv");
 
+
+    ofstream fs(resultFileName.c_str());
+    fs << mResultData;
+    fs.close();
+// Uncomment the following to output the results in straight .csv format.
+/*
+    //In a format that sbml.org (and a human) would understand:
+    resultFileName = joinPath(mDataOutputFolder, "rrCAPI_std_" + mModelFileName);
+    resultFileName = changeFileExtensionTo(resultFileName, ".csv");
+
     if(!mResultHandle)
     {
         return false;
     }
 
-    ofstream fs(resultFileName.c_str());
-    fs << mResultData;
+    fs.open(resultFileName.c_str());
+    mResultData.writeSimpleOutput(fs);
     fs.close();
+*/
     return true;
 }
 
@@ -259,15 +266,15 @@ bool RunTest(const string& version, int caseNumber)
 
         simulation.CreateErrorData();
         result = simulation.Pass();
-        simulation.SaveAllData();
-        simulation.SaveModelAsXML(dataOutputFolder);
+        result = result && simulation.SaveAllData();
+        result = result && simulation.SaveModelAsXML(dataOutputFolder);
         if(!result)
         {
             clog<<"\t\t =============== Test "<<caseNumber<<" failed =============\n";
         }
         else
         {
-            clog<<"\t\tTest passed..\n";
+            clog<<"\t\tTest passed.\n";
         }
     }
     catch(std::exception& ex)

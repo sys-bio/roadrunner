@@ -53,7 +53,7 @@ int main(int argc, char * argv[])
 
         if(args.UseOSTempFolder)
         {
-            args.TempDataFolder = getUsersTempDataFolder();
+            args.TempDataFolder = getTempDir();
         }
 
         if(args.TempDataFolder == ".")
@@ -80,7 +80,7 @@ int main(int argc, char * argv[])
 
         //Creating roadrunner
         Log(lDebug)<<"Creating RoadRunner..."<<endl;
-        RoadRunner *rr  = new RoadRunner(args.compilerStr, args.TempDataFolder, "");
+        RoadRunner *rr  = new RoadRunner("", args.TempDataFolder, "");
         rr->reset();
 
         Log(lDebug)<<"....."<<endl;

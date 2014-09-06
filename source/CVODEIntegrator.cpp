@@ -93,9 +93,7 @@ CVODEIntegrator::CVODEIntegrator(ExecutableModel *aModel, const SimulateOptions*
 :
 mStateVector(NULL),
 mCVODE_Memory(NULL),
-mLastTimeValue(0),
 mLastEvent(0),
-mOneStepCount(0),
 mFollowEvents(true),
 mMaxAdamsOrder(mDefaultMaxAdamsOrder),
 mMaxBDFOrder(mDefaultMaxBDFOrder),
@@ -191,11 +189,8 @@ void CVODEIntegrator::reInit(double t0)
 
 double CVODEIntegrator::integrate(double timeStart, double hstep)
 {
-    Log(lDebug3)<<"---------------------------------------------------";
-    Log(lDebug3)<<"--- O N E     S T E P      ( "<<mOneStepCount<< " ) ";
-    Log(lDebug3)<<"---------------------------------------------------";
-
-    mOneStepCount++;
+    Log(Logger::LOG_DEBUG) << "CVODEIntegrator::integrate("
+            << timeStart <<", " << hstep << ")";
 
     double timeEnd = 0.0;
     double tout = timeStart + hstep;
@@ -208,8 +203,7 @@ double CVODEIntegrator::integrate(double timeStart, double hstep)
     // get the original event status
     vector<unsigned char> eventStatus(mModel->getEventTriggers(0, 0, 0), false);
 
-
-    // here we stop for a too small timestep ... this seems troublesome to me ...
+    // loop until machine epislon
     while (tout - timeEnd >= 1E-16)
     {
         // here we bail in case we have no ODEs set up with CVODE ... though we should
@@ -219,11 +213,6 @@ double CVODEIntegrator::integrate(double timeStart, double hstep)
             mModel->convertToAmounts();
             mModel->getStateVectorRate(tout, 0, 0);
             return tout;
-        }
-
-        if (mLastTimeValue > timeStart)
-        {
-            restart(timeStart);
         }
 
         double nextTargetEndTime = tout;
@@ -242,10 +231,7 @@ double CVODEIntegrator::integrate(double timeStart, double hstep)
 
         if (nResult == CV_ROOT_RETURN && mFollowEvents)
         {
-            Log(Logger::LOG_DEBUG) << ("---------------------------------------------------");
-            Log(Logger::LOG_DEBUG) << "--- E V E N T   ( " << mOneStepCount << ", time: " << timeEnd << " ) ";
-            Log(Logger::LOG_DEBUG) << ("---------------------------------------------------");
-
+            Log(Logger::LOG_DEBUG) << "Event detected at time " << timeEnd;
 
             bool tooCloseToStart = fabs(timeEnd - mLastEvent) > options.relative;
 
@@ -285,8 +271,6 @@ double CVODEIntegrator::integrate(double timeStart, double hstep)
         {
             handleCVODEError(nResult);
         }
-
-        mLastTimeValue = timeEnd;
 
         try
         {
@@ -618,6 +602,97 @@ void CVODEIntegrator::loadConfig(const _xmlDoc* doc)
 }
 
 
+void CVODEIntegrator::setValue(const std::string& key, const rr::Variant& value)
+{
+    if (key == "BDFMaxOrder")
+    {
+        mMaxBDFOrder = value.convert<int>();
+        if (options.integratorFlags & SimulateOptions::STIFF)
+        {
+            CVodeSetMaxOrd(mCVODE_Memory, mMaxBDFOrder);
+        }
+        return;
+    }
+    else if (key == "AdamsMaxOrder")
+    {
+        mMaxAdamsOrder = value.convert<int>();
+        if (!(options.integratorFlags & SimulateOptions::STIFF))
+        {
+            CVodeSetMaxOrd(mCVODE_Memory, mMaxAdamsOrder);
+        }
+        return;
+    }
+    throw std::invalid_argument("invalid key: " + key);
+}
+
+Variant CVODEIntegrator::getValue(const std::string& key) const
+{
+    if (key == "BDFMaxOrder")
+    {
+        return mMaxBDFOrder;
+    }
+    else if (key == "AdamsMaxOrder")
+    {
+        return mMaxAdamsOrder;
+    }
+    throw std::invalid_argument("invalid key: " + key);
+}
+
+bool CVODEIntegrator::hasKey(const std::string& key) const
+{
+    return key == "BDFMaxOrder" || key == "AdamsMaxOrder";
+}
+
+int CVODEIntegrator::deleteValue(const std::string& key)
+{
+    return -1;
+}
+
+std::vector<std::string> CVODEIntegrator::getKeys() const
+{
+    std::vector<std::string> keys;
+    keys.push_back("BDFMaxOrder");
+    keys.push_back("AdamsMaxOrder");
+    return keys;
+}
+
+
+std::string CVODEIntegrator::toString() const
+{
+    std::stringstream ss;
+    ss << "< roadrunner.CVODEIntegrator() " << endl << "{ "
+            << endl << "'this' : " << (void*)this << ", " << std::endl;
+
+    std::vector<std::string> keys = getKeys();
+
+    for(std::vector<std::string>::iterator i = keys.begin(); i != keys.end(); ++i)
+    {
+        ss << "'" << *i << "' : ";
+        ss << getValue(*i).toString();
+
+        if (i + 1 < keys.end()) {
+            ss << ", " << std::endl;
+        }
+    }
+
+    ss << endl << "}>";
+
+    return ss.str();
+}
+
+std::string CVODEIntegrator::toRepr() const
+{
+    std::stringstream ss;
+    ss << "< roadrunner.CVODEIntegrator() { 'this' : "
+            << (void*)this << " }>";
+    return ss.str();
+}
+
+std::string CVODEIntegrator::getName() const
+{
+    return "cvode";
+}
+
 static std::string cvodeDecodeError(int cvodeError, bool exInfo)
 {
     std::string result;
@@ -805,4 +880,5 @@ void cvodeErrHandler(int error_code, const char *module, const char *function,
 }
 
 }
+
 

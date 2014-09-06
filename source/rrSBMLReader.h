@@ -34,7 +34,18 @@ class RR_DECLSPEC SBMLReader
 {
 public:
 
+    /**
+     * read an SBML document from a local file path, a remote URI, or
+     * directlly from a sbml string. If the document is a local file,
+     * and has the comp extension, it is automatically flattened before
+     * begin returned.
+     *
+     * If the string is already a SBML string, it is passed through.
+     * If the string is a local file or URI, the document is read
+     * from the source and the contents returned (and flattened if comp).
+     */
     static std::string read(const std::string& sbml_or_uri);
+
 };
 
 }

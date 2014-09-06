@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- Created by libAntimony version v2.4 with libSBML version 5.8.0. -->
+<sbml xmlns="http://www.sbml.org/sbml/level3/version1/core" xmlns:comp="http://www.sbml.org/sbml/level3/version1/comp/version1" level="3" version="1" comp:required="true">
+  <model id="baz" name="baz">
+    <comp:listOfSubmodels>
+      <comp:submodel comp:id="B" comp:modelRef="bar">
+        <comp:listOfDeletions>
+          <comp:deletion comp:idRef="y"/>
+        </comp:listOfDeletions>
+      </comp:submodel>
+    </comp:listOfSubmodels>
+  </model>
+  <comp:listOfModelDefinitions>
+    <comp:modelDefinition id="foo" name="foo">
+      <listOfParameters>
+        <parameter id="x" value="3" constant="true"/>
+      </listOfParameters>
+    </comp:modelDefinition>
+    <comp:modelDefinition id="bar" name="bar">
+      <comp:listOfSubmodels>
+        <comp:submodel comp:id="A" comp:modelRef="foo">
+          <comp:listOfDeletions>
+            <comp:deletion comp:id="y" comp:idRef="x"/>
+          </comp:listOfDeletions>
+        </comp:submodel>
+      </comp:listOfSubmodels>
+    </comp:modelDefinition>
+  </comp:listOfModelDefinitions>
+</sbml>

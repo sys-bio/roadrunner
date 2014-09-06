@@ -8,6 +8,7 @@
 #include "Integrator.h"
 #include "CVODEIntegrator.h"
 #include "GillespieIntegrator.h"
+#include "RK4Integrator.h"
 
 namespace rr
 {
@@ -19,6 +20,10 @@ Integrator* Integrator::New(const SimulateOptions* opt, ExecutableModel* m)
     if (opt->integrator == SimulateOptions::GILLESPIE)
     {
         result = new GillespieIntegrator(m, opt);
+    }
+    else if(opt->integrator == SimulateOptions::RK4)
+    {
+        result = new RK4Integrator(m, opt);
     }
     else
     {

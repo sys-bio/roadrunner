@@ -111,7 +111,7 @@ SUITE(CORE_TESTS)
         MD5Engine md5;
         md5.update(content);
         string digestString(Poco::DigestEngine::digestToHex(md5.digest()));
-        CHECK_EQUAL("8b0f11b35815fd421d32ab98750576ef", digestString);
+        CHECK_EQUAL("d996bae1bec8f6efb81c4571aa7fc10d", digestString);
     }
 
     TEST(LOAD_MODEL_FROM_STRING)

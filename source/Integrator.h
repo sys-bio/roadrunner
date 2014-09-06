@@ -11,6 +11,7 @@
 #include "rrLogger.h"
 #include "rrOSSpecifics.h"
 #include "rrRoadRunnerOptions.h"
+#include "Dictionary.h"
 #include <stdexcept>
 
 #if (__cplusplus >= 201103L) || defined(_MSC_VER)
@@ -68,7 +69,7 @@ typedef cxx11_ns::shared_ptr<IntegratorListener> IntegratorListenerPtr;
  *
  * The Integrator is only valid if attached to a model.
  */
-class RR_DECLSPEC Integrator
+class RR_DECLSPEC Integrator : public Dictionary
 {
 public:
 
@@ -78,9 +79,12 @@ public:
     virtual void setSimulateOptions(const SimulateOptions* options) = 0;
 
     /**
-     * integrates the model from t0 to tf.
+     * integrates the model from t0 to t0 + hstep
+     *
+     * @return the final time value. This is typically very close to t0 + hstep,
+     * but may be different if variableStep is used.
      */
-    virtual double integrate(double t0, double tf) = 0;
+    virtual double integrate(double t0, double hstep) = 0;
 
     /**
      * copies the state vector out of the model and into cvode vector,
@@ -99,6 +103,25 @@ public:
      */
     virtual IntegratorListenerPtr getListener() = 0;
 
+    /**
+     * get a description of this object, compatable with python __str__
+     */
+    virtual std::string toString() const = 0;
+
+    /**
+     * get a short descriptions of this object, compatable with python __repr__.
+     */
+    virtual std::string toRepr() const = 0;
+
+    /**
+     * get the name of this integrator
+     */
+    virtual std::string getName() const = 0;
+
+    /**
+     * this is an interface, provide virtual dtor as instances are
+     * returned from New which must be deleted.
+     */
     virtual ~Integrator() {};
 
     /**

@@ -59,8 +59,8 @@ Value *ASTNodeCodeGen::binaryExprCodeGen(const ASTNode *ast)
 {
     Value *result = 0;
 
-    Value *lhs = codeGen(ast->getLeftChild());
-    Value *rhs = codeGen(ast->getRightChild());
+    Value *lhs = toDouble(codeGen(ast->getLeftChild()));
+    Value *rhs = toDouble(codeGen(ast->getRightChild()));
     if (lhs == 0 || rhs == 0)
     {
         // TODO: report this error???
@@ -320,14 +320,14 @@ llvm::Value* ASTNodeCodeGen::applyArithmeticCodeGen(
         // start at the head of the list and evaluate each subsequent term.
         // accumulator
         start = 1;
-        acc = codeGen(ast->getChild(0));
+        acc = toDouble(codeGen(ast->getChild(0)));
     }
 
     assert(acc);
 
     for (int i = start; i < numChildren; ++i)
     {
-        Value *rhs = codeGen(ast->getChild(i));
+        Value *rhs = toDouble(codeGen(ast->getChild(i)));
         switch (type)
         {
         case AST_PLUS:
@@ -351,8 +351,8 @@ llvm::Value* ASTNodeCodeGen::applyArithmeticCodeGen(
 
 llvm::Value* ASTNodeCodeGen::applyRelationalCodeGen(const libsbml::ASTNode* ast)
 {
-    Value *left = codeGen(ast->getLeftChild());
-    Value *right = codeGen(ast->getRightChild());
+    Value *left = toDouble(codeGen(ast->getLeftChild()));
+    Value *right = toDouble(codeGen(ast->getRightChild()));
     Value *result = 0;
     switch (ast->getType())
     {
@@ -456,7 +456,7 @@ llvm::Value* ASTNodeCodeGen::functionCallCodeGen(const libsbml::ASTNode* ast)
     for (uint i = 0; i < nargs; ++i)
     {
         const ASTNode *c = ast->getChild(i);
-        args[i] = codeGen(c);
+        args[i] = toDouble(codeGen(c));
     }
 
     Log(Logger::LOG_TRACE) << "ASTNodeCodeGen::functionCallCodeGen, name: "
@@ -632,7 +632,7 @@ llvm::Value* ASTNodeCodeGen::intrinsicCallCodeGen(const libsbml::ASTNode *ast)
     std::vector<Value*> args;
     for (unsigned i = 0; i < ast->getNumChildren(); ++i)
     {
-        args.push_back(this->codeGen(ast->getChild(i)));
+        args.push_back(toDouble(codeGen(ast->getChild(i))));
     }
 
     return builder.CreateCall(func, args, "calltmp");
@@ -713,7 +713,24 @@ llvm::Value* ASTNodeCodeGen::toBoolean(llvm::Value* value)
                 ConstantFP::get(builder.getContext(), APFloat(0.0)), "ne_zero");
     }
 
-    assert(0 && "unsupported type conversion to boolean");
+    throw_llvm_exception("unsupported type conversion to boolean");
+    return 0;
+}
+
+llvm::Value* ASTNodeCodeGen::toDouble(llvm::Value* value)
+{
+    Type *type = value->getType();
+
+    if (type->isDoubleTy()) {
+        return value;
+    }
+
+    if (type->isIntegerTy()) {
+        return builder.CreateUIToFP(value,
+                Type::getDoubleTy(builder.getContext()), "double_tmp");
+    }
+
+    throw_llvm_exception("unsupported type convertion to double");
     return 0;
 }
 
@@ -772,13 +789,13 @@ llvm::Value* ASTNodeCodeGen::piecewiseCodeGen(const libsbml::ASTNode* ast)
         // the conditional
         const ASTNode *condNode = ast->getChild(i++);
 
-        Value *cond = codeGen(condNode); // TODO convert to bool if nmbr
+        Value *cond = toBoolean(codeGen(condNode));
 
         builder.CreateCondBr(cond, thenBB, elseBB);
 
         // the then value
         builder.SetInsertPoint(thenBB);
-        Value *thenVal = codeGen(thenNode);
+        Value *thenVal = toDouble(codeGen(thenNode));
         values.push_back(thenVal);
 
         builder.CreateBr(mergeBB);
@@ -801,7 +818,7 @@ llvm::Value* ASTNodeCodeGen::piecewiseCodeGen(const libsbml::ASTNode* ast)
         assert((i+1) == nchild);
 
         const ASTNode *ow = ast->getChild(i);
-        owVal = codeGen(ow);
+        owVal = toDouble(codeGen(ow));
     }
     else
     {

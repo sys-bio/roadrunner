@@ -17,7 +17,7 @@ namespace rr
 class RR_DECLSPEC CCompiler : public Compiler
 {
 public:
-    CCompiler(const string& supportCodeFolder, const string& compiler=gDefaultCompiler);
+    CCompiler(const string& supportCodeFolder, const string& compiler);
     virtual ~CCompiler();
 
     virtual string              getCompiler() const;

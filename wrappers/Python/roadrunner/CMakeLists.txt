@@ -23,7 +23,7 @@ if (BUILD_LLVM)
     SET_SOURCE_FILES_PROPERTIES(roadrunner.i PROPERTIES COMPILE_FLAGS "${LLVM_DEFINITIONS}")
 endif ()
 
-SWIG_ADD_MODULE(roadrunner python roadrunner.i PyUtils)
+SWIG_ADD_MODULE(roadrunner python roadrunner.i PyUtils PyLoggerStream)
 
 
 
@@ -133,6 +133,12 @@ install(
 
 install(
     DIRECTORY testing
+    DESTINATION ${RR_PACKAGE_DIR}
+    FILES_MATCHING PATTERN "*.*"
+)
+
+install(
+    DIRECTORY stochastic
     DESTINATION ${RR_PACKAGE_DIR}
     FILES_MATCHING PATTERN "*.*"
 )
