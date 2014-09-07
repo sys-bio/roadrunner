@@ -98,8 +98,10 @@ double Reaction::getParameterVal(const String& p) const {
 
 GPUSimModel::GPUSimModel(std::string const &sbml, unsigned options) {
 //     typedef std::unique_ptr<libsbml::SBMLDocument> SBMLDocumentPtr;
+    Log(Logger::LOG_DEBUG) << "libSBML: read SBML from string";
     libsbml::SBMLDocument* doc{checkedReadSBMLFromString(sbml.c_str())};
 
+    Log(Logger::LOG_DEBUG) << "Begin loading model";
     if (options & ModelGenerator::CONSERVED_MOIETIES) {
         if ((Config::getInt(Config::ROADRUNNER_DISABLE_WARNINGS) &
                 Config::ROADRUNNER_DISABLE_WARNINGS_CONSERVED_MOIETY) == 0)
