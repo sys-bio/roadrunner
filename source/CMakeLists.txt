@@ -148,6 +148,7 @@ if(BUILD_GPUSIM)
         gpu/GPUSimIntegratorInt.cpp
         gpu/GPUSimModel.cpp
         gpu/GPUSimModelGenerator.cpp
+        gpu/Hasher.cpp
         gpu/ModelResources.cpp
         gpu/bdom/BaseTypes.cpp
         gpu/bdom/Expressions.cpp
