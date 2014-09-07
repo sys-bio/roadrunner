@@ -611,7 +611,7 @@ void CudaGeneratorImpl::generate() {
 
 //     Log(Logger::LOG_DEBUG) << "Hashed model id: " << hashedid;
 
-    std::string cuda_src_name = joinPath(getTempDir(),"rr_cuda_model_" + hashedid + ".cu");
+    std::string cuda_src_name = joinPath(getTempDir(), "rr_cuda_model_" + hashedid + ".cu");
 
     Log(Logger::LOG_DEBUG) << "CUDA source: " << cuda_src_name;
 
@@ -638,7 +638,7 @@ void CudaGeneratorImpl::generate() {
 
     std::string popenline = "nvcc -D__CUDACC__ -ccbin gcc -m32 --ptxas-options=-v --compiler-options '-fPIC' -Drr_cuda_model_EXPORTS -Xcompiler ,\"-fPIC\",\"-fPIC\",\"-g\" -DNVCC --shared -o "
       + libname + " "
-      + cuda_src_name + "2>&1 >/dev/null";
+      + cuda_src_name + " 2>&1 >/dev/null";
 
     Log(Logger::LOG_DEBUG) << "CUDA compiler line: " << popenline;
 
