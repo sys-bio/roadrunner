@@ -77,9 +77,9 @@ if("${CMAKE_CXX_COMPILER_ID}" STREQUAL "Clang")
 endif()
 
 if (WITH_CUDA)
-    set (BUILD_GPUSIM CACHE BOOL "Build the GPU simulator" ON)
+    set (BUILD_GPUSIM ON CACHE BOOL "Build the GPU simulator")
 else()
-    set (BUILD_GPUSIM CACHE BOOL "Build the GPU simulator" OFF)
+    set (BUILD_GPUSIM OFF CACHE BOOL "Build the GPU simulator")
 endif()
 
 # llvm now depends on zlib but llvm-config doesn't specify -lz (r213823)
