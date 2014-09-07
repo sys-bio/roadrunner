@@ -98,10 +98,12 @@ Integrator* Integrator::New(const SimulateOptions* opt, ExecutableModel* m)
     {
         result = new RK4Integrator(m, opt);
     }
+#if defined(BUILD_GPUSIM)
     else if(opt->integrator == SimulateOptions::GPUSIM)
     {
         result = rrgpu::CreateGPUSimIntegrator(m, opt);
     }
+#endif
     else
     {
         result = new CVODEIntegrator(m, opt);
