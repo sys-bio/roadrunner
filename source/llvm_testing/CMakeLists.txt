@@ -11,7 +11,7 @@ if (BUILD_PYTHON)
 
 endif(BUILD_PYTHON)
 
-set( ${llvm_testing_src}
+set( llvm_testing_src
     main
     src/tests
     src/cpplapack
