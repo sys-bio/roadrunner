@@ -411,6 +411,8 @@ public:
 
     // -- accessor/iterator section --
 
+    // * FloatingSpecies *
+
     /// Iterator for floating species access pointer
     typedef AccessPtrIterator<FloatingSpeciesCollection::iterator> FloatingSpeciesIterator;
     /// Const iterator for floating species access pointer
@@ -427,6 +429,26 @@ public:
     /// Get all floating species (const)
     FloatingSpeciesConstRange getFloatingSpecies() const {
         return FloatingSpeciesConstRange(floatingSpecies_);
+    }
+
+    // * BoundarySpecies *
+
+    /// Iterator for floating species access pointer
+    typedef AccessPtrIterator<BoundarySpeciesCollection::iterator> BoundarySpeciesIterator;
+    /// Const iterator for floating species access pointer
+    typedef AccessPtrIterator<BoundarySpeciesCollection::const_iterator> BoundarySpeciesConstIterator;
+
+    typedef Range<BoundarySpeciesIterator> BoundarySpeciesRange;
+    typedef Range<BoundarySpeciesConstIterator> BoundarySpeciesConstRange;
+
+    /// Get all floating species
+    BoundarySpeciesRange getBoundarySpecies() {
+        return BoundarySpeciesRange(boundarySpecies_);
+    }
+
+    /// Get all floating species (const)
+    BoundarySpeciesConstRange getBoundarySpecies() const {
+        return BoundarySpeciesConstRange(boundarySpecies_);
     }
 
     size_type getNumIndepFloatingSpecies() const {
@@ -464,6 +486,18 @@ public:
     const ModelRules& getRules() const { return rules_; }
 
     // -- Species --
+
+    /**
+     * @brief Find the species with the given id
+     * @note Throws if nonexistent
+     */
+    Species* getSpeciesById(const std::string& id);
+
+    /**
+     * @brief Find the species with the given id
+     * @note Throws if nonexistent
+     */
+    const Species* getSpeciesById(const std::string& id) const;
 
     /**
      * @brief Find the floating species with the given id

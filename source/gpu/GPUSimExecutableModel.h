@@ -24,7 +24,7 @@
 
 // == INCLUDES ================================================
 
-#include "GPUSimModel.h"
+#include "GPUSimBiochemModel.h"
 #include "rrExecutableModel.h"
 #include "GPUSimException.h"
 

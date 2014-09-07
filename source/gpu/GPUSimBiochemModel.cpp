@@ -11,7 +11,7 @@
 
 // == INCLUDES ================================================
 
-#include "GPUSimModel.h"
+#include "GPUSimBiochemModel.h"
 #include "GPUSimModelGenerator.h"
 #include "rrConfig.h"
 // #include "nullptr.h"
@@ -170,12 +170,12 @@ GPUSimModel::GPUSimModel(std::string const &sbml, unsigned options) {
 
         // add reactants
         for (uint i_react=0; i_react < sbmlrxn->getNumReactants(); ++i_react) {
-            r->addReactant(getFloatingSpeciesById(sbmlrxn->getReactant(i_react)->getSpecies()));
+            r->addReactant(getSpeciesById(sbmlrxn->getReactant(i_react)->getSpecies()));
         }
 
         // add products
         for (uint i_prod=0; i_prod < sbmlrxn->getNumProducts(); ++i_prod) {
-            r->addProduct(getFloatingSpeciesById(sbmlrxn->getProduct(i_prod)->getSpecies()));
+            r->addProduct(getSpeciesById(sbmlrxn->getProduct(i_prod)->getSpecies()));
         }
     }
 
@@ -305,6 +305,26 @@ const FloatingSpecies* GPUSimModel::getFloatingSpeciesById(const std::string& id
         if(s->matchId(id))
             return s;
     throw_gpusim_exception("No such floating species for id \"" + id + "\"");
+}
+
+Species* GPUSimModel::getSpeciesById(const std::string& id) {
+    for(FloatingSpecies* s : getFloatingSpecies())
+        if(s->matchId(id))
+            return s;
+    for(BoundarySpecies* s : getBoundarySpecies())
+        if(s->matchId(id))
+            return s;
+    throw_gpusim_exception("No such species for id \"" + id + "\"");
+}
+
+const Species* GPUSimModel::getSpeciesById(const std::string& id) const {
+    for(const FloatingSpecies* s : getFloatingSpecies())
+        if(s->matchId(id))
+            return s;
+    for(BoundarySpecies* s : getBoundarySpecies())
+        if(s->matchId(id))
+            return s;
+    throw_gpusim_exception("No such species for id \"" + id + "\"");
 }
 
 bool GPUSimModel::hasInitialAssignmentRule(const FloatingSpecies* s) {

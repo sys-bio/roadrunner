@@ -146,7 +146,7 @@ if(BUILD_GPUSIM)
         gpu/GPUSimExecutableModel.cpp
         gpu/GPUSimIntegrator.cpp
         gpu/GPUSimIntegratorInt.cpp
-        gpu/GPUSimModel.cpp
+        gpu/GPUSimBiochemModel.cpp
         gpu/GPUSimModelGenerator.cpp
         gpu/Hasher.cpp
         gpu/ModelResources.cpp
