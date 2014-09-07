@@ -11,8 +11,7 @@ if (BUILD_PYTHON)
 
 endif(BUILD_PYTHON)
 
-
-add_executable( ${target}
+set( ${llvm_testing_src}
     main
     src/tests
     src/cpplapack
@@ -30,6 +29,10 @@ add_executable( ${target}
     src/ConfigurableTest
     src/TestVariant
     )
+
+set_source_files_properties(${llvm_testing_src} PROPERTIES COMPILE_FLAGS ${LLVM_FLAGS})
+
+add_executable( ${target} ${llvm_testing_src} )
 
 set_property(TARGET ${target}
     PROPERTY  COMPILE_DEFINITIONS
