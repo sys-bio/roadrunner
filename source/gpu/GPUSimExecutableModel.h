@@ -113,6 +113,13 @@ public:
         outdated_ = false;
     }
 
+    // TODO: find a faster way to get a UUID for the model
+    std::string getSBMLHash() const {
+        if(!sbmlhash_.size())
+           throw_gpusim_exception("No stored hash");
+        return sbmlhash_;
+    }
+
     /// Get the entry point into the GPU code
     EntryPointSig getEntryPoint();
 
@@ -503,6 +510,9 @@ private:
 
     /// True when model needs to be rebuild because of changes etc.
     bool outdated_ = true;
+
+    /// A hash of the input sbml
+    std::string sbmlhash_;
 
 #if RR_GPUSIM_USE_LLVM_MODEL
     // just throws exc if no model

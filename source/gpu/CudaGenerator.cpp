@@ -13,6 +13,8 @@
 // == INCLUDES ================================================
 
 # include "CudaGenerator.hpp"
+# include "Hasher.hpp"
+# include "rrUtils.h"
 
 #include "Poco/SharedLibrary.h"
 
@@ -603,12 +605,26 @@ void CudaGeneratorImpl::generate() {
 
     Log(Logger::LOG_INFORMATION) << "Generating model DOM took " << std::chrono::duration_cast<std::chrono::milliseconds>(generate_finish - generate_start).count() << " ms";
 
+    // generate temporary file names
+
+    std::string hashedid = mod_.getSBMLHash();
+
+//     Log(Logger::LOG_DEBUG) << "Hashed model id: " << hashedid;
+
+    std::string cuda_src_name = joinPath(getTempDir(),"rr_cuda_model_" + hashedid + ".cu");
+
+    Log(Logger::LOG_DEBUG) << "CUDA source: " << cuda_src_name;
+
+    std::string libname = joinPath(getTempDir(), "rr_cuda_model_" + hashedid + ".so");
+
+    Log(Logger::LOG_DEBUG) << "CUDA object: " << cuda_src_name;
+
     auto serialize_start = std::chrono::high_resolution_clock::now();
 
     // serialize the module to a document
 
     {
-        Serializer s("/tmp/rr_cuda_model.cu");
+        Serializer s(cuda_src_name);
         mod.serialize(s);
     }
 
@@ -620,7 +636,13 @@ void CudaGeneratorImpl::generate() {
 
     // compile the module
 
-    FILE* pp = popen("nvcc -D__CUDACC__ -ccbin gcc -m32 -I/home/jkm/devel/src/roadrunner/source --ptxas-options=-v --compiler-options '-fPIC' -Drr_cuda_model_EXPORTS -Xcompiler ,\"-fPIC\",\"-fPIC\",\"-g\" -DNVCC --shared -o /tmp/rr_cuda_model.so /tmp/rr_cuda_model.cu 2>&1 >/dev/null", "r");
+    std::string popenline = "nvcc -D__CUDACC__ -ccbin gcc -m32 --ptxas-options=-v --compiler-options '-fPIC' -Drr_cuda_model_EXPORTS -Xcompiler ,\"-fPIC\",\"-fPIC\",\"-g\" -DNVCC --shared -o "
+      + libname + " "
+      + cuda_src_name + "2>&1 >/dev/null";
+
+    Log(Logger::LOG_DEBUG) << "CUDA compiler line: " << popenline;
+
+    FILE* pp = popen(popenline.c_str(), "r");
 
 #define SBUFLEN 512
     char sbuf[SBUFLEN];
@@ -666,8 +688,6 @@ void CudaGeneratorImpl::generate() {
     auto load_start = std::chrono::high_resolution_clock::now();
 
     // load the module
-
-    std::string libname = "/tmp/rr_cuda_model.so";
 
     try {
         so_.load(libname);
