@@ -4,17 +4,12 @@
 
 // == FILEDOC =================================================
 
-/** @file GPUSimModel.h
+/** @file GPUSimBiochemModel.h
+  * @author JKM
+  * @date 08/14/2014
+  * @copyright Apache License, Version 2.0
   * @brief Classes and data structures for representing the model
 **/
-
-/*
- * GPUSimModel.h
- *
- *  Created on: Aug 14, 2014
- *
- * Author: JKM
- */
 
 #ifndef rrGPUSimBiochemModelH
 #define rrGPUSimBiochemModelH
