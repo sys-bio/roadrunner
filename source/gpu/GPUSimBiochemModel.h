@@ -18,17 +18,15 @@
 
 # define GPUSIM_MODEL_USE_SBML 1
 
+// TODO: make this a .hpp
+
 // == INCLUDES ================================================
 
-#include "rrSelectionRecord.h"
-#include "GPUSimException.h"
-#include "GPUSimReal.h"
-#include "GPUSimReal.h"
+#include "GPUSimModel.hpp"
 #include "conservation/ConservedMoietyConverter.h"
 #include "conservation/ConservationExtension.h"
 #include "patterns/AccessPtrIterator.hpp"
 #include "patterns/Range.hpp"
-// #include "patterns/MultiIterator.hpp"
 
 #include <memory>
 #include <set>
@@ -40,16 +38,6 @@ namespace rr
 
 namespace rrgpu
 {
-
-class RR_DECLSPEC ModelElement
-{
-public:
-    virtual ~ModelElement();
-
-    virtual bool matchesType(int typebits) const { return false; }
-
-    virtual std::string getId() const = 0;
-};
 
 class RR_DECLSPEC Species : public ModelElement
 {
@@ -116,6 +104,28 @@ protected:
     Real init_conc_ = 0.;
 };
 
+/**
+ * @brief Kinetic law of a process (e.g. a reaction)
+ */
+class RR_DECLSPEC KineticLaw
+{
+public:
+    ModelAlgebra& getAlgebra() { return alg_; }
+    const ModelAlgebra& getAlgebra() const { return alg_; }
+
+protected:
+    ModelAlgebra alg_;
+};
+
+/**
+ * @brief Kinetic law of a reaction
+ */
+class RR_DECLSPEC ReactionKineticLaw : public KineticLaw
+{
+public:
+protected:
+};
+
 class RR_DECLSPEC ReactionParticipant
 {
 public:
@@ -173,6 +183,9 @@ protected:
     ReactionSide side_;
 };
 
+/**
+ * @brief Represents a reaction in the model
+ */
 class RR_DECLSPEC Reaction : public ModelElement
 {
 public:
@@ -250,6 +263,10 @@ public:
 
     double getParameterVal(const String& p) const;
 
+    ReactionKineticLaw& getKineticLaw() { return klaw_; }
+
+    const ReactionKineticLaw& getKineticLaw() const { return klaw_; }
+
 # if GPUSIM_MODEL_USE_SBML
     const libsbml::Reaction* getSBMLReaction() const {
         return sbmlrxn_;
@@ -272,10 +289,55 @@ protected:
     typedef std::unique_ptr<ReactionParticipant> ReactionParticipantPtr;
     typedef std::vector<ReactionParticipantPtr> Participants;
     Participants part_;
+    ReactionKineticLaw klaw_;
 # if GPUSIM_MODEL_USE_SBML
     const libsbml::Reaction* sbmlrxn_ = nullptr;
     const libsbml::Model* sbmlmodel_ = nullptr;
 # endif
+};
+
+class BiochemModelASTNodeVisitor;
+
+/**
+ * @brief Reference to floating species
+ */
+class RR_DECLSPEC FloatingSpeciesRefASTNode : public ModelASTNode
+{
+public:
+    FloatingSpeciesRefASTNode(const FloatingSpecies* spec)
+      : spec_(spec) {}
+
+    /// Get the associated floating species
+    const FloatingSpecies* getFloatingSpecies() const { return spec_; }
+
+protected:
+    /// Non-owning
+    const FloatingSpecies* spec_;
+};
+
+/**
+ * @brief Reference to floating species
+ */
+class RR_DECLSPEC ParameterRefASTNode : public ModelASTNode
+{
+public:
+    typedef std::string String;
+
+    ParameterRefASTNode(const Reaction* r, const String& param)
+      : r_(r), param_(param) {}
+
+    /// Get the associated parameter value
+    double getParameterVal() const { return r_->getParameterVal(param_); }
+
+protected:
+    /// Non-owning
+    const Reaction* r_;
+    String param_;
+};
+
+class ModelASTNodeVisitor {
+public:
+    virtual void visit(const ProductASTNode* node) = 0;
 };
 
 class RR_DECLSPEC ModelRule : public ModelElement

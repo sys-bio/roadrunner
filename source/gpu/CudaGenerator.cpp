@@ -63,11 +63,13 @@ public:
 
     ExpressionPtr getVecRK(const FloatingSpecies* s, int rk_index);
 
-# if GPUSIM_MODEL_USE_SBML
+# if 0 && GPUSIM_MODEL_USE_SBML
     ExpressionPtr generateExpForSBMLASTNode(const Reaction* r, const libsbml::ASTNode* node, int rk_index);
-# else
-# error "Need SBML"
+// # else
+// # error "Need SBML"
 # endif
+
+    ExpressionPtr generateExpForASTNode(const ModelASTNode* n, int rk_index);
 
     /// Generate the model code
     void generate();
@@ -172,6 +174,7 @@ CudaGeneratorImpl::EntryPointSig CudaGeneratorImpl::getEntryPoint() {
 }
 
 ExpressionPtr CudaGeneratorImpl::getVecRK(const FloatingSpecies* s, int rk_index) {
+    assert(s && "Should not happen");
     int component = mod_.getStateVecComponent(s);
     if (rk_index == 0)
         return getSV(VariableRefExpression(rk_gen), LiteralIntExpression(component));
@@ -191,7 +194,23 @@ ExpressionPtr CudaGeneratorImpl::getVecRK(const FloatingSpecies* s, int rk_index
         assert(0 && "Should not happen (0 <= rk_index < 4)");
 }
 
-# if GPUSIM_MODEL_USE_SBML
+ExpressionPtr CudaGeneratorImpl::generateExpForASTNode(const ModelASTNode* node, int rk_index) {
+    assert(node);
+    // visitor does not work
+    // product
+    if (auto n = dynamic_cast<const ProductASTNode*>(node))
+        return ExpressionPtr(new ProductExpression(generateExpForASTNode(n->getLeft(), rk_index), generateExpForASTNode(n->getRight(), rk_index)));
+    // floating species ref
+    else if (auto n = dynamic_cast<const FloatingSpeciesRefASTNode*>(node))
+        return getVecRK(n->getFloatingSpecies(), rk_index);
+    // parameter ref
+    else if (auto n = dynamic_cast<const ParameterRefASTNode*>(node))
+        return ExpressionPtr(new RealLiteralExpression((n->getParameterVal(), rk_index)));
+    else
+        return ExpressionPtr(new LiteralIntExpression(12345));
+}
+
+# if 0 && GPUSIM_MODEL_USE_SBML
 ExpressionPtr CudaGeneratorImpl::generateExpForSBMLASTNode(const Reaction* r, const libsbml::ASTNode* node, int rk_index) {
     assert(r && node);
     switch (node->getType()) {
@@ -208,16 +227,12 @@ ExpressionPtr CudaGeneratorImpl::generateExpForSBMLASTNode(const Reaction* r, co
             return ExpressionPtr(new LiteralIntExpression(0));
     }
 }
-# else
-# error "Need SBML"
+// # else
+// # error "Need SBML"
 # endif
 
 ExpressionPtr CudaGeneratorImpl::generateReactionRateExp(const Reaction* r, int rk_index) {
-# if GPUSIM_MODEL_USE_SBML
-    return generateExpForSBMLASTNode(r, r->getSBMLMath(), rk_index);
-# else
-# error "Need SBML"
-# endif
+    return generateExpForASTNode(r->getKineticLaw().getAlgebra().getRoot(), rk_index);
 }
 
 ExpressionPtr CudaGeneratorImpl::accumulate(ExpressionPtr&& sum, ExpressionPtr&& item, bool invert) {
@@ -298,7 +313,7 @@ void CudaGeneratorImpl::generate() {
         std::string printcoef_fmt_str;
         for (int rk_index=0; rk_index<4; ++rk_index) {
             for (int component=0; component<n; ++component)
-                printcoef_fmt_str += "%5f ";
+                printcoef_fmt_str += "%3.3f ";
             printcoef_fmt_str += "\\n";
         }
 
