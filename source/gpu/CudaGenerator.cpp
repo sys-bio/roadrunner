@@ -617,7 +617,7 @@ void CudaGeneratorImpl::generate() {
 
     std::string libname = joinPath(getTempDir(), "rr_cuda_model_" + hashedid + ".so");
 
-    Log(Logger::LOG_DEBUG) << "CUDA object: " << cuda_src_name;
+    Log(Logger::LOG_DEBUG) << "CUDA object: " << libname;
 
     auto serialize_start = std::chrono::high_resolution_clock::now();
 
