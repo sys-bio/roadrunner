@@ -335,10 +335,10 @@ void CudaGeneratorImpl::generate() {
 
         Variable* t = VariableInitExpression::downcast(ExpressionStatement::insert(*kernel, VariableInitExpression(kernel->addVariable(Variable(pRKReal, "t")), ReferenceExpression(ArrayIndexExpression(f, MacroExpression(RK_STATE_VEC_LEN)))))->getExpression())->getVariable();
 
-        if (diagnosticsEnabled()) {
-            // printf
-            kernel->addStatement(ExpressionPtr(new FunctionCallExpression(mod.getPrintf(), ExpressionPtr(new StringLiteralExpression("in kernel\\n")))));
-        }
+//         if (diagnosticsEnabled()) {
+//             // printf
+//             kernel->addStatement(ExpressionPtr(new FunctionCallExpression(mod.getPrintf(), ExpressionPtr(new StringLiteralExpression("in kernel\\n")))));
+//         }
 
         {
             // initialize k (the RK coefficients)
@@ -350,16 +350,16 @@ void CudaGeneratorImpl::generate() {
                     getK(LiteralIntExpression(i), MacroExpression(RK_GET_COMPONENT)),
                     LiteralIntExpression(0)))->getExpression());
 
-                if (diagnosticsEnabled()) {
-                    // printf showing the init'd value of k
-                    ExpressionStatement::insert(*kernel, FunctionCallExpression(
-                        mod.getPrintf(),
-                        StringLiteralExpression("k[RK_COEF_GET_OFFSET(%d, %d)] = %f\\n"),
-                        LiteralIntExpression(i),
-                        MacroExpression(RK_GET_COMPONENT),
-                        k_init_assn->getLHS()->clone()
-                    ));
-                }
+//                 if (diagnosticsEnabled()) {
+//                     // printf showing the init'd value of k
+//                     ExpressionStatement::insert(*kernel, FunctionCallExpression(
+//                         mod.getPrintf(),
+//                         StringLiteralExpression("k[RK_COEF_GET_OFFSET(%d, %d)] = %f\\n"),
+//                         LiteralIntExpression(i),
+//                         MacroExpression(RK_GET_COMPONENT),
+//                         k_init_assn->getLHS()->clone()
+//                     ));
+//                 }
             }
         }
 
@@ -379,15 +379,15 @@ void CudaGeneratorImpl::generate() {
                 LiteralIntExpression(component))),
                     RealLiteralExpression(mod_.getFloatingSpeciesFromSVComponent(component)->getInitialConcentration())))->getExpression());
 
-                if (diagnosticsEnabled()) {
-                    ExpressionStatement::insert(component_switch->getBody(), FunctionCallExpression(
-                        mod.getPrintf(),
-                        StringLiteralExpression("f[RK_STATE_VEC_GET_OFFSET(%d, %d)] = %f\\n"),
-                        LiteralIntExpression(0),
-                        LiteralIntExpression(component),
-                        f_init_assn->getLHS()->clone()
-                    ));
-                }
+//                 if (diagnosticsEnabled()) {
+//                     ExpressionStatement::insert(component_switch->getBody(), FunctionCallExpression(
+//                         mod.getPrintf(),
+//                         StringLiteralExpression("f[RK_STATE_VEC_GET_OFFSET(%d, %d)] = %f\\n"),
+//                         LiteralIntExpression(0),
+//                         LiteralIntExpression(component),
+//                         f_init_assn->getLHS()->clone()
+//                     ));
+//                 }
 
                 component_switch->addBreak();
             }
