@@ -253,6 +253,9 @@ void CudaGeneratorImpl::generate() {
     CudaModule mod;
     std::string entryName = "cuEntryPoint";
 
+    // dump the state vector assignments
+    mod_.dumpStateVecAssignments();
+
     // get the size of the state vector
     int n = mod_.getStateVector(NULL);
 
@@ -295,7 +298,7 @@ void CudaGeneratorImpl::generate() {
         std::string printcoef_fmt_str;
         for (int rk_index=0; rk_index<4; ++rk_index) {
             for (int component=0; component<n; ++component)
-                printcoef_fmt_str += "%f ";
+                printcoef_fmt_str += "%5f ";
             printcoef_fmt_str += "\\n";
         }
 

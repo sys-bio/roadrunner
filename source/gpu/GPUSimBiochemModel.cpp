@@ -343,6 +343,10 @@ bool GPUSimModel::hasAssignmentRule(const FloatingSpecies* s) const {
     return false;
 }
 
+GPUSimModel::size_type GPUSimModel::getStateVecSize() const {
+    return getNumIndepFloatingSpecies();
+}
+
 int GPUSimModel::getStateVecComponent(const FloatingSpecies* q) const {
     int n=0;
     for(const FloatingSpecies* s : getFloatingSpecies()) {
@@ -369,6 +373,16 @@ const FloatingSpecies* GPUSimModel::getFloatingSpeciesFromSVComponent(int i) con
             ++n;
     }
     throw_gpusim_exception("No such floating species for state vec component " + std::to_string(i) + "");
+}
+
+void GPUSimModel::dumpStateVecAssignments() const {
+    Log(Logger::LOG_DEBUG) << "State vector assignments";
+    int n=0;
+    for(const FloatingSpecies* s : getFloatingSpecies()) {
+        if (s->getIsIndependent()) {
+            Log(Logger::LOG_DEBUG) << n++ << ": " << s->getId();
+        }
+    }
 }
 
 GPUSimModel::ReactionSide GPUSimModel::getReactionSide(const Reaction* r, const FloatingSpecies* s) const {

@@ -516,6 +516,11 @@ public:
     bool hasAssignmentRule(const FloatingSpecies* s) const;
 
     /**
+     * @brief Gets the size of the state vector
+     */
+    size_type getStateVecSize() const;
+
+    /**
      * @brief Gets the component of the state vector
      * which represents the conc. of @ref s
      */
@@ -525,6 +530,11 @@ public:
      * @brief Inverse of @ref getStateVecComponent
      */
     const FloatingSpecies* getFloatingSpeciesFromSVComponent(int i) const;
+
+    /**
+     * @brief Dumps state vector assignments to log
+     */
+    void dumpStateVecAssignments() const;
 
     /**
      * @details Given a component of the state vector,
