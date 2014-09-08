@@ -452,6 +452,9 @@ public:
         return sizeof_.get();
     }
 
+    // target-dependent exponentiation
+    virtual ExponentiationExpressionPtr pow(ExpressionPtr&& x, ExpressionPtr&& rhs) const = 0;
+
 protected:
     void serializeMacros(Serializer& s) const;
 

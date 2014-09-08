@@ -138,6 +138,7 @@ protected:
     Poco::SharedLibrary so_;
     CudaGeneratorSBML sbmlgen_;
     GPUSimExecutableModel& mod_;
+    CudaModule mod;
 
     // the RK coefficients
     Macro* RK_COEF_GET_OFFSET = nullptr;
@@ -200,6 +201,9 @@ ExpressionPtr CudaGeneratorImpl::generateExpForASTNode(const ModelASTNode* node,
     // product
     if (auto n = dynamic_cast<const ProductASTNode*>(node))
         return ExpressionPtr(new ProductExpression(generateExpForASTNode(n->getLeft(), rk_index), generateExpForASTNode(n->getRight(), rk_index)));
+    // exponentiation
+    if (auto n = dynamic_cast<const ExponentiationASTNode*>(node))
+        return ExpressionPtr(mod.pow(generateExpForASTNode(n->getLeft(), rk_index), generateExpForASTNode(n->getRight(), rk_index)));
     // floating species ref
     else if (auto n = dynamic_cast<const FloatingSpeciesRefASTNode*>(node))
         return getVecRK(n->getFloatingSpecies(), rk_index);
@@ -265,7 +269,6 @@ ExpressionPtr CudaGeneratorImpl::generateEvalExp(int component, int rk_index) {
 void CudaGeneratorImpl::generate() {
     auto generate_start = std::chrono::high_resolution_clock::now();
 
-    CudaModule mod;
     std::string entryName = "cuEntryPoint";
 
     // dump the state vector assignments

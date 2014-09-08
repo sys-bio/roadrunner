@@ -875,6 +875,23 @@ public:
 
 /**
  * @author JKM
+ * @brief Exponentiation expression
+ */
+class ExponentiationExpression : public BinaryExpression {
+public:
+    using BinaryExpression::BinaryExpression;
+
+    /// Copy ctor
+    ExponentiationExpression(const ExponentiationExpression& other)
+      : BinaryExpression(other) {}
+
+    // target-dependent
+    virtual void serialize(Serializer& s) const = 0;
+};
+typedef DomOwningPtr<ExponentiationExpression> ExponentiationExpressionPtr;
+
+/**
+ * @author JKM
  * @brief Sum expression
  * @details x + y
  */

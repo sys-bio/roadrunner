@@ -234,6 +234,28 @@ protected:
 
 /**
  * @author JKM
+ * @brief Cuda single precision exponentiation expression
+ */
+class CudaExponentiationExpression : public ExponentiationExpression {
+public:
+    using ExponentiationExpression::ExponentiationExpression;
+
+    /// Copy ctor
+    CudaExponentiationExpression(const CudaExponentiationExpression& other)
+      : ExponentiationExpression(other) {}
+
+    virtual int getPrecedence() const { return PREC_GRP2; }
+
+    // target-dependent
+    virtual void serialize(Serializer& s) const;
+
+    virtual ExpressionPtr clone() const {
+        return ExpressionPtr(new CudaExponentiationExpression(*this));
+    }
+};
+
+/**
+ * @author JKM
  * @brief CUDA module
  */
 class CudaModule : public Module {
@@ -341,6 +363,8 @@ public:
     const Function* getCudaSyncThreads() {
         return cudaSyncThreads_.get();
     }
+
+    virtual ExponentiationExpressionPtr pow(ExpressionPtr&& x, ExpressionPtr&& rhs) const;
 
 protected:
     FunctionPtr printf_;

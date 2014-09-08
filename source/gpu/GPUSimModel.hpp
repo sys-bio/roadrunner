@@ -97,6 +97,15 @@ public:
 };
 
 /**
+ * @brief Binary AST node
+ */
+class RR_DECLSPEC ExponentiationASTNode : public BinaryASTNode
+{
+public:
+    using BinaryASTNode::BinaryASTNode;
+};
+
+/**
  * @brief Container for AST-based algebra
  */
 class RR_DECLSPEC ModelAlgebra

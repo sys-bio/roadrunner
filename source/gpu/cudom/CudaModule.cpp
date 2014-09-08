@@ -68,6 +68,19 @@ void CudaKernelCallExpression::serialize(Serializer& s) const {
     s << ")";
 }
 
+// -- CudaExponentiationExpression --
+
+void CudaExponentiationExpression::serialize(Serializer& s) const {
+    // NOTE: approximation
+    s << "__powf(" << *getLHS() << ", " << *getRHS() << ")";
+}
+
+// -- CudaModule --
+
+ExponentiationExpressionPtr CudaModule::pow(ExpressionPtr&& x, ExpressionPtr&& y) const {
+    return ExponentiationExpressionPtr(new CudaExponentiationExpression(std::move(x), std::move(y)));
+}
+
 void CudaModule::serialize(Serializer& s) const {
     s << "#include <stdlib.h>\n";
     s << "#include <stdio.h>\n";
