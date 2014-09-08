@@ -16,8 +16,8 @@
  * Author: JKM
  */
 
-#ifndef rrGPUSimModelH
-#define rrGPUSimModelH
+#ifndef rrGPUSimBiochemModelH
+#define rrGPUSimBiochemModelH
 
 // == MACROS ==================================================
 
