@@ -1,3 +1,33 @@
+-- Version 1.2.6
+*  Python dynamic properties are now on the RoadRunner instead of the RoadRunner.model object 
+
+*  Fixed bug in dynamic properties where they were not cleared when a new model is loaded. 
+
+*  Added boundary species to python dynamics properties
+
+*  Redesign dynamic property generations - new code is much cleaner. 
+
+*  testing files in roadrunner.testing are automatically enumerated and run from
+   roadrunner.testing.test_files
+
+*  Fix for ordering variables correctly when creating an SimulateOptions from a libSBML test suite
+   txt file.
+
+*  If model has comp extension, automatically flatten. 
+   - Note, libSBML comp extension has numerous memory issues, comp extension models *might* cause
+   instability. 
+
+*  Upgrade to libSBML 5.10.2
+
+*  All logging output is re-directed to the IPython socket when running in the QT IPython
+   console. This allows allows logging messages to show up in the IPython console. 
+
+*  Support mixed mode arithmetic. 
+
+*  workarounds for buggy MSVC stdlib functions. 
+
+*  Significantly improve error messages for mal-formed SBML models. 
+
 -- Version 1.2.5
 *  New parallel ensemble function and 'roadrunner.stochastic' python module.
 

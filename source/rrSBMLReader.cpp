@@ -114,7 +114,8 @@ static bool has_comp(const string& sbml) {
  */
 static string flatten_comp(const string& sbml, const std::string fname)
 {
-    Log(Logger::LOG_NOTICE) << "flattening model " << fname;
+    Log(Logger::LOG_WARNING) << "Flattening model " << fname << std::endl
+                             << "LEAKING MEMORY! due to leaks in comp sbml extension.";
 
     SBMLDocument *doc = libsbml::readSBMLFromString(sbml.c_str());
     libsbml::SBMLConverter* converter = NULL;
