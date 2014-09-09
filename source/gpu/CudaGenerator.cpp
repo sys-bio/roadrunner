@@ -197,10 +197,13 @@ ExpressionPtr CudaGeneratorImpl::getVecRK(const FloatingSpecies* s, int rk_index
 
 ExpressionPtr CudaGeneratorImpl::generateExpForASTNode(const ModelASTNode* node, int rk_index) {
     assert(node);
-    // visitor does not work
+    // visitor is no good here (way too much overhead and not extensible enough)
     // product
     if (auto n = dynamic_cast<const ProductASTNode*>(node))
         return ExpressionPtr(new ProductExpression(generateExpForASTNode(n->getLeft(), rk_index), generateExpForASTNode(n->getRight(), rk_index)));
+    // division
+    if (auto n = dynamic_cast<const DivisionASTNode*>(node))
+        return ExpressionPtr(new DivisionExpression(generateExpForASTNode(n->getLeft(), rk_index), generateExpForASTNode(n->getRight(), rk_index)));
     // exponentiation
     if (auto n = dynamic_cast<const ExponentiationASTNode*>(node))
         return ExpressionPtr(mod.pow(generateExpForASTNode(n->getLeft(), rk_index), generateExpForASTNode(n->getRight(), rk_index)));

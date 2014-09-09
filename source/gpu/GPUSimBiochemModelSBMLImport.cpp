@@ -86,6 +86,9 @@ ModelASTNodePtr ConvertSbmlASTNode(const Reaction* r, const libsbml::ASTNode* no
         case libsbml::AST_POWER:
             assert((node->getNumChildren() == 2) && "Exponent expression should have degree == 2");
                 return ModelASTNodePtr(new ExponentiationASTNode(ConvertSbmlASTNode(r, node->getChild(0)), ConvertSbmlASTNode(r, node->getChild(1))));
+        case libsbml::AST_DIVIDE:
+            assert((node->getNumChildren() == 2) && "Division expression should have degree == 2");
+                return ModelASTNodePtr(new DivisionASTNode(ConvertSbmlASTNode(r, node->getChild(0)), ConvertSbmlASTNode(r, node->getChild(1))));
         default:
             throw_gpusim_exception("Unknown node type: " + std::to_string(node->getType()));
     }

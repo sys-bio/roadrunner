@@ -99,6 +99,15 @@ public:
 /**
  * @brief Binary AST node
  */
+class RR_DECLSPEC DivisionASTNode : public BinaryASTNode
+{
+public:
+    using BinaryASTNode::BinaryASTNode;
+};
+
+/**
+ * @brief Binary AST node
+ */
 class RR_DECLSPEC ExponentiationASTNode : public BinaryASTNode
 {
 public:

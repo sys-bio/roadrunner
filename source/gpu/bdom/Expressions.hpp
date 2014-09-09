@@ -875,6 +875,28 @@ public:
 
 /**
  * @author JKM
+ * @brief Division expression
+ * @details x/y
+ */
+class DivisionExpression : public BinaryExpression {
+public:
+    using BinaryExpression::BinaryExpression;
+
+    /// Copy ctor
+    DivisionExpression(const DivisionExpression& other)
+      : BinaryExpression(other) {}
+
+    virtual int getPrecedence() const { return PREC_GRP5; }
+
+    virtual void serialize(Serializer& s) const;
+
+    virtual ExpressionPtr clone() const {
+        return ExpressionPtr(new DivisionExpression(*this));
+    }
+};
+
+/**
+ * @author JKM
  * @brief Exponentiation expression
  */
 class ExponentiationExpression : public BinaryExpression {
