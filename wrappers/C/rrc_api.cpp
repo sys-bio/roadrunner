@@ -1814,140 +1814,199 @@ vector<double> rr_getRatesOfChange(RoadRunner* rr)
 }
 
 C_DECL_SPEC bool rrcCallConv getSeed(RRHandle h, long* result) {
-    try {
+    start_try
         RoadRunner *r = (RoadRunner*)h;
         Integrator *intg = r->getIntegrator(SimulateOptions::GILLESPIE);
         *result = intg->getValue("seed").convert<long>();
-    }
-    catch (std::exception& e) {
-        return false;
-    }
-    return true;
+        return true;
+    catch_bool_macro;
 }
 
 C_DECL_SPEC bool rrcCallConv setSeed(RRHandle h, long result) {
-    try {
+    start_try
         RoadRunner *r = (RoadRunner*)h;
         Integrator *intg = r->getIntegrator(SimulateOptions::GILLESPIE);
         intg->setValue("seed", result);
         return true;
-    }
-    catch (std::exception& e) {
-        return false;
-    }
+    catch_bool_macro
 }
 
 C_DECL_SPEC RRCDataPtr rrcCallConv gillespie(RRHandle handle) {
-    try {
+    start_try
         RoadRunner *r = (RoadRunner*)handle;
         SimulateOptions& o = r->getSimulateOptions();
         o.integrator = SimulateOptions::GILLESPIE;
         o.integratorFlags |= SimulateOptions::VARIABLE_STEP;
         r->simulate();
         return createRRCData(*r);
-    }
-    catch (std::exception& e) {
-        return NULL;
-    }
+    catch_ptr_macro
 }
 
 C_DECL_SPEC RRCDataPtr rrcCallConv gillespieEx(RRHandle handle, double timeStart, double timeEnd) {
-    try {
+    start_try
         setTimeStart (handle, timeStart);
         setTimeEnd (handle, timeEnd);
         return gillespie(handle);
-    }
-    catch (std::exception& e) {
-        return NULL;
-    }
+    catch_ptr_macro
 }
 
 C_DECL_SPEC RRCDataPtr rrcCallConv gillespieOnGrid(RRHandle handle) {
-    try {
+    start_try
         RoadRunner *r = (RoadRunner*)handle;
         SimulateOptions& o = r->getSimulateOptions();
         o.integrator = SimulateOptions::GILLESPIE;
         o.integratorFlags &= !SimulateOptions::VARIABLE_STEP;
         r->simulate();
         return createRRCData(*r);
-    }
-    catch (std::exception& e) {
-        return NULL;
-    }
+    catch_ptr_macro
 }
 
 C_DECL_SPEC RRCDataPtr rrcCallConv gillespieOnGridEx(RRHandle handle, double timeStart, double timeEnd, int numberOfPoints) {
-    try {
+    start_try
         setTimeStart (handle, timeStart);
         setTimeEnd (handle, timeEnd);
         setNumPoints (handle, numberOfPoints);
         return gillespieOnGrid(handle);
-    }
-    catch (std::exception& e) {
-        return NULL;
-    }
+    catch_ptr_macro
 }
 
 C_DECL_SPEC RRCDataPtr rrcCallConv gillespieMeanOnGrid(RRHandle handle, int numberOfSimulations) {
-    RRCDataPtr result, newResult;
-    int i, row, col;
-    result = gillespieOnGrid(handle);
+    start_try
+        // Standard gillespieOnGrid setup
+        RoadRunner *r = (RoadRunner*)handle;
+        SimulateOptions& o = r->getSimulateOptions();
+        o.integrator = SimulateOptions::GILLESPIE;
+        o.integratorFlags &= !SimulateOptions::VARIABLE_STEP;
+    
+        double steps = o.steps;
+    
+        RoadRunner &rref = const_cast<RoadRunner&>(*r);
+        const DoubleMatrix& reference = *rref.getSimulationData();
 
-    for (i = 2; i <= numberOfSimulations; i++) {
-        newResult = gillespieOnGrid(handle);
-        int index = 0;
-        for (row = 0; row < result->RSize; row++) {
-            for (col = 0; col < result->CSize; col++) {
-                result->Data[index] += (newResult->Data[index] - result->Data[index])/i;
-                index++;
+        // Initializes a DoubleMatrix "res" with all zeroes
+        DoubleMatrix avg(reference.RSize(), reference.CSize());
+        for (int row = 0; row < reference.RSize(); row++) {
+            for (int col = 0; col < reference.CSize(); col++) {
+                avg(row, col) = 0;
             }
         }
-    }
-    return result;
+
+        // Runs simulations, obtaining avg with Welford's Algorithm
+        for (int i = 0; i < numberOfSimulations; i++) {
+            const DoubleMatrix &temp = *r->simulate();
+            for (int j = 0; j < steps + 1; j++) {
+                avg(j, 0) += (temp(j, 0) - avg(j, 0)) / (i + 1);
+            }
+        }
+
+        DoubleMatrix &result = const_cast<DoubleMatrix&>(avg);
+
+        RRCData* rrCData = new RRCData;
+        memset(rrCData, 0, sizeof(RRCData));
+
+        // Create column info
+        const std::vector<SelectionRecord> &selections = rref.getSelections();
+        rrCData->ColumnHeaders = new char*[selections.size()];
+        for (int i = 0; i < selections.size(); i++) {
+            rrCData->ColumnHeaders[i] = rr::createText(selections[i].to_string());
+        }
+
+        // Basic Attributes of RRCData
+        rrCData->RSize = result.RSize();
+        rrCData->CSize = result.CSize();
+        int size = rrCData->RSize * rrCData->CSize;
+        rrCData->Data = new double[size];
+
+        int index = 0;
+        for (int row = 0; row < rrCData->RSize; row++) {
+            for (int col = 0; col < rrCData->CSize; col++) {
+                rrCData->Data[index++] = result(row, col);
+            }
+        }
+        return rrCData;
+    catch_ptr_macro
 }
 
 C_DECL_SPEC RRCDataPtr rrcCallConv gillespieMeanOnGridEx(RRHandle handle, double timeStart, double timeEnd, int numberOfPoints, int numberOfSimulations) {
-    try {
+    start_try
         setTimeStart (handle, timeStart);
         setTimeEnd (handle, timeEnd);
         setNumPoints (handle, numberOfPoints);
         return gillespieMeanOnGrid(handle, numberOfSimulations);
-    }
-    catch (std::exception& e) {
-        return NULL;
-    }
+    catch_ptr_macro
 }
 
-C_DECL_SPEC RRCDataPtr rrcCallConv gillespieMeanSDOnGrid(RRHandle handle, int numberOfSimulations) {
-        RRCDataPtr result, newResult;
-    int i, row, col;
-    result = gillespieOnGrid(handle);
+C_DECL_SPEC RRCDataPtr rrcCallConv gillespieMeanSDOnGrid(RRHandle handle, int numberOfSimulations) {    
+    start_try
+        // Standard gillespieOnGrid setup
+        RoadRunner *r = (RoadRunner*)handle;
+        SimulateOptions& o = r->getSimulateOptions();
+        o.integrator = SimulateOptions::GILLESPIE;
+        o.integratorFlags &= !SimulateOptions::VARIABLE_STEP;
+    
+        double steps = o.steps;
+    
+        RoadRunner &rref = const_cast<RoadRunner&>(*r);
+        const DoubleMatrix& reference = *rref.getSimulationData();
 
-    for (i = 2; i <= numberOfSimulations; i++) {
-        newResult = gillespieOnGrid(handle);
+        // Initializes a DoubleMatrix "res" with all zeroes
+        DoubleMatrix avg(reference.RSize(), reference.CSize());
+        DoubleMatrix stddev(reference.RSize(), reference.CSize());
+        for (int row = 0; row < reference.RSize(); row++) {
+            for (int col = 0; col < reference.CSize(); col++) {
+                avg(row, col) = 0;
+                stddev(row, col) = 0;
+            }
+        }
+
+        // Runs simulations, obtain avg and stddev with Welford's Algorithm
+        for (int i = 0; i < numberOfSimulations; i++) {
+            const DoubleMatrix &temp = *r->simulate();
+            for (int j = 0; j < steps + 1; j++) {
+                double delta = temp(j, 0) - avg(j, 0);
+                avg(j, 0) += delta / (i + 1);
+                stddev(j, 0) += delta * (temp(j, 0) - avg(j, 0));
+            }
+        }
+
+        DoubleMatrix &result = const_cast<DoubleMatrix&>(avg);
+
+        RRCData* rrCData = new RRCData;
+        memset(rrCData, 0, sizeof(RRCData));
+
+        // Create column info
+        const std::vector<SelectionRecord> &selections = rref.getSelections();
+        rrCData->ColumnHeaders = new char*[selections.size()];
+        for (int i = 0; i < selections.size(); i++) {
+            rrCData->ColumnHeaders[i] = rr::createText(selections[i].to_string());
+        }
+
+        // Basic Attributes of RRCData
+        rrCData->RSize = result.RSize();
+        rrCData->CSize = result.CSize();
+        int size = rrCData->RSize * rrCData->CSize;
+        rrCData->Data = new double[size];
+        rrCData->Weights = new double[size];
+
         int index = 0;
-        for (row = 0; row < result->RSize; row++) {
-            for (col = 0; col < result->CSize; col++) {
-                double diff = newResult->Data[index] - result->Data[index];
-                result->Data[index] += diff / i;
-                result->Weights[index] += diff * (newResult->Data[index] - result->Data[index]);
+        for (int row = 0; row < rrCData->RSize; row++) {
+            for (int col = 0; col < rrCData->CSize; col++) {
+                rrCData->Data[index] = result(row, col);
+                rrCData->Weights[index] = result(row, col);
                 index++;
             }
         }
-    }
-    return result;
+        return rrCData;
+    catch_ptr_macro
 }
 
 C_DECL_SPEC RRCDataPtr rrcCallConv gillespieMeanSDOnGridEx(RRHandle handle, double timeStart, double timeEnd, int numberOfPoints, int numberOfSimulations) {
-    try {
+    start_try
         setTimeStart (handle, timeStart);
         setTimeEnd (handle, timeEnd);
         setNumPoints (handle, numberOfPoints);
         return gillespieMeanSDOnGrid(handle, numberOfSimulations);
-    }
-    catch (std::exception& e) {
-        return NULL;
-    }
+    catch_ptr_macro
 }
 
 bool rrcCallConv reset(RRHandle handle)
@@ -1972,7 +2031,7 @@ bool rrcCallConv resetToOrigin(RRHandle handle)
 {
     start_try
         RoadRunner* rri = castToRoadRunner(handle);
-    rri->reset(SelectionRecord::ALL);
+        rri->reset(SelectionRecord::ALL);
         return true;
     catch_bool_macro
 }
