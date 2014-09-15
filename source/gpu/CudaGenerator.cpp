@@ -201,6 +201,9 @@ ExpressionPtr CudaGeneratorImpl::generateExpForASTNode(const ModelASTNode* node,
     // sum
     if (auto n = dynamic_cast<const SumASTNode*>(node))
         return ExpressionPtr(new SumExpression(generateExpForASTNode(n->getLeft(), rk_index), generateExpForASTNode(n->getRight(), rk_index)));
+    // difference
+    if (auto n = dynamic_cast<const DifferenceASTNode*>(node))
+        return ExpressionPtr(new DifferenceExpression(generateExpForASTNode(n->getLeft(), rk_index), generateExpForASTNode(n->getRight(), rk_index)));
     // product
     else if (auto n = dynamic_cast<const ProductASTNode*>(node))
         return ExpressionPtr(new ProductExpression(generateExpForASTNode(n->getLeft(), rk_index), generateExpForASTNode(n->getRight(), rk_index)));

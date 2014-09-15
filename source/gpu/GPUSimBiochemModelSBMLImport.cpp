@@ -78,6 +78,7 @@ ModelASTNodePtr ConvertSbmlTimesNode(const Reaction* r, const libsbml::ASTNode* 
 }
 
 // you get the idea
+// TODO: division not commutative, so check SBML semantics for an n-ary op
 ModelASTNodePtr ConvertSbmlDivisionNode(const Reaction* r, const libsbml::ASTNode* node, int start) {
     assert(node->getType() == libsbml::AST_DIVIDE && "Sanity check");
     if (start+2 == node->getNumChildren())
@@ -96,6 +97,10 @@ ModelASTNodePtr ConvertSbmlASTNode(const Reaction* r, const libsbml::ASTNode* no
                 return ModelASTNodePtr(new SumASTNode(ConvertSbmlASTNode(r, node->getChild(0)), ConvertSbmlASTNode(r, node->getChild(1))));
             else
                 return ModelASTNodePtr(new SumASTNode(ConvertSbmlASTNode(r, node->getChild(0)), ConvertSbmlPlusNode(r, node, 1)));
+        case libsbml::AST_MINUS:
+            if(node->getNumChildren() != 2)
+                throw_gpusim_exception("Difference expression should have degree 2");
+                return ModelASTNodePtr(new DifferenceASTNode(ConvertSbmlASTNode(r, node->getChild(0)), ConvertSbmlASTNode(r, node->getChild(1))));
         case libsbml::AST_TIMES:
             if(node->getNumChildren() < 2)
                 throw_gpusim_exception("Product expression should have degree >= 2");
