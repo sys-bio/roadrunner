@@ -88,7 +88,16 @@ protected:
 };
 
 /**
- * @brief Binary AST node
+ * @brief Sum AST node
+ */
+class RR_DECLSPEC SumASTNode : public BinaryASTNode
+{
+public:
+    using BinaryASTNode::BinaryASTNode;
+};
+
+/**
+ * @brief Product AST node
  */
 class RR_DECLSPEC ProductASTNode : public BinaryASTNode
 {
@@ -97,9 +106,9 @@ public:
 };
 
 /**
- * @brief Binary AST node
+ * @brief Quotient AST node
  */
-class RR_DECLSPEC DivisionASTNode : public BinaryASTNode
+class RR_DECLSPEC QuotientASTNode : public BinaryASTNode
 {
 public:
     using BinaryASTNode::BinaryASTNode;

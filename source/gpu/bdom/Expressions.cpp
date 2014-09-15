@@ -157,9 +157,9 @@ void ProductExpression::serialize(Serializer& s) const {
     serializeGroupedExp(s, getRHS());
 }
 
-// -- DivisionExpression --
+// -- QuotientExpression --
 
-void DivisionExpression::serialize(Serializer& s) const {
+void QuotientExpression::serialize(Serializer& s) const {
     serializeGroupedExp(s, getLHS());
     s << "*";
     serializeGroupedExp(s, getRHS());

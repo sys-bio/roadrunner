@@ -59,23 +59,57 @@ static libsbml::SBMLDocument *checkedReadSBMLFromString(const char* xml) {
 
 ModelASTNodePtr ConvertSbmlASTNode(const Reaction* r, const libsbml::ASTNode* node);
 
+// because SBML sum nodes are implemented as n-ary ops instead of binary ops
+ModelASTNodePtr ConvertSbmlPlusNode(const Reaction* r, const libsbml::ASTNode* node, int start) {
+    assert(node->getType() == libsbml::AST_PLUS && "Sanity check");
+    if (start+2 == node->getNumChildren())
+        return ModelASTNodePtr(new SumASTNode(ConvertSbmlASTNode(r, node->getChild(start)), ConvertSbmlASTNode(r, node->getChild(start+1))));
+    else
+        return ModelASTNodePtr(new SumASTNode(ConvertSbmlASTNode(r, node->getChild(start)), ConvertSbmlPlusNode(r, node, start+1)));
+}
+
 // because SBML product nodes are implemented as n-ary ops instead of binary ops
 ModelASTNodePtr ConvertSbmlTimesNode(const Reaction* r, const libsbml::ASTNode* node, int start) {
+    assert(node->getType() == libsbml::AST_TIMES && "Sanity check");
     if (start+2 == node->getNumChildren())
         return ModelASTNodePtr(new ProductASTNode(ConvertSbmlASTNode(r, node->getChild(start)), ConvertSbmlASTNode(r, node->getChild(start+1))));
     else
         return ModelASTNodePtr(new ProductASTNode(ConvertSbmlASTNode(r, node->getChild(start)), ConvertSbmlTimesNode(r, node, start+1)));
 }
 
+// you get the idea
+ModelASTNodePtr ConvertSbmlDivisionNode(const Reaction* r, const libsbml::ASTNode* node, int start) {
+    assert(node->getType() == libsbml::AST_DIVIDE && "Sanity check");
+    if (start+2 == node->getNumChildren())
+        return ModelASTNodePtr(new QuotientASTNode(ConvertSbmlASTNode(r, node->getChild(start)), ConvertSbmlASTNode(r, node->getChild(start+1))));
+    else
+        return ModelASTNodePtr(new QuotientASTNode(ConvertSbmlASTNode(r, node->getChild(start)), ConvertSbmlDivisionNode(r, node, start+1)));
+}
+
 ModelASTNodePtr ConvertSbmlASTNode(const Reaction* r, const libsbml::ASTNode* node) {
     assert(node);
     switch (node->getType()) {
+        case libsbml::AST_PLUS:
+            if(node->getNumChildren() < 2)
+                throw_gpusim_exception("Sum expression should have degree >= 2");
+            if (2 == node->getNumChildren())
+                return ModelASTNodePtr(new SumASTNode(ConvertSbmlASTNode(r, node->getChild(0)), ConvertSbmlASTNode(r, node->getChild(1))));
+            else
+                return ModelASTNodePtr(new SumASTNode(ConvertSbmlASTNode(r, node->getChild(0)), ConvertSbmlPlusNode(r, node, 1)));
         case libsbml::AST_TIMES:
-            assert((node->getNumChildren() >= 2) && "Product expression should have degree >= 2");
+            if(node->getNumChildren() < 2)
+                throw_gpusim_exception("Product expression should have degree >= 2");
             if (2 == node->getNumChildren())
                 return ModelASTNodePtr(new ProductASTNode(ConvertSbmlASTNode(r, node->getChild(0)), ConvertSbmlASTNode(r, node->getChild(1))));
             else
                 return ModelASTNodePtr(new ProductASTNode(ConvertSbmlASTNode(r, node->getChild(0)), ConvertSbmlTimesNode(r, node, 1)));
+        case libsbml::AST_DIVIDE:
+            if(node->getNumChildren() < 2)
+                throw_gpusim_exception("Quotient expression should have degree == 2");
+            if (2 == node->getNumChildren())
+                return ModelASTNodePtr(new QuotientASTNode(ConvertSbmlASTNode(r, node->getChild(0)), ConvertSbmlASTNode(r, node->getChild(1))));
+            else
+                return ModelASTNodePtr(new QuotientASTNode(ConvertSbmlASTNode(r, node->getChild(0)), ConvertSbmlDivisionNode(r, node, 1)));
         case libsbml::AST_NAME:
             if (r->isParameter(node->getName()))
                 return ModelASTNodePtr(new ParameterRefASTNode(r, node->getName()));
@@ -88,11 +122,8 @@ ModelASTNodePtr ConvertSbmlASTNode(const Reaction* r, const libsbml::ASTNode* no
         case libsbml::AST_POWER:
             assert((node->getNumChildren() == 2) && "Exponent expression should have degree == 2");
                 return ModelASTNodePtr(new ExponentiationASTNode(ConvertSbmlASTNode(r, node->getChild(0)), ConvertSbmlASTNode(r, node->getChild(1))));
-        case libsbml::AST_DIVIDE:
-            assert((node->getNumChildren() == 2) && "Division expression should have degree == 2");
-                return ModelASTNodePtr(new DivisionASTNode(ConvertSbmlASTNode(r, node->getChild(0)), ConvertSbmlASTNode(r, node->getChild(1))));
         default:
-            throw_gpusim_exception("Unknown node type: " + std::to_string(node->getType()) + " (" + std::string(node->getOperatorName()) + ")");
+            throw_gpusim_exception("Unknown node type: " + std::to_string(node->getType()) + (node->getOperatorName() ? " (" + std::string(node->getOperatorName()) + ")" : std::string("")));
     }
 }
 

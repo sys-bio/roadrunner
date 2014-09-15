@@ -875,15 +875,15 @@ public:
 
 /**
  * @author JKM
- * @brief Division expression
+ * @brief Quotient expression
  * @details x/y
  */
-class DivisionExpression : public BinaryExpression {
+class QuotientExpression : public BinaryExpression {
 public:
     using BinaryExpression::BinaryExpression;
 
     /// Copy ctor
-    DivisionExpression(const DivisionExpression& other)
+    QuotientExpression(const QuotientExpression& other)
       : BinaryExpression(other) {}
 
     virtual int getPrecedence() const { return PREC_GRP5; }
@@ -891,7 +891,7 @@ public:
     virtual void serialize(Serializer& s) const;
 
     virtual ExpressionPtr clone() const {
-        return ExpressionPtr(new DivisionExpression(*this));
+        return ExpressionPtr(new QuotientExpression(*this));
     }
 };
 
