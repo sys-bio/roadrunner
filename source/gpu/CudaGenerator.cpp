@@ -318,6 +318,8 @@ void CudaGeneratorImpl::generate() {
     {
         PrintCoefs->setIsDeviceFun(true);
 
+        PrintCoefs->addStatement(ExpressionPtr(new FunctionCallExpression(mod.getCudaSyncThreads())));
+
         IfStatement* if_thd1 = IfStatement::downcast(PrintCoefs->addStatement(StatementPtr(new IfStatement(
                     ExpressionPtr(new EqualityCompExpression(mod.getThreadIdx(CudaModule::IndexComponent::x), LiteralIntExpression(0)))
                 ))));
@@ -327,22 +329,20 @@ void CudaGeneratorImpl::generate() {
 
         std::string printcoef_fmt_str;
         for (int rk_index=0; rk_index<4; ++rk_index) {
-            for (int component=0; component<n; ++component)
-                printcoef_fmt_str += "%3.3f ";
-            printcoef_fmt_str += "\\n";
-        }
-
-        FunctionCallExpression* printf_coef = FunctionCallExpression::downcast(ExpressionStatement::insert(if_thd1->getBody(), FunctionCallExpression(
+            for (int component=0; component<n; ++component) {
+                ExpressionStatement::insert(if_thd1->getBody(), FunctionCallExpression(
                         mod.getPrintf(),
-                        StringLiteralExpression(printcoef_fmt_str)
-                    ))->getExpression());
-
-        for (int rk_index=0; rk_index<4; ++rk_index) {
-            for (int component=0; component<n; ++component)
-                        printf_coef->passArgument(
-                            getRKCoef(PrintCoefs->getPositionalParam(0), ExpressionPtr(new LiteralIntExpression(rk_index)), ExpressionPtr(new LiteralIntExpression(component)))
-                          );
+                        StringLiteralExpression("%3.3f "),
+                        getRKCoef(PrintCoefs->getPositionalParam(0), ExpressionPtr(new LiteralIntExpression(rk_index)), ExpressionPtr(new LiteralIntExpression(component)))
+                    ));
+            }
+            ExpressionStatement::insert(if_thd1->getBody(), FunctionCallExpression(
+                mod.getPrintf(),
+                StringLiteralExpression("\\n")
+                ));
         }
+
+        PrintCoefs->addStatement(ExpressionPtr(new FunctionCallExpression(mod.getCudaSyncThreads())));
     }
 
     CudaKernel* kernel = CudaKernel::downcast(mod.addFunction(CudaKernel("GPUIntMEBlockedRK4", BaseTypes::getTp(BaseTypes::VOID), {FunctionParameter(BaseTypes::getTp(BaseTypes::INT), "km"), FunctionParameter(pRKReal, "kt"), FunctionParameter(pRKReal, "kv")})));
@@ -394,6 +394,31 @@ void CudaGeneratorImpl::generate() {
 //                     ));
 //                 }
             }
+
+
+            // sync & print coefs
+
+            IfStatement* if_thd1 = IfStatement::downcast(kernel->addStatement(StatementPtr(new IfStatement(
+                    ExpressionPtr(new EqualityCompExpression(mod.getThreadIdx(CudaModule::IndexComponent::x), LiteralIntExpression(0)))
+                ))));
+            // printf
+            if_thd1->getBody().addStatement(ExpressionPtr(new FunctionCallExpression(mod.getPrintf(), ExpressionPtr(new StringLiteralExpression("**** Initial rk coefs ****\\n")))));
+
+            kernel->addStatement(ExpressionPtr(new FunctionCallExpression(mod.getCudaSyncThreads())));
+            kernel->addStatement(ExpressionPtr(new FunctionCallExpression(PrintCoefs, VariableRefExpression(k))));
+
+//             for (int i=0; i<4; ++i) {
+//                 if (diagnosticsEnabled()) {
+//                     // printf showing the init'd value of k
+//                     ExpressionStatement::insert(*kernel, FunctionCallExpression(
+//                         mod.getPrintf(),
+//                         StringLiteralExpression("k[RK_COEF_GET_OFFSET(%d, %d)] = %f\\n"),
+//                         LiteralIntExpression(i),
+//                         MacroExpression(RK_GET_COMPONENT),
+//                         getK(LiteralIntExpression(i), MacroExpression(RK_GET_COMPONENT))
+//                     ));
+//                 }
+//             }
         }
 
         {
@@ -441,6 +466,7 @@ void CudaGeneratorImpl::generate() {
 
         if (diagnosticsEnabled()) {
             // print coefs
+            // BUG? order reversed?
             kernel->addStatement(ExpressionPtr(new FunctionCallExpression(PrintCoefs, VariableRefExpression(k))));
             kernel->addStatement(ExpressionPtr(new FunctionCallExpression(mod.getCudaSyncThreads())));
         }
