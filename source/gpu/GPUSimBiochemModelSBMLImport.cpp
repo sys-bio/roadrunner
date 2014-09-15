@@ -83,6 +83,8 @@ ModelASTNodePtr ConvertSbmlASTNode(const Reaction* r, const libsbml::ASTNode* no
                 return ModelASTNodePtr(new FloatingSpeciesRefASTNode(r->getFloatingSpecies(node->getName())));
             else
                 throw_gpusim_exception(std::string("Unknown NAME node: ") + node->getName());
+        case libsbml::AST_INTEGER:
+            return ModelASTNodePtr(new IntegerLiteralASTNode(node->getInteger()));
         case libsbml::AST_POWER:
             assert((node->getNumChildren() == 2) && "Exponent expression should have degree == 2");
                 return ModelASTNodePtr(new ExponentiationASTNode(ConvertSbmlASTNode(r, node->getChild(0)), ConvertSbmlASTNode(r, node->getChild(1))));
@@ -90,7 +92,7 @@ ModelASTNodePtr ConvertSbmlASTNode(const Reaction* r, const libsbml::ASTNode* no
             assert((node->getNumChildren() == 2) && "Division expression should have degree == 2");
                 return ModelASTNodePtr(new DivisionASTNode(ConvertSbmlASTNode(r, node->getChild(0)), ConvertSbmlASTNode(r, node->getChild(1))));
         default:
-            throw_gpusim_exception("Unknown node type: " + std::to_string(node->getType()));
+            throw_gpusim_exception("Unknown node type: " + std::to_string(node->getType()) + " (" + std::string(node->getOperatorName()) + ")");
     }
 }
 

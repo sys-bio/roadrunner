@@ -202,10 +202,10 @@ ExpressionPtr CudaGeneratorImpl::generateExpForASTNode(const ModelASTNode* node,
     if (auto n = dynamic_cast<const ProductASTNode*>(node))
         return ExpressionPtr(new ProductExpression(generateExpForASTNode(n->getLeft(), rk_index), generateExpForASTNode(n->getRight(), rk_index)));
     // division
-    if (auto n = dynamic_cast<const DivisionASTNode*>(node))
+    else if (auto n = dynamic_cast<const DivisionASTNode*>(node))
         return ExpressionPtr(new DivisionExpression(generateExpForASTNode(n->getLeft(), rk_index), generateExpForASTNode(n->getRight(), rk_index)));
     // exponentiation
-    if (auto n = dynamic_cast<const ExponentiationASTNode*>(node))
+    else if (auto n = dynamic_cast<const ExponentiationASTNode*>(node))
         return ExpressionPtr(mod.pow(generateExpForASTNode(n->getLeft(), rk_index), generateExpForASTNode(n->getRight(), rk_index)));
     // floating species ref
     else if (auto n = dynamic_cast<const FloatingSpeciesRefASTNode*>(node))
@@ -213,6 +213,9 @@ ExpressionPtr CudaGeneratorImpl::generateExpForASTNode(const ModelASTNode* node,
     // parameter ref
     else if (auto n = dynamic_cast<const ParameterRefASTNode*>(node))
         return ExpressionPtr(new RealLiteralExpression((n->getParameterVal(), rk_index)));
+    // integer
+    else if (auto n = dynamic_cast<const IntegerLiteralASTNode*>(node))
+        return ExpressionPtr(new LiteralIntExpression(n->getValue()));
     else
         return ExpressionPtr(new LiteralIntExpression(12345));
 }

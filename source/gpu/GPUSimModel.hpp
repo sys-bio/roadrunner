@@ -115,6 +115,36 @@ public:
 };
 
 /**
+ * @brief Literal AST node
+ */
+class RR_DECLSPEC LiteralASTNode : public ModelASTNode
+{
+public:
+
+protected:
+};
+
+/**
+ * @brief Integer literal AST node
+ */
+class RR_DECLSPEC IntegerLiteralASTNode : public LiteralASTNode
+{
+public:
+    /// Construct from value
+    IntegerLiteralASTNode(long val)
+      : val_(val) {}
+
+    /// Get the stored value
+    long getValue() const { return val_; }
+
+    /// Set the stored value
+    void setValue(long v) { val_ = v; }
+
+protected:
+    long val_;
+};
+
+/**
  * @brief Container for AST-based algebra
  */
 class RR_DECLSPEC ModelAlgebra
