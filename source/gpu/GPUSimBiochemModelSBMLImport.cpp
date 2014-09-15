@@ -120,10 +120,11 @@ ModelASTNodePtr ConvertSbmlASTNode(const Reaction* r, const libsbml::ASTNode* no
         case libsbml::AST_INTEGER:
             return ModelASTNodePtr(new IntegerLiteralASTNode(node->getInteger()));
         case libsbml::AST_POWER:
+        case libsbml::AST_FUNCTION_POWER:
             assert((node->getNumChildren() == 2) && "Exponent expression should have degree == 2");
                 return ModelASTNodePtr(new ExponentiationASTNode(ConvertSbmlASTNode(r, node->getChild(0)), ConvertSbmlASTNode(r, node->getChild(1))));
         default:
-            throw_gpusim_exception("Unknown node type: " + std::to_string(node->getType()) + (node->getOperatorName() ? " (" + std::string(node->getOperatorName()) + ")" : std::string("")));
+            throw_gpusim_exception("Unknown node type: " + std::to_string(node->getType()) + (node->getOperatorName() ? " (" + std::string(node->getOperatorName()) + ")" : std::string("")) + (node->getClass().size() ? " [" + node->getClass() + "]" : std::string("")));
     }
 }
 

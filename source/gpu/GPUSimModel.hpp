@@ -97,6 +97,15 @@ public:
 };
 
 /**
+ * @brief Sum AST node
+ */
+class RR_DECLSPEC DifferenceASTNode : public BinaryASTNode
+{
+public:
+    using BinaryASTNode::BinaryASTNode;
+};
+
+/**
  * @brief Product AST node
  */
 class RR_DECLSPEC ProductASTNode : public BinaryASTNode

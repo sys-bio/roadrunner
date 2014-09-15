@@ -173,9 +173,9 @@ void SumExpression::serialize(Serializer& s) const {
     serializeGroupedExp(s, getRHS());
 }
 
-// -- SubtractionExpression --
+// -- DifferenceExpression --
 
-void SubtractionExpression::serialize(Serializer& s) const {
+void DifferenceExpression::serialize(Serializer& s) const {
     serializeGroupedExp(s, getLHS());
     s << " - ";
     serializeGroupedExp(s, getRHS());

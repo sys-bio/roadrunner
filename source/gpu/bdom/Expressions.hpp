@@ -939,12 +939,12 @@ public:
  * @brief Subtraction expression
  * @details x - y
  */
-class SubtractionExpression : public BinaryExpression {
+class DifferenceExpression : public BinaryExpression {
 public:
     using BinaryExpression::BinaryExpression;
 
     /// Copy ctor
-    SubtractionExpression(const SubtractionExpression& other)
+    DifferenceExpression(const DifferenceExpression& other)
       : BinaryExpression(other) {}
 
     virtual int getPrecedence() const { return PREC_GRP6; }
@@ -952,7 +952,7 @@ public:
     virtual void serialize(Serializer& s) const;
 
     virtual ExpressionPtr clone() const {
-        return ExpressionPtr(new SubtractionExpression(*this));
+        return ExpressionPtr(new DifferenceExpression(*this));
     }
 };
 
@@ -960,6 +960,7 @@ public:
  * @author JKM
  * @brief Sum expression
  * @details x + y
+ * @deprecated
  */
 // DEPRECATED
 class SubtractExpression : public BinaryExpression {

@@ -251,7 +251,7 @@ ExpressionPtr CudaGeneratorImpl::generateReactionRateExp(const Reaction* r, int 
 ExpressionPtr CudaGeneratorImpl::accumulate(ExpressionPtr&& sum, ExpressionPtr&& item, bool invert) {
     if (sum)
         return invert ?
-            ExpressionPtr(new SubtractionExpression(std::move(sum), std::move(item))) :
+            ExpressionPtr(new DifferenceExpression(std::move(sum), std::move(item))) :
             ExpressionPtr(new SumExpression(std::move(sum), std::move(item)));
     else
         return invert ?
@@ -451,7 +451,7 @@ void CudaGeneratorImpl::generate() {
             update_coef_loop->setInitExp(ExpressionPtr(new VariableInitExpression(rk_gen, ExpressionPtr(new LiteralIntExpression(0)))));
 
             update_coef_loop->setCondExp(ExpressionPtr(new LTComparisonExpression(ExpressionPtr(new VariableRefExpression(rk_gen)), ExpressionPtr(
-                new SubtractionExpression(VariableRefExpression(km), LiteralIntExpression(1))
+                new DifferenceExpression(VariableRefExpression(km), LiteralIntExpression(1))
               ))));
 
             update_coef_loop->setLoopExp(ExpressionPtr(new PreincrementExpression(ExpressionPtr(new VariableRefExpression(rk_gen)))));
@@ -460,7 +460,7 @@ void CudaGeneratorImpl::generate() {
             h = update_coef_loop->addVariable(Variable(RKReal, "h"));
             VariableInitExpression::downcast(ExpressionStatement::insert(update_coef_loop->getBody(),
             VariableInitExpression(h,
-              SubtractionExpression(
+              DifferenceExpression(
                   ArrayIndexExpression(t, SumExpression(VariableRefExpression(rk_gen), LiteralIntExpression(1))),
                   ArrayIndexExpression(t, VariableRefExpression(rk_gen))
               )
