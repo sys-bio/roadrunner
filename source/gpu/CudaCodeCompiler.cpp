@@ -152,9 +152,9 @@ namespace rrgpu
 
         int pid = fork();
         switch (pid) {
-            case -1;
+            case -1:
                 throw_gpusim_exception("Failed to fork");
-            case 0;
+            case 0:
                 // Child - writes to pipe
                 // close read descriptor
                 close(filedes[0]);
