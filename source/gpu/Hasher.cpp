@@ -34,6 +34,19 @@ std::string Hashval::str() const {
     return ss.str();
 }
 
+Hashval Hashval::combined(const Hashval& other) {
+    Hashval result;
+    // Based on impl from boost::hash which is in turn based on Hoad & Zobel
+    // http://goanna.cs.rmit.edu.au/~jz/fulltext/jasist-tch.pdf
+    // ref: http://www.open-std.org/jtc1/sc22/wg21/docs/papers/2014/n3876.pdf
+    result.digest_[0] = digest_[0] + 0x9e3779b9 + (other.digest_[0]<<6) + (other.digest_[0]>>2);
+    result.digest_[1] = digest_[1] + 0x9e3779b9 + (other.digest_[1]<<6) + (other.digest_[1]>>2);
+    result.digest_[2] = digest_[2] + 0x9e3779b9 + (other.digest_[2]<<6) + (other.digest_[2]>>2);
+    result.digest_[3] = digest_[3] + 0x9e3779b9 + (other.digest_[3]<<6) + (other.digest_[3]>>2);
+
+    return result;
+}
+
 Hashval::Hashval(sha1::SHA1& s) {
     useDigest(s);
 }

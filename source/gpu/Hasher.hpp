@@ -59,6 +59,14 @@ public:
      */
     std::string str() const;
 
+    /**
+     * @brief Combines this hash value with another
+     * @details Can be used to produce a hash for an
+     * n-tuple. Works for the boundary case of repeated
+     * values.
+     */
+    Hashval combined(const Hashval& other);
+
 protected:
     Hashval() {}
 

@@ -15,6 +15,7 @@
 # include "CudaGenerator.hpp"
 # include "Hasher.hpp"
 # include "rrUtils.h"
+# include "GitInfo.h"
 
 #include "Poco/SharedLibrary.h"
 
@@ -698,7 +699,7 @@ void CudaGeneratorImpl::generate() {
 
     // generate temporary file names
 
-    std::string hashedid = mod_.getSBMLHash();
+    std::string hashedid = mod_.getSBMLHash().combined(Hash::me(getGitLastCommit())).str();
 
 //     Log(Logger::LOG_DEBUG) << "Hashed model id: " << hashedid;
 

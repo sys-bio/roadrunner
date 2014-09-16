@@ -6,7 +6,6 @@
 #pragma hdrstop
 #include "GPUSimExecutableModel.h"
 #include "CudaGenerator.hpp"
-#include "Hasher.hpp"
 #include "ModelResources.h"
 #include "rrSparse.h"
 #include "rrLogger.h"
@@ -77,7 +76,7 @@ inline bool checkBitfieldSubset(uint32_t type, uint32_t value) {
 GPUSimExecutableModel::GPUSimExecutableModel(std::string const &sbml, unsigned loadSBMLOptions)
     : GPUSimModel(sbml, loadSBMLOptions), generator_(new dom::CudaGenerator()) {
     // generate a hash of the SBML (TODO: find a faster way to get a UUID for the model)
-    sbmlhash_ = Hash::me(sbml).str();
+    sbmlhash_.reset(new Hashval(Hash::me(sbml)));
 #if RR_GPUSIM_USE_LLVM_MODEL
     rrllvm::LLVMModelGenerator modelGenerator{Compiler::getDefaultCompiler()};
     llvmmodel_.reset(dynamic_cast<rrllvm::LLVMExecutableModel*>(modelGenerator.createModel(sbml, loadSBMLOptions)));

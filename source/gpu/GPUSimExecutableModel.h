@@ -27,6 +27,7 @@
 #include "GPUSimBiochemModel.h"
 #include "rrExecutableModel.h"
 #include "GPUSimException.h"
+#include "Hasher.hpp"
 
 // #include "EvalInitialConditionsCodeGen.h"
 // #include "EvalReactionRatesCodeGen.h"
@@ -114,10 +115,10 @@ public:
     }
 
     // TODO: find a faster way to get a UUID for the model
-    std::string getSBMLHash() const {
-        if(!sbmlhash_.size())
+    Hashval getSBMLHash() const {
+        if(!sbmlhash_)
            throw_gpusim_exception("No stored hash");
-        return sbmlhash_;
+        return *sbmlhash_;
     }
 
     /// Get the entry point into the GPU code
@@ -512,7 +513,7 @@ private:
     bool outdated_ = true;
 
     /// A hash of the input sbml
-    std::string sbmlhash_;
+    std::unique_ptr<Hashval> sbmlhash_;
 
 #if RR_GPUSIM_USE_LLVM_MODEL
     // just throws exc if no model
