@@ -699,7 +699,11 @@ void CudaGeneratorImpl::generate() {
 
     // generate temporary file names
 
-    std::string hashedid = mod_.getSBMLHash().combined(Hash::me(getGitLastCommit())).str();
+//     Log(Logger::LOG_DEBUG) << "Last git commit: " << getGitLastCommit();
+
+    // The git version info definitely doesn't work as of 4ad273339b84e3149196b5a08936375e42edc13b
+    // (reports last commit 19abcd7d7de27be773c640bfdde6455c9bcf4125)
+    std::string hashedid = mod_.getSBMLHash().str();
 
 //     Log(Logger::LOG_DEBUG) << "Hashed model id: " << hashedid;
 
