@@ -219,7 +219,7 @@ ExpressionPtr CudaGeneratorImpl::generateExpForASTNode(const ModelASTNode* node,
         return getVecRK(n->getFloatingSpecies(), rk_index);
     // parameter ref
     else if (auto n = dynamic_cast<const ParameterRefASTNode*>(node))
-        return ExpressionPtr(new RealLiteralExpression((n->getParameterVal(), rk_index)));
+        return ExpressionPtr(new RealLiteralExpression(n->getParameterVal()));
     // integer
     else if (auto n = dynamic_cast<const IntegerLiteralASTNode*>(node))
         return ExpressionPtr(new LiteralIntExpression(n->getValue()));
