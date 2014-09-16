@@ -22,6 +22,9 @@
 #include <stdlib.h>
 #include <unistd.h>
 #include <sys/wait.h>
+// #include <sys/time.h>
+#include <fcntl.h>
+#include <time.h>
 
 // == CODE ====================================================
 
@@ -175,13 +178,72 @@ namespace rrgpu
             default:
                 // Parent - reads from pipe
                 close(filedes[1]);
-                nbytes = read(filedes[0], sbuf, sizeof(sbuf));
+
+//                 timeval tinterval;
+//                 fd_set fdset;
+//                 for (int z=0; z<10; ++z) {
+//                     std::cerr << "Waiting" << std::endl;
+//                     tinterval.tv_sec = 1;
+//                     tinterval.tv_usec = 0;
+//                     FD_ZERO(&fdset);
+//                     FD_SET(filedes[0], &fdset);
+//                     int selcode;
+//                     if ((selcode = select(1, &fdset, NULL, NULL, &tinterval)) == -1) {
+//                         throw_gpusim_exception("Problem with pipe");
+//                     } else if (selcode) {
+// //                     if (FD_ISSET(filedes[0], &fdset)) {
+//                         std::cerr << "Ready" << std::endl;
+//                         break;
+//                     }
+//                     std::cerr << "selcode = " << selcode << std::endl;
+//                 }
+
+                int flags = fcntl(filedes[0], F_GETFL, 0);
+                if (fcntl(filedes[0], F_SETFL, O_NONBLOCK | flags) == -1)
+                    throw_gpusim_exception("Problem setting flags");
+//                 std::cerr << "flags pre " << std::hex << flags << " flags post " << std::hex << fcntl(filedes[0], F_GETFL, 0) << " O_NONBLOCK " << O_NONBLOCK << std::endl;
+                timespec tspec;
+                int c=0;
+                std::string throbber_semi[4] = {"◐", "◓", "◑", "◒"};
+                if (Logger::getLevel() >= Logger::LOG_NOTICE)
+                    std::cerr << "Compiling CUDA code..." <<  throbber_semi[0];
+//                 for (int z=0; z<1000; ++z) {
+                while (1) {
+//                     std::cerr << "waiting\n";
+                    if (++c >= 4)
+                        c = 0;
+//                     std::cerr << c << std::endl;
+//                     std::cerr << throbber_semi[0] << std::endl;
+//                     std::cerr << throbber_semi[1] << std::endl;
+//                     std::cerr << throbber_semi[2] << std::endl;
+//                     std::cerr << throbber_semi[3] << std::endl;
+                    if (Logger::getLevel() >= Logger::LOG_NOTICE)
+                        std::cerr << "\b" << throbber_semi[c];
+
+                    // sleep
+                    tspec.tv_sec = 0;
+//                     tspec.tv_nsec = 0;
+//                     tspec.tv_nsec = 100000000;
+                    tspec.tv_nsec = 10000000;
+                    if (nanosleep(&tspec, NULL) < 0)
+                        throw_gpusim_exception("Problem with nanosleep");
+
+                    errno = 0;
+                    nbytes = read(filedes[0], sbuf, sizeof(sbuf));
+                    if (errno != EAGAIN) {
+//                         std::cerr << "finished reading";
+                        if (Logger::getLevel() >= Logger::LOG_NOTICE)
+                            std::cerr << "\bDone\n";
+                        break;
+                    }
+                }
                 close(filedes[0]);
         }
 
         int code = 0;
+//         std::cerr << "Wait for child to finish" << std::endl;
         if (waitpid(pid, &code, 0) == -1)
-            throw_gpusim_exception("Problem with child process");;
+            throw_gpusim_exception("Problem with child process");
 
 # endif
         Log(Logger::LOG_DEBUG) << "nvcc return code: " << code << "\n";
