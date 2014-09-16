@@ -345,6 +345,38 @@ void CudaGeneratorImpl::generate() {
         PrintCoefs->addStatement(ExpressionPtr(new FunctionCallExpression(mod.getCudaSyncThreads())));
     }
 
+    CudaFunction* PrintStatevec = mod.addFunction(CudaFunction("PrintStatevec", BaseTypes::getTp(BaseTypes::VOID), {FunctionParameter(pRKReal, "k")}));
+
+    {
+        PrintStatevec->setIsDeviceFun(true);
+
+        PrintStatevec->addStatement(ExpressionPtr(new FunctionCallExpression(mod.getCudaSyncThreads())));
+
+        IfStatement* if_thd1 = IfStatement::downcast(PrintStatevec->addStatement(StatementPtr(new IfStatement(
+                    ExpressionPtr(new EqualityCompExpression(mod.getThreadIdx(CudaModule::IndexComponent::x), LiteralIntExpression(0)))
+                ))));
+
+        // printf
+        if_thd1->getBody().addStatement(ExpressionPtr(new FunctionCallExpression(mod.getPrintf(), ExpressionPtr(new StringLiteralExpression("PrintStatevec\\n")))));
+
+        std::string printcoef_fmt_str;
+        for (int rk_index=0; rk_index<4; ++rk_index) {
+            for (int component=0; component<n; ++component) {
+                ExpressionStatement::insert(if_thd1->getBody(), FunctionCallExpression(
+                        mod.getPrintf(),
+                        StringLiteralExpression("%3.3f "),
+                        getRKCoef(PrintStatevec->getPositionalParam(0), ExpressionPtr(new LiteralIntExpression(rk_index)), ExpressionPtr(new LiteralIntExpression(component)))
+                    ));
+            }
+            ExpressionStatement::insert(if_thd1->getBody(), FunctionCallExpression(
+                mod.getPrintf(),
+                StringLiteralExpression("\\n")
+                ));
+        }
+
+        PrintStatevec->addStatement(ExpressionPtr(new FunctionCallExpression(mod.getCudaSyncThreads())));
+    }
+
     CudaKernel* kernel = CudaKernel::downcast(mod.addFunction(CudaKernel("GPUIntMEBlockedRK4", BaseTypes::getTp(BaseTypes::VOID), {FunctionParameter(BaseTypes::getTp(BaseTypes::INT), "km"), FunctionParameter(pRKReal, "kt"), FunctionParameter(pRKReal, "kv")})));
 
     // the step size
