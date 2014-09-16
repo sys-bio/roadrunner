@@ -17,8 +17,15 @@
 
 #include "Poco/SharedLibrary.h"
 
+#include <errno.h>
+#include <stdio.h>
+#include <stdlib.h>
+#include <unistd.h>
+#include <sys/wait.h>
+
 // == CODE ====================================================
 
+#define USE_POPEN 0
 
 namespace rr
 {
@@ -123,14 +130,56 @@ namespace rrgpu
 
         Log(Logger::LOG_DEBUG) << "CUDA compiler line: " << popenline;
 
-        FILE* pp = popen(popenline.c_str(), "r");
-
-        #define SBUFLEN 512
+        #define SBUFLEN 4096
         char sbuf[SBUFLEN];
+
+        FILE* pp = NULL;
+# if USE_POPEN
+        pp = popen(popenline.c_str(), "r");
+
         fgets(sbuf, SBUFLEN, pp);
 
         int code = pclose(pp);
         pp = NULL;
+# else
+        int filedes[2];
+        ssize_t nbytes;
+
+        // http://www.microhowto.info/howto/capture_the_output_of_a_child_process_in_c.html
+
+        if (int pipecode = pipe(filedes) == -1)
+            throw_gpusim_exception("Failed to pipe");
+
+        int pid = fork();
+        switch (pid) {
+            case -1;
+                throw_gpusim_exception("Failed to fork");
+            case 0;
+                // Child - writes to pipe
+                // close read descriptor
+                close(filedes[0]);
+                // route stdout to the pipe
+                while ((dup2(filedes[1], STDOUT_FILENO) == -1) && (errno == EINTR)) {}
+                // route stderr to the pipe
+                while ((dup2(filedes[1], STDERR_FILENO) == -1) && (errno == EINTR)) {}
+
+                close(filedes[1]);
+
+                execl("/usr/local/cuda-6.0/bin/nvcc", "-D__CUDACC__", "-ccbin", "gcc", "-m32", "--ptxas-options=-v", "--compiler-options", "'-fPIC'", "-Drr_cuda_model_EXPORTS", "-Xcompiler", ",\"-fPIC\",\"-fPIC\",\"-g\"", "-DNVCC", "--shared", "-o", result.impl_->libname_.c_str(), cuda_src_name.c_str(), (char*)0);
+
+                perror("execl");
+                _exit(1);
+            default:
+                // Parent - reads from pipe
+                close(filedes[1]);
+                nbytes = read(filedes[0], sbuf, sizeof(sbuf));
+                close(filedes[0]);
+        }
+
+        int code = 0;
+        waitpid(pid, &code, 0);
+
+# endif
         // 512 for warning
         Log(Logger::LOG_DEBUG) << "nvcc return code: " << code << "\n";
 
