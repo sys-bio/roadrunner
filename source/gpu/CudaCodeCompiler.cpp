@@ -139,7 +139,8 @@ namespace rrgpu
 
         fgets(sbuf, SBUFLEN, pp);
 
-        int code = pclose(pp);
+        // 512 for warning
+        int code = pclose(pp)/256;
         pp = NULL;
 # else
         int filedes[2];
@@ -159,13 +160,15 @@ namespace rrgpu
                 // close read descriptor
                 close(filedes[0]);
                 // route stdout to the pipe
-                while ((dup2(filedes[1], STDOUT_FILENO) == -1) && (errno == EINTR)) {}
+//                 while ((dup2(filedes[1], STDOUT_FILENO) == -1) && (errno == EINTR)) {}
                 // route stderr to the pipe
                 while ((dup2(filedes[1], STDERR_FILENO) == -1) && (errno == EINTR)) {}
 
                 close(filedes[1]);
 
-                execl("/usr/local/cuda-6.0/bin/nvcc", "-D__CUDACC__", "-ccbin", "gcc", "-m32", "--ptxas-options=-v", "--compiler-options", "'-fPIC'", "-Drr_cuda_model_EXPORTS", "-Xcompiler", ",\"-fPIC\",\"-fPIC\",\"-g\"", "-DNVCC", "--shared", "-o", result.impl_->libname_.c_str(), cuda_src_name.c_str(), (char*)0);
+                execl("/usr/local/cuda-6.0/bin/nvcc", "nvcc", "-D__CUDACC__", "-ccbin", "gcc", "-m32", "--ptxas-options=-v", "--compiler-options", "'-fPIC'", "-Drr_cuda_model_EXPORTS", "-Xcompiler", ",\"-fPIC\",\"-fPIC\",\"-g\"", "-DNVCC", "--shared", "-o", result.impl_->libname_.c_str(), cuda_src_name.c_str(), (char*)0);
+
+//                 execl("/bin/ls", "ls", "/home/jkm", (char*)0);
 
                 perror("execl");
                 _exit(1);
@@ -177,13 +180,13 @@ namespace rrgpu
         }
 
         int code = 0;
-        waitpid(pid, &code, 0);
+        if (waitpid(pid, &code, 0) == -1)
+            throw_gpusim_exception("Problem with child process");;
 
 # endif
-        // 512 for warning
         Log(Logger::LOG_DEBUG) << "nvcc return code: " << code << "\n";
 
-        if(code/256) {
+        if(code) {
             std::stringstream ss;
             ss << "nvcc code: " << code << "\n";
             ss << "Compiler errors:\n" << sbuf << "\n";
@@ -198,9 +201,9 @@ namespace rrgpu
         fgets(sbuf, SBUFLEN, pp);
         result.impl_->entryMangled_ = sbuf;
 
-        code = pclose(pp);
+        code = pclose(pp)/256;
 
-        if(code/256) {
+        if(code) {
             std::stringstream ss;
             ss << "Could not find symbol: " << entryName << "\n";
             throw_gpusim_exception(ss.str());
