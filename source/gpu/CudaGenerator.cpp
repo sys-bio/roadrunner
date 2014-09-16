@@ -14,10 +14,7 @@
 
 # include "CudaGenerator.hpp"
 # include "Hasher.hpp"
-# include "rrUtils.h"
-# include "GitInfo.h"
-
-#include "Poco/SharedLibrary.h"
+// # include "GitInfo.h" // Doesn't work
 
 #include <fstream>
 #include <sstream>
@@ -34,16 +31,16 @@ namespace rrgpu
 namespace dom
 {
 
-class CudaGeneratorSBML {
-public:
-    /**
-     * @brief
-     * @details Given a component of the state vector,
-     * determine which side (if any) of the reaction
-     * it is on
-     */
-    int getReactionSide(const std::string& species_id);
-};
+// class CudaGeneratorSBML {
+// public:
+//     /**
+//      * @brief
+//      * @details Given a component of the state vector,
+//      * determine which side (if any) of the reaction
+//      * it is on
+//      */
+//     int getReactionSide(const std::string& species_id);
+// };
 
 class CudaGeneratorImpl {
 public:
@@ -136,8 +133,10 @@ protected:
     }
 
     EntryPointSig entry_ = nullptr;
-    Poco::SharedLibrary so_;
-    CudaGeneratorSBML sbmlgen_;
+//     Poco::SharedLibrary so_;
+    CudaCodeCompiler compiler_;
+    CudaExecutableModule exemodule_;
+//     CudaGeneratorSBML sbmlgen_;
     GPUSimExecutableModel& mod_;
     CudaModule mod;
 
@@ -689,104 +688,10 @@ void CudaGeneratorImpl::generate() {
 
 //     Log(Logger::LOG_DEBUG) << "Hashed model id: " << hashedid;
 
-    std::string cuda_src_name = joinPath(getTempDir(), "rr_cuda_model_" + hashedid + ".cu");
-
-    Log(Logger::LOG_DEBUG) << "CUDA source: " << cuda_src_name;
-
-    std::string libname = joinPath(getTempDir(), "rr_cuda_model_" + hashedid + ".so");
-
-    Log(Logger::LOG_DEBUG) << "CUDA object: " << libname;
-
-    auto serialize_start = std::chrono::high_resolution_clock::now();
-
-    // serialize the module to a document
-
-    {
-        Serializer s(cuda_src_name);
-        mod.serialize(s);
-    }
-
-    auto serialize_finish = std::chrono::high_resolution_clock::now();
-
-    Log(Logger::LOG_INFORMATION) << "Serializing model took " << std::chrono::duration_cast<std::chrono::milliseconds>(serialize_finish - serialize_start).count() << " ms";
-
-    auto compile_start = std::chrono::high_resolution_clock::now();
-
-    // compile the module
-
-    std::string popenline = "nvcc -D__CUDACC__ -ccbin gcc -m32 --ptxas-options=-v --compiler-options '-fPIC' -Drr_cuda_model_EXPORTS -Xcompiler ,\"-fPIC\",\"-fPIC\",\"-g\" -DNVCC --shared -o "
-      + libname + " "
-      + cuda_src_name + " 2>&1 >/dev/null";
-
-    Log(Logger::LOG_DEBUG) << "CUDA compiler line: " << popenline;
-
-    FILE* pp = popen(popenline.c_str(), "r");
-
-#define SBUFLEN 512
-    char sbuf[SBUFLEN];
-    fgets(sbuf, SBUFLEN, pp);
-
-    int code = pclose(pp);
-    pp = NULL;
-    // 512 for warning
-    Log(Logger::LOG_DEBUG) << "nvcc return code: " << code << "\n";
-
-    if(code/256) {
-        std::stringstream ss;
-        ss << "nvcc code: " << code << "\n";
-        ss << "Compiler errors:\n" << sbuf << "\n";
-        throw_gpusim_exception(ss.str());
-    }
-
-    // get the mangled name of the entry point
-
-    std::string demangleCmd = "nm -g /tmp/rr_cuda_model.so | grep -ohe '_.*" + entryName + "[^\\s]*$'";
-    pp = popen(demangleCmd.c_str(), "r");
-
-    fgets(sbuf, SBUFLEN, pp);
-    std::string entryMangled{sbuf};
-
-    code = pclose(pp);
-
-    if(code/256) {
-        std::stringstream ss;
-        ss << "Could not find symbol: " << entryName << "\n";
-        throw_gpusim_exception(ss.str());
-    }
-
-    // strip newline
-
-    while(entryMangled.back() == '\n' && entryMangled.size())
-        entryMangled = std::string(entryMangled,0,entryMangled.size()-1);
-
-    auto compile_finish = std::chrono::high_resolution_clock::now();
-
-    Log(Logger::LOG_INFORMATION) << "Compiling model took " << std::chrono::duration_cast<std::chrono::milliseconds>(compile_finish - compile_start).count() << " ms";
-
-    auto load_start = std::chrono::high_resolution_clock::now();
-
-    // load the module
-
-    try {
-        so_.load(libname);
-    } catch(Poco::LibraryLoadException e) {
-        throw_gpusim_exception("Cannot load lib: " + e.message());
-    }
-
-    Log(Logger::LOG_DEBUG) << "Loading symbol " << entryMangled << " in " << libname;
-    if(!so_.hasSymbol(entryMangled))
-        throw_gpusim_exception("Lib " + libname + " has no symbol \"" + entryMangled + "\"");
-
-    Log(Logger::LOG_TRACE) << "Entering CUDA code";
+    entry_ = compiler_.generate(mod, hashedid, entryName).getEntry();
 
     // ensure that the function has the correct signature
     assert(sizeof(float) == RKReal->Sizeof());
-
-    entry_ = (EntryPointSig)so_.getSymbol(entryMangled);
-
-    auto load_finish = std::chrono::high_resolution_clock::now();
-
-    Log(Logger::LOG_INFORMATION) << "Loading model took " << std::chrono::duration_cast<std::chrono::milliseconds>(load_finish - load_start).count() << " ms";
 
 }
 

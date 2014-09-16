@@ -28,6 +28,7 @@
 
 # include "gpu/cudom/CudaModule.hpp"
 # include "GPUSimExecutableModel.h"
+# include "CudaCodeCompiler.hpp"
 
 // == CODE ====================================================
 
@@ -50,7 +51,7 @@ class CudaGeneratorImpl;
   */
 class CudaGenerator {
 public:
-    typedef GPUSimExecutableModel::EntryPointSig EntryPointSig;
+    typedef CudaExecutableModule::EntryPointSig EntryPointSig;
 
     CudaGenerator();
 
