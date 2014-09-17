@@ -313,6 +313,16 @@ void CudaGeneratorImpl::generate() {
 
     Type* pRKReal_volatile = BaseTypes::get().addVolatile(pRKReal);
 
+    // add_if_positive
+
+    CudaFunction* add_if_positive = mod.addFunction(CudaFunction("add_if_positive", BaseTypes::getTp(BaseTypes::VOID), {FunctionParameter(RKReal, "x")}));
+
+    {
+        add_if_positive->setIsDeviceFun(true);
+
+        add_if_positive->addStatement(StatementPtr(new ReturnStatement(VariableRefExpression(add_if_positive->getPositionalParam(0)))));
+    }
+
     CudaFunction* PrintCoefs = mod.addFunction(CudaFunction("PrintCoefs", BaseTypes::getTp(BaseTypes::VOID), {FunctionParameter(pRKReal, "k")}));
 
     {
@@ -482,6 +492,13 @@ void CudaGeneratorImpl::generate() {
 
                 component_switch->addBreak();
             }
+
+            IfStatement* if_thd1 = IfStatement::downcast(kernel->addStatement(StatementPtr(new IfStatement(
+                    ExpressionPtr(new EqualityCompExpression(mod.getThreadIdx(CudaModule::IndexComponent::x), LiteralIntExpression(0)))
+                ))));
+            if_thd1->getBody().addStatement(ExpressionPtr(new FunctionCallExpression(mod.getPrintf(), ExpressionPtr(new StringLiteralExpression("**** Initial state vec ****\\n")))));
+
+            kernel->addStatement(ExpressionPtr(new FunctionCallExpression(PrintStatevec, VariableRefExpression(f), LiteralIntExpression(0))));
         }
 
         // initialize the time values

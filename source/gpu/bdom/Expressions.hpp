@@ -1356,6 +1356,40 @@ public:
     }
 };
 
+/**
+ * @author JKM
+ * @brief A statement containing an expression
+ */
+class ReturnStatement : public Statement {
+public:
+
+    ReturnStatement(ExpressionPtr&& exp)
+      : exp_(std::move(exp)) {}
+
+    template <class ExpressionT>
+    ReturnStatement(ExpressionT&& exp)
+      : exp_(new ExpressionT(std::move(exp))) {}
+
+    Expression* getExpression() {
+        if (!exp_)
+            throw_gpusim_exception("No expression");
+        return exp_.get();
+    }
+
+    const Expression* getExpression() const {
+        if (!exp_)
+            throw_gpusim_exception("No expression");
+        return exp_.get();
+    }
+
+    INSERT_STD_STMT_CODE(ReturnStatement)
+
+    virtual void serialize(Serializer& s) const;
+
+protected:
+    ExpressionPtr exp_;
+};
+
 } // namespace dom
 
 } // namespace rrgpu

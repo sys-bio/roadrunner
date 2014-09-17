@@ -301,6 +301,14 @@ void ExpressionStatement::serialize(Serializer& s) const {
     s << ";" << nl;
 }
 
+// -- ReturnStatement --
+
+void ReturnStatement::serialize(Serializer& s) const {
+    s << "return ";
+    getExpression()->serialize(s);
+    s << ";" << nl;
+}
+
 // -- TypedefStatement --
 
 TypedefStatement::TypedefStatement(Type* target, const std::string& alias)

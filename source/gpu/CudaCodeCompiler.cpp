@@ -131,7 +131,7 @@ namespace rrgpu
         + result.impl_->libname_ + " "
         + cuda_src_name + " 2>&1 >/dev/null";
 
-        Log(Logger::LOG_DEBUG) << "CUDA compiler line: " << popenline;
+//         Log(Logger::LOG_DEBUG) << "CUDA compiler line: " << popenline;
 
         #define SBUFLEN 4096
         char sbuf[SBUFLEN];
