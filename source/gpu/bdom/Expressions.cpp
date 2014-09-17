@@ -197,6 +197,32 @@ void LTComparisonExpression::serialize(Serializer& s) const {
     serializeGroupedExp(s, getRHS());
 }
 
+// -- TernaryExpression --
+
+bool TernaryExpression::needGroup(const Expression* e) const {
+    if (const PrecedenceExpression* x = dynamic_cast<const PrecedenceExpression*>(e))
+        if (x->getPrecedence() > getPrecedence())
+            return true;
+    return false;
+}
+
+void TernaryExpression::serializeGroupedExp(Serializer& s, const Expression* e) const {
+    if (needGroup(e))
+        s << "(" << *e << ")";
+    else
+        s << *e;
+}
+
+// -- TernarySwitch --
+
+void TernarySwitch::serialize(Serializer& s) const {
+    serializeGroupedExp(s, u_.get());
+    s << " ? ";
+    serializeGroupedExp(s, v_.get());
+    s << " : ";
+    serializeGroupedExp(s, w_.get());
+}
+
 // -- FunctionCallExpression --
 
 void FunctionCallExpression::passMappedArgument(ExpressionPtr&& v, const FunctionParameter* p) {

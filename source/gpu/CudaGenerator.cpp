@@ -315,12 +315,17 @@ void CudaGeneratorImpl::generate() {
 
     // add_if_positive
 
-    CudaFunction* add_if_positive = mod.addFunction(CudaFunction("add_if_positive", BaseTypes::getTp(BaseTypes::VOID), {FunctionParameter(RKReal, "x")}));
+    CudaFunction* add_if_positive = mod.addFunction(CudaFunction("add_if_positive", RKReal, {FunctionParameter(RKReal, "x")}));
 
     {
         add_if_positive->setIsDeviceFun(true);
 
-        add_if_positive->addStatement(StatementPtr(new ReturnStatement(VariableRefExpression(add_if_positive->getPositionalParam(0)))));
+        add_if_positive->addStatement(StatementPtr(new ReturnStatement(
+            TernarySwitch(
+                LTComparisonExpression(RealLiteralExpression(0.),  VariableRefExpression(add_if_positive->getPositionalParam(0))),
+                VariableRefExpression(add_if_positive->getPositionalParam(0)),
+                RealLiteralExpression(0.)
+              ))));
     }
 
     CudaFunction* PrintCoefs = mod.addFunction(CudaFunction("PrintCoefs", BaseTypes::getTp(BaseTypes::VOID), {FunctionParameter(pRKReal, "k")}));

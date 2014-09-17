@@ -1007,6 +1007,56 @@ public:
 
 /**
  * @author JKM
+ * @brief Ternary expression
+ */
+class TernaryExpression : public PrecedenceExpression {
+public:
+    /// Construct from expression pointers
+    TernaryExpression(ExpressionPtr&& u, ExpressionPtr&& v, ExpressionPtr&& w)
+      : u_(std::move(u)), v_(std::move(v)), w_(std::move(w)) {
+    }
+
+    /// Template where all three operands are expression rvalues
+    template <class uT, class vT, class wT>
+    TernaryExpression(uT&& u, vT&& v, wT&& w)
+      : u_(new uT(std::move(u))), v_(new vT(std::move(v))), w_(new wT(std::move(w))) {
+    }
+
+    /// Copy ctor
+    TernaryExpression(const TernaryExpression& other)
+      : u_(other.u_->clone()), v_(other.v_->clone()), w_(other.w_->clone()) {}
+
+    virtual void serialize(Serializer& s) const = 0;
+
+protected:
+    // to enforce operator precedence
+    bool needGroup(const Expression*) const;
+    void serializeGroupedExp(Serializer& s, const Expression* e) const;
+
+    ExpressionPtr u_;
+    ExpressionPtr v_;
+    ExpressionPtr w_;
+};
+
+/**
+ * @author JKM
+ * @brief ? :
+ */
+class TernarySwitch : public TernaryExpression {
+public:
+    using TernaryExpression::TernaryExpression;
+
+    virtual int getPrecedence() const { return PREC_GRP15; }
+
+    virtual void serialize(Serializer& s) const;
+
+    virtual ExpressionPtr clone() const {
+        return ExpressionPtr(new TernarySwitch(*this));
+    }
+};
+
+/**
+ * @author JKM
  * @brief A class to encapsulate literals
  */
 class LiteralExpression : public Expression {
