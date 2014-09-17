@@ -27,6 +27,8 @@
 #include <assert.h>
 #include <Poco/Logger.h>
 
+#include <chrono>
+
 void GPUIntMESerial(rr::rrgpu::GPUSimIntegratorInt& intf);
 
 
@@ -84,7 +86,12 @@ TimecourseIntegrationResultsPtr GPUSimIntegrator::integrate(const TimecourseInte
 //     for (TimecourseIntegrationResultsRealVector::size_type i=0; i<realvec->getTimevalueCount(); ++i)
 //         Log(Logger::LOG_DEBUG) << tval[i];
 
+    auto integration_start = std::chrono::high_resolution_clock::now();
+
     model_->getEntryPoint()((int)realvec->getTimevalueCount(), tval, values);
+
+    auto integration_finish = std::chrono::high_resolution_clock::now();
+    Log(Logger::LOG_INFORMATION) << "Integration took " << std::chrono::duration_cast<std::chrono::milliseconds>(integration_finish - integration_start).count() << " ms";
 
     for (TimecourseIntegrationResultsRealVector::size_type i=0; i<realvec->getTimevalueCount(); ++i)
         for (TimecourseIntegrationResultsRealVector::size_type j=0; j<realvec->getVectorLength(); ++j)
