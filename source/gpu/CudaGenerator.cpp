@@ -144,6 +144,7 @@ protected:
     Macro* RK_COEF_GET_OFFSET = nullptr;
     Macro* RK_STATE_VEC_GET_OFFSET = nullptr;
 
+    CudaFunction* add_if_positive = nullptr;
     Variable* h = nullptr;
     Variable* rk_gen = nullptr;
     Variable* k = nullptr;
@@ -248,7 +249,10 @@ ExpressionPtr CudaGeneratorImpl::generateExpForSBMLASTNode(const Reaction* r, co
 # endif
 
 ExpressionPtr CudaGeneratorImpl::generateReactionRateExp(const Reaction* r, int rk_index) {
-    return generateExpForASTNode(r->getKineticLaw().getAlgebra().getRoot(), rk_index);
+    if (r->isReversible())
+        return generateExpForASTNode(r->getKineticLaw().getAlgebra().getRoot(), rk_index);
+    else
+        return ExpressionPtr(new FunctionCallExpression(add_if_positive, generateExpForASTNode(r->getKineticLaw().getAlgebra().getRoot(), rk_index)));
 }
 
 ExpressionPtr CudaGeneratorImpl::accumulate(ExpressionPtr&& sum, ExpressionPtr&& item, bool invert) {
@@ -315,7 +319,7 @@ void CudaGeneratorImpl::generate() {
 
     // add_if_positive
 
-    CudaFunction* add_if_positive = mod.addFunction(CudaFunction("add_if_positive", RKReal, {FunctionParameter(RKReal, "x")}));
+    add_if_positive = mod.addFunction(CudaFunction("add_if_positive", RKReal, {FunctionParameter(RKReal, "x")}));
 
     {
         add_if_positive->setIsDeviceFun(true);

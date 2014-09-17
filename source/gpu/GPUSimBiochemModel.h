@@ -200,6 +200,9 @@ public:
     /// Return true if @ref id matches this object's id
     bool matchId(const String& id) { return id_ == id; }
 
+    bool isReversible() const { return reversible_; }
+    void setIsReversible(bool val) { reversible_ = val; }
+
     /// Add a participant (reactant or product)
     void addParticipant(const Species* spec, ReactionSide side) {
         if (isParticipant(spec))
@@ -284,8 +287,10 @@ public:
         return getSBMLReaction()->getKineticLaw()->getMath();
     }
 # endif
+
 protected:
     std::string id_;
+    bool reversible_ = false;
     typedef std::unique_ptr<ReactionParticipant> ReactionParticipantPtr;
     typedef std::vector<ReactionParticipantPtr> Participants;
     Participants part_;

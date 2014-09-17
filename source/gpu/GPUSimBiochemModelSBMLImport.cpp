@@ -244,6 +244,8 @@ GPUSimModel::GPUSimModel(std::string const &sbml, unsigned options) {
         r->setSBMLReaction(sbmlrxn);
         r->setSBMLModel(getDocument()->getModel());
 
+        r->setIsReversible(sbmlrxn->getReversible());
+
         // add reactants
         for (uint i_react=0; i_react < sbmlrxn->getNumReactants(); ++i_react) {
             r->addReactant(getSpeciesById(sbmlrxn->getReactant(i_react)->getSpecies()));
