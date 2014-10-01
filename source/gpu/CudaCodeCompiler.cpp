@@ -38,7 +38,8 @@ namespace rrgpu
 
     class CudaExecutableModuleImpl {
     public:
-        typedef CudaExecutableModule::EntryPointSig EntryPointSig;
+        typedef CudaExecutableModule::EntryPointSigSP EntryPointSigSP;
+        typedef CudaExecutableModule::EntryPointSigDP EntryPointSigDP;
 
         CudaExecutableModuleImpl() {
 
@@ -82,7 +83,8 @@ namespace rrgpu
         std::string libname_;
         std::string entryMangled_;
         Poco::SharedLibrary so_;
-        EntryPointSig entry_ = nullptr;
+        EntryPointSigSP entrysp_ = nullptr;
+        EntryPointSigDP entrydp_ = nullptr;
     };
 
     CudaExecutableModule::CudaExecutableModule()

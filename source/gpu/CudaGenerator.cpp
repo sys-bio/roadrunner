@@ -59,6 +59,10 @@ public:
         p_ = p;
     }
 
+    Precision getPrecision() const {
+        return p_;
+    }
+
     ExpressionPtr generateReactionRateExp(const Reaction* r, int rk_index);
 
     ExpressionPtr accumulate(ExpressionPtr&& sum, ExpressionPtr&& item, bool invert);
@@ -79,7 +83,8 @@ public:
     void generate();
 
     /// Entry point into generated code
-    EntryPointSig getEntryPoint();
+    EntryPointSigSP getEntryPointSP();
+    EntryPointSigDP getEntryPointDP();
 
     /// Return true if diagnostics should be emitted from the GPU code
     bool diagnosticsEnabled() const {
@@ -142,7 +147,8 @@ protected:
     Precision p_ = Precision::Single;
 
 
-    EntryPointSig entry_ = nullptr;
+    EntryPointSigSP entrysp_ = nullptr;
+    EntryPointSigDP entrydp_ = nullptr;
 //     Poco::SharedLibrary so_;
     CudaCodeCompiler compiler_;
     CudaExecutableModule exemodule_;
@@ -175,14 +181,24 @@ void CudaGenerator::generate(GPUSimExecutableModel& model) {
     impl_->generate();
 }
 
-CudaGenerator::EntryPointSig CudaGenerator::getEntryPoint() {
-    return impl_->getEntryPoint();
+CudaGenerator::EntryPointSigSP CudaGenerator::getEntryPointSP() {
+    return impl_->getEntryPointSP();
 }
 
-CudaGeneratorImpl::EntryPointSig CudaGeneratorImpl::getEntryPoint() {
-    if (!entry_)
+CudaGenerator::EntryPointSigDP CudaGenerator::getEntryPointDP() {
+    return impl_->getEntryPointDP();
+}
+
+CudaGeneratorImpl::EntryPointSigSP CudaGeneratorImpl::getEntryPointSP() {
+    if (!entrysp_)
         throw_gpusim_exception("No entry point set (did you forget to call generate first?)");
-    return entry_;
+    return entrysp_;
+}
+
+CudaGeneratorImpl::EntryPointSigDP CudaGeneratorImpl::getEntryPointDP() {
+    if (!entrydp_)
+        throw_gpusim_exception("No entry point set (did you forget to call generate first?)");
+    return entrydp_;
 }
 
 ExpressionPtr CudaGeneratorImpl::getVecRK(const FloatingSpecies* s, int rk_index) {
@@ -724,7 +740,10 @@ void CudaGeneratorImpl::generate() {
 
 //     Log(Logger::LOG_DEBUG) << "Hashed model id: " << hashedid;
 
-    entry_ = compiler_.generate(mod, hashedid, entryName).getEntry();
+    if (getPrecision() == Precision::Single)
+        entrysp_ = compiler_.generate(mod, hashedid, entryName).getEntrySP();
+    else
+        entrydp_ = compiler_.generate(mod, hashedid, entryName).getEntryDP();
 
     // ensure that the function has the correct signature
     assert(sizeof(float) == RKReal->Sizeof());
