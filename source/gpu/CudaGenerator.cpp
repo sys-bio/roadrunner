@@ -44,13 +44,19 @@ namespace dom
 
 class CudaGeneratorImpl {
 public:
-    typedef CudaGenerator::EntryPointSig EntryPointSig;
+    typedef CudaGenerator::EntryPointSigSP EntryPointSigSP;
+    typedef CudaGenerator::EntryPointSigDP EntryPointSigDP;
+    typedef CudaGenerator::Precision Precision;
 
     /// Ctor
     CudaGeneratorImpl(GPUSimExecutableModel& mod)
       : mod_(mod) {
         if (Logger::getLevel() >= Logger::LOG_TRACE)
             enableDiagnostics();
+    }
+
+    void setPrecision(Precision p) {
+        p_ = p;
     }
 
     ExpressionPtr generateReactionRateExp(const Reaction* r, int rk_index);
@@ -131,6 +137,10 @@ protected:
                 ExpressionPtr(new GenerationExpression(std::move(generation))),
                 ExpressionPtr(new ComponentExpression(std::move(component))));
     }
+
+    // options
+    Precision p_ = Precision::Single;
+
 
     EntryPointSig entry_ = nullptr;
 //     Poco::SharedLibrary so_;

@@ -51,11 +51,19 @@ class CudaGeneratorImpl;
   */
 class CudaGenerator {
 public:
-    typedef CudaExecutableModule::EntryPointSig EntryPointSig;
+    enum class Precision {
+        Single,
+        Double
+    };
+
+    typedef CudaExecutableModule::EntryPointSigSP EntryPointSigSP;
+    typedef CudaExecutableModule::EntryPointSigDP EntryPointSigDP;
 
     CudaGenerator();
 
     ~CudaGenerator();
+
+    void setPrecision(Precision p);
 
     void generate(GPUSimExecutableModel& model);
 

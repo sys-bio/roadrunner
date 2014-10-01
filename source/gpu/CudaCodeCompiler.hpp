@@ -45,7 +45,8 @@ class CudaExecutableModuleImpl;
 struct RR_DECLSPEC CudaExecutableModule
 {
 public:
-    typedef GPUSimExecutableModel::EntryPointSig EntryPointSig;
+    typedef GPUSimExecutableModel::EntryPointSigSP EntryPointSigSP;
+    typedef GPUSimExecutableModel::EntryPointSigDP EntryPointSigDP;
 
     /// Empty ctor
     CudaExecutableModule();
