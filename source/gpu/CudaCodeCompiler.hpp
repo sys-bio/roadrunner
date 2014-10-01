@@ -58,7 +58,8 @@ public:
     CudaExecutableModule(const CudaExecutableModule&);
 
     /// Get the callable entry point
-    EntryPointSig getEntry() const;
+    EntryPointSigSP getEntrySP() const;
+    EntryPointSigDP getEntryDP() const;
 
 protected:
     friend class CudaCodeCompiler;

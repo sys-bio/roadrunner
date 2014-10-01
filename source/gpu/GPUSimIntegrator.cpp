@@ -78,28 +78,47 @@ TimecourseIntegrationResultsPtr GPUSimIntegrator::integrate(const TimecourseInte
     realvec->setVectorLength(model_->getNumIndepFloatingSpecies());
 
 //     GPUIntMESerial(intf);
-    float* values = (float*)malloc(realvec->getTimevalueCount()*realvec->getVectorLength()*sizeof(float));
-    model_->refresh();
-    float* tval = p.getTimevaluesHeapArrayFlt();
+    if (p.getPrecision() == TimecourseIntegrationParameters::SINGLE) {
+        float* values = (float*)malloc(realvec->getTimevalueCount()*realvec->getVectorLength()*sizeof(float));
+        model_->refresh();
+        float* tval = p.getTimevaluesHeapArrayFlt();
 
-//     Log(Logger::LOG_DEBUG) << "GPUSimIntegrator time values:";
-//     for (TimecourseIntegrationResultsRealVector::size_type i=0; i<realvec->getTimevalueCount(); ++i)
-//         Log(Logger::LOG_DEBUG) << tval[i];
+    //     Log(Logger::LOG_DEBUG) << "GPUSimIntegrator time values:";
+    //     for (TimecourseIntegrationResultsRealVector::size_type i=0; i<realvec->getTimevalueCount(); ++i)
+    //         Log(Logger::LOG_DEBUG) << tval[i];
 
-    auto integration_start = std::chrono::high_resolution_clock::now();
+        auto integration_start = std::chrono::high_resolution_clock::now();
 
-    model_->getEntryPointSP()((int)realvec->getTimevalueCount(), tval, values);
+        model_->getEntryPointSP()((int)realvec->getTimevalueCount(), tval, values);
 
-    auto integration_finish = std::chrono::high_resolution_clock::now();
-    Log(Logger::LOG_INFORMATION) << "Integration took " << std::chrono::duration_cast<std::chrono::milliseconds>(integration_finish - integration_start).count() << " ms";
+        auto integration_finish = std::chrono::high_resolution_clock::now();
+        Log(Logger::LOG_INFORMATION) << "Integration took " << std::chrono::duration_cast<std::chrono::milliseconds>(integration_finish - integration_start).count() << " ms";
 
-    for (TimecourseIntegrationResultsRealVector::size_type i=0; i<realvec->getTimevalueCount(); ++i)
-        for (TimecourseIntegrationResultsRealVector::size_type j=0; j<realvec->getVectorLength(); ++j)
-            realvec->setValue(i, j, values[i*realvec->getVectorLength() + j]);
-//             realvec->setValue(i, j, i+j);
+        for (TimecourseIntegrationResultsRealVector::size_type i=0; i<realvec->getTimevalueCount(); ++i)
+            for (TimecourseIntegrationResultsRealVector::size_type j=0; j<realvec->getVectorLength(); ++j)
+                realvec->setValue(i, j, values[i*realvec->getVectorLength() + j]);
 
-    free(values);
-    free(tval);
+        free(values);
+        free(tval);
+    } else {
+        double* values = (double*)malloc(realvec->getTimevalueCount()*realvec->getVectorLength()*sizeof(double));
+        model_->refresh();
+        double* tval = p.getTimevaluesHeapArrayDbl();
+
+        auto integration_start = std::chrono::high_resolution_clock::now();
+
+        model_->getEntryPointDP()((int)realvec->getTimevalueCount(), tval, values);
+
+        auto integration_finish = std::chrono::high_resolution_clock::now();
+        Log(Logger::LOG_INFORMATION) << "Integration took " << std::chrono::duration_cast<std::chrono::milliseconds>(integration_finish - integration_start).count() << " ms";
+
+        for (TimecourseIntegrationResultsRealVector::size_type i=0; i<realvec->getTimevalueCount(); ++i)
+            for (TimecourseIntegrationResultsRealVector::size_type j=0; j<realvec->getVectorLength(); ++j)
+                realvec->setValue(i, j, values[i*realvec->getVectorLength() + j]);
+
+        free(values);
+        free(tval);
+    }
 
     return results;
 }
