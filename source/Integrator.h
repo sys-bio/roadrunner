@@ -74,6 +74,23 @@ public:
 
     virtual ~TimecourseIntegrationParameters();
 
+    enum Precision {
+        SINGLE,
+        DOUBLE
+    };
+
+    /// Set the numeric precision
+    virtual void setPrecision(Precision p);
+
+    /// Set the numeric precision
+    virtual Precision getPrecision() const;
+
+    /// Empty ctor
+    TimecourseIntegrationParameters()
+     : prec_(SINGLE) {
+
+    }
+
     /// Grow the vector of selected time values by adding a new element
     virtual void addTimevalue(double t);
 
@@ -97,6 +114,7 @@ public:
 
 protected:
     std::vector<double> t_;
+    Precision prec_;
 };
 typedef cxx11_ns::shared_ptr<TimecourseIntegrationParameters> TimecourseIntegrationParametersPtr;
 

@@ -123,7 +123,8 @@ public:
     }
 
     /// Get the entry point into the GPU code
-    EntryPointSig getEntryPoint();
+    EntryPointSigSP getEntryPointSP();
+    EntryPointSigDP getEntryPointDP();
 
     // -- Inherited functions (mostly useless) --
 

@@ -67,7 +67,8 @@ public:
 
     void generate(GPUSimExecutableModel& model);
 
-    EntryPointSig getEntryPoint();
+    EntryPointSigSP getEntryPointSP();
+    EntryPointSigDP getEntryPointDP();
 
 protected:
     std::unique_ptr<CudaGeneratorImpl> impl_;

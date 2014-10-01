@@ -92,8 +92,12 @@ void GPUSimExecutableModel::generateModel() {
     generator_->generate(*this);
 }
 
-GPUSimExecutableModel::EntryPointSig GPUSimExecutableModel::getEntryPoint() {
-    return generator_->getEntryPoint();
+GPUSimExecutableModel::EntryPointSigSP GPUSimExecutableModel::getEntryPointSP() {
+    return generator_->getEntryPointSP();
+}
+
+GPUSimExecutableModel::EntryPointSigDP GPUSimExecutableModel::getEntryPointDP() {
+    return generator_->getEntryPointDP();
 }
 
 string GPUSimExecutableModel::getModelName() {

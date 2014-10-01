@@ -3,6 +3,7 @@
  *
  *  Created on: Apr 25, 2014
  *      Author: andy
+ *      Author: jkm
  */
 
 #include "Integrator.h"
@@ -24,6 +25,14 @@ TimecourseIntegrationParameters::~TimecourseIntegrationParameters() {
 
 void TimecourseIntegrationParameters::addTimevalue(double t) {
     t_.push_back(t);
+}
+
+void TimecourseIntegrationParameters::setPrecision(Precision p) {
+    prec_ = p;
+}
+
+TimecourseIntegrationParameters::Precision TimecourseIntegrationParameters::getPrecision() const {
+    return prec_;
 }
 
 TimecourseIntegrationParameters::size_type TimecourseIntegrationParameters::getTimevalueCount() const {
