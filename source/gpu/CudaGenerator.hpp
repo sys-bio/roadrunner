@@ -69,6 +69,8 @@ public:
 
 protected:
     std::unique_ptr<CudaGeneratorImpl> impl_;
+
+    Precision p_ = Precision::Single;
 };
 
 } // namespace dom

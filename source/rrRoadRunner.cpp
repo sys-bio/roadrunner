@@ -1254,6 +1254,7 @@ const DoubleMatrix* RoadRunner::simulate(const SimulateOptions* opt)
         self.integrator->restart(timeStart);
 
         TimecourseIntegrationParameters p;
+        p.setPrecision(TimecourseIntegrationParameters::DOUBLE);
         for (int i = 0; i < self.simulateOpt.steps + 1; ++i)
             p.addTimevalue(timeStart + i*hstep);
 

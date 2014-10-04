@@ -74,8 +74,8 @@ GPUEntryPoint::GPUEntryPoint(void* sym, Precision p) {
         case Precision::Double:
             symdp_ = (EntryPointSigDP)sym;
             break;
-        default:
-            assert(0 && "Should not happen");
+//         default: // Shut up clang
+//             assert(0 && "Should not happen");
     }
 }
 
@@ -106,6 +106,7 @@ GPUSimExecutableModel::GPUSimExecutableModel(std::string const &sbml, unsigned l
     : GPUSimModel(sbml, loadSBMLOptions), generator_(new dom::CudaGenerator()) {
     // generate a hash of the SBML (TODO: find a faster way to get a UUID for the model)
     sbmlhash_.reset(new Hashval(Hash::me(sbml)));
+    generator_->setPrecision(dom::CudaGenerator::Precision::Double);
 #if RR_GPUSIM_USE_LLVM_MODEL
     rrllvm::LLVMModelGenerator modelGenerator{Compiler::getDefaultCompiler()};
     llvmmodel_.reset(dynamic_cast<rrllvm::LLVMExecutableModel*>(modelGenerator.createModel(sbml, loadSBMLOptions)));

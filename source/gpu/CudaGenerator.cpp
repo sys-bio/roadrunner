@@ -174,11 +174,16 @@ CudaGenerator::~CudaGenerator() {
 
 void CudaGenerator::generate(GPUSimExecutableModel& model) {
     impl_.reset(new CudaGeneratorImpl(model));
+    impl_->setPrecision(p_);
     impl_->generate();
 }
 
 GPUEntryPoint CudaGenerator::getEntryPoint() {
     return impl_->getEntryPoint();
+}
+
+void CudaGenerator::setPrecision(Precision p) {
+    p_ = p;
 }
 
 GPUEntryPoint CudaGeneratorImpl::getEntryPoint() {
