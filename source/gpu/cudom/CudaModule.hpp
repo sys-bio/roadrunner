@@ -236,12 +236,12 @@ protected:
  * @author JKM
  * @brief Cuda single precision exponentiation expression
  */
-class CudaExponentiationExpression : public ExponentiationExpression {
+class CudaExponentiationExpressionSP : public ExponentiationExpression {
 public:
     using ExponentiationExpression::ExponentiationExpression;
 
     /// Copy ctor
-    CudaExponentiationExpression(const CudaExponentiationExpression& other)
+    CudaExponentiationExpressionSP(const CudaExponentiationExpressionSP& other)
       : ExponentiationExpression(other) {}
 
     virtual int getPrecedence() const { return PREC_GRP2; }
@@ -250,7 +250,29 @@ public:
     virtual void serialize(Serializer& s) const;
 
     virtual ExpressionPtr clone() const {
-        return ExpressionPtr(new CudaExponentiationExpression(*this));
+        return ExpressionPtr(new CudaExponentiationExpressionSP(*this));
+    }
+};
+
+/**
+ * @author JKM
+ * @brief Cuda single precision exponentiation expression
+ */
+class CudaExponentiationExpressionDP : public ExponentiationExpression {
+public:
+    using ExponentiationExpression::ExponentiationExpression;
+
+    /// Copy ctor
+    CudaExponentiationExpressionDP(const CudaExponentiationExpressionDP& other)
+      : ExponentiationExpression(other) {}
+
+    virtual int getPrecedence() const { return PREC_GRP2; }
+
+    // target-dependent
+    virtual void serialize(Serializer& s) const;
+
+    virtual ExpressionPtr clone() const {
+        return ExpressionPtr(new CudaExponentiationExpressionDP(*this));
     }
 };
 
@@ -363,6 +385,8 @@ public:
     const Function* getCudaSyncThreads() {
         return cudaSyncThreads_.get();
     }
+
+    virtual ExponentiationExpressionPtr powSP(ExpressionPtr&& x, ExpressionPtr&& rhs) const;
 
     virtual ExponentiationExpressionPtr pow(ExpressionPtr&& x, ExpressionPtr&& rhs) const;
 

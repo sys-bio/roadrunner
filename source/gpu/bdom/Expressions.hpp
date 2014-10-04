@@ -164,6 +164,11 @@ public:
     Expression() {}
     virtual ~Expression() {}
 
+    /// Deduce the type of the expression
+    virtual Type* deduceType() {
+        throw_gpusim_exception("No deduction rule");
+    }
+
     virtual void serialize(Serializer& s) const = 0;
 
     /// Deep copy

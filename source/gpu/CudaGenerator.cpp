@@ -323,7 +323,11 @@ void CudaGeneratorImpl::generate() {
     Macro* RK_TIME_VEC_LEN = mod.addMacro(Macro("RK_TIME_VEC_LEN", "km"));
 
     // typedef for float or double
-    Type* RKReal = TypedefStatement::downcast(mod.addStatement(StatementPtr(new TypedefStatement(BaseTypes::getTp(BaseTypes::FLOAT), "RKReal"))))->getAlias();
+    Type* RKReal;
+    if (p_ ==  Precision::Single)
+        RKReal = TypedefStatement::downcast(mod.addStatement(StatementPtr(new TypedefStatement(BaseTypes::getTp(BaseTypes::FLOAT), "RKReal"))))->getAlias();
+    else
+        RKReal = TypedefStatement::downcast(mod.addStatement(StatementPtr(new TypedefStatement(BaseTypes::getTp(BaseTypes::DOUBLE), "RKReal"))))->getAlias();
 
     Type* pRKReal = BaseTypes::get().addPointer(RKReal);
 
