@@ -38,8 +38,7 @@ namespace rrgpu
 
     class CudaExecutableModuleImpl {
     public:
-        typedef CudaExecutableModule::EntryPointSigSP EntryPointSigSP;
-        typedef CudaExecutableModule::EntryPointSigDP EntryPointSigDP;
+        typedef CudaExecutableModule::Precision Precision;
 
         CudaExecutableModuleImpl() {
 
@@ -50,7 +49,7 @@ namespace rrgpu
             load();
         }
 
-        EntryPointSig getEntry() const { return entry_; }
+        GPUEntryPoint getEntry() const { return entry_; }
 
     protected:
         friend class CudaCodeCompiler;
@@ -73,7 +72,7 @@ namespace rrgpu
 
             Log(Logger::LOG_TRACE) << "Entering CUDA code";
 
-            entry_ = (EntryPointSig)so_.getSymbol(entryMangled_);
+            entry_ = GPUEntryPoint(so_.getSymbol(entryMangled_));
 
             auto load_finish = std::chrono::high_resolution_clock::now();
 
@@ -83,8 +82,8 @@ namespace rrgpu
         std::string libname_;
         std::string entryMangled_;
         Poco::SharedLibrary so_;
-        EntryPointSigSP entrysp_ = nullptr;
-        EntryPointSigDP entrydp_ = nullptr;
+        GPUEntryPoint entry_;
+        Precision precision_= Precision::Single;
     };
 
     CudaExecutableModule::CudaExecutableModule()
@@ -95,7 +94,7 @@ namespace rrgpu
 
     CudaExecutableModule::~CudaExecutableModule() {}
 
-    CudaExecutableModule::EntryPointSig CudaExecutableModule::getEntry() const {
+    GPUEntryPoint CudaExecutableModule::getEntry() const {
         return impl_->getEntry();
     }
 

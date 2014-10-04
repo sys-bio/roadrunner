@@ -56,11 +56,13 @@ public:
     }
 
     void setPrecision(Precision p) {
-        p_ = p;
+//         p_ = p;
+        compiler_.setPrecision(p);
     }
 
     Precision getPrecision() const {
-        return p_;
+//         return p_;
+        return compiler_.getPrecision();
     }
 
     ExpressionPtr generateReactionRateExp(const Reaction* r, int rk_index);
@@ -83,8 +85,7 @@ public:
     void generate();
 
     /// Entry point into generated code
-    EntryPointSigSP getEntryPointSP();
-    EntryPointSigDP getEntryPointDP();
+    GPUEntryPoint getEntryPoint();
 
     /// Return true if diagnostics should be emitted from the GPU code
     bool diagnosticsEnabled() const {
@@ -144,11 +145,10 @@ protected:
     }
 
     // options
-    Precision p_ = Precision::Single;
+//     Precision p_ = Precision::Single;
 
 
-    EntryPointSigSP entrysp_ = nullptr;
-    EntryPointSigDP entrydp_ = nullptr;
+    GPUEntryPoint entry_ = nullptr;
 //     Poco::SharedLibrary so_;
     CudaCodeCompiler compiler_;
     CudaExecutableModule exemodule_;
@@ -181,24 +181,14 @@ void CudaGenerator::generate(GPUSimExecutableModel& model) {
     impl_->generate();
 }
 
-CudaGenerator::EntryPointSigSP CudaGenerator::getEntryPointSP() {
-    return impl_->getEntryPointSP();
+GPUEntryPoint CudaGenerator::getEntryPoint() {
+    return impl_->getEntryPoint();
 }
 
-CudaGenerator::EntryPointSigDP CudaGenerator::getEntryPointDP() {
-    return impl_->getEntryPointDP();
-}
-
-CudaGeneratorImpl::EntryPointSigSP CudaGeneratorImpl::getEntryPointSP() {
-    if (!entrysp_)
+CudaGeneratorImpl::EntryPointSigSP CudaGeneratorImpl::getEntryPoint() {
+    if (!entry_)
         throw_gpusim_exception("No entry point set (did you forget to call generate first?)");
-    return entrysp_;
-}
-
-CudaGeneratorImpl::EntryPointSigDP CudaGeneratorImpl::getEntryPointDP() {
-    if (!entrydp_)
-        throw_gpusim_exception("No entry point set (did you forget to call generate first?)");
-    return entrydp_;
+    return entry_;
 }
 
 ExpressionPtr CudaGeneratorImpl::getVecRK(const FloatingSpecies* s, int rk_index) {
@@ -740,10 +730,7 @@ void CudaGeneratorImpl::generate() {
 
 //     Log(Logger::LOG_DEBUG) << "Hashed model id: " << hashedid;
 
-    if (getPrecision() == Precision::Single)
-        entrysp_ = compiler_.generate(mod, hashedid, entryName).getEntrySP();
-    else
-        entrydp_ = compiler_.generate(mod, hashedid, entryName).getEntryDP();
+    entry_ = compiler_.generate(mod, hashedid, entryName).getEntry();
 
     // ensure that the function has the correct signature
     assert(sizeof(float) == RKReal->Sizeof());

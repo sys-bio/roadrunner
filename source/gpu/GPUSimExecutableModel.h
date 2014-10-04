@@ -83,14 +83,39 @@ class CudaGenerator;
 }
 
 /**
+ * @brief Callable entry point
+ */
+class GPUEntryPoint {
+public:
+    /// Numerical precision
+    enum class Precision {
+        Single,
+        Double
+    };
+
+    GPUEntryPoint(void* sym, Precision p);
+
+    // Call with SP
+    virtual void operator()(int m, float* t, float* v);
+
+    // Call with DP
+    virtual void operator()(int m, double* t, double* v);
+
+protected:
+    typedef void (*EntryPointSigSP)(int m, float* t, float* v);
+    typedef void (*EntryPointSigDP)(int m, double* t, double* v);
+
+    EntryPointSigSP symsp_ = nullptr;
+    EntryPointSigDP symdp_ = nullptr;
+};
+
+/**
  * @author JKM
  * @brief GPU-based executable model
  */
 class RR_DECLSPEC GPUSimExecutableModel: public ExecutableModel, public GPUSimModel
 {
 public:
-    typedef void (*EntryPointSigSP)(int m, float* t, float* v);
-    typedef void (*EntryPointSigDP)(int m, double* t, double* v);
 
     /**
      * the default ctor just zeros out all our private bits, then
@@ -123,8 +148,7 @@ public:
     }
 
     /// Get the entry point into the GPU code
-    EntryPointSigSP getEntryPointSP();
-    EntryPointSigDP getEntryPointDP();
+    GPUEntryPoint getEntryPoint();
 
     // -- Inherited functions (mostly useless) --
 

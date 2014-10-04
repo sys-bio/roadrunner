@@ -45,8 +45,7 @@ class CudaExecutableModuleImpl;
 struct RR_DECLSPEC CudaExecutableModule
 {
 public:
-    typedef GPUSimExecutableModel::EntryPointSigSP EntryPointSigSP;
-    typedef GPUSimExecutableModel::EntryPointSigDP EntryPointSigDP;
+    typedef GPUEntryPoint::Precision Precision;
 
     /// Empty ctor
     CudaExecutableModule();
@@ -58,8 +57,7 @@ public:
     CudaExecutableModule(const CudaExecutableModule&);
 
     /// Get the callable entry point
-    EntryPointSigSP getEntrySP() const;
-    EntryPointSigDP getEntryDP() const;
+    GPUEntryPoint getEntry() const;
 
 protected:
     friend class CudaCodeCompiler;

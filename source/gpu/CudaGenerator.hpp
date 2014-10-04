@@ -51,24 +51,21 @@ class CudaGeneratorImpl;
   */
 class CudaGenerator {
 public:
-    enum class Precision {
-        Single,
-        Double
-    };
+    typedef CudaExecutableModule::Precision Precision;
 
-    typedef CudaExecutableModule::EntryPointSigSP EntryPointSigSP;
-    typedef CudaExecutableModule::EntryPointSigDP EntryPointSigDP;
-
+    /// Empty ctor
     CudaGenerator();
 
     ~CudaGenerator();
 
+    /// Set numerical precision
     void setPrecision(Precision p);
 
+    /// Generate the executable module
     void generate(GPUSimExecutableModel& model);
 
-    EntryPointSigSP getEntryPointSP();
-    EntryPointSigDP getEntryPointDP();
+    /// Get the callable entry point after the module has been generated
+    GPUEntryPoint getEntryPoint();
 
 protected:
     std::unique_ptr<CudaGeneratorImpl> impl_;

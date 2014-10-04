@@ -64,6 +64,35 @@ namespace rr
 namespace rrgpu
 {
 
+// -- GPUEntryPoint --
+
+GPUEntryPoint::GPUEntryPoint(void* sym, Precision p) {
+    switch (p) {
+        case Precision::Single:
+            symsp_ = (EntryPointSigSP)sym;
+            break;
+        case Precision::Double:
+            symdp_ = (EntryPointSigDP)sym;
+            break;
+        default:
+            assert(0 && "Should not happen");
+    }
+}
+
+void GPUEntryPoint::operator()(int m, float* t, float* v) {
+    if (symsp_)
+        symsp_(m, t, v);
+    else
+        throw_gpusim_exception("Wrong signature for this module");
+}
+
+void GPUEntryPoint::operator()(int m, double* t, double* v) {
+    if (symdp_)
+        symdp_(m, t, v);
+    else
+        throw_gpusim_exception("Wrong signature for this module");
+}
+
   /**
  * checks if the bitfield value has all the flags
  * in type (equiv to checkExact but with a more accurate
@@ -92,12 +121,8 @@ void GPUSimExecutableModel::generateModel() {
     generator_->generate(*this);
 }
 
-GPUSimExecutableModel::EntryPointSigSP GPUSimExecutableModel::getEntryPointSP() {
-    return generator_->getEntryPointSP();
-}
-
-GPUSimExecutableModel::EntryPointSigDP GPUSimExecutableModel::getEntryPointDP() {
-    return generator_->getEntryPointDP();
+GPUEntryPoint GPUSimExecutableModel::getEntryPoint() {
+    return generator_->getEntryPoint();
 }
 
 string GPUSimExecutableModel::getModelName() {
