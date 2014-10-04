@@ -89,7 +89,7 @@ TimecourseIntegrationResultsPtr GPUSimIntegrator::integrate(const TimecourseInte
 
         auto integration_start = std::chrono::high_resolution_clock::now();
 
-        model_->getEntryPointSP()((int)realvec->getTimevalueCount(), tval, values);
+        model_->getEntryPoint()((int)realvec->getTimevalueCount(), tval, values);
 
         auto integration_finish = std::chrono::high_resolution_clock::now();
         Log(Logger::LOG_INFORMATION) << "Integration took " << std::chrono::duration_cast<std::chrono::milliseconds>(integration_finish - integration_start).count() << " ms";
@@ -107,7 +107,7 @@ TimecourseIntegrationResultsPtr GPUSimIntegrator::integrate(const TimecourseInte
 
         auto integration_start = std::chrono::high_resolution_clock::now();
 
-        model_->getEntryPointDP()((int)realvec->getTimevalueCount(), tval, values);
+        model_->getEntryPoint()((int)realvec->getTimevalueCount(), tval, values);
 
         auto integration_finish = std::chrono::high_resolution_clock::now();
         Log(Logger::LOG_INFORMATION) << "Integration took " << std::chrono::duration_cast<std::chrono::milliseconds>(integration_finish - integration_start).count() << " ms";

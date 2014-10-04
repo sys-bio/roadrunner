@@ -44,8 +44,6 @@ namespace dom
 
 class CudaGeneratorImpl {
 public:
-    typedef CudaGenerator::EntryPointSigSP EntryPointSigSP;
-    typedef CudaGenerator::EntryPointSigDP EntryPointSigDP;
     typedef CudaGenerator::Precision Precision;
 
     /// Ctor
@@ -56,13 +54,11 @@ public:
     }
 
     void setPrecision(Precision p) {
-//         p_ = p;
-        compiler_.setPrecision(p);
+        p_ = p;
     }
 
     Precision getPrecision() const {
-//         return p_;
-        return compiler_.getPrecision();
+        return p_;
     }
 
     ExpressionPtr generateReactionRateExp(const Reaction* r, int rk_index);
@@ -145,10 +141,10 @@ protected:
     }
 
     // options
-//     Precision p_ = Precision::Single;
+    Precision p_ = Precision::Single;
 
 
-    GPUEntryPoint entry_ = nullptr;
+    GPUEntryPoint entry_;
 //     Poco::SharedLibrary so_;
     CudaCodeCompiler compiler_;
     CudaExecutableModule exemodule_;
@@ -185,8 +181,8 @@ GPUEntryPoint CudaGenerator::getEntryPoint() {
     return impl_->getEntryPoint();
 }
 
-CudaGeneratorImpl::EntryPointSigSP CudaGeneratorImpl::getEntryPoint() {
-    if (!entry_)
+GPUEntryPoint CudaGeneratorImpl::getEntryPoint() {
+    if (!entry_.bound())
         throw_gpusim_exception("No entry point set (did you forget to call generate first?)");
     return entry_;
 }
@@ -730,7 +726,8 @@ void CudaGeneratorImpl::generate() {
 
 //     Log(Logger::LOG_DEBUG) << "Hashed model id: " << hashedid;
 
-    entry_ = compiler_.generate(mod, hashedid, entryName).getEntry();
+     exemodule_ = compiler_.generate(mod, CudaCodeCompiler::GenerateParams(p_, hashedid, entryName));
+     entry_ = exemodule_.getEntry();
 
     // ensure that the function has the correct signature
     assert(sizeof(float) == RKReal->Sizeof());

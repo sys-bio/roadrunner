@@ -51,6 +51,14 @@ namespace rrgpu
 
         GPUEntryPoint getEntry() const { return entry_; }
 
+        void setPrecision(Precision p) {
+            precision_ = p;
+        }
+
+        Precision getPrecision() const {
+            return precision_;
+        }
+
     protected:
         friend class CudaCodeCompiler;
 
@@ -72,7 +80,7 @@ namespace rrgpu
 
             Log(Logger::LOG_TRACE) << "Entering CUDA code";
 
-            entry_ = GPUEntryPoint(so_.getSymbol(entryMangled_));
+            entry_ = GPUEntryPoint(so_.getSymbol(entryMangled_), precision_);
 
             auto load_finish = std::chrono::high_resolution_clock::now();
 
@@ -89,6 +97,9 @@ namespace rrgpu
     CudaExecutableModule::CudaExecutableModule()
       : impl_(new CudaExecutableModuleImpl()) {}
 
+    CudaExecutableModule::CudaExecutableModule(CudaExecutableModule&& other)
+      : impl_(std::move(other.impl_)) {}
+
     CudaExecutableModule::CudaExecutableModule(const CudaExecutableModule& other)
       : impl_(other.impl_ ? new CudaExecutableModuleImpl(*other.impl_) : new CudaExecutableModuleImpl()) {}
 
@@ -98,16 +109,22 @@ namespace rrgpu
         return impl_->getEntry();
     }
 
+    CudaExecutableModule& CudaExecutableModule::operator=(CudaExecutableModule&& other) {
+        impl_ = std::move(other.impl_);
+        return *this;
+    }
+
     using namespace dom;
 
-    CudaExecutableModule CudaCodeCompiler::generate(CudaModule& mod, const std::string hashedid, const std::string& entryName) {
+    CudaExecutableModule CudaCodeCompiler::generate(CudaModule& mod, const GenerateParams& params) {
         CudaExecutableModule result;
+        result.impl_->setPrecision(params.precision);
 
-        std::string cuda_src_name = joinPath(getTempDir(), "rr_cuda_model_" + hashedid + ".cu");
+        std::string cuda_src_name = joinPath(getTempDir(), "rr_cuda_model_" + params.hashedid + ".cu");
 
         Log(Logger::LOG_DEBUG) << "CUDA source: " << cuda_src_name;
 
-        result.impl_->libname_ = joinPath(getTempDir(), "rr_cuda_model_" + hashedid + ".so");
+        result.impl_->libname_ = joinPath(getTempDir(), "rr_cuda_model_" + params.hashedid + ".so");
 
         Log(Logger::LOG_DEBUG) << "CUDA object: " << result.impl_->libname_;
 
@@ -230,7 +247,7 @@ namespace rrgpu
 
         // get the mangled name of the entry point
 
-        std::string demangleCmd = "nm -g /tmp/rr_cuda_model.so | grep -ohe '_.*" + entryName + "[^\\s]*$'";
+        std::string demangleCmd = "nm -g /tmp/rr_cuda_model.so | grep -ohe '_.*" + params.entryName + "[^\\s]*$'";
         pp = popen(demangleCmd.c_str(), "r");
 
         fgets(sbuf, SBUFLEN, pp);
@@ -240,7 +257,7 @@ namespace rrgpu
 
         if(code) {
             std::stringstream ss;
-            ss << "Could not find symbol: " << entryName << "\n";
+            ss << "Could not find symbol: " << params.entryName << "\n";
             throw_gpusim_exception(ss.str());
         }
 

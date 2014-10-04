@@ -93,13 +93,20 @@ public:
         Double
     };
 
+    /// Empty ctor
+    GPUEntryPoint() {}
+
+    /// Construct from symbol / prec
     GPUEntryPoint(void* sym, Precision p);
 
-    // Call with SP
+    /// Call with SP
     virtual void operator()(int m, float* t, float* v);
 
-    // Call with DP
+    /// Call with DP
     virtual void operator()(int m, double* t, double* v);
+
+    /// Return true if bound
+    bool bound() const { return symsp_ ||  symdp_; }
 
 protected:
     typedef void (*EntryPointSigSP)(int m, float* t, float* v);

@@ -50,11 +50,17 @@ public:
     /// Empty ctor
     CudaExecutableModule();
 
+    /// Move ctor
+    CudaExecutableModule(CudaExecutableModule&& other);
+
     /// Dtor
     ~CudaExecutableModule();
 
     /// Copy ctor
     CudaExecutableModule(const CudaExecutableModule&);
+
+    /// Move assn
+    CudaExecutableModule& operator=(CudaExecutableModule&& other);
 
     /// Get the callable entry point
     GPUEntryPoint getEntry() const;
@@ -71,8 +77,16 @@ protected:
 class RR_DECLSPEC CudaCodeCompiler
 {
 public:
+    struct GenerateParams {
+        GenerateParams(CudaExecutableModule::Precision precision_, const std::string& hashedid_, const std::string& entryName_)
+          : precision(precision_), hashedid(hashedid_), entryName(entryName_) {}
 
-    CudaExecutableModule generate(dom::CudaModule& mod, const std::string hashedid, const std::string& entryName);
+        CudaExecutableModule::Precision precision;
+        std::string hashedid;
+        std::string entryName;
+    };
+
+    CudaExecutableModule generate(dom::CudaModule& mod, const GenerateParams& params);
 };
 
 } // namespace rrgpu
