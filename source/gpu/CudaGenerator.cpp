@@ -739,7 +739,12 @@ void CudaGeneratorImpl::generate() {
      entry_ = exemodule_.getEntry();
 
     // ensure that the function has the correct signature
-    assert(sizeof(float) == RKReal->Sizeof());
+    if (getPrecision() ==  Precision::Single)
+        assert(sizeof(float) == RKReal->Sizeof());
+    else if(getPrecision() ==  Precision::Double)
+        assert(sizeof(double) == RKReal->Sizeof());
+    else
+        assert(0 && "Unknown precision");
 
 }
 

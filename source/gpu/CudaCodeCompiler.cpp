@@ -247,7 +247,7 @@ namespace rrgpu
 
         // get the mangled name of the entry point
 
-        std::string demangleCmd = "nm -g /tmp/rr_cuda_model.so | grep -ohe '_.*" + params.entryName + "[^\\s]*$'";
+        std::string demangleCmd = "nm -g " + result.impl_->libname_ + " | grep -ohe '_.*" + params.entryName + "[^\\s]*$'";
         pp = popen(demangleCmd.c_str(), "r");
 
         fgets(sbuf, SBUFLEN, pp);
