@@ -93,6 +93,13 @@ public:
         diag_ = true;
     }
 
+    ExponentiationExpressionPtr generatePow(ExpressionPtr&& x, ExpressionPtr&& y) const {
+        if (getPrecision() == Precision::Single)
+            return mod.powSP(std::move(x), std::move(y));
+        else
+            return mod.pow(std::move(x), std::move(y));
+    }
+
 protected:
 
     ExpressionPtr getRKCoef(const Variable* coef, ExpressionPtr&& index, ExpressionPtr&& component) {
@@ -174,7 +181,8 @@ CudaGenerator::~CudaGenerator() {
 
 void CudaGenerator::generate(GPUSimExecutableModel& model) {
     impl_.reset(new CudaGeneratorImpl(model));
-    impl_->setPrecision(p_);
+    Log(Logger::LOG_INFORMATION) << "Generated CUDA code will use fp precision: " << (getPrecision() == Precision::Single  ? "single" : "double");
+    impl_->setPrecision(getPrecision());
     impl_->generate();
 }
 
@@ -184,6 +192,10 @@ GPUEntryPoint CudaGenerator::getEntryPoint() {
 
 void CudaGenerator::setPrecision(Precision p) {
     p_ = p;
+}
+
+CudaGenerator::Precision CudaGenerator::getPrecision() const {
+    return p_;
 }
 
 GPUEntryPoint CudaGeneratorImpl::getEntryPoint() {
@@ -230,7 +242,7 @@ ExpressionPtr CudaGeneratorImpl::generateExpForASTNode(const ModelASTNode* node,
         return ExpressionPtr(new QuotientExpression(generateExpForASTNode(n->getLeft(), rk_index), generateExpForASTNode(n->getRight(), rk_index)));
     // exponentiation
     else if (auto n = dynamic_cast<const ExponentiationASTNode*>(node))
-        return ExpressionPtr(mod.pow(generateExpForASTNode(n->getLeft(), rk_index), generateExpForASTNode(n->getRight(), rk_index)));
+        return ExpressionPtr(generatePow(generateExpForASTNode(n->getLeft(), rk_index), generateExpForASTNode(n->getRight(), rk_index)));
     // floating species ref
     else if (auto n = dynamic_cast<const FloatingSpeciesRefASTNode*>(node))
         return getVecRK(n->getFloatingSpecies(), rk_index);
@@ -574,6 +586,13 @@ void CudaGeneratorImpl::generate() {
                   ArrayIndexExpression(t, VariableRefExpression(rk_gen))
               )
               ))->getExpression());
+
+              if (diagnosticsEnabled()) {
+                    // printf
+                    update_coef_loop->getBody().addStatement(ExpressionPtr(new FunctionCallExpression(mod.getCudaSyncThreads())));
+                    update_coef_loop->getBody().addStatement(ExpressionPtr(new FunctionCallExpression(mod.getPrintf(), ExpressionPtr(new StringLiteralExpression("loop\\n")))));
+                    update_coef_loop->getBody().addStatement(ExpressionPtr(new FunctionCallExpression(mod.getCudaSyncThreads())));
+            }
 
             for (int rk_index=0; rk_index<4; ++rk_index) {
                 SwitchStatement* component_switch = SwitchStatement::insert(update_coef_loop->getBody(), MacroExpression(RK_GET_COMPONENT));

@@ -36,6 +36,7 @@
 # include <mutex>
 # include <vector>
 # include <list>
+# include <unordered_map>
 
 // == CODE ====================================================
 
@@ -181,6 +182,19 @@ protected:
 
     String val_;
     size_type size_;
+};
+
+/**
+ * @author JKM
+ * @brief Custom base data type
+ */
+class CustomBaseType : public BaseType {
+public:
+    using BaseType::BaseType;
+
+    virtual TypePtr clone() const {
+        return TypePtr(new CustomBaseType(*this));
+    }
 };
 
 /**
@@ -426,7 +440,10 @@ protected:
     typedef DomOwningPtr<BaseTypes> SelfPtr;
     typedef std::vector<TypePtr> Types;
     typedef std::vector<TypeTransitionPtr> Transitions;
+    typedef std::unordered_map<std::string, Type*> NameMap;
 public:
+    typedef Type::size_type size_type;
+
     enum TYPE_TAG {
 //         BASE_TYPES_BEGIN,
         ANY,
@@ -457,6 +474,19 @@ public:
     /// Fetch the singleton and get the type associated with the given tag
     static Type* getTp(TYPE_TAG tag) {
         return get().getType(tag);
+    }
+
+    /**
+     * @brief Do a name-based lookup for a custom type
+     * @details A custom type is one which the singleton has to knowledge
+     * about, perhaps an implementation-specific type defined by the compiler
+     */
+    Type* getCustomBaseType(std::string name, size_type size) {
+        auto i = namemap_.find(name);
+        if (i ==  namemap_.end())
+            return namemap_[name] = addType(TypePtr(new CustomBaseType(name, 0, size)));
+        else
+            return i->second;
     }
 
     /// Return the unique type formed by adding a pointer to an existing type
@@ -523,6 +553,7 @@ protected:
     static std::once_flag once_;
     Types types_;
     Transitions tx_;
+    NameMap namemap_;
 
 private:
     // there can be only one!

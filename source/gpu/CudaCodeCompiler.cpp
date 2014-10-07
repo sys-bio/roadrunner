@@ -187,7 +187,7 @@ namespace rrgpu
 
                 close(filedes[1]);
 
-                execl("/usr/local/cuda-6.0/bin/nvcc", "nvcc", "-D__CUDACC__", "-ccbin", "gcc", "-m32", "--ptxas-options=-v", "--compiler-options", "'-fPIC'", "-Drr_cuda_model_EXPORTS", "-Xcompiler", ",\"-fPIC\",\"-fPIC\",\"-g\"", "-DNVCC", "--shared", "-o", result.impl_->libname_.c_str(), cuda_src_name.c_str(), (char*)0);
+                execl("/usr/local/cuda-6.0/bin/nvcc", "nvcc", "-D__CUDACC__", "-ccbin", "gcc", "-m32", "--ptxas-options=-v", "-arch=sm_20", "--compiler-options", "'-fPIC'", "-Drr_cuda_model_EXPORTS", "-Xcompiler", ",\"-fPIC\",\"-fPIC\",\"-g\"", "-DNVCC", "--shared", "-o", result.impl_->libname_.c_str(), cuda_src_name.c_str(), (char*)0);
 
 //                 execl("/bin/ls", "ls", "/home/jkm", (char*)0);
 

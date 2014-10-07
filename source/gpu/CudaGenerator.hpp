@@ -61,6 +61,9 @@ public:
     /// Set numerical precision
     void setPrecision(Precision p);
 
+    /// Get numerical precision
+    Precision getPrecision() const;
+
     /// Generate the executable module
     void generate(GPUSimExecutableModel& model);
 
