@@ -30,8 +30,8 @@ int main(int argc, char * argv[])
     string settingsFile;
     bool doContinue = true;
     Args args;
-    try
-    {
+//     try
+//     {
         Logger::enableConsoleLogging();
 
         if(argc < 2)
@@ -156,11 +156,11 @@ int main(int argc, char * argv[])
         }
 
         delete rr;
-    }
-    catch(std::exception& ex)
-    {
-        Log(Logger::LOG_ERROR) << ex.what() << endl;
-    }
+//     }
+//     catch(std::exception& ex)
+//     {
+//         Log(Logger::LOG_ERROR) << ex.what() << endl;
+//     }
 
 
     Log(Logger::LOG_INFORMATION) << "RoadRunner is exiting...";

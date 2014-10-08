@@ -65,13 +65,17 @@ public:
         if (params_.getPrecision() == TimecourseIntegrationParameters::SINGLE) {
             float* values = svalues_;
             float* tval = stval_;
-            for (;N; values += n, tval += n, N = (N>n ? N-n : (n = N, N)))
+            for (;N; values += n, tval += n, N -= n, n = (N>n ? n : N)) {
+                Log(Logger::LOG_DEBUG) << "N = " << N;
                 integrateSingle_(n, values, tval);
+            }
         } else {
             double* values = dvalues_;
             double* tval = dtval_;
-            for (;N; values += n, tval += n, N = (N>n ? N-n : (n = N, N)))
+            for (;N; values += n, tval += n, N -= n, n = (N>n ? n : N)) {
+                Log(Logger::LOG_DEBUG) << "N = " << N;
                 integrateSingle_(n, values, tval);
+            }
         }
 
         auto integration_finish = std::chrono::high_resolution_clock::now();
@@ -117,6 +121,8 @@ protected:
 
     void integrateSingle_(int n, float* values, float* tval) {
         assert(values && tval && "No values set");
+        Log(Logger::LOG_DEBUG) << "Integrate single: n = " << n << ", gen_ = " << gen_ << ", vec len = " << realvec_->getVectorLength() << ", n timevals = " << (int)realvec_->getTimevalueCount();
+//         std::cerr << "Integrate single: n = " << n << ", gen_ = " << gen_ << ", vec len = " << realvec_->getVectorLength() << std::endl;
 
 //         auto integration_start = std::chrono::high_resolution_clock::now();
 
@@ -134,6 +140,7 @@ protected:
 
     void integrateSingle_(int n, double* values, double* tval) {
         assert(values && tval && "No values set");
+        Log(Logger::LOG_DEBUG) << "Integrate single: n = " << n << ", gen_ = " << gen_ << ", vec len = " << realvec_->getVectorLength() << ", n timevals = " << (int)realvec_->getTimevalueCount();
 
 //         auto integration_start = std::chrono::high_resolution_clock::now();
 

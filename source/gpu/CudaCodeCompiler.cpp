@@ -78,7 +78,7 @@ namespace rrgpu
             if(!so_.hasSymbol(entryMangled_))
                 throw_gpusim_exception("Lib " + libname_ + " has no symbol \"" + entryMangled_ + "\"");
 
-            Log(Logger::LOG_TRACE) << "Entering CUDA code";
+//             Log(Logger::LOG_TRACE) << "Entering CUDA code";
 
             entry_ = GPUEntryPoint(so_.getSymbol(entryMangled_), precision_);
 

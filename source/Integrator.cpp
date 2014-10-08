@@ -13,6 +13,7 @@
 #include "gpu/GPUSimIntegratorProxy.h"
 
 #include <cassert>
+#include <sstream>
 
 namespace rr
 {
@@ -84,6 +85,12 @@ VariableValue TimecourseIntegrationResultsRealVector::getValue(size_type ti, siz
 }
 
 void TimecourseIntegrationResultsRealVector::setValue(size_type ti, size_type i, double val) {
+    if (ti > val_.size() || i > val_.at(ti).size()) {
+        assert(getTimevalueCount() ==  val_.size());
+        std::stringstream ss;
+        ss << "Tried to set value " << ti << "x" << i << " in a container of size " << getTimevalueCount() << "x" << getVectorLength();
+        throw std::runtime_error(ss.str());
+    }
     val_.at(ti).at(i) = val;
 }
 
