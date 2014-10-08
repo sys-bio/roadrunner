@@ -55,6 +55,10 @@ void ArrayType::serializeSecondPart(Serializer& s) const {
     s << "[]";
 }
 
+void SizedArrayType::serializeSecondPart(Serializer& s) const {
+    s << "[" << size_ << "]";
+}
+
 void AliasType::serialize(Serializer& s) const {
     s << getName();
 }

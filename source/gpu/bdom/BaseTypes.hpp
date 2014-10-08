@@ -271,6 +271,31 @@ public:
 
 /**
  * @author JKM
+ * @brief A pointer to a type
+ */
+class SizedArrayType : public ArrayType {
+public:
+    SizedArrayType(Type* root, int size)
+      : ArrayType(root), size_(size) {
+
+    }
+
+    SizedArrayType(const SizedArrayType& other)
+      : ArrayType(other), size_(other.size_) {}
+
+    /// After the variable name (e.g. [] for arrays)
+    virtual void serializeSecondPart(Serializer& s) const;
+
+    virtual TypePtr clone() const {
+        return TypePtr(new SizedArrayType(*this));
+    }
+
+protected:
+    int size_;
+};
+
+/**
+ * @author JKM
  * @brief An alias to another type
  * @details Defined in e.g. a typedef
  */
@@ -430,6 +455,27 @@ protected:
 
 /**
  * @author JKM
+ * @brief Add array transition
+ * @details Given a type, get the array type
+ * (char -> char[10] etc.)
+ */
+class TypeTransitionAddSizedArray : public TypeTransitionAddArray {
+public:
+    TypeTransitionAddSizedArray(Type* from, Type* to, int size)
+      : TypeTransitionAddArray(from, to), size_(size) {}
+
+    virtual bool isEquivalent(TypeTransition* other) {
+        if(auto x = dynamic_cast<TypeTransitionAddSizedArray*>(other))
+            return getFrom()->isIdentical(x->getFrom());
+        return false;
+    }
+
+protected:
+    int size_;
+};
+
+/**
+ * @author JKM
  * @brief Singleton for accessing base data types
  * @details There is only one instance of this class,
  * accessible via the @ref get method. The class keeps
@@ -522,6 +568,16 @@ public:
         TypePtr newtype(new ArrayType(t));
         // if the type already exists, do not register a new one
         if(Type* preempt = regTransition(TypeTransitionPtr(new TypeTransitionAddArray(t, newtype.get()))))
+            return preempt;
+        else
+            return addType(std::move(newtype));
+    }
+
+    /// Return the unique type formed by making an array of an existing type
+    Type* addSizedArray(Type* t, int size) {
+        TypePtr newtype(new SizedArrayType(t, size));
+        // if the type already exists, do not register a new one
+        if(Type* preempt = regTransition(TypeTransitionPtr(new TypeTransitionAddSizedArray(t, newtype.get(), size))))
             return preempt;
         else
             return addType(std::move(newtype));
