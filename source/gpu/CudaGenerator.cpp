@@ -460,7 +460,7 @@ void CudaGeneratorImpl::generate() {
         if (statevec_is_shared_)
             t = VariableInitExpression::downcast(ExpressionStatement::insert(*kernel, VariableInitExpression(kernel->addVariable(Variable(pRKReal, "t")), ReferenceExpression(ArrayIndexExpression(f, MacroExpression(RK_STATE_VEC_LEN)))))->getExpression())->getVariable();
         else
-            t = VariableDeclarationExpression::downcast(ExpressionStatement::insert(*kernel, VariableDeclarationExpression(kernel->addVariable(Variable(BaseTypes::get().addSizedArray(RKReal, n), "t"))))->getExpression())->getVariable();
+            t = VariableInitExpression::downcast(ExpressionStatement::insert(*kernel, VariableInitExpression(kernel->addVariable(Variable(pRKReal, "t")), VariableRefExpression(kt)))->getExpression())->getVariable();
 
 //         if (diagnosticsEnabled()) {
 //             // printf
@@ -666,14 +666,16 @@ void CudaGeneratorImpl::generate() {
             }
         }
 
+
+        if (statevec_is_shared_)
         // copy results to passed parameters
-        kernel->addStatement(ExpressionPtr(
-            new FunctionCallExpression(
-                mod.getRegMemcpy(),
-                VariableRefExpression(kv),
-                VariableRefExpression(f),
-                ProductExpression(ProductExpression(VariableRefExpression(km), MacroExpression(N)), FunctionCallExpression(mod.getSizeof(), TypeRefExpression(RKReal)))
-              )));
+            kernel->addStatement(ExpressionPtr(
+                new FunctionCallExpression(
+                    mod.getRegMemcpy(),
+                    VariableRefExpression(kv),
+                    VariableRefExpression(f),
+                    ProductExpression(ProductExpression(VariableRefExpression(km), MacroExpression(N)), FunctionCallExpression(mod.getSizeof(), TypeRefExpression(RKReal)))
+                )));
     }
 
     CudaFunction* entry = mod.addFunction(CudaFunction(entryName, BaseTypes::getTp(BaseTypes::VOID), {FunctionParameter(BaseTypes::getTp(BaseTypes::INT), "km"), FunctionParameter(pRKReal, "kt"), FunctionParameter(pRKReal, "kv")}));
@@ -738,15 +740,14 @@ void CudaGeneratorImpl::generate() {
                 );
 
         // copy device results to passed parameters
-        if (statevec_is_shared_)
-            entry->addStatement(ExpressionPtr(
-                new FunctionCallExpression(
-                    mod.getCudaMemcpy(),
-                    VariableRefExpression(kv),
-                    VariableRefExpression(results),
-                    ProductExpression(ProductExpression(VariableRefExpression(km), MacroExpression(N)), FunctionCallExpression(mod.getSizeof(), TypeRefExpression(RKReal))),
-                    SymbolExpression("cudaMemcpyDeviceToHost")
-                )));
+        entry->addStatement(ExpressionPtr(
+            new FunctionCallExpression(
+                mod.getCudaMemcpy(),
+                VariableRefExpression(kv),
+                VariableRefExpression(results),
+                ProductExpression(ProductExpression(VariableRefExpression(km), MacroExpression(N)), FunctionCallExpression(mod.getSizeof(), TypeRefExpression(RKReal))),
+                SymbolExpression("cudaMemcpyDeviceToHost")
+            )));
 
         // free the result mem
         entry->addStatement(ExpressionPtr(new FunctionCallExpression(mod.getCudaFree(), VariableRefExpression(results))));
