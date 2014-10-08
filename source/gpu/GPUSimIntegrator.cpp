@@ -41,6 +41,7 @@ namespace rrgpu
 /**
  * @brief Dispatches integration runs in chunks
  */
+// TODO: rename SegmentIntegrator
 class GPUSimIntSlicer {
 public:
     GPUSimIntSlicer(const TimecourseIntegrationParameters& p, GPUSimExecutableModel& model)
@@ -81,21 +82,21 @@ public:
 
 protected:
     void initialize() {
-        TimecourseIntegrationResultsPtr results_(new TimecourseIntegrationResultsRealVector());
-        TimecourseIntegrationResultsRealVector* realvec_ = (TimecourseIntegrationResultsRealVector*)results_.get();
+        results_.reset(new TimecourseIntegrationResultsRealVector());
+        realvec_ = (TimecourseIntegrationResultsRealVector*)results_.get();
         gen_ = 0;
 
         realvec_->setTimevalueCount(params_.getTimevalueCount());
         realvec_->setVectorLength(model_.getNumIndepFloatingSpecies());
 
         if (params_.getPrecision() == TimecourseIntegrationParameters::SINGLE) {
-            float* svalues_ = (float*)malloc(realvec_->getTimevalueCount()*realvec_->getVectorLength()*sizeof(float));
+            svalues_ = (float*)malloc(realvec_->getTimevalueCount()*realvec_->getVectorLength()*sizeof(float));
             model_.refresh();
-            float* stval_ = params_.getTimevaluesHeapArrayFlt();
+            stval_ = params_.getTimevaluesHeapArrayFlt();
         } else {
-            double* dvalues_ = (double*)malloc(realvec_->getTimevalueCount()*realvec_->getVectorLength()*sizeof(double));
+            dvalues_ = (double*)malloc(realvec_->getTimevalueCount()*realvec_->getVectorLength()*sizeof(double));
             model_.refresh();
-            double* dtval_ = params_.getTimevaluesHeapArrayDbl();
+            dtval_ = params_.getTimevaluesHeapArrayDbl();
         }
     }
 

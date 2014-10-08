@@ -589,9 +589,9 @@ void CudaGeneratorImpl::generate() {
 
               if (diagnosticsEnabled()) {
                     // printf
-                    update_coef_loop->getBody().addStatement(ExpressionPtr(new FunctionCallExpression(mod.getCudaSyncThreads())));
-                    update_coef_loop->getBody().addStatement(ExpressionPtr(new FunctionCallExpression(mod.getPrintf(), ExpressionPtr(new StringLiteralExpression("loop\\n")))));
-                    update_coef_loop->getBody().addStatement(ExpressionPtr(new FunctionCallExpression(mod.getCudaSyncThreads())));
+//                     update_coef_loop->getBody().addStatement(ExpressionPtr(new FunctionCallExpression(mod.getCudaSyncThreads())));
+//                     update_coef_loop->getBody().addStatement(ExpressionPtr(new FunctionCallExpression(mod.getPrintf(), ExpressionPtr(new StringLiteralExpression("loop\\n")))));
+//                     update_coef_loop->getBody().addStatement(ExpressionPtr(new FunctionCallExpression(mod.getCudaSyncThreads())));
             }
 
             for (int rk_index=0; rk_index<4; ++rk_index) {
