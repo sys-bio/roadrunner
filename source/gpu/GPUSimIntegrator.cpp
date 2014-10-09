@@ -59,8 +59,8 @@ public:
         auto integration_start = std::chrono::high_resolution_clock::now();
 
         int n = N;
-        if (N*realvec_->getVectorLength() > 5000)
-            n = N/realvec_->getVectorLength();
+//         if (N*realvec_->getVectorLength() > 5000)
+//             n = N/realvec_->getVectorLength();
 
         if (params_.getPrecision() == TimecourseIntegrationParameters::SINGLE) {
             float* values = svalues_;
