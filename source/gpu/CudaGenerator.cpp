@@ -651,11 +651,24 @@ void CudaGeneratorImpl::generate() {
 
         kernel->addStatement(ExpressionPtr(new FunctionCallExpression(mod.getCudaSyncThreads())));
 
+        // print the initial coefficients
         if (diagnosticsEnabled()) {
             // print coefs
             // BUG? order reversed?
             kernel->addStatement(ExpressionPtr(new FunctionCallExpression(PrintCoefs, VariableRefExpression(ctx->getK()))));
             kernel->addStatement(ExpressionPtr(new FunctionCallExpression(mod.getCudaSyncThreads())));
+        }
+
+        // print the initial reaction rates
+        if (diagnosticsEnabled()) {
+            IfStatement* if_thd1 = IfStatement::downcast(kernel->addStatement(StatementPtr(new IfStatement(
+                    ExpressionPtr(new EqualityCompExpression(mod.getThreadIdx(CudaModule::IndexComponent::x), LiteralIntExpression(0)))
+                ))));
+            if_thd1->getBody().addStatement(ExpressionPtr(new FunctionCallExpression(mod.getPrintf(), ExpressionPtr(new StringLiteralExpression("**** Initial reaction rates ****\\n")))));
+
+            if_thd1->getBody().addStatement(ExpressionPtr(new FunctionCallExpression(mod.getCudaSyncThreads())));
+            if_thd1->getBody().addStatement(ExpressionPtr(new FunctionCallExpression(PrintRxnRates, VariableRefExpression(ctx->getf()), LiteralIntExpression(0))));
+            if_thd1->getBody().addStatement(ExpressionPtr(new FunctionCallExpression(mod.getCudaSyncThreads())));
         }
 
         // main integration loop
