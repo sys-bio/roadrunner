@@ -42,6 +42,48 @@ namespace dom
 //     int getReactionSide(const std::string& species_id);
 // };
 
+class StateContext {
+public:
+    virtual ~StateContext() {}
+
+    void setf(Variable* v) { f_ = v; }
+    Variable* getf() { return f_; }
+
+protected:
+    /// Statevec
+    Variable* f_ = nullptr;
+};
+
+class RKStateContext :  public StateContext {
+public:
+
+    /// Empty ctor
+    RKStateContext() {}
+
+    /// Copy-construct with a different RK index
+    RKStateContext(const RKStateContext& other, int rk)
+      : RKStateContext(other) {
+          rk_ = rk;
+      }
+
+    void setK(Variable* v) { k = v; }
+    Variable* getK() { return k; }
+
+    int RKIndex() const { return getRKIndex(); }
+    int getRKIndex() const { return rk_; }
+    void setRKIndex(int rk) { rk_ = rk; }
+
+    void setRKGen(Variable* v) { rk_gen = v; }
+    Variable* getRKGen() { return rk_gen; }
+protected:
+    /// RK coef
+    Variable* k = nullptr;
+    /// Iteration of main int. loop
+    Variable* rk_gen = nullptr;
+    /// The RK index
+    int rk_ = 0;
+};
+
 class CudaGeneratorImpl {
 public:
     typedef CudaGenerator::Precision Precision;
@@ -61,13 +103,13 @@ public:
         return p_;
     }
 
-    ExpressionPtr generateReactionRateExp(const Reaction* r, int rk_index);
+    ExpressionPtr generateReactionRateExp(const Reaction* r, StateContext* ctx);
 
     ExpressionPtr accumulate(ExpressionPtr&& sum, ExpressionPtr&& item, bool invert);
 
-    ExpressionPtr generateEvalExp(int component, int rk_index);
+    ExpressionPtr generateEvalExp(int component, StateContext* ctx);
 
-    ExpressionPtr getVecRK(const FloatingSpecies* s, int rk_index);
+    ExpressionPtr getIntermediateValue(const FloatingSpecies* s, StateContext* ctx);
 
 # if 0 && GPUSIM_MODEL_USE_SBML
     ExpressionPtr generateExpForSBMLASTNode(const Reaction* r, const libsbml::ASTNode* node, int rk_index);
@@ -75,7 +117,7 @@ public:
 // # error "Need SBML"
 # endif
 
-    ExpressionPtr generateExpForASTNode(const ModelASTNode* n, int rk_index);
+    ExpressionPtr generateExpForASTNode(const ModelASTNode* n, StateContext* ctx);
 
     /// Generate the model code
     void generate();
@@ -109,8 +151,8 @@ protected:
                 std::move(component))));
     }
 
-    ExpressionPtr getK(ExpressionPtr&& index, ExpressionPtr&& component) {
-        return getRKCoef(k, std::move(index), std::move(component));
+    ExpressionPtr getK(ExpressionPtr&& index, ExpressionPtr&& component, RKStateContext* ctx) {
+        return getRKCoef(ctx->getK(), std::move(index), std::move(component));
     }
 
     /**
@@ -118,10 +160,11 @@ protected:
      * @details Expression rvalue version
      */
     template <class IndexExpression, class ComponentExpression>
-    ExpressionPtr getK(IndexExpression&& index, ComponentExpression&& component) {
+    ExpressionPtr getK(IndexExpression&& index, ComponentExpression&& component, RKStateContext* ctx) {
         return getK(
                 ExpressionPtr(new IndexExpression(std::move(index))),
-                ExpressionPtr(new ComponentExpression(std::move(component))));
+                ExpressionPtr(new ComponentExpression(std::move(component))),
+          ctx);
     }
 
     ExpressionPtr getVecCoef(const Variable* vec, ExpressionPtr&& generation, ExpressionPtr&& component) {
@@ -132,8 +175,8 @@ protected:
                   )));
     }
 
-    ExpressionPtr getSV(ExpressionPtr&& generation, ExpressionPtr&& component) {
-        return getVecCoef(f, std::move(generation), std::move(component));
+    ExpressionPtr getSV(ExpressionPtr&& generation, ExpressionPtr&& component, StateContext* ctx) {
+        return getVecCoef(ctx->getf(), std::move(generation), std::move(component));
     }
 
     /**
@@ -141,10 +184,11 @@ protected:
      * @details Expression rvalue version
      */
     template <class GenerationExpression, class ComponentExpression>
-    ExpressionPtr getSV(GenerationExpression&& generation, ComponentExpression&& component) {
+    ExpressionPtr getSV(GenerationExpression&& generation, ComponentExpression&& component, StateContext* ctx) {
         return getSV(
                 ExpressionPtr(new GenerationExpression(std::move(generation))),
-                ExpressionPtr(new ComponentExpression(std::move(component))));
+                ExpressionPtr(new ComponentExpression(std::move(component))),
+          ctx);
     }
 
     // options
@@ -165,8 +209,6 @@ protected:
 
     CudaFunction* add_if_positive = nullptr;
     Variable* h = nullptr;
-    Variable* rk_gen = nullptr;
-    Variable* k = nullptr;
     Variable* f = nullptr;
     bool diag_ = false;
 
@@ -206,48 +248,53 @@ GPUEntryPoint CudaGeneratorImpl::getEntryPoint() {
     return entry_;
 }
 
-ExpressionPtr CudaGeneratorImpl::getVecRK(const FloatingSpecies* s, int rk_index) {
+ExpressionPtr CudaGeneratorImpl::getIntermediateValue(const FloatingSpecies* s, StateContext* ctxx) {
     assert(s && "Should not happen");
     int component = mod_.getStateVecComponent(s);
-    if (rk_index == 0)
-        return getSV(VariableRefExpression(rk_gen), LiteralIntExpression(component));
-    else if (rk_index == 1 || rk_index == 2)
-        return ExpressionPtr(new SumExpression(getSV(VariableRefExpression(rk_gen), LiteralIntExpression(component)),
+
+    assert(ctxx);
+    auto ctx = dynamic_cast<RKStateContext*>(ctxx);
+    assert(ctx);
+
+    if (ctx->RKIndex() == 0)
+        return getSV(VariableRefExpression(ctx->getRKGen()), LiteralIntExpression(component), ctxx);
+    else if (ctx->RKIndex() == 1 || ctx->RKIndex() == 2)
+        return ExpressionPtr(new SumExpression(getSV(VariableRefExpression(ctx->getRKGen()), LiteralIntExpression(component), ctxx),
                     ProductExpression(
                         ProductExpression(RealLiteralExpression(0.5), VariableRefExpression(h)),
-                        getK(LiteralIntExpression(rk_index-1), LiteralIntExpression(component))
+                        getK(LiteralIntExpression(ctx->RKIndex()-1), LiteralIntExpression(component), ctx)
                       )));
-    else if (rk_index == 3)
-        return ExpressionPtr(new SumExpression(getSV(VariableRefExpression(rk_gen), LiteralIntExpression(component)),
+    else if (ctx->RKIndex() == 3)
+        return ExpressionPtr(new SumExpression(getSV(VariableRefExpression(ctx->getRKGen()), LiteralIntExpression(component), ctxx),
                     ProductExpression(
                         VariableRefExpression(h),
-                        getK(LiteralIntExpression(rk_index-1), LiteralIntExpression(component))
+                        getK(LiteralIntExpression(ctx->RKIndex()-1), LiteralIntExpression(component), ctx)
                       )));
     else
-        assert(0 && "Should not happen (0 <= rk_index < 4)");
+        assert(0 && "Should not happen (0 <= ctx->RKIndex() < 4)");
 }
 
-ExpressionPtr CudaGeneratorImpl::generateExpForASTNode(const ModelASTNode* node, int rk_index) {
+ExpressionPtr CudaGeneratorImpl::generateExpForASTNode(const ModelASTNode* node, StateContext* ctx) {
     assert(node);
     // visitor is no good here (way too much overhead and not extensible enough)
     // sum
     if (auto n = dynamic_cast<const SumASTNode*>(node))
-        return ExpressionPtr(new SumExpression(generateExpForASTNode(n->getLeft(), rk_index), generateExpForASTNode(n->getRight(), rk_index)));
+        return ExpressionPtr(new SumExpression(generateExpForASTNode(n->getLeft(), ctx), generateExpForASTNode(n->getRight(), ctx)));
     // difference
     else if (auto n = dynamic_cast<const DifferenceASTNode*>(node))
-        return ExpressionPtr(new DifferenceExpression(generateExpForASTNode(n->getLeft(), rk_index), generateExpForASTNode(n->getRight(), rk_index)));
+        return ExpressionPtr(new DifferenceExpression(generateExpForASTNode(n->getLeft(), ctx), generateExpForASTNode(n->getRight(), ctx)));
     // product
     else if (auto n = dynamic_cast<const ProductASTNode*>(node))
-        return ExpressionPtr(new ProductExpression(generateExpForASTNode(n->getLeft(), rk_index), generateExpForASTNode(n->getRight(), rk_index)));
+        return ExpressionPtr(new ProductExpression(generateExpForASTNode(n->getLeft(), ctx), generateExpForASTNode(n->getRight(), ctx)));
     // division
     else if (auto n = dynamic_cast<const QuotientASTNode*>(node))
-        return ExpressionPtr(new QuotientExpression(generateExpForASTNode(n->getLeft(), rk_index), generateExpForASTNode(n->getRight(), rk_index)));
+        return ExpressionPtr(new QuotientExpression(generateExpForASTNode(n->getLeft(), ctx), generateExpForASTNode(n->getRight(), ctx)));
     // exponentiation
     else if (auto n = dynamic_cast<const ExponentiationASTNode*>(node))
-        return ExpressionPtr(generatePow(generateExpForASTNode(n->getLeft(), rk_index), generateExpForASTNode(n->getRight(), rk_index)));
+        return ExpressionPtr(generatePow(generateExpForASTNode(n->getLeft(), ctx), generateExpForASTNode(n->getRight(), ctx)));
     // floating species ref
     else if (auto n = dynamic_cast<const FloatingSpeciesRefASTNode*>(node))
-        return getVecRK(n->getFloatingSpecies(), rk_index);
+        return getIntermediateValue(n->getFloatingSpecies(), ctx);
     // parameter ref
     else if (auto n = dynamic_cast<const ParameterRefASTNode*>(node))
         return ExpressionPtr(new RealLiteralExpression(n->getParameterVal()));
@@ -268,7 +315,7 @@ ExpressionPtr CudaGeneratorImpl::generateExpForSBMLASTNode(const Reaction* r, co
             if (r->isParameter(node->getName()))
                 return ExpressionPtr(new RealLiteralExpression(r->getParameterVal(node->getName())));
             if (r->isParticipant(node->getName()))
-                return getVecRK(r->getFloatingSpecies(node->getName()), rk_index);
+                return getIntermediateValue(r->getFloatingSpecies(node->getName()), rk_index);
             else
                 return ExpressionPtr(new LiteralIntExpression(12345));
         default:
@@ -279,11 +326,11 @@ ExpressionPtr CudaGeneratorImpl::generateExpForSBMLASTNode(const Reaction* r, co
 // # error "Need SBML"
 # endif
 
-ExpressionPtr CudaGeneratorImpl::generateReactionRateExp(const Reaction* r, int rk_index) {
+ExpressionPtr CudaGeneratorImpl::generateReactionRateExp(const Reaction* r, StateContext* ctx) {
     if (r->isReversible())
-        return generateExpForASTNode(r->getKineticLaw().getAlgebra().getRoot(), rk_index);
+        return generateExpForASTNode(r->getKineticLaw().getAlgebra().getRoot(), ctx);
     else
-        return ExpressionPtr(new FunctionCallExpression(add_if_positive, generateExpForASTNode(r->getKineticLaw().getAlgebra().getRoot(), rk_index)));
+        return ExpressionPtr(new FunctionCallExpression(add_if_positive, generateExpForASTNode(r->getKineticLaw().getAlgebra().getRoot(), ctx)));
 }
 
 ExpressionPtr CudaGeneratorImpl::accumulate(ExpressionPtr&& sum, ExpressionPtr&& item, bool invert) {
@@ -297,7 +344,7 @@ ExpressionPtr CudaGeneratorImpl::accumulate(ExpressionPtr&& sum, ExpressionPtr&&
             ExpressionPtr(std::move(item));
 }
 
-ExpressionPtr CudaGeneratorImpl::generateEvalExp(int component, int rk_index) {
+ExpressionPtr CudaGeneratorImpl::generateEvalExp(int component, StateContext* ctx) {
     // get the species corresponding to this component in the state vec
     const FloatingSpecies* s = mod_.getFloatingSpeciesFromSVComponent(component);
 
@@ -307,7 +354,7 @@ ExpressionPtr CudaGeneratorImpl::generateEvalExp(int component, int rk_index) {
     for (const Reaction* r : mod_.getReactions())
         if (int factor = mod_.getReactionSideFac(r, s)) {
             assert((factor == 1 || factor == -1) && "Should not happen");
-            sum = accumulate(std::move(sum), generateReactionRateExp(r, rk_index), factor==-1);
+            sum = accumulate(std::move(sum), generateReactionRateExp(r, ctx), factor==-1);
         }
 
     return std::move(sum);
@@ -323,6 +370,8 @@ void CudaGeneratorImpl::generate() {
 
     // get the size of the state vector
     int n = mod_.getStateVector(NULL);
+
+    std::unique_ptr<RKStateContext> ctx(new RKStateContext());
 
     // construct the DOM
 
@@ -369,6 +418,7 @@ void CudaGeneratorImpl::generate() {
 
     CudaFunction* PrintCoefs = mod.addFunction(CudaFunction("PrintCoefs", BaseTypes::getTp(BaseTypes::VOID), {FunctionParameter(pRKReal, "k")}));
 
+    // generate PrintCoefs
     {
         PrintCoefs->setIsDeviceFun(true);
 
@@ -432,6 +482,40 @@ void CudaGeneratorImpl::generate() {
         PrintStatevec->addStatement(ExpressionPtr(new FunctionCallExpression(mod.getCudaSyncThreads())));
     }
 
+    // generate PrintRxnRates
+    CudaFunction* PrintRxnRates = mod.addFunction(CudaFunction("PrintRxnRates", BaseTypes::getTp(BaseTypes::VOID), {FunctionParameter(pRKReal, "f"), FunctionParameter(BaseTypes::getTp(BaseTypes::INT), "j")}));
+
+    {
+        PrintRxnRates->setIsDeviceFun(true);
+
+        PrintRxnRates->addStatement(ExpressionPtr(new FunctionCallExpression(mod.getCudaSyncThreads())));
+
+        IfStatement* if_thd1 = IfStatement::downcast(PrintRxnRates->addStatement(StatementPtr(new IfStatement(
+                    ExpressionPtr(new EqualityCompExpression(mod.getThreadIdx(CudaModule::IndexComponent::x), LiteralIntExpression(0)))
+                ))));
+
+        // printf
+        if_thd1->getBody().addStatement(ExpressionPtr(new FunctionCallExpression(mod.getPrintf(), ExpressionPtr(new StringLiteralExpression("PrintRxnRates\\n")))));
+
+        RKStateContext newctx(*ctx);
+        newctx.setf(PrintRxnRates->getPositionalParam(0));
+        newctx.setRKGen(PrintRxnRates->getPositionalParam(1));
+        for (const Reaction* r : mod_.getReactions()) {
+            // loop through rxns
+            ExpressionStatement::insert(if_thd1->getBody(), FunctionCallExpression(
+                    mod.getPrintf(),
+                    StringLiteralExpression(r->getId() + ": %3.3f "),
+                    generateReactionRateExp(r, ctx)
+                ));
+            ExpressionStatement::insert(if_thd1->getBody(), FunctionCallExpression(
+                mod.getPrintf(),
+                StringLiteralExpression("\\n")
+                ));
+        }
+
+        PrintRxnRates->addStatement(ExpressionPtr(new FunctionCallExpression(mod.getCudaSyncThreads())));
+    }
+
     CudaKernel* kernel = CudaKernel::downcast(mod.addFunction(CudaKernel("GPUIntMEBlockedRK4", BaseTypes::getTp(BaseTypes::VOID), {FunctionParameter(BaseTypes::getTp(BaseTypes::INT), "km"), FunctionParameter(pRKReal, "kt"), FunctionParameter(pRKReal, "kv")})));
 
     // the step size
@@ -449,12 +533,14 @@ void CudaGeneratorImpl::generate() {
         // declare shared memory
         Variable* shared_buf = CudaVariableDeclarationExpression::downcast(ExpressionStatement::insert(*kernel, CudaVariableDeclarationExpression(kernel->addVariable(Variable(BaseTypes::get().addArray(RKReal), "shared_buf")), true))->getExpression())->getVariable();
 
-        k = VariableInitExpression::downcast(ExpressionStatement::insert(*kernel, VariableInitExpression(kernel->addVariable(Variable(pRKReal, "k")), ReferenceExpression(ArrayIndexExpression(shared_buf, LiteralIntExpression(0)))))->getExpression())->getVariable();
+        ctx->setK(VariableInitExpression::downcast(ExpressionStatement::insert(*kernel, VariableInitExpression(kernel->addVariable(Variable(pRKReal, "k")), ReferenceExpression(ArrayIndexExpression(shared_buf, LiteralIntExpression(0)))))->getExpression())->getVariable());
 
         if (statevec_is_shared_)
-            f = VariableInitExpression::downcast(ExpressionStatement::insert(*kernel, VariableInitExpression(kernel->addVariable(Variable(pRKReal, "f")), ReferenceExpression(ArrayIndexExpression(k, MacroExpression(RK_COEF_LEN)))))->getExpression())->getVariable();
+            f = VariableInitExpression::downcast(ExpressionStatement::insert(*kernel, VariableInitExpression(kernel->addVariable(Variable(pRKReal, "f")), ReferenceExpression(ArrayIndexExpression(ctx->getK(), MacroExpression(RK_COEF_LEN)))))->getExpression())->getVariable();
         else
             f = VariableInitExpression::downcast(ExpressionStatement::insert(*kernel, VariableInitExpression(kernel->addVariable(Variable(pRKReal, "f")), VariableRefExpression(kv)))->getExpression())->getVariable();
+
+        ctx->setf(f);
 
         Variable* t = nullptr;
         if (statevec_is_shared_)
@@ -474,7 +560,7 @@ void CudaGeneratorImpl::generate() {
                 // init expression for k
                 AssignmentExpression* k_init_assn =
                     AssignmentExpression::downcast(ExpressionStatement::insert(*kernel, AssignmentExpression(
-                    getK(LiteralIntExpression(i), MacroExpression(RK_GET_COMPONENT)),
+                    getK(LiteralIntExpression(i), MacroExpression(RK_GET_COMPONENT), ctx.get()),
                     LiteralIntExpression(0)))->getExpression());
 
 //                 if (diagnosticsEnabled()) {
@@ -499,7 +585,7 @@ void CudaGeneratorImpl::generate() {
             if_thd1->getBody().addStatement(ExpressionPtr(new FunctionCallExpression(mod.getPrintf(), ExpressionPtr(new StringLiteralExpression("**** Initial rk coefs ****\\n")))));
 
             kernel->addStatement(ExpressionPtr(new FunctionCallExpression(mod.getCudaSyncThreads())));
-            kernel->addStatement(ExpressionPtr(new FunctionCallExpression(PrintCoefs, VariableRefExpression(k))));
+            kernel->addStatement(ExpressionPtr(new FunctionCallExpression(PrintCoefs, VariableRefExpression(ctx->getK()))));
 
 //             for (int i=0; i<4; ++i) {
 //                 if (diagnosticsEnabled()) {
@@ -568,7 +654,7 @@ void CudaGeneratorImpl::generate() {
         if (diagnosticsEnabled()) {
             // print coefs
             // BUG? order reversed?
-            kernel->addStatement(ExpressionPtr(new FunctionCallExpression(PrintCoefs, VariableRefExpression(k))));
+            kernel->addStatement(ExpressionPtr(new FunctionCallExpression(PrintCoefs, VariableRefExpression(ctx->getK()))));
             kernel->addStatement(ExpressionPtr(new FunctionCallExpression(mod.getCudaSyncThreads())));
         }
 
@@ -576,7 +662,9 @@ void CudaGeneratorImpl::generate() {
         {
             ForStatement* update_coef_loop = ForStatement::downcast(kernel->addStatement(ForStatement::make()));
 
-            rk_gen = update_coef_loop->addVariable(Variable(BaseTypes::getTp(BaseTypes::INT), "j"));
+            Variable* rk_gen = update_coef_loop->addVariable(Variable(BaseTypes::getTp(BaseTypes::INT), "j"));
+
+            ctx->setRKGen(rk_gen);
 
             update_coef_loop->setInitExp(ExpressionPtr(new VariableInitExpression(rk_gen, ExpressionPtr(new LiteralIntExpression(0)))));
 
@@ -609,14 +697,15 @@ void CudaGeneratorImpl::generate() {
                 for (int component=0; component<n; ++component) {
                     component_switch->addCase(LiteralIntExpression(component));
 
+                RKStateContext newctx(*ctx, rk_index);
                 // RK coef computation
                 AssignmentExpression* k_assn =
                     AssignmentExpression::downcast(ExpressionStatement::insert(component_switch->getBody(), AssignmentExpression(
-                    ExpressionPtr(new ArrayIndexExpression(k,
+                    ExpressionPtr(new ArrayIndexExpression(ctx->getK(),
                     MacroExpression(RK_COEF_GET_OFFSET,
-                    LiteralIntExpression(rk_index),
+                    LiteralIntExpression(newctx.getRKIndex()),
                     LiteralIntExpression(component)))),
-                    generateEvalExp(component, rk_index)))->getExpression());
+                    generateEvalExp(component, &newctx)))->getExpression());
 
                     component_switch->addBreak();
                 }
@@ -640,10 +729,10 @@ void CudaGeneratorImpl::generate() {
                         ProductExpression(
                         ProductExpression(RealLiteralExpression(0.166666667), VariableRefExpression(h)),
                         SumExpression(SumExpression(SumExpression(
-                            getK(LiteralIntExpression(0), MacroExpression(RK_GET_COMPONENT)),
-                            ProductExpression(RealLiteralExpression(2.), getK(LiteralIntExpression(1), MacroExpression(RK_GET_COMPONENT)))),
-                            ProductExpression(RealLiteralExpression(2.), getK(LiteralIntExpression(2), MacroExpression(RK_GET_COMPONENT)))),
-                            getK(LiteralIntExpression(3), MacroExpression(RK_GET_COMPONENT))
+                            getK(LiteralIntExpression(0), MacroExpression(RK_GET_COMPONENT), ctx.get()),
+                            ProductExpression(RealLiteralExpression(2.), getK(LiteralIntExpression(1), MacroExpression(RK_GET_COMPONENT), ctx.get()))),
+                            ProductExpression(RealLiteralExpression(2.), getK(LiteralIntExpression(2), MacroExpression(RK_GET_COMPONENT), ctx.get()))),
+                            getK(LiteralIntExpression(3), MacroExpression(RK_GET_COMPONENT), ctx.get())
                           )))
               ));
 
@@ -662,7 +751,7 @@ void CudaGeneratorImpl::generate() {
             if (diagnosticsEnabled()) {
                 // print coefs
                 update_coef_loop->getBody().addStatement(ExpressionPtr(new FunctionCallExpression(mod.getCudaSyncThreads())));
-                update_coef_loop->getBody().addStatement(ExpressionPtr(new FunctionCallExpression(PrintCoefs, VariableRefExpression(k))));
+                update_coef_loop->getBody().addStatement(ExpressionPtr(new FunctionCallExpression(PrintCoefs, VariableRefExpression(ctx->getK()))));
             }
         }
 
