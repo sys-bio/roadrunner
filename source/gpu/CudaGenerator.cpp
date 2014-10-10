@@ -46,12 +46,12 @@ class StateContext {
 public:
     virtual ~StateContext() {}
 
-    void setf(Variable* v) { f_ = v; }
-    Variable* getf() { return f_; }
+    void setf(const Variable* v) { f_ = v; }
+    const Variable* getf() const { return f_; }
 
 protected:
     /// Statevec
-    Variable* f_ = nullptr;
+    const Variable* f_ = nullptr;
 };
 
 class RKStateContext :  public StateContext {
@@ -66,20 +66,20 @@ public:
           rk_ = rk;
       }
 
-    void setK(Variable* v) { k = v; }
-    Variable* getK() { return k; }
+    void setK(const Variable* v) { k = v; }
+    const Variable* getK() const { return k; }
 
     int RKIndex() const { return getRKIndex(); }
     int getRKIndex() const { return rk_; }
     void setRKIndex(int rk) { rk_ = rk; }
 
-    void setRKGen(Variable* v) { rk_gen = v; }
-    Variable* getRKGen() { return rk_gen; }
+    void setRKGen(const Variable* v) { rk_gen = v; }
+    const Variable* getRKGen() const { return rk_gen; }
 protected:
     /// RK coef
-    Variable* k = nullptr;
+    const Variable* k = nullptr;
     /// Iteration of main int. loop
-    Variable* rk_gen = nullptr;
+    const Variable* rk_gen = nullptr;
     /// The RK index
     int rk_ = 0;
 };
@@ -505,7 +505,7 @@ void CudaGeneratorImpl::generate() {
             ExpressionStatement::insert(if_thd1->getBody(), FunctionCallExpression(
                     mod.getPrintf(),
                     StringLiteralExpression(r->getId() + ": %3.3f "),
-                    generateReactionRateExp(r, ctx)
+                    generateReactionRateExp(r, &newctx)
                 ));
             ExpressionStatement::insert(if_thd1->getBody(), FunctionCallExpression(
                 mod.getPrintf(),
