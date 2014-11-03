@@ -124,6 +124,7 @@ C_DECL_SPEC int  rrcCallConv getVersion();
  */
 C_DECL_SPEC char*  rrcCallConv getVersionStr();
 
+
 /*!
  returns something like "1.0.0; compiled with clang "3.3 (tags/RELEASE_33/final)" on date Dec  8 2013, 17:24:57'
  */
