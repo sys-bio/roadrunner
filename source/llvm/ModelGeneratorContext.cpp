@@ -429,11 +429,11 @@ void ModelGeneratorContext::initFunctionPassManager()
     // we only support LLVM >= 3.1
 
 #if (LLVM_VERSION_MAJOR == 3) && (LLVM_VERSION_MINOR == 1)
-        functionPassManager->add(new TargetData(*executionEngine->getTargetData()));
-#elif (LLVM_VERSION_MINOR <= 4)
+    functionPassManager->add(new TargetData(*executionEngine->getTargetData()));
+#elif (LLVM_VERSION_MINOR <= 5)
     // don't alter behavior retroactively on LLVM 3.4 and earlier
     functionPassManager->add(new DataLayout(*executionEngine->getDataLayout()));
-#else // LLVM_VERSION_MINOR > 4
+#else // LLVM_VERSION_MINOR > 5
     // Needed for LLVM 3.5 regardless of architecture
     // also, should use DataLayoutPass(module) per Renato (http://reviews.llvm.org/D4607)
     functionPassManager->add(new DataLayoutPass(module));
