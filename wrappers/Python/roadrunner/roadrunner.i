@@ -1019,15 +1019,14 @@ namespace std { class ostream{}; }
             if Config.getValue(Config.ROADRUNNER_DISABLE_PYTHON_DYNAMIC_PROPERTIES):
                 return
 
-            model = self.getModel()
-
             # can't make properties without a model.
-            if model is None:
+            if self.getModel() is None:
                 return
 
-            def mk_fget(sel): return lambda self: model.__getitem__(sel)
-            def mk_fset(sel): return lambda self, val: model.__setitem__(sel, val)
+            def mk_fget(sel): return lambda self: self.getModel().__getitem__(sel)
+            def mk_fset(sel): return lambda self, val: self.getModel().__setitem__(sel, val)
 
+             
             def makeProperty(name, sel):
                 fget = mk_fget(sel)
                 fset = mk_fset(sel)
@@ -1036,6 +1035,7 @@ namespace std { class ostream{}; }
                 setattr(RoadRunner, name, property(fget, fset))
                 RoadRunner._properties.append(name)
 
+            model = self.getModel()
             for s in model.getFloatingSpeciesIds():
                 makeProperty(s, "[" + s + "]")  # concentrations
                 makeProperty(s + "_amt", s)     # amounts

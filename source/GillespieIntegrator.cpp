@@ -16,6 +16,7 @@
 #include <exception>
 #include <ctime>
 #include <limits>
+#include <sstream>
 
 using namespace std;
 
@@ -214,11 +215,20 @@ double GillespieIntegrator::integrate(double t, double hstep)
         double sign = (reactionRates[reaction] > 0)
                 - (reactionRates[reaction] < 0);
 
+
         for (int i = floatingSpeciesStart; i < stateVectorSize; ++i)
         {
             stateVector[i] = stateVector[i]
                     + getStoich(i - floatingSpeciesStart, reaction)
                             * stoichScale * sign;
+
+            if(stateVector[i] < 0.0) {
+            	Log(Logger::LOG_WARNING) << "Error, negative value of "
+            	   << stateVector[i]
+				   << " encountred for floating species "
+				   << model->getFloatingSpeciesId(i - floatingSpeciesStart);
+            	t = std::numeric_limits<double>::infinity();
+            }
         }
 
         // rates could be time dependent

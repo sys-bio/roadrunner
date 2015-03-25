@@ -22,6 +22,7 @@
 #include <algorithm>
 
 #include "testing/CXXExecutableModel.h"
+#include "testing/CXXEnzymeExecutableModel.h"
 
 using namespace std;
 namespace rr {
@@ -59,8 +60,8 @@ ExecutableModel* rr::ExecutableModelFactory::createModel(
 {
     LoadSBMLOptions opt(dict);
 
-    if(opt.hasKey("cxxTestModel")) {
-        return new rrtesting::CXXExecutableModel(dict);
+    if(opt.hasKey("cxxEnzymeTest")) {
+        return new rrtesting::CXXEnzymeExecutableModel(dict);
     }
 
     return rrllvm::LLVMModelGenerator::createModel(sbml, opt.modelGeneratorOpt);
