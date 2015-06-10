@@ -332,17 +332,17 @@ double CVODEIntegrator::integrate(double timeStart, double hstep)
             Log(Logger::LOG_WARNING) << "Constraint Violated at time = " << timeEnd << ": " << e.what();
         }
 
+        if (options.integratorFlags & VARIABLE_STEP && (timeEnd - timeStart > 2. * epsilon))
+        {
+            return timeEnd;
+        }
+
 
         if (tout - timeEnd > epsilon)
         {
             timeStart = timeEnd;
         }
         Log(Logger::LOG_TRACE) << "time step, tout: " << tout << ", timeEnd: " << timeEnd;
-
-        if (options.integratorFlags & VARIABLE_STEP && (timeEnd - timeStart > 2. * epsilon))
-        {
-            return timeEnd;
-        }
     }
     return timeEnd;
 }
