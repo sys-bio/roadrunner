@@ -339,7 +339,7 @@ double CVODEIntegrator::integrate(double timeStart, double hstep)
         }
         Log(Logger::LOG_TRACE) << "time step, tout: " << tout << ", timeEnd: " << timeEnd;
 
-        if (options.integratorFlags & VARIABLE_STEP)
+        if (options.integratorFlags & VARIABLE_STEP && (timeEnd - timeStart > 2. * epsilon))
         {
             return timeEnd;
         }
