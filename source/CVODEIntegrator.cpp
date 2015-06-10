@@ -202,7 +202,7 @@ double CVODEIntegrator::integrate(double timeStart, double hstep)
             << timeStart <<", " << hstep << ")";
 
     if(variableStepPendingEvent || variableStepTimeEndEvent) {
-        return applyVariableStepPendingEvents();
+        return applyVariableStepPendingEvents() + 1e-9;
     }
 
     double timeEnd = 0.0;
