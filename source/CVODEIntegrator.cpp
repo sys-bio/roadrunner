@@ -202,7 +202,7 @@ double CVODEIntegrator::integrate(double timeStart, double hstep)
             << timeStart <<", " << hstep << ")";
 
     if(variableStepPendingEvent || variableStepTimeEndEvent) {
-        return applyVariableStepPendingEvents() + 1e-9;
+        return applyVariableStepPendingEvents() + 16*epsilon;
     }
 
     double timeEnd = 0.0;
@@ -266,7 +266,7 @@ double CVODEIntegrator::integrate(double timeStart, double hstep)
                     if (listener) {
                         listener->onTimeStep(this, mModel, timeEnd);
                     }
-                    return timeEnd - epsilon;
+                    return timeEnd - 16*epsilon;
                 }
 
                 // apply events, copy post event status into integrator state vector.
