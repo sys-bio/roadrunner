@@ -197,12 +197,14 @@ void CVODEIntegrator::reInit(double t0)
 double CVODEIntegrator::integrate(double timeStart, double hstep)
 {
     static const double epsilon = std::numeric_limits<double>::epsilon();
+    // CVODE root tolerance, used for backing up when an event fires (see CVODE User Doc pp. 13)
+    static const double roottol = 100.*(32.*epsilon) * ( fabs(timeStart) + fabs(hstep) );
 
     Log(Logger::LOG_DEBUG) << "CVODEIntegrator::integrate("
             << timeStart <<", " << hstep << ")";
 
     if(variableStepPendingEvent || variableStepTimeEndEvent) {
-        return applyVariableStepPendingEvents() + 16*epsilon;
+        return applyVariableStepPendingEvents() + roottol;
     }
 
     double timeEnd = 0.0;
@@ -266,7 +268,7 @@ double CVODEIntegrator::integrate(double timeStart, double hstep)
                     if (listener) {
                         listener->onTimeStep(this, mModel, timeEnd);
                     }
-                    return timeEnd - 16*epsilon;
+                    return timeEnd - roottol;
                 }
 
                 // apply events, copy post event status into integrator state vector.
