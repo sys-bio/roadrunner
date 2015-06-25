@@ -29,8 +29,8 @@ from numpy import *
 # Module wide file handle
 fHandle = ''
 rpadding = 45
-gFailedTests = 0
-gPassedTests = 0
+#gFailedTests = 0
+#gPassedTests = 0
 
 # --------------------------------------------------------------------------
 # SUPPORT ROUTINES
@@ -884,7 +884,15 @@ def checkJacobian(rrInstance, testId):
     Config.setValue(Config.ROADRUNNER_JACOBIAN_MODE, saved)
 
     print passMsg(errors)
-
+	
+def checkControlCoefficient(rrInstance, testId):
+    print string.ljust ("Check " + testId, rpadding),
+    errorFlag = False
+    words = divide(readLine())
+    n = rrInstance.getCC(words[0], words[1])
+    if abs(n - float(words[2])) > 1e-6:
+        errorFlag = True
+    print passMsg (errorFlag)
 
 
 
@@ -929,6 +937,7 @@ functions = {'[Amount/Concentration Jacobians]' : checkJacobian,
              '[Floating Species Concentrations]': checkFloatingSpeciesConcentrations,
              '[Floating Species Ids]': checkGetFloatingSpeciesIds,
              '[Full Jacobian]': checkFullJacobian,
+             '[Get Control Coefficient]': checkControlCoefficient,
              '[Get Eigenvalue Ids]': checkEigenValueIds,
              '[Get Global Parameter Values]': checkGlobalParameterValues,
              '[Get Initial Floating Species Concs]': checkInitalFloatingSpeciesConcentations,
@@ -987,10 +996,15 @@ def runTester (testDir=None):
     are assumed to be testing files.
     """
     global fHandle
+    global gFailedTests
+    global gPassedTests
 
     import os.path as p
     from glob import glob
-
+    
+    gFailedTests = 0
+    gPassedTests = 0
+    
     if testDir is None:
         testDir = getDefaultTestDir()
 
