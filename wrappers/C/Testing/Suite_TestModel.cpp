@@ -954,6 +954,32 @@ SUITE(TEST_MODEL)
         freeMatrix(matrix);
       }
 
+	TEST(GET_CONTROL_COEFFICIENT)
+	{
+		CHECK(gRR != NULL);
+
+		IniSection* aSection = iniFile.GetSection("Get Control Coefficient");
+		if (!aSection || !gRR)
+		{
+			return;
+		}
+		clog << endl << "==== GET_CONTROL_COEFFICIENT ====" << endl << endl;
+		aSection->mIsUsed = true;
+
+		string keys = Trim(aSection->GetNonKeysAsString());
+		vector<string> refList = splitString(keys, " ,");
+
+		const char* variable = refList[0].c_str();
+		const char* parameter = refList[1].c_str();
+		double value = toDouble(refList[2]);
+
+		getCC(gRR, variable, parameter, &value);
+
+		CHECK_CLOSE(toDouble(refList[2]), value, 1e-6);
+		clog << "\n";
+		clog << "Ref:\t" << toDouble(refList[2]) << "\tActual:\t " << value << endl;
+	}
+
     TEST(FLOATING_SPECIES_IDS)
     {
         IniSection* aSection = iniFile.GetSection("Floating Species Ids");

@@ -12,6 +12,7 @@
 
 #include <stdexcept>
 #include <string>
+#include <algorithm>
 
 // wierdness on OSX clang, this needs to be included before python.h,
 // otherwise compile pukes with:
