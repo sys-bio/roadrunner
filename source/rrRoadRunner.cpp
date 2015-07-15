@@ -277,13 +277,12 @@ public:
 
 	void deleteIntegrators()
 	{
-		integrators.clear();
-
-		/*for (std::vector<Integrator*>::iterator it = integrators.begin(); it != integrators.end(); ++it)
+		for (std::vector<Integrator*>::iterator it = integrators.begin(); it != integrators.end(); ++it)
 		{
 			delete *it;
 			*it = NULL;
-		}*/
+		}
+		integrators.clear();
 	}
 
     void setParameterValue(const ParameterType parameterType,
