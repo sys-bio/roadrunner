@@ -277,11 +277,13 @@ public:
 
 	void deleteIntegrators()
 	{
-		for (std::vector<Integrator*>::iterator it = integrators.begin(); it != integrators.end(); ++it)
+		integrators.clear();
+
+		/*for (std::vector<Integrator*>::iterator it = integrators.begin(); it != integrators.end(); ++it)
 		{
 			delete *it;
 			*it = NULL;
-		}
+		}*/
 	}
 
     void setParameterValue(const ParameterType parameterType,
@@ -797,6 +799,11 @@ void RoadRunner::load(const string& uriOrSbml, const Dictionary *dict)
 
     delete impl->model;
     impl->model = 0;
+
+	// Integrators hold a reference to the existing RoadRunner model.
+	// If the model is deleted, the integrators should be deleted as well.
+	impl->deleteIntegrators(); 
+
 
 	delete impl->mLS;
 	impl->mLS = NULL;
@@ -2891,6 +2898,9 @@ std::vector<std::string> RoadRunner::getExistingIntegratorNames()
 
 void RoadRunner::setIntegrator(std::string name)
 {
+	//impl->integrator = IntegratorFactory::New(name, impl->model);
+	//impl->simulateOpt.integrator = impl->integrator->getIntegratorName();
+
 	// Try to set integrator from an existing reference.
 	if (integratorExists(name))
 	{
@@ -2914,6 +2924,11 @@ void RoadRunner::setIntegrator(std::string name)
 	}
 
 	return;
+}
+
+void reassignModelToIntegrators()
+{
+	//for (std::vector<Integrator*>::iterator it = impl->integrators.begin())
 }
 
 
