@@ -120,6 +120,8 @@ public:
 
 	void setIntegrator(std::string name);
 
+	void reassignModelToIntegrators();
+
 	bool integratorExists(std::string name);
 
     bool isModelLoaded();

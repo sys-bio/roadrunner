@@ -425,54 +425,12 @@ C_DECL_SPEC char* rrcCallConv getSBML(RRHandle handle);
 */
 C_DECL_SPEC char* rrcCallConv getParamPromotedSBML(RRHandle handle, const char* sArg);
 
-/*!
- \brief Set the simulator's capabilities
- \param[in] handle Handle to a RoadRunner instance
- \param[out] caps An XML string that specifies the simulators capabilities
- \return Returns true if successful
- \ingroup simulation
-*/
-C_DECL_SPEC bool rrcCallConv setConfigurationXML (RRHandle handle, const char* caps);
-
-/*!
- \brief Get the simulator's capabilities
-
- Example:
-
- \code
- <caps name="RoadRunner" description="Settings For RoadRunner">
-  <section name="integration" method="CVODE" description="CVODE Integrator">
-    <cap name="BDFOrder" value="5" hint="Maximum order for BDF Method" type="integer" />
-    <cap name="AdamsOrder" value="12" hint="Maximum order for Adams Method" type="integer" />
-    <cap name="rtol" value="1E-06" hint="Relative Tolerance" type="double" />
-    <cap name="atol" value="1E-12" hint="Absolute Tolerance" type="double" />
-    <cap name="maxsteps" value="10000" hint="Maximum number of internal stepsc" type="integer" />
-    <cap name="initstep" value="0" hint="the initial step size" type="double" />
-    <cap name="minstep" value="0" hint="specifies a lower bound on the magnitude of the step size." type="double" />
-    <cap name="maxstep" value="0" hint="specifies an upper bound on the magnitude of the step size." type="double" />
-    <cap name="conservation" value="1" hint="enables (=1) or disables (=0) the conservation analysis of models for timecourse simulations." type="int" />
-    <cap name="allowRandom" value="1" hint="if enabled (=1), reinterprets certain function definitions as distributions and draws random numbers for it." type="int" />
-    <cap name="usekinsol" value="0" hint="Is KinSol used as steady state integrator" type="int" />
-  </section>
-
-  <section name="SteadyState" method="NLEQ2" description="NLEQ2 Steady State Solver">
-    <cap name="MaxIterations" value="100" hint="Maximum number of newton iterations" type="integer" />
-    <cap name="relativeTolerance" value="0.0001" hint="Relative precision of solution components" type="double" />
-  </section>
-</caps>
-\endcode
-
- \param[in] handle Handle to a RoadRunner instance
- \return Returns null if it fails, otherwise it returns the simulator's capabilities in the form of an XML string
- \ingroup simulation
-*/
-C_DECL_SPEC char* rrcCallConv getConfigurationXML(RRHandle handle);
-
 
 /*!
 \brief Get the number of implemented integrators.
 \param[in] handle Handle to a RoadRunner instance.
 \return Returns an integer that corresponds to the number of currently implemented integrators.
+\ingroup simopts
 */
 C_DECL_SPEC int rrcCallConv getNumberOfIntegrators (RRHandle handle);
 
@@ -488,6 +446,7 @@ C_DECL_SPEC RRStringArrayPtr rrcCallConv getListOfIntegrators(RRHandle handle);
 \param[in] handle Handle to a RoadRunner instance.
 \param[in] nameOfIntegrator Name of the integrator to be used.
 \return Returns True if successful.
+\ingroup simopts
 */
 C_DECL_SPEC int rrcCallConv setIntegrator (RRHandle handle, char *nameOfIntegrator);
 
@@ -496,6 +455,7 @@ C_DECL_SPEC int rrcCallConv setIntegrator (RRHandle handle, char *nameOfIntegrat
 \param[in] handle Handle to a RoadRunner instance.
 \param[in] nameOfIntegrator Name of the integrator to be used.
 \return Returns a description of the current integrator.
+\ingroup simopts
 */
 C_DECL_SPEC char* rrcCallConv getIntegratorDescription (RRHandle handle);
 
@@ -504,6 +464,7 @@ C_DECL_SPEC char* rrcCallConv getIntegratorDescription (RRHandle handle);
 \param[in] handle Handle to a RoadRunner instance.
 \param[in] nameOfIntegrator Name of the integrator to be used.
 \return Returns a short hint of the current integrator.
+\ingroup simopts
 */
 C_DECL_SPEC char* rrcCallConv getIntegratorHint (RRHandle handle);
 
@@ -511,6 +472,7 @@ C_DECL_SPEC char* rrcCallConv getIntegratorHint (RRHandle handle);
 \brief Get the number of adjustable settings for the current integrator.
 \param[in] handle Handle to a RoadRunner instance.
 \return Returns an integer that corresponds to the number of adjustable integrator settings.
+\ingroup simopts
 */
 C_DECL_SPEC int rrcCallConv getNumberOfIntegratorParameters (RRHandle handle);
 
@@ -518,6 +480,7 @@ C_DECL_SPEC int rrcCallConv getNumberOfIntegratorParameters (RRHandle handle);
 \brief Get the names of adjustable settings for the current integrator.
 \param[in] handle Handle to a RoadRunner instance.
 \return Returns a list that contains the names of adjustable integrator settings.
+\ingroup simopts
 */
 C_DECL_SPEC RRStringArrayPtr rrcCallConv getListOfIntegratorParameterNames (RRHandle handle);
 
@@ -526,6 +489,7 @@ C_DECL_SPEC RRStringArrayPtr rrcCallConv getListOfIntegratorParameterNames (RRHa
 \param[in] handle Handle to a RoadRunner instance.
 \param[in] paramterName Name of the integrator setting.
 \return Returns a description for the integrator setting.
+\ingroup simopts
 */
 C_DECL_SPEC char* rrcCallConv getIntegratorParameterDescription (RRHandle handle, char *parameterName);
 
@@ -534,6 +498,7 @@ C_DECL_SPEC char* rrcCallConv getIntegratorParameterDescription (RRHandle handle
 \param[in] handle Handle to a RoadRunner instance.
 \param[in] paramterName Name of the integrator setting.
 \return Returns a hint for the integrator setting.
+\ingroup simopts
 */
 C_DECL_SPEC char* rrcCallConv getIntegratorParameterHint (RRHandle handle, char *parameterName);
 
@@ -542,6 +507,7 @@ C_DECL_SPEC char* rrcCallConv getIntegratorParameterHint (RRHandle handle, char 
 \param[in] handle Handle to a RoadRunner instance.
 \param[in] paramterName Name of the integrator setting.
 \return Returns a integer that indicates the return type for the integrator setting. 0-STRING, 1-BOOL, 2-INT32, 3-UINT32, 4-INT64, 5-UINT64, 6-FLOAT, 7-DOUBLE, 8-CHAR, 9-UCHAR, 10-EMPTY
+\ingroup simopts
 */
 C_DECL_SPEC int rrcCallConv getIntegratorParameterType (RRHandle handle, char *parameterName);
 
@@ -550,6 +516,7 @@ C_DECL_SPEC int rrcCallConv getIntegratorParameterType (RRHandle handle, char *p
 \param[in] handle Handle to a RoadRunner instance.
 \param[in] paramterName Name of the integrator setting.
 \return Returns an integer value for the integrator setting.
+\ingroup simopts
 */
 C_DECL_SPEC int rrcCallConv getIntegratorParameterInt (RRHandle handle, char *parameterName);
 
@@ -559,6 +526,7 @@ C_DECL_SPEC int rrcCallConv getIntegratorParameterInt (RRHandle handle, char *pa
 \param[in] paramterName Name of the integrator setting.
 \param[in] value The integer value for the integrator setting.
 \return Returns True if successful.
+\ingroup simopts
 */
 C_DECL_SPEC int rrcCallConv setIntegratorParameterInt (RRHandle handle, char *parameterName, int value);
 
@@ -567,6 +535,7 @@ C_DECL_SPEC int rrcCallConv setIntegratorParameterInt (RRHandle handle, char *pa
 \param[in] handle Handle to a RoadRunner instance.
 \param[in] paramterName Name of the integrator setting.
 \return Returns a double value for the integrator setting.
+\ingroup simopts
 */
 C_DECL_SPEC double rrcCallConv getIntegratorParameterDouble (RRHandle handle, char *parameterName);
 
@@ -576,6 +545,7 @@ C_DECL_SPEC double rrcCallConv getIntegratorParameterDouble (RRHandle handle, ch
 \param[in] paramterName Name of the integrator setting.
 \param[in] value The double value for the integrator setting.
 \return Returns True if successful.
+\ingroup simopts
 */
 C_DECL_SPEC int rrcCallConv setIntegratorParameterDouble (RRHandle handle, char *parameterName, double value);
 
@@ -584,6 +554,7 @@ C_DECL_SPEC int rrcCallConv setIntegratorParameterDouble (RRHandle handle, char 
 \param[in] handle Handle to a RoadRunner instance.
 \param[in] paramterName Name of the integrator setting.
 \return Returns a string value for the integrator setting.
+\ingroup simopts
 */
 C_DECL_SPEC char* rrcCallConv getIntegratorParameterString (RRHandle handle, char *parameterName);
 
@@ -593,6 +564,7 @@ C_DECL_SPEC char* rrcCallConv getIntegratorParameterString (RRHandle handle, cha
 \param[in] paramterName Name of the integrator setting.
 \param[in] value The string value for the integrator setting.
 \return Returns True if successful.
+\ingroup simopts
 */
 C_DECL_SPEC int rrcCallConv setIntegratorParameterString (RRHandle handle, char *parameterName, char* value);
 
@@ -601,6 +573,7 @@ C_DECL_SPEC int rrcCallConv setIntegratorParameterString (RRHandle handle, char 
 \param[in] handle Handle to a RoadRunner instance.
 \param[in] paramterName Name of the integrator setting.
 \return Returns a boolean value for the integrator setting.
+\ingroup simopts
 */
 C_DECL_SPEC int rrcCallConv getIntegratorParameterBoolean (RRHandle handle, char *parameterName);
 
@@ -610,6 +583,7 @@ C_DECL_SPEC int rrcCallConv getIntegratorParameterBoolean (RRHandle handle, char
 \param[in] paramterName Name of the integrator setting.
 \param[in] value The boolean value for the integrator setting.
 \return Returns True if successful.
+\ingroup simopts
 */
 C_DECL_SPEC int rrcCallConv setIntegratorParameterBoolean (RRHandle handle, char *parameterName, int value);
 
@@ -2024,6 +1998,9 @@ Notice: Creating C based model generator using ..\compilers\tcc\tcc.exe compiler
 
  \defgroup reset Reset methods
  \brief Methods for resetting instances to various initial states
+
+ \defgroup simopts Simulator options
+ \brief Methods for setting and getting simulator options.
 */
 
 

@@ -34,14 +34,17 @@ int main(int argc, char* argv[])
 {
     cout << "RoadRunner C API Test" << endl;
 
-	string sbmlFilepath = "C:\\vs\\src\\roadrunner\\models\\feedback.xml";
+	//string sbmlFilepath = "C:\\vs\\src\\roadrunner\\models\\feedback.xml";
 	//string sbmlFilepath = "C:\\vs\\src\\roadrunner\\models\\bistable.xml";
 	//string sbmlFilepath = "C:\\vs\\src\\roadrunner\\models\\simple.xml";
 	//string sbmlFilepath = "C:\\vs\\src\\roadrunner\\models\\squareWaveModel.xml";
 	//string sbmlFilepath = "C:\\Users\\Wilbert\\Desktop\\BIOMD0000000009.xml";
-	//string sbmlFilepath = "C:\\Users\\Wilbert\\Desktop\\BIOMD0000000203.xml";
+	string sbmlFilepath = "C:\\Users\\Wilbert\\Desktop\\BIOMD0000000203.xml";
 
 	RRHandle _handle = createRRInstance();
+	loadSBMLFromFile(_handle, sbmlFilepath.c_str());
+
+	sbmlFilepath = "C:\\vs\\src\\roadrunner\\models\\feedback.xml";
 	loadSBMLFromFile(_handle, sbmlFilepath.c_str());
 
 

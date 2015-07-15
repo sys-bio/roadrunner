@@ -188,6 +188,8 @@ int main(int argc, char* argv[])
         runner1.RunTestsIf(Test::GetTestList(), "SBML_TEST_SUITE_FBC", True(), 0);
     }
 
+	char a;
+	cin >> a;
 
     //Finish outputs result to xml file
     runner1.Finish();

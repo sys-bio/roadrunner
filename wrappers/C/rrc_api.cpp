@@ -1314,16 +1314,6 @@ RRListPtr rrcCallConv getElasticityCoefficientIds(RRHandle handle)
     catch_ptr_macro
 }
 
-bool rrcCallConv setConfigurationXML(RRHandle handle, const char* caps)
-{
-    return false;
-}
-
-char* rrcCallConv getConfigurationXML(RRHandle handle)
-{
-    return 0;
-}
-
 
 // ----------------------------------------------------------------------
 // Replacement methods for supporting solver configuration
