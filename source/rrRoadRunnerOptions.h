@@ -133,7 +133,7 @@ namespace rr
 			USE_MCJIT = (0x1 << 10),
 
 
-			LLVM_SYMBOL_CACHE = (0x1 << 11)
+			LLVM_SYMBOL_CACHE = (0x1 << 11),
         /**
          * Use the GPU simulation engine.
          *
@@ -205,12 +205,7 @@ namespace rr
 		* list of keys in this object.
 		*/
 		virtual std::vector<std::string> getKeys() const;
-
-        /**
-         * GPU integrator
-         */
-        GPUSIM,
-
+		
 
 		inline bool getConservedMoietyConversion() const {
 			return modelGeneratorOpt & CONSERVED_MOIETIES;

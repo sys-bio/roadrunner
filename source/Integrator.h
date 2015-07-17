@@ -47,6 +47,7 @@ namespace rr
 		virtual ~IntegratorListener() {};
 	};
 
+/*
  * @author JKM
  * @brief A class for setting up the integration parameters
  */
@@ -199,10 +200,9 @@ protected:
     ValMatrix val_;
 };
 
-/**
-	typedef cxx11_ns::shared_ptr<IntegratorListener> IntegratorListenerPtr;
-	typedef std::unordered_map<std::string, std::string> HintMap;
-	typedef std::unordered_map<std::string, std::string> DescriptionMap;
+typedef cxx11_ns::shared_ptr<IntegratorListener> IntegratorListenerPtr;
+typedef std::unordered_map<std::string, std::string> HintMap;
+typedef std::unordered_map<std::string, std::string> DescriptionMap;
 
 	/*-------------------------------------------------------------------------------------------
 		Integrator is an abstract base class that provides an interface to specific integrator
@@ -217,6 +217,7 @@ protected:
 			Deterministic,
 			Stochastic,
 			Hybrid,
+			GPU, 
 			Other
 		};
 

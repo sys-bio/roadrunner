@@ -34,8 +34,6 @@ set_source_files_properties(${llvm_testing_src} PROPERTIES COMPILE_FLAGS ${LLVM_
 
 add_executable( ${target} ${llvm_testing_src} )
 
-add_executable( ${target} ${llvm_testing_src} )
-
 set_property(TARGET ${target}
     PROPERTY  COMPILE_DEFINITIONS
     LIBSBML_USE_CPP_NAMESPACE
