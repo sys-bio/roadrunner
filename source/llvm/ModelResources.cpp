@@ -18,7 +18,7 @@ namespace rrllvm
 {
 
 ModelResources::ModelResources() :
-    symbols(0), executionEngine(0), context(0), errStr(0), errStr(0), useMCJIT(false),
+    symbols(0), executionEngine(0), context(0), errStr(0), useMCJIT(false),
 
     evalInitialConditionsPtr(0),
     evalReactionRatesPtr(0),

@@ -27,7 +27,6 @@
 
 #include "Integrator.h"
 #include "rrRoadRunnerOptions.h"
-#include "Configurable.h"
 
 #include <string>
 #include <vector>

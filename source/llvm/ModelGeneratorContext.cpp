@@ -464,7 +464,7 @@ bool ModelGeneratorContext::useSymbolCache() const
 
 bool ModelGeneratorContext::useMCJIT() const
 {
-    return options &  rr::ModelGenerator::USE_MCJIT;
+    return options &  LoadSBMLOptions::USE_MCJIT;
 }
 
 llvm::FunctionPassManager* ModelGeneratorContext::getFunctionPassManager() const

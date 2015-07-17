@@ -73,17 +73,13 @@ void copyCachedModel(a_type* src, b_type* dst)
     dst->evalConversionFactorPtr = src->evalConversionFactorPtr;
 }
 
-
-: compilerStr(str)
-    std::transform(compilerStr.begin(), compilerStr.end(), compilerStr.begin(), toupper);
 ExecutableModel* LLVMModelGenerator::createModel(const std::string& sbml,
         uint options)
 {
     bool forceReCompile = options & LoadSBMLOptions::RECOMPILE;
 
-    if (compilerStr.find("USE_MCJIT") != compilerStr.npos) {
-        Log(Logger::LOG_NOTICE) << "Found USE_MCJIT in compilerStr";
-        options |= ModelGenerator::USE_MCJIT;
+    if (options & LoadSBMLOptions::USE_MCJIT) {
+        Log(Logger::LOG_NOTICE) << "USE_MCJIT specified in LoadSBMLOptions";
     }
 
     string md5;
@@ -230,34 +226,6 @@ ExecutableModel* LLVMModelGenerator::createModel(const std::string& sbml,
             SetGlobalParameterCodeGen(context).createFunction();
     }
 
-    if (options & ModelGenerator::MUTABLE_INITIAL_CONDITIONS)
-    {
-        getFloatingSpeciesInitConcentrations =
-            GetFloatingSpeciesInitConcentrationCodeGen(context).createFunction();
-
-        setFloatingSpeciesInitConcentrations =
-            SetFloatingSpeciesInitConcentrationCodeGen(context).createFunction();
-
-        getFloatingSpeciesInitAmounts =
-            GetFloatingSpeciesInitAmountCodeGen(context).createFunction();
-
-        setFloatingSpeciesInitAmounts =
-            SetFloatingSpeciesInitAmountCodeGen(context).createFunction();
-
-        getCompartmentInitVolumes =
-            GetCompartmentInitVolumeCodeGen(context).createFunction();
-
-        setCompartmentInitVolumes =
-            SetCompartmentInitVolumeCodeGen(context).createFunction();
-
-        getGlobalParameterInitValue = 
-            GetGlobalParameterInitValueCodeGen(context).createFunction();
-
-        setGlobalParameterInitValue = 
-            SetGlobalParameterInitValueCodeGen(context).createFunction();
-
-    }
-
     ExecutionEngine& engine = context.getExecutionEngine();
 
     // if MCJIT, this actually JITs all the code, if regular JIT, does nothing
@@ -310,27 +278,6 @@ ExecutableModel* LLVMModelGenerator::createModel(const std::string& sbml,
 
     rc->evalConversionFactorPtr =
         EvalConversionFactorCodeGen::getPointerToFunction(engine, evalConversionFactor);
-
-    if (!(options & ModelGenerator::READ_ONLY))
-    {
-        rc->setBoundarySpeciesAmountPtr =
-            SetBoundarySpeciesAmountCodeGen::getPointerToFunction(engine, setBoundarySpeciesAmount);
-
-        rc->setBoundarySpeciesConcentrationPtr =
-            SetBoundarySpeciesConcentrationCodeGen::getPointerToFunction(engine, setBoundarySpeciesConcentration);
-
-        rc->setFloatingSpeciesConcentrationPtr =
-            SetFloatingSpeciesConcentrationCodeGen::getPointerToFunction(engine, setFloatingSpeciesConcentration);
-
-        rc->setCompartmentVolumePtr =
-            SetCompartmentVolumeCodeGen::getPointerToFunction(engine, setCompartmentVolume);
-
-        rc->setFloatingSpeciesAmountPtr =
-            SetFloatingSpeciesAmountCodeGen::getPointerToFunction(engine, setFloatingSpeciesAmount);
-
-        rc->setGlobalParameterPtr =
-            SetGlobalParameterCodeGen::getPointerToFunction(engine, setGlobalParameter);
-    }
 
     if (options & LoadSBMLOptions::MUTABLE_INITIAL_CONDITIONS)
     {

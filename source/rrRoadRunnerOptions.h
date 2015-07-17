@@ -142,7 +142,7 @@ namespace rr
          * The GPU sim engine generates the model evaluation code and integration
 	 * code on the GPU.
          */
-        USE_GPUSIM =                       (0x1 << 12)
+        USE_GPUSIM =                       (0x1 << 13)
 		};
 
 		enum LoadOpt
@@ -205,7 +205,7 @@ namespace rr
 		* list of keys in this object.
 		*/
 		virtual std::vector<std::string> getKeys() const;
-		
+
 
 		inline bool getConservedMoietyConversion() const {
 			return modelGeneratorOpt & CONSERVED_MOIETIES;
