@@ -34,7 +34,9 @@ template <typename FunctionPtrType>
 class CodeGenBase
 {
 public:
-    FunctionPtrType createFunction()
+    typedef FunctionPtrType FunctionPtr;
+
+    llvm::Function* createFunction()
     {
         llvm::Function *func = (llvm::Function*)codeGen();
 
@@ -43,10 +45,28 @@ public:
             functionPassManager->run(*func);
         }
 
-        return (FunctionPtrType)engine.getPointerToFunction(func);
+        return func;
     }
 
-    typedef FunctionPtrType FunctionPtr;
+    static FunctionPtrType getPointerToFunction(llvm::ExecutionEngine& engine,
+            llvm::Function* func)
+    {
+        if (func)
+        {
+            FunctionPtrType result =
+                    (FunctionPtrType)engine.getPointerToFunction(func);
+
+            if (!result)
+            {
+                throw_llvm_exception(std::string("could not get pointer to ") +
+                        std::string(func->getName()));
+            }
+
+            return result;
+        }
+        return 0;
+    }
+
 
 protected:
     CodeGenBase(const ModelGeneratorContext &mgc) :

@@ -30,8 +30,8 @@ int main(int argc, char * argv[])
     string settingsFile;
     bool doContinue = true;
     Args args;
-    try
-    {
+//     try
+//     {
         Logger::enableConsoleLogging();
 
         if(argc < 2)
@@ -60,6 +60,7 @@ int main(int argc, char * argv[])
         Log(Logger::LOG_INFORMATION) << "Current Log level is:"
         		<< Logger::getCurrentLevelAsString();
 
+        RoadRunner *rr  = new RoadRunner(args.compilerStr, args.TempDataFolder, "");
         if(!args.ModelFileName.size())
         {
             Log(lInfo)<<"Please supply a sbml model file name, using option -m<modelfilename>";
@@ -91,10 +92,10 @@ int main(int argc, char * argv[])
         	cout << res;
         }
     }
-    catch(std::exception& ex)
-    {
-    	Log(Logger::LOG_ERROR) << ex.what() << endl;
-    }
+//     catch(std::exception& ex)
+//     {
+//         Log(Logger::LOG_ERROR) << ex.what() << endl;
+//     }
 
 
     return 0;
@@ -104,7 +105,7 @@ void ProcessCommandLineArguments(int argc, char* argv[], Args& args)
 {
     char c;
 
-    while ((c = GetOptions(argc, argv, (const char*) ("xcpuo:v:n:d:t:l:m:s:e:z:"))) != -1)
+    while ((c = GetOptions(argc, argv, (const char*) ("puo:c:v:n:d:t:l:m:s:e:z:"))) != (char)(-1))
     {
         switch (c)
         {
@@ -119,7 +120,7 @@ void ProcessCommandLineArguments(int argc, char* argv[], Args& args)
                     args.CurrentLogLevel                = Logger::stringToLevel(rrOptArg);
                 }
                 break;
-            case ('c'): args.OnlyCompile                    = true;                                break;
+            case ('c'): args.compilerStr                    = std::string(rrOptArg);               break;
             case ('x'): args.variableStep                   = true;                                break;
             case ('p'): args.Pause                          = true;                                break;
             case ('t'): args.TempDataFolder                 = rrOptArg;                            break;

@@ -394,11 +394,11 @@ Logger::Level Logger::stringToLevel(const std::string& str)
     {
         return LOG_INFORMATION;
     }
-    else if(upstr == "LOG_DEBUG")
+    else if(upstr == "LOG_DEBUG" || upstr == "DEBUG")
     {
         return LOG_DEBUG;
     }
-    else if(upstr == "LOG_TRACE" || upstr == "DEBUG")
+    else if(upstr == "LOG_TRACE" || upstr == "TRACE")
     {
         return LOG_TRACE;
     }

@@ -134,6 +134,15 @@ namespace rr
 
 
 			LLVM_SYMBOL_CACHE = (0x1 << 11)
+        /**
+         * Use the GPU simulation engine.
+         *
+         * Defaults to false.
+         *
+         * The GPU sim engine generates the model evaluation code and integration
+	 * code on the GPU.
+         */
+        USE_GPUSIM =                       (0x1 << 12)
 		};
 
 		enum LoadOpt
@@ -196,6 +205,11 @@ namespace rr
 		* list of keys in this object.
 		*/
 		virtual std::vector<std::string> getKeys() const;
+
+        /**
+         * GPU integrator
+         */
+        GPUSIM,
 
 
 		inline bool getConservedMoietyConversion() const {

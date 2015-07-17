@@ -104,7 +104,7 @@ int main(int argc, char* argv[])
 void ProcessCommandLineArguments(int argc, char* argv[], Args& args)
 {
     char c;
-    while ((c = GetOptions(argc, argv, ("vi:a:m:t:c:"))) != -1)
+    while ((c = GetOptions(argc, argv, ("vi:a:m:t:c:"))) != (char)(-1))
     {
         switch (c)
         {

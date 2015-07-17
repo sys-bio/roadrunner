@@ -133,6 +133,9 @@
 // SWIG_SHARED_PTR_SUBNAMESPACE as a pre-processor symbol based on the
 // USE_TR1_CXX_NS CMake option. SWIG has no way of getting this info
 // from the compiler so have to reley on the CMake system.
+#endif
+
+
 %include "std_shared_ptr.i"
 
 %shared_ptr(rr::PyIntegratorListener)
@@ -1304,7 +1307,7 @@ namespace std { class ostream{}; }
 
 
             # go through the list of keyword args
-            for k,v in kwargs.iteritems():
+            for k,v in kwargs.items():
 
                 # changing integrators.
                 if k == "integrator":

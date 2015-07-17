@@ -43,13 +43,21 @@ else()
 endif()
 
 if(WIN32)
+if(RR_BUILD_STATIC)
     target_link_libraries (${target}
         roadrunner-static
         unit_test-static${staticLibPrefix}
         )
+elseif(RR_BUILD_SHARED_CORE)
+    target_link_libraries ( ${target}
+        roadrunner
+        unit_test-static${staticLibPrefix}
+        )
+endif()
 endif()
 
 if(UNIX)
+if(RR_BUILD_STATIC)
     target_link_libraries (${target}
         roadrunner-static
         libunit_test-static${staticLibPrefix}
@@ -58,6 +66,16 @@ if(UNIX)
         f2c
         dl
         )
+elseif(RR_BUILD_SHARED_CORE)
+    target_link_libraries ( ${target}
+        roadrunner
+        libunit_test-static${staticLibPrefix}
+        lapack
+        blas
+        f2c
+        dl
+        )
+endif()
 endif()
 
 

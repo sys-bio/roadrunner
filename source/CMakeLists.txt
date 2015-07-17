@@ -110,7 +110,8 @@ set(rrSources ${rrCoreSources})
 
 set_source_files_properties(rrVersionInfo.h PROPERTIES GENERATED TRUE)
 
-# Add the LLVM sources to compilation
+
+# Sources for the LLVM component
 if(BUILD_LLVM)
     set(rrLLVMSources
         llvm/AssignmentRuleEvaluator
@@ -151,13 +152,57 @@ if(BUILD_LLVM)
         )
 
     # set up appropriate flags for using LLVM
-    if(LLVM_FLAGS)
-      set_source_files_properties(${rrLLVMSources} PROPERTIES COMPILE_FLAGS ${LLVM_FLAGS})
-    endif()
+    set_source_files_properties(${rrLLVMSources} PROPERTIES COMPILE_FLAGS ${LLVM_FLAGS})
+    # add LLVM-based model sources to list
+    set(rrSources ${rrSources} ${rrLLVMSources})
     # add LLVM-based model sources to list
     set(rrSources ${rrSources} ${rrLLVMSources})
 endif(BUILD_LLVM)
 
+# Sources for the GPUSim component
+if(BUILD_GPUSIM)
+    set(rrGPUSIMCoreSources
+        gpu/CudaCodeCompiler.cpp
+        gpu/CudaGenerator.cpp
+        gpu/GPUSimCompiler.cpp
+        gpu/GPUSimExecutableModel.cpp
+        gpu/GPUSimIntegrator.cpp
+        gpu/GPUSimIntegratorInt.cpp
+        gpu/GPUSimBiochemModel.cpp
+        gpu/GPUSimBiochemModelSBMLImport.cpp
+        gpu/GPUSimModel.cpp
+        gpu/GPUSimModelGenerator.cpp
+        gpu/Hasher.cpp
+        gpu/ModelResources.cpp
+        gpu/bdom/BaseTypes.cpp
+        gpu/bdom/Expressions.cpp
+        gpu/bdom/Preproc.cpp
+        gpu/bdom/Serializer.cpp
+        gpu/bdom/Structures.cpp
+        gpu/cudom/CudaModule.cpp
+        platform/Backtrace.cpp
+        )
+
+    source_group(rrGPUSIMCore FILES ${rrGPUSIMCoreSources})
+
+    # FIXME: why does this line cause the build system to do a full
+    # rebuild when a single source file is added to rrGPUSIMCoreSources?
+    set_source_files_properties(${rrGPUSIMCoreSources} PROPERTIES COMPILE_FLAGS "-std=c++11 ${LLVM_FLAGS}")
+
+    # add GPU sim sources to list
+    set(rrSources ${rrSources} ${rrGPUSIMCoreSources})
+
+    if (WITH_CUDA)
+        cuda_add_library(CudaRKInt SHARED gpu/CudaRKInt.cu)
+        set_source_files_properties(gpu/CudaRKInt.cu PROPERTIES COMPILE_FLAGS --compiler-bindir=gcc)
+#         set_target_properties(CudaRKInt PROPERTIES COMPILE_FLAGS --compiler-bindir=gcc)
+        install(TARGETS CudaRKInt DESTINATION lib)
+    endif()
+
+    set(GPUSIM_LIBS CudaRKInt)
+endif(BUILD_GPUSIM)
+
+# Sources for the C code-generating component
 if(BUILD_LEGACY_C)
     set(rrSources
         ${rrSources}
@@ -189,10 +234,8 @@ if(BUILD_LEGACY_C)
         )
 endif(BUILD_LEGACY_C)
 
-
-# set up linking libs
+# Build shared roadrunner lib if enabled
 if(RR_BUILD_SHARED_CORE)
-    #Link with static libs
     add_library(${target} SHARED ${rrSources})
 
     set_target_properties( ${target} PROPERTIES SOVERSION ${ROADRUNNER_VERSION} )
@@ -245,6 +288,7 @@ if(RR_BUILD_SHARED_CORE)
             sbml
             dl
             f2c${staticLibExt}
+            ${ZLIB_LIBRARIES} # LLVM implcit dep
             )
     else()
         target_link_libraries (${target}
@@ -279,75 +323,100 @@ if(RR_BUILD_SHARED_CORE)
             )
     endif(BUILD_LLVM)
 
+    # Link with GPU code if built
+    if(BUILD_GPUSIM AND WITH_CUDA)
+        target_link_libraries(${target}
+            ${GPUSIM_LIBS}
+            )
+    endif()
+
 endif(RR_BUILD_SHARED_CORE)
 
-# static allways gets build
+# Build the static roadruner library if enabled
+if(RR_BUILD_STATIC)
 
-add_library(${target}-static STATIC ${rrSources})
+    add_library(${target}-static STATIC ${rrSources})
 
 set_target_properties( ${target}-static PROPERTIES SOVERSION ${ROADRUNNER_VERSION} )
 
-set_property(TARGET ${target}-static
-    PROPERTY COMPILE_DEFINITIONS
-    STATIC_RR
-    LIBSBML_USE_CPP_NAMESPACE
-    LIBSBML_STATIC
-    LIBLAX_STATIC
-    STATIC_LIBSTRUCT
-    STATIC_PUGI
-    STATIC_NLEQ
-    POCO_STATIC
-    POCO_NO_AUTOMATIC_LIBS
-    )
-
-#libraries to link with static lib
-#======== We need to split up this one to satisfy linking in both windows and posix.
-#=== windows need libsbml-static and libf2c and posix uses sbml-static and f2c
-if(BUILD_LLVM)
-    target_link_libraries(${target}-static
-        ${LLVM_LIBRARIES}
+    set_property(TARGET ${target}-static
+        PROPERTY COMPILE_DEFINITIONS
+        STATIC_RR
+        LIBSBML_USE_CPP_NAMESPACE
+        LIBSBML_STATIC
+        LIBLAX_STATIC
+        STATIC_LIBSTRUCT
+        STATIC_PUGI
+        STATIC_NLEQ
+        POCO_STATIC
+        POCO_NO_AUTOMATIC_LIBS
         )
-endif(BUILD_LLVM)
+
+    #libraries to link with static lib
+
+    if(BUILD_LLVM)
+        target_link_libraries(${target}-static
+            ${LLVM_LIBRARIES}
+            )
+    endif(BUILD_LLVM)
+
+    # Link with GPU code if built
+    if(BUILD_GPUSIM AND WITH_CUDA)
+        target_link_libraries(${target}
+            ${GPUSIM_LIBS}
+            )
+    endif()
 
 
-target_link_libraries (${target}-static
-    sundials_cvode
-    sundials_nvecserial
-    blas
-    lapack
-    nleq-static
-    rr-libstruct-static
-    PocoNet
-    PocoFoundation
-    )
-
-if(WIN32)
+    #======== We need to split up this one to satisfy linking in both windows and posix.
+    #=== windows need libsbml-static and libf2c and posix uses sbml-static and f2c
     target_link_libraries (${target}-static
-        libsbml-static
-        libf2c
-    ws2_32
-    iphlpapi
+        sundials_cvode
+        sundials_nvecserial
+        blas
+        lapack
+        nleq-static
+        rr-libstruct-static
+        PocoNet
+        PocoFoundation
         )
-endif(WIN32)
+
+    if(WIN32)
+        target_link_libraries (${target}-static
+            libsbml-static
+            libf2c
+        ws2_32
+        iphlpapi
+            )
+    endif(WIN32)
 
 
-if(UNIX)
-    target_link_libraries (${target}-static
-        sbml-static
-        f2c
-        xml2
-        dl
-        pthread
+    if(UNIX)
+        target_link_libraries (${target}-static
+            sbml-static
+            f2c
+            xml2
+            dl
+            pthread
+            ${ZLIB_LIBRARIES} # LLVM implcit dep
+            )
+    endif(UNIX)
+
+    #Libxml we can't build right now
+    if(${BORLAND})
+        target_link_libraries (${target}-static libxml2_xe)
+    endif()
+
+    if(${MSVC})
+        target_link_libraries(${target}-static libxml2)
+    endif()
+
+    #if(INSTALL_STATIC_LIB)
+    install(TARGETS ${target}-static
+        LIBRARY DESTINATION lib COMPONENT rr_core
+        ARCHIVE DESTINATION lib COMPONENT rr_core
         )
-endif(UNIX)
-
-#Libxml we can't build right now
-if(${BORLAND})
-    target_link_libraries (${target}-static libxml2_xe)
-endif()
-
-if(${MSVC})
-    target_link_libraries(${target}-static libxml2)
+    #endif()
 endif()
 
 if(BUILD_TEST_TOOLS)
@@ -357,15 +426,8 @@ if(BUILD_TEST_TOOLS)
     add_subdirectory(testing)
 endif()
 
-#--- INSTALL STUFF
+# Install header files
 if(${INSTALL_CXX_API})
-
-    #if(INSTALL_STATIC_LIB)
-    install(TARGETS ${target}-static
-        LIBRARY DESTINATION lib COMPONENT rr_core
-        ARCHIVE DESTINATION lib COMPONENT rr_core
-        )
-    #endif()
 
 #     set(install_headers
 #         rrRoadRunner.h)

@@ -29,17 +29,31 @@ endif()
 
 #Not sure why linux linker need all libraries at linktime?? All symbols 'should' be in roadrunner-static
 if(UNIX)
-target_link_libraries (${target} 
-roadrunner-static
+# target_link_libraries (${target}
+# roadrunner-static
+# nleq-static.a
+# rr-libstruct-static
+# lapack
+# blas
+# f2c
+# sbml-static.a
+# xml2
+# sundials_nvecserial.a
+# sundials_cvode.a
+# pthread
+# dl
+# )
+target_link_libraries (${target}
+roadrunner
 nleq-static.a
 rr-libstruct-static
 lapack
 blas
 f2c
-sbml-static.a
+sbml
 xml2
-sundials_nvecserial.a
-sundials_cvode.a
+sundials_cvode
+sundials_nvecserial
 pthread
 dl
 )

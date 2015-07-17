@@ -138,6 +138,12 @@ public:
             const llvm::LLVMContext **ctx, const llvm::ExecutionEngine **eng,
             const Random **random, const std::string **errStr);
 
+    /**
+     * TODO: doc me
+     * deal with differences between MCJIT and JIT
+     */
+    void addGlobalMapping(const llvm::GlobalValue *GV, void *Addr);
+
 
     bool getConservedMoietyAnalysis() const;
 
@@ -147,6 +153,8 @@ public:
     {
         return options;
     }
+
+    bool useMCJIT() const;
 
     /**
      * get a pointer to the random object.

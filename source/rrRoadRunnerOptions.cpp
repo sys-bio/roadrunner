@@ -75,6 +75,9 @@ namespace rr
 		//else if (Config::getString(Config::SIMULATEOPTIONS_INTEGRATOR) == "GILLESPIE") {
 		//	s->integrator = Integrator::GILLESPIE;
 		//}
+    else if (Config::getString(Config::SIMULATEOPTIONS_INTEGRATOR) == "GPUSIM") {
+        s->integrator = SimulateOptions::GPUSIM;
+    }
 		else {
 			Log(Logger::LOG_WARNING) << "Invalid integrator specified in configuration: "
 				<< Config::getString(Config::SIMULATEOPTIONS_INTEGRATOR)
@@ -220,6 +223,10 @@ namespace rr
 		else if (integrator == "gillespie") {
 			ss << "\"gillespie\"," << std::endl;
 		}
+
+    else if (integrator == GPUSIM ) {
+        ss << "\"gpusim\"," << std::endl;
+    }
 
 		else {
 			ss << "\"unknown\"," << std::endl;

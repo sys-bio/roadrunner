@@ -36,6 +36,11 @@ public:
      */
     static rr::ExecutableModel *createModel(const std::string& sbml, uint options);
 
+
+    /**
+     * hack so that C API could pass in options choose between jit and mcjit.
+     */
+    std::string compilerStr;
 };
 
 } /* namespace rr */

@@ -62,6 +62,7 @@ RR_DECLSPEC bool            createFolder(const string& path);
 
 RR_DECLSPEC string          getParentFolder(const string& path);
 RR_DECLSPEC string          getCurrentExeFolder();
+RR_DECLSPEC string          getRoadrunnerExe();
 
 /**
  * If roadrunner is build and running as shared library,
