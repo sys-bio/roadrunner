@@ -32,65 +32,65 @@ int main(int argc, char * argv[])
     Args args;
 //     try
 //     {
-        Logger::enableConsoleLogging();
+    Logger::enableConsoleLogging();
 
-        if(argc < 2)
-        {
-            cout<<Usage(argv[0])<<endl;
-            exit(0);
-        }
+    if(argc < 2)
+    {
+        cout<<Usage(argv[0])<<endl;
+        exit(0);
+    }
 
-        ProcessCommandLineArguments(argc, argv, args);
+    ProcessCommandLineArguments(argc, argv, args);
 
-        Logger::setLevel(args.CurrentLogLevel);
+    Logger::setLevel(args.CurrentLogLevel);
 
-        string thisExeFolder = getCurrentExeFolder();
-        Log(Logger::LOG_DEBUG) << "RoadRunner bin location is: " << thisExeFolder;
+    string thisExeFolder = getCurrentExeFolder();
+    Log(Logger::LOG_DEBUG) << "RoadRunner bin location is: " << thisExeFolder;
 
-        if(args.ModelFileName.size())
-        {
-            string logName = getFileName(args.ModelFileName);
-            logName = changeFileExtensionTo(logName, ".log");
-        }
-        else
-        {
-            Logger::enableConsoleLogging(Logger::getLevel());
-        }
+    if(args.ModelFileName.size())
+    {
+        string logName = getFileName(args.ModelFileName);
+        logName = changeFileExtensionTo(logName, ".log");
+    }
+    else
+    {
+        Logger::enableConsoleLogging(Logger::getLevel());
+    }
 
-        Log(Logger::LOG_INFORMATION) << "Current Log level is:"
-        		<< Logger::getCurrentLevelAsString();
+    Log(Logger::LOG_INFORMATION) << "Current Log level is:"
+      << Logger::getCurrentLevelAsString();
 
-        RoadRunner *rr  = new RoadRunner(args.compilerStr, args.TempDataFolder, "");
-        if(!args.ModelFileName.size())
-        {
-            Log(lInfo)<<"Please supply a sbml model file name, using option -m<modelfilename>";
-            exit(0);
-        }
+    if(!args.ModelFileName.size())
+    {
+        Log(lInfo)<<"Please supply a sbml model file name, using option -m<modelfilename>";
+        exit(0);
+    }
 
-        //Creating roadrunner
-        Log(Logger::LOG_DEBUG) << "Creating RoadRunner..." << endl;
-        RoadRunner rr(args.ModelFileName);
+    //Creating roadrunner
+    Log(Logger::LOG_DEBUG) << "Creating RoadRunner..." << endl;
+    RoadRunner rr(args.ModelFileName);
 
-        SimulateOptions& opt = rr.getSimulateOptions();
-        opt.start = args.StartTime;
-        opt.duration = args.EndTime - args.StartTime;
-        opt.steps = args.Steps;
-        if(args.variableStep) 
-		{
-			rr.getIntegrator()->setValue("variable_step_size", true);
-        }
+    rr.setCompiler(args.compilerStr);
 
-        ls::DoubleMatrix res = *rr.simulate();
+    SimulateOptions& opt = rr.getSimulateOptions();
+    opt.start = args.StartTime;
+    opt.duration = args.EndTime - args.StartTime;
+    opt.steps = args.Steps;
+    if(args.variableStep)
+    {
+        rr.getIntegrator()->setValue("variable_step_size", true);
+    }
 
-        if(args.OutputFileName.size() >  0)
-        {
-        	ofstream os(args.OutputFileName.c_str());
-        	os << res;
-        }
-        else
-        {
-        	cout << res;
-        }
+    ls::DoubleMatrix res = *rr.simulate();
+
+    if(args.OutputFileName.size() >  0)
+    {
+        ofstream os(args.OutputFileName.c_str());
+        os << res;
+    }
+    else
+    {
+      cout << res;
     }
 //     catch(std::exception& ex)
 //     {
