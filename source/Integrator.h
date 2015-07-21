@@ -166,6 +166,8 @@ class RR_DECLSPEC TimecourseIntegrationResults {
 public:
     typedef std::size_t size_type;
 
+    virtual ~TimecourseIntegrationResults() {}
+
     virtual size_type getTimevalueCount() const = 0;
 
     /// Get the real value of the variable at index i at time point index ti
