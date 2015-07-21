@@ -128,7 +128,7 @@ void PyLoggerStream::enablePythonLogging()
 
     // a borrowed reference to python owned object,
     // the logger stream increments the refe count.
-    PyObject* pyerr = PySys_GetObject("stderr");
+    PyObject* pyerr = PySys_GetObject((char*)"stderr");
 
     if (pyerr == NULL)
     {
