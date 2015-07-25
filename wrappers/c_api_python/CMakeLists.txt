@@ -7,12 +7,12 @@ add_subdirectory(Testing)
 if(INSTALL_EXAMPLES)
 add_subdirectory(Examples)
 endif()
+endif(BUILD_TEST_TOOLS)
 
 #=============== INSTALL =====================
 install(
-    FILES 
-    rrPython.py README.txt
-    DESTINATION c_api_python  	
+    FILES
+    rrPython.py test.py test3.py README.txt
+    DESTINATION c_api_python
     COMPONENT testing
     )
-endif(BUILD_TEST_TOOLS)

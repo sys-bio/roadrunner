@@ -3,9 +3,11 @@
  *
  *  Created on: Aug 13, 2014
  *      Author: andy
+ *      Contrib: JKM 2014
  */
 
 #include <PyLoggerStream.h>
+#include <PyUtils.h>
 
 
 namespace rr
@@ -82,7 +84,7 @@ std::streamsize PyLoggerStream::xsputn (const char* s,
     }
 
     // new python object
-    PyObject* pystr = PyString_FromStringAndSize(s, num);
+    PyObject* pystr = rrPyString_FromStringAndSize(s, num);
 
     // new py object
     PyObject* args = PyTuple_New(1);
@@ -126,7 +128,7 @@ void PyLoggerStream::enablePythonLogging()
 
     // a borrowed reference to python owned object,
     // the logger stream increments the refe count.
-    PyObject* pyerr = PySys_GetObject("stderr");
+    PyObject* pyerr = PySys_GetObject((char*)"stderr");
 
     if (pyerr == NULL)
     {

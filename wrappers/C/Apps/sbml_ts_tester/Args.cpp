@@ -28,7 +28,7 @@ string Usage(const string& prg)
     usage<<setw(25)<<"-v"                           <<" Enable Logging\n";
     usage<<setw(25)<<"-i"                           <<" Test Number\n";
     usage<<setw(25)<<"-a"                           <<" ModelVersion: 0 == l2v4, 1 == l3v1\n";
-    usage<<setw(25)<<"-c"                           <<" Compiler: gcc or llvm\n";
+    usage<<setw(25)<<"-c"                           <<" Compiler: gcc or llvm or llvm,USE_MCJIT\n";
     usage<<setw(25)<<"-?"                           <<" Shows the help screen.\n\n";
 
     usage<<"\nSystems Biology, UW 2012\n";

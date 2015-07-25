@@ -40,6 +40,13 @@ endif(WIN32)
 # add cmake files to find things, prepend with our path
 SET(CMAKE_MODULE_PATH ${PROJECT_SOURCE_DIR}/cmake/ ${CMAKE_MODULE_PATH})
 
+find_package(CUDA)
+if (CUDA_FOUND)
+    set(WITH_CUDA TRUE CACHE BOOL "Use CUDA")
+    set(CUDA_HOST_COMPILER gcc)
+else()
+    set(WITH_CUDA FALSE)
+endif()
 
 set(LLVM_INSTALL_PREFIX CACHE PATH "If LLVM was built using CMake, this is the location where it was installed")
 
@@ -72,6 +79,22 @@ else()
     find_package(LLVM)
 endif()
 
+if("${CMAKE_CXX_COMPILER_ID}" STREQUAL "Clang")
+    # JKM: this is complicated and stems from the fact that llvm-config returns flags
+    # engineered for its original host compiler. Leave this commented for now.
+    # string(REGEX REPLACE "-Wno-maybe-uninitialized" "" LLVM_FLAGS ${LLVM_FLAGS})
+endif()
+
+if (WITH_CUDA)
+    set (BUILD_GPUSIM ON CACHE BOOL "Build the GPU simulator")
+else()
+    set (BUILD_GPUSIM OFF CACHE BOOL "Build the GPU simulator")
+endif()
+
+# llvm now depends on zlib but llvm-config doesn't specify -lz (r213823)
+if(UNIX)
+    find_package(ZLIB)
+endif(UNIX)
 
 # should we build and install Testing tools?
 option (BUILD_TEST_TOOLS "Build and install test tools" OFF)
@@ -92,6 +115,8 @@ option (BUILD_JAVA_INTERFACE "build the SWIG generated Java wrapper" OFF)
 if(BUILD_TESTS OR BUILD_JAVA_INTERFACE)
   enable_testing()
 endif()
+
+set(RR_PYTHON_VERSION "2" CACHE STRING "Version of Python to use")
 
 if(BUILD_LLVM AND NOT LLVM_FOUND)
     message(FATAL_ERROR "BUILD_LLVM is enabled, but no LLVM installation was found")
@@ -120,6 +145,7 @@ OPTION (INSTALL_APPS            "Build and install Apps"                        
 OPTION (INSTALL_EXAMPLES        "Build and install Examples"                     OFF)
 OPTION (INSTALL_STATIC_LIB      "Install RoadRunner CXX static lib"              OFF)
 OPTION (RR_BUILD_SHARED_CORE    "Build RoadRunner Core Shared library"           ON)
+OPTION (RR_BUILD_STATIC         "Build RoadRunner Core Static library"           ON)
 OPTION (BUILD_TESTS             "Build the SBML C API test suite"                OFF)
 OPTION (INSTALL_SBML_MODELS     "Install SBML Models"                            ON )
 
@@ -262,6 +288,11 @@ else()
     message(STATUS "not building legacy C backend")
 endif(BUILD_LEGACY_C)
 
+if(BUILD_GPUSIM)
+    add_definitions(-DBUILD_GPUSIM)
+else()
+    message(STATUS "NOT building GPUSIM")
+endif(BUILD_GPUSIM)
 
 # We alway have to build the roadrunner core, everything depends on this
 add_subdirectory(source)

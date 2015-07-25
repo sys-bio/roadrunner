@@ -810,20 +810,21 @@ void RoadRunner::load(const string& uriOrSbml, const Dictionary *dict)
     // the following lines load and compile the model. If anything fails here,
     // we validate the model to provide explicit details about where it
     // failed. Its *VERY* expensive to pre-validate the model.
-    try {
+//     try {
 
         self.model = ExecutableModelFactory::createModel(self.mCurrentSBML, &self.loadOpt);
 
-    } catch (std::exception&) {
-        string errors = validateSBML(impl->mCurrentSBML);
-
-        if(!errors.empty()) {
-            Log(Logger::LOG_ERROR) << "Invalid SBML: " << endl << errors;
-        }
-
-        // re-throw the exception
-        throw;
-    }
+//     }
+//     catch (std::exception&) {
+//         string errors = validateSBML(impl->mCurrentSBML);
+//
+//         if(!errors.empty()) {
+//             Log(Logger::LOG_ERROR) << "Invalid SBML: " << endl << errors;
+//         }
+//
+//         // re-throw the exception
+//         throw;
+//     }
 
 	setIntegrator(self.simulateOpt.integrator);
 
@@ -1169,8 +1170,59 @@ const DoubleMatrix* RoadRunner::simulate(const Dictionary* dict)
     // evalute the model with its current state
     self.model->getStateVectorRate(timeStart, 0, 0);
 
+    // GPU integration must be performed entirely in the GPU
+    if (self.integrator->getIntegrationMethod() == Integrator::IntegrationMethod::GPU)
+    {
+        Log(Logger::LOG_INFORMATION)
+          << "Performing GPU integration for "
+          << self.simulateOpt.steps + 1
+          << "steps";
+
+        int numPoints = self.simulateOpt.steps + 1;
+
+        if (numPoints <= 1)
+            numPoints = 2;
+
+        double hstep = (timeEnd - timeStart) / (numPoints - 1);
+        int nrCols = self.mSelectionList.size();
+
+        Log(Logger::LOG_DEBUG) << "starting simulation with " << nrCols << " selected columns";
+
+        // ignored if same
+        self.simulationResult.resize(self.simulateOpt.steps + 1, nrCols);
+
+        self.integrator->restart(timeStart);
+
+        TimecourseIntegrationParameters p;
+        p.setPrecision(TimecourseIntegrationParameters::DOUBLE);
+        for (int i = 0; i < self.simulateOpt.steps + 1; ++i)
+            p.addTimevalue(timeStart + i*hstep);
+
+        TimecourseIntegrationResultsPtr r = self.integrator->integrate(p);
+
+        for (int irow=0; irow < self.simulateOpt.steps + 1; ++irow)
+            for (u_int j=0; j<impl->mSelectionList.size(); ++j) {
+                double val;
+                const SelectionRecord& record = impl->mSelectionList[j];
+                switch (record.selectionType) {
+                    case SelectionRecord::TIME:
+                        val = p.getTimevalue((std::size_t)irow);
+                        break;
+                    case SelectionRecord::FLOATING_CONCENTRATION:
+                        val = r->getValue((std::size_t)irow, record.index).getReal();
+                        break;
+                    default: {
+                        std::stringstream ss;
+                        ss << record.selectionType;
+                        throw CoreException("Unknown selection record " + ss.str());
+                    }
+                }
+                self.simulationResult(irow, j) = val;
+            }
+
+    }
     // Variable Time Step Integration
-	if (self.integrator->getValue("variable_step_size"))
+    else if (self.integrator->getValue("variable_step_size"))
     {
         Log(Logger::LOG_INFORMATION) << "Performing variable step integration";
 
@@ -1292,7 +1344,7 @@ const DoubleMatrix* RoadRunner::simulate(const Dictionary* dict)
     else
     {
         Log(Logger::LOG_INFORMATION)
-                << "Perfroming deterministic fixed step integration for  "
+                << "Performing deterministic fixed step integration for  "
                 << self.simulateOpt.steps + 1 << " steps";
 
         int numPoints = self.simulateOpt.steps + 1;
@@ -1327,7 +1379,7 @@ const DoubleMatrix* RoadRunner::simulate(const Dictionary* dict)
                 Log(Logger::LOG_DEBUG)<<"Step "<<i;
                 double itime = self.integrator->integrate(tout, hstep);
 
-                // the test suite is extremly sensetive to time differences,
+                // the test suite is extremely sensitive to time differences,
                 // so need to use the *exact* time here. occasionally the integrator
                 // will return a value just slightly off from the exact time
                 // value.

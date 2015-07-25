@@ -3,12 +3,17 @@
 *
 *  Created on: Apr 25, 2014
 *      Author: andy
+ *      Author: jkm
 */
 
 #include "Integrator.h"
 #include "CVODEIntegrator.h"
 #include "GillespieIntegrator.h"
 #include "RK4Integrator.h"
+#include "gpu/GPUSimIntegratorProxy.h"
+
+#include <cassert>
+#include <sstream>
 #include "EulerIntegrator.h"
 #include "rrStringUtils.h"
 #include "rrConfig.h"
@@ -74,6 +79,58 @@ namespace rr
 		}
 		return keys;
 	}
+// -- TimecourseIntegrationParameters --
+
+TimecourseIntegrationParameters::~TimecourseIntegrationParameters() {
+
+}
+
+void TimecourseIntegrationParameters::addTimevalue(double t) {
+    t_.push_back(t);
+}
+
+void TimecourseIntegrationParameters::setPrecision(Precision p) {
+    prec_ = p;
+}
+
+TimecourseIntegrationParameters::Precision TimecourseIntegrationParameters::getPrecision() const {
+    return prec_;
+}
+
+TimecourseIntegrationParameters::size_type TimecourseIntegrationParameters::getTimevalueCount() const {
+    return t_.size();
+}
+
+double TimecourseIntegrationParameters::getTimevalue(size_type i) const {
+    return t_.at(i);
+}
+
+double* TimecourseIntegrationParameters::getTimevaluesHeapArrayDbl() const {
+    double* result = (double*)malloc(getTimevalueCount()*sizeof(double));
+    assert(result && "No memory");
+    for (size_type i=0; i<getTimevalueCount(); ++i)
+        result[i] = getTimevalue(i);
+    return result;
+}
+
+float* TimecourseIntegrationParameters::getTimevaluesHeapArrayFlt() const {
+    float* result = (float*)malloc(getTimevalueCount()*sizeof(float));
+    assert(result && "No memory");
+    for (size_type i=0; i<getTimevalueCount(); ++i)
+        result[i] = (float)getTimevalue(i);
+    return result;
+}
+
+// -- TimecourseIntegrationResultsRealVector --
+
+TimecourseIntegrationResultsRealVector::size_type TimecourseIntegrationResultsRealVector::getTimevalueCount() const {
+    return ntval_;
+}
+
+void TimecourseIntegrationResultsRealVector::setTimevalueCount(size_type n) {
+    ntval_ = n;
+    rebuild();
+}
 
 	Variant Integrator::getValue(std::string key)
 	{
@@ -104,6 +161,37 @@ namespace rr
 	{
 		return getValue(key).convert<unsigned long>();
 	}
+
+void TimecourseIntegrationResultsRealVector::setVectorLength(size_type n) {
+    veclen_ = n;
+    rebuild();
+}
+
+TimecourseIntegrationResultsRealVector::size_type TimecourseIntegrationResultsRealVector::getVectorLength() const {
+    return veclen_;
+}
+
+VariableValue TimecourseIntegrationResultsRealVector::getValue(size_type ti, size_type i) const {
+    return val_.at(ti).at(i);
+}
+
+void TimecourseIntegrationResultsRealVector::setValue(size_type ti, size_type i, double val) {
+    if (ti > val_.size() || i > val_.at(ti).size()) {
+        assert(getTimevalueCount() ==  val_.size());
+        std::stringstream ss;
+        ss << "Tried to set value " << ti << "x" << i << " in a container of size " << getTimevalueCount() << "x" << getVectorLength();
+        throw std::runtime_error(ss.str());
+    }
+    val_.at(ti).at(i) = val;
+}
+
+void TimecourseIntegrationResultsRealVector::rebuild() {
+    val_.resize(ntval_);
+    for (ValMatrix::iterator i=val_.begin(); i != val_.end(); ++i)
+        i->resize(veclen_);
+}
+
+// -- Integrator --
 
 	float Integrator::getValueAsFloat(std::string key)
 	{
@@ -190,6 +278,12 @@ namespace rr
 		{
 			result = new GillespieIntegrator(m);
 		}
+#if defined(BUILD_GPUSIM)
+    else if(opt->integrator == SimulateOptions::GPUSIM)
+    {
+        result = rrgpu::CreateGPUSimIntegrator(m, opt);
+    }
+#endif
 		else
 		{
 			throw std::invalid_argument("invalid integrator name was requested: " + name);

@@ -30,7 +30,7 @@ string Usage(const string& prg)
     usage<<setw(25)<<"-t<FilePath>"                 <<" Temporary data output folder. If not given, temp files are output to current directory\n";
     usage<<setw(25)<<"-s"                           <<" Select Suites, e.g. -sABDE selects suite ABD and E\n";
     usage<<setw(25)<<"-v"                           <<" Enable Logging\n";
-    usage<<setw(25)<<"-c"                           <<" Compiler: gcc or llvm\n";
+    usage<<setw(25)<<"-c"                           <<" Compiler: gcc or llvm or llvm,USE_MCJIT\n";
     usage<<setw(25)<<"-?"                           <<" Shows the help screen.\n\n";
 
     usage<<"\nSystems Biology, UW 2012\n";

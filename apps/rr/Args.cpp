@@ -10,7 +10,7 @@ using namespace std;
 Args::Args()
 :
 UseOSTempFolder(false),
-OnlyCompile(false),
+compilerStr(""),
 Pause(false),
 CurrentLogLevel(rr::Logger::LOG_WARNING),
 ModelFileName(""),
@@ -38,7 +38,7 @@ string Usage(const string& prg)
     usage<<setw(25)<<"-d<FilePath>"                 <<" Data output directory. If not given, data is output to current directory (implies -f is given)\n";
     usage<<setw(25)<<"-t<FilePath>"                 <<" Temporary data output directory. If not given, temp files are output to current directory\n";
     usage<<setw(25)<<"-p"                           <<" Pause before exiting.\n";
-    usage<<setw(25)<<"-c"                           <<" Stop execution after compiling model\n";
+    usage<<setw(25)<<"-c"                           <<" Compiler string, to enable MCJIT, this should contain \"use_mcjit\" \n";
     usage<<setw(25)<<"-u"                           <<" Use users OS designated temporary directory\n";
     usage<<setw(25)<<"-s<#>"                        <<" Set the start time for simulation. Default: 0\n";
     usage<<setw(25)<<"-e<#>"                        <<" Set the end time for simulation. Default: 5\n";

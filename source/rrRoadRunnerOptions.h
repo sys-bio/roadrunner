@@ -133,7 +133,16 @@ namespace rr
 			USE_MCJIT = (0x1 << 10),
 
 
-			LLVM_SYMBOL_CACHE = (0x1 << 11)
+			LLVM_SYMBOL_CACHE = (0x1 << 11),
+        /**
+         * Use the GPU simulation engine.
+         *
+         * Defaults to false.
+         *
+         * The GPU sim engine generates the model evaluation code and integration
+	 * code on the GPU.
+         */
+        USE_GPUSIM =                       (0x1 << 13)
 		};
 
 		enum LoadOpt
