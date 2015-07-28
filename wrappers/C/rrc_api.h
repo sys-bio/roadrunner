@@ -474,14 +474,14 @@ C_DECL_SPEC char* rrcCallConv getConfigurationXML(RRHandle handle);
 \param[in] handle Handle to a RoadRunner instance.
 \return Returns an integer that corresponds to the number of currently implemented integrators.
 */
-C_DECL_SPEC int rrcCallConv getNumberOfIntegrators (RRHandle handle);
+C_DECL_SPEC int rrcCallConv getNumberOfIntegrators ();
 
 /*!
 \brief Get the names of implemented integrators.
 \param[in] handle Handle to a RoadRunner instance.
 \return Returns a list that contains the names of currently implemented integrators.
 */
-C_DECL_SPEC RRStringArrayPtr rrcCallConv getListOfIntegrators(RRHandle handle);
+C_DECL_SPEC RRStringArrayPtr rrcCallConv getListOfIntegrators();
 
 /*!
 \brief Specify the current integrator to be used for simulation.
