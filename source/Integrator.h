@@ -339,7 +339,7 @@ typedef std::unordered_map<std::string, std::string> DescriptionMap;
 		static IntegratorFactory& getInstance()
 		{
 			// FIXME: not thread safe -- JKM, July 24, 2015.
-			IntegratorFactory factory;
+			static IntegratorFactory factory;
 			return factory;
 		}
 
