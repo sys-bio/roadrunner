@@ -1329,19 +1329,21 @@ char* rrcCallConv getConfigurationXML(RRHandle handle)
 // Replacement methods for supporting solver configuration
 // ----------------------------------------------------------------------
 
-int rrcCallConv getNumberOfIntegrators(RRHandle handle)
+int rrcCallConv getNumberOfIntegrators()
 {
 	start_try
-		RoadRunner* rri = castToRoadRunner(handle);
-		return rri->getExistingIntegratorNames().size();
+		IntegratorFactory::getInstance().getRegisteredIntegratorNames().size();
+		//RoadRunner* rri = castToRoadRunner(handle);
+		//return rri->getExistingIntegratorNames().size();
     catch_ptr_macro
 }
 
-RRStringArrayPtr rrcCallConv getListOfIntegrators(RRHandle handle)
+RRStringArrayPtr rrcCallConv getListOfIntegrators()
 {
 	start_try
-		RoadRunner* rri = castToRoadRunner(handle);
-		StringList intgNames = rri->getExistingIntegratorNames();
+		//RoadRunner* rri = castToRoadRunner(handle);
+		//StringList intgNames = rri->getExistingIntegratorNames();
+		StringList intgNames = IntegratorFactory::getInstance().getRegisteredIntegratorNames();
 		if (!intgNames.Count())
 		{
 			return NULL;
