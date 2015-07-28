@@ -58,6 +58,9 @@ int main(int argc, char* argv[])
 	printf("Number of integrators:\t %d\n", numIntgs);
 	_intgList = stringArrayToString(getListOfIntegrators(_handle));
 
+	// set integrator to CVODE
+	setIntegrator(_handle, "cvode");
+
 	// Probe default (CVODE) integrator
 	printf("%s \n", getIntegratorDescription(_handle));
 	printf("%s \n", getIntegratorHint(_handle));
