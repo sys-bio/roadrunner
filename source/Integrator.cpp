@@ -27,7 +27,7 @@ namespace rr
 		INTEGRATOR
 	  ------------------------------------------------------------------------------------------*/
 
-	void Integrator::AddSetting(string name, Variant val, string hint, string description)
+	void Integrator::addSetting(string name, Variant val, string hint, string description)
 	{
 		settings.insert({ name, val });
 		hints.insert({ name, hint });
@@ -270,6 +270,14 @@ void TimecourseIntegrationResultsRealVector::rebuild() {
 	{
 		Integrator *result = 0;
 
+		for (std::vector<IntegratorRegistrar>::iterator it(mRegisteredIntegrators.begin()); it != mRegisteredIntegrators.end(); ++it)
+		{
+			if (it->getName() == name)
+			{
+				return it->construct(m);
+			}
+		}
+
 		if (name == "cvode")
 		{
 			result = new CVODEIntegrator(m);
@@ -278,18 +286,28 @@ void TimecourseIntegrationResultsRealVector::rebuild() {
 		{
 			result = new GillespieIntegrator(m);
 		}
-#if defined(BUILD_GPUSIM)
-    else if(opt->integrator == SimulateOptions::GPUSIM)
-    {
-        result = rrgpu::CreateGPUSimIntegrator(m, opt);
-    }
-#endif
 		else
 		{
 			throw std::invalid_argument("invalid integrator name was requested: " + name);
 		}
 
 		return result;
+	}
+
+	int IntegratorFactory::registerIntegrator(const IntegratorRegistrar& i)
+	{
+		mRegisteredIntegrators.push_back(i);
+		return 0;
+	}
+
+	std::vector<std::string> IntegratorFactory::getRegisteredIntegratorNames()
+	{
+		std::vector<std::string> names;
+		for (std::vector<IntegratorRegistrar>::iterator it(mRegisteredIntegrators.begin()); it != mRegisteredIntegrators.end(); ++it)
+		{
+			names.push_back(it->getName());
+		}
+		return names;
 	}
 
 }

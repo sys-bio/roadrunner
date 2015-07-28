@@ -26,6 +26,21 @@ using namespace std;
 
 namespace rr
 {
+	/* Store the name and description as global variables to ensure consistency between
+	* between IntegratorRegistrar and internal integrator methods (ie. getIntegratorName()). */
+	const char* gGillespieName = "gillespie";
+	const char* gGillespieDesc = "Gillespie description.";
+	const char* gGillespieHint = "Gillespie hint.";
+
+	// Creates a new Gillespie integrator object
+	static Integrator* makeGillespieIntegrator(ExecutableModel *m)
+	{
+		return new GillespieIntegrator(m);
+	}
+
+	// Register with factory
+	static int gillespie_result = IntegratorFactory::getInstance().registerIntegrator(IntegratorRegistrar(gGillespieName, gGillespieDesc, gGillespieHint, makeGillespieIntegrator));
+
 	static unsigned long defaultSeed()
 	{
 		int64_t seed = Config::getValue(Config::RANDOM_SEED).convert<int>();
@@ -51,11 +66,11 @@ namespace rr
 			stoichData(0)
 	{
 		// Set default integrator settings.
-		AddSetting("seed", defaultSeed(), "stiff hint.", "stiff description.");
-		AddSetting("variable_step_size", false, "Perform a variable time step simulation.", "Enabling this setting will allow the integrator to adapt the size of each time step. This will result in a non-uniform time column.");
-		AddSetting("initial_time_step", 0.0, "initial time step hint.", "initial time step description.");
-		AddSetting("minimum_time_step", 0.0, "minimum time step hint.", "minimum time step description.");
-		AddSetting("maximum_time_step", 0.0, "maximum time step hint.", "maximum time step description.");
+		addSetting("seed", defaultSeed(), "stiff hint.", "stiff description.");
+		addSetting("variable_step_size", false, "Perform a variable time step simulation.", "Enabling this setting will allow the integrator to adapt the size of each time step. This will result in a non-uniform time column.");
+		addSetting("initial_time_step", 0.0, "initial time step hint.", "initial time step description.");
+		addSetting("minimum_time_step", 0.0, "minimum time step hint.", "minimum time step description.");
+		addSetting("maximum_time_step", 0.0, "maximum time step hint.", "maximum time step description.");
 
 
 		nReactions = model->getNumReactions();
@@ -90,17 +105,17 @@ namespace rr
 
 	std::string GillespieIntegrator::getIntegratorName() const
 	{
-		return "gillespie";
+		return gGillespieName;
 	}
 
 	std::string GillespieIntegrator::getIntegratorDescription() const
 	{
-		return "gillespie integrator description.";
+		return gGillespieDesc;
 	}
 
 	std::string GillespieIntegrator::getIntegratorHint() const
 	{
-		return "gillespie integrator hint.";
+		return gGillespieHint;
 	}
 
 	Integrator::IntegrationMethod GillespieIntegrator::getIntegrationMethod() const

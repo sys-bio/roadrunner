@@ -272,7 +272,7 @@ typedef std::unordered_map<std::string, std::string> DescriptionMap;
 		HintMap hints;
 		DescriptionMap descriptions;
 
-		void AddSetting(std::string name, Variant val, std::string hint, std::string description);
+		void addSetting(std::string name, Variant val, std::string hint, std::string description);
 	};
 
 
@@ -292,13 +292,60 @@ typedef std::unordered_map<std::string, std::string> DescriptionMap;
 			}
 	};
 
+	class RR_DECLSPEC IntegratorRegistrar
+	{
+	protected:
+		typedef Integrator* (*IntegratorCtor)(ExecutableModel *model);
+	public:
+		IntegratorRegistrar(std::string name, std::string description, std::string hint, IntegratorCtor ctor)
+			: mName(name), mDescription(description), mHint(hint), mCtor(ctor) {}
+
+		std::string getName() const
+		{
+			return mName;
+		}
+
+		std::string getDescription() const
+		{
+			return mDescription;
+		}
+
+		std::string getHint() const
+		{
+			return mHint;
+		}
+
+		Integrator *construct(ExecutableModel *model)
+		{
+			return mCtor(model);
+		}
+
+	private:
+		std::string mName;
+		std::string mDescription;
+		std::string mHint;
+		IntegratorCtor mCtor;
+	};
+
 	/* */
 	class RR_DECLSPEC IntegratorFactory
 	{
 	public:
+		Integrator* New(std::string name, ExecutableModel *m);
 
-		static Integrator* New(std::string name, ExecutableModel *m);
+		int registerIntegrator(const IntegratorRegistrar& i);
+		std::vector<std::string> getRegisteredIntegratorNames();
 
+		static IntegratorFactory& getInstance()
+		{
+			// FIXME: not thread safe -- JKM, July 24, 2015.
+			IntegratorFactory factory;
+			return factory;
+		}
+
+	private:
+		IntegratorFactory() {}
+		std::vector<IntegratorRegistrar> mRegisteredIntegrators;
 	};
 
 }

@@ -2058,7 +2058,7 @@ C_DECL_SPEC bool rrcCallConv setSeed(RRHandle h, long result) {
 		}
 		else
 		{
-			Integrator *intg = IntegratorFactory::New("gillespie", r->getModel());
+			Integrator *intg = IntegratorFactory::getInstance().New("gillespie", r->getModel());
 			intg->setValue("seed", result);
 		}
         return true;

@@ -24,6 +24,21 @@
 using namespace std;
 namespace rr
 {
+	/* Store the name, description, and hint as global variables to ensure consistency between
+	* between IntegratorRegistrar and internal integrator methods (ie. getIntegratorName()). */
+	const char* gCVODEName = "cvode";
+	const char* gCVODEDesc = "CVODE description.";
+	const char* gCVODEHint = "CVODE hint.";
+
+	// Creates a new CVODE integrator object
+	static Integrator* makeCVODEIntegrator(ExecutableModel *m)
+	{
+		return new CVODEIntegrator(m);
+	}
+
+	// Register with factory
+	static int cvode_result = IntegratorFactory::getInstance().registerIntegrator(IntegratorRegistrar(gCVODEName, gCVODEDesc, gCVODEHint, makeCVODEIntegrator));
+
 	const int CVODEIntegrator::mDefaultMaxNumSteps = 10000;
 	const int CVODEIntegrator::mDefaultMaxAdamsOrder = 12;
 	const int CVODEIntegrator::mDefaultMaxBDFOrder = 5;
@@ -102,17 +117,17 @@ namespace rr
 		Log(Logger::LOG_INFORMATION) << "creating CVODEIntegrator";
 
 		// Set default integrator settings.
-		AddSetting("stiff", false, "stiff hint.", "stiff description.");
-		AddSetting("variable_step_size", false, "Perform a variable time step simulation.", "Enabling this setting will allow the integrator to adapt the size of each time step. This will result in a non-uniform time column.");
-		AddSetting("multiple_steps", false, "multiple steps hint.", "multiple steps description.");
-		AddSetting("initial_time_step", 0.0, "initial time step hint.", "initial time step description.");
-		AddSetting("minimum_time_step", 0.0, "minimum time step hint.", "minimum time step description.");
-		AddSetting("maximum_time_step", 0.0, "maximum time step hint.", "maximum time step description.");
-		AddSetting("maximum_num_steps", mDefaultMaxNumSteps, "Maximum number of steps hint.", "Maximum number of steps description.");
-		AddSetting("maximum_adams_order", mDefaultMaxAdamsOrder, "Maximum Adams Order hint. (int)", "Maximum Adams Order description.");
-		AddSetting("maximum_bdf_order", mDefaultMaxBDFOrder, "Maximum BDF Order hint. (int)", "Maximum BDF Order description.");
-		AddSetting("relative_tolerance", 1e-6, "Relative tolerance hint.", "Relative tolerance description.");
-		AddSetting("absolute_tolerance", 1e-12, "Absolute tolerance hint.", "Absolute tolerance description.");
+		addSetting("stiff", false, "stiff hint.", "stiff description.");
+		addSetting("variable_step_size", false, "Perform a variable time step simulation.", "Enabling this setting will allow the integrator to adapt the size of each time step. This will result in a non-uniform time column.");
+		addSetting("multiple_steps", false, "multiple steps hint.", "multiple steps description.");
+		addSetting("initial_time_step", 0.0, "initial time step hint.", "initial time step description.");
+		addSetting("minimum_time_step", 0.0, "minimum time step hint.", "minimum time step description.");
+		addSetting("maximum_time_step", 0.0, "maximum time step hint.", "maximum time step description.");
+		addSetting("maximum_num_steps", mDefaultMaxNumSteps, "Maximum number of steps hint.", "Maximum number of steps description.");
+		addSetting("maximum_adams_order", mDefaultMaxAdamsOrder, "Maximum Adams Order hint. (int)", "Maximum Adams Order description.");
+		addSetting("maximum_bdf_order", mDefaultMaxBDFOrder, "Maximum BDF Order hint. (int)", "Maximum BDF Order description.");
+		addSetting("relative_tolerance", 1e-6, "Relative tolerance hint.", "Relative tolerance description.");
+		addSetting("absolute_tolerance", 1e-12, "Absolute tolerance hint.", "Absolute tolerance description.");
 		CVODEIntegrator::loadConfigSettings();
 
 		if (aModel)
@@ -191,17 +206,17 @@ namespace rr
 
 	std::string CVODEIntegrator::getIntegratorName() const
 	{
-		return "cvode";
+		return gCVODEName;
 	}
 
 	std::string CVODEIntegrator::getIntegratorDescription() const
 	{
-		return "CVODE description.";
+		return gCVODEDesc;
 	}
 
 	std::string CVODEIntegrator::getIntegratorHint() const
 	{
-		return "CVODE hint.";
+		return gCVODEHint;
 	}
 
 	Integrator::IntegrationMethod CVODEIntegrator::getIntegrationMethod() const
