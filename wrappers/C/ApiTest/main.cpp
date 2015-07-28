@@ -43,6 +43,10 @@ int main(int argc, char* argv[])
 
 	RRHandle _handle = createRRInstance();
 	loadSBMLFromFile(_handle, sbmlFilepath.c_str());
+	if (hasError()) {
+   fprintf(stderr, "Unable to load SBML file \"%s\"\n", sbmlFilepath.c_str());
+   return 1;
+	}
 
 
 	RRStringArray *strArray;
