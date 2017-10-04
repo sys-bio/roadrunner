@@ -1159,9 +1159,9 @@ SUITE(TEST_MODEL)
         clog << endl << "  simulate with " << opt.start << ", " << opt.duration << ", " << opt.steps << "\n";
         const DoubleMatrix *rk4 = rri->simulate(&opt);
 
-        for (int i = 0; i < cvode[-1].size(); i++)
+        for (int k = 0; k < cvode->CSize(); k++)
         {
-            CHECK_CLOSE(*cvode[-1][i], *rk4[-1][i], 1e-6);
+            CHECK_CLOSE((*cvode)(cvode->RSize() - 1, k), (*rk4)(rk4->RSize() - 1, k), 1e-6);
         }
     }
 
@@ -1191,9 +1191,8 @@ SUITE(TEST_MODEL)
         clog << endl << "  simulate with " << opt.start << ", " << opt.duration << ", " << opt.steps << "\n";
         const DoubleMatrix *rk45 = rri->simulate(&opt);
 
-        for (int i = 0; i < cvode[-1].size(); i++)
-        {
-            CHECK_CLOSE(*cvode[-1][i], *rk45[-1][i], 1e-6);
+        for (int k = 0; k < cvode->CSize(); k++){
+            CHECK_CLOSE((*cvode)(cvode->RSize() - 1, k), (*rk45)(rk45->RSize() - 1, k), 1e-6);
         }
     }
 

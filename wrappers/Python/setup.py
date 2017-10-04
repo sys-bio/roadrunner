@@ -34,6 +34,13 @@ _version = open(_version_fname).readline().strip()
 setup(name='libroadrunner',
     author='J Kyle Medley, Andy Somogyi, Herbert Sauro',
     author_email='tellurium-discuss@u.washington.edu',
+    classifiers=[
+        'Intended Audience :: Science/Research',
+        'Operating System :: MacOS :: MacOS X',
+        'Operating System :: Microsoft :: Windows',
+        'Operating System :: POSIX',
+        'Programming Language :: C++',
+        ],
     version=_version,
     description='libRoadRunner: A simulation  and analysis library for SBML',
     url='http://libroadrunner.org',

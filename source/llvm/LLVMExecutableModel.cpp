@@ -706,7 +706,7 @@ void LLVMExecutableModel::reset(int opt)
             // reset gp if options say so
             if (checkExact(SelectionRecord::GLOBAL_PARAMETER, opt)
                     // or if opt say to reset cms and its a cm
-                    || ((opt & SelectionRecord::CONSREVED_MOIETY) && cm)
+                    || ((opt & SelectionRecord::CONSERVED_MOIETY) && cm)
                     // or if init conds have changes and its a cm (cm depends on init cond)
                     || (dirty_init && cm)
                     // or reseting global params which have init assignment rules
@@ -715,8 +715,8 @@ void LLVMExecutableModel::reset(int opt)
                 Log(Logger::LOG_INFORMATION) << "resetting global parameter, "
                         << gid << ", GLOBAL_PARAMETER: "
                         << checkExact(opt, SelectionRecord::GLOBAL_PARAMETER)
-                        << ", CONSREVED_MOIETY: "
-                        << ((opt & SelectionRecord::CONSREVED_MOIETY) && cm)
+                        << ", CONSERVED_MOIETY: "
+                        << ((opt & SelectionRecord::CONSERVED_MOIETY) && cm)
                         << "DEPENDENT_INITIAL_GLOBAL_PARAMETER: " <<
                             (checkExact(SelectionRecord::DEPENDENT_INITIAL_GLOBAL_PARAMETER, opt) && depInit);
                 reset_cm |= cm;
@@ -1011,7 +1011,7 @@ void LLVMExecutableModel::getIds(int types, std::list<std::string> &ids)
 
     // These are also displayed with global parameters, so
     // only add them if explicity asked for.
-    if (SelectionRecord::CONSREVED_MOIETY == types)
+    if (SelectionRecord::CONSERVED_MOIETY == types)
     {
         for(uint i = 0; i < symbols->getConservedMoietySize(); ++i)
         {

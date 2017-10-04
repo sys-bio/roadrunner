@@ -1334,8 +1334,8 @@ const DoubleMatrix* RoadRunner::simulate(const Dictionary* dict)
 
     applySimulateOptions();
 
-    const double timeEnd = self.simulateOpt.duration + self.simulateOpt.start;
-    const double timeStart = self.simulateOpt.start;
+    const double timeEnd = self.simulateOpt.duration;
+    const double timeStart = 0;
 
     // evalute the model with its current state
     self.model->getStateVectorRate(timeStart, 0, 0);
@@ -1564,6 +1564,12 @@ const DoubleMatrix* RoadRunner::simulate(const Dictionary* dict)
     self.model->setIntegration(false);
 
     Log(Logger::LOG_DEBUG) << "Simulation done..";
+
+    for (int i = 0; i < self.simulationResult.numRows(); i++) {
+        self.simulationResult[i][getTimeRowIndex()] = self.simulationResult[i][getTimeRowIndex()] + self.simulateOpt.start;
+    }
+
+    Log(Logger::LOG_DEBUG) << "Added delta T.";
 
     return &self.simulationResult;
 }
@@ -4051,10 +4057,9 @@ void RoadRunner::applySimulateOptions()
 {
     get_self();
 
-    if (self.simulateOpt.duration < 0 || self.simulateOpt.start < 0
-            || self.simulateOpt.steps < 0 )
+    if (self.simulateOpt.duration < 0  || self.simulateOpt.steps < 0 )
     {
-        throw std::invalid_argument("duration, startTime and steps must be non-negative");
+        throw std::invalid_argument("duration and steps must be non-negative");
     }
 
     // This one creates the list of what we will look at in the result

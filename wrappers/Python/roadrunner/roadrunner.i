@@ -2228,7 +2228,7 @@ namespace std { class ostream{}; }
     }
 
     PyObject *getConservedMoietyIds() {
-        return rr_ExecutableModel_getIds($self, rr::SelectionRecord::CONSREVED_MOIETY);
+        return rr_ExecutableModel_getIds($self, rr::SelectionRecord::CONSERVED_MOIETY);
     }
 
     PyObject *getReactionIds() {
