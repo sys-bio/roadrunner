@@ -641,6 +641,8 @@ public:
     #if (1) /**********************************************************************/
     /******************************************************************************/
 
+    double mcaSteadyState();
+
     /**
      * Compute the steady state of the model, returns the sum of squares of the
      * solution

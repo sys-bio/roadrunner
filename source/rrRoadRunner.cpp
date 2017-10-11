@@ -1036,6 +1036,28 @@ std::vector<rr::SelectionRecord>& RoadRunner::getSelections()
 }
 
 
+double RoadRunner::mcaSteadyState()
+{
+    if (!impl->model)
+    {
+        throw CoreException(gEmptyModelMessage);
+    }
+
+    double start = impl->simulateOpt.start;
+    double duration = impl->simulateOpt.duration;
+    int steps = impl->simulateOpt.steps;
+    impl->simulateOpt.start = 0;
+    impl->simulateOpt.duration = 10.0;
+    impl->simulateOpt.steps = 100;
+    simulate();
+    impl->simulateOpt.start = start;
+    impl->simulateOpt.duration = duration;
+    impl->simulateOpt.steps = steps;
+
+    return steadyState();
+}
+
+
 double RoadRunner::steadyState(const Dictionary* dict)
 {
     Log(Logger::LOG_DEBUG)<<"RoadRunner::steadyState...";
@@ -1334,8 +1356,8 @@ const DoubleMatrix* RoadRunner::simulate(const Dictionary* dict)
 
     applySimulateOptions();
 
-    const double timeEnd = self.simulateOpt.duration;
-    const double timeStart = 0;
+    const double timeEnd = self.simulateOpt.duration + self.simulateOpt.start;
+    const double timeStart = self.simulateOpt.start;
 
     // evalute the model with its current state
     self.model->getStateVectorRate(timeStart, 0, 0);
@@ -1564,12 +1586,6 @@ const DoubleMatrix* RoadRunner::simulate(const Dictionary* dict)
     self.model->setIntegration(false);
 
     Log(Logger::LOG_DEBUG) << "Simulation done..";
-
-    for (int i = 0; i < self.simulationResult.numRows(); i++) {
-        self.simulationResult[i][getTimeRowIndex()] = self.simulationResult[i][getTimeRowIndex()] + self.simulateOpt.start;
-    }
-
-    Log(Logger::LOG_DEBUG) << "Added delta T.";
 
     return &self.simulationResult;
 }
@@ -2507,6 +2523,8 @@ double RoadRunner::getuCC(const string& variableName, const string& parameterNam
             throw CoreException(gEmptyModelMessage);
         }
 
+        mcaSteadyState();
+
         ParameterType parameterType;
         VariableType variableType;
         double originalParameterValue;
@@ -2563,19 +2581,19 @@ double RoadRunner::getuCC(const string& variableName, const string& parameterNam
         try
         {
             impl->setParameterValue(parameterType, parameterIndex, originalParameterValue + hstep);
-            steadyState();
+            mcaSteadyState();
             double fi = getVariableValue(variableType, variableIndex);
 
             impl->setParameterValue(parameterType, parameterIndex, originalParameterValue + 2*hstep);
-            steadyState();
+            mcaSteadyState();
             double fi2 = getVariableValue(variableType, variableIndex);
 
             impl->setParameterValue(parameterType, parameterIndex, originalParameterValue - hstep);
-            steadyState();
+            mcaSteadyState();
             double fd = getVariableValue(variableType, variableIndex);
 
             impl->setParameterValue(parameterType, parameterIndex, originalParameterValue - 2*hstep);
-            steadyState();
+            mcaSteadyState();
             double fd2 = getVariableValue(variableType, variableIndex);
 
             // Use instead the 5th order approximation double unscaledValue = (0.5/hstep)*(fi-fd);
@@ -2593,7 +2611,7 @@ double RoadRunner::getuCC(const string& variableName, const string& parameterNam
         {
             // What ever happens, make sure we restore the parameter level
             impl->setParameterValue(parameterType, parameterIndex, originalParameterValue);
-            steadyState();
+            mcaSteadyState();
             throw;
         }
     }
@@ -2647,8 +2665,6 @@ double RoadRunner::getCC(const string& variableName, const string& parameterName
     {
         throw CoreException("Unable to locate parameter: [" + parameterName + "]");
     }
-
-    steadyState();
 
     double variableValue = getVariableValue(variableType, variableIndex);
     double parameterValue = impl->getParameterValue(parameterType, parameterIndex);
@@ -2891,7 +2907,7 @@ DoubleMatrix RoadRunner::getUnscaledConcentrationControlCoefficientMatrix()
 
     impl->simulateOpt.start = 0;
     impl->simulateOpt.duration = 50.0;
-    impl->simulateOpt.steps = 1;
+    impl->simulateOpt.steps = 100;
 
     // TODO why is simulate called here???
     simulate();
@@ -4057,9 +4073,10 @@ void RoadRunner::applySimulateOptions()
 {
     get_self();
 
-    if (self.simulateOpt.duration < 0  || self.simulateOpt.steps < 0 )
+    if (self.simulateOpt.duration < 0 || self.simulateOpt.start < 0
+            || self.simulateOpt.steps < 0 )
     {
-        throw std::invalid_argument("duration and steps must be non-negative");
+        throw std::invalid_argument("duration, startTime and steps must be non-negative");
     }
 
     // This one creates the list of what we will look at in the result

@@ -305,6 +305,14 @@ std::string ConservationExtension::getConservedQuantity(const libsbml::Species& 
     return plugin ? plugin->getConservedQuantity() : "";
 }
 
+std::vector<std::string> ConservationExtension::getConservedQuantities(const libsbml::Species& s)
+{
+    const ConservedMoietyPlugin* plugin =
+            dynamic_cast<const ConservedMoietyPlugin*>(
+                    s.getPlugin("conservation"));
+    return plugin ? plugin->getConservedQuantities() : std::vector<std::string>();
+}
+
 
 bool ConservationExtension::isConservedMoietyDocument(
         const libsbml::SBMLDocument* doc)

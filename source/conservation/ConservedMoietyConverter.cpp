@@ -77,6 +77,14 @@ public:
 
         plugin->setConservedQuantity(quantity);
     }
+
+    void addConservedQuantity(const std::string& quantity) {
+        ConservedMoietyPlugin *plugin = (ConservedMoietyPlugin*)getPlugin("conservation");
+
+        assert(plugin && "could not get conservation plugin from species");
+
+        plugin->addConservedQuantity(quantity);
+    }
 };
 
 
@@ -544,8 +552,10 @@ static std::vector<std::string> createConservedMoietyParameters(
                 sum2->addChild(times);
 
                 ConservedMoietySpecies* cmIndSpecies = dynamic_cast<ConservedMoietySpecies*>(newModel->getSpecies(j));
-                if (cmIndSpecies)
-                    cmIndSpecies->setConservedQuantity(id);
+                if (cmIndSpecies) {
+                    std::cerr << "cmIndSpecies " << cmIndSpecies->getId() << " conserved quantity " << id << "\n";
+                    cmIndSpecies->addConservedQuantity(id);
+                }
             }
         }
 

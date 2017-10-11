@@ -53,14 +53,28 @@ void ConservedMoietyPlugin::setConservedMoiety(bool value)
     conservedMoiety = value;
 }
 
-const std::string& ConservedMoietyPlugin::getConservedQuantity() const
+std::string ConservedMoietyPlugin::getConservedQuantity() const
 {
-    return conservedQuantity;
+    if (conservedQuantities.size() == 1)
+        return conservedQuantities.at(0);
+    else
+        return "";
+}
+
+const std::vector<std::string>& ConservedMoietyPlugin::getConservedQuantities() const
+{
+    return conservedQuantities;
 }
 
 void ConservedMoietyPlugin::setConservedQuantity(const std::string& id)
 {
-    conservedQuantity = id;
+    conservedQuantities.clear();
+    conservedQuantities.push_back(id);
+}
+
+void ConservedMoietyPlugin::addConservedQuantity(const std::string& id)
+{
+    conservedQuantities.push_back(id);
 }
 
 }
@@ -88,13 +102,20 @@ void rr::conservation::ConservedMoietyPlugin::readAttributes(
     {
         conservedMoiety = false;
     }
+    std::string conservedQuantity;
     if(attributes.hasAttribute("conservedQuantity", mURI))
     {
-        if (!attributes.readInto("conservedQuantity", conservedMoiety))
+        if (!attributes.readInto("conservedQuantity", conservedQuantity))
         {
             std::string value = attributes.getValue("conservedQuantity");
             throw std::invalid_argument("conservedQuantity attribute with value " + value
                                         + " can not be converted to a string");
+        }
+        std::string s=conservedQuantity;
+        std::size_t i=s.find(",");
+        while(i != std::string::npos) {
+            addConservedQuantity(s.substr(0,i));
+            s = s.substr(i);
         }
     }
 }
@@ -107,5 +128,9 @@ void rr::conservation::ConservedMoietyPlugin::writeAttributes(
     libsbml::XMLTriple triple2("conservedQuantity", mURI, mPrefix);
 
     stream.writeAttribute(triple1, conservedMoiety);
-    stream.writeAttribute(triple2, conservedQuantity);
+    std::stringstream ss;
+    for (std::vector<std::string>::const_iterator i=conservedQuantities.begin(); i!=conservedQuantities.end(); ++i) {
+        ss << (i != conservedQuantities.begin() ? "" : ",") << *i;
+    }
+    stream.writeAttribute(triple2, ss.str());
 }

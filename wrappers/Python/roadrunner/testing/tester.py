@@ -920,6 +920,20 @@ def testResetToOrigin(rrInstance, testId):
     if (d == float(words[1])):
         errorFlag = True
     print(passMsg (errorFlag))
+    
+def testResetConservedTotal(rrInstance, testId):
+    print(("Check " + testId).ljust( rpadding), end="")
+    errorFlag = False
+    words = divide(readLine())
+    ct = words[0]
+    rrInstance.conservedMoietyAnalysis = True
+    rrInstance.steadyState()
+    rrInstance.setValue(ct, 1000)
+    rrInstance.reset()
+    ct_val = rrInstance.getValue(ct)
+    if ct_val == 1000:
+        errorFlag = True
+    print(passMsg (errorFlag))
 
 def checkJacobian(rrInstance, testId):
     # TODO need to update python 2.x printing
@@ -1270,6 +1284,7 @@ functions = {'[Amount/Concentration Jacobians]' : checkJacobian,
              '[Test Reset]': testReset,
              '[Test ResetAll]': testResetAll,
              '[Test ResetToOrigin]': testResetToOrigin,
+             '[Test ResetConservedTotal]': testResetConservedTotal,
              '[Unscaled Concentration Control Matrix]': checkUnscaledConcentrationControlMatrix,
              '[Unscaled Elasticity Matrix]': checkUnscaledElasticityMatrix,
              '[Unscaled Elasticity Amount Matrix]': checkUnscaledElasticityAmountMatrix,

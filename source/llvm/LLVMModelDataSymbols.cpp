@@ -799,7 +799,7 @@ void LLVMModelDataSymbols::initFloatingSpecies(const libsbml::Model* model,
     for (uint i = 0; i < species->size(); ++i)
     {
         const Species *s = species->get(i);
-        std::string quantity = ConservationExtension::getConservedQuantity(*s);
+        std::vector<std::string> quantities = ConservationExtension::getConservedQuantities(*s);
 
         if (s->getBoundaryCondition())
         {
@@ -811,15 +811,21 @@ void LLVMModelDataSymbols::initFloatingSpecies(const libsbml::Model* model,
         if (isIndependentElement(sid))
         {
             indFltSpecies.push_back(sid);
-            if (quantity.size()) {
-                conservedMoietyIndSpecies[quantity].push_back(indFltSpecies.size()-1);
+            if (quantities.size()) {
+                for (uint j=0; j<quantities.size(); ++j) {
+                    std::string quantity = quantities.at(j);
+                    conservedMoietyIndSpecies[quantity].push_back(indFltSpecies.size()-1);
+                }
             }
         }
         else
         {
             depFltSpecies.push_back(sid);
-            if (quantity.size()) {
-                conservedMoietyDepSpecies[quantity] = depFltSpecies.size()-1;
+            if (quantities.size()) {
+                for (uint j=0; j<quantities.size(); ++j) {
+                    std::string quantity = quantities.at(j);
+                    conservedMoietyDepSpecies[quantity] = depFltSpecies.size()-1;
+                }
             }
         }
 
@@ -1539,6 +1545,7 @@ uint LLVMModelDataSymbols::getDepSpeciesIndexForConservedMoietyId(std::string id
     }
     else
     {
+        StringUIntMap::const_iterator j = conservedMoietyDepSpecies.begin();
         throw LLVMException("could not find dep species for cm with id " + id, __FUNC__);
     }
 }
@@ -1552,7 +1559,7 @@ const std::vector<uint>& LLVMModelDataSymbols::getIndSpeciesIndexForConservedMoi
     }
     else
     {
-        throw LLVMException("could not find dep species for cm with id " + id, __FUNC__);
+        throw LLVMException("could not find ind species for cm with id " + id, __FUNC__);
     }
 }
 

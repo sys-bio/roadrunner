@@ -2092,6 +2092,40 @@ SUITE(TEST_MODEL)
         }
     }
 
+    TEST(CHECK_RESETCONSERVEDTOTAL)
+    {
+        CHECK(gRR != NULL);
+
+        IniSection* aSection = iniFile.GetSection("Test ResetConservedTotal");
+        if (!aSection || !gRR)
+        {
+            return;
+        }
+        clog << endl << "==== CHECK_RESET_CONSERVED_TOTAL ====" << endl << endl;
+        aSection->mIsUsed = true;
+
+        string keys = Trim(aSection->GetNonKeysAsString());
+        vector<string> refList = splitString(keys, " ,");
+
+        const char* ct = refList[0].c_str();
+
+        double ct_val;
+
+        RRVector* values = computeSteadyStateValues(gRR);
+
+        setValue(gRR, ct, 1000.);
+
+        reset(gRR);
+
+        getValue(gRR, ct, &ct_val);
+
+        CHECK(ct_val != 1000.);
+
+        resetAll(gRR);
+
+        freeVector(values);
+    }
+
     TEST(CHECK_UNUSED_TESTS)
     {
         for(int i=0; i<iniFile.GetNumberOfSections(); i++)

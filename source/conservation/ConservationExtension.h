@@ -96,6 +96,12 @@ public:
 
 
   /**
+   * get the conserved moiety global parameter associated with this species
+   */
+  static std::vector<std::string> getConservedQuantities(const libsbml::Species& s);
+
+
+  /**
    * check if the document is already a conserved moeity document
    */
   static bool isConservedMoietyDocument(const libsbml::SBMLDocument*);

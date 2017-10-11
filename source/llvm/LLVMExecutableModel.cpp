@@ -1275,12 +1275,28 @@ void LLVMExecutableModel::setValue(const std::string& id, double value)
                 // if the dependent species went negative, we need to correct for it
                 if (amt < 0) {
                     const std::vector<uint>& ind = symbols->getIndSpeciesIndexForConservedMoietyId(id);
+                    std::vector<double> ind_amts(ind.size());
                     double zero=0;
 
-                    for(std::vector<uint>::const_iterator it = ind.begin(); it != ind.end(); ++it) {
+                    uint k=0;
+                    for(std::vector<uint>::const_iterator it = ind.begin(); it != ind.end(); ++it, ++k) {
                         int i = *it;
+                        getFloatingSpeciesAmounts(1,&i,&ind_amts.at(k));
                         setFloatingSpeciesAmounts(1,&i,&zero);
                     }
+
+                    // double amt2;
+                    // getFloatingSpeciesAmounts(1,&i_dep,&amt2);
+                    // if (amt2 < 0)
+                    //     throw LLVMException("Conserved total exceeded allowable bounds, cannot compute dependent species.");
+                    // double alpha=-amt/(amt2-amt);
+                    //
+                    // k=0;
+                    // for(std::vector<uint>::const_iterator it = ind.begin(); it != ind.end(); ++it, ++k) {
+                    //     int i = *it;
+                    //     double v=ind_amts.at(k)*(1.-alpha);
+                    //     setFloatingSpeciesAmounts(1,&i,&v);
+                    // }
                 }
             }
         }
