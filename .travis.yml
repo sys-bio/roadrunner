@@ -26,7 +26,7 @@ before_install:
   - sudo apt-get -y install cmake swig python-dev python-numpy llvm-3.5-dev
 
   # install roadrunner dependencies through cmake build:
-  - git clone --depth=50 https://github.com/sys-bio/libroadrunner-deps.git sys-bio/libroadrunner-deps
+  - git clone --depth=50 https://github.com/sys-bio/libroadrunner-deps.git ~/sys-bio/libroadrunner-deps
   - mkdir -p ~/install/roadrunner
   - cd ~/sys-bio/libroadrunner-deps
   - cmake . -DCMAKE_BUILD_TYPE=Release -DCMAKE_INSTALL_PREFIX=~/install/roadrunner
