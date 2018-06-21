@@ -55,11 +55,20 @@ NLEQInterface::NLEQInterface(ExecutableModel *_model) :
     iopt(0),
     model(0),
     nOpts(50),
+
+    allowPreSim(Config::getBool(Config::STEADYSTATE_PRESIMULATION)),
+    preSimTolerance(Config::getDouble(Config::STEADYSTATE_PRESIMULATION_TOL)),
+    preSimMaximumSteps(Config::getInt(Config::STEADYSTATE_PRESIMULATION_MAX_STEPS)),
+    preSimTime(Config::getDouble(Config::STEADYSTATE_PRESIMULATION_TIME)),
+    allowApprox(Config::getBool(Config::STEADYSTATE_APPROX)),
+    approxTolerance(Config::getDouble(Config::STEADYSTATE_APPROX_TOL)),
+    approxMaximumSteps(Config::getInt(Config::STEADYSTATE_APPROX_MAX_STEPS)),
+    approxTime(Config::getDouble(Config::STEADYSTATE_APPROX_TIME)),
     relativeTolerance(Config::getDouble(Config::STEADYSTATE_RELATIVE)),
     maxIterations(Config::getInt(Config::STEADYSTATE_MAXIMUM_NUM_STEPS)),
     minDamping(Config::getDouble(Config::STEADYSTATE_MINIMUM_DAMPING)),
-    broyden(Config::getDouble(Config::STEADYSTATE_BROYDEN)),
-    linearity(Config::getDouble(Config::STEADYSTATE_LINEARITY))
+    broyden(Config::getInt(Config::STEADYSTATE_BROYDEN)),
+    linearity(Config::getInt(Config::STEADYSTATE_LINEARITY))
 {
     model = _model;
 
@@ -364,24 +373,47 @@ string ErrorForStatus(int error)
 }
 
 
-
 // steady state solver options
 static const char* keys[] =
 {
+        "allowPreSim"
+        "preSimTolerance"
+        "preSimMaximumSteps"
+        "preSimTime"
+        "allowApprox"
+        "approxTolerance"
+        "approxMaximumSteps"
+        "approxTime"
         "relativeTolerance"
-        "maxIterations",
+        "maxIterations"
         "minDamping"
         "broyden"
         "linearity"
 
+        "allowPreSim.description"
+        "preSimTolerance.description"
+        "preSimMaximumSteps.description"
+        "preSimTime.description"
+        "allowApprox.description"
+        "approxTolerance.description"
+        "approxMaximumSteps.description"
+        "approxTime.description"
         "relativeTolerance.description"
-        "maxIterations.description",
+        "maxIterations.description"
         "minDamping.description"
         "broyden.description"
         "linearity.description"
 
+        "allowPreSim.hint"
+        "preSimTolerance.hint"
+        "preSimMaximumSteps.hint"
+        "preSimTime.hint"
+        "allowApprox.hint"
+        "approxTolerance.hint"
+        "approxMaximumSteps.hint"
+        "approxTime.hint"
         "relativeTolerance.hint"
-        "maxIterations.hint",
+        "maxIterations.hint"
         "minDamping.hint"
         "broyden.hint"
         "linearity.hint"
@@ -419,18 +451,42 @@ const Dictionary* NLEQInterface::getSteadyStateOptions()
     dict.setItem("steadyState.hint", "NLEQ hint");
     dict.setItem("steadyState.description", "NLEQ description");
 
+    dict.setItem("allowPreSim", Config::getBool(Config::STEADYSTATE_PRESIMULATION));
+    dict.setItem("preSimTolerance", Config::getDouble(Config::STEADYSTATE_PRESIMULATION_TOL));
+    dict.setItem("preSimMaximumSteps", Config::getInt(Config::STEADYSTATE_PRESIMULATION_MAX_STEPS));
+    dict.setItem("preSimTime", Config::getDouble(Config::STEADYSTATE_PRESIMULATION_TIME));
+    dict.setItem("allowApprox", Config::getBool(Config::STEADYSTATE_APPROX));
+    dict.setItem("approxTolerance", Config::getDouble(Config::STEADYSTATE_APPROX_TOL));
+    dict.setItem("approxMaximumSteps", Config::getInt(Config::STEADYSTATE_APPROX_MAX_STEPS));
+    dict.setItem("approxTime", Config::getDouble(Config::STEADYSTATE_APPROX_TIME));
     dict.setItem("relativeTolerance", Config::getDouble(Config::STEADYSTATE_RELATIVE));
     dict.setItem("maxIterations", Config::getInt(Config::STEADYSTATE_MAXIMUM_NUM_STEPS));
     dict.setItem("minDamping", Config::getDouble(Config::STEADYSTATE_MINIMUM_DAMPING));
-    dict.setItem("broyden", Config::getDouble(Config::STEADYSTATE_BROYDEN));
-    dict.setItem("linearity", Config::getDouble(Config::STEADYSTATE_LINEARITY));
+    dict.setItem("broyden", Config::getInt(Config::STEADYSTATE_BROYDEN));
+    dict.setItem("linearity", Config::getInt(Config::STEADYSTATE_LINEARITY));
 
+    dict.setItem("allowPreSim.description", "startWithApprox.description");
+    dict.setItem("preSimTolerance.description", "preSimTolerance.description");
+    dict.setItem("preSimMaximumSteps.description", "preSimMaximumSteps.description");
+    dict.setItem("preSimTime.description", "preSimTime.description");
+    dict.setItem("allowApprox.description", "allowApprox.description");
+    dict.setItem("approxTolerance.description", "approxTolerance.description");
+    dict.setItem("approxMaximumSteps.description", "approxMaximumSteps.description");
+    dict.setItem("approxTime.description", "approxTime.description");
     dict.setItem("relativeTolerance.description", "relativeTolerance.description");
     dict.setItem("maxIterations.description", "maxIterations.description");
     dict.setItem("minDamping.description", "minDamping.description");
     dict.setItem("broyden.description", "broyden.description");
     dict.setItem("linearity.description", "linearity.description");
 
+    dict.setItem("allowPreSim.hint", "startWithApprox.hint");
+    dict.setItem("preSimTolerance.hint", "preSimTolerance.hint");
+    dict.setItem("preSimMaximumSteps.hint", "preSimMaximumSteps.hint");
+    dict.setItem("preSimTime.hint", "preSimTime.hint");
+    dict.setItem("allowApprox.hint", "allowApprox.hint");
+    dict.setItem("approxTolerance.hint", "approxTolerance.hint");
+    dict.setItem("approxMaximumSteps.hint", "approxMaximumSteps.hint");
+    dict.setItem("approxTime.hint", "approxTime.hint");
     dict.setItem("relativeTolerance.hint", "relativeTolerance.hint");
     dict.setItem("maxIterations.hint", "maxIterations.hint");
     dict.setItem("minDamping.hint", "minDamping.hint");
