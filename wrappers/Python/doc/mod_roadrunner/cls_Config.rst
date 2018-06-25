@@ -282,16 +282,5 @@ here. The variable type of the parameter is listed after the key name.
    The simulation will be aborted and the output truncated if this value is exceeded.
 
 
-.. attribute:: Config.ALLOW_EVENTS_IN_STEADY_STATE_CALCULATIONS
-   :module: RoadRunner
-   :annotation: bool
-
-   Enable or disable steady state calculations when a model contains events
-
-   If true, steady state calculations will be carried out irrespective 
-   of whether events are present or not.
-   If false, steady state calculations will not be carried out 
-   in the presence of events.
-
 
 

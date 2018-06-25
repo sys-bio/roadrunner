@@ -82,14 +82,6 @@ private:
 
     bool isAvailable();
 
-    bool allowPreSim;
-    double preSimTolerance;
-    int preSimMaximumSteps;
-    double preSimTime;
-    bool allowApprox;
-    double approxTolerance;
-    int approxMaximumSteps;
-    double approxTime;
     double relativeTolerance;
     int maxIterations;
     double minDamping;

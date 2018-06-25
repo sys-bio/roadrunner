@@ -233,7 +233,7 @@ public:
         SIMULATEOPTIONS_INTEGRATOR,
 
         /**
-         * A user specified initial time step. If this is <=  0, the integrator
+         * A useer specified initial time step. If this is <=  0, the integrator
          * will attempt to determine a safe initial time stpe.
          *
          * Note, for each number of steps given to RoadRunner::simulate or RoadRunner::oneStep,
@@ -367,29 +367,9 @@ public:
         SIMULATEOPTIONS_COPY_RESULT,
 
         /**
-         * Flag for starting steady state analysis with simulation.
+         * Flag for steady state approximation routine running by default for steadyState.
          */
-        STEADYSTATE_PRESIMULATION,
-
-        /**
-         * Tolerance for presimulation before steady state analysis.
-         */
-        STEADYSTATE_PRESIMULATION_TOL,
-
-        /**
-         * Maximum number of steps that can be taken for presimulation before steady state analysis.
-         */
-        STEADYSTATE_PRESIMULATION_MAX_STEPS,
-
-        /**
-         * End time for presimulation steady state analysis.
-         */
-        STEADYSTATE_PRESIMULATION_TIME,
-
-        /**
-         * Flag for using steady state approximation routine when steady state solver fails.
-         */
-        STEADYSTATE_APPROX,
+        STEADYSTATE_APPROX_DEFAULT,
 
         /**
          * Tolerance for steady state approximation routine.
@@ -513,18 +493,6 @@ public:
          * of rows are reached.
          */
         MAX_OUTPUT_ROWS,
-
-
-        /**
-         * Enable or disable steady state calculations when a model contains events
-         *
-	     * If true, steady state calculations will be carried out irrespective of
-	     * whether events are present or not.
-	     *
-	     * If false, steady state calculations will not be carried out in the
-	     * presence of events.
-         */
-        ALLOW_EVENTS_IN_STEADY_STATE_CALCULATIONS,
 
 
         // add lots of space so not to conflict with other branches.

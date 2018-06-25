@@ -195,8 +195,7 @@ namespace rr
           else if (h > tDiff) {
               h = tDiff;
           } else if (h < hmin) {
-              h = hmin;
-              //throw std::runtime_error("RK45Integrator::integrate: Stepsize became smaller than specified minimum.");
+              throw std::runtime_error("RK45Integrator::integrate: Stepsize became smaller than specified minimum.");
           }
 
         } while ( error > getValueAsDouble("epsilon"));

@@ -116,11 +116,7 @@ static Variant values[] =  {
     Variant(1.e-12),   // CVODE_MIN_ABSOLUTE
     Variant(1.e-6),    // CVODE_MIN_RELATIVE
     Variant(true),     // SIMULATEOPTIONS_COPY_RESULT
-    Variant(true),      // STEADYSTATE_PRESIMULATION
-    Variant(1.e-6),    // STEADYSTATE_PRESIMULATION_TOL
-    Variant(10000),      // STEADYSTATE_PRESIMULATION_MAX_STEPS
-    Variant(10000),      // STEADYSTATE_PRESIMULATION_TIME
-    Variant(true),      // STEADYSTATE_APPROX
+    Variant(true),      // STEADYSTATE_APPROX_DEFAULT
     Variant(1.e-12),    // STEADYSTATE_APPROX_TOL
     Variant(10000),      // STEADYSTATE_APPROX_MAX_STEPS
     Variant(10000),      // STEADYSTATE_APPROX_TIME
@@ -137,8 +133,7 @@ static Variant values[] =  {
     Variant(true),      // LLVM_SYMBOL_CACHE
     Variant(true),      // OPTIMIZE_REACTION_RATE_SELECTION
     Variant(true),     // LOADSBMLOPTIONS_PERMISSIVE
-    Variant(20000),      // MAX_OUTPUT_ROWS
-    Variant(false)      // ALLOW_EVENTS_IN_STEADY_STATE_CALCULATIONS
+    Variant(20000)      // MAX_OUTPUT_ROWS
     // add space after develop keys to clean up merging
 
 
@@ -228,11 +223,7 @@ static void getKeyNames(StringIntMap& keys)
     keys["CVODE_MIN_ABSOLUTE"] = rr::Config::CVODE_MIN_ABSOLUTE;
     keys["CVODE_MIN_RELATIVE"] = rr::Config::CVODE_MIN_RELATIVE;
     keys["SIMULATEOPTIONS_COPY_RESULT"] = rr::Config::SIMULATEOPTIONS_COPY_RESULT;
-    keys["STEADYSTATE_PRESIMULATION"] = rr::Config::STEADYSTATE_PRESIMULATION;
-    keys["STEADYSTATE_PRESIMULATION_TOL"] = rr::Config::STEADYSTATE_PRESIMULATION_TOL;
-    keys["STEADYSTATE_PRESIMULATION_MAX_STEPS"] = rr::Config::STEADYSTATE_PRESIMULATION_MAX_STEPS;
-    keys["STEADYSTATE_PRESIMULATION_TIME"] = rr::Config::STEADYSTATE_PRESIMULATION_TIME;
-    keys["STEADYSTATE_APPROX"] = rr::Config::STEADYSTATE_APPROX;
+    keys["STEADYSTATE_APPROX_DEFAULT"] = rr::Config::STEADYSTATE_APPROX_DEFAULT;
     keys["STEADYSTATE_APPROX_TOL"] = rr::Config::STEADYSTATE_APPROX_TOL;
     keys["STEADYSTATE_APPROX_MAX_STEPS"] = rr::Config::STEADYSTATE_APPROX_MAX_STEPS;
     keys["STEADYSTATE_APPROX_TIME"] = rr::Config::STEADYSTATE_APPROX_TIME;
@@ -250,7 +241,6 @@ static void getKeyNames(StringIntMap& keys)
     keys["OPTIMIZE_REACTION_RATE_SELECTION"] = rr::Config::OPTIMIZE_REACTION_RATE_SELECTION;
     keys["LOADSBMLOPTIONS_PERMISSIVE"] = rr::Config::LOADSBMLOPTIONS_PERMISSIVE;
     keys["MAX_OUTPUT_ROWS"] = rr::Config::MAX_OUTPUT_ROWS;
-    keys["ALLOW_EVENTS_IN_STEADY_STATE_CALCULATIONS"] = rr::Config::ALLOW_EVENTS_IN_STEADY_STATE_CALCULATIONS;
 
 
 
@@ -545,16 +535,8 @@ Config::Keys Config::stringToKey(const std::string& key) {
         return Config::CVODE_MIN_RELATIVE;
     else if (key == "SIMULATEOPTIONS_COPY_RESULT")
         return Config::SIMULATEOPTIONS_COPY_RESULT;
-    else if (key == "STEADYSTATE_PRESIMULATION")
-        return Config::STEADYSTATE_PRESIMULATION;
-    else if (key == "STEADYSTATE_PRESIMULATION_TOL")
-        return Config::STEADYSTATE_PRESIMULATION_TOL;
-    else if (key == "STEADYSTATE_PRESIMULATION_MAX_STEPS")
-        return Config::STEADYSTATE_PRESIMULATION_MAX_STEPS;
-    else if (key == "STEADYSTATE_PRESIMULATION_TIME")
-        return Config::STEADYSTATE_PRESIMULATION_TIME;
-    else if (key == "STEADYSTATE_APPROX")
-        return Config::STEADYSTATE_APPROX;
+    else if (key == "STEADYSTATE_APPROX_DEFAULT")
+        return Config::STEADYSTATE_APPROX_DEFAULT;
     else if (key == "STEADYSTATE_APPROX_TOL")
         return Config::STEADYSTATE_APPROX_TOL;
     else if (key == "STEADYSTATE_APPROX_MAX_STEPS")
@@ -589,8 +571,6 @@ Config::Keys Config::stringToKey(const std::string& key) {
         return Config::LOADSBMLOPTIONS_PERMISSIVE;
     else if (key == "MAX_OUTPUT_ROWS")
         return Config::MAX_OUTPUT_ROWS;
-    else if (key == "ALLOW_EVENTS_IN_STEADY_STATE_CALCULATIONS")
-        return Config::ALLOW_EVENTS_IN_STEADY_STATE_CALCULATIONS;
     else
         throw std::runtime_error("No such config key: '" + key + "'");
 }

@@ -48,12 +48,12 @@ llvm::Value* DistribFunctionResolver::loadSymbolValue(
         throw_llvm_exception("invalid number of args");
     }
 
-    const DistribDrawFromDistribution* distrib =
-            distribFunc->getDistribDrawFromDistribution();
+    const DrawFromDistribution* distrib =
+            distribFunc->getDrawFromDistribution();
 
-    // const UncertMLNode *uml = distrib->getUncertML();
+    const UncertMLNode *uml = distrib->getUncertML();
 
-    if (distrib->getName() == "uniformDistribution")
+    if (uml->getElementName() == "UniformDistribution")
     {
         llvm::Value *funcArgs[] = {randomPtr, args[0], args[1]};
 
@@ -64,7 +64,7 @@ llvm::Value* DistribFunctionResolver::loadSymbolValue(
         return builder.CreateCall(func, funcArgs, "call_rr_distrib_uniform");
     }
 
-    else if (distrib->getName() == "normalDistribution")
+    else if (uml->getElementName() == "NormalDistribution")
     {
         llvm::Value *funcArgs[] = {randomPtr, args[0], args[1]};
 
@@ -77,7 +77,7 @@ llvm::Value* DistribFunctionResolver::loadSymbolValue(
 
     else
     {
-        string name = distrib->getName();
+        string name = uml->getElementName();
         throw_llvm_exception("Unsupported distribution: " + name);
     }
 }
