@@ -1108,8 +1108,6 @@ double RoadRunner::steadyState(const Dictionary* dict)
         Log(Logger::LOG_WARNING) << "to remove this warning, set ROADRUNNER_DISABLE_WARNINGS to 1 or 3 in the config file";
     }
 
-    metabolicControlCheck(impl->model);
-
     //Get a std vector for the solver
 //     vector<double> someAmounts(impl->model->getNumIndFloatingSpecies(), 0);
 //     impl->model->getFloatingSpeciesAmounts(someAmounts.size(), 0, &someAmounts[0]);
@@ -1124,33 +1122,28 @@ double RoadRunner::steadyState(const Dictionary* dict)
     double ss;
 
     // Rough estimation
-    if (impl->steady_state_solver->getValueAsBool("allow_presimulation"))
+    try
     {
-        try
-        {
-            double temp_tol = impl->steady_state_solver->getValueAsDouble("approx_tolerance");
-            int temp_iter = impl->steady_state_solver->getValueAsInt("approx_maximum_steps");
-            double temp_time = impl->steady_state_solver->getValueAsDouble("approx_time");
+        double temp_tol = rr::Config::getDouble(rr::Config::STEADYSTATE_APPROX_TOL);
+        double temp_iter = rr::Config::getInt(rr::Config::STEADYSTATE_APPROX_MAX_STEPS);
+        double temp_time = rr::Config::getDouble(rr::Config::STEADYSTATE_APPROX_TIME);
 
-            impl->steady_state_solver->setValue("approx_tolerance", impl->steady_state_solver->getValueAsDouble("presimulation_tolerance"));
-            impl->steady_state_solver->setValue("approx_maximum_steps", impl->steady_state_solver->getValueAsInt("presimulation_maximum_steps"));
-            impl->steady_state_solver->setValue("approx_time", impl->steady_state_solver->getValueAsDouble("presimulation_time"));
+        rr::Config::setValue(rr::Config::STEADYSTATE_APPROX_TOL, 1.e-6);
+        rr::Config::setValue(rr::Config::STEADYSTATE_APPROX_MAX_STEPS, 10000);
+        rr::Config::setValue(rr::Config::STEADYSTATE_APPROX_TIME, 10000);
 
-            steadyStateApproximate();
+        steadyStateApproximate();
 
-            impl->steady_state_solver->setValue("approx_tolerance", temp_tol);
-            impl->steady_state_solver->setValue("approx_maximum_steps", temp_iter);
-            impl->steady_state_solver->setValue("approx_time", temp_time);
-        }
-        catch (const CoreException& e)
-        {
-            Log(Logger::LOG_WARNING) << "Initial approximation routine failed.";
-            throw CoreException("Initial approximation routine failed. Try turning off allow_presimulation flag to False; ", e.Message());
-        }
+        rr::Config::setValue(rr::Config::STEADYSTATE_APPROX_TOL, temp_tol);
+        rr::Config::setValue(rr::Config::STEADYSTATE_APPROX_MAX_STEPS, temp_iter);
+        rr::Config::setValue(rr::Config::STEADYSTATE_APPROX_TIME, temp_time);
+    }
+    catch (const CoreException& e)
+    {
+        throw;
     }
 
-    // NLEQ
-    if (impl->steady_state_solver->getValueAsBool("allow_approx"))
+    if (rr::Config::getBool(rr::Config::STEADYSTATE_APPROX_DEFAULT))
     {
         try
         {
@@ -1219,7 +1212,7 @@ double RoadRunner::steadyStateApproximate(const Dictionary* dict)
     int n = 0;
     double tol = 1.0;
 
-    double timeEnd = impl->steady_state_solver->getValueAsDouble("approx_time");
+    double timeEnd = rr::Config::getDouble(rr::Config::STEADYSTATE_APPROX_TIME);
     double tout_f;
     double tout = 0.0;
     double tol_temp;
@@ -1235,9 +1228,9 @@ double RoadRunner::steadyStateApproximate(const Dictionary* dict)
     double* vals1 = new double[l];
     impl->model->getFloatingSpeciesConcentrations(l, NULL, vals1);
 
-    Log(Logger::LOG_DEBUG) << "tol thres: " << impl->steady_state_solver->getValueAsDouble("approx_tolerance");
-    Log(Logger::LOG_DEBUG) << "Max steps: " << impl->steady_state_solver->getValueAsInt("approx_maximum_steps");
-    Log(Logger::LOG_DEBUG) << "Max time: " << impl->steady_state_solver->getValueAsDouble("approx_time");
+    Log(Logger::LOG_DEBUG) << "tol thres: " << rr::Config::getDouble(rr::Config::STEADYSTATE_APPROX_TOL);
+    Log(Logger::LOG_DEBUG) << "Max number: " << rr::Config::getInt(rr::Config::STEADYSTATE_APPROX_MAX_STEPS);
+    Log(Logger::LOG_DEBUG) << "Max time: " << rr::Config::getDouble(rr::Config::STEADYSTATE_APPROX_TIME);
 
     try
     {
@@ -1246,7 +1239,7 @@ double RoadRunner::steadyStateApproximate(const Dictionary* dict)
         // optimiziation for certain getValue operations.
         self.model->setIntegration(true);
 
-        while (n < impl->steady_state_solver->getValueAsInt("approx_maximum_steps") && tol > impl->steady_state_solver->getValueAsDouble("approx_tolerance"))
+        while (n < rr::Config::getInt(rr::Config::STEADYSTATE_APPROX_MAX_STEPS) && tol > rr::Config::getDouble(rr::Config::STEADYSTATE_APPROX_TOL))
         {
             tol_temp = 0.0;
                   
@@ -1279,7 +1272,7 @@ double RoadRunner::steadyStateApproximate(const Dictionary* dict)
         Log(Logger::LOG_NOTICE) << e.what();
     }
 
-    if (tol > impl->steady_state_solver->getValueAsDouble("approx_tolerance") && n >= impl->steady_state_solver->getValueAsInt("approx_maximum_steps"))
+    if (tol > rr::Config::getDouble(rr::Config::STEADYSTATE_APPROX_TOL) && n >= rr::Config::getInt(rr::Config::STEADYSTATE_APPROX_MAX_STEPS))
     {
         throw CoreException("Failed to converge while running approximation routine. Try increasing the time or maximum number of iteration. Model might not have a steady state.");
     }
@@ -4338,9 +4331,9 @@ static void metabolicControlCheck(ExecutableModel *model)
         throw std::invalid_argument(string(e1) + "This model has rate rules");
     }
 
-    if (model->getNumEvents() > 0 && !Config::getBool(Config::ALLOW_EVENTS_IN_STEADY_STATE_CALCULATIONS))
+    if (model->getNumEvents() > 0)
     {
-        throw std::invalid_argument(string(e1) + "This model has events. Set Config.ALLOW_EVENTS_IN_STEADY_STATE_CALCULATIONS to true to override");
+        throw std::invalid_argument(string(e1) + "This model has events");
     }
 }
 

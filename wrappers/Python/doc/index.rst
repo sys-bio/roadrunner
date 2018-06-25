@@ -50,7 +50,6 @@ Contents:
    stoichiometric
    metabolic
    stability
-   bifurcation
    accessing_model
    integration
    utility_functions
