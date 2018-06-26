@@ -25,23 +25,20 @@ before_install:
   # install dependencies
   - sudo apt-get -y install cmake swig python-dev python-numpy llvm-3.5-dev
 
-  # install roadrunner dependencies via apt:
-  - mkdir ~/debs
-  - cd ~/debs
-  - wget http://cdn.rawgit.com/sys-bio/roadrunner-debs/c29ca4f3/libroadrunner-deps_2.0.4_amd64.deb
-  - wget http://cdn.rawgit.com/sys-bio/roadrunner-debs/c29ca4f3/libroadrunner-deps-dev_2.0.4_amd64.deb
-  - sudo dpkg -i libroadrunner-deps_2.0.4_amd64.deb
-  - sudo dpkg -i libroadrunner-deps-dev_2.0.4_amd64.deb
-
-  - mkdir ~/install
-
+  # install roadrunner dependencies through cmake build:
+  - git clone --depth=50 https://github.com/sys-bio/libroadrunner-deps.git ~/sys-bio/libroadrunner-deps
+  - mkdir -p ~/install/roadrunner
+  - cd ~/sys-bio/libroadrunner-deps
+  - cmake . -DCMAKE_BUILD_TYPE=Release -DCMAKE_INSTALL_PREFIX=~/install/roadrunner
+  - make -j2
+  - make install
   - echo "TRAVIS_BUILD_DIR $TRAVIS_BUILD_DIR"
   # build roadrunner:
   - mkdir -p ~/build/roadrunner
 
 install:
   - cd ~/build/roadrunner
-  - cmake -DCMAKE_BUILD_TYPE=Release -DCMAKE_INSTALL_PREFIX=~/install/roadrunner -DTHIRD_PARTY_INSTALL_FOLDER=/usr -DLLVM_CONFIG_EXECUTABLE=/usr/lib/llvm-3.5/bin/llvm-config -DBUILD_PYTHON=ON -DPYTHON_EXECUTABLE=/usr/bin/python -DPYTHON_INCLUDE_DIR=/usr/include/python2.7 -DPYTHON_LIBRARY=/usr/lib/x86_64-linux-gnu/libpython2.7.so python2.7 -DBUILD_TESTS=ON -DBUILD_TEST_TOOLS=ON -DUSE_TR1_CXX_NS=ON -DBUILD_JAVA_INTERFACE=OFF "$TRAVIS_BUILD_DIR"
+  - cmake -DCMAKE_BUILD_TYPE=Release -DCMAKE_INSTALL_PREFIX=~/install/roadrunner -DTHIRD_PARTY_INSTALL_FOLDER=~/install/roadrunner -DLLVM_CONFIG_EXECUTABLE=/usr/lib/llvm-3.5/bin/llvm-config -DBUILD_PYTHON=ON -DPYTHON_EXECUTABLE=/usr/bin/python -DPYTHON_INCLUDE_DIR=/usr/include/python2.7 -DPYTHON_LIBRARY=/usr/lib/x86_64-linux-gnu/libpython2.7.so python2.7 -DBUILD_TESTS=ON -DBUILD_TEST_TOOLS=ON -DUSE_TR1_CXX_NS=ON -DBUILD_JAVA_INTERFACE=OFF "$TRAVIS_BUILD_DIR"
   - make -j2
   - make install
 
