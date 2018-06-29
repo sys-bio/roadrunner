@@ -139,16 +139,8 @@ llvm::Value* ASTNodeCodeGen::codeGen(const libsbml::ASTNode* ast)
     case  AST_RELATIONAL_LEQ:
     case  AST_RELATIONAL_LT:
     case  AST_RELATIONAL_NEQ:
-		// AHu: For now I am unsure of what it's supposed to do when not in scalar mode,
-		// so I am changing the non-scalar relation into a generic relational code gen,
-		// and calling scalar relation code gen all the time, since it checks the number
-		// of arguments to the relational operator (which caused problems with MathML
-		//result = applyScalarRelationalCodeGen(ast);
-		/*{
-			Value* left = toDouble(codeGen(ast->getLeftChild()));
-			Value* right = toDouble(codeGen(ast->getRightChild()));
-			result = applyBinaryRelationalCodeGen(ast, left, right);
-		}*/
+		// AHu: For now I am unsure of what scalar mode is, and it was doing literally the same thing before,
+		// so I have factored out the code, and now they both call the same method.
 		if (scalar_mode_) {
 			result = applyScalarRelationalCodeGen(ast);
 		} else {
