@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<sbml xmlns="http://www.sbml.org/sbml/level1" level="1" version="2">
+  <model name="case01232">
+    <listOfCompartments>
+      <compartment name="c" volume="1"/>
+    </listOfCompartments>
+    <listOfSpecies>
+      <species name="S1" compartment="c" initialAmount="0"/>
+      <species name="S2" compartment="c" initialAmount="0"/>
+    </listOfSpecies>
+    <listOfParameters>
+      <parameter name="k1" value="1"/>
+    </listOfParameters>
+    <listOfReactions>
+      <reaction name="J0" reversible="false">
+        <listOfProducts>
+          <speciesReference species="S1"/>
+        </listOfProducts>
+        <kineticLaw formula="k1"/>
+      </reaction>
+      <reaction name="J1" reversible="false">
+        <listOfProducts>
+          <speciesReference species="S2"/>
+        </listOfProducts>
+        <kineticLaw formula="J0">
+          <listOfParameters>
+            <parameter name="J0" value="2"/>
+          </listOfParameters>
+        </kineticLaw>
+      </reaction>
+    </listOfReactions>
+  </model>
+</sbml>

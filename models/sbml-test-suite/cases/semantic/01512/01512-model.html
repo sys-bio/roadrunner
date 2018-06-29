@@ -1,0 +1,21 @@
+<p>
+ A species in a non-unity compartment under control of a rate rule, and the species is set 'hasOnlySubstanceUnits=false', meaning that the species concentration is affected by the rate of change.  That value then gets assigned to the parameter 'x', since we typically only require Species output in amounts.  Two other simultaneous events fire, with the priority of one equal to S1, and the priority of the other equal to a value between the concentration of S1 and the amount of S1, to ensure that the order is correct.</p>
+<p>The model contains:</p><ul>
+<li class="u">1 species (S1)</li>
+<li class="u">2 parameters (x, x2)</li>
+<li class="u">1 compartment (C1)</li></ul>
+<p>There are 2 events:</p>
+<table style="width:35em;margin: 1em auto;"><tr><td style="text-align:center;">  <strong>Event</strong>  </td><td style="text-align:center;">  <strong>Trigger</strong>  </td><td style="text-align:center;">  <strong>Priority</strong>  </td><td style="text-align:center;"> <strong>Event Assignments</strong> </td></tr>
+<tr><td style="text-align:center;"> E0 </td><td style="text-align:center;"> <dfn>time &gt; 0.45</dfn> </td><td style="text-align:center;"> <dfn>S1</dfn> </td><td style="text-align:center;"> <dfn>x2 = 3</dfn> </td></tr>
+<tr><td style="text-align:center;"> E1 </td><td style="text-align:center;"> <dfn>time &gt; 0.45</dfn> </td><td style="text-align:center;"> <dfn>0.15</dfn> </td><td style="text-align:center;"> <dfn>x2 = 5</dfn> </td></tr></table>
+<p>There are 3 rules:</p>
+<table style="width:30em;margin: 1em auto;"><tr><td style="text-align:center;">  <strong>Type</strong>  </td><td style="text-align:center;">  <strong>Variable</strong>  </td><td style="text-align:center;">  <strong>Formula</strong>  </td></tr>
+<tr><td style="text-align:center;"> Rate </td><td style="text-align:center;"> S1 </td><td style="text-align:center;"> <dfn>0.4</dfn> </td></tr>
+<tr><td style="text-align:center;"> Rate </td><td style="text-align:center;"> C1 </td><td style="text-align:center;"> <dfn>0.2</dfn> </td></tr>
+<tr><td style="text-align:center;"> Assignment </td><td style="text-align:center;"> x </td><td style="text-align:center;"> <dfn>S1</dfn> </td></tr></table>
+<p>The initial conditions are as follows:</p>
+<table style="width:35em;margin: 1em auto;"><tr><td style="text-align:center;">       </td><td style="text-align:center;"> <strong>Value</strong> </td><td style="text-align:center;"> <strong>Constant</strong> </td></tr>
+<tr><td style="text-align:center;"> Initial concentration of species S1 </td><td style="text-align:center;"> <dfn>0</dfn> </td><td style="text-align:center;"> variable </td></tr>
+<tr><td style="text-align:center;"> Initial value of parameter x </td><td style="text-align:center;"> <dfn>S1</dfn> </td><td style="text-align:center;"> variable </td></tr>
+<tr><td style="text-align:center;"> Initial value of parameter x2 </td><td style="text-align:center;"> <dfn>0</dfn> </td><td style="text-align:center;"> variable </td></tr>
+<tr><td style="text-align:center;"> Initial volume of compartment 'C1' </td><td style="text-align:center;"> <dfn>0.5</dfn> </td><td style="text-align:center;"> variable </td></tr></table>

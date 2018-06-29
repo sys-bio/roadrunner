@@ -1,0 +1,16 @@
+<p>
+ The assignment rule for parameter 'z' has three nested piecewise functions in the return, conditional, and otherwise parts of the containing piecewise function.  A combination of 01199, 01200, and 01202, and functionally equivalent to 01203.</p>
+<p>The model contains:</p><ul>
+<li class="u">3 parameters (z, y, x)</li></ul>
+<p>There are 3 rules:</p>
+<table style="width:30em;margin: 1em auto;"><tr><td style="text-align:center;">  <strong>Type</strong>  </td><td style="text-align:center;">  <strong>Variable</strong>  </td><td style="text-align:center;">  <strong>Formula</strong>  </td></tr>
+<tr><td style="text-align:center;"> Assignment </td><td style="text-align:center;"> z </td><td style="text-align:center;"> <dfn>piecewise(piecewise(2, y &gt; 1.49, 1), piecewise(true, x &#8804; 0.49, false), piecewise(1, y &gt; 0.49, 0))</dfn> </td></tr>
+<tr><td style="text-align:center;"> Rate </td><td style="text-align:center;"> y </td><td style="text-align:center;"> <dfn>&#8722;2</dfn> </td></tr>
+<tr><td style="text-align:center;"> Rate </td><td style="text-align:center;"> x </td><td style="text-align:center;"> <dfn>1</dfn> </td></tr></table>
+<p>The initial conditions are as follows:</p>
+<table style="width:35em;margin: 1em auto;"><tr><td style="text-align:center;">       </td><td style="text-align:center;"> <strong>Value</strong> </td><td style="text-align:center;"> <strong>Constant</strong> </td></tr>
+<tr><td style="text-align:center;"> Initial value of parameter z </td><td style="text-align:center;"> <dfn>piecewise(piecewise(2, y &gt; 1.49, 1), piecewise(true, x &#8804; 0.49, false), piecewise(1, y &gt; 0.49, 0))</dfn> </td><td style="text-align:center;"> variable </td></tr>
+<tr><td style="text-align:center;"> Initial value of parameter y </td><td style="text-align:center;"> <dfn>2</dfn> </td><td style="text-align:center;"> variable </td></tr>
+<tr><td style="text-align:center;"> Initial value of parameter x </td><td style="text-align:center;"> <dfn>0</dfn> </td><td style="text-align:center;"> variable </td></tr></table>
+<p>Note: The test data for this model was generated from an analytical
+solution of the system of equations.</p>

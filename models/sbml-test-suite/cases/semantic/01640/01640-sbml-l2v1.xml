@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<sbml xmlns="http://www.sbml.org/sbml/level2" level="2" version="1">
+  <model id="case01640" name="case01640">
+    <listOfCompartments>
+      <compartment id="C" size="1"/>
+    </listOfCompartments>
+    <listOfSpecies>
+      <species id="k0" compartment="C" initialAmount="2" boundaryCondition="true"/>
+      <species id="S2" compartment="C" initialAmount="0"/>
+    </listOfSpecies>
+    <listOfReactions>
+      <reaction id="J0">
+        <listOfReactants>
+          <speciesReference species="k0"/>
+        </listOfReactants>
+        <listOfProducts>
+          <speciesReference species="S2"/>
+        </listOfProducts>
+        <kineticLaw>
+          <math xmlns="http://www.w3.org/1998/Math/MathML">
+            <apply>
+              <divide/>
+              <cn type="integer"> 1 </cn>
+              <ci> k0 </ci>
+            </apply>
+          </math>
+          <listOfParameters>
+            <parameter id="k0" value="3"/>
+          </listOfParameters>
+        </kineticLaw>
+      </reaction>
+    </listOfReactions>
+  </model>
+</sbml>

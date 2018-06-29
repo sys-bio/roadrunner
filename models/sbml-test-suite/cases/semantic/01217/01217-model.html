@@ -1,0 +1,20 @@
+<p>
+ In this model, a chain of dependencies is invoked to determine the parameter's various initial values:  each depends on a successive parameter, whose initial value is set by an initial assignment or assignment rule, alternately.  This ensures that the simulator takes into account the entire system of equations, both initial assignments and assignment rules, when determining initial values.</p>
+<p>This model is equivalent to 01218, but with the variables in reverse order, in case a simulator relies on listed order to determine values.</p>
+<p>The model contains:</p><ul>
+<li class="u">6 parameters (a, b, c, d, e, f)</li></ul>
+<p>There are 3 rules:</p>
+<table style="width:30em;margin: 1em auto;"><tr><td style="text-align:center;">  <strong>Type</strong>  </td><td style="text-align:center;">  <strong>Variable</strong>  </td><td style="text-align:center;">  <strong>Formula</strong>  </td></tr>
+<tr><td style="text-align:center;"> Assignment </td><td style="text-align:center;"> b </td><td style="text-align:center;"> <dfn>c + 1</dfn> </td></tr>
+<tr><td style="text-align:center;"> Assignment </td><td style="text-align:center;"> d </td><td style="text-align:center;"> <dfn>e + 1</dfn> </td></tr>
+<tr><td style="text-align:center;"> Assignment </td><td style="text-align:center;"> f </td><td style="text-align:center;"> <dfn>4 / 2</dfn> </td></tr></table>
+<p>The initial conditions are as follows:</p>
+<table style="width:35em;margin: 1em auto;"><tr><td style="text-align:center;">       </td><td style="text-align:center;"> <strong>Value</strong> </td><td style="text-align:center;"> <strong>Constant</strong> </td></tr>
+<tr><td style="text-align:center;"> Initial value of parameter a </td><td style="text-align:center;"> <dfn>b + 1</dfn> </td><td style="text-align:center;"> constant </td></tr>
+<tr><td style="text-align:center;"> Initial value of parameter c </td><td style="text-align:center;"> <dfn>d + 1</dfn> </td><td style="text-align:center;"> constant </td></tr>
+<tr><td style="text-align:center;"> Initial value of parameter e </td><td style="text-align:center;"> <dfn>f + 1</dfn> </td><td style="text-align:center;"> constant </td></tr>
+<tr><td style="text-align:center;"> Initial value of parameter b </td><td style="text-align:center;"> <dfn>c + 1</dfn> </td><td style="text-align:center;"> variable </td></tr>
+<tr><td style="text-align:center;"> Initial value of parameter d </td><td style="text-align:center;"> <dfn>e + 1</dfn> </td><td style="text-align:center;"> variable </td></tr>
+<tr><td style="text-align:center;"> Initial value of parameter f </td><td style="text-align:center;"> <dfn>4 / 2</dfn> </td><td style="text-align:center;"> variable </td></tr></table>
+<p>Note: The test data for this model was generated from an analytical
+solution of the system of equations.</p>

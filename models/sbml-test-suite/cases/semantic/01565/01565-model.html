@@ -1,0 +1,168 @@
+<p>
+The model tests various uncommon mathematical constructs in kinetic laws from fast reactions.</p>
+<p>The model contains:</p><ul>
+<li class="u">104 species (S0, S1, S2, S3, S4, S5, S6, S7, S8, S9, S10, S11, S12, S13, S14, S15, S16, S17, S18, S19, S20, S21, S22, S23, S24, S25, S26, S27, S28, S29, S30, S31, S32, S33, S34, S35, S36, S37, S38, S39, S40, S41, S42, S43, S44, S45, S46, S47, S48, S49, S50, S51, S0b, S1b, S2b, S3b, S4b, S5b, S6b, S7b, S8b, S9b, S10b, S11b, S12b, S13b, S14b, S15b, S16b, S17b, S18b, S19b, S20b, S21b, S22b, S23b, S24b, S25b, S26b, S27b, S28b, S29b, S30b, S31b, S32b, S33b, S34b, S35b, S36b, S37b, S38b, S39b, S40b, S41b, S42b, S43b, S44b, S45b, S46b, S47b, S48b, S49b, S50b, S51b)</li>
+<li class="u">1 compartment (C)</li></ul>
+<p>There are 52 reactions:</p>
+<table style="width:30em;margin: 1em auto;"><tr><td style="text-align:center;">  <strong>Reaction</strong>  </td><td style="text-align:center;">  <strong>Rate</strong>  </td><td style="text-align:center;">  <strong>Fast</strong>  </td></tr>
+<tr><td style="text-align:center;"> J0: S0b &#8594; S0 </td><td style="text-align:center;"> <dfn>1 &#183; S0 &#183; S0b &#183; exponentiale</dfn> </td><td style="text-align:center;"> fast </td></tr>
+<tr><td style="text-align:center;"> J1: S1b &#8594; S1 </td><td style="text-align:center;"> <dfn>1 &#183; S1 &#183; S1b &#183; exp(exponentiale)</dfn> </td><td style="text-align:center;"> fast </td></tr>
+<tr><td style="text-align:center;"> J2: S2b &#8594; S2 </td><td style="text-align:center;"> <dfn>1 &#183; S2 &#183; S2b &#183; abs(&#8722;1)</dfn> </td><td style="text-align:center;"> fast </td></tr>
+<tr><td style="text-align:center;"> J3: S3b &#8594; S3 </td><td style="text-align:center;"> <dfn>1 &#183; S3 &#183; S3b &#183; abs(1)</dfn> </td><td style="text-align:center;"> fast </td></tr>
+<tr><td style="text-align:center;"> J4: S4b &#8594; S4 </td><td style="text-align:center;"> <dfn>1 &#183; S4 &#183; S4b &#183; acos(&#8722;1)</dfn> </td><td style="text-align:center;"> fast </td></tr>
+<tr><td style="text-align:center;"> J5: S5b &#8594; S5 </td><td style="text-align:center;"> <dfn>1 &#183; S5 &#183; S5b &#183; acos(0.5)</dfn> </td><td style="text-align:center;"> fast </td></tr>
+<tr><td style="text-align:center;"> J6: S6b &#8594; S6 </td><td style="text-align:center;"> <dfn>1 &#183; S6 &#183; S6b &#183; asin(1)</dfn> </td><td style="text-align:center;"> fast </td></tr>
+<tr><td style="text-align:center;"> J7: S7b &#8594; S7 </td><td style="text-align:center;"> <dfn>1 &#183; S7 &#183; S7b &#183; asin(&#8722;0.5)</dfn> </td><td style="text-align:center;"> fast </td></tr>
+<tr><td style="text-align:center;"> J8: S8b &#8594; S8 </td><td style="text-align:center;"> <dfn>1 &#183; S8 &#183; S8b &#183; atan(2.8)</dfn> </td><td style="text-align:center;"> fast </td></tr>
+<tr><td style="text-align:center;"> J9: S9b &#8594; S9 </td><td style="text-align:center;"> <dfn>1 &#183; S9 &#183; S9b &#183; atan(&#8722;7.09)</dfn> </td><td style="text-align:center;"> fast </td></tr>
+<tr><td style="text-align:center;"> J10: S10b &#8594; S10 </td><td style="text-align:center;"> <dfn>1 &#183; S10 &#183; S10b &#183; ceil(0.5)</dfn> </td><td style="text-align:center;"> fast </td></tr>
+<tr><td style="text-align:center;"> J11: S11b &#8594; S11 </td><td style="text-align:center;"> <dfn>1 &#183; S11 &#183; S11b &#183; ceil(3.55)</dfn> </td><td style="text-align:center;"> fast </td></tr>
+<tr><td style="text-align:center;"> J12: S12b &#8594; S12 </td><td style="text-align:center;"> <dfn>1 &#183; S12 &#183; S12b &#183; ceil(&#8722;4.6)</dfn> </td><td style="text-align:center;"> fast </td></tr>
+<tr><td style="text-align:center;"> J13: S13b &#8594; S13 </td><td style="text-align:center;"> <dfn>1 &#183; S13 &#183; S13b &#183; cos(9.1)</dfn> </td><td style="text-align:center;"> fast </td></tr>
+<tr><td style="text-align:center;"> J14: S14b &#8594; S14 </td><td style="text-align:center;"> <dfn>1 &#183; S14 &#183; S14b &#183; cos(&#8722;0.22)</dfn> </td><td style="text-align:center;"> fast </td></tr>
+<tr><td style="text-align:center;"> J15: S15b &#8594; S15 </td><td style="text-align:center;"> <dfn>1 &#183; S15 &#183; S15b &#183; exp(0)</dfn> </td><td style="text-align:center;"> fast </td></tr>
+<tr><td style="text-align:center;"> J16: S16b &#8594; S16 </td><td style="text-align:center;"> <dfn>1 &#183; S16 &#183; S16b &#183; exp(1)</dfn> </td><td style="text-align:center;"> fast </td></tr>
+<tr><td style="text-align:center;"> J17: S17b &#8594; S17 </td><td style="text-align:center;"> <dfn>1 &#183; S17 &#183; S17b &#183; exp(0.77)</dfn> </td><td style="text-align:center;"> fast </td></tr>
+<tr><td style="text-align:center;"> J18: S18b &#8594; S18 </td><td style="text-align:center;"> <dfn>1 &#183; S18 &#183; S18b &#183; floor(&#8722;4.6)</dfn> </td><td style="text-align:center;"> fast </td></tr>
+<tr><td style="text-align:center;"> J19: S19b &#8594; S19 </td><td style="text-align:center;"> <dfn>1 &#183; S19 &#183; S19b &#183; floor(9.1)</dfn> </td><td style="text-align:center;"> fast </td></tr>
+<tr><td style="text-align:center;"> J20: S20b &#8594; S20 </td><td style="text-align:center;"> <dfn>1 &#183; S20 &#183; S20b &#183; ln(0.2)</dfn> </td><td style="text-align:center;"> fast </td></tr>
+<tr><td style="text-align:center;"> J21: S21b &#8594; S21 </td><td style="text-align:center;"> <dfn>1 &#183; S21 &#183; S21b &#183; ln(1)</dfn> </td><td style="text-align:center;"> fast </td></tr>
+<tr><td style="text-align:center;"> J22: S22b &#8594; S22 </td><td style="text-align:center;"> <dfn>1 &#183; S22 &#183; S22b &#183; log10(0.2)</dfn> </td><td style="text-align:center;"> fast </td></tr>
+<tr><td style="text-align:center;"> J23: S23b &#8594; S23 </td><td style="text-align:center;"> <dfn>1 &#183; S23 &#183; S23b &#183; log10(1)</dfn> </td><td style="text-align:center;"> fast </td></tr>
+<tr><td style="text-align:center;"> J24: S24b &#8594; S24 </td><td style="text-align:center;"> <dfn>1 &#183; S24 &#183; S24b &#183; 1<sup class="i">2</sup></dfn> </td><td style="text-align:center;"> fast </td></tr>
+<tr><td style="text-align:center;"> J25: S25b &#8594; S25 </td><td style="text-align:center;"> <dfn>1 &#183; S25 &#183; S25b &#183; 2<sup class="i">2</sup></dfn> </td><td style="text-align:center;"> fast </td></tr>
+<tr><td style="text-align:center;"> J26: S26b &#8594; S26 </td><td style="text-align:center;"> <dfn>1 &#183; S26 &#183; S26b &#183; 1.4<sup class="i">5.1</sup></dfn> </td><td style="text-align:center;"> fast </td></tr>
+<tr><td style="text-align:center;"> J27: S27b &#8594; S27 </td><td style="text-align:center;"> <dfn>1 &#183; S27 &#183; S27b &#183; 4<sup class="i">2</sup></dfn> </td><td style="text-align:center;"> fast </td></tr>
+<tr><td style="text-align:center;"> J28: S28b &#8594; S28 </td><td style="text-align:center;"> <dfn>1 &#183; S28 &#183; S28b &#183; 3.1<sup class="i">2</sup></dfn> </td><td style="text-align:center;"> fast </td></tr>
+<tr><td style="text-align:center;"> J29: S29b &#8594; S29 </td><td style="text-align:center;"> <dfn>1 &#183; S29 &#183; S29b &#183; sqrt(4)</dfn> </td><td style="text-align:center;"> fast </td></tr>
+<tr><td style="text-align:center;"> J30: S30b &#8594; S30 </td><td style="text-align:center;"> <dfn>1 &#183; S30 &#183; S30b &#183; sqrt(7.4)</dfn> </td><td style="text-align:center;"> fast </td></tr>
+<tr><td style="text-align:center;"> J31: S31b &#8594; S31 </td><td style="text-align:center;"> <dfn>1 &#183; S31 &#183; S31b &#183; sin(2.1)</dfn> </td><td style="text-align:center;"> fast </td></tr>
+<tr><td style="text-align:center;"> J32: S32b &#8594; S32 </td><td style="text-align:center;"> <dfn>1 &#183; S32 &#183; S32b &#183; sin(0)</dfn> </td><td style="text-align:center;"> fast </td></tr>
+<tr><td style="text-align:center;"> J33: S33b &#8594; S33 </td><td style="text-align:center;"> <dfn>1 &#183; S33 &#183; S33b &#183; sin(&#8722;5.9)</dfn> </td><td style="text-align:center;"> fast </td></tr>
+<tr><td style="text-align:center;"> J34: S34b &#8594; S34 </td><td style="text-align:center;"> <dfn>1 &#183; S34 &#183; S34b &#183; tan(0)</dfn> </td><td style="text-align:center;"> fast </td></tr>
+<tr><td style="text-align:center;"> J35: S35b &#8594; S35 </td><td style="text-align:center;"> <dfn>1 &#183; S35 &#183; S35b &#183; tan(1.11)</dfn> </td><td style="text-align:center;"> fast </td></tr>
+<tr><td style="text-align:center;"> J36: S36b &#8594; S36 </td><td style="text-align:center;"> <dfn>1 &#183; S36 &#183; S36b &#183; tan(&#8722;6)</dfn> </td><td style="text-align:center;"> fast </td></tr>
+<tr><td style="text-align:center;"> J37: S37b &#8594; S37 </td><td style="text-align:center;"> <dfn>1 &#183; S37 &#183; S37b &#183; sec(0.5)</dfn> </td><td style="text-align:center;"> fast </td></tr>
+<tr><td style="text-align:center;"> J38: S38b &#8594; S38 </td><td style="text-align:center;"> <dfn>1 &#183; S38 &#183; S38b &#183; csc(4.5)</dfn> </td><td style="text-align:center;"> fast </td></tr>
+<tr><td style="text-align:center;"> J39: S39b &#8594; S39 </td><td style="text-align:center;"> <dfn>1 &#183; S39 &#183; S39b &#183; cot(0.2)</dfn> </td><td style="text-align:center;"> fast </td></tr>
+<tr><td style="text-align:center;"> J40: S40b &#8594; S40 </td><td style="text-align:center;"> <dfn>1 &#183; S40 &#183; S40b &#183; sinh(0.3)</dfn> </td><td style="text-align:center;"> fast </td></tr>
+<tr><td style="text-align:center;"> J41: S41b &#8594; S41 </td><td style="text-align:center;"> <dfn>1 &#183; S41 &#183; S41b &#183; cosh(1.7)</dfn> </td><td style="text-align:center;"> fast </td></tr>
+<tr><td style="text-align:center;"> J42: S42b &#8594; S42 </td><td style="text-align:center;"> <dfn>1 &#183; S42 &#183; S42b &#183; arcsec(2.3)</dfn> </td><td style="text-align:center;"> fast </td></tr>
+<tr><td style="text-align:center;"> J43: S43b &#8594; S43 </td><td style="text-align:center;"> <dfn>1 &#183; S43 &#183; S43b &#183; arccsc(1.1)</dfn> </td><td style="text-align:center;"> fast </td></tr>
+<tr><td style="text-align:center;"> J44: S44b &#8594; S44 </td><td style="text-align:center;"> <dfn>1 &#183; S44 &#183; S44b &#183; arccot(&#8722;0.1)</dfn> </td><td style="text-align:center;"> fast </td></tr>
+<tr><td style="text-align:center;"> J45: S45b &#8594; S45 </td><td style="text-align:center;"> <dfn>1 &#183; S45 &#183; S45b &#183; arcsinh(99)</dfn> </td><td style="text-align:center;"> fast </td></tr>
+<tr><td style="text-align:center;"> J46: S46b &#8594; S46 </td><td style="text-align:center;"> <dfn>1 &#183; S46 &#183; S46b &#183; arccosh(1.34)</dfn> </td><td style="text-align:center;"> fast </td></tr>
+<tr><td style="text-align:center;"> J47: S47b &#8594; S47 </td><td style="text-align:center;"> <dfn>1 &#183; S47 &#183; S47b &#183; arctanh(&#8722;0.7)</dfn> </td><td style="text-align:center;"> fast </td></tr>
+<tr><td style="text-align:center;"> J48: S48b &#8594; S48 </td><td style="text-align:center;"> <dfn>1 &#183; S48 &#183; S48b &#183; arcsech(0.42)</dfn> </td><td style="text-align:center;"> fast </td></tr>
+<tr><td style="text-align:center;"> J49: S49b &#8594; S49 </td><td style="text-align:center;"> <dfn>1 &#183; S49 &#183; S49b &#183; arccsch(0.01)</dfn> </td><td style="text-align:center;"> fast </td></tr>
+<tr><td style="text-align:center;"> J50: S50b &#8594; S50 </td><td style="text-align:center;"> <dfn>1 &#183; S50 &#183; S50b</dfn> </td><td style="text-align:center;"> fast </td></tr>
+<tr><td style="text-align:center;"> J51: S51b &#8594; S51 </td><td style="text-align:center;"> <dfn>1 &#183; S51 &#183; S51b &#183; plus()</dfn> </td><td style="text-align:center;"> fast </td></tr></table>
+<p>The initial conditions are as follows:</p>
+<table style="width:35em;margin: 1em auto;"><tr><td style="text-align:center;">       </td><td style="text-align:center;"> <strong>Value</strong> </td><td style="text-align:center;"> <strong>Constant</strong> </td></tr>
+<tr><td style="text-align:center;"> Initial concentration of species S0 </td><td style="text-align:center;"> <dfn>2</dfn> </td><td style="text-align:center;"> variable </td></tr>
+<tr><td style="text-align:center;"> Initial concentration of species S1 </td><td style="text-align:center;"> <dfn>2</dfn> </td><td style="text-align:center;"> variable </td></tr>
+<tr><td style="text-align:center;"> Initial concentration of species S2 </td><td style="text-align:center;"> <dfn>2</dfn> </td><td style="text-align:center;"> variable </td></tr>
+<tr><td style="text-align:center;"> Initial concentration of species S3 </td><td style="text-align:center;"> <dfn>2</dfn> </td><td style="text-align:center;"> variable </td></tr>
+<tr><td style="text-align:center;"> Initial concentration of species S4 </td><td style="text-align:center;"> <dfn>2</dfn> </td><td style="text-align:center;"> variable </td></tr>
+<tr><td style="text-align:center;"> Initial concentration of species S5 </td><td style="text-align:center;"> <dfn>2</dfn> </td><td style="text-align:center;"> variable </td></tr>
+<tr><td style="text-align:center;"> Initial concentration of species S6 </td><td style="text-align:center;"> <dfn>2</dfn> </td><td style="text-align:center;"> variable </td></tr>
+<tr><td style="text-align:center;"> Initial concentration of species S7 </td><td style="text-align:center;"> <dfn>2</dfn> </td><td style="text-align:center;"> variable </td></tr>
+<tr><td style="text-align:center;"> Initial concentration of species S8 </td><td style="text-align:center;"> <dfn>2</dfn> </td><td style="text-align:center;"> variable </td></tr>
+<tr><td style="text-align:center;"> Initial concentration of species S9 </td><td style="text-align:center;"> <dfn>2</dfn> </td><td style="text-align:center;"> variable </td></tr>
+<tr><td style="text-align:center;"> Initial concentration of species S10 </td><td style="text-align:center;"> <dfn>2</dfn> </td><td style="text-align:center;"> variable </td></tr>
+<tr><td style="text-align:center;"> Initial concentration of species S11 </td><td style="text-align:center;"> <dfn>2</dfn> </td><td style="text-align:center;"> variable </td></tr>
+<tr><td style="text-align:center;"> Initial concentration of species S12 </td><td style="text-align:center;"> <dfn>2</dfn> </td><td style="text-align:center;"> variable </td></tr>
+<tr><td style="text-align:center;"> Initial concentration of species S13 </td><td style="text-align:center;"> <dfn>2</dfn> </td><td style="text-align:center;"> variable </td></tr>
+<tr><td style="text-align:center;"> Initial concentration of species S14 </td><td style="text-align:center;"> <dfn>2</dfn> </td><td style="text-align:center;"> variable </td></tr>
+<tr><td style="text-align:center;"> Initial concentration of species S15 </td><td style="text-align:center;"> <dfn>2</dfn> </td><td style="text-align:center;"> variable </td></tr>
+<tr><td style="text-align:center;"> Initial concentration of species S16 </td><td style="text-align:center;"> <dfn>2</dfn> </td><td style="text-align:center;"> variable </td></tr>
+<tr><td style="text-align:center;"> Initial concentration of species S17 </td><td style="text-align:center;"> <dfn>2</dfn> </td><td style="text-align:center;"> variable </td></tr>
+<tr><td style="text-align:center;"> Initial concentration of species S18 </td><td style="text-align:center;"> <dfn>2</dfn> </td><td style="text-align:center;"> variable </td></tr>
+<tr><td style="text-align:center;"> Initial concentration of species S19 </td><td style="text-align:center;"> <dfn>2</dfn> </td><td style="text-align:center;"> variable </td></tr>
+<tr><td style="text-align:center;"> Initial concentration of species S20 </td><td style="text-align:center;"> <dfn>2</dfn> </td><td style="text-align:center;"> variable </td></tr>
+<tr><td style="text-align:center;"> Initial concentration of species S21 </td><td style="text-align:center;"> <dfn>2</dfn> </td><td style="text-align:center;"> variable </td></tr>
+<tr><td style="text-align:center;"> Initial concentration of species S22 </td><td style="text-align:center;"> <dfn>2</dfn> </td><td style="text-align:center;"> variable </td></tr>
+<tr><td style="text-align:center;"> Initial concentration of species S23 </td><td style="text-align:center;"> <dfn>2</dfn> </td><td style="text-align:center;"> variable </td></tr>
+<tr><td style="text-align:center;"> Initial concentration of species S24 </td><td style="text-align:center;"> <dfn>2</dfn> </td><td style="text-align:center;"> variable </td></tr>
+<tr><td style="text-align:center;"> Initial concentration of species S25 </td><td style="text-align:center;"> <dfn>2</dfn> </td><td style="text-align:center;"> variable </td></tr>
+<tr><td style="text-align:center;"> Initial concentration of species S26 </td><td style="text-align:center;"> <dfn>2</dfn> </td><td style="text-align:center;"> variable </td></tr>
+<tr><td style="text-align:center;"> Initial concentration of species S27 </td><td style="text-align:center;"> <dfn>2</dfn> </td><td style="text-align:center;"> variable </td></tr>
+<tr><td style="text-align:center;"> Initial concentration of species S28 </td><td style="text-align:center;"> <dfn>2</dfn> </td><td style="text-align:center;"> variable </td></tr>
+<tr><td style="text-align:center;"> Initial concentration of species S29 </td><td style="text-align:center;"> <dfn>2</dfn> </td><td style="text-align:center;"> variable </td></tr>
+<tr><td style="text-align:center;"> Initial concentration of species S30 </td><td style="text-align:center;"> <dfn>2</dfn> </td><td style="text-align:center;"> variable </td></tr>
+<tr><td style="text-align:center;"> Initial concentration of species S31 </td><td style="text-align:center;"> <dfn>2</dfn> </td><td style="text-align:center;"> variable </td></tr>
+<tr><td style="text-align:center;"> Initial concentration of species S32 </td><td style="text-align:center;"> <dfn>2</dfn> </td><td style="text-align:center;"> variable </td></tr>
+<tr><td style="text-align:center;"> Initial concentration of species S33 </td><td style="text-align:center;"> <dfn>2</dfn> </td><td style="text-align:center;"> variable </td></tr>
+<tr><td style="text-align:center;"> Initial concentration of species S34 </td><td style="text-align:center;"> <dfn>2</dfn> </td><td style="text-align:center;"> variable </td></tr>
+<tr><td style="text-align:center;"> Initial concentration of species S35 </td><td style="text-align:center;"> <dfn>2</dfn> </td><td style="text-align:center;"> variable </td></tr>
+<tr><td style="text-align:center;"> Initial concentration of species S36 </td><td style="text-align:center;"> <dfn>2</dfn> </td><td style="text-align:center;"> variable </td></tr>
+<tr><td style="text-align:center;"> Initial concentration of species S37 </td><td style="text-align:center;"> <dfn>2</dfn> </td><td style="text-align:center;"> variable </td></tr>
+<tr><td style="text-align:center;"> Initial concentration of species S38 </td><td style="text-align:center;"> <dfn>2</dfn> </td><td style="text-align:center;"> variable </td></tr>
+<tr><td style="text-align:center;"> Initial concentration of species S39 </td><td style="text-align:center;"> <dfn>2</dfn> </td><td style="text-align:center;"> variable </td></tr>
+<tr><td style="text-align:center;"> Initial concentration of species S40 </td><td style="text-align:center;"> <dfn>2</dfn> </td><td style="text-align:center;"> variable </td></tr>
+<tr><td style="text-align:center;"> Initial concentration of species S41 </td><td style="text-align:center;"> <dfn>2</dfn> </td><td style="text-align:center;"> variable </td></tr>
+<tr><td style="text-align:center;"> Initial concentration of species S42 </td><td style="text-align:center;"> <dfn>2</dfn> </td><td style="text-align:center;"> variable </td></tr>
+<tr><td style="text-align:center;"> Initial concentration of species S43 </td><td style="text-align:center;"> <dfn>2</dfn> </td><td style="text-align:center;"> variable </td></tr>
+<tr><td style="text-align:center;"> Initial concentration of species S44 </td><td style="text-align:center;"> <dfn>2</dfn> </td><td style="text-align:center;"> variable </td></tr>
+<tr><td style="text-align:center;"> Initial concentration of species S45 </td><td style="text-align:center;"> <dfn>2</dfn> </td><td style="text-align:center;"> variable </td></tr>
+<tr><td style="text-align:center;"> Initial concentration of species S46 </td><td style="text-align:center;"> <dfn>2</dfn> </td><td style="text-align:center;"> variable </td></tr>
+<tr><td style="text-align:center;"> Initial concentration of species S47 </td><td style="text-align:center;"> <dfn>2</dfn> </td><td style="text-align:center;"> variable </td></tr>
+<tr><td style="text-align:center;"> Initial concentration of species S48 </td><td style="text-align:center;"> <dfn>2</dfn> </td><td style="text-align:center;"> variable </td></tr>
+<tr><td style="text-align:center;"> Initial concentration of species S49 </td><td style="text-align:center;"> <dfn>2</dfn> </td><td style="text-align:center;"> variable </td></tr>
+<tr><td style="text-align:center;"> Initial concentration of species S50 </td><td style="text-align:center;"> <dfn>2</dfn> </td><td style="text-align:center;"> variable </td></tr>
+<tr><td style="text-align:center;"> Initial concentration of species S51 </td><td style="text-align:center;"> <dfn>2</dfn> </td><td style="text-align:center;"> variable </td></tr>
+<tr><td style="text-align:center;"> Initial concentration of species S0b </td><td style="text-align:center;"> <dfn>3</dfn> </td><td style="text-align:center;"> variable </td></tr>
+<tr><td style="text-align:center;"> Initial concentration of species S1b </td><td style="text-align:center;"> <dfn>3</dfn> </td><td style="text-align:center;"> variable </td></tr>
+<tr><td style="text-align:center;"> Initial concentration of species S2b </td><td style="text-align:center;"> <dfn>3</dfn> </td><td style="text-align:center;"> variable </td></tr>
+<tr><td style="text-align:center;"> Initial concentration of species S3b </td><td style="text-align:center;"> <dfn>3</dfn> </td><td style="text-align:center;"> variable </td></tr>
+<tr><td style="text-align:center;"> Initial concentration of species S4b </td><td style="text-align:center;"> <dfn>3</dfn> </td><td style="text-align:center;"> variable </td></tr>
+<tr><td style="text-align:center;"> Initial concentration of species S5b </td><td style="text-align:center;"> <dfn>3</dfn> </td><td style="text-align:center;"> variable </td></tr>
+<tr><td style="text-align:center;"> Initial concentration of species S6b </td><td style="text-align:center;"> <dfn>3</dfn> </td><td style="text-align:center;"> variable </td></tr>
+<tr><td style="text-align:center;"> Initial concentration of species S7b </td><td style="text-align:center;"> <dfn>3</dfn> </td><td style="text-align:center;"> variable </td></tr>
+<tr><td style="text-align:center;"> Initial concentration of species S8b </td><td style="text-align:center;"> <dfn>3</dfn> </td><td style="text-align:center;"> variable </td></tr>
+<tr><td style="text-align:center;"> Initial concentration of species S9b </td><td style="text-align:center;"> <dfn>3</dfn> </td><td style="text-align:center;"> variable </td></tr>
+<tr><td style="text-align:center;"> Initial concentration of species S10b </td><td style="text-align:center;"> <dfn>3</dfn> </td><td style="text-align:center;"> variable </td></tr>
+<tr><td style="text-align:center;"> Initial concentration of species S11b </td><td style="text-align:center;"> <dfn>3</dfn> </td><td style="text-align:center;"> variable </td></tr>
+<tr><td style="text-align:center;"> Initial concentration of species S12b </td><td style="text-align:center;"> <dfn>3</dfn> </td><td style="text-align:center;"> variable </td></tr>
+<tr><td style="text-align:center;"> Initial concentration of species S13b </td><td style="text-align:center;"> <dfn>3</dfn> </td><td style="text-align:center;"> variable </td></tr>
+<tr><td style="text-align:center;"> Initial concentration of species S14b </td><td style="text-align:center;"> <dfn>3</dfn> </td><td style="text-align:center;"> variable </td></tr>
+<tr><td style="text-align:center;"> Initial concentration of species S15b </td><td style="text-align:center;"> <dfn>3</dfn> </td><td style="text-align:center;"> variable </td></tr>
+<tr><td style="text-align:center;"> Initial concentration of species S16b </td><td style="text-align:center;"> <dfn>3</dfn> </td><td style="text-align:center;"> variable </td></tr>
+<tr><td style="text-align:center;"> Initial concentration of species S17b </td><td style="text-align:center;"> <dfn>3</dfn> </td><td style="text-align:center;"> variable </td></tr>
+<tr><td style="text-align:center;"> Initial concentration of species S18b </td><td style="text-align:center;"> <dfn>3</dfn> </td><td style="text-align:center;"> variable </td></tr>
+<tr><td style="text-align:center;"> Initial concentration of species S19b </td><td style="text-align:center;"> <dfn>3</dfn> </td><td style="text-align:center;"> variable </td></tr>
+<tr><td style="text-align:center;"> Initial concentration of species S20b </td><td style="text-align:center;"> <dfn>3</dfn> </td><td style="text-align:center;"> variable </td></tr>
+<tr><td style="text-align:center;"> Initial concentration of species S21b </td><td style="text-align:center;"> <dfn>3</dfn> </td><td style="text-align:center;"> variable </td></tr>
+<tr><td style="text-align:center;"> Initial concentration of species S22b </td><td style="text-align:center;"> <dfn>3</dfn> </td><td style="text-align:center;"> variable </td></tr>
+<tr><td style="text-align:center;"> Initial concentration of species S23b </td><td style="text-align:center;"> <dfn>3</dfn> </td><td style="text-align:center;"> variable </td></tr>
+<tr><td style="text-align:center;"> Initial concentration of species S24b </td><td style="text-align:center;"> <dfn>3</dfn> </td><td style="text-align:center;"> variable </td></tr>
+<tr><td style="text-align:center;"> Initial concentration of species S25b </td><td style="text-align:center;"> <dfn>3</dfn> </td><td style="text-align:center;"> variable </td></tr>
+<tr><td style="text-align:center;"> Initial concentration of species S26b </td><td style="text-align:center;"> <dfn>3</dfn> </td><td style="text-align:center;"> variable </td></tr>
+<tr><td style="text-align:center;"> Initial concentration of species S27b </td><td style="text-align:center;"> <dfn>3</dfn> </td><td style="text-align:center;"> variable </td></tr>
+<tr><td style="text-align:center;"> Initial concentration of species S28b </td><td style="text-align:center;"> <dfn>3</dfn> </td><td style="text-align:center;"> variable </td></tr>
+<tr><td style="text-align:center;"> Initial concentration of species S29b </td><td style="text-align:center;"> <dfn>3</dfn> </td><td style="text-align:center;"> variable </td></tr>
+<tr><td style="text-align:center;"> Initial concentration of species S30b </td><td style="text-align:center;"> <dfn>3</dfn> </td><td style="text-align:center;"> variable </td></tr>
+<tr><td style="text-align:center;"> Initial concentration of species S31b </td><td style="text-align:center;"> <dfn>3</dfn> </td><td style="text-align:center;"> variable </td></tr>
+<tr><td style="text-align:center;"> Initial concentration of species S32b </td><td style="text-align:center;"> <dfn>3</dfn> </td><td style="text-align:center;"> variable </td></tr>
+<tr><td style="text-align:center;"> Initial concentration of species S33b </td><td style="text-align:center;"> <dfn>3</dfn> </td><td style="text-align:center;"> variable </td></tr>
+<tr><td style="text-align:center;"> Initial concentration of species S34b </td><td style="text-align:center;"> <dfn>3</dfn> </td><td style="text-align:center;"> variable </td></tr>
+<tr><td style="text-align:center;"> Initial concentration of species S35b </td><td style="text-align:center;"> <dfn>3</dfn> </td><td style="text-align:center;"> variable </td></tr>
+<tr><td style="text-align:center;"> Initial concentration of species S36b </td><td style="text-align:center;"> <dfn>3</dfn> </td><td style="text-align:center;"> variable </td></tr>
+<tr><td style="text-align:center;"> Initial concentration of species S37b </td><td style="text-align:center;"> <dfn>3</dfn> </td><td style="text-align:center;"> variable </td></tr>
+<tr><td style="text-align:center;"> Initial concentration of species S38b </td><td style="text-align:center;"> <dfn>3</dfn> </td><td style="text-align:center;"> variable </td></tr>
+<tr><td style="text-align:center;"> Initial concentration of species S39b </td><td style="text-align:center;"> <dfn>3</dfn> </td><td style="text-align:center;"> variable </td></tr>
+<tr><td style="text-align:center;"> Initial concentration of species S40b </td><td style="text-align:center;"> <dfn>3</dfn> </td><td style="text-align:center;"> variable </td></tr>
+<tr><td style="text-align:center;"> Initial concentration of species S41b </td><td style="text-align:center;"> <dfn>3</dfn> </td><td style="text-align:center;"> variable </td></tr>
+<tr><td style="text-align:center;"> Initial concentration of species S42b </td><td style="text-align:center;"> <dfn>3</dfn> </td><td style="text-align:center;"> variable </td></tr>
+<tr><td style="text-align:center;"> Initial concentration of species S43b </td><td style="text-align:center;"> <dfn>3</dfn> </td><td style="text-align:center;"> variable </td></tr>
+<tr><td style="text-align:center;"> Initial concentration of species S44b </td><td style="text-align:center;"> <dfn>3</dfn> </td><td style="text-align:center;"> variable </td></tr>
+<tr><td style="text-align:center;"> Initial concentration of species S45b </td><td style="text-align:center;"> <dfn>3</dfn> </td><td style="text-align:center;"> variable </td></tr>
+<tr><td style="text-align:center;"> Initial concentration of species S46b </td><td style="text-align:center;"> <dfn>3</dfn> </td><td style="text-align:center;"> variable </td></tr>
+<tr><td style="text-align:center;"> Initial concentration of species S47b </td><td style="text-align:center;"> <dfn>3</dfn> </td><td style="text-align:center;"> variable </td></tr>
+<tr><td style="text-align:center;"> Initial concentration of species S48b </td><td style="text-align:center;"> <dfn>3</dfn> </td><td style="text-align:center;"> variable </td></tr>
+<tr><td style="text-align:center;"> Initial concentration of species S49b </td><td style="text-align:center;"> <dfn>3</dfn> </td><td style="text-align:center;"> variable </td></tr>
+<tr><td style="text-align:center;"> Initial concentration of species S50b </td><td style="text-align:center;"> <dfn>3</dfn> </td><td style="text-align:center;"> variable </td></tr>
+<tr><td style="text-align:center;"> Initial concentration of species S51b </td><td style="text-align:center;"> <dfn>3</dfn> </td><td style="text-align:center;"> variable </td></tr>
+<tr><td style="text-align:center;"> Initial volume of compartment 'C' </td><td style="text-align:center;"> <dfn>1</dfn> </td><td style="text-align:center;"> constant </td></tr></table>
+<p>Note: The test data for this model was generated from an analytical
+solution of the system of equations.</p>

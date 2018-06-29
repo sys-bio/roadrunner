@@ -1,0 +1,18 @@
+<p>
+ The reaction in the submodel must be converted by the extent conversion factor, separated by a level of submodel indirection, and in an external model.  The species and compartment are replaced in the top-level model.</p>
+<p>The 'flattened' version of this hierarchical model contains:</p><ul>
+<li class="u">1 species (s1)</li>
+<li class="u">1 parameter (extentconv)</li>
+<li class="u">1 compartment (C)</li></ul>
+<p>There is one reaction:</p>
+<table style="width:30em;margin: 1em auto;"><tr><td style="text-align:center;">  <strong>Reaction</strong>  </td><td style="text-align:center;">  <strong>Rate</strong>  </td></tr>
+<tr><td style="text-align:center;"> sub2_<em>sub1</em>_J0: &#8594; s1 </td><td style="text-align:center;"> <dfn>extentconv &#183; 10</dfn> </td></tr></table>
+<p>The initial conditions are as follows:</p>
+<table style="width:35em;margin: 1em auto;"><tr><td style="text-align:center;">       </td><td style="text-align:center;"> <strong>Value</strong> </td><td style="text-align:center;"> <strong>Constant</strong> </td></tr>
+<tr><td style="text-align:center;"> Initial amount of species s1 </td><td style="text-align:center;"> <dfn>0</dfn> </td><td style="text-align:center;"> variable </td></tr>
+<tr><td style="text-align:center;"> Initial value of parameter extentconv </td><td style="text-align:center;"> <dfn>1000</dfn> </td><td style="text-align:center;"> constant </td></tr>
+<tr><td style="text-align:center;"> Initial volume of compartment 'C' </td><td style="text-align:center;"> <dfn>1</dfn> </td><td style="text-align:center;"> constant </td></tr></table>
+<p>The species' initial quantities are given in terms of substance units to
+make it easier to use the model in a discrete stochastic simulator, but
+their symbols represent their values in concentration units where they
+appear in expressions.</p>

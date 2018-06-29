@@ -1,0 +1,446 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- Written by libSedML v1.1.5419.25885 see http://libsedml.sf.net -->
+<sedML level="1" version="1" xmlns="http://sed-ml.org/">
+  <listOfSimulations>
+    <uniformTimeCourse id="simulation_1" initialTime="0" outputStartTime="0" outputEndTime="10" numberOfPoints="10">
+      <algorithm kisaoID="KISAO:0000019" />
+    </uniformTimeCourse>
+  </listOfSimulations>
+  <listOfModels>
+    <model id="model_1" language="urn:sedml:language:sbml" source="01323-sbml-l3v2.xml" />
+  </listOfModels>
+  <listOfTasks>
+    <task id="task_1" modelReference="model_1" simulationReference="simulation_1" />
+  </listOfTasks>
+  <listOfDataGenerators>
+    <dataGenerator id="time_1" name="time">
+      <listOfVariables>
+        <variable id="time" taskReference="task_1" symbol="urn:sedml:symbol:time" />
+      </listOfVariables>
+      <math xmlns="http://www.w3.org/1998/Math/MathML">
+        <ci> time </ci>
+      </math>
+    </dataGenerator>
+    <dataGenerator id="a_sbml_1" name="a_sbml">
+      <listOfVariables>
+        <variable id="a_sbml" name="a_sbml" taskReference="task_1" target="/sbml:sbml/sbml:model/sbml:listOfParameters/sbml:parameter[@id='a_sbml']" />
+      </listOfVariables>
+      <math xmlns="http://www.w3.org/1998/Math/MathML">
+        <ci> a_sbml </ci>
+      </math>
+    </dataGenerator>
+    <dataGenerator id="a_truncated_1" name="a_truncated">
+      <listOfVariables>
+        <variable id="a_truncated" name="a_truncated" taskReference="task_1" target="/sbml:sbml/sbml:model/sbml:listOfParameters/sbml:parameter[@id='a_truncated']" />
+      </listOfVariables>
+      <math xmlns="http://www.w3.org/1998/Math/MathML">
+        <ci> a_truncated </ci>
+      </math>
+    </dataGenerator>
+    <dataGenerator id="a_1865_1" name="a_1865">
+      <listOfVariables>
+        <variable id="a_1865" name="a_1865" taskReference="task_1" target="/sbml:sbml/sbml:model/sbml:listOfParameters/sbml:parameter[@id='a_1865']" />
+      </listOfVariables>
+      <math xmlns="http://www.w3.org/1998/Math/MathML">
+        <ci> a_1865 </ci>
+      </math>
+    </dataGenerator>
+    <dataGenerator id="a_1873_1" name="a_1873">
+      <listOfVariables>
+        <variable id="a_1873" name="a_1873" taskReference="task_1" target="/sbml:sbml/sbml:model/sbml:listOfParameters/sbml:parameter[@id='a_1873']" />
+      </listOfVariables>
+      <math xmlns="http://www.w3.org/1998/Math/MathML">
+        <ci> a_1873 </ci>
+      </math>
+    </dataGenerator>
+    <dataGenerator id="a_1890a_1" name="a_1890a">
+      <listOfVariables>
+        <variable id="a_1890a" name="a_1890a" taskReference="task_1" target="/sbml:sbml/sbml:model/sbml:listOfParameters/sbml:parameter[@id='a_1890a']" />
+      </listOfVariables>
+      <math xmlns="http://www.w3.org/1998/Math/MathML">
+        <ci> a_1890a </ci>
+      </math>
+    </dataGenerator>
+    <dataGenerator id="a_1890b_1" name="a_1890b">
+      <listOfVariables>
+        <variable id="a_1890b" name="a_1890b" taskReference="task_1" target="/sbml:sbml/sbml:model/sbml:listOfParameters/sbml:parameter[@id='a_1890b']" />
+      </listOfVariables>
+      <math xmlns="http://www.w3.org/1998/Math/MathML">
+        <ci> a_1890b </ci>
+      </math>
+    </dataGenerator>
+    <dataGenerator id="a_1901_1" name="a_1901">
+      <listOfVariables>
+        <variable id="a_1901" name="a_1901" taskReference="task_1" target="/sbml:sbml/sbml:model/sbml:listOfParameters/sbml:parameter[@id='a_1901']" />
+      </listOfVariables>
+      <math xmlns="http://www.w3.org/1998/Math/MathML">
+        <ci> a_1901 </ci>
+      </math>
+    </dataGenerator>
+    <dataGenerator id="a_1903_1" name="a_1903">
+      <listOfVariables>
+        <variable id="a_1903" name="a_1903" taskReference="task_1" target="/sbml:sbml/sbml:model/sbml:listOfParameters/sbml:parameter[@id='a_1903']" />
+      </listOfVariables>
+      <math xmlns="http://www.w3.org/1998/Math/MathML">
+        <ci> a_1903 </ci>
+      </math>
+    </dataGenerator>
+    <dataGenerator id="a_1904_1" name="a_1904">
+      <listOfVariables>
+        <variable id="a_1904" name="a_1904" taskReference="task_1" target="/sbml:sbml/sbml:model/sbml:listOfParameters/sbml:parameter[@id='a_1904']" />
+      </listOfVariables>
+      <math xmlns="http://www.w3.org/1998/Math/MathML">
+        <ci> a_1904 </ci>
+      </math>
+    </dataGenerator>
+    <dataGenerator id="a_1908_1" name="a_1908">
+      <listOfVariables>
+        <variable id="a_1908" name="a_1908" taskReference="task_1" target="/sbml:sbml/sbml:model/sbml:listOfParameters/sbml:parameter[@id='a_1908']" />
+      </listOfVariables>
+      <math xmlns="http://www.w3.org/1998/Math/MathML">
+        <ci> a_1908 </ci>
+      </math>
+    </dataGenerator>
+    <dataGenerator id="a_1909_1" name="a_1909">
+      <listOfVariables>
+        <variable id="a_1909" name="a_1909" taskReference="task_1" target="/sbml:sbml/sbml:model/sbml:listOfParameters/sbml:parameter[@id='a_1909']" />
+      </listOfVariables>
+      <math xmlns="http://www.w3.org/1998/Math/MathML">
+        <ci> a_1909 </ci>
+      </math>
+    </dataGenerator>
+    <dataGenerator id="a_1914a_1" name="a_1914a">
+      <listOfVariables>
+        <variable id="a_1914a" name="a_1914a" taskReference="task_1" target="/sbml:sbml/sbml:model/sbml:listOfParameters/sbml:parameter[@id='a_1914a']" />
+      </listOfVariables>
+      <math xmlns="http://www.w3.org/1998/Math/MathML">
+        <ci> a_1914a </ci>
+      </math>
+    </dataGenerator>
+    <dataGenerator id="a_1914b_1" name="a_1914b">
+      <listOfVariables>
+        <variable id="a_1914b" name="a_1914b" taskReference="task_1" target="/sbml:sbml/sbml:model/sbml:listOfParameters/sbml:parameter[@id='a_1914b']" />
+      </listOfVariables>
+      <math xmlns="http://www.w3.org/1998/Math/MathML">
+        <ci> a_1914b </ci>
+      </math>
+    </dataGenerator>
+    <dataGenerator id="a_1915_1" name="a_1915">
+      <listOfVariables>
+        <variable id="a_1915" name="a_1915" taskReference="task_1" target="/sbml:sbml/sbml:model/sbml:listOfParameters/sbml:parameter[@id='a_1915']" />
+      </listOfVariables>
+      <math xmlns="http://www.w3.org/1998/Math/MathML">
+        <ci> a_1915 </ci>
+      </math>
+    </dataGenerator>
+    <dataGenerator id="a_1917_1" name="a_1917">
+      <listOfVariables>
+        <variable id="a_1917" name="a_1917" taskReference="task_1" target="/sbml:sbml/sbml:model/sbml:listOfParameters/sbml:parameter[@id='a_1917']" />
+      </listOfVariables>
+      <math xmlns="http://www.w3.org/1998/Math/MathML">
+        <ci> a_1917 </ci>
+      </math>
+    </dataGenerator>
+    <dataGenerator id="a_1923_1" name="a_1923">
+      <listOfVariables>
+        <variable id="a_1923" name="a_1923" taskReference="task_1" target="/sbml:sbml/sbml:model/sbml:listOfParameters/sbml:parameter[@id='a_1923']" />
+      </listOfVariables>
+      <math xmlns="http://www.w3.org/1998/Math/MathML">
+        <ci> a_1923 </ci>
+      </math>
+    </dataGenerator>
+    <dataGenerator id="a_1924_1" name="a_1924">
+      <listOfVariables>
+        <variable id="a_1924" name="a_1924" taskReference="task_1" target="/sbml:sbml/sbml:model/sbml:listOfParameters/sbml:parameter[@id='a_1924']" />
+      </listOfVariables>
+      <math xmlns="http://www.w3.org/1998/Math/MathML">
+        <ci> a_1924 </ci>
+      </math>
+    </dataGenerator>
+    <dataGenerator id="a_1929_1" name="a_1929">
+      <listOfVariables>
+        <variable id="a_1929" name="a_1929" taskReference="task_1" target="/sbml:sbml/sbml:model/sbml:listOfParameters/sbml:parameter[@id='a_1929']" />
+      </listOfVariables>
+      <math xmlns="http://www.w3.org/1998/Math/MathML">
+        <ci> a_1929 </ci>
+      </math>
+    </dataGenerator>
+    <dataGenerator id="a_1931_1" name="a_1931">
+      <listOfVariables>
+        <variable id="a_1931" name="a_1931" taskReference="task_1" target="/sbml:sbml/sbml:model/sbml:listOfParameters/sbml:parameter[@id='a_1931']" />
+      </listOfVariables>
+      <math xmlns="http://www.w3.org/1998/Math/MathML">
+        <ci> a_1931 </ci>
+      </math>
+    </dataGenerator>
+    <dataGenerator id="a_1941_1" name="a_1941">
+      <listOfVariables>
+        <variable id="a_1941" name="a_1941" taskReference="task_1" target="/sbml:sbml/sbml:model/sbml:listOfParameters/sbml:parameter[@id='a_1941']" />
+      </listOfVariables>
+      <math xmlns="http://www.w3.org/1998/Math/MathML">
+        <ci> a_1941 </ci>
+      </math>
+    </dataGenerator>
+    <dataGenerator id="a_1945_1" name="a_1945">
+      <listOfVariables>
+        <variable id="a_1945" name="a_1945" taskReference="task_1" target="/sbml:sbml/sbml:model/sbml:listOfParameters/sbml:parameter[@id='a_1945']" />
+      </listOfVariables>
+      <math xmlns="http://www.w3.org/1998/Math/MathML">
+        <ci> a_1945 </ci>
+      </math>
+    </dataGenerator>
+    <dataGenerator id="a_1948_1" name="a_1948">
+      <listOfVariables>
+        <variable id="a_1948" name="a_1948" taskReference="task_1" target="/sbml:sbml/sbml:model/sbml:listOfParameters/sbml:parameter[@id='a_1948']" />
+      </listOfVariables>
+      <math xmlns="http://www.w3.org/1998/Math/MathML">
+        <ci> a_1948 </ci>
+      </math>
+    </dataGenerator>
+    <dataGenerator id="a_1949_1" name="a_1949">
+      <listOfVariables>
+        <variable id="a_1949" name="a_1949" taskReference="task_1" target="/sbml:sbml/sbml:model/sbml:listOfParameters/sbml:parameter[@id='a_1949']" />
+      </listOfVariables>
+      <math xmlns="http://www.w3.org/1998/Math/MathML">
+        <ci> a_1949 </ci>
+      </math>
+    </dataGenerator>
+    <dataGenerator id="a_1951_1" name="a_1951">
+      <listOfVariables>
+        <variable id="a_1951" name="a_1951" taskReference="task_1" target="/sbml:sbml/sbml:model/sbml:listOfParameters/sbml:parameter[@id='a_1951']" />
+      </listOfVariables>
+      <math xmlns="http://www.w3.org/1998/Math/MathML">
+        <ci> a_1951 </ci>
+      </math>
+    </dataGenerator>
+    <dataGenerator id="a_1965a_1" name="a_1965a">
+      <listOfVariables>
+        <variable id="a_1965a" name="a_1965a" taskReference="task_1" target="/sbml:sbml/sbml:model/sbml:listOfParameters/sbml:parameter[@id='a_1965a']" />
+      </listOfVariables>
+      <math xmlns="http://www.w3.org/1998/Math/MathML">
+        <ci> a_1965a </ci>
+      </math>
+    </dataGenerator>
+    <dataGenerator id="a_1965b_1" name="a_1965b">
+      <listOfVariables>
+        <variable id="a_1965b" name="a_1965b" taskReference="task_1" target="/sbml:sbml/sbml:model/sbml:listOfParameters/sbml:parameter[@id='a_1965b']" />
+      </listOfVariables>
+      <math xmlns="http://www.w3.org/1998/Math/MathML">
+        <ci> a_1965b </ci>
+      </math>
+    </dataGenerator>
+    <dataGenerator id="a_1973_1" name="a_1973">
+      <listOfVariables>
+        <variable id="a_1973" name="a_1973" taskReference="task_1" target="/sbml:sbml/sbml:model/sbml:listOfParameters/sbml:parameter[@id='a_1973']" />
+      </listOfVariables>
+      <math xmlns="http://www.w3.org/1998/Math/MathML">
+        <ci> a_1973 </ci>
+      </math>
+    </dataGenerator>
+    <dataGenerator id="a_1974_1" name="a_1974">
+      <listOfVariables>
+        <variable id="a_1974" name="a_1974" taskReference="task_1" target="/sbml:sbml/sbml:model/sbml:listOfParameters/sbml:parameter[@id='a_1974']" />
+      </listOfVariables>
+      <math xmlns="http://www.w3.org/1998/Math/MathML">
+        <ci> a_1974 </ci>
+      </math>
+    </dataGenerator>
+    <dataGenerator id="a_1987a_1" name="a_1987a">
+      <listOfVariables>
+        <variable id="a_1987a" name="a_1987a" taskReference="task_1" target="/sbml:sbml/sbml:model/sbml:listOfParameters/sbml:parameter[@id='a_1987a']" />
+      </listOfVariables>
+      <math xmlns="http://www.w3.org/1998/Math/MathML">
+        <ci> a_1987a </ci>
+      </math>
+    </dataGenerator>
+    <dataGenerator id="a_1987b_1" name="a_1987b">
+      <listOfVariables>
+        <variable id="a_1987b" name="a_1987b" taskReference="task_1" target="/sbml:sbml/sbml:model/sbml:listOfParameters/sbml:parameter[@id='a_1987b']" />
+      </listOfVariables>
+      <math xmlns="http://www.w3.org/1998/Math/MathML">
+        <ci> a_1987b </ci>
+      </math>
+    </dataGenerator>
+    <dataGenerator id="a_1992_1" name="a_1992">
+      <listOfVariables>
+        <variable id="a_1992" name="a_1992" taskReference="task_1" target="/sbml:sbml/sbml:model/sbml:listOfParameters/sbml:parameter[@id='a_1992']" />
+      </listOfVariables>
+      <math xmlns="http://www.w3.org/1998/Math/MathML">
+        <ci> a_1992 </ci>
+      </math>
+    </dataGenerator>
+    <dataGenerator id="a_1994_1" name="a_1994">
+      <listOfVariables>
+        <variable id="a_1994" name="a_1994" taskReference="task_1" target="/sbml:sbml/sbml:model/sbml:listOfParameters/sbml:parameter[@id='a_1994']" />
+      </listOfVariables>
+      <math xmlns="http://www.w3.org/1998/Math/MathML">
+        <ci> a_1994 </ci>
+      </math>
+    </dataGenerator>
+    <dataGenerator id="a_1995_1" name="a_1995">
+      <listOfVariables>
+        <variable id="a_1995" name="a_1995" taskReference="task_1" target="/sbml:sbml/sbml:model/sbml:listOfParameters/sbml:parameter[@id='a_1995']" />
+      </listOfVariables>
+      <math xmlns="http://www.w3.org/1998/Math/MathML">
+        <ci> a_1995 </ci>
+      </math>
+    </dataGenerator>
+    <dataGenerator id="a_1999_1" name="a_1999">
+      <listOfVariables>
+        <variable id="a_1999" name="a_1999" taskReference="task_1" target="/sbml:sbml/sbml:model/sbml:listOfParameters/sbml:parameter[@id='a_1999']" />
+      </listOfVariables>
+      <math xmlns="http://www.w3.org/1998/Math/MathML">
+        <ci> a_1999 </ci>
+      </math>
+    </dataGenerator>
+    <dataGenerator id="a_2000_1" name="a_2000">
+      <listOfVariables>
+        <variable id="a_2000" name="a_2000" taskReference="task_1" target="/sbml:sbml/sbml:model/sbml:listOfParameters/sbml:parameter[@id='a_2000']" />
+      </listOfVariables>
+      <math xmlns="http://www.w3.org/1998/Math/MathML">
+        <ci> a_2000 </ci>
+      </math>
+    </dataGenerator>
+    <dataGenerator id="a_2001_1" name="a_2001">
+      <listOfVariables>
+        <variable id="a_2001" name="a_2001" taskReference="task_1" target="/sbml:sbml/sbml:model/sbml:listOfParameters/sbml:parameter[@id='a_2001']" />
+      </listOfVariables>
+      <math xmlns="http://www.w3.org/1998/Math/MathML">
+        <ci> a_2001 </ci>
+      </math>
+    </dataGenerator>
+    <dataGenerator id="a_2002_1" name="a_2002">
+      <listOfVariables>
+        <variable id="a_2002" name="a_2002" taskReference="task_1" target="/sbml:sbml/sbml:model/sbml:listOfParameters/sbml:parameter[@id='a_2002']" />
+      </listOfVariables>
+      <math xmlns="http://www.w3.org/1998/Math/MathML">
+        <ci> a_2002 </ci>
+      </math>
+    </dataGenerator>
+    <dataGenerator id="a_2003_1" name="a_2003">
+      <listOfVariables>
+        <variable id="a_2003" name="a_2003" taskReference="task_1" target="/sbml:sbml/sbml:model/sbml:listOfParameters/sbml:parameter[@id='a_2003']" />
+      </listOfVariables>
+      <math xmlns="http://www.w3.org/1998/Math/MathML">
+        <ci> a_2003 </ci>
+      </math>
+    </dataGenerator>
+    <dataGenerator id="a_2006_1" name="a_2006">
+      <listOfVariables>
+        <variable id="a_2006" name="a_2006" taskReference="task_1" target="/sbml:sbml/sbml:model/sbml:listOfParameters/sbml:parameter[@id='a_2006']" />
+      </listOfVariables>
+      <math xmlns="http://www.w3.org/1998/Math/MathML">
+        <ci> a_2006 </ci>
+      </math>
+    </dataGenerator>
+    <dataGenerator id="a_2011_1" name="a_2011">
+      <listOfVariables>
+        <variable id="a_2011" name="a_2011" taskReference="task_1" target="/sbml:sbml/sbml:model/sbml:listOfParameters/sbml:parameter[@id='a_2011']" />
+      </listOfVariables>
+      <math xmlns="http://www.w3.org/1998/Math/MathML">
+        <ci> a_2011 </ci>
+      </math>
+    </dataGenerator>
+    <dataGenerator id="a_2015_1" name="a_2015">
+      <listOfVariables>
+        <variable id="a_2015" name="a_2015" taskReference="task_1" target="/sbml:sbml/sbml:model/sbml:listOfParameters/sbml:parameter[@id='a_2015']" />
+      </listOfVariables>
+      <math xmlns="http://www.w3.org/1998/Math/MathML">
+        <ci> a_2015 </ci>
+      </math>
+    </dataGenerator>
+  </listOfDataGenerators>
+  <listOfOutputs>
+    <plot2D id="plot_1" name="Timecourse for test 01323">
+      <listOfCurves>
+        <curve id="c_a_sbml_1" name="a_sbml" logX="false" logY="false" xDataReference="time_1" yDataReference="a_sbml_1" />
+        <curve id="c_a_truncated_1" name="a_truncated" logX="false" logY="false" xDataReference="time_1" yDataReference="a_truncated_1" />
+        <curve id="c_a_1865_1" name="a_1865" logX="false" logY="false" xDataReference="time_1" yDataReference="a_1865_1" />
+        <curve id="c_a_1873_1" name="a_1873" logX="false" logY="false" xDataReference="time_1" yDataReference="a_1873_1" />
+        <curve id="c_a_1890a_1" name="a_1890a" logX="false" logY="false" xDataReference="time_1" yDataReference="a_1890a_1" />
+        <curve id="c_a_1890b_1" name="a_1890b" logX="false" logY="false" xDataReference="time_1" yDataReference="a_1890b_1" />
+        <curve id="c_a_1901_1" name="a_1901" logX="false" logY="false" xDataReference="time_1" yDataReference="a_1901_1" />
+        <curve id="c_a_1903_1" name="a_1903" logX="false" logY="false" xDataReference="time_1" yDataReference="a_1903_1" />
+        <curve id="c_a_1904_1" name="a_1904" logX="false" logY="false" xDataReference="time_1" yDataReference="a_1904_1" />
+        <curve id="c_a_1908_1" name="a_1908" logX="false" logY="false" xDataReference="time_1" yDataReference="a_1908_1" />
+        <curve id="c_a_1909_1" name="a_1909" logX="false" logY="false" xDataReference="time_1" yDataReference="a_1909_1" />
+        <curve id="c_a_1914a_1" name="a_1914a" logX="false" logY="false" xDataReference="time_1" yDataReference="a_1914a_1" />
+        <curve id="c_a_1914b_1" name="a_1914b" logX="false" logY="false" xDataReference="time_1" yDataReference="a_1914b_1" />
+        <curve id="c_a_1915_1" name="a_1915" logX="false" logY="false" xDataReference="time_1" yDataReference="a_1915_1" />
+        <curve id="c_a_1917_1" name="a_1917" logX="false" logY="false" xDataReference="time_1" yDataReference="a_1917_1" />
+        <curve id="c_a_1923_1" name="a_1923" logX="false" logY="false" xDataReference="time_1" yDataReference="a_1923_1" />
+        <curve id="c_a_1924_1" name="a_1924" logX="false" logY="false" xDataReference="time_1" yDataReference="a_1924_1" />
+        <curve id="c_a_1929_1" name="a_1929" logX="false" logY="false" xDataReference="time_1" yDataReference="a_1929_1" />
+        <curve id="c_a_1931_1" name="a_1931" logX="false" logY="false" xDataReference="time_1" yDataReference="a_1931_1" />
+        <curve id="c_a_1941_1" name="a_1941" logX="false" logY="false" xDataReference="time_1" yDataReference="a_1941_1" />
+        <curve id="c_a_1945_1" name="a_1945" logX="false" logY="false" xDataReference="time_1" yDataReference="a_1945_1" />
+        <curve id="c_a_1948_1" name="a_1948" logX="false" logY="false" xDataReference="time_1" yDataReference="a_1948_1" />
+        <curve id="c_a_1949_1" name="a_1949" logX="false" logY="false" xDataReference="time_1" yDataReference="a_1949_1" />
+        <curve id="c_a_1951_1" name="a_1951" logX="false" logY="false" xDataReference="time_1" yDataReference="a_1951_1" />
+        <curve id="c_a_1965a_1" name="a_1965a" logX="false" logY="false" xDataReference="time_1" yDataReference="a_1965a_1" />
+        <curve id="c_a_1965b_1" name="a_1965b" logX="false" logY="false" xDataReference="time_1" yDataReference="a_1965b_1" />
+        <curve id="c_a_1973_1" name="a_1973" logX="false" logY="false" xDataReference="time_1" yDataReference="a_1973_1" />
+        <curve id="c_a_1974_1" name="a_1974" logX="false" logY="false" xDataReference="time_1" yDataReference="a_1974_1" />
+        <curve id="c_a_1987a_1" name="a_1987a" logX="false" logY="false" xDataReference="time_1" yDataReference="a_1987a_1" />
+        <curve id="c_a_1987b_1" name="a_1987b" logX="false" logY="false" xDataReference="time_1" yDataReference="a_1987b_1" />
+        <curve id="c_a_1992_1" name="a_1992" logX="false" logY="false" xDataReference="time_1" yDataReference="a_1992_1" />
+        <curve id="c_a_1994_1" name="a_1994" logX="false" logY="false" xDataReference="time_1" yDataReference="a_1994_1" />
+        <curve id="c_a_1995_1" name="a_1995" logX="false" logY="false" xDataReference="time_1" yDataReference="a_1995_1" />
+        <curve id="c_a_1999_1" name="a_1999" logX="false" logY="false" xDataReference="time_1" yDataReference="a_1999_1" />
+        <curve id="c_a_2000_1" name="a_2000" logX="false" logY="false" xDataReference="time_1" yDataReference="a_2000_1" />
+        <curve id="c_a_2001_1" name="a_2001" logX="false" logY="false" xDataReference="time_1" yDataReference="a_2001_1" />
+        <curve id="c_a_2002_1" name="a_2002" logX="false" logY="false" xDataReference="time_1" yDataReference="a_2002_1" />
+        <curve id="c_a_2003_1" name="a_2003" logX="false" logY="false" xDataReference="time_1" yDataReference="a_2003_1" />
+        <curve id="c_a_2006_1" name="a_2006" logX="false" logY="false" xDataReference="time_1" yDataReference="a_2006_1" />
+        <curve id="c_a_2011_1" name="a_2011" logX="false" logY="false" xDataReference="time_1" yDataReference="a_2011_1" />
+        <curve id="c_a_2015_1" name="a_2015" logX="false" logY="false" xDataReference="time_1" yDataReference="a_2015_1" />
+      </listOfCurves>
+    </plot2D>
+    <report id="report_1" name="Report for test 01323">
+      <listOfDataSets>
+        <dataSet id="ds_time" dataReference="time_1" label="Time" />
+        <dataSet id="ds_a_sbml_1" dataReference="a_sbml_1" label="a_sbml" />
+        <dataSet id="ds_a_truncated_1" dataReference="a_truncated_1" label="a_truncated" />
+        <dataSet id="ds_a_1865_1" dataReference="a_1865_1" label="a_1865" />
+        <dataSet id="ds_a_1873_1" dataReference="a_1873_1" label="a_1873" />
+        <dataSet id="ds_a_1890a_1" dataReference="a_1890a_1" label="a_1890a" />
+        <dataSet id="ds_a_1890b_1" dataReference="a_1890b_1" label="a_1890b" />
+        <dataSet id="ds_a_1901_1" dataReference="a_1901_1" label="a_1901" />
+        <dataSet id="ds_a_1903_1" dataReference="a_1903_1" label="a_1903" />
+        <dataSet id="ds_a_1904_1" dataReference="a_1904_1" label="a_1904" />
+        <dataSet id="ds_a_1908_1" dataReference="a_1908_1" label="a_1908" />
+        <dataSet id="ds_a_1909_1" dataReference="a_1909_1" label="a_1909" />
+        <dataSet id="ds_a_1914a_1" dataReference="a_1914a_1" label="a_1914a" />
+        <dataSet id="ds_a_1914b_1" dataReference="a_1914b_1" label="a_1914b" />
+        <dataSet id="ds_a_1915_1" dataReference="a_1915_1" label="a_1915" />
+        <dataSet id="ds_a_1917_1" dataReference="a_1917_1" label="a_1917" />
+        <dataSet id="ds_a_1923_1" dataReference="a_1923_1" label="a_1923" />
+        <dataSet id="ds_a_1924_1" dataReference="a_1924_1" label="a_1924" />
+        <dataSet id="ds_a_1929_1" dataReference="a_1929_1" label="a_1929" />
+        <dataSet id="ds_a_1931_1" dataReference="a_1931_1" label="a_1931" />
+        <dataSet id="ds_a_1941_1" dataReference="a_1941_1" label="a_1941" />
+        <dataSet id="ds_a_1945_1" dataReference="a_1945_1" label="a_1945" />
+        <dataSet id="ds_a_1948_1" dataReference="a_1948_1" label="a_1948" />
+        <dataSet id="ds_a_1949_1" dataReference="a_1949_1" label="a_1949" />
+        <dataSet id="ds_a_1951_1" dataReference="a_1951_1" label="a_1951" />
+        <dataSet id="ds_a_1965a_1" dataReference="a_1965a_1" label="a_1965a" />
+        <dataSet id="ds_a_1965b_1" dataReference="a_1965b_1" label="a_1965b" />
+        <dataSet id="ds_a_1973_1" dataReference="a_1973_1" label="a_1973" />
+        <dataSet id="ds_a_1974_1" dataReference="a_1974_1" label="a_1974" />
+        <dataSet id="ds_a_1987a_1" dataReference="a_1987a_1" label="a_1987a" />
+        <dataSet id="ds_a_1987b_1" dataReference="a_1987b_1" label="a_1987b" />
+        <dataSet id="ds_a_1992_1" dataReference="a_1992_1" label="a_1992" />
+        <dataSet id="ds_a_1994_1" dataReference="a_1994_1" label="a_1994" />
+        <dataSet id="ds_a_1995_1" dataReference="a_1995_1" label="a_1995" />
+        <dataSet id="ds_a_1999_1" dataReference="a_1999_1" label="a_1999" />
+        <dataSet id="ds_a_2000_1" dataReference="a_2000_1" label="a_2000" />
+        <dataSet id="ds_a_2001_1" dataReference="a_2001_1" label="a_2001" />
+        <dataSet id="ds_a_2002_1" dataReference="a_2002_1" label="a_2002" />
+        <dataSet id="ds_a_2003_1" dataReference="a_2003_1" label="a_2003" />
+        <dataSet id="ds_a_2006_1" dataReference="a_2006_1" label="a_2006" />
+        <dataSet id="ds_a_2011_1" dataReference="a_2011_1" label="a_2011" />
+        <dataSet id="ds_a_2015_1" dataReference="a_2015_1" label="a_2015" />
+      </listOfDataSets>
+    </report>
+  </listOfOutputs>
+</sedML>

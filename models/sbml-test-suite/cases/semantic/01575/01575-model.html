@@ -1,0 +1,17 @@
+<p>
+ In this model, a persistent event has a delay that lasts longer than the trigger is true, so it fires anyway.  It affects the value of a different parameter through an algebraic rule.</p>
+<p>The model contains:</p><ul>
+<li class="u">2 parameters (k1, k2)</li></ul>
+<p>There is one event:</p>
+<table style="width:35em;margin: 1em auto;"><tr><td style="text-align:center;">  <strong>Event</strong>  </td><td style="text-align:center;">  <strong>Trigger</strong>  </td><td style="text-align:center;">  <strong>Delay</strong>  </td><td style="text-align:center;"> <strong>Event Assignments</strong> </td></tr>
+<tr><td style="text-align:center;"> E0 </td><td style="text-align:center;"> <dfn>(k2 &gt; 3.5) && (k2 &lt; 4)</dfn> </td><td style="text-align:center;"> <dfn>1.1</dfn> </td><td style="text-align:center;"> <dfn>k1 = 1</dfn> </td></tr></table>
+<p>There are 2 rules:</p>
+<table style="width:30em;margin: 1em auto;"><tr><td style="text-align:center;">  <strong>Type</strong>  </td><td style="text-align:center;">  <strong>Variable</strong>  </td><td style="text-align:center;">  <strong>Formula</strong>  </td></tr>
+<tr><td style="text-align:center;"> Algebraic </td><td style="text-align:center;"> <dfn>0</dfn> </td><td style="text-align:center;"> <dfn>k1 &#8722; k2</dfn> </td></tr>
+<tr><td style="text-align:center;"> Rate </td><td style="text-align:center;"> k1 </td><td style="text-align:center;"> <dfn>1</dfn> </td></tr></table>
+<p>The initial conditions are as follows:</p>
+<table style="width:35em;margin: 1em auto;"><tr><td style="text-align:center;">       </td><td style="text-align:center;"> <strong>Value</strong> </td><td style="text-align:center;"> <strong>Constant</strong> </td></tr>
+<tr><td style="text-align:center;"> Initial value of parameter k1 </td><td style="text-align:center;"> <dfn>1</dfn> </td><td style="text-align:center;"> variable </td></tr>
+<tr><td style="text-align:center;"> Initial value of parameter k2 </td><td style="text-align:center;"> <dfn>unknown</dfn> </td><td style="text-align:center;"> variable </td></tr></table>
+<p>Note: The test data for this model was generated from an analytical
+solution of the system of equations.</p>

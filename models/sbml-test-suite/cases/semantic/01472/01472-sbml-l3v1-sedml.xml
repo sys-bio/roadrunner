@@ -1,0 +1,106 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- Written by libSedML v1.1.5419.25885 see http://libsedml.sf.net -->
+<sedML level="1" version="1" xmlns="http://sed-ml.org/">
+  <listOfSimulations>
+    <uniformTimeCourse id="simulation_1" initialTime="0" outputStartTime="0" outputEndTime="1" numberOfPoints="10">
+      <algorithm kisaoID="KISAO:0000019" />
+    </uniformTimeCourse>
+  </listOfSimulations>
+  <listOfModels>
+    <model id="model_1" language="urn:sedml:language:sbml" source="01472-sbml-l3v1.xml" />
+  </listOfModels>
+  <listOfTasks>
+    <task id="task_1" modelReference="model_1" simulationReference="simulation_1" />
+  </listOfTasks>
+  <listOfDataGenerators>
+    <dataGenerator id="time_1" name="time">
+      <listOfVariables>
+        <variable id="time" taskReference="task_1" symbol="urn:sedml:symbol:time" />
+      </listOfVariables>
+      <math xmlns="http://www.w3.org/1998/Math/MathML">
+        <ci> time </ci>
+      </math>
+    </dataGenerator>
+    <dataGenerator id="S_1" name="S">
+      <listOfVariables>
+        <variable id="S_1_s" taskReference="task_1" target="/sbml:sbml/sbml:model/sbml:listOfSpecies/sbml:species[@id='S']" />
+        <variable id="S_1_c" taskReference="task_1" target="/sbml:sbml/sbml:model/sbml:listOfCompartments/sbml:compartment[@id='comp']" />
+      </listOfVariables>
+      <math xmlns="http://www.w3.org/1998/Math/MathML">
+        <apply>
+          <times />
+          <ci> S_1_s </ci>
+          <ci> S_1_c </ci>
+        </apply>
+      </math>
+    </dataGenerator>
+    <dataGenerator id="D_1" name="D">
+      <listOfVariables>
+        <variable id="D_1_s" taskReference="task_1" target="/sbml:sbml/sbml:model/sbml:listOfSpecies/sbml:species[@id='D']" />
+        <variable id="D_1_c" taskReference="task_1" target="/sbml:sbml/sbml:model/sbml:listOfCompartments/sbml:compartment[@id='comp']" />
+      </listOfVariables>
+      <math xmlns="http://www.w3.org/1998/Math/MathML">
+        <apply>
+          <times />
+          <ci> D_1_s </ci>
+          <ci> D_1_c </ci>
+        </apply>
+      </math>
+    </dataGenerator>
+    <dataGenerator id="A__submod1__E_1" name="A__submod1__E">
+      <listOfVariables>
+        <variable id="A__submod1__E_1_s" taskReference="task_1" target="/sbml:sbml/sbml:model/sbml:listOfSpecies/sbml:species[@id='A__submod1__E']" />
+        <variable id="A__submod1__E_1_c" taskReference="task_1" target="/sbml:sbml/sbml:model/sbml:listOfCompartments/sbml:compartment[@id='comp']" />
+      </listOfVariables>
+      <math xmlns="http://www.w3.org/1998/Math/MathML">
+        <apply>
+          <times />
+          <ci> A__submod1__E_1_s </ci>
+          <ci> A__submod1__E_1_c </ci>
+        </apply>
+      </math>
+    </dataGenerator>
+    <dataGenerator id="A__submod1__ES_1" name="A__submod1__ES">
+      <listOfVariables>
+        <variable id="A__submod1__ES_1_s" taskReference="task_1" target="/sbml:sbml/sbml:model/sbml:listOfSpecies/sbml:species[@id='A__submod1__ES']" />
+        <variable id="A__submod1__ES_1_c" taskReference="task_1" target="/sbml:sbml/sbml:model/sbml:listOfCompartments/sbml:compartment[@id='comp']" />
+      </listOfVariables>
+      <math xmlns="http://www.w3.org/1998/Math/MathML">
+        <apply>
+          <times />
+          <ci> A__submod1__ES_1_s </ci>
+          <ci> A__submod1__ES_1_c </ci>
+        </apply>
+      </math>
+    </dataGenerator>
+    <dataGenerator id="comp_1" name="comp">
+      <listOfVariables>
+        <variable id="comp" name="comp" taskReference="task_1" target="/sbml:sbml/sbml:model/sbml:listOfCompartments/sbml:compartment[@id='comp']" />
+      </listOfVariables>
+      <math xmlns="http://www.w3.org/1998/Math/MathML">
+        <ci> comp </ci>
+      </math>
+    </dataGenerator>
+  </listOfDataGenerators>
+  <listOfOutputs>
+    <plot2D id="plot_1" name="Timecourse for test 01472">
+      <listOfCurves>
+        <curve id="c_S_1" name="S" logX="false" logY="false" xDataReference="time_1" yDataReference="S_1" />
+        <curve id="c_D_1" name="D" logX="false" logY="false" xDataReference="time_1" yDataReference="D_1" />
+        <curve id="c_A__submod1__E_1" name="A__submod1__E" logX="false" logY="false" xDataReference="time_1" yDataReference="A__submod1__E_1" />
+        <curve id="c_A__submod1__ES_1" name="A__submod1__ES" logX="false" logY="false" xDataReference="time_1" yDataReference="A__submod1__ES_1" />
+        <curve id="c_comp_1" name="comp" logX="false" logY="false" xDataReference="time_1" yDataReference="comp_1" />
+      </listOfCurves>
+    </plot2D>
+    <report id="report_1" name="Report for test 01472">
+      <listOfDataSets>
+        <dataSet id="ds_time" dataReference="time_1" label="Time" />
+        <dataSet id="ds_S_1" dataReference="S_1" label="S" />
+        <dataSet id="ds_D_1" dataReference="D_1" label="D" />
+        <dataSet id="ds_A__submod1__E_1" dataReference="A__submod1__E_1" label="A__submod1__E" />
+        <dataSet id="ds_A__submod1__ES_1" dataReference="A__submod1__ES_1" label="A__submod1__ES" />
+        <dataSet id="ds_comp_1" dataReference="comp_1" label="comp" />
+      </listOfDataSets>
+    </report>
+  </listOfOutputs>
+</sedML>

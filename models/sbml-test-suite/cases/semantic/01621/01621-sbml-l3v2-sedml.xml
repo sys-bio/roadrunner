@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- Written by libSedML v1.1.5419.25885 see http://libsedml.sf.net -->
+<sedML level="1" version="2" xmlns="http://sed-ml.org/sed-ml/level1/version2">
+  <listOfSimulations>
+    <steadyState id="simulation_1">
+      <algorithm kisaoID="KISAO:0000437" />
+    </steadyState>
+  </listOfSimulations>
+  <listOfModels>
+    <model id="model_1" language="urn:sedml:language:sbml" source="01621-sbml-l3v2.xml" />
+  </listOfModels>
+  <listOfTasks>
+    <task id="task_1" modelReference="model_1" simulationReference="simulation_1" />
+  </listOfTasks>
+  <listOfDataGenerators>
+    <dataGenerator id="R01_1" name="R01">
+      <listOfVariables>
+        <variable id="R01" name="R01" taskReference="task_1" target="/sbml:sbml/sbml:model/sbml:listOfReactions/sbml:reaction[@id='R01']" />
+      </listOfVariables>
+      <math xmlns="http://www.w3.org/1998/Math/MathML">
+        <ci> R01 </ci>
+      </math>
+    </dataGenerator>
+    <dataGenerator id="R26_1" name="R26">
+      <listOfVariables>
+        <variable id="R26" name="R26" taskReference="task_1" target="/sbml:sbml/sbml:model/sbml:listOfReactions/sbml:reaction[@id='R26']" />
+      </listOfVariables>
+      <math xmlns="http://www.w3.org/1998/Math/MathML">
+        <ci> R26 </ci>
+      </math>
+    </dataGenerator>
+    <dataGenerator id="OBJF_1" name="OBJF">
+      <listOfVariables>
+        <variable id="OBJF" name="OBJF" taskReference="task_1" target="/sbml:sbml/sbml:model/fbc:listOfObjectives/fbc:objective[@fbc:id='OBJF']" />
+      </listOfVariables>
+      <math xmlns="http://www.w3.org/1998/Math/MathML">
+        <ci> OBJF </ci>
+      </math>
+    </dataGenerator>
+  </listOfDataGenerators>
+  <listOfOutputs>
+    <report id="report_1" name="Report for test 01621">
+      <listOfDataSets>
+        <dataSet id="ds_R01_1" dataReference="R01_1" label="R01" />
+        <dataSet id="ds_R26_1" dataReference="R26_1" label="R26" />
+        <dataSet id="ds_OBJF_1" dataReference="OBJF_1" label="OBJF" />
+      </listOfDataSets>
+    </report>
+  </listOfOutputs>
+</sedML>

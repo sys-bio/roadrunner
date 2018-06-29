@@ -1,0 +1,16 @@
+<p>
+ The model tests whether the delayed value of a parameter is within a window of values, assigning a value to another parameter if so.  The event is persistent, so even when the tested parameter leaves the window before the event assignment, the assignment is carried out anyway.</p>
+<p>The model contains:</p><ul>
+<li class="u">2 parameters (P1, P2)</li></ul>
+<p>There is one event:</p>
+<table style="width:35em;margin: 1em auto;"><tr><td style="text-align:center;">  <strong>Event</strong>  </td><td style="text-align:center;">  <strong>Trigger</strong>  </td><td style="text-align:center;">  <strong>Delay</strong>  </td><td style="text-align:center;"> <strong>Event Assignments</strong> </td></tr>
+<tr><td style="text-align:center;"> E0 </td><td style="text-align:center;"> <dfn>(delay(P1, 1) &gt; 1.5) && (delay(P1, 1) &lt; 2)</dfn> </td><td style="text-align:center;"> <dfn>1</dfn> </td><td style="text-align:center;"> <dfn>P2 = 3</dfn> </td></tr></table>
+<p>There is one rule:</p>
+<table style="width:30em;margin: 1em auto;"><tr><td style="text-align:center;">  <strong>Type</strong>  </td><td style="text-align:center;">  <strong>Variable</strong>  </td><td style="text-align:center;">  <strong>Formula</strong>  </td></tr>
+<tr><td style="text-align:center;"> Rate </td><td style="text-align:center;"> P1 </td><td style="text-align:center;"> <dfn>1</dfn> </td></tr></table>
+<p>The initial conditions are as follows:</p>
+<table style="width:35em;margin: 1em auto;"><tr><td style="text-align:center;">       </td><td style="text-align:center;"> <strong>Value</strong> </td><td style="text-align:center;"> <strong>Constant</strong> </td></tr>
+<tr><td style="text-align:center;"> Initial value of parameter P1 </td><td style="text-align:center;"> <dfn>0</dfn> </td><td style="text-align:center;"> variable </td></tr>
+<tr><td style="text-align:center;"> Initial value of parameter P2 </td><td style="text-align:center;"> <dfn>0</dfn> </td><td style="text-align:center;"> variable </td></tr></table>
+<p>Note: The test data for this model was generated from an analytical
+solution of the system of equations.</p>

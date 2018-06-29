@@ -1,0 +1,16 @@
+<p>
+ In this model, an element is replaced by an element in a submodel of an external model.</p>
+<p>The 'flattened' version of this hierarchical model contains:</p><ul>
+<li class="u">4 species (S, A_<em>submod1</em><em>E, D, A</em><em>submod1</em>_ES)</li>
+<li class="u">1 compartment (comp)</li></ul>
+<p>There are 2 reactions:</p>
+<table style="width:30em;margin: 1em auto;"><tr><td style="text-align:center;">  <strong>Reaction</strong>  </td><td style="text-align:center;">  <strong>Rate</strong>  </td><td style="text-align:center;">  <strong>Fast</strong>  </td></tr>
+<tr><td style="text-align:center;"> A_<em>submod1</em><em>J0: S + A</em><em>submod1</em><em>E &#8594; A</em><em>submod1</em>_ES </td><td style="text-align:center;"> <dfn>(S + A_<sub class="i">submod1</sub>_<sub class="i">E</sub>) / A_<sub class="i">submod1</sub>_<sub class="i">ES</sub></dfn> </td><td style="text-align:center;"> fast </td></tr>
+<tr><td style="text-align:center;"> A_<em>submod1</em><em>J1: A</em><em>submod1</em><em>ES &#8594; A</em><em>submod1</em>_E + D </td><td style="text-align:center;"> <dfn>A_<sub class="i">submod1</sub>_<sub class="i">ES</sub> / (A_<sub class="i">submod1</sub>_<sub class="i">E</sub> + D)</dfn> </td><td style="text-align:center;"> fast </td></tr></table>
+<p>The initial conditions are as follows:</p>
+<table style="width:35em;margin: 1em auto;"><tr><td style="text-align:center;">       </td><td style="text-align:center;"> <strong>Value</strong> </td><td style="text-align:center;"> <strong>Constant</strong> </td></tr>
+<tr><td style="text-align:center;"> Initial concentration of species S </td><td style="text-align:center;"> <dfn>10</dfn> </td><td style="text-align:center;"> variable </td></tr>
+<tr><td style="text-align:center;"> Initial concentration of species A_<em>submod1</em>_E </td><td style="text-align:center;"> <dfn>1</dfn> </td><td style="text-align:center;"> variable </td></tr>
+<tr><td style="text-align:center;"> Initial concentration of species D </td><td style="text-align:center;"> <dfn>15</dfn> </td><td style="text-align:center;"> variable </td></tr>
+<tr><td style="text-align:center;"> Initial concentration of species A_<em>submod1</em>_ES </td><td style="text-align:center;"> <dfn>1</dfn> </td><td style="text-align:center;"> variable </td></tr>
+<tr><td style="text-align:center;"> Initial volume of compartment 'comp' </td><td style="text-align:center;"> <dfn>1</dfn> </td><td style="text-align:center;"> constant </td></tr></table>

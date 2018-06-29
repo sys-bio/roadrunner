@@ -1,0 +1,20 @@
+<p>
+ In this model, the 'implies' MathML symbol is used in assignment rule function definitions.  'Implies' means 'if A is true, then B is also true', or '(not A) or B'.  With the automatic translation (in l3v2) of boolean values to numeric values, this means that p1 is always 1 (true); p2 becomes 0 (false) halfway through the run; p3 becomes 0 only from 2.5<t<5.5, and p4 is 0 while t<2.5.</p>
+<p>The model contains:</p><ul>
+<li class="u">4 parameters (p1, p2, p3, p4)</li></ul>
+<p>There are 4 rules:</p>
+<table style="width:30em;margin: 1em auto;"><tr><td style="text-align:center;">  <strong>Type</strong>  </td><td style="text-align:center;">  <strong>Variable</strong>  </td><td style="text-align:center;">  <strong>Formula</strong>  </td></tr>
+<tr><td style="text-align:center;"> Assignment </td><td style="text-align:center;"> p1 </td><td style="text-align:center;"> <dfn>my<sub class="i">implies</sub>(time &gt; 5.5, time &gt; 2.5)</dfn> </td></tr>
+<tr><td style="text-align:center;"> Assignment </td><td style="text-align:center;"> p2 </td><td style="text-align:center;"> <dfn>my<sub class="i">implies</sub>(time &gt; 5.5, time &lt; 2.5)</dfn> </td></tr>
+<tr><td style="text-align:center;"> Assignment </td><td style="text-align:center;"> p3 </td><td style="text-align:center;"> <dfn>my<sub class="i">implies</sub>(time &lt; 5.5, time &gt; 2.5)</dfn> </td></tr>
+<tr><td style="text-align:center;"> Assignment </td><td style="text-align:center;"> p4 </td><td style="text-align:center;"> <dfn>my<sub class="i">implies</sub>(time &lt; 5.5, time &lt; 2.5)</dfn> </td></tr></table>
+<p>The model contains the following function definition:</p>
+<table style="width:30em;margin: 1em auto;"><tr><td style="text-align:center;">  <strong>Id</strong>  </td><td style="text-align:center;">  <strong>Arguments</strong>  </td><td style="text-align:center;">  <strong>Formula</strong>  </td></tr>
+<tr><td style="text-align:center;"> my_implies </td><td style="text-align:center;"> x, y </td><td style="text-align:center;"> <dfn>implies(x, y)</dfn> </td><td style="text-align:left;"><p>
+]
+The initial conditions are as follows:</p>
+<table style="width:35em;margin: 1em auto;"><tr><td>       </td><td style="text-align:center;"> <strong>Value</strong> </td><td style="text-align:center;"> <strong>Constant</strong> </td></tr>
+<tr><td style="text-align:center;"> Initial value of parameter p1 </td><td style="text-align:center;"> <dfn>my<sub class="i">implies</sub>(time &gt; 5.5, time &gt; 2.5)</dfn> </td><td style="text-align:center;"> variable </td></tr>
+<tr><td style="text-align:center;"> Initial value of parameter p2 </td><td style="text-align:center;"> <dfn>my<sub class="i">implies</sub>(time &gt; 5.5, time &lt; 2.5)</dfn> </td><td style="text-align:center;"> variable </td></tr>
+<tr><td style="text-align:center;"> Initial value of parameter p3 </td><td style="text-align:center;"> <dfn>my<sub class="i">implies</sub>(time &lt; 5.5, time &gt; 2.5)</dfn> </td><td style="text-align:center;"> variable </td></tr>
+<tr><td style="text-align:center;"> Initial value of parameter p4 </td><td style="text-align:center;"> <dfn>my<sub class="i">implies</sub>(time &lt; 5.5, time &lt; 2.5)</dfn> </td><td style="text-align:center;"> variable </td></tr></table>

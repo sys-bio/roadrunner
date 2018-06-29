@@ -1,0 +1,12 @@
+<p>
+ In this model, one parameter shadows another parameter via a delay, but the other parameter's rate rule is empty, meaning it does not change.</p>
+<p>The model contains:</p><ul>
+<li class="u">2 parameters (S1, P1)</li></ul>
+<p>There are 2 rules:</p>
+<table style="width:30em;margin: 1em auto;"><tr><td style="text-align:center;">  <strong>Type</strong>  </td><td style="text-align:center;">  <strong>Variable</strong>  </td><td style="text-align:center;">  <strong>Formula</strong>  </td></tr>
+<tr><td style="text-align:center;"> Rate </td><td style="text-align:center;"> S1 </td><td style="text-align:center;"> <dfn></dfn> </td></tr>
+<tr><td style="text-align:center;"> Assignment </td><td style="text-align:center;"> P1 </td><td style="text-align:center;"> <dfn>delay(S1, 1)</dfn> </td></tr></table>
+<p>The initial conditions are as follows:</p>
+<table style="width:35em;margin: 1em auto;"><tr><td style="text-align:center;">       </td><td style="text-align:center;"> <strong>Value</strong> </td><td style="text-align:center;"> <strong>Constant</strong> </td></tr>
+<tr><td style="text-align:center;"> Initial value of parameter S1 </td><td style="text-align:center;"> <dfn>3</dfn> </td><td style="text-align:center;"> variable </td></tr>
+<tr><td style="text-align:center;"> Initial value of parameter P1 </td><td style="text-align:center;"> <dfn>delay(S1, 1)</dfn> </td><td style="text-align:center;"> variable </td></tr></table>

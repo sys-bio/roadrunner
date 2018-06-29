@@ -1,0 +1,43 @@
+<p>
+ In this test, an initial assignment to a flux bound sets a value of infinity.</p>
+<p>The model contains:</p><ul>
+<li class="u">23 species (A, B, C, D, E, F, G, H, I, J, K, L, M, N, O, P, Q, R, S, T, U, X, Y)</li>
+<li class="u">4 parameters (fb<em>0, fb</em>1, fb<em>inf, fb</em>ninf)</li>
+<li class="u">1 compartment (Cell)</li>
+<li class="u">1 objective (OBJF)</li></ul>
+<p>The active objective is OBJF, which is to be maximized:
+  + 1 R26</p>
+<p>There are 26 reactions:</p>
+<table style="width:30em;margin: 1em auto;"><tr><td style="text-align:center;">  <strong>Reaction</strong>  </td><td style="text-align:center;">  <strong>Rate</strong>  </td></tr>
+<tr><td style="text-align:center;"> R16: J &#8594; M </td><td style="text-align:center;"> <dfn>fb<sub class="i">0</sub> &#8804; R16 &#8804; fb<sub class="i">inf</sub></dfn><dfn> |
+| R14: K &#8594; L | </dfn>fb<em>ninf <= R14 <= fb</em>inf<dfn></dfn> </td></tr>
+<tr><td style="text-align:center;"> R15: L &#8594; Q </td><td style="text-align:center;"> <dfn>fb<sub class="i">0</sub> &#8804; R15 &#8804; fb<sub class="i">inf</sub></dfn><dfn> |
+| R12: I &#8594; J | </dfn>fb<em>0 <= R12 <= fb</em>inf<dfn></dfn> </td></tr>
+<tr><td style="text-align:center;"> R07: E &#8594; F </td><td style="text-align:center;"> <dfn>fb<sub class="i">0</sub> &#8804; R07 &#8804; fb<sub class="i">inf</sub></dfn><dfn> |
+| R13: J &#8594; K | </dfn>fb<em>0 <= R13 <= fb</em>inf<dfn></dfn> </td></tr>
+<tr><td style="text-align:center;"> R01: X &#8594; A </td><td style="text-align:center;"> <dfn>fb<sub class="i">0</sub> &#8804; R01 &#8804; fb<sub class="i">1</sub></dfn><dfn> |
+| R17: M &#8594; N | </dfn>fb<em>0 <= R17 <= fb</em>inf<dfn></dfn> </td></tr>
+<tr><td style="text-align:center;"> R03: A &#8594; C </td><td style="text-align:center;"> <dfn>fb<sub class="i">ninf</sub> &#8804; R03 &#8804; fb<sub class="i">inf</sub></dfn><dfn> |
+| R02: A &#8594; B | </dfn>fb<em>ninf <= R02 <= fb</em>inf<dfn></dfn> </td></tr>
+<tr><td style="text-align:center;"> R05: B &#8594; D </td><td style="text-align:center;"> <dfn>fb<sub class="i">0</sub> &#8804; R05 &#8804; fb<sub class="i">inf</sub></dfn><dfn> |
+| R04: C &#8594; B | </dfn>fb<em>ninf <= R04 <= fb</em>inf<dfn></dfn> </td></tr>
+<tr><td style="text-align:center;"> R10: G &#8594; H </td><td style="text-align:center;"> <dfn>fb<sub class="i">0</sub> &#8804; R10 &#8804; fb<sub class="i">inf</sub></dfn><dfn> |
+| R06: D &#8594; E | </dfn>fb<em>0 <= R06 <= fb</em>inf<dfn></dfn> </td></tr>
+<tr><td style="text-align:center;"> R09: D &#8594; G </td><td style="text-align:center;"> <dfn>fb<sub class="i">0</sub> &#8804; R09 &#8804; fb<sub class="i">inf</sub></dfn><dfn> |
+| R08: F &#8594; I | </dfn>fb<em>0 <= R08 <= fb</em>inf<dfn></dfn> </td></tr>
+<tr><td style="text-align:center;"> R11: H &#8594; I </td><td style="text-align:center;"> <dfn>fb<sub class="i">0</sub> &#8804; R11 &#8804; fb<sub class="i">inf</sub></dfn><dfn> |
+| R18: N &#8594; Q | </dfn>fb<em>0 <= R18 <= fb</em>inf<dfn></dfn> </td></tr>
+<tr><td style="text-align:center;"> R19: K &#8594; O </td><td style="text-align:center;"> <dfn>fb<sub class="i">ninf</sub> &#8804; R19 &#8804; fb<sub class="i">inf</sub></dfn><dfn> |
+| R26: S &#8594; Y | </dfn>fb<em>0 <= R26 <= fb</em>inf<dfn></dfn> </td></tr>
+<tr><td style="text-align:center;"> R25: A + T &#8594; 0.5S + U </td><td style="text-align:center;"> <dfn>fb<sub class="i">0</sub> &#8804; R25 &#8804; fb<sub class="i">inf</sub></dfn><dfn> |
+| R24: R &#8594; S | </dfn>fb<em>0 <= R24 <= fb</em>inf<dfn></dfn> </td></tr>
+<tr><td style="text-align:center;"> R23: R &#8594; S </td><td style="text-align:center;"> <dfn>fb<sub class="i">ninf</sub> &#8804; R23 &#8804; fb<sub class="i">inf</sub></dfn><dfn> |
+| R22: Q &#8594; R | </dfn>fb<em>0 <= R22 <= fb</em>inf<dfn></dfn> </td></tr>
+<tr><td style="text-align:center;"> R21: P &#8594; L </td><td style="text-align:center;"> <dfn>fb<sub class="i">ninf</sub> &#8804; R21 &#8804; fb<sub class="i">inf</sub></dfn><dfn> |
+| R20: O &#8594; P | </dfn>fb<em>ninf <= R20 <= fb</em>inf<dfn></dfn> </td></tr></table>
+<p>The initial conditions are as follows:</p>
+<table style="width:35em;margin: 1em auto;"><tr><td style="text-align:center;">       </td><td style="text-align:center;"> <strong>Value</strong> </td><td style="text-align:center;"> <strong>Constant</strong> </td></tr>
+<tr><td style="text-align:center;"> Initial value of parameter fb_0 </td><td style="text-align:center;"> <dfn>0</dfn> </td><td style="text-align:center;"> constant </td></tr>
+<tr><td style="text-align:center;"> Initial value of parameter fb_1 </td><td style="text-align:center;"> <dfn>1</dfn> </td><td style="text-align:center;"> constant </td></tr>
+<tr><td style="text-align:center;"> Initial value of parameter fb_inf </td><td style="text-align:center;"> <dfn>INF</dfn> </td><td style="text-align:center;"> constant </td></tr>
+<tr><td style="text-align:center;"> Initial value of parameter fb_ninf </td><td style="text-align:center;"> <dfn>&#8722;inf</dfn> </td><td style="text-align:center;"> constant </td></tr></table>

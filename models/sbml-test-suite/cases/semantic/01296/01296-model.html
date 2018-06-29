@@ -1,0 +1,14 @@
+<p>
+ A variable rateOf csymbols is used here in a kinetic law, defining the rate of change of p2 the same as the rate of change of p1.  This is exactly the same model as 01264, with p1 and p2 changing as species in reactions, instead of in a rate rule.</p>
+<p>The model contains:</p><ul>
+<li class="u">2 species (p1, p2)</li>
+<li class="u">1 compartment (C)</li></ul>
+<p>There are 2 reactions:</p>
+<table style="width:30em;margin: 1em auto;"><tr><td style="text-align:center;">  <strong>Reaction</strong>  </td><td style="text-align:center;">  <strong>Rate</strong>  </td></tr>
+<tr><td style="text-align:center;"> J0: &#8594; p1 </td><td style="text-align:center;"> <dfn>0.01 &#183; p1</dfn> </td></tr>
+<tr><td style="text-align:center;"> J1: &#8594; p2 </td><td style="text-align:center;"> <dfn>rateOf(p1)</dfn> </td></tr></table>
+<p>The initial conditions are as follows:</p>
+<table style="width:35em;margin: 1em auto;"><tr><td style="text-align:center;">       </td><td style="text-align:center;"> <strong>Value</strong> </td><td style="text-align:center;"> <strong>Constant</strong> </td></tr>
+<tr><td style="text-align:center;"> Initial concentration of species p1 </td><td style="text-align:center;"> <dfn>2</dfn> </td><td style="text-align:center;"> variable </td></tr>
+<tr><td style="text-align:center;"> Initial concentration of species p2 </td><td style="text-align:center;"> <dfn>10</dfn> </td><td style="text-align:center;"> variable </td></tr>
+<tr><td style="text-align:center;"> Initial volume of compartment 'C' </td><td style="text-align:center;"> <dfn>1</dfn> </td><td style="text-align:center;"> constant </td></tr></table>

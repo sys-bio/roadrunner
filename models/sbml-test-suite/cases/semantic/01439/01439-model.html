@@ -1,0 +1,16 @@
+<p>
+ In this test, a single reaction has multiple reactants and products that all point to the same species, each of which has a stoichiometry math.  This is equivalent to a reaction where all of the species references that point to the same species are collapsed into a single species reference with a stoichiometry equal to the sum of the stoichiometries of the original species references.</p>
+<p>The model contains:</p><ul>
+<li class="u">1 species (A)</li>
+<li class="u">1 compartment (C)</li>
+<li class="u">2 species references (A1<em>sr, A1</em>sr2)</li></ul>
+<p>There is one reaction:</p>
+<table style="width:30em;margin: 1em auto;"><tr><td style="text-align:center;">  <strong>Reaction</strong>  </td><td style="text-align:center;">  <strong>Rate</strong>  </td></tr>
+<tr><td style="text-align:center;"> J0: &#8594; A1<em>sr A + A1</em>sr2 A </td><td style="text-align:center;"> <dfn>1</dfn> </td></tr></table><p>
+Note:  the following stoichiometries are set separately:  A1<em>sr, A1</em>sr2</p>
+<p>The initial conditions are as follows:</p>
+<table style="width:35em;margin: 1em auto;"><tr><td style="text-align:center;">       </td><td style="text-align:center;"> <strong>Value</strong> </td><td style="text-align:center;"> <strong>Constant</strong> </td></tr>
+<tr><td style="text-align:center;"> Initial concentration of species A </td><td style="text-align:center;"> <dfn>1</dfn> </td><td style="text-align:center;"> variable </td></tr>
+<tr><td style="text-align:center;"> Initial volume of compartment 'C' </td><td style="text-align:center;"> <dfn>1</dfn> </td><td style="text-align:center;"> constant </td></tr>
+<tr><td style="text-align:center;"> Initial value of species reference 'A1_sr' </td><td style="text-align:center;"> <dfn>2</dfn> </td><td style="text-align:center;"> variable </td></tr>
+<tr><td style="text-align:center;"> Initial value of species reference 'A1_sr2' </td><td style="text-align:center;"> <dfn>1</dfn> </td><td style="text-align:center;"> variable </td></tr></table>

@@ -1,0 +1,14 @@
+<p>
+ The assignment rule for parameter 'z' has a nested piecewise function in the conditional part of the piecewise function, that returns 'true' or 'false'.  It is functionally equivalent to simply having the nested conditional there directly, and is there merely to test the presence of the nesting itself.</p>
+<p>The model contains:</p><ul>
+<li class="u">2 parameters (x, z)</li></ul>
+<p>There are 2 rules:</p>
+<table style="width:30em;margin: 1em auto;"><tr><td style="text-align:center;">  <strong>Type</strong>  </td><td style="text-align:center;">  <strong>Variable</strong>  </td><td style="text-align:center;">  <strong>Formula</strong>  </td></tr>
+<tr><td style="text-align:center;"> Rate </td><td style="text-align:center;"> x </td><td style="text-align:center;"> <dfn>1</dfn> </td></tr>
+<tr><td style="text-align:center;"> Assignment </td><td style="text-align:center;"> z </td><td style="text-align:center;"> <dfn>piecewise(1, piecewise(true, x &#8805; 0.49, false), 0)</dfn> </td></tr></table>
+<p>The initial conditions are as follows:</p>
+<table style="width:35em;margin: 1em auto;"><tr><td style="text-align:center;">       </td><td style="text-align:center;"> <strong>Value</strong> </td><td style="text-align:center;"> <strong>Constant</strong> </td></tr>
+<tr><td style="text-align:center;"> Initial value of parameter x </td><td style="text-align:center;"> <dfn>0</dfn> </td><td style="text-align:center;"> variable </td></tr>
+<tr><td style="text-align:center;"> Initial value of parameter z </td><td style="text-align:center;"> <dfn>piecewise(1, piecewise(true, geq(x, 0.49), false), 0)</dfn> </td><td style="text-align:center;"> variable </td></tr></table>
+<p>Note: The test data for this model was generated from an analytical
+solution of the system of equations.</p>

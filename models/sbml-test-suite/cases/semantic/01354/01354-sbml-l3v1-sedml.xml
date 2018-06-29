@@ -1,0 +1,56 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- Written by libSedML v1.1.5419.25885 see http://libsedml.sf.net -->
+<sedML level="1" version="1" xmlns="http://sed-ml.org/">
+  <listOfSimulations>
+    <uniformTimeCourse id="simulation_1" initialTime="0" outputStartTime="0" outputEndTime="10" numberOfPoints="10">
+      <algorithm kisaoID="KISAO:0000019" />
+    </uniformTimeCourse>
+  </listOfSimulations>
+  <listOfModels>
+    <model id="model_1" language="urn:sedml:language:sbml" source="01354-sbml-l3v1.xml" />
+  </listOfModels>
+  <listOfTasks>
+    <task id="task_1" modelReference="model_1" simulationReference="simulation_1" />
+  </listOfTasks>
+  <listOfDataGenerators>
+    <dataGenerator id="time_1" name="time">
+      <listOfVariables>
+        <variable id="time" taskReference="task_1" symbol="urn:sedml:symbol:time" />
+      </listOfVariables>
+      <math xmlns="http://www.w3.org/1998/Math/MathML">
+        <ci> time </ci>
+      </math>
+    </dataGenerator>
+    <dataGenerator id="J1_1" name="J1">
+      <listOfVariables>
+        <variable id="J1" name="J1" taskReference="task_1" target="/sbml:sbml/sbml:model/sbml:listOfParameters/sbml:parameter[@id='J1']" />
+      </listOfVariables>
+      <math xmlns="http://www.w3.org/1998/Math/MathML">
+        <ci> J1 </ci>
+      </math>
+    </dataGenerator>
+    <dataGenerator id="A__x_1" name="A__x">
+      <listOfVariables>
+        <variable id="A__x" name="A__x" taskReference="task_1" target="/sbml:sbml/sbml:model/sbml:listOfParameters/sbml:parameter[@id='A__x']" />
+      </listOfVariables>
+      <math xmlns="http://www.w3.org/1998/Math/MathML">
+        <ci> A__x </ci>
+      </math>
+    </dataGenerator>
+  </listOfDataGenerators>
+  <listOfOutputs>
+    <plot2D id="plot_1" name="Timecourse for test 01354">
+      <listOfCurves>
+        <curve id="c_J1_1" name="J1" logX="false" logY="false" xDataReference="time_1" yDataReference="J1_1" />
+        <curve id="c_A__x_1" name="A__x" logX="false" logY="false" xDataReference="time_1" yDataReference="A__x_1" />
+      </listOfCurves>
+    </plot2D>
+    <report id="report_1" name="Report for test 01354">
+      <listOfDataSets>
+        <dataSet id="ds_time" dataReference="time_1" label="Time" />
+        <dataSet id="ds_J1_1" dataReference="J1_1" label="J1" />
+        <dataSet id="ds_A__x_1" dataReference="A__x_1" label="A__x" />
+      </listOfDataSets>
+    </report>
+  </listOfOutputs>
+</sedML>

@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<sbml xmlns="http://www.sbml.org/sbml/level2/version2" level="2" version="2">
+  <model id="case01317" name="case01317">
+    <listOfParameters>
+      <parameter id="p1" value="5"/>
+      <parameter id="p2" constant="false"/>
+    </listOfParameters>
+    <listOfRules>
+      <assignmentRule variable="p2">
+        <math xmlns="http://www.w3.org/1998/Math/MathML">
+          <apply>
+            <plus/>
+            <cn type="integer"> 1 </cn>
+            <csymbol encoding="text" definitionURL="http://www.sbml.org/sbml/symbols/time"> p1 </csymbol>
+          </apply>
+        </math>
+      </assignmentRule>
+    </listOfRules>
+  </model>
+</sbml>

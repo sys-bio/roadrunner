@@ -1,0 +1,19 @@
+<p>
+ In this model, a delayed event uses the trigger-time value of its parameters in a function definition.</p>
+<p>The model contains:</p><ul>
+<li class="u">1 parameter (P1)</li></ul>
+<p>There is one event:</p>
+<table style="width:35em;margin: 1em auto;"><tr><td style="text-align:center;">  <strong>Event</strong>  </td><td style="text-align:center;">  <strong>Trigger</strong>  </td><td style="text-align:center;">  <strong>Delay</strong>  </td><td style="text-align:center;"> <strong>Event Assignments</strong> </td></tr>
+<tr><td style="text-align:center;"> E0 </td><td style="text-align:center;"> <dfn>P1 &#8804; 8.9</dfn> </td><td style="text-align:center;"> <dfn>2</dfn> </td><td style="text-align:center;"> <dfn>P1 = addEm(P1, 3)</dfn> </td></tr></table>
+<p>There is one rule:</p>
+<table style="width:30em;margin: 1em auto;"><tr><td style="text-align:center;">  <strong>Type</strong>  </td><td style="text-align:center;">  <strong>Variable</strong>  </td><td style="text-align:center;">  <strong>Formula</strong>  </td></tr>
+<tr><td style="text-align:center;"> Rate </td><td style="text-align:center;"> P1 </td><td style="text-align:center;"> <dfn>&#8722;1</dfn> </td></tr></table>
+<p>The model contains the following function definition:</p>
+<table style="width:30em;margin: 1em auto;"><tr><td style="text-align:center;">  <strong>Id</strong>  </td><td style="text-align:center;">  <strong>Arguments</strong>  </td><td style="text-align:center;">  <strong>Formula</strong>  </td></tr>
+<tr><td style="text-align:center;"> addEm </td><td style="text-align:center;"> x, y </td><td style="text-align:center;"> <dfn>x + y</dfn> </td><td style="text-align:left;"><p>
+]
+The initial conditions are as follows:</p>
+<table style="width:35em;margin: 1em auto;"><tr><td>       </td><td style="text-align:center;"> <strong>Value</strong> </td><td style="text-align:center;"> <strong>Constant</strong> </td></tr>
+<tr><td style="text-align:center;"> Initial value of parameter P1 </td><td style="text-align:center;"> <dfn>10</dfn> </td><td style="text-align:center;"> variable </td></tr></table>
+<p>Note: The test data for this model was generated from an analytical
+solution of the system of equations.</p>

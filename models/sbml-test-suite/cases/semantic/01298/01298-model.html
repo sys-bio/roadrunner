@@ -1,0 +1,20 @@
+<p>
+ A variable rateOf csymbol is used here in an event priority that assigns to p2.  At the time the event triggers, the priority is greater than .021, meaning that it fires first, and E0 fires second, leaving the value of p2 at 5.  This is exactly the same model as 01267, with p1 changing as a species in a reaction, instead of in a rate rule.</p>
+<p>The model contains:</p><ul>
+<li class="u">1 species (p1)</li>
+<li class="u">1 parameter (p2)</li>
+<li class="u">1 compartment (C)</li></ul>
+<p>There is one reaction:</p>
+<table style="width:30em;margin: 1em auto;"><tr><td style="text-align:center;">  <strong>Reaction</strong>  </td><td style="text-align:center;">  <strong>Rate</strong>  </td></tr>
+<tr><td style="text-align:center;"> J0: &#8594; p1 </td><td style="text-align:center;"> <dfn>0.01 &#183; p1</dfn> </td></tr></table>
+<p>There are 2 events:</p>
+<table style="width:35em;margin: 1em auto;"><tr><td style="text-align:center;">  <strong>Event</strong>  </td><td style="text-align:center;">  <strong>Trigger</strong>  </td><td style="text-align:center;">  <strong>Priority</strong>  </td><td style="text-align:center;"> <strong>Event Assignments</strong> </td></tr>
+<tr><td style="text-align:center;"> E0 </td><td style="text-align:center;"> <dfn>time &gt; 5.5</dfn> </td><td style="text-align:center;"> <dfn>0.021</dfn> </td><td style="text-align:center;"> <dfn>p2 = 5</dfn> </td></tr>
+<tr><td style="text-align:center;"> E1 </td><td style="text-align:center;"> <dfn>time &gt; 5.5</dfn> </td><td style="text-align:center;"> <dfn>rateOf(p1)</dfn> </td><td style="text-align:center;"> <dfn>p2 = 3</dfn> </td></tr></table>
+<p>The initial conditions are as follows:</p>
+<table style="width:35em;margin: 1em auto;"><tr><td style="text-align:center;">       </td><td style="text-align:center;"> <strong>Value</strong> </td><td style="text-align:center;"> <strong>Constant</strong> </td></tr>
+<tr><td style="text-align:center;"> Initial concentration of species p1 </td><td style="text-align:center;"> <dfn>2</dfn> </td><td style="text-align:center;"> variable </td></tr>
+<tr><td style="text-align:center;"> Initial value of parameter p2 </td><td style="text-align:center;"> <dfn>10</dfn> </td><td style="text-align:center;"> variable </td></tr>
+<tr><td style="text-align:center;"> Initial volume of compartment 'C' </td><td style="text-align:center;"> <dfn>1</dfn> </td><td style="text-align:center;"> constant </td></tr></table>
+<p>Note: The test data for this model was generated from an analytical
+solution of the system of equations.</p>

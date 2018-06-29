@@ -1,0 +1,20 @@
+<p>
+ In this model, a local parameter shadows a species reference.  That ID is used in a kinetic law, and refers to the species reference.</p>
+<p>The model contains:</p><ul>
+<li class="u">2 species (S1, S2)</li>
+<li class="u">1 local parameter (J1.S1_stoich)</li>
+<li class="u">1 compartment (C)</li>
+<li class="u">1 species reference (S1_stoich)</li></ul>
+<p>There are 2 reactions:</p>
+<table style="width:30em;margin: 1em auto;"><tr><td style="text-align:center;">  <strong>Reaction</strong>  </td><td style="text-align:center;">  <strong>Rate</strong>  </td></tr>
+<tr><td style="text-align:center;"> J0: 2S1 &#8594; </td><td style="text-align:center;"> <dfn>S1<sub class="i">stoich</sub> / 200</dfn> </td></tr>
+<tr><td style="text-align:center;"> J1: &#8594; S2 </td><td style="text-align:center;"> <dfn>S1<sub class="i">stoich</sub></dfn> </td></tr></table>
+<p>The initial conditions are as follows:</p>
+<table style="width:35em;margin: 1em auto;"><tr><td style="text-align:center;">       </td><td style="text-align:center;"> <strong>Value</strong> </td><td style="text-align:center;"> <strong>Constant</strong> </td></tr>
+<tr><td style="text-align:center;"> Initial amount of species S1 </td><td style="text-align:center;"> <dfn>2</dfn> </td><td style="text-align:center;"> variable </td></tr>
+<tr><td style="text-align:center;"> Initial amount of species S2 </td><td style="text-align:center;"> <dfn>3</dfn> </td><td style="text-align:center;"> variable </td></tr>
+<tr><td style="text-align:center;"> Initial value of local parameter 'J1.S1_stoich' </td><td style="text-align:center;"> <dfn>0.01</dfn> </td><td style="text-align:center;"> constant </td></tr>
+<tr><td style="text-align:center;"> Initial volume of compartment 'C' </td><td style="text-align:center;"> <dfn>2</dfn> </td><td style="text-align:center;"> constant </td></tr>
+<tr><td style="text-align:center;"> Initial value of species reference 'S1_stoich' </td><td style="text-align:center;"> <dfn>2</dfn> </td><td style="text-align:center;"> constant </td></tr></table>
+<p>Note: The test data for this model was generated from an analytical
+solution of the system of equations.</p>

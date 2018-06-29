@@ -1,0 +1,76 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- Written by libSedML v1.1.5419.25885 see http://libsedml.sf.net -->
+<sedML level="1" version="1" xmlns="http://sed-ml.org/">
+  <listOfSimulations>
+    <uniformTimeCourse id="simulation_1" initialTime="0" outputStartTime="0" outputEndTime="100" numberOfPoints="1001">
+      <algorithm kisaoID="KISAO:0000019" />
+    </uniformTimeCourse>
+  </listOfSimulations>
+  <listOfModels>
+    <model id="model_1" language="urn:sedml:language:sbml" source="01593-sbml-l3v1.xml" />
+  </listOfModels>
+  <listOfTasks>
+    <task id="task_1" modelReference="model_1" simulationReference="simulation_1" />
+  </listOfTasks>
+  <listOfDataGenerators>
+    <dataGenerator id="time_1" name="time">
+      <listOfVariables>
+        <variable id="time" taskReference="task_1" symbol="urn:sedml:symbol:time" />
+      </listOfVariables>
+      <math xmlns="http://www.w3.org/1998/Math/MathML">
+        <ci> time </ci>
+      </math>
+    </dataGenerator>
+    <dataGenerator id="S_1" name="S">
+      <listOfVariables>
+        <variable id="S" name="S" taskReference="task_1" target="/sbml:sbml/sbml:model/sbml:listOfParameters/sbml:parameter[@id='S']" />
+      </listOfVariables>
+      <math xmlns="http://www.w3.org/1998/Math/MathML">
+        <ci> S </ci>
+      </math>
+    </dataGenerator>
+    <dataGenerator id="S2_1" name="S2">
+      <listOfVariables>
+        <variable id="S2" name="S2" taskReference="task_1" target="/sbml:sbml/sbml:model/sbml:listOfParameters/sbml:parameter[@id='S2']" />
+      </listOfVariables>
+      <math xmlns="http://www.w3.org/1998/Math/MathML">
+        <ci> S2 </ci>
+      </math>
+    </dataGenerator>
+    <dataGenerator id="errorLow_1" name="errorLow">
+      <listOfVariables>
+        <variable id="errorLow" name="errorLow" taskReference="task_1" target="/sbml:sbml/sbml:model/sbml:listOfParameters/sbml:parameter[@id='errorLow']" />
+      </listOfVariables>
+      <math xmlns="http://www.w3.org/1998/Math/MathML">
+        <ci> errorLow </ci>
+      </math>
+    </dataGenerator>
+    <dataGenerator id="errorHigh_1" name="errorHigh">
+      <listOfVariables>
+        <variable id="errorHigh" name="errorHigh" taskReference="task_1" target="/sbml:sbml/sbml:model/sbml:listOfParameters/sbml:parameter[@id='errorHigh']" />
+      </listOfVariables>
+      <math xmlns="http://www.w3.org/1998/Math/MathML">
+        <ci> errorHigh </ci>
+      </math>
+    </dataGenerator>
+  </listOfDataGenerators>
+  <listOfOutputs>
+    <plot2D id="plot_1" name="Timecourse for test 01593">
+      <listOfCurves>
+        <curve id="c_S_1" name="S" logX="false" logY="false" xDataReference="time_1" yDataReference="S_1" />
+        <curve id="c_S2_1" name="S2" logX="false" logY="false" xDataReference="time_1" yDataReference="S2_1" />
+        <curve id="c_errorLow_1" name="errorLow" logX="false" logY="false" xDataReference="time_1" yDataReference="errorLow_1" />
+        <curve id="c_errorHigh_1" name="errorHigh" logX="false" logY="false" xDataReference="time_1" yDataReference="errorHigh_1" />
+      </listOfCurves>
+    </plot2D>
+    <report id="report_1" name="Report for test 01593">
+      <listOfDataSets>
+        <dataSet id="ds_time" dataReference="time_1" label="Time" />
+        <dataSet id="ds_S_1" dataReference="S_1" label="S" />
+        <dataSet id="ds_S2_1" dataReference="S2_1" label="S2" />
+        <dataSet id="ds_errorLow_1" dataReference="errorLow_1" label="errorLow" />
+        <dataSet id="ds_errorHigh_1" dataReference="errorHigh_1" label="errorHigh" />
+      </listOfDataSets>
+    </report>
+  </listOfOutputs>
+</sedML>
