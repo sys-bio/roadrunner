@@ -64,10 +64,17 @@ private:
 
     llvm::Value *minmaxCodeGen(const libsbml::ASTNode *ast);
 
-    llvm::Value *applyRelationalCodeGen(const libsbml::ASTNode *ast);
+	// AHu: As of June'18, there is no difference between the two relation CodeGen
+	// functions, so I am refactoring this function to just take two arguments,
+	// and using it to be the only relational switch statement
+    llvm::Value *applyBinaryRelationalCodeGen(const libsbml::ASTNode *ast,
+		llvm::Value* left, llvm::Value* right);
 
     // JKM: NOTE: Not SBML-compliant, needed for idiosyncrasies in some legacy JDesigner models
     llvm::Value *applyScalarRelationalCodeGen(const libsbml::ASTNode *ast);
+
+	// Ahu: I made this just so that later we can have an interface for non-scalar relations
+	llvm::Value *applyRelationalCodeGen(const libsbml::ASTNode *ast);
 
     llvm::Value *applyLogicalCodeGen(const libsbml::ASTNode *ast);
 
@@ -87,7 +94,7 @@ private:
     /**
      * coerces a value to a double
      *
-     * If value is already a boolean, it is unchanged.
+     * If value is already a double, it is unchanged.
      */
     llvm::Value *toDouble(llvm::Value* value);
 

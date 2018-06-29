@@ -139,7 +139,21 @@ llvm::Value* ASTNodeCodeGen::codeGen(const libsbml::ASTNode* ast)
     case  AST_RELATIONAL_LEQ:
     case  AST_RELATIONAL_LT:
     case  AST_RELATIONAL_NEQ:
-        result = scalar_mode_ ? applyScalarRelationalCodeGen(ast) : applyRelationalCodeGen(ast);
+		// AHu: For now I am unsure of what it's supposed to do when not in scalar mode,
+		// so I am changing the non-scalar relation into a generic relational code gen,
+		// and calling scalar relation code gen all the time, since it checks the number
+		// of arguments to the relational operator (which caused problems with MathML
+		//result = applyScalarRelationalCodeGen(ast);
+		/*{
+			Value* left = toDouble(codeGen(ast->getLeftChild()));
+			Value* right = toDouble(codeGen(ast->getRightChild()));
+			result = applyBinaryRelationalCodeGen(ast, left, right);
+		}*/
+		if (scalar_mode_) {
+			result = applyScalarRelationalCodeGen(ast);
+		} else {
+			result = applyRelationalCodeGen(ast);
+		}
         break;
 
     case  AST_LOGICAL_AND:
@@ -370,75 +384,130 @@ llvm::Value* ASTNodeCodeGen::applyArithmeticCodeGen(
     return acc;
 }
 
-llvm::Value* ASTNodeCodeGen::applyRelationalCodeGen(const libsbml::ASTNode* ast)
+llvm::Value* ASTNodeCodeGen::applyBinaryRelationalCodeGen(const libsbml::ASTNode* ast,
+		Value* left, Value* right)
 {
-    Value *left = toDouble(codeGen(ast->getLeftChild()));
-    Value *right = toDouble(codeGen(ast->getRightChild()));
-    Value *result = 0;
-    switch (ast->getType())
-    {
-    case AST_RELATIONAL_EQ:
-        result = builder.CreateFCmpUEQ(left, right);
-        break;
-    case AST_RELATIONAL_GEQ:
-        result = builder.CreateFCmpUGE(left, right);
-        break;
-    case AST_RELATIONAL_GT:
-        result = builder.CreateFCmpUGT(left, right);
-        break;
-    case AST_RELATIONAL_LEQ:
-        result = builder.CreateFCmpULE(left, right);
-        break;
-    case AST_RELATIONAL_LT:
-        result = builder.CreateFCmpULT(left, right);
-        break;
-    case AST_RELATIONAL_NEQ:
-        result = builder.CreateFCmpUNE(left, right);
-        break;
-    default:
-        result = 0;
-        break;
-    }
+	Value *result = 0;
+	switch (ast->getType())
+	{
+	case AST_RELATIONAL_EQ:
+		result = builder.CreateFCmpUEQ(left, right);
+		break;
+	case AST_RELATIONAL_GEQ:
+		result = builder.CreateFCmpUGE(left, right);
+		break;
+	case AST_RELATIONAL_GT:
+		result = builder.CreateFCmpUGT(left, right);
+		break;
+	case AST_RELATIONAL_LEQ:
+		result = builder.CreateFCmpULE(left, right);
+		break;
+	case AST_RELATIONAL_LT:
+		result = builder.CreateFCmpULT(left, right);
+		break;
+	case AST_RELATIONAL_NEQ:
+		result = builder.CreateFCmpUNE(left, right);
+		break;
+	default:
+		result = 0;
+		break;
+	}
 
     assert(result);
 
     return result;
 }
 
+llvm::Value* ASTNodeCodeGen::applyRelationalCodeGen(const libsbml::ASTNode* ast) {
+	return applyScalarRelationalCodeGen(ast);
+}
+
 llvm::Value* ASTNodeCodeGen::applyScalarRelationalCodeGen(const libsbml::ASTNode* ast)
 {
     if (!rr::Config::getBool(rr::Config::LOADSBMLOPTIONS_PERMISSIVE)) {
-        return applyRelationalCodeGen(ast);
+		Value* left = toDouble(codeGen(ast->getLeftChild()));
+		Value* right = toDouble(codeGen(ast->getRightChild()));
+        return applyBinaryRelationalCodeGen(ast, left, right);
     }
-    Value *left = toDouble(codeGen(ast->getLeftChild()));
-    Value *right = toDouble(codeGen(ast->getRightChild()));
-    Value *result = 0;
-    switch (ast->getType())
-    {
-    case AST_RELATIONAL_EQ:
-        result = toDouble(builder.CreateFCmpUEQ(left, right));
-        break;
-    case AST_RELATIONAL_GEQ:
-        result = toDouble(builder.CreateFCmpUGE(left, right));
-        break;
-    case AST_RELATIONAL_GT:
-        result = toDouble(builder.CreateFCmpUGT(left, right));
-        break;
-    case AST_RELATIONAL_LEQ:
-        result = toDouble(builder.CreateFCmpULE(left, right));
-        break;
-    case AST_RELATIONAL_LT:
-        result = toDouble(builder.CreateFCmpULT(left, right));
-        break;
-    case AST_RELATIONAL_NEQ:
-        result = toDouble(builder.CreateFCmpUNE(left, right));
-        break;
-    default:
-        result = 0;
-        break;
-    }
+	cout << "Doing scalar relation" << endl;
+
+	Value *result = 0;
+	// Possible to have more than 2 children
+	// In MathML, if there are >2 children, operation is applied between them
+	// e.g. apply LEQ 1,2,1 -> 1<=2<=1
+	unsigned int numKids = ast->getNumChildren();
+	if (numKids == 2) {
+		Value *left = toDouble(codeGen(ast->getLeftChild()));
+		Value *right = toDouble(codeGen(ast->getRightChild()));
+		
+		cout << "left is a constant: " << isa<Constant>(left) << endl;
+		cout << "left is an operator: " << isa<Operator>(left) << endl;
+		cout << "left: " << endl;
+		left->dump();
+
+		cout << "right is a constant: " <<  isa<Constant>(right) << endl;
+		cout << "right is an operator: " << isa<Operator>(right) << endl;
+		cout << "right: " << endl;
+		right->dump();
+
+		result = applyBinaryRelationalCodeGen(ast, left, right);
+
+		cout << "res is a constant: " << isa<Constant>(result) << endl;
+		cout << "res is an operator: " << isa<Operator>(result) << endl;
+		cout << "res: " << endl;
+		result->dump();
+	} else {
+		/* There are multiple children, we can break the relations up by ANDing them together
+		 * e.g. 1 <= 2 <= 1 === (1 <= 2) && (2 <= 1). The AST tree for *LLVM* will end up like
+		 *		  /&&\
+		 *    /&&\  1<3
+		 * 1<2   2<1
+		 */
+
+		// Get the base two relations (minimum that must be present if children > 2)
+		Value* baseLeftVal = toDouble(codeGen(ast->getChild(0)));
+		Value* baseMidVal = toDouble(codeGen(ast->getChild(1)));
+		Value* baseRightVal = toDouble(codeGen(ast->getChild(2)));
+		cout << "baseLeft: " << endl;
+		baseLeftVal->dump();
+		cout << "baseMid: " << endl;
+		baseMidVal->dump();
+		cout << "baseRight: " << endl;
+		baseRightVal->dump();
+		
+		Value* relationLeft = applyBinaryRelationalCodeGen(ast, baseLeftVal, baseMidVal);
+		Value* relationRight = applyBinaryRelationalCodeGen(ast, baseMidVal, baseRightVal);
+		
+		cout << "relLeft is a constant: " << isa<Constant>(relationLeft);
+		cout << "relLeft is an operator: " << isa<Operator>(relationLeft);
+		cout << "relLeft: " << endl;
+		relationLeft->dump();
+		cout << "relRight is a constant: " << isa<Constant>(relationRight);
+		cout << "relRight is an operator: " << isa<Operator>(relationRight);
+		cout << "relRight: " << endl;
+		relationRight->dump();
+		
+		result = builder.CreateAnd(relationLeft, relationRight);
+		
+		cout << "res: " << endl;
+		result->dump();
+
+		//loop over the children to create the AND'ing tree shown above
+		for (int i = 3; i < numKids; i++) {
+			// In the example above, tempPrevVal = 1, tempCurrVal = 3, tempRelation = 1<3
+			Value* tempPrevVal = toDouble(codeGen(ast->getChild(i - 1)));
+			Value* tempCurrVal = toDouble(codeGen(ast->getChild(i)));
+			Value* tempRelation = applyBinaryRelationalCodeGen(ast, tempPrevVal, tempCurrVal);
+			// Create new root of the tree
+			result = builder.CreateAnd(result, tempRelation);
+			
+			cout << "res: " << endl;
+			result->dump();
+		}
+	}
 
     assert(result);
+	cout << "Passed assert" << endl;
 
     return result;
 }
