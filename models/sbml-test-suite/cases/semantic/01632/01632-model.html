@@ -1,0 +1,28 @@
+<p>
+ The model has two reactions that affect one species; one with an assigned constant stoichiometry, and one with an assigned variable stoichiometry.  (L2 version of 01631, using stoichiometry math.)</p>
+<p>The model contains:</p><ul>
+<li class="u">1 species (S1)</li>
+<li class="u">1 parameter (parameterId_0)</li>
+<li class="u">1 compartment (C)</li>
+<li class="u">2 species references (S1<em>degrade, S1</em>create)</li></ul>
+<p>There are 2 reactions:</p>
+<table style="width:30em;margin: 1em auto;"><tr><td style="text-align:center;">  <strong>Reaction</strong>  </td><td style="text-align:center;">  <strong>Rate</strong>  </td></tr>
+<tr><td style="text-align:center;"> J0: S1_degrade S1 &#8594; </td><td style="text-align:center;"> <dfn>1</dfn> </td></tr>
+<tr><td style="text-align:center;"> J1: &#8594; S1_create S1 </td><td style="text-align:center;"> <dfn>1</dfn> </td></tr></table><p>
+Note:  the following stoichiometries are set separately:  S1<em>degrade, S1</em>create</p>
+<p>There is one rule:</p>
+<table style="width:30em;margin: 1em auto;"><tr><td style="text-align:center;">  <strong>Type</strong>  </td><td style="text-align:center;">  <strong>Variable</strong>  </td><td style="text-align:center;">  <strong>Formula</strong>  </td></tr>
+<tr><td style="text-align:center;"> Rate </td><td style="text-align:center;"> parameterId_0 </td><td style="text-align:center;"> <dfn>1</dfn> </td></tr></table>
+<p>The initial conditions are as follows:</p>
+<table style="width:35em;margin: 1em auto;"><tr><td style="text-align:center;">       </td><td style="text-align:center;"> <strong>Value</strong> </td><td style="text-align:center;"> <strong>Constant</strong> </td></tr>
+<tr><td style="text-align:center;"> Initial amount of species S1 </td><td style="text-align:center;"> <dfn>2</dfn> </td><td style="text-align:center;"> variable </td></tr>
+<tr><td style="text-align:center;"> Initial value of parameter parameterId_0 </td><td style="text-align:center;"> <dfn>1</dfn> </td><td style="text-align:center;"> variable </td></tr>
+<tr><td style="text-align:center;"> Initial volume of compartment 'C' </td><td style="text-align:center;"> <dfn>1</dfn> </td><td style="text-align:center;"> constant </td></tr>
+<tr><td style="text-align:center;"> Initial value of species reference 'S1_degrade' </td><td style="text-align:center;"> <dfn>3</dfn> </td><td style="text-align:center;"> variable </td></tr>
+<tr><td style="text-align:center;"> Initial value of species reference 'S1_create' </td><td style="text-align:center;"> <dfn>parameterId<sub class="i">0</sub></dfn> </td><td style="text-align:center;"> variable </td></tr></table>
+<p>The species' initial quantities are given in terms of substance units to
+make it easier to use the model in a discrete stochastic simulator, but
+their symbols represent their values in concentration units where they
+appear in expressions.</p>
+<p>Note: The test data for this model was generated from an analytical
+solution of the system of equations.</p>

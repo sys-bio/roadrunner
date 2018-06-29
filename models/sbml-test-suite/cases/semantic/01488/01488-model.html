@@ -1,0 +1,82 @@
+<p>
+ The model tests the various trigonometrical constructs added in L2v1, wrapped in function definitions.  Some functions with weird boundary conditions have been set up with the 'piecewise' function so that the results are never 'inf', or 'nan'.</p>
+<p>The model contains:</p><ul>
+<li class="u">26 parameters (P1, P2, P3, P4, P5, P6, P7, P8, P9, P10, P11, P12, P13, P14, P15, P16, P17, P18, P19, P20, P21, P22, P23, P24, P25, P26)</li></ul>
+<p>There are 26 rules:</p>
+<table style="width:30em;margin: 1em auto;"><tr><td style="text-align:center;">  <strong>Type</strong>  </td><td style="text-align:center;">  <strong>Variable</strong>  </td><td style="text-align:center;">  <strong>Formula</strong>  </td></tr>
+<tr><td style="text-align:center;"> Assignment </td><td style="text-align:center;"> P1 </td><td style="text-align:center;"> <dfn>my<sub class="i">sec</sub>(time)</dfn> </td></tr>
+<tr><td style="text-align:center;"> Assignment </td><td style="text-align:center;"> P2 </td><td style="text-align:center;"> <dfn>my<sub class="i">sec</sub>(&#8722;time)</dfn> </td></tr>
+<tr><td style="text-align:center;"> Assignment </td><td style="text-align:center;"> P3 </td><td style="text-align:center;"> <dfn>my<sub class="i">csc</sub>(time + 0.001)</dfn> </td></tr>
+<tr><td style="text-align:center;"> Assignment </td><td style="text-align:center;"> P4 </td><td style="text-align:center;"> <dfn>my<sub class="i">csc</sub>(&#8722;time &#8722; 0.001)</dfn> </td></tr>
+<tr><td style="text-align:center;"> Assignment </td><td style="text-align:center;"> P5 </td><td style="text-align:center;"> <dfn>my<sub class="i">cot</sub>(time + 0.001)</dfn> </td></tr>
+<tr><td style="text-align:center;"> Assignment </td><td style="text-align:center;"> P6 </td><td style="text-align:center;"> <dfn>my<sub class="i">cot</sub>(&#8722;time &#8722; 0.001)</dfn> </td></tr>
+<tr><td style="text-align:center;"> Assignment </td><td style="text-align:center;"> P7 </td><td style="text-align:center;"> <dfn>my<sub class="i">sinh</sub>(time)</dfn> </td></tr>
+<tr><td style="text-align:center;"> Assignment </td><td style="text-align:center;"> P8 </td><td style="text-align:center;"> <dfn>my<sub class="i">sinh</sub>(&#8722;time)</dfn> </td></tr>
+<tr><td style="text-align:center;"> Assignment </td><td style="text-align:center;"> P9 </td><td style="text-align:center;"> <dfn>my<sub class="i">cosh</sub>(time)</dfn> </td></tr>
+<tr><td style="text-align:center;"> Assignment </td><td style="text-align:center;"> P10 </td><td style="text-align:center;"> <dfn>my<sub class="i">cosh</sub>(&#8722;time)</dfn> </td></tr>
+<tr><td style="text-align:center;"> Assignment </td><td style="text-align:center;"> P11 </td><td style="text-align:center;"> <dfn>my<sub class="i">arcsec</sub>(time + 1)</dfn> </td></tr>
+<tr><td style="text-align:center;"> Assignment </td><td style="text-align:center;"> P12 </td><td style="text-align:center;"> <dfn>my<sub class="i">arcsec</sub>(&#8722;time &#8722; 1)</dfn> </td></tr>
+<tr><td style="text-align:center;"> Assignment </td><td style="text-align:center;"> P13 </td><td style="text-align:center;"> <dfn>my<sub class="i">arccsc</sub>(time + 1)</dfn> </td></tr>
+<tr><td style="text-align:center;"> Assignment </td><td style="text-align:center;"> P14 </td><td style="text-align:center;"> <dfn>my<sub class="i">arccsc</sub>(&#8722;time &#8722; 1)</dfn> </td></tr>
+<tr><td style="text-align:center;"> Assignment </td><td style="text-align:center;"> P15 </td><td style="text-align:center;"> <dfn>my<sub class="i">arccot</sub>(time)</dfn> </td></tr>
+<tr><td style="text-align:center;"> Assignment </td><td style="text-align:center;"> P16 </td><td style="text-align:center;"> <dfn>my<sub class="i">arccot</sub>(&#8722;time)</dfn> </td></tr>
+<tr><td style="text-align:center;"> Assignment </td><td style="text-align:center;"> P17 </td><td style="text-align:center;"> <dfn>my<sub class="i">arcsinh</sub>(time)</dfn> </td></tr>
+<tr><td style="text-align:center;"> Assignment </td><td style="text-align:center;"> P18 </td><td style="text-align:center;"> <dfn>my<sub class="i">arcsinh</sub>(&#8722;time)</dfn> </td></tr>
+<tr><td style="text-align:center;"> Assignment </td><td style="text-align:center;"> P19 </td><td style="text-align:center;"> <dfn>my<sub class="i">arccosh</sub>(time + 1)</dfn> </td></tr>
+<tr><td style="text-align:center;"> Assignment </td><td style="text-align:center;"> P20 </td><td style="text-align:center;"> <dfn>my<sub class="i">piecewise</sub>(my<sub class="i">arctanh</sub>(time), time &lt; 1, 10)</dfn> </td></tr>
+<tr><td style="text-align:center;"> Assignment </td><td style="text-align:center;"> P21 </td><td style="text-align:center;"> <dfn>my<sub class="i">piecewise</sub>(my<sub class="i">arctanh</sub>(&#8722;time), time &lt; 1, &#8722;10)</dfn> </td></tr>
+<tr><td style="text-align:center;"> Assignment </td><td style="text-align:center;"> P22 </td><td style="text-align:center;"> <dfn>my<sub class="i">piecewise</sub>(0, (time &#8804; 0) || (time &#8805; 1), my<sub class="i">arcsech</sub>(time))</dfn> </td></tr>
+<tr><td style="text-align:center;"> Assignment </td><td style="text-align:center;"> P23 </td><td style="text-align:center;"> <dfn>my<sub class="i">arccsch</sub>(time + 1)</dfn> </td></tr>
+<tr><td style="text-align:center;"> Assignment </td><td style="text-align:center;"> P24 </td><td style="text-align:center;"> <dfn>my<sub class="i">arccsch</sub>(&#8722;time &#8722; 1)</dfn> </td></tr>
+<tr><td style="text-align:center;"> Assignment </td><td style="text-align:center;"> P25 </td><td style="text-align:center;"> <dfn>my<sub class="i">arccoth</sub>(time + 1.001)</dfn> </td></tr>
+<tr><td style="text-align:center;"> Assignment </td><td style="text-align:center;"> P26 </td><td style="text-align:center;"> <dfn>my<sub class="i">arccoth</sub>(&#8722;time &#8722; 1.001)</dfn> </td></tr></table>
+<p>The model contains the following function definitions:</p>
+<table style="width:30em;margin: 1em auto;"><tr><td style="text-align:center;">  <strong>Id</strong>  </td><td style="text-align:center;">  <strong>Arguments</strong>  </td><td style="text-align:center;">  <strong>Formula</strong>  </td></tr>
+<tr><td style="text-align:center;"> my_piecewise </td><td style="text-align:center;"> x, y, z </td><td style="text-align:center;"> <dfn>piecewise(x, y, z)</dfn> </td></tr>
+<tr><td style="text-align:center;"> my_sec </td><td style="text-align:center;"> x </td><td style="text-align:center;"> <dfn>sec(x)</dfn> </td></tr>
+<tr><td style="text-align:center;"> my_csc </td><td style="text-align:center;"> x </td><td style="text-align:center;"> <dfn>csc(x)</dfn> </td></tr>
+<tr><td style="text-align:center;"> my_cot </td><td style="text-align:center;"> x </td><td style="text-align:center;"> <dfn>cot(x)</dfn> </td></tr>
+<tr><td style="text-align:center;"> my_sinh </td><td style="text-align:center;"> x </td><td style="text-align:center;"> <dfn>sinh(x)</dfn> </td></tr>
+<tr><td style="text-align:center;"> my_cosh </td><td style="text-align:center;"> x </td><td style="text-align:center;"> <dfn>cosh(x)</dfn> </td></tr>
+<tr><td style="text-align:center;"> my_arcsec </td><td style="text-align:center;"> x </td><td style="text-align:center;"> <dfn>arcsec(x)</dfn> </td></tr>
+<tr><td style="text-align:center;"> my_arccsc </td><td style="text-align:center;"> x </td><td style="text-align:center;"> <dfn>arccsc(x)</dfn> </td></tr>
+<tr><td style="text-align:center;"> my_arccot </td><td style="text-align:center;"> x </td><td style="text-align:center;"> <dfn>arccot(x)</dfn> </td></tr>
+<tr><td style="text-align:center;"> my_arcsinh </td><td style="text-align:center;"> x </td><td style="text-align:center;"> <dfn>arcsinh(x)</dfn> </td></tr>
+<tr><td style="text-align:center;"> my_arccosh </td><td style="text-align:center;"> x </td><td style="text-align:center;"> <dfn>arccosh(x)</dfn> </td></tr>
+<tr><td style="text-align:center;"> my_arctanh </td><td style="text-align:center;"> x </td><td style="text-align:center;"> <dfn>arctanh(x)</dfn> </td></tr>
+<tr><td style="text-align:center;"> my_arcsech </td><td style="text-align:center;"> x </td><td style="text-align:center;"> <dfn>arcsech(x)</dfn> </td></tr>
+<tr><td style="text-align:center;"> my_arccsch </td><td style="text-align:center;"> x </td><td style="text-align:center;"> <dfn>arccsch(x)</dfn> </td></tr>
+<tr><td style="text-align:center;"> my_arccoth </td><td style="text-align:center;"> x </td><td style="text-align:center;"> <dfn>arccoth(x)</dfn> </td></tr>
+<tr><td style="text-align:center;"> my_exponentiale </td><td style="text-align:center;">  </td><td style="text-align:center;"> <dfn>plus(exponentiale)</dfn> </td></tr>
+<tr><td style="text-align:center;"> my_exp </td><td style="text-align:center;"> x </td><td style="text-align:center;"> <dfn>exp(x)</dfn> </td><td style="text-align:left;"><p>
+]
+The initial conditions are as follows:</p>
+<table style="width:35em;margin: 1em auto;"><tr><td>       </td><td style="text-align:center;"> <strong>Value</strong> </td><td style="text-align:center;"> <strong>Constant</strong> </td></tr>
+<tr><td style="text-align:center;"> Initial value of parameter P1 </td><td style="text-align:center;"> <dfn>my<sub class="i">sec</sub>(time)</dfn> </td><td style="text-align:center;"> variable </td></tr>
+<tr><td style="text-align:center;"> Initial value of parameter P2 </td><td style="text-align:center;"> <dfn>my<sub class="i">sec</sub>(&#8722;time)</dfn> </td><td style="text-align:center;"> variable </td></tr>
+<tr><td style="text-align:center;"> Initial value of parameter P3 </td><td style="text-align:center;"> <dfn>my<sub class="i">csc</sub>(time + 0.001)</dfn> </td><td style="text-align:center;"> variable </td></tr>
+<tr><td style="text-align:center;"> Initial value of parameter P4 </td><td style="text-align:center;"> <dfn>my<sub class="i">csc</sub>(&#8722;time &#8722; 0.001)</dfn> </td><td style="text-align:center;"> variable </td></tr>
+<tr><td style="text-align:center;"> Initial value of parameter P5 </td><td style="text-align:center;"> <dfn>my<sub class="i">cot</sub>(time + 0.001)</dfn> </td><td style="text-align:center;"> variable </td></tr>
+<tr><td style="text-align:center;"> Initial value of parameter P6 </td><td style="text-align:center;"> <dfn>my<sub class="i">cot</sub>(&#8722;time &#8722; 0.001)</dfn> </td><td style="text-align:center;"> variable </td></tr>
+<tr><td style="text-align:center;"> Initial value of parameter P7 </td><td style="text-align:center;"> <dfn>my<sub class="i">sinh</sub>(time)</dfn> </td><td style="text-align:center;"> variable </td></tr>
+<tr><td style="text-align:center;"> Initial value of parameter P8 </td><td style="text-align:center;"> <dfn>my<sub class="i">sinh</sub>(&#8722;time)</dfn> </td><td style="text-align:center;"> variable </td></tr>
+<tr><td style="text-align:center;"> Initial value of parameter P9 </td><td style="text-align:center;"> <dfn>my<sub class="i">cosh</sub>(time)</dfn> </td><td style="text-align:center;"> variable </td></tr>
+<tr><td style="text-align:center;"> Initial value of parameter P10 </td><td style="text-align:center;"> <dfn>my<sub class="i">cosh</sub>(&#8722;time)</dfn> </td><td style="text-align:center;"> variable </td></tr>
+<tr><td style="text-align:center;"> Initial value of parameter P11 </td><td style="text-align:center;"> <dfn>my<sub class="i">arcsec</sub>(time + 1)</dfn> </td><td style="text-align:center;"> variable </td></tr>
+<tr><td style="text-align:center;"> Initial value of parameter P12 </td><td style="text-align:center;"> <dfn>my<sub class="i">arcsec</sub>(&#8722;time &#8722; 1)</dfn> </td><td style="text-align:center;"> variable </td></tr>
+<tr><td style="text-align:center;"> Initial value of parameter P13 </td><td style="text-align:center;"> <dfn>my<sub class="i">arccsc</sub>(time + 1)</dfn> </td><td style="text-align:center;"> variable </td></tr>
+<tr><td style="text-align:center;"> Initial value of parameter P14 </td><td style="text-align:center;"> <dfn>my<sub class="i">arccsc</sub>(&#8722;time &#8722; 1)</dfn> </td><td style="text-align:center;"> variable </td></tr>
+<tr><td style="text-align:center;"> Initial value of parameter P15 </td><td style="text-align:center;"> <dfn>my<sub class="i">arccot</sub>(time)</dfn> </td><td style="text-align:center;"> variable </td></tr>
+<tr><td style="text-align:center;"> Initial value of parameter P16 </td><td style="text-align:center;"> <dfn>my<sub class="i">arccot</sub>(&#8722;time)</dfn> </td><td style="text-align:center;"> variable </td></tr>
+<tr><td style="text-align:center;"> Initial value of parameter P17 </td><td style="text-align:center;"> <dfn>my<sub class="i">arcsinh</sub>(time)</dfn> </td><td style="text-align:center;"> variable </td></tr>
+<tr><td style="text-align:center;"> Initial value of parameter P18 </td><td style="text-align:center;"> <dfn>my<sub class="i">arcsinh</sub>(&#8722;time)</dfn> </td><td style="text-align:center;"> variable </td></tr>
+<tr><td style="text-align:center;"> Initial value of parameter P19 </td><td style="text-align:center;"> <dfn>my<sub class="i">arccosh</sub>(time + 1)</dfn> </td><td style="text-align:center;"> variable </td></tr>
+<tr><td style="text-align:center;"> Initial value of parameter P20 </td><td style="text-align:center;"> <dfn>my<sub class="i">piecewise</sub>(my<sub class="i">arctanh</sub>(time), time &lt; 1, 10)</dfn> </td><td style="text-align:center;"> variable </td></tr>
+<tr><td style="text-align:center;"> Initial value of parameter P21 </td><td style="text-align:center;"> <dfn>my<sub class="i">piecewise</sub>(my<sub class="i">arctanh</sub>(&#8722;time), time &lt; 1, &#8722;10)</dfn> </td><td style="text-align:center;"> variable </td></tr>
+<tr><td style="text-align:center;"> Initial value of parameter P22 </td><td style="text-align:center;"> <dfn>my<sub class="i">piecewise</sub>(0, (time &#8804; 0) || (time &#8805; 1), my<sub class="i">arcsech</sub>(time))</dfn> </td><td style="text-align:center;"> variable </td></tr>
+<tr><td style="text-align:center;"> Initial value of parameter P23 </td><td style="text-align:center;"> <dfn>my<sub class="i">arccsch</sub>(time + 1)</dfn> </td><td style="text-align:center;"> variable </td></tr>
+<tr><td style="text-align:center;"> Initial value of parameter P24 </td><td style="text-align:center;"> <dfn>my<sub class="i">arccsch</sub>(&#8722;time &#8722; 1)</dfn> </td><td style="text-align:center;"> variable </td></tr>
+<tr><td style="text-align:center;"> Initial value of parameter P25 </td><td style="text-align:center;"> <dfn>my<sub class="i">arccoth</sub>(time + 1.001)</dfn> </td><td style="text-align:center;"> variable </td></tr>
+<tr><td style="text-align:center;"> Initial value of parameter P26 </td><td style="text-align:center;"> <dfn>my<sub class="i">arccoth</sub>(&#8722;time &#8722; 1.001)</dfn> </td><td style="text-align:center;"> variable </td></tr></table>
+<p>Note: The test data for this model was generated from an analytical
+solution of the system of equations.</p>

@@ -1,0 +1,20 @@
+<p>
+ In this model, a chain of assignment rules and initial assignments assign a to b, b to c, c to d, etc.  However, every other initial assignment occurs in the parent model, alternating with assignment rules in the submodel.  This is designed to check simulators that might treat submodels separately from parent models, to make sure they can follow a chain of assignments across the parent/child boundary.</p>
+<p>The 'flattened' version of this hierarchical model contains:</p><ul>
+<li class="u">7 parameters (a, b, c, d, e, f, g)</li></ul>
+<p>There are 3 rules:</p>
+<table style="width:30em;margin: 1em auto;"><tr><td style="text-align:center;">  <strong>Type</strong>  </td><td style="text-align:center;">  <strong>Variable</strong>  </td><td style="text-align:center;">  <strong>Formula</strong>  </td></tr>
+<tr><td style="text-align:center;"> Assignment </td><td style="text-align:center;"> b </td><td style="text-align:center;"> <dfn>a</dfn> </td></tr>
+<tr><td style="text-align:center;"> Assignment </td><td style="text-align:center;"> d </td><td style="text-align:center;"> <dfn>c</dfn> </td></tr>
+<tr><td style="text-align:center;"> Assignment </td><td style="text-align:center;"> f </td><td style="text-align:center;"> <dfn>e</dfn> </td></tr></table>
+<p>The initial conditions are as follows:</p>
+<table style="width:35em;margin: 1em auto;"><tr><td style="text-align:center;">       </td><td style="text-align:center;"> <strong>Value</strong> </td><td style="text-align:center;"> <strong>Constant</strong> </td></tr>
+<tr><td style="text-align:center;"> Initial value of parameter a </td><td style="text-align:center;"> <dfn>1</dfn> </td><td style="text-align:center;"> constant </td></tr>
+<tr><td style="text-align:center;"> Initial value of parameter b </td><td style="text-align:center;"> <dfn>a</dfn> </td><td style="text-align:center;"> variable </td></tr>
+<tr><td style="text-align:center;"> Initial value of parameter c </td><td style="text-align:center;"> <dfn>b</dfn> </td><td style="text-align:center;"> variable </td></tr>
+<tr><td style="text-align:center;"> Initial value of parameter d </td><td style="text-align:center;"> <dfn>c</dfn> </td><td style="text-align:center;"> variable </td></tr>
+<tr><td style="text-align:center;"> Initial value of parameter e </td><td style="text-align:center;"> <dfn>d</dfn> </td><td style="text-align:center;"> variable </td></tr>
+<tr><td style="text-align:center;"> Initial value of parameter f </td><td style="text-align:center;"> <dfn>e</dfn> </td><td style="text-align:center;"> variable </td></tr>
+<tr><td style="text-align:center;"> Initial value of parameter g </td><td style="text-align:center;"> <dfn>f</dfn> </td><td style="text-align:center;"> variable </td></tr></table>
+<p>Note: The test data for this model was generated from an analytical
+solution of the system of equations.</p>

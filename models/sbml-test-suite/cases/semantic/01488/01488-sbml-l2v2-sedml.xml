@@ -1,0 +1,296 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- Written by libSedML v1.1.5419.25885 see http://libsedml.sf.net -->
+<sedML level="1" version="1" xmlns="http://sed-ml.org/">
+  <listOfSimulations>
+    <uniformTimeCourse id="simulation_1" initialTime="0" outputStartTime="0" outputEndTime="1" numberOfPoints="10">
+      <algorithm kisaoID="KISAO:0000019" />
+    </uniformTimeCourse>
+  </listOfSimulations>
+  <listOfModels>
+    <model id="model_1" language="urn:sedml:language:sbml" source="01488-sbml-l2v2.xml" />
+  </listOfModels>
+  <listOfTasks>
+    <task id="task_1" modelReference="model_1" simulationReference="simulation_1" />
+  </listOfTasks>
+  <listOfDataGenerators>
+    <dataGenerator id="time_1" name="time">
+      <listOfVariables>
+        <variable id="time" taskReference="task_1" symbol="urn:sedml:symbol:time" />
+      </listOfVariables>
+      <math xmlns="http://www.w3.org/1998/Math/MathML">
+        <ci> time </ci>
+      </math>
+    </dataGenerator>
+    <dataGenerator id="P1_1" name="P1">
+      <listOfVariables>
+        <variable id="P1" name="P1" taskReference="task_1" target="/sbml:sbml/sbml:model/sbml:listOfParameters/sbml:parameter[@id='P1']" />
+      </listOfVariables>
+      <math xmlns="http://www.w3.org/1998/Math/MathML">
+        <ci> P1 </ci>
+      </math>
+    </dataGenerator>
+    <dataGenerator id="P2_1" name="P2">
+      <listOfVariables>
+        <variable id="P2" name="P2" taskReference="task_1" target="/sbml:sbml/sbml:model/sbml:listOfParameters/sbml:parameter[@id='P2']" />
+      </listOfVariables>
+      <math xmlns="http://www.w3.org/1998/Math/MathML">
+        <ci> P2 </ci>
+      </math>
+    </dataGenerator>
+    <dataGenerator id="P3_1" name="P3">
+      <listOfVariables>
+        <variable id="P3" name="P3" taskReference="task_1" target="/sbml:sbml/sbml:model/sbml:listOfParameters/sbml:parameter[@id='P3']" />
+      </listOfVariables>
+      <math xmlns="http://www.w3.org/1998/Math/MathML">
+        <ci> P3 </ci>
+      </math>
+    </dataGenerator>
+    <dataGenerator id="P4_1" name="P4">
+      <listOfVariables>
+        <variable id="P4" name="P4" taskReference="task_1" target="/sbml:sbml/sbml:model/sbml:listOfParameters/sbml:parameter[@id='P4']" />
+      </listOfVariables>
+      <math xmlns="http://www.w3.org/1998/Math/MathML">
+        <ci> P4 </ci>
+      </math>
+    </dataGenerator>
+    <dataGenerator id="P5_1" name="P5">
+      <listOfVariables>
+        <variable id="P5" name="P5" taskReference="task_1" target="/sbml:sbml/sbml:model/sbml:listOfParameters/sbml:parameter[@id='P5']" />
+      </listOfVariables>
+      <math xmlns="http://www.w3.org/1998/Math/MathML">
+        <ci> P5 </ci>
+      </math>
+    </dataGenerator>
+    <dataGenerator id="P6_1" name="P6">
+      <listOfVariables>
+        <variable id="P6" name="P6" taskReference="task_1" target="/sbml:sbml/sbml:model/sbml:listOfParameters/sbml:parameter[@id='P6']" />
+      </listOfVariables>
+      <math xmlns="http://www.w3.org/1998/Math/MathML">
+        <ci> P6 </ci>
+      </math>
+    </dataGenerator>
+    <dataGenerator id="P7_1" name="P7">
+      <listOfVariables>
+        <variable id="P7" name="P7" taskReference="task_1" target="/sbml:sbml/sbml:model/sbml:listOfParameters/sbml:parameter[@id='P7']" />
+      </listOfVariables>
+      <math xmlns="http://www.w3.org/1998/Math/MathML">
+        <ci> P7 </ci>
+      </math>
+    </dataGenerator>
+    <dataGenerator id="P8_1" name="P8">
+      <listOfVariables>
+        <variable id="P8" name="P8" taskReference="task_1" target="/sbml:sbml/sbml:model/sbml:listOfParameters/sbml:parameter[@id='P8']" />
+      </listOfVariables>
+      <math xmlns="http://www.w3.org/1998/Math/MathML">
+        <ci> P8 </ci>
+      </math>
+    </dataGenerator>
+    <dataGenerator id="P9_1" name="P9">
+      <listOfVariables>
+        <variable id="P9" name="P9" taskReference="task_1" target="/sbml:sbml/sbml:model/sbml:listOfParameters/sbml:parameter[@id='P9']" />
+      </listOfVariables>
+      <math xmlns="http://www.w3.org/1998/Math/MathML">
+        <ci> P9 </ci>
+      </math>
+    </dataGenerator>
+    <dataGenerator id="P10_1" name="P10">
+      <listOfVariables>
+        <variable id="P10" name="P10" taskReference="task_1" target="/sbml:sbml/sbml:model/sbml:listOfParameters/sbml:parameter[@id='P10']" />
+      </listOfVariables>
+      <math xmlns="http://www.w3.org/1998/Math/MathML">
+        <ci> P10 </ci>
+      </math>
+    </dataGenerator>
+    <dataGenerator id="P11_1" name="P11">
+      <listOfVariables>
+        <variable id="P11" name="P11" taskReference="task_1" target="/sbml:sbml/sbml:model/sbml:listOfParameters/sbml:parameter[@id='P11']" />
+      </listOfVariables>
+      <math xmlns="http://www.w3.org/1998/Math/MathML">
+        <ci> P11 </ci>
+      </math>
+    </dataGenerator>
+    <dataGenerator id="P12_1" name="P12">
+      <listOfVariables>
+        <variable id="P12" name="P12" taskReference="task_1" target="/sbml:sbml/sbml:model/sbml:listOfParameters/sbml:parameter[@id='P12']" />
+      </listOfVariables>
+      <math xmlns="http://www.w3.org/1998/Math/MathML">
+        <ci> P12 </ci>
+      </math>
+    </dataGenerator>
+    <dataGenerator id="P13_1" name="P13">
+      <listOfVariables>
+        <variable id="P13" name="P13" taskReference="task_1" target="/sbml:sbml/sbml:model/sbml:listOfParameters/sbml:parameter[@id='P13']" />
+      </listOfVariables>
+      <math xmlns="http://www.w3.org/1998/Math/MathML">
+        <ci> P13 </ci>
+      </math>
+    </dataGenerator>
+    <dataGenerator id="P14_1" name="P14">
+      <listOfVariables>
+        <variable id="P14" name="P14" taskReference="task_1" target="/sbml:sbml/sbml:model/sbml:listOfParameters/sbml:parameter[@id='P14']" />
+      </listOfVariables>
+      <math xmlns="http://www.w3.org/1998/Math/MathML">
+        <ci> P14 </ci>
+      </math>
+    </dataGenerator>
+    <dataGenerator id="P15_1" name="P15">
+      <listOfVariables>
+        <variable id="P15" name="P15" taskReference="task_1" target="/sbml:sbml/sbml:model/sbml:listOfParameters/sbml:parameter[@id='P15']" />
+      </listOfVariables>
+      <math xmlns="http://www.w3.org/1998/Math/MathML">
+        <ci> P15 </ci>
+      </math>
+    </dataGenerator>
+    <dataGenerator id="P16_1" name="P16">
+      <listOfVariables>
+        <variable id="P16" name="P16" taskReference="task_1" target="/sbml:sbml/sbml:model/sbml:listOfParameters/sbml:parameter[@id='P16']" />
+      </listOfVariables>
+      <math xmlns="http://www.w3.org/1998/Math/MathML">
+        <ci> P16 </ci>
+      </math>
+    </dataGenerator>
+    <dataGenerator id="P17_1" name="P17">
+      <listOfVariables>
+        <variable id="P17" name="P17" taskReference="task_1" target="/sbml:sbml/sbml:model/sbml:listOfParameters/sbml:parameter[@id='P17']" />
+      </listOfVariables>
+      <math xmlns="http://www.w3.org/1998/Math/MathML">
+        <ci> P17 </ci>
+      </math>
+    </dataGenerator>
+    <dataGenerator id="P18_1" name="P18">
+      <listOfVariables>
+        <variable id="P18" name="P18" taskReference="task_1" target="/sbml:sbml/sbml:model/sbml:listOfParameters/sbml:parameter[@id='P18']" />
+      </listOfVariables>
+      <math xmlns="http://www.w3.org/1998/Math/MathML">
+        <ci> P18 </ci>
+      </math>
+    </dataGenerator>
+    <dataGenerator id="P19_1" name="P19">
+      <listOfVariables>
+        <variable id="P19" name="P19" taskReference="task_1" target="/sbml:sbml/sbml:model/sbml:listOfParameters/sbml:parameter[@id='P19']" />
+      </listOfVariables>
+      <math xmlns="http://www.w3.org/1998/Math/MathML">
+        <ci> P19 </ci>
+      </math>
+    </dataGenerator>
+    <dataGenerator id="P20_1" name="P20">
+      <listOfVariables>
+        <variable id="P20" name="P20" taskReference="task_1" target="/sbml:sbml/sbml:model/sbml:listOfParameters/sbml:parameter[@id='P20']" />
+      </listOfVariables>
+      <math xmlns="http://www.w3.org/1998/Math/MathML">
+        <ci> P20 </ci>
+      </math>
+    </dataGenerator>
+    <dataGenerator id="P21_1" name="P21">
+      <listOfVariables>
+        <variable id="P21" name="P21" taskReference="task_1" target="/sbml:sbml/sbml:model/sbml:listOfParameters/sbml:parameter[@id='P21']" />
+      </listOfVariables>
+      <math xmlns="http://www.w3.org/1998/Math/MathML">
+        <ci> P21 </ci>
+      </math>
+    </dataGenerator>
+    <dataGenerator id="P22_1" name="P22">
+      <listOfVariables>
+        <variable id="P22" name="P22" taskReference="task_1" target="/sbml:sbml/sbml:model/sbml:listOfParameters/sbml:parameter[@id='P22']" />
+      </listOfVariables>
+      <math xmlns="http://www.w3.org/1998/Math/MathML">
+        <ci> P22 </ci>
+      </math>
+    </dataGenerator>
+    <dataGenerator id="P23_1" name="P23">
+      <listOfVariables>
+        <variable id="P23" name="P23" taskReference="task_1" target="/sbml:sbml/sbml:model/sbml:listOfParameters/sbml:parameter[@id='P23']" />
+      </listOfVariables>
+      <math xmlns="http://www.w3.org/1998/Math/MathML">
+        <ci> P23 </ci>
+      </math>
+    </dataGenerator>
+    <dataGenerator id="P24_1" name="P24">
+      <listOfVariables>
+        <variable id="P24" name="P24" taskReference="task_1" target="/sbml:sbml/sbml:model/sbml:listOfParameters/sbml:parameter[@id='P24']" />
+      </listOfVariables>
+      <math xmlns="http://www.w3.org/1998/Math/MathML">
+        <ci> P24 </ci>
+      </math>
+    </dataGenerator>
+    <dataGenerator id="P25_1" name="P25">
+      <listOfVariables>
+        <variable id="P25" name="P25" taskReference="task_1" target="/sbml:sbml/sbml:model/sbml:listOfParameters/sbml:parameter[@id='P25']" />
+      </listOfVariables>
+      <math xmlns="http://www.w3.org/1998/Math/MathML">
+        <ci> P25 </ci>
+      </math>
+    </dataGenerator>
+    <dataGenerator id="P26_1" name="P26">
+      <listOfVariables>
+        <variable id="P26" name="P26" taskReference="task_1" target="/sbml:sbml/sbml:model/sbml:listOfParameters/sbml:parameter[@id='P26']" />
+      </listOfVariables>
+      <math xmlns="http://www.w3.org/1998/Math/MathML">
+        <ci> P26 </ci>
+      </math>
+    </dataGenerator>
+  </listOfDataGenerators>
+  <listOfOutputs>
+    <plot2D id="plot_1" name="Timecourse for test 01488">
+      <listOfCurves>
+        <curve id="c_P1_1" name="P1" logX="false" logY="false" xDataReference="time_1" yDataReference="P1_1" />
+        <curve id="c_P2_1" name="P2" logX="false" logY="false" xDataReference="time_1" yDataReference="P2_1" />
+        <curve id="c_P3_1" name="P3" logX="false" logY="false" xDataReference="time_1" yDataReference="P3_1" />
+        <curve id="c_P4_1" name="P4" logX="false" logY="false" xDataReference="time_1" yDataReference="P4_1" />
+        <curve id="c_P5_1" name="P5" logX="false" logY="false" xDataReference="time_1" yDataReference="P5_1" />
+        <curve id="c_P6_1" name="P6" logX="false" logY="false" xDataReference="time_1" yDataReference="P6_1" />
+        <curve id="c_P7_1" name="P7" logX="false" logY="false" xDataReference="time_1" yDataReference="P7_1" />
+        <curve id="c_P8_1" name="P8" logX="false" logY="false" xDataReference="time_1" yDataReference="P8_1" />
+        <curve id="c_P9_1" name="P9" logX="false" logY="false" xDataReference="time_1" yDataReference="P9_1" />
+        <curve id="c_P10_1" name="P10" logX="false" logY="false" xDataReference="time_1" yDataReference="P10_1" />
+        <curve id="c_P11_1" name="P11" logX="false" logY="false" xDataReference="time_1" yDataReference="P11_1" />
+        <curve id="c_P12_1" name="P12" logX="false" logY="false" xDataReference="time_1" yDataReference="P12_1" />
+        <curve id="c_P13_1" name="P13" logX="false" logY="false" xDataReference="time_1" yDataReference="P13_1" />
+        <curve id="c_P14_1" name="P14" logX="false" logY="false" xDataReference="time_1" yDataReference="P14_1" />
+        <curve id="c_P15_1" name="P15" logX="false" logY="false" xDataReference="time_1" yDataReference="P15_1" />
+        <curve id="c_P16_1" name="P16" logX="false" logY="false" xDataReference="time_1" yDataReference="P16_1" />
+        <curve id="c_P17_1" name="P17" logX="false" logY="false" xDataReference="time_1" yDataReference="P17_1" />
+        <curve id="c_P18_1" name="P18" logX="false" logY="false" xDataReference="time_1" yDataReference="P18_1" />
+        <curve id="c_P19_1" name="P19" logX="false" logY="false" xDataReference="time_1" yDataReference="P19_1" />
+        <curve id="c_P20_1" name="P20" logX="false" logY="false" xDataReference="time_1" yDataReference="P20_1" />
+        <curve id="c_P21_1" name="P21" logX="false" logY="false" xDataReference="time_1" yDataReference="P21_1" />
+        <curve id="c_P22_1" name="P22" logX="false" logY="false" xDataReference="time_1" yDataReference="P22_1" />
+        <curve id="c_P23_1" name="P23" logX="false" logY="false" xDataReference="time_1" yDataReference="P23_1" />
+        <curve id="c_P24_1" name="P24" logX="false" logY="false" xDataReference="time_1" yDataReference="P24_1" />
+        <curve id="c_P25_1" name="P25" logX="false" logY="false" xDataReference="time_1" yDataReference="P25_1" />
+        <curve id="c_P26_1" name="P26" logX="false" logY="false" xDataReference="time_1" yDataReference="P26_1" />
+      </listOfCurves>
+    </plot2D>
+    <report id="report_1" name="Report for test 01488">
+      <listOfDataSets>
+        <dataSet id="ds_time" dataReference="time_1" label="Time" />
+        <dataSet id="ds_P1_1" dataReference="P1_1" label="P1" />
+        <dataSet id="ds_P2_1" dataReference="P2_1" label="P2" />
+        <dataSet id="ds_P3_1" dataReference="P3_1" label="P3" />
+        <dataSet id="ds_P4_1" dataReference="P4_1" label="P4" />
+        <dataSet id="ds_P5_1" dataReference="P5_1" label="P5" />
+        <dataSet id="ds_P6_1" dataReference="P6_1" label="P6" />
+        <dataSet id="ds_P7_1" dataReference="P7_1" label="P7" />
+        <dataSet id="ds_P8_1" dataReference="P8_1" label="P8" />
+        <dataSet id="ds_P9_1" dataReference="P9_1" label="P9" />
+        <dataSet id="ds_P10_1" dataReference="P10_1" label="P10" />
+        <dataSet id="ds_P11_1" dataReference="P11_1" label="P11" />
+        <dataSet id="ds_P12_1" dataReference="P12_1" label="P12" />
+        <dataSet id="ds_P13_1" dataReference="P13_1" label="P13" />
+        <dataSet id="ds_P14_1" dataReference="P14_1" label="P14" />
+        <dataSet id="ds_P15_1" dataReference="P15_1" label="P15" />
+        <dataSet id="ds_P16_1" dataReference="P16_1" label="P16" />
+        <dataSet id="ds_P17_1" dataReference="P17_1" label="P17" />
+        <dataSet id="ds_P18_1" dataReference="P18_1" label="P18" />
+        <dataSet id="ds_P19_1" dataReference="P19_1" label="P19" />
+        <dataSet id="ds_P20_1" dataReference="P20_1" label="P20" />
+        <dataSet id="ds_P21_1" dataReference="P21_1" label="P21" />
+        <dataSet id="ds_P22_1" dataReference="P22_1" label="P22" />
+        <dataSet id="ds_P23_1" dataReference="P23_1" label="P23" />
+        <dataSet id="ds_P24_1" dataReference="P24_1" label="P24" />
+        <dataSet id="ds_P25_1" dataReference="P25_1" label="P25" />
+        <dataSet id="ds_P26_1" dataReference="P26_1" label="P26" />
+      </listOfDataSets>
+    </report>
+  </listOfOutputs>
+</sedML>

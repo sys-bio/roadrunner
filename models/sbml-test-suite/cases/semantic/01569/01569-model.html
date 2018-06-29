@@ -1,0 +1,21 @@
+<p>
+The model tests fast reactions which are positive or negative depending on the results of initial assignments.</p>
+<p>The model contains:</p><ul>
+<li class="u">4 species (S1, S2, S3, S4)</li>
+<li class="u">2 parameters (k1, k2)</li>
+<li class="u">1 compartment (C)</li></ul>
+<p>There are 2 reactions:</p>
+<table style="width:30em;margin: 1em auto;"><tr><td style="text-align:center;">  <strong>Reaction</strong>  </td><td style="text-align:center;">  <strong>Rate</strong>  </td><td style="text-align:center;">  <strong>Fast</strong>  </td></tr>
+<tr><td style="text-align:center;"> J0: S1 &#8594; S2 </td><td style="text-align:center;"> <dfn>S1 &#183; S2 &#183; k1</dfn> </td><td style="text-align:center;"> fast </td></tr>
+<tr><td style="text-align:center;"> J1: S3 &#8594; S4 </td><td style="text-align:center;"> <dfn>S3 &#183; S4 &#183; k2</dfn> </td><td style="text-align:center;"> fast </td></tr></table>
+<p>The initial conditions are as follows:</p>
+<table style="width:35em;margin: 1em auto;"><tr><td style="text-align:center;">       </td><td style="text-align:center;"> <strong>Value</strong> </td><td style="text-align:center;"> <strong>Constant</strong> </td></tr>
+<tr><td style="text-align:center;"> Initial concentration of species S1 </td><td style="text-align:center;"> <dfn>3</dfn> </td><td style="text-align:center;"> variable </td></tr>
+<tr><td style="text-align:center;"> Initial concentration of species S2 </td><td style="text-align:center;"> <dfn>3</dfn> </td><td style="text-align:center;"> variable </td></tr>
+<tr><td style="text-align:center;"> Initial concentration of species S3 </td><td style="text-align:center;"> <dfn>4</dfn> </td><td style="text-align:center;"> variable </td></tr>
+<tr><td style="text-align:center;"> Initial concentration of species S4 </td><td style="text-align:center;"> <dfn>4</dfn> </td><td style="text-align:center;"> variable </td></tr>
+<tr><td style="text-align:center;"> Initial value of parameter k1 </td><td style="text-align:center;"> <dfn>0.5 &#8722; time</dfn> </td><td style="text-align:center;"> variable </td></tr>
+<tr><td style="text-align:center;"> Initial value of parameter k2 </td><td style="text-align:center;"> <dfn>time &#8722; 0.5</dfn> </td><td style="text-align:center;"> variable </td></tr>
+<tr><td style="text-align:center;"> Initial volume of compartment 'C' </td><td style="text-align:center;"> <dfn>1</dfn> </td><td style="text-align:center;"> constant </td></tr></table>
+<p>Note: The test data for this model was generated from an analytical
+solution of the system of equations.</p>

@@ -1,0 +1,22 @@
+<p>
+ This model is a duplicate of 01779, with the event assignments reversed.  This should make no difference in the results.</p>
+<p> To recap model 1779: a species in a non-unity compartment is set 'hasOnlySubstanceUnits=false', meaning that the species concentration is used in all situations, including the event assignment.  However, another event assignment in the same event is to the volume of that species' compartment.  Both assignments are made based on the current state of the model, and <strong>not</strong> of of the state of the model after any one of the assignments.  As a result, the assignment to S1 should set the amount of S1 to 0.1.  The simultaneous assignment of 0.2 to the compartment means that the concentration of S1 ends up being 0.5 (0.1/0.2).  This is counter-intuitive, since the concentration of S1 was just assigned to be 0.2!  But it is a consequence of S1's concentration being derived instead of atomic.</p>
+<p> This test is a simpler variant of 01506, when it was realized some of the subtleties of that test were complicated by the rate rules.</p>
+<p>The model contains:</p><ul>
+<li class="u">1 species (S1)</li>
+<li class="u">1 parameter (x)</li>
+<li class="u">1 compartment (C1)</li></ul>
+<p>There is one event:</p>
+<table style="width:30em;margin: 1em auto;"><tr><td style="text-align:center;">  <strong>Event</strong>  </td><td style="text-align:center;">  <strong>Trigger</strong>  </td><td style="text-align:center;"> <strong>Event Assignments</strong> </td></tr>
+<tr><td style="text-align:center;"> E0 </td><td style="text-align:center;"> <dfn>time &#8805; 0.45</dfn> </td><td style="text-align:center;"> <dfn>C1 = 0.2</dfn> </td></tr>
+<tr><td style="text-align:center;">  </td><td style="text-align:center;">  </td><td style="text-align:center;"> <dfn>S1 = 0.2</dfn> </td></tr></table>
+<p>There is one rule:</p>
+<table style="width:30em;margin: 1em auto;"><tr><td style="text-align:center;">  <strong>Type</strong>  </td><td style="text-align:center;">  <strong>Variable</strong>  </td><td style="text-align:center;">  <strong>Formula</strong>  </td></tr>
+<tr><td style="text-align:center;"> Assignment </td><td style="text-align:center;"> x </td><td style="text-align:center;"> <dfn>S1</dfn> </td></tr></table>
+<p>The initial conditions are as follows:</p>
+<table style="width:35em;margin: 1em auto;"><tr><td style="text-align:center;">       </td><td style="text-align:center;"> <strong>Value</strong> </td><td style="text-align:center;"> <strong>Constant</strong> </td></tr>
+<tr><td style="text-align:center;"> Initial concentration of species S1 </td><td style="text-align:center;"> <dfn>2</dfn> </td><td style="text-align:center;"> variable </td></tr>
+<tr><td style="text-align:center;"> Initial value of parameter x </td><td style="text-align:center;"> <dfn>S1</dfn> </td><td style="text-align:center;"> variable </td></tr>
+<tr><td style="text-align:center;"> Initial volume of compartment 'C1' </td><td style="text-align:center;"> <dfn>0.5</dfn> </td><td style="text-align:center;"> variable </td></tr></table>
+<p>Note: The test data for this model was generated from an analytical
+solution of the system of equations.</p>

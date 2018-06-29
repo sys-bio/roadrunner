@@ -1,0 +1,76 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- Written by libSedML v1.1.5419.25885 see http://libsedml.sf.net -->
+<sedML level="1" version="1" xmlns="http://sed-ml.org/">
+  <listOfSimulations>
+    <uniformTimeCourse id="simulation_1" initialTime="0" outputStartTime="0" outputEndTime="10" numberOfPoints="10">
+      <algorithm kisaoID="KISAO:0000019" />
+    </uniformTimeCourse>
+  </listOfSimulations>
+  <listOfModels>
+    <model id="model_1" language="urn:sedml:language:sbml" source="01549-sbml-l2v1.xml" />
+  </listOfModels>
+  <listOfTasks>
+    <task id="task_1" modelReference="model_1" simulationReference="simulation_1" />
+  </listOfTasks>
+  <listOfDataGenerators>
+    <dataGenerator id="time_1" name="time">
+      <listOfVariables>
+        <variable id="time" taskReference="task_1" symbol="urn:sedml:symbol:time" />
+      </listOfVariables>
+      <math xmlns="http://www.w3.org/1998/Math/MathML">
+        <ci> time </ci>
+      </math>
+    </dataGenerator>
+    <dataGenerator id="S1_1" name="S1">
+      <listOfVariables>
+        <variable id="S1_1_s" taskReference="task_1" target="/sbml:sbml/sbml:model/sbml:listOfSpecies/sbml:species[@id='S1']" />
+        <variable id="S1_1_c" taskReference="task_1" target="/sbml:sbml/sbml:model/sbml:listOfCompartments/sbml:compartment[@id='C']" />
+      </listOfVariables>
+      <math xmlns="http://www.w3.org/1998/Math/MathML">
+        <apply>
+          <times />
+          <ci> S1_1_s </ci>
+          <ci> S1_1_c </ci>
+        </apply>
+      </math>
+    </dataGenerator>
+    <dataGenerator id="S2_1" name="S2">
+      <listOfVariables>
+        <variable id="S2_1_s" taskReference="task_1" target="/sbml:sbml/sbml:model/sbml:listOfSpecies/sbml:species[@id='S2']" />
+        <variable id="S2_1_c" taskReference="task_1" target="/sbml:sbml/sbml:model/sbml:listOfCompartments/sbml:compartment[@id='C']" />
+      </listOfVariables>
+      <math xmlns="http://www.w3.org/1998/Math/MathML">
+        <apply>
+          <times />
+          <ci> S2_1_s </ci>
+          <ci> S2_1_c </ci>
+        </apply>
+      </math>
+    </dataGenerator>
+    <dataGenerator id="C_1" name="C">
+      <listOfVariables>
+        <variable id="C" name="C" taskReference="task_1" target="/sbml:sbml/sbml:model/sbml:listOfCompartments/sbml:compartment[@id='C']" />
+      </listOfVariables>
+      <math xmlns="http://www.w3.org/1998/Math/MathML">
+        <ci> C </ci>
+      </math>
+    </dataGenerator>
+  </listOfDataGenerators>
+  <listOfOutputs>
+    <plot2D id="plot_1" name="Timecourse for test 01549">
+      <listOfCurves>
+        <curve id="c_S1_1" name="S1" logX="false" logY="false" xDataReference="time_1" yDataReference="S1_1" />
+        <curve id="c_S2_1" name="S2" logX="false" logY="false" xDataReference="time_1" yDataReference="S2_1" />
+        <curve id="c_C_1" name="C" logX="false" logY="false" xDataReference="time_1" yDataReference="C_1" />
+      </listOfCurves>
+    </plot2D>
+    <report id="report_1" name="Report for test 01549">
+      <listOfDataSets>
+        <dataSet id="ds_time" dataReference="time_1" label="Time" />
+        <dataSet id="ds_S1_1" dataReference="S1_1" label="S1" />
+        <dataSet id="ds_S2_1" dataReference="S2_1" label="S2" />
+        <dataSet id="ds_C_1" dataReference="C_1" label="C" />
+      </listOfDataSets>
+    </report>
+  </listOfOutputs>
+</sedML>

@@ -1,0 +1,30 @@
+<p>
+ In this model, a stoichiometry is changed due to a rate rule that calls a function definition. This model is the same as 1742, but uses the StoichiometryMath of level 2 SBML.</p>
+<p>The model contains:</p><ul>
+<li class="u">1 species (S1)</li>
+<li class="u">1 parameter (parameterId_0)</li>
+<li class="u">1 compartment (C)</li>
+<li class="u">1 species reference (S1_stoich)</li></ul>
+<p>There is one reaction:</p>
+<table style="width:30em;margin: 1em auto;"><tr><td style="text-align:center;">  <strong>Reaction</strong>  </td><td style="text-align:center;">  <strong>Rate</strong>  </td></tr>
+<tr><td style="text-align:center;"> J0: &#8594; S1_stoich S1 </td><td style="text-align:center;"> <dfn>0.1</dfn> </td></tr></table><p>
+Note:  the following stoichiometries are set separately:  S1_stoich</p>
+<p>There is one rule:</p>
+<table style="width:30em;margin: 1em auto;"><tr><td style="text-align:center;">  <strong>Type</strong>  </td><td style="text-align:center;">  <strong>Variable</strong>  </td><td style="text-align:center;">  <strong>Formula</strong>  </td></tr>
+<tr><td style="text-align:center;"> Rate </td><td style="text-align:center;"> parameterId_0 </td><td style="text-align:center;"> <dfn>getOnePointFive()</dfn> </td></tr></table>
+<p>The model contains the following function definition:</p>
+<table style="width:30em;margin: 1em auto;"><tr><td style="text-align:center;">  <strong>Id</strong>  </td><td style="text-align:center;">  <strong>Arguments</strong>  </td><td style="text-align:center;">  <strong>Formula</strong>  </td></tr>
+<tr><td style="text-align:center;"> getOnePointFive </td><td style="text-align:center;">  </td><td style="text-align:center;"> <dfn>1.5</dfn> </td><td style="text-align:left;"><p>
+]
+The initial conditions are as follows:</p>
+<table style="width:35em;margin: 1em auto;"><tr><td>       </td><td style="text-align:center;"> <strong>Value</strong> </td><td style="text-align:center;"> <strong>Constant</strong> </td></tr>
+<tr><td style="text-align:center;"> Initial amount of species S1 </td><td style="text-align:center;"> <dfn>2</dfn> </td><td style="text-align:center;"> variable </td></tr>
+<tr><td style="text-align:center;"> Initial value of parameter parameterId_0 </td><td style="text-align:center;"> <dfn>1</dfn> </td><td style="text-align:center;"> variable </td></tr>
+<tr><td style="text-align:center;"> Initial volume of compartment 'C' </td><td style="text-align:center;"> <dfn>1</dfn> </td><td style="text-align:center;"> constant </td></tr>
+<tr><td style="text-align:center;"> Initial value of species reference 'S1_stoich' </td><td style="text-align:center;"> <dfn>parameterId<sub class="i">0</sub></dfn> </td><td style="text-align:center;"> variable </td></tr></table>
+<p>The species' initial quantities are given in terms of substance units to
+make it easier to use the model in a discrete stochastic simulator, but
+their symbols represent their values in concentration units where they
+appear in expressions.</p>
+<p>Note: The test data for this model was generated from an analytical
+solution of the system of equations.</p>

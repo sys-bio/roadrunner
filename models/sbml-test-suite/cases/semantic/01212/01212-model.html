@@ -1,0 +1,13 @@
+<p>
+ In MathML, it is legal to have 3+ arguments to relational elements such as greater than.  This model checks to make sure interpreters notice the third argument, which changes the priorities on the competing events such that E0 should have the higher priority, firing first, and E1 has the lower priority, firing second, and assigning the value of '7' to x moving forward.</p>
+<p>The model contains:</p><ul>
+<li class="u">1 parameter (x)</li></ul>
+<p>There are 2 events:</p>
+<table style="width:35em;margin: 1em auto;"><tr><td style="text-align:center;">  <strong>Event</strong>  </td><td style="text-align:center;">  <strong>Trigger</strong>  </td><td style="text-align:center;">  <strong>Priority</strong>  </td><td style="text-align:center;"> <strong>Event Assignments</strong> </td></tr>
+<tr><td style="text-align:center;"> E0 </td><td style="text-align:center;"> <dfn>time &gt; 0.01</dfn> </td><td style="text-align:center;"> <dfn>piecewise(1, leq(1, 2, 1), 10)</dfn> </td><td style="text-align:center;"> <dfn>x = 5</dfn> </td></tr>
+<tr><td style="text-align:center;"> E1 </td><td style="text-align:center;"> <dfn>time &gt; 0.01</dfn> </td><td style="text-align:center;"> <dfn>piecewise(10, leq(1, 2, 1), 1)</dfn> </td><td style="text-align:center;"> <dfn>x = 7</dfn> </td></tr></table>
+<p>The initial conditions are as follows:</p>
+<table style="width:35em;margin: 1em auto;"><tr><td style="text-align:center;">       </td><td style="text-align:center;"> <strong>Value</strong> </td><td style="text-align:center;"> <strong>Constant</strong> </td></tr>
+<tr><td style="text-align:center;"> Initial value of parameter x </td><td style="text-align:center;"> <dfn>3</dfn> </td><td style="text-align:center;"> variable </td></tr></table>
+<p>Note: The test data for this model was generated from an analytical
+solution of the system of equations.</p>

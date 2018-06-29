@@ -1,0 +1,13 @@
+<p>
+ In this model, two events fire at t0 based on a parameter set with an initial assignment.  One resets a value used by the second, which is incorporated because of its assignment-time setting.</p>
+<p>The model contains:</p><ul>
+<li class="u">1 parameter (P1)</li></ul>
+<p>There are 2 events:</p>
+<table style="width:45em;margin: 1em auto;"><tr><td style="text-align:center;">  <strong>Event</strong>  </td><td style="text-align:center;">  <strong>Trigger</strong>  </td><td style="text-align:center;">  <strong>initialValue</strong>  </td><td style="text-align:center;">  <strong>Use values from:</strong>  </td><td style="text-align:center;">  <strong>Delay</strong>  </td><td style="text-align:center;"> <strong>Event Assignments</strong> </td></tr>
+<tr><td style="text-align:center;"> E0 </td><td style="text-align:center;"> <dfn>P1 &gt; 1</dfn> </td><td style="text-align:center;"> false </td><td style="text-align:center;"> Assignment time </td><td style="text-align:center;"> <dfn>2.5</dfn> </td><td style="text-align:center;"> <dfn>P1 = P1<sup class="i">2</sup></dfn> </td></tr>
+<tr><td style="text-align:center;"> E1 </td><td style="text-align:center;"> <dfn>P1 &gt; 1</dfn> </td><td style="text-align:center;"> false </td><td style="text-align:center;"> Trigger time </td><td style="text-align:center;"> <dfn>1.3</dfn> </td><td style="text-align:center;"> <dfn>P1 = 5</dfn> </td></tr></table>
+<p>The initial conditions are as follows:</p>
+<table style="width:35em;margin: 1em auto;"><tr><td style="text-align:center;">       </td><td style="text-align:center;"> <strong>Value</strong> </td><td style="text-align:center;"> <strong>Constant</strong> </td></tr>
+<tr><td style="text-align:center;"> Initial value of parameter P1 </td><td style="text-align:center;"> <dfn>3 / 2</dfn> </td><td style="text-align:center;"> variable </td></tr></table>
+<p>Note: The test data for this model was generated from an analytical
+solution of the system of equations.</p>

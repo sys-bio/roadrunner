@@ -1,0 +1,30 @@
+<p>
+ In MathML, it is legal to have 3+ arguments to relational elements such as greater than.  This model checks to make sure interpreters notice the third and further arguments of all five relational functions, which change the results of various 'piecewise' tests.  The model is constructed so that you can't just take the first and second arguments of the function, nor the first and last arguments, but must check each successive pair of variables.</p>
+<p>The model contains:</p><ul>
+<li class="u">10 parameters (a, b, c, d, e, f, g, h, i, j)</li></ul>
+<p>There are 10 rules:</p>
+<table style="width:30em;margin: 1em auto;"><tr><td style="text-align:center;">  <strong>Type</strong>  </td><td style="text-align:center;">  <strong>Variable</strong>  </td><td style="text-align:center;">  <strong>Formula</strong>  </td></tr>
+<tr><td style="text-align:center;"> Assignment </td><td style="text-align:center;"> a </td><td style="text-align:center;"> <dfn>piecewise(1, gt(2, 1, 2), 3)</dfn> </td></tr>
+<tr><td style="text-align:center;"> Assignment </td><td style="text-align:center;"> b </td><td style="text-align:center;"> <dfn>piecewise(1, lt(1, 2, 1), 4)</dfn> </td></tr>
+<tr><td style="text-align:center;"> Assignment </td><td style="text-align:center;"> c </td><td style="text-align:center;"> <dfn>piecewise(1, geq(2, 1, 2), 5)</dfn> </td></tr>
+<tr><td style="text-align:center;"> Assignment </td><td style="text-align:center;"> d </td><td style="text-align:center;"> <dfn>piecewise(1, leq(1, 2, 1), 6)</dfn> </td></tr>
+<tr><td style="text-align:center;"> Assignment </td><td style="text-align:center;"> e </td><td style="text-align:center;"> <dfn>piecewise(1, eq(1, 1, 2), 7)</dfn> </td></tr>
+<tr><td style="text-align:center;"> Assignment </td><td style="text-align:center;"> f </td><td style="text-align:center;"> <dfn>piecewise(1, gt(2, 1, 0, 0, &#8722;1), 8)</dfn> </td></tr>
+<tr><td style="text-align:center;"> Assignment </td><td style="text-align:center;"> g </td><td style="text-align:center;"> <dfn>piecewise(1, lt(1, 2, 3, 3, 4), 9)</dfn> </td></tr>
+<tr><td style="text-align:center;"> Assignment </td><td style="text-align:center;"> h </td><td style="text-align:center;"> <dfn>piecewise(1, geq(2, 1, 0, 1, &#8722;1), 10)</dfn> </td></tr>
+<tr><td style="text-align:center;"> Assignment </td><td style="text-align:center;"> i </td><td style="text-align:center;"> <dfn>piecewise(1, leq(1, 2, 3, 2, 4), 11)</dfn> </td></tr>
+<tr><td style="text-align:center;"> Assignment </td><td style="text-align:center;"> j </td><td style="text-align:center;"> <dfn>piecewise(1, eq(1, 1, 1, 1, 1, 1, 1, 1, 1, 2, 1, 1, 1), 12)</dfn> </td></tr></table>
+<p>The initial conditions are as follows:</p>
+<table style="width:35em;margin: 1em auto;"><tr><td style="text-align:center;">       </td><td style="text-align:center;"> <strong>Value</strong> </td><td style="text-align:center;"> <strong>Constant</strong> </td></tr>
+<tr><td style="text-align:center;"> Initial value of parameter a </td><td style="text-align:center;"> <dfn>piecewise(1, gt(2, 1, 2), 3)</dfn> </td><td style="text-align:center;"> variable </td></tr>
+<tr><td style="text-align:center;"> Initial value of parameter b </td><td style="text-align:center;"> <dfn>piecewise(1, lt(1, 2, 1), 4)</dfn> </td><td style="text-align:center;"> variable </td></tr>
+<tr><td style="text-align:center;"> Initial value of parameter c </td><td style="text-align:center;"> <dfn>piecewise(1, geq(2, 1, 2), 5)</dfn> </td><td style="text-align:center;"> variable </td></tr>
+<tr><td style="text-align:center;"> Initial value of parameter d </td><td style="text-align:center;"> <dfn>piecewise(1, leq(1, 2, 1), 6)</dfn> </td><td style="text-align:center;"> variable </td></tr>
+<tr><td style="text-align:center;"> Initial value of parameter e </td><td style="text-align:center;"> <dfn>piecewise(1, eq(1, 1, 2), 7)</dfn> </td><td style="text-align:center;"> variable </td></tr>
+<tr><td style="text-align:center;"> Initial value of parameter f </td><td style="text-align:center;"> <dfn>piecewise(1, gt(2, 1, 0, 0, &#8722;1), 8)</dfn> </td><td style="text-align:center;"> variable </td></tr>
+<tr><td style="text-align:center;"> Initial value of parameter g </td><td style="text-align:center;"> <dfn>piecewise(1, lt(1, 2, 3, 3, 4), 9)</dfn> </td><td style="text-align:center;"> variable </td></tr>
+<tr><td style="text-align:center;"> Initial value of parameter h </td><td style="text-align:center;"> <dfn>piecewise(1, geq(2, 1, 0, 1, &#8722;1), 10)</dfn> </td><td style="text-align:center;"> variable </td></tr>
+<tr><td style="text-align:center;"> Initial value of parameter i </td><td style="text-align:center;"> <dfn>piecewise(1, leq(1, 2, 3, 2, 4), 11)</dfn> </td><td style="text-align:center;"> variable </td></tr>
+<tr><td style="text-align:center;"> Initial value of parameter j </td><td style="text-align:center;"> <dfn>piecewise(1, eq(1, 1, 1, 1, 1, 1, 1, 1, 1, 2, 1, 1, 1), 12)</dfn> </td><td style="text-align:center;"> variable </td></tr></table>
+<p>Note: The test data for this model was generated from an analytical
+solution of the system of equations.</p>

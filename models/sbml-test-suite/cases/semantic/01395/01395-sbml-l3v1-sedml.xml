@@ -1,0 +1,1216 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- Written by libSedML v1.1.5419.25885 see http://libsedml.sf.net -->
+<sedML level="1" version="1" xmlns="http://sed-ml.org/">
+  <listOfSimulations>
+    <uniformTimeCourse id="simulation_1" initialTime="0" outputStartTime="0" outputEndTime="1" numberOfPoints="100">
+      <algorithm kisaoID="KISAO:0000019" />
+    </uniformTimeCourse>
+  </listOfSimulations>
+  <listOfModels>
+    <model id="model_1" language="urn:sedml:language:sbml" source="01395-sbml-l3v1.xml" />
+  </listOfModels>
+  <listOfTasks>
+    <task id="task_1" modelReference="model_1" simulationReference="simulation_1" />
+  </listOfTasks>
+  <listOfDataGenerators>
+    <dataGenerator id="time_1" name="time">
+      <listOfVariables>
+        <variable id="time" taskReference="task_1" symbol="urn:sedml:symbol:time" />
+      </listOfVariables>
+      <math xmlns="http://www.w3.org/1998/Math/MathML">
+        <ci> time </ci>
+      </math>
+    </dataGenerator>
+    <dataGenerator id="pp9_mrna_1" name="pp9_mrna">
+      <listOfVariables>
+        <variable id="pp9_mrna_1_s" taskReference="task_1" target="/sbml:sbml/sbml:model/sbml:listOfSpecies/sbml:species[@id='pp9_mrna']" />
+        <variable id="pp9_mrna_1_c" taskReference="task_1" target="/sbml:sbml/sbml:model/sbml:listOfCompartments/sbml:compartment[@id='DefaultCompartment']" />
+      </listOfVariables>
+      <math xmlns="http://www.w3.org/1998/Math/MathML">
+        <apply>
+          <times />
+          <ci> pp9_mrna_1_s </ci>
+          <ci> pp9_mrna_1_c </ci>
+        </apply>
+      </math>
+    </dataGenerator>
+    <dataGenerator id="p9_1" name="p9">
+      <listOfVariables>
+        <variable id="p9_1_s" taskReference="task_1" target="/sbml:sbml/sbml:model/sbml:listOfSpecies/sbml:species[@id='p9']" />
+        <variable id="p9_1_c" taskReference="task_1" target="/sbml:sbml/sbml:model/sbml:listOfCompartments/sbml:compartment[@id='DefaultCompartment']" />
+      </listOfVariables>
+      <math xmlns="http://www.w3.org/1998/Math/MathML">
+        <apply>
+          <times />
+          <ci> p9_1_s </ci>
+          <ci> p9_1_c </ci>
+        </apply>
+      </math>
+    </dataGenerator>
+    <dataGenerator id="pp8_mrna_1" name="pp8_mrna">
+      <listOfVariables>
+        <variable id="pp8_mrna_1_s" taskReference="task_1" target="/sbml:sbml/sbml:model/sbml:listOfSpecies/sbml:species[@id='pp8_mrna']" />
+        <variable id="pp8_mrna_1_c" taskReference="task_1" target="/sbml:sbml/sbml:model/sbml:listOfCompartments/sbml:compartment[@id='DefaultCompartment']" />
+      </listOfVariables>
+      <math xmlns="http://www.w3.org/1998/Math/MathML">
+        <apply>
+          <times />
+          <ci> pp8_mrna_1_s </ci>
+          <ci> pp8_mrna_1_c </ci>
+        </apply>
+      </math>
+    </dataGenerator>
+    <dataGenerator id="p8_1" name="p8">
+      <listOfVariables>
+        <variable id="p8_1_s" taskReference="task_1" target="/sbml:sbml/sbml:model/sbml:listOfSpecies/sbml:species[@id='p8']" />
+        <variable id="p8_1_c" taskReference="task_1" target="/sbml:sbml/sbml:model/sbml:listOfCompartments/sbml:compartment[@id='DefaultCompartment']" />
+      </listOfVariables>
+      <math xmlns="http://www.w3.org/1998/Math/MathML">
+        <apply>
+          <times />
+          <ci> p8_1_s </ci>
+          <ci> p8_1_c </ci>
+        </apply>
+      </math>
+    </dataGenerator>
+    <dataGenerator id="pp7_mrna_1" name="pp7_mrna">
+      <listOfVariables>
+        <variable id="pp7_mrna_1_s" taskReference="task_1" target="/sbml:sbml/sbml:model/sbml:listOfSpecies/sbml:species[@id='pp7_mrna']" />
+        <variable id="pp7_mrna_1_c" taskReference="task_1" target="/sbml:sbml/sbml:model/sbml:listOfCompartments/sbml:compartment[@id='DefaultCompartment']" />
+      </listOfVariables>
+      <math xmlns="http://www.w3.org/1998/Math/MathML">
+        <apply>
+          <times />
+          <ci> pp7_mrna_1_s </ci>
+          <ci> pp7_mrna_1_c </ci>
+        </apply>
+      </math>
+    </dataGenerator>
+    <dataGenerator id="p7_1" name="p7">
+      <listOfVariables>
+        <variable id="p7_1_s" taskReference="task_1" target="/sbml:sbml/sbml:model/sbml:listOfSpecies/sbml:species[@id='p7']" />
+        <variable id="p7_1_c" taskReference="task_1" target="/sbml:sbml/sbml:model/sbml:listOfCompartments/sbml:compartment[@id='DefaultCompartment']" />
+      </listOfVariables>
+      <math xmlns="http://www.w3.org/1998/Math/MathML">
+        <apply>
+          <times />
+          <ci> p7_1_s </ci>
+          <ci> p7_1_c </ci>
+        </apply>
+      </math>
+    </dataGenerator>
+    <dataGenerator id="pp6_mrna_1" name="pp6_mrna">
+      <listOfVariables>
+        <variable id="pp6_mrna_1_s" taskReference="task_1" target="/sbml:sbml/sbml:model/sbml:listOfSpecies/sbml:species[@id='pp6_mrna']" />
+        <variable id="pp6_mrna_1_c" taskReference="task_1" target="/sbml:sbml/sbml:model/sbml:listOfCompartments/sbml:compartment[@id='DefaultCompartment']" />
+      </listOfVariables>
+      <math xmlns="http://www.w3.org/1998/Math/MathML">
+        <apply>
+          <times />
+          <ci> pp6_mrna_1_s </ci>
+          <ci> pp6_mrna_1_c </ci>
+        </apply>
+      </math>
+    </dataGenerator>
+    <dataGenerator id="p6_1" name="p6">
+      <listOfVariables>
+        <variable id="p6_1_s" taskReference="task_1" target="/sbml:sbml/sbml:model/sbml:listOfSpecies/sbml:species[@id='p6']" />
+        <variable id="p6_1_c" taskReference="task_1" target="/sbml:sbml/sbml:model/sbml:listOfCompartments/sbml:compartment[@id='DefaultCompartment']" />
+      </listOfVariables>
+      <math xmlns="http://www.w3.org/1998/Math/MathML">
+        <apply>
+          <times />
+          <ci> p6_1_s </ci>
+          <ci> p6_1_c </ci>
+        </apply>
+      </math>
+    </dataGenerator>
+    <dataGenerator id="pp5_mrna_1" name="pp5_mrna">
+      <listOfVariables>
+        <variable id="pp5_mrna_1_s" taskReference="task_1" target="/sbml:sbml/sbml:model/sbml:listOfSpecies/sbml:species[@id='pp5_mrna']" />
+        <variable id="pp5_mrna_1_c" taskReference="task_1" target="/sbml:sbml/sbml:model/sbml:listOfCompartments/sbml:compartment[@id='DefaultCompartment']" />
+      </listOfVariables>
+      <math xmlns="http://www.w3.org/1998/Math/MathML">
+        <apply>
+          <times />
+          <ci> pp5_mrna_1_s </ci>
+          <ci> pp5_mrna_1_c </ci>
+        </apply>
+      </math>
+    </dataGenerator>
+    <dataGenerator id="p5_1" name="p5">
+      <listOfVariables>
+        <variable id="p5_1_s" taskReference="task_1" target="/sbml:sbml/sbml:model/sbml:listOfSpecies/sbml:species[@id='p5']" />
+        <variable id="p5_1_c" taskReference="task_1" target="/sbml:sbml/sbml:model/sbml:listOfCompartments/sbml:compartment[@id='DefaultCompartment']" />
+      </listOfVariables>
+      <math xmlns="http://www.w3.org/1998/Math/MathML">
+        <apply>
+          <times />
+          <ci> p5_1_s </ci>
+          <ci> p5_1_c </ci>
+        </apply>
+      </math>
+    </dataGenerator>
+    <dataGenerator id="pp4_mrna_1" name="pp4_mrna">
+      <listOfVariables>
+        <variable id="pp4_mrna_1_s" taskReference="task_1" target="/sbml:sbml/sbml:model/sbml:listOfSpecies/sbml:species[@id='pp4_mrna']" />
+        <variable id="pp4_mrna_1_c" taskReference="task_1" target="/sbml:sbml/sbml:model/sbml:listOfCompartments/sbml:compartment[@id='DefaultCompartment']" />
+      </listOfVariables>
+      <math xmlns="http://www.w3.org/1998/Math/MathML">
+        <apply>
+          <times />
+          <ci> pp4_mrna_1_s </ci>
+          <ci> pp4_mrna_1_c </ci>
+        </apply>
+      </math>
+    </dataGenerator>
+    <dataGenerator id="p4_1" name="p4">
+      <listOfVariables>
+        <variable id="p4_1_s" taskReference="task_1" target="/sbml:sbml/sbml:model/sbml:listOfSpecies/sbml:species[@id='p4']" />
+        <variable id="p4_1_c" taskReference="task_1" target="/sbml:sbml/sbml:model/sbml:listOfCompartments/sbml:compartment[@id='DefaultCompartment']" />
+      </listOfVariables>
+      <math xmlns="http://www.w3.org/1998/Math/MathML">
+        <apply>
+          <times />
+          <ci> p4_1_s </ci>
+          <ci> p4_1_c </ci>
+        </apply>
+      </math>
+    </dataGenerator>
+    <dataGenerator id="pp3_mrna_1" name="pp3_mrna">
+      <listOfVariables>
+        <variable id="pp3_mrna_1_s" taskReference="task_1" target="/sbml:sbml/sbml:model/sbml:listOfSpecies/sbml:species[@id='pp3_mrna']" />
+        <variable id="pp3_mrna_1_c" taskReference="task_1" target="/sbml:sbml/sbml:model/sbml:listOfCompartments/sbml:compartment[@id='DefaultCompartment']" />
+      </listOfVariables>
+      <math xmlns="http://www.w3.org/1998/Math/MathML">
+        <apply>
+          <times />
+          <ci> pp3_mrna_1_s </ci>
+          <ci> pp3_mrna_1_c </ci>
+        </apply>
+      </math>
+    </dataGenerator>
+    <dataGenerator id="p3_1" name="p3">
+      <listOfVariables>
+        <variable id="p3_1_s" taskReference="task_1" target="/sbml:sbml/sbml:model/sbml:listOfSpecies/sbml:species[@id='p3']" />
+        <variable id="p3_1_c" taskReference="task_1" target="/sbml:sbml/sbml:model/sbml:listOfCompartments/sbml:compartment[@id='DefaultCompartment']" />
+      </listOfVariables>
+      <math xmlns="http://www.w3.org/1998/Math/MathML">
+        <apply>
+          <times />
+          <ci> p3_1_s </ci>
+          <ci> p3_1_c </ci>
+        </apply>
+      </math>
+    </dataGenerator>
+    <dataGenerator id="pp2_mrna_1" name="pp2_mrna">
+      <listOfVariables>
+        <variable id="pp2_mrna_1_s" taskReference="task_1" target="/sbml:sbml/sbml:model/sbml:listOfSpecies/sbml:species[@id='pp2_mrna']" />
+        <variable id="pp2_mrna_1_c" taskReference="task_1" target="/sbml:sbml/sbml:model/sbml:listOfCompartments/sbml:compartment[@id='DefaultCompartment']" />
+      </listOfVariables>
+      <math xmlns="http://www.w3.org/1998/Math/MathML">
+        <apply>
+          <times />
+          <ci> pp2_mrna_1_s </ci>
+          <ci> pp2_mrna_1_c </ci>
+        </apply>
+      </math>
+    </dataGenerator>
+    <dataGenerator id="p2_1" name="p2">
+      <listOfVariables>
+        <variable id="p2_1_s" taskReference="task_1" target="/sbml:sbml/sbml:model/sbml:listOfSpecies/sbml:species[@id='p2']" />
+        <variable id="p2_1_c" taskReference="task_1" target="/sbml:sbml/sbml:model/sbml:listOfCompartments/sbml:compartment[@id='DefaultCompartment']" />
+      </listOfVariables>
+      <math xmlns="http://www.w3.org/1998/Math/MathML">
+        <apply>
+          <times />
+          <ci> p2_1_s </ci>
+          <ci> p2_1_c </ci>
+        </apply>
+      </math>
+    </dataGenerator>
+    <dataGenerator id="pp1_mrna_1" name="pp1_mrna">
+      <listOfVariables>
+        <variable id="pp1_mrna_1_s" taskReference="task_1" target="/sbml:sbml/sbml:model/sbml:listOfSpecies/sbml:species[@id='pp1_mrna']" />
+        <variable id="pp1_mrna_1_c" taskReference="task_1" target="/sbml:sbml/sbml:model/sbml:listOfCompartments/sbml:compartment[@id='DefaultCompartment']" />
+      </listOfVariables>
+      <math xmlns="http://www.w3.org/1998/Math/MathML">
+        <apply>
+          <times />
+          <ci> pp1_mrna_1_s </ci>
+          <ci> pp1_mrna_1_c </ci>
+        </apply>
+      </math>
+    </dataGenerator>
+    <dataGenerator id="p1_1" name="p1">
+      <listOfVariables>
+        <variable id="p1_1_s" taskReference="task_1" target="/sbml:sbml/sbml:model/sbml:listOfSpecies/sbml:species[@id='p1']" />
+        <variable id="p1_1_c" taskReference="task_1" target="/sbml:sbml/sbml:model/sbml:listOfCompartments/sbml:compartment[@id='DefaultCompartment']" />
+      </listOfVariables>
+      <math xmlns="http://www.w3.org/1998/Math/MathML">
+        <apply>
+          <times />
+          <ci> p1_1_s </ci>
+          <ci> p1_1_c </ci>
+        </apply>
+      </math>
+    </dataGenerator>
+    <dataGenerator id="DefaultCompartment_1" name="DefaultCompartment">
+      <listOfVariables>
+        <variable id="DefaultCompartment" name="DefaultCompartment" taskReference="task_1" target="/sbml:sbml/sbml:model/sbml:listOfCompartments/sbml:compartment[@id='DefaultCompartment']" />
+      </listOfVariables>
+      <math xmlns="http://www.w3.org/1998/Math/MathML">
+        <ci> DefaultCompartment </ci>
+      </math>
+    </dataGenerator>
+    <dataGenerator id="pp8_mrna_degradation_rate_1" name="pp8_mrna_degradation_rate">
+      <listOfVariables>
+        <variable id="pp8_mrna_degradation_rate" name="pp8_mrna_degradation_rate" taskReference="task_1" target="/sbml:sbml/sbml:model/sbml:listOfParameters/sbml:parameter[@id='pp8_mrna_degradation_rate']" />
+      </listOfVariables>
+      <math xmlns="http://www.w3.org/1998/Math/MathML">
+        <ci> pp8_mrna_degradation_rate </ci>
+      </math>
+    </dataGenerator>
+    <dataGenerator id="pp9_mrna_degradation_rate_1" name="pp9_mrna_degradation_rate">
+      <listOfVariables>
+        <variable id="pp9_mrna_degradation_rate" name="pp9_mrna_degradation_rate" taskReference="task_1" target="/sbml:sbml/sbml:model/sbml:listOfParameters/sbml:parameter[@id='pp9_mrna_degradation_rate']" />
+      </listOfVariables>
+      <math xmlns="http://www.w3.org/1998/Math/MathML">
+        <ci> pp9_mrna_degradation_rate </ci>
+      </math>
+    </dataGenerator>
+    <dataGenerator id="p1_degradation_rate_1" name="p1_degradation_rate">
+      <listOfVariables>
+        <variable id="p1_degradation_rate" name="p1_degradation_rate" taskReference="task_1" target="/sbml:sbml/sbml:model/sbml:listOfParameters/sbml:parameter[@id='p1_degradation_rate']" />
+      </listOfVariables>
+      <math xmlns="http://www.w3.org/1998/Math/MathML">
+        <ci> p1_degradation_rate </ci>
+      </math>
+    </dataGenerator>
+    <dataGenerator id="p2_degradation_rate_1" name="p2_degradation_rate">
+      <listOfVariables>
+        <variable id="p2_degradation_rate" name="p2_degradation_rate" taskReference="task_1" target="/sbml:sbml/sbml:model/sbml:listOfParameters/sbml:parameter[@id='p2_degradation_rate']" />
+      </listOfVariables>
+      <math xmlns="http://www.w3.org/1998/Math/MathML">
+        <ci> p2_degradation_rate </ci>
+      </math>
+    </dataGenerator>
+    <dataGenerator id="p3_degradation_rate_1" name="p3_degradation_rate">
+      <listOfVariables>
+        <variable id="p3_degradation_rate" name="p3_degradation_rate" taskReference="task_1" target="/sbml:sbml/sbml:model/sbml:listOfParameters/sbml:parameter[@id='p3_degradation_rate']" />
+      </listOfVariables>
+      <math xmlns="http://www.w3.org/1998/Math/MathML">
+        <ci> p3_degradation_rate </ci>
+      </math>
+    </dataGenerator>
+    <dataGenerator id="p4_degradation_rate_1" name="p4_degradation_rate">
+      <listOfVariables>
+        <variable id="p4_degradation_rate" name="p4_degradation_rate" taskReference="task_1" target="/sbml:sbml/sbml:model/sbml:listOfParameters/sbml:parameter[@id='p4_degradation_rate']" />
+      </listOfVariables>
+      <math xmlns="http://www.w3.org/1998/Math/MathML">
+        <ci> p4_degradation_rate </ci>
+      </math>
+    </dataGenerator>
+    <dataGenerator id="p5_degradation_rate_1" name="p5_degradation_rate">
+      <listOfVariables>
+        <variable id="p5_degradation_rate" name="p5_degradation_rate" taskReference="task_1" target="/sbml:sbml/sbml:model/sbml:listOfParameters/sbml:parameter[@id='p5_degradation_rate']" />
+      </listOfVariables>
+      <math xmlns="http://www.w3.org/1998/Math/MathML">
+        <ci> p5_degradation_rate </ci>
+      </math>
+    </dataGenerator>
+    <dataGenerator id="p6_degradation_rate_1" name="p6_degradation_rate">
+      <listOfVariables>
+        <variable id="p6_degradation_rate" name="p6_degradation_rate" taskReference="task_1" target="/sbml:sbml/sbml:model/sbml:listOfParameters/sbml:parameter[@id='p6_degradation_rate']" />
+      </listOfVariables>
+      <math xmlns="http://www.w3.org/1998/Math/MathML">
+        <ci> p6_degradation_rate </ci>
+      </math>
+    </dataGenerator>
+    <dataGenerator id="p7_degradation_rate_1" name="p7_degradation_rate">
+      <listOfVariables>
+        <variable id="p7_degradation_rate" name="p7_degradation_rate" taskReference="task_1" target="/sbml:sbml/sbml:model/sbml:listOfParameters/sbml:parameter[@id='p7_degradation_rate']" />
+      </listOfVariables>
+      <math xmlns="http://www.w3.org/1998/Math/MathML">
+        <ci> p7_degradation_rate </ci>
+      </math>
+    </dataGenerator>
+    <dataGenerator id="p8_degradation_rate_1" name="p8_degradation_rate">
+      <listOfVariables>
+        <variable id="p8_degradation_rate" name="p8_degradation_rate" taskReference="task_1" target="/sbml:sbml/sbml:model/sbml:listOfParameters/sbml:parameter[@id='p8_degradation_rate']" />
+      </listOfVariables>
+      <math xmlns="http://www.w3.org/1998/Math/MathML">
+        <ci> p8_degradation_rate </ci>
+      </math>
+    </dataGenerator>
+    <dataGenerator id="p9_degradation_rate_1" name="p9_degradation_rate">
+      <listOfVariables>
+        <variable id="p9_degradation_rate" name="p9_degradation_rate" taskReference="task_1" target="/sbml:sbml/sbml:model/sbml:listOfParameters/sbml:parameter[@id='p9_degradation_rate']" />
+      </listOfVariables>
+      <math xmlns="http://www.w3.org/1998/Math/MathML">
+        <ci> p9_degradation_rate </ci>
+      </math>
+    </dataGenerator>
+    <dataGenerator id="v1_Kd_1" name="v1_Kd">
+      <listOfVariables>
+        <variable id="v1_Kd" name="v1_Kd" taskReference="task_1" target="/sbml:sbml/sbml:model/sbml:listOfParameters/sbml:parameter[@id='v1_Kd']" />
+      </listOfVariables>
+      <math xmlns="http://www.w3.org/1998/Math/MathML">
+        <ci> v1_Kd </ci>
+      </math>
+    </dataGenerator>
+    <dataGenerator id="v1_h_1" name="v1_h">
+      <listOfVariables>
+        <variable id="v1_h" name="v1_h" taskReference="task_1" target="/sbml:sbml/sbml:model/sbml:listOfParameters/sbml:parameter[@id='v1_h']" />
+      </listOfVariables>
+      <math xmlns="http://www.w3.org/1998/Math/MathML">
+        <ci> v1_h </ci>
+      </math>
+    </dataGenerator>
+    <dataGenerator id="v2_Kd_1" name="v2_Kd">
+      <listOfVariables>
+        <variable id="v2_Kd" name="v2_Kd" taskReference="task_1" target="/sbml:sbml/sbml:model/sbml:listOfParameters/sbml:parameter[@id='v2_Kd']" />
+      </listOfVariables>
+      <math xmlns="http://www.w3.org/1998/Math/MathML">
+        <ci> v2_Kd </ci>
+      </math>
+    </dataGenerator>
+    <dataGenerator id="v2_h_1" name="v2_h">
+      <listOfVariables>
+        <variable id="v2_h" name="v2_h" taskReference="task_1" target="/sbml:sbml/sbml:model/sbml:listOfParameters/sbml:parameter[@id='v2_h']" />
+      </listOfVariables>
+      <math xmlns="http://www.w3.org/1998/Math/MathML">
+        <ci> v2_h </ci>
+      </math>
+    </dataGenerator>
+    <dataGenerator id="v3_Kd_1" name="v3_Kd">
+      <listOfVariables>
+        <variable id="v3_Kd" name="v3_Kd" taskReference="task_1" target="/sbml:sbml/sbml:model/sbml:listOfParameters/sbml:parameter[@id='v3_Kd']" />
+      </listOfVariables>
+      <math xmlns="http://www.w3.org/1998/Math/MathML">
+        <ci> v3_Kd </ci>
+      </math>
+    </dataGenerator>
+    <dataGenerator id="v3_h_1" name="v3_h">
+      <listOfVariables>
+        <variable id="v3_h" name="v3_h" taskReference="task_1" target="/sbml:sbml/sbml:model/sbml:listOfParameters/sbml:parameter[@id='v3_h']" />
+      </listOfVariables>
+      <math xmlns="http://www.w3.org/1998/Math/MathML">
+        <ci> v3_h </ci>
+      </math>
+    </dataGenerator>
+    <dataGenerator id="v4_Kd_1" name="v4_Kd">
+      <listOfVariables>
+        <variable id="v4_Kd" name="v4_Kd" taskReference="task_1" target="/sbml:sbml/sbml:model/sbml:listOfParameters/sbml:parameter[@id='v4_Kd']" />
+      </listOfVariables>
+      <math xmlns="http://www.w3.org/1998/Math/MathML">
+        <ci> v4_Kd </ci>
+      </math>
+    </dataGenerator>
+    <dataGenerator id="v4_h_1" name="v4_h">
+      <listOfVariables>
+        <variable id="v4_h" name="v4_h" taskReference="task_1" target="/sbml:sbml/sbml:model/sbml:listOfParameters/sbml:parameter[@id='v4_h']" />
+      </listOfVariables>
+      <math xmlns="http://www.w3.org/1998/Math/MathML">
+        <ci> v4_h </ci>
+      </math>
+    </dataGenerator>
+    <dataGenerator id="v5_Kd_1" name="v5_Kd">
+      <listOfVariables>
+        <variable id="v5_Kd" name="v5_Kd" taskReference="task_1" target="/sbml:sbml/sbml:model/sbml:listOfParameters/sbml:parameter[@id='v5_Kd']" />
+      </listOfVariables>
+      <math xmlns="http://www.w3.org/1998/Math/MathML">
+        <ci> v5_Kd </ci>
+      </math>
+    </dataGenerator>
+    <dataGenerator id="v5_h_1" name="v5_h">
+      <listOfVariables>
+        <variable id="v5_h" name="v5_h" taskReference="task_1" target="/sbml:sbml/sbml:model/sbml:listOfParameters/sbml:parameter[@id='v5_h']" />
+      </listOfVariables>
+      <math xmlns="http://www.w3.org/1998/Math/MathML">
+        <ci> v5_h </ci>
+      </math>
+    </dataGenerator>
+    <dataGenerator id="v6_Kd_1" name="v6_Kd">
+      <listOfVariables>
+        <variable id="v6_Kd" name="v6_Kd" taskReference="task_1" target="/sbml:sbml/sbml:model/sbml:listOfParameters/sbml:parameter[@id='v6_Kd']" />
+      </listOfVariables>
+      <math xmlns="http://www.w3.org/1998/Math/MathML">
+        <ci> v6_Kd </ci>
+      </math>
+    </dataGenerator>
+    <dataGenerator id="v6_h_1" name="v6_h">
+      <listOfVariables>
+        <variable id="v6_h" name="v6_h" taskReference="task_1" target="/sbml:sbml/sbml:model/sbml:listOfParameters/sbml:parameter[@id='v6_h']" />
+      </listOfVariables>
+      <math xmlns="http://www.w3.org/1998/Math/MathML">
+        <ci> v6_h </ci>
+      </math>
+    </dataGenerator>
+    <dataGenerator id="v7_Kd_1" name="v7_Kd">
+      <listOfVariables>
+        <variable id="v7_Kd" name="v7_Kd" taskReference="task_1" target="/sbml:sbml/sbml:model/sbml:listOfParameters/sbml:parameter[@id='v7_Kd']" />
+      </listOfVariables>
+      <math xmlns="http://www.w3.org/1998/Math/MathML">
+        <ci> v7_Kd </ci>
+      </math>
+    </dataGenerator>
+    <dataGenerator id="v7_h_1" name="v7_h">
+      <listOfVariables>
+        <variable id="v7_h" name="v7_h" taskReference="task_1" target="/sbml:sbml/sbml:model/sbml:listOfParameters/sbml:parameter[@id='v7_h']" />
+      </listOfVariables>
+      <math xmlns="http://www.w3.org/1998/Math/MathML">
+        <ci> v7_h </ci>
+      </math>
+    </dataGenerator>
+    <dataGenerator id="v8_Kd_1" name="v8_Kd">
+      <listOfVariables>
+        <variable id="v8_Kd" name="v8_Kd" taskReference="task_1" target="/sbml:sbml/sbml:model/sbml:listOfParameters/sbml:parameter[@id='v8_Kd']" />
+      </listOfVariables>
+      <math xmlns="http://www.w3.org/1998/Math/MathML">
+        <ci> v8_Kd </ci>
+      </math>
+    </dataGenerator>
+    <dataGenerator id="v8_h_1" name="v8_h">
+      <listOfVariables>
+        <variable id="v8_h" name="v8_h" taskReference="task_1" target="/sbml:sbml/sbml:model/sbml:listOfParameters/sbml:parameter[@id='v8_h']" />
+      </listOfVariables>
+      <math xmlns="http://www.w3.org/1998/Math/MathML">
+        <ci> v8_h </ci>
+      </math>
+    </dataGenerator>
+    <dataGenerator id="v9_Kd_1" name="v9_Kd">
+      <listOfVariables>
+        <variable id="v9_Kd" name="v9_Kd" taskReference="task_1" target="/sbml:sbml/sbml:model/sbml:listOfParameters/sbml:parameter[@id='v9_Kd']" />
+      </listOfVariables>
+      <math xmlns="http://www.w3.org/1998/Math/MathML">
+        <ci> v9_Kd </ci>
+      </math>
+    </dataGenerator>
+    <dataGenerator id="v9_h_1" name="v9_h">
+      <listOfVariables>
+        <variable id="v9_h" name="v9_h" taskReference="task_1" target="/sbml:sbml/sbml:model/sbml:listOfParameters/sbml:parameter[@id='v9_h']" />
+      </listOfVariables>
+      <math xmlns="http://www.w3.org/1998/Math/MathML">
+        <ci> v9_h </ci>
+      </math>
+    </dataGenerator>
+    <dataGenerator id="pp1_mrna_degradation_rate_1" name="pp1_mrna_degradation_rate">
+      <listOfVariables>
+        <variable id="pp1_mrna_degradation_rate" name="pp1_mrna_degradation_rate" taskReference="task_1" target="/sbml:sbml/sbml:model/sbml:listOfParameters/sbml:parameter[@id='pp1_mrna_degradation_rate']" />
+      </listOfVariables>
+      <math xmlns="http://www.w3.org/1998/Math/MathML">
+        <ci> pp1_mrna_degradation_rate </ci>
+      </math>
+    </dataGenerator>
+    <dataGenerator id="pp2_mrna_degradation_rate_1" name="pp2_mrna_degradation_rate">
+      <listOfVariables>
+        <variable id="pp2_mrna_degradation_rate" name="pp2_mrna_degradation_rate" taskReference="task_1" target="/sbml:sbml/sbml:model/sbml:listOfParameters/sbml:parameter[@id='pp2_mrna_degradation_rate']" />
+      </listOfVariables>
+      <math xmlns="http://www.w3.org/1998/Math/MathML">
+        <ci> pp2_mrna_degradation_rate </ci>
+      </math>
+    </dataGenerator>
+    <dataGenerator id="pro1_strength_1" name="pro1_strength">
+      <listOfVariables>
+        <variable id="pro1_strength" name="pro1_strength" taskReference="task_1" target="/sbml:sbml/sbml:model/sbml:listOfParameters/sbml:parameter[@id='pro1_strength']" />
+      </listOfVariables>
+      <math xmlns="http://www.w3.org/1998/Math/MathML">
+        <ci> pro1_strength </ci>
+      </math>
+    </dataGenerator>
+    <dataGenerator id="pro2_strength_1" name="pro2_strength">
+      <listOfVariables>
+        <variable id="pro2_strength" name="pro2_strength" taskReference="task_1" target="/sbml:sbml/sbml:model/sbml:listOfParameters/sbml:parameter[@id='pro2_strength']" />
+      </listOfVariables>
+      <math xmlns="http://www.w3.org/1998/Math/MathML">
+        <ci> pro2_strength </ci>
+      </math>
+    </dataGenerator>
+    <dataGenerator id="pro3_strength_1" name="pro3_strength">
+      <listOfVariables>
+        <variable id="pro3_strength" name="pro3_strength" taskReference="task_1" target="/sbml:sbml/sbml:model/sbml:listOfParameters/sbml:parameter[@id='pro3_strength']" />
+      </listOfVariables>
+      <math xmlns="http://www.w3.org/1998/Math/MathML">
+        <ci> pro3_strength </ci>
+      </math>
+    </dataGenerator>
+    <dataGenerator id="pro4_strength_1" name="pro4_strength">
+      <listOfVariables>
+        <variable id="pro4_strength" name="pro4_strength" taskReference="task_1" target="/sbml:sbml/sbml:model/sbml:listOfParameters/sbml:parameter[@id='pro4_strength']" />
+      </listOfVariables>
+      <math xmlns="http://www.w3.org/1998/Math/MathML">
+        <ci> pro4_strength </ci>
+      </math>
+    </dataGenerator>
+    <dataGenerator id="pro5_strength_1" name="pro5_strength">
+      <listOfVariables>
+        <variable id="pro5_strength" name="pro5_strength" taskReference="task_1" target="/sbml:sbml/sbml:model/sbml:listOfParameters/sbml:parameter[@id='pro5_strength']" />
+      </listOfVariables>
+      <math xmlns="http://www.w3.org/1998/Math/MathML">
+        <ci> pro5_strength </ci>
+      </math>
+    </dataGenerator>
+    <dataGenerator id="pro6_strength_1" name="pro6_strength">
+      <listOfVariables>
+        <variable id="pro6_strength" name="pro6_strength" taskReference="task_1" target="/sbml:sbml/sbml:model/sbml:listOfParameters/sbml:parameter[@id='pro6_strength']" />
+      </listOfVariables>
+      <math xmlns="http://www.w3.org/1998/Math/MathML">
+        <ci> pro6_strength </ci>
+      </math>
+    </dataGenerator>
+    <dataGenerator id="pro7_strength_1" name="pro7_strength">
+      <listOfVariables>
+        <variable id="pro7_strength" name="pro7_strength" taskReference="task_1" target="/sbml:sbml/sbml:model/sbml:listOfParameters/sbml:parameter[@id='pro7_strength']" />
+      </listOfVariables>
+      <math xmlns="http://www.w3.org/1998/Math/MathML">
+        <ci> pro7_strength </ci>
+      </math>
+    </dataGenerator>
+    <dataGenerator id="pro8_strength_1" name="pro8_strength">
+      <listOfVariables>
+        <variable id="pro8_strength" name="pro8_strength" taskReference="task_1" target="/sbml:sbml/sbml:model/sbml:listOfParameters/sbml:parameter[@id='pro8_strength']" />
+      </listOfVariables>
+      <math xmlns="http://www.w3.org/1998/Math/MathML">
+        <ci> pro8_strength </ci>
+      </math>
+    </dataGenerator>
+    <dataGenerator id="pro9_strength_1" name="pro9_strength">
+      <listOfVariables>
+        <variable id="pro9_strength" name="pro9_strength" taskReference="task_1" target="/sbml:sbml/sbml:model/sbml:listOfParameters/sbml:parameter[@id='pro9_strength']" />
+      </listOfVariables>
+      <math xmlns="http://www.w3.org/1998/Math/MathML">
+        <ci> pro9_strength </ci>
+      </math>
+    </dataGenerator>
+    <dataGenerator id="pp3_mrna_degradation_rate_1" name="pp3_mrna_degradation_rate">
+      <listOfVariables>
+        <variable id="pp3_mrna_degradation_rate" name="pp3_mrna_degradation_rate" taskReference="task_1" target="/sbml:sbml/sbml:model/sbml:listOfParameters/sbml:parameter[@id='pp3_mrna_degradation_rate']" />
+      </listOfVariables>
+      <math xmlns="http://www.w3.org/1998/Math/MathML">
+        <ci> pp3_mrna_degradation_rate </ci>
+      </math>
+    </dataGenerator>
+    <dataGenerator id="v10_Kd_1" name="v10_Kd">
+      <listOfVariables>
+        <variable id="v10_Kd" name="v10_Kd" taskReference="task_1" target="/sbml:sbml/sbml:model/sbml:listOfParameters/sbml:parameter[@id='v10_Kd']" />
+      </listOfVariables>
+      <math xmlns="http://www.w3.org/1998/Math/MathML">
+        <ci> v10_Kd </ci>
+      </math>
+    </dataGenerator>
+    <dataGenerator id="v10_h_1" name="v10_h">
+      <listOfVariables>
+        <variable id="v10_h" name="v10_h" taskReference="task_1" target="/sbml:sbml/sbml:model/sbml:listOfParameters/sbml:parameter[@id='v10_h']" />
+      </listOfVariables>
+      <math xmlns="http://www.w3.org/1998/Math/MathML">
+        <ci> v10_h </ci>
+      </math>
+    </dataGenerator>
+    <dataGenerator id="v11_Kd_1" name="v11_Kd">
+      <listOfVariables>
+        <variable id="v11_Kd" name="v11_Kd" taskReference="task_1" target="/sbml:sbml/sbml:model/sbml:listOfParameters/sbml:parameter[@id='v11_Kd']" />
+      </listOfVariables>
+      <math xmlns="http://www.w3.org/1998/Math/MathML">
+        <ci> v11_Kd </ci>
+      </math>
+    </dataGenerator>
+    <dataGenerator id="v11_h_1" name="v11_h">
+      <listOfVariables>
+        <variable id="v11_h" name="v11_h" taskReference="task_1" target="/sbml:sbml/sbml:model/sbml:listOfParameters/sbml:parameter[@id='v11_h']" />
+      </listOfVariables>
+      <math xmlns="http://www.w3.org/1998/Math/MathML">
+        <ci> v11_h </ci>
+      </math>
+    </dataGenerator>
+    <dataGenerator id="v12_Kd_1" name="v12_Kd">
+      <listOfVariables>
+        <variable id="v12_Kd" name="v12_Kd" taskReference="task_1" target="/sbml:sbml/sbml:model/sbml:listOfParameters/sbml:parameter[@id='v12_Kd']" />
+      </listOfVariables>
+      <math xmlns="http://www.w3.org/1998/Math/MathML">
+        <ci> v12_Kd </ci>
+      </math>
+    </dataGenerator>
+    <dataGenerator id="v12_h_1" name="v12_h">
+      <listOfVariables>
+        <variable id="v12_h" name="v12_h" taskReference="task_1" target="/sbml:sbml/sbml:model/sbml:listOfParameters/sbml:parameter[@id='v12_h']" />
+      </listOfVariables>
+      <math xmlns="http://www.w3.org/1998/Math/MathML">
+        <ci> v12_h </ci>
+      </math>
+    </dataGenerator>
+    <dataGenerator id="v13_Kd_1" name="v13_Kd">
+      <listOfVariables>
+        <variable id="v13_Kd" name="v13_Kd" taskReference="task_1" target="/sbml:sbml/sbml:model/sbml:listOfParameters/sbml:parameter[@id='v13_Kd']" />
+      </listOfVariables>
+      <math xmlns="http://www.w3.org/1998/Math/MathML">
+        <ci> v13_Kd </ci>
+      </math>
+    </dataGenerator>
+    <dataGenerator id="v13_h_1" name="v13_h">
+      <listOfVariables>
+        <variable id="v13_h" name="v13_h" taskReference="task_1" target="/sbml:sbml/sbml:model/sbml:listOfParameters/sbml:parameter[@id='v13_h']" />
+      </listOfVariables>
+      <math xmlns="http://www.w3.org/1998/Math/MathML">
+        <ci> v13_h </ci>
+      </math>
+    </dataGenerator>
+    <dataGenerator id="pp4_mrna_degradation_rate_1" name="pp4_mrna_degradation_rate">
+      <listOfVariables>
+        <variable id="pp4_mrna_degradation_rate" name="pp4_mrna_degradation_rate" taskReference="task_1" target="/sbml:sbml/sbml:model/sbml:listOfParameters/sbml:parameter[@id='pp4_mrna_degradation_rate']" />
+      </listOfVariables>
+      <math xmlns="http://www.w3.org/1998/Math/MathML">
+        <ci> pp4_mrna_degradation_rate </ci>
+      </math>
+    </dataGenerator>
+    <dataGenerator id="v14_Kd_1" name="v14_Kd">
+      <listOfVariables>
+        <variable id="v14_Kd" name="v14_Kd" taskReference="task_1" target="/sbml:sbml/sbml:model/sbml:listOfParameters/sbml:parameter[@id='v14_Kd']" />
+      </listOfVariables>
+      <math xmlns="http://www.w3.org/1998/Math/MathML">
+        <ci> v14_Kd </ci>
+      </math>
+    </dataGenerator>
+    <dataGenerator id="v14_h_1" name="v14_h">
+      <listOfVariables>
+        <variable id="v14_h" name="v14_h" taskReference="task_1" target="/sbml:sbml/sbml:model/sbml:listOfParameters/sbml:parameter[@id='v14_h']" />
+      </listOfVariables>
+      <math xmlns="http://www.w3.org/1998/Math/MathML">
+        <ci> v14_h </ci>
+      </math>
+    </dataGenerator>
+    <dataGenerator id="v15_Kd_1" name="v15_Kd">
+      <listOfVariables>
+        <variable id="v15_Kd" name="v15_Kd" taskReference="task_1" target="/sbml:sbml/sbml:model/sbml:listOfParameters/sbml:parameter[@id='v15_Kd']" />
+      </listOfVariables>
+      <math xmlns="http://www.w3.org/1998/Math/MathML">
+        <ci> v15_Kd </ci>
+      </math>
+    </dataGenerator>
+    <dataGenerator id="v15_h_1" name="v15_h">
+      <listOfVariables>
+        <variable id="v15_h" name="v15_h" taskReference="task_1" target="/sbml:sbml/sbml:model/sbml:listOfParameters/sbml:parameter[@id='v15_h']" />
+      </listOfVariables>
+      <math xmlns="http://www.w3.org/1998/Math/MathML">
+        <ci> v15_h </ci>
+      </math>
+    </dataGenerator>
+    <dataGenerator id="pp5_mrna_degradation_rate_1" name="pp5_mrna_degradation_rate">
+      <listOfVariables>
+        <variable id="pp5_mrna_degradation_rate" name="pp5_mrna_degradation_rate" taskReference="task_1" target="/sbml:sbml/sbml:model/sbml:listOfParameters/sbml:parameter[@id='pp5_mrna_degradation_rate']" />
+      </listOfVariables>
+      <math xmlns="http://www.w3.org/1998/Math/MathML">
+        <ci> pp5_mrna_degradation_rate </ci>
+      </math>
+    </dataGenerator>
+    <dataGenerator id="rbs1_strength_1" name="rbs1_strength">
+      <listOfVariables>
+        <variable id="rbs1_strength" name="rbs1_strength" taskReference="task_1" target="/sbml:sbml/sbml:model/sbml:listOfParameters/sbml:parameter[@id='rbs1_strength']" />
+      </listOfVariables>
+      <math xmlns="http://www.w3.org/1998/Math/MathML">
+        <ci> rbs1_strength </ci>
+      </math>
+    </dataGenerator>
+    <dataGenerator id="rbs2_strength_1" name="rbs2_strength">
+      <listOfVariables>
+        <variable id="rbs2_strength" name="rbs2_strength" taskReference="task_1" target="/sbml:sbml/sbml:model/sbml:listOfParameters/sbml:parameter[@id='rbs2_strength']" />
+      </listOfVariables>
+      <math xmlns="http://www.w3.org/1998/Math/MathML">
+        <ci> rbs2_strength </ci>
+      </math>
+    </dataGenerator>
+    <dataGenerator id="rbs3_strength_1" name="rbs3_strength">
+      <listOfVariables>
+        <variable id="rbs3_strength" name="rbs3_strength" taskReference="task_1" target="/sbml:sbml/sbml:model/sbml:listOfParameters/sbml:parameter[@id='rbs3_strength']" />
+      </listOfVariables>
+      <math xmlns="http://www.w3.org/1998/Math/MathML">
+        <ci> rbs3_strength </ci>
+      </math>
+    </dataGenerator>
+    <dataGenerator id="rbs4_strength_1" name="rbs4_strength">
+      <listOfVariables>
+        <variable id="rbs4_strength" name="rbs4_strength" taskReference="task_1" target="/sbml:sbml/sbml:model/sbml:listOfParameters/sbml:parameter[@id='rbs4_strength']" />
+      </listOfVariables>
+      <math xmlns="http://www.w3.org/1998/Math/MathML">
+        <ci> rbs4_strength </ci>
+      </math>
+    </dataGenerator>
+    <dataGenerator id="rbs5_strength_1" name="rbs5_strength">
+      <listOfVariables>
+        <variable id="rbs5_strength" name="rbs5_strength" taskReference="task_1" target="/sbml:sbml/sbml:model/sbml:listOfParameters/sbml:parameter[@id='rbs5_strength']" />
+      </listOfVariables>
+      <math xmlns="http://www.w3.org/1998/Math/MathML">
+        <ci> rbs5_strength </ci>
+      </math>
+    </dataGenerator>
+    <dataGenerator id="rbs6_strength_1" name="rbs6_strength">
+      <listOfVariables>
+        <variable id="rbs6_strength" name="rbs6_strength" taskReference="task_1" target="/sbml:sbml/sbml:model/sbml:listOfParameters/sbml:parameter[@id='rbs6_strength']" />
+      </listOfVariables>
+      <math xmlns="http://www.w3.org/1998/Math/MathML">
+        <ci> rbs6_strength </ci>
+      </math>
+    </dataGenerator>
+    <dataGenerator id="rbs7_strength_1" name="rbs7_strength">
+      <listOfVariables>
+        <variable id="rbs7_strength" name="rbs7_strength" taskReference="task_1" target="/sbml:sbml/sbml:model/sbml:listOfParameters/sbml:parameter[@id='rbs7_strength']" />
+      </listOfVariables>
+      <math xmlns="http://www.w3.org/1998/Math/MathML">
+        <ci> rbs7_strength </ci>
+      </math>
+    </dataGenerator>
+    <dataGenerator id="rbs8_strength_1" name="rbs8_strength">
+      <listOfVariables>
+        <variable id="rbs8_strength" name="rbs8_strength" taskReference="task_1" target="/sbml:sbml/sbml:model/sbml:listOfParameters/sbml:parameter[@id='rbs8_strength']" />
+      </listOfVariables>
+      <math xmlns="http://www.w3.org/1998/Math/MathML">
+        <ci> rbs8_strength </ci>
+      </math>
+    </dataGenerator>
+    <dataGenerator id="rbs9_strength_1" name="rbs9_strength">
+      <listOfVariables>
+        <variable id="rbs9_strength" name="rbs9_strength" taskReference="task_1" target="/sbml:sbml/sbml:model/sbml:listOfParameters/sbml:parameter[@id='rbs9_strength']" />
+      </listOfVariables>
+      <math xmlns="http://www.w3.org/1998/Math/MathML">
+        <ci> rbs9_strength </ci>
+      </math>
+    </dataGenerator>
+    <dataGenerator id="pp6_mrna_degradation_rate_1" name="pp6_mrna_degradation_rate">
+      <listOfVariables>
+        <variable id="pp6_mrna_degradation_rate" name="pp6_mrna_degradation_rate" taskReference="task_1" target="/sbml:sbml/sbml:model/sbml:listOfParameters/sbml:parameter[@id='pp6_mrna_degradation_rate']" />
+      </listOfVariables>
+      <math xmlns="http://www.w3.org/1998/Math/MathML">
+        <ci> pp6_mrna_degradation_rate </ci>
+      </math>
+    </dataGenerator>
+    <dataGenerator id="pp7_mrna_degradation_rate_1" name="pp7_mrna_degradation_rate">
+      <listOfVariables>
+        <variable id="pp7_mrna_degradation_rate" name="pp7_mrna_degradation_rate" taskReference="task_1" target="/sbml:sbml/sbml:model/sbml:listOfParameters/sbml:parameter[@id='pp7_mrna_degradation_rate']" />
+      </listOfVariables>
+      <math xmlns="http://www.w3.org/1998/Math/MathML">
+        <ci> pp7_mrna_degradation_rate </ci>
+      </math>
+    </dataGenerator>
+    <dataGenerator id="as8_1" name="as8">
+      <listOfVariables>
+        <variable id="as8" name="as8" taskReference="task_1" target="/sbml:sbml/sbml:model/sbml:listOfParameters/sbml:parameter[@id='as8']" />
+      </listOfVariables>
+      <math xmlns="http://www.w3.org/1998/Math/MathML">
+        <ci> as8 </ci>
+      </math>
+    </dataGenerator>
+    <dataGenerator id="cod1_1" name="cod1">
+      <listOfVariables>
+        <variable id="cod1" name="cod1" taskReference="task_1" target="/sbml:sbml/sbml:model/sbml:listOfParameters/sbml:parameter[@id='cod1']" />
+      </listOfVariables>
+      <math xmlns="http://www.w3.org/1998/Math/MathML">
+        <ci> cod1 </ci>
+      </math>
+    </dataGenerator>
+    <dataGenerator id="cod2_1" name="cod2">
+      <listOfVariables>
+        <variable id="cod2" name="cod2" taskReference="task_1" target="/sbml:sbml/sbml:model/sbml:listOfParameters/sbml:parameter[@id='cod2']" />
+      </listOfVariables>
+      <math xmlns="http://www.w3.org/1998/Math/MathML">
+        <ci> cod2 </ci>
+      </math>
+    </dataGenerator>
+    <dataGenerator id="cod3_1" name="cod3">
+      <listOfVariables>
+        <variable id="cod3" name="cod3" taskReference="task_1" target="/sbml:sbml/sbml:model/sbml:listOfParameters/sbml:parameter[@id='cod3']" />
+      </listOfVariables>
+      <math xmlns="http://www.w3.org/1998/Math/MathML">
+        <ci> cod3 </ci>
+      </math>
+    </dataGenerator>
+    <dataGenerator id="cod4_1" name="cod4">
+      <listOfVariables>
+        <variable id="cod4" name="cod4" taskReference="task_1" target="/sbml:sbml/sbml:model/sbml:listOfParameters/sbml:parameter[@id='cod4']" />
+      </listOfVariables>
+      <math xmlns="http://www.w3.org/1998/Math/MathML">
+        <ci> cod4 </ci>
+      </math>
+    </dataGenerator>
+    <dataGenerator id="cod5_1" name="cod5">
+      <listOfVariables>
+        <variable id="cod5" name="cod5" taskReference="task_1" target="/sbml:sbml/sbml:model/sbml:listOfParameters/sbml:parameter[@id='cod5']" />
+      </listOfVariables>
+      <math xmlns="http://www.w3.org/1998/Math/MathML">
+        <ci> cod5 </ci>
+      </math>
+    </dataGenerator>
+    <dataGenerator id="cod6_1" name="cod6">
+      <listOfVariables>
+        <variable id="cod6" name="cod6" taskReference="task_1" target="/sbml:sbml/sbml:model/sbml:listOfParameters/sbml:parameter[@id='cod6']" />
+      </listOfVariables>
+      <math xmlns="http://www.w3.org/1998/Math/MathML">
+        <ci> cod6 </ci>
+      </math>
+    </dataGenerator>
+    <dataGenerator id="cod7_1" name="cod7">
+      <listOfVariables>
+        <variable id="cod7" name="cod7" taskReference="task_1" target="/sbml:sbml/sbml:model/sbml:listOfParameters/sbml:parameter[@id='cod7']" />
+      </listOfVariables>
+      <math xmlns="http://www.w3.org/1998/Math/MathML">
+        <ci> cod7 </ci>
+      </math>
+    </dataGenerator>
+    <dataGenerator id="cod8_1" name="cod8">
+      <listOfVariables>
+        <variable id="cod8" name="cod8" taskReference="task_1" target="/sbml:sbml/sbml:model/sbml:listOfParameters/sbml:parameter[@id='cod8']" />
+      </listOfVariables>
+      <math xmlns="http://www.w3.org/1998/Math/MathML">
+        <ci> cod8 </ci>
+      </math>
+    </dataGenerator>
+    <dataGenerator id="cod9_1" name="cod9">
+      <listOfVariables>
+        <variable id="cod9" name="cod9" taskReference="task_1" target="/sbml:sbml/sbml:model/sbml:listOfParameters/sbml:parameter[@id='cod9']" />
+      </listOfVariables>
+      <math xmlns="http://www.w3.org/1998/Math/MathML">
+        <ci> cod9 </ci>
+      </math>
+    </dataGenerator>
+    <dataGenerator id="rs1_1" name="rs1">
+      <listOfVariables>
+        <variable id="rs1" name="rs1" taskReference="task_1" target="/sbml:sbml/sbml:model/sbml:listOfParameters/sbml:parameter[@id='rs1']" />
+      </listOfVariables>
+      <math xmlns="http://www.w3.org/1998/Math/MathML">
+        <ci> rs1 </ci>
+      </math>
+    </dataGenerator>
+    <dataGenerator id="rs2_1" name="rs2">
+      <listOfVariables>
+        <variable id="rs2" name="rs2" taskReference="task_1" target="/sbml:sbml/sbml:model/sbml:listOfParameters/sbml:parameter[@id='rs2']" />
+      </listOfVariables>
+      <math xmlns="http://www.w3.org/1998/Math/MathML">
+        <ci> rs2 </ci>
+      </math>
+    </dataGenerator>
+    <dataGenerator id="rs3_1" name="rs3">
+      <listOfVariables>
+        <variable id="rs3" name="rs3" taskReference="task_1" target="/sbml:sbml/sbml:model/sbml:listOfParameters/sbml:parameter[@id='rs3']" />
+      </listOfVariables>
+      <math xmlns="http://www.w3.org/1998/Math/MathML">
+        <ci> rs3 </ci>
+      </math>
+    </dataGenerator>
+    <dataGenerator id="rs4_1" name="rs4">
+      <listOfVariables>
+        <variable id="rs4" name="rs4" taskReference="task_1" target="/sbml:sbml/sbml:model/sbml:listOfParameters/sbml:parameter[@id='rs4']" />
+      </listOfVariables>
+      <math xmlns="http://www.w3.org/1998/Math/MathML">
+        <ci> rs4 </ci>
+      </math>
+    </dataGenerator>
+    <dataGenerator id="rs5_1" name="rs5">
+      <listOfVariables>
+        <variable id="rs5" name="rs5" taskReference="task_1" target="/sbml:sbml/sbml:model/sbml:listOfParameters/sbml:parameter[@id='rs5']" />
+      </listOfVariables>
+      <math xmlns="http://www.w3.org/1998/Math/MathML">
+        <ci> rs5 </ci>
+      </math>
+    </dataGenerator>
+    <dataGenerator id="rs6_1" name="rs6">
+      <listOfVariables>
+        <variable id="rs6" name="rs6" taskReference="task_1" target="/sbml:sbml/sbml:model/sbml:listOfParameters/sbml:parameter[@id='rs6']" />
+      </listOfVariables>
+      <math xmlns="http://www.w3.org/1998/Math/MathML">
+        <ci> rs6 </ci>
+      </math>
+    </dataGenerator>
+    <dataGenerator id="rs7_1" name="rs7">
+      <listOfVariables>
+        <variable id="rs7" name="rs7" taskReference="task_1" target="/sbml:sbml/sbml:model/sbml:listOfParameters/sbml:parameter[@id='rs7']" />
+      </listOfVariables>
+      <math xmlns="http://www.w3.org/1998/Math/MathML">
+        <ci> rs7 </ci>
+      </math>
+    </dataGenerator>
+    <dataGenerator id="as1_1" name="as1">
+      <listOfVariables>
+        <variable id="as1" name="as1" taskReference="task_1" target="/sbml:sbml/sbml:model/sbml:listOfParameters/sbml:parameter[@id='as1']" />
+      </listOfVariables>
+      <math xmlns="http://www.w3.org/1998/Math/MathML">
+        <ci> as1 </ci>
+      </math>
+    </dataGenerator>
+    <dataGenerator id="as2_1" name="as2">
+      <listOfVariables>
+        <variable id="as2" name="as2" taskReference="task_1" target="/sbml:sbml/sbml:model/sbml:listOfParameters/sbml:parameter[@id='as2']" />
+      </listOfVariables>
+      <math xmlns="http://www.w3.org/1998/Math/MathML">
+        <ci> as2 </ci>
+      </math>
+    </dataGenerator>
+    <dataGenerator id="as3_1" name="as3">
+      <listOfVariables>
+        <variable id="as3" name="as3" taskReference="task_1" target="/sbml:sbml/sbml:model/sbml:listOfParameters/sbml:parameter[@id='as3']" />
+      </listOfVariables>
+      <math xmlns="http://www.w3.org/1998/Math/MathML">
+        <ci> as3 </ci>
+      </math>
+    </dataGenerator>
+    <dataGenerator id="as4_1" name="as4">
+      <listOfVariables>
+        <variable id="as4" name="as4" taskReference="task_1" target="/sbml:sbml/sbml:model/sbml:listOfParameters/sbml:parameter[@id='as4']" />
+      </listOfVariables>
+      <math xmlns="http://www.w3.org/1998/Math/MathML">
+        <ci> as4 </ci>
+      </math>
+    </dataGenerator>
+    <dataGenerator id="as5_1" name="as5">
+      <listOfVariables>
+        <variable id="as5" name="as5" taskReference="task_1" target="/sbml:sbml/sbml:model/sbml:listOfParameters/sbml:parameter[@id='as5']" />
+      </listOfVariables>
+      <math xmlns="http://www.w3.org/1998/Math/MathML">
+        <ci> as5 </ci>
+      </math>
+    </dataGenerator>
+    <dataGenerator id="as6_1" name="as6">
+      <listOfVariables>
+        <variable id="as6" name="as6" taskReference="task_1" target="/sbml:sbml/sbml:model/sbml:listOfParameters/sbml:parameter[@id='as6']" />
+      </listOfVariables>
+      <math xmlns="http://www.w3.org/1998/Math/MathML">
+        <ci> as6 </ci>
+      </math>
+    </dataGenerator>
+    <dataGenerator id="as7_1" name="as7">
+      <listOfVariables>
+        <variable id="as7" name="as7" taskReference="task_1" target="/sbml:sbml/sbml:model/sbml:listOfParameters/sbml:parameter[@id='as7']" />
+      </listOfVariables>
+      <math xmlns="http://www.w3.org/1998/Math/MathML">
+        <ci> as7 </ci>
+      </math>
+    </dataGenerator>
+  </listOfDataGenerators>
+  <listOfOutputs>
+    <plot2D id="plot_1" name="Timecourse for test 01395">
+      <listOfCurves>
+        <curve id="c_pp9_mrna_1" name="pp9_mrna" logX="false" logY="false" xDataReference="time_1" yDataReference="pp9_mrna_1" />
+        <curve id="c_p9_1" name="p9" logX="false" logY="false" xDataReference="time_1" yDataReference="p9_1" />
+        <curve id="c_pp8_mrna_1" name="pp8_mrna" logX="false" logY="false" xDataReference="time_1" yDataReference="pp8_mrna_1" />
+        <curve id="c_p8_1" name="p8" logX="false" logY="false" xDataReference="time_1" yDataReference="p8_1" />
+        <curve id="c_pp7_mrna_1" name="pp7_mrna" logX="false" logY="false" xDataReference="time_1" yDataReference="pp7_mrna_1" />
+        <curve id="c_p7_1" name="p7" logX="false" logY="false" xDataReference="time_1" yDataReference="p7_1" />
+        <curve id="c_pp6_mrna_1" name="pp6_mrna" logX="false" logY="false" xDataReference="time_1" yDataReference="pp6_mrna_1" />
+        <curve id="c_p6_1" name="p6" logX="false" logY="false" xDataReference="time_1" yDataReference="p6_1" />
+        <curve id="c_pp5_mrna_1" name="pp5_mrna" logX="false" logY="false" xDataReference="time_1" yDataReference="pp5_mrna_1" />
+        <curve id="c_p5_1" name="p5" logX="false" logY="false" xDataReference="time_1" yDataReference="p5_1" />
+        <curve id="c_pp4_mrna_1" name="pp4_mrna" logX="false" logY="false" xDataReference="time_1" yDataReference="pp4_mrna_1" />
+        <curve id="c_p4_1" name="p4" logX="false" logY="false" xDataReference="time_1" yDataReference="p4_1" />
+        <curve id="c_pp3_mrna_1" name="pp3_mrna" logX="false" logY="false" xDataReference="time_1" yDataReference="pp3_mrna_1" />
+        <curve id="c_p3_1" name="p3" logX="false" logY="false" xDataReference="time_1" yDataReference="p3_1" />
+        <curve id="c_pp2_mrna_1" name="pp2_mrna" logX="false" logY="false" xDataReference="time_1" yDataReference="pp2_mrna_1" />
+        <curve id="c_p2_1" name="p2" logX="false" logY="false" xDataReference="time_1" yDataReference="p2_1" />
+        <curve id="c_pp1_mrna_1" name="pp1_mrna" logX="false" logY="false" xDataReference="time_1" yDataReference="pp1_mrna_1" />
+        <curve id="c_p1_1" name="p1" logX="false" logY="false" xDataReference="time_1" yDataReference="p1_1" />
+        <curve id="c_DefaultCompartment_1" name="DefaultCompartment" logX="false" logY="false" xDataReference="time_1" yDataReference="DefaultCompartment_1" />
+        <curve id="c_pp8_mrna_degradation_rate_1" name="pp8_mrna_degradation_rate" logX="false" logY="false" xDataReference="time_1" yDataReference="pp8_mrna_degradation_rate_1" />
+        <curve id="c_pp9_mrna_degradation_rate_1" name="pp9_mrna_degradation_rate" logX="false" logY="false" xDataReference="time_1" yDataReference="pp9_mrna_degradation_rate_1" />
+        <curve id="c_p1_degradation_rate_1" name="p1_degradation_rate" logX="false" logY="false" xDataReference="time_1" yDataReference="p1_degradation_rate_1" />
+        <curve id="c_p2_degradation_rate_1" name="p2_degradation_rate" logX="false" logY="false" xDataReference="time_1" yDataReference="p2_degradation_rate_1" />
+        <curve id="c_p3_degradation_rate_1" name="p3_degradation_rate" logX="false" logY="false" xDataReference="time_1" yDataReference="p3_degradation_rate_1" />
+        <curve id="c_p4_degradation_rate_1" name="p4_degradation_rate" logX="false" logY="false" xDataReference="time_1" yDataReference="p4_degradation_rate_1" />
+        <curve id="c_p5_degradation_rate_1" name="p5_degradation_rate" logX="false" logY="false" xDataReference="time_1" yDataReference="p5_degradation_rate_1" />
+        <curve id="c_p6_degradation_rate_1" name="p6_degradation_rate" logX="false" logY="false" xDataReference="time_1" yDataReference="p6_degradation_rate_1" />
+        <curve id="c_p7_degradation_rate_1" name="p7_degradation_rate" logX="false" logY="false" xDataReference="time_1" yDataReference="p7_degradation_rate_1" />
+        <curve id="c_p8_degradation_rate_1" name="p8_degradation_rate" logX="false" logY="false" xDataReference="time_1" yDataReference="p8_degradation_rate_1" />
+        <curve id="c_p9_degradation_rate_1" name="p9_degradation_rate" logX="false" logY="false" xDataReference="time_1" yDataReference="p9_degradation_rate_1" />
+        <curve id="c_v1_Kd_1" name="v1_Kd" logX="false" logY="false" xDataReference="time_1" yDataReference="v1_Kd_1" />
+        <curve id="c_v1_h_1" name="v1_h" logX="false" logY="false" xDataReference="time_1" yDataReference="v1_h_1" />
+        <curve id="c_v2_Kd_1" name="v2_Kd" logX="false" logY="false" xDataReference="time_1" yDataReference="v2_Kd_1" />
+        <curve id="c_v2_h_1" name="v2_h" logX="false" logY="false" xDataReference="time_1" yDataReference="v2_h_1" />
+        <curve id="c_v3_Kd_1" name="v3_Kd" logX="false" logY="false" xDataReference="time_1" yDataReference="v3_Kd_1" />
+        <curve id="c_v3_h_1" name="v3_h" logX="false" logY="false" xDataReference="time_1" yDataReference="v3_h_1" />
+        <curve id="c_v4_Kd_1" name="v4_Kd" logX="false" logY="false" xDataReference="time_1" yDataReference="v4_Kd_1" />
+        <curve id="c_v4_h_1" name="v4_h" logX="false" logY="false" xDataReference="time_1" yDataReference="v4_h_1" />
+        <curve id="c_v5_Kd_1" name="v5_Kd" logX="false" logY="false" xDataReference="time_1" yDataReference="v5_Kd_1" />
+        <curve id="c_v5_h_1" name="v5_h" logX="false" logY="false" xDataReference="time_1" yDataReference="v5_h_1" />
+        <curve id="c_v6_Kd_1" name="v6_Kd" logX="false" logY="false" xDataReference="time_1" yDataReference="v6_Kd_1" />
+        <curve id="c_v6_h_1" name="v6_h" logX="false" logY="false" xDataReference="time_1" yDataReference="v6_h_1" />
+        <curve id="c_v7_Kd_1" name="v7_Kd" logX="false" logY="false" xDataReference="time_1" yDataReference="v7_Kd_1" />
+        <curve id="c_v7_h_1" name="v7_h" logX="false" logY="false" xDataReference="time_1" yDataReference="v7_h_1" />
+        <curve id="c_v8_Kd_1" name="v8_Kd" logX="false" logY="false" xDataReference="time_1" yDataReference="v8_Kd_1" />
+        <curve id="c_v8_h_1" name="v8_h" logX="false" logY="false" xDataReference="time_1" yDataReference="v8_h_1" />
+        <curve id="c_v9_Kd_1" name="v9_Kd" logX="false" logY="false" xDataReference="time_1" yDataReference="v9_Kd_1" />
+        <curve id="c_v9_h_1" name="v9_h" logX="false" logY="false" xDataReference="time_1" yDataReference="v9_h_1" />
+        <curve id="c_pp1_mrna_degradation_rate_1" name="pp1_mrna_degradation_rate" logX="false" logY="false" xDataReference="time_1" yDataReference="pp1_mrna_degradation_rate_1" />
+        <curve id="c_pp2_mrna_degradation_rate_1" name="pp2_mrna_degradation_rate" logX="false" logY="false" xDataReference="time_1" yDataReference="pp2_mrna_degradation_rate_1" />
+        <curve id="c_pro1_strength_1" name="pro1_strength" logX="false" logY="false" xDataReference="time_1" yDataReference="pro1_strength_1" />
+        <curve id="c_pro2_strength_1" name="pro2_strength" logX="false" logY="false" xDataReference="time_1" yDataReference="pro2_strength_1" />
+        <curve id="c_pro3_strength_1" name="pro3_strength" logX="false" logY="false" xDataReference="time_1" yDataReference="pro3_strength_1" />
+        <curve id="c_pro4_strength_1" name="pro4_strength" logX="false" logY="false" xDataReference="time_1" yDataReference="pro4_strength_1" />
+        <curve id="c_pro5_strength_1" name="pro5_strength" logX="false" logY="false" xDataReference="time_1" yDataReference="pro5_strength_1" />
+        <curve id="c_pro6_strength_1" name="pro6_strength" logX="false" logY="false" xDataReference="time_1" yDataReference="pro6_strength_1" />
+        <curve id="c_pro7_strength_1" name="pro7_strength" logX="false" logY="false" xDataReference="time_1" yDataReference="pro7_strength_1" />
+        <curve id="c_pro8_strength_1" name="pro8_strength" logX="false" logY="false" xDataReference="time_1" yDataReference="pro8_strength_1" />
+        <curve id="c_pro9_strength_1" name="pro9_strength" logX="false" logY="false" xDataReference="time_1" yDataReference="pro9_strength_1" />
+        <curve id="c_pp3_mrna_degradation_rate_1" name="pp3_mrna_degradation_rate" logX="false" logY="false" xDataReference="time_1" yDataReference="pp3_mrna_degradation_rate_1" />
+        <curve id="c_v10_Kd_1" name="v10_Kd" logX="false" logY="false" xDataReference="time_1" yDataReference="v10_Kd_1" />
+        <curve id="c_v10_h_1" name="v10_h" logX="false" logY="false" xDataReference="time_1" yDataReference="v10_h_1" />
+        <curve id="c_v11_Kd_1" name="v11_Kd" logX="false" logY="false" xDataReference="time_1" yDataReference="v11_Kd_1" />
+        <curve id="c_v11_h_1" name="v11_h" logX="false" logY="false" xDataReference="time_1" yDataReference="v11_h_1" />
+        <curve id="c_v12_Kd_1" name="v12_Kd" logX="false" logY="false" xDataReference="time_1" yDataReference="v12_Kd_1" />
+        <curve id="c_v12_h_1" name="v12_h" logX="false" logY="false" xDataReference="time_1" yDataReference="v12_h_1" />
+        <curve id="c_v13_Kd_1" name="v13_Kd" logX="false" logY="false" xDataReference="time_1" yDataReference="v13_Kd_1" />
+        <curve id="c_v13_h_1" name="v13_h" logX="false" logY="false" xDataReference="time_1" yDataReference="v13_h_1" />
+        <curve id="c_pp4_mrna_degradation_rate_1" name="pp4_mrna_degradation_rate" logX="false" logY="false" xDataReference="time_1" yDataReference="pp4_mrna_degradation_rate_1" />
+        <curve id="c_v14_Kd_1" name="v14_Kd" logX="false" logY="false" xDataReference="time_1" yDataReference="v14_Kd_1" />
+        <curve id="c_v14_h_1" name="v14_h" logX="false" logY="false" xDataReference="time_1" yDataReference="v14_h_1" />
+        <curve id="c_v15_Kd_1" name="v15_Kd" logX="false" logY="false" xDataReference="time_1" yDataReference="v15_Kd_1" />
+        <curve id="c_v15_h_1" name="v15_h" logX="false" logY="false" xDataReference="time_1" yDataReference="v15_h_1" />
+        <curve id="c_pp5_mrna_degradation_rate_1" name="pp5_mrna_degradation_rate" logX="false" logY="false" xDataReference="time_1" yDataReference="pp5_mrna_degradation_rate_1" />
+        <curve id="c_rbs1_strength_1" name="rbs1_strength" logX="false" logY="false" xDataReference="time_1" yDataReference="rbs1_strength_1" />
+        <curve id="c_rbs2_strength_1" name="rbs2_strength" logX="false" logY="false" xDataReference="time_1" yDataReference="rbs2_strength_1" />
+        <curve id="c_rbs3_strength_1" name="rbs3_strength" logX="false" logY="false" xDataReference="time_1" yDataReference="rbs3_strength_1" />
+        <curve id="c_rbs4_strength_1" name="rbs4_strength" logX="false" logY="false" xDataReference="time_1" yDataReference="rbs4_strength_1" />
+        <curve id="c_rbs5_strength_1" name="rbs5_strength" logX="false" logY="false" xDataReference="time_1" yDataReference="rbs5_strength_1" />
+        <curve id="c_rbs6_strength_1" name="rbs6_strength" logX="false" logY="false" xDataReference="time_1" yDataReference="rbs6_strength_1" />
+        <curve id="c_rbs7_strength_1" name="rbs7_strength" logX="false" logY="false" xDataReference="time_1" yDataReference="rbs7_strength_1" />
+        <curve id="c_rbs8_strength_1" name="rbs8_strength" logX="false" logY="false" xDataReference="time_1" yDataReference="rbs8_strength_1" />
+        <curve id="c_rbs9_strength_1" name="rbs9_strength" logX="false" logY="false" xDataReference="time_1" yDataReference="rbs9_strength_1" />
+        <curve id="c_pp6_mrna_degradation_rate_1" name="pp6_mrna_degradation_rate" logX="false" logY="false" xDataReference="time_1" yDataReference="pp6_mrna_degradation_rate_1" />
+        <curve id="c_pp7_mrna_degradation_rate_1" name="pp7_mrna_degradation_rate" logX="false" logY="false" xDataReference="time_1" yDataReference="pp7_mrna_degradation_rate_1" />
+        <curve id="c_as8_1" name="as8" logX="false" logY="false" xDataReference="time_1" yDataReference="as8_1" />
+        <curve id="c_cod1_1" name="cod1" logX="false" logY="false" xDataReference="time_1" yDataReference="cod1_1" />
+        <curve id="c_cod2_1" name="cod2" logX="false" logY="false" xDataReference="time_1" yDataReference="cod2_1" />
+        <curve id="c_cod3_1" name="cod3" logX="false" logY="false" xDataReference="time_1" yDataReference="cod3_1" />
+        <curve id="c_cod4_1" name="cod4" logX="false" logY="false" xDataReference="time_1" yDataReference="cod4_1" />
+        <curve id="c_cod5_1" name="cod5" logX="false" logY="false" xDataReference="time_1" yDataReference="cod5_1" />
+        <curve id="c_cod6_1" name="cod6" logX="false" logY="false" xDataReference="time_1" yDataReference="cod6_1" />
+        <curve id="c_cod7_1" name="cod7" logX="false" logY="false" xDataReference="time_1" yDataReference="cod7_1" />
+        <curve id="c_cod8_1" name="cod8" logX="false" logY="false" xDataReference="time_1" yDataReference="cod8_1" />
+        <curve id="c_cod9_1" name="cod9" logX="false" logY="false" xDataReference="time_1" yDataReference="cod9_1" />
+        <curve id="c_rs1_1" name="rs1" logX="false" logY="false" xDataReference="time_1" yDataReference="rs1_1" />
+        <curve id="c_rs2_1" name="rs2" logX="false" logY="false" xDataReference="time_1" yDataReference="rs2_1" />
+        <curve id="c_rs3_1" name="rs3" logX="false" logY="false" xDataReference="time_1" yDataReference="rs3_1" />
+        <curve id="c_rs4_1" name="rs4" logX="false" logY="false" xDataReference="time_1" yDataReference="rs4_1" />
+        <curve id="c_rs5_1" name="rs5" logX="false" logY="false" xDataReference="time_1" yDataReference="rs5_1" />
+        <curve id="c_rs6_1" name="rs6" logX="false" logY="false" xDataReference="time_1" yDataReference="rs6_1" />
+        <curve id="c_rs7_1" name="rs7" logX="false" logY="false" xDataReference="time_1" yDataReference="rs7_1" />
+        <curve id="c_as1_1" name="as1" logX="false" logY="false" xDataReference="time_1" yDataReference="as1_1" />
+        <curve id="c_as2_1" name="as2" logX="false" logY="false" xDataReference="time_1" yDataReference="as2_1" />
+        <curve id="c_as3_1" name="as3" logX="false" logY="false" xDataReference="time_1" yDataReference="as3_1" />
+        <curve id="c_as4_1" name="as4" logX="false" logY="false" xDataReference="time_1" yDataReference="as4_1" />
+        <curve id="c_as5_1" name="as5" logX="false" logY="false" xDataReference="time_1" yDataReference="as5_1" />
+        <curve id="c_as6_1" name="as6" logX="false" logY="false" xDataReference="time_1" yDataReference="as6_1" />
+        <curve id="c_as7_1" name="as7" logX="false" logY="false" xDataReference="time_1" yDataReference="as7_1" />
+      </listOfCurves>
+    </plot2D>
+    <report id="report_1" name="Report for test 01395">
+      <listOfDataSets>
+        <dataSet id="ds_time" dataReference="time_1" label="Time" />
+        <dataSet id="ds_pp9_mrna_1" dataReference="pp9_mrna_1" label="pp9_mrna" />
+        <dataSet id="ds_p9_1" dataReference="p9_1" label="p9" />
+        <dataSet id="ds_pp8_mrna_1" dataReference="pp8_mrna_1" label="pp8_mrna" />
+        <dataSet id="ds_p8_1" dataReference="p8_1" label="p8" />
+        <dataSet id="ds_pp7_mrna_1" dataReference="pp7_mrna_1" label="pp7_mrna" />
+        <dataSet id="ds_p7_1" dataReference="p7_1" label="p7" />
+        <dataSet id="ds_pp6_mrna_1" dataReference="pp6_mrna_1" label="pp6_mrna" />
+        <dataSet id="ds_p6_1" dataReference="p6_1" label="p6" />
+        <dataSet id="ds_pp5_mrna_1" dataReference="pp5_mrna_1" label="pp5_mrna" />
+        <dataSet id="ds_p5_1" dataReference="p5_1" label="p5" />
+        <dataSet id="ds_pp4_mrna_1" dataReference="pp4_mrna_1" label="pp4_mrna" />
+        <dataSet id="ds_p4_1" dataReference="p4_1" label="p4" />
+        <dataSet id="ds_pp3_mrna_1" dataReference="pp3_mrna_1" label="pp3_mrna" />
+        <dataSet id="ds_p3_1" dataReference="p3_1" label="p3" />
+        <dataSet id="ds_pp2_mrna_1" dataReference="pp2_mrna_1" label="pp2_mrna" />
+        <dataSet id="ds_p2_1" dataReference="p2_1" label="p2" />
+        <dataSet id="ds_pp1_mrna_1" dataReference="pp1_mrna_1" label="pp1_mrna" />
+        <dataSet id="ds_p1_1" dataReference="p1_1" label="p1" />
+        <dataSet id="ds_DefaultCompartment_1" dataReference="DefaultCompartment_1" label="DefaultCompartment" />
+        <dataSet id="ds_pp8_mrna_degradation_rate_1" dataReference="pp8_mrna_degradation_rate_1" label="pp8_mrna_degradation_rate" />
+        <dataSet id="ds_pp9_mrna_degradation_rate_1" dataReference="pp9_mrna_degradation_rate_1" label="pp9_mrna_degradation_rate" />
+        <dataSet id="ds_p1_degradation_rate_1" dataReference="p1_degradation_rate_1" label="p1_degradation_rate" />
+        <dataSet id="ds_p2_degradation_rate_1" dataReference="p2_degradation_rate_1" label="p2_degradation_rate" />
+        <dataSet id="ds_p3_degradation_rate_1" dataReference="p3_degradation_rate_1" label="p3_degradation_rate" />
+        <dataSet id="ds_p4_degradation_rate_1" dataReference="p4_degradation_rate_1" label="p4_degradation_rate" />
+        <dataSet id="ds_p5_degradation_rate_1" dataReference="p5_degradation_rate_1" label="p5_degradation_rate" />
+        <dataSet id="ds_p6_degradation_rate_1" dataReference="p6_degradation_rate_1" label="p6_degradation_rate" />
+        <dataSet id="ds_p7_degradation_rate_1" dataReference="p7_degradation_rate_1" label="p7_degradation_rate" />
+        <dataSet id="ds_p8_degradation_rate_1" dataReference="p8_degradation_rate_1" label="p8_degradation_rate" />
+        <dataSet id="ds_p9_degradation_rate_1" dataReference="p9_degradation_rate_1" label="p9_degradation_rate" />
+        <dataSet id="ds_v1_Kd_1" dataReference="v1_Kd_1" label="v1_Kd" />
+        <dataSet id="ds_v1_h_1" dataReference="v1_h_1" label="v1_h" />
+        <dataSet id="ds_v2_Kd_1" dataReference="v2_Kd_1" label="v2_Kd" />
+        <dataSet id="ds_v2_h_1" dataReference="v2_h_1" label="v2_h" />
+        <dataSet id="ds_v3_Kd_1" dataReference="v3_Kd_1" label="v3_Kd" />
+        <dataSet id="ds_v3_h_1" dataReference="v3_h_1" label="v3_h" />
+        <dataSet id="ds_v4_Kd_1" dataReference="v4_Kd_1" label="v4_Kd" />
+        <dataSet id="ds_v4_h_1" dataReference="v4_h_1" label="v4_h" />
+        <dataSet id="ds_v5_Kd_1" dataReference="v5_Kd_1" label="v5_Kd" />
+        <dataSet id="ds_v5_h_1" dataReference="v5_h_1" label="v5_h" />
+        <dataSet id="ds_v6_Kd_1" dataReference="v6_Kd_1" label="v6_Kd" />
+        <dataSet id="ds_v6_h_1" dataReference="v6_h_1" label="v6_h" />
+        <dataSet id="ds_v7_Kd_1" dataReference="v7_Kd_1" label="v7_Kd" />
+        <dataSet id="ds_v7_h_1" dataReference="v7_h_1" label="v7_h" />
+        <dataSet id="ds_v8_Kd_1" dataReference="v8_Kd_1" label="v8_Kd" />
+        <dataSet id="ds_v8_h_1" dataReference="v8_h_1" label="v8_h" />
+        <dataSet id="ds_v9_Kd_1" dataReference="v9_Kd_1" label="v9_Kd" />
+        <dataSet id="ds_v9_h_1" dataReference="v9_h_1" label="v9_h" />
+        <dataSet id="ds_pp1_mrna_degradation_rate_1" dataReference="pp1_mrna_degradation_rate_1" label="pp1_mrna_degradation_rate" />
+        <dataSet id="ds_pp2_mrna_degradation_rate_1" dataReference="pp2_mrna_degradation_rate_1" label="pp2_mrna_degradation_rate" />
+        <dataSet id="ds_pro1_strength_1" dataReference="pro1_strength_1" label="pro1_strength" />
+        <dataSet id="ds_pro2_strength_1" dataReference="pro2_strength_1" label="pro2_strength" />
+        <dataSet id="ds_pro3_strength_1" dataReference="pro3_strength_1" label="pro3_strength" />
+        <dataSet id="ds_pro4_strength_1" dataReference="pro4_strength_1" label="pro4_strength" />
+        <dataSet id="ds_pro5_strength_1" dataReference="pro5_strength_1" label="pro5_strength" />
+        <dataSet id="ds_pro6_strength_1" dataReference="pro6_strength_1" label="pro6_strength" />
+        <dataSet id="ds_pro7_strength_1" dataReference="pro7_strength_1" label="pro7_strength" />
+        <dataSet id="ds_pro8_strength_1" dataReference="pro8_strength_1" label="pro8_strength" />
+        <dataSet id="ds_pro9_strength_1" dataReference="pro9_strength_1" label="pro9_strength" />
+        <dataSet id="ds_pp3_mrna_degradation_rate_1" dataReference="pp3_mrna_degradation_rate_1" label="pp3_mrna_degradation_rate" />
+        <dataSet id="ds_v10_Kd_1" dataReference="v10_Kd_1" label="v10_Kd" />
+        <dataSet id="ds_v10_h_1" dataReference="v10_h_1" label="v10_h" />
+        <dataSet id="ds_v11_Kd_1" dataReference="v11_Kd_1" label="v11_Kd" />
+        <dataSet id="ds_v11_h_1" dataReference="v11_h_1" label="v11_h" />
+        <dataSet id="ds_v12_Kd_1" dataReference="v12_Kd_1" label="v12_Kd" />
+        <dataSet id="ds_v12_h_1" dataReference="v12_h_1" label="v12_h" />
+        <dataSet id="ds_v13_Kd_1" dataReference="v13_Kd_1" label="v13_Kd" />
+        <dataSet id="ds_v13_h_1" dataReference="v13_h_1" label="v13_h" />
+        <dataSet id="ds_pp4_mrna_degradation_rate_1" dataReference="pp4_mrna_degradation_rate_1" label="pp4_mrna_degradation_rate" />
+        <dataSet id="ds_v14_Kd_1" dataReference="v14_Kd_1" label="v14_Kd" />
+        <dataSet id="ds_v14_h_1" dataReference="v14_h_1" label="v14_h" />
+        <dataSet id="ds_v15_Kd_1" dataReference="v15_Kd_1" label="v15_Kd" />
+        <dataSet id="ds_v15_h_1" dataReference="v15_h_1" label="v15_h" />
+        <dataSet id="ds_pp5_mrna_degradation_rate_1" dataReference="pp5_mrna_degradation_rate_1" label="pp5_mrna_degradation_rate" />
+        <dataSet id="ds_rbs1_strength_1" dataReference="rbs1_strength_1" label="rbs1_strength" />
+        <dataSet id="ds_rbs2_strength_1" dataReference="rbs2_strength_1" label="rbs2_strength" />
+        <dataSet id="ds_rbs3_strength_1" dataReference="rbs3_strength_1" label="rbs3_strength" />
+        <dataSet id="ds_rbs4_strength_1" dataReference="rbs4_strength_1" label="rbs4_strength" />
+        <dataSet id="ds_rbs5_strength_1" dataReference="rbs5_strength_1" label="rbs5_strength" />
+        <dataSet id="ds_rbs6_strength_1" dataReference="rbs6_strength_1" label="rbs6_strength" />
+        <dataSet id="ds_rbs7_strength_1" dataReference="rbs7_strength_1" label="rbs7_strength" />
+        <dataSet id="ds_rbs8_strength_1" dataReference="rbs8_strength_1" label="rbs8_strength" />
+        <dataSet id="ds_rbs9_strength_1" dataReference="rbs9_strength_1" label="rbs9_strength" />
+        <dataSet id="ds_pp6_mrna_degradation_rate_1" dataReference="pp6_mrna_degradation_rate_1" label="pp6_mrna_degradation_rate" />
+        <dataSet id="ds_pp7_mrna_degradation_rate_1" dataReference="pp7_mrna_degradation_rate_1" label="pp7_mrna_degradation_rate" />
+        <dataSet id="ds_as8_1" dataReference="as8_1" label="as8" />
+        <dataSet id="ds_cod1_1" dataReference="cod1_1" label="cod1" />
+        <dataSet id="ds_cod2_1" dataReference="cod2_1" label="cod2" />
+        <dataSet id="ds_cod3_1" dataReference="cod3_1" label="cod3" />
+        <dataSet id="ds_cod4_1" dataReference="cod4_1" label="cod4" />
+        <dataSet id="ds_cod5_1" dataReference="cod5_1" label="cod5" />
+        <dataSet id="ds_cod6_1" dataReference="cod6_1" label="cod6" />
+        <dataSet id="ds_cod7_1" dataReference="cod7_1" label="cod7" />
+        <dataSet id="ds_cod8_1" dataReference="cod8_1" label="cod8" />
+        <dataSet id="ds_cod9_1" dataReference="cod9_1" label="cod9" />
+        <dataSet id="ds_rs1_1" dataReference="rs1_1" label="rs1" />
+        <dataSet id="ds_rs2_1" dataReference="rs2_1" label="rs2" />
+        <dataSet id="ds_rs3_1" dataReference="rs3_1" label="rs3" />
+        <dataSet id="ds_rs4_1" dataReference="rs4_1" label="rs4" />
+        <dataSet id="ds_rs5_1" dataReference="rs5_1" label="rs5" />
+        <dataSet id="ds_rs6_1" dataReference="rs6_1" label="rs6" />
+        <dataSet id="ds_rs7_1" dataReference="rs7_1" label="rs7" />
+        <dataSet id="ds_as1_1" dataReference="as1_1" label="as1" />
+        <dataSet id="ds_as2_1" dataReference="as2_1" label="as2" />
+        <dataSet id="ds_as3_1" dataReference="as3_1" label="as3" />
+        <dataSet id="ds_as4_1" dataReference="as4_1" label="as4" />
+        <dataSet id="ds_as5_1" dataReference="as5_1" label="as5" />
+        <dataSet id="ds_as6_1" dataReference="as6_1" label="as6" />
+        <dataSet id="ds_as7_1" dataReference="as7_1" label="as7" />
+      </listOfDataSets>
+    </report>
+  </listOfOutputs>
+</sedML>

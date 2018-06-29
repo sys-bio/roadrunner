@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- Created by libAntimony version v2.9.1 with libSBML version 5.14.1. -->
+<sbml xmlns="http://www.sbml.org/sbml/level3/version1/core" xmlns:comp="http://www.sbml.org/sbml/level3/version1/comp/version1" level="3" version="1" comp:required="true">
+  <model id="case01476" name="case01476">
+    <listOfCompartments>
+      <compartment id="C" spatialDimensions="3" size="1" constant="true">
+        <comp:listOfReplacedElements>
+          <comp:replacedElement comp:idRef="sub1" comp:submodelRef="sub2">
+            <comp:sBaseRef comp:idRef="C"/>
+          </comp:replacedElement>
+        </comp:listOfReplacedElements>
+      </compartment>
+    </listOfCompartments>
+    <listOfSpecies>
+      <species id="s1" initialAmount="0" compartment="C" hasOnlySubstanceUnits="false" boundaryCondition="false" constant="false">
+        <comp:listOfReplacedElements>
+          <comp:replacedElement comp:idRef="sub1" comp:submodelRef="sub2">
+            <comp:sBaseRef comp:idRef="s1"/>
+          </comp:replacedElement>
+        </comp:listOfReplacedElements>
+      </species>
+    </listOfSpecies>
+    <listOfParameters>
+      <parameter id="extentconv" value="1000" constant="true"/>
+    </listOfParameters>
+    <comp:listOfSubmodels>
+      <comp:submodel id="sub2" comp:id="sub2" comp:modelRef="moddef2" comp:extentConversionFactor="extentconv"/>
+    </comp:listOfSubmodels>
+  </model>
+  <comp:listOfExternalModelDefinitions>
+    <comp:externalModelDefinition comp:id="moddef2" comp:source="external.xml" comp:modelRef="moddef2" />
+  </comp:listOfExternalModelDefinitions>
+</sbml>

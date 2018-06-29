@@ -1,0 +1,25 @@
+<p>
+ In this test, a single reaction has multiple reactions and products that all point to two species, and each has an assigned value.  This is equivalent to a reaction where all of the species references that point to the same species are collapsed into a single species reference with a stoichiometry equal to the sum of the stoichiometries of the original species references. Partway through the simulation, the stoichiometries change due to an event.</p>
+<p>The model contains:</p><ul>
+<li class="u">2 species (A, B)</li>
+<li class="u">1 compartment (C)</li>
+<li class="u">4 species references (A<em>sr1, B</em>sr1, A<em>sr2, B</em>sr2)</li></ul>
+<p>There is one reaction:</p>
+<table style="width:30em;margin: 1em auto;"><tr><td style="text-align:center;">  <strong>Reaction</strong>  </td><td style="text-align:center;">  <strong>Rate</strong>  </td></tr>
+<tr><td style="text-align:center;"> J0: A<em>sr1 A + B</em>sr1 B &#8594; A<em>sr2 A + B</em>sr2 B </td><td style="text-align:center;"> <dfn>&#8722;1</dfn> </td></tr></table><p>
+Note:  the following stoichiometries are set separately:  A<em>sr1, B</em>sr1, A<em>sr2, B</em>sr2</p>
+<p>There is one event:</p>
+<table style="width:30em;margin: 1em auto;"><tr><td style="text-align:center;">  <strong>Event</strong>  </td><td style="text-align:center;">  <strong>Trigger</strong>  </td><td style="text-align:center;"> <strong>Event Assignments</strong> </td></tr>
+<tr><td style="text-align:center;"> _E0 </td><td style="text-align:center;"> <dfn>time &#8805; 5</dfn> </td><td style="text-align:center;"> <dfn>A<sub class="i">sr1</sub> = 1</dfn> </td></tr>
+<tr><td style="text-align:center;">  </td><td style="text-align:center;">  </td><td style="text-align:center;"> <dfn>A<sub class="i">sr2</sub> = 2</dfn> </td></tr>
+<tr><td style="text-align:center;">  </td><td style="text-align:center;">  </td><td style="text-align:center;"> <dfn>B<sub class="i">sr1</sub> = 1</dfn> </td></tr>
+<tr><td style="text-align:center;">  </td><td style="text-align:center;">  </td><td style="text-align:center;"> <dfn>B<sub class="i">sr2</sub> = 2</dfn> </td></tr></table>
+<p>The initial conditions are as follows:</p>
+<table style="width:35em;margin: 1em auto;"><tr><td style="text-align:center;">       </td><td style="text-align:center;"> <strong>Value</strong> </td><td style="text-align:center;"> <strong>Constant</strong> </td></tr>
+<tr><td style="text-align:center;"> Initial concentration of species A </td><td style="text-align:center;"> <dfn>1</dfn> </td><td style="text-align:center;"> variable </td></tr>
+<tr><td style="text-align:center;"> Initial concentration of species B </td><td style="text-align:center;"> <dfn>1</dfn> </td><td style="text-align:center;"> variable </td></tr>
+<tr><td style="text-align:center;"> Initial volume of compartment 'C' </td><td style="text-align:center;"> <dfn>1</dfn> </td><td style="text-align:center;"> constant </td></tr>
+<tr><td style="text-align:center;"> Initial value of species reference 'A_sr1' </td><td style="text-align:center;"> <dfn>2</dfn> </td><td style="text-align:center;"> variable </td></tr>
+<tr><td style="text-align:center;"> Initial value of species reference 'B_sr1' </td><td style="text-align:center;"> <dfn>2</dfn> </td><td style="text-align:center;"> variable </td></tr>
+<tr><td style="text-align:center;"> Initial value of species reference 'A_sr2' </td><td style="text-align:center;"> <dfn>1</dfn> </td><td style="text-align:center;"> variable </td></tr>
+<tr><td style="text-align:center;"> Initial value of species reference 'B_sr2' </td><td style="text-align:center;"> <dfn>1</dfn> </td><td style="text-align:center;"> variable </td></tr></table>

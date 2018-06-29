@@ -1,0 +1,14 @@
+<p>
+ The species in the replaced submodel must be converted by the conversion factor, separated by a level of submodel indirection, and in an external model.  The species and compartment are replaced in the top-level model.  An extension of test 1477, which doesn't have the conversion factor for the species.</p>
+<p>The 'flattened' version of this hierarchical model contains:</p><ul>
+<li class="u">1 species (s1)</li>
+<li class="u">1 parameter (cf)</li>
+<li class="u">1 compartment (C)</li></ul>
+<p>There is one reaction:</p>
+<table style="width:30em;margin: 1em auto;"><tr><td style="text-align:center;">  <strong>Reaction</strong>  </td><td style="text-align:center;">  <strong>Rate</strong>  </td></tr>
+<tr><td style="text-align:center;"> sub2_<em>sub1</em>_J0: &#8594; s1 </td><td style="text-align:center;"> <dfn>10 / (s1 / cf)</dfn> </td></tr></table>
+<p>The initial conditions are as follows:</p>
+<table style="width:35em;margin: 1em auto;"><tr><td style="text-align:center;">       </td><td style="text-align:center;"> <strong>Value</strong> </td><td style="text-align:center;"> <strong>Constant</strong> </td></tr>
+<tr><td style="text-align:center;"> Initial concentration of species s1 </td><td style="text-align:center;"> <dfn>2</dfn> </td><td style="text-align:center;"> variable </td></tr>
+<tr><td style="text-align:center;"> Initial value of parameter cf </td><td style="text-align:center;"> <dfn>10</dfn> </td><td style="text-align:center;"> constant </td></tr>
+<tr><td style="text-align:center;"> Initial volume of compartment 'C' </td><td style="text-align:center;"> <dfn>1</dfn> </td><td style="text-align:center;"> constant </td></tr></table>

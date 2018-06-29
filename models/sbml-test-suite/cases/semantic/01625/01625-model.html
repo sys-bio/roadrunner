@@ -1,0 +1,36 @@
+<p>
+A test with minimization that uses a reaction whose bound is set to be equal to zero, instead of having an upper and lower bound.</p>
+<p>The model contains:</p><ul>
+<li class="u">23 species (A, B, C, D, E, F, G, H, I, J, K, L, M, N, O, P, Q, R, S, T, U, X, Y)</li>
+<li class="u">1 compartment (Cell)</li>
+<li class="u">1 objective (OBJF)</li></ul>
+<p>The active objective is OBJF, which is to be minimized:
+  + 1 R26</p>
+<p>There are 26 reactions, and 51 flux bounds:</p>
+<table style="width:30em;margin: 1em auto;"><tr><td style="text-align:center;">  <strong>Reaction</strong>  </td><td style="text-align:center;">  <strong>Rate</strong>  </td></tr>
+<tr><td style="text-align:center;"> R16: J &#8594; M </td><td style="text-align:center;"> <dfn>R16 &#8805; 0 && R16 &#8804; 1000</dfn> </td></tr>
+<tr><td style="text-align:center;"> R14: K &#8594; L </td><td style="text-align:center;"> <dfn>R14 == 0</dfn> </td></tr>
+<tr><td style="text-align:center;"> R15: L &#8594; Q </td><td style="text-align:center;"> <dfn>R15 &#8805; 0 && R15 &#8804; 1000</dfn> </td></tr>
+<tr><td style="text-align:center;"> R12: I &#8594; J </td><td style="text-align:center;"> <dfn>R12 &#8805; 0 && R12 &#8804; 1000</dfn> </td></tr>
+<tr><td style="text-align:center;"> R07: E &#8594; F </td><td style="text-align:center;"> <dfn>R07 &#8805; 0 && R07 &#8804; 1000</dfn> </td></tr>
+<tr><td style="text-align:center;"> R13: J &#8594; K </td><td style="text-align:center;"> <dfn>R13 &#8805; 0 && R13 &#8804; 1000</dfn> </td></tr>
+<tr><td style="text-align:center;"> R01: X &#8594; A </td><td style="text-align:center;"> <dfn>R01 &#8805; 0 && R01 &#8804; 1</dfn> </td></tr>
+<tr><td style="text-align:center;"> R17: M &#8594; N </td><td style="text-align:center;"> <dfn>R17 &#8805; 0 && R17 &#8804; 1000</dfn> </td></tr>
+<tr><td style="text-align:center;"> R03: A &#8594; C </td><td style="text-align:center;"> <dfn>R03 &#8805; &#8722;1000 && R03 &#8804; 1000</dfn> </td></tr>
+<tr><td style="text-align:center;"> R02: A &#8594; B </td><td style="text-align:center;"> <dfn>R02 &#8805; &#8722;1000 && R02 &#8804; 1000</dfn> </td></tr>
+<tr><td style="text-align:center;"> R05: B &#8594; D </td><td style="text-align:center;"> <dfn>R05 &#8805; 0 && R05 &#8804; 1000</dfn> </td></tr>
+<tr><td style="text-align:center;"> R04: C &#8594; B </td><td style="text-align:center;"> <dfn>R04 &#8805; &#8722;1000 && R04 &#8804; 1000</dfn> </td></tr>
+<tr><td style="text-align:center;"> R10: G &#8594; H </td><td style="text-align:center;"> <dfn>R10 &#8805; 0 && R10 &#8804; 1000</dfn> </td></tr>
+<tr><td style="text-align:center;"> R06: D &#8594; E </td><td style="text-align:center;"> <dfn>R06 &#8805; 0 && R06 &#8804; 1000</dfn> </td></tr>
+<tr><td style="text-align:center;"> R09: D &#8594; G </td><td style="text-align:center;"> <dfn>R09 &#8805; 0 && R09 &#8804; 1000</dfn> </td></tr>
+<tr><td style="text-align:center;"> R08: F &#8594; I </td><td style="text-align:center;"> <dfn>R08 &#8805; 0 && R08 &#8804; 1000</dfn> </td></tr>
+<tr><td style="text-align:center;"> R11: H &#8594; I </td><td style="text-align:center;"> <dfn>R11 &#8805; 0 && R11 &#8804; 1000</dfn> </td></tr>
+<tr><td style="text-align:center;"> R18: N &#8594; Q </td><td style="text-align:center;"> <dfn>R18 &#8805; 0 && R18 &#8804; 1000</dfn> </td></tr>
+<tr><td style="text-align:center;"> R19: K &#8594; O </td><td style="text-align:center;"> <dfn>R19 &#8805; &#8722;1000 && R19 &#8804; 1000</dfn> </td></tr>
+<tr><td style="text-align:center;"> R26: S &#8594; Y </td><td style="text-align:center;"> <dfn>R26 &#8805; 0 && R26 &#8804; 1000</dfn> </td></tr>
+<tr><td style="text-align:center;"> R25: A + T &#8594; 0.5S + U </td><td style="text-align:center;"> <dfn>R25 &#8805; &#8722;1000 && R25 &#8804; &#8722;100</dfn> </td></tr>
+<tr><td style="text-align:center;"> R24: R &#8594; S </td><td style="text-align:center;"> <dfn>R24 &#8805; 0 && R24 &#8804; 1000</dfn> </td></tr>
+<tr><td style="text-align:center;"> R23: R &#8594; S </td><td style="text-align:center;"> <dfn>R23 &#8805; &#8722;1000 && R23 &#8804; 1000</dfn> </td></tr>
+<tr><td style="text-align:center;"> R22: Q &#8594; R </td><td style="text-align:center;"> <dfn>R22 &#8805; 0 && R22 &#8804; 1000</dfn> </td></tr>
+<tr><td style="text-align:center;"> R21: P &#8594; L </td><td style="text-align:center;"> <dfn>R21 &#8805; &#8722;1000 && R21 &#8804; 1000</dfn> </td></tr>
+<tr><td style="text-align:center;"> R20: O &#8594; P </td><td style="text-align:center;"> <dfn>R20 &#8805; &#8722;1000 && R20 &#8804; 1000</dfn> </td></tr></table>
