@@ -421,7 +421,6 @@ llvm::Value* ASTNodeCodeGen::applyScalarRelationalCodeGen(const libsbml::ASTNode
 		Value* right = toDouble(codeGen(ast->getRightChild()));
         return applyBinaryRelationalCodeGen(ast, left, right);
     }
-	cout << "Doing scalar relation" << endl;
 
 	Value *result = 0;
 	// Possible to have more than 2 children
@@ -432,22 +431,7 @@ llvm::Value* ASTNodeCodeGen::applyScalarRelationalCodeGen(const libsbml::ASTNode
 		Value *left = toDouble(codeGen(ast->getLeftChild()));
 		Value *right = toDouble(codeGen(ast->getRightChild()));
 		
-		cout << "left is a constant: " << isa<Constant>(left) << endl;
-		cout << "left is an operator: " << isa<Operator>(left) << endl;
-		cout << "left: " << endl;
-		left->dump();
-
-		cout << "right is a constant: " <<  isa<Constant>(right) << endl;
-		cout << "right is an operator: " << isa<Operator>(right) << endl;
-		cout << "right: " << endl;
-		right->dump();
-
 		result = applyBinaryRelationalCodeGen(ast, left, right);
-
-		cout << "res is a constant: " << isa<Constant>(result) << endl;
-		cout << "res is an operator: " << isa<Operator>(result) << endl;
-		cout << "res: " << endl;
-		result->dump();
 	} else {
 		/* There are multiple children, we can break the relations up by ANDing them together
 		 * e.g. 1 <= 2 <= 1 === (1 <= 2) && (2 <= 1). The AST tree for *LLVM* will end up like
@@ -460,30 +444,12 @@ llvm::Value* ASTNodeCodeGen::applyScalarRelationalCodeGen(const libsbml::ASTNode
 		Value* baseLeftVal = toDouble(codeGen(ast->getChild(0)));
 		Value* baseMidVal = toDouble(codeGen(ast->getChild(1)));
 		Value* baseRightVal = toDouble(codeGen(ast->getChild(2)));
-		cout << "baseLeft: " << endl;
-		baseLeftVal->dump();
-		cout << "baseMid: " << endl;
-		baseMidVal->dump();
-		cout << "baseRight: " << endl;
-		baseRightVal->dump();
-		
+				
 		Value* relationLeft = applyBinaryRelationalCodeGen(ast, baseLeftVal, baseMidVal);
 		Value* relationRight = applyBinaryRelationalCodeGen(ast, baseMidVal, baseRightVal);
 		
-		cout << "relLeft is a constant: " << isa<Constant>(relationLeft);
-		cout << "relLeft is an operator: " << isa<Operator>(relationLeft);
-		cout << "relLeft: " << endl;
-		relationLeft->dump();
-		cout << "relRight is a constant: " << isa<Constant>(relationRight);
-		cout << "relRight is an operator: " << isa<Operator>(relationRight);
-		cout << "relRight: " << endl;
-		relationRight->dump();
-		
 		result = builder.CreateAnd(relationLeft, relationRight);
 		
-		cout << "res: " << endl;
-		result->dump();
-
 		//loop over the children to create the AND'ing tree shown above
 		for (int i = 3; i < numKids; i++) {
 			// In the example above, tempPrevVal = 1, tempCurrVal = 3, tempRelation = 1<3
@@ -491,10 +457,7 @@ llvm::Value* ASTNodeCodeGen::applyScalarRelationalCodeGen(const libsbml::ASTNode
 			Value* tempCurrVal = toDouble(codeGen(ast->getChild(i)));
 			Value* tempRelation = applyBinaryRelationalCodeGen(ast, tempPrevVal, tempCurrVal);
 			// Create new root of the tree
-			result = builder.CreateAnd(result, tempRelation);
-			
-			cout << "res: " << endl;
-			result->dump();
+			result = builder.CreateAnd(result, tempRelation);	
 		}
 	}
 
