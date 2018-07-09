@@ -90,11 +90,11 @@ Value* EvalRateRuleRatesCodeGen::codeGen()
 
                         ASTNode *l = new ASTNode(AST_TIMES);
                         l->addChild(dcdt);
-                        l->addChild(v);
+                        l->addChild(c);
 
                         ASTNode *r = new ASTNode(AST_TIMES);
                         r->addChild(dvdt);
-                        r->addChild((v));
+                        r->addChild(v);
 
                         ASTNode *plus = nodes.create(AST_PLUS);
                         plus->addChild(l);
