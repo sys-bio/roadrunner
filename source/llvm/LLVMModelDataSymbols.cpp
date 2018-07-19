@@ -17,6 +17,9 @@
 #include <Poco/LogStream.h>
 #include <sbml/Model.h>
 #include <sbml/SBMLDocument.h>
+#ifdef LIBSBML_HAS_PACKAGE_ARRAYS
+#include <sbml/packages/arrays/common/ArraysExtensionTypes.h>
+#endif
 
 #include <string>
 #include <vector>
@@ -613,6 +616,13 @@ uint LLVMModelDataSymbols::getGlobalParametersSize() const
     return globalParametersMap.size();
 }
 
+void LLVMModelDataSymbols::initArrayGlobalParameters(const ArraysSBasePlugin *arraysParam, uint ind)
+{
+	if (ind == arraysParam->getNumDimensions())
+		return;
+	const string& sizeParamId = arraysParam->getDimension(ind)->getSize();
+}
+
 void LLVMModelDataSymbols::initGlobalParameters(const libsbml::Model* model,
         bool conservedMoieties)
 {
@@ -623,12 +633,23 @@ void LLVMModelDataSymbols::initGlobalParameters(const libsbml::Model* model,
 
     const ListOfParameters *parameters = model->getListOfParameters();
 
-    globalParameterRateRules.resize(parameters->size(), false);
-
     for (uint i = 0; i < parameters->size(); i++)
     {
         const Parameter *p = parameters->get(i);
         const string& id = p->getId();
+
+		if (p->isPackageEnabled("arrays") && !LIBSBML_HAS_PACKAGE_ARRAYS)
+		{
+			throw runtime_error("The parameter " + id + "has a ListOfDimensions or ListOfIndices but the libSBML arrays package has not been enabled. Please build roadrunner with libSBML arrays package enabled");
+		}
+		
+		if (p->isPackageEnabled("arrays") && LIBSBML_HAS_PACKAGE_ARRAYS)
+		{
+			// Get the array SBase and run through the list of dimensions
+			const ArraysSBasePlugin * arraysParam = static_cast<const ArraysSBasePlugin*>(p->getPlugin("arrays"));
+			initArrayGlobalParameters(arraysParam, 0);
+		}
+
         if (isIndependentElement(id))
         {
             indParam.push_back(id);
@@ -647,6 +668,8 @@ void LLVMModelDataSymbols::initGlobalParameters(const libsbml::Model* model,
             depInitParam.push_back(id);
         }
     }
+
+    globalParameterRateRules.resize(parameters->size(), false);
 
     // when this is used, we check the size, so works even
     // when consv moieity is not enabled.

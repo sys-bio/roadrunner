@@ -17,7 +17,6 @@
 #include "tr1proxy/rr_memory.h"
 #include "tr1proxy/rr_unordered_map.h"
 
-
 #include <map>
 #include <set>
 #include <list>
@@ -27,6 +26,7 @@ namespace libsbml
     class Model;
     class SimpleSpeciesReference;
     class ASTNode;
+	class ArraysSBasePlugin;
 }
 
 namespace rrllvm
@@ -693,6 +693,8 @@ private:
      *
      */
     void initCompartments(const libsbml::Model *);
+
+	void initArrayGlobalParameters(const libsbml::ArraysSBasePlugin *arraysParam, uint ind);
 
     /**
      * get the global parameters, need to reorder them to set the independent
