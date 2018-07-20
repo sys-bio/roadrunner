@@ -81,12 +81,21 @@ LLVMModelSymbols::LLVMModelSymbols(const libsbml::Model *m, LLVMModelDataSymbols
             {
                 Log(Logger::LOG_INFORMATION) << "parameter " << param->getId()
                         << " missing value, but has init rule or rule, setting "
-                        " value to " << param->getValue();
-                value->setValue(param->getValue());
+                        " value to 0.0";
+                value->setValue(0.0);
             }
         }
 
-        initialValues.globalParameters[param->getId()] = value;
+		// Don't have to check for errors because we would've called LLVMModelDataSymbols
+		// which would have thrown an error
+		if (param->isPackageEnabled("arrays"))
+		{
+			map<string, vector<uint> > arrayedParameters = sym.getArrayedGlobalParameters(param->getId());
+			for(map<string, vector<uint> >::const_iterator it = arrayedParameters.begin(); it!= arrayedParameters.end(); it++)
+				initialValues.globalParameters[it->first]
+		}
+		else
+			initialValues.globalParameters[param->getId()] = value;
     }
 
 

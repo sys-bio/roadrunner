@@ -26,7 +26,6 @@ namespace libsbml
     class Model;
     class SimpleSpeciesReference;
     class ASTNode;
-	class ArraysSBasePlugin;
 }
 
 namespace rrllvm
@@ -559,6 +558,7 @@ private:
     StringUIntMap initBoundarySpeciesMap;
     StringUIntMap initCompartmentsMap;
     StringUIntMap initGlobalParametersMap;
+	StringUIntVectorMap arrayedInitGlobalParametersMap;
 
     /**
      * Elements that do NOT have assignment rules are considered
@@ -611,7 +611,7 @@ private:
     StringUIntMap boundarySpeciesMap;
     StringUIntMap compartmentsMap;
     StringUIntMap globalParametersMap;
-
+	StringUIntVectorMap arrayedGlobalParametersMap;
 
     /**
      * map of all identified species reference (species references with ids)
@@ -694,7 +694,13 @@ private:
      */
     void initCompartments(const libsbml::Model *);
 
-	void initArrayGlobalParameters(const libsbml::ArraysSBasePlugin *arraysParam, uint ind);
+	/**
+	 * If a parameter has a ListOfDimensions, then expand it so as to store it as seperate variables
+	 * For ex, if x has 2 dimensions each of size 2, then the ID's stored in the globalParametersMap will
+	 * be "x-0-0", "x-0-1", "x-1-0" and "x-1-1"
+	*/
+
+	void initArrayGlobalParameters(const libsbml::Model *model, std::list < std::string > *param, const std::string *id, uint ind, std::string arrayId);
 
     /**
      * get the global parameters, need to reorder them to set the independent

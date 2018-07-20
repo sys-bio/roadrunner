@@ -145,8 +145,10 @@ ModelGeneratorContext::ModelGeneratorContext(std::string const &sbml,
             doc = ownedDoc;
         }
 
+		// Done with this Vin
         symbols = new LLVMModelDataSymbols(doc->getModel(), options);
 
+		
         modelSymbols = new LLVMModelSymbols(getModel(), *symbols);
 
         // initialize LLVM

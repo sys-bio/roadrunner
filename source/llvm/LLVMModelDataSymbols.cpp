@@ -601,9 +601,16 @@ bool LLVMModelDataSymbols::hasAssignmentRule(const std::string& id) const
     return assigmentRules.find(id) != assigmentRules.end();
 }
 
+const string& decodeArrayId(const string& id)
+{
+	size_t found = id.find_first_of("-");
+	return id.substr(0, found);
+}
+
 bool LLVMModelDataSymbols::hasRateRule(const std::string& id) const
 {
-    return rateRules.find(id) != rateRules.end();
+	const string& arrId = decodeArrayId(id);
+    return rateRules.find(arrId) != rateRules.end();
 }
 
 uint LLVMModelDataSymbols::getCompartmentsSize() const
@@ -616,11 +623,34 @@ uint LLVMModelDataSymbols::getGlobalParametersSize() const
     return globalParametersMap.size();
 }
 
-void LLVMModelDataSymbols::initArrayGlobalParameters(const ArraysSBasePlugin *arraysParam, uint ind)
+void LLVMModelDataSymbols::initArrayGlobalParameters(const Model* model, list<string> *param, const string *id, uint ind, string arrayId)
 {
+	// The arguments for the function have been chosen this way so as to avoid 
+	// unnecessary addition of classes to LLVMModelDataSymbols.h
+
+	// Create the ArraysSBasePlugin for the given parameter id
+	static const ArraysSBasePlugin * arraysParam = static_cast<const ArraysSBasePlugin*>(model->getParameter(*id)->getPlugin("arrays"));
+	
+	// The n-th dimension has an index n-1 and therefore we should stop when we reach index = n
 	if (ind == arraysParam->getNumDimensions())
+	{
+		param->push_back(arrayId);
 		return;
+	}
+	
+	// Get the size of the dimension
 	const string& sizeParamId = arraysParam->getDimension(ind)->getSize();
+	double sizeOfDimension = model->getParameter(sizeParamId)->getValue();
+	
+	// Create the list of parameters
+	for (uint i = 0; i < sizeOfDimension; i++)
+	{
+		// Using hyphen(-) instead of an underscore(_) for the parameter ID's
+		// because SBML officially allows for SID type to have an underscore and this
+		// will cause problems while dereferencing the ID if another paramter has an
+		// underscore in its ID
+		initArrayGlobalParameters(model, param, id, ind, arrayId + "-" + to_string(i));
+	}
 }
 
 void LLVMModelDataSymbols::initGlobalParameters(const libsbml::Model* model,
@@ -638,38 +668,56 @@ void LLVMModelDataSymbols::initGlobalParameters(const libsbml::Model* model,
         const Parameter *p = parameters->get(i);
         const string& id = p->getId();
 
-		if (p->isPackageEnabled("arrays") && !LIBSBML_HAS_PACKAGE_ARRAYS)
+#ifndef LIBSBML_HAS_PACKAGE_ARRAYS
+		if (p->isPackageEnabled("arrays"))
 		{
 			throw runtime_error("The parameter " + id + "has a ListOfDimensions or ListOfIndices but the libSBML arrays package has not been enabled. Please build roadrunner with libSBML arrays package enabled");
 		}
-		
-		if (p->isPackageEnabled("arrays") && LIBSBML_HAS_PACKAGE_ARRAYS)
+#else
+		if (p->isPackageEnabled("arrays"))
 		{
-			// Get the array SBase and run through the list of dimensions
-			const ArraysSBasePlugin * arraysParam = static_cast<const ArraysSBasePlugin*>(p->getPlugin("arrays"));
-			initArrayGlobalParameters(arraysParam, 0);
+			if (isIndependentElement(id))
+			{
+				initArrayGlobalParameters(model, &indParam, &id, 0, id);
+			}
+			else
+			{
+				initArrayGlobalParameters(model, &depParam, &id, 0, id);
+			}
+
+			if (isIndependentInitElement(id))
+			{
+				initArrayGlobalParameters(model, &indInitParam, &id, 0, id);
+			}
+			else
+			{
+				initArrayGlobalParameters(model, &depInitParam, &id, 0, id);
+			}
 		}
+#endif
+		else
+		{
+			if (isIndependentElement(id))
+			{
+				indParam.push_back(id);
+			}
+			else
+			{
+				depParam.push_back(id);
+			}
 
-        if (isIndependentElement(id))
-        {
-            indParam.push_back(id);
-        }
-        else
-        {
-            depParam.push_back(id);
-        }
-
-        if (isIndependentInitElement(id))
-        {
-            indInitParam.push_back(id);
-        }
-        else
-        {
-            depInitParam.push_back(id);
-        }
+			if (isIndependentInitElement(id))
+			{
+				indInitParam.push_back(id);
+			}
+			else
+			{
+				depInitParam.push_back(id);
+			}
+		}
     }
 
-    globalParameterRateRules.resize(parameters->size(), false);
+    globalParameterRateRules.resize(indParam.size()+depParam.size(), false);
 
     // when this is used, we check the size, so works even
     // when consv moieity is not enabled.
@@ -684,10 +732,13 @@ void LLVMModelDataSymbols::initGlobalParameters(const libsbml::Model* model,
     for (list<string>::const_iterator i = indParam.begin();
             i != indParam.end(); ++i)
     {
+		// Do I need to store where each parameter ends? Vin
         uint pi = globalParametersMap.size();
         globalParametersMap[*i] = pi;
+		arrayedGlobalParametersMap[decodeArrayId(*i)].push_back(pi);
 
         // CM parameters can only be independent.
+		// Worry about conservedMoieties later Vin
         if (conservedMoieties)
         {
             const Parameter* p = parameters->get(*i);
@@ -706,8 +757,10 @@ void LLVMModelDataSymbols::initGlobalParameters(const libsbml::Model* model,
     {
         uint pi = globalParametersMap.size();
         globalParametersMap[*i] = pi;
+		arrayedGlobalParametersMap[decodeArrayId(*i)].push_back(pi);
 
         // all the independent ones by def have no rate rules.
+		// Need to send the decoded ID as the ID may be
         globalParameterRateRules[pi] = hasRateRule(*i);
     }
 
@@ -717,6 +770,8 @@ void LLVMModelDataSymbols::initGlobalParameters(const libsbml::Model* model,
     {
         uint ci = initGlobalParametersMap.size();
         initGlobalParametersMap[*i] = ci;
+		arrayedInitGlobalParametersMap[decodeArrayId(*i)].push_back(ci);
+
     }
 
     for (list<string>::const_iterator i = depInitParam.begin();
@@ -724,6 +779,7 @@ void LLVMModelDataSymbols::initGlobalParameters(const libsbml::Model* model,
     {
         uint ci = initGlobalParametersMap.size();
         initGlobalParametersMap[*i] = ci;
+		arrayedInitGlobalParametersMap[decodeArrayId(*i)].push_back(ci);
     }
 
     // finally set how many ind compartments we have
