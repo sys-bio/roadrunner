@@ -927,9 +927,80 @@ llvm::Value* ASTNodeCodeGen::piecewiseCodeGen(const libsbml::ASTNode* ast)
     return pn;
 }
 
+void ASTNodeCodeGen::getASTArrayId(const libsbml::ASTNode* parent, const libsbml::ASTNode* ast, std::string* id)
+{
+	// If the current AST is another selector not related to the parent
+	// AST_LINEAR_ALGEBRA_SELECTOR, we have to call codeGen on it and get its value
+	if (parent && parent->getExtendedType() != AST_LINEAR_ALGEBRA_SELECTOR)
+	{
+		// Has to return a double value for use in the selector
+		ConstantFP* res = cast<ConstantFP>(toDouble(codeGen(ast)));
+		double val = res->getValueAPF().convertToDouble();
+		double iptr;
+		if (modf(val, &iptr) != 0.0 || iptr < 0.0)
+		{
+			Log(Logger::LOG_ERROR) << "One of the dimensions have a value that is not an integer";
+			throw invalid_argument("Dimensions for an assigment rule math is not an integer");
+		}
+		int dim = (uint)iptr;
+		(*id) += "-" + std::to_string(dim);
+		return;
+	}
+	else
+	{
+		uint numChildren = ast->getNumChildren();
+
+		for (uint i = 0; i < numChildren; i++)
+		{
+			const libsbml::ASTNode* child = ast->getChild(i);
+			if (child->getType() == AST_ORIGINATES_IN_PACKAGE && child->getExtendedType() == AST_LINEAR_ALGEBRA_SELECTOR)
+			{
+				getASTArrayId(ast, child, id);
+			}
+			else if (child->getType() == AST_NAME)
+			{
+					// This is our actual variable from which we have to select
+					(*id) += child->getName();
+			}
+			else
+			{
+				ConstantFP* res = cast<ConstantFP>(toDouble(codeGen(child)));
+				double val = res->getValueAPF().convertToDouble();
+				double iptr;
+				if (modf(val, &iptr) != 0.0 || iptr < 0.0)
+				{
+					Log(Logger::LOG_ERROR) << "One of the dimensions have a value that is not an integer";
+					throw invalid_argument("Dimensions for an assigment rule math is not an integer");
+				}
+				int dim = (uint)iptr;
+				(*id) += "-" + std::to_string(dim);
+			}
+		}
+	}
+}
+
 llvm::Value* ASTNodeCodeGen::selectorCodeGen(const libsbml::ASTNode *ast)
 {
-
+	/**
+	 * There are 2 ways to represent a selector a[x][y] and a[x, y]
+	 * They have the following AST representations
+	 *
+	 *       Selector                    Selector
+	 *        /    \                     /   |   \
+	 *    Selector  y                   a    x    y
+	 *     /    \
+	 *    a      x
+	 *
+	 * Because the return type of the codegen is Value*, we cannot return the value a[x]
+	 * because it will be a vector. For a[x][y][z], a[x] will be a vector of vectors.
+	 * Since our Value* returned here requires a double, we will have to flatten the AST to
+	 * the second representation and then return the double value required. To do that we
+	 * cannot use the well-written CodeGen function
+	*/
+	string id = "";
+	getASTArrayId(NULL, ast, &id);
+	// Id should contain our required symbol
+	return resolver.loadSymbolValue(id);
 }
 
 static bool isNegative(const libsbml::ASTNode *ast)

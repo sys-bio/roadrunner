@@ -75,6 +75,8 @@ private:
 
     llvm::Value *piecewiseCodeGen(const libsbml::ASTNode *ast);
 
+	void getASTArrayId(const libsbml::ASTNode* parent, const libsbml::ASTNode *ast, std::string *id);
+
 	llvm::Value *selectorCodeGen(const libsbml::ASTNode *ast);
 
     /**

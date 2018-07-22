@@ -191,6 +191,7 @@ protected:
 
     SymbolForest initialValues;
 
+	// Have to change the forest to include arrays Vin
     SymbolForest assigmentRules;
 
     SymbolForest initialAssignmentRules;
