@@ -117,6 +117,7 @@ ExecutableModel* LLVMModelGenerator::createModel(const std::string& sbml,
 
     SharedModelPtr rc(new ModelResources());
 
+	// No problem here Vin
     ModelGeneratorContext context(sbml, options);
 
     rc->evalInitialConditionsPtr =

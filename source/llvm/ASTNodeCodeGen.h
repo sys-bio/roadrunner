@@ -75,6 +75,8 @@ private:
 
     llvm::Value *piecewiseCodeGen(const libsbml::ASTNode *ast);
 
+	llvm::Value *selectorCodeGen(const libsbml::ASTNode *ast);
+
     /**
      * coerces a value to a boolean single bit.
      *

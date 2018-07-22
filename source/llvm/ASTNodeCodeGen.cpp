@@ -21,6 +21,9 @@
 #include <sbml/math/ASTNode.h>
 #include <sbml/math/FormulaFormatter.h>
 #include <sbml/SBase.h>
+#ifdef LIBSBML_HAS_PACKAGE_ARRAYS
+#include <sbml/packages/arrays/common/ArraysExtensionTypes.h>
+#endif
 #include <Poco/Logger.h>
 #include <cmath>
 
@@ -212,10 +215,19 @@ llvm::Value* ASTNodeCodeGen::codeGen(const libsbml::ASTNode* ast)
     case AST_FUNCTION_DELAY:
         result = delayExprCodeGen(ast);
         break;
-
     case AST_LAMBDA:
         result = notImplemented(ast);
         break;
+	case AST_ORIGINATES_IN_PACKAGE:
+	{
+		if (ast->getExtendedType() == AST_LINEAR_ALGEBRA_VECTOR_CONSTRUCTOR)
+		{
+
+		}
+		if (ast->getExtendedType() == AST_LINEAR_ALGEBRA_SELECTOR)
+			result = selectorCodeGen(ast);
+		break;
+	}
     default:
         {
             stringstream msg;
@@ -913,6 +925,11 @@ llvm::Value* ASTNodeCodeGen::piecewiseCodeGen(const libsbml::ASTNode* ast)
     }
 
     return pn;
+}
+
+llvm::Value* ASTNodeCodeGen::selectorCodeGen(const libsbml::ASTNode *ast)
+{
+
 }
 
 static bool isNegative(const libsbml::ASTNode *ast)

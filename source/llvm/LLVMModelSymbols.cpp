@@ -88,11 +88,13 @@ LLVMModelSymbols::LLVMModelSymbols(const libsbml::Model *m, LLVMModelDataSymbols
 
 		// Don't have to check for errors because we would've called LLVMModelDataSymbols
 		// which would have thrown an error
-		if (param->isPackageEnabled("arrays"))
+		if (param->getPlugin("arrays") != NULL)
 		{
-			map<string, vector<uint> > arrayedParameters = sym.getArrayedGlobalParameters(param->getId());
-			for(map<string, vector<uint> >::const_iterator it = arrayedParameters.begin(); it!= arrayedParameters.end(); it++)
-				initialValues.globalParameters[it->first]
+			const set<string> arrayedParameters = sym.getArrayedGlobalParameters(param->getId());
+			for (set<string>::const_iterator it = arrayedParameters.begin(), jt = arrayedParameters.end(); it!=jt; it++)
+			{
+				initialValues.globalParameters[*it] = value;
+			}
 		}
 		else
 			initialValues.globalParameters[param->getId()] = value;

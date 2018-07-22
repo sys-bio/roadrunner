@@ -44,6 +44,12 @@ ModelDataStoreSymbolResolver::ModelDataStoreSymbolResolver(llvm::Value *modelDat
 {
 }
 
+//string ModelDataLoadSymbolResolver::decodeArraySymbol(const string& id) const
+//{
+//	size_t found = id.find_first_of("-");
+//	string arrId = id.substr(0, found);
+//	return arrId;
+//}
 
 llvm::Value* ModelDataLoadSymbolResolver::loadSymbolValue(
         const std::string& symbol,
@@ -83,8 +89,9 @@ llvm::Value* ModelDataLoadSymbolResolver::loadSymbolValue(
     /* AssignmentRule */
     /*************************************************************************/
     {
+		string arrayedSymbol = modelDataSymbols.decodeArrayId(symbol);
         SymbolForest::ConstIterator i = modelSymbols.getAssigmentRules().find(
-                symbol);
+                arrayedSymbol);
         if (i != modelSymbols.getAssigmentRules().end())
         {
             recursiveSymbolPush(symbol);

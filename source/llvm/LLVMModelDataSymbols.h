@@ -211,6 +211,11 @@ public:
      */
     uint getGlobalParameterIndex(std::string const&) const;
 
+	/*
+	 * Get the array expansion of @param id
+	 */
+	std::set<std::string> getArrayedGlobalParameters(std::string const&) const;
+
     uint getRateRuleIndex(std::string const&) const;
 
     uint getRateRuleSize() const;
@@ -304,6 +309,7 @@ public:
      */
     bool isIndependentElement(const std::string& id) const;
 
+	std::string decodeArrayId(const std::string& id) const;
 
     bool hasRateRule(const std::string& id) const;
 
@@ -558,7 +564,6 @@ private:
     StringUIntMap initBoundarySpeciesMap;
     StringUIntMap initCompartmentsMap;
     StringUIntMap initGlobalParametersMap;
-	StringUIntVectorMap arrayedInitGlobalParametersMap;
 
     /**
      * Elements that do NOT have assignment rules are considered
@@ -611,7 +616,9 @@ private:
     StringUIntMap boundarySpeciesMap;
     StringUIntMap compartmentsMap;
     StringUIntMap globalParametersMap;
-	StringUIntVectorMap arrayedGlobalParametersMap;
+
+	// Store the expanded IDs of a parameter that has a list of dimensions
+	std::map<std::string, std::set<std::string> > arrayedGlobalParameters;
 
     /**
      * map of all identified species reference (species references with ids)
