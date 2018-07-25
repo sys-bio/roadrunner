@@ -216,6 +216,11 @@ public:
 	 */
 	std::set<std::string> getArrayedGlobalParameters(std::string const&) const;
 
+	/**
+	 * Get the size of all dimensions of an element
+	 */
+	std::vector<uint> getSizeOfDimensions(std::string const&) const;
+
     uint getRateRuleIndex(std::string const&) const;
 
     uint getRateRuleSize() const;
@@ -619,6 +624,9 @@ private:
 
 	// Store the expanded IDs of a parameter that has a list of dimensions
 	std::map<std::string, std::set<std::string> > arrayedGlobalParameters;
+
+	// Store the size of each dimension of parameters
+	StringUIntVectorMap sizeOfDimensions;
 
     /**
      * map of all identified species reference (species references with ids)

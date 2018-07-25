@@ -183,6 +183,14 @@ protected:
     void processSpecies(SymbolForest &currentSymbols,
             const libsbml::Species *element, const libsbml::ASTNode *math);
 
+	/**
+	 * In the case of an array of parameters, it is essential to ensure that the
+	 * math of the indices is handled correctly. To do that, the dimensions have
+	 * to be replaced correctly to get the correct math expression for the variable
+	 */
+	void processParameter(SymbolForest &currentSymbols,
+		const libsbml::Parameter *param, const libsbml::ASTNode *math);
+
     /**
      * get the MathML element for a SpeciesReference if it is set, otherwise,
      * create a ASTNode from its stoichiometry field.
@@ -191,7 +199,6 @@ protected:
 
     SymbolForest initialValues;
 
-	// Have to change the forest to include arrays Vin
     SymbolForest assigmentRules;
 
     SymbolForest initialAssignmentRules;

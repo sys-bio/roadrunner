@@ -17,6 +17,9 @@
 #include <sbml/math/ASTNode.h>
 #include <sbml/math/FormulaFormatter.h>
 #include <sbml/SBMLDocument.h>
+#ifdef LIBSBML_HAS_PACKAGE_ARRAYS
+#include <sbml/packages/arrays/common/ArraysExtensionTypes.h>
+#endif
 
 using namespace libsbml;
 using namespace llvm;
@@ -146,8 +149,8 @@ bool LLVMModelSymbols::visit(const libsbml::AssignmentRule& x)
 {
     Log(Logger::LOG_TRACE) << "processing AssignmentRule, id: " << x.getId();
     SBase *element = const_cast<Model*>(model)->getElementBySId(x.getVariable());
-
-    if (element)
+    
+	if (element)
     {
         processElement(assigmentRules, element, x.getMath());
     }
@@ -183,6 +186,7 @@ bool LLVMModelSymbols::visit (const libsbml::Event &event)
     return true;
 }
 
+// Need to change this function to take in arrays
 void LLVMModelSymbols::processElement(SymbolForest& currentSymbols,
         const libsbml::SBase *element, const ASTNode* math)
 {
@@ -200,6 +204,7 @@ void LLVMModelSymbols::processElement(SymbolForest& currentSymbols,
     }
     else if ((param = dynamic_cast<const Parameter*>(element)))
     {
+		// processParameter(currentSymbols, param, math);
         currentSymbols.globalParameters[param->getId()] = math;
     }
     else if ((species = dynamic_cast<const Species*>(element)))
@@ -419,6 +424,60 @@ void LLVMModelSymbols::processSpecies(SymbolForest &currentSymbols,
         currentSymbols.floatingSpecies[species->getId()] = math;
     }
 }
+
+//const ASTNode* LLVMModelSymbols::processArrayAST(SymbolForest &currentSymbols, vector<uint> *sizeOfDimensions, uint ind, const ASTNode *lhsMath, const ASTNode *rhsMath)
+//{
+//	if (ind == sizeOfDimensions->size())
+//	{
+//		string lhs = "";
+//		string rhs = "";
+//
+//		ASTNodeCodeGen().getASTArrayId(NULL, lhsMath, lhs);
+//		currentSymbols.globalParameters[]
+//		arrayedGlobalParameters[*id].insert(arrayId);
+//		return;
+//	}
+//
+//	// Get the size of the dimension
+//	const string& sizeParamId = arraysParam->getDimension(ind)->getSize();
+//	double val = model->getParameter(sizeParamId)->getValue();
+//	double iptr;
+//	if (modf(val, &iptr) != 0.0 || iptr < 0.0)
+//	{
+//		Log(Logger::LOG_ERROR) << "Dimension " << ind << " of " << sizeParamId <<
+//			" has a value that is not a positive integer";
+//		throw invalid_argument("Dimension " + to_string(ind) + " of parameter " + sizeParamId + " is not a positive integer");
+//	}
+//	sizeOfDimensions[*id].push_back((uint)iptr);
+//
+//	// Create the list of parameters
+//	for (uint i = 0; i < sizeOfDimensions[*id][ind]; i++)
+//	{
+////		// Using hyphen(-) instead of an underscore(_) for the parameter ID's
+////		// because SBML officially allows for SID type to have an underscore and this
+////		// will cause problems while dereferencing the ID if another paramter has an
+////		// underscore in its ID
+////		initArrayGlobalParameters(model, param, id, ind + 1, arrayId + "-" + to_string(i));
+//	}
+//}
+//
+//void LLVMModelSymbols::processParameter(SymbolForest &currentSymbols, 
+//	const Parameter *param, const ASTNode *math)
+//{
+//#ifndef LIBSBML_HAS_PACKAGE_ARRAYS
+//	currentSymbols.globalParameters[param->getId()] = math;
+//	return;
+//#endif
+//	const ArraysSBasePlugin * arraysParam = static_cast<const ArraysSBasePlugin*>(param->getPlugin("arrays"));
+//	uint numDimensions = arraysParam->getNumDimensions();
+//	if (numDimensions)
+//	{
+//		currentSymbols.globalParameters[param->getId()] = math;
+//		return;
+//	}
+//	vector<uint> sizeOfDimensions = this->symbols.getSizeOfDimensions(param->getId());
+//	this->
+//}
 
 const ASTNode* LLVMModelSymbols::getSpeciesReferenceStoichMath(
         const libsbml::SpeciesReference* reference)

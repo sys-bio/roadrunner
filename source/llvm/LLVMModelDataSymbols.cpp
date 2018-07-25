@@ -331,6 +331,19 @@ set<string> LLVMModelDataSymbols::getArrayedGlobalParameters(
 	}
 }
 
+vector<uint> LLVMModelDataSymbols::getSizeOfDimensions(
+	const std::string& id) const
+{
+	StringUIntVectorMap::const_iterator i = sizeOfDimensions.find(id);
+	if (i != sizeOfDimensions.end())
+	{
+		return i->second;
+	}
+	else
+	{
+		throw LLVMException("Could not find an element with ID " + id, __FUNC__);
+	}
+}
 
 /*
 void LLVMModelDataSymbols::initAllocModelDataBuffers(LLVMModelData& m) const
@@ -658,10 +671,18 @@ void LLVMModelDataSymbols::initArrayGlobalParameters(const Model* model, list<st
 	
 	// Get the size of the dimension
 	const string& sizeParamId = arraysParam->getDimension(ind)->getSize();
-	double sizeOfDimension = model->getParameter(sizeParamId)->getValue();
+	double val = model->getParameter(sizeParamId)->getValue();
+	double iptr;
+	if (modf(val, &iptr) != 0.0 || iptr < 0.0)
+	{
+		Log(Logger::LOG_ERROR) << "Dimension " << ind << " of " <<  sizeParamId << 
+			" has a value that is not a positive integer";
+		throw invalid_argument("Dimension " + to_string(ind) + " of parameter " + sizeParamId + " is not a positive integer");
+	}
+	sizeOfDimensions[*id].push_back((uint)iptr);
 	
 	// Create the list of parameters
-	for (uint i = 0; i < sizeOfDimension; i++)
+	for (uint i = 0; i < sizeOfDimensions[*id][ind]; i++)
 	{
 		// Using hyphen(-) instead of an underscore(_) for the parameter ID's
 		// because SBML officially allows for SID type to have an underscore and this
@@ -686,7 +707,7 @@ void LLVMModelDataSymbols::initGlobalParameters(const libsbml::Model* model,
         const Parameter *p = parameters->get(i);
         const string& id = p->getId();
 
-		// p->isPackageEnabled("arrays") is not working so using the value through getNumDimensions
+		// p->isPackageEnabled("arrays") is not working so using the value through getNumDimensions Vin
 #ifndef LIBSBML_HAS_PACKAGE_ARRAYS
 		if (p->isPackageEnabled("arrays"))
 		{

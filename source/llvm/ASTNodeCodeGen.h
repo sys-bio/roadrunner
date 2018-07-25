@@ -31,6 +31,14 @@ public:
     ~ASTNodeCodeGen();
 
     llvm::Value *codeGen(const libsbml::ASTNode *ast);
+
+	llvm::Value *arrayCodeGen(const libsbml::ASTNode *ast, const std::string& symbol = NULL,
+		const llvm::ArrayRef<llvm::Value*>& args = NULL);
+	/**
+	 * Get the Array ID of an element through @param id
+	 */
+	void getASTArrayId(const libsbml::ASTNode* parent, const libsbml::ASTNode *ast, std::string *id);
+
 private:
 
     /**
@@ -75,9 +83,8 @@ private:
 
     llvm::Value *piecewiseCodeGen(const libsbml::ASTNode *ast);
 
-	void getASTArrayId(const libsbml::ASTNode* parent, const libsbml::ASTNode *ast, std::string *id);
-
-	llvm::Value *selectorCodeGen(const libsbml::ASTNode *ast);
+	llvm::Value *selectorCodeGen(const libsbml::ASTNode *ast, const std::string& symbol,
+		const llvm::ArrayRef<llvm::Value*>& args);
 
     /**
      * coerces a value to a boolean single bit.
@@ -93,6 +100,7 @@ private:
      */
     llvm::Value *toDouble(llvm::Value* value);
 
+	std::map < std::string, uint > dimensionVal;
 
     llvm::IRBuilder<> &builder;
     LoadSymbolResolver &resolver;

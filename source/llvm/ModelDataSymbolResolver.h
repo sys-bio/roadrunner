@@ -30,8 +30,6 @@ public:
 
     virtual ~ModelDataLoadSymbolResolver() {};
 
-	//virtual std::string decodeArraySymbol(const std::string& id) const;
-
     virtual llvm::Value *loadSymbolValue(const std::string& symbol,
             const llvm::ArrayRef<llvm::Value*>& args =
                     llvm::ArrayRef<llvm::Value*>());

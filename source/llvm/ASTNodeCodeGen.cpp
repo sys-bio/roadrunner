@@ -218,16 +218,6 @@ llvm::Value* ASTNodeCodeGen::codeGen(const libsbml::ASTNode* ast)
     case AST_LAMBDA:
         result = notImplemented(ast);
         break;
-	case AST_ORIGINATES_IN_PACKAGE:
-	{
-		if (ast->getExtendedType() == AST_LINEAR_ALGEBRA_VECTOR_CONSTRUCTOR)
-		{
-
-		}
-		if (ast->getExtendedType() == AST_LINEAR_ALGEBRA_SELECTOR)
-			result = selectorCodeGen(ast);
-		break;
-	}
     default:
         {
             stringstream msg;
@@ -240,6 +230,34 @@ llvm::Value* ASTNodeCodeGen::codeGen(const libsbml::ASTNode* ast)
     return result;
 }
 
+llvm::Value* ASTNodeCodeGen::arrayCodeGen(const libsbml::ASTNode* ast, const std::string& symbol = NULL,
+	const llvm::ArrayRef<llvm::Value*>& args = NULL)
+{
+	Value *result = 0;
+
+	if (ast == 0)
+	{
+		throw_llvm_exception("ASTNode is NULL");
+	}
+
+	switch (ast->getType())
+	{
+	case AST_ORIGINATES_IN_PACKAGE:
+	{
+		if (ast->getExtendedType() == AST_LINEAR_ALGEBRA_VECTOR_CONSTRUCTOR)
+		{
+
+		}
+		if (ast->getExtendedType() == AST_LINEAR_ALGEBRA_SELECTOR)
+			result = selectorCodeGen(ast, symbol, args);
+		break;
+
+	default:
+		return codeGen(ast);
+		break;
+	}
+	}
+}
 
 llvm::Value* ASTNodeCodeGen::notImplemented(const libsbml::ASTNode* ast)
 {
@@ -274,7 +292,12 @@ llvm::Value* ASTNodeCodeGen::nameExprCodeGen(const libsbml::ASTNode* ast)
     switch(ast->getType())
     {
     case AST_NAME:
+	{
+		// The iterator for a dimension variable
+		if (!dimensionVal.empty() && dimensionVal.find(ast->getName()) != dimensionVal.end())
+			return dimensionVal[ast->getName()];
         return resolver.loadSymbolValue(ast->getName());
+	}
     case AST_NAME_AVOGADRO:
         // TODO: correct this for different units
         return ConstantFP::get(builder.getContext(), APFloat(6.02214179e23));
@@ -927,6 +950,9 @@ llvm::Value* ASTNodeCodeGen::piecewiseCodeGen(const libsbml::ASTNode* ast)
     return pn;
 }
 
+/*
+ * Called only when the ast node is of extended type AST_LINEAR_ALGEBRA_SELECTOR
+*/
 void ASTNodeCodeGen::getASTArrayId(const libsbml::ASTNode* parent, const libsbml::ASTNode* ast, std::string* id)
 {
 	// If the current AST is another selector not related to the parent
@@ -942,7 +968,7 @@ void ASTNodeCodeGen::getASTArrayId(const libsbml::ASTNode* parent, const libsbml
 			Log(Logger::LOG_ERROR) << "One of the dimensions have a value that is not an integer";
 			throw invalid_argument("Dimensions for an assigment rule math is not an integer");
 		}
-		int dim = (uint)iptr;
+		uint dim = (uint)iptr;
 		(*id) += "-" + std::to_string(dim);
 		return;
 	}
@@ -959,8 +985,8 @@ void ASTNodeCodeGen::getASTArrayId(const libsbml::ASTNode* parent, const libsbml
 			}
 			else if (child->getType() == AST_NAME)
 			{
-					// This is our actual variable from which we have to select
-					(*id) += child->getName();
+				// This is our actual variable from which we have to select
+				(*id) += child->getName();
 			}
 			else
 			{
@@ -979,7 +1005,10 @@ void ASTNodeCodeGen::getASTArrayId(const libsbml::ASTNode* parent, const libsbml
 	}
 }
 
-llvm::Value* ASTNodeCodeGen::selectorCodeGen(const libsbml::ASTNode *ast)
+
+
+llvm::Value* ASTNodeCodeGen::selectorCodeGen(const libsbml::ASTNode *ast, const std::string& symbol,
+	const llvm::ArrayRef<llvm::Value*>& args)
 {
 	/**
 	 * There are 2 ways to represent a selector a[x][y] and a[x, y]
@@ -997,10 +1026,8 @@ llvm::Value* ASTNodeCodeGen::selectorCodeGen(const libsbml::ASTNode *ast)
 	 * the second representation and then return the double value required. To do that we
 	 * cannot use the well-written CodeGen function
 	*/
-	string id = "";
-	getASTArrayId(NULL, ast, &id);
+	const AssignmentRule* asg = dynamic_cast<const AssignmentRule*>(ast->getParentSBMLObject());
 	// Id should contain our required symbol
-	return resolver.loadSymbolValue(id);
 }
 
 static bool isNegative(const libsbml::ASTNode *ast)

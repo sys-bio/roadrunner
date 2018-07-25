@@ -89,13 +89,13 @@ llvm::Value* ModelDataLoadSymbolResolver::loadSymbolValue(
     /* AssignmentRule */
     /*************************************************************************/
     {
-		string arrayedSymbol = modelDataSymbols.decodeArrayId(symbol);
+		const string& arrayedSymbol = modelDataSymbols.decodeArrayId(symbol);
         SymbolForest::ConstIterator i = modelSymbols.getAssigmentRules().find(
                 arrayedSymbol);
         if (i != modelSymbols.getAssigmentRules().end())
         {
             recursiveSymbolPush(symbol);
-            Value* result = ASTNodeCodeGen(builder, *this).codeGen(i->second);
+            Value* result = ASTNodeCodeGen(builder, *this).codeGen(i->second, symbol, args);
             recursiveSymbolPop();
             return cacheValue(symbol, args, result);
         }
