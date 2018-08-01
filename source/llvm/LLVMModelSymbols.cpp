@@ -186,7 +186,10 @@ bool LLVMModelSymbols::visit (const libsbml::Event &event)
     return true;
 }
 
-// Need to change this function to take in arrays
+// Need to change this function to take in arrays Vin
+// Should I process the AST of the index and the AST of LHS here by writing a 
+// seperate function for getting the value of the AST
+// instead of dealing with everything in LLVM? Vin
 void LLVMModelSymbols::processElement(SymbolForest& currentSymbols,
         const libsbml::SBase *element, const ASTNode* math)
 {

@@ -653,31 +653,73 @@ uint LLVMModelDataSymbols::getGlobalParametersSize() const
     return globalParametersMap.size();
 }
 
-void LLVMModelDataSymbols::initArrayGlobalParameters(const Model* model, list<string> *param, const string *id, uint ind, string arrayId)
+void LLVMModelDataSymbols::initArray(const Model* model, uint *type, list<string> *sBaseList, const string *id, uint ind, string arrayId)
 {
 	// The arguments for the function have been chosen this way so as to avoid 
 	// unnecessary addition of classes to LLVMModelDataSymbols.h
 
 	// Create the ArraysSBasePlugin for the given parameter id
-	const ArraysSBasePlugin * arraysParam = static_cast<const ArraysSBasePlugin*>(model->getParameter(*id)->getPlugin("arrays"));
+	
+	const ArraysSBasePlugin *arraysPlug;
+	switch (*type)
+	{
+	case 0: // Parameter
+	{
+		arraysPlug = static_cast<const ArraysSBasePlugin*>(model->getParameter(*id)->getPlugin("arrays"));
+		break;
+	}
+	case 1: // Compartment
+	{
+		arraysPlug = static_cast<const ArraysSBasePlugin*>(model->getCompartment(*id)->getPlugin("arrays"));
+		break;
+	}
+	case 2: // Floating Species
+	case 3: // Boundary Species
+	{
+		arraysPlug = static_cast<const ArraysSBasePlugin*>(model->getSpecies(*id)->getPlugin("arrays"));
+		break;
+	}
+	} 
 	
 	// The n-th dimension has an index n-1 and therefore we should stop when we reach index = n
-	if (ind == arraysParam->getNumDimensions())
+	if (ind == arraysPlug->getNumDimensions())
 	{
-		param->push_back(arrayId);
-		arrayedGlobalParameters[*id].insert(arrayId);
+		sBaseList->push_back(arrayId);
+		switch (*type)
+		{
+		case 0:
+		{
+			arrayedGlobalParameters[*id].insert(arrayId);
+			break;
+		}
+		case 1:
+		{
+			arrayedCompartments[*id].insert(arrayId);
+			break;
+		}
+		case 2:
+		{
+			arrayedFltSpecies[*id].insert(arrayId);
+			break;
+		}
+		case 3:
+		{
+			arrayedBndSpecies[*id].insert(arrayId);
+			break;
+		}
+		}
 		return;
 	}
 	
 	// Get the size of the dimension
-	const string& sizeParamId = arraysParam->getDimension(ind)->getSize();
-	double val = model->getParameter(sizeParamId)->getValue();
+	const string& dimensionSizeId = arraysPlug->getDimension(ind)->getSize();
+	double val = model->getParameter(dimensionSizeId)->getValue();
 	double iptr;
 	if (modf(val, &iptr) != 0.0 || iptr < 0.0)
 	{
-		Log(Logger::LOG_ERROR) << "Dimension " << ind << " of " <<  sizeParamId << 
+		Log(Logger::LOG_ERROR) << "Dimension " << ind << " of " <<  dimensionSizeId << 
 			" has a value that is not a positive integer";
-		throw invalid_argument("Dimension " + to_string(ind) + " of parameter " + sizeParamId + " is not a positive integer");
+		throw invalid_argument("Dimension " + to_string(ind) + " of parameter " + dimensionSizeId + " is not a positive integer");
 	}
 	sizeOfDimensions[*id].push_back((uint)iptr);
 	
@@ -688,7 +730,7 @@ void LLVMModelDataSymbols::initArrayGlobalParameters(const Model* model, list<st
 		// because SBML officially allows for SID type to have an underscore and this
 		// will cause problems while dereferencing the ID if another paramter has an
 		// underscore in its ID
-		initArrayGlobalParameters(model, param, id, ind+1, arrayId + "-" + to_string(i));
+		initArray(model, type, sBaseList, id, ind+1, arrayId + "-" + to_string(i));
 	}
 }
 
@@ -714,25 +756,26 @@ void LLVMModelDataSymbols::initGlobalParameters(const libsbml::Model* model,
 			throw runtime_error("The parameter " + id + "has a ListOfDimensions or ListOfIndices but the libSBML arrays package has not been enabled. Please build roadrunner with libSBML arrays package enabled");
 		}
 #else
-		const ArraysSBasePlugin * arraysParam = static_cast<const ArraysSBasePlugin*>(p->getPlugin("arrays"));
-		if (arraysParam && arraysParam->getNumDimensions())
+		const ArraysSBasePlugin * arraysPlug = static_cast<const ArraysSBasePlugin*>(p->getPlugin("arrays"));
+		if (arraysPlug && arraysPlug->getNumDimensions())
 		{
+			uint type = 0;
 			if (isIndependentElement(id))
 			{
-				initArrayGlobalParameters(model, &indParam, &id, 0, id);
+				initArray(model, &type, &indParam, &id, 0, id);
 			}
 			else
 			{
-				initArrayGlobalParameters(model, &depParam, &id, 0, id);
+				initArray(model, &type, &depParam, &id, 0, id);
 			}
 
 			if (isIndependentInitElement(id))
 			{
-				initArrayGlobalParameters(model, &indInitParam, &id, 0, id);
+				initArray(model, &type, &indInitParam, &id, 0, id);
 			}
 			else
 			{
-				initArrayGlobalParameters(model, &depInitParam, &id, 0, id);
+				initArray(model, &type, &depInitParam, &id, 0, id);
 			}
 		}
 #endif
@@ -775,6 +818,7 @@ void LLVMModelDataSymbols::initGlobalParameters(const libsbml::Model* model,
             i != indParam.end(); ++i)
     {
 		// Do I need to store where each parameter ends? Vin
+		// Mostly no Vin
         uint pi = globalParametersMap.size();
         globalParametersMap[*i] = pi;
 
@@ -853,14 +897,39 @@ void LLVMModelDataSymbols::initBoundarySpecies(const libsbml::Model* model)
         const Species *s = species->get(i);
         if (s->getBoundaryCondition())
         {
-            if (isIndependentElement(s->getId()))
-            {
-                indBndSpecies.push_back(s->getId());
-            }
-            else
-            {
-                depBndSpecies.push_back(s->getId());
-            }
+			const string& id = s->getId();
+#ifndef LIBSBML_HAS_PACKAGE_ARRAYS
+			if (s->isPackageEnabled("arrays"))
+			{
+				throw runtime_error("The compartment " + id + "has a ListOfDimensions or ListOfIndices but the libSBML arrays package has not been enabled. Please build roadrunner with libSBML arrays package enabled");
+			}
+#else
+			const ArraysSBasePlugin * arraysPlug = static_cast<const ArraysSBasePlugin*>(s->getPlugin("arrays"));
+			if (arraysPlug && arraysPlug->getNumDimensions())
+			{
+				uint type = 3;
+				if (isIndependentElement(id))
+				{
+					initArray(model, &type, &indBndSpecies, &id, 0, id);
+				}
+				else
+				{
+					initArray(model, &type, &depBndSpecies, &id, 0, id);
+				}
+			}
+#endif
+			else
+			{
+				arrayedBndSpecies[id].insert(id);
+				if (isIndependentElement(s->getId()))
+				{
+					indBndSpecies.push_back(s->getId());
+				}
+				else
+				{
+					depBndSpecies.push_back(s->getId());
+				}
+			}
         }
     }
 
@@ -924,46 +993,99 @@ void LLVMModelDataSymbols::initFloatingSpecies(const libsbml::Model* model,
 
         const string& sid = s->getId();
 
-        if (isIndependentElement(sid))
-        {
-            indFltSpecies.push_back(sid);
-            if (quantities.size()) {
-                for (uint j=0; j<quantities.size(); ++j) {
-                    std::string quantity = quantities.at(j);
-                    conservedMoietyIndSpecies[quantity].push_back(indFltSpecies.size()-1);
-                }
-            }
-        }
-        else
-        {
-            depFltSpecies.push_back(sid);
-            if (quantities.size()) {
-                for (uint j=0; j<quantities.size(); ++j) {
-                    std::string quantity = quantities.at(j);
-                    conservedMoietyDepSpecies[quantity] = depFltSpecies.size()-1;
-                }
-            }
-        }
+#ifndef LIBSBML_HAS_PACKAGE_ARRAYS
+		if (s->isPackageEnabled("arrays"))
+		{
+			throw runtime_error("The compartment " + id + "has a ListOfDimensions or ListOfIndices but the libSBML arrays package has not been enabled. Please build roadrunner with libSBML arrays package enabled");
+		}
+#else
+		const ArraysSBasePlugin * arraysPlug = static_cast<const ArraysSBasePlugin*>(s->getPlugin("arrays"));
+		if (arraysPlug && arraysPlug->getNumDimensions())
+		{
+			uint type = 3;
+			if (isIndependentElement(sid))
+			{
+				initArray(model, &type, &indFltSpecies, &sid, 0, sid);
+				if (quantities.size()) {
+					for (uint j = 0; j<quantities.size(); ++j) {
+						std::string quantity = quantities.at(j);
+						conservedMoietyIndSpecies[quantity].push_back(indFltSpecies.size() - 1);
+					}
+				}
+			}
+			else
+			{
+				initArray(model, &type, &depFltSpecies, &sid, 0, sid);
+				if (quantities.size()) {
+					for (uint j = 0; j<quantities.size(); ++j) {
+						std::string quantity = quantities.at(j);
+						conservedMoietyDepSpecies[quantity] = depFltSpecies.size() - 1;
+					}
+				}
+			}
 
-        bool conservedMoiety = ConservationExtension::getConservedMoiety(*s);
+			bool conservedMoiety = ConservationExtension::getConservedMoiety(*s);
 
-        bool indInit = (!hasInitialAssignmentRule(sid) &&
-                (!hasAssignmentRule(sid) || conservedMoiety));
+			bool indInit = (!hasInitialAssignmentRule(sid) &&
+				(!hasAssignmentRule(sid) || conservedMoiety));
 
-        // conserved moiety species assignment rules do not apply at
-        // time t < 0
-        if (indInit)
-        {
-            indInitFltSpecies.push_back(sid);
-        }
-        else
-        {
-            depInitFltSpecies.push_back(sid);
-        }
+			if (indInit)
+			{
+				initArray(model, &type, &indInitFltSpecies, &sid, 0, sid);
+			}
+			else
+			{
+				initArray(model, &type, &depInitFltSpecies, &sid, 0, sid);
+			}
+			if (conservedMoiety) {
+				conservedMoietySpeciesSet.insert(arrayedFltSpecies[sid].begin(), arrayedFltSpecies[sid].end());
+			}
+		}
+#endif
+		else
+		{
+			arrayedFltSpecies[sid].insert(sid);
+			if (isIndependentElement(sid))
+			{
+				indFltSpecies.push_back(sid);
+				if (quantities.size()) {
+					for (uint j = 0; j<quantities.size(); ++j) {
+						std::string quantity = quantities.at(j);
+						conservedMoietyIndSpecies[quantity].push_back(indFltSpecies.size() - 1);
+					}
+				}
+			}
+			else
+			{
+				depFltSpecies.push_back(sid);
+				if (quantities.size()) {
+					for (uint j = 0; j<quantities.size(); ++j) {
+						std::string quantity = quantities.at(j);
+						conservedMoietyDepSpecies[quantity] = depFltSpecies.size() - 1;
+					}
+				}
+			}
 
-        if (conservedMoiety) {
-            conservedMoietySpeciesSet.insert(sid);
-        }
+			bool conservedMoiety = ConservationExtension::getConservedMoiety(*s);
+
+			bool indInit = (!hasInitialAssignmentRule(sid) &&
+				(!hasAssignmentRule(sid) || conservedMoiety));
+
+			// conserved moiety species assignment rules do not apply at
+			// time t < 0
+			if (indInit)
+			{
+				indInitFltSpecies.push_back(sid);
+			}
+			else
+			{
+				depInitFltSpecies.push_back(sid);
+			}
+
+			if (conservedMoiety) {
+				conservedMoietySpeciesSet.insert(sid);
+			}
+		}
     }
 
     // stuff the species in the map
@@ -980,6 +1102,7 @@ void LLVMModelDataSymbols::initFloatingSpecies(const libsbml::Model* model,
         uint si = floatingSpeciesMap.size();
         floatingSpeciesMap[*i] = si;
 
+		// Need to check this Vin
         // now that we know how many float species we have, we
         // can map these to the conserved moieties.
         // assume that the cm order (T vector) matches the order
@@ -1019,6 +1142,8 @@ void LLVMModelDataSymbols::initFloatingSpecies(const libsbml::Model* model,
     // map the float species to their compartments.
     floatingSpeciesCompartmentIndices.resize(floatingSpeciesMap.size());
 
+	// Need to change this function also Vin
+	// To check the correct compartment reference
     for(StringUIntMap::const_iterator i = floatingSpeciesMap.begin();
             i != floatingSpeciesMap.end(); ++i)
     {
@@ -1072,23 +1197,56 @@ void LLVMModelDataSymbols::initCompartments(const libsbml::Model *model)
     {
         const Compartment *c = compartments->get(i);
         const string& id = c->getId();
-        if (isIndependentElement(id))
-        {
-            indCompartments.push_back(id);
-        }
-        else
-        {
-            depCompartments.push_back(id);
-        }
+#ifndef LIBSBML_HAS_PACKAGE_ARRAYS
+		if (c->isPackageEnabled("arrays"))
+		{
+			throw runtime_error("The compartment " + id + "has a ListOfDimensions or ListOfIndices but the libSBML arrays package has not been enabled. Please build roadrunner with libSBML arrays package enabled");
+		}
+#else
+		const ArraysSBasePlugin * arraysPlug = static_cast<const ArraysSBasePlugin*>(c->getPlugin("arrays"));
+		if (arraysPlug && arraysPlug->getNumDimensions())
+		{
+			uint type = 1;
+			if (isIndependentElement(id))
+			{
+				initArray(model, &type, &indCompartments, &id, 0, id);
+			}
+			else
+			{
+				initArray(model, &type, &depCompartments, &id, 0, id);
+			}
 
-        if (isIndependentInitElement(id))
-        {
-            indInitCompartments.push_back(id);
-        }
-        else
-        {
-            depInitCompartments.push_back(id);
-        }
+			if (isIndependentInitElement(id))
+			{
+				initArray(model, &type, &indInitCompartments, &id, 0, id);
+			}
+			else
+			{
+				initArray(model, &type, &depInitCompartments, &id, 0, id);
+			}
+		}
+#endif
+		else
+		{
+			arrayedCompartments[id].insert(id);
+			if (isIndependentElement(id))
+			{
+				indCompartments.push_back(id);
+			}
+			else
+			{
+				depCompartments.push_back(id);
+			}
+
+			if (isIndependentInitElement(id))
+			{
+				indInitCompartments.push_back(id);
+			}
+			else
+			{
+				depInitCompartments.push_back(id);
+			}
+		}
     }
 
     for (list<string>::const_iterator i = indCompartments.begin();

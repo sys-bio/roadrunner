@@ -624,6 +624,9 @@ private:
 
 	// Store the expanded IDs of a parameter that has a list of dimensions
 	std::map<std::string, std::set<std::string> > arrayedGlobalParameters;
+	std::map<std::string, std::set<std::string> > arrayedCompartments;
+	std::map<std::string, std::set<std::string> > arrayedFltSpecies;
+	std::map<std::string, std::set<std::string> > arrayedBndSpecies;
 
 	// Store the size of each dimension of parameters
 	StringUIntVectorMap sizeOfDimensions;
@@ -715,7 +718,7 @@ private:
 	 * be "x-0-0", "x-0-1", "x-1-0" and "x-1-1"
 	*/
 
-	void initArrayGlobalParameters(const libsbml::Model *model, std::list < std::string > *param, const std::string *id, uint ind, std::string arrayId);
+	void initArray(const libsbml::Model *model, uint* type, std::list < std::string > *param, const std::string *id, uint ind, std::string arrayId);
 
     /**
      * get the global parameters, need to reorder them to set the independent
