@@ -95,9 +95,13 @@ llvm::Value* ModelDataLoadSymbolResolver::loadSymbolValue(
         if (i != modelSymbols.getAssigmentRules().end())
         {
             recursiveSymbolPush(symbol);
-            Value* result = ASTNodeCodeGen(builder, *this).codeGen(i->second, symbol, args);
+            std::map < std::string, llvm::Value* > result = ASTNodeCodeGen(builder, *this).arrayCodeGen(i->second, symbol, args);
+			for (std::map < std::string, llvm::Value* >::iterator it = result.begin(), jt = result.end(); it != jt; it++)
+			{
+				cacheValue(it->first, args, it->second);
+			}
             recursiveSymbolPop();
-            return cacheValue(symbol, args, result);
+            return cacheValue(symbol, args);
         }
     }
 

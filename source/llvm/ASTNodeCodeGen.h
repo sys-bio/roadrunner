@@ -32,8 +32,8 @@ public:
 
     llvm::Value *codeGen(const libsbml::ASTNode *ast);
 
-	llvm::Value *arrayCodeGen(const libsbml::ASTNode *ast, const std::string& symbol = NULL,
-		const llvm::ArrayRef<llvm::Value*>& args = NULL);
+	std::map< std::string, llvm::Value* > arrayCodeGen(const libsbml::ASTNode *ast, const std::string& symbol,
+		const llvm::ArrayRef<llvm::Value*>& args);
 	/**
 	 * Get the Array ID of an element through @param id
 	 */
@@ -83,7 +83,7 @@ private:
 
     llvm::Value *piecewiseCodeGen(const libsbml::ASTNode *ast);
 
-	llvm::Value *selectorCodeGen(const libsbml::ASTNode *ast, const std::string& symbol,
+	std::map< std::string, llvm::Value* > selectorCodeGen(const libsbml::ASTNode *ast, const std::string& symbol,
 		const llvm::ArrayRef<llvm::Value*>& args);
 
     /**
@@ -100,7 +100,10 @@ private:
      */
     llvm::Value *toDouble(llvm::Value* value);
 
-	std::map < std::string, uint > dimensionVal;
+	void getArrays(const libsbml::ASTNode *lhs, const libsbml::ASTNode *rhs, unsigned int ind, unsigned int *dimSize, 
+		std::map < std::string, llvm::Value* > *rule, const llvm::ArrayRef<llvm::Value*>& args);
+
+	std::map < std::string, unsigned int > dimensionVal;
 
     llvm::IRBuilder<> &builder;
     LoadSymbolResolver &resolver;

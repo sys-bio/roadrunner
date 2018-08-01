@@ -715,7 +715,7 @@ void LLVMModelDataSymbols::initGlobalParameters(const libsbml::Model* model,
 		}
 #else
 		const ArraysSBasePlugin * arraysParam = static_cast<const ArraysSBasePlugin*>(p->getPlugin("arrays"));
-		if (arraysParam->getNumDimensions())
+		if (arraysParam && arraysParam->getNumDimensions())
 		{
 			if (isIndependentElement(id))
 			{

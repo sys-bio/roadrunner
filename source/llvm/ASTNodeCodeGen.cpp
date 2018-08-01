@@ -22,6 +22,8 @@
 #include <sbml/math/FormulaFormatter.h>
 #include <sbml/SBase.h>
 #ifdef LIBSBML_HAS_PACKAGE_ARRAYS
+#include "ModelDataSymbolResolver.h"
+#include "LoadSymbolResolverBase.h"
 #include <sbml/packages/arrays/common/ArraysExtensionTypes.h>
 #endif
 #include <Poco/Logger.h>
@@ -230,11 +232,9 @@ llvm::Value* ASTNodeCodeGen::codeGen(const libsbml::ASTNode* ast)
     return result;
 }
 
-llvm::Value* ASTNodeCodeGen::arrayCodeGen(const libsbml::ASTNode* ast, const std::string& symbol = NULL,
-	const llvm::ArrayRef<llvm::Value*>& args = NULL)
+std::map < std::string, llvm::Value* > ASTNodeCodeGen::arrayCodeGen(const libsbml::ASTNode* ast, const std::string& symbol, 
+	const llvm::ArrayRef<llvm::Value*>& args)
 {
-	Value *result = 0;
-
 	if (ast == 0)
 	{
 		throw_llvm_exception("ASTNode is NULL");
@@ -249,12 +249,14 @@ llvm::Value* ASTNodeCodeGen::arrayCodeGen(const libsbml::ASTNode* ast, const std
 
 		}
 		if (ast->getExtendedType() == AST_LINEAR_ALGEBRA_SELECTOR)
-			result = selectorCodeGen(ast, symbol, args);
+			return selectorCodeGen(ast, symbol, args);
 		break;
-
+	}
 	default:
-		return codeGen(ast);
-		break;
+	{
+		std::map < std::string, llvm::Value* > result;
+		result[symbol] = codeGen(ast);
+		return result;
 	}
 	}
 }
@@ -295,7 +297,7 @@ llvm::Value* ASTNodeCodeGen::nameExprCodeGen(const libsbml::ASTNode* ast)
 	{
 		// The iterator for a dimension variable
 		if (!dimensionVal.empty() && dimensionVal.find(ast->getName()) != dimensionVal.end())
-			return dimensionVal[ast->getName()];
+			return ConstantFP::get(builder.getContext(), APFloat((double)dimensionVal[ast->getName()]));
         return resolver.loadSymbolValue(ast->getName());
 	}
     case AST_NAME_AVOGADRO:
@@ -983,31 +985,72 @@ void ASTNodeCodeGen::getASTArrayId(const libsbml::ASTNode* parent, const libsbml
 			{
 				getASTArrayId(ast, child, id);
 			}
-			else if (child->getType() == AST_NAME)
+			else if (child->getType() == AST_NAME && i==0 && (!parent || (parent && parent->getExtendedType() == AST_LINEAR_ALGEBRA_SELECTOR)))
 			{
 				// This is our actual variable from which we have to select
 				(*id) += child->getName();
 			}
 			else
 			{
-				ConstantFP* res = cast<ConstantFP>(toDouble(codeGen(child)));
-				double val = res->getValueAPF().convertToDouble();
-				double iptr;
-				if (modf(val, &iptr) != 0.0 || iptr < 0.0)
+				int dim;
+				Value* result = toDouble(codeGen(child));
+				result->dump();
+				// This is wrong! Don't have any of the values! Need to return as Value* itself Vin
+				if (ConstantFP *res = dyn_cast<ConstantFP>(result))
 				{
-					Log(Logger::LOG_ERROR) << "One of the dimensions have a value that is not an integer";
-					throw invalid_argument("Dimensions for an assigment rule math is not an integer");
+					double val = res->getValueAPF().convertToDouble();
+					double iptr;
+					if (modf(val, &iptr) != 0.0 || iptr < 0.0)
+					{
+						Log(Logger::LOG_ERROR) << "One of the dimensions have a value that is not an integer";
+						throw invalid_argument("Dimensions for an assigment rule math is not an integer");
+					}
+					dim = (uint)iptr;
+					(*id) += "-" + std::to_string(dim);
 				}
-				int dim = (uint)iptr;
-				(*id) += "-" + std::to_string(dim);
 			}
 		}
 	}
 }
 
+void ASTNodeCodeGen::getArrays(const libsbml::ASTNode *lhs, const libsbml::ASTNode *rhs, unsigned int ind, unsigned int *dimSize, 
+	std::map < std::string, llvm::Value* > *rule, const llvm::ArrayRef<llvm::Value*>& args)
+{
+	if (ind == *dimSize)
+	{
+		string tmp = "";
+		getASTArrayId(NULL, rhs, &tmp);
+		string lhsId = "";
+		getASTArrayId(NULL, lhs, &lhsId);
+		const string& rhsId = tmp;
+		rule->at(lhsId) = resolver.loadSymbolValue(rhsId);
+		return;
+	}
 
+	// Create the ArraysSBasePlugin for the given assignment rule
+	const AssignmentRule* asg = dynamic_cast<const AssignmentRule*>(rhs->getParentSBMLObject());
+	const ArraysSBasePlugin * arraysRule = static_cast<const ArraysSBasePlugin*>(asg->getPlugin("arrays"));
 
-llvm::Value* ASTNodeCodeGen::selectorCodeGen(const libsbml::ASTNode *ast, const std::string& symbol,
+	// Get the size of the dimension
+	const string& dimensionId = arraysRule->getDimension(ind)->getId();
+	const string& dimensionSize = arraysRule->getDimension(ind)->getSize();
+	/*ConstantFP* res = cast<ConstantFP>(toDouble(resolver.loadSymbolValue(dimensionSize)));
+	double val = res->getValueAPF().convertToDouble();
+	double iptr;
+	if (modf(val, &iptr) != 0.0 || iptr < 0.0)
+	{
+		Log(Logger::LOG_ERROR) << "One of the dimensions have a value that is not an integer";
+		throw invalid_argument("Dimensions for an assigment rule math is not an integer");
+	}
+	int sizeOfDimension = (uint)iptr;*/
+	for (uint i = 0; i < 10; i++)
+	{
+		dimensionVal[dimensionId] = i;
+		getArrays(lhs, rhs, ind+1, dimSize, rule, args);
+	}
+}
+
+std::map< std::string, llvm::Value* > ASTNodeCodeGen::selectorCodeGen(const libsbml::ASTNode *ast, const std::string& symbol,
 	const llvm::ArrayRef<llvm::Value*>& args)
 {
 	/**
@@ -1026,8 +1069,21 @@ llvm::Value* ASTNodeCodeGen::selectorCodeGen(const libsbml::ASTNode *ast, const 
 	 * the second representation and then return the double value required. To do that we
 	 * cannot use the well-written CodeGen function
 	*/
-	const AssignmentRule* asg = dynamic_cast<const AssignmentRule*>(ast->getParentSBMLObject());
-	// Id should contain our required symbol
+	AssignmentRule* asg = dynamic_cast<AssignmentRule*>(ast->getParentSBMLObject());
+	ArraysSBasePlugin * arraysRule = static_cast<ArraysSBasePlugin*>(asg->getPlugin("arrays"));
+	map < std::string, llvm::Value* > rule;
+	libsbml::ASTNode* lhs = new libsbml::ASTNode(AST_LINEAR_ALGEBRA_SELECTOR);
+	libsbml::ASTNode* varName = new libsbml::ASTNode(AST_NAME);
+	varName->setName(asg->getVariable().c_str());
+	lhs->addChild(varName);
+	uint dimensionSize = arraysRule->getNumIndices();
+	for (uint i = 0; i < dimensionSize; i++)
+	{
+		lhs->addChild(arraysRule->getIndexByArrayDimension(i)->getMath());
+	}
+	getArrays(lhs, ast, 0, &dimensionSize, &rule, args);
+	dimensionVal.clear();
+	return rule;
 }
 
 static bool isNegative(const libsbml::ASTNode *ast)
