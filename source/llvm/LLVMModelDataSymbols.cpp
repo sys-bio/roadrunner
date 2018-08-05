@@ -721,7 +721,8 @@ void LLVMModelDataSymbols::initArray(const Model* model, uint *type, list<string
 			" has a value that is not a positive integer";
 		throw invalid_argument("Dimension " + to_string(ind) + " of parameter " + dimensionSizeId + " is not a positive integer");
 	}
-	sizeOfDimensions[*id].push_back((uint)iptr);
+	if(ind==sizeOfDimensions[*id].size())
+		sizeOfDimensions[*id].push_back((uint)iptr);
 	
 	// Create the list of parameters
 	for (uint i = 0; i < sizeOfDimensions[*id][ind]; i++)

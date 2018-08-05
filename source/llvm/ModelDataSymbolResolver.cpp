@@ -89,19 +89,15 @@ llvm::Value* ModelDataLoadSymbolResolver::loadSymbolValue(
     /* AssignmentRule */
     /*************************************************************************/
     {
-		const string& arrayedSymbol = modelDataSymbols.decodeArrayId(symbol);
         SymbolForest::ConstIterator i = modelSymbols.getAssigmentRules().find(
-                arrayedSymbol);
+                symbol);
         if (i != modelSymbols.getAssigmentRules().end())
         {
+			// There shouldn't be any LINEAR_ALGEBRA_SELECTOR
             recursiveSymbolPush(symbol);
-            std::map < std::string, llvm::Value* > result = ASTNodeCodeGen(builder, *this).arrayCodeGen(i->second, symbol, args);
-			for (std::map < std::string, llvm::Value* >::iterator it = result.begin(), jt = result.end(); it != jt; it++)
-			{
-				cacheValue(it->first, args, it->second);
-			}
+            Value* result = ASTNodeCodeGen(builder, *this).codeGen(i->second);
             recursiveSymbolPop();
-            return cacheValue(symbol, args);
+            return cacheValue(symbol, args, result);
         }
     }
 

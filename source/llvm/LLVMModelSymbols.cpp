@@ -19,6 +19,7 @@
 #include <sbml/SBMLDocument.h>
 #ifdef LIBSBML_HAS_PACKAGE_ARRAYS
 #include <sbml/packages/arrays/common/ArraysExtensionTypes.h>
+#include <ASTPreProcessor.h>
 #endif
 
 using namespace libsbml;
@@ -118,6 +119,7 @@ LLVMModelSymbols::~LLVMModelSymbols()
 
 bool LLVMModelSymbols::visit(const libsbml::Compartment& x)
 {
+	// Need to include an array of compartments Vin
     ASTNode *node = nodes.create(AST_REAL);
     if (x.isSetVolume())
     {
@@ -207,8 +209,8 @@ void LLVMModelSymbols::processElement(SymbolForest& currentSymbols,
     }
     else if ((param = dynamic_cast<const Parameter*>(element)))
     {
-		// processParameter(currentSymbols, param, math);
-        currentSymbols.globalParameters[param->getId()] = math;
+		processParameter(currentSymbols, param, math);
+        // currentSymbols.globalParameters[param->getId()] = math;
     }
     else if ((species = dynamic_cast<const Species*>(element)))
     {
@@ -428,59 +430,100 @@ void LLVMModelSymbols::processSpecies(SymbolForest &currentSymbols,
     }
 }
 
-//const ASTNode* LLVMModelSymbols::processArrayAST(SymbolForest &currentSymbols, vector<uint> *sizeOfDimensions, uint ind, const ASTNode *lhsMath, const ASTNode *rhsMath)
-//{
-//	if (ind == sizeOfDimensions->size())
-//	{
-//		string lhs = "";
-//		string rhs = "";
-//
-//		ASTNodeCodeGen().getASTArrayId(NULL, lhsMath, lhs);
-//		currentSymbols.globalParameters[]
-//		arrayedGlobalParameters[*id].insert(arrayId);
-//		return;
-//	}
-//
-//	// Get the size of the dimension
-//	const string& sizeParamId = arraysParam->getDimension(ind)->getSize();
-//	double val = model->getParameter(sizeParamId)->getValue();
-//	double iptr;
-//	if (modf(val, &iptr) != 0.0 || iptr < 0.0)
-//	{
-//		Log(Logger::LOG_ERROR) << "Dimension " << ind << " of " << sizeParamId <<
-//			" has a value that is not a positive integer";
-//		throw invalid_argument("Dimension " + to_string(ind) + " of parameter " + sizeParamId + " is not a positive integer");
-//	}
-//	sizeOfDimensions[*id].push_back((uint)iptr);
-//
-//	// Create the list of parameters
-//	for (uint i = 0; i < sizeOfDimensions[*id][ind]; i++)
-//	{
-////		// Using hyphen(-) instead of an underscore(_) for the parameter ID's
-////		// because SBML officially allows for SID type to have an underscore and this
-////		// will cause problems while dereferencing the ID if another paramter has an
-////		// underscore in its ID
-////		initArrayGlobalParameters(model, param, id, ind + 1, arrayId + "-" + to_string(i));
-//	}
-//}
-//
-//void LLVMModelSymbols::processParameter(SymbolForest &currentSymbols, 
-//	const Parameter *param, const ASTNode *math)
-//{
-//#ifndef LIBSBML_HAS_PACKAGE_ARRAYS
-//	currentSymbols.globalParameters[param->getId()] = math;
-//	return;
-//#endif
-//	const ArraysSBasePlugin * arraysParam = static_cast<const ArraysSBasePlugin*>(param->getPlugin("arrays"));
-//	uint numDimensions = arraysParam->getNumDimensions();
-//	if (numDimensions)
-//	{
-//		currentSymbols.globalParameters[param->getId()] = math;
-//		return;
-//	}
-//	vector<uint> sizeOfDimensions = this->symbols.getSizeOfDimensions(param->getId());
-//	this->
-//}
+void LLVMModelSymbols::getUnknownValues(map<string, uint> *values, const ASTNode* ast)
+{
+	if (ast->getType() == AST_NAME)
+	{
+		int result;
+		LLVMModelDataSymbols::SymbolIndexType type = this->symbols.getSymbolIndex(ast->getName(), result);
+		switch (type)
+		{
+		/*case LLVMModelDataSymbols::FLOATING_SPECIES:
+			break;
+		case LLVMModelDataSymbols::BOUNDARY_SPECIES:
+			break;
+		case LLVMModelDataSymbols::COMPARTMENT:
+			break;*/
+		case LLVMModelDataSymbols::GLOBAL_PARAMETER:
+		{
+			double val = this->model->getParameter(ast->getName())->getValue();
+			double iptr;
+			if (modf(val, &iptr) != 0.0 || iptr < 0.0)
+			{
+				Log(Logger::LOG_ERROR) << "Parameter used in dimension calculation is not a positive integer";
+				throw invalid_argument("Parameter used in dimension calculation is not a positive integer");
+			}
+			(*values)[ast->getName()] = (uint)iptr;
+			break;
+		}
+		/*case LLVMModelDataSymbols::REACTION:
+			break;
+		case LLVMModelDataSymbols::EVENT:
+			break;*/
+		}
+		return;
+	}
+	for (uint i = 0; i < ast->getNumChildren(); i++)
+		getUnknownValues(values, ast->getChild(i));
+}
+
+void LLVMModelSymbols::processArrayAST(SymbolForest &currentSymbols, map<string, uint> *values, vector<uint> *sizeOfDimensions, uint ind, const ASTNode *lhsMath, const ASTNode *rhsMath)
+{
+	if (ind == sizeOfDimensions->size())
+	{
+		ASTNode* lhs = lhsMath->deepCopy();
+		lhs = rr::ASTPreProcessor().preProcess(lhs, values);
+		ASTNode* rhs = rhsMath->deepCopy();
+		rhs = rr::ASTPreProcessor().preProcess(rhs, values);
+		currentSymbols.globalParameters[lhs->getName()] = rhs;
+		return;
+	}
+	static const ArraysSBasePlugin *arraysPlug = static_cast<const ArraysSBasePlugin*>(rhsMath->getParentSBMLObject()->getPlugin("arrays"));
+	const string &id = arraysPlug->getDimension(ind)->getId();
+	for (uint i = 0; i < sizeOfDimensions->at(ind); i++)
+	{
+		(*values)[id] = i;
+		processArrayAST(currentSymbols, values, sizeOfDimensions, ind + 1, lhsMath, rhsMath);
+	}
+}
+
+void LLVMModelSymbols::processParameter(SymbolForest &currentSymbols, 
+	const Parameter *param, const ASTNode *rhs)
+{
+#ifndef LIBSBML_HAS_PACKAGE_ARRAYS
+	if (param->isPackageEnabled("arrays"))
+	{
+		throw runtime_error("The parameter " + id + "has a ListOfDimensions or ListOfIndices but the libSBML arrays package has not been enabled. Please build roadrunner with libSBML arrays package enabled");
+	}
+	else
+	{
+		currentSymbols.globalParameters[param->getId()] = rhs;
+		return;
+	}
+#endif
+	const ArraysSBasePlugin *arraysParam = static_cast<const ArraysSBasePlugin*>(param->getPlugin("arrays"));
+	ArraysSBasePlugin *arraysRule = static_cast<ArraysSBasePlugin*>(rhs->getParentSBMLObject()->getPlugin("arrays"));
+	uint numDimensions = arraysParam->getNumDimensions();
+	if (numDimensions==0)
+	{
+		currentSymbols.globalParameters[param->getId()] = rhs;
+		return;
+	}
+	vector<uint> sizeOfDimensions = this->symbols.getSizeOfDimensions(param->getId());
+	map<string, uint> values;
+	uint sizeOfIndices = arraysRule->getNumIndices();
+	ASTNode* lhs = new ASTNode(AST_LINEAR_ALGEBRA_SELECTOR);
+	ASTNode* var = new ASTNode(AST_NAME);
+	var->setName(param->getId().c_str());
+	lhs->addChild(var);
+	for (uint i = 0; i < sizeOfIndices; i++)
+	{
+		lhs->addChild(arraysRule->getIndex(i)->getMath());
+	}
+	getUnknownValues(&values, rhs);
+	getUnknownValues(&values, lhs);
+	processArrayAST(currentSymbols, &values, &sizeOfDimensions, 0, lhs, rhs);
+}
 
 const ASTNode* LLVMModelSymbols::getSpeciesReferenceStoichMath(
         const libsbml::SpeciesReference* reference)

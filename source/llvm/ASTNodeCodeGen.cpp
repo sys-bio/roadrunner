@@ -232,7 +232,7 @@ llvm::Value* ASTNodeCodeGen::codeGen(const libsbml::ASTNode* ast)
     return result;
 }
 
-std::map < std::string, llvm::Value* > ASTNodeCodeGen::arrayCodeGen(const libsbml::ASTNode* ast, const std::string& symbol, 
+/*std::map < std::string, llvm::Value* > ASTNodeCodeGen::arrayCodeGen(const libsbml::ASTNode* ast, const std::string& symbol, 
 	const llvm::ArrayRef<llvm::Value*>& args)
 {
 	if (ast == 0)
@@ -259,7 +259,7 @@ std::map < std::string, llvm::Value* > ASTNodeCodeGen::arrayCodeGen(const libsbm
 		return result;
 	}
 	}
-}
+}*/
 
 llvm::Value* ASTNodeCodeGen::notImplemented(const libsbml::ASTNode* ast)
 {
@@ -955,7 +955,7 @@ llvm::Value* ASTNodeCodeGen::piecewiseCodeGen(const libsbml::ASTNode* ast)
 /*
  * Called only when the ast node is of extended type AST_LINEAR_ALGEBRA_SELECTOR
 */
-void ASTNodeCodeGen::getASTArrayId(const libsbml::ASTNode* parent, const libsbml::ASTNode* ast, std::string* id)
+/*void ASTNodeCodeGen::getASTArrayId(const libsbml::ASTNode* parent, const libsbml::ASTNode* ast, std::string* id)
 {
 	// If the current AST is another selector not related to the parent
 	// AST_LINEAR_ALGEBRA_SELECTOR, we have to call codeGen on it and get its value
@@ -977,7 +977,6 @@ void ASTNodeCodeGen::getASTArrayId(const libsbml::ASTNode* parent, const libsbml
 	else
 	{
 		uint numChildren = ast->getNumChildren();
-
 		for (uint i = 0; i < numChildren; i++)
 		{
 			const libsbml::ASTNode* child = ast->getChild(i);
@@ -1034,7 +1033,7 @@ void ASTNodeCodeGen::getArrays(const libsbml::ASTNode *lhs, const libsbml::ASTNo
 	// Get the size of the dimension
 	const string& dimensionId = arraysRule->getDimension(ind)->getId();
 	const string& dimensionSize = arraysRule->getDimension(ind)->getSize();
-	/*ConstantFP* res = cast<ConstantFP>(toDouble(resolver.loadSymbolValue(dimensionSize)));
+	ConstantFP* res = cast<ConstantFP>(toDouble(resolver.loadSymbolValue(dimensionSize)));
 	double val = res->getValueAPF().convertToDouble();
 	double iptr;
 	if (modf(val, &iptr) != 0.0 || iptr < 0.0)
@@ -1042,17 +1041,17 @@ void ASTNodeCodeGen::getArrays(const libsbml::ASTNode *lhs, const libsbml::ASTNo
 		Log(Logger::LOG_ERROR) << "One of the dimensions have a value that is not an integer";
 		throw invalid_argument("Dimensions for an assigment rule math is not an integer");
 	}
-	int sizeOfDimension = (uint)iptr;*/
+	int sizeOfDimension = (uint)iptr;
 	for (uint i = 0; i < 10; i++)
 	{
 		dimensionVal[dimensionId] = i;
 		getArrays(lhs, rhs, ind+1, dimSize, rule, args);
 	}
-}
+}*/
 
-std::map< std::string, llvm::Value* > ASTNodeCodeGen::selectorCodeGen(const libsbml::ASTNode *ast, const std::string& symbol,
-	const llvm::ArrayRef<llvm::Value*>& args)
-{
+//std::map< std::string, llvm::Value* > ASTNodeCodeGen::selectorCodeGen(const libsbml::ASTNode *ast, const std::string& symbol,
+//	const llvm::ArrayRef<llvm::Value*>& args)
+//{
 	/**
 	 * There are 2 ways to represent a selector a[x][y] and a[x, y]
 	 * They have the following AST representations
@@ -1069,7 +1068,7 @@ std::map< std::string, llvm::Value* > ASTNodeCodeGen::selectorCodeGen(const libs
 	 * the second representation and then return the double value required. To do that we
 	 * cannot use the well-written CodeGen function
 	*/
-	AssignmentRule* asg = dynamic_cast<AssignmentRule*>(ast->getParentSBMLObject());
+	/*AssignmentRule* asg = dynamic_cast<AssignmentRule*>(ast->getParentSBMLObject());
 	ArraysSBasePlugin * arraysRule = static_cast<ArraysSBasePlugin*>(asg->getPlugin("arrays"));
 	map < std::string, llvm::Value* > rule;
 	libsbml::ASTNode* lhs = new libsbml::ASTNode(AST_LINEAR_ALGEBRA_SELECTOR);
@@ -1084,7 +1083,7 @@ std::map< std::string, llvm::Value* > ASTNodeCodeGen::selectorCodeGen(const libs
 	getArrays(lhs, ast, 0, &dimensionSize, &rule, args);
 	dimensionVal.clear();
 	return rule;
-}
+}*/
 
 static bool isNegative(const libsbml::ASTNode *ast)
 {

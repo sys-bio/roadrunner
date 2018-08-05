@@ -97,6 +97,7 @@ set(rrCoreSources
     rrSparse
     rrSBMLModelSimulation
     rrSBMLReader
+    ASTPreProcessor
     SBMLValidator
     SteadyStateSolver
     Solver

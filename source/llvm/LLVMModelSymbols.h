@@ -183,13 +183,17 @@ protected:
     void processSpecies(SymbolForest &currentSymbols,
             const libsbml::Species *element, const libsbml::ASTNode *math);
 
+	void getUnknownValues(std::map<std::string, uint> *values, const libsbml::ASTNode *ast);
+
+	void processArrayAST(SymbolForest &currentSymbols, std::map<std::string, uint> *dimensionVals, std::vector<uint> *sizeOfDimensions, uint ind, const libsbml::ASTNode *lhsMath, const libsbml::ASTNode *rhsMath);
+
 	/**
 	 * In the case of an array of parameters, it is essential to ensure that the
 	 * math of the indices is handled correctly. To do that, the dimensions have
 	 * to be replaced correctly to get the correct math expression for the variable
 	 */
 	void processParameter(SymbolForest &currentSymbols,
-		const libsbml::Parameter *param, const libsbml::ASTNode *math);
+		const libsbml::Parameter *param, const libsbml::ASTNode *rhs);
 
     /**
      * get the MathML element for a SpeciesReference if it is set, otherwise,
