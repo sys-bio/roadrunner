@@ -19,6 +19,7 @@
 #include <sbml/SBMLDocument.h>
 #ifdef LIBSBML_HAS_PACKAGE_ARRAYS
 #include <sbml/packages/arrays/common/ArraysExtensionTypes.h>
+#include <ASTPreProcessor.h>
 #endif
 
 #include <string>
@@ -969,30 +970,67 @@ void LLVMModelDataSymbols::initBoundarySpecies(const libsbml::Model* model)
     }
 }
 
-void LLVMModelDataSymbols::initFloatingSpecies(const libsbml::Model* model,
-        bool computeAndAssignConsevationLaws)
+void LLVMModelDataSymbols::getUnknownValues(const libsbml::Model* model, map<string, uint> *values, const ASTNode* ast) const
 {
-    const ListOfSpecies *species = model->getListOfSpecies();
+	if (ast->getType() == AST_NAME)
+	{
+		int result;
+		SymbolIndexType type = this->getSymbolIndex(ast->getName(), result);
+		switch (type)
+		{
+			/*case LLVMModelDataSymbols::FLOATING_SPECIES:
+			break;
+			case LLVMModelDataSymbols::BOUNDARY_SPECIES:
+			break;
+			case LLVMModelDataSymbols::COMPARTMENT:
+			break;*/
+		case GLOBAL_PARAMETER:
+		{
+			double val = model->getParameter(ast->getName())->getValue();
+			double iptr;
+			if (modf(val, &iptr) != 0.0 || iptr < 0.0)
+			{
+				Log(Logger::LOG_ERROR) << "Parameter used in dimension calculation is not a positive integer";
+				throw invalid_argument("Parameter used in dimension calculation is not a positive integer");
+			}
+			(*values)[ast->getName()] = (uint)iptr;
+			break;
+		}
+		/*case LLVMModelDataSymbols::REACTION:
+		break;
+		case LLVMModelDataSymbols::EVENT:
+		break;*/
+		}
+		return;
+	}
+	for (uint i = 0; i < ast->getNumChildren(); i++)
+		getUnknownValues(model, values, ast->getChild(i));
+}
 
-    // independent at run time, no rules of any sort
-    list<string> indFltSpecies;
-    list<string> depFltSpecies;
+void LLVMModelDataSymbols::initFloatingSpecies(const libsbml::Model* model,
+	bool computeAndAssignConsevationLaws)
+{
+	const ListOfSpecies *species = model->getListOfSpecies();
 
-    list<string> indInitFltSpecies;
-    list<string> depInitFltSpecies;
+	// independent at run time, no rules of any sort
+	list<string> indFltSpecies;
+	list<string> depFltSpecies;
 
-    // figure out 'fully' indendent flt species -- those without rules.
-    for (uint i = 0; i < species->size(); ++i)
-    {
-        const Species *s = species->get(i);
-        std::vector<std::string> quantities = ConservationExtension::getConservedQuantities(*s);
+	list<string> indInitFltSpecies;
+	list<string> depInitFltSpecies;
 
-        if (s->getBoundaryCondition())
-        {
-            continue;
-        }
+	// figure out 'fully' indendent flt species -- those without rules.
+	for (uint i = 0; i < species->size(); ++i)
+	{
+		const Species *s = species->get(i);
+		std::vector<std::string> quantities = ConservationExtension::getConservedQuantities(*s);
 
-        const string& sid = s->getId();
+		if (s->getBoundaryCondition())
+		{
+			continue;
+		}
+
+		const string& sid = s->getId();
 
 #ifndef LIBSBML_HAS_PACKAGE_ARRAYS
 		if (s->isPackageEnabled("arrays"))
@@ -1008,7 +1046,7 @@ void LLVMModelDataSymbols::initFloatingSpecies(const libsbml::Model* model,
 			{
 				initArray(model, &type, &indFltSpecies, &sid, 0, sid);
 				if (quantities.size()) {
-					for (uint j = 0; j<quantities.size(); ++j) {
+					for (uint j = 0; j < quantities.size(); ++j) {
 						std::string quantity = quantities.at(j);
 						conservedMoietyIndSpecies[quantity].push_back(indFltSpecies.size() - 1);
 					}
@@ -1018,7 +1056,7 @@ void LLVMModelDataSymbols::initFloatingSpecies(const libsbml::Model* model,
 			{
 				initArray(model, &type, &depFltSpecies, &sid, 0, sid);
 				if (quantities.size()) {
-					for (uint j = 0; j<quantities.size(); ++j) {
+					for (uint j = 0; j < quantities.size(); ++j) {
 						std::string quantity = quantities.at(j);
 						conservedMoietyDepSpecies[quantity] = depFltSpecies.size() - 1;
 					}
@@ -1050,7 +1088,7 @@ void LLVMModelDataSymbols::initFloatingSpecies(const libsbml::Model* model,
 			{
 				indFltSpecies.push_back(sid);
 				if (quantities.size()) {
-					for (uint j = 0; j<quantities.size(); ++j) {
+					for (uint j = 0; j < quantities.size(); ++j) {
 						std::string quantity = quantities.at(j);
 						conservedMoietyIndSpecies[quantity].push_back(indFltSpecies.size() - 1);
 					}
@@ -1060,7 +1098,7 @@ void LLVMModelDataSymbols::initFloatingSpecies(const libsbml::Model* model,
 			{
 				depFltSpecies.push_back(sid);
 				if (quantities.size()) {
-					for (uint j = 0; j<quantities.size(); ++j) {
+					for (uint j = 0; j < quantities.size(); ++j) {
 						std::string quantity = quantities.at(j);
 						conservedMoietyDepSpecies[quantity] = depFltSpecies.size() - 1;
 					}
@@ -1087,117 +1125,157 @@ void LLVMModelDataSymbols::initFloatingSpecies(const libsbml::Model* model,
 				conservedMoietySpeciesSet.insert(sid);
 			}
 		}
-    }
+	}
 
-    // stuff the species in the map
-    for (list<string>::const_iterator i = indFltSpecies.begin();
-            i != indFltSpecies.end(); ++i)
-    {
-        uint si = floatingSpeciesMap.size();
-        floatingSpeciesMap[*i] = si;
-    }
+	// stuff the species in the map
+	for (list<string>::const_iterator i = indFltSpecies.begin();
+		i != indFltSpecies.end(); ++i)
+	{
+		uint si = floatingSpeciesMap.size();
+		floatingSpeciesMap[*i] = si;
+	}
 
-    for (list<string>::const_iterator i = depFltSpecies.begin();
-            i != depFltSpecies.end(); ++i)
-    {
-        uint si = floatingSpeciesMap.size();
-        floatingSpeciesMap[*i] = si;
+	for (list<string>::const_iterator i = depFltSpecies.begin();
+		i != depFltSpecies.end(); ++i)
+	{
+		uint si = floatingSpeciesMap.size();
+		floatingSpeciesMap[*i] = si;
 
 		// Need to check this Vin
-        // now that we know how many float species we have, we
-        // can map these to the conserved moieties.
-        // assume that the cm order (T vector) matches the order
-        // that the CM species were added.
-        if (computeAndAssignConsevationLaws)
-        {
-            // look in the set we just made
-            if (conservedMoietySpeciesSet.find(*i) !=
-                    conservedMoietySpeciesSet.end())
-            {
-                // keep incrementing the size each time we add one.
-                uint cmIndex = floatingSpeciesToConservedMoietyIdMap.size();
-                floatingSpeciesToConservedMoietyIdMap[si] = cmIndex;
-            }
-        }
-    }
+		// now that we know how many float species we have, we
+		// can map these to the conserved moieties.
+		// assume that the cm order (T vector) matches the order
+		// that the CM species were added.
+		if (computeAndAssignConsevationLaws)
+		{
+			// look in the set we just made
+			if (conservedMoietySpeciesSet.find(*i) !=
+				conservedMoietySpeciesSet.end())
+			{
+				// keep incrementing the size each time we add one.
+				uint cmIndex = floatingSpeciesToConservedMoietyIdMap.size();
+				floatingSpeciesToConservedMoietyIdMap[si] = cmIndex;
+			}
+		}
+	}
 
-    // stuff the species in the map
-    for (list<string>::const_iterator i = indInitFltSpecies.begin();
-            i != indInitFltSpecies.end(); ++i)
-    {
-        uint si = initFloatingSpeciesMap.size();
-        initFloatingSpeciesMap[*i] = si;
-    }
+	// stuff the species in the map
+	for (list<string>::const_iterator i = indInitFltSpecies.begin();
+		i != indInitFltSpecies.end(); ++i)
+	{
+		uint si = initFloatingSpeciesMap.size();
+		initFloatingSpeciesMap[*i] = si;
+	}
 
-    for (list<string>::const_iterator i = depInitFltSpecies.begin();
-            i != depInitFltSpecies.end(); ++i)
-    {
-        uint si = initFloatingSpeciesMap.size();
-        initFloatingSpeciesMap[*i] = si;
-    }
+	for (list<string>::const_iterator i = depInitFltSpecies.begin();
+		i != depInitFltSpecies.end(); ++i)
+	{
+		uint si = initFloatingSpeciesMap.size();
+		initFloatingSpeciesMap[*i] = si;
+	}
 
-    // finally set how many ind species we've found
-    independentFloatingSpeciesSize = indFltSpecies.size();
-    independentInitFloatingSpeciesSize = indInitFltSpecies.size();
+	// finally set how many ind species we've found
+	independentFloatingSpeciesSize = indFltSpecies.size();
+	independentInitFloatingSpeciesSize = indInitFltSpecies.size();
 
-    // map the float species to their compartments.
-    floatingSpeciesCompartmentIndices.resize(floatingSpeciesMap.size());
+	// map the float species to their compartments.
+	floatingSpeciesCompartmentIndices.resize(floatingSpeciesMap.size());
 
 	// Need to change this function also Vin
 	// To check the correct compartment reference
-    for(StringUIntMap::const_iterator i = floatingSpeciesMap.begin();
-            i != floatingSpeciesMap.end(); ++i)
-    {
-        const Species* s = model->getSpecies(i->first);
-        assert(s && "known species is NULL");
-        StringUIntMap::const_iterator j =
-                compartmentsMap.find(s->getCompartment());
-        if (j == compartmentsMap.end())
-        {
-            throw_llvm_exception("species " + s->getId() +
-                    " references unknown compartment " + s->getCompartment());
-        }
+	for (StringUIntMap::const_iterator i = floatingSpeciesMap.begin();
+		i != floatingSpeciesMap.end(); ++i)
+	{
+		const Species* s = model->getSpecies(decodeArrayId(i->first));
+		assert(s && "known species is NULL");
+#ifndef LIBSBML_HAS_PACKAGE_ARRAYS
+		if (s->isPackageEnabled("arrays"))
+		{
+			throw runtime_error("The species " + s->getId() + "has a ListOfDimensions or ListOfIndices but the libSBML arrays package has not been enabled. Please build roadrunner with libSBML arrays package enabled");
+		}
+#else
+		const ArraysSBasePlugin * arraysPlug = static_cast<const ArraysSBasePlugin*>(s->getPlugin("arrays"));
+		if (arraysPlug && arraysPlug->getNumDimensions())
+		{
+			vector<uint> sizeOfDimensions = this->getSizeOfDimensions(s->getId());
+			map<string, uint> values;
+			uint sizeOfIndices = arraysPlug->getNumIndices();
+			ASTNode* rhs = new ASTNode(AST_LINEAR_ALGEBRA_SELECTOR);
+			ASTNode* var = new ASTNode(AST_NAME);
+			// Referenced attribute can be a compartment or a conversion factor
+			var->setName(arraysPlug->getIndex(0)->getReferencedAttribute().c_str());
+			rhs->addChild(var);
+			for (uint j = 0; j < sizeOfIndices; j++)
+			{
+				ASTNode* child = arraysPlug->getIndex(j)->getMath()->deepCopy();
+				rhs->addChild(child);
+			}
+			getUnknownValues(model, &values, rhs);
+			ASTNode* result = rr::ASTPreProcessor().preProcess(rhs, &values);
+			StringUIntMap::const_iterator j =
+				compartmentsMap.find(result->getName());
+			if (j == compartmentsMap.end())
+			{
+				throw_llvm_exception("species " + s->getId() +
+					" references unknown compartment " + result->getName());
+			}
 
-        assert(i->second < floatingSpeciesCompartmentIndices.size());
-        assert(j->second < compartmentsMap.size());
-        floatingSpeciesCompartmentIndices[i->second] = j->second;
-    }
+			assert(i->second < floatingSpeciesCompartmentIndices.size());
+			assert(j->second < compartmentsMap.size());
+			floatingSpeciesCompartmentIndices[i->second] = j->second;
+		}
+#endif
+		else
+		{
+			StringUIntMap::const_iterator j =
+				compartmentsMap.find(s->getCompartment());
+			if (j == compartmentsMap.end())
+			{
+				throw_llvm_exception("species " + s->getId() +
+					" references unknown compartment " + s->getCompartment());
+			}
 
-    if (Logger::LOG_DEBUG <= getLogger().getLevel())
-    {
-        LoggingBuffer log(Logger::LOG_DEBUG, __FILE__, __LINE__);
+			assert(i->second < floatingSpeciesCompartmentIndices.size());
+			assert(j->second < compartmentsMap.size());
+			floatingSpeciesCompartmentIndices[i->second] = j->second;
+		}
+	}
 
-        log.stream() << "found " << indFltSpecies.size()
-                            << " independent and " << depFltSpecies.size()
-                            << " dependent floating species." << endl;
+	if (Logger::LOG_DEBUG <= getLogger().getLevel())
+	{
+		LoggingBuffer log(Logger::LOG_DEBUG, __FILE__, __LINE__);
 
-        vector<string> ids = getFloatingSpeciesIds();
-        for (uint i = 0; i < ids.size(); ++i)
-        {
-            log.stream() << "floating species [" << i << "] = \'" << ids[i]
-                                                                         << "\'" << endl;
-        }
+		log.stream() << "found " << indFltSpecies.size()
+			<< " independent and " << depFltSpecies.size()
+			<< " dependent floating species." << endl;
+
+		vector<string> ids = getFloatingSpeciesIds();
+		for (uint i = 0; i < ids.size(); ++i)
+		{
+			log.stream() << "floating species [" << i << "] = \'" << ids[i]
+				<< "\'" << endl;
+		}
 
 
-        log.stream() << "found " << indInitFltSpecies.size()
-                            << " independent and " << depInitFltSpecies.size()
-                            << " dependent initial floating species." << endl;
-    }
+		log.stream() << "found " << indInitFltSpecies.size()
+			<< " independent and " << depInitFltSpecies.size()
+			<< " dependent initial floating species." << endl;
+	}
 }
 
 void LLVMModelDataSymbols::initCompartments(const libsbml::Model *model)
 {
-    list<string> indCompartments;
-    list<string> depCompartments;
+	list<string> indCompartments;
+	list<string> depCompartments;
 
-    list<string> indInitCompartments;
-    list<string> depInitCompartments;
+	list<string> indInitCompartments;
+	list<string> depInitCompartments;
 
-    const ListOfCompartments *compartments = model->getListOfCompartments();
-    for (uint i = 0; i < compartments->size(); i++)
-    {
-        const Compartment *c = compartments->get(i);
-        const string& id = c->getId();
+	const ListOfCompartments *compartments = model->getListOfCompartments();
+	for (uint i = 0; i < compartments->size(); i++)
+	{
+		const Compartment *c = compartments->get(i);
+		const string& id = c->getId();
 #ifndef LIBSBML_HAS_PACKAGE_ARRAYS
 		if (c->isPackageEnabled("arrays"))
 		{
@@ -1248,41 +1326,41 @@ void LLVMModelDataSymbols::initCompartments(const libsbml::Model *model)
 				depInitCompartments.push_back(id);
 			}
 		}
-    }
+	}
 
-    for (list<string>::const_iterator i = indCompartments.begin();
-            i != indCompartments.end(); ++i)
-    {
-        uint ci = compartmentsMap.size();
-        compartmentsMap[*i] = ci;
-    }
+	for (list<string>::const_iterator i = indCompartments.begin();
+		i != indCompartments.end(); ++i)
+	{
+		uint ci = compartmentsMap.size();
+		compartmentsMap[*i] = ci;
+	}
 
-    for (list<string>::const_iterator i = depCompartments.begin();
-            i != depCompartments.end(); ++i)
-    {
-        uint ci = compartmentsMap.size();
-        compartmentsMap[*i] = ci;
-    }
-
-
-    for (list<string>::const_iterator i = indInitCompartments.begin();
-            i != indInitCompartments.end(); ++i)
-    {
-        uint ci = initCompartmentsMap.size();
-        initCompartmentsMap[*i] = ci;
-    }
-
-    for (list<string>::const_iterator i = depInitCompartments.begin();
-            i != depInitCompartments.end(); ++i)
-    {
-        uint ci = initCompartmentsMap.size();
-        initCompartmentsMap[*i] = ci;
-    }
+	for (list<string>::const_iterator i = depCompartments.begin();
+		i != depCompartments.end(); ++i)
+	{
+		uint ci = compartmentsMap.size();
+		compartmentsMap[*i] = ci;
+	}
 
 
-    // finally set how many ind compartments we have
-    independentCompartmentSize = indCompartments.size();
-    independentInitCompartmentSize = indInitCompartments.size();
+	for (list<string>::const_iterator i = indInitCompartments.begin();
+		i != indInitCompartments.end(); ++i)
+	{
+		uint ci = initCompartmentsMap.size();
+		initCompartmentsMap[*i] = ci;
+	}
+
+	for (list<string>::const_iterator i = depInitCompartments.begin();
+		i != depInitCompartments.end(); ++i)
+	{
+		uint ci = initCompartmentsMap.size();
+		initCompartmentsMap[*i] = ci;
+	}
+
+
+	// finally set how many ind compartments we have
+	independentCompartmentSize = indCompartments.size();
+	independentInitCompartmentSize = indInitCompartments.size();
 }
 
 bool LLVMModelDataSymbols::isConservedMoietyParameter(uint id) const

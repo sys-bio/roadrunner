@@ -430,43 +430,6 @@ void LLVMModelSymbols::processSpecies(SymbolForest &currentSymbols,
     }
 }
 
-void LLVMModelSymbols::getUnknownValues(map<string, uint> *values, const ASTNode* ast)
-{
-	if (ast->getType() == AST_NAME)
-	{
-		int result;
-		LLVMModelDataSymbols::SymbolIndexType type = this->symbols.getSymbolIndex(ast->getName(), result);
-		switch (type)
-		{
-		/*case LLVMModelDataSymbols::FLOATING_SPECIES:
-			break;
-		case LLVMModelDataSymbols::BOUNDARY_SPECIES:
-			break;
-		case LLVMModelDataSymbols::COMPARTMENT:
-			break;*/
-		case LLVMModelDataSymbols::GLOBAL_PARAMETER:
-		{
-			double val = this->model->getParameter(ast->getName())->getValue();
-			double iptr;
-			if (modf(val, &iptr) != 0.0 || iptr < 0.0)
-			{
-				Log(Logger::LOG_ERROR) << "Parameter used in dimension calculation is not a positive integer";
-				throw invalid_argument("Parameter used in dimension calculation is not a positive integer");
-			}
-			(*values)[ast->getName()] = (uint)iptr;
-			break;
-		}
-		/*case LLVMModelDataSymbols::REACTION:
-			break;
-		case LLVMModelDataSymbols::EVENT:
-			break;*/
-		}
-		return;
-	}
-	for (uint i = 0; i < ast->getNumChildren(); i++)
-		getUnknownValues(values, ast->getChild(i));
-}
-
 void LLVMModelSymbols::processArrayAST(SymbolForest &currentSymbols, map<string, uint> *values, vector<uint> *sizeOfDimensions, uint ind, const ASTNode *lhsMath, const ASTNode *rhsMath)
 {
 	if (ind == sizeOfDimensions->size())
@@ -520,8 +483,8 @@ void LLVMModelSymbols::processParameter(SymbolForest &currentSymbols,
 	{
 		lhs->addChild(arraysRule->getIndex(i)->getMath());
 	}
-	getUnknownValues(&values, rhs);
-	getUnknownValues(&values, lhs);
+	this->symbols.getUnknownValues(this->model, &values, rhs);
+	this->symbols.getUnknownValues(this->model, &values, lhs);
 	processArrayAST(currentSymbols, &values, &sizeOfDimensions, 0, lhs, rhs);
 }
 

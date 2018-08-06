@@ -183,8 +183,6 @@ protected:
     void processSpecies(SymbolForest &currentSymbols,
             const libsbml::Species *element, const libsbml::ASTNode *math);
 
-	void getUnknownValues(std::map<std::string, uint> *values, const libsbml::ASTNode *ast);
-
 	void processArrayAST(SymbolForest &currentSymbols, std::map<std::string, uint> *dimensionVals, std::vector<uint> *sizeOfDimensions, uint ind, const libsbml::ASTNode *lhsMath, const libsbml::ASTNode *rhsMath);
 
 	/**

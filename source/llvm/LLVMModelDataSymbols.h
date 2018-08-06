@@ -553,6 +553,8 @@ public:
 
     uint getEventIndex(const std::string& id) const;
 
+	void getUnknownValues(const libsbml::Model* model, std::map<std::string, uint> *values, const libsbml::ASTNode* ast) const;
+
 private:
 
     std::set<std::string> initAssignmentRules;
