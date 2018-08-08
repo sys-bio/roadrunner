@@ -76,7 +76,7 @@ llvm::Value* GetValueCodeGenBase<Derived, substanceUnits>::codeGen()
     this->builder.SetInsertPoint(def);
 
     this->builder.CreateRet(llvm::ConstantFP::get(this->context,
-            llvm::APFloat::getQNaN(llvm::APFloat::IEEEdouble)));
+            llvm::APFloat::getQNaN(llvm::APFloat::IEEEdouble())));
 
     // write the switch at the func entry point, the switch is also the
     // entry block terminator

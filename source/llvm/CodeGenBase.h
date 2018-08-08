@@ -34,7 +34,7 @@ template <typename FunctionPtrType>
 class CodeGenBase
 {
 public:
-    FunctionPtrType createFunction()
+    llvm::Function* createFunction()
     {
         llvm::Function *func = (llvm::Function*)codeGen();
 
@@ -43,7 +43,7 @@ public:
             functionPassManager->run(*func);
         }
 
-        return (FunctionPtrType)engine.getPointerToFunction(func);
+		return func;
     }
 
     typedef FunctionPtrType FunctionPtr;
@@ -83,7 +83,7 @@ protected:
     /**
      * function pass manager. Null if no optimization.
      */
-    llvm::FunctionPassManager *functionPassManager;
+    llvm::legacy::FunctionPassManager *functionPassManager;
 
     /**
      * the options bit field that was passed into the top level load method.
@@ -112,7 +112,7 @@ protected:
                 "entry", function);
         builder.SetInsertPoint(basicBlock);
 
-        assert(function->getArgumentList().size() == N);
+        //assert(function->getArgumentList().size() == N);
 
         int i = 0;
         for (llvm::Function::arg_iterator ai = function->arg_begin();
@@ -157,7 +157,8 @@ protected:
 
         /// verifyFunction - Check a function for errors, printing messages on stderr.
         /// Return true if the function is corrupt.
-#if (LLVM_VERSION_MAJOR == 3) && (LLVM_VERSION_MINOR >= 5)
+//#if (LLVM_VERSION_MAJOR == 3) && (LLVM_VERSION_MINOR >= 5)
+#if (LLVM_VERSION_MAJOR == 6)
         if (llvm::verifyFunction(*function))
 #else
         if (llvm::verifyFunction(*function, llvm::AbortProcessAction))

@@ -12,7 +12,7 @@
 
 namespace sbmlsupport
 {
-
+extern "C" {
 double trunc(double d)
 {
     return (d > 0) ? floor(d) : ceil(d) ;
@@ -263,5 +263,5 @@ double arctanh(double a)
     return (std::log(1.0 + a) - std::log(1.0 - a)) / 2.0;
 }
 
-
+}
 } /* namespace sbmlsupport */

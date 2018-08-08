@@ -193,6 +193,7 @@ int main(int argc, char* argv[])
 
     //Finish outputs result to xml file
     runner1.Finish();
+	
     return runner1.GetTestResults()->GetFailureCount();
 }
 

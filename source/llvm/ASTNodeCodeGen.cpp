@@ -514,8 +514,9 @@ llvm::Value* ASTNodeCodeGen::functionCallCodeGen(const libsbml::ASTNode* ast)
 
 llvm::Value* ASTNodeCodeGen::intrinsicCallCodeGen(const libsbml::ASTNode *ast)
 {
-    LibFunc::Func funcId;
-    TargetLibraryInfo targetLib;
+    LibFunc funcId;
+	TargetLibraryInfoImpl defaultImpl;
+    TargetLibraryInfo targetLib(defaultImpl);
     Function* func;
     Module *module = getModule();
 
@@ -525,15 +526,15 @@ llvm::Value* ASTNodeCodeGen::intrinsicCallCodeGen(const libsbml::ASTNode *ast)
     case AST_POWER:                 // '^' sbml considers this an operator,
                                     // left and right child nodes are the first
                                     // 2 child nodes for args.
-        funcId = LibFunc::pow;
+        funcId = LibFunc_pow;
         func = module->getFunction(targetLib.getName(funcId));
         break;
     case AST_FUNCTION_ABS:
-        funcId = LibFunc::fabs;
+        funcId = LibFunc_fabs;
         func = module->getFunction(targetLib.getName(funcId));
         break;
     case AST_FUNCTION_ARCCOS:
-        funcId = LibFunc::acos;
+        funcId = LibFunc_acos;
         func = module->getFunction(targetLib.getName(funcId));
         break;
     case AST_FUNCTION_ARCCOSH:
@@ -544,6 +545,8 @@ llvm::Value* ASTNodeCodeGen::intrinsicCallCodeGen(const libsbml::ASTNode *ast)
         if (isNegative(ast))
         {
             func = module->getFunction("rr_arccot_negzero");
+			func->isDeclaration();
+			func->hasValidDeclarationLinkage();
         }
         else
         {
@@ -566,29 +569,29 @@ llvm::Value* ASTNodeCodeGen::intrinsicCallCodeGen(const libsbml::ASTNode *ast)
         func = module->getFunction("arcsech");
         break;
     case AST_FUNCTION_ARCSIN:
-        funcId = LibFunc::asin;
+        funcId = LibFunc_asin;
         func = module->getFunction(targetLib.getName(funcId));
         break;
     case AST_FUNCTION_ARCSINH:
         func = module->getFunction("arcsinh");
         break;
     case AST_FUNCTION_ARCTAN:
-        funcId = LibFunc::atan;
+        funcId = LibFunc_atan;
         func = module->getFunction(targetLib.getName(funcId));
         break;
     case AST_FUNCTION_ARCTANH:
         func = module->getFunction("arctanh");
         break;
     case AST_FUNCTION_CEILING:
-        funcId = LibFunc::ceil;
+        funcId = LibFunc_ceil;
         func = module->getFunction(targetLib.getName(funcId));
         break;
     case AST_FUNCTION_COS:
-        funcId = LibFunc::cos;
+        funcId = LibFunc_cos;
         func = module->getFunction(targetLib.getName(funcId));
         break;
     case AST_FUNCTION_COSH:
-        funcId = LibFunc::cosh;
+        funcId = LibFunc_cosh;
         func = module->getFunction(targetLib.getName(funcId));
         break;
     case AST_FUNCTION_COT:
@@ -604,18 +607,18 @@ llvm::Value* ASTNodeCodeGen::intrinsicCallCodeGen(const libsbml::ASTNode *ast)
         func = module->getFunction("csch");
         break;
     case AST_FUNCTION_EXP:
-        funcId = LibFunc::exp;
+        funcId = LibFunc_exp;
         func = module->getFunction(targetLib.getName(funcId));
         break;
     case AST_FUNCTION_FACTORIAL:
         func = module->getFunction("rr_factoriald");
         break;
     case AST_FUNCTION_FLOOR:
-        funcId = LibFunc::floor;
+        funcId = LibFunc_floor;
         func = module->getFunction(targetLib.getName(funcId));
         break;
     case AST_FUNCTION_LN:
-        funcId = LibFunc::log;
+        funcId = LibFunc_log;
         func = module->getFunction(targetLib.getName(funcId));
         break;
     case AST_FUNCTION_LOG:
@@ -631,19 +634,19 @@ llvm::Value* ASTNodeCodeGen::intrinsicCallCodeGen(const libsbml::ASTNode *ast)
         func = module->getFunction("sech");
         break;
     case AST_FUNCTION_SIN:
-        funcId = LibFunc::sin;
+        funcId = LibFunc_sin;
         func = module->getFunction(targetLib.getName(funcId));
         break;
     case AST_FUNCTION_SINH:
-        funcId = LibFunc::sinh;
+        funcId = LibFunc_sinh;
         func = module->getFunction(targetLib.getName(funcId));
         break;
     case AST_FUNCTION_TAN:
-        funcId = LibFunc::tan;
+        funcId = LibFunc_tan;
         func = module->getFunction(targetLib.getName(funcId));
         break;
     case AST_FUNCTION_TANH:
-        funcId = LibFunc::tanh;
+        funcId = LibFunc_tanh;
         func = module->getFunction(targetLib.getName(funcId));
         break;
     default:
@@ -887,7 +890,7 @@ llvm::Value* ASTNodeCodeGen::piecewiseCodeGen(const libsbml::ASTNode* ast)
                 "piecewise, returning NaN as \"otherwise\" value";
 
         owVal = ConstantFP::get(builder.getContext(),
-                APFloat::getQNaN(APFloat::IEEEdouble));
+                APFloat::getQNaN(APFloat::IEEEdouble()));
     }
 
     builder.CreateBr(mergeBB);

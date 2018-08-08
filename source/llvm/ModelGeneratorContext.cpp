@@ -15,11 +15,17 @@
 #include "conservation/ConservationExtension.h"
 #include "rrRoadRunnerOptions.h"
 #include "rrConfig.h"
+#include "llvm/IR/DataLayout.h"
+#include "llvm/Support/TargetRegistry.h"
+#include "llvm/Support/DynamicLibrary.h"
+//#include "llvm/ExecutionEngine/OrcMCJITReplacement.h"
+#include "llvm/ExecutionEngine/SectionMemoryManager.h"
 
 #include <sbml/SBMLReader.h>
 #include <string>
 #include <vector>
 #include <math.h>
+#include <memory>
 
 #include <sbml/common/libsbml-config-packages.h>
 #ifdef LIBSBML_HAS_PACKAGE_DISTRIB
@@ -39,7 +45,7 @@ namespace rrllvm
 
 static void createLibraryFunctions(Module* module);
 
-static void createLibraryFunction(llvm::LibFunc::Func funcId,
+static void createLibraryFunction(llvm::LibFunc funcId,
         llvm::FunctionType *funcType, Module* module);
 
 static Function* createGlobalMappingFunction(const char* funcName,
@@ -84,7 +90,6 @@ ModelGeneratorContext::ModelGeneratorContext(std::string const &sbml,
         errString(new string()),
         context(0),
         executionEngine(0),
-        module(0),
         builder(0),
         functionPassManager(0),
         options(options),
@@ -152,24 +157,30 @@ ModelGeneratorContext::ModelGeneratorContext(std::string const &sbml,
         // initialize LLVM
         // TODO check result
         InitializeNativeTarget();
+		InitializeNativeTargetAsmPrinter();
 
         context = new LLVMContext();
         // Make the module, which holds all the code.
-        module = new Module("LLVM Module", *context);
+        module_uniq = std::make_unique<Module>("LLVM Module", *context);
+		module = module_uniq.get();
 
-        builder = new IRBuilder<>(*context);
+		// These were moved up here because they require the module ptr. May need to further edit these functions
+		createLibraryFunctions(module);
+		ModelDataIRBuilder::createModelDataStructType(module, executionEngine, *symbols);
+
+		builder = new IRBuilder<>(*context);
 
         // engine take ownership of module
-        EngineBuilder engineBuilder(module);
+        EngineBuilder engineBuilder(std::move(module_uniq));
+		
+		engineBuilder.setErrorStr(errString)
+			.setMCJITMemoryManager(std::make_unique<SectionMemoryManager>());
 
-        engineBuilder.setErrorStr(errString);
         executionEngine = engineBuilder.create();
 
-        addGlobalMappings();
+		//executionEngine = EngineBuilder(std::move(module_uniq)).create();
 
-        createLibraryFunctions(module);
-
-        ModelDataIRBuilder::createModelDataStructType(module, executionEngine, *symbols);
+		addGlobalMappings();
 
         // check if doc has distrib package
         // Random adds mappings, need call after llvm objs created
@@ -209,7 +220,6 @@ ModelGeneratorContext::ModelGeneratorContext(libsbml::SBMLDocument const *doc,
         errString(new string()),
         context(0),
         executionEngine(0),
-        module(0),
         builder(0),
         functionPassManager(0),
         options(options),
@@ -267,12 +277,13 @@ ModelGeneratorContext::ModelGeneratorContext(libsbml::SBMLDocument const *doc,
 
         context = new LLVMContext();
         // Make the module, which holds all the code.
-        module = new Module("LLVM Module", *context);
+        module_uniq = std::make_unique<Module>("LLVM Module", *context);
+		module = module_uniq.get();
 
         builder = new IRBuilder<>(*context);
 
         // engine take ownership of module
-        EngineBuilder engineBuilder(module);
+        EngineBuilder engineBuilder(std::move(module_uniq));
 
         //engineBuilder.setEngineKind(EngineKind::JIT);
         engineBuilder.setErrorStr(errString);
@@ -280,6 +291,7 @@ ModelGeneratorContext::ModelGeneratorContext(libsbml::SBMLDocument const *doc,
 
         addGlobalMappings();
 
+		//I'm just hoping that none of these functions try to call delete on module
         createLibraryFunctions(module);
 
         ModelDataIRBuilder::createModelDataStructType(module, executionEngine, *symbols);
@@ -328,18 +340,20 @@ ModelGeneratorContext::ModelGeneratorContext() :
 
     context = new LLVMContext();
     // Make the module, which holds all the code.
-    module = new Module("LLVM Module", *context);
+    module_uniq = std::make_unique<Module>("LLVM Module", *context);
+	module = module_uniq.get();
 
     builder = new IRBuilder<>(*context);
 
     errString = new std::string();
 
-    EngineBuilder engineBuilder(module);
+	addGlobalMappings();
+
+    EngineBuilder engineBuilder(std::move(module_uniq));
     //engineBuilder.setEngineKind(EngineKind::JIT);
     engineBuilder.setErrorStr(errString);
     executionEngine = engineBuilder.create();
 
-    addGlobalMappings();
 }
 
 Random* ModelGeneratorContext::getRandom() const
@@ -394,7 +408,7 @@ const libsbml::Model* ModelGeneratorContext::getModel() const
 
 llvm::Module *ModelGeneratorContext::getModule() const
 {
-    return module;
+	return module;
 }
 
 llvm::IRBuilder<> &ModelGeneratorContext::getBuilder() const
@@ -433,7 +447,7 @@ bool ModelGeneratorContext::useSymbolCache() const
     return (options & LoadSBMLOptions::LLVM_SYMBOL_CACHE) != 0;
 }
 
-llvm::FunctionPassManager* ModelGeneratorContext::getFunctionPassManager() const
+llvm::legacy::FunctionPassManager* ModelGeneratorContext::getFunctionPassManager() const
 {
     return functionPassManager;
 }
@@ -442,24 +456,28 @@ void ModelGeneratorContext::initFunctionPassManager()
 {
     if (options & LoadSBMLOptions::OPTIMIZE)
     {
-        functionPassManager = new FunctionPassManager(module);
+        functionPassManager = new legacy::FunctionPassManager(module);
 
     // Set up the optimizer pipeline.  Start with registering info about how the
     // target lays out data structures.
 
     // we only support LLVM >= 3.1
 #if (LLVM_VERSION_MAJOR == 3) && (LLVM_VERSION_MINOR == 1)
+//#if (LLVM_VERSION_MAJOR == 6)
     functionPassManager->add(new TargetData(*executionEngine->getTargetData()));
-#elif (LLVM_VERSION_MINOR <= 4)
+#elif (LLVM_VERSION_MAJOR == 3) && (LLVM_VERSION_MINOR <= 4)
     functionPassManager->add(new DataLayout(*executionEngine->getDataLayout()));
-#else // LLVM_VERSION_MINOR > 4
+#elif (LLVM_VERSION_MINOR > 4)
     // Needed for LLVM 3.5 regardless of architecture
     // also, should use DataLayoutPass(module) per Renato (http://reviews.llvm.org/D4607)
     functionPassManager->add(new DataLayoutPass(module));
+#elif (LLVM_VERSION_MAJOR >= 6)
+	// Do nothing, because I'm not sure what the non-legacy equivalent of DataLayoutPass is
 #endif
 
-         // Provide basic AliasAnalysis support for GVN.
-        functionPassManager->add(createBasicAliasAnalysisPass());
+        // Provide basic AliasAnalysis support for GVN.
+		// FIXME: This was deprecated somewhere along the line
+        //functionPassManager->add(createBasicAliasAnalysisPass());
 
 
         if (options & LoadSBMLOptions::OPTIMIZE_INSTRUCTION_SIMPLIFIER)
@@ -477,7 +495,8 @@ void ModelGeneratorContext::initFunctionPassManager()
         if(options & LoadSBMLOptions::OPTIMIZE_GVN)
         {
             Log(Logger::LOG_INFORMATION) << "using GVN optimization";
-            functionPassManager->add(createGVNPass());
+            functionPassManager->add(createNewGVNPass());
+			
         }
 
         if (options & LoadSBMLOptions::OPTIMIZE_CFG_SIMPLIFICATION)
@@ -520,135 +539,143 @@ static void dispChar(char c) {
 
 /*************************************************************************************/
 
+void ModelGeneratorContext::addGlobalMapping(const llvm::GlobalValue *gv, void *addr)
+{
+	llvm::sys::DynamicLibrary::AddSymbol(gv->getName(), addr);
+	executionEngine->addGlobalMapping(gv, addr);
+}
+
 void ModelGeneratorContext::addGlobalMappings()
 {
-    LLVMContext& context = module->getContext();
+	LLVMContext& context = module->getContext();
     Type *double_type = Type::getDoubleTy(context);
     Type *int_type = Type::getInt32Ty(context);
     Type* args_i1[] = { int_type };
     Type* args_d1[] = { double_type };
     Type* args_d2[] = { double_type, double_type };
 
-    executionEngine->addGlobalMapping(ModelDataIRBuilder::getCSRMatrixSetNZDecl(module), (void*)rr::csr_matrix_set_nz);
-    executionEngine->addGlobalMapping(ModelDataIRBuilder::getCSRMatrixGetNZDecl(module), (void*)rr::csr_matrix_get_nz);
-    executionEngine->addGlobalMapping(LLVMModelDataIRBuilderTesting::getDispIntDecl(module), (void*)dispInt);
-    executionEngine->addGlobalMapping(LLVMModelDataIRBuilderTesting::getDispDoubleDecl(module), (void*)dispDouble);
-    executionEngine->addGlobalMapping(LLVMModelDataIRBuilderTesting::getDispCharDecl(module), (void*)dispChar);
+	llvm::sys::DynamicLibrary::LoadLibraryPermanently(nullptr);
+
+    addGlobalMapping(ModelDataIRBuilder::getCSRMatrixSetNZDecl(module), (void*)rr::csr_matrix_set_nz);
+    addGlobalMapping(ModelDataIRBuilder::getCSRMatrixGetNZDecl(module), (void*)rr::csr_matrix_get_nz);
+    addGlobalMapping(LLVMModelDataIRBuilderTesting::getDispIntDecl(module), (void*)dispInt);
+    addGlobalMapping(LLVMModelDataIRBuilderTesting::getDispDoubleDecl(module), (void*)dispDouble);
+    addGlobalMapping(LLVMModelDataIRBuilderTesting::getDispCharDecl(module), (void*)dispChar);
 
     // AST_FUNCTION_ARCCOT:
-    executionEngine->addGlobalMapping(
-            createGlobalMappingFunction("arccot",
-                    FunctionType::get(double_type, args_d1, false), module),
-                        (void*) sbmlsupport::arccot);
+	llvm::RTDyldMemoryManager::getSymbolAddressInProcess("arccot");
+    addGlobalMapping(
+            createGlobalMappingFunction("arccot", FunctionType::get(double_type, args_d1, false), module),
+			sbmlsupport::arccot);
 
-    executionEngine->addGlobalMapping(
+    addGlobalMapping(
             createGlobalMappingFunction("rr_arccot_negzero",
                     FunctionType::get(double_type, args_d1, false), module),
                         (void*) sbmlsupport::arccot_negzero);
 
     // AST_FUNCTION_ARCCOTH:
-    executionEngine->addGlobalMapping(
+    addGlobalMapping(
             createGlobalMappingFunction("arccoth",
                     FunctionType::get(double_type, args_d1, false), module),
                         (void*) sbmlsupport::arccoth);
 
     // AST_FUNCTION_ARCCSC:
-    executionEngine->addGlobalMapping(
+    addGlobalMapping(
             createGlobalMappingFunction("arccsc",
                     FunctionType::get(double_type, args_d1, false), module),
                         (void*) sbmlsupport::arccsc);
 
     // AST_FUNCTION_ARCCSCH:
-    executionEngine->addGlobalMapping(
+    addGlobalMapping(
             createGlobalMappingFunction("arccsch",
                     FunctionType::get(double_type, args_d1, false), module),
                         (void*) sbmlsupport::arccsch);
 
     // AST_FUNCTION_ARCSEC:
-    executionEngine->addGlobalMapping(
+    addGlobalMapping(
             createGlobalMappingFunction("arcsec",
                     FunctionType::get(double_type, args_d1, false), module),
                         (void*) sbmlsupport::arcsec);
 
     // AST_FUNCTION_ARCSECH:
-    executionEngine->addGlobalMapping(
+    addGlobalMapping(
             createGlobalMappingFunction("arcsech",
                     FunctionType::get(double_type, args_d1, false), module),
                         (void*) sbmlsupport::arcsech);
 
     // AST_FUNCTION_COT:
-    executionEngine->addGlobalMapping(
+    addGlobalMapping(
             createGlobalMappingFunction("cot",
                     FunctionType::get(double_type, args_d1, false), module),
                         (void*) sbmlsupport::cot);
 
     // AST_FUNCTION_COTH:
-    executionEngine->addGlobalMapping(
+    addGlobalMapping(
             createGlobalMappingFunction("coth",
                     FunctionType::get(double_type, args_d1, false), module),
                         (void*) sbmlsupport::coth);
 
     // AST_FUNCTION_CSC:
-    executionEngine->addGlobalMapping(
+    addGlobalMapping(
             createGlobalMappingFunction("csc",
                     FunctionType::get(double_type, args_d1, false), module),
                         (void*) sbmlsupport::csc);
 
     // AST_FUNCTION_CSCH:
-    executionEngine->addGlobalMapping(
+    addGlobalMapping(
             createGlobalMappingFunction("csch",
                     FunctionType::get(double_type, args_d1, false), module),
                         (void*) sbmlsupport::csch);
 
     // AST_FUNCTION_FACTORIAL:
-    executionEngine->addGlobalMapping(
+    addGlobalMapping(
             createGlobalMappingFunction("rr_factoriali",
                     FunctionType::get(int_type, args_i1, false), module),
                         (void*) sbmlsupport::factoriali);
 
-    executionEngine->addGlobalMapping(
+    addGlobalMapping(
             createGlobalMappingFunction("rr_factoriald",
                     FunctionType::get(double_type, args_d1, false), module),
                         (void*) sbmlsupport::factoriald);
 
     // case AST_FUNCTION_LOG:
-    executionEngine->addGlobalMapping(
+    addGlobalMapping(
             createGlobalMappingFunction("rr_logd",
                     FunctionType::get(double_type, args_d2, false), module),
                         (void*) sbmlsupport::logd);
 
     // AST_FUNCTION_ROOT:
-    executionEngine->addGlobalMapping(
+    addGlobalMapping(
             createGlobalMappingFunction("rr_rootd",
                     FunctionType::get(double_type, args_d2, false), module),
                         (void*) sbmlsupport::rootd);
 
     // AST_FUNCTION_SEC:
-    executionEngine->addGlobalMapping(
+    addGlobalMapping(
             createGlobalMappingFunction("sec",
                     FunctionType::get(double_type, args_d1, false), module),
                         (void*) sbmlsupport::sec);
 
     // AST_FUNCTION_SECH:
-    executionEngine->addGlobalMapping(
+    addGlobalMapping(
             createGlobalMappingFunction("sech",
                     FunctionType::get(double_type, args_d1, false), module),
                         (void*) sbmlsupport::sech);
 
     // AST_FUNCTION_ARCCOSH:
-    executionEngine->addGlobalMapping(
+    addGlobalMapping(
             createGlobalMappingFunction("arccosh",
                     FunctionType::get(double_type, args_d1, false), module),
                         (void*)static_cast<double (*)(double)>(acosh));
 
     // AST_FUNCTION_ARCSINH:
-    executionEngine->addGlobalMapping(
+    addGlobalMapping(
             createGlobalMappingFunction("arcsinh",
                     FunctionType::get(double_type, args_d1, false), module),
                         (void*)static_cast<double (*)(double)>(asinh));
 
     // AST_FUNCTION_ARCTANH:
-    executionEngine->addGlobalMapping(
+    addGlobalMapping(
             createGlobalMappingFunction("arctanh",
                     FunctionType::get(double_type, args_d1, false), module),
                         (void*)static_cast<double (*)(double)>(atanh));
@@ -663,74 +690,78 @@ static void createLibraryFunctions(Module* module)
     Type* args_d2[] = { double_type, double_type };
 
     /// double pow(double x, double y);
-    createLibraryFunction(LibFunc::pow,
+    createLibraryFunction(LibFunc_pow,
             FunctionType::get(double_type, args_d2, false), module);
 
     /// double fabs(double x);
-    createLibraryFunction(LibFunc::fabs,
+    createLibraryFunction(LibFunc_fabs,
             FunctionType::get(double_type, args_d1, false), module);
 
     /// double acos(double x);
-    createLibraryFunction(LibFunc::acos,
+    createLibraryFunction(LibFunc_acos,
             FunctionType::get(double_type, args_d1, false), module);
 
     /// double asin(double x);
-    createLibraryFunction(LibFunc::asin,
+    createLibraryFunction(LibFunc_asin,
             FunctionType::get(double_type, args_d1, false), module);
 
     /// double atan(double x);
-    createLibraryFunction(LibFunc::atan,
+    createLibraryFunction(LibFunc_atan,
             FunctionType::get(double_type, args_d1, false), module);
 
     /// double ceil(double x);
-    createLibraryFunction(LibFunc::ceil,
+    createLibraryFunction(LibFunc_ceil,
             FunctionType::get(double_type, args_d1, false), module);
 
     /// double cos(double x);
-    createLibraryFunction(LibFunc::cos,
+    createLibraryFunction(LibFunc_cos,
             FunctionType::get(double_type, args_d1, false), module);
 
     /// double cosh(double x);
-    createLibraryFunction(LibFunc::cosh,
+    createLibraryFunction(LibFunc_cosh,
             FunctionType::get(double_type, args_d1, false), module);
 
     /// double exp(double x);
-    createLibraryFunction(LibFunc::exp,
+    createLibraryFunction(LibFunc_exp,
             FunctionType::get(double_type, args_d1, false), module);
 
     /// double floor(double x);
-    createLibraryFunction(LibFunc::floor,
+    createLibraryFunction(LibFunc_floor,
             FunctionType::get(double_type, args_d1, false), module);
 
     /// double log(double x);
-    createLibraryFunction(LibFunc::log,
+    createLibraryFunction(LibFunc_log,
             FunctionType::get(double_type, args_d1, false), module);
 
     /// double log10(double x);
-    createLibraryFunction(LibFunc::log10,
+    createLibraryFunction(LibFunc_log10,
             FunctionType::get(double_type, args_d1, false), module);
 
     /// double sin(double x);
-    createLibraryFunction(LibFunc::sin,
+    createLibraryFunction(LibFunc_sin,
             FunctionType::get(double_type, args_d1, false), module);
 
     /// double sinh(double x);
-    createLibraryFunction(LibFunc::sinh,
+    createLibraryFunction(LibFunc_sinh,
             FunctionType::get(double_type, args_d1, false), module);
 
     /// double tan(double x);
-    createLibraryFunction(LibFunc::tan,
+    createLibraryFunction(LibFunc_tan,
             FunctionType::get(double_type, args_d1, false), module);
 
     /// double tanh(double x);
-    createLibraryFunction(LibFunc::tanh,
+    createLibraryFunction(LibFunc_tanh,
             FunctionType::get(double_type, args_d1, false), module);
 }
 
-static void createLibraryFunction(llvm::LibFunc::Func funcId,
+static void createLibraryFunction(llvm::LibFunc funcId,
         llvm::FunctionType *funcType, Module* module)
 {
-    TargetLibraryInfo targetLib;
+	// For some reason I had a problem when I passed the default ctor for TargetLibraryInfoImpl in
+	// std::string error;
+	//TargetLibraryInfoImpl defaultImpl(TargetRegistry::lookupTarget(sys::getDefaultTargetTriple(), error));
+	TargetLibraryInfoImpl defaultImpl;
+    TargetLibraryInfo targetLib(defaultImpl);
 
     if (targetLib.has(funcId))
     {
@@ -748,7 +779,8 @@ static void createLibraryFunction(llvm::LibFunc::Func funcId,
 static Function* createGlobalMappingFunction(const char* funcName,
         llvm::FunctionType *funcType, Module *module)
 {
-    return Function::Create(funcType, Function::InternalLinkage, funcName, module);
+	// This was InternalLinkage, but it needs to be external for JIT'd code to see it
+    return Function::Create(funcType, Function::ExternalLinkage, funcName, module);
 }
 
 static SBMLDocument *checkedReadSBMLFromString(const char* xml)

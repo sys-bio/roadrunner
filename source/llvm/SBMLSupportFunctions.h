@@ -10,6 +10,7 @@
 
 namespace sbmlsupport
 {
+extern "C" {
 
 double trunc(double d);
 
@@ -86,7 +87,7 @@ double arccosh(double a);
 //// Inverse hyperbolic tangent of a double number
 double arctanh(double a);
 
-
+}
 
 } /* namespace sbmlsupport */
 #endif /* SBMLSUPPORTFUNCTIONS_H_ */

@@ -28,7 +28,15 @@
 #pragma warning( disable : 4244 )
 #endif
 
-#if (LLVM_VERSION_MAJOR == 3) && (LLVM_VERSION_MINOR >= 5)
+#if (LLVM_VERSION_MAJOR == 6)
+#include <llvm/IR/DataLayout.h>
+#include <llvm/IR/DerivedTypes.h>
+#include <llvm/IR/IRBuilder.h>
+#include <llvm/IR/LLVMContext.h>
+#include <llvm/IR/Module.h>
+#include <llvm/IR/Intrinsics.h>
+#include <llvm/IR/Verifier.h>
+#elif (LLVM_VERSION_MAJOR == 3) && (LLVM_VERSION_MINOR >= 5)
 #include <llvm/IR/DataLayout.h>
 #include <llvm/IR/DerivedTypes.h>
 #include <llvm/IR/IRBuilder.h>
@@ -70,12 +78,12 @@
 
 #include <llvm/Analysis/Passes.h>
 #include <llvm/ExecutionEngine/ExecutionEngine.h>
-#include <llvm/ExecutionEngine/JIT.h>
-#include <llvm/PassManager.h>
+#include <llvm/ExecutionEngine/MCJIT.h>
+#include <llvm/IR/PassManager.h>
 #include <llvm/Support/TargetSelect.h>
 #include <llvm/Transforms/Scalar.h>
 #include <llvm/Support/raw_ostream.h>
-#include <llvm/Target/TargetLibraryInfo.h>
+#include <llvm/Analysis/TargetLibraryInfo.h>
 #include <llvm/Support/raw_ostream.h>
 #include <llvm/Support/Host.h>
 

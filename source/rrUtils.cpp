@@ -663,7 +663,8 @@ string getWINAPIError(DWORD errorCode, LPTSTR lpszFunction)
                         dw,
                         lpMsgBuf);
 
-    string errorMsg = string((LPCTSTR)lpDisplayBuf);
+	// This used to be cast to LPCTSTR, but it didn't compile
+    string errorMsg = string((const char*)lpDisplayBuf);
     LocalFree(lpMsgBuf);
     LocalFree(lpDisplayBuf);
     return errorMsg;
