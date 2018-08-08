@@ -181,7 +181,7 @@ set(CMAKE_RUNTIME_OUTPUT_DIRECTORY     ${PROJECT_BINARY_DIR}/bin)
 #** Apply Project/Compiler Settings ********************************************
 
 # Set C++11 flags
-message (STATUS RR_USE_CXX11)
+message (STATUS " CXX11: " RR_USE_CXX11)
 if(RR_USE_CXX11)
     IF(NOT MSVC)
         set(CMAKE_CXX_FLAGS "-std=c++11 ${CMAKE_CXX_FLAGS}")
