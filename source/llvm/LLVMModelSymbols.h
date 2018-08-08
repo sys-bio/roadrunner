@@ -183,7 +183,7 @@ protected:
     void processSpecies(SymbolForest &currentSymbols,
             const libsbml::Species *element, const libsbml::ASTNode *math);
 
-	void processArrayAST(SymbolForest &currentSymbols, std::map<std::string, uint> *dimensionVals, std::vector<uint> *sizeOfDimensions, uint ind, const libsbml::ASTNode *lhsMath, const libsbml::ASTNode *rhsMath);
+	void processArrayAST(SymbolForest &currentSymbols, const uint *type, std::map<std::string, uint> *dimensionVals, std::vector<uint> *sizeOfDimensions, uint ind, const libsbml::ASTNode *lhsMath, const libsbml::ASTNode *rhsMath);
 
 	/**
 	 * In the case of an array of parameters, it is essential to ensure that the
@@ -192,6 +192,15 @@ protected:
 	 */
 	void processParameter(SymbolForest &currentSymbols,
 		const libsbml::Parameter *param, const libsbml::ASTNode *rhs);
+
+	/**
+	 * Same as above with compartments
+	*/
+	void processCompartment(SymbolForest &currentSymbols,
+		const libsbml::Compartment *comp, const libsbml::ASTNode *rhs);
+
+	void processSpeciesReference(SymbolForest &currentSymbols,
+		const libsbml::SpeciesReference *reference, const libsbml::ASTNode *rhs);
 
     /**
      * get the MathML element for a SpeciesReference if it is set, otherwise,

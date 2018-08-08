@@ -318,18 +318,34 @@ uint LLVMModelDataSymbols::getGlobalParameterIndex(
     }
 }
 
-set<string> LLVMModelDataSymbols::getArrayedGlobalParameters(
-		const std::string& id) const
+set<string> LLVMModelDataSymbols::getArrayedElements(
+		const std::string& id, const LLVMModelDataSymbols::SymbolIndexType *sit) const
 {
-	map<string, set<string> >::const_iterator i = arrayedGlobalParameters.find(id);
-	if (i != arrayedGlobalParameters.end())
+	set<string> res;
+	switch (*sit)
 	{
-		return i->second;
+	case FLOATING_SPECIES:
+		res = arrayedFltSpecies.find(id)->second;
+		break;
+	case BOUNDARY_SPECIES:
+		res = arrayedBndSpecies.find(id)->second;
+		break;
+	case COMPARTMENT:
+		res = arrayedCompartments.find(id)->second;
+		break;
+	case GLOBAL_PARAMETER:
+		res = arrayedGlobalParameters.find(id)->second;
+		break;
+	case REACTION:
+		res = arrayedReactions.find(id)->second;
+		break;
+	case EVENT:
+		res = arrayedEvents.find(id)->second;
+		break;
+	default:
+		throw LLVMException("Could not find element with ID " + id, __FUNC__);
 	}
-	else
-	{
-		throw LLVMException("Could not find global parameter with ID " + id, __FUNC__);
-	}
+	return res;
 }
 
 vector<uint> LLVMModelDataSymbols::getSizeOfDimensions(
@@ -819,16 +835,13 @@ void LLVMModelDataSymbols::initGlobalParameters(const libsbml::Model* model,
     for (list<string>::const_iterator i = indParam.begin();
             i != indParam.end(); ++i)
     {
-		// Do I need to store where each parameter ends? Vin
-		// Mostly no Vin
         uint pi = globalParametersMap.size();
         globalParametersMap[*i] = pi;
 
         // CM parameters can only be independent.
-		// Worry about conservedMoieties later Vin
         if (conservedMoieties)
         {
-            const Parameter* p = parameters->get(*i);
+            const Parameter* p = parameters->get(decodeArrayId(*i));
             bool isCons = ConservationExtension::getConservedMoiety(*p);
             conservedMoietyGlobalParameter[pi] = isCons;
 
@@ -1181,7 +1194,6 @@ void LLVMModelDataSymbols::initFloatingSpecies(const libsbml::Model* model,
 	// map the float species to their compartments.
 	floatingSpeciesCompartmentIndices.resize(floatingSpeciesMap.size());
 
-	// Need to change this function also Vin
 	// To check the correct compartment reference
 	for (StringUIntMap::const_iterator i = floatingSpeciesMap.begin();
 		i != floatingSpeciesMap.end(); ++i)
@@ -1212,6 +1224,7 @@ void LLVMModelDataSymbols::initFloatingSpecies(const libsbml::Model* model,
 			}
 			getUnknownValues(model, &values, rhs);
 			ASTNode* result = rr::ASTPreProcessor().preProcess(rhs, &values);
+			// In the case the referenced attribute is a compartment
 			StringUIntMap::const_iterator j =
 				compartmentsMap.find(result->getName());
 			if (j == compartmentsMap.end())

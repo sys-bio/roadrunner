@@ -214,7 +214,7 @@ public:
 	/*
 	 * Get the array expansion of @param id
 	 */
-	std::set<std::string> getArrayedGlobalParameters(std::string const&) const;
+	std::set<std::string> getArrayedElements(std::string const&, const LLVMModelDataSymbols::SymbolIndexType *sit) const;
 
 	/**
 	 * Get the size of all dimensions of an element
@@ -629,6 +629,8 @@ private:
 	std::map<std::string, std::set<std::string> > arrayedCompartments;
 	std::map<std::string, std::set<std::string> > arrayedFltSpecies;
 	std::map<std::string, std::set<std::string> > arrayedBndSpecies;
+	std::map<std::string, std::set<std::string> > arrayedReactions;
+	std::map<std::string, std::set<std::string> > arrayedEvents;
 
 	// Store the size of each dimension of parameters
 	StringUIntVectorMap sizeOfDimensions;

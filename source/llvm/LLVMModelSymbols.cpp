@@ -94,7 +94,8 @@ LLVMModelSymbols::LLVMModelSymbols(const libsbml::Model *m, LLVMModelDataSymbols
 		// which would have thrown an error
 		if (param->getPlugin("arrays") != NULL)
 		{
-			const set<string> arrayedParameters = sym.getArrayedGlobalParameters(param->getId());
+			const LLVMModelDataSymbols::SymbolIndexType sit = LLVMModelDataSymbols::GLOBAL_PARAMETER;
+			const set<string> arrayedParameters = symbols.getArrayedElements(param->getId(), &sit);
 			for (set<string>::const_iterator it = arrayedParameters.begin(), jt = arrayedParameters.end(); it!=jt; it++)
 			{
 				initialValues.globalParameters[*it] = value;
@@ -124,7 +125,8 @@ bool LLVMModelSymbols::visit(const libsbml::Compartment& x)
     if (x.isSetVolume())
     {
         node->setValue(x.getVolume());
-    } else
+    } 
+	else
     {
         string compid = x.getId();
         const Model* model = x.getSBMLDocument()->getModel();
@@ -137,7 +139,17 @@ bool LLVMModelSymbols::visit(const libsbml::Compartment& x)
         //We still need to set up a fake initial value if we need one, even though it'll be overwritten or is unneeded.
         node->setValue(1.0);
     }
-    initialValues.compartments[x.getId()] = node;
+	if (x.getPlugin("arrays") != NULL)
+	{
+		const LLVMModelDataSymbols::SymbolIndexType sit = LLVMModelDataSymbols::COMPARTMENT;
+		const set<string> arrayedCompartments = this->symbols.getArrayedElements(x.getId(), &sit);
+		for (set<string>::const_iterator it = arrayedCompartments.begin(), jt = arrayedCompartments.end(); it != jt; it++)
+		{
+			initialValues.compartments[*it] = node;
+		}
+	}
+	else
+		initialValues.compartments[x.getId()] = node;
     return true;
 }
 
@@ -205,7 +217,8 @@ void LLVMModelSymbols::processElement(SymbolForest& currentSymbols,
 
     if ((comp = dynamic_cast<const Compartment*>(element)))
     {
-        currentSymbols.compartments[comp->getId()] = math;
+		processCompartment(currentSymbols, comp, math);
+        // currentSymbols.compartments[comp->getId()] = math;
     }
     else if ((param = dynamic_cast<const Parameter*>(element)))
     {
@@ -218,7 +231,8 @@ void LLVMModelSymbols::processElement(SymbolForest& currentSymbols,
     }
     else if ((reference = dynamic_cast<const SpeciesReference*>(element)))
     {
-        currentSymbols.speciesReferences[reference->getId()] = math;
+		processSpeciesReference(currentSymbols, reference, math);
+        // currentSymbols.speciesReferences[reference->getId()] = math;
     }
     else
     {
@@ -235,6 +249,7 @@ bool LLVMModelSymbols::visit(const libsbml::Rule& x)
     return true;
 }
 
+// Need to update for Reactions Vin
 bool LLVMModelSymbols::visit(const libsbml::Reaction& r)
 {
     const ListOfSpeciesReferences *reactants = r.getListOfReactants();
@@ -322,7 +337,42 @@ bool LLVMModelSymbols::visit(const libsbml::Reaction& r)
     return true;
 }
 
-
+void LLVMModelSymbols::processArrayAST(SymbolForest &currentSymbols, const uint *type, map<string, uint> *values, vector<uint> *sizeOfDimensions, uint ind, const ASTNode *lhsMath, const ASTNode *rhsMath)
+{
+	if (ind == sizeOfDimensions->size())
+	{
+		ASTNode* lhs = lhsMath->deepCopy();
+		lhs = rr::ASTPreProcessor().preProcess(lhs, values);
+		ASTNode* rhs = rhsMath->deepCopy();
+		rhs = rr::ASTPreProcessor().preProcess(rhs, values);
+		switch (*type)
+		{
+		case 0:
+			currentSymbols.globalParameters[lhs->getName()] = rhs;
+			break;
+		case 1:
+			currentSymbols.compartments[lhs->getName()] = rhs;
+			break;
+		case 2:
+			currentSymbols.speciesReferences[lhs->getName()] = rhs;
+			break;
+		case 3:
+			currentSymbols.boundarySpecies[lhs->getName()] = rhs;
+			break;
+		case 4:
+			currentSymbols.floatingSpecies[lhs->getName()] = rhs;
+			break;
+		}
+		return;
+	}
+	static const ArraysSBasePlugin *arraysPlug = static_cast<const ArraysSBasePlugin*>(rhsMath->getParentSBMLObject()->getPlugin("arrays"));
+	const string &id = arraysPlug->getDimension(ind)->getId();
+	for (uint i = 0; i < sizeOfDimensions->at(ind); i++)
+	{
+		(*values)[id] = i;
+		processArrayAST(currentSymbols, type, values, sizeOfDimensions, ind + 1, lhsMath, rhsMath);
+	}
+}
 
 void LLVMModelSymbols::processSpecies(SymbolForest &currentSymbols,
         const libsbml::Species *species, const ASTNode* math)
@@ -420,33 +470,63 @@ void LLVMModelSymbols::processSpecies(SymbolForest &currentSymbols,
 
     assert(math);
 
-    if (species->getBoundaryCondition())
-    {
-        currentSymbols.boundarySpecies[species->getId()] = math;
-    }
-    else
-    {
-        currentSymbols.floatingSpecies[species->getId()] = math;
-    }
-}
-
-void LLVMModelSymbols::processArrayAST(SymbolForest &currentSymbols, map<string, uint> *values, vector<uint> *sizeOfDimensions, uint ind, const ASTNode *lhsMath, const ASTNode *rhsMath)
-{
-	if (ind == sizeOfDimensions->size())
+#ifndef LIBSBML_HAS_PACKAGE_ARRAYS
+	if (species->isPackageEnabled("arrays"))
 	{
-		ASTNode* lhs = lhsMath->deepCopy();
-		lhs = rr::ASTPreProcessor().preProcess(lhs, values);
-		ASTNode* rhs = rhsMath->deepCopy();
-		rhs = rr::ASTPreProcessor().preProcess(rhs, values);
-		currentSymbols.globalParameters[lhs->getName()] = rhs;
+		throw runtime_error("The species " + id + "has a ListOfDimensions or ListOfIndices but the libSBML arrays package has not been enabled. Please build roadrunner with libSBML arrays package enabled");
+	}
+	else
+	{
+		if (species->getBoundaryCondition())
+		{
+			currentSymbols.boundarySpecies[species->getId()] = math;
+		}
+		else
+		{
+			currentSymbols.floatingSpecies[species->getId()] = math;
+		}
 		return;
 	}
-	static const ArraysSBasePlugin *arraysPlug = static_cast<const ArraysSBasePlugin*>(rhsMath->getParentSBMLObject()->getPlugin("arrays"));
-	const string &id = arraysPlug->getDimension(ind)->getId();
-	for (uint i = 0; i < sizeOfDimensions->at(ind); i++)
+#endif
+	const ArraysSBasePlugin *arraysParam = static_cast<const ArraysSBasePlugin*>(species->getPlugin("arrays"));
+	// Species math don't have getParentSBMLObject() defined. Need to find another way Vin
+	ArraysSBasePlugin *arraysRule = static_cast<ArraysSBasePlugin*>(math->getParentSBMLObject()->getPlugin("arrays"));
+	if (arraysParam==NULL || arraysParam->getNumDimensions() == 0)
 	{
-		(*values)[id] = i;
-		processArrayAST(currentSymbols, values, sizeOfDimensions, ind + 1, lhsMath, rhsMath);
+		if (arraysRule != NULL)
+			throw LLVMException("Species " + species->getId() + "is not an array but a rule referencing it, is an array");
+		if (species->getBoundaryCondition())
+			currentSymbols.boundarySpecies[species->getId()] = math;
+		else
+			currentSymbols.floatingSpecies[species->getId()] = math;
+		return;
+	}
+	if (arraysRule == NULL)
+		throw LLVMException("Species " + species->getId() + "is an array but a rule referencing it, is not an array");
+	vector<uint> sizeOfDimensions = this->symbols.getSizeOfDimensions(species->getId());
+	map<string, uint> values;
+	uint sizeOfIndices = arraysRule->getNumIndices();
+	ASTNode* lhs = new ASTNode(AST_LINEAR_ALGEBRA_SELECTOR);
+	ASTNode* var = new ASTNode(AST_NAME);
+	var->setName(species->getId().c_str());
+	lhs->addChild(var);
+	for (uint i = 0; i < sizeOfIndices; i++)
+	{
+		lhs->addChild(arraysRule->getIndex(i)->getMath());
+	}
+	this->symbols.getUnknownValues(this->model, &values, math);
+	this->symbols.getUnknownValues(this->model, &values, lhs);
+	if (species->getBoundaryCondition())
+	{
+		const uint type = 3;
+		processArrayAST(currentSymbols, &type, &values, &sizeOfDimensions, 0, lhs, math);
+		// currentSymbols.boundarySpecies[species->getId()] = math;
+	}
+	else
+	{
+		const uint type = 4;
+		processArrayAST(currentSymbols, &type, &values, &sizeOfDimensions, 0, lhs, math);
+		// currentSymbols.floatingSpecies[species->getId()] = math;
 	}
 }
 
@@ -466,12 +546,15 @@ void LLVMModelSymbols::processParameter(SymbolForest &currentSymbols,
 #endif
 	const ArraysSBasePlugin *arraysParam = static_cast<const ArraysSBasePlugin*>(param->getPlugin("arrays"));
 	ArraysSBasePlugin *arraysRule = static_cast<ArraysSBasePlugin*>(rhs->getParentSBMLObject()->getPlugin("arrays"));
-	uint numDimensions = arraysParam->getNumDimensions();
-	if (numDimensions==0)
+	if (arraysParam == NULL || arraysParam->getNumDimensions() == 0)
 	{
+		if (arraysRule != NULL)
+			throw LLVMException("Parameter " + param->getId() + "is not an array but a rule referencing it, is an array");
 		currentSymbols.globalParameters[param->getId()] = rhs;
 		return;
 	}
+	if (arraysRule == NULL)
+		throw LLVMException("Parameter " + param->getId() + "is an array but a rule referencing it, is not an array");
 	vector<uint> sizeOfDimensions = this->symbols.getSizeOfDimensions(param->getId());
 	map<string, uint> values;
 	uint sizeOfIndices = arraysRule->getNumIndices();
@@ -485,7 +568,92 @@ void LLVMModelSymbols::processParameter(SymbolForest &currentSymbols,
 	}
 	this->symbols.getUnknownValues(this->model, &values, rhs);
 	this->symbols.getUnknownValues(this->model, &values, lhs);
-	processArrayAST(currentSymbols, &values, &sizeOfDimensions, 0, lhs, rhs);
+	const uint type = 0;
+	processArrayAST(currentSymbols, &type, &values, &sizeOfDimensions, 0, lhs, rhs);
+}
+
+void LLVMModelSymbols::processCompartment(SymbolForest &currentSymbols,
+	const Compartment *comp, const ASTNode *rhs)
+{
+#ifndef LIBSBML_HAS_PACKAGE_ARRAYS
+	if (comp->isPackageEnabled("arrays"))
+	{
+		throw runtime_error("The compartment " + id + "has a ListOfDimensions or ListOfIndices but the libSBML arrays package has not been enabled. Please build roadrunner with libSBML arrays package enabled");
+	}
+	else
+	{
+		currentSymbols.compartments[param->getId()] = rhs;
+		return;
+	}
+#endif
+	const ArraysSBasePlugin *arraysParam = static_cast<const ArraysSBasePlugin*>(comp->getPlugin("arrays"));
+	ArraysSBasePlugin *arraysRule = static_cast<ArraysSBasePlugin*>(rhs->getParentSBMLObject()->getPlugin("arrays"));
+	if (arraysParam == NULL || arraysParam->getNumDimensions() == 0)
+	{
+		if (arraysRule != NULL)
+			throw LLVMException("Compartment " + comp->getId() + "is not an array but a rule referencing it, is an array");
+		currentSymbols.compartments[comp->getId()] = rhs;
+		return;
+	}
+	if (arraysRule == NULL)
+		throw LLVMException("Compartment " + comp->getId() + "is an array but a rule referencing it, is not an array");
+	vector<uint> sizeOfDimensions = this->symbols.getSizeOfDimensions(comp->getId());
+	map<string, uint> values;
+	uint sizeOfIndices = arraysRule->getNumIndices();
+	ASTNode* lhs = new ASTNode(AST_LINEAR_ALGEBRA_SELECTOR);
+	ASTNode* var = new ASTNode(AST_NAME);
+	var->setName(comp->getId().c_str());
+	lhs->addChild(var);
+	for (uint i = 0; i < sizeOfIndices; i++)
+	{
+		lhs->addChild(arraysRule->getIndex(i)->getMath());
+	}
+	this->symbols.getUnknownValues(this->model, &values, rhs);
+	this->symbols.getUnknownValues(this->model, &values, lhs);
+	const uint type = 1;
+	processArrayAST(currentSymbols, &type, &values, &sizeOfDimensions, 0, lhs, rhs);
+}
+
+void LLVMModelSymbols::processSpeciesReference(SymbolForest &currentSymbols,
+	const SpeciesReference *reference, const ASTNode *rhs)
+{
+#ifndef LIBSBML_HAS_PACKAGE_ARRAYS
+	if (reference->isPackageEnabled("arrays"))
+	{
+		throw runtime_error("The Species Reference " + id + "has a ListOfDimensions or ListOfIndices but the libSBML arrays package has not been enabled. Please build roadrunner with libSBML arrays package enabled");
+	}
+	else
+	{
+		currentSymbols.speciesReferences[param->getId()] = rhs;
+		return;
+	}
+#endif
+	const ArraysSBasePlugin *arraysParam = static_cast<const ArraysSBasePlugin*>(reference->getPlugin("arrays"));
+	ArraysSBasePlugin *arraysRule = static_cast<ArraysSBasePlugin*>(rhs->getParentSBMLObject()->getPlugin("arrays"));
+	if (arraysParam == NULL || arraysParam->getNumDimensions() == 0)
+	{
+		if (arraysRule != NULL)
+			throw LLVMException("Species reference " + reference->getId() + "is not an array but a rule referencing it, is an array");
+		currentSymbols.speciesReferences[reference->getId()] = rhs;
+		return;
+	}
+	if (arraysRule == NULL)
+		throw LLVMException("Species reference " + reference->getId() + "is an array but a rule referencing it, is not an array");
+	vector<uint> sizeOfDimensions = this->symbols.getSizeOfDimensions(reference->getId());
+	map<string, uint> values;
+	uint sizeOfIndices = arraysRule->getNumIndices();
+	ASTNode* lhs = new ASTNode(AST_LINEAR_ALGEBRA_SELECTOR);
+	ASTNode* var = new ASTNode(AST_NAME);
+	var->setName(reference->getId().c_str());
+	lhs->addChild(var);
+	for (uint i = 0; i < sizeOfIndices; i++)
+	{
+		lhs->addChild(arraysRule->getIndex(i)->getMath());
+	}
+	this->symbols.getUnknownValues(this->model, &values, rhs);
+	this->symbols.getUnknownValues(this->model, &values, lhs);
+	const uint type = 1;
+	processArrayAST(currentSymbols, &type, &values, &sizeOfDimensions, 0, lhs, rhs);
 }
 
 const ASTNode* LLVMModelSymbols::getSpeciesReferenceStoichMath(
