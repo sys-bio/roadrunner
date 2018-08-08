@@ -45,7 +45,7 @@ endif(WIN32)
 SET(CMAKE_MODULE_PATH ${PROJECT_SOURCE_DIR}/cmake/ ${CMAKE_MODULE_PATH})
 
 # TODO: add some logic to automatically set based on compiler version
-set(RR_USE_CXX11 FALSE CACHE BOOL "Set to TRUE to enable C++11 features")
+set(RR_USE_CXX11 TRUE CACHE BOOL "Set to TRUE to enable C++11 features")
 
 set(LLVM_INSTALL_PREFIX CACHE PATH "If LLVM was built using CMake, this is the location where it was installed")
 
