@@ -75,7 +75,7 @@ else()
     set(LLVM_MIN_VERSION_TEXT  "6.0")
 
     # look for LLVM using the llvm-config program
-    find_package(LLVM)
+    find_package(LLVM 6)
 endif()
 
 
