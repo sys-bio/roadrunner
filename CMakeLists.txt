@@ -71,8 +71,8 @@ if(EXISTS ${LLVM_INSTALL_PREFIX}/share/llvm/cmake)
 else()
     message(STATUS "Looking for LLVM installed without CMake")
 
-    set(LLVM_MIN_VERSION       "3000000")
-    set(LLVM_MIN_VERSION_TEXT  "3.0")
+    set(LLVM_MIN_VERSION       "6000000")
+    set(LLVM_MIN_VERSION_TEXT  "6.0")
 
     # look for LLVM using the llvm-config program
     find_package(LLVM)
