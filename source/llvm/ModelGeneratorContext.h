@@ -12,6 +12,7 @@
 #define ModelGeneratorContext_H_
 
 #include "LLVMIncludes.h"
+#include "llvm/IR/LegacyPassManager.h"
 #include "LLVMModelDataSymbols.h"
 #include "LLVMModelSymbols.h"
 #include "Random.h"
@@ -114,7 +115,7 @@ public:
      * manager loaded with all the requested optimizers.
      * NULL if no optimization is specified.
      */
-    llvm::FunctionPassManager *getFunctionPassManager() const;
+    llvm::legacy::FunctionPassManager *getFunctionPassManager() const;
 
     llvm::IRBuilder<> &getBuilder() const;
 
@@ -162,7 +163,8 @@ private:
      * set the execution engine's global mappings to the rr functions
      * that are accessible from the LLVM generated code.
      */
-    void addGlobalMappings();
+	void addGlobalMapping(const llvm::GlobalValue * gv, void * addr);
+	void addGlobalMappings();
 
     /**
      * these point to the same location, ownedDoc is set if we create the doc,
@@ -187,11 +189,12 @@ private:
 
     llvm::LLVMContext *context;
     llvm::ExecutionEngine *executionEngine;
-    llvm::Module *module;
+    std::unique_ptr<llvm::Module> module_uniq;
+	llvm::Module* module;
 
     llvm::IRBuilder<> *builder;
 
-    llvm::FunctionPassManager *functionPassManager;
+    llvm::legacy::FunctionPassManager *functionPassManager;
 
     /**
      * As the model is being generated, various distributions may be created

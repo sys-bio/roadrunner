@@ -12,7 +12,7 @@
 
 namespace sbmlsupport
 {
-
+extern "C" {
 double trunc(double d)
 {
     return (d > 0) ? floor(d) : ceil(d) ;
@@ -281,4 +281,5 @@ double min(double a, double b)
     return a < b ? a : b;
 }
 
+}
 } /* namespace sbmlsupport */

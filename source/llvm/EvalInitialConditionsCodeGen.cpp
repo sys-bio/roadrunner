@@ -57,7 +57,7 @@ Value* EvalInitialConditionsCodeGen::codeGen()
 
     llvm::BasicBlock *entry = codeGenHeader(FunctionName,
             llvm::Type::getVoidTy(context),
-                argTypes, argNames, args);
+            argTypes, argNames, args);
 
     Value* modelData = args[0];
     Value *flagsArg = args[1];

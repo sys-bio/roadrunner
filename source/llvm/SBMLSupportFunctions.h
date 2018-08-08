@@ -10,6 +10,7 @@
 
 namespace sbmlsupport
 {
+extern "C" {
 
 double trunc(double d);
 
@@ -94,6 +95,7 @@ double max(double a, double b);
 
 //// Minimum of two double numbers
 double min(double a, double b);
+}
 
 } /* namespace sbmlsupport */
 #endif /* SBMLSUPPORTFUNCTIONS_H_ */

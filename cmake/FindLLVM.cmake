@@ -147,7 +147,7 @@ if (LLVM_CONFIG_EXECUTABLE)
     # link libraries, currently only need core, jit and native.
     # TODO: in future, replace this with something like LLVM_CORE_LIBS, LLVM_JIT_LIBS...
     execute_process(
-        COMMAND ${LLVM_CONFIG_EXECUTABLE} --libfiles core jit native
+        COMMAND ${LLVM_CONFIG_EXECUTABLE} --libfiles core mcjit native
         OUTPUT_VARIABLE LLVM_LIBRARIES
         OUTPUT_STRIP_TRAILING_WHITESPACE
         )

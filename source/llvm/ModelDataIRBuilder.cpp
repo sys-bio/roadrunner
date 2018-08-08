@@ -106,7 +106,10 @@ llvm::Value* ModelDataIRBuilder::createGEP(ModelDataFields field,
         const Twine& name)
 {
     const char* fieldName = LLVMModelDataSymbols::getFieldName(field);
-    return builder.CreateStructGEP(modelData, (unsigned)field, Twine(fieldName) + Twine("_gep"));
+	// FIXME:
+	// The interface for this function was changed, and I'm unsure how to get the correct type, so I just made it double
+	// Okay, now I think I understand how to get the actual type
+    return builder.CreateStructGEP(cast<PointerType>(modelData->getType()->getScalarType())->getElementType(), modelData, (unsigned)field, Twine(fieldName) + Twine("_gep"));
 }
 
 
@@ -161,7 +164,10 @@ llvm::StructType* ModelDataIRBuilder::getCSRSparseStructType(
 
         if (engine)
         {
-#if (LLVM_VERSION_MAJOR >= 3) && (LLVM_VERSION_MINOR >= 2)
+#if (LLVM_VERSION_MAJOR > 3)
+			const DataLayout& dl = engine->getDataLayout();
+			uint64_t llvm_size = dl.getTypeStoreSize(structType);
+#elif(LLVM_VERSION_MAJOR >= 3) && (LLVM_VERSION_MINOR >= 2)
             const DataLayout *dl = engine->getDataLayout();
             uint64_t llvm_size = dl->getTypeStoreSize(structType);
 #else
@@ -199,7 +205,7 @@ llvm::Function* ModelDataIRBuilder::getCSRMatrixSetNZDecl(Module *module)
         FunctionType *funcType = FunctionType::get(
                 IntegerType::get(module->getContext(), sizeof(bool) * 8), args,
                 false);
-        f = Function::Create(funcType, Function::InternalLinkage,
+        f = Function::Create(funcType, Function::ExternalLinkage,
                 ModelDataIRBuilder::csr_matrix_set_nzName, module);
     }
     return f;
@@ -220,7 +226,7 @@ llvm::Function* ModelDataIRBuilder::getCSRMatrixGetNZDecl(Module *module)
         };
         FunctionType *funcType = FunctionType::get(
                 Type::getDoubleTy(module->getContext()), args, false);
-        f = Function::Create(funcType, Function::InternalLinkage,
+        f = Function::Create(funcType, Function::ExternalLinkage,
                 ModelDataIRBuilder::csr_matrix_get_nzName, module);
     }
     return f;
@@ -680,8 +686,10 @@ unsigned ModelDataIRBuilder::getModelDataSize(llvm::Module *module, llvm::Execut
     assert(engine && "engine must not be NULL");
 
     StructType *structType = getStructType(module);
-
-#if (LLVM_VERSION_MAJOR >= 3) && (LLVM_VERSION_MINOR >= 2)
+#if (LLVM_VERSION_MAJOR > 3)
+	const DataLayout& dl = engine->getDataLayout();
+	uint64_t llvm_size = dl.getTypeStoreSize(structType);
+#elif (LLVM_VERSION_MAJOR >= 3) && (LLVM_VERSION_MINOR >= 2)
     const DataLayout *dl = engine->getDataLayout();
     uint64_t llvm_size = dl->getTypeStoreSize(structType);
 #else
@@ -873,7 +881,7 @@ llvm::Function* LLVMModelDataIRBuilderTesting::getDispCharDecl(llvm::Module* mod
     if (f == 0) {
         std::vector<Type*> args(1, Type::getInt8Ty(module->getContext()));
         FunctionType *funcType = FunctionType::get(Type::getVoidTy(module->getContext()), args, false);
-        f = Function::Create(funcType, Function::InternalLinkage, "dispChar", module);
+        f = Function::Create(funcType, Function::ExternalLinkage, "dispChar", module);
     }
     return f;
 }
@@ -886,7 +894,7 @@ llvm::Function* LLVMModelDataIRBuilderTesting::getDispDoubleDecl(llvm::Module* m
     if (f == 0) {
         std::vector<Type*> args(1, Type::getDoubleTy(module->getContext()));
         FunctionType *funcType = FunctionType::get(Type::getVoidTy(module->getContext()), args, false);
-        f = Function::Create(funcType, Function::InternalLinkage, "dispDouble", module);
+        f = Function::Create(funcType, Function::ExternalLinkage, "dispDouble", module);
     }
     return f;
 }
@@ -898,7 +906,7 @@ llvm::Function* LLVMModelDataIRBuilderTesting::getDispIntDecl(llvm::Module* modu
     if (f == 0) {
         std::vector<Type*> args(1, Type::getInt32Ty(module->getContext()));
         FunctionType *funcType = FunctionType::get(Type::getVoidTy(module->getContext()), args, false);
-        f = Function::Create(funcType, Function::InternalLinkage, "dispInt", module);
+        f = Function::Create(funcType, Function::ExternalLinkage, "dispInt", module);
     }
     return f;
 }

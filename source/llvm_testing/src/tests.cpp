@@ -84,7 +84,7 @@ bool runInitialValueAssigmentTest(const string& version, int caseNumber)
 
         EvalInitialConditionsCodeGen::FunctionPtr pfunc;
 
-        pfunc = iv.createFunction();
+		pfunc = (EvalInitialConditionsCodeGen::FunctionPtr) engine.getPointerToFunction(iv.createFunction());
 
         pfunc(md, 0);
 
