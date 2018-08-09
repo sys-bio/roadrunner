@@ -15,7 +15,6 @@ branches:
     - master
 
 before_install:
-  - eval "CXX=g++-6"
   # print the distro information
   - lsb_release -a
 
@@ -24,6 +23,7 @@ before_install:
 
   # install dependencies
   - sudo apt-get -y install cmake swig python-dev python-numpy llvm-6.0-dev
+  - sudo apt-get install g++-6
 
   # install roadrunner dependencies via apt:
   - mkdir ~/debs
