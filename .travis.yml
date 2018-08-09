@@ -42,6 +42,7 @@ before_install:
   - echo "TRAVIS_BUILD_DIR $TRAVIS_BUILD_DIR"
   # build roadrunner:
   - mkdir -p ~/build/roadrunner
+  - sudo ln -s /usr/bin/g++-6 /usr/local/bin/g++
 
 install:
   - cd ~/build/roadrunner
@@ -57,4 +58,3 @@ script:
   - ctest -VV
   # display results of compiled tests
   - cat autotest/compiled-test-suite/results.xml
-  - sudo ln -s /usr/bin/g++-6 /usr/local/bin/g++
