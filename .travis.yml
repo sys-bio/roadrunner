@@ -13,11 +13,11 @@ branches:
   only:
     - develop
     - master
-    - llvm-6
 
+env:
+  - CXX=g++-6
 
 before_install:
-  CXX=g++-6
 
   # print the distro information
   - lsb_release -a
