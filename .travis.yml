@@ -14,11 +14,8 @@ branches:
     - develop
     - master
 
-env:
-  - CXX=g++-6
-
 before_install:
-
+  - eval "CXX=g++-6"
   # print the distro information
   - lsb_release -a
 
