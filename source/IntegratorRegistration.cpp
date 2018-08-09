@@ -22,7 +22,7 @@
 # include "EulerIntegrator.h"
 # include "RK45Integrator.h"
 
-# if RR_USE_CXX11
+# if RR_USE_CXX14
 #   include <mutex>
 # endif
 // == CODE ====================================================
@@ -39,7 +39,7 @@ namespace rr
     }
 
     void IntegratorRegistrationMgr::Register() {
-# if RR_USE_CXX11
+# if RR_USE_CXX14
         static std::once_flag flag;
         std::call_once(flag, register_integrators_at_init());
 # else
