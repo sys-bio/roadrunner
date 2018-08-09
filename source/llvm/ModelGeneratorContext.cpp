@@ -161,7 +161,7 @@ ModelGeneratorContext::ModelGeneratorContext(std::string const &sbml,
 
         context = new LLVMContext();
         // Make the module, which holds all the code.
-        module_uniq = std::make_unique<Module>("LLVM Module", *context);
+        module_uniq = unique_ptr<Module>(new Module("LLVM Module", *context));
 		module = module_uniq.get();
 
 		// These were moved up here because they require the module ptr. May need to further edit these functions
@@ -174,7 +174,7 @@ ModelGeneratorContext::ModelGeneratorContext(std::string const &sbml,
         EngineBuilder engineBuilder(std::move(module_uniq));
 		
 		engineBuilder.setErrorStr(errString)
-			.setMCJITMemoryManager(std::make_unique<SectionMemoryManager>());
+			.setMCJITMemoryManager(unique_ptr<SectionMemoryManager>(new SectionMemoryManager()));
 
         executionEngine = engineBuilder.create();
 
@@ -277,7 +277,7 @@ ModelGeneratorContext::ModelGeneratorContext(libsbml::SBMLDocument const *doc,
 
         context = new LLVMContext();
         // Make the module, which holds all the code.
-        module_uniq = std::make_unique<Module>("LLVM Module", *context);
+        module_uniq = unique_ptr<Module>(new Module("LLVM Module", *context));
 		module = module_uniq.get();
 
         builder = new IRBuilder<>(*context);
@@ -340,7 +340,7 @@ ModelGeneratorContext::ModelGeneratorContext() :
 
     context = new LLVMContext();
     // Make the module, which holds all the code.
-    module_uniq = std::make_unique<Module>("LLVM Module", *context);
+    module_uniq = unique_ptr<Module>(new Module("LLVM Module", *context));
 	module = module_uniq.get();
 
     builder = new IRBuilder<>(*context);

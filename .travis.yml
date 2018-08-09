@@ -1,5 +1,5 @@
 sudo: required
-dist: bionic
+dist: xenial
 
 language: cpp
 
@@ -7,7 +7,7 @@ notifications:
   email:
       - jkmtravisnotify@gmail.com
 
-compiler: g++
+compiler: gcc
 
 branches:
   only:
@@ -23,7 +23,6 @@ before_install:
 
   # install dependencies
   - sudo apt-get -y install cmake swig python-dev python-numpy llvm-6.0-dev
-  - sudo apt-get install g++-6
 
   # install roadrunner dependencies via apt:
   - mkdir ~/debs
@@ -40,7 +39,6 @@ before_install:
   - echo "TRAVIS_BUILD_DIR $TRAVIS_BUILD_DIR"
   # build roadrunner:
   - mkdir -p ~/build/roadrunner
-  - sudo ln -s /usr/bin/g++ /usr/local/bin/g++
 
 install:
   - cd ~/build/roadrunner
