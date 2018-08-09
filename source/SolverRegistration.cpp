@@ -19,7 +19,7 @@
 # include "NLEQ1Solver.h"
 # include "NLEQ2Solver.h"
 
-# if RR_USE_CXX11
+# if RR_USE_CXX14
 #   include <mutex>
 # endif
 // == CODE ====================================================
@@ -33,7 +33,7 @@ namespace rr
     }
 
     void SolverRegistrationMgr::Register() {
-# if RR_USE_CXX11
+# if RR_USE_CXX14
         static std::once_flag flag;
         std::call_once(flag, register_solvers_at_init());
 # else
