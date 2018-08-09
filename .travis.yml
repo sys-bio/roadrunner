@@ -28,7 +28,6 @@ before_install:
 
   # install dependencies
   - sudo apt-get -y install cmake swig python-dev python-numpy llvm-6.0-dev
-  - sudo apt-get install g++-6
 
   # install roadrunner dependencies via apt:
   - mkdir ~/debs
@@ -58,3 +57,4 @@ script:
   - ctest -VV
   # display results of compiled tests
   - cat autotest/compiled-test-suite/results.xml
+  - sudo ln -s /usr/bin/g++-6 /usr/local/bin/g++
