@@ -26,7 +26,7 @@
     #define RR_UNORDERED_MAP std::tr1::unordered_map
   #endif                                                   // OSX ver
 #else                                                      // not __APPLE__
-  #if (__cplusplus >= 201103L) || defined(_MSC_VER) || RR_USE_CXX11
+  #if (__cplusplus >= 201103L) || defined(_MSC_VER) || RR_USE_CXX14
     #include <unordered_map>
     #define RR_UNORDERED_MAP std::unordered_map
   #else
