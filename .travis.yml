@@ -1,5 +1,5 @@
 sudo: required
-dist: xenial
+dist: artful
 
 language: cpp
 
@@ -14,11 +14,6 @@ branches:
     - develop
     - master
 
-addons:
-  apt:
-    packages:
-      - g++-6
-
 before_install:
   # print the distro information
   - lsb_release -a
@@ -28,6 +23,7 @@ before_install:
 
   # install dependencies
   - sudo apt-get -y install cmake swig python-dev python-numpy llvm-6.0-dev
+  - sudo apt-get install g++-6
 
   # install roadrunner dependencies via apt:
   - mkdir ~/debs
