@@ -45,7 +45,7 @@ endif(WIN32)
 SET(CMAKE_MODULE_PATH ${PROJECT_SOURCE_DIR}/cmake/ ${CMAKE_MODULE_PATH})
 
 # TODO: add some logic to automatically set based on compiler version
-set(RR_USE_CXX11 TRUE CACHE BOOL "Set to TRUE to enable C++11 features")
+set(RR_USE_CXX14 TRUE CACHE BOOL "Set to TRUE to enable C++14 features")
 
 set(LLVM_INSTALL_PREFIX CACHE PATH "If LLVM was built using CMake, this is the location where it was installed")
 
@@ -113,7 +113,7 @@ mark_as_advanced(
     INSTALL_C_API
     INSTALL_C_API_PYTHON
     INSTALL_STATIC_LIB
-    RR_USE_CXX11
+    RR_USE_CXX14
     )
 
 set(RR_GENERATED_HEADER_PATH ${CMAKE_CURRENT_BINARY_DIR}/source)
@@ -122,7 +122,7 @@ set(RR_ROADRUNNER_INSTALL_LIB_PATH ${RR_ROADRUNNER_INSTALL_PATH}/lib)
 set(RR_SOURCE_PATH ${CMAKE_CURRENT_SOURCE_DIR})
 
 # new clang on OSX and msvc use std namespace.
-if(RR_USE_CXX11)
+if(RR_USE_CXX14)
     option (USE_TR1_CXX_NS          "Use the tr1 c++ namespace for swig smart pointer" OFF)
 else()
     option (USE_TR1_CXX_NS          "Use the tr1 c++ namespace for swig smart pointer" ${CMAKE_COMPILER_IS_GNUCXX})
@@ -180,13 +180,12 @@ set(CMAKE_RUNTIME_OUTPUT_DIRECTORY     ${PROJECT_BINARY_DIR}/bin)
 
 #** Apply Project/Compiler Settings ********************************************
 
-# Set C++11 flags
-message (STATUS " CXX11: " RR_USE_CXX11)
-if(RR_USE_CXX11)
+# Set C++14 flags
+if(RR_USE_CXX14)
     IF(NOT MSVC)
-        set(CMAKE_CXX_FLAGS "-std=c++11 ${CMAKE_CXX_FLAGS}")
+        set(CMAKE_CXX_FLAGS "-std=c++14 ${CMAKE_CXX_FLAGS}")
     else()
-        message(WARNING "RR_USE_CXX11 enabled but has no effect on Microsoft compilers")
+        message(WARNING "RR_USE_CXX14 enabled but has no effect on Microsoft compilers")
     endif()
 endif()
 
