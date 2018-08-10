@@ -565,8 +565,9 @@ void ModelGeneratorContext::addGlobalMappings()
     // AST_FUNCTION_ARCCOT:
 	llvm::RTDyldMemoryManager::getSymbolAddressInProcess("arccot");
     addGlobalMapping(
-            createGlobalMappingFunction("arccot", FunctionType::get(double_type, args_d1, false), module),
-			sbmlsupport::arccot);
+            createGlobalMappingFunction("arccot", 
+                FunctionType::get(double_type, args_d1, false), module),
+			        (void*) sbmlsupport::arccot);
 
     addGlobalMapping(
             createGlobalMappingFunction("rr_arccot_negzero",
