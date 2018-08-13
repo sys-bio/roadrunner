@@ -773,6 +773,7 @@ void LLVMModelDataSymbols::initArray(const Model* model, uint *type, list<string
 		case 2:
 		{
 			arrayedFltSpecies[*id].insert(arrayId);
+			// Need to fix up here to get the compartment of species Vin
 			break;
 		}
 		case 3:
@@ -994,6 +995,7 @@ void LLVMModelDataSymbols::initBoundarySpecies(const libsbml::Model* model)
 			else
 			{
 				arrayedBndSpecies[id].insert(id);
+				speciesCompartment[id] = s->getCompartment();
 				if (isIndependentElement(s->getId()))
 				{
 					indBndSpecies.push_back(s->getId());
@@ -1590,13 +1592,13 @@ void LLVMModelDataSymbols::initArrayedReaction(const libsbml::Model* model, cons
 			result = rr::ASTPreProcessor().preProcess(reactantMath, values);
 			getUnknownValues(model, values, reactantIdMath);
 			ASTNode *reactantId = rr::ASTPreProcessor().preProcess(reactantIdMath, values);
+			reactionReactants[rId].insert(result->getName());
 			if (isValidFloatingSpeciesReference(result->getName(), "reactant"))
 			{
 				// at this point, we'd better have a floating species
 				uint speciesIdx = getFloatingSpeciesIndex(result->getName());
 
 				UIntUMap::const_iterator si = speciesMap.find(speciesIdx);
-				reactionReactants[rId].insert(result->getName());
 
 				if (si == speciesMap.end())
 				{
@@ -1691,13 +1693,13 @@ void LLVMModelDataSymbols::initArrayedReaction(const libsbml::Model* model, cons
 			getUnknownValues(model, values, productIdMath);
 			ASTNode *productId = rr::ASTPreProcessor().preProcess(productIdMath, values);
 			// products had better be in the stoich matrix.
+			reactionProducts[rId].insert(result->getName());
 
 			if (isValidFloatingSpeciesReference(result->getName(), "product"))
 			{
 				uint speciesIdx = getFloatingSpeciesIndex(result->getName());
 
 				UIntUMap::const_iterator si = speciesMap.find(speciesIdx);
-				reactionProducts[rId].insert(result->getName());
 
 				if (si == speciesMap.end())
 				{
@@ -1839,6 +1841,7 @@ void LLVMModelDataSymbols::initReactions(const libsbml::Model* model)
         for (uint j = 0; j < reactants->size(); j++)
         {
             const SimpleSpeciesReference *r = reactants->get(j);
+			reactionReactants[reaction->getId()].insert(r->getSpecies());
 			
             if (isValidFloatingSpeciesReference(r->getSpecies(), "reactant"))
             {
@@ -1846,7 +1849,6 @@ void LLVMModelDataSymbols::initReactions(const libsbml::Model* model)
                 uint speciesIdx = getFloatingSpeciesIndex(r->getSpecies());
 
                 UIntUMap::const_iterator si = speciesMap.find(speciesIdx);
-				reactionReactants[reaction->getId()].insert(r->getSpecies());
 
                 if (si == speciesMap.end())
                 {
@@ -1916,12 +1918,12 @@ void LLVMModelDataSymbols::initReactions(const libsbml::Model* model)
             const SimpleSpeciesReference *p = products->get(j);
             // products had better be in the stoich matrix.
 
+			reactionProducts[reaction->getId()].insert(p->getSpecies());
             if (isValidFloatingSpeciesReference(p->getSpecies(), "product"))
             {
                 uint speciesIdx = getFloatingSpeciesIndex(p->getSpecies());
 
                 UIntUMap::const_iterator si = speciesMap.find(speciesIdx);
-				reactionProducts[reaction->getId()].insert(p->getSpecies());
 
                 if (si == speciesMap.end())
                 {
