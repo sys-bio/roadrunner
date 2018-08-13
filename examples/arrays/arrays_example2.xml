@@ -1,0 +1,141 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<sbml xmlns="http://www.sbml.org/sbml/level3/version1/core" xmlns:arrays="http://www.sbml.org/sbml/level3/version1/arrays/version1" level="3" version="1" arrays:required="true">
+  <model>
+    <listOfCompartments>
+      <!-- Create an array of n compartments -->
+      <compartment id="Cell" constant="true" spatialDimensions="3" size="1">
+        <arrays:listOfDimensions
+        xmlns:arrays="http://www.sbml.org/sbml/level3/version1/arrays/version1">
+          <arrays:dimension arrays:id="d0" arrays:size="n" arrays:arrayDimension="0"/>
+        </arrays:listOfDimensions>
+      </compartment>
+    </listOfCompartments>
+    <listOfSpecies>
+      <!-- Create array of n species A with A[d0] placed in Cell[d0] -->
+      <species id="A" constant="false" initialAmount="0" hasOnlySubstanceUnits="true"
+      boundaryCondition="false" compartment="Cell">
+        <arrays:listOfDimensions
+        xmlns:arrays="http://www.sbml.org/sbml/level3/version1/arrays/version1">
+          <arrays:dimension arrays:id="d0" arrays:size="n" arrays:arrayDimension="0"/>
+        </arrays:listOfDimensions>
+        <arrays:listOfIndices
+        xmlns:arrays="http://www.sbml.org/sbml/level3/version1/arrays/version1">
+          <arrays:index arrays:referencedAttribute="compartment" arrays:arrayDimension="0">
+            <math xmlns="http://www.w3.org/1998/Math/MathML">
+              <ci> d0 </ci>
+            </math>
+          </arrays:index>
+        </arrays:listOfIndices>
+      </species>
+      <!-- Create array of n species B with B[d0] placed in Cell[d0] -->
+      <species id="B" constant="false" initialAmount="0" hasOnlySubstanceUnits="true"
+      boundaryCondition="false" compartment="Cell">
+        <arrays:listOfDimensions
+        xmlns:arrays="http://www.sbml.org/sbml/level3/version1/arrays/version1">
+          <arrays:dimension arrays:id="d0" arrays:size="n" arrays:arrayDimension="0"/>
+        </arrays:listOfDimensions>
+        <arrays:listOfIndices
+        xmlns:arrays="http://www.sbml.org/sbml/level3/version1/arrays/version1">
+          <arrays:index arrays:referencedAttribute="compartment" arrays:arrayDimension="0">
+            <math xmlns="http://www.w3.org/1998/Math/MathML">
+              <ci> d0 </ci>
+            </math>
+          </arrays:index>
+        </arrays:listOfIndices>
+      </species>
+      <!-- Create array of n species C with C[d0] placed in cell[d0] -->
+      <species id="C" constant="false" initialAmount="0" hasOnlySubstanceUnits="true"
+      boundaryCondition="false" compartment="Cell">
+        <arrays:listOfDimensions
+        xmlns:arrays="http://www.sbml.org/sbml/level3/version1/arrays/version1">
+          <arrays:dimension arrays:id="d0" arrays:size="n" arrays:arrayDimension="0"/>
+        </arrays:listOfDimensions>
+        <arrays:listOfIndices
+        xmlns:arrays="http://www.sbml.org/sbml/level3/version1/arrays/version1">
+          <arrays:index arrays:referencedAttribute="compartment" arrays:arrayDimension="0">
+            <math xmlns="http://www.w3.org/1998/Math/MathML">
+              <ci> d0 </ci>
+            </math>
+          </arrays:index>
+        </arrays:listOfIndices>
+      </species>
+    </listOfSpecies>
+    <listOfParameters>
+      <parameter id="k" constant="false" value="1"/>
+      <!-- Specifies size of all arrays (i.e., n:=100) -->
+      <parameter id="n" constant="true" value="100"/>
+    </listOfParameters>
+    <listOfReactions>
+      <!-- Create array of n reactions r with r[d0] converting A[d0] and B[d0] into C[d0]-->
+      <reaction id="r" reversible="false" fast="false" compartment="Cell">
+        <arrays:listOfDimensions
+        xmlns:arrays="http://www.sbml.org/sbml/level3/version1/arrays/version1">
+          <arrays:dimension arrays:id="d0" arrays:size="n" arrays:arrayDimension="0"/>
+        </arrays:listOfDimensions>
+        <arrays:listOfIndices
+        xmlns:arrays="http://www.sbml.org/sbml/level3/version1/arrays/version1">
+          <arrays:index arrays:referencedAttribute="species" arrays:arrayDimension="0">
+            <math xmlns="http://www.w3.org/1998/Math/MathML">
+              <ci> d0 </ci>
+            </math>
+          </arrays:index>
+        </arrays:listOfIndices>
+        <listOfReactants>
+          <speciesReference constant="true" species="B" stoichiometry="1">
+            <arrays:listOfIndices
+            xmlns:arrays="http://www.sbml.org/sbml/level3/version1/arrays/version1">
+              <arrays:index arrays:referencedAttribute="species" arrays:arrayDimension="0">
+                <math xmlns="http://www.w3.org/1998/Math/MathML">
+                  <ci> d0 </ci>
+                </math>
+              </arrays:index>
+            </arrays:listOfIndices>
+          </speciesReference>
+          <speciesReference constant="true" species="A" stoichiometry="1">
+            <arrays:listOfIndices
+            xmlns:arrays="http://www.sbml.org/sbml/level3/version1/arrays/version1">
+              <arrays:index arrays:referencedAttribute="species" arrays:arrayDimension="0">
+                <math xmlns="http://www.w3.org/1998/Math/MathML">
+                  <ci> d0 </ci>
+                </math>
+              </arrays:index>
+            </arrays:listOfIndices>
+          </speciesReference>
+        </listOfReactants>
+        <listOfProducts>
+          <speciesReference constant="true" species="C" stoichiometry="1">
+            <arrays:listOfIndices
+            xmlns:arrays="http://www.sbml.org/sbml/level3/version1/arrays/version1">
+              <arrays:index arrays:referencedAttribute="species" arrays:arrayDimension="0">
+                <math xmlns="http://www.w3.org/1998/Math/MathML">
+                  <ci> d0 </ci>
+                </math>
+              </arrays:index>
+            </arrays:listOfIndices>
+          </speciesReference>
+        </listOfProducts>
+        <kineticLaw>
+          <math xmlns="http://www.w3.org/1998/Math/MathML">
+            <apply>
+              <times/>
+              <apply>
+                <times/>
+                <ci> k </ci>
+                <apply>
+                  <selector/>
+                  <ci> A </ci>
+                  <ci> d0 </ci>
+                </apply>
+              </apply>
+              <apply>
+                <selector/>
+                <ci> B </ci>
+                <ci> d0 </ci>
+              </apply>
+            </apply>
+          </math>
+        </kineticLaw>
+      </reaction>
+    </listOfReactions>
+  </model>
+</sbml>

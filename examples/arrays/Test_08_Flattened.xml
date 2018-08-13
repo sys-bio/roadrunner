@@ -1,0 +1,335 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<sbml xmlns="http://www.sbml.org/sbml/level3/version2/core" arrays:required="true" layout:required="false" level="3" version="2" xmlns:arrays="http://www.sbml.org/sbml/level3/version1/arrays/version1" xmlns:layout="http://www.sbml.org/sbml/level3/version1/layout/version1">
+    <model id="Test_08" metaid="iBioSim2">
+        <layout:listOfLayouts xmlns:layout="http://www.sbml.org/sbml/level3/version1/layout/version1" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+            <layout:layout layout:id="iBioSim">
+                <layout:dimensions layout:depth="0" layout:height="173" layout:width="393"/>
+                <layout:listOfAdditionalGraphicalObjects>
+                    <layout:generalGlyph layout:id="Glyph__Y" layout:reference="Y">
+                        <layout:boundingBox>
+                            <layout:position layout:x="175" layout:y="96"/>
+                            <layout:dimensions layout:height="30" layout:width="30"/>
+                        </layout:boundingBox>
+                    </layout:generalGlyph>
+                    <layout:generalGlyph layout:id="Glyph__event0" layout:reference="event0">
+                        <layout:boundingBox>
+                            <layout:position layout:x="318" layout:y="148"/>
+                            <layout:dimensions layout:height="25" layout:width="75"/>
+                        </layout:boundingBox>
+                        <layout:listOfReferenceGlyphs>
+                            <layout:referenceGlyph layout:glyph="Glyph__Y" layout:id="Glyph__event0__product__Y" layout:role="product">
+                                <layout:curve>
+                                    <layout:listOfCurveSegments>
+                                        <layout:curveSegment xsi:type="LineSegment">
+                                            <layout:start layout:x="355.5" layout:y="160.5"/>
+                                            <layout:end layout:x="190" layout:y="111"/>
+                                        </layout:curveSegment>
+                                    </layout:listOfCurveSegments>
+                                </layout:curve>
+                            </layout:referenceGlyph>
+                        </layout:listOfReferenceGlyphs>
+                    </layout:generalGlyph>
+                </layout:listOfAdditionalGraphicalObjects>
+                <layout:listOfTextGlyphs>
+                    <layout:textGlyph layout:graphicalObject="Glyph__Y" layout:id="TextGlyph__Y" layout:text="Y[n]">
+                        <layout:boundingBox>
+                            <layout:position layout:x="175" layout:y="96"/>
+                            <layout:dimensions layout:height="30" layout:width="30"/>
+                        </layout:boundingBox>
+                    </layout:textGlyph>
+                    <layout:textGlyph layout:graphicalObject="Glyph__event0" layout:id="TextGlyph__event0" layout:text="event0[n]">
+                        <layout:boundingBox>
+                            <layout:position layout:x="318" layout:y="148"/>
+                            <layout:dimensions layout:height="25" layout:width="75"/>
+                        </layout:boundingBox>
+                    </layout:textGlyph>
+                </layout:listOfTextGlyphs>
+            </layout:layout>
+        </layout:listOfLayouts>
+        <listOfParameters>
+            <parameter constant="true" id="n" value="10"/>
+            <parameter constant="false" id="Y_0" metaid="iBioSim1_0" value="0"/>
+            <parameter constant="false" id="Y_1" metaid="iBioSim1_1" value="0"/>
+            <parameter constant="false" id="Y_2" metaid="iBioSim1_2" value="0"/>
+            <parameter constant="false" id="Y_3" metaid="iBioSim1_3" value="0"/>
+            <parameter constant="false" id="Y_4" metaid="iBioSim1_4" value="0"/>
+            <parameter constant="false" id="Y_5" metaid="iBioSim1_5" value="0"/>
+            <parameter constant="false" id="Y_6" metaid="iBioSim1_6" value="0"/>
+            <parameter constant="false" id="Y_7" metaid="iBioSim1_7" value="0"/>
+            <parameter constant="false" id="Y_8" metaid="iBioSim1_8" value="0"/>
+            <parameter constant="false" id="Y_9" metaid="iBioSim1_9" value="0"/>
+        </listOfParameters>
+        <listOfEvents>
+            <event id="event0_0" metaid="iBioSim3_0" useValuesFromTriggerTime="false">
+                <trigger initialValue="false" persistent="false">
+                    <math xmlns="http://www.w3.org/1998/Math/MathML">                    
+                        <true/>
+                    </math>
+                                </trigger>
+                <delay>
+                    <math xmlns="http://www.w3.org/1998/Math/MathML">                    
+                        <apply>
+                          <times/>
+                          <apply>
+                            <plus/>
+                            <cn type="integer"> 0 </cn>
+                            <cn type="integer"> 1 </cn>
+                          </apply>
+                          <cn type="integer"> 10 </cn>
+                        </apply>
+                    </math>
+                                </delay>
+                <listOfEventAssignments>
+                    <eventAssignment variable="Y_0">
+                        <math xmlns="http://www.w3.org/1998/Math/MathML">                        
+                            <csymbol encoding="text" definitionURL="http://www.sbml.org/sbml/symbols/time"> t </csymbol>
+                        </math>
+                                        </eventAssignment>
+                </listOfEventAssignments>
+            </event>
+            <event id="event0_1" metaid="iBioSim3_1" useValuesFromTriggerTime="false">
+                <trigger initialValue="false" persistent="false">
+                    <math xmlns="http://www.w3.org/1998/Math/MathML">                    
+                        <true/>
+                    </math>
+                                </trigger>
+                <delay>
+                    <math xmlns="http://www.w3.org/1998/Math/MathML">                    
+                        <apply>
+                          <times/>
+                          <apply>
+                            <plus/>
+                            <cn type="integer"> 1 </cn>
+                            <cn type="integer"> 1 </cn>
+                          </apply>
+                          <cn type="integer"> 10 </cn>
+                        </apply>
+                    </math>
+                                </delay>
+                <listOfEventAssignments>
+                    <eventAssignment variable="Y_1">
+                        <math xmlns="http://www.w3.org/1998/Math/MathML">                        
+                            <csymbol encoding="text" definitionURL="http://www.sbml.org/sbml/symbols/time"> t </csymbol>
+                        </math>
+                                        </eventAssignment>
+                </listOfEventAssignments>
+            </event>
+            <event id="event0_2" metaid="iBioSim3_2" useValuesFromTriggerTime="false">
+                <trigger initialValue="false" persistent="false">
+                    <math xmlns="http://www.w3.org/1998/Math/MathML">                    
+                        <true/>
+                    </math>
+                                </trigger>
+                <delay>
+                    <math xmlns="http://www.w3.org/1998/Math/MathML">                    
+                        <apply>
+                          <times/>
+                          <apply>
+                            <plus/>
+                            <cn type="integer"> 2 </cn>
+                            <cn type="integer"> 1 </cn>
+                          </apply>
+                          <cn type="integer"> 10 </cn>
+                        </apply>
+                    </math>
+                                </delay>
+                <listOfEventAssignments>
+                    <eventAssignment variable="Y_2">
+                        <math xmlns="http://www.w3.org/1998/Math/MathML">                        
+                            <csymbol encoding="text" definitionURL="http://www.sbml.org/sbml/symbols/time"> t </csymbol>
+                        </math>
+                                        </eventAssignment>
+                </listOfEventAssignments>
+            </event>
+            <event id="event0_3" metaid="iBioSim3_3" useValuesFromTriggerTime="false">
+                <trigger initialValue="false" persistent="false">
+                    <math xmlns="http://www.w3.org/1998/Math/MathML">                    
+                        <true/>
+                    </math>
+                                </trigger>
+                <delay>
+                    <math xmlns="http://www.w3.org/1998/Math/MathML">                    
+                        <apply>
+                          <times/>
+                          <apply>
+                            <plus/>
+                            <cn type="integer"> 3 </cn>
+                            <cn type="integer"> 1 </cn>
+                          </apply>
+                          <cn type="integer"> 10 </cn>
+                        </apply>
+                    </math>
+                                </delay>
+                <listOfEventAssignments>
+                    <eventAssignment variable="Y_3">
+                        <math xmlns="http://www.w3.org/1998/Math/MathML">                        
+                            <csymbol encoding="text" definitionURL="http://www.sbml.org/sbml/symbols/time"> t </csymbol>
+                        </math>
+                                        </eventAssignment>
+                </listOfEventAssignments>
+            </event>
+            <event id="event0_4" metaid="iBioSim3_4" useValuesFromTriggerTime="false">
+                <trigger initialValue="false" persistent="false">
+                    <math xmlns="http://www.w3.org/1998/Math/MathML">                    
+                        <true/>
+                    </math>
+                                </trigger>
+                <delay>
+                    <math xmlns="http://www.w3.org/1998/Math/MathML">                    
+                        <apply>
+                          <times/>
+                          <apply>
+                            <plus/>
+                            <cn type="integer"> 4 </cn>
+                            <cn type="integer"> 1 </cn>
+                          </apply>
+                          <cn type="integer"> 10 </cn>
+                        </apply>
+                    </math>
+                                </delay>
+                <listOfEventAssignments>
+                    <eventAssignment variable="Y_4">
+                        <math xmlns="http://www.w3.org/1998/Math/MathML">                        
+                            <csymbol encoding="text" definitionURL="http://www.sbml.org/sbml/symbols/time"> t </csymbol>
+                        </math>
+                                        </eventAssignment>
+                </listOfEventAssignments>
+            </event>
+            <event id="event0_5" metaid="iBioSim3_5" useValuesFromTriggerTime="false">
+                <trigger initialValue="false" persistent="false">
+                    <math xmlns="http://www.w3.org/1998/Math/MathML">                    
+                        <true/>
+                    </math>
+                                </trigger>
+                <delay>
+                    <math xmlns="http://www.w3.org/1998/Math/MathML">                    
+                        <apply>
+                          <times/>
+                          <apply>
+                            <plus/>
+                            <cn type="integer"> 5 </cn>
+                            <cn type="integer"> 1 </cn>
+                          </apply>
+                          <cn type="integer"> 10 </cn>
+                        </apply>
+                    </math>
+                                </delay>
+                <listOfEventAssignments>
+                    <eventAssignment variable="Y_5">
+                        <math xmlns="http://www.w3.org/1998/Math/MathML">                        
+                            <csymbol encoding="text" definitionURL="http://www.sbml.org/sbml/symbols/time"> t </csymbol>
+                        </math>
+                                        </eventAssignment>
+                </listOfEventAssignments>
+            </event>
+            <event id="event0_6" metaid="iBioSim3_6" useValuesFromTriggerTime="false">
+                <trigger initialValue="false" persistent="false">
+                    <math xmlns="http://www.w3.org/1998/Math/MathML">                    
+                        <true/>
+                    </math>
+                                </trigger>
+                <delay>
+                    <math xmlns="http://www.w3.org/1998/Math/MathML">                    
+                        <apply>
+                          <times/>
+                          <apply>
+                            <plus/>
+                            <cn type="integer"> 6 </cn>
+                            <cn type="integer"> 1 </cn>
+                          </apply>
+                          <cn type="integer"> 10 </cn>
+                        </apply>
+                    </math>
+                                </delay>
+                <listOfEventAssignments>
+                    <eventAssignment variable="Y_6">
+                        <math xmlns="http://www.w3.org/1998/Math/MathML">                        
+                            <csymbol encoding="text" definitionURL="http://www.sbml.org/sbml/symbols/time"> t </csymbol>
+                        </math>
+                                        </eventAssignment>
+                </listOfEventAssignments>
+            </event>
+            <event id="event0_7" metaid="iBioSim3_7" useValuesFromTriggerTime="false">
+                <trigger initialValue="false" persistent="false">
+                    <math xmlns="http://www.w3.org/1998/Math/MathML">                    
+                        <true/>
+                    </math>
+                                </trigger>
+                <delay>
+                    <math xmlns="http://www.w3.org/1998/Math/MathML">                    
+                        <apply>
+                          <times/>
+                          <apply>
+                            <plus/>
+                            <cn type="integer"> 7 </cn>
+                            <cn type="integer"> 1 </cn>
+                          </apply>
+                          <cn type="integer"> 10 </cn>
+                        </apply>
+                    </math>
+                                </delay>
+                <listOfEventAssignments>
+                    <eventAssignment variable="Y_7">
+                        <math xmlns="http://www.w3.org/1998/Math/MathML">                        
+                            <csymbol encoding="text" definitionURL="http://www.sbml.org/sbml/symbols/time"> t </csymbol>
+                        </math>
+                                        </eventAssignment>
+                </listOfEventAssignments>
+            </event>
+            <event id="event0_8" metaid="iBioSim3_8" useValuesFromTriggerTime="false">
+                <trigger initialValue="false" persistent="false">
+                    <math xmlns="http://www.w3.org/1998/Math/MathML">                    
+                        <true/>
+                    </math>
+                                </trigger>
+                <delay>
+                    <math xmlns="http://www.w3.org/1998/Math/MathML">                    
+                        <apply>
+                          <times/>
+                          <apply>
+                            <plus/>
+                            <cn type="integer"> 8 </cn>
+                            <cn type="integer"> 1 </cn>
+                          </apply>
+                          <cn type="integer"> 10 </cn>
+                        </apply>
+                    </math>
+                                </delay>
+                <listOfEventAssignments>
+                    <eventAssignment variable="Y_8">
+                        <math xmlns="http://www.w3.org/1998/Math/MathML">                        
+                            <csymbol encoding="text" definitionURL="http://www.sbml.org/sbml/symbols/time"> t </csymbol>
+                        </math>
+                                        </eventAssignment>
+                </listOfEventAssignments>
+            </event>
+            <event id="event0_9" metaid="iBioSim3_9" useValuesFromTriggerTime="false">
+                <trigger initialValue="false" persistent="false">
+                    <math xmlns="http://www.w3.org/1998/Math/MathML">                    
+                        <true/>
+                    </math>
+                                </trigger>
+                <delay>
+                    <math xmlns="http://www.w3.org/1998/Math/MathML">                    
+                        <apply>
+                          <times/>
+                          <apply>
+                            <plus/>
+                            <cn type="integer"> 9 </cn>
+                            <cn type="integer"> 1 </cn>
+                          </apply>
+                          <cn type="integer"> 10 </cn>
+                        </apply>
+                    </math>
+                                </delay>
+                <listOfEventAssignments>
+                    <eventAssignment variable="Y_9">
+                        <math xmlns="http://www.w3.org/1998/Math/MathML">                        
+                            <csymbol encoding="text" definitionURL="http://www.sbml.org/sbml/symbols/time"> t </csymbol>
+                        </math>
+                                        </eventAssignment>
+                </listOfEventAssignments>
+            </event>
+        </listOfEvents>
+    </model>
+</sbml>

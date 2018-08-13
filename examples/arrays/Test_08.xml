@@ -1,0 +1,104 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<sbml xmlns="http://www.sbml.org/sbml/level3/version2/core" arrays:required="true" layout:required="false" level="3" version="2" xmlns:arrays="http://www.sbml.org/sbml/level3/version1/arrays/version1" xmlns:layout="http://www.sbml.org/sbml/level3/version1/layout/version1">
+  <model id="Test_08" metaid="iBioSim2">
+    <layout:listOfLayouts xmlns:layout="http://www.sbml.org/sbml/level3/version1/layout/version1" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+      <layout:layout layout:id="iBioSim">
+        <layout:dimensions layout:depth="0" layout:height="173" layout:width="393"/>
+        <layout:listOfAdditionalGraphicalObjects>
+          <layout:generalGlyph layout:id="Glyph__Y" layout:reference="Y">
+            <layout:boundingBox>
+              <layout:position layout:x="175" layout:y="96"/>
+              <layout:dimensions layout:height="30" layout:width="30"/>
+            </layout:boundingBox>
+          </layout:generalGlyph>
+          <layout:generalGlyph layout:id="Glyph__event0" layout:reference="event0">
+            <layout:boundingBox>
+              <layout:position layout:x="318" layout:y="148"/>
+              <layout:dimensions layout:height="25" layout:width="75"/>
+            </layout:boundingBox>
+            <layout:listOfReferenceGlyphs>
+              <layout:referenceGlyph layout:glyph="Glyph__Y" layout:id="Glyph__event0__product__Y" layout:role="product">
+                <layout:curve>
+                  <layout:listOfCurveSegments>
+                    <layout:curveSegment xsi:type="LineSegment">
+                      <layout:start layout:x="355.5" layout:y="160.5"/>
+                      <layout:end layout:x="190" layout:y="111"/>
+                    </layout:curveSegment>
+                  </layout:listOfCurveSegments>
+                </layout:curve>
+              </layout:referenceGlyph>
+            </layout:listOfReferenceGlyphs>
+          </layout:generalGlyph>
+        </layout:listOfAdditionalGraphicalObjects>
+        <layout:listOfTextGlyphs>
+          <layout:textGlyph layout:graphicalObject="Glyph__Y" layout:id="TextGlyph__Y" layout:text="Y[n]">
+            <layout:boundingBox>
+              <layout:position layout:x="175" layout:y="96"/>
+              <layout:dimensions layout:height="30" layout:width="30"/>
+            </layout:boundingBox>
+          </layout:textGlyph>
+          <layout:textGlyph layout:graphicalObject="Glyph__event0" layout:id="TextGlyph__event0" layout:text="event0[n]">
+            <layout:boundingBox>
+              <layout:position layout:x="318" layout:y="148"/>
+              <layout:dimensions layout:height="25" layout:width="75"/>
+            </layout:boundingBox>
+          </layout:textGlyph>
+        </layout:listOfTextGlyphs>
+      </layout:layout>
+    </layout:listOfLayouts>
+    <listOfFunctionDefinitions/>
+    <listOfUnitDefinitions/>
+    <listOfCompartments/>
+    <listOfParameters>
+      <parameter constant="false" id="Y" metaid="iBioSim1" value="0">
+        <arrays:listOfDimensions xmlns:arrays="http://www.sbml.org/sbml/level3/version1/arrays/version1">
+          <arrays:dimension arrays:arrayDimension="0" arrays:id="d0" arrays:size="n"/>
+        </arrays:listOfDimensions>
+      </parameter>
+      <parameter constant="true" id="n" value="10"/>
+    </listOfParameters>
+    <listOfInitialAssignments/>
+    <listOfRules/>
+    <listOfConstraints/>
+    <listOfReactions/>
+    <listOfEvents>
+      <event id="event0" metaid="iBioSim3" useValuesFromTriggerTime="false">
+        <arrays:listOfDimensions xmlns:arrays="http://www.sbml.org/sbml/level3/version1/arrays/version1">
+          <arrays:dimension arrays:arrayDimension="0" arrays:id="d0" arrays:size="n"/>
+        </arrays:listOfDimensions>
+        <trigger initialValue="false" persistent="false">
+          <math xmlns="http://www.w3.org/1998/Math/MathML">          
+            <true/>
+          </math>
+                </trigger>
+        <delay>
+          <math xmlns="http://www.w3.org/1998/Math/MathML">          
+            <apply>
+              <times/>
+              <apply>
+                <plus/>
+                <ci> d0 </ci>
+                <cn type="integer"> 1 </cn>
+              </apply>
+              <cn type="integer"> 10 </cn>
+            </apply>
+          </math>
+                </delay>
+        <listOfEventAssignments>
+          <eventAssignment variable="Y">
+            <math xmlns="http://www.w3.org/1998/Math/MathML">            
+              <csymbol encoding="text" definitionURL="http://www.sbml.org/sbml/symbols/time"> t </csymbol>
+            </math>
+                      <arrays:listOfIndices xmlns:arrays="http://www.sbml.org/sbml/level3/version1/arrays/version1">
+              <arrays:index arrays:arrayDimension="0" arrays:referencedAttribute="variable">
+                <math xmlns="http://www.w3.org/1998/Math/MathML">                
+                  <ci> d0 </ci>
+                </math>
+                            </arrays:index>
+            </arrays:listOfIndices>
+          </eventAssignment>
+        </listOfEventAssignments>
+      </event>
+    </listOfEvents>
+  </model>
+</sbml>

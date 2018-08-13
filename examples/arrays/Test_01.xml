@@ -1,0 +1,137 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<sbml xmlns="http://www.sbml.org/sbml/level3/version2/core" arrays:required="true" layout:required="false" level="3" version="2" xmlns:arrays="http://www.sbml.org/sbml/level3/version1/arrays/version1" xmlns:layout="http://www.sbml.org/sbml/level3/version1/layout/version1">
+  <model id="Test_01" metaid="iBioSim2">
+    <layout:listOfLayouts xmlns:layout="http://www.sbml.org/sbml/level3/version1/layout/version1" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+      <layout:layout layout:id="iBioSim">
+        <layout:dimensions layout:depth="0" layout:height="140" layout:width="310"/>
+        <layout:listOfAdditionalGraphicalObjects>
+          <layout:generalGlyph layout:id="Glyph__X" layout:reference="X">
+            <layout:boundingBox>
+              <layout:position layout:x="100" layout:y="110"/>
+              <layout:dimensions layout:height="30" layout:width="30"/>
+            </layout:boundingBox>
+          </layout:generalGlyph>
+          <layout:generalGlyph layout:id="Glyph__Y" layout:reference="Y">
+            <layout:boundingBox>
+              <layout:position layout:x="280" layout:y="110"/>
+              <layout:dimensions layout:height="30" layout:width="30"/>
+            </layout:boundingBox>
+          </layout:generalGlyph>
+          <layout:generalGlyph layout:id="Glyph__rule0" layout:metaidRef="rule0">
+            <layout:boundingBox>
+              <layout:position layout:x="170" layout:y="20"/>
+              <layout:dimensions layout:height="50" layout:width="50"/>
+            </layout:boundingBox>
+            <layout:listOfReferenceGlyphs>
+              <layout:referenceGlyph layout:glyph="Glyph__Y" layout:id="Glyph__rule0__substrate__Y" layout:role="substrate">
+                <layout:curve>
+                  <layout:listOfCurveSegments>
+                    <layout:curveSegment xsi:type="LineSegment">
+                      <layout:start layout:x="295" layout:y="125"/>
+                      <layout:end layout:x="195" layout:y="45"/>
+                    </layout:curveSegment>
+                  </layout:listOfCurveSegments>
+                </layout:curve>
+              </layout:referenceGlyph>
+              <layout:referenceGlyph layout:glyph="Glyph__X" layout:id="Glyph__rule0__product__X" layout:role="product">
+                <layout:curve>
+                  <layout:listOfCurveSegments>
+                    <layout:curveSegment xsi:type="LineSegment">
+                      <layout:start layout:x="195" layout:y="45"/>
+                      <layout:end layout:x="115" layout:y="125"/>
+                    </layout:curveSegment>
+                  </layout:listOfCurveSegments>
+                </layout:curve>
+              </layout:referenceGlyph>
+            </layout:listOfReferenceGlyphs>
+          </layout:generalGlyph>
+        </layout:listOfAdditionalGraphicalObjects>
+        <layout:listOfTextGlyphs>
+          <layout:textGlyph layout:graphicalObject="Glyph__X" layout:id="TextGlyph__X" layout:text="X[n]">
+            <layout:boundingBox>
+              <layout:position layout:x="100" layout:y="110"/>
+              <layout:dimensions layout:height="30" layout:width="30"/>
+            </layout:boundingBox>
+          </layout:textGlyph>
+          <layout:textGlyph layout:graphicalObject="Glyph__Y" layout:id="TextGlyph__Y" layout:text="Y[n]">
+            <layout:boundingBox>
+              <layout:position layout:x="280" layout:y="110"/>
+              <layout:dimensions layout:height="30" layout:width="30"/>
+            </layout:boundingBox>
+          </layout:textGlyph>
+          <layout:textGlyph layout:graphicalObject="Glyph__rule0" layout:id="TextGlyph__rule0" layout:text="rule0[n]">
+            <layout:boundingBox>
+              <layout:position layout:x="170" layout:y="20"/>
+              <layout:dimensions layout:height="50" layout:width="50"/>
+            </layout:boundingBox>
+          </layout:textGlyph>
+        </layout:listOfTextGlyphs>
+      </layout:layout>
+    </layout:listOfLayouts>
+    <listOfFunctionDefinitions/>
+    <listOfUnitDefinitions/>
+    <listOfCompartments/>
+    <listOfParameters>
+      <parameter constant="false" id="X" metaid="iBioSim1" value="0">
+        <arrays:listOfDimensions xmlns:arrays="http://www.sbml.org/sbml/level3/version1/arrays/version1">
+          <arrays:dimension arrays:arrayDimension="0" arrays:id="d0" arrays:size="n"/>
+        </arrays:listOfDimensions>
+      </parameter>
+      <parameter constant="false" id="Y" metaid="iBioSim3" value="0">
+        <arrays:listOfDimensions xmlns:arrays="http://www.sbml.org/sbml/level3/version1/arrays/version1">
+          <arrays:dimension arrays:arrayDimension="0" arrays:id="d0" arrays:size="n"/>
+        </arrays:listOfDimensions>
+      </parameter>
+      <parameter constant="true" id="n" value="10"/>
+    </listOfParameters>
+    <listOfInitialAssignments>
+      <initialAssignment metaid="init__Y" symbol="Y">
+        <math xmlns="http://www.w3.org/1998/Math/MathML">        
+          <ci> d0 </ci>
+        </math>
+              <arrays:listOfDimensions xmlns:arrays="http://www.sbml.org/sbml/level3/version1/arrays/version1">
+          <arrays:dimension arrays:arrayDimension="0" arrays:id="d0" arrays:size="n"/>
+        </arrays:listOfDimensions>
+        <arrays:listOfIndices xmlns:arrays="http://www.sbml.org/sbml/level3/version1/arrays/version1">
+          <arrays:index arrays:arrayDimension="0" arrays:referencedAttribute="symbol">
+            <math xmlns="http://www.w3.org/1998/Math/MathML">            
+              <ci> d0 </ci>
+            </math>
+                    </arrays:index>
+        </arrays:listOfIndices>
+      </initialAssignment>
+    </listOfInitialAssignments>
+    <listOfRules>
+      <assignmentRule metaid="rule0" variable="X">
+        <math xmlns="http://www.w3.org/1998/Math/MathML">        
+          <apply>
+            <selector/>
+            <ci> Y </ci>
+            <apply>
+              <minus/>
+              <apply>
+                <minus/>
+                <ci> n </ci>
+                <ci> d0 </ci>
+              </apply>
+              <cn type="integer"> 1 </cn>
+            </apply>
+          </apply>
+        </math>
+              <arrays:listOfDimensions xmlns:arrays="http://www.sbml.org/sbml/level3/version1/arrays/version1">
+          <arrays:dimension arrays:arrayDimension="0" arrays:id="d0" arrays:size="n"/>
+        </arrays:listOfDimensions>
+        <arrays:listOfIndices xmlns:arrays="http://www.sbml.org/sbml/level3/version1/arrays/version1">
+          <arrays:index arrays:arrayDimension="0" arrays:referencedAttribute="variable">
+            <math xmlns="http://www.w3.org/1998/Math/MathML">            
+              <ci> d0 </ci>
+            </math>
+                    </arrays:index>
+        </arrays:listOfIndices>
+      </assignmentRule>
+    </listOfRules>
+    <listOfConstraints/>
+    <listOfReactions/>
+    <listOfEvents/>
+  </model>
+</sbml>

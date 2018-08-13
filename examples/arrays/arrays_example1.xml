@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<sbml xmlns="http://www.sbml.org/sbml/level3/version1/core" 
+  xmlns:arrays="http://www.sbml.org/sbml/level3/version1/arrays/version1" level="3" version="1" arrays:required="true">
+  <model>
+    <listOfParameters>
+      <parameter id="n" constant="true" value="10"/>
+      <parameter id="X" constant="false" value="0">
+        <arrays:listOfDimensions xmlns:arrays="http://www.sbml.org/sbml/level3/version1/arrays/version1">
+          <arrays:dimension arrays:size="n" arrays:arrayDimension="0"/>
+        </arrays:listOfDimensions>
+      </parameter>
+      <parameter id="Y" constant="false" value="0">
+        <arrays:listOfDimensions xmlns:arrays="http://www.sbml.org/sbml/level3/version1/arrays/version1">
+          <arrays:dimension arrays:size="n" arrays:arrayDimension="0"/>
+        </arrays:listOfDimensions>
+      </parameter>
+    </listOfParameters>
+    <listOfRules>
+      <assignmentRule metaid="rule0" variable="Y">
+        <math xmlns="http://www.w3.org/1998/Math/MathML">
+          <apply>
+            <selector/>
+            <ci> X </ci>
+            <ci> d0 </ci>
+          </apply>
+        </math>
+        <arrays:listOfDimensions xmlns:arrays="http://www.sbml.org/sbml/level3/version1/arrays/version1">
+          <arrays:dimension arrays:id="d0" arrays:size="n" arrays:arrayDimension="0"/>
+        </arrays:listOfDimensions>
+        <arrays:listOfIndices xmlns:arrays="http://www.sbml.org/sbml/level3/version1/arrays/version1">
+          <arrays:index arrays:referencedAttribute="variable" arrays:arrayDimension="0">
+            <math xmlns="http://www.w3.org/1998/Math/MathML">
+              <apply>
+                <minus/>
+                <apply>
+                  <minus/>
+                  <ci> n </ci>
+                  <cn type="integer"> 1 </cn>
+                </apply>
+                <ci> d0 </ci>
+              </apply>
+            </math>
+          </arrays:index>
+        </arrays:listOfIndices>
+      </assignmentRule>
+    </listOfRules>
+  </model>
+</sbml>

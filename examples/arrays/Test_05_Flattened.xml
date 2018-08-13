@@ -1,0 +1,176 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<sbml xmlns="http://www.sbml.org/sbml/level3/version2/core" arrays:required="true" layout:required="false" level="3" version="2" xmlns:arrays="http://www.sbml.org/sbml/level3/version1/arrays/version1" xmlns:layout="http://www.sbml.org/sbml/level3/version1/layout/version1">
+    <model id="Test_05" metaid="iBioSim2">
+        <layout:listOfLayouts xmlns:layout="http://www.sbml.org/sbml/level3/version1/layout/version1" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+            <layout:layout layout:id="iBioSim">
+                <layout:dimensions layout:depth="0" layout:height="260" layout:width="291"/>
+                <layout:listOfAdditionalGraphicalObjects>
+                    <layout:generalGlyph layout:id="Glyph__X" layout:reference="X">
+                        <layout:boundingBox>
+                            <layout:position layout:x="100" layout:y="133"/>
+                            <layout:dimensions layout:height="30" layout:width="30"/>
+                        </layout:boundingBox>
+                    </layout:generalGlyph>
+                    <layout:generalGlyph layout:id="Glyph__Y" layout:reference="Y">
+                        <layout:boundingBox>
+                            <layout:position layout:x="261" layout:y="107"/>
+                            <layout:dimensions layout:height="30" layout:width="30"/>
+                        </layout:boundingBox>
+                    </layout:generalGlyph>
+                    <layout:generalGlyph layout:id="Glyph__rule0" layout:metaidRef="rule0">
+                        <layout:boundingBox>
+                            <layout:position layout:x="234" layout:y="210"/>
+                            <layout:dimensions layout:height="50" layout:width="50"/>
+                        </layout:boundingBox>
+                        <layout:listOfReferenceGlyphs>
+                            <layout:referenceGlyph layout:glyph="Glyph__X" layout:id="Glyph__rule0__substrate__X" layout:role="substrate">
+                                <layout:curve>
+                                    <layout:listOfCurveSegments>
+                                        <layout:curveSegment xsi:type="LineSegment">
+                                            <layout:start layout:x="115" layout:y="148"/>
+                                            <layout:end layout:x="259" layout:y="235"/>
+                                        </layout:curveSegment>
+                                    </layout:listOfCurveSegments>
+                                </layout:curve>
+                            </layout:referenceGlyph>
+                            <layout:referenceGlyph layout:glyph="Glyph__Y" layout:id="Glyph__rule0__product__Y" layout:role="product">
+                                <layout:curve>
+                                    <layout:listOfCurveSegments>
+                                        <layout:curveSegment xsi:type="LineSegment">
+                                            <layout:start layout:x="259" layout:y="235"/>
+                                            <layout:end layout:x="276" layout:y="122"/>
+                                        </layout:curveSegment>
+                                    </layout:listOfCurveSegments>
+                                </layout:curve>
+                            </layout:referenceGlyph>
+                        </layout:listOfReferenceGlyphs>
+                    </layout:generalGlyph>
+                </layout:listOfAdditionalGraphicalObjects>
+                <layout:listOfTextGlyphs>
+                    <layout:textGlyph layout:graphicalObject="Glyph__X" layout:id="TextGlyph__X" layout:text="X[m][n]">
+                        <layout:boundingBox>
+                            <layout:position layout:x="100" layout:y="133"/>
+                            <layout:dimensions layout:height="30" layout:width="30"/>
+                        </layout:boundingBox>
+                    </layout:textGlyph>
+                    <layout:textGlyph layout:graphicalObject="Glyph__Y" layout:id="TextGlyph__Y" layout:text="Y[m][n]">
+                        <layout:boundingBox>
+                            <layout:position layout:x="261" layout:y="107"/>
+                            <layout:dimensions layout:height="30" layout:width="30"/>
+                        </layout:boundingBox>
+                    </layout:textGlyph>
+                    <layout:textGlyph layout:graphicalObject="Glyph__rule0" layout:id="TextGlyph__rule0" layout:text="rule0[m][n]">
+                        <layout:boundingBox>
+                            <layout:position layout:x="234" layout:y="210"/>
+                            <layout:dimensions layout:height="50" layout:width="50"/>
+                        </layout:boundingBox>
+                    </layout:textGlyph>
+                </layout:listOfTextGlyphs>
+            </layout:layout>
+        </layout:listOfLayouts>
+        <listOfParameters>
+            <parameter constant="true" id="n" value="2"/>
+            <parameter constant="true" id="m" value="3"/>
+            <parameter constant="false" id="Y_0_0" metaid="iBioSim3_0_0" value="0"/>
+            <parameter constant="false" id="Y_0_1" metaid="iBioSim3_0_1" value="0"/>
+            <parameter constant="false" id="Y_1_0" metaid="iBioSim3_1_0" value="0"/>
+            <parameter constant="false" id="Y_1_1" metaid="iBioSim3_1_1" value="0"/>
+            <parameter constant="false" id="Y_2_0" metaid="iBioSim3_2_0" value="0"/>
+            <parameter constant="false" id="Y_2_1" metaid="iBioSim3_2_1" value="0"/>
+            <parameter constant="false" id="X_0_0" metaid="iBioSim1_0_0" value="0"/>
+            <parameter constant="false" id="X_0_1" metaid="iBioSim1_0_1" value="0"/>
+            <parameter constant="false" id="X_1_0" metaid="iBioSim1_1_0" value="0"/>
+            <parameter constant="false" id="X_1_1" metaid="iBioSim1_1_1" value="0"/>
+            <parameter constant="false" id="X_2_0" metaid="iBioSim1_2_0" value="0"/>
+            <parameter constant="false" id="X_2_1" metaid="iBioSim1_2_1" value="0"/>
+        </listOfParameters>
+        <listOfInitialAssignments>
+            <initialAssignment metaid="init__X_0_0" symbol="X_0_0">
+                <math xmlns="http://www.w3.org/1998/Math/MathML">                
+                    <apply>
+                      <plus/>
+                      <cn type="integer"> 0 </cn>
+                      <cn type="integer"> 0 </cn>
+                    </apply>
+                </math>
+                        </initialAssignment>
+            <initialAssignment metaid="init__X_0_1" symbol="X_0_1">
+                <math xmlns="http://www.w3.org/1998/Math/MathML">                
+                    <apply>
+                      <plus/>
+                      <cn type="integer"> 0 </cn>
+                      <cn type="integer"> 1 </cn>
+                    </apply>
+                </math>
+                        </initialAssignment>
+            <initialAssignment metaid="init__X_1_0" symbol="X_1_0">
+                <math xmlns="http://www.w3.org/1998/Math/MathML">                
+                    <apply>
+                      <plus/>
+                      <cn type="integer"> 1 </cn>
+                      <cn type="integer"> 0 </cn>
+                    </apply>
+                </math>
+                        </initialAssignment>
+            <initialAssignment metaid="init__X_1_1" symbol="X_1_1">
+                <math xmlns="http://www.w3.org/1998/Math/MathML">                
+                    <apply>
+                      <plus/>
+                      <cn type="integer"> 1 </cn>
+                      <cn type="integer"> 1 </cn>
+                    </apply>
+                </math>
+                        </initialAssignment>
+            <initialAssignment metaid="init__X_2_0" symbol="X_2_0">
+                <math xmlns="http://www.w3.org/1998/Math/MathML">                
+                    <apply>
+                      <plus/>
+                      <cn type="integer"> 2 </cn>
+                      <cn type="integer"> 0 </cn>
+                    </apply>
+                </math>
+                        </initialAssignment>
+            <initialAssignment metaid="init__X_2_1" symbol="X_2_1">
+                <math xmlns="http://www.w3.org/1998/Math/MathML">                
+                    <apply>
+                      <plus/>
+                      <cn type="integer"> 2 </cn>
+                      <cn type="integer"> 1 </cn>
+                    </apply>
+                </math>
+                        </initialAssignment>
+        </listOfInitialAssignments>
+        <listOfRules>
+            <assignmentRule metaid="rule0_0_0" variable="Y_0_0">
+                <math xmlns="http://www.w3.org/1998/Math/MathML">                
+                    <ci> X_2_0 </ci>
+                </math>
+                        </assignmentRule>
+            <assignmentRule metaid="rule0_0_1" variable="Y_0_1">
+                <math xmlns="http://www.w3.org/1998/Math/MathML">                
+                    <ci> X_2_1 </ci>
+                </math>
+                        </assignmentRule>
+            <assignmentRule metaid="rule0_1_0" variable="Y_1_0">
+                <math xmlns="http://www.w3.org/1998/Math/MathML">                
+                    <ci> X_1_0 </ci>
+                </math>
+                        </assignmentRule>
+            <assignmentRule metaid="rule0_1_1" variable="Y_1_1">
+                <math xmlns="http://www.w3.org/1998/Math/MathML">                
+                    <ci> X_1_1 </ci>
+                </math>
+                        </assignmentRule>
+            <assignmentRule metaid="rule0_2_0" variable="Y_2_0">
+                <math xmlns="http://www.w3.org/1998/Math/MathML">                
+                    <ci> X_0_0 </ci>
+                </math>
+                        </assignmentRule>
+            <assignmentRule metaid="rule0_2_1" variable="Y_2_1">
+                <math xmlns="http://www.w3.org/1998/Math/MathML">                
+                    <ci> X_0_1 </ci>
+                </math>
+                        </assignmentRule>
+        </listOfRules>
+    </model>
+</sbml>

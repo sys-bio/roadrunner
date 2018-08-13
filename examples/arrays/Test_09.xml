@@ -1,0 +1,113 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<sbml xmlns="http://www.sbml.org/sbml/level3/version2/core" arrays:required="true" level="3" version="2" xmlns:arrays="http://www.sbml.org/sbml/level3/version1/arrays/version1">
+    <model id="Test_09" metaid="iBioSim4">
+    <listOfFunctionDefinitions/>
+    <listOfUnitDefinitions/>
+    <listOfCompartments>
+      <compartment constant="true" id="Cell" size="1" spatialDimensions="3"/>
+    </listOfCompartments>
+    <listOfSpecies>
+      <species boundaryCondition="false" compartment="Cell" constant="false" hasOnlySubstanceUnits="true" id="S0" initialAmount="10" metaid="iBioSim1">
+        <arrays:listOfDimensions xmlns:arrays="http://www.sbml.org/sbml/level3/version1/arrays/version1">
+          <arrays:dimension arrays:arrayDimension="0" arrays:id="d0" arrays:size="n"/>
+        </arrays:listOfDimensions>
+      </species>
+      <species boundaryCondition="false" compartment="Cell" constant="false" hasOnlySubstanceUnits="true" id="S1" initialAmount="0" metaid="iBioSim3">
+        <arrays:listOfDimensions xmlns:arrays="http://www.sbml.org/sbml/level3/version1/arrays/version1">
+          <arrays:dimension arrays:arrayDimension="0" arrays:id="d0" arrays:size="n"/>
+        </arrays:listOfDimensions>
+      </species>
+    </listOfSpecies>
+    <listOfParameters>
+      <parameter constant="true" id="n" metaid="iBioSim2" value="5"/>
+      <parameter constant="false" id="k" metaid="iBioSim6" value="0">
+        <arrays:listOfDimensions xmlns:arrays="http://www.sbml.org/sbml/level3/version1/arrays/version1">
+          <arrays:dimension arrays:arrayDimension="0" arrays:id="d0" arrays:size="n"/>
+        </arrays:listOfDimensions>
+      </parameter>
+    </listOfParameters>
+    <listOfInitialAssignments/>
+    <listOfRules>
+      <assignmentRule metaid="rule0" variable="k">
+        <math xmlns="http://www.w3.org/1998/Math/MathML">
+          <apply>
+            <times/>
+            <cn> 0.1 </cn>
+            <apply>
+              <plus/>
+              <ci> d0 </ci>
+              <cn type="integer"> 1 </cn>
+            </apply>
+          </apply>
+        </math>
+        <arrays:listOfDimensions xmlns:arrays="http://www.sbml.org/sbml/level3/version1/arrays/version1">
+          <arrays:dimension arrays:arrayDimension="0" arrays:id="d0" arrays:size="n"/>
+        </arrays:listOfDimensions>
+        <arrays:listOfIndices xmlns:arrays="http://www.sbml.org/sbml/level3/version1/arrays/version1">
+          <arrays:index arrays:arrayDimension="0" arrays:referencedAttribute="variable">
+            <math xmlns="http://www.w3.org/1998/Math/MathML">
+              <ci> d0 </ci>
+            </math>
+          </arrays:index>
+        </arrays:listOfIndices>
+      </assignmentRule>
+    </listOfRules>
+    <listOfConstraints/>
+    <listOfReactions>
+      <reaction compartment="Cell" id="R0" metaid="iBioSim5" reversible="false">
+        <arrays:listOfDimensions xmlns:arrays="http://www.sbml.org/sbml/level3/version1/arrays/version1">
+          <arrays:dimension arrays:arrayDimension="0" arrays:id="d0" arrays:size="n"/>
+        </arrays:listOfDimensions>
+        <listOfReactants>
+          <speciesReference constant="true" species="S0" stoichiometry="1">
+            <arrays:listOfIndices xmlns:arrays="http://www.sbml.org/sbml/level3/version1/arrays/version1">
+              <arrays:index arrays:arrayDimension="0" arrays:referencedAttribute="species">
+                <math xmlns="http://www.w3.org/1998/Math/MathML">
+                  <ci> d0 </ci>
+                </math>
+              </arrays:index>
+            </arrays:listOfIndices>
+          </speciesReference>
+        </listOfReactants>
+        <listOfProducts>
+          <speciesReference constant="true" species="S1" stoichiometry="1">
+            <arrays:listOfIndices xmlns:arrays="http://www.sbml.org/sbml/level3/version1/arrays/version1">
+              <arrays:index arrays:arrayDimension="0" arrays:referencedAttribute="species">
+                <math xmlns="http://www.w3.org/1998/Math/MathML">
+                  <ci> d0 </ci>
+                </math>
+              </arrays:index>
+            </arrays:listOfIndices>
+          </speciesReference>
+        </listOfProducts>
+        <listOfModifiers/>
+        <kineticLaw>
+          <math xmlns="http://www.w3.org/1998/Math/MathML">
+            <apply>
+              <times/>
+              <apply>
+                <selector/>
+                <ci> k </ci>
+                <ci> d0 </ci>
+              </apply>
+              <apply>
+                <selector/>
+                <ci> S0 </ci>
+                <ci> d0 </ci>
+              </apply>
+            </apply>
+          </math>
+          <listOfLocalParameters/>
+        </kineticLaw>
+        <arrays:listOfIndices xmlns:arrays="http://www.sbml.org/sbml/level3/version1/arrays/version1">
+          <arrays:index arrays:arrayDimension="0" arrays:referencedAttribute="species">
+            <math xmlns="http://www.w3.org/1998/Math/MathML">
+            <ci> d0 </ci>
+            </math>
+          </arrays:index>
+        </arrays:listOfIndices>
+      </reaction>
+    </listOfReactions>
+    <listOfEvents/>
+  </model>
+</sbml>
