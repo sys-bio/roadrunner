@@ -1,8 +1,6 @@
 #ifndef ASTPreProcessorH
 #define ASTPreProcessorH
 
-#define valMap std::map<std::string, unsigned int>
-
 #include <map>
 
 namespace libsbml
@@ -17,6 +15,8 @@ class ASTPreProcessor
   public:
     ASTPreProcessor();
     ~ASTPreProcessor();
+
+	typedef std::map<std::string, unsigned int> valMap;
 
     libsbml::ASTNode *preProcess(libsbml::ASTNode *ast, valMap *values);
 
