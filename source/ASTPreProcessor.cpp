@@ -184,17 +184,17 @@ namespace rr
 			//'plus' and 'times' both might have zero children.  This is legal MathML!
 			if (type == AST_PLUS)
 			{
-				ASTNode zero(AST_INTEGER);
-				zero.setValue(0);
+				ASTNode *zero = new ASTNode(AST_INTEGER);
+				zero->setValue(0);
 				free(ast);
-				return &zero;
+				return zero;
 			}
 			if (type == AST_TIMES)
 			{
-				ASTNode one(AST_INTEGER);
-				one.setValue(1);
+				ASTNode *one = new ASTNode(AST_INTEGER);
+				one->setValue(1);
 				free(ast);
-				return &one;
+				return one;
 			}
 
 			stringstream err;
@@ -317,7 +317,9 @@ namespace rr
 					{
 						throw invalid_argument("Dimension of parameter is not a positive integer");
 					}
-					res += to_string((uint)iptr);
+					std::ostringstream ostr;
+					ostr << (uint)iptr;
+					res += ostr.str();
 				}
 			}
 			ast->~ASTNode();
