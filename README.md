@@ -12,7 +12,7 @@ E. T. Somogyi <sup>1</sup>, J. K. Medley <sup>3</sup>, M. T. Karlsson <sup>2</su
 
 ## Introduction
 
-libRoadRunner is a high performance and portable simulation engine for systems and synthetic biology.
+libRoadRunner is a high-performance and portable simulation engine for systems and synthetic biology.
 
 ## Contributing
 
