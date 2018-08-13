@@ -319,28 +319,34 @@ uint LLVMModelDataSymbols::getGlobalParameterIndex(
 }
 
 set<string> LLVMModelDataSymbols::getArrayedElements(
-		const std::string& id, const LLVMModelDataSymbols::SymbolIndexType *sit) const
+		const std::string& id, const uint type) const
 {
 	set<string> res;
-	switch (*sit)
+	switch (type)
 	{
-	case FLOATING_SPECIES:
+	case 0: // FLOATING_SPECIES
 		res = arrayedFltSpecies.find(id)->second;
 		break;
-	case BOUNDARY_SPECIES:
+	case 1: // BOUNDARY_SPECIES
 		res = arrayedBndSpecies.find(id)->second;
 		break;
-	case COMPARTMENT:
+	case 2: // COMPARTMENT
 		res = arrayedCompartments.find(id)->second;
 		break;
-	case GLOBAL_PARAMETER:
+	case 3: // GLOBAL_PARAMETER
 		res = arrayedGlobalParameters.find(id)->second;
 		break;
-	case REACTION:
+	case 4: // REACTION
 		res = arrayedReactions.find(id)->second;
 		break;
-	case EVENT:
+	case 5: // EVENTS
 		res = arrayedEvents.find(id)->second;
+		break;
+	case 6: // Get reactants of a reaction
+		res = reactionReactants.find(id)->second;
+		break;
+	case 7: // Get products of a reaction
+		res = reactionProducts.find(id)->second;
 		break;
 	default:
 		throw LLVMException("Could not find element with ID " + id, __FUNC__);
@@ -641,6 +647,56 @@ bool LLVMModelDataSymbols::isIndependentElement(const std::string& id) const
             assigmentRules.find(id) == assigmentRules.end();
 }
 
+/**
+ * Get the dimensions from the string
+*/
+vector<uint> LLVMModelDataSymbols::getDimensions(const string& id) const
+{
+	vector<uint> result;
+	string s = id;
+	size_t pos = 0;
+	bool flg = false;
+	std::string delimiter = "-", token;
+	while ((pos = s.find(delimiter)) != std::string::npos)
+	{
+		token = s.substr(0, pos);
+		if(flg)
+			result.push_back(stoi(token));
+		flg = true;
+		s.erase(0, pos + delimiter.length());
+	}
+	if(flg)
+		result.push_back(stoi(s));
+	return result;
+}
+
+ASTNode* LLVMModelDataSymbols::getReactionLaw(const std::string& id) const
+{
+	std::map<std::string, libsbml::ASTNode* >::const_iterator i = reactionLaw.find(id);
+	if (i != reactionLaw.end())
+	{
+		return i->second;
+	}
+	else
+	{
+		throw LLVMException("Could not find a reaction with ID " + id, __FUNC__);
+	}
+}
+
+string LLVMModelDataSymbols::getSpeciesCompartment(const string& id) const
+{
+	std::map<std::string, std::string>::const_iterator i = speciesCompartment.find(id);
+	if (i != speciesCompartment.end())
+	{
+		return i->second;
+	}
+	else
+	{
+		throw LLVMException("Could not find a species with ID " + id, __FUNC__);
+	}
+}
+
+
 string LLVMModelDataSymbols::decodeArrayId(const string& id) const
 {
 	size_t found = id.find_first_of("-");
@@ -738,9 +794,11 @@ void LLVMModelDataSymbols::initArray(const Model* model, uint *type, list<string
 			" has a value that is not a positive integer";
 		throw invalid_argument("Dimension " + to_string(ind) + " of parameter " + dimensionSizeId + " is not a positive integer");
 	}
-	if(ind==sizeOfDimensions[*id].size())
+	if (ind == sizeOfDimensions[*id].size())
+	{
+		// Add the size of dimensions of elements
 		sizeOfDimensions[*id].push_back((uint)iptr);
-	
+	}
 	// Create the list of parameters
 	for (uint i = 0; i < sizeOfDimensions[*id][ind]; i++)
 	{
@@ -1209,22 +1267,32 @@ void LLVMModelDataSymbols::initFloatingSpecies(const libsbml::Model* model,
 		const ArraysSBasePlugin * arraysPlug = static_cast<const ArraysSBasePlugin*>(s->getPlugin("arrays"));
 		if (arraysPlug && arraysPlug->getNumDimensions())
 		{
-			vector<uint> sizeOfDimensions = this->getSizeOfDimensions(s->getId());
 			map<string, uint> values;
 			uint sizeOfIndices = arraysPlug->getNumIndices();
+			if (sizeOfIndices == 0)
+			{
+				throw_llvm_exception("species " + s->getId() +
+					" does not reference a compartment ");
+			}
 			ASTNode* rhs = new ASTNode(AST_LINEAR_ALGEBRA_SELECTOR);
 			ASTNode* var = new ASTNode(AST_NAME);
 			// Referenced attribute can be a compartment or a conversion factor
-			var->setName(arraysPlug->getIndex(0)->getReferencedAttribute().c_str());
+			string referencedAttributeId;
+			s->getAttribute(arraysPlug->getIndex(0)->getReferencedAttribute(), referencedAttributeId);
+			var->setName(referencedAttributeId.c_str());
 			rhs->addChild(var);
 			for (uint j = 0; j < sizeOfIndices; j++)
 			{
 				ASTNode* child = arraysPlug->getIndex(j)->getMath()->deepCopy();
 				rhs->addChild(child);
 			}
+			vector<uint> dimensions = getDimensions(i->first);
+			for (uint k = 0; k < dimensions.size(); k++)
+			{
+				values[arraysPlug->getDimension(k)->getId()] = dimensions[k];
+			}
 			getUnknownValues(model, &values, rhs);
-			ASTNode* result = rr::ASTPreProcessor().preProcess(rhs, &values);
-			// In the case the referenced attribute is a compartment
+			ASTNode *result = rr::ASTPreProcessor().preProcess(rhs, &values);
 			StringUIntMap::const_iterator j =
 				compartmentsMap.find(result->getName());
 			if (j == compartmentsMap.end())
@@ -1236,6 +1304,8 @@ void LLVMModelDataSymbols::initFloatingSpecies(const libsbml::Model* model,
 			assert(i->second < floatingSpeciesCompartmentIndices.size());
 			assert(j->second < compartmentsMap.size());
 			floatingSpeciesCompartmentIndices[i->second] = j->second;
+			speciesCompartment[i->first] = (result->getName());
+			// In the case the referenced attribute is a compartment
 		}
 #endif
 		else
@@ -1251,6 +1321,7 @@ void LLVMModelDataSymbols::initFloatingSpecies(const libsbml::Model* model,
 			assert(i->second < floatingSpeciesCompartmentIndices.size());
 			assert(j->second < compartmentsMap.size());
 			floatingSpeciesCompartmentIndices[i->second] = j->second;
+			speciesCompartment[i->first] = s->getCompartment();
 		}
 	}
 
@@ -1443,13 +1514,287 @@ void  LLVMModelDataSymbols::setNamedSpeciesReferenceInfo(uint row, uint column,
 typedef std::vector<LLVMModelDataSymbols::SpeciesReferenceType>::size_type ssize_type;
 typedef cxx11_ns::unordered_map<uint, ssize_type> UIntUMap;
 
+/**
+ * @param origId - The original ID of the reaction in the actual SBML
+ * @param count - The reaction count for storing the reactions
+ * @param ind - Dimension index
+ * @param values - List of dimension values and any other values required to get the array ID
+*/
+void LLVMModelDataSymbols::initArrayedReaction(const libsbml::Model* model, const uint *origId, uint *count, uint ind, map <string, uint> *values)
+{
+	static const Reaction* reaction = model->getReaction(*origId);
+	static const ArraysSBasePlugin * arraysPlug = static_cast<const ArraysSBasePlugin*>(reaction->getPlugin("arrays"));
+	if (ind == arraysPlug->getNumDimensions())
+	{
+		// Values should contain the value of all the dimensions
+		uint sizeOfIndices = arraysPlug->getNumIndices();
+		ASTNode* reactionMath = new ASTNode(AST_LINEAR_ALGEBRA_SELECTOR);
+		ASTNode* var = new ASTNode(AST_NAME);
+		var->setName(reaction->getIdAttribute().c_str());
+		reactionMath->addChild(var);
+		for (uint i = 0; i < sizeOfIndices; i++)
+		{
+			reactionMath->addChild(arraysPlug->getIndexByArrayDimension(i)->getMath()->deepCopy());
+		}
+		getUnknownValues(model, values, reactionMath);
+		ASTNode* result = rr::ASTPreProcessor().preProcess(reactionMath, values);
+		reactionMath->~ASTNode();
+		reactionsMap.insert(StringUIntPair(string(result->getName()), *count));
+		arrayedReactions[reaction->getId()].insert(result->getName());
+		string rId = result->getName();
 
+		// keep track of species in this reaction.
+		UIntUMap speciesMap;
+
+		// go through the reaction reactants and products to know how much to
+		// allocate space for the stochiometry matrix.
+		// all species that participate in reactions must be floating.
+		const ListOfSpeciesReferences *reactants = reaction->getListOfReactants();
+		for (uint j = 0; j < reactants->size(); j++)
+		{
+			const SimpleSpeciesReference *r = reactants->get(j);
+			const ArraysSBasePlugin *arraysSR = static_cast<const ArraysSBasePlugin*>(r->getPlugin("arrays"));
+			
+			uint sizeOfIndices = arraysSR->getNumIndices();
+			ASTNode* reactantMath = new ASTNode(AST_LINEAR_ALGEBRA_SELECTOR);
+			// Species reference ID
+			ASTNode* reactantIdMath = new ASTNode(AST_LINEAR_ALGEBRA_SELECTOR);
+			if (r->isSetId())
+			{
+				ASTNode* foo = new ASTNode(AST_NAME);
+				foo->setName(r->getId().c_str());
+				reactantIdMath->addChild(foo);
+			}
+			var = new ASTNode(AST_NAME);
+			var->setName(r->getSpecies().c_str());
+			reactantMath->addChild(var);
+			for (uint i = 0; i < sizeOfIndices; i++)
+			{
+				ASTNode *child = arraysSR->getIndexByArrayDimension(i)->getMath()->deepCopy();
+				reactantMath->addChild(child);
+				if (r->isSetId())
+					reactantIdMath->addChild(child);
+			}
+			getUnknownValues(model, values, reactantMath);
+			result = rr::ASTPreProcessor().preProcess(reactantMath, values);
+			getUnknownValues(model, values, reactantIdMath);
+			ASTNode *reactantId = rr::ASTPreProcessor().preProcess(reactantIdMath, values);
+			if (isValidFloatingSpeciesReference(result->getName(), "reactant"))
+			{
+				// at this point, we'd better have a floating species
+				uint speciesIdx = getFloatingSpeciesIndex(result->getName());
+
+				UIntUMap::const_iterator si = speciesMap.find(speciesIdx);
+				reactionReactants[rId].insert(result->getName());
+
+				if (si == speciesMap.end())
+				{
+					stoichColIndx.push_back(*count);
+					stoichRowIndx.push_back(speciesIdx);
+					stoichIds.push_back(r->isSetId() ? reactantId->getName() : "");
+					stoichTypes.push_back(Reactant);
+
+					// in case this species is both a product and reactant, can look up
+					// index of the just added Reactant
+					speciesMap[speciesIdx] = stoichTypes.size() - 1;
+
+					if (r->isSetId() && r->getId().length() > 0)
+					{
+						if (namedSpeciesReferenceInfo.find(reactantId->getName()) ==
+							namedSpeciesReferenceInfo.end())
+						{
+							SpeciesReferenceInfo info =
+							{ speciesIdx, *count, Reactant, reactantId->getName() };
+							namedSpeciesReferenceInfo[reactantId->getName()] = info;
+						}
+						else
+						{
+							string msg = "Species Reference with id ";
+							msg += reactantId->getName();
+							msg += " appears more than once in the model";
+							throw_llvm_exception(msg);
+						}
+					}
+				}
+				else
+				{
+					Log(Logger::LOG_INFORMATION)
+						<< "Experimental multi product-reactant stochiometry code"
+						<< "with reactant " << result->getName();
+
+					// species is listed multiple times as reactant
+					stoichTypes[si->second] = MultiReactantProduct;
+
+					// set all the other ones to Multi...
+					setNamedSpeciesReferenceInfo(speciesIdx, *count, MultiReactantProduct);
+
+					if (r->isSetId() && r->getId().length() > 0)
+					{
+						if (namedSpeciesReferenceInfo.find(reactantId->getName()) ==
+							namedSpeciesReferenceInfo.end())
+						{
+							SpeciesReferenceInfo info =
+							{ speciesIdx, *count, MultiReactantProduct, reactantId->getName() };
+							namedSpeciesReferenceInfo[reactantId->getName()] = info;
+						}
+						else
+						{
+							string msg = "Species Reference with id ";
+							msg += reactantId->getName();
+							msg += " appears more than once in the model";
+							throw_llvm_exception(msg);
+						}
+					}
+				}
+			}
+		}
+
+		const ListOfSpeciesReferences *products = reaction->getListOfProducts();
+		for (uint j = 0; j < products->size(); j++)
+		{
+			const SimpleSpeciesReference *p = products->get(j);
+			const ArraysSBasePlugin *arraysSR = static_cast<const ArraysSBasePlugin*>(p->getPlugin("arrays"));
+
+			uint sizeOfIndices = arraysSR->getNumIndices();
+			ASTNode* productMath = new ASTNode(AST_LINEAR_ALGEBRA_SELECTOR);
+			// Species reference ID
+			ASTNode* productIdMath = new ASTNode(AST_LINEAR_ALGEBRA_SELECTOR);
+			if (p->isSetId())
+			{
+				ASTNode* foo = new ASTNode(AST_NAME);
+				foo->setName(p->getId().c_str());
+				productIdMath->addChild(foo);
+			}
+			var = new ASTNode(AST_NAME);
+			var->setName(p->getSpecies().c_str());
+			productMath->addChild(var);
+			for (uint i = 0; i < sizeOfIndices; i++)
+			{
+				ASTNode *child = arraysSR->getIndexByArrayDimension(i)->getMath()->deepCopy();
+				productMath->addChild(child);
+				if (p->isSetId())
+					productIdMath->addChild(child);
+			}
+			getUnknownValues(model, values, productMath);
+			result = rr::ASTPreProcessor().preProcess(productMath, values);
+			getUnknownValues(model, values, productIdMath);
+			ASTNode *productId = rr::ASTPreProcessor().preProcess(productIdMath, values);
+			// products had better be in the stoich matrix.
+
+			if (isValidFloatingSpeciesReference(result->getName(), "product"))
+			{
+				uint speciesIdx = getFloatingSpeciesIndex(result->getName());
+
+				UIntUMap::const_iterator si = speciesMap.find(speciesIdx);
+				reactionProducts[rId].insert(result->getName());
+
+				if (si == speciesMap.end())
+				{
+					// its not already a reactant, can add another
+					// non-zero stoich entry
+					stoichColIndx.push_back(*count);
+					stoichRowIndx.push_back(speciesIdx);
+					stoichIds.push_back(p->isSetId() ? productId->getName() : "");
+					stoichTypes.push_back(Product);
+
+					if (p->isSetId() && p->getId().length() > 0)
+					{
+						if (namedSpeciesReferenceInfo.find(productId->getName())
+							== namedSpeciesReferenceInfo.end())
+						{
+							SpeciesReferenceInfo info =
+							{ speciesIdx, *count, Product, productId->getName() };
+							namedSpeciesReferenceInfo[productId->getName()] = info;
+						}
+						else
+						{
+							string msg = "Species Reference with id ";
+							msg += productId->getName();
+							msg += " appears more than once in the model";
+							throw_llvm_exception(msg);
+						}
+					}
+				}
+				else
+				{
+					Log(Logger::LOG_INFORMATION)
+						<< "Experimental multi product stochiometry code "
+						<< "with product " << result->getName();
+
+					// species is listed multiple times as product
+					stoichTypes[si->second] = MultiReactantProduct;
+
+					// set all the other ones to Multi...
+					setNamedSpeciesReferenceInfo(speciesIdx, *count, MultiReactantProduct);
+
+					if (p->isSetId() && p->getId().length() > 0)
+					{
+						if (namedSpeciesReferenceInfo.find(productId->getName()) ==
+							namedSpeciesReferenceInfo.end())
+						{
+							SpeciesReferenceInfo info =
+							{ speciesIdx, *count, MultiReactantProduct, productId->getName() };
+							namedSpeciesReferenceInfo[productId->getName()] = info;
+						}
+						else
+						{
+							string msg = "Species Reference with id ";
+							msg += productId->getName();
+							msg += " appears more than once in the model";
+							throw_llvm_exception(msg);
+						}
+					}
+				}
+			}
+		}
+		const KineticLaw *kinetic = reaction->getKineticLaw();
+		ASTNode *math = 0;
+		ASTNode m(AST_REAL);
+		if (kinetic)
+		{
+			ASTNode *law = kinetic->getMath()->deepCopy();
+			getUnknownValues(model, values, law);
+			math = rr::ASTPreProcessor().preProcess(law, values);
+		}
+		else
+		{
+			Log(Logger::LOG_WARNING) << "Reaction " + reaction->getId() + " has no KineticLaw, it will be set to zero";
+			m.setValue(0);
+			math = &m;
+		}
+		reactionLaw[rId] = math;
+		// Increment the reaction count
+		(*count) += 1;
+		return;
+	}
+	const string& dimensionSizeId = arraysPlug->getDimension(ind)->getSize();
+	double val = model->getParameter(dimensionSizeId)->getValue();
+	double iptr;
+	if (modf(val, &iptr) != 0.0 || iptr < 0.0)
+	{
+		Log(Logger::LOG_ERROR) << "Dimension " << ind << " of " << dimensionSizeId <<
+			" has a value that is not a positive integer";
+		throw invalid_argument("Dimension " + to_string(ind) + " of parameter " + dimensionSizeId + " is not a positive integer");
+	}
+	if (ind == sizeOfDimensions[reaction->getId()].size())
+	{
+		// Add the size of dimensions of elements
+		sizeOfDimensions[reaction->getId()].push_back((uint)iptr);
+	}
+	string id = arraysPlug->getDimensionByArrayDimension(ind)->getIdAttribute();
+	for (uint i = 0; i < sizeOfDimensions[reaction->getId()][ind]; i++)
+	{
+		(*values)[id] = i;
+		initArrayedReaction(model, origId, count, ind + 1, values);
+	}
+}
 
 void LLVMModelDataSymbols::initReactions(const libsbml::Model* model)
 {
     // get the reactions
     const ListOfReactions *reactions = model->getListOfReactions();
-    for (uint i = 0; i < reactions->size(); i++)
+	uint count = 0;
+    for (uint i = 0; i < reactions->size(); i++, count++)
     {
         const Reaction *reaction = reactions->get(i);
         if (reaction->isSetFast() && reaction->getFast()==true) {
@@ -1457,7 +1802,21 @@ void LLVMModelDataSymbols::initReactions(const libsbml::Model* model)
             << "Unable to handle SBML fast reactions. Reaction '"
             << reaction->getId() << "' treated as a slow reaction.";
         }
-        reactionsMap.insert(StringUIntPair(reaction->getId(), i));
+#ifndef LIBSBML_HAS_PACKAGE_ARRAYS
+		if (reaction->isPackageEnabled("arrays"))
+			throw runtime_error("Reaction " + reaction->getId() + " is an array. Please build roadrunner with LIBSBML Arrays package enabled");
+#else
+		const ArraysSBasePlugin * arraysPlug = static_cast<const ArraysSBasePlugin*>(reaction->getPlugin("arrays"));
+		if (arraysPlug && arraysPlug->getNumDimensions())
+		{
+			uint sizeOfIndices = arraysPlug->getNumIndices();
+			map<string, uint> values;
+			initArrayedReaction(model, &i, &count, 0, &values);
+			continue;
+		}
+#endif
+		reactionsMap.insert(StringUIntPair(reaction->getId(), count));
+		arrayedReactions[reaction->getId()].insert(reaction->getId());
 
         // keep track of species in this reaction.
         UIntUMap speciesMap;
@@ -1469,17 +1828,18 @@ void LLVMModelDataSymbols::initReactions(const libsbml::Model* model)
         for (uint j = 0; j < reactants->size(); j++)
         {
             const SimpleSpeciesReference *r = reactants->get(j);
-
-            if (isValidFloatingSpeciesReference(r, "reactant"))
+			
+            if (isValidFloatingSpeciesReference(r->getSpecies(), "reactant"))
             {
                 // at this point, we'd better have a floating species
                 uint speciesIdx = getFloatingSpeciesIndex(r->getSpecies());
 
                 UIntUMap::const_iterator si = speciesMap.find(speciesIdx);
+				reactionReactants[reaction->getId()].insert(r->getSpecies());
 
                 if (si == speciesMap.end())
                 {
-                    stoichColIndx.push_back(i);
+                    stoichColIndx.push_back(count);
                     stoichRowIndx.push_back(speciesIdx);
                     stoichIds.push_back(r->isSetId() ? r->getId() : "");
                     stoichTypes.push_back(Reactant);
@@ -1494,7 +1854,7 @@ void LLVMModelDataSymbols::initReactions(const libsbml::Model* model)
                                 namedSpeciesReferenceInfo.end())
                         {
                             SpeciesReferenceInfo info =
-                            {speciesIdx, i, Reactant, r->getId()};
+                            {speciesIdx, count, Reactant, r->getId()};
                             namedSpeciesReferenceInfo[r->getId()] = info;
                         }
                         else
@@ -1516,7 +1876,7 @@ void LLVMModelDataSymbols::initReactions(const libsbml::Model* model)
                     stoichTypes[si->second] = MultiReactantProduct;
 
                     // set all the other ones to Multi...
-                    setNamedSpeciesReferenceInfo(speciesIdx, i, MultiReactantProduct);
+                    setNamedSpeciesReferenceInfo(speciesIdx, count, MultiReactantProduct);
 
                     if(r->isSetId() && r->getId().length() > 0)
                     {
@@ -1524,7 +1884,7 @@ void LLVMModelDataSymbols::initReactions(const libsbml::Model* model)
                                 namedSpeciesReferenceInfo.end())
                         {
                             SpeciesReferenceInfo info =
-                            {speciesIdx, i, MultiReactantProduct, r->getId()};
+                            {speciesIdx, count, MultiReactantProduct, r->getId()};
                             namedSpeciesReferenceInfo[r->getId()] = info;
                         }
                         else
@@ -1545,17 +1905,18 @@ void LLVMModelDataSymbols::initReactions(const libsbml::Model* model)
             const SimpleSpeciesReference *p = products->get(j);
             // products had better be in the stoich matrix.
 
-            if (isValidFloatingSpeciesReference(p, "product"))
+            if (isValidFloatingSpeciesReference(p->getSpecies(), "product"))
             {
                 uint speciesIdx = getFloatingSpeciesIndex(p->getSpecies());
 
                 UIntUMap::const_iterator si = speciesMap.find(speciesIdx);
+				reactionProducts[products->getId()].insert(p->getSpecies());
 
                 if (si == speciesMap.end())
                 {
                     // its not already a reactant, can add another
                     // non-zero stoich entry
-                    stoichColIndx.push_back(i);
+                    stoichColIndx.push_back(count);
                     stoichRowIndx.push_back(speciesIdx);
                     stoichIds.push_back(p->isSetId() ? p->getId() : "");
                     stoichTypes.push_back(Product);
@@ -1566,7 +1927,7 @@ void LLVMModelDataSymbols::initReactions(const libsbml::Model* model)
                                 == namedSpeciesReferenceInfo.end())
                         {
                             SpeciesReferenceInfo info =
-                            { speciesIdx, i, Product, p->getId()};
+                            { speciesIdx, count, Product, p->getId()};
                             namedSpeciesReferenceInfo[p->getId()] = info;
                         }
                         else
@@ -1588,7 +1949,7 @@ void LLVMModelDataSymbols::initReactions(const libsbml::Model* model)
                     stoichTypes[si->second] = MultiReactantProduct;
 
                     // set all the other ones to Multi...
-                    setNamedSpeciesReferenceInfo(speciesIdx, i, MultiReactantProduct);
+                    setNamedSpeciesReferenceInfo(speciesIdx, count, MultiReactantProduct);
 
                     if(p->isSetId() && p->getId().length() > 0)
                     {
@@ -1596,7 +1957,7 @@ void LLVMModelDataSymbols::initReactions(const libsbml::Model* model)
                                 namedSpeciesReferenceInfo.end())
                         {
                             SpeciesReferenceInfo info =
-                            {speciesIdx, i, MultiReactantProduct, p->getId()};
+                            {speciesIdx, count, MultiReactantProduct, p->getId()};
                             namedSpeciesReferenceInfo[p->getId()] = info;
                         }
                         else
@@ -1610,16 +1971,28 @@ void LLVMModelDataSymbols::initReactions(const libsbml::Model* model)
                 }
             }
         }
+		const KineticLaw *kinetic = reaction->getKineticLaw();
+		ASTNode *math = 0;
+		ASTNode m(AST_REAL);
+		if (kinetic)
+		{
+			math = kinetic->getMath()->deepCopy();
+		}
+		else
+		{
+			Log(Logger::LOG_WARNING) << "Reaction " + reaction->getId() + " has no KineticLaw, it will be set to zero";
+			m.setValue(0);
+			math = &m;
+		}
+		reactionLaw[reaction->getId()] = math;
     }
 }
 
 
 
 bool LLVMModelDataSymbols::isValidFloatingSpeciesReference(
-        const libsbml::SimpleSpeciesReference* ref, const std::string& reacOrProd)
+        const string& id, const std::string& reacOrProd)
 {
-    string id = ref->getSpecies();
-
     // can only define a reaction for a floating species
     if (isIndependentFloatingSpecies(id))
     {
@@ -1631,8 +2004,7 @@ bool LLVMModelDataSymbols::isValidFloatingSpeciesReference(
         return false;
     }
 
-    string err = "the species reference with id ";
-    err += string("\'" + ref->getId() + "\', ");
+    string err = "the species reference ";
     err += "which references species ";
     string("\'" + id + "\', ");
     err += "is NOT a valid " + reacOrProd + " reference, ";

@@ -36,23 +36,10 @@ LoadSymbolResolverBase::LoadSymbolResolverBase(
 
 
 llvm::Value* LoadSymbolResolverBase::loadReactionRate(
-        const libsbml::Reaction* reaction)
+        const libsbml::Reaction* reaction, const string& id)
 {
-    const KineticLaw *kinetic = reaction->getKineticLaw();
-    const ASTNode *math = 0;
-    Value *value = 0;
-    ASTNode m(AST_REAL);
-    if (kinetic)
-    {
-        math = kinetic->getMath();
-    }
-    else
-    {
-        Log(Logger::LOG_WARNING) << "Reaction " + reaction->getId() + " has no KineticLaw, it will be set to zero";
-        m.setValue(0);
-        math = &m;
-    }
-
+	const KineticLaw *kinetic = reaction->getKineticLaw();
+	const ASTNode *math = modelDataSymbols.getReactionLaw(id);
     KineticLawParameterResolver lpResolver(*this, *kinetic, builder);
     ASTNodeCodeGen astCodeGen(builder, lpResolver);
 

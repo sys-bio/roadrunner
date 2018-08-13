@@ -94,8 +94,7 @@ LLVMModelSymbols::LLVMModelSymbols(const libsbml::Model *m, LLVMModelDataSymbols
 		// which would have thrown an error
 		if (param->getPlugin("arrays") != NULL)
 		{
-			const LLVMModelDataSymbols::SymbolIndexType sit = LLVMModelDataSymbols::GLOBAL_PARAMETER;
-			const set<string> arrayedParameters = symbols.getArrayedElements(param->getId(), &sit);
+			const set<string> arrayedParameters = symbols.getArrayedElements(param->getId(), 3);
 			for (set<string>::const_iterator it = arrayedParameters.begin(), jt = arrayedParameters.end(); it!=jt; it++)
 			{
 				initialValues.globalParameters[*it] = value;
@@ -141,8 +140,7 @@ bool LLVMModelSymbols::visit(const libsbml::Compartment& x)
     }
 	if (x.getPlugin("arrays") != NULL)
 	{
-		const LLVMModelDataSymbols::SymbolIndexType sit = LLVMModelDataSymbols::COMPARTMENT;
-		const set<string> arrayedCompartments = this->symbols.getArrayedElements(x.getId(), &sit);
+		const set<string> arrayedCompartments = this->symbols.getArrayedElements(x.getId(), 2);
 		for (set<string>::const_iterator it = arrayedCompartments.begin(), jt = arrayedCompartments.end(); it != jt; it++)
 		{
 			initialValues.compartments[*it] = node;
@@ -252,74 +250,76 @@ bool LLVMModelSymbols::visit(const libsbml::Rule& x)
 // Need to update for Reactions Vin
 bool LLVMModelSymbols::visit(const libsbml::Reaction& r)
 {
-    const ListOfSpeciesReferences *reactants = r.getListOfReactants();
-    const ListOfSpeciesReferences *products = r.getListOfProducts();
+	set<string> arrayedReactions = symbols.getArrayedElements(r.getId(), 4);
+	for (set<string>::const_iterator reactionId = arrayedReactions.begin(), it = arrayedReactions.end(); reactionId!=it; reactionId++)
+	{
+		ReactionSymbols &rs = reactions[symbols.getReactionIndex(*reactionId)];
+		set<string> reactants = symbols.getArrayedElements(*reactionId, 6);
+		for (set<string>::const_iterator reactantId = reactants.begin(), jt = reactants.end(); reactantId != jt; reactantId++)
+		{
+			const SpeciesReference* reactant =
+				dynamic_cast<const SpeciesReference*>(r.getReactant(symbols.decodeArrayId(*reactantId)));
+			try
+			{
 
-    ReactionSymbols &rs = reactions[symbols.getReactionIndex(r.getId())];
+				ASTNodeList &speciesNodes =
+					rs.reactants[symbols.getFloatingSpeciesIndex(*reactantId)];
 
-    for (int i = 0; i < reactants->size(); i++)
-    {
-        const SpeciesReference* reactant =
-                dynamic_cast<const SpeciesReference*>(reactants->get(i));
-        try
-        {
+				const ASTNode *stoich = getSpeciesReferenceStoichMath(reactant);
 
-            ASTNodeList &speciesNodes =
-                    rs.reactants[symbols.getFloatingSpeciesIndex(reactant->getSpecies())];
+				// Have to make another storage for Id
+				if (reactant->isSetId() && reactant->getId().size())
+				{
+					initialValues.speciesReferences[reactant->getId()] = stoich;
+					ASTNode *refName = nodes.create(AST_NAME);
+					refName->setName(reactant->getId().c_str());
+					speciesNodes.push_back(refName);
+				}
+				else
+				{
+					speciesNodes.push_back(stoich);
+				}
+			}
+			catch (LLVMException&)
+			{
+				// we get here if the getFloatingSpeciesIndex throws an exception, that's OK
+				// because the species is most likely a boundary species, which is OK
+				// to be used as a reactant (it just won't get consumed like a floating species).
+				// TODO this is normal, should not throw an exception!
+			}
+		}
 
-            const ASTNode *stoich = getSpeciesReferenceStoichMath(reactant);
+		set<string> products = symbols.getArrayedElements(*reactionId, 7);
+		for (set<string>::const_iterator productId = products.begin(), jt = products.end(); productId != jt; productId++)
+		{
+			const SpeciesReference* product =
+				dynamic_cast<const SpeciesReference*>(r.getProduct(symbols.decodeArrayId(*productId)));
+			try
+			{
+				ASTNodeList &speciesNodes =
+					rs.products[symbols.getFloatingSpeciesIndex(*productId)];
 
-            if(reactant->isSetId() && reactant->getId().size())
-            {
-                initialValues.speciesReferences[reactant->getId()] = stoich;
-                ASTNode *refName = nodes.create(AST_NAME);
-                refName->setName(reactant->getId().c_str());
-                speciesNodes.push_back(refName);
-            }
-            else
-            {
-                speciesNodes.push_back(stoich);
-            }
-        }
-        catch (LLVMException&)
-        {
-            // we get here if the getFloatingSpeciesIndex throws an exception, that's OK
-            // because the species is most likely a boundary species, which is OK
-            // to be used as a reactant (it just won't get consumed like a floating species).
-            // TODO this is normal, should not throw an exception!
-        }
-    }
+				const ASTNode *stoich = getSpeciesReferenceStoichMath(product);
 
-    for (int i = 0; i < products->size(); i++)
-    {
-        const SpeciesReference* product =
-                dynamic_cast<const SpeciesReference*>(products->get(i));
-        try
-        {
-            ASTNodeList &speciesNodes =
-                    rs.products[symbols.getFloatingSpeciesIndex(product->getSpecies())];
-
-            const ASTNode *stoich = getSpeciesReferenceStoichMath(product);
-
-            if(product->isSetId() && product->getId().size())
-            {
-                initialValues.speciesReferences[product->getId()] = stoich;
-                ASTNode *refName = nodes.create(AST_NAME);
-                refName->setName(product->getId().c_str());
-                speciesNodes.push_back(refName);
-            }
-            else
-            {
-                speciesNodes.push_back(stoich);
-            }
-        }
-        catch (LLVMException&)
-        {
-            // get here if product is not a floating species, its OK if its a
-            // boundary or conserved moiety
-        }
-    }
-
+				if (product->isSetId() && product->getId().size())
+				{
+					initialValues.speciesReferences[product->getId()] = stoich;
+					ASTNode *refName = nodes.create(AST_NAME);
+					refName->setName(product->getId().c_str());
+					speciesNodes.push_back(refName);
+				}
+				else
+				{
+					speciesNodes.push_back(stoich);
+				}
+			}
+			catch (LLVMException&)
+			{
+				// get here if product is not a floating species, its OK if its a
+				// boundary or conserved moiety
+			}
+		}
+	}
     /*
      const ListOf *list = dynamic_cast<const ListOf *>(sr.getParentSBMLObject());
      const Reaction *r = dynamic_cast<const Reaction*>(list->getParentSBMLObject());
@@ -337,7 +337,7 @@ bool LLVMModelSymbols::visit(const libsbml::Reaction& r)
     return true;
 }
 
-void LLVMModelSymbols::processArrayAST(SymbolForest &currentSymbols, const uint *type, map<string, uint> *values, vector<uint> *sizeOfDimensions, uint ind, const ASTNode *lhsMath, const ASTNode *rhsMath)
+void LLVMModelSymbols::processArrayAST(SymbolForest &currentSymbols, const uint *type, map<string, uint> *values, vector<uint> *sizeOfDimensions, uint ind, const ASTNode *lhsMath, const ASTNode *rhsMath, vector<string> *dimensionIds)
 {
 	if (ind == sizeOfDimensions->size())
 	{
@@ -365,12 +365,10 @@ void LLVMModelSymbols::processArrayAST(SymbolForest &currentSymbols, const uint 
 		}
 		return;
 	}
-	static const ArraysSBasePlugin *arraysPlug = static_cast<const ArraysSBasePlugin*>(rhsMath->getParentSBMLObject()->getPlugin("arrays"));
-	const string &id = arraysPlug->getDimension(ind)->getId();
 	for (uint i = 0; i < sizeOfDimensions->at(ind); i++)
 	{
-		(*values)[id] = i;
-		processArrayAST(currentSymbols, type, values, sizeOfDimensions, ind + 1, lhsMath, rhsMath);
+		(*values)[(*dimensionIds)[ind]] = i;
+		processArrayAST(currentSymbols, type, values, sizeOfDimensions, ind + 1, lhsMath, rhsMath, dimensionIds);
 	}
 }
 
@@ -380,9 +378,10 @@ void LLVMModelSymbols::processSpecies(SymbolForest &currentSymbols,
     // ASTNode takes ownership of children, so only allocate the ones that
     // are NOT given to an ASTNode addChild.
     Log(Logger::LOG_TRACE) << "processing species " << species->getId() << endl;
-
+	bool mathFlg = true;
     if (!math)
     {
+		mathFlg = false;
         if (species->getHasOnlySubstanceUnits())
         {
             // value should be an amount
@@ -489,8 +488,9 @@ void LLVMModelSymbols::processSpecies(SymbolForest &currentSymbols,
 	}
 #endif
 	const ArraysSBasePlugin *arraysParam = static_cast<const ArraysSBasePlugin*>(species->getPlugin("arrays"));
-	// Species math don't have getParentSBMLObject() defined. Need to find another way Vin
-	ArraysSBasePlugin *arraysRule = static_cast<ArraysSBasePlugin*>(math->getParentSBMLObject()->getPlugin("arrays"));
+	ArraysSBasePlugin *arraysRule = NULL;
+	if(mathFlg)
+		arraysRule = static_cast<ArraysSBasePlugin*>(math->getParentSBMLObject()->getPlugin("arrays"));
 	if (arraysParam==NULL || arraysParam->getNumDimensions() == 0)
 	{
 		if (arraysRule != NULL)
@@ -501,31 +501,49 @@ void LLVMModelSymbols::processSpecies(SymbolForest &currentSymbols,
 			currentSymbols.floatingSpecies[species->getId()] = math;
 		return;
 	}
-	if (arraysRule == NULL)
+	if (mathFlg && arraysRule == NULL)
 		throw LLVMException("Species " + species->getId() + "is an array but a rule referencing it, is not an array");
 	vector<uint> sizeOfDimensions = this->symbols.getSizeOfDimensions(species->getId());
 	map<string, uint> values;
-	uint sizeOfIndices = arraysRule->getNumIndices();
 	ASTNode* lhs = new ASTNode(AST_LINEAR_ALGEBRA_SELECTOR);
 	ASTNode* var = new ASTNode(AST_NAME);
 	var->setName(species->getId().c_str());
 	lhs->addChild(var);
-	for (uint i = 0; i < sizeOfIndices; i++)
+	if (!mathFlg)
 	{
-		lhs->addChild(arraysRule->getIndex(i)->getMath());
+		uint sizeOfDimensions = arraysParam->getNumDimensions();
+		for (uint i = 0; i < sizeOfDimensions; i++)
+		{
+			ASTNode* var = new ASTNode(AST_NAME);
+			var->setName(arraysParam->getDimension(i)->getId().c_str());
+			lhs->addChild(var);
+		}
+	}
+	else
+	{
+		uint sizeOfIndices = arraysRule->getNumIndices();
+		for (uint i = 0; i < sizeOfIndices; i++)
+		{
+			lhs->addChild(arraysRule->getIndex(i)->getMath());
+		}
 	}
 	this->symbols.getUnknownValues(this->model, &values, math);
 	this->symbols.getUnknownValues(this->model, &values, lhs);
+	vector<string> dimensionIds;
+	for (uint i = 0; i < sizeOfDimensions.size(); i++)
+	{
+		dimensionIds.push_back(arraysParam->getDimension(i)->getId());
+	}
 	if (species->getBoundaryCondition())
 	{
 		const uint type = 3;
-		processArrayAST(currentSymbols, &type, &values, &sizeOfDimensions, 0, lhs, math);
+		processArrayAST(currentSymbols, &type, &values, &sizeOfDimensions, 0, lhs, math, &dimensionIds);
 		// currentSymbols.boundarySpecies[species->getId()] = math;
 	}
 	else
 	{
 		const uint type = 4;
-		processArrayAST(currentSymbols, &type, &values, &sizeOfDimensions, 0, lhs, math);
+		processArrayAST(currentSymbols, &type, &values, &sizeOfDimensions, 0, lhs, math, &dimensionIds);
 		// currentSymbols.floatingSpecies[species->getId()] = math;
 	}
 }
@@ -569,7 +587,12 @@ void LLVMModelSymbols::processParameter(SymbolForest &currentSymbols,
 	this->symbols.getUnknownValues(this->model, &values, rhs);
 	this->symbols.getUnknownValues(this->model, &values, lhs);
 	const uint type = 0;
-	processArrayAST(currentSymbols, &type, &values, &sizeOfDimensions, 0, lhs, rhs);
+	vector<string> dimensionIds;
+	for (uint i = 0; i < sizeOfDimensions.size(); i++)
+	{
+		dimensionIds.push_back(arraysParam->getDimension(i)->getId());
+	}
+	processArrayAST(currentSymbols, &type, &values, &sizeOfDimensions, 0, lhs, rhs, &dimensionIds);
 }
 
 void LLVMModelSymbols::processCompartment(SymbolForest &currentSymbols,
@@ -611,7 +634,12 @@ void LLVMModelSymbols::processCompartment(SymbolForest &currentSymbols,
 	this->symbols.getUnknownValues(this->model, &values, rhs);
 	this->symbols.getUnknownValues(this->model, &values, lhs);
 	const uint type = 1;
-	processArrayAST(currentSymbols, &type, &values, &sizeOfDimensions, 0, lhs, rhs);
+	vector<string> dimensionIds;
+	for (uint i = 0; i < sizeOfDimensions.size(); i++)
+	{
+		dimensionIds.push_back(arraysParam->getDimension(i)->getId());
+	}
+	processArrayAST(currentSymbols, &type, &values, &sizeOfDimensions, 0, lhs, rhs, &dimensionIds);
 }
 
 void LLVMModelSymbols::processSpeciesReference(SymbolForest &currentSymbols,
@@ -653,7 +681,12 @@ void LLVMModelSymbols::processSpeciesReference(SymbolForest &currentSymbols,
 	this->symbols.getUnknownValues(this->model, &values, rhs);
 	this->symbols.getUnknownValues(this->model, &values, lhs);
 	const uint type = 1;
-	processArrayAST(currentSymbols, &type, &values, &sizeOfDimensions, 0, lhs, rhs);
+	vector<string> dimensionIds;
+	for (uint i = 0; i < sizeOfDimensions.size(); i++)
+	{
+		dimensionIds.push_back(arraysParam->getDimension(i)->getId());
+	}
+	processArrayAST(currentSymbols, &type, &values, &sizeOfDimensions, 0, lhs, rhs, &dimensionIds);
 }
 
 const ASTNode* LLVMModelSymbols::getSpeciesReferenceStoichMath(

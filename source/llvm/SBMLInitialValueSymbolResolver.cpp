@@ -82,10 +82,10 @@ llvm::Value* SBMLInitialValueSymbolResolver::loadSymbolValue(
     /*************************************************************************/
     /* Reaction Rate */
     /*************************************************************************/
-    const Reaction* reaction = model->getReaction(symbol);
+    const Reaction* reaction = model->getReaction(modelDataSymbols.decodeArrayId(symbol));
     if (reaction)
     {
-        return loadReactionRate(reaction);
+        return loadReactionRate(reaction, symbol);
     }
 
     string msg = "Could not find requested symbol \'";

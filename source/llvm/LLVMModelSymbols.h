@@ -183,7 +183,7 @@ protected:
     void processSpecies(SymbolForest &currentSymbols,
             const libsbml::Species *element, const libsbml::ASTNode *math);
 
-	void processArrayAST(SymbolForest &currentSymbols, const uint *type, std::map<std::string, uint> *dimensionVals, std::vector<uint> *sizeOfDimensions, uint ind, const libsbml::ASTNode *lhsMath, const libsbml::ASTNode *rhsMath);
+	void processArrayAST(SymbolForest &currentSymbols, const uint *type, std::map<std::string, uint> *dimensionVals, std::vector<uint> *sizeOfDimensions, uint ind, const libsbml::ASTNode *lhsMath, const libsbml::ASTNode *rhsMath, std::vector<std::string> *dimensionIds);
 
 	/**
 	 * In the case of an array of parameters, it is essential to ensure that the

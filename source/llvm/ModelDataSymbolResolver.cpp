@@ -104,7 +104,7 @@ llvm::Value* ModelDataLoadSymbolResolver::loadSymbolValue(
     /*************************************************************************/
     /* Species */
     /*************************************************************************/
-    const Species *species = model->getSpecies(symbol);
+    const Species *species = model->getSpecies(modelDataSymbols.decodeArrayId(symbol));
     if (species)
     {
         Value *amt = 0;
@@ -139,7 +139,7 @@ llvm::Value* ModelDataLoadSymbolResolver::loadSymbolValue(
             // expect a concentration, need to convert amt to conc,
             // so we need to get the compartment its in, but these
             // can vary also...
-            Value *comp = loadSymbolValue(species->getCompartment());
+            Value *comp = loadSymbolValue(modelDataSymbols.getSpeciesCompartment(symbol));
             return cacheValue(symbol, args, builder.CreateFDiv(amt, comp, symbol + "_conc"));
         }
     }
@@ -191,10 +191,10 @@ llvm::Value* ModelDataLoadSymbolResolver::loadSymbolValue(
     /*************************************************************************/
     /* Reaction Rate */
     /*************************************************************************/
-    const Reaction* reaction = model->getReaction(symbol);
+    const Reaction* reaction = model->getReaction(modelDataSymbols.decodeArrayId(symbol));
     if (reaction)
     {
-        return cacheValue(symbol, args, loadReactionRate(reaction));
+        return cacheValue(symbol, args, loadReactionRate(reaction, symbol));
     }
 
 
@@ -233,7 +233,8 @@ llvm::Value* ModelDataStoreSymbolResolver::storeSymbolValue(
     /*************************************************************************/
     /* Species */
     /*************************************************************************/
-    const Species *species = model->getSpecies(symbol);
+
+    const Species *species = model->getSpecies(modelDataSymbols.decodeArrayId(symbol));
     if (species)
     {
         Value *amt = 0;
@@ -245,7 +246,7 @@ llvm::Value* ModelDataStoreSymbolResolver::storeSymbolValue(
         else
         {
             // have a conc, need to convert to amt
-            Value *comp = resolver.loadSymbolValue(species->getCompartment());
+            Value *comp = resolver.loadSymbolValue(modelDataSymbols.getSpeciesCompartment(symbol));
             amt =  builder.CreateFMul(value, comp, symbol + "_amt");
         }
 

@@ -69,8 +69,12 @@ Value* EvalReactionRatesCodeGen::codeGen()
     for (int i = 0; i < reactions->size(); ++i)
     {
         const Reaction *r = reactions->get(i);
-        Value *value = resolver.loadReactionRate(r);
-        mdbuilder.createReactionRateStore(r->getId(), value);
+		set<string> arrayedReactions = dataSymbols.getArrayedElements(r->getId(), 4);
+		for (set<string>::const_iterator it = arrayedReactions.begin(), jt = arrayedReactions.end(); it != jt; it++)
+		{
+			Value *value = resolver.loadReactionRate(r, *it);
+			mdbuilder.createReactionRateStore(*it, value);
+		}
     }
 
     Value *conversionFactor = 0;

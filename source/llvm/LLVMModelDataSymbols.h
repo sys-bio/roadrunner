@@ -214,7 +214,7 @@ public:
 	/*
 	 * Get the array expansion of @param id
 	 */
-	std::set<std::string> getArrayedElements(std::string const&, const LLVMModelDataSymbols::SymbolIndexType *sit) const;
+	std::set<std::string> getArrayedElements(std::string const&, const uint type) const;
 
 	/**
 	 * Get the size of all dimensions of an element
@@ -313,6 +313,12 @@ public:
      * Only valid after class has been constructed.
      */
     bool isIndependentElement(const std::string& id) const;
+
+	std::vector<uint> getDimensions(const std::string& id) const;
+
+	libsbml::ASTNode* getReactionLaw(const std::string& id) const;
+
+	std::string getSpeciesCompartment(const std::string& id) const;
 
 	std::string decodeArrayId(const std::string& id) const;
 
@@ -624,15 +630,19 @@ private:
     StringUIntMap compartmentsMap;
     StringUIntMap globalParametersMap;
 
-	// Store the expanded IDs of a parameter that has a list of dimensions
+	// Store the expanded IDs of an element that has a list of dimensions
 	std::map<std::string, std::set<std::string> > arrayedGlobalParameters;
 	std::map<std::string, std::set<std::string> > arrayedCompartments;
 	std::map<std::string, std::set<std::string> > arrayedFltSpecies;
 	std::map<std::string, std::set<std::string> > arrayedBndSpecies;
 	std::map<std::string, std::set<std::string> > arrayedReactions;
 	std::map<std::string, std::set<std::string> > arrayedEvents;
+	std::map<std::string, std::set<std::string> > reactionProducts;
+	std::map<std::string, std::set<std::string> > reactionReactants;
+	std::map<std::string, libsbml::ASTNode*> reactionLaw;
 
-	// Store the size of each dimension of parameters
+	std::map<std::string, std::string > speciesCompartment;
+	// Store the size of each dimension of all arrayed elements
 	StringUIntVectorMap sizeOfDimensions;
 
     /**
@@ -703,6 +713,8 @@ private:
 
     void initBoundarySpecies(const libsbml::Model *);
 
+	// void initArrayedSpecies(const libsbml::Model* model, std::map<std::string, uint> *values, libsbml::ASTNode *rhs, uint ind, const string& speciesId, StringUIntMap::const_iterator *it);
+
     /**
      * init the floating species symbols.
      *
@@ -733,6 +745,8 @@ private:
     void initGlobalParameters(const libsbml::Model *model,
             bool conservedMoieties);
 
+	void initArrayedReaction(const libsbml::Model* model, const uint *origId, uint *count, uint ind, std::map <std::string, uint> *values);
+
     void initReactions(const libsbml::Model *model);
 
     void displayCompartmentInfo();
@@ -748,7 +762,7 @@ private:
      * If this is invalid float species, such as its defined by a rule
      * this will log the reason.
      */
-    bool isValidFloatingSpeciesReference(const libsbml::SimpleSpeciesReference*,
+    bool isValidFloatingSpeciesReference(const string& id,
             const std::string& reacOrProd);
 
     /**

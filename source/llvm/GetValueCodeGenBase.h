@@ -92,11 +92,11 @@ llvm::Value* GetValueCodeGenBase<Derived, substanceUnits>::codeGen()
 
         // the requested value
         llvm::Value *value = resolver.loadSymbolValue(ids[i]);
-
+		
         // need to check if we have an amount or concentration and check if we
         // are asked for asked for an amount or concentration and convert accordingly
         const libsbml::Species *species = dynamic_cast<const libsbml::Species*>(
-                const_cast<libsbml::Model*>(this->model)->getElementBySId(ids[i]));
+                const_cast<libsbml::Model*>(this->model)->getElementBySId(dataSymbols.decodeArrayId(ids[i])));
 
         if(species)
         {
@@ -107,7 +107,7 @@ llvm::Value* GetValueCodeGenBase<Derived, substanceUnits>::codeGen()
                 if (!substanceUnits)
                 {
                     // convert to concentration
-                    llvm::Value *comp = resolver.loadSymbolValue(species->getCompartment());
+                    llvm::Value *comp = resolver.loadSymbolValue(dataSymbols.getSpeciesCompartment(ids[i]));
                     value = this->builder.CreateFDiv(value, comp, ids[i] + "_conc");
                 }
             }
@@ -118,7 +118,7 @@ llvm::Value* GetValueCodeGenBase<Derived, substanceUnits>::codeGen()
                 if (substanceUnits)
                 {
                     // convert to amount
-                    llvm::Value *comp = resolver.loadSymbolValue(species->getCompartment());
+                    llvm::Value *comp = resolver.loadSymbolValue(dataSymbols.getSpeciesCompartment(ids[i]));
                     value = this->builder.CreateFMul(value, comp, ids[i] + "_amt");
                 }
             }

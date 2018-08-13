@@ -37,7 +37,7 @@ public:
      * shortcut to get a reaction rate, performance wise, quicker than
      * going through all the loadSymbolValue types.
      */
-    llvm::Value* loadReactionRate(const libsbml::Reaction*);
+    llvm::Value* loadReactionRate(const libsbml::Reaction*, const string& id);
 
     virtual void recursiveSymbolPush(const std::string& symbol);
 

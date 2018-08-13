@@ -212,6 +212,8 @@ namespace rr
 			for (int i = 1; i < numChildren; ++i)
 			{
 				ASTNode *rhs = preProcess(ast->getChild(i), values);
+				if (result->getType() == AST_NAME || rhs->getType() == AST_NAME)
+					continue;
 				if (rhs->getNumChildren() == 0 && result->getNumChildren() == 0)
 				{
 					switch (type)

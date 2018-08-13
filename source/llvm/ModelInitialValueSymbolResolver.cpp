@@ -188,10 +188,10 @@ llvm::Value* ModelInitialValueSymbolResolver::loadSymbolValue(
     /*************************************************************************/
     /* Reaction Rate */
     /*************************************************************************/
-    const Reaction* reaction = model->getReaction(symbol);
+    const Reaction* reaction = model->getReaction(modelDataSymbols.decodeArrayId(symbol));
     if (reaction)
     {
-        return loadReactionRate(reaction);
+        return loadReactionRate(reaction, symbol);
     }
 
     string msg = "Could not find requested symbol \'";
@@ -214,7 +214,7 @@ llvm::Value* ModelInitialValueStoreSymbolResolver::storeSymbolValue(
 
     if (modelDataSymbols.isIndependentInitFloatingSpecies(symbol))
     {
-        const Species *species = model->getSpecies(symbol);
+        const Species *species = model->getSpecies(modelDataSymbols.decodeArrayId(symbol));
         assert(species);
 
         Value *amt = 0;
