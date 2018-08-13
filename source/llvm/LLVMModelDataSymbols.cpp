@@ -1269,42 +1269,53 @@ void LLVMModelDataSymbols::initFloatingSpecies(const libsbml::Model* model,
 		{
 			map<string, uint> values;
 			uint sizeOfIndices = arraysPlug->getNumIndices();
+			StringUIntMap::const_iterator j;
+			ASTNode *result;
 			if (sizeOfIndices == 0)
 			{
-				throw_llvm_exception("species " + s->getId() +
-					" does not reference a compartment ");
+				j = compartmentsMap.find(s->getCompartment());
+				if (j == compartmentsMap.end())
+				{
+					throw_llvm_exception("species " + s->getId() +
+						" references unknown compartment " + s->getCompartment());
+				}
 			}
-			ASTNode* rhs = new ASTNode(AST_LINEAR_ALGEBRA_SELECTOR);
-			ASTNode* var = new ASTNode(AST_NAME);
-			// Referenced attribute can be a compartment or a conversion factor
-			string referencedAttributeId;
-			s->getAttribute(arraysPlug->getIndex(0)->getReferencedAttribute(), referencedAttributeId);
-			var->setName(referencedAttributeId.c_str());
-			rhs->addChild(var);
-			for (uint j = 0; j < sizeOfIndices; j++)
+			else
 			{
-				ASTNode* child = arraysPlug->getIndex(j)->getMath()->deepCopy();
-				rhs->addChild(child);
-			}
-			vector<uint> dimensions = getDimensions(i->first);
-			for (uint k = 0; k < dimensions.size(); k++)
-			{
-				values[arraysPlug->getDimension(k)->getId()] = dimensions[k];
-			}
-			getUnknownValues(model, &values, rhs);
-			ASTNode *result = rr::ASTPreProcessor().preProcess(rhs, &values);
-			StringUIntMap::const_iterator j =
-				compartmentsMap.find(result->getName());
-			if (j == compartmentsMap.end())
-			{
-				throw_llvm_exception("species " + s->getId() +
-					" references unknown compartment " + result->getName());
+				ASTNode* rhs = new ASTNode(AST_LINEAR_ALGEBRA_SELECTOR);
+				ASTNode* var = new ASTNode(AST_NAME);
+				// Referenced attribute can be a compartment or a conversion factor
+				string referencedAttributeId;
+				s->getAttribute(arraysPlug->getIndex(0)->getReferencedAttribute(), referencedAttributeId);
+				var->setName(referencedAttributeId.c_str());
+				rhs->addChild(var);
+				for (uint j = 0; j < sizeOfIndices; j++)
+				{
+					ASTNode* child = arraysPlug->getIndex(j)->getMath()->deepCopy();
+					rhs->addChild(child);
+				}
+				vector<uint> dimensions = getDimensions(i->first);
+				for (uint k = 0; k < dimensions.size(); k++)
+				{
+					values[arraysPlug->getDimension(k)->getId()] = dimensions[k];
+				}
+				getUnknownValues(model, &values, rhs);
+				result = rr::ASTPreProcessor().preProcess(rhs, &values);
+				j = compartmentsMap.find(result->getName());
+				if (j == compartmentsMap.end())
+				{
+					throw_llvm_exception("species " + s->getId() +
+						" references unknown compartment " + result->getName());
+				}
 			}
 
 			assert(i->second < floatingSpeciesCompartmentIndices.size());
 			assert(j->second < compartmentsMap.size());
 			floatingSpeciesCompartmentIndices[i->second] = j->second;
-			speciesCompartment[i->first] = (result->getName());
+			if(sizeOfIndices)
+				speciesCompartment[i->first] = (result->getName());
+			else
+				speciesCompartment[i->first] = (s->getCompartment());
 			// In the case the referenced attribute is a compartment
 		}
 #endif
@@ -1910,7 +1921,7 @@ void LLVMModelDataSymbols::initReactions(const libsbml::Model* model)
                 uint speciesIdx = getFloatingSpeciesIndex(p->getSpecies());
 
                 UIntUMap::const_iterator si = speciesMap.find(speciesIdx);
-				reactionProducts[products->getId()].insert(p->getSpecies());
+				reactionProducts[reaction->getId()].insert(p->getSpecies());
 
                 if (si == speciesMap.end())
                 {

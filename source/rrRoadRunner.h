@@ -340,6 +340,7 @@ public:
 /************************ Selection Ids Species Section ***********************/
 #if (1) /**********************************************************************/
 /******************************************************************************/
+	std::string decodeArrayId(const std::string id, std::string *rest);
 
     /**
      * create a selection record. This record can be used to select values.

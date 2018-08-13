@@ -384,6 +384,7 @@ public:
      * to called as a python __repr__
      */
     std::string to_repr() const;
+
 };
 
 ostream& operator<< (ostream& stream, const SelectionRecord& rec);

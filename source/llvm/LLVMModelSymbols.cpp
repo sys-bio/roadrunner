@@ -493,7 +493,7 @@ void LLVMModelSymbols::processSpecies(SymbolForest &currentSymbols,
 		arraysRule = static_cast<ArraysSBasePlugin*>(math->getParentSBMLObject()->getPlugin("arrays"));
 	if (arraysParam==NULL || arraysParam->getNumDimensions() == 0)
 	{
-		if (arraysRule != NULL)
+		if (arraysRule && arraysRule->getNumDimensions())
 			throw LLVMException("Species " + species->getId() + "is not an array but a rule referencing it, is an array");
 		if (species->getBoundaryCondition())
 			currentSymbols.boundarySpecies[species->getId()] = math;
@@ -566,7 +566,7 @@ void LLVMModelSymbols::processParameter(SymbolForest &currentSymbols,
 	ArraysSBasePlugin *arraysRule = static_cast<ArraysSBasePlugin*>(rhs->getParentSBMLObject()->getPlugin("arrays"));
 	if (arraysParam == NULL || arraysParam->getNumDimensions() == 0)
 	{
-		if (arraysRule != NULL)
+		if (arraysRule && arraysRule->getNumDimensions())
 			throw LLVMException("Parameter " + param->getId() + "is not an array but a rule referencing it, is an array");
 		currentSymbols.globalParameters[param->getId()] = rhs;
 		return;
@@ -613,7 +613,7 @@ void LLVMModelSymbols::processCompartment(SymbolForest &currentSymbols,
 	ArraysSBasePlugin *arraysRule = static_cast<ArraysSBasePlugin*>(rhs->getParentSBMLObject()->getPlugin("arrays"));
 	if (arraysParam == NULL || arraysParam->getNumDimensions() == 0)
 	{
-		if (arraysRule != NULL)
+		if (arraysRule && arraysRule->getNumDimensions())
 			throw LLVMException("Compartment " + comp->getId() + "is not an array but a rule referencing it, is an array");
 		currentSymbols.compartments[comp->getId()] = rhs;
 		return;
@@ -660,7 +660,7 @@ void LLVMModelSymbols::processSpeciesReference(SymbolForest &currentSymbols,
 	ArraysSBasePlugin *arraysRule = static_cast<ArraysSBasePlugin*>(rhs->getParentSBMLObject()->getPlugin("arrays"));
 	if (arraysParam == NULL || arraysParam->getNumDimensions() == 0)
 	{
-		if (arraysRule != NULL)
+		if (arraysRule && arraysRule->getNumDimensions())
 			throw LLVMException("Species reference " + reference->getId() + "is not an array but a rule referencing it, is an array");
 		currentSymbols.speciesReferences[reference->getId()] = rhs;
 		return;

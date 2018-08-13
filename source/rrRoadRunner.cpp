@@ -3649,14 +3649,31 @@ static std::vector<std::string> createSelectionList(const SimulateOptions& o)
     return result;
 }
 
+std::string RoadRunner::decodeArrayId(const std::string id, std::string *rest)
+{
+	size_t found = id.find_first_of("-");
+	string arrId = id.substr(0, found);
+	if (found != std::string::npos)
+	{
+		std::string tmp = id.substr(found);
+		tmp.pop_back();
+		(*rest) += tmp;
+		arrId += "]";
+	}
+	return arrId;
+}
+
 SelectionRecord RoadRunner::createSelection(const std::string& str)
 {
     if (!impl->model)
     {
         throw Exception("Can not create selection without a model");
     }
+	string rest = "";
+    SelectionRecord sel(decodeArrayId(str, &rest));
 
-    SelectionRecord sel(str);
+	sel.p1 += rest;
+	sel.p2 += rest;
 
     if (sel.selectionType == SelectionRecord::UNKNOWN)
     {

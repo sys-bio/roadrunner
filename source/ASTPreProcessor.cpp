@@ -30,7 +30,7 @@ namespace rr
 
 	ASTNode* ASTPreProcessor::preProcess(libsbml::ASTNode* ast, valMap *values)
 	{
-		ASTNode* result;
+		ASTNode* result = NULL;
 		if (ast == 0)
 		{
 			throw("ASTNode is NULL");
@@ -208,11 +208,36 @@ namespace rr
 		}
 		else
 		{
+			bool flg = 1;
 			result = preProcess(ast->getChild(0), values);
+			if (result == NULL)
+				flg = 0;
+			if (result->getType() == AST_NAME)
+			{
+				ast->replaceChild(0, result);
+				flg = 0;
+			}
 			for (int i = 1; i < numChildren; ++i)
 			{
 				ASTNode *rhs = preProcess(ast->getChild(i), values);
-				if (result->getType() == AST_NAME || rhs->getType() == AST_NAME)
+				// NULL implies we could not get result
+				if (!flg && rhs != NULL)
+				{
+					ast->replaceChild(i, rhs);
+					continue;
+				}
+				if (flg && rhs->getType() == AST_NAME)
+				{
+					flg = 0;
+					ast->replaceChild(i, rhs);
+					continue;
+				}
+				if (result == NULL || rhs == NULL || result->getType()==AST_NAME)
+				{
+					flg = 0;
+					continue;
+				}
+				if (!flg)
 					continue;
 				if (rhs->getNumChildren() == 0 && result->getNumChildren() == 0)
 				{
@@ -239,6 +264,8 @@ namespace rr
 					throw runtime_error("Please use simplified expressions for calculating dimensions\n");
 				}
 			}
+			if (!flg)
+				result = ast;
 		}
 		return result;
 	}

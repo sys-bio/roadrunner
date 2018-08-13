@@ -106,12 +106,12 @@ llvm::Value* SetInitialValueCodeGenBase<Derived, substanceUnits>::codeGen()
         // need to check if we have an amount or concentration and check if we
         // are asked for asked for an amount or concentration and convert accordingly
         const libsbml::Species *species = dynamic_cast<const libsbml::Species*>(
-                const_cast<libsbml::Model*>(this->model)->getElementBySId(element));
+                const_cast<libsbml::Model*>(this->model)->getElementBySId(dataSymbols.decodeArrayId(element)));
 
         if(species)
         {
             // get the id of the compartment the species belongs to
-            std::string compId = species->getCompartment();
+            std::string compId = dataSymbols.getSpeciesCompartment(element);
 
             llvm::Value *comp = loadResolver.loadSymbolValue(compId);
 

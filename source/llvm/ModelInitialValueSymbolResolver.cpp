@@ -102,7 +102,7 @@ llvm::Value* ModelInitialValueSymbolResolver::loadSymbolValue(
 
     if (modelDataSymbols.isIndependentInitFloatingSpecies(symbol))
     {
-        const Species *species = model->getSpecies(symbol);
+        const Species *species = model->getSpecies(modelDataSymbols.decodeArrayId(symbol));
 
         assert(species);
 
@@ -118,7 +118,7 @@ llvm::Value* ModelInitialValueSymbolResolver::loadSymbolValue(
             // expect a concentration, need to convert amt to conc,
             // so we need to get the compartment its in, but these
             // can vary also...
-            Value *comp = loadSymbolValue(species->getCompartment());
+            Value *comp = loadSymbolValue(modelDataSymbols.getSpeciesCompartment(symbol));
             return builder.CreateFDiv(amt, comp, symbol + "_conc");
         }
     }
@@ -226,7 +226,7 @@ llvm::Value* ModelInitialValueStoreSymbolResolver::storeSymbolValue(
         else
         {
             // have a conc, need to convert to amt
-            Value *comp = resolver.loadSymbolValue(species->getCompartment());
+            Value *comp = resolver.loadSymbolValue(modelDataSymbols.getSpeciesCompartment(symbol));
             amt =  builder.CreateFMul(value, comp, symbol + "_amt");
         }
 
