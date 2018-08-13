@@ -3656,7 +3656,7 @@ std::string RoadRunner::decodeArrayId(const std::string id, std::string *rest)
 	if (found != std::string::npos)
 	{
 		std::string tmp = id.substr(found);
-		tmp.pop_back();
+		tmp.erase(tmp.end()-1);
 		(*rest) += tmp;
 		arrId += "]";
 	}
