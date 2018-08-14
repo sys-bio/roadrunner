@@ -43,6 +43,7 @@
     #include "conservation/ConservedMoietyConverter.h"
     #include "SBMLValidator.h"
     #include "rrSBMLReader.h"
+    #include <memory>
     #include <cstddef>
     #include <map>
     #include <rrVersionInfo.h>
