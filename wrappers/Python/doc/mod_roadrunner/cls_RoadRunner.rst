@@ -413,7 +413,7 @@ All simulation related tasks can be accomplished with the single ``simulate`` me
    >>> result = r.gillespie (0, 40, 20, [‘time’, ‘S1’])
    
 
-.. py:function:: RoadRunner.plot(result, loc)
+.. py:function:: RoadRunner.plot(result=None, loc='upper left', show=True)
    :module: RoadRunner
    
    Plot results from a simulation carried out by the simulate or gillespie functions. 
@@ -421,6 +421,8 @@ All simulation related tasks can be accomplished with the single ``simulate`` me
    To plot data currently held by roadrunner that was generated in the last simulation, use:
    
    >>> r.plot() 
+   
+   If you are using Tellurium, see `tellurium.ExtendedRoadRunner.plot <https://tellurium.readthedocs.io/en/latest/tellurium_methods.html#tellurium.tellurium.ExtendedRoadRunner.plot>`_ which supports extra arguements.
    
    :param numpy.ndarray result: Data returned from a simulate or gillespie call
    :param str loc: string representing the location of legend i.e. "upper right"

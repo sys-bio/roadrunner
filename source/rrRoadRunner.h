@@ -183,6 +183,15 @@ public:
     double oneStep(double currentTime, double stepSize, bool reset = true);
 
     /**
+    * Carry out a single internal solver integration step.
+    *
+    * @param t0 starting time
+    * @param tf final time
+    * @param options override current options.
+    */
+    double internalOneStep(double currentTime, double stepSize, bool reset = true);
+
+    /**
      * Simulate the current SBML model.
      *
      * If options is null, then the current simulation settings (start time,

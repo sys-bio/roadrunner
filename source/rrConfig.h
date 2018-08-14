@@ -604,6 +604,8 @@ public:
 
     static void setValue(Keys, const Variant& value);
 
+	//static void setValues(const std::vector<Keys> keys, const std::vector<Variant> values);
+
     static const Variant& getValue(Keys);
 
     /**

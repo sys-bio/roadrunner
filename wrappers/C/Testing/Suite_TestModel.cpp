@@ -1196,6 +1196,22 @@ SUITE(TEST_MODEL)
         }
     }
 
+    // Placeholder for testing setValues which are not implemented in C++ yet
+    TEST(CHECK_SETVALUES)
+    {
+        CHECK(gRR != NULL);
+
+        IniSection* aSection = iniFile.GetSection("Test SetValues");
+        if (!aSection || !gRR)
+        {
+            return;
+        }
+        clog << endl << "==== CHECK_SETVALUES ====" << endl << endl;
+        aSection->mIsUsed = true;
+
+        CHECK(true);
+    }
+
     TEST(FLOATING_SPECIES_IDS)
     {
         IniSection* aSection = iniFile.GetSection("Floating Species Ids");

@@ -408,6 +408,15 @@ void Config::setValue(Keys key, const Variant& value)
     values[key] = value;
 }
 
+/*void Config::setValues(const std::vector<Keys> keys, const std::vector<Variant> values)
+{
+	auto keyit = keys.begin();
+	auto valueit = values.begin();
+	while (keyit != keys.end() && valueit != values.end()) {
+		setValue(*keyit, *valueit);
+	}
+}*/
+
 void Config::readConfigFile(const std::string& path)
 {
     Mutex::ScopedLock lock(configMutex);

@@ -240,7 +240,7 @@ def checkIndividualEigenvalues(rrInstance, testId):
     roadrunner.Config.setValue(Config.ROADRUNNER_JACOBIAN_MODE, Config.ROADRUNNER_JACOBIAN_MODE_CONCENTRATIONS)
     m = len(rrInstance.getEigenValueIds())/3
     try:
-        for i in range(0,m):
+        for i in range(0,int(m)):
             words = divide(readLine())
             eigenvalueName = words[0]
             calc = rrInstance.getValue ('eigenReal(' + eigenvalueName + ')')
@@ -935,6 +935,20 @@ def testResetConservedTotal(rrInstance, testId):
         errorFlag = True
     print(passMsg (errorFlag))
 
+def testSetValues(rrInstance, testId):
+    print(("Check " + testId).ljust( rpadding), end="")
+    errorFlag = False
+    words = divide(readLine())
+    spe = words[:int(len(words)/2)]
+    val = words[int(len(words)/2):]
+    val = [float(i) for i in val]
+    n = rrInstance.setValues(spe, val)
+    for i in range(len(spe)):
+        if not (rrInstance.getValue(spe[i]) == val[i]):
+            errorFlag = True
+    rrInstance.reset()
+    print(passMsg (errorFlag))
+
 def checkJacobian(rrInstance, testId):
     # TODO need to update python 2.x printing
     print(("Check " + testId).ljust( rpadding), end="")
@@ -1287,6 +1301,7 @@ functions = {'[Amount/Concentration Jacobians]' : checkJacobian,
              '[Test ResetAll]': testResetAll,
              '[Test ResetToOrigin]': testResetToOrigin,
              '[Test ResetConservedTotal]': testResetConservedTotal,
+             '[Test SetValues]': testSetValues,
              '[Unscaled Concentration Control Matrix]': checkUnscaledConcentrationControlMatrix,
              '[Unscaled Elasticity Matrix]': checkUnscaledElasticityMatrix,
              '[Unscaled Elasticity Amount Matrix]': checkUnscaledElasticityAmountMatrix,

@@ -303,7 +303,6 @@
 
 %apply const rr::Variant& {rr::Variant&, Variant&, const Variant&};
 
-
 /**
  * input map, convert an incomming object to a roadrunner Dictionary*
  */
@@ -1003,6 +1002,10 @@ namespace std { class ostream{}; }
                return complex(eig_r, eig_i)
             else:
                 return _roadrunner.RoadRunner__getValue(self, *args)
+
+        def setValues(self, keys, values):
+            for key, val in zip(keys, values):
+                _roadrunner.RoadRunner_setValue(self, key, val)
 
         def getModel(self):
             return self._getModel()
@@ -2619,6 +2622,10 @@ namespace std { class ostream{}; }
 
         def setSetting(self, k, v):
             return self.setValue(k, v)
+
+        def setValues(self, keys, values):
+            for key, val in zip(keys, values):
+                _roadrunner.Solver_setValue(self, key, val)
     %}
 }
 
