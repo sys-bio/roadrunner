@@ -6,7 +6,7 @@ project(rr)
 
 set(ROADRUNNER_VERSION_MAJOR 1)
 set(ROADRUNNER_VERSION_MINOR 5)
-set(ROADRUNNER_VERSION_PATCH 0)
+set(ROADRUNNER_VERSION_PATCH 1)
 
 set(ROADRUNNER_VERSION "${ROADRUNNER_VERSION_MAJOR}.${ROADRUNNER_VERSION_MINOR}.${ROADRUNNER_VERSION_PATCH}")
 
@@ -208,7 +208,7 @@ else()
 endif()
 
 find_library(LIBSBML_LIBRARY sbml libsbml HINTS ${THIRD_PARTY_INSTALL_FOLDER}/lib)
-find_library(LIBSBML_STATIC_LIBRARY sbml-static libsbml-static HINTS ${THIRD_PARTY_INSTALL_FOLDER}/lib)
+find_library(LIBSBML_STATIC_LIBRARY sbml-static libsbml-static HINTS ${THIRD_PARTY_INSTALL_FOLDER}/lib ${THIRD_PARTY_INSTALL_FOLDER}/lib64)
 find_path(LIBSBML_INCLUDE_DIR sbml/SBMLTypes.h HINTS ${THIRD_PARTY_INSTALL_FOLDER}/include)
 
 # find libSBML deps
@@ -241,6 +241,7 @@ if (${BUILD_LLVM})
         ${LIBRARY_OUTPUT_PATH}
         ${THIRD_PARTY_FOLDER}/dependencies/libsbml/lib
         ${THIRD_PARTY_INSTALL_FOLDER}/lib
+        ${THIRD_PARTY_INSTALL_FOLDER}/lib64
         ${LLVM_LIBRARY_DIRS}
     )
 else()
@@ -248,6 +249,7 @@ else()
         ${LIBRARY_OUTPUT_PATH}
         ${THIRD_PARTY_FOLDER}/dependencies/libsbml/lib
         ${THIRD_PARTY_INSTALL_FOLDER}/lib
+        ${THIRD_PARTY_INSTALL_FOLDER}/lib64
     )
 endif (${BUILD_LLVM})
 

@@ -1800,13 +1800,48 @@ double RoadRunner::oneStep(const double currentTime, const double stepSize, cons
 
     try
     {
-        self.integrator->restart(currentTime);
+        if (reset)
+        {
+            self.integrator->restart(currentTime);
+        }    
         return self.integrator->integrate(currentTime, stepSize);
     }
     catch (EventListenerException& e)
     {
         Log(Logger::LOG_NOTICE) << e.what();
         return self.model->getTime();
+    }
+}
+
+
+double RoadRunner::internalOneStep(const double currentTime, const double stepSize, const bool reset)
+{
+    get_self();
+    check_model();
+    applySimulateOptions();
+    static const double epsilon = std::numeric_limits<double>::epsilon();
+    double endTime;
+
+    bool temp_var = self.integrator->getValue("variable_step_size");
+    self.integrator->setValue("variable_step_size", true);
+
+    try
+    {
+        if (reset)
+        {
+            self.integrator->restart(currentTime);
+        }
+        endTime = self.integrator->integrate(currentTime, stepSize);
+        self.integrator->setValue("variable_step_size", temp_var);
+        Log(Logger::LOG_DEBUG) << "internalOneStep: " << endTime;
+        return endTime;
+    }
+    catch (EventListenerException& e)
+    {
+        Log(Logger::LOG_NOTICE) << e.what();
+        endTime = self.model->getTime();
+        self.integrator->setValue("variable_step_size", temp_var);
+        return endTime;
     }
 }
 
