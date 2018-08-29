@@ -745,6 +745,8 @@ private:
     void initGlobalParameters(const libsbml::Model *model,
             bool conservedMoieties);
 
+	void initArrayedEvent(const libsbml::Model* model, const uint *origId, uint *count, uint ind, std::map <std::string, uint> *values, std::string arrayId, unsigned char attr);
+
 	void initArrayedReaction(const libsbml::Model* model, const uint *origId, uint *count, uint ind, std::map <std::string, uint> *values);
 
     void initReactions(const libsbml::Model *model);

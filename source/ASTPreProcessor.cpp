@@ -212,7 +212,7 @@ namespace rr
 			result = preProcess(ast->getChild(0), values);
 			if (result == NULL)
 				flg = 0;
-			if (result->getType() == AST_NAME)
+			if (result && result->getType() == AST_NAME)
 			{
 				ast->replaceChild(0, result);
 				flg = 0;
@@ -300,17 +300,18 @@ namespace rr
 				if (child->getType() == AST_ORIGINATES_IN_PACKAGE && child->getExtendedType() == AST_LINEAR_ALGEBRA_SELECTOR)
 				{
 					// Should return a string
-					res += "-";
+					res += "_";
 					res += selector(ast, child, values)->getName();
 				}
 				else if (child->getType() == AST_NAME && i == 0 && (!parent || (parent && parent->getExtendedType() == AST_LINEAR_ALGEBRA_SELECTOR)))
 				{
 					// This is our actual variable from which we have to select
 					res += child->getName();
+					res += "_";
 				}
 				else
 				{
-					res += "-";
+					res += "_";
 					double val = preProcess(child, values)->getValue();
 					double iptr;
 					if (modf(val, &iptr) != 0.0 || iptr < 0.0)

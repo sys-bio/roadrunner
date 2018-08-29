@@ -153,7 +153,7 @@ LLVMModelDataSymbols::LLVMModelDataSymbols(const libsbml::Model *model,
             }
             else if (dynamic_cast<const RateRule*>(rule))
             {
-                uint rri = rateRules.size();
+                uint rri = (uint)rateRules.size();
                 rateRules[rule->getId()] = rri;
             }
             else if (dynamic_cast<const AlgebraicRule*>(rule))
@@ -301,7 +301,7 @@ uint LLVMModelDataSymbols::getBoundarySpeciesIndex(
 
 uint LLVMModelDataSymbols::getBoundarySpeciesSize() const
 {
-    return boundarySpeciesMap.size();
+    return (uint)boundarySpeciesMap.size();
 }
 
 uint LLVMModelDataSymbols::getGlobalParameterIndex(
@@ -449,12 +449,12 @@ std::vector<std::string> LLVMModelDataSymbols::getReactionIds() const
 
 uint LLVMModelDataSymbols::getReactionSize() const
 {
-    return reactionsMap.size();
+    return (uint)reactionsMap.size();
 }
 
 uint LLVMModelDataSymbols::getFloatingSpeciesSize() const
 {
-    return floatingSpeciesMap.size();
+    return (uint)floatingSpeciesMap.size();
 }
 
 std::list<LLVMModelDataSymbols::SpeciesReferenceInfo>
@@ -623,7 +623,7 @@ uint LLVMModelDataSymbols::getRateRuleIndex(std::string const& id) const
 
 uint LLVMModelDataSymbols::getRateRuleSize() const
 {
-    return rateRules.size();
+    return (uint)rateRules.size();
 }
 
 std::string rrllvm::LLVMModelDataSymbols::getRateRuleId(uint indx) const
@@ -655,18 +655,17 @@ vector<uint> LLVMModelDataSymbols::getDimensions(const string& id) const
 	vector<uint> result;
 	string s = id;
 	size_t pos = 0;
-	bool flg = false;
-	std::string delimiter = "-", token;
+	std::string delimiter = "_", token;
+	if ((pos = s.find("__")) == std::string::npos)
+		return result;
+	s.erase(0, pos + 2);
 	while ((pos = s.find(delimiter)) != std::string::npos)
 	{
 		token = s.substr(0, pos);
-		if(flg)
-			result.push_back(stoi(token));
-		flg = true;
+		result.push_back(stoi(token));
 		s.erase(0, pos + delimiter.length());
 	}
-	if(flg)
-		result.push_back(stoi(s));
+	result.push_back(stoi(s));
 	return result;
 }
 
@@ -699,7 +698,7 @@ string LLVMModelDataSymbols::getSpeciesCompartment(const string& id) const
 
 string LLVMModelDataSymbols::decodeArrayId(const string& id) const
 {
-	size_t found = id.find_first_of("-");
+	size_t found = id.find("__");
 	string arrId = id.substr(0, found);
 	return arrId;
 }
@@ -718,12 +717,12 @@ bool LLVMModelDataSymbols::hasRateRule(const std::string& id) const
 
 uint LLVMModelDataSymbols::getCompartmentsSize() const
 {
-    return compartmentsMap.size();
+    return (uint)compartmentsMap.size();
 }
 
 uint LLVMModelDataSymbols::getGlobalParametersSize() const
 {
-    return globalParametersMap.size();
+    return (uint)globalParametersMap.size();
 }
 
 void LLVMModelDataSymbols::initArray(const Model* model, uint *type, list<string> *sBaseList, const string *id, uint ind, string arrayId)
@@ -807,7 +806,10 @@ void LLVMModelDataSymbols::initArray(const Model* model, uint *type, list<string
 		// because SBML officially allows for SID type to have an underscore and this
 		// will cause problems while dereferencing the ID if another paramter has an
 		// underscore in its ID
-		initArray(model, type, sBaseList, id, ind+1, arrayId + "-" + to_string(i));
+		if(ind==0)
+			initArray(model, type, sBaseList, id, ind + 1, arrayId + "__" + to_string(i));
+		else
+			initArray(model, type, sBaseList, id, ind + 1, arrayId + "_" + to_string(i));
 	}
 }
 
@@ -894,7 +896,7 @@ void LLVMModelDataSymbols::initGlobalParameters(const libsbml::Model* model,
     for (list<string>::const_iterator i = indParam.begin();
             i != indParam.end(); ++i)
     {
-        uint pi = globalParametersMap.size();
+        uint pi = (uint)globalParametersMap.size();
         globalParametersMap[*i] = pi;
 
         // CM parameters can only be independent.
@@ -914,7 +916,7 @@ void LLVMModelDataSymbols::initGlobalParameters(const libsbml::Model* model,
     for (list<string>::const_iterator i = depParam.begin();
             i != depParam.end(); ++i)
     {
-        uint pi = globalParametersMap.size();
+        uint pi = (uint)globalParametersMap.size();
         globalParametersMap[*i] = pi;
 
         // all the independent ones by def have no rate rules.
@@ -926,20 +928,20 @@ void LLVMModelDataSymbols::initGlobalParameters(const libsbml::Model* model,
     for (list<string>::const_iterator i = indInitParam.begin();
             i != indInitParam.end(); ++i)
     {
-        uint ci = initGlobalParametersMap.size();
+        uint ci = (uint)initGlobalParametersMap.size();
         initGlobalParametersMap[*i] = ci;
     }
 
     for (list<string>::const_iterator i = depInitParam.begin();
             i != depInitParam.end(); ++i)
     {
-        uint ci = initGlobalParametersMap.size();
+        uint ci = (uint)initGlobalParametersMap.size();
         initGlobalParametersMap[*i] = ci;
     }
 
     // finally set how many ind compartments we have
-    independentGlobalParameterSize = indParam.size();
-    independentInitGlobalParameterSize = indInitParam.size();
+    independentGlobalParameterSize = (uint)indParam.size();
+    independentInitGlobalParameterSize = (uint)indInitParam.size();
 
     if (Logger::LOG_INFORMATION <= getLogger().getLevel())
     {
@@ -1012,19 +1014,19 @@ void LLVMModelDataSymbols::initBoundarySpecies(const libsbml::Model* model)
     for (list<string>::const_iterator i = indBndSpecies.begin();
             i != indBndSpecies.end(); ++i)
     {
-        uint bi = boundarySpeciesMap.size();
+        uint bi = (uint)boundarySpeciesMap.size();
         boundarySpeciesMap[*i] = bi;
     }
 
     for (list<string>::const_iterator i = depBndSpecies.begin();
             i != depBndSpecies.end(); ++i)
     {
-        uint bi = boundarySpeciesMap.size();
+        uint bi = (uint)boundarySpeciesMap.size();
         boundarySpeciesMap[*i] = bi;
     }
 
     // finally set how many we have
-    independentBoundarySpeciesSize = indBndSpecies.size();
+    independentBoundarySpeciesSize = (uint)indBndSpecies.size();
 
     if (Logger::LOG_DEBUG <= getLogger().getLevel())
     {
@@ -1121,7 +1123,7 @@ void LLVMModelDataSymbols::initFloatingSpecies(const libsbml::Model* model,
 				if (quantities.size()) {
 					for (uint j = 0; j < quantities.size(); ++j) {
 						std::string quantity = quantities.at(j);
-						conservedMoietyIndSpecies[quantity].push_back(indFltSpecies.size() - 1);
+						conservedMoietyIndSpecies[quantity].push_back((uint)indFltSpecies.size() - 1);
 					}
 				}
 			}
@@ -1131,7 +1133,7 @@ void LLVMModelDataSymbols::initFloatingSpecies(const libsbml::Model* model,
 				if (quantities.size()) {
 					for (uint j = 0; j < quantities.size(); ++j) {
 						std::string quantity = quantities.at(j);
-						conservedMoietyDepSpecies[quantity] = depFltSpecies.size() - 1;
+						conservedMoietyDepSpecies[quantity] = (uint)depFltSpecies.size() - 1;
 					}
 				}
 			}
@@ -1163,7 +1165,7 @@ void LLVMModelDataSymbols::initFloatingSpecies(const libsbml::Model* model,
 				if (quantities.size()) {
 					for (uint j = 0; j < quantities.size(); ++j) {
 						std::string quantity = quantities.at(j);
-						conservedMoietyIndSpecies[quantity].push_back(indFltSpecies.size() - 1);
+						conservedMoietyIndSpecies[quantity].push_back((uint)indFltSpecies.size() - 1);
 					}
 				}
 			}
@@ -1173,7 +1175,7 @@ void LLVMModelDataSymbols::initFloatingSpecies(const libsbml::Model* model,
 				if (quantities.size()) {
 					for (uint j = 0; j < quantities.size(); ++j) {
 						std::string quantity = quantities.at(j);
-						conservedMoietyDepSpecies[quantity] = depFltSpecies.size() - 1;
+						conservedMoietyDepSpecies[quantity] = (uint)depFltSpecies.size() - 1;
 					}
 				}
 			}
@@ -1204,14 +1206,14 @@ void LLVMModelDataSymbols::initFloatingSpecies(const libsbml::Model* model,
 	for (list<string>::const_iterator i = indFltSpecies.begin();
 		i != indFltSpecies.end(); ++i)
 	{
-		uint si = floatingSpeciesMap.size();
+		uint si = (uint)floatingSpeciesMap.size();
 		floatingSpeciesMap[*i] = si;
 	}
 
 	for (list<string>::const_iterator i = depFltSpecies.begin();
 		i != depFltSpecies.end(); ++i)
 	{
-		uint si = floatingSpeciesMap.size();
+		uint si = (uint)floatingSpeciesMap.size();
 		floatingSpeciesMap[*i] = si;
 
 		// Need to check this Vin
@@ -1226,7 +1228,7 @@ void LLVMModelDataSymbols::initFloatingSpecies(const libsbml::Model* model,
 				conservedMoietySpeciesSet.end())
 			{
 				// keep incrementing the size each time we add one.
-				uint cmIndex = floatingSpeciesToConservedMoietyIdMap.size();
+				uint cmIndex = (uint)floatingSpeciesToConservedMoietyIdMap.size();
 				floatingSpeciesToConservedMoietyIdMap[si] = cmIndex;
 			}
 		}
@@ -1236,20 +1238,20 @@ void LLVMModelDataSymbols::initFloatingSpecies(const libsbml::Model* model,
 	for (list<string>::const_iterator i = indInitFltSpecies.begin();
 		i != indInitFltSpecies.end(); ++i)
 	{
-		uint si = initFloatingSpeciesMap.size();
+		uint si = (uint)initFloatingSpeciesMap.size();
 		initFloatingSpeciesMap[*i] = si;
 	}
 
 	for (list<string>::const_iterator i = depInitFltSpecies.begin();
 		i != depInitFltSpecies.end(); ++i)
 	{
-		uint si = initFloatingSpeciesMap.size();
+		uint si = (uint)initFloatingSpeciesMap.size();
 		initFloatingSpeciesMap[*i] = si;
 	}
 
 	// finally set how many ind species we've found
-	independentFloatingSpeciesSize = indFltSpecies.size();
-	independentInitFloatingSpeciesSize = indInitFltSpecies.size();
+	independentFloatingSpeciesSize = (uint)indFltSpecies.size();
+	independentInitFloatingSpeciesSize = (uint)indInitFltSpecies.size();
 
 	// map the float species to their compartments.
 	floatingSpeciesCompartmentIndices.resize(floatingSpeciesMap.size());
@@ -1428,14 +1430,14 @@ void LLVMModelDataSymbols::initCompartments(const libsbml::Model *model)
 	for (list<string>::const_iterator i = indCompartments.begin();
 		i != indCompartments.end(); ++i)
 	{
-		uint ci = compartmentsMap.size();
+		uint ci = (uint)compartmentsMap.size();
 		compartmentsMap[*i] = ci;
 	}
 
 	for (list<string>::const_iterator i = depCompartments.begin();
 		i != depCompartments.end(); ++i)
 	{
-		uint ci = compartmentsMap.size();
+		uint ci = (uint)compartmentsMap.size();
 		compartmentsMap[*i] = ci;
 	}
 
@@ -1443,21 +1445,21 @@ void LLVMModelDataSymbols::initCompartments(const libsbml::Model *model)
 	for (list<string>::const_iterator i = indInitCompartments.begin();
 		i != indInitCompartments.end(); ++i)
 	{
-		uint ci = initCompartmentsMap.size();
+		uint ci = (uint)initCompartmentsMap.size();
 		initCompartmentsMap[*i] = ci;
 	}
 
 	for (list<string>::const_iterator i = depInitCompartments.begin();
 		i != depInitCompartments.end(); ++i)
 	{
-		uint ci = initCompartmentsMap.size();
+		uint ci = (uint)initCompartmentsMap.size();
 		initCompartmentsMap[*i] = ci;
 	}
 
 
 	// finally set how many ind compartments we have
-	independentCompartmentSize = indCompartments.size();
-	independentInitCompartmentSize = indInitCompartments.size();
+	independentCompartmentSize = (uint)indCompartments.size();
+	independentInitCompartmentSize = (uint)indInitCompartments.size();
 }
 
 bool LLVMModelDataSymbols::isConservedMoietyParameter(uint id) const
@@ -1526,6 +1528,53 @@ void  LLVMModelDataSymbols::setNamedSpeciesReferenceInfo(uint row, uint column,
 
 typedef std::vector<LLVMModelDataSymbols::SpeciesReferenceType>::size_type ssize_type;
 typedef cxx11_ns::unordered_map<uint, ssize_type> UIntUMap;
+
+/**
+* @param origId - The original ID of the reaction in the actual SBML
+* @param count - The reaction count for storing the reactions
+* @param ind - Dimension index
+* @param values - List of dimension values and any other values required to get the array ID
+*/
+void LLVMModelDataSymbols::initArrayedEvent(const libsbml::Model* model, const uint *origId, uint *count, uint ind, map <string, uint> *values, string arrayId, unsigned char attr)
+{
+	static const Event* event = model->getEvent(*origId);
+	static const ArraysSBasePlugin * arraysPlug = static_cast<const ArraysSBasePlugin*>(event->getPlugin("arrays"));
+	if (ind == arraysPlug->getNumDimensions())
+	{
+		// Should check if this is technically correct
+		eventAttributes[*count] = attr;
+		eventAssignmentsSize[*count] = event->getListOfEventAssignments()->size();
+		if (arrayId != "")
+			eventIds.insert(StringUIntPair(arrayId, *count));
+		(*count) += 1;
+		return;
+	}
+	const string& dimensionSizeId = arraysPlug->getDimension(ind)->getSize();
+	double val = model->getParameter(dimensionSizeId)->getValue();
+	double iptr;
+	if (modf(val, &iptr) != 0.0 || iptr < 0.0)
+	{
+		Log(Logger::LOG_ERROR) << "Dimension " << ind << " of " << dimensionSizeId <<
+			" has a value that is not a positive integer";
+		throw invalid_argument("Dimension " + to_string(ind) + " of event " + dimensionSizeId + " is not a positive integer");
+	}
+	if (ind == sizeOfDimensions[event->getId()].size())
+	{
+		// Add the size of dimensions of elements
+		sizeOfDimensions[event->getId()].push_back((uint)iptr);
+	}
+	string id = arraysPlug->getDimensionByArrayDimension(ind)->getIdAttribute();
+	for (uint i = 0; i < sizeOfDimensions[event->getId()][ind]; i++)
+	{
+		(*values)[id] = i;
+		if (arrayId == "")
+			initArrayedEvent(model, origId, count, ind + 1, values, "", attr);
+		else if (ind == 0)
+			initArrayedEvent(model, origId, count, ind + 1, values, arrayId + "__" + to_string(i), attr);
+		else
+			initArrayedEvent(model, origId, count, ind + 1, values, arrayId + "_" + to_string(i), attr);
+	}
+}
 
 /**
  * @param origId - The original ID of the reaction in the actual SBML
@@ -1787,7 +1836,7 @@ void LLVMModelDataSymbols::initArrayedReaction(const libsbml::Model* model, cons
 	{
 		Log(Logger::LOG_ERROR) << "Dimension " << ind << " of " << dimensionSizeId <<
 			" has a value that is not a positive integer";
-		throw invalid_argument("Dimension " + to_string(ind) + " of parameter " + dimensionSizeId + " is not a positive integer");
+		throw invalid_argument("Dimension " + to_string(ind) + " of reaction " + dimensionSizeId + " is not a positive integer");
 	}
 	if (ind == sizeOfDimensions[reaction->getId()].size())
 	{
@@ -2063,11 +2112,25 @@ void LLVMModelDataSymbols::displayCompartmentInfo()
 void LLVMModelDataSymbols::initEvents(const libsbml::Model* model)
 {
     const ListOfEvents *events = model->getListOfEvents();
-
     if (events->size())
     {
-        eventAttributes.resize(events->size());
-        eventAssignmentsSize.resize(events->size());
+		uint numberOfEvents = 0;
+#ifdef LIBSBML_HAS_PACKAGE_ARRAYS
+		for (uint i = 0; i < events->size(); i++)
+		{
+			const ArraysSBasePlugin * arraysPlug = static_cast<const ArraysSBasePlugin*>(events->get(i)->getPlugin("arrays"));
+			std::vector<uint> tmp = arraysPlug->getNumArrayElements();
+			uint eventSize = 1;
+			for (uint j = 0; j < tmp.size(); j++)
+				eventSize *= tmp[i];
+			numberOfEvents += eventSize;
+		}
+#else
+		numberOfEvents = events->size();
+#endif
+		uint count = 0;
+        eventAttributes.resize(numberOfEvents);
+        eventAssignmentsSize.resize(numberOfEvents);
 
         // load the event attributes
         for (uint i = 0; i < events->size(); ++i)
@@ -2078,28 +2141,42 @@ void LLVMModelDataSymbols::initEvents(const libsbml::Model* model)
             {
                 attr = attr | EventUseValuesFromTriggerTime;
             }
+			const Trigger *trigger = event->getTrigger();
+			assert(trigger && "must have trigger");
+			if (trigger->isSetInitialValue() && trigger->getInitialValue())
+			{
+				attr = attr | EventInitialValue;
+			}
+			// older versions seem to default to persisent
+			const SBMLDocument *doc = model->getSBMLDocument();
+			if (doc->getLevel() < 3 ||
+				(trigger->isSetPersistent() && trigger->getPersistent()))
+			{
+				attr = attr | EventPersistent;
+			}
+#ifndef LIBSBML_HAS_PACKAGE_ARRAYS
+			if (event->isPackageEnabled("arrays"))
+				throw runtime_error("Event " + event->getId() + " is an array. Please build roadrunner with LIBSBML Arrays package enabled");
+#else
+			const ArraysSBasePlugin * arraysPlug = static_cast<const ArraysSBasePlugin*>(event->getPlugin("arrays"));
 
-            const Trigger *trigger = event->getTrigger();
-            assert(trigger && "must have trigger");
-            if (trigger->isSetInitialValue() && trigger->getInitialValue())
-            {
-                attr = attr | EventInitialValue;
-            }
-
-            // older versions seem to default to persisent
-            const SBMLDocument *doc = model->getSBMLDocument();
-            if (doc->getLevel() < 3 ||
-                    (trigger->isSetPersistent() && trigger->getPersistent()))
-            {
-                attr = attr | EventPersistent;
-            }
-
-            eventAttributes[i] = attr;
-            eventAssignmentsSize[i] = event->getListOfEventAssignments()->size();
+			if (arraysPlug && arraysPlug->getNumDimensions())
+			{
+				uint sizeOfIndices = arraysPlug->getNumDimensions();
+				map<string, uint> values;
+				if (event->isSetId())
+					initArrayedEvent(model, &i, &count, 0, &values, event->getId(), attr);
+				else
+					initArrayedEvent(model, &i, &count, 0, &values, "", attr);
+				continue;
+			}
+#endif
+			eventAttributes[count] = attr;
+            eventAssignmentsSize[count] = event->getListOfEventAssignments()->size();
 
             if (event->isSetId())
             {
-                eventIds.insert(StringUIntPair(event->getId(), i));
+                eventIds.insert(StringUIntPair(event->getId(), count));
             }
         }
     }
@@ -2285,7 +2362,7 @@ uint LLVMModelDataSymbols::getEventIndex(const std::string& id) const
 
 uint LLVMModelDataSymbols::getConservedMoietySize() const
 {
-    return conservedMoietyGlobalParameterIndex.size();
+    return (uint)conservedMoietyGlobalParameterIndex.size();
 }
 
 uint LLVMModelDataSymbols::getDepSpeciesIndexForConservedMoietyId(std::string id) const

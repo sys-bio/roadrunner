@@ -3651,7 +3651,7 @@ static std::vector<std::string> createSelectionList(const SimulateOptions& o)
 
 std::string RoadRunner::decodeArrayId(const std::string id, std::string *rest)
 {
-	size_t found = id.find_first_of("-");
+	size_t found = id.find("__");
 	string arrId = id.substr(0, found);
 	if (found != std::string::npos)
 	{
