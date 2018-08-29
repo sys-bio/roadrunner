@@ -115,9 +115,11 @@ csr_matrix* csr_matrix_new(unsigned m, unsigned n,
     mat->values = (double*)calloc(nnz, sizeof(double));
 
     memcpy(mat->rowptr, &mrowptr[0], (mat->m+1)*sizeof(unsigned));
-    memcpy(mat->colidx, &mcolidx[0], nnz*sizeof(unsigned));
-    memcpy(mat->values, &mvalues[0], nnz*sizeof(double));
-
+	if (nnz)
+	{
+		memcpy(mat->colidx, &mcolidx[0], nnz * sizeof(unsigned));
+		memcpy(mat->values, &mvalues[0], nnz * sizeof(double));
+	}
     return mat;
 }
 
