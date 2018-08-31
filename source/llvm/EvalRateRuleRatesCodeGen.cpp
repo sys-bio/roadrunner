@@ -56,11 +56,10 @@ Value* EvalRateRuleRatesCodeGen::codeGen()
     for (int i = 0; i < rules->size(); ++i)
     {
         const RateRule *rateRule = dynamic_cast<const RateRule*>(rules->get(i));
-        const ASTNode *math = 0;
 
         if (rateRule)
         {
-            // check if this rate rule applies to species, we only deal with
+            /*// check if this rate rule applies to species, we only deal with
             // amounts and rates of change of amounts, so need to convert
             // accordignly
             const Species *species = dynamic_cast<const Species*>(
@@ -129,11 +128,17 @@ Value* EvalRateRuleRatesCodeGen::codeGen()
             else
             {
                 math = rateRule->getMath();
-            }
-            assert(math);
-            Value *value = astCodeGen.codeGen(math);
-
-            mdbuilder.createRateRuleRateStore(rateRule->getVariable(), value);
+            }*/
+			string ruleId = rateRule->getId();
+			set<string> arrayedRateRules = this->dataSymbols.getArrayedElements(ruleId, 8);
+			for (set<string>::iterator it = arrayedRateRules.begin(), jt = arrayedRateRules.end(); it != jt; it++)
+			{
+				const ASTNode* math = this->modelSymbols.getRateRuleMath(*it);
+				assert(math);
+				Value *value = astCodeGen.codeGen(math);
+				string variableId = this->modelSymbols.getRateRuleVariable(*it);
+				mdbuilder.createRateRuleRateStore(variableId, value);
+			}
         }
     }
 

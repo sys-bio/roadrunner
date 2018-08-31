@@ -69,6 +69,10 @@ public:
 
     const SymbolForest& getRateRules() const;
 
+	string getRateRuleVariable(std::string id) const;
+
+	const libsbml::ASTNode* getRateRuleMath(std::string id) const;
+
 protected:
 
     enum SpeciesReferenceType {
@@ -166,6 +170,8 @@ protected:
      */
     virtual bool visit (const libsbml::Event &event);
 
+	void processRateRule(const libsbml::RateRule& rule);
+
     /**
      * The only differences in how initialAssigments and assignmentRules
      * are handled is whether they are stuffed in the initialAssigment
@@ -215,6 +221,9 @@ protected:
     SymbolForest initialAssignmentRules;
 
     SymbolForest rateRules;
+
+	std::map <string, string> rateRuleVariable;
+	std::map <string, const libsbml::ASTNode*> rateRuleMath;
 
     /**
      * all ASTNodes we create are stored here.
@@ -267,8 +276,7 @@ protected:
     std::vector<ReactionSymbols> reactions;
 
 private:
-    libsbml::Model const
-    *model;
+    libsbml::Model const *model;
     const LLVMModelDataSymbols &symbols;
 };
 

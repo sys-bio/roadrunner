@@ -143,6 +143,7 @@ LLVMModelDataSymbols::LLVMModelDataSymbols(const libsbml::Model *model,
     // first go through the rules, see if they determine other stuff
     {
         const ListOfRules * rules = model->getListOfRules();
+		list<string> allRateRules;
         for (unsigned i = 0; i < rules->size(); ++i)
         {
             const Rule *rule = rules->get(i);
@@ -153,8 +154,25 @@ LLVMModelDataSymbols::LLVMModelDataSymbols(const libsbml::Model *model,
             }
             else if (dynamic_cast<const RateRule*>(rule))
             {
-                uint rri = (uint)rateRules.size();
-                rateRules[rule->getId()] = rri;
+				string id = rule->getId();
+#ifndef LIBSBML_HAS_PACKAGE_ARRAYS
+				if (rule->isPackageEnabled("arrays"))
+				{
+					throw runtime_error("The rate rule " + id + "has a ListOfDimensions or ListOfIndices but the libSBML arrays package has not been enabled. Please build roadrunner with libSBML arrays package enabled");
+				}
+#else
+				const ArraysSBasePlugin * arraysPlug = static_cast<const ArraysSBasePlugin*>(rule->getPlugin("arrays"));
+				if (arraysPlug && arraysPlug->getNumDimensions())
+				{
+					uint type = 4;
+					initArray(model, &type, &allRateRules, &id, 0, id);
+				}
+#endif
+				else
+				{
+					arrayedRateRules[id].insert(id);
+					allRateRules.push_back(id);
+				}
             }
             else if (dynamic_cast<const AlgebraicRule*>(rule))
             {
@@ -165,6 +183,12 @@ LLVMModelDataSymbols::LLVMModelDataSymbols(const libsbml::Model *model,
                 free(formula);
             }
         }
+		for (list<string>::const_iterator i = allRateRules.begin();
+			i != allRateRules.end(); ++i)
+		{
+			uint rri = (uint)rateRules.size();
+			rateRules[*i] = rri;
+		}
     }
 
     {
@@ -319,35 +343,66 @@ uint LLVMModelDataSymbols::getGlobalParameterIndex(
 }
 
 set<string> LLVMModelDataSymbols::getArrayedElements(
-		const std::string& id, const uint type) const
+	const std::string& id, const uint type) const
 {
-	set<string> res;
+	set<string> res = {};
+	map<string, set<string>>::const_iterator tmp;
 	switch (type)
 	{
 	case 0: // FLOATING_SPECIES
-		res = arrayedFltSpecies.find(id)->second;
+	{
+		if((tmp=arrayedFltSpecies.find(id)) != arrayedFltSpecies.end())
+			res = tmp->second;
 		break;
+	}
 	case 1: // BOUNDARY_SPECIES
-		res = arrayedBndSpecies.find(id)->second;
+	{
+		if ((tmp = arrayedBndSpecies.find(id)) != arrayedBndSpecies.end())
+			res = arrayedBndSpecies.find(id)->second;
 		break;
+	}
 	case 2: // COMPARTMENT
-		res = arrayedCompartments.find(id)->second;
+	{	
+		if ((tmp = arrayedCompartments.find(id)) != arrayedCompartments.end())
+			res = arrayedCompartments.find(id)->second;
 		break;
+	}
 	case 3: // GLOBAL_PARAMETER
-		res = arrayedGlobalParameters.find(id)->second;
+	{	
+		if ((tmp = arrayedGlobalParameters.find(id)) != arrayedGlobalParameters.end())
+			res = arrayedGlobalParameters.find(id)->second;
 		break;
+	}
 	case 4: // REACTION
-		res = arrayedReactions.find(id)->second;
+	{	
+		if ((tmp = arrayedReactions.find(id)) != arrayedReactions.end())
+			res = arrayedReactions.find(id)->second;
 		break;
+	}
 	case 5: // EVENTS
-		res = arrayedEvents.find(id)->second;
+	{	
+		if ((tmp = arrayedEvents.find(id)) != arrayedEvents.end())
+			res = arrayedEvents.find(id)->second;
 		break;
+	}
 	case 6: // Get reactants of a reaction
-		res = reactionReactants.find(id)->second;
+	{	
+		if ((tmp = reactionReactants.find(id)) != reactionReactants.end())
+			res = reactionReactants.find(id)->second;
 		break;
+	}
 	case 7: // Get products of a reaction
-		res = reactionProducts.find(id)->second;
+	{	
+		if ((tmp = reactionProducts.find(id)) != reactionProducts.end())
+			res = reactionProducts.find(id)->second;
 		break;
+	}
+	case 8: // RateRules
+	{
+		if ((tmp = arrayedRateRules.find(id)) != arrayedRateRules.end())
+			res = arrayedRateRules.find(id)->second;
+		break;
+	}
 	default:
 		throw LLVMException("Could not find element with ID " + id, __FUNC__);
 	}
@@ -641,10 +696,13 @@ std::string rrllvm::LLVMModelDataSymbols::getRateRuleId(uint indx) const
             rr::toString(indx));
 }
 
-bool LLVMModelDataSymbols::isIndependentElement(const std::string& id) const
+bool LLVMModelDataSymbols::isIndependentElement(const std::string& id, const libsbml::Model* model) const
 {
-    return rateRules.find(id) == rateRules.end() &&
-            assigmentRules.find(id) == assigmentRules.end();
+	const string& arrayId = decodeArrayId(id);
+    return (rateRules.find(id) == rateRules.end() &&
+			rateRules.find(arrayId) == rateRules.end() &&
+            assigmentRules.find(arrayId) == assigmentRules.end() &&
+			!(model && model->getRateRule(arrayId)));
 }
 
 /**
@@ -652,7 +710,7 @@ bool LLVMModelDataSymbols::isIndependentElement(const std::string& id) const
 */
 vector<uint> LLVMModelDataSymbols::getDimensions(const string& id) const
 {
-	vector<uint> result;
+	vector<uint> result = {};
 	string s = id;
 	size_t pos = 0;
 	std::string delimiter = "_", token;
@@ -711,8 +769,7 @@ bool LLVMModelDataSymbols::hasAssignmentRule(const std::string& id) const
 
 bool LLVMModelDataSymbols::hasRateRule(const std::string& id) const
 {
-	string arrId = decodeArrayId(id);
-    return rateRules.find(arrId) != rateRules.end();
+    return rateRules.find(id) != rateRules.end();
 }
 
 uint LLVMModelDataSymbols::getCompartmentsSize() const
@@ -751,6 +808,11 @@ void LLVMModelDataSymbols::initArray(const Model* model, uint *type, list<string
 		arraysPlug = static_cast<const ArraysSBasePlugin*>(model->getSpecies(*id)->getPlugin("arrays"));
 		break;
 	}
+	case 4:
+	{
+		arraysPlug = static_cast<const ArraysSBasePlugin*>(model->getRateRule(*id)->getPlugin("arrays"));
+		break;
+	}
 	} 
 	
 	// The n-th dimension has an index n-1 and therefore we should stop when we reach index = n
@@ -780,6 +842,11 @@ void LLVMModelDataSymbols::initArray(const Model* model, uint *type, list<string
 			arrayedBndSpecies[*id].insert(arrayId);
 			break;
 		}
+		case 4:
+		{
+			arrayedRateRules[*id].insert(arrayId);
+			break;
+		}
 		}
 		return;
 	}
@@ -802,10 +869,6 @@ void LLVMModelDataSymbols::initArray(const Model* model, uint *type, list<string
 	// Create the list of parameters
 	for (uint i = 0; i < sizeOfDimensions[*id][ind]; i++)
 	{
-		// Using hyphen(-) instead of an underscore(_) for the parameter ID's
-		// because SBML officially allows for SID type to have an underscore and this
-		// will cause problems while dereferencing the ID if another paramter has an
-		// underscore in its ID
 		if(ind==0)
 			initArray(model, type, sBaseList, id, ind + 1, arrayId + "__" + to_string(i));
 		else
@@ -839,7 +902,7 @@ void LLVMModelDataSymbols::initGlobalParameters(const libsbml::Model* model,
 		if (arraysPlug && arraysPlug->getNumDimensions())
 		{
 			uint type = 0;
-			if (isIndependentElement(id))
+			if (isIndependentElement(id, model))
 			{
 				initArray(model, &type, &indParam, &id, 0, id);
 			}
@@ -861,7 +924,7 @@ void LLVMModelDataSymbols::initGlobalParameters(const libsbml::Model* model,
 		else
 		{
 			arrayedGlobalParameters[id].insert(id);
-			if (isIndependentElement(id))
+			if (isIndependentElement(id, model))
 			{
 				indParam.push_back(id);
 			}
@@ -984,7 +1047,7 @@ void LLVMModelDataSymbols::initBoundarySpecies(const libsbml::Model* model)
 			if (arraysPlug && arraysPlug->getNumDimensions())
 			{
 				uint type = 3;
-				if (isIndependentElement(id))
+				if (isIndependentElement(id, model))
 				{
 					initArray(model, &type, &indBndSpecies, &id, 0, id);
 				}
@@ -998,7 +1061,7 @@ void LLVMModelDataSymbols::initBoundarySpecies(const libsbml::Model* model)
 			{
 				arrayedBndSpecies[id].insert(id);
 				speciesCompartment[id] = s->getCompartment();
-				if (isIndependentElement(s->getId()))
+				if (isIndependentElement(s->getId(), model))
 				{
 					indBndSpecies.push_back(s->getId());
 				}
@@ -1117,7 +1180,7 @@ void LLVMModelDataSymbols::initFloatingSpecies(const libsbml::Model* model,
 		if (arraysPlug && arraysPlug->getNumDimensions())
 		{
 			uint type = 3;
-			if (isIndependentElement(sid))
+			if (isIndependentElement(sid, model))
 			{
 				initArray(model, &type, &indFltSpecies, &sid, 0, sid);
 				if (quantities.size()) {
@@ -1159,7 +1222,7 @@ void LLVMModelDataSymbols::initFloatingSpecies(const libsbml::Model* model,
 		else
 		{
 			arrayedFltSpecies[sid].insert(sid);
-			if (isIndependentElement(sid))
+			if (isIndependentElement(sid, model))
 			{
 				indFltSpecies.push_back(sid);
 				if (quantities.size()) {
@@ -1385,7 +1448,7 @@ void LLVMModelDataSymbols::initCompartments(const libsbml::Model *model)
 		if (arraysPlug && arraysPlug->getNumDimensions())
 		{
 			uint type = 1;
-			if (isIndependentElement(id))
+			if (isIndependentElement(id, model))
 			{
 				initArray(model, &type, &indCompartments, &id, 0, id);
 			}
@@ -1407,7 +1470,7 @@ void LLVMModelDataSymbols::initCompartments(const libsbml::Model *model)
 		else
 		{
 			arrayedCompartments[id].insert(id);
-			if (isIndependentElement(id))
+			if (isIndependentElement(id, model))
 			{
 				indCompartments.push_back(id);
 			}
@@ -1590,6 +1653,8 @@ void LLVMModelDataSymbols::initArrayedReaction(const libsbml::Model* model, cons
 	{
 		// Values should contain the value of all the dimensions
 		uint sizeOfIndices = arraysPlug->getNumIndices();
+		if (sizeOfIndices == 0)
+			throw LLVMException("Reaction " + reaction->getIdAttribute() + " does not have a listOfIndices");
 		ASTNode* reactionMath = new ASTNode(AST_LINEAR_ALGEBRA_SELECTOR);
 		ASTNode* var = new ASTNode(AST_NAME);
 		var->setName(reaction->getIdAttribute().c_str());

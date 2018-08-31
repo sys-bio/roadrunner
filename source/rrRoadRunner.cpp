@@ -3656,9 +3656,11 @@ std::string RoadRunner::decodeArrayId(const std::string id, std::string *rest)
 	if (found != std::string::npos)
 	{
 		std::string tmp = id.substr(found);
-		tmp.erase(tmp.end()-1);
+		if(tmp[tmp.size()-1] == ']')
+			tmp.erase(tmp.end()-1);
 		(*rest) += tmp;
-		arrId += "]";
+		if(arrId[0]=='[')
+			arrId += "]";
 	}
 	return arrId;
 }
@@ -3672,8 +3674,10 @@ SelectionRecord RoadRunner::createSelection(const std::string& str)
 	string rest = "";
     SelectionRecord sel(decodeArrayId(str, &rest));
 
-	sel.p1 += rest;
-	sel.p2 += rest;
+	if(sel.p1!="")
+		sel.p1 += rest;
+	if(sel.p2!="")
+		sel.p2 += rest;
 
     if (sel.selectionType == SelectionRecord::UNKNOWN)
     {

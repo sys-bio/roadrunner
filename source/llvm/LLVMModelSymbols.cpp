@@ -119,7 +119,6 @@ LLVMModelSymbols::~LLVMModelSymbols()
 
 bool LLVMModelSymbols::visit(const libsbml::Compartment& x)
 {
-	// Need to include an array of compartments Vin
     ASTNode *node = nodes.create(AST_REAL);
     if (x.isSetVolume())
     {
@@ -189,6 +188,7 @@ bool LLVMModelSymbols::visit(const libsbml::RateRule& rule)
 {
     Log(Logger::LOG_TRACE) << "processing RateRule, id: " +  rule.getId();
     SBase *element = const_cast<Model*>(model)->getElementBySId(rule.getVariable());
+	processRateRule(rule);
     processElement(rateRules, element, rule.getMath());
     return true;
 }
@@ -198,10 +198,174 @@ bool LLVMModelSymbols::visit (const libsbml::Event &event)
     return true;
 }
 
-// Need to change this function to take in arrays Vin
-// Should I process the AST of the index and the AST of LHS here by writing a 
-// seperate function for getting the value of the AST
-// instead of dealing with everything in LLVM? Vin
+void LLVMModelSymbols::processRateRule(const libsbml::RateRule& rule)
+{
+	string ruleId = rule.getId();
+	set<string> arrayedRateRule = this->symbols.getArrayedElements(ruleId, 8);
+	const Species *species = dynamic_cast<const Species*>(
+		const_cast<Model*>(model)->getElementBySId(
+			rule.getVariable()));
+	map<string, uint> values;
+	for (set<string>::iterator it = arrayedRateRule.begin(), jt = arrayedRateRule.end(); it != jt; it++)
+	{
+		vector<uint> dimensions = this->symbols.getDimensions(*it);
+		if (dimensions.size() == 0)
+		{
+			ASTNode *math;
+			if (species)
+			{
+				if (!species->getHasOnlySubstanceUnits())
+				{
+					// product rule, need to check if we have a rate rule for the
+					// species compartment.
+					const RateRule *compRateRule = dynamic_cast<const RateRule*>(
+						const_cast<Model*>(model)->getRateRule(species->getCompartment()));
+					if (compRateRule)
+					{
+						Log(Logger::LOG_DEBUG) << "species " << species->getId()
+							<< " is a concentration with time dependent volume, "
+							"converting conc rate to amt rate using product rule";
+						ASTNode *dcdt = new ASTNode(*rule.getMath());
+						ASTNode *v = new ASTNode(AST_NAME);
+						v->setName(species->getCompartment().c_str());
+
+						ASTNode *dvdt = new ASTNode(*compRateRule->getMath());
+						ASTNode *c = new ASTNode(AST_NAME);
+						c->setName(species->getId().c_str());
+
+						ASTNode *l = new ASTNode(AST_TIMES);
+						l->addChild(dcdt);
+						l->addChild(v);
+
+						ASTNode *r = new ASTNode(AST_TIMES);
+						r->addChild(dvdt);
+						r->addChild((v));
+
+						ASTNode *plus = nodes.create(AST_PLUS);
+						plus->addChild(l);
+						plus->addChild(r);
+
+						math = plus;
+					}
+					else
+					{
+						Log(Logger::LOG_DEBUG) << "species " << species->getId()
+							<< " is a concentration with constant volume, "
+							"converting conc rate to amt rate const vol mul";
+
+						ASTNode *dcdt = new ASTNode(*rule.getMath());
+						ASTNode *v = new ASTNode(AST_NAME);
+						v->setName(species->getCompartment().c_str());
+
+						ASTNode *times = nodes.create(AST_TIMES);
+						times->addChild(dcdt);
+						times->addChild(v);
+
+						math = times;
+					}
+				}
+				else
+				{
+					Log(Logger::LOG_DEBUG) << "species " << species->getId() <<
+						" is an amount, creating straight rate rule";
+					math = new ASTNode(*rule.getMath());
+				}
+			}
+			else
+			{
+				math = new ASTNode(*rule.getMath());
+			}
+			rateRuleVariable[*it] = rule.getVariable();
+			rateRuleMath[*it] = math;
+		}
+		else
+		{
+			const ArraysSBasePlugin *arraysRule = static_cast<const ArraysSBasePlugin*>(rule.getPlugin("arrays"));
+			for (uint i = 0; i < dimensions.size(); i++)
+			{
+				values[arraysRule->getDimensionByArrayDimension(i)->getId()] = dimensions[i];
+			}
+			ASTNode *math;
+			ASTNode *variableIdMath = new ASTNode(AST_LINEAR_ALGEBRA_SELECTOR);
+			ASTNode *tmp = new ASTNode(AST_NAME);
+			tmp->setName(rule.getVariable().c_str());
+			variableIdMath->addChild(tmp);
+			for (uint i = 0; i < dimensions.size(); i++)
+			{
+				variableIdMath->addChild(arraysRule->getIndex(i)->getMath()->deepCopy());
+			}
+			this->symbols.getUnknownValues(this->model, &values, variableIdMath);
+			string variableId = rr::ASTPreProcessor().preProcess(variableIdMath, &values)->getName();
+			if (species)
+			{
+				if (!species->getHasOnlySubstanceUnits())
+				{
+					// product rule, need to check if we have a rate rule for the
+					// species compartment.
+					const RateRule *compRateRule = dynamic_cast<const RateRule*>(
+						const_cast<Model*>(model)->getRateRule(species->getCompartment()));
+					if (compRateRule)
+					{
+						Log(Logger::LOG_DEBUG) << "species " << variableId
+							<< " is a concentration with time dependent volume, "
+							"converting conc rate to amt rate using product rule";
+						ASTNode *dcdt = new ASTNode(*rule.getMath());
+						ASTNode *v = new ASTNode(AST_NAME);
+						v->setName(this->symbols.getSpeciesCompartment(variableId).c_str());
+
+						ASTNode *dvdt = new ASTNode(*compRateRule->getMath());
+						ASTNode *c = new ASTNode(AST_NAME);
+						c->setName(variableId.c_str());
+
+						ASTNode *l = new ASTNode(AST_TIMES);
+						l->addChild(dcdt);
+						l->addChild(v);
+
+						ASTNode *r = new ASTNode(AST_TIMES);
+						r->addChild(dvdt);
+						r->addChild((v));
+
+						ASTNode *plus = nodes.create(AST_PLUS);
+						plus->addChild(l);
+						plus->addChild(r);
+
+						math = plus;
+					}
+					else
+					{
+						Log(Logger::LOG_DEBUG) << "species " << variableId
+							<< " is a concentration with constant volume, "
+							"converting conc rate to amt rate const vol mul";
+
+						ASTNode *dcdt = new ASTNode(*rule.getMath());
+						ASTNode *v = new ASTNode(AST_NAME);
+						v->setName(this->symbols.getSpeciesCompartment(variableId).c_str());
+
+						ASTNode *times = nodes.create(AST_TIMES);
+						times->addChild(dcdt);
+						times->addChild(v);
+
+						math = times;
+					}
+				}
+				else
+				{
+					Log(Logger::LOG_DEBUG) << "species " << variableId <<
+						" is an amount, creating straight rate rule";
+					math = new ASTNode(*rule.getMath());
+				}
+			}
+			else
+			{
+				math = new ASTNode(*rule.getMath());
+			}
+			rateRuleVariable[*it] = variableId;
+			this->symbols.getUnknownValues(this->model, &values, math);
+			rateRuleMath[*it] = rr::ASTPreProcessor().preProcess(math, &values);
+		}
+	}
+}
+
 void LLVMModelSymbols::processElement(SymbolForest& currentSymbols,
         const libsbml::SBase *element, const ASTNode* math)
 {
@@ -247,7 +411,6 @@ bool LLVMModelSymbols::visit(const libsbml::Rule& x)
     return true;
 }
 
-// Need to update for Reactions Vin
 bool LLVMModelSymbols::visit(const libsbml::Reaction& r)
 {
 	set<string> arrayedReactions = symbols.getArrayedElements(r.getId(), 4);
@@ -900,6 +1063,16 @@ ASTNode* LLVMModelSymbols::createStoichiometryNode(int row, int col) const
     result->addChild(products);
 
     return result;
+}
+
+string LLVMModelSymbols::getRateRuleVariable(string id) const
+{
+	return rateRuleVariable.at(id);
+}
+
+const libsbml::ASTNode* LLVMModelSymbols::getRateRuleMath(string id) const
+{
+	return rateRuleMath.at(id);
 }
 
 const SymbolForest& LLVMModelSymbols::getAssigmentRules() const

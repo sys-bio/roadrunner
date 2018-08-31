@@ -160,6 +160,7 @@ namespace rr
 		{
 			if (ast->getExtendedType() == AST_LINEAR_ALGEBRA_SELECTOR)
 				result = selector(NULL, ast, values);
+			// AST_LINEAR_ALGEBRA_VECTOR_CONSTRUCTOR requires AST_LINEAR_ALGEBRA_SELECTOR as its parent
 			break;
 		}
 		default:
@@ -294,6 +295,22 @@ namespace rr
 		{
 			uint numChildren = ast->getNumChildren();
 			string res = "";
+			if (ast->getChild(0)->getExtendedType() == AST_LINEAR_ALGEBRA_VECTOR_CONSTRUCTOR)
+			{
+				libsbml::ASTNode* vectorChild = ast->getChild(0);
+				for (uint i = 1; i < numChildren; i++)
+				{
+					libsbml::ASTNode *child = ast->getChild(i);
+					double val = preProcess(child, values)->getValue();
+					double iptr;
+					if (modf(val, &iptr) != 0.0 || iptr < 0.0)
+					{
+						throw invalid_argument("Dimension is not a positive integer");
+					}
+					vectorChild = vectorChild->getChild((uint)iptr);
+				}
+				return vectorChild;
+			}
 			for (uint i = 0; i < numChildren; i++)
 			{
 				libsbml::ASTNode *child = ast->getChild(i);
@@ -316,7 +333,7 @@ namespace rr
 					double iptr;
 					if (modf(val, &iptr) != 0.0 || iptr < 0.0)
 					{
-						throw invalid_argument("Dimension of parameter is not a positive integer");
+						throw invalid_argument("Dimension is not a positive integer");
 					}
 					std::ostringstream ostr;
 					ostr << (uint)iptr;

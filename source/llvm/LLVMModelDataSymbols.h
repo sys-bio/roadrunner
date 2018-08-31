@@ -312,7 +312,7 @@ public:
      *
      * Only valid after class has been constructed.
      */
-    bool isIndependentElement(const std::string& id) const;
+    bool isIndependentElement(const std::string& id, const libsbml::Model* model = NULL) const;
 
 	std::vector<uint> getDimensions(const std::string& id) const;
 
@@ -637,6 +637,7 @@ private:
 	std::map<std::string, std::set<std::string> > arrayedBndSpecies;
 	std::map<std::string, std::set<std::string> > arrayedReactions;
 	std::map<std::string, std::set<std::string> > arrayedEvents;
+	std::map<std::string, std::set<std::string> > arrayedRateRules;
 	std::map<std::string, std::set<std::string> > reactionProducts;
 	std::map<std::string, std::set<std::string> > reactionReactants;
 	std::map<std::string, libsbml::ASTNode*> reactionLaw;
