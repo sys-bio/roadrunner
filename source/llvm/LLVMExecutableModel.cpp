@@ -721,7 +721,9 @@ void LLVMExecutableModel::reset(int opt)
                             (checkExact(SelectionRecord::DEPENDENT_INITIAL_GLOBAL_PARAMETER, opt) && depInit);
                 reset_cm |= cm;
                 getGlobalParameterInitValues(1, &gid, buffer);
+		Log(Logger::LOG_ERROR) << "read global param init values";
                 setGlobalParameterValues(1, &gid, buffer);
+		Log(Logger::LOG_ERROR) << "set global param current values";
             }
         }
 
@@ -730,7 +732,7 @@ void LLVMExecutableModel::reset(int opt)
             // warn if we were forced to reset CMs
             if (dirty_cm)
             {
-                Log(Logger::LOG_WARNING) << "Both initial conditions and "
+                Log(Logger::LOG_ERROR) << "Both initial conditions and "
                         "conserved moieties were user modified. As conserved moieties "
                         "are defined in terms of initial conditions, the conserved "
                         "moiety values were forcibly reset in terms of the species "
