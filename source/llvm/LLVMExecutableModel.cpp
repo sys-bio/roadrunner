@@ -138,6 +138,10 @@ int LLVMExecutableModel::setValues(bool (*funcPtr)(LLVMModelData*, int, double),
     {
         int j = indx ? indx[i] : i;
         bool result =  funcPtr(modelData, j, values[i]);
+        {
+          string id = (this->*getNameFuncPtr)(j);
+          Log(Logger::LOG_ERROR) << "LLVMExecutableModel::setValues for " << id << ", has initial assignment rule: " << symbols->hasInitialAssignmentRule(id);
+        }
 
         if (!result)
         {

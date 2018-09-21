@@ -62,7 +62,7 @@ a number of selection strings described in the Selections section.
    >>> r.S1 = 1.0
 
    Note, some keys are read only such as values defined by rules, or calculated values such as
-   species amount rates or reaction rates. If one attempts to set the value of a read-only symbol,
+   reaction rates. If one attempts to set the value of a read-only symbol,
    an exception is raised indicating the error, and no harm done.
 
 
@@ -104,21 +104,6 @@ Floating Species
 
    >>> r.getNumFloatingSpecies()
    2
-
-
-.. method:: ExecutableModel.getFloatingSpeciesAmountRates([index])
-   :module: RoadRunner
-
-   Return a vector of the amount rate of change of the floating species.
-
-   The units of amount rates is amount / time.
-
-   :param numpy.ndarray index: (optional) an index array indicating which items to return.
-   :returns: an array of the rates of change of the floating species amounts.
-   :rtype: numpy.ndarray
-
-   >>> r.model.getFloatingSpeciesAmountRates()
-   array([-0.00045429,  0.00045429])
 
 
 .. method:: ExecutableModel.getFloatingSpeciesAmounts([index])
@@ -192,6 +177,16 @@ Floating Species
    >>> r.model.getFloatingSpeciesConcentrations()
    array([ 0.5       ,  9.99954571])
 
+.. method:: RoadRunner.getRatesOfChange()
+   :module: RoadRunner
+
+   Returns the rates of change of all floating species. The order of species is 
+   given by the order of Ids returned by getFloatingSpeciesIds()
+
+   :returns: a named array of floating species rates of change.
+   :rtype: numpy.ndarray
+
+   >>> r.getRatesOfChange()
 
 Floating Species Initial Conditions
 -----------------------------------
@@ -552,82 +547,6 @@ Stoichiometry
 
    >>> r.model.getStoichiometry(1, 3)
    1.0
-
-
-State Vector
-------------
-
-.. method:: ExecutableModel.getStateVector([stateVector])
-   :module: RoadRunner
-
-   Return a vector of all the variables that represent the state of the system. The state is
-   considered all values which change with the dynamics of the model. This would include all species
-   which are produced or consumed by reactions, and all variables which are defined by rate rules.
-
-   Variables such as global parameters, compartments, or boundary species which do not change with
-   the model dynamics are considered parameters and are thus not part of the state.
-
-   In performance critical applications, the optional stateVector array should be provided where the
-   output variables will be written to.
-
-
-   :param numpy.ndarray stateVector: an optional numpy array where the state vector variables will be written. If
-                       no state vector array is given, a new one will be constructed and returned.
-
-                       This should be the same length as the model state vector.
-   :rtype: numpy.ndarray
-
-
-   >>> r.model.getStateVector()
-   array([ 0.97390578,  1.56331018,  1.15301155,  1.22717548])
-
-
-.. method:: ExecutableModel.getStateVectorId(index)
-   :module: RoadRunner
-
-   Get the id (symbolic name) of a state vector item.
-
-   :param int index: the index of the desired state vector item
-   :rtype: str
-
-
-   >>> r.model.getStateVectorId(0)
-   'S1'
-
-
-.. method:: ExecutableModel.getStateVectorIds()
-   :module: RoadRunner
-
-   Return a list of all state vector ids
-
-   :rtype: list
-
-
-   >>> r.model.getStateVectorIds()
-   ['S1', 'S4', 'S2', 'S3']
-
-
-.. method:: ExecutableModel.getStateVectorRate(time, [stateVector], [stateVectorRate])
-   :module: RoadRunner
-
-   Calculate the rate of change of all state vector variables.
-
-   Note, the rate of change of species returned by this method is always in units of amount /
-   time.
-
-
-   :param double time: the model time at which the calculation should be performed.
-   :param numpy.ndarray: (optional) the model state at which the calculation should be performed. If
-                         this is not give, the current state is used.
-   :param numpy.ndarray: (optional) an output array where the rates of change will be written to. If
-                         this is not given, a new array is allocated and returned.
-
-   :returns: an array of the rates of change of all state vector variables.
-   :rtype: numpy.ndarray
-
-
-   >>> r.model.getStateVectorRate(10)
-   array([-1.37847178,  0.5184777 , -0.30787622,  0.27233378])
 
 
 Conserved Moieties

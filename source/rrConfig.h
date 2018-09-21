@@ -339,7 +339,7 @@ public:
          * defined by rate rules to be reset, even if GLOBAL_PARAMETER is NOT
          * specified.
          *
-         * The default value is TIME | RATE | FLOATING | CONSREVED_MOIETY
+         * The default value is TIME | RATE | FLOATING
          */
         MODEL_RESET,
 
@@ -370,11 +370,6 @@ public:
          * Flag for starting steady state analysis with simulation.
          */
         STEADYSTATE_PRESIMULATION,
-
-        /**
-         * Tolerance for presimulation before steady state analysis.
-         */
-        STEADYSTATE_PRESIMULATION_TOL,
 
         /**
          * Maximum number of steps that can be taken for presimulation before steady state analysis.

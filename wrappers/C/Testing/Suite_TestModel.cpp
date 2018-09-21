@@ -571,7 +571,8 @@ SUITE(TEST_MODEL)
 
         clog<< endl << "==== STEADY STATE FLUXES ====" << endl << endl;
         aSection->mIsUsed = true;
-
+        
+        reset(gRR);
         trySteadyState(gRR);
 
         for(int i = 0 ; i < aSection->KeyCount(); i++)
@@ -935,6 +936,7 @@ SUITE(TEST_MODEL)
 
         ls::DoubleMatrix     ref         = getDoubleMatrixFromString(aSection->GetNonKeysAsString());
 
+        reset(gRR);
         RRDoubleMatrixPtr matrix = getUnscaledConcentrationControlCoefficientMatrix(gRR);
         compareMatrices(ref, matrix);
         freeMatrix(matrix);
@@ -957,6 +959,7 @@ SUITE(TEST_MODEL)
 
         ls::DoubleMatrix     ref         = getDoubleMatrixFromString(aSection->GetNonKeysAsString());
 
+        reset(gRR);
         RRDoubleMatrixPtr matrix = getScaledConcentrationControlCoefficientMatrix(gRR);
         compareMatrices(ref, matrix);
         freeMatrix(matrix);
@@ -977,6 +980,7 @@ SUITE(TEST_MODEL)
 
         ls::DoubleMatrix     ref         = getDoubleMatrixFromString(aSection->GetNonKeysAsString());
 
+        reset(gRR);
         RRDoubleMatrixPtr matrix = getUnscaledFluxControlCoefficientMatrix(gRR);
         compareMatrices(ref, matrix);
         freeMatrix(matrix);
@@ -996,6 +1000,8 @@ SUITE(TEST_MODEL)
         aSection->mIsUsed = true;
 
         ls::DoubleMatrix     ref         = getDoubleMatrixFromString(aSection->GetNonKeysAsString());
+
+        reset(gRR);
 
         RRDoubleMatrixPtr matrix = getScaledFluxControlCoefficientMatrix(gRR);
         compareMatrices(ref, matrix);

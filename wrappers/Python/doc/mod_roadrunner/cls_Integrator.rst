@@ -61,16 +61,19 @@ CVODE
 
     Specifies the scalar absolute tolerance. CVODE calculates a vector of error weights which is used in all error and convergence tests. The weighted RMS norm for the absolute tolerance should not become smaller than this value. Default value is Config::CVODE_MIN_ABSOLUTE.
 
+    >>> r.integrator.absolute_tolerance = 1
 
 .. attribute:: Integrator.initial_time_step
 
     Specifies the initial time step size. If inappropriate, CVODE will attempt to estimate a better initial time step. Default value is 0.0
 
+    >>> r.integrator.initial_time_step = 1
 
 .. attribute:: Integrator.maximum_adams_order
 
     Specifies the maximum order for Adams-Moulton intergration. This integration method is used for non-stiff problems. Default value is 12.
 
+    >>> r.integrator.maximum_adams_order = 20
 
 .. attribute:: Integrator.maximum_bdf_order
 
@@ -96,6 +99,7 @@ CVODE
 
     Perform a multiple time step simulation. Default value is false.
 
+    >>> r.integrator.multiple_steps = True
 
 .. attribute:: Integrator.relative_tolerance
 
@@ -117,10 +121,14 @@ Gillespie
 
     RoadRunner's implementation of the standard Gillespie Direct Method SSA. The granularity of this simulator is individual molecules and kinetic processes are stochastic. Results will, in general, be different in each run, but a sufficiently large ensemble of runs should be statistically correct.
 
+    Can be used with the `r.gillespie function <https://libroadrunner.readthedocs.io/en/latest/api_reference.html?highlight=r%20gillespie#RoadRunner.RoadRunner.gillespie/>`_ or by setting integrator to gillespie (see below)
 
 .. attribute:: Integrator.initial_time_step
 
     Specifies the initial time step size. If inappropriate, CVODE will attempt to estimate a better initial time step. Default value is 0.0
+
+    >>> r.setIntegrator('gillespie') # set integrator first
+    >>> r.integrator.initial_time_step = 2
 
 
 .. attribute:: Integrator.maximum_time_step
@@ -147,11 +155,19 @@ Gillespie
 
     Perform a variable time step simulation. Enabling this setting will allow the integrator to adapt the size of each time step. This will result in a non-uniform time column. Default value is flase.
 
+Euler
+-----
+
+    The Euler method is one of the simplest approaches to solving a first order ODE. Given the rate of change of function f at time t, it computes the new value of f as ``f(t+h) = f(t) + h*f'(t)``, where h is the time step. Euler's method is rarely used in practice due to poor numerical robustness. Can be used with:
+
+    >>> r.setIntegrator('euler')
 
 RK4
 ---
     
-    Runge-Kutta methods are a family of algorithms for solving ODEs. They have considerably better accuracy than the Euler method. This integrator is a standard 4th order Runge-Kutta solver.
+    Runge-Kutta methods are a family of algorithms for solving ODEs. They have considerably better accuracy than the Euler method. This integrator is a standard 4th order Runge-Kutta solver. Can be used with:
+
+    >>> r.setIntegrator('rk4')
 
 
 RK45
@@ -164,6 +180,8 @@ RK45
 
     Specifies the maximum error tolerance allowed. Default value is 1e-12.
 
+    >>> r.setIntegrator('rk45') # set integrator first
+    >>> r.integrator.epsilon = 1e-10
 
 .. attribute:: Integrator.maximum_time_step
 

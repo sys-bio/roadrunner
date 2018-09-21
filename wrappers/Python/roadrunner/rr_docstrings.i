@@ -58,20 +58,6 @@ Return a list of floating species sbml ids.
 
 
 
-%feature("docstring") rr::ExecutableModel::getFloatingSpeciesAmountRates "
-ExecutableModel.getFloatingSpeciesAmountRates([index])
-
-Return a vector of the amount rate of change of the floating species.
-
-The units of amount rates is amount / time.
-
-:param numpy.ndarray index: (optional) an index array indicating which items to return.
-:returns: an array of the rates of change of the floating species amounts.
-:rtype: numpy.ndarray
-";
-
-
-
 %feature("docstring") rr::ExecutableModel::getFloatingSpeciesAmounts "
 ExecutableModel.getFloatingSpeciesAmounts([index])
 
@@ -134,6 +120,18 @@ given by the order of Ids returned by getFloatingSpeciesIds()
 :param numpy.ndarray index: (optional) an index array indicating which items to return.
 :returns: an array of floating species concentrations.
 :rtype: numpy.ndarray
+";
+
+
+%feature("docstring") rr::RoadRunner::getRatesOfChange "
+RoadRunner::getRatesOfChange()
+
+Returns the rates of change of all floating species. The order of species is 
+given by the order of Ids returned by getFloatingSpeciesIds()
+
+:returns: a named array of floating species rates of change.
+:rtype: numpy.ndarray
+
 
 Floating Species Initial Conditions
 -----------------------------------
@@ -438,76 +436,6 @@ large and only a single coefficient is needed.
 
 :param speciesIndex: a floating species index from :meth:`getFloatingSpeciesIds`
 :param reactionIndex: a reaction index from :meth:`getReactionIds`
-
-
-
-State Vector
-------------
-";
-
-
-
-%feature("docstring") rr::ExecutableModel::getStateVector "
-ExecutableModel.getStateVector([stateVector])
-
-Returns a vector of all the variables that represent the state of the system. The state is
-considered all values which change with the dynamics of the model. This would include all species
-which are produced or consumed by reactions, and all variables which are defined by rate rules.
-
-Variables such as global parameters, compartments, or boundary species which do not change with
-the model dynamics are considered parameters and are thus not part of the state.
-
-In performance critical applications, the optional stateVector array should be provided where the
-output variables will be written to.
-
-
-:param numpy.ndarray stateVector: an optional numpy array where the state vector variables will be written. If
-                    no state vector array is given, a new one will be constructed and returned.
-
-                    This should be the same length as the model state vector.
-:rtype: numpy.ndarray
-";
-
-
-
-%feature("docstring") rr::ExecutableModel::getStateVectorId "
-ExecutableModel.getStateVectorId(index)
-
-Get the id (symbolic name) of a state vector item.
-
-:param int index: the index of the desired state vector item
-:rtype: str
-";
-
-
-
-%feature("docstring") rr::ExecutableModel::getStateVectorIds "
-ExecutableModel.getStateVectorIds()
-
-Returns a list of all state vector ids
-
-:rtype: list
-";
-
-
-
-%feature("docstring") rr::ExecutableModel::getStateVectorRate "
-ExecutableModel.getStateVectorRate(time, [stateVector], [stateVectorRate])
-
-Calculates the rate of change of all state vector variables.
-
-Note, the rate of change of species returned by this method is always in units of amount /
-time.
-
-
-:param double time: the model time at which the calculation should be performed.
-:param numpy.ndarray: (optional) the model state at which the calculation should be performed. If
-                      this is not give, the current state is used.
-:param numpy.ndarray: (optional) an output array where the rates of change will be written to. If
-                      this is not given, a new array is allocated and returned.
-
-:returns: an array of the rates of change of all state vector variables.
-:rtype: numpy.ndarray
 
 
 Conserved Moieties

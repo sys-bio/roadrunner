@@ -12,6 +12,7 @@
 
 #include "rrRoadRunner.h"
 #include "rrRoadRunnerOptions.h"
+#include "wrappers/C/rrc_api.h"
 
 #include <iostream>
 #include <fstream>
@@ -111,69 +112,88 @@ int main(int argc, char** argv)
 
 
     std::cout << "loading file: " << sbmlFile << std::endl;
-    roadRunner.load(sbmlFile, &opt);
 
-	SimulateOptions settings;
-	settings.loadSBMLSettings(settingsFile);
-
-    // override steps
-    if (argc > 6)
+    try
     {
-        int steps = strtol(argv[6], NULL, 0);
-        if (steps > 0) {
-            settings.steps = steps;
-        }
-    }
+        roadRunner.load(sbmlFile, &opt);
+	    SimulateOptions settings;
+	    settings.loadSBMLSettings(settingsFile);
 
-    if (argc > 7)
-    {
-        double dur = atof(argv[7]);
-        if (dur > 0) {
-            settings.duration = dur;
-        }
-    }
-
-    for (int i = 0; i < argc; ++i) {
-        if (string(argv[i]).find("stiff") != string::npos) {
-			roadRunner.getIntegrator()->setValue("stiff", true);
-        }
-    }
-
-    std::cout << "running for " << settings.steps << ", duration " << settings.duration << std::endl;
-
-    std::cout << "absolute: " << roadRunner.getIntegrator()->getValue("absolute_tolerance").convert<bool>() << std::endl;
-	std::cout << "relative: " << roadRunner.getIntegrator()->getValue("relative_tolerance").convert<bool>() << std::endl;
-
-	std::cout << "stiff: " << (roadRunner.getIntegrator()->getValue("stiff").convert<bool>() ? "True" : "False") << std::endl;
-
-    roadRunner.setSimulateOptions(settings);
-
-    const DoubleMatrix& result = *roadRunner.simulate(0);
-
-    if (!output_filename.empty())
-    {
-        ofstream output;
-        output.open(output_filename.c_str());
-
-        int rows = result.numRows();
-        int cols = result.numCols();
-
-        for (int i = 0; i < rows; ++i)
+        // override steps
+        if (argc > 6)
         {
-            for (int j = 0; j < cols; ++j)
-            {
-                output << result(i, j);
+            int steps = strtol(argv[6], NULL, 0);
+            if (steps > 0) {
+                settings.steps = steps;
+            }
+        }
 
-                if (j + 1 < cols)
+        if (argc > 7)
+        {
+            double dur = atof(argv[7]);
+            if (dur > 0) {
+                settings.duration = dur;
+            }
+        }
+
+	    roadRunner.getIntegrator()->setValue("stiff", false);
+
+        std::cout << "running for " << settings.steps << ", duration " << settings.duration << std::endl;
+
+        std::cout << "absolute: " << roadRunner.getIntegrator()->getValue("absolute_tolerance").convert<bool>() << std::endl;
+	    std::cout << "relative: " << roadRunner.getIntegrator()->getValue("relative_tolerance").convert<bool>() << std::endl;
+
+	    std::cout << "stiff: " << (roadRunner.getIntegrator()->getValue("stiff").convert<bool>() ? "True" : "False") << std::endl;
+
+        roadRunner.setSimulateOptions(settings);
+
+        const DoubleMatrix& result = *roadRunner.simulate(0);
+
+        if (!output_filename.empty())
+        {
+            ofstream output;
+            output.open(output_filename.c_str());
+
+            int rows = result.numRows();
+            int cols = result.numCols();
+
+            for (int i = 0; i <= rows; ++i)
+            {
+                for (int j = 0; j < cols; ++j)
                 {
-                    output << ", ";
-                }
-                else
-                {
-                    output << "\n";
+                    if (i == 0)
+                    {
+                        output << result.getColNames()[j];
+
+                        if (j + 1 < cols)
+                        {
+                            output << ", ";
+                        }
+                        else
+                        {
+                            output << "\n";
+                        }
+                    }
+                    else
+                    {
+                        output << result(i-1, j);
+
+                        if (j + 1 < cols)
+                        {
+                            output << ", ";
+                        }
+                        else
+                        {
+                            output << "\n";
+                        }
+                    }
                 }
             }
         }
+    }
+    catch (std::exception& ex)
+    {
+        return false;
     }
 
     return 0;

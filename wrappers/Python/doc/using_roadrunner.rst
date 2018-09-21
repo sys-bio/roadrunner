@@ -105,10 +105,11 @@ One important point to note about :meth:`~RoadRunner.simulate()`: When :meth:`~R
 the floating species will naturally change. If :meth:`~RoadRunner.simulate()` is called a second time, the simulation
 will start the simulation from the previous simulated values. This can be used to easily follow on
 simulations. However there will be times when we wish to run the same simulation again but perhaps
-with slightly different parameters values. For this we must reset the initial conditions back to
-the original values. To do that we run the command :meth:`~RoadRunner.reset()`::
+with slightly different parameters values. For this we must reset the model to its initial conditions. To do that we run the command :meth:`~RoadRunner.reset()`::
 
    rr.reset()
+
+RoadRunner also has two other reset methods: :meth:`~RoadRunner.resetAll()` and :meth:`~RoadRunner.resetToOrigin()`. These are typically only used in advanced scenarios. This is because RoadRunner maintains its own copy of the "initial" value of every quantity, which can be set via ``rr_instance.setValue('init(quantity)',123)``. When :meth:`~RoadRunner.resetAll()` is called, it resets the quantity to RoadRunner's internal copy, not the SBML-defined value. :meth:`~RoadRunner.resetToOrigin()` completely reverts everything in the model back to the SBML-specified values, whereas :meth:`~RoadRunner.resetAll()` preserves any changes you have made to initial values.
 
 Changing Parameters
 -------------------
@@ -130,7 +131,7 @@ detailed information on selections, see the :ref:`selecting-values` section.
 The simulate method, by default returns an `structured array
 <http://docs.scipy.org/doc/numpy/user/basics.rec.html>`_,
 which are arrays that also contain column names. These can be plotted directly using the
-built in :meth:`~RoadRunner.plot()` function, or by adding the ``plot=True`` keyword argument to :meth:`~RoadRunner.simulate()`.
+built in :meth:`~RoadRunner.plot()` function.
 
 The output selections default to time and the set of floating species.
 It is possible to change the simulation result values by changing the selection list.
@@ -148,8 +149,10 @@ type the following::
 
 Some additional examples include:
 
+.. code-block:: Python
+
    # Select time and two rates of change (dS1/dt and dS2/dt)
-   rr.timeCourseSelections = ['time, 'S1''', 'S2''']
+   rr.timeCourseSelections = ["time", "S1'", "S2'"]
 
    # By default species names yield amounts, concentrations can be obtained
    # using square brackets, e.g.
@@ -168,10 +171,6 @@ Simply call::
    result = rr.simulate(0, 10, 100)
    rr.plot()
 
-or::
-
-  rr.simulate(0, 10, 100, plot=True)
-
 If one wants more control over the data plots, one may use matplotlib directly.  Assuming the
 simulate returns an array called result, and that the first column represents the x axis and the
 remaining columns the y axis, we type::
@@ -184,7 +183,7 @@ This will bring up a new window showing the plot. To clear the plot for next tim
 
    pylab.clf()
 
-One may also override the built in :meth:`~RoadRunner.plot()` method with a more more capable plotting routine
+One may also override the built-in :meth:`~RoadRunner.plot()` method with a more more capable plotting routine.
 
 Below is a simplified version of the :meth:`~RoadRunner.plot()` method. You may copy and write a
 customized version and even attach it to the RoadRunner object. The first argument is a RoadRunner
@@ -309,7 +308,7 @@ To use basic 4th-order Runge-Kutta integrator ('rk4'), call :meth:`~RoadRunner.s
 Runge-Kutta always uses a fixed step size, and does not support events.
 RoadRunner supports Runge-Kutta-Fehlberg Method ('rkf45') as well as a stochastic integrator based on Gillespie algorithm ('gilliespie'). To get a list of all available integrators, run:
 
-  >>>  r.integrators
+  >>>  roadrunner.integrators
   ['cvode', 'gillespie', 'rk4', 'rk45']
 
 Some integrators, such as CVODE, have parameters which can be set by the user.
@@ -369,5 +368,3 @@ The other type of solver is a steady-state solver, which works in essentially th
 
 The steady state solver is invoked by a call to :meth:`~RoadRunner.steadyState()`.
 Currently, RoadRunner only has a single steady state solver (NLEQ).
-
-.. highlight:: python

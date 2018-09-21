@@ -192,6 +192,7 @@ def checkSteadyStateFluxes(rrInstance, testId):
     words = []
     fluxes = []
     # Steady State Fluxes
+    rrInstance.reset()
     print("Computing Steady State.  Distance to SteadyState:", rrInstance.steadyState())
     print(("Check " + testId).ljust( rpadding), end="")
     errorFlag = False
@@ -238,7 +239,7 @@ def checkIndividualEigenvalues(rrInstance, testId):
     print(("Check " + testId).ljust( rpadding), end="")
     errorFlag = False
     roadrunner.Config.setValue(Config.ROADRUNNER_JACOBIAN_MODE, Config.ROADRUNNER_JACOBIAN_MODE_CONCENTRATIONS)
-    m = len(rrInstance.getEigenValueIds())/3
+    m = len(rrInstance.getEigenValueIds())//3
     try:
         for i in range(0,int(m)):
             words = divide(readLine())
@@ -260,9 +261,9 @@ def checkIndividualAmountEigenvalues(rrInstance, testId):
     print(("Check " + testId).ljust( rpadding), end="")
     errorFlag = False
     roadrunner.Config.setValue(Config.ROADRUNNER_JACOBIAN_MODE, Config.ROADRUNNER_JACOBIAN_MODE_AMOUNTS)
-    m = len(rrInstance.getEigenValueIds())/3
+    m = len(rrInstance.getEigenValueIds())//3
     try:
-        for i in range(0,m):
+        for i in range(0,int(m)):
             words = divide(readLine())
             eigenvalueName = words[0]
             realPart = rrInstance.getValue ('eigenReal(' + eigenvalueName + ')')
@@ -319,6 +320,7 @@ def checkLinkMatrix(rrInstance, testId):
 
 def checkUnscaledConcentrationControlMatrix(rrInstance, testId):
     # Unscaled Concentration Control matrix
+    rrInstance.resetToOrigin()
     Config.setValue(Config.ROADRUNNER_JACOBIAN_MODE, Config.ROADRUNNER_JACOBIAN_MODE_CONCENTRATIONS)
     print(("Check " + testId).ljust( rpadding), end="")
     st = rrInstance.getUnscaledConcentrationControlCoefficientMatrix();
@@ -327,6 +329,7 @@ def checkUnscaledConcentrationControlMatrix(rrInstance, testId):
 
 def checkScaledConcentrationControlMatrix(rrInstance, testId):
     # Unscaled Concentration Control matrix
+    rrInstance.resetToOrigin()
     Config.setValue(Config.ROADRUNNER_JACOBIAN_MODE, Config.ROADRUNNER_JACOBIAN_MODE_CONCENTRATIONS)
     print(("Check " + testId).ljust( rpadding), end="")
     st = rrInstance.getScaledConcentrationControlCoefficientMatrix();
@@ -335,6 +338,7 @@ def checkScaledConcentrationControlMatrix(rrInstance, testId):
 
 def checkUnscaledFluxControlCoefficientMatrix(rrInstance, testId):
     # Unscaled Flux Control matrix
+    rrInstance.resetToOrigin()
     print(("Check " + testId).ljust( rpadding), end="")
     st = rrInstance.getUnscaledFluxControlCoefficientMatrix();
     checkMatrixVsUpcomingText(st)
@@ -342,6 +346,7 @@ def checkUnscaledFluxControlCoefficientMatrix(rrInstance, testId):
 
 def checkScaledFluxControlCoefficientMatrix(rrInstance, testId):
     # Scaled Flux Control matrix
+    rrInstance.resetToOrigin()
     print(("Check " + testId).ljust( rpadding), end="")
     st = rrInstance.getScaledFluxControlCoefficientMatrix()
     checkMatrixVsUpcomingText(st)
@@ -632,7 +637,7 @@ def checkGetRatesOfChange(rrInstance, testId):
     print(("Check " + testId).ljust( rpadding), end="")
     errorFlag = False
     words = divide(readLine())
-    values = rrInstance.model.getFloatingSpeciesAmountRates()
+    values = rrInstance.getRatesOfChange()[0]
     for i in range (len(words)):
         if expectApproximately (float (words[i]), values[i], abs(values[i]+1e-7)*1E-5) == False:
             errorFlag = True

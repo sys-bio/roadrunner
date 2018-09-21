@@ -480,10 +480,6 @@ PyObject *Integrator_NewPythonObj(rr::Integrator* i) {
 %apply (int DIM1, int* IN_ARRAY1) {(int leni, int const* indx)};
 %apply (int DIM1, double* IN_ARRAY1) {(int lenv, const  double* values)};
 
-// typemap for getStateVector, getStateVectorRate
-%apply (int DIM1, double* IN_ARRAY1)      {(int in_len, double const *in_values)};
-%apply (int DIM1, double* INPLACE_ARRAY1) {(int out_len, double* out_values)};
-
 #define LIB_EXTERN
 #define RR_DECLSPEC
 #define PUGIXML_CLASS
@@ -505,7 +501,7 @@ PyObject *Integrator_NewPythonObj(rr::Integrator* i) {
 //%ignore rr::RoadRunner::getuCC;
 %ignore rr::RoadRunner::addCapability;
 %ignore rr::RoadRunner::getFloatingSpeciesInitialConcentrationByIndex;
-%ignore rr::RoadRunner::getRatesOfChange;
+//%ignore rr::RoadRunner::getRatesOfChange;
 //%ignore rr::RoadRunner::getuEE;
 %ignore rr::RoadRunner::changeInitialConditions;
 %ignore rr::RoadRunner::getFloatingSpeciesInitialConcentrations;
@@ -755,6 +751,7 @@ PyObject *Integrator_NewPythonObj(rr::Integrator* i) {
 %ignore rr::ExecutableModel::computeAllRatesOfChange;
 %ignore rr::ExecutableModel::getStateVectorRate(double time, const double *y, double* dydt);
 %ignore rr::ExecutableModel::getStateVectorRate(double time, const double *y);
+%ignore rr::ExecutableModel::getStateVectorId(int index);
 %ignore rr::ExecutableModel::testConstraints;
 %ignore rr::ExecutableModel::print;
 //%ignore rr::ExecutableModel::getNumEvents;
@@ -1528,7 +1525,13 @@ namespace std { class ostream{}; }
                        SelectionRecord.RATE |
                        SelectionRecord.FLOATING |
                        SelectionRecord.GLOBAL_PARAMETER)
+        
+        def resetParameter(self):
+            """ Reset parameters to CURRENT init(X) values.
 
+            This resets all parameters to the CURRENT init(X) values.
+            """
+            self.reset(SelectionRecord.GLOBAL_PARAMETER)
 
         def getAvailableIntegrators(self):
             """
@@ -1612,9 +1615,6 @@ namespace std { class ostream{}; }
 
         def getDependentFloatingSpeciesIds(self):
             return list(self._getDependentFloatingSpeciesIds())
-
-        def getFloatingSpeciesAmountRates(self):
-            return self.model.getFloatingSpeciesAmountRates()
 
         def getReactionRates(self):
             return self.getModel().getReactionRates()
@@ -1931,16 +1931,6 @@ namespace std { class ostream{}; }
                                           &rr::ExecutableModel::getNumFloatingSpecies, (int)0, (int const*)0);
     }
 
-    PyObject *getFloatingSpeciesAmountRates(int len, int const *indx) {
-        return _ExecutableModel_getValues($self, &rr::ExecutableModel::getFloatingSpeciesAmountRates,
-                                         &rr::ExecutableModel::getNumIndFloatingSpecies,  len, indx);
-    }
-
-    PyObject *getFloatingSpeciesAmountRates() {
-        return _ExecutableModel_getValues($self, &rr::ExecutableModel::getFloatingSpeciesAmountRates,
-                                          &rr::ExecutableModel::getNumIndFloatingSpecies, (int)0, (int const*)0);
-    }
-
     PyObject *getFloatingSpeciesConcentrationRates(int len, int const *indx) {
         return _ExecutableModel_getValues($self, &rr::ExecutableModel::getFloatingSpeciesConcentrationRates,
                                          &rr::ExecutableModel::getNumIndFloatingSpecies,  len, indx);
@@ -2035,230 +2025,7 @@ namespace std { class ostream{}; }
                                           &rr::ExecutableModel::getNumCompartments, (int)0, (int const*)0);
     }
 
-    /***
-     ** state vector section
-     ***/
-
-
-
-    /**
-     * overload which returns a copy of the state vector
-     */
-    PyObject *getStateVector() {
-        int len = ($self)->getStateVector(0);
-
-        npy_intp dims[1] = {len};
-        PyObject *array = PyArray_SimpleNew(1, dims, NPY_DOUBLE);
-        VERIFY_PYARRAY(array);
-
-        if (!array) {
-            // TODO error handling.
-            return 0;
-        }
-
-        double *data = (double*)PyArray_DATA((PyArrayObject*)array);
-
-        ($self)->getStateVector(data);
-
-        return array;
-    }
-
-
-    void getStateVector(int out_len, double* out_values) {
-        int len = ($self)->getStateVector(0);
-
-        if (len > out_len) {
-            PyErr_Format(PyExc_ValueError,
-                         "given array of size %d, insufficient size for state vector %d.",
-                         out_len, len);
-            return;
-        }
-
-        ($self)->getStateVector(out_values);
-    }
-
-    /**
-     * get a copy of the state vector rate using the current state.
-     */
-    PyObject *getStateVectorRate(double time = NAN) {
-        int len = ($self)->getStateVector(0);
-
-        npy_intp dims[1] = {len};
-        PyObject *array = PyArray_SimpleNew(1, dims, NPY_DOUBLE);
-        VERIFY_PYARRAY(array);
-
-        if (!array) {
-            // TODO error handling.
-            return 0;
-        }
-
-        if (isnan(time)) {
-            time = ($self)->getTime();
-        }
-
-        double *data = (double*)PyArray_DATA((PyArrayObject*)array);
-
-        ($self)->getStateVectorRate(time, 0, data);
-
-        return array;
-    }
-
-
-    PyObject *getStateVectorRate(double time, PyObject *arg) {
-
-        // length of state vector
-        int len = ($self)->getStateVector(0);
-
-        if (isnan(time)) {
-            time = ($self)->getTime();
-        }
-
-        // check if the pyobj is an npy double array
-        PyArrayObject *array  = obj_to_array_no_conversion(arg, NPY_DOUBLE);
-
-        // need contigous and native
-        // these set py error if they fail
-        if (array && require_contiguous(array) && require_native(array))
-        {
-            // The number of dimensions in the array.
-            int ndim = PyArray_NDIM(array);
-
-            // pointer to the dimensions/shape of the array.
-            npy_intp *pdims = PyArray_DIMS(array);
-
-            if (ndim > 0 && pdims[ndim-1] == len) {
-
-                // total number of elements in array
-                npy_intp size = PyArray_SIZE(array);
-
-                printf("size: %i\n", (int)size);
-
-                // how many state vectors we have in given array
-                int nvec = size / len;
-
-                // pointer to start of data block
-                double* stateVec = (double*)PyArray_DATA(array);
-
-                // make result data, copy descriptor
-                PyArray_Descr *dtype = PyArray_DESCR(array);
-                Py_INCREF(dtype);
-
-                // If strides is NULL, then the array strides are computed as
-                // C-style contiguous (default)
-                PyObject *result = PyArray_NewFromDescr(&PyArray_Type,
-                                                        dtype,
-                                                        ndim,
-                                                        pdims,
-                                                        NULL,
-                                                        NULL,
-                                                        0,
-                                                        NULL);
-
-                // out data
-                double* stateVecRate = (double*)PyArray_DATA(result);
-
-                // get the state vector rates, bump the data pointers
-                // to the next state vec
-                for (int i = 0; i < nvec; ++i) {
-                    ($self)->getStateVectorRate(time, stateVec, stateVecRate);
-                    stateVec += len;
-                    stateVecRate += len;
-                }
-
-                return result;
-            }
-
-            PyErr_Format(PyExc_TypeError,
-                         "Require an N dimensional array where N must be at least 1 and "
-                         "the trailing dimension must be the same as the state vector size. "
-                         "require trailing dimension of %i but recieved %d", len, (int)pdims[ndim-1]);
-
-
-        }
-
-        // error case, PyErr is set if we get here.
-        return 0;
-    }
-
-
-    PyObject *getStateVectorRate(double time, PyObject *arg1, PyObject *arg2) {
-
-        // length of state vector
-        int len = ($self)->getStateVector(0);
-
-        if (isnan(time)) {
-            time = ($self)->getTime();
-        }
-
-        // check if the pyobj is an npy double array
-        PyArrayObject *array1  = obj_to_array_no_conversion(arg1, NPY_DOUBLE);
-        PyArrayObject *array2  = obj_to_array_no_conversion(arg2, NPY_DOUBLE);
-
-        // need contigous and native
-        // these set py error if they fail
-        if (array1 && require_contiguous(array1) && require_native(array1) &&
-            array2 && require_contiguous(array2) && require_native(array2))
-        {
-            // The number of dimensions in the array.
-            int ndim1 = PyArray_NDIM(array1);
-            int ndim2 = PyArray_NDIM(array2);
-
-            // pointer to the dimensions/shape of the array.
-            npy_intp *pdims1 = PyArray_DIMS(array1);
-            npy_intp *pdims2 = PyArray_DIMS(array2);
-
-            if (ndim1 > 0 && pdims1[ndim1-1] == len &&
-                ndim2 > 0 && pdims2[ndim2-1] == len ) {
-
-                // total number of elements in array
-                npy_intp size = PyArray_SIZE(array1);
-
-                if (size == PyArray_SIZE(array2)) {
-
-                    printf("size: %i\n", (int)size);
-
-                    // how many state vectors we have in given array
-                    int nvec = size / len;
-
-                    // pointer to start of data block
-                    double* stateVec = (double*)PyArray_DATA(array1);
-
-                    // out data
-                    double* stateVecRate = (double*)PyArray_DATA(array2);
-
-                    // get the state vector rates, bump the data pointers
-                    // to the next state vec
-                    for (int i = 0; i < nvec; ++i) {
-                        ($self)->getStateVectorRate(time, stateVec, stateVecRate);
-                        stateVec += len;
-                        stateVecRate += len;
-                    }
-
-                    // only error free result case
-                    // caller should decref the array so we need incrref it.
-                    Py_INCREF(arg2);
-                    return arg2;
-
-                } else {
-                    PyErr_Format(PyExc_TypeError,
-                                 "Both arrays must be the same size and shape, array 1 size: %i, "
-                                 "array 2 size: %i", (int)size, (int)PyArray_SIZE(array2));
-                }
-            } else {
-                PyErr_Format(PyExc_TypeError,
-                             "Require an N dimensional array where N must be at least 1 and "
-                             "the trailing dimension must be the same as the state vector size. "
-                             "require trailing dimension of %i but recieved %d", len, (int)pdims1[ndim1-1]);
-            }
-        }
-
-        // error case, PyErr is set if we get here.
-        return 0;
-    }
-
-
-
-
+    
     /***
      ** get ids section
      ***/
@@ -2294,14 +2061,6 @@ namespace std { class ostream{}; }
 
     PyObject *getFloatingSpeciesInitConcentrationIds() {
         return rr_ExecutableModel_getIds($self, rr::SelectionRecord::INITIAL_FLOATING_CONCENTRATION);
-    }
-
-    PyObject *getFloatingSpeciesAmountRateIds() {
-        return rr_ExecutableModel_getIds($self, rr::SelectionRecord::FLOATING_AMOUNT_RATE);
-    }
-
-    PyObject *getStateVectorIds() {
-        return rr_ExecutableModel_getIds($self, rr::SelectionRecord::STATE_VECTOR);
     }
 
     PyObject *getEventIds() {

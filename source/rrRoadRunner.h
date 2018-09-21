@@ -440,6 +440,12 @@ public:
     ls::DoubleMatrix getFloatingSpeciesConcentrations();
 
     /**
+     * @author KC
+     * @brief Returns the rate of change of the floating species as a named array
+     */
+    ls::DoubleMatrix getRatesOfChange();
+
+    /**
      * compute the full Jacobian at the current operating point
      */
     ls::DoubleMatrix getFullJacobian();

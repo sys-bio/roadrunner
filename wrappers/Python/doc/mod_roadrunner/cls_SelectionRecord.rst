@@ -46,11 +46,11 @@ _______________
 
 .. attribute:: SelectionRecord.BOUNDARY_AMOUNT   
 
-   species must have either a BOUNDARY or FLOATING modifiers.
+   boundary species amount
 
 .. attribute:: SelectionRecord.BOUNDARY_CONCENTRATION
 
-   species must have either a BOUNDARY or FLOATING modifiers.
+   boundary species concentration
    
 .. attribute:: SelectionRecord._COMPARTMENT
 
@@ -90,16 +90,20 @@ _______________
 .. attribute:: SelectionRecord.ELEMENT
 
 .. attribute:: SelectionRecord.FLOATING
+   
+   species must have either a BOUNDARY or FLOATING modifiers.
 
 .. attribute:: SelectionRecord.FLOATING_AMOUNT
 
-   current amounts.
+   floating species current amounts.
 
-.. attribute:: SelectionRecord.FLOATING_AMOUNT_RATE
+.. attribute:: SelectionRecord.FLOATING_AMOUNT_RATE   
+
+   floating species amount rates (value, not reaction rates)
 
 .. attribute:: SelectionRecord.FLOATING_CONCENTRATION
 
-   current concentrations.
+   floating species current concentrations.
 
 .. attribute:: SelectionRecord.FLOATING_CONCENTRATION_RATE
 
@@ -124,6 +128,8 @@ _______________
 .. attribute:: SelectionRecord.REACTION
 
 .. attribute:: SelectionRecord.REACTION_RATE
+
+   current reaction rate
 
 .. attribute:: SelectionRecord.STOICHIOMETRY
 

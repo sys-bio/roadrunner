@@ -2796,6 +2796,15 @@ bool rrcCallConv resetToOrigin(RRHandle handle)
     catch_bool_macro
 }
 
+bool rrcCallConv resetParameter(RRHandle handle)
+{
+    start_try
+        RoadRunner* rri = castToRoadRunner(handle);
+    rri->reset(SelectionRecord::GLOBAL_PARAMETER);
+    return true;
+    catch_bool_macro
+}
+
 int rrcCallConv setConfigBool(const char* key, int value) {
     start_try
         rr::Config::setValue(rr::Config::stringToKey(key), (bool)value);

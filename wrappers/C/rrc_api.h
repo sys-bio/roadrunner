@@ -2204,6 +2204,15 @@ C_DECL_SPEC bool rrcCallConv resetAll(RRHandle handle);
 C_DECL_SPEC bool rrcCallConv resetToOrigin(RRHandle handle);
 
 /*!
+\brief Resets all parameters of the model to their current initial values.
+
+\param[in] handle Handle to a RoadRunner instance
+\return Boolean indicating success
+\ingroup reset
+*/
+C_DECL_SPEC bool rrcCallConv resetParameter(RRHandle handle);
+
+/*!
  \brief Set a boolean configuration value
 
  \param[in] key The configuration key

@@ -2,7 +2,7 @@ Conserved Moiety Conversion
 ___________________________
 
 
-.. class::PyConservedMoietyConverter()
+.. class:: PyConservedMoietyConverter()
    :module: RoadRunner
 
    Create a new conserved moiety converter. 

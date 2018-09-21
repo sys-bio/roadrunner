@@ -57,7 +57,6 @@ NLEQInterface::NLEQInterface(ExecutableModel *_model) :
     nOpts(50),
 
     allowPreSim(Config::getBool(Config::STEADYSTATE_PRESIMULATION)),
-    preSimTolerance(Config::getDouble(Config::STEADYSTATE_PRESIMULATION_TOL)),
     preSimMaximumSteps(Config::getInt(Config::STEADYSTATE_PRESIMULATION_MAX_STEPS)),
     preSimTime(Config::getDouble(Config::STEADYSTATE_PRESIMULATION_TIME)),
     allowApprox(Config::getBool(Config::STEADYSTATE_APPROX)),
@@ -315,6 +314,14 @@ void ModelFunction(int* nx, double* y, double* fval, int* pErr)
     }
 
     *pErr = 0;
+
+    for (int i = 0; i < *nx; ++i)
+    {
+        if (fval[i] != fval[i])
+        {
+            *pErr = -1;
+        }
+    }
 }
 
 void NLEQInterface::setScalingFactors(const vector<double>& sx)
@@ -452,7 +459,6 @@ const Dictionary* NLEQInterface::getSteadyStateOptions()
     dict.setItem("steadyState.description", "NLEQ description");
 
     dict.setItem("allowPreSim", Config::getBool(Config::STEADYSTATE_PRESIMULATION));
-    dict.setItem("preSimTolerance", Config::getDouble(Config::STEADYSTATE_PRESIMULATION_TOL));
     dict.setItem("preSimMaximumSteps", Config::getInt(Config::STEADYSTATE_PRESIMULATION_MAX_STEPS));
     dict.setItem("preSimTime", Config::getDouble(Config::STEADYSTATE_PRESIMULATION_TIME));
     dict.setItem("allowApprox", Config::getBool(Config::STEADYSTATE_APPROX));

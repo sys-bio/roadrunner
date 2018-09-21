@@ -280,36 +280,46 @@ Model Access
    :module: RoadRunner
 
    Carry out a one step integration of the model. The method takes two arguments,
-   the current time and the step size to us in the integration. The method returns
-   the new time which will be currentTime + StepSize::
-
+   the current time and the step size to use in the integration. 
+   Returs the new time which will be currentTime + StepSize::
        newTime = rr.oneStep (10, 0.5)
 
- 
+.. method:: RoadRunner.internalOneStep(startTime, stepSize, reset)
+   :module: RoadRunner
+
+   Carry out a single internal solver integration step. The method takes three arguments,
+   the current time and the step size to use in the integration and reset. Reset defaults to true, set to false to stop integrator instance from restarting. Returns the end time.
+
 .. method:: RoadRunner.reset()
    :module: RoadRunner
 
-   Resets all the floating species concentrations to their initial values.
+   Resets time, all floating species, and rates to their initial values.
+   Does NOT reset changed global parameters.
    
 
 .. method:: RoadRunner.resetAll()
    :module: RoadRunner
 
-   Resets all variables, species, etc. to the CURRENT initial values. 
-   It also resets all parameter back to the values they had when the model was first loaded
+   Resets time, all floating species, and rates to their CURRENT initial values.
+   Also resets all global parameters back to the values they had when the model was first loaded.
+   "Current" initial values are set by using ``r.setValue('init(S1)', 5)`` which sets a species 
+   named S1 to have current initial value of 5. Note it is NOT the initial values of when the model was first loaded in.
 
+.. method:: RoadRunner.resetParameter()
+   :module: RoadRunner
+
+   Resets only global parameters to their CURRENT initial values.
 
 .. method:: RoadRunner.resetToOrigin()
    :module: RoadRunner
 
-   Resets the model back to the state is was when it was FIRST loaded.
-   The scope of reset includes all initial values and parameters, etc.
-
+   Resets the model back to the state it was when FIRST loaded.
+   The scope of this reset includes all initial values and parameters (everything).
 
 .. method:: RoadRunner.setConfigurationXML(*args)
    :module: RoadRunner
 
-   given a xml document, which should have been returned from getConfigurationXML,
+   Given a xml document, which should have been returned from getConfigurationXML,
    this method recurses though all the child configurable elements and sets their
    configuration to the values specified in the document.
 
