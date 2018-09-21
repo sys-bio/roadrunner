@@ -23,9 +23,9 @@ if(BUILD_PYTHON)
 
   # Not necessary right now and causing problems
   # add_test(NAME PythonBenchmarkODEBioinf2015
-    COMMAND ${PYTHON_EXECUTABLE} rr_bench_ode.py
-    WORKING_DIRECTORY ${CMAKE_CURRENT_BINARY_DIR}/python-benchmark-bioinf)
-  set_tests_properties(PythonBenchmarkODEBioinf2015 PROPERTIES ENVIRONMENT "PYTHONPATH=${CMAKE_BINARY_DIR}/lib/site-packages:$PYTHONPATH")
+  #  COMMAND ${PYTHON_EXECUTABLE} rr_bench_ode.py
+  #  WORKING_DIRECTORY ${CMAKE_CURRENT_BINARY_DIR}/python-benchmark-bioinf)
+  #set_tests_properties(PythonBenchmarkODEBioinf2015 PROPERTIES ENVIRONMENT "PYTHONPATH=${CMAKE_BINARY_DIR}/lib/site-packages:$PYTHONPATH")
 
   # update when source changes
   configure_file(python-unit-tests/run.py
