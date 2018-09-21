@@ -712,7 +712,7 @@ void LLVMExecutableModel::reset(int opt)
                     // or reseting global params which have init assignment rules
                     || (checkExact(SelectionRecord::DEPENDENT_INITIAL_GLOBAL_PARAMETER, opt) && depInit))
             {
-                Log(Logger::LOG_ERROR) << "!resetting global parameter, "
+                Log(Logger::LOG_DEBUG) << "!resetting global parameter, "
                         << gid << ", GLOBAL_PARAMETER: "
                         << checkExact(opt, SelectionRecord::GLOBAL_PARAMETER)
                         << ", CONSERVED_MOIETY: "
@@ -721,9 +721,9 @@ void LLVMExecutableModel::reset(int opt)
                             (checkExact(SelectionRecord::DEPENDENT_INITIAL_GLOBAL_PARAMETER, opt) && depInit);
                 reset_cm |= cm;
                 getGlobalParameterInitValues(1, &gid, buffer);
-		Log(Logger::LOG_ERROR) << "read global param init values";
+		Log(Logger::LOG_DEBUG) << "read global param init values";
                 setGlobalParameterValues(1, &gid, buffer);
-		Log(Logger::LOG_ERROR) << "set global param current values";
+		Log(Logger::LOG_DEBUG) << "set global param current values";
             }
         }
 
