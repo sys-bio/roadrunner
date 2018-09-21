@@ -97,7 +97,7 @@ StringIntVector SetCompartmentInitVolumeCodeGen::getIds()
 }
 
 
-const char* SetGlobalParameterInitValueCodeGen::FunctionName = "setGlobalParameterInitValues";
+const char* SetGlobalParameterInitValueCodeGen::FunctionName = "setGlobalParameterInitValue";
 const char* SetGlobalParameterInitValueCodeGen::IndexArgName = "globalParameterIndex";
 
 SetGlobalParameterInitValueCodeGen::SetGlobalParameterInitValueCodeGen(
