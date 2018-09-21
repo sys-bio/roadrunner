@@ -299,11 +299,16 @@ char* rrcCallConv getCurrentSBML(RRHandle handle)
 //Flags and Options
 bool rrcCallConv setComputeAndAssignConservationLaws(RRHandle handle, const bool OnOrOff)
 {
-    start_try
+    //start_try
+    try {
         RoadRunner* rri = castToRoadRunner(handle);
         rri->setConservedMoietyAnalysis(OnOrOff);
         return true;
-    catch_bool_macro
+    } catch (std::exception& e) {
+        std::cerr << "Error in conserved moeity analysis " << e.what() << std::endl;
+        return false;
+    }
+    //catch_bool_macro
 }
 
 int rrcCallConv getComputeAndAssignConservationLaws(RRHandle handle, int* value)

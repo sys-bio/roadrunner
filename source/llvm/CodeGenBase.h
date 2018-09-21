@@ -112,7 +112,7 @@ protected:
                 "entry", function);
         builder.SetInsertPoint(basicBlock);
 
-        //assert(function->getArgumentList().size() == N);
+        assert(function->arg_size() == N);
 
         int i = 0;
         for (llvm::Function::arg_iterator ai = function->arg_begin();

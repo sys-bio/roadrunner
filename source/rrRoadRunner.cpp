@@ -946,11 +946,11 @@ void RoadRunner::load(const string& uriOrSbml, const Dictionary *dict)
         self.mCurrentSBML = fixMissingStoich(self.mCurrentSBML);
         Log(Logger::LOG_WARNING)<<"Stoichiometry is not defined for all reactions; assuming unit stoichiometry where missing";
     }
+    try {
 
     // the following lines load and compile the model. If anything fails here,
     // we validate the model to provide explicit details about where it
     // failed. Its *VERY* expensive to pre-validate the model.
-    try {
 
         self.model = ExecutableModelFactory::createModel(self.mCurrentSBML, &self.loadOpt);
 
@@ -1335,7 +1335,7 @@ void RoadRunner::setConservedMoietyAnalysis(bool value)
 
         // restore original reload value
         self.loadOpt.modelGeneratorOpt = savedOpt;
-    }
+    } 
 }
 
 

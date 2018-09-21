@@ -205,8 +205,8 @@ ExecutableModel* LLVMModelGenerator::createModel(const std::string& sbml,
 		setCompartmentVolumeIR =
 			SetCompartmentVolumeCodeGen(context).createFunction();
 
-		setFloatingSpeciesAmountIR = SetFloatingSpeciesAmountCodeGen(
-		context).createFunction();
+		setFloatingSpeciesAmountIR = 
+			SetFloatingSpeciesAmountCodeGen(context).createFunction();
 
 		setGlobalParameterIR =
 			SetGlobalParameterCodeGen(context).createFunction();
@@ -247,52 +247,52 @@ ExecutableModel* LLVMModelGenerator::createModel(const std::string& sbml,
 	}
 
 	rc->evalInitialConditionsPtr = (EvalInitialConditionsCodeGen::FunctionPtr)
-		context.getExecutionEngine().getPointerToFunction(evalInitialConditionsIR);
+        context.getExecutionEngine().getFunctionAddress("evalInitialConditions");
 
 	rc->evalReactionRatesPtr = (EvalReactionRatesCodeGen::FunctionPtr)
-		context.getExecutionEngine().getPointerToFunction(evalReactionRatesIR);
+        context.getExecutionEngine().getFunctionAddress("evalReactionRates");
 
 	rc->getBoundarySpeciesAmountPtr = (GetBoundarySpeciesAmountCodeGen::FunctionPtr)
-		context.getExecutionEngine().getPointerToFunction(getBoundarySpeciesAmountIR);
+        context.getExecutionEngine().getFunctionAddress("getBoundarySpeciesAmount");
 
 	rc->getFloatingSpeciesAmountPtr = (GetFloatingSpeciesAmountCodeGen::FunctionPtr)
-		context.getExecutionEngine().getPointerToFunction(getFloatingSpeciesAmountIR);
+        context.getExecutionEngine().getFunctionAddress("getFloatingSpeciesAmount");
 
 	rc->getBoundarySpeciesConcentrationPtr = (GetBoundarySpeciesConcentrationCodeGen::FunctionPtr)
-		context.getExecutionEngine().getPointerToFunction(getBoundarySpeciesConcentrationIR);
+        context.getExecutionEngine().getFunctionAddress("getBoundarySpeciesConcentration");
 
 	rc->getFloatingSpeciesConcentrationPtr = (GetFloatingSpeciesAmountCodeGen::FunctionPtr)
-		context.getExecutionEngine().getPointerToFunction(getFloatingSpeciesConcentrationIR);
+        context.getExecutionEngine().getFunctionAddress("getFloatingSpeciesConcentration");
 
 	rc->getCompartmentVolumePtr = (GetCompartmentVolumeCodeGen::FunctionPtr)
-		context.getExecutionEngine().getPointerToFunction(getCompartmentVolumeIR);
+        context.getExecutionEngine().getFunctionAddress("getCompartmentVolume");
 
 	rc->getGlobalParameterPtr = (GetGlobalParameterCodeGen::FunctionPtr)
-		context.getExecutionEngine().getPointerToFunction(getGlobalParameterIR);
+        context.getExecutionEngine().getFunctionAddress("getGlobalParameter");
 
 	rc->evalRateRuleRatesPtr = (EvalRateRuleRatesCodeGen::FunctionPtr)
-		context.getExecutionEngine().getPointerToFunction(evalRateRuleRatesIR);
+        context.getExecutionEngine().getFunctionAddress("evalRateRuleRates");
 
 	rc->getEventTriggerPtr = (GetEventTriggerCodeGen::FunctionPtr)
-		context.getExecutionEngine().getPointerToFunction(getEventTriggerIR);
+        context.getExecutionEngine().getFunctionAddress("getEventTrigger");
 
 	rc->getEventPriorityPtr = (GetEventPriorityCodeGen::FunctionPtr)
-		context.getExecutionEngine().getPointerToFunction(getEventPriorityIR);
+        context.getExecutionEngine().getFunctionAddress("getEventPriority");
 
 	rc->getEventDelayPtr = (GetEventDelayCodeGen::FunctionPtr)
-		context.getExecutionEngine().getPointerToFunction(getEventDelayIR);
+        context.getExecutionEngine().getFunctionAddress("getEventDelay");
 
 	rc->eventTriggerPtr = (EventTriggerCodeGen::FunctionPtr)
-		context.getExecutionEngine().getPointerToFunction(eventTriggerIR);
+        context.getExecutionEngine().getFunctionAddress("eventTrigger");
 
 	rc->eventAssignPtr = (EventAssignCodeGen::FunctionPtr)
-		context.getExecutionEngine().getPointerToFunction(eventAssignIR);
+        context.getExecutionEngine().getFunctionAddress("eventAssign");
 
 	rc->evalVolatileStoichPtr = (EvalVolatileStoichCodeGen::FunctionPtr)
-		context.getExecutionEngine().getPointerToFunction(evalVolatileStoichIR);
+        context.getExecutionEngine().getFunctionAddress("evalVolatileStoich");
 
 	rc->evalConversionFactorPtr = (EvalConversionFactorCodeGen::FunctionPtr)
-		context.getExecutionEngine().getPointerToFunction(evalConversionFactorIR);
+        context.getExecutionEngine().getFunctionAddress("evalConversionFactor");
 
 	if (options & LoadSBMLOptions::READ_ONLY)
 	{
@@ -306,45 +306,45 @@ ExecutableModel* LLVMModelGenerator::createModel(const std::string& sbml,
 	else
 	{
 		rc->setBoundarySpeciesAmountPtr = (SetBoundarySpeciesAmountCodeGen::FunctionPtr)
-			context.getExecutionEngine().getPointerToFunction(setBoundarySpeciesAmountIR);
+            context.getExecutionEngine().getFunctionAddress("setBoundarySpeciesAmount");
 
 		rc->setBoundarySpeciesConcentrationPtr = (SetBoundarySpeciesAmountCodeGen::FunctionPtr)
-			context.getExecutionEngine().getPointerToFunction(setBoundarySpeciesConcentrationIR);
+			context.getExecutionEngine().getFunctionAddress("setBoundarySpeciesConcentration");
 
 		rc->setFloatingSpeciesConcentrationPtr = (SetBoundarySpeciesAmountCodeGen::FunctionPtr)
-			context.getExecutionEngine().getPointerToFunction(setFloatingSpeciesAmountIR);
+			context.getExecutionEngine().getFunctionAddress("setFloatingSpeciesConcentration");
 
 		rc->setCompartmentVolumePtr = (SetBoundarySpeciesAmountCodeGen::FunctionPtr)
-			context.getExecutionEngine().getPointerToFunction(setCompartmentInitVolumesIR);
+			context.getExecutionEngine().getFunctionAddress("setCompartmentVolume");
 
 		rc->setFloatingSpeciesAmountPtr = (SetBoundarySpeciesAmountCodeGen::FunctionPtr)
-			context.getExecutionEngine().getPointerToFunction(setFloatingSpeciesAmountIR);
+			context.getExecutionEngine().getFunctionAddress("setFloatingSpeciesAmount");
 
-		rc->setGlobalParameterPtr = (SetBoundarySpeciesAmountCodeGen::FunctionPtr)
-			context.getExecutionEngine().getPointerToFunction(setGlobalParameterInitValueIR);
+        rc->setGlobalParameterPtr = (SetGlobalParameterCodeGen::FunctionPtr)
+            context.getExecutionEngine().getFunctionAddress("setGlobalParameter");
 	}
 
 	if (options & LoadSBMLOptions::MUTABLE_INITIAL_CONDITIONS)
 	{
 		rc->getFloatingSpeciesInitConcentrationsPtr = (GetBoundarySpeciesAmountCodeGen::FunctionPtr)
-			context.getExecutionEngine().getPointerToFunction(getFloatingSpeciesInitConcentrationsIR);
+            context.getExecutionEngine().getFunctionAddress("getFloatingSpeciesInitConcentrations");
 		rc->setFloatingSpeciesInitConcentrationsPtr = (SetBoundarySpeciesAmountCodeGen::FunctionPtr)
-			context.getExecutionEngine().getPointerToFunction(setFloatingSpeciesInitConcentrationsIR);
+            context.getExecutionEngine().getFunctionAddress("setFloatingSpeciesInitConcentrations");
 
 		rc->getFloatingSpeciesInitAmountsPtr = (GetBoundarySpeciesAmountCodeGen::FunctionPtr)
-			context.getExecutionEngine().getPointerToFunction(getFloatingSpeciesInitAmountsIR);
+            context.getExecutionEngine().getFunctionAddress("getFloatingSpeciesInitAmounts");
 		rc->setFloatingSpeciesInitAmountsPtr = (SetBoundarySpeciesAmountCodeGen::FunctionPtr)
-			context.getExecutionEngine().getPointerToFunction(setFloatingSpeciesInitAmountsIR);
+            context.getExecutionEngine().getFunctionAddress("setFloatingSpeciesInitAmounts");
 
 		rc->getCompartmentInitVolumesPtr = (GetBoundarySpeciesAmountCodeGen::FunctionPtr)
-			context.getExecutionEngine().getPointerToFunction(getCompartmentInitVolumesIR);
+            context.getExecutionEngine().getFunctionAddress("getCompartmentInitVolumes");
 		rc->setCompartmentInitVolumesPtr = (SetBoundarySpeciesAmountCodeGen::FunctionPtr)
-			context.getExecutionEngine().getPointerToFunction(setCompartmentInitVolumesIR);
+            context.getExecutionEngine().getFunctionAddress("setCompartmentInitVolumes");
 
 		rc->getGlobalParameterInitValuePtr = (GetBoundarySpeciesAmountCodeGen::FunctionPtr)
-			context.getExecutionEngine().getPointerToFunction(getGlobalParameterInitValueIR);
+            context.getExecutionEngine().getFunctionAddress("getGlobalParameterInitValue");
 		rc->setGlobalParameterInitValuePtr = (SetBoundarySpeciesAmountCodeGen::FunctionPtr)
-			context.getExecutionEngine().getPointerToFunction(setGlobalParameterInitValueIR);
+            context.getExecutionEngine().getFunctionAddress("setGlobalParameterInitValue");
 	}
 	else
 	{

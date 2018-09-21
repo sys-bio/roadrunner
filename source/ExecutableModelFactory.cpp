@@ -7,6 +7,7 @@
 
 #include <ExecutableModelFactory.h>
 #include "rrRoadRunnerOptions.h"
+#include <iostream>
 
 #if defined(BUILD_LLVM)
 #include "llvm/LLVMModelGenerator.h"
@@ -63,7 +64,6 @@ ExecutableModel* rr::ExecutableModelFactory::createModel(
     if(opt.hasKey("cxxEnzymeTest")) {
         return new rrtesting::CXXEnzymeExecutableModel(dict);
     }
-
     return rrllvm::LLVMModelGenerator::createModel(sbml, opt.modelGeneratorOpt);
 }
 

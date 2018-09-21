@@ -21,7 +21,7 @@ namespace rrllvm
 
 
 
-const char* GetFloatingSpeciesInitConcentrationCodeGen::FunctionName = "getFloatingSpeciesInitConcentration";
+const char* GetFloatingSpeciesInitConcentrationCodeGen::FunctionName = "getFloatingSpeciesInitConcentrations";
 const char* GetFloatingSpeciesInitConcentrationCodeGen::IndexArgName = "floatingSpeciesIndex";
 
 GetFloatingSpeciesInitConcentrationCodeGen::GetFloatingSpeciesInitConcentrationCodeGen(
@@ -31,7 +31,7 @@ GetFloatingSpeciesInitConcentrationCodeGen::GetFloatingSpeciesInitConcentrationC
 }
 
 
-const char* GetFloatingSpeciesInitAmountCodeGen::FunctionName = "getFloatingSpeciesInitAmount";
+const char* GetFloatingSpeciesInitAmountCodeGen::FunctionName = "getFloatingSpeciesInitAmounts";
 const char* GetFloatingSpeciesInitAmountCodeGen::IndexArgName = "floatingSpeciesIndex";
 
 GetFloatingSpeciesInitAmountCodeGen::GetFloatingSpeciesInitAmountCodeGen(
@@ -40,7 +40,7 @@ GetFloatingSpeciesInitAmountCodeGen::GetFloatingSpeciesInitAmountCodeGen(
 {
 }
 
-const char* GetCompartmentInitVolumeCodeGen::FunctionName = "getCompartmentInitVolume";
+const char* GetCompartmentInitVolumeCodeGen::FunctionName = "getCompartmentInitVolumes";
 const char* GetCompartmentInitVolumeCodeGen::IndexArgName = "compartmentIndex";
 
 GetCompartmentInitVolumeCodeGen::GetCompartmentInitVolumeCodeGen(
@@ -50,7 +50,7 @@ GetCompartmentInitVolumeCodeGen::GetCompartmentInitVolumeCodeGen(
 }
 
 
-const char* GetGlobalParameterInitValueCodeGen::FunctionName = "getGlobalParmeterInitValue";
+const char* GetGlobalParameterInitValueCodeGen::FunctionName = "getGlobalParameterInitValue";
 const char* GetGlobalParameterInitValueCodeGen::IndexArgName = "globalParameterIndex";
 
 GetGlobalParameterInitValueCodeGen::GetGlobalParameterInitValueCodeGen(

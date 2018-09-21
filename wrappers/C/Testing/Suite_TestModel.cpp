@@ -1684,7 +1684,7 @@ SUITE(TEST_MODEL)
 
         if(!values || values->Count != refList.size())
         {
-            CHECK(false);
+            CHECK(false && " ");
             freeVector(values);
             return;
         }
