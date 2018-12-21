@@ -233,7 +233,6 @@ bool setup(Args& args)
     {
         Logger::setLevel(Logger::LOG_ERROR);
     }
-    Logger::setLevel(Logger::LOG_NOTICE);
 
     // set test suite model path (read from cmd line)
     gTSModelsPath = joinPath(joinPath(gTSModelsPath, "cases"), "semantic");
