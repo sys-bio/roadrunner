@@ -57,6 +57,12 @@ Return a list of floating species sbml ids.
 ";
 
 
+%feature("docstring") rr::ExecutableModel::getFloatingSpeciesConcentrationIds "
+ExecutableModel.getFloatingSpeciesConcentrationIds()
+
+Return a list of floating species concentration ids.
+";
+
 
 %feature("docstring") rr::ExecutableModel::getFloatingSpeciesAmounts "
 ExecutableModel.getFloatingSpeciesAmounts([index])
@@ -131,6 +137,29 @@ given by the order of Ids returned by getFloatingSpeciesIds()
 
 :returns: a named array of floating species rates of change.
 :rtype: numpy.ndarray
+";
+
+
+%feature("docstring") rr::RoadRunner::getIndependentRatesOfChange "
+RoadRunner::getIndependentRatesOfChange()
+
+Returns the rates of change of all independent floating species. The order of species is 
+given by the order of Ids returned by getIndependentFloatingSpeciesIds()
+
+:returns: a named array of independent floating species rates of change.
+:rtype: numpy.ndarray
+";
+
+
+%feature("docstring") rr::RoadRunner::getDependentRatesOfChange "
+RoadRunner::getDependentRatesOfChange()
+
+Returns the rates of change of all dependent floating species. The order of species is 
+given by the order of Ids returned by getDependentFloatingSpeciesIds()
+
+:returns: a named array of dependent floating species rates of change.
+:rtype: numpy.ndarray
+
 
 
 Floating Species Initial Conditions
@@ -263,6 +292,16 @@ Returns a vector of boundary species Ids.
 ";
 
 
+%feature("docstring") rr::ExecutableModel::getBoundarySpeciesConcentrationIds "
+ExecutableModel.getBoundarySpeciesConcentrationIds()
+
+Returns a vector of boundary species concentration Ids.
+
+:param numpy.ndarray index: (optional) an index array indicating which items to return.
+:returns: a list of boundary species ids.
+";
+
+
 
 %feature("docstring") rr::ExecutableModel::getNumBoundarySpecies "
 ExecutableModel.getNumBoundarySpecies()
@@ -344,6 +383,15 @@ length as index.
 
 Global Parameters
 -----------------
+";
+
+
+%feature("docstring") rr::ExecutableModel::getGlobalParameterIds "
+ExecutableModel.getGlobalParameterIds([index])
+
+Return a list of global parameter ids.
+
+:returns: a list of global parameter ids.
 ";
 
 
@@ -498,10 +546,22 @@ length as index.
 :param numpy.ndarray values: the values to set.
 
 
+
+Events
+------------------
+";
+
+%feature("docstring") rr::ExecutableModel::getEventIds "
+ExecutableModel.getEventIds()
+
+Returns a list of event ids.
+
+:returns: a list of event ids.
+
+
 Misc
 ----
 ";
-
 
 
 %feature("docstring") rr::ExecutableModel::getInfo "
@@ -760,6 +820,14 @@ RoadRunner.createSelection(sel)
 Create a new selection based on a selection string
 
 :rtype: roadrunner.SelectionRecord
+";
+
+
+%feature("docstring") rr::RoadRunner::resetSelectionLists "
+RoadRunner.resetSelectionLists()
+
+Resets time course and steady state selection lists to defaults
+
 
 
 Model Access
@@ -1173,6 +1241,17 @@ RoadRunner.getFullStoichiometryMatrix()
 
 Get the stoichiometry matrix that coresponds to the full model, even it
 it was converted via conservation conversion.
+";
+
+
+
+%feature("docstring") rr::RoadRunner::getExtendedStoichiometryMatrix "
+RoadRunner.getExtendedStoichiometryMatrix()
+
+
+Returns the full stoichiometric matrix plus additional rows for boundary
+species and source/sink nodes. Use this if you want to apply detailed
+balance to the network as a whole.
 ";
 
 
@@ -2353,6 +2432,3 @@ Get the converted document contents.
 :returns: The contents of the converted document, or empty string
           if there is no source document.
 ";
-
-
-

@@ -1049,6 +1049,11 @@ void RoadRunner::reset(int options)
     }
 }
 
+void RoadRunner::resetSelectionLists()
+{
+    createDefaultSelectionLists();
+}
+
 bool RoadRunner::populateResult()
 {
     vector<string> list(impl->mSelectionList.size());
@@ -1147,7 +1152,8 @@ double RoadRunner::steadyState(const Dictionary* dict)
 
             setIntegrator(currint);
 
-            throw CoreException("Steady state presimulation failed. Try turning off allow_presimulation flag to False; ", e.Message());
+            throw CoreException("Steady state presimulation failed. Try turning off allow_presimulation flag to False "
+                "via r.steadyStateSolver.allow_presimulation = False where r is an roadrunner instance; ", e.Message());
         }
 
         impl->simulateOpt.start = start_temp;
@@ -1162,6 +1168,10 @@ double RoadRunner::steadyState(const Dictionary* dict)
     // NLEQ
     if (impl->steady_state_solver->getValueAsBool("allow_approx"))
     {
+        int l = impl->model->getNumFloatingSpecies();
+        double* vals = new double[l];
+        impl->model->getFloatingSpeciesConcentrations(l, NULL, vals);
+
         try
         {
             ss = impl->steady_state_solver->solve();
@@ -1179,6 +1189,12 @@ double RoadRunner::steadyState(const Dictionary* dict)
             {
                 // Reset to t = 0;
                 reset();
+
+                // Restore initial concentrations
+                for (int i = 0; i<l; ++i) {
+                    impl->model->setFloatingSpeciesConcentrations(1, &i, &vals[i]);
+                }
+
                 ss = steadyStateApproximate();
 
                 Log(Logger::LOG_WARNING) << "Steady state solver failed. However, RoadRunner approximated the solution successfully.";
@@ -1261,14 +1277,14 @@ double RoadRunner::steadyStateApproximate(const Dictionary* dict)
 
         for (int i = 1; i < l; i++)
         {
-            tol += pow((vals2[i] - vals1[i]) / (duration/(steps - 1)), 2);
+            tol += sqrt(pow((vals2[i] - vals1[i]) / (duration / steps), 2));
         }
     }
     catch (EventListenerException& e)
     {
         Log(Logger::LOG_ERROR) << e.what();
     }
-
+    
     self.simulateOpt.start = start_temp;
     self.simulateOpt.duration = duration_temp;
     self.simulateOpt.steps = steps_temp;
@@ -1279,7 +1295,9 @@ double RoadRunner::steadyStateApproximate(const Dictionary* dict)
 
     if (tol > self.steady_state_solver->getValueAsDouble("approx_tolerance"))
     {
-        throw CoreException("Failed to converge while running approximation routine. Try increasing the time or maximum number of iteration. Model might not have a steady state.");
+        throw CoreException("Failed to converge while running approximation routine. Try increasing "
+            "the time or maximum number of iteration via changing the settings under r.steadyStateSolver "
+            "where r is an roadrunner instance. Model might not have a steady state.");
     }
 
     return tol;
@@ -1861,7 +1879,7 @@ std::vector< std::complex<double> > RoadRunner::getEigenValues(RoadRunner::Jacob
     return ls::getEigenValues(mat);
 }
 
-DoubleMatrix RoadRunner::getFloatingSpeciesAmounts()
+DoubleMatrix RoadRunner::getFloatingSpeciesAmountsNamedArray()
 {
     check_model();
 
@@ -1883,7 +1901,7 @@ DoubleMatrix RoadRunner::getFloatingSpeciesAmounts()
     return v;
 }
 
-DoubleMatrix RoadRunner::getFloatingSpeciesConcentrations()
+DoubleMatrix RoadRunner::getFloatingSpeciesConcentrationsNamedArray()
 {
     check_model();
 
@@ -1909,54 +1927,89 @@ DoubleMatrix RoadRunner::getRatesOfChange()
 {
     check_model();
 
+    int ssvl = impl->model->getStateVector(NULL);
+    double* vals = new double[ssvl];
+    double* ssv = new double[ssvl];
+    DoubleMatrix v(1, ssvl);
+
+    impl->model->getStateVector(ssv);
+    impl->model->getStateVectorRate(impl->model->getTime(), ssv, vals);
+
     if (getConservedMoietyAnalysis())
     {
-        int l = impl->model->getNumFloatingSpecies();
-
-        double* vals = new double[l];
-
         LibStructural *ls = getLibStruct();
-        DoubleMatrix v(1, l);
-        int m = impl->model->getStateVector(NULL);
         DoubleMatrix lm = *ls->getLinkMatrix();
 
-        impl->model->getStateVectorRate(impl->model->getTime(), NULL, vals);
-
-        for (int i = 0; i < l; ++i)
+        for (int i = 0; i < ssvl; ++i)
         {
             double sum = 0;
-            for (int j = 0; j < m; ++j)
+            for (int j = 0; j < ssvl; ++j)
             {
                 sum += lm[i][j] * vals[j];
             }
             v(0, i) = sum;
         }
-
-        delete vals;
-
-        v.setColNames(getFloatingSpeciesIds());
-
-        return v;
     }
     else
     {
-        int l = impl->model->getStateVector(NULL);
-
-        double* vals = new double[l];
-
-        LibStructural *ls = getLibStruct();
-        DoubleMatrix v(1, l);
-        impl->model->getStateVectorRate(impl->model->getTime(), 0, vals);
-
-        for (int i = 0; i<l; ++i)
+        for (int i = 0; i<ssvl; ++i)
             v(0, i) = vals[i];
-
-        delete vals;
-
-        v.setColNames(getFloatingSpeciesIds());
-
-        return v;
     }
+
+    delete vals;
+    delete ssv;
+
+    v.setColNames(getFloatingSpeciesIds());
+
+    return v;
+}
+
+DoubleMatrix RoadRunner::getIndependentRatesOfChange()
+{
+    check_model();
+
+    vector<string> idfsId = getIndependentFloatingSpeciesIds();
+    vector<string> fsId = getFloatingSpeciesIds();
+    int nindep = idfsId.size();
+    DoubleMatrix v(1, nindep);
+
+    DoubleMatrix rate = getRatesOfChange();
+
+    for (int i = 0; i < nindep; ++i)
+    {
+        vector<string>::iterator it = find(fsId.begin(), fsId.end(), idfsId[i]);
+        int index = distance(fsId.begin(), it);
+
+        v(0, i) = rate[0][index];
+    }
+
+    v.setColNames(idfsId);
+
+    return v;
+}
+
+DoubleMatrix RoadRunner::getDependentRatesOfChange()
+{
+    check_model();
+
+    vector<string> dfsId = getDependentFloatingSpeciesIds();
+    vector<string> fsId = getFloatingSpeciesIds();
+    int ndep = dfsId.size();
+    DoubleMatrix v(1, ndep);
+
+    DoubleMatrix rate = getRatesOfChange();
+
+    for (int i = 0; i < ndep; ++i)
+    {
+        vector<string>::iterator it = find(fsId.begin(), fsId.end(), dfsId[i]);
+        int index = distance(fsId.begin(), it);
+
+        v(0, i) = rate[0][index];
+    }
+
+    v.setColNames(dfsId);
+
+    return v;
 }
 
 DoubleMatrix RoadRunner::getFullJacobian()
@@ -2166,6 +2219,130 @@ DoubleMatrix RoadRunner::getFullStoichiometryMatrix()
     ls->getStoichiometryMatrixLabels(m.getRowNames(), m.getColNames());
     return m;
 }
+
+
+DoubleMatrix RoadRunner::getExtendedStoichiometryMatrix()
+{
+    check_model();
+    get_self();
+    ls::LibStructural *ls = getLibStruct();
+
+    if (self.loadOpt.getConservedMoietyConversion()) {
+        // pointer to mat owned by ls
+        DoubleMatrix m = *ls->getReorderedStoichiometryMatrix();
+        ls->getReorderedStoichiometryMatrixLabels(
+                m.getRowNames(), m.getColNames());
+        return m;
+    }
+
+    // pointer to owned matrix
+    DoubleMatrix *mptr = ls->getStoichiometryMatrix();
+    if (!mptr)
+    {
+        throw CoreException("Error: Stoichiometry matrix does not exist for this model");
+    }
+    DoubleMatrix m = *mptr;
+    ls->getStoichiometryMatrixLabels(m.getRowNames(), m.getColNames());
+
+    libsbml::SBMLReader reader;
+    libsbml::SBMLDocument *doc = reader.readSBMLFromString(self.mCurrentSBML);
+    libsbml::Model *model = doc->getModel();
+    typedef cxx11_ns::unordered_map<int,int> RxnIdxToRowMap;
+    typedef cxx11_ns::unordered_map<int,libsbml::Reaction*> RxnIdxToRxnMap;
+    typedef cxx11_ns::unordered_map<libsbml::Species*,int> SpcToRowMap;
+    RxnIdxToRowMap missing_rct_row_map;
+    RxnIdxToRowMap missing_prd_row_map;
+    RxnIdxToRxnMap rxn_map;
+    SpcToRowMap boundary_spc_row_map;
+
+    int n_rows = m.numRows();
+
+    for (int i=0; i<m.getColNames().size(); ++i) {
+      libsbml::Reaction* r = model->getReaction(m.getColNames().at(i));
+      assert(r);
+      rxn_map[i] = r;
+      if (!r->getNumReactants()) {
+        missing_rct_row_map[i] = n_rows++;
+      } else {
+        for (int j=0; j<r->getNumReactants(); ++j) {
+          libsbml::SpeciesReference* ref = r->getReactant(j);
+          assert(ref);
+          libsbml::Species* s = model->getSpecies(ref->getSpecies());
+          assert(s);
+          if (s->getBoundaryCondition() && boundary_spc_row_map.find(s) == boundary_spc_row_map.end())
+            boundary_spc_row_map[s] = n_rows++;
+        }
+      }
+      if (!r->getNumProducts()) {
+        missing_prd_row_map[i] = n_rows++;
+      } else {
+        for (int j=0; j<r->getNumProducts(); ++j) {
+          libsbml::SpeciesReference* ref = r->getProduct(j);
+          assert(ref);
+          libsbml::Species* s = model->getSpecies(ref->getSpecies());
+          assert(s);
+          if (s->getBoundaryCondition() && boundary_spc_row_map.find(s) == boundary_spc_row_map.end())
+            boundary_spc_row_map[s] = n_rows++;
+        }
+      }
+    }
+
+    DoubleMatrix extended_matrix(n_rows, m.numCols());
+    extended_matrix.setRowNames(m.getRowNames());
+    extended_matrix.setColNames(m.getColNames());
+    extended_matrix.getRowNames().resize(n_rows);
+    for (int i=0; i<m.numRows(); ++i) {
+      for (int j=0; j<m.numCols(); ++j) {
+        extended_matrix(i,j) = m(i,j);
+      }
+    }
+    for (int i=m.numRows(); i<n_rows; ++i) {
+      for (int j=0; j<m.numCols(); ++j) {
+        extended_matrix(i,j) = 0;
+      }
+    }
+    for (RxnIdxToRowMap::const_iterator i=missing_rct_row_map.begin(); i!=missing_rct_row_map.end(); ++i){
+      extended_matrix(i->second,i->first) = -1;
+      RxnIdxToRxnMap::const_iterator r = rxn_map.find(i->first);
+      if (r != rxn_map.end())
+        extended_matrix.getRowNames().at(i->second) = r->second->getId() + "_source";
+    }
+    for (RxnIdxToRowMap::const_iterator i=missing_prd_row_map.begin(); i!=missing_prd_row_map.end(); ++i){
+      extended_matrix(i->second,i->first) = 1;
+      RxnIdxToRxnMap::const_iterator r = rxn_map.find(i->first);
+      if (r != rxn_map.end())
+        extended_matrix.getRowNames().at(i->second) = r->second->getId() + "_sink";
+    }
+    for (SpcToRowMap::const_iterator i=boundary_spc_row_map.begin(); i!=boundary_spc_row_map.end(); ++i) {
+      for (int j=0; j<m.getColNames().size(); ++j) {
+        libsbml::Reaction* r = model->getReaction(m.getColNames().at(j));
+        assert(r);
+        for (int k=0; k<r->getNumReactants(); ++k) {
+          libsbml::SpeciesReference* ref = r->getReactant(k);
+          assert(ref);
+          libsbml::Species* s = model->getSpecies(ref->getSpecies());
+          assert(s);
+          if (s == i->first) {
+            extended_matrix(i->second,j) = -1;
+            extended_matrix.getRowNames().at(i->second) = s->getId();
+          }
+        }
+        for (int k=0; k<r->getNumProducts(); ++k) {
+          libsbml::SpeciesReference* ref = r->getProduct(k);
+          assert(ref);
+          libsbml::Species* s = model->getSpecies(ref->getSpecies());
+          assert(s);
+          if (s == i->first) {
+            extended_matrix(i->second,j) = 1;
+            extended_matrix.getRowNames().at(i->second) = s->getId();
+          }
+        }
+      }
+    }
+
+    return extended_matrix;
+}
+
 
 DoubleMatrix RoadRunner::getL0Matrix()
 {
@@ -2566,22 +2743,51 @@ double RoadRunner::getBoundarySpeciesByIndex(const int& index)
     throw Exception(format("Index in getBoundarySpeciesByIndex out of range: [{0}]", index));
 }
 
-// Help("Returns an array of boundary species concentrations")
-vector<double> RoadRunner::getBoundarySpeciesConcentrations()
-{
-    if (!impl->model)
-    {
-        throw CoreException(gEmptyModelMessage);
-    }
 
-    vector<double> result(impl->model->getNumBoundarySpecies(), 0);
-    impl->model->getBoundarySpeciesConcentrations(result.size(), 0, &result[0]);
-    return result;
+DoubleMatrix RoadRunner::getBoundarySpeciesConcentrationsNamedArray()
+{
+    check_model();
+
+    int l = impl->model->getNumBoundarySpecies();
+
+    double* vals = new double[l];
+    impl->model->getBoundarySpeciesConcentrations(l, NULL, vals);
+
+    LibStructural *ls = getLibStruct();
+    DoubleMatrix v(1, l);
+
+    for (int i = 0; i<l; ++i)
+        v(0, i) = vals[i];
+
+    delete vals;
+
+    v.setColNames(getBoundarySpeciesIds());
+
+    return v;
 }
 
 
+DoubleMatrix RoadRunner::getBoundarySpeciesAmountsNamedArray()
+{
+    check_model();
 
+    int l = impl->model->getNumBoundarySpecies();
 
+    double* vals = new double[l];
+    impl->model->getBoundarySpeciesAmounts(l, NULL, vals);
+
+    LibStructural *ls = getLibStruct();
+    DoubleMatrix v(1, l);
+
+    for (int i = 0; i<l; ++i)
+        v(0, i) = vals[i];
+
+    delete vals;
+
+    v.setColNames(getBoundarySpeciesIds());
+
+    return v;
+}
 
 
 // Help("Get the number of floating species")
@@ -2713,6 +2919,33 @@ void RoadRunner::setFloatingSpeciesConcentrations(const vector<double>& values)
 
     impl->model->setFloatingSpeciesConcentrations(values.size(), 0, &values[0]);
 }
+
+vector<double> RoadRunner::getBoundarySpeciesConcentrationsV()
+{
+    if (!impl->model)
+    {
+        throw CoreException(gEmptyModelMessage);
+    }
+
+
+    vector<double> result(impl->model->getNumBoundarySpecies(), 0);
+    impl->model->getBoundarySpeciesConcentrations(result.size(), 0, &result[0]);
+    return result;
+}
+
+vector<double> RoadRunner::getBoundarySpeciesAmountsV()
+{
+    if (!impl->model)
+    {
+        throw CoreException(gEmptyModelMessage);
+    }
+
+
+    vector<double> result(impl->model->getNumBoundarySpecies(), 0);
+    impl->model->getBoundarySpeciesAmounts(result.size(), 0, &result[0]);
+    return result;
+}
+
 
 // Help("Set the concentrations for all floating species in the model")
 void RoadRunner::setBoundarySpeciesConcentrations(const vector<double>& values)
@@ -3943,8 +4176,6 @@ void RoadRunner::setSteadyStateSelections(const std::vector<rr::SelectionRecord>
     impl->mSteadyStateSelection = ss;
 }
 
-
-
 //Compute the frequency response, startW, Number Of Decades, Number of Points, parameterName, variableName
 Matrix<double> RoadRunner::getFrequencyResponse(double startFrequency,
         int numberOfDecades, int numberOfPoints,
@@ -4310,6 +4541,17 @@ vector<string> RoadRunner::getBoundarySpeciesIds()
     return std::vector<std::string>(list.begin(), list.end());
 }
 
+vector<string> RoadRunner::getBoundarySpeciesConcentrationIds()
+{
+    std::list<std::string> list;
+
+    if (impl->model) {
+        impl->model->getIds(SelectionRecord::BOUNDARY_CONCENTRATION, list);
+    }
+
+    return std::vector<std::string>(list.begin(), list.end());
+}
+
 vector<string> RoadRunner::getConservedMoietyIds()
 {
     return createModelStringList(impl->model, &ExecutableModel::getNumConservedMoieties,
@@ -4322,6 +4564,17 @@ vector<string> RoadRunner::getFloatingSpeciesIds()
 
     if (impl->model) {
         impl->model->getIds(SelectionRecord::FLOATING_AMOUNT, list);
+    }
+
+    return std::vector<std::string>(list.begin(), list.end());
+}
+
+vector<string> RoadRunner::getFloatingSpeciesConcentrationIds()
+{
+    std::list<std::string> list;
+
+    if (impl->model) {
+        impl->model->getIds(SelectionRecord::FLOATING_CONCENTRATION, list);
     }
 
     return std::vector<std::string>(list.begin(), list.end());

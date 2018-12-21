@@ -43,7 +43,8 @@ set_property(TARGET ${target}
     STATIC_LIBSTRUCT
     STATIC_PUGI
     STATIC_RR
-    STATIC_NLEQ
+    STATIC_NLEQ1
+    STATIC_NLEQ2
     )
 
 link_directories(

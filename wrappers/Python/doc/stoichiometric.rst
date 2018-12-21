@@ -44,6 +44,36 @@ The link matrix :math:`\mathbf{L}` has the form
 where :math:`\mathbf{I}_{r}` is the :math:`r \times r` identity matrix and :math:`\mathbf{L}_0` is a :math:`(m-r) \times r`
 matrix.
 
+Full vs. Extended Stoichiometry Matrix
+--------------------------------------
+
+The "full" stoichiometric matrix includes any conserved quantities (as opposed to the reduced stoichiometric matrix,
+which does not). The *extended* stoichiometric matrix is equal to the full stoichiometric matrix plus additional
+rows representing boundary species and sources / sinks. For example, consider the following reaction system:
+
+::
+
+    reaction1:  => C
+    reaction2: C =>
+    reaction3: C =>
+    reaction4: MI => M
+    reaction5: M => MI
+    reaction6: XI => X
+    reaction7: X => XI
+
+The extended stoichiometry matrix for this system is:
+
+     >>>  rr.getExtendedStoichiometryMatrix()
+                          reaction1, reaction2, reaction3, reaction4, reaction5, reaction6, reaction7
+      C                [[         1,        -1,        -1,         0,         0,         0,         0],
+      M                 [         0,         0,         0,         1,        -1,         0,         0],
+      X                 [         0,         0,         0,         0,         0,         1,        -1],
+      MI                [         0,         0,         0,        -1,         1,         0,         0],
+      XI                [         0,         0,         0,         0,         0,        -1,         1],
+      reaction1_source  [        -1,         0,         0,         0,         0,         0,         0],
+      reaction2_sink    [         0,         1,         0,         0,         0,         0,         0],
+      reaction3_sink    [         0,         0,         1,         0,         0,         0,         0]]
+
 Methods
 -------
 
@@ -57,11 +87,9 @@ The following methods are related to the analysis of the stoichiometric matrix.
    RoadRunner.getConservationMatrix
    RoadRunner.getL0Matrix
    RoadRunner.getFullStoichiometryMatrix
+   RoadRunner.getExtendedStoichiometryMatrix
    RoadRunner.getReducedStoichiometryMatrix
    ExecutableModel.getNumConservedMoieties
    ExecutableModel.getConservedMoietyIds
    ExecutableModel.getConservedMoietyValues
    ExecutableModel.setConservedMoietyValues
-
-
-

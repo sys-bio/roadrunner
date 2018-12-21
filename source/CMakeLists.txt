@@ -83,8 +83,10 @@ set(rrCoreSources
     GillespieIntegrator
     RK4Integrator
     RK45Integrator
-    NLEQSolver
-    rrNLEQInterface
+    NLEQ1Solver
+    NLEQ2Solver
+    rrNLEQ1Interface
+    rrNLEQ2Interface
     rrTestSuiteModelSimulation
     rrIniKey
     rrIniSection
@@ -210,7 +212,8 @@ if(RR_BUILD_SHARED_CORE)
         LIBLAX_STATIC
         STATIC_LIBSTRUCT
         STATIC_PUGI
-        STATIC_NLEQ
+        STATIC_NLEQ1
+        STATIC_NLEQ2
         POCO_STATIC
         POCO_NO_AUTOMATIC_LIBS
         )
@@ -227,7 +230,8 @@ if(RR_BUILD_SHARED_CORE)
         sundials_nvecserial
         blas
         lapack
-        nleq-static
+        nleq1-static
+        nleq2-static
         rr-libstruct-static
         PocoNet
         PocoFoundation
@@ -306,7 +310,8 @@ set_property(TARGET ${target}-static
     LIBLAX_STATIC
     STATIC_LIBSTRUCT
     STATIC_PUGI
-    STATIC_NLEQ
+    STATIC_NLEQ1
+    STATIC_NLEQ2
     POCO_STATIC
     POCO_NO_AUTOMATIC_LIBS
     )
@@ -326,7 +331,8 @@ target_link_libraries (${target}-static
     sundials_nvecserial
     blas
     lapack
-    nleq-static
+    nleq1-static
+    nleq2-static
     rr-libstruct-static
     PocoNet
     PocoFoundation

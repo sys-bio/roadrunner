@@ -12,19 +12,19 @@ namespace rr
 /**
  * @internal
  */
-class RR_DECLSPEC NLEQInterface : public rrSteadyStateSolver
+class RR_DECLSPEC NLEQ2Interface : public rrSteadyStateSolver
 {
 
 public:
     /**
      * Creates a new Instance of NLEQ for the given Model
      */
-    NLEQInterface(ExecutableModel *_model = NULL);
+    NLEQ2Interface(ExecutableModel *_model = NULL);
 
-    ~NLEQInterface();
+    ~NLEQ2Interface();
 
     /**
-     * Thea actual solver routine making the call to NLEQ1
+     * Thea actual solver routine making the call to NLEQ2
      *
      * @return sums of squares
      */
@@ -71,7 +71,7 @@ private:
     int nOpts;
     long *IWK;
     long LIWK;
-    long LWRK;
+    long LRWK;
     double *RWK;
     double *XScal;
     long ierr;
@@ -136,7 +136,7 @@ private:
 
     double                          computeSumsOfSquares();
 
-    friend class NLEQSolver;
+    friend class NLEQ2Solver;
 
 };
 }

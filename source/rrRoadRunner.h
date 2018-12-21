@@ -316,6 +316,11 @@ public:
     void reset(int options);
 
     /**
+     * resets time course and steady state selection lists to defaults
+     */
+    void resetSelectionLists();
+
+    /**
      * @internal
      * set the floating species initial concentrations.
      *
@@ -374,7 +379,6 @@ public:
 
     void setSelections(const std::vector<rr::SelectionRecord>& selections);
 
-
     /**
      * returns the values selected with SimulateOptions for the current model time / timestep")
      */
@@ -404,6 +408,12 @@ public:
     std::vector<std::string> getDependentFloatingSpeciesIds();
 
     /**
+    * @author KC
+    * @brief Gets the ids for all floating species concentrations
+    */
+    std::vector<std::string> getFloatingSpeciesConcentrationIds();
+
+    /**
       * @brief Gets the ids for all initial floating species concentrations
       * @details See @ref getIndependentFloatingSpeciesIds for an explanation
       * of independent vs. dependent.
@@ -428,22 +438,46 @@ public:
 /******************************************************************************/
 
     /**
-     * @author JKM
-     * @brief Returns the floating species amounts as a named array
-     */
-    ls::DoubleMatrix getFloatingSpeciesAmounts();
+    * @author KC
+    * @brief Returns the floating species amounts as a named array
+    */
+    ls::DoubleMatrix getFloatingSpeciesAmountsNamedArray();
 
     /**
-     * @author JKM
+     * @author KC
      * @brief Returns the floating species concentrations as a named array
      */
-    ls::DoubleMatrix getFloatingSpeciesConcentrations();
+    ls::DoubleMatrix getFloatingSpeciesConcentrationsNamedArray();
+
+    /**
+    * @author KC
+    * @brief Returns the boundary species amounts as a named array
+    */
+    ls::DoubleMatrix getBoundarySpeciesAmountsNamedArray();
+
+    /**
+    * @author KC
+    * @brief Returns the boundary species concentrations as a named array
+    */
+    ls::DoubleMatrix getBoundarySpeciesConcentrationsNamedArray();
 
     /**
      * @author KC
      * @brief Returns the rate of change of the floating species as a named array
      */
     ls::DoubleMatrix getRatesOfChange();
+
+    /**
+    * @author KC
+    * @brief Returns the rate of change of the independent floating species as a named array
+    */
+    ls::DoubleMatrix getIndependentRatesOfChange();
+
+    /**
+    * @author KC
+    * @brief Returns the rate of change of the dependent floating species as a named array
+    */
+    ls::DoubleMatrix getDependentRatesOfChange();
 
     /**
      * compute the full Jacobian at the current operating point
@@ -508,6 +542,8 @@ public:
      * it was converted via conservation conversion.
      */
     ls::DoubleMatrix getFullStoichiometryMatrix();
+
+    ls::DoubleMatrix getExtendedStoichiometryMatrix();
 
 
     ls::DoubleMatrix getL0Matrix();
@@ -753,6 +789,13 @@ public:
      */
     std::vector<std::string> getBoundarySpeciesIds();
 
+
+    /**
+    * @author KC
+    * @brief Gets the ids for all boundary species concentrations
+    */
+    std::vector<std::string> getBoundarySpeciesConcentrationIds();
+
     /**
      * @internal
      * @deprecated
@@ -880,7 +923,19 @@ public:
     * @deprecated
     */
     RR_DEPRECATED(std::vector<double> getFloatingSpeciesAmountsV());
+    
+    /**
+    * @internal
+    * @deprecated
+    */
+    RR_DEPRECATED(std::vector<double> getBoundarySpeciesConcentrationsV());
 
+    /**
+    * @internal
+    * @deprecated
+    */
+    RR_DEPRECATED(std::vector<double> getBoundarySpeciesAmountsV());
+    
     /**
      * @internal
      * @deprecated

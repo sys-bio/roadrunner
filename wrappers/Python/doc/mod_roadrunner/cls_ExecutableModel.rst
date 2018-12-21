@@ -97,6 +97,15 @@ Floating Species
    ['S1', 'S2', 'S3']
 
 
+.. method:: ExecutableModel.getFloatingSpeciesConcentrationIds()
+   :module: RoadRunner
+
+   Return a list of all floating species concentration ids.
+
+   >>> r.getFloatingSpeciesConcentrationIds()
+   ['[S1]', '[S2]', '[S3]', '[S4]']
+   
+
 .. method:: ExecutableModel.getNumFloatingSpecies()
    :module: RoadRunner
 
@@ -177,16 +186,7 @@ Floating Species
    >>> r.model.getFloatingSpeciesConcentrations()
    array([ 0.5       ,  9.99954571])
 
-.. method:: RoadRunner.getRatesOfChange()
-   :module: RoadRunner
-
-   Returns the rates of change of all floating species. The order of species is 
-   given by the order of Ids returned by getFloatingSpeciesIds()
-
-   :returns: a named array of floating species rates of change.
-   :rtype: numpy.ndarray
-
-   >>> r.getRatesOfChange()
+   
 
 Floating Species Initial Conditions
 -----------------------------------
@@ -317,6 +317,19 @@ Boundary Species
    ['X0', 'X1']
 
 
+.. method:: ExecutableModel.getBoundarySpeciesConcentrationIds()
+   :module: RoadRunner
+
+   Return a vector of boundary species concentration Ids.
+
+   :param numpy.ndarray index: (optional) an index array indicating which items to return.
+   :returns: a list of boundary species concentration ids.
+
+
+   >>> r.getBoundarySpeciesConcentrationIds()
+   ['[X0]', '[X1]']   
+   
+   
 .. method:: ExecutableModel.getNumBoundarySpecies()
    :module: RoadRunner
 
@@ -528,7 +541,19 @@ Rate Rules
    >>> r.getNumRateRules()
    1
 
+   
+.. method:: ExecutableModel.getEventIds()
+   :module: RoadRunner
 
+   Returns a list of event ids.
+
+   :returns: a list of event ids.
+   
+   >>> r.model.getEventIds()
+   ['E1']
+   
+   
+   
 Stoichiometry
 -------------
 
@@ -620,6 +645,18 @@ Refer to :attr:`RoadRunner.conservedMoietyAnalysis` and :attr:`Config.LOADSBMLOP
 
 Misc
 ----
+
+.. method:: ExecutableModel.getAllTimeCourseComponentIds()
+   :module: RoadRunner
+
+   Return a list of all component ids.  The list includes ids of amount/concentration of 
+   floating species, boundary species, global parameters, compartments, and reactions, 
+   as well as `time`.
+
+   :returns: a list of all component ids widely used in time course selections.
+   >>> r.model.getAllTimeCourseComponentIds()
+   ['time', 'S1', 'S2', 'S3', 'k1', 'k2', 'default_compartment', '_J0', '_J1']
+
 
 
 .. method:: ExecutableModel.getInfo()

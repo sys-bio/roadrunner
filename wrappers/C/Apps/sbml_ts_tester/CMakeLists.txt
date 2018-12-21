@@ -15,7 +15,8 @@ add_definitions(
 -DSTATIC_RR
 -DSTATIC_LIBSTRUCT
 -DLIBLAX_STATIC
--DSTATIC_NLEQ
+-DSTATIC_NLEQ1
+-DSTATIC_NLEQ2
 )
 
 target_link_libraries (${target} 

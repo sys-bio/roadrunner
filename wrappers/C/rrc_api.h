@@ -1280,6 +1280,8 @@ C_DECL_SPEC RRVectorPtr rrcCallConv getFloatingSpeciesAmounts(RRHandle handle);
 */
 C_DECL_SPEC RRVectorPtr rrcCallConv getBoundarySpeciesConcentrations(RRHandle handle);
 
+C_DECL_SPEC RRVectorPtr rrcCallConv getBoundarySpeciesAmounts(RRHandle handle);
+
 // --------------------------------------------------------------------------------
 // Parameter Group
 // --------------------------------------------------------------------------------
@@ -1750,6 +1752,16 @@ C_DECL_SPEC RRStringArrayPtr rrcCallConv getReactionIds(RRHandle handle);
 */
 C_DECL_SPEC RRStringArrayPtr rrcCallConv getBoundarySpeciesIds(RRHandle handle);
 
+
+/*!
+\brief Obtain the list of boundary species concentration Ids
+
+\param[in] handle Handle to a RoadRunner instance
+\return Returns null if it fails, if successful it returns a pointer to a RRStringArrayPtr struct
+\ingroup boundary
+*/
+C_DECL_SPEC RRStringArrayPtr rrcCallConv getBoundarySpeciesConcentrationIds(RRHandle handle);
+
 /*!
  \brief Obtain the list of floating species Id
 
@@ -1762,6 +1774,17 @@ C_DECL_SPEC RRStringArrayPtr rrcCallConv getFloatingSpeciesIds(RRHandle handle);
 
 
 C_DECL_SPEC RRStringArrayPtr rrcCallConv getDependentFloatingSpeciesIds(RRHandle handle);
+
+
+/*!
+\brief Obtain the list of floating species concentrations Id
+
+\param[in] handle Handle to a RoadRunner instance
+\return Returns null if it fails, if successful it returns a pointer to a RRStringArrayPtr struct
+\ingroup floating
+*/
+C_DECL_SPEC RRStringArrayPtr rrcCallConv getFloatingSpeciesConcentrationIds(RRHandle handle);
+
 
 /*!
  \brief Obtain the list of global parameter Ids

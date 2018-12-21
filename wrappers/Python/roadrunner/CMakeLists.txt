@@ -89,7 +89,8 @@ else(WIN32)
         SWIG_LINK_LIBRARIES ( roadrunner
             roadrunner
             rr-libstruct-static
-            nleq-static
+            nleq1-static
+            nleq2-static
             ${LIBSBML_STATIC_LIBRARY}
             lapack
             blas
@@ -100,7 +101,8 @@ else(WIN32)
         SWIG_LINK_LIBRARIES ( roadrunner
             roadrunner-static
             rr-libstruct-static
-            nleq-static
+            nleq1-static
+            nleq2-static
             ${LIBSBML_STATIC_LIBRARY}
             lapack
             blas

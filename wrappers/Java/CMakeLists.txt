@@ -111,7 +111,8 @@ if(SWIG_FOUND)
   swig_link_libraries ( jroadrunner
       roadrunner-static
       rr-libstruct-static
-      nleq-static
+      nleq1-static
+      nleq2-static
       ${LIBSBML_STATIC_LIBRARY}
       lapack
       blas

@@ -1,9 +1,9 @@
 #pragma hdrstop
-#include "rrNLEQInterface.h"
+#include "rrNLEQ1Interface.h"
 #include "rrExecutableModel.h"
 #include "rrStringUtils.h"
 #include "rrUtils.h"
-#include "nleq/nleq2.h"
+#include "nleq1/nleq1.h"
 #include "rrLogger.h"
 #include "rrUtils.h"
 #include "rrException.h"
@@ -45,29 +45,17 @@ static bool isWarning(int e)
     return e == 4 || e == 5;
 }
 
-NLEQInterface::NLEQInterface(ExecutableModel *_model) :
+NLEQ1Interface::NLEQ1Interface(ExecutableModel *_model) :
     IWK(0),
     LIWK(0),
-    LWRK(0),
+    LRWK(0),
     RWK(0),
     XScal(0),
     ierr(0),
     iopt(0),
     model(0),
-    nOpts(50),
+    nOpts(50)
 
-    allowPreSim(Config::getBool(Config::STEADYSTATE_PRESIMULATION)),
-    preSimMaximumSteps(Config::getInt(Config::STEADYSTATE_PRESIMULATION_MAX_STEPS)),
-    preSimTime(Config::getDouble(Config::STEADYSTATE_PRESIMULATION_TIME)),
-    allowApprox(Config::getBool(Config::STEADYSTATE_APPROX)),
-    approxTolerance(Config::getDouble(Config::STEADYSTATE_APPROX_TOL)),
-    approxMaximumSteps(Config::getInt(Config::STEADYSTATE_APPROX_MAX_STEPS)),
-    approxTime(Config::getDouble(Config::STEADYSTATE_APPROX_TIME)),
-    relativeTolerance(Config::getDouble(Config::STEADYSTATE_RELATIVE)),
-    maxIterations(Config::getInt(Config::STEADYSTATE_MAXIMUM_NUM_STEPS)),
-    minDamping(Config::getDouble(Config::STEADYSTATE_MINIMUM_DAMPING)),
-    broyden(Config::getInt(Config::STEADYSTATE_BROYDEN)),
-    linearity(Config::getInt(Config::STEADYSTATE_LINEARITY))
 {
     model = _model;
 
@@ -77,7 +65,7 @@ NLEQInterface::NLEQInterface(ExecutableModel *_model) :
     }
 }
 
-NLEQInterface::~NLEQInterface()
+NLEQ1Interface::~NLEQ1Interface()
 {
     delete[] IWK;
     delete[] RWK;
@@ -85,14 +73,14 @@ NLEQInterface::~NLEQInterface()
     delete[] iopt;
 }
 
-void NLEQInterface::setup()
+void NLEQ1Interface::setup()
 {
     // size of state vector
     n = model->getStateVector(0);
-    Log(Logger::LOG_DEBUG) << "NLEQInterface: size of state vector = " << n;
+    Log(Logger::LOG_DEBUG) << "NLEQ1Interface: size of state vector = " << n;
 
     // Allocate space, see NLEQ docs for details
-    LWRK = (n + 2 + 15)*n + 61;
+    LRWK = (n + 2 + 15)*n + 61;
     LIWK = n + 52;
 
     XScal = new double[n];
@@ -107,7 +95,7 @@ void NLEQInterface::setup()
     {
         iopt[i] = 0;
     }
-
+    
     // Set for Highly nonlinear problem
     iopt[31 - 1] = linearity;
 
@@ -122,18 +110,17 @@ void NLEQInterface::setup()
     }
     IWK[31 - 1] = maxIterations; // Max iterations
 
-
-    RWK = new double[LWRK];
-    for (int i = 0; i < LWRK; i++)
+    RWK = new double[LRWK];
+    for (int i = 0; i < LRWK; i++)
     {
         RWK[i] = 0.0;
     }
     RWK[22 - 1] = minDamping; // Minimal allowed damping factor
 }
 
-bool NLEQInterface::isAvailable()
+bool NLEQ1Interface::isAvailable()
 {
-    NLEQInterface *temp= new NLEQInterface(NULL);
+    NLEQ1Interface *temp= new NLEQ1Interface(NULL);
     if(temp)
     {
         bool val = temp->getNumberOfModelEvaluations() ? true : false;
@@ -144,15 +131,15 @@ bool NLEQInterface::isAvailable()
     return false;
 }
 
-double NLEQInterface::solve()
+double NLEQ1Interface::solve()
 {
     // lock so only one thread can be here.
     Mutex::ScopedLock lock(mutex);
 
-    Log(Logger::LOG_DEBUG) << "NLEQInterface::solve";
+    Log(Logger::LOG_DEBUG) << "NLEQ1Interface::solve";
 
     // Set up a dummy Jacobian, actual Jacobian is computed
-    // by NLEQ using finite differences
+    // by NLEQ1 using finite differences
     //    double* Jacobian = new double[1];
 
     ierr = 0;
@@ -177,17 +164,15 @@ double NLEQInterface::solve()
     {
         IWK[i] = 0;
     }
-
     IWK[31 - 1] = maxIterations; // Max iterations
 
-    for (int i = 0; i < LWRK; i++)
+    for (int i = 0; i < LRWK; i++)
     {
         RWK[i] = 0.0;
     }
-
     RWK[22 - 1] = minDamping; // Minimal allowed damping factor
 
-    // For some reason NLEQ modifies the tolerance value, use a local copy instead
+    // For some reason NLEQ1 modifies the tolerance value, use a local copy instead
     double tmpTol = relativeTolerance;
 
     // set up the thread local variables, only this thread
@@ -205,7 +190,7 @@ double NLEQInterface::solve()
         vector<double> stateVector(n);
         model->getStateVector(&stateVector[0]);
 
-        NLEQ2(  &n,
+        NLEQ1(  &n,
                 &ModelFunction,
                 NULL,
                 &stateVector[0],
@@ -215,7 +200,7 @@ double NLEQInterface::solve()
                 &ierr,
                 &LIWK,
                 IWK,
-                &LWRK,
+                &LRWK,
                 RWK);
 
         // done, clear it.
@@ -286,7 +271,7 @@ void ModelFunction(int* nx, double* y, double* fval, int* pErr)
     {
         std::stringstream ss;
 
-        ss << "NLEQ ModelFunction" << std::endl;
+        ss << "NLEQ1 ModelFunction" << std::endl;
 
         ss << "y: [";
         for (int i = 0; i < *nx; ++i)
@@ -324,7 +309,7 @@ void ModelFunction(int* nx, double* y, double* fval, int* pErr)
     }
 }
 
-void NLEQInterface::setScalingFactors(const vector<double>& sx)
+void NLEQ1Interface::setScalingFactors(const vector<double>& sx)
 {
     for (int i = 0; i < n; i++)
     {
@@ -332,27 +317,27 @@ void NLEQInterface::setScalingFactors(const vector<double>& sx)
     }
 }
 
-int NLEQInterface::getNumberOfNewtonIterations()
+int NLEQ1Interface::getNumberOfNewtonIterations()
 {
     return IWK[0];
 }
 
-int NLEQInterface::getNumberOfCorrectorSteps()
+int NLEQ1Interface::getNumberOfCorrectorSteps()
 {
     return IWK[2];
 }
 
-int NLEQInterface::getNumberOfModelEvaluations()
+int NLEQ1Interface::getNumberOfModelEvaluations()
 {
     return IWK[3];
 }
 
-int NLEQInterface::getNumberOfJacobianEvaluations()
+int NLEQ1Interface::getNumberOfJacobianEvaluations()
 {
     return IWK[4];
 }
 
-int NLEQInterface::getNumberOfModelEvaluationsForJacobian()
+int NLEQ1Interface::getNumberOfModelEvaluationsForJacobian()
 {
     return IWK[7];
 }
@@ -426,37 +411,37 @@ static const char* keys[] =
         "linearity.hint"
 };
 
-void NLEQInterface::setItem(const std::string& key, const rr::Variant& value)
+void NLEQ1Interface::setItem(const std::string& key, const rr::Variant& value)
 {
 }
 
-Variant NLEQInterface::getItem(const std::string& key) const
+Variant NLEQ1Interface::getItem(const std::string& key) const
 {
     return 0;
 }
 
-bool NLEQInterface::hasKey(const std::string& key) const
+bool NLEQ1Interface::hasKey(const std::string& key) const
 {
     return false;
 }
 
-int NLEQInterface::deleteItem(const std::string& key)
+int NLEQ1Interface::deleteItem(const std::string& key)
 {
     return 0;
 }
 
-std::vector<std::string> NLEQInterface::getKeys() const
+std::vector<std::string> NLEQ1Interface::getKeys() const
 {
     return std::vector<std::string>(&keys[0], &keys[sizeof(keys)/sizeof(char*)]);
 }
 
-const Dictionary* NLEQInterface::getSteadyStateOptions()
+const Dictionary* NLEQ1Interface::getSteadyStateOptions()
 {
     static BasicDictionary dict;
 
-    dict.setItem("steadyState", "NLEQ");
-    dict.setItem("steadyState.hint", "NLEQ hint");
-    dict.setItem("steadyState.description", "NLEQ description");
+    dict.setItem("steadyState", "NLEQ1");
+    dict.setItem("steadyState.hint", "NLEQ1 hint");
+    dict.setItem("steadyState.description", "NLEQ1 description");
 
     dict.setItem("allowPreSim", Config::getBool(Config::STEADYSTATE_PRESIMULATION));
     dict.setItem("preSimMaximumSteps", Config::getInt(Config::STEADYSTATE_PRESIMULATION_MAX_STEPS));
@@ -502,7 +487,7 @@ const Dictionary* NLEQInterface::getSteadyStateOptions()
     return &dict;
 }
 
-double NLEQInterface::computeSumsOfSquares()
+double NLEQ1Interface::computeSumsOfSquares()
 {
     double sum = 0;
     vector<double> rates(model->getStateVector(0));

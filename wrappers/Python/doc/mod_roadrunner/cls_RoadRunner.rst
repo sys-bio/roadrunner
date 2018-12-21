@@ -239,6 +239,12 @@ Selections
    :rtype: roadrunner.SelectionRecord
 
 
+.. method:: RoadRunner.resetSelectionLists()
+
+   Resets time course and steady state selection lists to defaults
+
+   
+   
 Model Access
 ------------
 
@@ -863,3 +869,45 @@ Analysis
      plt.xlabel ('Frequency')
      plt.show()
 
+
+.. method:: RoadRunner.getRatesOfChange()
+   :module: RoadRunner
+
+   Returns the rates of change of all floating species. The order of species is 
+   given by the order of Ids returned by getFloatingSpeciesIds()
+
+   :returns: a named array of floating species rates of change.
+   :rtype: numpy.ndarray
+
+   >>> r.getRatesOfChange()
+             MKKK,       MKKK_P,      MKK,      MKK_P,    MKK_PP,     MAPK,   MAPK_P,  MAPK_PP
+   [[ 0.000503289, -0.000503289, 0.537508, -0.0994839, -0.438024, 0.061993, 0.108417, -0.17041]]
+   
+   
+.. method:: RoadRunner.getIndependentRatesOfChange()
+   :module: RoadRunner
+
+   Returns the rates of change of all independent floating species. The order of species is 
+   given by the order of Ids returned by getIndependentFloatingSpeciesIds()
+
+   :returns: a named array of independent floating species rates of change.
+   :rtype: numpy.ndarray
+
+   >>> r.getIndependentRatesOfChange()
+           MKK_P,   MAPK_P,        MKKK,      MKK,     MAPK
+   [[ -0.0994839, 0.108417, 0.000503289, 0.537508, 0.061993]]
+
+
+.. method:: RoadRunner.getDependentRatesOfChange()
+   :module: RoadRunner
+
+   Returns the rates of change of all dependent floating species. The order of species is 
+   given by the order of Ids returned by getDependentFloatingSpeciesIds()
+
+   :returns: a named array of dependent floating species rates of change.
+   :rtype: numpy.ndarray
+
+   >>> r.getDependentRatesOfChange()
+         MKK_PP,       MKKK_P,  MAPK_PP
+   [[ -0.438024, -0.000503289, -0.17041]]
+     

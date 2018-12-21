@@ -863,6 +863,22 @@ RRStringArrayPtr rrcCallConv getBoundarySpeciesIds(RRHandle handle)
     catch_ptr_macro
 }
 
+RRStringArrayPtr rrcCallConv getBoundarySpeciesConcentrationIds(RRHandle handle)
+{
+    start_try
+        RoadRunner* rri = castToRoadRunner(handle);
+    StringList bNames = rri->getBoundarySpeciesConcentrationIds();
+
+    if (!bNames.Count())
+    {
+        return NULL;
+    }
+
+    return createList(bNames);
+    catch_ptr_macro
+}
+
+
 int rrcCallConv getNumberOfFloatingSpecies(RRHandle handle)
 {
     start_try
@@ -900,6 +916,23 @@ RRStringArrayPtr rrcCallConv getDependentFloatingSpeciesIds(RRHandle handle)
     return createList(fNames);
     catch_ptr_macro
 }
+
+
+RRStringArrayPtr rrcCallConv getFloatingSpeciesConcentrationIds(RRHandle handle)
+{
+    start_try
+        RoadRunner* rri = castToRoadRunner(handle);
+    StringList fNames = rri->getFloatingSpeciesConcentrationIds();
+
+    if (!fNames.Count())
+    {
+        return NULL;
+    }
+
+    return createList(fNames);
+    catch_ptr_macro
+}
+
 
 int rrcCallConv getNumberOfGlobalParameters(RRHandle handle)
 {
@@ -952,9 +985,9 @@ RRVectorPtr rrcCallConv getFloatingSpeciesAmounts(RRHandle handle)
 {
     start_try
         RoadRunner* rri = castToRoadRunner(handle);
-    vector<double> vec = rri->getFloatingSpeciesAmountsV();
-    RRVector* aVec = rrc::createVector(vec);
-    return aVec;
+        vector<double> vec = rri->getFloatingSpeciesAmountsV();
+        RRVector* aVec = rrc::createVector(vec);
+        return aVec;
     catch_ptr_macro
 }
 
@@ -962,7 +995,17 @@ RRVectorPtr rrcCallConv getBoundarySpeciesConcentrations(RRHandle handle)
 {
     start_try
         RoadRunner* rri = castToRoadRunner(handle);
-        vector<double> vec =  rri->getBoundarySpeciesConcentrations();
+        vector<double> vec =  rri->getBoundarySpeciesConcentrationsV();
+        RRVector* aVec = rrc::createVector(vec);
+        return aVec;
+    catch_ptr_macro
+}
+
+RRVectorPtr rrcCallConv getBoundarySpeciesAmounts(RRHandle handle)
+{
+    start_try
+        RoadRunner* rri = castToRoadRunner(handle);
+        vector<double> vec = rri->getBoundarySpeciesAmountsV();
         RRVector* aVec = rrc::createVector(vec);
         return aVec;
     catch_ptr_macro

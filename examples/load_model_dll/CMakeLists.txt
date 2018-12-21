@@ -12,7 +12,8 @@ add_definitions(
 -DSTATIC_RR
 -DSTATIC_LIBSTRUCT
 -DLIBLAX_STATIC  
--DSTATIC_NLEQ
+-DSTATIC_NLEQ1
+-DSTATIC_NLEQ2
 )
 
 if(WIN32)
@@ -29,7 +30,8 @@ endif()
 if(UNIX)
 target_link_libraries (${target} 
 roadrunner-static
-nleq-static.a
+nleq1-static.a
+nleq2-static.a
 rr-libstruct-static
 lapack
 blas

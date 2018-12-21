@@ -4,15 +4,15 @@
 
 // == FILEDOC =================================================
 
-/** @file NLEQSolver.h
-* @author ETS, WBC, JKM
+/** @file NLEQ2Solver.h
+* @author ETS, WBC, JKM, KC
 * @date 08/03/2015
 * @copyright Apache License, Version 2.0
 * @brief Provides an interface to NLEQ
 **/
 
-#ifndef rrNLEQSolverH
-#define rrNLEQSolverH
+#ifndef rrNLEQ2SolverH
+#define rrNLEQ2SolverH
 #include <vector>
 #include "SteadyStateSolver.h"
 #include "rrExecutableModel.h"
@@ -24,14 +24,14 @@ namespace rr
 /**
  * @internal
  */
-class RR_DECLSPEC NLEQSolver : public SteadyStateSolver
+class RR_DECLSPEC NLEQ2Solver : public SteadyStateSolver
 {
     public:
         /**
         * Creates a new Instance of NLEQ for the given Model
         */
-        NLEQSolver(ExecutableModel *_model = NULL);
-        ~NLEQSolver();
+        NLEQ2Solver(ExecutableModel *_model = NULL);
+        ~NLEQ2Solver();
 
         /**
         * @author JKM
@@ -98,14 +98,14 @@ class RR_DECLSPEC NLEQSolver : public SteadyStateSolver
     // ** Registration *********************************************************
 
 
-    class NLEQSolverRegistrar : public SteadyStateSolverRegistrar {
+    class NLEQ2SolverRegistrar : public SteadyStateSolverRegistrar {
         public:
             /**
             * @author JKM
             * @brief Gets the name associated with this integrator type
             */
             virtual std::string getName() const {
-                return NLEQSolver::getNLEQName();
+                return NLEQ2Solver::getNLEQName();
             }
 
             /**
@@ -113,7 +113,7 @@ class RR_DECLSPEC NLEQSolver : public SteadyStateSolver
             * @brief Gets the description associated with this integrator type
             */
             virtual std::string getDescription() const {
-                return NLEQSolver::getNLEQDescription();
+                return NLEQ2Solver::getNLEQDescription();
             }
 
             /**
@@ -121,7 +121,7 @@ class RR_DECLSPEC NLEQSolver : public SteadyStateSolver
             * @brief Gets the hint associated with this integrator type
             */
             virtual std::string getHint() const {
-                return NLEQSolver::getNLEQHint();
+                return NLEQ2Solver::getNLEQHint();
             }
 
             /**
@@ -129,7 +129,7 @@ class RR_DECLSPEC NLEQSolver : public SteadyStateSolver
             * @brief Constructs a new integrator of a given type
             */
             virtual SteadyStateSolver* construct(ExecutableModel *model) const {
-                return new NLEQSolver(model);
+                return new NLEQ2Solver(model);
             }
     };
 }

@@ -497,6 +497,7 @@ PyObject *Integrator_NewPythonObj(rr::Integrator* i) {
 
 %ignore rr::RoadRunner::addCapabilities;
 %ignore rr::RoadRunner::getFloatingSpeciesIds;
+%ignore rr::RoadRunner::getFloatingSpeciesConcentrationIds;
 %ignore rr::RoadRunner::getRateOfChangeIds;
 //%ignore rr::RoadRunner::getuCC;
 %ignore rr::RoadRunner::addCapability;
@@ -542,11 +543,11 @@ PyObject *Integrator_NewPythonObj(rr::Integrator* i) {
 //%ignore rr::RoadRunner::getInstanceCount;
 //%ignore rr::RoadRunner::getScaledFloatingSpeciesElasticity;
 %ignore rr::RoadRunner::setCapabilities;
-%ignore rr::RoadRunner::getBoundarySpeciesConcentrations;
 //%ignore rr::RoadRunner::getInstanceID;
 //%ignore rr::RoadRunner::getScaledFluxControlCoefficientMatrix;
 %ignore rr::RoadRunner::setCompartmentByIndex;
 %ignore rr::RoadRunner::getBoundarySpeciesIds;
+%ignore rr::RoadRunner::getBoundarySpeciesConcentrationIds;
 //%ignore rr::RoadRunner::getIntegrator;
 //%ignore rr::RoadRunner::getScaledReorderedElasticityMatrix;
 %ignore rr::RoadRunner::setCompiler;
@@ -618,7 +619,6 @@ PyObject *Integrator_NewPythonObj(rr::Integrator* i) {
 %ignore rr::RoadRunner::getParameterValue;
 //%ignore rr::RoadRunner::getVersion;
 %ignore rr::RoadRunner::unLoadModel;
-//%ignore rr::RoadRunner::getFloatingSpeciesConcentrations;
 %ignore rr::RoadRunner::getRateOfChange;
 //%ignore rr::RoadRunner::getlibSBMLVersion;
 //%ignore rr::RoadRunner::writeSBML;
@@ -632,7 +632,6 @@ PyObject *Integrator_NewPythonObj(rr::Integrator* i) {
 
 %rename (_load) rr::RoadRunner::load;
 %rename (_getValue) rr::RoadRunner::getValue;
-
 
 %ignore rr::Config::getInt;
 %ignore rr::Config::getString;
@@ -1195,6 +1194,7 @@ namespace std { class ostream{}; }
             # check for errors
             import collections
             import sys
+            import warnings
             if selections is not None:
                 # check that selections is a sequence
                 if not isinstance(selections, collections.Sequence):
@@ -1247,6 +1247,10 @@ namespace std { class ostream{}; }
             result = self._simulate(o)
 
             o.steps = originalSteps
+
+            if result.shape[0] > Config.getValue(Config.MAX_OUTPUT_ROWS):
+                warnings.warn("Simulation returned more points than max output rows specified. "
+                              "Try incresing the number of maximum output rows or minimum step size.")
 
             return result
 
@@ -2035,8 +2039,16 @@ namespace std { class ostream{}; }
         return rr_ExecutableModel_getIds($self, rr::SelectionRecord::FLOATING_AMOUNT);
     }
 
+    PyObject *getFloatingSpeciesConcentrationIds() {
+        return rr_ExecutableModel_getIds($self, rr::SelectionRecord::FLOATING_CONCENTRATION);
+    }
+
     PyObject *getBoundarySpeciesIds() {
         return rr_ExecutableModel_getIds($self, rr::SelectionRecord::BOUNDARY_AMOUNT);
+    }
+
+    PyObject *getBoundarySpeciesConcentrationIds() {
+        return rr_ExecutableModel_getIds($self, rr::SelectionRecord::BOUNDARY_CONCENTRATION);
     }
 
     PyObject *getGlobalParameterIds() {
@@ -2066,6 +2078,25 @@ namespace std { class ostream{}; }
     PyObject *getEventIds() {
         return rr_ExecutableModel_getIds($self, rr::SelectionRecord::EVENT);
     }
+
+    %pythoncode %{
+        def getAllTimeCourseComponentIds(self):
+            """
+
+            ExecutableModel.getAllTimeCourseComponentIds([index])
+
+            Return a list of all component ids. The list includes ids of amount/concentration of
+            floating species, boundary species, global parameters, compartments, and reactions, as well as `time`.
+
+            :returns: a list of all component ids widely used in time course selections.
+
+            """
+
+            return (['time'] + self.getFloatingSpeciesIds() + self.getBoundarySpeciesIds()
+            + self.getFloatingSpeciesConcentrationIds() + self.getBoundarySpeciesConcentrationIds()
+            + self.getGlobalParameterIds() + self.getCompartmentIds() + self.getReactionIds())
+    %}
+
 
 
 

@@ -57,7 +57,8 @@ else() #Unix
         target_link_libraries ( ${target}
             roadrunner
             rr-libstruct-static
-            nleq-static
+            nleq1-static
+            nleq2-static
             sbml-static
             lapack
             blas
@@ -69,7 +70,8 @@ else() #Unix
         target_link_libraries ( ${target}
             roadrunner-static
             rr-libstruct-static
-            nleq-static
+            nleq1-static
+            nleq2-static
             sbml-static
             lapack
             blas
