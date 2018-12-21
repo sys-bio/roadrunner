@@ -246,6 +246,9 @@ ExecutableModel* LLVMModelGenerator::createModel(const std::string& sbml,
 		setGlobalParameterInitValueIR			= 0;
 	}
 
+	//https://stackoverflow.com/questions/28851646/llvm-jit-windows-8-1
+	context.getExecutionEngine().finalizeObject();
+
 	rc->evalInitialConditionsPtr = (EvalInitialConditionsCodeGen::FunctionPtr)
         context.getExecutionEngine().getFunctionAddress("evalInitialConditions");
 
@@ -361,8 +364,7 @@ ExecutableModel* LLVMModelGenerator::createModel(const std::string& sbml,
 		rc->setGlobalParameterInitValuePtr = 0;
 	}
 
-	//https://stackoverflow.com/questions/28851646/llvm-jit-windows-8-1
-	context.getExecutionEngine().finalizeObject();
+	
 
     
 
