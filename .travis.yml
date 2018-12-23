@@ -44,7 +44,7 @@ before_install:
 install:
   - cd ~/build/roadrunner
   # consider changing to python3
-  - cmake -DCMAKE_BUILD_TYPE=Release -DCMAKE_INSTALL_PREFIX=~/install/roadrunner -DTHIRD_PARTY_INSTALL_FOLDER=/usr -DLLVM_CONFIG_EXECUTABLE=/usr/lib/llvm-6.0/bin/llvm-config -DBUILD_PYTHON=ON -DPYTHON_EXECUTABLE=/usr/bin/python -DPYTHON_INCLUDE_DIR=/usr/include/python2.7 -DPYTHON_LIBRARY=/usr/lib/x86_64-linux-gnu/libpython2.7.so python2.7 -DBUILD_TESTS=ON -DBUILD_TEST_TOOLS=ON -DUSE_TR1_CXX_NS=OFF -DBUILD_JAVA_INTERFACE=OFF "$TRAVIS_BUILD_DIR"
+  - cmake -DCMAKE_BUILD_TYPE=Release -DCMAKE_INSTALL_PREFIX=~/install/roadrunner -DTHIRD_PARTY_INSTALL_FOLDER=/usr -DLLVM_CONFIG_EXECUTABLE=/usr/lib/llvm-6.0/bin/llvm-config -DBUILD_PYTHON=ON -DPYTHON_EXECUTABLE=/usr/bin/python -DPYTHON_INCLUDE_DIR=/usr/include/python2.7 -DPYTHON_LIBRARY=/usr/lib/x86_64-linux-gnu/libpython2.7.so python2.7 -DBUILD_TESTS=ON -DBUILD_TEST_TOOLS=ON -DUSE_TR1_CXX_NS=ON -DBUILD_JAVA_INTERFACE=OFF -DSWIG_DIR=/usr/share/swig3.0 "$TRAVIS_BUILD_DIR"
   - make -j2
   - make install
 
