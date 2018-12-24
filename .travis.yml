@@ -36,7 +36,8 @@ before_install:
   #- sudo cp /usr/local/include/rr-libstruct/* /usr/local/include
   #- sudo cp /usr/local/include/clapack/* /usr/local/include
   
-  - sudo dpkg -L libroadrunner-deps_2.0.8_amd64.deb
+  # Get package name
+  - dpkg --info libroadrunner-deps_2.0.8_amd64.deb | grep Package
 
   - mkdir ~/install
 
