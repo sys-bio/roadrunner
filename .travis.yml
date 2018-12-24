@@ -39,6 +39,8 @@ before_install:
   # Get package name
   - dpkg --info libroadrunner-deps_2.0.8_amd64.deb | grep Package
   - dpkg -L libroadrunner-deps
+  - dpkg --info libroadrunner-deps-dev_2.0.8_amd64.deb | grep Package
+  - dpkg -L libroadrunner-deps-dev
 
   - mkdir ~/install
 
