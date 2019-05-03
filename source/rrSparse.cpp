@@ -41,82 +41,86 @@ struct sort_pred
 };
 
 csr_matrix* csr_matrix_new(unsigned m, unsigned n,
-        const std::vector<unsigned>& rowidx, const std::vector<unsigned>& colidx,
-        const std::vector<double>& values)
+	const std::vector<unsigned>& rowidx, const std::vector<unsigned>& colidx,
+	const std::vector<double>& values)
 {
-    char err[64];
-    unsigned nnz = rowidx.size();
+	char err[64];
+	unsigned nnz = rowidx.size();
 
-    if (colidx.size() != nnz || values.size() != nnz)
-    {
-        throw runtime_error("rowidx, colidx and values must be the same length");
-    }
+	if (colidx.size() != nnz || values.size() != nnz)
+	{
+		throw runtime_error("rowidx, colidx and values must be the same length");
+	}
 
-    for (unsigned i = 0; i < nnz; i++)
-    {
-        if (rowidx[i] >= m)
-        {
-            snprintf(err, sizeof(err)/sizeof(char),
-                    "rowidx[%i] == %i >= row count %i", i, rowidx[i], m);
-            throw runtime_error(err);
-        }
-        if (colidx[i] >= n)
-        {
-            snprintf(err, sizeof(err)/sizeof(char),
-                    "colidx[%i] == %i >= column count %i", i, colidx[i], n);
-            throw runtime_error(err);
-        }
-    }
+	for (unsigned i = 0; i < nnz; i++)
+	{
+		if (rowidx[i] >= m)
+		{
+			snprintf(err, sizeof(err) / sizeof(char),
+				"rowidx[%i] == %i >= row count %i", i, rowidx[i], m);
+			throw runtime_error(err);
+		}
+		if (colidx[i] >= n)
+		{
+			snprintf(err, sizeof(err) / sizeof(char),
+				"colidx[%i] == %i >= column count %i", i, colidx[i], n);
+			throw runtime_error(err);
+		}
+	}
 
-    csr_matrix* mat = (csr_matrix*)calloc(1, sizeof(csr_matrix));
+	csr_matrix* mat = (csr_matrix*)calloc(1, sizeof(csr_matrix));
 
-    // values that will get stuffed into struct
-    vector<double> mvalues;
-    vector<unsigned> mcolidx;
-    vector<unsigned> mrowptr;
+	// values that will get stuffed into struct
+	vector<double> mvalues;
+	vector<unsigned> mcolidx;
+	vector<unsigned> mrowptr;
 
-    mat->m = m;
-    mat->n = n;
-    mat->nnz = 0;
+	mat->m = m;
+	mat->n = n;
+	mat->nnz = 0;
 
-    // first index
-    mrowptr.push_back(0);
+	// first index
+	mrowptr.push_back(0);
 
-    for(unsigned i = 0; i < m; i++)
-    {
-        // find all the values in this row
-        vector<pair<unsigned,double> > cols;
-        for(unsigned j = 0; j < nnz; j++)
-        {
-            if (i == rowidx[j])
-            {
-                cols.push_back(pair<unsigned,double>(colidx[j], values[j]));
-            }
-        }
+	for (unsigned i = 0; i < m; i++)
+	{
+		// find all the values in this row
+		vector<pair<unsigned, double> > cols;
+		for (unsigned j = 0; j < nnz; j++)
+		{
+			if (i == rowidx[j])
+			{
+				cols.push_back(pair<unsigned, double>(colidx[j], values[j]));
+			}
+		}
 
-        // sort by the column index
-        sort(cols.begin(), cols.end(), sort_pred());
+		// sort by the column index
+		sort(cols.begin(), cols.end(), sort_pred());
 
-        for(vector<pair<unsigned,double> >::const_iterator j = cols.begin(); j != cols.end(); j++)
-        {
-            mcolidx.push_back(j->first);
-            mvalues.push_back(j->second);
-        }
-        mrowptr.push_back((mat->nnz += cols.size()));
-    }
+		for (vector<pair<unsigned, double> >::const_iterator j = cols.begin(); j != cols.end(); j++)
+		{
+			mcolidx.push_back(j->first);
+			mvalues.push_back(j->second);
+		}
+		mrowptr.push_back((mat->nnz += cols.size()));
+	}
 
-    assert(mat->nnz == nnz);
-    assert(mcolidx.size() == nnz);
-    assert(mvalues.size() == nnz);
-    assert(mrowptr.size() == mat->m + 1);
+	assert(mat->nnz == nnz);
+	assert(mcolidx.size() == nnz);
+	assert(mvalues.size() == nnz);
+	assert(mrowptr.size() == mat->m + 1);
 
-    mat->rowptr = (unsigned*)calloc(mat->m + 1, sizeof(unsigned));
-    mat->colidx = (unsigned*)calloc(nnz, sizeof(unsigned));
-    mat->values = (double*)calloc(nnz, sizeof(double));
+	mat->rowptr = (unsigned*)calloc(mat->m + 1, sizeof(unsigned));
+	mat->colidx = (unsigned*)calloc(nnz, sizeof(unsigned));
+	mat->values = (double*)calloc(nnz, sizeof(double));
 
-    memcpy(mat->rowptr, &mrowptr[0], (mat->m+1)*sizeof(unsigned));
-    memcpy(mat->colidx, &mcolidx[0], nnz*sizeof(unsigned));
-    memcpy(mat->values, &mvalues[0], nnz*sizeof(double));
+	memcpy(mat->rowptr, &mrowptr[0], (mat->m + 1) * sizeof(unsigned));
+	if (mcolidx.size() > 0) {
+		memcpy(mat->colidx, &mcolidx[0], nnz * sizeof(unsigned));
+	}
+	if (mvalues.size() > 0) {
+		memcpy(mat->values, &mvalues[0], nnz * sizeof(double));
+	}
 
     return mat;
 }
