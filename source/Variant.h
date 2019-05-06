@@ -11,6 +11,7 @@
 #include "rrExporter.h"
 #include <typeinfo>
 #include <string>
+#include <vector>
 
 
 namespace rr
@@ -79,7 +80,7 @@ public:
      */
     enum TypeId
     {
-        STRING, BOOL, INT32, UINT32, INT64, UINT64, FLOAT, DOUBLE, CHAR, UCHAR, EMPTY
+        STRING, BOOL, INT32, UINT32, INT64, UINT64, FLOAT, DOUBLE, CHAR, UCHAR, EMPTY, DOUBLEVECTOR
     };
 
     /**
@@ -212,6 +213,8 @@ public:
 
     VARIANT_IMPLICIT_CONVERT(unsigned char);
 
+	VARIANT_IMPLICIT_CONVERT(std::vector<double>);
+	
     /**
      * Parses the string which must be in JSON format. This is a common
      * way to read a Variant from a file or create a new one from a string:
@@ -261,6 +264,11 @@ public:
      * true if this is a signed number.
      */
     bool isSigned() const;
+
+	/*
+	* true if this is a vector of doubles
+	* */
+	bool isDoubleVector() const;
 
 
 private:
