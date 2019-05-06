@@ -148,12 +148,15 @@ static std::string strip(const std::string& in)
 std::vector<double> parseDoubleVector(const std::string& toParse) {
 	std::vector<double> result;
 	size_t index = 1;
+	while (toParse[index] == ' ') {
+		index++;
+	}
 	while (index < toParse.length() && toParse[index] != ']') {
 		size_t lengthInStr = 0;
 		result.push_back(std::stod(&toParse[index], &lengthInStr));
 		index += lengthInStr;
-		while (index < toParse.length() && toParse[index] == ' '
-			|| toParse[index] == ',') {
+		while (index < toParse.length() && (toParse[index] == ' '
+			|| toParse[index] == ',')) {
 			index++;
 		}
 	}
@@ -339,8 +342,6 @@ void Variant::convert_to(const std::type_info& info, void* p) const
 			*out = self->var.extract<std::vector<double>>();
 			return;
 		}
-
-		
 
     }
     catch(Poco::SyntaxException& ex)
