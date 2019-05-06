@@ -125,6 +125,11 @@ namespace rr
         return getValue(key).convert<double>();
     }
 
+	vector<double> Solver::getValueAsDoubleVector(std::string key)
+	{
+		return getValue(key).convert<vector<double>>();
+	}
+
     char Solver::getValueAsChar(std::string key)
     {
         return getValue(key).convert<char>();

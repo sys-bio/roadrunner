@@ -150,6 +150,13 @@ namespace rr
         */
         virtual double getValueAsDouble(std::string key);
 
+
+		/**
+		* @brief Wrapper for @ref getValue which converts output to a specific type
+		*/
+		virtual std::vector<double> getValueAsDoubleVector(std::string key);
+
+
         /**
         * @author WBC, JKM
         * @brief Wrapper for @ref getValue which converts output to a specific type

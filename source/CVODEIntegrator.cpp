@@ -238,7 +238,21 @@ namespace rr
 			it = options.find("absolute");
 			if (it != options.end())
 			{
-				CVODEIntegrator::setValue("absolute_tolerance", std::abs(toDouble((*it).second)));
+				if ((*it).second[0] != '[') {
+					// scalar absolute tolerance
+					CVODEIntegrator::setValue("absolute_tolerance", std::abs(toDouble((*it).second)));
+				}
+				else {
+					// vector absolute tolerance 
+					// FIXME: add new method toVector?
+					vector<double> v = toDoubleVector((*it).second);
+					// take absolute value of each element 
+					for (unsigned int i = 0; i < v.size(); i++)
+						v[i] = std::abs(v[i]);
+					CVODEIntegrator::setValue("absolute_tolerance", v);
+				}
+				
+				
 			}
 
 			it = options.find("relative");
@@ -713,14 +727,63 @@ namespace rr
 			SetVector(mStateVector, 0, 1.0);
 		}
 
-		int err = CVodeSStolerances(mCVODE_Memory, getValueAsDouble("relative_tolerance"), getValueAsDouble("absolute_tolerance"));
+		int err;
+		// switch on different cases that the absolute tolerance is scalar or vector
+		switch (getType("absolute_tolerance")) {
+			// scalar tolerance
+			case Variant::TypeId::DOUBLE:
+				err = CVodeSStolerances(mCVODE_Memory, getValueAsDouble("relative_tolerance"), getValueAsDouble("absolute_tolerance"));
+				break;
+			
+			// vector tolerance
+			case Variant::TypeId::DOUBLEVECTOR:
+			{
+				// TODO: is this the best way to convert a double vector to a n_vector?
+				N_Vector nv = N_VMake_Serial(getValueAsDoubleVector("absolute_tolerance").size(), &getValueAsDoubleVector("absolute_tolerance")[0]);
+				err = CVodeSVtolerances(mCVODE_Memory, getValueAsDouble("relative_tolerance"), nv);
+				// need to destroy
+				N_VDestroy_Serial(nv);
+				break; 
+			}
+
+			default:
+				err = CV_ILL_INPUT;
+				break;
+		}
+
+
 		if (err != CV_SUCCESS)
 		{
 			handleCVODEError(err);
 		}
 
-		Log(Logger::LOG_INFORMATION) << "Set tolerance to abs: " << setprecision(16)
-			<< getValueAsDouble("absolute_tolerance") << ", rel: " << getValueAsDouble("relative_tolerance");
+
+		switch (getType("absolute_tolerance")) {
+			// scalar tolerance
+			case Variant::TypeId::DOUBLE:
+				Log(Logger::LOG_INFORMATION) << "Set tolerance to abs: " << setprecision(16)
+					<< getValueAsDouble("absolute_tolerance") << ", rel: " << getValueAsDouble("relative_tolerance");
+				break;
+
+			// vector tolerance
+			case Variant::TypeId::DOUBLEVECTOR: 
+			
+				Log(Logger::LOG_INFORMATION) << "Set tolerance to abs: " << setprecision(16) << "[";
+				for (auto i = getValueAsDoubleVector("absolute_tolerance").begin(); i != getValueAsDoubleVector("absolute_tolerance").end(); ++i) {
+					if (i != getValueAsDoubleVector("absolute_tolerance").begin())
+						Log(Logger::LOG_INFORMATION) << ", ";
+					Log(Logger::LOG_INFORMATION) << *i;
+				}
+				Log(Logger::LOG_INFORMATION) << "], rel: " << getValueAsDouble("relative_tolerance");
+				break;
+				
+	
+
+			default:
+				break;
+		}
+
+		
 	}
 
 	void CVODEIntegrator::restart(double time)
