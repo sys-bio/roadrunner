@@ -298,7 +298,7 @@ namespace rr
 	void CVODEIntegrator::setValue(string key, const Variant& val)
 	{
 		Integrator::setValue(key, val);
-
+		
 		/// Values and keys are stored in the settings map, which is updated
 		/// in every call to @ref setValue. In addition, changing CVODE-specific
 		/// parameters requires a call into the CVODE library to synchronize
@@ -330,8 +330,11 @@ namespace rr
             }
             else if (key == "absolute_tolerance" || key == "relative_tolerance")
             {
+				
                 CVodeSetMaxNumSteps(mCVODE_Memory, getValueAsInt("maximum_num_steps")); // FIXME: is this intentional?
+				
                 setCVODETolerances();
+				
             }
         }
 		if (key == "stiff")
@@ -553,7 +556,30 @@ namespace rr
 		double minAbs = Config::getDouble(Config::CVODE_MIN_ABSOLUTE);
 		double minRel = Config::getDouble(Config::CVODE_MIN_RELATIVE);
 
-		CVODEIntegrator::setValue("absolute_tolerance", std::min(CVODEIntegrator::getValueAsDouble("absolute_tolerance"), minAbs));
+		switch (getType("absolute_tolerance")) {
+			// scalar tolerance
+		case Variant::TypeId::DOUBLE:
+			CVODEIntegrator::setValue("absolute_tolerance", std::min(CVODEIntegrator::getValueAsDouble("absolute_tolerance"), minAbs));
+			break;
+
+			// vector tolerance
+		case Variant::TypeId::DOUBLEVECTOR:
+		{
+			vector<double> v = CVODEIntegrator::getValueAsDoubleVector("absolute_tolerance");
+			for (int i = 0; i < v.size(); i++)
+				v[i] = std::min(v[i], minAbs);
+			CVODEIntegrator::setValue("absolute_tolerance", v);
+
+			break;
+		}
+
+		default:
+			
+			break;
+		}
+
+
+		
 		CVODEIntegrator::setValue("relative_tolerance", std::min(CVODEIntegrator::getValueAsDouble("relative_tolerance"), minRel));
 
 		Log(Logger::LOG_INFORMATION) << "tweaking CVODE tolerances to abs=" << CVODEIntegrator::getValueAsDouble("absolute_tolerance") << ", rel=" << CVODEIntegrator::getValueAsDouble("relative_tolerance");
@@ -738,11 +764,21 @@ namespace rr
 			// vector tolerance
 			case Variant::TypeId::DOUBLEVECTOR:
 			{
+				
 				// TODO: is this the best way to convert a double vector to a n_vector?
-				N_Vector nv = N_VMake_Serial(getValueAsDoubleVector("absolute_tolerance").size(), &getValueAsDoubleVector("absolute_tolerance")[0]);
+				std::vector<double> test = getValueAsDoubleVector("absolute_tolerance");
+				double* testArray = new double[test.size()];
+				for (int i = 0; i < test.size(); i++)
+					testArray[i] = test[i];
+				N_Vector nv = N_VMake_Serial(getValueAsDoubleVector("absolute_tolerance").size(), testArray);//&getValueAsDoubleVector("absolute_tolerance")[0]);
+				//std::cout << nv->ops->nvgetarraypointer(nv)[0] << std::endl;
+				//std::cout << nv->ops->nvgetarraypointer(nv)[1] << std::endl;
+				std::cout << N_VMin(nv) << std::endl;
+				std::cout << N_VMaxNorm(nv) << std::endl;
 				err = CVodeSVtolerances(mCVODE_Memory, getValueAsDouble("relative_tolerance"), nv);
 				// need to destroy
 				N_VDestroy_Serial(nv);
+				
 				break; 
 			}
 
@@ -756,7 +792,7 @@ namespace rr
 		{
 			handleCVODEError(err);
 		}
-
+		
 
 		switch (getType("absolute_tolerance")) {
 			// scalar tolerance
@@ -767,22 +803,23 @@ namespace rr
 
 			// vector tolerance
 			case Variant::TypeId::DOUBLEVECTOR: 
-			
+			{
 				Log(Logger::LOG_INFORMATION) << "Set tolerance to abs: " << setprecision(16) << "[";
-				for (auto i = getValueAsDoubleVector("absolute_tolerance").begin(); i != getValueAsDoubleVector("absolute_tolerance").end(); ++i) {
-					if (i != getValueAsDoubleVector("absolute_tolerance").begin())
+				vector<double> v = getValueAsDoubleVector("absolute_tolerance");
+				for (int i = 0; i < v.size(); i++) {
+					if (i != 0)
 						Log(Logger::LOG_INFORMATION) << ", ";
-					Log(Logger::LOG_INFORMATION) << *i;
+					Log(Logger::LOG_INFORMATION) << v[i];
 				}
 				Log(Logger::LOG_INFORMATION) << "], rel: " << getValueAsDouble("relative_tolerance");
+
 				break;
-				
+			}
 	
 
 			default:
 				break;
 		}
-
 		
 	}
 
