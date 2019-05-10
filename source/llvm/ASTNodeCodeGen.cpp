@@ -685,7 +685,7 @@ llvm::Value* ASTNodeCodeGen::intrinsicCallCodeGen(const libsbml::ASTNode *ast)
         func = module->getFunction("quotient");
         break;
     case AST_FUNCTION_REM:
-        funcId = LibFunc::fmod;
+        funcId = LibFunc_fmod;
         func = module->getFunction(targetLib.getName(funcId));
         break;
     default:

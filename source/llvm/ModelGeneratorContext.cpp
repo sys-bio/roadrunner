@@ -773,7 +773,7 @@ static void createLibraryFunctions(Module* module)
             FunctionType::get(double_type, args_d1, false), module);
 
     /// double fmod(double x, double y);
-    createLibraryFunction(LibFunc::fmod,
+    createLibraryFunction(LibFunc_fmod,
             FunctionType::get(double_type, args_d2, false), module);
 }
 
