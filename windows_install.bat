@@ -27,8 +27,6 @@ echo It looks like you have just downloaded roadrunner and you are attempting to
 set /p INIT="Would you like to create the roadrunner build directory structure? Enter M or more to see a visualization of what will be created. [Y/N/M]
 REM FIXME Implement the visualization
 if "%INIT%"=="Y" (
-  mkdir build_debug
-  mkdir install_debug
   REM Temporarily move everything from roadrunner into rr_tmp and then change that to source/roadrunner
   mkdir rr_tmp
   REM Move all files and directories into rr_tmp
@@ -36,10 +34,13 @@ if "%INIT%"=="Y" (
   for    %%f in (*) do if not "%%f"=="%~nx0" move /-Y %%f rr_tmp
   copy %~nx0 rr_tmp
   REM Move .git which is hidden
-  xcopy /H .git rr_tmp
-  del /AH .git
+  attrib -h .git
+  move .git rr_tmp
+  attrib +h rr_tmp\.git
   REM Change the temp folder to its correct folder: source\roadrunner
   mkdir source
+  mkdir build_debug
+  mkdir install_debug
   move rr_tmp source\roadrunner
   echo Initialization done. Please run this script again with the appropriate arugments.
 )
