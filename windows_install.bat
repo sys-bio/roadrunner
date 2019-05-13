@@ -14,7 +14,14 @@ REM If not, then check if there are those folders in ..\.. in which case, cd the
 REM start building as normal. If neither of those work, ask if they have just cloned
 REM roadrunner and they would like to initialize the directory structure.
 if exist "build*" if exist "install*" if exist "source*" goto :init_done
-if exist "..\..\build*" if exist "..\..\install*" if exist "..\..\source*" goto :init_done
+if exist "..\..\build*" if exist "..\..\install*" if exist "..\..\source*" (
+  REM Move the current directory to the correct folder
+  echo Warning: This script is supposed to be executed from the top of the directory
+  echo          structure.
+  echo Warning: Changing directory to top of directory structure with `cd ..\..\`
+  cd ..\..\
+  goto :init_done
+)
 set INIT=
 echo It looks like you have just downloaded roadrunner and you are attempting to install.
 set /p INIT="Would you like to create the roadrunner build directory structure? Enter M or more to see a visualization of what will be created. [Y/N/M]
