@@ -1,4 +1,4 @@
-REM @echo off
+@echo off
 REM Pushes environment variables
 setlocal
 REM Allows us to properly set and use values of variables inside of if statements/for loops
