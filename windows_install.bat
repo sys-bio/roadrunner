@@ -1,4 +1,4 @@
-@echo off
+REM @echo off
 REM Pushes environment variables
 setlocal
 REM Allows us to properly set and use values of variables inside of if statements/for loops
@@ -134,6 +134,7 @@ REM FIXME Make this adapt to the version fo Visual Studio they have installed
 if not defined DevEnvDir (
   call "C:\Program Files (x86)\Microsoft Visual Studio\2017\Community\VC\Auxiliary\Build\vcvarsall.bat" %ARCH%
 )
+REM @echo on
 
 REM Check that they have the appropriate tools installed
 if %GEN%==Ninja (
@@ -178,8 +179,7 @@ if "%BUILD_DEPS%"=="ON" (
   mkdir build%CONF_SUF%\libroadrunner-deps\
   cd build%CONF_SUF%\libroadrunner-deps\
   REM Use the && ^ to execute the next line only if this line succeeds
-  cmake -G %GEN% -DCMAKE_INSTALL_PREFIX=..\..\install%CONF_SUF%\roadrunner ..\..\source\libroadrunner-deps && ^
-  cmake --build . --config %CONFIG% --target install
+  cmake -G %GEN% -DCMAKE_INSTALL_PREFIX=..\..\install%CONF_SUF%\roadrunner ..\..\source\libroadrunner-deps && cmake --build . --config %CONFIG% --target install
   REM Exit if there was a failure in the build stage
   if %errorlevel% neq 0 (
     echo Could not build and install libroadrunner-deps
@@ -196,8 +196,7 @@ if "%BUILD_LLVM%"=="ON" (
   mkdir build%CONF_SUF%\llvm\
   cd build%CONF_SUF%\llvm\
 
-  cmake -G %GEN% -DCMAKE_INSTALL_PREFIX=..\..\install%CONF_SUF%\llvm -DLLVM_TARGETS_TO_BUILD=X86 %LLVM_SRC% && ^
-  cmake --build . --config %CONFIG% --target install
+  cmake -G %GEN% -DCMAKE_INSTALL_PREFIX=..\..\install%CONF_SUF%\llvm -DLLVM_TARGETS_TO_BUILD=X86 %LLVM_SRC% && cmake --build . --config %CONFIG% --target install
 
   if %errorlevel% neq 0 (
     echo Could not build and install LLVM
@@ -209,12 +208,11 @@ if "%BUILD_LLVM%"=="ON" (
 )
 
 
-if not "%BUILD_ROADRUNNER%"=="ON" (
+if "%BUILD_ROADRUNNER%"=="ON" (
   mkdir build%CONF_SUF%\roadrunner
   cd build%CONF_SUF%\roadrunner
 
-  cmake -G %GEN% -DTHIRD_PARTY_INSTALL_FOLDER=..\..\install%CONF_SUF%\roadrunner -DCMAKE_INSTALL_PREFIX=..\..\install%CONF_SUF%\roadrunner -DLLVM_CONFIG_EXECUTABLE=%LLVM_CONFIG_EXECUTABLE% -DBUILD_TESTS=%BUILD_TESTS% -DBUILD_TEST_TOOLS=%BUILD_TESTS% ..\..\source\roadrunner && ^
-  cmake --build . --config %CONFIG% --target install
+  cmake -G %GEN% -DTHIRD_PARTY_INSTALL_FOLDER=..\..\install%CONF_SUF%\roadrunner -DCMAKE_INSTALL_PREFIX=..\..\install%CONF_SUF%\roadrunner -DLLVM_CONFIG_EXECUTABLE=%LLVM_CONFIG_EXECUTABLE% -DBUILD_TESTS=%BUILD_TESTS% -DBUILD_TEST_TOOLS=%BUILD_TESTS% ..\..\source\roadrunner && cmake --build . --config %CONFIG% --target install
 
   if %errorlevel% neq 0 (
     echo Could not build and install roadrunner
@@ -223,6 +221,7 @@ if not "%BUILD_ROADRUNNER%"=="ON" (
     exit /B
   )
   cd ..\..\
+  echo Finished building and installing roadrunner
 )
 
 echo Build and install complete.
