@@ -1,16 +1,17 @@
-@echo off
+REM @echo off
 REM Pushes environment variables
 setlocal
 REM Allows us to properly set and use values of variables inside of if statements/for loops
 setlocal EnableDelayedExpansion
 
 REM Check that they are in the root directory, not in the roadrunner source folder
-if "%~nx0"=="roadrunner" (
+for %%a in ("%~dp0\.") do set FOLDER=%%~nxa
+if "%FOLDER%"=="roadrunner" (
   echo Error: You need to move this script to the rr root folder.
   echo        See the build instructions on the sys-bio/roadrunner Github wiki
   goto usage
 )
-if not "%~nx0"=="rr" (
+if not "%FOLDER%"=="rr" (
   echo Warning: Roadrunner root folder should be named rr. 
   echo          Make sure that you are following the build instructions on the Github wiki
 )
@@ -24,6 +25,7 @@ set GEN_ARCH=
 set GEN=
 set CONFIG=
 set CONF_SUF=
+set LLVM_CONFIG_EXECUTABLE=
 
 REM Check for arch flag
 REM Check for llvm-config
@@ -74,14 +76,33 @@ if "%CONFIG%"=="" (
   echo Error: Must specify a configuration
   goto usage
 )
+if not "%BUILD_DEPS%"=="ON" if not "%BUILD_LLVM%"=="ON" if not "%BUILD_ROADRUNNER%"=="ON" (
+  echo Error: Must build one of deps, llvm, or roadrunner
+  goto usage
+)
+REM Check that there is LLVM installed if we're building roadrunner OR that they
+REM passed in the llvm-config path
+if "%BUILD_ROADRUNNER%"=="ON" (
+  if not exist "install%CONF_SUF%\llvm" (
+  if "%LLVM_CONFIG_EXECUTABLE%"=="" (
+  goto rr_check_done
+  :rr_check_err
+  echo Error: Building roadrunner, but there is no LLVM installation 
+  echo        and llvm-config was not set
+  goto usage
+)))
+:rr_check_done
 
 REM Test what the latest version of Visual Studio they have installed is
 REM FIXME
 
 REM Set environment variables for MSVC toolchain
 REM Use CALL because it is a batch function
+REM Check if DevEnvDir is already defined because calling vcvarsall makes path bigger and windows has a maximum path length
 REM FIXME Make this adapt to the version fo Visual Studio they have installed
-call "C:\Program Files (x86)\Microsoft Visual Studio\2017\Community\VC\Auxiliary\Build\vcvarsall.bat" %ARCH%
+if not defined DevEnvDir (
+  call "C:\Program Files (x86)\Microsoft Visual Studio\2017\Community\VC\Auxiliary\Build\vcvarsall.bat" %ARCH%
+)
 
 REM Check that they have the appropriate tools installed
 if %GEN%==Ninja (
