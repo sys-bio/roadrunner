@@ -149,6 +149,27 @@ if %GEN%==Ninja (
 
 REM If they want to build deps
 if "%BUILD_DEPS%"=="ON" (
+  if not exist source\libroadrunner-deps (
+    echo It looks like you do not have the source for libroadrunner-deps in the source folder
+:download_deps
+    set /p DOWNLOAD_DEPS="Do you want to (D)ownload the sources, give a (P)ath to a folder with the sources, or (Q)uit? [D/P/Q]
+    if "!DOWNLOAD_DEPS!"=="D" (
+      cd source
+      echo Cloning...
+      git clone https://github.com/sys-bio/libroadrunner-deps.git
+      cd ..
+    ) else if "!DOWNLOAD_DEPS!"=="P" (
+      set /p DEPS_PATH="Enter the path: "
+      copy !DEPS_PATH! source\roadrunner
+      REM FIXME Check for error or valid path
+    ) else if "!DOWNLOAD_DEPS!"=="Q" (
+      echo Quitting.
+      exit /B
+    ) else (
+      echo Invalid input.
+      goto :download_deps
+    )
+  )
   REM Set up libroadrunner-deps
   mkdir build%CONF_SUF%\libroadrunner-deps\
   cd build%CONF_SUF%\libroadrunner-deps\
