@@ -4,17 +4,37 @@ setlocal
 REM Allows us to properly set and use values of variables inside of if statements/for loops
 setlocal EnableDelayedExpansion
 
-REM Check that they are in the root directory, not in the roadrunner source folder
-for %%a in ("%~dp0\.") do set FOLDER=%%~nxa
-if "%FOLDER%"=="roadrunner" (
-  echo Error: You need to move this script to the rr root folder.
-  echo        See the build instructions on the sys-bio/roadrunner Github wiki
-  goto usage
+REM If they have just cloned the repo, we want to ask them if they want to initialize
+REM the directory structure.
+REM If they already have the directory structure set up and they are running
+REM windows_install from the source folder, we want it to work without reinit'ing everything
+REM This can be implemented by checking if there are build*, install*, and source* 
+REM folders in the current directory. If so, you can continue building as normal.
+REM If not, then check if there are those folders in ..\.. in which case, cd there and
+REM start building as normal. If neither of those work, ask if they have just cloned
+REM roadrunner and they would like to initialize the directory structure.
+if exist "build*" if exist "install*" if exist "source*" goto :init_done
+if exist "..\..\build*" if exist "..\..\install*" if exist "..\..\source*" goto :init_done
+set INIT=
+echo It looks like you have just downloaded roadrunner and you are attempting to install.
+set /p INIT="Would you like to create the roadrunner build directory structure? Enter M or more to see a visualization of what will be created. [Y/N/M]
+REM FIXME Implement the visualization
+if "%INIT%"=="Y" (
+  mkdir build_debug
+  mkdir install_debug
+  REM Temporarily move everything from roadrunner into rr_tmp and then change that to source/roadrunner
+  mkdir rr_tmp
+  REM Move all files and directories into rr_tmp
+  for /D %%f in (*) do if not "%%f"=="%~nx0" move /-Y %%f rr_tmp
+  for    %%f in (*) do if not "%%f"=="%~nx0" move /-Y %%f rr_tmp
+  copy %~nx0 rr_tmp
+  REM Change the temp folder to its correct folder: source\roadrunner
+  mkdir source
+  move rr_tmp source\roadrunner
+  echo Initialization done. Please run this script again with the appropriate arugments.
 )
-if not "%FOLDER%"=="rr" (
-  echo Warning: Roadrunner root folder should be named rr. 
-  echo          Make sure that you are following the build instructions on the Github wiki
-)
+exit /B
+:init_done
 
 REM Check for debug or release command line flag
 REM Check for generator flag (VS201X or Ninja)
