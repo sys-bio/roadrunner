@@ -35,6 +35,9 @@ if "%INIT%"=="Y" (
   for /D %%f in (*) do if not "%%f"=="%~nx0" move /-Y %%f rr_tmp
   for    %%f in (*) do if not "%%f"=="%~nx0" move /-Y %%f rr_tmp
   copy %~nx0 rr_tmp
+  REM Move .git which is hidden
+  xcopy /H .git rr_tmp
+  del /AH .git
   REM Change the temp folder to its correct folder: source\roadrunner
   mkdir source
   move rr_tmp source\roadrunner
