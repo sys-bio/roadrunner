@@ -1,4 +1,4 @@
-@echo off
+REM @echo off
 REM Pushes environment variables
 setlocal
 REM Allows us to properly set and use values of variables inside of if statements/for loops
@@ -24,8 +24,8 @@ if exist "..\..\build*" if exist "..\..\install*" if exist "..\..\source*" (
 )
 set INIT=
 echo It looks like you have just downloaded roadrunner and you are attempting to install.
-set /p INIT="Would you like to create the roadrunner build directory structure? Enter V to see a visualization of what will be created. [Y/N/V]
-if "%INIT%"=="Y" (
+set /p INIT="Would you like to create the roadrunner build directory structure? Enter V to see a visualization of what will be created. [Y/N/V] "
+if "!INIT!"=="Y" (
   REM Temporarily move everything from roadrunner into rr_tmp and then change that to source/roadrunner
   mkdir rr_tmp
   REM Move all files and directories into rr_tmp
@@ -42,19 +42,19 @@ if "%INIT%"=="Y" (
   mkdir install_debug
   move rr_tmp source\roadrunner
   echo Initialization done. Please run this script again with the appropriate arugments.
-) else if "%INIT%"=="V" (
-  echo <prefix>
-  echo ├── build
-  echo │   ├── llvm
-  echo │   ├── libroadrunner-deps
-  echo │   └── roadrunner
-  echo ├── install
-  echo │   ├── llvm
-  echo │   └── roadrunner
-  echo └── source
-  echo     ├── llvm
-  echo     ├── libroadrunner-deps
-  echo     └── roadrunner
+) else if "!INIT!"=="V" (
+  echo rr
+  echo +-- build
+  echo ^|   +-- llvm
+  echo ^|   +-- libroadrunner-deps
+  echo ^|   +-- roadrunner
+  echo +-- install
+  echo ^|   +-- llvm
+  echo ^|   +-- roadrunner
+  echo +-- source
+  echo     +-- llvm
+  echo     +-- libroadrunner-deps
+  echo     +-- roadrunner
 )
 endlocal
 exit /B
