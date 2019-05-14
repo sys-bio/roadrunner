@@ -1,4 +1,4 @@
-REM @echo off
+@echo off
 REM Pushes environment variables
 setlocal
 REM Allows us to properly set and use values of variables inside of if statements/for loops
@@ -25,7 +25,6 @@ if exist "..\..\build*" if exist "..\..\install*" if exist "..\..\source*" (
 set INIT=
 echo It looks like you have just downloaded roadrunner and you are attempting to install.
 set /p INIT="Would you like to create the roadrunner build directory structure? Enter V to see a visualization of what will be created. [Y/N/V]
-REM FIXME Implement the visualization
 if "%INIT%"=="Y" (
   REM Temporarily move everything from roadrunner into rr_tmp and then change that to source/roadrunner
   mkdir rr_tmp
@@ -126,12 +125,19 @@ if not "%BUILD_DEPS%"=="ON" if not "%BUILD_LLVM%"=="ON" if not "%BUILD_ROADRUNNE
   goto usage
 )
 REM We want them to be able to build LLVM from a source passed in or from the source folder
-if "%BUILD_LLVM%"=="ON" if "%LLVM_SRC%"=="" if not exist source\llvm* (
+REM use ..\..\ since this is relative to the build directory
+if exist source\llvm set LLVM_SRC=..\..\source\llvm
+if "%BUILD_LLVM%"=="ON" if "%LLVM_SRC%"=="" (
   echo Trying to build LLVM, but no source was specified, and there is no source\llvm*
   set /p DOWNLOAD_LLVM="Would you like to download the LLVM source? (Y/N) "
-  if "%DOWNLOAD_LLVM%"=="Y" (
-    REM FIXME Download LLVM
-    set LLVM_SRC=source\llvm
+  if "!DOWNLOAD_LLVM!"=="Y" (
+    cd source
+    git clone https://github.com/llvm-mirror/llvm.git
+    cd llvm
+    set /p LLVM_VERSION="Which _major_ version (e.g. 6 for 6.0.1) of LLVM would you like to git checkout? "
+    git checkout release_!LLVM_VERSION!0
+    set LLVM_SRC=!CD!
+    cd ..\..\
   ) else (
     goto usage
   )
@@ -152,8 +158,11 @@ if "%BUILD_ROADRUNNER%"=="ON" (
 REM Set environment variables for MSVC toolchain
 REM Use CALL because it is a batch function
 REM Check if DevEnvDir is already defined because calling vcvarsall makes path bigger and windows has a maximum path length
-REM FIXME Make this adapt to the version fo Visual Studio they selected with their generator
 if not defined DevEnvDir (
+  if "!GEN!"=="Ninja" (
+    if exist "C:\Program Files (x86)\Microsoft Visual Studio\2019\Community\VC\Auxiliary\Build\vcvarsall.bat" call "C:\Program Files (x86)\Microsoft Visual Studio\2019\Community\VC\Auxiliary\Build\vcvarsall.bat" %ARCH%
+    if exist "C:\Program Files (x86)\Microsoft Visual Studio\2017\Community\VC\Auxiliary\Build\vcvarsall.bat" call "C:\Program Files (x86)\Microsoft Visual Studio\2017\Community\VC\Auxiliary\Build\vcvarsall.bat" %ARCH%
+  )
   if /I "Visual Studio 14" leq "!GEN!" if /I "Visual Studio 15" geq "!GEN!" (
     echo This script does not currently support Visual Studio 2015, but it would
     echo be really easy to add, so just bug @hu-a
@@ -279,6 +288,7 @@ exit /B
   echo --build-tests
   echo --llvm-src    path/to/llvm.src                (Use if you are building LLVM)
   echo --llvm-config path/to/llvm-config.exe         (Use if LLVM is already built)
+  echo --llvm-version [6.0.1]
   echo --generator [Ninja, VS2015, VS2017, VS2019]   (Required)
   echo --config [Debug, Release]                     (Required)
   endlocal
