@@ -24,7 +24,7 @@ if exist "..\..\build*" if exist "..\..\install*" if exist "..\..\source*" (
 )
 set INIT=
 echo It looks like you have just downloaded roadrunner and you are attempting to install.
-set /p INIT="Would you like to create the roadrunner build directory structure? Enter M or more to see a visualization of what will be created. [Y/N/M]
+set /p INIT="Would you like to create the roadrunner build directory structure? Enter V to see a visualization of what will be created. [Y/N/V]
 REM FIXME Implement the visualization
 if "%INIT%"=="Y" (
   REM Temporarily move everything from roadrunner into rr_tmp and then change that to source/roadrunner
@@ -43,7 +43,21 @@ if "%INIT%"=="Y" (
   mkdir install_debug
   move rr_tmp source\roadrunner
   echo Initialization done. Please run this script again with the appropriate arugments.
+) else if "%INIT%"=="V" (
+  echo <prefix>
+  echo ├── build
+  echo │   ├── llvm
+  echo │   ├── libroadrunner-deps
+  echo │   └── roadrunner
+  echo ├── install
+  echo │   ├── llvm
+  echo │   └── roadrunner
+  echo └── source
+  echo     ├── llvm
+  echo     ├── libroadrunner-deps
+  echo     └── roadrunner
 )
+endlocal
 exit /B
 :init_done
 
@@ -80,8 +94,8 @@ if not "%1"=="" (
     if "%2"=="Ninja"  set GEN=Ninja
     REM                                       Must put no space between the year and arch
     if "%2"=="VS2015" set GEN="Visual Studio 14 2015!GEN_ARCH!"
-    if "%2"=="VS2015" set GEN="Visual Studio 15 2017!GEN_ARCH!"
-    if "%2"=="VS2015" set GEN="Visual Studio 16 2019!GEN_ARCH!"
+    if "%2"=="VS2017" set GEN="Visual Studio 15 2017!GEN_ARCH!"
+    if "%2"=="VS2019" set GEN="Visual Studio 16 2019!GEN_ARCH!"
   )
   if "%1"=="--config" (
     set CONFIG=%2
@@ -111,6 +125,17 @@ if not "%BUILD_DEPS%"=="ON" if not "%BUILD_LLVM%"=="ON" if not "%BUILD_ROADRUNNE
   echo Error: Must build one of deps, llvm, or roadrunner
   goto usage
 )
+REM We want them to be able to build LLVM from a source passed in or from the source folder
+if "%BUILD_LLVM%"=="ON" if "%LLVM_SRC%"=="" if not exist source\llvm* (
+  echo Trying to build LLVM, but no source was specified, and there is no source\llvm*
+  set /p DOWNLOAD_LLVM="Would you like to download the LLVM source? (Y/N) "
+  if "%DOWNLOAD_LLVM%"=="Y" (
+    REM FIXME Download LLVM
+    set LLVM_SRC=source\llvm
+  ) else (
+    goto usage
+  )
+)
 REM Check that there is LLVM installed if we're building roadrunner OR that they
 REM passed in the llvm-config path
 if "%BUILD_ROADRUNNER%"=="ON" (
@@ -124,19 +149,32 @@ if "%BUILD_ROADRUNNER%"=="ON" (
 )))
 :rr_check_done
 
-REM Test what the latest version of Visual Studio they have installed is
-REM FIXME
-
 REM Set environment variables for MSVC toolchain
 REM Use CALL because it is a batch function
 REM Check if DevEnvDir is already defined because calling vcvarsall makes path bigger and windows has a maximum path length
-REM FIXME Make this adapt to the version fo Visual Studio they have installed
+REM FIXME Make this adapt to the version fo Visual Studio they selected with their generator
 if not defined DevEnvDir (
-  call "C:\Program Files (x86)\Microsoft Visual Studio\2017\Community\VC\Auxiliary\Build\vcvarsall.bat" %ARCH%
+  if /I "Visual Studio 14" leq "!GEN!" if /I "Visual Studio 15" geq "!GEN!" (
+    echo This script does not currently support Visual Studio 2015, but it would
+    echo be really easy to add, so just bug @hu-a
+    goto usage
+  )
+  if /I "Visual Studio 15" leq "!GEN!" if /I "Visual Studio 16" geq "!GEN!" (
+    call "C:\Program Files (x86)\Microsoft Visual Studio\2017\Community\VC\Auxiliary\Build\vcvarsall.bat" %ARCH%
+  )
+  if /I "Visual Studio 16" leq "!GEN!" if /I "Visual Studio 17" geq "!GEN!" (
+    call "C:\Program Files (x86)\Microsoft Visual Studio\2019\Community\VC\Auxiliary\Build\vcvarsall.bat" %ARCH%
+  )
+  
 )
 REM @echo on
 
 REM Check that they have the appropriate tools installed
+cmake --version
+if errorlevel 9009 (
+  echo Could not find cmake executable, exiting
+  goto usage
+)
 if %GEN%==Ninja (
   ninja --version
   if errorlevel 9009 (
@@ -193,6 +231,10 @@ if "%BUILD_DEPS%"=="ON" (
 
 REM If they want to build LLVM from source
 if "%BUILD_LLVM%"=="ON" (
+  if "%LLVM_SRC%"=="" (
+    echo Trying to build LLVM, but no LLVM source was found
+    goto usage
+  )
   mkdir build%CONF_SUF%\llvm\
   cd build%CONF_SUF%\llvm\
 
@@ -225,6 +267,7 @@ if "%BUILD_ROADRUNNER%"=="ON" (
 )
 
 echo Build and install complete.
+endlocal
 exit /B
 
 :usage
