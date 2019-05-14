@@ -146,14 +146,11 @@ REM Check that there is LLVM installed if we're building roadrunner OR that they
 REM passed in the llvm-config path
 if "%BUILD_ROADRUNNER%"=="ON" (
   if not exist "install%CONF_SUF%\llvm" (
-  if "%LLVM_CONFIG_EXECUTABLE%"=="" (
-  goto rr_check_done
-  :rr_check_err
-  echo Error: Building roadrunner, but there is no LLVM installation 
-  echo        and llvm-config was not set
-  goto usage
+    if "%LLVM_CONFIG_EXECUTABLE%"=="" (
+    echo Error: Building roadrunner, but there is no LLVM installation 
+    echo        and llvm-config was not set
+    goto usage
 )))
-:rr_check_done
 
 REM Set environment variables for MSVC toolchain
 REM Use CALL because it is a batch function
