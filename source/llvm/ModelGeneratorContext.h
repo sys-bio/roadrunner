@@ -48,7 +48,7 @@ namespace rrllvm
  * are determined ahead of time before any code generation.
  *
  * They also make use of an llvm IRBuilder, one of these *could* be allocated
- * in each code gen object, but that would be wastefull, so we use a single one
+ * in each code gen object, but that would be wasteful, so we use a single one
  * per sbml compilation, and each code gen just resets the builder insert point,
  * that is what is was designed to do.
  *
