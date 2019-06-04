@@ -14,7 +14,6 @@ branches:
     - develop
     - master
     - llvm-6
-    - issue-534
 
 before_install:
   # print the distro information
@@ -25,34 +24,25 @@ before_install:
 
   # install dependencies
   - sudo apt-get -y install cmake swig python-dev python-numpy llvm-6.0-dev
-  # build roadrunner dependencies:
- 
-  - mkdir ~/source
-  - cd ~/source
-  - git clone https://github.com/sys-bio/libroadrunner-deps.git
-  - mkdir ~/build/libroadrunner-deps
-  - cd ~/build/libroadrunner-deps
-  - cmake -DCMAKE_BUILD_TYPE=Release -DCMAKE_INSTALL_PREFIX=~/install/roadrunner -DLLVM_CONFIG=/usr/lib/llvm-6.0/bin/llvm-config ~/source/libroadrunner-deps
-  - make -j2
-  - make install
+
   # install roadrunner dependencies via apt:
-  #- mkdir ~/debs
-  #- cd ~/debs
-  
-  #- wget http://cdn.rawgit.com/sys-bio/roadrunner-debs/db909c2b49a4897fbc95c6294be4d2550ec787ec/libroadrunner-deps_2.0.8_amd64.deb
-  #- sudo dpkg -i libroadrunner-deps_2.0.8_amd64.deb
-  #- wget http://cdn.rawgit.com/sys-bio/roadrunner-debs/db909c2b49a4897fbc95c6294be4d2550ec787ec/libroadrunner-deps-dev_2.0.8_amd64.deb
-  #- sudo dpkg -i libroadrunner-deps-dev_2.0.8_amd64.deb
+  - mkdir ~/debs
+  - cd ~/debs
+
+  - wget http://cdn.rawgit.com/sys-bio/roadrunner-debs/db909c2b49a4897fbc95c6294be4d2550ec787ec/libroadrunner-deps_2.0.8_amd64.deb
+  - sudo dpkg -i libroadrunner-deps_2.0.8_amd64.deb
+  - wget http://cdn.rawgit.com/sys-bio/roadrunner-debs/db909c2b49a4897fbc95c6294be4d2550ec787ec/libroadrunner-deps-dev_2.0.8_amd64.deb
+  - sudo dpkg -i libroadrunner-deps-dev_2.0.8_amd64.deb
   #- sudo cp /usr/local/include/rr-libstruct/* /usr/local/include
   #- sudo cp /usr/local/include/clapack/* /usr/local/include
   
   # Get package name
-  #- dpkg --info libroadrunner-deps_2.0.8_amd64.deb | grep Package
-  #- dpkg -L libroadrunner-deps
-  #- dpkg --info libroadrunner-deps-dev_2.0.8_amd64.deb | grep Package
-  #- dpkg -L libroadrunner-deps-dev
+  - dpkg --info libroadrunner-deps_2.0.8_amd64.deb | grep Package
+  - dpkg -L libroadrunner-deps
+  - dpkg --info libroadrunner-deps-dev_2.0.8_amd64.deb | grep Package
+  - dpkg -L libroadrunner-deps-dev
 
-  #- mkdir ~/install
+  - mkdir ~/install
 
   - echo "TRAVIS_BUILD_DIR $TRAVIS_BUILD_DIR"
   # build roadrunner:
@@ -61,7 +51,7 @@ before_install:
 install:
   - cd ~/build/roadrunner
   # consider changing to python3
-  - cmake -DCMAKE_BUILD_TYPE=Release -DCMAKE_INSTALL_PREFIX=~/install/roadrunner -DTHIRD_PARTY_INSTALL_FOLDER=~/install/roadrunner -DLLVM_CONFIG_EXECUTABLE=/usr/lib/llvm-6.0/bin/llvm-config -DBUILD_PYTHON=ON -DPYTHON_EXECUTABLE=/usr/bin/python -DPYTHON_INCLUDE_DIR=/usr/include/python2.7 -DPYTHON_LIBRARY=/usr/lib/x86_64-linux-gnu/libpython2.7.so python2.7 -DBUILD_TESTS=ON -DBUILD_TEST_TOOLS=ON -DCMAKE_CXX_FLAGS='-D_GLIBCXX_USE_CXX11_ABI=1' -DUSE_TR1_CXX_NS=ON -DRR_USE_CXX14=ON -DBUILD_JAVA_INTERFACE=OFF -DSWIG_DIR=/usr/share/swig3.0 "$TRAVIS_BUILD_DIR"
+  - cmake -DCMAKE_BUILD_TYPE=Release -DCMAKE_INSTALL_PREFIX=~/install/roadrunner -DTHIRD_PARTY_INSTALL_FOLDER=/usr -DLLVM_CONFIG_EXECUTABLE=/usr/lib/llvm-6.0/bin/llvm-config -DBUILD_PYTHON=ON -DPYTHON_EXECUTABLE=/usr/bin/python -DPYTHON_INCLUDE_DIR=/usr/include/python2.7 -DPYTHON_LIBRARY=/usr/lib/x86_64-linux-gnu/libpython2.7.so python2.7 -DBUILD_TESTS=ON -DBUILD_TEST_TOOLS=ON -DCMAKE_CXX_FLAGS='-D_GLIBCXX_USE_CXX11_ABI=1' -DUSE_TR1_CXX_NS=ON -DRR_USE_CXX14=ON -DBUILD_JAVA_INTERFACE=OFF -DSWIG_DIR=/usr/share/swig3.0 "$TRAVIS_BUILD_DIR"
   - make -j2
   - make install
 
