@@ -32,7 +32,7 @@ before_install:
   - git clone https://github.com/sys-bio/libroadrunner-deps.git
   - mkdir ~/build/libroadrunner-deps
   - cd ~/build/libroadrunner-deps
-  - cmake -DCMAKE_BUILD_TYPE=Release -DCMAKE_INSTALL_PREFIX=~/install/roadrunner -DLLVM_CONFIG=/usr/lib/llvm-6.0/bin/llvm-config 
+  - cmake -DCMAKE_BUILD_TYPE=Release -DCMAKE_INSTALL_PREFIX=~/install/roadrunner -DLLVM_CONFIG=/usr/lib/llvm-6.0/bin/llvm-config ~/source/libroadrunner-deps
   - make -j2
   - make install
   # install roadrunner dependencies via apt:
