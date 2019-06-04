@@ -29,7 +29,7 @@ before_install:
  
   - mkdir ~/source
   - cd ~/source
-  - git clone git@github.com:sys-bio/libroadrunner-deps.git
+  - git clone https://github.com/sys-bio/libroadrunner-deps.git
   - mkdir ~/build/libroadrunner-deps
   - cd ~/build/libroadrunner-deps
   - cmake -DCMAKE_BUILD_TYPE=Release -DCMAKE_INSTALL_PREFIX=~/install/roadrunner -DLLVM_CONFIG=/usr/lib/llvm-6.0/bin/llvm-config 
