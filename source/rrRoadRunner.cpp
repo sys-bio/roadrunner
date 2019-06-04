@@ -4876,6 +4876,10 @@ const DoubleMatrix* RoadRunner::getSimulationData() const
     return &impl->simulationResult;
 }
 
+void RoadRunner::setSimulationData(DoubleMatrix data) {
+	impl->simulationResult = data;
+}
+
 void RoadRunner::applySimulateOptions()
 {
     get_self();

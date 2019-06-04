@@ -244,6 +244,7 @@ public:
      * next call to simulate. This matrix can be obtained here.
      */
     const ls::DoubleMatrix* getSimulationData() const;
+	void setSimulationData(ls::DoubleMatrix);
 
     #ifndef SWIG // deprecated methods not SWIG'ed
 

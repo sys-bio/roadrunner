@@ -46,7 +46,7 @@ static void dump_array(std::ostream &os, int n, const numeric_type *p)
 {
     if (p)
     {
-        os << setiosflags(ios::floatfield) << setprecision(8);
+        os << setprecision(8);
         os << '[';
         for (int i = 0; i < n; ++i)
         {
@@ -62,6 +62,30 @@ static void dump_array(std::ostream &os, int n, const numeric_type *p)
     {
         os << "NULL" << endl;
     }
+}
+
+template <typename numeric_type>
+static void read_array(std::istream &is, int n, numeric_type *p) {
+	if (p) {
+		char open_bracket;
+		is >> open_bracket;
+		for (int i = 0; i < n; i++) {
+			float next;
+			is >> next;
+			p[i] = next;
+			char comma;
+			is >> comma;
+		}
+		char remaining;
+		while (is >> remaining) {
+			if (remaining == ']') {
+				break;
+			}
+		}
+	}
+	else {
+		throw std::invalid_argument("Argument p to read_array was NULL");
+	}
 }
 
 typedef string (rr::ExecutableModel::*getNamePtr)(int);
@@ -1497,7 +1521,7 @@ int LLVMExecutableModel::setFloatingSpeciesAmounts(int len, int const *indx,
     {
         int j = indx ? indx[i] : i;
         bool result =  setFloatingSpeciesAmountPtr(modelData, j, values[i]);
-
+		
         if (!result)
         {
             // check if a conserved moiety
@@ -2237,6 +2261,143 @@ double LLVMExecutableModel::getRandom()
         modelData->random = new Random();
     }
     return (*modelData->random)();
+}
+
+std::string LLVMExecutableModel::getSaveState() {
+	stringstream stream;
+
+    double *tmp;
+
+    int nFloat = getNumFloatingSpecies();
+    int nBound = getNumBoundarySpecies();
+    int nComp = getNumCompartments();
+    int nGlobalParam = getNumGlobalParameters();
+    int nEvents = getNumEvents();
+    int nReactions = getNumReactions();
+
+    tmp = new double[nFloat];
+    getFloatingSpeciesAmounts(nFloat, 0, tmp);
+    stream << "FloatingSpeciesAmounts: ";
+    dump_array(stream, nFloat, tmp);
+
+    getFloatingSpeciesConcentrations(nFloat, 0, tmp);
+    stream << "FloatingSpeciesConcentrations: ";
+    dump_array(stream, nFloat, tmp);
+
+    this->getFloatingSpeciesInitConcentrations(nFloat, 0, tmp);
+    stream << "FloatingSpeciesInitConcentrations: ";
+    dump_array(stream, nFloat, tmp);
+    delete[] tmp;
+
+    tmp = new double[nReactions];
+    getReactionRates(nReactions, 0, tmp);
+    stream << "ReactionRates: ";
+    dump_array(stream, nReactions, tmp);
+    delete[] tmp;
+
+    tmp = new double[nBound];
+    getBoundarySpeciesAmounts(nBound, 0, tmp);
+    stream << "BoundarySpeciesAmounts: ";
+    dump_array(stream, nBound, tmp);
+
+    getBoundarySpeciesConcentrations(nBound, 0, tmp);
+    stream << "BoundarySpeciesConcentrations: ";
+    dump_array(stream, nBound, tmp);
+    delete[] tmp;
+
+    tmp = new double[nComp];
+    getCompartmentVolumes(nComp, 0, tmp);
+    stream << "CompartmentVolumes: ";
+    dump_array(stream, nComp, tmp);
+
+    this->getCompartmentInitVolumes(nComp, 0, tmp);
+    stream << "CompartmentInitVolumes: ";
+    dump_array(stream, nComp, tmp);
+    delete[] tmp;
+
+    tmp = new double[nGlobalParam];
+    getGlobalParameterValues(nGlobalParam, 0, tmp);
+	stream << "GlobalParameters: ";
+    dump_array(stream, nGlobalParam, tmp);
+    delete[] tmp;
+
+    tmp = new double[nGlobalParam];
+    getGlobalParameterValues(nGlobalParam, 0, tmp);
+	stream << "GlobalParameters: ";
+    dump_array(stream, nGlobalParam, tmp);
+    delete[] tmp;
+
+    unsigned char *tmpEvents = new unsigned char[nEvents];
+    getEventTriggers(nEvents, 0, tmpEvents);
+    stream << "EventsTriggerStatus: ";
+    dump_array(stream, nEvents, (bool*)tmpEvents);
+    delete[] tmpEvents;
+	
+	return stream.str();
+}
+
+bool LLVMExecutableModel::loadSaveState(std::string state) {
+
+	istringstream stream(state);
+	double *tmp;
+
+    int nFloat = getNumFloatingSpecies();
+    int nBound = getNumBoundarySpecies();
+    int nComp = getNumCompartments();
+    int nGlobalParam = getNumGlobalParameters();
+    int nEvents = getNumEvents();
+    int nReactions = getNumReactions();
+	std::string field_name;
+	while (stream >> field_name) {
+		if (field_name == "FloatingSpeciesAmounts:") {
+			tmp = new double[nFloat];
+			read_array(stream, nFloat, tmp);
+			setFloatingSpeciesAmounts(nFloat, 0, tmp);
+		} else if (field_name == "FloatingSpeciesConcentrations:") {
+			tmp = new double[nFloat];
+			read_array(stream, nFloat, tmp);
+			setFloatingSpeciesConcentrations(nFloat, 0, tmp);
+		} else if (field_name == "FloatingSpeciesInitConcentrations:") {
+			tmp = new double[nFloat];
+			read_array(stream, nFloat, tmp);
+			setFloatingSpeciesInitConcentrations(nFloat, 0, tmp);
+		} else if(field_name == "ReactionRates:") {
+			tmp = new double[nReactions];
+			read_array(stream, nReactions, tmp);
+			//setReactionRates(nReactions, 0, tmp);
+		} else if (field_name == "BoundarySpeciesAmounts:") {
+			tmp = new double[nBound];
+			read_array(stream, nBound, tmp);
+			setBoundarySpeciesAmounts(nBound, 0, tmp);
+		} else if (field_name == "BoundarySpeciesConcentrations:") {
+			tmp = new double[nBound];
+			read_array(stream, nBound, tmp);
+			setBoundarySpeciesConcentrations(nBound, 0, tmp);
+		} else if (field_name == "CompartmentVolumes:") {
+			tmp = new double[nComp];
+			read_array(stream, nComp, tmp);
+			setCompartmentVolumes(nComp, 0, tmp);
+		}
+		else if (field_name == "CompartmentInitVolumes:") {
+			tmp = new double[nComp];
+			read_array(stream, nComp, tmp);
+			setCompartmentInitVolumes(nComp, 0, tmp);
+		}
+		else if (field_name == "GlobalParameters:") {
+			tmp = new double[nGlobalParam];
+			read_array(stream, nGlobalParam, tmp);
+			setGlobalParameterValues(nGlobalParam, 0, tmp);
+		}
+		else if (field_name == "EventsTriggerStatus:") {
+			unsigned char *tmpEvents = new unsigned char[nEvents];
+			read_array(stream, nComp, (bool*)tmpEvents);
+			//setEventTrigger(nComp, 0, tmpEvents);
+		}
+		else {
+			std::cout << "Unrecognized parameter name: " << field_name << std::endl;
+		}
+	}
+	return true;
 }
 
 /******************************* End Random Section ***************************/

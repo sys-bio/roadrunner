@@ -569,7 +569,10 @@ public:
      * these are listed in
      */
     virtual void setFlags(uint32_t val) { flags = val; }
+	
+	virtual std::string getSaveState();
 
+	virtual bool loadSaveState(std::string);
 private:
 
     /**

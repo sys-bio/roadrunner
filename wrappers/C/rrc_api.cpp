@@ -619,9 +619,46 @@ RRStringArrayPtr rrcCallConv getTimeCourseSelectionList(RRHandle handle)
 
 RRCDataPtr rrcCallConv simulate(RRHandle handle)
 {
-    start_try
-        RoadRunner* rri = castToRoadRunner(handle);
+	start_try
+		RoadRunner* rri = castToRoadRunner(handle);
+		/*if(rri->getModel()->getNumRateRules() != 0) {
+			std::cout << rri->getModel()->getSaveState() << std::endl;
+			std::string modelSaveState = rri->getModel()->getSaveState();
+			//std::string modelSaveState = "FloatingSpeciesInitConcentrations: [2.639]\n";
+			rri->getModel()->loadSaveState(modelSaveState);
+			std::string modelSaveState2 = rri->getModel()->getSaveState();
+			std::cout << modelSaveState2 << std::endl;
+		}*/
+	    DoubleMatrix agResult(51, 3);
+		double dur = rri->getSimulateOptions().duration;
+		rri->getSimulateOptions().duration /= 2;
+		//rri->getSimulateOptions().duration--;
+		rri->getSimulateOptions().steps /= 2;
+		//rri->getSimulateOptions().steps--;
         rri->simulate();
+		std::string modelSaveState = rri->getModel()->getSaveState();
+		rri->getModel()->loadSaveState(modelSaveState);
+		rri->getSimulateOptions().start = rri->getSimulateOptions().duration/2;
+		rri->getSimulateOptions().duration -= dur/2/rri->getSimulateOptions().steps;
+		rri->getSimulateOptions().steps--;
+		//rri->getSimulateOptions().duration--;
+		auto result1 = rri->getSimulationData();
+		int r;
+		for (r = 0; r < result1->numRows(); r++) {
+			for (int c = 0; c < result1->numCols(); c++) {
+				agResult(r, c) = (*result1)(r, c);
+			}
+		}
+		//rri->getSimulateOptions().duration *= 2;
+		rri->simulate();
+		auto result2 = rri->getSimulationData();
+		int rinit = r;
+		for (r = 0; r < result1->numRows(); r++) {
+			for (int c = 0; c < result1->numCols(); c++) {
+				agResult(r + rinit, c) = (*result1)(r, c);
+			}
+		}
+		rri->setSimulationData(agResult);
         return createRRCData(*rri);
     catch_ptr_macro
 }

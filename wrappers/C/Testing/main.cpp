@@ -49,6 +49,7 @@ static void dispConfigFile()
 //call with arguments, -m"modelFilePath" -r"resultFileFolder" -t"TempFolder" -s"Suites"
 int main(int argc, char* argv[])
 {
+
     cout << "RoadRunner SBML Test Suite" << endl;
 
     cout << "built on " << __DATE__ << ", " << __TIME__ << endl;
