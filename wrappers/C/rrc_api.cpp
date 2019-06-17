@@ -683,7 +683,7 @@ RRCDataPtr rrcCallConv simulate(RRHandle handle)
 		int rinit = r;
 		for (r = 1; r < result1->numRows()-1; r++) {
 			for (int c = 0; c < result1->numCols(); c++) {
-				agResult(r + rinit, c) = (*result1)(r, c);
+				agResult(r + rinit - 1, c) = (*result1)(r, c);
 			}
 		}
 		rri->setSimulationData(agResult);
