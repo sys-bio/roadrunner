@@ -870,6 +870,7 @@ double RoadRunner::getNthSelectedOutput(unsigned index, double currentTime)
 
     if (record.selectionType == SelectionRecord::TIME)
     {
+		//return getValue(record);
         return currentTime;
     }
     else

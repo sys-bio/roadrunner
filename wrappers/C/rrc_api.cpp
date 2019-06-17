@@ -629,18 +629,21 @@ RRCDataPtr rrcCallConv simulate(RRHandle handle)
 			std::string modelSaveState2 = rri->getModel()->getSaveState();
 			std::cout << modelSaveState2 << std::endl;
 		}*/
-	    DoubleMatrix agResult(51, 3);
+	/*    DoubleMatrix agResult(51, 3);
 		double dur = rri->getSimulateOptions().duration;
 		rri->getSimulateOptions().duration /= 2;
 		//rri->getSimulateOptions().duration--;
 		rri->getSimulateOptions().steps /= 2;
+		rri->getSimulateOptions().reset_model = false;
 		//rri->getSimulateOptions().steps--;
         rri->simulate();
-		std::string modelSaveState = rri->getModel()->getSaveState();
-		rri->getModel()->loadSaveState(modelSaveState);
+		double oldStateVector[3];
+		rri->getModel()->getStateVector(oldStateVector);
+		//std::string modelSaveState = rri->getModel()->getSaveState();
+		//rri->getModel()->loadSaveState(modelSaveState);
 		rri->getSimulateOptions().start = rri->getSimulateOptions().duration/2;
-		rri->getSimulateOptions().duration -= dur/2/rri->getSimulateOptions().steps;
-		rri->getSimulateOptions().steps--;
+		//rri->getSimulateOptions().duration -= dur/2/rri->getSimulateOptions().steps;
+		rri->getSimulateOptions().steps -= 20;
 		//rri->getSimulateOptions().duration--;
 		auto result1 = rri->getSimulationData();
 		int r;
@@ -650,10 +653,35 @@ RRCDataPtr rrcCallConv simulate(RRHandle handle)
 			}
 		}
 		//rri->getSimulateOptions().duration *= 2;
+		double stateVector[3];
+		rri->getModel()->getStateVector(stateVector);
+		rri->getModel()->setStateVector(oldStateVector);
 		rri->simulate();
 		auto result2 = rri->getSimulationData();
 		int rinit = r;
+		for (r = 0; r < result1->numRows()-1; r++) {
+			for (int c = 0; c < result1->numCols(); c++) {
+				agResult(r + rinit, c) = (*result1)(r, c);
+			}
+		}
+		rri->setSimulationData(agResult);*/
+	    DoubleMatrix agResult(51, 3);
+        rri->getSimulateOptions().duration /= 2;
+		rri->getSimulateOptions().steps /= 2;
+        rri->simulate();
+		auto result1 = rri->getSimulationData();
+		int r;
 		for (r = 0; r < result1->numRows(); r++) {
+			for (int c = 0; c < result1->numCols(); c++) {
+				agResult(r, c) = (*result1)(r, c);
+			}
+		}
+		rri->getSimulateOptions().start = rri->getSimulateOptions().duration/2;
+		rri->getSimulateOptions().reset_model = true;
+		rri->simulate();
+		auto result2 = rri->getSimulationData();
+		int rinit = r;
+		for (r = 1; r < result1->numRows()-1; r++) {
 			for (int c = 0; c < result1->numCols(); c++) {
 				agResult(r + rinit, c) = (*result1)(r, c);
 			}

@@ -76,12 +76,12 @@ static void read_array(std::istream &is, int n, numeric_type *p) {
 			char comma;
 			is >> comma;
 		}
-		char remaining;
-		while (is >> remaining) {
-			if (remaining == ']') {
-				break;
-			}
-		}
+//		char remaining;
+	//	while (is >> remaining) {
+		//	if (remaining == ']') {
+	//			break;
+		//	}
+		//}
 	}
 	else {
 		throw std::invalid_argument("Argument p to read_array was NULL");
