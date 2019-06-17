@@ -66,6 +66,11 @@ static void dump_array(std::ostream &os, int n, const numeric_type *p)
 
 template <typename numeric_type>
 static void read_array(std::istream &is, int n, numeric_type *p) {
+	if (n == 0) {
+		std::string brackets;
+		is >> brackets;
+		return;
+	}
 	if (p) {
 		char open_bracket;
 		is >> open_bracket;
@@ -2360,11 +2365,11 @@ bool LLVMExecutableModel::loadSaveState(std::string state) {
 		} else if (field_name == "FloatingSpeciesInitConcentrations:") {
 			tmp = new double[nFloat];
 			read_array(stream, nFloat, tmp);
-			setFloatingSpeciesInitConcentrations(nFloat, 0, tmp);
+			//setFloatingSpeciesInitConcentrations(nFloat, 0, tmp);
 		} else if(field_name == "ReactionRates:") {
 			tmp = new double[nReactions];
 			read_array(stream, nReactions, tmp);
-			//setReactionRates(nReactions, 0, tmp);
+		//	setReactionRates(nReactions, 0, tmp);
 		} else if (field_name == "BoundarySpeciesAmounts:") {
 			tmp = new double[nBound];
 			read_array(stream, nBound, tmp);

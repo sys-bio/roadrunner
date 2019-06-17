@@ -665,7 +665,7 @@ RRCDataPtr rrcCallConv simulate(RRHandle handle)
 			}
 		}
 		rri->setSimulationData(agResult);*/
-	    DoubleMatrix agResult(51, 3);
+	    DoubleMatrix agResult(rri->getSimulateOptions().steps + 1, rri->getNumberOfFloatingSpecies() + rri->getNumberOfBoundarySpecies() + 1);
         rri->getSimulateOptions().duration /= 2;
 		rri->getSimulateOptions().steps /= 2;
         rri->simulate();
@@ -676,14 +676,17 @@ RRCDataPtr rrcCallConv simulate(RRHandle handle)
 				agResult(r, c) = (*result1)(r, c);
 			}
 		}
-		rri->getSimulateOptions().start = rri->getSimulateOptions().duration/2;
-		rri->getSimulateOptions().reset_model = true;
+		std::string modelSaveState = rri->getModel()->getSaveState();
+		rri->getModel()->loadSaveState(modelSaveState);
+		rri->getSimulateOptions().start = rri->getSimulateOptions().duration;
+
+		rri->getSimulateOptions().reset_model = false;
 		rri->simulate();
 		auto result2 = rri->getSimulationData();
 		int rinit = r;
-		for (r = 1; r < result1->numRows()-1; r++) {
-			for (int c = 0; c < result1->numCols(); c++) {
-				agResult(r + rinit - 1, c) = (*result1)(r, c);
+		for (r = 1; r < result2->numRows(); r++) {
+			for (int c = 0; c < result2->numCols(); c++) {
+				agResult(r + rinit - 1, c) = (*result2)(r, c);
 			}
 		}
 		rri->setSimulationData(agResult);
