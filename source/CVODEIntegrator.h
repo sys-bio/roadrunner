@@ -138,6 +138,7 @@ namespace rr
         */
         void resetSettings();
 
+
         /**
          * @author JKM, WBC, ETS, MTK
          * @brief Fix tolerances for SBML tests
@@ -147,6 +148,14 @@ namespace rr
          * Config::CVODE_MIN_ABSOLUTE and Config::CVODE_MIN_RELATIVE resp.
          */
         void tweakTolerances();
+
+
+		/**
+		 * @author FY
+		 * @brief convert concentration tolerances to amount tolerances
+		 * @details TODO
+		 */
+		void convertTolerances();
 
         // ** Integration Routines *********************************************
 

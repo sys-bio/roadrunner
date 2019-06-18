@@ -97,7 +97,9 @@ namespace rr
 
         // Set default integrator settings.
         addSetting("relative_tolerance", Config::getDouble(Config::CVODE_MIN_RELATIVE), "Relative Tolerance", "Specifies the scalar relative tolerance (double).", "(double) CVODE calculates a vector of error weights which is used in all error and convergence tests. The weighted RMS norm for the relative tolerance should not become smaller than this value.");
-        addSetting("absolute_tolerance", Config::getDouble(Config::CVODE_MIN_ABSOLUTE), "Absolute Tolerance", "Specifies the scalar absolute tolerance (double).", "(double) CVODE calculates a vector of error weights which is used in all error and convergence tests. The weighted RMS norm for the absolute tolerance should not become smaller than this value.");
+        addSetting("absolute_tolerance", Config::getDouble(Config::CVODE_MIN_ABSOLUTE), "Absolute Amount Tolerance", "Specifies the scalar or vector absolute tolerance based on amounts (double or double vector).", "(double or double vector) CVODE calculates a vector of error weights which is used in all error and convergence tests. The weighted RMS norm for the absolute tolerance should not become smaller than this value.");
+		addSetting("absolute_concentration_tolerance", Config::getDouble(Config::CVODE_MIN_ABSOLUTE), "Absolute Concentration Tolerance", "Specifies the scalar or vector absolute tolerance based on concentrations (double or double vector).", "(double or double vector) CVODE first converts it to the tolerance based on th amounts and then calculates a vector of error weights which is used in all error and convergence tests. The weighted RMS norm for the absolute tolerance should not become smaller than this value.");
+
         addSetting("stiff",              true, "Stiff", "Specifies whether the integrator attempts to solve stiff equations. (bool)", "(bool) Specifies whether the integrator attempts to solve stiff equations. Ensure the integrator can solver stiff differential equations by setting this value to true.");
         addSetting("maximum_bdf_order",  mDefaultMaxBDFOrder, "Maximum BDF Order", "Specifies the maximum order for Backward Differentiation Formula integration. (int)", "(int) Specifies the maximum order for Backward Differentiation Formula integration. This integration method is used for stiff problems. Default value is 5.");
         addSetting("maximum_adams_order",mDefaultMaxAdamsOrder, "Maximum Adams Order", "Specifies the maximum order for Adams-Moulton intergration. (int)", "(int) Specifies the maximum order for Adams-Moulton intergration. This integration method is used for non-stiff problems. Default value is 12.");
@@ -235,24 +237,40 @@ namespace rr
 			Log(lDebug) << "===========================";
 
 			//Assign values
-			it = options.find("absolute");
+			it = options.find("absolute_tolerance");
 			if (it != options.end())
 			{
 				if ((*it).second[0] != '[') {
-					// scalar absolute tolerance
+					// scalar absolute tolerance based on amount
 					CVODEIntegrator::setValue("absolute_tolerance", std::abs(toDouble((*it).second)));
 				}
 				else {
-					// vector absolute tolerance 
-					// FIXME: add new method toVector?
+					// vector absolute tolerance based on amount
+					
 					vector<double> v = toDoubleVector((*it).second);
 					// take absolute value of each element 
 					for (unsigned int i = 0; i < v.size(); i++)
 						v[i] = std::abs(v[i]);
 					CVODEIntegrator::setValue("absolute_tolerance", v);
 				}
-				
-				
+			}
+
+			it = options.find("absolute_concentration_tolerance");
+			if (it != options.end())
+			{
+				if ((*it).second[0] != '[') {
+					// scalar absolute tolerance based on concentration
+					CVODEIntegrator::setValue("absolute_concentration_tolerance", std::abs(toDouble((*it).second)));
+					
+				}
+				else {
+					// vector absolute tolerance based on concentration
+					vector<double> v = toDoubleVector((*it).second);
+					// take absolute value of each element 
+					for (unsigned int i = 0; i < v.size(); i++)
+						v[i] = std::abs(v[i]);
+					CVODEIntegrator::setValue("absolute_concentration_tolerance", v);
+				}
 			}
 
 			it = options.find("relative");
@@ -328,6 +346,12 @@ namespace rr
             {
                 CVodeSetMaxNumSteps(mCVODE_Memory, getValueAsInt("maximum_num_steps"));
             }
+			else if (key == "absolute_concentration_tolerance") 
+			{
+				CVodeSetMaxNumSteps(mCVODE_Memory, getValueAsInt("maximum_num_steps")); // FIXME: is this intentional?
+				convertTolerances();
+				setCVODETolerances();
+			}
             else if (key == "absolute_tolerance" || key == "relative_tolerance")
             {
 				
@@ -551,6 +575,7 @@ namespace rr
 		return timeEnd;
 	}
 
+
 	void CVODEIntegrator::tweakTolerances()
 	{
 		double minAbs = Config::getDouble(Config::CVODE_MIN_ABSOLUTE);
@@ -577,12 +602,56 @@ namespace rr
 			
 			break;
 		}
-
-
 		
 		CVODEIntegrator::setValue("relative_tolerance", std::min(CVODEIntegrator::getValueAsDouble("relative_tolerance"), minRel));
 
+		// FIXME: log for vector tolearances
+
 		Log(Logger::LOG_INFORMATION) << "tweaking CVODE tolerances to abs=" << CVODEIntegrator::getValueAsDouble("absolute_tolerance") << ", rel=" << CVODEIntegrator::getValueAsDouble("relative_tolerance");
+	}
+
+	void CVODEIntegrator::convertTolerances()
+	{
+		double* volumes = new double[mModel->getNumCompartments()];
+		mModel->setCompartmentVolumes(mModel->getNumCompartments(), 0, volumes);
+		vector<double> v;
+
+		switch (getType("absolute_concentration_tolerance")) {
+			
+			case Variant::TypeId::DOUBLE:
+			{
+				// scalar tolerance
+				// need to be converted to vector tolerance since speices have various compartment sizes
+
+				double abstol = CVODEIntegrator::getValueAsDouble("absolute_concentration_tolerance");
+
+				for (int i = 0; i < v.size(); i++)
+					v[i] = std::min(abstol, abstol * volumes[i]);
+				CVODEIntegrator::setValue("absolute_concentration_tolerance", v);
+
+				break;
+			}
+				
+
+				
+			case Variant::TypeId::DOUBLEVECTOR:
+			{
+				// vector tolerance
+				v = CVODEIntegrator::getValueAsDoubleVector("absolute_concentration_tolerance");
+				for (int i = 0; i < v.size(); i++)
+					v[i] = std::min(v[i], v[i] * volumes[i]);
+
+				break;
+			}
+
+			default:
+				break;
+		}
+
+		CVODEIntegrator::setValue("absolute_concentration_tolerance", v);
+		delete[] volumes;
+
+		// TODO: add log
 	}
 
 	bool CVODEIntegrator::haveVariables()
@@ -766,15 +835,12 @@ namespace rr
 			{
 				
 				// TODO: is this the best way to convert a double vector to a n_vector?
-				std::vector<double> test = getValueAsDoubleVector("absolute_tolerance");
-				double* testArray = new double[test.size()];
-				for (int i = 0; i < test.size(); i++)
-					testArray[i] = test[i];
-				N_Vector nv = N_VMake_Serial(getValueAsDoubleVector("absolute_tolerance").size(), testArray);//&getValueAsDoubleVector("absolute_tolerance")[0]);
-				//std::cout << nv->ops->nvgetarraypointer(nv)[0] << std::endl;
-				//std::cout << nv->ops->nvgetarraypointer(nv)[1] << std::endl;
-				std::cout << N_VMin(nv) << std::endl;
-				std::cout << N_VMaxNorm(nv) << std::endl;
+				std::vector<double> v = getValueAsDoubleVector("absolute_tolerance");
+				double* arr = new double[v.size()];
+				for (int i = 0; i < v.size(); i++)
+					arr[i] = v[i];
+				N_Vector nv = N_VMake_Serial(getValueAsDoubleVector("absolute_tolerance").size(), arr);
+
 				err = CVodeSVtolerances(mCVODE_Memory, getValueAsDouble("relative_tolerance"), nv);
 				// need to destroy
 				N_VDestroy_Serial(nv);
@@ -793,7 +859,7 @@ namespace rr
 			handleCVODEError(err);
 		}
 		
-
+		// TODO: rewrite logging
 		switch (getType("absolute_tolerance")) {
 			// scalar tolerance
 			case Variant::TypeId::DOUBLE:
