@@ -124,6 +124,8 @@ double csr_matrix_ddot(int row, const csr_matrix *x, const double *y);
  */
 void csr_matrix_fill_dense(const csr_matrix *x, double *dense);
 
+void csr_matrix_dump_binary(const csr_matrix *x, std::ostream& out);
+csr_matrix* csr_matrix_new_from_binary(std::istream&);
 /**
  * dump the matrix to an output stream.
  */
