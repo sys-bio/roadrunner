@@ -60,6 +60,8 @@
 #include "SteadyStateSolver.h"
 #include "Dictionary.h"
 #include "rrConfig.h"
+#include "../../roadrunner/source/llvm/LLVMModelData.h"
+#include "../../roadrunner/source/llvm/LLVMModelDataSymbols.h"
 
 
 #if defined(_MSC_VER)
@@ -617,6 +619,8 @@ RRStringArrayPtr rrcCallConv getTimeCourseSelectionList(RRHandle handle)
     catch_ptr_macro
 }
 
+
+
 RRCDataPtr rrcCallConv simulate(RRHandle handle)
 {
 	start_try
@@ -676,11 +680,20 @@ RRCDataPtr rrcCallConv simulate(RRHandle handle)
 				agResult(r, c) = (*result1)(r, c);
 			}
 		}
-		std::string modelSaveState = rri->getModel()->getSaveState();
-		rri->getModel()->loadSaveState(modelSaveState);
+		//std::string modelSaveState = rri->getModel()->getSaveState();
+		//rri->getModel()->loadSaveState(modelSaveState);
 		rri->getSimulateOptions().start = rri->getSimulateOptions().duration;
-
-		rri->getSimulateOptions().reset_model = false;
+		std::stringstream save_state;
+		rrllvm::LLVMModelData_save((rrllvm::LLVMModelData*)rri->getModelData(), save_state);
+		rri->setModelData(rrllvm::LLVMModelData_from_save(save_state));
+		std::stringstream save_symbols;
+		((rrllvm::LLVMModelDataSymbols*)(rri->getModelDataSymbols()))->saveState(save_symbols);
+		rrllvm::LLVMModelDataSymbols before = *((rrllvm::LLVMModelDataSymbols*)(rri->getModelDataSymbols()));
+		((rrllvm::LLVMModelDataSymbols*)(rri->getModelDataSymbols()))->loadState(save_symbols);
+		rrllvm::LLVMModelDataSymbols after = *((rrllvm::LLVMModelDataSymbols*)(rri->getModelDataSymbols()));
+		
+		//rrllvm::LLVMModelData* model_data = rrllvm::LLVMModelData_from_save(save_state);
+		//rrllvm::LLVMModelData_free(model_data);
 		rri->simulate();
 		auto result2 = rri->getSimulationData();
 		int rinit = r;
