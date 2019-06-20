@@ -244,23 +244,26 @@ void csr_matrix_dump_binary(const csr_matrix *x, std::ostream& out)
 	out.write((char*)&(x->m), sizeof x->m);
 	out.write((char*)&(x->n), sizeof x->n);
 	out.write((char*)&(x->nnz), sizeof x->nnz);
-	out.write((char*)&(x->values), x->nnz * sizeof(double));
-	out.write((char*)&(x->colidx), x->nnz * sizeof(unsigned));
-	out.write((char*)&(x->rowptr), (x->m + 1) * sizeof(unsigned));
+	out.write((char*)(x->values), x->nnz * sizeof(double));
+	out.write((char*)(x->colidx), x->nnz * sizeof(unsigned));
+	out.write((char*)(x->rowptr), (x->m + 1) * sizeof(unsigned));
 }
 
 csr_matrix* csr_matrix_new_from_binary(std::istream& in) 
 {
-	csr_matrix* x = new csr_matrix;
+	csr_matrix* x = (csr_matrix*)malloc(sizeof(csr_matrix));
 	in.read((char*)&(x->m), sizeof x->m);
 	in.read((char*)&(x->n), sizeof x->n);
 	in.read((char*)&(x->nnz), sizeof x->nnz);
-	x->values = new double[x->nnz];
-	in.read((char*)&(x->values), x->nnz * sizeof(double));
-	x->colidx = new unsigned[x->nnz];
-	in.read((char*)&(x->colidx), x->nnz * sizeof(unsigned));
-	x->rowptr = new unsigned[x->m + 1];
-	in.read((char*)&(x->rowptr), (x->m + 1) * sizeof(unsigned));
+
+	x->values = (double*)malloc(x->nnz * sizeof(double));
+	in.read((char*)(x->values), x->nnz * sizeof(double));
+
+	x->colidx = (unsigned*)malloc(x->nnz*sizeof(unsigned));
+	in.read((char*)(x->colidx), x->nnz * sizeof(unsigned));
+
+	x->rowptr = (unsigned*)malloc((x->m + 1) * sizeof(unsigned));
+	in.read((char*)(x->rowptr), (x->m + 1) * sizeof(unsigned));
 	return x;
 }
 

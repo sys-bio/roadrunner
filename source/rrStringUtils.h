@@ -4,6 +4,9 @@
 #include <list>
 #include <vector>
 #include <complex>
+#include <map>
+#include <unordered_map>
+#include <set>
 #include "rrConstants.h"
 #include "rrExporter.h"
 
@@ -103,5 +106,170 @@ RR_DECLSPEC string              substitute(const string& src, const string& this
 RR_DECLSPEC string              substitute(const string& src, const string& thisOne, const int& withThisOne, const int& howMany = -1);
 //RR_DECLSPEC string              substitute(const string& src, const string& thisOne, const double& withThisOne, const int& howMany = -1);
 RR_DECLSPEC string              removeNewLines(const string& str, const int& howMany = -1);
+
+
+
+template <typename T>
+inline void                saveBinary(std::ostream& out, const T& t)
+{
+	out.write((char*)&t, sizeof(T));
+}
+
+template <>
+inline void                saveBinary(std::ostream& out, const std::string& s)
+{
+	saveBinary(out, s.size());
+	out.write(s.c_str(), s.size());
+}
+
+template <typename T>
+inline void                saveBinary(std::ostream& out, const std::vector<T>& v)
+{
+	saveBinary(out, v.size());
+	for (T t : v)
+	{
+		saveBinary(out, t);
+	}
+}
+
+template <typename K, typename V>
+inline void saveBinary(std::ostream& out, const std::map<K, V>& m)
+{
+	saveBinary(out, m.size());
+	for (std::pair<K, V> p : m)
+	{
+		saveBinary(out, p.first);
+		saveBinary(out, p.second);
+	}
+}
+
+template <typename K, typename V>
+inline void saveBinary(std::ostream& out, const std::unordered_map<K, V>& m)
+{
+	saveBinary(out, m.size());
+	for (std::pair<K, V> p : m)
+	{
+		saveBinary(out, p.first);
+		saveBinary(out, p.second);
+	}
+}
+
+template <typename T>
+inline void                saveBinary(std::ostream& out, const std::set<T>& s)
+{
+	saveBinary(out, s.size());
+	for (T t : s)
+	{
+		saveBinary(out, t);
+	}
+}
+
+template <typename T>
+inline void                loadBinary(std::istream& in, T& t)
+{
+	T temp;
+	in.read((char*)&temp, sizeof(T));
+	t = temp;
+}
+
+template <>
+inline void                loadBinary(std::istream& in, std::string& s)
+{
+	size_t ssize;
+	loadBinary(in, ssize);
+	s.resize(ssize);
+	in.read(&s[0], ssize);
+}
+
+template <typename T>
+inline void                loadBinary(std::istream& in, std::vector<T>& v)
+{
+	size_t vsize;
+	loadBinary(in, vsize);
+	v.clear();
+	for (int i = 0; i < vsize; i++)
+	{
+		T next;
+		loadBinary(in, next);
+		v.push_back(next);
+	}
+}
+
+template <typename K, typename V>
+inline void loadBinary(std::istream& in, std::map<K, V>& m)
+{
+	size_t msize;
+	loadBinary(in, msize);
+	//m.clear();
+	for (int i = 0; i < msize; i++)
+	{
+		K k;
+		V v;
+		loadBinary(in, k);
+		loadBinary(in, v);
+		m.emplace(k, v);
+	}
+}
+
+template <typename K, typename V>
+inline void loadBinary(std::istream& in, std::unordered_map<K, V>& m)
+{
+	size_t msize;
+	loadBinary(in, msize);
+	m.clear();
+	for (int i = 0; i < msize; i++)
+	{
+		K k;
+		V v;
+		loadBinary(in, k);
+		loadBinary(in, v);
+		m.emplace(k, v);
+	}
+}
+
+template <typename T>
+inline void                loadBinary(std::istream& in, std::set<T>& s)
+{
+	size_t ssize;
+	loadBinary(in, ssize);
+	s.clear();
+	for (int i = 0; i < ssize; i++)
+	{
+		T next;
+		loadBinary(in, next);
+		s.emplace(next);
+	}
+}
+
+/*template <typename T>
+void saveBinary(std::ostream&, T t);
+
+template <>
+void                saveBinary(std::ostream&, std::string& s);
+
+template <typename T>
+void                saveBinary(std::ostream&, std::vector<T>& v);
+
+template <typename K, typename V>
+void                saveBinary(std::ostream&, std::map<K, V>& m);
+
+template <typename T>
+void                saveBinary(std::ostream&, std::set<T>& s);
+
+template <typename T>
+void loadBinary(std::istream&, T& t);
+
+template <>
+void                loadBinary(std::istream&, std::string& s);
+
+template <typename T>
+void                loadBinary(std::istream&, std::vector<T>& v);
+
+template <typename K, typename V>
+void                loadBinary(std::istream&, std::map<K, V>& m);
+
+template <typename T>
+void                loadBinary(std::istream&, std::set<T>& s);*/
+
 }
 #endif

@@ -543,6 +543,10 @@ public:
 
     uint getEventIndex(const std::string& id) const;
 
+	void saveState(std::ostream&);
+
+	void loadState(std::istream&);
+
 private:
 
     std::set<std::string> initAssignmentRules;
@@ -727,6 +731,31 @@ private:
      */
     void setNamedSpeciesReferenceInfo(uint row, uint column,
             SpeciesReferenceType type);
+
+	void saveStringUIntMap(std::ostream&, StringUIntMap&);
+
+	void loadStringUIntMap(std::istream&, StringUIntMap&);
+
+	template<typename T>
+	void savePrimitiveVector(std::ostream&, std::vector<T>&);
+
+	void saveString(std::ostream&, std::string&);
+
+	void saveUInt(std::ostream&, unsigned);
+
+	void saveUIntUIntMap(std::ostream& out, UIntUIntMap& map);
+
+	void saveStringUIntVectorMap(std::ostream& out, StringUIntVectorMap& map);
+
+	void saveStringSet(std::ostream&, std::set<std::string>&);
+
+	void saveStringRefInfoMap(std::ostream&, StringRefInfoMap&);
+
+	void loadStringRefInfoMap(std::istream&, StringRefInfoMap&);
+
+	void saveBinarySpeciesReferenceInfo(std::ostream&, SpeciesReferenceInfo& sri);
+
+	void loadBinarySpeciesReferenceInfo(std::istream&, SpeciesReferenceInfo&);
 };
 
 } /* namespace rr */

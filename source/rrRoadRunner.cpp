@@ -27,6 +27,9 @@
 #include "rrSBMLReader.h"
 #include "rrConfig.h"
 #include "SBMLValidator.h"
+#include "../../roadrunner/source/llvm/LLVMModelData.h"
+#include "../../roadrunner/source/llvm/LLVMModelDataSymbols.h"
+#include "../../roadrunner/source/llvm/LLVMExecutableModel.h"
 
 #include <sbml/conversion/SBMLLocalParameterConverter.h>
 #include <sbml/conversion/SBMLLevelVersionConverter.h>
@@ -4917,6 +4920,25 @@ static void metabolicControlCheck(ExecutableModel *model)
         throw std::invalid_argument(string(e1) + "This model has events. Set ALLOW_EVENTS_IN_STEADY_STATE_CALCULATIONS to True to override. "
         "To override, run 'Config.setValue(Config.ALLOW_EVENTS_IN_STEADY_STATE_CALCULATIONS, True)'.");
     }
+}
+
+void RoadRunner::setModelData(void* model) {
+	rrllvm::LLVMModelData_free(((rrllvm::LLVMExecutableModel*)(this->impl->model))->modelData);
+	((rrllvm::LLVMExecutableModel*)(this->impl->model))->modelData = (rrllvm::LLVMModelData*)model;
+}
+
+void* RoadRunner::getModelData() {
+	return ((rrllvm::LLVMExecutableModel*)(this->impl->model))->modelData;
+}
+
+void RoadRunner::setModelDataSymbols(void* symbols)
+{	
+	((rrllvm::LLVMExecutableModel*)(this->impl->model))->symbols = (rrllvm::LLVMModelDataSymbols*)symbols;
+}
+
+void* RoadRunner::getModelDataSymbols()
+{
+	return (void*)((rrllvm::LLVMExecutableModel*)(this->impl->model))->symbols;
 }
 
 } //namespace

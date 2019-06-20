@@ -117,6 +117,7 @@ LLVMModelDataSymbols::LLVMModelDataSymbols() :
     assert(sizeof(modelDataFieldsNames) / sizeof(const char*)
             == NotSafe_FloatingSpeciesAmounts + 1
             && "wrong number of items in modelDataFieldsNames");
+
 }
 
 LLVMModelDataSymbols::LLVMModelDataSymbols(const libsbml::Model *model,
@@ -196,6 +197,19 @@ LLVMModelDataSymbols::LLVMModelDataSymbols(const libsbml::Model *model,
     initReactions(model);
 
     initEvents(model);
+
+/*	std::stringstream save_state;
+	std::map<std::string, std::vector<uint>> test1;
+	std::map<std::string, std::vector<uint>>  test2;
+	std::vector<uint> v;
+	v.push_back(2);
+	v.push_back(3);
+	test1.emplace("hello", v);
+	test1.emplace("hello2",v);
+	test1.emplace("hello7",v);
+	rr::saveBinary(save_state, test1);
+	rr::loadBinary(save_state, test2);
+	std::cout << "Hello World" << std::endl;*/
 }
 
 LLVMModelDataSymbols::~LLVMModelDataSymbols()
@@ -1599,5 +1613,203 @@ uint LLVMModelDataSymbols::getConservedMoietyIndex(
 
     throw std::out_of_range("The symbol \"" + name + "\" is not a conserved moeity");
 }
+
+void LLVMModelDataSymbols::saveState(std::ostream& out) 
+{
+	rr::saveBinary(out, conservedMoietySpeciesSet);
+	rr::saveBinary(out, conservedMoietyGlobalParameter);
+	rr::saveBinary(out, conservedMoietyGlobalParameterIndex);
+	rr::saveBinary(out, floatingSpeciesToConservedMoietyIdMap);
+	rr::saveBinary(out, conservedMoietyDepSpecies);	
+	rr::saveBinary(out, conservedMoietyIndSpecies);
+	rr::saveBinary(out, initAssignmentRules);
+	rr::saveBinary(out, initFloatingSpeciesMap);
+	rr::saveBinary(out, initBoundarySpeciesMap);
+	rr::saveBinary(out, initCompartmentsMap);
+	rr::saveBinary(out, initGlobalParametersMap);
+
+	rr::saveBinary(out, independentInitFloatingSpeciesSize);
+	rr::saveBinary(out, independentInitBoundarySpeciesSize);
+	rr::saveBinary(out, independentInitGlobalParameterSize);
+	rr::saveBinary(out, independentInitCompartmentSize);
+    
+	rr::saveBinary(out, floatingSpeciesCompartmentIndices);
+
+	rr::saveBinary(out, modelName);
+	rr::saveBinary(out, floatingSpeciesMap);
+	rr::saveBinary(out, boundarySpeciesMap);
+	rr::saveBinary(out, compartmentsMap);
+	rr::saveBinary(out, globalParametersMap);
+
+	saveStringRefInfoMap(out, namedSpeciesReferenceInfo);
+
+	rr::saveBinary(out, reactionsMap);
+	rr::saveBinary(out, stoichColIndx);
+	rr::saveBinary(out, stoichRowIndx);
+    rr::saveBinary(out, stoichIds);
+    
+    rr::saveBinary(out, stoichTypes);
+	rr::saveBinary(out, assigmentRules);
+	rr::saveBinary(out, rateRules);
+	rr::saveBinary(out, globalParameterRateRules);
+	rr::saveBinary(out, independentFloatingSpeciesSize);
+	rr::saveBinary(out, independentBoundarySpeciesSize);
+	rr::saveBinary(out, independentGlobalParameterSize);
+	rr::saveBinary(out, independentCompartmentSize);
+
+	rr::saveBinary(out, eventAssignmentsSize);
+	rr::saveBinary(out, eventAttributes);
+	rr::saveBinary(out, eventIds);
+}
+
+void LLVMModelDataSymbols::loadState(std::istream& in) 
+{
+	rr::loadBinary(in, conservedMoietySpeciesSet);
+	rr::loadBinary(in, conservedMoietyGlobalParameter);
+	rr::loadBinary(in, conservedMoietyGlobalParameterIndex);
+	rr::loadBinary(in, floatingSpeciesToConservedMoietyIdMap);
+	rr::loadBinary(in, conservedMoietyDepSpecies);	
+	rr::loadBinary(in, conservedMoietyIndSpecies);
+	rr::loadBinary(in, initAssignmentRules);
+	rr::loadBinary(in, initFloatingSpeciesMap);
+	rr::loadBinary(in, initBoundarySpeciesMap);
+	rr::loadBinary(in, initCompartmentsMap);
+	rr::loadBinary(in, initGlobalParametersMap);
+
+	rr::loadBinary(in, independentInitFloatingSpeciesSize);
+	rr::loadBinary(in, independentInitBoundarySpeciesSize);
+	rr::loadBinary(in, independentInitGlobalParameterSize);
+	rr::loadBinary(in, independentInitCompartmentSize);
+    
+	rr::loadBinary(in, floatingSpeciesCompartmentIndices);
+
+	rr::loadBinary(in, modelName);
+	rr::loadBinary(in, floatingSpeciesMap);
+	rr::loadBinary(in, boundarySpeciesMap);
+	rr::loadBinary(in, compartmentsMap);
+	rr::loadBinary(in, globalParametersMap);
+
+	loadStringRefInfoMap(in, namedSpeciesReferenceInfo);
+
+	rr::loadBinary(in, reactionsMap);
+	rr::loadBinary(in, stoichColIndx);
+	rr::loadBinary(in, stoichRowIndx);
+    rr::loadBinary(in, stoichIds);
+
+    rr::loadBinary(in, stoichTypes);
+	rr::loadBinary(in, assigmentRules);
+	rr::loadBinary(in, rateRules);
+	rr::loadBinary(in, globalParameterRateRules);
+	rr::loadBinary(in, independentFloatingSpeciesSize);
+	rr::loadBinary(in, independentBoundarySpeciesSize);
+	rr::loadBinary(in, independentGlobalParameterSize);
+	rr::loadBinary(in, independentCompartmentSize);
+
+	rr::loadBinary(in, eventAssignmentsSize);
+	rr::loadBinary(in, eventAttributes);
+	rr::loadBinary(in, eventIds);
+}
+
+void LLVMModelDataSymbols::saveStringRefInfoMap(std::ostream& out, StringRefInfoMap& m)
+{
+	rr::saveBinary(out, m.size());
+	for (std::pair<std::string, SpeciesReferenceInfo> p : m)
+	{
+		rr::saveBinary(out, p.first);
+	    saveBinarySpeciesReferenceInfo(out, p.second);
+	}
+}
+
+void LLVMModelDataSymbols::loadStringRefInfoMap(std::istream& in, StringRefInfoMap& m)
+{
+	size_t msize;
+	rr::loadBinary(in, msize);
+	m.clear();
+	for (int i = 0; i < msize; i++) 
+	{
+		std::string s;
+		SpeciesReferenceInfo sri;
+		rr::loadBinary(in, s);
+		loadBinarySpeciesReferenceInfo(in, sri);
+		m.emplace(s, sri);
+	}
+}
+
+void LLVMModelDataSymbols::saveBinarySpeciesReferenceInfo(std::ostream& out, SpeciesReferenceInfo& sri)
+{
+    rr::saveBinary(out, sri.row);
+	rr::saveBinary(out, sri.column);
+	rr::saveBinary(out, sri.type);
+	rr::saveBinary(out, sri.id);
+}
+
+void LLVMModelDataSymbols::loadBinarySpeciesReferenceInfo(std::istream& in, SpeciesReferenceInfo& sri)
+{
+    rr::loadBinary(in, sri.row);
+	rr::loadBinary(in, sri.column);
+	rr::loadBinary(in, sri.type);
+	rr::loadBinary(in, sri.id);
+}
+
+void LLVMModelDataSymbols::saveStringSet(std::ostream& out, std::set<std::string>& set)
+{
+	saveUInt(out, set.size());
+	for (std::string s : set) 
+	{
+		saveString(out, s);
+	} 
+}
+
+void LLVMModelDataSymbols::saveStringUIntMap(std::ostream& out, StringUIntMap& map)
+{
+	saveUInt(out, map.size());
+	for (std::pair<std::string, unsigned> p : map)
+	{
+		saveString(out, p.first);
+		saveUInt(out, p.second);
+	}
+}
+
+void LLVMModelDataSymbols::saveStringUIntVectorMap(std::ostream& out, StringUIntVectorMap& map)
+{
+	saveUInt(out, map.size());
+	for (std::pair<std::string, std::vector<uint>> p : map)
+	{
+		saveString(out, p.first);
+		savePrimitiveVector(out, p.second);
+	}
+}
+
+void LLVMModelDataSymbols::saveUIntUIntMap(std::ostream& out, UIntUIntMap& map)
+{
+	saveUInt(out, map.size());
+	for (std::pair<unsigned, unsigned> p : map)
+	{
+		saveUInt(out, p.first);
+		saveUInt(out, p.second);
+	}
+}
+
+template <typename T>
+void LLVMModelDataSymbols::savePrimitiveVector(std::ostream& out, std::vector<T>& v)
+{
+	saveUInt(out, v.size());
+	for (T t : v) 
+	{
+		out.write((char*)&t, sizeof(T));
+	}
+}
+
+void LLVMModelDataSymbols::saveString(std::ostream& out, std::string& s) 
+{
+	saveUInt(out, s.size());
+	out.write(s.c_str(), s.size());
+}
+
+void LLVMModelDataSymbols::saveUInt(std::ostream& out, unsigned u)
+{
+	out.write((char*)&u, sizeof(unsigned));
+}
+
 
 } /* namespace rr */

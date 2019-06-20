@@ -162,15 +162,18 @@ void LLVMModelData_save(LLVMModelData *data, std::ostream& out)
 		                data->numIndGlobalParameters + data->numRateRules + data->numReactions + data->numInitCompartments + data->numInitFloatingSpecies + 
 		                data->numInitBoundarySpecies + data->numInitGlobalParameters;
 
-	out.write((char*)&(data->data), dataSize*sizeof(double));
+	out.write((char*)(data->data), dataSize*sizeof(double));
 }
 
 LLVMModelData* LLVMModelData_from_save(std::istream& in)
 {
-    LLVMModelData *data = (LLVMModelData*)calloc(
-            2000, sizeof(unsigned char));
 	//Counts and size variables
-	in.read((char*)&(data->size), sizeof data->size);
+	unsigned size;
+	in.read((char*)&(size), sizeof(unsigned));
+
+	LLVMModelData *data = (LLVMModelData*)calloc(size, sizeof(unsigned char));
+
+	data->size = size;
 	in.read((char*)&(data->flags), sizeof data->flags);
 	in.read((char*)&(data->time), sizeof data->time);
 	in.read((char*)&(data->numIndCompartments), sizeof data->numIndCompartments);
@@ -238,7 +241,10 @@ LLVMModelData* LLVMModelData_from_save(std::istream& in)
 		                data->numIndGlobalParameters + data->numRateRules + data->numReactions + data->numInitCompartments + data->numInitFloatingSpecies + 
 		                data->numInitBoundarySpecies + data->numInitGlobalParameters;
 	//data->data = new double[dataSize];
-	in.read((char*)&(data->data), dataSize*sizeof(double));
+	if (dataSize*sizeof(double) + sizeof(LLVMModelData) != size) {
+		size = dataSize + sizeof(LLVMModelData);
+	}
+	in.read((char*)(data->data), dataSize*sizeof(double));
 	return data;
 }
 

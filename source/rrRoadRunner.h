@@ -42,6 +42,11 @@ public:
      */
     RoadRunner();
 
+
+	void setModelData(void*);
+	void* getModelData();
+	void setModelDataSymbols(void*);
+	void* getModelDataSymbols();
     /**
      * load an sbml document from anywhere.
      *
@@ -1140,6 +1145,7 @@ private:
      * the implementation file.
      */
     class RoadRunnerImpl* impl;
+
 };
 
 }

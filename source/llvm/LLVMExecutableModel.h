@@ -607,15 +607,16 @@ private:
     /******************************* Events Section *******************************/
     #endif /***********************************************************************/
     /******************************************************************************/
-
+public:
+    LLVMModelData *modelData;
+    cxx11_ns::shared_ptr<const ModelResources> resources;
+    const LLVMModelDataSymbols *symbols;
+	
 private:
     /**
      * the model generator maintians a cached of generated models.
      */
-    cxx11_ns::shared_ptr<const ModelResources> resources;
 
-    LLVMModelData *modelData;
-    const LLVMModelDataSymbols *symbols;
 
     EvalInitialConditionsCodeGen::FunctionPtr evalInitialConditionsPtr;
     EvalReactionRatesCodeGen::FunctionPtr evalReactionRatesPtr;
