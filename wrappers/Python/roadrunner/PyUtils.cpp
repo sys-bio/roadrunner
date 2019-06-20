@@ -200,70 +200,80 @@ PyObject* Variant_to_py(const Variant& var)
 
 Variant Variant_from_py(PyObject* py)
 {
-    Variant var;
+	Variant var;
 
-    if(py == Py_None)
-    {
-        return var;
-    }
-
-# if PY_MAJOR_VERSION == 3
-    if (PyUnicode_Check(py))
-# else
-    if (PyString_Check(py))
-# endif
-    {
-        var = rrPyString_getCPPString(py);
-        return var;
-    }
-
-    else if (PyBool_Check(py))
-    {
-        var = (bool)(py == Py_True);
-        return var;
-    }
-
-    else if (PyLong_Check(py))
-    {
-        // need to check for overflow.
-        var = (long)PyLong_AsLong(py);
-
-        // Borrowed reference.
-        PyObject* err = PyErr_Occurred();
-        if (err) {
-            std::stringstream ss;
-            ss << "Could not convert Python long to C ";
-            ss << sizeof(long) * 8 << " bit long: ";
-            ss << rrPyString_getCPPString(err);
-
-            // clear error, raise our own
-            PyErr_Clear();
-
-            invalid_argument(ss.str());
-        }
-
-        return var;
-    }
+	if (py == Py_None)
+	{
+		return var;
+	}
 
 # if PY_MAJOR_VERSION == 3
-    else if (PyLong_Check(py))
+	if (PyUnicode_Check(py))
 # else
-    else if (PyInt_Check(py))
+	if (PyString_Check(py))
 # endif
-    {
-# if PY_MAJOR_VERSION == 3
-        var = PyLong_AsLong(py);
-# else
-        var = (int)PyInt_AsLong(py);
-# endif
-        return var;
-    }
+	{
+		var = rrPyString_getCPPString(py);
+		return var;
+	}
 
-    else if (PyFloat_Check(py))
-    {
-        var = (double)PyFloat_AsDouble(py);
-        return var;
-    }
+	else if (PyBool_Check(py))
+	{
+		var = (bool)(py == Py_True);
+		return var;
+	}
+
+	else if (PyLong_Check(py))
+	{
+		// need to check for overflow.
+		var = (long)PyLong_AsLong(py);
+
+		// Borrowed reference.
+		PyObject* err = PyErr_Occurred();
+		if (err) {
+			std::stringstream ss;
+			ss << "Could not convert Python long to C ";
+			ss << sizeof(long) * 8 << " bit long: ";
+			ss << rrPyString_getCPPString(err);
+
+			// clear error, raise our own
+			PyErr_Clear();
+
+			invalid_argument(ss.str());
+		}
+
+		return var;
+	}
+
+# if PY_MAJOR_VERSION == 3
+	else if (PyLong_Check(py))
+# else
+	else if (PyInt_Check(py))
+# endif
+	{
+# if PY_MAJOR_VERSION == 3
+		var = PyLong_AsLong(py);
+# else
+		var = (int)PyInt_AsLong(py);
+# endif
+		return var;
+	}
+
+	else if (PyFloat_Check(py))
+	{
+		var = (double)PyFloat_AsDouble(py);
+		return var;
+	}
+
+	else if (PyList_Check(py))
+	{
+		vector<double> data;
+		for (Py_ssize_t i = 0; i < PyList_Size(py); i++) {
+			PyObject* value = PyList_GetItem(py, i);
+			data.push_back(PyFloat_AsDouble(value));
+		}
+		return data;
+	}
 
     string msg = "could not convert Python type to built in type";
     throw invalid_argument(msg);
