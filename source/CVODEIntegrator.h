@@ -153,7 +153,10 @@ namespace rr
 		/**
 		 * @author FY
 		 * @brief convert concentration tolerances to amount tolerances
-		 * @details TODO
+		 * @details Once users try to set the concentration toleraces, this function 
+		 * will be called and convert the concentration tolerances to cmount tolerances
+		 * by multiplying the compartment volume of species. Whichever is smaller
+		 * will be stored as absolute_tolerance and used in the integration process.
 		 */
 		void convertTolerances();
 

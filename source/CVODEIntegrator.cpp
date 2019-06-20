@@ -97,7 +97,7 @@ namespace rr
 
         // Set default integrator settings.
         addSetting("relative_tolerance", Config::getDouble(Config::CVODE_MIN_RELATIVE), "Relative Tolerance", "Specifies the scalar relative tolerance (double).", "(double) CVODE calculates a vector of error weights which is used in all error and convergence tests. The weighted RMS norm for the relative tolerance should not become smaller than this value.");
-        addSetting("absolute_tolerance", Config::getDouble(Config::CVODE_MIN_ABSOLUTE), "Absolute Amount Tolerance", "Specifies the scalar or vector absolute tolerance based on amounts (double or double vector).", "(double or double vector) CVODE calculates a vector of error weights which is used in all error and convergence tests. The weighted RMS norm for the absolute tolerance should not become smaller than this value.");
+        addSetting("absolute_tolerance", Config::getDouble(Config::CVODE_MIN_ABSOLUTE), "Absolute Tolerance", "Specifies the scalar or vector absolute tolerance based on amounts (double or double vector).", "(double or double vector) CVODE calculates a vector of error weights which is used in all error and convergence tests. The weighted RMS norm for the absolute tolerance should not become smaller than this value.");
 		addSetting("absolute_concentration_tolerance", Config::getDouble(Config::CVODE_MIN_ABSOLUTE), "Absolute Concentration Tolerance", "Specifies the scalar or vector absolute tolerance based on concentrations (double or double vector).", "(double or double vector) CVODE first converts it to the tolerance based on th amounts and then calculates a vector of error weights which is used in all error and convergence tests. The weighted RMS norm for the absolute tolerance should not become smaller than this value.");
 
         addSetting("stiff",              true, "Stiff", "Specifies whether the integrator attempts to solve stiff equations. (bool)", "(bool) Specifies whether the integrator attempts to solve stiff equations. Ensure the integrator can solver stiff differential equations by setting this value to true.");
@@ -241,6 +241,7 @@ namespace rr
 			if (it != options.end())
 			{
 				if ((*it).second[1] != '[') {
+					// skip the space
 					// scalar absolute tolerance based on amount
 					CVODEIntegrator::setValue("absolute_tolerance", std::abs(toDouble((*it).second)));
 				}
@@ -611,29 +612,34 @@ namespace rr
 
 	void CVODEIntegrator::convertTolerances()
 	{
+		
 		uint ncomp = mModel->getNumCompartments();
 
 		double* volumes = (double*)calloc(ncomp, sizeof(double));
 		mModel->getCompartmentVolumes(ncomp, 0, volumes);
 
+		// the tolerance vector that will be stored
 		vector<double> v;
 
 		switch (getType("absolute_concentration_tolerance")) {
 			
 			case Variant::TypeId::DOUBLE:
 			{
-				// scalar tolerance
+				// scalar concentration tolerance
 				// need to be converted to vector tolerance since speices have various compartment sizes
-
 				double abstol = CVODEIntegrator::getValueAsDouble("absolute_concentration_tolerance");
 
 				for (int i = 0; i < mModel->getNumFloatingSpecies(); i++) {
+					// get the compartment volume of each species
 					int index = mModel->getCompartmentIndexForFloatingSpecies(i);
 					if (volumes[index] == 0) {
 						// when the compartment volume is 0, simply set the amount tolerance as the volume tolerance
+						// since the tolerance cannot be 0 (ILLEGAL_INPUT)
 						v.push_back(abstol);
 					}
 					else {
+						// compare the concentration tolerance with the adjusted amount tolerace
+						// store whichever is smaller
 						v.push_back(std::min(abstol, abstol * volumes[index]));
 					}
 				}
@@ -647,8 +653,12 @@ namespace rr
 				v = CVODEIntegrator::getValueAsDoubleVector("absolute_concentration_tolerance");
 
 				for (int i = 0; i < v.size(); i++) {
+					// get the compartment volume of each species
 					int index = mModel->getCompartmentIndexForFloatingSpecies(i);
+
 					if (volumes[index] > 0) {
+						// compare the concentration tolerance with the adjusted amount tolerace
+						// store whichever is smaller
 						v[i] = std::min(v[i], v[i] * volumes[index]);
 					}
 				}
@@ -659,6 +669,7 @@ namespace rr
 				break;
 		}
 
+		// update the tolerance
 		Integrator::setValue("absolute_tolerance", v);
 
 		// TODO: add log
@@ -835,16 +846,17 @@ namespace rr
 		int err;
 		// switch on different cases that the absolute tolerance is scalar or vector
 		switch (getType("absolute_tolerance")) {
-			// scalar tolerance
+			
 			case Variant::TypeId::DOUBLE:
+				// scalar tolerance
 				err = CVodeSStolerances(mCVODE_Memory, getValueAsDouble("relative_tolerance"), getValueAsDouble("absolute_tolerance"));
 				break;
 			
-			// vector tolerance
+			
 			case Variant::TypeId::DOUBLEVECTOR:
 			{
-				
-				// TODO: is this the best way to convert a double vector to a n_vector?
+				// vector tolerance
+				// convert a double vector to a n_vector?
 				std::vector<double> v = getValueAsDoubleVector("absolute_tolerance");
 				double* arr = new double[v.size()];
 				for (int i = 0; i < v.size(); i++)
