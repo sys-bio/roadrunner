@@ -310,6 +310,11 @@ int LLVMExecutableModel::getNumCompartments()
     return symbols->getCompartmentsSize();
 }
 
+int LLVMExecutableModel::getCompartmentIndexForFloatingSpecies(int index) 
+{
+	return symbols->getCompartmentIndexForFloatingSpecies(index);
+}
+
 int LLVMExecutableModel::getNumReactions()
 {
     return modelData->numReactions;

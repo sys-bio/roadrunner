@@ -611,9 +611,11 @@ namespace rr
 
 	void CVODEIntegrator::convertTolerances()
 	{
-		int size = mModel->getNumCompartments();
-		double* volumes = new double[size];
-		mModel->getCompartmentVolumes(size, 0, volumes);
+		uint ncomp = mModel->getNumCompartments();
+
+		double* volumes = (double*)calloc(ncomp, sizeof(double));
+		mModel->getCompartmentVolumes(ncomp, 0, volumes);
+
 		vector<double> v;
 
 		switch (getType("absolute_concentration_tolerance")) {
@@ -625,31 +627,31 @@ namespace rr
 
 				double abstol = CVODEIntegrator::getValueAsDouble("absolute_concentration_tolerance");
 
-				for (int i = 0; i < size; i++)
-					if (volumes[i] == 0) {
+				for (int i = 0; i < mModel->getNumFloatingSpecies(); i++) {
+					int index = mModel->getCompartmentIndexForFloatingSpecies(i);
+					if (volumes[index] == 0) {
 						// when the compartment volume is 0, simply set the amount tolerance as the volume tolerance
 						v.push_back(abstol);
 					}
 					else {
-						v.push_back(std::min(abstol, abstol * volumes[i]));
+						v.push_back(std::min(abstol, abstol * volumes[index]));
 					}
-					
+				}
 
 				break;
 			}
-				
-
 				
 			case Variant::TypeId::DOUBLEVECTOR:
 			{
 				// vector tolerance
 				v = CVODEIntegrator::getValueAsDoubleVector("absolute_concentration_tolerance");
-				for (int i = 0; i < v.size(); i++)
-					if (volumes[i] > 0) {
-						v[i] = std::min(v[i], v[i] * volumes[i]);
-					}
-					
 
+				for (int i = 0; i < v.size(); i++) {
+					int index = mModel->getCompartmentIndexForFloatingSpecies(i);
+					if (volumes[index] > 0) {
+						v[i] = std::min(v[i], v[i] * volumes[index]);
+					}
+				}
 				break;
 			}
 
@@ -658,7 +660,6 @@ namespace rr
 		}
 
 		Integrator::setValue("absolute_tolerance", v);
-		delete[] volumes;
 
 		// TODO: add log
 	}
@@ -1215,3 +1216,4 @@ namespace rr
 	}
 
 }
+

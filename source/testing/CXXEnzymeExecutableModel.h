@@ -276,6 +276,7 @@ public:
     /******************************************************************************/
 
     virtual int getNumCompartments();
+	virtual int getCompartmentIndexForFloatingSpecies(int index);
     virtual int getCompartmentIndex(const std::string& eid);
     virtual std::string getCompartmentId(int index);
 
