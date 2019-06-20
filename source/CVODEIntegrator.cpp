@@ -240,14 +240,14 @@ namespace rr
 			it = options.find("absolute");
 			if (it != options.end())
 			{
-				if ((*it).second[0] != '[') {
+				if ((*it).second[1] != '[') {
 					// scalar absolute tolerance based on amount
 					CVODEIntegrator::setValue("absolute_tolerance", std::abs(toDouble((*it).second)));
 				}
 				else {
 					// vector absolute tolerance based on amount
 					
-					vector<double> v = toDoubleVector((*it).second));
+					vector<double> v = toDoubleVector((*it).second);
 					// take absolute value of each element 
 					for (unsigned int i = 0; i < v.size(); i++)
 						v[i] = std::abs(v[i]);
@@ -258,7 +258,7 @@ namespace rr
 			it = options.find("absolute_concentration");
 			if (it != options.end())
 			{
-				if ((*it).second[0] != '[') {
+ 				if ((*it).second[1]!= '[') {
 					// scalar absolute tolerance based on concentration
 					CVODEIntegrator::setValue("absolute_concentration_tolerance", std::abs(toDouble((*it).second)));
 					
@@ -356,7 +356,6 @@ namespace rr
             {
 				
                 CVodeSetMaxNumSteps(mCVODE_Memory, getValueAsInt("maximum_num_steps")); // FIXME: is this intentional?
-				
                 setCVODETolerances();
 				
             }
@@ -627,7 +626,14 @@ namespace rr
 				double abstol = CVODEIntegrator::getValueAsDouble("absolute_concentration_tolerance");
 
 				for (int i = 0; i < size; i++)
-					v.push_back(std::min(abstol, abstol * volumes[i]));
+					if (volumes[i] == 0) {
+						// when the compartment volume is 0, simply set the amount tolerance as the volume tolerance
+						v.push_back(abstol);
+					}
+					else {
+						v.push_back(std::min(abstol, abstol * volumes[i]));
+					}
+					
 
 				break;
 			}
@@ -639,7 +645,10 @@ namespace rr
 				// vector tolerance
 				v = CVODEIntegrator::getValueAsDoubleVector("absolute_concentration_tolerance");
 				for (int i = 0; i < v.size(); i++)
-					v[i] = std::min(v[i], v[i] * volumes[i]);
+					if (volumes[i] > 0) {
+						v[i] = std::min(v[i], v[i] * volumes[i]);
+					}
+					
 
 				break;
 			}
@@ -648,7 +657,7 @@ namespace rr
 				break;
 		}
 
-		CVODEIntegrator::setValue("absolute_tolerance", v);
+		Integrator::setValue("absolute_tolerance", v);
 		delete[] volumes;
 
 		// TODO: add log
