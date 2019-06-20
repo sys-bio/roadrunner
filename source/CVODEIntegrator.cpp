@@ -237,7 +237,7 @@ namespace rr
 			Log(lDebug) << "===========================";
 
 			//Assign values
-			it = options.find("absolute_tolerance");
+			it = options.find("absolute");
 			if (it != options.end())
 			{
 				if ((*it).second[0] != '[') {
@@ -247,7 +247,7 @@ namespace rr
 				else {
 					// vector absolute tolerance based on amount
 					
-					vector<double> v = toDoubleVector((*it).second);
+					vector<double> v = toDoubleVector((*it).second));
 					// take absolute value of each element 
 					for (unsigned int i = 0; i < v.size(); i++)
 						v[i] = std::abs(v[i]);
@@ -255,7 +255,7 @@ namespace rr
 				}
 			}
 
-			it = options.find("absolute_concentration_tolerance");
+			it = options.find("absolute_concentration");
 			if (it != options.end())
 			{
 				if ((*it).second[0] != '[') {
@@ -612,8 +612,9 @@ namespace rr
 
 	void CVODEIntegrator::convertTolerances()
 	{
-		double* volumes = new double[mModel->getNumCompartments()];
-		mModel->setCompartmentVolumes(mModel->getNumCompartments(), 0, volumes);
+		int size = mModel->getNumCompartments();
+		double* volumes = new double[size];
+		mModel->getCompartmentVolumes(size, 0, volumes);
 		vector<double> v;
 
 		switch (getType("absolute_concentration_tolerance")) {
@@ -625,9 +626,8 @@ namespace rr
 
 				double abstol = CVODEIntegrator::getValueAsDouble("absolute_concentration_tolerance");
 
-				for (int i = 0; i < v.size(); i++)
-					v[i] = std::min(abstol, abstol * volumes[i]);
-				CVODEIntegrator::setValue("absolute_concentration_tolerance", v);
+				for (int i = 0; i < size; i++)
+					v.push_back(std::min(abstol, abstol * volumes[i]));
 
 				break;
 			}
@@ -648,7 +648,7 @@ namespace rr
 				break;
 		}
 
-		CVODEIntegrator::setValue("absolute_concentration_tolerance", v);
+		CVODEIntegrator::setValue("absolute_tolerance", v);
 		delete[] volumes;
 
 		// TODO: add log
