@@ -54,10 +54,9 @@ void ModelResources::saveState(std::ostream& out) const
 	symbols->saveState(out);
 	std::string moduleStr;
 	llvm::raw_string_ostream moduleSStream(moduleStr);
-	llvm::WriteBitcodeToFile(&*module, moduleSStream);
+	llvm::WriteBitcodeToFile(module.get(), moduleSStream);
 	//llvm::buffer_ostream moduleOStream(moduleSStream);
-	//moduleSStream << *module;
-	
+	//moduleSStream << *module;	
 	rr::saveBinary(out, moduleStr);
 }
 

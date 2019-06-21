@@ -137,7 +137,7 @@ public:
      */
     void stealThePeach(const LLVMModelDataSymbols **sym,
              llvm::LLVMContext **ctx,  llvm::ExecutionEngine **eng,
-            const Random **random, const std::string **errStr);
+            const Random **random, const std::string **errStr, std::unique_ptr<llvm::Module> &mod);
 
 
     bool getConservedMoietyAnalysis() const;

@@ -418,7 +418,7 @@ llvm::IRBuilder<> &ModelGeneratorContext::getBuilder() const
 
 void ModelGeneratorContext::stealThePeach(const LLVMModelDataSymbols **sym,
          llvm::LLVMContext** ctx,  llvm::ExecutionEngine** eng,
-        const Random** rnd, const string** err)
+        const Random** rnd, const string** err, std::unique_ptr<Module>& mod)
 {
     *sym = symbols;
     symbols = 0;
@@ -430,6 +430,8 @@ void ModelGeneratorContext::stealThePeach(const LLVMModelDataSymbols **sym,
     random = 0;
     *err = errString;
     errString = 0;
+	mod = std::unique_ptr<Module>(module);
+	module = 0;
 }
 
 const LLVMModelSymbols& ModelGeneratorContext::getModelSymbols() const
