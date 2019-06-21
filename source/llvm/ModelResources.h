@@ -21,8 +21,8 @@ public:
     ~ModelResources();
 
     const LLVMModelDataSymbols *symbols;
-    const llvm::LLVMContext *context;
-    const llvm::ExecutionEngine *executionEngine;
+    llvm::LLVMContext *context;
+    llvm::ExecutionEngine *executionEngine;
     const class Random *random;
     const std::string *errStr;
 
