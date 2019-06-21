@@ -59,9 +59,18 @@ CVODE
 
 .. attribute:: Integrator.absolute_tolerance
 
-    Specifies the scalar absolute tolerance. CVODE calculates a vector of error weights which is used in all error and convergence tests. The weighted RMS norm for the absolute tolerance should not become smaller than this value. Default value is Config::CVODE_MIN_ABSOLUTE.
-
+    Specifies the scalar or vector absolute tolerance based on amount of species. A potentially different absolute tolerance for each vector component could be set using a double vector. CVODE then calculates a vector of error weights which is used in all error and convergence tests. The weighted RMS norm for the absolute tolerance should not become smaller than this value. Default value is Config::CVODE_MIN_ABSOLUTE.
+    
     >>> r.integrator.absolute_tolerance = 1
+    >>> r.integrator.absolute_tolerance = [1, 0.1, 0.01, 0.001] // setting vairous tolerance for each species
+    
+    
+.. attribute:: Integrator.absolute_concentration_tolerance
+
+    Specifies the scalar or vector absolute tolerance based on concentration of species. A potentially different absolute tolerance for each vector component could be set using a double vector. CVODE first converts it to the tolerances based on amounts by multiplying the compartment volume of each species. Then it calculates a vector of error weights which is used in all error and convergence tests. The weighted RMS norm for the absolute tolerance should not become smaller than this value. Default value is Config::CVODE_MIN_ABSOLUTE.
+    
+    >>> r.integrator.absolute_concentration_tolerance = 1
+    >>> r.integrator.absolute_concentration_tolerance = [1, 0.1, 0.01, 0.001] // setting vairous tolerance for each species
 
 .. attribute:: Integrator.initial_time_step
 
