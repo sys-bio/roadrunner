@@ -2268,6 +2268,15 @@ double LLVMExecutableModel::getRandom()
     return (*modelData->random)();
 }
 
+void LLVMExecutableModel::saveState(std::ostream& out)
+{
+	LLVMModelData_save(modelData, out);
+	symbols->saveState(out);
+	
+}
+
+
+
 std::string LLVMExecutableModel::getSaveState() {
 	stringstream stream;
 

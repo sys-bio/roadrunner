@@ -416,6 +416,7 @@ ExecutableModel* LLVMModelGenerator::createModel(const std::string& sbml,
 	llvm::SMDiagnostic sm;
 	llvm::LLVMContext tempContext;
 	std::unique_ptr<llvm::Module> nm(llvm::parseIRFile("C:/rr/test-llvm.bc", sm, tempContext));
+	context.module = &*nm;
 	llvm::raw_fd_ostream fdo2(sr, ec, of);
 	fdo2 << *nm;
 	fdo2.flush();
@@ -459,7 +460,7 @@ ExecutableModel* LLVMModelGenerator::createModel(const std::string& sbml,
     context.stealThePeach(&rc->symbols, &rc->context,
             &rc->executionEngine, &rc->random, &rc->errStr);
 
-    
+     
     if (!forceReCompile)
     {
         // check for a chached copy, another thread could have

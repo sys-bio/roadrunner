@@ -737,19 +737,17 @@ public:
     void computeAllRatesOfChange() {};
 	
 	/*
-	* Returns the data necessary to save the state of the model in the format:
-	* variable: value
-	* 
 	* Returns "Not implemented for this model type" if not implemented for the underlying
 	* model type
 	*/
-	virtual std::string getSaveState() {
-		return "Saving state not implemented for this model type";
+	virtual void saveState(std::ostream& out) {
+		out << "Saving state not implemented for this model type";
 	}
 	
-	virtual bool loadSaveState(std::string state) {
+	virtual bool loadSaveState(std::istream& in) {
 		return false;
 	}
+
     friend class RoadRunner;
 
 protected:

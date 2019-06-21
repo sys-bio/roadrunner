@@ -543,7 +543,7 @@ public:
 
     uint getEventIndex(const std::string& id) const;
 
-	void saveState(std::ostream&);
+	void saveState(std::ostream&) const;
 
 	void loadState(std::istream&);
 
@@ -749,11 +749,11 @@ private:
 
 	void saveStringSet(std::ostream&, std::set<std::string>&);
 
-	void saveStringRefInfoMap(std::ostream&, StringRefInfoMap&);
+	void saveStringRefInfoMap(std::ostream&, const StringRefInfoMap&) const;
 
 	void loadStringRefInfoMap(std::istream&, StringRefInfoMap&);
 
-	void saveBinarySpeciesReferenceInfo(std::ostream&, SpeciesReferenceInfo& sri);
+	void saveBinarySpeciesReferenceInfo(std::ostream&, SpeciesReferenceInfo& sri) const;
 
 	void loadBinarySpeciesReferenceInfo(std::istream&, SpeciesReferenceInfo&);
 };

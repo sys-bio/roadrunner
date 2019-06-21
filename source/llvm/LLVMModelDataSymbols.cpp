@@ -1614,7 +1614,7 @@ uint LLVMModelDataSymbols::getConservedMoietyIndex(
     throw std::out_of_range("The symbol \"" + name + "\" is not a conserved moeity");
 }
 
-void LLVMModelDataSymbols::saveState(std::ostream& out) 
+void LLVMModelDataSymbols::saveState(std::ostream& out) const
 {
 	rr::saveBinary(out, conservedMoietySpeciesSet);
 	rr::saveBinary(out, conservedMoietyGlobalParameter);
@@ -1710,7 +1710,7 @@ void LLVMModelDataSymbols::loadState(std::istream& in)
 	rr::loadBinary(in, eventIds);
 }
 
-void LLVMModelDataSymbols::saveStringRefInfoMap(std::ostream& out, StringRefInfoMap& m)
+void LLVMModelDataSymbols::saveStringRefInfoMap(std::ostream& out, const StringRefInfoMap& m) const
 {
 	rr::saveBinary(out, m.size());
 	for (std::pair<std::string, SpeciesReferenceInfo> p : m)
@@ -1735,7 +1735,7 @@ void LLVMModelDataSymbols::loadStringRefInfoMap(std::istream& in, StringRefInfoM
 	}
 }
 
-void LLVMModelDataSymbols::saveBinarySpeciesReferenceInfo(std::ostream& out, SpeciesReferenceInfo& sri)
+void LLVMModelDataSymbols::saveBinarySpeciesReferenceInfo(std::ostream& out, SpeciesReferenceInfo& sri) const
 {
     rr::saveBinary(out, sri.row);
 	rr::saveBinary(out, sri.column);

@@ -4922,6 +4922,13 @@ static void metabolicControlCheck(ExecutableModel *model)
     }
 }
 
+void RoadRunner::saveTo(std::string filename)
+{
+	std::ofstream out(filename, iostream::binary);
+	impl->model->saveState(out);
+
+}
+
 void RoadRunner::setModelData(void* model) {
 	rrllvm::LLVMModelData_free(((rrllvm::LLVMExecutableModel*)(this->impl->model))->modelData);
 	((rrllvm::LLVMExecutableModel*)(this->impl->model))->modelData = (rrllvm::LLVMModelData*)model;

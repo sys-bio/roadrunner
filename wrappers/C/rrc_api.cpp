@@ -687,9 +687,9 @@ RRCDataPtr rrcCallConv simulate(RRHandle handle)
 		rrllvm::LLVMModelData_save((rrllvm::LLVMModelData*)rri->getModelData(), save_state);
 		rri->setModelData(rrllvm::LLVMModelData_from_save(save_state));
 		std::stringstream save_symbols;
-		((rrllvm::LLVMModelDataSymbols*)(rri->getModelDataSymbols()))->saveState(save_symbols);
+		//((rrllvm::LLVMModelDataSymbols*)(rri->getModelDataSymbols()))->saveState(save_symbols);
 		rrllvm::LLVMModelDataSymbols before = *((rrllvm::LLVMModelDataSymbols*)(rri->getModelDataSymbols()));
-		((rrllvm::LLVMModelDataSymbols*)(rri->getModelDataSymbols()))->loadState(save_symbols);
+		//((rrllvm::LLVMModelDataSymbols*)(rri->getModelDataSymbols()))->loadState(save_symbols);
 		rrllvm::LLVMModelDataSymbols after = *((rrllvm::LLVMModelDataSymbols*)(rri->getModelDataSymbols()));
 		
 		//rrllvm::LLVMModelData* model_data = rrllvm::LLVMModelData_from_save(save_state);

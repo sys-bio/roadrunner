@@ -190,8 +190,9 @@ private:
     llvm::LLVMContext *context;
     llvm::ExecutionEngine *executionEngine;
     std::unique_ptr<llvm::Module> module_uniq;
+public:
 	llvm::Module* module;
-
+private:
     llvm::IRBuilder<> *builder;
 
     llvm::legacy::FunctionPassManager *functionPassManager;
