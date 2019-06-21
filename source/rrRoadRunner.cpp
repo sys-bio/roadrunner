@@ -4944,6 +4944,14 @@ void RoadRunner::loadState(std::string filename)
 
 }
 
+void RoadRunner::loadState(std::string filename)
+{
+	std::ofstream in(filename, iostream::binary);
+
+}
+
+
+
 void RoadRunner::setModelData(void* model) {
 	rrllvm::LLVMModelData_free(((rrllvm::LLVMExecutableModel*)(this->impl->model))->modelData);
 	((rrllvm::LLVMExecutableModel*)(this->impl->model))->modelData = (rrllvm::LLVMModelData*)model;

@@ -42,7 +42,6 @@ public:
      */
     RoadRunner();
 
-
 	void setModelData(void*);
 	void* getModelData();
 	void setModelDataSymbols(void*);
@@ -243,6 +242,9 @@ public:
      * @returns a borrowed reference to a DoubleMatrix object if successfull.
      */
     const ls::DoubleMatrix *simulate(const Dictionary* options = 0);
+
+	void saveState(std::string filename);
+	void loadState(std::string filename);
 
     /**
      * RoadRunner keeps a copy of the simulation data around until the
