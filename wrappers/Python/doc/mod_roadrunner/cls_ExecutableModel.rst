@@ -690,6 +690,7 @@ Misc
      settings:
          relative_tolerance: 0.00001
          absolute_tolerance: 0.0000000001
+	 absolute_concentration_tolerance: 0.0000000001
                       stiff: true
           maximum_bdf_order: 5
         maximum_adams_order: 12
