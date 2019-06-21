@@ -249,6 +249,12 @@ public:
         //memset((void*)integrators, 0, sizeof(integrators)/sizeof(char));
     }
 
+	RoadRunnerImpl(const std::istream& in) :
+		mDiffStepSize(0.05)
+	{
+
+	}
+
 
     RoadRunnerImpl(const string& _compiler, const string& _tempDir,
             const string& _supportCodeDir) :
@@ -4922,10 +4928,19 @@ static void metabolicControlCheck(ExecutableModel *model)
     }
 }
 
-void RoadRunner::saveTo(std::string filename)
+void RoadRunner::saveState(std::string filename)
 {
 	std::ofstream out(filename, iostream::binary);
 	impl->model->saveState(out);
+}
+
+void RoadRunner::loadState(std::string filename)
+{
+	std::ifstream in(filename, iostream::binary);
+	delete impl->model;
+	impl->model = new rrllvm::LLVMExecutableModel(in);
+
+    impl->syncAllSolversWithModel(impl->model);
 
 }
 

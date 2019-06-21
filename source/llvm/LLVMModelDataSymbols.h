@@ -165,6 +165,8 @@ public:
 
     LLVMModelDataSymbols(libsbml::Model const* model, unsigned options);
 
+	LLVMModelDataSymbols(std::istream& in);
+
     virtual ~LLVMModelDataSymbols();
 
     const std::string& getModelName() const;

@@ -304,9 +304,6 @@ ExecutableModel* LLVMModelGenerator::createModel(const std::string& sbml,
 
 	rc->evalConversionFactorPtr = (EvalConversionFactorCodeGen::FunctionPtr)
         context.getExecutionEngine().getFunctionAddress("evalConversionFactor");
-	//std::stringstream ss1;
-	//ss1.write((char*)rc->evalInitialConditionsPtr, (char*)rc->evalReactionRatesPtr - (char*)rc->evalInitialConditionsPtr);
-	//std::string s1 = ss1.str();
 	if (options & LoadSBMLOptions::READ_ONLY)
 	{
 		rc->setBoundarySpeciesAmountPtr = 0;
@@ -373,69 +370,8 @@ ExecutableModel* LLVMModelGenerator::createModel(const std::string& sbml,
 		rc->getGlobalParameterInitValuePtr = 0;
 		rc->setGlobalParameterInitValuePtr = 0;
 	}
-
 	
 
-	auto TargetTriple = llvm::sys::getDefaultTargetTriple();
-//	llvm::InitializeAllTargetInfos();
-//	llvm::InitializeAllTargets();
-//	llvm::InitializeAllTargetMCs();
-//	llvm::InitializeAllAsmParsers();
-//	llvm::InitializeAllAsmPrinters();
-	std::string Error;
-	auto Target = llvm::TargetRegistry::lookupTarget(TargetTriple, Error);
-	if (!Target) {
-		std::cout << Error;
-	}
-	std::string CPU = "generic";
-	std::string Features = "";
-	llvm::TargetOptions opt;
-	auto RM = llvm::Optional<llvm::Reloc::Model>();
-	auto TargetMachine = Target->createTargetMachine(TargetTriple, CPU, Features, opt, RM);
-	llvm::Module *TheModule = context.getModule();
-	TheModule->setDataLayout(TargetMachine->createDataLayout());
-	TheModule->setTargetTriple(TargetTriple);
-
-	std::string s;
-	llvm::raw_string_ostream ss(s);
-	std::error_code ec;
-	llvm::StringRef sr("C:/rr/test-llvm.bc");
-	llvm::sys::fs::OpenFlags of = llvm::sys::fs::F_None;
-	llvm::raw_fd_ostream fdo(sr, ec, of);
-
-	llvm::buffer_ostream bs(ss);
-	llvm::legacy::PassManager pass;
-//	std::ofstream f("C:/rr/test-llvm.bc");
-	/*auto FileType = llvm::TargetMachine::CGFT_ObjectFile;
-	TargetMachine->addPassesToEmitFile(pass, bs, FileType);
-	pass.run(*TheModule);*/
-	char* err = (char*)malloc(50);
-	fdo << *TheModule;
-	fdo.flush();
-	fdo.close();
-	llvm::SMDiagnostic sm;
-	llvm::LLVMContext tempContext;
-	std::unique_ptr<llvm::Module> nm(llvm::parseIRFile("C:/rr/test-llvm.bc", sm, tempContext));
-	context.module = &*nm;
-	llvm::raw_fd_ostream fdo2(sr, ec, of);
-	fdo2 << *nm;
-	fdo2.flush();
-	fdo2.close();
-	LLVMTargetRef tarRef; 
-	LLVMGetTargetFromTriple(TargetTriple.c_str(), &tarRef, &err);
-	LLVMTargetMachineRef mRef = LLVMCreateTargetMachine(tarRef, TargetTriple.c_str(), CPU.c_str(), Features.c_str(), LLVMCodeGenLevelDefault, LLVMRelocDefault, LLVMCodeModelDefault);
-	std::string file = "C:/rr/test-llvm-output.o";
-	//LLVMModuleRef modRef = LLVMModule
-//	LLVMOpaqueModuleProvider
-	//llvm::ObjectFile
-	//LLVMTargetMachineEmitToFile(mRef, TheModule, &file[0], LLVMCodeGenFileType::LLVMAssemblyFile, &err);
-	//llvm::WriteBitcodeToFile(TheModule, bs);
-    // if anything up to this point throws an exception, thats OK, because
-    // we have not allocated any memory yet that is not taken care of by
-    // something else.
-    // Now that everything that could have thrown would have thrown, we
-    // can now create the model and set its fields.
-	//context.getExecutionEngine().
     LLVMModelData *modelData = createModelData(context.getModelDataSymbols(),
             context.getRandom());
    

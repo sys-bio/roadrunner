@@ -9,6 +9,14 @@
 #include "Random.h"
 
 #include <rrLogger.h>
+#include <rrStringUtils.h>
+#undef min
+#undef max
+#include "llvm/IRReader/IRReader.h"
+#include "llvm/Bitcode/BitcodeWriter.h"
+#include "llvm/Support/MemoryBuffer.h"
+#include "llvm/Support/SourceMgr.h"
+#include "llvm/ExecutionEngine/SectionMemoryManager.h"
 
 using rr::Logger;
 using rr::getLogger;
@@ -40,5 +48,120 @@ ModelResources::~ModelResources()
     delete random;
     delete errStr;
 }
+
+void ModelResources::saveState(std::ostream& out) const
+{
+	symbols->saveState(out);
+	std::string moduleStr;
+	llvm::raw_string_ostream moduleSStream(moduleStr);
+	llvm::WriteBitcodeToFile(module.get(), moduleSStream);
+	//llvm::buffer_ostream moduleOStream(moduleSStream);
+	//moduleSStream << *module;
+	
+	rr::saveBinary(out, moduleStr);
+}
+
+void ModelResources::loadState(std::istream& in) 
+{
+	std::string *engineBuilderErrStr = new std::string();
+	symbols = new LLVMModelDataSymbols(in);
+	std::string moduleStr;
+	rr::loadBinary(in, moduleStr);
+	auto memBuffer(llvm::MemoryBuffer::getMemBuffer(moduleStr));
+	llvm::SMDiagnostic sm;
+	context = new llvm::LLVMContext();
+	module = llvm::parseIR(*memBuffer, sm, *context); 
+	llvm::EngineBuilder engineBuilder(std::move(module));
+	engineBuilder.setErrorStr(engineBuilderErrStr)
+		.setMCJITMemoryManager(std::unique_ptr<llvm::SectionMemoryManager>(new llvm::SectionMemoryManager()));
+	executionEngine = engineBuilder.create();
+    
+	evalInitialConditionsPtr = (EvalInitialConditionsCodeGen::FunctionPtr)
+		executionEngine->getFunctionAddress("evalInitialConditions");
+
+	evalReactionRatesPtr = (EvalReactionRatesCodeGen::FunctionPtr)
+		executionEngine->getFunctionAddress("evalReactionRates");
+
+	getBoundarySpeciesAmountPtr = (GetBoundarySpeciesAmountCodeGen::FunctionPtr)
+		executionEngine->getFunctionAddress("getBoundarySpeciesAmount");
+
+	getFloatingSpeciesAmountPtr = (GetFloatingSpeciesAmountCodeGen::FunctionPtr)
+		executionEngine->getFunctionAddress("getFloatingSpeciesAmount");
+
+	getBoundarySpeciesConcentrationPtr = (GetBoundarySpeciesConcentrationCodeGen::FunctionPtr)
+		executionEngine->getFunctionAddress("getBoundarySpeciesConcentration");
+
+	getFloatingSpeciesConcentrationPtr = (GetFloatingSpeciesAmountCodeGen::FunctionPtr)
+		executionEngine->getFunctionAddress("getFloatingSpeciesConcentration");
+
+	getCompartmentVolumePtr = (GetCompartmentVolumeCodeGen::FunctionPtr)
+		executionEngine->getFunctionAddress("getCompartmentVolume");
+
+	getGlobalParameterPtr = (GetGlobalParameterCodeGen::FunctionPtr)
+		executionEngine->getFunctionAddress("getGlobalParameter");
+
+	evalRateRuleRatesPtr = (EvalRateRuleRatesCodeGen::FunctionPtr)
+		executionEngine->getFunctionAddress("evalRateRuleRates");
+
+	getEventTriggerPtr = (GetEventTriggerCodeGen::FunctionPtr)
+		executionEngine->getFunctionAddress("getEventTrigger");
+
+	getEventPriorityPtr = (GetEventPriorityCodeGen::FunctionPtr)
+		executionEngine->getFunctionAddress("getEventPriority");
+
+	getEventDelayPtr = (GetEventDelayCodeGen::FunctionPtr)
+		executionEngine->getFunctionAddress("getEventDelay");
+
+	eventTriggerPtr = (EventTriggerCodeGen::FunctionPtr)
+		executionEngine->getFunctionAddress("eventTrigger");
+
+	eventAssignPtr = (EventAssignCodeGen::FunctionPtr)
+		executionEngine->getFunctionAddress("eventAssign");
+
+	evalVolatileStoichPtr = (EvalVolatileStoichCodeGen::FunctionPtr)
+		executionEngine->getFunctionAddress("evalVolatileStoich");
+
+	evalConversionFactorPtr = (EvalConversionFactorCodeGen::FunctionPtr)
+		executionEngine->getFunctionAddress("evalConversionFactor");
+
+	setBoundarySpeciesAmountPtr = (SetBoundarySpeciesAmountCodeGen::FunctionPtr)
+		executionEngine->getFunctionAddress("setBoundarySpeciesAmount");
+
+	setBoundarySpeciesConcentrationPtr = (SetBoundarySpeciesAmountCodeGen::FunctionPtr)
+		executionEngine->getFunctionAddress("setBoundarySpeciesConcentration");
+
+	setFloatingSpeciesConcentrationPtr = (SetBoundarySpeciesAmountCodeGen::FunctionPtr)
+		executionEngine->getFunctionAddress("setFloatingSpeciesConcentration");
+
+	setCompartmentVolumePtr = (SetBoundarySpeciesAmountCodeGen::FunctionPtr)
+		executionEngine->getFunctionAddress("setCompartmentVolume");
+
+	setFloatingSpeciesAmountPtr = (SetBoundarySpeciesAmountCodeGen::FunctionPtr)
+		executionEngine->getFunctionAddress("setFloatingSpeciesAmount");
+
+	setGlobalParameterPtr = (SetGlobalParameterCodeGen::FunctionPtr)
+		executionEngine->getFunctionAddress("setGlobalParameter");
+
+	getFloatingSpeciesInitConcentrationsPtr = (GetBoundarySpeciesAmountCodeGen::FunctionPtr)
+		executionEngine->getFunctionAddress("getFloatingSpeciesInitConcentrations");
+	setFloatingSpeciesInitConcentrationsPtr = (SetBoundarySpeciesAmountCodeGen::FunctionPtr)
+		executionEngine->getFunctionAddress("setFloatingSpeciesInitConcentrations");
+
+	getFloatingSpeciesInitAmountsPtr = (GetBoundarySpeciesAmountCodeGen::FunctionPtr)
+		executionEngine->getFunctionAddress("getFloatingSpeciesInitAmounts");
+	setFloatingSpeciesInitAmountsPtr = (SetBoundarySpeciesAmountCodeGen::FunctionPtr)
+		executionEngine->getFunctionAddress("setFloatingSpeciesInitAmounts");
+
+	getCompartmentInitVolumesPtr = (GetBoundarySpeciesAmountCodeGen::FunctionPtr)
+		executionEngine->getFunctionAddress("getCompartmentInitVolumes");
+	setCompartmentInitVolumesPtr = (SetBoundarySpeciesAmountCodeGen::FunctionPtr)
+		executionEngine->getFunctionAddress("setCompartmentInitVolumes");
+
+	getGlobalParameterInitValuePtr = (GetBoundarySpeciesAmountCodeGen::FunctionPtr)
+		executionEngine->getFunctionAddress("getGlobalParameterInitValue");
+	setGlobalParameterInitValuePtr = (SetBoundarySpeciesAmountCodeGen::FunctionPtr)
+		executionEngine->getFunctionAddress("setGlobalParameterInitValue");
+}
+
 
 } /* namespace rrllvm */

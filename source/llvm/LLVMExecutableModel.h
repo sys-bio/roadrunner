@@ -79,6 +79,10 @@ public:
     LLVMExecutableModel(const cxx11_ns::shared_ptr<ModelResources> &resources,
             LLVMModelData* modelData);
 
+	/*
+	* Loads a saved executable model
+	*/
+	LLVMExecutableModel(std::istream& in);
 
     virtual ~LLVMExecutableModel();
 
@@ -572,9 +576,7 @@ public:
 	
 	void saveState(std::ostream & out);
 
-	virtual std::string getSaveState();
 
-	virtual bool loadSaveState(std::string);
 private:
 
     /**
@@ -611,7 +613,7 @@ private:
     /******************************************************************************/
 public:
     LLVMModelData *modelData;
-    cxx11_ns::shared_ptr<const ModelResources> resources;
+    cxx11_ns::shared_ptr<ModelResources> resources;
     const LLVMModelDataSymbols *symbols;
 	
 private:

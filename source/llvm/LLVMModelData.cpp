@@ -165,6 +165,10 @@ void LLVMModelData_save(LLVMModelData *data, std::ostream& out)
 	out.write((char*)(data->data), dataSize*sizeof(double));
 }
 
+/*
+* Allocates and returns a pointer to a new LLVMModelData object
+* based on the save data fed by in
+*/
 LLVMModelData* LLVMModelData_from_save(std::istream& in)
 {
 	//Counts and size variables

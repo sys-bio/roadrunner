@@ -212,6 +212,13 @@ LLVMModelDataSymbols::LLVMModelDataSymbols(const libsbml::Model *model,
 	std::cout << "Hello World" << std::endl;*/
 }
 
+LLVMModelDataSymbols::LLVMModelDataSymbols(std::istream& in)
+{
+	this->loadState(in);
+}
+
+
+
 LLVMModelDataSymbols::~LLVMModelDataSymbols()
 {
 }

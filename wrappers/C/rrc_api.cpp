@@ -680,20 +680,14 @@ RRCDataPtr rrcCallConv simulate(RRHandle handle)
 				agResult(r, c) = (*result1)(r, c);
 			}
 		}
-		//std::string modelSaveState = rri->getModel()->getSaveState();
-		//rri->getModel()->loadSaveState(modelSaveState);
+
+		rri->saveState("D:/rr/test-save-state.rr");
+		rri->loadState("D:/rr/test-save-state.rr");
+
 		rri->getSimulateOptions().start = rri->getSimulateOptions().duration;
-		std::stringstream save_state;
-		rrllvm::LLVMModelData_save((rrllvm::LLVMModelData*)rri->getModelData(), save_state);
-		rri->setModelData(rrllvm::LLVMModelData_from_save(save_state));
-		std::stringstream save_symbols;
-		//((rrllvm::LLVMModelDataSymbols*)(rri->getModelDataSymbols()))->saveState(save_symbols);
-		rrllvm::LLVMModelDataSymbols before = *((rrllvm::LLVMModelDataSymbols*)(rri->getModelDataSymbols()));
-		//((rrllvm::LLVMModelDataSymbols*)(rri->getModelDataSymbols()))->loadState(save_symbols);
-		rrllvm::LLVMModelDataSymbols after = *((rrllvm::LLVMModelDataSymbols*)(rri->getModelDataSymbols()));
-		
-		//rrllvm::LLVMModelData* model_data = rrllvm::LLVMModelData_from_save(save_state);
-		//rrllvm::LLVMModelData_free(model_data);
+
+
+
 		rri->simulate();
 		auto result2 = rri->getSimulationData();
 		int rinit = r;

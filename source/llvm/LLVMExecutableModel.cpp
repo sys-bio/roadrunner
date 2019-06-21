@@ -17,6 +17,7 @@
 #include "rrConfig.h"
 #include <iomanip>
 #include <cstdlib>
+#include <iostream>
 
 using rr::Logger;
 using rr::getLogger;
@@ -281,6 +282,51 @@ LLVMExecutableModel::LLVMExecutableModel(
     eventAssignTimes.resize(modelData->numEvents);
 
     reset(SelectionRecord::ALL);
+}
+
+LLVMExecutableModel::LLVMExecutableModel(std::istream& in) :
+	resources(new ModelResources()),
+	dirty(0),
+	conversionFactor(1.0),
+	flags(defaultFlags())
+{
+	modelData = LLVMModelData_from_save(in);
+	resources->loadState(in);
+	symbols = resources->symbols;
+	eventListeners = std::vector<EventListenerPtr>(modelData->numEvents, EventListenerPtr());
+	eventAssignTimes.resize(modelData->numEvents);
+	
+
+	evalInitialConditionsPtr = resources->evalInitialConditionsPtr;
+	evalReactionRatesPtr = resources->evalReactionRatesPtr;
+	getBoundarySpeciesAmountPtr = resources->getBoundarySpeciesAmountPtr;
+    getFloatingSpeciesAmountPtr = resources->getFloatingSpeciesAmountPtr;
+    getBoundarySpeciesConcentrationPtr = resources->getBoundarySpeciesConcentrationPtr;
+    getFloatingSpeciesConcentrationPtr = resources->getFloatingSpeciesConcentrationPtr;
+    getCompartmentVolumePtr = resources->getCompartmentVolumePtr;
+    getGlobalParameterPtr = resources->getGlobalParameterPtr;
+    evalRateRuleRatesPtr = resources->evalRateRuleRatesPtr;
+    getEventTriggerPtr = resources->getEventTriggerPtr;
+    getEventPriorityPtr = resources->getEventPriorityPtr;
+    getEventDelayPtr = resources->getEventDelayPtr;
+	eventTriggerPtr = resources->eventTriggerPtr;
+    eventAssignPtr = resources->eventAssignPtr;
+    evalVolatileStoichPtr = resources->evalVolatileStoichPtr;
+    evalConversionFactorPtr = resources->evalConversionFactorPtr;
+    setBoundarySpeciesAmountPtr = resources->setBoundarySpeciesAmountPtr;
+    setFloatingSpeciesAmountPtr = resources->setFloatingSpeciesAmountPtr;
+    setBoundarySpeciesConcentrationPtr = resources->setBoundarySpeciesConcentrationPtr;
+    setFloatingSpeciesConcentrationPtr = resources->setFloatingSpeciesConcentrationPtr;
+    setCompartmentVolumePtr = resources->setCompartmentVolumePtr;
+    setGlobalParameterPtr = resources->setGlobalParameterPtr;
+    getFloatingSpeciesInitConcentrationsPtr = resources->getFloatingSpeciesInitConcentrationsPtr;
+    setFloatingSpeciesInitConcentrationsPtr = resources->setFloatingSpeciesInitConcentrationsPtr;
+    getFloatingSpeciesInitAmountsPtr = resources->getFloatingSpeciesInitAmountsPtr;
+    setFloatingSpeciesInitAmountsPtr = resources->setFloatingSpeciesInitAmountsPtr;
+    getCompartmentInitVolumesPtr = resources->getCompartmentInitVolumesPtr;
+    setCompartmentInitVolumesPtr = resources->setCompartmentInitVolumesPtr;
+    getGlobalParameterInitValuePtr = resources->getGlobalParameterInitValuePtr;
+    setGlobalParameterInitValuePtr = resources->setGlobalParameterInitValuePtr;
 }
 
 LLVMExecutableModel::~LLVMExecutableModel()
@@ -2271,13 +2317,10 @@ double LLVMExecutableModel::getRandom()
 void LLVMExecutableModel::saveState(std::ostream& out)
 {
 	LLVMModelData_save(modelData, out);
-	symbols->saveState(out);
-	
+	resources->saveState(out);
 }
 
-
-
-std::string LLVMExecutableModel::getSaveState() {
+/*std::string LLVMExecutableModel::getSaveState() {
 	stringstream stream;
 
     double *tmp;
@@ -2348,9 +2391,9 @@ std::string LLVMExecutableModel::getSaveState() {
     delete[] tmpEvents;
 	
 	return stream.str();
-}
+}*/
 
-bool LLVMExecutableModel::loadSaveState(std::string state) {
+/*bool LLVMExecutableModel::loadSaveState(std::string state) {
 
 	istringstream stream(state);
 	double *tmp;
@@ -2412,7 +2455,7 @@ bool LLVMExecutableModel::loadSaveState(std::string state) {
 		}
 	}
 	return true;
-}
+}*/
 
 /******************************* End Random Section ***************************/
 #endif  /**********************************************************************/
