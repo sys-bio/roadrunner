@@ -785,9 +785,6 @@ public:
      */
     ls::DoubleMatrix getSteadyStateValuesNamedArray();
 
-	void saveState(std::string filename);
-
-	void loadState(std::string filename);
 
     /******************************* End Steady State Section *********************/
     #endif /***********************************************************************/
