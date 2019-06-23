@@ -370,7 +370,12 @@ ExecutableModel* LLVMModelGenerator::createModel(const std::string& sbml,
 		rc->getGlobalParameterInitValuePtr = 0;
 		rc->setGlobalParameterInitValuePtr = 0;
 	}
-	
+
+	// if anything up to this point throws an exception, thats OK, because	
+	// we have not allocated any memory yet that is not taken care of by	
+	// something else.	
+	// Now that everything that could have thrown would have thrown, we	
+	// can now create the model and set its fields.
 
     LLVMModelData *modelData = createModelData(context.getModelDataSymbols(),
             context.getRandom());

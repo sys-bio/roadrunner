@@ -47,7 +47,7 @@ static void dump_array(std::ostream &os, int n, const numeric_type *p)
 {
     if (p)
     {
-        os << setprecision(8);
+        os << setiosflags(ios::floatfield) << setprecision(8);
         os << '[';
         for (int i = 0; i < n; ++i)
         {
