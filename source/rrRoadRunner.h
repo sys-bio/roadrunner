@@ -42,10 +42,6 @@ public:
      */
     RoadRunner();
 
-	void setModelData(void*);
-	void* getModelData();
-	void setModelDataSymbols(void*);
-	void* getModelDataSymbols();
     /**
      * load an sbml document from anywhere.
      *
@@ -251,7 +247,6 @@ public:
      * next call to simulate. This matrix can be obtained here.
      */
     const ls::DoubleMatrix* getSimulationData() const;
-	void setSimulationData(ls::DoubleMatrix);
 
     #ifndef SWIG // deprecated methods not SWIG'ed
 

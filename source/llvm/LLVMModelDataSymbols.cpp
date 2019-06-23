@@ -117,7 +117,6 @@ LLVMModelDataSymbols::LLVMModelDataSymbols() :
     assert(sizeof(modelDataFieldsNames) / sizeof(const char*)
             == NotSafe_FloatingSpeciesAmounts + 1
             && "wrong number of items in modelDataFieldsNames");
-
 }
 
 LLVMModelDataSymbols::LLVMModelDataSymbols(const libsbml::Model *model,
@@ -197,19 +196,6 @@ LLVMModelDataSymbols::LLVMModelDataSymbols(const libsbml::Model *model,
     initReactions(model);
 
     initEvents(model);
-
-/*	std::stringstream save_state;
-	std::map<std::string, std::vector<uint>> test1;
-	std::map<std::string, std::vector<uint>>  test2;
-	std::vector<uint> v;
-	v.push_back(2);
-	v.push_back(3);
-	test1.emplace("hello", v);
-	test1.emplace("hello2",v);
-	test1.emplace("hello7",v);
-	rr::saveBinary(save_state, test1);
-	rr::loadBinary(save_state, test2);
-	std::cout << "Hello World" << std::endl;*/
 }
 
 LLVMModelDataSymbols::LLVMModelDataSymbols(std::istream& in)
@@ -1757,66 +1743,5 @@ void LLVMModelDataSymbols::loadBinarySpeciesReferenceInfo(std::istream& in, Spec
 	rr::loadBinary(in, sri.type);
 	rr::loadBinary(in, sri.id);
 }
-
-void LLVMModelDataSymbols::saveStringSet(std::ostream& out, std::set<std::string>& set)
-{
-	saveUInt(out, set.size());
-	for (std::string s : set) 
-	{
-		saveString(out, s);
-	} 
-}
-
-void LLVMModelDataSymbols::saveStringUIntMap(std::ostream& out, StringUIntMap& map)
-{
-	saveUInt(out, map.size());
-	for (std::pair<std::string, unsigned> p : map)
-	{
-		saveString(out, p.first);
-		saveUInt(out, p.second);
-	}
-}
-
-void LLVMModelDataSymbols::saveStringUIntVectorMap(std::ostream& out, StringUIntVectorMap& map)
-{
-	saveUInt(out, map.size());
-	for (std::pair<std::string, std::vector<uint>> p : map)
-	{
-		saveString(out, p.first);
-		savePrimitiveVector(out, p.second);
-	}
-}
-
-void LLVMModelDataSymbols::saveUIntUIntMap(std::ostream& out, UIntUIntMap& map)
-{
-	saveUInt(out, map.size());
-	for (std::pair<unsigned, unsigned> p : map)
-	{
-		saveUInt(out, p.first);
-		saveUInt(out, p.second);
-	}
-}
-
-template <typename T>
-void LLVMModelDataSymbols::savePrimitiveVector(std::ostream& out, std::vector<T>& v)
-{
-	saveUInt(out, v.size());
-	for (T t : v) 
-	{
-		out.write((char*)&t, sizeof(T));
-	}
-}
-
-void LLVMModelDataSymbols::saveString(std::ostream& out, std::string& s) 
-{
-	saveUInt(out, s.size());
-	out.write(s.c_str(), s.size());
-}
-
-void LLVMModelDataSymbols::saveUInt(std::ostream& out, unsigned u)
-{
-	out.write((char*)&u, sizeof(unsigned));
-}
-
 
 } /* namespace rr */

@@ -734,23 +734,6 @@ private:
     void setNamedSpeciesReferenceInfo(uint row, uint column,
             SpeciesReferenceType type);
 
-	void saveStringUIntMap(std::ostream&, StringUIntMap&);
-
-	void loadStringUIntMap(std::istream&, StringUIntMap&);
-
-	template<typename T>
-	void savePrimitiveVector(std::ostream&, std::vector<T>&);
-
-	void saveString(std::ostream&, std::string&);
-
-	void saveUInt(std::ostream&, unsigned);
-
-	void saveUIntUIntMap(std::ostream& out, UIntUIntMap& map);
-
-	void saveStringUIntVectorMap(std::ostream& out, StringUIntVectorMap& map);
-
-	void saveStringSet(std::ostream&, std::set<std::string>&);
-
 	void saveStringRefInfoMap(std::ostream&, const StringRefInfoMap&) const;
 
 	void loadStringRefInfoMap(std::istream&, StringRefInfoMap&);

@@ -4886,9 +4886,6 @@ const DoubleMatrix* RoadRunner::getSimulationData() const
     return &impl->simulationResult;
 }
 
-void RoadRunner::setSimulationData(DoubleMatrix data) {
-	impl->simulationResult = data;
-}
 
 void RoadRunner::applySimulateOptions()
 {
@@ -4945,24 +4942,6 @@ void RoadRunner::loadState(std::string filename)
 }
 
 
-void RoadRunner::setModelData(void* model) {
-	rrllvm::LLVMModelData_free(((rrllvm::LLVMExecutableModel*)(this->impl->model))->modelData);
-	((rrllvm::LLVMExecutableModel*)(this->impl->model))->modelData = (rrllvm::LLVMModelData*)model;
-}
-
-void* RoadRunner::getModelData() {
-	return ((rrllvm::LLVMExecutableModel*)(this->impl->model))->modelData;
-}
-
-void RoadRunner::setModelDataSymbols(void* symbols)
-{	
-	((rrllvm::LLVMExecutableModel*)(this->impl->model))->symbols = (rrllvm::LLVMModelDataSymbols*)symbols;
-}
-
-void* RoadRunner::getModelDataSymbols()
-{
-	return (void*)((rrllvm::LLVMExecutableModel*)(this->impl->model))->symbols;
-}
 
 } //namespace
 
