@@ -14,6 +14,8 @@
 #undef max
 #include "llvm/IRReader/IRReader.h"
 #include "llvm/Bitcode/BitcodeWriter.h"
+#include "llvm/Bitcode/BitcodeReader.h"
+#include "llvm/Support/Error.h"
 #include "llvm/Support/MemoryBuffer.h"
 #include "llvm/Support/SourceMgr.h"
 #include "llvm/ExecutionEngine/SectionMemoryManager.h"
@@ -43,6 +45,7 @@ ModelResources::~ModelResources()
 
 //    delete symbols;
     // the exe engine owns all the functions
+	module.release();
     delete executionEngine;
     delete context;
     delete random;
@@ -54,9 +57,8 @@ void ModelResources::saveState(std::ostream& out) const
 	symbols->saveState(out);
 	std::string moduleStr;
 	llvm::raw_string_ostream moduleSStream(moduleStr);
-	llvm::WriteBitcodeToFile(module.get(), moduleSStream);
-	//llvm::buffer_ostream moduleOStream(moduleSStream);
-	//moduleSStream << *module;	
+	//llvm::WriteBitcodeToFile(module.get(), moduleSStream);
+	moduleSStream << *module;	
 	rr::saveBinary(out, moduleStr);
 }
 
@@ -66,15 +68,24 @@ void ModelResources::loadState(std::istream& in)
 	symbols = new LLVMModelDataSymbols(in);
 	std::string moduleStr;
 	rr::loadBinary(in, moduleStr);
-	auto memBuffer(llvm::MemoryBuffer::getMemBuffer(moduleStr));
-	llvm::SMDiagnostic sm;
 	context = new llvm::LLVMContext();
-	module = llvm::parseIR(*memBuffer, sm, *context); 
+	auto memBuffer(llvm::MemoryBuffer::getMemBuffer(moduleStr));
+	//auto expected = llvm::parseBitcodeFile(*memBuffer, *context);
+	llvm::SMDiagnostic sm;
+	auto module = llvm::parseIR(*memBuffer, sm, *context);
+	std::vector<std::string> fnames;
+	for (auto f = module->functions().begin(); f != module->functions().end(); f++)
+	{
+		fnames.push_back(f->getName());
+	}
+	std::string fname = module->functions().begin()->getName();
+	//auto module = std::unique_ptr<llvm::Module>(new llvm::Module("Module test", *context));
 	llvm::EngineBuilder engineBuilder(std::move(module));
 	engineBuilder.setErrorStr(engineBuilderErrStr)
 		.setMCJITMemoryManager(std::unique_ptr<llvm::SectionMemoryManager>(new llvm::SectionMemoryManager()));
+    llvm::InitializeNativeTarget();
 	executionEngine = engineBuilder.create();
-    
+    //register targets ???
 	evalInitialConditionsPtr = (EvalInitialConditionsCodeGen::FunctionPtr)
 		executionEngine->getFunctionAddress("evalInitialConditions");
 

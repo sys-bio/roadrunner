@@ -681,8 +681,8 @@ RRCDataPtr rrcCallConv simulate(RRHandle handle)
 			}
 		}
 
-		rri->saveState("D:/rr/test-save-state.rr");
-		rri->loadState("D:/rr/test-save-state.rr");
+		rri->saveState("C:/rr/test-save-state.rr");
+		rri->loadState("C:/rr/test-save-state.rr");
 
 		rri->getSimulateOptions().start = rri->getSimulateOptions().duration;
 
