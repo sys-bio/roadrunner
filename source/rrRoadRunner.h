@@ -1144,6 +1144,9 @@ private:
      */
     class RoadRunnerImpl* impl;
 
+	void saveSelectionVector(std::ostream&, std::vector<SelectionRecord>&);
+	void loadSelectionVector(std::istream&, std::vector<SelectionRecord>&);
+
 };
 
 }

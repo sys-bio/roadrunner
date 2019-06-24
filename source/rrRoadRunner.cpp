@@ -4929,18 +4929,101 @@ void RoadRunner::saveState(std::string filename)
 {
 	std::ofstream out(filename, iostream::binary);
 	impl->model->saveState(out);
+	rr::saveBinary(out, impl->mInstanceID);
+	rr::saveBinary(out, impl->mDiffStepSize);
+	rr::saveBinary(out, impl->mSteadyStateThreshold);
+    
+	saveSelectionVector(out, impl->mSelectionList);
+	
+	rr::saveBinary(out, impl->loadOpt.version);
+	rr::saveBinary(out, impl->loadOpt.size);
+	rr::saveBinary(out, impl->loadOpt.modelGeneratorOpt);
+	rr::saveBinary(out, impl->loadOpt.loadFlags);
+
+
+	saveSelectionVector(out, impl->mSteadyStateSelection);
+
+	rr::saveBinary(out, impl->simulateOpt.reset_model);
+	rr::saveBinary(out, impl->simulateOpt.structured_result);
+	rr::saveBinary(out, impl->simulateOpt.copy_result);
+	rr::saveBinary(out, impl->simulateOpt.steps);
+	rr::saveBinary(out, impl->simulateOpt.start);
+	rr::saveBinary(out, impl->simulateOpt.duration);
+	rr::saveBinary(out, impl->simulateOpt.variables);
+	rr::saveBinary(out, impl->simulateOpt.amounts);
+	rr::saveBinary(out, impl->simulateOpt.concentrations);
+
+	rr::saveBinary(out, impl->roadRunnerOptions.flags);
+	rr::saveBinary(out, impl->roadRunnerOptions.jacobianStepSize);
+
+	rr::saveBinary(out, impl->configurationXML);
 }
+
+void RoadRunner::saveSelectionVector(std::ostream& out, std::vector<SelectionRecord>& v)
+{
+	rr::saveBinary(out, v.size());
+	for (SelectionRecord sr : v)
+	{
+		rr::saveBinary(out, sr.index);
+		rr::saveBinary(out, sr.p1);
+		rr::saveBinary(out, sr.p2);
+		rr::saveBinary(out, sr.selectionType);
+	}
+}
+
 
 void RoadRunner::loadState(std::string filename)
 {
 	std::ifstream in(filename, iostream::binary);
-	delete impl->model;
+	if(impl->model)
+		delete impl->model;
 	impl->model = new rrllvm::LLVMExecutableModel(in);
 
     impl->syncAllSolversWithModel(impl->model);
+	rr::loadBinary(in, impl->mInstanceID);
+	rr::loadBinary(in, impl->mDiffStepSize);
+	rr::loadBinary(in, impl->mSteadyStateThreshold);
+    
+	loadSelectionVector(in, impl->mSelectionList);
+	
+	rr::loadBinary(in, impl->loadOpt.version);
+	rr::loadBinary(in, impl->loadOpt.size);
+	rr::loadBinary(in, impl->loadOpt.modelGeneratorOpt);
+	rr::loadBinary(in, impl->loadOpt.loadFlags);
 
+
+	loadSelectionVector(in, impl->mSteadyStateSelection);
+
+	rr::loadBinary(in, impl->simulateOpt.reset_model);
+	rr::loadBinary(in, impl->simulateOpt.structured_result);
+	rr::loadBinary(in, impl->simulateOpt.copy_result);
+	rr::loadBinary(in, impl->simulateOpt.steps);
+	rr::loadBinary(in, impl->simulateOpt.start);
+	rr::loadBinary(in, impl->simulateOpt.duration);
+	rr::loadBinary(in, impl->simulateOpt.variables);
+	rr::loadBinary(in, impl->simulateOpt.amounts);
+	rr::loadBinary(in, impl->simulateOpt.concentrations);
+
+	rr::loadBinary(in, impl->roadRunnerOptions.flags);
+	rr::loadBinary(in, impl->roadRunnerOptions.jacobianStepSize);
+
+	rr::loadBinary(in, impl->configurationXML);
 }
 
+void RoadRunner::loadSelectionVector(std::istream& in, std::vector<SelectionRecord>& v)
+{
+	size_t vsize;
+	rr::loadBinary(in, vsize);
+	for (int i = 0; i < vsize; i++)
+	{
+		SelectionRecord sr;
+		rr::loadBinary(in, sr.index);
+		rr::loadBinary(in, sr.p1);
+		rr::loadBinary(in, sr.p2);
+		rr::loadBinary(in, sr.selectionType);
+		v.push_back(sr);
+	}
+}
 
 
 } //namespace
