@@ -132,6 +132,13 @@ namespace rr
          */
         void setValue(std::string setting, const Variant& value);
 
+
+		/**
+		 * @author FY
+		 * @brief Sets tolerance for individual species
+		 */
+		void setTolerance(int index, double value);
+
         /**
         * @author JKM
         * @brief Reset all integrator settings to their respective default values

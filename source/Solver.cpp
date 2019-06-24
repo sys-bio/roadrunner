@@ -157,6 +157,8 @@ namespace rr
         settings[key] = value;
     }
 
+	void Solver::setTolerance(int index, double value) {}
+
     const std::string& Solver::getDisplayName(std::string key) const
     {
         DisplayNameMap::const_iterator option = Solver::display_names_.find(key);

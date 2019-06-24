@@ -314,6 +314,43 @@ namespace rr
 		return Integrator::Deterministic;
 	}
 
+	void CVODEIntegrator::setTolerance(int index, double value) {
+
+		// the tolerance vector that will be stored
+		vector<double> v;
+		
+		std::cout << "Beginning computations..." << std::flush;
+		switch (getType("absolute_tolerance")) {
+
+		case Variant::TypeId::DOUBLE:
+		{
+			// scalar concentration tolerance
+			// need to be converted to vector tolerance since tolerance of individual species is set
+			double abstol = CVODEIntegrator::getValueAsDouble("absolute_tolerance");
+
+			for (int i = 0; i < mModel->getNumFloatingSpecies(); i++)
+				v.push_back(i == index ? value : abstol);
+
+			break;
+		}
+
+		case Variant::TypeId::DOUBLEVECTOR:
+		{
+			// vector tolerance
+			v = CVODEIntegrator::getValueAsDoubleVector("absolute_tolerance");
+			v[index] = value;
+			break;
+		}
+
+		default:
+			break;
+		}
+
+		// update the tolerance
+		Integrator::setValue("absolute_tolerance", v);
+		setCVODETolerances();
+	}
+
 	void CVODEIntegrator::setValue(string key, const Variant& val)
 	{
 		Integrator::setValue(key, val);

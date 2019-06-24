@@ -184,6 +184,12 @@ namespace rr
 
         virtual void setValue(std::string key, const Variant& value);
 
+		/**
+		* @author FY
+		* @brief Set tolerance for individual species
+		*/
+		virtual void setTolerance(int index, double value);
+
         /**
         * @author WBC
         * @brief Gets the hint associated with a given key
