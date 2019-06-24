@@ -17,7 +17,7 @@ extern bool        gDebug;
 
 SUITE(SBML_TEST_SUITE)
 {
- TEST(1) {CHECK(RunTest("l2v4", 1)); }
+ /*TEST(1) {CHECK(RunTest("l2v4", 1)); }
  TEST(2) { CHECK(RunTest("l2v4", 2)); }
  TEST(3) { CHECK(RunTest("l2v4", 3)); }
  TEST(4) { CHECK(RunTest("l2v4", 4)); }
@@ -43,15 +43,15 @@ SUITE(SBML_TEST_SUITE)
  TEST(24) { CHECK(RunTest("l2v4", 24)); }
  TEST(25) { CHECK(RunTest("l2v4", 25)); }
  TEST(26) { CHECK(RunTest("l2v4", 26)); }
- TEST(27) { CHECK(RunTest("l2v4", 27)); }
+ TEST(27) { CHECK(RunTest("l2v4", 27)); }*/
  TEST(28) { CHECK(RunTest("l2v4", 28)); }
- TEST(29) { CHECK(RunTest("l2v4", 29)); }
+ /*TEST(29) { CHECK(RunTest("l2v4", 29)); }
  TEST(30) { CHECK(RunTest("l2v4", 30)); }
  TEST(31) { CHECK(RunTest("l2v4", 31)); }
  TEST(32) { CHECK(RunTest("l2v4", 32)); }
  TEST(33) { CHECK(RunTest("l2v4", 33)); }
 
- /*TEST(34) { CHECK(RunTest("l2v4", 34)); }
+ TEST(34) { CHECK(RunTest("l2v4", 34)); }
  TEST(35) { CHECK(RunTest("l2v4", 35)); }
  TEST(36) { CHECK(RunTest("l2v4", 36)); }
  TEST(37) { CHECK(RunTest("l2v4", 37)); }
