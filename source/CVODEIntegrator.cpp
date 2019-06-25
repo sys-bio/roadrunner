@@ -319,7 +319,6 @@ namespace rr
 		// the tolerance vector that will be stored
 		vector<double> v;
 		
-		std::cout << "Beginning computations..." << std::flush;
 		switch (getType("absolute_tolerance")) {
 
 		case Variant::TypeId::DOUBLE:
@@ -338,6 +337,7 @@ namespace rr
 		{
 			// vector tolerance
 			v = CVODEIntegrator::getValueAsDoubleVector("absolute_tolerance");
+			// only need to update the corresponding species
 			v[index] = value;
 			break;
 		}
