@@ -232,7 +232,7 @@ llvm::Function* ModelResources::createGlobalMappingFunction(const char* funcName
 }
 
 
-void ModelResources::loadState(std::istream& in) 
+void ModelResources::loadState(std::istream& in, uint modelGeneratorOpt) 
 {
 	std::string *engineBuilderErrStr = new std::string();
 	symbols = new LLVMModelDataSymbols(in);
@@ -310,43 +310,43 @@ void ModelResources::loadState(std::istream& in)
 	evalConversionFactorPtr = (EvalConversionFactorCodeGen::FunctionPtr)
 		executionEngine->getFunctionAddress("evalConversionFactor");
 
-//	setBoundarySpeciesAmountPtr = (SetBoundarySpeciesAmountCodeGen::FunctionPtr)
-//		executionEngine->getFunctionAddress("setBoundarySpeciesAmount");
-//
-//	setBoundarySpeciesConcentrationPtr = (SetBoundarySpeciesAmountCodeGen::FunctionPtr)
-//		executionEngine->getFunctionAddress("setBoundarySpeciesConcentration");
-//
-//	setFloatingSpeciesConcentrationPtr = (SetBoundarySpeciesAmountCodeGen::FunctionPtr)
-//		executionEngine->getFunctionAddress("setFloatingSpeciesConcentration");
-//
-//	setCompartmentVolumePtr = (SetBoundarySpeciesAmountCodeGen::FunctionPtr)
-//		executionEngine->getFunctionAddress("setCompartmentVolume");
-//
-//	setFloatingSpeciesAmountPtr = (SetBoundarySpeciesAmountCodeGen::FunctionPtr)
-//		executionEngine->getFunctionAddress("setFloatingSpeciesAmount");
-//
-//	setGlobalParameterPtr = (SetGlobalParameterCodeGen::FunctionPtr)
-		//executionEngine->getFunctionAddress("setGlobalParameter");
+	setBoundarySpeciesAmountPtr = (SetBoundarySpeciesAmountCodeGen::FunctionPtr)
+		executionEngine->getFunctionAddress("setBoundarySpeciesAmount");
 
-//	getFloatingSpeciesInitConcentrationsPtr = (GetBoundarySpeciesAmountCodeGen::FunctionPtr)
-//		executionEngine->getFunctionAddress("getFloatingSpeciesInitConcentrations");
-//	setFloatingSpeciesInitConcentrationsPtr = (SetBoundarySpeciesAmountCodeGen::FunctionPtr)
-//		executionEngine->getFunctionAddress("setFloatingSpeciesInitConcentrations");
-//
-//	getFloatingSpeciesInitAmountsPtr = (GetBoundarySpeciesAmountCodeGen::FunctionPtr)
-//		executionEngine->getFunctionAddress("getFloatingSpeciesInitAmounts");
-//	setFloatingSpeciesInitAmountsPtr = (SetBoundarySpeciesAmountCodeGen::FunctionPtr)
-//		executionEngine->getFunctionAddress("setFloatingSpeciesInitAmounts");
-//
-//	getCompartmentInitVolumesPtr = (GetBoundarySpeciesAmountCodeGen::FunctionPtr)
-//		executionEngine->getFunctionAddress("getCompartmentInitVolumes");
-//	setCompartmentInitVolumesPtr = (SetBoundarySpeciesAmountCodeGen::FunctionPtr)
-//		executionEngine->getFunctionAddress("setCompartmentInitVolumes");
-//
-//	getGlobalParameterInitValuePtr = (GetBoundarySpeciesAmountCodeGen::FunctionPtr)
-//		executionEngine->getFunctionAddress("getGlobalParameterInitValue");
-//	setGlobalParameterInitValuePtr = (SetBoundarySpeciesAmountCodeGen::FunctionPtr)
-//		executionEngine->getFunctionAddress("setGlobalParameterInitValue");
+	setBoundarySpeciesConcentrationPtr = (SetBoundarySpeciesAmountCodeGen::FunctionPtr)
+		executionEngine->getFunctionAddress("setBoundarySpeciesConcentration");
+
+	setFloatingSpeciesConcentrationPtr = (SetBoundarySpeciesAmountCodeGen::FunctionPtr)
+		executionEngine->getFunctionAddress("setFloatingSpeciesConcentration");
+
+	setCompartmentVolumePtr = (SetBoundarySpeciesAmountCodeGen::FunctionPtr)
+		executionEngine->getFunctionAddress("setCompartmentVolume");
+
+	setFloatingSpeciesAmountPtr = (SetBoundarySpeciesAmountCodeGen::FunctionPtr)
+		executionEngine->getFunctionAddress("setFloatingSpeciesAmount");
+
+	setGlobalParameterPtr = (SetGlobalParameterCodeGen::FunctionPtr)
+		executionEngine->getFunctionAddress("setGlobalParameter");
+
+	getFloatingSpeciesInitConcentrationsPtr = (GetBoundarySpeciesAmountCodeGen::FunctionPtr)
+		executionEngine->getFunctionAddress("getFloatingSpeciesInitConcentrations");
+	setFloatingSpeciesInitConcentrationsPtr = (SetBoundarySpeciesAmountCodeGen::FunctionPtr)
+		executionEngine->getFunctionAddress("setFloatingSpeciesInitConcentrations");
+
+	getFloatingSpeciesInitAmountsPtr = (GetBoundarySpeciesAmountCodeGen::FunctionPtr)
+		executionEngine->getFunctionAddress("getFloatingSpeciesInitAmounts");
+	setFloatingSpeciesInitAmountsPtr = (SetBoundarySpeciesAmountCodeGen::FunctionPtr)
+		executionEngine->getFunctionAddress("setFloatingSpeciesInitAmounts");
+
+	getCompartmentInitVolumesPtr = (GetBoundarySpeciesAmountCodeGen::FunctionPtr)
+		executionEngine->getFunctionAddress("getCompartmentInitVolumes");
+	setCompartmentInitVolumesPtr = (SetBoundarySpeciesAmountCodeGen::FunctionPtr)
+		executionEngine->getFunctionAddress("setCompartmentInitVolumes");
+
+	getGlobalParameterInitValuePtr = (GetBoundarySpeciesAmountCodeGen::FunctionPtr)
+		executionEngine->getFunctionAddress("getGlobalParameterInitValue");
+	setGlobalParameterInitValuePtr = (SetBoundarySpeciesAmountCodeGen::FunctionPtr)
+		executionEngine->getFunctionAddress("setGlobalParameterInitValue");
 }
 
 

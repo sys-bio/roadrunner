@@ -21,7 +21,7 @@ public:
     ~ModelResources();
 
 	void saveState(std::ostream& out) const;
-	void loadState(std::istream& in);
+	void loadState(std::istream& in, uint loadOpt);
 
     const LLVMModelDataSymbols *symbols;
     llvm::LLVMContext *context;

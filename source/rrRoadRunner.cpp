@@ -4928,7 +4928,6 @@ static void metabolicControlCheck(ExecutableModel *model)
 void RoadRunner::saveState(std::string filename)
 {
 	std::ofstream out(filename, iostream::binary);
-	impl->model->saveState(out);
 	rr::saveBinary(out, impl->mInstanceID);
 	rr::saveBinary(out, impl->mDiffStepSize);
 	rr::saveBinary(out, impl->mSteadyStateThreshold);
@@ -4957,6 +4956,7 @@ void RoadRunner::saveState(std::string filename)
 	rr::saveBinary(out, impl->roadRunnerOptions.jacobianStepSize);
 
 	rr::saveBinary(out, impl->configurationXML);
+	impl->model->saveState(out);
 }
 
 void RoadRunner::saveSelectionVector(std::ostream& out, std::vector<SelectionRecord>& v)
@@ -4975,9 +4975,6 @@ void RoadRunner::saveSelectionVector(std::ostream& out, std::vector<SelectionRec
 void RoadRunner::loadState(std::string filename)
 {
 	std::ifstream in(filename, iostream::binary);
-	if(impl->model)
-		delete impl->model;
-	impl->model = new rrllvm::LLVMExecutableModel(in);
 
     impl->syncAllSolversWithModel(impl->model);
 	rr::loadBinary(in, impl->mInstanceID);
@@ -5008,6 +5005,9 @@ void RoadRunner::loadState(std::string filename)
 	rr::loadBinary(in, impl->roadRunnerOptions.jacobianStepSize);
 
 	rr::loadBinary(in, impl->configurationXML);
+	if(impl->model)
+		delete impl->model;
+	impl->model = new rrllvm::LLVMExecutableModel(in, impl->loadOpt.modelGeneratorOpt);
 }
 
 void RoadRunner::loadSelectionVector(std::istream& in, std::vector<SelectionRecord>& v)

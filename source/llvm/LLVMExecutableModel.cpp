@@ -255,14 +255,14 @@ LLVMExecutableModel::LLVMExecutableModel(
     reset(SelectionRecord::ALL);
 }
 
-LLVMExecutableModel::LLVMExecutableModel(std::istream& in) :
+LLVMExecutableModel::LLVMExecutableModel(std::istream& in, uint modelGeneratorOpt) :
 	resources(new ModelResources()),
 	dirty(0),
 	conversionFactor(1.0),
 	flags(defaultFlags())
 {
 	modelData = LLVMModelData_from_save(in);
-	resources->loadState(in);
+	resources->loadState(in, modelGeneratorOpt);
 	symbols = resources->symbols;
 	eventListeners = std::vector<EventListenerPtr>(modelData->numEvents, EventListenerPtr());
 	eventAssignTimes.resize(modelData->numEvents);
