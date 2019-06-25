@@ -21,6 +21,7 @@
 #include "llvm/ExecutionEngine/SectionMemoryManager.h"
 #include "llvm/Support/DynamicLibrary.h"
 #include "source/llvm/SBMLSupportFunctions.h"
+#include "rrRoadRunnerOptions.h"
 
 using rr::Logger;
 using rr::getLogger;
@@ -310,43 +311,71 @@ void ModelResources::loadState(std::istream& in, uint modelGeneratorOpt)
 	evalConversionFactorPtr = (EvalConversionFactorCodeGen::FunctionPtr)
 		executionEngine->getFunctionAddress("evalConversionFactor");
 
-	setBoundarySpeciesAmountPtr = (SetBoundarySpeciesAmountCodeGen::FunctionPtr)
-		executionEngine->getFunctionAddress("setBoundarySpeciesAmount");
+	if (modelGeneratorOpt & rr::LoadSBMLOptions::READ_ONLY)
+	{
+		setBoundarySpeciesAmountPtr = 0;
+		setBoundarySpeciesConcentrationPtr = 0;
+		setFloatingSpeciesConcentrationPtr = 0;
+		setCompartmentVolumePtr = 0;
+		setFloatingSpeciesAmountPtr = 0;
+		setGlobalParameterPtr = 0;
+	} 
+	else
+	{
 
-	setBoundarySpeciesConcentrationPtr = (SetBoundarySpeciesAmountCodeGen::FunctionPtr)
-		executionEngine->getFunctionAddress("setBoundarySpeciesConcentration");
+		setBoundarySpeciesAmountPtr = (SetBoundarySpeciesAmountCodeGen::FunctionPtr)
+			executionEngine->getFunctionAddress("setBoundarySpeciesAmount");
 
-	setFloatingSpeciesConcentrationPtr = (SetBoundarySpeciesAmountCodeGen::FunctionPtr)
-		executionEngine->getFunctionAddress("setFloatingSpeciesConcentration");
+		setBoundarySpeciesConcentrationPtr = (SetBoundarySpeciesAmountCodeGen::FunctionPtr)
+			executionEngine->getFunctionAddress("setBoundarySpeciesConcentration");
 
-	setCompartmentVolumePtr = (SetBoundarySpeciesAmountCodeGen::FunctionPtr)
-		executionEngine->getFunctionAddress("setCompartmentVolume");
+		setFloatingSpeciesConcentrationPtr = (SetBoundarySpeciesAmountCodeGen::FunctionPtr)
+			executionEngine->getFunctionAddress("setFloatingSpeciesConcentration");
 
-	setFloatingSpeciesAmountPtr = (SetBoundarySpeciesAmountCodeGen::FunctionPtr)
-		executionEngine->getFunctionAddress("setFloatingSpeciesAmount");
+		setCompartmentVolumePtr = (SetBoundarySpeciesAmountCodeGen::FunctionPtr)
+			executionEngine->getFunctionAddress("setCompartmentVolume");
 
-	setGlobalParameterPtr = (SetGlobalParameterCodeGen::FunctionPtr)
-		executionEngine->getFunctionAddress("setGlobalParameter");
+		setFloatingSpeciesAmountPtr = (SetBoundarySpeciesAmountCodeGen::FunctionPtr)
+			executionEngine->getFunctionAddress("setFloatingSpeciesAmount");
 
-	getFloatingSpeciesInitConcentrationsPtr = (GetBoundarySpeciesAmountCodeGen::FunctionPtr)
-		executionEngine->getFunctionAddress("getFloatingSpeciesInitConcentrations");
-	setFloatingSpeciesInitConcentrationsPtr = (SetBoundarySpeciesAmountCodeGen::FunctionPtr)
-		executionEngine->getFunctionAddress("setFloatingSpeciesInitConcentrations");
+		setGlobalParameterPtr = (SetGlobalParameterCodeGen::FunctionPtr)
+			executionEngine->getFunctionAddress("setGlobalParameter");
+	}
+    
+	if (modelGeneratorOpt & rr::LoadSBMLOptions::MUTABLE_INITIAL_CONDITIONS)
+	{
 
-	getFloatingSpeciesInitAmountsPtr = (GetBoundarySpeciesAmountCodeGen::FunctionPtr)
-		executionEngine->getFunctionAddress("getFloatingSpeciesInitAmounts");
-	setFloatingSpeciesInitAmountsPtr = (SetBoundarySpeciesAmountCodeGen::FunctionPtr)
-		executionEngine->getFunctionAddress("setFloatingSpeciesInitAmounts");
+		getFloatingSpeciesInitConcentrationsPtr = (GetBoundarySpeciesAmountCodeGen::FunctionPtr)
+			executionEngine->getFunctionAddress("getFloatingSpeciesInitConcentrations");
+		setFloatingSpeciesInitConcentrationsPtr = (SetBoundarySpeciesAmountCodeGen::FunctionPtr)
+			executionEngine->getFunctionAddress("setFloatingSpeciesInitConcentrations");
 
-	getCompartmentInitVolumesPtr = (GetBoundarySpeciesAmountCodeGen::FunctionPtr)
-		executionEngine->getFunctionAddress("getCompartmentInitVolumes");
-	setCompartmentInitVolumesPtr = (SetBoundarySpeciesAmountCodeGen::FunctionPtr)
-		executionEngine->getFunctionAddress("setCompartmentInitVolumes");
+		getFloatingSpeciesInitAmountsPtr = (GetBoundarySpeciesAmountCodeGen::FunctionPtr)
+			executionEngine->getFunctionAddress("getFloatingSpeciesInitAmounts");
+		setFloatingSpeciesInitAmountsPtr = (SetBoundarySpeciesAmountCodeGen::FunctionPtr)
+			executionEngine->getFunctionAddress("setFloatingSpeciesInitAmounts");
 
-	getGlobalParameterInitValuePtr = (GetBoundarySpeciesAmountCodeGen::FunctionPtr)
-		executionEngine->getFunctionAddress("getGlobalParameterInitValue");
-	setGlobalParameterInitValuePtr = (SetBoundarySpeciesAmountCodeGen::FunctionPtr)
-		executionEngine->getFunctionAddress("setGlobalParameterInitValue");
+		getCompartmentInitVolumesPtr = (GetBoundarySpeciesAmountCodeGen::FunctionPtr)
+			executionEngine->getFunctionAddress("getCompartmentInitVolumes");
+		setCompartmentInitVolumesPtr = (SetBoundarySpeciesAmountCodeGen::FunctionPtr)
+			executionEngine->getFunctionAddress("setCompartmentInitVolumes");
+
+		getGlobalParameterInitValuePtr = (GetBoundarySpeciesAmountCodeGen::FunctionPtr)
+			executionEngine->getFunctionAddress("getGlobalParameterInitValue");
+		setGlobalParameterInitValuePtr = (SetBoundarySpeciesAmountCodeGen::FunctionPtr)
+			executionEngine->getFunctionAddress("setGlobalParameterInitValue");
+	}
+	else 
+	{
+		getFloatingSpeciesInitConcentrationsPtr = 0;
+		setFloatingSpeciesInitConcentrationsPtr = 0;
+		getFloatingSpeciesInitAmountsPtr = 0;
+		setFloatingSpeciesInitAmountsPtr = 0;
+		getCompartmentInitVolumesPtr = 0;
+		setCompartmentInitVolumesPtr = 0;
+		getGlobalParameterInitValuePtr = 0;
+		setGlobalParameterInitValuePtr = 0;
+	}
 }
 
 

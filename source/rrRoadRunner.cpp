@@ -567,7 +567,20 @@ ls::LibStructural* RoadRunner::getLibStruct()
     }
     else
     {
-        throw std::invalid_argument("could not create structural analysis with no loaded sbml");
+		impl->mLS = new ls::LibStructural();
+		double *stoichMat = 0;
+		int rows;
+		int cols;
+		impl->model->getStoichiometryMatrix(&rows, &cols, &stoichMat);
+		if (rows == 1)
+		{
+			stoichMat = 0;
+			impl->model->getStoichiometryMatrix(&rows, &cols, &stoichMat);
+		}
+		ls::DoubleMatrix lsStoichMat(stoichMat, rows, cols, true);
+		impl->mLS->loadStoichiometryMatrix(lsStoichMat);
+		return impl->mLS;
+       // throw std::invalid_argument("could not create structural analysis with no loaded sbml");
     }
 }
 
@@ -2270,7 +2283,10 @@ DoubleMatrix RoadRunner::getFullJacobian()
         }
 
         DoubleMatrix jac = ls::mult(*rsm, uelast);
-
+		if (rsm->numCols() == 2)
+		{
+			std::cout << "yeah";
+		}
         // get the row/column ids, independent floating species
         std::list<std::string> list;
         self.model->getIds(SelectionRecord::FLOATING_AMOUNT, list);
@@ -4955,8 +4971,12 @@ void RoadRunner::saveState(std::string filename)
 	rr::saveBinary(out, impl->roadRunnerOptions.flags);
 	rr::saveBinary(out, impl->roadRunnerOptions.jacobianStepSize);
 
+//	rr::saveBinary(out, impl->mLS->)
+
 	rr::saveBinary(out, impl->configurationXML);
 	impl->model->saveState(out);
+	
+	rr::saveBinary(out, impl->mCurrentSBML);
 }
 
 void RoadRunner::saveSelectionVector(std::ostream& out, std::vector<SelectionRecord>& v)
@@ -4976,7 +4996,6 @@ void RoadRunner::loadState(std::string filename)
 {
 	std::ifstream in(filename, iostream::binary);
 
-    impl->syncAllSolversWithModel(impl->model);
 	rr::loadBinary(in, impl->mInstanceID);
 	rr::loadBinary(in, impl->mDiffStepSize);
 	rr::loadBinary(in, impl->mSteadyStateThreshold);
@@ -5008,6 +5027,9 @@ void RoadRunner::loadState(std::string filename)
 	if(impl->model)
 		delete impl->model;
 	impl->model = new rrllvm::LLVMExecutableModel(in, impl->loadOpt.modelGeneratorOpt);
+    impl->syncAllSolversWithModel(impl->model);
+
+	rr::loadBinary(in, impl->mCurrentSBML);
 }
 
 void RoadRunner::loadSelectionVector(std::istream& in, std::vector<SelectionRecord>& v)

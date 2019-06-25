@@ -626,11 +626,11 @@ RRCDataPtr rrcCallConv simulate(RRHandle handle)
 	start_try
 		RoadRunner* rri = castToRoadRunner(handle);
 
-		rri->saveState("D:/rr/test-save-state.rr");
+		rri->saveState("C:/rr/test-save-state.rr");
 		auto rr1 = rri->getReactionRates();
 		rri = castToRoadRunner(createRRInstance());
-		rri->loadState("D:/rr/test-save-state.rr");
-		//rri->saveState("D:/rr/test-save-state2.rr");
+		rri->loadState("C:/rr/test-save-state.rr");
+		//rri->saveState("C:/rr/test-save-state2.rr");
 		auto rr2 = rri->getReactionRates();
         rri->simulate();
 
