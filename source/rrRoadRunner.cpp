@@ -1804,6 +1804,7 @@ const DoubleMatrix* RoadRunner::simulate(const Dictionary* dict)
                 // value.
                 tout = timeStart + i * hstep;
                 getSelectedValues(self.simulationResult, i, tout);
+				//std::cout << "simulationResult[" << i << "]" << self.simulationResult[i] << std::endl;
             }
         }
         catch (EventListenerException& e)
@@ -4954,7 +4955,14 @@ void RoadRunner::saveState(std::string filename)
 	rr::saveBinary(out, impl->loadOpt.size);
 	rr::saveBinary(out, impl->loadOpt.modelGeneratorOpt);
 	rr::saveBinary(out, impl->loadOpt.loadFlags);
+    
+	/*rr::saveBinary(out, impl->loadOpt.getKeys().size());
 
+	for (std::string k : impl->loadOpt.getKeys())
+	{
+		rr::saveBinary(out, k);
+		rr::saveBinary(out, impl->loadOpt.getItem(k));
+	}*/
 
 	saveSelectionVector(out, impl->mSteadyStateSelection);
 
@@ -4967,6 +4975,14 @@ void RoadRunner::saveState(std::string filename)
 	rr::saveBinary(out, impl->simulateOpt.variables);
 	rr::saveBinary(out, impl->simulateOpt.amounts);
 	rr::saveBinary(out, impl->simulateOpt.concentrations);
+
+/*	rr::saveBinary(out, impl->simulateOpt.getKeys().size());
+
+	/*for (std::string k : impl->simulateOpt.getKeys())
+	{
+		rr::saveBinary(out, k);
+		rr::saveBinary(out, impl->simulateOpt.getItem(k));
+	}*/
 
 	rr::saveBinary(out, impl->roadRunnerOptions.flags);
 	rr::saveBinary(out, impl->roadRunnerOptions.jacobianStepSize);
@@ -5006,6 +5022,9 @@ void RoadRunner::loadState(std::string filename)
 	rr::loadBinary(in, impl->loadOpt.size);
 	rr::loadBinary(in, impl->loadOpt.modelGeneratorOpt);
 	rr::loadBinary(in, impl->loadOpt.loadFlags);
+	impl->loadOpt.setItem("tempDir", "");
+	impl->loadOpt.setItem("compiler", "LLVM");
+	impl->loadOpt.setItem("supportCodeDir", "");
 
 
 	loadSelectionVector(in, impl->mSteadyStateSelection);
@@ -5028,6 +5047,7 @@ void RoadRunner::loadState(std::string filename)
 		delete impl->model;
 	impl->model = new rrllvm::LLVMExecutableModel(in, impl->loadOpt.modelGeneratorOpt);
     impl->syncAllSolversWithModel(impl->model);
+	reset();
 
 	rr::loadBinary(in, impl->mCurrentSBML);
 }

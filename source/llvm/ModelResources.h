@@ -26,7 +26,7 @@ public:
     const LLVMModelDataSymbols *symbols;
     llvm::LLVMContext *context;
     llvm::ExecutionEngine *executionEngine;
-	std::unique_ptr<llvm::Module> module;
+	llvm::Module *module;
     const class Random *random;
     const std::string *errStr;
 

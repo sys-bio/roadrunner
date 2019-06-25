@@ -48,7 +48,7 @@ ModelResources::~ModelResources()
 
 //    delete symbols;
     // the exe engine owns all the functions
-	module.release();
+	//module.release();
     delete executionEngine;
     delete context;
     delete random;
@@ -82,147 +82,147 @@ void ModelResources::addGlobalMappings()
 
 	llvm::sys::DynamicLibrary::LoadLibraryPermanently(nullptr);
 
-    addGlobalMapping(ModelDataIRBuilder::getCSRMatrixSetNZDecl(module.get()), (void*)rr::csr_matrix_set_nz);
-    addGlobalMapping(ModelDataIRBuilder::getCSRMatrixGetNZDecl(module.get()), (void*)rr::csr_matrix_get_nz);
-   // addGlobalMapping(LLVMModelDataIRBuilderTesting::getDispIntDecl(module.get()), (void*)rrllvm::dispInt);
-    //addGlobalMapping(LLVMModelDataIRBuilderTesting::getDispDoubleDecl(module.get()), (void*)rrllvm::dispDouble);
-    //addGlobalMapping(LLVMModelDataIRBuilderTesting::getDispCharDecl(module.get()), (void*)rrllvm:dispChar);
+    addGlobalMapping(ModelDataIRBuilder::getCSRMatrixSetNZDecl(module), (void*)rr::csr_matrix_set_nz);
+    addGlobalMapping(ModelDataIRBuilder::getCSRMatrixGetNZDecl(module), (void*)rr::csr_matrix_get_nz);
+   // addGlobalMapping(LLVMModelDataIRBuilderTesting::getDispIntDecl(module), (void*)rrllvm::dispInt);
+    //addGlobalMapping(LLVMModelDataIRBuilderTesting::getDispDoubleDecl(module), (void*)rrllvm::dispDouble);
+    //addGlobalMapping(LLVMModelDataIRBuilderTesting::getDispCharDecl(module), (void*)rrllvm:dispChar);
 
     // AST_FUNCTION_ARCCOT:
 	llvm::RTDyldMemoryManager::getSymbolAddressInProcess("arccot");
     addGlobalMapping(
             createGlobalMappingFunction("arccot", 
-                FunctionType::get(double_type, args_d1, false), module.get()),
+                FunctionType::get(double_type, args_d1, false), module),
 			        (void*) sbmlsupport::arccot);
 
     addGlobalMapping(
             createGlobalMappingFunction("rr_arccot_negzero",
-                    FunctionType::get(double_type, args_d1, false), module.get()),
+                    FunctionType::get(double_type, args_d1, false), module),
                         (void*) sbmlsupport::arccot_negzero);
 
     // AST_FUNCTION_ARCCOTH:
     addGlobalMapping(
             createGlobalMappingFunction("arccoth",
-                    FunctionType::get(double_type, args_d1, false), module.get()),
+                    FunctionType::get(double_type, args_d1, false), module),
                         (void*) sbmlsupport::arccoth);
 
     // AST_FUNCTION_ARCCSC:
     addGlobalMapping(
             createGlobalMappingFunction("arccsc",
-                    FunctionType::get(double_type, args_d1, false), module.get()),
+                    FunctionType::get(double_type, args_d1, false), module),
                         (void*) sbmlsupport::arccsc);
 
     // AST_FUNCTION_ARCCSCH:
     addGlobalMapping(
             createGlobalMappingFunction("arccsch",
-                    FunctionType::get(double_type, args_d1, false), module.get()),
+                    FunctionType::get(double_type, args_d1, false), module),
                         (void*) sbmlsupport::arccsch);
 
     // AST_FUNCTION_ARCSEC:
     addGlobalMapping(
             createGlobalMappingFunction("arcsec",
-                    FunctionType::get(double_type, args_d1, false), module.get()),
+                    FunctionType::get(double_type, args_d1, false), module),
                         (void*) sbmlsupport::arcsec);
 
     // AST_FUNCTION_ARCSECH:
     addGlobalMapping(
             createGlobalMappingFunction("arcsech",
-                    FunctionType::get(double_type, args_d1, false), module.get()),
+                    FunctionType::get(double_type, args_d1, false), module),
                         (void*) sbmlsupport::arcsech);
 
     // AST_FUNCTION_COT:
     addGlobalMapping(
             createGlobalMappingFunction("cot",
-                    FunctionType::get(double_type, args_d1, false), module.get()),
+                    FunctionType::get(double_type, args_d1, false), module),
                         (void*) sbmlsupport::cot);
 
     // AST_FUNCTION_COTH:
     addGlobalMapping(
             createGlobalMappingFunction("coth",
-                    FunctionType::get(double_type, args_d1, false), module.get()),
+                    FunctionType::get(double_type, args_d1, false), module),
                         (void*) sbmlsupport::coth);
 
     // AST_FUNCTION_CSC:
     addGlobalMapping(
             createGlobalMappingFunction("csc",
-                    FunctionType::get(double_type, args_d1, false), module.get()),
+                    FunctionType::get(double_type, args_d1, false), module),
                         (void*) sbmlsupport::csc);
 
     // AST_FUNCTION_CSCH:
     addGlobalMapping(
             createGlobalMappingFunction("csch",
-                    FunctionType::get(double_type, args_d1, false), module.get()),
+                    FunctionType::get(double_type, args_d1, false), module),
                         (void*) sbmlsupport::csch);
 
     // AST_FUNCTION_FACTORIAL:
     addGlobalMapping(
             createGlobalMappingFunction("rr_factoriali",
-                    FunctionType::get(int_type, args_i1, false), module.get()),
+                    FunctionType::get(int_type, args_i1, false), module),
                         (void*) sbmlsupport::factoriali);
 
     addGlobalMapping(
             createGlobalMappingFunction("rr_factoriald",
-                    FunctionType::get(double_type, args_d1, false), module.get()),
+                    FunctionType::get(double_type, args_d1, false), module),
                         (void*) sbmlsupport::factoriald);
 
     // AST_FUNCTION_LOG:
     addGlobalMapping(
             createGlobalMappingFunction("rr_logd",
-                    FunctionType::get(double_type, args_d2, false), module.get()),
+                    FunctionType::get(double_type, args_d2, false), module),
                         (void*) sbmlsupport::logd);
 
     // AST_FUNCTION_ROOT:
     addGlobalMapping(
             createGlobalMappingFunction("rr_rootd",
-                    FunctionType::get(double_type, args_d2, false), module.get()),
+                    FunctionType::get(double_type, args_d2, false), module),
                         (void*) sbmlsupport::rootd);
 
     // AST_FUNCTION_SEC:
     addGlobalMapping(
             createGlobalMappingFunction("sec",
-                    FunctionType::get(double_type, args_d1, false), module.get()),
+                    FunctionType::get(double_type, args_d1, false), module),
                         (void*) sbmlsupport::sec);
 
     // AST_FUNCTION_SECH:
     addGlobalMapping(
             createGlobalMappingFunction("sech",
-                    FunctionType::get(double_type, args_d1, false), module.get()),
+                    FunctionType::get(double_type, args_d1, false), module),
                         (void*) sbmlsupport::sech);
 
     // AST_FUNCTION_ARCCOSH:
     addGlobalMapping(
             createGlobalMappingFunction("arccosh",
-                    FunctionType::get(double_type, args_d1, false), module.get()),
+                    FunctionType::get(double_type, args_d1, false), module),
                         (void*)static_cast<double (*)(double)>(acosh));
 
     // AST_FUNCTION_ARCSINH:
     addGlobalMapping(
             createGlobalMappingFunction("arcsinh",
-                    FunctionType::get(double_type, args_d1, false), module.get()),
+                    FunctionType::get(double_type, args_d1, false), module),
                         (void*)static_cast<double (*)(double)>(asinh));
 
     // AST_FUNCTION_ARCTANH:
     addGlobalMapping(
             createGlobalMappingFunction("arctanh",
-                    FunctionType::get(double_type, args_d1, false), module.get()),
+                    FunctionType::get(double_type, args_d1, false), module),
                         (void*)static_cast<double (*)(double)>(atanh));
 
     // AST_FUNCTION_QUOTIENT:
     executionEngine->addGlobalMapping(
             createGlobalMappingFunction("quotient",
-                    FunctionType::get(double_type, args_d2, false), module.get()),
+                    FunctionType::get(double_type, args_d2, false), module),
                         (void*)sbmlsupport::quotient);
 
     // AST_FUNCTION_MAX:
     executionEngine->addGlobalMapping(
         createGlobalMappingFunction("rr_max",
-            FunctionType::get(double_type, args_d2, false), module.get()),
+            FunctionType::get(double_type, args_d2, false), module),
             (void*) sbmlsupport::max);
 
     // AST_FUNCTION_MIN:
     executionEngine->addGlobalMapping(
         createGlobalMappingFunction("rr_min",
-            FunctionType::get(double_type, args_d2, false), module.get()),
+            FunctionType::get(double_type, args_d2, false), module),
             (void*) sbmlsupport::min);
 }
 
@@ -243,7 +243,7 @@ void ModelResources::loadState(std::istream& in, uint modelGeneratorOpt)
 	auto memBuffer(llvm::MemoryBuffer::getMemBuffer(moduleStr));
 	//auto expected = llvm::parseBitcodeFile(*memBuffer, *context);
 	llvm::SMDiagnostic sm;
-	module = llvm::parseIR(*memBuffer, sm, *context);
+	module = llvm::parseIR(*memBuffer, sm, *context).release();
 	llvm::Function* f = module->getFunction("evalInitialConditions");
 	llvm::StructType *structType = module->getTypeByName("rr_LLVMModelData");
 	auto emptyModule = std::unique_ptr<llvm::Module>(new llvm::Module("Module test", *context));
@@ -256,7 +256,8 @@ void ModelResources::loadState(std::istream& in, uint modelGeneratorOpt)
 
 	executionEngine = engineBuilder.create();
 	addGlobalMappings();
-	executionEngine->addModule(std::move(module));
+	llvm::Module* tempModule = module;
+	executionEngine->addModule(std::unique_ptr<llvm::Module>(tempModule));
 	//llvm::Function *f2 = module->getFunction("rr_csr_matrix_set_nz");
 	//llvm::sys::DynamicLibrary::AddSymbol(f2->getName(), (void*)rr::csr_matrix_set_nz);
 	//executionEngine->addGlobalMapping(f2, (void*)rr::csr_matrix_set_nz);
@@ -310,6 +311,7 @@ void ModelResources::loadState(std::istream& in, uint modelGeneratorOpt)
 
 	evalConversionFactorPtr = (EvalConversionFactorCodeGen::FunctionPtr)
 		executionEngine->getFunctionAddress("evalConversionFactor");
+	
 
 	if (modelGeneratorOpt & rr::LoadSBMLOptions::READ_ONLY)
 	{

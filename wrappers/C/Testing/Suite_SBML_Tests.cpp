@@ -87,9 +87,9 @@ SUITE(SBML_TEST_SUITE)
  TEST(67) { CHECK(RunTest("l2v4", 67)); }
  TEST(68) { CHECK(RunTest("l2v4", 68)); }
  TEST(69) { CHECK(RunTest("l2v4", 69)); }
- TEST(70) { CHECK(RunTest("l2v4", 70)); }
+ TEST(70) { CHECK(RunTest("l2v4", 70)); }*/
  TEST(71) { CHECK(RunTest("l2v4", 71)); }
- TEST(72) { CHECK(RunTest("l2v4", 72)); }
+ /*TEST(72) { CHECK(RunTest("l2v4", 72)); }
  TEST(73) { CHECK(RunTest("l2v4", 73)); }
  TEST(74) { CHECK(RunTest("l2v4", 74)); }
  TEST(75) { CHECK(RunTest("l2v4", 75)); }
