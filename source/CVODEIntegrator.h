@@ -209,6 +209,12 @@ namespace rr
          */
         void checkType() const;
 
+		/**
+		* @author FY
+		* @brief Does a RT type check which throws if it fails, EVEN IF RTTI IS DISABLED
+		*/
+		void checkVectorSize(int expected, int real) const;
+
         /**
          * @brief decode the cvode error code to a string
          */

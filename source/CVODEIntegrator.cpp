@@ -91,6 +91,11 @@ namespace rr
             throw std::runtime_error("CVODEIntegrator::checkType failed, memory bug");
     }
 
+	void CVODEIntegrator::checkVectorSize(int expected, int real) const {
+		if (expected != real)  
+			throw std::runtime_error("CVODEIntegrator::checkVectorSize failed, real size is " + std::to_string(real) + ", whereas expected size is " + std::to_string(expected));
+	}
+
     void CVODEIntegrator::resetSettings()
     {
         Solver::resetSettings();
@@ -347,23 +352,84 @@ namespace rr
 		}
 
 		// update the tolerance
-		Integrator::setValue("absolute_tolerance", v);
-		setCVODETolerances();
+		CVODEIntegrator::setValue("absolute_tolerance", v);
 	}
 
 	void CVODEIntegrator::setConcentrationTolerance(const Variant& value) {
-
 		// update the tolerance
-
-		Integrator::setValue("absolute_tolerance", convertTolerances(value));
-		setCVODETolerances();
+		CVODEIntegrator::setValue("absolute_tolerance", convertTolerances(value));
 	}
 
+	vector<double> CVODEIntegrator::convertTolerances(const Variant& value)
+	{
+		uint ncomp = mModel->getNumCompartments();
 
+		double* volumes = (double*)calloc(ncomp, sizeof(double));
+		mModel->getCompartmentVolumes(ncomp, 0, volumes);
+
+		// the tolerance vector that will be stored
+		vector<double> v;
+
+		switch (value.type()) {
+
+		case Variant::TypeId::DOUBLE:
+		{
+			// scalar concentration tolerance
+			// need to be converted to vector tolerance since speices have various compartment sizes
+			double abstol = value.convert<double>();
+
+			for (int i = 0; i < mModel->getNumFloatingSpecies(); i++) {
+				// get the compartment volume of each species
+				int index = mModel->getCompartmentIndexForFloatingSpecies(i);
+				if (volumes[index] == 0) {
+					// when the compartment volume is 0, simply set the amount tolerance as the volume tolerance
+					// since the tolerance cannot be 0 (ILLEGAL_INPUT)
+					v.push_back(abstol);
+				}
+				else {
+					// compare the concentration tolerance with the adjusted amount tolerace
+					// store whichever is smaller
+					v.push_back(std::min(abstol, abstol * volumes[index]));
+				}
+			}
+
+			break;
+		}
+
+		case Variant::TypeId::DOUBLEVECTOR:
+		{
+			// vector tolerance
+			v = value.convert<vector<double>>();
+
+			for (int i = 0; i < v.size(); i++) {
+				// get the compartment volume of each species
+				int index = mModel->getCompartmentIndexForFloatingSpecies(i);
+
+				if (volumes[index] > 0) {
+					// compare the concentration tolerance with the adjusted amount tolerace
+					// store whichever is smaller
+					v[i] = std::min(v[i], v[i] * volumes[index]);
+				}
+			}
+			break;
+		}
+
+		default:
+			break;
+		}
+
+		return v;
+		// TODO: add log
+	}
 
 
 	void CVODEIntegrator::setValue(string key, const Variant& val)
 	{
+		// if vector tolerance is set, the size of vector must be equal to 
+		// the number of floating species
+		if (key == "absolute_tolerance" && val.type == Variant::TypeId::DOUBLEVECTOR)
+			checkVectorSize(mModel->getNumFloatingSpecies(), val.convert<vector<double>>().size);
+
 		Integrator::setValue(key, val);
 		
 		/// Values and keys are stored in the settings map, which is updated
@@ -658,69 +724,6 @@ namespace rr
 		Log(Logger::LOG_INFORMATION) << "tweaking CVODE tolerances to abs=" << CVODEIntegrator::getValueAsDouble("absolute_tolerance") << ", rel=" << CVODEIntegrator::getValueAsDouble("relative_tolerance");
 	}
 
-	vector<double> CVODEIntegrator::convertTolerances(const Variant& value)
-	{
-		
-		uint ncomp = mModel->getNumCompartments();
-
-		double* volumes = (double*)calloc(ncomp, sizeof(double));
-		mModel->getCompartmentVolumes(ncomp, 0, volumes);
-
-		// the tolerance vector that will be stored
-		vector<double> v;
-
-		switch (value.type()) {
-			
-			case Variant::TypeId::DOUBLE:
-			{
-				// scalar concentration tolerance
-				// need to be converted to vector tolerance since speices have various compartment sizes
-				double abstol = value.convert<double>();
-
-				for (int i = 0; i < mModel->getNumFloatingSpecies(); i++) {
-					// get the compartment volume of each species
-					int index = mModel->getCompartmentIndexForFloatingSpecies(i);
-					if (volumes[index] == 0) {
-						// when the compartment volume is 0, simply set the amount tolerance as the volume tolerance
-						// since the tolerance cannot be 0 (ILLEGAL_INPUT)
-						v.push_back(abstol);
-					}
-					else {
-						// compare the concentration tolerance with the adjusted amount tolerace
-						// store whichever is smaller
-						v.push_back(std::min(abstol, abstol * volumes[index]));
-					}
-				}
-
-				break;
-			}
-				
-			case Variant::TypeId::DOUBLEVECTOR:
-			{
-				// vector tolerance
-				v = value.convert<vector<double>>();
-
-				for (int i = 0; i < v.size(); i++) {
-					// get the compartment volume of each species
-					int index = mModel->getCompartmentIndexForFloatingSpecies(i);
-
-					if (volumes[index] > 0) {
-						// compare the concentration tolerance with the adjusted amount tolerace
-						// store whichever is smaller
-						v[i] = std::min(v[i], v[i] * volumes[index]);
-					}
-				}
-				break;
-			}
-
-			default:
-				break;
-		}
-
-		return v;
-
-		// TODO: add log
-	}
 
 	bool CVODEIntegrator::haveVariables()
 	{
