@@ -88,7 +88,7 @@ SUITE(SBML_TEST_SUITE)
  TEST(68) { CHECK(RunTest("l2v4", 68)); }
  TEST(69) { CHECK(RunTest("l2v4", 69)); }
  TEST(70) { CHECK(RunTest("l2v4", 70)); }*/
- TEST(71) { CHECK(RunTest("l2v4", 71)); }
+ //TEST(71) { CHECK(RunTest("l2v4", 71)); }
  /*TEST(72) { CHECK(RunTest("l2v4", 72)); }
  TEST(73) { CHECK(RunTest("l2v4", 73)); }
  TEST(74) { CHECK(RunTest("l2v4", 74)); }
@@ -189,9 +189,9 @@ SUITE(SBML_TEST_SUITE)
  TEST(169) { CHECK(RunTest("l2v4", 169)); }
  TEST(170) { CHECK(RunTest("l2v4", 170)); }
  TEST(171) { CHECK(RunTest("l2v4", 171)); }
- TEST(172) { CHECK(RunTest("l2v4", 172)); }
+ TEST(172) { CHECK(RunTest("l2v4", 172)); }*/
  TEST(173) { CHECK(RunTest("l2v4", 173)); }
- TEST(174) { CHECK(RunTest("l2v4", 174)); }
+ /*TEST(174) { CHECK(RunTest("l2v4", 174)); }
  TEST(175) { CHECK(RunTest("l2v4", 175)); }
  TEST(176) { CHECK(RunTest("l2v4", 176)); }
  TEST(177) { CHECK(RunTest("l2v4", 177)); }
@@ -285,9 +285,9 @@ SUITE(SBML_TEST_SUITE)
  TEST(265) { CHECK(RunTest("l2v4", 265)); }
  TEST(266) { CHECK(RunTest("l2v4", 266)); }
  TEST(267) { CHECK(RunTest("l2v4", 267)); }
- TEST(268) { CHECK(RunTest("l2v4", 268)); }
+ TEST(268) { CHECK(RunTest("l2v4", 268)); }*/
  TEST(269) { CHECK(RunTest("l2v4", 269)); }
- TEST(270) { CHECK(RunTest("l2v4", 270)); }
+ /*TEST(270) { CHECK(RunTest("l2v4", 270)); }
  TEST(271) { CHECK(RunTest("l2v4", 271)); }
  TEST(272) { CHECK(RunTest("l2v4", 272)); }
  TEST(273) { CHECK(RunTest("l2v4", 273)); }
@@ -974,8 +974,8 @@ TEST(953) { CHECK(RunTest("l3v1", 953)); }
 TEST(954) { CHECK(RunTest("l2v4", 954)); }
 TEST(955) { CHECK(RunTest("l2v4", 955)); }
 TEST(956) { CHECK(RunTest("l2v4", 956)); }
-TEST(957) { CHECK(RunTest("l2v4", 957)); }
-TEST(958) { CHECK(RunTest("l2v4", 958)); }
+*/TEST(957) { CHECK(RunTest("l2v4", 957)); }
+TEST(958) { CHECK(RunTest("l2v4", 958)); }/*
 TEST(959) { CHECK(RunTest("l2v4", 959)); }
 TEST(960) { CHECK(RunTest("l3v1", 960)); }
 TEST(961) { CHECK(RunTest("l3v1", 961)); }
@@ -1137,8 +1137,8 @@ TEST(1114) { CHECK(RunTest("l3v1", 1114 )); }
 TEST(1115) { CHECK(RunTest("l3v1", 1115 )); }
 TEST(1116) { CHECK(RunTest("l3v1", 1116 )); }
 TEST(1117) { CHECK(RunTest("l3v1", 1117 )); }
-TEST(1118) { CHECK(RunTest("l3v1", 1118 )); }
-TEST(1119) { CHECK(RunTest("l3v1", 1119 )); }
+TEST(1118) { CHECK(RunTest("l3v1", 1118 )); }*/
+/*TEST(1119) { CHECK(RunTest("l3v1", 1119 )); }
 TEST(1120) { CHECK(RunTest("l3v1", 1120 )); }
 TEST(1121) { CHECK(RunTest("l3v1", 1121 )); }
 TEST(1122) { CHECK(RunTest("l3v1", 1122 )); }

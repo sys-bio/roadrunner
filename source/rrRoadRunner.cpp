@@ -567,20 +567,20 @@ ls::LibStructural* RoadRunner::getLibStruct()
     }
     else
     {
-		impl->mLS = new ls::LibStructural();
-		double *stoichMat = 0;
-		int rows;
-		int cols;
-		impl->model->getStoichiometryMatrix(&rows, &cols, &stoichMat);
-		if (rows == 1)
-		{
-			stoichMat = 0;
-			impl->model->getStoichiometryMatrix(&rows, &cols, &stoichMat);
-		}
-		ls::DoubleMatrix lsStoichMat(stoichMat, rows, cols, true);
-		impl->mLS->loadStoichiometryMatrix(lsStoichMat);
-		return impl->mLS;
-       // throw std::invalid_argument("could not create structural analysis with no loaded sbml");
+		//impl->mLS = new ls::LibStructural();
+		//double *stoichMat = 0;
+		//int rows;
+		//int cols;
+		//impl->model->getStoichiometryMatrix(&rows, &cols, &stoichMat);
+		//if (rows == 1)
+		//{
+		//	stoichMat = 0;
+		//	impl->model->getStoichiometryMatrix(&rows, &cols, &stoichMat);
+		//}
+		//ls::DoubleMatrix lsStoichMat(stoichMat, rows, cols, true);
+		//impl->mLS->loadStoichiometryMatrix(lsStoichMat);
+		//return impl->mLS;
+        throw std::invalid_argument("could not create structural analysis with no loaded sbml");
     }
 }
 
@@ -1796,6 +1796,10 @@ const DoubleMatrix* RoadRunner::simulate(const Dictionary* dict)
             for (int i = 1; i < self.simulateOpt.steps + 1; i++)
             {
                 Log(Logger::LOG_DEBUG)<<"Step "<<i;
+				if (i == 7)
+				{
+					std::cout << "here";
+				}
                 double itime = self.integrator->integrate(tout, hstep);
 
                 // the test suite is extremly sensetive to time differences,
@@ -1804,7 +1808,6 @@ const DoubleMatrix* RoadRunner::simulate(const Dictionary* dict)
                 // value.
                 tout = timeStart + i * hstep;
                 getSelectedValues(self.simulationResult, i, tout);
-				//std::cout << "simulationResult[" << i << "]" << self.simulationResult[i] << std::endl;
             }
         }
         catch (EventListenerException& e)
@@ -4992,6 +4995,13 @@ void RoadRunner::saveState(std::string filename)
 	rr::saveBinary(out, impl->configurationXML);
 	impl->model->saveState(out);
 	
+	//auto libStruct = getLibStruct();
+	//ls::DoubleMatrix *stoichMat = libStruct->getStoichiometryMatrix();
+	//int cols = stoichMat->numCols();
+	//int rows = stoichMat->numRows();
+	//rr::saveBinary(out, rows);
+	//rr::saveBinary(out, cols);
+	//out.write((char*)stoichMat->getArray(), cols*rows*sizeof(double));
 	rr::saveBinary(out, impl->mCurrentSBML);
 }
 
@@ -5047,8 +5057,20 @@ void RoadRunner::loadState(std::string filename)
 		delete impl->model;
 	impl->model = new rrllvm::LLVMExecutableModel(in, impl->loadOpt.modelGeneratorOpt);
     impl->syncAllSolversWithModel(impl->model);
-	reset();
 
+	if (impl->mLS)
+		delete impl->mLS;
+	//impl->mLS = new ls::LibStructural();
+	//int rows;
+	//int cols;
+	//rr::loadBinary(in, rows);
+	//rr::loadBinary(in, cols);
+	//double *matrixArray = new double[rows*cols];
+	//in.read((char*)matrixArray, rows*cols*sizeof(double));
+	//ls::DoubleMatrix lsStoichMat(matrixArray, rows, cols);
+	//impl->mLS->loadStoichiometryMatrix(lsStoichMat);
+	//impl->mLS->analyzeWithQR();
+	//reset();
 	rr::loadBinary(in, impl->mCurrentSBML);
 }
 

@@ -630,7 +630,7 @@ RRCDataPtr rrcCallConv simulate(RRHandle handle)
 		auto rriOriginal = rri;
 		rri = castToRoadRunner(createRRInstance());
 		rri->loadState("C:/rr/test-save-state.rr");
-		rri->saveState("C:/rr/test-save-state2.rr");
+		//rri->saveState("C:/rr/test-save-state2.rr");
         rri->simulate();
 
         return createRRCData(*rri);
