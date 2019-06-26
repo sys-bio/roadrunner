@@ -317,7 +317,6 @@ To see a list of these settings, use :meth:`~roadrunner.Solver.getSettings()` on
   >>>  r.getIntegrator().getSettings()
   ('relative_tolerance',
   'absolute_tolerance',
-  'absolute_concentration_tolerance',
   'stiff',
   'maximum_bdf_order',
   'maximum_adams_order',
