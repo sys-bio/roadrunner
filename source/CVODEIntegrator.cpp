@@ -96,6 +96,11 @@ namespace rr
 			throw std::runtime_error("CVODEIntegrator::checkVectorSize failed, real size is " + std::to_string(real) + ", whereas expected size is " + std::to_string(expected));
 	}
 
+	void CVODEIntegrator::checkIndex(int index, int size) const {
+		if (index < 0 || index >= size)
+			throw std::runtime_error("CVODEIntegrator::checkIndex failed, index " + std::to_string(index) + "out of bound");
+	}
+
     void CVODEIntegrator::resetSettings()
     {
         Solver::resetSettings();
@@ -323,6 +328,9 @@ namespace rr
 
 		// the tolerance vector that will be stored
 		vector<double> v;
+
+		// check if index is valid
+		checkIndex(index, mModel->getNumFloatingSpecies());
 		
 		switch (getType("absolute_tolerance")) {
 

@@ -211,9 +211,15 @@ namespace rr
 
 		/**
 		* @author FY
-		* @brief Does a RT type check which throws if it fails, EVEN IF RTTI IS DISABLED
+		* @brief Does a size check which throws if it fails
 		*/
 		void checkVectorSize(int expected, int real) const;
+
+		/**
+		* @author FY
+		* @brief Does a index check which throws if it is out of bound
+		*/
+		void checkIndex(int index, int size) const;
 
         /**
          * @brief decode the cvode error code to a string
