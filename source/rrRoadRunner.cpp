@@ -1592,7 +1592,6 @@ const DoubleMatrix* RoadRunner::simulate(const Dictionary* dict)
 
     // evalute the model with its current state
     self.model->getStateVectorRate(timeStart, 0, 0);
-
     // Variable Time Step Integration
     if (self.integrator->hasValue("variable_step_size") && self.integrator->getValueAsBool("variable_step_size"))
     {
@@ -2000,7 +1999,6 @@ DoubleMatrix RoadRunner::getRatesOfChangeNamedArray()
 
     impl->model->getStateVector(ssv);
     impl->model->getStateVectorRate(impl->model->getTime(), ssv, vals);
-
     if (getConservedMoietyAnalysis())
     {
         LibStructural *ls = getLibStruct();
@@ -4947,6 +4945,7 @@ static void metabolicControlCheck(ExecutableModel *model)
 
 void RoadRunner::saveState(std::string filename)
 {
+	//std::cout << impl->integrator->toString() << std::endl;
 	std::ofstream out(filename, iostream::binary);
 	rr::saveBinary(out, impl->mInstanceID);
 	rr::saveBinary(out, impl->mDiffStepSize);
@@ -5002,6 +5001,7 @@ void RoadRunner::saveState(std::string filename)
 	//rr::saveBinary(out, rows);
 	//rr::saveBinary(out, cols);
 	//out.write((char*)stoichMat->getArray(), cols*rows*sizeof(double));
+    rr::saveBinary(out, (bool)impl->integrator->getValue("stiff"));
 	rr::saveBinary(out, impl->mCurrentSBML);
 }
 
@@ -5071,7 +5071,16 @@ void RoadRunner::loadState(std::string filename)
 	//impl->mLS->loadStoichiometryMatrix(lsStoichMat);
 	//impl->mLS->analyzeWithQR();
 	//reset();
+	bool stiff;
+	rr::loadBinary(in, stiff);
+	impl->integrator->setValue("stiff", stiff);
 	rr::loadBinary(in, impl->mCurrentSBML);
+	//setIntegrator("cvode");
+	//impl->integrator->restart(0.0);
+	//std::cout << impl->integrator->toString() << std::endl;
+	//std::cout << "stiff: " << (bool)impl->integrator->getValue("stiff") << std::endl;
+
+	//std::cout << "stiff: " << (bool)impl->integrator->getValue("stiff") << std::endl;
 }
 
 void RoadRunner::loadSelectionVector(std::istream& in, std::vector<SelectionRecord>& v)

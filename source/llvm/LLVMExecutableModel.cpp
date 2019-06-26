@@ -442,27 +442,26 @@ void LLVMExecutableModel::getStateVectorRate(double time, const double *y, doubl
         modelData->rateRuleRates = 0;
     }
 
-    /*
-    if (Logger::LOG_PRIO_TRACE <= rr::Logger::LOG_GetLogLevel()) {
+    
+    if (false) {
 
-        LoggingBuffer log(Logger::LOG_PRIO_TRACE, __FILE__, __LINE__);
 
-        log.stream() << __FUNC__ << endl;
-        log.stream() << "y: ";
+        std::cout << __FUNC__ << endl;
+        std::cout << "y: ";
         if (y) {
-            dump_array(log.stream(), modelData->numRateRules + modelData->numFloatingSpecies, y);
+            dump_array(std::cout, modelData->numRateRules + modelData->numIndFloatingSpecies, y);
         } else {
-            log.stream() << "null";
+            std::cout << "null";
         }
-        log.stream() << endl << "dydt: ";
+        std::cout << endl << "dydt: ";
         if (dydt) {
-            dump_array(log.stream(), modelData->numRateRules + modelData->numFloatingSpecies, dydt);
+            dump_array(std::cout, modelData->numRateRules + modelData->numIndFloatingSpecies, dydt);
         } else {
-            log.stream() << "null";
+            std::cout << "null";
         }
-        log.stream() << endl << "Model: " << endl << this;
+        std::cout << endl << "Model: " << endl << this;
     }
-    */
+   
 }
 
 double LLVMExecutableModel::getFloatingSpeciesAmountRate(int index,
@@ -1401,6 +1400,7 @@ int LLVMExecutableModel::getFloatingSpeciesConcentrationRates(int len,
         // and the last numIndFloatingSpecies are the number of independent species.
         getStateVectorRate(this->getTime(), 0, dydt);
 
+
         double* amountRates = dydt + modelData->numRateRules;
 
         for (uint i = 0; i < len; ++i)
@@ -1817,7 +1817,6 @@ int LLVMExecutableModel::getFloatingSpeciesAmountRates(int len,
     // state vector is packed such that first numRateRules are the rate rule rates,
     // and the last numIndFloatingSpecies are the number of independent species.
     this->getStateVectorRate(this->getTime(), 0, dydt);
-
     double* amountRates = dydt + modelData->numRateRules;
 
     for (uint i = 0; i < len; ++i)
