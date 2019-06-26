@@ -142,8 +142,17 @@ namespace rr
 		/**
 		 * @author FY
 		 * @brief Sets tolerance based on concentration of species
+		 * @details First converts the concentration tolerances to cmount tolerances
+		 * by multiplying the compartment volume of species. Whichever is smaller
+		 * will be stored as absolute_tolerance and used in the integration process.
 		 */
 		void setConcentrationTolerance(const Variant& value);
+
+		/**
+		 * @author FY
+		 * @brief Gets tolerance based on concentration of species
+		 */
+		std::vector<double> getConcentrationTolerance();
 
         /**
         * @author JKM
@@ -162,16 +171,6 @@ namespace rr
          */
         void tweakTolerances();
 
-
-		/**
-		 * @author FY
-		 * @brief convert concentration tolerances to amount tolerances
-		 * @details Once users try to set the concentration toleraces, this function 
-		 * will be called and convert the concentration tolerances to cmount tolerances
-		 * by multiplying the compartment volume of species. Whichever is smaller
-		 * will be stored as absolute_tolerance and used in the integration process.
-		 */
-		std::vector<double> convertTolerances(const Variant& value);
 
         // ** Integration Routines *********************************************
 

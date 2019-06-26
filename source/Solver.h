@@ -186,17 +186,22 @@ namespace rr
 
 		/**
 		* @author FY
-		* @brief Set tolerance for individual species
+		* @brief Set tolerance for individual species, will only be used in CVODEIntegrator
 		*/
 		virtual void setIndividualTolerance(int index, double value);
 
 
 		/**
 		* @author FY
-		* @brief Set tolerance based on concentration of species
+		* @brief Set tolerance based on concentration of species, will only be used in CVODEIntegrator
 		*/
 		virtual void setConcentrationTolerance(const Variant& value);
 
+		/**
+		* @author FY
+		* @brief Get tolerance based on concentration of species, will only be used in CVODEIntegrator
+		*/
+		virtual std::vector<double> getConcentrationTolerance();
 
 
         /**
