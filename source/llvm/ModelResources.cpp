@@ -48,7 +48,6 @@ ModelResources::~ModelResources()
 
 //    delete symbols;
     // the exe engine owns all the functions
-	//module.release();
     delete executionEngine;
     delete context;
     delete random;

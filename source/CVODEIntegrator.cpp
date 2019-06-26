@@ -424,6 +424,7 @@ namespace rr
 
 			// time step
 			int nResult = CVode(mCVODE_Memory, nextTargetEndTime,  mStateVector, &timeEnd, itask);
+
 			if (nResult == CV_ROOT_RETURN)
 			{
 				Log(Logger::LOG_DEBUG) << "Event detected at time " << timeEnd;
@@ -769,11 +770,13 @@ namespace rr
 		double* y = NV_DATA_S(cv_y);
 		double* ydot = NV_DATA_S(cv_ydot);
 		CVODEIntegrator* cvInstance = (CVODEIntegrator*)userData;
+
 		assert(cvInstance && "userData pointer is NULL in cvode dydt callback");
 
 		ExecutableModel *model = cvInstance->mModel;
 
 		model->getStateVectorRate(time, y, ydot);
+
 		if (!cvInstance->stateVectorVariables && cvInstance->mStateVector &&
 			NV_LENGTH_S(cvInstance->mStateVector) == 1)
 		{

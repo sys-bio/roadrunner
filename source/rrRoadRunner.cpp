@@ -567,19 +567,6 @@ ls::LibStructural* RoadRunner::getLibStruct()
     }
     else
     {
-		//impl->mLS = new ls::LibStructural();
-		//double *stoichMat = 0;
-		//int rows;
-		//int cols;
-		//impl->model->getStoichiometryMatrix(&rows, &cols, &stoichMat);
-		//if (rows == 1)
-		//{
-		//	stoichMat = 0;
-		//	impl->model->getStoichiometryMatrix(&rows, &cols, &stoichMat);
-		//}
-		//ls::DoubleMatrix lsStoichMat(stoichMat, rows, cols, true);
-		//impl->mLS->loadStoichiometryMatrix(lsStoichMat);
-		//return impl->mLS;
         throw std::invalid_argument("could not create structural analysis with no loaded sbml");
     }
 }
@@ -892,7 +879,6 @@ double RoadRunner::getNthSelectedOutput(unsigned index, double currentTime)
 
     if (record.selectionType == SelectionRecord::TIME)
     {
-		//return getValue(record);
         return currentTime;
     }
     else
@@ -1795,10 +1781,6 @@ const DoubleMatrix* RoadRunner::simulate(const Dictionary* dict)
             for (int i = 1; i < self.simulateOpt.steps + 1; i++)
             {
                 Log(Logger::LOG_DEBUG)<<"Step "<<i;
-				if (i == 7)
-				{
-					std::cout << "here";
-				}
                 double itime = self.integrator->integrate(tout, hstep);
 
                 // the test suite is extremly sensetive to time differences,
@@ -2285,10 +2267,7 @@ DoubleMatrix RoadRunner::getFullJacobian()
         }
 
         DoubleMatrix jac = ls::mult(*rsm, uelast);
-		if (rsm->numCols() == 2)
-		{
-			std::cout << "yeah";
-		}
+
         // get the row/column ids, independent floating species
         std::list<std::string> list;
         self.model->getIds(SelectionRecord::FLOATING_AMOUNT, list);
@@ -4903,7 +4882,6 @@ const DoubleMatrix* RoadRunner::getSimulationData() const
 {
     return &impl->simulationResult;
 }
-
 
 void RoadRunner::applySimulateOptions()
 {

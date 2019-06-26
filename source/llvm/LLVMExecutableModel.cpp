@@ -442,26 +442,27 @@ void LLVMExecutableModel::getStateVectorRate(double time, const double *y, doubl
         modelData->rateRuleRates = 0;
     }
 
-    
-    if (false) {
-
-
-        std::cout << __FUNC__ << endl;
-        std::cout << "y: ";
-        if (y) {
-            dump_array(std::cout, modelData->numRateRules + modelData->numIndFloatingSpecies, y);
-        } else {
-            std::cout << "null";
-        }
-        std::cout << endl << "dydt: ";
-        if (dydt) {
-            dump_array(std::cout, modelData->numRateRules + modelData->numIndFloatingSpecies, dydt);
-        } else {
-            std::cout << "null";
-        }
-        std::cout << endl << "Model: " << endl << this;
-    }
-   
+    /*
+	if (Logger::LOG_PRIO_TRACE <= rr::Logger::LOG_GetLogLevel()) {
+		LoggingBuffer log(Logger::LOG_PRIO_TRACE, __FILE__, __LINE__);
+		log.stream() << __FUNC__ << endl;
+		log.stream() << "y: ";
+		if (y) {
+			dump_array(log.stream(), modelData->numRateRules + modelData->numFloatingSpecies, y);
+		}
+		else {
+			log.stream() << "null";
+		}
+		log.stream() << endl << "dydt: ";
+		if (dydt) {
+			dump_array(log.stream(), modelData->numRateRules + modelData->numFloatingSpecies, dydt);
+		}
+		else {
+			log.stream() << "null";
+		}
+		log.stream() << endl << "Model: " << endl << this;
+	}
+	*/
 }
 
 double LLVMExecutableModel::getFloatingSpeciesAmountRate(int index,
@@ -1400,7 +1401,6 @@ int LLVMExecutableModel::getFloatingSpeciesConcentrationRates(int len,
         // and the last numIndFloatingSpecies are the number of independent species.
         getStateVectorRate(this->getTime(), 0, dydt);
 
-
         double* amountRates = dydt + modelData->numRateRules;
 
         for (uint i = 0; i < len; ++i)
@@ -1543,7 +1543,6 @@ int LLVMExecutableModel::setFloatingSpeciesAmounts(int len, int const *indx,
     {
         int j = indx ? indx[i] : i;
         bool result =  setFloatingSpeciesAmountPtr(modelData, j, values[i]);
-		
         if (!result)
         {
             // check if a conserved moiety
@@ -1817,6 +1816,7 @@ int LLVMExecutableModel::getFloatingSpeciesAmountRates(int len,
     // state vector is packed such that first numRateRules are the rate rule rates,
     // and the last numIndFloatingSpecies are the number of independent species.
     this->getStateVectorRate(this->getTime(), 0, dydt);
+
     double* amountRates = dydt + modelData->numRateRules;
 
     for (uint i = 0; i < len; ++i)

@@ -371,6 +371,11 @@ ExecutableModel* LLVMModelGenerator::createModel(const std::string& sbml,
 		rc->setGlobalParameterInitValuePtr = 0;
 	}
 
+
+
+
+
+
 	// if anything up to this point throws an exception, thats OK, because	
 	// we have not allocated any memory yet that is not taken care of by	
 	// something else.	
@@ -401,7 +406,6 @@ ExecutableModel* LLVMModelGenerator::createModel(const std::string& sbml,
     context.stealThePeach(&rc->symbols, &rc->context,
             &rc->executionEngine, &rc->random, &rc->errStr, &rc->module);
 
-     
     if (!forceReCompile)
     {
         // check for a chached copy, another thread could have
