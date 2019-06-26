@@ -98,8 +98,9 @@ namespace rr
 
 	void CVODEIntegrator::checkIndex(int index, int size) const {
 		if (index < 0 || index >= size)
-			throw std::runtime_error("CVODEIntegrator::checkIndex failed, index " + std::to_string(index) + "out of bound");
+			throw std::out_of_range("CVODEIntegrator::checkIndex failed, index " + std::to_string(index) + " out of range from " + std::to_string(0) + " to " + std::to_string(size-1));
 	}
+
 
     void CVODEIntegrator::resetSettings()
     {
@@ -333,7 +334,13 @@ namespace rr
 		checkIndex(index, mModel->getNumFloatingSpecies());
 		
 		switch (getType("absolute_tolerance")) {
-
+		
+		// all cases below could be convert to a double type
+		case Variant::TypeId::INT32:
+		case Variant::TypeId::INT64:
+		case Variant::TypeId::UINT32:
+		case Variant::TypeId::UINT64:
+		case Variant::TypeId::FLOAT:
 		case Variant::TypeId::DOUBLE:
 		{
 			// scalar tolerance
@@ -356,6 +363,7 @@ namespace rr
 		}
 
 		default:
+			throw std::runtime_error("CVODEIntegrator::setIndividualTolerance failed, double or double vector expected");
 			break;
 		}
 
@@ -379,7 +387,13 @@ namespace rr
 		vector<double> v;
 
 		switch (value.type()) {
-
+		
+		// all cases below could be convert to a double type
+		case Variant::TypeId::INT32:
+		case Variant::TypeId::INT64:
+		case Variant::TypeId::UINT32:
+		case Variant::TypeId::UINT64:
+		case Variant::TypeId::FLOAT:
 		case Variant::TypeId::DOUBLE:
 		{
 			// scalar concentration tolerance
@@ -705,14 +719,22 @@ namespace rr
 		double minRel = Config::getDouble(Config::CVODE_MIN_RELATIVE);
 
 		switch (getType("absolute_tolerance")) {
-			// scalar tolerance
+			
+		// all cases below could be convert to a double type
+		case Variant::TypeId::INT32:
+		case Variant::TypeId::INT64:
+		case Variant::TypeId::UINT32:
+		case Variant::TypeId::UINT64:
+		case Variant::TypeId::FLOAT:
 		case Variant::TypeId::DOUBLE:
+			// scalar tolerance
 			CVODEIntegrator::setValue("absolute_tolerance", std::min(CVODEIntegrator::getValueAsDouble("absolute_tolerance"), minAbs));
 			break;
 
-			// vector tolerance
+			
 		case Variant::TypeId::DOUBLEVECTOR:
 		{
+			// vector tolerance
 			vector<double> v = CVODEIntegrator::getValueAsDoubleVector("absolute_tolerance");
 			for (int i = 0; i < v.size(); i++)
 				v[i] = std::min(v[i], minAbs);
@@ -906,6 +928,12 @@ namespace rr
 		// switch on different cases that the absolute tolerance is scalar or vector
 		switch (getType("absolute_tolerance")) {
 			
+			// all cases below could be convert to a double type
+			case Variant::TypeId::INT32:
+			case Variant::TypeId::INT64:
+			case Variant::TypeId::UINT32:
+			case Variant::TypeId::UINT64:
+			case Variant::TypeId::FLOAT:
 			case Variant::TypeId::DOUBLE:
 				// scalar tolerance
 				err = CVodeSStolerances(mCVODE_Memory, getValueAsDouble("relative_tolerance"), getValueAsDouble("absolute_tolerance"));

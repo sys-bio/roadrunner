@@ -209,6 +209,7 @@ namespace rr
          */
         void checkType() const;
 
+
 		/**
 		* @author FY
 		* @brief Does a size check which throws if it fails
