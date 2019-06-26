@@ -188,7 +188,16 @@ namespace rr
 		* @author FY
 		* @brief Set tolerance for individual species
 		*/
-		virtual void setTolerance(int index, double value);
+		virtual void setIndividualTolerance(int index, double value);
+
+
+		/**
+		* @author FY
+		* @brief Set tolerance based on concentration of species
+		*/
+		virtual void setConcentrationTolerance(const Variant& value);
+
+
 
         /**
         * @author WBC

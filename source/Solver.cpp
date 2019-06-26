@@ -157,7 +157,9 @@ namespace rr
         settings[key] = value;
     }
 
-	void Solver::setTolerance(int index, double value) {}
+	void Solver::setIndividualTolerance(int index, double value) {}
+
+	void Solver::setConcentrationTolerance(const Variant& value) {}
 
     const std::string& Solver::getDisplayName(std::string key) const
     {

@@ -137,7 +137,13 @@ namespace rr
 		 * @author FY
 		 * @brief Sets tolerance for individual species
 		 */
-		void setTolerance(int index, double value);
+		void setIndividualTolerance(int index, double value);
+
+		/**
+		 * @author FY
+		 * @brief Sets tolerance based on concentration of species
+		 */
+		void setConcentrationTolerance(const Variant& value);
 
         /**
         * @author JKM
@@ -165,7 +171,7 @@ namespace rr
 		 * by multiplying the compartment volume of species. Whichever is smaller
 		 * will be stored as absolute_tolerance and used in the integration process.
 		 */
-		void convertTolerances();
+		std::vector<double> convertTolerances(const Variant& value);
 
         // ** Integration Routines *********************************************
 
