@@ -398,9 +398,10 @@ namespace rr
 
 		case Variant::TypeId::DOUBLEVECTOR:
 		{
-			// vector tolerance
+			// vector concentration tolerance
 			v = value.convert<vector<double>>();
 
+			checkVectorSize(mModel->getNumFloatingSpecies(), v.size());
 			for (int i = 0; i < v.size(); i++) {
 				// get the compartment volume of each species
 				int index = mModel->getCompartmentIndexForFloatingSpecies(i);
@@ -427,8 +428,8 @@ namespace rr
 	{
 		// if vector tolerance is set, the size of vector must be equal to 
 		// the number of floating species
-		if (key == "absolute_tolerance" && val.type == Variant::TypeId::DOUBLEVECTOR)
-			checkVectorSize(mModel->getNumFloatingSpecies(), val.convert<vector<double>>().size);
+		if (key == "absolute_tolerance" && val.type() == Variant::TypeId::DOUBLEVECTOR)
+			checkVectorSize(mModel->getNumFloatingSpecies(), val.convert<vector<double>>().size());
 
 		Integrator::setValue(key, val);
 		
