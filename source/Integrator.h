@@ -98,10 +98,30 @@ namespace rr
      */
     virtual void tweakTolerances();
 
-		/* CARRYOVER METHODS */
-		virtual void setListener(IntegratorListenerPtr) = 0;
-		virtual IntegratorListenerPtr getListener() = 0;
-		std::string toString() const;
+	/**
+	* @author FY
+	* @brief Set tolerance for individual species, will only be used in CVODEIntegrator
+	*/
+	virtual void setIndividualTolerance(int index, double value);
+
+
+	/**
+	* @author FY
+	* @brief Set tolerance based on concentration of species, will only be used in CVODEIntegrator
+	*/
+	virtual void setConcentrationTolerance(const Variant& value);
+
+	/**
+	* @author FY
+	* @brief Get tolerance based on concentration of species, will only be used in CVODEIntegrator
+	*/
+	virtual std::vector<double> getConcentrationTolerance();
+
+
+	/* CARRYOVER METHODS */
+	virtual void setListener(IntegratorListenerPtr) = 0;
+	virtual IntegratorListenerPtr getListener() = 0;
+	std::string toString() const;
 
     /**
     * @author JKM

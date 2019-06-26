@@ -157,15 +157,6 @@ namespace rr
         settings[key] = value;
     }
 
-	// since vector tolerance is only used in CVODEIntegrator
-	// the functions below will not be implemented here
-	void Solver::setIndividualTolerance(int index, double value) {}
-
-	void Solver::setConcentrationTolerance(const Variant& value) {}
-
-	std::vector<double> Solver::getConcentrationTolerance() {
-		return {};
-	}
 
     const std::string& Solver::getDisplayName(std::string key) const
     {
