@@ -438,6 +438,7 @@ namespace rr
 		}
 
 		default:
+			throw std::runtime_error("CVODEIntegrator::setIndividualTolerance failed, double or double vector expected");
 			break;
 		}
 
