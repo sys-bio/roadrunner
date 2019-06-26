@@ -5070,7 +5070,7 @@ void RoadRunner::loadState(std::string filename)
 	//ls::DoubleMatrix lsStoichMat(matrixArray, rows, cols);
 	//impl->mLS->loadStoichiometryMatrix(lsStoichMat);
 	//impl->mLS->analyzeWithQR();
-	//reset();
+	reset();
 	bool stiff;
 	rr::loadBinary(in, stiff);
 	impl->integrator->setValue("stiff", stiff);
