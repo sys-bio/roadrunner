@@ -49,6 +49,25 @@ ________________
 .. method:: Integrator.tweakTolerances()
 
     Fix tolerances for SBML tests. In order to ensure that the results of the SBML test suite remain valid, this method enforces a lower bound on tolerance values. Sets minimum absolute and relative tolerances to Config::CVODE_MIN_ABSOLUTE and Config::CVODE_MIN_RELATIVE respectively.
+    
+.. method:: Integrator.setIndividualTolerance(index, value)
+
+    Sets absolute tolerance for individual species, will only be used for CVODEIntegrator.
+    Note that this tolerance is based on the amount of species, and will be stored in absolute_tolerance.
+    
+    :param int index: index of individual species
+    :param double value: tolerance value to set
+    
+.. method:: Integrator.getConcentrationTolerance()
+
+    Gets the tolerance vector based on concentration of species, will only be used for CVODEIntegrator.
+    
+.. method:: Integrator.setConcentrationTolerance(value)
+
+    Sets the tolerance based on concentration of species, will only be used for CVODEIntegrator.
+    First converts the concentration tolerances to amount tolerances by multiplying the compartment volume of species. Whichever is smaller will be stored in absolute_tolerance and used in the integration process.
+
+    :param double/double list value: tolerance value to set
 
 
 CVODE
@@ -64,13 +83,6 @@ CVODE
     >>> r.integrator.absolute_tolerance = 1
     >>> r.integrator.absolute_tolerance = [1, 0.1, 0.01, 0.001] // setting vairous tolerance for each species
     
-    
-.. attribute:: Integrator.absolute_concentration_tolerance
-
-    Specifies the scalar or vector absolute tolerance based on concentration of species. A potentially different absolute tolerance for each vector component could be set using a double vector. CVODE first converts it to the tolerances based on amounts by multiplying the compartment volume of each species. Then it calculates a vector of error weights which is used in all error and convergence tests. The weighted RMS norm for the absolute tolerance should not become smaller than this value. Default value is Config::CVODE_MIN_ABSOLUTE.
-    
-    >>> r.integrator.absolute_concentration_tolerance = 1
-    >>> r.integrator.absolute_concentration_tolerance = [1, 0.1, 0.01, 0.001] // setting vairous tolerance for each species
 
 .. attribute:: Integrator.initial_time_step
 
