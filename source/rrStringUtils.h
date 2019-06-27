@@ -242,7 +242,7 @@ inline void loadBinary(std::istream& in, std::map<K, V>& m)
 {
 	size_t msize;
 	loadBinary(in, msize);
-	//m.clear();
+//	m.clear();
 	for (int i = 0; i < msize; i++)
 	{
 		K k;

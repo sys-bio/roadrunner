@@ -56,10 +56,13 @@ ModelResources::~ModelResources()
 
 void ModelResources::saveState(std::ostream& out) const
 {
+	// Note: ModelResources::saveState and loadState currently save the jitted functions
+	// as LLVM IR. I'm not sure if this will be fast enough. If it is not we can look into saving
+	// them as LLVM bitcode or even as machine code.
 	symbols->saveState(out);
 	std::string moduleStr;
 	llvm::raw_string_ostream moduleSStream(moduleStr);
-	//llvm::WriteBitcodeToFile(module.get(), moduleSStream);
+	//Write the module's IR to moduleSStream, which in turn writes it into moduleStr
 	moduleSStream << *module;	
 	rr::saveBinary(out, moduleStr);
 }
@@ -83,9 +86,6 @@ void ModelResources::addGlobalMappings()
 
     addGlobalMapping(ModelDataIRBuilder::getCSRMatrixSetNZDecl(module), (void*)rr::csr_matrix_set_nz);
     addGlobalMapping(ModelDataIRBuilder::getCSRMatrixGetNZDecl(module), (void*)rr::csr_matrix_get_nz);
-   // addGlobalMapping(LLVMModelDataIRBuilderTesting::getDispIntDecl(module), (void*)rrllvm::dispInt);
-    //addGlobalMapping(LLVMModelDataIRBuilderTesting::getDispDoubleDecl(module), (void*)rrllvm::dispDouble);
-    //addGlobalMapping(LLVMModelDataIRBuilderTesting::getDispCharDecl(module), (void*)rrllvm:dispChar);
 
     // AST_FUNCTION_ARCCOT:
 	llvm::RTDyldMemoryManager::getSymbolAddressInProcess("arccot");
@@ -205,35 +205,43 @@ void ModelResources::addGlobalMappings()
 
 void ModelResources::loadState(std::istream& in, uint modelGeneratorOpt) 
 {
-	std::string *engineBuilderErrStr = new std::string();
+	//load the model data symbols from the stream
 	symbols = new LLVMModelDataSymbols(in);
+	//Get the LLVM IR from the stream and store it in moduleStr
 	std::string moduleStr;
 	rr::loadBinary(in, moduleStr);
+	//Set up the llvm context 
 	context = new llvm::LLVMContext();
+	//Set up the arguments to parseIR
 	auto memBuffer(llvm::MemoryBuffer::getMemBuffer(moduleStr));
-	//auto expected = llvm::parseBitcodeFile(*memBuffer, *context);
 	llvm::SMDiagnostic sm;
 	module = llvm::parseIR(*memBuffer, sm, *context).release();
-	llvm::Function* f = module->getFunction("evalInitialConditions");
-	llvm::StructType *structType = module->getTypeByName("rr_LLVMModelData");
+
+	//Not sure why, but engineBuilder.create() crashes if not initialized with an empty module
 	auto emptyModule = std::unique_ptr<llvm::Module>(new llvm::Module("Module test", *context));
 	
 	llvm::EngineBuilder engineBuilder(std::move(emptyModule));
+	//llvm::EngineBuilder engineBuilder;
+
+	//Set the necessary parameters on the engine builder
+	std::string *engineBuilderErrStr = new std::string();
 	engineBuilder.setErrorStr(engineBuilderErrStr)
 		.setMCJITMemoryManager(std::unique_ptr<llvm::SectionMemoryManager>(new llvm::SectionMemoryManager()));
+	
+	//We have to call these functions before calling engineBuilder.create()
     llvm::InitializeNativeTarget();
 	llvm::InitializeNativeTargetAsmPrinter();
 
 	executionEngine = engineBuilder.create();
+	
+	//Add mappings to the functions that aren't saved as LLVM IR (like sin, cos etc.)
 	addGlobalMappings();
-	llvm::Module* tempModule = module;
-	executionEngine->addModule(std::unique_ptr<llvm::Module>(tempModule));
-	//llvm::Function *f2 = module->getFunction("rr_csr_matrix_set_nz");
-	//llvm::sys::DynamicLibrary::AddSymbol(f2->getName(), (void*)rr::csr_matrix_set_nz);
-	//executionEngine->addGlobalMapping(f2, (void*)rr::csr_matrix_set_nz);
-	auto dataLayout = executionEngine->getDataLayout();
+
+	//Add the module we constructed to the execution engine
+	executionEngine->addModule(std::unique_ptr<llvm::Module>(module));
+	//Finalize the engine
 	executionEngine->finalizeObject();
-    //register targets ???
+	//Get the function pointers we need from the exeuction engine
 	evalInitialConditionsPtr = (EvalInitialConditionsCodeGen::FunctionPtr)
 		executionEngine->getFunctionAddress("evalInitialConditions");
 

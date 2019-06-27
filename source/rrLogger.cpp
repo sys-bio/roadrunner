@@ -7,6 +7,7 @@
 #include <Poco/Logger.h>
 #include <Poco/AsyncChannel.h>
 
+
 #if defined(WIN32)
 #include <Poco/WindowsConsoleChannel.h>
 #endif

@@ -4921,10 +4921,15 @@ static void metabolicControlCheck(ExecutableModel *model)
     }
 }
 
+/*
+*  Saves this roadrunner instance to a file so it can be reloaded later
+*
+*  
+*/
 void RoadRunner::saveState(std::string filename)
 {
-	//std::cout << impl->integrator->toString() << std::endl;
 	std::ofstream out(filename, iostream::binary);
+	//Save all of roadrunner's data to the file
 	rr::saveBinary(out, impl->mInstanceID);
 	rr::saveBinary(out, impl->mDiffStepSize);
 	rr::saveBinary(out, impl->mSteadyStateThreshold);
@@ -4970,19 +4975,10 @@ void RoadRunner::saveState(std::string filename)
 	rr::saveBinary(out, impl->roadRunnerOptions.flags);
 	rr::saveBinary(out, impl->roadRunnerOptions.jacobianStepSize);
 
-//	rr::saveBinary(out, impl->mLS->)
-
 	rr::saveBinary(out, impl->configurationXML);
+	//Save the model (which saves the model data symbols and model resources)
 	impl->model->saveState(out);
 	
-	//auto libStruct = getLibStruct();
-	//ls::DoubleMatrix *stoichMat = libStruct->getStoichiometryMatrix();
-	//int cols = stoichMat->numCols();
-	//int rows = stoichMat->numRows();
-	//rr::saveBinary(out, rows);
-	//rr::saveBinary(out, cols);
-	//out.write((char*)stoichMat->getArray(), cols*rows*sizeof(double));
-
 	rr::saveBinary(out, impl->integrator->getName());
 	rr::saveBinary(out, impl->integrator->getNumParams());
 
@@ -4991,7 +4987,11 @@ void RoadRunner::saveState(std::string filename)
 		rr::saveBinary(out, k);
 		rr::saveBinary(out, impl->integrator->getValue(k));
 	}
-
+    //Currently I save and reload the SBML that was used to create the model
+	//It is not parsed however, unless a instance of LibStructural needs to be
+	//created
+	//It might also be possible to construct LibStructural without SBML, but I'm not familiar with it
+	//If this implementation is too slow we can change that
 	rr::saveBinary(out, impl->mCurrentSBML);
 }
 
@@ -5011,7 +5011,7 @@ void RoadRunner::saveSelectionVector(std::ostream& out, std::vector<SelectionRec
 void RoadRunner::loadState(std::string filename)
 {
 	std::ifstream in(filename, iostream::binary);
-
+   //load roadrunner's data in the same order saveState saves it in
 	rr::loadBinary(in, impl->mInstanceID);
 	rr::loadBinary(in, impl->mDiffStepSize);
 	rr::loadBinary(in, impl->mSteadyStateThreshold);
@@ -5074,21 +5074,12 @@ void RoadRunner::loadState(std::string filename)
 	rr::loadBinary(in, impl->configurationXML);
 	if(impl->model)
 		delete impl->model;
+	//Create a new model from the stream
 	impl->model = new rrllvm::LLVMExecutableModel(in, impl->loadOpt.modelGeneratorOpt);
     impl->syncAllSolversWithModel(impl->model);
 
 	if (impl->mLS)
 		delete impl->mLS;
-	//impl->mLS = new ls::LibStructural();
-	//int rows;
-	//int cols;
-	//rr::loadBinary(in, rows);
-	//rr::loadBinary(in, cols);
-	//double *matrixArray = new double[rows*cols];
-	//in.read((char*)matrixArray, rows*cols*sizeof(double));
-	//ls::DoubleMatrix lsStoichMat(matrixArray, rows, cols);
-	//impl->mLS->loadStoichiometryMatrix(lsStoichMat);
-	//impl->mLS->analyzeWithQR();
 	std::string integratorName;
 	rr::loadBinary(in, integratorName);
 	setIntegrator(integratorName);
@@ -5104,7 +5095,10 @@ void RoadRunner::loadState(std::string filename)
 		rr::loadBinary(in, v);
 		impl->integrator->setValue(k, v);
 	}
+	//Currently the SBML is saved with the binary data, see saveState above
 	rr::loadBinary(in, impl->mCurrentSBML);
+	//Restart the integrator and reset the model
+	//This will need to change if we decide to add pausing
 	impl->integrator->restart(0.0);
 	reset();
 }

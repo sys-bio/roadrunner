@@ -244,7 +244,6 @@ LLVMModelData* LLVMModelData_from_save(std::istream& in)
 	unsigned dataSize = data->numIndCompartments + data->numIndFloatingSpecies + data->numIndBoundarySpecies + 
 		                data->numIndGlobalParameters + data->numRateRules + data->numReactions + data->numInitCompartments + data->numInitFloatingSpecies + 
 		                data->numInitBoundarySpecies + data->numInitGlobalParameters;
-	//data->data = new double[dataSize];
 	if (dataSize*sizeof(double) + sizeof(LLVMModelData) != size) {
 		size = dataSize + sizeof(LLVMModelData);
 	}
