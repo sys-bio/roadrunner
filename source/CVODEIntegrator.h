@@ -142,7 +142,7 @@ namespace rr
 		/**
 		 * @author FY
 		 * @brief Sets tolerance based on concentration of species
-		 * @details First converts the concentration tolerances to cmount tolerances
+		 * @details First converts the concentration tolerances to amount tolerances
 		 * by multiplying the compartment volume of species. Whichever is smaller
 		 * will be stored as absolute_tolerance and used in the integration process.
 		 */

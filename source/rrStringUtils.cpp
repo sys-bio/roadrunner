@@ -640,10 +640,11 @@ double toDouble(const string& str)
 
 vector<double> toDoubleVector(const string& str)
 {
-	// double vector is in the form " [d1,d2,d3...dn]"
-	// get rid of ' [' and ']' first
-	// TODO: get rid of all spaces automatically
-	string st = str.substr(2, str.size() - 1);
+	// double vector is in the form "[d1,d2,d3...dn]"
+	// get rid of '[' and ']' first
+
+	size_t start = str.find("[");
+	string st = str.substr(start + 1, str.size() - 1);
 	// parse into string vector
 	vector<string> parts(splitString(st, ","));
 	vector<double> res;

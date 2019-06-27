@@ -251,13 +251,12 @@ namespace rr
 			it = options.find("absolute");
 			if (it != options.end())
 			{
-				if ((*it).second[1] != '[') {
-					// skip the space
-					// scalar absolute tolerance based on amount
+				if ((*it).second.find("[") == string::npos) {
+					// scalar absolute tolerance
 					CVODEIntegrator::setValue("absolute_tolerance", std::abs(toDouble((*it).second)));
 				}
 				else {
-					// vector absolute tolerance based on amount
+					// vector absolute tolerance
 					
 					vector<double> v = toDoubleVector((*it).second);
 					// take absolute value of each element 
@@ -433,8 +432,6 @@ namespace rr
 				throw std::runtime_error("CVODEIntegrator::setIndividualTolerance failed, double or double vector expected");
 				break;
 		}
-
-		// TODO: add log
 
 		// update the tolerance
 		CVODEIntegrator::setValue("absolute_tolerance", v);
@@ -1021,12 +1018,17 @@ namespace rr
 			handleCVODEError(err);
 		}
 		
-		// TODO: rewrite logging
 		switch (getType("absolute_tolerance")) {
 			// scalar tolerance
+			// all cases below could be convert to a double type
+			case Variant::TypeId::INT32:
+			case Variant::TypeId::INT64:
+			case Variant::TypeId::UINT32:
+			case Variant::TypeId::UINT64:
+			case Variant::TypeId::FLOAT:
 			case Variant::TypeId::DOUBLE:
 				Log(Logger::LOG_INFORMATION) << "Set tolerance to abs: " << setprecision(16)
-					<< getValueAsDouble("absolute_tolerance") << ", rel: " << getValueAsDouble("relative_tolerance");
+					<< getValueAsDouble("absolute_tolerance") << ", rel: " << getValueAsDouble("relative_tolerance") << endl;
 				break;
 
 			// vector tolerance
@@ -1039,7 +1041,7 @@ namespace rr
 						Log(Logger::LOG_INFORMATION) << ", ";
 					Log(Logger::LOG_INFORMATION) << v[i];
 				}
-				Log(Logger::LOG_INFORMATION) << "], rel: " << getValueAsDouble("relative_tolerance");
+				Log(Logger::LOG_INFORMATION) << "], rel: " << getValueAsDouble("relative_tolerance") << endl;
 
 				break;
 			}
