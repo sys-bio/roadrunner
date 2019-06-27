@@ -241,10 +241,6 @@ void csr_matrix_fill_dense(const csr_matrix *A, double *dense)
 
 void csr_matrix_dump_binary(const csr_matrix *x, std::ostream& out) 
 {
-	if (x->m == 1)
-	{
-		std::cout << "yeah";
-	}
 	out.write((char*)&(x->m), sizeof x->m);
 	out.write((char*)&(x->n), sizeof x->n);
 	out.write((char*)&(x->nnz), sizeof x->nnz);

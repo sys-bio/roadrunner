@@ -4936,13 +4936,13 @@ void RoadRunner::saveState(std::string filename)
 	rr::saveBinary(out, impl->loadOpt.modelGeneratorOpt);
 	rr::saveBinary(out, impl->loadOpt.loadFlags);
     
-	/*rr::saveBinary(out, impl->loadOpt.getKeys().size());
+	rr::saveBinary(out, impl->loadOpt.getKeys().size());
 
 	for (std::string k : impl->loadOpt.getKeys())
 	{
 		rr::saveBinary(out, k);
 		rr::saveBinary(out, impl->loadOpt.getItem(k));
-	}*/
+	}
 
 	saveSelectionVector(out, impl->mSteadyStateSelection);
 
@@ -4956,13 +4956,13 @@ void RoadRunner::saveState(std::string filename)
 	rr::saveBinary(out, impl->simulateOpt.amounts);
 	rr::saveBinary(out, impl->simulateOpt.concentrations);
 
-/*	rr::saveBinary(out, impl->simulateOpt.getKeys().size());
+	rr::saveBinary(out, impl->simulateOpt.getKeys().size());
 
-	/*for (std::string k : impl->simulateOpt.getKeys())
+	for (std::string k : impl->simulateOpt.getKeys())
 	{
 		rr::saveBinary(out, k);
 		rr::saveBinary(out, impl->simulateOpt.getItem(k));
-	}*/
+	}
 
 	rr::saveBinary(out, impl->roadRunnerOptions.flags);
 	rr::saveBinary(out, impl->roadRunnerOptions.jacobianStepSize);
@@ -4979,7 +4979,16 @@ void RoadRunner::saveState(std::string filename)
 	//rr::saveBinary(out, rows);
 	//rr::saveBinary(out, cols);
 	//out.write((char*)stoichMat->getArray(), cols*rows*sizeof(double));
-    rr::saveBinary(out, (bool)impl->integrator->getValue("stiff"));
+
+	rr::saveBinary(out, impl->integrator->getName());
+	rr::saveBinary(out, impl->integrator->getNumParams());
+
+	for (std::string k : impl->integrator->getSettings())
+	{
+		rr::saveBinary(out, k);
+		rr::saveBinary(out, impl->integrator->getValue(k));
+	}
+
 	rr::saveBinary(out, impl->mCurrentSBML);
 }
 
@@ -5010,9 +5019,18 @@ void RoadRunner::loadState(std::string filename)
 	rr::loadBinary(in, impl->loadOpt.size);
 	rr::loadBinary(in, impl->loadOpt.modelGeneratorOpt);
 	rr::loadBinary(in, impl->loadOpt.loadFlags);
-	impl->loadOpt.setItem("tempDir", "");
-	impl->loadOpt.setItem("compiler", "LLVM");
-	impl->loadOpt.setItem("supportCodeDir", "");
+    
+	size_t loadOptSize;
+	rr::loadBinary(in, loadOptSize);
+
+	for (int i = 0; i < loadOptSize; i++)
+	{
+		std::string k;
+		rr::loadBinary(in, k);
+		rr::Variant v;
+		rr::loadBinary(in, v);
+		impl->loadOpt.setItem(k, v);
+	}
 
 
 	loadSelectionVector(in, impl->mSteadyStateSelection);
@@ -5026,6 +5044,18 @@ void RoadRunner::loadState(std::string filename)
 	rr::loadBinary(in, impl->simulateOpt.variables);
 	rr::loadBinary(in, impl->simulateOpt.amounts);
 	rr::loadBinary(in, impl->simulateOpt.concentrations);
+
+	size_t simulateOptSize;
+	rr::loadBinary(in, simulateOptSize);
+
+	for (int i = 0; i < simulateOptSize; i++)
+	{
+		std::string k;
+		rr::loadBinary(in, k);
+		rr::Variant v;
+		rr::loadBinary(in, v);
+		impl->simulateOpt.setItem(k, v);
+	}
 
 	rr::loadBinary(in, impl->roadRunnerOptions.flags);
 	rr::loadBinary(in, impl->roadRunnerOptions.jacobianStepSize);
@@ -5048,17 +5078,24 @@ void RoadRunner::loadState(std::string filename)
 	//ls::DoubleMatrix lsStoichMat(matrixArray, rows, cols);
 	//impl->mLS->loadStoichiometryMatrix(lsStoichMat);
 	//impl->mLS->analyzeWithQR();
-	reset();
-	bool stiff;
-	rr::loadBinary(in, stiff);
-	impl->integrator->setValue("stiff", stiff);
-	rr::loadBinary(in, impl->mCurrentSBML);
-	//setIntegrator("cvode");
-	//impl->integrator->restart(0.0);
-	//std::cout << impl->integrator->toString() << std::endl;
-	//std::cout << "stiff: " << (bool)impl->integrator->getValue("stiff") << std::endl;
+	std::string integratorName;
+	rr::loadBinary(in, integratorName);
+	setIntegrator(integratorName);
 
-	//std::cout << "stiff: " << (bool)impl->integrator->getValue("stiff") << std::endl;
+	unsigned long integratorNumParams;
+	rr::loadBinary(in, integratorNumParams);
+
+	for (int i = 0; i < integratorNumParams; i++)
+	{
+		std::string k;
+		rr::loadBinary(in, k);
+		rr::Variant v;
+		rr::loadBinary(in, v);
+		impl->integrator->setValue(k, v);
+	}
+	rr::loadBinary(in, impl->mCurrentSBML);
+	impl->integrator->restart(0.0);
+	reset();
 }
 
 void RoadRunner::loadSelectionVector(std::istream& in, std::vector<SelectionRecord>& v)

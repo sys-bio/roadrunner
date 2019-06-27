@@ -38,7 +38,7 @@ string Trim(const string& input)
 
 void compareJacobians(RRHandle gRR)
 {
-  RoadRunner* rri = castToRoadRunner(gRR);rri->saveState("C:/rr/save-state-test.rr");rri = castToRoadRunner(createRRInstance());rri->loadState("C:/rr/save-state-test.rr");
+  RoadRunner* rri = castToRoadRunner(gRR);
   ls::DoubleMatrix    jFull     = rri->getFullJacobian();
   ls::DoubleMatrix    jReduced  = rri->getReducedJacobian();
 
@@ -605,10 +605,7 @@ SUITE(TEST_MODEL)
 
         Config::setValue(Config::ROADRUNNER_JACOBIAN_MODE, (unsigned)Config::ROADRUNNER_JACOBIAN_MODE_CONCENTRATIONS);
         RoadRunner* rri = castToRoadRunner(gRR);
-		rri->saveState("C:/rr/save-state-test.rr");
 		
-		rri = castToRoadRunner(createRRInstance());
-		rri->loadState("C:/rr/save-state-test.rr"); 
 
         ls::DoubleMatrix   jActual = rri->getFullJacobian();
         ls::DoubleMatrix   jRef    = getDoubleMatrixFromString(aSection->GetNonKeysAsString());
@@ -627,7 +624,7 @@ SUITE(TEST_MODEL)
         aSection->mIsUsed = true;
 
         Config::setValue(Config::ROADRUNNER_JACOBIAN_MODE, (unsigned)Config::ROADRUNNER_JACOBIAN_MODE_CONCENTRATIONS);
-        RoadRunner* rri = castToRoadRunner(gRR);rri->saveState("C:/rr/save-state-test.rr");rri = castToRoadRunner(createRRInstance());rri->loadState("C:/rr/save-state-test.rr");
+        RoadRunner* rri = castToRoadRunner(gRR);
 
         ls::DoubleMatrix   jActual = rri->getReducedJacobian();
         ls::DoubleMatrix   jRef    = getDoubleMatrixFromString(aSection->GetNonKeysAsString());
@@ -646,7 +643,7 @@ SUITE(TEST_MODEL)
         aSection->mIsUsed = true;
 
         Config::setValue(Config::ROADRUNNER_JACOBIAN_MODE, (unsigned)Config::ROADRUNNER_JACOBIAN_MODE_AMOUNTS);
-        RoadRunner* rri = castToRoadRunner(gRR);rri->saveState("C:/rr/save-state-test.rr");rri = castToRoadRunner(createRRInstance());rri->loadState("C:/rr/save-state-test.rr");
+        RoadRunner* rri = castToRoadRunner(gRR);
 
         ls::DoubleMatrix   jActual = rri->getFullJacobian();
         ls::DoubleMatrix   jRef    = getDoubleMatrixFromString(aSection->GetNonKeysAsString());
@@ -664,7 +661,7 @@ SUITE(TEST_MODEL)
         clog<< endl << "==== INDIVIDUAL_EIGENVALUES ====" << endl << endl;
         aSection->mIsUsed = true;
 
-        RoadRunner* rri = castToRoadRunner(gRR);rri->saveState("C:/rr/save-state-test.rr");rri = castToRoadRunner(createRRInstance());rri->loadState("C:/rr/save-state-test.rr");
+        RoadRunner* rri = castToRoadRunner(gRR);
 
         Config::setValue(Config::ROADRUNNER_JACOBIAN_MODE, (unsigned)Config::ROADRUNNER_JACOBIAN_MODE_CONCENTRATIONS);
         for(int i = 0 ; i < aSection->KeyCount(); i++)
@@ -692,7 +689,7 @@ SUITE(TEST_MODEL)
         aSection->mIsUsed = true;
 
         Config::setValue(Config::ROADRUNNER_JACOBIAN_MODE, (unsigned)Config::ROADRUNNER_JACOBIAN_MODE_AMOUNTS);
-        RoadRunner* rri = castToRoadRunner(gRR);rri->saveState("C:/rr/save-state-test.rr");rri = castToRoadRunner(createRRInstance());rri->loadState("C:/rr/save-state-test.rr");
+        RoadRunner* rri = castToRoadRunner(gRR);
         for(int i = 0 ; i < aSection->KeyCount(); i++)
         {
             IniKey *aKey = aSection->GetKey(i);
@@ -723,9 +720,6 @@ SUITE(TEST_MODEL)
 
         Config::setValue(Config::ROADRUNNER_JACOBIAN_MODE, (unsigned)Config::ROADRUNNER_JACOBIAN_MODE_CONCENTRATIONS);
         RoadRunner* rri = castToRoadRunner(gRR);
-		rri->saveState("C:/rr/save-state-test.rr");
-		rri = castToRoadRunner(createRRInstance());
-		rri->loadState("C:/rr/save-state-test.rr");
         ls::DoubleMatrix ref = getDoubleMatrixFromString(aSection->GetNonKeysAsString());
         std::vector<ls::Complex> eigen = rri->getFullEigenValues();
         compareMatrices(ref, eigen);
@@ -747,7 +741,7 @@ SUITE(TEST_MODEL)
         aSection->mIsUsed = true;
 
         Config::setValue(Config::ROADRUNNER_JACOBIAN_MODE, (unsigned)Config::ROADRUNNER_JACOBIAN_MODE_AMOUNTS);
-        RoadRunner* rri = castToRoadRunner(gRR);rri->saveState("C:/rr/save-state-test.rr");rri = castToRoadRunner(createRRInstance());rri->loadState("C:/rr/save-state-test.rr");
+        RoadRunner* rri = castToRoadRunner(gRR);
         ls::DoubleMatrix     ref = getDoubleMatrixFromString(aSection->GetNonKeysAsString());
         std::vector<ls::Complex> eigen = rri->getFullEigenValues();
 
@@ -770,7 +764,7 @@ SUITE(TEST_MODEL)
         aSection->mIsUsed = true;
 
         Config::setValue(Config::ROADRUNNER_JACOBIAN_MODE, (unsigned)Config::ROADRUNNER_JACOBIAN_MODE_CONCENTRATIONS);
-        RoadRunner* rri = castToRoadRunner(gRR);rri->saveState("C:/rr/save-state-test.rr");rri = castToRoadRunner(createRRInstance());rri->loadState("C:/rr/save-state-test.rr");
+        RoadRunner* rri = castToRoadRunner(gRR);
         ls::DoubleMatrix     ref = getDoubleMatrixFromString(aSection->GetNonKeysAsString());
         std::vector<ls::Complex>  eigen = rri->getReducedEigenValues();
 
@@ -792,7 +786,7 @@ SUITE(TEST_MODEL)
         aSection->mIsUsed = true;
 
         ls::DoubleMatrix     ref         = getDoubleMatrixFromString(aSection->GetNonKeysAsString());
-        RoadRunner* rri = castToRoadRunner(gRR);rri->saveState("C:/rr/save-state-test.rr");rri = castToRoadRunner(createRRInstance());rri->loadState("C:/rr/save-state-test.rr");
+        RoadRunner* rri = castToRoadRunner(gRR);
         ls::DoubleMatrix matrix = rri->getFullStoichiometryMatrix();
         compareMatrices(ref, matrix);
       }
@@ -811,7 +805,7 @@ SUITE(TEST_MODEL)
         aSection->mIsUsed = true;
 
         ls::DoubleMatrix     ref         = getDoubleMatrixFromString(aSection->GetNonKeysAsString());
-        RoadRunner* rri = castToRoadRunner(gRR);rri->saveState("C:/rr/save-state-test.rr");rri = castToRoadRunner(createRRInstance());rri->loadState("C:/rr/save-state-test.rr");
+        RoadRunner* rri = castToRoadRunner(gRR);
         ls::DoubleMatrix matrix = rri->getReducedStoichiometryMatrix();
         compareMatrices(ref, matrix);
       }
@@ -850,7 +844,7 @@ SUITE(TEST_MODEL)
         aSection->mIsUsed = true;
 
         Config::setValue(Config::ROADRUNNER_JACOBIAN_MODE, (unsigned)Config::ROADRUNNER_JACOBIAN_MODE_CONCENTRATIONS);
-        RoadRunner* rri = castToRoadRunner(gRR);rri->saveState("C:/rr/save-state-test.rr");rri = castToRoadRunner(createRRInstance());rri->loadState("C:/rr/save-state-test.rr");
+        RoadRunner* rri = castToRoadRunner(gRR);
         //trySteadyState(gRR);
         ls::DoubleMatrix     ref = getDoubleMatrixFromString(aSection->GetNonKeysAsString());
         ls::DoubleMatrix  matrix = rri->getUnscaledElasticityMatrix();
@@ -872,7 +866,7 @@ SUITE(TEST_MODEL)
         aSection->mIsUsed = true;
 
         Config::setValue(Config::ROADRUNNER_JACOBIAN_MODE, (unsigned)Config::ROADRUNNER_JACOBIAN_MODE_AMOUNTS);
-        RoadRunner* rri = castToRoadRunner(gRR);rri->saveState("C:/rr/save-state-test.rr");rri = castToRoadRunner(createRRInstance());rri->loadState("C:/rr/save-state-test.rr");
+        RoadRunner* rri = castToRoadRunner(gRR);
         //trySteadyState(gRR);
         ls::DoubleMatrix     ref = getDoubleMatrixFromString(aSection->GetNonKeysAsString());
         ls::DoubleMatrix  matrix = rri->getUnscaledElasticityMatrix();
@@ -894,7 +888,7 @@ SUITE(TEST_MODEL)
         aSection->mIsUsed = true;
 
         Config::setValue(Config::ROADRUNNER_JACOBIAN_MODE, (unsigned)Config::ROADRUNNER_JACOBIAN_MODE_CONCENTRATIONS);
-        RoadRunner* rri = castToRoadRunner(gRR);rri->saveState("C:/rr/save-state-test.rr");rri = castToRoadRunner(createRRInstance());rri->loadState("C:/rr/save-state-test.rr");
+        RoadRunner* rri = castToRoadRunner(gRR);
         //trySteadyState(gRR);
         ls::DoubleMatrix     ref = getDoubleMatrixFromString(aSection->GetNonKeysAsString());
         ls::DoubleMatrix  matrix = rri->getScaledElasticityMatrix();
@@ -916,7 +910,7 @@ SUITE(TEST_MODEL)
         aSection->mIsUsed = true;
 
         Config::setValue(Config::ROADRUNNER_JACOBIAN_MODE, (unsigned)Config::ROADRUNNER_JACOBIAN_MODE_AMOUNTS);
-        RoadRunner* rri = castToRoadRunner(gRR);rri->saveState("C:/rr/save-state-test.rr");rri = castToRoadRunner(createRRInstance());rri->loadState("C:/rr/save-state-test.rr");
+        RoadRunner* rri = castToRoadRunner(gRR);
         //trySteadyState(gRR);
         ls::DoubleMatrix     ref = getDoubleMatrixFromString(aSection->GetNonKeysAsString());
         ls::DoubleMatrix  matrix = rri->getScaledElasticityMatrix();
@@ -1157,7 +1151,7 @@ SUITE(TEST_MODEL)
         clog << endl << "==== CHECK_RK4_OUTPUT ====" << endl << endl;
         aSection->mIsUsed = true;
 
-        RoadRunner* rri = castToRoadRunner(gRR);rri->saveState("C:/rr/save-state-test.rr");rri = castToRoadRunner(createRRInstance());rri->loadState("C:/rr/save-state-test.rr");
+        RoadRunner* rri = castToRoadRunner(gRR);
         SimulateOptions opt;
         opt.start = 0;
         opt.duration = 10;
@@ -1189,7 +1183,7 @@ SUITE(TEST_MODEL)
         clog << endl << "==== CHECK_RK45_OUTPUT ====" << endl << endl;
         aSection->mIsUsed = true;
 
-        RoadRunner* rri = castToRoadRunner(gRR);rri->saveState("C:/rr/save-state-test.rr");rri = castToRoadRunner(createRRInstance());rri->loadState("C:/rr/save-state-test.rr");
+        RoadRunner* rri = castToRoadRunner(gRR);
         SimulateOptions opt;
         opt.start = 0;
         opt.duration = 10;
@@ -2018,7 +2012,7 @@ SUITE(TEST_MODEL)
 
 		int NumPts = toInt(refList[0]);
 
-		RoadRunner* rri = castToRoadRunner(gRR);rri->saveState("C:/rr/save-state-test.rr");rri = castToRoadRunner(createRRInstance());rri->loadState("C:/rr/save-state-test.rr");
+		RoadRunner* rri = castToRoadRunner(gRR);
 
 		SimulateOptions opt;
 		const DoubleMatrix *result = rri->simulate(&opt);
@@ -2059,7 +2053,7 @@ SUITE(TEST_MODEL)
         string keys = Trim(aSection->GetNonKeysAsString());
         vector<string> refList = splitString(keys, " ,");
 
-        RoadRunner* rri = castToRoadRunner(gRR);rri->saveState("C:/rr/save-state-test.rr");rri = castToRoadRunner(createRRInstance());rri->loadState("C:/rr/save-state-test.rr");
+        RoadRunner* rri = castToRoadRunner(gRR);
         SimulateOptions opt;
         opt.start = toDouble(refList.at(0));
         opt.duration = toDouble(refList.at(1));
@@ -2098,7 +2092,7 @@ SUITE(TEST_MODEL)
         string keys = Trim(aSection->GetNonKeysAsString());
         vector<string> refList = splitString(keys, " ,");
 
-        RoadRunner* rri = castToRoadRunner(gRR);rri->saveState("C:/rr/save-state-test.rr");rri = castToRoadRunner(createRRInstance());rri->loadState("C:/rr/save-state-test.rr");
+        RoadRunner* rri = castToRoadRunner(gRR);
         SimulateOptions opt;
         opt.start = 0;
         opt.duration = 10;

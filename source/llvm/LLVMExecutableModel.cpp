@@ -1128,7 +1128,7 @@ double LLVMExecutableModel::getValue(const std::string& id)
         getFloatingSpeciesInitAmounts(1, &index, &result);
         break;
     case SelectionRecord::INITIAL_COMPARTMENT:
-        getCompartmentInitVolumes(1, &index, &result);
+        getCompartmentInitVolumes(1, &index, &result);	
         break;
     case SelectionRecord::INITIAL_FLOATING_CONCENTRATION:
         getFloatingSpeciesInitConcentrations(1, &index, &result);

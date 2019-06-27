@@ -17,7 +17,7 @@ extern bool        gDebug;
 
 SUITE(SBML_TEST_SUITE)
 {
- /*TEST(1) {CHECK(RunTest("l2v4", 1)); }
+ TEST(1) {CHECK(RunTest("l2v4", 1)); }
  TEST(2) { CHECK(RunTest("l2v4", 2)); }
  TEST(3) { CHECK(RunTest("l2v4", 3)); }
  TEST(4) { CHECK(RunTest("l2v4", 4)); }
@@ -1139,16 +1139,16 @@ TEST(1116) { CHECK(RunTest("l3v1", 1116 )); }
 TEST(1117) { CHECK(RunTest("l3v1", 1117 )); }
 TEST(1118) { CHECK(RunTest("l3v1", 1118 )); }
 TEST(1119) { CHECK(RunTest("l3v1", 1119 )); }
-*/TEST(1120) { CHECK(RunTest("l3v1", 1120 )); }/*
+TEST(1120) { CHECK(RunTest("l3v1", 1120 )); }
 TEST(1121) { CHECK(RunTest("l3v1", 1121 )); }
 TEST(1122) { CHECK(RunTest("l3v1", 1122 )); }
-TEST(1123) { CHECK(RunTest("l3v1", 1123 )); }*/
+TEST(1123) { CHECK(RunTest("l3v1", 1123 )); }
 /*
  * Tests 1124 -> 1183 use the hierarchical composition extension.
  * They are included in the SBML_TEST_SUITE_COMP set, below.
  */
-//TEST(1184) { CHECK(RunTest("l3v1", 1184 )); }
-//TEST(1185) { CHECK(RunTest("l3v1", 1185 )); }
+TEST(1184) { CHECK(RunTest("l3v1", 1184 )); }
+TEST(1185) { CHECK(RunTest("l3v1", 1185 )); }
 /*
  * Tests 1186 -> 1196 use the FBC extension.
  * They are included in the SBML_TEST_SUITE_FBC set, below.

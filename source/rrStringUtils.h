@@ -9,6 +9,7 @@
 #include <set>
 #include "rrConstants.h"
 #include "rrExporter.h"
+#include "Variant.h"
 
 namespace rr
 {
@@ -164,6 +165,47 @@ inline void                saveBinary(std::ostream& out, const std::set<T>& s)
 	}
 }
 
+template<>
+inline void saveBinary<rr::Variant>(std::ostream& out, const rr::Variant& var)
+{
+	saveBinary(out, var.type());
+	switch (var.type())
+	{
+	case Variant::BOOL:
+		saveBinary(out, (bool)var);
+		break;
+	case Variant::CHAR:
+		saveBinary(out, (char)var);
+		break;
+	case Variant::DOUBLE:
+		saveBinary(out, (double)var);
+		break;
+	case Variant::FLOAT:
+		saveBinary(out, (float)var);
+		break;
+	case Variant::INT32:
+		saveBinary(out, (int32_t)var);
+		break;
+	case Variant::INT64:
+		saveBinary(out, (long)var);
+		break;
+	case Variant::STRING:
+		saveBinary(out, (std::string)var);
+		break;
+	case Variant::UCHAR:
+		saveBinary(out, (unsigned char)var);
+		break;
+	case Variant::UINT32:
+		saveBinary(out, (unsigned int)var);
+		break;
+	case Variant::UINT64:
+		saveBinary(out, (unsigned long)var);
+		break;
+	default:
+		break;
+	}
+}
+
 template <typename T>
 inline void                loadBinary(std::istream& in, T& t)
 {
@@ -240,6 +282,69 @@ inline void                loadBinary(std::istream& in, std::set<T>& s)
 		s.emplace(next);
 	}
 }
+
+template<>
+inline void loadBinary<rr::Variant>(std::istream& in, rr::Variant& var)
+{
+	Variant::TypeId type;
+    std::string strVal;
+	loadBinary(in, type);
+	switch (type)
+	{
+	case Variant::BOOL:
+		bool boolVal;
+		loadBinary(in, boolVal);
+		var = boolVal;
+		break;
+	case Variant::CHAR:
+        char charVal;
+		loadBinary(in, charVal);
+		var = charVal;
+		break;
+	case Variant::DOUBLE:
+        double doubleVal;
+		loadBinary(in, doubleVal);
+		var = doubleVal;
+		break;
+	case Variant::FLOAT:
+        float floatVal;
+		loadBinary(in, floatVal);
+		var = floatVal;
+		break;
+	case Variant::INT32:
+        int int32Val;
+		loadBinary(in, int32Val);
+		var = int32Val;
+		break;
+	case Variant::INT64:
+        long int64Val;
+		loadBinary(in, int64Val);
+		var = int64Val;
+		break;
+	case Variant::STRING:
+		loadBinary(in, strVal);
+		var = strVal;
+		break;
+	case Variant::UCHAR:
+        unsigned char ucharVal;
+		loadBinary(in, ucharVal);
+		var = ucharVal;
+		break;
+	case Variant::UINT32:
+        unsigned int uint32Val;
+		loadBinary(in, uint32Val);
+		var = uint32Val;
+		break;
+	case Variant::UINT64:
+        unsigned long uint64Val;
+		loadBinary(in, uint64Val);
+		var = uint64Val;
+		break;
+	default:
+		break;
+	}
+}
+
 
 /*template <typename T>
 void saveBinary(std::ostream&, T t);
