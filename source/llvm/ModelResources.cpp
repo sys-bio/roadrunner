@@ -202,12 +202,6 @@ void ModelResources::addGlobalMappings()
             (void*) sbmlsupport::min);
 }
 
-/*llvm::Function* ModelResources::createGlobalMappingFunction(const char* funcName,
-        llvm::FunctionType *funcType, llvm::Module *module)
-{
-	return module->getFunction(funcName);
-}*/
-
 
 void ModelResources::loadState(std::istream& in, uint modelGeneratorOpt) 
 {
