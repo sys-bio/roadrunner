@@ -5102,6 +5102,7 @@ void RoadRunner::loadSelectionVector(std::istream& in, std::vector<SelectionReco
 {
 	size_t vsize;
 	rr::loadBinary(in, vsize);
+	v.clear();
 	for (int i = 0; i < vsize; i++)
 	{
 		SelectionRecord sr;
