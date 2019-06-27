@@ -4946,6 +4946,9 @@ void RoadRunner::saveState(std::string filename)
 
 	saveSelectionVector(out, impl->mSteadyStateSelection);
 
+	rr::saveBinary(out, impl->simulationResult.getColNames());
+	rr::saveBinary(out, impl->simulationResult.getRowNames());
+
 	rr::saveBinary(out, impl->simulateOpt.reset_model);
 	rr::saveBinary(out, impl->simulateOpt.structured_result);
 	rr::saveBinary(out, impl->simulateOpt.copy_result);
@@ -5034,6 +5037,14 @@ void RoadRunner::loadState(std::string filename)
 
 
 	loadSelectionVector(in, impl->mSteadyStateSelection);
+
+	std::vector<std::string> colNames;
+	rr::loadBinary(in, colNames);
+	impl->simulationResult.setColNames(colNames.begin(), colNames.end());
+
+	std::vector<std::string> rowNames;
+	rr::loadBinary(in, rowNames);
+	impl->simulationResult.setRowNames(rowNames.begin(), rowNames.end());
 
 	rr::loadBinary(in, impl->simulateOpt.reset_model);
 	rr::loadBinary(in, impl->simulateOpt.structured_result);
