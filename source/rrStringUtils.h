@@ -201,6 +201,8 @@ inline void saveBinary<rr::Variant>(std::ostream& out, const rr::Variant& var)
 	case Variant::UINT64:
 		saveBinary(out, (unsigned long)var);
 		break;
+	case Variant::DOUBLEVECTOR:
+		saveBinary(out, (std::vector<double>)var);
 	default:
 		break;
 	}
@@ -288,6 +290,7 @@ inline void loadBinary<rr::Variant>(std::istream& in, rr::Variant& var)
 {
 	Variant::TypeId type;
     std::string strVal;
+	std::vector<double> vectorVal;
 	loadBinary(in, type);
 	switch (type)
 	{
@@ -340,41 +343,14 @@ inline void loadBinary<rr::Variant>(std::istream& in, rr::Variant& var)
 		loadBinary(in, uint64Val);
 		var = uint64Val;
 		break;
+	case Variant::DOUBLEVECTOR:
+		loadBinary(in, vectorVal);
+		var = vectorVal;
+		break;
 	default:
 		break;
 	}
 }
-
-
-/*template <typename T>
-void saveBinary(std::ostream&, T t);
-
-template <>
-void                saveBinary(std::ostream&, std::string& s);
-
-template <typename T>
-void                saveBinary(std::ostream&, std::vector<T>& v);
-
-template <typename K, typename V>
-void                saveBinary(std::ostream&, std::map<K, V>& m);
-
-template <typename T>
-void                saveBinary(std::ostream&, std::set<T>& s);
-
-template <typename T>
-void loadBinary(std::istream&, T& t);
-
-template <>
-void                loadBinary(std::istream&, std::string& s);
-
-template <typename T>
-void                loadBinary(std::istream&, std::vector<T>& v);
-
-template <typename K, typename V>
-void                loadBinary(std::istream&, std::map<K, V>& m);
-
-template <typename T>
-void                loadBinary(std::istream&, std::set<T>& s);*/
 
 }
 #endif
