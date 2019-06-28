@@ -11,6 +11,7 @@
 #include "rrExporter.h"
 #include <typeinfo>
 #include <string>
+#include <vector>
 
 
 namespace rr
@@ -79,7 +80,7 @@ public:
      */
     enum TypeId
     {
-        STRING, BOOL, INT32, UINT32, INT64, UINT64, FLOAT, DOUBLE, CHAR, UCHAR, EMPTY
+        STRING, BOOL, INT32, UINT32, INT64, UINT64, FLOAT, DOUBLE, CHAR, UCHAR, EMPTY, DOUBLEVECTOR
     };
 
     /**
@@ -212,6 +213,8 @@ public:
 
     VARIANT_IMPLICIT_CONVERT(unsigned char);
 
+	VARIANT_IMPLICIT_CONVERT(std::vector<double>);
+	
     /**
      * Parses the string which must be in JSON format. This is a common
      * way to read a Variant from a file or create a new one from a string:
@@ -238,7 +241,7 @@ public:
     bool isString() const;
 
     /**
-     * was an interger stored here.
+     * was an integer stored here.
      */
     bool isInteger() const;
 
@@ -262,6 +265,11 @@ public:
      */
     bool isSigned() const;
 
+	/*
+	* true if this is a vector of doubles
+	* */
+	bool isDoubleVector() const;
+
 
 private:
     /**
@@ -270,8 +278,32 @@ private:
      * compatability.
      */
     struct VariantImpl *self;
-    void alloc();
+    /*
+	* Allocates this Variant's VariantImpl on the heap
+	*/
+	void alloc();
+	/*
+	* Assigns this variant object to the value pointed to by value
+	* of the type specified by info
+	*
+	* Pre: value must point to valid data for the type specified by info
+	*
+	* Throws std::invalid_argument if the type specified by info is not
+	* supported by rr::Variant
+	*/
     void assign(const std::type_info& info, const void* value);
+	/*
+	* Converts this variant object to the type specified by info and puts
+	* the result at value.
+	*
+	* Pre: the type specified by info is supported by rr::Variant 
+	*
+	* Performs type coercions supported by Poco::Dynamic::Var (https://pocoproject.org/docs/Poco.Dynamic.Var.html)
+	*
+	* Throws std::invalid_argument if the type given is not supported by rr:Variant
+	* 
+	* Throws std::logic_error if the conversion cannot be performed
+	*/
     void convert_to(const std::type_info& info, void* value) const;
 };
 
