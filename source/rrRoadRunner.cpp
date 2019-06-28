@@ -27,7 +27,6 @@
 #include "rrSBMLReader.h"
 #include "rrConfig.h"
 #include "SBMLValidator.h"
-#include <llvm/LLVMExecutableModel.h>
 
 #include <sbml/conversion/SBMLLocalParameterConverter.h>
 #include <sbml/conversion/SBMLLevelVersionConverter.h>
@@ -5096,7 +5095,8 @@ void RoadRunner::loadState(std::string filename)
 	if(impl->model)
 		delete impl->model;
 	//Create a new model from the stream
-	impl->model = new rrllvm::LLVMExecutableModel(in, impl->loadOpt.modelGeneratorOpt);
+	//impl->model = new rrllvm::LLVMExecutableModel(in, impl->loadOpt.modelGeneratorOpt);
+	impl->model = ExecutableModelFactory::createModel(in, impl->loadOpt.modelGeneratorOpt);
     impl->syncAllSolversWithModel(impl->model);
 
 	if (impl->mLS)

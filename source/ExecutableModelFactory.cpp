@@ -12,6 +12,7 @@
 #if defined(BUILD_LLVM)
 #include "llvm/LLVMModelGenerator.h"
 #include "llvm/LLVMCompiler.h"
+#include "llvm/LLVMExecutableModel.h"
 #endif
 
 #if defined(BUILD_LEGACY_C)
@@ -65,6 +66,11 @@ ExecutableModel* rr::ExecutableModelFactory::createModel(
         return new rrtesting::CXXEnzymeExecutableModel(dict);
     }
     return rrllvm::LLVMModelGenerator::createModel(sbml, opt.modelGeneratorOpt);
+}
+
+ExecutableModel *rr::ExecutableModelFactory::createModel(std::istream& in, uint modelGeneratorOpt)
+{
+	return new rrllvm::LLVMExecutableModel(in, modelGeneratorOpt);
 }
 
 /*
