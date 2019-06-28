@@ -1145,7 +1145,8 @@ private:
 
 	void saveSelectionVector(std::ostream&, std::vector<SelectionRecord>&);
 	void loadSelectionVector(std::istream&, std::vector<SelectionRecord>&);
-
+	const int fileMagicNumber = 0xAD6F52;
+	const int dataVersionNumber = 1;
 };
 
 }

@@ -4931,6 +4931,8 @@ void RoadRunner::saveState(std::string filename)
 	{
 		throw std::invalid_argument("Error opening file " + filename + ": " + std::string(strerror(errno)));
 	}
+	rr::saveBinary(out, fileMagicNumber);
+	rr::saveBinary(out, dataVersionNumber);
 	//Save all of roadrunner's data to the file
 	rr::saveBinary(out, impl->mInstanceID);
 	rr::saveBinary(out, impl->mDiffStepSize);
@@ -5016,6 +5018,19 @@ void RoadRunner::loadState(std::string filename)
 	if (!in)
 	{
 		throw std::invalid_argument("Error opening file " + filename + ": " + std::string(strerror(errno)));
+	}
+	int inMagicNumber;
+	rr::loadBinary(in, inMagicNumber);
+	if (inMagicNumber != fileMagicNumber)
+	{
+		throw std::invalid_argument("The file " + filename + " has the wrong magic number. Are you sure it is a roadrunner save state?");
+	}
+
+	int inVersionNumber;
+	rr::loadBinary(in, inVersionNumber);
+	if (inVersionNumber != dataVersionNumber)
+	{
+		throw std::invalid_argument("The file " + filename + " was saved with an unrecognized version of roadrunner");
 	}
    //load roadrunner's data in the same order saveState saves it in
 	rr::loadBinary(in, impl->mInstanceID);
