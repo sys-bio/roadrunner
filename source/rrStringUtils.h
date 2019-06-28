@@ -202,7 +202,7 @@ inline void saveBinary<rr::Variant>(std::ostream& out, const rr::Variant& var)
 		saveBinary(out, (unsigned long)var);
 		break;
 	case Variant::DOUBLEVECTOR:
-		saveBinary(out, (std::vector<double>)var);
+		saveBinary(out, var.convert<std::vector<double> >());
 	default:
 		break;
 	}
