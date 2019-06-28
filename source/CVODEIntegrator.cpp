@@ -7,7 +7,7 @@
 #include "rrException.h"
 #include "rrConfig.h"
 #include "rrUtils.h"
-#include "Variant.h"
+
 
 #include <cvode/cvode.h>
 #include <cvode/cvode_dense.h>
@@ -343,12 +343,12 @@ namespace rr
 		switch (getType("absolute_tolerance")) {
 		
 			// all cases below could be convert to a double type
-			case Variant::TypeId::INT32:
-			case Variant::TypeId::INT64:
-			case Variant::TypeId::UINT32:
-			case Variant::TypeId::UINT64:
-			case Variant::TypeId::FLOAT:
-			case Variant::TypeId::DOUBLE:
+			case Variant::INT32:
+			case Variant::INT64:
+			case Variant::UINT32:
+			case Variant::UINT64:
+			case Variant::FLOAT:
+			case Variant::DOUBLE:
 			{
 				// scalar tolerance
 				// need to be converted to vector tolerance since tolerance of individual species is set
@@ -358,7 +358,7 @@ namespace rr
 				break;
 			}
 
-			case Variant::TypeId::DOUBLEVECTOR:
+			case Variant::DOUBLEVECTOR:
 			{
 				// vector tolerance
 				v = CVODEIntegrator::getValueAsDoubleVector("absolute_tolerance");
@@ -390,12 +390,12 @@ namespace rr
 		switch (value.type()) {
 
 			// all cases below could be convert to a double type
-			case Variant::TypeId::INT32:
-			case Variant::TypeId::INT64:
-			case Variant::TypeId::UINT32:
-			case Variant::TypeId::UINT64:
-			case Variant::TypeId::FLOAT:
-			case Variant::TypeId::DOUBLE:
+			case Variant::INT32:
+			case Variant::INT64:
+			case Variant::UINT32:
+			case Variant::UINT64:
+			case Variant::FLOAT:
+			case Variant::DOUBLE:
 			{
 				// scalar concentration tolerance
 				// need to be converted to vector tolerance since speices might have various compartment sizes
@@ -418,10 +418,10 @@ namespace rr
 				break;
 			}
 
-			case Variant::TypeId::DOUBLEVECTOR:
+			case Variant::DOUBLEVECTOR:
 			{
 				// vector concentration tolerance
-				v = value.convert<vector<double>>();
+				v = value.convert< vector<double> >();
 
 				checkVectorSize(mModel->getNumFloatingSpecies(), v.size());
 				for (int i = 0; i < v.size(); i++) {
@@ -459,12 +459,12 @@ namespace rr
 		switch (getType("absolute_tolerance")) {
 
 			// all cases below could be convert to a double type
-			case Variant::TypeId::INT32:
-			case Variant::TypeId::INT64:
-			case Variant::TypeId::UINT32:
-			case Variant::TypeId::UINT64:
-			case Variant::TypeId::FLOAT:
-			case Variant::TypeId::DOUBLE:
+			case Variant::INT32:
+			case Variant::INT64:
+			case Variant::UINT32:
+			case Variant::UINT64:
+			case Variant::FLOAT:
+			case Variant::DOUBLE:
 			{
 				// scalar tolerance
 				double abstol = CVODEIntegrator::getValueAsDouble("absolute_tolerance");
@@ -484,7 +484,7 @@ namespace rr
 				break;
 			}
 
-			case Variant::TypeId::DOUBLEVECTOR:
+			case Variant::DOUBLEVECTOR:
 			{
 				// vector tolerance
 				v = CVODEIntegrator::getValueAsDoubleVector("absolute_tolerance");
@@ -512,8 +512,8 @@ namespace rr
 	{
 		// if vector tolerance is set, the size of vector must be equal to 
 		// the number of floating species
-		if (key == "absolute_tolerance" && val.type() == Variant::TypeId::DOUBLEVECTOR)
-			checkVectorSize(mModel->getNumFloatingSpecies(), val.convert<vector<double>>().size());
+		if (key == "absolute_tolerance" && val.type() == Variant::DOUBLEVECTOR)
+			checkVectorSize(mModel->getNumFloatingSpecies(), val.convert< vector<double> >().size());
 
 		Integrator::setValue(key, val);
 		
@@ -783,18 +783,18 @@ namespace rr
 		switch (getType("absolute_tolerance")) {
 			
 			// all cases below could be convert to a double type
-			case Variant::TypeId::INT32:
-			case Variant::TypeId::INT64:
-			case Variant::TypeId::UINT32:
-			case Variant::TypeId::UINT64:
-			case Variant::TypeId::FLOAT:
-			case Variant::TypeId::DOUBLE:
+			case Variant::INT32:
+			case Variant::INT64:
+			case Variant::UINT32:
+			case Variant::UINT64:
+			case Variant::FLOAT:
+			case Variant::DOUBLE:
 				// scalar tolerance
 				CVODEIntegrator::setValue("absolute_tolerance", std::min(CVODEIntegrator::getValueAsDouble("absolute_tolerance"), minAbs));
 				break;
 
 			
-			case Variant::TypeId::DOUBLEVECTOR:
+			case Variant::DOUBLEVECTOR:
 			{
 				// vector tolerance
 				vector<double> v = CVODEIntegrator::getValueAsDoubleVector("absolute_tolerance");
@@ -990,18 +990,18 @@ namespace rr
 		switch (getType("absolute_tolerance")) {
 			
 			// all cases below could be convert to a double type
-			case Variant::TypeId::INT32:
-			case Variant::TypeId::INT64:
-			case Variant::TypeId::UINT32:
-			case Variant::TypeId::UINT64:
-			case Variant::TypeId::FLOAT:
-			case Variant::TypeId::DOUBLE:
+			case Variant::INT32:
+			case Variant::INT64:
+			case Variant::UINT32:
+			case Variant::UINT64:
+			case Variant::FLOAT:
+			case Variant::DOUBLE:
 				// scalar tolerance
 				err = CVodeSStolerances(mCVODE_Memory, getValueAsDouble("relative_tolerance"), getValueAsDouble("absolute_tolerance"));
 				break;
 			
 			
-			case Variant::TypeId::DOUBLEVECTOR:
+			case Variant::DOUBLEVECTOR:
 			{
 				// vector tolerance
 				// convert a double vector to a n_vector?
@@ -1032,18 +1032,18 @@ namespace rr
 		switch (getType("absolute_tolerance")) {
 			// scalar tolerance
 			// all cases below could be convert to a double type
-			case Variant::TypeId::INT32:
-			case Variant::TypeId::INT64:
-			case Variant::TypeId::UINT32:
-			case Variant::TypeId::UINT64:
-			case Variant::TypeId::FLOAT:
-			case Variant::TypeId::DOUBLE:
+			case Variant::INT32:
+			case Variant::INT64:
+			case Variant::UINT32:
+			case Variant::UINT64:
+			case Variant::FLOAT:
+			case Variant::DOUBLE:
 				Log(Logger::LOG_INFORMATION) << "Set tolerance to abs: " << setprecision(16)
 					<< getValueAsDouble("absolute_tolerance") << ", rel: " << getValueAsDouble("relative_tolerance") << endl;
 				break;
 
 			// vector tolerance
-			case Variant::TypeId::DOUBLEVECTOR: 
+			case Variant::DOUBLEVECTOR: 
 			{
 				Log(Logger::LOG_INFORMATION) << "Set tolerance to abs: " << setprecision(16) << "[";
 				vector<double> v = getValueAsDoubleVector("absolute_tolerance");
