@@ -14,6 +14,7 @@
 #include "rrSparse.h"
 #include "Random.h"
 #include <iomanip>
+#include <iostream>
 
 using namespace std;
 

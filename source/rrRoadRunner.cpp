@@ -27,9 +27,7 @@
 #include "rrSBMLReader.h"
 #include "rrConfig.h"
 #include "SBMLValidator.h"
-#include "../../roadrunner/source/llvm/LLVMModelData.h"
-#include "../../roadrunner/source/llvm/LLVMModelDataSymbols.h"
-#include "../../roadrunner/source/llvm/LLVMExecutableModel.h"
+#include <llvm/LLVMExecutableModel.h>
 
 #include <sbml/conversion/SBMLLocalParameterConverter.h>
 #include <sbml/conversion/SBMLLevelVersionConverter.h>
