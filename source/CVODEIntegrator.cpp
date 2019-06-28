@@ -433,6 +433,7 @@ namespace rr
 				break;
 		}
 
+		free(volumes);
 		// update the tolerance
 		CVODEIntegrator::setValue("absolute_tolerance", v);
 	}
@@ -494,6 +495,7 @@ namespace rr
 			default:
 				break;
 		}
+		free(volumes);
 		return v;
 	}
 
