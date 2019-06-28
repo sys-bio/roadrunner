@@ -57,13 +57,17 @@ ModelResources::~ModelResources()
 void ModelResources::saveState(std::ostream& out) const
 {
 	// Note: ModelResources::saveState and loadState currently save the jitted functions
-	// as LLVM IR. I'm not sure if this will be fast enough. If it is not we can look into saving
-	// them as LLVM bitcode or even as machine code.
+	// as LLVM Bitcode. I'm not sure if this will be fast enough. If it is not we can look into saving
+	// them as machine code.
 	symbols->saveState(out);
-	std::string moduleStr;
-	llvm::raw_string_ostream moduleSStream(moduleStr);
-	//Write the module's IR to moduleSStream, which in turn writes it into moduleStr
-	moduleSStream << *module;	
+	//Create a buffer to write bitcode into
+	llvm::SmallVector<char, 10> modBuffer;
+	llvm::BitcodeWriter bw(modBuffer);
+	bw.writeModule(module);
+	//Need to call this function to finish writing the bitcode
+	bw.writeStrtab();
+	//create a string from the buffer and save it
+	std::string moduleStr(modBuffer.begin(), modBuffer.end());
 	rr::saveBinary(out, moduleStr);
 }
 
@@ -212,11 +216,21 @@ void ModelResources::loadState(std::istream& in, uint modelGeneratorOpt)
 	rr::loadBinary(in, moduleStr);
 	//Set up the llvm context 
 	context = new llvm::LLVMContext();
-	//Set up the arguments to parseIR
+	//Set up a buffer to read the bitcode from
 	auto memBuffer(llvm::MemoryBuffer::getMemBuffer(moduleStr));
-	llvm::SMDiagnostic sm;
-	module = llvm::parseIR(*memBuffer, sm, *context).release();
+	llvm::Expected<std::vector<llvm::BitcodeModule>> bitcodeModuleList = llvm::getBitcodeModuleList(*memBuffer);
+	if (!bitcodeModuleList) {
+		throw std::invalid_argument("Failed to load bitcode");
+	}
+	//We only ever save one module, so we take the first from the list
+	llvm::BitcodeModule bitcodeModule = bitcodeModuleList.get()[0];
 
+	llvm::Expected<std::unique_ptr<llvm::Module>> module_uniq = bitcodeModule.parseModule(*context);
+	if (!module_uniq) {
+		throw std::invalid_argument("Failed to load llvm module");
+	}
+
+	module = module_uniq.get().release();
 	//Not sure why, but engineBuilder.create() crashes if not initialized with an empty module
 	auto emptyModule = std::unique_ptr<llvm::Module>(new llvm::Module("Module test", *context));
 	
