@@ -4927,6 +4927,10 @@ static void metabolicControlCheck(ExecutableModel *model)
 void RoadRunner::saveState(std::string filename)
 {
 	std::ofstream out(filename, iostream::binary);
+	if (!out)
+	{
+		throw std::invalid_argument("Error opening file " + filename + ": " + std::string(strerror(errno)));
+	}
 	//Save all of roadrunner's data to the file
 	rr::saveBinary(out, impl->mInstanceID);
 	rr::saveBinary(out, impl->mDiffStepSize);
@@ -5009,6 +5013,10 @@ void RoadRunner::saveSelectionVector(std::ostream& out, std::vector<SelectionRec
 void RoadRunner::loadState(std::string filename)
 {
 	std::ifstream in(filename, iostream::binary);
+	if (!in)
+	{
+		throw std::invalid_argument("Error opening file " + filename + ": " + std::string(strerror(errno)));
+	}
    //load roadrunner's data in the same order saveState saves it in
 	rr::loadBinary(in, impl->mInstanceID);
 	rr::loadBinary(in, impl->mDiffStepSize);
