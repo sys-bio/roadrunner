@@ -7,6 +7,7 @@
 #include "rrException.h"
 #include "rrConfig.h"
 #include "rrUtils.h"
+#include "Variant.h"
 
 #include <cvode/cvode.h>
 #include <cvode/cvode_dense.h>
@@ -93,13 +94,21 @@ namespace rr
 
 	void CVODEIntegrator::checkVectorSize(int expected, int real) const {
 		if (expected != real)  
-			throw std::runtime_error("CVODEIntegrator::checkVectorSize failed, real size is " + std::to_string(real) + ", whereas expected size is " + std::to_string(expected));
+			throw std::runtime_error("CVODEIntegrator::checkVectorSize failed, real size is " + CVODEIntegrator::ToString(real) + ", whereas expected size is " + CVODEIntegrator::ToString(expected));
 	}
 
 	void CVODEIntegrator::checkIndex(int index, int size) const {
 		if (index < 0 || index >= size)
-			throw std::out_of_range("CVODEIntegrator::checkIndex failed, index " + std::to_string(index) + " out of range from " + std::to_string(0) + " to " + std::to_string(size-1));
+			throw std::out_of_range("CVODEIntegrator::checkIndex failed, index " + CVODEIntegrator::ToString(index) + " out of range from " + CVODEIntegrator::ToString(0) + " to " + CVODEIntegrator::ToString(size-1));
 	}
+
+	std::string CVODEIntegrator::ToString(int val) const
+	{
+		std::stringstream stream;
+		stream << val;
+		return stream.str();
+	}
+
 
 
     void CVODEIntegrator::resetSettings()

@@ -72,7 +72,8 @@ namespace rr
 	void Integrator::setConcentrationTolerance(const Variant& value) {}
 
 	std::vector<double> Integrator::getConcentrationTolerance() {
-		return {};
+		vector<double> v;
+		return v;
 	}
 
     IntegratorRegistrar::~IntegratorRegistrar() {}

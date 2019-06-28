@@ -221,6 +221,12 @@ namespace rr
 		*/
 		void checkIndex(int index, int size) const;
 
+		/**
+		* @author FY
+		* @brief Converts integer to string for error print
+		*/
+		std::string ToString(int val) const;
+
         /**
          * @brief decode the cvode error code to a string
          */
