@@ -60,8 +60,6 @@
 #include "SteadyStateSolver.h"
 #include "Dictionary.h"
 #include "rrConfig.h"
-#include "../../roadrunner/source/llvm/LLVMModelData.h"
-#include "../../roadrunner/source/llvm/LLVMModelDataSymbols.h"
 
 
 #if defined(_MSC_VER)

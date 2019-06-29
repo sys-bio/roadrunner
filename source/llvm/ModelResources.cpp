@@ -12,12 +12,10 @@
 #include <rrStringUtils.h>
 #undef min
 #undef max
-#include "llvm/IRReader/IRReader.h"
 #include "llvm/Bitcode/BitcodeWriter.h"
 #include "llvm/Bitcode/BitcodeReader.h"
 #include "llvm/Support/Error.h"
 #include "llvm/Support/MemoryBuffer.h"
-#include "llvm/Support/SourceMgr.h"
 #include "llvm/ExecutionEngine/SectionMemoryManager.h"
 #include "llvm/Support/DynamicLibrary.h"
 #include "source/llvm/SBMLSupportFunctions.h"

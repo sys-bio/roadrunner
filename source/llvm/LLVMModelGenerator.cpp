@@ -13,15 +13,7 @@
 #include "ModelGeneratorContext.h"
 #include "LLVMIncludes.h"
 #include "ModelResources.h"
-#include "llvm/Support/TargetRegistry.h"
-#include "llvm-c/TargetMachine.h"
-//#include "llvm/Bitcode/BitcodeWriter.h"
-#include "llvm/IRReader/IRReader.h"
-#include "llvm/Support/FileSystem.h"
-#include "llvm/Support/SourceMgr.h"
 #include "Random.h"
-#include <iostream>
-#include <fstream>
 #include <rrLogger.h>
 #include <rrUtils.h>
 #include <Poco/Mutex.h>
