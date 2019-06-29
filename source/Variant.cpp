@@ -7,6 +7,7 @@
 
 #include "Variant.h"
 #include "rrLogger.h"
+#include "rrStringUtils.h"
 
 #include <exception>
 #include <iostream>
@@ -145,23 +146,23 @@ static std::string strip(const std::string& in)
 *      be parsed with std::stod
 *
 */
-std::vector<double> parseDoubleVector(const std::string& toParse) {
-	std::vector<double> result;
-	size_t index = 1;
-	while (toParse[index] == ' ') {
-		index++;
-	}
-	while (index < toParse.length() && toParse[index] != ']') {
-		size_t lengthInStr = 0;
-		result.push_back(std::stod(&toParse[index], &lengthInStr));
-		index += lengthInStr;
-		while (index < toParse.length() && (toParse[index] == ' '
-			|| toParse[index] == ',')) {
-			index++;
-		}
-	}
-	return result;
-}
+//std::vector<double> parseDoubleVector(const std::string& toParse) {
+//	std::vector<double> result;
+//	size_t index = 1;
+//	while (toParse[index] == ' ') {
+//		index++;
+//	}
+//	while (index < toParse.length() && toParse[index] != ']') {
+//		size_t lengthInStr = 0;
+//		result.push_back(std::stod(&toParse[index], &lengthInStr));
+//		index += lengthInStr;
+//		while (index < toParse.length() && (toParse[index] == ' '
+//			|| toParse[index] == ',')) {
+//			index++;
+//		}
+//	}
+//	return result;
+//}
 
 Variant Variant::parse(const std::string& s)
 {
@@ -198,7 +199,7 @@ Variant Variant::parse(const std::string& s)
 	
 	//Check if vector of doubles
 	if (str[0] == '[') {
-		return Variant(parseDoubleVector(str));
+		return Variant(toDoubleVector(str));
 	}
 
     // its a string
@@ -339,7 +340,7 @@ void Variant::convert_to(const std::type_info& info, void* p) const
 		
 		if (info == typeid(std::vector<double>)) {
 			std::vector<double>* out = static_cast<std::vector<double>*>(p);
-			*out = self->var.extract<std::vector<double>>();
+			*out = self->var.extract< std::vector<double> >();
 			return;
 		}
 
