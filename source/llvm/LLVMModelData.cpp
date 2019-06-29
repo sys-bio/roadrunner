@@ -15,6 +15,7 @@
 #include "Random.h"
 #include <iomanip>
 #include <iostream>
+#include "rrStringUtils.h"
 
 using namespace std;
 
@@ -100,7 +101,22 @@ std::ostream& operator <<(std::ostream& os, const LLVMModelData& data)
 void LLVMModelData_save(LLVMModelData *data, std::ostream& out) 
 {
 	//Counts and size variables
-	out.write((char*)&(data->size), sizeof data->size);
+	rr::saveBinary(out, data->size);
+	rr::saveBinary(out, data->flags);
+	rr::saveBinary(out, data->time);
+	rr::saveBinary(out, data->numIndCompartments);
+	rr::saveBinary(out, data->numIndFloatingSpecies);
+	rr::saveBinary(out, data->numIndBoundarySpecies);
+	rr::saveBinary(out, data->numIndGlobalParameters);
+	rr::saveBinary(out, data->numRateRules);
+	rr::saveBinary(out, data->numReactions);
+	rr::saveBinary(out, data->numInitCompartments);
+	rr::saveBinary(out, data->numInitFloatingSpecies);
+	rr::saveBinary(out, data->numInitBoundarySpecies);
+	rr::saveBinary(out, data->numInitGlobalParameters);
+
+
+	/*out.write((char*)&(data->size), sizeof data->size);
 	out.write((char*)&(data->flags), sizeof data->flags);
 	out.write((char*)&(data->time), sizeof data->time);
 	out.write((char*)&(data->numIndCompartments), sizeof data->numIndCompartments);
@@ -112,11 +128,13 @@ void LLVMModelData_save(LLVMModelData *data, std::ostream& out)
 	out.write((char*)&(data->numInitCompartments), sizeof data->numInitCompartments);
 	out.write((char*)&(data->numInitFloatingSpecies), sizeof data->numInitFloatingSpecies);
 	out.write((char*)&(data->numInitBoundarySpecies), sizeof data->numInitBoundarySpecies);
-	out.write((char*)&(data->numInitGlobalParameters), sizeof data->numInitGlobalParameters);
+	out.write((char*)&(data->numInitGlobalParameters), sizeof data->numInitGlobalParameters);*/
 
-	out.write((char*)&(data->numEvents), sizeof data->numEvents);
-	out.write((char*)&(data->stateVectorSize), sizeof data->stateVectorSize);
+	//out.write((char*)&(data->numEvents), sizeof data->numEvents);
+	//out.write((char*)&(data->stateVectorSize), sizeof data->stateVectorSize);
     
+	rr::saveBinary(out, data->numEvents);
+	rr::saveBinary(out, data->stateVectorSize);
 	//Save the stoichiometry matrix
 	rr::csr_matrix_dump_binary(data->stoichiometry, out);
 
@@ -128,34 +146,34 @@ void LLVMModelData_save(LLVMModelData *data, std::ostream& out)
 
 	//Alias pointer offsets
 	unsigned compartmentVolumesAliasOffset = data->compartmentVolumesAlias - data->data;
-	out.write((char*)&(compartmentVolumesAliasOffset), sizeof(unsigned));
-
+	rr::saveBinary(out, compartmentVolumesAliasOffset);
+    
 	unsigned initCompartmentVolumesAliasOffset = data->initCompartmentVolumesAlias - data->data;
-	out.write((char*)&(initCompartmentVolumesAliasOffset), sizeof(unsigned));
+	rr::saveBinary(out, initCompartmentVolumesAliasOffset);
 
 	unsigned initFloatingSpeciesAmountAliasOffset = data->initFloatingSpeciesAmountsAlias - data->data;
-	out.write((char*)&(initFloatingSpeciesAmountAliasOffset), sizeof(unsigned));
+	rr::saveBinary(out, initFloatingSpeciesAmountAliasOffset);
 
 	unsigned boundarySpeciesAmountAliasOffset = data->boundarySpeciesAmountsAlias - data->data;
-	out.write((char*)&(boundarySpeciesAmountAliasOffset), sizeof(unsigned));
+	rr::saveBinary(out, boundarySpeciesAmountAliasOffset); 
 
 	unsigned initBoundarySpeciesAmountsAliasOffset = data->initBoundarySpeciesAmountsAlias - data->data;
-	out.write((char*)&(initBoundarySpeciesAmountsAliasOffset), sizeof(unsigned));
+	rr::saveBinary(out, initBoundarySpeciesAmountsAliasOffset); 
 
 	unsigned globalParametersAliasOffset = data->globalParametersAlias - data->data;
-	out.write((char*)&(globalParametersAliasOffset), sizeof(unsigned));
+	rr::saveBinary(out, globalParametersAliasOffset); 
 
 	unsigned initGlobalParametersAliasOffset = data->initGlobalParametersAlias - data->data;
-	out.write((char*)&(initGlobalParametersAliasOffset), sizeof(unsigned));
+	rr::saveBinary(out, initGlobalParametersAliasOffset); 
 
 	unsigned reactionRatesAliasOffset = data->reactionRatesAlias - data->data;
-	out.write((char*)&(reactionRatesAliasOffset), sizeof(unsigned));
+	rr::saveBinary(out, reactionRatesAliasOffset); 
 
 	unsigned rateRuleValuesAliasOffset = data->rateRuleValuesAlias - data->data;
-	out.write((char*)&(rateRuleValuesAliasOffset), sizeof(unsigned));
+	rr::saveBinary(out, rateRuleValuesAliasOffset); 
 
 	unsigned floatingSpeciesAmountsAliasOffset = data->floatingSpeciesAmountsAlias - data->data;
-	out.write((char*)&(floatingSpeciesAmountsAliasOffset), sizeof(unsigned));
+	rr::saveBinary(out, floatingSpeciesAmountsAliasOffset); 
 
 	//save the data itself
 	//the size is the sum of the 10 unsigned integers at the top of LLVMModelData
@@ -174,26 +192,26 @@ LLVMModelData* LLVMModelData_from_save(std::istream& in)
 {
 	//Counts and size variables
 	unsigned size;
-	in.read((char*)&(size), sizeof(unsigned));
+	rr::loadBinary(in, size);
 
 	LLVMModelData *data = (LLVMModelData*)calloc(size, sizeof(unsigned char));
 
 	data->size = size;
-	in.read((char*)&(data->flags), sizeof data->flags);
-	in.read((char*)&(data->time), sizeof data->time);
-	in.read((char*)&(data->numIndCompartments), sizeof data->numIndCompartments);
-	in.read((char*)&(data->numIndFloatingSpecies), sizeof data->numIndFloatingSpecies);
-	in.read((char*)&(data->numIndBoundarySpecies), sizeof data->numIndBoundarySpecies);
-	in.read((char*)&(data->numIndGlobalParameters), sizeof data->numIndGlobalParameters);
-	in.read((char*)&(data->numRateRules), sizeof data->numRateRules);
-	in.read((char*)&(data->numReactions), sizeof data->numReactions);
-	in.read((char*)&(data->numInitCompartments), sizeof data->numInitCompartments);
-	in.read((char*)&(data->numInitFloatingSpecies), sizeof data->numInitFloatingSpecies);
-	in.read((char*)&(data->numInitBoundarySpecies), sizeof data->numInitBoundarySpecies);
-	in.read((char*)&(data->numInitGlobalParameters), sizeof data->numInitGlobalParameters);
+	rr::loadBinary(in, data->flags);
+	rr::loadBinary(in, data->time);
+	rr::loadBinary(in, data->numIndCompartments);
+	rr::loadBinary(in, data->numIndFloatingSpecies);
+	rr::loadBinary(in, data->numIndBoundarySpecies);
+	rr::loadBinary(in, data->numIndGlobalParameters);
+	rr::loadBinary(in, data->numRateRules);
+	rr::loadBinary(in, data->numReactions);
+	rr::loadBinary(in, data->numInitCompartments);
+	rr::loadBinary(in, data->numInitFloatingSpecies);
+	rr::loadBinary(in, data->numInitBoundarySpecies);
+	rr::loadBinary(in, data->numInitGlobalParameters);
 
-	in.read((char*)&(data->numEvents), sizeof data->numEvents);
-	in.read((char*)&(data->stateVectorSize), sizeof data->stateVectorSize);
+	rr::loadBinary(in, data->numEvents);
+	rr::loadBinary(in, data->stateVectorSize);
     
 	//Load the stoichiometry matrix
 	data->stoichiometry = rr::csr_matrix_new_from_binary(in);
@@ -201,43 +219,43 @@ LLVMModelData* LLVMModelData_from_save(std::istream& in)
 	//Alias pointer offsets
 
 	unsigned compartmentVolumesAliasOffset;
-	in.read((char*)&(compartmentVolumesAliasOffset), sizeof(unsigned));
+	rr::loadBinary(in, compartmentVolumesAliasOffset);
 	data->compartmentVolumesAlias = data->data + compartmentVolumesAliasOffset;
 
 	unsigned initCompartmentVolumesAliasOffset;
-	in.read((char*)&(initCompartmentVolumesAliasOffset), sizeof(unsigned));
+	rr::loadBinary(in, initCompartmentVolumesAliasOffset);
 	data->initCompartmentVolumesAlias = data->data + initCompartmentVolumesAliasOffset;
 
 	unsigned initFloatingSpeciesAmountsAliasOffset;
-	in.read((char*)&(initFloatingSpeciesAmountsAliasOffset), sizeof(unsigned));
+	rr::loadBinary(in, initFloatingSpeciesAmountsAliasOffset);
 	data->initFloatingSpeciesAmountsAlias = data->data + initFloatingSpeciesAmountsAliasOffset;
 
 	unsigned boundarySpeciesAmountsAliasOffset;
-	in.read((char*)&(boundarySpeciesAmountsAliasOffset), sizeof(unsigned));
+	rr::loadBinary(in, boundarySpeciesAmountsAliasOffset);
 	data->boundarySpeciesAmountsAlias = data->data + boundarySpeciesAmountsAliasOffset;
 
 	unsigned initBoundarySpeciesAmountsAliasOffset;
-	in.read((char*)&(initBoundarySpeciesAmountsAliasOffset), sizeof(unsigned));
+	rr::loadBinary(in, initBoundarySpeciesAmountsAliasOffset);
 	data->initBoundarySpeciesAmountsAlias = data->data + initBoundarySpeciesAmountsAliasOffset;
 
 	unsigned globalParametersAliasOffset;
-	in.read((char*)&(globalParametersAliasOffset), sizeof(unsigned));
+	rr::loadBinary(in, globalParametersAliasOffset);
 	data->globalParametersAlias = data->data + globalParametersAliasOffset;
 
 	unsigned initGlobalParametersAliasOffset;
-	in.read((char*)&(initGlobalParametersAliasOffset), sizeof(unsigned));
+	rr::loadBinary(in, initGlobalParametersAliasOffset);
 	data->initGlobalParametersAlias = data->data + initGlobalParametersAliasOffset;
 
 	unsigned reactionRatesAliasOffset;
-	in.read((char*)&(reactionRatesAliasOffset), sizeof(unsigned));
+	rr::loadBinary(in, reactionRatesAliasOffset);
 	data->reactionRatesAlias = data->data + reactionRatesAliasOffset;
 
 	unsigned rateRuleValuesAliasOffset;
-	in.read((char*)&(rateRuleValuesAliasOffset), sizeof(unsigned));
+	rr::loadBinary(in, rateRuleValuesAliasOffset);
 	data->rateRuleValuesAlias = data->data + rateRuleValuesAliasOffset;
 
 	unsigned floatingSpeciesAmountsAliasOffset;
-	in.read((char*)&(floatingSpeciesAmountsAliasOffset), sizeof(unsigned));
+	rr::loadBinary(in, floatingSpeciesAmountsAliasOffset);
 	data->floatingSpeciesAmountsAlias = data->data + floatingSpeciesAmountsAliasOffset;
 
 	//save the data itself
