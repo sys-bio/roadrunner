@@ -195,10 +195,10 @@ PyObject* Variant_to_py(const Variant& var)
     }
 
 	if (type == typeid(vector<double>)) {
-		PyObject* list = PyList_New(var.convert<vector<double>>().size());
+		PyObject* list = PyList_New(var.convert< vector<double> >().size());
 		if (!list) throw logic_error("Unable to allocate memory for Python list");
-		for (unsigned int i = 0; i < var.convert<vector<double>>().size(); i++) {
-			PyObject* num = PyFloat_FromDouble((double)var.convert<vector<double>>()[i]);
+		for (unsigned int i = 0; i < var.convert< vector<double> >().size(); i++) {
+			PyObject* num = PyFloat_FromDouble((double)var.convert< vector<double> >()[i]);
 			if (!num) {
 				Py_DECREF(list);
 				throw logic_error("Unable to allocate memory for Python list");
