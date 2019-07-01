@@ -63,10 +63,65 @@ _________________________
 
    :param uriOrDocument: A string which may be a local path, URI or contents of an SBML document. 
    :type name: str
+   
+   
+.. method:: RoadRunner.saveState(document, option = 'b')
+   :module: RoadRunner
+
+   Saves the current state of simulation, e.g. integrator, steady state solver, simulation results,
+   given a string for file path.
+   If no option is given or the option is 'b', the state will be stored in the binary form, which
+   could be quickly reloaded and resume to simulate later.
+   It the option is 'r', the state will be stored in the human-readable form, which could be used
+   for debugging.
+   
+   Some examples of saving binary files on Mac or Linux::
+   
+       >>> r.saveState("current_state.txt")                        # save the state to a file from the current directory
+       >>> r.saveState("/Users/Fred/current_state.txt")            # absolute path
 
 
+   Or on Windows:
+
+       >>> r.saveState("current_state.txt")                        # save the state to a file from the current directory
+       >>> r.saveState("file://localhost/c:/Users/Fred/current_state.txt")   # using a URI
+
+   One may also save the human-readable contents:
+
+       >>> r.saveState("current_state.txt", 'r')
+       
+
+   :param document: The file path where the current state will be stored
+   :type name: str
+   
+   :param option:  an option object specifying how the state should be saved
+   		   'b' - binary	(default)
+		   'r' - human-readable 
+   :type name: char(optional)
+   
+   
+   
+.. method:: RoadRunner.loadState(document)
+   :module: RoadRunner
+
+   Loads the saved state of simulation, e.g. integrator, steady state solver, simulation results,
+   given a string for file path.
+   All simulation calls after this function will start from the resumed state.
+   
+   Some examples of reloading binary files on Mac or Linux::
+   
+       >>> r.loadState("current_state.txt")                        # load the state from a file from the current directory
+       >>> r.loadState("/Users/Fred/current_state.txt")            # absolute path
 
 
+   Or on Windows:
+
+       >>> r.loadState("current_state.txt")                        # load the state from a file from the current directory
+       >>> r.loadState("file://localhost/c:/Users/Fred/current_state.txt")   # using a URI
+
+   :param document: The file path where the state of simulation will be loaded from
+   :type name: str
+  
 
 
 .. method:: RoadRunner.getCompiler()
