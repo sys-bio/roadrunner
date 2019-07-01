@@ -4991,6 +4991,15 @@ void RoadRunner::saveState(std::string filename, char opt)
 				rr::saveBinary(out, k);
 				rr::saveBinary(out, impl->integrator->getValue(k));
 			}
+
+			rr::saveBinary(out, impl->steady_state_solver->getName());
+			rr::saveBinary(out, impl->steady_state_solver->getNumParams());
+
+			for (std::string k : impl->steady_state_solver->getSettings())
+			{
+				rr::saveBinary(out, k);
+				rr::saveBinary(out, impl->steady_state_solver->getValue(k));
+			}
 			//Currently I save and reload the SBML that was used to create the model
 			//It is not parsed however, unless a instance of LibStructural needs to be
 			//created
@@ -5230,6 +5239,22 @@ void RoadRunner::loadState(std::string filename)
 	rr::loadBinary(in, solverNumParams);
 	
 	for (int i = 0; i < solverNumParams; i++) 
+	{
+		std::string k;
+		rr::loadBinary(in, k);
+		rr::Variant v;
+		rr::loadBinary(in, v);
+		impl->steady_state_solver->setValue(k, v);
+	}
+
+	std::string steadyStateSolverName;
+	rr::loadBinary(in, steadyStateSolverName);
+	setSteadyStateSolver(steadyStateSolverName);
+
+	unsigned long solverNumParams;
+	rr::loadBinary(in, solverNumParams);
+
+	for (int i = 0; i < solverNumParams; i++)
 	{
 		std::string k;
 		rr::loadBinary(in, k);
