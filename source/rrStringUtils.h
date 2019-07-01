@@ -109,7 +109,11 @@ RR_DECLSPEC string              substitute(const string& src, const string& this
 RR_DECLSPEC string              removeNewLines(const string& str, const int& howMany = -1);
 
 
-
+/*
+* Saves t in a binary format that can then be reloaded with loadBinary
+* T must be a primitive, POD with no pointers, std::vector, std::string, std::map, std::unordered_map, std::set, rr::Variant
+* or combinations of those, like std::map<rr::Variant, std::vector<std::string> >
+*/
 template <typename T>
 inline void                saveBinary(std::ostream& out, const T& t)
 {
@@ -208,6 +212,11 @@ inline void saveBinary<rr::Variant>(std::ostream& out, const rr::Variant& var)
 	}
 }
 
+/*
+* Loads an object saved by saveBinary from an istream and puts the result in t
+* t must be of the same type that was saved by saveBinary
+* Objects must be loaded in the order they were saved to the stream
+*/
 template <typename T>
 inline void                loadBinary(std::istream& in, T& t)
 {

@@ -5221,12 +5221,29 @@ void RoadRunner::loadState(std::string filename)
 		rr::loadBinary(in, v);
 		impl->integrator->setValue(k, v);
 	}
+
+	std::string steadyStateSolverName;
+	rr::loadBinary(in, steadyStateSolverName);
+	setSteadyStateSolver(steadyStateSolverName);
+
+	unsigned long solverNumParams;
+	rr::loadBinary(in, solverNumParams);
+	
+	for (int i = 0; i < solverNumParams; i++) 
+	{
+		std::string k;
+		rr::loadBinary(in, k);
+		rr::Variant v;
+		rr::loadBinary(in, v);
+		impl->steady_state_solver->setValue(k, v);
+	}
+
 	//Currently the SBML is saved with the binary data, see saveState above
 	rr::loadBinary(in, impl->mCurrentSBML);
 	//Restart the integrator and reset the model
 	//This will need to change if we decide to add pausing
-	impl->integrator->restart(0.0);
-	reset();
+	// impl->integrator->restart(0.0);
+	// reset();
 }
 
 void RoadRunner::loadSelectionVector(std::istream& in, std::vector<SelectionRecord>& v)
