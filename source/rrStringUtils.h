@@ -111,7 +111,7 @@ RR_DECLSPEC string              removeNewLines(const string& str, const int& how
 
 /*
 * Saves t in a binary format that can then be reloaded with loadBinary
-* T must be of type std::vector, std::string, std::map, std::unordered_map, std::set, rr::Variant,
+* T must be a primitive, POD with no pointers, std::vector, std::string, std::map, std::unordered_map, std::set, rr::Variant
 * or combinations of those, like std::map<rr::Variant, std::vector<std::string> >
 */
 template <typename T>
