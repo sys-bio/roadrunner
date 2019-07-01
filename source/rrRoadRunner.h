@@ -242,7 +242,7 @@ public:
 	/*
 	*  Saves this roadrunner instance to a file so it can be reloaded later
 	*/
-	void saveState(std::string filename, char opt);
+	void saveState(std::string filename, char opt = 'b');
 	void loadState(std::string filename);
 
     /**
