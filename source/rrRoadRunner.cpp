@@ -4918,84 +4918,163 @@ static void metabolicControlCheck(ExecutableModel *model)
     }
 }
 
-/*
-*  Saves this roadrunner instance to a file so it can be reloaded later
-*
-*  
-*/
-void RoadRunner::saveState(std::string filename)
-{
-	std::ofstream out(filename, iostream::binary);
-	if (!out)
-	{
-		throw std::invalid_argument("Error opening file " + filename + ": " + std::string(strerror(errno)));
+
+void RoadRunner::saveState(std::string filename, char opt)
+{	
+	switch (opt) {
+		case 'b':
+		{
+			// binary mode
+			// can be loaded later
+			std::ofstream out(filename, iostream::binary);
+			if (!out)
+			{
+				throw std::invalid_argument("Error opening file " + filename + ": " + std::string(strerror(errno)));
+			}
+			rr::saveBinary(out, fileMagicNumber);
+			rr::saveBinary(out, dataVersionNumber);
+			//Save all of roadrunner's data to the file
+			rr::saveBinary(out, impl->mInstanceID);
+			rr::saveBinary(out, impl->mDiffStepSize);
+			rr::saveBinary(out, impl->mSteadyStateThreshold);
+
+			saveSelectionVector(out, impl->mSelectionList);
+
+			rr::saveBinary(out, impl->loadOpt.version);
+			rr::saveBinary(out, impl->loadOpt.size);
+			rr::saveBinary(out, impl->loadOpt.modelGeneratorOpt);
+			rr::saveBinary(out, impl->loadOpt.loadFlags);
+
+			rr::saveBinary(out, impl->loadOpt.getKeys().size());
+
+			for (std::string k : impl->loadOpt.getKeys())
+			{
+				rr::saveBinary(out, k);
+				rr::saveBinary(out, impl->loadOpt.getItem(k));
+			}
+
+			saveSelectionVector(out, impl->mSteadyStateSelection);
+
+			rr::saveBinary(out, impl->simulationResult.getColNames());
+			rr::saveBinary(out, impl->simulationResult.getRowNames());
+
+			rr::saveBinary(out, impl->simulateOpt.reset_model);
+			rr::saveBinary(out, impl->simulateOpt.structured_result);
+			rr::saveBinary(out, impl->simulateOpt.copy_result);
+			rr::saveBinary(out, impl->simulateOpt.steps);
+			rr::saveBinary(out, impl->simulateOpt.start);
+			rr::saveBinary(out, impl->simulateOpt.duration);
+			rr::saveBinary(out, impl->simulateOpt.variables);
+			rr::saveBinary(out, impl->simulateOpt.amounts);
+			rr::saveBinary(out, impl->simulateOpt.concentrations);
+
+			rr::saveBinary(out, impl->simulateOpt.getKeys().size());
+
+			for (std::string k : impl->simulateOpt.getKeys())
+			{
+				rr::saveBinary(out, k);
+				rr::saveBinary(out, impl->simulateOpt.getItem(k));
+			}
+
+			rr::saveBinary(out, impl->roadRunnerOptions.flags);
+			rr::saveBinary(out, impl->roadRunnerOptions.jacobianStepSize);
+
+			rr::saveBinary(out, impl->configurationXML);
+			//Save the model (which saves the model data symbols and model resources)
+			impl->model->saveState(out);
+
+			rr::saveBinary(out, impl->integrator->getName());
+			rr::saveBinary(out, impl->integrator->getNumParams());
+
+			for (std::string k : impl->integrator->getSettings())
+			{
+				rr::saveBinary(out, k);
+				rr::saveBinary(out, impl->integrator->getValue(k));
+			}
+			//Currently I save and reload the SBML that was used to create the model
+			//It is not parsed however, unless a instance of LibStructural needs to be
+			//created
+			//It might also be possible to construct LibStructural without SBML, but I'm not familiar with it
+			//If this implementation is too slow we can change that
+			rr::saveBinary(out, impl->mCurrentSBML);
+		}
+
+		case 'r': 
+		{
+			// human-readble mode
+			// for user debugging
+			std::ofstream out(filename, ios::out);
+			if (!out)
+			{
+				throw std::invalid_argument("Error opening file " + filename + ": " + std::string(strerror(errno)));
+			}
+
+			
+			rr::saveBinary(out, impl->mDiffStepSize);
+			rr::saveBinary(out, impl->mSteadyStateThreshold);
+
+			saveSelectionVector(out, impl->mSelectionList);
+
+			rr::saveBinary(out, impl->loadOpt.version);
+			rr::saveBinary(out, impl->loadOpt.size);
+			rr::saveBinary(out, impl->loadOpt.modelGeneratorOpt);
+			rr::saveBinary(out, impl->loadOpt.loadFlags);
+
+			rr::saveBinary(out, impl->loadOpt.getKeys().size());
+
+			for (std::string k : impl->loadOpt.getKeys())
+			{
+				rr::saveBinary(out, k);
+				rr::saveBinary(out, impl->loadOpt.getItem(k));
+			}
+
+			saveSelectionVector(out, impl->mSteadyStateSelection);
+
+			rr::saveBinary(out, impl->simulationResult.getColNames());
+			rr::saveBinary(out, impl->simulationResult.getRowNames());
+
+			rr::saveBinary(out, impl->simulateOpt.reset_model);
+			rr::saveBinary(out, impl->simulateOpt.structured_result);
+			rr::saveBinary(out, impl->simulateOpt.copy_result);
+			rr::saveBinary(out, impl->simulateOpt.steps);
+			rr::saveBinary(out, impl->simulateOpt.start);
+			rr::saveBinary(out, impl->simulateOpt.duration);
+			rr::saveBinary(out, impl->simulateOpt.variables);
+			rr::saveBinary(out, impl->simulateOpt.amounts);
+			rr::saveBinary(out, impl->simulateOpt.concentrations);
+
+			rr::saveBinary(out, impl->simulateOpt.getKeys().size());
+
+			for (std::string k : impl->simulateOpt.getKeys())
+			{
+				rr::saveBinary(out, k);
+				rr::saveBinary(out, impl->simulateOpt.getItem(k));
+			}
+
+			rr::saveBinary(out, impl->roadRunnerOptions.flags);
+			rr::saveBinary(out, impl->roadRunnerOptions.jacobianStepSize);
+
+			rr::saveBinary(out, impl->configurationXML);
+			//Save the model (which saves the model data symbols and model resources)
+			impl->model->saveState(out);
+
+			rr::saveBinary(out, impl->integrator->getName());
+			rr::saveBinary(out, impl->integrator->getNumParams());
+
+			for (std::string k : impl->integrator->getSettings())
+			{
+				rr::saveBinary(out, k);
+				rr::saveBinary(out, impl->integrator->getValue(k));
+			}
+			//Currently I save and reload the SBML that was used to create the model
+			//It is not parsed however, unless a instance of LibStructural needs to be
+			//created
+			//It might also be possible to construct LibStructural without SBML, but I'm not familiar with it
+			//If this implementation is too slow we can change that
+			rr::saveBinary(out, impl->mCurrentSBML);
+
+		}
 	}
-	rr::saveBinary(out, fileMagicNumber);
-	rr::saveBinary(out, dataVersionNumber);
-	//Save all of roadrunner's data to the file
-	rr::saveBinary(out, impl->mInstanceID);
-	rr::saveBinary(out, impl->mDiffStepSize);
-	rr::saveBinary(out, impl->mSteadyStateThreshold);
-    
-	saveSelectionVector(out, impl->mSelectionList);
-	
-	rr::saveBinary(out, impl->loadOpt.version);
-	rr::saveBinary(out, impl->loadOpt.size);
-	rr::saveBinary(out, impl->loadOpt.modelGeneratorOpt);
-	rr::saveBinary(out, impl->loadOpt.loadFlags);
-    
-	rr::saveBinary(out, impl->loadOpt.getKeys().size());
-
-	for (std::string k : impl->loadOpt.getKeys())
-	{
-		rr::saveBinary(out, k);
-		rr::saveBinary(out, impl->loadOpt.getItem(k));
-	}
-
-	saveSelectionVector(out, impl->mSteadyStateSelection);
-
-	rr::saveBinary(out, impl->simulationResult.getColNames());
-	rr::saveBinary(out, impl->simulationResult.getRowNames());
-
-	rr::saveBinary(out, impl->simulateOpt.reset_model);
-	rr::saveBinary(out, impl->simulateOpt.structured_result);
-	rr::saveBinary(out, impl->simulateOpt.copy_result);
-	rr::saveBinary(out, impl->simulateOpt.steps);
-	rr::saveBinary(out, impl->simulateOpt.start);
-	rr::saveBinary(out, impl->simulateOpt.duration);
-	rr::saveBinary(out, impl->simulateOpt.variables);
-	rr::saveBinary(out, impl->simulateOpt.amounts);
-	rr::saveBinary(out, impl->simulateOpt.concentrations);
-
-	rr::saveBinary(out, impl->simulateOpt.getKeys().size());
-
-	for (std::string k : impl->simulateOpt.getKeys())
-	{
-		rr::saveBinary(out, k);
-		rr::saveBinary(out, impl->simulateOpt.getItem(k));
-	}
-
-	rr::saveBinary(out, impl->roadRunnerOptions.flags);
-	rr::saveBinary(out, impl->roadRunnerOptions.jacobianStepSize);
-
-	rr::saveBinary(out, impl->configurationXML);
-	//Save the model (which saves the model data symbols and model resources)
-	impl->model->saveState(out);
-	
-	rr::saveBinary(out, impl->integrator->getName());
-	rr::saveBinary(out, impl->integrator->getNumParams());
-
-	for (std::string k : impl->integrator->getSettings())
-	{
-		rr::saveBinary(out, k);
-		rr::saveBinary(out, impl->integrator->getValue(k));
-	}
-    //Currently I save and reload the SBML that was used to create the model
-	//It is not parsed however, unless a instance of LibStructural needs to be
-	//created
-	//It might also be possible to construct LibStructural without SBML, but I'm not familiar with it
-	//If this implementation is too slow we can change that
-	rr::saveBinary(out, impl->mCurrentSBML);
 }
 
 void RoadRunner::saveSelectionVector(std::ostream& out, std::vector<SelectionRecord>& v)

@@ -239,7 +239,10 @@ public:
      */
     const ls::DoubleMatrix *simulate(const Dictionary* options = 0);
 
-	void saveState(std::string filename);
+	/*
+	*  Saves this roadrunner instance to a file so it can be reloaded later
+	*/
+	void saveState(std::string filename, char opt);
 	void loadState(std::string filename);
 
     /**
