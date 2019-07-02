@@ -617,10 +617,12 @@ RRStringArrayPtr rrcCallConv getTimeCourseSelectionList(RRHandle handle)
     catch_ptr_macro
 }
 
+
+
 RRCDataPtr rrcCallConv simulate(RRHandle handle)
 {
-    start_try
-        RoadRunner* rri = castToRoadRunner(handle);
+	start_try
+		RoadRunner* rri = castToRoadRunner(handle);
         rri->simulate();
         return createRRCData(*rri);
     catch_ptr_macro

@@ -417,8 +417,8 @@ llvm::IRBuilder<> &ModelGeneratorContext::getBuilder() const
 }
 
 void ModelGeneratorContext::stealThePeach(const LLVMModelDataSymbols **sym,
-        const llvm::LLVMContext** ctx, const llvm::ExecutionEngine** eng,
-        const Random** rnd, const string** err, libsbml::ListOfReactions *rlist)
+         llvm::LLVMContext** ctx,  llvm::ExecutionEngine** eng,
+        const Random** rnd, const string** err, Module** mod, std::vector<libsbml::Reaction>& reactionList)
 {
     *sym = symbols;
     symbols = 0;
@@ -430,8 +430,13 @@ void ModelGeneratorContext::stealThePeach(const LLVMModelDataSymbols **sym,
     random = 0;
     *err = errString;
     errString = 0;
-	rlist = 0;
-	*rlist = *getModel()->getListOfReactions();
+	const ListOfReactions *rlist = getModel()->getListOfReactions();
+	for (int i = 0; i < rlist->size(); i++)
+	{
+		reactionList.push_back(*rlist->get(i));
+	}
+	*mod = module;
+	module = 0;
 }
 
 const LLVMModelSymbols& ModelGeneratorContext::getModelSymbols() const

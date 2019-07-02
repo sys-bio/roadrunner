@@ -296,7 +296,6 @@ ExecutableModel* LLVMModelGenerator::createModel(const std::string& sbml,
 
 	rc->evalConversionFactorPtr = (EvalConversionFactorCodeGen::FunctionPtr)
         context.getExecutionEngine().getFunctionAddress("evalConversionFactor");
-
 	if (options & LoadSBMLOptions::READ_ONLY)
 	{
 		rc->setBoundarySpeciesAmountPtr = 0;
@@ -364,20 +363,20 @@ ExecutableModel* LLVMModelGenerator::createModel(const std::string& sbml,
 		rc->setGlobalParameterInitValuePtr = 0;
 	}
 
-	
-
-    
 
 
-    // if anything up to this point throws an exception, thats OK, because
-    // we have not allocated any memory yet that is not taken care of by
-    // something else.
-    // Now that everything that could have thrown would have thrown, we
-    // can now create the model and set its fields.
+
+
+
+	// if anything up to this point throws an exception, thats OK, because	
+	// we have not allocated any memory yet that is not taken care of by	
+	// something else.	
+	// Now that everything that could have thrown would have thrown, we	
+	// can now create the model and set its fields.
 
     LLVMModelData *modelData = createModelData(context.getModelDataSymbols(),
             context.getRandom());
-
+   
     uint llvmsize = ModelDataIRBuilder::getModelDataSize(context.getModule(),
             &context.getExecutionEngine());
 
@@ -397,8 +396,7 @@ ExecutableModel* LLVMModelGenerator::createModel(const std::string& sbml,
 
     // * MOVE * the bits over from the context to the exe model.
     context.stealThePeach(&rc->symbols, &rc->context,
-            &rc->executionEngine, &rc->random, &rc->errStr, &rc->reactionList);
-
+            &rc->executionEngine, &rc->random, &rc->errStr, &rc->module, rc->reactionList);
 
     if (!forceReCompile)
     {

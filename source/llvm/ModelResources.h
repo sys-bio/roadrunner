@@ -20,12 +20,16 @@ public:
     ModelResources();
     ~ModelResources();
 
+	void saveState(std::ostream& out) const;
+	void loadState(std::istream& in, uint loadOpt);
+
     const LLVMModelDataSymbols *symbols;
-    const llvm::LLVMContext *context;
-    const llvm::ExecutionEngine *executionEngine;
+    llvm::LLVMContext *context;
+    llvm::ExecutionEngine *executionEngine;
+	llvm::Module *module;
     const class Random *random;
     const std::string *errStr;
-	libsbml::ListOfReactions reactionList;
+	std::vector<libsbml::Reaction> reactionList;
 
     EvalInitialConditionsCodeGen::FunctionPtr evalInitialConditionsPtr;
     EvalReactionRatesCodeGen::FunctionPtr evalReactionRatesPtr;
@@ -62,6 +66,10 @@ public:
 
     GetGlobalParameterInitValueCodeGen::FunctionPtr getGlobalParameterInitValuePtr;
     SetGlobalParameterInitValueCodeGen::FunctionPtr setGlobalParameterInitValuePtr;
+private:
+	void addGlobalMapping(const llvm::GlobalValue*, void*);
+	void addGlobalMappings();
+	static llvm::Function* createGlobalMappingFunction(const char* funcName, llvm::FunctionType *funcType, llvm::Module*);
 };
 
 } /* namespace rrllvm */
