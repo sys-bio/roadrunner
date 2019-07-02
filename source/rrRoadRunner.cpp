@@ -5108,6 +5108,7 @@ void RoadRunner::saveState(std::string filename, char opt)
 		}
 
 		default:
+			throw std::invalid_argument("Invalid option for saveState(), 'b' or 'r' expected");
 			break;
 	}
 }
