@@ -705,6 +705,8 @@ public:
      */
     double getUnscaledSpeciesElasticity(int reactionId, int speciesIndex);
 
+	void removeReaction(std::string);
+
 
     /******************************* Steady State Section *************************/
     #if (1) /**********************************************************************/

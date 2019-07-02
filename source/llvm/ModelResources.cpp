@@ -17,7 +17,7 @@ namespace rrllvm
 {
 
 ModelResources::ModelResources() :
-        symbols(0), executionEngine(0), context(0), random(0), errStr(0)
+        symbols(0), executionEngine(0), context(0), random(0), errStr(0), reactionList(2, 4)
 {
     // the reset of the ivars are assigned by the generator,
     // and in an exception they are not, does not matter as

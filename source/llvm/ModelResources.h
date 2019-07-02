@@ -25,6 +25,7 @@ public:
     const llvm::ExecutionEngine *executionEngine;
     const class Random *random;
     const std::string *errStr;
+	libsbml::ListOfReactions reactionList;
 
     EvalInitialConditionsCodeGen::FunctionPtr evalInitialConditionsPtr;
     EvalReactionRatesCodeGen::FunctionPtr evalReactionRatesPtr;
