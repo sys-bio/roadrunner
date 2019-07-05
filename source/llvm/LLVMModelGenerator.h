@@ -16,6 +16,9 @@
 #include "tr1proxy/rr_memory.h"
 #include "tr1proxy/rr_unordered_map.h"
 
+#include "LLVMExecutableModel.h"
+#include "ModelGeneratorContext.h"
+
 namespace rrllvm
 {
 
@@ -35,7 +38,8 @@ public:
      * Create an executable model from an sbml string
      */
     static rr::ExecutableModel *createModel(const std::string& sbml, uint options);
-
+	static void regenerateModel(LLVMExecutableModel *exeModel, rrllvm::ModelGeneratorContext& context,
+		                         uint options);
 };
 
 } /* namespace rr */

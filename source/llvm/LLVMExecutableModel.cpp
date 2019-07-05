@@ -14,6 +14,8 @@
 #include "rrException.h"
 #include "LLVMException.h"
 #include "rrStringUtils.h"
+#include "rrRoadRunnerOptions.h"
+#include "LLVMModelGenerator.h"
 #include "rrConfig.h"
 #include <iomanip>
 #include <cstdlib>
@@ -2288,6 +2290,26 @@ void LLVMExecutableModel::saveState(std::ostream& out)
 {
 	LLVMModelData_save(modelData, out);
 	resources->saveState(out);
+}
+
+void LLVMExecutableModel::regenerate(libsbml::SBMLDocument *document, uint options, std::string moduleName)
+{
+	using namespace llvm;
+	rrllvm::ModelGeneratorContext genContext(document, options, resources->executionEngine, resources->context, moduleName);
+	rrllvm::LLVMModelGenerator::regenerateModel(this, genContext, options);
+	resources->symbols = new LLVMModelDataSymbols(genContext.getModelDataSymbols());
+
+	double *savedData = modelData->data;
+	double *savedFloatingSpeciesAmounts = new double[modelData->numIndFloatingSpecies];
+
+	for (int i = 0; i < modelData->numIndFloatingSpecies; i++) {
+		savedFloatingSpeciesAmounts[i] = getFloatingSpeciesAmountPtr(modelData, i);
+	}
+
+	this->modelData = rrllvm::createModelData(genContext.getModelDataSymbols(), genContext.getRandom());
+	reset(SelectionRecord::ALL);
+	std::memcpy(modelData->floatingSpeciesAmountsAlias, savedFloatingSpeciesAmounts, sizeof(double)*modelData->numIndFloatingSpecies);
+	delete savedFloatingSpeciesAmounts;
 }
 
 

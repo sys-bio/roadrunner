@@ -82,7 +82,7 @@ public:
             unsigned loadSBMLOptions);
 	
 	ModelGeneratorContext(libsbml::SBMLDocument const *doc,
-		unsigned options, const rrllvm::LLVMModelDataSymbols *mds, llvm::ExecutionEngine *ee, llvm::LLVMContext *context, std::string moduleName);
+		unsigned options, llvm::ExecutionEngine *ee, llvm::LLVMContext *context, std::string moduleName);
 
 	/*
 	* Create from existing elements for model editing purposes
@@ -144,10 +144,9 @@ public:
      * Monkey steals the peach -- A martial arts technique mastered by
      * Michael Wu which is in effect, the act of ripping someone's bollocks off.
      */
-    void stealThePeach(const LLVMModelDataSymbols **sym,
-            llvm::LLVMContext **ctx,  llvm::ExecutionEngine **eng,
-            const Random **random, const std::string **errStr, llvm::Module **mod, std::vector<libsbml::Reaction>&,
-		    const libsbml::Model **_model);
+	void stealThePeach(const LLVMModelDataSymbols **sym,
+		llvm::LLVMContext **ctx, llvm::ExecutionEngine **eng,
+		const Random **random, const std::string **errStr, llvm::Module **mod);
 
     bool getConservedMoietyAnalysis() const;
 

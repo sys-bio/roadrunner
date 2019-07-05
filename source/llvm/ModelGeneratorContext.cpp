@@ -209,11 +209,11 @@ ModelGeneratorContext::ModelGeneratorContext(std::string const &sbml,
 }
 
 ModelGeneratorContext::ModelGeneratorContext(libsbml::SBMLDocument const *doc,
-    unsigned options, const rrllvm::LLVMModelDataSymbols *mds, llvm::ExecutionEngine *ee, llvm::LLVMContext *_context,
+    unsigned options,  llvm::ExecutionEngine *ee, llvm::LLVMContext *_context,
     std::string moduleName) :
         ownedDoc(0),
         doc(doc),
-        symbols(mds),
+        symbols(new LLVMModelDataSymbols(doc->getModel(), options)),
         modelSymbols(new LLVMModelSymbols(getModel(), *symbols)),
         errString(new string()),
         executionEngine(ee),
@@ -542,7 +542,7 @@ llvm::IRBuilder<> &ModelGeneratorContext::getBuilder() const
 
 void ModelGeneratorContext::stealThePeach(const LLVMModelDataSymbols **sym,
          llvm::LLVMContext** ctx,  llvm::ExecutionEngine** eng,
-        const Random** rnd, const string** err, Module** mod, std::vector<libsbml::Reaction>& reactionList, const libsbml::Model **_model)
+        const Random** rnd, const string** err, Module** mod)
 {
     *sym = symbols;
     symbols = 0;
@@ -554,14 +554,8 @@ void ModelGeneratorContext::stealThePeach(const LLVMModelDataSymbols **sym,
     random = 0;
     *err = errString;
     errString = 0;
-	const ListOfReactions *rlist = getModel()->getListOfReactions();
-	for (int i = 0; i < rlist->size(); i++)
-	{
-		reactionList.push_back(*rlist->get(i));
-	}
 	*mod = module;
 	module = 0;
-	*_model = this->getModel();
 }
 
 const LLVMModelSymbols& ModelGeneratorContext::getModelSymbols() const

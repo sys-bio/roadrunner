@@ -29,6 +29,7 @@
 #include "SBMLValidator.h"
 #include "llvm/LLVMExecutableModel.h"
 #include "sbml/ListOf.h"
+#include "sbml/Model.h"
 #include "llvm/ModelResources.h"
 #include <llvm/IR/IRBuilder.h>
 
@@ -229,6 +230,7 @@ public:
      */
     friend class aFinalizer;
 
+	libsbml::SBMLDocument document;
 
     RoadRunnerImpl(const std::string& uriOrSBML,
             const Dictionary* dict) :
@@ -961,9 +963,9 @@ void RoadRunner::load(const string& uriOrSbml, const Dictionary *dict)
     // the following lines load and compile the model. If anything fails here,
     // we validate the model to provide explicit details about where it
     // failed. Its *VERY* expensive to pre-validate the model.
-
+		libsbml::SBMLReader reader;
+		impl->document = *reader.readSBMLFromString(impl->mCurrentSBML);
         self.model = ExecutableModelFactory::createModel(self.mCurrentSBML, &self.loadOpt);
-
     } catch (std::exception&) {
         string errors = validateSBML(impl->mCurrentSBML);
 
@@ -978,7 +980,6 @@ void RoadRunner::load(const string& uriOrSbml, const Dictionary *dict)
     impl->syncAllSolversWithModel(impl->model);
 
     reset();
-
     if ((self.loadOpt.loadFlags & LoadSBMLOptions::NO_DEFAULT_SELECTIONS) == 0)
     {
         createDefaultSelectionLists();
@@ -5172,47 +5173,12 @@ void RoadRunner::loadSelectionVector(std::istream& in, std::vector<SelectionReco
 
 void RoadRunner::removeReaction(std::string reactionName)
 {
-	/*std::vector<libsbml::Reaction> &rvector = ((rrllvm::LLVMExecutableModel*)impl->model)->resources->reactionList;
-	llvm::ExecutionEngine *eng = ((rrllvm::LLVMExecutableModel*)impl->model)->resources->executionEngine;
-//	rvector.erase(std::remove(rvector.begin(), rvector.end(), reactionName));
-	llvm::LLVMContext context2;
-	std::unique_ptr<llvm::Module> newModule(new llvm::Module("Test module", *con));
-	llvm::FunctionType *funcType = llvm::FunctionType::get(llvm::Type::getVoidTy(*con), false);
-	llvm::Function *funcTest = (llvm::Function*)(mod->getOrInsertFunction("evalReactionRates", funcType));//llvm::Function::Create(funcType, llvm::Function::InternalLinkage, "Yessir", newModule.get());
-	funcTest->deleteBody();
-	llvm::BasicBlock *RetBB = llvm::BasicBlock::Create(*con, "return", funcTest);
-	llvm::IRBuilder<> builder(RetBB);
-	llvm::Type *double_type = llvm::Type::getDoubleTy(*con);
-	builder.CreateRet(llvm::ConstantInt::get(double_type, 0));
-	llvm::InitializeNativeTarget();
-	llvm::InitializeNativeTargetAsmPrinter();
-	std::string errStr;
-	//llvm::ExecutionEngine *EE = llvm::EngineBuilder(std::move(newModule)).setErrorStr(&errStr).create();
-	//llvm::Module *modPtrCpy = mod;
-	//eng->addModule(std::move(newModule));
-	//mod = modPtrCpy;
-	//eng->generateCodeForModule(newModule.get());
-	eng->finalizeObject();
-	rc->evalReactionRatesPtr = (rrllvm::EvalReactionRatesCodeGen::FunctionPtr)eng->getFunctionAddress("evalReactionRates");
-	std::cout << "ok";*/
-	//llvm::Module *mod = ((rrllvm::LLVMExecutableModel*)impl->model)->resources->module;
-	//llvm::ExecutionEngine *eng = ((rrllvm::LLVMExecutableModel*)impl->model)->resources->executionEngine;
-	//llvm::LLVMContext *con = ((rrllvm::LLVMExecutableModel*)impl->model)->resources->context;
-	//std::unique_ptr<llvm::Module> newModule(new llvm::Module("Remove_" + reactionName, *con));
-	//rrllvm::ModelGeneratorContext genContext(rc->model, exeModel->symbols, (rrllvm::LLVMModelSymbols*)nullptr, con, impl->loadOpt.modelGeneratorOpt, eng, mod);
-	rrllvm::ModelResources *rc = ((rrllvm::LLVMExecutableModel*)impl->model)->resources.get();
-	rrllvm::LLVMExecutableModel* exeModel = ((rrllvm::LLVMExecutableModel*)impl->model);
-	libsbml::SBMLReader reader;
-	libsbml::SBMLDocument *document = reader.readSBMLFromString(impl->mCurrentSBML);
-	document->printErrors(std::cout);
-	//document.read(libsbml::XMLInputStream(impl->mCurrentSBML.c_str(), false));
-	delete document->getModel()->removeReaction("reaction1");
-	auto test2 = document->getModel()->getReaction("reaction2");
-	rrllvm::ModelGeneratorContext genContext(document, impl->loadOpt.modelGeneratorOpt, rc->symbols, rc->executionEngine, rc->context, "Remove_" + reactionName);
-	llvm::Function* test = rrllvm::EvalReactionRatesCodeGen(genContext).createFunction();
-	rc->evalReactionRatesPtr = (rrllvm::EvalReactionRatesCodeGen::FunctionPtr)rc->executionEngine->getFunctionAddress("evalReactionRates");
-	exeModel->evalReactionRatesPtr = rc->evalReactionRatesPtr;
-
+	// 1. Get the model
+	// 2. Remove the reacion from the model
+	// 3. Regenerate the function 
+	delete impl->document.getModel()->removeReaction(reactionName);	
+	impl->model->regenerate(&impl->document, impl->loadOpt.modelGeneratorOpt, "Remove_" + reactionName);
+	impl->syncAllSolversWithModel(impl->model);
 }
 
 } //namespace

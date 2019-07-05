@@ -576,6 +576,8 @@ public:
 	
 	void saveState(std::ostream & out);
 
+	void regenerate(libsbml::SBMLDocument *document, uint options, std::string moduleName);
+
 
 private:
 

@@ -710,6 +710,8 @@ public:
 
 	void removeReaction(std::string);
 
+	void addSpecies(libsbml::Species *species);
+
 
     /******************************* Steady State Section *************************/
     #if (1) /**********************************************************************/

@@ -623,10 +623,18 @@ RRCDataPtr rrcCallConv simulate(RRHandle handle)
 {
 	start_try
 		RoadRunner* rri = castToRoadRunner(handle);
-	    rri->load("C:/rr/remove-test.xml");
-		rri->removeReaction("reaction1");
+	    rri->load("D:/rr/remove-test.xml");
         rri->simulate();
 		auto test = rri->getSimulationData();
+		for (int r = 0; r < test->numRows(); r++) {
+			for (int c = 0; c < test->numCols(); c++)
+				std::cout << (*test)(r, c) << "\t";
+			std::cout << std::endl;
+		}
+		rri->removeReaction("reaction2");
+		rri->getSimulateOptions().start = rri->getSimulateOptions().duration;
+		rri->simulate();
+		test = rri->getSimulationData();
 		for (int r = 0; r < test->numRows(); r++) {
 			for (int c = 0; c < test->numCols(); c++)
 				std::cout << (*test)(r, c) << "\t";
