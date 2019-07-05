@@ -30,6 +30,7 @@ public:
     const class Random *random;
     const std::string *errStr;
 	std::vector<libsbml::Reaction> reactionList;
+	const libsbml::Model *model;
 
     EvalInitialConditionsCodeGen::FunctionPtr evalInitialConditionsPtr;
     EvalReactionRatesCodeGen::FunctionPtr evalReactionRatesPtr;

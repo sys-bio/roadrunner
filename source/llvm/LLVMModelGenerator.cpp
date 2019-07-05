@@ -396,7 +396,7 @@ ExecutableModel* LLVMModelGenerator::createModel(const std::string& sbml,
 
     // * MOVE * the bits over from the context to the exe model.
     context.stealThePeach(&rc->symbols, &rc->context,
-            &rc->executionEngine, &rc->random, &rc->errStr, &rc->module, rc->reactionList);
+            &rc->executionEngine, &rc->random, &rc->errStr, &rc->module, rc->reactionList, &rc->model);
 
     if (!forceReCompile)
     {

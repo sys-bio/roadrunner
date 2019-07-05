@@ -80,6 +80,15 @@ public:
      */
     ModelGeneratorContext(libsbml::SBMLDocument const *doc,
             unsigned loadSBMLOptions);
+	
+	ModelGeneratorContext(libsbml::SBMLDocument const *doc,
+		unsigned options, const rrllvm::LLVMModelDataSymbols *mds, llvm::ExecutionEngine *ee, llvm::LLVMContext *context, std::string moduleName);
+
+	/*
+	* Create from existing elements for model editing purposes
+	*/
+	ModelGeneratorContext(const libsbml::Model *model, const rrllvm::LLVMModelDataSymbols *modelDataSymbols, rrllvm::LLVMModelSymbols * modelSymbols, 
+		                  llvm::LLVMContext *context, uint options, llvm::ExecutionEngine *engine, llvm::Module *mod);
 
     /**
      * does not attach to any sbml doc,
@@ -137,7 +146,8 @@ public:
      */
     void stealThePeach(const LLVMModelDataSymbols **sym,
             llvm::LLVMContext **ctx,  llvm::ExecutionEngine **eng,
-            const Random **random, const std::string **errStr, llvm::Module **mod, std::vector<libsbml::Reaction>&);
+            const Random **random, const std::string **errStr, llvm::Module **mod, std::vector<libsbml::Reaction>&,
+		    const libsbml::Model **_model);
 
     bool getConservedMoietyAnalysis() const;
 
@@ -170,13 +180,13 @@ private:
      * otherwise its 0, meaning we're borrowign the the doc.
      */
     libsbml::SBMLDocument *ownedDoc;
-
+ 
     /**
-     * allways references the sbml doc.
+     * always references the sbml doc.
      */
     const libsbml::SBMLDocument *doc;
 
-    LLVMModelDataSymbols *symbols;
+    const LLVMModelDataSymbols *symbols;
 
     /**
      * make sure this is listed AFTER the doc and model, so it get
@@ -189,6 +199,7 @@ private:
     llvm::LLVMContext *context;
     llvm::ExecutionEngine *executionEngine;
     std::unique_ptr<llvm::Module> module_uniq;
+	const libsbml::Model *model;
 public:
 	llvm::Module* module;
 private:
