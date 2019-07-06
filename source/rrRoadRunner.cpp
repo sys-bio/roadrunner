@@ -5173,11 +5173,29 @@ void RoadRunner::loadSelectionVector(std::istream& in, std::vector<SelectionReco
 
 void RoadRunner::removeReaction(std::string reactionName)
 {
-	// 1. Get the model
-	// 2. Remove the reacion from the model
-	// 3. Regenerate the function 
 	delete impl->document.getModel()->removeReaction(reactionName);	
 	impl->model->regenerate(&impl->document, impl->loadOpt.modelGeneratorOpt, "Remove_" + reactionName);
+	impl->syncAllSolversWithModel(impl->model);
+}
+
+void RoadRunner::addSpecies(std::string name, std::string id, std::string compartment, double initAmount, std::string substanceUnits)
+{
+	//impl->document.getModel()->addSpecies(species);
+	libsbml::Species *newSpecies = impl->document.getModel()->createSpecies();
+	newSpecies->setName(name);
+	newSpecies->setId(id);
+	newSpecies->setCompartment(compartment);
+	newSpecies->setInitialAmount(initAmount);
+	newSpecies->setSubstanceUnits(substanceUnits);
+    
+	impl->model->regenerate(&impl->document, impl->loadOpt.modelGeneratorOpt, "AddSpecies_" + name);
+	impl->syncAllSolversWithModel(impl->model);
+	resetSelectionLists();
+}
+
+void RoadRunner::regenerate()
+{
+	impl->model->regenerate(&impl->document, impl->loadOpt.modelGeneratorOpt, "test");
 	impl->syncAllSolversWithModel(impl->model);
 }
 

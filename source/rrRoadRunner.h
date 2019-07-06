@@ -5,6 +5,7 @@
 #include "rr-libstruct/lsMatrix.h"
 #include "rrSelectionRecord.h"
 #include "rrRoadRunnerOptions.h"
+#include "sbml/Species.h"
 
 #include <string>
 #include <vector>
@@ -710,7 +711,9 @@ public:
 
 	void removeReaction(std::string);
 
-	void addSpecies(libsbml::Species *species);
+	void addSpecies(std::string name, std::string id, std::string compartment, double initAmount, std::string substanceUnits);
+
+	void regenerate();
 
 
     /******************************* Steady State Section *************************/
