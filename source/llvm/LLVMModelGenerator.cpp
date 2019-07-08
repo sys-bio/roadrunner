@@ -399,14 +399,23 @@ ExecutableModel* LLVMModelGenerator::regenerateModel(ExecutableModel* oldModel, 
 
 	// copy the amounts of old existing species to new model
 	// start from where we paused
-	int beforeNumIndFloatingSpecies = oldModel->getNumIndFloatingSpecies();
-	double* savedFloatingSpeciesAmounts = new double[beforeNumIndFloatingSpecies];
-	oldModel->getFloatingSpeciesAmounts(beforeNumIndFloatingSpecies, 0, savedFloatingSpeciesAmounts);
+
+	// map from species ID to current amount
+	map<string, double> amountsMap;
+	for (int i = 0; i < oldModel->getNumFloatingSpecies(); i++) {
+		double amount;
+		oldModel->getFloatingSpeciesAmounts(1, &i, &amount);
+		amountsMap.insert(std::pair<string, double>(oldModel->getFloatingSpeciesId(i), amount));
+	}
 
 	ExecutableModel* newModel = new LLVMExecutableModel(rc, modelData);
-	newModel->setFloatingSpeciesAmounts(beforeNumIndFloatingSpecies, 0, savedFloatingSpeciesAmounts);
 
-	delete savedFloatingSpeciesAmounts;
+	for (int i = 0; i < newModel->getNumFloatingSpecies(); i++) {
+		string speciesId = newModel->getFloatingSpeciesId(i);
+		map<string, double>::iterator it = amountsMap.find(speciesId);
+		if (it != amountsMap.end()) newModel->setFloatingSpeciesAmounts(1, &i, &(it->second));
+	}
+
 	return newModel;
 }
 
