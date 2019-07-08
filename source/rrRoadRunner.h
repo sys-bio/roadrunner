@@ -709,11 +709,15 @@ public:
      */
     double getUnscaledSpeciesElasticity(int reactionId, int speciesIndex);
 
-	void removeReaction(std::string);
+	/**
+	 * Remove a reaction from the current model
+	 */
+	void removeReaction(std::string reactionId);
 
+	/**
+	 * Add a species to the current model
+	 */
 	void addSpecies(std::string name, std::string id, std::string compartment, double initAmount, std::string substanceUnits);
-
-	void regenerate();
 
 
     /******************************* Steady State Section *************************/

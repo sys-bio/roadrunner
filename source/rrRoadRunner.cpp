@@ -230,7 +230,7 @@ public:
      */
     friend class aFinalizer;
 
-	libsbml::SBMLDocument document;
+	libsbml::SBMLDocument* document;
 
     RoadRunnerImpl(const std::string& uriOrSBML,
             const Dictionary* dict) :
@@ -964,7 +964,7 @@ void RoadRunner::load(const string& uriOrSbml, const Dictionary *dict)
     // we validate the model to provide explicit details about where it
     // failed. Its *VERY* expensive to pre-validate the model.
 		libsbml::SBMLReader reader;
-		impl->document = *reader.readSBMLFromString(impl->mCurrentSBML);
+		impl->document = reader.readSBMLFromString(impl->mCurrentSBML);
         self.model = ExecutableModelFactory::createModel(self.mCurrentSBML, &self.loadOpt);
     } catch (std::exception&) {
         string errors = validateSBML(impl->mCurrentSBML);
@@ -5171,33 +5171,30 @@ void RoadRunner::loadSelectionVector(std::istream& in, std::vector<SelectionReco
 	}
 }
 
-void RoadRunner::removeReaction(std::string reactionName)
+void RoadRunner::removeReaction(std::string reactionId)
 {
-	delete impl->document.getModel()->removeReaction(reactionName);	
-	impl->model->regenerate(&impl->document, impl->loadOpt.modelGeneratorOpt, "Remove_" + reactionName);
+	delete impl->document->getModel()->removeReaction(reactionId);
+	ExecutableModel* newModel = ExecutableModelFactory::regenerateModel(impl->model, impl->document, impl->loadOpt.modelGeneratorOpt);
+	delete impl->model;
+	impl->model = newModel;
 	impl->syncAllSolversWithModel(impl->model);
 }
 
 void RoadRunner::addSpecies(std::string name, std::string id, std::string compartment, double initAmount, std::string substanceUnits)
 {
-	//impl->document.getModel()->addSpecies(species);
-	libsbml::Species *newSpecies = impl->document.getModel()->createSpecies();
+	libsbml::Species *newSpecies = impl->document->getModel()->createSpecies();
 	newSpecies->setName(name);
 	newSpecies->setId(id);
 	newSpecies->setCompartment(compartment);
 	newSpecies->setInitialAmount(initAmount);
 	newSpecies->setSubstanceUnits(substanceUnits);
     
-	impl->model->regenerate(&impl->document, impl->loadOpt.modelGeneratorOpt, "AddSpecies_" + name);
+	ExecutableModel* newModel = ExecutableModelFactory::regenerateModel(impl->model, impl->document, impl->loadOpt.modelGeneratorOpt);
+	delete impl->model;
+	impl->model = newModel;
 	impl->syncAllSolversWithModel(impl->model);
-	resetSelectionLists();
 }
 
-void RoadRunner::regenerate()
-{
-	impl->model->regenerate(&impl->document, impl->loadOpt.modelGeneratorOpt, "test");
-	impl->syncAllSolversWithModel(impl->model);
-}
 
 } //namespace
 

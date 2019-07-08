@@ -71,6 +71,346 @@ void copyCachedModel(a_type* src, b_type* dst)
 }
 
 
+ExecutableModel* LLVMModelGenerator::regenerateModel(ExecutableModel* oldModel, libsbml::SBMLDocument* doc,
+	uint options)
+{
+	bool forceReCompile = options & LoadSBMLOptions::RECOMPILE;
+
+	string md5;
+
+	SharedModelPtr rc(new ModelResources());
+
+	ModelGeneratorContext context(doc, options);
+
+	Function* evalInitialConditionsIR =
+		EvalInitialConditionsCodeGen(context).createFunction();
+
+	Function* evalReactionRatesIR =
+		EvalReactionRatesCodeGen(context).createFunction();
+
+	Function* getBoundarySpeciesAmountIR =
+		GetBoundarySpeciesAmountCodeGen(context).createFunction();
+
+	Function* getFloatingSpeciesAmountIR =
+		GetFloatingSpeciesAmountCodeGen(context).createFunction();
+
+	Function* getBoundarySpeciesConcentrationIR =
+		GetBoundarySpeciesConcentrationCodeGen(context).createFunction();
+
+	Function* getFloatingSpeciesConcentrationIR =
+		GetFloatingSpeciesConcentrationCodeGen(context).createFunction();
+
+	Function* getCompartmentVolumeIR =
+		GetCompartmentVolumeCodeGen(context).createFunction();
+
+	Function* getGlobalParameterIR =
+		GetGlobalParameterCodeGen(context).createFunction();
+
+	Function* evalRateRuleRatesIR =
+		EvalRateRuleRatesCodeGen(context).createFunction();
+
+	Function* getEventTriggerIR =
+		GetEventTriggerCodeGen(context).createFunction();
+
+	Function* getEventPriorityIR =
+		GetEventPriorityCodeGen(context).createFunction();
+
+	Function* getEventDelayIR =
+		GetEventDelayCodeGen(context).createFunction();
+
+	Function* eventTriggerIR =
+		EventTriggerCodeGen(context).createFunction();
+
+	Function* eventAssignIR =
+		EventAssignCodeGen(context).createFunction();
+
+	Function* evalVolatileStoichIR =
+		EvalVolatileStoichCodeGen(context).createFunction();
+
+	Function* evalConversionFactorIR =
+		EvalConversionFactorCodeGen(context).createFunction();
+
+	Function* setBoundarySpeciesAmountIR = 0;
+	Function* setBoundarySpeciesConcentrationIR;
+	Function* setFloatingSpeciesConcentrationIR = 0;
+	Function* setCompartmentVolumeIR = 0;
+	Function* setFloatingSpeciesAmountIR = 0;
+	Function* setGlobalParameterIR = 0;
+	Function* getFloatingSpeciesInitConcentrationsIR = 0;
+	Function* setFloatingSpeciesInitConcentrationsIR = 0;
+	Function* getFloatingSpeciesInitAmountsIR = 0;
+	Function* setFloatingSpeciesInitAmountsIR = 0;
+	Function* getCompartmentInitVolumesIR = 0;
+	Function* setCompartmentInitVolumesIR = 0;
+	Function* getGlobalParameterInitValueIR = 0;
+	Function* setGlobalParameterInitValueIR = 0;
+	if (options & LoadSBMLOptions::READ_ONLY)
+	{
+		setBoundarySpeciesAmountIR = 0;
+		setBoundarySpeciesConcentrationIR = 0;
+		setFloatingSpeciesConcentrationIR = 0;
+		setCompartmentVolumeIR = 0;
+		setFloatingSpeciesAmountIR = 0;
+		setGlobalParameterIR = 0;
+	}
+	else
+	{
+		setBoundarySpeciesAmountIR =
+			SetBoundarySpeciesAmountCodeGen(context).createFunction();
+
+		setBoundarySpeciesConcentrationIR =
+			SetBoundarySpeciesConcentrationCodeGen(context).createFunction();
+
+		setFloatingSpeciesConcentrationIR =
+			SetFloatingSpeciesConcentrationCodeGen(context).createFunction();
+
+		setCompartmentVolumeIR =
+			SetCompartmentVolumeCodeGen(context).createFunction();
+
+		setFloatingSpeciesAmountIR =
+			SetFloatingSpeciesAmountCodeGen(context).createFunction();
+
+		setGlobalParameterIR =
+			SetGlobalParameterCodeGen(context).createFunction();
+	}
+
+	if (options & LoadSBMLOptions::MUTABLE_INITIAL_CONDITIONS)
+	{
+		getFloatingSpeciesInitConcentrationsIR =
+			GetFloatingSpeciesInitConcentrationCodeGen(context).createFunction();
+		setFloatingSpeciesInitConcentrationsIR =
+			SetFloatingSpeciesInitConcentrationCodeGen(context).createFunction();
+
+		getFloatingSpeciesInitAmountsIR =
+			GetFloatingSpeciesInitAmountCodeGen(context).createFunction();
+		setFloatingSpeciesInitAmountsIR =
+			SetFloatingSpeciesInitAmountCodeGen(context).createFunction();
+
+		getCompartmentInitVolumesIR =
+			GetCompartmentInitVolumeCodeGen(context).createFunction();
+		setCompartmentInitVolumesIR =
+			SetCompartmentInitVolumeCodeGen(context).createFunction();
+
+		getGlobalParameterInitValueIR =
+			GetGlobalParameterInitValueCodeGen(context).createFunction();
+		setGlobalParameterInitValueIR =
+			SetGlobalParameterInitValueCodeGen(context).createFunction();
+	}
+	else
+	{
+		getFloatingSpeciesInitConcentrationsIR = 0;
+		setFloatingSpeciesInitConcentrationsIR = 0;
+		getFloatingSpeciesInitAmountsIR = 0;
+		setFloatingSpeciesInitAmountsIR = 0;
+		setCompartmentInitVolumesIR = 0;
+		getCompartmentInitVolumesIR = 0;
+		getGlobalParameterInitValueIR = 0;
+		setGlobalParameterInitValueIR = 0;
+	}
+
+	//https://stackoverflow.com/questions/28851646/llvm-jit-windows-8-1
+	context.getExecutionEngine().finalizeObject();
+
+	rc->evalInitialConditionsPtr = (EvalInitialConditionsCodeGen::FunctionPtr)
+		context.getExecutionEngine().getFunctionAddress("evalInitialConditions");
+
+	rc->evalReactionRatesPtr = (EvalReactionRatesCodeGen::FunctionPtr)
+		context.getExecutionEngine().getFunctionAddress("evalReactionRates");
+
+	rc->getBoundarySpeciesAmountPtr = (GetBoundarySpeciesAmountCodeGen::FunctionPtr)
+		context.getExecutionEngine().getFunctionAddress("getBoundarySpeciesAmount");
+
+	rc->getFloatingSpeciesAmountPtr = (GetFloatingSpeciesAmountCodeGen::FunctionPtr)
+		context.getExecutionEngine().getFunctionAddress("getFloatingSpeciesAmount");
+
+	rc->getBoundarySpeciesConcentrationPtr = (GetBoundarySpeciesConcentrationCodeGen::FunctionPtr)
+		context.getExecutionEngine().getFunctionAddress("getBoundarySpeciesConcentration");
+
+	rc->getFloatingSpeciesConcentrationPtr = (GetFloatingSpeciesAmountCodeGen::FunctionPtr)
+		context.getExecutionEngine().getFunctionAddress("getFloatingSpeciesConcentration");
+
+	rc->getCompartmentVolumePtr = (GetCompartmentVolumeCodeGen::FunctionPtr)
+		context.getExecutionEngine().getFunctionAddress("getCompartmentVolume");
+
+	rc->getGlobalParameterPtr = (GetGlobalParameterCodeGen::FunctionPtr)
+		context.getExecutionEngine().getFunctionAddress("getGlobalParameter");
+
+	rc->evalRateRuleRatesPtr = (EvalRateRuleRatesCodeGen::FunctionPtr)
+		context.getExecutionEngine().getFunctionAddress("evalRateRuleRates");
+
+	rc->getEventTriggerPtr = (GetEventTriggerCodeGen::FunctionPtr)
+		context.getExecutionEngine().getFunctionAddress("getEventTrigger");
+
+	rc->getEventPriorityPtr = (GetEventPriorityCodeGen::FunctionPtr)
+		context.getExecutionEngine().getFunctionAddress("getEventPriority");
+
+	rc->getEventDelayPtr = (GetEventDelayCodeGen::FunctionPtr)
+		context.getExecutionEngine().getFunctionAddress("getEventDelay");
+
+	rc->eventTriggerPtr = (EventTriggerCodeGen::FunctionPtr)
+		context.getExecutionEngine().getFunctionAddress("eventTrigger");
+
+	rc->eventAssignPtr = (EventAssignCodeGen::FunctionPtr)
+		context.getExecutionEngine().getFunctionAddress("eventAssign");
+
+	rc->evalVolatileStoichPtr = (EvalVolatileStoichCodeGen::FunctionPtr)
+		context.getExecutionEngine().getFunctionAddress("evalVolatileStoich");
+
+	rc->evalConversionFactorPtr = (EvalConversionFactorCodeGen::FunctionPtr)
+		context.getExecutionEngine().getFunctionAddress("evalConversionFactor");
+	if (options & LoadSBMLOptions::READ_ONLY)
+	{
+		rc->setBoundarySpeciesAmountPtr = 0;
+		rc->setBoundarySpeciesConcentrationPtr = 0;
+		rc->setFloatingSpeciesConcentrationPtr = 0;
+		rc->setCompartmentVolumePtr = 0;
+		rc->setFloatingSpeciesAmountPtr = 0;
+		rc->setGlobalParameterPtr = 0;
+	}
+	else
+	{
+		rc->setBoundarySpeciesAmountPtr = (SetBoundarySpeciesAmountCodeGen::FunctionPtr)
+			context.getExecutionEngine().getFunctionAddress("setBoundarySpeciesAmount");
+
+		rc->setBoundarySpeciesConcentrationPtr = (SetBoundarySpeciesAmountCodeGen::FunctionPtr)
+			context.getExecutionEngine().getFunctionAddress("setBoundarySpeciesConcentration");
+
+		rc->setFloatingSpeciesConcentrationPtr = (SetBoundarySpeciesAmountCodeGen::FunctionPtr)
+			context.getExecutionEngine().getFunctionAddress("setFloatingSpeciesConcentration");
+
+		rc->setCompartmentVolumePtr = (SetBoundarySpeciesAmountCodeGen::FunctionPtr)
+			context.getExecutionEngine().getFunctionAddress("setCompartmentVolume");
+
+		rc->setFloatingSpeciesAmountPtr = (SetBoundarySpeciesAmountCodeGen::FunctionPtr)
+			context.getExecutionEngine().getFunctionAddress("setFloatingSpeciesAmount");
+
+		rc->setGlobalParameterPtr = (SetGlobalParameterCodeGen::FunctionPtr)
+			context.getExecutionEngine().getFunctionAddress("setGlobalParameter");
+	}
+
+	if (options & LoadSBMLOptions::MUTABLE_INITIAL_CONDITIONS)
+	{
+		rc->getFloatingSpeciesInitConcentrationsPtr = (GetBoundarySpeciesAmountCodeGen::FunctionPtr)
+			context.getExecutionEngine().getFunctionAddress("getFloatingSpeciesInitConcentrations");
+		rc->setFloatingSpeciesInitConcentrationsPtr = (SetBoundarySpeciesAmountCodeGen::FunctionPtr)
+			context.getExecutionEngine().getFunctionAddress("setFloatingSpeciesInitConcentrations");
+
+		rc->getFloatingSpeciesInitAmountsPtr = (GetBoundarySpeciesAmountCodeGen::FunctionPtr)
+			context.getExecutionEngine().getFunctionAddress("getFloatingSpeciesInitAmounts");
+		rc->setFloatingSpeciesInitAmountsPtr = (SetBoundarySpeciesAmountCodeGen::FunctionPtr)
+			context.getExecutionEngine().getFunctionAddress("setFloatingSpeciesInitAmounts");
+
+		rc->getCompartmentInitVolumesPtr = (GetBoundarySpeciesAmountCodeGen::FunctionPtr)
+			context.getExecutionEngine().getFunctionAddress("getCompartmentInitVolumes");
+		rc->setCompartmentInitVolumesPtr = (SetBoundarySpeciesAmountCodeGen::FunctionPtr)
+			context.getExecutionEngine().getFunctionAddress("setCompartmentInitVolumes");
+
+		rc->getGlobalParameterInitValuePtr = (GetBoundarySpeciesAmountCodeGen::FunctionPtr)
+			context.getExecutionEngine().getFunctionAddress("getGlobalParameterInitValue");
+		rc->setGlobalParameterInitValuePtr = (SetBoundarySpeciesAmountCodeGen::FunctionPtr)
+			context.getExecutionEngine().getFunctionAddress("setGlobalParameterInitValue");
+	}
+	else
+	{
+		rc->getFloatingSpeciesInitConcentrationsPtr = 0;
+		rc->setFloatingSpeciesInitConcentrationsPtr = 0;
+
+		rc->getFloatingSpeciesInitAmountsPtr = 0;
+		rc->setFloatingSpeciesInitAmountsPtr = 0;
+
+		rc->getCompartmentInitVolumesPtr = 0;
+		rc->setCompartmentInitVolumesPtr = 0;
+
+		rc->getGlobalParameterInitValuePtr = 0;
+		rc->setGlobalParameterInitValuePtr = 0;
+	}
+
+
+
+	// if anything up to this point throws an exception, thats OK, because	
+	// we have not allocated any memory yet that is not taken care of by	
+	// something else.	
+	// Now that everything that could have thrown would have thrown, we	
+	// can now create the model and set its fields.
+
+	LLVMModelData* modelData = createModelData(context.getModelDataSymbols(),
+		context.getRandom());
+
+	uint llvmsize = ModelDataIRBuilder::getModelDataSize(context.getModule(),
+		&context.getExecutionEngine());
+
+	if (llvmsize != modelData->size)
+	{
+		std::stringstream s;
+
+		s << "LLVM Model Data size " << llvmsize << " is different from " <<
+			"C++ size of LLVM ModelData, " << modelData->size;
+
+		LLVMModelData_free(modelData);
+
+		Log(Logger::LOG_FATAL) << s.str();
+
+		throw_llvm_exception(s.str());
+	}
+
+	// * MOVE * the bits over from the context to the exe model.
+	context.stealThePeach(&rc->symbols, &rc->context,
+		&rc->executionEngine, &rc->random, &rc->errStr, &rc->module);
+
+	if (!forceReCompile)
+	{
+		// check for a chached copy, another thread could have
+		// created one while we were making ours...
+
+		ModelPtrMap::const_iterator i;
+
+		SharedModelPtr sp;
+
+		cachedModelsMutex.lock();
+
+		// whilst we have it locked, clear any expired ptrs
+		for (ModelPtrMap::const_iterator j = cachedModels.begin();
+			j != cachedModels.end();)
+		{
+			if (j->second.expired())
+			{
+				Log(Logger::LOG_DEBUG) <<
+					"removing expired model resource for hash " << md5;
+
+				j = cachedModels.erase(j);
+			}
+			else
+			{
+				++j;
+			}
+		}
+
+		if ((i = cachedModels.find(md5)) == cachedModels.end())
+		{
+			Log(Logger::LOG_DEBUG) << "could not find existing cached resource "
+				"resources, for hash " << md5 <<
+				", inserting new resources into cache";
+
+			cachedModels[md5] = rc;
+		}
+
+		cachedModelsMutex.unlock();
+	}
+
+	// copy the amounts of old existing species to new model
+	// start from where we paused
+	int beforeNumIndFloatingSpecies = oldModel->getNumIndFloatingSpecies();
+	double* savedFloatingSpeciesAmounts = new double[beforeNumIndFloatingSpecies];
+	oldModel->getFloatingSpeciesAmounts(beforeNumIndFloatingSpecies, 0, savedFloatingSpeciesAmounts);
+
+	ExecutableModel* newModel = new LLVMExecutableModel(rc, modelData);
+	newModel->setFloatingSpeciesAmounts(beforeNumIndFloatingSpecies, 0, savedFloatingSpeciesAmounts);
+
+	delete savedFloatingSpeciesAmounts;
+	return newModel;
+}
+
+
 ExecutableModel* LLVMModelGenerator::createModel(const std::string& sbml,
         uint options)
 {
@@ -441,287 +781,6 @@ ExecutableModel* LLVMModelGenerator::createModel(const std::string& sbml,
     return new LLVMExecutableModel(rc, modelData);
 }
 
-void LLVMModelGenerator::regenerateModel(LLVMExecutableModel *exeModel, rrllvm::ModelGeneratorContext& context, uint options)
-{
-
-
-    Function* evalInitialConditionsIR =
-            EvalInitialConditionsCodeGen(context).createFunction();
-
-	Function* evalReactionRatesIR =
-            EvalReactionRatesCodeGen(context).createFunction();
-
-	Function* getBoundarySpeciesAmountIR =
-            GetBoundarySpeciesAmountCodeGen(context).createFunction();
-
-	Function* getFloatingSpeciesAmountIR =
-            GetFloatingSpeciesAmountCodeGen(context).createFunction();
-
-	Function* getBoundarySpeciesConcentrationIR =
-            GetBoundarySpeciesConcentrationCodeGen(context).createFunction();
-
-	Function* getFloatingSpeciesConcentrationIR =
-            GetFloatingSpeciesConcentrationCodeGen(context).createFunction();
-
-	Function* getCompartmentVolumeIR =
-            GetCompartmentVolumeCodeGen(context).createFunction();
-
-	Function* getGlobalParameterIR =
-            GetGlobalParameterCodeGen(context).createFunction();
-
-	Function* evalRateRuleRatesIR =
-            EvalRateRuleRatesCodeGen(context).createFunction();
-
-	Function* getEventTriggerIR =
-            GetEventTriggerCodeGen(context).createFunction();
-
-	Function* getEventPriorityIR =
-            GetEventPriorityCodeGen(context).createFunction();
-
-	Function* getEventDelayIR =
-            GetEventDelayCodeGen(context).createFunction();
-
-	Function* eventTriggerIR =
-            EventTriggerCodeGen(context).createFunction();
-
-	Function* eventAssignIR =
-            EventAssignCodeGen(context).createFunction();
-
-	Function* evalVolatileStoichIR =
-            EvalVolatileStoichCodeGen(context).createFunction();
-
-	Function* evalConversionFactorIR =
-            EvalConversionFactorCodeGen(context).createFunction();
-
-	Function* setBoundarySpeciesAmountIR = 0 ;
-	Function* setBoundarySpeciesConcentrationIR;
-	Function* setFloatingSpeciesConcentrationIR = 0;
-	Function* setCompartmentVolumeIR = 0;
-	Function* setFloatingSpeciesAmountIR = 0;
-	Function* setGlobalParameterIR = 0;
-	Function* getFloatingSpeciesInitConcentrationsIR = 0;
-	Function* setFloatingSpeciesInitConcentrationsIR = 0;
-	Function* getFloatingSpeciesInitAmountsIR = 0;
-	Function* setFloatingSpeciesInitAmountsIR = 0;
-	Function* getCompartmentInitVolumesIR = 0;
-	Function* setCompartmentInitVolumesIR = 0;
-	Function* getGlobalParameterInitValueIR = 0;
-	Function* setGlobalParameterInitValueIR = 0;
-	if (options & LoadSBMLOptions::READ_ONLY)
-	{
-		setBoundarySpeciesAmountIR= 0;
-		setBoundarySpeciesConcentrationIR = 0;
-		setFloatingSpeciesConcentrationIR = 0;
-		setCompartmentVolumeIR	= 0;
-		setFloatingSpeciesAmountIR= 0;
-		setGlobalParameterIR	= 0;
-	}
-	else
-	{
-		setBoundarySpeciesAmountIR = 
-			SetBoundarySpeciesAmountCodeGen(context).createFunction();
-
-		setBoundarySpeciesConcentrationIR =
-			SetBoundarySpeciesConcentrationCodeGen(context).createFunction();
-
-		setFloatingSpeciesConcentrationIR =
-			SetFloatingSpeciesConcentrationCodeGen(context).createFunction();
-
-		setCompartmentVolumeIR =
-			SetCompartmentVolumeCodeGen(context).createFunction();
-
-		setFloatingSpeciesAmountIR = 
-			SetFloatingSpeciesAmountCodeGen(context).createFunction();
-
-		setGlobalParameterIR =
-			SetGlobalParameterCodeGen(context).createFunction();
-	}
-
-	if (options & LoadSBMLOptions::MUTABLE_INITIAL_CONDITIONS)
-	{
-		getFloatingSpeciesInitConcentrationsIR =
-			GetFloatingSpeciesInitConcentrationCodeGen(context).createFunction();
-		setFloatingSpeciesInitConcentrationsIR =
-			SetFloatingSpeciesInitConcentrationCodeGen(context).createFunction();
-
-		getFloatingSpeciesInitAmountsIR =
-			GetFloatingSpeciesInitAmountCodeGen(context).createFunction();
-		setFloatingSpeciesInitAmountsIR =
-			SetFloatingSpeciesInitAmountCodeGen(context).createFunction();
-
-		getCompartmentInitVolumesIR =
-			GetCompartmentInitVolumeCodeGen(context).createFunction();
-		setCompartmentInitVolumesIR =
-			SetCompartmentInitVolumeCodeGen(context).createFunction();
-
-		getGlobalParameterInitValueIR =
-			GetGlobalParameterInitValueCodeGen(context).createFunction();
-		setGlobalParameterInitValueIR =
-			SetGlobalParameterInitValueCodeGen(context).createFunction();
-	}
-	else
-	{
-		getFloatingSpeciesInitConcentrationsIR = 0;
-		setFloatingSpeciesInitConcentrationsIR = 0;
-		getFloatingSpeciesInitAmountsIR		= 0;
-		setFloatingSpeciesInitAmountsIR		= 0;
-		setCompartmentInitVolumesIR			= 0;
-		getCompartmentInitVolumesIR			= 0;
-		getGlobalParameterInitValueIR			= 0;
-		setGlobalParameterInitValueIR			= 0;
-	}
-
-	//https://stackoverflow.com/questions/28851646/llvm-jit-windows-8-1
-	context.getExecutionEngine().finalizeObject();
-    
-	std::shared_ptr<rrllvm::ModelResources> rc(exeModel->resources);
-
-	rc->evalInitialConditionsPtr = (EvalInitialConditionsCodeGen::FunctionPtr)
-        context.getExecutionEngine().getFunctionAddress("evalInitialConditions");
-
-	rc->evalReactionRatesPtr = (EvalReactionRatesCodeGen::FunctionPtr)
-        context.getExecutionEngine().getFunctionAddress("evalReactionRates");
-
-	rc->getBoundarySpeciesAmountPtr = (GetBoundarySpeciesAmountCodeGen::FunctionPtr)
-        context.getExecutionEngine().getFunctionAddress("getBoundarySpeciesAmount");
-
-	rc->getFloatingSpeciesAmountPtr = (GetFloatingSpeciesAmountCodeGen::FunctionPtr)
-        context.getExecutionEngine().getFunctionAddress("getFloatingSpeciesAmount");
-
-	rc->getBoundarySpeciesConcentrationPtr = (GetBoundarySpeciesConcentrationCodeGen::FunctionPtr)
-        context.getExecutionEngine().getFunctionAddress("getBoundarySpeciesConcentration");
-
-	rc->getFloatingSpeciesConcentrationPtr = (GetFloatingSpeciesAmountCodeGen::FunctionPtr)
-        context.getExecutionEngine().getFunctionAddress("getFloatingSpeciesConcentration");
-
-	rc->getCompartmentVolumePtr = (GetCompartmentVolumeCodeGen::FunctionPtr)
-        context.getExecutionEngine().getFunctionAddress("getCompartmentVolume");
-
-	rc->getGlobalParameterPtr = (GetGlobalParameterCodeGen::FunctionPtr)
-        context.getExecutionEngine().getFunctionAddress("getGlobalParameter");
-
-	rc->evalRateRuleRatesPtr = (EvalRateRuleRatesCodeGen::FunctionPtr)
-        context.getExecutionEngine().getFunctionAddress("evalRateRuleRates");
-
-	rc->getEventTriggerPtr = (GetEventTriggerCodeGen::FunctionPtr)
-        context.getExecutionEngine().getFunctionAddress("getEventTrigger");
-
-	rc->getEventPriorityPtr = (GetEventPriorityCodeGen::FunctionPtr)
-        context.getExecutionEngine().getFunctionAddress("getEventPriority");
-
-	rc->getEventDelayPtr = (GetEventDelayCodeGen::FunctionPtr)
-        context.getExecutionEngine().getFunctionAddress("getEventDelay");
-
-	rc->eventTriggerPtr = (EventTriggerCodeGen::FunctionPtr)
-        context.getExecutionEngine().getFunctionAddress("eventTrigger");
-
-	rc->eventAssignPtr = (EventAssignCodeGen::FunctionPtr)
-        context.getExecutionEngine().getFunctionAddress("eventAssign");
-
-	rc->evalVolatileStoichPtr = (EvalVolatileStoichCodeGen::FunctionPtr)
-        context.getExecutionEngine().getFunctionAddress("evalVolatileStoich");
-
-	rc->evalConversionFactorPtr = (EvalConversionFactorCodeGen::FunctionPtr)
-        context.getExecutionEngine().getFunctionAddress("evalConversionFactor");
-	if (options & LoadSBMLOptions::READ_ONLY)
-	{
-		rc->setBoundarySpeciesAmountPtr = 0;
-		rc->setBoundarySpeciesConcentrationPtr = 0;
-		rc->setFloatingSpeciesConcentrationPtr = 0;
-		rc->setCompartmentVolumePtr = 0;
-		rc->setFloatingSpeciesAmountPtr = 0;
-		rc->setGlobalParameterPtr = 0;
-	}
-	else
-	{
-		rc->setBoundarySpeciesAmountPtr = (SetBoundarySpeciesAmountCodeGen::FunctionPtr)
-            context.getExecutionEngine().getFunctionAddress("setBoundarySpeciesAmount");
-
-		rc->setBoundarySpeciesConcentrationPtr = (SetBoundarySpeciesAmountCodeGen::FunctionPtr)
-			context.getExecutionEngine().getFunctionAddress("setBoundarySpeciesConcentration");
-
-		rc->setFloatingSpeciesConcentrationPtr = (SetBoundarySpeciesAmountCodeGen::FunctionPtr)
-			context.getExecutionEngine().getFunctionAddress("setFloatingSpeciesConcentration");
-
-		rc->setCompartmentVolumePtr = (SetBoundarySpeciesAmountCodeGen::FunctionPtr)
-			context.getExecutionEngine().getFunctionAddress("setCompartmentVolume");
-
-		rc->setFloatingSpeciesAmountPtr = (SetBoundarySpeciesAmountCodeGen::FunctionPtr)
-			context.getExecutionEngine().getFunctionAddress("setFloatingSpeciesAmount");
-
-        rc->setGlobalParameterPtr = (SetGlobalParameterCodeGen::FunctionPtr)
-            context.getExecutionEngine().getFunctionAddress("setGlobalParameter");
-	}
-
-	if (options & LoadSBMLOptions::MUTABLE_INITIAL_CONDITIONS)
-	{
-		rc->getFloatingSpeciesInitConcentrationsPtr = (GetBoundarySpeciesAmountCodeGen::FunctionPtr)
-            context.getExecutionEngine().getFunctionAddress("getFloatingSpeciesInitConcentrations");
-		rc->setFloatingSpeciesInitConcentrationsPtr = (SetBoundarySpeciesAmountCodeGen::FunctionPtr)
-            context.getExecutionEngine().getFunctionAddress("setFloatingSpeciesInitConcentrations");
-
-		rc->getFloatingSpeciesInitAmountsPtr = (GetBoundarySpeciesAmountCodeGen::FunctionPtr)
-            context.getExecutionEngine().getFunctionAddress("getFloatingSpeciesInitAmounts");
-		rc->setFloatingSpeciesInitAmountsPtr = (SetBoundarySpeciesAmountCodeGen::FunctionPtr)
-            context.getExecutionEngine().getFunctionAddress("setFloatingSpeciesInitAmounts");
-
-		rc->getCompartmentInitVolumesPtr = (GetBoundarySpeciesAmountCodeGen::FunctionPtr)
-            context.getExecutionEngine().getFunctionAddress("getCompartmentInitVolumes");
-		rc->setCompartmentInitVolumesPtr = (SetBoundarySpeciesAmountCodeGen::FunctionPtr)
-            context.getExecutionEngine().getFunctionAddress("setCompartmentInitVolumes");
-
-		rc->getGlobalParameterInitValuePtr = (GetBoundarySpeciesAmountCodeGen::FunctionPtr)
-            context.getExecutionEngine().getFunctionAddress("getGlobalParameterInitValue");
-		rc->setGlobalParameterInitValuePtr = (SetBoundarySpeciesAmountCodeGen::FunctionPtr)
-            context.getExecutionEngine().getFunctionAddress("setGlobalParameterInitValue");
-	}
-	else
-	{
-		rc->getFloatingSpeciesInitConcentrationsPtr = 0;
-		rc->setFloatingSpeciesInitConcentrationsPtr = 0;
-
-		rc->getFloatingSpeciesInitAmountsPtr = 0;
-		rc->setFloatingSpeciesInitAmountsPtr = 0;
-
-		rc->getCompartmentInitVolumesPtr = 0;
-		rc->setCompartmentInitVolumesPtr = 0;
-
-		rc->getGlobalParameterInitValuePtr = 0;
-		rc->setGlobalParameterInitValuePtr = 0;
-	}
-
-	exeModel->evalInitialConditionsPtr = rc->evalInitialConditionsPtr;
-	exeModel->evalReactionRatesPtr = rc->evalReactionRatesPtr;
-	exeModel->getBoundarySpeciesAmountPtr = rc->getBoundarySpeciesAmountPtr;
-    exeModel->getFloatingSpeciesAmountPtr = rc->getFloatingSpeciesAmountPtr;
-    exeModel->getBoundarySpeciesConcentrationPtr = rc->getBoundarySpeciesConcentrationPtr;
-    exeModel->getFloatingSpeciesConcentrationPtr = rc->getFloatingSpeciesConcentrationPtr;
-    exeModel->getCompartmentVolumePtr = rc->getCompartmentVolumePtr;
-    exeModel->getGlobalParameterPtr = rc->getGlobalParameterPtr;
-    exeModel->evalRateRuleRatesPtr = rc->evalRateRuleRatesPtr;
-    exeModel->getEventTriggerPtr = rc->getEventTriggerPtr;
-    exeModel->getEventPriorityPtr = rc->getEventPriorityPtr;
-    exeModel->getEventDelayPtr = rc->getEventDelayPtr;
-	exeModel->eventTriggerPtr = rc->eventTriggerPtr;
-    exeModel->eventAssignPtr = rc->eventAssignPtr;
-    exeModel->evalVolatileStoichPtr = rc->evalVolatileStoichPtr;
-    exeModel->evalConversionFactorPtr = rc->evalConversionFactorPtr;
-    exeModel->setBoundarySpeciesAmountPtr = rc->setBoundarySpeciesAmountPtr;
-    exeModel->setFloatingSpeciesAmountPtr = rc->setFloatingSpeciesAmountPtr;
-    exeModel->setBoundarySpeciesConcentrationPtr = rc->setBoundarySpeciesConcentrationPtr;
-    exeModel->setFloatingSpeciesConcentrationPtr = rc->setFloatingSpeciesConcentrationPtr;
-    exeModel->setCompartmentVolumePtr = rc->setCompartmentVolumePtr;
-    exeModel->setGlobalParameterPtr = rc->setGlobalParameterPtr;
-    exeModel->getFloatingSpeciesInitConcentrationsPtr = rc->getFloatingSpeciesInitConcentrationsPtr;
-    exeModel->setFloatingSpeciesInitConcentrationsPtr = rc->setFloatingSpeciesInitConcentrationsPtr;
-    exeModel->getFloatingSpeciesInitAmountsPtr = rc->getFloatingSpeciesInitAmountsPtr;
-    exeModel->setFloatingSpeciesInitAmountsPtr = rc->setFloatingSpeciesInitAmountsPtr;
-    exeModel->getCompartmentInitVolumesPtr = rc->getCompartmentInitVolumesPtr;
-    exeModel->setCompartmentInitVolumesPtr = rc->setCompartmentInitVolumesPtr;
-    exeModel->getGlobalParameterInitValuePtr = rc->getGlobalParameterInitValuePtr;
-    exeModel->setGlobalParameterInitValuePtr = rc->setGlobalParameterInitValuePtr;
-
-}
 
 
 /************ LLVM Utility Functions, TODO: Move To Separate File ************/

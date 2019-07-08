@@ -34,12 +34,16 @@ class RR_DECLSPEC LLVMModelGenerator
 {
 public:
 
-    /**
-     * Create an executable model from an sbml string
-     */
+	/**
+	 * Create an executable model from an sbml string
+	 */
     static rr::ExecutableModel *createModel(const std::string& sbml, uint options);
-	static void regenerateModel(LLVMExecutableModel *exeModel, rrllvm::ModelGeneratorContext& context,
-		                         uint options);
+
+	/**
+	 * Regenerate an executable model from an existing sbml document
+	 */
+	static rr::ExecutableModel *regenerateModel(rr::ExecutableModel* oldModel, libsbml::SBMLDocument* doc, uint options);
+
 };
 
 } /* namespace rr */

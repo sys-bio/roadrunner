@@ -2292,26 +2292,6 @@ void LLVMExecutableModel::saveState(std::ostream& out)
 	resources->saveState(out);
 }
 
-void LLVMExecutableModel::regenerate(libsbml::SBMLDocument *document, uint options, std::string moduleName)
-{
-	int beforeNumIndFloatingSpecies = modelData->numIndFloatingSpecies;
-	double *savedFloatingSpeciesAmounts = new double[modelData->numIndFloatingSpecies];
-
-	for (int i = 0; i < modelData->numIndFloatingSpecies; i++) {
-		savedFloatingSpeciesAmounts[i] = getFloatingSpeciesAmountPtr(modelData, i);
-	}
-	rrllvm::ModelGeneratorContext genContext(document, options, resources->executionEngine, resources->context, moduleName);
-	rrllvm::LLVMModelGenerator::regenerateModel(this, genContext, options);
-	resources->symbols = new LLVMModelDataSymbols(genContext.getModelDataSymbols());
-
-
-	this->modelData = rrllvm::createModelData(genContext.getModelDataSymbols(), genContext.getRandom());
-	reset(SelectionRecord::ALL);
-	std::cout << "Number of species now: " << modelData->numIndFloatingSpecies << std::endl;
-	//std::memcpy(modelData->floatingSpeciesAmountsAlias, savedFloatingSpeciesAmounts, sizeof(double)*beforeNumIndFloatingSpecies);
-	delete savedFloatingSpeciesAmounts;
-}
-
 
 /******************************* End Random Section ***************************/
 #endif  /**********************************************************************/

@@ -624,7 +624,7 @@ RRCDataPtr rrcCallConv simulate(RRHandle handle)
 	start_try
 		RoadRunner* rri = castToRoadRunner(handle);
 		rri = new RoadRunner();
-	    rri->load("D:/rr/remove-test.xml");
+	    rri->load("C:/Users/User/Documents/rr/source/roadrunner/remove-test.xml");
 		rri->resetSelectionLists();
         rri->simulate();
 		auto test = rri->getSimulationData();
@@ -633,10 +633,28 @@ RRCDataPtr rrcCallConv simulate(RRHandle handle)
 				std::cout << (*test)(r, c) << "\t";
 			std::cout << std::endl;
 		}
-		//rri->removeReaction("reaction1");
+		//std::cout << "remove reaction ...." << std::endl;
+		//rri->removeReaction("reaction2");
+		//std::cout << rri->getNumberOfReactions() << std::endl;
+		std::cout << "add new species .... " << std::endl;
 		rri->addSpecies("test", "test", "compartment", 1.0, "substance");
 		//rri->regenerate();
-		rri->getSimulateOptions().start = rri->getSimulateOptions().duration;
+		//rri->getSimulateOptions().start = rri->getSimulateOptions().duration;
+		rri->simulate();
+		test = rri->getSimulationData();
+		for (int r = 0; r < test->numRows(); r++) {
+			for (int c = 0; c < test->numCols(); c++)
+				std::cout << (*test)(r, c) << "\t";
+			std::cout << std::endl;
+		}
+
+		std::cout << "remove reaction ...." << std::endl;
+		rri->removeReaction("reaction2");
+		//std::cout << rri->getNumberOfReactions() << std::endl;
+		//std::cout << "add new species .... " << std::endl;
+		//rri->addSpecies("test", "test", "compartment", 1.0, "substance");
+		//rri->regenerate();
+		//rri->getSimulateOptions().start = rri->getSimulateOptions().duration;
 		rri->simulate();
 		test = rri->getSimulationData();
 		for (int r = 0; r < test->numRows(); r++) {

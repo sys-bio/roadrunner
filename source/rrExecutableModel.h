@@ -749,10 +749,6 @@ public:
 		return false;
 	}
 
-	virtual void regenerate(libsbml::SBMLDocument *document, uint options, std::string moduleName) {
-		throw std::invalid_argument("Not implemented for this model type");
-	}
-
     friend class RoadRunner;
 
 protected:
