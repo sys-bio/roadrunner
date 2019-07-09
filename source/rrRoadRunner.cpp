@@ -5180,7 +5180,6 @@ void RoadRunner::removeReaction(const std::string& rid)
 	{
 		throw std::invalid_argument("Roadrunner::removeReaction failed, no reaction with ID " + rid + "existed in the model");
 	}
-
 	delete toDelete;
 
 	regenerate();
@@ -5188,7 +5187,11 @@ void RoadRunner::removeReaction(const std::string& rid)
 
 void RoadRunner::addSpecies(std::string name, std::string id, std::string compartment, double initAmount, std::string substanceUnits)
 {
-
+	libsbml::Species* s = impl->document->getModel()->getSpecies(id);
+	if (s == NULL)
+	{
+		throw std::invalid_argument("Roadrunner::addSpecies failed, species with ID " + id + "already existed in the model");
+	}
 	libsbml::Species *newSpecies = impl->document->getModel()->createSpecies();
 	newSpecies->setName(name);
 	newSpecies->setId(id);
