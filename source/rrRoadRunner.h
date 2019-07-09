@@ -712,7 +712,7 @@ public:
 	/**
 	 * Remove a reaction from the current model
 	 */
-	void removeReaction(std::string reactionId);
+	void removeReaction(const std::string& rid);
 
 	/**
 	 * Add a species to the current model
@@ -723,6 +723,8 @@ public:
 	* Add a reaction to the current model
 	*/
 	void addReaction(const std::string&);
+
+	void removeSpecies(const std::string& sid);
 
 
     /******************************* Steady State Section *************************/

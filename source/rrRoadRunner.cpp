@@ -5172,9 +5172,9 @@ void RoadRunner::loadSelectionVector(std::istream& in, std::vector<SelectionReco
 	}
 }
 
-void RoadRunner::removeReaction(std::string reactionId)
+void RoadRunner::removeReaction(const std::string& rid)
 {
-	delete impl->document->getModel()->removeReaction(reactionId);
+	delete impl->document->getModel()->removeReaction(rid);
 	ExecutableModel* newModel = ExecutableModelFactory::regenerateModel(impl->model, impl->document, impl->loadOpt.modelGeneratorOpt);
 	delete impl->model;
 	impl->model = newModel;
@@ -5212,8 +5212,75 @@ void RoadRunner::addReaction(const std::string& sbmlRep)
 	delete impl->model;
 	impl->model = newModel;
 	impl->syncAllSolversWithModel(impl->model);
+	resetSelectionLists();
 }
 
+void RoadRunner::removeSpecies(const std::string& sid) 
+{
+	delete impl->document->getModel()->removeSpecies(sid);
+	// delete all reactions as well
+	int index = 0;
+	int size = impl->document->getModel()->getNumReactions();
+	for (uint i = 0; i < size; i++)
+	{
+		const libsbml::Reaction* reaction = impl->document->getModel()->getListOfReactions()->get(index);
+		libsbml::Reaction* toDelete = nullptr;
+		const libsbml::ListOfSpeciesReferences* reactants = reaction->getListOfReactants();
+		for (uint j = 0; j < reactants->size(); j++)
+		{
+			if (reactants->get(j)->getSpecies() == sid)
+			{
+				toDelete = impl->document->getModel()->removeReaction(reaction->getName());
+				break;
+			}
+		}
+
+		if (toDelete != nullptr) {
+			delete toDelete;
+			continue;
+		}
+
+		const libsbml::ListOfSpeciesReferences* products = reaction->getListOfProducts();
+		for (uint j = 0; j < products->size(); j++)
+		{
+			if (products->get(j)->getSpecies() == sid)
+			{
+				toDelete = impl->document->getModel()->removeReaction(reaction->getName());
+				break;
+			}
+		}
+
+		if (toDelete != nullptr) {
+			delete toDelete;
+			continue;
+		}
+
+		const libsbml::ListOfSpeciesReferences* modifiers = reaction->getListOfModifiers();
+		for (uint j = 0; j < modifiers->size(); j++)
+		{
+			if (modifiers->get(j)->getSpecies() == sid)
+			{
+				toDelete = impl->document->getModel()->removeReaction(reaction->getName());
+				break;
+			}
+		}
+
+		if (toDelete != nullptr) {
+			delete toDelete;
+			continue;
+		}
+
+		// this reaction is not related to the deleted species 
+		index++;
+
+	}
+
+	ExecutableModel* newModel = ExecutableModelFactory::regenerateModel(impl->model, impl->document, impl->loadOpt.modelGeneratorOpt);
+	delete impl->model;
+	impl->model = newModel;
+	impl->syncAllSolversWithModel(impl->model);
+	resetSelectionLists();
+}
 
 } //namespace
 

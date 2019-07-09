@@ -656,6 +656,8 @@ RRCDataPtr rrcCallConv simulate(RRHandle handle)
         "</kineticLaw>"
       "</reaction>");
 		//rri->addSpecies("test", "test", "compartment", 1.0, "substance");
+		std::cout << "remove species .... " << std::endl;
+		rri->removeSpecies("S1");
 		//rri->regenerate();
 		//rri->getSimulateOptions().start = rri->getSimulateOptions().duration;
 		rri->simulate();
@@ -667,7 +669,7 @@ RRCDataPtr rrcCallConv simulate(RRHandle handle)
 		}
 
 		std::cout << "remove reaction ...." << std::endl;
-		rri->removeReaction("reaction2");
+		rri->removeReaction("raction2");
 		//std::cout << rri->getNumberOfReactions() << std::endl;
 		//std::cout << "add new species .... " << std::endl;
 		//rri->addSpecies("test", "test", "compartment", 1.0, "substance");
