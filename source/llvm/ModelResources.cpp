@@ -19,6 +19,8 @@
 #include "llvm/ExecutionEngine/SectionMemoryManager.h"
 #include "llvm/Support/DynamicLibrary.h"
 #include "source/llvm/SBMLSupportFunctions.h"
+#include "llvm/Support/TargetRegistry.h"
+#include "llvm/Target/TargetMachine.h"
 #include "rrRoadRunnerOptions.h"
 
 using rr::Logger;
@@ -59,12 +61,45 @@ void ModelResources::saveState(std::ostream& out) const
 	// them as machine code.
 	symbols->saveState(out);
 	//Create a buffer to write bitcode into
-	llvm::SmallVector<char, 10> modBuffer;
+	/*llvm::SmallVector<char, 10> modBuffer;
 	llvm::BitcodeWriter bw(modBuffer);
 	bw.writeModule(module);
 	//Need to call this function to finish writing the bitcode
 	bw.writeStrtab();
-	//create a string from the buffer and save it
+	//create a string from the buffer and save it*/
+	auto TargetTriple = llvm::sys::getDefaultTargetTriple();
+
+    llvm::InitializeNativeTarget();
+	llvm::InitializeNativeTargetAsmPrinter();
+	
+	std::string Error;
+	auto Target = llvm::TargetRegistry::lookupTarget(TargetTriple, Error);
+	if (!Target)
+	{
+		throw std::exception(Error.c_str());
+	}
+
+	auto CPU = "generic";
+	auto Features = "";
+
+	llvm::TargetOptions opt;
+	auto RM = llvm::Optional<llvm::Reloc::Model>();
+	auto TargetMachine = Target->createTargetMachine(TargetTriple, CPU, Features, opt, RM);
+	
+	std::error_code EC;
+	llvm::SmallVector<char, 10> modBuffer;
+	llvm::raw_svector_ostream mStrStream(modBuffer);
+
+	llvm::legacy::PassManager pass;
+	auto FileType = TargetMachine->CGFT_ObjectFile;
+    
+	if (TargetMachine->addPassesToEmitFile(pass, mStrStream, FileType))
+	{
+		throw std::exception("TargetMachine can't emit a File of type CGFT_ObjectFile");
+	}
+
+	pass.run(*module);
+
 	std::string moduleStr(modBuffer.begin(), modBuffer.end());
 	rr::saveBinary(out, moduleStr);
 }
@@ -215,7 +250,7 @@ void ModelResources::loadState(std::istream& in, uint modelGeneratorOpt)
 	//Set up the llvm context 
 	context = new llvm::LLVMContext();
 	//Set up a buffer to read the bitcode from
-	auto memBuffer(llvm::MemoryBuffer::getMemBuffer(moduleStr));
+	/*auto memBuffer(llvm::MemoryBuffer::getMemBuffer(moduleStr));
 	llvm::Expected<std::vector<llvm::BitcodeModule>> bitcodeModuleList = llvm::getBitcodeModuleList(*memBuffer);
 	if (!bitcodeModuleList) {
 		throw std::invalid_argument("Failed to load bitcode");
@@ -226,14 +261,26 @@ void ModelResources::loadState(std::istream& in, uint modelGeneratorOpt)
 	llvm::Expected<std::unique_ptr<llvm::Module>> module_uniq = bitcodeModule.parseModule(*context);
 	if (!module_uniq) {
 		throw std::invalid_argument("Failed to load llvm module");
+	}*/
+	//Set up a buffer to read the bitcode from
+	auto memBuffer(llvm::MemoryBuffer::getMemBuffer(moduleStr));
+    
+	llvm::Expected<std::unique_ptr<llvm::object::ObjectFile> > objectFileExpected =
+		llvm::object::ObjectFile::createObjectFile(llvm::MemoryBufferRef(moduleStr, "id"));
+	if (!objectFileExpected)
+	{
+		throw std::exception("Failed to load object data");
 	}
+    
+	std::unique_ptr<llvm::object::ObjectFile> objectFile(std::move(objectFileExpected.get()));
 
-	module = module_uniq.get().release();
+	llvm::object::OwningBinary<llvm::object::ObjectFile> owningObject(std::move(objectFile), std::move(memBuffer));
+
+	//module = module_uniq.get().release();
 	//Not sure why, but engineBuilder.create() crashes if not initialized with an empty module
 	auto emptyModule = std::unique_ptr<llvm::Module>(new llvm::Module("Module test", *context));
-	
+	module = emptyModule.get();
 	llvm::EngineBuilder engineBuilder(std::move(emptyModule));
-	//llvm::EngineBuilder engineBuilder;
 
 	//Set the necessary parameters on the engine builder
 	std::string *engineBuilderErrStr = new std::string();
@@ -247,12 +294,15 @@ void ModelResources::loadState(std::istream& in, uint modelGeneratorOpt)
 	executionEngine = engineBuilder.create();
 	
 	//Add mappings to the functions that aren't saved as LLVM IR (like sin, cos etc.)
-	addGlobalMappings();
+	//addGlobalMappings();
 
 	//Add the module we constructed to the execution engine
-	executionEngine->addModule(std::unique_ptr<llvm::Module>(module));
+	//executionEngine->addModule(std::unique_ptr<llvm::Module>(module));
+	executionEngine->addObjectFile(std::move(owningObject));
 	//Finalize the engine
+	std::clock_t start = std::clock();
 	executionEngine->finalizeObject();
+	std::cout << "Compilation: " << std::clock() - start << std::endl;
 	//Get the function pointers we need from the exeuction engine
 	evalInitialConditionsPtr = (EvalInitialConditionsCodeGen::FunctionPtr)
 		executionEngine->getFunctionAddress("evalInitialConditions");

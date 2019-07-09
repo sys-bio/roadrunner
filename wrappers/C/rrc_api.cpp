@@ -60,6 +60,7 @@
 #include "SteadyStateSolver.h"
 #include "Dictionary.h"
 #include "rrConfig.h"
+#include <ctime>
 
 
 #if defined(_MSC_VER)
@@ -623,6 +624,22 @@ RRCDataPtr rrcCallConv simulate(RRHandle handle)
 {
 	start_try
 		RoadRunner* rri = castToRoadRunner(handle);
+		rri = new RoadRunner();
+		std::clock_t start = std::clock();
+		rri->load("D:/rr/tiny-sbml.sbml");
+		std::clock_t time = std::clock() - start;
+		std::cout << "Initial load time: " << time << std::endl;
+
+		start = std::clock();
+		rri->saveState("test-save-state.rr");
+		time = std::clock() - start;
+		std::cout << "Save time: " << time << std::endl;
+
+		start = std::clock();
+		rri->loadState("test-save-state.rr");
+		time = std::clock() - start;
+		std::cout << "Load time: " << time << std::endl;
+
         rri->simulate();
         return createRRCData(*rri);
     catch_ptr_macro

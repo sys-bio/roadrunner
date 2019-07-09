@@ -5128,6 +5128,7 @@ void RoadRunner::saveSelectionVector(std::ostream& out, std::vector<SelectionRec
 
 void RoadRunner::loadState(std::string filename)
 {
+	std::clock_t start = std::clock();
 	std::ifstream in(filename, iostream::binary);
 	if (!in)
 	{
@@ -5209,10 +5210,16 @@ void RoadRunner::loadState(std::string filename)
 	rr::loadBinary(in, impl->configurationXML);
 	if(impl->model)
 		delete impl->model;
+	std::cout << "Pregeneration time: " << std::clock() - start << std::endl;
+    
+	start = std::clock();
 	//Create a new model from the stream
 	//impl->model = new rrllvm::LLVMExecutableModel(in, impl->loadOpt.modelGeneratorOpt);
 	impl->model = ExecutableModelFactory::createModel(in, impl->loadOpt.modelGeneratorOpt);
     impl->syncAllSolversWithModel(impl->model);
+
+	std::cout << "Generate model: " << std::clock() - start << std::endl;
+	start = std::clock();
 
 	if (impl->mLS)
 		delete impl->mLS;
@@ -5250,6 +5257,7 @@ void RoadRunner::loadState(std::string filename)
 
 	//Currently the SBML is saved with the binary data, see saveState above
 	rr::loadBinary(in, impl->mCurrentSBML);
+	std::cout << "Post generate model: " << std::clock() - start << std::endl;
 	//Restart the integrator and reset the model
 	//This will need to change if we decide to add pausing
 	// impl->integrator->restart(0.0);
