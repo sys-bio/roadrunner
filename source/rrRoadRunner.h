@@ -711,11 +711,17 @@ public:
 
 	/**
 	 * Remove a reaction from the current model
+	 * @param rid: the ID of the reaction to be removed 
 	 */
 	void removeReaction(const std::string& rid);
 
 	/**
 	 * Add a species to the current model
+	 * @param name: the name of the species to be added 
+	 * @param id: the ID of the species to be added
+	 * @param compartment: the compartment of the species to be added
+	 * @param initAmount: the initial amount of the species to be added
+	 * @param substanceUnits: the substance unit of the species to be added
 	 */
 	void addSpecies(std::string name, std::string id, std::string compartment, double initAmount, std::string substanceUnits);
 
@@ -725,6 +731,11 @@ public:
 	*/
 	void addReaction(const std::string& sbmlRep);
 
+	/*
+	* Remove a species from the current model. Note that all reactions related to this species(as reactants,
+	* products or modifiers) will be removed as well.
+	* @param sid: the ID of the species to be removed 
+	*/
 	void removeSpecies(const std::string& sid);
 
 

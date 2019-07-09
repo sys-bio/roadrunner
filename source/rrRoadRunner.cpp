@@ -5174,13 +5174,21 @@ void RoadRunner::loadSelectionVector(std::istream& in, std::vector<SelectionReco
 
 void RoadRunner::removeReaction(const std::string& rid)
 {
-	delete impl->document->getModel()->removeReaction(rid);
+
+	libsbml::Reaction* toDelete = impl->document->getModel()->removeReaction(rid);
+	if (toDelete == NULL) 
+	{
+		throw std::invalid_argument("Roadrunner::removeReaction failed, no reaction with ID " + rid + "existed in the model");
+	}
+
+	delete toDelete;
 
 	regenerate();
 }
 
 void RoadRunner::addSpecies(std::string name, std::string id, std::string compartment, double initAmount, std::string substanceUnits)
 {
+
 	libsbml::Species *newSpecies = impl->document->getModel()->createSpecies();
 	newSpecies->setName(name);
 	newSpecies->setId(id);
@@ -5208,26 +5216,35 @@ void RoadRunner::addReaction(const std::string& sbmlRep)
 
 void RoadRunner::removeSpecies(const std::string& sid) 
 {
-	delete impl->document->getModel()->removeSpecies(sid);
-	// delete all reactions as well
-	int index = 0;
-	int size = impl->document->getModel()->getNumReactions();
-	for (uint i = 0; i < size; i++)
+	using namespace libsbml;
+	Model* sbmlModel = impl->document->getModel();
+	Species* s = sbmlModel->removeSpecies(sid);
+	if (s == NULL)
 	{
-		const libsbml::Reaction* reaction = impl->document->getModel()->getListOfReactions()->get(index);
-		libsbml::Reaction* toDelete = nullptr;
-		const libsbml::ListOfSpeciesReferences* reactants = reaction->getListOfReactants();
+		throw std::invalid_argument("Roadrunner::removeSpecies failed, no species with ID " + sid + "existed in the model");
+	}
+	delete s;
+	// delete all related reactions as well
+	int index = 0;
+	int numReaction = sbmlModel->getNumReactions();
+	for (uint i = 0; i < numReaction; i++)
+	{
+		Reaction* reaction = sbmlModel->getListOfReactions()->get(index);
+		Reaction* toDelete = nullptr;
+		const ListOfSpeciesReferences* reactants = reaction->getListOfReactants();
 		for (uint j = 0; j < reactants->size(); j++)
 		{
 			if (reactants->get(j)->getSpecies() == sid)
 			{
-				toDelete = impl->document->getModel()->removeReaction(reaction->getName());
+				toDelete = sbmlModel->removeReaction(reaction->getName());
 				break;
 			}
 		}
 
-		if (toDelete != nullptr) {
+		if (toDelete != nullptr) 
+		{
 			delete toDelete;
+			// no need to check anymore
 			continue;
 		}
 
@@ -5236,13 +5253,15 @@ void RoadRunner::removeSpecies(const std::string& sid)
 		{
 			if (products->get(j)->getSpecies() == sid)
 			{
-				toDelete = impl->document->getModel()->removeReaction(reaction->getName());
+				toDelete = sbmlModel->removeReaction(reaction->getName());
 				break;
 			}
 		}
 
-		if (toDelete != nullptr) {
+		if (toDelete != nullptr) 
+		{
 			delete toDelete;
+			// no need to check anymore
 			continue;
 		}
 
@@ -5251,21 +5270,21 @@ void RoadRunner::removeSpecies(const std::string& sid)
 		{
 			if (modifiers->get(j)->getSpecies() == sid)
 			{
-				toDelete = impl->document->getModel()->removeReaction(reaction->getName());
+				toDelete = sbmlModel->removeReaction(reaction->getName());
 				break;
 			}
 		}
 
-		if (toDelete != nullptr) {
+		if (toDelete != nullptr) 
+		{
 			delete toDelete;
+			// no need to check anymore
 			continue;
 		}
 
 		// this reaction is not related to the deleted species 
 		index++;
-
 	}
-
 	regenerate();
 }
 
