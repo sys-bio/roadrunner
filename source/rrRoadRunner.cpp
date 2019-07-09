@@ -30,6 +30,7 @@
 #include "llvm/LLVMExecutableModel.h"
 #include "sbml/ListOf.h"
 #include "sbml/Model.h"
+#include "sbml/math/FormulaParser.h"
 #include "llvm/ModelResources.h"
 #include <llvm/IR/IRBuilder.h>
 
@@ -5188,6 +5189,24 @@ void RoadRunner::addSpecies(std::string name, std::string id, std::string compar
 	newSpecies->setCompartment(compartment);
 	newSpecies->setInitialAmount(initAmount);
 	newSpecies->setSubstanceUnits(substanceUnits);
+   
+	ExecutableModel* newModel = ExecutableModelFactory::regenerateModel(impl->model, impl->document, impl->loadOpt.modelGeneratorOpt);
+	delete impl->model;
+	impl->model = newModel;
+	impl->syncAllSolversWithModel(impl->model);
+}
+
+void RoadRunner::addReaction(const std::string& sbmlRep)
+{
+	libsbml::Reaction *newReaction = impl->document->getModel()->createReaction();
+	newReaction->read(libsbml::XMLInputStream(sbmlRep.c_str(), false));
+	//newReaction->addReactant(impl->document->getModel()->getSpecies("S2"));
+	//newReaction->addProduct(impl->document->getModel()->getSpecies("S1"));
+	//newReaction->setName("reaction2");
+	//newReaction->setId("reaction2");
+	//libsbml::KineticLaw *kLaw = newReaction->createKineticLaw();
+	//kLaw->addCVTerm()
+	//kLaw->setMath(libsbml::SBML_parseFormula("k1*S2"));
     
 	ExecutableModel* newModel = ExecutableModelFactory::regenerateModel(impl->model, impl->document, impl->loadOpt.modelGeneratorOpt);
 	delete impl->model;

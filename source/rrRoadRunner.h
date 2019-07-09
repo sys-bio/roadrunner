@@ -719,6 +719,11 @@ public:
 	 */
 	void addSpecies(std::string name, std::string id, std::string compartment, double initAmount, std::string substanceUnits);
 
+	/*
+	* Add a reaction to the current model
+	*/
+	void addReaction(const std::string&);
+
 
     /******************************* Steady State Section *************************/
     #if (1) /**********************************************************************/

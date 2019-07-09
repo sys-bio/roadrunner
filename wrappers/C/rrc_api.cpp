@@ -624,7 +624,7 @@ RRCDataPtr rrcCallConv simulate(RRHandle handle)
 	start_try
 		RoadRunner* rri = castToRoadRunner(handle);
 		rri = new RoadRunner();
-	    rri->load("C:/Users/User/Documents/rr/source/roadrunner/remove-test.xml");
+	    rri->load("D:/rr/source/roadrunner/add-test.xml");
 		rri->resetSelectionLists();
         rri->simulate();
 		auto test = rri->getSimulationData();
@@ -636,8 +636,26 @@ RRCDataPtr rrcCallConv simulate(RRHandle handle)
 		//std::cout << "remove reaction ...." << std::endl;
 		//rri->removeReaction("reaction2");
 		//std::cout << rri->getNumberOfReactions() << std::endl;
-		std::cout << "add new species .... " << std::endl;
-		rri->addSpecies("test", "test", "compartment", 1.0, "substance");
+		std::cout << "add new reaction .... " << std::endl;
+		rri->addReaction("<reaction id=\"reaction2\" name=\"reaction2\" reversible=\"false\" fast=\"false\">"
+        "<listOfReactants>"
+          "<speciesReference species=\"S1\"/>"
+        "</listOfReactants>"
+        "<listOfProducts>"
+          "<speciesReference species=\"S2\"/>"
+        "</listOfProducts>"
+        "<kineticLaw>"
+          "<math xmlns=\"http:\/\/www.w3.org\/1998\/Math\/MathML\">"
+            "<apply>"
+              "<times/>"
+              "<ci> compartment </ci>"
+              "<ci> k1 </ci>"
+              "<ci> S1 </ci>"
+            "</apply>"
+          "</math>"
+        "</kineticLaw>"
+      "</reaction>");
+		//rri->addSpecies("test", "test", "compartment", 1.0, "substance");
 		//rri->regenerate();
 		//rri->getSimulateOptions().start = rri->getSimulateOptions().duration;
 		rri->simulate();
