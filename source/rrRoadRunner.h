@@ -721,8 +721,9 @@ public:
 
 	/*
 	* Add a reaction to the current model
+	* @param sbmlRep: the SBML representation (i.e. a reaction tag) describing the reaction to be added
 	*/
-	void addReaction(const std::string&);
+	void addReaction(const std::string& sbmlRep);
 
 	void removeSpecies(const std::string& sid);
 
@@ -1160,6 +1161,11 @@ private:
      * the implementation file.
      */
     class RoadRunnerImpl* impl;
+
+	/*
+	* Regenerate this RoadRunner instance's ExecutableModel based on the model in its SBMLDocument
+	*/
+	void regenerate();
 
 	void saveSelectionVector(std::ostream&, std::vector<SelectionRecord>&);
 	void loadSelectionVector(std::istream&, std::vector<SelectionRecord>&);

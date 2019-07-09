@@ -5175,10 +5175,8 @@ void RoadRunner::loadSelectionVector(std::istream& in, std::vector<SelectionReco
 void RoadRunner::removeReaction(const std::string& rid)
 {
 	delete impl->document->getModel()->removeReaction(rid);
-	ExecutableModel* newModel = ExecutableModelFactory::regenerateModel(impl->model, impl->document, impl->loadOpt.modelGeneratorOpt);
-	delete impl->model;
-	impl->model = newModel;
-	impl->syncAllSolversWithModel(impl->model);
+
+	regenerate();
 }
 
 void RoadRunner::addSpecies(std::string name, std::string id, std::string compartment, double initAmount, std::string substanceUnits)
@@ -5190,10 +5188,7 @@ void RoadRunner::addSpecies(std::string name, std::string id, std::string compar
 	newSpecies->setInitialAmount(initAmount);
 	newSpecies->setSubstanceUnits(substanceUnits);
    
-	ExecutableModel* newModel = ExecutableModelFactory::regenerateModel(impl->model, impl->document, impl->loadOpt.modelGeneratorOpt);
-	delete impl->model;
-	impl->model = newModel;
-	impl->syncAllSolversWithModel(impl->model);
+	regenerate();
 }
 
 void RoadRunner::addReaction(const std::string& sbmlRep)
@@ -5208,11 +5203,7 @@ void RoadRunner::addReaction(const std::string& sbmlRep)
 	//kLaw->addCVTerm()
 	//kLaw->setMath(libsbml::SBML_parseFormula("k1*S2"));
     
-	ExecutableModel* newModel = ExecutableModelFactory::regenerateModel(impl->model, impl->document, impl->loadOpt.modelGeneratorOpt);
-	delete impl->model;
-	impl->model = newModel;
-	impl->syncAllSolversWithModel(impl->model);
-	resetSelectionLists();
+	regenerate();
 }
 
 void RoadRunner::removeSpecies(const std::string& sid) 
@@ -5275,6 +5266,11 @@ void RoadRunner::removeSpecies(const std::string& sid)
 
 	}
 
+	regenerate();
+}
+
+void RoadRunner::regenerate()
+{
 	ExecutableModel* newModel = ExecutableModelFactory::regenerateModel(impl->model, impl->document, impl->loadOpt.modelGeneratorOpt);
 	delete impl->model;
 	impl->model = newModel;
