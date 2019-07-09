@@ -5178,7 +5178,7 @@ void RoadRunner::removeReaction(const std::string& rid)
 	libsbml::Reaction* toDelete = impl->document->getModel()->removeReaction(rid);
 	if (toDelete == NULL) 
 	{
-		throw std::invalid_argument("Roadrunner::removeReaction failed, no reaction with ID " + rid + "existed in the model");
+		throw std::invalid_argument("Roadrunner::removeReaction failed, no reaction with ID " + rid + " existed in the model");
 	}
 	delete toDelete;
 
@@ -5289,7 +5289,7 @@ void RoadRunner::removeSpecies(const std::string& sid)
 		{
 			if (reactants->get(j)->getSpecies() == sid)
 			{
-				toDelete = sbmlModel->removeReaction(reaction->getName());
+				toDelete = sbmlModel->removeReaction(reaction->getId());
 				break;
 			}
 		}
@@ -5306,7 +5306,7 @@ void RoadRunner::removeSpecies(const std::string& sid)
 		{
 			if (products->get(j)->getSpecies() == sid)
 			{
-				toDelete = sbmlModel->removeReaction(reaction->getName());
+				toDelete = sbmlModel->removeReaction(reaction->getId());
 				break;
 			}
 		}
@@ -5323,7 +5323,7 @@ void RoadRunner::removeSpecies(const std::string& sid)
 		{
 			if (modifiers->get(j)->getSpecies() == sid)
 			{
-				toDelete = sbmlModel->removeReaction(reaction->getName());
+				toDelete = sbmlModel->removeReaction(reaction->getId());
 				break;
 			}
 		}

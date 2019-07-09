@@ -624,7 +624,7 @@ RRCDataPtr rrcCallConv simulate(RRHandle handle)
 	start_try
 		RoadRunner* rri = castToRoadRunner(handle);
 		rri = new RoadRunner();
-	    rri->load("C:/Users/User/Documents/rr/source/roadrunner/remove-test.xml");
+	    rri->load("C:\\Users\\User\\Desktop\\test_1.xml");
 		rri->resetSelectionLists();
         rri->simulate();
 		auto test = rri->getSimulationData();
@@ -634,14 +634,15 @@ RRCDataPtr rrcCallConv simulate(RRHandle handle)
 			std::cout << std::endl;
 		}
 
-		rri->removeReaction("reaction1");
-		rri->addSpecies("test", "test", "compartment", 0.1, "substance");
+		//rri->removeReaction("reaction1");
+		//rri->addSpecies("test", "test", "compartment", 0.1, "substance");
 		vector<string> reactants;
 		reactants.push_back("S1");
 		vector<string> products;
 		products.push_back("S2");
 		vector<string> modifiers;
-		rri->addReaction("test", "test", false, reactants, products, modifiers, "k1 * S1");
+		//rri->addReaction("test", "test", false, reactants, products, modifiers, "k1 * S1");
+		rri->removeSpecies("S1");
 
 		rri->simulate();
 		test = rri->getSimulationData();
