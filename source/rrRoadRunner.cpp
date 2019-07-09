@@ -5214,6 +5214,55 @@ void RoadRunner::addReaction(const std::string& sbmlRep)
 	regenerate();
 }
 
+void RoadRunner::addReaction(const string& rid, boolean reversible, vector<string> reactants, vector<string> products, vector<string> modifiers, const string& kineticLaw)
+{
+	using namespace libsbml;
+	Model* sbmlModel = impl->document->getModel();
+	libsbml::Reaction* newReaction = sbmlModel->createReaction();
+	
+	newReaction->setId(rid);
+	newReaction->setReversible(reversible);
+	for (int i = 0; i < reactants.size(); i++) 
+	{
+		Species* s = sbmlModel->getSpecies(reactants[i]);
+		if (s == NULL)
+		{
+			throw std::invalid_argument("Roadrunner::addReaction failed, no species with ID " + reactants[0] + " existed in the model");
+		}
+		newReaction->addReactant(s);
+	}
+
+	for (int i = 0; i < products.size(); i++)
+	{
+		Species* s = sbmlModel->getSpecies(products[i]);
+		if (s == NULL)
+		{
+			throw std::invalid_argument("Roadrunner::addReaction failed, no species with ID " + products[0] + " existed in the model");
+		}
+		newReaction->addProduct(s);
+	}
+
+	for (int i = 0; i < modifiers.size(); i++)
+	{
+		Species* s = sbmlModel->getSpecies(modifiers[i]);
+		if (s == NULL)
+		{
+			throw std::invalid_argument("Roadrunner::addReaction failed, no species with ID " + modifiers[0] + " existed in the model");
+		}
+		newReaction->addModifier(s);
+	}
+
+	
+	libsbml::KineticLaw* kLaw = newReaction->createKineticLaw();
+	ASTNode_t* math = libsbml::SBML_parseFormula(&kineticLaw[0]);
+	if (math == NULL)
+	{
+		throw std::invalid_argument("Roadrunner::addReaction failed, an error occurred in parsing the math formula");
+	}
+	kLaw->setMath(math);
+	
+}
+
 void RoadRunner::removeSpecies(const std::string& sid) 
 {
 	using namespace libsbml;

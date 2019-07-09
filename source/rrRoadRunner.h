@@ -731,6 +731,13 @@ public:
 	*/
 	void addReaction(const std::string& sbmlRep);
 
+
+	/*
+	* Add a reaction to the current model
+	* @param 
+	*/
+	void addReaction(const string& rid, boolean reversible, vector<string> reactants, vector<string> products, vector<string> modifiers, const string& kineticLaw);
+
 	/*
 	* Remove a species from the current model. Note that all reactions related to this species(as reactants,
 	* products or modifiers) will be removed as well.
