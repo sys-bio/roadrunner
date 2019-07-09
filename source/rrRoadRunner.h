@@ -734,9 +734,15 @@ public:
 
 	/*
 	* Add a reaction to the current model
-	* @param 
+	* @param name: the name of reaction to be added
+	* @param rid: the ID of reaction to be added
+	* @param reversible: a boolean value to indicate whether the reaction to be added is reversible
+	* @param reactants: the list of reactants ID of reaction to be added
+	* @param products: the list of products ID of reaction to be added
+	* @param modifiers: the list of modifiers ID of reaction to be added
+	* @param kineticLaw: the kinetic formular of reaction to be added
 	*/
-	void addReaction(const string& rid, boolean reversible, vector<string> reactants, vector<string> products, vector<string> modifiers, const string& kineticLaw);
+	void addReaction(const std::string& name, const std::string& rid, bool reversible, std::vector<string> reactants, std::vector<string> products, std::vector<string> modifiers, const std::string& kineticLaw);
 
 	/*
 	* Remove a species from the current model. Note that all reactions related to this species(as reactants,

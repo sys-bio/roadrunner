@@ -215,7 +215,7 @@ public:
 
 	VARIANT_IMPLICIT_CONVERT(std::vector<double>);
 
-	VARIANT_IMPLICIT_CONVERT(std::vector<string>);
+	VARIANT_IMPLICIT_CONVERT(std::vector<std::string>);
 	
     /**
      * Parses the string which must be in JSON format. This is a common

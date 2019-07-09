@@ -5188,9 +5188,9 @@ void RoadRunner::removeReaction(const std::string& rid)
 void RoadRunner::addSpecies(std::string name, std::string id, std::string compartment, double initAmount, std::string substanceUnits)
 {
 	libsbml::Species* s = impl->document->getModel()->getSpecies(id);
-	if (s == NULL)
+	if (s != NULL)
 	{
-		throw std::invalid_argument("Roadrunner::addSpecies failed, species with ID " + id + "already existed in the model");
+		throw std::invalid_argument("Roadrunner::addSpecies failed, species with ID " + id + " already existed in the model");
 	}
 	libsbml::Species *newSpecies = impl->document->getModel()->createSpecies();
 	newSpecies->setName(name);
@@ -5217,7 +5217,7 @@ void RoadRunner::addReaction(const std::string& sbmlRep)
 	regenerate();
 }
 
-void RoadRunner::addReaction(const string& rid, boolean reversible, vector<string> reactants, vector<string> products, vector<string> modifiers, const string& kineticLaw)
+void RoadRunner::addReaction(const string& name, const string& rid, bool reversible, vector<string> reactants, vector<string> products, vector<string> modifiers, const string& kineticLaw)
 {
 	using namespace libsbml;
 	Model* sbmlModel = impl->document->getModel();
@@ -5264,6 +5264,7 @@ void RoadRunner::addReaction(const string& rid, boolean reversible, vector<strin
 	}
 	kLaw->setMath(math);
 	
+	regenerate();
 }
 
 void RoadRunner::removeSpecies(const std::string& sid) 
@@ -5273,7 +5274,7 @@ void RoadRunner::removeSpecies(const std::string& sid)
 	Species* s = sbmlModel->removeSpecies(sid);
 	if (s == NULL)
 	{
-		throw std::invalid_argument("Roadrunner::removeSpecies failed, no species with ID " + sid + "existed in the model");
+		throw std::invalid_argument("Roadrunner::removeSpecies failed, no species with ID " + sid + " existed in the model");
 	}
 	delete s;
 	// delete all related reactions as well
