@@ -76,7 +76,7 @@ void ModelResources::saveState(std::ostream& out) const
 	auto Target = llvm::TargetRegistry::lookupTarget(TargetTriple, Error);
 	if (!Target)
 	{
-		throw std::exception(Error.c_str());
+		throw std::invalid_argument(Error.c_str());
 	}
 
 	auto CPU = "generic";
@@ -95,7 +95,7 @@ void ModelResources::saveState(std::ostream& out) const
     
 	if (TargetMachine->addPassesToEmitFile(pass, mStrStream, FileType))
 	{
-		throw std::exception("TargetMachine can't emit a File of type CGFT_ObjectFile");
+		throw std::invalid_argument("TargetMachine can't emit a File of type CGFT_ObjectFile");
 	}
 
 	pass.run(*module);
@@ -269,7 +269,7 @@ void ModelResources::loadState(std::istream& in, uint modelGeneratorOpt)
 		llvm::object::ObjectFile::createObjectFile(llvm::MemoryBufferRef(moduleStr, "id"));
 	if (!objectFileExpected)
 	{
-		throw std::exception("Failed to load object data");
+		throw std::invalid_argument("Failed to load object data");
 	}
     
 	std::unique_ptr<llvm::object::ObjectFile> objectFile(std::move(objectFileExpected.get()));
