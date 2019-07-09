@@ -80,7 +80,7 @@ public:
      */
     enum TypeId
     {
-        STRING, BOOL, INT32, UINT32, INT64, UINT64, FLOAT, DOUBLE, CHAR, UCHAR, EMPTY, DOUBLEVECTOR
+        STRING, BOOL, INT32, UINT32, INT64, UINT64, FLOAT, DOUBLE, CHAR, UCHAR, EMPTY, DOUBLEVECTOR, STRINGVECTOR
     };
 
     /**
@@ -214,6 +214,8 @@ public:
     VARIANT_IMPLICIT_CONVERT(unsigned char);
 
 	VARIANT_IMPLICIT_CONVERT(std::vector<double>);
+
+	VARIANT_IMPLICIT_CONVERT(std::vector<string>);
 	
     /**
      * Parses the string which must be in JSON format. This is a common
@@ -269,6 +271,12 @@ public:
 	* true if this is a vector of doubles
 	* */
 	bool isDoubleVector() const;
+
+	/*
+	* true if this is a vector of strings
+	* */
+	bool isStringVector() const;
+
 
 
 private:

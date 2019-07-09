@@ -17,6 +17,7 @@
 #include <assert.h>
 #include <Poco/Dynamic/Var.h>
 #include <stdint.h>
+#include <source\rrStringUtils.h>
 
 using namespace std;
 using Poco::Dynamic::Var;
@@ -102,7 +103,9 @@ void Variant::assign(const std::type_info& info, const void* p)
 
     TRY_ASSIGN(uint64_t);
 
-	TRY_ASSIGN(std::vector<double>);
+	TRY_ASSIGN(vector<double>);
+
+	TRY_ASSIGN(vector<string>);
 
     string msg = "could not assign type ";
     msg += info.name();
@@ -196,9 +199,22 @@ Variant Variant::parse(const std::string& s)
         return Variant(false);
     }
 	
-	//Check if vector of doubles
+	// check if it is a vector
 	if (str[0] == '[') {
-		return Variant(parseDoubleVector(str));
+		string vstr = str.substr(1, str.size() - 1);
+		vector<string> parts(splitString(vstr, ","));
+
+		// check if it is a double vector
+		const char* input = parts[0].c_str();
+		char* end = 0;
+		double d = strtod(input, &end);
+		if (*input != '\0' && end != input && *end == '\0')
+		{
+			return Variant(parseDoubleVector(str));
+		}
+
+		// no, it is a string vector
+		return Variant(parts);
 	}
 
     // its a string
@@ -247,9 +263,17 @@ bool Variant::isBool() const
     return self->var.type() == typeid(bool);
 }
 
-bool Variant::isDoubleVector() const {
-	return self->var.type() == typeid(std::vector<double>);
+bool Variant::isDoubleVector() const 
+{
+	return self->var.type() == typeid(vector<double>);
 }
+
+bool Variant::isStringVector() const
+{
+	return self->var.type() == typeid(vector<string>);
+}
+
+
 
 #define TRY_CONVERT_TO(type)                       \
         if (info == typeid(type)) {                \
@@ -283,7 +307,9 @@ Variant::TypeId Variant::type() const
     TYPE_KIND(char, CHAR);
     TYPE_KIND(unsigned char, UCHAR);
     TYPE_KIND(bool, BOOL);
-	TYPE_KIND(std::vector<double>, DOUBLEVECTOR);
+	TYPE_KIND(vector<double>, DOUBLEVECTOR);
+	TYPE_KIND(vector<string>, STRINGVECTOR);
+
 
     if(info == typeid(int)) {
         if(self->size == 4) return INT32;
@@ -336,12 +362,22 @@ void Variant::convert_to(const std::type_info& info, void* p) const
         TRY_CONVERT_TO(int32_t);
 
         TRY_CONVERT_TO(uint32_t);
+
+		TRY_CONVERT_TO(std::vector<double>);
+		TRY_CONVERT_TO(std::vector<string>);
+
 		
-		if (info == typeid(std::vector<double>)) {
-			std::vector<double>* out = static_cast<std::vector<double>*>(p);
-			*out = self->var.extract<std::vector<double>>();
-			return;
-		}
+		//if (info == typeid(std::vector<double>)) {
+		//	std::vector<double>* out = static_cast<std::vector<double>*>(p);
+		//	*out = self->var.extract<std::vector<double>>();
+		//	return;
+		//}
+
+		//if (info == typeid(std::vector<string>)) {
+		//	std::vector<string>* out = static_cast<std::vector<string>*>(p);
+		//	*out = self->var.extract<std::vector<string>>();
+		//	return;
+		//}
 
     }
     catch(Poco::SyntaxException& ex)
