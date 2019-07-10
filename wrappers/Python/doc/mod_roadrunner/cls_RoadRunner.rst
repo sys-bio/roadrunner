@@ -346,7 +346,69 @@ Model Access
    To enable, type:
    
    >>> r.conservedMoietyAnalysis = True
+   
+   
+Model Editing
+------------
 
+Easy edit to the model without modifying and reloading sbml files.
+
+.. method:: RoadRunner.addSpecies(name, id, compartment, initAmount, substanceUnits)
+   :module: RoadRunner
+   
+   Add a species to the current model. Note that the species to be added must have an ID
+   that did not existed in the model.
+   
+   :param str name: name of the the species to be added
+   :param str id: the ID of the species to be added
+   :param str compartment: the compartment of the species to be added
+   :param double initAmount: the initial amount of the species to be added
+   :param str substanceUnits: the substance unit of the species to be added
+
+   
+.. method:: RoadRunner.removeSpecies(sid)
+   :module: RoadRunner
+   
+   Remove a species from the current model. All reactions related to this species(as reactants,
+   products or modifiers) will be removed as well. Note that the given species must exist in the
+   current model.
+
+   :param str sid: the ID of the species to be removed
+ 
+   
+.. method:: RoadRunner.addReaction(name, rid, reversible, reactants, products, modifiers, kineticLaw)
+   :module: RoadRunner
+   
+   Add a reaction to the current model by passing its info as parameters. 
+   Note that the reaction to be added must have an ID that did not existed in the model.
+   
+   :param str name: name of the the reaction to be added
+   :param str rid: the ID of the reaction to be added
+   :param str reversible: a boolean value to indicate whether the reaction to be added is reversible
+   :param list reactants: the list of reactants ID of reaction to be added
+   :param list products: the list of products ID of reaction to be added
+   :param list modifiers: the list of modifiers ID of reaction to be added, could be NULL
+   :param str kineticLaw: the kinetic formular of reaction to be added
+   
+
+.. method:: RoadRunner.addReaction(sbmlRep)
+   :module: RoadRunner
+   
+   Add a reaction to the current model by passing a sbml repesentation as parameter. 
+   Note that the reaction to be added must have an ID that did not existed in the model.
+   
+   :param str sbmlRep: the SBML representation (i.e. a reaction tag) describing the reaction to be added
+   
+   
+.. method:: RoadRunner.removeReaction(rid)
+   :module: RoadRunner
+   
+   Remove a reaction from the current model. Note that the given reaction must exist in the
+   current model.
+
+   :param str rid: the ID of the reaction to be removed
+ 
+ 
 
 Simulation
 ----------
