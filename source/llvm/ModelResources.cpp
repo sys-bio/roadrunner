@@ -83,10 +83,10 @@ void ModelResources::saveState(std::ostream& out) const
 	rr::saveBinary(out, moduleStr);
 }
 
-void ModelResources::addGlobalMapping(const llvm::GlobalValue *gv, void *addr)
+void ModelResources::addGlobalMapping(std::string name, void *addr)
 {
-	llvm::sys::DynamicLibrary::AddSymbol(gv->getName(), addr);
-	executionEngine->addGlobalMapping(gv, addr);
+	llvm::sys::DynamicLibrary::AddSymbol(name, addr);
+	//executionEngine->addGlobalMapping(gv, addr);
 }
 
 void ModelResources::addGlobalMappings()
@@ -100,122 +100,126 @@ void ModelResources::addGlobalMappings()
 
 	llvm::sys::DynamicLibrary::LoadLibraryPermanently(nullptr);
 
-    addGlobalMapping(ModelDataIRBuilder::getCSRMatrixSetNZDecl(module), (void*)rr::csr_matrix_set_nz);
-    addGlobalMapping(ModelDataIRBuilder::getCSRMatrixGetNZDecl(module), (void*)rr::csr_matrix_get_nz);
+    //addGlobalMapping(ModelDataIRBuilder::getCSRMatrixSetNZDecl(module), (void*)rr::csr_matrix_set_nz);
+    addGlobalMapping("rr_csr_matrix_set_nz", (void*)rr::csr_matrix_set_nz);
+
+    //addGlobalMapping(ModelDataIRBuilder::getCSRMatrixGetNZDecl(module), (void*)rr::csr_matrix_get_nz);
+    addGlobalMapping("rr_csr_matrix_get_nz", (void*)rr::csr_matrix_get_nz);
 
     // AST_FUNCTION_ARCCOT:
 	llvm::RTDyldMemoryManager::getSymbolAddressInProcess("arccot");
     addGlobalMapping(
-            module->getFunction("arccot"),
+            "arccot",
 			        (void*) sbmlsupport::arccot);
 
     addGlobalMapping(
-            module->getFunction("rr_arccot_negzero"),
+            "rr_arccot_negzero",
                         (void*) sbmlsupport::arccot_negzero);
 
     // AST_FUNCTION_ARCCOTH:
     addGlobalMapping(
-            module->getFunction("arccoth"),
+            "arccoth",
                         (void*) sbmlsupport::arccoth);
 
     // AST_FUNCTION_ARCCSC:
     addGlobalMapping(
-            module->getFunction("arccsc"),
+            "arccsc",
                         (void*) sbmlsupport::arccsc);
 
     // AST_FUNCTION_ARCCSCH:
     addGlobalMapping(
-            module->getFunction("arccsch"),
+            "arccsch",
                         (void*) sbmlsupport::arccsch);
 
     // AST_FUNCTION_ARCSEC:
     addGlobalMapping(
-            module->getFunction("arcsec"),
+            "arcsec",
                         (void*) sbmlsupport::arcsec);
 
     // AST_FUNCTION_ARCSECH:
     addGlobalMapping(
-            module->getFunction("arcsech"),
+            "arcsech",
                         (void*) sbmlsupport::arcsech);
 
     // AST_FUNCTION_COT:
     addGlobalMapping(
-            module->getFunction("cot"),
+            "cot",
                         (void*) sbmlsupport::cot);
 
     // AST_FUNCTION_COTH:
     addGlobalMapping(
-            module->getFunction("coth"),
+            "coth",
                         (void*) sbmlsupport::coth);
 
     // AST_FUNCTION_CSC:
     addGlobalMapping(
-            module->getFunction("csc"),
+            "csc",
                         (void*) sbmlsupport::csc);
 
     // AST_FUNCTION_CSCH:
     addGlobalMapping(
-            module->getFunction("csch"),
+            "csch",
                         (void*) sbmlsupport::csch);
 
     // AST_FUNCTION_FACTORIAL:
     addGlobalMapping(
-            module->getFunction("rr_factoriali"),
+            "rr_factoriali",
                         (void*) sbmlsupport::factoriali);
 
     addGlobalMapping(
-            module->getFunction("rr_factoriald"),
+            "rr_factoriald",
                         (void*) sbmlsupport::factoriald);
 
     // AST_FUNCTION_LOG:
     addGlobalMapping(
-            module->getFunction("rr_logd"),
+            "rr_logd",
                         (void*) sbmlsupport::logd);
 
     // AST_FUNCTION_ROOT:
     addGlobalMapping(
-            module->getFunction("rr_rootd"),
+            "rr_rootd",
                         (void*) sbmlsupport::rootd);
 
     // AST_FUNCTION_SEC:
     addGlobalMapping(
-            module->getFunction("sec"),
+            "sec",
                         (void*) sbmlsupport::sec);
 
     // AST_FUNCTION_SECH:
     addGlobalMapping(
-            module->getFunction("sech"),
+            "sech",
                         (void*) sbmlsupport::sech);
 
     // AST_FUNCTION_ARCCOSH:
     addGlobalMapping(
-            module->getFunction("arccosh"),
+            "arccosh",
                         (void*)static_cast<double (*)(double)>(acosh));
 
     // AST_FUNCTION_ARCSINH:
     addGlobalMapping(
-            module->getFunction("arcsinh"),
+            "arcsinh",
                         (void*)static_cast<double (*)(double)>(asinh));
 
     // AST_FUNCTION_ARCTANH:
     addGlobalMapping(
-            module->getFunction("arctanh"),
+            "arctanh",
                         (void*)static_cast<double (*)(double)>(atanh));
 
     // AST_FUNCTION_QUOTIENT:
-    executionEngine->addGlobalMapping(
-            module->getFunction("quotient"),
-                        (void*)sbmlsupport::quotient);
-
+    /*executionEngine->addGlobalMapping(
+            "quotient",
+                        (void*)sbmlsupport::quotient);*/
+	addGlobalMapping("quotient", (void*)sbmlsupport::quotient);
     // AST_FUNCTION_MAX:
-    executionEngine->addGlobalMapping(
-        module->getFunction("rr_max"),
-            (void*) sbmlsupport::max);
-
+    /*executionEngine->addGlobalMapping(
+        "rr_max",
+            (void*) sbmlsupport::max);*/
+	addGlobalMapping("rr_max", (void*)sbmlsupport::max);
     // AST_FUNCTION_MIN:
-    executionEngine->addGlobalMapping(
-        module->getFunction("rr_min"),
-            (void*) sbmlsupport::min);
+    /*executionEngine->addGlobalMapping(
+        "rr_min",
+            (void*) sbmlsupport::min);*/
+	addGlobalMapping("rr_min", (void*)sbmlsupport::min);
 }
 
 
@@ -273,7 +277,7 @@ void ModelResources::loadState(std::istream& in, uint modelGeneratorOpt)
 	executionEngine = engineBuilder.create();
 	
 	//Add mappings to the functions that aren't saved as LLVM IR (like sin, cos etc.)
-	//addGlobalMappings();
+	addGlobalMappings();
 
 	//Add the module we constructed to the execution engine
 	//executionEngine->addModule(std::unique_ptr<llvm::Module>(module));

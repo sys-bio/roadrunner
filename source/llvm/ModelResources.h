@@ -66,7 +66,7 @@ public:
     GetGlobalParameterInitValueCodeGen::FunctionPtr getGlobalParameterInitValuePtr;
     SetGlobalParameterInitValueCodeGen::FunctionPtr setGlobalParameterInitValuePtr;
 private:
-	void addGlobalMapping(const llvm::GlobalValue*, void*);
+	void addGlobalMapping(std::string name, void*);
 	void addGlobalMappings();
 	static llvm::Function* createGlobalMappingFunction(const char* funcName, llvm::FunctionType *funcType, llvm::Module*);
 };
