@@ -60,35 +60,11 @@ void ModelResources::saveState(std::ostream& out) const
 	// as LLVM Bitcode. I'm not sure if this will be fast enough. If it is not we can look into saving
 	// them as machine code.
 	symbols->saveState(out);
-	//Create a buffer to write bitcode into
-	/*llvm::SmallVector<char, 10> modBuffer;
-	llvm::BitcodeWriter bw(modBuffer);
-	bw.writeModule(module);
-	//Need to call this function to finish writing the bitcode
-	bw.writeStrtab();
-	//create a string from the buffer and save it*/
-	auto TargetTriple = llvm::sys::getDefaultTargetTriple();
 
     llvm::InitializeNativeTarget();
 	llvm::InitializeNativeTargetAsmPrinter();
-	//std::string IR;
-	//llvm::raw_string_ostream stro(IR);
-	//stro << *module;
-	//std::cout << IR << std::endl;
-	std::string Error;
-	auto Target = llvm::TargetRegistry::lookupTarget(TargetTriple, Error);
-	if (!Target)
-	{
-		throw std::invalid_argument(Error.c_str());
-	}
 
-	auto CPU = "generic";
-	auto Features = "";
-
-	llvm::TargetOptions opt;
-	//auto RM = llvm::Optional<llvm::Reloc::Model>();
-	llvm::Optional<llvm::Reloc::Model> RM(llvm::Reloc::PIC_);
-	auto TargetMachine = Target->createTargetMachine(TargetTriple, CPU, Features, opt, RM);
+	auto TargetMachine = executionEngine->getTargetMachine();
 	
 	std::error_code EC;
 	llvm::SmallVector<char, 10> modBuffer;
@@ -99,9 +75,8 @@ void ModelResources::saveState(std::ostream& out) const
     
 	if (TargetMachine->addPassesToEmitFile(pass, mStrStream, FileType))
 	{
-		throw std::invalid_argument("TargetMachine can't emit a File of type CGFT_ObjectFile");
+		throw std::invalid_argument("TargetMachine can't emit a file of type CGFT_ObjectFile");
 	}
-
 	pass.run(*module);
 
 	std::string moduleStr(modBuffer.begin(), modBuffer.end());
@@ -307,7 +282,7 @@ void ModelResources::loadState(std::istream& in, uint modelGeneratorOpt)
 	std::clock_t start = std::clock();
 	executionEngine->finalizeObject();
 	std::cout << "Compilation: " << std::clock() - start << std::endl;
-	//Get the function pointers we need from the exeuction engine
+	//Get the function pointers we need from the execution engine
 	evalInitialConditionsPtr = (EvalInitialConditionsCodeGen::FunctionPtr)
 		executionEngine->getFunctionAddress("evalInitialConditions");
 
