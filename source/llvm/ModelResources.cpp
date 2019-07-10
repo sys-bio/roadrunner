@@ -71,7 +71,10 @@ void ModelResources::saveState(std::ostream& out) const
 
     llvm::InitializeNativeTarget();
 	llvm::InitializeNativeTargetAsmPrinter();
-	
+	//std::string IR;
+	//llvm::raw_string_ostream stro(IR);
+	//stro << *module;
+	//std::cout << IR << std::endl;
 	std::string Error;
 	auto Target = llvm::TargetRegistry::lookupTarget(TargetTriple, Error);
 	if (!Target)
@@ -83,7 +86,8 @@ void ModelResources::saveState(std::ostream& out) const
 	auto Features = "";
 
 	llvm::TargetOptions opt;
-	auto RM = llvm::Optional<llvm::Reloc::Model>();
+	//auto RM = llvm::Optional<llvm::Reloc::Model>();
+	llvm::Optional<llvm::Reloc::Model> RM(llvm::Reloc::PIC_);
 	auto TargetMachine = Target->createTargetMachine(TargetTriple, CPU, Features, opt, RM);
 	
 	std::error_code EC;
