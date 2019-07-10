@@ -5236,7 +5236,8 @@ void RoadRunner::loadState(std::string filename)
 		rr::loadBinary(in, k);
 		rr::Variant v;
 		rr::loadBinary(in, v);
-		impl->integrator->setValue(k, v);
+		if(k != "maximum_adams_order")
+		    impl->integrator->setValue(k, v);
 	}
 
 	std::string steadyStateSolverName;
