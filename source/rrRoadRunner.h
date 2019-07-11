@@ -712,44 +712,70 @@ public:
 	/**
 	 * Remove a reaction from the current model
 	 * @param rid: the ID of the reaction to be removed 
+	 * @param forceRegenerate: a boolen value to indicate if the model is regenerated 
+	 *					       after this function call
+	 *						   default value is true to regenerate model after each call 
+	 *                         of editing function
+	 *						   to save time for editing for multiple times, one could 
+     *					       set this flag to true only in the last call of editing 
 	 */
-	void removeReaction(const std::string& rid);
+	void removeReaction(const std::string& rid, bool forceRegenerate = true);
 
 	/**
 	 * Add a species to the current model
-	 * @param name: the name of the species to be added 
 	 * @param id: the ID of the species to be added
 	 * @param compartment: the compartment of the species to be added
-	 * @param initAmount: the initial amount of the species to be added
+	 * @param initValue: the initial amount or concentration of the species to be added
 	 * @param substanceUnits: the substance unit of the species to be added
+	 * @param forceRegenerate: a boolen value to indicate if the model is regenerated 
+	 *					       after this function call
+	 *						   default value is true to regenerate model after each call 
+	 *                         of editing function
+	 *						   to save time for editing for multiple times, one could 
+     *					       set this flag to true only in the last call of editing 
 	 */
-	void addSpecies(std::string name, std::string id, std::string compartment, double initAmount, std::string substanceUnits);
+	void addSpecies(std::string id, std::string compartment, double initValue, std::string substanceUnits = "concentration", bool forceRegenerate = true);
 
 	/*
 	* Add a reaction to the current model
 	* @param sbmlRep: the SBML representation (i.e. a reaction tag) describing the reaction to be added
+	* @param forceRegenerate: a boolen value to indicate if the model is regenerated 
+	*					      after this function call
+	*						  default value is true to regenerate model after each call 
+	*                         of editing function
+	*						  to save time for editing for multiple times, one could 
+    *					      set this flag to true only in the last call of editing 
 	*/
-	void addReaction(const std::string& sbmlRep);
+	void addReaction(const std::string& sbmlRep, bool forceRegenerate = true);
 
 
 	/*
 	* Add a reaction to the current model
-	* @param name: the name of reaction to be added
 	* @param rid: the ID of reaction to be added
-	* @param reversible: a boolean value to indicate whether the reaction to be added is reversible
 	* @param reactants: the list of reactants ID of reaction to be added
 	* @param products: the list of products ID of reaction to be added
-	* @param modifiers: the list of modifiers ID of reaction to be added
 	* @param kineticLaw: the kinetic formular of reaction to be added
+	* @param forceRegenerate: a boolen value to indicate if the model is regenerated
+	*					      after this function call
+	*						  default value is true to regenerate model after each call
+	*                         of editing function
+	*						  to save time for editing for multiple times, one could
+	*					      set this flag to true only in the last call of editing
 	*/
-	void addReaction(const std::string& name, const std::string& rid, bool reversible, std::vector<string> reactants, std::vector<string> products, std::vector<string> modifiers, const std::string& kineticLaw);
+	void addReaction(const std::string& rid, std::vector<string> reactants, std::vector<string> products, const std::string& kineticLaw, bool forceRegenerate = true);
 
 	/*
 	* Remove a species from the current model. Note that all reactions related to this species(as reactants,
-	* products or modifiers) will be removed as well.
-	* @param sid: the ID of the species to be removed 
+	* products or modifiers will be removed as well.
+	* @param sid: the ID of the species to be removed
+	* @param forceRegenerate: a boolen value to indicate if the model is regenerated
+	*					      after this function call
+	*						  default value is true to regenerate model after each call
+	*                         of editing function
+	*						  to save time for editing for multiple times, one could
+	*					      set this flag to true only in the last call of editing
 	*/
-	void removeSpecies(const std::string& sid);
+	void removeSpecies(const std::string& sid, bool forceRegenerate = true);
 
 
     /******************************* Steady State Section *************************/
