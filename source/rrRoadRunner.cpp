@@ -5208,16 +5208,9 @@ void RoadRunner::addReaction(const std::string& sbmlRep)
 {
 	Log(Logger::LOG_DEBUG) << "Adding new reaction ..." << endl;
 	libsbml::Reaction *newReaction = impl->document->getModel()->createReaction();
-	libsbml::XMLInputStream stream = libsbml::XMLInputStream(sbmlRep.c_str(), false);
+	libsbml::XMLInputStream stream(sbmlRep.c_str(), false);
 	newReaction->read(stream);
 	// TODO: ERROR HANDLING
-	//newReaction->addReactant(impl->document->getModel()->getSpecies("S2"));
-	//newReaction->addProduct(impl->document->getModel()->getSpecies("S1"));
-	//newReaction->setName("reaction2");
-	//newReaction->setId("reaction2");
-	//libsbml::KineticLaw *kLaw = newReaction->createKineticLaw();
-	//kLaw->addCVTerm()
-	//kLaw->setMath(libsbml::SBML_parseFormula("k1*S2"));
     
 	regenerate();
 }

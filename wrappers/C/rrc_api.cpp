@@ -635,7 +635,7 @@ RRCDataPtr rrcCallConv simulate(RRHandle handle)
 		}
 
 		//rri->removeReaction("reaction1");
-		//rri->addSpecies("test", "test", "compartment", 0.1, "substance");
+		rri->addSpecies("test", "test", "compartment1", 0.1, "substance");
 		vector<string> reactants;
 		reactants.push_back("S1");
 		vector<string> products;
@@ -1671,7 +1671,7 @@ bool rrcCallConv removeSpecies(RRHandle handle, const char* sid)
 }
 
 
-bool rrcCallConv addReaction(RRHandle handle, const char* sbmlRep)
+bool rrcCallConv addReactionBySBML(RRHandle handle, const char* sbmlRep)
 {
 	start_try
 		RoadRunner* rri = castToRoadRunner(handle);

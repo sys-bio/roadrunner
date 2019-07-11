@@ -453,7 +453,7 @@ C_DECL_SPEC bool rrcCallConv removeSpecies(RRHandle handle, const char* sid);
  \return Returns false if the call fails, otherwise returns a true
  \ingroup edit
 */
-C_DECL_SPEC bool rrcCallConv addReaction(RRHandle handle, const char* sbmlRep);
+C_DECL_SPEC bool rrcCallConv addReactionBySBML(RRHandle handle, const char* sbmlRep);
 
 /*!
  \brief Add a reaction to the current model
