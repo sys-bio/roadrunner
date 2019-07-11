@@ -623,7 +623,7 @@ RRCDataPtr rrcCallConv simulate(RRHandle handle)
 {
 	start_try
 		RoadRunner* rri = castToRoadRunner(handle);
-		rri = new RoadRunner();
+		//rri = new RoadRunner();
 	    //rri->load("C:\\Users\\User\\Desktop\\test_1.xml");
 		//rri->resetSelectionLists();
         //rri->simulate();
