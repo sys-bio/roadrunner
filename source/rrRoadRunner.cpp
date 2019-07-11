@@ -5194,6 +5194,12 @@ void RoadRunner::addSpecies(std::string name, std::string id, std::string compar
 	{
 		throw std::invalid_argument("Roadrunner::addSpecies failed, species with ID " + id + " already existed in the model");
 	}
+	
+	if (impl->document->getModel()->getCompartment(compartment) == NULL)
+	{
+		throw std::invalid_argument("Roadrunner::addSpecies failed, no compartment " + compartment + " existed in the model");
+	}
+
 	libsbml::Species *newSpecies = impl->document->getModel()->createSpecies();
 	newSpecies->setName(name);
 	newSpecies->setId(id);

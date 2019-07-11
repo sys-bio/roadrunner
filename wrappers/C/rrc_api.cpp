@@ -624,34 +624,33 @@ RRCDataPtr rrcCallConv simulate(RRHandle handle)
 	start_try
 		RoadRunner* rri = castToRoadRunner(handle);
 		rri = new RoadRunner();
-	    rri->load("C:\\Users\\User\\Desktop\\test_1.xml");
-		rri->resetSelectionLists();
-        rri->simulate();
-		auto test = rri->getSimulationData();
-		for (int r = 0; r < test->numRows(); r++) {
-			for (int c = 0; c < test->numCols(); c++)
-				std::cout << (*test)(r, c) << "\t";
-			std::cout << std::endl;
-		}
+	    //rri->load("C:\\Users\\User\\Desktop\\test_1.xml");
+		//rri->resetSelectionLists();
+        //rri->simulate();
+		//auto test = rri->getSimulationData();
+		//for (int r = 0; r < test->numRows(); r++) {
+		//	for (int c = 0; c < test->numCols(); c++)
+		//		std::cout << (*test)(r, c) << "\t";
+		//	std::cout << std::endl;
+		//}
 
 		//rri->removeReaction("reaction1");
-		rri->addSpecies("S", "test", "compartment", -0.1, "substance1");
-		vector<string> reactants;
-		reactants.push_back("S1");
-		vector<string> products;
-		products.push_back("S2");
-		vector<string> modifiers;
+		//rri->addSpecies("S", "test", "compartment1", -0.1, "substance1");
+		//vector<string> reactants;
+		//reactants.push_back("S1");
+		//vector<string> products;
+		//products.push_back("S2");
+		//vector<string> modifiers;
 		//rri->addReaction("test", "test", false, reactants, products, modifiers, "k1 * S1");
-		rri->removeSpecies("S1");
+		//rri->removeSpecies("S1");
 
 		rri->simulate();
-		test = rri->getSimulationData();
-		for (int r = 0; r < test->numRows(); r++) {
-			for (int c = 0; c < test->numCols(); c++)
-				std::cout << (*test)(r, c) << "\t";
-			std::cout << std::endl;
-		}
-
+		//test = rri->getSimulationData();
+		//for (int r = 0; r < test->numRows(); r++) {
+		//	for (int c = 0; c < test->numCols(); c++)
+		//		std::cout << (*test)(r, c) << "\t";
+		//	std::cout << std::endl;
+		//}
         return createRRCData(*rri);
     catch_ptr_macro
 }
