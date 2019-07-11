@@ -635,7 +635,7 @@ RRCDataPtr rrcCallConv simulate(RRHandle handle)
 		}
 
 		//rri->removeReaction("reaction1");
-		rri->addSpecies("test", "test", "compartment1", 0.1, "substance");
+		rri->addSpecies("S", "test", "compartment", -0.1, "substance1");
 		vector<string> reactants;
 		reactants.push_back("S1");
 		vector<string> products;

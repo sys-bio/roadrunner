@@ -17,7 +17,7 @@
 #include <assert.h>
 #include <Poco/Dynamic/Var.h>
 #include <stdint.h>
-#include <source\rrStringUtils.h>
+#include <source/rrStringUtils.h>
 
 using namespace std;
 using Poco::Dynamic::Var;
