@@ -5174,6 +5174,7 @@ void RoadRunner::loadSelectionVector(std::istream& in, std::vector<SelectionReco
 
 void RoadRunner::removeReaction(const std::string& rid)
 {
+	check_model();
 	Log(Logger::LOG_DEBUG) << "Removing reaction " << rid << "..." << endl;
 	libsbml::Reaction* toDelete = impl->document->getModel()->removeReaction(rid);
 	if (toDelete == NULL) 
@@ -5187,6 +5188,7 @@ void RoadRunner::removeReaction(const std::string& rid)
 
 void RoadRunner::addSpecies(std::string name, std::string id, std::string compartment, double initAmount, std::string substanceUnits)
 {
+	check_model();
 	Log(Logger::LOG_DEBUG) << "Adding species " << name << " with ID " << id << ", compartment " << compartment << ", initial amount " 
 		<< initAmount << " and substance unit " << substanceUnits  << "..." << endl;
 	libsbml::Species* s = impl->document->getModel()->getSpecies(id);
@@ -5212,6 +5214,7 @@ void RoadRunner::addSpecies(std::string name, std::string id, std::string compar
 
 void RoadRunner::addReaction(const std::string& sbmlRep)
 {
+	check_model();
 	Log(Logger::LOG_DEBUG) << "Adding new reaction ..." << endl;
 	libsbml::Reaction *newReaction = impl->document->getModel()->createReaction();
 	libsbml::XMLInputStream stream(sbmlRep.c_str(), false);
@@ -5223,7 +5226,7 @@ void RoadRunner::addReaction(const std::string& sbmlRep)
 
 void RoadRunner::addReaction(const string& name, const string& rid, bool reversible, vector<string> reactants, vector<string> products, vector<string> modifiers, const string& kineticLaw)
 {
-
+	check_model();
 	Log(Logger::LOG_DEBUG) << "Adding reaction " << name << " with ID " << rid <<  "..." << endl;
 	using namespace libsbml;
 	Model* sbmlModel = impl->document->getModel();
@@ -5274,6 +5277,7 @@ void RoadRunner::addReaction(const string& name, const string& rid, bool reversi
 
 void RoadRunner::removeSpecies(const std::string& sid) 
 {
+	check_model();
 	Log(Logger::LOG_DEBUG) << "Removing species " << sid << "..." << endl;
 	using namespace libsbml;
 	Model* sbmlModel = impl->document->getModel();

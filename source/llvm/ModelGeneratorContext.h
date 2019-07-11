@@ -81,10 +81,6 @@ public:
     ModelGeneratorContext(libsbml::SBMLDocument const *doc,
             unsigned loadSBMLOptions);
 	
-	ModelGeneratorContext(libsbml::SBMLDocument const *doc,
-		unsigned options, llvm::ExecutionEngine *ee, llvm::LLVMContext *context, std::string moduleName);
-
-
     /**
      * does not attach to any sbml doc,
      *
