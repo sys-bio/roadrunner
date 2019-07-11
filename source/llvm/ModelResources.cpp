@@ -56,15 +56,16 @@ ModelResources::~ModelResources()
 
 void ModelResources::saveState(std::ostream& out) const
 {
-	// Note: ModelResources::saveState and loadState currently save the jitted functions
-	// as LLVM Bitcode. I'm not sure if this will be fast enough. If it is not we can look into saving
-	// them as machine code.
 	symbols->saveState(out);
-
-    llvm::InitializeNativeTarget();
-	llvm::InitializeNativeTargetAsmPrinter();
+ 
+	// If this roadrunner instance was generated from SBML or if a model editing action
+	// caused it to regenerate, module will point to the module containing the jitted functions 
+	// generated. Otherwise, moduleStr will contain an object file representation of the jitted functions.
+	// So, if module is a nullptr, we simply save that. Otherwise, we generate the object file, and save it.
 	if (module) {
 		auto TargetMachine = executionEngine->getTargetMachine();
+		llvm::InitializeNativeTarget();
+		llvm::InitializeNativeTargetAsmPrinter();
 
 		std::error_code EC;
 		llvm::SmallVector<char, 10> modBuffer;
@@ -89,7 +90,6 @@ void ModelResources::saveState(std::ostream& out) const
 void ModelResources::addGlobalMapping(std::string name, void *addr)
 {
 	llvm::sys::DynamicLibrary::AddSymbol(name, addr);
-	//executionEngine->addGlobalMapping(gv, addr);
 }
 
 void ModelResources::addGlobalMappings()
@@ -103,10 +103,8 @@ void ModelResources::addGlobalMappings()
 
 	llvm::sys::DynamicLibrary::LoadLibraryPermanently(nullptr);
 
-    //addGlobalMapping(ModelDataIRBuilder::getCSRMatrixSetNZDecl(module), (void*)rr::csr_matrix_set_nz);
     addGlobalMapping("rr_csr_matrix_set_nz", (void*)rr::csr_matrix_set_nz);
 
-    //addGlobalMapping(ModelDataIRBuilder::getCSRMatrixGetNZDecl(module), (void*)rr::csr_matrix_get_nz);
     addGlobalMapping("rr_csr_matrix_get_nz", (void*)rr::csr_matrix_get_nz);
 
     // AST_FUNCTION_ARCCOT:
@@ -209,19 +207,10 @@ void ModelResources::addGlobalMappings()
                         (void*)static_cast<double (*)(double)>(atanh));
 
     // AST_FUNCTION_QUOTIENT:
-    /*executionEngine->addGlobalMapping(
-            "quotient",
-                        (void*)sbmlsupport::quotient);*/
 	addGlobalMapping("quotient", (void*)sbmlsupport::quotient);
     // AST_FUNCTION_MAX:
-    /*executionEngine->addGlobalMapping(
-        "rr_max",
-            (void*) sbmlsupport::max);*/
 	addGlobalMapping("rr_max", (void*)sbmlsupport::max);
     // AST_FUNCTION_MIN:
-    /*executionEngine->addGlobalMapping(
-        "rr_min",
-            (void*) sbmlsupport::min);*/
 	addGlobalMapping("rr_min", (void*)sbmlsupport::min);
 }
 
@@ -232,7 +221,7 @@ void ModelResources::loadState(std::istream& in, uint modelGeneratorOpt)
 	if (symbols)
 		delete symbols;
 	symbols = new LLVMModelDataSymbols(in);
-	//Get the LLVM IR from the stream and store it in moduleStr
+	//Get the object file from the input stream
 	rr::loadBinary(in, moduleStr);
 	//Set up the llvm context 
 	if (context)
