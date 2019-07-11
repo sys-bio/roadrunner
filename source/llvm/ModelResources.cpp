@@ -283,9 +283,7 @@ void ModelResources::loadState(std::istream& in, uint modelGeneratorOpt)
 	//executionEngine->addModule(std::unique_ptr<llvm::Module>(module));
 	executionEngine->addObjectFile(std::move(owningObject));
 	//Finalize the engine
-	std::clock_t start = std::clock();
 	executionEngine->finalizeObject();
-	std::cout << "Compilation: " << std::clock() - start << std::endl;
 	//Get the function pointers we need from the execution engine
 	evalInitialConditionsPtr = (EvalInitialConditionsCodeGen::FunctionPtr)
 		executionEngine->getFunctionAddress("evalInitialConditions");
