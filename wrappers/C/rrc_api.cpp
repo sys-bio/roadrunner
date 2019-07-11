@@ -481,6 +481,24 @@ bool rrcCallConv loadSBMLEx(RRHandle handle, const char* sbml, bool forceRecompi
     catch_bool_macro
 }
 
+bool rrcCallConv saveState(RRHandle handle, const char* filename)
+{
+	start_try
+		RoadRunner* rri = castToRoadRunner(handle);
+	    rri->saveState(filename);
+		return true;
+	catch_bool_macro
+}
+
+bool rrcCallConv loadState(RRHandle handle, const char* filename)
+{
+	start_try
+		RoadRunner* rri = castToRoadRunner(handle);
+	    rri->loadState(filename);
+		return true;
+	catch_bool_macro
+}
+
 
 bool rrcCallConv loadSimulationSettings(RRHandle handle, const char* fileName)
 {
@@ -754,7 +772,7 @@ RRDoubleMatrixPtr rrcCallConv getStoichiometryMatrix(RRHandle handle)
 
             return matrix;
         }
-        else
+		else
         {
             return 0;
         }
