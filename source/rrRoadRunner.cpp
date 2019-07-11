@@ -4921,8 +4921,7 @@ static void metabolicControlCheck(ExecutableModel *model)
 
 void RoadRunner::saveState(std::string filename, char opt)
 {
-	if (!impl->model)
-		throw std::invalid_argument("A RoadRunner instance must load an SBML file or RoadRunner save state before being saved");
+	check_model();
 	switch (opt) {
 		case 'b':
 		{
