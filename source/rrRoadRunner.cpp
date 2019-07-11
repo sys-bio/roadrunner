@@ -5206,6 +5206,7 @@ void RoadRunner::addReaction(const std::string& sbmlRep)
 {
 	libsbml::Reaction *newReaction = impl->document->getModel()->createReaction();
 	newReaction->read(libsbml::XMLInputStream(sbmlRep.c_str(), false));
+	// TODO: ERROR HANDLING
 	//newReaction->addReactant(impl->document->getModel()->getSpecies("S2"));
 	//newReaction->addProduct(impl->document->getModel()->getSpecies("S1"));
 	//newReaction->setName("reaction2");
