@@ -734,7 +734,7 @@ public:
 	 *						   to save time for editing for multiple times, one could 
      *					       set this flag to true only in the last call of editing 
 	 */
-	void addSpecies(std::string id, std::string compartment, double initValue, std::string substanceUnits = "concentration", bool forceRegenerate = true);
+	void addSpecies(std::string sid, std::string compartment, double initValue, std::string substanceUnits = "concentration", bool forceRegenerate = true);
 
 	/*
 	* Add a reaction to the current model
