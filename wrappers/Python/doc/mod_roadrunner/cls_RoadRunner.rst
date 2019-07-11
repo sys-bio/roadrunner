@@ -353,61 +353,115 @@ Model Editing
 
 Easy edit to the model without modifying and reloading sbml files.
 
-.. method:: RoadRunner.addSpecies(name, id, compartment, initAmount, substanceUnits)
+.. method:: RoadRunner.addSpecies(sid, compartment, initValue, substanceUnits, forceRegenerate)
    :module: RoadRunner
    
    Add a species to the current model. Note that the species to be added must have an ID
-   that did not existed in the model.
+   that did not existed in the model. The given compartment must also exist in the model.
    
-   :param str name: name of the the species to be added
-   :param str id: the ID of the species to be added
+   Default substanceUnits is "concentration", which will set initValue as initial concentration
+   of the new species. Other substanceUnits will set initValue as initial amount of the new species.
+   
+   forceRegenerate is a boolean value that indicates whether the new model will be regenerated. Its 
+   default value is true, which means to regenerate model every time after this function is called. 
+   Note that regenerating model is time-consuming. To save time for editing model for multiple times, 
+   one could set this flag to false excepting for the last call, so that Roadrunner will only regenerate 
+   the model once after all editings are completed.
+   
+   For example,
+   
+   >>> r.addSpecies("s1", "compartment", 0.1, "concentration", false) # it will not regenerate the model, nothing actually happened
+   >>> r.addSpecies("s2", "compartment", 0.1, "concentration", true)  # new model is generated and saved
+  
+   :param str sid: the ID of the species to be added
    :param str compartment: the compartment of the species to be added
-   :param double initAmount: the initial amount of the species to be added
+   :param double initValue: the initial amount or concentration of the species to be added
    :param str substanceUnits: the substance unit of the species to be added
+   :param bool forceRegenerate: indicate whether the new model is regenerated after this function call
 
    
-.. method:: RoadRunner.removeSpecies(sid)
+.. method:: RoadRunner.removeSpecies(sid, forceRegenerate)
    :module: RoadRunner
    
    Remove a species from the current model. All reactions related to this species(as reactants,
    products or modifiers) will be removed as well. Note that the given species must exist in the
    current model.
+   
+   forceRegenerate is a boolean value that indicates whether the new model will be regenerated. Its 
+   default value is true, which means to regenerate model every time after this function is called. 
+   Note that regenerating model is time-consuming. To save time for editing model for multiple times, 
+   one could set this flag to false excepting for the last call, so that Roadrunner will only regenerate 
+   the model once after all editings are completed.
+   
+   For example,
+   
+   >>> r.removeSpecies("s1", false) # it will not regenerate the model, nothing actually happened
+   >>> r.removeSpecies("s2", true)  # new model is generated and saved
 
    :param str sid: the ID of the species to be removed
+   :param bool forceRegenerate: indicate whether the new model is regenerated after this function call
  
    
-.. method:: RoadRunner.addReaction(name, rid, reversible, reactants, products, modifiers, kineticLaw)
+.. method:: RoadRunner.addReaction(rid, reactants, products, kineticLaw, forceRegenerate)
    :module: RoadRunner
    
    Add a reaction to the current model by passing its info as parameters. 
    Note that the reaction to be added must have an ID that did not existed in the model.
    
-   :param str name: name of the the reaction to be added
+   forceRegenerate is a boolean value that indicates whether the new model will be regenerated. Its 
+   default value is true, which means to regenerate model every time after this function is called. 
+   Note that regenerating model is time-consuming. To save time for editing model for multiple times, 
+   one could set this flag to false excepting for the last call, so that Roadrunner will only regenerate 
+   the model once after all editings are completed.
+   
+   For example,
+   
+   >>> r.addReaction("r1", ["s1"], ["s2"], "s1 * k1", false) # it will not regenerate the model, nothing actually happened
+   >>> r.addReaction("r2", ["s2"], ["s1"], "s2 * k1", true)  # new model is generated and saved
+  
+  
    :param str rid: the ID of the reaction to be added
-   :param str reversible: a boolean value to indicate whether the reaction to be added is reversible
    :param list reactants: the list of reactants ID of reaction to be added
    :param list products: the list of products ID of reaction to be added
-   :param list modifiers: the list of modifiers ID of reaction to be added, could be NULL
    :param str kineticLaw: the kinetic formular of reaction to be added
+   :param bool forceRegenerate: indicate whether the new model is regenerated after this function call
    
 
-.. method:: RoadRunner.addReaction(sbmlRep)
+.. method:: RoadRunner.addReaction(sbmlRep, forceRegenerate)
    :module: RoadRunner
    
    Add a reaction to the current model by passing a sbml repesentation as parameter. 
    Note that the reaction to be added must have an ID that did not existed in the model.
    
+   forceRegenerate is a boolean value that indicates whether the new model will be regenerated. Its 
+   default value is true, which means to regenerate model every time after this function is called. 
+   Note that regenerating model is time-consuming. To save time for editing model for multiple times, 
+   one could set this flag to false excepting for the last call, so that Roadrunner will only regenerate 
+   the model once after all editings are completed.
+  
    :param str sbmlRep: the SBML representation (i.e. a reaction tag) describing the reaction to be added
+   :param bool forceRegenerate: indicate whether the new model is regenerated after this function call
    
    
-.. method:: RoadRunner.removeReaction(rid)
+.. method:: RoadRunner.removeReaction(rid,forceRegenerate)
    :module: RoadRunner
    
    Remove a reaction from the current model. Note that the given reaction must exist in the
    current model.
+   
+   forceRegenerate is a boolean value that indicates whether the new model will be regenerated. Its 
+   default value is true, which means to regenerate model every time after this function is called. 
+   Note that regenerating model is time-consuming. To save time for editing model for multiple times, 
+   one could set this flag to false excepting for the last call, so that Roadrunner will only regenerate 
+   the model once after all editings are completed.
+   
+   For example,
+   
+   >>> r.removeReaction("r1", false) # it will not regenerate the model, nothing actually happened
+   >>> r.removeReaction("r2", true)  # new model is generated and saved
 
    :param str rid: the ID of the reaction to be removed
- 
+   :param bool forceRegenerate: indicate whether the new model is regenerated after this function call
  
 
 Simulation
