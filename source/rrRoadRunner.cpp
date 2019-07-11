@@ -5261,7 +5261,6 @@ void RoadRunner::addReaction(const string& name, const string& rid, bool reversi
 		newReaction->addModifier(s);
 	}
 
-	
 	libsbml::KineticLaw* kLaw = newReaction->createKineticLaw();
 	ASTNode_t* math = libsbml::SBML_parseFormula(&kineticLaw[0]);
 	if (math == NULL)

@@ -417,6 +417,76 @@ C_DECL_SPEC char* rrcCallConv getCurrentSBML(RRHandle handle);
 */
 C_DECL_SPEC char* rrcCallConv getSBML(RRHandle handle);
 
+
+// -------------------------------------------------------------------------------------
+// Model editing methods
+// -------------------------------------------------------------------------------------
+
+
+/*!
+ \brief Add a species to the current model
+ \param[in] handle Handle to a RoadRunner instance
+ \param[in] name Name of the species to be added 
+ \param[in] id ID of the species to be added
+ \param[in] compartment Compartment of the species to be added
+ \param[in] initialAmount Initial amount of the species to be added
+ \param[in] substanceUnit Substance unit of the species to be added
+ \return Returns false if the call fails, otherwise returns a true
+ \ingroup edit
+*/
+C_DECL_SPEC bool rrcCallConv addSpecies(RRHandle handle, const char* name, const char* id, const char* compartment, double initialAmount, const char* substanceUnit);
+
+
+/*!
+ \brief Remove a species from the current model
+ \param[in] handle Handle to a RoadRunner instance
+ \param[in] sid ID of the species to be removed
+ \return Returns false if the call fails, otherwise returns a true
+ \ingroup edit
+*/
+C_DECL_SPEC bool rrcCallConv removeSpecies(RRHandle handle, const char* sid);
+
+/*!
+ \brief Add a reaction to the current model
+ \param[in] handle Handle to a RoadRunner instance
+ \param[in] sbmlRep the SBML representation (i.e. a reaction tag) describing the reaction to be added
+ \return Returns false if the call fails, otherwise returns a true
+ \ingroup edit
+*/
+C_DECL_SPEC bool rrcCallConv addReaction(RRHandle handle, const char* sbmlRep);
+
+/*!
+ \brief Add a reaction to the current model
+ \param[in] handle Handle to a RoadRunner instance
+ \param[in] name Name of the reaction to be added
+ \param[in] rid ID of the reaction to be added
+ \param[in] reversible A boolean value to indicate whether the reaction to be added is reversible
+ \param[in] reactants List of reactants ID of reaction to be added
+ \param[in] numReactants Number of reactants of reaction to be added
+ \param[in] reactants List of reactants ID of reaction to be added
+ \param[in] numReactants Number of reactants of reaction to be added
+ \param[in] products List of products ID of reaction to be added
+ \param[in] numProducts Number of products of reaction to be added
+ \param[in] modifers List of modifers ID of reaction to be added
+ \param[in] numModifers Number of modifers of reaction to be added
+ \param[in] kineticLaw kinetic formular of reaction to be added
+ \return Returns false if the call fails, otherwise returns a true
+ \ingroup edit
+*/
+C_DECL_SPEC bool rrcCallConv addReaction(RRHandle handle, const char* name, const char* rid, bool reversible, const char** reactants, int numReactants,
+	const char** products, int numProducts, const char** modifers, int numModifers, const char* kineticLaw);
+
+/*!
+ \brief Remove a reaction from the current model
+ \param[in] handle Handle to a RoadRunner instance
+ \param[in] rid ID of the reaction to be removed
+ \return Returns false if the call fails, otherwise returns a true
+ \ingroup edit
+*/
+C_DECL_SPEC bool rrcCallConv removeReaction(RRHandle handle, const char* rid);
+
+
+
 // -------------------------------------------------------------------------
 // SBML utility methods
 // -----------------------------------------------------------------------
@@ -2459,6 +2529,9 @@ Notice: Creating C based model generator using ..\compilers\tcc\tcc.exe compiler
 
  \defgroup loadsave Read and write models
  \brief Read and write models to files or strings. Support for SBML formats.
+
+ \defgroup edit Edit models
+ \brief Add or remove species or reactions without modifying SBML files and reloading.
 
  \defgroup utility Utility functions
  \brief Various miscellaneous routines that return useful information about the library

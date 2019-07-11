@@ -1649,6 +1649,60 @@ int rrcCallConv getCurrentIntegratorParameterType (RRHandle handle, char *parame
 }
 
 // -------------------------------------------------------------------------------------
+// Model editing methods
+// -------------------------------------------------------------------------------------
+
+bool rrcCallConv addSpecies(RRHandle handle, const char* name, const char* id, const char* compartment, double initialAmount, const char* substanceUnit)
+{
+	start_try
+		RoadRunner* rri = castToRoadRunner(handle);
+	rri->addSpecies(name, id, compartment, initialAmount, substanceUnit);
+	return true;
+	catch_bool_macro
+}
+
+bool rrcCallConv removeSpecies(RRHandle handle, const char* sid)
+{
+	start_try
+		RoadRunner* rri = castToRoadRunner(handle);
+	rri->removeSpecies(sid);
+	return true;
+	catch_bool_macro
+}
+
+
+bool rrcCallConv addReaction(RRHandle handle, const char* sbmlRep)
+{
+	start_try
+		RoadRunner* rri = castToRoadRunner(handle);
+	rri->addReaction(sbmlRep);
+	return true;
+	catch_bool_macro
+}
+
+bool rrcCallConv addReaction(RRHandle handle, const char* name, const char* rid, bool reversible, const char** reactants, int numReactants,
+	const char** products, int numProducts, const char** modifers, int numModifers, const char* kineticLaw)
+{
+	start_try
+		RoadRunner* rri = castToRoadRunner(handle);
+	vector<string> r(reactants, reactants + numReactants);
+	vector<string> p(products, products + numProducts);
+	vector<string> m(modifers, modifers + numModifers);
+	rri->addReaction(name, rid, reversible, r, p, m, kineticLaw);
+	return true;
+	catch_bool_macro
+}
+
+bool rrcCallConv removeReaction(RRHandle handle, const char* rid)
+{
+	start_try
+		RoadRunner* rri = castToRoadRunner(handle);
+	rri->removeReaction(rid);
+	return true;
+	catch_bool_macro
+}
+
+// -------------------------------------------------------------------------------------
 // Set and Get Methods
 // -------------------------------------------------------------------------------------
 
@@ -1760,61 +1814,6 @@ int rrcCallConv setCurrentIntegratorParameterBoolean (RRHandle handle, char *par
 		rri->getIntegrator()->setValue(key.str(), (bool)value);
 		return true;
 	catch_int_macro
-}
-
-
-// -------------------------------------------------------------------------------------
-// Model editing methods
-// -------------------------------------------------------------------------------------
-
-bool rrcCallConv addSpecies(RRHandle handle, const char* name, const char* id, const char* compartment, double initialAmount, const char* substanceUnit)
-{
-	start_try
-		RoadRunner* rri = castToRoadRunner(handle);
-		rri->addSpecies(name, id, compartment, initialAmount, substanceUnit);
-		return true;
-	catch_bool_macro
-}
-
-bool rrcCallConv removeSpecies(RRHandle handle, const char* sid)
-{
-	start_try
-		RoadRunner* rri = castToRoadRunner(handle);
-		rri->removeReaction(sid);
-		return true;
-	catch_bool_macro
-}
-
-
-bool rrcCallConv addReaction(RRHandle handle, const char* sbmlRep)
-{
-	start_try
-		RoadRunner* rri = castToRoadRunner(handle);
-		rri->addReaction(sbmlRep);
-		return true;
-	catch_bool_macro
-}
-
-bool rrcCallConv addReaction(RRHandle handle, const char* name, const char* rid, bool reversible, const char** reactants, int numReactants, 
-	const char** products, int numProducts, const char** modifers, int numModifers, const char* kineticLaw)
-{
-	start_try
-		RoadRunner* rri = castToRoadRunner(handle);
-		vector<string> r(reactants, reactants + numReactants);
-		vector<string> p(products, products + numProducts);
-		vector<string> m(modifers, modifers + numModifers);
-		rri->addReaction(name, rid, reversible, r, p, m, kineticLaw);
-		return true;
-	catch_bool_macro
-}
-
-bool rrcCallConv removeReaction(RRHandle handle, const char* rid)
-{
-	start_try
-		RoadRunner* rri = castToRoadRunner(handle);
-		rri->removeReaction(rid);
-		return true;
-	catch_bool_macro
 }
 
 
