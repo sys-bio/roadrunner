@@ -5255,8 +5255,8 @@ void RoadRunner::loadState(std::string filename)
 	rr::loadBinary(in, impl->mCurrentSBML);
 	//Restart the integrator and reset the model
 	//This will need to change if we decide to add pausing
-	// impl->integrator->restart(0.0);
-	// reset();
+	//impl->integrator->restart(0.0);
+	//reset();
 }
 
 void RoadRunner::loadSelectionVector(std::istream& in, std::vector<SelectionRecord>& v)

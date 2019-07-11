@@ -63,24 +63,27 @@ void ModelResources::saveState(std::ostream& out) const
 
     llvm::InitializeNativeTarget();
 	llvm::InitializeNativeTargetAsmPrinter();
+	if (module) {
+		auto TargetMachine = executionEngine->getTargetMachine();
 
-	auto TargetMachine = executionEngine->getTargetMachine();
-	
-	std::error_code EC;
-	llvm::SmallVector<char, 10> modBuffer;
-	llvm::raw_svector_ostream mStrStream(modBuffer);
+		std::error_code EC;
+		llvm::SmallVector<char, 10> modBuffer;
+		llvm::raw_svector_ostream mStrStream(modBuffer);
 
-	llvm::legacy::PassManager pass;
-	auto FileType = TargetMachine->CGFT_ObjectFile;
-    
-	if (TargetMachine->addPassesToEmitFile(pass, mStrStream, FileType))
-	{
-		throw std::invalid_argument("TargetMachine can't emit a file of type CGFT_ObjectFile");
+		llvm::legacy::PassManager pass;
+		auto FileType = TargetMachine->CGFT_ObjectFile;
+
+		if (TargetMachine->addPassesToEmitFile(pass, mStrStream, FileType))
+		{
+			throw std::invalid_argument("TargetMachine can't emit a file of type CGFT_ObjectFile");
+		}
+		pass.run(*module);
+        
+		std::string toSave(modBuffer.begin(), modBuffer.end());
+		rr::saveBinary(out, toSave);
+	} else {
+		rr::saveBinary(out, moduleStr);
 	}
-	pass.run(*module);
-
-	std::string moduleStr(modBuffer.begin(), modBuffer.end());
-	rr::saveBinary(out, moduleStr);
 }
 
 void ModelResources::addGlobalMapping(std::string name, void *addr)
@@ -226,26 +229,16 @@ void ModelResources::addGlobalMappings()
 void ModelResources::loadState(std::istream& in, uint modelGeneratorOpt) 
 {
 	//load the model data symbols from the stream
+	if (symbols)
+		delete symbols;
 	symbols = new LLVMModelDataSymbols(in);
 	//Get the LLVM IR from the stream and store it in moduleStr
-	std::string moduleStr;
 	rr::loadBinary(in, moduleStr);
 	//Set up the llvm context 
+	if (context)
+		delete context;
 	context = new llvm::LLVMContext();
-	//Set up a buffer to read the bitcode from
-	/*auto memBuffer(llvm::MemoryBuffer::getMemBuffer(moduleStr));
-	llvm::Expected<std::vector<llvm::BitcodeModule>> bitcodeModuleList = llvm::getBitcodeModuleList(*memBuffer);
-	if (!bitcodeModuleList) {
-		throw std::invalid_argument("Failed to load bitcode");
-	}
-	//We only ever save one module, so we take the first from the list
-	llvm::BitcodeModule bitcodeModule = bitcodeModuleList.get()[0];
-
-	llvm::Expected<std::unique_ptr<llvm::Module>> module_uniq = bitcodeModule.parseModule(*context);
-	if (!module_uniq) {
-		throw std::invalid_argument("Failed to load llvm module");
-	}*/
-	//Set up a buffer to read the bitcode from
+	//Set up a buffer to read the object code from
 	auto memBuffer(llvm::MemoryBuffer::getMemBuffer(moduleStr));
     
 	llvm::Expected<std::unique_ptr<llvm::object::ObjectFile> > objectFileExpected =
@@ -256,18 +249,16 @@ void ModelResources::loadState(std::istream& in, uint modelGeneratorOpt)
 	}
     
 	std::unique_ptr<llvm::object::ObjectFile> objectFile(std::move(objectFileExpected.get()));
-
+	
 	llvm::object::OwningBinary<llvm::object::ObjectFile> owningObject(std::move(objectFile), std::move(memBuffer));
 
-	//module = module_uniq.get().release();
 	//Not sure why, but engineBuilder.create() crashes if not initialized with an empty module
 	auto emptyModule = std::unique_ptr<llvm::Module>(new llvm::Module("Module test", *context));
-	module = emptyModule.get();
 	llvm::EngineBuilder engineBuilder(std::move(emptyModule));
 
 	//Set the necessary parameters on the engine builder
-	std::string *engineBuilderErrStr = new std::string();
-	engineBuilder.setErrorStr(engineBuilderErrStr)
+	std::string engineBuilderErrStr;
+	engineBuilder.setErrorStr(&engineBuilderErrStr)
 		.setMCJITMemoryManager(std::unique_ptr<llvm::SectionMemoryManager>(new llvm::SectionMemoryManager()));
 	
 	//We have to call these functions before calling engineBuilder.create()
@@ -279,8 +270,7 @@ void ModelResources::loadState(std::istream& in, uint modelGeneratorOpt)
 	//Add mappings to the functions that aren't saved as LLVM IR (like sin, cos etc.)
 	addGlobalMappings();
 
-	//Add the module we constructed to the execution engine
-	//executionEngine->addModule(std::unique_ptr<llvm::Module>(module));
+	//Add the object file we loaded to the execution engine
 	executionEngine->addObjectFile(std::move(owningObject));
 	//Finalize the engine
 	executionEngine->finalizeObject();
