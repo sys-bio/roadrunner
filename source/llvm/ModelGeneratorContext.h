@@ -84,11 +84,6 @@ public:
 	ModelGeneratorContext(libsbml::SBMLDocument const *doc,
 		unsigned options, llvm::ExecutionEngine *ee, llvm::LLVMContext *context, std::string moduleName);
 
-	/*
-	* Create from existing elements for model editing purposes
-	*/
-	ModelGeneratorContext(const libsbml::Model *model, const rrllvm::LLVMModelDataSymbols *modelDataSymbols, rrllvm::LLVMModelSymbols * modelSymbols, 
-		                  llvm::LLVMContext *context, uint options, llvm::ExecutionEngine *engine, llvm::Module *mod);
 
     /**
      * does not attach to any sbml doc,

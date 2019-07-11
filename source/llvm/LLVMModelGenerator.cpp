@@ -76,11 +76,13 @@ ExecutableModel* LLVMModelGenerator::regenerateModel(ExecutableModel* oldModel, 
 {
 	bool forceReCompile = options & LoadSBMLOptions::RECOMPILE;
 
-	string md5;
+	// string md5;
 
 	SharedModelPtr rc(new ModelResources());
 
 	ModelGeneratorContext context(doc, options);
+
+	// code generation part
 
 	Function* evalInitialConditionsIR =
 		EvalInitialConditionsCodeGen(context).createFunction();
@@ -357,46 +359,7 @@ ExecutableModel* LLVMModelGenerator::regenerateModel(ExecutableModel* oldModel, 
 	context.stealThePeach(&rc->symbols, &rc->context,
 		&rc->executionEngine, &rc->random, &rc->errStr, &rc->module);
 
-	if (!forceReCompile)
-	{
-		// check for a chached copy, another thread could have
-		// created one while we were making ours...
-
-		ModelPtrMap::const_iterator i;
-
-		SharedModelPtr sp;
-
-		cachedModelsMutex.lock();
-
-		// whilst we have it locked, clear any expired ptrs
-		for (ModelPtrMap::const_iterator j = cachedModels.begin();
-			j != cachedModels.end();)
-		{
-			if (j->second.expired())
-			{
-				Log(Logger::LOG_DEBUG) <<
-					"removing expired model resource for hash " << md5;
-
-				j = cachedModels.erase(j);
-			}
-			else
-			{
-				++j;
-			}
-		}
-
-		if ((i = cachedModels.find(md5)) == cachedModels.end())
-		{
-			Log(Logger::LOG_DEBUG) << "could not find existing cached resource "
-				"resources, for hash " << md5 <<
-				", inserting new resources into cache";
-
-			cachedModels[md5] = rc;
-		}
-
-		cachedModelsMutex.unlock();
-	}
-
+	
 	// copy the amounts of old existing species to new model
 	// start from where we paused
 
