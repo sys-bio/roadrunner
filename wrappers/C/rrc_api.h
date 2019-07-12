@@ -356,6 +356,25 @@ C_DECL_SPEC bool rrcCallConv loadSBML(RRHandle handle, const char* sbml);
 C_DECL_SPEC bool rrcCallConv loadSBMLEx(RRHandle handle, const char* sbml, bool forceRecompile);
 
 /*!
+ \brief Save a road runner instance's state to a binary file
+ \param[in] handle Handle to the RoadRunner instance to be saved
+ \param[in] filename path to the file to be saved to
+ \return Returns true if successful
+ \ingroup loadsave
+*/
+C_DECL_SPEC bool rrcCallConv saveState(RRHandle handle, const char* filename);
+
+
+/*!
+ \brief Reload a road runner instance's state saved by saveState
+ \param[in] handle Handle to the RoadRunner instance to be loaded into
+ \param[in] filename path to the file to be loaded from
+ \return Returns true if successful
+ \ingroup loadsave
+*/
+C_DECL_SPEC bool rrcCallConv loadState(RRHandle handle, const char* filename);
+
+/*!
  \brief Load a model from a SBML file
  \param[in] handle Handle to a RoadRunner instance
  \param[in] fileName file name (or full path) to file that holds the SBML model
