@@ -623,8 +623,6 @@ RRCDataPtr rrcCallConv simulate(RRHandle handle)
 {
 	start_try
 		RoadRunner* rri = castToRoadRunner(handle);
-		rri = new RoadRunner();
-	    rri->load("C:\\Users\\User\\Desktop\\test_1.xml");
 		
         //rri->simulate();
 		//auto test = rri->getSimulationData();
@@ -642,7 +640,6 @@ RRCDataPtr rrcCallConv simulate(RRHandle handle)
 		//products.push_back("S2");
 		//vector<string> modifiers;
 		//rri->addReaction("test", "test", false, reactants, products, modifiers, "k1 * S1");
-		rri->removeSpecies("S1");
 
 		rri->simulate();
 		//test = rri->getSimulationData();
@@ -1651,51 +1648,98 @@ int rrcCallConv getCurrentIntegratorParameterType (RRHandle handle, char *parame
 // Model editing methods
 // -------------------------------------------------------------------------------------
 
-bool rrcCallConv addSpecies(RRHandle handle, const char* sid, const char* compartment, double initialValue, const char* substanceUnit, bool forceRegenerate)
+bool rrcCallConv addSpecies(RRHandle handle, const char* sid, const char* compartment, double initialValue, const char* substanceUnit)
 {
 	start_try
 		RoadRunner* rri = castToRoadRunner(handle);
-		rri->addSpecies(sid, compartment, initialValue, substanceUnit, forceRegenerate);
+		rri->addSpecies(sid, compartment, initialValue, substanceUnit);
 		return true;
 	catch_bool_macro
 }
 
-bool rrcCallConv removeSpecies(RRHandle handle, const char* sid, bool forceRegenerate)
+bool rrcCallConv addSpeciesNoRegen(RRHandle handle, const char* sid, const char* compartment, double initialValue, const char* substanceUnit)
 {
 	start_try
 		RoadRunner* rri = castToRoadRunner(handle);
-		rri->removeSpecies(sid, forceRegenerate);
+		rri->addSpecies(sid, compartment, initialValue, substanceUnit, false);
 		return true;
 	catch_bool_macro
 }
 
-
-bool rrcCallConv addReactionFromSBML(RRHandle handle, const char* sbmlRep, bool forceRegenerate)
+bool rrcCallConv removeSpecies(RRHandle handle, const char* sid)
 {
 	start_try
 		RoadRunner* rri = castToRoadRunner(handle);
-		rri->addReaction(sbmlRep, forceRegenerate);
+		rri->removeSpecies(sid);
+		return true;
+	catch_bool_macro
+}
+
+bool rrcCallConv removeSpeciesNoRegen(RRHandle handle, const char* sid)
+{
+	start_try
+		RoadRunner* rri = castToRoadRunner(handle);
+		rri->removeSpecies(sid, false);
+		return true;
+	catch_bool_macro
+}
+
+bool rrcCallConv addReactionFromSBML(RRHandle handle, const char* sbmlRep)
+{
+	start_try
+		RoadRunner* rri = castToRoadRunner(handle);
+		rri->addReaction(sbmlRep);
+		return true;
+	catch_bool_macro
+}
+
+bool rrcCallConv addReactionFromSBMLNoRegen(RRHandle handle, const char* sbmlRep)
+{
+	start_try
+		RoadRunner* rri = castToRoadRunner(handle);
+		rri->addReaction(sbmlRep, false);
 		return true;
 	catch_bool_macro
 }
 
 bool rrcCallConv addReaction(RRHandle handle, const char* rid, const char** reactants, int numReactants,
-	const char** products, int numProducts, const char* kineticLaw, bool forceRegenerate)
+	const char** products, int numProducts, const char* kineticLaw)
 {
 	start_try
 		RoadRunner* rri = castToRoadRunner(handle);
 		vector<string> r(reactants, reactants + numReactants);
 		vector<string> p(products, products + numProducts);
-		rri->addReaction(rid, r, p, kineticLaw, forceRegenerate);
+		rri->addReaction(rid, r, p, kineticLaw);
 		return true;
 	catch_bool_macro
 }
 
-bool rrcCallConv removeReaction(RRHandle handle, const char* rid, bool forceRegenerate)
+bool rrcCallConv addReactionNoRegen(RRHandle handle, const char* rid, const char** reactants, int numReactants,
+	const char** products, int numProducts, const char* kineticLaw)
 {
 	start_try
 		RoadRunner* rri = castToRoadRunner(handle);
-		rri->removeReaction(rid, forceRegenerate);
+		vector<string> r(reactants, reactants + numReactants);
+		vector<string> p(products, products + numProducts);
+		rri->addReaction(rid, r, p, kineticLaw, false);
+		return true;
+	catch_bool_macro
+}
+
+bool rrcCallConv removeReaction(RRHandle handle, const char* rid)
+{
+	start_try
+		RoadRunner* rri = castToRoadRunner(handle);
+		rri->removeReaction(rid);
+		return true;
+	catch_bool_macro
+}
+
+bool rrcCallConv removeReactionNoRegen(RRHandle handle, const char* rid)
+{
+	start_try
+		RoadRunner* rri = castToRoadRunner(handle);
+		rri->removeReaction(rid, false);
 		return true;
 	catch_bool_macro
 }

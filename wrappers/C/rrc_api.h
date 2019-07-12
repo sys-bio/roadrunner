@@ -430,32 +430,64 @@ C_DECL_SPEC char* rrcCallConv getSBML(RRHandle handle);
  \param[in] compartment Compartment of the species to be added
  \param[in] initialValue Initial amount or concentration of the species to be added
  \param[in] substanceUnit Substance unit of the species to be added
- \param[in] forceRegenerate Whether regenerate the new model after this call
  \return Returns false if the call fails, otherwise returns a true
  \ingroup edit
 */
-C_DECL_SPEC bool rrcCallConv addSpecies(RRHandle handle, const char* sid, const char* compartment, double initialValue, const char* substanceUnit = "concentration", bool forceRegenerate = true);
+C_DECL_SPEC bool rrcCallConv addSpecies(RRHandle handle, const char* sid, const char* compartment, double initialValue, const char* substanceUnit = "concentration");
+
+/*!
+ \brief Add a species to the current model, without regenerating it
+        The last modification must regenerate for the modifications to take effect
+ \param[in] handle Handle to a RoadRunner instance
+ \param[in] sid ID of the species to be added
+ \param[in] compartment Compartment of the species to be added
+ \param[in] initialValue Initial amount or concentration of the species to be added
+ \param[in] substanceUnit Substance unit of the species to be added
+ \return Returns false if the call fails, otherwise returns a true
+ \ingroup edit
+*/
+C_DECL_SPEC bool rrcCallConv addSpeciesNoRegen(RRHandle handle, const char* sid, const char* compartment, double initialValue, const char* substanceUnit = "concentration");
 
 
 /*!
  \brief Remove a species from the current model
  \param[in] handle Handle to a RoadRunner instance
  \param[in] sid ID of the species to be removed
- \param[in] forceRegenerate Whether regenerate the new model after this call
  \return Returns false if the call fails, otherwise returns a true
  \ingroup edit
 */
-C_DECL_SPEC bool rrcCallConv removeSpecies(RRHandle handle, const char* sid, bool forceRegenerate = true);
+C_DECL_SPEC bool rrcCallConv removeSpecies(RRHandle handle, const char* sid);
+
+/*!
+ \brief Remove a species from the current model, without regenerating it
+        The last modification must regenerate for the modifications to take effect
+ \param[in] handle Handle to a RoadRunner instance
+ \param[in] sid ID of the species to be removed
+ \return Returns false if the call fails, otherwise returns a true
+ \ingroup edit
+*/
+C_DECL_SPEC bool rrcCallConv removeSpeciesNoRegen(RRHandle handle, const char* sid);
+
+
 
 /*!
  \brief Add a reaction to the current model
  \param[in] handle Handle to a RoadRunner instance
  \param[in] sbmlRep the SBML representation (i.e. a reaction tag) describing the reaction to be added
- \param[in] forceRegenerate Whether regenerate the new model after this call
  \return Returns false if the call fails, otherwise returns a true
  \ingroup edit
 */
-C_DECL_SPEC bool rrcCallConv addReactionFromSBML(RRHandle handle, const char* sbmlRep, bool forceRegenerate = true);
+C_DECL_SPEC bool rrcCallConv addReactionFromSBML(RRHandle handle, const char* sbmlRep);
+
+/*!
+ \brief Add a reaction to the current model, without regenerating it
+        The last modification must regenerate for the modifications to take effect
+ \param[in] handle Handle to a RoadRunner instance
+ \param[in] sbmlRep the SBML representation (i.e. a reaction tag) describing the reaction to be added
+ \return Returns false if the call fails, otherwise returns a true
+ \ingroup edit
+*/
+C_DECL_SPEC bool rrcCallConv addReactionFromSBMLNoRegen(RRHandle handle, const char* sbmlRep);
 
 /*!
  \brief Add a reaction to the current model
@@ -466,12 +498,27 @@ C_DECL_SPEC bool rrcCallConv addReactionFromSBML(RRHandle handle, const char* sb
  \param[in] products List of products ID of reaction to be added
  \param[in] numProducts Number of products of reaction to be added
  \param[in] kineticLaw kinetic formular of reaction to be added
- \param[in] forceRegenerate Whether regenerate the new model after this call
  \return Returns false if the call fails, otherwise returns a true
  \ingroup edit
 */
 C_DECL_SPEC bool rrcCallConv addReaction(RRHandle handle, const char* rid, const char** reactants, int numReactants,
-	const char** products, int numProducts, const char* kineticLaw, bool forceRegenerate = true);
+	const char** products, int numProducts, const char* kineticLaw);
+
+/*!
+ \brief Add a reaction to the current model, without regenerating it
+        The last modification must regenerate for the modifications to take effect
+ \param[in] handle Handle to a RoadRunner instance
+ \param[in] rid ID of the reaction to be added
+ \param[in] reactants List of reactants ID of reaction to be added
+ \param[in] numReactants Number of reactants of reaction to be added
+ \param[in] products List of products ID of reaction to be added
+ \param[in] numProducts Number of products of reaction to be added
+ \param[in] kineticLaw kinetic formular of reaction to be added
+ \return Returns false if the call fails, otherwise returns a true
+ \ingroup edit
+*/
+C_DECL_SPEC bool rrcCallConv addReactionNoRegen(RRHandle handle, const char* rid, const char** reactants, int numReactants,
+	const char** products, int numProducts, const char* kineticLaw);
 
 /*!
  \brief Remove a reaction from the current model
@@ -481,9 +528,19 @@ C_DECL_SPEC bool rrcCallConv addReaction(RRHandle handle, const char* rid, const
  \return Returns false if the call fails, otherwise returns a true
  \ingroup edit
 */
-C_DECL_SPEC bool rrcCallConv removeReaction(RRHandle handle, const char* rid, bool forceRegenerate = true);
+C_DECL_SPEC bool rrcCallConv removeReaction(RRHandle handle, const char* rid);
 
 
+/*!
+ \brief Remove a reaction from the current model, without regenerating it
+        The last modification must regenerate for the modifications to take effect
+ \param[in] handle Handle to a RoadRunner instance
+ \param[in] rid ID of the reaction to be removed
+ \param[in] forceRegenerate Whether regenerate the new model after this call
+ \return Returns false if the call fails, otherwise returns a true
+ \ingroup edit
+*/
+C_DECL_SPEC bool rrcCallConv removeReactionNoRegen(RRHandle handle, const char* rid);
 
 // -------------------------------------------------------------------------
 // SBML utility methods
