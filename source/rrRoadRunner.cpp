@@ -5363,7 +5363,67 @@ void RoadRunner::removeSpecies(const std::string& sid, bool forceRegenerate)
 void RoadRunner::regenerate()
 {
 	Log(Logger::LOG_DEBUG) << "Regenerating model..." << endl;
-	ExecutableModel* newModel = ExecutableModelFactory::regenerateModel(impl->model, impl->document, impl->loadOpt.modelGeneratorOpt);
+	ExecutableModel* newModel = ExecutableModelFactory::regenerateModel(impl->document, impl->loadOpt.modelGeneratorOpt);
+
+	// the stored SBML document will not keep updated, so we need to
+	// copy the old values (e.g, initial values, current values) to new model
+	// so that we can start from where we paused
+
+	vector<string> array = getFloatingSpeciesIds();
+	for (int i = 0; i < array.size(); i++)
+	{
+		double value = 0;
+		double initValue = 0;
+		impl->model->getFloatingSpeciesAmounts(1, &i, &value);
+		impl->model->getFloatingSpeciesInitAmounts(1, &i, &initValue);
+		int index = newModel->getFloatingSpeciesIndex(array[i]);
+		newModel->setFloatingSpeciesAmounts(1, &index, &value);
+		newModel->setFloatingSpeciesInitAmounts(1, &index, &initValue);
+	}
+
+	array = getBoundarySpeciesIds();
+	for (int i = 0; i < array.size(); i++)
+	{
+		double value = 0;
+		impl->model->getBoundarySpeciesConcentrations(1, &i, &value);
+		int index = newModel->getBoundarySpeciesIndex(array[i]);
+		newModel->setBoundarySpeciesConcentrations(1, &index, &value);
+	}
+
+	array = getCompartmentIds();
+	for (int i = 0; i < array.size(); i++)
+	{
+		double value = 0;
+		double initValue = 0;
+		impl->model->getCompartmentVolumes(1, &i, &value);
+		impl->model->getCompartmentInitVolumes(1, &i, &initValue);
+		int index = newModel->getCompartmentIndex(array[i]);
+		newModel->setCompartmentVolumes(1, &index, &value);
+		newModel->setCompartmentInitVolumes(1, &index, &initValue);
+	}
+
+	array = getGlobalParameterIds();
+	for (int i = 0; i < array.size(); i++)
+	{
+		double value = 0;
+		double initValue = 0;
+		impl->model->getGlobalParameterValues(1, &i, &value);
+		impl->model->getGlobalParameterInitValues(1, &i, &initValue);
+		int index = newModel->getGlobalParameterIndex(array[i]);
+		newModel->setGlobalParameterValues(1, &index, &value);
+		newModel->setGlobalParameterInitValues(1, &index, &initValue);
+	}
+
+	array = getConservedMoietyIds();
+	for (int i = 0; i < array.size(); i++)
+	{
+		double value = 0;
+		impl->model->getConservedMoietyValues(1, &i, &value);
+		int index = newModel->getConservedMoietyIndex(array[i]);
+		newModel->setConservedMoietyValues(1, &index, &value);
+	}
+
+
 	delete impl->model;
 	impl->model = newModel;
 	impl->syncAllSolversWithModel(impl->model);

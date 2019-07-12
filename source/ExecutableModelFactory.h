@@ -44,12 +44,11 @@ public:
 	/*
 	* Regenerate an executable model from a saved sbml document
 	*
-	* @param oldModel: old model that need to copy information from
 	* @param doc: sbml document that generate the new executable model from
 	* @param LoadSBMLOptions: load options
 	*
 	*/
-	static ExecutableModel *regenerateModel(rr::ExecutableModel* oldModel, libsbml::SBMLDocument* doc, uint options);
+	static ExecutableModel *regenerateModel(libsbml::SBMLDocument* doc, uint options);
 };
 
 } /* namespace rr */

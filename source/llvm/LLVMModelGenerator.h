@@ -42,7 +42,7 @@ public:
 	/**
 	 * Regenerate an executable model from an existing sbml document
 	 */
-	static rr::ExecutableModel *regenerateModel(rr::ExecutableModel* oldModel, libsbml::SBMLDocument* doc, uint options);
+	static rr::ExecutableModel *regenerateModel(libsbml::SBMLDocument* doc, uint options);
 
 };
 
