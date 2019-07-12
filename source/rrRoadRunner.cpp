@@ -5166,7 +5166,7 @@ void RoadRunner::loadSelectionVector(std::istream& in, std::vector<SelectionReco
 
 void RoadRunner::removeReaction(const std::string& rid, bool forceRegenerate)
 {
-	check_model();
+
 	libsbml::Reaction* toDelete = impl->document->getModel()->removeReaction(rid);
 	if (toDelete == NULL) 
 	{
@@ -5183,7 +5183,7 @@ void RoadRunner::removeReaction(const std::string& rid, bool forceRegenerate)
 
 void RoadRunner::addSpecies(const std::string& sid, const std::string& compartment, double initValue, const std::string& substanceUnits, bool forceRegenerate)
 {
-	check_model();
+
 	if (impl->document->getModel()->getSpecies(sid) != NULL)
 	{
 		throw std::invalid_argument("Roadrunner::addSpecies failed, species with ID " + sid + " already existed in the model");
@@ -5204,6 +5204,10 @@ void RoadRunner::addSpecies(const std::string& sid, const std::string& compartme
 	{
 		newSpecies->setInitialConcentration(initValue);
 	}
+	else if (impl->document->getModel()->getUnitDefinition(substanceUnits) == NULL) 
+	{
+		throw std::invalid_argument("Roadrunner::addSpecies failed, no unit " + substanceUnits + " existed in the model");
+	} 
 	else 
 	{
 		newSpecies->setInitialAmount(initValue);
@@ -5219,7 +5223,6 @@ void RoadRunner::addSpecies(const std::string& sid, const std::string& compartme
 
 void RoadRunner::addReaction(const std::string& sbmlRep, bool forceRegenerate)
 {
-	check_model();
 
 	Log(Logger::LOG_DEBUG) << "Adding new reaction ..." << endl;
 	libsbml::Reaction *newReaction = impl->document->getModel()->createReaction();
@@ -5235,7 +5238,6 @@ void RoadRunner::addReaction(const std::string& sbmlRep, bool forceRegenerate)
 
 void RoadRunner::addReaction(const string& rid, vector<string> reactants, vector<string> products, const string& kineticLaw, bool forceRegenerate)
 {
-	check_model();
 	
 	using namespace libsbml;
 	Model* sbmlModel = impl->document->getModel();
@@ -5282,7 +5284,6 @@ void RoadRunner::addReaction(const string& rid, vector<string> reactants, vector
 
 void RoadRunner::removeSpecies(const std::string& sid, bool forceRegenerate)
 {
-	check_model();
 	
 	using namespace libsbml;
 	Model* sbmlModel = impl->document->getModel();
@@ -5353,6 +5354,8 @@ void RoadRunner::removeSpecies(const std::string& sid, bool forceRegenerate)
 			continue;
 		}
 
+		// Todo:: delete event????
+
 		// this reaction is not related to the deleted species 
 		index++;
 	}
@@ -5365,7 +5368,7 @@ void RoadRunner::removeSpecies(const std::string& sid, bool forceRegenerate)
 
 void RoadRunner::addCompartment(const std::string& cid, double initVolume, bool forceRegenerate)
 {
-	check_model();
+
 
 	if (impl->document->getModel()->getCompartment(cid) != NULL)
 	{
@@ -5387,7 +5390,6 @@ void RoadRunner::addCompartment(const std::string& cid, double initVolume, bool 
 
 void RoadRunner::removeCompartment(const std::string& cid, bool forceRegenerate)
 {
-	check_model();
 	libsbml::Compartment* toDelete = impl->document->getModel()->removeCompartment(cid);
 	if (toDelete == NULL)
 	{
@@ -5403,7 +5405,6 @@ void RoadRunner::removeCompartment(const std::string& cid, bool forceRegenerate)
 
 void RoadRunner::setKineticLaw(const std::string& rid, const std::string& kineticLaw, bool forceRegenerate)
 {
-	check_model();
 
 	using namespace libsbml;
 	Model* sbmlModel = impl->document->getModel();
@@ -5423,7 +5424,6 @@ void RoadRunner::setKineticLaw(const std::string& rid, const std::string& kineti
 		regenerate();
 	}
 }
-
 
 
 
