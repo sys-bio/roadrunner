@@ -202,7 +202,6 @@ public:
      */
     Compiler* compiler;
 
-    std::string mCurrentSBML;
 
     /**
      * structural analysis library.
@@ -242,7 +241,6 @@ public:
                 mSelectionList(),
                 mSteadyStateSelection(),
                 model(0),
-                mCurrentSBML(),
                 mLS(0),
                 simulateOpt(),
                 mInstanceID(0),
@@ -269,7 +267,6 @@ public:
                 mSelectionList(),
                 mSteadyStateSelection(),
                 model(0),
-                mCurrentSBML(),
                 mLS(0),
                 simulateOpt(),
                 mInstanceID(0),
@@ -562,9 +559,9 @@ ls::LibStructural* RoadRunner::getLibStruct()
     {
         return impl->mLS;
     }
-    else if (!impl->mCurrentSBML.empty())
+    else if (impl->document)
     {
-        impl->mLS = new ls::LibStructural(impl->mCurrentSBML);
+        impl->mLS = new ls::LibStructural(getCurrentSBML());
         Log(Logger::LOG_INFORMATION) << "created structural analysis, messages: "
                 << impl->mLS->getAnalysisMsg();
         return impl->mLS;
@@ -937,9 +934,10 @@ void RoadRunner::load(const string& uriOrSbml, const Dictionary *dict)
 {
     Mutex::ScopedLock lock(roadRunnerMutex);
 
-    get_self();
+    //get_self();
 
-    self.mCurrentSBML = SBMLReader::read(uriOrSbml);
+    //self.mCurrentSBML = SBMLReader::read(uriOrSbml);
+	std::string mCurrentSBML = SBMLReader::read(uriOrSbml);
 
     delete impl->model;
     impl->model = 0;
@@ -948,15 +946,15 @@ void RoadRunner::load(const string& uriOrSbml, const Dictionary *dict)
     impl->mLS = NULL;
 
     if(dict) {
-        self.loadOpt = LoadSBMLOptions(dict);
+        impl->loadOpt = LoadSBMLOptions(dict);
     }
 
     // TODO: streamline so SBML document is not read several times
     // check that stoichiometry is defined
-    if (!isStoichDefined(self.mCurrentSBML)) {
+    if (!isStoichDefined(mCurrentSBML)) {
         // if any reactions are missing stoich, the simulation results will be wrong
         // fix sbml by assuming unit stoich where missing
-        self.mCurrentSBML = fixMissingStoich(self.mCurrentSBML);
+        mCurrentSBML = fixMissingStoich(mCurrentSBML);
         Log(Logger::LOG_WARNING)<<"Stoichiometry is not defined for all reactions; assuming unit stoichiometry where missing";
     }
     try {
@@ -965,10 +963,10 @@ void RoadRunner::load(const string& uriOrSbml, const Dictionary *dict)
     // we validate the model to provide explicit details about where it
     // failed. Its *VERY* expensive to pre-validate the model.
 		libsbml::SBMLReader reader;
-		impl->document = reader.readSBMLFromString(impl->mCurrentSBML);
-        self.model = ExecutableModelFactory::createModel(self.mCurrentSBML, &self.loadOpt);
+		impl->document = reader.readSBMLFromString(mCurrentSBML);
+        impl->model = ExecutableModelFactory::createModel(mCurrentSBML, &impl->loadOpt);
     } catch (std::exception&) {
-        string errors = validateSBML(impl->mCurrentSBML);
+        string errors = validateSBML(mCurrentSBML);
 
         if(!errors.empty()) {
             Log(Logger::LOG_ERROR) << "Invalid SBML: " << endl << errors;
@@ -981,7 +979,7 @@ void RoadRunner::load(const string& uriOrSbml, const Dictionary *dict)
     impl->syncAllSolversWithModel(impl->model);
 
     reset();
-    if ((self.loadOpt.loadFlags & LoadSBMLOptions::NO_DEFAULT_SELECTIONS) == 0)
+    if ((impl->loadOpt.loadFlags & LoadSBMLOptions::NO_DEFAULT_SELECTIONS) == 0)
     {
         createDefaultSelectionLists();
     }
@@ -1343,7 +1341,7 @@ void RoadRunner::setConservedMoietyAnalysis(bool value)
         // have to reload
         self.loadOpt.modelGeneratorOpt |= LoadSBMLOptions::RECOMPILE;
 
-        load(impl->mCurrentSBML);
+        load(getCurrentSBML());
 
         // restore original reload value
         self.loadOpt.modelGeneratorOpt = savedOpt;
@@ -2483,7 +2481,7 @@ DoubleMatrix RoadRunner::getExtendedStoichiometryMatrix()
     ls->getStoichiometryMatrixLabels(m.getRowNames(), m.getColNames());
 
     libsbml::SBMLReader reader;
-    libsbml::SBMLDocument *doc = reader.readSBMLFromString(self.mCurrentSBML);
+    libsbml::SBMLDocument *doc = reader.readSBMLFromString(getCurrentSBML());
     libsbml::Model *model = doc->getModel();
     typedef cxx11_ns::unordered_map<int,int> RxnIdxToRowMap;
     typedef cxx11_ns::unordered_map<int,libsbml::Reaction*> RxnIdxToRxnMap;
@@ -3878,10 +3876,11 @@ static string convertSBMLVersion(const std::string& str, int level, int version)
 
 string RoadRunner::getSBML(int level, int version)
 {
+	std::string currSBML = getCurrentSBML();
     if (level > 0) {
-        return convertSBMLVersion(impl->mCurrentSBML, level, version);
+        return convertSBMLVersion(currSBML, level, version);
     }
-    return impl->mCurrentSBML;
+	return currSBML;
 }
 
 string RoadRunner::getCurrentSBML(int level, int version)
@@ -3895,68 +3894,59 @@ string RoadRunner::getCurrentSBML(int level, int version)
     libsbml::SBMLDocument *doc = 0;
     libsbml::Model *model = 0;
 
-    try {
-        doc = reader.readSBMLFromString(self.mCurrentSBML); // new doc
-        model = doc->getModel(); // owned by doc
+	//doc = reader.readSBMLFromString(self.mCurrentSBML); // new doc
+	//model = doc->getModel(); // owned by doc
+	model = impl->document->getModel();
 
-        vector<string> array = getFloatingSpeciesIds();
-        for (int i = 0; i < array.size(); i++)
-        {
-            double value = 0;
-            impl->model->getFloatingSpeciesAmounts(1, &i, &value);
-            setSBMLValue(model, array[i], value);
-        }
+	vector<string> array = getFloatingSpeciesIds();
+	for (int i = 0; i < array.size(); i++)
+	{
+		double value = 0;
+		impl->model->getFloatingSpeciesAmounts(1, &i, &value);
+		setSBMLValue(model, array[i], value);
+	}
 
-        array = getBoundarySpeciesIds();
-        for (int i = 0; i < array.size(); i++)
-        {
-            double value = 0;
-            impl->model->getBoundarySpeciesConcentrations(1, &i, &value);
-            setSBMLValue(model, array[i], value);
-        }
+	array = getBoundarySpeciesIds();
+	for (int i = 0; i < array.size(); i++)
+	{
+		double value = 0;
+		impl->model->getBoundarySpeciesConcentrations(1, &i, &value);
+		setSBMLValue(model, array[i], value);
+	}
 
-        array = getCompartmentIds();
-        for (int i = 0; i < array.size(); i++)
-        {
-            double value = 0;
-            impl->model->getCompartmentVolumes(1, &i, &value);
-            setSBMLValue(model, array[i], value);
-        }
+	array = getCompartmentIds();
+	for (int i = 0; i < array.size(); i++)
+	{
+		double value = 0;
+		impl->model->getCompartmentVolumes(1, &i, &value);
+		setSBMLValue(model, array[i], value);
+	}
 
-        array = getGlobalParameterIds();
-        for (int i = 0; i < impl->model->getNumGlobalParameters(); i++)
-        {
-            double value = 0;
-            impl->model->getGlobalParameterValues(1, &i, &value);
+	array = getGlobalParameterIds();
+	for (int i = 0; i < impl->model->getNumGlobalParameters(); i++)
+	{
+		double value = 0;
+		impl->model->getGlobalParameterValues(1, &i, &value);
 
-            libsbml::Parameter* param = model->getParameter(array[i]);
-            if (param != NULL)
-            {
-                param->setValue(value);
-            }
-            else
-            {
-                // sanity check, just make sure that this is a conserved moeity
-                if (self.model->getConservedMoietyIndex(array[i]) < 0)
-                {
-                    throw std::logic_error("The global parameter name "
-                            + array[i] + " could not be found in the SBML model, "
-                            " and it is not a conserved moiety");
-                }
-            }
-        }
+		libsbml::Parameter* param = model->getParameter(array[i]);
+		if (param != NULL)
+		{
+			param->setValue(value);
+		}
+		else
+		{
+			// sanity check, just make sure that this is a conserved moeity
+			if (self.model->getConservedMoietyIndex(array[i]) < 0)
+			{
+				throw std::logic_error("The global parameter name "
+						+ array[i] + " could not be found in the SBML model, "
+						" and it is not a conserved moiety");
+			}
+		}
+	}
 
-        libsbml::SBMLWriter writer;
-        writer.writeSBML(doc, stream);
-    }
-    catch(std::exception&) {
-        delete doc;
-        doc = 0;
-        throw; // re-throw exception.
-    }
-
-    delete doc;
-
+	libsbml::SBMLWriter writer;
+	writer.writeSBML(doc, stream);
 
     if (level > 0) {
         return convertSBMLVersion(stream.str(), level, version);
@@ -5010,7 +5000,7 @@ void RoadRunner::saveState(std::string filename)
 	//created
 	//It might also be possible to construct LibStructural without SBML, but I'm not familiar with it
 	//If this implementation is too slow we can change that
-	rr::saveBinary(out, impl->mCurrentSBML);
+	rr::saveBinary(out, getCurrentSBML());
 }
 
 void RoadRunner::saveSelectionVector(std::ostream& out, std::vector<SelectionRecord>& v)
@@ -5149,7 +5139,7 @@ void RoadRunner::loadState(std::string filename)
 	}
 
 	//Currently the SBML is saved with the binary data, see saveState above
-	rr::loadBinary(in, impl->mCurrentSBML);
+	rr::loadBinary(in, getCurrentSBML());
 	//Restart the integrator and reset the model
 	//This will need to change if we decide to add pausing
 	// impl->integrator->restart(0.0);
