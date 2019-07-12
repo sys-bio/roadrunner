@@ -3889,7 +3889,7 @@ string RoadRunner::getSBML(int level, int version)
 	return stream.str();
 }
 
-string RoadRunner::getSBML(int level, int version)
+string RoadRunner::getCurrentSBML(int level, int version)
 {
     check_model(); 
     get_self();
