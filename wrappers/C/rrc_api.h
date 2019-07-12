@@ -468,8 +468,6 @@ C_DECL_SPEC bool rrcCallConv removeSpecies(RRHandle handle, const char* sid);
 */
 C_DECL_SPEC bool rrcCallConv removeSpeciesNoRegen(RRHandle handle, const char* sid);
 
-
-
 /*!
  \brief Add a reaction to the current model
  \param[in] handle Handle to a RoadRunner instance
