@@ -5181,7 +5181,7 @@ void RoadRunner::removeReaction(const std::string& rid, bool forceRegenerate)
 	
 }
 
-void RoadRunner::addSpecies(std::string sid, std::string compartment, double initValue, std::string substanceUnits, bool forceRegenerate)
+void RoadRunner::addSpecies(const std::string& sid, const std::string& compartment, double initValue, const std::string& substanceUnits, bool forceRegenerate)
 {
 	check_model();
 	if (impl->document->getModel()->getSpecies(sid) != NULL)
@@ -5220,6 +5220,7 @@ void RoadRunner::addSpecies(std::string sid, std::string compartment, double ini
 void RoadRunner::addReaction(const std::string& sbmlRep, bool forceRegenerate)
 {
 	check_model();
+
 	Log(Logger::LOG_DEBUG) << "Adding new reaction ..." << endl;
 	libsbml::Reaction *newReaction = impl->document->getModel()->createReaction();
 	libsbml::XMLInputStream stream(sbmlRep.c_str(), false);
@@ -5235,10 +5236,17 @@ void RoadRunner::addReaction(const std::string& sbmlRep, bool forceRegenerate)
 void RoadRunner::addReaction(const string& rid, vector<string> reactants, vector<string> products, const string& kineticLaw, bool forceRegenerate)
 {
 	check_model();
-	Log(Logger::LOG_DEBUG) << "Adding reaction "  << rid <<  "..." << endl;
+	
 	using namespace libsbml;
 	Model* sbmlModel = impl->document->getModel();
-	libsbml::Reaction* newReaction = sbmlModel->createReaction();
+
+	if (sbmlModel->getReaction(rid) != NULL)
+	{
+		throw std::invalid_argument("Roadrunner::addReaction failed, reaction with ID " + rid + " already existed in the model");
+	}
+
+	Log(Logger::LOG_DEBUG) << "Adding reaction " << rid << "..." << endl;
+	Reaction* newReaction = sbmlModel->createReaction();
 	
 	newReaction->setId(rid);
 
@@ -5263,13 +5271,8 @@ void RoadRunner::addReaction(const string& rid, vector<string> reactants, vector
 	}
 
 
-	libsbml::KineticLaw* kLaw = newReaction->createKineticLaw();
-	ASTNode_t* math = libsbml::SBML_parseFormula(&kineticLaw[0]);
-	if (math == NULL)
-	{
-		throw std::invalid_argument("Roadrunner::addReaction failed, an error occurred in parsing the math formula");
-	}
-	kLaw->setMath(math);
+	KineticLaw* kLaw = newReaction->createKineticLaw();
+	kLaw->setFormula(kineticLaw);
 	
 	if (forceRegenerate)
 	{
@@ -5359,6 +5362,70 @@ void RoadRunner::removeSpecies(const std::string& sid, bool forceRegenerate)
 		regenerate();
 	}
 }
+
+void RoadRunner::addCompartment(const std::string& cid, double initVolume, bool forceRegenerate)
+{
+	check_model();
+
+	if (impl->document->getModel()->getCompartment(cid) != NULL)
+	{
+		throw std::invalid_argument("Roadrunner::addCompartment failed, compartment " + cid + " already existed in the model");
+	}
+
+	Log(Logger::LOG_DEBUG) << "Adding compartment " << cid << " with initial volume " << initVolume << endl;
+	libsbml::Compartment* newCompartment = impl->document->getModel()->createCompartment();
+
+	newCompartment->setId(cid);
+	newCompartment->setVolume(initVolume);
+
+	if (forceRegenerate)
+	{
+		regenerate();
+	}
+}
+
+
+void RoadRunner::removeCompartment(const std::string& cid, bool forceRegenerate)
+{
+	check_model();
+	libsbml::Compartment* toDelete = impl->document->getModel()->removeCompartment(cid);
+	if (toDelete == NULL)
+	{
+		throw std::invalid_argument("Roadrunner::removeCompartment failed, no compartment with ID " + cid + " existed in the model");
+	}
+	Log(Logger::LOG_DEBUG) << "Removing compartment " << cid << "..." << endl;
+	delete toDelete;
+	if (forceRegenerate)
+	{
+		regenerate();
+	}
+}
+
+void RoadRunner::setKineticLaw(const std::string& rid, const std::string& kineticLaw, bool forceRegenerate)
+{
+	check_model();
+
+	using namespace libsbml;
+	Model* sbmlModel = impl->document->getModel();
+	Reaction* reaction = sbmlModel->getReaction(rid);
+
+	if (reaction == NULL)
+	{
+		throw std::invalid_argument("Roadrunner::setKineticLaw failed, no reaction with ID " + rid + " existed in the model");
+	}
+
+	Log(Logger::LOG_DEBUG) << "Setting kinetic law for reaction " << rid << "..." << endl;
+
+	reaction->getKineticLaw()->setFormula(kineticLaw);
+
+	if (forceRegenerate)
+	{
+		regenerate();
+	}
+}
+
+
+
 
 void RoadRunner::regenerate()
 {

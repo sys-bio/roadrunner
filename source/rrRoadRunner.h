@@ -723,7 +723,7 @@ public:
 
 	/**
 	 * Add a species to the current model
-	 * @param id: the ID of the species to be added
+	 * @param sid: the ID of the species to be added
 	 * @param compartment: the compartment of the species to be added
 	 * @param initValue: the initial amount or concentration of the species to be added
 	 * @param substanceUnits: the substance unit of the species to be added
@@ -734,7 +734,7 @@ public:
 	 *						   to save time for editing for multiple times, one could 
      *					       set this flag to true only in the last call of editing 
 	 */
-	void addSpecies(std::string sid, std::string compartment, double initValue, std::string substanceUnits = "concentration", bool forceRegenerate = true);
+	void addSpecies(const std::string& sid, const std::string& compartment, double initValue, const std::string& substanceUnits = "concentration", bool forceRegenerate = true);
 
 	/*
 	* Add a reaction to the current model
@@ -776,6 +776,46 @@ public:
 	*					      set this flag to true only in the last call of editing
 	*/
 	void removeSpecies(const std::string& sid, bool forceRegenerate = true);
+
+
+	/**
+	 * Add a compartment to the current model
+	 * @param cid: the ID of the compartment to be added
+	 * @param initVolume: the initial volume of the compartment to be added
+	 * @param forceRegenerate: a boolen value to indicate if the model is regenerated
+	 *					       after this function call
+	 *						   default value is true to regenerate model after each call
+	 *                         of editing function
+	 *						   to save time for editing for multiple times, one could
+	 *					       set this flag to true only in the last call of editing
+	 */
+	void addCompartment(const std::string& cid, double initVolume, bool forceRegenerate = true);
+
+	/**
+	 * Remove a compartment from the current model
+	 * @param cid: the ID of the compartment to be removed
+	 * @param forceRegenerate: a boolen value to indicate if the model is regenerated
+	 *					       after this function call
+	 *						   default value is true to regenerate model after each call
+	 *                         of editing function
+	 *						   to save time for editing for multiple times, one could
+	 *					       set this flag to true only in the last call of editing
+	 */
+	void removeCompartment(const std::string& cid, bool forceRegenerate = true);
+
+
+	/*
+	* Set the kinetic law for a existing reaction in the current model
+	* @param rid: the ID of reaction to be modified
+	* @param kineticLaw: the kinetic formular of reaction
+	* @param forceRegenerate: a boolen value to indicate if the model is regenerated
+	*					      after this function call
+	*						  default value is true to regenerate model after each call
+	*                         of editing function
+	*						  to save time for editing for multiple times, one could
+	*					      set this flag to true only in the last call of editing
+	*/
+	void setKineticLaw(const std::string& rid, const std::string& kineticLaw, bool forceRegenerate = true);
 
 
     /******************************* Steady State Section *************************/
