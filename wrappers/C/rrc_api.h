@@ -434,7 +434,7 @@ C_DECL_SPEC char* rrcCallConv getSBML(RRHandle handle);
  \return Returns false if the call fails, otherwise returns a true
  \ingroup edit
 */
-C_DECL_SPEC bool rrcCallConv addSpecies(RRHandle handle, const char* sid, const char* compartment, double initialValue, const char* substanceUnit = "concentration", bool forceRegenerate = true);
+C_DECL_SPEC bool rrcCallConv addSpecies(RRHandle handle, const char* sid, const char* compartment, double initialValue, const char* substanceUnit, bool forceRegenerate);
 
 
 /*!
@@ -445,7 +445,7 @@ C_DECL_SPEC bool rrcCallConv addSpecies(RRHandle handle, const char* sid, const 
  \return Returns false if the call fails, otherwise returns a true
  \ingroup edit
 */
-C_DECL_SPEC bool rrcCallConv removeSpecies(RRHandle handle, const char* sid, bool forceRegenerate = true);
+C_DECL_SPEC bool rrcCallConv removeSpecies(RRHandle handle, const char* sid, bool forceRegenerate);
 
 /*!
  \brief Add a reaction to the current model
@@ -455,7 +455,7 @@ C_DECL_SPEC bool rrcCallConv removeSpecies(RRHandle handle, const char* sid, boo
  \return Returns false if the call fails, otherwise returns a true
  \ingroup edit
 */
-C_DECL_SPEC bool rrcCallConv addReactionFromSBML(RRHandle handle, const char* sbmlRep, bool forceRegenerate = true);
+C_DECL_SPEC bool rrcCallConv addReactionFromSBML(RRHandle handle, const char* sbmlRep, bool forceRegenerate);
 
 /*!
  \brief Add a reaction to the current model
@@ -471,7 +471,7 @@ C_DECL_SPEC bool rrcCallConv addReactionFromSBML(RRHandle handle, const char* sb
  \ingroup edit
 */
 C_DECL_SPEC bool rrcCallConv addReaction(RRHandle handle, const char* rid, const char** reactants, int numReactants,
-	const char** products, int numProducts, const char* kineticLaw, bool forceRegenerate = true);
+	const char** products, int numProducts, const char* kineticLaw, bool forceRegenerate);
 
 /*!
  \brief Remove a reaction from the current model
@@ -481,7 +481,7 @@ C_DECL_SPEC bool rrcCallConv addReaction(RRHandle handle, const char* rid, const
  \return Returns false if the call fails, otherwise returns a true
  \ingroup edit
 */
-C_DECL_SPEC bool rrcCallConv removeReaction(RRHandle handle, const char* rid, bool forceRegenerate = true);
+C_DECL_SPEC bool rrcCallConv removeReaction(RRHandle handle, const char* rid, bool forceRegenerate);
 
 
 
