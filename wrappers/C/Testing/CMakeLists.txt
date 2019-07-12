@@ -9,6 +9,7 @@ set(tests
     Suite_SBML_Tests
     Suite_NOM_Tests
     Suite_LibStruct_Tests
+	Suite_Test_Model_Editing
     )
 
 add_executable( ${target}
