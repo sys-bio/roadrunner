@@ -561,7 +561,7 @@ ls::LibStructural* RoadRunner::getLibStruct()
     }
     else if (impl->document)
     {
-        impl->mLS = new ls::LibStructural(getCurrentSBML());
+        impl->mLS = new ls::LibStructural(getSBML());
         Log(Logger::LOG_INFORMATION) << "created structural analysis, messages: "
                 << impl->mLS->getAnalysisMsg();
         return impl->mLS;
@@ -1341,7 +1341,7 @@ void RoadRunner::setConservedMoietyAnalysis(bool value)
         // have to reload
         self.loadOpt.modelGeneratorOpt |= LoadSBMLOptions::RECOMPILE;
 
-        load(getCurrentSBML());
+        load(getSBML());
 
         // restore original reload value
         self.loadOpt.modelGeneratorOpt = savedOpt;
@@ -2481,7 +2481,7 @@ DoubleMatrix RoadRunner::getExtendedStoichiometryMatrix()
     ls->getStoichiometryMatrixLabels(m.getRowNames(), m.getColNames());
 
     libsbml::SBMLReader reader;
-    libsbml::SBMLDocument *doc = reader.readSBMLFromString(getCurrentSBML());
+    libsbml::SBMLDocument *doc = reader.readSBMLFromString(getSBML());
     libsbml::Model *model = doc->getModel();
     typedef cxx11_ns::unordered_map<int,int> RxnIdxToRowMap;
     typedef cxx11_ns::unordered_map<int,libsbml::Reaction*> RxnIdxToRxnMap;
@@ -3876,27 +3876,29 @@ static string convertSBMLVersion(const std::string& str, int level, int version)
 
 string RoadRunner::getSBML(int level, int version)
 {
-	std::string currSBML = getCurrentSBML();
+    check_model(); 
+
+    std::stringstream stream;
+
+	libsbml::SBMLWriter writer;
+	writer.writeSBML(impl->document, stream);
+
     if (level > 0) {
-        return convertSBMLVersion(currSBML, level, version);
+        return convertSBMLVersion(stream.str(), level, version);
     }
-	return currSBML;
+	return stream.str();
 }
 
-string RoadRunner::getCurrentSBML(int level, int version)
+string RoadRunner::getSBML(int level, int version)
 {
-    check_model();
-
+    check_model(); 
     get_self();
 
-    libsbml::SBMLReader reader;
     std::stringstream stream;
-    libsbml::SBMLDocument *doc = 0;
+    libsbml::SBMLDocument doc(*impl->document);
     libsbml::Model *model = 0;
 
-	//doc = reader.readSBMLFromString(self.mCurrentSBML); // new doc
-	//model = doc->getModel(); // owned by doc
-	model = impl->document->getModel();
+	model = doc.getModel();
 
 	vector<string> array = getFloatingSpeciesIds();
 	for (int i = 0; i < array.size(); i++)
@@ -3946,7 +3948,7 @@ string RoadRunner::getCurrentSBML(int level, int version)
 	}
 
 	libsbml::SBMLWriter writer;
-	writer.writeSBML(doc, stream);
+	writer.writeSBML(&doc, stream);
 
     if (level > 0) {
         return convertSBMLVersion(stream.str(), level, version);
@@ -5000,7 +5002,7 @@ void RoadRunner::saveState(std::string filename)
 	//created
 	//It might also be possible to construct LibStructural without SBML, but I'm not familiar with it
 	//If this implementation is too slow we can change that
-	rr::saveBinary(out, getCurrentSBML());
+	rr::saveBinary(out, getSBML());
 }
 
 void RoadRunner::saveSelectionVector(std::ostream& out, std::vector<SelectionRecord>& v)
@@ -5139,7 +5141,7 @@ void RoadRunner::loadState(std::string filename)
 	}
 
 	//Currently the SBML is saved with the binary data, see saveState above
-	rr::loadBinary(in, getCurrentSBML());
+	rr::loadBinary(in, getSBML());
 	//Restart the integrator and reset the model
 	//This will need to change if we decide to add pausing
 	// impl->integrator->restart(0.0);
