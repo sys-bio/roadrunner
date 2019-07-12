@@ -71,8 +71,7 @@ void copyCachedModel(a_type* src, b_type* dst)
 }
 
 
-ExecutableModel* LLVMModelGenerator::regenerateModel(ExecutableModel* oldModel, libsbml::SBMLDocument* doc,
-	uint options)
+ExecutableModel* LLVMModelGenerator::regenerateModel(libsbml::SBMLDocument* doc, uint options)
 {
 	bool forceReCompile = options & LoadSBMLOptions::RECOMPILE;
 
@@ -359,27 +358,7 @@ ExecutableModel* LLVMModelGenerator::regenerateModel(ExecutableModel* oldModel, 
 	context.stealThePeach(&rc->symbols, &rc->context,
 		&rc->executionEngine, &rc->random, &rc->errStr, &rc->module);
 
-	
-	// copy the amounts of old existing species to new model
-	// start from where we paused
-
-	// map from species ID to current amount
-	map<string, double> amountsMap;
-	for (int i = 0; i < oldModel->getNumFloatingSpecies(); i++) {
-		double amount;
-		oldModel->getFloatingSpeciesAmounts(1, &i, &amount);
-		amountsMap.insert(std::pair<string, double>(oldModel->getFloatingSpeciesId(i), amount));
-	}
-
-	ExecutableModel* newModel = new LLVMExecutableModel(rc, modelData);
-
-	for (int i = 0; i < newModel->getNumFloatingSpecies(); i++) {
-		string speciesId = newModel->getFloatingSpeciesId(i);
-		map<string, double>::iterator it = amountsMap.find(speciesId);
-		if (it != amountsMap.end()) newModel->setFloatingSpeciesAmounts(1, &i, &(it->second));
-	}
-
-	return newModel;
+	return new LLVMExecutableModel(rc, modelData);
 }
 
 

@@ -73,9 +73,9 @@ ExecutableModel *rr::ExecutableModelFactory::createModel(std::istream& in, uint 
 	return new rrllvm::LLVMExecutableModel(in, modelGeneratorOpt);
 }
 
-ExecutableModel* ExecutableModelFactory::regenerateModel(rr::ExecutableModel* oldModel, libsbml::SBMLDocument* doc, uint options)
+ExecutableModel* ExecutableModelFactory::regenerateModel(libsbml::SBMLDocument* doc, uint options)
 {
-	return  rrllvm::LLVMModelGenerator::regenerateModel(oldModel, doc, options);
+	return  rrllvm::LLVMModelGenerator::regenerateModel(doc, options);
 }
 
 /*
