@@ -754,7 +754,7 @@ public:
 	* @param rid: the ID of reaction to be added
 	* @param reactants: the list of reactants ID of reaction to be added
 	* @param products: the list of products ID of reaction to be added
-	* @param kineticLaw: the kinetic formular of reaction to be added
+	* @param kineticLaw: the kinetic formula of reaction to be added
 	* @param forceRegenerate: a boolen value to indicate if the model is regenerated
 	*					      after this function call
 	*						  default value is true to regenerate model after each call
@@ -816,6 +816,31 @@ public:
 	*					      set this flag to true only in the last call of editing
 	*/
 	void setKineticLaw(const std::string& rid, const std::string& kineticLaw, bool forceRegenerate = true);
+
+	/*
+	* Add an assignment rule to the current model
+	* @param vid: the ID of a variable that the rule assigns a value to
+	* @param formula: the math formula of assignment rule to be added
+	* @param forceRegenerate: a boolen value to indicate if the model is regenerated
+	*					      after this function call
+	*						  default value is true to regenerate model after each call
+	*                         of editing function
+	*						  to save time for editing for multiple times, one could
+	*					      set this flag to true only in the last call of editing
+	*/
+	void addAssignmentRule(const std::string& vid, const std::string& formula, bool forceRegenerate = true);
+
+	/**
+	 * Remove a rule from the current model
+	 * @param rid: the ID of variable whicch the rule assigns a value to
+	 * @param forceRegenerate: a boolen value to indicate if the model is regenerated
+	 *					       after this function call
+	 *						   default value is true to regenerate model after each call
+	 *                         of editing function
+	 *						   to save time for editing for multiple times, one could
+	 *					       set this flag to true only in the last call of editing
+	 */
+	void removeRule(const std::string& vid, bool forceRegenerate = true);
 
 
     /******************************* Steady State Section *************************/
