@@ -71,7 +71,7 @@ void copyCachedModel(a_type* src, b_type* dst)
 }
 
 
-ExecutableModel* LLVMModelGenerator::regenerateModel(libsbml::SBMLDocument* doc, uint options)
+ExecutableModel* LLVMModelGenerator::regenerateModel(ExecutableModel* oldModel, libsbml::SBMLDocument* doc, uint options)
 {
 	bool forceReCompile = options & LoadSBMLOptions::RECOMPILE;
 
@@ -271,22 +271,22 @@ ExecutableModel* LLVMModelGenerator::regenerateModel(libsbml::SBMLDocument* doc,
 	else
 	{
 		rc->setBoundarySpeciesAmountPtr = (SetBoundarySpeciesAmountCodeGen::FunctionPtr)
-			context.getExecutionEngine().getFunctionAddress("setBoundarySpeciesAmount");
+context.getExecutionEngine().getFunctionAddress("setBoundarySpeciesAmount");
 
-		rc->setBoundarySpeciesConcentrationPtr = (SetBoundarySpeciesAmountCodeGen::FunctionPtr)
-			context.getExecutionEngine().getFunctionAddress("setBoundarySpeciesConcentration");
+rc->setBoundarySpeciesConcentrationPtr = (SetBoundarySpeciesAmountCodeGen::FunctionPtr)
+context.getExecutionEngine().getFunctionAddress("setBoundarySpeciesConcentration");
 
-		rc->setFloatingSpeciesConcentrationPtr = (SetBoundarySpeciesAmountCodeGen::FunctionPtr)
-			context.getExecutionEngine().getFunctionAddress("setFloatingSpeciesConcentration");
+rc->setFloatingSpeciesConcentrationPtr = (SetBoundarySpeciesAmountCodeGen::FunctionPtr)
+context.getExecutionEngine().getFunctionAddress("setFloatingSpeciesConcentration");
 
-		rc->setCompartmentVolumePtr = (SetBoundarySpeciesAmountCodeGen::FunctionPtr)
-			context.getExecutionEngine().getFunctionAddress("setCompartmentVolume");
+rc->setCompartmentVolumePtr = (SetBoundarySpeciesAmountCodeGen::FunctionPtr)
+context.getExecutionEngine().getFunctionAddress("setCompartmentVolume");
 
-		rc->setFloatingSpeciesAmountPtr = (SetBoundarySpeciesAmountCodeGen::FunctionPtr)
-			context.getExecutionEngine().getFunctionAddress("setFloatingSpeciesAmount");
+rc->setFloatingSpeciesAmountPtr = (SetBoundarySpeciesAmountCodeGen::FunctionPtr)
+context.getExecutionEngine().getFunctionAddress("setFloatingSpeciesAmount");
 
-		rc->setGlobalParameterPtr = (SetGlobalParameterCodeGen::FunctionPtr)
-			context.getExecutionEngine().getFunctionAddress("setGlobalParameter");
+rc->setGlobalParameterPtr = (SetGlobalParameterCodeGen::FunctionPtr)
+context.getExecutionEngine().getFunctionAddress("setGlobalParameter");
 	}
 
 	if (options & LoadSBMLOptions::MUTABLE_INITIAL_CONDITIONS)
@@ -358,7 +358,123 @@ ExecutableModel* LLVMModelGenerator::regenerateModel(libsbml::SBMLDocument* doc,
 	context.stealThePeach(&rc->symbols, &rc->context,
 		&rc->executionEngine, &rc->random, &rc->errStr, &rc->module);
 
-	return new LLVMExecutableModel(rc, modelData);
+	LLVMExecutableModel* newModel = new LLVMExecutableModel(rc, modelData);
+
+
+	// the stored SBML document will not keep updated, so we need to
+	// copy the old values (e.g, initial values, current values) to new model
+	// so that we can start from where we paused
+
+	for (int i = 0; i < oldModel->getNumFloatingSpecies(); i++)
+	{
+		string id = oldModel->getFloatingSpeciesId(i);
+		int index = newModel->getFloatingSpeciesIndex(id);
+
+		if (index != -1)
+		{
+			// new model has this species
+			if (!newModel->symbols->hasAssignmentRule(id) && !newModel->symbols->hasRateRule(id))
+			{
+				if (!newModel->symbols->hasInitialAssignmentRule(id))
+				{
+					double initValue = 0;
+					oldModel->getFloatingSpeciesInitAmounts(1, &i, &initValue);
+					newModel->setFloatingSpeciesInitAmounts(1, &index, &initValue);
+				}
+				
+				double value = 0;
+				oldModel->getFloatingSpeciesAmounts(1, &i, &value);
+				newModel->setFloatingSpeciesAmounts(1, &index, &value);
+			}
+		}
+	}
+
+
+	for (int i = 0; i < oldModel->getNumBoundarySpecies(); i++)
+	{
+		string id = oldModel->getBoundarySpeciesId(i);
+		int index = newModel->getBoundarySpeciesIndex(id);
+
+		if (index != -1)
+		{
+			// new model has this species
+			if (!newModel->symbols->hasAssignmentRule(id) && !newModel->symbols->hasRateRule(id))
+			{
+				double value = 0;
+				oldModel->getBoundarySpeciesConcentrations(1, &i, &value);
+				newModel->setBoundarySpeciesConcentrations(1, &index, &value);
+			}
+		}
+		
+	}
+
+
+	for (int i = 0; i < oldModel->getNumCompartments(); i++)
+	{
+		string id = oldModel->getCompartmentId(i);
+		int index = newModel->getCompartmentIndex(id);
+
+		if (index != -1)
+		{
+			// new model has this compartment
+			if (!newModel->symbols->hasAssignmentRule(id) && !newModel->symbols->hasRateRule(id))
+			{
+				if (!newModel->symbols->hasInitialAssignmentRule(id))
+				{
+					double initValue = 0;
+					oldModel->getCompartmentInitVolumes(1, &i, &initValue);
+					newModel->setCompartmentInitVolumes(1, &index, &initValue);
+				}
+
+				double value = 0;
+				oldModel->getCompartmentVolumes(1, &i, &value);
+				newModel->setCompartmentVolumes(1, &index, &value);
+			}
+		}
+	}
+
+
+	for (int i = 0; i < oldModel->getNumGlobalParameters(); i++)
+	{
+		string id = oldModel->getGlobalParameterId(i);
+		int index = newModel->getGlobalParameterIndex(id);
+
+		if (index != -1)
+		{
+			// new model has this parameter
+			if (!newModel->symbols->hasAssignmentRule(id) && !newModel->symbols->hasRateRule(id))
+			{
+				if (!newModel->symbols->hasInitialAssignmentRule(id))
+				{
+					double initValue = 0;
+					oldModel->getGlobalParameterInitValues(1, &i, &initValue);
+					newModel->setGlobalParameterInitValues(1, &index, &initValue);
+				}
+				double value = 0;
+				oldModel->getGlobalParameterValues(1, &i, &value);
+				newModel->setGlobalParameterValues(1, &index, &value);
+			}
+		}
+		
+	}
+
+	for (int i = 0; i < oldModel->getNumConservedMoieties(); i++)
+	{
+		string id = oldModel->getConservedMoietyId(i);
+		int index = newModel->getConservedMoietyIndex(id);
+
+		if (index != -1)
+		{
+			if (!newModel->symbols->hasAssignmentRule(id) && !newModel->symbols->hasRateRule(id))
+			{
+				double value = 0;
+				oldModel->getConservedMoietyValues(1, &i, &value);
+				newModel->setConservedMoietyValues(1, &index, &value);
+			}
+		}
+	}
+
+	return newModel;
 }
 
 

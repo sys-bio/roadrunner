@@ -48,7 +48,7 @@ public:
 	* @param LoadSBMLOptions: load options
 	*
 	*/
-	static ExecutableModel *regenerateModel(libsbml::SBMLDocument* doc, uint options);
+	static ExecutableModel *regenerateModel(ExecutableModel* oldModel, libsbml::SBMLDocument* doc, uint options);
 };
 
 } /* namespace rr */
