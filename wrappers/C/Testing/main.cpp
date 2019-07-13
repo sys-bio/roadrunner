@@ -190,6 +190,11 @@ int main(int argc, char* argv[])
         runner1.RunTestsIf(Test::GetTestList(), "SBML_TEST_SUITE_FBC", True(), 0);
     }
 
+	if (args.Suites.find('N') != std::string::npos)
+	{
+        runner1.RunTestsIf(Test::GetTestList(), "MODEL_EDITING_TEST_SUITE", True(), 0);
+	}
+
 
     //Finish outputs result to xml file
     runner1.Finish();
