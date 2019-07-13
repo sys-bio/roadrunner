@@ -171,6 +171,51 @@ bool RunTestWithEdit(const string& version, int caseNumber, void (*edit)(RoadRun
     return result;
 }
 
+void readdAllReactions(RoadRunner *rri, libsbml::SBMLDocument *doc)
+{
+	libsbml::ListOfReactions *reactionsToAdd = doc->getModel()->getListOfReactions();
+	std::vector<std::string> currReactionIds = rri->getReactionIds();
+	if (reactionsToAdd->size() > 0) 
+	{
+		for (int i = 0; i < reactionsToAdd->size() - 1; i++)
+		{
+			libsbml::Reaction *next = reactionsToAdd->get(i);
+			if(std::find(currReactionIds.begin(), currReactionIds.end(), next->getId()) != 
+				   currReactionIds.end())
+				rri->addReaction(next->toSBML(), false);
+		}
+		if(std::find(currReactionIds.begin(), currReactionIds.end(), reactionsToAdd->get(reactionsToAdd->size() - 1)->getId()) != 
+			   currReactionIds.end())
+			rri->addReaction(reactionsToAdd->get(reactionsToAdd->size() - 1)->toSBML(), true);
+	}
+}
+
+void removeAndReaddAllFloatingSpecies(RoadRunner *rri, libsbml::SBMLDocument *doc)
+{
+	//Remove all species
+	std::vector<std::string> speciesIds = rri->getFloatingSpeciesIds();
+	for (std::string sid : speciesIds)
+	{
+		rri->removeSpecies(sid, false);
+	}
+
+	//Readd all species
+	libsbml::ListOfSpecies *speciesToAdd = doc->getModel()->getListOfSpecies();
+	if (speciesToAdd->size() > 0)
+	{
+		libsbml::Species *next;
+		for (int i = 0; i < speciesToAdd->size() - 1; i++)
+		{
+			next = speciesToAdd->get(i);
+			rri->addSpecies(next->getId(), next->getCompartment(), next->getInitialAmount(), "amount", false);
+		}
+		next = speciesToAdd->get(speciesToAdd->size() - 1);
+		rri->addSpecies(next->getId(), next->getCompartment(), next->getInitialAmount(), "amount", true);
+	}
+
+	readdAllReactions(rri, doc);
+}
+
 void removeAndReaddAllReactions(RoadRunner *rri, libsbml::SBMLDocument *doc)
 {
 	std::vector<std::string> reactionIds = rri->getReactionIds();
@@ -178,15 +223,7 @@ void removeAndReaddAllReactions(RoadRunner *rri, libsbml::SBMLDocument *doc)
 	{
 		rri->removeReaction(rid, false);
 	}
-	libsbml::ListOfReactions *reactionsToAdd = doc->getModel()->getListOfReactions();
-	if (reactionsToAdd->size() > 0) {
-		for (int i = 0; i < reactionsToAdd->size() - 1; i++)
-		{
-			libsbml::Reaction *next = reactionsToAdd->get(i);
-			rri->addReaction(next->toSBML(), false);
-		}
-		rri->addReaction(reactionsToAdd->get(reactionsToAdd->size() - 1)->toSBML(), true);
-	}
+	readdAllReactions(rri, doc);
 }
 
 SUITE(MODEL_EDITING_TEST_SUITE)
@@ -194,7 +231,11 @@ SUITE(MODEL_EDITING_TEST_SUITE)
 	TEST(READD_REACTION)
 	{
         clog << endl << "==== CHECK_READD_REACTION ====" << endl << endl;
-		for (int i = 28; i < 70; i++)
+		//for (int i = 28; i < 70; i++)
+		//{
+		//	CHECK(RunTestWithEdit("l2v4", i, removeAndReaddAllFloatingSpecies));
+		//}
+		for (int i = 31; i < 70; i++)
 		{
 			CHECK(RunTestWithEdit("l2v4", i, removeAndReaddAllReactions));
 		}
