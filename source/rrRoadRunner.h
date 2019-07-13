@@ -830,6 +830,21 @@ public:
 	*/
 	void addAssignmentRule(const std::string& vid, const std::string& formula, bool forceRegenerate = true);
 
+
+	/*
+	* Add an rate rule to the current model
+	* @param vid: the ID of a variable that the rule assigns a value to
+	* @param formula: the math formula of assignment rule to be added
+	* @param forceRegenerate: a boolen value to indicate if the model is regenerated
+	*					      after this function call
+	*						  default value is true to regenerate model after each call
+	*                         of editing function
+	*						  to save time for editing for multiple times, one could
+	*					      set this flag to true only in the last call of editing
+	*/
+	void addRateRule(const std::string& vid, const std::string& formula, bool forceRegenerate = true);
+
+
 	/**
 	 * Remove a rule from the current model
 	 * @param rid: the ID of variable whicch the rule assigns a value to

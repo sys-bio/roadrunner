@@ -5463,6 +5463,32 @@ void RoadRunner::addAssignmentRule(const std::string& vid, const std::string& fo
 	}
 }
 
+void RoadRunner::addRateRule(const std::string& vid, const std::string& formula, bool forceRegenerate)
+{
+	using namespace libsbml;
+	Model* sbmlModel = impl->document->getModel();
+
+	if (sbmlModel->getRateRule(vid) != NULL)
+	{
+		throw std::invalid_argument("Roadrunner::addRateRule failed, rate rule for variable " + vid + " already existed in the model");
+	}
+
+	Log(Logger::LOG_DEBUG) << "Adding rate rule for" << vid << "..." << endl;
+	RateRule* newRule = sbmlModel->createRateRule();
+
+	// potential errors with these two inputs will be detected during regeneration and ignored 
+	newRule->setVariable(vid);
+	newRule->setFormula(formula);
+
+
+	if (forceRegenerate)
+	{
+		regenerate();
+	}
+}
+
+
+
 void RoadRunner::removeRule(const std::string& vid, bool forceRegenerate)
 {
 	libsbml::Rule* toDelete = impl->document->getModel()->removeRule(vid);
@@ -5484,7 +5510,6 @@ void RoadRunner::regenerate()
 {
 	Log(Logger::LOG_DEBUG) << "Regenerating model..." << endl;
 	ExecutableModel* newModel = ExecutableModelFactory::regenerateModel(impl->model, impl->document, impl->loadOpt.modelGeneratorOpt);
-
 
 	delete impl->model;
 	impl->model = newModel;
