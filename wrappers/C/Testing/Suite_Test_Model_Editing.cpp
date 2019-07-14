@@ -84,7 +84,7 @@ bool RunTestWithEdit(const string& version, int caseNumber, void (*edit)(RoadRun
         setComputeAndAssignConservationLaws(gRR, false);
 
 		libsbml::SBMLReader reader;
-		std::string fullPath = modelFilePath + "\\" + modelFileName;
+		std::string fullPath = modelFilePath + "/" + modelFileName;
 		doc = reader.readSBML(fullPath);
 
         if(!simulation.LoadSBMLFromFile())
