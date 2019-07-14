@@ -239,7 +239,7 @@ SUITE(MODEL_EDITING_TEST_SUITE)
 		clog << endl << "==== CHECK_READD_FLOATING_SPECIES ====" << endl << endl;
 		for (int i = 1; i < 530; i++)
 		{
-			CHECK(RunTestWithEdit("l2v4", i, removeAndReaddAllSpecies));
+			CHECK(RunTestWithEdit("l2v4", i, removeAndReaddAllSpecies) && ("SBML Test " + to_string(i)).c_str());
 		}
 	}
 	TEST(READD_REACTION)
@@ -247,7 +247,7 @@ SUITE(MODEL_EDITING_TEST_SUITE)
         clog << endl << "==== CHECK_READD_REACTION ====" << endl << endl;
 		for (int i = 1; i < 530; i++)
 		{
-			CHECK(RunTestWithEdit("l2v4", i, removeAndReaddAllReactions));
+			CHECK(RunTestWithEdit("l2v4", i, removeAndReaddAllReactions) && ("SBML Test " + to_string(i)).c_str());
 		}
 	}
 }
