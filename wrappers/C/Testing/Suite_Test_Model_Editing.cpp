@@ -190,11 +190,17 @@ void readdAllReactions(RoadRunner *rri, libsbml::SBMLDocument *doc)
 	}
 }
 
-void removeAndReaddAllFloatingSpecies(RoadRunner *rri, libsbml::SBMLDocument *doc)
+void removeAndReaddAllSpecies(RoadRunner *rri, libsbml::SBMLDocument *doc)
 {
 	//Remove all species
-	std::vector<std::string> speciesIds = rri->getFloatingSpeciesIds();
-	for (std::string sid : speciesIds)
+	std::vector<std::string> floatingSpeciesIds = rri->getFloatingSpeciesIds();
+	for (std::string sid : floatingSpeciesIds)
+	{
+		rri->removeSpecies(sid, false);
+	}
+
+	std::vector<std::string> boundarySpeciesIds = rri->getBoundarySpeciesIds();
+	for (std::string sid : boundarySpeciesIds)
 	{
 		rri->removeSpecies(sid, false);
 	}
@@ -207,10 +213,10 @@ void removeAndReaddAllFloatingSpecies(RoadRunner *rri, libsbml::SBMLDocument *do
 		for (int i = 0; i < speciesToAdd->size() - 1; i++)
 		{
 			next = speciesToAdd->get(i);
-			rri->addSpecies(next->getId(), next->getCompartment(), next->getInitialAmount(), "amount", false);
+			rri->addSpecies(next->getId(), next->getCompartment(), next->getInitialConcentration(), "concentration", false);
 		}
 		next = speciesToAdd->get(speciesToAdd->size() - 1);
-		rri->addSpecies(next->getId(), next->getCompartment(), next->getInitialAmount(), "amount", true);
+		rri->addSpecies(next->getId(), next->getCompartment(), next->getInitialConcentration(), "concentration", true);
 	}
 
 	readdAllReactions(rri, doc);
@@ -228,14 +234,18 @@ void removeAndReaddAllReactions(RoadRunner *rri, libsbml::SBMLDocument *doc)
 
 SUITE(MODEL_EDITING_TEST_SUITE)
 {
+	TEST(READD_FLOATING_SPECIES)
+	{
+		clog << endl << "==== CHECK_READD_FLOATING_SPECIES ====" << endl << endl;
+		for (int i = 1; i < 530; i++)
+		{
+			CHECK(RunTestWithEdit("l2v4", i, removeAndReaddAllSpecies));
+		}
+	}
 	TEST(READD_REACTION)
 	{
         clog << endl << "==== CHECK_READD_REACTION ====" << endl << endl;
-		//for (int i = 28; i < 70; i++)
-		//{
-		//	CHECK(RunTestWithEdit("l2v4", i, removeAndReaddAllFloatingSpecies));
-		//}
-		for (int i = 31; i < 70; i++)
+		for (int i = 1; i < 530; i++)
 		{
 			CHECK(RunTestWithEdit("l2v4", i, removeAndReaddAllReactions));
 		}
