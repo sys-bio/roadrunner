@@ -5190,10 +5190,7 @@ void RoadRunner::removeReaction(const std::string& rid, bool forceRegenerate)
 void RoadRunner::addSpecies(const std::string& sid, const std::string& compartment, double initValue, const std::string& substanceUnits, bool forceRegenerate)
 {
 
-	if (impl->document->getModel()->getSpecies(sid) != NULL)
-	{
-		throw std::invalid_argument("Roadrunner::addSpecies failed, species with ID " + sid + " already existed in the model");
-	}
+	checkID("addSpecies", sid);
 	
 	if (impl->document->getModel()->getCompartment(compartment) == NULL)
 	{
@@ -5242,10 +5239,7 @@ void RoadRunner::addReaction(const string& rid, vector<string> reactants, vector
 	using namespace libsbml;
 	Model* sbmlModel = impl->document->getModel();
 
-	if (sbmlModel->getReaction(rid) != NULL)
-	{
-		throw std::invalid_argument("Roadrunner::addReaction failed, reaction with ID " + rid + " already existed in the model");
-	}
+	checkID("addReaction", rid);
 
 	Log(Logger::LOG_DEBUG) << "Adding reaction " << rid << "..." << endl;
 	Reaction* newReaction = sbmlModel->createReaction();
@@ -5389,10 +5383,7 @@ void RoadRunner::removeSpecies(const std::string& sid, bool forceRegenerate)
 
 void RoadRunner::addParameter(const std::string& pid, double value, bool forceRegenerate)
 {
-	if (impl->document->getModel()->getParameter(pid) != NULL)
-	{
-		throw std::invalid_argument("Roadrunner::addParameter failed, parameter " + pid + " already existed in the model");
-	}
+	checkID("addParameter", pid);
 
 	Log(Logger::LOG_DEBUG) << "Adding compartment " << pid << " with value " << value << endl;
 	libsbml::Parameter* newParameter = impl->document->getModel()->createParameter();
@@ -5418,11 +5409,7 @@ void RoadRunner::removeParameter(const std::string& pid, bool forceRegenerate)
 
 void RoadRunner::addCompartment(const std::string& cid, double initVolume, bool forceRegenerate)
 {
-	if (impl->document->getModel()->getCompartment(cid) != NULL)
-	{
-		throw std::invalid_argument("Roadrunner::addCompartment failed, compartment " + cid + " already existed in the model");
-	}
-
+	checkID("addCompartment", cid);
 	Log(Logger::LOG_DEBUG) << "Adding compartment " << cid << " with initial volume " << initVolume << endl;
 	libsbml::Compartment* newCompartment = impl->document->getModel()->createCompartment();
 
@@ -5435,6 +5422,7 @@ void RoadRunner::addCompartment(const std::string& cid, double initVolume, bool 
 
 void RoadRunner::removeCompartment(const std::string& cid, bool forceRegenerate)
 {
+
 	libsbml::Model* model = impl->document->getModel();
 	libsbml::Compartment* toDelete = model->removeCompartment(cid);
 	
@@ -5458,7 +5446,6 @@ void RoadRunner::removeCompartment(const std::string& cid, bool forceRegenerate)
 			index++;
 		}
 	}
-
 
 	regenerate(forceRegenerate);
 }
@@ -5490,11 +5477,7 @@ void RoadRunner::addAssignmentRule(const std::string& vid, const std::string& fo
 	using namespace libsbml;
 	Model* sbmlModel = impl->document->getModel();
 
-	if (sbmlModel->getAssignmentRule(vid) != NULL)
-	{
-		throw std::invalid_argument("Roadrunner::addAssignmentRule failed, assignment rule for variable " + vid + " already existed in the model");
-	}
-
+	checkID("addAssignmentRule", vid);
 
 	Log(Logger::LOG_DEBUG) << "Adding assignment rule for" << vid << "..." << endl;
 	AssignmentRule* newRule = sbmlModel->createAssignmentRule();
@@ -5512,15 +5495,12 @@ void RoadRunner::addRateRule(const std::string& vid, const std::string& formula,
 	using namespace libsbml;
 	Model* sbmlModel = impl->document->getModel();
 
-	if (sbmlModel->getRateRule(vid) != NULL)
-	{
-		throw std::invalid_argument("Roadrunner::addRateRule failed, rate rule for variable " + vid + " already existed in the model");
-	}
+	checkID("addRateRule", vid);
 
 	Log(Logger::LOG_DEBUG) << "Adding rate rule for" << vid << "..." << endl;
 	RateRule* newRule = sbmlModel->createRateRule();
 
-	// potential errors with these two inputs will be detected during regeneration and ignored 
+	// potential errors with these two inputs will be detected during regeneration
 	newRule->setVariable(vid);
 	newRule->setFormula(formula);
 
@@ -5547,10 +5527,7 @@ void RoadRunner::addEvent(const std::string& eid, const std::string& trigger, co
 	using namespace libsbml;
 	Model* sbmlModel = impl->document->getModel();
 
-	if (sbmlModel->getEvent(eid) != NULL)
-	{
-		throw std::invalid_argument("Roadrunner::addEvent failed, event " + eid + " already existed in the model");
-	}
+	checkID("addEvent", eid);
 
 	Log(Logger::LOG_DEBUG) << "Adding event " << eid << "..." << endl;
 	Event* newEvent = sbmlModel->createEvent();
@@ -5603,13 +5580,13 @@ void RoadRunner::addEventAssignment(const std::string& eid, const std::string& v
 
 	if (event->getEventAssignment(vid) != NULL)
 	{
-		throw std::invalid_argument("Roadrunner::addEventAssignment failed, variable " + vid + " already existed in event " + eid );
+		throw std::invalid_argument("Roadrunner::addEventAssignment failed, variable " + vid + " already existed in event " + eid);
 	}
 
-	Log(Logger::LOG_DEBUG) << "Adding event assignment for variable " << vid << " to event "<< eid << "..." << endl;
+	Log(Logger::LOG_DEBUG) << "Adding event assignment for variable " << vid << " to event " << eid << "..." << endl;
 	EventAssignment* assignment = event->createEventAssignment();
 	assignment->setVariable(vid);
-	
+
 	ASTNode_t* math = libsbml::SBML_parseFormula(formula.c_str());
 	if (math == NULL)
 	{
@@ -5621,7 +5598,7 @@ void RoadRunner::addEventAssignment(const std::string& eid, const std::string& v
 	regenerate(forceRegenerate);
 }
 
-void RoadRunner::removeEventAssignment(const std::string& eid, const std::string& vid, bool forceRegenerate)
+void RoadRunner::removeEventAssignment(const std::string & eid, const std::string & vid, bool forceRegenerate)
 {
 	libsbml::Event* event = impl->document->getModel()->getEvent(eid);
 	if (event == NULL)
@@ -5642,7 +5619,7 @@ void RoadRunner::removeEventAssignment(const std::string& eid, const std::string
 
 
 
-void RoadRunner::removeEvent(const std::string& eid, bool forceRegenerate)
+void RoadRunner::removeEvent(const std::string & eid, bool forceRegenerate)
 {
 	libsbml::Event* toDelete = impl->document->getModel()->removeEvent(eid);
 	if (toDelete == NULL)
@@ -5654,6 +5631,14 @@ void RoadRunner::removeEvent(const std::string& eid, bool forceRegenerate)
 	regenerate(forceRegenerate);
 }
 
+
+void RoadRunner::checkID(const std::string& functionName, const std::string & sid)
+{
+	if (impl->document->getModel()->getElementBySId(sid) != NULL)
+	{
+		throw std::invalid_argument("Roadrunner::" + functionName+ " failed, identifier" + sid + " already existed in the model");
+	}
+}
 
 
 void RoadRunner::regenerate(bool forceRegenerate)

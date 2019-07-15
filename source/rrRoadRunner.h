@@ -1372,6 +1372,11 @@ private:
      */
     class RoadRunnerImpl* impl;
 
+	/* 
+	* Check if the id already existed in the model
+	*/
+	void checkID(const std::string& functionName, const std::string& sid);
+
 	/*
 	* Regenerate this RoadRunner instance's ExecutableModel based on the model in its SBMLDocument
 	*/
