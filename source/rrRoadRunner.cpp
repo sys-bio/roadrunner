@@ -5178,10 +5178,7 @@ void RoadRunner::removeReaction(const std::string& rid, bool forceRegenerate)
 	}
 	Log(Logger::LOG_DEBUG) << "Removing reaction " << rid << "..." << endl;
 	delete toDelete;
-	if (forceRegenerate) 
-	{
-		regenerate();
-	}
+	regenerate(forceRegenerate);
 	
 }
 
@@ -5219,10 +5216,7 @@ void RoadRunner::addSpecies(const std::string& sid, const std::string& compartme
 	
 	newSpecies->setSubstanceUnits(substanceUnits);
    
-	if (forceRegenerate)
-	{
-		regenerate();
-	}
+	regenerate(forceRegenerate);
 }
 
 void RoadRunner::addReaction(const std::string& sbmlRep, bool forceRegenerate)
@@ -5234,10 +5228,7 @@ void RoadRunner::addReaction(const std::string& sbmlRep, bool forceRegenerate)
 	newReaction->read(stream);
 	// TODO: ERROR HANDLING
     
-	if (forceRegenerate)
-	{
-		regenerate();
-	}
+	regenerate(forceRegenerate);
 }
 
 void RoadRunner::addReaction(const string& rid, vector<string> reactants, vector<string> products, const string& kineticLaw, bool forceRegenerate)
@@ -5280,10 +5271,7 @@ void RoadRunner::addReaction(const string& rid, vector<string> reactants, vector
 	KineticLaw* kLaw = newReaction->createKineticLaw();
 	kLaw->setFormula(kineticLaw);
 	
-	if (forceRegenerate)
-	{
-		regenerate();
-	}
+	regenerate(forceRegenerate);
 }
 
 void RoadRunner::removeSpecies(const std::string& sid, bool forceRegenerate)
@@ -5318,6 +5306,7 @@ void RoadRunner::removeSpecies(const std::string& sid, bool forceRegenerate)
 		{
 			if (reactants->get(j)->getSpecies() == sid)
 			{
+				Log(Logger::LOG_DEBUG) << "Removing reaction " << reaction->getId() << "..." << endl;
 				toDelete = sbmlModel->removeReaction(reaction->getId());
 				break;
 			}
@@ -5335,6 +5324,7 @@ void RoadRunner::removeSpecies(const std::string& sid, bool forceRegenerate)
 		{
 			if (products->get(j)->getSpecies() == sid)
 			{
+				Log(Logger::LOG_DEBUG) << "Removing reaction " << reaction->getId() << "..." << endl;
 				toDelete = sbmlModel->removeReaction(reaction->getId());
 				break;
 			}
@@ -5352,6 +5342,7 @@ void RoadRunner::removeSpecies(const std::string& sid, bool forceRegenerate)
 		{
 			if (modifiers->get(j)->getSpecies() == sid)
 			{
+				Log(Logger::LOG_DEBUG) << "Removing reaction " << reaction->getId() << "..." << endl;
 				toDelete = sbmlModel->removeReaction(reaction->getId());
 				break;
 			}
@@ -5364,16 +5355,20 @@ void RoadRunner::removeSpecies(const std::string& sid, bool forceRegenerate)
 			continue;
 		}
 
-		// Todo:: delete event????
-
+		
 		// this reaction is not related to the deleted species 
 		index++;
 	}
 
-	if (forceRegenerate)
+	libsbml::Rule* toDelete = impl->document->getModel()->removeRule(sid);
+	if (toDelete != NULL)
 	{
-		regenerate();
+		delete toDelete;
 	}
+
+	// Todo:: delete event????
+
+	regenerate(forceRegenerate);
 }
 
 void RoadRunner::addCompartment(const std::string& cid, double initVolume, bool forceRegenerate)
@@ -5391,10 +5386,7 @@ void RoadRunner::addCompartment(const std::string& cid, double initVolume, bool 
 	newCompartment->setId(cid);
 	newCompartment->setVolume(initVolume);
 
-	if (forceRegenerate)
-	{
-		regenerate();
-	}
+	regenerate(forceRegenerate);
 }
 
 
@@ -5407,10 +5399,7 @@ void RoadRunner::removeCompartment(const std::string& cid, bool forceRegenerate)
 	}
 	Log(Logger::LOG_DEBUG) << "Removing compartment " << cid << "..." << endl;
 	delete toDelete;
-	if (forceRegenerate)
-	{
-		regenerate();
-	}
+	regenerate(forceRegenerate);
 }
 
 void RoadRunner::setKineticLaw(const std::string& rid, const std::string& kineticLaw, bool forceRegenerate)
@@ -5431,10 +5420,7 @@ void RoadRunner::setKineticLaw(const std::string& rid, const std::string& kineti
 	// TODO: catch illegal formula, otherwise will only be detected during the simulation
 	reaction->getKineticLaw()->setFormula(kineticLaw);
 
-	if (forceRegenerate)
-	{
-		regenerate();
-	}
+	regenerate(forceRegenerate);
 }
 
 
@@ -5457,10 +5443,7 @@ void RoadRunner::addAssignmentRule(const std::string& vid, const std::string& fo
 	newRule->setFormula(formula);
 	
 
-	if (forceRegenerate)
-	{
-		regenerate();
-	}
+	regenerate(forceRegenerate);
 }
 
 void RoadRunner::addRateRule(const std::string& vid, const std::string& formula, bool forceRegenerate)
@@ -5480,11 +5463,7 @@ void RoadRunner::addRateRule(const std::string& vid, const std::string& formula,
 	newRule->setVariable(vid);
 	newRule->setFormula(formula);
 
-
-	if (forceRegenerate)
-	{
-		regenerate();
-	}
+	regenerate(forceRegenerate);
 }
 
 
@@ -5498,23 +5477,24 @@ void RoadRunner::removeRule(const std::string& vid, bool forceRegenerate)
 	}
 	Log(Logger::LOG_DEBUG) << "Removing rule for variable" << vid << "..." << endl;
 	delete toDelete;
-	if (forceRegenerate)
-	{
-		regenerate();
-	}
+	regenerate(forceRegenerate);
 }
 
 
 
-void RoadRunner::regenerate()
+void RoadRunner::regenerate(bool forceRegenerate)
 {
-	Log(Logger::LOG_DEBUG) << "Regenerating model..." << endl;
-	ExecutableModel* newModel = ExecutableModelFactory::regenerateModel(impl->model, impl->document, impl->loadOpt.modelGeneratorOpt);
+	if (forceRegenerate)
+	{
+		Log(Logger::LOG_DEBUG) << "Regenerating model..." << endl;
+		ExecutableModel* newModel = ExecutableModelFactory::regenerateModel(impl->model, impl->document, impl->loadOpt.modelGeneratorOpt);
 
-	delete impl->model;
-	impl->model = newModel;
-	impl->syncAllSolversWithModel(impl->model);
-	resetSelectionLists();
+		delete impl->model;
+		impl->model = newModel;
+		impl->syncAllSolversWithModel(impl->model);
+		resetSelectionLists();
+	}
+	
 }
 
 } //namespace

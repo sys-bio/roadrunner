@@ -1295,7 +1295,7 @@ private:
 	/*
 	* Regenerate this RoadRunner instance's ExecutableModel based on the model in its SBMLDocument
 	*/
-	void regenerate();
+	void regenerate(bool forceRegenerate);
 
 	void saveSelectionVector(std::ostream&, std::vector<SelectionRecord>&);
 	void loadSelectionVector(std::istream&, std::vector<SelectionRecord>&);
