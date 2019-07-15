@@ -245,7 +245,8 @@ public:
                 simulateOpt(),
                 mInstanceID(0),
                 loadOpt(dict),
-                compiler(Compiler::New())
+                compiler(Compiler::New()),
+				document()
     {
         // have to init integrators the hard way in c++98
         //memset((void*)integrators, 0, sizeof(integrators)/sizeof(char));
@@ -431,6 +432,11 @@ RoadRunner::RoadRunner() : impl(new RoadRunnerImpl("", NULL))
     setIntegrator("cvode");
     // make NLEQ2 the default steady state solver
     setSteadyStateSolver("nleq2");
+
+	// enable building the model using editing methods
+	// and allow simultion without loading SBML files
+	impl->document = new libsbml::SBMLDocument();
+	impl->document->createModel();
 }
 
 RoadRunner::RoadRunner(const std::string& uriOrSBML,
@@ -5378,7 +5384,6 @@ void RoadRunner::removeSpecies(const std::string& sid, bool forceRegenerate)
 void RoadRunner::addCompartment(const std::string& cid, double initVolume, bool forceRegenerate)
 {
 
-
 	if (impl->document->getModel()->getCompartment(cid) != NULL)
 	{
 		throw std::invalid_argument("Roadrunner::addCompartment failed, compartment " + cid + " already existed in the model");
@@ -5471,7 +5476,6 @@ void RoadRunner::addRateRule(const std::string& vid, const std::string& formula,
 }
 
 
-
 void RoadRunner::removeRule(const std::string& vid, bool forceRegenerate)
 {
 	libsbml::Rule* toDelete = impl->document->getModel()->removeRule(vid);
@@ -5480,6 +5484,21 @@ void RoadRunner::removeRule(const std::string& vid, bool forceRegenerate)
 		throw std::invalid_argument("Roadrunner::removeRule failed, variable with ID " + vid + " has no rule existed in the model");
 	}
 	Log(Logger::LOG_DEBUG) << "Removing rule for variable" << vid << "..." << endl;
+	delete toDelete;
+	regenerate(forceRegenerate);
+}
+
+
+
+
+void RoadRunner::removeEvent(const std::string& eid, bool forceRegenerate)
+{
+	libsbml::Event* toDelete = impl->document->getModel()->removeEvent(eid);
+	if (toDelete == NULL)
+	{
+		throw std::invalid_argument("Roadrunner::removeEvent failed, no event with ID " + eid + " existed in the model");
+	}
+	Log(Logger::LOG_DEBUG) << "Removing event for variable" << eid << "..." << endl;
 	delete toDelete;
 	regenerate(forceRegenerate);
 }

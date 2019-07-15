@@ -361,119 +361,121 @@ context.getExecutionEngine().getFunctionAddress("setGlobalParameter");
 	LLVMExecutableModel* newModel = new LLVMExecutableModel(rc, modelData);
 
 
-	// the stored SBML document will not keep updated, so we need to
-	// copy the old values (e.g, initial values, current values) to new model
-	// so that we can start from where we paused
+	if (oldModel) {
+		// the stored SBML document will not keep updated, so we need to
+		// copy the old values (e.g, initial values, current values) to new model
+		// so that we can start from where we paused
 
-	for (int i = 0; i < oldModel->getNumFloatingSpecies(); i++)
-	{
-		string id = oldModel->getFloatingSpeciesId(i);
-		int index = newModel->getFloatingSpeciesIndex(id);
-
-		if (index != -1)
+		for (int i = 0; i < oldModel->getNumFloatingSpecies(); i++)
 		{
-			// new model has this species
-			if (!newModel->symbols->hasAssignmentRule(id) && !newModel->symbols->hasRateRule(id))
+			string id = oldModel->getFloatingSpeciesId(i);
+			int index = newModel->getFloatingSpeciesIndex(id);
+
+			if (index != -1)
 			{
-				if (!newModel->symbols->hasInitialAssignmentRule(id))
+				// new model has this species
+				if (!newModel->symbols->hasAssignmentRule(id) && !newModel->symbols->hasRateRule(id))
 				{
-					double initValue = 0;
-					oldModel->getFloatingSpeciesInitAmounts(1, &i, &initValue);
-					newModel->setFloatingSpeciesInitAmounts(1, &index, &initValue);
+					if (!newModel->symbols->hasInitialAssignmentRule(id))
+					{
+						double initValue = 0;
+						oldModel->getFloatingSpeciesInitAmounts(1, &i, &initValue);
+						newModel->setFloatingSpeciesInitAmounts(1, &index, &initValue);
+					}
+
+					double value = 0;
+					oldModel->getFloatingSpeciesAmounts(1, &i, &value);
+					newModel->setFloatingSpeciesAmounts(1, &index, &value);
 				}
-				
-				double value = 0;
-				oldModel->getFloatingSpeciesAmounts(1, &i, &value);
-				newModel->setFloatingSpeciesAmounts(1, &index, &value);
 			}
 		}
-	}
 
 
-	for (int i = 0; i < oldModel->getNumBoundarySpecies(); i++)
-	{
-		string id = oldModel->getBoundarySpeciesId(i);
-		int index = newModel->getBoundarySpeciesIndex(id);
-
-		if (index != -1)
+		for (int i = 0; i < oldModel->getNumBoundarySpecies(); i++)
 		{
-			// new model has this species
-			if (!newModel->symbols->hasAssignmentRule(id) && !newModel->symbols->hasRateRule(id))
+			string id = oldModel->getBoundarySpeciesId(i);
+			int index = newModel->getBoundarySpeciesIndex(id);
+
+			if (index != -1)
 			{
-				double value = 0;
-				oldModel->getBoundarySpeciesConcentrations(1, &i, &value);
-				newModel->setBoundarySpeciesConcentrations(1, &index, &value);
-			}
-		}
-		
-	}
-
-
-	for (int i = 0; i < oldModel->getNumCompartments(); i++)
-	{
-		string id = oldModel->getCompartmentId(i);
-		int index = newModel->getCompartmentIndex(id);
-
-		if (index != -1)
-		{
-			// new model has this compartment
-			if (!newModel->symbols->hasAssignmentRule(id) && !newModel->symbols->hasRateRule(id))
-			{
-				if (!newModel->symbols->hasInitialAssignmentRule(id))
+				// new model has this species
+				if (!newModel->symbols->hasAssignmentRule(id) && !newModel->symbols->hasRateRule(id))
 				{
-					double initValue = 0;
-					oldModel->getCompartmentInitVolumes(1, &i, &initValue);
-					newModel->setCompartmentInitVolumes(1, &index, &initValue);
+					double value = 0;
+					oldModel->getBoundarySpeciesConcentrations(1, &i, &value);
+					newModel->setBoundarySpeciesConcentrations(1, &index, &value);
 				}
-
-				double value = 0;
-				oldModel->getCompartmentVolumes(1, &i, &value);
-				newModel->setCompartmentVolumes(1, &index, &value);
 			}
+
 		}
-	}
 
 
-	for (int i = 0; i < oldModel->getNumGlobalParameters(); i++)
-	{
-		string id = oldModel->getGlobalParameterId(i);
-		int index = newModel->getGlobalParameterIndex(id);
-
-		if (index != -1)
+		for (int i = 0; i < oldModel->getNumCompartments(); i++)
 		{
-			// new model has this parameter
-			if (!newModel->symbols->hasAssignmentRule(id) && !newModel->symbols->hasRateRule(id))
+			string id = oldModel->getCompartmentId(i);
+			int index = newModel->getCompartmentIndex(id);
+
+			if (index != -1)
 			{
-				if (!newModel->symbols->hasInitialAssignmentRule(id))
+				// new model has this compartment
+				if (!newModel->symbols->hasAssignmentRule(id) && !newModel->symbols->hasRateRule(id))
 				{
-					double initValue = 0;
-					oldModel->getGlobalParameterInitValues(1, &i, &initValue);
-					newModel->setGlobalParameterInitValues(1, &index, &initValue);
+					if (!newModel->symbols->hasInitialAssignmentRule(id))
+					{
+						double initValue = 0;
+						oldModel->getCompartmentInitVolumes(1, &i, &initValue);
+						newModel->setCompartmentInitVolumes(1, &index, &initValue);
+					}
+
+					double value = 0;
+					oldModel->getCompartmentVolumes(1, &i, &value);
+					newModel->setCompartmentVolumes(1, &index, &value);
 				}
-				double value = 0;
-				oldModel->getGlobalParameterValues(1, &i, &value);
-				newModel->setGlobalParameterValues(1, &index, &value);
 			}
 		}
-		
-	}
 
-	for (int i = 0; i < oldModel->getNumConservedMoieties(); i++)
-	{
-		string id = oldModel->getConservedMoietyId(i);
-		int index = newModel->getConservedMoietyIndex(id);
 
-		if (index != -1)
+		for (int i = 0; i < oldModel->getNumGlobalParameters(); i++)
 		{
-			if (!newModel->symbols->hasAssignmentRule(id) && !newModel->symbols->hasRateRule(id))
+			string id = oldModel->getGlobalParameterId(i);
+			int index = newModel->getGlobalParameterIndex(id);
+
+			if (index != -1)
 			{
-				double value = 0;
-				oldModel->getConservedMoietyValues(1, &i, &value);
-				newModel->setConservedMoietyValues(1, &index, &value);
+				// new model has this parameter
+				if (!newModel->symbols->hasAssignmentRule(id) && !newModel->symbols->hasRateRule(id))
+				{
+					if (!newModel->symbols->hasInitialAssignmentRule(id))
+					{
+						double initValue = 0;
+						oldModel->getGlobalParameterInitValues(1, &i, &initValue);
+						newModel->setGlobalParameterInitValues(1, &index, &initValue);
+					}
+					double value = 0;
+					oldModel->getGlobalParameterValues(1, &i, &value);
+					newModel->setGlobalParameterValues(1, &index, &value);
+				}
+			}
+
+		}
+
+		for (int i = 0; i < oldModel->getNumConservedMoieties(); i++)
+		{
+			string id = oldModel->getConservedMoietyId(i);
+			int index = newModel->getConservedMoietyIndex(id);
+
+			if (index != -1)
+			{
+				if (!newModel->symbols->hasAssignmentRule(id) && !newModel->symbols->hasRateRule(id))
+				{
+					double value = 0;
+					oldModel->getConservedMoietyValues(1, &i, &value);
+					newModel->setConservedMoietyValues(1, &index, &value);
+				}
 			}
 		}
 	}
-
+	
 	return newModel;
 }
 

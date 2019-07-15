@@ -858,6 +858,19 @@ public:
 	void removeRule(const std::string& vid, bool forceRegenerate = true);
 
 
+	/**
+	 * Remove an event from the current model
+	 * @param eid: the ID of the event to be removed
+	 * @param forceRegenerate: a boolen value to indicate if the model is regenerated
+	 *					       after this function call
+	 *						   default value is true to regenerate model after each call
+	 *                         of editing function
+	 *						   to save time for editing for multiple times, one could
+	 *					       set this flag to true only in the last call of editing
+	 */
+	void removeEvent(const std::string& eid, bool forceRegenerate = true);
+
+
     /******************************* Steady State Section *************************/
     #if (1) /**********************************************************************/
     /******************************************************************************/
