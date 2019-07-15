@@ -5515,6 +5515,7 @@ void RoadRunner::addEvent(const std::string& eid, const std::string& trigger, co
 
 	Log(Logger::LOG_DEBUG) << "Adding event " << eid << "..." << endl;
 	Event* newEvent = sbmlModel->createEvent();
+	newEvent->setId(eid);
 	Trigger* newTrigger = newEvent->createTrigger();
 	ASTNode_t* formula = libsbml::SBML_parseL3Formula(trigger.c_str());
 	if (formula == NULL)
