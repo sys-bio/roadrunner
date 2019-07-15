@@ -13,7 +13,6 @@
 #include "sbml/SBMLDocument.h"
 #include "sbml/ListOf.h"
 #include "sbml/Model.h"
-#include "Suite_Test_Model_Editing.h"
 
 using namespace std;
 using namespace UnitTest;
