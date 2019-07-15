@@ -5391,9 +5391,38 @@ void RoadRunner::removeSpecies(const std::string& sid, bool forceRegenerate)
 	regenerate(forceRegenerate);
 }
 
+
+void RoadRunner::addParameter(const std::string& pid, double value, bool forceRegenerate)
+{
+	if (impl->document->getModel()->getParameter(pid) != NULL)
+	{
+		throw std::invalid_argument("Roadrunner::addParameter failed, parameter " + pid + " already existed in the model");
+	}
+
+	Log(Logger::LOG_DEBUG) << "Adding compartment " << pid << " with value " << value << endl;
+	libsbml::Parameter* newParameter = impl->document->getModel()->createParameter();
+
+	newParameter->setId(pid);
+	newParameter->setValue(value);
+
+	regenerate(forceRegenerate);
+}
+
+void RoadRunner::removeParameter(const std::string& pid, bool forceRegenerate)
+{
+	libsbml::Parameter* toDelete = impl->document->getModel()->removeParameter(pid);
+	if (toDelete == NULL)
+	{
+		throw std::invalid_argument("Roadrunner::removeParameter failed, no parameter with ID " + pid + " existed in the model");
+	}
+	Log(Logger::LOG_DEBUG) << "Removing parameter " << pid << "..." << endl;
+	delete toDelete;
+	regenerate(forceRegenerate);
+}
+
+
 void RoadRunner::addCompartment(const std::string& cid, double initVolume, bool forceRegenerate)
 {
-
 	if (impl->document->getModel()->getCompartment(cid) != NULL)
 	{
 		throw std::invalid_argument("Roadrunner::addCompartment failed, compartment " + cid + " already existed in the model");

@@ -777,6 +777,31 @@ public:
 	*/
 	void removeSpecies(const std::string& sid, bool forceRegenerate = true);
 
+	/**
+	 * Add a parameter to the current model
+	 * @param pid: the ID of the parameter to be added
+	 * @param value: the value of the parameter to be added
+	 * @param forceRegenerate: a boolen value to indicate if the model is regenerated
+	 *					       after this function call
+	 *						   default value is true to regenerate model after each call
+	 *                         of editing function
+	 *						   to save time for editing for multiple times, one could
+	 *					       set this flag to true only in the last call of editing
+	 */
+	void addParameter(const std::string& pid, double value, bool forceRegenerate = true);
+
+	/**
+	 * Remove a parameter from the current model
+	 * @param pid: the ID of the parameter to be removed
+	 * @param forceRegenerate: a boolen value to indicate if the model is regenerated
+	 *					       after this function call
+	 *						   default value is true to regenerate model after each call
+	 *                         of editing function
+	 *						   to save time for editing for multiple times, one could
+	 *					       set this flag to true only in the last call of editing
+	 */
+	void removeParameter(const std::string& pid, bool forceRegenerate = true);
+
 
 	/**
 	 * Add a compartment to the current model
