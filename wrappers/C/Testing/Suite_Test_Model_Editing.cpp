@@ -13,6 +13,7 @@
 #include "sbml/SBMLDocument.h"
 #include "sbml/ListOf.h"
 #include "sbml/Model.h"
+#include "Suite_Test_Model_Editing.h"
 
 using namespace std;
 using namespace UnitTest;
@@ -24,7 +25,7 @@ extern string gTempFolder;
 extern string gTSModelsPath;
 extern string gCompiler;
 
-bool RunTestWithEdit(const string& version, int caseNumber, void (*edit)(RoadRunner*, libsbml::SBMLDocument*))
+bool RunTestWithEdit(const string& version, int caseNumber, void(*edit)(RoadRunner*, libsbml::SBMLDocument*), std::string editName)
 {
     bool result(false);
     RRHandle gRR;
@@ -53,7 +54,7 @@ bool RunTestWithEdit(const string& version, int caseNumber, void (*edit)(RoadRun
         setCurrentIntegratorParameterBoolean(gRR, "stiff", 0);
 
         //Create a log file name
-        createTestSuiteFileNameParts(caseNumber, ".log", dummy, logFileName, settingsFileName);
+        createTestSuiteFileNameParts(caseNumber, "-" + editName + ".log", dummy, logFileName, settingsFileName);
 
         //Create subfolder for data output
         dataOutputFolder = joinPath(dataOutputFolder, getTestSuiteSubFolderName(caseNumber));
@@ -180,11 +181,11 @@ void readdAllReactions(RoadRunner *rri, libsbml::SBMLDocument *doc)
 		for (int i = 0; i < reactionsToAdd->size() - 1; i++)
 		{
 			libsbml::Reaction *next = reactionsToAdd->get(i);
-			if(std::find(currReactionIds.begin(), currReactionIds.end(), next->getId()) != 
+			if(std::find(currReactionIds.begin(), currReactionIds.end(), next->getId()) == 
 				   currReactionIds.end())
 				rri->addReaction(next->toSBML(), false);
 		}
-		if(std::find(currReactionIds.begin(), currReactionIds.end(), reactionsToAdd->get(reactionsToAdd->size() - 1)->getId()) != 
+		if(std::find(currReactionIds.begin(), currReactionIds.end(), reactionsToAdd->get(reactionsToAdd->size() - 1)->getId()) == 
 			   currReactionIds.end())
 			rri->addReaction(reactionsToAdd->get(reactionsToAdd->size() - 1)->toSBML(), true);
 	}
@@ -210,13 +211,13 @@ void removeAndReaddAllSpecies(RoadRunner *rri, libsbml::SBMLDocument *doc)
 	if (speciesToAdd->size() > 0)
 	{
 		libsbml::Species *next;
-		for (int i = 0; i < speciesToAdd->size() - 1; i++)
+		for (int i = 0; i < speciesToAdd->size(); i++)
 		{
 			next = speciesToAdd->get(i);
 			rri->addSpecies(next->getId(), next->getCompartment(), next->getInitialConcentration(), "concentration", false);
 		}
-		next = speciesToAdd->get(speciesToAdd->size() - 1);
-		rri->addSpecies(next->getId(), next->getCompartment(), next->getInitialConcentration(), "concentration", true);
+		//next = speciesToAdd->get(speciesToAdd->size() - 1);
+		//rri->addSpecies(next->getId(), next->getCompartment(), next->getInitialConcentration(), "concentration", true);
 	}
 
 	readdAllReactions(rri, doc);
@@ -234,21 +235,22 @@ void removeAndReaddAllReactions(RoadRunner *rri, libsbml::SBMLDocument *doc)
 
 SUITE(MODEL_EDITING_TEST_SUITE)
 {
-	TEST(READD_FLOATING_SPECIES)
+	TEST(READD_SPECIES)
 	{
-		clog << endl << "==== CHECK_READD_FLOATING_SPECIES ====" << endl << endl;
-		for (int i = 1; i < 530; i++)
+		clog << endl << "==== CHECK_READD_SPECIES ====" << endl << endl;
+		for (int i = 1; i <= 530; i++)
 		{
-			if(!RunTestWithEdit("l2v4", i, removeAndReaddAllSpecies));
-			    CHECK_EQUAL("", "SBML Test " + to_string(i) + " failed");
+			if (!RunTestWithEdit("l2v4", i, removeAndReaddAllSpecies, "removeAndReaddAllSpecies")) {
+				CHECK_EQUAL("", "SBML Test " + to_string(i) + " failed");
+			}
 		}
 	}
 	TEST(READD_REACTION)
 	{
         clog << endl << "==== CHECK_READD_REACTION ====" << endl << endl;
-		for (int i = 1; i < 530; i++)
+		for (int i = 1; i <= 530; i++)
 		{
-			if (!RunTestWithEdit("l2v4", i, removeAndReaddAllReactions))
+			if (!RunTestWithEdit("l2v4", i, removeAndReaddAllReactions, "removeAndReaddAllReactions"))
 				CHECK_EQUAL("", "SBML Test " + to_string(i) + " failed");
 		}
 	}
