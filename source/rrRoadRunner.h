@@ -777,6 +777,31 @@ public:
 	*/
 	void removeSpecies(const std::string& sid, bool forceRegenerate = true);
 
+	/**
+	 * Add a parameter to the current model
+	 * @param pid: the ID of the parameter to be added
+	 * @param value: the value of the parameter to be added
+	 * @param forceRegenerate: a boolen value to indicate if the model is regenerated
+	 *					       after this function call
+	 *						   default value is true to regenerate model after each call
+	 *                         of editing function
+	 *						   to save time for editing for multiple times, one could
+	 *					       set this flag to true only in the last call of editing
+	 */
+	void addParameter(const std::string& pid, double value, bool forceRegenerate = true);
+
+	/**
+	 * Remove a parameter from the current model
+	 * @param pid: the ID of the parameter to be removed
+	 * @param forceRegenerate: a boolen value to indicate if the model is regenerated
+	 *					       after this function call
+	 *						   default value is true to regenerate model after each call
+	 *                         of editing function
+	 *						   to save time for editing for multiple times, one could
+	 *					       set this flag to true only in the last call of editing
+	 */
+	void removeParameter(const std::string& pid, bool forceRegenerate = true);
+
 
 	/**
 	 * Add a compartment to the current model
@@ -857,6 +882,48 @@ public:
 	 */
 	void removeRule(const std::string& vid, bool forceRegenerate = true);
 
+	/*
+	* Add an event to the current model
+	* @param eid: the ID of the event to be added
+	* @param trigger: the math formula of event trigger
+	* @param priority: the math formula of event priority, could be empty
+	* @param delay: the math formula of event delay, could be empty
+	* @param forceRegenerate: a boolen value to indicate if the model is regenerated
+	*					      after this function call
+	*						  default value is true to regenerate model after each call
+	*                         of editing function
+	*						  to save time for editing for multiple times, one could
+	*					      set this flag to true only in the last call of editing
+	*/
+	void addEvent(const std::string& eid, const std::string& trigger, const std::string& priority = "", const std::string& delay = "", bool forceRegenerate = true);
+
+	/*
+	* Add an event assignment to an existing event in the current model
+	* @param eid: the ID of the event to add the assignment
+	* @param vid: the ID of the variable to assign 
+	* @param fomula: the math formula to assign
+	* @param forceRegenerate: a boolen value to indicate if the model is regenerated
+	*					      after this function call
+	*						  default value is true to regenerate model after each call
+	*                         of editing function
+	*						  to save time for editing for multiple times, one could
+	*					      set this flag to true only in the last call of editing
+	*/
+	void addEventAssignment(const std::string& eid, const std::string& vid, const std::string& formula, bool forceRegenerate = true);
+
+
+	/**
+	 * Remove an event assignment from an existing event
+	 * @param eid: the ID of the event
+	 * @param eid: the ID of the vairable of the event assignment
+	 * @param forceRegenerate: a boolen value to indicate if the model is regenerated
+	 *					       after this function call
+	 *						   default value is true to regenerate model after each call
+	 *                         of editing function
+	 *						   to save time for editing for multiple times, one could
+	 *					       set this flag to true only in the last call of editing
+	 */
+	void removeEventAssignment(const std::string& eid, const std::string& vid, bool forceRegenerate = true);
 
 	/**
 	 * Remove an event from the current model

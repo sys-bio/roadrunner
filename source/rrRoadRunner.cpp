@@ -5370,20 +5370,59 @@ void RoadRunner::removeSpecies(const std::string& sid, bool forceRegenerate)
 		index++;
 	}
 
+
+	Log(Logger::LOG_DEBUG) << "Removing rules related to "<< sid << "..." << endl;
 	libsbml::Rule* toDelete = impl->document->getModel()->removeRule(sid);
 	if (toDelete != NULL)
 	{
 		delete toDelete;
 	}
 
-	// Todo:: delete event????
+	Log(Logger::LOG_DEBUG) << "Removing event assignments related to " << sid << "..." << endl;
+	for (uint i = 0; i < sbmlModel->getNumEvents(); i++)
+	{
+		EventAssignment* toDelete = sbmlModel->getListOfEvents()->get(i)->getEventAssignment(sid);
+		if (toDelete != NULL)
+		{
+			delete toDelete;
+		}
+	}
 
 	regenerate(forceRegenerate);
 }
 
+
+void RoadRunner::addParameter(const std::string& pid, double value, bool forceRegenerate)
+{
+	if (impl->document->getModel()->getParameter(pid) != NULL)
+	{
+		throw std::invalid_argument("Roadrunner::addParameter failed, parameter " + pid + " already existed in the model");
+	}
+
+	Log(Logger::LOG_DEBUG) << "Adding compartment " << pid << " with value " << value << endl;
+	libsbml::Parameter* newParameter = impl->document->getModel()->createParameter();
+
+	newParameter->setId(pid);
+	newParameter->setValue(value);
+
+	regenerate(forceRegenerate);
+}
+
+void RoadRunner::removeParameter(const std::string& pid, bool forceRegenerate)
+{
+	libsbml::Parameter* toDelete = impl->document->getModel()->removeParameter(pid);
+	if (toDelete == NULL)
+	{
+		throw std::invalid_argument("Roadrunner::removeParameter failed, no parameter with ID " + pid + " existed in the model");
+	}
+	Log(Logger::LOG_DEBUG) << "Removing parameter " << pid << "..." << endl;
+	delete toDelete;
+	regenerate(forceRegenerate);
+}
+
+
 void RoadRunner::addCompartment(const std::string& cid, double initVolume, bool forceRegenerate)
 {
-
 	if (impl->document->getModel()->getCompartment(cid) != NULL)
 	{
 		throw std::invalid_argument("Roadrunner::addCompartment failed, compartment " + cid + " already existed in the model");
@@ -5490,6 +5529,105 @@ void RoadRunner::removeRule(const std::string& vid, bool forceRegenerate)
 
 
 
+void RoadRunner::addEvent(const std::string& eid, const std::string& trigger, const std::string& priority, const std::string& delay, bool forceRegenerate)
+{
+	using namespace libsbml;
+	Model* sbmlModel = impl->document->getModel();
+
+	if (sbmlModel->getEvent(eid) != NULL)
+	{
+		throw std::invalid_argument("Roadrunner::addEvent failed, event " + eid + " already existed in the model");
+	}
+
+	Log(Logger::LOG_DEBUG) << "Adding event " << eid << "..." << endl;
+	Event* newEvent = sbmlModel->createEvent();
+	Trigger* newTrigger = newEvent->createTrigger();
+	ASTNode_t* formula = libsbml::SBML_parseFormula(trigger.c_str());
+	if (formula == NULL)
+	{
+		throw std::invalid_argument("Roadrunner::addEvent failed, an error occurred in parsing the trigger formula");
+	}
+
+	newTrigger->setMath(formula);
+
+	if (!priority.empty())
+	{
+		Priority* newPriority = newEvent->createPriority();
+		formula = libsbml::SBML_parseFormula(priority.c_str());
+		if (formula == NULL)
+		{
+			throw std::invalid_argument("Roadrunner::addEvent failed, an error occurred in parsing the priority formula");
+		}
+		newPriority->setMath(formula);
+	}
+
+	if (!delay.empty())
+	{
+		Delay* newDelay = newEvent->createDelay();
+		formula = libsbml::SBML_parseFormula(delay.c_str());
+		if (formula == NULL)
+		{
+			throw std::invalid_argument("Roadrunner::addEvent failed, an error occurred in parsing the delay formula");
+		}
+		newDelay->setMath(formula);
+	}
+
+	regenerate(forceRegenerate);
+}
+
+
+void RoadRunner::addEventAssignment(const std::string& eid, const std::string& vid, const std::string& formula, bool forceRegenerate)
+{
+	using namespace libsbml;
+	Model* sbmlModel = impl->document->getModel();
+
+	Event* event = sbmlModel->getEvent(eid);
+
+	if (event == NULL)
+	{
+		throw std::invalid_argument("Roadrunner::addEventAssignment failed, no event " + eid + " existed in the model");
+	}
+
+	if (event->getEventAssignment(vid) != NULL)
+	{
+		throw std::invalid_argument("Roadrunner::addEventAssignment failed, variable " + vid + " already existed in event " + eid );
+	}
+
+	Log(Logger::LOG_DEBUG) << "Adding event assignment for variable " << vid << " to event "<< eid << "..." << endl;
+	EventAssignment* assignment = event->createEventAssignment();
+	assignment->setVariable(vid);
+	
+	ASTNode_t* math = libsbml::SBML_parseFormula(formula.c_str());
+	if (math == NULL)
+	{
+		throw std::invalid_argument("Roadrunner::addEventAssignment failed, an error occurred in parsing the math formula");
+	}
+
+	assignment->setMath(math);
+
+	regenerate(forceRegenerate);
+}
+
+void RoadRunner::removeEventAssignment(const std::string& eid, const std::string& vid, bool forceRegenerate)
+{
+	libsbml::Event* event = impl->document->getModel()->getEvent(eid);
+	if (event == NULL)
+	{
+		throw std::invalid_argument("Roadrunner::removeEventAssignment failed, no event with ID " + eid + " existed in the model");
+	}
+
+	libsbml::EventAssignment* toDelete = event->removeEventAssignment(vid);
+	if (toDelete == NULL)
+	{
+		throw std::invalid_argument("Roadrunner::removeEventAssignment failed, no event assignment with ID " + eid + " existed in the event " + eid);
+	}
+
+	Log(Logger::LOG_DEBUG) << "Removing event assignment for variable" << vid << " in event " << eid << "..." << endl;
+	delete toDelete;
+	regenerate(forceRegenerate);
+}
+
+
 
 void RoadRunner::removeEvent(const std::string& eid, bool forceRegenerate)
 {
@@ -5498,7 +5636,7 @@ void RoadRunner::removeEvent(const std::string& eid, bool forceRegenerate)
 	{
 		throw std::invalid_argument("Roadrunner::removeEvent failed, no event with ID " + eid + " existed in the model");
 	}
-	Log(Logger::LOG_DEBUG) << "Removing event for variable" << eid << "..." << endl;
+	Log(Logger::LOG_DEBUG) << "Removing event " << eid << "..." << endl;
 	delete toDelete;
 	regenerate(forceRegenerate);
 }
