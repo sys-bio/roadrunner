@@ -5176,12 +5176,7 @@ void RoadRunner::loadSelectionVector(std::istream& in, std::vector<SelectionReco
 
 void RoadRunner::removeReaction(const std::string& rid, bool forceRegenerate)
 {
-	if (impl->document == NULL || impl->document->getModel() == NULL) {
-		// TODO: create a new document
-		impl->document = new libsbml::SBMLDocument();
-	}
-
-	libsbml::Reaction* toDelete = impl->document->getModel()->removeReaction(rid);
+	libsbml::Reaction*  toDelete = impl->document->getModel()->removeReaction(rid);
 	if (toDelete == NULL) 
 	{
 		throw std::invalid_argument("Roadrunner::removeReaction failed, no reaction with ID " + rid + " existed in the model");
@@ -5440,13 +5435,31 @@ void RoadRunner::addCompartment(const std::string& cid, double initVolume, bool 
 
 void RoadRunner::removeCompartment(const std::string& cid, bool forceRegenerate)
 {
-	libsbml::Compartment* toDelete = impl->document->getModel()->removeCompartment(cid);
+	libsbml::Model* model = impl->document->getModel();
+	libsbml::Compartment* toDelete = model->removeCompartment(cid);
+	
 	if (toDelete == NULL)
 	{
 		throw std::invalid_argument("Roadrunner::removeCompartment failed, no compartment with ID " + cid + " existed in the model");
 	}
 	Log(Logger::LOG_DEBUG) << "Removing compartment " << cid << "..." << endl;
 	delete toDelete;
+
+	// remove all species in the compartment
+	int index = 0; 
+	int numSpecies = model->getNumSpecies();
+	for (int i = 0; i < numSpecies; i++) {
+		if (model->getSpecies(index)->getCompartment() == cid) 
+		{
+			removeSpecies(model->getSpecies(index)->getId());
+		} 
+		else 
+		{
+			index++;
+		}
+	}
+
+
 	regenerate(forceRegenerate);
 }
 
