@@ -5370,13 +5370,23 @@ void RoadRunner::removeSpecies(const std::string& sid, bool forceRegenerate)
 		index++;
 	}
 
+
+	Log(Logger::LOG_DEBUG) << "Removing rules related to "<< sid << "..." << endl;
 	libsbml::Rule* toDelete = impl->document->getModel()->removeRule(sid);
 	if (toDelete != NULL)
 	{
 		delete toDelete;
 	}
 
-	// Todo:: delete event????
+	Log(Logger::LOG_DEBUG) << "Removing event assignments related to " << sid << "..." << endl;
+	for (uint i = 0; i < sbmlModel->getNumEvents(); i++)
+	{
+		EventAssignment* toDelete = sbmlModel->getListOfEvents()->get(i)->getEventAssignment(sid);
+		if (toDelete != NULL)
+		{
+			delete toDelete;
+		}
+	}
 
 	regenerate(forceRegenerate);
 }
