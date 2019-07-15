@@ -871,8 +871,8 @@ public:
 
 
 	/**
-	 * Remove a rule from the current model
-	 * @param rid: the ID of variable whicch the rule assigns a value to
+	 * Remove rules related to given variable from the current model
+	 * @param rid: the ID of variable whicch the rules assigns formulas to
 	 * @param forceRegenerate: a boolen value to indicate if the model is regenerated
 	 *					       after this function call
 	 *						   default value is true to regenerate model after each call
@@ -880,7 +880,7 @@ public:
 	 *						   to save time for editing for multiple times, one could
 	 *					       set this flag to true only in the last call of editing
 	 */
-	void removeRule(const std::string& vid, bool forceRegenerate = true);
+	void removeRules(const std::string& rid, bool forceRegenerate = true);
 
 	/*
 	* Add an event to the current model

@@ -5176,7 +5176,7 @@ void RoadRunner::loadSelectionVector(std::istream& in, std::vector<SelectionReco
 
 void RoadRunner::removeReaction(const std::string& rid, bool forceRegenerate)
 {
-	libsbml::Reaction*  toDelete = impl->document->getModel()->removeReaction(rid);
+	libsbml::Reaction* toDelete = impl->document->getModel()->removeReaction(rid);
 	if (toDelete == NULL) 
 	{
 		throw std::invalid_argument("Roadrunner::removeReaction failed, no reaction with ID " + rid + " existed in the model");
@@ -5189,7 +5189,6 @@ void RoadRunner::removeReaction(const std::string& rid, bool forceRegenerate)
 
 void RoadRunner::addSpecies(const std::string& sid, const std::string& compartment, double initValue, const std::string& substanceUnits, bool forceRegenerate)
 {
-
 	checkID("addSpecies", sid);
 	
 	if (impl->document->getModel()->getCompartment(compartment) == NULL)
@@ -5266,7 +5265,7 @@ void RoadRunner::addReaction(const string& rid, vector<string> reactants, vector
 		newReaction->addProduct(s);
 	}
 
-
+	// illegal formular will be catched during the regeneration
 	KineticLaw* kLaw = newReaction->createKineticLaw();
 	kLaw->setFormula(kineticLaw);
 	
@@ -5287,11 +5286,6 @@ void RoadRunner::removeSpecies(const std::string& sid, bool forceRegenerate)
 	Log(Logger::LOG_DEBUG) << "Removing species " << sid << "..." << endl;
 	delete s;
 
-	Rule* r = impl->document->getModel()->removeRuleByVariable(sid);
-	if (r != NULL)
-	{
-		delete r;
-	}
 
 	// delete all related reactions as well
 	int index = 0;
@@ -5360,12 +5354,7 @@ void RoadRunner::removeSpecies(const std::string& sid, bool forceRegenerate)
 	}
 
 
-	Log(Logger::LOG_DEBUG) << "Removing rules related to "<< sid << "..." << endl;
-	libsbml::Rule* toDelete = impl->document->getModel()->removeRule(sid);
-	if (toDelete != NULL)
-	{
-		delete toDelete;
-	}
+	removeRules(sid, false);
 
 	Log(Logger::LOG_DEBUG) << "Removing event assignments related to " << sid << "..." << endl;
 	for (uint i = 0; i < sbmlModel->getNumEvents(); i++)
@@ -5477,8 +5466,6 @@ void RoadRunner::addAssignmentRule(const std::string& vid, const std::string& fo
 	using namespace libsbml;
 	Model* sbmlModel = impl->document->getModel();
 
-	checkID("addAssignmentRule", vid);
-
 	Log(Logger::LOG_DEBUG) << "Adding assignment rule for" << vid << "..." << endl;
 	AssignmentRule* newRule = sbmlModel->createAssignmentRule();
 
@@ -5495,8 +5482,6 @@ void RoadRunner::addRateRule(const std::string& vid, const std::string& formula,
 	using namespace libsbml;
 	Model* sbmlModel = impl->document->getModel();
 
-	checkID("addRateRule", vid);
-
 	Log(Logger::LOG_DEBUG) << "Adding rate rule for" << vid << "..." << endl;
 	RateRule* newRule = sbmlModel->createRateRule();
 
@@ -5508,7 +5493,7 @@ void RoadRunner::addRateRule(const std::string& vid, const std::string& formula,
 }
 
 
-void RoadRunner::removeRule(const std::string& vid, bool forceRegenerate)
+void RoadRunner::removeRules(const std::string& vid, bool forceRegenerate)
 {
 	libsbml::Rule* toDelete = impl->document->getModel()->removeRule(vid);
 	if (toDelete == NULL)
@@ -5516,7 +5501,11 @@ void RoadRunner::removeRule(const std::string& vid, bool forceRegenerate)
 		throw std::invalid_argument("Roadrunner::removeRule failed, variable with ID " + vid + " has no rule existed in the model");
 	}
 	Log(Logger::LOG_DEBUG) << "Removing rule for variable" << vid << "..." << endl;
-	delete toDelete;
+	while (toDelete != NULL)
+	{
+		delete toDelete;
+		toDelete = impl->document->getModel()->removeRule(vid);
+	}
 	regenerate(forceRegenerate);
 }
 
@@ -5636,7 +5625,7 @@ void RoadRunner::checkID(const std::string& functionName, const std::string & si
 {
 	if (impl->document->getModel()->getElementBySId(sid) != NULL)
 	{
-		throw std::invalid_argument("Roadrunner::" + functionName+ " failed, identifier" + sid + " already existed in the model");
+		throw std::invalid_argument("Roadrunner::" + functionName+ " failed, identifier " + sid + " already existed in the model");
 	}
 }
 
