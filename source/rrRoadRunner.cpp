@@ -5141,7 +5141,11 @@ void RoadRunner::loadState(std::string filename)
 	}
 
 	//Currently the SBML is saved with the binary data, see saveState above
-	rr::loadBinary(in, getSBML());
+	std::string savedSBML;
+	rr::loadBinary(in, savedSBML);
+	libsbml::SBMLReader reader;
+	impl->document = reader.readSBMLFromString(savedSBML);
+
 	//Restart the integrator and reset the model
 	//This will need to change if we decide to add pausing
 	// impl->integrator->restart(0.0);
