@@ -5495,12 +5495,8 @@ void RoadRunner::addRateRule(const std::string& vid, const std::string& formula,
 
 void RoadRunner::removeRules(const std::string& vid, bool forceRegenerate)
 {
+	Log(Logger::LOG_DEBUG) << "Removing rules for variable" << vid << "..." << endl;
 	libsbml::Rule* toDelete = impl->document->getModel()->removeRule(vid);
-	if (toDelete == NULL)
-	{
-		throw std::invalid_argument("Roadrunner::removeRule failed, variable with ID " + vid + " has no rule existed in the model");
-	}
-	Log(Logger::LOG_DEBUG) << "Removing rule for variable" << vid << "..." << endl;
 	while (toDelete != NULL)
 	{
 		delete toDelete;
@@ -5508,7 +5504,6 @@ void RoadRunner::removeRules(const std::string& vid, bool forceRegenerate)
 	}
 	regenerate(forceRegenerate);
 }
-
 
 
 void RoadRunner::addEvent(const std::string& eid, const std::string& trigger, const std::string& priority, const std::string& delay, bool forceRegenerate)
@@ -5521,7 +5516,7 @@ void RoadRunner::addEvent(const std::string& eid, const std::string& trigger, co
 	Log(Logger::LOG_DEBUG) << "Adding event " << eid << "..." << endl;
 	Event* newEvent = sbmlModel->createEvent();
 	Trigger* newTrigger = newEvent->createTrigger();
-	ASTNode_t* formula = libsbml::SBML_parseFormula(trigger.c_str());
+	ASTNode_t* formula = libsbml::SBML_parseL3Formula(trigger.c_str());
 	if (formula == NULL)
 	{
 		throw std::invalid_argument("Roadrunner::addEvent failed, an error occurred in parsing the trigger formula");
@@ -5532,7 +5527,7 @@ void RoadRunner::addEvent(const std::string& eid, const std::string& trigger, co
 	if (!priority.empty())
 	{
 		Priority* newPriority = newEvent->createPriority();
-		formula = libsbml::SBML_parseFormula(priority.c_str());
+		formula = libsbml::SBML_parseL3Formula(priority.c_str());
 		if (formula == NULL)
 		{
 			throw std::invalid_argument("Roadrunner::addEvent failed, an error occurred in parsing the priority formula");
@@ -5543,7 +5538,7 @@ void RoadRunner::addEvent(const std::string& eid, const std::string& trigger, co
 	if (!delay.empty())
 	{
 		Delay* newDelay = newEvent->createDelay();
-		formula = libsbml::SBML_parseFormula(delay.c_str());
+		formula = libsbml::SBML_parseL3Formula(delay.c_str());
 		if (formula == NULL)
 		{
 			throw std::invalid_argument("Roadrunner::addEvent failed, an error occurred in parsing the delay formula");
@@ -5576,13 +5571,14 @@ void RoadRunner::addEventAssignment(const std::string& eid, const std::string& v
 	EventAssignment* assignment = event->createEventAssignment();
 	assignment->setVariable(vid);
 
-	ASTNode_t* math = libsbml::SBML_parseFormula(formula.c_str());
+	ASTNode_t* math = libsbml::SBML_parseL3Formula(formula.c_str());
 	if (math == NULL)
 	{
 		throw std::invalid_argument("Roadrunner::addEventAssignment failed, an error occurred in parsing the math formula");
 	}
 
 	assignment->setMath(math);
+
 
 	regenerate(forceRegenerate);
 }
