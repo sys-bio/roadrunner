@@ -413,7 +413,7 @@ void removeAndReaddAllCompartments(RoadRunner *rri, libsbml::SBMLDocument *doc)
 
 SUITE(MODEL_EDITING_TEST_SUITE)
 {
-	/*TEST(ADD_REACTION_1)
+	TEST(ADD_REACTION_1)
 	{
 		CHECK(RunModelEditingTest(1, [](RoadRunner* rri) {
 			rri->addReaction("reaction2", {"S2"}, {"S1"}, "k1*S2", true);
@@ -442,14 +442,45 @@ SUITE(MODEL_EDITING_TEST_SUITE)
 		CHECK(RunModelEditingTest(5, [](RoadRunner* rri) {
 			rri->removeSpecies("S2");
 		}));
-	}*/
+	}
 	TEST(ADD_SPECIES_1)
 	{
 		CHECK(RunModelEditingTest(6, [](RoadRunner* rri) {
-			rri->addSpecies("S3", "compartment", 0.0015, "concentration");
+			rri->addSpecies("S3", "compartment", 0.0015, "substance");
 		}));
 	}
-	/*TEST(READD_SPECIES)
+	TEST(ADD_REACTION_3)
+	{
+		CHECK(RunModelEditingTest(7, [](RoadRunner* rri) {
+			rri->addSpecies("S3", "compartment", 0.015, "concentration", false);
+			rri->addReaction("reaction3", {"S2"}, {"S3"}, "k2*S2");
+		}));
+	}
+	TEST(ADD_REACTION_4)
+	{
+		CHECK(RunModelEditingTest(7, [](RoadRunner* rri) {
+			rri->addSpecies("S3", "compartment", 0.015, "substance");
+			rri->addReaction("reaction3", {"S2"}, {"S3"}, "k2*S2");
+		}));
+	}
+	TEST(ADD_REACTION_5)
+	{
+		CHECK(RunModelEditingTest(8, [](RoadRunner* rri) {
+			rri->addSpecies("S3", "compartment", 0.015, "substance", false);
+			rri->addReaction("reaction3", {"S3"}, {"S1"}, "k2*S3");
+		}));
+	}
+	TEST(REMOVE_SPECIES_1)
+	{
+		CHECK(RunModelEditingTest(9, [](RoadRunner* rri) {
+			rri->removeSpecies("S2", false);
+			rri->addSpecies("S3", "compartment", 0.00030, "concentration", false);
+			rri->addReaction("reaction1", { "S1" }, { "S3" }, "k1*S1", false);
+			rri->addReaction("reaction2", {"S3"}, {"S1"}, "k2*S3", true);
+		}));
+	}
+    
+	TEST(READD_SPECIES)
 	{
 		clog << endl << "==== CHECK_READD_SPECIES ====" << endl << endl;
 		for (int i = 40; i <= 40; i++)
@@ -484,5 +515,5 @@ SUITE(MODEL_EDITING_TEST_SUITE)
 				UnitTest::CurrentTest::Results()->OnTestFailure(*UnitTest::CurrentTest::Details(), failureMessage.c_str());
 			}
 		}
-	}*/
+	}
 }
