@@ -5561,7 +5561,7 @@ void RoadRunner::addPriority(const std::string& eid, const std::string& priority
 	regenerate(forceRegenerate);
 }
 
-void RoadRunner::addDelay(const std::string& eid, const std::string& delay, bool forceRegenerate = true) {
+void RoadRunner::addDelay(const std::string& eid, const std::string& delay, bool forceRegenerate) {
 	using namespace libsbml;
 	Event* event = impl->document->getModel()->getEvent(eid);
 
