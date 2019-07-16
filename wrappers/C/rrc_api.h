@@ -522,7 +522,6 @@ C_DECL_SPEC bool rrcCallConv addReactionNoRegen(RRHandle handle, const char* rid
  \brief Remove a reaction from the current model
  \param[in] handle Handle to a RoadRunner instance
  \param[in] rid ID of the reaction to be removed
- \param[in] forceRegenerate Whether regenerate the new model after this call
  \return Returns false if the call fails, otherwise returns a true
  \ingroup edit
 */
@@ -534,11 +533,178 @@ C_DECL_SPEC bool rrcCallConv removeReaction(RRHandle handle, const char* rid);
         The last modification must regenerate for the modifications to take effect
  \param[in] handle Handle to a RoadRunner instance
  \param[in] rid ID of the reaction to be removed
- \param[in] forceRegenerate Whether regenerate the new model after this call
  \return Returns false if the call fails, otherwise returns a true
  \ingroup edit
 */
 C_DECL_SPEC bool rrcCallConv removeReactionNoRegen(RRHandle handle, const char* rid);
+
+
+/*!
+ \brief Add a parameter to the current model
+ \param[in] handle Handle to a RoadRunner instance
+ \param[in] pid ID of the parameter to be added
+ \param[in] value the value of the parameter to be added
+ \return Returns false if the call fails, otherwise returns a true
+ \ingroup edit
+*/
+C_DECL_SPEC bool rrcCallConv addParameter(RRHandle handle, const char* pid, double value);
+/*!
+ \brief Add a parameter to the current model, without regenerating it
+		The last modification must regenerate for the modifications to take effect
+ \param[in] handle Handle to a RoadRunner instance
+ \param[in] pid ID of the parameter to be added
+ \param[in] value the value of the parameter to be added
+ \return Returns false if the call fails, otherwise returns a true
+ \ingroup edit
+*/
+C_DECL_SPEC bool rrcCallConv addParameterNoRegen(RRHandle handle, const char* pid, double value);
+
+/*!
+ \brief Remove a parameter from the current model
+ \param[in] handle Handle to a RoadRunner instance
+ \param[in] pid ID of the parameter to be removed
+ \return Returns false if the call fails, otherwise returns a true
+ \ingroup edit
+*/
+C_DECL_SPEC bool rrcCallConv removeParameter(RRHandle handle, const char* pid);
+
+
+/*!
+ \brief Remove a parameter from the current model, without regenerating it
+		The last modification must regenerate for the modifications to take effect
+ \param[in] handle Handle to a RoadRunner instance
+ \param[in] pid ID of the parameter to be removed
+ \return Returns false if the call fails, otherwise returns a true
+ \ingroup edit
+*/
+C_DECL_SPEC bool rrcCallConv removeParameterNoRegen(RRHandle handle, const char* pid);
+
+
+/*!
+ \brief Add a compartment to the current model
+ \param[in] handle Handle to a RoadRunner instance
+ \param[in] cid ID of the compartment to be added
+ \param[in] initVolume the initial volume of the compartment to be added
+ \return Returns false if the call fails, otherwise returns a true
+ \ingroup edit
+*/
+C_DECL_SPEC bool rrcCallConv addCompartment(RRHandle handle, const char* cid, double initVolume);
+/*!
+ \brief Add a compartment to the current model, without regenerating it
+		The last modification must regenerate for the modifications to take effect
+ \param[in] handle Handle to a RoadRunner instance
+ \param[in] cid ID of the compartment to be added
+ \param[in] initVolume the initial volume of the compartment to be added
+ \return Returns false if the call fails, otherwise returns a true
+ \ingroup edit
+*/
+C_DECL_SPEC bool rrcCallConv addCompartmentNoRegen(RRHandle handle, const char* cid, double initVolume);
+
+
+/*!
+ \brief Remove a compartment from the current model
+ \param[in] handle Handle to a RoadRunner instance
+ \param[in] cid ID of the compartment to be removed
+ \return Returns false if the call fails, otherwise returns a true
+ \ingroup edit
+*/
+C_DECL_SPEC bool rrcCallConv removeCompartment(RRHandle handle, const char* cid);
+
+
+/*!
+ \brief Remove a compartment from the current model, without regenerating it
+		The last modification must regenerate for the modifications to take effect
+ \param[in] handle Handle to a RoadRunner instance
+ \param[in] cid ID of the compartment to be removed
+ \return Returns false if the call fails, otherwise returns a true
+ \ingroup edit
+*/
+C_DECL_SPEC bool rrcCallConv removeCompartmentNoRegen(RRHandle handle, const char* cid);
+
+
+/*!
+ \brief Set the kinetic law for a existing reaction in the current model
+ \param[in] handle Handle to a RoadRunner instance
+ \param[in] the ID of reaction to be modified
+ \param[in] kineticLaw the kinetic formular of reaction
+ \return Returns false if the call fails, otherwise returns a true
+ \ingroup edit
+*/
+C_DECL_SPEC bool rrcCallConv setKineticLaw(RRHandle handle, const char* rid, const char* kineticLaw);
+
+/*!
+ \brief Set the kinetic law for a existing reaction in the current model, without regenerating it
+		The last modification must regenerate for the modifications to take effect
+ \param[in] handle Handle to a RoadRunner instance
+ \param[in] the ID of reaction to be modified
+ \param[in] kineticLaw the kinetic formular of reaction
+ \return Returns false if the call fails, otherwise returns a true
+ \ingroup edit
+*/
+C_DECL_SPEC bool rrcCallConv setKineticLawNoRegen(RRHandle handle, const char* rid, const char* kineticLaw);
+
+/*!
+ \brief Add an assignment rule to the current model
+ \param[in] handle Handle to a RoadRunner instance
+ \param[in] vid ID of variable that rules assigns formula to
+ \param[in] formula the math formula of assignment rule to be added
+ \return Returns false if the call fails, otherwise returns a true
+ \ingroup edit
+*/
+C_DECL_SPEC bool rrcCallConv addAssignmentRule(RRHandle handle, const char* vid, const char* formula);
+
+/*!
+ \brief Add an assignment rule to the current model, without regenerating it
+		The last modification must regenerate for the modifications to take effect
+ \param[in] handle Handle to a RoadRunner instance
+ \param[in] vid ID of variable that rules assigns formula to
+ \param[in] formula the math formula of assignment rule to be added
+ \return Returns false if the call fails, otherwise returns a true
+ \ingroup edit
+*/
+C_DECL_SPEC bool rrcCallConv addAssignmentRuleNoRegen(RRHandle handle, const char* vid, const char* formula);
+
+/*!
+ \brief Add a rate rule to the current model
+ \param[in] handle Handle to a RoadRunner instance
+ \param[in] vid ID of variable that rules assigns formula to
+ \param[in] formula the he math formula of rate rule to be added
+ \return Returns false if the call fails, otherwise returns a true
+ \ingroup edit
+*/
+C_DECL_SPEC bool rrcCallConv addRateRule(RRHandle handle, const char* vid, const char* formula);
+
+/*!
+ \brief Add a rate rule to the current model, without regenerating it
+		The last modification must regenerate for the modifications to take effect
+ \param[in] handle Handle to a RoadRunner instance
+ \param[in] vid ID of variable that rules assigns formula to
+ \param[in] formula the he math formula of rate rule to be added
+ \return Returns false if the call fails, otherwise returns a true
+ \ingroup edit
+*/
+C_DECL_SPEC bool rrcCallConv addRateRuleNoRegen(RRHandle handle, const char* vid, const char* formula);
+
+/*!
+ \brief Remove rules related to given variable from the current model
+ \param[in] handle Handle to a RoadRunner instance
+ \param[in] vid ID of variable that rules assigns formula to
+ \return Returns false if the call fails, otherwise returns a true
+ \ingroup edit
+*/
+C_DECL_SPEC bool rrcCallConv removeRules(RRHandle handle, const char* vid);
+
+
+/*!
+ \brief  Remove rules related to given variable from the current model, without regenerating it
+		The last modification must regenerate for the modifications to take effect
+ \param[in] handle Handle to a RoadRunner instance
+ \param[in] vid ID of variable that rules assigns formula to
+ \return Returns false if the call fails, otherwise returns a true
+ \ingroup edit
+*/
+C_DECL_SPEC bool rrcCallConv removeRulesNoRegen(RRHandle handle, const char* vid);
+
 
 // -------------------------------------------------------------------------
 // SBML utility methods

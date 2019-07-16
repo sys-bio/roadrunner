@@ -844,7 +844,7 @@ public:
 
 	/*
 	* Add an assignment rule to the current model
-	* @param vid: the ID of a variable that the rule assigns a value to
+	* @param vid: ID of variable that rules assigns formula to
 	* @param formula: the math formula of assignment rule to be added
 	* @param forceRegenerate: a boolen value to indicate if the model is regenerated
 	*					      after this function call
@@ -857,9 +857,9 @@ public:
 
 
 	/*
-	* Add an rate rule to the current model
-	* @param vid: the ID of a variable that the rule assigns a value to
-	* @param formula: the math formula of assignment rule to be added
+	* Add a rate rule to the current model
+	* @param vid: ID of variable that rules assigns formula to
+	* @param formula: the math formula of rate rule to be added
 	* @param forceRegenerate: a boolen value to indicate if the model is regenerated
 	*					      after this function call
 	*						  default value is true to regenerate model after each call
@@ -872,7 +872,7 @@ public:
 
 	/**
 	 * Remove rules related to given variable from the current model
-	 * @param rid: the ID of variable whicch the rules assigns formulas to
+	 * @param vid: ID of variable that rules assigns formula to
 	 * @param forceRegenerate: a boolen value to indicate if the model is regenerated
 	 *					       after this function call
 	 *						   default value is true to regenerate model after each call
@@ -880,14 +880,13 @@ public:
 	 *						   to save time for editing for multiple times, one could
 	 *					       set this flag to true only in the last call of editing
 	 */
-	void removeRules(const std::string& rid, bool forceRegenerate = true);
+	void removeRules(const std::string& vid, bool forceRegenerate = true);
 
 	/*
 	* Add an event to the current model
 	* @param eid: the ID of the event to be added
+	* @param useValuesFromTriggerTime: indicate the moment at which the event’s assignments are to be evaluated
 	* @param trigger: the math formula of event trigger
-	* @param priority: the math formula of event priority, could be empty
-	* @param delay: the math formula of event delay, could be empty
 	* @param forceRegenerate: a boolen value to indicate if the model is regenerated
 	*					      after this function call
 	*						  default value is true to regenerate model after each call
@@ -895,7 +894,37 @@ public:
 	*						  to save time for editing for multiple times, one could
 	*					      set this flag to true only in the last call of editing
 	*/
-	void addEvent(const std::string& eid, const std::string& trigger, const std::string& priority = "", const std::string& delay = "", bool forceRegenerate = true);
+	void addEvent(const std::string& eid, bool useValuesFromTriggerTime, const std::string& trigger, bool forceRegenerate = true);
+
+
+
+	/*
+	* Add priority to an existing event in the model
+	* @param eid: the ID of the event to add priority
+	* @param priority: the math formula of event priority
+	* @param forceRegenerate: a boolen value to indicate if the model is regenerated
+	*					      after this function call
+	*						  default value is true to regenerate model after each call
+	*                         of editing function
+	*						  to save time for editing for multiple times, one could
+	*					      set this flag to true only in the last call of editing
+	*/
+	void addPriority(const std::string& eid, const std::string& priority, bool forceRegenerate = true);
+
+	/*
+	* Add priority to an existing event in the model
+	* @param eid: the ID of the event to add priority
+	* @param delay: the math formula of event delay
+	* @param forceRegenerate: a boolen value to indicate if the model is regenerated
+	*					      after this function call
+	*						  default value is true to regenerate model after each call
+	*                         of editing function
+	*						  to save time for editing for multiple times, one could
+	*					      set this flag to true only in the last call of editing
+	*/
+	void addDelay(const std::string& eid, const std::string& delay, bool forceRegenerate = true);
+
+
 
 	/*
 	* Add an event assignment to an existing event in the current model
