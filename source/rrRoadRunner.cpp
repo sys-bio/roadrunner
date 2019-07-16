@@ -5534,7 +5534,6 @@ void RoadRunner::addEvent(const std::string& eid, bool useValuesFromTriggerTime,
 {
 	using namespace libsbml;
 	Model* sbmlModel = impl->document->getModel();
-
 	checkID("addEvent", eid);
 
 	Log(Logger::LOG_DEBUG) << "Adding event " << eid << "..." << endl;
@@ -5547,15 +5546,14 @@ void RoadRunner::addEvent(const std::string& eid, bool useValuesFromTriggerTime,
 	{
 		throw std::invalid_argument("Roadrunner::addEvent failed, an error occurred in parsing the trigger formula");
 	}
-
 	newTrigger->setMath(formula);
 
+	// model regeneration will throw RuntimeError if the given formula is not valid
 	regenerate(forceRegenerate);
 }
 
-void RoadRunner::addPriority(const std::string& eid, const std::string& priority, bool forceRegenerate) {
-	// TODO: allow multiple priority for the same event?
 
+void RoadRunner::addPriority(const std::string& eid, const std::string& priority, bool forceRegenerate) {
 	using namespace libsbml;
 	Event* event = impl->document->getModel()->getEvent(eid);
 
@@ -5569,6 +5567,7 @@ void RoadRunner::addPriority(const std::string& eid, const std::string& priority
 	{
 		throw std::runtime_error("Roadrunner::addPriority failed, current SBML level and version does not support Priority in event");
 	}
+	Log(Logger::LOG_DEBUG) << "Adding priority for event " << eid << "..." << endl;
 	ASTNode_t* formula = libsbml::SBML_parseL3Formula(priority.c_str());
 	if (formula == NULL)
 	{
@@ -5576,6 +5575,7 @@ void RoadRunner::addPriority(const std::string& eid, const std::string& priority
 	}
 	newPriority->setMath(formula);
 
+	// model regeneration will throw RuntimeError if the given formula is not valid
 	regenerate(forceRegenerate);
 }
 
@@ -5588,8 +5588,8 @@ void RoadRunner::addDelay(const std::string& eid, const std::string& delay, bool
 		throw std::invalid_argument("Roadrunner::addDelay failed, no event " + eid + " existed in the model");
 	}
 
+	Log(Logger::LOG_DEBUG) << "Adding delay for event " << eid << "..." << endl;
 	Delay* newDelay = event->createDelay();
-
 	ASTNode_t* formula = libsbml::SBML_parseL3Formula(delay.c_str());
 	if (formula == NULL)
 	{
@@ -5597,6 +5597,7 @@ void RoadRunner::addDelay(const std::string& eid, const std::string& delay, bool
 	}
 	newDelay->setMath(formula);
 
+	// model regeneration will throw RuntimeError if the given formula is not valid
 	regenerate(forceRegenerate);
 }
 
@@ -5605,7 +5606,6 @@ void RoadRunner::addEventAssignment(const std::string& eid, const std::string& v
 {
 	using namespace libsbml;
 	Model* sbmlModel = impl->document->getModel();
-
 	Event* event = sbmlModel->getEvent(eid);
 
 	if (event == NULL)
@@ -5615,6 +5615,8 @@ void RoadRunner::addEventAssignment(const std::string& eid, const std::string& v
 
 	Log(Logger::LOG_DEBUG) << "Adding event assignment for variable " << vid << " to event " << eid << "..." << endl;
 	EventAssignment* assignment = event->createEventAssignment();
+	// multiple assignments for one variable in one event is allowed
+	// TODO: conflict with assignment rule
 	assignment->setVariable(vid);
 
 	ASTNode_t* math = libsbml::SBML_parseL3Formula(formula.c_str());
@@ -5622,12 +5624,12 @@ void RoadRunner::addEventAssignment(const std::string& eid, const std::string& v
 	{
 		throw std::invalid_argument("Roadrunner::addEventAssignment failed, an error occurred in parsing the math formula");
 	}
-
 	assignment->setMath(math);
 
-
+	// model regeneration will throw RuntimeError if the given formula is not valid
 	regenerate(forceRegenerate);
 }
+
 
 void RoadRunner::removeEventAssignments(const std::string & eid, const std::string & vid, bool forceRegenerate)
 {
