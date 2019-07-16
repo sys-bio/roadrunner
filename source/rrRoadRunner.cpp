@@ -5353,7 +5353,6 @@ void RoadRunner::removeSpecies(const std::string& sid, bool forceRegenerate)
 		index++;
 	}
 
-
 	removeRules(sid, false);
 
 	Log(Logger::LOG_DEBUG) << "Removing event assignments related to " << sid << "..." << endl;
@@ -5561,11 +5560,6 @@ void RoadRunner::addEventAssignment(const std::string& eid, const std::string& v
 	if (event == NULL)
 	{
 		throw std::invalid_argument("Roadrunner::addEventAssignment failed, no event " + eid + " existed in the model");
-	}
-
-	if (event->getEventAssignment(vid) != NULL)
-	{
-		throw std::invalid_argument("Roadrunner::addEventAssignment failed, variable " + vid + " already existed in event " + eid);
 	}
 
 	Log(Logger::LOG_DEBUG) << "Adding event assignment for variable " << vid << " to event " << eid << "..." << endl;
