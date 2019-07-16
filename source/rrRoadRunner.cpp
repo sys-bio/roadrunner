@@ -5212,10 +5212,11 @@ void RoadRunner::addSpecies(const std::string& sid, const std::string& compartme
 	} 
 	else 
 	{
-		newSpecies->setInitialAmount(initValue);
+		newSpecies->setSubstanceUnits(substanceUnits);
+		
 	}
 	
-	newSpecies->setSubstanceUnits(substanceUnits);
+	newSpecies->setInitialAmount(initValue);
    
 	regenerate(forceRegenerate);
 }
@@ -5402,6 +5403,8 @@ void RoadRunner::removeParameter(const std::string& pid, bool forceRegenerate)
 	}
 	Log(Logger::LOG_DEBUG) << "Removing parameter " << pid << "..." << endl;
 	delete toDelete;
+
+
 	regenerate(forceRegenerate);
 }
 
@@ -5562,6 +5565,10 @@ void RoadRunner::addPriority(const std::string& eid, const std::string& priority
 	}
 
 	Priority* newPriority = event->createPriority();
+	if (newPriority == NULL)
+	{
+		throw std::runtime_error("Roadrunner::addPriority failed, current SBML level and version does not support Priority in event");
+	}
 	ASTNode_t* formula = libsbml::SBML_parseL3Formula(priority.c_str());
 	if (formula == NULL)
 	{
@@ -5582,6 +5589,7 @@ void RoadRunner::addDelay(const std::string& eid, const std::string& delay, bool
 	}
 
 	Delay* newDelay = event->createDelay();
+
 	ASTNode_t* formula = libsbml::SBML_parseL3Formula(delay.c_str());
 	if (formula == NULL)
 	{
