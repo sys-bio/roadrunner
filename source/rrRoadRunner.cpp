@@ -5290,6 +5290,9 @@ void RoadRunner::removeSpecies(const std::string& sid, bool forceRegenerate)
 	// delete all related reactions as well
 	int index = 0;
 	int numReaction = sbmlModel->getNumReactions();
+
+	// TODO: will deleting one reaction interrupt with the order? 
+	// currently we are assuming that the order will keep the same
 	for (uint i = 0; i < numReaction; i++)
 	{
 		Reaction* reaction = sbmlModel->getListOfReactions()->get(index);
@@ -5361,7 +5364,6 @@ void RoadRunner::removeSpecies(const std::string& sid, bool forceRegenerate)
 		rule = sbmlModel->getRule(sid);
 	}
 
-
 	Log(Logger::LOG_DEBUG) << "Removing event assignments related to " << sid << "..." << endl;
 	for (uint i = 0; i < sbmlModel->getNumEvents(); i++)
 	{
@@ -5373,6 +5375,7 @@ void RoadRunner::removeSpecies(const std::string& sid, bool forceRegenerate)
 		}
 	}
 
+	// TODO: remove other components that related to this species(as variable)
 	regenerate(forceRegenerate);
 }
 
@@ -5446,6 +5449,9 @@ void RoadRunner::removeCompartment(const std::string& cid, bool forceRegenerate)
 	regenerate(forceRegenerate);
 }
 
+
+// TODO: check if formula parameters are valid
+
 void RoadRunner::setKineticLaw(const std::string& rid, const std::string& kineticLaw, bool forceRegenerate)
 {
 
@@ -5477,6 +5483,8 @@ void RoadRunner::addAssignmentRule(const std::string& vid, const std::string& fo
 	AssignmentRule* newRule = sbmlModel->createAssignmentRule();
 
 	// potential errors with these two inputs will be detected during regeneration and ignored 
+
+	// TODO: check vid is a valid variable(specices/ species reference/ parameter/ compartment)
 	newRule->setVariable(vid);
 	newRule->setFormula(formula);
 	
@@ -5493,6 +5501,8 @@ void RoadRunner::addRateRule(const std::string& vid, const std::string& formula,
 	RateRule* newRule = sbmlModel->createRateRule();
 
 	// potential errors with these two inputs will be detected during regeneration
+
+	// TODO: one vid cannot have more than one rate rule 
 	newRule->setVariable(vid);
 	newRule->setFormula(formula);
 
@@ -5541,6 +5551,7 @@ void RoadRunner::addEvent(const std::string& eid, bool useValuesFromTriggerTime,
 }
 
 void RoadRunner::addPriority(const std::string& eid, const std::string& priority, bool forceRegenerate) {
+	// TODO: allow multiple priority for the same event?
 
 	using namespace libsbml;
 	Event* event = impl->document->getModel()->getEvent(eid);
