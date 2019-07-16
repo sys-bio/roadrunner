@@ -5359,7 +5359,7 @@ void RoadRunner::removeSpecies(const std::string& sid, bool forceRegenerate)
 	Log(Logger::LOG_DEBUG) << "Removing event assignments related to " << sid << "..." << endl;
 	for (uint i = 0; i < sbmlModel->getNumEvents(); i++)
 	{
-		EventAssignment* toDelete = sbmlModel->getListOfEvents()->get(i)->getEventAssignment(sid);
+		EventAssignment* toDelete = sbmlModel->getListOfEvents()->get(i)->removeEventAssignment(sid);
 		if (toDelete != NULL)
 		{
 			delete toDelete;
