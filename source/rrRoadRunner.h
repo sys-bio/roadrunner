@@ -942,9 +942,9 @@ public:
 
 
 	/**
-	 * Remove an event assignment from an existing event
+	 * Remove event assignments for given variable from an existing event
 	 * @param eid: the ID of the event
-	 * @param eid: the ID of the vairable of the event assignment
+	 * @param eid: the ID of the vairable of the event assignments
 	 * @param forceRegenerate: a boolen value to indicate if the model is regenerated
 	 *					       after this function call
 	 *						   default value is true to regenerate model after each call
@@ -952,7 +952,7 @@ public:
 	 *						   to save time for editing for multiple times, one could
 	 *					       set this flag to true only in the last call of editing
 	 */
-	void removeEventAssignment(const std::string& eid, const std::string& vid, bool forceRegenerate = true);
+	void removeEventAssignments(const std::string& eid, const std::string& vid, bool forceRegenerate = true);
 
 	/**
 	 * Remove an event from the current model

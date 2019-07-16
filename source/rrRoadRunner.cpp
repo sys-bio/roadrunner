@@ -5353,15 +5353,23 @@ void RoadRunner::removeSpecies(const std::string& sid, bool forceRegenerate)
 		index++;
 	}
 
-	removeRules(sid, false);
+	Log(Logger::LOG_DEBUG) << "Removing rules related to " << sid << "..." << endl;
+	Rule* rule = sbmlModel->getRule(sid);
+	while (rule != NULL)
+	{
+		delete rule;
+		rule = sbmlModel->getRule(sid);
+	}
+
 
 	Log(Logger::LOG_DEBUG) << "Removing event assignments related to " << sid << "..." << endl;
 	for (uint i = 0; i < sbmlModel->getNumEvents(); i++)
 	{
 		EventAssignment* toDelete = sbmlModel->getListOfEvents()->get(i)->removeEventAssignment(sid);
-		if (toDelete != NULL)
+		while (toDelete != NULL)
 		{
 			delete toDelete;
+			toDelete = sbmlModel->getListOfEvents()->get(i)->removeEventAssignment(sid);
 		}
 	}
 
@@ -5496,6 +5504,10 @@ void RoadRunner::removeRules(const std::string& vid, bool forceRegenerate)
 {
 	Log(Logger::LOG_DEBUG) << "Removing rules for variable" << vid << "..." << endl;
 	libsbml::Rule* toDelete = impl->document->getModel()->removeRule(vid);
+	if (toDelete == NULL)
+	{
+		throw std::invalid_argument("Roadrunner::removeRules failed, no rules for variable " + vid + " existed in the model");
+	}
 	while (toDelete != NULL)
 	{
 		delete toDelete;
@@ -5598,7 +5610,7 @@ void RoadRunner::addEventAssignment(const std::string& eid, const std::string& v
 	regenerate(forceRegenerate);
 }
 
-void RoadRunner::removeEventAssignment(const std::string & eid, const std::string & vid, bool forceRegenerate)
+void RoadRunner::removeEventAssignments(const std::string & eid, const std::string & vid, bool forceRegenerate)
 {
 	libsbml::Event* event = impl->document->getModel()->getEvent(eid);
 	if (event == NULL)
@@ -5612,8 +5624,13 @@ void RoadRunner::removeEventAssignment(const std::string & eid, const std::strin
 		throw std::invalid_argument("Roadrunner::removeEventAssignment failed, no event assignment with ID " + eid + " existed in the event " + eid);
 	}
 
-	Log(Logger::LOG_DEBUG) << "Removing event assignment for variable" << vid << " in event " << eid << "..." << endl;
-	delete toDelete;
+	Log(Logger::LOG_DEBUG) << "Removing event assignments for variable" << vid << " in event " << eid << "..." << endl;
+	while (toDelete != NULL)
+	{
+		delete toDelete;
+		libsbml::EventAssignment* toDelete = event->removeEventAssignment(vid);
+	}
+	
 	regenerate(forceRegenerate);
 }
 
