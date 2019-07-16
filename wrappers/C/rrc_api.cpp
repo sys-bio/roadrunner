@@ -623,10 +623,18 @@ RRCDataPtr rrcCallConv simulate(RRHandle handle)
 {
 	start_try
 		RoadRunner* rri = castToRoadRunner(handle);
+	if (false)
+	{
+		rri = new RoadRunner();
+		rri = new  RoadRunner("D:/rr/source/roadrunner/models/sbml-test-suite/cases/semantic/model_editing/00006/00006-sbml-l2v4-mod.xml");
+		rri->getSimulateOptions().loadSBMLSettings("D:/rr/source/roadrunner/models/sbml-test-suite/cases/semantic/model_editing/00006/00006-settings.txt");
+		rri->simulate();
+		RoadRunnerData resultData(rri);
 
-		//rri = new RoadRunner();
-	//	rri->load("C:/Users/User/Documents/rr/source/roadrunner/remove-test.xml");
-		
+		ofstream fs("D:/rr/source/roadrunner/models/sbml-test-suite/cases/semantic/model_editing/00006/00006-results.csv");
+		fs << resultData;
+		fs.close();
+	}
         //rri->simulate();
 		//auto test = rri->getSimulationData();
 		//for (int r = 0; r < test->numRows(); r++) {

@@ -413,7 +413,7 @@ void removeAndReaddAllCompartments(RoadRunner *rri, libsbml::SBMLDocument *doc)
 
 SUITE(MODEL_EDITING_TEST_SUITE)
 {
-	TEST(ADD_REACTION_1)
+	/*TEST(ADD_REACTION_1)
 	{
 		CHECK(RunModelEditingTest(1, [](RoadRunner* rri) {
 			rri->addReaction("reaction2", {"S2"}, {"S1"}, "k1*S2", true);
@@ -442,8 +442,14 @@ SUITE(MODEL_EDITING_TEST_SUITE)
 		CHECK(RunModelEditingTest(5, [](RoadRunner* rri) {
 			rri->removeSpecies("S2");
 		}));
+	}*/
+	TEST(ADD_SPECIES_1)
+	{
+		CHECK(RunModelEditingTest(6, [](RoadRunner* rri) {
+			rri->addSpecies("S3", "compartment", 0.0015, "concentration");
+		}));
 	}
-	TEST(READD_SPECIES)
+	/*TEST(READD_SPECIES)
 	{
 		clog << endl << "==== CHECK_READD_SPECIES ====" << endl << endl;
 		for (int i = 40; i <= 40; i++)
@@ -478,5 +484,5 @@ SUITE(MODEL_EDITING_TEST_SUITE)
 				UnitTest::CurrentTest::Results()->OnTestFailure(*UnitTest::CurrentTest::Details(), failureMessage.c_str());
 			}
 		}
-	}
+	}*/
 }
