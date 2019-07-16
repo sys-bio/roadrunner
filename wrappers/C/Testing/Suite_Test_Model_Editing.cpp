@@ -24,11 +24,10 @@ extern string gTempFolder;
 extern string gTSModelsPath;
 extern string gCompiler;
 
-bool RunModelEditingTest(int caseNumber, void (*modification)(RoadRunner*))
+bool RunModelEditingTest(int caseNumber, void (*modification)(RoadRunner*), std::string version = "l2v4")
 {
 	bool result(false);
 	RRHandle gRR;
-	std::string version = "l2v4";
 
 	//Create instance..
 	gRR = createRRInstanceEx(gTempFolder.c_str(), gCompiler.c_str());
@@ -413,7 +412,7 @@ void removeAndReaddAllCompartments(RoadRunner *rri, libsbml::SBMLDocument *doc)
 
 SUITE(MODEL_EDITING_TEST_SUITE)
 {
-	TEST(ADD_REACTION_1)
+	/*TEST(ADD_REACTION_1)
 	{
 		CHECK(RunModelEditingTest(1, [](RoadRunner* rri) {
 			rri->addReaction("reaction2", {"S2"}, {"S1"}, "k1*S2", true);
@@ -469,8 +468,8 @@ SUITE(MODEL_EDITING_TEST_SUITE)
 			rri->addSpecies("S3", "compartment", 0.015, "substance", false);
 			rri->addReaction("reaction3", {"S3"}, {"S1"}, "k2*S3");
 		}));
-	}
-	TEST(REMOVE_SPECIES_1)
+	}*/
+	/*TEST(REMOVE_SPECIES_1)
 	{
 		CHECK(RunModelEditingTest(9, [](RoadRunner* rri) {
 			rri->removeSpecies("S2", false);
@@ -478,9 +477,37 @@ SUITE(MODEL_EDITING_TEST_SUITE)
 			rri->addReaction("reaction1", { "S1" }, { "S3" }, "k1*S1", false);
 			rri->addReaction("reaction2", {"S3"}, {"S1"}, "k2*S3", true);
 		}));
+	}*/
+
+	TEST(ADD_EVENT_1)
+	{
+		CHECK(RunModelEditingTest(10, [](RoadRunner* rri) {
+			rri->addEvent("event1", true, "S1 < 0.1", false);
+			rri->addEventAssignment("event1", "S1", "1", true);
+			// Should this be here?
+			//rri->reset();
+		}));
+	}
+
+	TEST(EVENT_PRIORITY_1)
+	{
+		CHECK(RunModelEditingTest(930, [](RoadRunner* rri) {
+			rri->addEvent("_E0", true, "time >= 0.99", false);
+			rri->addPriority("_E0", "1", false);
+			rri->addEventAssignment("_E0", "S1", "4", false);
+			rri->addEventAssignment("_E0", "S2", "5", false);
+			rri->addEventAssignment("_E0", "S3", "6", false);
+
+			rri->addEvent("_E1", true, "time >= 0.99", false);
+			rri->addPriority("_E1", "0", false);
+			rri->addEventAssignment("_E1", "S1", "1", false);
+			rri->addEventAssignment("_E1", "S2", "2", false);
+			rri->addEventAssignment("_E1", "S3", "3", true);
+		}, "l3v1"));
 	}
     
-	TEST(READD_SPECIES)
+    
+	/*TEST(READD_SPECIES)
 	{
 		clog << endl << "==== CHECK_READD_SPECIES ====" << endl << endl;
 		for (int i = 40; i <= 40; i++)
@@ -515,5 +542,5 @@ SUITE(MODEL_EDITING_TEST_SUITE)
 				UnitTest::CurrentTest::Results()->OnTestFailure(*UnitTest::CurrentTest::Details(), failureMessage.c_str());
 			}
 		}
-	}
+	}*/
 }
