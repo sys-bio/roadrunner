@@ -705,6 +705,134 @@ C_DECL_SPEC bool rrcCallConv removeRules(RRHandle handle, const char* vid);
 */
 C_DECL_SPEC bool rrcCallConv removeRulesNoRegen(RRHandle handle, const char* vid);
 
+/*!
+ \brief Add an event to the current model
+ \param[in] handle Handle to a RoadRunner instance
+ \param[in] eid ID of the event to be added
+ \param[in] useValuesFromTriggerTime indicate the moment at which the event’s assignments are to be evaluated
+ \param[in] trigger the math formula of event trigger
+ \return Returns false if the call fails, otherwise returns a true
+ \ingroup edit
+*/
+C_DECL_SPEC bool rrcCallConv addEvent(RRHandle handle, const char* eid, bool useValuesFromTriggerTime, const char* trigger);
+
+/*!
+ \brief Add an event to the current model, without regenerating it
+		The last modification must regenerate for the modifications to take effect
+ \param[in] handle Handle to a RoadRunner instance
+ \param[in] eid ID of the event to be added
+ \param[in] useValuesFromTriggerTime indicate the moment at which the event’s assignments are to be evaluated
+ \param[in] trigger the math formula of event trigger
+ \return Returns false if the call fails, otherwise returns a true
+ \ingroup edit
+*/
+C_DECL_SPEC bool rrcCallConv addEventNoRegen(RRHandle handle, const char* eid, bool useValuesFromTriggerTime, const char* trigger);
+
+/*!
+ \brief Add priority to an existing event in the model
+ \param[in] handle Handle to a RoadRunner instance
+ \param[in] eid ID of the event to add priority
+ \param[in] priority the math formula of event priority
+ \return Returns false if the call fails, otherwise returns a true
+ \ingroup edit
+*/
+C_DECL_SPEC bool rrcCallConv addPriority(RRHandle handle, const char* eid, const char* priority);
+
+/*!
+ \brief Add priority to an existing event in the model, without regenerating it
+		The last modification must regenerate for the modifications to take effect
+ \param[in] handle Handle to a RoadRunner instance
+ \param[in] eid ID of the event to add priority
+ \param[in] priority the math formula of event priority
+ \return Returns false if the call fails, otherwise returns a true
+ \ingroup edit
+*/
+C_DECL_SPEC bool rrcCallConv addPriorityNoRegen(RRHandle handle, const char* eid, const char* priority);
+
+/*!
+ \brief Add delay to an existing event in the model
+ \param[in] handle Handle to a RoadRunner instance
+ \param[in] eid ID of the event to add delay
+ \param[in] priority the math formula of event priority
+ \return Returns false if the call fails, otherwise returns a true
+ \ingroup edit
+*/
+C_DECL_SPEC bool rrcCallConv addDelay(RRHandle handle, const char* eid, const char* delay);
+
+/*!
+ \brief Add delay to an existing event in the model, without regenerating it
+		The last modification must regenerate for the modifications to take effect
+ \param[in] handle Handle to a RoadRunner instance
+ \param[in] eid ID of the event to add delay
+ \param[in] delay the math formula of event delay
+ \return Returns false if the call fails, otherwise returns a true
+ \ingroup edit
+*/
+C_DECL_SPEC bool rrcCallConv addDelayNoRegen(RRHandle handle, const char* eid, const char* delay);
+
+/*!
+ \brief Add an event assignment to an existing event in the current model
+ \param[in] handle Handle to a RoadRunner instance
+ \param[in] eid ID of the event to add assignment
+ \param[in] vid the ID of the variable to assign formula
+ \param[in] fomula the math formula to assign
+ \return Returns false if the call fails, otherwise returns a true
+ \ingroup edit
+*/
+C_DECL_SPEC bool rrcCallConv addEventAssignment(RRHandle handle, const char* eid, const char* vid, const char* formula);
+
+/*!
+ \brief Add an event assignment to an existing event in the current model, without regenerating it
+		The last modification must regenerate for the modifications to take effect
+ \param[in] handle Handle to a RoadRunner instance
+ \param[in] eid ID of the event to add assignment
+ \param[in] vid the ID of the variable to assign formula
+ \param[in] fomula the math formula to assign
+ \return Returns false if the call fails, otherwise returns a true
+ \ingroup edit
+*/
+C_DECL_SPEC bool rrcCallConv addEventAssignmentNoRegen(RRHandle handle, const char* eid, const char* vid, const char* formula);
+
+/*!
+ \brief Remove event assignments for given variable from an existing event
+ \param[in] handle Handle to a RoadRunner instance
+ \param[in] eid ID of the event
+ \param[in] vid the ID of the variable of the event assignments
+ \return Returns false if the call fails, otherwise returns a true
+ \ingroup edit
+*/
+C_DECL_SPEC bool rrcCallConv removeEventAssignments(RRHandle handle, const char* eid, const char* vid);
+
+/*!
+ \brief Remove event assignments for given variable from an existing event, without regenerating it
+		The last modification must regenerate for the modifications to take effect
+ \param[in] handle Handle to a RoadRunner instance
+ \param[in] eid ID of the event
+ \param[in] vid the ID of the variable of the event assignments
+ \return Returns false if the call fails, otherwise returns a true
+ \ingroup edit
+*/
+C_DECL_SPEC bool rrcCallConv removeEventAssignmentsNoRegen(RRHandle handle, const char* eid, const char* vid);
+
+/*!
+ \brief Remove an event from the current model
+ \param[in] handle Handle to a RoadRunner instance
+ \param[in] eid ID of the event to be removed 
+ \return Returns false if the call fails, otherwise returns a true
+ \ingroup edit
+*/
+C_DECL_SPEC bool rrcCallConv removeEvent(RRHandle handle, const char* eid);
+
+/*!
+ \brief  Remove an event from the current model, without regenerating it
+		The last modification must regenerate for the modifications to take effect
+ \param[in] handle Handle to a RoadRunner instance
+ \param[in] eid ID of the event to be removed
+ \return Returns false if the call fails, otherwise returns a true
+ \ingroup edit
+*/
+C_DECL_SPEC bool rrcCallConv removeEventsNoRegen(RRHandle handle, const char* eid);
+
 
 // -------------------------------------------------------------------------
 // SBML utility methods

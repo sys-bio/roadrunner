@@ -929,7 +929,7 @@ public:
 	/*
 	* Add an event assignment to an existing event in the current model
 	* @param eid: the ID of the event to add the assignment
-	* @param vid: the ID of the variable to assign 
+	* @param vid: the ID of the variable to assign formula
 	* @param fomula: the math formula to assign
 	* @param forceRegenerate: a boolen value to indicate if the model is regenerated
 	*					      after this function call
