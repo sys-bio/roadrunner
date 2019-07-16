@@ -696,7 +696,7 @@ C_DECL_SPEC bool rrcCallConv removeRules(RRHandle handle, const char* vid);
 
 
 /*!
- \brief  Remove rules related to given variable from the current model, without regenerating it
+ \brief Remove rules related to given variable from the current model, without regenerating it
 		The last modification must regenerate for the modifications to take effect
  \param[in] handle Handle to a RoadRunner instance
  \param[in] vid ID of variable that rules assigns formula to
