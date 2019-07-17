@@ -635,6 +635,8 @@ RRCDataPtr rrcCallConv simulate(RRHandle handle)
 		fs << resultData;
 		fs.close();
 	}
+
+
         //rri->simulate();
 		//auto test = rri->getSimulationData();
 		//for (int r = 0; r < test->numRows(); r++) {

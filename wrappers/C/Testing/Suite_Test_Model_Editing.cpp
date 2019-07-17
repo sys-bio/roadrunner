@@ -427,7 +427,7 @@ SUITE(MODEL_EDITING_TEST_SUITE)
 	TEST(ADD_REACTION_2)
 	{
 		CHECK(RunModelEditingTest(3, [](RoadRunner* rri) {
-			rri->addReaction("reaction2", {"2*S2", "S1"}, {"S1"}, "k1*S1 + k1*S2", true);
+			rri->addReaction("reaction2", {"2S2", "S1"}, {"S1"}, "k1*S1 + k1*S2", true);
 		}));
 	}
 	TEST(REMOVE_REACTION_2)
@@ -482,10 +482,8 @@ SUITE(MODEL_EDITING_TEST_SUITE)
 	TEST(ADD_EVENT_1)
 	{
 		CHECK(RunModelEditingTest(10, [](RoadRunner* rri) {
-			rri->addEvent("event1", true, "S1 < 0.1", false);
+			rri->addEvent("event1", true, "S1 > 0.00015", false);
 			rri->addEventAssignment("event1", "S1", "1", true);
-			// Should this be here?
-			//rri->reset();
 		}));
 	}
 
@@ -550,7 +548,7 @@ SUITE(MODEL_EDITING_TEST_SUITE)
 		CHECK(RunModelEditingTest(54, [](RoadRunner* rri)
 		{
 			rri->addCompartment("compartment", 1, false);
-			rri->addReaction("reaction1", {"S1", "S2"}, {"2*S2"}, "compartment * k1 * S1 * S2", true);
+			rri->addReaction("reaction1", {"S1", "S2"}, {"2S2"}, "compartment * k1 * S1 * S2", true);
 		}));
 	}
 
@@ -570,7 +568,22 @@ SUITE(MODEL_EDITING_TEST_SUITE)
 			rri->addAssignmentRule("S1", "7");
 		}));
 	}
-
+	
+	TEST(ADD_ASSIGNMENT_RULE_2)
+	{
+		CHECK(RunModelEditingTest(30, [](RoadRunner* rri)
+		{
+			rri->addAssignmentRule("S1", "7");
+		}));
+	}
+    
+	TEST(ADD_ASSIGNMENT_RULE_3)
+	{
+		CHECK(RunModelEditingTest(38, [](RoadRunner* rri)
+		{
+			rri->addAssignmentRule("S3", "k1 * S2");
+		}));
+	}
    
     
 	/*TEST(READD_SPECIES)
