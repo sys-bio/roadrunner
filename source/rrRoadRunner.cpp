@@ -5250,6 +5250,7 @@ void RoadRunner::addReaction(const string& rid, vector<string> reactants, vector
 	Reaction* newReaction = sbmlModel->createReaction();
 	
 	newReaction->setId(rid);
+	
 
 	for (int i = 0; i < reactants.size(); i++) 
 	{
@@ -5283,7 +5284,7 @@ void RoadRunner::addReaction(const string& rid, vector<string> reactants, vector
 
 		if (sid)
 		{
-			Species* s = sbmlModel->getSpecies(sid);
+			s = sbmlModel->getSpecies(sid);
 		}
 		else
 		{

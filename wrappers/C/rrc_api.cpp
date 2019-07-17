@@ -636,12 +636,11 @@ RRCDataPtr rrcCallConv simulate(RRHandle handle)
 		fs.close();
 	}
 
-	if (true)
+	if (false)
 	{
-		rri = new RoadRunner();
-		rri->addCompartment("compartment", 1);
-		rri->addSpecies("s1", "compartment", 0.1, "substance");
-		rri->addSpecies("s2", "compartment", 0.1, "substance");
+		rri = new RoadRunner("C:/Users/User/Documents/rr/source/roadrunner/remove-test.xml");
+		rri->addSpecies("s1", "compartment", 0.1);
+		rri->addSpecies("s2", "compartment", 0.1);
 
 		vector<string> reactants;
 		reactants.push_back("s1");
@@ -650,16 +649,18 @@ RRCDataPtr rrcCallConv simulate(RRHandle handle)
 		
 		rri->addReaction("test", reactants, products, "s1");
 
+		rri->simulate();
+		auto test = rri->getSimulationData();
+		for (int r = 0; r < test->numRows(); r++) {
+			for (int c = 0; c < test->numCols(); c++)
+				std::cout << (*test)(r, c) << "\t";
+			std::cout << std::endl;
+		}
+
 	}
 
 
-        //rri->simulate();
-		//auto test = rri->getSimulationData();
-		//for (int r = 0; r < test->numRows(); r++) {
-		//	for (int c = 0; c < test->numCols(); c++)
-		//		std::cout << (*test)(r, c) << "\t";
-		//	std::cout << std::endl;
-		//}
+        
 
 		//	rri->setKineticLaw("reaction1", "S1");
 		//rri->addCompartment("compartment", 1);
