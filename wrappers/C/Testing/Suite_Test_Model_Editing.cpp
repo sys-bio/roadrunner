@@ -441,7 +441,7 @@ SUITE(MODEL_EDITING_TEST_SUITE)
 		CHECK(RunModelEditingTest(5, [](RoadRunner* rri) {
 			rri->removeSpecies("S2");
 		}));
-	}
+	}*/
 	TEST(ADD_SPECIES_1)
 	{
 		CHECK(RunModelEditingTest(6, [](RoadRunner* rri) {
@@ -468,8 +468,8 @@ SUITE(MODEL_EDITING_TEST_SUITE)
 			rri->addSpecies("S3", "compartment", 0.015, "substance", false);
 			rri->addReaction("reaction3", {"S3"}, {"S1"}, "k2*S3");
 		}));
-	}*/
-	/*TEST(REMOVE_SPECIES_1)
+	}
+	TEST(REMOVE_SPECIES_1)
 	{
 		CHECK(RunModelEditingTest(9, [](RoadRunner* rri) {
 			rri->removeSpecies("S2", false);
@@ -477,7 +477,7 @@ SUITE(MODEL_EDITING_TEST_SUITE)
 			rri->addReaction("reaction1", { "S1" }, { "S3" }, "k1*S1", false);
 			rri->addReaction("reaction2", {"S3"}, {"S1"}, "k2*S3", true);
 		}));
-	}*/
+	}
 
 	TEST(ADD_EVENT_1)
 	{
@@ -504,6 +504,23 @@ SUITE(MODEL_EDITING_TEST_SUITE)
 			rri->addEventAssignment("_E1", "S2", "2", false);
 			rri->addEventAssignment("_E1", "S3", "3", true);
 		}, "l3v1"));
+	}
+
+	TEST(EVENT_DELAY_1)
+	{
+		CHECK(RunModelEditingTest(71, [](RoadRunner* rri)
+		{
+			rri->addDelay("event1", "1");
+		}));
+	}
+
+	TEST(REMOVE_EVENT_1)
+	{
+		CHECK(RunModelEditingTest(11, [](RoadRunner* rri)
+		{
+			rri->removeEvent("event1");
+			rri->reset();
+		}));
 	}
     
     
