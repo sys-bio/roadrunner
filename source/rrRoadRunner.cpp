@@ -5202,24 +5202,29 @@ void RoadRunner::addSpecies(const std::string& sid, const std::string& compartme
 
 	newSpecies->setId(sid);
 	newSpecies->setCompartment(compartment);
-	if (substanceUnits == "concentration") 
+
+	// setting both concentration and amount will cause an error
+	// if InitialAssignment is set for the species, then initialConcentration or initialAmount will be ignored
+
+	newSpecies->setSubstanceUnits(substanceUnits);
+	if (substanceUnits == "concentration" || substanceUnits == "density")
 	{
 		newSpecies->setInitialConcentration(initValue);
-	}
-	else if (impl->document->getModel()->getUnitDefinition(substanceUnits) == NULL) 
-	{
-		throw std::invalid_argument("Roadrunner::addSpecies failed, no unit " + substanceUnits + " existed in the model");
+		// TODO: other predefined unit to set this attribute to be false?
+		newSpecies->setHasOnlySubstanceUnits(false);
 	} 
 	else 
 	{
-		newSpecies->setSubstanceUnits(substanceUnits);
 		
+		newSpecies->setInitialAmount(initValue);
+		newSpecies->setHasOnlySubstanceUnits(true);
 	}
 	
-	newSpecies->setInitialAmount(initValue);
-   
 	regenerate(forceRegenerate);
 }
+
+
+
 
 void RoadRunner::addReaction(const std::string& sbmlRep, bool forceRegenerate)
 {
