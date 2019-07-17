@@ -13,6 +13,7 @@
 #include "sbml/SBMLDocument.h"
 #include "sbml/ListOf.h"
 #include "sbml/Model.h"
+#include "rrExecutableModel.h"
 
 using namespace std;
 using namespace UnitTest;
@@ -453,7 +454,7 @@ SUITE(MODEL_EDITING_TEST_SUITE)
 	{
 		CHECK(RunModelEditingTest(7, [](RoadRunner *rri)
 		{
-			rri->addSpecies("S3", "compartment", 0.015, "concentration", false);
+			rri->addSpecies("S3", "compartment", 0.015, "substance", false);
 			rri->addReaction("reaction3", { "S2" }, { "S3" }, "k2*S2");
 		}));
 	}
@@ -469,7 +470,7 @@ SUITE(MODEL_EDITING_TEST_SUITE)
 	{
 		CHECK(RunModelEditingTest(8, [](RoadRunner *rri)
 		{
-			rri->addSpecies("S3", "compartment", 0.015, "substance", false);
+			rri->addSpecies("S3", "compartment", 0.15, "substance", false);
 			rri->addReaction("reaction3", { "S3" }, { "S1" }, "k2*S3");
 		}));
 	}
@@ -478,9 +479,17 @@ SUITE(MODEL_EDITING_TEST_SUITE)
 		CHECK(RunModelEditingTest(9, [](RoadRunner *rri)
 		{
 			rri->removeSpecies("S2", false);
-			rri->addSpecies("S3", "compartment", 0.00030, "concentration", false);
+			rri->addSpecies("S3", "compartment", 0.00030, "substance", false);
 			rri->addReaction("reaction1", { "S1" }, { "S3" }, "k1*S1", false);
 			rri->addReaction("reaction2", { "S3" }, { "S1" }, "k2*S3", true);
+		}));
+	}
+
+	TEST(REMOVE_SPECIES_2)
+	{
+		CHECK(RunModelEditingTest(14, [](RoadRunner *rri)
+		{
+			rri->removeSpecies("S4");
 		}));
 	}
 
@@ -641,6 +650,24 @@ SUITE(MODEL_EDITING_TEST_SUITE)
 		{
 			rri->setKineticLaw("reaction1", "compartment * k1 * S1 * S2", false);
 			rri->setKineticLaw("reaction2", "compartment * k2 * S3 * S4", true);
+		}));
+	}
+
+	TEST(TRANSFORM_1)
+	{
+		CHECK(RunModelEditingTest(47, [](RoadRunner *rri)
+		{
+			rri->removeSpecies("S1", false);
+			rri->removeSpecies("S2", false);
+			rri->addSpecies("S1", "compartment", 0.001, "substance", false);
+			rri->addSpecies("S2", "compartment", 0.001, "substance", false);
+			rri->addSpecies("S3", "compartment", 0.002, "substance", false);
+			rri->addSpecies("S4", "compartment", 0.001, "substance", false);
+			rri->removeParameter("k1", false);
+			rri->addParameter("k1", 750, false);
+			rri->addParameter("k2", 250, false);
+			rri->addReaction("reaction1", {"S1", "S2"}, {"S3","S4"}, "compartment * k1 * S1 * S2", false);
+			rri->addReaction("reaction2", {"S3", "S4"}, {"S1", "S2"}, "compartment * k2 * S3 * S4", true);
 		}));
 	}
 
