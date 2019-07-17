@@ -24,7 +24,7 @@ extern string gTempFolder;
 extern string gTSModelsPath;
 extern string gCompiler;
 
-bool RunModelEditingTest(int caseNumber, void (*modification)(RoadRunner*), std::string version = "l2v4")
+bool RunModelEditingTest(int caseNumber, void(*modification)(RoadRunner*), std::string version = "l2v4")
 {
 	bool result(false);
 	RRHandle gRR;
@@ -345,7 +345,7 @@ void readdAllSpecies(RoadRunner *rri, libsbml::SBMLDocument *doc)
 		for (int i = 0; i < speciesToAdd->size(); i++)
 		{
 			next = speciesToAdd->get(i);
-			if(std::find(currSpeciesIds.begin(), currSpeciesIds.end(), next->getId()) == currSpeciesIds.end())
+			if (std::find(currSpeciesIds.begin(), currSpeciesIds.end(), next->getId()) == currSpeciesIds.end())
 				rri->addSpecies(next->getId(), next->getCompartment(), next->getInitialConcentration(), "concentration", false);
 		}
 	}
@@ -444,44 +444,50 @@ SUITE(MODEL_EDITING_TEST_SUITE)
 	}*/
 	TEST(ADD_SPECIES_1)
 	{
-		CHECK(RunModelEditingTest(6, [](RoadRunner* rri) {
+		CHECK(RunModelEditingTest(6, [](RoadRunner *rri)
+		{
 			rri->addSpecies("S3", "compartment", 0.0015, "substance");
 		}));
 	}
 	TEST(ADD_REACTION_3)
 	{
-		CHECK(RunModelEditingTest(7, [](RoadRunner* rri) {
+		CHECK(RunModelEditingTest(7, [](RoadRunner *rri)
+		{
 			rri->addSpecies("S3", "compartment", 0.015, "concentration", false);
-			rri->addReaction("reaction3", {"S2"}, {"S3"}, "k2*S2");
+			rri->addReaction("reaction3", { "S2" }, { "S3" }, "k2*S2");
 		}));
 	}
 	TEST(ADD_REACTION_4)
 	{
-		CHECK(RunModelEditingTest(7, [](RoadRunner* rri) {
+		CHECK(RunModelEditingTest(7, [](RoadRunner *rri)
+		{
 			rri->addSpecies("S3", "compartment", 0.015, "substance");
-			rri->addReaction("reaction3", {"S2"}, {"S3"}, "k2*S2");
+			rri->addReaction("reaction3", { "S2" }, { "S3" }, "k2*S2");
 		}));
 	}
 	TEST(ADD_REACTION_5)
 	{
-		CHECK(RunModelEditingTest(8, [](RoadRunner* rri) {
+		CHECK(RunModelEditingTest(8, [](RoadRunner *rri)
+		{
 			rri->addSpecies("S3", "compartment", 0.015, "substance", false);
-			rri->addReaction("reaction3", {"S3"}, {"S1"}, "k2*S3");
+			rri->addReaction("reaction3", { "S3" }, { "S1" }, "k2*S3");
 		}));
 	}
 	TEST(REMOVE_SPECIES_1)
 	{
-		CHECK(RunModelEditingTest(9, [](RoadRunner* rri) {
+		CHECK(RunModelEditingTest(9, [](RoadRunner *rri)
+		{
 			rri->removeSpecies("S2", false);
 			rri->addSpecies("S3", "compartment", 0.00030, "concentration", false);
 			rri->addReaction("reaction1", { "S1" }, { "S3" }, "k1*S1", false);
-			rri->addReaction("reaction2", {"S3"}, {"S1"}, "k2*S3", true);
+			rri->addReaction("reaction2", { "S3" }, { "S1" }, "k2*S3", true);
 		}));
 	}
 
 	TEST(ADD_EVENT_1)
 	{
-		CHECK(RunModelEditingTest(10, [](RoadRunner* rri) {
+		CHECK(RunModelEditingTest(10, [](RoadRunner *rri)
+		{
 			rri->addEvent("event1", true, "S1 > 0.00015", false);
 			rri->addEventAssignment("event1", "S1", "1", true);
 		}));
@@ -489,7 +495,8 @@ SUITE(MODEL_EDITING_TEST_SUITE)
 
 	TEST(EVENT_PRIORITY_1)
 	{
-		CHECK(RunModelEditingTest(930, [](RoadRunner* rri) {
+		CHECK(RunModelEditingTest(930, [](RoadRunner *rri)
+		{
 			rri->addEvent("_E0", true, "time >= 0.99", false);
 			rri->addPriority("_E0", "1", false);
 			rri->addEventAssignment("_E0", "S1", "4", false);
@@ -506,7 +513,7 @@ SUITE(MODEL_EDITING_TEST_SUITE)
 
 	TEST(EVENT_DELAY_1)
 	{
-		CHECK(RunModelEditingTest(71, [](RoadRunner* rri)
+		CHECK(RunModelEditingTest(71, [](RoadRunner *rri)
 		{
 			rri->addDelay("event1", "1");
 		}));
@@ -514,21 +521,21 @@ SUITE(MODEL_EDITING_TEST_SUITE)
 
 	TEST(REMOVE_EVENT_1)
 	{
-		CHECK(RunModelEditingTest(11, [](RoadRunner* rri)
+		CHECK(RunModelEditingTest(11, [](RoadRunner *rri)
 		{
 			rri->removeEvent("event1");
 		}));
 	}
-    
+
 	TEST(ADD_PARAMETER_1)
 	{
-		CHECK(RunModelEditingTest(12, [](RoadRunner* rri)
+		CHECK(RunModelEditingTest(12, [](RoadRunner *rri)
 		{
 			rri->addParameter("k1", 0.75, false);
-			rri->addReaction("reaction1", { "S1", "S2" }, {"S3"}, "k1*S1*S2");
+			rri->addReaction("reaction1", { "S1", "S2" }, { "S3" }, "k1*S1*S2");
 		}));
 	}
-    
+
 	//Todo: Simulating after this removal *should* cause an error, find a way to check that
 	/*
 	TEST(REMOVE_PARAMETER_1)
@@ -542,19 +549,19 @@ SUITE(MODEL_EDITING_TEST_SUITE)
 			})
 		);
 	}*/
- 
+
 	TEST(ADD_COMPARTMENT_1)
 	{
-		CHECK(RunModelEditingTest(54, [](RoadRunner* rri)
+		CHECK(RunModelEditingTest(54, [](RoadRunner *rri)
 		{
 			rri->addCompartment("compartment", 1, false);
-			rri->addReaction("reaction1", {"S1", "S2"}, {"2S2"}, "compartment * k1 * S1 * S2", true);
+			rri->addReaction("reaction1", { "S1", "S2" }, { "2S2" }, "compartment * k1 * S1 * S2", true);
 		}));
 	}
 
 	TEST(ADD_COMPARTMENT_2)
 	{
-		CHECK(RunModelEditingTest(56, [](RoadRunner* rri)
+		CHECK(RunModelEditingTest(56, [](RoadRunner *rri)
 		{
 			rri->addCompartment("compartment", 1, false);
 			rri->addReaction("reaction1", { "S1" }, { "S3" }, "compartment * k1 * S1");
@@ -563,29 +570,53 @@ SUITE(MODEL_EDITING_TEST_SUITE)
 
 	TEST(ADD_ASSIGNMENT_RULE_1)
 	{
-		CHECK(RunModelEditingTest(30, [](RoadRunner* rri)
+		CHECK(RunModelEditingTest(30, [](RoadRunner *rri)
 		{
 			rri->addAssignmentRule("S1", "7");
 		}));
 	}
-	
+
 	TEST(ADD_ASSIGNMENT_RULE_2)
 	{
-		CHECK(RunModelEditingTest(30, [](RoadRunner* rri)
+		CHECK(RunModelEditingTest(30, [](RoadRunner *rri)
 		{
 			rri->addAssignmentRule("S1", "7");
 		}));
 	}
-    
+
 	TEST(ADD_ASSIGNMENT_RULE_3)
 	{
-		CHECK(RunModelEditingTest(38, [](RoadRunner* rri)
+		CHECK(RunModelEditingTest(38, [](RoadRunner *rri)
 		{
 			rri->addAssignmentRule("S3", "k1 * S2");
 		}));
 	}
-   
-    
+
+	TEST(ADD_RATE_RULE_1)
+	{
+		CHECK(RunModelEditingTest(31, [](RoadRunner *rri)
+		{
+			rri->addRateRule("S1", "7");
+		}));
+	}
+
+	TEST(ADD_RATE_RULE_2)
+	{
+		CHECK(RunModelEditingTest(32, [](RoadRunner *rri)
+		{
+			rri->addRateRule("S1", "-1 * k1 * S1", false);
+			rri->addRateRule("S2", "k1 * S1", true);
+		}));
+	}
+
+	TEST(ADD_RATE_RULE_3)
+	{
+		CHECK(RunModelEditingTest(32, [](RoadRunner *rri)
+		{
+			rri->addRateRule("S1", "-1 * k1 * S1");
+			rri->addRateRule("S2", "k1 * S1");
+		}));
+	}
 	/*TEST(READD_SPECIES)
 	{
 		clog << endl << "==== CHECK_READD_SPECIES ====" << endl << endl;
