@@ -5490,7 +5490,6 @@ void RoadRunner::addAssignmentRule(const std::string& vid, const std::string& fo
 	// TODO: check vid is a valid variable(specices/ species reference/ parameter/ compartment)
 	newRule->setVariable(vid);
 	newRule->setFormula(formula);
-	
 
 	regenerate(forceRegenerate);
 }
@@ -5505,6 +5504,7 @@ void RoadRunner::addRateRule(const std::string& vid, const std::string& formula,
 
 	// potential errors with these two inputs will be detected during regeneration
 
+	// TODO: check vid is a valid variable(specices/ species reference/ parameter/ compartment)
 	// TODO: one vid cannot have more than one rate rule 
 	newRule->setVariable(vid);
 	newRule->setFormula(formula);
