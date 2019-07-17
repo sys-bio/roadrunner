@@ -753,8 +753,10 @@ public:
 	/*
 	* Add a reaction to the current model
 	* @param rid: the ID of reaction to be added
-	* @param reactants: the list of reactants ID of reaction to be added
-	* @param products: the list of products ID of reaction to be added
+	* @param reactants: the list of reactant ID, double value could be inserted before ID as stoichiometry
+						e.g, [2S1] of [1.5S1]
+	* @param products: the list of product stoichiometry and ID, double value could be inserted before ID as stoichiometry
+						e.g, [2S1] of [1.5S1]
 	* @param kineticLaw: the kinetic formula of reaction to be added
 	* @param forceRegenerate: a boolean value to indicate if the model is regenerated
 	*					      after this function call
@@ -1413,6 +1415,11 @@ private:
 	* Regenerate this RoadRunner instance's ExecutableModel based on the model in its SBMLDocument
 	*/
 	void regenerate(bool forceRegenerate);
+
+	/*
+	* Parse a string with format stoichiometry + sID and return its stoichiometry value and sID
+	*/
+	void parseSpecies(const string& species, double* stoichiometry, char** sid);
 
 	void saveSelectionVector(std::ostream&, std::vector<SelectionRecord>&);
 	void loadSelectionVector(std::istream&, std::vector<SelectionRecord>&);

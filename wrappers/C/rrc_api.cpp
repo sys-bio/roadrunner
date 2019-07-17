@@ -636,6 +636,22 @@ RRCDataPtr rrcCallConv simulate(RRHandle handle)
 		fs.close();
 	}
 
+	if (true)
+	{
+		rri = new RoadRunner();
+		rri->addCompartment("compartment", 1);
+		rri->addSpecies("s1", "compartment", 0.1, "substance");
+		rri->addSpecies("s2", "compartment", 0.1, "substance");
+
+		vector<string> reactants;
+		reactants.push_back("s1");
+		vector<string> products;
+		products.push_back("s2");
+		
+		rri->addReaction("test", reactants, products, "s1");
+
+	}
+
 
         //rri->simulate();
 		//auto test = rri->getSimulationData();
@@ -648,12 +664,7 @@ RRCDataPtr rrcCallConv simulate(RRHandle handle)
 		//	rri->setKineticLaw("reaction1", "S1");
 		//rri->addCompartment("compartment", 1);
 		//rri->addSpecies("test", "compartment", 0.1, "substance1");
-		//vector<string> reactants;
-		//reactants.push_back("S1");
-		//vector<string> products;
-		//products.push_back("S2");
-		//vector<string> modifiers;
-		//rri->addReaction("test", "test", false, reactants, products, modifiers, "k1 * S1");
+		
 
 		rri->simulate();
 		//auto test = rri->getSimulationData();

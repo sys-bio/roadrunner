@@ -491,9 +491,9 @@ C_DECL_SPEC bool rrcCallConv addReactionFromSBMLNoRegen(RRHandle handle, const c
  \brief Add a reaction to the current model
  \param[in] handle Handle to a RoadRunner instance
  \param[in] rid ID of the reaction to be added
- \param[in] reactants List of reactants ID of reaction to be added
+ \param[in] reactants List of reactants ID of reaction to be added, double value could be inserted before ID as stoichiometry
  \param[in] numReactants Number of reactants of reaction to be added
- \param[in] products List of products ID of reaction to be added
+ \param[in] products List of products ID of reaction to be added, double value could be inserted before ID as stoichiometry
  \param[in] numProducts Number of products of reaction to be added
  \param[in] kineticLaw kinetic formular of reaction to be added
  \return Returns false if the call fails, otherwise returns a true

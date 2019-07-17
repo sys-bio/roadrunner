@@ -5205,7 +5205,7 @@ void RoadRunner::addSpecies(const std::string& sid, const std::string& compartme
 
 	// setting both concentration and amount will cause an error
 	// if InitialAssignment is set for the species, then initialConcentration or initialAmount will be ignored
-
+	// TODO: check for valid unit?
 	newSpecies->setSubstanceUnits(substanceUnits);
 	if (substanceUnits == "concentration" || substanceUnits == "density")
 	{
@@ -5253,22 +5253,49 @@ void RoadRunner::addReaction(const string& rid, vector<string> reactants, vector
 
 	for (int i = 0; i < reactants.size(); i++) 
 	{
-		Species* s = sbmlModel->getSpecies(reactants[i]);
+		char* sid = 0;
+		double stoichiometry = 1;
+		parseSpecies(reactants[i], &stoichiometry, &sid);
+		Species* s;
+
+		if (sid)
+		{
+			s = sbmlModel->getSpecies(sid);
+		}
+		else
+		{
+			throw std::invalid_argument("Roadrunner::addReaction failed, invalid stoichiomety value and species ID " + reactants[0]);
+		}
+		
 		if (s == NULL)
 		{
 			throw std::invalid_argument("Roadrunner::addReaction failed, no species with ID " + reactants[0] + " existed in the model");
 		}
-		newReaction->addReactant(s);
+		newReaction->addReactant(s, stoichiometry);
 	}
 
 	for (int i = 0; i < products.size(); i++)
 	{
-		Species* s = sbmlModel->getSpecies(products[i]);
+		char* sid = 0;
+		double stoichiometry = 1;
+		parseSpecies(products[i], &stoichiometry, &sid);
+		Species* s;
+
+		if (sid)
+		{
+			Species* s = sbmlModel->getSpecies(sid);
+		}
+		else
+		{
+			throw std::invalid_argument("Roadrunner::addReaction failed, invalid stoichiomety value and species ID " + reactants[0]);
+		}
+		
 		if (s == NULL)
 		{
 			throw std::invalid_argument("Roadrunner::addReaction failed, no species with ID " + products[0] + " existed in the model");
 		}
-		newReaction->addProduct(s);
+
+		newReaction->addProduct(s, stoichiometry);
 	}
 
 	// illegal formular will be catched during the regeneration
@@ -5276,6 +5303,17 @@ void RoadRunner::addReaction(const string& rid, vector<string> reactants, vector
 	kLaw->setFormula(kineticLaw);
 	
 	regenerate(forceRegenerate);
+}
+
+void RoadRunner::parseSpecies(const string& species, double* stoichiometry, char** sid) {
+	const char* input = species.c_str();
+
+	double d = strtod(input, sid);
+	if (*input != '\0' && *sid != input )
+	{
+		*stoichiometry = d;
+	}
+
 }
 
 void RoadRunner::removeSpecies(const std::string& sid, bool forceRegenerate)
