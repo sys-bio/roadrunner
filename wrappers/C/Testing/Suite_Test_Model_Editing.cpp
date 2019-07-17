@@ -519,10 +519,59 @@ SUITE(MODEL_EDITING_TEST_SUITE)
 		CHECK(RunModelEditingTest(11, [](RoadRunner* rri)
 		{
 			rri->removeEvent("event1");
-			rri->reset();
 		}));
 	}
     
+	TEST(ADD_PARAMETER_1)
+	{
+		CHECK(RunModelEditingTest(12, [](RoadRunner* rri)
+		{
+			rri->addParameter("k1", 0.75, false);
+			rri->addReaction("reaction1", { "S1", "S2" }, {"S3"}, "k1*S1*S2");
+		}));
+	}
+    
+	//Todo: Simulating after this removal *should* cause an error, find a way to check that
+	/*
+	TEST(REMOVE_PARAMETER_1)
+	{
+		CHECK(
+			RunModelEditingTest(12, [](RoadRunner* rri)
+			{
+				rri->addParameter("k1", 0.75, false);
+				rri->addReaction("reaction1", { "S1", "S2" }, { "S3" }, "k1*S1*S2");
+				rri->removeParameter("k1");
+			})
+		);
+	}*/
+ 
+	TEST(ADD_COMPARTMENT_1)
+	{
+		CHECK(RunModelEditingTest(54, [](RoadRunner* rri)
+		{
+			rri->addCompartment("compartment", 1, false);
+			rri->addReaction("reaction1", {"S1", "S2"}, {"2*S2"}, "compartment * k1 * S1 * S2", true);
+		}));
+	}
+
+	TEST(ADD_COMPARTMENT_2)
+	{
+		CHECK(RunModelEditingTest(56, [](RoadRunner* rri)
+		{
+			rri->addCompartment("compartment", 1, false);
+			rri->addReaction("reaction1", { "S1" }, { "S3" }, "compartment * k1 * S1");
+		}));
+	}
+
+	TEST(ADD_ASSIGNMENT_RULE_1)
+	{
+		CHECK(RunModelEditingTest(30, [](RoadRunner* rri)
+		{
+			rri->addAssignmentRule("S1", "7");
+		}));
+	}
+
+   
     
 	/*TEST(READD_SPECIES)
 	{
