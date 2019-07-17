@@ -158,6 +158,8 @@ ModelGeneratorContext::ModelGeneratorContext(std::string const &sbml,
         // TODO check result
         InitializeNativeTarget();
 		InitializeNativeTargetAsmPrinter();
+		InitializeNativeTargetAsmParser();
+
 
         context = new LLVMContext();
         // Make the module, which holds all the code.
@@ -272,6 +274,9 @@ ModelGeneratorContext::ModelGeneratorContext(libsbml::SBMLDocument const *doc,
         // initialize LLVM
         // TODO check result
         InitializeNativeTarget();
+		InitializeNativeTargetAsmPrinter();
+		InitializeNativeTargetAsmParser();
+
 
         context = new LLVMContext();
         // Make the module, which holds all the code.
@@ -336,6 +341,8 @@ ModelGeneratorContext::ModelGeneratorContext() :
     // initialize LLVM
     // TODO check result
     InitializeNativeTarget();
+	InitializeNativeTargetAsmPrinter();
+	InitializeNativeTargetAsmParser();
 
     context = new LLVMContext();
     // Make the module, which holds all the code.
