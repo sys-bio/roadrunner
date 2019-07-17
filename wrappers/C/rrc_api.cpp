@@ -660,8 +660,12 @@ RRCDataPtr rrcCallConv simulate(RRHandle handle)
 	}
 
 
-        
-
+//	rri = new RoadRunner("C:/rr/source/roadrunner/models/sbml-test-suite/cases/semantic/00001/00001-sbml-l2v4.xml");
+	//rri->setSelections(vector<string>({"S1","S2"}));
+	//rri->removeSpecies("S2");
+	//rri->addSpecies("S2", "compartment", 0.0, "substance");
+	//rri->simulate();
+	
 		//	rri->setKineticLaw("reaction1", "S1");
 		//rri->addCompartment("compartment", 1);
 		//rri->addSpecies("test", "compartment", 0.1, "substance1");
