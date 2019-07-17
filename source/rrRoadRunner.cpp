@@ -5330,17 +5330,6 @@ void RoadRunner::addReaction(const string& rid, vector<string> reactants, vector
 	regenerate(forceRegenerate);
 }
 
-void RoadRunner::parseSpecies(const string& species, double* stoichiometry, char** sid) {
-	const char* input = species.c_str();
-
-	double d = strtod(input, sid);
-	if (*input != '\0' && *sid != input )
-	{
-		*stoichiometry = d;
-	}
-
-}
-
 void RoadRunner::removeSpecies(const std::string& sid, bool forceRegenerate)
 {
 	
@@ -5425,26 +5414,7 @@ void RoadRunner::removeSpecies(const std::string& sid, bool forceRegenerate)
 		index++;
 	}
 
-	Log(Logger::LOG_DEBUG) << "Removing rules related to " << sid << "..." << endl;
-	Rule* rule = sbmlModel->getRule(sid);
-	while (rule != NULL)
-	{
-		delete rule;
-		rule = sbmlModel->getRule(sid);
-	}
-
-	Log(Logger::LOG_DEBUG) << "Removing event assignments related to " << sid << "..." << endl;
-	for (uint i = 0; i < sbmlModel->getNumEvents(); i++)
-	{
-		EventAssignment* toDelete = sbmlModel->getListOfEvents()->get(i)->removeEventAssignment(sid);
-		while (toDelete != NULL)
-		{
-			delete toDelete;
-			toDelete = sbmlModel->getListOfEvents()->get(i)->removeEventAssignment(sid);
-		}
-	}
-
-	// TODO: remove other components that related to this species(as variable)
+	removeVariable(sid);
 	regenerate(forceRegenerate);
 }
 
@@ -5472,7 +5442,7 @@ void RoadRunner::removeParameter(const std::string& pid, bool forceRegenerate)
 	Log(Logger::LOG_DEBUG) << "Removing parameter " << pid << "..." << endl;
 	delete toDelete;
 
-
+	removeVariable(pid);
 	regenerate(forceRegenerate);
 }
 
@@ -5517,6 +5487,7 @@ void RoadRunner::removeCompartment(const std::string& cid, bool forceRegenerate)
 		}
 	}
 
+	removeVariable(cid);
 	regenerate(forceRegenerate);
 }
 
@@ -5761,6 +5732,43 @@ void RoadRunner::regenerate(bool forceRegenerate)
 		resetSelectionLists();
 	}
 	
+}
+
+void RoadRunner::parseSpecies(const string& species, double* stoichiometry, char** sid) {
+	const char* input = species.c_str();
+
+	double d = strtod(input, sid);
+	if (*input != '\0' && *sid != input)
+	{
+		*stoichiometry = d;
+	}
+
+}
+
+void RoadRunner::removeVariable(const std::string& sid) {
+	using namespace libsbml;
+	Model* sbmlModel = impl->document->getModel();
+
+	Log(Logger::LOG_DEBUG) << "Removing rules related to " << sid << "..." << endl;
+	Rule* rule = sbmlModel->getRule(sid);
+	while (rule != NULL)
+	{
+		delete rule;
+		rule = sbmlModel->getRule(sid);
+	}
+
+	Log(Logger::LOG_DEBUG) << "Removing event assignments related to " << sid << "..." << endl;
+	for (uint i = 0; i < sbmlModel->getNumEvents(); i++)
+	{
+		EventAssignment* toDelete = sbmlModel->getListOfEvents()->get(i)->removeEventAssignment(sid);
+		while (toDelete != NULL)
+		{
+			delete toDelete;
+			toDelete = sbmlModel->getListOfEvents()->get(i)->removeEventAssignment(sid);
+		}
+	}
+
+	// TODO: remove all math formula that use this variable
 }
 
 } //namespace
