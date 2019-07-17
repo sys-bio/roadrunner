@@ -43,6 +43,11 @@ public:
      */
     RoadRunner();
 
+	/**
+	 * create an empty RoadRunner object with given SBML level and version.
+	 */
+	RoadRunner(unsigned int level, unsigned int version);
+
     /**
      * load an sbml document from anywhere.
      *

@@ -622,7 +622,8 @@ RRStringArrayPtr rrcCallConv getTimeCourseSelectionList(RRHandle handle)
 RRCDataPtr rrcCallConv simulate(RRHandle handle)
 {
 	start_try
-		RoadRunner* rri = castToRoadRunner(handle);
+		//RoadRunner* rri = castToRoadRunner(handle);
+		RoadRunner* rri = new RoadRunner();
 	if (false)
 	{
 		rri = new RoadRunner();
@@ -636,9 +637,10 @@ RRCDataPtr rrcCallConv simulate(RRHandle handle)
 		fs.close();
 	}
 
-	if (false)
+	if (true)
 	{
-		rri = new RoadRunner("C:/Users/User/Documents/rr/source/roadrunner/remove-test.xml");
+		
+		rri->addCompartment("compartment", 1);
 		rri->addSpecies("s1", "compartment", 0.1);
 		rri->addSpecies("s2", "compartment", 0.1);
 

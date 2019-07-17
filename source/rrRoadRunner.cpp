@@ -439,6 +439,30 @@ RoadRunner::RoadRunner() : impl(new RoadRunnerImpl("", NULL))
 	impl->document->createModel();
 }
 
+
+RoadRunner::RoadRunner(unsigned int level, unsigned int version) : impl(new RoadRunnerImpl("", NULL))
+{
+	// must be run to register integrators at startup
+	IntegratorRegistrationMgr::Register();
+	// must be run to register solvers at startup
+	SolverRegistrationMgr::Register();
+
+	//Increase instance count..
+	mInstanceCount++;
+	impl->mInstanceID = mInstanceCount;
+
+	// make CVODE the default integrator
+	setIntegrator("cvode");
+	// make NLEQ2 the default steady state solver
+	setSteadyStateSolver("nleq2");
+
+	// enable building the model using editing methods
+	// and allow simultion without loading SBML files
+	impl->document = new libsbml::SBMLDocument(level, version);
+	impl->document->createModel();
+}
+
+
 RoadRunner::RoadRunner(const std::string& uriOrSBML,
         const Dictionary* options) :
             impl(new RoadRunnerImpl(uriOrSBML, options))
@@ -5251,7 +5275,7 @@ void RoadRunner::addReaction(const string& rid, vector<string> reactants, vector
 	
 	newReaction->setId(rid);
 	
-
+	// TODO: check reactants.size() + products.size() > 0?
 	for (int i = 0; i < reactants.size(); i++) 
 	{
 		char* sid = 0;
@@ -5520,6 +5544,7 @@ void RoadRunner::setKineticLaw(const std::string& rid, const std::string& kineti
 	regenerate(forceRegenerate);
 }
 
+// TODO: A reaction’s identifier cannot be the target of an InitialAssignment, EventAssignment, or Rule object
 
 void RoadRunner::addAssignmentRule(const std::string& vid, const std::string& formula, bool forceRegenerate)
 {
