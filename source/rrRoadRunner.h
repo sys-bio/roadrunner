@@ -900,6 +900,7 @@ public:
 
 	/*
 	* Add priority to an existing event in the model
+	* If the given event already has a priority object, the given priority will replace the old priority in the model
 	* @param eid: the ID of the event to add priority
 	* @param priority: the math formula of event priority
 	* @param forceRegenerate: a boolen value to indicate if the model is regenerated
@@ -912,7 +913,8 @@ public:
 	void addPriority(const std::string& eid, const std::string& priority, bool forceRegenerate = true);
 
 	/*
-	* Add priority to an existing event in the model
+	* Add delay to an existing event in the model
+	* If the given event already has a delay object, the given delay will replace the old delay in the model
 	* @param eid: the ID of the event to add priority
 	* @param delay: the math formula of event delay
 	* @param forceRegenerate: a boolen value to indicate if the model is regenerated

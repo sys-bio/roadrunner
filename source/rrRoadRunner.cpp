@@ -5212,10 +5212,11 @@ void RoadRunner::addSpecies(const std::string& sid, const std::string& compartme
 	} 
 	else 
 	{
-		newSpecies->setInitialAmount(initValue);
+		newSpecies->setSubstanceUnits(substanceUnits);
+		
 	}
 	
-	newSpecies->setSubstanceUnits(substanceUnits);
+	newSpecies->setInitialAmount(initValue);
    
 	regenerate(forceRegenerate);
 }
@@ -5290,6 +5291,9 @@ void RoadRunner::removeSpecies(const std::string& sid, bool forceRegenerate)
 	// delete all related reactions as well
 	int index = 0;
 	int numReaction = sbmlModel->getNumReactions();
+
+	// TODO: will deleting one reaction interrupt with the order? 
+	// currently we are assuming that the order will keep the same
 	for (uint i = 0; i < numReaction; i++)
 	{
 		Reaction* reaction = sbmlModel->getListOfReactions()->get(index);
@@ -5361,7 +5365,6 @@ void RoadRunner::removeSpecies(const std::string& sid, bool forceRegenerate)
 		rule = sbmlModel->getRule(sid);
 	}
 
-
 	Log(Logger::LOG_DEBUG) << "Removing event assignments related to " << sid << "..." << endl;
 	for (uint i = 0; i < sbmlModel->getNumEvents(); i++)
 	{
@@ -5373,6 +5376,7 @@ void RoadRunner::removeSpecies(const std::string& sid, bool forceRegenerate)
 		}
 	}
 
+	// TODO: remove other components that related to this species(as variable)
 	regenerate(forceRegenerate);
 }
 
@@ -5399,6 +5403,8 @@ void RoadRunner::removeParameter(const std::string& pid, bool forceRegenerate)
 	}
 	Log(Logger::LOG_DEBUG) << "Removing parameter " << pid << "..." << endl;
 	delete toDelete;
+
+
 	regenerate(forceRegenerate);
 }
 
@@ -5446,6 +5452,9 @@ void RoadRunner::removeCompartment(const std::string& cid, bool forceRegenerate)
 	regenerate(forceRegenerate);
 }
 
+
+// TODO: check if formula parameters are valid
+
 void RoadRunner::setKineticLaw(const std::string& rid, const std::string& kineticLaw, bool forceRegenerate)
 {
 
@@ -5477,9 +5486,10 @@ void RoadRunner::addAssignmentRule(const std::string& vid, const std::string& fo
 	AssignmentRule* newRule = sbmlModel->createAssignmentRule();
 
 	// potential errors with these two inputs will be detected during regeneration and ignored 
+
+	// TODO: check vid is a valid variable(specices/ species reference/ parameter/ compartment)
 	newRule->setVariable(vid);
 	newRule->setFormula(formula);
-	
 
 	regenerate(forceRegenerate);
 }
@@ -5493,6 +5503,9 @@ void RoadRunner::addRateRule(const std::string& vid, const std::string& formula,
 	RateRule* newRule = sbmlModel->createRateRule();
 
 	// potential errors with these two inputs will be detected during regeneration
+
+	// TODO: check vid is a valid variable(specices/ species reference/ parameter/ compartment)
+	// TODO: one vid cannot have more than one rate rule 
 	newRule->setVariable(vid);
 	newRule->setFormula(formula);
 
@@ -5521,7 +5534,6 @@ void RoadRunner::addEvent(const std::string& eid, bool useValuesFromTriggerTime,
 {
 	using namespace libsbml;
 	Model* sbmlModel = impl->document->getModel();
-
 	checkID("addEvent", eid);
 
 	Log(Logger::LOG_DEBUG) << "Adding event " << eid << "..." << endl;
@@ -5534,14 +5546,14 @@ void RoadRunner::addEvent(const std::string& eid, bool useValuesFromTriggerTime,
 	{
 		throw std::invalid_argument("Roadrunner::addEvent failed, an error occurred in parsing the trigger formula");
 	}
-
 	newTrigger->setMath(formula);
 
+	// model regeneration will throw RuntimeError if the given formula is not valid
 	regenerate(forceRegenerate);
 }
 
-void RoadRunner::addPriority(const std::string& eid, const std::string& priority, bool forceRegenerate) {
 
+void RoadRunner::addPriority(const std::string& eid, const std::string& priority, bool forceRegenerate) {
 	using namespace libsbml;
 	Event* event = impl->document->getModel()->getEvent(eid);
 
@@ -5551,6 +5563,11 @@ void RoadRunner::addPriority(const std::string& eid, const std::string& priority
 	}
 
 	Priority* newPriority = event->createPriority();
+	if (newPriority == NULL)
+	{
+		throw std::runtime_error("Roadrunner::addPriority failed, current SBML level and version does not support Priority in event");
+	}
+	Log(Logger::LOG_DEBUG) << "Adding priority for event " << eid << "..." << endl;
 	ASTNode_t* formula = libsbml::SBML_parseL3Formula(priority.c_str());
 	if (formula == NULL)
 	{
@@ -5558,6 +5575,7 @@ void RoadRunner::addPriority(const std::string& eid, const std::string& priority
 	}
 	newPriority->setMath(formula);
 
+	// model regeneration will throw RuntimeError if the given formula is not valid
 	regenerate(forceRegenerate);
 }
 
@@ -5570,6 +5588,7 @@ void RoadRunner::addDelay(const std::string& eid, const std::string& delay, bool
 		throw std::invalid_argument("Roadrunner::addDelay failed, no event " + eid + " existed in the model");
 	}
 
+	Log(Logger::LOG_DEBUG) << "Adding delay for event " << eid << "..." << endl;
 	Delay* newDelay = event->createDelay();
 	ASTNode_t* formula = libsbml::SBML_parseL3Formula(delay.c_str());
 	if (formula == NULL)
@@ -5578,6 +5597,7 @@ void RoadRunner::addDelay(const std::string& eid, const std::string& delay, bool
 	}
 	newDelay->setMath(formula);
 
+	// model regeneration will throw RuntimeError if the given formula is not valid
 	regenerate(forceRegenerate);
 }
 
@@ -5586,7 +5606,6 @@ void RoadRunner::addEventAssignment(const std::string& eid, const std::string& v
 {
 	using namespace libsbml;
 	Model* sbmlModel = impl->document->getModel();
-
 	Event* event = sbmlModel->getEvent(eid);
 
 	if (event == NULL)
@@ -5596,6 +5615,8 @@ void RoadRunner::addEventAssignment(const std::string& eid, const std::string& v
 
 	Log(Logger::LOG_DEBUG) << "Adding event assignment for variable " << vid << " to event " << eid << "..." << endl;
 	EventAssignment* assignment = event->createEventAssignment();
+	// multiple assignments for one variable in one event is allowed
+	// TODO: conflict with assignment rule
 	assignment->setVariable(vid);
 
 	ASTNode_t* math = libsbml::SBML_parseL3Formula(formula.c_str());
@@ -5603,12 +5624,12 @@ void RoadRunner::addEventAssignment(const std::string& eid, const std::string& v
 	{
 		throw std::invalid_argument("Roadrunner::addEventAssignment failed, an error occurred in parsing the math formula");
 	}
-
 	assignment->setMath(math);
 
-
+	// model regeneration will throw RuntimeError if the given formula is not valid
 	regenerate(forceRegenerate);
 }
+
 
 void RoadRunner::removeEventAssignments(const std::string & eid, const std::string & vid, bool forceRegenerate)
 {
