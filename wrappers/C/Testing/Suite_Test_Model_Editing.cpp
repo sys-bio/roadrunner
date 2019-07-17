@@ -617,6 +617,34 @@ SUITE(MODEL_EDITING_TEST_SUITE)
 			rri->addRateRule("S2", "k1 * S1");
 		}));
 	}
+
+	TEST(SET_KINETIC_LAW_1)
+	{
+		CHECK(RunModelEditingTest(13, [](RoadRunner *rri)
+		{
+			rri->setKineticLaw("reaction2", "compartment * k2 * S3");
+		}));
+	}
+
+	TEST(SET_KINETIC_LAW_2)
+	{
+		CHECK(RunModelEditingTest(16, [](RoadRunner *rri)
+		{
+			rri->setKineticLaw("reaction1", "compartment * k1 * S1 * S2");
+			rri->setKineticLaw("reaction2", "compartment * k2 * S3 * S4");
+		}));
+	}
+
+	TEST(SET_KINETIC_LAW_3)
+	{
+		CHECK(RunModelEditingTest(16, [](RoadRunner *rri)
+		{
+			rri->setKineticLaw("reaction1", "compartment * k1 * S1 * S2", false);
+			rri->setKineticLaw("reaction2", "compartment * k2 * S3 * S4", true);
+		}));
+	}
+
+
 	/*TEST(READD_SPECIES)
 	{
 		clog << endl << "==== CHECK_READD_SPECIES ====" << endl << endl;
