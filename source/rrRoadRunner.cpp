@@ -5780,19 +5780,68 @@ void RoadRunner::removeVariable(const std::string& sid) {
 	using namespace libsbml;
 	Model* sbmlModel = impl->document->getModel();
 
-
-	for (uint i = 0; i < sbmlModel->getNumReactions(); i++)
+	SBase* toDelete = nullptr;
+	int index = 0;
+	int num = sbmlModel->getNumReactions();
+	for (uint i = 0; i < num; i++)
 	{
+		Reaction* reaction = sbmlModel->getReaction(index);
+		
+		if (impl->document->getLevel() == 2)
+		{
+			// only Level 2 support StoichiometryMath
+			const ListOfSpeciesReferences* reactants = reaction->getListOfReactants();
+			for (uint j = 0; j < reactants->size(); j++)
+			{
+				// TODO: better way to cast?
+				SpeciesReference* reactant = (SpeciesReference*)reactants->get(j);
+				if (hasVariable(reactant->getStoichiometryMath()->getMath(),sid))
+				{
+					toDelete = sbmlModel->removeReaction(index);
+					break;
+				}
+			}
+
+			if (toDelete != nullptr)
+			{
+				delete toDelete;
+				// no need to check anymore
+				continue;
+			}
+
+			const libsbml::ListOfSpeciesReferences* products = reaction->getListOfProducts();
+			for (uint j = 0; j < products->size(); j++)
+			{
+				SpeciesReference* product = (SpeciesReference*)products->get(j);
+				if (hasVariable(product->getStoichiometryMath()->getMath(), sid))
+				{
+					toDelete = sbmlModel->removeReaction(index);
+					break;
+				}
+			}
+
+			if (toDelete != nullptr)
+			{
+				delete toDelete;
+				// no need to check anymore
+				continue;
+			}
+			
+		}
+		
 		// TODO: check if getMath work with level 1
-		if (hasVariable(sbmlModel->getReaction(i)->getKineticLaw()->getMath(), sid))
+		if (hasVariable(reaction->getKineticLaw()->getMath(), sid))
 		{
 			sbmlModel->getReaction(i)->unsetKineticLaw();
 		}
+
+		// not remove this reaction
+		index++;
 	}
 
 	Log(Logger::LOG_DEBUG) << "Removing rules related to " << sid << "..." << endl;
 	// remove all rules that use this as variable
-	SBase* toDelete = sbmlModel->removeRule(sid);
+    toDelete = sbmlModel->removeRule(sid);
 	while (toDelete != NULL)
 	{
 		delete toDelete;
@@ -5800,8 +5849,8 @@ void RoadRunner::removeVariable(const std::string& sid) {
 	}
 
 	// check for other rules that use this variable in math formula
-	int index = 0;
-	int num = sbmlModel->getNumRules();
+	index = 0;
+	num = sbmlModel->getNumRules();
 	for (uint i = 0; i < num; i++)
 	{
 		// TODO: check if getMath work with level 1
@@ -5932,7 +5981,6 @@ void RoadRunner::removeVariable(const std::string& sid) {
 		index++;
 	}
 
-	// TODO: remove all math formula that use this variable
 }
 
 bool RoadRunner::hasVariable(const libsbml::ASTNode* node, const string& sid) 
