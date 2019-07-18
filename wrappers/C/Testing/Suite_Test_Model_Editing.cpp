@@ -717,6 +717,16 @@ SUITE(MODEL_EDITING_TEST_SUITE)
 		}));
 	}
 
+	TEST(PAUSE_6)
+	{
+		CHECK(RunModelEditingTest(21, [](RoadRunner *rri)
+		{
+			rri->simulate();
+			rri->addEvent("event1", false, "S2 > 0.0004", false);
+			rri->addEventAssignment("event1", "S1", "0.1", true);
+		}));
+	}
+
 
 
 
