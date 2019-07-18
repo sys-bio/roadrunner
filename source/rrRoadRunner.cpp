@@ -5807,6 +5807,18 @@ void RoadRunner::removeVariable(const std::string& sid) {
 			continue;
 		}
 
+		// check for priority
+		if (hasVariable(event->getPriority()->getMath(), sid))
+		{
+			event->unsetPriority();
+		}
+
+		// check for delay
+		if (hasVariable(event->getDelay()->getMath(), sid))
+		{
+			event->unsetDelay();
+		}
+
 
 		// check for event assignment
 		EventAssignment* toDelete = event->removeEventAssignment(sid);
@@ -5834,6 +5846,7 @@ void RoadRunner::removeVariable(const std::string& sid) {
 
 bool RoadRunner::hasVariable(const libsbml::ASTNode* node, const string& sid) 
 {
+	// DFS
 	// TODO: faster API to iterate all childeren node?
 	if (node == NULL) return false;
 	const char* temp = node->getName();
