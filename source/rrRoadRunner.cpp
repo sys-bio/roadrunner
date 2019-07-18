@@ -5790,9 +5790,27 @@ void RoadRunner::removeVariable(const std::string& sid) {
 		rule = sbmlModel->getRule(sid);
 	}
 
-	
-	Log(Logger::LOG_DEBUG) << "Removing event assignments related to " << sid << "..." << endl;
 	int index = 0;
+	int numRules = sbmlModel->getNumRules();
+	for (uint i = 0; i < numRules; i++)
+	{
+		
+		string temp = sbmlModel->getRule(index)->getFormula();
+		// TODO: check if getMath work with level 1
+		if (hasVariable(sbmlModel->getRule(index)->getMath(), sid))
+		{
+			Rule* rule = sbmlModel->removeRule(index);
+			delete rule;
+		}
+		else
+		{
+			index++;
+		}
+	}
+
+	
+	Log(Logger::LOG_DEBUG) << "Removing event elements related to " << sid << "..." << endl;
+	index = 0;
 	int numEvent = sbmlModel->getNumEvents();
 	for (uint i = 0; i < numEvent; i++)
 	{
