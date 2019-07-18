@@ -643,13 +643,15 @@ RRCDataPtr rrcCallConv simulate(RRHandle handle)
 		rri->addCompartment("compartment", 1);
 		rri->addSpecies("s1", "compartment", 0.1);
 		rri->addSpecies("s2", "compartment", 0.1);
-
+		
 		vector<string> reactants;
 		reactants.push_back("s1");
 		vector<string> products;
 		products.push_back("s2");
 		
 		rri->addReaction("test", reactants, products, "s1");
+
+		rri->removeCompartment("compartment");
 
 		rri->simulate();
 		auto test = rri->getSimulationData();

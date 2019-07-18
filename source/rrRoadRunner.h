@@ -1426,6 +1426,11 @@ private:
 	*/
 	void parseSpecies(const string& species, double* stoichiometry, char** sid);
 
+	/*
+	* Remove a variable from the current model.
+	*/
+	void removeVariable(const string& sid);
+
 	void saveSelectionVector(std::ostream&, std::vector<SelectionRecord>&);
 	void loadSelectionVector(std::istream&, std::vector<SelectionRecord>&);
 	const int fileMagicNumber = 0xAD6F52;

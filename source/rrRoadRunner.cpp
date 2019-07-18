@@ -5330,17 +5330,6 @@ void RoadRunner::addReaction(const string& rid, vector<string> reactants, vector
 	regenerate(forceRegenerate);
 }
 
-void RoadRunner::parseSpecies(const string& species, double* stoichiometry, char** sid) {
-	const char* input = species.c_str();
-
-	double d = strtod(input, sid);
-	if (*input != '\0' && *sid != input )
-	{
-		*stoichiometry = d;
-	}
-
-}
-
 void RoadRunner::removeSpecies(const std::string& sid, bool forceRegenerate)
 {
 	
@@ -5353,7 +5342,7 @@ void RoadRunner::removeSpecies(const std::string& sid, bool forceRegenerate)
 	}
 
 	Log(Logger::LOG_DEBUG) << "Removing species " << sid << "..." << endl;
-	delete s;
+	
 
 
 	// delete all related reactions as well
@@ -5366,9 +5355,11 @@ void RoadRunner::removeSpecies(const std::string& sid, bool forceRegenerate)
 	{
 		Reaction* reaction = sbmlModel->getListOfReactions()->get(index);
 		Reaction* toDelete = nullptr;
+
 		const ListOfSpeciesReferences* reactants = reaction->getListOfReactants();
 		for (uint j = 0; j < reactants->size(); j++)
 		{
+			string temp = reactants->get(j)->getSpecies();
 			if (reactants->get(j)->getSpecies() == sid)
 			{
 				Log(Logger::LOG_DEBUG) << "Removing reaction " << reaction->getId() << "..." << endl;
@@ -5425,26 +5416,8 @@ void RoadRunner::removeSpecies(const std::string& sid, bool forceRegenerate)
 		index++;
 	}
 
-	Log(Logger::LOG_DEBUG) << "Removing rules related to " << sid << "..." << endl;
-	Rule* rule = sbmlModel->getRule(sid);
-	while (rule != NULL)
-	{
-		delete rule;
-		rule = sbmlModel->getRule(sid);
-	}
-
-	Log(Logger::LOG_DEBUG) << "Removing event assignments related to " << sid << "..." << endl;
-	for (uint i = 0; i < sbmlModel->getNumEvents(); i++)
-	{
-		EventAssignment* toDelete = sbmlModel->getListOfEvents()->get(i)->removeEventAssignment(sid);
-		while (toDelete != NULL)
-		{
-			delete toDelete;
-			toDelete = sbmlModel->getListOfEvents()->get(i)->removeEventAssignment(sid);
-		}
-	}
-
-	// TODO: remove other components that related to this species(as variable)
+	removeVariable(sid);
+	delete s;
 	regenerate(forceRegenerate);
 }
 
@@ -5470,9 +5443,10 @@ void RoadRunner::removeParameter(const std::string& pid, bool forceRegenerate)
 		throw std::invalid_argument("Roadrunner::removeParameter failed, no parameter with ID " + pid + " existed in the model");
 	}
 	Log(Logger::LOG_DEBUG) << "Removing parameter " << pid << "..." << endl;
+	
+
+	removeVariable(pid);
 	delete toDelete;
-
-
 	regenerate(forceRegenerate);
 }
 
@@ -5501,7 +5475,7 @@ void RoadRunner::removeCompartment(const std::string& cid, bool forceRegenerate)
 		throw std::invalid_argument("Roadrunner::removeCompartment failed, no compartment with ID " + cid + " existed in the model");
 	}
 	Log(Logger::LOG_DEBUG) << "Removing compartment " << cid << "..." << endl;
-	delete toDelete;
+	
 
 	// remove all species in the compartment
 	int index = 0; 
@@ -5509,7 +5483,8 @@ void RoadRunner::removeCompartment(const std::string& cid, bool forceRegenerate)
 	for (int i = 0; i < numSpecies; i++) {
 		if (model->getSpecies(index)->getCompartment() == cid) 
 		{
-			removeSpecies(model->getSpecies(index)->getId());
+			string temp = model->getSpecies(index)->getId();
+			removeSpecies(model->getSpecies(index)->getId(), false);
 		} 
 		else 
 		{
@@ -5517,6 +5492,8 @@ void RoadRunner::removeCompartment(const std::string& cid, bool forceRegenerate)
 		}
 	}
 
+	removeVariable(cid);
+	delete toDelete;
 	regenerate(forceRegenerate);
 }
 
@@ -5761,6 +5738,43 @@ void RoadRunner::regenerate(bool forceRegenerate)
 		resetSelectionLists();
 	}
 	
+}
+
+void RoadRunner::parseSpecies(const string& species, double* stoichiometry, char** sid) {
+	const char* input = species.c_str();
+
+	double d = strtod(input, sid);
+	if (*input != '\0' && *sid != input)
+	{
+		*stoichiometry = d;
+	}
+
+}
+
+void RoadRunner::removeVariable(const std::string& sid) {
+	using namespace libsbml;
+	Model* sbmlModel = impl->document->getModel();
+
+	Log(Logger::LOG_DEBUG) << "Removing rules related to " << sid << "..." << endl;
+	Rule* rule = sbmlModel->getRule(sid);
+	while (rule != NULL)
+	{
+		delete rule;
+		rule = sbmlModel->getRule(sid);
+	}
+
+	Log(Logger::LOG_DEBUG) << "Removing event assignments related to " << sid << "..." << endl;
+	for (uint i = 0; i < sbmlModel->getNumEvents(); i++)
+	{
+		EventAssignment* toDelete = sbmlModel->getListOfEvents()->get(i)->removeEventAssignment(sid);
+		while (toDelete != NULL)
+		{
+			delete toDelete;
+			toDelete = sbmlModel->getListOfEvents()->get(i)->removeEventAssignment(sid);
+		}
+	}
+
+	// TODO: remove all math formula that use this variable
 }
 
 } //namespace
