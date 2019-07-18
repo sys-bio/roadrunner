@@ -1431,6 +1431,11 @@ private:
 	*/
 	void removeVariable(const string& sid);
 
+	/*
+	* check recursively if a ASTnode or any of its child has the given variable
+	*/
+	bool hasVariable(const libsbml::ASTNode* node, const string& sid);
+
 	void saveSelectionVector(std::ostream&, std::vector<SelectionRecord>&);
 	void loadSelectionVector(std::istream&, std::vector<SelectionRecord>&);
 	const int fileMagicNumber = 0xAD6F52;

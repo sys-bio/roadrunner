@@ -5755,6 +5755,8 @@ void RoadRunner::removeVariable(const std::string& sid) {
 	using namespace libsbml;
 	Model* sbmlModel = impl->document->getModel();
 
+
+
 	Log(Logger::LOG_DEBUG) << "Removing rules related to " << sid << "..." << endl;
 	Rule* rule = sbmlModel->getRule(sid);
 	while (rule != NULL)
@@ -5766,16 +5768,46 @@ void RoadRunner::removeVariable(const std::string& sid) {
 	Log(Logger::LOG_DEBUG) << "Removing event assignments related to " << sid << "..." << endl;
 	for (uint i = 0; i < sbmlModel->getNumEvents(); i++)
 	{
-		EventAssignment* toDelete = sbmlModel->getListOfEvents()->get(i)->removeEventAssignment(sid);
+		Event* event = sbmlModel->getListOfEvents()->get(i);
+		EventAssignment* toDelete = event->removeEventAssignment(sid);
 		while (toDelete != NULL)
 		{
 			delete toDelete;
-			toDelete = sbmlModel->getListOfEvents()->get(i)->removeEventAssignment(sid);
+			toDelete = event->removeEventAssignment(sid);
+		}
+		// look for other assignment that has a math formula using this variable
+		for (uint j = 0; j < event->getNumEventAssignments(); j++) {
+			EventAssignment* assignment = event->getListOfEventAssignments()->get(j);
+			if (hasVariable(assignment->getMath(), sid))
+			{
+				toDelete = event->removeEventAssignment(j);
+				delete toDelete;
+			}
+			
 		}
 	}
 
 	// TODO: remove all math formula that use this variable
 }
+
+bool RoadRunner::hasVariable(const libsbml::ASTNode* node, const string& sid) 
+{
+	// TODO: faster API to iterate all childeren node?
+	const char* temp = node->getName();
+	if (!node->isOperator() && !node->isNumber() && sid.compare(node->getName()) == 0) 
+	{
+		return true;
+	}
+	for (uint i = 0; i < node->getNumChildren(); i++)
+	{
+		if (hasVariable(node->getChild(i), sid))
+		{
+			return true;
+		}
+	}
+	return false;
+}
+
 
 } //namespace
 
