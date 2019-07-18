@@ -25,6 +25,14 @@ extern string gTempFolder;
 extern string gTSModelsPath;
 extern string gCompiler;
 
+/*
+* Loads <prefix>/source/roadrunner/models/sbml-test-suite/cases/semantic/model_editing/NNNNN/NNNNN-sbml-*VERSION*.xml
+* where NNNNN is case number
+* applies modification to the resulting roadrunner instance and compares the result to NNNNN-results.csv in the same folder, 
+* which should be the result of running the model NNNNN-sbml-*VERSION*-mod.xml, which should be the model expected after applying
+* modification to the original model
+* Returns true if the results are close enough, false otherwise
+*/
 bool RunModelEditingTest(int caseNumber, void(*modification)(RoadRunner*), std::string version = "l2v4")
 {
 	bool result(false);
@@ -443,7 +451,7 @@ SUITE(MODEL_EDITING_TEST_SUITE)
 			rri->removeSpecies("S2");
 		}));
 	}*/
-	TEST(ADD_SPECIES_1)
+	/*TEST(ADD_SPECIES_1)
 	{
 		CHECK(RunModelEditingTest(6, [](RoadRunner *rri)
 		{
@@ -543,7 +551,7 @@ SUITE(MODEL_EDITING_TEST_SUITE)
 			rri->addParameter("k1", 0.75, false);
 			rri->addReaction("reaction1", { "S1", "S2" }, { "S3" }, "k1*S1*S2");
 		}));
-	}
+	}*/
 
 	//Todo: Simulating after this removal *should* cause an error, find a way to check that
 	/*
@@ -559,7 +567,7 @@ SUITE(MODEL_EDITING_TEST_SUITE)
 		);
 	}*/
 
-	TEST(ADD_COMPARTMENT_1)
+	/*TEST(ADD_COMPARTMENT_1)
 	{
 		CHECK(RunModelEditingTest(54, [](RoadRunner *rri)
 		{
@@ -723,6 +731,15 @@ SUITE(MODEL_EDITING_TEST_SUITE)
 			rri->simulate();
 			rri->addEvent("event1", false, "S2 > 0.0004", false);
 			rri->addEventAssignment("event1", "S1", "0.1", true);
+		}));
+	}*/
+
+	TEST(PAUSE_7)
+	{
+		CHECK(RunModelEditingTest(348, [](RoadRunner *rri)
+		{
+			rri->simulate();
+			rri->removeEvent("event1");
 		}));
 	}
 
