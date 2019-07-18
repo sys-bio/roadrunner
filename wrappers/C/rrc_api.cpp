@@ -623,7 +623,7 @@ RRCDataPtr rrcCallConv simulate(RRHandle handle)
 {
 	start_try
 		RoadRunner* rri = castToRoadRunner(handle);
-		//RoadRunner* rri = new RoadRunner();
+		
 	if (false)
 	{
 		rri = new RoadRunner("C:/rr/source/roadrunner/models/sbml-test-suite/cases/semantic/model_editing/00020/00020-sbml-l2v4-mod.xml");
@@ -638,7 +638,7 @@ RRCDataPtr rrcCallConv simulate(RRHandle handle)
 
 	if (false)
 	{
-		
+		rri = new RoadRunner();
 		rri->addCompartment("compartment", 1);
 		rri->addSpecies("s1", "compartment", 0.1);
 		rri->addSpecies("s2", "compartment", 0.1);
@@ -650,7 +650,9 @@ RRCDataPtr rrcCallConv simulate(RRHandle handle)
 		
 		rri->addReaction("test", reactants, products, "s1");
 
-		rri->removeCompartment("compartment");
+		rri->addEvent("e1", true, "s2 > compartment");
+		rri->addEventAssignment("e1", "s2", "s1 * s1");
+		rri->removeSpecies("s1");
 
 		rri->simulate();
 		auto test = rri->getSimulationData();
@@ -659,6 +661,8 @@ RRCDataPtr rrcCallConv simulate(RRHandle handle)
 				std::cout << (*test)(r, c) << "\t";
 			std::cout << std::endl;
 		}
+	
+		std::cout << (rri->getSBML()) << endl;
 
 	}
 
