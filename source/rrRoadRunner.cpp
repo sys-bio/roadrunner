@@ -5795,11 +5795,15 @@ void RoadRunner::removeVariable(const std::string& sid) {
 			{
 				// TODO: better way to cast?
 				SpeciesReference* reactant = (SpeciesReference*)reactants->get(j);
-				if (hasVariable(reactant->getStoichiometryMath()->getMath(),sid))
+				if (reactant->getStoichiometryMath() != NULL) 
 				{
-					toDelete = sbmlModel->removeReaction(index);
-					break;
+					if (hasVariable(reactant->getStoichiometryMath()->getMath(), sid))
+					{
+						toDelete = sbmlModel->removeReaction(index);
+						break;
+					}
 				}
+				
 			}
 
 			if (toDelete != nullptr)
@@ -5813,11 +5817,15 @@ void RoadRunner::removeVariable(const std::string& sid) {
 			for (uint j = 0; j < products->size(); j++)
 			{
 				SpeciesReference* product = (SpeciesReference*)products->get(j);
-				if (hasVariable(product->getStoichiometryMath()->getMath(), sid))
+				if (product->getStoichiometryMath() != NULL)
 				{
-					toDelete = sbmlModel->removeReaction(index);
-					break;
+					if (hasVariable(product->getStoichiometryMath()->getMath(), sid))
+					{
+						toDelete = sbmlModel->removeReaction(index);
+						break;
+					}
 				}
+				
 			}
 
 			if (toDelete != nullptr)
@@ -5903,6 +5911,7 @@ void RoadRunner::removeVariable(const std::string& sid) {
 		toDelete = sbmlModel->removeInitialAssignment(sid);
 	}
 
+	// also other assignments using this variable in the math formula
 	index = 0;
 	num = sbmlModel->getNumInitialAssignments();
 	for (uint i = 0; i < num; i++)
