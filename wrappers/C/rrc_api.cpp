@@ -636,7 +636,7 @@ RRCDataPtr rrcCallConv simulate(RRHandle handle)
 		fs.close();
 	}
 
-	if (true)
+	if (false)
 	{
 		rri = new RoadRunner();
 		rri->addCompartment("compartment", 1);

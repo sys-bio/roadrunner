@@ -904,7 +904,19 @@ public:
 	*/
 	void addEvent(const std::string& eid, bool useValuesFromTriggerTime, const std::string& trigger, bool forceRegenerate = true);
 
-
+	/*
+	* Add trigger to an existing event in the model
+	* If the given event already has a trigger object, the given trigger will replace the old trigger in the model
+	* @param eid: the ID of the event to add trigger
+	* @param trigger: the math formula of event trigger
+	* @param forceRegenerate: a boolean value to indicate if the model is regenerated
+	*					      after this function call
+	*						  default value is true to regenerate model after each call
+	*                         of editing function
+	*						  to save time for editing for multiple times, one could
+	*					      set this flag to true only in the last call of editing
+	*/
+	void addTrigger(const std::string& eid, const std::string& trigger, bool forceRegenerate = true);
 
 	/*
 	* Add priority to an existing event in the model

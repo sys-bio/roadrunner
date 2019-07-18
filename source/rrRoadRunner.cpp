@@ -5599,6 +5599,30 @@ void RoadRunner::addEvent(const std::string& eid, bool useValuesFromTriggerTime,
 }
 
 
+void RoadRunner::addTrigger(const std::string& eid, const std::string& trigger, bool forceRegenerate) {
+	using namespace libsbml;
+	Event* event = impl->document->getModel()->getEvent(eid);
+
+	if (event == NULL)
+	{
+		throw std::invalid_argument("Roadrunner::addTrigger failed, no event " + eid + " existed in the model");
+	}
+
+	Trigger* newTrigger = event->createTrigger();
+	
+	Log(Logger::LOG_DEBUG) << "Adding trigger for event " << eid << "..." << endl;
+	ASTNode_t* formula = libsbml::SBML_parseL3Formula(trigger.c_str());
+	if (formula == NULL)
+	{
+		throw std::invalid_argument("Roadrunner::addTrigger failed, an error occurred in parsing the teigger formula");
+	}
+	newTrigger->setMath(formula);
+
+	// model regeneration will throw RuntimeError if the given formula is not valid
+	regenerate(forceRegenerate);
+}
+
+
 void RoadRunner::addPriority(const std::string& eid, const std::string& priority, bool forceRegenerate) {
 	using namespace libsbml;
 	Event* event = impl->document->getModel()->getEvent(eid);
@@ -5624,6 +5648,7 @@ void RoadRunner::addPriority(const std::string& eid, const std::string& priority
 	// model regeneration will throw RuntimeError if the given formula is not valid
 	regenerate(forceRegenerate);
 }
+
 
 void RoadRunner::addDelay(const std::string& eid, const std::string& delay, bool forceRegenerate) {
 	using namespace libsbml;
@@ -5769,6 +5794,15 @@ void RoadRunner::removeVariable(const std::string& sid) {
 	for (uint i = 0; i < sbmlModel->getNumEvents(); i++)
 	{
 		Event* event = sbmlModel->getListOfEvents()->get(i);
+		// check for trigger
+		if (hasVariable(event->getTrigger()->getMath(), sid))
+		{
+			// TODO: check if the old trigger will always be replaced by the new empty trigger
+			event->createTrigger();
+		}
+
+
+		// check for event assignment
 		EventAssignment* toDelete = event->removeEventAssignment(sid);
 		while (toDelete != NULL)
 		{
@@ -5793,6 +5827,7 @@ void RoadRunner::removeVariable(const std::string& sid) {
 bool RoadRunner::hasVariable(const libsbml::ASTNode* node, const string& sid) 
 {
 	// TODO: faster API to iterate all childeren node?
+	if (node == NULL) return false;
 	const char* temp = node->getName();
 	if (!node->isOperator() && !node->isNumber() && sid.compare(node->getName()) == 0) 
 	{
