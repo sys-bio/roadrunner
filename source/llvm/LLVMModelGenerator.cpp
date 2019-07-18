@@ -382,7 +382,20 @@ context.getExecutionEngine().getFunctionAddress("setGlobalParameter");
 						oldModel->getFloatingSpeciesInitAmounts(1, &i, &initValue);
 						newModel->setFloatingSpeciesInitAmounts(1, &index, &initValue);
 					}
+				}
+			}
+		}
 
+		for (int i = 0; i < oldModel->getNumFloatingSpecies(); i++)
+		{
+			string id = oldModel->getFloatingSpeciesId(i);
+			int index = newModel->getFloatingSpeciesIndex(id);
+
+			if (index != -1)
+			{
+				// new model has this species
+				if (!newModel->symbols->hasAssignmentRule(id) && !newModel->symbols->hasRateRule(id))
+				{
 					double value = 0;
 					oldModel->getFloatingSpeciesAmounts(1, &i, &value);
 					newModel->setFloatingSpeciesAmounts(1, &index, &value);
