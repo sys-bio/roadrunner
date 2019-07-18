@@ -5781,26 +5781,79 @@ void RoadRunner::removeVariable(const std::string& sid) {
 	Model* sbmlModel = impl->document->getModel();
 
 
-
 	Log(Logger::LOG_DEBUG) << "Removing rules related to " << sid << "..." << endl;
-	Rule* rule = sbmlModel->getRule(sid);
-	while (rule != NULL)
+	// remove all rules that use this as variable
+	SBase* toDelete = sbmlModel->removeRule(sid);
+	while (toDelete != NULL)
 	{
-		delete rule;
-		rule = sbmlModel->getRule(sid);
+		delete toDelete;
+		toDelete = sbmlModel->removeRule(sid);
 	}
 
+	// check for other rules that use this variable in math formula
 	int index = 0;
-	int numRules = sbmlModel->getNumRules();
-	for (uint i = 0; i < numRules; i++)
+	int num = sbmlModel->getNumRules();
+	for (uint i = 0; i < num; i++)
 	{
-		
 		string temp = sbmlModel->getRule(index)->getFormula();
 		// TODO: check if getMath work with level 1
 		if (hasVariable(sbmlModel->getRule(index)->getMath(), sid))
 		{
-			Rule* rule = sbmlModel->removeRule(index);
-			delete rule;
+			toDelete = sbmlModel->removeRule(index);
+			delete toDelete;
+		}
+		else
+		{
+			index++;
+		}
+	}
+
+	index = 0;
+	num = sbmlModel->getNumFunctionDefinitions();
+	for (uint i = 0; i < num; i++)
+	{
+		if (hasVariable(sbmlModel->getFunctionDefinition(index)->getMath(), sid))
+		{
+			toDelete = sbmlModel->removeFunctionDefinition(index);
+			delete toDelete;
+		}
+		else
+		{
+			index++;
+		}
+	}
+
+	index = 0;
+	num = sbmlModel->getNumConstraints();
+	for (uint i = 0; i < num; i++)
+	{
+		if (hasVariable(sbmlModel->getConstraint(index)->getMath(), sid))
+		{
+			toDelete = sbmlModel->removeConstraint(index);
+			delete toDelete;
+		}
+		else
+		{
+			index++;
+		}
+	}
+
+	// fisrt remove initial assignment that use this variable as symbol
+	toDelete = sbmlModel->removeInitialAssignment(sid);
+	while (toDelete != NULL)
+	{
+		delete toDelete;
+		toDelete = sbmlModel->removeInitialAssignment(sid);
+	}
+
+	index = 0;
+	num = sbmlModel->getNumInitialAssignments();
+	for (uint i = 0; i < num; i++)
+	{
+		if (hasVariable(sbmlModel->getInitialAssignment(index)->getMath(), sid))
+		{
+			toDelete = sbmlModel->removeInitialAssignment(index);
+			delete toDelete;
 		}
 		else
 		{
@@ -5811,16 +5864,16 @@ void RoadRunner::removeVariable(const std::string& sid) {
 	
 	Log(Logger::LOG_DEBUG) << "Removing event elements related to " << sid << "..." << endl;
 	index = 0;
-	int numEvent = sbmlModel->getNumEvents();
-	for (uint i = 0; i < numEvent; i++)
+	num = sbmlModel->getNumEvents();
+	for (uint i = 0; i < num; i++)
 	{
 		Event* event = sbmlModel->getListOfEvents()->get(index);
 		// check for trigger
 		if (hasVariable(event->getTrigger()->getMath(), sid))
 		{
 			// LLVMModelDataSymbol require trigger for event, so we have to delete the event
-			event = sbmlModel->removeEvent(index);
-			delete event;
+			toDelete = sbmlModel->removeEvent(index);
+			delete toDelete;
 			// continue to the next event
 			continue;
 		}
@@ -5839,19 +5892,25 @@ void RoadRunner::removeVariable(const std::string& sid) {
 
 
 		// check for event assignment
-		EventAssignment* toDelete = event->removeEventAssignment(sid);
+		toDelete = event->removeEventAssignment(sid);
 		while (toDelete != NULL)
 		{
 			delete toDelete;
 			toDelete = event->removeEventAssignment(sid);
 		}
-		// look for other assignment that has a math formula using this variable
-		for (uint j = 0; j < event->getNumEventAssignments(); j++) {
-			EventAssignment* assignment = event->getListOfEventAssignments()->get(j);
+		// look for other assignments that have a math formula using this variable
+		int assignmentIndex = 0;
+		int numAssign = event->getNumEventAssignments();
+		for (uint j = 0; j < numAssign; j++) {
+			EventAssignment* assignment = event->getListOfEventAssignments()->get(assignmentIndex);
 			if (hasVariable(assignment->getMath(), sid))
 			{
-				toDelete = event->removeEventAssignment(j);
+				toDelete = event->removeEventAssignment(assignmentIndex);
 				delete toDelete;
+			}
+			else
+			{
+				assignmentIndex++;
 			}
 			
 		}
