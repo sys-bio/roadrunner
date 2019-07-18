@@ -5342,7 +5342,6 @@ void RoadRunner::removeSpecies(const std::string& sid, bool forceRegenerate)
 	}
 
 	Log(Logger::LOG_DEBUG) << "Removing species " << sid << "..." << endl;
-	
 
 
 	// delete all related reactions as well
@@ -5353,17 +5352,16 @@ void RoadRunner::removeSpecies(const std::string& sid, bool forceRegenerate)
 	// currently we are assuming that the order will keep the same
 	for (uint i = 0; i < numReaction; i++)
 	{
-		Reaction* reaction = sbmlModel->getListOfReactions()->get(index);
+		Reaction* reaction = sbmlModel->getReaction(index);
 		Reaction* toDelete = nullptr;
 
 		const ListOfSpeciesReferences* reactants = reaction->getListOfReactants();
 		for (uint j = 0; j < reactants->size(); j++)
 		{
-			string temp = reactants->get(j)->getSpecies();
+
 			if (reactants->get(j)->getSpecies() == sid)
 			{
-				Log(Logger::LOG_DEBUG) << "Removing reaction " << reaction->getId() << "..." << endl;
-				toDelete = sbmlModel->removeReaction(reaction->getId());
+				toDelete = sbmlModel->removeReaction(index);
 				break;
 			}
 		}
@@ -5380,8 +5378,7 @@ void RoadRunner::removeSpecies(const std::string& sid, bool forceRegenerate)
 		{
 			if (products->get(j)->getSpecies() == sid)
 			{
-				Log(Logger::LOG_DEBUG) << "Removing reaction " << reaction->getId() << "..." << endl;
-				toDelete = sbmlModel->removeReaction(reaction->getId());
+				toDelete = sbmlModel->removeReaction(index);
 				break;
 			}
 		}
@@ -5398,8 +5395,7 @@ void RoadRunner::removeSpecies(const std::string& sid, bool forceRegenerate)
 		{
 			if (modifiers->get(j)->getSpecies() == sid)
 			{
-				Log(Logger::LOG_DEBUG) << "Removing reaction " << reaction->getId() << "..." << endl;
-				toDelete = sbmlModel->removeReaction(reaction->getId());
+				toDelete = sbmlModel->removeReaction(index);
 				break;
 			}
 		}
@@ -5411,7 +5407,6 @@ void RoadRunner::removeSpecies(const std::string& sid, bool forceRegenerate)
 			continue;
 		}
 
-		
 		// this reaction is not related to the deleted species 
 		index++;
 	}
@@ -5780,10 +5775,78 @@ void RoadRunner::removeVariable(const std::string& sid) {
 	using namespace libsbml;
 	Model* sbmlModel = impl->document->getModel();
 
+	Log(Logger::LOG_DEBUG) << "Removing reactions related to " << sid << "..." << endl;
+
+	SBase* toDelete = nullptr;
+	int index = 0;
+	int num = sbmlModel->getNumReactions();
+	for (uint i = 0; i < num; i++)
+	{
+		Reaction* reaction = sbmlModel->getReaction(index);
+		
+		if (impl->document->getLevel() == 2)
+		{
+			// only Level 2 support StoichiometryMath
+			const ListOfSpeciesReferences* reactants = reaction->getListOfReactants();
+			for (uint j = 0; j < reactants->size(); j++)
+			{
+				// TODO: better way to cast?
+				SpeciesReference* reactant = (SpeciesReference*)reactants->get(j);
+				if (reactant->getStoichiometryMath() != NULL) 
+				{
+					if (hasVariable(reactant->getStoichiometryMath()->getMath(), sid))
+					{
+						toDelete = sbmlModel->removeReaction(index);
+						break;
+					}
+				}
+				
+			}
+
+			if (toDelete != nullptr)
+			{
+				delete toDelete;
+				// no need to check anymore
+				continue;
+			}
+
+			const libsbml::ListOfSpeciesReferences* products = reaction->getListOfProducts();
+			for (uint j = 0; j < products->size(); j++)
+			{
+				SpeciesReference* product = (SpeciesReference*)products->get(j);
+				if (product->getStoichiometryMath() != NULL)
+				{
+					if (hasVariable(product->getStoichiometryMath()->getMath(), sid))
+					{
+						toDelete = sbmlModel->removeReaction(index);
+						break;
+					}
+				}
+				
+			}
+
+			if (toDelete != nullptr)
+			{
+				delete toDelete;
+				// no need to check anymore
+				continue;
+			}
+			
+		}
+		
+		// TODO: check if getMath work with level 1
+		if (hasVariable(reaction->getKineticLaw()->getMath(), sid))
+		{
+			sbmlModel->getReaction(i)->unsetKineticLaw();
+		}
+
+		// not remove this reaction
+		index++;
+	}
 
 	Log(Logger::LOG_DEBUG) << "Removing rules related to " << sid << "..." << endl;
 	// remove all rules that use this as variable
-	SBase* toDelete = sbmlModel->removeRule(sid);
+    toDelete = sbmlModel->removeRule(sid);
 	while (toDelete != NULL)
 	{
 		delete toDelete;
@@ -5791,11 +5854,10 @@ void RoadRunner::removeVariable(const std::string& sid) {
 	}
 
 	// check for other rules that use this variable in math formula
-	int index = 0;
-	int num = sbmlModel->getNumRules();
+	index = 0;
+	num = sbmlModel->getNumRules();
 	for (uint i = 0; i < num; i++)
 	{
-		string temp = sbmlModel->getRule(index)->getFormula();
 		// TODO: check if getMath work with level 1
 		if (hasVariable(sbmlModel->getRule(index)->getMath(), sid))
 		{
@@ -5808,6 +5870,7 @@ void RoadRunner::removeVariable(const std::string& sid) {
 		}
 	}
 
+	Log(Logger::LOG_DEBUG) << "Removing function definitions related to " << sid << "..." << endl;
 	index = 0;
 	num = sbmlModel->getNumFunctionDefinitions();
 	for (uint i = 0; i < num; i++)
@@ -5823,6 +5886,7 @@ void RoadRunner::removeVariable(const std::string& sid) {
 		}
 	}
 
+	Log(Logger::LOG_DEBUG) << "Removing constraints related to " << sid << "..." << endl;
 	index = 0;
 	num = sbmlModel->getNumConstraints();
 	for (uint i = 0; i < num; i++)
@@ -5838,6 +5902,7 @@ void RoadRunner::removeVariable(const std::string& sid) {
 		}
 	}
 
+	Log(Logger::LOG_DEBUG) << "Removing initial assignments related to " << sid << "..." << endl;
 	// fisrt remove initial assignment that use this variable as symbol
 	toDelete = sbmlModel->removeInitialAssignment(sid);
 	while (toDelete != NULL)
@@ -5846,6 +5911,7 @@ void RoadRunner::removeVariable(const std::string& sid) {
 		toDelete = sbmlModel->removeInitialAssignment(sid);
 	}
 
+	// also other assignments using this variable in the math formula
 	index = 0;
 	num = sbmlModel->getNumInitialAssignments();
 	for (uint i = 0; i < num; i++)
@@ -5924,7 +5990,6 @@ void RoadRunner::removeVariable(const std::string& sid) {
 		index++;
 	}
 
-	// TODO: remove all math formula that use this variable
 }
 
 bool RoadRunner::hasVariable(const libsbml::ASTNode* node, const string& sid) 
