@@ -443,7 +443,7 @@ SUITE(MODEL_EDITING_TEST_SUITE)
 			rri->removeSpecies("S2");
 		}));
 	}*/
-	TEST(ADD_SPECIES_1)
+	/*TEST(ADD_SPECIES_1)
 	{
 		CHECK(RunModelEditingTest(6, [](RoadRunner *rri)
 		{
@@ -543,7 +543,7 @@ SUITE(MODEL_EDITING_TEST_SUITE)
 			rri->addParameter("k1", 0.75, false);
 			rri->addReaction("reaction1", { "S1", "S2" }, { "S3" }, "k1*S1*S2");
 		}));
-	}
+	}*/
 
 	//Todo: Simulating after this removal *should* cause an error, find a way to check that
 	/*
@@ -559,7 +559,7 @@ SUITE(MODEL_EDITING_TEST_SUITE)
 		);
 	}*/
 
-	TEST(ADD_COMPARTMENT_1)
+	/*TEST(ADD_COMPARTMENT_1)
 	{
 		CHECK(RunModelEditingTest(54, [](RoadRunner *rri)
 		{
@@ -657,25 +657,43 @@ SUITE(MODEL_EDITING_TEST_SUITE)
 	{
 		CHECK(RunModelEditingTest(47, [](RoadRunner *rri)
 		{
-			rri->removeSpecies("S1", false);
-			rri->removeSpecies("S2", false);
-			rri->addSpecies("S1", "compartment", 0.001, "substance", false);
-			rri->addSpecies("S2", "compartment", 0.001, "substance", false);
-			rri->addSpecies("S3", "compartment", 0.002, "substance", false);
-			rri->addSpecies("S4", "compartment", 0.001, "substance", false);
-			rri->removeParameter("k1", false);
-			rri->addParameter("k1", 750, false);
-			rri->addParameter("k2", 250, false);
-			rri->addReaction("reaction1", {"S1", "S2"}, {"S3","S4"}, "compartment * k1 * S1 * S2", false);
+			//rri->removeSpecies("S1", true);
+			//rri->removeSpecies("S2", true);
+			//rri->addSpecies("S1", "compartment", 0.001, "substance", true);
+			//rri->addSpecies("S2", "compartment", 0.001, "substance", true);
+			rri->addSpecies("S3", "compartment", 0.002, "substance", true);
+			rri->addSpecies("S4", "compartment", 0.001, "substance", true);
+			rri->removeParameter("k1", true);
+			rri->addParameter("k1", 750, true);
+			rri->addParameter("k2", 250, true);
+			rri->removeReaction("reaction1");
+			rri->addReaction("reaction1", {"S1", "S2"}, {"S3","S4"}, "compartment * k1 * S1 * S2", true);
 			rri->addReaction("reaction2", {"S3", "S4"}, {"S1", "S2"}, "compartment * k2 * S3 * S4", true);
 		}));
+	}*/
+
+	TEST(PAUSE_1)
+	{
+		CHECK(RunModelEditingTest(15, [](RoadRunner *rri)
+		{
+			rri->simulate();
+			auto v = rri->getSimulationData();
+			cout << "v: " << endl;
+			cout << *v << endl;
+			cout << rri->getFloatingSpeciesAmountsNamedArray() << endl;
+			rri->addReaction("reaction3", {"S3"}, {"S2"}, "compartment * k2 * S3 * S4");
+			cout << rri->getFloatingSpeciesAmountsNamedArray() << endl;
+			rri->getSimulateOptions().reset_model = false;
+		}));
 	}
+
+
 
 
 	/*TEST(READD_SPECIES)
 	{
 		clog << endl << "==== CHECK_READD_SPECIES ====" << endl << endl;
-		for (int i = 40; i <= 40; i++)
+		for (int i = 30; i <= 40; i++)
 		{
 			if (!RunTestWithEdit("l2v4", i, removeAndReaddAllSpecies, "removeAndReaddAllSpecies"))
 			{
@@ -684,7 +702,7 @@ SUITE(MODEL_EDITING_TEST_SUITE)
 			}
 		}
 	}
-	TEST(READD_REACTION)
+	/*TEST(READD_REACTION)
 	{
 		clog << endl << "==== CHECK_READD_REACTION ====" << endl << endl;
 		for (int i = 40; i <= 40; i++)

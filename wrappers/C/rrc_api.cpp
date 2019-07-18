@@ -622,22 +622,22 @@ RRStringArrayPtr rrcCallConv getTimeCourseSelectionList(RRHandle handle)
 RRCDataPtr rrcCallConv simulate(RRHandle handle)
 {
 	start_try
-		//RoadRunner* rri = castToRoadRunner(handle);
-		RoadRunner* rri = new RoadRunner();
+		RoadRunner* rri = castToRoadRunner(handle);
+		//RoadRunner* rri = new RoadRunner();
 	if (false)
 	{
 		rri = new RoadRunner();
-		rri = new  RoadRunner("C:/rr/source/roadrunner/models/sbml-test-suite/cases/semantic/model_editing/00010/00010-sbml-l2v4-mod.xml");
-		rri->getSimulateOptions().loadSBMLSettings("C:/rr/source/roadrunner/models/sbml-test-suite/cases/semantic/model_editing/00010/00010-settings.txt");
+		rri = new  RoadRunner("C:/rr/source/roadrunner/models/sbml-test-suite/cases/semantic/model_editing/00015/00015-sbml-l2v4-mod.xml");
+		rri->getSimulateOptions().loadSBMLSettings("C:/rr/source/roadrunner/models/sbml-test-suite/cases/semantic/model_editing/00015/00015-settings.txt");
 		rri->simulate();
 		RoadRunnerData resultData(rri);
 
-		ofstream fs("C:/rr/source/roadrunner/models/sbml-test-suite/cases/semantic/model_editing/00010/00010-results.csv");
+		ofstream fs("C:/rr/source/roadrunner/models/sbml-test-suite/cases/semantic/model_editing/00015/00015-results.csv");
 		fs << resultData;
 		fs.close();
 	}
 
-	if (true)
+	if (false)
 	{
 		
 		rri->addCompartment("compartment", 1);
@@ -662,11 +662,11 @@ RRCDataPtr rrcCallConv simulate(RRHandle handle)
 	}
 
 
-//	rri = new RoadRunner("C:/rr/source/roadrunner/models/sbml-test-suite/cases/semantic/00001/00001-sbml-l2v4.xml");
-	//rri->setSelections(vector<string>({"S1","S2"}));
-	//rri->removeSpecies("S2");
-	//rri->addSpecies("S2", "compartment", 0.0, "substance");
-	//rri->simulate();
+	//rri = new RoadRunner("C:/rr/source/roadrunner/models/sbml-test-suite/cases/semantic/00001/00001-sbml-l2v4.xml");
+	//rri->removeReaction("reaction1");
+	//rri->removeParameter("k1");
+	//rri->addParameter("k1", 1);
+	//rri->addReaction("reaction1", {"S1"}, {"S2"}, "compartment * k1 * S1");
 	
 		//	rri->setKineticLaw("reaction1", "S1");
 		//rri->addCompartment("compartment", 1);
