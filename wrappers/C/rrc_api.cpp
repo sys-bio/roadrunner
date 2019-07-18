@@ -642,6 +642,7 @@ RRCDataPtr rrcCallConv simulate(RRHandle handle)
 		rri->addCompartment("compartment", 1);
 		rri->addSpecies("s1", "compartment", 0.1);
 		rri->addSpecies("s2", "compartment", 0.1);
+		rri->addSpecies("s3", "compartment", 0.1);
 		
 		vector<string> reactants;
 		reactants.push_back("s1");
@@ -650,9 +651,15 @@ RRCDataPtr rrcCallConv simulate(RRHandle handle)
 		
 		rri->addReaction("test", reactants, products, "s1");
 
-		rri->addEvent("e1", true, "s2 > compartment");
-		rri->addEventAssignment("e1", "s2", "s1 * s1");
+		rri->addEvent("e1", true, "s1 > compartment");
+		
+
+		rri->addAssignmentRule("s3", "5*s1");
+		rri->addRateRule("s3", "s1*2");
+
 		rri->removeSpecies("s1");
+
+		
 
 		rri->simulate();
 		auto test = rri->getSimulationData();
