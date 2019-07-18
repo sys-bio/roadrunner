@@ -677,13 +677,16 @@ SUITE(MODEL_EDITING_TEST_SUITE)
 		CHECK(RunModelEditingTest(15, [](RoadRunner *rri)
 		{
 			rri->simulate();
-			auto v = rri->getSimulationData();
-			cout << "v: " << endl;
-			cout << *v << endl;
-			cout << rri->getFloatingSpeciesAmountsNamedArray() << endl;
 			rri->addReaction("reaction3", {"S3"}, {"S2"}, "compartment * k2 * S3 * S4");
-			cout << rri->getFloatingSpeciesAmountsNamedArray() << endl;
-			rri->getSimulateOptions().reset_model = false;
+		}));
+	}
+
+	TEST(PAUSE_2)
+	{
+		CHECK(RunModelEditingTest(17, [](RoadRunner *rri)
+		{
+			rri->simulate();
+			rri->removeReaction("reaction2");
 		}));
 	}
 
