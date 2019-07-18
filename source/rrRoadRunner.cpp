@@ -5781,6 +5781,15 @@ void RoadRunner::removeVariable(const std::string& sid) {
 	Model* sbmlModel = impl->document->getModel();
 
 
+	for (uint i = 0; i < sbmlModel->getNumReactions(); i++)
+	{
+		// TODO: check if getMath work with level 1
+		if (hasVariable(sbmlModel->getReaction(i)->getKineticLaw()->getMath(), sid))
+		{
+			sbmlModel->getReaction(i)->unsetKineticLaw();
+		}
+	}
+
 	Log(Logger::LOG_DEBUG) << "Removing rules related to " << sid << "..." << endl;
 	// remove all rules that use this as variable
 	SBase* toDelete = sbmlModel->removeRule(sid);
@@ -5795,7 +5804,6 @@ void RoadRunner::removeVariable(const std::string& sid) {
 	int num = sbmlModel->getNumRules();
 	for (uint i = 0; i < num; i++)
 	{
-		string temp = sbmlModel->getRule(index)->getFormula();
 		// TODO: check if getMath work with level 1
 		if (hasVariable(sbmlModel->getRule(index)->getMath(), sid))
 		{
