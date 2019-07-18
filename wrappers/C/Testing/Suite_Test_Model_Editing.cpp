@@ -690,6 +690,33 @@ SUITE(MODEL_EDITING_TEST_SUITE)
 		}));
 	}
 
+	TEST(PAUSE_3)
+	{
+		CHECK(RunModelEditingTest(18, [](RoadRunner *rri)
+		{
+			rri->simulate();
+			rri->addSpecies("S5", "compartment", 0.001, "substance");
+		}));
+	}
+
+	TEST(PAUSE_4)
+	{
+		CHECK(RunModelEditingTest(19, [](RoadRunner *rri)
+		{
+			rri->simulate();
+			rri->removeSpecies("S4");
+		}));
+	}
+
+	TEST(PAUSE_5)
+	{
+		CHECK(RunModelEditingTest(20, [](RoadRunner *rri)
+		{
+			rri->simulate();
+			rri->setKineticLaw("reaction3", "sin(S2)");
+		}));
+	}
+
 
 
 

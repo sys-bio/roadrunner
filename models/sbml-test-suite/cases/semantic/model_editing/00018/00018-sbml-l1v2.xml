@@ -1,0 +1,60 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<sbml xmlns="http://www.sbml.org/sbml/level1" level="1" version="2">
+  <model name="case00018">
+    <listOfCompartments>
+      <compartment name="compartment" volume="1" units="volume"/>
+    </listOfCompartments>
+    <listOfSpecies>
+      <species name="S1" compartment="compartment" initialAmount="0.0001" units="substance"/>
+      <species name="S2" compartment="compartment" initialAmount="0.0002" units="substance"/>
+      <species name="S3" compartment="compartment" initialAmount="0" units="substance"/>
+      <species name="S4" compartment="compartment" initialAmount="0" units="substance"/>
+    </listOfSpecies>
+    <listOfParameters>
+      <parameter name="k1" value="0.75"/>
+      <parameter name="k2" value="0.25"/>
+      <parameter name="k3" value="0.4"/>
+      <parameter name="k4" value="0.1"/>
+    </listOfParameters>
+    <listOfReactions>
+      <reaction name="reaction1" reversible="false">
+        <listOfReactants>
+          <speciesReference species="S1"/>
+        </listOfReactants>
+        <listOfProducts>
+          <speciesReference species="S2"/>
+        </listOfProducts>
+        <kineticLaw formula="compartment * k1 * S1"/>
+      </reaction>
+      <reaction name="reaction2" reversible="false">
+        <listOfReactants>
+          <speciesReference species="S2"/>
+        </listOfReactants>
+        <listOfProducts>
+          <speciesReference species="S1"/>
+        </listOfProducts>
+        <kineticLaw formula="compartment * k2 * S2"/>
+      </reaction>
+      <reaction name="reaction3" reversible="false">
+        <listOfReactants>
+          <speciesReference species="S2"/>
+        </listOfReactants>
+        <listOfProducts>
+          <speciesReference species="S3"/>
+          <speciesReference species="S4"/>
+        </listOfProducts>
+        <kineticLaw formula="compartment * k3 * S2"/>
+      </reaction>
+      <reaction name="reaction4" reversible="false">
+        <listOfReactants>
+          <speciesReference species="S3"/>
+          <speciesReference species="S4"/>
+        </listOfReactants>
+        <listOfProducts>
+          <speciesReference species="S2"/>
+        </listOfProducts>
+        <kineticLaw formula="compartment * k4 * S3 * S4"/>
+      </reaction>
+    </listOfReactions>
+  </model>
+</sbml>
