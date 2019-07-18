@@ -5790,15 +5790,21 @@ void RoadRunner::removeVariable(const std::string& sid) {
 		rule = sbmlModel->getRule(sid);
 	}
 
+	
 	Log(Logger::LOG_DEBUG) << "Removing event assignments related to " << sid << "..." << endl;
-	for (uint i = 0; i < sbmlModel->getNumEvents(); i++)
+	int index = 0;
+	int numEvent = sbmlModel->getNumEvents();
+	for (uint i = 0; i < numEvent; i++)
 	{
-		Event* event = sbmlModel->getListOfEvents()->get(i);
+		Event* event = sbmlModel->getListOfEvents()->get(index);
 		// check for trigger
 		if (hasVariable(event->getTrigger()->getMath(), sid))
 		{
-			// TODO: check if the old trigger will always be replaced by the new empty trigger
-			event->createTrigger();
+			// LLVMModelDataSymbol require trigger for event, so we have to delete the event
+			event = sbmlModel->removeEvent(index);
+			delete event;
+			// continue to the next event
+			continue;
 		}
 
 
@@ -5819,6 +5825,8 @@ void RoadRunner::removeVariable(const std::string& sid) {
 			}
 			
 		}
+		// not remove this event
+		index++;
 	}
 
 	// TODO: remove all math formula that use this variable
