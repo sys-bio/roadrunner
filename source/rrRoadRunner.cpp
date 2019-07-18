@@ -5342,7 +5342,6 @@ void RoadRunner::removeSpecies(const std::string& sid, bool forceRegenerate)
 	}
 
 	Log(Logger::LOG_DEBUG) << "Removing species " << sid << "..." << endl;
-	
 
 
 	// delete all related reactions as well
@@ -5353,17 +5352,16 @@ void RoadRunner::removeSpecies(const std::string& sid, bool forceRegenerate)
 	// currently we are assuming that the order will keep the same
 	for (uint i = 0; i < numReaction; i++)
 	{
-		Reaction* reaction = sbmlModel->getListOfReactions()->get(index);
+		Reaction* reaction = sbmlModel->getReaction(index);
 		Reaction* toDelete = nullptr;
 
 		const ListOfSpeciesReferences* reactants = reaction->getListOfReactants();
 		for (uint j = 0; j < reactants->size(); j++)
 		{
-			string temp = reactants->get(j)->getSpecies();
+
 			if (reactants->get(j)->getSpecies() == sid)
 			{
-				Log(Logger::LOG_DEBUG) << "Removing reaction " << reaction->getId() << "..." << endl;
-				toDelete = sbmlModel->removeReaction(reaction->getId());
+				toDelete = sbmlModel->removeReaction(index);
 				break;
 			}
 		}
@@ -5380,8 +5378,7 @@ void RoadRunner::removeSpecies(const std::string& sid, bool forceRegenerate)
 		{
 			if (products->get(j)->getSpecies() == sid)
 			{
-				Log(Logger::LOG_DEBUG) << "Removing reaction " << reaction->getId() << "..." << endl;
-				toDelete = sbmlModel->removeReaction(reaction->getId());
+				toDelete = sbmlModel->removeReaction(index);
 				break;
 			}
 		}
@@ -5398,8 +5395,7 @@ void RoadRunner::removeSpecies(const std::string& sid, bool forceRegenerate)
 		{
 			if (modifiers->get(j)->getSpecies() == sid)
 			{
-				Log(Logger::LOG_DEBUG) << "Removing reaction " << reaction->getId() << "..." << endl;
-				toDelete = sbmlModel->removeReaction(reaction->getId());
+				toDelete = sbmlModel->removeReaction(index);
 				break;
 			}
 		}
@@ -5411,7 +5407,6 @@ void RoadRunner::removeSpecies(const std::string& sid, bool forceRegenerate)
 			continue;
 		}
 
-		
 		// this reaction is not related to the deleted species 
 		index++;
 	}
@@ -5780,6 +5775,8 @@ void RoadRunner::removeVariable(const std::string& sid) {
 	using namespace libsbml;
 	Model* sbmlModel = impl->document->getModel();
 
+	Log(Logger::LOG_DEBUG) << "Removing reactions related to " << sid << "..." << endl;
+
 	SBase* toDelete = nullptr;
 	int index = 0;
 	int num = sbmlModel->getNumReactions();
@@ -5873,6 +5870,7 @@ void RoadRunner::removeVariable(const std::string& sid) {
 		}
 	}
 
+	Log(Logger::LOG_DEBUG) << "Removing function definitions related to " << sid << "..." << endl;
 	index = 0;
 	num = sbmlModel->getNumFunctionDefinitions();
 	for (uint i = 0; i < num; i++)
@@ -5888,6 +5886,7 @@ void RoadRunner::removeVariable(const std::string& sid) {
 		}
 	}
 
+	Log(Logger::LOG_DEBUG) << "Removing constraints related to " << sid << "..." << endl;
 	index = 0;
 	num = sbmlModel->getNumConstraints();
 	for (uint i = 0; i < num; i++)
@@ -5903,6 +5902,7 @@ void RoadRunner::removeVariable(const std::string& sid) {
 		}
 	}
 
+	Log(Logger::LOG_DEBUG) << "Removing initial assignments related to " << sid << "..." << endl;
 	// fisrt remove initial assignment that use this variable as symbol
 	toDelete = sbmlModel->removeInitialAssignment(sid);
 	while (toDelete != NULL)
