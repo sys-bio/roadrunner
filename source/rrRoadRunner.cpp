@@ -5887,15 +5887,21 @@ void RoadRunner::removeVariable(const std::string& sid) {
 		}
 
 		// check for priority
-		if (hasVariable(event->getPriority()->getMath(), sid))
+		if (event->getPriority())
 		{
-			event->unsetPriority();
+			if (hasVariable(event->getPriority()->getMath(), sid))
+			{
+				event->unsetPriority();
+			}
 		}
 
 		// check for delay
-		if (hasVariable(event->getDelay()->getMath(), sid))
+		if (event->getDelay())
 		{
-			event->unsetDelay();
+			if (hasVariable(event->getDelay()->getMath(), sid))
+			{
+				event->unsetDelay();
+			}
 		}
 
 
