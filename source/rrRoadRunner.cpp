@@ -5342,7 +5342,7 @@ void RoadRunner::removeSpecies(const std::string& sid, bool forceRegenerate)
 	}
 
 	Log(Logger::LOG_DEBUG) << "Removing species " << sid << "..." << endl;
-	delete s;
+	
 
 
 	// delete all related reactions as well
@@ -5355,9 +5355,11 @@ void RoadRunner::removeSpecies(const std::string& sid, bool forceRegenerate)
 	{
 		Reaction* reaction = sbmlModel->getListOfReactions()->get(index);
 		Reaction* toDelete = nullptr;
+
 		const ListOfSpeciesReferences* reactants = reaction->getListOfReactants();
 		for (uint j = 0; j < reactants->size(); j++)
 		{
+			string temp = reactants->get(j)->getSpecies();
 			if (reactants->get(j)->getSpecies() == sid)
 			{
 				Log(Logger::LOG_DEBUG) << "Removing reaction " << reaction->getId() << "..." << endl;
@@ -5415,6 +5417,7 @@ void RoadRunner::removeSpecies(const std::string& sid, bool forceRegenerate)
 	}
 
 	removeVariable(sid);
+	delete s;
 	regenerate(forceRegenerate);
 }
 
@@ -5440,9 +5443,10 @@ void RoadRunner::removeParameter(const std::string& pid, bool forceRegenerate)
 		throw std::invalid_argument("Roadrunner::removeParameter failed, no parameter with ID " + pid + " existed in the model");
 	}
 	Log(Logger::LOG_DEBUG) << "Removing parameter " << pid << "..." << endl;
-	delete toDelete;
+	
 
 	removeVariable(pid);
+	delete toDelete;
 	regenerate(forceRegenerate);
 }
 
@@ -5471,7 +5475,7 @@ void RoadRunner::removeCompartment(const std::string& cid, bool forceRegenerate)
 		throw std::invalid_argument("Roadrunner::removeCompartment failed, no compartment with ID " + cid + " existed in the model");
 	}
 	Log(Logger::LOG_DEBUG) << "Removing compartment " << cid << "..." << endl;
-	delete toDelete;
+	
 
 	// remove all species in the compartment
 	int index = 0; 
@@ -5479,7 +5483,8 @@ void RoadRunner::removeCompartment(const std::string& cid, bool forceRegenerate)
 	for (int i = 0; i < numSpecies; i++) {
 		if (model->getSpecies(index)->getCompartment() == cid) 
 		{
-			removeSpecies(model->getSpecies(index)->getId());
+			string temp = model->getSpecies(index)->getId();
+			removeSpecies(model->getSpecies(index)->getId(), false);
 		} 
 		else 
 		{
@@ -5488,6 +5493,7 @@ void RoadRunner::removeCompartment(const std::string& cid, bool forceRegenerate)
 	}
 
 	removeVariable(cid);
+	delete toDelete;
 	regenerate(forceRegenerate);
 }
 
