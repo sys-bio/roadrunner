@@ -772,8 +772,13 @@ SUITE(MODEL_EDITING_TEST_SUITE)
 		}));
 	}
 
-
-
+	TEST(ADD_EVENT_ASSIGNMENT_1)
+	{
+		CHECK(RunModelEditingTest(349, [](RoadRunner *rri)
+		{
+			rri->addEventAssignment("event2", "S3", "1");
+		}));
+	}
 	/*TEST(READD_SPECIES)
 	{
 		clog << endl << "==== CHECK_READD_SPECIES ====" << endl << endl;
