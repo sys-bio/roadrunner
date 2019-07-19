@@ -374,20 +374,21 @@ context.getExecutionEngine().getFunctionAddress("setGlobalParameter");
 			if (index != -1)
 			{
 				// new model has this species
+				if (!newModel->symbols->hasAssignmentRule(id) && !newModel->symbols->hasRateRule(id))
+				{
+					if (!newModel->symbols->hasInitialAssignmentRule(id))
+					{
+						double initValue = 0;
+						oldModel->getFloatingSpeciesInitAmounts(1, &i, &initValue);
+						newModel->setFloatingSpeciesInitAmounts(1, &index, &initValue);
+					}
 
-				// we write to modelData directly since if the species has rules on it,
-				// setters won't allow us to modify its value
-				// so we need to copy all old values by modifying the data block
-				double initValue = 0;
-				oldModel->getFloatingSpeciesInitAmounts(1, &i, &initValue);
-				newModel->modelData->initFloatingSpeciesAmountsAlias[index] = initValue;
-
-				double value = 0;
-				oldModel->getFloatingSpeciesAmounts(1, &i, &value);
-				newModel->modelData->floatingSpeciesAmountsAlias[index] = value;
+					double value = 0;
+					oldModel->getFloatingSpeciesAmounts(1, &i, &value);
+					newModel->setFloatingSpeciesAmounts(1, &index, &value);
+				}
 			}
 		}
-
 
 
 		for (int i = 0; i < oldModel->getNumBoundarySpecies(); i++)
@@ -397,11 +398,13 @@ context.getExecutionEngine().getFunctionAddress("setGlobalParameter");
 
 			if (index != -1)
 			{
-	
-				double value = 0;
-				oldModel->getBoundarySpeciesConcentrations(1, &i, &value);
-				newModel->modelData->boundarySpeciesAmountsAlias[index] = value;
-
+				// new model has this species
+				if (!newModel->symbols->hasAssignmentRule(id) && !newModel->symbols->hasRateRule(id))
+				{
+					double value = 0;
+					oldModel->getBoundarySpeciesConcentrations(1, &i, &value);
+					newModel->setBoundarySpeciesConcentrations(1, &index, &value);
+				}
 			}
 
 		}
@@ -415,15 +418,19 @@ context.getExecutionEngine().getFunctionAddress("setGlobalParameter");
 			if (index != -1)
 			{
 				// new model has this compartment
-				
-				double initValue = 0;
-				oldModel->getCompartmentInitVolumes(1, &i, &initValue);
-				newModel->modelData->initCompartmentVolumesAlias[index] = initValue;
-					
-				double value = 0;
-				oldModel->getCompartmentVolumes(1, &i, &value);
-				newModel->modelData->compartmentVolumesAlias[index] = value;
+				if (!newModel->symbols->hasAssignmentRule(id) && !newModel->symbols->hasRateRule(id))
+				{
+					if (!newModel->symbols->hasInitialAssignmentRule(id))
+					{
+						double initValue = 0;
+						oldModel->getCompartmentInitVolumes(1, &i, &initValue);
+						newModel->setCompartmentInitVolumes(1, &index, &initValue);
+					}
 
+					double value = 0;
+					oldModel->getCompartmentVolumes(1, &i, &value);
+					newModel->setCompartmentVolumes(1, &index, &value);
+				}
 			}
 		}
 
@@ -435,21 +442,40 @@ context.getExecutionEngine().getFunctionAddress("setGlobalParameter");
 
 			if (index != -1)
 			{
-			
-				double initValue = 0;
-				oldModel->getGlobalParameterInitValues(1, &i, &initValue);
-				newModel->modelData->initGlobalParametersAlias[index] = initValue;
-		
-				double value = 0;
-				oldModel->getGlobalParameterValues(1, &i, &value);
-				newModel->modelData->globalParametersAlias[index];
+				// new model has this parameter
+				if (!newModel->symbols->hasAssignmentRule(id) && !newModel->symbols->hasRateRule(id))
+				{
+					if (!newModel->symbols->hasInitialAssignmentRule(id))
+					{
+						double initValue = 0;
+						oldModel->getGlobalParameterInitValues(1, &i, &initValue);
+						newModel->setGlobalParameterInitValues(1, &index, &initValue);
+					}
+					double value = 0;
+					oldModel->getGlobalParameterValues(1, &i, &value);
+					newModel->setGlobalParameterValues(1, &index, &value);
+				}
 			}
 
 		}
 
-		// ConservedMoieties is part of global parameters 
+		for (int i = 0; i < oldModel->getNumConservedMoieties(); i++)
+		{
+			string id = oldModel->getConservedMoietyId(i);
+			int index = newModel->getConservedMoietyIndex(id);
+
+			if (index != -1)
+			{
+				if (!newModel->symbols->hasAssignmentRule(id) && !newModel->symbols->hasRateRule(id))
+				{
+					double value = 0;
+					oldModel->getConservedMoietyValues(1, &i, &value);
+					newModel->setConservedMoietyValues(1, &index, &value);
+				}
+			}
+		}
 	}
-	
+
 	return newModel;
 }
 
