@@ -436,7 +436,7 @@ SUITE(MODEL_EDITING_TEST_SUITE)
 	TEST(ADD_REACTION_2)
 	{
 		CHECK(RunModelEditingTest(3, [](RoadRunner* rri) {
-			rri->addReaction("reaction2", {"2S2", "S1"}, {"S1"}, "k1*S1 + k1*S2", true);
+			rri->addReaction("reaction2", {"2S1", "S2"}, {"2S2"}, "compartment * k1 * S1 + compartment * k1 * S2", true);
 		}));
 	}
 	TEST(REMOVE_REACTION_2)
