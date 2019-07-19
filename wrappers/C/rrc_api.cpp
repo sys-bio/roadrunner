@@ -626,12 +626,12 @@ RRCDataPtr rrcCallConv simulate(RRHandle handle)
 		
 	if (false)
 	{
-		rri = new RoadRunner("C:/rr/source/roadrunner/models/sbml-test-suite/cases/semantic/model_editing/00348/00348-sbml-l2v4-mod.xml");
-		rri->getSimulateOptions().loadSBMLSettings("C:/rr/source/roadrunner/models/sbml-test-suite/cases/semantic/model_editing/00348/00348-settings.txt");
+		rri = new RoadRunner("C:/rr/source/roadrunner/models/sbml-test-suite/cases/semantic/model_editing/00033/00033-sbml-l2v4-mod.xml");
+		rri->getSimulateOptions().loadSBMLSettings("C:/rr/source/roadrunner/models/sbml-test-suite/cases/semantic/model_editing/00033/00033-settings.txt");
 		rri->simulate();
 		RoadRunnerData resultData(rri);
 
-		ofstream fs("C:/rr/source/roadrunner/models/sbml-test-suite/cases/semantic/model_editing/00348/00348-results.csv");
+		ofstream fs("C:/rr/source/roadrunner/models/sbml-test-suite/cases/semantic/model_editing/00033/00033-results.csv");
 		fs << resultData;
 		fs.close();
 	}

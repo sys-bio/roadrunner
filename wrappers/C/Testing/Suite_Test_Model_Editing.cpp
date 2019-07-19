@@ -734,17 +734,34 @@ SUITE(MODEL_EDITING_TEST_SUITE)
 		}));
 	}*/
 
-	TEST(PAUSE_7)
+	/*TEST(PAUSE_7)
 	{
 		CHECK(RunModelEditingTest(348, [](RoadRunner *rri)
 		{
 			rri->simulate();
 			rri->removeEvent("event1");
 		}));
+	}*/
+
+	TEST(PAUSE_8)
+	{
+		CHECK(RunModelEditingTest(22, [](RoadRunner *rri)
+		{
+			rri->simulate();
+			std::cout << rri->getFloatingSpeciesAmountsNamedArray() << std::endl;
+			rri->addRateRule("S1", "7");
+			std::cout << rri->getFloatingSpeciesAmountsNamedArray() << std::endl;
+		}));
 	}
 
-
-
+	TEST(PAUSE_9)
+	{
+		CHECK(RunModelEditingTest(33, [](RoadRunner *rri)
+		{
+			rri->simulate();
+			rri->removeRules("k1");
+		}));
+	}
 
 	/*TEST(READD_SPECIES)
 	{
