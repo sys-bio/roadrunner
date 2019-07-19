@@ -850,6 +850,14 @@ SUITE(MODEL_EDITING_TEST_SUITE)
 		}));
 	}
 
+	TEST(ADD_DELAY_2)
+	{
+		CHECK(RunModelEditingTest(72, [](RoadRunner *rri)
+		{
+			rri->addDelay("event1", "1", false);
+			rri->addDelay("event2", "0.5");
+		}));
+	}
 
     
 	/*TEST(READD_SPECIES)
