@@ -541,23 +541,23 @@ context.getExecutionEngine().getFunctionAddress("setGlobalParameter");
 		}
 
 		// copy old rate rules as well
-		double* oldRateRule = (double*)calloc(oldModel->getNumRateRules(), sizeof(double));
-		std::vector<std::string> oldSymbols = oldModel->getRateRuleSymbols();
-		for (int i = 0; i < newModel->getNumRateRules(); i++)
-		{
-			std::string symbol = newSymbols[i];
+		//double* oldRateRule = (double*)calloc(oldModel->getNumRateRules(), sizeof(double));
+		//std::vector<std::string> oldSymbols = oldModel->getRateRuleSymbols();
+		//for (int i = 0; i < newModel->getNumRateRules(); i++)
+		//{
+		//	std::string symbol = newSymbols[i];
 			// check if it is a old symbol
-			std::vector<string>::iterator it = std::find(oldSymbols.begin(), oldSymbols.end(), symbol);
-			if (it != oldSymbols.end())
-			{
+		//	std::vector<string>::iterator it = std::find(oldSymbols.begin(), oldSymbols.end(), symbol);
+		//	if (it != oldSymbols.end())
+		//	{
 				// found it
-				int index = std::distance(oldSymbols.begin(), it);
-				newModel->modelData->rateRuleValuesAlias[i] = oldRateRule[index];
-			}
+		//		int index = std::distance(oldSymbols.begin(), it);
+		//		newModel->modelData->rateRuleValuesAlias[i] = oldRateRule[index];
+		//	}
 			
-		}
+		//}
 
-		delete oldRateRule;
+		//delete oldRateRule;
 	}
 
 	return newModel;
