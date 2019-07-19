@@ -366,6 +366,8 @@ context.getExecutionEngine().getFunctionAddress("setGlobalParameter");
 		// copy the old values (e.g, initial values, current values) to new model
 		// so that we can start from where we paused
 
+		std::vector<std::string> newSymbols = newModel->getRateRuleSymbols();
+
 		for (int i = 0; i < oldModel->getNumFloatingSpecies(); i++)
 		{
 			string id = oldModel->getFloatingSpeciesId(i);
@@ -374,6 +376,11 @@ context.getExecutionEngine().getFunctionAddress("setGlobalParameter");
 			if (index != -1)
 			{
 				// new model has this species
+
+				// TODO: should we change the dirty flag when we call setters?
+				double value = 0;
+				oldModel->getFloatingSpeciesAmounts(1, &i, &value);
+
 				if (!newModel->symbols->hasAssignmentRule(id) && !newModel->symbols->hasRateRule(id))
 				{
 					if (!newModel->symbols->hasInitialAssignmentRule(id))
@@ -383,9 +390,19 @@ context.getExecutionEngine().getFunctionAddress("setGlobalParameter");
 						newModel->setFloatingSpeciesInitAmounts(1, &index, &initValue);
 					}
 
-					double value = 0;
-					oldModel->getFloatingSpeciesAmounts(1, &i, &value);
 					newModel->setFloatingSpeciesAmounts(1, &index, &value);
+				} 
+				else if (newModel->symbols->hasRateRule(id))
+				{
+					// copy to rate rule value data block
+					std::vector<string>::iterator it = std::find(newSymbols.begin(), newSymbols.end(), id);
+					if (it != newSymbols.end())
+					{
+						// found it
+						index = std::distance(newSymbols.begin(), it);
+						newModel->modelData->rateRuleValuesAlias[index] = value;
+					}
+					
 				}
 			}
 		}
@@ -396,16 +413,32 @@ context.getExecutionEngine().getFunctionAddress("setGlobalParameter");
 			string id = oldModel->getBoundarySpeciesId(i);
 			int index = newModel->getBoundarySpeciesIndex(id);
 
+			// TODO: set concentration or amount?
+
 			if (index != -1)
 			{
 				// new model has this species
+
+				double value = 0;
+				oldModel->getBoundarySpeciesAmounts(1, &i, &value);
+
 				if (!newModel->symbols->hasAssignmentRule(id) && !newModel->symbols->hasRateRule(id))
 				{
-					double value = 0;
-					oldModel->getBoundarySpeciesConcentrations(1, &i, &value);
-					newModel->setBoundarySpeciesConcentrations(1, &index, &value);
+					newModel->setBoundarySpeciesAmounts(1, &index, &value);
+				}
+				else if (newModel->symbols->hasRateRule(id))
+				{
+					// copy to rate rule value data block
+					std::vector<string>::iterator it = std::find(newSymbols.begin(), newSymbols.end(), id);
+					if (it != newSymbols.end())
+					{
+						// found it
+						index = std::distance(newSymbols.begin(), it);
+						newModel->modelData->rateRuleValuesAlias[index] = value;
+					}
 				}
 			}
+			
 
 		}
 
@@ -418,6 +451,9 @@ context.getExecutionEngine().getFunctionAddress("setGlobalParameter");
 			if (index != -1)
 			{
 				// new model has this compartment
+				double value = 0;
+				oldModel->getCompartmentVolumes(1, &i, &value);
+
 				if (!newModel->symbols->hasAssignmentRule(id) && !newModel->symbols->hasRateRule(id))
 				{
 					if (!newModel->symbols->hasInitialAssignmentRule(id))
@@ -427,11 +463,23 @@ context.getExecutionEngine().getFunctionAddress("setGlobalParameter");
 						newModel->setCompartmentInitVolumes(1, &index, &initValue);
 					}
 
-					double value = 0;
-					oldModel->getCompartmentVolumes(1, &i, &value);
 					newModel->setCompartmentVolumes(1, &index, &value);
 				}
+				else if (newModel->symbols->hasRateRule(id))
+				{
+					// copy to rate rule value data block
+					std::vector<string>::iterator it = std::find(newSymbols.begin(), newSymbols.end(), id);
+					if (it != newSymbols.end())
+					{
+						// found it
+						index = std::distance(newSymbols.begin(), it);
+						newModel->modelData->rateRuleValuesAlias[index] = value;
+					}
+
+				}
+
 			}
+			
 		}
 
 
@@ -443,6 +491,10 @@ context.getExecutionEngine().getFunctionAddress("setGlobalParameter");
 			if (index != -1)
 			{
 				// new model has this parameter
+
+				double value = 0;
+				oldModel->getGlobalParameterValues(1, &i, &value);
+
 				if (!newModel->symbols->hasAssignmentRule(id) && !newModel->symbols->hasRateRule(id))
 				{
 					if (!newModel->symbols->hasInitialAssignmentRule(id))
@@ -451,10 +503,23 @@ context.getExecutionEngine().getFunctionAddress("setGlobalParameter");
 						oldModel->getGlobalParameterInitValues(1, &i, &initValue);
 						newModel->setGlobalParameterInitValues(1, &index, &initValue);
 					}
-					double value = 0;
-					oldModel->getGlobalParameterValues(1, &i, &value);
+					
 					newModel->setGlobalParameterValues(1, &index, &value);
 				}
+
+				else if (newModel->symbols->hasRateRule(id))
+				{
+					// copy to rate rule value data block
+					std::vector<string>::iterator it = std::find(newSymbols.begin(), newSymbols.end(), id);
+					if (it != newSymbols.end())
+					{
+						// found it
+						index = std::distance(newSymbols.begin(), it);
+						newModel->modelData->rateRuleValuesAlias[index] = value;
+					}
+
+				}
+
 			}
 
 		}
@@ -474,6 +539,25 @@ context.getExecutionEngine().getFunctionAddress("setGlobalParameter");
 				}
 			}
 		}
+
+		// copy old rate rules as well
+		double* oldRateRule = (double*)calloc(oldModel->getNumRateRules(), sizeof(double));
+		std::vector<std::string> oldSymbols = oldModel->getRateRuleSymbols();
+		for (int i = 0; i < newModel->getNumRateRules(); i++)
+		{
+			std::string symbol = newSymbols[i];
+			// check if it is a old symbol
+			std::vector<string>::iterator it = std::find(oldSymbols.begin(), oldSymbols.end(), symbol);
+			if (it != oldSymbols.end())
+			{
+				// found it
+				int index = std::distance(oldSymbols.begin(), it);
+				newModel->modelData->rateRuleValuesAlias[i] = oldRateRule[index];
+			}
+			
+		}
+
+		delete oldRateRule;
 	}
 
 	return newModel;
