@@ -5937,14 +5937,19 @@ void RoadRunner::removeVariable(const std::string& sid) {
 	{
 		Event* event = sbmlModel->getListOfEvents()->get(index);
 		// check for trigger
-		if (hasVariable(event->getTrigger()->getMath(), sid))
-		{
-			// LLVMModelDataSymbol require trigger for event, so we have to delete the event
-			toDelete = sbmlModel->removeEvent(index);
-			delete toDelete;
-			// continue to the next event
-			continue;
+		if (event->getTrigger() != NULL) {
+
+			if (hasVariable(event->getTrigger()->getMath(), sid))
+			{
+				// LLVMModelDataSymbol require trigger for event, so we have to delete the event
+				toDelete = sbmlModel->removeEvent(index);
+				delete toDelete;
+				// continue to the next event
+				continue;
+			}
+
 		}
+		
 
 		// check for priority
 		if (event->getPriority())
