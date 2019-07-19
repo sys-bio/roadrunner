@@ -421,7 +421,7 @@ void removeAndReaddAllCompartments(RoadRunner *rri, libsbml::SBMLDocument *doc)
 
 SUITE(MODEL_EDITING_TEST_SUITE)
 {
-	TEST(ADD_REACTION_1)
+	/*TEST(ADD_REACTION_1)
 	{
 		CHECK(RunModelEditingTest(1, [](RoadRunner* rri) {
 			rri->addReaction("reaction2", {"S2"}, {"S1"}, "k1*S2", true);
@@ -551,7 +551,7 @@ SUITE(MODEL_EDITING_TEST_SUITE)
 			rri->addParameter("k1", 0.75, false);
 			rri->addReaction("reaction1", { "S1", "S2" }, { "S3" }, "k1*S1*S2");
 		}));
-	}
+	}*/
 
 	//Todo: Simulating after this removal *should* cause an error, find a way to check that
 	/*
@@ -567,7 +567,7 @@ SUITE(MODEL_EDITING_TEST_SUITE)
 		);
 	}*/
 
-	TEST(ADD_COMPARTMENT_1)
+	/*TEST(ADD_COMPARTMENT_1)
 	{
 		CHECK(RunModelEditingTest(54, [](RoadRunner *rri)
 		{
@@ -778,7 +778,7 @@ SUITE(MODEL_EDITING_TEST_SUITE)
 		{
 			rri->addEventAssignment("event2", "S3", "1");
 		}));
-	}
+	}*/
 
 	TEST(ADD_EVENT_ASSIGNMENT_2)
 	{
@@ -789,8 +789,25 @@ SUITE(MODEL_EDITING_TEST_SUITE)
 		}));
 	}
 
+	TEST(ADD_RATE_RULE_PARAMETER_1)
+	{
+		CHECK(RunModelEditingTest(66, [](RoadRunner *rri)
+		{
+			rri->addRateRule("k1", "1000000");
+		}));
+	}
 
+	TEST(ADD_RATE_RULE_PARAMETER_2)
+	{
+		CHECK(RunModelEditingTest(10066, [](RoadRunner *rri)
+		{
+			rri->addParameter("k1", 1000000);
+			rri->addRateRule("k1", "1000000");
+			rri->addReaction("reaction1", {"S1", "S2"}, {"S3","S4"}, "compartment * k1 * S1 * S2");
+		}));
+	}
 
+    
     
 	/*TEST(READD_SPECIES)
 	{
