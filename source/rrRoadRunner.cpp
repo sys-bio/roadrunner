@@ -5711,11 +5711,7 @@ void RoadRunner::removeEventAssignments(const std::string & eid, const std::stri
 	}
 
 	Log(Logger::LOG_DEBUG) << "Removing event assignments for variable" << vid << " in event " << eid << "..." << endl;
-	while (toDelete != NULL)
-	{
-		delete toDelete;
-		libsbml::EventAssignment* toDelete = event->removeEventAssignment(vid);
-	}
+	delete toDelete;
 	
 	regenerate(forceRegenerate);
 }
