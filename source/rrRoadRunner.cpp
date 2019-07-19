@@ -665,7 +665,9 @@ int RoadRunner::createDefaultTimeCourseSelectionList()
     try {
         vector<string> raterule_symbols = impl->model->getRateRuleSymbols();
         for (vector<string>::iterator i = raterule_symbols.begin(); i != raterule_symbols.end(); ++i)
-            selections_with_ratelaws.push_back(*i);
+			if (impl->model->getFloatingSpeciesIndex(*i) == -1)
+				// not push the species again
+				selections_with_ratelaws.push_back(*i);
     } catch (NotImplementedException) {
         Log(Logger::LOG_WARNING) << "Querying rate rule symbols not supported with this executable model";
     }
