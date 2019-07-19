@@ -5439,7 +5439,6 @@ void RoadRunner::removeParameter(const std::string& pid, bool forceRegenerate)
 	}
 	Log(Logger::LOG_DEBUG) << "Removing parameter " << pid << "..." << endl;
 	
-
 	removeVariable(pid);
 	delete toDelete;
 	regenerate(forceRegenerate);
@@ -5833,12 +5832,15 @@ void RoadRunner::removeVariable(const std::string& sid) {
 			}
 			
 		}
-		
-		// TODO: check if getMath work with level 1
-		if (hasVariable(reaction->getKineticLaw()->getMath(), sid))
+		if (reaction->getKineticLaw() != NULL)
 		{
-			sbmlModel->getReaction(i)->unsetKineticLaw();
+			if (hasVariable(reaction->getKineticLaw()->getMath(), sid))
+			{
+				sbmlModel->getReaction(i)->unsetKineticLaw();
+			}
 		}
+		// TODO: check if getMath work with level 1
+		
 
 		// not remove this reaction
 		index++;
@@ -5989,6 +5991,31 @@ void RoadRunner::removeVariable(const std::string& sid) {
 		// not remove this event
 		index++;
 	}
+
+	// check for global parameters
+	// if we delete all initial assignments and rules for global parameters,
+	// we need to delete that global parameter as well
+
+	num = sbmlModel->getNumParameters();
+	index = 0;
+	for (uint i = 0; i < num; ++i)
+	{
+		const Parameter* param = sbmlModel->getParameter(index);
+		const string& id = param->getId();
+
+		if (!param->isSetValue() && sbmlModel->getInitialAssignment(id) == NULL &&
+			sbmlModel->getAssignmentRule(id) == NULL)
+		{
+			// check if we have an initial assignment for this param.
+			removeParameter(id, false);
+		}
+		else
+		{
+			index++;
+		}
+
+	}
+
 
 }
 
