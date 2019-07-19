@@ -421,7 +421,7 @@ void removeAndReaddAllCompartments(RoadRunner *rri, libsbml::SBMLDocument *doc)
 
 SUITE(MODEL_EDITING_TEST_SUITE)
 {
-	/*TEST(ADD_REACTION_1)
+	TEST(ADD_REACTION_1)
 	{
 		CHECK(RunModelEditingTest(1, [](RoadRunner* rri) {
 			rri->addReaction("reaction2", {"S2"}, {"S1"}, "k1*S2", true);
@@ -450,8 +450,8 @@ SUITE(MODEL_EDITING_TEST_SUITE)
 		CHECK(RunModelEditingTest(5, [](RoadRunner* rri) {
 			rri->removeSpecies("S2");
 		}));
-	}*/
-	/*TEST(ADD_SPECIES_1)
+	}
+	TEST(ADD_SPECIES_1)
 	{
 		CHECK(RunModelEditingTest(6, [](RoadRunner *rri)
 		{
@@ -551,7 +551,7 @@ SUITE(MODEL_EDITING_TEST_SUITE)
 			rri->addParameter("k1", 0.75, false);
 			rri->addReaction("reaction1", { "S1", "S2" }, { "S3" }, "k1*S1*S2");
 		}));
-	}*/
+	}
 
 	//Todo: Simulating after this removal *should* cause an error, find a way to check that
 	/*
@@ -567,7 +567,7 @@ SUITE(MODEL_EDITING_TEST_SUITE)
 		);
 	}*/
 
-	/*TEST(ADD_COMPARTMENT_1)
+	TEST(ADD_COMPARTMENT_1)
 	{
 		CHECK(RunModelEditingTest(54, [](RoadRunner *rri)
 		{
@@ -732,16 +732,16 @@ SUITE(MODEL_EDITING_TEST_SUITE)
 			rri->addEvent("event1", false, "S2 > 0.0004", false);
 			rri->addEventAssignment("event1", "S1", "0.1", true);
 		}));
-	}*/
+	}
 
-	/*TEST(PAUSE_7)
+	TEST(PAUSE_7)
 	{
 		CHECK(RunModelEditingTest(348, [](RoadRunner *rri)
 		{
 			rri->simulate();
 			rri->removeEvent("event1");
 		}));
-	}*/
+	}
 
 	TEST(PAUSE_8)
 	{
