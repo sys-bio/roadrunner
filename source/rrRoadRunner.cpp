@@ -5439,6 +5439,7 @@ void RoadRunner::removeParameter(const std::string& pid, bool forceRegenerate)
 	}
 	Log(Logger::LOG_DEBUG) << "Removing parameter " << pid << "..." << endl;
 	
+
 	removeVariable(pid);
 	delete toDelete;
 	regenerate(forceRegenerate);
@@ -5711,7 +5712,11 @@ void RoadRunner::removeEventAssignments(const std::string & eid, const std::stri
 	}
 
 	Log(Logger::LOG_DEBUG) << "Removing event assignments for variable" << vid << " in event " << eid << "..." << endl;
-	delete toDelete;
+	while (toDelete != NULL)
+	{
+		delete toDelete;
+		toDelete = event->removeEventAssignment(vid);
+	}
 	
 	regenerate(forceRegenerate);
 }
@@ -5746,8 +5751,8 @@ void RoadRunner::regenerate(bool forceRegenerate)
 	{
 		Log(Logger::LOG_DEBUG) << "Regenerating model..." << endl;
 		ExecutableModel* newModel = ExecutableModelFactory::regenerateModel(impl->model, impl->document, impl->loadOpt.modelGeneratorOpt);
-		if (impl->model)
-			delete impl->model;
+
+		delete impl->model;
 		impl->model = newModel;
 		impl->syncAllSolversWithModel(impl->model);
 		resetSelectionLists();
@@ -5828,15 +5833,12 @@ void RoadRunner::removeVariable(const std::string& sid) {
 			}
 			
 		}
-		if (reaction->getKineticLaw() != NULL)
-		{
-			if (hasVariable(reaction->getKineticLaw()->getMath(), sid))
-			{
-				sbmlModel->getReaction(i)->unsetKineticLaw();
-			}
-		}
-		// TODO: check if getMath work with level 1
 		
+		// TODO: check if getMath work with level 1
+		if (hasVariable(reaction->getKineticLaw()->getMath(), sid))
+		{
+			sbmlModel->getReaction(i)->unsetKineticLaw();
+		}
 
 		// not remove this reaction
 		index++;
@@ -5933,19 +5935,14 @@ void RoadRunner::removeVariable(const std::string& sid) {
 	{
 		Event* event = sbmlModel->getListOfEvents()->get(index);
 		// check for trigger
-		if (event->getTrigger() != NULL) {
-
-			if (hasVariable(event->getTrigger()->getMath(), sid))
-			{
-				// LLVMModelDataSymbol require trigger for event, so we have to delete the event
-				toDelete = sbmlModel->removeEvent(index);
-				delete toDelete;
-				// continue to the next event
-				continue;
-			}
-
+		if (hasVariable(event->getTrigger()->getMath(), sid))
+		{
+			// LLVMModelDataSymbol require trigger for event, so we have to delete the event
+			toDelete = sbmlModel->removeEvent(index);
+			delete toDelete;
+			// continue to the next event
+			continue;
 		}
-		
 
 		// check for priority
 		if (event->getPriority())
@@ -5992,31 +5989,6 @@ void RoadRunner::removeVariable(const std::string& sid) {
 		// not remove this event
 		index++;
 	}
-
-	// check for global parameters
-	// if we delete all initial assignments and rules for global parameters,
-	// we need to delete that global parameter as well
-
-	num = sbmlModel->getNumParameters();
-	index = 0;
-	for (uint i = 0; i < num; ++i)
-	{
-		const Parameter* param = sbmlModel->getParameter(index);
-		const string& id = param->getId();
-
-		if (!param->isSetValue() && sbmlModel->getInitialAssignment(id) == NULL &&
-			sbmlModel->getAssignmentRule(id) == NULL)
-		{
-			// check if we have an initial assignment for this param.
-			removeParameter(id, false);
-		}
-		else
-		{
-			index++;
-		}
-
-	}
-
 
 }
 
