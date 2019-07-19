@@ -5569,6 +5569,7 @@ void RoadRunner::removeRules(const std::string& vid, bool forceRegenerate)
 		delete toDelete;
 		toDelete = impl->document->getModel()->removeRule(vid);
 	}
+	checkGlobalParameters();
 	regenerate(forceRegenerate);
 }
 
@@ -5719,7 +5720,7 @@ void RoadRunner::removeEventAssignments(const std::string & eid, const std::stri
 		delete toDelete;
 		toDelete = event->removeEventAssignment(vid);
 	}
-	
+	checkGlobalParameters();
 	regenerate(forceRegenerate);
 }
 
@@ -5733,6 +5734,7 @@ void RoadRunner::removeEvent(const std::string & eid, bool forceRegenerate)
 		throw std::invalid_argument("Roadrunner::removeEvent failed, no event with ID " + eid + " existed in the model");
 	}
 	Log(Logger::LOG_DEBUG) << "Removing event " << eid << "..." << endl;
+	checkGlobalParameters();
 	delete toDelete;
 	regenerate(forceRegenerate);
 }
@@ -5992,6 +5994,8 @@ void RoadRunner::removeVariable(const std::string& sid) {
 		index++;
 	}
 
+	checkGlobalParameters();
+
 }
 
 bool RoadRunner::hasVariable(const libsbml::ASTNode* node, const string& sid) 
@@ -6014,6 +6018,35 @@ bool RoadRunner::hasVariable(const libsbml::ASTNode* node, const string& sid)
 	return false;
 }
 
+
+void RoadRunner::checkGlobalParameters()
+{
+	// check for global parameters
+	// if we delete all initial assignments and rules for global parameters,
+	// we need to delete that global parameter as well
+	using namespace libsbml;
+	Model* sbmlModel = impl->document->getModel();
+
+	int num = sbmlModel->getNumParameters();
+	int index = 0;
+	for (uint i = 0; i < num; ++i)
+	{
+		const Parameter* param = sbmlModel->getParameter(index);
+		const string& id = param->getId();
+
+		if (!param->isSetValue() && sbmlModel->getInitialAssignment(id) == NULL &&
+			sbmlModel->getAssignmentRule(id) == NULL)
+		{
+			// check if we have an initial assignment for this param.
+			removeParameter(id, false);
+		}
+		else
+		{
+			index++;
+		}
+
+	}
+}
 
 } //namespace
 

@@ -1448,6 +1448,11 @@ private:
 	*/
 	bool hasVariable(const libsbml::ASTNode* node, const string& sid);
 
+	/*
+	* check and remove all parameter without any assignments
+	*/
+	void checkGlobalParameters();
+
 	void saveSelectionVector(std::ostream&, std::vector<SelectionRecord>&);
 	void loadSelectionVector(std::istream&, std::vector<SelectionRecord>&);
 	const int fileMagicNumber = 0xAD6F52;
