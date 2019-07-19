@@ -780,6 +780,15 @@ SUITE(MODEL_EDITING_TEST_SUITE)
 		}));
 	}*/
 
+    TEST(REMOVE_RULES_2)
+    {
+		CHECK(RunModelEditingTest(82, [](RoadRunner *rri)
+		{
+			rri->simulate();
+			rri->removeRules("S4");
+		}));
+	}
+
 	TEST(ADD_EVENT_ASSIGNMENT_2)
 	{
 		CHECK(RunModelEditingTest(10349, [](RoadRunner *rri)
@@ -807,7 +816,22 @@ SUITE(MODEL_EDITING_TEST_SUITE)
 		}));
 	}
 
-    
+	TEST(ADD_TRIGGER_1)
+	{
+		CHECK(RunModelEditingTest(350, [](RoadRunner *rri)
+		{
+			rri->addTrigger("event1", "S1 < 0.75");
+		}));
+	}
+
+	TEST(ADD_TRIGGER_2)
+	{
+		CHECK(RunModelEditingTest(10350, [](RoadRunner *rri)
+		{
+			rri->addTrigger("event1", "S1 < 0.75");
+		}));
+	}
+
     
 	/*TEST(READD_SPECIES)
 	{
