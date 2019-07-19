@@ -763,6 +763,17 @@ SUITE(MODEL_EDITING_TEST_SUITE)
 		}));
 	}
 
+	TEST(PAUSE_10)
+	{
+		CHECK(RunModelEditingTest(26, [](RoadRunner *rri)
+		{
+			rri->simulate();
+			rri->addDelay("event1", "0.2");
+		}));
+	}
+
+
+
 	/*TEST(READD_SPECIES)
 	{
 		clog << endl << "==== CHECK_READD_SPECIES ====" << endl << endl;
