@@ -421,7 +421,7 @@ void removeAndReaddAllCompartments(RoadRunner *rri, libsbml::SBMLDocument *doc)
 
 SUITE(MODEL_EDITING_TEST_SUITE)
 {
-	/*TEST(ADD_REACTION_1)
+	TEST(ADD_REACTION_1)
 	{
 		CHECK(RunModelEditingTest(1, [](RoadRunner* rri) {
 			rri->addReaction("reaction2", {"S2"}, {"S1"}, "k1*S2", true);
@@ -614,7 +614,7 @@ SUITE(MODEL_EDITING_TEST_SUITE)
 
 	TEST(ADD_RATE_RULE_3)
 	{
-		CHECK(RunModelEditingTest(32, [](RoadRunner *rri)
+		CHECK(RunModelEditingTest(10032, [](RoadRunner *rri)
 		{
 			rri->addRateRule("S1", "-1 * k1 * S1");
 			rri->addRateRule("S2", "k1 * S1");
@@ -832,7 +832,7 @@ SUITE(MODEL_EDITING_TEST_SUITE)
 		{
 			rri->removeCompartment("compartment1");
 		}));
-	}*/
+	}
 
 	TEST(REMOVE_EVENT_ASSIGNMENT_1)
 	{
@@ -856,6 +856,27 @@ SUITE(MODEL_EDITING_TEST_SUITE)
 		{
 			rri->addDelay("event1", "1", false);
 			rri->addDelay("event2", "0.5");
+		}));
+	}
+
+	TEST(ADD_PRIORITY_2)
+	{
+		CHECK(RunModelEditingTest(963, [](RoadRunner* rri)
+		{
+			rri->addEvent("Rinc", true, "(time - reset) >= 0.01");
+			rri->addEventAssignment("Rinc", "reset", "time");
+			rri->addEventAssignment("Rinc", "R", "R + 0.01");
+			rri->addPriority("Rinc", "-1");
+
+			rri->addEvent("Qinc2", true, "(time - reset2) >= 0.01");
+			rri->addEventAssignment("Qinc2", "reset2", "time");
+			rri->addEventAssignment("Qinc2", "Q2", "Q2 + 0.01");
+			rri->addPriority("Qinc2", "-1");
+
+			rri->addEvent("Rinc2", true, "(time - reset2) >= 0.01");
+			rri->addEventAssignment("Rinc2", "reset2", "time");
+			rri->addEventAssignment("Rinc2", "R2", "R2 + 0.01");
+			rri->addPriority("Rinc2", "1");
 		}));
 	}
 
