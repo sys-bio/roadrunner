@@ -603,6 +603,7 @@ SUITE(MODEL_EDITING_TEST_SUITE)
 		}));
 	}
 
+
 	TEST(ADD_RATE_RULE_2)
 	{
 		CHECK(RunModelEditingTest(32, [](RoadRunner *rri)
@@ -620,6 +621,7 @@ SUITE(MODEL_EDITING_TEST_SUITE)
 			rri->addRateRule("S2", "k1 * S1");
 		}));
 	}
+	
 
 	TEST(SET_KINETIC_LAW_1)
 	{
@@ -670,7 +672,13 @@ SUITE(MODEL_EDITING_TEST_SUITE)
 		CHECK(RunModelEditingTest(15, [](RoadRunner *rri)
 		{
 			rri->simulate();
-			rri->addReaction("reaction3", {"S3"}, {"S2"}, "compartment * k2 * S3 * S4");
+            for(double d : rri->getFloatingSpeciesInitialConcentrations())
+				cout << d << endl;
+			cout << rri->getFloatingSpeciesAmountsNamedArray() << endl;
+			rri->addReaction("reaction3", {"S1"}, {"S2"}, "compartment * k2 * S3 * S4");
+            for(double d : rri->getFloatingSpeciesInitialConcentrations())
+				cout << d << endl;
+			cout << rri->getFloatingSpeciesAmountsNamedArray() << endl;
 		}));
 	}
 
@@ -679,7 +687,13 @@ SUITE(MODEL_EDITING_TEST_SUITE)
 		CHECK(RunModelEditingTest(17, [](RoadRunner *rri)
 		{
 			rri->simulate();
+            for(double d : rri->getFloatingSpeciesInitialConcentrations())
+				cout << d << endl;
+			cout << rri->getFloatingSpeciesAmountsNamedArray() << endl;
 			rri->removeReaction("reaction2");
+            for(double d : rri->getFloatingSpeciesInitialConcentrations())
+				cout << d << endl;
+			cout << rri->getFloatingSpeciesAmountsNamedArray() << endl;
 		}));
 	}
 
@@ -688,7 +702,21 @@ SUITE(MODEL_EDITING_TEST_SUITE)
 		CHECK(RunModelEditingTest(18, [](RoadRunner *rri)
 		{
 			rri->simulate();
+            for(double d : rri->getFloatingSpeciesInitialConcentrations())
+				cout << d << endl;
+			cout << rri->getFloatingSpeciesAmountsNamedArray() << endl;
 			rri->addSpecies("S5", "compartment", 0.001, "substance");
+            for(double d : rri->getFloatingSpeciesInitialConcentrations())
+				cout << d << endl;
+			cout << rri->getFloatingSpeciesAmountsNamedArray() << endl;
+			rri->simulate();
+            for(double d : rri->getFloatingSpeciesInitialConcentrations())
+				cout << d << endl;
+			cout << rri->getFloatingSpeciesAmountsNamedArray() << endl;
+			rri->addSpecies("S6", "compartment", 0.001, "substance");
+            for(double d : rri->getFloatingSpeciesInitialConcentrations())
+				cout << d << endl;
+			cout << rri->getFloatingSpeciesAmountsNamedArray() << endl;
 		}));
 	}
 
@@ -757,6 +785,7 @@ SUITE(MODEL_EDITING_TEST_SUITE)
 			rri->addDelay("event1", "0.2");
 		}));
 	}
+
 
 	TEST(ADD_EVENT_ASSIGNMENT_1)
 	{
@@ -863,21 +892,41 @@ SUITE(MODEL_EDITING_TEST_SUITE)
 	{
 		CHECK(RunModelEditingTest(963, [](RoadRunner* rri)
 		{
-			rri->addEvent("Rinc", true, "(time - reset) >= 0.01");
-			rri->addEventAssignment("Rinc", "reset", "time");
-			rri->addEventAssignment("Rinc", "R", "R + 0.01");
-			rri->addPriority("Rinc", "-1");
+			rri->simulate();
+			for(double d : rri->getGlobalParameterValues())
+				cout << d << " ";
+			cout << endl;
 
-			rri->addEvent("Qinc2", true, "(time - reset2) >= 0.01");
-			rri->addEventAssignment("Qinc2", "reset2", "time");
-			rri->addEventAssignment("Qinc2", "Q2", "Q2 + 0.01");
-			rri->addPriority("Qinc2", "-1");
+			rri->addEvent("Rinc", true, "(time - reset) >= 0.01", false);
+			rri->addEventAssignment("Rinc", "reset", "time", false);
+			rri->addEventAssignment("Rinc", "R", "R + 0.01", false);
+			rri->addPriority("Rinc", "0-1", false);
 
-			rri->addEvent("Rinc2", true, "(time - reset2) >= 0.01");
-			rri->addEventAssignment("Rinc2", "reset2", "time");
-			rri->addEventAssignment("Rinc2", "R2", "R2 + 0.01");
+			for(double d : rri->getGlobalParameterValues())
+				cout << d << " ";
+			cout << endl;
+
+			rri->addEvent("Qinc2", true, "(time - reset2) >= 0.01", false);
+			rri->addEventAssignment("Qinc2", "reset2", "time", false);
+			rri->addEventAssignment("Qinc2", "Q2", "Q2 + 0.01", false);
+			rri->addPriority("Qinc2", "0-1", false);
+
+			for(double d : rri->getGlobalParameterValues())
+				cout << d << " ";
+			cout << endl;
+
+			rri->addEvent("Rinc2", true, "(time - reset2) >= 0.01", false);
+			rri->addEventAssignment("Rinc2", "reset2", "time", false);
+			rri->addEventAssignment("Rinc2", "R2", "R2 + 0.01", false);
 			rri->addPriority("Rinc2", "1");
-		}));
+
+			cout << rri->getCurrentSBML() << endl;
+
+			for(double d : rri->getGlobalParameterValues())
+				cout << d << " ";
+			cout << endl;
+
+		}, "l3v1"));
 	}
 
     
