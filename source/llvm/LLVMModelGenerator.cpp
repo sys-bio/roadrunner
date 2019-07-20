@@ -377,10 +377,6 @@ context.getExecutionEngine().getFunctionAddress("setGlobalParameter");
 			{
 				// new model has this species
 
-				// TODO: should we change the dirty flag when we call setters?
-				double value = 0;
-				oldModel->getFloatingSpeciesAmounts(1, &i, &value);
-
 				if (!newModel->symbols->hasAssignmentRule(id) && !newModel->symbols->hasRateRule(id))
 				{
 					if (!newModel->symbols->hasInitialAssignmentRule(id))
@@ -389,9 +385,28 @@ context.getExecutionEngine().getFunctionAddress("setGlobalParameter");
 						oldModel->getFloatingSpeciesInitAmounts(1, &i, &initValue);
 						newModel->setFloatingSpeciesInitAmounts(1, &index, &initValue);
 					}
+				}
+			}
+		}
 
+
+		for (int i = 0; i < oldModel->getNumFloatingSpecies(); i++)
+		{
+			string id = oldModel->getFloatingSpeciesId(i);
+			int index = newModel->getFloatingSpeciesIndex(id);
+
+			if (index != -1)
+			{
+				// new model has this species
+
+				// TODO: should we change the dirty flag when we call setters?
+				double value = 0;
+				oldModel->getFloatingSpeciesAmounts(1, &i, &value);
+
+				if (!newModel->symbols->hasAssignmentRule(id) && !newModel->symbols->hasRateRule(id))
+				{
 					newModel->setFloatingSpeciesAmounts(1, &index, &value);
-				} 
+				}
 				else if (newModel->symbols->hasRateRule(id))
 				{
 					// copy to rate rule value data block
@@ -402,7 +417,7 @@ context.getExecutionEngine().getFunctionAddress("setGlobalParameter");
 						index = std::distance(newSymbols.begin(), it);
 						newModel->modelData->rateRuleValuesAlias[index] = value;
 					}
-					
+
 				}
 			}
 		}
@@ -439,8 +454,33 @@ context.getExecutionEngine().getFunctionAddress("setGlobalParameter");
 				}
 			}
 			
-
 		}
+
+
+		for (int i = 0; i < oldModel->getNumCompartments(); i++)
+		{
+			string id = oldModel->getCompartmentId(i);
+			int index = newModel->getCompartmentIndex(id);
+
+			if (index != -1)
+			{
+				// new model has this compartment
+
+				if (!newModel->symbols->hasAssignmentRule(id) && !newModel->symbols->hasRateRule(id))
+				{
+					if (!newModel->symbols->hasInitialAssignmentRule(id))
+					{
+						double initValue = 0;
+						oldModel->getCompartmentInitVolumes(1, &i, &initValue);
+						newModel->setCompartmentInitVolumes(1, &index, &initValue);
+					}
+
+				}
+
+			}
+			
+		}
+
 
 
 		for (int i = 0; i < oldModel->getNumCompartments(); i++)
@@ -456,12 +496,6 @@ context.getExecutionEngine().getFunctionAddress("setGlobalParameter");
 
 				if (!newModel->symbols->hasAssignmentRule(id) && !newModel->symbols->hasRateRule(id))
 				{
-					if (!newModel->symbols->hasInitialAssignmentRule(id))
-					{
-						double initValue = 0;
-						oldModel->getCompartmentInitVolumes(1, &i, &initValue);
-						newModel->setCompartmentInitVolumes(1, &index, &initValue);
-					}
 
 					newModel->setCompartmentVolumes(1, &index, &value);
 				}
@@ -479,7 +513,7 @@ context.getExecutionEngine().getFunctionAddress("setGlobalParameter");
 				}
 
 			}
-			
+
 		}
 
 
@@ -518,6 +552,31 @@ context.getExecutionEngine().getFunctionAddress("setGlobalParameter");
 						newModel->modelData->rateRuleValuesAlias[index] = value;
 					}
 
+				}
+
+			}
+
+		}
+
+		for (int i = 0; i < oldModel->getNumGlobalParameters(); i++)
+		{
+			string id = oldModel->getGlobalParameterId(i);
+			int index = newModel->getGlobalParameterIndex(id);
+
+			if (index != -1)
+			{
+				// new model has this parameter
+
+				if (!newModel->symbols->hasAssignmentRule(id) && !newModel->symbols->hasRateRule(id))
+				{
+					if (!newModel->symbols->hasInitialAssignmentRule(id))
+					{
+						double initValue = 0;
+						oldModel->getGlobalParameterInitValues(1, &i, &initValue);
+						newModel->setGlobalParameterInitValues(1, &index, &initValue);
+					}
+
+				
 				}
 
 			}
