@@ -5755,8 +5755,8 @@ void RoadRunner::regenerate(bool forceRegenerate)
 	{
 		Log(Logger::LOG_DEBUG) << "Regenerating model..." << endl;
 		ExecutableModel* newModel = ExecutableModelFactory::regenerateModel(impl->model, impl->document, impl->loadOpt.modelGeneratorOpt);
-
-		delete impl->model;
+		if (impl->model)
+			delete impl->model;
 		impl->model = newModel;
 		impl->syncAllSolversWithModel(impl->model);
 		resetSelectionLists();
