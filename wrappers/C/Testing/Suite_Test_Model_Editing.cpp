@@ -895,6 +895,13 @@ SUITE(MODEL_EDITING_TEST_SUITE)
 	}
 
     
+	TEST(REMOVE_PARAM_RECURSE_2)
+	{
+		CHECK(RunModelEditingTest(10002, [](RoadRunner *rri)
+		{
+			rri->removeParameter("k4");
+		}));
+	}
 	/*TEST(READD_SPECIES)
 	{
 		clog << endl << "==== CHECK_READD_SPECIES ====" << endl << endl;
