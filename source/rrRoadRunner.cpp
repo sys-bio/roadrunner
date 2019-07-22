@@ -5847,7 +5847,7 @@ void RoadRunner::removeVariable(const std::string& sid) {
 		}
 		
 		// TODO: check if getMath work with level 1
-		if (hasVariable(reaction->getKineticLaw()->getMath(), sid))
+		if (reaction->getKineticLaw() && hasVariable(reaction->getKineticLaw()->getMath(), sid))
 		{
 			sbmlModel->getReaction(i)->unsetKineticLaw();
 		}
