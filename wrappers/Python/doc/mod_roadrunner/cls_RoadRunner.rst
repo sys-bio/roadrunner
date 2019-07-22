@@ -626,7 +626,7 @@ Easy edit to the model without modifying and reloading sbml files.
    >>> r.addAssignmentRule("s2", "s2 * k1", true)  # new model is generated and saved
   
   
-   :param str vid: the ID of the variable that the new rule assigne formula to
+   :param str vid: the ID of the variable that the new rule assigns formula to
    :param str formula: the math formula of assignment rule to be added
    :param bool forceRegenerate: indicate whether the new model is regenerated after this function call
    
@@ -648,7 +648,7 @@ Easy edit to the model without modifying and reloading sbml files.
    >>> r.addRateRule("s2", "k1", true)  # new model is generated and saved
   
   
-   :param str vid: the ID of the variable that the new rule assign formula to
+   :param str vid: the ID of the variable that the new rule assigns formula to
    :param str formula: the math formula of rate rule to be added
    :param bool forceRegenerate: indicate whether the new model is regenerated after this function call
    
@@ -656,8 +656,8 @@ Easy edit to the model without modifying and reloading sbml files.
 .. method:: RoadRunner.removeRules(vid, forceRegenerate)
    :module: RoadRunner
    
-   Remove all rules for a variable from the current model. Note that the given variable must have at 
-   least one rule in the current model.
+   Remove all rules for a variable from the current model, including assignment and rate rules. 
+   Note that the given variable must have at least one rule in the current model.
    
    If any global parameters become uninitialized during this process, i.e, has no initial assignment or
    assignment rule, they will be removed recursively following the rules in removeParameter().
@@ -677,6 +677,162 @@ Easy edit to the model without modifying and reloading sbml files.
    :param bool forceRegenerate: indicate whether the new model is regenerated after this function call
    
    
+.. method:: RoadRunner.addEvent(eid, useValuesFromTriggerTime, trigger, forceRegenerate)
+   :module: RoadRunner
+   
+   Add an event to the current model. Note that the event to be added must have an ID that 
+   did not existed in the model.
+   
+   forceRegenerate is a boolean value that indicates whether the new model will be regenerated. Its 
+   default value is true, which means to regenerate model every time after this function is called. 
+   Note that regenerating model is time-consuming. To save time for editing model for multiple times, 
+   one could set this flag to false excepting for the last call, so that Roadrunner will only regenerate 
+   the model once after all editings are completed.
+   
+   For example,
+   
+   >>> r.addEvent("e1", false, "s1 > 0", false) # it will not regenerate the model, nothing actually happened
+   >>> r.addEvent("e2", false, "s2 == s1", true)  # new model is generated and saved
+  
+  
+   :param str eid: the ID of the event to be added
+   :param bool useValuesFromTriggerTime: indicate the moment at which the event's assignments are to be evaluated
+   :param str trigger: the math formula of event trigger
+   :param bool forceRegenerate: indicate whether the new model is regenerated after this function call
+   
+   
+.. method:: RoadRunner.addTrigger(eid, trigger, forceRegenerate)
+   :module: RoadRunner
+   
+   Add trigger to an existing event in the model. Note that the given event must exist in the
+   current model. If the given event already has a trigger object, the given trigger will replace the 
+   old trigger of the event.
+   
+   forceRegenerate is a boolean value that indicates whether the new model will be regenerated. Its 
+   default value is true, which means to regenerate model every time after this function is called. 
+   Note that regenerating model is time-consuming. To save time for editing model for multiple times, 
+   one could set this flag to false excepting for the last call, so that Roadrunner will only regenerate 
+   the model once after all editings are completed.
+   
+   For example,
+   
+   >>> r.addTrigger("e1", "s1 > 0", false) # it will not regenerate the model, nothing actually happened
+   >>> r.addTrigger("e2", "s2 == s1", true)  # new model is generated and saved
+  
+  
+   :param str eid: the ID of the event to add the trigger to
+   :param str trigger: the math formula of event trigger
+   :param bool forceRegenerate: indicate whether the new model is regenerated after this function call
+   
+   
+.. method:: RoadRunner.addPriority(eid, priority, forceRegenerate)
+   :module: RoadRunner
+   
+   Add priority to an existing event in the model. Note that the given event must exist in the
+   current model. If the given event already has a priority object, the given priority will replace the 
+   old priority of the event.
+   
+   forceRegenerate is a boolean value that indicates whether the new model will be regenerated. Its 
+   default value is true, which means to regenerate model every time after this function is called. 
+   Note that regenerating model is time-consuming. To save time for editing model for multiple times, 
+   one could set this flag to false excepting for the last call, so that Roadrunner will only regenerate 
+   the model once after all editings are completed.
+   
+  
+   :param str eid: the ID of the event to add the priority to
+   :param str priority: the math formula of event priority
+   :param bool forceRegenerate: indicate whether the new model is regenerated after this function call
+   
+   
+.. method:: RoadRunner.addDelay(eid, delay, forceRegenerate)
+   :module: RoadRunner
+   
+   Add delay to an existing event in the model. Note that the given event must exist in the
+   current model. If the given event already has a delay object, the given delay will replace the 
+   old delay of the event.
+   
+   forceRegenerate is a boolean value that indicates whether the new model will be regenerated. Its 
+   default value is true, which means to regenerate model every time after this function is called. 
+   Note that regenerating model is time-consuming. To save time for editing model for multiple times, 
+   one could set this flag to false excepting for the last call, so that Roadrunner will only regenerate 
+   the model once after all editings are completed.
+   
+  
+   :param str eid: the ID of the event to add the delay to
+   :param str delay: the math formula of event delay
+   :param bool forceRegenerate: indicate whether the new model is regenerated after this function call
+   
+ 
+.. method:: RoadRunner.addEventAssignment(eid, vid, formula, forceRegenerate)
+   :module: RoadRunner
+   
+   Add an event assignment to an existing event in the model. Note that the given event must exist in the
+   current model. 
+   
+   forceRegenerate is a boolean value that indicates whether the new model will be regenerated. Its 
+   default value is true, which means to regenerate model every time after this function is called. 
+   Note that regenerating model is time-consuming. To save time for editing model for multiple times, 
+   one could set this flag to false excepting for the last call, so that Roadrunner will only regenerate 
+   the model once after all editings are completed.
+   
+    For example,
+   
+   >>> r.addEventAssignment("e1", "s1", "k1", false) # it will not regenerate the model, nothing actually happened
+   >>> r.addEventAssignment("e2", "s2", "s1", true)  # new model is generated and saved
+   
+  
+   :param str eid: the ID of the event to add the event assignment to
+   :param str vid: the ID of the variables that assignment assigns formula to
+   :param str formula: the math formula of event assignment
+   :param bool forceRegenerate: indicate whether the new model is regenerated after this function call
+   
+   
+.. method:: RoadRunner.removeEventAssignment(eid, vid, forceRegenerate)
+   :module: RoadRunner
+   
+   Add all event assignments for a variable from an existing event in the model. 
+   Note that the given event must exist in the current model and given variable must have an event 
+   assignment in the given event.
+   
+   forceRegenerate is a boolean value that indicates whether the new model will be regenerated. Its 
+   default value is true, which means to regenerate model every time after this function is called. 
+   Note that regenerating model is time-consuming. To save time for editing model for multiple times, 
+   one could set this flag to false excepting for the last call, so that Roadrunner will only regenerate 
+   the model once after all editings are completed.
+   
+    For example,
+   
+   >>> r.removeEventAssignment("e1", "s1", false) # it will not regenerate the model, nothing actually happened
+   >>> r.removeEventAssignment("e2", "s2", true)  # new model is generated and saved
+   
+  
+   :param str eid: the ID of the event 
+   :param str vid: the ID of the variables of the event assignments to be removed
+   :param bool forceRegenerate: indicate whether the new model is regenerated after this function call
+   
+   
+.. method:: RoadRunner.removeEvent(eid, forceRegenerate)
+   :module: RoadRunner
+   
+   Add an event from the current model. Note that the given event must exist in the current model.
+   
+   If any global parameters become uninitialized during this process, i.e, has no initial assignment or
+   assignment rule, they will be removed recursively following the rules in removeParameter().
+   
+   forceRegenerate is a boolean value that indicates whether the new model will be regenerated. Its 
+   default value is true, which means to regenerate model every time after this function is called. 
+   Note that regenerating model is time-consuming. To save time for editing model for multiple times, 
+   one could set this flag to false excepting for the last call, so that Roadrunner will only regenerate 
+   the model once after all editings are completed.
+   
+    For example,
+   
+   >>> r.removeEvent("e1", false) # it will not regenerate the model, nothing actually happened
+   >>> r.removeEvent("e2", true)  # new model is generated and saved
+   
+  
+   :param str eid: the ID of the event to be removed
+   :param bool forceRegenerate: indicate whether the new model is regenerated after this function call
  
 
 Simulation
