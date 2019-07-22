@@ -759,9 +759,9 @@ public:
 	* Add a reaction to the current model
 	* @param rid: the ID of reaction to be added
 	* @param reactants: the list of reactant ID, double value could be inserted before ID as stoichiometry
-						e.g, [2S1] of [1.5S1]
+						e.g, [2S1] or [1.5S1]
 	* @param products: the list of product stoichiometry and ID, double value could be inserted before ID as stoichiometry
-						e.g, [2S1] of [1.5S1]
+						e.g, [2S1] or [1.5S1]
 	* @param kineticLaw: the kinetic formula of reaction to be added
 	* @param forceRegenerate: a boolean value to indicate if the model is regenerated
 	*					      after this function call

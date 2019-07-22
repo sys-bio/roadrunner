@@ -6027,9 +6027,8 @@ void RoadRunner::checkGlobalParameters()
 	using namespace libsbml;
 	Model* sbmlModel = impl->document->getModel();
 
-	int num = sbmlModel->getNumParameters();
 	int index = 0;
-	for (uint i = 0; i < num; ++i)
+	while (index < sbmlModel->getNumParameters())
 	{
 		const Parameter* param = sbmlModel->getParameter(index);
 		const string& id = param->getId();
@@ -6039,6 +6038,8 @@ void RoadRunner::checkGlobalParameters()
 		{
 			// check if we have an initial assignment for this param.
 			removeParameter(id, false);
+			// go back and check the first parameter;
+			index = 0;
 		}
 		else
 		{
