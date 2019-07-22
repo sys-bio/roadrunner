@@ -702,21 +702,7 @@ SUITE(MODEL_EDITING_TEST_SUITE)
 		CHECK(RunModelEditingTest(18, [](RoadRunner *rri)
 		{
 			rri->simulate();
-            for(double d : rri->getFloatingSpeciesInitialConcentrations())
-				cout << d << endl;
-			cout << rri->getFloatingSpeciesAmountsNamedArray() << endl;
 			rri->addSpecies("S5", "compartment", 0.001, "substance");
-            for(double d : rri->getFloatingSpeciesInitialConcentrations())
-				cout << d << endl;
-			cout << rri->getFloatingSpeciesAmountsNamedArray() << endl;
-			rri->simulate();
-            for(double d : rri->getFloatingSpeciesInitialConcentrations())
-				cout << d << endl;
-			cout << rri->getFloatingSpeciesAmountsNamedArray() << endl;
-			rri->addSpecies("S6", "compartment", 0.001, "substance");
-            for(double d : rri->getFloatingSpeciesInitialConcentrations())
-				cout << d << endl;
-			cout << rri->getFloatingSpeciesAmountsNamedArray() << endl;
 		}));
 	}
 
