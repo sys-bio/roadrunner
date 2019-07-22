@@ -5241,11 +5241,14 @@ void RoadRunner::addSpecies(const std::string& sid, const std::string& compartme
 	} 
 	else 
 	{
-		
 		newSpecies->setInitialAmount(initValue);
 		newSpecies->setHasOnlySubstanceUnits(true);
 	}
 	
+	// default: set boundarycondition and constant as false
+	newSpecies->setBoundaryCondition(false);
+	newSpecies->setConstant(false);
+
 	regenerate(forceRegenerate);
 }
 
@@ -5328,6 +5331,9 @@ void RoadRunner::addReaction(const string& rid, vector<string> reactants, vector
 	// illegal formular will be catched during the regeneration
 	KineticLaw* kLaw = newReaction->createKineticLaw();
 	kLaw->setFormula(kineticLaw);
+
+	newReaction->setReversible(false);
+	newReaction->setFast(false);
 	
 	regenerate(forceRegenerate);
 }
@@ -5456,6 +5462,8 @@ void RoadRunner::addCompartment(const std::string& cid, double initVolume, bool 
 
 	newCompartment->setId(cid);
 	newCompartment->setVolume(initVolume);
+	// default: not constant
+	newCompartment->setConstant(false);
 
 	regenerate(forceRegenerate);
 }

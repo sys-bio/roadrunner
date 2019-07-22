@@ -838,7 +838,7 @@ public:
 
 
 	/*
-	* Set the kinetic law for a existing reaction in the current model
+	* Set the kinetic law for an existing reaction in the current model
 	* @param rid: the ID of reaction to be modified
 	* @param kineticLaw: the kinetic formular of reaction
 	* @param forceRegenerate: a boolean value to indicate if the model is regenerated
