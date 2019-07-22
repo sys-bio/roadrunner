@@ -169,6 +169,8 @@ _________________________
    :module: RoadRunner
 
    Returns the original SBML model that was loaded into roadrunner.
+   If the model is edited by methods in editing section, it will return the most updated model with 
+   the initial model parameters.
 
    :rtype: str
    
@@ -383,9 +385,20 @@ Easy edit to the model without modifying and reloading sbml files.
 .. method:: RoadRunner.removeSpecies(sid, forceRegenerate)
    :module: RoadRunner
    
-   Remove a species from the current model. All reactions related to this species(as reactants,
-   products or modifiers) will be removed as well. Note that the given species must exist in the
+   Remove a species from the current model. Note that the given species must exist in the
    current model.
+   
+   All reactions related to this species(as reactants, products or modifiers or used in 
+   stoichiometry) will be removed.
+   Kinetic law used this species in the math formula will be unset.
+   All function definitions, constraints, initial assignments and rules related to this species
+   (as variables or used in math formula) will be removed.
+   All events used this speices in trigger formula will be removed.
+   Priority and delay used this sepcies in the math formula will be unset.
+   All event assignment related to this species(as variables or used in math formula) will be removed.
+   
+   If any global parameters become uninitialized during this process, i.e, has no initial assignment or
+   assignment rule, they will be removed recursively following the rules in removeParameter().
    
    forceRegenerate is a boolean value that indicates whether the new model will be regenerated. Its 
    default value is true, which means to regenerate model every time after this function is called. 
@@ -443,7 +456,7 @@ Easy edit to the model without modifying and reloading sbml files.
    :param bool forceRegenerate: indicate whether the new model is regenerated after this function call
    
    
-.. method:: RoadRunner.removeReaction(rid,forceRegenerate)
+.. method:: RoadRunner.removeReaction(rid, forceRegenerate)
    :module: RoadRunner
    
    Remove a reaction from the current model. Note that the given reaction must exist in the
@@ -461,6 +474,60 @@ Easy edit to the model without modifying and reloading sbml files.
    >>> r.removeReaction("r2", true)  # new model is generated and saved
 
    :param str rid: the ID of the reaction to be removed
+   :param bool forceRegenerate: indicate whether the new model is regenerated after this function call
+   
+   
+.. method:: RoadRunner.addParameter(pid, value, forceRegenerate)
+   :module: RoadRunner
+   
+   Add a parameter to the current model. Note that the species to be added must have an ID
+   that did not existed in the model.
+   
+   forceRegenerate is a boolean value that indicates whether the new model will be regenerated. Its 
+   default value is true, which means to regenerate model every time after this function is called. 
+   Note that regenerating model is time-consuming. To save time for editing model for multiple times, 
+   one could set this flag to false excepting for the last call, so that Roadrunner will only regenerate 
+   the model once after all editings are completed.
+   
+   For example,
+   
+   >>> r.addParameter("p1", 0.1, false) # it will not regenerate the model, nothing actually happened
+   >>> r.addParameter("p2", 0.1, true)  # new model is generated and saved
+  
+   :param str pid: the ID of the parameter to be added
+   :param double value: the initial value of the parameter to be added
+   :param bool forceRegenerate: indicate whether the new model is regenerated after this function call
+   
+   
+.. method:: RoadRunner.removeParameter(pid, forceRegenerate)
+   :module: RoadRunner
+   
+   Remove a parameter from the current model. Note that the given parameter must exist in the
+   current model.
+   
+   All reactions related to this parameter(used in stoichiometry) will be removed.
+   Kinetic law used this parameter in the math formula will be unset.
+   All function definitions, constraints, initial assignments and rules related to this parameter
+   (as variables or used in math formula) will be removed.
+   All events used this parameter in trigger formula will be removed.
+   Priority and delay used this parameter in the math formula will be unset.
+   All event assignment related to this parameter(as variables or used in math formula) will be removed.
+   
+   If any global parameters become uninitialized during this process, i.e, has no initial assignment or
+   assignment rule, they will be removed recursively following the above rules.
+   
+   forceRegenerate is a boolean value that indicates whether the new model will be regenerated. Its 
+   default value is true, which means to regenerate model every time after this function is called. 
+   Note that regenerating model is time-consuming. To save time for editing model for multiple times, 
+   one could set this flag to false excepting for the last call, so that Roadrunner will only regenerate 
+   the model once after all editings are completed.
+   
+   For example,
+   
+   >>> r.removeParameter("p1", false) # it will not regenerate the model, nothing actually happened
+   >>> r.removeParameter("p2", true)  # new model is generated and saved
+
+   :param str pid: the ID of the parameter to be removed
    :param bool forceRegenerate: indicate whether the new model is regenerated after this function call
  
 
