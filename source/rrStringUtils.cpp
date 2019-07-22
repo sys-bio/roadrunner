@@ -40,6 +40,11 @@ char* createText(const int& count)
     return text;
 }
 
+unsigned int indexOf(const string& text, char checkFor)
+{
+    return text.find(checkFor);
+}
+
 bool freeText(char* str)
 {
     free(str);
@@ -875,6 +880,45 @@ string toString(const vector<string>& vec, const string& sep)
     }
     text<<"}";
     return text.str();
+}
+
+string toString(const vector<int>& vec, const string& sep)
+{
+    stringstream text;
+    text<<"{";
+    for(int i = 0; i < vec.size(); i++)
+    {
+        text<<vec[i];
+        if(i < vec.size() - 1)
+        {
+            text<<sep;
+        }
+    }
+    text<<"}";
+    return text.str();
+}
+
+string toString(const vector<double>& vec, const string& sep)
+{
+    stringstream text;
+    text<<"{";
+    for(int i = 0; i < vec.size(); i++)
+    {
+        text<<vec[i];
+        if(i < vec.size() - 1)
+        {
+            text<<sep;
+        }
+    }
+    text<<"}";
+    return text.str();
+}
+
+string toString(const ls::DoubleMatrix& mat)
+{
+    stringstream ss;
+    ss << mat;
+    return ss.str();
 }
 
 int compareNoCase(const string& str1, const string& str2)

@@ -2,6 +2,8 @@
 // on Windows, this needs to go first to get M_PI
 #define _USE_MATH_DEFINES
 
+
+
 #include "rrOSSpecifics.h"
 
 // TODO will clean these up in the future
@@ -27,7 +29,7 @@
 #include "rrSBMLReader.h"
 #include "rrConfig.h"
 #include "SBMLValidator.h"
-
+//#include "rrplugins/core/telPluginManager.h"
 #include <sbml/conversion/SBMLLocalParameterConverter.h>
 #include <sbml/conversion/SBMLLevelVersionConverter.h>
 
@@ -157,7 +159,7 @@ enum ParameterType
 /**
  * implemention class, hide all details here.
  */
-class RoadRunnerImpl {
+class RoadRunnerImpl:public PluginManager {
 public:
 
     int mInstanceID;

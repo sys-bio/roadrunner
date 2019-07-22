@@ -30,6 +30,7 @@ class RR_DECLSPEC StringList
                                     StringList(rrc::RRStringArrayPtr cp);
                                    ~StringList();
 
+        void                        reSize(int size);
         void                        InsertAt(const int& index, const string& item);
         void                        Append(const StringList& list);
         string                      AsString(const string& delimiter = gComma) const;

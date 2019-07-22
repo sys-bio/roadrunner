@@ -132,7 +132,7 @@ OPTION (INSTALL_C_API           "Generate C API"                                
 OPTION (INSTALL_C_API_PYTHON    "Package ctypes  Python wrapper for the C API"   ON )
 OPTION (INSTALL_APPS            "Build and install Apps"                         ON )
 OPTION (INSTALL_EXAMPLES        "Build and install Examples"                     OFF)
-OPTION (INSTALL_STATIC_LIB      "Install RoadRunner CXX static lib"              OFF)
+OPTION (INSTALL_STATIC_LIB      "Install RoadRunner CXX static lib"              ON)
 OPTION (RR_BUILD_SHARED_CORE    "Build RoadRunner Core Shared library"           ON)
 OPTION (BUILD_TESTS             "Build the SBML C API test suite"                OFF)
 OPTION (INSTALL_SBML_MODELS     "Install SBML Models"                            ON )

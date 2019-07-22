@@ -102,6 +102,8 @@ RR_DECLSPEC std::string joinPath(const string& p1, const string& p2,
 RR_DECLSPEC string          getCWD();
 RR_DECLSPEC const char      getPathSeparator();
 
+RR_DECLSPEC string          getUsersTempDataFolder();
+
 RR_DECLSPEC vector<string>  getLinesInFile(const string& fName);
 RR_DECLSPEC string          getFileContent(const string& fName);
 RR_DECLSPEC void            createTestSuiteFileNameParts(int caseNr, const string& postFixPart, string& FilePath, string& modelFileName, string& settingsFileName);

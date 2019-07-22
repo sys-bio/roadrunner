@@ -5,6 +5,7 @@
 #include "rr-libstruct/lsMatrix.h"
 #include "rrSelectionRecord.h"
 #include "rrRoadRunnerOptions.h"
+#include "rrplugins/core/telPluginManager.h"
 
 #include <string>
 #include <vector>
@@ -23,6 +24,7 @@ class SBMLModelSimulation;
 class ExecutableModel;
 class Integrator;
 class SteadyStateSolver;
+//class PluginManager;
 
 /**
  * The main RoadRunner class.
@@ -32,7 +34,7 @@ class SteadyStateSolver;
  * MemoryManagment: Any pointer returned by a get... method is owned by the
  * RoadRunner object and does NOT have to be deleted.
  */
-class RR_DECLSPEC RoadRunner
+class RR_DECLSPEC RoadRunner: public PluginManager
 {
 
 public:

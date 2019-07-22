@@ -210,6 +210,27 @@ std::string getCurrentSharedLibDir()
 #endif
 }
 
+string getUsersTempDataFolder()
+{
+    //Default for temporary data output is the users AppData/Local/Temp Folder
+    //  Gets the temp path env string (no guarantee it's a valid path).
+#if defined(WIN32)
+    TCHAR lpTempPathBuffer[MAX_PATH];
+    DWORD dwRetVal = GetTempPathA(MAX_PATH, lpTempPathBuffer); // buffer for path
+    if (dwRetVal > MAX_PATH || (dwRetVal == 0))
+    {
+        Log(lError)<<"GetTempPath failed";
+    }
+    else
+    {
+        Log(lDebug3)<<"Users temporary files folder is: "<<string(lpTempPathBuffer);
+    }
+
+    return string(lpTempPathBuffer);
+#else
+return ".";
+#endif
+}
 
 string getCurrentExeFolder()
 {

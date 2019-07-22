@@ -64,6 +64,8 @@ include_directories(
     ${THIRD_PARTY_INSTALL_FOLDER}/include/cvode
     )
 
+add_subdirectory(rrplugins)
+
 set(rrCoreSources
     rrConfig
     rrSteadyStateSolver
@@ -104,6 +106,7 @@ set(rrCoreSources
     Solver
     SolverRegistration
     Variant
+    c/rrStringList
     conservation/ConservationExtension
     conservation/ConservationDocumentPlugin
     conservation/ConservedMoietyPlugin
@@ -197,6 +200,45 @@ if(BUILD_LEGACY_C)
         )
 endif(BUILD_LEGACY_C)
 
+# rrplugins common
+set(RRPLUGINS_COMMON_SOURCES
+    rrplugins/common/telArrayedParameter.cpp
+    rrplugins/common/telProperties.cpp
+    rrplugins/common/telPropertyBase.cpp
+    rrplugins/common/telTelluriumData.cpp
+    rrplugins/common/telArrayedParameter.h
+    rrplugins/common/telProperties.h
+    rrplugins/common/telPropertyBase.h
+    rrplugins/common/telTelluriumData.h
+    rrplugins/common/telCommonExporter.h
+    rrplugins/common/telProperty.h
+)
+
+set(rrSources ${rrSources} ${RRPLUGINS_COMMON_SOURCES})
+
+
+# rrplugins core
+set(RRPLUGINS_CORE_SOURCES
+  rrplugins/core/telCPlugin
+  rrplugins/core/telCPPPlugin
+  rrplugins/core/telPlugin
+  rrplugins/core/telPluginManager
+  rrplugins/core/telVersionInfo
+)
+
+set(rrSources ${rrSources} ${RRPLUGINS_CORE_SOURCES})
+
+#rrplugins maths
+#set(RRPLUGINS_MATH_SOURCES
+#  rrplugins/math/telRandom
+#  #telMatrix
+#  rrplugins/math/telMathUtils
+#  rrplugins/math/third_party/mtrand
+#)
+
+#set(rrSources ${rrSources} ${RRPLUGINS_MATH_SOURCES})
+
+
 
 # set up linking libs
 if(RR_BUILD_SHARED_CORE)
@@ -208,6 +250,17 @@ if(RR_BUILD_SHARED_CORE)
     set_property(TARGET ${target}
         PROPERTY  COMPILE_DEFINITIONS
         EXPORT_RR
+
+        #rrplugins_common 
+        EXPORT_COMMON_API
+        
+        #rrplugin_core
+        EXPORT_CORE_API
+
+        #rrplugin math
+        #EXPORT_MATH_API
+
+        LIBSBML_USE_CPP_NAMESPACE
         LIBSBML_STATIC
         LIBLAX_STATIC
         STATIC_LIBSTRUCT
@@ -306,6 +359,11 @@ set_target_properties( ${target}-static PROPERTIES SOVERSION ${ROADRUNNER_VERSIO
 set_property(TARGET ${target}-static
     PROPERTY COMPILE_DEFINITIONS
     STATIC_RR
+
+    STATIC_PLUGIN_API_COMMON #rrplugin common
+    STATIC_PLUGIN_API_CORE
+    #STATIC_PLUGIN_API_MATH
+
     LIBSBML_USE_CPP_NAMESPACE
     LIBSBML_STATIC
     LIBLAX_STATIC
@@ -402,3 +460,19 @@ if(${INSTALL_CXX_API})
            COMPONENT rr_core)
     endforeach(subfolder)
 endif() #Install CXX API
+
+
+#installing file related to rrplugins
+
+file(GLOB rrpluginscommon_headers "${CMAKE_SOURCE_DIR}/source/rrplugins/common/*.h")
+message(STATUS "*** headers *** ${rrpluginscommon_headers}")
+install(FILES ${rrpluginscommon_headers} 
+    DESTINATION include/rr/rrplugins/common
+    COMPONENT rr_core)
+
+file(GLOB rrpluginscore_headers "${CMAKE_SOURCE_DIR}/source/rrplugins/core/*.h")
+message(STATUS "*** headers *** ${rrpluginscore_headers}")
+install(FILES ${rrpluginscore_headers} 
+    DESTINATION include/rr/rrplugins/core
+    COMPONENT rr_core)
+

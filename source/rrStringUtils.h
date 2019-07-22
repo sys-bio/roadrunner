@@ -6,6 +6,7 @@
 #include <complex>
 #include "rrConstants.h"
 #include "rrExporter.h"
+#include "rr-libstruct\lsMatrix.h"
 
 namespace rr
 {
@@ -17,6 +18,9 @@ using std::complex;
 RR_DECLSPEC char*               createText(const string& str);
 RR_DECLSPEC char*               createText(const int& count);
 RR_DECLSPEC bool                   freeText(char* str);
+
+RR_DECLSPEC unsigned int        indexOf(const string& text, char checkFor);
+
 RR_DECLSPEC string              replaceWord(const string& str1, const string& str2, const string& theString);
 RR_DECLSPEC bool                convertFunctionCallToUseVarArgsSyntax(const string& funcName, string& expression);
 RR_DECLSPEC string              removeChars(const string& str, const string& chars);
@@ -67,6 +71,10 @@ RR_DECLSPEC string              toString(const unsigned char n);
 RR_DECLSPEC string              toString(const string& s);
 RR_DECLSPEC string              toString(const char* str);
 RR_DECLSPEC string              toString(const vector<string>& vec, const string& sep = ", ");
+RR_DECLSPEC string              toString(const vector<int>& vec, const string& sep = ", ");
+RR_DECLSPEC string              toString(const vector<double>& vec, const string& sep = ", ");
+//RR_DECLSPEC string              toString(const ls::Matrix<double> mat);
+RR_DECLSPEC string              toString(const ls::Matrix<double>& mat);
 
 RR_DECLSPEC string              format(const string& src, const int& arg);
 RR_DECLSPEC string              format(const string& str, const int& arg1);

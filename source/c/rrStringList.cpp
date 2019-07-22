@@ -57,6 +57,17 @@ StringList::StringList(const StringList& cp)
 StringList::~StringList()
 {}
 
+//Converison operator
+/*StringList::operator const vector<string>&() const
+{
+    return mStrings;
+}*/
+
+void StringList::reSize(int size)
+{
+    mStrings.resize(size);
+}
+
 vector<string>::iterator StringList::begin()
 {
     return mStrings.begin();
