@@ -608,6 +608,75 @@ Easy edit to the model without modifying and reloading sbml files.
    :param str kineticLaw: the kinetic formular of reaction to be set
    :param bool forceRegenerate: indicate whether the new model is regenerated after this function call
    
+   
+.. method:: RoadRunner.addAssignmentRule(vid, formula, forceRegenerate)
+   :module: RoadRunner
+   
+   Add an assignment rule for a variable to the current model.
+   
+   forceRegenerate is a boolean value that indicates whether the new model will be regenerated. Its 
+   default value is true, which means to regenerate model every time after this function is called. 
+   Note that regenerating model is time-consuming. To save time for editing model for multiple times, 
+   one could set this flag to false excepting for the last call, so that Roadrunner will only regenerate 
+   the model once after all editings are completed.
+   
+   For example,
+   
+   >>> r.addAssignmentRule("s1", "s1 * k1", false) # it will not regenerate the model, nothing actually happened
+   >>> r.addAssignmentRule("s2", "s2 * k1", true)  # new model is generated and saved
+  
+  
+   :param str vid: the ID of the variable that the new rule assigne formula to
+   :param str formula: the math formula of assignment rule to be added
+   :param bool forceRegenerate: indicate whether the new model is regenerated after this function call
+   
+   
+.. method:: RoadRunner.addRateRule(vid, formula, forceRegenerate)
+   :module: RoadRunner
+   
+   Add a rate rule for a variable to the current model.
+   
+   forceRegenerate is a boolean value that indicates whether the new model will be regenerated. Its 
+   default value is true, which means to regenerate model every time after this function is called. 
+   Note that regenerating model is time-consuming. To save time for editing model for multiple times, 
+   one could set this flag to false excepting for the last call, so that Roadrunner will only regenerate 
+   the model once after all editings are completed.
+   
+   For example,
+   
+   >>> r.addRateRule("s1", "k1", false) # it will not regenerate the model, nothing actually happened
+   >>> r.addRateRule("s2", "k1", true)  # new model is generated and saved
+  
+  
+   :param str vid: the ID of the variable that the new rule assign formula to
+   :param str formula: the math formula of rate rule to be added
+   :param bool forceRegenerate: indicate whether the new model is regenerated after this function call
+   
+   
+.. method:: RoadRunner.removeRules(vid, forceRegenerate)
+   :module: RoadRunner
+   
+   Remove all rules for a variable from the current model. Note that the given variable must have at 
+   least one rule in the current model.
+   
+   If any global parameters become uninitialized during this process, i.e, has no initial assignment or
+   assignment rule, they will be removed recursively following the rules in removeParameter().
+   
+   forceRegenerate is a boolean value that indicates whether the new model will be regenerated. Its 
+   default value is true, which means to regenerate model every time after this function is called. 
+   Note that regenerating model is time-consuming. To save time for editing model for multiple times, 
+   one could set this flag to false excepting for the last call, so that Roadrunner will only regenerate 
+   the model once after all editings are completed.
+   
+   For example,
+   
+   >>> r.removeRules("s1", false) # it will not regenerate the model, nothing actually happened
+   >>> r.removeRules("s2", true)  # new model is generated and saved
+
+   :param str vid: the ID of the variables that rules assign formula to
+   :param bool forceRegenerate: indicate whether the new model is regenerated after this function call
+   
+   
  
 
 Simulation
