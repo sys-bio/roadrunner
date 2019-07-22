@@ -137,7 +137,7 @@ namespace rr
 		 * @author FY
 		 * @brief Sets tolerance for individual species
 		 */
-		void setIndividualTolerance(int index, double value);
+		void setIndividualTolerance(string sid, double value);
 
 		/**
 		 * @author FY

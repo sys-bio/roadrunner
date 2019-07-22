@@ -331,12 +331,37 @@ namespace rr
 		return Integrator::Deterministic;
 	}
 
-	void CVODEIntegrator::setIndividualTolerance(int index, double value) {
-		// check if index is valid
-		checkIndex(index, mModel->getNumFloatingSpecies());
-
+	// TODO: NEW DOC
+	void CVODEIntegrator::setIndividualTolerance(string sid, double value) {
+		
 		// the tolerance vector that will be stored
 		vector<double> v;
+
+		int speciesIndex = mModel->getFloatingSpeciesIndex(sid);
+		int index;
+		if (speciesIndex > -1 && speciesIndex < mModel->getNumIndFloatingSpecies())
+		{
+			// sid is an independent floating species
+			index = speciesIndex;
+		}
+		else
+		{
+			// sid might has a rate rule
+			vector<string> symbols = mModel->getRateRuleSymbols();
+			std::vector<string>::iterator it = std::find(symbols.begin(), symbols.end(), sid);
+			if (it != symbols.end())
+			{
+				// found it
+				index = mModel->getNumIndFloatingSpecies() + std::distance(symbols.begin(), it);
+
+			}
+			else
+			{
+				throw std::invalid_argument("CVODEIntegrator::setIndividualTolerance failed, given sid " + sid + " is neither a floating species nor has a rate rule.");
+			}
+		}
+
+
 		
 		switch (getType("absolute_tolerance")) {
 		
@@ -349,7 +374,9 @@ namespace rr
 			case Variant::DOUBLE:
 			{
 				// scalar tolerance
-				// need to be converted to vector tolerance since tolerance of individual species is set
+				// need to be converted to vector tolerance since tolerance of individual variables is set
+
+
 				double abstol = CVODEIntegrator::getValueAsDouble("absolute_tolerance");
 				for (int i = 0; i < mModel->getNumFloatingSpecies(); i++)
 					v.push_back(i == index ? value : abstol);
