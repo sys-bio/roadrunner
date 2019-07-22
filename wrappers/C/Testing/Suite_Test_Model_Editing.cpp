@@ -878,45 +878,22 @@ SUITE(MODEL_EDITING_TEST_SUITE)
 	{
 		CHECK(RunModelEditingTest(963, [](RoadRunner* rri)
 		{
-			rri->simulate();
-			for(double d : rri->getGlobalParameterValues())
-				cout << d << " ";
-			cout << endl;
-
-			rri->addEvent("Qinc", true, "(time - reset) >= 0.01", false);
-			rri->addEventAssignment("Qinc", "reset", "time", false);
-			rri->addEventAssignment("Qinc", "Q", "Q + 0.01", false);
-			rri->addPriority("Qinc", "1", false);
-
 			rri->addEvent("Rinc", true, "(time - reset) >= 0.01", false);
 			rri->addEventAssignment("Rinc", "reset", "time", false);
 			rri->addEventAssignment("Rinc", "R", "R + 0.01", false);
-			rri->addPriority("Rinc", "0-1", false);
-
-			for(double d : rri->getGlobalParameterValues())
-				cout << d << " ";
-			cout << endl;
+			rri->addPriority("Rinc", "-1", false);
 
 			rri->addEvent("Qinc2", true, "(time - reset2) >= 0.01", false);
 			rri->addEventAssignment("Qinc2", "reset2", "time", false);
 			rri->addEventAssignment("Qinc2", "Q2", "Q2 + 0.01", false);
-			rri->addPriority("Qinc2", "0-1", false);
-
-			for(double d : rri->getGlobalParameterValues())
-				cout << d << " ";
-			cout << endl;
+			rri->addPriority("Qinc2", "-1", false);
 
 			rri->addEvent("Rinc2", true, "(time - reset2) >= 0.01", false);
 			rri->addEventAssignment("Rinc2", "reset2", "time", false);
 			rri->addEventAssignment("Rinc2", "R2", "R2 + 0.01", false);
 			rri->addPriority("Rinc2", "1");
 
-			cout << rri->getCurrentSBML() << endl;
-
-			for(double d : rri->getGlobalParameterValues())
-				cout << d << " ";
-			cout << endl;
-
+			rri->setSelections({"R", "Q", "reset", "R2", "Q2", "reset2"});
 		}, "l3v1"));
 	}
 
