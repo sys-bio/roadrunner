@@ -623,6 +623,13 @@ RRCDataPtr rrcCallConv simulate(RRHandle handle)
 {
 	start_try
 		RoadRunner* rri = castToRoadRunner(handle);
+
+	//rri = new RoadRunner("C:/rr/source/roadrunner/models/sbml-test-suite/cases/semantic/model_editing/00963/00963-sbml-l3v1.xml");
+	//rri->setSelections({"Q", "R", "Q2", "R2"});
+	//rri->simulate();
+	//cout << *rri->getSimulationData() << endl;
+	//rri->simulate();
+	//cout << *rri->getSimulationData() << endl;
 		
 	if (false)
 	{
