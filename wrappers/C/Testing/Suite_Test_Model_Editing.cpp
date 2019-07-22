@@ -424,7 +424,7 @@ void removeAndReaddAllCompartments(RoadRunner *rri, libsbml::SBMLDocument *doc)
 
 SUITE(MODEL_EDITING_TEST_SUITE)
 {
-	TEST(ADD_REACTION_1)
+	/*TEST(ADD_REACTION_1)
 	{
 		CHECK(RunModelEditingTest(1, [](RoadRunner* rri) {
 			rri->addReaction("reaction2", {"S2"}, {"S1"}, "k1*S2", true);
@@ -884,10 +884,18 @@ SUITE(MODEL_EDITING_TEST_SUITE)
 
 			rri->setSelections({"R", "Q", "reset", "R2", "Q2", "reset2"});
 		}, "l3v1"));
+	}*/
+
+	TEST(REMOVE_PARAM_RECURSE)
+	{
+		CHECK(RunModelEditingTest(10001, [](RoadRunner *rri)
+		{
+			rri->removeParameter("k2");
+		}));
 	}
 
     
-	TEST(READD_SPECIES)
+	/*TEST(READD_SPECIES)
 	{
 		clog << endl << "==== CHECK_READD_SPECIES ====" << endl << endl;
 		for (int i = 1; i <= 38; i++)
@@ -898,7 +906,7 @@ SUITE(MODEL_EDITING_TEST_SUITE)
 				UnitTest::CurrentTest::Results()->OnTestFailure(*UnitTest::CurrentTest::Details(), failureMessage.c_str());
 			}
 		}
-	}
+	}*/
 	/*TEST(READD_REACTION)
 	{
 		clog << endl << "==== CHECK_READD_REACTION ====" << endl << endl;
