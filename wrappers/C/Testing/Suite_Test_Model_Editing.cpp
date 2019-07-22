@@ -360,6 +360,9 @@ void readdAllSpecies(RoadRunner *rri, libsbml::SBMLDocument *doc)
 	}
 }
 
+/*
+* Pre: the model must not contain any rules reliant on species values
+*/
 void removeAndReaddAllSpecies(RoadRunner *rri, libsbml::SBMLDocument *doc)
 {
 	//Remove all species
@@ -884,10 +887,10 @@ SUITE(MODEL_EDITING_TEST_SUITE)
 	}
 
     
-	/*TEST(READD_SPECIES)
+	TEST(READD_SPECIES)
 	{
 		clog << endl << "==== CHECK_READD_SPECIES ====" << endl << endl;
-		for (int i = 30; i <= 40; i++)
+		for (int i = 1; i <= 38; i++)
 		{
 			if (!RunTestWithEdit("l2v4", i, removeAndReaddAllSpecies, "removeAndReaddAllSpecies"))
 			{
