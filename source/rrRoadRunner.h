@@ -852,7 +852,7 @@ public:
 
 	/*
 	* Add an assignment rule to the current model
-	* @param vid: ID of variable that rules assigns formula to
+	* @param vid: ID of variable that the new rule assigns formula to
 	* @param formula: the math formula of assignment rule to be added
 	* @param forceRegenerate: a boolean value to indicate if the model is regenerated
 	*					      after this function call
@@ -880,7 +880,7 @@ public:
 
 	/**
 	 * Remove rules related to given variable from the current model
-	 * @param vid: ID of variable that rules assigns formula to
+	 * @param vid: ID of variable that rules assign formula to
 	 * @param forceRegenerate: a boolean value to indicate if the model is regenerated
 	 *					       after this function call
 	 *						   default value is true to regenerate model after each call
@@ -906,7 +906,7 @@ public:
 
 	/*
 	* Add trigger to an existing event in the model
-	* If the given event already has a trigger object, the given trigger will replace the old trigger in the model
+	* If the given event already has a trigger object, the given trigger will replace the old trigger of the event
 	* @param eid: the ID of the event to add trigger
 	* @param trigger: the math formula of event trigger
 	* @param forceRegenerate: a boolean value to indicate if the model is regenerated
@@ -920,7 +920,7 @@ public:
 
 	/*
 	* Add priority to an existing event in the model
-	* If the given event already has a priority object, the given priority will replace the old priority in the model
+	* If the given event already has a priority object, the given priority will replace the old priority of the event
 	* @param eid: the ID of the event to add priority
 	* @param priority: the math formula of event priority
 	* @param forceRegenerate: a boolean value to indicate if the model is regenerated
@@ -934,7 +934,7 @@ public:
 
 	/*
 	* Add delay to an existing event in the model
-	* If the given event already has a delay object, the given delay will replace the old delay in the model
+	* If the given event already has a delay object, the given delay will replace the old delay of the event
 	* @param eid: the ID of the event to add priority
 	* @param delay: the math formula of event delay
 	* @param forceRegenerate: a boolean value to indicate if the model is regenerated

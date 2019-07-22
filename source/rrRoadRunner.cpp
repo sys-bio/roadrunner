@@ -5719,7 +5719,7 @@ void RoadRunner::removeEventAssignments(const std::string & eid, const std::stri
 	libsbml::EventAssignment* toDelete = event->removeEventAssignment(vid);
 	if (toDelete == NULL)
 	{
-		throw std::invalid_argument("Roadrunner::removeEventAssignment failed, no event assignment with ID " + eid + " existed in the event " + eid);
+		throw std::invalid_argument("Roadrunner::removeEventAssignment failed, no event assignment for variable " + vid + " existed in the event " + eid);
 	}
 
 	Log(Logger::LOG_DEBUG) << "Removing event assignments for variable" << vid << " in event " << eid << "..." << endl;
@@ -5728,7 +5728,7 @@ void RoadRunner::removeEventAssignments(const std::string & eid, const std::stri
 		delete toDelete;
 		toDelete = event->removeEventAssignment(vid);
 	}
-	checkGlobalParameters();
+	//checkGlobalParameters();
 	regenerate(forceRegenerate);
 }
 
@@ -5847,7 +5847,7 @@ void RoadRunner::removeVariable(const std::string& sid) {
 		}
 		
 		// TODO: check if getMath work with level 1
-		if (reaction->getKineticLaw() && hasVariable(reaction->getKineticLaw()->getMath(), sid))
+		if (hasVariable(reaction->getKineticLaw()->getMath(), sid))
 		{
 			sbmlModel->getReaction(i)->unsetKineticLaw();
 		}
