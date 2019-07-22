@@ -118,8 +118,6 @@ namespace rr
         // Set default integrator settings.
         addSetting("relative_tolerance", Config::getDouble(Config::CVODE_MIN_RELATIVE), "Relative Tolerance", "Specifies the scalar relative tolerance (double).", "(double) CVODE calculates a vector of error weights which is used in all error and convergence tests. The weighted RMS norm for the relative tolerance should not become smaller than this value.");
         addSetting("absolute_tolerance", Config::getDouble(Config::CVODE_MIN_ABSOLUTE), "Absolute Tolerance", "Specifies the scalar or vector absolute tolerance based on amounts (double or double vector).", "(double or double vector) CVODE calculates a vector of error weights which is used in all error and convergence tests. The weighted RMS norm for the absolute tolerance should not become smaller than this value.");
-//		addSetting("absolute_concentration_tolerance", Config::getDouble(Config::CVODE_MIN_ABSOLUTE), "Absolute Concentration Tolerance", "Specifies the scalar or vector absolute tolerance based on concentrations (double or double vector).", "(double or double vector) CVODE first converts it to the tolerance based on th amounts and then calculates a vector of error weights which is used in all error and convergence tests. The weighted RMS norm for the absolute tolerance should not become smaller than this value.");
-
         addSetting("stiff",              true, "Stiff", "Specifies whether the integrator attempts to solve stiff equations. (bool)", "(bool) Specifies whether the integrator attempts to solve stiff equations. Ensure the integrator can solver stiff differential equations by setting this value to true.");
         addSetting("maximum_bdf_order",  mDefaultMaxBDFOrder, "Maximum BDF Order", "Specifies the maximum order for Backward Differentiation Formula integration. (int)", "(int) Specifies the maximum order for Backward Differentiation Formula integration. This integration method is used for stiff problems. Default value is 5.");
         addSetting("maximum_adams_order",mDefaultMaxAdamsOrder, "Maximum Adams Order", "Specifies the maximum order for Adams-Moulton intergration. (int)", "(int) Specifies the maximum order for Adams-Moulton intergration. This integration method is used for non-stiff problems. Default value is 12.");
@@ -400,10 +398,10 @@ namespace rr
 				// scalar concentration tolerance
 				// need to be converted to vector tolerance since speices might have various compartment sizes
 				double abstol = value.convert<double>();
-
-				for (int i = 0; i < mModel->getNumFloatingSpecies(); i++) {
+				int index;
+				for (int i = 0; i < mModel->getNumIndFloatingSpecies(); i++) {
 					// get the compartment volume of each species
-					int index = mModel->getCompartmentIndexForFloatingSpecies(i);
+					index = mModel->getCompartmentIndexForFloatingSpecies(i);
 					if (volumes[index] == 0) {
 						// when the compartment volume is 0, simply set the amount tolerance as the volume tolerance
 						// since the tolerance cannot be 0 (ILLEGAL_INPUT)
@@ -415,6 +413,35 @@ namespace rr
 						v.push_back(std::min(abstol, abstol * volumes[index]));
 					}
 				}
+
+
+				vector<string> symbols = mModel->getRateRuleSymbols();
+				for (int i = 0; i < mModel->getNumRateRules(); i++) {
+					string symbol = symbols[i];
+					int speciesIndex = mModel->getFloatingSpeciesIndex(symbol);
+					if (speciesIndex > -1)
+					{
+						// the symbol defined by the rate rule is a species
+						index = mModel->getCompartmentIndexForFloatingSpecies(i);
+						if (volumes[index] == 0) {
+							// when the compartment volume is 0, simply set the amount tolerance as the volume tolerance
+							// since the tolerance cannot be 0 (ILLEGAL_INPUT)
+							v.push_back(abstol);
+						}
+						else {
+							// compare the concentration tolerance with the adjusted amount tolerace
+							// store whichever is smaller
+							v.push_back(std::min(abstol, abstol * volumes[index]));
+						}
+					}
+					else
+					{
+						// not a species, no need to divided by compartment volume
+						v.push_back(abstol);
+					}
+				}
+
+
 				break;
 			}
 
@@ -423,7 +450,7 @@ namespace rr
 				// vector concentration tolerance
 				v = value.convert< vector<double> >();
 
-				checkVectorSize(mModel->getNumFloatingSpecies(), v.size());
+				checkVectorSize(mModel->getNumIndFloatingSpecies() + mModel->getNumRateRules(), v.size());
 				for (int i = 0; i < v.size(); i++) {
 					// get the compartment volume of each species
 					int index = mModel->getCompartmentIndexForFloatingSpecies(i);
