@@ -675,7 +675,7 @@ SUITE(MODEL_EDITING_TEST_SUITE)
             for(double d : rri->getFloatingSpeciesInitialConcentrations())
 				cout << d << endl;
 			cout << rri->getFloatingSpeciesAmountsNamedArray() << endl;
-			rri->addReaction("reaction3", {"S1"}, {"S2"}, "compartment * k2 * S3 * S4");
+			rri->addReaction("reaction3", {"S3"}, {"S2"}, "compartment * k2 * S3 * S4");
             for(double d : rri->getFloatingSpeciesInitialConcentrations())
 				cout << d << endl;
 			cout << rri->getFloatingSpeciesAmountsNamedArray() << endl;
@@ -702,21 +702,7 @@ SUITE(MODEL_EDITING_TEST_SUITE)
 		CHECK(RunModelEditingTest(18, [](RoadRunner *rri)
 		{
 			rri->simulate();
-            for(double d : rri->getFloatingSpeciesInitialConcentrations())
-				cout << d << endl;
-			cout << rri->getFloatingSpeciesAmountsNamedArray() << endl;
 			rri->addSpecies("S5", "compartment", 0.001, "substance");
-            for(double d : rri->getFloatingSpeciesInitialConcentrations())
-				cout << d << endl;
-			cout << rri->getFloatingSpeciesAmountsNamedArray() << endl;
-			rri->simulate();
-            for(double d : rri->getFloatingSpeciesInitialConcentrations())
-				cout << d << endl;
-			cout << rri->getFloatingSpeciesAmountsNamedArray() << endl;
-			rri->addSpecies("S6", "compartment", 0.001, "substance");
-            for(double d : rri->getFloatingSpeciesInitialConcentrations())
-				cout << d << endl;
-			cout << rri->getFloatingSpeciesAmountsNamedArray() << endl;
 		}));
 	}
 
@@ -896,6 +882,11 @@ SUITE(MODEL_EDITING_TEST_SUITE)
 			for(double d : rri->getGlobalParameterValues())
 				cout << d << " ";
 			cout << endl;
+
+			rri->addEvent("Qinc", true, "(time - reset) >= 0.01", false);
+			rri->addEventAssignment("Qinc", "reset", "time", false);
+			rri->addEventAssignment("Qinc", "Q", "Q + 0.01", false);
+			rri->addPriority("Qinc", "1", false);
 
 			rri->addEvent("Rinc", true, "(time - reset) >= 0.01", false);
 			rri->addEventAssignment("Rinc", "reset", "time", false);
