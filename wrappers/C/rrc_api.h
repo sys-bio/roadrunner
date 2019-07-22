@@ -729,7 +729,32 @@ C_DECL_SPEC bool rrcCallConv addEvent(RRHandle handle, const char* eid, bool use
 C_DECL_SPEC bool rrcCallConv addEventNoRegen(RRHandle handle, const char* eid, bool useValuesFromTriggerTime, const char* trigger);
 
 /*!
+ \brief Add trigger to an existing event in the model
+		If the given event already has a trigger object, the given trigger will replace the old trigger in the model
+ \param[in] handle Handle to a RoadRunner instance
+ \param[in] eid ID of the event to add trigger
+ \param[in] trigger the math formula of event trigger
+ \return Returns false if the call fails, otherwise returns a true
+ \ingroup edit
+*/
+C_DECL_SPEC bool rrcCallConv addTrigger(RRHandle handle, const char* eid, const char* trigger);
+
+/*!
+ \brief Add trigger to an existing event in the model, without regenerating it
+		The last modification must regenerate for the modifications to take effect
+		If the given event already has a trigger object, the given trigger will replace the old trigger in the model
+ \param[in] handle Handle to a RoadRunner instance
+ \param[in] eid ID of the event to add trigger
+ \param[in] trigger the math formula of event trigger
+ \return Returns false if the call fails, otherwise returns a true
+ \ingroup edit
+*/
+C_DECL_SPEC bool rrcCallConv addTriggerNoRegen(RRHandle handle, const char* eid, const char* trigger);
+
+
+/*!
  \brief Add priority to an existing event in the model
+		If the given event already has a priority object, the given priority will replace the old priority in the model
  \param[in] handle Handle to a RoadRunner instance
  \param[in] eid ID of the event to add priority
  \param[in] priority the math formula of event priority
@@ -741,6 +766,7 @@ C_DECL_SPEC bool rrcCallConv addPriority(RRHandle handle, const char* eid, const
 /*!
  \brief Add priority to an existing event in the model, without regenerating it
 		The last modification must regenerate for the modifications to take effect
+		If the given event already has a priority object, the given priority will replace the old priority in the model
  \param[in] handle Handle to a RoadRunner instance
  \param[in] eid ID of the event to add priority
  \param[in] priority the math formula of event priority
@@ -751,6 +777,7 @@ C_DECL_SPEC bool rrcCallConv addPriorityNoRegen(RRHandle handle, const char* eid
 
 /*!
  \brief Add delay to an existing event in the model
+		If the given event already has a delay object, the given delay will replace the old delay in the model
  \param[in] handle Handle to a RoadRunner instance
  \param[in] eid ID of the event to add delay
  \param[in] priority the math formula of event priority
@@ -762,6 +789,7 @@ C_DECL_SPEC bool rrcCallConv addDelay(RRHandle handle, const char* eid, const ch
 /*!
  \brief Add delay to an existing event in the model, without regenerating it
 		The last modification must regenerate for the modifications to take effect
+		If the given event already has a delay object, the given delay will replace the old delay in the model
  \param[in] handle Handle to a RoadRunner instance
  \param[in] eid ID of the event to add delay
  \param[in] delay the math formula of event delay

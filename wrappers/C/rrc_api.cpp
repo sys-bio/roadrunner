@@ -1960,6 +1960,26 @@ bool rrcCallConv addEventNoRegen(RRHandle handle, const char* eid, bool useValue
 	catch_bool_macro
 }
 
+bool rrcCallConv addTrigger(RRHandle handle, const char* eid, const char* trigger)
+{
+	start_try
+		RoadRunner* rri = castToRoadRunner(handle);
+		rri->addTrigger(eid,trigger);
+		return true;
+	catch_bool_macro
+}
+
+bool rrcCallConv addTriggerNoRegen(RRHandle handle, const char* eid, const char* trigger)
+{
+	start_try
+		RoadRunner* rri = castToRoadRunner(handle);
+		rri->addTrigger(eid, trigger, false);
+		return true;
+	catch_bool_macro
+}
+
+
+
 bool rrcCallConv addPriority(RRHandle handle, const char* eid, const char* priority)
 {
 	start_try
@@ -1969,7 +1989,7 @@ bool rrcCallConv addPriority(RRHandle handle, const char* eid, const char* prior
 	catch_bool_macro
 }
 
-bool rrcCallConv addEventNoRegenaddPriorityNoRegen(RRHandle handle, const char* eid, const char* priority)
+bool rrcCallConv addPriorityNoRegen(RRHandle handle, const char* eid, const char* priority)
 {
 	start_try
 		RoadRunner* rri = castToRoadRunner(handle);
