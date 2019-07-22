@@ -567,7 +567,7 @@ namespace rr
 		// if vector tolerance is set, the size of vector must be equal to 
 		// the number of floating species
 		if (key == "absolute_tolerance" && val.type() == Variant::DOUBLEVECTOR)
-			checkVectorSize(mModel->getNumFloatingSpecies(), val.convert< vector<double> >().size());
+			checkVectorSize(mModel->getNumIndFloatingSpecies() + mModel->getNumRateRules(), val.convert< vector<double> >().size());
 
 		Integrator::setValue(key, val);
 		
@@ -1064,6 +1064,7 @@ namespace rr
 				for (int i = 0; i < v.size(); i++)
 					arr[i] = v[i];
 				N_Vector nv = N_VMake_Serial(getValueAsDoubleVector("absolute_tolerance").size(), arr);
+				delete[] arr;
 
 				err = CVodeSVtolerances(mCVODE_Memory, getValueAsDouble("relative_tolerance"), nv);
 				// need to destroy
