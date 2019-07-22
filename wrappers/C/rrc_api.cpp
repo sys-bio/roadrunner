@@ -623,75 +623,7 @@ RRCDataPtr rrcCallConv simulate(RRHandle handle)
 {
 	start_try
 		RoadRunner* rri = castToRoadRunner(handle);
-
-	if (false)
-	{
-		rri = new RoadRunner("D:/rr/source/roadrunner/models/sbml-test-suite/cases/semantic/model_editing/00963/00963-sbml-l3v1-mod.xml");
-		rri->getSimulateOptions().loadSBMLSettings("D:/rr/source/roadrunner/models/sbml-test-suite/cases/semantic/model_editing/00963/00963-settings.txt");
 		rri->simulate();
-		RoadRunnerData resultData(rri);
-
-		ofstream fs("D:/rr/source/roadrunner/models/sbml-test-suite/cases/semantic/model_editing/00963/00963-results.csv");
-		fs << resultData;
-		fs.close();
-	}
-
-	if (false)
-	{
-		rri = new RoadRunner();
-		rri->addCompartment("compartment", 1);
-		rri->addSpecies("s1", "compartment", 0.1);
-		rri->addSpecies("s2", "compartment", 0.1);
-		rri->addSpecies("s3", "compartment", 0.1);
-		
-		vector<string> reactants;
-		reactants.push_back("s1");
-		vector<string> products;
-		products.push_back("s2");
-		
-		rri->addReaction("test", reactants, products, "s1");
-
-		rri->addEvent("e1", true, "s1 > compartment");
-		
-
-		rri->addAssignmentRule("s3", "5*s1");
-		rri->addRateRule("s3", "s1*2");
-
-		rri->removeSpecies("s1");
-
-		
-
-		rri->simulate();
-		auto test = rri->getSimulationData();
-		for (int r = 0; r < test->numRows(); r++) {
-			for (int c = 0; c < test->numCols(); c++)
-				std::cout << (*test)(r, c) << "\t";
-			std::cout << std::endl;
-		}
-	
-		std::cout << (rri->getSBML()) << endl;
-
-	}
-
-
-	//rri = new RoadRunner("C:/rr/source/roadrunner/models/sbml-test-suite/cases/semantic/00001/00001-sbml-l2v4.xml");
-	//rri->removeReaction("reaction1");
-	//rri->removeParameter("k1");
-	//rri->addParameter("k1", 1);
-	//rri->addReaction("reaction1", {"S1"}, {"S2"}, "compartment * k1 * S1");
-	
-		//	rri->setKineticLaw("reaction1", "S1");
-		//rri->addCompartment("compartment", 1);
-		//rri->addSpecies("test", "compartment", 0.1, "substance1");
-		
-
-		rri->simulate();
-		//auto test = rri->getSimulationData();
-		//for (int r = 0; r < test->numRows(); r++) {
-		//	for (int c = 0; c < test->numCols(); c++)
-		//		std::cout << (*test)(r, c) << "\t";
-		//	std::cout << std::endl;
-		//}
         return createRRCData(*rri);
     catch_ptr_macro
 }

@@ -923,10 +923,10 @@ SUITE(MODEL_EDITING_TEST_SUITE)
 			}
 		}
 	}
-	/*TEST(READD_REACTION)
+	TEST(READD_REACTION)
 	{
 		clog << endl << "==== CHECK_READD_REACTION ====" << endl << endl;
-		for (int i = 40; i <= 40; i++)
+		for (int i = 1; i <= 38; i++)
 		{
 			if (!RunTestWithEdit("l2v4", i, removeAndReaddAllReactions, "removeAndReaddAllReactions"))
 			{
@@ -938,7 +938,7 @@ SUITE(MODEL_EDITING_TEST_SUITE)
 	TEST(READD_COMPARTMENTS)
 	{
 		clog << endl << "==== CHECK_READD_COMPARTMENTS ====" << endl << endl;
-		for (int i = 30; i <= 40; i++)
+		for (int i = 1; i <= 38; i++)
 		{
 			if (!RunTestWithEdit("l2v4", i, removeAndReaddAllCompartments, "removeAndReaddAllCompartments"))
 			{
@@ -946,5 +946,5 @@ SUITE(MODEL_EDITING_TEST_SUITE)
 				UnitTest::CurrentTest::Results()->OnTestFailure(*UnitTest::CurrentTest::Details(), failureMessage.c_str());
 			}
 		}
-	}*/
+	}
 }
