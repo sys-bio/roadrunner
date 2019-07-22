@@ -421,7 +421,7 @@ void removeAndReaddAllCompartments(RoadRunner *rri, libsbml::SBMLDocument *doc)
 
 SUITE(MODEL_EDITING_TEST_SUITE)
 {
-	TEST(ADD_REACTION_1)
+	/*TEST(ADD_REACTION_1)
 	{
 		CHECK(RunModelEditingTest(1, [](RoadRunner* rri) {
 			rri->addReaction("reaction2", {"S2"}, {"S1"}, "k1*S2", true);
@@ -665,7 +665,7 @@ SUITE(MODEL_EDITING_TEST_SUITE)
 			rri->addReaction("reaction1", {"S1", "S2"}, {"S3","S4"}, "compartment * k1 * S1 * S2", true);
 			rri->addReaction("reaction2", {"S3", "S4"}, {"S1", "S2"}, "compartment * k2 * S3 * S4", true);
 		}));
-	}
+	}*/
 
 	TEST(PAUSE_1)
 	{
@@ -675,14 +675,14 @@ SUITE(MODEL_EDITING_TEST_SUITE)
             for(double d : rri->getFloatingSpeciesInitialConcentrations())
 				cout << d << endl;
 			cout << rri->getFloatingSpeciesAmountsNamedArray() << endl;
-			rri->addReaction("reaction3", {"S1"}, {"S2"}, "compartment * k2 * S3 * S4");
+			rri->addReaction("reaction3", {"S3"}, {"S2"}, "compartment * k2 * S3 * S4");
             for(double d : rri->getFloatingSpeciesInitialConcentrations())
 				cout << d << endl;
 			cout << rri->getFloatingSpeciesAmountsNamedArray() << endl;
 		}));
 	}
 
-	TEST(PAUSE_2)
+	/*TEST(PAUSE_2)
 	{
 		CHECK(RunModelEditingTest(17, [](RoadRunner *rri)
 		{
@@ -695,7 +695,7 @@ SUITE(MODEL_EDITING_TEST_SUITE)
 				cout << d << endl;
 			cout << rri->getFloatingSpeciesAmountsNamedArray() << endl;
 		}));
-	}
+	}*/
 
 	TEST(PAUSE_3)
 	{
@@ -720,7 +720,7 @@ SUITE(MODEL_EDITING_TEST_SUITE)
 		}));
 	}
 
-	TEST(PAUSE_4)
+	/*TEST(PAUSE_4)
 	{
 		CHECK(RunModelEditingTest(19, [](RoadRunner *rri)
 		{
@@ -886,7 +886,7 @@ SUITE(MODEL_EDITING_TEST_SUITE)
 			rri->addDelay("event1", "1", false);
 			rri->addDelay("event2", "0.5");
 		}));
-	}
+	}*/
 
 	TEST(ADD_PRIORITY_2)
 	{
