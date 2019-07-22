@@ -672,13 +672,7 @@ SUITE(MODEL_EDITING_TEST_SUITE)
 		CHECK(RunModelEditingTest(15, [](RoadRunner *rri)
 		{
 			rri->simulate();
-            for(double d : rri->getFloatingSpeciesInitialConcentrations())
-				cout << d << endl;
-			cout << rri->getFloatingSpeciesAmountsNamedArray() << endl;
 			rri->addReaction("reaction3", {"S3"}, {"S2"}, "compartment * k2 * S3 * S4");
-            for(double d : rri->getFloatingSpeciesInitialConcentrations())
-				cout << d << endl;
-			cout << rri->getFloatingSpeciesAmountsNamedArray() << endl;
 		}));
 	}
 
@@ -687,13 +681,7 @@ SUITE(MODEL_EDITING_TEST_SUITE)
 		CHECK(RunModelEditingTest(17, [](RoadRunner *rri)
 		{
 			rri->simulate();
-            for(double d : rri->getFloatingSpeciesInitialConcentrations())
-				cout << d << endl;
-			cout << rri->getFloatingSpeciesAmountsNamedArray() << endl;
 			rri->removeReaction("reaction2");
-            for(double d : rri->getFloatingSpeciesInitialConcentrations())
-				cout << d << endl;
-			cout << rri->getFloatingSpeciesAmountsNamedArray() << endl;
 		}));
 	}
 
@@ -748,9 +736,7 @@ SUITE(MODEL_EDITING_TEST_SUITE)
 		CHECK(RunModelEditingTest(22, [](RoadRunner *rri)
 		{
 			rri->simulate();
-			std::cout << rri->getFloatingSpeciesAmountsNamedArray() << std::endl;
 			rri->addRateRule("S1", "7");
-			std::cout << rri->getFloatingSpeciesAmountsNamedArray() << std::endl;
 		}));
 	}
 
