@@ -480,7 +480,7 @@ Easy edit to the model without modifying and reloading sbml files.
 .. method:: RoadRunner.addParameter(pid, value, forceRegenerate)
    :module: RoadRunner
    
-   Add a parameter to the current model. Note that the species to be added must have an ID
+   Add a parameter to the current model. Note that the parameter to be added must have an ID
    that did not existed in the model.
    
    forceRegenerate is a boolean value that indicates whether the new model will be regenerated. Its 
@@ -529,6 +529,85 @@ Easy edit to the model without modifying and reloading sbml files.
 
    :param str pid: the ID of the parameter to be removed
    :param bool forceRegenerate: indicate whether the new model is regenerated after this function call
+   
+   
+   
+.. method:: RoadRunner.addCompartment(cid, initVolume, forceRegenerate)
+   :module: RoadRunner
+   
+   Add a compartment to the current model. Note that the compartment to be added must have an ID
+   that did not existed in the model.
+   
+   forceRegenerate is a boolean value that indicates whether the new model will be regenerated. Its 
+   default value is true, which means to regenerate model every time after this function is called. 
+   Note that regenerating model is time-consuming. To save time for editing model for multiple times, 
+   one could set this flag to false excepting for the last call, so that Roadrunner will only regenerate 
+   the model once after all editings are completed.
+   
+   For example,
+   
+   >>> r.addCompartment("c1", 0.1, false) # it will not regenerate the model, nothing actually happened
+   >>> r.addCompartment("c2", 0.1, true)  # new model is generated and saved
+  
+   :param str cid: the ID of the compartment to be added
+   :param double initVolume: the initial volume of the compartment to be added
+   :param bool forceRegenerate: indicate whether the new model is regenerated after this function call
+   
+   
+.. method:: RoadRunner.removeCompartment(cid, forceRegenerate)
+   :module: RoadRunner
+   
+   Remove a compartment from the current model. Note that the given compartment must exist in the
+   current model.
+   
+   All reactions related to this compartment(used in stoichiometry) will be removed.
+   Kinetic law used this compartment in the math formula will be unset.
+   All function definitions, constraints, initial assignments and rules related to this compartment
+   (as variables or used in math formula) will be removed.
+   All events used this compartment in trigger formula will be removed.
+   Priority and delay used this compartment in the math formula will be unset.
+   All event assignment related to this compartment(as variables or used in math formula) will be removed.
+   
+   If any global parameters become uninitialized during this process, i.e, has no initial assignment or
+   assignment rule, they will be removed recursively following the rules in removeParameter().
+   
+   forceRegenerate is a boolean value that indicates whether the new model will be regenerated. Its 
+   default value is true, which means to regenerate model every time after this function is called. 
+   Note that regenerating model is time-consuming. To save time for editing model for multiple times, 
+   one could set this flag to false excepting for the last call, so that Roadrunner will only regenerate 
+   the model once after all editings are completed.
+   
+   For example,
+   
+   >>> r.removeCompartment("c1", false) # it will not regenerate the model, nothing actually happened
+   >>> r.removeCompartment("c2", true)  # new model is generated and saved
+
+   :param str cid: the ID of the compartment to be removed
+   :param bool forceRegenerate: indicate whether the new model is regenerated after this function call
+   
+   
+.. method:: RoadRunner.setKineticLaw(rid, kineticLaw, forceRegenerate)
+   :module: RoadRunner
+   
+   Set hte kinetic law for an existing reaction in the current model. 
+   Note that given reaction must exist in the model.
+   
+   forceRegenerate is a boolean value that indicates whether the new model will be regenerated. Its 
+   default value is true, which means to regenerate model every time after this function is called. 
+   Note that regenerating model is time-consuming. To save time for editing model for multiple times, 
+   one could set this flag to false excepting for the last call, so that Roadrunner will only regenerate 
+   the model once after all editings are completed.
+   
+   For example,
+   
+   >>> r.setKineticLaw("r1", "s1 * k1", false) # it will not regenerate the model, nothing actually happened
+   >>> r.setKineticLaw("r2", "s2 * k1", true)  # new model is generated and saved
+  
+  
+   :param str rid: the ID of the reaction to be modified
+   :param str kineticLaw: the kinetic formular of reaction to be set
+   :param bool forceRegenerate: indicate whether the new model is regenerated after this function call
+   
  
 
 Simulation
