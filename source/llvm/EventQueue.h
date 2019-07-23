@@ -125,6 +125,15 @@ public:
      */
     double getNextPendingEventTime();
 
+	/*
+	* Save this EventQueue in binary format to out
+	*/
+	void saveState(std::ostream& out);
+
+    /*
+	* Load the events stored in in and add them to this queue and the executable model model
+	*/
+	void loadState(std::istream& in, LLVMExecutableModel& model);
 
     friend std::ostream& operator<< (std::ostream& stream, const EventQueue& queue);
 
@@ -135,7 +144,7 @@ private:
      *
      * Currently use a list, sortable and constant time insertion.
      */
-    _Sequence  c;
+    _Sequence  sequence;
     _Compare   comp;
 };
 

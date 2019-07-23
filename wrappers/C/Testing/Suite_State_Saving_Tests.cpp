@@ -356,7 +356,7 @@ SUITE(STATE_SAVING_TEST_SUITE)
 		}, "l3v1"));
 	}
 
-	/*TEST(SAVE_STATE_19)
+	TEST(SAVE_STATE_19)
 	{
 		CHECK(RunStateSavingTest(1120, [](RoadRunner *rri)
 		{
@@ -367,7 +367,7 @@ SUITE(STATE_SAVING_TEST_SUITE)
 			rri->loadState("save-state-test.rr");
 			rri->getSimulateOptions().start = rri->getSimulateOptions().duration;
 		}, "l3v1", false));
-	}*/
+	}
 
 	TEST(SAVE_STATE_20)
 	{
