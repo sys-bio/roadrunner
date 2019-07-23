@@ -12,6 +12,7 @@
 #include "LLVMExecutableModel.h"
 #include "ModelGeneratorContext.h"
 #include "LLVMIncludes.h"
+#include "llvm/Object/ObjectFile.h"
 #include "ModelResources.h"
 #include "Random.h"
 #include <rrLogger.h>
@@ -246,6 +247,38 @@ ExecutableModel* LLVMModelGenerator::createModel(const std::string& sbml,
 		setGlobalParameterInitValueIR			= 0;
 	}
 
+	
+	auto TargetMachine = context.getExecutionEngine().getTargetMachine();
+
+	llvm::InitializeNativeTarget();
+	llvm::InitializeNativeTargetAsmPrinter();
+
+	std::error_code EC;
+	llvm::SmallVector<char, 10> modBuffer;
+	llvm::raw_svector_ostream mStrStream(modBuffer);
+
+	llvm::legacy::PassManager pass;
+	auto FileType = TargetMachine->CGFT_ObjectFile;
+
+	if (TargetMachine->addPassesToEmitFile(pass, mStrStream, FileType))
+	{
+		throw std::invalid_argument("TargetMachine can't emit a file of type CGFT_ObjectFile");
+	}
+	pass.run(*context.module);
+	
+	std::string moduleStr(modBuffer.begin(), modBuffer.end());
+
+	auto memBuffer(llvm::MemoryBuffer::getMemBuffer(moduleStr));
+
+	llvm::Expected<std::unique_ptr<llvm::object::ObjectFile> > objectFileExpected =
+		llvm::object::ObjectFile::createObjectFile(llvm::MemoryBufferRef(moduleStr, "id"));
+    
+	std::unique_ptr<llvm::object::ObjectFile> objectFile(std::move(objectFileExpected.get()));
+	
+	llvm::object::OwningBinary<llvm::object::ObjectFile> owningObject(std::move(objectFile), std::move(memBuffer));
+
+	context.getExecutionEngine().addObjectFile(std::move(owningObject));
+
 	//https://stackoverflow.com/questions/28851646/llvm-jit-windows-8-1
 	context.getExecutionEngine().finalizeObject();
 
@@ -396,7 +429,8 @@ ExecutableModel* LLVMModelGenerator::createModel(const std::string& sbml,
 
     // * MOVE * the bits over from the context to the exe model.
     context.stealThePeach(&rc->symbols, &rc->context,
-            &rc->executionEngine, &rc->random, &rc->errStr, &rc->module);
+            &rc->executionEngine, &rc->random, &rc->errStr);
+	rc->moduleStr = moduleStr;
 
     if (!forceReCompile)
     {

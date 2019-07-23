@@ -62,29 +62,7 @@ void ModelResources::saveState(std::ostream& out) const
 	// caused it to regenerate, module will point to the module containing the jitted functions 
 	// generated. Otherwise, moduleStr will contain an object file representation of the jitted functions.
 	// So, if module is a nullptr, we simply save that. Otherwise, we generate the object file, and save it.
-	if (module) {
-		auto TargetMachine = executionEngine->getTargetMachine();
-		llvm::InitializeNativeTarget();
-		llvm::InitializeNativeTargetAsmPrinter();
-
-		std::error_code EC;
-		llvm::SmallVector<char, 10> modBuffer;
-		llvm::raw_svector_ostream mStrStream(modBuffer);
-
-		llvm::legacy::PassManager pass;
-		auto FileType = TargetMachine->CGFT_ObjectFile;
-
-		if (TargetMachine->addPassesToEmitFile(pass, mStrStream, FileType))
-		{
-			throw std::invalid_argument("TargetMachine can't emit a file of type CGFT_ObjectFile");
-		}
-		pass.run(*module);
-        
-		std::string toSave(modBuffer.begin(), modBuffer.end());
-		rr::saveBinary(out, toSave);
-	} else {
-		rr::saveBinary(out, moduleStr);
-	}
+	rr::saveBinary(out, moduleStr);
 }
 
 void ModelResources::addGlobalMapping(std::string name, void *addr)

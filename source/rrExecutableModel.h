@@ -737,7 +737,7 @@ public:
     void computeAllRatesOfChange() {};
 	
 	/*
-	* Returns "Not implemented for this model type" if not implemented for the underlying
+	* Writes "Not implemented for this model type" to out if not implemented for the underlying
 	* model type
 	*/
 	virtual void saveState(std::ostream& out) {
