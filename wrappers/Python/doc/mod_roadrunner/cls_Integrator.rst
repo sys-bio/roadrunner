@@ -50,24 +50,27 @@ ________________
 
     Fix tolerances for SBML tests. In order to ensure that the results of the SBML test suite remain valid, this method enforces a lower bound on tolerance values. Sets minimum absolute and relative tolerances to Config::CVODE_MIN_ABSOLUTE and Config::CVODE_MIN_RELATIVE respectively.
     
-.. method:: Integrator.setIndividualTolerance(index, value)
+.. method:: Integrator.setIndividualTolerance(sid, value)
 
-    Sets absolute tolerance for individual species, will only be used for CVODEIntegrator.
+    Sets absolute tolerance for individual floating species or variable that has a rate rule. Only used for CVODE Integrator.
     Note that this tolerance is based on the amount of species, and will be stored in absolute_tolerance.
     
-    :param int index: index of individual species
+    :param str sid: identifier of individual species or varible that has a rate rule
     :param double value: tolerance value to set
-    
-.. method:: Integrator.getConcentrationTolerance()
-
-    Gets the tolerance vector based on concentration of species, will only be used for CVODEIntegrator.
+ 
     
 .. method:: Integrator.setConcentrationTolerance(value)
 
-    Sets the tolerance based on concentration of species, will only be used for CVODEIntegrator.
+    Sets the tolerance based on concentration of species. Only used for CVODE Integrator.
     First converts the concentration tolerances to amount tolerances by multiplying the compartment volume of species. Whichever is smaller will be stored in absolute_tolerance and used in the integration process.
+    Note that if a double list is given, the size of list must be equal to numIndFloatingSpecies+numRateRule, including tolerances for each independent floating species that doesn't have a rate rule followed by tolerances for each variable(including dependent floating species) that has a rate rule. The order of independent floating species and variables is the same as the order how they were defined in species list and rate rule list. 
 
     :param double/double list value: tolerance value to set
+    
+.. method:: Integrator.getConcentrationTolerance()
+
+    Gets the tolerance vector based on concentration of species. Only used for CVODE Integrator.
+    The vector includes tolerances for each independent floating species that doesn't have a rate rule followed by tolerances for each variable(including dependent floating species) that has a rate rule. The order of independent floating species and variables is the same as the order how they were defined in species list and rate rule list. 
 
 
 CVODE
