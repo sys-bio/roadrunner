@@ -102,7 +102,7 @@ namespace rr
 	* @author FY
 	* @brief Set tolerance for individual species, will only be used in CVODEIntegrator
 	*/
-	virtual void setIndividualTolerance(int index, double value);
+	virtual void setIndividualTolerance(string sid, double value);
 
 
 	/**

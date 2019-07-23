@@ -67,7 +67,7 @@ namespace rr
 	
 	// since vector tolerance is only used in CVODEIntegrator
 	// the functions below will not be implemented here
-	void Integrator::setIndividualTolerance(int index, double value) {}
+	void Integrator::setIndividualTolerance(string sid, double value) {}
 
 	void Integrator::setConcentrationTolerance(const Variant& value) {}
 
