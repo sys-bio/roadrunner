@@ -190,6 +190,13 @@ int main(int argc, char* argv[])
         runner1.RunTestsIf(Test::GetTestList(), "SBML_TEST_SUITE_FBC", True(), 0);
     }
 
+	//State saving suite
+	if (args.Suites.find('O') != std::string::npos)
+	{
+		clog << "Running Suite STATE_SAVING_TEST_SUITE" << endl;
+		runner1.RunTestsIf(Test::GetTestList(), "STATE_SAVING_TEST_SUITE", True(), 0);
+	}
+
 
     //Finish outputs result to xml file
     runner1.Finish();
@@ -219,7 +226,7 @@ bool setup(Args& args)
     if(args.Suites.size() == 0)
     {
         //Run all the non-duplicated tests.
-        args.Suites = "ABCDEJL";
+        args.Suites = "ABCDEJLO";
     }
 
     setInstallFolder(gRRInstallFolder.c_str());
