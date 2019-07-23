@@ -6,7 +6,7 @@
 #include <complex>
 #include "rrConstants.h"
 #include "rrExporter.h"
-#include "rr-libstruct\lsMatrix.h"
+#include "rr-libstruct/lsMatrix.h"
 
 namespace rr
 {
