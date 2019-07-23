@@ -33,7 +33,7 @@ extern string gCompiler;
 * modification to the original model
 * Returns true if the results are close enough, false otherwise
 */
-bool RunStateSavingTest(int caseNumber, void(*modification)(RoadRunner*), std::string version = "l2v4")
+bool RunStateSavingTest(int caseNumber, void(*modification)(RoadRunner*), std::string version = "l2v4", bool defaultSBML = true)
 {
 	bool result(false);
 	RRHandle gRR;
@@ -88,7 +88,7 @@ bool RunStateSavingTest(int caseNumber, void(*modification)(RoadRunner*), std::s
 		createTestSuiteFileNameParts(caseNumber, "-sbml-" + version + ".xml", modelFilePath, modelFileName, settingsFileName);
 
 		//The following will load and compile and simulate the sbml model in the file
-		simulation.SetModelFilePath(modelFilePath);
+		simulation.SetModelFilePath(modelFilePath + (defaultSBML ? "" : "/state_saving"));
 		simulation.SetModelFileName(modelFileName);
 		simulation.ReCompileIfDllExists(true);
 		simulation.CopyFilesToOutputFolder();
@@ -189,5 +189,112 @@ SUITE(STATE_SAVING_TEST_SUITE)
 			rri->saveState("save-state-test.rr");
 			rri->loadState("save-state-test.rr");
 		}));
+	}
+
+	TEST(SAVE_STATE_2)
+	{
+		CHECK(RunStateSavingTest(1, [](RoadRunner *rri)
+		{
+			rri->saveState("save-state-test.rr");
+			rri->loadState("save-state-test.rr");
+			rri->saveState("save-state-test.rr");
+			rri->loadState("save-state-test.rr");
+		}));
+	}
+
+	TEST(SAVE_STATE_3)
+	{
+		CHECK(RunStateSavingTest(1, [](RoadRunner *rri)
+		{
+			rri->loadState("save-state-test.rr");
+		}));
+	}
+
+	TEST(SAVE_STATE_4)
+	{
+		CHECK(RunStateSavingTest(1, [](RoadRunner *rri)
+		{
+			rri->loadState("save-state-test.rr");
+			rri->loadState("save-state-test.rr");
+		}));
+	}
+
+	TEST(SAVE_STATE_5)
+	{
+		CHECK(RunStateSavingTest(1, [](RoadRunner *rri)
+		{
+			rri->loadState("save-state-test.rr");
+			rri->saveState("save-state-test.rr");
+			rri->loadState("save-state-test.rr");
+		}));
+	}
+
+	TEST(SAVE_STATE_6)
+	{
+		CHECK(RunStateSavingTest(1121, [](RoadRunner *rri)
+		{
+			rri->saveState("save-state-test.rr");
+			rri->loadState("save-state-test.rr");
+		}, "l3v1"));
+	}
+
+	TEST(SAVE_STATE_7)
+	{
+		CHECK(RunStateSavingTest(1121, [](RoadRunner *rri)
+		{
+			rri->saveState("save-state-test.rr");
+			rri->loadState("save-state-test.rr");
+			rri->saveState("save-state-test.rr");
+			rri->loadState("save-state-test.rr");
+		}, "l3v1"));
+	}
+
+	TEST(SAVE_STATE_8)
+	{
+		CHECK(RunStateSavingTest(1121, [](RoadRunner *rri)
+		{
+			rri->loadState("save-state-test.rr");
+		}, "l3v1"));
+	}
+
+	TEST(SAVE_STATE_9)
+	{
+		CHECK(RunStateSavingTest(1121, [](RoadRunner *rri)
+		{
+			rri->loadState("save-state-test.rr");
+			rri->loadState("save-state-test.rr");
+		}, "l3v1"));
+	}
+
+	TEST(SAVE_STATE_10)
+	{
+		CHECK(RunStateSavingTest(1121, [](RoadRunner *rri)
+		{
+			rri->loadState("save-state-test.rr");
+			rri->saveState("save-state-test.rr");
+			rri->loadState("save-state-test.rr");
+		}, "l3v1"));
+	}
+
+	TEST(SAVE_STATE_11)
+	{
+		CHECK(RunStateSavingTest(1, [](RoadRunner *rri)
+		{
+			rri->simulate();
+			rri->saveState("save-state-test.rr");
+			rri->loadState("save-state-test.rr");
+			rri->reset();
+		}));
+	}
+
+	TEST(SAVE_STATE_12)
+	{
+		CHECK(RunStateSavingTest(1121, [](RoadRunner *rri)
+		{
+			rri->simulate();
+			rri->saveState("save-state-test.rr");
+			rri->loadState("save-state-test.rr");
+			rri->reset(SelectionRecord::ALL);
+		}, "l3v1"));
 	}
 }
