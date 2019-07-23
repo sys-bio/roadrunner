@@ -331,10 +331,12 @@ namespace rr
 		return Integrator::Deterministic;
 	}
 
-	// TODO: NEW DOC
+
 	void CVODEIntegrator::setIndividualTolerance(string sid, double value) {
 		
 		// the tolerance vector that will be stored
+		// [0, numIndFloatingSpecies) stores tolerances for independent floating species
+		// [numIndFloatingSpecies, numIndFloatingSpecies+numRateRule) stores tolerances for variables that have rate rule
 		vector<double> v;
 
 		int speciesIndex = mModel->getFloatingSpeciesIndex(sid);
@@ -362,7 +364,6 @@ namespace rr
 		}
 
 
-		
 		switch (getType("absolute_tolerance")) {
 		
 			// all cases below could be convert to a double type
@@ -376,7 +377,6 @@ namespace rr
 				// scalar tolerance
 				// need to be converted to vector tolerance since tolerance of individual variables is set
 
-
 				double abstol = CVODEIntegrator::getValueAsDouble("absolute_tolerance");
 				for (int i = 0; i < mModel->getNumFloatingSpecies(); i++)
 					v.push_back(i == index ? value : abstol);
@@ -387,7 +387,7 @@ namespace rr
 			{
 				// vector tolerance
 				v = CVODEIntegrator::getValueAsDoubleVector("absolute_tolerance");
-				// only need to update the corresponding species
+				// only need to update the corresponding index
 				v[index] = value;
 				break;
 			}
@@ -444,8 +444,7 @@ namespace rr
 
 				vector<string> symbols = mModel->getRateRuleSymbols();
 				for (int i = 0; i < mModel->getNumRateRules(); i++) {
-					string symbol = symbols[i];
-					int speciesIndex = mModel->getFloatingSpeciesIndex(symbol);
+					int speciesIndex = mModel->getFloatingSpeciesIndex(symbols[i]);
 					if (speciesIndex > -1)
 					{
 						// the symbol defined by the rate rule is a species
@@ -463,7 +462,7 @@ namespace rr
 					}
 					else
 					{
-						// not a species, no need to divided by compartment volume
+						// not a species, no need to multiply compartment volume
 						v.push_back(abstol);
 					}
 				}
@@ -475,6 +474,10 @@ namespace rr
 			case Variant::DOUBLEVECTOR:
 			{
 				// vector concentration tolerance
+
+				// [0, numIndFloatingSpecies) stores tolerances for independent floating species
+				// [numIndFloatingSpecies, numIndFloatingSpecies+numRateRule) stores tolerances for variables that have rate rule
+
 				v = value.convert< vector<double> >();
 
 				checkVectorSize(mModel->getNumIndFloatingSpecies() + mModel->getNumRateRules(), v.size());
@@ -541,11 +544,13 @@ namespace rr
 			{
 				// scalar tolerance
 				double abstol = CVODEIntegrator::getValueAsDouble("absolute_tolerance");
-
-				for (int i = 0; i < mModel->getNumFloatingSpecies(); i++) {
+				int index;
+				for (int i = 0; i < mModel->getNumIndFloatingSpecies(); i++) {
 					// get the compartment volume of each species
-					int index = mModel->getCompartmentIndexForFloatingSpecies(i);
+					index = mModel->getCompartmentIndexForFloatingSpecies(i);
 					if (volumes[index] == 0) {
+						// when the compartment volume is 0, simply set the amount tolerance as the volume tolerance
+						// since the tolerance cannot be 0 (ILLEGAL_INPUT)
 						v.push_back(abstol);
 					}
 					else {
@@ -554,24 +559,68 @@ namespace rr
 					}
 				}
 
-				break;
-			}
 
-			case Variant::DOUBLEVECTOR:
-			{
-				// vector tolerance
-				v = CVODEIntegrator::getValueAsDoubleVector("absolute_tolerance");
-
-				for (int i = 0; i < v.size(); i++) {
-					// get the compartment volume of each species
-					int index = mModel->getCompartmentIndexForFloatingSpecies(i);
-
-					if (volumes[index] > 0) {
-						// convert the amount tolerance to concentration
-						v[i] = v[i] / volumes[index];
+				vector<string> symbols = mModel->getRateRuleSymbols();
+				for (int i = 0; i < mModel->getNumRateRules(); i++) {
+					int speciesIndex = mModel->getFloatingSpeciesIndex(symbols[i]);
+					if (speciesIndex > -1)
+					{
+						// the symbol defined by the rate rule is a species
+						index = mModel->getCompartmentIndexForFloatingSpecies(i);
+						if (volumes[index] == 0) {
+							v.push_back(abstol);
+						}
+						else {
+							v.push_back(abstol / volumes[index]);
+						}
+					}
+					else
+					{
+						// not a species, no need to divide by compartment volume
+						v.push_back(abstol);
 					}
 				}
 				break;
+			}
+
+
+			case Variant::DOUBLEVECTOR:
+			{
+				// vector concentration tolerance
+
+				// [0, numIndFloatingSpecies) stores tolerances for independent floating species
+				// [numIndFloatingSpecies, numIndFloatingSpecies+numRateRule) stores tolerances for variables that have rate rule
+
+				v = CVODEIntegrator::getValueAsDoubleVector("absolute_tolerance");
+
+				int index;
+				for (int i = 0; i < mModel->getNumIndFloatingSpecies(); i++) {
+					// get the compartment volume of each species
+					index = mModel->getCompartmentIndexForFloatingSpecies(i);
+					if (volumes[index] > 0) {
+						// compare the concentration tolerance with the adjusted amount tolerace
+						// store whichever is smaller
+						v[i] = v[i] / volumes[index];
+					}
+				}
+
+
+				vector<string> symbols = mModel->getRateRuleSymbols();
+				for (int i = mModel->getNumIndFloatingSpecies(); i < mModel->getNumRateRules() + mModel->getNumIndFloatingSpecies(); i++) {
+					string symbol = symbols[i];
+					int speciesIndex = mModel->getFloatingSpeciesIndex(symbol);
+					if (speciesIndex > -1)
+					{
+						// the symbol defined by the rate rule is a species
+						index = mModel->getCompartmentIndexForFloatingSpecies(i);
+						if (volumes[index] > 0) {
+							v[i] = v[i] / volumes[index];
+						}
+					}
+				}
+
+				break;
+
 			}
 
 			default:
