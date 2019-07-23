@@ -478,16 +478,35 @@ namespace rr
 				v = value.convert< vector<double> >();
 
 				checkVectorSize(mModel->getNumIndFloatingSpecies() + mModel->getNumRateRules(), v.size());
-				for (int i = 0; i < v.size(); i++) {
-					// get the compartment volume of each species
-					int index = mModel->getCompartmentIndexForFloatingSpecies(i);
 
+				int index;
+				for (int i = 0; i < mModel->getNumIndFloatingSpecies(); i++) {
+					// get the compartment volume of each species
+					index = mModel->getCompartmentIndexForFloatingSpecies(i);
 					if (volumes[index] > 0) {
 						// compare the concentration tolerance with the adjusted amount tolerace
 						// store whichever is smaller
 						v[i] = std::min(v[i], v[i] * volumes[index]);
 					}
 				}
+
+
+				vector<string> symbols = mModel->getRateRuleSymbols();
+				for (int i = mModel->getNumIndFloatingSpecies(); i < mModel->getNumRateRules() + mModel->getNumIndFloatingSpecies(); i++) {
+					string symbol = symbols[i];
+					int speciesIndex = mModel->getFloatingSpeciesIndex(symbol);
+					if (speciesIndex > -1)
+					{
+						// the symbol defined by the rate rule is a species
+						index = mModel->getCompartmentIndexForFloatingSpecies(i);
+						if (volumes[index] > 0) {
+							// compare the concentration tolerance with the adjusted amount tolerace
+							// store whichever is smaller
+							v[i] = std::min(v[i], v[i] * volumes[index]);
+						}
+					}
+				}
+	
 				break;
 			}
 
