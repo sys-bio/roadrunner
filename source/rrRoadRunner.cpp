@@ -5256,7 +5256,7 @@ void RoadRunner::loadState(std::string filename)
 	rr::loadBinary(in, impl->mCurrentSBML);
 
 	//Restart the integrator and reset the model time
-	impl->integrator->restart(0.0);
+	impl->integrator->restart(impl->model->getTime());
 	reset(SelectionRecord::TIME);
 }
 
