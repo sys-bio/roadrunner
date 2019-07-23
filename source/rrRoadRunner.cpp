@@ -5254,10 +5254,10 @@ void RoadRunner::loadState(std::string filename)
 
 	//Currently the SBML is saved with the binary data, see saveState above
 	rr::loadBinary(in, impl->mCurrentSBML);
-	//Restart the integrator and reset the model
-	//This will need to change if we decide to add pausing
-	//impl->integrator->restart(0.0);
-	//reset();
+
+	//Restart the integrator and reset the model time
+	impl->integrator->restart(0.0);
+	reset(SelectionRecord::TIME);
 }
 
 void RoadRunner::loadSelectionVector(std::istream& in, std::vector<SelectionRecord>& v)
