@@ -52,9 +52,9 @@
 #include "../../c/rrStringList.h"
 #include "../../rrConstants.h"
 //#include "telTelluriumData.h"
-#include "rr-libstruct\lsExporter.h"
-#include "rr-libstruct\lsLA.h"
-#include "rr-libstruct\lsLibla.h"
+#include "rr-libstruct/lsExporter.h"
+#include "rr-libstruct/lsLA.h"
+#include "rr-libstruct/lsLibla.h"
 
 //---------------------------------------------------------------------------
 namespace rr
