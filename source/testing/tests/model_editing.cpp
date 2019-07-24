@@ -28,7 +28,7 @@ extern string gCompiler;
 * modification to the original model
 * Returns true if the results are close enough, false otherwise
 */
-bool RunModelEditingTest(int caseNumber, void(*modification)(RoadRunner*), std::string version = "l2v4")
+bool RunModelEditingTest(void(*modification)(RoadRunner*),std::string version = "l2v4")
 {
 	bool result(false);
 	RoadRunner *rr;
@@ -51,15 +51,13 @@ bool RunModelEditingTest(int caseNumber, void(*modification)(RoadRunner*), std::
 
 		rr->getIntegrator()->setValue("stiff", false);
 
-		//Create a log file name
-		createTestSuiteFileNameParts(caseNumber, ".log", dummy, logFileName, settingsFileName);
 		if (!createFolder(dataOutputFolder))
 		{
 			string msg("Failed creating output folder for data output: " + dataOutputFolder);
 			throw(rr::Exception(msg));
 		}
 		//Create subfolder for data output
-		dataOutputFolder = joinPath(dataOutputFolder, getTestSuiteSubFolderName(caseNumber));
+		dataOutputFolder = joinPath(dataOutputFolder, testName);
 
 		if (!createFolder(dataOutputFolder))
 		{
@@ -152,7 +150,7 @@ bool RunModelEditingTest(int caseNumber, void(*modification)(RoadRunner*), std::
 		result = simulation.SaveModelAsXML(dataOutputFolder) && result;
 		if (!result)
 		{
-			Log(Logger::LOG_WARNING) << "\t\t =============== Test " << caseNumber << " failed =============\n";
+			Log(Logger::LOG_WARNING) << "\t\t =============== Test " << testName << " failed =============\n";
 		}
 		else
 		{
@@ -162,7 +160,7 @@ bool RunModelEditingTest(int caseNumber, void(*modification)(RoadRunner*), std::
 	catch (std::exception& ex)
 	{
 		string error = ex.what();
-		cerr << "Case " << caseNumber << ": Exception: " << error << endl;
+		cerr << "Case " << testName << ": Exception: " << error << endl;
 		delete rr;
 		return false;
 	}
@@ -409,44 +407,44 @@ SUITE(MODEL_EDITING_TEST_SUITE)
 {
 	TEST(ADD_REACTION_1)
 	{
-		CHECK(RunModelEditingTest(1, [](RoadRunner* rri) {
+		CHECK(RunModelEditingTest([](RoadRunner* rri) {
 			rri->addReaction("reaction2", {"S2"}, {"S1"}, "k1*S2", true);
 		}));
 	}
 	TEST(REMOVE_REACTION_1)
 	{
-		CHECK(RunModelEditingTest(2, [](RoadRunner* rri) {
+		CHECK(RunModelEditingTest([](RoadRunner* rri) {
 			rri->removeReaction("reaction2");
 		}));
 	}
 	TEST(ADD_REACTION_2)
 	{
-		CHECK(RunModelEditingTest(3, [](RoadRunner* rri) {
+		CHECK(RunModelEditingTest([](RoadRunner* rri) {
 			rri->addReaction("reaction2", {"2S1", "S2"}, {"2S2"}, "compartment * k1 * S1 + compartment * k1 * S2", true);
 		}));
 	}
 	TEST(REMOVE_REACTION_2)
 	{
-		CHECK(RunModelEditingTest(4, [](RoadRunner* rri) {
+		CHECK(RunModelEditingTest([](RoadRunner* rri) {
 			rri->removeReaction("reaction2");
 		}));
 	}
 	TEST(REMOVE_REACTION_3)
 	{
-		CHECK(RunModelEditingTest(5, [](RoadRunner* rri) {
+		CHECK(RunModelEditingTest([](RoadRunner* rri) {
 			rri->removeSpecies("S2");
 		}));
 	}
 	TEST(ADD_SPECIES_1)
 	{
-		CHECK(RunModelEditingTest(6, [](RoadRunner *rri)
+		CHECK(RunModelEditingTest([](RoadRunner *rri)
 		{
 			rri->addSpecies("S3", "compartment", 0.0015, "substance");
 		}));
 	}
 	TEST(ADD_REACTION_3)
 	{
-		CHECK(RunModelEditingTest(7, [](RoadRunner *rri)
+		CHECK(RunModelEditingTest([](RoadRunner *rri)
 		{
 			rri->addSpecies("S3", "compartment", 0.015, "substance", false);
 			rri->addReaction("reaction3", { "S2" }, { "S3" }, "k2*S2");
@@ -454,7 +452,7 @@ SUITE(MODEL_EDITING_TEST_SUITE)
 	}
 	TEST(ADD_REACTION_4)
 	{
-		CHECK(RunModelEditingTest(7, [](RoadRunner *rri)
+		CHECK(RunModelEditingTest([](RoadRunner *rri)
 		{
 			rri->addSpecies("S3", "compartment", 0.015, "substance");
 			rri->addReaction("reaction3", { "S2" }, { "S3" }, "k2*S2");
@@ -462,7 +460,7 @@ SUITE(MODEL_EDITING_TEST_SUITE)
 	}
 	TEST(ADD_REACTION_5)
 	{
-		CHECK(RunModelEditingTest(8, [](RoadRunner *rri)
+		CHECK(RunModelEditingTest([](RoadRunner *rri)
 		{
 			rri->addSpecies("S3", "compartment", 0.15, "substance", false);
 			rri->addReaction("reaction3", { "S3" }, { "S1" }, "k2*S3");
@@ -470,7 +468,7 @@ SUITE(MODEL_EDITING_TEST_SUITE)
 	}
 	TEST(REMOVE_SPECIES_1)
 	{
-		CHECK(RunModelEditingTest(9, [](RoadRunner *rri)
+		CHECK(RunModelEditingTest([](RoadRunner *rri)
 		{
 			rri->removeSpecies("S2", false);
 			rri->addSpecies("S3", "compartment", 0.00030, "substance", false);
@@ -481,7 +479,7 @@ SUITE(MODEL_EDITING_TEST_SUITE)
 
 	TEST(REMOVE_SPECIES_2)
 	{
-		CHECK(RunModelEditingTest(14, [](RoadRunner *rri)
+		CHECK(RunModelEditingTest([](RoadRunner *rri)
 		{
 			rri->removeSpecies("S4");
 		}));
@@ -489,7 +487,7 @@ SUITE(MODEL_EDITING_TEST_SUITE)
 
 	TEST(ADD_EVENT_1)
 	{
-		CHECK(RunModelEditingTest(10, [](RoadRunner *rri)
+		CHECK(RunModelEditingTest([](RoadRunner *rri)
 		{
 			rri->addEvent("event1", true, "S1 > 0.00015", false);
 			rri->addEventAssignment("event1", "S1", "1", true);
@@ -498,7 +496,7 @@ SUITE(MODEL_EDITING_TEST_SUITE)
 
 	TEST(EVENT_PRIORITY_1)
 	{
-		CHECK(RunModelEditingTest(930, [](RoadRunner *rri)
+		CHECK(RunModelEditingTest([](RoadRunner *rri)
 		{
 			rri->addEvent("_E0", true, "time >= 0.99", false);
 			rri->addPriority("_E0", "1", false);
@@ -516,7 +514,7 @@ SUITE(MODEL_EDITING_TEST_SUITE)
 
 	TEST(EVENT_DELAY_1)
 	{
-		CHECK(RunModelEditingTest(71, [](RoadRunner *rri)
+		CHECK(RunModelEditingTest([](RoadRunner *rri)
 		{
 			rri->addDelay("event1", "1");
 		}));
@@ -524,7 +522,7 @@ SUITE(MODEL_EDITING_TEST_SUITE)
 
 	TEST(REMOVE_EVENT_1)
 	{
-		CHECK(RunModelEditingTest(11, [](RoadRunner *rri)
+		CHECK(RunModelEditingTest([](RoadRunner *rri)
 		{
 			rri->removeEvent("event1");
 		}));
@@ -532,7 +530,7 @@ SUITE(MODEL_EDITING_TEST_SUITE)
 
 	TEST(ADD_PARAMETER_1)
 	{
-		CHECK(RunModelEditingTest(12, [](RoadRunner *rri)
+		CHECK(RunModelEditingTest([](RoadRunner *rri)
 		{
 			rri->addParameter("k1", 0.75, false);
 			rri->addReaction("reaction1", { "S1", "S2" }, { "S3" }, "k1*S1*S2");
@@ -541,7 +539,7 @@ SUITE(MODEL_EDITING_TEST_SUITE)
 
 	TEST(ADD_COMPARTMENT_1)
 	{
-		CHECK(RunModelEditingTest(54, [](RoadRunner *rri)
+		CHECK(RunModelEditingTest([](RoadRunner *rri)
 		{
 			rri->addCompartment("compartment", 1, false);
 			rri->addReaction("reaction1", { "S1", "S2" }, { "2S2" }, "compartment * k1 * S1 * S2", true);
@@ -550,7 +548,7 @@ SUITE(MODEL_EDITING_TEST_SUITE)
 
 	TEST(ADD_COMPARTMENT_2)
 	{
-		CHECK(RunModelEditingTest(56, [](RoadRunner *rri)
+		CHECK(RunModelEditingTest([](RoadRunner *rri)
 		{
 			rri->addCompartment("compartment", 1, false);
 			rri->addReaction("reaction1", { "S1" }, { "S3" }, "compartment * k1 * S1");
@@ -559,7 +557,7 @@ SUITE(MODEL_EDITING_TEST_SUITE)
 
 	TEST(ADD_ASSIGNMENT_RULE_1)
 	{
-		CHECK(RunModelEditingTest(30, [](RoadRunner *rri)
+		CHECK(RunModelEditingTest([](RoadRunner *rri)
 		{
 			rri->addAssignmentRule("S1", "7");
 		}));
@@ -567,7 +565,7 @@ SUITE(MODEL_EDITING_TEST_SUITE)
 
 	TEST(ADD_ASSIGNMENT_RULE_2)
 	{
-		CHECK(RunModelEditingTest(30, [](RoadRunner *rri)
+		CHECK(RunModelEditingTest([](RoadRunner *rri)
 		{
 			rri->addAssignmentRule("S1", "7");
 		}));
@@ -575,7 +573,7 @@ SUITE(MODEL_EDITING_TEST_SUITE)
 
 	TEST(ADD_ASSIGNMENT_RULE_3)
 	{
-		CHECK(RunModelEditingTest(38, [](RoadRunner *rri)
+		CHECK(RunModelEditingTest([](RoadRunner *rri)
 		{
 			rri->addAssignmentRule("S3", "k1 * S2");
 		}));
@@ -583,7 +581,7 @@ SUITE(MODEL_EDITING_TEST_SUITE)
 
 	TEST(ADD_RATE_RULE_1)
 	{
-		CHECK(RunModelEditingTest(31, [](RoadRunner *rri)
+		CHECK(RunModelEditingTest([](RoadRunner *rri)
 		{
 			rri->addRateRule("S1", "7");
 		}));
@@ -592,7 +590,7 @@ SUITE(MODEL_EDITING_TEST_SUITE)
 
 	TEST(ADD_RATE_RULE_2)
 	{
-		CHECK(RunModelEditingTest(32, [](RoadRunner *rri)
+		CHECK(RunModelEditingTest([](RoadRunner *rri)
 		{
 			rri->addRateRule("S1", "-1 * k1 * S1", false);
 			rri->addRateRule("S2", "k1 * S1", true);
@@ -601,7 +599,7 @@ SUITE(MODEL_EDITING_TEST_SUITE)
 
 	TEST(ADD_RATE_RULE_3)
 	{
-		CHECK(RunModelEditingTest(10032, [](RoadRunner *rri)
+		CHECK(RunModelEditingTest([](RoadRunner *rri)
 		{
 			rri->addRateRule("S1", "-1 * k1 * S1");
 			rri->addRateRule("S2", "k1 * S1");
@@ -611,7 +609,7 @@ SUITE(MODEL_EDITING_TEST_SUITE)
 
 	TEST(SET_KINETIC_LAW_1)
 	{
-		CHECK(RunModelEditingTest(13, [](RoadRunner *rri)
+		CHECK(RunModelEditingTest([](RoadRunner *rri)
 		{
 			rri->setKineticLaw("reaction2", "compartment * k2 * S3");
 		}));
@@ -619,7 +617,7 @@ SUITE(MODEL_EDITING_TEST_SUITE)
 
 	TEST(SET_KINETIC_LAW_2)
 	{
-		CHECK(RunModelEditingTest(16, [](RoadRunner *rri)
+		CHECK(RunModelEditingTest([](RoadRunner *rri)
 		{
 			rri->setKineticLaw("reaction1", "compartment * k1 * S1 * S2");
 			rri->setKineticLaw("reaction2", "compartment * k2 * S3 * S4");
@@ -628,7 +626,7 @@ SUITE(MODEL_EDITING_TEST_SUITE)
 
 	TEST(SET_KINETIC_LAW_3)
 	{
-		CHECK(RunModelEditingTest(16, [](RoadRunner *rri)
+		CHECK(RunModelEditingTest([](RoadRunner *rri)
 		{
 			rri->setKineticLaw("reaction1", "compartment * k1 * S1 * S2", false);
 			rri->setKineticLaw("reaction2", "compartment * k2 * S3 * S4", true);
@@ -637,7 +635,7 @@ SUITE(MODEL_EDITING_TEST_SUITE)
 
 	TEST(TRANSFORM_1)
 	{
-		CHECK(RunModelEditingTest(47, [](RoadRunner *rri)
+		CHECK(RunModelEditingTest([](RoadRunner *rri)
 		{
 			rri->removeSpecies("S1", true);
 			rri->removeSpecies("S2", true);
@@ -655,7 +653,7 @@ SUITE(MODEL_EDITING_TEST_SUITE)
 
 	TEST(PAUSE_1)
 	{
-		CHECK(RunModelEditingTest(15, [](RoadRunner *rri)
+		CHECK(RunModelEditingTest([](RoadRunner *rri)
 		{
 			rri->simulate();
 			rri->addReaction("reaction3", {"S3"}, {"S2"}, "compartment * k2 * S3 * S4");
@@ -664,7 +662,7 @@ SUITE(MODEL_EDITING_TEST_SUITE)
 
 	TEST(PAUSE_2)
 	{
-		CHECK(RunModelEditingTest(17, [](RoadRunner *rri)
+		CHECK(RunModelEditingTest([](RoadRunner *rri)
 		{
 			rri->simulate();
 			rri->removeReaction("reaction2");
@@ -673,7 +671,7 @@ SUITE(MODEL_EDITING_TEST_SUITE)
 
 	TEST(PAUSE_3)
 	{
-		CHECK(RunModelEditingTest(18, [](RoadRunner *rri)
+		CHECK(RunModelEditingTest([](RoadRunner *rri)
 		{
 			rri->simulate();
 			rri->addSpecies("S5", "compartment", 0.001, "substance");
@@ -682,7 +680,7 @@ SUITE(MODEL_EDITING_TEST_SUITE)
 
 	TEST(PAUSE_4)
 	{
-		CHECK(RunModelEditingTest(19, [](RoadRunner *rri)
+		CHECK(RunModelEditingTest([](RoadRunner *rri)
 		{
 			rri->simulate();
 			rri->removeSpecies("S4");
@@ -691,7 +689,7 @@ SUITE(MODEL_EDITING_TEST_SUITE)
 
 	TEST(PAUSE_5)
 	{
-		CHECK(RunModelEditingTest(20, [](RoadRunner *rri)
+		CHECK(RunModelEditingTest([](RoadRunner *rri)
 		{
 			rri->simulate();
 			rri->setKineticLaw("reaction3", "sin(S2)");
@@ -700,7 +698,7 @@ SUITE(MODEL_EDITING_TEST_SUITE)
 
 	TEST(PAUSE_6)
 	{
-		CHECK(RunModelEditingTest(21, [](RoadRunner *rri)
+		CHECK(RunModelEditingTest([](RoadRunner *rri)
 		{
 			rri->simulate();
 			rri->addEvent("event1", false, "S2 > 0.0004", false);
@@ -710,7 +708,7 @@ SUITE(MODEL_EDITING_TEST_SUITE)
 
 	TEST(PAUSE_7)
 	{
-		CHECK(RunModelEditingTest(348, [](RoadRunner *rri)
+		CHECK(RunModelEditingTest([](RoadRunner *rri)
 		{
 			rri->simulate();
 			rri->removeEvent("event1");
@@ -719,7 +717,7 @@ SUITE(MODEL_EDITING_TEST_SUITE)
 
 	TEST(PAUSE_8)
 	{
-		CHECK(RunModelEditingTest(22, [](RoadRunner *rri)
+		CHECK(RunModelEditingTest([](RoadRunner *rri)
 		{
 			rri->simulate();
 			rri->addRateRule("S1", "7");
@@ -728,7 +726,7 @@ SUITE(MODEL_EDITING_TEST_SUITE)
 
 	TEST(PAUSE_9)
 	{
-		CHECK(RunModelEditingTest(33, [](RoadRunner *rri)
+		CHECK(RunModelEditingTest([](RoadRunner *rri)
 		{
 			rri->simulate();
 			rri->removeRules("k1");
@@ -737,7 +735,7 @@ SUITE(MODEL_EDITING_TEST_SUITE)
 
 	TEST(PAUSE_10)
 	{
-		CHECK(RunModelEditingTest(26, [](RoadRunner *rri)
+		CHECK(RunModelEditingTest([](RoadRunner *rri)
 		{
 			rri->simulate();
 			rri->addDelay("event1", "0.2");
@@ -747,7 +745,7 @@ SUITE(MODEL_EDITING_TEST_SUITE)
 
 	TEST(ADD_EVENT_ASSIGNMENT_1)
 	{
-		CHECK(RunModelEditingTest(349, [](RoadRunner *rri)
+		CHECK(RunModelEditingTest([](RoadRunner *rri)
 		{
 			rri->addEventAssignment("event2", "S3", "1");
 		}));
@@ -755,7 +753,7 @@ SUITE(MODEL_EDITING_TEST_SUITE)
 
     TEST(REMOVE_RULES_2)
     {
-		CHECK(RunModelEditingTest(82, [](RoadRunner *rri)
+		CHECK(RunModelEditingTest([](RoadRunner *rri)
 		{
 			rri->simulate();
 			rri->removeRules("S4");
@@ -764,7 +762,7 @@ SUITE(MODEL_EDITING_TEST_SUITE)
 
 	TEST(ADD_EVENT_ASSIGNMENT_2)
 	{
-		CHECK(RunModelEditingTest(10349, [](RoadRunner *rri)
+		CHECK(RunModelEditingTest([](RoadRunner *rri)
 		{
 			rri->simulate();
 			rri->addEventAssignment("event1", "S3", "1");
@@ -773,7 +771,7 @@ SUITE(MODEL_EDITING_TEST_SUITE)
 
 	TEST(ADD_RATE_RULE_PARAMETER_1)
 	{
-		CHECK(RunModelEditingTest(66, [](RoadRunner *rri)
+		CHECK(RunModelEditingTest([](RoadRunner *rri)
 		{
 			rri->addRateRule("k1", "1000000");
 		}));
@@ -781,7 +779,7 @@ SUITE(MODEL_EDITING_TEST_SUITE)
 
 	TEST(ADD_RATE_RULE_PARAMETER_2)
 	{
-		CHECK(RunModelEditingTest(10066, [](RoadRunner *rri)
+		CHECK(RunModelEditingTest([](RoadRunner *rri)
 		{
 			rri->addParameter("k1", 1000000);
 			rri->addRateRule("k1", "1000000");
@@ -791,7 +789,7 @@ SUITE(MODEL_EDITING_TEST_SUITE)
 
 	TEST(ADD_TRIGGER_1)
 	{
-		CHECK(RunModelEditingTest(350, [](RoadRunner *rri)
+		CHECK(RunModelEditingTest([](RoadRunner *rri)
 		{
 			rri->addTrigger("event1", "S1 < 0.75");
 		}));
@@ -799,7 +797,7 @@ SUITE(MODEL_EDITING_TEST_SUITE)
 
 	TEST(ADD_TRIGGER_2)
 	{
-		CHECK(RunModelEditingTest(10350, [](RoadRunner *rri)
+		CHECK(RunModelEditingTest([](RoadRunner *rri)
 		{
 			rri->addTrigger("event1", "S1 < 0.75");
 		}));
@@ -807,7 +805,7 @@ SUITE(MODEL_EDITING_TEST_SUITE)
 
 	TEST(REMOVE_COMPARTMENT_1)
 	{
-		CHECK(RunModelEditingTest(55, [](RoadRunner *rri)
+		CHECK(RunModelEditingTest([](RoadRunner *rri)
 		{
 			rri->removeCompartment("compartment");
 		}));
@@ -815,7 +813,7 @@ SUITE(MODEL_EDITING_TEST_SUITE)
 
 	TEST(REMOVE_COMPARTMENT_2)
 	{
-		CHECK(RunModelEditingTest(10055, [](RoadRunner *rri)
+		CHECK(RunModelEditingTest([](RoadRunner *rri)
 		{
 			rri->removeCompartment("compartment1");
 		}));
@@ -823,7 +821,7 @@ SUITE(MODEL_EDITING_TEST_SUITE)
 
 	TEST(REMOVE_EVENT_ASSIGNMENT_1)
 	{
-		CHECK(RunModelEditingTest(41, [](RoadRunner *rri)
+		CHECK(RunModelEditingTest([](RoadRunner *rri)
 		{
 			rri->removeEventAssignments("event1", "S2");
 		}));
@@ -831,7 +829,7 @@ SUITE(MODEL_EDITING_TEST_SUITE)
 
 	TEST(REMOVE_EVENT_ASSIGNMENT_2)
 	{
-		CHECK(RunModelEditingTest(73, [](RoadRunner *rri)
+		CHECK(RunModelEditingTest([](RoadRunner *rri)
 		{
 			rri->removeEventAssignments("event1", "S1");
 		}));
@@ -839,7 +837,7 @@ SUITE(MODEL_EDITING_TEST_SUITE)
 
 	TEST(REMOVE_PARAMETER_1)
 	{
-		CHECK(RunModelEditingTest(23, [](RoadRunner *rri)
+		CHECK(RunModelEditingTest([](RoadRunner *rri)
 		{
 			rri->removeParameter("k4");
 		}));
@@ -847,7 +845,7 @@ SUITE(MODEL_EDITING_TEST_SUITE)
 
 	TEST(ADD_DELAY_2)
 	{
-		CHECK(RunModelEditingTest(72, [](RoadRunner *rri)
+		CHECK(RunModelEditingTest([](RoadRunner *rri)
 		{
 			rri->addDelay("event1", "1", false);
 			rri->addDelay("event2", "0.5");
@@ -856,7 +854,7 @@ SUITE(MODEL_EDITING_TEST_SUITE)
 
 	TEST(ADD_PRIORITY_2)
 	{
-		CHECK(RunModelEditingTest(963, [](RoadRunner* rri)
+		CHECK(RunModelEditingTest([](RoadRunner* rri)
 		{
 			rri->addEvent("Rinc", true, "(time - reset) >= 0.01", false);
 			rri->addEventAssignment("Rinc", "reset", "time", false);
@@ -879,7 +877,7 @@ SUITE(MODEL_EDITING_TEST_SUITE)
 
 	TEST(REMOVE_PARAM_RECURSE_1)
 	{
-		CHECK(RunModelEditingTest(10001, [](RoadRunner *rri)
+		CHECK(RunModelEditingTest([](RoadRunner *rri)
 		{
 			rri->removeParameter("k2");
 		}));
@@ -888,7 +886,7 @@ SUITE(MODEL_EDITING_TEST_SUITE)
     
 	TEST(REMOVE_PARAM_RECURSE_2)
 	{
-		CHECK(RunModelEditingTest(10002, [](RoadRunner *rri)
+		CHECK(RunModelEditingTest([](RoadRunner *rri)
 		{
 			rri->removeParameter("k4");
 		}));
