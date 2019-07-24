@@ -80,10 +80,14 @@ bool TestSuiteModelSimulation::LoadSettingsEx(const string& settingsFName)
     return result;
 }
 
-bool TestSuiteModelSimulation::LoadReferenceData()
+bool TestSuiteModelSimulation::LoadReferenceData(string refDataFileName)
 {
     //The reference data is located in the folder where the model is located
-    string refDataFileName = joinPath(mModelFilePath, GetReferenceDataFileNameForCase(mCurrentCaseNumber));
+	if (!refDataFileName.size())
+	{
+        refDataFileName = joinPath(mModelFilePath, GetReferenceDataFileNameForCase(mCurrentCaseNumber));
+	}
+
     if(!fileExists(refDataFileName))
     {
         Log(lWarning)<<"Could not open reference data file: "<<refDataFileName;

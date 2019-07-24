@@ -33,6 +33,155 @@ extern string gCompiler;
 * modification to the original model
 * Returns true if the results are close enough, false otherwise
 */
+bool RunStateSavingTest(void(*modification)(RoadRunner*), std::string version = "l2v4")
+{
+	bool result(false);
+	RRHandle gRR;
+
+	string testName(UnitTest::CurrentTest::Details()->testName);
+
+	//Create instance..
+	gRR = createRRInstanceEx(gTempFolder.c_str(), gCompiler.c_str());
+
+	//Setup environment
+	setTempFolder(gRR, gTempFolder.c_str());
+	libsbml::SBMLDocument doc;
+
+	if (!gRR)
+	{
+		return false;
+	}
+
+	try
+	{
+		Log(Logger::LOG_NOTICE) << "Running Test: " << testName << endl;
+		string dataOutputFolder(gTempFolder + "/state_saving");
+		string dummy;
+		string settingsFileName;
+
+		setCurrentIntegratorParameterBoolean(gRR, "stiff", 0);
+
+		//Create a log file name
+		if (!createFolder(dataOutputFolder))
+		{
+			string msg("Failed creating output folder for data output: " + dataOutputFolder);
+			throw(rr::Exception(msg));
+		}
+		//Create subfolder for data output
+		dataOutputFolder = joinPath(dataOutputFolder, testName);
+
+		if (!createFolder(dataOutputFolder))
+		{
+			string msg("Failed creating output folder for data output: " + dataOutputFolder);
+			throw(rr::Exception(msg));
+		}
+
+		SBMLTestSuiteSimulation_CAPI simulation(dataOutputFolder);
+
+		simulation.UseHandle(gRR);
+
+		//Read SBML models.....
+		string modelFilePath(gTSModelsPath + "/state_saving");
+		string modelFileName;
+
+		simulation.SetCaseNumber(0);
+
+		modelFilePath = joinPath(modelFilePath, testName);
+		modelFileName = testName + "-sbml-" + version + ".xml";
+		settingsFileName = testName + "-settings.txt";
+
+		//The following will load and compile and simulate the sbml model in the file
+		simulation.SetModelFilePath(modelFilePath);
+		simulation.SetModelFileName(modelFileName);
+		simulation.ReCompileIfDllExists(true);
+		simulation.CopyFilesToOutputFolder();
+		setTempFolder(gRR, simulation.GetDataOutputFolder().c_str());
+		setComputeAndAssignConservationLaws(gRR, false);
+
+		libsbml::SBMLReader reader;
+		std::string fullPath = modelFilePath + "/" + modelFileName;
+		doc = *reader.readSBML(fullPath);
+
+		if (!simulation.LoadSBMLFromFile())
+		{
+			throw(Exception("Failed loading sbml from file"));
+		}
+
+
+		//Check first if file exists first
+		if (!fileExists(fullPath))
+		{
+			Log(Logger::LOG_ERROR) << "sbml file " << fullPath << " not found";
+			throw(Exception("No such SBML file: " + fullPath));
+		}
+
+		RoadRunner* rri = (RoadRunner*)gRR;
+
+		LoadSBMLOptions opt;
+
+		// don't generate cache for models
+		opt.modelGeneratorOpt = opt.modelGeneratorOpt | LoadSBMLOptions::RECOMPILE;
+
+		opt.modelGeneratorOpt = opt.modelGeneratorOpt | LoadSBMLOptions::MUTABLE_INITIAL_CONDITIONS;
+
+		opt.modelGeneratorOpt = opt.modelGeneratorOpt & ~LoadSBMLOptions::READ_ONLY;
+
+		opt.modelGeneratorOpt = opt.modelGeneratorOpt | LoadSBMLOptions::OPTIMIZE_CFG_SIMPLIFICATION;
+
+		opt.modelGeneratorOpt = opt.modelGeneratorOpt | LoadSBMLOptions::OPTIMIZE_GVN;
+
+
+		rri->load(fullPath, &opt);
+
+		//Then read settings file if it exists..
+		if (!simulation.LoadSettings(joinPath(modelFilePath, settingsFileName)))
+		{
+			throw(Exception("Failed loading simulation settings"));
+		}
+		modification(rri);
+		//Then Simulate model
+		if (!simulation.Simulate())
+		{
+			throw(Exception("Failed running simulation"));
+		}
+
+		//Write result
+		if (!simulation.SaveResult())
+		{
+			//Failed to save data
+			throw(Exception("Failed saving result"));
+		}
+
+		if (!simulation.LoadReferenceData(modelFilePath + "/" + testName + "-results.csv"))
+		{
+			throw(Exception("Failed Loading reference data"));
+		}
+
+		simulation.CreateErrorData();
+		result = simulation.Pass();
+		result = simulation.SaveAllData() && result;
+		result = simulation.SaveModelAsXML(dataOutputFolder) && result;
+		if (!result)
+		{
+			Log(Logger::LOG_WARNING) << "\t\t =============== Test " << testName << " failed =============\n";
+		}
+		else
+		{
+			Log(Logger::LOG_NOTICE) << "\t\tTest passed.\n";
+		}
+	}
+	catch (std::exception& ex)
+	{
+		string error = ex.what();
+		cerr << "Case " << testName << ": Exception: " << error << endl;
+		freeRRInstance(gRR);
+		return false;
+	}
+
+	freeRRInstance(gRR);
+	return result;
+}
+
 bool RunStateSavingTest(int caseNumber, void(*modification)(RoadRunner*), std::string version = "l2v4", bool defaultSBML = true)
 {
 	bool result(false);
@@ -358,7 +507,7 @@ SUITE(STATE_SAVING_TEST_SUITE)
 
 	TEST(SAVE_STATE_19)
 	{
-		CHECK(RunStateSavingTest(1120, [](RoadRunner *rri)
+		CHECK(RunStateSavingTest([](RoadRunner *rri)
 		{
 			rri->getSimulateOptions().duration /= 2;
 			rri->getSimulateOptions().steps /= 2;
@@ -366,12 +515,12 @@ SUITE(STATE_SAVING_TEST_SUITE)
 			rri->saveState("save-state-test.rr");
 			rri->loadState("save-state-test.rr");
 			rri->getSimulateOptions().start = rri->getSimulateOptions().duration;
-		}, "l3v1", false));
+		}, "l3v1"));
 	}
 
 	TEST(SAVE_STATE_20)
 	{
-		CHECK(RunStateSavingTest(26, [](RoadRunner *rri)
+		CHECK(RunStateSavingTest([](RoadRunner *rri)
 		{
 			rri->getSimulateOptions().duration /= 2;
 			rri->getSimulateOptions().steps /= 2;
@@ -379,12 +528,12 @@ SUITE(STATE_SAVING_TEST_SUITE)
 			rri->saveState("save-state-test.rr");
 			rri->loadState("save-state-test.rr");
 			rri->getSimulateOptions().start = rri->getSimulateOptions().duration;
-		}, "l3v1", false));
+		}));
 	}
 
 	TEST(SAVE_STATE_21)
 	{
-		CHECK(RunStateSavingTest(1121, [](RoadRunner *rri)
+		CHECK(RunStateSavingTest([](RoadRunner *rri)
 		{
 			rri->getSimulateOptions().duration = 1.50492;
 			rri->getSimulateOptions().steps /= 2;
@@ -393,6 +542,6 @@ SUITE(STATE_SAVING_TEST_SUITE)
 			rri->loadState("save-state-test.rr");
 			rri->getSimulateOptions().start = rri->getSimulateOptions().duration;
 			rri->getSimulateOptions().duration = 3.0 - rri->getSimulateOptions().duration;
-		}, "l3v1", false));
+		}, "l3v1"));
 	}
 }
