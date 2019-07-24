@@ -26,11 +26,9 @@ extern string gTSModelsPath;
 extern string gCompiler;
 
 /*
-* Loads <prefix>/source/roadrunner/models/sbml-test-suite/cases/semantic/model_editing/NNNNN/NNNNN-sbml-*VERSION*.xml
-* where NNNNN is case number
-* applies modification to the resulting roadrunner instance and compares the result to NNNNN-results.csv in the same folder, 
-* which should be the result of running the model NNNNN-sbml-*VERSION*-mod.xml, which should be the model expected after applying
-* modification to the original model
+* Loads <prefix>/source/roadrunner/models/sbml-test-suite/cases/semantic/<suite-name>/<test-name>/<test-name>-sbml-*VERSION*.xml
+* applies modification to the resulting roadrunner instance and compares the result to <test-name>-results.csv in the same folder, 
+* The method obtains test-name and suite-name from UnitTest++ so this method must be run within a UnitTest++ test
 * Returns true if the results are close enough, false otherwise
 */
 bool RunStateSavingTest(void(*modification)(RoadRunner*), std::string version = "l2v4")
@@ -39,6 +37,7 @@ bool RunStateSavingTest(void(*modification)(RoadRunner*), std::string version = 
 	RRHandle gRR;
 
 	string testName(UnitTest::CurrentTest::Details()->testName);
+	string suiteName(UnitTest::CurrentTest::Details()->suiteName);
 
 	//Create instance..
 	gRR = createRRInstanceEx(gTempFolder.c_str(), gCompiler.c_str());
@@ -55,7 +54,7 @@ bool RunStateSavingTest(void(*modification)(RoadRunner*), std::string version = 
 	try
 	{
 		Log(Logger::LOG_NOTICE) << "Running Test: " << testName << endl;
-		string dataOutputFolder(gTempFolder + "/state_saving");
+		string dataOutputFolder(joinPath(gTempFolder, suiteName));
 		string dummy;
 		string settingsFileName;
 
@@ -81,7 +80,7 @@ bool RunStateSavingTest(void(*modification)(RoadRunner*), std::string version = 
 		simulation.UseHandle(gRR);
 
 		//Read SBML models.....
-		string modelFilePath(gTSModelsPath + "/state_saving");
+		string modelFilePath(joinPath(gTSModelsPath, suiteName));
 		string modelFileName;
 
 		simulation.SetCaseNumber(0);
