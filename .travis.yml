@@ -64,6 +64,8 @@ before_script: true
 script:
   - cd ~/build/roadrunner
   - make -j2 && make install
+  - ls
+  - ./bin/cxx_api_tests
   - ctest -V
   # display results of compiled tests
   - cat autotest/compiled-test-suite/results.xml
