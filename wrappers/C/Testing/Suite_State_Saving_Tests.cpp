@@ -182,7 +182,7 @@ bool RunStateSavingTest(void(*modification)(RoadRunner*), std::string version = 
 	return result;
 }
 
-bool RunStateSavingTest(int caseNumber, void(*modification)(RoadRunner*), std::string version = "l2v4", bool defaultSBML = true)
+bool RunStateSavingTest(int caseNumber, void(*modification)(RoadRunner*), std::string version = "l2v4")
 {
 	bool result(false);
 	RRHandle gRR;
@@ -230,7 +230,7 @@ bool RunStateSavingTest(int caseNumber, void(*modification)(RoadRunner*), std::s
 		simulation.UseHandle(gRR);
 
 		//Read SBML models.....
-		string modelFilePath(gTSModelsPath + (defaultSBML ? "" : "/state_saving"));
+		string modelFilePath(gTSModelsPath);
 		string modelFileName;
 
 		simulation.SetCaseNumber(caseNumber);
