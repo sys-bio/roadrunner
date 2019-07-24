@@ -481,4 +481,5 @@ install(FILES ${rrpluginscore_headers}
     DESTINATION include/rr/rrplugins/core
     COMPONENT rr_core)
 
+
 #recursively install rrplugins
