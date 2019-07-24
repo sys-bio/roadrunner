@@ -785,6 +785,18 @@ C_DECL_SPEC int rrcCallConv setCurrentIntegratorScalarConcentrationTolerance(RRH
 C_DECL_SPEC int rrcCallConv setCurrentIntegratorVectorConcentrationTolerance(RRHandle handle, double* value, int len);
 
 
+/*!
+\brief Set the double array value for a specific integrator setting. Should only used for absoluate tolerace.
+\param[in] handle Handle to a RoadRunner instance.
+\param[in] paramterName Name of the integrator setting.
+\param[in] value The double array value for the integrator setting.
+\param[in] len The length of given soubld array.
+\return Returns True if successful.
+\ingroup simopts
+*/
+C_DECL_SPEC int rrcCallConv setCurrentIntegratorIndividualTolerance(RRHandle handle, char* sid, double value);
+
+
 /* Steady State Solvers *******************************************************/
 
 /*!

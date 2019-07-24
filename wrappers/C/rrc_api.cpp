@@ -1777,7 +1777,16 @@ int rrcCallConv setCurrentIntegratorVectorConcentrationTolerance(RRHandle handle
 	catch_int_macro
 }
 
-
+int rrcCallConv setCurrentIntegratorIndividualTolerance(RRHandle handle, char* sid, double value)
+{
+	start_try
+		RoadRunner* rri = castToRoadRunner(handle);
+		stringstream key;
+		key << sid;
+		rri->getIntegrator()->setIndividualTolerance(key.str(), value);
+		return true;
+	catch_int_macro
+}
 
 // ----------------------------------------------------------------------
 // Replacement methods for supporting solver configuration
