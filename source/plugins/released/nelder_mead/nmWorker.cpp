@@ -2,8 +2,8 @@
 #include "nmWorker.h"
 #include "rrRoadRunnerOptions.h"
 #include "rr-libstruct/lsLA.h"
-#include "rr/C/rrc_api.h" //Todo: no reason using the roaddrunner C API here, convert and use the CPP api directly
-#include "rr/C/rrc_utilities.h"
+#include "C/rrc_api.h" //Todo: no reason using the roaddrunner C API here, convert and use the CPP api directly
+#include "C/rrc_utilities.h"
 #include "lib/nmsimplex.h"
 #include "rrLogger.h"
 #include "rrException.h"

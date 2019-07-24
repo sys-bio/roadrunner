@@ -194,6 +194,7 @@ endif()
 include_directories(
     ${RR_ROOT}
     ${THIRD_PARTY_FOLDER}
+    wrappers
 )
 
 # TODO libxml2 handling is excedingly hackish, it is all homegrown
