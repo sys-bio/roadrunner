@@ -35,7 +35,7 @@ string Usage(const string& prg)
     usage<<setw(25)<<"-?"                           <<" Shows the help screen.\n\n";
 
 	usage<<"\nSystems Biology, UW 2012\n";
-	rr::pause();
+	//rr::pause();
     return usage.str();
 }
 
