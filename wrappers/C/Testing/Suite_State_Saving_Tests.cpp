@@ -381,4 +381,18 @@ SUITE(STATE_SAVING_TEST_SUITE)
 			rri->getSimulateOptions().start = rri->getSimulateOptions().duration;
 		}, "l3v1", false));
 	}
+
+	TEST(SAVE_STATE_21)
+	{
+		CHECK(RunStateSavingTest(1121, [](RoadRunner *rri)
+		{
+			rri->getSimulateOptions().duration = 1.50492;
+			rri->getSimulateOptions().steps /= 2;
+			rri->simulate();
+			rri->saveState("save-state-test.rr");
+			rri->loadState("save-state-test.rr");
+			rri->getSimulateOptions().start = rri->getSimulateOptions().duration;
+			rri->getSimulateOptions().duration = 3.0 - rri->getSimulateOptions().duration;
+		}, "l3v1", false));
+	}
 }
