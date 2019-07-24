@@ -8,6 +8,7 @@ tests/base
 tests/sbml_test_suite
 tests/steady_state
 tests/stoichiometric
+tests/model_editing
 )
 
 add_executable( ${target} 
