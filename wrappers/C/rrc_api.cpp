@@ -1733,6 +1733,31 @@ int rrcCallConv setCurrentIntegratorParameterBoolean (RRHandle handle, char *par
 }
 
 
+double* rrcCallConv getCurrentIntegratorParameterDoubleArray(RRHandle handle, char* parameterName)
+{
+	start_try
+		RoadRunner* rri = castToRoadRunner(handle);
+		stringstream key;
+		key << parameterName;
+		vector<double> v = rri->getIntegrator()->getValueAsDoubleVector(key.str());
+		double* res = &v[0];
+		return res;
+	catch_int_macro
+}
+
+
+int rrcCallConv setCurrentIntegratorParameterDoubleArray(RRHandle handle, char* parameterName, double* value, int len)
+{
+	start_try
+		RoadRunner* rri = castToRoadRunner(handle);
+		stringstream key;
+		key << parameterName;
+		vector<double> v(value, value + len);
+		rri->getIntegrator()->setValue(key.str(), v);
+		return true;
+	catch_int_macro
+}
+
 
 
 // ----------------------------------------------------------------------

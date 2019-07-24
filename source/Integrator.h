@@ -100,7 +100,7 @@ namespace rr
 
 	/**
 	* @author FY
-	* @brief Set tolerance for individual species, will only be used in CVODEIntegrator
+	* @brief Set tolerance for floating species or variables that have a rate rule, will only be used in CVODEIntegrator
 	*/
 	virtual void setIndividualTolerance(string sid, double value);
 
