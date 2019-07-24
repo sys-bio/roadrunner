@@ -747,10 +747,12 @@ C_DECL_SPEC int rrcCallConv setCurrentIntegratorParameterBoolean (RRHandle handl
 \brief Get the double array value for a specific integrator setting. Should only used for absoluate tolerace.
 \param[in] handle Handle to a RoadRunner instance.
 \param[in] paramterName Name of the integrator setting.
-\return Returns a double array for the integrator setting.
+\param[in] value Return the values as in this double array.
+\param[in] len Return the length double array.
+\return Returns True if successful.
 \ingroup simopts
 */
-C_DECL_SPEC double* rrcCallConv getCurrentIntegratorParameterDoubleArray (RRHandle handle, char *parameterName);
+C_DECL_SPEC int rrcCallConv getCurrentIntegratorParameterDoubleArray (RRHandle handle, char *parameterName, double** value, int* len);
 
 /*!
 \brief Set the double array value for a specific integrator setting. Should only used for absoluate tolerace.

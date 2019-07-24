@@ -1131,13 +1131,14 @@ namespace rr
 				double* arr = new double[v.size()];
 				for (int i = 0; i < v.size(); i++)
 					arr[i] = v[i];
-				N_Vector nv = N_VMake_Serial(getValueAsDoubleVector("absolute_tolerance").size(), arr);
-				delete[] arr;
+				N_Vector nv = N_VMake_Serial(v.size(), arr);
+				
 
 				err = CVodeSVtolerances(mCVODE_Memory, getValueAsDouble("relative_tolerance"), nv);
 				// need to destroy
+
 				N_VDestroy_Serial(nv);
-				
+				delete[] arr;
 				break; 
 			}
 

@@ -1733,16 +1733,24 @@ int rrcCallConv setCurrentIntegratorParameterBoolean (RRHandle handle, char *par
 }
 
 
-double* rrcCallConv getCurrentIntegratorParameterDoubleArray(RRHandle handle, char* parameterName)
+int rrcCallConv getCurrentIntegratorParameterDoubleArray(RRHandle handle, char* parameterName, double** value, int* len)
+
 {
 	start_try
 		RoadRunner* rri = castToRoadRunner(handle);
 		stringstream key;
 		key << parameterName;
 		vector<double> v = rri->getIntegrator()->getValueAsDoubleVector(key.str());
-		double* res = &v[0];
-		return res;
-	catch_ptr_macro
+
+		// TODO: potential memory leak?
+		double* ptr = (double*)malloc(v.size() * sizeof(double));
+		for (int i = 0; i < v.size(); i++) {
+			ptr[i] = v[i];
+		}
+		*value = ptr;
+		*len = v.size();
+		return true;
+	catch_int_macro
 }
 
 
