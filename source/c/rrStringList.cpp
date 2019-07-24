@@ -199,6 +199,17 @@ bool StringList::Contains(const string& item) const
     return std::find(mStrings.begin(), mStrings.end(), item) != mStrings.end() ? true : false;
 }
 
+bool isRHSLonger(string const& lhs, string const& rhs)
+{
+    return lhs.size() < rhs.size();
+}
+
+string StringList::getLongest()
+{
+    mLI = std::max_element(mStrings.begin(), mStrings.end(), isRHSLonger);
+    return *mLI;
+}
+
 bool StringList::DontContain(const string& item) const
 {
     return !Contains(item);

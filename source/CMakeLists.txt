@@ -107,6 +107,9 @@ set(rrCoreSources
     SolverRegistration
     Variant
     c/rrStringList
+    c/rrStringBuilder
+    #wrappers/C/telplugins_properties_api.h
+    #wrappers/C/telplugins_properties_api.cpp
     conservation/ConservationExtension
     conservation/ConservationDocumentPlugin
     conservation/ConservedMoietyPlugin
@@ -229,14 +232,14 @@ set(RRPLUGINS_CORE_SOURCES
 set(rrSources ${rrSources} ${RRPLUGINS_CORE_SOURCES})
 
 #rrplugins maths
-#set(RRPLUGINS_MATH_SOURCES
-#  rrplugins/math/telRandom
-#  #telMatrix
-#  rrplugins/math/telMathUtils
-#  rrplugins/math/third_party/mtrand
-#)
+set(RRPLUGINS_MATH_SOURCES
+  rrplugins/math/telRandom
+  #telMatrix
+  rrplugins/math/telMathUtils
+  rrplugins/math/third_party/mtrand
+)
 
-#set(rrSources ${rrSources} ${RRPLUGINS_MATH_SOURCES})
+set(rrSources ${rrSources} ${RRPLUGINS_MATH_SOURCES})
 
 
 
@@ -258,7 +261,7 @@ if(RR_BUILD_SHARED_CORE)
         EXPORT_CORE_API
 
         #rrplugin math
-        #EXPORT_MATH_API
+        EXPORT_MATH_API
 
         LIBSBML_USE_CPP_NAMESPACE
         LIBSBML_STATIC
@@ -362,7 +365,7 @@ set_property(TARGET ${target}-static
 
     STATIC_PLUGIN_API_COMMON #rrplugin common
     STATIC_PLUGIN_API_CORE
-    #STATIC_PLUGIN_API_MATH
+    STATIC_PLUGIN_API_MATH
 
     LIBSBML_USE_CPP_NAMESPACE
     LIBSBML_STATIC
@@ -428,6 +431,8 @@ if(${MSVC})
     target_link_libraries(${target}-static libxml2)
 endif()
 
+add_subdirectory(plugins)
+
 if(BUILD_TEST_TOOLS)
     if(BUILD_LLVM)
         add_subdirectory(llvm_testing)
@@ -476,3 +481,4 @@ install(FILES ${rrpluginscore_headers}
     DESTINATION include/rr/rrplugins/core
     COMPONENT rr_core)
 
+#recursively install rrplugins

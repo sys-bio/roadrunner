@@ -1,0 +1,72 @@
+\documentclass[12pt, letter, oneside]{book}
+\usepackage{fancyhdr, ifpdf}
+\usepackage{float}
+\usepackage{setspace}
+\usepackage{color}
+\usepackage{xcolor}
+\usepackage{listings}
+\usepackage{caption}
+\usepackage[ampersand]{easylist}
+\usepackage{amssymb}
+\usepackage{pdflscape}
+\usepackage{verbatim}
+\usepackage{longtable}
+\usepackage[margin=1cm]{caption}
+\usepackage[top=1in, bottom=.75in, left=.7in, right=1in]{geometry}
+\ListProperties(Hide=100, Hang=true, Progressive=3ex,Style*=$\bullet$ , Style2*=-- )
+
+\definecolor{mygray}{rgb}{0.9,0.9,0.9}
+\lstdefinestyle{customc}{
+  backgroundcolor=\color{mygray},
+  captionpos=b, 
+  belowcaptionskip=1\baselineskip,
+  breaklines=true,
+  numbers=left,
+  numberstyle=\footnotesize,
+  %frame=L,
+  xleftmargin=\parindent,
+  language=C++,
+  showstringspaces=false,
+  basicstyle=\footnotesize\ttfamily,
+  keywordstyle=\bfseries\color{green!40!black},
+  commentstyle=\itshape\color{purple!40!black},
+  identifierstyle=\color{black},
+  stringstyle=\color{cyan}  
+}
+
+\lstset{escapechar=@,style=customc,tabsize=4}
+
+%% some redefination of the headers and footers
+\renewcommand{\chaptermark}[1]%
+                 {\markboth{#1}{}}
+\renewcommand{\sectionmark}[1]%
+                 {\markright{\thesection\ #1}}
+\lhead[\fancyplain{}{\thepage}]%
+      {\fancyplain{}{\rightmark}}
+\rhead[\fancyplain{}{\leftmark}]%
+      {\fancyplain{}{\thepage}}
+\cfoot{}
+\sloppy
+
+\ifpdf
+   \usepackage[pdftex]{graphicx}
+   \usepackage{rotating}
+\else
+   \usepackage{graphicx}
+	\usepackage{rotating}   
+\fi
+
+\graphicspath{{./Figures/}}
+\doublespacing
+
+\begin{document}
+\doublespace
+
+\clearpage
+\pagenumbering{arabic}
+
+\setcounter{chapter}{0}
+
+\include{chisquare}
+
+\end{document}

@@ -57,6 +57,7 @@ class RR_DECLSPEC StringList
         void                        empty();
         bool                        Contains(const string& item) const;
         bool                        DontContain(const string& item) const;
+        string                      getLongest();
         void                        add(const string& item);
         vector<string>::iterator    begin();
         vector<string>::iterator    end();

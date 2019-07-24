@@ -21,6 +21,8 @@ RR_DECLSPEC bool                   freeText(char* str);
 
 RR_DECLSPEC unsigned int        indexOf(const string& text, char checkFor);
 
+RR_DECLSPEC double              extractDouble(std::string const& s, bool failIfLeftoverChars = false);
+
 RR_DECLSPEC string              replaceWord(const string& str1, const string& str2, const string& theString);
 RR_DECLSPEC bool                convertFunctionCallToUseVarArgsSyntax(const string& funcName, string& expression);
 RR_DECLSPEC string              removeChars(const string& str, const string& chars);
@@ -111,5 +113,178 @@ RR_DECLSPEC string              substitute(const string& src, const string& this
 RR_DECLSPEC string              substitute(const string& src, const string& thisOne, const int& withThisOne, const int& howMany = -1);
 //RR_DECLSPEC string              substitute(const string& src, const string& thisOne, const double& withThisOne, const int& howMany = -1);
 RR_DECLSPEC string              removeNewLines(const string& str, const int& howMany = -1);
+
+/**
+    \brief Template function, substituting an occurence of a string, target, in the source string, with another string, item. The howMany argument
+    limits the number of substitutions. A value of -1 causes all occurences to be substituted. 
+    The new string with the substitions is returned.
+*/
+template <class T>
+inline string substituteN(const string& source, const string& target, const T& item, const int& howMany= -1)
+{
+    return substitute(source, target, toString(item), howMany);
+}
+
+/**
+    \brief Template function, substituting an occurence of a string, target, within the source string, with another, item. The howMany argument
+    limits the number of substitutions. A value of -1 causes all occurences to be substituted.
+    The new string with the substitions is returned.
+*/
+template<>
+inline string substituteN<double>(const string& source, const string& target, const double& item, const int& howMany)
+{
+    return substitute(source, target, toString(item, "%G"), howMany);
+}
+
+/**
+    \brief Template format function. A "{0}" occurence in the src string is substituted with the
+    value in arg1. The new string with the substition is returned.
+*/
+template <class T>
+string formatN(const string& src, const T& arg1)
+{
+    string newString(src);
+    string tok1("{0}");
+    newString = substituteN(newString, tok1, arg1);
+    return newString;
+}
+
+/**
+    \brief Template format function. A "{i}" occurence in the src string, where i = 0 or 1, is substituted with the
+    values in arg1 and arg2, respectively. The new string with the substitions is returned.
+*/
+template <class A, class B>
+string formatN(const string& src, const A& arg1, const B& arg2)
+{
+    string newString(src);
+    string tok1("{0}"), tok2("{1}");
+
+    newString = substituteN(newString, tok1, arg1);
+    newString = substituteN(newString, tok2, arg2);
+    return newString;
+}
+
+/**
+    \brief Template format function. A "{i}" occurence in the src string, where i = 0, 1 or 2, is substituted with the
+    values in arg1, arg2 and arg3, respectively. The new string with the substitions is returned.
+*/
+template <class A, class B, class C>
+string formatN(const string& src, const A& arg1, const B& arg2, const C& arg3)
+{
+    string newString(src);
+    string tok1("{0}"), tok2("{1}"), tok3("{2}");
+
+    newString = substituteN(newString, tok1, arg1, -1);
+    newString = substituteN(newString, tok2, arg2, -1);
+    newString = substituteN(newString, tok3, arg3, -1);
+    return newString;
+}
+
+/**
+    \brief Template format function. A "{i}" occurence in the src string, where i = 0, 1, 2 or 3, is substituted with the 
+    values in arg1.. trough arg4, respectively. The new string with the substitions is returned.
+*/
+template <class A, class B, class C, class D>
+string formatN(const string& src, const A& arg1, const B& arg2, const C& arg3, const D& arg4)
+{
+    string newString(src);
+    string  tok1("{0}"), tok2("{1}"), tok3("{2}"),
+            tok4("{3}");
+
+    newString = substituteN(newString, tok1, arg1, -1);
+    newString = substituteN(newString, tok2, arg2, -1);
+    newString = substituteN(newString, tok3, arg3, -1);
+    newString = substituteN(newString, tok4, arg4, -1);
+    return newString;
+}
+
+/**
+    \brief Template format function. A "{i}" occurence in the src string, where i = 0, 1, ..., 4, is substituted with the 
+    values in arg1.. trough arg5, respectively. The new string with the substitions is returned.
+*/
+template <class A, class B, class C, class D, class E>
+string formatN(const string& src, const A& arg1, const B& arg2, const C& arg3, const D& arg4, const E& arg5)
+{
+    string newString(src);
+    string  tok1("{0}"), tok2("{1}"), tok3("{2}"),
+            tok4("{3}"), tok5("{4}");
+
+    newString = substituteN(newString, tok1, arg1);
+    newString = substituteN(newString, tok2, arg2, -1);
+    newString = substituteN(newString, tok3, arg3, -1);
+    newString = substituteN(newString, tok4, arg4, -1);
+    newString = substituteN(newString, tok5, arg5, -1);
+    return newString;
+}
+
+/**
+    \brief Template format function. A "{i}" occurence in the src string, where i = 0, 1, ..., 5, is substituted with the 
+    values in arg1 trough arg5, respectively. The new string with the substitions is returned.
+*/
+template <class A, class B, class C, class D, class E, class F>
+string formatN(const string& src, const A& arg1, const B& arg2, const C& arg3, const D& arg4, const E& arg5, const F& arg6)
+{
+    string newString(src);
+    string  tok1("{0}"), tok2("{1}"), tok3("{2}"),
+            tok4("{3}"), tok5("{4}"), tok6("{5}");
+
+    newString = substituteN(newString, tok1, arg1, -1);
+    newString = substituteN(newString, tok2, arg2, -1);
+    newString = substituteN(newString, tok3, arg3, -1);
+    newString = substituteN(newString, tok4, arg4, -1);
+    newString = substituteN(newString, tok5, arg5, -1);
+    newString = substituteN(newString, tok6, arg6, -1);
+
+    return newString;
+}
+
+/**
+    \brief Template format function. A "{i}" occurence in the src string, where i = 0, 1, ..., 6, is substituted with the 
+    values in arg1 trough arg7, respectively. The new string with the substitions is returned.
+*/
+template <class A, class B, class C, class D, class E, class F, class G>
+string formatN(const string& src, const A& arg1, const B& arg2, const C& arg3, const D& arg4, const E& arg5, const F& arg6, const G& arg7)
+{
+    string newString(src);
+    string  tok1("{0}"), tok2("{1}"), tok3("{2}"),
+            tok4("{3}"), tok5("{4}"), tok6("{5}"),
+            tok7("{6}");
+
+    newString = substituteN(newString, tok1, arg1, -1);
+    newString = substituteN(newString, tok2, arg2, -1);
+    newString = substituteN(newString, tok3, arg3, -1);
+    newString = substituteN(newString, tok4, arg4, -1);
+    newString = substituteN(newString, tok5, arg5, -1);
+    newString = substituteN(newString, tok6, arg6, -1);
+    newString = substituteN(newString, tok7, arg7, -1);
+
+    return newString;
+}
+
+/**
+    \brief Template format function. A "{i}" occurence in the src string, where i = 0, 1, ..., 7, is substituted with the 
+    values in arg1 trough arg8, respectively. The new string with the substitions is returned.
+*/
+template <class A, class B, class C, class D, class E, class F, class G, class H>
+string formatN(const string& src, const A& arg1, const B& arg2, const C& arg3, const D& arg4, const E& arg5, const F& arg6, const G& arg7, const H& arg8)
+{
+    string newString(src);
+    string  tok1("{0}"), tok2("{1}"), tok3("{2}"),
+            tok4("{3}"), tok5("{4}"), tok6("{5}"),
+            tok7("{6}"), tok8("{7}");
+
+    newString = substituteN(newString, tok1, arg1, -1);
+    newString = substituteN(newString, tok2, arg2, -1);
+    newString = substituteN(newString, tok3, arg3, -1);
+    newString = substituteN(newString, tok4, arg4, -1);
+    newString = substituteN(newString, tok5, arg5, -1);
+    newString = substituteN(newString, tok6, arg6, -1);
+    newString = substituteN(newString, tok7, arg7, -1);
+    newString = substituteN(newString, tok8, arg8, -1);
+
+    return newString;
+}
+
+
 }
 #endif

@@ -10,6 +10,8 @@
 #include "rrStringUtils.h"
 #include "rrUtils.h"
 #include "rrLogger.h"
+#include "rrOSSpecifics.h"
+#include "rrException.h"
 
 using namespace std;
 namespace rr
@@ -49,6 +51,21 @@ bool freeText(char* str)
 {
     free(str);
     return true;
+}
+
+double extractDouble(std::string const& s, bool failIfLeftoverChars)
+{
+    std::istringstream i(s);
+    double x;
+    char c;
+    if (!(i >> x) || (failIfLeftoverChars && i.get(c)))
+    {
+        stringstream  msg;
+        msg << "Function \"" << __FUNC__ <<"\" failed with input: (" <<s<<")";
+
+        throw BadStringToNumberConversion(msg.str());
+    }
+    return x;
 }
 
 string replaceWord(const string& str1, const string& str2, const string& theString)
@@ -214,6 +231,7 @@ string getFileNameNoExtension(const string& fileN)
 
     return changeFileExtensionTo(fName, "");
 }
+
 
 string getFileExtension(const string& fileN)
 {

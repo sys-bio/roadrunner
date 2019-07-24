@@ -78,4 +78,8 @@ void UninitializedValue(const string& msg) {
     throw UninitializedValueException(msg);
 }
 
+BadStringToNumberConversion::BadStringToNumberConversion(std::string const& s)
+: Exception(s)
+{}
+
 }

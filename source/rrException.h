@@ -91,6 +91,11 @@ class RR_DECLSPEC UninitializedValueException : public Exception
         UninitializedValueException(const string& msg);
 };
 
+class RR_DECLSPEC BadStringToNumberConversion : public Exception
+{
+    public:
+        BadStringToNumberConversion(std::string const& s);
+};
 /**
  * @author JKM
  * @brief Called whenever an uninitialized value is encountered,

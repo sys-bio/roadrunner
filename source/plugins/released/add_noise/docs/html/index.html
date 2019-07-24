@@ -1,0 +1,1073 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN"  
+  "http://www.w3.org/TR/html4/loose.dtd">  
+<html > 
+<head><title></title> 
+<meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1"> 
+<meta name="generator" content="TeX4ht (http://www.cse.ohio-state.edu/~gurari/TeX4ht/)"> 
+<meta name="originator" content="TeX4ht (http://www.cse.ohio-state.edu/~gurari/TeX4ht/)"> 
+<!-- html --> 
+<meta name="src" content="mainDoc.tex"> 
+<meta name="date" content="2015-07-13 15:12:00"> 
+<link rel="stylesheet" type="text/css" href="mainDoc.css"> 
+</head><body 
+>
+                                                                                              
+                                                                                              
+                                                                                              
+                                                                                              
+                                                                                              
+                                                                                              
+   <h2 class="likechapterHead"><a 
+ id="x1-1000"></a>Add Noise Plugin</h2>  <span 
+class="cmti-12">Add some noise</span>
+   <h3 class="sectionHead"><span class="titlemark">1.1   </span> <a 
+ id="x1-20001.1"></a>Introduction</h3>
+<!--l. 5--><p class="noindent" >The purpose of the <span 
+class="cmti-12">AddNoise </span>plugin is to introduce random noise to <span 
+class="cmti-12">Tellurium </span>data.
+<!--l. 7--><p class="indent" >   Noise generation uses the fact that a Rayleigh-distributed random variable <span 
+class="cmmi-12">R</span>, with the
+probability distribution <span 
+class="cmmi-12">F</span>(<span 
+class="cmmi-12">R</span>) = 0 if <span 
+class="cmmi-12">R &#x003C; </span>0 and <span 
+class="cmmi-12">F</span>(<span 
+class="cmmi-12">R</span>) = 1 <span 
+class="cmsy-10x-x-120">- </span><span 
+class="cmmi-12">exp</span>(<span 
+class="cmsy-10x-x-120">-</span><span 
+class="cmmi-12">R</span><sup><span 
+class="cmr-8">2</span></sup><span 
+class="cmmi-12">&#x2215;</span>2 <span 
+class="cmsy-10x-x-120">* </span><span 
+class="cmmi-12">&#x03C3;</span><sup><span 
+class="cmr-8">2</span></sup>) if <span 
+class="cmmi-12">R &#x003E;</span>= 0<span 
+class="cmmi-12">, </span>is
+related to a pair of Gaussian variables <span 
+class="cmmi-12">C </span>and <span 
+class="cmmi-12">D </span>through the transformation <span 
+class="cmmi-12">C </span>= <span 
+class="cmmi-12">R </span><span 
+class="cmsy-10x-x-120">* </span><span 
+class="cmmi-12">cos</span>(<span 
+class="cmmi-12">&#x03B8;</span>)
+and <span 
+class="cmmi-12">D </span>= <span 
+class="cmmi-12">R </span><span 
+class="cmsy-10x-x-120">* </span><span 
+class="cmmi-12">sin</span>(<span 
+class="cmmi-12">&#x03B8;</span>), where <span 
+class="cmmi-12">&#x03B8; </span>is a uniformly distributed variable in the interval (0<span 
+class="cmmi-12">, </span>2 <span 
+class="cmsy-10x-x-120">* </span><span 
+class="cmmi-12">&#x03C0;</span>())
+<span class="footnote-mark"><a 
+href="mainDoc2.html#fn1x0"><sup class="textsuperscript">1</sup></a></span><a 
+ id="x1-2001f1"></a>
+<!--l. 15--><p class="indent" >   Currently only Gaussian noise is implemented.
+   <h3 class="sectionHead"><span class="titlemark">1.2   </span> <a 
+ id="x1-30001.2"></a>Plugin Parameters</h3>
+<!--l. 18--><p class="noindent" >Table <a 
+href="#x1-3001r1">1.1<!--tex4ht:ref: table:AddNoisePluginParameters --></a> lists available plugin property names, along with their data type and purpose.
+   <div class="table">
+                                                                                              
+                                                                                              
+<!--l. 21--><p class="indent" >   <a 
+ id="x1-3001r1"></a><hr class="float"><div class="float" 
+>
+                                                                                              
+                                                                                              
+<div class="tabular"> <table id="TBL-1" class="tabular" 
+cellspacing="0" cellpadding="0"  
+><colgroup id="TBL-1-1g"><col 
+id="TBL-1-1"><col 
+id="TBL-1-2"><col 
+id="TBL-1-3"></colgroup><tr  
+ style="vertical-align:baseline;" id="TBL-1-1-"><td  style="white-space:nowrap; text-align:left;" id="TBL-1-1-1"  
+class="td11">Parameter Name</td><td  style="white-space:nowrap; text-align:left;" id="TBL-1-1-2"  
+class="td11">Data Type     </td><td  style="white-space:wrap; text-align:left;" id="TBL-1-1-3"  
+class="td11"><!--l. 25--><p class="noindent" >Purpose                                            </td>
+</tr><tr 
+class="hline"><td><hr></td><td><hr></td><td><hr></td></tr><tr 
+class="vspace" style="font-size:2.58333pt"><td 
+>&nbsp;</td><td 
+>&nbsp;</td><td 
+>&nbsp;</td></tr><tr  
+ style="vertical-align:baseline;" id="TBL-1-2-"><td  style="white-space:nowrap; text-align:left;" id="TBL-1-2-1"  
+class="td11">InputData          </td><td  style="white-space:nowrap; text-align:left;" id="TBL-1-2-2"  
+class="td11">TelluriumData</td><td  style="white-space:wrap; text-align:left;" id="TBL-1-2-3"  
+class="td11"><!--l. 28--><p class="noindent" >Data on which noise will be applied to.   </td>
+</tr><tr  
+ style="vertical-align:baseline;" id="TBL-1-3-"><td  style="white-space:nowrap; text-align:left;" id="TBL-1-3-1"  
+class="td11">Sigma,(<span 
+class="cmmi-12">&#x03C3;</span>)          </td><td  style="white-space:nowrap; text-align:left;" id="TBL-1-3-2"  
+class="td11">double           </td><td  style="white-space:wrap; text-align:left;" id="TBL-1-3-3"  
+class="td11"><!--l. 29--><p class="noindent" >Size of applied noise. Noise is generated for
+each single data value, with a probability
+corresponding to a Gaussian distribution,
+centered  around  the  value,  and  with  a
+variance equal to <span 
+class="cmmi-12">&#x03C3;</span><sup><span 
+class="cmr-8">2</span></sup> .                          </td>
+</tr><tr  
+ style="vertical-align:baseline;" id="TBL-1-4-"><td  style="white-space:nowrap; text-align:left;" id="TBL-1-4-1"  
+class="td11">NoiseType         </td><td  style="white-space:nowrap; text-align:left;" id="TBL-1-4-2"  
+class="td11">int                </td><td  style="white-space:wrap; text-align:left;" id="TBL-1-4-3"  
+class="td11"><!--l. 30--><p class="noindent" >Type  of  noise  applied  on  data.  Only
+Gaussian noise is currently supported.    </td>
+</tr><tr  
+ style="vertical-align:baseline;" id="TBL-1-5-"><td  style="white-space:nowrap; text-align:left;" id="TBL-1-5-1"  
+class="td11">Progress            </td><td  style="white-space:nowrap; text-align:left;" id="TBL-1-5-2"  
+class="td11">double           </td><td  style="white-space:wrap; text-align:left;" id="TBL-1-5-3"  
+class="td11"><!--l. 31--><p class="noindent" >The progress property communicates the
+progress (in percent) of Noise application.</td>
+</tr><tr 
+class="hline"><td><hr></td><td><hr></td><td><hr></td></tr><tr  
+ style="vertical-align:baseline;" id="TBL-1-6-"><td  style="white-space:nowrap; text-align:left;" id="TBL-1-6-1"  
+class="td11">               </td></tr></table></div>
+<br /> <div class="caption" 
+><span class="id">Table&#x00A0;1.1: </span><span  
+class="content">Add noise Plugin Parameters</span></div><!--tex4ht:label?: x1-3001r1 -->
+                                                                                              
+                                                                                              
+   </div><hr class="endfloat" />
+   </div>
+   <h3 class="sectionHead"><span class="titlemark">1.3   </span> <a 
+ id="x1-40001.3"></a>Plugin Events</h3>
+<!--l. 40--><p class="noindent" >The AddNoiseplugin uses all of the available plugin events, i.e. the <span 
+class="cmti-12">PluginStarted</span>, <span 
+class="cmti-12">PluginProgress </span>and
+the <span 
+class="cmti-12">PluginFinished </span>events.
+<!--l. 42--><p class="indent" >   The available data variables for each event are internally treated as <span 
+class="cmti-12">pass trough </span>variables,
+so any data, for any of the events, assigned prior to the plugin&#8217;s execute function (in the
+assignOn() family of functions), can be retrieved <span 
+class="cmti-12">unmodified </span>in the corresponding event function.
+<div class="table">
+                                                                                              
+                                                                                              
+<!--l. 44--><p class="indent" >   <a 
+ id="x1-4001r2"></a><a 
+ id="x1-700030"></a><hr class="float"><div class="float" 
+>
+                                                                                              
+                                                                                              
+<div class="tabular"> <table id="TBL-2" class="tabular" 
+cellspacing="0" cellpadding="0"  
+><colgroup id="TBL-2-1g"><col 
+id="TBL-2-1"><col 
+id="TBL-2-2"><col 
+id="TBL-2-3"></colgroup><tr  
+ style="vertical-align:baseline;" id="TBL-2-1-"><td  style="white-space:nowrap; text-align:left;" id="TBL-2-1-1"  
+class="td11">Event           </td><td  style="white-space:nowrap; text-align:left;" id="TBL-2-1-2"  
+class="td11">Arguments </td><td  style="white-space:wrap; text-align:left;" id="TBL-2-1-3"  
+class="td11"><!--l. 48--><p class="noindent" >Purpose                                            </td>
+</tr><tr 
+class="hline"><td><hr></td><td><hr></td><td><hr></td></tr><tr 
+class="hline"><td><hr></td><td><hr></td><td><hr></td></tr><tr 
+class="vspace" style="font-size:2.58333pt"><td 
+>&nbsp;</td><td 
+>&nbsp;</td><td 
+>&nbsp;</td></tr><tr  
+ style="vertical-align:baseline;" id="TBL-2-2-"><td  style="white-space:nowrap; text-align:left;" id="TBL-2-2-1"  
+class="td11">PluginStarted </td><td  style="white-space:nowrap; text-align:left;" id="TBL-2-2-2"  
+class="td11">void*, void*</td><td  style="white-space:wrap; text-align:left;" id="TBL-2-2-3"  
+class="td11"><!--l. 52--><p class="noindent" >Signals  to  application  that  the  plugin
+has started applying noise on data. Both
+parameters  are  <span 
+class="cmti-12">pass through  </span>parameters
+and are unused internally by the plugin.  </td>
+</tr><tr 
+class="vspace" style="font-size:2.58333pt"><td 
+>&nbsp;</td><td 
+>&nbsp;</td><td 
+>&nbsp;</td></tr><tr  
+ style="vertical-align:baseline;" id="TBL-2-3-"><td  style="white-space:nowrap; text-align:left;" id="TBL-2-3-1"  
+class="td11">PluginProgress</td><td  style="white-space:nowrap; text-align:left;" id="TBL-2-3-2"  
+class="td11">void*, void*</td><td  style="white-space:wrap; text-align:left;" id="TBL-2-3-3"  
+class="td11"><!--l. 53--><p class="noindent" >Communicates                         progress
+of noise generation. Both parameters are
+<span 
+class="cmti-12">pass through </span>parameters and are unused
+internally by the plugin.                       </td>
+</tr><tr 
+class="vspace" style="font-size:2.58333pt"><td 
+>&nbsp;</td><td 
+>&nbsp;</td><td 
+>&nbsp;</td></tr><tr  
+ style="vertical-align:baseline;" id="TBL-2-4-"><td  style="white-space:nowrap; text-align:left;" id="TBL-2-4-1"  
+class="td11">PluginFinished</td><td  style="white-space:nowrap; text-align:left;" id="TBL-2-4-2"  
+class="td11">void*, void*</td><td  style="white-space:wrap; text-align:left;" id="TBL-2-4-3"  
+class="td11"><!--l. 54--><p class="noindent" >Signals  to  application  that  execution  of
+the plugin has finished. Both parameters
+are  <span 
+class="cmti-12">pass  through  </span>parameters  and  are
+unused internally by the plugin.             </td>
+</tr><tr 
+class="hline"><td><hr></td><td><hr></td><td><hr></td></tr><tr  
+ style="vertical-align:baseline;" id="TBL-2-5-"><td  style="white-space:nowrap; text-align:left;" id="TBL-2-5-1"  
+class="td11">            </td></tr></table></div>
+<br /> <div class="caption" 
+><span class="id">Table&#x00A0;1.2: </span><span  
+class="content">AddNoise Plugin Events</span></div><!--tex4ht:label?: x1-4001r2 -->
+                                                                                              
+                                                                                              
+   </div><hr class="endfloat" />
+   </div>
+   <h3 class="sectionHead"><span class="titlemark">1.4   </span> <a 
+ id="x1-50001.4"></a>The <span 
+class="cmtt-12">execute(bool inThread) </span>function</h3>
+<!--l. 63--><p class="noindent" >The <span class="obeylines-h"><span class="verb"><span 
+class="cmtt-12">execute()</span></span></span> function will apply noise to all rows and columns of the assigned data, with one
+exception. Data not affected are data in the first column, and if, and only if, its column header equals
+&#8221;time&#8221; (case insensitive).
+<!--l. 65--><p class="indent" >   The <span class="obeylines-h"><span class="verb"><span 
+class="cmtt-12">execute(bool</span><span 
+class="cmtt-12">&#x00A0;inThread)</span></span></span> method supports a boolean argument indicating if the execution of
+the plugin work will be done in a thread, or not. Threading is fully implemented in the AddNoise
+plugin.
+<!--l. 67--><p class="indent" >   The inThread argument defaults to <span 
+class="cmbx-12">false</span>.
+<!--l. 69--><p class="noindent" >
+   <h3 class="sectionHead"><span class="titlemark">1.5   </span> <a 
+ id="x1-60001.5"></a>Python examples</h3>
+<!--l. 71--><p class="noindent" >
+   <h4 class="subsectionHead"><span class="titlemark">1.5.1   </span> <a 
+ id="x1-70001.5.1"></a>Add noise to data acquired from RoadRunner</h4>
+<!--l. 72--><p class="noindent" >The python script below shows how to acquire simulation data from RoadRunner and pass
+it to the noise plugin. The format of this data, which is obtained from the <span class="obeylines-h"><span class="verb"><span 
+class="cmtt-12">simulate()</span></span></span>
+function (line 8), is not directly compatible with the Noise plugin&#8217;s InputData property. This
+incompatibility is handled by an intermediate data structure in Python, called DataSeries (line
+14).
+<!--l. 74--><p class="indent" >   The plugin&#8217;s properties, InputData and Sigma, are assigned on line 17 and 20 respectively.
+<!--l. 76--><p class="indent" >   Line 23 denotes the execution of the noise plugin, and after that has finished, data can be visualized
+                                                                                              
+                                                                                              
+by using the <span class="obeylines-h"><span class="verb"><span 
+class="cmtt-12">plot</span></span></span> function (line 26). The output is shown below the script.
+   <!--l. 79--><div class="lstinputlisting">
+<a 
+ id="x1-7001r1"></a>
+<a 
+ id="x1-7002"></a>
+   <span 
+class="cmtt-10">&#x00A0;</span><br /><span class="label"><a 
+ id="x1-7003r1"></a><span 
+class="cmr-10">1</span></span><span 
+class="cmtt-10">import</span><span 
+class="cmtt-10">&#x00A0;</span><span 
+class="cmtt-10">roadrunner</span><span 
+class="cmtt-10">&#x00A0;</span><br /><span class="label"><a 
+ id="x1-7004r2"></a><span 
+class="cmr-10">2</span></span><span 
+class="cmtt-10">import</span><span 
+class="cmtt-10">&#x00A0;</span><span 
+class="cmtt-10">teplugins</span><span 
+class="cmtt-10">&#x00A0;</span><span 
+class="cmtt-10">as</span><span 
+class="cmtt-10">&#x00A0;</span><span 
+class="cmtt-10">tel</span><span 
+class="cmtt-10">&#x00A0;</span><br /><span class="label"><a 
+ id="x1-7005r3"></a><span 
+class="cmr-10">3</span></span><span 
+class="cmtt-10">&#x00A0;</span><br /><span class="label"><a 
+ id="x1-7006r4"></a><span 
+class="cmr-10">4</span></span><span 
+class="cmtt-10">try</span><span 
+class="cmtt-10">:</span><span 
+class="cmtt-10">&#x00A0;</span><br /><span class="label"><a 
+ id="x1-7007r5"></a><span 
+class="cmr-10">5</span></span><span 
+class="cmitt-10">&#x00A0;</span><span 
+class="cmitt-10">&#x00A0;</span><span 
+class="cmitt-10">&#x00A0;</span><span 
+class="cmitt-10">&#x00A0;</span><span 
+class="cmitt-10">#</span><span 
+class="cmitt-10">&#x00A0;</span><span 
+class="cmitt-10">Create</span><span 
+class="cmitt-10">&#x00A0;</span><span 
+class="cmitt-10">a</span><span 
+class="cmitt-10">&#x00A0;</span><span 
+class="cmitt-10">roadrunner</span><span 
+class="cmitt-10">&#x00A0;</span><span 
+class="cmitt-10">instance</span><span 
+class="cmitt-10">&#x00A0;</span><span 
+class="cmitt-10">and</span><span 
+class="cmitt-10">&#x00A0;</span><span 
+class="cmitt-10">create</span><span 
+class="cmitt-10">&#x00A0;</span><span 
+class="cmitt-10">some</span><span 
+class="cmitt-10">&#x00A0;</span><span 
+class="cmitt-10">data</span><span 
+class="cmtt-10">&#x00A0;</span><br /><span class="label"><a 
+ id="x1-7008r6"></a><span 
+class="cmr-10">6</span></span><span 
+class="cmtt-10">&#x00A0;</span><span 
+class="cmtt-10">&#x00A0;</span><span 
+class="cmtt-10">&#x00A0;</span><span 
+class="cmtt-10">&#x00A0;</span><span 
+class="cmtt-10">rr</span><span 
+class="cmtt-10">&#x00A0;</span><span 
+class="cmtt-10">=</span><span 
+class="cmtt-10">&#x00A0;</span><span 
+class="cmtt-10">roadrunner</span><span 
+class="cmtt-10">.</span><span 
+class="cmtt-10">RoadRunner</span><span 
+class="cmtt-10">()</span><span 
+class="cmtt-10">&#x00A0;</span><br /><span class="label"><a 
+ id="x1-7009r7"></a><span 
+class="cmr-10">7</span></span><span 
+class="cmtt-10">&#x00A0;</span><span 
+class="cmtt-10">&#x00A0;</span><span 
+class="cmtt-10">&#x00A0;</span><span 
+class="cmtt-10">&#x00A0;</span><span 
+class="cmtt-10">rr</span><span 
+class="cmtt-10">.</span><span 
+class="cmtt-10">load</span><span 
+class="cmtt-10">(</span><span 
+class="cmtt-10">"</span><span 
+class="cmtt-10">sbml_test_0001</span><span 
+class="cmtt-10">.</span><span 
+class="cmtt-10">xml</span><span 
+class="cmtt-10">"</span><span 
+class="cmtt-10">)</span><span 
+class="cmtt-10">&#x00A0;</span><br /><span class="label"><a 
+ id="x1-7010r8"></a><span 
+class="cmr-10">8</span></span><span 
+class="cmtt-10">&#x00A0;</span><span 
+class="cmtt-10">&#x00A0;</span><span 
+class="cmtt-10">&#x00A0;</span><span 
+class="cmtt-10">&#x00A0;</span><span 
+class="cmtt-10">data</span><span 
+class="cmtt-10">&#x00A0;</span><span 
+class="cmtt-10">=</span><span 
+class="cmtt-10">&#x00A0;</span><span 
+class="cmtt-10">rr</span><span 
+class="cmtt-10">.</span><span 
+class="cmtt-10">simulate</span><span 
+class="cmtt-10">(0,</span><span 
+class="cmtt-10">&#x00A0;</span><span 
+class="cmtt-10">10,</span><span 
+class="cmtt-10">&#x00A0;</span><span 
+class="cmtt-10">511)</span><span 
+class="cmtt-10">&#x00A0;</span><span 
+class="cmitt-10">#</span><span 
+class="cmitt-10">&#x00A0;</span><span 
+class="cmitt-10">Want</span><span 
+class="cmitt-10">&#x00A0;</span><span 
+class="cmitt-10">512</span><span 
+class="cmitt-10">&#x00A0;</span><span 
+class="cmitt-10">points</span><span 
+class="cmtt-10">&#x00A0;</span><br /><span class="label"><a 
+ id="x1-7011r9"></a><span 
+class="cmr-10">9</span></span><span 
+class="cmtt-10">&#x00A0;</span><br /><span class="label"><a 
+ id="x1-7012r10"></a><span 
+class="cmr-10">10</span></span><span 
+class="cmitt-10">&#x00A0;</span><span 
+class="cmitt-10">&#x00A0;</span><span 
+class="cmitt-10">&#x00A0;</span><span 
+class="cmitt-10">&#x00A0;</span><span 
+class="cmitt-10">#</span><span 
+class="cmitt-10">Add</span><span 
+class="cmitt-10">&#x00A0;</span><span 
+class="cmitt-10">noise</span><span 
+class="cmitt-10">&#x00A0;</span><span 
+class="cmitt-10">to</span><span 
+class="cmitt-10">&#x00A0;</span><span 
+class="cmitt-10">the</span><span 
+class="cmitt-10">&#x00A0;</span><span 
+class="cmitt-10">data</span><span 
+class="cmtt-10">&#x00A0;</span><br /><span class="label"><a 
+ id="x1-7013r11"></a><span 
+class="cmr-10">11</span></span><span 
+class="cmtt-10">&#x00A0;</span><span 
+class="cmtt-10">&#x00A0;</span><span 
+class="cmtt-10">&#x00A0;</span><span 
+class="cmtt-10">&#x00A0;</span><span 
+class="cmtt-10">noisePlugin</span><span 
+class="cmtt-10">&#x00A0;</span><span 
+class="cmtt-10">=</span><span 
+class="cmtt-10">&#x00A0;</span><span 
+class="cmtt-10">tel</span><span 
+class="cmtt-10">.</span><span 
+class="cmtt-10">Plugin</span><span 
+class="cmtt-10">&#x00A0;</span><span 
+class="cmtt-10">(</span><span 
+class="cmtt-10">"</span><span 
+class="cmtt-10">tel_add_noise</span><span 
+class="cmtt-10">"</span><span 
+class="cmtt-10">)</span><span 
+class="cmtt-10">&#x00A0;</span><br /><span class="label"><a 
+ id="x1-7014r12"></a><span 
+class="cmr-10">12</span></span><span 
+class="cmtt-10">&#x00A0;</span><br /><span class="label"><a 
+ id="x1-7015r13"></a><span 
+class="cmr-10">13</span></span><span 
+class="cmitt-10">&#x00A0;</span><span 
+class="cmitt-10">&#x00A0;</span><span 
+class="cmitt-10">&#x00A0;</span><span 
+class="cmitt-10">&#x00A0;</span><span 
+class="cmitt-10">#</span><span 
+class="cmitt-10">&#x00A0;</span><span 
+class="cmitt-10">Get</span><span 
+class="cmitt-10">&#x00A0;</span><span 
+class="cmitt-10">the</span><span 
+class="cmitt-10">&#x00A0;</span><span 
+class="cmitt-10">dataseries</span><span 
+class="cmitt-10">&#x00A0;</span><span 
+class="cmitt-10">from</span><span 
+class="cmitt-10">&#x00A0;</span><span 
+class="cmitt-10">data</span><span 
+class="cmitt-10">&#x00A0;</span><span 
+class="cmitt-10">returned</span><span 
+class="cmitt-10">&#x00A0;</span><span 
+class="cmitt-10">by</span><span 
+class="cmitt-10">&#x00A0;</span><span 
+class="cmitt-10">roadrunner</span><span 
+class="cmtt-10">&#x00A0;</span><br /><span class="label"><a 
+ id="x1-7016r14"></a><span 
+class="cmr-10">14</span></span><span 
+class="cmtt-10">&#x00A0;</span><span 
+class="cmtt-10">&#x00A0;</span><span 
+class="cmtt-10">&#x00A0;</span><span 
+class="cmtt-10">&#x00A0;</span><span 
+class="cmtt-10">d</span><span 
+class="cmtt-10">&#x00A0;</span><span 
+class="cmtt-10">=</span><span 
+class="cmtt-10">&#x00A0;</span><span 
+class="cmtt-10">tel</span><span 
+class="cmtt-10">.</span><span 
+class="cmtt-10">getDataSeries</span><span 
+class="cmtt-10">&#x00A0;</span><span 
+class="cmtt-10">(</span><span 
+class="cmtt-10">data</span><span 
+class="cmtt-10">)</span><span 
+class="cmtt-10">&#x00A0;</span><br /><span class="label"><a 
+ id="x1-7017r15"></a><span 
+class="cmr-10">15</span></span><span 
+class="cmtt-10">&#x00A0;</span><br /><span class="label"><a 
+ id="x1-7018r16"></a><span 
+class="cmr-10">16</span></span><span 
+class="cmitt-10">&#x00A0;</span><span 
+class="cmitt-10">&#x00A0;</span><span 
+class="cmitt-10">&#x00A0;</span><span 
+class="cmitt-10">&#x00A0;</span><span 
+class="cmitt-10">#</span><span 
+class="cmitt-10">&#x00A0;</span><span 
+class="cmitt-10">Assign</span><span 
+class="cmitt-10">&#x00A0;</span><span 
+class="cmitt-10">the</span><span 
+class="cmitt-10">&#x00A0;</span><span 
+class="cmitt-10">dataseries</span><span 
+class="cmitt-10">&#x00A0;</span><span 
+class="cmitt-10">to</span><span 
+class="cmitt-10">&#x00A0;</span><span 
+class="cmitt-10">the</span><span 
+class="cmitt-10">&#x00A0;</span><span 
+class="cmitt-10">plugin</span><span 
+class="cmitt-10">&#x00A0;</span><span 
+class="cmitt-10">inputdata</span><span 
+class="cmtt-10">&#x00A0;</span><br /><span class="label"><a 
+ id="x1-7019r17"></a><span 
+class="cmr-10">17</span></span><span 
+class="cmtt-10">&#x00A0;</span><span 
+class="cmtt-10">&#x00A0;</span><span 
+class="cmtt-10">&#x00A0;</span><span 
+class="cmtt-10">&#x00A0;</span><span 
+class="cmtt-10">noisePlugin</span><span 
+class="cmtt-10">.</span><span 
+class="cmtt-10">InputData</span><span 
+class="cmtt-10">&#x00A0;</span><span 
+class="cmtt-10">=</span><span 
+class="cmtt-10">&#x00A0;</span><span 
+class="cmtt-10">d</span><span 
+class="cmtt-10">&#x00A0;</span><br /><span class="label"><a 
+ id="x1-7020r18"></a><span 
+class="cmr-10">18</span></span><span 
+class="cmtt-10">&#x00A0;</span><br /><span class="label"><a 
+ id="x1-7021r19"></a><span 
+class="cmr-10">19</span></span><span 
+class="cmitt-10">&#x00A0;</span><span 
+class="cmitt-10">&#x00A0;</span><span 
+class="cmitt-10">&#x00A0;</span><span 
+class="cmitt-10">&#x00A0;</span><span 
+class="cmitt-10">#</span><span 
+class="cmitt-10">&#x00A0;</span><span 
+class="cmitt-10">Set</span><span 
+class="cmitt-10">&#x00A0;</span><span 
+class="cmitt-10">parameter</span><span 
+class="cmitt-10">&#x00A0;</span><span 
+class="cmitt-10">for</span><span 
+class="cmitt-10">&#x00A0;</span><span 
+class="cmitt-10">the</span><span 
+class="cmitt-10">&#x00A0;</span><span 
+class="cmitt-10">&#8217;</span><span 
+class="cmitt-10">size</span><span 
+class="cmitt-10">&#8217;</span><span 
+class="cmitt-10">&#x00A0;</span><span 
+class="cmitt-10">of</span><span 
+class="cmitt-10">&#x00A0;</span><span 
+class="cmitt-10">the</span><span 
+class="cmitt-10">&#x00A0;</span><span 
+class="cmitt-10">noise</span><span 
+class="cmtt-10">&#x00A0;</span><br /><span class="label"><a 
+ id="x1-7022r20"></a><span 
+class="cmr-10">20</span></span><span 
+class="cmtt-10">&#x00A0;</span><span 
+class="cmtt-10">&#x00A0;</span><span 
+class="cmtt-10">&#x00A0;</span><span 
+class="cmtt-10">&#x00A0;</span><span 
+class="cmtt-10">noisePlugin</span><span 
+class="cmtt-10">.</span><span 
+class="cmtt-10">Sigma</span><span 
+class="cmtt-10">&#x00A0;</span><span 
+class="cmtt-10">=</span><span 
+class="cmtt-10">&#x00A0;</span><span 
+class="cmtt-10">3.</span><span 
+class="cmtt-10">e</span><span 
+class="cmtt-10">-6</span><span 
+class="cmtt-10">&#x00A0;</span><br /><span class="label"><a 
+ id="x1-7023r21"></a><span 
+class="cmr-10">21</span></span><span 
+class="cmtt-10">&#x00A0;</span><br /><span class="label"><a 
+ id="x1-7024r22"></a><span 
+class="cmr-10">22</span></span><span 
+class="cmitt-10">&#x00A0;</span><span 
+class="cmitt-10">&#x00A0;</span><span 
+class="cmitt-10">&#x00A0;</span><span 
+class="cmitt-10">&#x00A0;</span><span 
+class="cmitt-10">#</span><span 
+class="cmitt-10">&#x00A0;</span><span 
+class="cmitt-10">Add</span><span 
+class="cmitt-10">&#x00A0;</span><span 
+class="cmitt-10">the</span><span 
+class="cmitt-10">&#x00A0;</span><span 
+class="cmitt-10">noise</span><span 
+class="cmtt-10">&#x00A0;</span><br /><span class="label"><a 
+ id="x1-7025r23"></a><span 
+class="cmr-10">23</span></span><span 
+class="cmtt-10">&#x00A0;</span><span 
+class="cmtt-10">&#x00A0;</span><span 
+class="cmtt-10">&#x00A0;</span><span 
+class="cmtt-10">&#x00A0;</span><span 
+class="cmtt-10">noisePlugin</span><span 
+class="cmtt-10">.</span><span 
+class="cmtt-10">execute</span><span 
+class="cmtt-10">()</span><span 
+class="cmtt-10">&#x00A0;</span><br /><span class="label"><a 
+ id="x1-7026r24"></a><span 
+class="cmr-10">24</span></span><span 
+class="cmtt-10">&#x00A0;</span><br /><span class="label"><a 
+ id="x1-7027r25"></a><span 
+class="cmr-10">25</span></span><span 
+class="cmitt-10">&#x00A0;</span><span 
+class="cmitt-10">&#x00A0;</span><span 
+class="cmitt-10">&#x00A0;</span><span 
+class="cmitt-10">&#x00A0;</span><span 
+class="cmitt-10">#</span><span 
+class="cmitt-10">&#x00A0;</span><span 
+class="cmitt-10">Get</span><span 
+class="cmitt-10">&#x00A0;</span><span 
+class="cmitt-10">the</span><span 
+class="cmitt-10">&#x00A0;</span><span 
+class="cmitt-10">data</span><span 
+class="cmitt-10">&#x00A0;</span><span 
+class="cmitt-10">to</span><span 
+class="cmitt-10">&#x00A0;</span><span 
+class="cmitt-10">plot</span><span 
+class="cmtt-10">&#x00A0;</span><br /><span class="label"><a 
+ id="x1-7028r26"></a><span 
+class="cmr-10">26</span></span><span 
+class="cmtt-10">&#x00A0;</span><span 
+class="cmtt-10">&#x00A0;</span><span 
+class="cmtt-10">&#x00A0;</span><span 
+class="cmtt-10">&#x00A0;</span><span 
+class="cmtt-10">noisePlugin</span><span 
+class="cmtt-10">.</span><span 
+class="cmtt-10">InputData</span><span 
+class="cmtt-10">.</span><span 
+class="cmtt-10">plot</span><span 
+class="cmtt-10">()</span><span 
+class="cmtt-10">&#x00A0;</span><br /><span class="label"><a 
+ id="x1-7029r27"></a><span 
+class="cmr-10">27</span></span><span 
+class="cmtt-10">&#x00A0;</span><br /><span class="label"><a 
+ id="x1-7030r28"></a><span 
+class="cmr-10">28</span></span><span 
+class="cmtt-10">except</span><span 
+class="cmtt-10">&#x00A0;</span><span 
+class="cmtt-10">Exception</span><span 
+class="cmtt-10">&#x00A0;</span><span 
+class="cmtt-10">as</span><span 
+class="cmtt-10">&#x00A0;</span><span 
+class="cmtt-10">e</span><span 
+class="cmtt-10">:</span><span 
+class="cmtt-10">&#x00A0;</span><br /><span class="label"><a 
+ id="x1-7031r29"></a><span 
+class="cmr-10">29</span></span><span 
+class="cmtt-10">&#x00A0;</span><span 
+class="cmtt-10">&#x00A0;</span><span 
+class="cmtt-10">&#x00A0;</span><span 
+class="cmtt-10">&#x00A0;</span><span 
+class="cmtt-10">print</span><span 
+class="cmtt-10">&#x00A0;</span><span 
+class="cmtt-10">&#8217;</span><span 
+class="cmtt-10">Problem</span><span 
+class="cmtt-10">:</span><span 
+class="cmtt-10">&#x00A0;</span><span 
+class="cmtt-10">&#8217;</span><span 
+class="cmtt-10">&#x00A0;</span><span 
+class="cmtt-10">+</span><span 
+class="cmtt-10">&#x00A0;</span><span 
+class="cmtt-10">&#8216;</span><span 
+class="cmtt-10">e</span><span 
+class="cmtt-10">&#8216;</span>
+   
+   <br />
+            <div class="caption" 
+><span class="id">Listing&#x00A0;1.1:
+            </span><span  
+class="content">Add
+            noise
+            example.</span></div><!--tex4ht:label?: x1-70001.5 -->
+   </div>
+<!--l. 82--><p class="indent" >   <hr class="figure"><div class="figure" 
+>
+                                                                                              
+                                                                                              
+<a 
+ id="x1-7032r1"></a><a 
+ id="x1-800033"></a>
+                                                                                              
+                                                                                              
+
+<!--l. 84--><p class="noindent" ><img 
+src="./Figures/AddNoise.png" alt="PIC"  
+>
+<br /> <div class="caption" 
+><span class="id">Figure&#x00A0;1.1: </span><span  
+class="content">Output for the AddNoise python example script discussed above</span></div><!--tex4ht:label?: x1-7032r1 -->
+                                                                                              
+                                                                                              
+<!--l. 87--><p class="indent" >   </div><hr class="endfigure">
+   <h4 class="subsectionHead"><span class="titlemark">1.5.2   </span> <a 
+ id="x1-80001.5.2"></a>Visualization of the noise distribution used in the AddNoise plugin</h4>
+<!--l. 90--><p class="noindent" >The Python script below demonstrates how to obtain and visualize the actual distribution (Gaussian)
+of noise that is applied on data.
+   <!--l. 93--><div class="lstinputlisting">
+<a 
+ id="x1-8001r2"></a>
+<a 
+ id="x1-8002"></a>
+   <span 
+class="cmtt-10">&#x00A0;</span><br /><span class="label"><a 
+ id="x1-8003r1"></a><span 
+class="cmr-10">1</span></span><span 
+class="cmitt-10">#</span><span 
+class="cmitt-10">&#x00A0;</span><span 
+class="cmitt-10">Show</span><span 
+class="cmitt-10">&#x00A0;</span><span 
+class="cmitt-10">that</span><span 
+class="cmitt-10">&#x00A0;</span><span 
+class="cmitt-10">add</span><span 
+class="cmitt-10">&#x00A0;</span><span 
+class="cmitt-10">noise</span><span 
+class="cmitt-10">&#x00A0;</span><span 
+class="cmitt-10">plugin</span><span 
+class="cmitt-10">&#x00A0;</span><span 
+class="cmitt-10">correctly</span><span 
+class="cmitt-10">&#x00A0;</span><span 
+class="cmitt-10">computes</span><span 
+class="cmitt-10">&#x00A0;</span><span 
+class="cmitt-10">Sigma</span><span 
+class="cmitt-10">&#x00A0;</span><span 
+class="cmitt-10">(</span><span 
+class="cmitt-10">standard</span><span 
+class="cmitt-10">&#x00A0;</span><span 
+class="cmitt-10">deviation</span><span 
+class="cmitt-10">)</span><span 
+class="cmtt-10">&#x00A0;</span><br /><span class="label"><a 
+ id="x1-8004r2"></a><span 
+class="cmr-10">2</span></span><span 
+class="cmtt-10">import</span><span 
+class="cmtt-10">&#x00A0;</span><span 
+class="cmtt-10">matplotlib</span><span 
+class="cmtt-10">.</span><span 
+class="cmtt-10">pyplot</span><span 
+class="cmtt-10">&#x00A0;</span><span 
+class="cmtt-10">as</span><span 
+class="cmtt-10">&#x00A0;</span><span 
+class="cmtt-10">plt</span><span 
+class="cmtt-10">&#x00A0;</span><br /><span class="label"><a 
+ id="x1-8005r3"></a><span 
+class="cmr-10">3</span></span><span 
+class="cmtt-10">import</span><span 
+class="cmtt-10">&#x00A0;</span><span 
+class="cmtt-10">scipy</span><span 
+class="cmtt-10">.</span><span 
+class="cmtt-10">stats</span><span 
+class="cmtt-10">&#x00A0;</span><span 
+class="cmtt-10">as</span><span 
+class="cmtt-10">&#x00A0;</span><span 
+class="cmtt-10">stats</span><span 
+class="cmtt-10">&#x00A0;</span><br /><span class="label"><a 
+ id="x1-8006r4"></a><span 
+class="cmr-10">4</span></span><span 
+class="cmtt-10">import</span><span 
+class="cmtt-10">&#x00A0;</span><span 
+class="cmtt-10">teplugins</span><span 
+class="cmtt-10">&#x00A0;</span><span 
+class="cmtt-10">as</span><span 
+class="cmtt-10">&#x00A0;</span><span 
+class="cmtt-10">tel</span><span 
+class="cmtt-10">&#x00A0;</span><br /><span class="label"><a 
+ id="x1-8007r5"></a><span 
+class="cmr-10">5</span></span><span 
+class="cmtt-10">import</span><span 
+class="cmtt-10">&#x00A0;</span><span 
+class="cmtt-10">numpy</span><span 
+class="cmtt-10">&#x00A0;</span><span 
+class="cmtt-10">as</span><span 
+class="cmtt-10">&#x00A0;</span><span 
+class="cmtt-10">np</span><span 
+class="cmtt-10">&#x00A0;</span><br /><span class="label"><a 
+ id="x1-8008r6"></a><span 
+class="cmr-10">6</span></span><span 
+class="cmtt-10">&#x00A0;</span><br /><span class="label"><a 
+ id="x1-8009r7"></a><span 
+class="cmr-10">7</span></span><span 
+class="cmtt-10">p</span><span 
+class="cmtt-10">&#x00A0;</span><span 
+class="cmtt-10">=</span><span 
+class="cmtt-10">&#x00A0;</span><span 
+class="cmtt-10">tel</span><span 
+class="cmtt-10">.</span><span 
+class="cmtt-10">Plugin</span><span 
+class="cmtt-10">&#x00A0;</span><span 
+class="cmtt-10">(</span><span 
+class="cmtt-10">"</span><span 
+class="cmtt-10">tel_add_noise</span><span 
+class="cmtt-10">"</span><span 
+class="cmtt-10">)</span><span 
+class="cmtt-10">&#x00A0;</span><br /><span class="label"><a 
+ id="x1-8010r8"></a><span 
+class="cmr-10">8</span></span><span 
+class="cmtt-10">&#x00A0;</span><br /><span class="label"><a 
+ id="x1-8011r9"></a><span 
+class="cmr-10">9</span></span><span 
+class="cmtt-10">value</span><span 
+class="cmtt-10">&#x00A0;</span><span 
+class="cmtt-10">=</span><span 
+class="cmtt-10">&#x00A0;</span><span 
+class="cmtt-10">2.34</span><span 
+class="cmtt-10">&#x00A0;</span><span 
+class="cmitt-10">&#x00A0;</span><span 
+class="cmitt-10">&#x00A0;</span><span 
+class="cmitt-10">&#x00A0;</span><span 
+class="cmitt-10">#</span><span 
+class="cmitt-10">This</span><span 
+class="cmitt-10">&#x00A0;</span><span 
+class="cmitt-10">will</span><span 
+class="cmitt-10">&#x00A0;</span><span 
+class="cmitt-10">be</span><span 
+class="cmitt-10">&#x00A0;</span><span 
+class="cmitt-10">the</span><span 
+class="cmitt-10">&#x00A0;</span><span 
+class="cmitt-10">mean</span><span 
+class="cmtt-10">&#x00A0;</span><br /><span class="label"><a 
+ id="x1-8012r10"></a><span 
+class="cmr-10">10</span></span><span 
+class="cmtt-10">n</span><span 
+class="cmtt-10">&#x00A0;</span><span 
+class="cmtt-10">=</span><span 
+class="cmtt-10">&#x00A0;</span><span 
+class="cmtt-10">80000</span><span 
+class="cmtt-10">&#x00A0;</span><br /><span class="label"><a 
+ id="x1-8013r11"></a><span 
+class="cmr-10">11</span></span><span 
+class="cmtt-10">inputData</span><span 
+class="cmtt-10">&#x00A0;</span><span 
+class="cmtt-10">&#x00A0;</span><span 
+class="cmtt-10">=</span><span 
+class="cmtt-10">&#x00A0;</span><span 
+class="cmtt-10">np</span><span 
+class="cmtt-10">.</span><span 
+class="cmtt-10">zeros</span><span 
+class="cmtt-10">&#x00A0;</span><span 
+class="cmtt-10">(</span><span 
+class="cmtt-10">shape</span><span 
+class="cmtt-10">=(1,2)</span><span 
+class="cmtt-10">)</span><span 
+class="cmtt-10">&#x00A0;</span><br /><span class="label"><a 
+ id="x1-8014r12"></a><span 
+class="cmr-10">12</span></span><span 
+class="cmtt-10">inputData</span><span 
+class="cmtt-10">[0]</span><span 
+class="cmtt-10">&#x00A0;</span><span 
+class="cmtt-10">=</span><span 
+class="cmtt-10">&#x00A0;</span><span 
+class="cmtt-10">[0,</span><span 
+class="cmtt-10">&#x00A0;</span><span 
+class="cmtt-10">value</span><span 
+class="cmtt-10">]</span><span 
+class="cmtt-10">&#x00A0;</span><br /><span class="label"><a 
+ id="x1-8015r13"></a><span 
+class="cmr-10">13</span></span><span 
+class="cmtt-10">&#x00A0;</span><br /><span class="label"><a 
+ id="x1-8016r14"></a><span 
+class="cmr-10">14</span></span><span 
+class="cmtt-10">data</span><span 
+class="cmtt-10">&#x00A0;</span><span 
+class="cmtt-10">=</span><span 
+class="cmtt-10">&#x00A0;</span><span 
+class="cmtt-10">tel</span><span 
+class="cmtt-10">.</span><span 
+class="cmtt-10">DataSeries</span><span 
+class="cmtt-10">.</span><span 
+class="cmtt-10">fromNumPy</span><span 
+class="cmtt-10">&#x00A0;</span><span 
+class="cmtt-10">(</span><span 
+class="cmtt-10">inputData</span><span 
+class="cmtt-10">)</span><span 
+class="cmtt-10">&#x00A0;</span><br /><span class="label"><a 
+ id="x1-8017r15"></a><span 
+class="cmr-10">15</span></span><span 
+class="cmtt-10">p</span><span 
+class="cmtt-10">.</span><span 
+class="cmtt-10">Sigma</span><span 
+class="cmtt-10">&#x00A0;</span><span 
+class="cmtt-10">=</span><span 
+class="cmtt-10">&#x00A0;</span><span 
+class="cmtt-10">0.25</span><span 
+class="cmtt-10">&#x00A0;</span><br /><span class="label"><a 
+ id="x1-8018r16"></a><span 
+class="cmr-10">16</span></span><span 
+class="cmtt-10">&#x00A0;</span><br /><span class="label"><a 
+ id="x1-8019r17"></a><span 
+class="cmr-10">17</span></span><span 
+class="cmtt-10">outArray</span><span 
+class="cmtt-10">&#x00A0;</span><span 
+class="cmtt-10">=</span><span 
+class="cmtt-10">&#x00A0;</span><span 
+class="cmtt-10">[]</span><span 
+class="cmtt-10">&#x00A0;</span><br /><span class="label"><a 
+ id="x1-8020r18"></a><span 
+class="cmr-10">18</span></span><span 
+class="cmtt-10">for</span><span 
+class="cmtt-10">&#x00A0;</span><span 
+class="cmtt-10">i</span><span 
+class="cmtt-10">&#x00A0;</span><span 
+class="cmtt-10">in</span><span 
+class="cmtt-10">&#x00A0;</span><span 
+class="cmtt-10">range</span><span 
+class="cmtt-10">(</span><span 
+class="cmtt-10">n</span><span 
+class="cmtt-10">)</span><span 
+class="cmtt-10">:</span><span 
+class="cmtt-10">&#x00A0;</span><br /><span class="label"><a 
+ id="x1-8021r19"></a><span 
+class="cmr-10">19</span></span><span 
+class="cmtt-10">&#x00A0;</span><span 
+class="cmtt-10">&#x00A0;</span><span 
+class="cmtt-10">&#x00A0;</span><span 
+class="cmtt-10">&#x00A0;</span><span 
+class="cmtt-10">p</span><span 
+class="cmtt-10">.</span><span 
+class="cmtt-10">InputData</span><span 
+class="cmtt-10">&#x00A0;</span><span 
+class="cmtt-10">=</span><span 
+class="cmtt-10">&#x00A0;</span><span 
+class="cmtt-10">data</span><span 
+class="cmtt-10">&#x00A0;</span><br /><span class="label"><a 
+ id="x1-8022r20"></a><span 
+class="cmr-10">20</span></span><span 
+class="cmtt-10">&#x00A0;</span><span 
+class="cmtt-10">&#x00A0;</span><span 
+class="cmtt-10">&#x00A0;</span><span 
+class="cmtt-10">&#x00A0;</span><span 
+class="cmtt-10">p</span><span 
+class="cmtt-10">.</span><span 
+class="cmtt-10">execute</span><span 
+class="cmtt-10">()</span><span 
+class="cmtt-10">&#x00A0;</span><br /><span class="label"><a 
+ id="x1-8023r21"></a><span 
+class="cmr-10">21</span></span><span 
+class="cmtt-10">&#x00A0;</span><span 
+class="cmtt-10">&#x00A0;</span><span 
+class="cmtt-10">&#x00A0;</span><span 
+class="cmtt-10">&#x00A0;</span><span 
+class="cmtt-10">outValues</span><span 
+class="cmtt-10">&#x00A0;</span><span 
+class="cmtt-10">=</span><span 
+class="cmtt-10">&#x00A0;</span><span 
+class="cmtt-10">p</span><span 
+class="cmtt-10">.</span><span 
+class="cmtt-10">InputData</span><span 
+class="cmtt-10">.</span><span 
+class="cmtt-10">toNumpy</span><span 
+class="cmtt-10">&#x00A0;</span><br /><span class="label"><a 
+ id="x1-8024r22"></a><span 
+class="cmr-10">22</span></span><span 
+class="cmtt-10">&#x00A0;</span><span 
+class="cmtt-10">&#x00A0;</span><span 
+class="cmtt-10">&#x00A0;</span><span 
+class="cmtt-10">&#x00A0;</span><span 
+class="cmtt-10">outArray</span><span 
+class="cmtt-10">.</span><span 
+class="cmtt-10">append</span><span 
+class="cmtt-10">(</span><span 
+class="cmtt-10">outValues</span><span 
+class="cmtt-10">[0][1])</span><span 
+class="cmtt-10">&#x00A0;</span><br /><span class="label"><a 
+ id="x1-8025r23"></a><span 
+class="cmr-10">23</span></span><span 
+class="cmtt-10">&#x00A0;</span><br /><span class="label"><a 
+ id="x1-8026r24"></a><span 
+class="cmr-10">24</span></span><span 
+class="cmtt-10">plt</span><span 
+class="cmtt-10">.</span><span 
+class="cmtt-10">hist</span><span 
+class="cmtt-10">(</span><span 
+class="cmtt-10">outArray</span><span 
+class="cmtt-10">,</span><span 
+class="cmtt-10">&#x00A0;</span><span 
+class="cmtt-10">200,</span><span 
+class="cmtt-10">&#x00A0;</span><span 
+class="cmtt-10">normed</span><span 
+class="cmtt-10">=</span><span 
+class="cmtt-10">True</span><span 
+class="cmtt-10">)</span><span 
+class="cmtt-10">&#x00A0;</span><br /><span class="label"><a 
+ id="x1-8027r25"></a><span 
+class="cmr-10">25</span></span><span 
+class="cmtt-10">&#x00A0;</span><br /><span class="label"><a 
+ id="x1-8028r26"></a><span 
+class="cmr-10">26</span></span><span 
+class="cmitt-10">#</span><span 
+class="cmitt-10">&#x00A0;</span><span 
+class="cmitt-10">Overlay</span><span 
+class="cmitt-10">&#x00A0;</span><span 
+class="cmitt-10">analytical</span><span 
+class="cmitt-10">&#x00A0;</span><span 
+class="cmitt-10">solution</span><span 
+class="cmtt-10">&#x00A0;</span><br /><span class="label"><a 
+ id="x1-8029r27"></a><span 
+class="cmr-10">27</span></span><span 
+class="cmtt-10">aRange</span><span 
+class="cmtt-10">&#x00A0;</span><span 
+class="cmtt-10">=</span><span 
+class="cmtt-10">&#x00A0;</span><span 
+class="cmtt-10">np</span><span 
+class="cmtt-10">.</span><span 
+class="cmtt-10">arange</span><span 
+class="cmtt-10">(</span><span 
+class="cmtt-10">min</span><span 
+class="cmtt-10">(</span><span 
+class="cmtt-10">outArray</span><span 
+class="cmtt-10">)</span><span 
+class="cmtt-10">,</span><span 
+class="cmtt-10">&#x00A0;</span><span 
+class="cmtt-10">max</span><span 
+class="cmtt-10">(</span><span 
+class="cmtt-10">outArray</span><span 
+class="cmtt-10">)</span><span 
+class="cmtt-10">,</span><span 
+class="cmtt-10">&#x00A0;</span><span 
+class="cmtt-10">0.001)</span><span 
+class="cmtt-10">&#x00A0;</span><br /><span class="label"><a 
+ id="x1-8030r28"></a><span 
+class="cmr-10">28</span></span><span 
+class="cmtt-10">plt</span><span 
+class="cmtt-10">.</span><span 
+class="cmtt-10">plot</span><span 
+class="cmtt-10">(</span><span 
+class="cmtt-10">aRange</span><span 
+class="cmtt-10">,</span><span 
+class="cmtt-10">&#x00A0;</span><span 
+class="cmtt-10">stats</span><span 
+class="cmtt-10">.</span><span 
+class="cmtt-10">norm</span><span 
+class="cmtt-10">.</span><span 
+class="cmtt-10">pdf</span><span 
+class="cmtt-10">(</span><span 
+class="cmtt-10">aRange</span><span 
+class="cmtt-10">,</span><span 
+class="cmtt-10">&#x00A0;</span><span 
+class="cmtt-10">value</span><span 
+class="cmtt-10">,</span><span 
+class="cmtt-10">&#x00A0;</span><span 
+class="cmtt-10">p</span><span 
+class="cmtt-10">.</span><span 
+class="cmtt-10">Sigma</span><span 
+class="cmtt-10">)</span><span 
+class="cmtt-10">,</span><span 
+class="cmtt-10">&#x00A0;</span><span 
+class="cmtt-10">linestyle</span><span 
+class="cmtt-10">=</span><span 
+class="cmtt-10">&#8217;</span><span 
+class="cmtt-10">--</span><span 
+class="cmtt-10">&#8217;</span><span 
+class="cmtt-10">,</span><span 
+class="cmtt-10">&#x00A0;</span><span 
+class="cmtt-10">linewidth</span><span 
+class="cmtt-10">=</span><span 
+class="cmtt-10">&#8217;</span><span 
+class="cmtt-10">2</span><span 
+class="cmtt-10">&#8217;</span><span 
+class="cmtt-10">,</span><span 
+class="cmtt-10">&#x00A0;</span><span 
+class="cmtt-10">color</span><span 
+class="cmtt-10">=</span><span 
+class="cmtt-10">&#8217;</span><span 
+class="cmtt-10">red</span><span 
+class="cmtt-10">&#8217;</span><span 
+class="cmtt-10">)</span><span 
+class="cmtt-10">&#x00A0;</span><br /><span class="label"><a 
+ id="x1-8031r29"></a><span 
+class="cmr-10">29</span></span><span 
+class="cmtt-10">&#x00A0;</span><br /><span class="label"><a 
+ id="x1-8032r30"></a><span 
+class="cmr-10">30</span></span><span 
+class="cmtt-10">plt</span><span 
+class="cmtt-10">.</span><span 
+class="cmtt-10">show</span><span 
+class="cmtt-10">()</span>
+   
+   <br />
+       <div class="caption" 
+><span class="id">Listing&#x00A0;1.2:
+       </span><span  
+class="content">Noise
+       distribution
+       example.</span></div><!--tex4ht:label?: x1-80001.5 -->
+   </div>
+<!--l. 96--><p class="indent" >   <hr class="figure"><div class="figure" 
+>
+                                                                                              
+                                                                                              
+<a 
+ id="x1-8035r2"></a>
+                                                                                              
+                                                                                              
+
+<!--l. 98--><p class="noindent" ><img 
+src="./Figures/AddNoise2.png" alt="PIC"  
+>
+<br /> <div class="caption" 
+><span class="id">Figure&#x00A0;1.2: </span><span  
+class="content">Output for the AddNoise python example script discussed above</span></div><!--tex4ht:label?: x1-8035r2 -->
+                                                                                              
+                                                                                              
+<!--l. 101--><p class="indent" >   </div><hr class="endfigure">
+                                                                                              
+                                                                                              
+    
+</body></html> 
+
+                                                                                              
+
+

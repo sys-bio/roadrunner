@@ -1,0 +1,327 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN"  
+  "http://www.w3.org/TR/html4/loose.dtd">  
+<html > 
+<head><title></title> 
+<meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1"> 
+<meta name="generator" content="TeX4ht (http://www.cse.ohio-state.edu/~gurari/TeX4ht/)"> 
+<meta name="originator" content="TeX4ht (http://www.cse.ohio-state.edu/~gurari/TeX4ht/)"> 
+<!-- html --> 
+<meta name="src" content="mainDoc.tex"> 
+<meta name="date" content="2015-07-13 11:10:00"> 
+<link rel="stylesheet" type="text/css" href="mainDoc.css"> 
+</head><body 
+>
+                                                                                              
+                                                                                              
+                                                                                              
+                                                                                              
+                                                                                              
+                                                                                              
+   <h2 class="likechapterHead"><a 
+ id="x1-1000"></a>Test Model Plugin</h2>  <span 
+class="cmti-12">Do some testing</span>
+   <h3 class="sectionHead"><span class="titlemark">1.1   </span> <a 
+ id="x1-20001.1"></a>Introduction</h3>
+<!--l. 5--><p class="noindent" >The purpose of the <span 
+class="cmti-12">TestModel </span>plugin is to conveniently embed a SBML test model in a plugin. In
+addition, the plugin provides the user with simulated data, with and without applied artificial Gaussian
+noise.
+<!--l. 7--><p class="indent" >   Currently no settings are exposed for the actual simulation of the test model.
+<!--l. 9--><p class="indent" >   The TestModel plugin depends on the AddNoise plugin.
+<!--l. 11--><p class="noindent" >
+   <h3 class="sectionHead"><span class="titlemark">1.2   </span> <a 
+ id="x1-30001.2"></a>Plugin Parameters</h3>
+<!--l. 12--><p class="noindent" >Table <a 
+href="#x1-3001r1">1.1<!--tex4ht:ref: table:PluginProperties --></a> lists available plugin property names, along with their data type and purpose.
+   <div class="table">
+                                                                                              
+                                                                                              
+<!--l. 15--><p class="indent" >   <a 
+ id="x1-3001r1"></a><a 
+ id="x1-700023"></a><hr class="float"><div class="float" 
+>
+                                                                                              
+                                                                                              
+<div class="tabular"> <table id="TBL-1" class="tabular" 
+cellspacing="0" cellpadding="0"  
+><colgroup id="TBL-1-1g"><col 
+id="TBL-1-1"><col 
+id="TBL-1-2"><col 
+id="TBL-1-3"></colgroup><tr  
+ style="vertical-align:baseline;" id="TBL-1-1-"><td  style="white-space:nowrap; text-align:left;" id="TBL-1-1-1"  
+class="td11">Parameter Name   </td><td  style="white-space:nowrap; text-align:left;" id="TBL-1-1-2"  
+class="td11">Data Type     </td><td  style="white-space:wrap; text-align:left;" id="TBL-1-1-3"  
+class="td11"><!--l. 19--><p class="noindent" >Purpose                                            </td>
+</tr><tr 
+class="hline"><td><hr></td><td><hr></td><td><hr></td></tr><tr 
+class="vspace" style="font-size:2.58333pt"><td 
+>&nbsp;</td><td 
+>&nbsp;</td><td 
+>&nbsp;</td></tr><tr  
+ style="vertical-align:baseline;" id="TBL-1-2-"><td  style="white-space:nowrap; text-align:left;" id="TBL-1-2-1"  
+class="td11">Model                  </td><td  style="white-space:nowrap; text-align:left;" id="TBL-1-2-2"  
+class="td11">string            </td><td  style="white-space:wrap; text-align:left;" id="TBL-1-2-3"  
+class="td11"><!--l. 22--><p class="noindent" >The actual test model, in XML format.   </td>
+</tr><tr  
+ style="vertical-align:baseline;" id="TBL-1-3-"><td  style="white-space:nowrap; text-align:left;" id="TBL-1-3-1"  
+class="td11">TestData              </td><td  style="white-space:nowrap; text-align:left;" id="TBL-1-3-2"  
+class="td11">TelluriumData</td><td  style="white-space:wrap; text-align:left;" id="TBL-1-3-3"  
+class="td11"><!--l. 23--><p class="noindent" >Simulated data, using the TestModel as
+input and default RoadRunner Simulation
+values.                                              </td>
+</tr><tr  
+ style="vertical-align:baseline;" id="TBL-1-4-"><td  style="white-space:nowrap; text-align:left;" id="TBL-1-4-1"  
+class="td11">TestDataWithNoise</td><td  style="white-space:nowrap; text-align:left;" id="TBL-1-4-2"  
+class="td11">TelluriumData</td><td  style="white-space:wrap; text-align:left;" id="TBL-1-4-3"  
+class="td11"><!--l. 24--><p class="noindent" >Simulated data, with applied noise.        </td>
+</tr><tr 
+class="hline"><td><hr></td><td><hr></td><td><hr></td></tr><tr  
+ style="vertical-align:baseline;" id="TBL-1-5-"><td  style="white-space:nowrap; text-align:left;" id="TBL-1-5-1"  
+class="td11">                </td></tr></table></div>
+<br /> <div class="caption" 
+><span class="id">Table&#x00A0;1.1: </span><span  
+class="content">Plugin Properties</span></div><!--tex4ht:label?: x1-3001r1 -->
+                                                                                              
+                                                                                              
+   </div><hr class="endfloat" />
+   </div>
+   <h3 class="sectionHead"><span class="titlemark">1.3   </span> <a 
+ id="x1-40001.3"></a>Plugin Events</h3>
+<!--l. 33--><p class="noindent" >This plugin does not use any plugin events.
+<!--l. 36--><p class="noindent" >
+   <h3 class="sectionHead"><span class="titlemark">1.4   </span> <a 
+ id="x1-50001.4"></a>The <span 
+class="cmtt-12">execute() </span>function</h3>
+<!--l. 37--><p class="noindent" >The <span class="obeylines-h"><span class="verb"><span 
+class="cmtt-12">execute()</span></span></span> function will generate simulated data, and simulated data with noise. The data will be
+available in the properties, TestData and TestDataWithNoise respectively.
+<!--l. 39--><p class="noindent" >
+   <h3 class="sectionHead"><span class="titlemark">1.5   </span> <a 
+ id="x1-60001.5"></a>Python examples</h3>
+<!--l. 41--><p class="noindent" >
+   <h4 class="subsectionHead"><span class="titlemark">1.5.1   </span> <a 
+ id="x1-70001.5.1"></a>Usage of the TestModel plugin</h4>
+<!--l. 42--><p class="noindent" >The python script below shows how to use the TestModel plugin.
+   <!--l. 45--><div class="lstinputlisting">
+<a 
+ id="x1-7001r1"></a>
+<a 
+ id="x1-7002"></a>
+   <span 
+class="cmtt-10">&#x00A0;</span><br /><span class="label"><a 
+ id="x1-7003r1"></a><span 
+class="cmr-10">1</span></span><span 
+class="cmtt-10">import</span><span 
+class="cmtt-10">&#x00A0;</span><span 
+class="cmtt-10">teplugins</span><span 
+class="cmtt-10">&#x00A0;</span><span 
+class="cmtt-10">as</span><span 
+class="cmtt-10">&#x00A0;</span><span 
+class="cmtt-10">tel</span><span 
+class="cmtt-10">&#x00A0;</span><br /><span class="label"><a 
+ id="x1-7004r2"></a><span 
+class="cmr-10">2</span></span><span 
+class="cmtt-10">&#x00A0;</span><br /><span class="label"><a 
+ id="x1-7005r3"></a><span 
+class="cmr-10">3</span></span><span 
+class="cmtt-10">try</span><span 
+class="cmtt-10">:</span><span 
+class="cmtt-10">&#x00A0;</span><br /><span class="label"><a 
+ id="x1-7006r4"></a><span 
+class="cmr-10">4</span></span><span 
+class="cmtt-10">&#x00A0;</span><span 
+class="cmtt-10">&#x00A0;</span><span 
+class="cmtt-10">&#x00A0;</span><span 
+class="cmtt-10">&#x00A0;</span><span 
+class="cmtt-10">modelPlugin</span><span 
+class="cmtt-10">&#x00A0;</span><span 
+class="cmtt-10">=</span><span 
+class="cmtt-10">&#x00A0;</span><span 
+class="cmtt-10">tel</span><span 
+class="cmtt-10">.</span><span 
+class="cmtt-10">Plugin</span><span 
+class="cmtt-10">(</span><span 
+class="cmtt-10">"</span><span 
+class="cmtt-10">tel_test_model</span><span 
+class="cmtt-10">"</span><span 
+class="cmtt-10">)</span><span 
+class="cmtt-10">&#x00A0;</span><br /><span class="label"><a 
+ id="x1-7007r5"></a><span 
+class="cmr-10">5</span></span><span 
+class="cmtt-10">&#x00A0;</span><br /><span class="label"><a 
+ id="x1-7008r6"></a><span 
+class="cmr-10">6</span></span><span 
+class="cmitt-10">&#x00A0;</span><span 
+class="cmitt-10">&#x00A0;</span><span 
+class="cmitt-10">&#x00A0;</span><span 
+class="cmitt-10">&#x00A0;</span><span 
+class="cmitt-10">#</span><span 
+class="cmitt-10">Test</span><span 
+class="cmitt-10">&#x00A0;</span><span 
+class="cmitt-10">model</span><span 
+class="cmitt-10">&#x00A0;</span><span 
+class="cmitt-10">plugin</span><span 
+class="cmitt-10">&#x00A0;</span><span 
+class="cmitt-10">depends</span><span 
+class="cmitt-10">&#x00A0;</span><span 
+class="cmitt-10">on</span><span 
+class="cmitt-10">&#x00A0;</span><span 
+class="cmitt-10">the</span><span 
+class="cmitt-10">&#x00A0;</span><span 
+class="cmitt-10">add_noise</span><span 
+class="cmitt-10">&#x00A0;</span><span 
+class="cmitt-10">plugin</span><span 
+class="cmtt-10">&#x00A0;</span><br /><span class="label"><a 
+ id="x1-7009r7"></a><span 
+class="cmr-10">7</span></span><span 
+class="cmtt-10">&#x00A0;</span><span 
+class="cmtt-10">&#x00A0;</span><span 
+class="cmtt-10">&#x00A0;</span><span 
+class="cmtt-10">&#x00A0;</span><span 
+class="cmtt-10">noisePlugin</span><span 
+class="cmtt-10">&#x00A0;</span><span 
+class="cmtt-10">=</span><span 
+class="cmtt-10">&#x00A0;</span><span 
+class="cmtt-10">tel</span><span 
+class="cmtt-10">.</span><span 
+class="cmtt-10">Plugin</span><span 
+class="cmtt-10">(</span><span 
+class="cmtt-10">"</span><span 
+class="cmtt-10">tel_add_noise</span><span 
+class="cmtt-10">"</span><span 
+class="cmtt-10">)</span><span 
+class="cmtt-10">&#x00A0;</span><br /><span class="label"><a 
+ id="x1-7010r8"></a><span 
+class="cmr-10">8</span></span><span 
+class="cmtt-10">&#x00A0;</span><br /><span class="label"><a 
+ id="x1-7011r9"></a><span 
+class="cmr-10">9</span></span><span 
+class="cmitt-10">&#x00A0;</span><span 
+class="cmitt-10">&#x00A0;</span><span 
+class="cmitt-10">&#x00A0;</span><span 
+class="cmitt-10">&#x00A0;</span><span 
+class="cmitt-10">#</span><span 
+class="cmitt-10">Generate</span><span 
+class="cmitt-10">&#x00A0;</span><span 
+class="cmitt-10">internal</span><span 
+class="cmitt-10">&#x00A0;</span><span 
+class="cmitt-10">test</span><span 
+class="cmitt-10">&#x00A0;</span><span 
+class="cmitt-10">data</span><span 
+class="cmtt-10">&#x00A0;</span><br /><span class="label"><a 
+ id="x1-7012r10"></a><span 
+class="cmr-10">10</span></span><span 
+class="cmtt-10">&#x00A0;</span><span 
+class="cmtt-10">&#x00A0;</span><span 
+class="cmtt-10">&#x00A0;</span><span 
+class="cmtt-10">&#x00A0;</span><span 
+class="cmtt-10">modelPlugin</span><span 
+class="cmtt-10">.</span><span 
+class="cmtt-10">execute</span><span 
+class="cmtt-10">()</span><span 
+class="cmtt-10">&#x00A0;</span><br /><span class="label"><a 
+ id="x1-7013r11"></a><span 
+class="cmr-10">11</span></span><span 
+class="cmtt-10">&#x00A0;</span><span 
+class="cmtt-10">&#x00A0;</span><span 
+class="cmtt-10">&#x00A0;</span><span 
+class="cmtt-10">&#x00A0;</span><span 
+class="cmtt-10">test_data</span><span 
+class="cmtt-10">&#x00A0;</span><span 
+class="cmtt-10">=</span><span 
+class="cmtt-10">&#x00A0;</span><span 
+class="cmtt-10">modelPlugin</span><span 
+class="cmtt-10">.</span><span 
+class="cmtt-10">TestData</span><span 
+class="cmtt-10">&#x00A0;</span><br /><span class="label"><a 
+ id="x1-7014r12"></a><span 
+class="cmr-10">12</span></span><span 
+class="cmtt-10">&#x00A0;</span><span 
+class="cmtt-10">&#x00A0;</span><span 
+class="cmtt-10">&#x00A0;</span><span 
+class="cmtt-10">&#x00A0;</span><span 
+class="cmtt-10">test_data_with_noise</span><span 
+class="cmtt-10">&#x00A0;</span><span 
+class="cmtt-10">=</span><span 
+class="cmtt-10">&#x00A0;</span><span 
+class="cmtt-10">modelPlugin</span><span 
+class="cmtt-10">.</span><span 
+class="cmtt-10">TestDataWithNoise</span><span 
+class="cmtt-10">&#x00A0;</span><br /><span class="label"><a 
+ id="x1-7015r13"></a><span 
+class="cmr-10">13</span></span><span 
+class="cmtt-10">&#x00A0;</span><br /><span class="label"><a 
+ id="x1-7016r14"></a><span 
+class="cmr-10">14</span></span><span 
+class="cmtt-10">&#x00A0;</span><span 
+class="cmtt-10">&#x00A0;</span><span 
+class="cmtt-10">&#x00A0;</span><span 
+class="cmtt-10">&#x00A0;</span><span 
+class="cmtt-10">test_data</span><span 
+class="cmtt-10">.</span><span 
+class="cmtt-10">plot</span><span 
+class="cmtt-10">()</span><span 
+class="cmtt-10">&#x00A0;</span><br /><span class="label"><a 
+ id="x1-7017r15"></a><span 
+class="cmr-10">15</span></span><span 
+class="cmtt-10">&#x00A0;</span><span 
+class="cmtt-10">&#x00A0;</span><span 
+class="cmtt-10">&#x00A0;</span><span 
+class="cmtt-10">&#x00A0;</span><span 
+class="cmtt-10">test_data_with_noise</span><span 
+class="cmtt-10">.</span><span 
+class="cmtt-10">plot</span><span 
+class="cmtt-10">()</span><span 
+class="cmtt-10">&#x00A0;</span><br /><span class="label"><a 
+ id="x1-7018r16"></a><span 
+class="cmr-10">16</span></span><span 
+class="cmtt-10">&#x00A0;</span><br /><span class="label"><a 
+ id="x1-7019r17"></a><span 
+class="cmr-10">17</span></span><span 
+class="cmtt-10">except</span><span 
+class="cmtt-10">&#x00A0;</span><span 
+class="cmtt-10">Exception</span><span 
+class="cmtt-10">&#x00A0;</span><span 
+class="cmtt-10">as</span><span 
+class="cmtt-10">&#x00A0;</span><span 
+class="cmtt-10">e</span><span 
+class="cmtt-10">:</span><span 
+class="cmtt-10">&#x00A0;</span><br /><span class="label"><a 
+ id="x1-7020r18"></a><span 
+class="cmr-10">18</span></span><span 
+class="cmtt-10">&#x00A0;</span><span 
+class="cmtt-10">&#x00A0;</span><span 
+class="cmtt-10">&#x00A0;</span><span 
+class="cmtt-10">&#x00A0;</span><span 
+class="cmtt-10">print</span><span 
+class="cmtt-10">&#x00A0;</span><span 
+class="cmtt-10">&#8217;</span><span 
+class="cmtt-10">Problem</span><span 
+class="cmtt-10">:</span><span 
+class="cmtt-10">&#x00A0;</span><span 
+class="cmtt-10">&#8217;</span><span 
+class="cmtt-10">&#x00A0;</span><span 
+class="cmtt-10">+</span><span 
+class="cmtt-10">&#x00A0;</span><span 
+class="cmtt-10">&#8216;</span><span 
+class="cmtt-10">e</span><span 
+class="cmtt-10">&#8216;</span>
+   
+   <br />
+            <div class="caption" 
+><span class="id">Listing&#x00A0;1.1:
+            </span><span  
+class="content">TestModel
+            plugin
+            example.</span></div><!--tex4ht:label?: x1-70001.5 -->
+                                                                                              
+                                                                                              
+   </div>
+                                                                                              
+                                                                                              
+    
+</body></html> 
+
+                                                                                              
+
+

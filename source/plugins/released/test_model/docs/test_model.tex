@@ -1,0 +1,47 @@
+\chapter*{Test Model Plugin}
+\setcounter{chapter}{1}
+\emph{Do some testing}
+\section{Introduction}
+The purpose of the \emph{TestModel} plugin is to conveniently embed a SBML test model in a plugin. In addition, the plugin provides the user with simulated data, with and without applied artificial Gaussian noise. 
+
+Currently no settings are exposed for the actual simulation of the test model.
+
+The TestModel plugin depends on the AddNoise plugin.
+ 
+\section{Plugin Parameters}
+Table \ref{table:PluginProperties} lists available plugin property names, along with their data type and purpose.
+
+
+\begin{table}[ht]
+\centering % used for centering table
+\begin{tabular}{l l p{7.5cm}} % centered columns (4 columns)
+
+Parameter Name & Data Type & Purpose \\ [0.5ex] % inserts table 
+%heading
+\hline % inserts single horizontal line
+Model         			& 	string 				& The actual test model, in XML format. \\
+TestData      			& 	TelluriumData    	& Simulated data, using the TestModel as input and default RoadRunner Simulation values. \\
+TestDataWithNoise    	& 	TelluriumData  	    & Simulated data, with applied noise. \\
+
+\hline %inserts single line
+\end{tabular}
+\caption{Plugin Properties} 
+\label{table:PluginProperties} 
+\end{table}
+
+\section{Plugin Events}
+This plugin does not use any plugin events.
+
+
+\section{The \texttt{execute()} function}
+The \verb|execute()| function will generate simulated data, and simulated data with noise. The data will be available in the properties, TestData and TestDataWithNoise respectively. 
+
+\section{Python examples}
+
+\subsection{Usage of the TestModel plugin}
+The python script below shows how to use the TestModel plugin. 
+
+\begin{singlespace}
+\lstinputlisting[label=test_plugin_header,caption={TestModel plugin example.},language=Python]{Examples/telExample.py}
+\end{singlespace}
+

@@ -1,0 +1,25 @@
+Release 1.0.0 (2014-03-13)
+==========================
+* Ran Monte carlo using Nelder-Mead from python
+* Updated Monte Carlo plugin to accept custom minimizer plugin
+* Added new Monte-Carlo string property to use for assigning minimizer plugin (defaults to Levenberg-Marquadt)
+* Updated Monte Carlo plugin to expose fitted parameters (as tellurium Data) from each monte carlo run.
+* Added a 'Current' parameters property that can be used to monitor calculated parameters as the Monte Carlo progresses
+* Adding property to monitor parameters in each MC run (onProgress)
+* Compiled the latest with Visual Studio 2012
+* Updated all CMake files
+* Fixed bug when copying property container
+* Got Monte Carlo parameter generation working
+* Added code that runs minimization on each Monte Carlo data set
+* Adding example on copying a property container, i.e. Properties
+* Fixed reading roadrunner data with more columns than 100
+* Added conversion operators to properties
+* Implemented creation of Monte Carlo Data sets
+* Added reset function to Monte Carlo worker
+* Added logging API to telplugins
+* Got initial creation of residuals in Monte Carlo implemented
+* Added C API function getPluginPropertyValueHandle
+* Added Mersien-Twister random number generator to use with the monte carlo bs plugin
+* Initial commit of Monte Carlo BootStrap plugin
+
+

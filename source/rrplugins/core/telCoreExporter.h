@@ -18,12 +18,12 @@
 //Helper macros for plugins
 #if defined(_WIN32)
     #if defined(EXPORT_TEL_PLUGIN)
-        #define TLP_DS __declspec(dllexport)
+        #define RR_DS __declspec(dllexport)
     #else
-        #define TLP_DS __declspec(dllimport)
+        #define RR_DS __declspec(dllimport)
     #endif
 #else
-    #define TLP_DS
+    #define RR_DS
 #endif
 
 //Function calling conventions

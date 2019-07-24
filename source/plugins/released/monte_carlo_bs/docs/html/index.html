@@ -1,0 +1,1938 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN"  
+  "http://www.w3.org/TR/html4/loose.dtd">  
+<html > 
+<head><title></title> 
+<meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1"> 
+<meta name="generator" content="TeX4ht (http://www.cse.ohio-state.edu/~gurari/TeX4ht/)"> 
+<meta name="originator" content="TeX4ht (http://www.cse.ohio-state.edu/~gurari/TeX4ht/)"> 
+<!-- html --> 
+<meta name="src" content="mainDoc.tex"> 
+<meta name="date" content="2015-07-13 15:24:00"> 
+<link rel="stylesheet" type="text/css" href="mainDoc.css"> 
+</head><body 
+>
+                                                                                              
+                                                                                              
+                                                                                              
+                                                                                              
+                                                                                              
+                                                                                              
+   <h2 class="likechapterHead"><a 
+ id="x1-1000"></a>Parameter confidence estimation using the Monte Carlo bootstrap algorithm</h2>  <span 
+class="cmti-12">Get some confidence</span>
+<span 
+class="cmti-12">estimates</span>
+   <h3 class="sectionHead"><span class="titlemark">1.1   </span> <a 
+ id="x1-20001.1"></a>Introduction</h3>
+<!--l. 8--><p class="noindent" >The Monte Carlo plugin is used to obtain estimates of the confidence limits for a model&#8217;s parameters.
+This is in the context where experimental data exists and a parameter minimization method, such as
+Levenberg-Marquardt or Nelder-Mead has already been used in order to find a parameter
+minimum.
+<!--l. 10--><p class="indent" >   The Monte Carlo algorithm is used subsequently at this minimum and will give an estimate
+of parameter confidence limits corresponding to the variance in the original experimental
+data.
+<!--l. 12--><p class="indent" >   The plugin has properties such as the size of the Monte Carlo population, minimization algorithm to
+use (e.g. Nelder-Mead or Levenberg-Marquardt), and on output, confidence limits for each involved
+parameter.
+<!--l. 14--><p class="indent" >   Plugin properties are documented in more detail in the next section.
+                                                                                              
+                                                                                              
+                                                                                                   <h3 class="sectionHead"><span class="titlemark">1.2   </span> <a 
+ id="x1-30001.2"></a>Plugin Properties</h3>
+<!--l. 18--><p class="noindent" >Available properties in the Monte Carlo&#x00A0;plugin are listed in the table below.
+<a 
+ id="x1-3001r1"></a><!--l. 24--><div class="longtable"> <table id="TBL-1" class="longtable" 
+cellspacing="0" cellpadding="0"  
+><colgroup id="TBL-1-1g"><col 
+id="TBL-1-1"><col 
+id="TBL-1-2"><col 
+id="TBL-1-3"><col 
+id="TBL-1-4"></colgroup>
+<tr  
+ style="vertical-align:baseline;" id="TBL-1-1-"><td  style="white-space:wrap; text-align:left;" id="TBL-1-1-1"  
+class="td11">
+<!--l. 24--><p class="noindent" >Property Name         </td><td  style="white-space:nowrap; text-align:left;" id="TBL-1-1-2"  
+class="td11">Data Type       </td><td  style="white-space:wrap; text-align:left;" id="TBL-1-1-3"  
+class="td11">
+<!--l. 24--><p class="noindent" >Default Value    </td><td  style="white-space:wrap; text-align:left;" id="TBL-1-1-4"  
+class="td11">
+<!--l. 24--><p class="noindent" >Description                                                          </td>
+</tr><tr 
+class="hline"><td><hr></td><td><hr></td><td><hr></td><td><hr></td></tr><tr 
+class="vspace" style="font-size:2.58333pt"><td 
+>&nbsp;</td><td 
+>&nbsp;</td><td 
+>&nbsp;</td><td 
+>&nbsp;</td></tr><tr  
+ style="vertical-align:baseline;" id="TBL-1-2-"><td  style="white-space:wrap; text-align:left;" id="TBL-1-2-1"  
+class="td11">
+<!--l. 27--><p class="noindent" >SBML                     </td><td  style="white-space:nowrap; text-align:left;" id="TBL-1-2-2"  
+class="td11">string             </td><td  style="white-space:wrap; text-align:left;" id="TBL-1-2-3"  
+class="td11">
+<!--l. 27--><p class="noindent" >N/A                </td><td  style="white-space:wrap; text-align:left;" id="TBL-1-2-4"  
+class="td11">
+<!--l. 27--><p class="noindent" >SBML document as a string. Model to be used by the
+Monte Carlo&#x00A0;plugin.                                              </td>
+</tr><tr  
+ style="vertical-align:baseline;" id="TBL-1-3-"><td  style="white-space:wrap; text-align:left;" id="TBL-1-3-1"  
+class="td11">
+<!--l. 28--><p class="noindent" >ExperimentalData     </td><td  style="white-space:nowrap; text-align:left;" id="TBL-1-3-2"  
+class="td11">telluriumData  </td><td  style="white-space:wrap; text-align:left;" id="TBL-1-3-3"  
+class="td11">
+<!--l. 28--><p class="noindent" >N/A                </td><td  style="white-space:wrap; text-align:left;" id="TBL-1-3-4"  
+class="td11">
+<!--l. 28--><p class="noindent" >Input data.                                                          </td>
+</tr><tr  
+ style="vertical-align:baseline;" id="TBL-1-4-"><td  style="white-space:wrap; text-align:left;" id="TBL-1-4-1"  
+class="td11">
+<!--l. 29--><p class="noindent" >InputParameterList   </td><td  style="white-space:nowrap; text-align:left;" id="TBL-1-4-2"  
+class="td11">listOfProperties</td><td  style="white-space:wrap; text-align:left;" id="TBL-1-4-3"  
+class="td11">
+<!--l. 29--><p class="noindent" >N/A                </td><td  style="white-space:wrap; text-align:left;" id="TBL-1-4-4"  
+class="td11">
+<!--l. 29--><p class="noindent" >Parameters to estimate confidence limits for.              </td>
+</tr><tr  
+ style="vertical-align:baseline;" id="TBL-1-5-"><td  style="white-space:wrap; text-align:left;" id="TBL-1-5-1"  
+class="td11">
+<!--l. 30--><p class="noindent" >MonteCarloParameters </td> <td  style="white-space:nowrap; text-align:left;" id="TBL-1-5-2"  
+class="td11">listOfProperties</td><td  style="white-space:wrap; text-align:left;" id="TBL-1-5-3"  
+class="td11">
+<!--l. 30--><p class="noindent" >N/A                </td><td  style="white-space:wrap; text-align:left;" id="TBL-1-5-4"  
+class="td11">
+<!--l. 30--><p class="noindent" >Parameters obtained from a Monte Carlo session.        </td>
+</tr><tr  
+ style="vertical-align:baseline;" id="TBL-1-6-"><td  style="white-space:wrap; text-align:left;" id="TBL-1-6-1"  
+class="td11">
+<!--l. 31--><p class="noindent" >ConfidenceLimits      </td><td  style="white-space:nowrap; text-align:left;" id="TBL-1-6-2"  
+class="td11">listOfProperties</td><td  style="white-space:wrap; text-align:left;" id="TBL-1-6-3"  
+class="td11">
+<!--l. 31--><p class="noindent" >N/A                </td><td  style="white-space:wrap; text-align:left;" id="TBL-1-6-4"  
+class="td11">
+<!--l. 31--><p class="noindent" >Confidence   limits   for   each   fitted   parameter.   The
+confidence  limits  are  calculated  at  a  95%  confidence
+level.                                                                  </td>
+</tr><tr  
+ style="vertical-align:baseline;" id="TBL-1-7-"><td  style="white-space:wrap; text-align:left;" id="TBL-1-7-1"  
+class="td11">
+<!--l. 32--><p class="noindent" >ExperimentalDataSelectionList </td> <td  style="white-space:nowrap; text-align:left;" id="TBL-1-7-2"  
+class="td11">stringList        </td><td  style="white-space:wrap; text-align:left;" id="TBL-1-7-3"  
+class="td11">
+<!--l. 32--><p class="noindent" >N/A                </td><td  style="white-space:wrap; text-align:left;" id="TBL-1-7-4"  
+class="td11">
+<!--l. 32--><p class="noindent" >Selection list for experimental data.                          </td>
+</tr><tr  
+ style="vertical-align:baseline;" id="TBL-1-8-"><td  style="white-space:wrap; text-align:left;" id="TBL-1-8-1"  
+class="td11">
+<!--l. 33--><p class="noindent" >FittedDataSelectionList </td> <td  style="white-space:nowrap; text-align:left;" id="TBL-1-8-2"  
+class="td11">stringList        </td><td  style="white-space:wrap; text-align:left;" id="TBL-1-8-3"  
+class="td11">
+<!--l. 33--><p class="noindent" >N/A                </td><td  style="white-space:wrap; text-align:left;" id="TBL-1-8-4"  
+class="td11">
+<!--l. 33--><p class="noindent" >Selection list for model data.                                   </td>
+                                                                                                                                                                           
+                                                                                              
+                                                                                              
+                                                                                              </tr><tr  
+ style="vertical-align:baseline;" id="TBL-1-9-"><td  style="white-space:wrap; text-align:left;" id="TBL-1-9-1"  
+class="td11">
+<!--l. 34--><p class="noindent" >NrOfMCRuns           </td><td  style="white-space:nowrap; text-align:left;" id="TBL-1-9-2"  
+class="td11">int                 </td><td  style="white-space:wrap; text-align:left;" id="TBL-1-9-3"  
+class="td11">
+<!--l. 34--><p class="noindent" >N/A                </td><td  style="white-space:wrap; text-align:left;" id="TBL-1-9-4"  
+class="td11">
+<!--l. 34--><p class="noindent" >Number of Monte Carlo data sets to generate and use. </td>
+</tr><tr  
+ style="vertical-align:baseline;" id="TBL-1-10-"><td  style="white-space:wrap; text-align:left;" id="TBL-1-10-1"  
+class="td11">
+<!--l. 35--><p class="noindent" >MinimizerPlugin       </td><td  style="white-space:nowrap; text-align:left;" id="TBL-1-10-2"  
+class="td11">string             </td><td  style="white-space:wrap; text-align:left;" id="TBL-1-10-3"  
+class="td11">
+<!--l. 35--><p class="noindent" >N/A                </td><td  style="white-space:wrap; text-align:left;" id="TBL-1-10-4"  
+class="td11">
+<!--l. 35--><p class="noindent" >Minimizer  used  by  the  Monte  Carlo  Engine,  e.g.
+&#8221;Levenberg_Marquardt&#8221;.                                        </td>
+</tr><tr 
+class="hline"><td><hr></td><td><hr></td><td><hr></td><td><hr></td></tr><tr  
+ style="vertical-align:baseline;" id="TBL-1-11-"><td  style="white-space:wrap; text-align:left;" id="TBL-1-11-1"  
+class="td11">                  </td>
+</tr><tr  
+ style="vertical-align:baseline;" id="TBL-1-12-"><td  style="white-space:wrap; text-align:left;" id="TBL-1-12-1"  
+class="td11">
+<!--l. 38--><p class="noindent" >                  </td>
+</tr><tr  
+ style="vertical-align:baseline;" id="TBL-1-13-"><td colspan="3" style="white-space:wrap; text-align:left;" id="TBL-1-13-1"  
+class="td11"></td>                                                <div class="multicolumn"  style="white-space:nowrap; text-align:center;">
+&#x00A0;&#x00A0;       Table&#x00A0;1.1: Plugin Properties                                                                                                                       &#x00A0;&#x00A0;</div> <a 
+ id="x1-3002"></a>
+</tr><tr  
+ style="vertical-align:baseline;" id="TBL-1-14-"><td  style="white-space:wrap; text-align:left;" id="TBL-1-14-1"  
+class="td11">                  </td>
+</tr><tr  
+ style="vertical-align:baseline;" id="TBL-1-15-"><td  style="white-space:wrap; text-align:left;" id="TBL-1-15-1"  
+class="td11">
+<!--l. 40--><p class="noindent" >                  </td>
+</tr><tr  
+ style="vertical-align:baseline;" id="TBL-1-16-"><td  style="white-space:wrap; text-align:left;" id="TBL-1-16-1"  
+class="td11">
+<!--l. 40--><p class="noindent" >                  </td>
+</tr><tr  
+ style="vertical-align:baseline;" id="TBL-1-17-"><td  style="white-space:wrap; text-align:left;" id="TBL-1-17-1"  
+class="td11">                  </td><td  style="white-space:nowrap; text-align:left;" id="TBL-1-17-2"  
+class="td11">             </td><td  style="white-space:wrap; text-align:left;" id="TBL-1-17-3"  
+class="td11">              </td><td  style="white-space:wrap; text-align:left;" id="TBL-1-17-4"  
+class="td11"></td></tr>
+</table></div>
+                                                                                                            
+                                                                                              
+                                                                                              
+   <h3 class="sectionHead"><span class="titlemark">1.3   </span> <a 
+ id="x1-40001.3"></a>The <span 
+class="cmtt-12">execute(bool inThread) </span>function</h3>
+<!--l. 46--><p class="noindent" >The <span class="obeylines-h"><span class="verb"><span 
+class="cmtt-12">execute()</span></span></span> function will start the Monte Carlo&#x00A0;algorithm. Depending on the problem at hand, the
+algorithm may run for a long time.
+<!--l. 48--><p class="indent" >   The <span class="obeylines-h"><span class="verb"><span 
+class="cmtt-12">execute(bool</span><span 
+class="cmtt-12">&#x00A0;inThread)</span></span></span>, method supports a boolean argument indicating if the execution of
+the plugin work will be done in a thread, or not. Threading is fully implemented in the Monte
+Carlo&#x00A0;plugin.
+<!--l. 50--><p class="indent" >   The inThread argument defaults to <span 
+class="cmbx-12">false</span>.
+<!--l. 52--><p class="indent" >   Each generated Monte Carlo dataset is available in a file named, MCDataSets.dat (saved in current
+working directory).
+<!--l. 55--><p class="noindent" >
+   <h3 class="sectionHead"><span class="titlemark">1.4   </span> <a 
+ id="x1-50001.4"></a>Plugin Events</h3>
+<!--l. 56--><p class="noindent" >The Monte Carlo&#x00A0;plugin uses all of the available plugin events, i.e. the <span 
+class="cmti-12">PluginStarted</span>, <span 
+class="cmti-12">PluginProgress</span>
+and the <span 
+class="cmti-12">PluginFinished </span>events.
+<!--l. 58--><p class="indent" >   The available data variables for each event are internally treated as <span 
+class="cmti-12">pass through </span>variables,
+so any data, for any of the events, assigned prior to the plugins execute function (in the
+assignOn() family of functions), can be retrieved unmodified in the corresponding event
+function.
+   <div class="table">
+                                                                                              
+                                                                                              
+<!--l. 61--><p class="indent" >   <a 
+ id="x1-5001r2"></a><a 
+ id="x1-600085"></a><hr class="float"><div class="float" 
+>
+                                                                                              
+                                                                                              
+<div class="tabular"> <table id="TBL-2" class="tabular" 
+cellspacing="0" cellpadding="0"  
+><colgroup id="TBL-2-1g"><col 
+id="TBL-2-1"><col 
+id="TBL-2-2"><col 
+id="TBL-2-3"></colgroup><tr  
+ style="vertical-align:baseline;" id="TBL-2-1-"><td  style="white-space:nowrap; text-align:left;" id="TBL-2-1-1"  
+class="td11">Event           </td><td  style="white-space:nowrap; text-align:left;" id="TBL-2-1-2"  
+class="td11">Arguments </td><td  style="white-space:wrap; text-align:left;" id="TBL-2-1-3"  
+class="td11"><!--l. 65--><p class="noindent" >Purpose and argument types                            </td>
+</tr><tr 
+class="hline"><td><hr></td><td><hr></td><td><hr></td></tr><tr 
+class="vspace" style="font-size:2.58333pt"><td 
+>&nbsp;</td><td 
+>&nbsp;</td><td 
+>&nbsp;</td></tr><tr  
+ style="vertical-align:baseline;" id="TBL-2-2-"><td  style="white-space:nowrap; text-align:left;" id="TBL-2-2-1"  
+class="td11">PluginStarted </td><td  style="white-space:nowrap; text-align:left;" id="TBL-2-2-2"  
+class="td11">void*, void*</td><td  style="white-space:wrap; text-align:left;" id="TBL-2-2-3"  
+class="td11"><!--l. 68--><p class="noindent" >Signal to application that the plugin has started.
+Both parameters are <span 
+class="cmti-12">pass through </span>parameters and
+are unused internally by the plugin.                  </td>
+</tr><tr 
+class="vspace" style="font-size:2.58333pt"><td 
+>&nbsp;</td><td 
+>&nbsp;</td><td 
+>&nbsp;</td></tr><tr  
+ style="vertical-align:baseline;" id="TBL-2-3-"><td  style="white-space:nowrap; text-align:left;" id="TBL-2-3-1"  
+class="td11">PluginProgress</td><td  style="white-space:nowrap; text-align:left;" id="TBL-2-3-2"  
+class="td11">void*, void*</td><td  style="white-space:wrap; text-align:left;" id="TBL-2-3-3"  
+class="td11"><!--l. 69--><p class="noindent" >Communicating        progress        of        fitting.
+Both parameters are <span 
+class="cmti-12">pass through </span>parameters and
+are unused internally by the plugin.                  </td>
+</tr><tr 
+class="vspace" style="font-size:2.58333pt"><td 
+>&nbsp;</td><td 
+>&nbsp;</td><td 
+>&nbsp;</td></tr><tr  
+ style="vertical-align:baseline;" id="TBL-2-4-"><td  style="white-space:nowrap; text-align:left;" id="TBL-2-4-1"  
+class="td11">PluginFinished</td><td  style="white-space:nowrap; text-align:left;" id="TBL-2-4-2"  
+class="td11">void*, void*</td><td  style="white-space:wrap; text-align:left;" id="TBL-2-4-3"  
+class="td11"><!--l. 70--><p class="noindent" >Signals to application that execution of the plugin
+has  finished.  Both  parameters  are  <span 
+class="cmti-12">pass  through</span>
+parameters  and  are  unused  internally  by  the
+plugin.                                                        </td>
+</tr><tr 
+class="hline"><td><hr></td><td><hr></td><td><hr></td></tr><tr  
+ style="vertical-align:baseline;" id="TBL-2-5-"><td  style="white-space:nowrap; text-align:left;" id="TBL-2-5-1"  
+class="td11">            </td></tr></table></div>
+<br /> <div class="caption" 
+><span class="id">Table&#x00A0;1.2: </span><span  
+class="content">Plugin Events</span></div><!--tex4ht:label?: x1-5001r2 -->
+                                                                                              
+                                                                                              
+   </div><hr class="endfloat" />
+   </div>
+   <h3 class="sectionHead"><span class="titlemark">1.5   </span> <a 
+ id="x1-60001.5"></a>Python example</h3>
+<!--l. 79--><p class="noindent" >The following Python script illustrates how the plugin can be used.
+   <!--l. 82--><div class="lstinputlisting">
+<a 
+ id="x1-6001r1"></a>
+<a 
+ id="x1-6002"></a>
+   <span 
+class="cmtt-10">&#x00A0;</span><br /><span class="label"><a 
+ id="x1-6003r1"></a><span 
+class="cmr-10">1</span></span><span 
+class="cmtt-10">from</span><span 
+class="cmtt-10">&#x00A0;</span><span 
+class="cmtt-10">teplugins</span><span 
+class="cmtt-10">&#x00A0;</span><span 
+class="cmtt-10">import</span><span 
+class="cmtt-10">&#x00A0;</span><span 
+class="cmtt-10">*</span><span 
+class="cmtt-10">&#x00A0;</span><br /><span class="label"><a 
+ id="x1-6004r2"></a><span 
+class="cmr-10">2</span></span><span 
+class="cmtt-10">import</span><span 
+class="cmtt-10">&#x00A0;</span><span 
+class="cmtt-10">matplotlib</span><span 
+class="cmtt-10">.</span><span 
+class="cmtt-10">pyplot</span><span 
+class="cmtt-10">&#x00A0;</span><span 
+class="cmtt-10">as</span><span 
+class="cmtt-10">&#x00A0;</span><span 
+class="cmtt-10">plt</span><span 
+class="cmtt-10">&#x00A0;</span><br /><span class="label"><a 
+ id="x1-6005r3"></a><span 
+class="cmr-10">3</span></span><span 
+class="cmtt-10">&#x00A0;</span><br /><span class="label"><a 
+ id="x1-6006r4"></a><span 
+class="cmr-10">4</span></span><span 
+class="cmtt-10">try</span><span 
+class="cmtt-10">:</span><span 
+class="cmtt-10">&#x00A0;</span><br /><span class="label"><a 
+ id="x1-6007r5"></a><span 
+class="cmr-10">5</span></span><span 
+class="cmitt-10">&#x00A0;</span><span 
+class="cmitt-10">&#x00A0;</span><span 
+class="cmitt-10">&#x00A0;</span><span 
+class="cmitt-10">&#x00A0;</span><span 
+class="cmitt-10">#</span><span 
+class="cmitt-10">Load</span><span 
+class="cmitt-10">&#x00A0;</span><span 
+class="cmitt-10">plugins</span><span 
+class="cmtt-10">&#x00A0;</span><br /><span class="label"><a 
+ id="x1-6008r6"></a><span 
+class="cmr-10">6</span></span><span 
+class="cmtt-10">&#x00A0;</span><span 
+class="cmtt-10">&#x00A0;</span><span 
+class="cmtt-10">&#x00A0;</span><span 
+class="cmtt-10">&#x00A0;</span><span 
+class="cmtt-10">modelP</span><span 
+class="cmtt-10">&#x00A0;</span><span 
+class="cmtt-10">&#x00A0;</span><span 
+class="cmtt-10">&#x00A0;</span><span 
+class="cmtt-10">&#x00A0;</span><span 
+class="cmtt-10">&#x00A0;</span><span 
+class="cmtt-10">&#x00A0;</span><span 
+class="cmtt-10">=</span><span 
+class="cmtt-10">&#x00A0;</span><span 
+class="cmtt-10">Plugin</span><span 
+class="cmtt-10">(</span><span 
+class="cmtt-10">"</span><span 
+class="cmtt-10">tel_test_model</span><span 
+class="cmtt-10">"</span><span 
+class="cmtt-10">)</span><span 
+class="cmtt-10">&#x00A0;</span><br /><span class="label"><a 
+ id="x1-6009r7"></a><span 
+class="cmr-10">7</span></span><span 
+class="cmtt-10">&#x00A0;</span><span 
+class="cmtt-10">&#x00A0;</span><span 
+class="cmtt-10">&#x00A0;</span><span 
+class="cmtt-10">&#x00A0;</span><span 
+class="cmtt-10">nP</span><span 
+class="cmtt-10">&#x00A0;</span><span 
+class="cmtt-10">&#x00A0;</span><span 
+class="cmtt-10">&#x00A0;</span><span 
+class="cmtt-10">&#x00A0;</span><span 
+class="cmtt-10">&#x00A0;</span><span 
+class="cmtt-10">&#x00A0;</span><span 
+class="cmtt-10">&#x00A0;</span><span 
+class="cmtt-10">&#x00A0;</span><span 
+class="cmtt-10">&#x00A0;</span><span 
+class="cmtt-10">&#x00A0;</span><span 
+class="cmtt-10">=</span><span 
+class="cmtt-10">&#x00A0;</span><span 
+class="cmtt-10">Plugin</span><span 
+class="cmtt-10">(</span><span 
+class="cmtt-10">"</span><span 
+class="cmtt-10">tel_add_noise</span><span 
+class="cmtt-10">"</span><span 
+class="cmtt-10">)</span><span 
+class="cmtt-10">&#x00A0;</span><br /><span class="label"><a 
+ id="x1-6010r8"></a><span 
+class="cmr-10">8</span></span><span 
+class="cmtt-10">&#x00A0;</span><span 
+class="cmtt-10">&#x00A0;</span><span 
+class="cmtt-10">&#x00A0;</span><span 
+class="cmtt-10">&#x00A0;</span><span 
+class="cmtt-10">chiP</span><span 
+class="cmtt-10">&#x00A0;</span><span 
+class="cmtt-10">&#x00A0;</span><span 
+class="cmtt-10">&#x00A0;</span><span 
+class="cmtt-10">&#x00A0;</span><span 
+class="cmtt-10">&#x00A0;</span><span 
+class="cmtt-10">&#x00A0;</span><span 
+class="cmtt-10">&#x00A0;</span><span 
+class="cmtt-10">&#x00A0;</span><span 
+class="cmtt-10">=</span><span 
+class="cmtt-10">&#x00A0;</span><span 
+class="cmtt-10">Plugin</span><span 
+class="cmtt-10">(</span><span 
+class="cmtt-10">"</span><span 
+class="cmtt-10">tel_chisquare</span><span 
+class="cmtt-10">"</span><span 
+class="cmtt-10">)</span><span 
+class="cmtt-10">&#x00A0;</span><br /><span class="label"><a 
+ id="x1-6011r9"></a><span 
+class="cmr-10">9</span></span><span 
+class="cmtt-10">&#x00A0;</span><span 
+class="cmtt-10">&#x00A0;</span><span 
+class="cmtt-10">&#x00A0;</span><span 
+class="cmtt-10">&#x00A0;</span><span 
+class="cmtt-10">lmP</span><span 
+class="cmtt-10">&#x00A0;</span><span 
+class="cmtt-10">&#x00A0;</span><span 
+class="cmtt-10">&#x00A0;</span><span 
+class="cmtt-10">&#x00A0;</span><span 
+class="cmtt-10">&#x00A0;</span><span 
+class="cmtt-10">&#x00A0;</span><span 
+class="cmtt-10">&#x00A0;</span><span 
+class="cmtt-10">&#x00A0;</span><span 
+class="cmtt-10">&#x00A0;</span><span 
+class="cmtt-10">=</span><span 
+class="cmtt-10">&#x00A0;</span><span 
+class="cmtt-10">Plugin</span><span 
+class="cmtt-10">(</span><span 
+class="cmtt-10">"</span><span 
+class="cmtt-10">tel_levenberg_marquardt</span><span 
+class="cmtt-10">"</span><span 
+class="cmtt-10">)</span><span 
+class="cmtt-10">&#x00A0;</span><br /><span class="label"><a 
+ id="x1-6012r10"></a><span 
+class="cmr-10">10</span></span><span 
+class="cmtt-10">&#x00A0;</span><span 
+class="cmtt-10">&#x00A0;</span><span 
+class="cmtt-10">&#x00A0;</span><span 
+class="cmtt-10">&#x00A0;</span><span 
+class="cmtt-10">nmP</span><span 
+class="cmtt-10">&#x00A0;</span><span 
+class="cmtt-10">&#x00A0;</span><span 
+class="cmtt-10">&#x00A0;</span><span 
+class="cmtt-10">&#x00A0;</span><span 
+class="cmtt-10">&#x00A0;</span><span 
+class="cmtt-10">&#x00A0;</span><span 
+class="cmtt-10">&#x00A0;</span><span 
+class="cmtt-10">&#x00A0;</span><span 
+class="cmtt-10">&#x00A0;</span><span 
+class="cmtt-10">=</span><span 
+class="cmtt-10">&#x00A0;</span><span 
+class="cmtt-10">Plugin</span><span 
+class="cmtt-10">(</span><span 
+class="cmtt-10">"</span><span 
+class="cmtt-10">tel_nelder_mead</span><span 
+class="cmtt-10">"</span><span 
+class="cmtt-10">)</span><span 
+class="cmtt-10">&#x00A0;</span><br /><span class="label"><a 
+ id="x1-6013r11"></a><span 
+class="cmr-10">11</span></span><span 
+class="cmtt-10">&#x00A0;</span><span 
+class="cmtt-10">&#x00A0;</span><span 
+class="cmtt-10">&#x00A0;</span><span 
+class="cmtt-10">&#x00A0;</span><span 
+class="cmtt-10">mcP</span><span 
+class="cmtt-10">&#x00A0;</span><span 
+class="cmtt-10">&#x00A0;</span><span 
+class="cmtt-10">&#x00A0;</span><span 
+class="cmtt-10">&#x00A0;</span><span 
+class="cmtt-10">&#x00A0;</span><span 
+class="cmtt-10">&#x00A0;</span><span 
+class="cmtt-10">&#x00A0;</span><span 
+class="cmtt-10">&#x00A0;</span><span 
+class="cmtt-10">&#x00A0;</span><span 
+class="cmtt-10">=</span><span 
+class="cmtt-10">&#x00A0;</span><span 
+class="cmtt-10">Plugin</span><span 
+class="cmtt-10">(</span><span 
+class="cmtt-10">"</span><span 
+class="cmtt-10">tel_monte_carlo_bs</span><span 
+class="cmtt-10">"</span><span 
+class="cmtt-10">)</span><span 
+class="cmtt-10">&#x00A0;</span><br /><span class="label"><a 
+ id="x1-6014r12"></a><span 
+class="cmr-10">12</span></span><span 
+class="cmtt-10">&#x00A0;</span><br /><span class="label"><a 
+ id="x1-6015r13"></a><span 
+class="cmr-10">13</span></span><span 
+class="cmitt-10">&#x00A0;</span><span 
+class="cmitt-10">&#x00A0;</span><span 
+class="cmitt-10">&#x00A0;</span><span 
+class="cmitt-10">&#x00A0;</span><span 
+class="cmitt-10">#</span><span 
+class="cmitt-10">==========</span><span 
+class="cmitt-10">&#x00A0;</span><span 
+class="cmitt-10">EVENT</span><span 
+class="cmitt-10">&#x00A0;</span><span 
+class="cmitt-10">FUNCTION</span><span 
+class="cmitt-10">&#x00A0;</span><span 
+class="cmitt-10">SETUP</span><span 
+class="cmitt-10">&#x00A0;</span><span 
+class="cmitt-10">===========================</span><span 
+class="cmtt-10">&#x00A0;</span><br /><span class="label"><a 
+ id="x1-6016r14"></a><span 
+class="cmr-10">14</span></span><span 
+class="cmtt-10">&#x00A0;</span><span 
+class="cmtt-10">&#x00A0;</span><span 
+class="cmtt-10">&#x00A0;</span><span 
+class="cmtt-10">&#x00A0;</span><span 
+class="cmtt-10">def</span><span 
+class="cmtt-10">&#x00A0;</span><span 
+class="cmtt-10">myEventFunction</span><span 
+class="cmtt-10">(</span><span 
+class="cmtt-10">ignore</span><span 
+class="cmtt-10">)</span><span 
+class="cmtt-10">:</span><span 
+class="cmtt-10">&#x00A0;</span><br /><span class="label"><a 
+ id="x1-6017r15"></a><span 
+class="cmr-10">15</span></span><span 
+class="cmitt-10">&#x00A0;</span><span 
+class="cmitt-10">&#x00A0;</span><span 
+class="cmitt-10">&#x00A0;</span><span 
+class="cmitt-10">&#x00A0;</span><span 
+class="cmitt-10">&#x00A0;</span><span 
+class="cmitt-10">&#x00A0;</span><span 
+class="cmitt-10">&#x00A0;</span><span 
+class="cmitt-10">&#x00A0;</span><span 
+class="cmitt-10">#</span><span 
+class="cmitt-10">&#x00A0;</span><span 
+class="cmitt-10">Get</span><span 
+class="cmitt-10">&#x00A0;</span><span 
+class="cmitt-10">the</span><span 
+class="cmitt-10">&#x00A0;</span><span 
+class="cmitt-10">fitted</span><span 
+class="cmitt-10">&#x00A0;</span><span 
+class="cmitt-10">and</span><span 
+class="cmitt-10">&#x00A0;</span><span 
+class="cmitt-10">residual</span><span 
+class="cmitt-10">&#x00A0;</span><span 
+class="cmitt-10">data</span><span 
+class="cmtt-10">&#x00A0;</span><br /><span class="label"><a 
+ id="x1-6018r16"></a><span 
+class="cmr-10">16</span></span><span 
+class="cmtt-10">&#x00A0;</span><span 
+class="cmtt-10">&#x00A0;</span><span 
+class="cmtt-10">&#x00A0;</span><span 
+class="cmtt-10">&#x00A0;</span><span 
+class="cmtt-10">&#x00A0;</span><span 
+class="cmtt-10">&#x00A0;</span><span 
+class="cmtt-10">&#x00A0;</span><span 
+class="cmtt-10">&#x00A0;</span><span 
+class="cmtt-10">experimentalData</span><span 
+class="cmtt-10">&#x00A0;</span><span 
+class="cmtt-10">&#x00A0;</span><span 
+class="cmtt-10">&#x00A0;</span><span 
+class="cmtt-10">&#x00A0;</span><span 
+class="cmtt-10">=</span><span 
+class="cmtt-10">&#x00A0;</span><span 
+class="cmtt-10">lmP</span><span 
+class="cmtt-10">.</span><span 
+class="cmtt-10">getProperty</span><span 
+class="cmtt-10">&#x00A0;</span><span 
+class="cmtt-10">(</span><span 
+class="cmtt-10">"</span><span 
+class="cmtt-10">ExperimentalData</span><span 
+class="cmtt-10">"</span><span 
+class="cmtt-10">)</span><span 
+class="cmtt-10">.</span><span 
+class="cmtt-10">toNumpy</span><span 
+class="cmtt-10">&#x00A0;</span><br /><span class="label"><a 
+ id="x1-6019r17"></a><span 
+class="cmr-10">17</span></span><span 
+class="cmtt-10">&#x00A0;</span><span 
+class="cmtt-10">&#x00A0;</span><span 
+class="cmtt-10">&#x00A0;</span><span 
+class="cmtt-10">&#x00A0;</span><span 
+class="cmtt-10">&#x00A0;</span><span 
+class="cmtt-10">&#x00A0;</span><span 
+class="cmtt-10">&#x00A0;</span><span 
+class="cmtt-10">&#x00A0;</span><span 
+class="cmtt-10">fittedData</span><span 
+class="cmtt-10">&#x00A0;</span><span 
+class="cmtt-10">&#x00A0;</span><span 
+class="cmtt-10">&#x00A0;</span><span 
+class="cmtt-10">&#x00A0;</span><span 
+class="cmtt-10">&#x00A0;</span><span 
+class="cmtt-10">&#x00A0;</span><span 
+class="cmtt-10">&#x00A0;</span><span 
+class="cmtt-10">&#x00A0;</span><span 
+class="cmtt-10">&#x00A0;</span><span 
+class="cmtt-10">&#x00A0;</span><span 
+class="cmtt-10">=</span><span 
+class="cmtt-10">&#x00A0;</span><span 
+class="cmtt-10">lmP</span><span 
+class="cmtt-10">.</span><span 
+class="cmtt-10">getProperty</span><span 
+class="cmtt-10">&#x00A0;</span><span 
+class="cmtt-10">(</span><span 
+class="cmtt-10">"</span><span 
+class="cmtt-10">FittedData</span><span 
+class="cmtt-10">"</span><span 
+class="cmtt-10">)</span><span 
+class="cmtt-10">.</span><span 
+class="cmtt-10">toNumpy</span><span 
+class="cmtt-10">&#x00A0;</span><br /><span class="label"><a 
+ id="x1-6020r18"></a><span 
+class="cmr-10">18</span></span><span 
+class="cmtt-10">&#x00A0;</span><span 
+class="cmtt-10">&#x00A0;</span><span 
+class="cmtt-10">&#x00A0;</span><span 
+class="cmtt-10">&#x00A0;</span><span 
+class="cmtt-10">&#x00A0;</span><span 
+class="cmtt-10">&#x00A0;</span><span 
+class="cmtt-10">&#x00A0;</span><span 
+class="cmtt-10">&#x00A0;</span><span 
+class="cmtt-10">residuals</span><span 
+class="cmtt-10">&#x00A0;</span><span 
+class="cmtt-10">&#x00A0;</span><span 
+class="cmtt-10">&#x00A0;</span><span 
+class="cmtt-10">&#x00A0;</span><span 
+class="cmtt-10">&#x00A0;</span><span 
+class="cmtt-10">&#x00A0;</span><span 
+class="cmtt-10">&#x00A0;</span><span 
+class="cmtt-10">&#x00A0;</span><span 
+class="cmtt-10">&#x00A0;</span><span 
+class="cmtt-10">&#x00A0;</span><span 
+class="cmtt-10">&#x00A0;</span><span 
+class="cmtt-10">=</span><span 
+class="cmtt-10">&#x00A0;</span><span 
+class="cmtt-10">lmP</span><span 
+class="cmtt-10">.</span><span 
+class="cmtt-10">getProperty</span><span 
+class="cmtt-10">&#x00A0;</span><span 
+class="cmtt-10">(</span><span 
+class="cmtt-10">"</span><span 
+class="cmtt-10">Residuals</span><span 
+class="cmtt-10">"</span><span 
+class="cmtt-10">)</span><span 
+class="cmtt-10">.</span><span 
+class="cmtt-10">toNumpy</span><span 
+class="cmtt-10">&#x00A0;</span><br /><span class="label"><a 
+ id="x1-6021r19"></a><span 
+class="cmr-10">19</span></span><span 
+class="cmtt-10">&#x00A0;</span><br /><span class="label"><a 
+ id="x1-6022r20"></a><span 
+class="cmr-10">20</span></span><span 
+class="cmtt-10">&#x00A0;</span><span 
+class="cmtt-10">&#x00A0;</span><span 
+class="cmtt-10">&#x00A0;</span><span 
+class="cmtt-10">&#x00A0;</span><span 
+class="cmtt-10">&#x00A0;</span><span 
+class="cmtt-10">&#x00A0;</span><span 
+class="cmtt-10">&#x00A0;</span><span 
+class="cmtt-10">&#x00A0;</span><span 
+class="cmtt-10">telplugins</span><span 
+class="cmtt-10">.</span><span 
+class="cmtt-10">plot</span><span 
+class="cmtt-10">(</span><span 
+class="cmtt-10">fittedData</span><span 
+class="cmtt-10">&#x00A0;</span><span 
+class="cmtt-10">&#x00A0;</span><span 
+class="cmtt-10">&#x00A0;</span><span 
+class="cmtt-10">&#x00A0;</span><span 
+class="cmtt-10">&#x00A0;</span><span 
+class="cmtt-10">&#x00A0;</span><span 
+class="cmtt-10">&#x00A0;</span><span 
+class="cmtt-10">&#x00A0;</span><span 
+class="cmtt-10">&#x00A0;</span><span 
+class="cmtt-10">[:,[0,1]],</span><span 
+class="cmtt-10">&#x00A0;</span><span 
+class="cmtt-10">"</span><span 
+class="cmtt-10">blue</span><span 
+class="cmtt-10">"</span><span 
+class="cmtt-10">,</span><span 
+class="cmtt-10">&#x00A0;</span><span 
+class="cmtt-10">"</span><span 
+class="cmtt-10">-</span><span 
+class="cmtt-10">"</span><span 
+class="cmtt-10">,</span><span 
+class="cmtt-10">&#x00A0;</span><span 
+class="cmtt-10">&#x00A0;</span><span 
+class="cmtt-10">&#x00A0;</span><span 
+class="cmtt-10">&#x00A0;</span><span 
+class="cmtt-10">"</span><span 
+class="cmtt-10">"</span><span 
+class="cmtt-10">,</span><span 
+class="cmtt-10">&#x00A0;</span><span 
+class="cmtt-10">&#x00A0;</span><span 
+class="cmtt-10">&#x00A0;</span><span 
+class="cmtt-10">&#x00A0;</span><span 
+class="cmtt-10">"</span><span 
+class="cmtt-10">S1</span><span 
+class="cmtt-10">&#x00A0;</span><span 
+class="cmtt-10">Fitted</span><span 
+class="cmtt-10">"</span><span 
+class="cmtt-10">)</span><span 
+class="cmtt-10">&#x00A0;</span><br /><span class="label"><a 
+ id="x1-6023r21"></a><span 
+class="cmr-10">21</span></span><span 
+class="cmtt-10">&#x00A0;</span><span 
+class="cmtt-10">&#x00A0;</span><span 
+class="cmtt-10">&#x00A0;</span><span 
+class="cmtt-10">&#x00A0;</span><span 
+class="cmtt-10">&#x00A0;</span><span 
+class="cmtt-10">&#x00A0;</span><span 
+class="cmtt-10">&#x00A0;</span><span 
+class="cmtt-10">&#x00A0;</span><span 
+class="cmtt-10">telplugins</span><span 
+class="cmtt-10">.</span><span 
+class="cmtt-10">plot</span><span 
+class="cmtt-10">(</span><span 
+class="cmtt-10">fittedData</span><span 
+class="cmtt-10">&#x00A0;</span><span 
+class="cmtt-10">&#x00A0;</span><span 
+class="cmtt-10">&#x00A0;</span><span 
+class="cmtt-10">&#x00A0;</span><span 
+class="cmtt-10">&#x00A0;</span><span 
+class="cmtt-10">&#x00A0;</span><span 
+class="cmtt-10">&#x00A0;</span><span 
+class="cmtt-10">&#x00A0;</span><span 
+class="cmtt-10">&#x00A0;</span><span 
+class="cmtt-10">[:,[0,2]],</span><span 
+class="cmtt-10">&#x00A0;</span><span 
+class="cmtt-10">"</span><span 
+class="cmtt-10">blue</span><span 
+class="cmtt-10">"</span><span 
+class="cmtt-10">,</span><span 
+class="cmtt-10">&#x00A0;</span><span 
+class="cmtt-10">"</span><span 
+class="cmtt-10">-</span><span 
+class="cmtt-10">"</span><span 
+class="cmtt-10">,</span><span 
+class="cmtt-10">&#x00A0;</span><span 
+class="cmtt-10">&#x00A0;</span><span 
+class="cmtt-10">&#x00A0;</span><span 
+class="cmtt-10">&#x00A0;</span><span 
+class="cmtt-10">"</span><span 
+class="cmtt-10">"</span><span 
+class="cmtt-10">,</span><span 
+class="cmtt-10">&#x00A0;</span><span 
+class="cmtt-10">&#x00A0;</span><span 
+class="cmtt-10">&#x00A0;</span><span 
+class="cmtt-10">&#x00A0;</span><span 
+class="cmtt-10">"</span><span 
+class="cmtt-10">S2</span><span 
+class="cmtt-10">&#x00A0;</span><span 
+class="cmtt-10">Fitted</span><span 
+class="cmtt-10">"</span><span 
+class="cmtt-10">)</span><span 
+class="cmtt-10">&#x00A0;</span><br /><span class="label"><a 
+ id="x1-6024r22"></a><span 
+class="cmr-10">22</span></span><span 
+class="cmtt-10">&#x00A0;</span><span 
+class="cmtt-10">&#x00A0;</span><span 
+class="cmtt-10">&#x00A0;</span><span 
+class="cmtt-10">&#x00A0;</span><span 
+class="cmtt-10">&#x00A0;</span><span 
+class="cmtt-10">&#x00A0;</span><span 
+class="cmtt-10">&#x00A0;</span><span 
+class="cmtt-10">&#x00A0;</span><span 
+class="cmtt-10">telplugins</span><span 
+class="cmtt-10">.</span><span 
+class="cmtt-10">plot</span><span 
+class="cmtt-10">(</span><span 
+class="cmtt-10">residuals</span><span 
+class="cmtt-10">&#x00A0;</span><span 
+class="cmtt-10">&#x00A0;</span><span 
+class="cmtt-10">&#x00A0;</span><span 
+class="cmtt-10">&#x00A0;</span><span 
+class="cmtt-10">&#x00A0;</span><span 
+class="cmtt-10">&#x00A0;</span><span 
+class="cmtt-10">&#x00A0;</span><span 
+class="cmtt-10">&#x00A0;</span><span 
+class="cmtt-10">&#x00A0;</span><span 
+class="cmtt-10">&#x00A0;</span><span 
+class="cmtt-10">[:,[0,1]],</span><span 
+class="cmtt-10">&#x00A0;</span><span 
+class="cmtt-10">"</span><span 
+class="cmtt-10">blue</span><span 
+class="cmtt-10">"</span><span 
+class="cmtt-10">,</span><span 
+class="cmtt-10">&#x00A0;</span><span 
+class="cmtt-10">"</span><span 
+class="cmtt-10">None</span><span 
+class="cmtt-10">"</span><span 
+class="cmtt-10">,</span><span 
+class="cmtt-10">&#x00A0;</span><span 
+class="cmtt-10">"</span><span 
+class="cmtt-10">x</span><span 
+class="cmtt-10">"</span><span 
+class="cmtt-10">,</span><span 
+class="cmtt-10">&#x00A0;</span><span 
+class="cmtt-10">&#x00A0;</span><span 
+class="cmtt-10">&#x00A0;</span><span 
+class="cmtt-10">"</span><span 
+class="cmtt-10">S1</span><span 
+class="cmtt-10">&#x00A0;</span><span 
+class="cmtt-10">Residual</span><span 
+class="cmtt-10">"</span><span 
+class="cmtt-10">)</span><span 
+class="cmtt-10">&#x00A0;</span><br /><span class="label"><a 
+ id="x1-6025r23"></a><span 
+class="cmr-10">23</span></span><span 
+class="cmtt-10">&#x00A0;</span><span 
+class="cmtt-10">&#x00A0;</span><span 
+class="cmtt-10">&#x00A0;</span><span 
+class="cmtt-10">&#x00A0;</span><span 
+class="cmtt-10">&#x00A0;</span><span 
+class="cmtt-10">&#x00A0;</span><span 
+class="cmtt-10">&#x00A0;</span><span 
+class="cmtt-10">&#x00A0;</span><span 
+class="cmtt-10">telplugins</span><span 
+class="cmtt-10">.</span><span 
+class="cmtt-10">plot</span><span 
+class="cmtt-10">(</span><span 
+class="cmtt-10">residuals</span><span 
+class="cmtt-10">&#x00A0;</span><span 
+class="cmtt-10">&#x00A0;</span><span 
+class="cmtt-10">&#x00A0;</span><span 
+class="cmtt-10">&#x00A0;</span><span 
+class="cmtt-10">&#x00A0;</span><span 
+class="cmtt-10">&#x00A0;</span><span 
+class="cmtt-10">&#x00A0;</span><span 
+class="cmtt-10">&#x00A0;</span><span 
+class="cmtt-10">&#x00A0;</span><span 
+class="cmtt-10">&#x00A0;</span><span 
+class="cmtt-10">[:,[0,2]],</span><span 
+class="cmtt-10">&#x00A0;</span><span 
+class="cmtt-10">"</span><span 
+class="cmtt-10">red</span><span 
+class="cmtt-10">"</span><span 
+class="cmtt-10">,</span><span 
+class="cmtt-10">&#x00A0;</span><span 
+class="cmtt-10">&#x00A0;</span><span 
+class="cmtt-10">"</span><span 
+class="cmtt-10">None</span><span 
+class="cmtt-10">"</span><span 
+class="cmtt-10">,</span><span 
+class="cmtt-10">&#x00A0;</span><span 
+class="cmtt-10">"</span><span 
+class="cmtt-10">x</span><span 
+class="cmtt-10">"</span><span 
+class="cmtt-10">,</span><span 
+class="cmtt-10">&#x00A0;</span><span 
+class="cmtt-10">&#x00A0;</span><span 
+class="cmtt-10">&#x00A0;</span><span 
+class="cmtt-10">"</span><span 
+class="cmtt-10">S2</span><span 
+class="cmtt-10">&#x00A0;</span><span 
+class="cmtt-10">Residual</span><span 
+class="cmtt-10">"</span><span 
+class="cmtt-10">)</span><span 
+class="cmtt-10">&#x00A0;</span><br /><span class="label"><a 
+ id="x1-6026r24"></a><span 
+class="cmr-10">24</span></span><span 
+class="cmtt-10">&#x00A0;</span><span 
+class="cmtt-10">&#x00A0;</span><span 
+class="cmtt-10">&#x00A0;</span><span 
+class="cmtt-10">&#x00A0;</span><span 
+class="cmtt-10">&#x00A0;</span><span 
+class="cmtt-10">&#x00A0;</span><span 
+class="cmtt-10">&#x00A0;</span><span 
+class="cmtt-10">&#x00A0;</span><span 
+class="cmtt-10">telplugins</span><span 
+class="cmtt-10">.</span><span 
+class="cmtt-10">plot</span><span 
+class="cmtt-10">(</span><span 
+class="cmtt-10">experimentalData</span><span 
+class="cmtt-10">&#x00A0;</span><span 
+class="cmtt-10">&#x00A0;</span><span 
+class="cmtt-10">&#x00A0;</span><span 
+class="cmtt-10">[:,[0,1]],</span><span 
+class="cmtt-10">&#x00A0;</span><span 
+class="cmtt-10">"</span><span 
+class="cmtt-10">red</span><span 
+class="cmtt-10">"</span><span 
+class="cmtt-10">,</span><span 
+class="cmtt-10">&#x00A0;</span><span 
+class="cmtt-10">&#x00A0;</span><span 
+class="cmtt-10">"</span><span 
+class="cmtt-10">"</span><span 
+class="cmtt-10">,</span><span 
+class="cmtt-10">&#x00A0;</span><span 
+class="cmtt-10">&#x00A0;</span><span 
+class="cmtt-10">&#x00A0;</span><span 
+class="cmtt-10">&#x00A0;</span><span 
+class="cmtt-10">&#x00A0;</span><span 
+class="cmtt-10">"</span><span 
+class="cmtt-10">*</span><span 
+class="cmtt-10">"</span><span 
+class="cmtt-10">,</span><span 
+class="cmtt-10">&#x00A0;</span><span 
+class="cmtt-10">&#x00A0;</span><span 
+class="cmtt-10">&#x00A0;</span><span 
+class="cmtt-10">"</span><span 
+class="cmtt-10">S1</span><span 
+class="cmtt-10">&#x00A0;</span><span 
+class="cmtt-10">Data</span><span 
+class="cmtt-10">"</span><span 
+class="cmtt-10">)</span><span 
+class="cmtt-10">&#x00A0;</span><br /><span class="label"><a 
+ id="x1-6027r25"></a><span 
+class="cmr-10">25</span></span><span 
+class="cmtt-10">&#x00A0;</span><span 
+class="cmtt-10">&#x00A0;</span><span 
+class="cmtt-10">&#x00A0;</span><span 
+class="cmtt-10">&#x00A0;</span><span 
+class="cmtt-10">&#x00A0;</span><span 
+class="cmtt-10">&#x00A0;</span><span 
+class="cmtt-10">&#x00A0;</span><span 
+class="cmtt-10">&#x00A0;</span><span 
+class="cmtt-10">telplugins</span><span 
+class="cmtt-10">.</span><span 
+class="cmtt-10">plot</span><span 
+class="cmtt-10">(</span><span 
+class="cmtt-10">experimentalData</span><span 
+class="cmtt-10">&#x00A0;</span><span 
+class="cmtt-10">&#x00A0;</span><span 
+class="cmtt-10">&#x00A0;</span><span 
+class="cmtt-10">[:,[0,2]],</span><span 
+class="cmtt-10">&#x00A0;</span><span 
+class="cmtt-10">"</span><span 
+class="cmtt-10">blue</span><span 
+class="cmtt-10">"</span><span 
+class="cmtt-10">,</span><span 
+class="cmtt-10">&#x00A0;</span><span 
+class="cmtt-10">"</span><span 
+class="cmtt-10">"</span><span 
+class="cmtt-10">,</span><span 
+class="cmtt-10">&#x00A0;</span><span 
+class="cmtt-10">&#x00A0;</span><span 
+class="cmtt-10">&#x00A0;</span><span 
+class="cmtt-10">&#x00A0;</span><span 
+class="cmtt-10">&#x00A0;</span><span 
+class="cmtt-10">"</span><span 
+class="cmtt-10">*</span><span 
+class="cmtt-10">"</span><span 
+class="cmtt-10">,</span><span 
+class="cmtt-10">&#x00A0;</span><span 
+class="cmtt-10">&#x00A0;</span><span 
+class="cmtt-10">&#x00A0;</span><span 
+class="cmtt-10">"</span><span 
+class="cmtt-10">S2</span><span 
+class="cmtt-10">&#x00A0;</span><span 
+class="cmtt-10">Data</span><span 
+class="cmtt-10">"</span><span 
+class="cmtt-10">)</span><span 
+class="cmtt-10">&#x00A0;</span><br /><span class="label"><a 
+ id="x1-6028r26"></a><span 
+class="cmr-10">26</span></span><span 
+class="cmtt-10">&#x00A0;</span><br /><span class="label"><a 
+ id="x1-6029r27"></a><span 
+class="cmr-10">27</span></span><span 
+class="cmtt-10">&#x00A0;</span><span 
+class="cmtt-10">&#x00A0;</span><span 
+class="cmtt-10">&#x00A0;</span><span 
+class="cmtt-10">&#x00A0;</span><span 
+class="cmtt-10">&#x00A0;</span><span 
+class="cmtt-10">&#x00A0;</span><span 
+class="cmtt-10">&#x00A0;</span><span 
+class="cmtt-10">&#x00A0;</span><span 
+class="cmtt-10">print</span><span 
+class="cmtt-10">&#x00A0;</span><span 
+class="cmtt-10">&#8217;</span><span 
+class="cmtt-10">Minimization</span><span 
+class="cmtt-10">&#x00A0;</span><span 
+class="cmtt-10">finished</span><span 
+class="cmtt-10">.</span><span 
+class="cmtt-10">&#x00A0;</span><span 
+class="cmtt-10">\</span><span 
+class="cmtt-10">n</span><span 
+class="cmtt-10">====</span><span 
+class="cmtt-10">&#x00A0;</span><span 
+class="cmtt-10">Result</span><span 
+class="cmtt-10">&#x00A0;</span><span 
+class="cmtt-10">====</span><span 
+class="cmtt-10">&#8217;</span><span 
+class="cmtt-10">&#x00A0;</span><br /><span class="label"><a 
+ id="x1-6030r28"></a><span 
+class="cmr-10">28</span></span><span 
+class="cmtt-10">&#x00A0;</span><span 
+class="cmtt-10">&#x00A0;</span><span 
+class="cmtt-10">&#x00A0;</span><span 
+class="cmtt-10">&#x00A0;</span><span 
+class="cmtt-10">&#x00A0;</span><span 
+class="cmtt-10">&#x00A0;</span><span 
+class="cmtt-10">&#x00A0;</span><span 
+class="cmtt-10">&#x00A0;</span><span 
+class="cmtt-10">print</span><span 
+class="cmtt-10">&#x00A0;</span><span 
+class="cmtt-10">getPluginResult</span><span 
+class="cmtt-10">(</span><span 
+class="cmtt-10">lmP</span><span 
+class="cmtt-10">.</span><span 
+class="cmtt-10">plugin</span><span 
+class="cmtt-10">)</span><span 
+class="cmtt-10">&#x00A0;</span><br /><span class="label"><a 
+ id="x1-6031r29"></a><span 
+class="cmr-10">29</span></span><span 
+class="cmtt-10">&#x00A0;</span><span 
+class="cmtt-10">&#x00A0;</span><span 
+class="cmtt-10">&#x00A0;</span><span 
+class="cmtt-10">&#x00A0;</span><span 
+class="cmtt-10">&#x00A0;</span><span 
+class="cmtt-10">&#x00A0;</span><span 
+class="cmtt-10">&#x00A0;</span><span 
+class="cmtt-10">&#x00A0;</span><span 
+class="cmtt-10">telplugins</span><span 
+class="cmtt-10">.</span><span 
+class="cmtt-10">plt</span><span 
+class="cmtt-10">.</span><span 
+class="cmtt-10">show</span><span 
+class="cmtt-10">()</span><span 
+class="cmtt-10">&#x00A0;</span><br /><span class="label"><a 
+ id="x1-6032r30"></a><span 
+class="cmr-10">30</span></span><span 
+class="cmtt-10">&#x00A0;</span><br /><span class="label"><a 
+ id="x1-6033r31"></a><span 
+class="cmr-10">31</span></span><span 
+class="cmitt-10">&#x00A0;</span><span 
+class="cmitt-10">&#x00A0;</span><span 
+class="cmitt-10">&#x00A0;</span><span 
+class="cmitt-10">&#x00A0;</span><span 
+class="cmitt-10">#</span><span 
+class="cmitt-10">Communicating</span><span 
+class="cmitt-10">&#x00A0;</span><span 
+class="cmitt-10">event</span><span 
+class="cmtt-10">&#x00A0;</span><br /><span class="label"><a 
+ id="x1-6034r32"></a><span 
+class="cmr-10">32</span></span><span 
+class="cmtt-10">&#x00A0;</span><span 
+class="cmtt-10">&#x00A0;</span><span 
+class="cmtt-10">&#x00A0;</span><span 
+class="cmtt-10">&#x00A0;</span><span 
+class="cmtt-10">myEvent</span><span 
+class="cmtt-10">&#x00A0;</span><span 
+class="cmtt-10">=</span><span 
+class="cmtt-10">&#x00A0;</span><span 
+class="cmtt-10">&#x00A0;</span><span 
+class="cmtt-10">NotifyEventEx</span><span 
+class="cmtt-10">(</span><span 
+class="cmtt-10">myEventFunction</span><span 
+class="cmtt-10">)</span><span 
+class="cmtt-10">&#x00A0;</span><br /><span class="label"><a 
+ id="x1-6035r33"></a><span 
+class="cmr-10">33</span></span><span 
+class="cmtt-10">&#x00A0;</span><br /><span class="label"><a 
+ id="x1-6036r34"></a><span 
+class="cmr-10">34</span></span><span 
+class="cmitt-10">&#x00A0;</span><span 
+class="cmitt-10">&#x00A0;</span><span 
+class="cmitt-10">&#x00A0;</span><span 
+class="cmitt-10">&#x00A0;</span><span 
+class="cmitt-10">#</span><span 
+class="cmitt-10">Uncomment</span><span 
+class="cmitt-10">&#x00A0;</span><span 
+class="cmitt-10">the</span><span 
+class="cmitt-10">&#x00A0;</span><span 
+class="cmitt-10">event</span><span 
+class="cmitt-10">&#x00A0;</span><span 
+class="cmitt-10">assignment</span><span 
+class="cmitt-10">&#x00A0;</span><span 
+class="cmitt-10">below</span><span 
+class="cmitt-10">&#x00A0;</span><span 
+class="cmitt-10">to</span><span 
+class="cmitt-10">&#x00A0;</span><span 
+class="cmitt-10">plot</span><span 
+class="cmitt-10">&#x00A0;</span><span 
+class="cmitt-10">each</span><span 
+class="cmitt-10">&#x00A0;</span><span 
+class="cmitt-10">monte</span><span 
+class="cmitt-10">&#x00A0;</span><span 
+class="cmitt-10">carlo</span><span 
+class="cmitt-10">&#x00A0;</span><span 
+class="cmitt-10">data</span><span 
+class="cmitt-10">&#x00A0;</span><span 
+class="cmitt-10">set</span><span 
+class="cmtt-10">&#x00A0;</span><br /><span class="label"><a 
+ id="x1-6037r35"></a><span 
+class="cmr-10">35</span></span><span 
+class="cmitt-10">&#x00A0;</span><span 
+class="cmitt-10">&#x00A0;</span><span 
+class="cmitt-10">&#x00A0;</span><span 
+class="cmitt-10">&#x00A0;</span><span 
+class="cmitt-10">#</span><span 
+class="cmitt-10">assignOnFinishedEvent</span><span 
+class="cmitt-10">(</span><span 
+class="cmitt-10">lmP</span><span 
+class="cmitt-10">.</span><span 
+class="cmitt-10">plugin</span><span 
+class="cmitt-10">,</span><span 
+class="cmitt-10">&#x00A0;</span><span 
+class="cmitt-10">myEvent</span><span 
+class="cmitt-10">,</span><span 
+class="cmitt-10">&#x00A0;</span><span 
+class="cmitt-10">None</span><span 
+class="cmitt-10">)</span><span 
+class="cmtt-10">&#x00A0;</span><br /><span class="label"><a 
+ id="x1-6038r36"></a><span 
+class="cmr-10">36</span></span><span 
+class="cmtt-10">&#x00A0;</span><br /><span class="label"><a 
+ id="x1-6039r37"></a><span 
+class="cmr-10">37</span></span><span 
+class="cmitt-10">&#x00A0;</span><span 
+class="cmitt-10">&#x00A0;</span><span 
+class="cmitt-10">&#x00A0;</span><span 
+class="cmitt-10">&#x00A0;</span><span 
+class="cmitt-10">#</span><span 
+class="cmitt-10">This</span><span 
+class="cmitt-10">&#x00A0;</span><span 
+class="cmitt-10">will</span><span 
+class="cmitt-10">&#x00A0;</span><span 
+class="cmitt-10">create</span><span 
+class="cmitt-10">&#x00A0;</span><span 
+class="cmitt-10">test</span><span 
+class="cmitt-10">&#x00A0;</span><span 
+class="cmitt-10">data</span><span 
+class="cmitt-10">&#x00A0;</span><span 
+class="cmitt-10">with</span><span 
+class="cmitt-10">&#x00A0;</span><span 
+class="cmitt-10">noise</span><span 
+class="cmitt-10">.</span><span 
+class="cmitt-10">&#x00A0;</span><span 
+class="cmitt-10">We</span><span 
+class="cmitt-10">&#x00A0;</span><span 
+class="cmitt-10">will</span><span 
+class="cmitt-10">&#x00A0;</span><span 
+class="cmitt-10">use</span><span 
+class="cmitt-10">&#x00A0;</span><span 
+class="cmitt-10">that</span><span 
+class="cmitt-10">&#x00A0;</span><span 
+class="cmitt-10">as</span><span 
+class="cmitt-10">&#x00A0;</span><span 
+class="cmitt-10">&#8217;</span><span 
+class="cmitt-10">experimental</span><span 
+class="cmitt-10">&#8217;</span><span 
+class="cmitt-10">&#x00A0;</span><span 
+class="cmitt-10">data</span><span 
+class="cmtt-10">&#x00A0;</span><br /><span class="label"><a 
+ id="x1-6040r38"></a><span 
+class="cmr-10">38</span></span><span 
+class="cmtt-10">&#x00A0;</span><span 
+class="cmtt-10">&#x00A0;</span><span 
+class="cmtt-10">&#x00A0;</span><span 
+class="cmtt-10">&#x00A0;</span><span 
+class="cmtt-10">modelP</span><span 
+class="cmtt-10">.</span><span 
+class="cmtt-10">execute</span><span 
+class="cmtt-10">()</span><span 
+class="cmtt-10">&#x00A0;</span><br /><span class="label"><a 
+ id="x1-6041r39"></a><span 
+class="cmr-10">39</span></span><span 
+class="cmtt-10">&#x00A0;</span><br /><span class="label"><a 
+ id="x1-6042r40"></a><span 
+class="cmr-10">40</span></span><span 
+class="cmitt-10">&#x00A0;</span><span 
+class="cmitt-10">&#x00A0;</span><span 
+class="cmitt-10">&#x00A0;</span><span 
+class="cmitt-10">&#x00A0;</span><span 
+class="cmitt-10">#</span><span 
+class="cmitt-10">Setup</span><span 
+class="cmitt-10">&#x00A0;</span><span 
+class="cmitt-10">Monte</span><span 
+class="cmitt-10">&#x00A0;</span><span 
+class="cmitt-10">Carlo</span><span 
+class="cmitt-10">&#x00A0;</span><span 
+class="cmitt-10">properties</span><span 
+class="cmitt-10">.</span><span 
+class="cmtt-10">&#x00A0;</span><br /><span class="label"><a 
+ id="x1-6043r41"></a><span 
+class="cmr-10">41</span></span><span 
+class="cmtt-10">&#x00A0;</span><span 
+class="cmtt-10">&#x00A0;</span><span 
+class="cmtt-10">&#x00A0;</span><span 
+class="cmtt-10">&#x00A0;</span><span 
+class="cmtt-10">mcP</span><span 
+class="cmtt-10">.</span><span 
+class="cmtt-10">SBML</span><span 
+class="cmtt-10">&#x00A0;</span><span 
+class="cmtt-10">&#x00A0;</span><span 
+class="cmtt-10">&#x00A0;</span><span 
+class="cmtt-10">&#x00A0;</span><span 
+class="cmtt-10">&#x00A0;</span><span 
+class="cmtt-10">&#x00A0;</span><span 
+class="cmtt-10">&#x00A0;</span><span 
+class="cmtt-10">&#x00A0;</span><span 
+class="cmtt-10">&#x00A0;</span><span 
+class="cmtt-10">&#x00A0;</span><span 
+class="cmtt-10">&#x00A0;</span><span 
+class="cmtt-10">&#x00A0;</span><span 
+class="cmtt-10">&#x00A0;</span><span 
+class="cmtt-10">&#x00A0;</span><span 
+class="cmtt-10">&#x00A0;</span><span 
+class="cmtt-10">&#x00A0;</span><span 
+class="cmtt-10">&#x00A0;</span><span 
+class="cmtt-10">&#x00A0;</span><span 
+class="cmtt-10">&#x00A0;</span><span 
+class="cmtt-10">&#x00A0;</span><span 
+class="cmtt-10">&#x00A0;</span><span 
+class="cmtt-10">&#x00A0;</span><span 
+class="cmtt-10">&#x00A0;</span><span 
+class="cmtt-10">&#x00A0;</span><span 
+class="cmtt-10">&#x00A0;</span><span 
+class="cmtt-10">&#x00A0;</span><span 
+class="cmtt-10">&#x00A0;</span><span 
+class="cmtt-10">&#x00A0;</span><span 
+class="cmtt-10">&#x00A0;</span><span 
+class="cmtt-10">=</span><span 
+class="cmtt-10">&#x00A0;</span><span 
+class="cmtt-10">modelP</span><span 
+class="cmtt-10">.</span><span 
+class="cmtt-10">Model</span><span 
+class="cmtt-10">&#x00A0;</span><br /><span class="label"><a 
+ id="x1-6044r42"></a><span 
+class="cmr-10">42</span></span><span 
+class="cmtt-10">&#x00A0;</span><span 
+class="cmtt-10">&#x00A0;</span><span 
+class="cmtt-10">&#x00A0;</span><span 
+class="cmtt-10">&#x00A0;</span><span 
+class="cmtt-10">mcP</span><span 
+class="cmtt-10">.</span><span 
+class="cmtt-10">ExperimentalData</span><span 
+class="cmtt-10">&#x00A0;</span><span 
+class="cmtt-10">&#x00A0;</span><span 
+class="cmtt-10">&#x00A0;</span><span 
+class="cmtt-10">&#x00A0;</span><span 
+class="cmtt-10">&#x00A0;</span><span 
+class="cmtt-10">&#x00A0;</span><span 
+class="cmtt-10">&#x00A0;</span><span 
+class="cmtt-10">&#x00A0;</span><span 
+class="cmtt-10">&#x00A0;</span><span 
+class="cmtt-10">&#x00A0;</span><span 
+class="cmtt-10">&#x00A0;</span><span 
+class="cmtt-10">&#x00A0;</span><span 
+class="cmtt-10">&#x00A0;</span><span 
+class="cmtt-10">&#x00A0;</span><span 
+class="cmtt-10">&#x00A0;</span><span 
+class="cmtt-10">&#x00A0;</span><span 
+class="cmtt-10">&#x00A0;</span><span 
+class="cmtt-10">=</span><span 
+class="cmtt-10">&#x00A0;</span><span 
+class="cmtt-10">modelP</span><span 
+class="cmtt-10">.</span><span 
+class="cmtt-10">TestDataWithNoise</span><span 
+class="cmtt-10">&#x00A0;</span><br /><span class="label"><a 
+ id="x1-6045r43"></a><span 
+class="cmr-10">43</span></span><span 
+class="cmtt-10">&#x00A0;</span><br /><span class="label"><a 
+ id="x1-6046r44"></a><span 
+class="cmr-10">44</span></span><span 
+class="cmitt-10">&#x00A0;</span><span 
+class="cmitt-10">&#x00A0;</span><span 
+class="cmitt-10">&#x00A0;</span><span 
+class="cmitt-10">&#x00A0;</span><span 
+class="cmitt-10">#</span><span 
+class="cmitt-10">Select</span><span 
+class="cmitt-10">&#x00A0;</span><span 
+class="cmitt-10">what</span><span 
+class="cmitt-10">&#x00A0;</span><span 
+class="cmitt-10">minimization</span><span 
+class="cmitt-10">&#x00A0;</span><span 
+class="cmitt-10">plugin</span><span 
+class="cmitt-10">&#x00A0;</span><span 
+class="cmitt-10">to</span><span 
+class="cmitt-10">&#x00A0;</span><span 
+class="cmitt-10">use</span><span 
+class="cmtt-10">&#x00A0;</span><br /><span class="label"><a 
+ id="x1-6047r45"></a><span 
+class="cmr-10">45</span></span><span 
+class="cmitt-10">&#x00A0;</span><span 
+class="cmitt-10">&#x00A0;</span><span 
+class="cmitt-10">&#x00A0;</span><span 
+class="cmitt-10">&#x00A0;</span><span 
+class="cmitt-10">#</span><span 
+class="cmitt-10">mcP</span><span 
+class="cmitt-10">.</span><span 
+class="cmitt-10">MinimizerPlugin</span><span 
+class="cmitt-10">&#x00A0;</span><span 
+class="cmitt-10">&#x00A0;</span><span 
+class="cmitt-10">&#x00A0;</span><span 
+class="cmitt-10">&#x00A0;</span><span 
+class="cmitt-10">&#x00A0;</span><span 
+class="cmitt-10">&#x00A0;</span><span 
+class="cmitt-10">&#x00A0;</span><span 
+class="cmitt-10">&#x00A0;</span><span 
+class="cmitt-10">&#x00A0;</span><span 
+class="cmitt-10">&#x00A0;</span><span 
+class="cmitt-10">&#x00A0;</span><span 
+class="cmitt-10">&#x00A0;</span><span 
+class="cmitt-10">&#x00A0;</span><span 
+class="cmitt-10">&#x00A0;</span><span 
+class="cmitt-10">&#x00A0;</span><span 
+class="cmitt-10">&#x00A0;</span><span 
+class="cmitt-10">&#x00A0;</span><span 
+class="cmitt-10">&#x00A0;</span><span 
+class="cmitt-10">=</span><span 
+class="cmitt-10">&#x00A0;</span><span 
+class="cmitt-10">"</span><span 
+class="cmitt-10">Nelder</span><span 
+class="cmitt-10">-</span><span 
+class="cmitt-10">Mead</span><span 
+class="cmitt-10">"</span><span 
+class="cmtt-10">&#x00A0;</span><br /><span class="label"><a 
+ id="x1-6048r46"></a><span 
+class="cmr-10">46</span></span><span 
+class="cmtt-10">&#x00A0;</span><span 
+class="cmtt-10">&#x00A0;</span><span 
+class="cmtt-10">&#x00A0;</span><span 
+class="cmtt-10">&#x00A0;</span><span 
+class="cmtt-10">mcP</span><span 
+class="cmtt-10">.</span><span 
+class="cmtt-10">MinimizerPlugin</span><span 
+class="cmtt-10">&#x00A0;</span><span 
+class="cmtt-10">&#x00A0;</span><span 
+class="cmtt-10">&#x00A0;</span><span 
+class="cmtt-10">&#x00A0;</span><span 
+class="cmtt-10">&#x00A0;</span><span 
+class="cmtt-10">&#x00A0;</span><span 
+class="cmtt-10">&#x00A0;</span><span 
+class="cmtt-10">&#x00A0;</span><span 
+class="cmtt-10">&#x00A0;</span><span 
+class="cmtt-10">&#x00A0;</span><span 
+class="cmtt-10">&#x00A0;</span><span 
+class="cmtt-10">&#x00A0;</span><span 
+class="cmtt-10">&#x00A0;</span><span 
+class="cmtt-10">&#x00A0;</span><span 
+class="cmtt-10">&#x00A0;</span><span 
+class="cmtt-10">&#x00A0;</span><span 
+class="cmtt-10">&#x00A0;</span><span 
+class="cmtt-10">&#x00A0;</span><span 
+class="cmtt-10">=</span><span 
+class="cmtt-10">&#x00A0;</span><span 
+class="cmtt-10">"</span><span 
+class="cmtt-10">Levenberg</span><span 
+class="cmtt-10">-</span><span 
+class="cmtt-10">Marquardt</span><span 
+class="cmtt-10">"</span><span 
+class="cmtt-10">&#x00A0;</span><br /><span class="label"><a 
+ id="x1-6049r47"></a><span 
+class="cmr-10">47</span></span><span 
+class="cmtt-10">&#x00A0;</span><span 
+class="cmtt-10">&#x00A0;</span><span 
+class="cmtt-10">&#x00A0;</span><span 
+class="cmtt-10">&#x00A0;</span><span 
+class="cmtt-10">mcP</span><span 
+class="cmtt-10">.</span><span 
+class="cmtt-10">NrOfMCRuns</span><span 
+class="cmtt-10">&#x00A0;</span><span 
+class="cmtt-10">&#x00A0;</span><span 
+class="cmtt-10">&#x00A0;</span><span 
+class="cmtt-10">&#x00A0;</span><span 
+class="cmtt-10">&#x00A0;</span><span 
+class="cmtt-10">&#x00A0;</span><span 
+class="cmtt-10">&#x00A0;</span><span 
+class="cmtt-10">&#x00A0;</span><span 
+class="cmtt-10">&#x00A0;</span><span 
+class="cmtt-10">&#x00A0;</span><span 
+class="cmtt-10">&#x00A0;</span><span 
+class="cmtt-10">&#x00A0;</span><span 
+class="cmtt-10">&#x00A0;</span><span 
+class="cmtt-10">&#x00A0;</span><span 
+class="cmtt-10">&#x00A0;</span><span 
+class="cmtt-10">&#x00A0;</span><span 
+class="cmtt-10">&#x00A0;</span><span 
+class="cmtt-10">&#x00A0;</span><span 
+class="cmtt-10">&#x00A0;</span><span 
+class="cmtt-10">&#x00A0;</span><span 
+class="cmtt-10">&#x00A0;</span><span 
+class="cmtt-10">&#x00A0;</span><span 
+class="cmtt-10">&#x00A0;</span><span 
+class="cmtt-10">=</span><span 
+class="cmtt-10">&#x00A0;</span><span 
+class="cmtt-10">100</span><span 
+class="cmtt-10">&#x00A0;</span><br /><span class="label"><a 
+ id="x1-6050r48"></a><span 
+class="cmr-10">48</span></span><span 
+class="cmtt-10">&#x00A0;</span><span 
+class="cmtt-10">&#x00A0;</span><span 
+class="cmtt-10">&#x00A0;</span><span 
+class="cmtt-10">&#x00A0;</span><span 
+class="cmtt-10">mcP</span><span 
+class="cmtt-10">.</span><span 
+class="cmtt-10">InputParameterList</span><span 
+class="cmtt-10">&#x00A0;</span><span 
+class="cmtt-10">&#x00A0;</span><span 
+class="cmtt-10">&#x00A0;</span><span 
+class="cmtt-10">&#x00A0;</span><span 
+class="cmtt-10">&#x00A0;</span><span 
+class="cmtt-10">&#x00A0;</span><span 
+class="cmtt-10">&#x00A0;</span><span 
+class="cmtt-10">&#x00A0;</span><span 
+class="cmtt-10">&#x00A0;</span><span 
+class="cmtt-10">&#x00A0;</span><span 
+class="cmtt-10">&#x00A0;</span><span 
+class="cmtt-10">&#x00A0;</span><span 
+class="cmtt-10">&#x00A0;</span><span 
+class="cmtt-10">&#x00A0;</span><span 
+class="cmtt-10">&#x00A0;</span><span 
+class="cmtt-10">=</span><span 
+class="cmtt-10">&#x00A0;</span><span 
+class="cmtt-10">[</span><span 
+class="cmtt-10">"</span><span 
+class="cmtt-10">k1</span><span 
+class="cmtt-10">"</span><span 
+class="cmtt-10">,</span><span 
+class="cmtt-10">&#x00A0;</span><span 
+class="cmtt-10">1.5]</span><span 
+class="cmtt-10">&#x00A0;</span><br /><span class="label"><a 
+ id="x1-6051r49"></a><span 
+class="cmr-10">49</span></span><span 
+class="cmtt-10">&#x00A0;</span><span 
+class="cmtt-10">&#x00A0;</span><span 
+class="cmtt-10">&#x00A0;</span><span 
+class="cmtt-10">&#x00A0;</span><span 
+class="cmtt-10">mcP</span><span 
+class="cmtt-10">.</span><span 
+class="cmtt-10">FittedDataSelectionList</span><span 
+class="cmtt-10">&#x00A0;</span><span 
+class="cmtt-10">&#x00A0;</span><span 
+class="cmtt-10">&#x00A0;</span><span 
+class="cmtt-10">&#x00A0;</span><span 
+class="cmtt-10">&#x00A0;</span><span 
+class="cmtt-10">&#x00A0;</span><span 
+class="cmtt-10">&#x00A0;</span><span 
+class="cmtt-10">&#x00A0;</span><span 
+class="cmtt-10">&#x00A0;</span><span 
+class="cmtt-10">&#x00A0;</span><span 
+class="cmtt-10">=</span><span 
+class="cmtt-10">&#x00A0;</span><span 
+class="cmtt-10">"</span><span 
+class="cmtt-10">[</span><span 
+class="cmtt-10">S1</span><span 
+class="cmtt-10">]</span><span 
+class="cmtt-10">&#x00A0;</span><span 
+class="cmtt-10">[</span><span 
+class="cmtt-10">S2</span><span 
+class="cmtt-10">]</span><span 
+class="cmtt-10">"</span><span 
+class="cmtt-10">&#x00A0;</span><br /><span class="label"><a 
+ id="x1-6052r50"></a><span 
+class="cmr-10">50</span></span><span 
+class="cmtt-10">&#x00A0;</span><span 
+class="cmtt-10">&#x00A0;</span><span 
+class="cmtt-10">&#x00A0;</span><span 
+class="cmtt-10">&#x00A0;</span><span 
+class="cmtt-10">mcP</span><span 
+class="cmtt-10">.</span><span 
+class="cmtt-10">ExperimentalDataSelectionList</span><span 
+class="cmtt-10">&#x00A0;</span><span 
+class="cmtt-10">&#x00A0;</span><span 
+class="cmtt-10">&#x00A0;</span><span 
+class="cmtt-10">&#x00A0;</span><span 
+class="cmtt-10">=</span><span 
+class="cmtt-10">&#x00A0;</span><span 
+class="cmtt-10">"</span><span 
+class="cmtt-10">[</span><span 
+class="cmtt-10">S1</span><span 
+class="cmtt-10">]</span><span 
+class="cmtt-10">&#x00A0;</span><span 
+class="cmtt-10">[</span><span 
+class="cmtt-10">S2</span><span 
+class="cmtt-10">]</span><span 
+class="cmtt-10">"</span><span 
+class="cmtt-10">&#x00A0;</span><br /><span class="label"><a 
+ id="x1-6053r51"></a><span 
+class="cmr-10">51</span></span><span 
+class="cmtt-10">&#x00A0;</span><br /><span class="label"><a 
+ id="x1-6054r52"></a><span 
+class="cmr-10">52</span></span><span 
+class="cmitt-10">&#x00A0;</span><span 
+class="cmitt-10">&#x00A0;</span><span 
+class="cmitt-10">&#x00A0;</span><span 
+class="cmitt-10">&#x00A0;</span><span 
+class="cmitt-10">#</span><span 
+class="cmitt-10">&#x00A0;</span><span 
+class="cmitt-10">Start</span><span 
+class="cmitt-10">&#x00A0;</span><span 
+class="cmitt-10">Monte</span><span 
+class="cmitt-10">&#x00A0;</span><span 
+class="cmitt-10">Carlo</span><span 
+class="cmtt-10">&#x00A0;</span><br /><span class="label"><a 
+ id="x1-6055r53"></a><span 
+class="cmr-10">53</span></span><span 
+class="cmtt-10">&#x00A0;</span><span 
+class="cmtt-10">&#x00A0;</span><span 
+class="cmtt-10">&#x00A0;</span><span 
+class="cmtt-10">&#x00A0;</span><span 
+class="cmtt-10">mcP</span><span 
+class="cmtt-10">.</span><span 
+class="cmtt-10">execute</span><span 
+class="cmtt-10">()</span><span 
+class="cmtt-10">&#x00A0;</span><br /><span class="label"><a 
+ id="x1-6056r54"></a><span 
+class="cmr-10">54</span></span><span 
+class="cmtt-10">&#x00A0;</span><br /><span class="label"><a 
+ id="x1-6057r55"></a><span 
+class="cmr-10">55</span></span><span 
+class="cmtt-10">&#x00A0;</span><span 
+class="cmtt-10">&#x00A0;</span><span 
+class="cmtt-10">&#x00A0;</span><span 
+class="cmtt-10">&#x00A0;</span><span 
+class="cmtt-10">print</span><span 
+class="cmtt-10">&#x00A0;</span><span 
+class="cmtt-10">&#8217;</span><span 
+class="cmtt-10">Monte</span><span 
+class="cmtt-10">&#x00A0;</span><span 
+class="cmtt-10">Carlo</span><span 
+class="cmtt-10">&#x00A0;</span><span 
+class="cmtt-10">Finished</span><span 
+class="cmtt-10">.</span><span 
+class="cmtt-10">&#x00A0;</span><span 
+class="cmtt-10">\</span><span 
+class="cmtt-10">n</span><span 
+class="cmtt-10">====</span><span 
+class="cmtt-10">&#x00A0;</span><span 
+class="cmtt-10">Result</span><span 
+class="cmtt-10">&#x00A0;</span><span 
+class="cmtt-10">====</span><span 
+class="cmtt-10">&#8217;</span><span 
+class="cmtt-10">&#x00A0;</span><br /><span class="label"><a 
+ id="x1-6058r56"></a><span 
+class="cmr-10">56</span></span><span 
+class="cmtt-10">&#x00A0;</span><span 
+class="cmtt-10">&#x00A0;</span><span 
+class="cmtt-10">&#x00A0;</span><span 
+class="cmtt-10">&#x00A0;</span><span 
+class="cmtt-10">print</span><span 
+class="cmtt-10">&#x00A0;</span><span 
+class="cmtt-10">mcP</span><span 
+class="cmtt-10">.</span><span 
+class="cmtt-10">MonteCarloParameters</span><span 
+class="cmtt-10">.</span><span 
+class="cmtt-10">getColumnHeaders</span><span 
+class="cmtt-10">()</span><span 
+class="cmtt-10">&#x00A0;</span><br /><span class="label"><a 
+ id="x1-6059r57"></a><span 
+class="cmr-10">57</span></span><span 
+class="cmtt-10">&#x00A0;</span><span 
+class="cmtt-10">&#x00A0;</span><span 
+class="cmtt-10">&#x00A0;</span><span 
+class="cmtt-10">&#x00A0;</span><span 
+class="cmtt-10">paras</span><span 
+class="cmtt-10">&#x00A0;</span><span 
+class="cmtt-10">=</span><span 
+class="cmtt-10">&#x00A0;</span><span 
+class="cmtt-10">mcP</span><span 
+class="cmtt-10">.</span><span 
+class="cmtt-10">MonteCarloParameters</span><span 
+class="cmtt-10">.</span><span 
+class="cmtt-10">toNumpy</span><span 
+class="cmtt-10">&#x00A0;</span><br /><span class="label"><a 
+ id="x1-6060r58"></a><span 
+class="cmr-10">58</span></span><span 
+class="cmtt-10">&#x00A0;</span><span 
+class="cmtt-10">&#x00A0;</span><span 
+class="cmtt-10">&#x00A0;</span><span 
+class="cmtt-10">&#x00A0;</span><span 
+class="cmtt-10">print</span><span 
+class="cmtt-10">&#x00A0;</span><span 
+class="cmtt-10">paras</span><span 
+class="cmtt-10">&#x00A0;</span><br /><span class="label"><a 
+ id="x1-6061r59"></a><span 
+class="cmr-10">59</span></span><span 
+class="cmtt-10">&#x00A0;</span><br /><span class="label"><a 
+ id="x1-6062r60"></a><span 
+class="cmr-10">60</span></span><span 
+class="cmitt-10">&#x00A0;</span><span 
+class="cmitt-10">&#x00A0;</span><span 
+class="cmitt-10">&#x00A0;</span><span 
+class="cmitt-10">&#x00A0;</span><span 
+class="cmitt-10">#</span><span 
+class="cmitt-10">Get</span><span 
+class="cmitt-10">&#x00A0;</span><span 
+class="cmitt-10">mean</span><span 
+class="cmitt-10">&#x00A0;</span><span 
+class="cmitt-10">(</span><span 
+class="cmitt-10">assuming</span><span 
+class="cmitt-10">&#x00A0;</span><span 
+class="cmitt-10">normal</span><span 
+class="cmitt-10">&#x00A0;</span><span 
+class="cmitt-10">distribution</span><span 
+class="cmitt-10">)</span><span 
+class="cmitt-10">.</span><span 
+class="cmtt-10">&#x00A0;</span><br /><span class="label"><a 
+ id="x1-6063r61"></a><span 
+class="cmr-10">61</span></span><span 
+class="cmtt-10">&#x00A0;</span><span 
+class="cmtt-10">&#x00A0;</span><span 
+class="cmtt-10">&#x00A0;</span><span 
+class="cmtt-10">&#x00A0;</span><span 
+class="cmtt-10">print</span><span 
+class="cmtt-10">&#x00A0;</span><span 
+class="cmtt-10">"</span><span 
+class="cmtt-10">The</span><span 
+class="cmtt-10">&#x00A0;</span><span 
+class="cmtt-10">mean</span><span 
+class="cmtt-10">:</span><span 
+class="cmtt-10">&#x00A0;</span><span 
+class="cmtt-10">k1</span><span 
+class="cmtt-10">=</span><span 
+class="cmtt-10">&#x00A0;</span><span 
+class="cmtt-10">"</span><span 
+class="cmtt-10">&#x00A0;</span><span 
+class="cmtt-10">+</span><span 
+class="cmtt-10">&#x00A0;</span><span 
+class="cmtt-10">&#8216;</span><span 
+class="cmtt-10">np</span><span 
+class="cmtt-10">.</span><span 
+class="cmtt-10">mean</span><span 
+class="cmtt-10">(</span><span 
+class="cmtt-10">paras</span><span 
+class="cmtt-10">)</span><span 
+class="cmtt-10">&#8216;</span><span 
+class="cmtt-10">&#x00A0;</span><br /><span class="label"><a 
+ id="x1-6064r62"></a><span 
+class="cmr-10">62</span></span><span 
+class="cmtt-10">&#x00A0;</span><br /><span class="label"><a 
+ id="x1-6065r63"></a><span 
+class="cmr-10">63</span></span><span 
+class="cmtt-10">&#x00A0;</span><br /><span class="label"><a 
+ id="x1-6066r64"></a><span 
+class="cmr-10">64</span></span><span 
+class="cmtt-10">&#x00A0;</span><span 
+class="cmtt-10">&#x00A0;</span><span 
+class="cmtt-10">&#x00A0;</span><span 
+class="cmtt-10">&#x00A0;</span><span 
+class="cmtt-10">PropertyOfTypeListHandle</span><span 
+class="cmtt-10">&#x00A0;</span><span 
+class="cmtt-10">=</span><span 
+class="cmtt-10">&#x00A0;</span><span 
+class="cmtt-10">getPluginProperty</span><span 
+class="cmtt-10">(</span><span 
+class="cmtt-10">mcP</span><span 
+class="cmtt-10">.</span><span 
+class="cmtt-10">plugin</span><span 
+class="cmtt-10">,</span><span 
+class="cmtt-10">&#x00A0;</span><span 
+class="cmtt-10">"</span><span 
+class="cmtt-10">ConfidenceLimits</span><span 
+class="cmtt-10">"</span><span 
+class="cmtt-10">)</span><span 
+class="cmtt-10">&#x00A0;</span><br /><span class="label"><a 
+ id="x1-6067r65"></a><span 
+class="cmr-10">65</span></span><span 
+class="cmtt-10">&#x00A0;</span><span 
+class="cmtt-10">&#x00A0;</span><span 
+class="cmtt-10">&#x00A0;</span><span 
+class="cmtt-10">&#x00A0;</span><span 
+class="cmtt-10">print</span><span 
+class="cmtt-10">&#x00A0;</span><span 
+class="cmtt-10">&#8216;</span><span 
+class="cmtt-10">getNamesFromPropertyList</span><span 
+class="cmtt-10">(</span><span 
+class="cmtt-10">PropertyOfTypeListHandle</span><span 
+class="cmtt-10">)</span><span 
+class="cmtt-10">&#8216;</span><span 
+class="cmtt-10">&#x00A0;</span><br /><span class="label"><a 
+ id="x1-6068r66"></a><span 
+class="cmr-10">66</span></span><span 
+class="cmtt-10">&#x00A0;</span><span 
+class="cmtt-10">&#x00A0;</span><span 
+class="cmtt-10">&#x00A0;</span><span 
+class="cmtt-10">&#x00A0;</span><span 
+class="cmtt-10">aProperty</span><span 
+class="cmtt-10">&#x00A0;</span><span 
+class="cmtt-10">=</span><span 
+class="cmtt-10">&#x00A0;</span><span 
+class="cmtt-10">getFirstProperty</span><span 
+class="cmtt-10">(</span><span 
+class="cmtt-10">PropertyOfTypeListHandle</span><span 
+class="cmtt-10">)</span><span 
+class="cmtt-10">&#x00A0;</span><br /><span class="label"><a 
+ id="x1-6069r67"></a><span 
+class="cmr-10">67</span></span><span 
+class="cmtt-10">&#x00A0;</span><span 
+class="cmtt-10">&#x00A0;</span><span 
+class="cmtt-10">&#x00A0;</span><span 
+class="cmtt-10">&#x00A0;</span><span 
+class="cmtt-10">if</span><span 
+class="cmtt-10">&#x00A0;</span><span 
+class="cmtt-10">aProperty</span><span 
+class="cmtt-10">:</span><span 
+class="cmtt-10">&#x00A0;</span><br /><span class="label"><a 
+ id="x1-6070r68"></a><span 
+class="cmr-10">68</span></span><span 
+class="cmtt-10">&#x00A0;</span><span 
+class="cmtt-10">&#x00A0;</span><span 
+class="cmtt-10">&#x00A0;</span><span 
+class="cmtt-10">&#x00A0;</span><span 
+class="cmtt-10">&#x00A0;</span><span 
+class="cmtt-10">&#x00A0;</span><span 
+class="cmtt-10">&#x00A0;</span><span 
+class="cmtt-10">&#x00A0;</span><span 
+class="cmtt-10">print</span><span 
+class="cmtt-10">&#x00A0;</span><span 
+class="cmtt-10">getPropertyValueAsString</span><span 
+class="cmtt-10">(</span><span 
+class="cmtt-10">aProperty</span><span 
+class="cmtt-10">)</span><span 
+class="cmtt-10">&#x00A0;</span><br /><span class="label"><a 
+ id="x1-6071r69"></a><span 
+class="cmr-10">69</span></span><span 
+class="cmtt-10">&#x00A0;</span><br /><span class="label"><a 
+ id="x1-6072r70"></a><span 
+class="cmr-10">70</span></span><span 
+class="cmitt-10">&#x00A0;</span><span 
+class="cmitt-10">&#x00A0;</span><span 
+class="cmitt-10">&#x00A0;</span><span 
+class="cmitt-10">&#x00A0;</span><span 
+class="cmitt-10">#</span><span 
+class="cmitt-10">Show</span><span 
+class="cmitt-10">&#x00A0;</span><span 
+class="cmitt-10">MOnte</span><span 
+class="cmitt-10">&#x00A0;</span><span 
+class="cmitt-10">Carlo</span><span 
+class="cmitt-10">&#x00A0;</span><span 
+class="cmitt-10">parameters</span><span 
+class="cmitt-10">&#x00A0;</span><span 
+class="cmitt-10">as</span><span 
+class="cmitt-10">&#x00A0;</span><span 
+class="cmitt-10">a</span><span 
+class="cmitt-10">&#x00A0;</span><span 
+class="cmitt-10">histogram</span><span 
+class="cmtt-10">&#x00A0;</span><br /><span class="label"><a 
+ id="x1-6073r71"></a><span 
+class="cmr-10">71</span></span><span 
+class="cmtt-10">&#x00A0;</span><span 
+class="cmtt-10">&#x00A0;</span><span 
+class="cmtt-10">&#x00A0;</span><span 
+class="cmtt-10">&#x00A0;</span><span 
+class="cmtt-10">plt</span><span 
+class="cmtt-10">.</span><span 
+class="cmtt-10">hist</span><span 
+class="cmtt-10">(</span><span 
+class="cmtt-10">paras</span><span 
+class="cmtt-10">,</span><span 
+class="cmtt-10">&#x00A0;</span><span 
+class="cmtt-10">50,</span><span 
+class="cmtt-10">&#x00A0;</span><span 
+class="cmtt-10">normed</span><span 
+class="cmtt-10">=</span><span 
+class="cmtt-10">True</span><span 
+class="cmtt-10">)</span><span 
+class="cmtt-10">&#x00A0;</span><br /><span class="label"><a 
+ id="x1-6074r72"></a><span 
+class="cmr-10">72</span></span><span 
+class="cmtt-10">&#x00A0;</span><span 
+class="cmtt-10">&#x00A0;</span><span 
+class="cmtt-10">&#x00A0;</span><span 
+class="cmtt-10">&#x00A0;</span><span 
+class="cmtt-10">plt</span><span 
+class="cmtt-10">.</span><span 
+class="cmtt-10">show</span><span 
+class="cmtt-10">()</span><span 
+class="cmtt-10">&#x00A0;</span><br /><span class="label"><a 
+ id="x1-6075r73"></a><span 
+class="cmr-10">73</span></span><span 
+class="cmtt-10">&#x00A0;</span><br /><span class="label"><a 
+ id="x1-6076r74"></a><span 
+class="cmr-10">74</span></span><span 
+class="cmitt-10">&#x00A0;</span><span 
+class="cmitt-10">&#x00A0;</span><span 
+class="cmitt-10">&#x00A0;</span><span 
+class="cmitt-10">&#x00A0;</span><span 
+class="cmitt-10">#</span><span 
+class="cmitt-10">Plot</span><span 
+class="cmitt-10">&#x00A0;</span><span 
+class="cmitt-10">Monte</span><span 
+class="cmitt-10">&#x00A0;</span><span 
+class="cmitt-10">Carlo</span><span 
+class="cmitt-10">&#x00A0;</span><span 
+class="cmitt-10">data</span><span 
+class="cmitt-10">&#x00A0;</span><span 
+class="cmitt-10">sets</span><span 
+class="cmtt-10">&#x00A0;</span><br /><span class="label"><a 
+ id="x1-6077r75"></a><span 
+class="cmr-10">75</span></span><span 
+class="cmitt-10">&#x00A0;</span><span 
+class="cmitt-10">&#x00A0;</span><span 
+class="cmitt-10">&#x00A0;</span><span 
+class="cmitt-10">&#x00A0;</span><span 
+class="cmitt-10">#</span><span 
+class="cmitt-10">dataSeries</span><span 
+class="cmitt-10">&#x00A0;</span><span 
+class="cmitt-10">=</span><span 
+class="cmitt-10">&#x00A0;</span><span 
+class="cmitt-10">&#x00A0;</span><span 
+class="cmitt-10">DataSeries</span><span 
+class="cmitt-10">.</span><span 
+class="cmitt-10">readDataSeries</span><span 
+class="cmitt-10">("</span><span 
+class="cmitt-10">MCDataSets</span><span 
+class="cmitt-10">.</span><span 
+class="cmitt-10">dat</span><span 
+class="cmitt-10">")</span><span 
+class="cmtt-10">&#x00A0;</span><br /><span class="label"><a 
+ id="x1-6078r76"></a><span 
+class="cmr-10">76</span></span><span 
+class="cmitt-10">&#x00A0;</span><span 
+class="cmitt-10">&#x00A0;</span><span 
+class="cmitt-10">&#x00A0;</span><span 
+class="cmitt-10">&#x00A0;</span><span 
+class="cmitt-10">#</span><span 
+class="cmitt-10">dataSeries</span><span 
+class="cmitt-10">.</span><span 
+class="cmitt-10">plot</span><span 
+class="cmitt-10">()</span><span 
+class="cmtt-10">&#x00A0;</span><br /><span class="label"><a 
+ id="x1-6079r77"></a><span 
+class="cmr-10">77</span></span><span 
+class="cmtt-10">&#x00A0;</span><br /><span class="label"><a 
+ id="x1-6080r78"></a><span 
+class="cmr-10">78</span></span><span 
+class="cmitt-10">&#x00A0;</span><span 
+class="cmitt-10">&#x00A0;</span><span 
+class="cmitt-10">&#x00A0;</span><span 
+class="cmitt-10">&#x00A0;</span><span 
+class="cmitt-10">#</span><span 
+class="cmitt-10">Finally</span><span 
+class="cmitt-10">,</span><span 
+class="cmitt-10">&#x00A0;</span><span 
+class="cmitt-10">view</span><span 
+class="cmitt-10">&#x00A0;</span><span 
+class="cmitt-10">the</span><span 
+class="cmitt-10">&#x00A0;</span><span 
+class="cmitt-10">manual</span><span 
+class="cmitt-10">&#x00A0;</span><span 
+class="cmitt-10">and</span><span 
+class="cmitt-10">&#x00A0;</span><span 
+class="cmitt-10">version</span><span 
+class="cmtt-10">&#x00A0;</span><br /><span class="label"><a 
+ id="x1-6081r79"></a><span 
+class="cmr-10">79</span></span><span 
+class="cmtt-10">&#x00A0;</span><span 
+class="cmtt-10">&#x00A0;</span><span 
+class="cmtt-10">&#x00A0;</span><span 
+class="cmtt-10">&#x00A0;</span><span 
+class="cmtt-10">mcP</span><span 
+class="cmtt-10">.</span><span 
+class="cmtt-10">viewManual</span><span 
+class="cmtt-10">()</span><span 
+class="cmtt-10">&#x00A0;</span><br /><span class="label"><a 
+ id="x1-6082r80"></a><span 
+class="cmr-10">80</span></span><span 
+class="cmtt-10">&#x00A0;</span><span 
+class="cmtt-10">&#x00A0;</span><span 
+class="cmtt-10">&#x00A0;</span><span 
+class="cmtt-10">&#x00A0;</span><span 
+class="cmtt-10">print</span><span 
+class="cmtt-10">&#x00A0;</span><span 
+class="cmtt-10">&#8217;</span><span 
+class="cmtt-10">Plugin</span><span 
+class="cmtt-10">&#x00A0;</span><span 
+class="cmtt-10">version</span><span 
+class="cmtt-10">:</span><span 
+class="cmtt-10">&#x00A0;</span><span 
+class="cmtt-10">&#8217;</span><span 
+class="cmtt-10">&#x00A0;</span><span 
+class="cmtt-10">+</span><span 
+class="cmtt-10">&#x00A0;</span><span 
+class="cmtt-10">&#8216;</span><span 
+class="cmtt-10">mcP</span><span 
+class="cmtt-10">.</span><span 
+class="cmtt-10">getVersion</span><span 
+class="cmtt-10">()</span><span 
+class="cmtt-10">&#8216;</span><span 
+class="cmtt-10">&#x00A0;</span><br /><span class="label"><a 
+ id="x1-6083r81"></a><span 
+class="cmr-10">81</span></span><span 
+class="cmtt-10">&#x00A0;</span><br /><span class="label"><a 
+ id="x1-6084r82"></a><span 
+class="cmr-10">82</span></span><span 
+class="cmtt-10">&#x00A0;</span><br /><span class="label"><a 
+ id="x1-6085r83"></a><span 
+class="cmr-10">83</span></span><span 
+class="cmtt-10">except</span><span 
+class="cmtt-10">&#x00A0;</span><span 
+class="cmtt-10">Exception</span><span 
+class="cmtt-10">&#x00A0;</span><span 
+class="cmtt-10">as</span><span 
+class="cmtt-10">&#x00A0;</span><span 
+class="cmtt-10">e</span><span 
+class="cmtt-10">:</span><span 
+class="cmtt-10">&#x00A0;</span><br /><span class="label"><a 
+ id="x1-6086r84"></a><span 
+class="cmr-10">84</span></span><span 
+class="cmtt-10">&#x00A0;</span><span 
+class="cmtt-10">&#x00A0;</span><span 
+class="cmtt-10">&#x00A0;</span><span 
+class="cmtt-10">&#x00A0;</span><span 
+class="cmtt-10">print</span><span 
+class="cmtt-10">&#x00A0;</span><span 
+class="cmtt-10">&#8217;</span><span 
+class="cmtt-10">Problem</span><span 
+class="cmtt-10">..</span><span 
+class="cmtt-10">&#x00A0;</span><span 
+class="cmtt-10">&#8217;</span><span 
+class="cmtt-10">&#x00A0;</span><span 
+class="cmtt-10">+</span><span 
+class="cmtt-10">&#x00A0;</span><span 
+class="cmtt-10">&#8216;</span><span 
+class="cmtt-10">e</span><span 
+class="cmtt-10">&#8216;</span>
+   
+   <br />
+            <div class="caption" 
+><span class="id">Listing&#x00A0;1.1:
+            </span><span  
+class="content">Monte
+            Carlo&#x00A0;plugin
+            example.</span></div><!--tex4ht:label?: x1-60001.5 -->
+   </div>
+<!--l. 85--><p class="indent" >   <hr class="figure"><div class="figure" 
+>
+                                                                                              
+                                                                                              
+<a 
+ id="x1-6087r1"></a>
+                                                                                              
+                                                                                              
+
+<!--l. 87--><p class="noindent" ><img 
+src="./Figures/MonteCarloOutput.png" alt="PIC"  
+>
+<br /> <div class="caption" 
+><span class="id">Figure&#x00A0;1.1: </span><span  
+class="content">Output for the example script above, using 1000 Monte Carlo runs. The histogram
+shows the distribution for the model parameter, &#8217;k1&#8217;. The mean for the distribution was 0.980
+and obtained confidence limits were +/- 0.001.</span></div><!--tex4ht:label?: x1-6087r1 -->
+                                                                                              
+                                                                                              
+<!--l. 90--><p class="indent" >   </div><hr class="endfigure">
+                                                                                              
+                                                                                              
+    
+</body></html> 
+
+                                                                                              
+
+

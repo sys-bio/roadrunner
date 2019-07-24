@@ -1,0 +1,1272 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN"  
+  "http://www.w3.org/TR/html4/loose.dtd">  
+<html > 
+<head><title></title> 
+<meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1"> 
+<meta name="generator" content="TeX4ht (http://www.cse.ohio-state.edu/~gurari/TeX4ht/)"> 
+<meta name="originator" content="TeX4ht (http://www.cse.ohio-state.edu/~gurari/TeX4ht/)"> 
+<!-- html --> 
+<meta name="src" content="mainDoc.tex"> 
+<meta name="date" content="2015-07-13 15:14:00"> 
+<link rel="stylesheet" type="text/css" href="mainDoc.css"> 
+</head><body 
+>
+                                                                                              
+                                                                                              
+                                                                                              
+                                                                                              
+                                                                                              
+                                                                                              
+   <h2 class="likechapterHead"><a 
+ id="x1-1000"></a>Bifurcation using AUTO2000 and the Auto2000 Tellurium Plugin</h2>  <span 
+class="cmti-12">Continue with some</span>
+<span 
+class="cmti-12">bifurcation</span>
+   <h3 class="sectionHead"><span class="titlemark">1.1   </span> <a 
+ id="x1-20001.1"></a>Introduction</h3>
+<!--l. 5--><p class="noindent" >The AUTO2000 plugin serves as a front-end for the AUTO2000 library, which is a
+library for continuation and bifurcation problems in ordinary differential equations
+<span class="footnote-mark"><a 
+href="mainDoc2.html#fn1x0"><sup class="textsuperscript">1</sup></a></span><a 
+ id="x1-2001f1"></a>.
+<!--l. 11--><p class="indent" >   Current limitations: Multiple continuation parameters are not supported, i.e. only one parameter
+can be selected for any continuation problem.
+<!--l. 13--><p class="indent" >   Available properties in the auto2000 plugin are documented in the next section.
+                                                                                              
+                                                                                              
+                                                                                                   <h3 class="sectionHead"><span class="titlemark">1.2   </span> <a 
+ id="x1-30001.2"></a>Plugin Properties</h3>
+<!--l. 17--><p class="noindent" >The AUTO library has numerous properties that have been wrapped and made available to a plugin client. Each property is listed below
+with its data type, default value and a short description. For the exact usage and a more in detail description please consult the main
+AUTO2000 manual.
+<a 
+ id="x1-3001r1"></a><!--l. 24--><div class="longtable"> <table id="TBL-1" class="longtable" 
+cellspacing="0" cellpadding="0"  
+><colgroup id="TBL-1-1g"><col 
+id="TBL-1-1"><col 
+id="TBL-1-2"><col 
+id="TBL-1-3"><col 
+id="TBL-1-4"></colgroup>
+<tr  
+ style="vertical-align:baseline;" id="TBL-1-1-"><td  style="white-space:wrap; text-align:left;" id="TBL-1-1-1"  
+class="td11">
+<!--l. 24--><p class="noindent" >Property Name         </td><td  style="white-space:nowrap; text-align:left;" id="TBL-1-1-2"  
+class="td11">Data Type    </td><td  style="white-space:wrap; text-align:left;" id="TBL-1-1-3"  
+class="td11">
+<!--l. 24--><p class="noindent" >Default Value    </td><td  style="white-space:wrap; text-align:left;" id="TBL-1-1-4"  
+class="td11">
+<!--l. 24--><p class="noindent" >Description                                                          </td>
+</tr><tr 
+class="hline"><td><hr></td><td><hr></td><td><hr></td><td><hr></td></tr><tr 
+class="vspace" style="font-size:2.58333pt"><td 
+>&nbsp;</td><td 
+>&nbsp;</td><td 
+>&nbsp;</td><td 
+>&nbsp;</td></tr><tr  
+ style="vertical-align:baseline;" id="TBL-1-2-"><td  style="white-space:wrap; text-align:left;" id="TBL-1-2-1"  
+class="td11">
+<!--l. 27--><p class="noindent" >SBML                     </td><td  style="white-space:nowrap; text-align:left;" id="TBL-1-2-2"  
+class="td11">string           </td><td  style="white-space:wrap; text-align:left;" id="TBL-1-2-3"  
+class="td11">
+<!--l. 27--><p class="noindent" >N/A                </td><td  style="white-space:wrap; text-align:left;" id="TBL-1-2-4"  
+class="td11">
+<!--l. 27--><p class="noindent" >SBML document as a string. Model to be used by AUTO</td>
+</tr><tr  
+ style="vertical-align:baseline;" id="TBL-1-3-"><td  style="white-space:wrap; text-align:left;" id="TBL-1-3-1"  
+class="td11">
+<!--l. 28--><p class="noindent" >TempFolder             </td><td  style="white-space:nowrap; text-align:left;" id="TBL-1-3-2"  
+class="td11">string           </td><td  style="white-space:wrap; text-align:left;" id="TBL-1-3-3"  
+class="td11">
+<!--l. 28--><p class="noindent" >&#8221;.&#8221;                  </td><td  style="white-space:wrap; text-align:left;" id="TBL-1-3-4"  
+class="td11">
+<!--l. 28--><p class="noindent" >Folder used by auto and the plugin for saving temporary
+files                                                                    </td>
+</tr><tr  
+ style="vertical-align:baseline;" id="TBL-1-4-"><td  style="white-space:wrap; text-align:left;" id="TBL-1-4-1"  
+class="td11">
+<!--l. 29--><p class="noindent" >KeepTempFiles         </td><td  style="white-space:nowrap; text-align:left;" id="TBL-1-4-2"  
+class="td11">bool             </td><td  style="white-space:wrap; text-align:left;" id="TBL-1-4-3"  
+class="td11">
+<!--l. 29--><p class="noindent" >false                </td><td  style="white-space:wrap; text-align:left;" id="TBL-1-4-4"  
+class="td11">
+<!--l. 29--><p class="noindent" >Boolean indicating if temporary files should be deleted
+after an AUTO session or not                                  </td>
+</tr><tr  
+ style="vertical-align:baseline;" id="TBL-1-5-"><td  style="white-space:wrap; text-align:left;" id="TBL-1-5-1"  
+class="td11">
+<!--l. 30--><p class="noindent" >ScanDirection           </td><td  style="white-space:nowrap; text-align:left;" id="TBL-1-5-2"  
+class="td11">string           </td><td  style="white-space:wrap; text-align:left;" id="TBL-1-5-3"  
+class="td11">
+<!--l. 30--><p class="noindent" >&#8221;Positive&#8221;        </td><td  style="white-space:wrap; text-align:left;" id="TBL-1-5-4"  
+class="td11">
+<!--l. 30--><p class="noindent" >Parameter instructing AUTO how to sweep its principal
+continuation parameter                                          </td>
+</tr><tr  
+ style="vertical-align:baseline;" id="TBL-1-6-"><td  style="white-space:wrap; text-align:left;" id="TBL-1-6-1"  
+class="td11">
+<!--l. 31--><p class="noindent" >PrincipalContinuationParameter </td> <td  style="white-space:nowrap; text-align:left;" id="TBL-1-6-2"  
+class="td11">string        </td><td  style="white-space:wrap; text-align:left;" id="TBL-1-6-3"  
+class="td11">
+<!--l. 31--><p class="noindent" >N/A                </td><td  style="white-space:wrap; text-align:left;" id="TBL-1-6-4"  
+class="td11">
+<!--l. 31--><p class="noindent" >The principal continuation parameter (PCP) is the first
+parameter that AUTO will sweep. Currently only one
+parameter is &#x00A0;supported, which by default is the PCP  </td>
+                                                                                                                                                                           
+                                                                                              
+                                                                                              
+                                                                                              </tr><tr  
+ style="vertical-align:baseline;" id="TBL-1-7-"><td  style="white-space:wrap; text-align:left;" id="TBL-1-7-1"  
+class="td11">
+<!--l. 33--><p class="noindent" >BifurcationPoints      </td><td  style="white-space:nowrap; text-align:left;" id="TBL-1-7-2"  
+class="td11">vector<span 
+class="cmmi-12">&#x003C;</span>int<span 
+class="cmmi-12">&#x003E;  </span></td><td  style="white-space:wrap; text-align:left;" id="TBL-1-7-3"  
+class="td11">
+<!--l. 33--><p class="noindent" >N/A                </td><td  style="white-space:wrap; text-align:left;" id="TBL-1-7-4"  
+class="td11">
+<!--l. 33--><p class="noindent" >This integer vector holds the exact point number (in
+the sequence of all output data) for an AUTO solution
+point.  It  can  be  used  together  with  the  labels  in
+the  bifurcationlabels  property  to  assist  in  plotting  a
+bifurcation diagram                                               </td>
+</tr><tr  
+ style="vertical-align:baseline;" id="TBL-1-8-"><td  style="white-space:wrap; text-align:left;" id="TBL-1-8-1"  
+class="td11">
+<!--l. 35--><p class="noindent" >BifurcationLabels      </td><td  style="white-space:nowrap; text-align:left;" id="TBL-1-8-2"  
+class="td11">stringList      </td><td  style="white-space:wrap; text-align:left;" id="TBL-1-8-3"  
+class="td11">
+<!--l. 35--><p class="noindent" >N/A                </td><td  style="white-space:wrap; text-align:left;" id="TBL-1-8-4"  
+class="td11">
+<!--l. 35--><p class="noindent" >The  string  list  holds  the  AUTO  designated  solution
+type   label   for   a   solution   point,   as   found   in
+the  bifurcationpoints  property.  Consult  the  AUTO
+documentation   for   possible   label   types   and   their
+meaning                                                              </td>
+</tr><tr  
+ style="vertical-align:baseline;" id="TBL-1-9-"><td  style="white-space:wrap; text-align:left;" id="TBL-1-9-1"  
+class="td11">
+<!--l. 37--><p class="noindent" >BifurcationData        </td><td  style="white-space:nowrap; text-align:left;" id="TBL-1-9-2"  
+class="td11">telluriumData</td><td  style="white-space:wrap; text-align:left;" id="TBL-1-9-3"  
+class="td11">
+<!--l. 37--><p class="noindent" >N/A                </td><td  style="white-space:wrap; text-align:left;" id="TBL-1-9-4"  
+class="td11">
+<!--l. 37--><p class="noindent" >The  BifurcationData  property  holds  the  bifurcation
+diagram after a session. The first column contains the
+values of the selected parameter, and successive columns
+are selected species                                                </td>
+</tr><tr  
+ style="vertical-align:baseline;" id="TBL-1-10-"><td  style="white-space:wrap; text-align:left;" id="TBL-1-10-1"  
+class="td11">
+<!--l. 40--><p class="noindent" >                  </td>
+</tr><tr 
+class="vspace" style="font-size:2.0pt"><td 
+>&nbsp;</td><td 
+>&nbsp;</td><td 
+>&nbsp;</td><td 
+>&nbsp;</td></tr><tr  
+ style="vertical-align:baseline;" id="TBL-1-11-"><td colspan="3" style="white-space:wrap; text-align:left;" id="TBL-1-11-1"  
+class="td11"></td>
+<div class="multicolumn"  style="white-space:wrap; text-align:left;">The following properties are used internally by the auto library. Depending on the problem at hand, they
+may need to be tweaked. </div>
+</tr><tr 
+class="hline"><td><hr></td><td><hr></td><td><hr></td><td><hr></td></tr><tr 
+class="vspace" style="font-size:12.0pt"><td 
+>&nbsp;</td><td 
+>&nbsp;</td><td 
+>&nbsp;</td><td 
+>&nbsp;</td></tr><tr  
+ style="vertical-align:baseline;" id="TBL-1-12-"><td  style="white-space:wrap; text-align:left;" id="TBL-1-12-1"  
+class="td11">
+<!--l. 43--><p class="noindent" >                  </td>
+                                                                                                  
+                                                                                              
+                                                                                              
+                                                                                              </tr><tr 
+class="vspace" style="font-size:2.0pt"><td 
+>&nbsp;</td><td 
+>&nbsp;</td><td 
+>&nbsp;</td><td 
+>&nbsp;</td></tr><tr  
+ style="vertical-align:baseline;" id="TBL-1-13-"><td  style="white-space:wrap; text-align:left;" id="TBL-1-13-1"  
+class="td11">
+<!--l. 44--><p class="noindent" >fort2                       </td><td  style="white-space:nowrap; text-align:left;" id="TBL-1-13-2"  
+class="td11">string           </td><td  style="white-space:wrap; text-align:left;" id="TBL-1-13-3"  
+class="td11">
+<!--l. 44--><p class="noindent" >N/A                </td><td  style="white-space:wrap; text-align:left;" id="TBL-1-13-4"  
+class="td11">
+<!--l. 44--><p class="noindent" >Property   containing   the   content   of   the   AUTO
+temporary file, fort.2. Fort.2 is the input file for AUTO
+and created by the plugin                                       </td>
+</tr><tr  
+ style="vertical-align:baseline;" id="TBL-1-14-"><td  style="white-space:wrap; text-align:left;" id="TBL-1-14-1"  
+class="td11">
+<!--l. 45--><p class="noindent" >fort3                       </td><td  style="white-space:nowrap; text-align:left;" id="TBL-1-14-2"  
+class="td11">string           </td><td  style="white-space:wrap; text-align:left;" id="TBL-1-14-3"  
+class="td11">
+<!--l. 45--><p class="noindent" >N/A                </td><td  style="white-space:wrap; text-align:left;" id="TBL-1-14-4"  
+class="td11">
+<!--l. 45--><p class="noindent" >Property   containing   the   content   of   the   AUTO
+temporary  file,  fort.3.  The  content  of  fort.3  file  is
+undocumented in AUTO&#8217;s documentation                  </td>
+</tr><tr  
+ style="vertical-align:baseline;" id="TBL-1-15-"><td  style="white-space:wrap; text-align:left;" id="TBL-1-15-1"  
+class="td11">
+<!--l. 46--><p class="noindent" >fort6                       </td><td  style="white-space:nowrap; text-align:left;" id="TBL-1-15-2"  
+class="td11">string           </td><td  style="white-space:wrap; text-align:left;" id="TBL-1-15-3"  
+class="td11">
+<!--l. 46--><p class="noindent" >N/A                </td><td  style="white-space:wrap; text-align:left;" id="TBL-1-15-4"  
+class="td11">
+<!--l. 46--><p class="noindent" >Property   containing   the   content   of   the   AUTO
+temporary  file,  fort.6.  The  content  of  fort.6  file  is  a
+bifurcation session summary                                   </td>
+</tr><tr  
+ style="vertical-align:baseline;" id="TBL-1-16-"><td  style="white-space:wrap; text-align:left;" id="TBL-1-16-1"  
+class="td11">
+<!--l. 47--><p class="noindent" >fort7                       </td><td  style="white-space:nowrap; text-align:left;" id="TBL-1-16-2"  
+class="td11">string           </td><td  style="white-space:wrap; text-align:left;" id="TBL-1-16-3"  
+class="td11">
+<!--l. 47--><p class="noindent" >N/A                </td><td  style="white-space:wrap; text-align:left;" id="TBL-1-16-4"  
+class="td11">
+<!--l. 47--><p class="noindent" >Property   containing   the   content   of   the   AUTO
+temporary  file,  fort.7.  The  content  of  fort.7  file  is  a
+bifurcation diagram on success                                </td>
+</tr><tr  
+ style="vertical-align:baseline;" id="TBL-1-17-"><td  style="white-space:wrap; text-align:left;" id="TBL-1-17-1"  
+class="td11">
+<!--l. 48--><p class="noindent" >fort8                       </td><td  style="white-space:nowrap; text-align:left;" id="TBL-1-17-2"  
+class="td11">string           </td><td  style="white-space:wrap; text-align:left;" id="TBL-1-17-3"  
+class="td11">
+<!--l. 48--><p class="noindent" >N/A                </td><td  style="white-space:wrap; text-align:left;" id="TBL-1-17-4"  
+class="td11">
+<!--l. 48--><p class="noindent" >Property   containing   the   content   of   the   AUTO
+temporary file, fort.8. The content of fort.8 file contain
+various statistics from the session                             </td>
+                                                                                                                                                           
+                                                                                              
+                                                                                              
+                                                                                              </tr><tr  
+ style="vertical-align:baseline;" id="TBL-1-18-"><td  style="white-space:wrap; text-align:left;" id="TBL-1-18-1"  
+class="td11">
+<!--l. 49--><p class="noindent" >fort9                       </td><td  style="white-space:nowrap; text-align:left;" id="TBL-1-18-2"  
+class="td11">string           </td><td  style="white-space:wrap; text-align:left;" id="TBL-1-18-3"  
+class="td11">
+<!--l. 49--><p class="noindent" >N/A                </td><td  style="white-space:wrap; text-align:left;" id="TBL-1-18-4"  
+class="td11">
+<!--l. 49--><p class="noindent" >Property   containing   the   content   of   the   AUTO
+temporary file, fort.8. Diagnostic messages, convergence
+history, eigenvalues, and Floquet multipliers are written
+in fort.9                                                              </td>
+</tr><tr  
+ style="vertical-align:baseline;" id="TBL-1-19-"><td  style="white-space:wrap; text-align:left;" id="TBL-1-19-1"  
+class="td11">
+<!--l. 51--><p class="noindent" >NDIM                     </td><td  style="white-space:nowrap; text-align:left;" id="TBL-1-19-2"  
+class="td11">int               </td><td  style="white-space:wrap; text-align:left;" id="TBL-1-19-3"  
+class="td11">
+<!--l. 51--><p class="noindent" >1                    </td><td  style="white-space:wrap; text-align:left;" id="TBL-1-19-4"  
+class="td11">
+<!--l. 51--><p class="noindent" >The NDIM property correspond to the dimension of the
+system of equations                                               </td>
+</tr><tr  
+ style="vertical-align:baseline;" id="TBL-1-20-"><td  style="white-space:wrap; text-align:left;" id="TBL-1-20-1"  
+class="td11">
+<!--l. 52--><p class="noindent" >IPS                        </td><td  style="white-space:nowrap; text-align:left;" id="TBL-1-20-2"  
+class="td11">int               </td><td  style="white-space:wrap; text-align:left;" id="TBL-1-20-3"  
+class="td11">
+<!--l. 52--><p class="noindent" >1                    </td><td  style="white-space:wrap; text-align:left;" id="TBL-1-20-4"  
+class="td11">
+<!--l. 52--><p class="noindent" >Constant defining the problem type                          </td>
+</tr><tr  
+ style="vertical-align:baseline;" id="TBL-1-21-"><td  style="white-space:wrap; text-align:left;" id="TBL-1-21-1"  
+class="td11">                  </td><td  style="white-space:nowrap; text-align:left;" id="TBL-1-21-2"  
+class="td11">            </td><td  style="white-space:wrap; text-align:left;" id="TBL-1-21-3"  
+class="td11">              </td><td  style="white-space:wrap; text-align:left;" id="TBL-1-21-4"  
+class="td11"></td></tr><tr  
+ style="vertical-align:baseline;" id="TBL-1-22-"><td  style="white-space:wrap; text-align:left;" id="TBL-1-22-1"  
+class="td11">
+<!--l. 53--><p class="noindent" >IRS                        </td><td  style="white-space:nowrap; text-align:left;" id="TBL-1-22-2"  
+class="td11">int             </td><td  style="white-space:wrap; text-align:left;" id="TBL-1-22-3"  
+class="td11">
+<!--l. 53--><p class="noindent" >1                    </td><td  style="white-space:wrap; text-align:left;" id="TBL-1-22-4"  
+class="td11">
+<!--l. 53--><p class="noindent" >This constant sets the label of the solution where the
+computation is to be restarted.                                </td>
+</tr><tr  
+ style="vertical-align:baseline;" id="TBL-1-23-"><td  style="white-space:wrap; text-align:left;" id="TBL-1-23-1"  
+class="td11">
+<!--l. 54--><p class="noindent" >ILP                        </td><td  style="white-space:nowrap; text-align:left;" id="TBL-1-23-2"  
+class="td11">int             </td><td  style="white-space:wrap; text-align:left;" id="TBL-1-23-3"  
+class="td11">
+<!--l. 54--><p class="noindent" >1                    </td><td  style="white-space:wrap; text-align:left;" id="TBL-1-23-4"  
+class="td11">
+<!--l. 54--><p class="noindent" >Fold detection; 1=ON, 0=OFF                                </td>
+</tr><tr  
+ style="vertical-align:baseline;" id="TBL-1-24-"><td  style="white-space:wrap; text-align:left;" id="TBL-1-24-1"  
+class="td11">
+<!--l. 55--><p class="noindent" >NICP                      </td><td  style="white-space:nowrap; text-align:left;" id="TBL-1-24-2"  
+class="td11">vector<span 
+class="cmmi-12">&#x003C;</span>int<span 
+class="cmmi-12">&#x003E;</span></td><td  style="white-space:wrap; text-align:left;" id="TBL-1-24-3"  
+class="td11">
+<!--l. 55--><p class="noindent" >N/A                </td><td  style="white-space:wrap; text-align:left;" id="TBL-1-24-4"  
+class="td11">
+<!--l. 55--><p class="noindent" >Property denoting the number of free parameters        </td>
+</tr><tr  
+ style="vertical-align:baseline;" id="TBL-1-25-"><td  style="white-space:wrap; text-align:left;" id="TBL-1-25-1"  
+class="td11">
+<!--l. 56--><p class="noindent" >ICP                        </td><td  style="white-space:nowrap; text-align:left;" id="TBL-1-25-2"  
+class="td11">int             </td><td  style="white-space:wrap; text-align:left;" id="TBL-1-25-3"  
+class="td11">
+<!--l. 56--><p class="noindent" >N/A                </td><td  style="white-space:wrap; text-align:left;" id="TBL-1-25-4"  
+class="td11">
+<!--l. 56--><p class="noindent" >Free parameters                                                    </td>
+</tr><tr  
+ style="vertical-align:baseline;" id="TBL-1-26-"><td  style="white-space:wrap; text-align:left;" id="TBL-1-26-1"  
+class="td11">
+<!--l. 57--><p class="noindent" >NTST                     </td><td  style="white-space:nowrap; text-align:left;" id="TBL-1-26-2"  
+class="td11">int             </td><td  style="white-space:wrap; text-align:left;" id="TBL-1-26-3"  
+class="td11">
+<!--l. 57--><p class="noindent" >15                   </td><td  style="white-space:wrap; text-align:left;" id="TBL-1-26-4"  
+class="td11">
+<!--l. 57--><p class="noindent" >The number of mesh intervals                                 </td>
+</tr><tr  
+ style="vertical-align:baseline;" id="TBL-1-27-"><td  style="white-space:wrap; text-align:left;" id="TBL-1-27-1"  
+class="td11">
+<!--l. 58--><p class="noindent" >NCOL                    </td><td  style="white-space:nowrap; text-align:left;" id="TBL-1-27-2"  
+class="td11">int             </td><td  style="white-space:wrap; text-align:left;" id="TBL-1-27-3"  
+class="td11">
+<!--l. 58--><p class="noindent" >3                    </td><td  style="white-space:wrap; text-align:left;" id="TBL-1-27-4"  
+class="td11">
+<!--l. 58--><p class="noindent" >The number of collocation points per mesh interval     </td>
+</tr><tr  
+ style="vertical-align:baseline;" id="TBL-1-28-"><td  style="white-space:wrap; text-align:left;" id="TBL-1-28-1"  
+class="td11">
+<!--l. 59--><p class="noindent" >IAD                       </td><td  style="white-space:nowrap; text-align:left;" id="TBL-1-28-2"  
+class="td11">int             </td><td  style="white-space:wrap; text-align:left;" id="TBL-1-28-3"  
+class="td11">
+<!--l. 59--><p class="noindent" >3                    </td><td  style="white-space:wrap; text-align:left;" id="TBL-1-28-4"  
+class="td11">
+<!--l. 59--><p class="noindent" >Mesh adaption every IAD steps; 0=OFF                   </td>
+                                                                                                                                                                           
+                                                                                              
+                                                                                              
+                                                                                              </tr><tr  
+ style="vertical-align:baseline;" id="TBL-1-29-"><td  style="white-space:wrap; text-align:left;" id="TBL-1-29-1"  
+class="td11">
+<!--l. 60--><p class="noindent" >ISP                        </td><td  style="white-space:nowrap; text-align:left;" id="TBL-1-29-2"  
+class="td11">int             </td><td  style="white-space:wrap; text-align:left;" id="TBL-1-29-3"  
+class="td11">
+<!--l. 60--><p class="noindent" >1                    </td><td  style="white-space:wrap; text-align:left;" id="TBL-1-29-4"  
+class="td11">
+<!--l. 60--><p class="noindent" >Bifurcation      detection;      0=OFF,      1=BP(FP),
+3=BP(PO,BVP), 2=all                                          </td>
+</tr><tr  
+ style="vertical-align:baseline;" id="TBL-1-30-"><td  style="white-space:wrap; text-align:left;" id="TBL-1-30-1"  
+class="td11">
+<!--l. 61--><p class="noindent" >ISW                       </td><td  style="white-space:nowrap; text-align:left;" id="TBL-1-30-2"  
+class="td11">int             </td><td  style="white-space:wrap; text-align:left;" id="TBL-1-30-3"  
+class="td11">
+<!--l. 61--><p class="noindent" >1                    </td><td  style="white-space:wrap; text-align:left;" id="TBL-1-30-4"  
+class="td11">
+<!--l. 61--><p class="noindent" >Branch  switching:  1=normal,  -1=switch  branch  (BP,
+HB, PD), 2=switch to two-parameter continuation (LP,
+BP, HB, TR) 3=switch to three-parameter continuation
+(BP)                                                                  </td>
+</tr><tr  
+ style="vertical-align:baseline;" id="TBL-1-31-"><td  style="white-space:wrap; text-align:left;" id="TBL-1-31-1"  
+class="td11">
+<!--l. 63--><p class="noindent" >IPLT                      </td><td  style="white-space:nowrap; text-align:left;" id="TBL-1-31-2"  
+class="td11">int             </td><td  style="white-space:wrap; text-align:left;" id="TBL-1-31-3"  
+class="td11">
+<!--l. 63--><p class="noindent" >0                    </td><td  style="white-space:wrap; text-align:left;" id="TBL-1-31-4"  
+class="td11">
+<!--l. 63--><p class="noindent" >This  constant  allows  redefinition  of  the  principal
+solution measure, which is printed as the second (real)
+column in the fort.7 output-file. See AUTO manual for
+possible settings                                                   </td>
+</tr><tr  
+ style="vertical-align:baseline;" id="TBL-1-32-"><td  style="white-space:wrap; text-align:left;" id="TBL-1-32-1"  
+class="td11">
+<!--l. 65--><p class="noindent" >NBC                       </td><td  style="white-space:nowrap; text-align:left;" id="TBL-1-32-2"  
+class="td11">int             </td><td  style="white-space:wrap; text-align:left;" id="TBL-1-32-3"  
+class="td11">
+<!--l. 65--><p class="noindent" >0                    </td><td  style="white-space:wrap; text-align:left;" id="TBL-1-32-4"  
+class="td11">
+<!--l. 65--><p class="noindent" >Number of boundary conditions                               </td>
+</tr><tr  
+ style="vertical-align:baseline;" id="TBL-1-33-"><td  style="white-space:wrap; text-align:left;" id="TBL-1-33-1"  
+class="td11">
+<!--l. 66--><p class="noindent" >NINT                     </td><td  style="white-space:nowrap; text-align:left;" id="TBL-1-33-2"  
+class="td11">int             </td><td  style="white-space:wrap; text-align:left;" id="TBL-1-33-3"  
+class="td11">
+<!--l. 66--><p class="noindent" >0                    </td><td  style="white-space:wrap; text-align:left;" id="TBL-1-33-4"  
+class="td11">
+<!--l. 66--><p class="noindent" >Number of integral conditions                                 </td>
+</tr><tr  
+ style="vertical-align:baseline;" id="TBL-1-34-"><td  style="white-space:wrap; text-align:left;" id="TBL-1-34-1"  
+class="td11">
+<!--l. 67--><p class="noindent" >NMX                      </td><td  style="white-space:nowrap; text-align:left;" id="TBL-1-34-2"  
+class="td11">double        </td><td  style="white-space:wrap; text-align:left;" id="TBL-1-34-3"  
+class="td11">
+<!--l. 67--><p class="noindent" >1000                </td><td  style="white-space:wrap; text-align:left;" id="TBL-1-34-4"  
+class="td11">
+<!--l. 67--><p class="noindent" >Maximum number of steps                                      </td>
+</tr><tr  
+ style="vertical-align:baseline;" id="TBL-1-35-"><td  style="white-space:wrap; text-align:left;" id="TBL-1-35-1"  
+class="td11">
+<!--l. 68--><p class="noindent" >RL0                       </td><td  style="white-space:nowrap; text-align:left;" id="TBL-1-35-2"  
+class="td11">double        </td><td  style="white-space:wrap; text-align:left;" id="TBL-1-35-3"  
+class="td11">
+<!--l. 68--><p class="noindent" >0.01                </td><td  style="white-space:wrap; text-align:left;" id="TBL-1-35-4"  
+class="td11">
+<!--l. 68--><p class="noindent" >The   lower   bound   on   the   principal   continuation
+parameter                                                           </td>
+</tr><tr  
+ style="vertical-align:baseline;" id="TBL-1-36-"><td  style="white-space:wrap; text-align:left;" id="TBL-1-36-1"  
+class="td11">
+<!--l. 69--><p class="noindent" >RL1                       </td><td  style="white-space:nowrap; text-align:left;" id="TBL-1-36-2"  
+class="td11">double        </td><td  style="white-space:wrap; text-align:left;" id="TBL-1-36-3"  
+class="td11">
+<!--l. 69--><p class="noindent" >30                   </td><td  style="white-space:wrap; text-align:left;" id="TBL-1-36-4"  
+class="td11">
+<!--l. 69--><p class="noindent" >The   upper   bound   on   the   principal   continuation
+parameter                                                           </td>
+                                                                                                                                                        
+                                                                                              
+                                                                                              
+                                                                                              </tr><tr  
+ style="vertical-align:baseline;" id="TBL-1-37-"><td  style="white-space:wrap; text-align:left;" id="TBL-1-37-1"  
+class="td11">
+<!--l. 70--><p class="noindent" >A0                         </td><td  style="white-space:nowrap; text-align:left;" id="TBL-1-37-2"  
+class="td11">double        </td><td  style="white-space:wrap; text-align:left;" id="TBL-1-37-3"  
+class="td11">
+<!--l. 70--><p class="noindent" >0                    </td><td  style="white-space:wrap; text-align:left;" id="TBL-1-37-4"  
+class="td11">
+<!--l. 70--><p class="noindent" >The lower bound on the principal solution measure      </td>
+</tr><tr  
+ style="vertical-align:baseline;" id="TBL-1-38-"><td  style="white-space:wrap; text-align:left;" id="TBL-1-38-1"  
+class="td11">
+<!--l. 71--><p class="noindent" >A1                         </td><td  style="white-space:nowrap; text-align:left;" id="TBL-1-38-2"  
+class="td11">int             </td><td  style="white-space:wrap; text-align:left;" id="TBL-1-38-3"  
+class="td11">
+<!--l. 71--><p class="noindent" >10000              </td><td  style="white-space:wrap; text-align:left;" id="TBL-1-38-4"  
+class="td11">
+<!--l. 71--><p class="noindent" >The upper bound on the principal solution measure     </td>
+</tr><tr  
+ style="vertical-align:baseline;" id="TBL-1-39-"><td  style="white-space:wrap; text-align:left;" id="TBL-1-39-1"  
+class="td11">
+<!--l. 72--><p class="noindent" >NPR                       </td><td  style="white-space:nowrap; text-align:left;" id="TBL-1-39-2"  
+class="td11">int             </td><td  style="white-space:wrap; text-align:left;" id="TBL-1-39-3"  
+class="td11">
+<!--l. 72--><p class="noindent" >50                   </td><td  style="white-space:wrap; text-align:left;" id="TBL-1-39-4"  
+class="td11">
+<!--l. 72--><p class="noindent" >Save  the  solution  in  the  solution  file  every  NPR
+continuation steps                                                 </td>
+</tr><tr  
+ style="vertical-align:baseline;" id="TBL-1-40-"><td  style="white-space:wrap; text-align:left;" id="TBL-1-40-1"  
+class="td11">
+<!--l. 73--><p class="noindent" >MXBF                    </td><td  style="white-space:nowrap; text-align:left;" id="TBL-1-40-2"  
+class="td11">int             </td><td  style="white-space:wrap; text-align:left;" id="TBL-1-40-3"  
+class="td11">
+<!--l. 73--><p class="noindent" >-1                   </td><td  style="white-space:wrap; text-align:left;" id="TBL-1-40-4"  
+class="td11">
+<!--l. 73--><p class="noindent" >Automatic   branch   switching   for   the   first   MXBF
+bifurcation &#x00A0;points if IPS=0, 1                                </td>
+</tr><tr  
+ style="vertical-align:baseline;" id="TBL-1-41-"><td  style="white-space:wrap; text-align:left;" id="TBL-1-41-1"  
+class="td11">
+<!--l. 75--><p class="noindent" >IID                         </td><td  style="white-space:nowrap; text-align:left;" id="TBL-1-41-2"  
+class="td11">int             </td><td  style="white-space:wrap; text-align:left;" id="TBL-1-41-3"  
+class="td11">
+<!--l. 75--><p class="noindent" >0                    </td><td  style="white-space:wrap; text-align:left;" id="TBL-1-41-4"  
+class="td11">
+<!--l. 75--><p class="noindent" >Control diagnostic output; 0=none, 1=little, 2=normal,
+4=extensive                                                         </td>
+</tr><tr  
+ style="vertical-align:baseline;" id="TBL-1-42-"><td  style="white-space:wrap; text-align:left;" id="TBL-1-42-1"  
+class="td11">
+<!--l. 76--><p class="noindent" >                  </td>
+</tr><tr  
+ style="vertical-align:baseline;" id="TBL-1-43-"><td  style="white-space:wrap; text-align:left;" id="TBL-1-43-1"  
+class="td11">
+<!--l. 76--><p class="noindent" >ITMX                     </td><td  style="white-space:nowrap; text-align:left;" id="TBL-1-43-2"  
+class="td11">int             </td><td  style="white-space:wrap; text-align:left;" id="TBL-1-43-3"  
+class="td11">
+<!--l. 76--><p class="noindent" >8,                   </td><td  style="white-space:wrap; text-align:left;" id="TBL-1-43-4"  
+class="td11">
+<!--l. 76--><p class="noindent" >Maximum  number  of  iterations  for  locating  special
+solutions/points                                                    </td>
+</tr><tr  
+ style="vertical-align:baseline;" id="TBL-1-44-"><td  style="white-space:wrap; text-align:left;" id="TBL-1-44-1"  
+class="td11">
+<!--l. 77--><p class="noindent" >ITNW                    </td><td  style="white-space:nowrap; text-align:left;" id="TBL-1-44-2"  
+class="td11">int             </td><td  style="white-space:wrap; text-align:left;" id="TBL-1-44-3"  
+class="td11">
+<!--l. 77--><p class="noindent" >5,                   </td><td  style="white-space:wrap; text-align:left;" id="TBL-1-44-4"  
+class="td11">
+<!--l. 77--><p class="noindent" >Maximum number of correction steps                        </td>
+</tr><tr  
+ style="vertical-align:baseline;" id="TBL-1-45-"><td  style="white-space:wrap; text-align:left;" id="TBL-1-45-1"  
+class="td11">
+<!--l. 78--><p class="noindent" >NWTN                   </td><td  style="white-space:nowrap; text-align:left;" id="TBL-1-45-2"  
+class="td11">int             </td><td  style="white-space:wrap; text-align:left;" id="TBL-1-45-3"  
+class="td11">
+<!--l. 78--><p class="noindent" >3,                   </td><td  style="white-space:wrap; text-align:left;" id="TBL-1-45-4"  
+class="td11">
+<!--l. 78--><p class="noindent" >Corrector uses full newton for NWTN steps               </td>
+</tr><tr  
+ style="vertical-align:baseline;" id="TBL-1-46-"><td  style="white-space:wrap; text-align:left;" id="TBL-1-46-1"  
+class="td11">
+<!--l. 79--><p class="noindent" >JAC                       </td><td  style="white-space:nowrap; text-align:left;" id="TBL-1-46-2"  
+class="td11">double        </td><td  style="white-space:wrap; text-align:left;" id="TBL-1-46-3"  
+class="td11">
+<!--l. 79--><p class="noindent" >0,                   </td><td  style="white-space:wrap; text-align:left;" id="TBL-1-46-4"  
+class="td11">
+<!--l. 79--><p class="noindent" >User defines derivatives; 0=no, 1=yes                       </td>
+</tr><tr  
+ style="vertical-align:baseline;" id="TBL-1-47-"><td  style="white-space:wrap; text-align:left;" id="TBL-1-47-1"  
+class="td11">
+<!--l. 80--><p class="noindent" >EPSL                     </td><td  style="white-space:nowrap; text-align:left;" id="TBL-1-47-2"  
+class="td11">double        </td><td  style="white-space:wrap; text-align:left;" id="TBL-1-47-3"  
+class="td11">
+<!--l. 80--><p class="noindent" >1e-8                </td><td  style="white-space:wrap; text-align:left;" id="TBL-1-47-4"  
+class="td11">
+<!--l. 80--><p class="noindent" >Property    setting    the    convergence    criterion    for
+parameters                                                          </td>
+                                                                                                                                                                           
+                                                                                              
+                                                                                              
+                                                                                              </tr><tr  
+ style="vertical-align:baseline;" id="TBL-1-48-"><td  style="white-space:wrap; text-align:left;" id="TBL-1-48-1"  
+class="td11">
+<!--l. 81--><p class="noindent" >EPSU                     </td><td  style="white-space:nowrap; text-align:left;" id="TBL-1-48-2"  
+class="td11">double        </td><td  style="white-space:wrap; text-align:left;" id="TBL-1-48-3"  
+class="td11">
+<!--l. 81--><p class="noindent" >1e-8                </td><td  style="white-space:wrap; text-align:left;" id="TBL-1-48-4"  
+class="td11">
+<!--l. 81--><p class="noindent" >Property setting the convergence criterion for solution
+components                                                         </td>
+</tr><tr  
+ style="vertical-align:baseline;" id="TBL-1-49-"><td  style="white-space:wrap; text-align:left;" id="TBL-1-49-1"  
+class="td11">
+<!--l. 82--><p class="noindent" >EPSS                      </td><td  style="white-space:nowrap; text-align:left;" id="TBL-1-49-2"  
+class="td11">double        </td><td  style="white-space:wrap; text-align:left;" id="TBL-1-49-3"  
+class="td11">
+<!--l. 82--><p class="noindent" >1e-6                </td><td  style="white-space:wrap; text-align:left;" id="TBL-1-49-4"  
+class="td11">
+<!--l. 82--><p class="noindent" >Property  setting  the  convergence  criterion  for  special
+points                                                                 </td>
+</tr><tr  
+ style="vertical-align:baseline;" id="TBL-1-50-"><td  style="white-space:wrap; text-align:left;" id="TBL-1-50-1"  
+class="td11">
+<!--l. 83--><p class="noindent" >DS                         </td><td  style="white-space:nowrap; text-align:left;" id="TBL-1-50-2"  
+class="td11">double        </td><td  style="white-space:wrap; text-align:left;" id="TBL-1-50-3"  
+class="td11">
+<!--l. 83--><p class="noindent" >0.001               </td><td  style="white-space:wrap; text-align:left;" id="TBL-1-50-4"  
+class="td11">
+<!--l. 83--><p class="noindent" >Session start step size                                            </td>
+</tr><tr  
+ style="vertical-align:baseline;" id="TBL-1-51-"><td  style="white-space:wrap; text-align:left;" id="TBL-1-51-1"  
+class="td11">
+<!--l. 84--><p class="noindent" >DSMIN                   </td><td  style="white-space:nowrap; text-align:left;" id="TBL-1-51-2"  
+class="td11">double        </td><td  style="white-space:wrap; text-align:left;" id="TBL-1-51-3"  
+class="td11">
+<!--l. 84--><p class="noindent" >1e-5                </td><td  style="white-space:wrap; text-align:left;" id="TBL-1-51-4"  
+class="td11">
+<!--l. 84--><p class="noindent" >Minimum continuation step size                               </td>
+</tr><tr  
+ style="vertical-align:baseline;" id="TBL-1-52-"><td  style="white-space:wrap; text-align:left;" id="TBL-1-52-1"  
+class="td11">
+<!--l. 85--><p class="noindent" >DSMAX                  </td><td  style="white-space:nowrap; text-align:left;" id="TBL-1-52-2"  
+class="td11">double        </td><td  style="white-space:wrap; text-align:left;" id="TBL-1-52-3"  
+class="td11">
+<!--l. 85--><p class="noindent" >0.1                  </td><td  style="white-space:wrap; text-align:left;" id="TBL-1-52-4"  
+class="td11">
+<!--l. 85--><p class="noindent" >Maximum continuation step size                              </td>
+</tr><tr  
+ style="vertical-align:baseline;" id="TBL-1-53-"><td  style="white-space:wrap; text-align:left;" id="TBL-1-53-1"  
+class="td11">
+<!--l. 86--><p class="noindent" >IADS                      </td><td  style="white-space:nowrap; text-align:left;" id="TBL-1-53-2"  
+class="td11">int             </td><td  style="white-space:wrap; text-align:left;" id="TBL-1-53-3"  
+class="td11">
+<!--l. 86--><p class="noindent" >1                    </td><td  style="white-space:wrap; text-align:left;" id="TBL-1-53-4"  
+class="td11">
+<!--l. 86--><p class="noindent" >Step size adaption every IADS steps; 0=OFF             </td>
+</tr><tr  
+ style="vertical-align:baseline;" id="TBL-1-54-"><td  style="white-space:wrap; text-align:left;" id="TBL-1-54-1"  
+class="td11">
+<!--l. 87--><p class="noindent" >NTHL                     </td><td  style="white-space:nowrap; text-align:left;" id="TBL-1-54-2"  
+class="td11">int             </td><td  style="white-space:wrap; text-align:left;" id="TBL-1-54-3"  
+class="td11">
+<!--l. 87--><p class="noindent" >0                    </td><td  style="white-space:wrap; text-align:left;" id="TBL-1-54-4"  
+class="td11">
+<!--l. 87--><p class="noindent" >The number of modified parameter weights (for BVP)  </td>
+</tr><tr  
+ style="vertical-align:baseline;" id="TBL-1-55-"><td  style="white-space:wrap; text-align:left;" id="TBL-1-55-1"  
+class="td11">
+<!--l. 88--><p class="noindent" >THL                       </td><td  style="white-space:nowrap; text-align:left;" id="TBL-1-55-2"  
+class="td11">vector<span 
+class="cmmi-12">&#x003C;</span>int<span 
+class="cmmi-12">&#x003E;</span></td><td  style="white-space:wrap; text-align:left;" id="TBL-1-55-3"  
+class="td11">
+<!--l. 88--><p class="noindent" >N/A                </td><td  style="white-space:wrap; text-align:left;" id="TBL-1-55-4"  
+class="td11">
+<!--l. 88--><p class="noindent" >List of parameter weights                                       </td>
+</tr><tr  
+ style="vertical-align:baseline;" id="TBL-1-56-"><td  style="white-space:wrap; text-align:left;" id="TBL-1-56-1"  
+class="td11">
+<!--l. 89--><p class="noindent" >NTHU                    </td><td  style="white-space:nowrap; text-align:left;" id="TBL-1-56-2"  
+class="td11">int             </td><td  style="white-space:wrap; text-align:left;" id="TBL-1-56-3"  
+class="td11">
+<!--l. 89--><p class="noindent" >0                    </td><td  style="white-space:wrap; text-align:left;" id="TBL-1-56-4"  
+class="td11">
+<!--l. 89--><p class="noindent" >The number of modified solution component weights (for
+BVP)                                                                 </td>
+</tr><tr  
+ style="vertical-align:baseline;" id="TBL-1-57-"><td  style="white-space:wrap; text-align:left;" id="TBL-1-57-1"  
+class="td11">
+<!--l. 90--><p class="noindent" >THU                      </td><td  style="white-space:nowrap; text-align:left;" id="TBL-1-57-2"  
+class="td11">vector<span 
+class="cmmi-12">&#x003C;</span>int<span 
+class="cmmi-12">&#x003E;</span></td><td  style="white-space:wrap; text-align:left;" id="TBL-1-57-3"  
+class="td11">
+<!--l. 90--><p class="noindent" >N/A                </td><td  style="white-space:wrap; text-align:left;" id="TBL-1-57-4"  
+class="td11">
+<!--l. 90--><p class="noindent" >List of solution weights                                          </td>
+</tr><tr  
+ style="vertical-align:baseline;" id="TBL-1-58-"><td  style="white-space:wrap; text-align:left;" id="TBL-1-58-1"  
+class="td11">
+<!--l. 91--><p class="noindent" >NUZR                     </td><td  style="white-space:nowrap; text-align:left;" id="TBL-1-58-2"  
+class="td11">int             </td><td  style="white-space:wrap; text-align:left;" id="TBL-1-58-3"  
+class="td11">
+<!--l. 91--><p class="noindent" >0                    </td><td  style="white-space:wrap; text-align:left;" id="TBL-1-58-4"  
+class="td11">
+<!--l. 91--><p class="noindent" >The number of user output points specified                </td>
+                                                                                                                                                        
+                                                                                              
+                                                                                              
+                                                                                              </tr><tr  
+ style="vertical-align:baseline;" id="TBL-1-59-"><td  style="white-space:wrap; text-align:left;" id="TBL-1-59-1"  
+class="td11">
+<!--l. 92--><p class="noindent" >UZR                       </td><td  style="white-space:nowrap; text-align:left;" id="TBL-1-59-2"  
+class="td11">vector<span 
+class="cmmi-12">&#x003C;</span>int<span 
+class="cmmi-12">&#x003E;</span></td><td  style="white-space:wrap; text-align:left;" id="TBL-1-59-3"  
+class="td11">
+<!--l. 92--><p class="noindent" >N/A                </td><td  style="white-space:wrap; text-align:left;" id="TBL-1-59-4"  
+class="td11">
+<!--l. 92--><p class="noindent" >List of values for user defined output                        </td>
+</tr><tr 
+class="hline"><td><hr></td><td><hr></td><td><hr></td><td><hr></td></tr><tr  
+ style="vertical-align:baseline;" id="TBL-1-60-"><td  style="white-space:wrap; text-align:left;" id="TBL-1-60-1"  
+class="td11">                  </td>
+</tr><tr  
+ style="vertical-align:baseline;" id="TBL-1-61-"><td  style="white-space:wrap; text-align:left;" id="TBL-1-61-1"  
+class="td11">
+<!--l. 96--><p class="noindent" >                  </td>
+</tr><tr  
+ style="vertical-align:baseline;" id="TBL-1-62-"><td colspan="3" style="white-space:wrap; text-align:left;" id="TBL-1-62-1"  
+class="td11"></td>                                               <div class="multicolumn"  style="white-space:nowrap; text-align:center;">
+&#x00A0;&#x00A0;       Table&#x00A0;1.1: Plugin Properties                                                                                                                       &#x00A0;&#x00A0;</div> <a 
+ id="x1-3002"></a>
+</tr><tr  
+ style="vertical-align:baseline;" id="TBL-1-63-"><td  style="white-space:wrap; text-align:left;" id="TBL-1-63-1"  
+class="td11">                  </td>
+</tr><tr  
+ style="vertical-align:baseline;" id="TBL-1-64-"><td  style="white-space:wrap; text-align:left;" id="TBL-1-64-1"  
+class="td11">
+<!--l. 98--><p class="noindent" >                  </td>
+</tr><tr  
+ style="vertical-align:baseline;" id="TBL-1-65-"><td  style="white-space:wrap; text-align:left;" id="TBL-1-65-1"  
+class="td11">
+<!--l. 98--><p class="noindent" >                  </td>
+</tr><tr  
+ style="vertical-align:baseline;" id="TBL-1-66-"><td  style="white-space:wrap; text-align:left;" id="TBL-1-66-1"  
+class="td11">
+<!--l. 98--><p class="noindent" >                  </td>
+</tr>
+</table></div>
+                                                                                                            
+                                                                                              
+                                                                                              
+   <h3 class="sectionHead"><span class="titlemark">1.3   </span> <a 
+ id="x1-40001.3"></a>The <span 
+class="cmtt-12">execute(bool inThread) </span>function</h3>
+<!--l. 104--><p class="noindent" >The <span class="obeylines-h"><span class="verb"><span 
+class="cmtt-12">execute()</span></span></span> function will start a bifurcation session. Depending on the problem at hand, the
+algorithm may run for a long time.
+<!--l. 106--><p class="indent" >   The <span class="obeylines-h"><span class="verb"><span 
+class="cmtt-12">execute(bool</span><span 
+class="cmtt-12">&#x00A0;inThread)</span></span></span> method supports a boolean argument indicating if the execution of
+the plugin work will be done in a thread, or not. If set to false, i.e. executing <span class="obeylines-h"><span class="verb"><span 
+class="cmtt-12">execute(false)</span></span></span>, the
+function will be a blocking function and will not return until the plugin work is done. If it is set to
+true, the <span class="obeylines-h"><span class="verb"><span 
+class="cmtt-12">execute(true)</span></span></span> will return immediately and the plugin work will be executed in a
+thread. The user can use the <span class="obeylines-h"><span class="verb"><span 
+class="cmtt-12">isPluginDone(plugin)</span></span></span> to query the status of the plugin
+progression.
+<!--l. 111--><p class="indent" >   The inThread argument defaults to <span 
+class="cmbx-12">false</span>.
+<!--l. 114--><p class="noindent" >
+   <h3 class="sectionHead"><span class="titlemark">1.4   </span> <a 
+ id="x1-50001.4"></a>Plugin Events</h3>
+<!--l. 115--><p class="noindent" >The auto2000 plugin uses all of the available plugin events, i.e. the <span 
+class="cmti-12">PluginStarted</span>, <span 
+class="cmti-12">PluginProgress </span>and
+the <span 
+class="cmti-12">PluginFinished </span>events.
+<!--l. 117--><p class="indent" >   The available data variables for each event are internally treated as <span 
+class="cmti-12">pass through </span>variables,
+so any data, for any of the events, assigned prior to the plugins execute function (in the
+assignOn() family of functions), can be retrieved <span 
+class="cmti-12">unmodified </span>in the corresponding event
+function.
+   <div class="table">
+                                                                                              
+                                                                                              
+<!--l. 120--><p class="indent" >   <a 
+ id="x1-5001r2"></a><a 
+ id="x1-600038"></a><hr class="float"><div class="float" 
+>
+                                                                                              
+                                                                                              
+<div class="tabular"> <table id="TBL-2" class="tabular" 
+cellspacing="0" cellpadding="0"  
+><colgroup id="TBL-2-1g"><col 
+id="TBL-2-1"><col 
+id="TBL-2-2"><col 
+id="TBL-2-3"></colgroup><tr  
+ style="vertical-align:baseline;" id="TBL-2-1-"><td  style="white-space:nowrap; text-align:left;" id="TBL-2-1-1"  
+class="td11">Event           </td><td  style="white-space:nowrap; text-align:left;" id="TBL-2-1-2"  
+class="td11">Arguments </td><td  style="white-space:wrap; text-align:left;" id="TBL-2-1-3"  
+class="td11"><!--l. 124--><p class="noindent" >Purpose and argument types                            </td>
+</tr><tr 
+class="hline"><td><hr></td><td><hr></td><td><hr></td></tr><tr 
+class="vspace" style="font-size:2.58333pt"><td 
+>&nbsp;</td><td 
+>&nbsp;</td><td 
+>&nbsp;</td></tr><tr  
+ style="vertical-align:baseline;" id="TBL-2-2-"><td  style="white-space:nowrap; text-align:left;" id="TBL-2-2-1"  
+class="td11">PluginStarted </td><td  style="white-space:nowrap; text-align:left;" id="TBL-2-2-2"  
+class="td11">void*, void*</td><td  style="white-space:wrap; text-align:left;" id="TBL-2-2-3"  
+class="td11"><!--l. 127--><p class="noindent" >Signal to application that the plugin has started.
+Both parameters are <span 
+class="cmti-12">pass through </span>parameters and
+are unused internally by the plugin.                  </td>
+</tr><tr 
+class="vspace" style="font-size:2.58333pt"><td 
+>&nbsp;</td><td 
+>&nbsp;</td><td 
+>&nbsp;</td></tr><tr  
+ style="vertical-align:baseline;" id="TBL-2-3-"><td  style="white-space:nowrap; text-align:left;" id="TBL-2-3-1"  
+class="td11">PluginProgress</td><td  style="white-space:nowrap; text-align:left;" id="TBL-2-3-2"  
+class="td11">void*, void*</td><td  style="white-space:wrap; text-align:left;" id="TBL-2-3-3"  
+class="td11"><!--l. 128--><p class="noindent" >Communicating        progress        of        fitting.
+Both parameters are <span 
+class="cmti-12">pass through </span>parameters and
+are unused internally by the plugin.                  </td>
+</tr><tr 
+class="vspace" style="font-size:2.58333pt"><td 
+>&nbsp;</td><td 
+>&nbsp;</td><td 
+>&nbsp;</td></tr><tr  
+ style="vertical-align:baseline;" id="TBL-2-4-"><td  style="white-space:nowrap; text-align:left;" id="TBL-2-4-1"  
+class="td11">PluginFinished</td><td  style="white-space:nowrap; text-align:left;" id="TBL-2-4-2"  
+class="td11">void*, void*</td><td  style="white-space:wrap; text-align:left;" id="TBL-2-4-3"  
+class="td11"><!--l. 129--><p class="noindent" >Signals to application that execution of the plugin
+has  finished.  Both  parameters  are  <span 
+class="cmti-12">pass  through</span>
+parameters  and  are  unused  internally  by  the
+plugin.                                                        </td>
+</tr><tr 
+class="hline"><td><hr></td><td><hr></td><td><hr></td></tr><tr  
+ style="vertical-align:baseline;" id="TBL-2-5-"><td  style="white-space:nowrap; text-align:left;" id="TBL-2-5-1"  
+class="td11">            </td></tr></table></div>
+<br /> <div class="caption" 
+><span class="id">Table&#x00A0;1.2: </span><span  
+class="content">Plugin Events</span></div><!--tex4ht:label?: x1-5001r2 -->
+                                                                                              
+                                                                                              
+   </div><hr class="endfloat" />
+   </div>
+   <h3 class="sectionHead"><span class="titlemark">1.5   </span> <a 
+ id="x1-60001.5"></a>Python example</h3>
+<!--l. 138--><p class="noindent" >The following Python script illustrates how the auto plugin can be invoked, how to set its properties
+and finally how to plot a bifurcation diagram.
+   <!--l. 141--><div class="lstinputlisting">
+<a 
+ id="x1-6001r1"></a>
+<a 
+ id="x1-6002"></a>
+   <span 
+class="cmtt-10">&#x00A0;</span><br /><span class="label"><a 
+ id="x1-6003r1"></a><span 
+class="cmr-10">1</span></span><span 
+class="cmtt-10">from</span><span 
+class="cmtt-10">&#x00A0;</span><span 
+class="cmtt-10">teplugins</span><span 
+class="cmtt-10">&#x00A0;</span><span 
+class="cmtt-10">import</span><span 
+class="cmtt-10">&#x00A0;</span><span 
+class="cmtt-10">*</span><span 
+class="cmtt-10">&#x00A0;</span><br /><span class="label"><a 
+ id="x1-6004r2"></a><span 
+class="cmr-10">2</span></span><span 
+class="cmtt-10">&#x00A0;</span><br /><span class="label"><a 
+ id="x1-6005r3"></a><span 
+class="cmr-10">3</span></span><span 
+class="cmtt-10">try</span><span 
+class="cmtt-10">:</span><span 
+class="cmtt-10">&#x00A0;</span><br /><span class="label"><a 
+ id="x1-6006r4"></a><span 
+class="cmr-10">4</span></span><span 
+class="cmtt-10">&#x00A0;</span><span 
+class="cmtt-10">&#x00A0;</span><span 
+class="cmtt-10">&#x00A0;</span><span 
+class="cmtt-10">&#x00A0;</span><span 
+class="cmtt-10">sbmlModel</span><span 
+class="cmtt-10">&#x00A0;</span><span 
+class="cmtt-10">=</span><span 
+class="cmtt-10">"</span><span 
+class="cmtt-10">BIOMD0000000203</span><span 
+class="cmtt-10">.</span><span 
+class="cmtt-10">xml</span><span 
+class="cmtt-10">"</span><span 
+class="cmtt-10">&#x00A0;</span><br /><span class="label"><a 
+ id="x1-6007r5"></a><span 
+class="cmr-10">5</span></span><span 
+class="cmtt-10">&#x00A0;</span><span 
+class="cmtt-10">&#x00A0;</span><span 
+class="cmtt-10">&#x00A0;</span><span 
+class="cmtt-10">&#x00A0;</span><span 
+class="cmtt-10">auto</span><span 
+class="cmtt-10">&#x00A0;</span><span 
+class="cmtt-10">=</span><span 
+class="cmtt-10">&#x00A0;</span><span 
+class="cmtt-10">Plugin</span><span 
+class="cmtt-10">(</span><span 
+class="cmtt-10">"</span><span 
+class="cmtt-10">tel_auto2000</span><span 
+class="cmtt-10">"</span><span 
+class="cmtt-10">)</span><span 
+class="cmtt-10">&#x00A0;</span><br /><span class="label"><a 
+ id="x1-6008r6"></a><span 
+class="cmr-10">6</span></span><span 
+class="cmtt-10">&#x00A0;</span><br /><span class="label"><a 
+ id="x1-6009r7"></a><span 
+class="cmr-10">7</span></span><span 
+class="cmitt-10">&#x00A0;</span><span 
+class="cmitt-10">&#x00A0;</span><span 
+class="cmitt-10">&#x00A0;</span><span 
+class="cmitt-10">&#x00A0;</span><span 
+class="cmitt-10">#</span><span 
+class="cmitt-10">print</span><span 
+class="cmitt-10">&#x00A0;</span><span 
+class="cmitt-10">auto</span><span 
+class="cmitt-10">.</span><span 
+class="cmitt-10">listOfPropertyNames</span><span 
+class="cmitt-10">()</span><span 
+class="cmtt-10">&#x00A0;</span><br /><span class="label"><a 
+ id="x1-6010r8"></a><span 
+class="cmr-10">8</span></span><span 
+class="cmtt-10">&#x00A0;</span><br /><span class="label"><a 
+ id="x1-6011r9"></a><span 
+class="cmr-10">9</span></span><span 
+class="cmitt-10">&#x00A0;</span><span 
+class="cmitt-10">&#x00A0;</span><span 
+class="cmitt-10">&#x00A0;</span><span 
+class="cmitt-10">&#x00A0;</span><span 
+class="cmitt-10">#</span><span 
+class="cmitt-10">Setup</span><span 
+class="cmitt-10">&#x00A0;</span><span 
+class="cmitt-10">Auto</span><span 
+class="cmitt-10">&#x00A0;</span><span 
+class="cmitt-10">Propertys</span><span 
+class="cmtt-10">&#x00A0;</span><br /><span class="label"><a 
+ id="x1-6012r10"></a><span 
+class="cmr-10">10</span></span><span 
+class="cmtt-10">&#x00A0;</span><span 
+class="cmtt-10">&#x00A0;</span><span 
+class="cmtt-10">&#x00A0;</span><span 
+class="cmtt-10">&#x00A0;</span><span 
+class="cmtt-10">auto</span><span 
+class="cmtt-10">.</span><span 
+class="cmtt-10">setProperty</span><span 
+class="cmtt-10">(</span><span 
+class="cmtt-10">"</span><span 
+class="cmtt-10">SBML</span><span 
+class="cmtt-10">"</span><span 
+class="cmtt-10">,</span><span 
+class="cmtt-10">&#x00A0;</span><span 
+class="cmtt-10">readAllText</span><span 
+class="cmtt-10">(</span><span 
+class="cmtt-10">sbmlModel</span><span 
+class="cmtt-10">)</span><span 
+class="cmtt-10">)</span><span 
+class="cmtt-10">&#x00A0;</span><br /><span class="label"><a 
+ id="x1-6013r11"></a><span 
+class="cmr-10">11</span></span><span 
+class="cmtt-10">&#x00A0;</span><br /><span class="label"><a 
+ id="x1-6014r12"></a><span 
+class="cmr-10">12</span></span><span 
+class="cmitt-10">&#x00A0;</span><span 
+class="cmitt-10">&#x00A0;</span><span 
+class="cmitt-10">&#x00A0;</span><span 
+class="cmitt-10">&#x00A0;</span><span 
+class="cmitt-10">#</span><span 
+class="cmitt-10">Auto</span><span 
+class="cmitt-10">&#x00A0;</span><span 
+class="cmitt-10">specific</span><span 
+class="cmitt-10">&#x00A0;</span><span 
+class="cmitt-10">properties</span><span 
+class="cmtt-10">&#x00A0;</span><br /><span class="label"><a 
+ id="x1-6015r13"></a><span 
+class="cmr-10">13</span></span><span 
+class="cmtt-10">&#x00A0;</span><span 
+class="cmtt-10">&#x00A0;</span><span 
+class="cmtt-10">&#x00A0;</span><span 
+class="cmtt-10">&#x00A0;</span><span 
+class="cmtt-10">auto</span><span 
+class="cmtt-10">.</span><span 
+class="cmtt-10">setProperty</span><span 
+class="cmtt-10">(</span><span 
+class="cmtt-10">"</span><span 
+class="cmtt-10">ScanDirection</span><span 
+class="cmtt-10">"</span><span 
+class="cmtt-10">,</span><span 
+class="cmtt-10">&#x00A0;</span><span 
+class="cmtt-10">"</span><span 
+class="cmtt-10">Positive</span><span 
+class="cmtt-10">"</span><span 
+class="cmtt-10">)</span><span 
+class="cmtt-10">&#x00A0;</span><br /><span class="label"><a 
+ id="x1-6016r14"></a><span 
+class="cmr-10">14</span></span><span 
+class="cmtt-10">&#x00A0;</span><span 
+class="cmtt-10">&#x00A0;</span><span 
+class="cmtt-10">&#x00A0;</span><span 
+class="cmtt-10">&#x00A0;</span><span 
+class="cmtt-10">auto</span><span 
+class="cmtt-10">.</span><span 
+class="cmtt-10">setProperty</span><span 
+class="cmtt-10">(</span><span 
+class="cmtt-10">"</span><span 
+class="cmtt-10">PrincipalContinuationParameter</span><span 
+class="cmtt-10">"</span><span 
+class="cmtt-10">,</span><span 
+class="cmtt-10">&#x00A0;</span><span 
+class="cmtt-10">"</span><span 
+class="cmtt-10">A</span><span 
+class="cmtt-10">"</span><span 
+class="cmtt-10">)</span><span 
+class="cmtt-10">&#x00A0;</span><br /><span class="label"><a 
+ id="x1-6017r15"></a><span 
+class="cmr-10">15</span></span><span 
+class="cmtt-10">&#x00A0;</span><span 
+class="cmtt-10">&#x00A0;</span><span 
+class="cmtt-10">&#x00A0;</span><span 
+class="cmtt-10">&#x00A0;</span><span 
+class="cmtt-10">auto</span><span 
+class="cmtt-10">.</span><span 
+class="cmtt-10">setProperty</span><span 
+class="cmtt-10">(</span><span 
+class="cmtt-10">"</span><span 
+class="cmtt-10">PCPLowerBound</span><span 
+class="cmtt-10">"</span><span 
+class="cmtt-10">,</span><span 
+class="cmtt-10">&#x00A0;</span><span 
+class="cmtt-10">10)</span><span 
+class="cmtt-10">&#x00A0;</span><br /><span class="label"><a 
+ id="x1-6018r16"></a><span 
+class="cmr-10">16</span></span><span 
+class="cmtt-10">&#x00A0;</span><span 
+class="cmtt-10">&#x00A0;</span><span 
+class="cmtt-10">&#x00A0;</span><span 
+class="cmtt-10">&#x00A0;</span><span 
+class="cmtt-10">auto</span><span 
+class="cmtt-10">.</span><span 
+class="cmtt-10">setProperty</span><span 
+class="cmtt-10">(</span><span 
+class="cmtt-10">"</span><span 
+class="cmtt-10">PCPUpperBound</span><span 
+class="cmtt-10">"</span><span 
+class="cmtt-10">,</span><span 
+class="cmtt-10">&#x00A0;</span><span 
+class="cmtt-10">200)</span><span 
+class="cmtt-10">&#x00A0;</span><br /><span class="label"><a 
+ id="x1-6019r17"></a><span 
+class="cmr-10">17</span></span><span 
+class="cmtt-10">&#x00A0;</span><br /><span class="label"><a 
+ id="x1-6020r18"></a><span 
+class="cmr-10">18</span></span><span 
+class="cmitt-10">&#x00A0;</span><span 
+class="cmitt-10">&#x00A0;</span><span 
+class="cmitt-10">&#x00A0;</span><span 
+class="cmitt-10">&#x00A0;</span><span 
+class="cmitt-10">#</span><span 
+class="cmitt-10">Max</span><span 
+class="cmitt-10">&#x00A0;</span><span 
+class="cmitt-10">numberof</span><span 
+class="cmitt-10">&#x00A0;</span><span 
+class="cmitt-10">points</span><span 
+class="cmtt-10">&#x00A0;</span><br /><span class="label"><a 
+ id="x1-6021r19"></a><span 
+class="cmr-10">19</span></span><span 
+class="cmtt-10">&#x00A0;</span><span 
+class="cmtt-10">&#x00A0;</span><span 
+class="cmtt-10">&#x00A0;</span><span 
+class="cmtt-10">&#x00A0;</span><span 
+class="cmtt-10">auto</span><span 
+class="cmtt-10">.</span><span 
+class="cmtt-10">setProperty</span><span 
+class="cmtt-10">(</span><span 
+class="cmtt-10">"</span><span 
+class="cmtt-10">NMX</span><span 
+class="cmtt-10">"</span><span 
+class="cmtt-10">,</span><span 
+class="cmtt-10">&#x00A0;</span><span 
+class="cmtt-10">5000)</span><span 
+class="cmtt-10">&#x00A0;</span><br /><span class="label"><a 
+ id="x1-6022r20"></a><span 
+class="cmr-10">20</span></span><span 
+class="cmtt-10">&#x00A0;</span><br /><span class="label"><a 
+ id="x1-6023r21"></a><span 
+class="cmr-10">21</span></span><span 
+class="cmitt-10">&#x00A0;</span><span 
+class="cmitt-10">&#x00A0;</span><span 
+class="cmitt-10">&#x00A0;</span><span 
+class="cmitt-10">&#x00A0;</span><span 
+class="cmitt-10">#</span><span 
+class="cmitt-10">Execute</span><span 
+class="cmitt-10">&#x00A0;</span><span 
+class="cmitt-10">the</span><span 
+class="cmitt-10">&#x00A0;</span><span 
+class="cmitt-10">plugin</span><span 
+class="cmtt-10">&#x00A0;</span><br /><span class="label"><a 
+ id="x1-6024r22"></a><span 
+class="cmr-10">22</span></span><span 
+class="cmtt-10">&#x00A0;</span><span 
+class="cmtt-10">&#x00A0;</span><span 
+class="cmtt-10">&#x00A0;</span><span 
+class="cmtt-10">&#x00A0;</span><span 
+class="cmtt-10">auto</span><span 
+class="cmtt-10">.</span><span 
+class="cmtt-10">execute</span><span 
+class="cmtt-10">()</span><span 
+class="cmtt-10">&#x00A0;</span><br /><span class="label"><a 
+ id="x1-6025r23"></a><span 
+class="cmr-10">23</span></span><span 
+class="cmtt-10">&#x00A0;</span><br /><span class="label"><a 
+ id="x1-6026r24"></a><span 
+class="cmr-10">24</span></span><span 
+class="cmitt-10">&#x00A0;</span><span 
+class="cmitt-10">&#x00A0;</span><span 
+class="cmitt-10">&#x00A0;</span><span 
+class="cmitt-10">&#x00A0;</span><span 
+class="cmitt-10">#</span><span 
+class="cmitt-10">&#x00A0;</span><span 
+class="cmitt-10">Bifurcation</span><span 
+class="cmitt-10">&#x00A0;</span><span 
+class="cmitt-10">summary</span><span 
+class="cmtt-10">&#x00A0;</span><br /><span class="label"><a 
+ id="x1-6027r25"></a><span 
+class="cmr-10">25</span></span><span 
+class="cmtt-10">&#x00A0;</span><span 
+class="cmtt-10">&#x00A0;</span><span 
+class="cmtt-10">&#x00A0;</span><span 
+class="cmtt-10">&#x00A0;</span><span 
+class="cmtt-10">print</span><span 
+class="cmtt-10">&#x00A0;</span><span 
+class="cmtt-10">"</span><span 
+class="cmtt-10">Summary</span><span 
+class="cmtt-10">:</span><span 
+class="cmtt-10">&#x00A0;</span><span 
+class="cmtt-10">"</span><span 
+class="cmtt-10">&#x00A0;</span><span 
+class="cmtt-10">+</span><span 
+class="cmtt-10">&#x00A0;</span><span 
+class="cmtt-10">auto</span><span 
+class="cmtt-10">.</span><span 
+class="cmtt-10">BifurcationSummary</span><span 
+class="cmtt-10">&#x00A0;</span><br /><span class="label"><a 
+ id="x1-6028r26"></a><span 
+class="cmr-10">26</span></span><span 
+class="cmtt-10">&#x00A0;</span><br /><span class="label"><a 
+ id="x1-6029r27"></a><span 
+class="cmr-10">27</span></span><span 
+class="cmitt-10">&#x00A0;</span><span 
+class="cmitt-10">&#x00A0;</span><span 
+class="cmitt-10">&#x00A0;</span><span 
+class="cmitt-10">&#x00A0;</span><span 
+class="cmitt-10">#</span><span 
+class="cmitt-10">Plot</span><span 
+class="cmitt-10">&#x00A0;</span><span 
+class="cmitt-10">Bifurcation</span><span 
+class="cmitt-10">&#x00A0;</span><span 
+class="cmitt-10">diagram</span><span 
+class="cmtt-10">&#x00A0;</span><br /><span class="label"><a 
+ id="x1-6030r28"></a><span 
+class="cmr-10">28</span></span><span 
+class="cmtt-10">&#x00A0;</span><span 
+class="cmtt-10">&#x00A0;</span><span 
+class="cmtt-10">&#x00A0;</span><span 
+class="cmtt-10">&#x00A0;</span><span 
+class="cmtt-10">pts</span><span 
+class="cmtt-10">&#x00A0;</span><span 
+class="cmtt-10">&#x00A0;</span><span 
+class="cmtt-10">&#x00A0;</span><span 
+class="cmtt-10">&#x00A0;</span><span 
+class="cmtt-10">&#x00A0;</span><span 
+class="cmtt-10">=</span><span 
+class="cmtt-10">&#x00A0;</span><span 
+class="cmtt-10">auto</span><span 
+class="cmtt-10">.</span><span 
+class="cmtt-10">BifurcationPoints</span><span 
+class="cmtt-10">&#x00A0;</span><br /><span class="label"><a 
+ id="x1-6031r29"></a><span 
+class="cmr-10">29</span></span><span 
+class="cmtt-10">&#x00A0;</span><span 
+class="cmtt-10">&#x00A0;</span><span 
+class="cmtt-10">&#x00A0;</span><span 
+class="cmtt-10">&#x00A0;</span><span 
+class="cmtt-10">lbls</span><span 
+class="cmtt-10">&#x00A0;</span><span 
+class="cmtt-10">&#x00A0;</span><span 
+class="cmtt-10">&#x00A0;</span><span 
+class="cmtt-10">&#x00A0;</span><span 
+class="cmtt-10">=</span><span 
+class="cmtt-10">&#x00A0;</span><span 
+class="cmtt-10">auto</span><span 
+class="cmtt-10">.</span><span 
+class="cmtt-10">BifurcationLabels</span><span 
+class="cmtt-10">&#x00A0;</span><br /><span class="label"><a 
+ id="x1-6032r30"></a><span 
+class="cmr-10">30</span></span><span 
+class="cmtt-10">&#x00A0;</span><span 
+class="cmtt-10">&#x00A0;</span><span 
+class="cmtt-10">&#x00A0;</span><span 
+class="cmtt-10">&#x00A0;</span><span 
+class="cmtt-10">biData</span><span 
+class="cmtt-10">&#x00A0;</span><span 
+class="cmtt-10">&#x00A0;</span><span 
+class="cmtt-10">=</span><span 
+class="cmtt-10">&#x00A0;</span><span 
+class="cmtt-10">auto</span><span 
+class="cmtt-10">.</span><span 
+class="cmtt-10">BifurcationData</span><span 
+class="cmtt-10">&#x00A0;</span><br /><span class="label"><a 
+ id="x1-6033r31"></a><span 
+class="cmr-10">31</span></span><span 
+class="cmtt-10">&#x00A0;</span><br /><span class="label"><a 
+ id="x1-6034r32"></a><span 
+class="cmr-10">32</span></span><span 
+class="cmtt-10">&#x00A0;</span><span 
+class="cmtt-10">&#x00A0;</span><span 
+class="cmtt-10">&#x00A0;</span><span 
+class="cmtt-10">&#x00A0;</span><span 
+class="cmtt-10">biData</span><span 
+class="cmtt-10">.</span><span 
+class="cmtt-10">plotBifurcationDiagram</span><span 
+class="cmtt-10">(</span><span 
+class="cmtt-10">pts</span><span 
+class="cmtt-10">,</span><span 
+class="cmtt-10">&#x00A0;</span><span 
+class="cmtt-10">lbls</span><span 
+class="cmtt-10">)</span><span 
+class="cmtt-10">&#x00A0;</span><br /><span class="label"><a 
+ id="x1-6035r33"></a><span 
+class="cmr-10">33</span></span><span 
+class="cmtt-10">&#x00A0;</span><br /><span class="label"><a 
+ id="x1-6036r34"></a><span 
+class="cmr-10">34</span></span><span 
+class="cmtt-10">&#x00A0;</span><span 
+class="cmtt-10">&#x00A0;</span><span 
+class="cmtt-10">&#x00A0;</span><span 
+class="cmtt-10">&#x00A0;</span><span 
+class="cmtt-10">print</span><span 
+class="cmtt-10">&#x00A0;</span><span 
+class="cmtt-10">"</span><span 
+class="cmtt-10">Done</span><span 
+class="cmtt-10">"</span><span 
+class="cmtt-10">&#x00A0;</span><br /><span class="label"><a 
+ id="x1-6037r35"></a><span 
+class="cmr-10">35</span></span><span 
+class="cmtt-10">&#x00A0;</span><br /><span class="label"><a 
+ id="x1-6038r36"></a><span 
+class="cmr-10">36</span></span><span 
+class="cmtt-10">except</span><span 
+class="cmtt-10">&#x00A0;</span><span 
+class="cmtt-10">Exception</span><span 
+class="cmtt-10">&#x00A0;</span><span 
+class="cmtt-10">as</span><span 
+class="cmtt-10">&#x00A0;</span><span 
+class="cmtt-10">e</span><span 
+class="cmtt-10">:</span><span 
+class="cmtt-10">&#x00A0;</span><br /><span class="label"><a 
+ id="x1-6039r37"></a><span 
+class="cmr-10">37</span></span><span 
+class="cmtt-10">&#x00A0;</span><span 
+class="cmtt-10">&#x00A0;</span><span 
+class="cmtt-10">&#x00A0;</span><span 
+class="cmtt-10">&#x00A0;</span><span 
+class="cmtt-10">print</span><span 
+class="cmtt-10">&#x00A0;</span><span 
+class="cmtt-10">"</span><span 
+class="cmtt-10">There</span><span 
+class="cmtt-10">&#x00A0;</span><span 
+class="cmtt-10">was</span><span 
+class="cmtt-10">&#x00A0;</span><span 
+class="cmtt-10">a</span><span 
+class="cmtt-10">&#x00A0;</span><span 
+class="cmtt-10">problem</span><span 
+class="cmtt-10">:</span><span 
+class="cmtt-10">&#x00A0;</span><span 
+class="cmtt-10">"</span><span 
+class="cmtt-10">&#x00A0;</span><span 
+class="cmtt-10">+</span><span 
+class="cmtt-10">&#x00A0;</span><span 
+class="cmtt-10">&#8216;</span><span 
+class="cmtt-10">e</span><span 
+class="cmtt-10">&#8216;</span>
+   
+   <br />
+            <div class="caption" 
+><span class="id">Listing&#x00A0;1.1:
+            </span><span  
+class="content">Bifurcation
+            example
+            using
+            a
+            complex
+            model.</span></div><!--tex4ht:label?: x1-60001.5 -->
+   </div>
+<!--l. 144--><p class="indent" >
+                                                                                              
+                                                                                              
+<!--l. 145--><p class="indent" >   <hr class="figure"><div class="figure" 
+>
+                                                                                              
+                                                                                              
+<a 
+ id="x1-6040r1"></a>
+                                                                                              
+                                                                                              
+
+<!--l. 147--><p class="noindent" ><img 
+src="./Figures/AUTOOutput.png" alt="PIC"  
+>
+<br /> <div class="caption" 
+><span class="id">Figure&#x00A0;1.1: </span><span  
+class="content">Output for the example script above.</span></div><!--tex4ht:label?: x1-6040r1 -->
+                                                                                              
+                                                                                              
+<!--l. 150--><p class="indent" >   </div><hr class="endfigure">
+                                                                                              
+                                                                                              
+    
+</body></html> 
+
+                                                                                              
+
+

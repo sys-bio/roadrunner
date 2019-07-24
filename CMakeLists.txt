@@ -148,6 +148,8 @@ set(THIRD_PARTY_FOLDER           ${CMAKE_CURRENT_SOURCE_DIR}/third_party)
 set(exe_path                     ${PROJECT_BINARY_DIR}/bin)
 set(lib_path                     ${PROJECT_BINARY_DIR}/lib)
 
+set ( RRP_PLUGINS_DIR site-packages/roadrunner CACHE PATH "Destination for plugins")
+
 message(STATUS "Using third party library prefix of ${THIRD_PARTY_INSTALL_FOLDER}")
 message(STATUS "Installing RoadRunner to ${CMAKE_INSTALL_PREFIX}")
 
