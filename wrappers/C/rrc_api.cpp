@@ -1742,7 +1742,7 @@ double* rrcCallConv getCurrentIntegratorParameterDoubleArray(RRHandle handle, ch
 		vector<double> v = rri->getIntegrator()->getValueAsDoubleVector(key.str());
 		double* res = &v[0];
 		return res;
-	catch_int_macro
+	catch_ptr_macro
 }
 
 

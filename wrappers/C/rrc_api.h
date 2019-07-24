@@ -760,7 +760,7 @@ C_DECL_SPEC double* rrcCallConv getCurrentIntegratorParameterDoubleArray (RRHand
 \return Returns True if successful.
 \ingroup simopts
 */
-C_DECL_SPEC int rrcCallConv setCurrentIntegratorParameterDoubleArray(RRHandle handle, char *parameterName, double* value);
+C_DECL_SPEC int rrcCallConv setCurrentIntegratorParameterDoubleArray(RRHandle handle, char *parameterName, double* value, int len);
 
 
 /* Steady State Solvers *******************************************************/
