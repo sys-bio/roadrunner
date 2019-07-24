@@ -757,10 +757,32 @@ C_DECL_SPEC double* rrcCallConv getCurrentIntegratorParameterDoubleArray (RRHand
 \param[in] handle Handle to a RoadRunner instance.
 \param[in] paramterName Name of the integrator setting.
 \param[in] value The double array value for the integrator setting.
+\param[in] len The length of given soubld array.
 \return Returns True if successful.
 \ingroup simopts
 */
 C_DECL_SPEC int rrcCallConv setCurrentIntegratorParameterDoubleArray(RRHandle handle, char *parameterName, double* value, int len);
+
+
+/*!
+\brief Set the scalar tolerance based on concentration for the current integrator.
+\param[in] handle Handle to a RoadRunner instance.
+\param[in] value The double value for the integrator setting.
+\return Returns True if successful.
+\ingroup simopts
+*/
+C_DECL_SPEC int rrcCallConv setCurrentIntegratorScalarConcentrationTolerance(RRHandle handle, double value);
+
+
+/*!
+\brief Set the vector tolerance based on concentration for the current integrator.
+\param[in] handle Handle to a RoadRunner instance.
+\param[in] value The double array value for the integrator setting.
+\param[in] len The length of given soubld array.
+\return Returns True if successful.
+\ingroup simopts
+*/
+C_DECL_SPEC int rrcCallConv setCurrentIntegratorVectorConcentrationTolerance(RRHandle handle, double* value, int len);
 
 
 /* Steady State Solvers *******************************************************/

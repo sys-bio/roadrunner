@@ -1758,6 +1758,25 @@ int rrcCallConv setCurrentIntegratorParameterDoubleArray(RRHandle handle, char* 
 	catch_int_macro
 }
 
+int rrcCallConv setCurrentIntegratorScalarConcentrationTolerance(RRHandle handle, double value)
+{
+	start_try
+		RoadRunner* rri = castToRoadRunner(handle);
+		rri->getIntegrator()->setConcentrationTolerance(value);
+		return true;
+	catch_int_macro
+}
+
+int rrcCallConv setCurrentIntegratorVectorConcentrationTolerance(RRHandle handle, double* value, int len)
+{
+	start_try
+		RoadRunner* rri = castToRoadRunner(handle);
+		vector<double> v(value, value + len);
+		rri->getIntegrator()->setConcentrationTolerance(v);
+		return true;
+	catch_int_macro
+}
+
 
 
 // ----------------------------------------------------------------------
