@@ -1025,6 +1025,8 @@ bool RunTest(const string& version, int caseNumber)
         string dummy;
         string logFileName;
 
+		rr.getIntegrator()->setValue("stiff", false);
+
         //Create log file name, e.g. 00001.log
         createTestSuiteFileNameParts(caseNumber, ".log", dummy, logFileName, dummy);
 
