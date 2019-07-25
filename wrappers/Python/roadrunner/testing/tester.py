@@ -1335,7 +1335,6 @@ def setKineticLaw(rrInstance):
     rrInstance.setKineticLaw(words[0], words[1], bool(words[2]))
 
 
-
 def scriptTests():
     print("\nTesting Set and Get Functions")
     print("-----------------------------")
@@ -1371,6 +1370,7 @@ functions = {'[Add Species]' : addSpecies,
              '[Add Priority]' : addPriority,
              '[Add Delay]' : addDelay,
              '[Add Event Assignment]' : addEventAssignment,
+             '[Amount/Concentraion Jacobians]' : checkJacobian,
              '[Amount Jacobian]' : checkAmountJacobian,
              '[Boundary Species Concentrations]': checkBoundarySpeciesConcentrations,
              '[Boundary Species Ids]': checkGetBoundarySpeciesIds,
