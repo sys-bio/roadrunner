@@ -1214,8 +1214,12 @@ def unitTestIntegratorSettings(testDir):
     print(passMsg (errorFlag))
 
 
-
-
+def addSpecies(rrInstance, testId):
+    words = []
+    words = divide(readLine())
+    print("Add species " + words[0])
+    rrInstance.addSpecies(words[0], words[1], float(words[2]), words[3])
+    
 
 def scriptTests():
     print("\nTesting Set and Get Functions")
@@ -1241,7 +1245,8 @@ def scriptTests():
 
 # ------------------------------------------------------------------------
 # List of tests
-functions = {'[Amount/Concentration Jacobians]' : checkJacobian,
+functions = {'[Add Species]' : addSpecies,
+             #'[Add reaction]' : addReaction,
              '[Amount Jacobian]' : checkAmountJacobian,
              '[Boundary Species Concentrations]': checkBoundarySpeciesConcentrations,
              '[Boundary Species Ids]': checkGetBoundarySpeciesIds,
@@ -1378,6 +1383,19 @@ def runTester (testDir=None):
         # create a RoadRunner obj with the sbml from the test file
         rrInstance = roadrunner.RoadRunner(sbmlStr)
         print('Successfully loaded model.\n')
+
+        # Model editing functions
+        if testId == '[EDITING]':
+            testId = jumpToNextTest ()
+            while testId != '[END_EDITING]':
+                if testId in functions:
+                    func = functions[testId]
+                    func (rrInstance, testId)
+                else:
+                    print('No initialization function found for ' + testId)
+                testId = jumpToNextTest()
+            testId = jumpToNextTest()
+
 
         # Now start the tests proper
         while testId != '':
