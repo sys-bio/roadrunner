@@ -1218,7 +1218,7 @@ def addSpecies(rrInstance):
     words = []
     words = divide(readLine())
     print("Add species " + words[0])
-    rrInstance.addSpecies(words[0], words[1], float(words[2]), words[3])
+    rrInstance.addSpecies(words[0], words[1], float(words[2]), words[3], bool(words[4]))
 
 
 def addReaction(rrInstance):
@@ -1227,8 +1227,34 @@ def addReaction(rrInstance):
     print("Add reaction " + words[0])
     reactants = words[1].split(',')
     products = words[2].split(',')
-    rrInstance.addReaction(words[0], reactants, products, words[3])
-    
+    rrInstance.addReaction(words[0], reactants, products, words[3], bool(words[4]))
+
+
+def addParameter(rrInstance):
+    words = []
+    words = divide(readLine())
+    print("Add parameter " + words[0])
+    rrInstance.addParameter(words[0], float(words[1]), bool(words[2]))
+
+def addCompartment(rrInstance):
+    words = []
+    words = divide(readLine())
+    print("Add compartment " + words[0])
+    rrInstance.addParameter(words[0], float(words[1]), bool(words[2]))
+
+def addAssignmentRule(rrInstance):
+    words = []
+    words = divide(readLine())
+    print("Add assignment rule " + words[0])
+    rrInstance.addReaction(words[0], words[1], bool(words[2]))
+
+def addAssignmentRule(rrInstance):
+    words = []
+    words = divide(readLine())
+    print("Add assignment rule " + words[0])
+    rrInstance.addReaction(words[0], words[1], bool(words[2]))
+
+
     
 
 def scriptTests():
@@ -1257,9 +1283,10 @@ def scriptTests():
 # List of tests
 functions = {'[Add Species]' : addSpecies,
              '[Add Reaction]' : addReaction,
-             #'[Add Parameter]' : addParameter,
-             #'[Add Compartment]' : addCompartment,
-
+             '[Add Parameter]' : addParameter,
+             '[Add Compartment]' : addCompartment,
+             '[Add Assignment Rule]' : addAssignmentRule
+             '[Add Rate Rule]' : addRateRule
              '[Amount Jacobian]' : checkAmountJacobian,
              '[Boundary Species Concentrations]': checkBoundarySpeciesConcentrations,
              '[Boundary Species Ids]': checkGetBoundarySpeciesIds,
