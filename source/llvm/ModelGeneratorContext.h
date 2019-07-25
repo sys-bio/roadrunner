@@ -190,9 +190,9 @@ private:
     llvm::ExecutionEngine *executionEngine;
     std::unique_ptr<llvm::Module> module_uniq;
 	const libsbml::Model *model;
-public:
-	llvm::Module* module;
+
 private:
+	llvm::Module* module;
     llvm::IRBuilder<> *builder;
 
     llvm::legacy::FunctionPassManager *functionPassManager;
