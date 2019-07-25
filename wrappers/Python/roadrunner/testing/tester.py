@@ -1286,6 +1286,56 @@ def addEventAssignment(rrInstance):
     rrInstance.addEventAssignment(words[0], words[1], words[2], bool(words[3]))
 
 
+def removeSpecies(rrInstance):
+    words = []
+    words = divide(readLine())
+    print("Remove species " + words[0])
+    rrInstance.removeSpecies(words[0], bool(words[1]))
+
+def removeReaction(rrInstance):
+    words = []
+    words = divide(readLine())
+    print("Remove reaction " + words[0])
+    rrInstance.removeReaction(words[0], bool(words[1]))
+
+def removeParameter(rrInstance):
+    words = []
+    words = divide(readLine())
+    print("Remove parameter " + words[0])
+    rrInstance.removeParameter(words[0], bool(words[1]))
+
+def removeCompartment(rrInstance):
+    words = []
+    words = divide(readLine())
+    print("Remove compartment " + words[0])
+    rrInstance.removeCompartment(words[0], bool(words[1]))
+
+def removeRules(rrInstance):
+    words = []
+    words = divide(readLine())
+    print("Remove rules for " + words[0])
+    rrInstance.removeRules(words[0], bool(words[1]))
+
+def removeEvent(rrInstance):
+    words = []
+    words = divide(readLine())
+    print("Remove event " + words[0])
+    rrInstance.removeEvent(words[0], bool(words[1]))
+
+def removeEventAssignments(rrInstance):
+    words = []
+    words = divide(readLine())
+    print("Remove event assignments for" + words[1])
+    rrInstance.removeEventAssignments(words[0], words[1], bool(words[2]))
+
+def setKineticLaw(rrInstance):
+    words = []
+    words = divide(readLine())
+    print("Set kinetic law for" + words[0])
+    rrInstance.setKineticLaw(words[0], words[1], bool(words[2]))
+
+
+
 def scriptTests():
     print("\nTesting Set and Get Functions")
     print("-----------------------------")
@@ -1368,10 +1418,18 @@ functions = {'[Add Species]' : addSpecies,
              '[Reduced Eigenvalue Matrix]': checkReducedEigenvalueMatrix,
              '[Reduced Jacobian]': checkReducedJacobian,
              '[Reduced Stoichiometry Matrix]': checkReducedStoichiometryMatrix,
+             '[Remove Species]': removeSpecies,
+             '[Remove Reaction]': removeReaction,
+             '[Remove Parameter]': removeParameter,
+             '[Remove Compartment]': removeCompartment,
+             '[Remove Rules]': removeRules,
+             '[Remove Event]': removeEvent,
+             '[Remove Event Assignments]': removeEventAssignments,
              '[Scaled Concentration Control Matrix]': checkScaledConcentrationControlMatrix,
              '[Scaled Elasticity Matrix]': checkScaledElasticityMatrix,
              '[Scaled Elasticity Amount Matrix]': checkScaledElasticityAmountMatrix,
              '[Scaled Flux Control Matrix]': checkScaledFluxControlCoefficientMatrix,
+             '[Set Kinetic Law]': setKineticLaw,
              '[Set Species Initial Concentrations By Index]': checkSetSpeciesInitialConcentrationsByIndex,
              '[Set Species Initial Concentrations]': checkSetSpeciesInitialConcentrations,
              '[Set Steady State Selection List]': checkSetSteadyStateSelectionList,
