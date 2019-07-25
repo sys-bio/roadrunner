@@ -1246,7 +1246,7 @@ def scriptTests():
 # ------------------------------------------------------------------------
 # List of tests
 functions = {'[Add Species]' : addSpecies,
-             '[Add reaction]' : addReaction,
+             #'[Add reaction]' : addReaction,
              '[Amount Jacobian]' : checkAmountJacobian,
              '[Boundary Species Concentrations]': checkBoundarySpeciesConcentrations,
              '[Boundary Species Ids]': checkGetBoundarySpeciesIds,
