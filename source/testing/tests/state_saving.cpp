@@ -412,7 +412,7 @@ SUITE(STATE_SAVING_TEST_SUITE)
 			rri->simulate();
 			rri->saveState("save-state-test.rr");
 			rri->loadState("save-state-test.rr");
-			rri->reset();
+			//rri->reset();
 		}));
 	}
 
