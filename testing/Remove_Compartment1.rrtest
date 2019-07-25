@@ -5,6 +5,7 @@
    <model id = "cell">
       <listOfCompartments>
          <compartment id = "compartment" size = "1"/>
+         <compartment id = "compartment1" size = "0.02"/>
       </listOfCompartments>
       <listOfSpecies>
          <species id = "src" boundaryCondition = "true" initialConcentration = "0" compartment = "compartment"/>
@@ -12,7 +13,7 @@
          <species id = "Xo" boundaryCondition = "true" initialConcentration = "1" compartment = "compartment"/>
          <species id = "X1" boundaryCondition = "true" initialConcentration = "0" compartment = "compartment"/>
          <species id = "S1" boundaryCondition = "false" initialConcentration = "0.1" compartment = "compartment"/>
-         <species id = "S4" boundaryCondition = "false" initialConcentration = "0.05" compartment = "compartment"/>
+         <species id = "S4" boundaryCondition = "false" initialConcentration = "0.05" compartment = "compartment1"/>
          <species id = "S2" boundaryCondition = "false" initialConcentration = "0.25" compartment = "compartment"/>
          <species id = "S3" boundaryCondition = "false" initialConcentration = "0.1" compartment = "compartment"/>
       </listOfSpecies>
@@ -189,7 +190,7 @@
          </reaction>
          <reaction id = "test2" reversible = "true">
             <listOfReactants>
-               <speciesReference species = "S4" stoichiometry = "1"/>
+               <speciesReference species = "S3" stoichiometry = "1"/>
             </listOfReactants>
             <listOfProducts>
                <speciesReference species = "S2" stoichiometry = "1"/>
@@ -218,7 +219,7 @@
                                  k_3
                            </ci>
                            <ci>
-                                 S4
+                                 compartment1
                            </ci>
                         </apply>
                      </apply>
@@ -270,8 +271,8 @@
 </sbml>
 
 [EDITING]
-[Remove Species]
-S4 True
+[Remove Compartment]
+compartment1 True
 [END_EDITING]
 
 [Set Steady State Selection List]
