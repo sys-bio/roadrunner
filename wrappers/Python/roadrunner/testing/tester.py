@@ -1214,11 +1214,21 @@ def unitTestIntegratorSettings(testDir):
     print(passMsg (errorFlag))
 
 
-def addSpecies(rrInstance, testId):
+def addSpecies(rrInstance):
     words = []
     words = divide(readLine())
     print("Add species " + words[0])
     rrInstance.addSpecies(words[0], words[1], float(words[2]), words[3])
+
+
+def addReaction(rrInstance):
+    words = []
+    words = divide(readLine())
+    print("Add reaction " + words[0])
+    reactants = words[1].split(',')
+    products = words[2].split(',')
+    rrInstance.addReaction(words[0], reactants, products, words[3])
+    
     
 
 def scriptTests():
@@ -1246,7 +1256,7 @@ def scriptTests():
 # ------------------------------------------------------------------------
 # List of tests
 functions = {'[Add Species]' : addSpecies,
-             #'[Add reaction]' : addReaction,
+             '[Add reaction]' : addReaction,
              '[Amount Jacobian]' : checkAmountJacobian,
              '[Boundary Species Concentrations]': checkBoundarySpeciesConcentrations,
              '[Boundary Species Ids]': checkGetBoundarySpeciesIds,
@@ -1390,7 +1400,7 @@ def runTester (testDir=None):
             while testId != '[END_EDITING]':
                 if testId in functions:
                     func = functions[testId]
-                    func (rrInstance, testId)
+                    func (rrInstance)
                 else:
                     print('No initialization function found for ' + testId)
                 testId = jumpToNextTest()
