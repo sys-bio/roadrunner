@@ -6007,8 +6007,7 @@ void RoadRunner::removeVariable(const std::string& sid) {
 		index++;
 	}
 
-	checkGlobalParameters();
-
+	//checkGlobalParameters();
 }
 
 bool RoadRunner::hasVariable(const libsbml::ASTNode* node, const string& sid) 
