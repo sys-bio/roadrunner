@@ -1254,7 +1254,7 @@ def addRateRule(rrInstance):
     print("Add rate rule " + words[0])
     rrInstance.addRateRule(words[0], words[1], bool(words[2]))
 
-def addEvnet(rrInstance):
+def addEvent(rrInstance):
     words = []
     words = divide(readLine())
     print("Add event " + words[0])
