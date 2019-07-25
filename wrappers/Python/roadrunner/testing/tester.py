@@ -1380,6 +1380,10 @@ def runTester (testDir=None):
                 testId = jumpToNextTest()
             testId = jumpToNextTest()
 
+        # create a RoadRunner obj with the sbml from the test file
+        rrInstance = roadrunner.RoadRunner(sbmlStr)
+        print('Successfully loaded model.\n')
+
         # Model editing functions
         if testId == '[EDITING]':
             testId = jumpToNextTest ()
@@ -1392,9 +1396,6 @@ def runTester (testDir=None):
                 testId = jumpToNextTest()
             testId = jumpToNextTest()
 
-        # create a RoadRunner obj with the sbml from the test file
-        rrInstance = roadrunner.RoadRunner(sbmlStr)
-        print('Successfully loaded model.\n')
 
         # Now start the tests proper
         while testId != '':
