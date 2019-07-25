@@ -12,6 +12,7 @@
          <species id = "Xo" boundaryCondition = "true" initialConcentration = "1" compartment = "compartment"/>
          <species id = "X1" boundaryCondition = "true" initialConcentration = "0" compartment = "compartment"/>
          <species id = "S1" boundaryCondition = "false" initialConcentration = "0.1" compartment = "compartment"/>
+         <species id = "S4" boundaryCondition = "false" initialConcentration = "0.05" compartment = "compartment"/>
          <species id = "S2" boundaryCondition = "false" initialConcentration = "0.25" compartment = "compartment"/>
          <species id = "S3" boundaryCondition = "false" initialConcentration = "0.1" compartment = "compartment"/>
       </listOfSpecies>
@@ -147,6 +148,84 @@
                </math>
             </kineticLaw>
          </reaction>
+         <reaction id = "test1" reversible = "true">
+            <listOfReactants>
+               <speciesReference species = "S4" stoichiometry = "1"/>
+            </listOfReactants>
+            <listOfProducts>
+               <speciesReference species = "S2" stoichiometry = "1"/>
+            </listOfProducts>
+            <kineticLaw>
+               <math xmlns = "http://www.w3.org/1998/Math/MathML">
+                  <apply>
+                     <times/>
+                     <ci>
+                           kk3
+                     </ci>
+                     <apply>
+                        <minus/>
+                        <apply>
+                           <times/>
+                           <ci>
+                                 k3
+                           </ci>
+                           <ci>
+                                 S2
+                           </ci>
+                        </apply>
+                        <apply>
+                           <times/>
+                           <ci>
+                                 k_3
+                           </ci>
+                           <ci>
+                                 S3
+                           </ci>
+                        </apply>
+                     </apply>
+                  </apply>
+               </math>
+            </kineticLaw>
+         </reaction>
+         <reaction id = "test2" reversible = "true">
+            <listOfReactants>
+               <speciesReference species = "S4" stoichiometry = "1"/>
+            </listOfReactants>
+            <listOfProducts>
+               <speciesReference species = "S2" stoichiometry = "1"/>
+            </listOfProducts>
+            <kineticLaw>
+               <math xmlns = "http://www.w3.org/1998/Math/MathML">
+                  <apply>
+                     <times/>
+                     <ci>
+                           kk3
+                     </ci>
+                     <apply>
+                        <minus/>
+                        <apply>
+                           <times/>
+                           <ci>
+                                 k3
+                           </ci>
+                           <ci>
+                                 S2
+                           </ci>
+                        </apply>
+                        <apply>
+                           <times/>
+                           <ci>
+                                 k_3
+                           </ci>
+                           <ci>
+                                 S4
+                           </ci>
+                        </apply>
+                     </apply>
+                  </apply>
+               </math>
+            </kineticLaw>
+         </reaction>
          <reaction id = "J4" reversible = "true">
             <listOfReactants>
                <speciesReference species = "S3" stoichiometry = "1"/>
@@ -189,6 +268,11 @@
       </listOfReactions>
    </model>
 </sbml>
+
+[EDITING]
+[Remove Species]
+S4
+[END_EDITING]
 
 [Set Steady State Selection List]
 "[S1] [S2] [S3]"

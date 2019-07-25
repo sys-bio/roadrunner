@@ -220,7 +220,7 @@ SUITE(TEST_MODEL)
 //         Poco::Glob::glob(path, files);
 
         const char* rrtest_files[] = {
-		  "Add_Species1.rrtest"
+		  //"Add_Species1.rrtest"
           "Bimolecular_end.rrtest",
           "Comp.rrtest",
           "Conserved_Cycle_and_Branch.rrtest",
