@@ -1087,6 +1087,39 @@ SUITE(MODEL_EDITING_TEST_SUITE)
 		}));
 	}
 
+	TEST(FROM_SCRATCH_6)
+	{
+		CHECK(RunTestModelFromScratch([](RoadRunner *rri)
+		{
+			rri->addParameter("Q", 0);
+			rri->addParameter("R", 0);
+			rri->addParameter("reset", 0);
+			rri->addParameter("Q2", 0);
+			rri->addParameter("R2", 0);
+			rri->addParameter("reset2", 0);
+
+			rri->addEvent("Qinc", true, "(time - reset) >= 0.01", false);
+			rri->addEventAssignment("Qinc", "reset", "time", false);
+			rri->addEventAssignment("Qinc", "Q", "Q + 0.01", false);
+			rri->addPriority("Qinc", "1");
+
+			rri->addEvent("Rinc", true, "(time - reset) >= 0.01", false);
+			rri->addEventAssignment("Rinc", "reset", "time", false);
+			rri->addEventAssignment("Rinc", "R", "R + 0.01", false);
+			rri->addPriority("Rinc", "-1", false);
+
+			rri->addEvent("Qinc2", true, "(time - reset2) >= 0.01", false);
+			rri->addEventAssignment("Qinc2", "reset2", "time", false);
+			rri->addEventAssignment("Qinc2", "Q2", "Q2 + 0.01", false);
+			rri->addPriority("Qinc2", "-1", false);
+
+			rri->addEvent("Rinc2", true, "(time - reset2) >= 0.01", false);
+			rri->addEventAssignment("Rinc2", "reset2", "time", false);
+			rri->addEventAssignment("Rinc2", "R2", "R2 + 0.01", false);
+			rri->addPriority("Rinc2", "1");
+		}, "l3v1"));
+	}
+
 	TEST(READD_SPECIES)
 	{
 		clog << endl << "==== CHECK_READD_SPECIES ====" << endl << endl;
