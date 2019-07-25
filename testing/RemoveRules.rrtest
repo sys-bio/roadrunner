@@ -12,7 +12,6 @@
          <species id = "Xo" boundaryCondition = "true" initialConcentration = "1" compartment = "compartment"/>
          <species id = "X1" boundaryCondition = "true" initialConcentration = "0" compartment = "compartment"/>
          <species id = "S1" boundaryCondition = "false" initialConcentration = "0.1" compartment = "compartment"/>
-         <species id = "S4" boundaryCondition = "false" initialConcentration = "0.05" compartment = "compartment"/>
          <species id = "S2" boundaryCondition = "false" initialConcentration = "0.25" compartment = "compartment"/>
          <species id = "S3" boundaryCondition = "false" initialConcentration = "0.1" compartment = "compartment"/>
       </listOfSpecies>
@@ -24,7 +23,6 @@
          <parameter id = "k2" value = "0.15"/>
          <parameter id = "k_2" value = "0.067"/>
          <parameter id = "kk3" value = "1"/>
-         <parameter id = "test" value = "1"/>
          <parameter id = "k3" value = "0.4"/>
          <parameter id = "k_3" value = "0.09"/>
          <parameter id = "kk4" value = "1"/>
@@ -149,84 +147,6 @@
                </math>
             </kineticLaw>
          </reaction>
-         <reaction id = "test1" reversible = "true">
-            <listOfReactants>
-               <speciesReference species = "S4" stoichiometry = "1"/>
-            </listOfReactants>
-            <listOfProducts>
-               <speciesReference species = "S2" stoichiometry = "1"/>
-            </listOfProducts>
-            <kineticLaw>
-               <math xmlns = "http://www.w3.org/1998/Math/MathML">
-                  <apply>
-                     <times/>
-                     <ci>
-                           kk3
-                     </ci>
-                     <apply>
-                        <minus/>
-                        <apply>
-                           <times/>
-                           <ci>
-                                 k3
-                           </ci>
-                           <ci>
-                                 S2
-                           </ci>
-                        </apply>
-                        <apply>
-                           <times/>
-                           <ci>
-                                 k_3
-                           </ci>
-                           <ci>
-                                 S3
-                           </ci>
-                        </apply>
-                     </apply>
-                  </apply>
-               </math>
-            </kineticLaw>
-         </reaction>
-         <reaction id = "test2" reversible = "true">
-            <listOfReactants>
-               <speciesReference species = "S4" stoichiometry = "1"/>
-            </listOfReactants>
-            <listOfProducts>
-               <speciesReference species = "S2" stoichiometry = "1"/>
-            </listOfProducts>
-            <kineticLaw>
-               <math xmlns = "http://www.w3.org/1998/Math/MathML">
-                  <apply>
-                     <times/>
-                     <ci>
-                           kk3
-                     </ci>
-                     <apply>
-                        <minus/>
-                        <apply>
-                           <times/>
-                           <ci>
-                                 k3
-                           </ci>
-                           <ci>
-                                 S2
-                           </ci>
-                        </apply>
-                        <apply>
-                           <times/>
-                           <ci>
-                                 k_3
-                           </ci>
-                           <ci>
-                                 S4
-                           </ci>
-                        </apply>
-                     </apply>
-                  </apply>
-               </math>
-            </kineticLaw>
-         </reaction>
          <reaction id = "J4" reversible = "true">
             <listOfReactants>
                <speciesReference species = "S3" stoichiometry = "1"/>
@@ -273,18 +193,27 @@
           <apply>
             <times/>
             <cn type="integer"> -1 </cn>
-            <ci> test </ci>
+            <ci> k1 </ci>
             <ci> S1 </ci>
           </apply>
         </math>
       </rateRule>
+      <assignmentRule id="rule2" variable="S1">
+        <math xmlns="http://www.w3.org/1998/Math/MathML">
+          <apply>
+            <times/>
+            <cn type="integer"> -1 </cn>
+            <ci> S1 </ci>
+          </apply>
+        </math>
+      </assignmentRule>
     </listOfRules>
    </model>
 </sbml>
 
 [EDITING]
-[Remove Parameter]
-test True
+[Remove Rules]
+S1 True
 [END_EDITING]
 
 [Set Steady State Selection List]
