@@ -31,7 +31,7 @@ extern string gCompiler;
 * The method obtains test-name and suite-name from UnitTest++ so this method must be run within a UnitTest++ test
 * Returns true if the results are close enough, false otherwise
 */
-bool RunStateSavingTest(void(*modification)(RoadRunner*), std::string version = "l2v4")
+bool RunStateSavingTest(void(*modification)(RRHandle), std::string version = "l2v4")
 {
 	bool result(false);
 	RRHandle gRR;
@@ -80,7 +80,7 @@ bool RunStateSavingTest(void(*modification)(RoadRunner*), std::string version = 
 		simulation.UseHandle(gRR);
 
 		//Read SBML models.....
-		string modelFilePath(joinPath(gTSModelsPath, suiteName));
+		string modelFilePath(joinPath(getParentFolder(getParentFolder(getParentFolder(gTSModelsPath))), suiteName));
 		string modelFileName;
 
 		simulation.SetCaseNumber(0);
@@ -137,7 +137,7 @@ bool RunStateSavingTest(void(*modification)(RoadRunner*), std::string version = 
 		{
 			throw(Exception("Failed loading simulation settings"));
 		}
-		modification(rri);
+		modification(gRR);
 		//Then Simulate model
 		if (!simulation.Simulate())
 		{
@@ -181,7 +181,7 @@ bool RunStateSavingTest(void(*modification)(RoadRunner*), std::string version = 
 	return result;
 }
 
-bool RunStateSavingTest(int caseNumber, void(*modification)(RoadRunner*), std::string version = "l2v4")
+bool RunStateSavingTest(int caseNumber, void(*modification)(RRHandle), std::string version = "l2v4")
 {
 	bool result(false);
 	RRHandle gRR;
@@ -332,215 +332,153 @@ SUITE(STATE_SAVING_TEST_SUITE)
 {
 	TEST(SAVE_STATE_1)
 	{
-		CHECK(RunStateSavingTest(1, [](RoadRunner *rri)
+		CHECK(RunStateSavingTest(1, [](RRHandle rri)
 		{
-			rri->saveState("save-state-test.rr");
-			rri->loadState("save-state-test.rr");
+			saveState(rri, "save-state-test.rr");
+			loadState(rri, "save-state-test.rr");
 		}));
 	}
 
 	TEST(SAVE_STATE_2)
 	{
-		CHECK(RunStateSavingTest(1, [](RoadRunner *rri)
+		CHECK(RunStateSavingTest(1, [](RRHandle rri)
 		{
-			rri->saveState("save-state-test.rr");
-			rri->loadState("save-state-test.rr");
-			rri->saveState("save-state-test.rr");
-			rri->loadState("save-state-test.rr");
+			saveState(rri, "save-state-test.rr");
+			loadState(rri, "save-state-test.rr");
+			saveState(rri, "save-state-test.rr");
+			loadState(rri, "save-state-test.rr");
 		}));
 	}
 
 	TEST(SAVE_STATE_3)
 	{
-		CHECK(RunStateSavingTest(1, [](RoadRunner *rri)
+		CHECK(RunStateSavingTest(1, [](RRHandle rri)
 		{
-			rri->loadState("save-state-test.rr");
+			loadState(rri, "save-state-test.rr");
 		}));
 	}
 
 	TEST(SAVE_STATE_4)
 	{
-		CHECK(RunStateSavingTest(1, [](RoadRunner *rri)
+		CHECK(RunStateSavingTest(1, [](RRHandle rri)
 		{
-			rri->loadState("save-state-test.rr");
-			rri->loadState("save-state-test.rr");
+			loadState(rri, "save-state-test.rr");
+			loadState(rri, "save-state-test.rr");
 		}));
 	}
 
 	TEST(SAVE_STATE_5)
 	{
-		CHECK(RunStateSavingTest(1, [](RoadRunner *rri)
+		CHECK(RunStateSavingTest(1, [](RRHandle rri)
 		{
-			rri->loadState("save-state-test.rr");
-			rri->saveState("save-state-test.rr");
-			rri->loadState("save-state-test.rr");
+			loadState(rri, "save-state-test.rr");
+			saveState(rri, "save-state-test.rr");
+			loadState(rri, "save-state-test.rr");
 		}));
 	}
 
 	TEST(SAVE_STATE_6)
 	{
-		CHECK(RunStateSavingTest(1121, [](RoadRunner *rri)
+		CHECK(RunStateSavingTest(1121, [](RRHandle rri)
 		{
-			rri->saveState("save-state-test.rr");
-			rri->loadState("save-state-test.rr");
+			saveState(rri, "save-state-test.rr");
+			loadState(rri, "save-state-test.rr");
 		}, "l3v1"));
 	}
 
 	TEST(SAVE_STATE_7)
 	{
-		CHECK(RunStateSavingTest(1121, [](RoadRunner *rri)
+		CHECK(RunStateSavingTest(1121, [](RRHandle rri)
 		{
-			rri->saveState("save-state-test.rr");
-			rri->loadState("save-state-test.rr");
-			rri->saveState("save-state-test.rr");
-			rri->loadState("save-state-test.rr");
+			saveState(rri, "save-state-test.rr");
+			loadState(rri, "save-state-test.rr");
+			saveState(rri, "save-state-test.rr");
+			loadState(rri, "save-state-test.rr");
 		}, "l3v1"));
 	}
 
 	TEST(SAVE_STATE_8)
 	{
-		CHECK(RunStateSavingTest(1121, [](RoadRunner *rri)
+		CHECK(RunStateSavingTest(1121, [](RRHandle rri)
 		{
-			rri->loadState("save-state-test.rr");
+			loadState(rri, "save-state-test.rr");
 		}, "l3v1"));
 	}
 
 	TEST(SAVE_STATE_9)
 	{
-		CHECK(RunStateSavingTest(1121, [](RoadRunner *rri)
+		CHECK(RunStateSavingTest(1121, [](RRHandle rri)
 		{
-			rri->loadState("save-state-test.rr");
-			rri->loadState("save-state-test.rr");
+			loadState(rri, "save-state-test.rr");
+			loadState(rri, "save-state-test.rr");
 		}, "l3v1"));
 	}
 
 	TEST(SAVE_STATE_10)
 	{
-		CHECK(RunStateSavingTest(1121, [](RoadRunner *rri)
+		CHECK(RunStateSavingTest(1121, [](RRHandle rri)
 		{
-			rri->loadState("save-state-test.rr");
-			rri->saveState("save-state-test.rr");
-			rri->loadState("save-state-test.rr");
+			loadState(rri, "save-state-test.rr");
+			saveState(rri, "save-state-test.rr");
+			loadState(rri, "save-state-test.rr");
 		}, "l3v1"));
 	}
 
 	TEST(SAVE_STATE_11)
 	{
-		CHECK(RunStateSavingTest(1, [](RoadRunner *rri)
+		CHECK(RunStateSavingTest(1, [](RRHandle rri)
 		{
-			rri->simulate();
-			rri->saveState("save-state-test.rr");
-			rri->loadState("save-state-test.rr");
-			rri->reset();
+			simulate(rri);
+			saveState(rri, "save-state-test.rr");
+			loadState(rri, "save-state-test.rr");
+			reset(rri);
 		}));
-	}
-
-	TEST(SAVE_STATE_12)
-	{
-		CHECK(RunStateSavingTest(1121, [](RoadRunner *rri)
-		{
-			rri->simulate();
-			rri->saveState("save-state-test.rr");
-			rri->loadState("save-state-test.rr");
-			rri->reset(SelectionRecord::ALL);
-		}, "l3v1"));
 	}
 
 	TEST(SAVE_STATE_13)
 	{
-		CHECK(RunStateSavingTest(1120, [](RoadRunner *rri)
+		CHECK(RunStateSavingTest(1120, [](RRHandle rri)
 		{
-			rri->saveState("save-state-test.rr");
-			rri->loadState("save-state-test.rr");
+			saveState(rri, "save-state-test.rr");
+			loadState(rri, "save-state-test.rr");
 		}, "l3v1"));
 	}
 
 	TEST(SAVE_STATE_14)
 	{
-		CHECK(RunStateSavingTest(1120, [](RoadRunner *rri)
+		CHECK(RunStateSavingTest(1120, [](RRHandle rri)
 		{
-			rri->saveState("save-state-test.rr");
-			rri->loadState("save-state-test.rr");
-			rri->saveState("save-state-test.rr");
-			rri->loadState("save-state-test.rr");
+			saveState(rri, "save-state-test.rr");
+			loadState(rri, "save-state-test.rr");
+			saveState(rri, "save-state-test.rr");
+			loadState(rri, "save-state-test.rr");
 		}, "l3v1"));
 	}
 
 	TEST(SAVE_STATE_15)
 	{
-		CHECK(RunStateSavingTest(1120, [](RoadRunner *rri)
+		CHECK(RunStateSavingTest(1120, [](RRHandle rri)
 		{
-			rri->loadState("save-state-test.rr");
+			loadState(rri, "save-state-test.rr");
 		}, "l3v1"));
 	}
 
 	TEST(SAVE_STATE_16)
 	{
-		CHECK(RunStateSavingTest(1120, [](RoadRunner *rri)
+		CHECK(RunStateSavingTest(1120, [](RRHandle rri)
 		{
-			rri->loadState("save-state-test.rr");
-			rri->loadState("save-state-test.rr");
+			loadState(rri, "save-state-test.rr");
+			loadState(rri, "save-state-test.rr");
 		}, "l3v1"));
 	}
 
 	TEST(SAVE_STATE_17)
 	{
-		CHECK(RunStateSavingTest(1120, [](RoadRunner *rri)
+		CHECK(RunStateSavingTest(1120, [](RRHandle rri)
 		{
-			rri->loadState("save-state-test.rr");
-			rri->saveState("save-state-test.rr");
-			rri->loadState("save-state-test.rr");
-		}, "l3v1"));
-	}
-
-	TEST(SAVE_STATE_18)
-	{
-		CHECK(RunStateSavingTest(1120, [](RoadRunner *rri)
-		{
-			rri->simulate();
-			rri->saveState("save-state-test.rr");
-			rri->loadState("save-state-test.rr");
-			rri->reset(SelectionRecord::ALL);
-		}, "l3v1"));
-	}
-
-	TEST(SAVE_STATE_19)
-	{
-		CHECK(RunStateSavingTest([](RoadRunner *rri)
-		{
-			rri->getSimulateOptions().duration /= 2;
-			rri->getSimulateOptions().steps /= 2;
-			rri->simulate();
-			rri->saveState("save-state-test.rr");
-			rri->loadState("save-state-test.rr");
-			rri->getSimulateOptions().start = rri->getSimulateOptions().duration;
-		}, "l3v1"));
-	}
-
-	TEST(SAVE_STATE_20)
-	{
-		CHECK(RunStateSavingTest([](RoadRunner *rri)
-		{
-			rri->getSimulateOptions().duration /= 2;
-			rri->getSimulateOptions().steps /= 2;
-			rri->simulate();
-			rri->saveState("save-state-test.rr");
-			rri->loadState("save-state-test.rr");
-			rri->getSimulateOptions().start = rri->getSimulateOptions().duration;
-		}));
-	}
-
-	TEST(SAVE_STATE_21)
-	{
-		CHECK(RunStateSavingTest([](RoadRunner *rri)
-		{
-			rri->getSimulateOptions().duration = 1.50492;
-			rri->getSimulateOptions().steps /= 2;
-			rri->simulate();
-			rri->saveState("save-state-test.rr");
-			rri->loadState("save-state-test.rr");
-			rri->getSimulateOptions().start = rri->getSimulateOptions().duration;
-			rri->getSimulateOptions().duration = 3.0 - rri->getSimulateOptions().duration;
+			loadState(rri, "save-state-test.rr");
+			saveState(rri, "save-state-test.rr");
+			loadState(rri, "save-state-test.rr");
 		}, "l3v1"));
 	}
 }
