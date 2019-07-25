@@ -115,23 +115,6 @@ void LLVMModelData_save(LLVMModelData *data, std::ostream& out)
 	rr::saveBinary(out, data->numInitBoundarySpecies);
 	rr::saveBinary(out, data->numInitGlobalParameters);
 
-
-	/*out.write((char*)&(data->size), sizeof data->size);
-	out.write((char*)&(data->flags), sizeof data->flags);
-	out.write((char*)&(data->time), sizeof data->time);
-	out.write((char*)&(data->numIndCompartments), sizeof data->numIndCompartments);
-	out.write((char*)&(data->numIndFloatingSpecies), sizeof data->numIndFloatingSpecies);
-	out.write((char*)&(data->numIndBoundarySpecies), sizeof data->numIndBoundarySpecies);
-	out.write((char*)&(data->numIndGlobalParameters), sizeof data->numIndGlobalParameters);
-	out.write((char*)&(data->numRateRules), sizeof data->numRateRules);
-	out.write((char*)&(data->numReactions), sizeof data->numReactions);
-	out.write((char*)&(data->numInitCompartments), sizeof data->numInitCompartments);
-	out.write((char*)&(data->numInitFloatingSpecies), sizeof data->numInitFloatingSpecies);
-	out.write((char*)&(data->numInitBoundarySpecies), sizeof data->numInitBoundarySpecies);
-	out.write((char*)&(data->numInitGlobalParameters), sizeof data->numInitGlobalParameters);*/
-
-	//out.write((char*)&(data->numEvents), sizeof data->numEvents);
-	//out.write((char*)&(data->stateVectorSize), sizeof data->stateVectorSize);
     
 	rr::saveBinary(out, data->numEvents);
 	rr::saveBinary(out, data->stateVectorSize);
@@ -140,7 +123,7 @@ void LLVMModelData_save(LLVMModelData *data, std::ostream& out)
 
     //We do not need to save random because LLVMExecutableModel will make a new one if it is null
     
-	//It appears that stateVector and stateVectorRate are entirely unused
+	//We do not need to save stateVector as it is allocated by the integrator
 
 	//rateRuleRates is only valid during an evalModel call, we don't need to save it
 
