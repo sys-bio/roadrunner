@@ -64,6 +64,9 @@ before_script: true
 script:
   - cd ~/build/roadrunner
   - make -j2 && make install
+  - ls
+  - ./bin/cxx_api_tests -m ~/build/sys-bio/roadrunner/models/sbml-test-suite -r tests.out -t autotest/compiled-test-suite/ 
   - ctest -V
   # display results of compiled tests
   - cat autotest/compiled-test-suite/results.xml
+  - cat tests.out
