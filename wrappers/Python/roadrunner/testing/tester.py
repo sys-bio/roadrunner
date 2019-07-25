@@ -1240,22 +1240,51 @@ def addCompartment(rrInstance):
     words = []
     words = divide(readLine())
     print("Add compartment " + words[0])
-    rrInstance.addParameter(words[0], float(words[1]), bool(words[2]))
+    rrInstance.addCompartment(words[0], float(words[1]), bool(words[2]))
 
 def addAssignmentRule(rrInstance):
     words = []
     words = divide(readLine())
     print("Add assignment rule " + words[0])
-    rrInstance.addReaction(words[0], words[1], bool(words[2]))
+    rrInstance.addAssignmentRule(words[0], words[1], bool(words[2]))
 
-def addAssignmentRule(rrInstance):
+def addRateRule(rrInstance):
     words = []
     words = divide(readLine())
-    print("Add assignment rule " + words[0])
-    rrInstance.addReaction(words[0], words[1], bool(words[2]))
+    print("Add rate rule " + words[0])
+    rrInstance.addRateRule(words[0], words[1], bool(words[2]))
+
+def addEvnet(rrInstance):
+    words = []
+    words = divide(readLine())
+    print("Add event " + words[0])
+    rrInstance.addEvent(words[0], bool(words[1]), words[2], bool(words[3]))
+
+def addTrigger(rrInstance):
+    words = []
+    words = divide(readLine())
+    print("Add trigger for " + words[0])
+    rrInstance.addTrigger(words[0], words[1], bool(words[2]))
 
 
-    
+def addPriority(rrInstance):
+    words = []
+    words = divide(readLine())
+    print("Add priority for " + words[0])
+    rrInstance.addPriority(words[0], words[1], bool(words[2]))
+
+def addDelay(rrInstance):
+    words = []
+    words = divide(readLine())
+    print("Add delay for " + words[0])
+    rrInstance.addDelay(words[0], words[1], bool(words[2]))
+
+def addEventAssignment(rrInstance):
+    words = []
+    words = divide(readLine())
+    print("Add event assignment for " + words[1])
+    rrInstance.addEventAssignment(words[0], words[1], words[2], bool(words[3]))
+
 
 def scriptTests():
     print("\nTesting Set and Get Functions")
@@ -1285,8 +1314,13 @@ functions = {'[Add Species]' : addSpecies,
              '[Add Reaction]' : addReaction,
              '[Add Parameter]' : addParameter,
              '[Add Compartment]' : addCompartment,
-             '[Add Assignment Rule]' : addAssignmentRule
-             '[Add Rate Rule]' : addRateRule
+             '[Add Assignment Rule]' : addAssignmentRule,
+             '[Add Rate Rule]' : addRateRule,
+             '[Add Event]' : addEvent,
+             '[Add Trigger]' : addTrigger,
+             '[Add Priority]' : addPriority,
+             '[Add Delay]' : addDelay,
+             '[Add Event Assignment]' : addEventAssignment,
              '[Amount Jacobian]' : checkAmountJacobian,
              '[Boundary Species Concentrations]': checkBoundarySpeciesConcentrations,
              '[Boundary Species Ids]': checkGetBoundarySpeciesIds,
