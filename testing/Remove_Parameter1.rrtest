@@ -5,7 +5,6 @@
    <model id = "cell">
       <listOfCompartments>
          <compartment id = "compartment" size = "1"/>
-         <compartment id = "compartment1" size = "0.02"/>
       </listOfCompartments>
       <listOfSpecies>
          <species id = "src" boundaryCondition = "true" initialConcentration = "0" compartment = "compartment"/>
@@ -13,7 +12,7 @@
          <species id = "Xo" boundaryCondition = "true" initialConcentration = "1" compartment = "compartment"/>
          <species id = "X1" boundaryCondition = "true" initialConcentration = "0" compartment = "compartment"/>
          <species id = "S1" boundaryCondition = "false" initialConcentration = "0.1" compartment = "compartment"/>
-         <species id = "S4" boundaryCondition = "false" initialConcentration = "0.05" compartment = "compartment1"/>
+         <species id = "S4" boundaryCondition = "false" initialConcentration = "0.05" compartment = "compartment"/>
          <species id = "S2" boundaryCondition = "false" initialConcentration = "0.25" compartment = "compartment"/>
          <species id = "S3" boundaryCondition = "false" initialConcentration = "0.1" compartment = "compartment"/>
       </listOfSpecies>
@@ -25,6 +24,7 @@
          <parameter id = "k2" value = "0.15"/>
          <parameter id = "k_2" value = "0.067"/>
          <parameter id = "kk3" value = "1"/>
+         <parameter id = "test" value = "1"/>
          <parameter id = "k3" value = "0.4"/>
          <parameter id = "k_3" value = "0.09"/>
          <parameter id = "kk4" value = "1"/>
@@ -190,10 +190,10 @@
          </reaction>
          <reaction id = "test2" reversible = "true">
             <listOfReactants>
-               <speciesReference species = "S3" stoichiometry = "1"/>
+               <speciesReference species = "S4" stoichiometry = "1"/>
             </listOfReactants>
             <listOfProducts>
-               <speciesReference species = "S4" stoichiometry = "1"/>
+               <speciesReference species = "S2" stoichiometry = "1"/>
             </listOfProducts>
             <kineticLaw>
                <math xmlns = "http://www.w3.org/1998/Math/MathML">
@@ -219,7 +219,7 @@
                                  k_3
                            </ci>
                            <ci>
-                                 compartment1
+                                 S4
                            </ci>
                         </apply>
                      </apply>
@@ -267,12 +267,42 @@
             </kineticLaw>
          </reaction>
       </listOfReactions>
+      <listOfRules>
+      <rateRule metaid="rule1" variable="S1">
+        <math xmlns="http://www.w3.org/1998/Math/MathML">
+          <apply>
+            <times/>
+            <cn type="integer"> -1 </cn>
+            <ci> test </ci>
+            <ci> S1 </ci>
+          </apply>
+        </math>
+      </rateRule>
+      <rateRule metaid="rule2" variable="S2">
+        <math xmlns="http://www.w3.org/1998/Math/MathML">
+          <apply>
+            <times/>
+            <ci> test </ci>
+            <ci> S1 </ci>
+          </apply>
+        </math>
+      </rateRule>
+<rateRule metaid="rule3" variable="S2">
+        <math xmlns="http://www.w3.org/1998/Math/MathML">
+          <apply>
+            <times/>
+            <ci> test </ci>
+            <ci> S1 </ci>
+          </apply>
+        </math>
+      </rateRule>
+    </listOfRules>
    </model>
 </sbml>
 
 [EDITING]
-[Remove Compartment]
-compartment1 True
+[Remove Parameter]
+test True
 [END_EDITING]
 
 [Set Steady State Selection List]
