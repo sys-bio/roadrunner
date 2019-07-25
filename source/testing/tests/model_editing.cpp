@@ -169,6 +169,139 @@ bool RunModelEditingTest(void(*modification)(RoadRunner*),std::string version = 
 	return result;
 }
 
+bool RunTestModelFromScratch(void(*generate)(RoadRunner*),std::string version = "l2v4")
+{
+	bool result(false);
+	RoadRunner *rr;
+
+	//Create instance..
+	rr = new RoadRunner();
+
+	string testName(UnitTest::CurrentTest::Details()->testName);
+	string suiteName(UnitTest::CurrentTest::Details()->suiteName);
+
+	libsbml::SBMLDocument doc;
+
+	try
+	{
+		Log(Logger::LOG_NOTICE) << "Running Test: " << testName << endl;
+		string dataOutputFolder(joinPath(gTempFolder, suiteName));
+		string dummy;
+		string logFileName;
+		string settingsFileName;
+
+		rr->getIntegrator()->setValue("stiff", false);
+
+		if (!createFolder(dataOutputFolder))
+		{
+			string msg("Failed creating output folder for data output: " + dataOutputFolder);
+			throw(rr::Exception(msg));
+		}
+		//Create subfolder for data output
+		dataOutputFolder = joinPath(dataOutputFolder, testName);
+
+		if (!createFolder(dataOutputFolder))
+		{
+			string msg("Failed creating output folder for data output: " + dataOutputFolder);
+			throw(rr::Exception(msg));
+		}
+
+		TestSuiteModelSimulation simulation(dataOutputFolder);
+
+		simulation.UseEngine(rr);
+
+		//Read SBML models.....
+		string modelFilePath(joinPath(getParentFolder(getParentFolder(getParentFolder(gTSModelsPath))), suiteName));
+		string modelFileName;
+
+		simulation.SetCaseNumber(0);
+
+		modelFilePath = joinPath(modelFilePath, testName);
+		modelFileName = testName + "-sbml-" + version + ".xml";
+		settingsFileName = testName + "-settings.txt";
+
+		//The following will load and compile and simulate the sbml model in the file
+		simulation.SetModelFilePath(modelFilePath);
+		simulation.SetModelFileName(modelFileName);
+		simulation.ReCompileIfDllExists(true);
+		simulation.CopyFilesToOutputFolder();
+		rr->setConservedMoietyAnalysis(false);
+
+		libsbml::SBMLReader reader;
+		std::string fullPath = modelFilePath + "/" + modelFileName;
+
+		//Check first if file exists first
+		if (!fileExists(fullPath))
+		{
+			Log(Logger::LOG_ERROR) << "sbml file " << fullPath << " not found";
+			throw(Exception("No such SBML file: " + fullPath));
+		}
+
+
+		LoadSBMLOptions opt;
+
+		// don't generate cache for models
+		opt.modelGeneratorOpt = opt.modelGeneratorOpt | LoadSBMLOptions::RECOMPILE;
+
+		opt.modelGeneratorOpt = opt.modelGeneratorOpt | LoadSBMLOptions::MUTABLE_INITIAL_CONDITIONS;
+
+		opt.modelGeneratorOpt = opt.modelGeneratorOpt & ~LoadSBMLOptions::READ_ONLY;
+
+		opt.modelGeneratorOpt = opt.modelGeneratorOpt | LoadSBMLOptions::OPTIMIZE_CFG_SIMPLIFICATION;
+
+		opt.modelGeneratorOpt = opt.modelGeneratorOpt | LoadSBMLOptions::OPTIMIZE_GVN;
+
+
+
+		//Then read settings file if it exists..
+		if (!simulation.LoadSettings(joinPath(modelFilePath, settingsFileName)))
+		{
+			throw(Exception("Failed loading simulation settings"));
+		}
+		generate(rr);
+		//Then Simulate model
+		if (!simulation.Simulate())
+		{
+			throw(Exception("Failed running simulation"));
+		}
+
+		//Write result
+		if (!simulation.SaveResult())
+		{
+			//Failed to save data
+			throw(Exception("Failed saving result"));
+		}
+
+		if (!simulation.LoadReferenceData(modelFilePath + "/" + testName + "-results.csv"))
+		{
+			throw(Exception("Failed Loading reference data"));
+		}
+
+		simulation.CreateErrorData();
+		result = simulation.Pass();
+		result = simulation.SaveAllData() && result;
+		result = simulation.SaveModelAsXML(dataOutputFolder) && result;
+		if (!result)
+		{
+			Log(Logger::LOG_WARNING) << "\t\t =============== Test " << testName << " failed =============\n";
+		}
+		else
+		{
+			Log(Logger::LOG_NOTICE) << "\t\tTest passed.\n";
+		}
+	}
+	catch (std::exception& ex)
+	{
+		string error = ex.what();
+		cerr << "Case " << testName << ": Exception: " << error << endl;
+		delete rr;
+		return false;
+	}
+
+	delete rr;
+	return result;
+}
+
 bool RunTestWithEdit(const string& version, int caseNumber, void(*edit)(RoadRunner*, libsbml::SBMLDocument*), std::string editName)
 {
 	bool result(false);
@@ -889,6 +1022,68 @@ SUITE(MODEL_EDITING_TEST_SUITE)
 		CHECK(RunModelEditingTest([](RoadRunner *rri)
 		{
 			rri->removeParameter("k4");
+		}));
+	}
+
+	TEST(FROM_SCRATCH_1)
+	{
+		CHECK(RunTestModelFromScratch([](RoadRunner *rri)
+		{
+			rri->addCompartment("compartment", 1);
+			rri->addSpecies("S1", "compartment", 0.00015, "substance");
+			rri->addSpecies("S2", "compartment", 0, "substance");
+			rri->addParameter("k1", 1);
+			rri->addReaction("reaction1", {"S1"}, {"S2"}, "compartment * k1 * S1");
+		}));
+	}
+
+	TEST(FROM_SCRATCH_2)
+	{
+		CHECK(RunTestModelFromScratch([](RoadRunner *rri)
+		{
+			rri->addCompartment("compartment", 1);
+			rri->addSpecies("S1", "compartment", 1, "substance");
+			rri->addSpecies("S2", "compartment", 0, "substance");
+			rri->addParameter("k1", 1);
+			rri->addReaction("reaction1", {"S1"}, {"S2"}, "compartment * k1 * S1");
+			rri->addEvent("event1", true, "S1 < 0.1");
+			rri->addDelay("event1", "1");
+			rri->addEventAssignment("event1", "S1", "1");
+		}));
+	}
+
+	TEST(FROM_SCRATCH_3)
+	{
+		CHECK(RunTestModelFromScratch([](RoadRunner *rri)
+		{
+			rri->addCompartment("compartment", 1);
+			rri->addSpecies("S1", "compartment", 0, "substance");
+			rri->addRateRule("S1", "7");
+		}));
+	}
+	
+	TEST(FROM_SCRATCH_4)
+	{
+		CHECK(RunTestModelFromScratch([](RoadRunner *rri)
+		{
+			rri->addCompartment("compartment", 1);
+			rri->addSpecies("S1", "compartment", 7, "substance");
+			rri->addAssignmentRule("S1", "7");
+		}));
+	}
+
+	TEST(FROM_SCRATCH_5)
+	{
+		CHECK(RunTestModelFromScratch([](RoadRunner *rri)
+		{
+			rri->addCompartment("compartment", 1);
+			rri->addSpecies("S1", "compartment", 1, "substance");
+			rri->addSpecies("S2", "compartment", 1.5e-15, "substance");
+			rri->addSpecies("S3", "compartment", 1, "substance");
+			rri->addParameter("k1", 0.75);
+			rri->addParameter("k2", 50);
+			rri->addAssignmentRule("S3", "k1*S2");
+			rri->addReaction("reaction1", {"S1"}, {"S2"}, "compartment * k2 * S1");
 		}));
 	}
 
