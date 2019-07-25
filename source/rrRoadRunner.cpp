@@ -5521,7 +5521,12 @@ void RoadRunner::setKineticLaw(const std::string& rid, const std::string& kineti
 
 
 	// TODO: catch illegal formula, otherwise will only be detected during the simulation
-	reaction->getKineticLaw()->setFormula(kineticLaw);
+	
+	KineticLaw* law = reaction->getKineticLaw();
+	if (law == NULL) {
+		law = reaction->createKineticLaw();
+	}
+	law->setFormula(kineticLaw);
 
 	regenerate(forceRegenerate);
 }
