@@ -73,8 +73,6 @@ void copyCachedModel(a_type* src, b_type* dst)
 
 ExecutableModel* LLVMModelGenerator::regenerateModel(ExecutableModel* oldModel, libsbml::SBMLDocument* doc, uint options)
 {
-	bool forceReCompile = options & LoadSBMLOptions::RECOMPILE;
-
 	// string md5;
 
 	SharedModelPtr rc(new ModelResources());
