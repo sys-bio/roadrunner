@@ -369,15 +369,15 @@ Random* ModelGeneratorContext::getRandom() const
 
 void ModelGeneratorContext::cleanup()
 {
-    /*delete functionPassManager; functionPassManager = 0;
+    delete functionPassManager; functionPassManager = 0;
     delete modelSymbols; modelSymbols = 0;
-    //delete symbols; symbols = 0;
+    delete symbols; symbols = 0;
     delete builder; builder = 0;
     delete executionEngine; executionEngine = 0;
     delete context; context = 0;
     delete moietyConverter; moietyConverter = 0;
     delete ownedDoc; ownedDoc = 0;
-    delete errString; errString = 0;*/
+    delete errString; errString = 0;
 }
 
 
