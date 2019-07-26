@@ -715,18 +715,6 @@ public:
     double getUnscaledSpeciesElasticity(int reactionId, int speciesIndex);
 
 	/**
-	 * Remove a reaction from the current model
-	 * @param rid: the ID of the reaction to be removed 
-	 * @param forceRegenerate: a boolean value to indicate if the model is regenerated 
-	 *					       after this function call
-	 *						   default value is true to regenerate model after each call 
-	 *                         of editing function
-	 *						   to save time for editing for multiple times, one could 
-     *					       set this flag to true only in the last call of editing 
-	 */
-	void removeReaction(const std::string& rid, bool forceRegenerate = true);
-
-	/**
 	 * Add a species to the current model
 	 * @param sid: the ID of the species to be added
 	 * @param compartment: the compartment of the species to be added
@@ -741,8 +729,23 @@ public:
 	 */
 	void addSpecies(const std::string& sid, const std::string& compartment, double initValue, const std::string& substanceUnits = "concentration", bool forceRegenerate = true);
 
+
+	/*
+	* Remove a species from the current model. Note that all reactions related to this species(as reactants,
+	* products or modifiers will be removed as well.
+	* @param sid: the ID of the species to be removed
+	* @param forceRegenerate: a boolean value to indicate if the model is regenerated
+	*					      after this function call
+	*						  default value is true to regenerate model after each call
+	*                         of editing function
+	*						  to save time for editing for multiple times, one could
+	*					      set this flag to true only in the last call of editing
+	*/
+	void removeSpecies(const std::string& sid, bool forceRegenerate = true);
+
 	/**
-	 * Set the boundary condition of an existing species
+	 * Set the boundary condition of an existing species.
+	 * By default, the boundary condition for a species is false.
 	 * @param sid: the ID of the species
 	 * @param boundaryCondition: boundary condition to be set
 	 * @param forceRegenerate: a boolean value to indicate if the model is regenerated
@@ -752,10 +755,11 @@ public:
 	 *						   to save time for editing for multiple times, one could
 	 *					       set this flag to true only in the last call of editing
 	 */
-	void setBoundarySpecies(const std::string& sid, bool boundaryCondition, bool forceRegenerate = true);
+	void setBoundary(const std::string& sid, bool boundaryCondition, bool forceRegenerate = true);
 
 	/**
 	 * Set the constant attribute of an existing species
+	 * By default, the constant attribute for a species is false.
 	 * @param sid: the ID of the species
 	 * @param constant: the constant attribute to be set`
 	 * @param forceRegenerate: a boolean value to indicate if the model is regenerated
@@ -781,6 +785,7 @@ public:
 	void addReaction(const std::string& sbmlRep, bool forceRegenerate = true);
 
 
+
 	/*
 	* Add a reaction to the current model
 	* @param rid: the ID of reaction to be added
@@ -798,10 +803,22 @@ public:
 	*/
 	void addReaction(const std::string& rid, std::vector<string> reactants, std::vector<string> products, const std::string& kineticLaw, bool forceRegenerate = true);
 
+	/**
+	 * Remove a reaction from the current model
+	 * @param rid: the ID of the reaction to be removed
+	 * @param forceRegenerate: a boolean value to indicate if the model is regenerated
+	 *					       after this function call
+	 *						   default value is true to regenerate model after each call
+	 *                         of editing function
+	 *						   to save time for editing for multiple times, one could
+	 *					       set this flag to true only in the last call of editing
+	 */
+	void removeReaction(const std::string& rid, bool forceRegenerate = true);
+
 	/*
-	* Remove a species from the current model. Note that all reactions related to this species(as reactants,
-	* products or modifiers will be removed as well.
-	* @param sid: the ID of the species to be removed
+	* Set the reversible attribut for an existing reaction in the current model
+	* @param rid: the ID of reaction to be modified
+	* @param reversible: the reversible attribute to be set
 	* @param forceRegenerate: a boolean value to indicate if the model is regenerated
 	*					      after this function call
 	*						  default value is true to regenerate model after each call
@@ -809,7 +826,22 @@ public:
 	*						  to save time for editing for multiple times, one could
 	*					      set this flag to true only in the last call of editing
 	*/
-	void removeSpecies(const std::string& sid, bool forceRegenerate = true);
+	void setReversible(const std::string& rid, bool reversible, bool forceRegenerate = true);
+
+
+	/*
+	* Set the kinetic law for an existing reaction in the current model
+	* @param rid: the ID of reaction to be modified
+	* @param kineticLaw: the kinetic formular of reaction
+	* @param forceRegenerate: a boolean value to indicate if the model is regenerated
+	*					      after this function call
+	*						  default value is true to regenerate model after each call
+	*                         of editing function
+	*						  to save time for editing for multiple times, one could
+	*					      set this flag to true only in the last call of editing
+	*/
+	void setKineticLaw(const std::string& rid, const std::string& kineticLaw, bool forceRegenerate = true);
+
 
 	/**
 	 * Add a parameter to the current model
@@ -862,19 +894,6 @@ public:
 	 */
 	void removeCompartment(const std::string& cid, bool forceRegenerate = true);
 
-
-	/*
-	* Set the kinetic law for an existing reaction in the current model
-	* @param rid: the ID of reaction to be modified
-	* @param kineticLaw: the kinetic formular of reaction
-	* @param forceRegenerate: a boolean value to indicate if the model is regenerated
-	*					      after this function call
-	*						  default value is true to regenerate model after each call
-	*                         of editing function
-	*						  to save time for editing for multiple times, one could
-	*					      set this flag to true only in the last call of editing
-	*/
-	void setKineticLaw(const std::string& rid, const std::string& kineticLaw, bool forceRegenerate = true);
 
 	/*
 	* Add an assignment rule to the current model

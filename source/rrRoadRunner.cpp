@@ -5202,18 +5202,7 @@ void RoadRunner::loadSelectionVector(std::istream& in, std::vector<SelectionReco
 	}
 }
 
-void RoadRunner::removeReaction(const std::string& rid, bool forceRegenerate)
-{
-	libsbml::Reaction* toDelete = impl->document->getModel()->removeReaction(rid);
-	if (toDelete == NULL) 
-	{
-		throw std::invalid_argument("Roadrunner::removeReaction failed, no reaction with ID " + rid + " existed in the model");
-	}
-	Log(Logger::LOG_DEBUG) << "Removing reaction " << rid << "..." << endl;
-	delete toDelete;
-	regenerate(forceRegenerate);
-	
-}
+
 
 void RoadRunner::addSpecies(const std::string& sid, const std::string& compartment, double initValue, const std::string& substanceUnits, bool forceRegenerate)
 {
@@ -5254,7 +5243,94 @@ void RoadRunner::addSpecies(const std::string& sid, const std::string& compartme
 	regenerate(forceRegenerate);
 }
 
-void RoadRunner::setBoundarySpecies(const std::string& sid, bool boundaryCondition, bool forceRegenerate)
+void RoadRunner::removeSpecies(const std::string& sid, bool forceRegenerate)
+{
+
+	using namespace libsbml;
+	Model* sbmlModel = impl->document->getModel();
+	Species* s = sbmlModel->removeSpecies(sid);
+	if (s == NULL)
+	{
+		throw std::invalid_argument("Roadrunner::removeSpecies failed, no species with ID " + sid + " existed in the model");
+	}
+
+	Log(Logger::LOG_DEBUG) << "Removing species " << sid << "..." << endl;
+
+
+	// delete all related reactions as well
+	int index = 0;
+	int numReaction = sbmlModel->getNumReactions();
+
+	// TODO: will deleting one reaction interrupt with the order? 
+	// currently we are assuming that the order will keep the same
+	for (uint i = 0; i < numReaction; i++)
+	{
+		Reaction* reaction = sbmlModel->getReaction(index);
+		Reaction* toDelete = nullptr;
+
+		const ListOfSpeciesReferences* reactants = reaction->getListOfReactants();
+		for (uint j = 0; j < reactants->size(); j++)
+		{
+
+			if (reactants->get(j)->getSpecies() == sid)
+			{
+				toDelete = sbmlModel->removeReaction(index);
+				break;
+			}
+		}
+
+		if (toDelete != nullptr)
+		{
+			delete toDelete;
+			// no need to check anymore
+			continue;
+		}
+
+		const libsbml::ListOfSpeciesReferences* products = reaction->getListOfProducts();
+		for (uint j = 0; j < products->size(); j++)
+		{
+			if (products->get(j)->getSpecies() == sid)
+			{
+				toDelete = sbmlModel->removeReaction(index);
+				break;
+			}
+		}
+
+		if (toDelete != nullptr)
+		{
+			delete toDelete;
+			// no need to check anymore
+			continue;
+		}
+
+		const libsbml::ListOfSpeciesReferences* modifiers = reaction->getListOfModifiers();
+		for (uint j = 0; j < modifiers->size(); j++)
+		{
+			if (modifiers->get(j)->getSpecies() == sid)
+			{
+				toDelete = sbmlModel->removeReaction(index);
+				break;
+			}
+		}
+
+		if (toDelete != nullptr)
+		{
+			delete toDelete;
+			// no need to check anymore
+			continue;
+		}
+
+		// this reaction is not related to the deleted species 
+		index++;
+	}
+
+	removeVariable(sid);
+	delete s;
+	regenerate(forceRegenerate);
+}
+
+
+void RoadRunner::setBoundary(const std::string& sid, bool boundaryCondition, bool forceRegenerate)
 {
 	using namespace libsbml;
 	Model* sbmlModel = impl->document->getModel();
@@ -5374,91 +5450,68 @@ void RoadRunner::addReaction(const string& rid, vector<string> reactants, vector
 	regenerate(forceRegenerate);
 }
 
-void RoadRunner::removeSpecies(const std::string& sid, bool forceRegenerate)
+
+void RoadRunner::removeReaction(const std::string& rid, bool forceRegenerate)
 {
-	
+	libsbml::Reaction* toDelete = impl->document->getModel()->removeReaction(rid);
+	if (toDelete == NULL)
+	{
+		throw std::invalid_argument("Roadrunner::removeReaction failed, no reaction with ID " + rid + " existed in the model");
+	}
+	Log(Logger::LOG_DEBUG) << "Removing reaction " << rid << "..." << endl;
+	delete toDelete;
+	regenerate(forceRegenerate);
+
+}
+
+
+void RoadRunner::setReversible(const std::string& rid,bool reversible, bool forceRegenerate)
+{
+
 	using namespace libsbml;
 	Model* sbmlModel = impl->document->getModel();
-	Species* s = sbmlModel->removeSpecies(sid);
-	if (s == NULL)
+	Reaction* reaction = sbmlModel->getReaction(rid);
+
+	if (reaction == NULL)
 	{
-		throw std::invalid_argument("Roadrunner::removeSpecies failed, no species with ID " + sid + " existed in the model");
+		throw std::invalid_argument("Roadrunner::setReversible failed, no reaction with ID " + rid + " existed in the model");
 	}
 
-	Log(Logger::LOG_DEBUG) << "Removing species " << sid << "..." << endl;
+	Log(Logger::LOG_DEBUG) << "Setting reversible attribute for reaction " << rid << "..." << endl;
 
+	reaction->setReversible(reversible);
 
-	// delete all related reactions as well
-	int index = 0;
-	int numReaction = sbmlModel->getNumReactions();
-
-	// TODO: will deleting one reaction interrupt with the order? 
-	// currently we are assuming that the order will keep the same
-	for (uint i = 0; i < numReaction; i++)
-	{
-		Reaction* reaction = sbmlModel->getReaction(index);
-		Reaction* toDelete = nullptr;
-
-		const ListOfSpeciesReferences* reactants = reaction->getListOfReactants();
-		for (uint j = 0; j < reactants->size(); j++)
-		{
-
-			if (reactants->get(j)->getSpecies() == sid)
-			{
-				toDelete = sbmlModel->removeReaction(index);
-				break;
-			}
-		}
-
-		if (toDelete != nullptr) 
-		{
-			delete toDelete;
-			// no need to check anymore
-			continue;
-		}
-
-		const libsbml::ListOfSpeciesReferences* products = reaction->getListOfProducts();
-		for (uint j = 0; j < products->size(); j++)
-		{
-			if (products->get(j)->getSpecies() == sid)
-			{
-				toDelete = sbmlModel->removeReaction(index);
-				break;
-			}
-		}
-
-		if (toDelete != nullptr) 
-		{
-			delete toDelete;
-			// no need to check anymore
-			continue;
-		}
-
-		const libsbml::ListOfSpeciesReferences* modifiers = reaction->getListOfModifiers();
-		for (uint j = 0; j < modifiers->size(); j++)
-		{
-			if (modifiers->get(j)->getSpecies() == sid)
-			{
-				toDelete = sbmlModel->removeReaction(index);
-				break;
-			}
-		}
-
-		if (toDelete != nullptr) 
-		{
-			delete toDelete;
-			// no need to check anymore
-			continue;
-		}
-
-		// this reaction is not related to the deleted species 
-		index++;
-	}
-
-	removeVariable(sid);
-	delete s;
 	regenerate(forceRegenerate);
 }
+
+// TODO: check if formula parameters are valid
+
+void RoadRunner::setKineticLaw(const std::string& rid, const std::string& kineticLaw, bool forceRegenerate)
+{
+
+	using namespace libsbml;
+	Model* sbmlModel = impl->document->getModel();
+	Reaction* reaction = sbmlModel->getReaction(rid);
+
+	if (reaction == NULL)
+	{
+		throw std::invalid_argument("Roadrunner::setKineticLaw failed, no reaction with ID " + rid + " existed in the model");
+	}
+
+	Log(Logger::LOG_DEBUG) << "Setting kinetic law for reaction " << rid << "..." << endl;
+
+
+	// TODO: catch illegal formula, otherwise will only be detected during the simulation
+
+	KineticLaw* law = reaction->getKineticLaw();
+	if (law == NULL) {
+		law = reaction->createKineticLaw();
+	}
+	law->setFormula(kineticLaw);
+
+	regenerate(forceRegenerate);
+}
+
 
 
 void RoadRunner::addParameter(const std::string& pid, double value, bool forceRegenerate)
@@ -5488,6 +5541,8 @@ void RoadRunner::removeParameter(const std::string& pid, bool forceRegenerate)
 	delete toDelete;
 	regenerate(forceRegenerate);
 }
+
+
 
 
 void RoadRunner::addCompartment(const std::string& cid, double initVolume, bool forceRegenerate)
@@ -5539,33 +5594,7 @@ void RoadRunner::removeCompartment(const std::string& cid, bool forceRegenerate)
 }
 
 
-// TODO: check if formula parameters are valid
 
-void RoadRunner::setKineticLaw(const std::string& rid, const std::string& kineticLaw, bool forceRegenerate)
-{
-
-	using namespace libsbml;
-	Model* sbmlModel = impl->document->getModel();
-	Reaction* reaction = sbmlModel->getReaction(rid);
-
-	if (reaction == NULL)
-	{
-		throw std::invalid_argument("Roadrunner::setKineticLaw failed, no reaction with ID " + rid + " existed in the model");
-	}
-
-	Log(Logger::LOG_DEBUG) << "Setting kinetic law for reaction " << rid << "..." << endl;
-
-
-	// TODO: catch illegal formula, otherwise will only be detected during the simulation
-	
-	KineticLaw* law = reaction->getKineticLaw();
-	if (law == NULL) {
-		law = reaction->createKineticLaw();
-	}
-	law->setFormula(kineticLaw);
-
-	regenerate(forceRegenerate);
-}
 
 // TODO: A reaction’s identifier cannot be the target of an InitialAssignment, EventAssignment, or Rule object
 
