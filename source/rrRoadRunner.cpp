@@ -252,12 +252,6 @@ public:
         //memset((void*)integrators, 0, sizeof(integrators)/sizeof(char));
     }
 
-	RoadRunnerImpl(const std::istream& in) :
-		mDiffStepSize(0.05)
-	{
-
-	}
-
 
     RoadRunnerImpl(const string& _compiler, const string& _tempDir,
             const string& _supportCodeDir) :
