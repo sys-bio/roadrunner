@@ -188,7 +188,17 @@
          </reaction>
       </listOfReactions>
       <listOfRules>
-      <assignmentRule variable="S3">
+      <rateRule id="rule1" variable="S1">
+        <math xmlns="http://www.w3.org/1998/Math/MathML">
+          <apply>
+            <times/>
+            <cn type="integer"> -1 </cn>
+            <ci> k1 </ci>
+            <ci> S3 </ci>
+          </apply>
+        </math>
+      </rateRule>
+      <assignmentRule id="rule2" variable="S1">
         <math xmlns="http://www.w3.org/1998/Math/MathML">
           <apply>
             <times/>
@@ -201,10 +211,9 @@
    </model>
 </sbml>
 
-
 [EDITING]
 [Remove Rules]
-S3 True
+S1 True
 [END_EDITING]
 
 [Set Steady State Selection List]
@@ -403,4 +412,3 @@ rates=0.101 -0.08 -1.071
 
 [Test SetValues]
 "S1 S2 S3 1.0 2.0 3.0"
-
