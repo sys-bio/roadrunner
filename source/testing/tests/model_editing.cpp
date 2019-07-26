@@ -37,6 +37,9 @@ bool validateModifiedSBML(std::string sbml)
 		return false;
 	}
 
+	doc->setConsistencyChecks(LIBSBML_CAT_MODELING_PRACTICE, false);
+	doc->setConsistencyChecks(LIBSBML_CAT_UNITS_CONSISTENCY, false);
+
 	if (doc->validateSBML() != 0)
 	{
 		for (int i = 0; i < doc->getNumErrors(); i++)
@@ -850,7 +853,7 @@ SUITE(MODEL_EDITING_TEST_SUITE)
 		CHECK(RunModelEditingTest([](RoadRunner *rri)
 		{
 			rri->simulate();
-			rri->addEvent("event1", false, "S2 > 0.0004", false);
+			rri->addEvent("event1", true, "S2 > 0.0004", false);
 			rri->addEventAssignment("event1", "S1", "0.1", true);
 		}));
 	}
