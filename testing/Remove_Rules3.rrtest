@@ -190,13 +190,13 @@
          </reaction>
       </listOfReactions>
       <listOfRules>
-      <rateRule id="rule1" variable="test2">
+      <rateRule id="rule1" variable="S3">
         <math xmlns="http://www.w3.org/1998/Math/MathML">
           <apply>
             <times/>
             <cn type="integer"> -1 </cn>
-            <ci> test1 </ci>
-            <ci> S3 </ci>
+            <ci> test2 </ci>
+            <ci> S2 </ci>
           </apply>
         </math>
       </rateRule>
@@ -209,13 +209,12 @@
           </apply>
         </math>
       </assignmentRule>
-    </listOfRules>
-    <assignmentRule id="rule2" variable="S3">
+      <assignmentRule id="rule3" variable="test2">
         <math xmlns="http://www.w3.org/1998/Math/MathML">
           <apply>
             <times/>
             <cn type="integer"> -1 </cn>
-            <ci> test2 </ci>
+            <ci> test1 </ci>
           </apply>
         </math>
       </assignmentRule>
