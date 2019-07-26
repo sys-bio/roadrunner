@@ -1367,7 +1367,7 @@ void RoadRunner::setConservedMoietyAnalysis(bool value)
         // have to reload
         self.loadOpt.modelGeneratorOpt |= LoadSBMLOptions::RECOMPILE;
 
-        load(getSBML());
+        load(getCurrentSBML());
 
         // restore original reload value
         self.loadOpt.modelGeneratorOpt = savedOpt;
