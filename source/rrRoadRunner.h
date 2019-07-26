@@ -741,6 +741,32 @@ public:
 	 */
 	void addSpecies(const std::string& sid, const std::string& compartment, double initValue, const std::string& substanceUnits = "concentration", bool forceRegenerate = true);
 
+	/**
+	 * Set the boundary condition of an existing species
+	 * @param sid: the ID of the species
+	 * @param boundaryCondition: boundary condition to be set
+	 * @param forceRegenerate: a boolean value to indicate if the model is regenerated
+	 *					       after this function call
+	 *						   default value is true to regenerate model after each call
+	 *                         of editing function
+	 *						   to save time for editing for multiple times, one could
+	 *					       set this flag to true only in the last call of editing
+	 */
+	void setBoundarySpecies(const std::string& sid, bool boundaryCondition, bool forceRegenerate = true);
+
+	/**
+	 * Set the constant attribute of an existing species
+	 * @param sid: the ID of the species
+	 * @param constant: the constant attribute to be set`
+	 * @param forceRegenerate: a boolean value to indicate if the model is regenerated
+	 *					       after this function call
+	 *						   default value is true to regenerate model after each call
+	 *                         of editing function
+	 *						   to save time for editing for multiple times, one could
+	 *					       set this flag to true only in the last call of editing
+	 */
+	void setConstantSpecies(const std::string& sid, bool constant, bool forceRegenerate = true);
+
 
 	/*
 	* Add a reaction to the current model

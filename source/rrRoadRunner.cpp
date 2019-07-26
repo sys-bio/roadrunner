@@ -5254,7 +5254,41 @@ void RoadRunner::addSpecies(const std::string& sid, const std::string& compartme
 	regenerate(forceRegenerate);
 }
 
+void RoadRunner::setBoundarySpecies(const std::string& sid, bool boundaryCondition, bool forceRegenerate)
+{
+	using namespace libsbml;
+	Model* sbmlModel = impl->document->getModel();
+	Species* species = sbmlModel->getSpecies(sid);
 
+	if (species == NULL)
+	{
+		throw std::invalid_argument("Roadrunner::setBoundarySpecies failed, no species with ID " + sid + " existed in the model");
+	}
+
+	Log(Logger::LOG_DEBUG) << "Setting boundary condition for species " << sid << "..." << endl;
+
+	species->setBoundaryCondition(boundaryCondition);
+
+	regenerate(forceRegenerate);
+}
+
+void RoadRunner::setConstantSpecies(const std::string& sid, bool constant, bool forceRegenerate)
+{
+	using namespace libsbml;
+	Model* sbmlModel = impl->document->getModel();
+	Species* species = sbmlModel->getSpecies(sid);
+
+	if (species == NULL)
+	{
+		throw std::invalid_argument("Roadrunner::setConstantSpecies failed, no species with ID " + sid + " existed in the model");
+	}
+
+	Log(Logger::LOG_DEBUG) << "Setting constant attribute for species " << sid << "..." << endl;
+
+	species->setConstant(constant);
+
+	regenerate(forceRegenerate);
+}
 
 
 void RoadRunner::addReaction(const std::string& sbmlRep, bool forceRegenerate)
