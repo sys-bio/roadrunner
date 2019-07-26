@@ -10,15 +10,43 @@
 #include "sbml/Model.h"
 #include "rrExecutableModel.h"
 #include "rrTestSuiteModelSimulation.h"
+#include "SBMLValidator.h"
+#include "sbml/validator/SBMLValidator.h"
+#include "sbml/validator/SBMLInternalValidator.h"
 
 using namespace std;
 using namespace UnitTest;
 using namespace ls;
 using namespace rr;
+using namespace libsbml;
 
 extern string gTempFolder;
 extern string gTSModelsPath;
 extern string gCompiler;
+
+bool validateModifiedSBML(std::string sbml)
+{
+
+	libsbml::SBMLDocument *doc = readSBMLFromString(sbml.c_str());
+	if (doc->getNumErrors() != 0)
+	{
+		for (int i = 0; i < doc->getNumErrors(); i++)
+		{
+			std::cout << doc->getError(i)->getMessage() << std::endl;
+		}
+		return false;
+	}
+
+	if (doc->validateSBML() != 0)
+	{
+		for (int i = 0; i < doc->getNumErrors(); i++)
+		{
+			std::cout << doc->getError(i)->getMessage() << std::endl;
+		}
+		return false;
+	}
+	return true;
+}
 
 /*
 * Loads <prefix>/source/roadrunner/models/sbml-test-suite/cases/semantic/model_editing/NNNNN/NNNNN-sbml-*VERSION*.xml
@@ -31,10 +59,7 @@ extern string gCompiler;
 bool RunModelEditingTest(void(*modification)(RoadRunner*),std::string version = "l2v4")
 {
 	bool result(false);
-	RoadRunner *rr;
-
-	//Create instance..
-	rr = new RoadRunner();
+	RoadRunner rr;
 
 	string testName(UnitTest::CurrentTest::Details()->testName);
 	string suiteName(UnitTest::CurrentTest::Details()->suiteName);
@@ -49,7 +74,7 @@ bool RunModelEditingTest(void(*modification)(RoadRunner*),std::string version = 
 		string logFileName;
 		string settingsFileName;
 
-		rr->getIntegrator()->setValue("stiff", false);
+		rr.getIntegrator()->setValue("stiff", false);
 
 		if (!createFolder(dataOutputFolder))
 		{
@@ -67,7 +92,7 @@ bool RunModelEditingTest(void(*modification)(RoadRunner*),std::string version = 
 
 		TestSuiteModelSimulation simulation(dataOutputFolder);
 
-		simulation.UseEngine(rr);
+		simulation.UseEngine(&rr);
 
 		//Read SBML models.....
 		string modelFilePath(joinPath(getParentFolder(getParentFolder(getParentFolder(gTSModelsPath))), suiteName));
@@ -84,7 +109,7 @@ bool RunModelEditingTest(void(*modification)(RoadRunner*),std::string version = 
 		simulation.SetModelFileName(modelFileName);
 		simulation.ReCompileIfDllExists(true);
 		simulation.CopyFilesToOutputFolder();
-		rr->setConservedMoietyAnalysis(false);
+		rr.setConservedMoietyAnalysis(false);
 
 		libsbml::SBMLReader reader;
 		std::string fullPath = modelFilePath + "/" + modelFileName;
@@ -118,14 +143,14 @@ bool RunModelEditingTest(void(*modification)(RoadRunner*),std::string version = 
 		opt.modelGeneratorOpt = opt.modelGeneratorOpt | LoadSBMLOptions::OPTIMIZE_GVN;
 
 
-		rr->load(fullPath, &opt);
+		rr.load(fullPath, &opt);
 
 		//Then read settings file if it exists..
 		if (!simulation.LoadSettings(joinPath(modelFilePath, settingsFileName)))
 		{
 			throw(Exception("Failed loading simulation settings"));
 		}
-		modification(rr);
+		modification(&rr);
 		//Then Simulate model
 		if (!simulation.Simulate())
 		{
@@ -148,6 +173,7 @@ bool RunModelEditingTest(void(*modification)(RoadRunner*),std::string version = 
 		result = simulation.Pass();
 		result = simulation.SaveAllData() && result;
 		result = simulation.SaveModelAsXML(dataOutputFolder) && result;
+		result = validateModifiedSBML(rr.getCurrentSBML()) && result;
 		if (!result)
 		{
 			Log(Logger::LOG_WARNING) << "\t\t =============== Test " << testName << " failed =============\n";
@@ -161,26 +187,21 @@ bool RunModelEditingTest(void(*modification)(RoadRunner*),std::string version = 
 	{
 		string error = ex.what();
 		cerr << "Case " << testName << ": Exception: " << error << endl;
-		delete rr;
 		return false;
 	}
 
-	delete rr;
 	return result;
 }
 
 bool RunTestModelFromScratch(void(*generate)(RoadRunner*),std::string version = "l2v4")
 {
 	bool result(false);
-	RoadRunner *rr;
-
-	//Create instance..
-	rr = new RoadRunner();
+	RoadRunner rr;
 
 	string testName(UnitTest::CurrentTest::Details()->testName);
 	string suiteName(UnitTest::CurrentTest::Details()->suiteName);
 
-	libsbml::SBMLDocument doc;
+	libsbml::SBMLDocument doc(3, 1);
 
 	try
 	{
@@ -190,7 +211,7 @@ bool RunTestModelFromScratch(void(*generate)(RoadRunner*),std::string version = 
 		string logFileName;
 		string settingsFileName;
 
-		rr->getIntegrator()->setValue("stiff", false);
+		rr.getIntegrator()->setValue("stiff", false);
 
 		if (!createFolder(dataOutputFolder))
 		{
@@ -208,7 +229,7 @@ bool RunTestModelFromScratch(void(*generate)(RoadRunner*),std::string version = 
 
 		TestSuiteModelSimulation simulation(dataOutputFolder);
 
-		simulation.UseEngine(rr);
+		simulation.UseEngine(&rr);
 
 		//Read SBML models.....
 		string modelFilePath(joinPath(getParentFolder(getParentFolder(getParentFolder(gTSModelsPath))), suiteName));
@@ -225,7 +246,7 @@ bool RunTestModelFromScratch(void(*generate)(RoadRunner*),std::string version = 
 		simulation.SetModelFileName(modelFileName);
 		simulation.ReCompileIfDllExists(true);
 		simulation.CopyFilesToOutputFolder();
-		rr->setConservedMoietyAnalysis(false);
+		rr.setConservedMoietyAnalysis(false);
 
 		libsbml::SBMLReader reader;
 		std::string fullPath = modelFilePath + "/" + modelFileName;
@@ -258,7 +279,7 @@ bool RunTestModelFromScratch(void(*generate)(RoadRunner*),std::string version = 
 		{
 			throw(Exception("Failed loading simulation settings"));
 		}
-		generate(rr);
+		generate(&rr);
 		//Then Simulate model
 		if (!simulation.Simulate())
 		{
@@ -281,6 +302,7 @@ bool RunTestModelFromScratch(void(*generate)(RoadRunner*),std::string version = 
 		result = simulation.Pass();
 		result = simulation.SaveAllData() && result;
 		result = simulation.SaveModelAsXML(dataOutputFolder) && result;
+		result = validateModifiedSBML(rr.getCurrentSBML()) && result;
 		if (!result)
 		{
 			Log(Logger::LOG_WARNING) << "\t\t =============== Test " << testName << " failed =============\n";
@@ -294,21 +316,16 @@ bool RunTestModelFromScratch(void(*generate)(RoadRunner*),std::string version = 
 	{
 		string error = ex.what();
 		cerr << "Case " << testName << ": Exception: " << error << endl;
-		delete rr;
 		return false;
 	}
 
-	delete rr;
 	return result;
 }
 
 bool RunTestWithEdit(const string& version, int caseNumber, void(*edit)(RoadRunner*, libsbml::SBMLDocument*), std::string editName)
 {
 	bool result(false);
-	RoadRunner *rr;
-
-	//Create instance..
-	rr = new RoadRunner();
+	RoadRunner rr;
 
 	//Setup environment
 	//setTempFolder(gRR, gTempFolder.c_str());
@@ -322,7 +339,7 @@ bool RunTestWithEdit(const string& version, int caseNumber, void(*edit)(RoadRunn
 		string logFileName;
 		string settingsFileName;
 
-		rr->getIntegrator()->setValue("stiff", false);
+		rr.getIntegrator()->setValue("stiff", false);
 
 		//Create a log file name
 		createTestSuiteFileNameParts(caseNumber, ".log", dummy, logFileName, settingsFileName);
@@ -342,7 +359,7 @@ bool RunTestWithEdit(const string& version, int caseNumber, void(*edit)(RoadRunn
 
 		TestSuiteModelSimulation simulation(dataOutputFolder);
 
-		simulation.UseEngine(rr);
+		simulation.UseEngine(&rr);
 
 		//Read SBML models.....
 		string modelFilePath(gTSModelsPath);
@@ -357,7 +374,7 @@ bool RunTestWithEdit(const string& version, int caseNumber, void(*edit)(RoadRunn
 		simulation.ReCompileIfDllExists(true);
 		simulation.CopyFilesToOutputFolder();
 		//setTempFolder(gRR, simulation.GetDataOutputFolder().c_str());
-		rr->setConservedMoietyAnalysis(false);
+		rr.setConservedMoietyAnalysis(false);
 
 		libsbml::SBMLReader reader;
 		std::string fullPath = modelFilePath + "/" + modelFileName;
@@ -390,7 +407,7 @@ bool RunTestWithEdit(const string& version, int caseNumber, void(*edit)(RoadRunn
 		opt.modelGeneratorOpt = opt.modelGeneratorOpt | LoadSBMLOptions::OPTIMIZE_GVN;
 
 
-		rr->load(fullPath, &opt);
+		rr.load(fullPath, &opt);
 
 		//Then read settings file if it exists..
 		string settingsOveride("");
@@ -399,7 +416,7 @@ bool RunTestWithEdit(const string& version, int caseNumber, void(*edit)(RoadRunn
 			throw(Exception("Failed loading simulation settings"));
 		}
 		//Perform the model editing action
-		edit(rr, &doc);
+		edit(&rr, &doc);
 		//Then Simulate model
 		if (!simulation.Simulate())
 		{
@@ -422,6 +439,7 @@ bool RunTestWithEdit(const string& version, int caseNumber, void(*edit)(RoadRunn
 		result = simulation.Pass();
 		result = simulation.SaveAllData() && result;
 		result = simulation.SaveModelAsXML(dataOutputFolder) && result;
+		result = validateModifiedSBML(rr.getCurrentSBML()) && result;
 		if (!result)
 		{
 			Log(Logger::LOG_WARNING) << "\t\t =============== Test " << caseNumber << " failed =============\n";
@@ -435,11 +453,9 @@ bool RunTestWithEdit(const string& version, int caseNumber, void(*edit)(RoadRunn
 	{
 		string error = ex.what();
 		cerr << "Case " << caseNumber << ": Exception: " << error << endl;
-		delete rr;
 		return false;
 	}
 
-	delete rr;
 	return result;
 }
 
