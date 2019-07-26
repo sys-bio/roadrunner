@@ -639,18 +639,6 @@ double toDouble(const string& str)
     return std::numeric_limits<double>::quiet_NaN();
 }
 
-vector<string> toStringVector(const string& str)
-{
-	// string vector is in the form "[s1,s2,s3...sn]"
-	// get rid of '[' and ']' first
-
-	size_t start = str.find("[");
-	string res = str.substr(start + 1, str.size() - 1);
-	// parse into string vector
-	vector<string> parts(splitString(res, ","));
-	return parts;
-}
-
 
 complex<double> toComplex(const string& str)
 {
