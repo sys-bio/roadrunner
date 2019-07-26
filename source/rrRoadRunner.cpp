@@ -5747,7 +5747,7 @@ void RoadRunner::removeEvent(const std::string & eid, bool forceRegenerate)
 		throw std::invalid_argument("Roadrunner::removeEvent failed, no event with ID " + eid + " existed in the model");
 	}
 	Log(Logger::LOG_DEBUG) << "Removing event " << eid << "..." << endl;
-	checkGlobalParameters();
+	// checkGlobalParameters();
 	delete toDelete;
 	regenerate(forceRegenerate);
 }
@@ -6007,7 +6007,7 @@ void RoadRunner::removeVariable(const std::string& sid) {
 		index++;
 	}
 
-	//checkGlobalParameters();
+	checkGlobalParameters();
 }
 
 bool RoadRunner::hasVariable(const libsbml::ASTNode* node, const string& sid) 
