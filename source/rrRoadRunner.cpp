@@ -988,7 +988,7 @@ void RoadRunner::load(const string& uriOrSbml, const Dictionary *dict)
 	{
 		string errors = validateSBML(mCurrentSBML);
 		if (!errors.empty()) {
-			throw std::exception(errors.c_str());
+			throw std::runtime_error(errors.c_str());
 		}
 	}
     try {
