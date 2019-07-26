@@ -983,8 +983,16 @@ void RoadRunner::load(const string& uriOrSbml, const Dictionary *dict)
         mCurrentSBML = fixMissingStoich(mCurrentSBML);
         Log(Logger::LOG_WARNING)<<"Stoichiometry is not defined for all reactions; assuming unit stoichiometry where missing";
     }
-    try {
 
+	if ((impl->loadOpt.loadFlags & LoadSBMLOptions::TURN_ON_VALIDATION) == 1)
+	{
+		string errors = validateSBML(mCurrentSBML);
+		if (!errors.empty()) {
+			throw std::exception(errors.c_str());
+		}
+	}
+    try {
+		
     // the following lines load and compile the model. If anything fails here,
     // we validate the model to provide explicit details about where it
     // failed. Its *VERY* expensive to pre-validate the model.
