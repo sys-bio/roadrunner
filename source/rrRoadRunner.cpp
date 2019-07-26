@@ -5236,7 +5236,7 @@ void RoadRunner::addSpecies(const std::string& sid, const std::string& compartme
 		newSpecies->setHasOnlySubstanceUnits(true);
 	}
 	
-	// default: set boundarycondition and constant as false
+	// set required attributes to default
 	newSpecies->setBoundaryCondition(false);
 	newSpecies->setConstant(false);
 
@@ -5457,6 +5457,7 @@ void RoadRunner::addReaction(const string& rid, vector<string> reactants, vector
 	KineticLaw* kLaw = newReaction->createKineticLaw();
 	kLaw->setFormula(kineticLaw);
 
+	// set required attributes to default
 	newReaction->setReversible(false);
 	newReaction->setFast(false);
 	
@@ -5491,7 +5492,6 @@ void RoadRunner::setReversible(const std::string& rid,bool reversible, bool forc
 	}
 
 	Log(Logger::LOG_DEBUG) << "Setting reversible attribute for reaction " << rid << "..." << endl;
-
 	reaction->setReversible(reversible);
 
 	regenerate(forceRegenerate);
@@ -5536,6 +5536,8 @@ void RoadRunner::addParameter(const std::string& pid, double value, bool forceRe
 
 	newParameter->setId(pid);
 	newParameter->setValue(value);
+	// set required attributes to default
+	newParameter->setConstant(false);
 
 	regenerate(forceRegenerate);
 }
@@ -5548,14 +5550,11 @@ void RoadRunner::removeParameter(const std::string& pid, bool forceRegenerate)
 		throw std::invalid_argument("Roadrunner::removeParameter failed, no parameter with ID " + pid + " existed in the model");
 	}
 	Log(Logger::LOG_DEBUG) << "Removing parameter " << pid << "..." << endl;
-	
-
 	removeVariable(pid);
 	delete toDelete;
+
 	regenerate(forceRegenerate);
 }
-
-
 
 
 void RoadRunner::addCompartment(const std::string& cid, double initVolume, bool forceRegenerate)
@@ -5566,7 +5565,7 @@ void RoadRunner::addCompartment(const std::string& cid, double initVolume, bool 
 
 	newCompartment->setId(cid);
 	newCompartment->setVolume(initVolume);
-	// default: not constant
+	// set required attributes to default
 	newCompartment->setConstant(false);
 
 	regenerate(forceRegenerate);
@@ -5605,8 +5604,6 @@ void RoadRunner::removeCompartment(const std::string& cid, bool forceRegenerate)
 	delete toDelete;
 	regenerate(forceRegenerate);
 }
-
-
 
 
 // TODO: A reaction’s identifier cannot be the target of an InitialAssignment, EventAssignment, or Rule object
@@ -5674,6 +5671,7 @@ void RoadRunner::addEvent(const std::string& eid, bool useValuesFromTriggerTime,
 	Log(Logger::LOG_DEBUG) << "Adding event " << eid << "..." << endl;
 	Event* newEvent = sbmlModel->createEvent();
 	newEvent->setId(eid);
+	newEvent->setUseValuesFromTriggerTime(useValuesFromTriggerTime);
 
 	Trigger* newTrigger = newEvent->createTrigger();
 	ASTNode_t* formula = libsbml::SBML_parseL3Formula(trigger.c_str());
@@ -5682,7 +5680,14 @@ void RoadRunner::addEvent(const std::string& eid, bool useValuesFromTriggerTime,
 		throw std::invalid_argument("Roadrunner::addEvent failed, an error occurred in parsing the trigger formula");
 	}
 	newTrigger->setMath(formula);
-
+	// set required attribute to default
+	// TODO: should default be true or false?
+	if (sbmlModel->getLevel() > 2)
+	{
+		newTrigger->setPersistent(false);
+		newTrigger->setInitialValue(false);
+	}
+	
 	// model regeneration will throw RuntimeError if the given formula is not valid
 	regenerate(forceRegenerate);
 }
@@ -5698,7 +5703,7 @@ void RoadRunner::addTrigger(const std::string& eid, const std::string& trigger, 
 	}
 
 	Trigger* newTrigger = event->createTrigger();
-	
+
 	Log(Logger::LOG_DEBUG) << "Adding trigger for event " << eid << "..." << endl;
 	ASTNode_t* formula = libsbml::SBML_parseL3Formula(trigger.c_str());
 	if (formula == NULL)
@@ -5706,8 +5711,67 @@ void RoadRunner::addTrigger(const std::string& eid, const std::string& trigger, 
 		throw std::invalid_argument("Roadrunner::addTrigger failed, an error occurred in parsing the teigger formula");
 	}
 	newTrigger->setMath(formula);
+	// set required attributes to default
+	if (impl->document->getModel()->getLevel() > 3)
+	{
+		newTrigger->setPersistent(false);
+		newTrigger->setInitialValue(false);
+	}
+	
 
 	// model regeneration will throw RuntimeError if the given formula is not valid
+	regenerate(forceRegenerate);
+}
+
+void RoadRunner::setPersistent(const std::string& eid, bool persistent, bool forceRegenerate) {
+	using namespace libsbml;
+	Event* event = impl->document->getModel()->getEvent(eid);
+
+	if (impl->document->getLevel() < 3)
+	{
+		throw std::runtime_error("Roadrunner::setPersistent failed, current SBML level and version does not have peresistent attribute in the trigger");
+	}
+
+	if (event == NULL)
+	{
+		throw std::invalid_argument("Roadrunner::setPersistent failed, no event " + eid + " existed in the model");
+	}
+
+	Trigger* trigger = event->getTrigger();
+	if (trigger == NULL)
+	{
+		throw std::invalid_argument("Roadrunner::setPersistent failed, given event " + eid + " does not have a trigger");
+	}
+
+	Log(Logger::LOG_DEBUG) << "Setting persistent for trigger of " << eid << "..." << endl;
+	trigger->setPersistent(persistent);
+
+	regenerate(forceRegenerate);
+}
+
+void RoadRunner::setTriggerInitialValue(const std::string& eid, bool initValue, bool forceRegenerate) {
+	using namespace libsbml;
+	Event* event = impl->document->getModel()->getEvent(eid);
+
+	if (impl->document->getLevel() < 3)
+	{
+		throw std::runtime_error("Roadrunner::setTriggerInitialValue failed, current SBML level and version does not have initialValue attribute in the trigger");
+	}
+
+	if (event == NULL)
+	{
+		throw std::invalid_argument("Roadrunner::setTriggerInitialValue failed, no event " + eid + " existed in the model");
+	}
+
+	Trigger* trigger = event->getTrigger();
+	if (trigger == NULL)
+	{
+		throw std::invalid_argument("Roadrunner::setTriggerInitialValue failed, given event " + eid + " does not have a trigger");
+	}
+
+	Log(Logger::LOG_DEBUG) << "Setting initial value for trigger of " << eid << "..." << endl;
+	trigger->setInitialValue(initValue);
+
 	regenerate(forceRegenerate);
 }
 

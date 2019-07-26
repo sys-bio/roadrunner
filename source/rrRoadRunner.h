@@ -759,7 +759,7 @@ public:
 
 	/**
 	 * Set the constant attribute for an existing species/ parameter/ compartment
-	 * By default, the constant attribute for is false.
+	 * By default, the constant attribute is false.
 	 * @param sid: the ID of a species/ parameter/ compartment
 	 * @param constant: the constant attribute to be set
 	 * @param forceRegenerate: a boolean value to indicate if the model is regenerated
@@ -964,6 +964,34 @@ public:
 	*					      set this flag to true only in the last call of editing
 	*/
 	void addTrigger(const std::string& eid, const std::string& trigger, bool forceRegenerate = true);
+
+	/*
+	* Set the persistent attribute of the trigger of given event
+	* By default, the peresistent attribute is false
+	* @param eid: the ID of the event of the trigger
+	* @param persistent: the persistent attribute to be set
+	* @param forceRegenerate: a boolean value to indicate if the model is regenerated
+	*					      after this function call
+	*						  default value is true to regenerate model after each call
+	*                         of editing function
+	*						  to save time for editing for multiple times, one could
+	*					      set this flag to true only in the last call of editing
+	*/
+	void setPersistent(const std::string& eid, bool persistent, bool forceRegenerate = true);
+
+	/*
+	* Set the initial value attribute of the trigger of given event
+	* By default, the initial value attribute is false
+	* @param eid: the ID of the event of the trigger
+	* @param initValue: the initial value attribute to be set
+	* @param forceRegenerate: a boolean value to indicate if the model is regenerated
+	*					      after this function call
+	*						  default value is true to regenerate model after each call
+	*                         of editing function
+	*						  to save time for editing for multiple times, one could
+	*					      set this flag to true only in the last call of editing
+	*/
+	void setTriggerInitialValue(const std::string& eid, bool initValue, bool forceRegenerate = true);
 
 	/*
 	* Add priority to an existing event in the model
