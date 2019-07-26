@@ -564,7 +564,6 @@ namespace rr
 		// events, needed so root finder works.
 		int allocStateVectorSize = 0;
 		int realStateVectorSize = mModel->getStateVector(0);
-		mModel->getNumReactions();
 
 		// cvode return code
 		int err;
