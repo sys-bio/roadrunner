@@ -5348,20 +5348,33 @@ void RoadRunner::setBoundary(const std::string& sid, bool boundaryCondition, boo
 	regenerate(forceRegenerate);
 }
 
-void RoadRunner::setConstantSpecies(const std::string& sid, bool constant, bool forceRegenerate)
+void RoadRunner::setConstant(const std::string& sid, bool constant, bool forceRegenerate)
 {
 	using namespace libsbml;
 	Model* sbmlModel = impl->document->getModel();
 	Species* species = sbmlModel->getSpecies(sid);
+	Parameter* parameter = sbmlModel->getParameter(sid);
+	Compartment* compartment = sbmlModel->getCompartment(sid);
 
-	if (species == NULL)
+	if (species != NULL)
 	{
-		throw std::invalid_argument("Roadrunner::setConstantSpecies failed, no species with ID " + sid + " existed in the model");
+		Log(Logger::LOG_DEBUG) << "Setting constant attribute for species " << sid << "..." << endl;
+		species->setConstant(constant);
+	} 
+	else if (parameter != NULL)
+	{
+		Log(Logger::LOG_DEBUG) << "Setting constant attribute for parameter " << sid << "..." << endl;
+		parameter->setConstant(constant);
 	}
-
-	Log(Logger::LOG_DEBUG) << "Setting constant attribute for species " << sid << "..." << endl;
-
-	species->setConstant(constant);
+	else if (compartment != NULL)
+	{
+		Log(Logger::LOG_DEBUG) << "Setting constant attribute for compartment " << sid << "..." << endl;
+		compartment->setConstant(constant);
+	}
+	else
+	{
+		throw std::invalid_argument("Roadrunner::setConstant failed, no species/ parameter/ compartment with ID " + sid + " existed in the model");
+	}
 
 	regenerate(forceRegenerate);
 }

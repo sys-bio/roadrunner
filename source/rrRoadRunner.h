@@ -758,10 +758,10 @@ public:
 	void setBoundary(const std::string& sid, bool boundaryCondition, bool forceRegenerate = true);
 
 	/**
-	 * Set the constant attribute of an existing species
-	 * By default, the constant attribute for a species is false.
-	 * @param sid: the ID of the species
-	 * @param constant: the constant attribute to be set`
+	 * Set the constant attribute for an existing species/ parameter/ compartment
+	 * By default, the constant attribute for is false.
+	 * @param sid: the ID of a species/ parameter/ compartment
+	 * @param constant: the constant attribute to be set
 	 * @param forceRegenerate: a boolean value to indicate if the model is regenerated
 	 *					       after this function call
 	 *						   default value is true to regenerate model after each call
@@ -769,7 +769,7 @@ public:
 	 *						   to save time for editing for multiple times, one could
 	 *					       set this flag to true only in the last call of editing
 	 */
-	void setConstantSpecies(const std::string& sid, bool constant, bool forceRegenerate = true);
+	void setConstant(const std::string& sid, bool constant, bool forceRegenerate = true);
 
 
 	/*
@@ -817,6 +817,7 @@ public:
 
 	/*
 	* Set the reversible attribut for an existing reaction in the current model
+	* By default, the reversible attribute for a reaction is false.
 	* @param rid: the ID of reaction to be modified
 	* @param reversible: the reversible attribute to be set
 	* @param forceRegenerate: a boolean value to indicate if the model is regenerated
@@ -867,6 +868,7 @@ public:
 	 *					       set this flag to true only in the last call of editing
 	 */
 	void removeParameter(const std::string& pid, bool forceRegenerate = true);
+
 
 
 	/**
