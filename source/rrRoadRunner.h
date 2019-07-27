@@ -1524,6 +1524,12 @@ private:
 	bool hasVariable(const libsbml::ASTNode* node, const string& sid);
 
 	/*
+	* Get the names of all the species involved in a given AST
+	*/
+	void RoadRunner::getSpeciesIdsFromAST(const libsbml::ASTNode* node, std::vector<string>& species);
+	void RoadRunner::getSpeciesIdsFromAST(const libsbml::ASTNode* node, std::vector<string>& species, std::vector<string>& speciesNames);
+
+	/*
 	* check and remove all parameter without any assignments
 	*/
 	void checkGlobalParameters();

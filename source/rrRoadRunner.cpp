@@ -5457,6 +5457,18 @@ void RoadRunner::addReaction(const string& rid, vector<string> reactants, vector
 	KineticLaw* kLaw = newReaction->createKineticLaw();
 	kLaw->setFormula(kineticLaw);
 
+	std::vector<string> kLawSpeciesIds;
+	getSpeciesIdsFromAST(kLaw->getMath(), kLawSpeciesIds);
+	for (string s : kLawSpeciesIds)
+	{
+		if (std::find(products.begin(), products.end(), s) == products.end()
+			&& std::find(reactants.begin(), reactants.end(), s) == reactants.end())
+		{
+			newReaction->addModifier(sbmlModel->getSpecies(s));
+		}
+	}
+
+
 	// set required attributes to default
 	newReaction->setReversible(false);
 	newReaction->setFast(false);
@@ -5521,6 +5533,41 @@ void RoadRunner::setKineticLaw(const std::string& rid, const std::string& kineti
 		law = reaction->createKineticLaw();
 	}
 	law->setFormula(kineticLaw);
+
+	std::vector<string> kLawSpeciesIds;
+	getSpeciesIdsFromAST(law->getMath(), kLawSpeciesIds);
+	for (string s : kLawSpeciesIds)
+	{
+		bool isProduct = false;
+		ListOfSpeciesReferences *products = reaction->getListOfProducts();
+		for (int i = 0; i < products->size(); i++)
+		{
+			if (products->get(i)->getId() == s)
+			{
+				isProduct = true;
+				break;
+			}
+		}
+
+		if (!isProduct)
+		{
+			bool isReactant = false;
+			ListOfSpeciesReferences *reactants = reaction->getListOfReactants();
+			for (int i = 0; i < reactants->size(); i++)
+			{
+				if (reactants->get(i)->getId() == s)
+				{
+					isReactant = true;
+					break;
+				}
+			}
+
+			if (!isReactant)
+			{
+				reaction->addModifier(sbmlModel->getSpecies(s));
+			}
+		}
+	}
 
 	regenerate(forceRegenerate);
 }
@@ -6170,6 +6217,31 @@ bool RoadRunner::hasVariable(const libsbml::ASTNode* node, const string& sid)
 		}
 	}
 	return false;
+}
+
+
+void RoadRunner::getSpeciesIdsFromAST(const libsbml::ASTNode* node, vector<string>& species)
+{
+	vector<string> speciesNames = getFloatingSpeciesIds();
+	auto boundarySpecies = getBoundarySpeciesIds();
+	speciesNames.insert(speciesNames.begin(), boundarySpecies.begin(), boundarySpecies.end());
+	getSpeciesIdsFromAST(node, species, speciesNames);
+}
+
+void RoadRunner::getSpeciesIdsFromAST(const libsbml::ASTNode* node, vector<string>& species, vector<string>& instanceSpeciesNames)
+{
+	if (node == NULL) return;
+	if (!node->isOperator() && !node->isNumber())
+	{
+		if (std::find(instanceSpeciesNames.begin(), instanceSpeciesNames.end(), node->getName()) != instanceSpeciesNames.end())
+		{
+			species.push_back(node->getName());
+		}
+	}
+	for (uint i = 0; i < node->getNumChildren(); i++)
+	{
+		getSpeciesIdsFromAST(node->getChild(i), species, instanceSpeciesNames);
+	}
 }
 
 
