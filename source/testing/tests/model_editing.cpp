@@ -199,7 +199,10 @@ bool RunModelEditingTest(void(*modification)(RoadRunner*),std::string version = 
 bool RunTestModelFromScratch(void(*generate)(RoadRunner*),std::string version = "l2v4")
 {
 	bool result(false);
-	RoadRunner rr;
+	int level = version.at(1) - '0';
+	int versionNum = version.at(3) - '0';
+	RoadRunner rr(level, versionNum);
+
 
 	string testName(UnitTest::CurrentTest::Details()->testName);
 	string suiteName(UnitTest::CurrentTest::Details()->suiteName);
