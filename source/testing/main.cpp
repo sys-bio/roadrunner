@@ -99,7 +99,7 @@ int main(int argc, char* argv[])
     //Finish outputs result to xml file
     runner1.Finish();
     //    Pause();
-    return 0;
+    return runner1.GetTestResults()->GetFailedTestCount();
 }
 
 void ProcessCommandLineArguments(int argc, char* argv[], Args& args)
