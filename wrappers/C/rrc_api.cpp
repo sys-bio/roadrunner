@@ -623,6 +623,7 @@ RRCDataPtr rrcCallConv simulate(RRHandle handle)
 {
 	start_try
 		RoadRunner* rri = castToRoadRunner(handle);
+		//rri->setConservedMoietyAnalysis(true);
 		rri->simulate();
         return createRRCData(*rri);
     catch_ptr_macro
