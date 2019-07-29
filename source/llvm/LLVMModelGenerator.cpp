@@ -77,7 +77,7 @@ ExecutableModel* LLVMModelGenerator::regenerateModel(ExecutableModel* oldModel, 
 
 	SharedModelPtr rc(new ModelResources());
 
-	ModelGeneratorContext context(doc, options);
+	ModelGeneratorContext context(doc->toSBML(), options);
 
 	// code generation part
 
@@ -630,7 +630,7 @@ ExecutableModel* LLVMModelGenerator::createModel(const std::string& sbml,
 
     if (!forceReCompile)
     {
-        // check for a chached copy
+        // check for a cached copy
         md5 = rr::getMD5(sbml);
 
         if (options & LoadSBMLOptions::CONSERVED_MOIETIES)
