@@ -1375,7 +1375,7 @@ void RoadRunner::setConservedMoietyAnalysis(bool value)
         // have to reload
         self.loadOpt.modelGeneratorOpt |= LoadSBMLOptions::RECOMPILE;
 
-        load(getSBML());
+		regenerate(true);
 
         // restore original reload value
         self.loadOpt.modelGeneratorOpt = savedOpt;
@@ -1600,6 +1600,7 @@ const DoubleMatrix* RoadRunner::simulate(const Dictionary* dict)
     get_self();
     check_model();
 
+	//regenerate(true);
     const SimulateOptions *opt = dynamic_cast<const SimulateOptions*>(dict);
 
     if (opt) {
