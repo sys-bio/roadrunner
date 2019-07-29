@@ -210,6 +210,116 @@ ModelGeneratorContext::ModelGeneratorContext(std::string const &sbml,
     }
 }
 
+ModelGeneratorContext::ModelGeneratorContext(libsbml::SBMLDocument const *doc,
+    unsigned options) :
+        ownedDoc(0),
+        doc(doc),
+        symbols(new LLVMModelDataSymbols(doc->getModel(), options)),
+        modelSymbols(new LLVMModelSymbols(getModel(), *symbols)),
+        errString(new string()),
+        context(0),
+        executionEngine(0),
+        builder(0),
+        functionPassManager(0),
+        options(options),
+        moietyConverter(0),
+        random(0)
+{
+    if(useSymbolCache()) {
+        Log(Logger::LOG_INFORMATION) << "Using LLVM symbol/value cache";
+    } else {
+        Log(Logger::LOG_INFORMATION) << "Not using LLVM symbol/value cache";
+    }
+
+    try
+    {
+        if (options & LoadSBMLOptions::CONSERVED_MOIETIES)
+        {
+            Log(Logger::LOG_NOTICE) << "performing conserved moiety conversion";
+
+            moietyConverter = new rr::conservation::ConservedMoietyConverter();
+
+            if (moietyConverter->setDocument(doc) != LIBSBML_OPERATION_SUCCESS)
+            {
+                throw_llvm_exception("error setting conserved moiety converter document");
+            }
+
+            if (moietyConverter->convert() != LIBSBML_OPERATION_SUCCESS)
+            {
+                throw_llvm_exception("error converting document to conserved moieties");
+            }
+
+            this->doc = moietyConverter->getDocument();
+
+            SBMLWriter sw;
+            char* convertedStr = sw.writeToString(doc);
+
+            Log(Logger::LOG_INFORMATION) << "***************** Conserved Moiety Converted Document ***************";
+            Log(Logger::LOG_INFORMATION) << convertedStr;
+            Log(Logger::LOG_INFORMATION) << "*********************************************************************";
+
+            delete convertedStr;
+        }
+        else
+        {
+            this->doc = doc;
+        }
+
+        symbols = new LLVMModelDataSymbols(doc->getModel(), options);
+
+        modelSymbols = new LLVMModelSymbols(getModel(), *symbols);
+
+
+        // initialize LLVM
+        // TODO check result
+        InitializeNativeTarget();
+		InitializeNativeTargetAsmPrinter();
+		InitializeNativeTargetAsmParser();
+
+
+        context = new LLVMContext();
+        // Make the module, which holds all the code.
+        module_uniq = unique_ptr<Module>(new Module("LLVM Module", *context));
+		module = module_uniq.get();
+
+        builder = new IRBuilder<>(*context);
+
+        // engine take ownership of module
+        EngineBuilder engineBuilder(std::move(module_uniq));
+
+        //engineBuilder.setEngineKind(EngineKind::JIT);
+        engineBuilder.setErrorStr(errString);
+        executionEngine = engineBuilder.create();
+
+        addGlobalMappings();
+
+		//I'm just hoping that none of these functions try to call delete on module
+        createLibraryFunctions(module);
+
+        ModelDataIRBuilder::createModelDataStructType(module, executionEngine, *symbols);
+
+        // check if doc has distrib package
+        // Random adds mappings, need call after llvm objs created
+#ifdef LIBSBML_HAS_PACKAGE_DISTRIB
+        const DistribSBMLDocumentPlugin* distrib =
+                dynamic_cast<const DistribSBMLDocumentPlugin*>(
+                        doc->getPlugin("distrib"));
+        if(distrib)
+        {
+            random = new Random(*this);
+        }
+#endif
+
+        initFunctionPassManager();
+
+    }
+    catch(const std::exception&)
+    {
+        cleanup();
+        throw;
+    }
+}
+
 
 static SBMLDocument *createEmptyDocument()
 {
