@@ -145,7 +145,7 @@ LLVMModelDataSymbols::LLVMModelDataSymbols(const libsbml::Model *model,
 
             if (dynamic_cast<const AssignmentRule*>(rule))
             {
-                assigmentRules.insert(rule->getVariable());
+                assignmentRules.insert(rule->getVariable());
             }
             else if (dynamic_cast<const RateRule*>(rule))
             {
@@ -597,12 +597,12 @@ std::string rrllvm::LLVMModelDataSymbols::getRateRuleId(uint indx) const
 bool LLVMModelDataSymbols::isIndependentElement(const std::string& id) const
 {
     return rateRules.find(id) == rateRules.end() &&
-            assigmentRules.find(id) == assigmentRules.end();
+            assignmentRules.find(id) == assignmentRules.end();
 }
 
 bool LLVMModelDataSymbols::hasAssignmentRule(const std::string& id) const
 {
-    return assigmentRules.find(id) != assigmentRules.end();
+    return assignmentRules.find(id) != assignmentRules.end();
 }
 
 bool LLVMModelDataSymbols::hasRateRule(const std::string& id) const
@@ -1477,7 +1477,7 @@ bool LLVMModelDataSymbols::isIndependentInitElement(
         const std::string& id) const
 {
     return (initAssignmentRules.find(id) == initAssignmentRules.end() &&
-            assigmentRules.find(id) == assigmentRules.end()) ||
+            assignmentRules.find(id) == assignmentRules.end()) ||
             (isConservedMoietySpecies(id) && hasInitialAssignmentRule(id));
 }
 
@@ -1642,7 +1642,7 @@ void LLVMModelDataSymbols::saveState(std::ostream& out) const
     rr::saveBinary(out, stoichIds);
     
     rr::saveBinary(out, stoichTypes);
-	rr::saveBinary(out, assigmentRules);
+	rr::saveBinary(out, assignmentRules);
 	rr::saveBinary(out, rateRules);
 	rr::saveBinary(out, globalParameterRateRules);
 	rr::saveBinary(out, independentFloatingSpeciesSize);
@@ -1690,7 +1690,7 @@ void LLVMModelDataSymbols::loadState(std::istream& in)
     rr::loadBinary(in, stoichIds);
 
     rr::loadBinary(in, stoichTypes);
-	rr::loadBinary(in, assigmentRules);
+	rr::loadBinary(in, assignmentRules);
 	rr::loadBinary(in, rateRules);
 	rr::loadBinary(in, globalParameterRateRules);
 	rr::loadBinary(in, independentFloatingSpeciesSize);
