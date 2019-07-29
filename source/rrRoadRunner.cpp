@@ -1601,9 +1601,6 @@ const DoubleMatrix* RoadRunner::simulate(const Dictionary* dict)
     get_self();
     check_model();
 	
-	//setConservedMoietyAnalysis(true);
-
-	//regenerate(true);
     const SimulateOptions *opt = dynamic_cast<const SimulateOptions*>(dict);
 
     if (opt) {

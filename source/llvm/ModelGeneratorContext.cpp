@@ -265,7 +265,7 @@ ModelGeneratorContext::ModelGeneratorContext(libsbml::SBMLDocument const *doc,
             this->doc = doc;
         }
 
-        symbols = new LLVMModelDataSymbols(doc->getModel(), options);
+        symbols = new LLVMModelDataSymbols(getModel(), options);
 
         modelSymbols = new LLVMModelSymbols(getModel(), *symbols);
 
