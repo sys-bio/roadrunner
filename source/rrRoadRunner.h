@@ -758,6 +758,19 @@ public:
 	void setBoundary(const std::string& sid, bool boundaryCondition, bool forceRegenerate = true);
 
 	/**
+	 * Set the hasOnlySubstanceUnits attribute for an existing species.
+	 * @param sid: the ID of a species
+	 * @param constant: the value of hasOnlySubstanceUnits attribute to be set
+	 * @param forceRegenerate: a boolean value to indicate if the model is regenerated
+	 *					       after this function call
+	 *						   default value is true to regenerate model after each call
+	 *                         of editing function
+	 *						   to save time for editing for multiple times, one could
+	 *					       set this flag to true only in the last call of editing
+	 */
+	void setHasOnlySubstanceUnits(const std::string& sid, bool hasOnlySubstanceUnits, bool forceRegenerate = true);
+
+	/**
 	 * Set the constant attribute for an existing species/ parameter/ compartment
 	 * By default, the constant attribute is false.
 	 * @param sid: the ID of a species/ parameter/ compartment
@@ -770,6 +783,9 @@ public:
 	 *					       set this flag to true only in the last call of editing
 	 */
 	void setConstant(const std::string& sid, bool constant, bool forceRegenerate = true);
+
+
+
 
 
 	/*

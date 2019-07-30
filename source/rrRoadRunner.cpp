@@ -5343,8 +5343,24 @@ void RoadRunner::setBoundary(const std::string& sid, bool boundaryCondition, boo
 	}
 
 	Log(Logger::LOG_DEBUG) << "Setting boundary condition for species " << sid << "..." << endl;
-
 	species->setBoundaryCondition(boundaryCondition);
+
+	regenerate(forceRegenerate);
+}
+
+void RoadRunner::setHasOnlySubstanceUnits(const std::string& sid, bool hasOnlySubstanceUnits, bool forceRegenerate)
+{
+	using namespace libsbml;
+	Model* sbmlModel = impl->document->getModel();
+	Species* species = sbmlModel->getSpecies(sid);
+
+	if (species == NULL)
+	{
+		throw std::invalid_argument("Roadrunner::setHasOnlySubstanceUnits failed, no species with ID " + sid + " existed in the model");
+	}
+
+	Log(Logger::LOG_DEBUG) << "Setting hasOnlySubstanceUnits attribute for species " << sid << "..." << endl;
+	species->setHasOnlySubstanceUnits(hasOnlySubstanceUnits);
 
 	regenerate(forceRegenerate);
 }
