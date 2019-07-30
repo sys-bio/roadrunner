@@ -482,22 +482,34 @@ void readdAllSpecies(RoadRunner *rri, libsbml::SBMLDocument *doc)
 {
 	libsbml::ListOfSpecies *speciesToAdd = doc->getModel()->getListOfSpecies();
 	std::vector<std::string> currSpeciesIds = rri->getBoundarySpeciesIds();
+
 	for (std::string s : rri->getFloatingSpeciesIds())
 		currSpeciesIds.push_back(s);
-	if (speciesToAdd->size() > 0)
+
+	libsbml::Species *next;
+	for (int i = 0; i < speciesToAdd->size(); i++)
 	{
-		libsbml::Species *next;
-		for (int i = 0; i < speciesToAdd->size(); i++)
+		next = speciesToAdd->get(i);
+		if (std::find(currSpeciesIds.begin(), currSpeciesIds.end(), next->getId()) == currSpeciesIds.end())
 		{
-			next = speciesToAdd->get(i);
-			if (std::find(currSpeciesIds.begin(), currSpeciesIds.end(), next->getId()) == currSpeciesIds.end())
-			{
-				rri->addSpecies(next->getId(), next->getCompartment(), next->getInitialAmount(), next->getSubstanceUnits());
-				rri->setBoundary(next->getId(), next->getBoundaryCondition());
-			}
+			rri->addSpecies(next->getId(), next->getCompartment(), next->getInitialAmount(), next->getSubstanceUnits());
+			rri->setBoundary(next->getId(), next->getBoundaryCondition());
+			
 		}
 	}
 }
+
+/*void readdAllEvents(RoadRunner *rri, libsbml::SBMLDocument *doc)
+{
+	libsbml::ListOfEvents *eventsToAdd = doc->getModel()->getListOfEvents();
+
+	libsbml::Event *next;
+	for (int i = 0; i < eventsToAdd->size(); i++)
+	{
+		next = eventsToAdd->get(i);
+		rri->addEvent(next->getId(), next->getUseValuesFromTriggerTime(), next->getTrigger()->write
+	}
+}*/
 
 /*
 * Pre: the model must not contain any rules reliant on species values
@@ -878,7 +890,7 @@ SUITE(MODEL_EDITING_TEST_SUITE)
 		CHECK(RunModelEditingTest([](RoadRunner *rri)
 		{
 			rri->simulate();
-			rri->addRateRule("S1", "7");
+			rri->addRateRule("k1", "7");
 		}));
 	}
 
@@ -1150,14 +1162,10 @@ SUITE(MODEL_EDITING_TEST_SUITE)
 		clog << endl << "==== CHECK_READD_SPECIES ====" << endl << endl;
 		for (int i = 1; i <= 38; i++)
 		{
-			if (i != 21) //SBML test 21 requires species to have hasOnlySubstanceUnits="false", we currently don't support
-				// setting this so we skip this test
+			if (!RunTestWithEdit("l2v4", i, removeAndReaddAllSpecies, "removeAndReaddAllSpecies"))
 			{
-				if (!RunTestWithEdit("l2v4", i, removeAndReaddAllSpecies, "removeAndReaddAllSpecies"))
-				{
-					std::string failureMessage = "SBML Test " + to_string(i) + " failed";
-					UnitTest::CurrentTest::Results()->OnTestFailure(*UnitTest::CurrentTest::Details(), failureMessage.c_str());
-				}
+				std::string failureMessage = "SBML Test " + to_string(i) + " failed";
+				UnitTest::CurrentTest::Results()->OnTestFailure(*UnitTest::CurrentTest::Details(), failureMessage.c_str());
 			}
 		}
 	}
@@ -1173,6 +1181,7 @@ SUITE(MODEL_EDITING_TEST_SUITE)
 			}
 		}
 	}
+
 	TEST(READD_COMPARTMENTS)
 	{
 		clog << endl << "==== CHECK_READD_COMPARTMENTS ====" << endl << endl;

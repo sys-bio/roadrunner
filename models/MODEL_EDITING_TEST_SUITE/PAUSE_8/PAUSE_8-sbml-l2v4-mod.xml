@@ -9,7 +9,7 @@
       <species id="S2" name="S2" compartment="compartment" initialAmount="8.47540366690192E-09" substanceUnits="substance"/>
     </listOfSpecies>
     <listOfParameters>
-      <parameter id="k1" name="k1" value="0.35"/>
+      <parameter id="k1" name="k1" value="0.35" constant="false"/>
       <parameter id="k2" name="k2" value="180"/>
     </listOfParameters>
     <listOfReactions>
@@ -51,7 +51,7 @@
       </reaction>
     </listOfReactions>
 	<listOfRules>
-      <rateRule metaid="rule1" variable="S1">
+      <rateRule metaid="rule1" variable="k1">
         <math xmlns="http://www.w3.org/1998/Math/MathML">
           <cn type="integer"> 7 </cn>
         </math>
