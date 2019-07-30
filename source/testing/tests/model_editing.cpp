@@ -472,6 +472,7 @@ void readdAllReactions(RoadRunner *rri, libsbml::SBMLDocument *doc)
 	for (int i = 0; i < reactionsToAdd->size(); i++)
 	{
 		libsbml::Reaction *next = reactionsToAdd->get(i);
+		std::string test = next->toSBML();
 		if (std::find(currReactionIds.begin(), currReactionIds.end(), next->getId()) ==
 			currReactionIds.end())
 			rri->addReaction(next->toSBML());
@@ -491,7 +492,10 @@ void readdAllSpecies(RoadRunner *rri, libsbml::SBMLDocument *doc)
 		{
 			next = speciesToAdd->get(i);
 			if (std::find(currSpeciesIds.begin(), currSpeciesIds.end(), next->getId()) == currSpeciesIds.end())
-				rri->addSpecies(next->getId(), next->getCompartment(), next->getInitialConcentration(), "concentration");
+			{
+				rri->addSpecies(next->getId(), next->getCompartment(), next->getInitialAmount(), next->getUnits());
+				rri->setBoundary(next->getId(), next->getBoundaryCondition());
+			}
 		}
 	}
 }
