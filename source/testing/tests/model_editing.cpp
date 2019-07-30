@@ -494,7 +494,7 @@ void readdAllSpecies(RoadRunner *rri, libsbml::SBMLDocument *doc)
 		{
 			rri->addSpecies(next->getId(), next->getCompartment(), next->getInitialAmount(), next->getSubstanceUnits());
 			rri->setBoundary(next->getId(), next->getBoundaryCondition());
-			
+			rri->setHasOnlySubstanceUnits(next->getId(), next->getHasOnlySubstanceUnits());
 		}
 	}
 }

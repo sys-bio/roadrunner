@@ -5379,7 +5379,7 @@ void RoadRunner::setInitAmount(const std::string& sid, bool initAmount, bool for
 	if (species->isSetInitialConcentration())
 	{
 		Log(Logger::LOG_DEBUG) << "Unsetting initial volume for species " << sid << "..." << endl;
-		species->unsetInitialConcentration()
+		species->unsetInitialConcentration();
 	}
 
 	Log(Logger::LOG_DEBUG) << "Setting initial amount for species " << sid << "..." << endl;
