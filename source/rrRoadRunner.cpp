@@ -5343,8 +5343,70 @@ void RoadRunner::setBoundary(const std::string& sid, bool boundaryCondition, boo
 	}
 
 	Log(Logger::LOG_DEBUG) << "Setting boundary condition for species " << sid << "..." << endl;
-
 	species->setBoundaryCondition(boundaryCondition);
+
+	regenerate(forceRegenerate);
+}
+
+void RoadRunner::setHasOnlySubstanceUnits(const std::string& sid, bool hasOnlySubstanceUnits, bool forceRegenerate)
+{
+	using namespace libsbml;
+	Model* sbmlModel = impl->document->getModel();
+	Species* species = sbmlModel->getSpecies(sid);
+
+	if (species == NULL)
+	{
+		throw std::invalid_argument("Roadrunner::setHasOnlySubstanceUnits failed, no species with ID " + sid + " existed in the model");
+	}
+
+	Log(Logger::LOG_DEBUG) << "Setting hasOnlySubstanceUnits attribute for species " << sid << "..." << endl;
+	species->setHasOnlySubstanceUnits(hasOnlySubstanceUnits);
+
+	regenerate(forceRegenerate);
+}
+
+void RoadRunner::setInitAmount(const std::string& sid, bool initAmount, bool forceRegenerate)
+{
+	using namespace libsbml;
+	Model* sbmlModel = impl->document->getModel();
+	Species* species = sbmlModel->getSpecies(sid);
+
+	if (species == NULL)
+	{
+		throw std::invalid_argument("Roadrunner::setInitAmount failed, no species with ID " + sid + " existed in the model");
+	}
+
+	if (species->isSetInitialConcentration())
+	{
+		Log(Logger::LOG_DEBUG) << "Unsetting initial volume for species " << sid << "..." << endl;
+		species->unsetInitialConcentration()
+	}
+
+	Log(Logger::LOG_DEBUG) << "Setting initial amount for species " << sid << "..." << endl;
+	species->setInitialAmount(initAmount);
+
+	regenerate(forceRegenerate);
+}
+
+void RoadRunner::setInitConcentration(const std::string& sid, bool initConcentration, bool forceRegenerate)
+{
+	using namespace libsbml;
+	Model* sbmlModel = impl->document->getModel();
+	Species* species = sbmlModel->getSpecies(sid);
+
+	if (species == NULL)
+	{
+		throw std::invalid_argument("Roadrunner::setInitConcentration failed, no species with ID " + sid + " existed in the model");
+	}
+
+	if (species->isSetInitialAmount())
+	{
+		Log(Logger::LOG_DEBUG) << "Unsetting initial amount for species " << sid << "..." << endl;
+		species->unsetInitialAmount();
+	}
+
+	Log(Logger::LOG_DEBUG) << "Setting initial concentration for species " << sid << "..." << endl;
+	species->setInitialConcentration(initConcentration);
 
 	regenerate(forceRegenerate);
 }

@@ -715,11 +715,15 @@ public:
     double getUnscaledSpeciesElasticity(int reactionId, int speciesIndex);
 
 	/**
-	 * Add a species to the current model
+	 * Add a species to the current model.
 	 * @param sid: the ID of the species to be added
 	 * @param compartment: the compartment of the species to be added
 	 * @param initValue: the initial amount or concentration of the species to be added
+	 * If the given unit is concentration or density, initial concentration will be set
+	 * otherwise, initial amount will be set
 	 * @param substanceUnits: the substance unit of the species to be added
+	 * By default, we set hasOnlySubstanceUnits attribute to be false if the unit concentration or density,
+	 * and true for other units. 
 	 * @param forceRegenerate: a boolean value to indicate if the model is regenerated 
 	 *					       after this function call
 	 *						   default value is true to regenerate model after each call 
@@ -758,6 +762,48 @@ public:
 	void setBoundary(const std::string& sid, bool boundaryCondition, bool forceRegenerate = true);
 
 	/**
+	 * Set the hasOnlySubstanceUnits attribute for an existing species.
+	 * @param sid: the ID of a species
+	 * @param hasOnlySubstanceUnits: the value of hasOnlySubstanceUnits attribute to be set
+	 * @param forceRegenerate: a boolean value to indicate if the model is regenerated
+	 *					       after this function call
+	 *						   default value is true to regenerate model after each call
+	 *                         of editing function
+	 *						   to save time for editing for multiple times, one could
+	 *					       set this flag to true only in the last call of editing
+	 */
+	void setHasOnlySubstanceUnits(const std::string& sid, bool hasOnlySubstanceUnits, bool forceRegenerate = true);
+
+
+	/**
+	 * Set initial amount for an existing species. Initial amount/concentration set before will be unset.
+	 * @param sid: the ID of a species
+	 * @param initAmount: the initial amount to be set
+	 * @param forceRegenerate: a boolean value to indicate if the model is regenerated
+	 *					       after this function call
+	 *						   default value is true to regenerate model after each call
+	 *                         of editing function
+	 *						   to save time for editing for multiple times, one could
+	 *					       set this flag to true only in the last call of editing
+	 */
+	void setInitAmount(const std::string& sid, bool initAmount, bool forceRegenerate = true);
+
+
+	/**
+	 * Set initial concentration for an existing species. Initial amount/concentration set before will be unset.
+	 * @param sid: the ID of a species
+	 * @param initConcentration: the initial concentration to be set
+	 * @param forceRegenerate: a boolean value to indicate if the model is regenerated
+	 *					       after this function call
+	 *						   default value is true to regenerate model after each call
+	 *                         of editing function
+	 *						   to save time for editing for multiple times, one could
+	 *					       set this flag to true only in the last call of editing
+	 */
+	void setInitConcentration(const std::string& sid, bool initConcentration, bool forceRegenerate = true);
+
+
+	/**
 	 * Set the constant attribute for an existing species/ parameter/ compartment
 	 * By default, the constant attribute is false.
 	 * @param sid: the ID of a species/ parameter/ compartment
@@ -770,6 +816,7 @@ public:
 	 *					       set this flag to true only in the last call of editing
 	 */
 	void setConstant(const std::string& sid, bool constant, bool forceRegenerate = true);
+
 
 
 	/*
@@ -788,6 +835,7 @@ public:
 
 	/*
 	* Add a reaction to the current model
+	* By our default, the reaction is not reversible and not fast.
 	* @param rid: the ID of reaction to be added
 	* @param reactants: the list of reactant ID, double value could be inserted before ID as stoichiometry
 						e.g, [2S1] or [1.5S1]
@@ -817,7 +865,6 @@ public:
 
 	/*
 	* Set the reversible attribut for an existing reaction in the current model
-	* By default, the reversible attribute for a reaction is false.
 	* @param rid: the ID of reaction to be modified
 	* @param reversible: the reversible attribute to be set
 	* @param forceRegenerate: a boolean value to indicate if the model is regenerated
