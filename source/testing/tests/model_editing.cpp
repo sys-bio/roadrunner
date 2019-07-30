@@ -491,7 +491,7 @@ void readdAllSpecies(RoadRunner *rri, libsbml::SBMLDocument *doc)
 		{
 			next = speciesToAdd->get(i);
 			if (std::find(currSpeciesIds.begin(), currSpeciesIds.end(), next->getId()) == currSpeciesIds.end())
-				rri->addSpecies(next->getId(), next->getCompartment(), next->getInitialConcentration(), "concentration", false);
+				rri->addSpecies(next->getId(), next->getCompartment(), next->getInitialConcentration(), "concentration");
 		}
 	}
 }
@@ -505,13 +505,13 @@ void removeAndReaddAllSpecies(RoadRunner *rri, libsbml::SBMLDocument *doc)
 	std::vector<std::string> floatingSpeciesIds = rri->getFloatingSpeciesIds();
 	for (std::string sid : floatingSpeciesIds)
 	{
-		rri->removeSpecies(sid, false);
+		rri->removeSpecies(sid);
 	}
 
 	std::vector<std::string> boundarySpeciesIds = rri->getBoundarySpeciesIds();
 	for (std::string sid : boundarySpeciesIds)
 	{
-		rri->removeSpecies(sid, false);
+		rri->removeSpecies(sid);
 	}
 
 	//Readd all species
