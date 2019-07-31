@@ -1328,11 +1328,60 @@ def removeEventAssignments(rrInstance):
     print("Remove event assignments for" + words[1])
     rrInstance.removeEventAssignments(words[0], words[1], bool(words[2]))
 
+def setBoundary(rrInstance):
+    words = []
+    words = divide(readLine())
+    print("Set boundary condition for" + words[0])
+    rrInstance.setBoundary(words[0], bool(words[1]), bool(words[2]))
+
+def setHasOnlySubstanceUnits(rrInstance):
+    words = []
+    words = divide(readLine())
+    print("Set HasOnlySubstanceUnits for" + words[0])
+    rrInstance.setHasOnlySubstanceUnits(words[0], bool(words[1]), bool(words[2]))
+
+def setInitAmount(rrInstance):
+    words = []
+    words = divide(readLine())
+    print("Set initial amount for" + words[0])
+    rrInstance.setInitAmount(words[0], words[1], bool(words[2]))
+
+def setInitConcentration(rrInstance):
+    words = []
+    words = divide(readLine())
+    print("Set initial concentration for" + words[0])
+    rrInstance.setInitConcentration(words[0], words[1], bool(words[2]))
+
+def setConstant(rrInstance):
+    words = []
+    words = divide(readLine())
+    print("Set constant attribute for" + words[0])
+    rrInstance.setConstant(words[0], bool(words[1]), bool(words[2]))
+
+def setReversible(rrInstance):
+    words = []
+    words = divide(readLine())
+    print("Set reversible attribute for" + words[0])
+    rrInstance.setReversible(words[0], bool(words[1]), bool(words[2]))
+
+def setPersistent(rrInstance):
+    words = []
+    words = divide(readLine())
+    print("Set persistent attribute for" + words[0])
+    rrInstance.setPersistent(words[0], bool(words[1]), bool(words[2]))
+
+def setTriggerInitialValue(rrInstance):
+    words = []
+    words = divide(readLine())
+    print("Set TriggerInitialValue attribute for" + words[0])
+    rrInstance.setPersistent(words[0], bool(words[1]), bool(words[2]))
+
 def setKineticLaw(rrInstance):
     words = []
     words = divide(readLine())
     print("Set kinetic law for" + words[0])
     rrInstance.setKineticLaw(words[0], words[1], bool(words[2]))
+
 
 
 def scriptTests():
@@ -1429,7 +1478,15 @@ functions = {'[Add Species]' : addSpecies,
              '[Scaled Elasticity Matrix]': checkScaledElasticityMatrix,
              '[Scaled Elasticity Amount Matrix]': checkScaledElasticityAmountMatrix,
              '[Scaled Flux Control Matrix]': checkScaledFluxControlCoefficientMatrix,
+             '[Set Boundary]': setBoundary,
+             '[Set HasOnlySubstanceUnits]': setHasOnlySubstanceUnits,
+             '[Set Initial Amount]': setInitAmount,
+             '[Set Initial Concentration]': setInitConcentration,
+             '[Set Constant]': setConstant,
+             '[Set Reversible]': setReversible, 
              '[Set Kinetic Law]': setKineticLaw,
+             '[Set Persistent]': setPersistent,
+             '[Set Trigger Initial Value]': setTriggerInitialValue,
              '[Set Species Initial Concentrations By Index]': checkSetSpeciesInitialConcentrationsByIndex,
              '[Set Species Initial Concentrations]': checkSetSpeciesInitialConcentrations,
              '[Set Steady State Selection List]': checkSetSteadyStateSelectionList,

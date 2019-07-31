@@ -30,45 +30,6 @@
          <parameter id = "k_4" value = "0.01"/>
       </listOfParameters>
       <listOfReactions>
-         <reaction id = "J1" reversible = "true">
-            <listOfReactants>
-               <speciesReference species = "Xo" stoichiometry = "1"/>
-            </listOfReactants>
-            <listOfProducts>
-               <speciesReference species = "S1" stoichiometry = "1"/>
-            </listOfProducts>
-            <kineticLaw>
-               <math xmlns = "http://www.w3.org/1998/Math/MathML">
-                  <apply>
-                     <times/>
-                     <ci>
-                           kk1
-                     </ci>
-                     <apply>
-                        <minus/>
-                        <apply>
-                           <times/>
-                           <ci>
-                                 k1
-                           </ci>
-                           <ci>
-                                 Xo
-                           </ci>
-                        </apply>
-                        <apply>
-                           <times/>
-                           <ci>
-                                 k_1
-                           </ci>
-                           <ci>
-                                 S1
-                           </ci>
-                        </apply>
-                     </apply>
-                  </apply>
-               </math>
-            </kineticLaw>
-         </reaction>
          <reaction id = "J2" reversible = "true">
             <listOfReactants>
                <speciesReference species = "S1" stoichiometry = "1"/>
@@ -187,33 +148,14 @@
             </kineticLaw>
          </reaction>
       </listOfReactions>
-      <listOfRules>
-      <rateRule id="rule1" variable="S1">
-        <math xmlns="http://www.w3.org/1998/Math/MathML">
-          <apply>
-            <times/>
-            <cn type="integer"> -1 </cn>
-            <ci> k1 </ci>
-            <ci> S3 </ci>
-          </apply>
-        </math>
-      </rateRule>
-      <assignmentRule id="rule2" variable="S1">
-        <math xmlns="http://www.w3.org/1998/Math/MathML">
-          <apply>
-            <times/>
-            <cn type="integer"> -1 </cn>
-            <ci> S2 </ci>
-          </apply>
-        </math>
-      </assignmentRule>
-    </listOfRules>
    </model>
 </sbml>
 
 [EDITING]
-[Remove Rules]
-S1 True
+[Add Reaction]
+J1 Xo S1 kk1*(k1*Xo-k_1*S1) True
+[Set Reversible]
+J1 True True
 [END_EDITING]
 
 [Set Steady State Selection List]
@@ -412,3 +354,4 @@ rates=0.101 -0.08 -1.071
 
 [Test SetValues]
 "S1 S2 S3 1.0 2.0 3.0"
+
