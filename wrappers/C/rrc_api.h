@@ -469,6 +469,116 @@ C_DECL_SPEC bool rrcCallConv removeSpecies(RRHandle handle, const char* sid);
 C_DECL_SPEC bool rrcCallConv removeSpeciesNoRegen(RRHandle handle, const char* sid);
 
 /*!
+ \brief Set the boundary condition of an existing species.
+ \param[in] handle Handle to a RoadRunner instance
+ \param[in] sid ID of the species
+ \param[in] boundaryCondition Boundary condition to be set
+ \return Returns false if the call fails, otherwise returns a true
+ \ingroup edit
+*/
+C_DECL_SPEC bool rrcCallConv setBoundary(RRHandle handle, const char* sid, bool boundaryCondition);
+
+/*!
+ \brief Set the boundary condition of an existing species, without regenerating it
+		The last modification must regenerate for the modifications to take effect
+ \param[in] handle Handle to a RoadRunner instance
+ \param[in] sid ID of the species
+ \param[in] boundaryCondition Boundary condition to be set
+ \return Returns false if the call fails, otherwise returns a true
+ \ingroup edit
+*/
+C_DECL_SPEC bool rrcCallConv setBoundaryNoRegen(RRHandle handle, const char* sid, bool boundaryCondition);
+
+
+/*!
+ \brief Set the hasOnlySubstanceUnits attribute for an existing species.
+ \param[in] handle Handle to a RoadRunner instance
+ \param[in] sid ID of the species
+ \param[in] hasOnlySubstanceUnits Value of hasOnlySubstanceUnits attribute to be set
+ \return Returns false if the call fails, otherwise returns a true
+ \ingroup edit
+*/
+C_DECL_SPEC bool rrcCallConv setHasOnlySubstanceUnits(RRHandle handle, const char* sid, bool hasOnlySubstanceUnits);
+
+/*!
+ \brief Set the hasOnlySubstanceUnits attribute for an existing species, without regenerating it
+		The last modification must regenerate for the modifications to take effect
+ \param[in] handle Handle to a RoadRunner instance
+ \param[in] sid ID of the species
+ \param[in] hasOnlySubstanceUnits Value of hasOnlySubstanceUnits attribute to be set
+ \return Returns false if the call fails, otherwise returns a true
+ \ingroup edit
+*/
+C_DECL_SPEC bool rrcCallConv setHasOnlySubstanceUnitsNoRegen(RRHandle handle, const char* sid, bool hasOnlySubstanceUnits);
+
+
+
+/*!
+ \brief Set initial amount for an existing species. Initial amount/concentration set before will be unset.
+ \param[in] handle Handle to a RoadRunner instance
+ \param[in] sid ID of the species
+ \param[in] initAmount Initial amount to be set
+ \return Returns false if the call fails, otherwise returns a true
+ \ingroup edit
+*/
+C_DECL_SPEC bool rrcCallConv setInitAmount(RRHandle handle, const char* sid, double initAmount);
+
+/*!
+ \brief Set initial amount for an existing species, without regenerating it
+		The last modification must regenerate for the modifications to take effect
+ \param[in] handle Handle to a RoadRunner instance
+ \param[in] sid ID of the species
+ \param[in] initAmount Initial amount to be set
+ \return Returns false if the call fails, otherwise returns a true
+ \ingroup edit
+*/
+C_DECL_SPEC bool rrcCallConv setInitAmountNoRegen(RRHandle handle, const char* sid, double initAmount);
+
+/*!
+ \brief Set initial concentration for an existing species. Initial amount/concentration set before will be unset.
+ \param[in] handle Handle to a RoadRunner instance
+ \param[in] sid ID of the species
+ \param[in] initConcentration Initial concentration to be set
+ \return Returns false if the call fails, otherwise returns a true
+ \ingroup edit
+*/
+C_DECL_SPEC bool rrcCallConv setInitConcentration(RRHandle handle, const char* sid, double initConcentration);
+
+/*!
+ \brief Set initial concentration for an existing species, without regenerating it
+		The last modification must regenerate for the modifications to take effect
+ \param[in] handle Handle to a RoadRunner instance
+ \param[in] sid ID of the species
+ \param[in] initConcentration Initial concentration to be set
+ \return Returns false if the call fails, otherwise returns a true
+ \ingroup edit
+*/
+C_DECL_SPEC bool rrcCallConv setInitConcentrationNoRegen(RRHandle handle, const char* sid, double initConcentration);
+
+
+/*!
+ \brief Set the constant attribute for an existing species/ parameter/ compartment.
+ \param[in] handle Handle to a RoadRunner instance
+ \param[in] sid ID of the species/ parameter/ compartment
+ \param[in] constant The constant attribute to be set
+ \return Returns false if the call fails, otherwise returns a true
+ \ingroup edit
+*/
+C_DECL_SPEC bool rrcCallConv setConstant(RRHandle handle, const char* sid, bool constant);
+
+/*!
+ \brief Set the constant attribute for an existing species/ parameter/ compartment, without regenerating it
+		The last modification must regenerate for the modifications to take effect
+ \param[in] handle Handle to a RoadRunner instance
+ \param[in] sid ID of the species/ parameter/ compartment
+ \param[in] constant The constant attribute to be set
+ \return Returns false if the call fails, otherwise returns a true
+ \ingroup edit
+*/
+C_DECL_SPEC bool rrcCallConv setConstantNoRegen(RRHandle handle, const char* sid, bool constant);
+
+
+/*!
  \brief Add a reaction to the current model
  \param[in] handle Handle to a RoadRunner instance
  \param[in] sbmlRep the SBML representation (i.e. a reaction tag) describing the reaction to be added
@@ -537,6 +647,27 @@ C_DECL_SPEC bool rrcCallConv removeReaction(RRHandle handle, const char* rid);
  \ingroup edit
 */
 C_DECL_SPEC bool rrcCallConv removeReactionNoRegen(RRHandle handle, const char* rid);
+
+/*!
+ \brief Set the kinetic law for a existing reaction in the current model
+ \param[in] handle Handle to a RoadRunner instance
+ \param[in] the ID of reaction to be modified
+ \param[in] kineticLaw the kinetic formular of reaction
+ \return Returns false if the call fails, otherwise returns a true
+ \ingroup edit
+*/
+C_DECL_SPEC bool rrcCallConv setKineticLaw(RRHandle handle, const char* rid, const char* kineticLaw);
+
+/*!
+ \brief Set the kinetic law for a existing reaction in the current model, without regenerating it
+		The last modification must regenerate for the modifications to take effect
+ \param[in] handle Handle to a RoadRunner instance
+ \param[in] the ID of reaction to be modified
+ \param[in] kineticLaw the kinetic formular of reaction
+ \return Returns false if the call fails, otherwise returns a true
+ \ingroup edit
+*/
+C_DECL_SPEC bool rrcCallConv setKineticLawNoRegen(RRHandle handle, const char* rid, const char* kineticLaw);
 
 
 /*!
@@ -622,26 +753,6 @@ C_DECL_SPEC bool rrcCallConv removeCompartment(RRHandle handle, const char* cid)
 C_DECL_SPEC bool rrcCallConv removeCompartmentNoRegen(RRHandle handle, const char* cid);
 
 
-/*!
- \brief Set the kinetic law for a existing reaction in the current model
- \param[in] handle Handle to a RoadRunner instance
- \param[in] the ID of reaction to be modified
- \param[in] kineticLaw the kinetic formular of reaction
- \return Returns false if the call fails, otherwise returns a true
- \ingroup edit
-*/
-C_DECL_SPEC bool rrcCallConv setKineticLaw(RRHandle handle, const char* rid, const char* kineticLaw);
-
-/*!
- \brief Set the kinetic law for a existing reaction in the current model, without regenerating it
-		The last modification must regenerate for the modifications to take effect
- \param[in] handle Handle to a RoadRunner instance
- \param[in] the ID of reaction to be modified
- \param[in] kineticLaw the kinetic formular of reaction
- \return Returns false if the call fails, otherwise returns a true
- \ingroup edit
-*/
-C_DECL_SPEC bool rrcCallConv setKineticLawNoRegen(RRHandle handle, const char* rid, const char* kineticLaw);
 
 /*!
  \brief Add an assignment rule to the current model

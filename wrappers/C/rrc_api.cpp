@@ -1661,6 +1661,98 @@ bool rrcCallConv removeSpeciesNoRegen(RRHandle handle, const char* sid)
 	catch_bool_macro
 }
 
+bool rrcCallConv setBoundary(RRHandle handle, const char* sid, bool boundaryCondition)
+{
+	start_try
+		RoadRunner* rri = castToRoadRunner(handle);
+		rri->setBoundary(sid, boundaryCondition);
+		return true;
+	catch_bool_macro
+}
+
+bool rrcCallConv setBoundaryNoRegen(RRHandle handle, const char* sid, bool boundaryCondition)
+{
+	start_try
+		RoadRunner* rri = castToRoadRunner(handle);
+		rri->setBoundary(sid, boundaryCondition, false);
+		return true;
+	catch_bool_macro
+}
+
+bool rrcCallConv setHasOnlySubstanceUnits(RRHandle handle, const char* sid, bool hasOnlySubstanceUnits)
+{
+	start_try
+		RoadRunner* rri = castToRoadRunner(handle);
+		rri->setHasOnlySubstanceUnits(sid, hasOnlySubstanceUnits);
+		return true;
+	catch_bool_macro
+}
+
+bool rrcCallConv setHasOnlySubstanceUnitsNoRegen(RRHandle handle, const char* sid, bool hasOnlySubstanceUnits)
+{
+	start_try
+		RoadRunner* rri = castToRoadRunner(handle);
+		rri->setHasOnlySubstanceUnits(sid, hasOnlySubstanceUnits, false);
+		return true;
+	catch_bool_macro
+}
+
+bool rrcCallConv setInitAmount(RRHandle handle, const char* sid, double initAmount)
+{
+	start_try
+		RoadRunner* rri = castToRoadRunner(handle);
+		rri->setInitAmount(sid, initAmount);
+		return true;
+	catch_bool_macro
+}
+
+bool rrcCallConv setInitAmountNoRegen(RRHandle handle, const char* sid, double initAmount)
+{
+	start_try
+		RoadRunner* rri = castToRoadRunner(handle);
+		rri->setInitAmount(sid, initAmount, false);
+		return true;
+	catch_bool_macro
+}
+
+bool rrcCallConv setInitConcentration(RRHandle handle, const char* sid, double initConcentration)
+{
+	start_try
+		RoadRunner* rri = castToRoadRunner(handle);
+		rri->setInitConcentration(sid, initConcentration);
+		return true;
+	catch_bool_macro
+}
+
+bool rrcCallConv setInitConcentrationNoRegen(RRHandle handle, const char* sid, double initConcentration)
+{
+	start_try
+		RoadRunner* rri = castToRoadRunner(handle);
+		rri->setInitConcentration(sid, initConcentration, false);
+		return true;
+	catch_bool_macro
+}
+
+bool rrcCallConv setConstant(RRHandle handle, const char* sid, bool constant)
+{
+	start_try
+		RoadRunner* rri = castToRoadRunner(handle);
+		rri->setConstant(sid, constant);
+		return true;
+	catch_bool_macro
+}
+
+bool rrcCallConv setConstantNoRegen(RRHandle handle, const char* sid, bool constant)
+{
+	start_try
+		RoadRunner* rri = castToRoadRunner(handle);
+		rri->setConstant(sid, constant, false);
+		return true;
+	catch_bool_macro
+}
+
+
+
 bool rrcCallConv addReactionFromSBML(RRHandle handle, const char* sbmlRep)
 {
 	start_try
