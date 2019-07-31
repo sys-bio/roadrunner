@@ -786,7 +786,7 @@ public:
 	 *						   to save time for editing for multiple times, one could
 	 *					       set this flag to true only in the last call of editing
 	 */
-	void setInitAmount(const std::string& sid, bool initAmount, bool forceRegenerate = true);
+	void setInitAmount(const std::string& sid, double initAmount, bool forceRegenerate = true);
 
 
 	/**
@@ -800,7 +800,7 @@ public:
 	 *						   to save time for editing for multiple times, one could
 	 *					       set this flag to true only in the last call of editing
 	 */
-	void setInitConcentration(const std::string& sid, bool initConcentration, bool forceRegenerate = true);
+	void setInitConcentration(const std::string& sid, double initConcentration, bool forceRegenerate = true);
 
 
 	/**

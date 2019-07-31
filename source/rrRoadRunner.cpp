@@ -5365,7 +5365,7 @@ void RoadRunner::setHasOnlySubstanceUnits(const std::string& sid, bool hasOnlySu
 	regenerate(forceRegenerate);
 }
 
-void RoadRunner::setInitAmount(const std::string& sid, bool initAmount, bool forceRegenerate)
+void RoadRunner::setInitAmount(const std::string& sid, double initAmount, bool forceRegenerate)
 {
 	using namespace libsbml;
 	Model* sbmlModel = impl->document->getModel();
@@ -5388,7 +5388,7 @@ void RoadRunner::setInitAmount(const std::string& sid, bool initAmount, bool for
 	regenerate(forceRegenerate);
 }
 
-void RoadRunner::setInitConcentration(const std::string& sid, bool initConcentration, bool forceRegenerate)
+void RoadRunner::setInitConcentration(const std::string& sid, double initConcentration, bool forceRegenerate)
 {
 	using namespace libsbml;
 	Model* sbmlModel = impl->document->getModel();
