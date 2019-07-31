@@ -22,7 +22,6 @@ ${CMAKE_BINARY_DIR}/source
 set(apps 	
 	rr
     rr-sbml-benchmark
-    #plugin_info
     #         rr_test_suite_tester
     #        rr_performance_tester
     )
