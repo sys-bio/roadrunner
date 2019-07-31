@@ -394,7 +394,7 @@ context.getExecutionEngine().getFunctionAddress("setGlobalParameter");
 			string id = oldModel->getFloatingSpeciesId(i);
 			int index = newModel->getFloatingSpeciesIndex(id);
 
-			if (index != -1)
+			if (index >= 0 && index < newModel->modelData->numIndFloatingSpecies)
 			{
 				// new model has this species
 
@@ -432,7 +432,7 @@ context.getExecutionEngine().getFunctionAddress("setGlobalParameter");
 
 			// TODO: set concentration or amount?
 
-			if (index != -1)
+			if (index >= 0 && index < newModel->modelData->numIndBoundarySpecies)
 			{
 				// new model has this species
 
@@ -492,7 +492,7 @@ context.getExecutionEngine().getFunctionAddress("setGlobalParameter");
 			string id = oldModel->getCompartmentId(i);
 			int index = newModel->getCompartmentIndex(id);
 
-			if (index != -1)
+			if (index >= 0 && index < newModel->modelData->numIndCompartments)
 			{
 				// new model has this compartment
 				double value = 0;
@@ -525,7 +525,7 @@ context.getExecutionEngine().getFunctionAddress("setGlobalParameter");
 			string id = oldModel->getGlobalParameterId(i);
 			int index = newModel->getGlobalParameterIndex(id);
 
-			if (index >= 0 && index < newModel->modelData->numIndGlobalParameters)
+			if (index >= 0 && index < newModel->modelData->numInitGlobalParameters)
 			{
 				// new model has this parameter
 
@@ -552,7 +552,7 @@ context.getExecutionEngine().getFunctionAddress("setGlobalParameter");
 			string id = oldModel->getGlobalParameterId(i);
 			int index = newModel->getGlobalParameterIndex(id);
 
-			if (index != -1)
+			if (index >= 0 && index < newModel->modelData->numIndGlobalParameters)
 			{
 				// new model has this parameter
 
