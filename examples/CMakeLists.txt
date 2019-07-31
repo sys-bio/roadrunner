@@ -8,6 +8,12 @@ include_directories(${THIRD_PARTY_INSTALL_FOLDER}/include)
 include_directories(${THIRD_PARTY_INSTALL_FOLDER}/include/sbml)
 include_directories(${THIRD_PARTY_INSTALL_FOLDER}/include/cvode)
 
+OPTION (INSTALL_PYTHON_EXAMPLES         "Install Tellurium Plugin PYTHON Examples"    OFF)
+
+if(INSTALL_PYTHON_EXAMPLES)
+add_subdirectory(python_plugins)
+endif()
+
 if(${MSVC})
 endif(${MSVC})
 

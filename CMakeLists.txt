@@ -47,6 +47,53 @@ SET(CMAKE_MODULE_PATH ${PROJECT_SOURCE_DIR}/cmake/ ${CMAKE_MODULE_PATH})
 # TODO: add some logic to automatically set based on compiler version
 set(RR_USE_CXX11 FALSE CACHE BOOL "Set to TRUE to enable C++11 features")
 
+#plugins
+set ( RRP_PLUGINS_DIR site-packages/roadrunner CACHE PATH "Destination for plugins")
+
+set (TLP_GENERATED_HEADER_PATH ${CMAKE_CURRENT_BINARY_DIR}/rrplugins )
+
+set ( TLP_BUILD_EXAMPLES   OFF CACHE BOOL   "Build examples" )
+
+set ( TLP_BUILD_BETA_PLUGINS  OFF CACHE BOOL      "Build beta (unreleased) plugins" )
+
+set ( TLP_BUILD_PLUGINS_PYTHON_API OFF CACHE BOOL "Build Plugins Python API") 
+
+# Plugin selection: Released
+
+set (TLP_BUILD_TEST_MODEL_PLUGIN ON CACHE BOOL "Build the Test Model Plugin")
+set (TLP_BUILD_ADD_NOISE_PLUGIN ON CACHE BOOL "Build the Add Noise Plugin")
+set (TLP_BUILD_CHISQUARE_PLUGIN ON CACHE BOOL "Build the ChiSquare Plugin")
+set (TLP_BUILD_LEVENBERG_MARQUARDT_PLUGIN ON CACHE BOOL "Build the Levenberg-Marquardt Plugin")
+set (TLP_BUILD_NELDER_MEAD_PLUGIN ON CACHE BOOL "Build the Nelder-Mead Plugin")
+set (TLP_BUILD_AUTO2000_PLUGIN ON CACHE BOOL "Build the Auto 2000 Plugin")
+
+set(BUILD_PLUGINS_ONLY OFF CACHE BOOL "Build Plugin ONLY not roadrunner")
+
+# Flags
+if( MSVC )
+  add_definitions(
+    -DPOCO_NO_AUTOMATIC_LIBS
+    -DCRT_NONSTDC_NO_DEPRECATE
+    -D_CRT_SECURE_NO_WARNINGS      # MS wanting you to change basically all standard C functions :(
+    )
+
+  #  4251 About exporting std classes
+  #  4018 Comparing unsigned/signed ints
+  #  4996 Deprecated functions
+  add_definitions( "/wd4251 /wd4018 /wd4996 /nologo" )
+
+  set (CMAKE_CXX_FLAGS             "${CMAKE_CXX_FLAGS} /EHsc ")
+  set (CMAKE_SHARED_LINKER_FLAGS   "${CMAKE_SHARED_LINKER_FLAGS} ") #/FORCE:MULTIPLE")
+endif()
+
+if(BUILD_PLUGINS_ONLY)
+    message("Please make sure roadrunner is already installed")
+    link_directories(${CMAKE_INSTALL_PREFIX}/lib)
+
+    add_subdirectory(plugins)
+    return()
+endif()
+
 set(LLVM_INSTALL_PREFIX CACHE PATH "If LLVM was built using CMake, this is the location where it was installed")
 
 # determine if LLVM was installed using CMake
@@ -206,8 +253,8 @@ if (WIN32)
 else()
     #UNIX
     find_package(LibXml2 REQUIRED)
-	message(STATUS "found libxml2, include dir: ${LIBXML2_INCLUDE_DIR}")
-	include_directories(${LIBXML2_INCLUDE_DIR})
+    message(STATUS "found libxml2, include dir: ${LIBXML2_INCLUDE_DIR}")
+    include_directories(${LIBXML2_INCLUDE_DIR})
 endif()
 
 find_library(LIBSBML_LIBRARY sbml libsbml HINTS ${THIRD_PARTY_INSTALL_FOLDER}/lib)
@@ -257,22 +304,6 @@ else()
     )
 endif (${BUILD_LLVM})
 
-if(${MSVC})
-    add_definitions(
-        -DPOCO_NO_AUTOMATIC_LIBS
-        -DCRT_NONSTDC_NO_DEPRECATE
-        -D_CRT_SECURE_NO_WARNINGS    #MS wanting you to changes basically all standard C functions :(
-        )
-
-    #  4251 About exporting std classes
-    #  4018 Comparing unsigned/signed ints
-    #  4996 Deprecated functions
-    add_definitions( "/wd4251 /wd4018 /wd4996 /nologo" )
-
-    SET (CMAKE_CXX_FLAGS             "${CMAKE_CXX_FLAGS} /EHsc ")
-    SET (CMAKE_SHARED_LINKER_FLAGS     "${CMAKE_SHARED_LINKER_FLAGS} ") #/FORCE:MULTIPLE")
-
-endif()
 
 #=== COMPILER FLAGS
 #Common compiler definitions
@@ -326,13 +357,10 @@ message(STATUS "
 -------------------------------------------------------------------------------
 libRoadRunner Configuration Summary
 -------------------------------------------------------------------------------
-
     For up-to-date news and releases visit libroadrunner.org
-
     Configured on host $ENV{COMPUTERNAME} ${HOSTNAME}
       host OS                   ${CMAKE_SYSTEM_NAME}
       host architecture         ${CMAKE_SYSTEM_PROCESSOR}
-
     General flags:
       CC                        ${CMAKE_C_COMPILER}
       CXX                       ${CMAKE_CXX_COMPILER}
@@ -340,16 +368,13 @@ libRoadRunner Configuration Summary
       CFLAGS                    ${CMAKE_C_FLAGS}
       CXXFLAGS                  ${CMAKE_CXX_FLAGS}
       LDFLAGS                   ${CMAKE_EXE_LINKER_FLAGS}
-
     Installation prefix:        ${CMAKE_INSTALL_PREFIX}
-
     Options:
       With LLVM?                ${BUILD_LLVM}
       With legacy C? (DEP)      ${BUILD_LEGACY_C}
       Enable Python interface?  ${BUILD_PYTHON}
       Enable Java interface?    ${BUILD_JAVA_INTERFACE}
       Enable test suite?        ${BUILD_TESTS}
-
     Dependencies (packages marked with *** are required):
     "
 )
@@ -363,6 +388,8 @@ message( "" )
 
 # We alway have to build the roadrunner core, everything depends on this
 add_subdirectory(source)
+
+add_subdirectory(plugins)
 
 # install the rr_support if building legacy c
 if(BUILD_LEGACY_C)
@@ -433,7 +460,7 @@ if(INSTALL_CXX_API)
         COMPONENT rr_core)
 endif(INSTALL_CXX_API)
 
-install(FILES README.md LICENSE.txt AUTHORS.txt FUNDING.txt
+install(FILES README.md LICENSE.txt AUTHORS.txt FUNDING.txt RRP_AUTHORS.txt RRP_FUNDING.txt 
         DESTINATION .
         COMPONENT info
         )

@@ -5,6 +5,9 @@ set(RR_INCLUDE_ROOT "../source")
 # rr Includes
 include_directories(
 ${RR_INCLUDE_ROOT}
+${CMAKE_SOURCE_DIR}/source/rrplugins/core
+${CMAKE_SOURCE_DIR}/source/rrplugins/common
+${CMAKE_SOURCE_DIR}/source/
 ${THIRD_PARTY_INSTALL_FOLDER}/include
 ${THIRD_PARTY_INSTALL_FOLDER}/include/sbml
 ${THIRD_PARTY_INSTALL_FOLDER}/include/cvode
@@ -19,6 +22,7 @@ ${CMAKE_BINARY_DIR}/source
 set(apps 	
 	rr
     rr-sbml-benchmark
+    plugin_info
     #         rr_test_suite_tester
     #        rr_performance_tester
     )
@@ -27,6 +31,7 @@ set(app_dir Apps/cpp)
 
 foreach(app ${apps})
  	add_subdirectory(${app})
+
 #	FILE (GLOB hdrs ${app}/*.h)
 # 	install (FILES ${hdrs} 						DESTINATION ${app_dir}/${app}	COMPONENT example_files)
 #	FILE (GLOB source ${app}/*.cpp)

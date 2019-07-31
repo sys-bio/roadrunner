@@ -1,0 +1,172 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- Created by XMLPrettyPrinter on 3/3/2014 from  -->
+<sbml xmlns = "http://www.sbml.org/sbml/level2/version4" level = "2" version = "4">
+   <model id = "cell">
+      <listOfCompartments>
+         <compartment id = "compartment" size = "1"/>
+      </listOfCompartments>
+      <listOfSpecies>
+         <species id = "w" boundaryCondition = "true" initialConcentration = "0" compartment = "compartment"/>
+         <species id = "y1" boundaryCondition = "false" initialConcentration = "2.67543591947119" compartment = "compartment"/>
+         <species id = "y2" boundaryCondition = "false" initialConcentration = "0.813327157093612" compartment = "compartment"/>
+      </listOfSpecies>
+      <listOfParameters>
+         <parameter id = "p0" value = "6.77"/>
+         <parameter id = "p1" value = "1.01"/>
+         <parameter id = "p4" value = "1.26"/>
+         <parameter id = "p6" value = "5.11"/>
+      </listOfParameters>
+      <listOfReactions>
+         <reaction id = "_J1" reversible = "false">
+            <listOfReactants>
+               <speciesReference species = "w" stoichiometry = "1"/>
+            </listOfReactants>
+            <listOfProducts>
+               <speciesReference species = "y1" stoichiometry = "1"/>
+            </listOfProducts>
+            <listOfModifiers>
+               <modifierSpeciesReference species = "y2"/>
+            </listOfModifiers>
+            <kineticLaw>
+               <math xmlns = "http://www.w3.org/1998/Math/MathML">
+                  <apply>
+                     <minus/>
+                     <apply>
+                        <minus/>
+                        <ci>
+                              p0
+                        </ci>
+                        <apply>
+                           <times/>
+                           <ci>
+                                 y1
+                           </ci>
+                           <cn type = "integer">
+                                 1
+                           </cn>
+                        </apply>
+                     </apply>
+                     <apply>
+                        <times/>
+                        <apply>
+                           <minus/>
+                           <apply>
+                              <times/>
+                              <ci>
+                                    p1
+                              </ci>
+                              <ci>
+                                    y1
+                              </ci>
+                           </apply>
+                           <apply>
+                              <times/>
+                              <cn type = "integer">
+                                    0
+                              </cn>
+                              <ci>
+                                    y2
+                              </ci>
+                           </apply>
+                        </apply>
+                        <apply>
+                           <plus/>
+                           <cn type = "integer">
+                                 1
+                           </cn>
+                           <apply>
+                              <times/>
+                              <ci>
+                                    p4
+                              </ci>
+                              <apply>
+                                 <power/>
+                                 <ci>
+                                       y2
+                                 </ci>
+                                 <cn type = "integer">
+                                       4
+                                 </cn>
+                              </apply>
+                           </apply>
+                        </apply>
+                     </apply>
+                  </apply>
+               </math>
+            </kineticLaw>
+         </reaction>
+         <reaction id = "_J2" reversible = "false">
+            <listOfReactants>
+               <speciesReference species = "w" stoichiometry = "1"/>
+            </listOfReactants>
+            <listOfProducts>
+               <speciesReference species = "y2" stoichiometry = "1"/>
+            </listOfProducts>
+            <listOfModifiers>
+               <modifierSpeciesReference species = "y1"/>
+            </listOfModifiers>
+            <kineticLaw>
+               <math xmlns = "http://www.w3.org/1998/Math/MathML">
+                  <apply>
+                     <minus/>
+                     <apply>
+                        <times/>
+                        <apply>
+                           <minus/>
+                           <apply>
+                              <times/>
+                              <ci>
+                                    p1
+                              </ci>
+                              <ci>
+                                    y1
+                              </ci>
+                           </apply>
+                           <apply>
+                              <times/>
+                              <cn type = "integer">
+                                    0
+                              </cn>
+                              <ci>
+                                    y2
+                              </ci>
+                           </apply>
+                        </apply>
+                        <apply>
+                           <plus/>
+                           <cn type = "integer">
+                                 1
+                           </cn>
+                           <apply>
+                              <times/>
+                              <ci>
+                                    p4
+                              </ci>
+                              <apply>
+                                 <power/>
+                                 <ci>
+                                       y2
+                                 </ci>
+                                 <cn type = "integer">
+                                       4
+                                 </cn>
+                              </apply>
+                           </apply>
+                        </apply>
+                     </apply>
+                     <apply>
+                        <times/>
+                        <ci>
+                              y2
+                        </ci>
+                        <ci>
+                              p6
+                        </ci>
+                     </apply>
+                  </apply>
+               </math>
+            </kineticLaw>
+         </reaction>
+      </listOfReactions>
+   </model>
+</sbml>

@@ -431,7 +431,6 @@ if(${MSVC})
     target_link_libraries(${target}-static libxml2)
 endif()
 
-add_subdirectory(plugins)
 
 if(BUILD_TEST_TOOLS)
     if(BUILD_LLVM)
@@ -479,6 +478,12 @@ file(GLOB rrpluginscore_headers "${CMAKE_SOURCE_DIR}/source/rrplugins/core/*.h")
 message(STATUS "*** headers *** ${rrpluginscore_headers}")
 install(FILES ${rrpluginscore_headers} 
     DESTINATION include/rr/rrplugins/core
+    COMPONENT rr_core)
+
+file(GLOB rrpluginsmath_headers "${CMAKE_SOURCE_DIR}/source/rrplugins/math/*.h")
+message(STATUS "*** headers *** ${rrpluginsmath_headers}")
+install(FILES ${rrpluginsmath_headers} 
+    DESTINATION include/rr/rrplugins/math
     COMPONENT rr_core)
 
 
