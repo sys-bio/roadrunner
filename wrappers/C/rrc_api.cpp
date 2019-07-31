@@ -1813,6 +1813,43 @@ bool rrcCallConv removeReactionNoRegen(RRHandle handle, const char* rid)
 	catch_bool_macro
 }
 
+
+bool rrcCallConv setReversible(RRHandle handle, const char* rid, bool reversible)
+{
+	start_try
+		RoadRunner* rri = castToRoadRunner(handle);
+		rri->setReversible(rid, reversible);
+		return true;
+	catch_bool_macro
+}
+
+bool rrcCallConv setReversibleNoRegen(RRHandle handle, const char* rid, bool reversible)
+{
+	start_try
+		RoadRunner* rri = castToRoadRunner(handle);
+		rri->setReversible(rid, reversible, false);
+		return true;
+	catch_bool_macro
+}
+
+bool rrcCallConv setKineticLaw(RRHandle handle, const char* rid, const char* kineticLaw)
+{
+	start_try
+		RoadRunner* rri = castToRoadRunner(handle);
+	rri->setKineticLaw(rid, kineticLaw);
+	return true;
+	catch_bool_macro
+}
+
+bool rrcCallConv setKineticLawNoRegen(RRHandle handle, const char* rid, const char* kineticLaw)
+{
+	start_try
+		RoadRunner* rri = castToRoadRunner(handle);
+	rri->setKineticLaw(rid, kineticLaw, false);
+	return true;
+	catch_bool_macro
+}
+
 bool rrcCallConv addParameter(RRHandle handle, const char* pid, double value)
 {
 	start_try
@@ -1883,25 +1920,6 @@ bool rrcCallConv removeCompartmentNoRegen(RRHandle handle, const char* cid)
 		RoadRunner* rri = castToRoadRunner(handle);
 		rri->removeCompartment(cid, false);
 		return true;
-	catch_bool_macro
-}
-
-
-bool rrcCallConv setKineticLaw(RRHandle handle, const char* rid, const char* kineticLaw)
-{
-	start_try
-		RoadRunner* rri = castToRoadRunner(handle);
-	rri->setKineticLaw(rid, kineticLaw);
-	return true;
-	catch_bool_macro
-}
-
-bool rrcCallConv setKineticLawNoRegen(RRHandle handle, const char* rid, const char* kineticLaw)
-{
-	start_try
-		RoadRunner* rri = castToRoadRunner(handle);
-	rri->setKineticLaw(rid, kineticLaw, false);
-	return true;
 	catch_bool_macro
 }
 
@@ -1992,6 +2010,42 @@ bool rrcCallConv addTriggerNoRegen(RRHandle handle, const char* eid, const char*
 	start_try
 		RoadRunner* rri = castToRoadRunner(handle);
 		rri->addTrigger(eid, trigger, false);
+		return true;
+	catch_bool_macro
+}
+
+bool rrcCallConv setPersistent(RRHandle handle, const char* eid, bool persistent)
+{
+	start_try
+		RoadRunner* rri = castToRoadRunner(handle);
+		rri->setPersistent(eid, persistent);
+		return true;
+	catch_bool_macro
+}
+
+bool rrcCallConv setPersistentNoRegen(RRHandle handle, const char* eid, bool persistent)
+{
+	start_try
+		RoadRunner* rri = castToRoadRunner(handle);
+		rri->setPersistent(eid, persistent, false);
+		return true;
+	catch_bool_macro
+}
+
+bool rrcCallConv setTriggerInitialValue(RRHandle handle, const char* eid, bool initValue)
+{
+	start_try
+		RoadRunner* rri = castToRoadRunner(handle);
+		rri->setTriggerInitialValue(eid, initValue);
+		return true;
+	catch_bool_macro
+}
+
+bool rrcCallConv setTriggerInitialValueNoRegen(RRHandle handle, const char* eid, bool initValue)
+{
+	start_try
+		RoadRunner* rri = castToRoadRunner(handle);
+		rri->setTriggerInitialValue(eid, initValue, false);
 		return true;
 	catch_bool_macro
 }

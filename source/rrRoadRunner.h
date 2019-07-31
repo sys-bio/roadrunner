@@ -1001,6 +1001,7 @@ public:
 	/*
 	* Add trigger to an existing event in the model
 	* If the given event already has a trigger object, the given trigger will replace the old trigger of the event
+	* By default, the peresistent attribute is false and the initial value attribute is false
 	* @param eid: the ID of the event to add trigger
 	* @param trigger: the math formula of event trigger
 	* @param forceRegenerate: a boolean value to indicate if the model is regenerated
@@ -1014,7 +1015,6 @@ public:
 
 	/*
 	* Set the persistent attribute of the trigger of given event
-	* By default, the peresistent attribute is false
 	* @param eid: the ID of the event of the trigger
 	* @param persistent: the persistent attribute to be set
 	* @param forceRegenerate: a boolean value to indicate if the model is regenerated
@@ -1028,7 +1028,6 @@ public:
 
 	/*
 	* Set the initial value attribute of the trigger of given event
-	* By default, the initial value attribute is false
 	* @param eid: the ID of the event of the trigger
 	* @param initValue: the initial value attribute to be set
 	* @param forceRegenerate: a boolean value to indicate if the model is regenerated

@@ -649,9 +649,31 @@ C_DECL_SPEC bool rrcCallConv removeReaction(RRHandle handle, const char* rid);
 C_DECL_SPEC bool rrcCallConv removeReactionNoRegen(RRHandle handle, const char* rid);
 
 /*!
+ \brief Set the reversible attribut for an existing reaction in the current model
+ \param[in] handle Handle to a RoadRunner instance
+ \param[in] rid the ID of reaction to be modified
+ \param[in] reversible Reversible attribute to be set
+ \return Returns false if the call fails, otherwise returns a true
+ \ingroup edit
+*/
+C_DECL_SPEC bool rrcCallConv setReversible(RRHandle handle, const char* rid, bool reversible);
+
+/*!
+ \brief Set the reversible attribut for an existing reaction in the current model, without regenerating it
+		The last modification must regenerate for the modifications to take effect
+ \param[in] handle Handle to a RoadRunner instance
+ \param[in] rid ID of reaction to be modified
+ \param[in] reversible Reversible attribute to be set
+ \return Returns false if the call fails, otherwise returns a true
+ \ingroup edit
+*/
+C_DECL_SPEC bool rrcCallConv setReversibleNoRegen(RRHandle handle, const char* rid, bool reversible);
+
+
+/*!
  \brief Set the kinetic law for a existing reaction in the current model
  \param[in] handle Handle to a RoadRunner instance
- \param[in] the ID of reaction to be modified
+ \param[in] rid ID of reaction to be modified
  \param[in] kineticLaw the kinetic formular of reaction
  \return Returns false if the call fails, otherwise returns a true
  \ingroup edit
@@ -662,7 +684,7 @@ C_DECL_SPEC bool rrcCallConv setKineticLaw(RRHandle handle, const char* rid, con
  \brief Set the kinetic law for a existing reaction in the current model, without regenerating it
 		The last modification must regenerate for the modifications to take effect
  \param[in] handle Handle to a RoadRunner instance
- \param[in] the ID of reaction to be modified
+ \param[in] rid ID of reaction to be modified
  \param[in] kineticLaw the kinetic formular of reaction
  \return Returns false if the call fails, otherwise returns a true
  \ingroup edit
@@ -861,6 +883,49 @@ C_DECL_SPEC bool rrcCallConv addTrigger(RRHandle handle, const char* eid, const 
  \ingroup edit
 */
 C_DECL_SPEC bool rrcCallConv addTriggerNoRegen(RRHandle handle, const char* eid, const char* trigger);
+
+/*!
+ \brief Set the persistent attribute of the trigger of given event
+ \param[in] handle Handle to a RoadRunner instance
+ \param[in] eid ID of the event of the trigger
+ \param[in] reversible Reversible attribute to be set
+ \return Returns false if the call fails, otherwise returns a true
+ \ingroup edit
+*/
+C_DECL_SPEC bool rrcCallConv setPersistent(RRHandle handle, const char* eid, bool persistent);
+
+/*!
+ \brief Set the persistent attribute of the trigger of given event, without regenerating it
+		The last modification must regenerate for the modifications to take effect
+ \param[in] handle Handle to a RoadRunner instance
+ \param[in] eid ID of the event of the trigger
+ \param[in] reversible Reversible attribute to be set
+ \return Returns false if the call fails, otherwise returns a true
+ \ingroup edit
+*/
+C_DECL_SPEC bool rrcCallConv setPersistentNoRegen(RRHandle handle, const char* eid, bool persistent);
+
+
+/*!
+ \brief Set the initial value attribute of the trigger of given event
+ \param[in] handle Handle to a RoadRunner instance
+ \param[in] eid ID of the event of the trigger
+ \param[in] initValue Initial value attribute to be set
+ \return Returns false if the call fails, otherwise returns a true
+ \ingroup edit
+*/
+C_DECL_SPEC bool rrcCallConv setTriggerInitialValue(RRHandle handle, const char* eid, bool initValue);
+
+/*!
+ \brief Set the initial value attribute of the trigger of given event, without regenerating it
+		The last modification must regenerate for the modifications to take effect
+ \param[in] handle Handle to a RoadRunner instance
+ \param[in] eid ID of the event of the trigger
+ \param[in] initValue Initial value attribute to be set
+ \return Returns false if the call fails, otherwise returns a true
+ \ingroup edit
+*/
+C_DECL_SPEC bool rrcCallConv setTriggerInitialValueNoRegen(RRHandle handle, const char* eid, bool initValue);
 
 
 /*!
