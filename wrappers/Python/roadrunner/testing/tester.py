@@ -1219,7 +1219,7 @@ def setScalarAmountAbsoluteTolerance(rrInstance):
     rrInstance.getIntegrator().setValue('absolute_tolerance', value)
     tolerance = r.getIntegrator().getValue("absolute_tolerance")
     expected = divide(readLine())
-    if not (len(tolerance) == len(expected))
+    if not (len(tolerance) == len(expected)):
         errorFlag = True
     for i in range(len(expected)):
         if not (tolerance[i] == float(expected[i])):
@@ -1233,7 +1233,7 @@ def setVectorAmountAbsoluteTolerance(rrInstance):
     rrInstance.getIntegrator().setValue('absolute_tolerance', floatValue)
     tolerance = r.getIntegrator().getValue("absolute_tolerance")
     expected = divide(readLine())
-    if not (len(tolerance) == len(expected))
+    if not (len(tolerance) == len(expected)):
         errorFlag = True
     for i in range(len(expected)):
         if not (tolerance[i] == float(expected[i])):
@@ -1247,7 +1247,7 @@ def setScalarConcentrationAbsoluteTolerance(rrInstance):
     rrInstance.getIntegrator().setConcentrationTolerance(value)
     tolerance = r.getIntegrator().getValue("absolute_tolerance")
     expected = divide(readLine())
-    if not (len(tolerance) == len(expected))
+    if not (len(tolerance) == len(expected)):
         errorFlag = True
     for i in range(len(expected)):
         if not (tolerance[i] == float(expected[i])):
@@ -1261,7 +1261,7 @@ def setVectorConcentrationAbsoluteTolerance(rrInstance):
     rrInstance.getIntegrator().setConcentrationTolerance(floatValue)
     tolerance = r.getIntegrator().getValue("absolute_tolerance")
     expected = divide(readLine())
-    if not (len(tolerance) == len(expected))
+    if not (len(tolerance) == len(expected)):
         errorFlag = True
     for i in range(len(expected)):
         if not (tolerance[i] == float(expected[i])):
@@ -1275,7 +1275,7 @@ def setIndividualTolerance(rrInstance):
     rrInstance.getIntegrator().setIndividualTolerance(value)
     tolerance = r.getIntegrator().getValue("absolute_tolerance")
     expected = divide(readLine())
-    if not (len(tolerance) == len(expected))
+    if not (len(tolerance) == len(expected)):
         errorFlag = True
     for i in range(len(expected)):
         if not (tolerance[i] == float(expected[i])):
