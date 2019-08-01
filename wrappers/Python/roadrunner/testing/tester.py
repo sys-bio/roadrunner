@@ -1214,7 +1214,7 @@ def unitTestIntegratorSettings(testDir):
     print(passMsg (errorFlag))
 
 
-def setVectorAmountAbsoluteTolerance(rrInstance):
+def setVectorAmountAbsoluteTolerance(rrInstance, testId):
     errorFlag = False
     value = divide(readLine())
     floatValue = [float(i) for i in value]
@@ -1229,7 +1229,7 @@ def setVectorAmountAbsoluteTolerance(rrInstance):
     print(passMsg (errorFlag))
 
 
-def setScalarConcentrationAbsoluteTolerance(rrInstance):
+def setScalarConcentrationAbsoluteTolerance(rrInstance, testId):
     errorFlag = False
     value = float(readLine())
     rrInstance.getIntegrator().setConcentrationTolerance(value)
@@ -1242,7 +1242,7 @@ def setScalarConcentrationAbsoluteTolerance(rrInstance):
             errorFlag = True
     print(passMsg (errorFlag))
 
-def setVectorConcentrationAbsoluteTolerance(rrInstance):
+def setVectorConcentrationAbsoluteTolerance(rrInstance, testId):
     errorFlag = False
     value = divide(readLine())
     floatValue = [float(i) for i in value]
@@ -1257,7 +1257,7 @@ def setVectorConcentrationAbsoluteTolerance(rrInstance):
     print(passMsg (errorFlag))
 
 
-def setIndividualTolerance(rrInstance):
+def setIndividualTolerance(rrInstance, testId):
     errorFlag = False
     value = float(readLine())
     rrInstance.getIntegrator().setIndividualTolerance(value)
