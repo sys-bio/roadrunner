@@ -1213,18 +1213,6 @@ def unitTestIntegratorSettings(testDir):
 
     print(passMsg (errorFlag))
 
-def setScalarAmountAbsoluteTolerance(rrInstance):
-    errorFlag = False
-    value = float(readLine())
-    rrInstance.getIntegrator().setValue('absolute_tolerance', value)
-    tolerance = r.getIntegrator().getValue("absolute_tolerance")
-    expected = divide(readLine())
-    if not (len(tolerance) == len(expected)):
-        errorFlag = True
-    for i in range(len(expected)):
-        if not (tolerance[i] == float(expected[i])):
-            errorFlag = True
-    print(passMsg (errorFlag))
 
 def setVectorAmountAbsoluteTolerance(rrInstance):
     errorFlag = False
@@ -1365,7 +1353,6 @@ functions = {'[Amount/Concentration Jacobians]' : checkJacobian,
              '[Set Steady State Selection List]': checkSetSteadyStateSelectionList,
              '[Set Steady State Selection List 2]': checkSetSteadyStateSelectionList,
              '[Set Time Course Selection List]': checkSetTimeCourseSelectionList,
-             '[Set Scalar Amount Absolute Tolerance]': setScalarAmountAbsoluteTolerance,
              '[Set Vector Amount Absolute Tolerance]': setVectorAmountAbsoluteTolerance,
              '[Set Scalar Concentration Absolute Tolerance]': setScalarConcentrationAbsoluteTolerance,
              '[Set Vector Concentration Absolute Tolerance]': setVectorConcentrationAbsoluteTolerance,
