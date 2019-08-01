@@ -1219,7 +1219,7 @@ def setVectorAmountAbsoluteTolerance(rrInstance, testId):
     value = divide(readLine())
     floatValue = [float(i) for i in value]
     rrInstance.getIntegrator().setValue('absolute_tolerance', floatValue)
-    tolerance = r.getIntegrator().getValue("absolute_tolerance")
+    tolerance = rrInstance.getIntegrator().getValue("absolute_tolerance")
     expected = divide(readLine())
     if not (len(tolerance) == len(expected)):
         errorFlag = True
@@ -1233,7 +1233,7 @@ def setScalarConcentrationAbsoluteTolerance(rrInstance, testId):
     errorFlag = False
     value = float(readLine())
     rrInstance.getIntegrator().setConcentrationTolerance(value)
-    tolerance = r.getIntegrator().getValue("absolute_tolerance")
+    tolerance = rrInstance.getIntegrator().getValue("absolute_tolerance")
     expected = divide(readLine())
     if not (len(tolerance) == len(expected)):
         errorFlag = True
@@ -1247,7 +1247,7 @@ def setVectorConcentrationAbsoluteTolerance(rrInstance, testId):
     value = divide(readLine())
     floatValue = [float(i) for i in value]
     rrInstance.getIntegrator().setConcentrationTolerance(floatValue)
-    tolerance = r.getIntegrator().getValue("absolute_tolerance")
+    tolerance = rrInstance.getIntegrator().getValue("absolute_tolerance")
     expected = divide(readLine())
     if not (len(tolerance) == len(expected)):
         errorFlag = True
@@ -1261,7 +1261,7 @@ def setIndividualTolerance(rrInstance, testId):
     errorFlag = False
     value = float(readLine())
     rrInstance.getIntegrator().setIndividualTolerance(value)
-    tolerance = r.getIntegrator().getValue("absolute_tolerance")
+    tolerance = rrInstance.getIntegrator().getValue("absolute_tolerance")
     expected = divide(readLine())
     if not (len(tolerance) == len(expected)):
         errorFlag = True
