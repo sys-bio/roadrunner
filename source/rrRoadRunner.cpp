@@ -5383,13 +5383,12 @@ void RoadRunner::setInitAmount(const std::string& sid, double initAmount, bool f
 		throw std::invalid_argument("Roadrunner::setInitAmount failed, no species with ID " + sid + " existed in the model");
 	}
 
-	if (species->isSetInitialConcentration())
-	{
-		Log(Logger::LOG_DEBUG) << "Unsetting initial volume for species " << sid << "..." << endl;
-		species->unsetInitialConcentration();
-	}
-
 	Log(Logger::LOG_DEBUG) << "Setting initial amount for species " << sid << "..." << endl;
+	if (species->isSetInitialAmount())
+	{
+		species->unsetInitialAmount();
+	}
+	
 	species->setInitialAmount(initAmount);
 
 	regenerate(forceRegenerate);
@@ -5406,13 +5405,11 @@ void RoadRunner::setInitConcentration(const std::string& sid, double initConcent
 		throw std::invalid_argument("Roadrunner::setInitConcentration failed, no species with ID " + sid + " existed in the model");
 	}
 
-	if (species->isSetInitialAmount())
-	{
-		Log(Logger::LOG_DEBUG) << "Unsetting initial amount for species " << sid << "..." << endl;
-		species->unsetInitialAmount();
-	}
-
 	Log(Logger::LOG_DEBUG) << "Setting initial concentration for species " << sid << "..." << endl;
+	if (species->isSetInitialConcentration)
+	{
+		species->unsetInitialConcentration();
+	}
 	species->setInitialConcentration(initConcentration);
 
 	regenerate(forceRegenerate);
