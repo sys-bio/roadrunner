@@ -984,6 +984,7 @@ void RoadRunner::load(const string& uriOrSbml, const Dictionary *dict)
         Log(Logger::LOG_WARNING)<<"Stoichiometry is not defined for all reactions; assuming unit stoichiometry where missing";
     }
 
+	// TODO: add documentation for validations
 	if ((impl->loadOpt.loadFlags & LoadSBMLOptions::TURN_ON_VALIDATION) == 1)
 	{
 		string errors = validateSBML(mCurrentSBML);
@@ -6024,7 +6025,11 @@ void RoadRunner::regenerate(bool forceRegenerate)
 			delete impl->model;
 		impl->model = newModel;
 		impl->syncAllSolversWithModel(impl->model);
-		resetSelectionLists();
+		reset();
+		if ((impl->loadOpt.loadFlags & LoadSBMLOptions::NO_DEFAULT_SELECTIONS) == 0)
+		{
+			createDefaultSelectionLists();
+		}
 	}
 	
 }
