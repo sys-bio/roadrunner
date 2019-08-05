@@ -5964,6 +5964,11 @@ void RoadRunner::addEventAssignment(const std::string& eid, const std::string& v
 		throw std::invalid_argument("Roadrunner::addEventAssignment failed, no event " + eid + " existed in the model");
 	}
 
+	if (sbmlModel->getCompartment(vid) == NULL && sbmlModel->getSpecies(vid) == NULL && sbmlModel->getParameter(vid) == NULL && sbmlModel->getSpeciesReference(vid) == NULL)
+	{
+		throw std::invalid_argument("Roadrunner::addEventAssignment failed, no variable with ID " + vid + " existed in the model");
+	}
+
 	if (sbmlModel->getRule(vid) != NULL)
 	{
 		throw std::invalid_argument("Roadrunner::addEventAssignment failed, variable " + vid + " already has a rule existing in the model");
