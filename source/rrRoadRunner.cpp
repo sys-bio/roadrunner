@@ -5406,7 +5406,7 @@ void RoadRunner::setInitConcentration(const std::string& sid, double initConcent
 	}
 
 	Log(Logger::LOG_DEBUG) << "Setting initial concentration for species " << sid << "..." << endl;
-	if (species->isSetInitialConcentration)
+	if (species->isSetInitialConcentration())
 	{
 		species->unsetInitialConcentration();
 	}
