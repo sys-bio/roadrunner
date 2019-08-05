@@ -5725,7 +5725,7 @@ void RoadRunner::addAssignmentRule(const std::string& vid, const std::string& fo
 	using namespace libsbml;
 	Model* sbmlModel = impl->document->getModel();
 
-	if (sbmlModel->getCompartment(vid) == NULL && sbmlModel->getSpecies(vid) == NULL && sbmlModel->getParameter(vid) && sbmlModel->getSpeciesReference(vid) == NULL)
+	if (sbmlModel->getCompartment(vid) == NULL && sbmlModel->getSpecies(vid) == NULL && sbmlModel->getParameter(vid) == NULL && sbmlModel->getSpeciesReference(vid) == NULL)
 	{
 		throw std::invalid_argument("Roadrunner::addAssignmentRule failed, no variable with ID " + vid + " existed in the model");
 	}
@@ -5751,7 +5751,7 @@ void RoadRunner::addRateRule(const std::string& vid, const std::string& formula,
 	using namespace libsbml;
 	Model* sbmlModel = impl->document->getModel();
 
-	if (sbmlModel->getCompartment(vid) == NULL && sbmlModel->getSpecies(vid) == NULL && sbmlModel->getParameter(vid) && sbmlModel->getSpeciesReference(vid) == NULL)
+	if (sbmlModel->getCompartment(vid) == NULL && sbmlModel->getSpecies(vid) == NULL && sbmlModel->getParameter(vid) == NULL && sbmlModel->getSpeciesReference(vid) == NULL)
 	{
 		throw std::invalid_argument("Roadrunner::addRateRule failed, no variable with ID " + vid + " existed in the model");
 	}
