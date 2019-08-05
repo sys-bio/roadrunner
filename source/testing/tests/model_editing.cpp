@@ -1221,6 +1221,28 @@ SUITE(MODEL_EDITING_TEST_SUITE)
 		}));
 	}
 
+	TEST(SET_INITIAL_CONCENTRATION_1)
+	{
+		CHECK(RunModelEditingTest([](RoadRunner* rri)
+		{
+			rri->addSpecies("S1", "C", 0.0, "", false);
+			rri->setInitConcentration("S1", 0.0004, false);
+			rri->addSpecies("S2", "C", 0.0, "", false);
+			rri->setInitConcentration("S2", 0.00048, false);
+			rri->addSpecies("S3", "C", 0.0, "", false);
+			rri->setInitConcentration("S3", 0.0008, false);
+			rri->addSpecies("S4", "C", 0.0, "", false);
+			rri->setInitConcentration("S4", 0.0004);
+
+			rri->addReaction("reaction1", {"S1", "S2"}, {"S3", "S4"}, "C * k1 * S1 * S2", false);
+			rri->addReaction("reaction2", {"S3", "S4"}, {"S1", "S2"}, "C * k2 * S3 * S4");
+
+			rri->addEvent("event1", true, "S4 > S2", false);
+			rri->addEventAssignment("event1", "S1", "1/5000", false);
+			rri->addEventAssignment("event1", "S4", "1/5000", true);
+		}));
+	}
+
 
 	/*TEST(READD_SPECIES)
 	{
