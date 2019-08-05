@@ -5773,8 +5773,16 @@ void RoadRunner::addRateRule(const std::string& vid, const std::string& formula,
 
 void RoadRunner::removeRules(const std::string& vid, bool forceRegenerate)
 {
-	
-	libsbml::Rule* toDelete = impl->document->getModel()->removeRule(vid);
+	using namespace libsbml;
+	Model* sbmlModel = impl->document->getModel();
+
+	bool assignment = false;
+	//check if the rule to remove is an assignment rule
+	if (sbmlModel->getAssignmentRule(vid) != NULL)
+	{
+		assignment = false;
+	}
+	Rule* toDelete = sbmlModel->removeRule(vid);
 	if (toDelete == NULL)
 	{
 		throw std::invalid_argument("Roadrunner::removeRules failed, no rules for variable " + vid + " existed in the model");
@@ -5782,6 +5790,47 @@ void RoadRunner::removeRules(const std::string& vid, bool forceRegenerate)
 	Log(Logger::LOG_DEBUG) << "Removing rule for variable" << vid << "..." << endl;
 	delete toDelete;
 	checkGlobalParameters();
+	
+	// grab the initial initial value from sbml model 
+	if (assignment)
+	{	
+		int index = impl->model->getFloatingSpeciesIndex(vid);
+		if (index >= 0 && index < impl->model->getNumIndFloatingSpecies()) {
+
+			double initValue = 0;
+			if (sbmlModel->getSpecies(vid)->isSetInitialAmount()) 
+			{
+				initValue = sbmlModel->getSpecies(vid)->getInitialAmount();
+			}
+			else if (sbmlModel->getSpecies(vid)->isSetInitialConcentration())
+			{
+				initValue = sbmlModel->getSpecies(vid)->getInitialConcentration();
+			}
+
+			impl->model->setFloatingSpeciesInitAmounts(1, &index, &initValue);
+		}
+
+		index = impl->model->getCompartmentIndex(vid);
+		if (index >= 0 && index < impl->model->getNumCompartments()) {
+			double initValue = 0;
+			if (sbmlModel->getCompartment(vid)->isSetSize())
+			{
+				sbmlModel->getCompartment(vid)->getSize();
+			}
+			impl->model->setCompartmentInitVolumes(1, &index, &initValue);
+		}
+
+		index = impl->model->getGlobalParameterIndex(vid);
+		if (index >= 0 && index < impl->model->getNumGlobalParameters()) {
+			double initValue = 0;
+			if (sbmlModel->getParameter(vid)->isSetValue())
+			{
+				sbmlModel->getParameter(vid)->getValue();
+			}
+			impl->model->getGlobalParameterInitValues(1, &index, &initValue);
+		}
+	}
+
 	regenerate(forceRegenerate);
 }
 
