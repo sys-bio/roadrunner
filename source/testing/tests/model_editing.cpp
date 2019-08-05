@@ -1263,6 +1263,60 @@ SUITE(MODEL_EDITING_TEST_SUITE)
 		}));
 	}
 
+	TEST(SET_INITIAL_AMOUNT_2)
+	{
+		CHECK(RunModelEditingTest([](RoadRunner* rri)
+		{
+			rri->addSpecies("S1", "compartment");
+			rri->setInitAmount("S1", 0.00015, false);
+			rri->addSpecies("S2", "compartment");
+			rri->setInitAmount("S2", 0);
+
+			rri->addReaction("reaction1", {"S1"}, {"S2"}, "compartment * k1 * S1");
+			rri->reset();
+		}));
+	}
+
+	TEST(SET_REVERSIBLE_1)
+	{
+		CHECK(RunModelEditingTest([](RoadRunner* rri)
+		{
+			rri->setReversible("reaction2", true);
+		}));
+	}
+
+	TEST(SET_REVERSIBLE_2)
+	{
+		CHECK(RunModelEditingTest([](RoadRunner* rri)
+		{
+			rri->setReversible("reaction1", false);
+		}));
+	}
+
+	TEST(SET_TRIGGER_INITIAL_VALUE_1)
+	{
+		CHECK(RunModelEditingTest([](RoadRunner* rri)
+		{
+			rri->setTriggerInitialValue("event1", false);
+		}, "l3v1"));
+	}
+
+	TEST(SET_TRIGGER_INITIAL_VALUE_2)
+	{
+		CHECK(RunModelEditingTest([](RoadRunner* rri)
+		{
+			rri->setTriggerInitialValue("event1", true);
+		}, "l3v1"));
+	}
+
+	TEST(SET_TRIGGER_INITIAL_VALUE_3)
+	{
+		CHECK(RunModelEditingTest([](RoadRunner* rri)
+		{
+			rri->setTriggerInitialValue("event1", true);
+		}, "l3v1"));
+	}
+
 	/*TEST(READD_SPECIES)
 	{
 		clog << endl << "==== CHECK_READD_SPECIES ====" << endl << endl;
