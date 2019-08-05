@@ -6049,7 +6049,7 @@ void RoadRunner::regenerate(bool forceRegenerate)
 			delete impl->model;
 		impl->model = newModel;
 		impl->syncAllSolversWithModel(impl->model);
-		reset();
+		// reset();
 		if ((impl->loadOpt.loadFlags & LoadSBMLOptions::NO_DEFAULT_SELECTIONS) == 0)
 		{
 			createDefaultSelectionLists();
