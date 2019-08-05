@@ -5475,7 +5475,7 @@ void RoadRunner::addReaction(const string& rid, vector<string> reactants, vector
 	
 	newReaction->setId(rid);
 	
-	// TODO: check reactants.size() + products.size() > 0?
+	// no need to check reactants.size() + products.size() > 0
 	for (int i = 0; i < reactants.size(); i++) 
 	{
 		char* sid = 0;
@@ -5579,7 +5579,6 @@ void RoadRunner::setReversible(const std::string& rid,bool reversible, bool forc
 	regenerate(forceRegenerate);
 }
 
-// TODO: check if formula parameters are valid
 
 void RoadRunner::setKineticLaw(const std::string& rid, const std::string& kineticLaw, bool forceRegenerate)
 {
@@ -5595,8 +5594,6 @@ void RoadRunner::setKineticLaw(const std::string& rid, const std::string& kineti
 
 	Log(Logger::LOG_DEBUG) << "Setting kinetic law for reaction " << rid << "..." << endl;
 
-
-	// TODO: catch illegal formula, otherwise will only be detected during the simulation
 
 	KineticLaw* law = reaction->getKineticLaw();
 	if (law == NULL) {
@@ -5723,12 +5720,20 @@ void RoadRunner::removeCompartment(const std::string& cid, bool forceRegenerate)
 }
 
 
-// TODO: A reaction’s identifier cannot be the target of an InitialAssignment, EventAssignment, or Rule object
-
 void RoadRunner::addAssignmentRule(const std::string& vid, const std::string& formula, bool forceRegenerate)
 {
 	using namespace libsbml;
 	Model* sbmlModel = impl->document->getModel();
+
+	if (sbmlModel->getCompartment(vid) == NULL && sbmlModel->getSpecies(vid) == NULL && sbmlModel->getParameter(vid) && sbmlModel->getSpeciesReference(vid) == NULL)
+	{
+		throw std::invalid_argument("Roadrunner::addAssignmentRule failed, no variable with ID " + vid + " existed in the model");
+	}
+
+	if (sbmlModel->getRule(vid) != NULL)
+	{
+		throw std::invalid_argument("Roadrunner::addAssignmentRule failed, variable " + vid + " already has a rule existing in the model");
+	}
 
 	Log(Logger::LOG_DEBUG) << "Adding assignment rule for" << vid << "..." << endl;
 	AssignmentRule* newRule = sbmlModel->createAssignmentRule();
@@ -5747,12 +5752,21 @@ void RoadRunner::addRateRule(const std::string& vid, const std::string& formula,
 	using namespace libsbml;
 	Model* sbmlModel = impl->document->getModel();
 
+	if (sbmlModel->getCompartment(vid) == NULL && sbmlModel->getSpecies(vid) == NULL && sbmlModel->getParameter(vid) && sbmlModel->getSpeciesReference(vid) == NULL)
+	{
+		throw std::invalid_argument("Roadrunner::addRateRule failed, no variable with ID " + vid + " existed in the model");
+	}
+
+	if (sbmlModel->getRule(vid) != NULL)
+	{
+		throw std::invalid_argument("Roadrunner::addRateRule failed, variable " + vid + " already has a rule existing in the model");
+	}
+
 	Log(Logger::LOG_DEBUG) << "Adding rate rule for" << vid << "..." << endl;
 	RateRule* newRule = sbmlModel->createRateRule();
 
 	// potential errors with these two inputs will be detected during regeneration
 
-	// TODO: check vid is a valid variable(specices/ species reference/ parameter/ compartment)
 	// TODO: one vid cannot have more than one rate rule 
 	newRule->setVariable(vid);
 	newRule->setFormula(formula);
