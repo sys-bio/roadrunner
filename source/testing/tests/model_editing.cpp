@@ -1191,6 +1191,36 @@ SUITE(MODEL_EDITING_TEST_SUITE)
 			rri->addRateRule("S1", "7");
 		}));
 	}
+	
+	TEST(SET_HAS_ONLY_SUBSTANCE_UNITS_1)
+	{
+		CHECK(RunModelEditingTest([](RoadRunner* rri)
+		{
+			rri->setHasOnlySubstanceUnits("S1", true, false);
+			rri->setHasOnlySubstanceUnits("S2", true);
+		}));
+	}
+
+	TEST(SET_HAS_ONLY_SUBSTANCE_UNITS_2)
+	{
+		CHECK(RunModelEditingTest([](RoadRunner* rri)
+		{
+			rri->setHasOnlySubstanceUnits("S1", true, false);
+			rri->setHasOnlySubstanceUnits("S2", true, false);
+			rri->setHasOnlySubstanceUnits("S3", true, false);
+			rri->setHasOnlySubstanceUnits("S4", true);
+		}));
+	}
+	
+	TEST(SET_HAS_ONLY_SUBSTANCE_UNITS_3)
+	{
+		CHECK(RunModelEditingTest([](RoadRunner* rri)
+		{
+			rri->setHasOnlySubstanceUnits("S1", false, false);
+			rri->setHasOnlySubstanceUnits("S2", false);
+		}));
+	}
+
 
 	/*TEST(READD_SPECIES)
 	{
