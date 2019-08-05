@@ -1157,6 +1157,23 @@ SUITE(MODEL_EDITING_TEST_SUITE)
 		}, "l3v1"));
 	}
 
+	TEST(SET_PERSISTENT_1)
+	{
+		CHECK(RunModelEditingTest([](RoadRunner* rri)
+		{
+			rri->setPersistent("event1", true, false);
+			rri->setPersistent("event2", true);
+		}, "l3v1"));
+	}
+
+	TEST(SET_PERSISTENT_2)
+	{
+		CHECK(RunModelEditingTest([](RoadRunner* rri)
+		{
+			rri->setPersistent("event1", false);
+		}, "l3v1"));
+	}
+
 	TEST(READD_SPECIES)
 	{
 		clog << endl << "==== CHECK_READD_SPECIES ====" << endl << endl;
