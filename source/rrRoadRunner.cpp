@@ -5780,7 +5780,7 @@ void RoadRunner::removeRules(const std::string& vid, bool forceRegenerate)
 	//check if the rule to remove is an assignment rule
 	if (sbmlModel->getAssignmentRule(vid) != NULL)
 	{
-		assignment = false;
+		assignment = true;
 	}
 	Rule* toDelete = sbmlModel->removeRule(vid);
 	if (toDelete == NULL)
@@ -5790,15 +5790,16 @@ void RoadRunner::removeRules(const std::string& vid, bool forceRegenerate)
 	Log(Logger::LOG_DEBUG) << "Removing rule for variable" << vid << "..." << endl;
 	delete toDelete;
 	checkGlobalParameters();
-	
+
+	regenerate(forceRegenerate);
 	// grab the initial initial value from sbml model 
 	if (assignment)
-	{	
+	{
 		int index = impl->model->getFloatingSpeciesIndex(vid);
 		if (index >= 0 && index < impl->model->getNumIndFloatingSpecies()) {
 
 			double initValue = 0;
-			if (sbmlModel->getSpecies(vid)->isSetInitialAmount()) 
+			if (sbmlModel->getSpecies(vid)->isSetInitialAmount())
 			{
 				initValue = sbmlModel->getSpecies(vid)->getInitialAmount();
 			}
@@ -5830,8 +5831,6 @@ void RoadRunner::removeRules(const std::string& vid, bool forceRegenerate)
 			impl->model->getGlobalParameterInitValues(1, &index, &initValue);
 		}
 	}
-
-	regenerate(forceRegenerate);
 }
 
 
