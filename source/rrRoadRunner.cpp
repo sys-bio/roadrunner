@@ -5730,6 +5730,11 @@ void RoadRunner::addAssignmentRule(const std::string& vid, const std::string& fo
 		throw std::invalid_argument("Roadrunner::addAssignmentRule failed, no variable with ID " + vid + " existed in the model");
 	}
 
+	if (sbmlModel->getRule(vid) != NULL)
+	{
+		throw std::invalid_argument("Roadrunner::addAssignmentRule failed, variable " + vid + " already has a rule existing in the model");
+	}
+
 	Log(Logger::LOG_DEBUG) << "Adding assignment rule for" << vid << "..." << endl;
 	AssignmentRule* newRule = sbmlModel->createAssignmentRule();
 
@@ -5749,7 +5754,12 @@ void RoadRunner::addRateRule(const std::string& vid, const std::string& formula,
 
 	if (sbmlModel->getCompartment(vid) == NULL && sbmlModel->getSpecies(vid) == NULL && sbmlModel->getParameter(vid) && sbmlModel->getSpeciesReference(vid) == NULL)
 	{
-		throw std::invalid_argument("Roadrunner::addAssignmentRule failed, no variable with ID " + vid + " existed in the model");
+		throw std::invalid_argument("Roadrunner::addRateRule failed, no variable with ID " + vid + " existed in the model");
+	}
+
+	if (sbmlModel->getRule(vid) != NULL)
+	{
+		throw std::invalid_argument("Roadrunner::addRateRule failed, variable " + vid + " already has a rule existing in the model");
 	}
 
 	Log(Logger::LOG_DEBUG) << "Adding rate rule for" << vid << "..." << endl;
