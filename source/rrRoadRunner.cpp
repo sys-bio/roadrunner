@@ -5973,11 +5973,16 @@ void RoadRunner::addEventAssignment(const std::string& eid, const std::string& v
 	{
 		throw std::invalid_argument("Roadrunner::addEventAssignment failed, variable " + vid + " already has a rule existing in the model");
 	}
+	
+
+	if (event->getEventAssignment(vid) != NULL)
+	{
+		throw std::invalid_argument("Roadrunner::addEventAssignment failed, variable " + vid + " already has an assignment in the event " + eid);
+	}
+
 
 	Log(Logger::LOG_DEBUG) << "Adding event assignment for variable " << vid << " to event " << eid << "..." << endl;
 	EventAssignment* assignment = event->createEventAssignment();
-	// multiple assignments for one variable in one event is allowed
-	// TODO: conflict with assignment rule
 	assignment->setVariable(vid);
 
 	ASTNode_t* math = libsbml::SBML_parseL3Formula(formula.c_str());
