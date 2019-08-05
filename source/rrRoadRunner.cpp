@@ -5730,9 +5730,9 @@ void RoadRunner::addAssignmentRule(const std::string& vid, const std::string& fo
 		throw std::invalid_argument("Roadrunner::addAssignmentRule failed, no variable with ID " + vid + " existed in the model");
 	}
 
-	if (sbmlModel->getRule(vid) != NULL)
+	if (sbmlModel->getRule(vid) != NULL || sbmlModel->getAssignmentRule(vid) != NULL)
 	{
-		throw std::invalid_argument("Roadrunner::addAssignmentRule failed, variable " + vid + " already has a rule existing in the model");
+		throw std::invalid_argument("Roadrunner::addAssignmentRule failed, variable " + vid + " already has a rule or an assignment rule existing in the model");
 	}
 
 	Log(Logger::LOG_DEBUG) << "Adding assignment rule for" << vid << "..." << endl;
@@ -5740,7 +5740,6 @@ void RoadRunner::addAssignmentRule(const std::string& vid, const std::string& fo
 
 	// potential errors with these two inputs will be detected during regeneration and ignored 
 
-	// TODO: check vid is a valid variable(specices/ species reference/ parameter/ compartment)
 	newRule->setVariable(vid);
 	newRule->setFormula(formula);
 
@@ -5757,17 +5756,17 @@ void RoadRunner::addRateRule(const std::string& vid, const std::string& formula,
 		throw std::invalid_argument("Roadrunner::addRateRule failed, no variable with ID " + vid + " existed in the model");
 	}
 
-	if (sbmlModel->getRule(vid) != NULL)
+	if (sbmlModel->getRule(vid) != NULL || sbmlModel->getAssignmentRule(vid) != NULL)
 	{
-		throw std::invalid_argument("Roadrunner::addRateRule failed, variable " + vid + " already has a rule existing in the model");
+		throw std::invalid_argument("Roadrunner::addRateRule failed, variable " + vid + " already has a rule or an assignment rule existing in the model");
 	}
+
 
 	Log(Logger::LOG_DEBUG) << "Adding rate rule for" << vid << "..." << endl;
 	RateRule* newRule = sbmlModel->createRateRule();
 
 	// potential errors with these two inputs will be detected during regeneration
 
-	// TODO: one vid cannot have more than one rate rule 
 	newRule->setVariable(vid);
 	newRule->setFormula(formula);
 
@@ -5777,17 +5776,14 @@ void RoadRunner::addRateRule(const std::string& vid, const std::string& formula,
 
 void RoadRunner::removeRules(const std::string& vid, bool forceRegenerate)
 {
-	Log(Logger::LOG_DEBUG) << "Removing rules for variable" << vid << "..." << endl;
+	
 	libsbml::Rule* toDelete = impl->document->getModel()->removeRule(vid);
 	if (toDelete == NULL)
 	{
 		throw std::invalid_argument("Roadrunner::removeRules failed, no rules for variable " + vid + " existed in the model");
 	}
-	while (toDelete != NULL)
-	{
-		delete toDelete;
-		toDelete = impl->document->getModel()->removeRule(vid);
-	}
+	Log(Logger::LOG_DEBUG) << "Removing rule for variable" << vid << "..." << endl;
+	delete toDelete;
 	checkGlobalParameters();
 	regenerate(forceRegenerate);
 }
@@ -5968,6 +5964,11 @@ void RoadRunner::addEventAssignment(const std::string& eid, const std::string& v
 		throw std::invalid_argument("Roadrunner::addEventAssignment failed, no event " + eid + " existed in the model");
 	}
 
+	if (sbmlModel->getRule(vid) != NULL)
+	{
+		throw std::invalid_argument("Roadrunner::addEventAssignment failed, variable " + vid + " already has a rule existing in the model");
+	}
+
 	Log(Logger::LOG_DEBUG) << "Adding event assignment for variable " << vid << " to event " << eid << "..." << endl;
 	EventAssignment* assignment = event->createEventAssignment();
 	// multiple assignments for one variable in one event is allowed
@@ -6000,13 +6001,9 @@ void RoadRunner::removeEventAssignments(const std::string & eid, const std::stri
 		throw std::invalid_argument("Roadrunner::removeEventAssignment failed, no event assignment for variable " + vid + " existed in the event " + eid);
 	}
 
-	Log(Logger::LOG_DEBUG) << "Removing event assignments for variable" << vid << " in event " << eid << "..." << endl;
-	while (toDelete != NULL)
-	{
-		delete toDelete;
-		toDelete = event->removeEventAssignment(vid);
-	}
-	//checkGlobalParameters();
+	Log(Logger::LOG_DEBUG) << "Removing event assignment for variable" << vid << " in event " << eid << "..." << endl;
+	delete toDelete;
+
 	regenerate(forceRegenerate);
 }
 
