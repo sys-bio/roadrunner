@@ -1243,6 +1243,25 @@ SUITE(MODEL_EDITING_TEST_SUITE)
 		}));
 	}
 
+	TEST(SET_INITIAL_CONCENTRATION_2)
+	{
+		CHECK(RunModelEditingTest([](RoadRunner* rri)
+		{
+			rri->setInitConcentration("S1", 0.0004, false);
+			rri->setInitConcentration("S2", 0.00048, false);
+			rri->setInitConcentration("S3", 0.0008, false);
+			rri->setInitConcentration("S4", 0.0004);
+		}));
+	}
+
+	TEST(SET_INITIAL_AMOUNT_1)
+	{
+		CHECK(RunModelEditingTest([](RoadRunner* rri)
+		{
+			rri->setInitAmount("S1", 0.00015, false);
+			rri->setInitAmount("S2", 0);
+		}));
+	}
 
 	/*TEST(READD_SPECIES)
 	{
