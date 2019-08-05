@@ -5215,8 +5215,7 @@ void RoadRunner::addSpecies(const std::string& sid, const std::string& compartme
 		throw std::invalid_argument("Roadrunner::addSpecies failed, no compartment " + compartment + " existed in the model");
 	}
 
-	Log(Logger::LOG_DEBUG) << "Adding species " << sid << ", compartment " << compartment << ", initial value "
-		<< initValue << " and substance unit " << substanceUnits << "..." << endl;
+	Log(Logger::LOG_DEBUG) << "Adding species " << sid << " in compartment " << compartment << "..." << endl;
 	libsbml::Species *newSpecies = impl->document->getModel()->createSpecies();
 
 	newSpecies->setId(sid);
@@ -5224,19 +5223,26 @@ void RoadRunner::addSpecies(const std::string& sid, const std::string& compartme
 
 	// setting both concentration and amount will cause an error
 	// if InitialAssignment is set for the species, then initialConcentration or initialAmount will be ignored
+	// TODO: if the initial assignment is removed, we need to find a way to recover the overwrote initial value 
 	// TODO: check for valid unit?
-	newSpecies->setSubstanceUnits(substanceUnits);
-	if (substanceUnits == "concentration" || substanceUnits == "density")
+	// level 2 sbml predefined units : substance, volume, area, length, time
+
+	newSpecies->setInitialAmount(initValue);
+
+
+	if (substanceUnits.size() > 0)
 	{
-		newSpecies->setInitialConcentration(initValue);
-		// TODO: other predefined unit to set this attribute to be false?
-		newSpecies->setHasOnlySubstanceUnits(false);
-	} 
-	else 
-	{
-		newSpecies->setInitialAmount(initValue);
+		// a unit is given 
+		newSpecies->setSubstanceUnits(substanceUnits);
 		newSpecies->setHasOnlySubstanceUnits(true);
 	}
+	else 
+	{
+		// unit is not given
+		// by default, we sest hasOnlySubstanceUnits to false
+		newSpecies->setHasOnlySubstanceUnits(false);
+	}
+
 	
 	// set required attributes to default
 	newSpecies->setBoundaryCondition(false);

@@ -718,12 +718,8 @@ public:
 	 * Add a species to the current model.
 	 * @param sid: the ID of the species to be added
 	 * @param compartment: the compartment of the species to be added
-	 * @param initValue: the initial amount or concentration of the species to be added
-	 * If the given unit is concentration or density, initial concentration will be set
-	 * otherwise, initial amount will be set
+	 * @param initAmount: the initial amount of the species to be added
 	 * @param substanceUnits: the substance unit of the species to be added
-	 * By default, we set hasOnlySubstanceUnits attribute to be false if the unit concentration or density,
-	 * and true for other units. 
 	 * @param forceRegenerate: a boolean value to indicate if the model is regenerated 
 	 *					       after this function call
 	 *						   default value is true to regenerate model after each call 
@@ -731,7 +727,7 @@ public:
 	 *						   to save time for editing for multiple times, one could 
      *					       set this flag to true only in the last call of editing 
 	 */
-	void addSpecies(const std::string& sid, const std::string& compartment, double initValue, const std::string& substanceUnits = "concentration", bool forceRegenerate = true);
+	void addSpecies(const std::string& sid, const std::string& compartment, double initAmount = 0, const std::string& substanceUnits = "", bool forceRegenerate = true);
 
 
 	/*
