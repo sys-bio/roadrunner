@@ -575,7 +575,7 @@ void removeAndReaddAllCompartments(RoadRunner *rri, libsbml::SBMLDocument *doc)
 
 SUITE(MODEL_EDITING_TEST_SUITE)
 {
-	TEST(ADD_REACTION_1)
+	/*TEST(ADD_REACTION_1)
 	{
 		CHECK(RunModelEditingTest([](RoadRunner* rri) {
 			rri->addReaction("reaction2", {"S2"}, {"S1"}, "k1*S2", true);
@@ -1164,7 +1164,7 @@ SUITE(MODEL_EDITING_TEST_SUITE)
 			rri->setPersistent("event1", true, false);
 			rri->setPersistent("event2", true);
 		}, "l3v1"));
-	}
+	}*/
 
 	TEST(SET_PERSISTENT_2)
 	{
@@ -1174,7 +1174,25 @@ SUITE(MODEL_EDITING_TEST_SUITE)
 		}, "l3v1"));
 	}
 
-	TEST(READD_SPECIES)
+	TEST(SET_CONSTANT_1)
+	{
+		CHECK(RunModelEditingTest([](RoadRunner* rri)
+		{
+			rri->setConstant("k1", false, false);
+			rri->addRateRule("k1", "0.5");
+		}));
+	}
+
+	TEST(SET_CONSTANT_2)
+	{
+		CHECK(RunModelEditingTest([](RoadRunner* rri)
+		{
+			rri->setConstant("S1", false, false);
+			rri->addRateRule("S1", "7");
+		}));
+	}
+
+	/*TEST(READD_SPECIES)
 	{
 		clog << endl << "==== CHECK_READD_SPECIES ====" << endl << endl;
 		for (int i = 1; i <= 38; i++)
@@ -1210,5 +1228,5 @@ SUITE(MODEL_EDITING_TEST_SUITE)
 				UnitTest::CurrentTest::Results()->OnTestFailure(*UnitTest::CurrentTest::Details(), failureMessage.c_str());
 			}
 		}
-	}
+	}*/
 }
