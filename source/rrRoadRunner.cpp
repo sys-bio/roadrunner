@@ -5816,7 +5816,7 @@ void RoadRunner::removeRules(const std::string& vid, bool forceRegenerate)
 			double initValue = 0;
 			if (sbmlModel->getCompartment(vid)->isSetSize())
 			{
-				sbmlModel->getCompartment(vid)->getSize();
+				initValue = sbmlModel->getCompartment(vid)->getSize();
 			}
 			impl->model->setCompartmentInitVolumes(1, &index, &initValue);
 		}
@@ -5826,9 +5826,10 @@ void RoadRunner::removeRules(const std::string& vid, bool forceRegenerate)
 			double initValue = 0;
 			if (sbmlModel->getParameter(vid)->isSetValue())
 			{
-				sbmlModel->getParameter(vid)->getValue();
+				initValue = sbmlModel->getParameter(vid)->getValue();
 			}
-			impl->model->getGlobalParameterInitValues(1, &index, &initValue);
+			impl->model->setGlobalParameterInitValues(1, &index, &initValue);
+			// TODO: also set current value???
 		}
 	}
 }
