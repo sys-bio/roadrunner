@@ -5824,7 +5824,12 @@ void RoadRunner::removeRules(const std::string& vid, bool forceRegenerate)
 			}
 			else if (sbmlModel->getSpecies(vid)->isSetInitialConcentration())
 			{
-				initValue = sbmlModel->getSpecies(vid)->getInitialConcentration();
+				double initConcentration = sbmlModel->getSpecies(vid)->getInitialConcentration();
+				int compartment = impl->model->getCompartmentIndex(sbmlModel->getSpecies(vid)->getCompartment());
+				double compartmentSize = 1;
+				impl->model->getCompartmentVolumes(1, &compartment, &compartmentSize);
+
+				initValue = initConcentration * compartmentSize;
 			}
 
 			impl->model->setFloatingSpeciesInitAmounts(1, &index, &initValue);
