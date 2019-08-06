@@ -564,7 +564,7 @@ context.getExecutionEngine().getFunctionAddress("setGlobalParameter");
 					newModel->modelData->globalParametersAlias[index] = value;
 					//newModel->setGlobalParameterValues(1, &index, &value);
 				}
-
+		
 				else if (newModel->symbols->hasRateRule(id))
 				{
 					// copy to rate rule value data block
@@ -582,42 +582,8 @@ context.getExecutionEngine().getFunctionAddress("setGlobalParameter");
 
 		}
 
-		
-
-		//for (int i = 0; i < oldModel->getNumConservedMoieties(); i++)
-		//{
-		//	string id = oldModel->getConservedMoietyId(i);
-		//	int index = newModel->getConservedMoietyIndex(id);
-
-		//	if (index != -1)
-		//	{
-		//		if (!newModel->symbols->hasAssignmentRule(id) && !newModel->symbols->hasRateRule(id))
-		//		{
-		//			double value = 0;
-		//			oldModel->getConservedMoietyValues(1, &i, &value);
-		//			//newModel->setConservedMoietyValues(1, &index, &value);
-		//		}
-		//	}
-		//}
-
-		// copy old rate rules as well
-		//double* oldRateRule = (double*)calloc(oldModel->getNumRateRules(), sizeof(double));
-		//std::vector<std::string> oldSymbols = oldModel->getRateRuleSymbols();
-		//for (int i = 0; i < newModel->getNumRateRules(); i++)
-		//{
-		//	std::string symbol = newSymbols[i];
-			// check if it is a old symbol
-		//	std::vector<string>::iterator it = std::find(oldSymbols.begin(), oldSymbols.end(), symbol);
-		//	if (it != oldSymbols.end())
-		//	{
-				// found it
-		//		int index = std::distance(oldSymbols.begin(), it);
-		//		newModel->modelData->rateRuleValuesAlias[i] = oldRateRule[index];
-		//	}
-			
-		//}
-
-		//delete oldRateRule;
+		newModel->setTime(oldModel->getTime());
+	
 	}
 
 	return newModel;
