@@ -5392,6 +5392,12 @@ void RoadRunner::setInitAmount(const std::string& sid, double initAmount, bool f
 	species->setInitialAmount(initAmount);
 
 	regenerate(forceRegenerate);
+	
+	// recover the updated init amount
+	int index = impl->model->getFloatingSpeciesIndex(sid);
+	if (index >= 0 && index < impl->model->getNumIndFloatingSpecies()) {
+		impl->model->setFloatingSpeciesInitAmounts(1, &index, &initAmount);
+	}
 }
 
 void RoadRunner::setInitConcentration(const std::string& sid, double initConcentration, bool forceRegenerate)
@@ -5413,6 +5419,20 @@ void RoadRunner::setInitConcentration(const std::string& sid, double initConcent
 	species->setInitialConcentration(initConcentration);
 
 	regenerate(forceRegenerate);
+	
+	// recover the updated init concentration
+	int index = impl->model->getFloatingSpeciesIndex(sid);
+	
+	if (index >= 0 && index < impl->model->getNumIndFloatingSpecies()) {
+		uint ncomp = impl->model->getNumCompartments();
+		double* volumes = (double*)calloc(ncomp, sizeof(double));
+		impl->model->getCompartmentVolumes(ncomp, 0, volumes);
+		int compartment = getCompartmentIndexForFloatingSpecies(index);
+		
+		double initValue = initConcentration * volumes[compartment];
+		impl->model->setFloatingSpeciesInitAmounts(1, &index, &initValue);
+		free(volumes);
+	}
 }
 
 void RoadRunner::setConstant(const std::string& sid, bool constant, bool forceRegenerate)
