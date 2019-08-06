@@ -359,4 +359,170 @@ SUITE(MODEL_EDITING_TEST_SUITE)
 			removeEventAssignments(rri, "event1", "S2");
 		}));
 	}
+
+	TEST(SET_PERSISTENT_1)
+	{
+		CHECK(RunTestWithModification([](RRHandle rri)
+		{
+			setPersistentNoRegen(rri, "event1", true);
+			setPersistent(rri, "event2", true);
+		}, "l3v1"));
+	}
+
+	TEST(SET_PERSISTENT_2)
+	{
+		CHECK(RunTestWithModification([](RRHandle rri)
+		{
+			setPersistent(rri, "event1", false);
+		}, "l3v1"));
+	}
+
+	TEST(SET_CONSTANT_1)
+	{
+		CHECK(RunTestWithModification([](RRHandle rri)
+		{
+			setConstantNoRegen(rri, "k1", false);
+			addRateRule(rri, "k1", "0.5");
+		}));
+	}
+
+	TEST(SET_CONSTANT_2)
+	{
+		CHECK(RunTestWithModification([](RRHandle rri)
+		{
+			setConstantNoRegen(rri, "S1", false);
+			addRateRule(rri, "S1", "7");
+		}));
+	}
+	
+	TEST(SET_HAS_ONLY_SUBSTANCE_UNITS_1)
+	{
+		CHECK(RunTestWithModification([](RRHandle rri)
+		{
+			setHasOnlySubstanceUnitsNoRegen(rri, "S1", true);
+			setHasOnlySubstanceUnits(rri, "S2", true);
+		}));
+	}
+
+	TEST(SET_HAS_ONLY_SUBSTANCE_UNITS_2)
+	{
+		CHECK(RunTestWithModification([](RRHandle rri)
+		{
+			setHasOnlySubstanceUnitsNoRegen(rri, "S1", true);
+			setHasOnlySubstanceUnitsNoRegen(rri, "S2", true);
+			setHasOnlySubstanceUnitsNoRegen(rri, "S3", true);
+			setHasOnlySubstanceUnits(rri, "S4", true);
+		}));
+	}
+	
+	TEST(SET_HAS_ONLY_SUBSTANCE_UNITS_3)
+	{
+		CHECK(RunTestWithModification([](RRHandle rri)
+		{
+			setHasOnlySubstanceUnitsNoRegen(rri, "S1", false);
+			setHasOnlySubstanceUnits(rri, "S2", false);
+		}));
+	}
+
+	TEST(SET_INITIAL_CONCENTRATION_1)
+	{
+		CHECK(RunTestWithModification([](RRHandle rri)
+		{
+			addSpeciesNoRegen(rri, "S1", "C", 0.0, "");
+			setInitConcentrationNoRegen(rri, "S1", 0.0004);
+			addSpeciesNoRegen(rri, "S2", "C", 0.0, "");
+			setInitConcentrationNoRegen(rri, "S2", 0.00048);
+			addSpeciesNoRegen(rri, "S3", "C", 0.0, "");
+			setInitConcentrationNoRegen(rri, "S3", 0.0008);
+			addSpeciesNoRegen(rri, "S4", "C", 0.0, "");
+			setInitConcentration(rri, "S4", 0.0004);
+
+			const char* reactants1[] = {"S1", "S2"};
+			const char* products1[] = {"S3", "S4"};
+
+			addReactionNoRegen(rri, "reaction1", reactants1, 2, products1, 2, "C * k1 * S1 * S2");
+
+			addReaction(rri, "reaction2", products1, 2, reactants1, 2, "C * k2 * S3 * S4");
+
+			addEventNoRegen(rri, "event1", true, "S4 > S2");
+			addEventAssignmentNoRegen(rri, "event1", "S1", "1/5000");
+			addEventAssignment(rri, "event1", "S4", "1/5000");
+		}));
+	}
+
+	TEST(SET_INITIAL_CONCENTRATION_2)
+	{
+		CHECK(RunTestWithModification([](RRHandle rri)
+		{
+			setInitConcentrationNoRegen(rri, "S1", 0.0004);
+			setInitConcentrationNoRegen(rri, "S2", 0.00048);
+			setInitConcentrationNoRegen(rri, "S3", 0.0008);
+			setInitConcentration(rri, "S4", 0.0004);
+		}));
+	}
+
+	TEST(SET_INITIAL_AMOUNT_1)
+	{
+		CHECK(RunTestWithModification([](RRHandle rri)
+		{
+			setInitAmountNoRegen(rri, "S1", 0.00015);
+			setInitAmount(rri, "S2", 0);
+		}));
+	}
+
+	TEST(SET_INITIAL_AMOUNT_2)
+	{
+		CHECK(RunTestWithModification([](RRHandle rri)
+		{
+			addSpecies(rri, "S1", "compartment", 0.0, "");
+			setInitAmountNoRegen(rri, "S1", 0.00015);
+			addSpecies(rri, "S2", "compartment", 0.0, "");
+			setInitAmount(rri, "S2", 0);
+
+			const char* reactants[] = {"S1"};
+			const char* products[] = {"S2"};
+			addReaction(rri, "reaction1", reactants, 1, products, 1, "compartment * k1 * S1");
+			reset(rri);
+		}));
+	}
+
+	TEST(SET_REVERSIBLE_1)
+	{
+		CHECK(RunTestWithModification([](RRHandle rri)
+		{
+			setReversible(rri, "reaction2", true);
+		}));
+	}
+
+	TEST(SET_REVERSIBLE_2)
+	{
+		CHECK(RunTestWithModification([](RRHandle rri)
+		{
+			setReversible(rri, "reaction1", false);
+		}));
+	}
+
+	TEST(SET_TRIGGER_INITIAL_VALUE_1)
+	{
+		CHECK(RunTestWithModification([](RRHandle rri)
+		{
+			setTriggerInitialValue(rri, "event1", false);
+		}, "l3v1"));
+	}
+
+	TEST(SET_TRIGGER_INITIAL_VALUE_2)
+	{
+		CHECK(RunTestWithModification([](RRHandle rri)
+		{
+			setTriggerInitialValue(rri, "event1", true);
+		}, "l3v1"));
+	}
+
+	TEST(SET_TRIGGER_INITIAL_VALUE_3)
+	{
+		CHECK(RunTestWithModification([](RRHandle rri)
+		{
+			setTriggerInitialValue(rri, "event1", true);
+		}, "l3v1"));
+	}
 }
