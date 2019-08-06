@@ -575,7 +575,7 @@ void removeAndReaddAllCompartments(RoadRunner *rri, libsbml::SBMLDocument *doc)
 
 SUITE(MODEL_EDITING_TEST_SUITE)
 {
-	/*TEST(ADD_REACTION_1)
+	TEST(ADD_REACTION_1)
 	{
 		CHECK(RunModelEditingTest([](RoadRunner* rri) {
 			rri->addReaction("reaction2", {"S2"}, {"S1"}, "k1*S2", true);
@@ -1155,7 +1155,7 @@ SUITE(MODEL_EDITING_TEST_SUITE)
 			rri->addEventAssignment("Rinc2", "R2", "R2 + 0.01", false);
 			rri->addPriority("Rinc2", "1");
 		}, "l3v1"));
-	}*/
+	}
 
 	TEST(SET_PERSISTENT_1)
 	{
@@ -1298,6 +1298,7 @@ SUITE(MODEL_EDITING_TEST_SUITE)
 		CHECK(RunModelEditingTest([](RoadRunner* rri)
 		{
 			rri->setTriggerInitialValue("event1", false);
+			rri->reset();
 		}, "l3v1"));
 	}
 
@@ -1306,6 +1307,7 @@ SUITE(MODEL_EDITING_TEST_SUITE)
 		CHECK(RunModelEditingTest([](RoadRunner* rri)
 		{
 			rri->setTriggerInitialValue("event1", true);
+			rri->reset();
 		}, "l3v1"));
 	}
 
@@ -1314,6 +1316,7 @@ SUITE(MODEL_EDITING_TEST_SUITE)
 		CHECK(RunModelEditingTest([](RoadRunner* rri)
 		{
 			rri->setTriggerInitialValue("event1", true);
+			rri->reset();
 		}, "l3v1"));
 	}
 
