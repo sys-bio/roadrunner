@@ -5427,7 +5427,7 @@ void RoadRunner::setInitConcentration(const std::string& sid, double initConcent
 		uint ncomp = impl->model->getNumCompartments();
 		double* volumes = (double*)calloc(ncomp, sizeof(double));
 		impl->model->getCompartmentVolumes(ncomp, 0, volumes);
-		int compartment = getCompartmentIndexForFloatingSpecies(index);
+		int compartment = impl->model->getCompartmentIndexForFloatingSpecies(index);
 		
 		double initValue = initConcentration * volumes[compartment];
 		impl->model->setFloatingSpeciesInitAmounts(1, &index, &initValue);
