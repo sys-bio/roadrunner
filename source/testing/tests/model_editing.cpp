@@ -1233,10 +1233,6 @@ SUITE(MODEL_EDITING_TEST_SUITE)
 			rri->setInitConcentration("S3", 0.0008, false);
 			rri->addSpecies("S4", "C", 0.0, "", false);
 			rri->setInitConcentration("S4", 0.0004);
-			rri->setInitConcentration("S4", 88);
-			for (double d : rri->getFloatingSpeciesInitialConcentrations())
-				std::cout << d << " ";
-			std::cout << std::endl;
 
 			rri->addReaction("reaction1", {"S1", "S2"}, {"S3", "S4"}, "C * k1 * S1 * S2", false);
 			rri->addReaction("reaction2", {"S3", "S4"}, {"S1", "S2"}, "C * k2 * S3 * S4");
@@ -1254,13 +1250,7 @@ SUITE(MODEL_EDITING_TEST_SUITE)
 			rri->setInitConcentration("S1", 0.0004, false);
 			rri->setInitConcentration("S2", 0.00048, false);
 			rri->setInitConcentration("S3", 0.0008, false);
-			for (double d : rri->getFloatingSpeciesInitialConcentrations())
-				std::cout << d << " ";
-			std::cout << std::endl;
 			rri->setInitConcentration("S4", 0.0004);
-			for (double d : rri->getFloatingSpeciesInitialConcentrations())
-				std::cout << d << " ";
-			std::cout << std::endl;
 		}));
 	}
 
