@@ -5424,14 +5424,13 @@ void RoadRunner::setInitConcentration(const std::string& sid, double initConcent
 	int index = impl->model->getFloatingSpeciesIndex(sid);
 	
 	if (index >= 0 && index < impl->model->getNumIndFloatingSpecies()) {
-		uint ncomp = impl->model->getNumCompartments();
-		double* volumes = (double*)calloc(ncomp, sizeof(double));
-		impl->model->getCompartmentVolumes(ncomp, 0, volumes);
-		int compartment = impl->model->getCompartmentIndexForFloatingSpecies(index);
+
+		int compartment = impl->model->getCompartmentIndex(species->getCompartment());
+		double compartmentSize = 1;
+		impl->model->getCompartmentVolumes(1, &compartment, &compartmentSize);
 		
-		double initValue = initConcentration * volumes[compartment];
+		double initValue = initConcentration * compartmentSize;
 		impl->model->setFloatingSpeciesInitAmounts(1, &index, &initValue);
-		free(volumes);
 	}
 }
 
