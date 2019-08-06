@@ -507,6 +507,7 @@ SUITE(MODEL_EDITING_TEST_SUITE)
 		CHECK(RunTestWithModification([](RRHandle rri)
 		{
 			setTriggerInitialValue(rri, "event1", false);
+			reset(rri);
 		}, "l3v1"));
 	}
 
@@ -515,6 +516,7 @@ SUITE(MODEL_EDITING_TEST_SUITE)
 		CHECK(RunTestWithModification([](RRHandle rri)
 		{
 			setTriggerInitialValue(rri, "event1", true);
+			reset(rri);
 		}, "l3v1"));
 	}
 
@@ -523,6 +525,7 @@ SUITE(MODEL_EDITING_TEST_SUITE)
 		CHECK(RunTestWithModification([](RRHandle rri)
 		{
 			setTriggerInitialValue(rri, "event1", true);
+			reset(rri);
 		}, "l3v1"));
 	}
 }
