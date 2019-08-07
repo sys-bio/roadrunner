@@ -5971,7 +5971,7 @@ void RoadRunner::setTriggerInitialValue(const std::string& eid, bool initValue, 
 
 	regenerate(forceRegenerate);
 	impl->model->setTime(-1.0);
-	impl->integrator->restart(0);
+	impl->integrator->restart(impl->model->getTime());
 }
 
 
