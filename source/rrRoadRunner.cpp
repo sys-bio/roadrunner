@@ -5223,7 +5223,7 @@ void RoadRunner::addSpecies(const std::string& sid, const std::string& compartme
 
 	// setting both concentration and amount will cause an error
 	// if InitialAssignment is set for the species, then initialConcentration or initialAmount will be ignored
-	// TODO: if the initial assignment is removed, we need to find a way to recover the overwrote initial value 
+
 	// TODO: check for valid unit?
 	// level 2 sbml predefined units : substance, volume, area, length, time
 
@@ -6121,6 +6121,7 @@ void RoadRunner::regenerate(bool forceRegenerate)
 		if (impl->model)
 			delete impl->model;
 		impl->model = newModel;
+		// TODO: update vector tolerance
 		impl->syncAllSolversWithModel(impl->model);
 		// reset();
 		if ((impl->loadOpt.loadFlags & LoadSBMLOptions::NO_DEFAULT_SELECTIONS) == 0)
