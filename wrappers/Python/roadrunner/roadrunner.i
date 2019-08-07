@@ -35,7 +35,12 @@
     #include <ExecutableModelFactory.h>
     #include <rrExecutableModel.h>
     #include <rrRoadRunnerOptions.h>
+
+    #include <sstream>
     #include <rrRoadRunner.h>
+
+    #include "rrplugins/core/telPluginManager.h"
+    
     #include <SteadyStateSolver.h>
     #include <rrLogger.h>
     #include <rrConfig.h>
@@ -104,8 +109,7 @@
 
 %}
 
-
-
+%include "rrplugins/core/telPluginManager.h"
 
 %naturalvar;
 
@@ -850,8 +854,6 @@ namespace std { class ostream{}; }
  */
 %newobject rr::ExecutableModelFactory::createModel;
 
-
-
 %include <Dictionary.h>
 %include <rrRoadRunnerOptions.h>
 %include <rrLogger.h>
@@ -1528,7 +1530,7 @@ namespace std { class ostream{}; }
                        SelectionRecord.RATE |
                        SelectionRecord.FLOATING |
                        SelectionRecord.GLOBAL_PARAMETER)
-        
+
         def resetParameter(self):
             """ Reset parameters to CURRENT init(X) values.
 
@@ -2028,7 +2030,7 @@ namespace std { class ostream{}; }
                                           &rr::ExecutableModel::getNumCompartments, (int)0, (int const*)0);
     }
 
-    
+
     /***
      ** get ids section
      ***/
@@ -2566,3 +2568,4 @@ integrators = list(RoadRunner.getRegisteredIntegratorNames())
 steadyStateSolvers = list(RoadRunner.getRegisteredSteadyStateSolverNames())
 solvers = integrators + steadyStateSolvers
 %}
+

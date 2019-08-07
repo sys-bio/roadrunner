@@ -67,7 +67,7 @@ using std::pair;
 using std::ostream;
 using rr::gEmptyString;
 
-//using rr::StringList;
+using rr::StringList;
 using Poco::SharedLibrary;
 
 class Plugin;
@@ -206,7 +206,7 @@ class CORE_DECLSPEC PluginManager
         bool                                hasLoadErrors() const;
         string                              getLoadErrors() const;
 
-    private:
+    protected:
         string                              mPluginFolder;
         string                              mPluginExtension;       //Different on different OS's
         string                              mPluginPrefix;          //Different on different OS's

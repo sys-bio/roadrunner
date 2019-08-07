@@ -5,7 +5,7 @@
 #include "rr-libstruct/lsMatrix.h"
 #include "rrSelectionRecord.h"
 #include "rrRoadRunnerOptions.h"
-#include "rrplugins/core/telPluginManager.h"
+//#include "rrplugins/core/telPluginManager.h"
 
 #include <string>
 #include <vector>
@@ -34,7 +34,7 @@ class SteadyStateSolver;
  * MemoryManagment: Any pointer returned by a get... method is owned by the
  * RoadRunner object and does NOT have to be deleted.
  */
-class RR_DECLSPEC RoadRunner: public PluginManager
+class RR_DECLSPEC RoadRunner
 {
 
 public:

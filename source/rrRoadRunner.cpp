@@ -29,7 +29,9 @@
 #include "rrSBMLReader.h"
 #include "rrConfig.h"
 #include "SBMLValidator.h"
+
 //#include "rrplugins/core/telPluginManager.h"
+
 #include <sbml/conversion/SBMLLocalParameterConverter.h>
 #include <sbml/conversion/SBMLLevelVersionConverter.h>
 
@@ -159,7 +161,7 @@ enum ParameterType
 /**
  * implemention class, hide all details here.
  */
-class RoadRunnerImpl:public PluginManager {
+class RoadRunnerImpl {
 public:
 
     int mInstanceID;
