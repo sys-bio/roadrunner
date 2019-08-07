@@ -1298,7 +1298,7 @@ SUITE(MODEL_EDITING_TEST_SUITE)
 		CHECK(RunModelEditingTest([](RoadRunner* rri)
 		{
 			rri->setTriggerInitialValue("event1", false);
-			rri->reset();
+			//rri->reset();
 		}, "l3v1"));
 	}
 
@@ -1307,7 +1307,7 @@ SUITE(MODEL_EDITING_TEST_SUITE)
 		CHECK(RunModelEditingTest([](RoadRunner* rri)
 		{
 			rri->setTriggerInitialValue("event1", true);
-			rri->reset();
+			//rri->reset();
 		}, "l3v1"));
 	}
 
@@ -1316,7 +1316,7 @@ SUITE(MODEL_EDITING_TEST_SUITE)
 		CHECK(RunModelEditingTest([](RoadRunner* rri)
 		{
 			rri->setTriggerInitialValue("event1", true);
-			rri->reset();
+			//rri->reset();
 		}, "l3v1"));
 	}
 
