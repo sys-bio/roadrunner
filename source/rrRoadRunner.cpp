@@ -225,6 +225,11 @@ public:
      */
     std::string configurationXML;
 
+	/*
+	* Has this roadrunner instance been simulated since the last time reset was called?
+	*/
+	bool simulatedSinceReset = false;
+
     /**
      * TODO get rid of this garbage
      */
@@ -1074,6 +1079,7 @@ void RoadRunner::reset()
 
 void RoadRunner::reset(int options)
 {
+	impl->simulatedSinceReset = false;
     if (impl->model)
     {
         // model gets set to before time = 0
@@ -1612,6 +1618,16 @@ const DoubleMatrix* RoadRunner::simulate(const Dictionary* dict)
 
     const double timeEnd = self.simulateOpt.duration + self.simulateOpt.start;
     const double timeStart = self.simulateOpt.start;
+
+	//In case the initialValue of any triggers have changed since the model was reset
+	//we need to reset before we simulate and reapply events which might be T0-firing
+	if (!impl->simulatedSinceReset)
+	{
+		reset();
+		impl->model->setTime(-1.0);
+		self.integrator->restart(timeStart);
+		impl->simulatedSinceReset = true;
+	}
 
     // evalute the model with its current state
     self.model->getStateVectorRate(timeStart, 0, 0);
@@ -5970,8 +5986,6 @@ void RoadRunner::setTriggerInitialValue(const std::string& eid, bool initValue, 
 	trigger->setInitialValue(initValue);
 
 	regenerate(forceRegenerate);
-	impl->model->setTime(-1.0);
-	impl->integrator->restart(impl->model->getTime());
 }
 
 
