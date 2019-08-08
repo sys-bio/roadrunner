@@ -210,11 +210,11 @@ ModelGeneratorContext::ModelGeneratorContext(std::string const &sbml,
     }
 }
 
-ModelGeneratorContext::ModelGeneratorContext(libsbml::SBMLDocument const *doc,
+ModelGeneratorContext::ModelGeneratorContext(libsbml::SBMLDocument const *_doc,
     unsigned options) :
         ownedDoc(0),
-        doc(doc),
-        symbols(new LLVMModelDataSymbols(doc->getModel(), options)),
+        doc(_doc),
+        symbols(new LLVMModelDataSymbols(_doc->getModel(), options)),
         modelSymbols(new LLVMModelSymbols(getModel(), *symbols)),
         errString(new string()),
         context(0),
@@ -239,7 +239,7 @@ ModelGeneratorContext::ModelGeneratorContext(libsbml::SBMLDocument const *doc,
 
             moietyConverter = new rr::conservation::ConservedMoietyConverter();
 
-            if (moietyConverter->setDocument(doc) != LIBSBML_OPERATION_SUCCESS)
+            if (moietyConverter->setDocument(_doc) != LIBSBML_OPERATION_SUCCESS)
             {
                 throw_llvm_exception("error setting conserved moiety converter document");
             }
@@ -252,7 +252,7 @@ ModelGeneratorContext::ModelGeneratorContext(libsbml::SBMLDocument const *doc,
             this->doc = moietyConverter->getDocument();
 
             SBMLWriter sw;
-            char* convertedStr = sw.writeToString(doc);
+            char* convertedStr = sw.writeToString(_doc);
 
             Log(Logger::LOG_INFORMATION) << "***************** Conserved Moiety Converted Document ***************";
             Log(Logger::LOG_INFORMATION) << convertedStr;
@@ -262,7 +262,7 @@ ModelGeneratorContext::ModelGeneratorContext(libsbml::SBMLDocument const *doc,
         }
         else
         {
-            this->doc = doc;
+            this->doc = _doc;
         }
 
         symbols = new LLVMModelDataSymbols(getModel(), options);
@@ -298,12 +298,12 @@ ModelGeneratorContext::ModelGeneratorContext(libsbml::SBMLDocument const *doc,
 
         ModelDataIRBuilder::createModelDataStructType(module, executionEngine, *symbols);
 
-        // check if doc has distrib package
+        // check if _doc has distrib package
         // Random adds mappings, need call after llvm objs created
 #ifdef LIBSBML_HAS_PACKAGE_DISTRIB
         const DistribSBMLDocumentPlugin* distrib =
                 dynamic_cast<const DistribSBMLDocumentPlugin*>(
-                        doc->getPlugin("distrib"));
+                        _doc->getPlugin("distrib"));
         if(distrib)
         {
             random = new Random(*this);
