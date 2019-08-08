@@ -13,6 +13,9 @@
 #include "SBMLValidator.h"
 #include "sbml/validator/SBMLValidator.h"
 #include "sbml/validator/SBMLInternalValidator.h"
+#include "sbml/math/FormulaFormatter.h"
+#include "sbml/math/L3FormulaFormatter.h"
+#include "sbml/math/FormulaParser.h"
 
 using namespace std;
 using namespace UnitTest;
@@ -499,7 +502,7 @@ void readdAllSpecies(RoadRunner *rri, libsbml::SBMLDocument *doc)
 	}
 }
 
-/*void readdAllEvents(RoadRunner *rri, libsbml::SBMLDocument *doc)
+void readdAllEvents(RoadRunner *rri, libsbml::SBMLDocument *doc)
 {
 	libsbml::ListOfEvents *eventsToAdd = doc->getModel()->getListOfEvents();
 
@@ -507,9 +510,19 @@ void readdAllSpecies(RoadRunner *rri, libsbml::SBMLDocument *doc)
 	for (int i = 0; i < eventsToAdd->size(); i++)
 	{
 		next = eventsToAdd->get(i);
-		rri->addEvent(next->getId(), next->getUseValuesFromTriggerTime(), next->getTrigger()->write
+		rri->addEvent(next->getId(), next->getUseValuesFromTriggerTime(), libsbml::SBML_formulaToL3String(next->getTrigger()->getMath()));
+		if (next->isSetDelay())
+		{
+			rri->addDelay(next->getId(), libsbml::SBML_formulaToL3String(next->getDelay()->getMath()));
+		}
+		libsbml::ListOfEventAssignments *nextAssignments = next->getListOfEventAssignments();
+		for (int j = 0; j < nextAssignments->size(); j++)
+		{
+			libsbml::EventAssignment *nextEA = nextAssignments->get(j);
+			rri->addEventAssignment(next->getId(), nextEA->getVariable(), libsbml::SBML_formulaToL3String(nextEA->getMath()));
+		}
 	}
-}*/
+}
 
 /*
 * Pre: the model must not contain any rules reliant on species values
@@ -543,6 +556,8 @@ void removeAndReaddAllSpecies(RoadRunner *rri, libsbml::SBMLDocument *doc)
 	readdAllSpecies(rri, doc);
 
 	readdAllReactions(rri, doc);
+
+	readdAllEvents(rri, doc);
 }
 
 void removeAndReaddAllReactions(RoadRunner *rri, libsbml::SBMLDocument *doc)
@@ -571,6 +586,7 @@ void removeAndReaddAllCompartments(RoadRunner *rri, libsbml::SBMLDocument *doc)
 	}
 	readdAllSpecies(rri, doc);
 	readdAllReactions(rri, doc);
+	readdAllEvents(rri, doc);
 }
 
 SUITE(MODEL_EDITING_TEST_SUITE)
@@ -1323,10 +1339,9 @@ SUITE(MODEL_EDITING_TEST_SUITE)
 	TEST(READD_SPECIES)
 	{
 		clog << endl << "==== CHECK_READD_SPECIES ====" << endl << endl;
-		//Remove and readd all the species from some SBML models that have no rate rules or events (events and rate rule methods
-		// are tested in the tests above
-		for (int i : {1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 29, 20, 21, 22
-		, 23, 24, 25, 27, 28, 29, 33, 34, 35})
+		//Remove and readd all the species from some SBML models that have no rate rules
+		for (int i : {1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 21, 22
+		, 23, 24, 25, 26, 27, 28, 29, 33, 34, 35})
 		{
 			if (!RunTestWithEdit("l2v4", i, removeAndReaddAllSpecies, "removeAndReaddAllSpecies"))
 			{
@@ -1351,8 +1366,8 @@ SUITE(MODEL_EDITING_TEST_SUITE)
 	TEST(READD_COMPARTMENTS)
 	{
 		clog << endl << "==== CHECK_READD_COMPARTMENTS ====" << endl << endl;
-		for (int i : {1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 29, 20, 21, 22
-		, 23, 24, 25, 27, 28, 29, 33, 34, 35})
+		for (int i : {1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 21, 22
+		, 23, 24, 25, 26, 27, 28, 29, 33, 34, 35})
 		{
 			if (!RunTestWithEdit("l2v4", i, removeAndReaddAllCompartments, "removeAndReaddAllCompartments"))
 			{
