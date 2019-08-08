@@ -18,7 +18,7 @@ extern string             gTSModelsPath;
 bool RunTest(const string& version, int number);
 SUITE(SBML_l2v4)
 {
-TEST(1) { CHECK(RunTest("l2v4", 1)); }
+/*TEST(1) { CHECK(RunTest("l2v4", 1)); }
 TEST(2) { CHECK(RunTest("l2v4", 2)); }
 TEST(3) { CHECK(RunTest("l2v4", 3)); }
 TEST(4) { CHECK(RunTest("l2v4", 4)); }
@@ -770,7 +770,7 @@ TEST(749) { CHECK(RunTest("l2v4", 749)); }
 TEST(750) { CHECK(RunTest("l2v4", 750)); }
 TEST(751) { CHECK(RunTest("l2v4", 751)); }
 TEST(752) { CHECK(RunTest("l2v4", 752)); }
-TEST(753) { CHECK(RunTest("l2v4", 753)); }
+TEST(753) { CHECK(RunTest("l2v4", 753)); }*/
 TEST(754) { CHECK(RunTest("l2v4", 754)); }
 TEST(755) { CHECK(RunTest("l2v4", 755)); }
 TEST(756) { CHECK(RunTest("l2v4", 756)); }
@@ -1040,7 +1040,7 @@ bool RunTest(const string& version, int caseNumber)
 
         TestSuiteModelSimulation simulation(dataOutputFolder);
 
-        rr.reset();
+        //rr.reset();
         simulation.UseEngine(&rr);
 
         //Setup filenames and paths...
@@ -1056,6 +1056,8 @@ bool RunTest(const string& version, int caseNumber)
         simulation.ReCompileIfDllExists(true);
         simulation.CopyFilesToOutputFolder();
 
+        rr.setConservedMoietyAnalysis(false);
+
         if(!simulation.LoadSBMLFromFile())
         {
             Log(Logger::LOG_ERROR)<<"Failed loading SBML model";
@@ -1069,7 +1071,6 @@ bool RunTest(const string& version, int caseNumber)
             throw("Failed loading SBML model settings");
         }
 
-        rr.setConservedMoietyAnalysis(false);
 
         //Then Simulate model
          if(!simulation.Simulate())
@@ -1098,6 +1099,7 @@ bool RunTest(const string& version, int caseNumber)
         simulation.SaveModelAsXML(dataOutputFolder);
 
         cerr<<"\t"<< (result == true ? "PASS" : "FAIL")<<endl;
+        cout << "\t" << caseNumber << " " << (result == true ? "PASS" : "FAIL") << endl;
          return result;
      }
     catch(Exception& ex)
