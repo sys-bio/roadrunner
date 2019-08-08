@@ -1099,8 +1099,7 @@ bool RunTest(const string& version, int caseNumber)
         simulation.SaveModelAsXML(dataOutputFolder);
 
         cerr<<"\t"<< (result == true ? "PASS" : "FAIL")<<endl;
-        cout << "\t" << caseNumber << " " << (result == true ? "PASS" : "FAIL") << endl;
-         return result;
+        return result;
      }
     catch(Exception& ex)
     {

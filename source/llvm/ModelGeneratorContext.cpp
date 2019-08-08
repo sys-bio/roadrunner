@@ -177,7 +177,7 @@ ModelGeneratorContext::ModelGeneratorContext(std::string const &sbml,
 		
 		engineBuilder.setErrorStr(errString)
 			.setMCJITMemoryManager(unique_ptr<SectionMemoryManager>(new SectionMemoryManager()));
-;
+
         executionEngine = engineBuilder.create();
 
 		//executionEngine = EngineBuilder(std::move(module_uniq)).create();
