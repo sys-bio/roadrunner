@@ -990,9 +990,9 @@ void RoadRunner::load(const string& uriOrSbml, const Dictionary *dict)
     }
 
 	// TODO: add documentation for validations
-	if ((impl->loadOpt.loadFlags & LoadSBMLOptions::TURN_ON_VALIDATION) == 1)
+	if ((impl->loadOpt.loadFlags & LoadSBMLOptions::TURN_ON_VALIDATION) != 0)
 	{
-		string errors = validateSBML(mCurrentSBML);
+		string errors = validateSBML(mCurrentSBML, VALIDATE_GENERAL | VALIDATE_IDENTIFIER | VALIDATE_MATHML | VALIDATE_OVERDETERMINED);
 		if (!errors.empty()) {
 			throw std::runtime_error(errors.c_str());
 		}
