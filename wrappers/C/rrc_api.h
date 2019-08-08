@@ -1028,7 +1028,7 @@ C_DECL_SPEC bool rrcCallConv removeEventAssignmentsNoRegen(RRHandle handle, cons
 C_DECL_SPEC bool rrcCallConv removeEvent(RRHandle handle, const char* eid);
 
 /*!
- \brief  Remove an event from the current model, without regenerating it
+ \brief Remove an event from the current model, without regenerating it
 		The last modification must regenerate for the modifications to take effect
  \param[in] handle Handle to a RoadRunner instance
  \param[in] eid ID of the event to be removed
@@ -1036,6 +1036,14 @@ C_DECL_SPEC bool rrcCallConv removeEvent(RRHandle handle, const char* eid);
  \ingroup edit
 */
 C_DECL_SPEC bool rrcCallConv removeEventsNoRegen(RRHandle handle, const char* eid);
+
+/*!
+ \brief Validate the current SBML file
+ \param[in] handle Handle to a RoadRunner instance
+ \return Returns false if the current SBML file is not valid, otherwise returns a true
+ \ingroup edit
+*/
+C_DECL_SPEC bool rrcCallConv validateCurrentSBML(RRHandle handle);
 
 
 // -------------------------------------------------------------------------

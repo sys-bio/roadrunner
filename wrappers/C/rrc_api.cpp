@@ -2142,6 +2142,15 @@ bool rrcCallConv removeEventsNoRegen(RRHandle handle, const char* eid)
 	catch_bool_macro
 }
 
+bool rrcCallConv validateCurrentSBML(RRHandle handle)
+{
+	start_try
+		RoadRunner* rri = castToRoadRunner(handle);
+		rri->validateCurrentSBML();
+		return true;
+	catch_bool_macro
+}
+
 
 // -------------------------------------------------------------------------------------
 // Set and Get Methods
