@@ -213,6 +213,11 @@ namespace rr
 				modelGeneratorOpt & ~CONSERVED_MOIETIES;
 		}
 
+		inline void setValidation(bool val) {
+			loadFlags = val ?
+				loadFlags | TURN_ON_VALIDATION :
+				loadFlags & ~TURN_ON_VALIDATION;
+		}
 
 		virtual ~LoadSBMLOptions();
 

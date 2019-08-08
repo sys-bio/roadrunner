@@ -971,6 +971,9 @@ public:
 	/**
 	 * Remove rules related to given variable from the current model
 	 * @param vid: ID of variable that rules assign formula to
+	 * @param useInitialValue: a boolean value to indicate whether using initial value as 
+							   current value when the assignment rule of a variable is removed
+							   otherwise, it will keep the value of assignment rule as current value
 	 * @param forceRegenerate: a boolean value to indicate if the model is regenerated
 	 *					       after this function call
 	 *						   default value is true to regenerate model after each call
@@ -978,7 +981,7 @@ public:
 	 *						   to save time for editing for multiple times, one could
 	 *					       set this flag to true only in the last call of editing
 	 */
-	void removeRules(const std::string& vid, bool forceRegenerate = true);
+	void removeRules(const std::string& vid, bool useInitialValue = false, bool forceRegenerate = true);
 
 	/*
 	* Add an event to the current model
@@ -1104,6 +1107,11 @@ public:
 	 *					       set this flag to true only in the last call of editing
 	 */
 	void removeEvent(const std::string& eid, bool forceRegenerate = true);
+
+	/**
+	 * Validate the current SBML
+	 */
+	void validateCurrentSBML();
 
 
     /******************************* Steady State Section *************************/

@@ -990,9 +990,9 @@ void RoadRunner::load(const string& uriOrSbml, const Dictionary *dict)
     }
 
 	// TODO: add documentation for validations
-	if ((impl->loadOpt.loadFlags & LoadSBMLOptions::TURN_ON_VALIDATION) == 1)
+	if ((impl->loadOpt.loadFlags & LoadSBMLOptions::TURN_ON_VALIDATION) != 0)
 	{
-		string errors = validateSBML(mCurrentSBML);
+		string errors = validateSBML(mCurrentSBML, VALIDATE_GENERAL | VALIDATE_IDENTIFIER | VALIDATE_MATHML | VALIDATE_OVERDETERMINED);
 		if (!errors.empty()) {
 			throw std::runtime_error(errors.c_str());
 		}
@@ -5800,7 +5800,7 @@ void RoadRunner::addRateRule(const std::string& vid, const std::string& formula,
 }
 
 
-void RoadRunner::removeRules(const std::string& vid, bool forceRegenerate)
+void RoadRunner::removeRules(const std::string& vid, bool useInitialValueAsCurrent, bool forceRegenerate)
 {
 	using namespace libsbml;
 	Model* sbmlModel = impl->document->getModel();
@@ -5843,6 +5843,10 @@ void RoadRunner::removeRules(const std::string& vid, bool forceRegenerate)
 			}
 
 			impl->model->setFloatingSpeciesInitAmounts(1, &index, &initValue);
+			if (useInitialValueAsCurrent)
+			{
+				impl->model->setFloatingSpeciesAmounts(1, &index, &initValue);
+			}
 		}
 
 		index = impl->model->getCompartmentIndex(vid);
@@ -5853,6 +5857,10 @@ void RoadRunner::removeRules(const std::string& vid, bool forceRegenerate)
 				initValue = sbmlModel->getCompartment(vid)->getSize();
 			}
 			impl->model->setCompartmentInitVolumes(1, &index, &initValue);
+			if (useInitialValueAsCurrent)
+			{
+				impl->model->setCompartmentVolumes(1, &index, &initValue);
+			}
 		}
 
 		index = impl->model->getGlobalParameterIndex(vid);
@@ -5863,7 +5871,10 @@ void RoadRunner::removeRules(const std::string& vid, bool forceRegenerate)
 				initValue = sbmlModel->getParameter(vid)->getValue();
 			}
 			impl->model->setGlobalParameterInitValues(1, &index, &initValue);
-			// TODO: also set current value???
+			if (useInitialValueAsCurrent)
+			{
+				impl->model->setGlobalParameterValues(1, &index, &initValue);
+			}
 		}
 	}
 }
@@ -6119,6 +6130,14 @@ void RoadRunner::removeEvent(const std::string & eid, bool forceRegenerate)
 	regenerate(forceRegenerate);
 }
 
+void RoadRunner::validateCurrentSBML()
+{
+	string errors = validateSBML(impl->document->toSBML(), VALIDATE_GENERAL| VALIDATE_UNITS | VALIDATE_IDENTIFIER | VALIDATE_MATHML | VALIDATE_OVERDETERMINED);
+	if (!errors.empty()) {
+		throw std::runtime_error(errors.c_str());
+	}
+}
+
 
 void RoadRunner::checkID(const std::string& functionName, const std::string & sid)
 {
@@ -6133,6 +6152,7 @@ void RoadRunner::regenerate(bool forceRegenerate)
 {
 	if (forceRegenerate)
 	{
+		
 		Log(Logger::LOG_DEBUG) << "Regenerating model..." << endl;
 		ExecutableModel* newModel = ExecutableModelFactory::regenerateModel(impl->model, impl->document, impl->loadOpt.modelGeneratorOpt);
 		if (impl->model)

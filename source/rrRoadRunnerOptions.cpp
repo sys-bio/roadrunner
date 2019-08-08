@@ -23,10 +23,6 @@ using namespace std;
 namespace rr
 {
 
-	
-	
-
-
 	LoadSBMLOptions::LoadSBMLOptions(const Dictionary* dict)
 	{
 		defaultInit();
