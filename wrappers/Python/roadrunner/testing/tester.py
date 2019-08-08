@@ -1314,7 +1314,7 @@ def removeRules(rrInstance):
     words = []
     words = divide(readLine())
     print("Remove rules for " + words[0])
-    rrInstance.removeRules(words[0], bool(words[1]))
+    rrInstance.removeRules(words[0], bool(words[1]), bool(words[2]))
 
 def removeEvent(rrInstance):
     words = []
