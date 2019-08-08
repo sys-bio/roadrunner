@@ -5799,7 +5799,7 @@ void RoadRunner::addRateRule(const std::string& vid, const std::string& formula,
 	regenerate(forceRegenerate);
 }
 
-
+// TODO: update C API
 void RoadRunner::removeRules(const std::string& vid, bool useInitialValueAsCurrent, bool forceRegenerate)
 {
 	using namespace libsbml;
