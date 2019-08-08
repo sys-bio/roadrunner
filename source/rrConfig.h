@@ -526,7 +526,7 @@ public:
 		* Turn on SBML file validation during model regeneration after model editing
 		*	
 		*/
-		VALIDATION_IN_REGENERATION,
+		VALIDATION_IN_REGENERATION = true,
 
 
         // add lots of space so not to conflict with other branches.
