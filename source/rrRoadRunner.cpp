@@ -5800,7 +5800,7 @@ void RoadRunner::addRateRule(const std::string& vid, const std::string& formula,
 }
 
 
-void RoadRunner::removeRules(const std::string& vid, bool forceRegenerate)
+void RoadRunner::removeRules(const std::string& vid, bool useInitialValueAsCurrent, bool forceRegenerate)
 {
 	using namespace libsbml;
 	Model* sbmlModel = impl->document->getModel();
@@ -5843,6 +5843,10 @@ void RoadRunner::removeRules(const std::string& vid, bool forceRegenerate)
 			}
 
 			impl->model->setFloatingSpeciesInitAmounts(1, &index, &initValue);
+			if (useInitialValueAsCurrent)
+			{
+				impl->model->setFloatingSpeciesAmounts(1, &index, &initValue);
+			}
 		}
 
 		index = impl->model->getCompartmentIndex(vid);
@@ -5853,6 +5857,10 @@ void RoadRunner::removeRules(const std::string& vid, bool forceRegenerate)
 				initValue = sbmlModel->getCompartment(vid)->getSize();
 			}
 			impl->model->setCompartmentInitVolumes(1, &index, &initValue);
+			if (useInitialValueAsCurrent)
+			{
+				impl->model->setCompartmentVolumes(1, &index, &initValue);
+			}
 		}
 
 		index = impl->model->getGlobalParameterIndex(vid);
@@ -5863,7 +5871,10 @@ void RoadRunner::removeRules(const std::string& vid, bool forceRegenerate)
 				initValue = sbmlModel->getParameter(vid)->getValue();
 			}
 			impl->model->setGlobalParameterInitValues(1, &index, &initValue);
-			// TODO: also set current value???
+			if (useInitialValueAsCurrent)
+			{
+				impl->model->setGlobalParameterValues(1, &index, &initValue);
+			}
 		}
 	}
 }
@@ -6133,6 +6144,7 @@ void RoadRunner::regenerate(bool forceRegenerate)
 {
 	if (forceRegenerate)
 	{
+		// TODO: write documentation for new config option
 		if (Config::getBool(Config::VALIDATION_IN_REGENERATION))
 		{
 			// validate the generated model
