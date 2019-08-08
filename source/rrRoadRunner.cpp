@@ -5799,7 +5799,7 @@ void RoadRunner::addRateRule(const std::string& vid, const std::string& formula,
 	regenerate(forceRegenerate);
 }
 
-
+// TODO: update C API
 void RoadRunner::removeRules(const std::string& vid, bool useInitialValueAsCurrent, bool forceRegenerate)
 {
 	using namespace libsbml;
@@ -6132,7 +6132,9 @@ void RoadRunner::removeEvent(const std::string & eid, bool forceRegenerate)
 
 void RoadRunner::validateCurrentSBML()
 {
-	string errors = validateSBML(impl->document->toSBML(), VALIDATE_GENERAL| VALIDATE_UNITS | VALIDATE_IDENTIFIER | VALIDATE_MATHML | VALIDATE_OVERDETERMINED);
+	// turn off unit validation for now
+	// TODO: passing options as parameters
+	string errors = validateSBML(impl->document->toSBML(), VALIDATE_GENERAL | VALIDATE_IDENTIFIER | VALIDATE_MATHML | VALIDATE_OVERDETERMINED);
 	if (!errors.empty()) {
 		throw std::runtime_error(errors.c_str());
 	}
