@@ -1108,6 +1108,11 @@ public:
 	 */
 	void removeEvent(const std::string& eid, bool forceRegenerate = true);
 
+	/**
+	 * Validate the current SBML
+	 */
+	void validateCurrentSBML();
+
 
     /******************************* Steady State Section *************************/
     #if (1) /**********************************************************************/
