@@ -6136,12 +6136,11 @@ void RoadRunner::regenerate(bool forceRegenerate)
 		if (Config::getBool(Config::VALIDATION_IN_REGENERATION))
 		{
 			// validate the generated model
-
-			string errors = validateSBML(impl->document, VALIDATE_GENERAL | VALIDATE_IDENTIFIER | VALIDATE_MATHML | VALIDATE_OVERDETERMINED);
+			string errors = validateSBML(impl->document->toSBML(), VALIDATE_GENERAL | VALIDATE_IDENTIFIER | VALIDATE_MATHML | VALIDATE_OVERDETERMINED);
 			if (!errors.empty()) {
 				throw std::runtime_error(errors.c_str());
 			}
-		
+
 		}
 		Log(Logger::LOG_DEBUG) << "Regenerating model..." << endl;
 		ExecutableModel* newModel = ExecutableModelFactory::regenerateModel(impl->model, impl->document, impl->loadOpt.modelGeneratorOpt);

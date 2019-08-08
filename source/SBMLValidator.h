@@ -58,8 +58,6 @@ enum ValidateSBML
     VALIDATE_GENERAL             = (0x1 << 6),  // => 0x00000001
 };
 
-std::string validateSBML(libsbml::SBMLDocument* doc, unsigned opt
-	= VALIDATE_IDENTIFIER | VALIDATE_GENERAL | VALIDATE_MATHML);
 
 std::string validateSBML(const std::string src, unsigned opt
         = VALIDATE_IDENTIFIER | VALIDATE_GENERAL | VALIDATE_MATHML);
