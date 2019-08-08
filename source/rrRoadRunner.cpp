@@ -1622,12 +1622,10 @@ const DoubleMatrix* RoadRunner::simulate(const Dictionary* dict)
     const double timeStart = self.simulateOpt.start;
 
 	//In case the initialValue of any triggers have changed since the model was reset
-	//we need to reset before we simulate and reapply events which might be T0-firing
+	//we need to reset before we simulate so we can reapply events which might be T0-firing
 	if (!impl->simulatedSinceReset)
 	{
 		reset();
-		impl->model->setTime(-1.0);
-		self.integrator->restart(timeStart);
 		impl->simulatedSinceReset = true;
 	}
 
