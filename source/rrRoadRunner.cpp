@@ -5956,6 +5956,50 @@ void RoadRunner::removeInitialAssignment(const std::string& vid, bool forceRegen
 	checkGlobalParameters();
 
 	regenerate(forceRegenerate);
+
+	int index = impl->model->getFloatingSpeciesIndex(vid);
+	if (index >= 0 && index < impl->model->getNumIndFloatingSpecies()) {
+
+		double initValue = 0;
+		if (sbmlModel->getSpecies(vid)->isSetInitialAmount())
+		{
+			initValue = sbmlModel->getSpecies(vid)->getInitialAmount();
+		}
+		else if (sbmlModel->getSpecies(vid)->isSetInitialConcentration())
+		{
+			double initConcentration = sbmlModel->getSpecies(vid)->getInitialConcentration();
+			int compartment = impl->model->getCompartmentIndex(sbmlModel->getSpecies(vid)->getCompartment());
+			double compartmentSize = 1;
+			impl->model->getCompartmentVolumes(1, &compartment, &compartmentSize);
+
+			initValue = initConcentration * compartmentSize;
+		}
+
+		impl->model->setFloatingSpeciesInitAmounts(1, &index, &initValue);
+		impl->model->setFloatingSpeciesAmounts(1, &index, &initValue);
+	}
+
+	index = impl->model->getCompartmentIndex(vid);
+	if (index >= 0 && index < impl->model->getNumCompartments()) {
+		double initValue = 0;
+		if (sbmlModel->getCompartment(vid)->isSetSize())
+		{
+			initValue = sbmlModel->getCompartment(vid)->getSize();
+		}
+		impl->model->setCompartmentInitVolumes(1, &index, &initValue);
+		impl->model->setCompartmentVolumes(1, &index, &initValue);
+	}
+
+	index = impl->model->getGlobalParameterIndex(vid);
+	if (index >= 0 && index < impl->model->getNumGlobalParameters()) {
+		double initValue = 0;
+		if (sbmlModel->getParameter(vid)->isSetValue())
+		{
+			initValue = sbmlModel->getParameter(vid)->getValue();
+		}
+		impl->model->setGlobalParameterInitValues(1, &index, &initValue);
+		impl->model->setGlobalParameterValues(1, &index, &initValue);
+	}
 }
 
 
