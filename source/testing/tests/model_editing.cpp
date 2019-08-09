@@ -626,10 +626,20 @@ SUITE(MODEL_EDITING_TEST_SUITE)
 			rri->removeRules("k1", false);
 		}));
 	}
+
+	TEST(REMOVE_RATE_RULE_4)
+	{
+		CHECK(RunModelEditingTest([](RoadRunner* rri) {
+			rri->simulate();
+			rri->removeRules("k1", true);
+		}));
+	}
+
 	/*TEST(REMOVE_INITIAL_ASSIGNMENT_RULE_1)
 	{
 		CHECK(RunModelEditingTest([](RoadRunner* rri) {
-			rri->removeRules("k1", true);
+			rri->removeInitialAssignment("k1");
+			rri->reset();
 		}));
 	}*/
 
