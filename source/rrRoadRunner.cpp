@@ -5878,33 +5878,32 @@ void RoadRunner::removeRules(const std::string& vid, bool useInitialValueAsCurre
 			{
 				impl->model->setGlobalParameterValues(1, &index, &initValue);
 			}
-		} 
-		else if (useInitialValueAsCurrent)
-		{
-			// recover the initial value for rate rules
-			int index = impl->model->getFloatingSpeciesIndex(vid);
-			if (index >= 0 && index < impl->model->getNumIndFloatingSpecies()) {
-				double initValue = 0;
-				impl->model->getFloatingSpeciesInitAmounts(1, &index, &initValue);
-				impl->model->setFloatingSpeciesAmounts(1, &index, &initValue);
+		}
+	}
+	else if (useInitialValueAsCurrent)
+	{
+		// recover the initial value for rate rules
+		int index = impl->model->getFloatingSpeciesIndex(vid);
+		if (index >= 0 && index < impl->model->getNumIndFloatingSpecies()) {
+			double initValue = 0;
+			impl->model->getFloatingSpeciesInitAmounts(1, &index, &initValue);
+			impl->model->setFloatingSpeciesAmounts(1, &index, &initValue);
 
-			}
-
-			index = impl->model->getCompartmentIndex(vid);
-			if (index >= 0 && index < impl->model->getNumCompartments()) {
-				double initValue = 0;
-				impl->model->getCompartmentInitVolumes(1, &index, &initValue);
-				impl->model->setCompartmentVolumes(1, &index, &initValue);
-			}
-
-			index = impl->model->getGlobalParameterIndex(vid);
-			if (index >= 0 && index < impl->model->getNumGlobalParameters()) {
-				double initValue = 0;
-				impl->model->getGlobalParameterInitValues(1, &index, &initValue);
-				impl->model->setGlobalParameterValues(1, &index, &initValue);
-			}
 		}
 
+		index = impl->model->getCompartmentIndex(vid);
+		if (index >= 0 && index < impl->model->getNumCompartments()) {
+			double initValue = 0;
+			impl->model->getCompartmentInitVolumes(1, &index, &initValue);
+			impl->model->setCompartmentVolumes(1, &index, &initValue);
+		}
+
+		index = impl->model->getGlobalParameterIndex(vid);
+		if (index >= 0 && index < impl->model->getNumGlobalParameters()) {
+			double initValue = 0;
+			impl->model->getGlobalParameterInitValues(1, &index, &initValue);
+			impl->model->setGlobalParameterValues(1, &index, &initValue);
+		}
 	}
 }
 
