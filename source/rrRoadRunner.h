@@ -983,6 +983,34 @@ public:
 	 */
 	void removeRules(const std::string& vid, bool useInitialValue = false, bool forceRegenerate = true);
 
+
+	/*
+	* Add an initial assignment to an exsiting symbol of the current model
+	* @param vid: ID of symbol 
+	* @param formula: the math formula of the initial assignment
+	* @param forceRegenerate: a boolean value to indicate if the model is regenerated
+	*					      after this function call
+	*						  default value is true to regenerate model after each call
+	*                         of editing function
+	*						  to save time for editing for multiple times, one could
+	*					      set this flag to true only in the last call of editing
+	*/
+	void addInitialAssignment(const std::string& vid, const std::string& formula, bool forceRegenerate = true);
+
+
+	/**
+	 * Remove initial assignment for a symbol from the current model
+	 * @param vid: ID of the symbol
+	 * @param forceRegenerate: a boolean value to indicate if the model is regenerated
+	 *					       after this function call
+	 *						   default value is true to regenerate model after each call
+	 *                         of editing function
+	 *						   to save time for editing for multiple times, one could
+	 *					       set this flag to true only in the last call of editing
+	 */
+	void removeInitialAssignment(const std::string& vid, bool forceRegenerate = true);
+
+
 	/*
 	* Add an event to the current model
 	* @param eid: the ID of the event to be added

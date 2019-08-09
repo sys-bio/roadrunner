@@ -5879,6 +5879,49 @@ void RoadRunner::removeRules(const std::string& vid, bool useInitialValueAsCurre
 	}
 }
 
+void RoadRunner::addInitialAssignment(const std::string& vid, const std::string& formula, bool forceRegenerate)
+{
+	using namespace libsbml;
+	Model* sbmlModel = impl->document->getModel();
+
+	if (sbmlModel->getCompartment(vid) == NULL && sbmlModel->getSpecies(vid) == NULL && sbmlModel->getParameter(vid) == NULL && sbmlModel->getSpeciesReference(vid) == NULL)
+	{
+		throw std::invalid_argument("Roadrunner::addInitialAssignment failed, no symbol with ID " + vid + " existed in the model");
+	}
+
+	Log(Logger::LOG_DEBUG) << "Adding initial assignment for" << vid << "..." << endl;
+	InitialAssignment* newAssignment = sbmlModel->createInitialAssignment();
+
+	// potential errors with these two inputs will be detected during regeneration
+
+	newAssignment->setSymbol(vid);
+	ASTNode_t* math = libsbml::SBML_parseL3Formula(formula.c_str());
+	if (math == NULL)
+	{
+		throw std::invalid_argument("Roadrunner::addInitialAssignment failed, an error occurred in parsing the formula");
+	}
+	newAssignment->setMath(math);
+
+	regenerate(forceRegenerate);
+}
+
+void RoadRunner::removeInitialAssignment(const std::string& vid, bool forceRegenerate)
+{
+	using namespace libsbml;
+	Model* sbmlModel = impl->document->getModel();
+
+	InitialAssignment* toDelete = sbmlModel->removeInitialAssignment(vid);
+	if (toDelete == NULL)
+	{
+		throw std::invalid_argument("Roadrunner::removeInitialAssignment failed, no initial assignment for symbol " + vid + " existed in the model");
+	}
+	Log(Logger::LOG_DEBUG) << "Removing initial assignment for variable" << vid << "..." << endl;
+	delete toDelete;
+	checkGlobalParameters();
+
+	regenerate(forceRegenerate);
+}
+
 
 void RoadRunner::addEvent(const std::string& eid, bool useValuesFromTriggerTime, const std::string& trigger, bool forceRegenerate)
 {
@@ -5926,7 +5969,7 @@ void RoadRunner::addTrigger(const std::string& eid, const std::string& trigger, 
 	ASTNode_t* formula = libsbml::SBML_parseL3Formula(trigger.c_str());
 	if (formula == NULL)
 	{
-		throw std::invalid_argument("Roadrunner::addTrigger failed, an error occurred in parsing the teigger formula");
+		throw std::invalid_argument("Roadrunner::addTrigger failed, an error occurred in parsing the trigger formula");
 	}
 	newTrigger->setMath(formula);
 	// set required attributes to default
