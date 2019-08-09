@@ -5777,10 +5777,13 @@ void RoadRunner::addRateRule(const std::string& vid, const std::string& formula,
 	using namespace libsbml;
 	Model* sbmlModel = impl->document->getModel();
 
+	// TODO : check vid is not constant, currently will be catched in validation
 	if (sbmlModel->getCompartment(vid) == NULL && sbmlModel->getSpecies(vid) == NULL && sbmlModel->getParameter(vid) == NULL && sbmlModel->getSpeciesReference(vid) == NULL)
 	{
 		throw std::invalid_argument("Roadrunner::addRateRule failed, no variable with ID " + vid + " existed in the model");
 	}
+
+
 
 	if (sbmlModel->getRule(vid) != NULL)
 	{
@@ -5875,7 +5878,33 @@ void RoadRunner::removeRules(const std::string& vid, bool useInitialValueAsCurre
 			{
 				impl->model->setGlobalParameterValues(1, &index, &initValue);
 			}
+		} 
+		else if (useInitialValueAsCurrent)
+		{
+			// recover the initial value for rate rules
+			int index = impl->model->getFloatingSpeciesIndex(vid);
+			if (index >= 0 && index < impl->model->getNumIndFloatingSpecies()) {
+				double initValue = 0;
+				impl->model->getFloatingSpeciesInitAmounts(1, &index, &initValue);
+				impl->model->setFloatingSpeciesAmounts(1, &index, &initValue);
+
+			}
+
+			index = impl->model->getCompartmentIndex(vid);
+			if (index >= 0 && index < impl->model->getNumCompartments()) {
+				double initValue = 0;
+				impl->model->getCompartmentInitVolumes(1, &index, &initValue);
+				impl->model->setCompartmentVolumes(1, &index, &initValue);
+			}
+
+			index = impl->model->getGlobalParameterIndex(vid);
+			if (index >= 0 && index < impl->model->getNumGlobalParameters()) {
+				double initValue = 0;
+				impl->model->getGlobalParameterInitValues(1, &index, &initValue);
+				impl->model->setGlobalParameterValues(1, &index, &initValue);
+			}
 		}
+
 	}
 }
 
