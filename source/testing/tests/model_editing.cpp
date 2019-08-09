@@ -635,13 +635,20 @@ SUITE(MODEL_EDITING_TEST_SUITE)
 		}));
 	}
 
-	/*TEST(REMOVE_INITIAL_ASSIGNMENT_RULE_1)
+	TEST(REMOVE_INITIAL_ASSIGNMENT_RULE_1)
 	{
 		CHECK(RunModelEditingTest([](RoadRunner* rri) {
 			rri->removeInitialAssignment("k1");
-			rri->reset();
 		}));
-	}*/
+	}
+
+	TEST(REMOVE_INITIAL_ASSIGNMENT_RULE_2)
+	{
+		CHECK(RunModelEditingTest([](RoadRunner* rri) {
+			rri->simulate();
+			rri->removeInitialAssignment("k1");
+		}));
+	}
 
 	TEST(ADD_REACTION_1)
 	{
