@@ -1584,7 +1584,7 @@ private:
 	/*
 	* Regenerate this RoadRunner instance's ExecutableModel based on the model in its SBMLDocument
 	*/
-	void regenerate(bool forceRegenerate);
+	void regenerate(bool forceRegenerate, bool reset = false);
 
 	/*
 	* Parse a string with format stoichiometry + sID and return its stoichiometry value and sID
