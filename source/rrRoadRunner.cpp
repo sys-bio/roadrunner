@@ -6016,14 +6016,7 @@ void RoadRunner::addTrigger(const std::string& eid, const std::string& trigger, 
 	}
 
 	// model regeneration will throw RuntimeError if the given formula is not valid
-	regenerate(forceRegenerate);
-
-	//In case the initialValue of any triggers have changed since the model was reset
-	//we need to reset before we simulate so we can reapply events which might be T0-firing
-	if (!impl->simulatedSinceReset)
-	{
-		reset();
-	}
+	regenerate(forceRegenerate, true);
 }
 
 void RoadRunner::setPersistent(const std::string& eid, bool persistent, bool forceRegenerate) {
@@ -6049,15 +6042,7 @@ void RoadRunner::setPersistent(const std::string& eid, bool persistent, bool for
 	Log(Logger::LOG_DEBUG) << "Setting persistent for trigger of " << eid << "..." << endl;
 	trigger->setPersistent(persistent);
 
-	regenerate(forceRegenerate);
-
-	//In case the initialValue of any triggers have changed since the model was reset
-	//we need to reset before we simulate so we can reapply events which might be T0-firing
-	if (!impl->simulatedSinceReset)
-	{
-		reset();
-	}
-
+	regenerate(forceRegenerate, true);
 }
 
 void RoadRunner::setTriggerInitialValue(const std::string& eid, bool initValue, bool forceRegenerate) {
@@ -6083,14 +6068,7 @@ void RoadRunner::setTriggerInitialValue(const std::string& eid, bool initValue, 
 	Log(Logger::LOG_DEBUG) << "Setting initial value for trigger of " << eid << "..." << endl;
 	trigger->setInitialValue(initValue);
 
-	regenerate(forceRegenerate);
-
-	//In case the initialValue of any triggers have changed since the model was reset
-	//we need to reset before we simulate so we can reapply events which might be T0-firing
-	if (!impl->simulatedSinceReset)
-	{
-		reset();
-	}
+	regenerate(forceRegenerate, true);
 }
 
 
@@ -6117,13 +6095,7 @@ void RoadRunner::addPriority(const std::string& eid, const std::string& priority
 	newPriority->setMath(formula);
 
 	// model regeneration will throw RuntimeError if the given formula is not valid
-	regenerate(forceRegenerate);
-
-	//we need to reset before we simulate so we can reapply events which might be T0-firing
-	if (!impl->simulatedSinceReset)
-	{
-		reset();
-	}
+	regenerate(forceRegenerate, true);
 }
 
 
@@ -6146,12 +6118,8 @@ void RoadRunner::addDelay(const std::string& eid, const std::string& delay, bool
 	newDelay->setMath(formula);
 
 	// model regeneration will throw RuntimeError if the given formula is not valid
-	regenerate(forceRegenerate);
-	
-	if (!impl->simulatedSinceReset)
-	{
-		reset();
-	}
+	regenerate(forceRegenerate, true);
+
 }
 
 
@@ -6195,13 +6163,7 @@ void RoadRunner::addEventAssignment(const std::string& eid, const std::string& v
 	assignment->setMath(math);
 
 	// model regeneration will throw RuntimeError if the given formula is not valid
-	regenerate(forceRegenerate);
-
-	//we need to reset before we simulate so we can reapply events which might be T0-firing
-	if (!impl->simulatedSinceReset)
-	{
-		reset();
-	}
+	regenerate(forceRegenerate, true);
 }
 
 
@@ -6222,13 +6184,8 @@ void RoadRunner::removeEventAssignments(const std::string & eid, const std::stri
 	Log(Logger::LOG_DEBUG) << "Removing event assignment for variable" << vid << " in event " << eid << "..." << endl;
 	delete toDelete;
 
-	regenerate(forceRegenerate);
+	regenerate(forceRegenerate, true);
 
-	//we need to reset before we simulate so we can reapply events which might be T0-firing
-	if (!impl->simulatedSinceReset)
-	{
-		reset();
-	}
 }
 
 
@@ -6241,14 +6198,8 @@ void RoadRunner::removeEvent(const std::string & eid, bool forceRegenerate)
 		throw std::invalid_argument("Roadrunner::removeEvent failed, no event with ID " + eid + " existed in the model");
 	}
 	Log(Logger::LOG_DEBUG) << "Removing event " << eid << "..." << endl;
-	// checkGlobalParameters();
 	delete toDelete;
-	regenerate(forceRegenerate);
-	//we need to reset before we simulate so we can reapply events which might be T0-firing
-	if (!impl->simulatedSinceReset)
-	{
-		reset();
-	}
+	regenerate(forceRegenerate, true);
 }
 
 void RoadRunner::validateCurrentSBML()
@@ -6271,11 +6222,10 @@ void RoadRunner::checkID(const std::string& functionName, const std::string & si
 }
 
 
-void RoadRunner::regenerate(bool forceRegenerate)
+void RoadRunner::regenerate(bool forceRegenerate, bool reset)
 {
 	if (forceRegenerate)
 	{
-		
 		Log(Logger::LOG_DEBUG) << "Regenerating model..." << endl;
 		ExecutableModel* newModel = ExecutableModelFactory::regenerateModel(impl->model, impl->document, impl->loadOpt.modelGeneratorOpt);
 		if (impl->model)
@@ -6287,6 +6237,15 @@ void RoadRunner::regenerate(bool forceRegenerate)
 		if ((impl->loadOpt.loadFlags & LoadSBMLOptions::NO_DEFAULT_SELECTIONS) == 0)
 		{
 			createDefaultSelectionLists();
+		}
+
+		if (reset)
+		{
+			//we need to reset before we simulate so we can reapply events which might be T0-firing
+			if (!impl->simulatedSinceReset)
+			{
+				this->reset();
+			}
 		}
 	}
 	
