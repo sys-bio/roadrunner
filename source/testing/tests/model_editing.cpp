@@ -591,6 +591,48 @@ void removeAndReaddAllCompartments(RoadRunner *rri, libsbml::SBMLDocument *doc)
 
 SUITE(MODEL_EDITING_TEST_SUITE)
 {
+	TEST(REMOVE_ASSIGNMENT_RULE_2)
+	{
+		CHECK(RunModelEditingTest([](RoadRunner* rri) {
+			rri->removeRules("k1", true);
+		}));
+	}
+
+	TEST(REMOVE_ASSIGNMENT_RULE_3)
+	{
+		CHECK(RunModelEditingTest([](RoadRunner* rri) {
+			rri->removeRules("k1", false);
+		}));
+	}
+
+	TEST(REMOVE_RATE_RULE_1)
+	{
+		CHECK(RunModelEditingTest([](RoadRunner* rri) {
+			rri->removeRules("k1", false);
+		}));
+	}
+
+	TEST(REMOVE_RATE_RULE_2)
+	{
+		CHECK(RunModelEditingTest([](RoadRunner* rri) {
+			rri->removeRules("k1", true);
+		}));
+	}
+
+	TEST(REMOVE_RATE_RULE_3)
+	{
+		CHECK(RunModelEditingTest([](RoadRunner* rri) {
+			rri->simulate();
+			rri->removeRules("k1", false);
+		}));
+	}
+	/*TEST(REMOVE_INITIAL_ASSIGNMENT_RULE_1)
+	{
+		CHECK(RunModelEditingTest([](RoadRunner* rri) {
+			rri->removeRules("k1", true);
+		}));
+	}*/
+
 	TEST(ADD_REACTION_1)
 	{
 		CHECK(RunModelEditingTest([](RoadRunner* rri) {
