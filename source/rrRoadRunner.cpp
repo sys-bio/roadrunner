@@ -5889,10 +5889,18 @@ void RoadRunner::addInitialAssignment(const std::string& vid, const std::string&
 		throw std::invalid_argument("Roadrunner::addInitialAssignment failed, no symbol with ID " + vid + " existed in the model");
 	}
 
+	if (sbmlModel->getAssignmentRule(vid) != NULL)
+	{
+		throw std::invalid_argument("Roadrunner::addInitialAssignment failed, symbol " + vid + " already has an assignment rule existing in the model");
+	}
+
+	if (sbmlModel->getInitialAssignment(vid) != NULL)
+	{
+		throw std::invalid_argument("Roadrunner::addInitialAssignment failed, symbol " + vid + " already has an initial assignment existing in the model");
+	}
+
 	Log(Logger::LOG_DEBUG) << "Adding initial assignment for" << vid << "..." << endl;
 	InitialAssignment* newAssignment = sbmlModel->createInitialAssignment();
-
-	// potential errors with these two inputs will be detected during regeneration
 
 	newAssignment->setSymbol(vid);
 	ASTNode_t* math = libsbml::SBML_parseL3Formula(formula.c_str());
