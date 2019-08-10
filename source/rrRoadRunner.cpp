@@ -5769,7 +5769,7 @@ void RoadRunner::addAssignmentRule(const std::string& vid, const std::string& fo
 	newRule->setVariable(vid);
 	newRule->setFormula(formula);
 
-	regenerate(forceRegenerate);
+	regenerate(forceRegenerate, true);
 }
 
 void RoadRunner::addRateRule(const std::string& vid, const std::string& formula, bool forceRegenerate)
@@ -5938,7 +5938,7 @@ void RoadRunner::addInitialAssignment(const std::string& vid, const std::string&
 	}
 	newAssignment->setMath(math);
 
-	regenerate(forceRegenerate);
+	regenerate(forceRegenerate, true);
 }
 
 void RoadRunner::removeInitialAssignment(const std::string& vid, bool forceRegenerate)
@@ -5957,6 +5957,7 @@ void RoadRunner::removeInitialAssignment(const std::string& vid, bool forceRegen
 
 	regenerate(forceRegenerate);
 
+	// TODO: read-only mode does not have setters
 	if (!impl->simulatedSinceReset)
 	{
 
