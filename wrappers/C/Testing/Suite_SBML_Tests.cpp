@@ -50,6 +50,7 @@ SUITE(SBML_TEST_SUITE)
  TEST(31) { CHECK(RunTest("l2v4", 31)); }
  TEST(32) { CHECK(RunTest("l2v4", 32)); }
  TEST(33) { CHECK(RunTest("l2v4", 33)); }
+
  TEST(34) { CHECK(RunTest("l2v4", 34)); }
  TEST(35) { CHECK(RunTest("l2v4", 35)); }
  TEST(36) { CHECK(RunTest("l2v4", 36)); }

@@ -20,9 +20,14 @@ public:
     ModelResources();
     ~ModelResources();
 
+	void saveState(std::ostream& out) const;
+	void loadState(std::istream& in, uint loadOpt);
+
     const LLVMModelDataSymbols *symbols;
-    const llvm::LLVMContext *context;
-    const llvm::ExecutionEngine *executionEngine;
+    llvm::LLVMContext *context;
+    llvm::ExecutionEngine *executionEngine;
+	llvm::Module *module = 0;
+	std::string moduleStr;
     const class Random *random;
     const std::string *errStr;
 
@@ -61,6 +66,10 @@ public:
 
     GetGlobalParameterInitValueCodeGen::FunctionPtr getGlobalParameterInitValuePtr;
     SetGlobalParameterInitValueCodeGen::FunctionPtr setGlobalParameterInitValuePtr;
+private:
+	void addGlobalMapping(std::string name, void*);
+	void addGlobalMappings();
+	static llvm::Function* createGlobalMappingFunction(const char* funcName, llvm::FunctionType *funcType, llvm::Module*);
 };
 
 } /* namespace rrllvm */

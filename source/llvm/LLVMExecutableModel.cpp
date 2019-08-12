@@ -17,6 +17,7 @@
 #include "rrConfig.h"
 #include <iomanip>
 #include <cstdlib>
+#include <iostream>
 
 using rr::Logger;
 using rr::getLogger;
@@ -254,6 +255,55 @@ LLVMExecutableModel::LLVMExecutableModel(
     reset(SelectionRecord::ALL);
 }
 
+LLVMExecutableModel::LLVMExecutableModel(std::istream& in, uint modelGeneratorOpt) :
+	resources(new ModelResources()),
+	dirty(0),
+	conversionFactor(1.0),
+	flags(defaultFlags())
+{
+	modelData = LLVMModelData_from_save(in);
+	resources->loadState(in, modelGeneratorOpt);
+	symbols = resources->symbols;
+	eventListeners = std::vector<EventListenerPtr>(modelData->numEvents, EventListenerPtr());
+	eventAssignTimes.resize(modelData->numEvents);
+	
+
+	evalInitialConditionsPtr = resources->evalInitialConditionsPtr;
+	evalReactionRatesPtr = resources->evalReactionRatesPtr;
+	getBoundarySpeciesAmountPtr = resources->getBoundarySpeciesAmountPtr;
+    getFloatingSpeciesAmountPtr = resources->getFloatingSpeciesAmountPtr;
+    getBoundarySpeciesConcentrationPtr = resources->getBoundarySpeciesConcentrationPtr;
+    getFloatingSpeciesConcentrationPtr = resources->getFloatingSpeciesConcentrationPtr;
+    getCompartmentVolumePtr = resources->getCompartmentVolumePtr;
+    getGlobalParameterPtr = resources->getGlobalParameterPtr;
+    evalRateRuleRatesPtr = resources->evalRateRuleRatesPtr;
+    getEventTriggerPtr = resources->getEventTriggerPtr;
+    getEventPriorityPtr = resources->getEventPriorityPtr;
+    getEventDelayPtr = resources->getEventDelayPtr;
+	eventTriggerPtr = resources->eventTriggerPtr;
+    eventAssignPtr = resources->eventAssignPtr;
+    evalVolatileStoichPtr = resources->evalVolatileStoichPtr;
+    evalConversionFactorPtr = resources->evalConversionFactorPtr;
+    setBoundarySpeciesAmountPtr = resources->setBoundarySpeciesAmountPtr;
+    setFloatingSpeciesAmountPtr = resources->setFloatingSpeciesAmountPtr;
+    setBoundarySpeciesConcentrationPtr = resources->setBoundarySpeciesConcentrationPtr;
+    setFloatingSpeciesConcentrationPtr = resources->setFloatingSpeciesConcentrationPtr;
+    setCompartmentVolumePtr = resources->setCompartmentVolumePtr;
+    setGlobalParameterPtr = resources->setGlobalParameterPtr;
+    getFloatingSpeciesInitConcentrationsPtr = resources->getFloatingSpeciesInitConcentrationsPtr;
+    setFloatingSpeciesInitConcentrationsPtr = resources->setFloatingSpeciesInitConcentrationsPtr;
+    getFloatingSpeciesInitAmountsPtr = resources->getFloatingSpeciesInitAmountsPtr;
+    setFloatingSpeciesInitAmountsPtr = resources->setFloatingSpeciesInitAmountsPtr;
+    getCompartmentInitVolumesPtr = resources->getCompartmentInitVolumesPtr;
+    setCompartmentInitVolumesPtr = resources->setCompartmentInitVolumesPtr;
+    getGlobalParameterInitValuePtr = resources->getGlobalParameterInitValuePtr;
+    setGlobalParameterInitValuePtr = resources->setGlobalParameterInitValuePtr;
+
+	pendingEvents.loadState(in, *this);
+	rr::loadBinary(in, eventAssignTimes);
+	rr::loadBinary(in, tieBreakMap);
+}
+
 LLVMExecutableModel::~LLVMExecutableModel()
 {
     // smart ptr takes care of freeing resources
@@ -397,26 +447,26 @@ void LLVMExecutableModel::getStateVectorRate(double time, const double *y, doubl
     }
 
     /*
-    if (Logger::LOG_PRIO_TRACE <= rr::Logger::LOG_GetLogLevel()) {
-
-        LoggingBuffer log(Logger::LOG_PRIO_TRACE, __FILE__, __LINE__);
-
-        log.stream() << __FUNC__ << endl;
-        log.stream() << "y: ";
-        if (y) {
-            dump_array(log.stream(), modelData->numRateRules + modelData->numFloatingSpecies, y);
-        } else {
-            log.stream() << "null";
-        }
-        log.stream() << endl << "dydt: ";
-        if (dydt) {
-            dump_array(log.stream(), modelData->numRateRules + modelData->numFloatingSpecies, dydt);
-        } else {
-            log.stream() << "null";
-        }
-        log.stream() << endl << "Model: " << endl << this;
-    }
-    */
+	if (Logger::LOG_PRIO_TRACE <= rr::Logger::LOG_GetLogLevel()) {
+		LoggingBuffer log(Logger::LOG_PRIO_TRACE, __FILE__, __LINE__);
+		log.stream() << __FUNC__ << endl;
+		log.stream() << "y: ";
+		if (y) {
+			dump_array(log.stream(), modelData->numRateRules + modelData->numFloatingSpecies, y);
+		}
+		else {
+			log.stream() << "null";
+		}
+		log.stream() << endl << "dydt: ";
+		if (dydt) {
+			dump_array(log.stream(), modelData->numRateRules + modelData->numFloatingSpecies, dydt);
+		}
+		else {
+			log.stream() << "null";
+		}
+		log.stream() << endl << "Model: " << endl << this;
+	}
+	*/
 }
 
 double LLVMExecutableModel::getFloatingSpeciesAmountRate(int index,
@@ -1082,7 +1132,7 @@ double LLVMExecutableModel::getValue(const std::string& id)
         getFloatingSpeciesInitAmounts(1, &index, &result);
         break;
     case SelectionRecord::INITIAL_COMPARTMENT:
-        getCompartmentInitVolumes(1, &index, &result);
+        getCompartmentInitVolumes(1, &index, &result);	
         break;
     case SelectionRecord::INITIAL_FLOATING_CONCENTRATION:
         getFloatingSpeciesInitConcentrations(1, &index, &result);
@@ -1497,7 +1547,6 @@ int LLVMExecutableModel::setFloatingSpeciesAmounts(int len, int const *indx,
     {
         int j = indx ? indx[i] : i;
         bool result =  setFloatingSpeciesAmountPtr(modelData, j, values[i]);
-
         if (!result)
         {
             // check if a conserved moiety
@@ -2238,6 +2287,16 @@ double LLVMExecutableModel::getRandom()
     }
     return (*modelData->random)();
 }
+
+void LLVMExecutableModel::saveState(std::ostream& out)
+{
+	LLVMModelData_save(modelData, out);
+	resources->saveState(out);
+	pendingEvents.saveState(out);
+	rr::saveBinary(out, eventAssignTimes);
+	rr::saveBinary(out, tieBreakMap);
+}
+
 
 /******************************* End Random Section ***************************/
 #endif  /**********************************************************************/

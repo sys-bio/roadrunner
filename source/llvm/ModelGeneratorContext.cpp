@@ -283,7 +283,7 @@ ModelGeneratorContext::ModelGeneratorContext(libsbml::SBMLDocument const *doc,
         builder = new IRBuilder<>(*context);
 
         // engine take ownership of module
-        EngineBuilder engineBuilder(std::move(module_uniq));
+        EngineBuilder engineBuilder(unique_ptr<Module>(new Module("Empty LLVM Module", *context)));
 
         //engineBuilder.setEngineKind(EngineKind::JIT);
         engineBuilder.setErrorStr(errString);
@@ -417,7 +417,7 @@ llvm::IRBuilder<> &ModelGeneratorContext::getBuilder() const
 }
 
 void ModelGeneratorContext::stealThePeach(const LLVMModelDataSymbols **sym,
-        const llvm::LLVMContext** ctx, const llvm::ExecutionEngine** eng,
+         llvm::LLVMContext** ctx,  llvm::ExecutionEngine** eng,
         const Random** rnd, const string** err)
 {
     *sym = symbols;

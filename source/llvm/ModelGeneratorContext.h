@@ -136,7 +136,7 @@ public:
      * Michael Wu which is in effect, the act of ripping someone's bollocks off.
      */
     void stealThePeach(const LLVMModelDataSymbols **sym,
-            const llvm::LLVMContext **ctx, const llvm::ExecutionEngine **eng,
+             llvm::LLVMContext **ctx,  llvm::ExecutionEngine **eng,
             const Random **random, const std::string **errStr);
 
 
@@ -190,8 +190,9 @@ private:
     llvm::LLVMContext *context;
     llvm::ExecutionEngine *executionEngine;
     std::unique_ptr<llvm::Module> module_uniq;
+public:
 	llvm::Module* module;
-
+private:
     llvm::IRBuilder<> *builder;
 
     llvm::legacy::FunctionPassManager *functionPassManager;

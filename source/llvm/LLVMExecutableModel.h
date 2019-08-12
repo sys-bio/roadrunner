@@ -79,6 +79,10 @@ public:
     LLVMExecutableModel(const cxx11_ns::shared_ptr<ModelResources> &resources,
             LLVMModelData* modelData);
 
+	/*
+	* Loads a saved executable model
+	*/
+	LLVMExecutableModel(std::istream& in, uint modelGeneratorOpt);
 
     virtual ~LLVMExecutableModel();
 
@@ -569,6 +573,9 @@ public:
      * these are listed in
      */
     virtual void setFlags(uint32_t val) { flags = val; }
+	
+	void saveState(std::ostream & out);
+
 
 private:
 
@@ -604,15 +611,14 @@ private:
     /******************************* Events Section *******************************/
     #endif /***********************************************************************/
     /******************************************************************************/
-
 private:
     /**
      * the model generator maintians a cached of generated models.
      */
-    cxx11_ns::shared_ptr<const ModelResources> resources;
-
     LLVMModelData *modelData;
+    cxx11_ns::shared_ptr<ModelResources> resources;
     const LLVMModelDataSymbols *symbols;
+
 
     EvalInitialConditionsCodeGen::FunctionPtr evalInitialConditionsPtr;
     EvalReactionRatesCodeGen::FunctionPtr evalReactionRatesPtr;

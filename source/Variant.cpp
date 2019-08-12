@@ -102,6 +102,8 @@ void Variant::assign(const std::type_info& info, const void* p)
 
     TRY_ASSIGN(uint64_t);
 
+	TRY_ASSIGN(std::vector<double>);
+
     string msg = "could not assign type ";
     msg += info.name();
     msg += " to Variant";
@@ -135,6 +137,32 @@ static std::string strip(const std::string& in)
 }
 
 
+/*
+* Converts a string of the form "[double, double, ..., double]" to a vector
+* of doubles.
+* Pre: The string must start with '[' (with no preceding spaces) and end with ']',
+*      The doubles in the string must be separated by commas and be able to
+*      be parsed with std::stod
+*
+*/
+std::vector<double> parseDoubleVector(const std::string& toParse) {
+	std::vector<double> result;
+	size_t index = 1;
+	while (toParse[index] == ' ') {
+		index++;
+	}
+	while (index < toParse.length() && toParse[index] != ']') {
+		size_t lengthInStr = 0;
+		result.push_back(std::stod(&toParse[index], &lengthInStr));
+		index += lengthInStr;
+		while (index < toParse.length() && (toParse[index] == ' '
+			|| toParse[index] == ',')) {
+			index++;
+		}
+	}
+	return result;
+}
+
 Variant Variant::parse(const std::string& s)
 {
     string str = strip(s);
@@ -167,6 +195,11 @@ Variant Variant::parse(const std::string& s)
     if (bstr == "FALSE") {
         return Variant(false);
     }
+	
+	//Check if vector of doubles
+	if (str[0] == '[') {
+		return Variant(parseDoubleVector(str));
+	}
 
     // its a string
     Variant result;
@@ -214,6 +247,10 @@ bool Variant::isBool() const
     return self->var.type() == typeid(bool);
 }
 
+bool Variant::isDoubleVector() const {
+	return self->var.type() == typeid(std::vector<double>);
+}
+
 #define TRY_CONVERT_TO(type)                       \
         if (info == typeid(type)) {                \
             type* out = static_cast<type*>(p);     \
@@ -246,6 +283,7 @@ Variant::TypeId Variant::type() const
     TYPE_KIND(char, CHAR);
     TYPE_KIND(unsigned char, UCHAR);
     TYPE_KIND(bool, BOOL);
+	TYPE_KIND(std::vector<double>, DOUBLEVECTOR);
 
     if(info == typeid(int)) {
         if(self->size == 4) return INT32;
@@ -298,6 +336,12 @@ void Variant::convert_to(const std::type_info& info, void* p) const
         TRY_CONVERT_TO(int32_t);
 
         TRY_CONVERT_TO(uint32_t);
+		
+		if (info == typeid(std::vector<double>)) {
+			std::vector<double>* out = static_cast<std::vector<double>*>(p);
+			*out = self->var.extract<std::vector<double>>();
+			return;
+		}
 
     }
     catch(Poco::SyntaxException& ex)

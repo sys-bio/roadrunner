@@ -246,6 +246,12 @@ public:
         //memset((void*)integrators, 0, sizeof(integrators)/sizeof(char));
     }
 
+	RoadRunnerImpl(const std::istream& in) :
+		mDiffStepSize(0.05)
+	{
+
+	}
+
 
     RoadRunnerImpl(const string& _compiler, const string& _tempDir,
             const string& _supportCodeDir) :
@@ -1569,7 +1575,6 @@ const DoubleMatrix* RoadRunner::simulate(const Dictionary* dict)
 
     // evalute the model with its current state
     self.model->getStateVectorRate(timeStart, 0, 0);
-
     // Variable Time Step Integration
     if (self.integrator->hasValue("variable_step_size") && self.integrator->getValueAsBool("variable_step_size"))
     {
@@ -1973,7 +1978,6 @@ DoubleMatrix RoadRunner::getRatesOfChangeNamedArray()
 
     impl->model->getStateVector(ssv);
     impl->model->getStateVectorRate(impl->model->getTime(), ssv, vals);
-
     if (getConservedMoietyAnalysis())
     {
         LibStructural *ls = getLibStruct();
@@ -4913,6 +4917,365 @@ static void metabolicControlCheck(ExecutableModel *model)
         "To override, run 'Config.setValue(Config.ALLOW_EVENTS_IN_STEADY_STATE_CALCULATIONS, True)'.");
     }
 }
+
+
+void RoadRunner::saveState(std::string filename, char opt)
+{
+	check_model();
+	switch (opt) {
+		case 'b':
+		{
+			// binary mode
+			// can be loaded later
+			std::ofstream out(filename, iostream::binary);
+			if (!out)
+			{
+				throw std::invalid_argument("Error opening file " + filename + ": " + std::string(strerror(errno)));
+			}
+			rr::saveBinary(out, fileMagicNumber);
+			rr::saveBinary(out, dataVersionNumber);
+			//Save all of roadrunner's data to the file
+			rr::saveBinary(out, impl->mInstanceID);
+			rr::saveBinary(out, impl->mDiffStepSize);
+			rr::saveBinary(out, impl->mSteadyStateThreshold);
+
+			saveSelectionVector(out, impl->mSelectionList);
+
+			rr::saveBinary(out, impl->loadOpt.version);
+			rr::saveBinary(out, impl->loadOpt.size);
+			rr::saveBinary(out, impl->loadOpt.modelGeneratorOpt);
+			rr::saveBinary(out, impl->loadOpt.loadFlags);
+
+			rr::saveBinary(out, impl->loadOpt.getKeys().size());
+
+			for (std::string k : impl->loadOpt.getKeys())
+			{
+				rr::saveBinary(out, k);
+				rr::saveBinary(out, impl->loadOpt.getItem(k));
+			}
+
+			saveSelectionVector(out, impl->mSteadyStateSelection);
+
+			rr::saveBinary(out, impl->simulationResult.getColNames());
+			rr::saveBinary(out, impl->simulationResult.getRowNames());
+
+			rr::saveBinary(out, impl->simulateOpt.reset_model);
+			rr::saveBinary(out, impl->simulateOpt.structured_result);
+			rr::saveBinary(out, impl->simulateOpt.copy_result);
+			rr::saveBinary(out, impl->simulateOpt.steps);
+			rr::saveBinary(out, impl->simulateOpt.start);
+			rr::saveBinary(out, impl->simulateOpt.duration);
+			rr::saveBinary(out, impl->simulateOpt.variables);
+			rr::saveBinary(out, impl->simulateOpt.amounts);
+			rr::saveBinary(out, impl->simulateOpt.concentrations);
+
+			rr::saveBinary(out, impl->simulateOpt.getKeys().size());
+
+			for (std::string k : impl->simulateOpt.getKeys())
+			{
+				rr::saveBinary(out, k);
+				rr::saveBinary(out, impl->simulateOpt.getItem(k));
+			}
+
+			rr::saveBinary(out, impl->roadRunnerOptions.flags);
+			rr::saveBinary(out, impl->roadRunnerOptions.jacobianStepSize);
+
+			rr::saveBinary(out, impl->configurationXML);
+			//Save the model (which saves the model data symbols and model resources)
+			impl->model->saveState(out);
+
+			rr::saveBinary(out, impl->integrator->getName());
+			rr::saveBinary(out, impl->integrator->getNumParams());
+
+			for (std::string k : impl->integrator->getSettings())
+			{
+				rr::saveBinary(out, k);
+				rr::saveBinary(out, impl->integrator->getValue(k));
+			}
+
+			rr::saveBinary(out, impl->steady_state_solver->getName());
+			rr::saveBinary(out, impl->steady_state_solver->getNumParams());
+
+			for (std::string k : impl->steady_state_solver->getSettings())
+			{
+				rr::saveBinary(out, k);
+				rr::saveBinary(out, impl->steady_state_solver->getValue(k));
+			}
+			//Currently I save and reload the SBML that was used to create the model
+			//It is not parsed however, unless a instance of LibStructural needs to be
+			//created
+			//It might also be possible to construct LibStructural without SBML, but I'm not familiar with it
+			//If this implementation is too slow we can change that
+			rr::saveBinary(out, impl->mCurrentSBML);
+			break;
+		}
+
+		case 'r': 
+		{
+			// human-readble mode
+			// for user debugging
+			std::ofstream out(filename, ios::out);
+			if (!out)
+			{
+				throw std::invalid_argument("Error opening file " + filename + ": " + std::string(strerror(errno)));
+			}
+
+			out << "mInstanceID: " <<impl->mInstanceID << endl;
+			out << "mDiffStepSize: " << impl->mDiffStepSize << endl;
+			out << "mSteadyStateThreshold: " << impl->mSteadyStateThreshold << endl << endl;
+
+			out << "roadRunnerOptions: " << endl;
+			out << "	flags: " << impl->roadRunnerOptions.flags << endl;
+			out << "	jacobianStepSize: " << impl->roadRunnerOptions.jacobianStepSize << endl << endl;
+
+			out << "loadOpt: " << endl;
+			out << "	version: " << impl->loadOpt.version << endl;
+			out << "	modelGeneratorOpt: " << impl->loadOpt.modelGeneratorOpt << endl;
+			out << "	loadFlags: " << impl->loadOpt.loadFlags << endl;
+			for (std::string k : impl->loadOpt.getKeys())
+			{
+				out << "	" << k << ": ";
+
+				switch (impl->loadOpt.getItem(k).type())
+				{
+				case Variant::BOOL:
+					out << impl->loadOpt.getItem(k).convert<bool>();
+					break;
+				case Variant::CHAR:
+					out << impl->loadOpt.getItem(k).convert<char>();
+					break;
+				case Variant::DOUBLE:
+					out << impl->loadOpt.getItem(k).convert<double>();
+					break;
+				case Variant::FLOAT:
+					out << impl->loadOpt.getItem(k).convert<float>();
+					break;
+				case Variant::INT32:
+					out << impl->loadOpt.getItem(k).convert<int32_t>();
+					break;
+				case Variant::INT64:
+					out << impl->loadOpt.getItem(k).convert<long>();
+					break;
+				case Variant::STRING:
+					out << impl->loadOpt.getItem(k).convert<std::string>();
+					break;
+				case Variant::UCHAR:
+					out << impl->loadOpt.getItem(k).convert<unsigned char>();
+					break;
+				case Variant::UINT32:
+					out << impl->loadOpt.getItem(k).convert<unsigned int>();
+					break;
+				case Variant::UINT64:
+					out << impl->loadOpt.getItem(k).convert<unsigned long>();
+					break;
+				default:
+					break;
+				}
+				out << endl;
+			}
+			out << endl;
+
+			out << "simulateOpt: " << endl;
+			out << impl->simulateOpt.toString() << endl << endl;
+
+			out << "mSelectionList: " << endl;
+			for (SelectionRecord sr : impl->mSelectionList)
+			{
+				out << sr.to_string() << endl;
+			}
+			out << endl;
+
+			out << "mSteadyStateSelection: " << endl;
+			for (SelectionRecord sr : impl->mSteadyStateSelection)
+			{
+				out << sr.to_string() << endl;
+			}
+			out << endl;
+
+			out << impl->integrator->toString();
+			out << endl;
+			out << impl->steady_state_solver->toString();
+			out << endl;
+
+			out << "simulationResult: " << endl;
+			out << impl->simulationResult;
+			out << endl;
+
+			out << std::dec << impl->model;
+			
+			//out << "configurationXML" << impl->configurationXML << endl;
+			//out << impl->mCurrentSBML;
+			break;
+		}
+
+		default:
+			throw std::invalid_argument("Invalid option for saveState(), 'b' or 'r' expected");
+			break;
+	}
+}
+
+void RoadRunner::saveSelectionVector(std::ostream& out, std::vector<SelectionRecord>& v)
+{
+	rr::saveBinary(out, v.size());
+	for (SelectionRecord sr : v)
+	{
+		rr::saveBinary(out, sr.index);
+		rr::saveBinary(out, sr.p1);
+		rr::saveBinary(out, sr.p2);
+		rr::saveBinary(out, sr.selectionType);
+	}
+}
+
+
+void RoadRunner::loadState(std::string filename)
+{
+	std::ifstream in(filename, iostream::binary);
+	if (!in)
+	{
+		throw std::invalid_argument("Error opening file " + filename + ": " + std::string(strerror(errno)));
+	}
+	int inMagicNumber;
+	rr::loadBinary(in, inMagicNumber);
+	if (inMagicNumber != fileMagicNumber)
+	{
+		throw std::invalid_argument("The file " + filename + " has the wrong magic number. Are you sure it is a roadrunner save state?");
+	}
+
+	int inVersionNumber;
+	rr::loadBinary(in, inVersionNumber);
+	if (inVersionNumber != dataVersionNumber)
+	{
+		throw std::invalid_argument("The file " + filename + " was saved with an unrecognized version of roadrunner");
+	}
+   //load roadrunner's data in the same order saveState saves it in
+	rr::loadBinary(in, impl->mInstanceID);
+	rr::loadBinary(in, impl->mDiffStepSize);
+	rr::loadBinary(in, impl->mSteadyStateThreshold);
+    
+	loadSelectionVector(in, impl->mSelectionList);
+	
+	rr::loadBinary(in, impl->loadOpt.version);
+	rr::loadBinary(in, impl->loadOpt.size);
+	rr::loadBinary(in, impl->loadOpt.modelGeneratorOpt);
+	rr::loadBinary(in, impl->loadOpt.loadFlags);
+    
+	size_t loadOptSize;
+	rr::loadBinary(in, loadOptSize);
+
+	for (int i = 0; i < loadOptSize; i++)
+	{
+		std::string k;
+		rr::loadBinary(in, k);
+		rr::Variant v;
+		rr::loadBinary(in, v);
+		impl->loadOpt.setItem(k, v);
+	}
+
+
+	loadSelectionVector(in, impl->mSteadyStateSelection);
+
+	std::vector<std::string> colNames;
+	rr::loadBinary(in, colNames);
+	impl->simulationResult.setColNames(colNames.begin(), colNames.end());
+
+	std::vector<std::string> rowNames;
+	rr::loadBinary(in, rowNames);
+	impl->simulationResult.setRowNames(rowNames.begin(), rowNames.end());
+
+	rr::loadBinary(in, impl->simulateOpt.reset_model);
+	rr::loadBinary(in, impl->simulateOpt.structured_result);
+	rr::loadBinary(in, impl->simulateOpt.copy_result);
+	rr::loadBinary(in, impl->simulateOpt.steps);
+	rr::loadBinary(in, impl->simulateOpt.start);
+	rr::loadBinary(in, impl->simulateOpt.duration);
+	rr::loadBinary(in, impl->simulateOpt.variables);
+	rr::loadBinary(in, impl->simulateOpt.amounts);
+	rr::loadBinary(in, impl->simulateOpt.concentrations);
+
+	size_t simulateOptSize;
+	rr::loadBinary(in, simulateOptSize);
+
+	for (int i = 0; i < simulateOptSize; i++)
+	{
+		std::string k;
+		rr::loadBinary(in, k);
+		rr::Variant v;
+		rr::loadBinary(in, v);
+		impl->simulateOpt.setItem(k, v);
+	}
+
+	rr::loadBinary(in, impl->roadRunnerOptions.flags);
+	rr::loadBinary(in, impl->roadRunnerOptions.jacobianStepSize);
+
+	rr::loadBinary(in, impl->configurationXML);
+	if(impl->model)
+		delete impl->model;
+    
+	//Create a new model from the stream
+	//impl->model = new rrllvm::LLVMExecutableModel(in, impl->loadOpt.modelGeneratorOpt);
+	impl->model = ExecutableModelFactory::createModel(in, impl->loadOpt.modelGeneratorOpt);
+    impl->syncAllSolversWithModel(impl->model);
+
+
+	if (impl->mLS)
+		delete impl->mLS;
+	std::string integratorName;
+	rr::loadBinary(in, integratorName);
+	setIntegrator(integratorName);
+
+	unsigned long integratorNumParams;
+	rr::loadBinary(in, integratorNumParams);
+
+	for (int i = 0; i < integratorNumParams; i++)
+	{
+		std::string k;
+		rr::loadBinary(in, k);
+		rr::Variant v;
+		rr::loadBinary(in, v);
+		if(k != "maximum_adams_order")
+		    impl->integrator->setValue(k, v);
+	}
+
+	std::string steadyStateSolverName;
+	rr::loadBinary(in, steadyStateSolverName);
+	setSteadyStateSolver(steadyStateSolverName);
+
+	unsigned long solverNumParams;
+	rr::loadBinary(in, solverNumParams);
+	
+	for (int i = 0; i < solverNumParams; i++) 
+	{
+		std::string k;
+		rr::loadBinary(in, k);
+		rr::Variant v;
+		rr::loadBinary(in, v);
+		impl->steady_state_solver->setValue(k, v);
+	}
+
+	//Currently the SBML is saved with the binary data, see saveState above
+	rr::loadBinary(in, impl->mCurrentSBML);
+
+	//Restart the integrator and reset the model time
+	impl->integrator->restart(impl->model->getTime());
+	reset(SelectionRecord::TIME);
+}
+
+void RoadRunner::loadSelectionVector(std::istream& in, std::vector<SelectionRecord>& v)
+{
+	size_t vsize;
+	rr::loadBinary(in, vsize);
+	v.clear();
+	for (int i = 0; i < vsize; i++)
+	{
+		SelectionRecord sr;
+		rr::loadBinary(in, sr.index);
+		rr::loadBinary(in, sr.p1);
+		rr::loadBinary(in, sr.p2);
+		rr::loadBinary(in, sr.selectionType);
+		v.push_back(sr);
+	}
+}
+
 
 } //namespace
 

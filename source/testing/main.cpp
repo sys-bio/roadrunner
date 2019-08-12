@@ -94,11 +94,12 @@ int main(int argc, char* argv[])
 
     //    clog<<"Running TestSuite Tests\n";
     runner1.RunTestsIf(Test::GetTestList(), "SBML_l2v4",       True(), 0);
+	runner1.RunTestsIf(Test::GetTestList(), "STATE_SAVING_TEST_SUITE", True(), 0);
 
     //Finish outputs result to xml file
     runner1.Finish();
     //    Pause();
-    return 0;
+    return runner1.GetTestResults()->GetFailureCount();
 }
 
 void ProcessCommandLineArguments(int argc, char* argv[], Args& args)

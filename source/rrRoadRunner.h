@@ -239,6 +239,12 @@ public:
      */
     const ls::DoubleMatrix *simulate(const Dictionary* options = 0);
 
+	/*
+	*  Saves this roadrunner instance to a file so it can be reloaded later
+	*/
+	void saveState(std::string filename, char opt = 'b');
+	void loadState(std::string filename);
+
     /**
      * RoadRunner keeps a copy of the simulation data around until the
      * next call to simulate. This matrix can be obtained here.
@@ -1139,6 +1145,11 @@ private:
      * the implementation file.
      */
     class RoadRunnerImpl* impl;
+
+	void saveSelectionVector(std::ostream&, std::vector<SelectionRecord>&);
+	void loadSelectionVector(std::istream&, std::vector<SelectionRecord>&);
+	const int fileMagicNumber = 0xAD6F52;
+	const int dataVersionNumber = 1;
 };
 
 }

@@ -242,7 +242,8 @@ struct LLVMModelData
 	 */
     double                              data[0];                          // not listed
 };
-
+void LLVMModelData_save(LLVMModelData*, std::ostream&);
+LLVMModelData* LLVMModelData_from_save(std::istream&);
 void LLVMModelData_free(LLVMModelData*);
 
 #ifdef _MSC_VER

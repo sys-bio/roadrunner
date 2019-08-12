@@ -4,8 +4,12 @@
 #include <list>
 #include <vector>
 #include <complex>
+#include <map>
+#include <unordered_map>
+#include <set>
 #include "rrConstants.h"
 #include "rrExporter.h"
+#include "Variant.h"
 
 namespace rr
 {
@@ -103,5 +107,259 @@ RR_DECLSPEC string              substitute(const string& src, const string& this
 RR_DECLSPEC string              substitute(const string& src, const string& thisOne, const int& withThisOne, const int& howMany = -1);
 //RR_DECLSPEC string              substitute(const string& src, const string& thisOne, const double& withThisOne, const int& howMany = -1);
 RR_DECLSPEC string              removeNewLines(const string& str, const int& howMany = -1);
+
+
+/*
+* Saves t in a binary format that can then be reloaded with loadBinary
+* T must be a primitive, POD with no pointers, std::vector, std::string, std::map, std::unordered_map, std::set, rr::Variant
+* or combinations of those, like std::map<rr::Variant, std::vector<std::string> >
+*/
+template <typename T>
+inline void                saveBinary(std::ostream& out, const T& t)
+{
+	out.write((char*)&t, sizeof(T));
+}
+
+template <>
+inline void                saveBinary(std::ostream& out, const std::string& s)
+{
+	saveBinary(out, s.size());
+	out.write(s.c_str(), s.size());
+}
+
+template <typename T>
+inline void                saveBinary(std::ostream& out, const std::vector<T>& v)
+{
+	saveBinary(out, v.size());
+	for (T t : v)
+	{
+		saveBinary(out, t);
+	}
+}
+
+template <typename K, typename V>
+inline void saveBinary(std::ostream& out, const std::map<K, V>& m)
+{
+	saveBinary(out, m.size());
+	for (std::pair<K, V> p : m)
+	{
+		saveBinary(out, p.first);
+		saveBinary(out, p.second);
+	}
+}
+
+template <typename K, typename V>
+inline void saveBinary(std::ostream& out, const std::unordered_map<K, V>& m)
+{
+	saveBinary(out, m.size());
+	for (std::pair<K, V> p : m)
+	{
+		saveBinary(out, p.first);
+		saveBinary(out, p.second);
+	}
+}
+
+template <typename T>
+inline void                saveBinary(std::ostream& out, const std::set<T>& s)
+{
+	saveBinary(out, s.size());
+	for (T t : s)
+	{
+		saveBinary(out, t);
+	}
+}
+
+template<>
+inline void saveBinary<rr::Variant>(std::ostream& out, const rr::Variant& var)
+{
+	saveBinary(out, var.type());
+	switch (var.type())
+	{
+	case Variant::BOOL:
+		saveBinary(out, (bool)var);
+		break;
+	case Variant::CHAR:
+		saveBinary(out, (char)var);
+		break;
+	case Variant::DOUBLE:
+		saveBinary(out, (double)var);
+		break;
+	case Variant::FLOAT:
+		saveBinary(out, (float)var);
+		break;
+	case Variant::INT32:
+		saveBinary(out, (int32_t)var);
+		break;
+	case Variant::INT64:
+		saveBinary(out, (long)var);
+		break;
+	case Variant::STRING:
+		saveBinary(out, (std::string)var);
+		break;
+	case Variant::UCHAR:
+		saveBinary(out, (unsigned char)var);
+		break;
+	case Variant::UINT32:
+		saveBinary(out, (unsigned int)var);
+		break;
+	case Variant::UINT64:
+		saveBinary(out, (unsigned long)var);
+		break;
+	case Variant::DOUBLEVECTOR:
+		saveBinary(out, var.convert<std::vector<double> >());
+	default:
+		break;
+	}
+}
+
+/*
+* Loads an object saved by saveBinary from an istream and puts the result in t
+* t must be of the same type that was saved by saveBinary
+* Objects must be loaded in the order they were saved to the stream
+*/
+template <typename T>
+inline void                loadBinary(std::istream& in, T& t)
+{
+	T temp;
+	in.read((char*)&temp, sizeof(T));
+	t = temp;
+}
+
+template <>
+inline void                loadBinary(std::istream& in, std::string& s)
+{
+	size_t ssize;
+	loadBinary(in, ssize);
+	s.resize(ssize);
+	in.read(&s[0], ssize);
+}
+
+template <typename T>
+inline void                loadBinary(std::istream& in, std::vector<T>& v)
+{
+	size_t vsize;
+	loadBinary(in, vsize);
+	v.clear();
+	for (int i = 0; i < vsize; i++)
+	{
+		T next;
+		loadBinary(in, next);
+		v.push_back(next);
+	}
+}
+
+template <typename K, typename V>
+inline void loadBinary(std::istream& in, std::map<K, V>& m)
+{
+	size_t msize;
+	loadBinary(in, msize);
+	m.clear();
+	for (int i = 0; i < msize; i++)
+	{
+		K k;
+		V v;
+		loadBinary(in, k);
+		loadBinary(in, v);
+		m.emplace(k, v);
+	}
+}
+
+template <typename K, typename V>
+inline void loadBinary(std::istream& in, std::unordered_map<K, V>& m)
+{
+	size_t msize;
+	loadBinary(in, msize);
+	m.clear();
+	for (int i = 0; i < msize; i++)
+	{
+		K k;
+		V v;
+		loadBinary(in, k);
+		loadBinary(in, v);
+		m.emplace(k, v);
+	}
+}
+
+template <typename T>
+inline void                loadBinary(std::istream& in, std::set<T>& s)
+{
+	size_t ssize;
+	loadBinary(in, ssize);
+	s.clear();
+	for (int i = 0; i < ssize; i++)
+	{
+		T next;
+		loadBinary(in, next);
+		s.emplace(next);
+	}
+}
+
+template<>
+inline void loadBinary<rr::Variant>(std::istream& in, rr::Variant& var)
+{
+	Variant::TypeId type;
+    std::string strVal;
+	std::vector<double> vectorVal;
+	loadBinary(in, type);
+	switch (type)
+	{
+	case Variant::BOOL:
+		bool boolVal;
+		loadBinary(in, boolVal);
+		var = boolVal;
+		break;
+	case Variant::CHAR:
+        char charVal;
+		loadBinary(in, charVal);
+		var = charVal;
+		break;
+	case Variant::DOUBLE:
+        double doubleVal;
+		loadBinary(in, doubleVal);
+		var = doubleVal;
+		break;
+	case Variant::FLOAT:
+        float floatVal;
+		loadBinary(in, floatVal);
+		var = floatVal;
+		break;
+	case Variant::INT32:
+        int int32Val;
+		loadBinary(in, int32Val);
+		var = int32Val;
+		break;
+	case Variant::INT64:
+        long int64Val;
+		loadBinary(in, int64Val);
+		var = int64Val;
+		break;
+	case Variant::STRING:
+		loadBinary(in, strVal);
+		var = strVal;
+		break;
+	case Variant::UCHAR:
+        unsigned char ucharVal;
+		loadBinary(in, ucharVal);
+		var = ucharVal;
+		break;
+	case Variant::UINT32:
+        unsigned int uint32Val;
+		loadBinary(in, uint32Val);
+		var = uint32Val;
+		break;
+	case Variant::UINT64:
+        unsigned long uint64Val;
+		loadBinary(in, uint64Val);
+		var = uint64Val;
+		break;
+	case Variant::DOUBLEVECTOR:
+		loadBinary(in, vectorVal);
+		var = vectorVal;
+		break;
+	default:
+		break;
+	}
+}
+
 }
 #endif

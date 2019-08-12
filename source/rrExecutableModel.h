@@ -735,7 +735,15 @@ public:
      * for source compatability
      */
     void computeAllRatesOfChange() {};
-
+	
+	/*
+	* Writes "Not implemented for this model type" to out if not implemented for the underlying
+	* model type
+	*/
+	virtual void saveState(std::ostream& out) {
+		out << "Saving state not implemented for this model type";
+	}
+	
     friend class RoadRunner;
 
 protected:
@@ -755,7 +763,6 @@ protected:
 
 
 };
-
 
 
 

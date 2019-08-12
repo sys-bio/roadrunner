@@ -11,6 +11,7 @@
 #include "rrExecutableModel.h"
 #include "Dictionary.h"
 #include <string>
+#include <iostream>
 
 
 namespace rr
@@ -30,6 +31,15 @@ public:
      * but it may be any dictionary.
      */
     static ExecutableModel *createModel(const std::string& sbml, const Dictionary* dict = 0);
+	/*
+	* Creates an executable model from a saved binary representation
+	*
+	* @param in: input stream with the representation of the model at the front
+	* @param modelGeneratorOpt: which functions should be generated, see LoadSBMLOptions::MUTABLE_INITIAL_CONDITIONS
+	* and LoadSBMLOptions::READ_ONLY
+	*
+	*/
+	static ExecutableModel *createModel(std::istream& in, uint modelGeneratorOpt);
 };
 
 } /* namespace rr */
