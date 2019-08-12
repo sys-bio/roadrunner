@@ -103,6 +103,7 @@ void ModelResources::addGlobalMappings()
                         (void*) sbmlsupport::arccsc);
 
     // AST_FUNCTION_ARCCSCH:
+    addGlobalMapping(
             "arccsch",
                         (void*) sbmlsupport::arccsch);
 

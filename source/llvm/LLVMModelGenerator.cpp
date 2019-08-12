@@ -355,7 +355,7 @@ context.getExecutionEngine().getFunctionAddress("setGlobalParameter");
 
 	// * MOVE * the bits over from the context to the exe model.
 	context.stealThePeach(&rc->symbols, &rc->context,
-		&rc->executionEngine, &rc->random, &rc->errStr, &rc->module);
+		&rc->executionEngine, &rc->random, &rc->errStr);
 
 	LLVMExecutableModel* newModel = new LLVMExecutableModel(rc, modelData);
 

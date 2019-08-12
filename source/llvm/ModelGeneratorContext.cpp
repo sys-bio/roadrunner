@@ -435,8 +435,6 @@ void ModelGeneratorContext::stealThePeach(const LLVMModelDataSymbols **sym,
     random = 0;
     *err = errString;
     errString = 0;
-	*mod = module;
-	module = 0;
 }
 
 const LLVMModelSymbols& ModelGeneratorContext::getModelSymbols() const
