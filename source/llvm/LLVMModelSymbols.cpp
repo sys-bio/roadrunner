@@ -138,7 +138,7 @@ bool LLVMModelSymbols::visit(const libsbml::AssignmentRule& x)
 
     if (element)
     {
-        processElement(assigmentRules, element, x.getMath());
+        processElement(assignmentRules, element, x.getMath());
     }
     else
     {
@@ -624,7 +624,7 @@ ASTNode* LLVMModelSymbols::createStoichiometryNode(int row, int col) const
 
 const SymbolForest& LLVMModelSymbols::getAssigmentRules() const
 {
-    return assigmentRules;
+    return assignmentRules;
 }
 
 const SymbolForest& LLVMModelSymbols::getInitialValues() const

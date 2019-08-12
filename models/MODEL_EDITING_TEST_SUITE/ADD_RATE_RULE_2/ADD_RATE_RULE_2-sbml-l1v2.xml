@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<sbml xmlns="http://www.sbml.org/sbml/level1" level="1" version="2">
+  <model name="case00032">
+    <listOfCompartments>
+      <compartment name="compartment" volume="1" units="volume"/>
+    </listOfCompartments>
+    <listOfSpecies>
+      <species name="S1" compartment="compartment" initialAmount="0.015" units="substance"/>
+      <species name="S2" compartment="compartment" initialAmount="0" units="substance"/>
+    </listOfSpecies>
+    <listOfParameters>
+      <parameter name="k1" value="1"/>
+    </listOfParameters>
+    <listOfRules>
+      <speciesConcentrationRule formula="-1 * k1 * S1" type="rate" species="S1"/>
+      <speciesConcentrationRule formula="k1 * S1" type="rate" species="S2"/>
+    </listOfRules>
+  </model>
+</sbml>

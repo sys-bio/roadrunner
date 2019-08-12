@@ -655,7 +655,7 @@ private:
      * the set of rule, these contain the variable name of the rule so that
      * we can quickly see if a symbol has an associated rule.
      */
-    std::set<std::string> assigmentRules;
+    std::set<std::string> assignmentRules;
 
     /**
      * rate rules, index by variable name.

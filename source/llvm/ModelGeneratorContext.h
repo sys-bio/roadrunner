@@ -80,7 +80,7 @@ public:
      */
     ModelGeneratorContext(libsbml::SBMLDocument const *doc,
             unsigned loadSBMLOptions);
-
+	
     /**
      * does not attach to any sbml doc,
      *
@@ -139,7 +139,6 @@ public:
              llvm::LLVMContext **ctx,  llvm::ExecutionEngine **eng,
             const Random **random, const std::string **errStr);
 
-
     bool getConservedMoietyAnalysis() const;
 
     bool useSymbolCache() const;
@@ -171,13 +170,13 @@ private:
      * otherwise its 0, meaning we're borrowign the the doc.
      */
     libsbml::SBMLDocument *ownedDoc;
-
+ 
     /**
-     * allways references the sbml doc.
+     * always references the sbml doc.
      */
     const libsbml::SBMLDocument *doc;
 
-    LLVMModelDataSymbols *symbols;
+    const LLVMModelDataSymbols *symbols;
 
     /**
      * make sure this is listed AFTER the doc and model, so it get
@@ -190,8 +189,12 @@ private:
     llvm::LLVMContext *context;
     llvm::ExecutionEngine *executionEngine;
     std::unique_ptr<llvm::Module> module_uniq;
+    const libsbml::Model *model;
+
 public:
-	llvm::Module* module;
+
+    llvm::Module* module;
+
 private:
     llvm::IRBuilder<> *builder;
 

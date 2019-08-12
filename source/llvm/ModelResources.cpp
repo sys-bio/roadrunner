@@ -59,10 +59,6 @@ void ModelResources::saveState(std::ostream& out) const
 {
 	symbols->saveState(out);
  
-	// If this roadrunner instance was generated from SBML or if a model editing action
-	// caused it to regenerate, module will point to the module containing the jitted functions 
-	// generated. Otherwise, moduleStr will contain an object file representation of the jitted functions.
-	// So, if module is a nullptr, we simply save that. Otherwise, we generate the object file, and save it.
 	rr::saveBinary(out, moduleStr);
 }
 
@@ -73,14 +69,14 @@ void ModelResources::addGlobalMapping(std::string name, void *addr)
 
 void ModelResources::addGlobalMappings()
 {
-	using namespace llvm;
+    using namespace llvm;
     Type *double_type = Type::getDoubleTy(*context);
     Type *int_type = Type::getInt32Ty(*context);
     Type* args_i1[] = { int_type };
     Type* args_d1[] = { double_type };
     Type* args_d2[] = { double_type, double_type };
 
-	llvm::sys::DynamicLibrary::LoadLibraryPermanently(nullptr);
+    llvm::sys::DynamicLibrary::LoadLibraryPermanently(nullptr);
 
     addGlobalMapping("rr_csr_matrix_set_nz", (void*)rr::csr_matrix_set_nz);
 
@@ -196,9 +192,9 @@ void ModelResources::addGlobalMappings()
 
 void ModelResources::loadState(std::istream& in, uint modelGeneratorOpt) 
 {
-	//load the model data symbols from the stream
 	if (symbols)
 		delete symbols;
+	//load the model data symbols from the stream
 	symbols = new LLVMModelDataSymbols(in);
 	//Get the object file from the input stream
 	rr::loadBinary(in, moduleStr);

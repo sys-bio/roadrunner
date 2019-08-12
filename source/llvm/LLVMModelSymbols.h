@@ -169,7 +169,7 @@ protected:
     /**
      * The only differences in how initialAssigments and assignmentRules
      * are handled is whether they are stuffed in the initialAssigment
-     * or assigmentRules maps.
+     * or assignmentRules maps.
      *
      * This figures out what they refer to, and stuffs the AST in the
      * appropriate map.
@@ -191,7 +191,7 @@ protected:
 
     SymbolForest initialValues;
 
-    SymbolForest assigmentRules;
+    SymbolForest assignmentRules;
 
     SymbolForest initialAssignmentRules;
 

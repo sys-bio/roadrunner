@@ -436,6 +436,635 @@ C_DECL_SPEC char* rrcCallConv getCurrentSBML(RRHandle handle);
 */
 C_DECL_SPEC char* rrcCallConv getSBML(RRHandle handle);
 
+
+// -------------------------------------------------------------------------------------
+// Model editing methods
+// -------------------------------------------------------------------------------------
+
+
+/*!
+ \brief Add a species to the current model
+ \param[in] handle Handle to a RoadRunner instance
+ \param[in] sid ID of the species to be added
+ \param[in] compartment Compartment of the species to be added
+ \param[in] initialAmount Initial amount of the species to be added
+ \param[in] substanceUnit Substance unit of the species to be added
+ \return Returns false if the call fails, otherwise returns a true
+ \ingroup edit
+*/
+C_DECL_SPEC bool rrcCallConv addSpecies(RRHandle handle, const char* sid, const char* compartment, double initialAmount, const char* substanceUnit);
+
+/*!
+ \brief Add a species to the current model, without regenerating it
+        The last modification must regenerate for the modifications to take effect
+ \param[in] handle Handle to a RoadRunner instance
+ \param[in] sid ID of the species to be added
+ \param[in] compartment Compartment of the species to be added
+ \param[in] initialAmount Initial amount of the species to be added
+ \param[in] substanceUnit Substance unit of the species to be added
+ \return Returns false if the call fails, otherwise returns a true
+ \ingroup edit
+*/
+C_DECL_SPEC bool rrcCallConv addSpeciesNoRegen(RRHandle handle, const char* sid, const char* compartment, double initialAmount, const char* substanceUnit);
+
+
+/*!
+ \brief Remove a species from the current model
+ \param[in] handle Handle to a RoadRunner instance
+ \param[in] sid ID of the species to be removed
+ \return Returns false if the call fails, otherwise returns a true
+ \ingroup edit
+*/
+C_DECL_SPEC bool rrcCallConv removeSpecies(RRHandle handle, const char* sid);
+
+/*!
+ \brief Remove a species from the current model, without regenerating it
+        The last modification must regenerate for the modifications to take effect
+ \param[in] handle Handle to a RoadRunner instance
+ \param[in] sid ID of the species to be removed
+ \return Returns false if the call fails, otherwise returns a true
+ \ingroup edit
+*/
+C_DECL_SPEC bool rrcCallConv removeSpeciesNoRegen(RRHandle handle, const char* sid);
+
+/*!
+ \brief Set the boundary condition of an existing species.
+ \param[in] handle Handle to a RoadRunner instance
+ \param[in] sid ID of the species
+ \param[in] boundaryCondition Boundary condition to be set
+ \return Returns false if the call fails, otherwise returns a true
+ \ingroup edit
+*/
+C_DECL_SPEC bool rrcCallConv setBoundary(RRHandle handle, const char* sid, bool boundaryCondition);
+
+/*!
+ \brief Set the boundary condition of an existing species, without regenerating it
+		The last modification must regenerate for the modifications to take effect
+ \param[in] handle Handle to a RoadRunner instance
+ \param[in] sid ID of the species
+ \param[in] boundaryCondition Boundary condition to be set
+ \return Returns false if the call fails, otherwise returns a true
+ \ingroup edit
+*/
+C_DECL_SPEC bool rrcCallConv setBoundaryNoRegen(RRHandle handle, const char* sid, bool boundaryCondition);
+
+
+/*!
+ \brief Set the hasOnlySubstanceUnits attribute for an existing species.
+ \param[in] handle Handle to a RoadRunner instance
+ \param[in] sid ID of the species
+ \param[in] hasOnlySubstanceUnits Value of hasOnlySubstanceUnits attribute to be set
+ \return Returns false if the call fails, otherwise returns a true
+ \ingroup edit
+*/
+C_DECL_SPEC bool rrcCallConv setHasOnlySubstanceUnits(RRHandle handle, const char* sid, bool hasOnlySubstanceUnits);
+
+/*!
+ \brief Set the hasOnlySubstanceUnits attribute for an existing species, without regenerating it
+		The last modification must regenerate for the modifications to take effect
+ \param[in] handle Handle to a RoadRunner instance
+ \param[in] sid ID of the species
+ \param[in] hasOnlySubstanceUnits Value of hasOnlySubstanceUnits attribute to be set
+ \return Returns false if the call fails, otherwise returns a true
+ \ingroup edit
+*/
+C_DECL_SPEC bool rrcCallConv setHasOnlySubstanceUnitsNoRegen(RRHandle handle, const char* sid, bool hasOnlySubstanceUnits);
+
+
+
+/*!
+ \brief Set initial amount for an existing species. Initial amount/concentration set before will be unset.
+ \param[in] handle Handle to a RoadRunner instance
+ \param[in] sid ID of the species
+ \param[in] initAmount Initial amount to be set
+ \return Returns false if the call fails, otherwise returns a true
+ \ingroup edit
+*/
+C_DECL_SPEC bool rrcCallConv setInitAmount(RRHandle handle, const char* sid, double initAmount);
+
+/*!
+ \brief Set initial amount for an existing species, without regenerating it
+		The last modification must regenerate for the modifications to take effect
+ \param[in] handle Handle to a RoadRunner instance
+ \param[in] sid ID of the species
+ \param[in] initAmount Initial amount to be set
+ \return Returns false if the call fails, otherwise returns a true
+ \ingroup edit
+*/
+C_DECL_SPEC bool rrcCallConv setInitAmountNoRegen(RRHandle handle, const char* sid, double initAmount);
+
+/*!
+ \brief Set initial concentration for an existing species. Initial amount/concentration set before will be unset.
+ \param[in] handle Handle to a RoadRunner instance
+ \param[in] sid ID of the species
+ \param[in] initConcentration Initial concentration to be set
+ \return Returns false if the call fails, otherwise returns a true
+ \ingroup edit
+*/
+C_DECL_SPEC bool rrcCallConv setInitConcentration(RRHandle handle, const char* sid, double initConcentration);
+
+/*!
+ \brief Set initial concentration for an existing species, without regenerating it
+		The last modification must regenerate for the modifications to take effect
+ \param[in] handle Handle to a RoadRunner instance
+ \param[in] sid ID of the species
+ \param[in] initConcentration Initial concentration to be set
+ \return Returns false if the call fails, otherwise returns a true
+ \ingroup edit
+*/
+C_DECL_SPEC bool rrcCallConv setInitConcentrationNoRegen(RRHandle handle, const char* sid, double initConcentration);
+
+
+/*!
+ \brief Set the constant attribute for an existing species/ parameter/ compartment.
+ \param[in] handle Handle to a RoadRunner instance
+ \param[in] sid ID of the species/ parameter/ compartment
+ \param[in] constant The constant attribute to be set
+ \return Returns false if the call fails, otherwise returns a true
+ \ingroup edit
+*/
+C_DECL_SPEC bool rrcCallConv setConstant(RRHandle handle, const char* sid, bool constant);
+
+/*!
+ \brief Set the constant attribute for an existing species/ parameter/ compartment, without regenerating it
+		The last modification must regenerate for the modifications to take effect
+ \param[in] handle Handle to a RoadRunner instance
+ \param[in] sid ID of the species/ parameter/ compartment
+ \param[in] constant The constant attribute to be set
+ \return Returns false if the call fails, otherwise returns a true
+ \ingroup edit
+*/
+C_DECL_SPEC bool rrcCallConv setConstantNoRegen(RRHandle handle, const char* sid, bool constant);
+
+
+/*!
+ \brief Add a reaction to the current model
+ \param[in] handle Handle to a RoadRunner instance
+ \param[in] sbmlRep the SBML representation (i.e. a reaction tag) describing the reaction to be added
+ \return Returns false if the call fails, otherwise returns a true
+ \ingroup edit
+*/
+C_DECL_SPEC bool rrcCallConv addReactionFromSBML(RRHandle handle, const char* sbmlRep);
+
+/*!
+ \brief Add a reaction to the current model, without regenerating it
+        The last modification must regenerate for the modifications to take effect
+ \param[in] handle Handle to a RoadRunner instance
+ \param[in] sbmlRep the SBML representation (i.e. a reaction tag) describing the reaction to be added
+ \return Returns false if the call fails, otherwise returns a true
+ \ingroup edit
+*/
+C_DECL_SPEC bool rrcCallConv addReactionFromSBMLNoRegen(RRHandle handle, const char* sbmlRep);
+
+/*!
+ \brief Add a reaction to the current model
+ \param[in] handle Handle to a RoadRunner instance
+ \param[in] rid ID of the reaction to be added
+ \param[in] reactants List of reactants ID of reaction to be added, double value could be inserted before ID as stoichiometry
+ \param[in] numReactants Number of reactants of reaction to be added
+ \param[in] products List of products ID of reaction to be added, double value could be inserted before ID as stoichiometry
+ \param[in] numProducts Number of products of reaction to be added
+ \param[in] kineticLaw kinetic formular of reaction to be added
+ \return Returns false if the call fails, otherwise returns a true
+ \ingroup edit
+*/
+C_DECL_SPEC bool rrcCallConv addReaction(RRHandle handle, const char* rid, const char** reactants, int numReactants,
+	const char** products, int numProducts, const char* kineticLaw);
+
+/*!
+ \brief Add a reaction to the current model, without regenerating it
+        The last modification must regenerate for the modifications to take effect
+ \param[in] handle Handle to a RoadRunner instance
+ \param[in] rid ID of the reaction to be added
+ \param[in] reactants List of reactants ID of reaction to be added
+ \param[in] numReactants Number of reactants of reaction to be added
+ \param[in] products List of products ID of reaction to be added
+ \param[in] numProducts Number of products of reaction to be added
+ \param[in] kineticLaw kinetic formular of reaction to be added
+ \return Returns false if the call fails, otherwise returns a true
+ \ingroup edit
+*/
+C_DECL_SPEC bool rrcCallConv addReactionNoRegen(RRHandle handle, const char* rid, const char** reactants, int numReactants,
+	const char** products, int numProducts, const char* kineticLaw);
+
+/*!
+ \brief Remove a reaction from the current model
+ \param[in] handle Handle to a RoadRunner instance
+ \param[in] rid ID of the reaction to be removed
+ \return Returns false if the call fails, otherwise returns a true
+ \ingroup edit
+*/
+C_DECL_SPEC bool rrcCallConv removeReaction(RRHandle handle, const char* rid);
+
+
+/*!
+ \brief Remove a reaction from the current model, without regenerating it
+        The last modification must regenerate for the modifications to take effect
+ \param[in] handle Handle to a RoadRunner instance
+ \param[in] rid ID of the reaction to be removed
+ \return Returns false if the call fails, otherwise returns a true
+ \ingroup edit
+*/
+C_DECL_SPEC bool rrcCallConv removeReactionNoRegen(RRHandle handle, const char* rid);
+
+/*!
+ \brief Set the reversible attribut for an existing reaction in the current model
+ \param[in] handle Handle to a RoadRunner instance
+ \param[in] rid the ID of reaction to be modified
+ \param[in] reversible Reversible attribute to be set
+ \return Returns false if the call fails, otherwise returns a true
+ \ingroup edit
+*/
+C_DECL_SPEC bool rrcCallConv setReversible(RRHandle handle, const char* rid, bool reversible);
+
+/*!
+ \brief Set the reversible attribut for an existing reaction in the current model, without regenerating it
+		The last modification must regenerate for the modifications to take effect
+ \param[in] handle Handle to a RoadRunner instance
+ \param[in] rid ID of reaction to be modified
+ \param[in] reversible Reversible attribute to be set
+ \return Returns false if the call fails, otherwise returns a true
+ \ingroup edit
+*/
+C_DECL_SPEC bool rrcCallConv setReversibleNoRegen(RRHandle handle, const char* rid, bool reversible);
+
+
+/*!
+ \brief Set the kinetic law for a existing reaction in the current model
+ \param[in] handle Handle to a RoadRunner instance
+ \param[in] rid ID of reaction to be modified
+ \param[in] kineticLaw the kinetic formular of reaction
+ \return Returns false if the call fails, otherwise returns a true
+ \ingroup edit
+*/
+C_DECL_SPEC bool rrcCallConv setKineticLaw(RRHandle handle, const char* rid, const char* kineticLaw);
+
+/*!
+ \brief Set the kinetic law for a existing reaction in the current model, without regenerating it
+		The last modification must regenerate for the modifications to take effect
+ \param[in] handle Handle to a RoadRunner instance
+ \param[in] rid ID of reaction to be modified
+ \param[in] kineticLaw the kinetic formular of reaction
+ \return Returns false if the call fails, otherwise returns a true
+ \ingroup edit
+*/
+C_DECL_SPEC bool rrcCallConv setKineticLawNoRegen(RRHandle handle, const char* rid, const char* kineticLaw);
+
+
+/*!
+ \brief Add a parameter to the current model
+ \param[in] handle Handle to a RoadRunner instance
+ \param[in] pid ID of the parameter to be added
+ \param[in] value the value of the parameter to be added
+ \return Returns false if the call fails, otherwise returns a true
+ \ingroup edit
+*/
+C_DECL_SPEC bool rrcCallConv addParameter(RRHandle handle, const char* pid, double value);
+/*!
+ \brief Add a parameter to the current model, without regenerating it
+		The last modification must regenerate for the modifications to take effect
+ \param[in] handle Handle to a RoadRunner instance
+ \param[in] pid ID of the parameter to be added
+ \param[in] value the value of the parameter to be added
+ \return Returns false if the call fails, otherwise returns a true
+ \ingroup edit
+*/
+C_DECL_SPEC bool rrcCallConv addParameterNoRegen(RRHandle handle, const char* pid, double value);
+
+/*!
+ \brief Remove a parameter from the current model
+ \param[in] handle Handle to a RoadRunner instance
+ \param[in] pid ID of the parameter to be removed
+ \return Returns false if the call fails, otherwise returns a true
+ \ingroup edit
+*/
+C_DECL_SPEC bool rrcCallConv removeParameter(RRHandle handle, const char* pid);
+
+
+/*!
+ \brief Remove a parameter from the current model, without regenerating it
+		The last modification must regenerate for the modifications to take effect
+ \param[in] handle Handle to a RoadRunner instance
+ \param[in] pid ID of the parameter to be removed
+ \return Returns false if the call fails, otherwise returns a true
+ \ingroup edit
+*/
+C_DECL_SPEC bool rrcCallConv removeParameterNoRegen(RRHandle handle, const char* pid);
+
+
+/*!
+ \brief Add a compartment to the current model
+ \param[in] handle Handle to a RoadRunner instance
+ \param[in] cid ID of the compartment to be added
+ \param[in] initVolume the initial volume of the compartment to be added
+ \return Returns false if the call fails, otherwise returns a true
+ \ingroup edit
+*/
+C_DECL_SPEC bool rrcCallConv addCompartment(RRHandle handle, const char* cid, double initVolume);
+/*!
+ \brief Add a compartment to the current model, without regenerating it
+		The last modification must regenerate for the modifications to take effect
+ \param[in] handle Handle to a RoadRunner instance
+ \param[in] cid ID of the compartment to be added
+ \param[in] initVolume the initial volume of the compartment to be added
+ \return Returns false if the call fails, otherwise returns a true
+ \ingroup edit
+*/
+C_DECL_SPEC bool rrcCallConv addCompartmentNoRegen(RRHandle handle, const char* cid, double initVolume);
+
+
+/*!
+ \brief Remove a compartment from the current model
+ \param[in] handle Handle to a RoadRunner instance
+ \param[in] cid ID of the compartment to be removed
+ \return Returns false if the call fails, otherwise returns a true
+ \ingroup edit
+*/
+C_DECL_SPEC bool rrcCallConv removeCompartment(RRHandle handle, const char* cid);
+
+
+/*!
+ \brief Remove a compartment from the current model, without regenerating it
+		The last modification must regenerate for the modifications to take effect
+ \param[in] handle Handle to a RoadRunner instance
+ \param[in] cid ID of the compartment to be removed
+ \return Returns false if the call fails, otherwise returns a true
+ \ingroup edit
+*/
+C_DECL_SPEC bool rrcCallConv removeCompartmentNoRegen(RRHandle handle, const char* cid);
+
+
+
+/*!
+ \brief Add an assignment rule to the current model
+ \param[in] handle Handle to a RoadRunner instance
+ \param[in] vid ID of variable that rules assigns formula to
+ \param[in] formula the math formula of assignment rule to be added
+ \return Returns false if the call fails, otherwise returns a true
+ \ingroup edit
+*/
+C_DECL_SPEC bool rrcCallConv addAssignmentRule(RRHandle handle, const char* vid, const char* formula);
+
+/*!
+ \brief Add an assignment rule to the current model, without regenerating it
+		The last modification must regenerate for the modifications to take effect
+ \param[in] handle Handle to a RoadRunner instance
+ \param[in] vid ID of variable that rules assigns formula to
+ \param[in] formula the math formula of assignment rule to be added
+ \return Returns false if the call fails, otherwise returns a true
+ \ingroup edit
+*/
+C_DECL_SPEC bool rrcCallConv addAssignmentRuleNoRegen(RRHandle handle, const char* vid, const char* formula);
+
+/*!
+ \brief Add a rate rule to the current model
+ \param[in] handle Handle to a RoadRunner instance
+ \param[in] vid ID of variable that rules assigns formula to
+ \param[in] formula the he math formula of rate rule to be added
+ \return Returns false if the call fails, otherwise returns a true
+ \ingroup edit
+*/
+C_DECL_SPEC bool rrcCallConv addRateRule(RRHandle handle, const char* vid, const char* formula);
+
+/*!
+ \brief Add a rate rule to the current model, without regenerating it
+		The last modification must regenerate for the modifications to take effect
+ \param[in] handle Handle to a RoadRunner instance
+ \param[in] vid ID of variable that rules assigns formula to
+ \param[in] formula the he math formula of rate rule to be added
+ \return Returns false if the call fails, otherwise returns a true
+ \ingroup edit
+*/
+C_DECL_SPEC bool rrcCallConv addRateRuleNoRegen(RRHandle handle, const char* vid, const char* formula);
+
+/*!
+ \brief Remove rules related to given variable from the current model
+ \param[in] handle Handle to a RoadRunner instance
+ \param[in] vid ID of variable that rules assigns formula to
+ \return Returns false if the call fails, otherwise returns a true
+ \ingroup edit
+*/
+C_DECL_SPEC bool rrcCallConv removeRules(RRHandle handle, const char* vid);
+
+
+/*!
+ \brief Remove rules related to given variable from the current model, without regenerating it
+		The last modification must regenerate for the modifications to take effect
+ \param[in] handle Handle to a RoadRunner instance
+ \param[in] vid ID of variable that rules assigns formula to
+ \return Returns false if the call fails, otherwise returns a true
+ \ingroup edit
+*/
+C_DECL_SPEC bool rrcCallConv removeRulesNoRegen(RRHandle handle, const char* vid);
+
+/*!
+ \brief Add an event to the current model
+ \param[in] handle Handle to a RoadRunner instance
+ \param[in] eid ID of the event to be added
+ \param[in] useValuesFromTriggerTime indicate the moment at which the event’s assignments are to be evaluated
+ \param[in] trigger the math formula of event trigger
+ \return Returns false if the call fails, otherwise returns a true
+ \ingroup edit
+*/
+C_DECL_SPEC bool rrcCallConv addEvent(RRHandle handle, const char* eid, bool useValuesFromTriggerTime, const char* trigger);
+
+/*!
+ \brief Add an event to the current model, without regenerating it
+		The last modification must regenerate for the modifications to take effect
+ \param[in] handle Handle to a RoadRunner instance
+ \param[in] eid ID of the event to be added
+ \param[in] useValuesFromTriggerTime indicate the moment at which the event’s assignments are to be evaluated
+ \param[in] trigger the math formula of event trigger
+ \return Returns false if the call fails, otherwise returns a true
+ \ingroup edit
+*/
+C_DECL_SPEC bool rrcCallConv addEventNoRegen(RRHandle handle, const char* eid, bool useValuesFromTriggerTime, const char* trigger);
+
+/*!
+ \brief Add trigger to an existing event in the model
+		If the given event already has a trigger object, the given trigger will replace the old trigger in the model
+ \param[in] handle Handle to a RoadRunner instance
+ \param[in] eid ID of the event to add trigger
+ \param[in] trigger the math formula of event trigger
+ \return Returns false if the call fails, otherwise returns a true
+ \ingroup edit
+*/
+C_DECL_SPEC bool rrcCallConv addTrigger(RRHandle handle, const char* eid, const char* trigger);
+
+/*!
+ \brief Add trigger to an existing event in the model, without regenerating it
+		The last modification must regenerate for the modifications to take effect
+		If the given event already has a trigger object, the given trigger will replace the old trigger in the model
+ \param[in] handle Handle to a RoadRunner instance
+ \param[in] eid ID of the event to add trigger
+ \param[in] trigger the math formula of event trigger
+ \return Returns false if the call fails, otherwise returns a true
+ \ingroup edit
+*/
+C_DECL_SPEC bool rrcCallConv addTriggerNoRegen(RRHandle handle, const char* eid, const char* trigger);
+
+/*!
+ \brief Set the persistent attribute of the trigger of given event
+ \param[in] handle Handle to a RoadRunner instance
+ \param[in] eid ID of the event of the trigger
+ \param[in] reversible Reversible attribute to be set
+ \return Returns false if the call fails, otherwise returns a true
+ \ingroup edit
+*/
+C_DECL_SPEC bool rrcCallConv setPersistent(RRHandle handle, const char* eid, bool persistent);
+
+/*!
+ \brief Set the persistent attribute of the trigger of given event, without regenerating it
+		The last modification must regenerate for the modifications to take effect
+ \param[in] handle Handle to a RoadRunner instance
+ \param[in] eid ID of the event of the trigger
+ \param[in] reversible Reversible attribute to be set
+ \return Returns false if the call fails, otherwise returns a true
+ \ingroup edit
+*/
+C_DECL_SPEC bool rrcCallConv setPersistentNoRegen(RRHandle handle, const char* eid, bool persistent);
+
+
+/*!
+ \brief Set the initial value attribute of the trigger of given event
+ \param[in] handle Handle to a RoadRunner instance
+ \param[in] eid ID of the event of the trigger
+ \param[in] initValue Initial value attribute to be set
+ \return Returns false if the call fails, otherwise returns a true
+ \ingroup edit
+*/
+C_DECL_SPEC bool rrcCallConv setTriggerInitialValue(RRHandle handle, const char* eid, bool initValue);
+
+/*!
+ \brief Set the initial value attribute of the trigger of given event, without regenerating it
+		The last modification must regenerate for the modifications to take effect
+ \param[in] handle Handle to a RoadRunner instance
+ \param[in] eid ID of the event of the trigger
+ \param[in] initValue Initial value attribute to be set
+ \return Returns false if the call fails, otherwise returns a true
+ \ingroup edit
+*/
+C_DECL_SPEC bool rrcCallConv setTriggerInitialValueNoRegen(RRHandle handle, const char* eid, bool initValue);
+
+
+/*!
+ \brief Add priority to an existing event in the model
+		If the given event already has a priority object, the given priority will replace the old priority in the model
+ \param[in] handle Handle to a RoadRunner instance
+ \param[in] eid ID of the event to add priority
+ \param[in] priority the math formula of event priority
+ \return Returns false if the call fails, otherwise returns a true
+ \ingroup edit
+*/
+C_DECL_SPEC bool rrcCallConv addPriority(RRHandle handle, const char* eid, const char* priority);
+
+/*!
+ \brief Add priority to an existing event in the model, without regenerating it
+		The last modification must regenerate for the modifications to take effect
+		If the given event already has a priority object, the given priority will replace the old priority in the model
+ \param[in] handle Handle to a RoadRunner instance
+ \param[in] eid ID of the event to add priority
+ \param[in] priority the math formula of event priority
+ \return Returns false if the call fails, otherwise returns a true
+ \ingroup edit
+*/
+C_DECL_SPEC bool rrcCallConv addPriorityNoRegen(RRHandle handle, const char* eid, const char* priority);
+
+/*!
+ \brief Add delay to an existing event in the model
+		If the given event already has a delay object, the given delay will replace the old delay in the model
+ \param[in] handle Handle to a RoadRunner instance
+ \param[in] eid ID of the event to add delay
+ \param[in] priority the math formula of event priority
+ \return Returns false if the call fails, otherwise returns a true
+ \ingroup edit
+*/
+C_DECL_SPEC bool rrcCallConv addDelay(RRHandle handle, const char* eid, const char* delay);
+
+/*!
+ \brief Add delay to an existing event in the model, without regenerating it
+		The last modification must regenerate for the modifications to take effect
+		If the given event already has a delay object, the given delay will replace the old delay in the model
+ \param[in] handle Handle to a RoadRunner instance
+ \param[in] eid ID of the event to add delay
+ \param[in] delay the math formula of event delay
+ \return Returns false if the call fails, otherwise returns a true
+ \ingroup edit
+*/
+C_DECL_SPEC bool rrcCallConv addDelayNoRegen(RRHandle handle, const char* eid, const char* delay);
+
+/*!
+ \brief Add an event assignment to an existing event in the current model
+ \param[in] handle Handle to a RoadRunner instance
+ \param[in] eid ID of the event to add assignment
+ \param[in] vid the ID of the variable to assign formula
+ \param[in] fomula the math formula to assign
+ \return Returns false if the call fails, otherwise returns a true
+ \ingroup edit
+*/
+C_DECL_SPEC bool rrcCallConv addEventAssignment(RRHandle handle, const char* eid, const char* vid, const char* formula);
+
+/*!
+ \brief Add an event assignment to an existing event in the current model, without regenerating it
+		The last modification must regenerate for the modifications to take effect
+ \param[in] handle Handle to a RoadRunner instance
+ \param[in] eid ID of the event to add assignment
+ \param[in] vid the ID of the variable to assign formula
+ \param[in] fomula the math formula to assign
+ \return Returns false if the call fails, otherwise returns a true
+ \ingroup edit
+*/
+C_DECL_SPEC bool rrcCallConv addEventAssignmentNoRegen(RRHandle handle, const char* eid, const char* vid, const char* formula);
+
+/*!
+ \brief Remove event assignments for given variable from an existing event
+ \param[in] handle Handle to a RoadRunner instance
+ \param[in] eid ID of the event
+ \param[in] vid the ID of the variable of the event assignments
+ \return Returns false if the call fails, otherwise returns a true
+ \ingroup edit
+*/
+C_DECL_SPEC bool rrcCallConv removeEventAssignments(RRHandle handle, const char* eid, const char* vid);
+
+/*!
+ \brief Remove event assignments for given variable from an existing event, without regenerating it
+		The last modification must regenerate for the modifications to take effect
+ \param[in] handle Handle to a RoadRunner instance
+ \param[in] eid ID of the event
+ \param[in] vid the ID of the variable of the event assignments
+ \return Returns false if the call fails, otherwise returns a true
+ \ingroup edit
+*/
+C_DECL_SPEC bool rrcCallConv removeEventAssignmentsNoRegen(RRHandle handle, const char* eid, const char* vid);
+
+/*!
+ \brief Remove an event from the current model
+ \param[in] handle Handle to a RoadRunner instance
+ \param[in] eid ID of the event to be removed 
+ \return Returns false if the call fails, otherwise returns a true
+ \ingroup edit
+*/
+C_DECL_SPEC bool rrcCallConv removeEvent(RRHandle handle, const char* eid);
+
+/*!
+ \brief Remove an event from the current model, without regenerating it
+		The last modification must regenerate for the modifications to take effect
+ \param[in] handle Handle to a RoadRunner instance
+ \param[in] eid ID of the event to be removed
+ \return Returns false if the call fails, otherwise returns a true
+ \ingroup edit
+*/
+C_DECL_SPEC bool rrcCallConv removeEventsNoRegen(RRHandle handle, const char* eid);
+
+/*!
+ \brief Validate the current SBML file
+ \param[in] handle Handle to a RoadRunner instance
+ \return Returns false if the current SBML file is not valid, otherwise returns a true
+ \ingroup edit
+*/
+C_DECL_SPEC bool rrcCallConv validateCurrentSBML(RRHandle handle);
+
+
 // -------------------------------------------------------------------------
 // SBML utility methods
 // -----------------------------------------------------------------------
@@ -2534,6 +3163,9 @@ Notice: Creating C based model generator using ..\compilers\tcc\tcc.exe compiler
 
  \defgroup loadsave Read and write models
  \brief Read and write models to files or strings. Support for SBML formats.
+
+ \defgroup edit Edit models
+ \brief Add or remove species or reactions without modifying SBML files and reloading.
 
  \defgroup utility Utility functions
  \brief Various miscellaneous routines that return useful information about the library

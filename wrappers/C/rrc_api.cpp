@@ -640,9 +640,9 @@ RRStringArrayPtr rrcCallConv getTimeCourseSelectionList(RRHandle handle)
 
 RRCDataPtr rrcCallConv simulate(RRHandle handle)
 {
-	start_try
-		RoadRunner* rri = castToRoadRunner(handle);
-	    rri->simulate();
+    start_try
+	RoadRunner* rri = castToRoadRunner(handle);
+	rri->simulate();
         return createRRCData(*rri);
     catch_ptr_macro
 }
@@ -1638,6 +1638,538 @@ int rrcCallConv getCurrentIntegratorParameterType (RRHandle handle, char *parame
 		return (int) rri->getIntegrator()->getType(key.str());
     catch_int_macro
 }
+
+// -------------------------------------------------------------------------------------
+// Model editing methods
+// -------------------------------------------------------------------------------------
+
+bool rrcCallConv addSpecies(RRHandle handle, const char* sid, const char* compartment, double initialAmount, const char* substanceUnit)
+{
+	start_try
+		RoadRunner* rri = castToRoadRunner(handle);
+		rri->addSpecies(sid, compartment, initialAmount, substanceUnit);
+		return true;
+	catch_bool_macro
+}
+
+bool rrcCallConv addSpeciesNoRegen(RRHandle handle, const char* sid, const char* compartment, double initialAmount, const char* substanceUnit)
+{
+	start_try
+		RoadRunner* rri = castToRoadRunner(handle);
+		rri->addSpecies(sid, compartment, initialAmount, substanceUnit, false);
+		return true;
+	catch_bool_macro
+}
+
+bool rrcCallConv removeSpecies(RRHandle handle, const char* sid)
+{
+	start_try
+		RoadRunner* rri = castToRoadRunner(handle);
+		rri->removeSpecies(sid);
+		return true;
+	catch_bool_macro
+}
+
+bool rrcCallConv removeSpeciesNoRegen(RRHandle handle, const char* sid)
+{
+	start_try
+		RoadRunner* rri = castToRoadRunner(handle);
+		rri->removeSpecies(sid, false);
+		return true;
+	catch_bool_macro
+}
+
+bool rrcCallConv setBoundary(RRHandle handle, const char* sid, bool boundaryCondition)
+{
+	start_try
+		RoadRunner* rri = castToRoadRunner(handle);
+		rri->setBoundary(sid, boundaryCondition);
+		return true;
+	catch_bool_macro
+}
+
+bool rrcCallConv setBoundaryNoRegen(RRHandle handle, const char* sid, bool boundaryCondition)
+{
+	start_try
+		RoadRunner* rri = castToRoadRunner(handle);
+		rri->setBoundary(sid, boundaryCondition, false);
+		return true;
+	catch_bool_macro
+}
+
+bool rrcCallConv setHasOnlySubstanceUnits(RRHandle handle, const char* sid, bool hasOnlySubstanceUnits)
+{
+	start_try
+		RoadRunner* rri = castToRoadRunner(handle);
+		rri->setHasOnlySubstanceUnits(sid, hasOnlySubstanceUnits);
+		return true;
+	catch_bool_macro
+}
+
+bool rrcCallConv setHasOnlySubstanceUnitsNoRegen(RRHandle handle, const char* sid, bool hasOnlySubstanceUnits)
+{
+	start_try
+		RoadRunner* rri = castToRoadRunner(handle);
+		rri->setHasOnlySubstanceUnits(sid, hasOnlySubstanceUnits, false);
+		return true;
+	catch_bool_macro
+}
+
+bool rrcCallConv setInitAmount(RRHandle handle, const char* sid, double initAmount)
+{
+	start_try
+		RoadRunner* rri = castToRoadRunner(handle);
+		rri->setInitAmount(sid, initAmount);
+		return true;
+	catch_bool_macro
+}
+
+bool rrcCallConv setInitAmountNoRegen(RRHandle handle, const char* sid, double initAmount)
+{
+	start_try
+		RoadRunner* rri = castToRoadRunner(handle);
+		rri->setInitAmount(sid, initAmount, false);
+		return true;
+	catch_bool_macro
+}
+
+bool rrcCallConv setInitConcentration(RRHandle handle, const char* sid, double initConcentration)
+{
+	start_try
+		RoadRunner* rri = castToRoadRunner(handle);
+		rri->setInitConcentration(sid, initConcentration);
+		return true;
+	catch_bool_macro
+}
+
+bool rrcCallConv setInitConcentrationNoRegen(RRHandle handle, const char* sid, double initConcentration)
+{
+	start_try
+		RoadRunner* rri = castToRoadRunner(handle);
+		rri->setInitConcentration(sid, initConcentration, false);
+		return true;
+	catch_bool_macro
+}
+
+bool rrcCallConv setConstant(RRHandle handle, const char* sid, bool constant)
+{
+	start_try
+		RoadRunner* rri = castToRoadRunner(handle);
+		rri->setConstant(sid, constant);
+		return true;
+	catch_bool_macro
+}
+
+bool rrcCallConv setConstantNoRegen(RRHandle handle, const char* sid, bool constant)
+{
+	start_try
+		RoadRunner* rri = castToRoadRunner(handle);
+		rri->setConstant(sid, constant, false);
+		return true;
+	catch_bool_macro
+}
+
+
+
+bool rrcCallConv addReactionFromSBML(RRHandle handle, const char* sbmlRep)
+{
+	start_try
+		RoadRunner* rri = castToRoadRunner(handle);
+		rri->addReaction(sbmlRep);
+		return true;
+	catch_bool_macro
+}
+
+bool rrcCallConv addReactionFromSBMLNoRegen(RRHandle handle, const char* sbmlRep)
+{
+	start_try
+		RoadRunner* rri = castToRoadRunner(handle);
+		rri->addReaction(sbmlRep, false);
+		return true;
+	catch_bool_macro
+}
+
+bool rrcCallConv addReaction(RRHandle handle, const char* rid, const char** reactants, int numReactants,
+	const char** products, int numProducts, const char* kineticLaw)
+{
+	start_try
+		RoadRunner* rri = castToRoadRunner(handle);
+		vector<string> r(reactants, reactants + numReactants);
+		vector<string> p(products, products + numProducts);
+		rri->addReaction(rid, r, p, kineticLaw);
+		return true;
+	catch_bool_macro
+}
+
+bool rrcCallConv addReactionNoRegen(RRHandle handle, const char* rid, const char** reactants, int numReactants,
+	const char** products, int numProducts, const char* kineticLaw)
+{
+	start_try
+		RoadRunner* rri = castToRoadRunner(handle);
+		vector<string> r(reactants, reactants + numReactants);
+		vector<string> p(products, products + numProducts);
+		rri->addReaction(rid, r, p, kineticLaw, false);
+		return true;
+	catch_bool_macro
+}
+
+bool rrcCallConv removeReaction(RRHandle handle, const char* rid)
+{
+	start_try
+		RoadRunner* rri = castToRoadRunner(handle);
+		rri->removeReaction(rid);
+		return true;
+	catch_bool_macro
+}
+
+bool rrcCallConv removeReactionNoRegen(RRHandle handle, const char* rid)
+{
+	start_try
+		RoadRunner* rri = castToRoadRunner(handle);
+		rri->removeReaction(rid, false);
+		return true;
+	catch_bool_macro
+}
+
+
+bool rrcCallConv setReversible(RRHandle handle, const char* rid, bool reversible)
+{
+	start_try
+		RoadRunner* rri = castToRoadRunner(handle);
+		rri->setReversible(rid, reversible);
+		return true;
+	catch_bool_macro
+}
+
+bool rrcCallConv setReversibleNoRegen(RRHandle handle, const char* rid, bool reversible)
+{
+	start_try
+		RoadRunner* rri = castToRoadRunner(handle);
+		rri->setReversible(rid, reversible, false);
+		return true;
+	catch_bool_macro
+}
+
+bool rrcCallConv setKineticLaw(RRHandle handle, const char* rid, const char* kineticLaw)
+{
+	start_try
+		RoadRunner* rri = castToRoadRunner(handle);
+	rri->setKineticLaw(rid, kineticLaw);
+	return true;
+	catch_bool_macro
+}
+
+bool rrcCallConv setKineticLawNoRegen(RRHandle handle, const char* rid, const char* kineticLaw)
+{
+	start_try
+		RoadRunner* rri = castToRoadRunner(handle);
+	rri->setKineticLaw(rid, kineticLaw, false);
+	return true;
+	catch_bool_macro
+}
+
+bool rrcCallConv addParameter(RRHandle handle, const char* pid, double value)
+{
+	start_try
+		RoadRunner* rri = castToRoadRunner(handle);
+		rri->addParameter(pid, value);
+		return true;
+	catch_bool_macro
+}
+
+bool rrcCallConv addParameterNoRegen(RRHandle handle, const char* pid, double value)
+{
+	start_try
+		RoadRunner* rri = castToRoadRunner(handle);
+		rri->addParameter(pid, value, false);
+		return true;
+	catch_bool_macro
+}
+
+
+bool rrcCallConv removeParameter(RRHandle handle, const char* pid)
+{
+	start_try
+		RoadRunner* rri = castToRoadRunner(handle);
+		rri->removeParameter(pid);
+		return true;
+	catch_bool_macro
+}
+
+bool rrcCallConv removeParameterNoRegen(RRHandle handle, const char* pid)
+{
+	start_try
+		RoadRunner* rri = castToRoadRunner(handle);
+		rri->removeParameter(pid, false);
+		return true;
+	catch_bool_macro
+}
+
+bool rrcCallConv addCompartment(RRHandle handle, const char* cid, double initVolume)
+{
+	start_try
+		RoadRunner* rri = castToRoadRunner(handle);
+		rri->addCompartment(cid, initVolume);
+		return true;
+	catch_bool_macro
+}
+
+bool rrcCallConv addCompartmentNoRegen(RRHandle handle, const char* cid, double initVolume)
+{
+	start_try
+		RoadRunner* rri = castToRoadRunner(handle);
+		rri->addCompartment(cid, initVolume, false);
+		return true;
+	catch_bool_macro
+}
+
+bool rrcCallConv removeCompartment(RRHandle handle, const char* cid)
+{
+	start_try
+		RoadRunner* rri = castToRoadRunner(handle);
+		rri->removeCompartment(cid);
+		return true;
+	catch_bool_macro
+}
+
+bool rrcCallConv removeCompartmentNoRegen(RRHandle handle, const char* cid)
+{
+	start_try
+		RoadRunner* rri = castToRoadRunner(handle);
+		rri->removeCompartment(cid, false);
+		return true;
+	catch_bool_macro
+}
+
+
+bool rrcCallConv addAssignmentRule(RRHandle handle, const char* vid, const char* formula)
+{
+	start_try
+		RoadRunner* rri = castToRoadRunner(handle);
+		rri->addAssignmentRule(vid, formula);
+		return true;
+	catch_bool_macro
+}
+
+bool rrcCallConv addAssignmentRuleNoRegen(RRHandle handle, const char* vid, const char* formula)
+{
+	start_try
+		RoadRunner* rri = castToRoadRunner(handle);
+		rri->addAssignmentRule(vid, formula, false);
+		return true;
+	catch_bool_macro
+}
+
+bool rrcCallConv addRateRule(RRHandle handle, const char* vid, const char* formula)
+{
+	start_try
+		RoadRunner* rri = castToRoadRunner(handle);
+		rri->addRateRule(vid, formula);
+		return true;
+	catch_bool_macro
+}
+
+bool rrcCallConv addRateRuleNoRegen(RRHandle handle, const char* vid, const char* formula)
+{
+	start_try
+		RoadRunner* rri = castToRoadRunner(handle);
+		rri->addRateRule(vid, formula, false);
+		return true;
+	catch_bool_macro
+}
+
+bool rrcCallConv removeRules(RRHandle handle, const char* vid)
+{
+	start_try
+		RoadRunner* rri = castToRoadRunner(handle);
+		rri->removeRules(vid);
+		return true;
+	catch_bool_macro
+}
+
+bool rrcCallConv removeRulesNoRegen(RRHandle handle, const char* vid)
+{
+	start_try
+		RoadRunner* rri = castToRoadRunner(handle);
+		rri->removeRules(vid, false);
+		return true;
+	catch_bool_macro
+}
+
+bool rrcCallConv addEvent(RRHandle handle, const char* eid, bool useValuesFromTriggerTime, const char* trigger)
+{
+	start_try
+		RoadRunner* rri = castToRoadRunner(handle);
+		rri->addEvent(eid, useValuesFromTriggerTime, trigger);
+		return true;
+	catch_bool_macro
+}
+
+bool rrcCallConv addEventNoRegen(RRHandle handle, const char* eid, bool useValuesFromTriggerTime, const char* trigger)
+{
+	start_try
+		RoadRunner* rri = castToRoadRunner(handle);
+		rri->addEvent(eid, useValuesFromTriggerTime, trigger, false);
+		return true;
+	catch_bool_macro
+}
+
+bool rrcCallConv addTrigger(RRHandle handle, const char* eid, const char* trigger)
+{
+	start_try
+		RoadRunner* rri = castToRoadRunner(handle);
+		rri->addTrigger(eid,trigger);
+		return true;
+	catch_bool_macro
+}
+
+bool rrcCallConv addTriggerNoRegen(RRHandle handle, const char* eid, const char* trigger)
+{
+	start_try
+		RoadRunner* rri = castToRoadRunner(handle);
+		rri->addTrigger(eid, trigger, false);
+		return true;
+	catch_bool_macro
+}
+
+bool rrcCallConv setPersistent(RRHandle handle, const char* eid, bool persistent)
+{
+	start_try
+		RoadRunner* rri = castToRoadRunner(handle);
+		rri->setPersistent(eid, persistent);
+		return true;
+	catch_bool_macro
+}
+
+bool rrcCallConv setPersistentNoRegen(RRHandle handle, const char* eid, bool persistent)
+{
+	start_try
+		RoadRunner* rri = castToRoadRunner(handle);
+		rri->setPersistent(eid, persistent, false);
+		return true;
+	catch_bool_macro
+}
+
+bool rrcCallConv setTriggerInitialValue(RRHandle handle, const char* eid, bool initValue)
+{
+	start_try
+		RoadRunner* rri = castToRoadRunner(handle);
+		rri->setTriggerInitialValue(eid, initValue);
+		return true;
+	catch_bool_macro
+}
+
+bool rrcCallConv setTriggerInitialValueNoRegen(RRHandle handle, const char* eid, bool initValue)
+{
+	start_try
+		RoadRunner* rri = castToRoadRunner(handle);
+		rri->setTriggerInitialValue(eid, initValue, false);
+		return true;
+	catch_bool_macro
+}
+
+
+
+bool rrcCallConv addPriority(RRHandle handle, const char* eid, const char* priority)
+{
+	start_try
+		RoadRunner* rri = castToRoadRunner(handle);
+		rri->addPriority(eid, priority);
+		return true;
+	catch_bool_macro
+}
+
+bool rrcCallConv addPriorityNoRegen(RRHandle handle, const char* eid, const char* priority)
+{
+	start_try
+		RoadRunner* rri = castToRoadRunner(handle);
+		rri->addPriority(eid, priority, false);
+		return true;
+	catch_bool_macro
+}
+
+
+bool rrcCallConv addDelay(RRHandle handle, const char* eid, const char* delay)
+{
+	start_try
+		RoadRunner* rri = castToRoadRunner(handle);
+		rri->addDelay(eid, delay);
+		return true;
+	catch_bool_macro
+}
+
+bool rrcCallConv addDelayNoRegen(RRHandle handle, const char* eid, const char* delay)
+{
+	start_try
+		RoadRunner* rri = castToRoadRunner(handle);
+		rri->addDelay(eid, delay, false);
+		return true;
+	catch_bool_macro
+}
+
+bool rrcCallConv addEventAssignment(RRHandle handle, const char* eid, const char* vid, const char* formula)
+{
+	start_try
+		RoadRunner* rri = castToRoadRunner(handle);
+		rri->addEventAssignment(eid, vid, formula);
+		return true;
+	catch_bool_macro
+}
+
+bool rrcCallConv addEventAssignmentNoRegen(RRHandle handle, const char* eid, const char* vid, const char* formula)
+{
+	start_try
+		RoadRunner* rri = castToRoadRunner(handle);
+		rri->addEventAssignment(eid, vid, formula, false);
+		return true;
+	catch_bool_macro
+}
+
+bool rrcCallConv removeEventAssignments(RRHandle handle, const char* eid, const char* vid)
+{
+	start_try
+		RoadRunner* rri = castToRoadRunner(handle);
+		rri->removeEventAssignments(eid, vid);
+		return true;
+	catch_bool_macro
+}
+
+bool rrcCallConv removeEventAssignmentsNoRegen(RRHandle handle, const char* eid, const char* vid)
+{
+	start_try
+		RoadRunner* rri = castToRoadRunner(handle);
+		rri->removeEventAssignments(eid, vid, false);
+		return true;
+	catch_bool_macro
+}
+
+bool rrcCallConv removeEvent(RRHandle handle, const char* eid)
+{
+	start_try
+		RoadRunner* rri = castToRoadRunner(handle);
+		rri->removeEvent(eid);
+		return true;
+	catch_bool_macro
+}
+
+bool rrcCallConv removeEventsNoRegen(RRHandle handle, const char* eid)
+{
+	start_try
+		RoadRunner* rri = castToRoadRunner(handle);
+		rri->removeEvent(eid, false);
+		return true;
+	catch_bool_macro
+}
+
+bool rrcCallConv validateCurrentSBML(RRHandle handle)
+{
+	start_try
+		RoadRunner* rri = castToRoadRunner(handle);
+		rri->validateCurrentSBML();
+		return true;
+	catch_bool_macro
+}
+
 
 // -------------------------------------------------------------------------------------
 // Set and Get Methods

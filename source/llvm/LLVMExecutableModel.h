@@ -616,13 +616,14 @@ private:
     /**
      * the model generator maintians a cached of generated models.
      */
+
     LLVMModelData *modelData;
     cxx11_ns::shared_ptr<ModelResources> resources;
     const LLVMModelDataSymbols *symbols;
 
 
-    EvalInitialConditionsCodeGen::FunctionPtr evalInitialConditionsPtr;
     EvalReactionRatesCodeGen::FunctionPtr evalReactionRatesPtr;
+    EvalInitialConditionsCodeGen::FunctionPtr evalInitialConditionsPtr;
     GetBoundarySpeciesAmountCodeGen::FunctionPtr getBoundarySpeciesAmountPtr;
     GetFloatingSpeciesAmountCodeGen::FunctionPtr getFloatingSpeciesAmountPtr;
     GetBoundarySpeciesConcentrationCodeGen::FunctionPtr getBoundarySpeciesConcentrationPtr;

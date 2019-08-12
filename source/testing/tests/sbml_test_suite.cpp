@@ -1040,7 +1040,7 @@ bool RunTest(const string& version, int caseNumber)
 
         TestSuiteModelSimulation simulation(dataOutputFolder);
 
-        rr.reset();
+        //rr.reset();
         simulation.UseEngine(&rr);
 
         //Setup filenames and paths...
@@ -1056,6 +1056,8 @@ bool RunTest(const string& version, int caseNumber)
         simulation.ReCompileIfDllExists(true);
         simulation.CopyFilesToOutputFolder();
 
+        rr.setConservedMoietyAnalysis(false);
+
         if(!simulation.LoadSBMLFromFile())
         {
             Log(Logger::LOG_ERROR)<<"Failed loading SBML model";
@@ -1069,7 +1071,6 @@ bool RunTest(const string& version, int caseNumber)
             throw("Failed loading SBML model settings");
         }
 
-        rr.setConservedMoietyAnalysis(false);
 
         //Then Simulate model
          if(!simulation.Simulate())
@@ -1098,7 +1099,7 @@ bool RunTest(const string& version, int caseNumber)
         simulation.SaveModelAsXML(dataOutputFolder);
 
         cerr<<"\t"<< (result == true ? "PASS" : "FAIL")<<endl;
-         return result;
+        return result;
      }
     catch(Exception& ex)
     {

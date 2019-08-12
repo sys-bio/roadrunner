@@ -170,7 +170,7 @@ namespace rr
         freeCVode();
 
         mModel = m;
-
+ 
         lastEventTime = 0;
         stateVectorVariables = false;
         variableStepPendingEvent = false;

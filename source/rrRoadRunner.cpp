@@ -27,6 +27,12 @@
 #include "rrSBMLReader.h"
 #include "rrConfig.h"
 #include "SBMLValidator.h"
+#include "llvm/LLVMExecutableModel.h"
+#include "sbml/ListOf.h"
+#include "sbml/Model.h"
+#include "sbml/math/FormulaParser.h"
+#include "llvm/ModelResources.h"
+#include <llvm/IR/IRBuilder.h>
 
 #include <sbml/conversion/SBMLLocalParameterConverter.h>
 #include <sbml/conversion/SBMLLevelVersionConverter.h>
@@ -196,7 +202,6 @@ public:
      */
     Compiler* compiler;
 
-    std::string mCurrentSBML;
 
     /**
      * structural analysis library.
@@ -220,11 +225,17 @@ public:
      */
     std::string configurationXML;
 
+	/*
+	* Has this roadrunner instance been simulated since the last time reset was called?
+	*/
+	bool simulatedSinceReset = false;
+
     /**
      * TODO get rid of this garbage
      */
     friend class aFinalizer;
 
+	libsbml::SBMLDocument* document;
 
     RoadRunnerImpl(const std::string& uriOrSBML,
             const Dictionary* dict) :
@@ -235,12 +246,12 @@ public:
                 mSelectionList(),
                 mSteadyStateSelection(),
                 model(0),
-                mCurrentSBML(),
                 mLS(0),
                 simulateOpt(),
                 mInstanceID(0),
                 loadOpt(dict),
-                compiler(Compiler::New())
+                compiler(Compiler::New()),
+				document()
     {
         // have to init integrators the hard way in c++98
         //memset((void*)integrators, 0, sizeof(integrators)/sizeof(char));
@@ -262,7 +273,6 @@ public:
                 mSelectionList(),
                 mSteadyStateSelection(),
                 model(0),
-                mCurrentSBML(),
                 mLS(0),
                 simulateOpt(),
                 mInstanceID(0),
@@ -427,7 +437,36 @@ RoadRunner::RoadRunner() : impl(new RoadRunnerImpl("", NULL))
     setIntegrator("cvode");
     // make NLEQ2 the default steady state solver
     setSteadyStateSolver("nleq2");
+
+	// enable building the model using editing methods
+	// and allow simultion without loading SBML files
+	impl->document = new libsbml::SBMLDocument();
+	impl->document->createModel();
 }
+
+
+RoadRunner::RoadRunner(unsigned int level, unsigned int version) : impl(new RoadRunnerImpl("", NULL))
+{
+	// must be run to register integrators at startup
+	IntegratorRegistrationMgr::Register();
+	// must be run to register solvers at startup
+	SolverRegistrationMgr::Register();
+
+	//Increase instance count..
+	mInstanceCount++;
+	impl->mInstanceID = mInstanceCount;
+
+	// make CVODE the default integrator
+	setIntegrator("cvode");
+	// make NLEQ2 the default steady state solver
+	setSteadyStateSolver("nleq2");
+
+	// enable building the model using editing methods
+	// and allow simultion without loading SBML files
+	impl->document = new libsbml::SBMLDocument(level, version);
+	impl->document->createModel();
+}
+
 
 RoadRunner::RoadRunner(const std::string& uriOrSBML,
         const Dictionary* options) :
@@ -555,9 +594,9 @@ ls::LibStructural* RoadRunner::getLibStruct()
     {
         return impl->mLS;
     }
-    else if (!impl->mCurrentSBML.empty())
+    else if (impl->document)
     {
-        impl->mLS = new ls::LibStructural(impl->mCurrentSBML);
+        impl->mLS = new ls::LibStructural(getSBML());
         Log(Logger::LOG_INFORMATION) << "created structural analysis, messages: "
                 << impl->mLS->getAnalysisMsg();
         return impl->mLS;
@@ -631,7 +670,9 @@ int RoadRunner::createDefaultTimeCourseSelectionList()
     try {
         vector<string> raterule_symbols = impl->model->getRateRuleSymbols();
         for (vector<string>::iterator i = raterule_symbols.begin(); i != raterule_symbols.end(); ++i)
-            selections_with_ratelaws.push_back(*i);
+			if (impl->model->getFloatingSpeciesIndex(*i) == -1)
+				// not push the species again
+				selections_with_ratelaws.push_back(*i);
     } catch (NotImplementedException) {
         Log(Logger::LOG_WARNING) << "Querying rate rule symbols not supported with this executable model";
     }
@@ -930,9 +971,10 @@ void RoadRunner::load(const string& uriOrSbml, const Dictionary *dict)
 {
     Mutex::ScopedLock lock(roadRunnerMutex);
 
-    get_self();
+    //get_self();
 
-    self.mCurrentSBML = SBMLReader::read(uriOrSbml);
+    //self.mCurrentSBML = SBMLReader::read(uriOrSbml);
+	std::string mCurrentSBML = SBMLReader::read(uriOrSbml);
 
     delete impl->model;
     impl->model = 0;
@@ -941,27 +983,36 @@ void RoadRunner::load(const string& uriOrSbml, const Dictionary *dict)
     impl->mLS = NULL;
 
     if(dict) {
-        self.loadOpt = LoadSBMLOptions(dict);
+        impl->loadOpt = LoadSBMLOptions(dict);
     }
 
     // TODO: streamline so SBML document is not read several times
     // check that stoichiometry is defined
-    if (!isStoichDefined(self.mCurrentSBML)) {
+    if (!isStoichDefined(mCurrentSBML)) {
         // if any reactions are missing stoich, the simulation results will be wrong
         // fix sbml by assuming unit stoich where missing
-        self.mCurrentSBML = fixMissingStoich(self.mCurrentSBML);
+        mCurrentSBML = fixMissingStoich(mCurrentSBML);
         Log(Logger::LOG_WARNING)<<"Stoichiometry is not defined for all reactions; assuming unit stoichiometry where missing";
     }
-    try {
 
+	// TODO: add documentation for validations
+	if ((impl->loadOpt.loadFlags & LoadSBMLOptions::TURN_ON_VALIDATION) != 0)
+	{
+		string errors = validateSBML(mCurrentSBML, VALIDATE_GENERAL | VALIDATE_IDENTIFIER | VALIDATE_MATHML | VALIDATE_OVERDETERMINED);
+		if (!errors.empty()) {
+			throw std::runtime_error(errors.c_str());
+		}
+	}
+    try {
+		
     // the following lines load and compile the model. If anything fails here,
     // we validate the model to provide explicit details about where it
     // failed. Its *VERY* expensive to pre-validate the model.
-
-        self.model = ExecutableModelFactory::createModel(self.mCurrentSBML, &self.loadOpt);
-
+		libsbml::SBMLReader reader;
+		impl->document = reader.readSBMLFromString(mCurrentSBML);
+        impl->model = ExecutableModelFactory::createModel(mCurrentSBML, &impl->loadOpt);
     } catch (std::exception&) {
-        string errors = validateSBML(impl->mCurrentSBML);
+        string errors = validateSBML(mCurrentSBML);
 
         if(!errors.empty()) {
             Log(Logger::LOG_ERROR) << "Invalid SBML: " << endl << errors;
@@ -974,8 +1025,7 @@ void RoadRunner::load(const string& uriOrSbml, const Dictionary *dict)
     impl->syncAllSolversWithModel(impl->model);
 
     reset();
-
-    if ((self.loadOpt.loadFlags & LoadSBMLOptions::NO_DEFAULT_SELECTIONS) == 0)
+    if ((impl->loadOpt.loadFlags & LoadSBMLOptions::NO_DEFAULT_SELECTIONS) == 0)
     {
         createDefaultSelectionLists();
     }
@@ -1027,14 +1077,17 @@ bool RoadRunner::clearModel()
 
 void RoadRunner::reset()
 {
+	// TODO: double check that combining two opts will have correct behavior
     uint opt1 = rr::Config::getInt(rr::Config::MODEL_RESET);
-    reset(opt1);
+	
+    //reset(opt1);
     uint opt2 = rr::SelectionRecord::DEPENDENT_INITIAL_GLOBAL_PARAMETER;
-    reset(opt2);
+    reset(opt2 | opt1);
 }
 
 void RoadRunner::reset(int options)
 {
+	impl->simulatedSinceReset = false;
     if (impl->model)
     {
         // model gets set to before time = 0
@@ -1337,7 +1390,8 @@ void RoadRunner::setConservedMoietyAnalysis(bool value)
         // have to reload
         self.loadOpt.modelGeneratorOpt |= LoadSBMLOptions::RECOMPILE;
 
-        load(impl->mCurrentSBML);
+		//load(getSBML());
+		regenerate(true);
 
         // restore original reload value
         self.loadOpt.modelGeneratorOpt = savedOpt;
@@ -1561,7 +1615,7 @@ const DoubleMatrix* RoadRunner::simulate(const Dictionary* dict)
 {
     get_self();
     check_model();
-
+	
     const SimulateOptions *opt = dynamic_cast<const SimulateOptions*>(dict);
 
     if (opt) {
@@ -1572,6 +1626,8 @@ const DoubleMatrix* RoadRunner::simulate(const Dictionary* dict)
 
     const double timeEnd = self.simulateOpt.duration + self.simulateOpt.start;
     const double timeStart = self.simulateOpt.start;
+
+	impl->simulatedSinceReset = true;
 
     // evalute the model with its current state
     self.model->getStateVectorRate(timeStart, 0, 0);
@@ -2477,7 +2533,7 @@ DoubleMatrix RoadRunner::getExtendedStoichiometryMatrix()
     ls->getStoichiometryMatrixLabels(m.getRowNames(), m.getColNames());
 
     libsbml::SBMLReader reader;
-    libsbml::SBMLDocument *doc = reader.readSBMLFromString(self.mCurrentSBML);
+    libsbml::SBMLDocument *doc = reader.readSBMLFromString(getSBML());
     libsbml::Model *model = doc->getModel();
     typedef cxx11_ns::unordered_map<int,int> RxnIdxToRowMap;
     typedef cxx11_ns::unordered_map<int,libsbml::Reaction*> RxnIdxToRxnMap;
@@ -3872,85 +3928,79 @@ static string convertSBMLVersion(const std::string& str, int level, int version)
 
 string RoadRunner::getSBML(int level, int version)
 {
+    check_model(); 
+
+    std::stringstream stream;
+
+	libsbml::SBMLWriter writer;
+	writer.writeSBML(impl->document, stream);
+
     if (level > 0) {
-        return convertSBMLVersion(impl->mCurrentSBML, level, version);
+        return convertSBMLVersion(stream.str(), level, version);
     }
-    return impl->mCurrentSBML;
+	return stream.str();
 }
 
 string RoadRunner::getCurrentSBML(int level, int version)
 {
-    check_model();
-
+    check_model(); 
     get_self();
 
-    libsbml::SBMLReader reader;
     std::stringstream stream;
-    libsbml::SBMLDocument *doc = 0;
+    libsbml::SBMLDocument doc(*impl->document);
     libsbml::Model *model = 0;
 
-    try {
-        doc = reader.readSBMLFromString(self.mCurrentSBML); // new doc
-        model = doc->getModel(); // owned by doc
+	model = doc.getModel();
 
-        vector<string> array = getFloatingSpeciesIds();
-        for (int i = 0; i < array.size(); i++)
-        {
-            double value = 0;
-            impl->model->getFloatingSpeciesAmounts(1, &i, &value);
-            setSBMLValue(model, array[i], value);
-        }
+	vector<string> array = getFloatingSpeciesIds();
+	for (int i = 0; i < array.size(); i++)
+	{
+		double value = 0;
+		impl->model->getFloatingSpeciesAmounts(1, &i, &value);
+		setSBMLValue(model, array[i], value);
+	}
 
-        array = getBoundarySpeciesIds();
-        for (int i = 0; i < array.size(); i++)
-        {
-            double value = 0;
-            impl->model->getBoundarySpeciesConcentrations(1, &i, &value);
-            setSBMLValue(model, array[i], value);
-        }
+	array = getBoundarySpeciesIds();
+	for (int i = 0; i < array.size(); i++)
+	{
+		double value = 0;
+		impl->model->getBoundarySpeciesConcentrations(1, &i, &value);
+		setSBMLValue(model, array[i], value);
+	}
 
-        array = getCompartmentIds();
-        for (int i = 0; i < array.size(); i++)
-        {
-            double value = 0;
-            impl->model->getCompartmentVolumes(1, &i, &value);
-            setSBMLValue(model, array[i], value);
-        }
+	array = getCompartmentIds();
+	for (int i = 0; i < array.size(); i++)
+	{
+		double value = 0;
+		impl->model->getCompartmentVolumes(1, &i, &value);
+		setSBMLValue(model, array[i], value);
+	}
 
-        array = getGlobalParameterIds();
-        for (int i = 0; i < impl->model->getNumGlobalParameters(); i++)
-        {
-            double value = 0;
-            impl->model->getGlobalParameterValues(1, &i, &value);
+	array = getGlobalParameterIds();
+	for (int i = 0; i < impl->model->getNumGlobalParameters(); i++)
+	{
+		double value = 0;
+		impl->model->getGlobalParameterValues(1, &i, &value);
 
-            libsbml::Parameter* param = model->getParameter(array[i]);
-            if (param != NULL)
-            {
-                param->setValue(value);
-            }
-            else
-            {
-                // sanity check, just make sure that this is a conserved moeity
-                if (self.model->getConservedMoietyIndex(array[i]) < 0)
-                {
-                    throw std::logic_error("The global parameter name "
-                            + array[i] + " could not be found in the SBML model, "
-                            " and it is not a conserved moiety");
-                }
-            }
-        }
+		libsbml::Parameter* param = model->getParameter(array[i]);
+		if (param != NULL)
+		{
+			param->setValue(value);
+		}
+		else
+		{
+			// sanity check, just make sure that this is a conserved moeity
+			if (self.model->getConservedMoietyIndex(array[i]) < 0)
+			{
+				throw std::logic_error("The global parameter name "
+						+ array[i] + " could not be found in the SBML model, "
+						" and it is not a conserved moiety");
+			}
+		}
+	}
 
-        libsbml::SBMLWriter writer;
-        writer.writeSBML(doc, stream);
-    }
-    catch(std::exception&) {
-        delete doc;
-        doc = 0;
-        throw; // re-throw exception.
-    }
-
-    delete doc;
-
+	libsbml::SBMLWriter writer;
+	writer.writeSBML(&doc, stream);
 
     if (level > 0) {
         return convertSBMLVersion(stream.str(), level, version);
@@ -4918,7 +4968,6 @@ static void metabolicControlCheck(ExecutableModel *model)
     }
 }
 
-
 void RoadRunner::saveState(std::string filename, char opt)
 {
 	check_model();
@@ -5006,7 +5055,7 @@ void RoadRunner::saveState(std::string filename, char opt)
 			//created
 			//It might also be possible to construct LibStructural without SBML, but I'm not familiar with it
 			//If this implementation is too slow we can change that
-			rr::saveBinary(out, impl->mCurrentSBML);
+			rr::saveBinary(out, impl->document->toSBML());
 			break;
 		}
 
@@ -5210,12 +5259,10 @@ void RoadRunner::loadState(std::string filename)
 	rr::loadBinary(in, impl->configurationXML);
 	if(impl->model)
 		delete impl->model;
-    
 	//Create a new model from the stream
 	//impl->model = new rrllvm::LLVMExecutableModel(in, impl->loadOpt.modelGeneratorOpt);
 	impl->model = ExecutableModelFactory::createModel(in, impl->loadOpt.modelGeneratorOpt);
-    impl->syncAllSolversWithModel(impl->model);
-
+	impl->syncAllSolversWithModel(impl->model);
 
 	if (impl->mLS)
 		delete impl->mLS;
@@ -5253,7 +5300,11 @@ void RoadRunner::loadState(std::string filename)
 	}
 
 	//Currently the SBML is saved with the binary data, see saveState above
-	rr::loadBinary(in, impl->mCurrentSBML);
+	std::string savedSBML;
+	rr::loadBinary(in, savedSBML);
+	libsbml::SBMLReader reader;
+	impl->document = reader.readSBMLFromString(savedSBML);
+
 
 	//Restart the integrator and reset the model time
 	impl->integrator->restart(impl->model->getTime());
@@ -5276,6 +5327,1401 @@ void RoadRunner::loadSelectionVector(std::istream& in, std::vector<SelectionReco
 	}
 }
 
+void RoadRunner::addSpecies(const std::string& sid, const std::string& compartment, double initValue, const std::string& substanceUnits, bool forceRegenerate)
+{
+	checkID("addSpecies", sid);
+	
+	if (impl->document->getModel()->getCompartment(compartment) == NULL)
+	{
+		throw std::invalid_argument("Roadrunner::addSpecies failed, no compartment " + compartment + " existed in the model");
+	}
+
+	Log(Logger::LOG_DEBUG) << "Adding species " << sid << " in compartment " << compartment << "..." << endl;
+	libsbml::Species *newSpecies = impl->document->getModel()->createSpecies();
+
+	newSpecies->setId(sid);
+	newSpecies->setCompartment(compartment);
+
+	// setting both concentration and amount will cause an error
+	// if InitialAssignment is set for the species, then initialConcentration or initialAmount will be ignored
+
+	// TODO: check for valid unit?
+	// level 2 sbml predefined units : substance, volume, area, length, time
+
+	newSpecies->setInitialAmount(initValue);
+
+
+	if (substanceUnits.size() > 0)
+	{
+		// a unit is given 
+		newSpecies->setSubstanceUnits(substanceUnits);
+		newSpecies->setHasOnlySubstanceUnits(true);
+	}
+	else 
+	{
+		// unit is not given
+		// by default, we sest hasOnlySubstanceUnits to false
+		newSpecies->setHasOnlySubstanceUnits(false);
+	}
+
+	
+	// set required attributes to default
+	newSpecies->setBoundaryCondition(false);
+	newSpecies->setConstant(false);
+
+	regenerate(forceRegenerate);
+}
+
+void RoadRunner::removeSpecies(const std::string& sid, bool forceRegenerate)
+{
+
+	using namespace libsbml;
+	Model* sbmlModel = impl->document->getModel();
+	Species* s = sbmlModel->removeSpecies(sid);
+	if (s == NULL)
+	{
+		throw std::invalid_argument("Roadrunner::removeSpecies failed, no species with ID " + sid + " existed in the model");
+	}
+
+	Log(Logger::LOG_DEBUG) << "Removing species " << sid << "..." << endl;
+
+
+	// delete all related reactions as well
+	int index = 0;
+	int numReaction = sbmlModel->getNumReactions();
+
+	// TODO: will deleting one reaction interrupt with the order? 
+	// currently we are assuming that the order will keep the same
+	for (uint i = 0; i < numReaction; i++)
+	{
+		Reaction* reaction = sbmlModel->getReaction(index);
+		Reaction* toDelete = nullptr;
+
+		const ListOfSpeciesReferences* reactants = reaction->getListOfReactants();
+		for (uint j = 0; j < reactants->size(); j++)
+		{
+
+			if (reactants->get(j)->getSpecies() == sid)
+			{
+				toDelete = sbmlModel->removeReaction(index);
+				break;
+			}
+		}
+
+		if (toDelete != nullptr)
+		{
+			delete toDelete;
+			// no need to check anymore
+			continue;
+		}
+
+		const libsbml::ListOfSpeciesReferences* products = reaction->getListOfProducts();
+		for (uint j = 0; j < products->size(); j++)
+		{
+			if (products->get(j)->getSpecies() == sid)
+			{
+				toDelete = sbmlModel->removeReaction(index);
+				break;
+			}
+		}
+
+		if (toDelete != nullptr)
+		{
+			delete toDelete;
+			// no need to check anymore
+			continue;
+		}
+
+		const libsbml::ListOfSpeciesReferences* modifiers = reaction->getListOfModifiers();
+		for (uint j = 0; j < modifiers->size(); j++)
+		{
+			if (modifiers->get(j)->getSpecies() == sid)
+			{
+				toDelete = sbmlModel->removeReaction(index);
+				break;
+			}
+		}
+
+		if (toDelete != nullptr)
+		{
+			delete toDelete;
+			// no need to check anymore
+			continue;
+		}
+
+		// this reaction is not related to the deleted species 
+		index++;
+	}
+
+	removeVariable(sid);
+	delete s;
+	regenerate(forceRegenerate);
+}
+
+
+void RoadRunner::setBoundary(const std::string& sid, bool boundaryCondition, bool forceRegenerate)
+{
+	using namespace libsbml;
+	Model* sbmlModel = impl->document->getModel();
+	Species* species = sbmlModel->getSpecies(sid);
+
+	if (species == NULL)
+	{
+		throw std::invalid_argument("Roadrunner::setBoundarySpecies failed, no species with ID " + sid + " existed in the model");
+	}
+
+	Log(Logger::LOG_DEBUG) << "Setting boundary condition for species " << sid << "..." << endl;
+	species->setBoundaryCondition(boundaryCondition);
+
+	regenerate(forceRegenerate);
+}
+
+void RoadRunner::setHasOnlySubstanceUnits(const std::string& sid, bool hasOnlySubstanceUnits, bool forceRegenerate)
+{
+	using namespace libsbml;
+	Model* sbmlModel = impl->document->getModel();
+	Species* species = sbmlModel->getSpecies(sid);
+
+	if (species == NULL)
+	{
+		throw std::invalid_argument("Roadrunner::setHasOnlySubstanceUnits failed, no species with ID " + sid + " existed in the model");
+	}
+
+	Log(Logger::LOG_DEBUG) << "Setting hasOnlySubstanceUnits attribute for species " << sid << "..." << endl;
+	species->setHasOnlySubstanceUnits(hasOnlySubstanceUnits);
+
+	regenerate(forceRegenerate);
+}
+
+void RoadRunner::setInitAmount(const std::string& sid, double initAmount, bool forceRegenerate)
+{
+	using namespace libsbml;
+	Model* sbmlModel = impl->document->getModel();
+	Species* species = sbmlModel->getSpecies(sid);
+
+	if (species == NULL)
+	{
+		throw std::invalid_argument("Roadrunner::setInitAmount failed, no species with ID " + sid + " existed in the model");
+	}
+
+	Log(Logger::LOG_DEBUG) << "Setting initial amount for species " << sid << "..." << endl;
+	if (species->isSetInitialAmount())
+	{
+		species->unsetInitialAmount();
+	}
+	
+	species->setInitialAmount(initAmount);
+
+	regenerate(forceRegenerate);
+	
+	// recover the updated init amount
+	int index = impl->model->getFloatingSpeciesIndex(sid);
+	if (index >= 0 && index < impl->model->getNumIndFloatingSpecies()) {
+		impl->model->setFloatingSpeciesInitAmounts(1, &index, &initAmount);
+	}
+}
+
+void RoadRunner::setInitConcentration(const std::string& sid, double initConcentration, bool forceRegenerate)
+{
+	using namespace libsbml;
+	Model* sbmlModel = impl->document->getModel();
+	Species* species = sbmlModel->getSpecies(sid);
+
+	if (species == NULL)
+	{
+		throw std::invalid_argument("Roadrunner::setInitConcentration failed, no species with ID " + sid + " existed in the model");
+	}
+
+	Log(Logger::LOG_DEBUG) << "Setting initial concentration for species " << sid << "..." << endl;
+	if (species->isSetInitialConcentration())
+	{
+		species->unsetInitialConcentration();
+	}
+	species->setInitialConcentration(initConcentration);
+
+	regenerate(forceRegenerate);
+	
+	// recover the updated init concentration
+	int index = impl->model->getFloatingSpeciesIndex(sid);
+	
+	if (index >= 0 && index < impl->model->getNumIndFloatingSpecies()) {
+
+		int compartment = impl->model->getCompartmentIndex(species->getCompartment());
+		double compartmentSize = 1;
+		impl->model->getCompartmentVolumes(1, &compartment, &compartmentSize);
+		
+		double initValue = initConcentration * compartmentSize;
+		impl->model->setFloatingSpeciesInitAmounts(1, &index, &initValue);
+	}
+}
+
+void RoadRunner::setConstant(const std::string& sid, bool constant, bool forceRegenerate)
+{
+	using namespace libsbml;
+	Model* sbmlModel = impl->document->getModel();
+	Species* species = sbmlModel->getSpecies(sid);
+	Parameter* parameter = sbmlModel->getParameter(sid);
+	Compartment* compartment = sbmlModel->getCompartment(sid);
+
+	if (species != NULL)
+	{
+		Log(Logger::LOG_DEBUG) << "Setting constant attribute for species " << sid << "..." << endl;
+		species->setConstant(constant);
+	} 
+	else if (parameter != NULL)
+	{
+		Log(Logger::LOG_DEBUG) << "Setting constant attribute for parameter " << sid << "..." << endl;
+		parameter->setConstant(constant);
+	}
+	else if (compartment != NULL)
+	{
+		Log(Logger::LOG_DEBUG) << "Setting constant attribute for compartment " << sid << "..." << endl;
+		compartment->setConstant(constant);
+	}
+	else
+	{
+		throw std::invalid_argument("Roadrunner::setConstant failed, no species/ parameter/ compartment with ID " + sid + " existed in the model");
+	}
+
+	regenerate(forceRegenerate);
+}
+
+
+void RoadRunner::addReaction(const std::string& sbmlRep, bool forceRegenerate)
+{
+
+	Log(Logger::LOG_DEBUG) << "Adding new reaction ..." << endl;
+	libsbml::Reaction *newReaction = impl->document->getModel()->createReaction();
+	libsbml::XMLInputStream stream(sbmlRep.c_str(), false);
+	newReaction->read(stream);
+	// TODO: ERROR HANDLING
+    
+	regenerate(forceRegenerate);
+}
+
+void RoadRunner::addReaction(const string& rid, vector<string> reactants, vector<string> products, const string& kineticLaw, bool forceRegenerate)
+{
+	
+	using namespace libsbml;
+	Model* sbmlModel = impl->document->getModel();
+
+	checkID("addReaction", rid);
+
+	Log(Logger::LOG_DEBUG) << "Adding reaction " << rid << "..." << endl;
+	Reaction* newReaction = sbmlModel->createReaction();
+	
+	newReaction->setId(rid);
+	
+	// no need to check reactants.size() + products.size() > 0
+	for (int i = 0; i < reactants.size(); i++) 
+	{
+		char* sid = 0;
+		double stoichiometry = 1;
+		parseSpecies(reactants[i], &stoichiometry, &sid);
+		Species* s;
+
+		if (sid)
+		{
+			s = sbmlModel->getSpecies(sid);
+		}
+		else
+		{
+			throw std::invalid_argument("Roadrunner::addReaction failed, invalid stoichiomety value and species ID " + reactants[0]);
+		}
+		
+		if (s == NULL)
+		{
+			throw std::invalid_argument("Roadrunner::addReaction failed, no species with ID " + reactants[0] + " existed in the model");
+		}
+		newReaction->addReactant(s, stoichiometry);
+	}
+
+	for (int i = 0; i < products.size(); i++)
+	{
+		char* sid = 0;
+		double stoichiometry = 1;
+		parseSpecies(products[i], &stoichiometry, &sid);
+		Species* s;
+
+		if (sid)
+		{
+			s = sbmlModel->getSpecies(sid);
+		}
+		else
+		{
+			throw std::invalid_argument("Roadrunner::addReaction failed, invalid stoichiomety value and species ID " + reactants[0]);
+		}
+		
+		if (s == NULL)
+		{
+			throw std::invalid_argument("Roadrunner::addReaction failed, no species with ID " + products[0] + " existed in the model");
+		}
+
+		newReaction->addProduct(s, stoichiometry);
+	}
+
+	// illegal formular will be catched during the regeneration
+	KineticLaw* kLaw = newReaction->createKineticLaw();
+	kLaw->setFormula(kineticLaw);
+
+	std::vector<string> kLawSpeciesIds;
+	getSpeciesIdsFromAST(kLaw->getMath(), kLawSpeciesIds);
+	for (string s : kLawSpeciesIds)
+	{
+		if (std::find(products.begin(), products.end(), s) == products.end()
+			&& std::find(reactants.begin(), reactants.end(), s) == reactants.end())
+		{
+			newReaction->addModifier(sbmlModel->getSpecies(s));
+		}
+	}
+
+
+	// set required attributes to default
+	newReaction->setReversible(false);
+	newReaction->setFast(false);
+	
+	regenerate(forceRegenerate);
+}
+
+
+void RoadRunner::removeReaction(const std::string& rid, bool forceRegenerate)
+{
+	libsbml::Reaction* toDelete = impl->document->getModel()->removeReaction(rid);
+	if (toDelete == NULL)
+	{
+		throw std::invalid_argument("Roadrunner::removeReaction failed, no reaction with ID " + rid + " existed in the model");
+	}
+	Log(Logger::LOG_DEBUG) << "Removing reaction " << rid << "..." << endl;
+	delete toDelete;
+	regenerate(forceRegenerate);
+
+}
+
+
+void RoadRunner::setReversible(const std::string& rid,bool reversible, bool forceRegenerate)
+{
+
+	using namespace libsbml;
+	Model* sbmlModel = impl->document->getModel();
+	Reaction* reaction = sbmlModel->getReaction(rid);
+
+	if (reaction == NULL)
+	{
+		throw std::invalid_argument("Roadrunner::setReversible failed, no reaction with ID " + rid + " existed in the model");
+	}
+
+	Log(Logger::LOG_DEBUG) << "Setting reversible attribute for reaction " << rid << "..." << endl;
+	reaction->setReversible(reversible);
+
+	regenerate(forceRegenerate);
+}
+
+
+void RoadRunner::setKineticLaw(const std::string& rid, const std::string& kineticLaw, bool forceRegenerate)
+{
+
+	using namespace libsbml;
+	Model* sbmlModel = impl->document->getModel();
+	Reaction* reaction = sbmlModel->getReaction(rid);
+
+	if (reaction == NULL)
+	{
+		throw std::invalid_argument("Roadrunner::setKineticLaw failed, no reaction with ID " + rid + " existed in the model");
+	}
+
+	Log(Logger::LOG_DEBUG) << "Setting kinetic law for reaction " << rid << "..." << endl;
+
+
+	KineticLaw* law = reaction->getKineticLaw();
+	if (law == NULL) {
+		law = reaction->createKineticLaw();
+	}
+	law->setFormula(kineticLaw);
+
+	std::vector<string> kLawSpeciesIds;
+	getSpeciesIdsFromAST(law->getMath(), kLawSpeciesIds);
+	for (string s : kLawSpeciesIds)
+	{
+		bool isProduct = false;
+		ListOfSpeciesReferences *products = reaction->getListOfProducts();
+		for (int i = 0; i < products->size(); i++)
+		{
+			if (products->get(i)->getId() == s)
+			{
+				isProduct = true;
+				break;
+			}
+		}
+
+		if (!isProduct)
+		{
+			bool isReactant = false;
+			ListOfSpeciesReferences *reactants = reaction->getListOfReactants();
+			for (int i = 0; i < reactants->size(); i++)
+			{
+				if (reactants->get(i)->getId() == s)
+				{
+					isReactant = true;
+					break;
+				}
+			}
+
+			if (!isReactant)
+			{
+				reaction->addModifier(sbmlModel->getSpecies(s));
+			}
+		}
+	}
+
+	regenerate(forceRegenerate);
+}
+
+
+
+void RoadRunner::addParameter(const std::string& pid, double value, bool forceRegenerate)
+{
+	checkID("addParameter", pid);
+
+	Log(Logger::LOG_DEBUG) << "Adding compartment " << pid << " with value " << value << endl;
+	libsbml::Parameter* newParameter = impl->document->getModel()->createParameter();
+
+	newParameter->setId(pid);
+	newParameter->setValue(value);
+	// set required attributes to default
+	newParameter->setConstant(false);
+
+	regenerate(forceRegenerate);
+}
+
+void RoadRunner::removeParameter(const std::string& pid, bool forceRegenerate)
+{
+	libsbml::Parameter* toDelete = impl->document->getModel()->removeParameter(pid);
+	if (toDelete == NULL)
+	{
+		throw std::invalid_argument("Roadrunner::removeParameter failed, no parameter with ID " + pid + " existed in the model");
+	}
+	Log(Logger::LOG_DEBUG) << "Removing parameter " << pid << "..." << endl;
+	removeVariable(pid);
+	delete toDelete;
+
+	regenerate(forceRegenerate);
+}
+
+
+void RoadRunner::addCompartment(const std::string& cid, double initVolume, bool forceRegenerate)
+{
+	checkID("addCompartment", cid);
+	Log(Logger::LOG_DEBUG) << "Adding compartment " << cid << " with initial volume " << initVolume << endl;
+	libsbml::Compartment* newCompartment = impl->document->getModel()->createCompartment();
+
+	newCompartment->setId(cid);
+	newCompartment->setVolume(initVolume);
+	// set required attributes to default
+	newCompartment->setConstant(false);
+
+	regenerate(forceRegenerate);
+}
+
+
+void RoadRunner::removeCompartment(const std::string& cid, bool forceRegenerate)
+{
+
+	libsbml::Model* model = impl->document->getModel();
+	libsbml::Compartment* toDelete = model->removeCompartment(cid);
+	
+	if (toDelete == NULL)
+	{
+		throw std::invalid_argument("Roadrunner::removeCompartment failed, no compartment with ID " + cid + " existed in the model");
+	}
+	Log(Logger::LOG_DEBUG) << "Removing compartment " << cid << "..." << endl;
+	
+
+	// remove all species in the compartment
+	int index = 0; 
+	int numSpecies = model->getNumSpecies();
+	for (int i = 0; i < numSpecies; i++) {
+		if (model->getSpecies(index)->getCompartment() == cid) 
+		{
+			string temp = model->getSpecies(index)->getId();
+			removeSpecies(model->getSpecies(index)->getId(), false);
+		} 
+		else 
+		{
+			index++;
+		}
+	}
+
+	removeVariable(cid);
+	delete toDelete;
+	regenerate(forceRegenerate);
+}
+
+
+void RoadRunner::addAssignmentRule(const std::string& vid, const std::string& formula, bool forceRegenerate)
+{
+	using namespace libsbml;
+	Model* sbmlModel = impl->document->getModel();
+
+	if (sbmlModel->getCompartment(vid) == NULL && sbmlModel->getSpecies(vid) == NULL && sbmlModel->getParameter(vid) == NULL && sbmlModel->getSpeciesReference(vid) == NULL)
+	{
+		throw std::invalid_argument("Roadrunner::addAssignmentRule failed, no variable with ID " + vid + " existed in the model");
+	}
+
+	if (sbmlModel->getRule(vid) != NULL)
+	{
+		throw std::invalid_argument("Roadrunner::addAssignmentRule failed, variable " + vid + " already has a rule existing in the model");
+	}
+
+	Log(Logger::LOG_DEBUG) << "Adding assignment rule for" << vid << "..." << endl;
+	AssignmentRule* newRule = sbmlModel->createAssignmentRule();
+
+	// potential errors with these two inputs will be detected during regeneration and ignored 
+
+	newRule->setVariable(vid);
+	newRule->setFormula(formula);
+
+	regenerate(forceRegenerate, true);
+}
+
+void RoadRunner::addRateRule(const std::string& vid, const std::string& formula, bool forceRegenerate)
+{
+	using namespace libsbml;
+	Model* sbmlModel = impl->document->getModel();
+
+	// TODO : check vid is not constant, currently will be catched in validation
+	if (sbmlModel->getCompartment(vid) == NULL && sbmlModel->getSpecies(vid) == NULL && sbmlModel->getParameter(vid) == NULL && sbmlModel->getSpeciesReference(vid) == NULL)
+	{
+		throw std::invalid_argument("Roadrunner::addRateRule failed, no variable with ID " + vid + " existed in the model");
+	}
+
+
+
+	if (sbmlModel->getRule(vid) != NULL)
+	{
+		throw std::invalid_argument("Roadrunner::addRateRule failed, variable " + vid + " already has a rule existing in the model");
+	}
+
+
+	Log(Logger::LOG_DEBUG) << "Adding rate rule for" << vid << "..." << endl;
+	RateRule* newRule = sbmlModel->createRateRule();
+
+	// potential errors with these two inputs will be detected during regeneration
+
+	newRule->setVariable(vid);
+	newRule->setFormula(formula);
+
+	regenerate(forceRegenerate);
+}
+
+// TODO: update C API
+void RoadRunner::removeRules(const std::string& vid, bool useInitialValueAsCurrent, bool forceRegenerate)
+{
+	using namespace libsbml;
+	Model* sbmlModel = impl->document->getModel();
+
+	bool assignment = false;
+	//check if the rule to remove is an assignment rule
+	if (sbmlModel->getAssignmentRule(vid) != NULL)
+	{
+		assignment = true;
+	}
+	Rule* toDelete = sbmlModel->removeRule(vid);
+	if (toDelete == NULL)
+	{
+		throw std::invalid_argument("Roadrunner::removeRules failed, no rules for variable " + vid + " existed in the model");
+	}
+	Log(Logger::LOG_DEBUG) << "Removing rule for variable" << vid << "..." << endl;
+	delete toDelete;
+	checkGlobalParameters();
+
+	regenerate(forceRegenerate);
+	// grab the initial initial value from sbml model 
+	if (assignment)
+	{
+		int index = impl->model->getFloatingSpeciesIndex(vid);
+		if (index >= 0 && index < impl->model->getNumIndFloatingSpecies()) {
+
+			double initValue = 0;
+			if (sbmlModel->getSpecies(vid)->isSetInitialAmount())
+			{
+				initValue = sbmlModel->getSpecies(vid)->getInitialAmount();
+			}
+			else if (sbmlModel->getSpecies(vid)->isSetInitialConcentration())
+			{
+				double initConcentration = sbmlModel->getSpecies(vid)->getInitialConcentration();
+				int compartment = impl->model->getCompartmentIndex(sbmlModel->getSpecies(vid)->getCompartment());
+				double compartmentSize = 1;
+				impl->model->getCompartmentVolumes(1, &compartment, &compartmentSize);
+
+				initValue = initConcentration * compartmentSize;
+			}
+
+			impl->model->setFloatingSpeciesInitAmounts(1, &index, &initValue);
+			if (useInitialValueAsCurrent)
+			{
+				impl->model->setFloatingSpeciesAmounts(1, &index, &initValue);
+			}
+		}
+
+		index = impl->model->getCompartmentIndex(vid);
+		if (index >= 0 && index < impl->model->getNumCompartments()) {
+			double initValue = 0;
+			if (sbmlModel->getCompartment(vid)->isSetSize())
+			{
+				initValue = sbmlModel->getCompartment(vid)->getSize();
+			}
+			impl->model->setCompartmentInitVolumes(1, &index, &initValue);
+			if (useInitialValueAsCurrent)
+			{
+				impl->model->setCompartmentVolumes(1, &index, &initValue);
+			}
+		}
+
+		index = impl->model->getGlobalParameterIndex(vid);
+		if (index >= 0 && index < impl->model->getNumGlobalParameters()) {
+			double initValue = 0;
+			if (sbmlModel->getParameter(vid)->isSetValue())
+			{
+				initValue = sbmlModel->getParameter(vid)->getValue();
+			}
+			impl->model->setGlobalParameterInitValues(1, &index, &initValue);
+			if (useInitialValueAsCurrent)
+			{
+				impl->model->setGlobalParameterValues(1, &index, &initValue);
+			}
+		}
+	}
+	else if (useInitialValueAsCurrent)
+	{
+		// recover the initial value for rate rules
+		int index = impl->model->getFloatingSpeciesIndex(vid);
+		if (index >= 0 && index < impl->model->getNumIndFloatingSpecies()) {
+			double initValue = 0;
+			impl->model->getFloatingSpeciesInitAmounts(1, &index, &initValue);
+			impl->model->setFloatingSpeciesAmounts(1, &index, &initValue);
+
+		}
+
+		index = impl->model->getCompartmentIndex(vid);
+		if (index >= 0 && index < impl->model->getNumCompartments()) {
+			double initValue = 0;
+			impl->model->getCompartmentInitVolumes(1, &index, &initValue);
+			impl->model->setCompartmentVolumes(1, &index, &initValue);
+		}
+
+		index = impl->model->getGlobalParameterIndex(vid);
+		if (index >= 0 && index < impl->model->getNumGlobalParameters()) {
+			double initValue = 0;
+			impl->model->getGlobalParameterInitValues(1, &index, &initValue);
+			impl->model->setGlobalParameterValues(1, &index, &initValue);
+		}
+	}
+}
+
+void RoadRunner::addInitialAssignment(const std::string& vid, const std::string& formula, bool forceRegenerate)
+{
+	using namespace libsbml;
+	Model* sbmlModel = impl->document->getModel();
+
+	if (sbmlModel->getCompartment(vid) == NULL && sbmlModel->getSpecies(vid) == NULL && sbmlModel->getParameter(vid) == NULL && sbmlModel->getSpeciesReference(vid) == NULL)
+	{
+		throw std::invalid_argument("Roadrunner::addInitialAssignment failed, no symbol with ID " + vid + " existed in the model");
+	}
+
+	if (sbmlModel->getAssignmentRule(vid) != NULL)
+	{
+		throw std::invalid_argument("Roadrunner::addInitialAssignment failed, symbol " + vid + " already has an assignment rule existing in the model");
+	}
+
+	if (sbmlModel->getInitialAssignment(vid) != NULL)
+	{
+		throw std::invalid_argument("Roadrunner::addInitialAssignment failed, symbol " + vid + " already has an initial assignment existing in the model");
+	}
+
+	Log(Logger::LOG_DEBUG) << "Adding initial assignment for" << vid << "..." << endl;
+	InitialAssignment* newAssignment = sbmlModel->createInitialAssignment();
+
+	newAssignment->setSymbol(vid);
+	ASTNode_t* math = libsbml::SBML_parseL3Formula(formula.c_str());
+	if (math == NULL)
+	{
+		throw std::invalid_argument("Roadrunner::addInitialAssignment failed, an error occurred in parsing the formula");
+	}
+	newAssignment->setMath(math);
+
+	regenerate(forceRegenerate, true);
+}
+
+void RoadRunner::removeInitialAssignment(const std::string& vid, bool forceRegenerate)
+{
+	using namespace libsbml;
+	Model* sbmlModel = impl->document->getModel();
+
+	InitialAssignment* toDelete = sbmlModel->removeInitialAssignment(vid);
+	if (toDelete == NULL)
+	{
+		throw std::invalid_argument("Roadrunner::removeInitialAssignment failed, no initial assignment for symbol " + vid + " existed in the model");
+	}
+	Log(Logger::LOG_DEBUG) << "Removing initial assignment for variable" << vid << "..." << endl;
+	delete toDelete;
+	checkGlobalParameters();
+
+	regenerate(forceRegenerate);
+
+	// TODO: read-only mode does not have setters
+	if (!impl->simulatedSinceReset)
+	{
+
+		int index = impl->model->getFloatingSpeciesIndex(vid);
+		if (index >= 0 && index < impl->model->getNumIndFloatingSpecies())
+		{
+
+			double initValue = 0;
+			if (sbmlModel->getSpecies(vid)->isSetInitialAmount())
+			{
+				initValue = sbmlModel->getSpecies(vid)->getInitialAmount();
+			}
+			else if (sbmlModel->getSpecies(vid)->isSetInitialConcentration())
+			{
+				double initConcentration = sbmlModel->getSpecies(vid)->getInitialConcentration();
+				int compartment = impl->model->getCompartmentIndex(sbmlModel->getSpecies(vid)->getCompartment());
+				double compartmentSize = 1;
+				impl->model->getCompartmentVolumes(1, &compartment, &compartmentSize);
+
+				initValue = initConcentration * compartmentSize;
+			}
+
+			impl->model->setFloatingSpeciesInitAmounts(1, &index, &initValue);
+			impl->model->setFloatingSpeciesAmounts(1, &index, &initValue);
+		}
+
+		index = impl->model->getCompartmentIndex(vid);
+		if (index >= 0 && index < impl->model->getNumCompartments())
+		{
+			double initValue = 0;
+			if (sbmlModel->getCompartment(vid)->isSetSize())
+			{
+				initValue = sbmlModel->getCompartment(vid)->getSize();
+			}
+			impl->model->setCompartmentInitVolumes(1, &index, &initValue);
+			impl->model->setCompartmentVolumes(1, &index, &initValue);
+		}
+
+		index = impl->model->getGlobalParameterIndex(vid);
+		if (index >= 0 && index < impl->model->getNumGlobalParameters())
+		{
+			double initValue = 0;
+			if (sbmlModel->getParameter(vid)->isSetValue())
+			{
+				initValue = sbmlModel->getParameter(vid)->getValue();
+			}
+			impl->model->setGlobalParameterInitValues(1, &index, &initValue);
+			impl->model->setGlobalParameterValues(1, &index, &initValue);
+		}
+	}
+}
+
+
+void RoadRunner::addEvent(const std::string& eid, bool useValuesFromTriggerTime, const std::string& trigger, bool forceRegenerate)
+{
+	using namespace libsbml;
+	Model* sbmlModel = impl->document->getModel();
+	checkID("addEvent", eid);
+
+	Log(Logger::LOG_DEBUG) << "Adding event " << eid << "..." << endl;
+	Event* newEvent = sbmlModel->createEvent();
+	newEvent->setId(eid);
+	newEvent->setUseValuesFromTriggerTime(useValuesFromTriggerTime);
+
+	Trigger* newTrigger = newEvent->createTrigger();
+	ASTNode_t* formula = libsbml::SBML_parseL3Formula(trigger.c_str());
+	if (formula == NULL)
+	{
+		throw std::invalid_argument("Roadrunner::addEvent failed, an error occurred in parsing the trigger formula");
+	}
+	newTrigger->setMath(formula);
+	// set required attribute to default
+	// TODO: should default be true or false?
+	if (sbmlModel->getLevel() > 2)
+	{
+		newTrigger->setPersistent(false);
+		newTrigger->setInitialValue(false);
+	}
+	
+	// model regeneration will throw RuntimeError if the given formula is not valid
+	regenerate(forceRegenerate);
+}
+
+
+void RoadRunner::addTrigger(const std::string& eid, const std::string& trigger, bool forceRegenerate) {
+	using namespace libsbml;
+	Event* event = impl->document->getModel()->getEvent(eid);
+
+	if (event == NULL)
+	{
+		throw std::invalid_argument("Roadrunner::addTrigger failed, no event " + eid + " existed in the model");
+	}
+
+	Trigger* newTrigger = event->createTrigger();
+
+	Log(Logger::LOG_DEBUG) << "Adding trigger for event " << eid << "..." << endl;
+	ASTNode_t* formula = libsbml::SBML_parseL3Formula(trigger.c_str());
+	if (formula == NULL)
+	{
+		throw std::invalid_argument("Roadrunner::addTrigger failed, an error occurred in parsing the trigger formula");
+	}
+	newTrigger->setMath(formula);
+	// set required attributes to default
+	if (impl->document->getModel()->getLevel() > 3)
+	{
+		newTrigger->setPersistent(false);
+		newTrigger->setInitialValue(false);
+	}
+
+	// model regeneration will throw RuntimeError if the given formula is not valid
+	regenerate(forceRegenerate, true);
+}
+
+void RoadRunner::setPersistent(const std::string& eid, bool persistent, bool forceRegenerate) {
+	using namespace libsbml;
+	Event* event = impl->document->getModel()->getEvent(eid);
+
+	if (impl->document->getLevel() < 3)
+	{
+		throw std::runtime_error("Roadrunner::setPersistent failed, current SBML level and version does not have peresistent attribute in the trigger");
+	}
+
+	if (event == NULL)
+	{
+		throw std::invalid_argument("Roadrunner::setPersistent failed, no event " + eid + " existed in the model");
+	}
+
+	Trigger* trigger = event->getTrigger();
+	if (trigger == NULL)
+	{
+		throw std::invalid_argument("Roadrunner::setPersistent failed, given event " + eid + " does not have a trigger");
+	}
+
+	Log(Logger::LOG_DEBUG) << "Setting persistent for trigger of " << eid << "..." << endl;
+	trigger->setPersistent(persistent);
+
+	regenerate(forceRegenerate, true);
+}
+
+void RoadRunner::setTriggerInitialValue(const std::string& eid, bool initValue, bool forceRegenerate) {
+	using namespace libsbml;
+	Event* event = impl->document->getModel()->getEvent(eid);
+
+	if (impl->document->getLevel() < 3)
+	{
+		throw std::runtime_error("Roadrunner::setTriggerInitialValue failed, current SBML level and version does not have initialValue attribute in the trigger");
+	}
+
+	if (event == NULL)
+	{
+		throw std::invalid_argument("Roadrunner::setTriggerInitialValue failed, no event " + eid + " existed in the model");
+	}
+
+	Trigger* trigger = event->getTrigger();
+	if (trigger == NULL)
+	{
+		throw std::invalid_argument("Roadrunner::setTriggerInitialValue failed, given event " + eid + " does not have a trigger");
+	}
+
+	Log(Logger::LOG_DEBUG) << "Setting initial value for trigger of " << eid << "..." << endl;
+	trigger->setInitialValue(initValue);
+
+	regenerate(forceRegenerate, true);
+}
+
+
+void RoadRunner::addPriority(const std::string& eid, const std::string& priority, bool forceRegenerate) {
+	using namespace libsbml;
+	Event* event = impl->document->getModel()->getEvent(eid);
+
+	if (event == NULL)
+	{
+		throw std::invalid_argument("Roadrunner::addPriority failed, no event " + eid + " existed in the model");
+	}
+
+	Priority* newPriority = event->createPriority();
+	if (newPriority == NULL)
+	{
+		throw std::runtime_error("Roadrunner::addPriority failed, current SBML level and version does not support Priority in event");
+	}
+	Log(Logger::LOG_DEBUG) << "Adding priority for event " << eid << "..." << endl;
+	ASTNode_t* formula = libsbml::SBML_parseL3Formula(priority.c_str());
+	if (formula == NULL)
+	{
+		throw std::invalid_argument("Roadrunner::addPriority failed, an error occurred in parsing the priority formula");
+	}
+	newPriority->setMath(formula);
+
+	// model regeneration will throw RuntimeError if the given formula is not valid
+	regenerate(forceRegenerate, true);
+}
+
+
+void RoadRunner::addDelay(const std::string& eid, const std::string& delay, bool forceRegenerate) {
+	using namespace libsbml;
+	Event* event = impl->document->getModel()->getEvent(eid);
+
+	if (event == NULL)
+	{
+		throw std::invalid_argument("Roadrunner::addDelay failed, no event " + eid + " existed in the model");
+	}
+
+	Log(Logger::LOG_DEBUG) << "Adding delay for event " << eid << "..." << endl;
+	Delay* newDelay = event->createDelay();
+	ASTNode_t* formula = libsbml::SBML_parseL3Formula(delay.c_str());
+	if (formula == NULL)
+	{
+		throw std::invalid_argument("Roadrunner::addDelay failed, an error occurred in parsing the delay formula");
+	}
+	newDelay->setMath(formula);
+
+	// model regeneration will throw RuntimeError if the given formula is not valid
+	regenerate(forceRegenerate, true);
+
+}
+
+
+void RoadRunner::addEventAssignment(const std::string& eid, const std::string& vid, const std::string& formula, bool forceRegenerate)
+{
+	using namespace libsbml;
+	Model* sbmlModel = impl->document->getModel();
+	Event* event = sbmlModel->getEvent(eid);
+
+	if (event == NULL)
+	{
+		throw std::invalid_argument("Roadrunner::addEventAssignment failed, no event " + eid + " existed in the model");
+	}
+
+	if (sbmlModel->getCompartment(vid) == NULL && sbmlModel->getSpecies(vid) == NULL && sbmlModel->getParameter(vid) == NULL && sbmlModel->getSpeciesReference(vid) == NULL)
+	{
+		throw std::invalid_argument("Roadrunner::addEventAssignment failed, no variable with ID " + vid + " existed in the model");
+	}
+
+	if (sbmlModel->getRule(vid) != NULL)
+	{
+		throw std::invalid_argument("Roadrunner::addEventAssignment failed, variable " + vid + " already has a rule existing in the model");
+	}
+	
+
+	if (event->getEventAssignment(vid) != NULL)
+	{
+		throw std::invalid_argument("Roadrunner::addEventAssignment failed, variable " + vid + " already has an assignment in the event " + eid);
+	}
+
+
+	Log(Logger::LOG_DEBUG) << "Adding event assignment for variable " << vid << " to event " << eid << "..." << endl;
+	EventAssignment* assignment = event->createEventAssignment();
+	assignment->setVariable(vid);
+
+	ASTNode_t* math = libsbml::SBML_parseL3Formula(formula.c_str());
+	if (math == NULL)
+	{
+		throw std::invalid_argument("Roadrunner::addEventAssignment failed, an error occurred in parsing the math formula");
+	}
+	assignment->setMath(math);
+
+	// model regeneration will throw RuntimeError if the given formula is not valid
+	regenerate(forceRegenerate, true);
+}
+
+
+void RoadRunner::removeEventAssignments(const std::string & eid, const std::string & vid, bool forceRegenerate)
+{
+	libsbml::Event* event = impl->document->getModel()->getEvent(eid);
+	if (event == NULL)
+	{
+		throw std::invalid_argument("Roadrunner::removeEventAssignment failed, no event with ID " + eid + " existed in the model");
+	}
+
+	libsbml::EventAssignment* toDelete = event->removeEventAssignment(vid);
+	if (toDelete == NULL)
+	{
+		throw std::invalid_argument("Roadrunner::removeEventAssignment failed, no event assignment for variable " + vid + " existed in the event " + eid);
+	}
+
+	Log(Logger::LOG_DEBUG) << "Removing event assignment for variable" << vid << " in event " << eid << "..." << endl;
+	delete toDelete;
+
+	regenerate(forceRegenerate, true);
+
+}
+
+
+
+void RoadRunner::removeEvent(const std::string & eid, bool forceRegenerate)
+{
+	libsbml::Event* toDelete = impl->document->getModel()->removeEvent(eid);
+	if (toDelete == NULL)
+	{
+		throw std::invalid_argument("Roadrunner::removeEvent failed, no event with ID " + eid + " existed in the model");
+	}
+	Log(Logger::LOG_DEBUG) << "Removing event " << eid << "..." << endl;
+	delete toDelete;
+	regenerate(forceRegenerate, true);
+}
+
+void RoadRunner::validateCurrentSBML()
+{
+	// turn off unit validation for now
+	// TODO: passing options as parameters
+	string errors = validateSBML(impl->document->toSBML(), VALIDATE_GENERAL | VALIDATE_IDENTIFIER | VALIDATE_MATHML | VALIDATE_OVERDETERMINED);
+	if (!errors.empty()) {
+		throw std::runtime_error(errors.c_str());
+	}
+}
+
+
+void RoadRunner::checkID(const std::string& functionName, const std::string & sid)
+{
+	if (impl->document->getModel()->getElementBySId(sid) != NULL)
+	{
+		throw std::invalid_argument("Roadrunner::" + functionName+ " failed, identifier " + sid + " already existed in the model");
+	}
+}
+
+
+void RoadRunner::regenerate(bool forceRegenerate, bool reset)
+{
+	if (forceRegenerate)
+	{
+		Log(Logger::LOG_DEBUG) << "Regenerating model..." << endl;
+		ExecutableModel* newModel = ExecutableModelFactory::regenerateModel(impl->model, impl->document, impl->loadOpt.modelGeneratorOpt);
+		if (impl->model)
+			delete impl->model;
+		impl->model = newModel;
+		// TODO: update vector tolerance
+		impl->syncAllSolversWithModel(impl->model);
+		// reset();
+		if ((impl->loadOpt.loadFlags & LoadSBMLOptions::NO_DEFAULT_SELECTIONS) == 0)
+		{
+			createDefaultSelectionLists();
+		}
+
+		if (reset)
+		{
+			//we need to reset before we simulate so we can reapply events which might be T0-firing
+			if (!impl->simulatedSinceReset)
+			{
+				this->reset();
+			}
+		}
+	}
+	
+}
+
+void RoadRunner::parseSpecies(const string& species, double* stoichiometry, char** sid) {
+	const char* input = species.c_str();
+
+	double d = strtod(input, sid);
+	if (*input != '\0' && *sid != input)
+	{
+		*stoichiometry = d;
+	}
+
+}
+
+void RoadRunner::removeVariable(const std::string& sid) {
+	using namespace libsbml;
+	Model* sbmlModel = impl->document->getModel();
+
+	Log(Logger::LOG_DEBUG) << "Removing reactions related to " << sid << "..." << endl;
+
+	SBase* toDelete = nullptr;
+	int index = 0;
+	int num = sbmlModel->getNumReactions();
+	for (uint i = 0; i < num; i++)
+	{
+		Reaction* reaction = sbmlModel->getReaction(index);
+		
+		if (impl->document->getLevel() == 2)
+		{
+			// only Level 2 support StoichiometryMath
+			const ListOfSpeciesReferences* reactants = reaction->getListOfReactants();
+			for (uint j = 0; j < reactants->size(); j++)
+			{
+				// TODO: better way to cast?
+				SpeciesReference* reactant = (SpeciesReference*)reactants->get(j);
+				if (reactant->getStoichiometryMath() != NULL) 
+				{
+					if (hasVariable(reactant->getStoichiometryMath()->getMath(), sid))
+					{
+						toDelete = sbmlModel->removeReaction(index);
+						break;
+					}
+				}
+				
+			}
+
+			if (toDelete != nullptr)
+			{
+				delete toDelete;
+				// no need to check anymore
+				continue;
+			}
+
+			const libsbml::ListOfSpeciesReferences* products = reaction->getListOfProducts();
+			for (uint j = 0; j < products->size(); j++)
+			{
+				SpeciesReference* product = (SpeciesReference*)products->get(j);
+				if (product->getStoichiometryMath() != NULL)
+				{
+					if (hasVariable(product->getStoichiometryMath()->getMath(), sid))
+					{
+						toDelete = sbmlModel->removeReaction(index);
+						break;
+					}
+				}
+				
+			}
+
+			if (toDelete != nullptr)
+			{
+				delete toDelete;
+				// no need to check anymore
+				continue;
+			}
+			
+		}
+		
+		// TODO: check if getMath work with level 1
+		if (reaction->getKineticLaw() && hasVariable(reaction->getKineticLaw()->getMath(), sid))
+		{
+			sbmlModel->getReaction(i)->unsetKineticLaw();
+		}
+
+		// not remove this reaction
+		index++;
+	}
+
+	Log(Logger::LOG_DEBUG) << "Removing rules related to " << sid << "..." << endl;
+	// remove all rules that use this as variable
+    toDelete = sbmlModel->removeRule(sid);
+	while (toDelete != NULL)
+	{
+		delete toDelete;
+		toDelete = sbmlModel->removeRule(sid);
+	}
+
+	// check for other rules that use this variable in math formula
+	index = 0;
+	num = sbmlModel->getNumRules();
+	for (uint i = 0; i < num; i++)
+	{
+		// TODO: check if getMath work with level 1
+		if (hasVariable(sbmlModel->getRule(index)->getMath(), sid))
+		{
+			toDelete = sbmlModel->removeRule(index);
+			delete toDelete;
+		}
+		else
+		{
+			index++;
+		}
+	}
+
+	Log(Logger::LOG_DEBUG) << "Removing function definitions related to " << sid << "..." << endl;
+	index = 0;
+	num = sbmlModel->getNumFunctionDefinitions();
+	for (uint i = 0; i < num; i++)
+	{
+		if (hasVariable(sbmlModel->getFunctionDefinition(index)->getMath(), sid))
+		{
+			toDelete = sbmlModel->removeFunctionDefinition(index);
+			delete toDelete;
+		}
+		else
+		{
+			index++;
+		}
+	}
+
+	Log(Logger::LOG_DEBUG) << "Removing constraints related to " << sid << "..." << endl;
+	index = 0;
+	num = sbmlModel->getNumConstraints();
+	for (uint i = 0; i < num; i++)
+	{
+		if (hasVariable(sbmlModel->getConstraint(index)->getMath(), sid))
+		{
+			toDelete = sbmlModel->removeConstraint(index);
+			delete toDelete;
+		}
+		else
+		{
+			index++;
+		}
+	}
+
+	Log(Logger::LOG_DEBUG) << "Removing initial assignments related to " << sid << "..." << endl;
+	// fisrt remove initial assignment that use this variable as symbol
+	toDelete = sbmlModel->removeInitialAssignment(sid);
+	while (toDelete != NULL)
+	{
+		delete toDelete;
+		toDelete = sbmlModel->removeInitialAssignment(sid);
+	}
+
+	// also other assignments using this variable in the math formula
+	index = 0;
+	num = sbmlModel->getNumInitialAssignments();
+	for (uint i = 0; i < num; i++)
+	{
+		if (hasVariable(sbmlModel->getInitialAssignment(index)->getMath(), sid))
+		{
+			toDelete = sbmlModel->removeInitialAssignment(index);
+			delete toDelete;
+		}
+		else
+		{
+			index++;
+		}
+	}
+
+	
+	Log(Logger::LOG_DEBUG) << "Removing event elements related to " << sid << "..." << endl;
+	index = 0;
+	num = sbmlModel->getNumEvents();
+	for (uint i = 0; i < num; i++)
+	{
+		Event* event = sbmlModel->getListOfEvents()->get(index);
+		// check for trigger
+		if (hasVariable(event->getTrigger()->getMath(), sid))
+		{
+			// LLVMModelDataSymbol require trigger for event, so we have to delete the event
+			toDelete = sbmlModel->removeEvent(index);
+			delete toDelete;
+			// continue to the next event
+			continue;
+		}
+
+		// check for priority
+		if (event->getPriority())
+		{
+			if (hasVariable(event->getPriority()->getMath(), sid))
+			{
+				event->unsetPriority();
+			}
+		}
+
+		// check for delay
+		if (event->getDelay())
+		{
+			if (hasVariable(event->getDelay()->getMath(), sid))
+			{
+				event->unsetDelay();
+			}
+		}
+
+
+		// check for event assignment
+		toDelete = event->removeEventAssignment(sid);
+		while (toDelete != NULL)
+		{
+			delete toDelete;
+			toDelete = event->removeEventAssignment(sid);
+		}
+		// look for other assignments that have a math formula using this variable
+		int assignmentIndex = 0;
+		int numAssign = event->getNumEventAssignments();
+		for (uint j = 0; j < numAssign; j++) {
+			EventAssignment* assignment = event->getListOfEventAssignments()->get(assignmentIndex);
+			if (hasVariable(assignment->getMath(), sid))
+			{
+				toDelete = event->removeEventAssignment(assignmentIndex);
+				delete toDelete;
+			}
+			else
+			{
+				assignmentIndex++;
+			}
+			
+		}
+		// not remove this event
+		index++;
+	}
+
+	checkGlobalParameters();
+}
+
+bool RoadRunner::hasVariable(const libsbml::ASTNode* node, const string& sid) 
+{
+	// DFS
+	// TODO: faster API to iterate all childeren node?
+	if (node == NULL) return false;
+	const char* temp = node->getName();
+	if (!node->isOperator() && !node->isNumber() && sid.compare(node->getName()) == 0) 
+	{
+		return true;
+	}
+	for (uint i = 0; i < node->getNumChildren(); i++)
+	{
+		if (hasVariable(node->getChild(i), sid))
+		{
+			return true;
+		}
+	}
+	return false;
+}
+
+
+void RoadRunner::getSpeciesIdsFromAST(const libsbml::ASTNode* node, vector<string>& species)
+{
+	vector<string> speciesNames = getFloatingSpeciesIds();
+	auto boundarySpecies = getBoundarySpeciesIds();
+	speciesNames.insert(speciesNames.begin(), boundarySpecies.begin(), boundarySpecies.end());
+	getSpeciesIdsFromAST(node, species, speciesNames);
+}
+
+void RoadRunner::getSpeciesIdsFromAST(const libsbml::ASTNode* node, vector<string>& species, vector<string>& instanceSpeciesNames)
+{
+	if (node == NULL) return;
+	if (!node->isOperator() && !node->isNumber())
+	{
+		if (std::find(instanceSpeciesNames.begin(), instanceSpeciesNames.end(), node->getName()) != instanceSpeciesNames.end())
+		{
+			species.push_back(node->getName());
+		}
+	}
+	for (uint i = 0; i < node->getNumChildren(); i++)
+	{
+		getSpeciesIdsFromAST(node->getChild(i), species, instanceSpeciesNames);
+	}
+}
+
+
+void RoadRunner::checkGlobalParameters()
+{
+	// check for global parameters
+	// if we delete all initial assignments and rules for global parameters,
+	// we need to delete that global parameter as well
+	using namespace libsbml;
+	Model* sbmlModel = impl->document->getModel();
+
+	int index = 0;
+	while (index < sbmlModel->getNumParameters())
+	{
+		const Parameter* param = sbmlModel->getParameter(index);
+		const string& id = param->getId();
+
+		if (!param->isSetValue() && sbmlModel->getInitialAssignment(id) == NULL &&
+			sbmlModel->getAssignmentRule(id) == NULL)
+		{
+			// check if we have an initial assignment for this param.
+			removeParameter(id, false);
+			// go back and check the first parameter;
+			index = 0;
+		}
+		else
+		{
+			index++;
+		}
+
+	}
+}
 
 } //namespace
 

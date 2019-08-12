@@ -133,7 +133,12 @@ namespace rr
 			USE_MCJIT = (0x1 << 10),
 
 
-			LLVM_SYMBOL_CACHE = (0x1 << 11)
+			LLVM_SYMBOL_CACHE = (0x1 << 11),
+
+			/**
+			* Turn on SBML validation
+			*/
+			TURN_ON_VALIDATION = (0x1 << 12)
 		};
 
 		enum LoadOpt
@@ -208,6 +213,11 @@ namespace rr
 				modelGeneratorOpt & ~CONSERVED_MOIETIES;
 		}
 
+		inline void setValidation(bool val) {
+			loadFlags = val ?
+				loadFlags | TURN_ON_VALIDATION :
+				loadFlags & ~TURN_ON_VALIDATION;
+		}
 
 		virtual ~LoadSBMLOptions();
 

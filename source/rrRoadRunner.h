@@ -5,6 +5,7 @@
 #include "rr-libstruct/lsMatrix.h"
 #include "rrSelectionRecord.h"
 #include "rrRoadRunnerOptions.h"
+#include "sbml/Species.h"
 
 #include <string>
 #include <vector>
@@ -41,6 +42,11 @@ public:
      * create an empty RoadRunner object.
      */
     RoadRunner();
+
+	/**
+	 * create an empty RoadRunner object with given SBML level and version.
+	 */
+	RoadRunner(unsigned int level, unsigned int version);
 
     /**
      * load an sbml document from anywhere.
@@ -239,11 +245,11 @@ public:
      */
     const ls::DoubleMatrix *simulate(const Dictionary* options = 0);
 
-	/*
-	*  Saves this roadrunner instance to a file so it can be reloaded later
-	*/
-	void saveState(std::string filename, char opt = 'b');
-	void loadState(std::string filename);
+    /*
+    *  Saves this roadrunner instance to a file so it can be reloaded later
+    */
+    void saveState(std::string filename, char opt = 'b');
+    void loadState(std::string filename);
 
     /**
      * RoadRunner keeps a copy of the simulation data around until the
@@ -711,6 +717,433 @@ public:
      */
     double getUnscaledSpeciesElasticity(int reactionId, int speciesIndex);
 
+	/**
+	 * Add a species to the current model.
+	 * @param sid: the ID of the species to be added
+	 * @param compartment: the compartment of the species to be added
+	 * @param initAmount: the initial amount of the species to be added
+	 * @param substanceUnits: the substance unit of the species to be added
+	 * @param forceRegenerate: a boolean value to indicate if the model is regenerated 
+	 *					       after this function call
+	 *						   default value is true to regenerate model after each call 
+	 *                         of editing function
+	 *						   to save time for editing for multiple times, one could 
+     *					       set this flag to true only in the last call of editing 
+	 */
+	void addSpecies(const std::string& sid, const std::string& compartment, double initAmount = 0, const std::string& substanceUnits = "", bool forceRegenerate = true);
+
+
+	/*
+	* Remove a species from the current model. Note that all reactions related to this species(as reactants,
+	* products or modifiers will be removed as well.
+	* @param sid: the ID of the species to be removed
+	* @param forceRegenerate: a boolean value to indicate if the model is regenerated
+	*					      after this function call
+	*						  default value is true to regenerate model after each call
+	*                         of editing function
+	*						  to save time for editing for multiple times, one could
+	*					      set this flag to true only in the last call of editing
+	*/
+	void removeSpecies(const std::string& sid, bool forceRegenerate = true);
+
+	/**
+	 * Set the boundary condition of an existing species.
+	 * By default, the boundary condition for a species is false.
+	 * @param sid: the ID of the species
+	 * @param boundaryCondition: boundary condition to be set
+	 * @param forceRegenerate: a boolean value to indicate if the model is regenerated
+	 *					       after this function call
+	 *						   default value is true to regenerate model after each call
+	 *                         of editing function
+	 *						   to save time for editing for multiple times, one could
+	 *					       set this flag to true only in the last call of editing
+	 */
+	void setBoundary(const std::string& sid, bool boundaryCondition, bool forceRegenerate = true);
+
+	/**
+	 * Set the hasOnlySubstanceUnits attribute for an existing species.
+	 * @param sid: the ID of a species
+	 * @param hasOnlySubstanceUnits: the value of hasOnlySubstanceUnits attribute to be set
+	 * @param forceRegenerate: a boolean value to indicate if the model is regenerated
+	 *					       after this function call
+	 *						   default value is true to regenerate model after each call
+	 *                         of editing function
+	 *						   to save time for editing for multiple times, one could
+	 *					       set this flag to true only in the last call of editing
+	 */
+	void setHasOnlySubstanceUnits(const std::string& sid, bool hasOnlySubstanceUnits, bool forceRegenerate = true);
+
+
+	/**
+	 * Set initial amount for an existing species. Initial amount/concentration set before will be unset.
+	 * @param sid: the ID of a species
+	 * @param initAmount: the initial amount to be set
+	 * @param forceRegenerate: a boolean value to indicate if the model is regenerated
+	 *					       after this function call
+	 *						   default value is true to regenerate model after each call
+	 *                         of editing function
+	 *						   to save time for editing for multiple times, one could
+	 *					       set this flag to true only in the last call of editing
+	 */
+	void setInitAmount(const std::string& sid, double initAmount, bool forceRegenerate = true);
+
+
+	/**
+	 * Set initial concentration for an existing species. Initial amount/concentration set before will be unset.
+	 * @param sid: the ID of a species
+	 * @param initConcentration: the initial concentration to be set
+	 * @param forceRegenerate: a boolean value to indicate if the model is regenerated
+	 *					       after this function call
+	 *						   default value is true to regenerate model after each call
+	 *                         of editing function
+	 *						   to save time for editing for multiple times, one could
+	 *					       set this flag to true only in the last call of editing
+	 */
+	void setInitConcentration(const std::string& sid, double initConcentration, bool forceRegenerate = true);
+
+
+	/**
+	 * Set the constant attribute for an existing species/ parameter/ compartment
+	 * By default, the constant attribute is false.
+	 * @param sid: the ID of a species/ parameter/ compartment
+	 * @param constant: the constant attribute to be set
+	 * @param forceRegenerate: a boolean value to indicate if the model is regenerated
+	 *					       after this function call
+	 *						   default value is true to regenerate model after each call
+	 *                         of editing function
+	 *						   to save time for editing for multiple times, one could
+	 *					       set this flag to true only in the last call of editing
+	 */
+	void setConstant(const std::string& sid, bool constant, bool forceRegenerate = true);
+
+
+
+	/*
+	* Add a reaction to the current model
+	* @param sbmlRep: the SBML representation (i.e. a reaction tag) describing the reaction to be added
+	* @param forceRegenerate: a boolean value to indicate if the model is regenerated 
+	*					      after this function call
+	*						  default value is true to regenerate model after each call 
+	*                         of editing function
+	*						  to save time for editing for multiple times, one could 
+    *					      set this flag to true only in the last call of editing 
+	*/
+	void addReaction(const std::string& sbmlRep, bool forceRegenerate = true);
+
+
+
+	/*
+	* Add a reaction to the current model
+	* By our default, the reaction is not reversible and not fast.
+	* @param rid: the ID of reaction to be added
+	* @param reactants: the list of reactant ID, double value could be inserted before ID as stoichiometry
+						e.g, [2S1] or [1.5S1]
+	* @param products: the list of product stoichiometry and ID, double value could be inserted before ID as stoichiometry
+						e.g, [2S1] or [1.5S1]
+	* @param kineticLaw: the kinetic formula of reaction to be added
+	* @param forceRegenerate: a boolean value to indicate if the model is regenerated
+	*					      after this function call
+	*						  default value is true to regenerate model after each call
+	*                         of editing function
+	*						  to save time for editing for multiple times, one could
+	*					      set this flag to true only in the last call of editing
+	*/
+	void addReaction(const std::string& rid, std::vector<string> reactants, std::vector<string> products, const std::string& kineticLaw, bool forceRegenerate = true);
+
+	/**
+	 * Remove a reaction from the current model
+	 * @param rid: the ID of the reaction to be removed
+	 * @param forceRegenerate: a boolean value to indicate if the model is regenerated
+	 *					       after this function call
+	 *						   default value is true to regenerate model after each call
+	 *                         of editing function
+	 *						   to save time for editing for multiple times, one could
+	 *					       set this flag to true only in the last call of editing
+	 */
+	void removeReaction(const std::string& rid, bool forceRegenerate = true);
+
+	/*
+	* Set the reversible attribut for an existing reaction in the current model
+	* @param rid: the ID of reaction to be modified
+	* @param reversible: the reversible attribute to be set
+	* @param forceRegenerate: a boolean value to indicate if the model is regenerated
+	*					      after this function call
+	*						  default value is true to regenerate model after each call
+	*                         of editing function
+	*						  to save time for editing for multiple times, one could
+	*					      set this flag to true only in the last call of editing
+	*/
+	void setReversible(const std::string& rid, bool reversible, bool forceRegenerate = true);
+
+
+	/*
+	* Set the kinetic law for an existing reaction in the current model
+	* @param rid: the ID of reaction to be modified
+	* @param kineticLaw: the kinetic formular of reaction
+	* @param forceRegenerate: a boolean value to indicate if the model is regenerated
+	*					      after this function call
+	*						  default value is true to regenerate model after each call
+	*                         of editing function
+	*						  to save time for editing for multiple times, one could
+	*					      set this flag to true only in the last call of editing
+	*/
+	void setKineticLaw(const std::string& rid, const std::string& kineticLaw, bool forceRegenerate = true);
+
+
+	/**
+	 * Add a parameter to the current model
+	 * @param pid: the ID of the parameter to be added
+	 * @param value: the value of the parameter to be added
+	 * @param forceRegenerate: a boolean value to indicate if the model is regenerated
+	 *					       after this function call
+	 *						   default value is true to regenerate model after each call
+	 *                         of editing function
+	 *						   to save time for editing for multiple times, one could
+	 *					       set this flag to true only in the last call of editing
+	 */
+	void addParameter(const std::string& pid, double value, bool forceRegenerate = true);
+
+	/**
+	 * Remove a parameter from the current model
+	 * @param pid: the ID of the parameter to be removed
+	 * @param forceRegenerate: a boolean value to indicate if the model is regenerated
+	 *					       after this function call
+	 *						   default value is true to regenerate model after each call
+	 *                         of editing function
+	 *						   to save time for editing for multiple times, one could
+	 *					       set this flag to true only in the last call of editing
+	 */
+	void removeParameter(const std::string& pid, bool forceRegenerate = true);
+
+
+
+	/**
+	 * Add a compartment to the current model
+	 * @param cid: the ID of the compartment to be added
+	 * @param initVolume: the initial volume of the compartment to be added
+	 * @param forceRegenerate: a boolean value to indicate if the model is regenerated
+	 *					       after this function call
+	 *						   default value is true to regenerate model after each call
+	 *                         of editing function
+	 *						   to save time for editing for multiple times, one could
+	 *					       set this flag to true only in the last call of editing
+	 */
+	void addCompartment(const std::string& cid, double initVolume, bool forceRegenerate = true);
+
+	/**
+	 * Remove a compartment from the current model
+	 * @param cid: the ID of the compartment to be removed
+	 * @param forceRegenerate: a boolean value to indicate if the model is regenerated
+	 *					       after this function call
+	 *						   default value is true to regenerate model after each call
+	 *                         of editing function
+	 *						   to save time for editing for multiple times, one could
+	 *					       set this flag to true only in the last call of editing
+	 */
+	void removeCompartment(const std::string& cid, bool forceRegenerate = true);
+
+
+	/*
+	* Add an assignment rule to the current model
+	* @param vid: ID of variable that the new rule assigns formula to
+	* @param formula: the math formula of assignment rule to be added
+	* @param forceRegenerate: a boolean value to indicate if the model is regenerated
+	*					      after this function call
+	*						  default value is true to regenerate model after each call
+	*                         of editing function
+	*						  to save time for editing for multiple times, one could
+	*					      set this flag to true only in the last call of editing
+	*/
+	void addAssignmentRule(const std::string& vid, const std::string& formula, bool forceRegenerate = true);
+
+
+	/*
+	* Add a rate rule to the current model
+	* @param vid: ID of variable that rules assigns formula to
+	* @param formula: the math formula of rate rule to be added
+	* @param forceRegenerate: a boolean value to indicate if the model is regenerated
+	*					      after this function call
+	*						  default value is true to regenerate model after each call
+	*                         of editing function
+	*						  to save time for editing for multiple times, one could
+	*					      set this flag to true only in the last call of editing
+	*/
+	void addRateRule(const std::string& vid, const std::string& formula, bool forceRegenerate = true);
+
+
+	/**
+	 * Remove rules related to given variable from the current model
+	 * @param vid: ID of variable that rules assign formula to
+	 * @param useInitialValue: a boolean value to indicate whether using initial value as 
+							   current value when the assignment rule of a variable is removed
+							   otherwise, it will keep the value of assignment rule as current value
+	 * @param forceRegenerate: a boolean value to indicate if the model is regenerated
+	 *					       after this function call
+	 *						   default value is true to regenerate model after each call
+	 *                         of editing function
+	 *						   to save time for editing for multiple times, one could
+	 *					       set this flag to true only in the last call of editing
+	 */
+	void removeRules(const std::string& vid, bool useInitialValue = false, bool forceRegenerate = true);
+
+
+	/*
+	* Add an initial assignment to an exsiting symbol of the current model
+	* @param vid: ID of symbol 
+	* @param formula: the math formula of the initial assignment
+	* @param forceRegenerate: a boolean value to indicate if the model is regenerated
+	*					      after this function call
+	*						  default value is true to regenerate model after each call
+	*                         of editing function
+	*						  to save time for editing for multiple times, one could
+	*					      set this flag to true only in the last call of editing
+	*/
+	void addInitialAssignment(const std::string& vid, const std::string& formula, bool forceRegenerate = true);
+
+
+	/**
+	 * Remove initial assignment for a symbol from the current model
+	 * @param vid: ID of the symbol
+	 * @param forceRegenerate: a boolean value to indicate if the model is regenerated
+	 *					       after this function call
+	 *						   default value is true to regenerate model after each call
+	 *                         of editing function
+	 *						   to save time for editing for multiple times, one could
+	 *					       set this flag to true only in the last call of editing
+	 */
+	void removeInitialAssignment(const std::string& vid, bool forceRegenerate = true);
+
+
+	/*
+	* Add an event to the current model
+	* @param eid: the ID of the event to be added
+	* @param useValuesFromTriggerTime: indicate the moment at which the event’s assignments are to be evaluated
+	* @param trigger: the math formula of event trigger
+	* @param forceRegenerate: a boolean value to indicate if the model is regenerated
+	*					      after this function call
+	*						  default value is true to regenerate model after each call
+	*                         of editing function
+	*						  to save time for editing for multiple times, one could
+	*					      set this flag to true only in the last call of editing
+	*/
+	void addEvent(const std::string& eid, bool useValuesFromTriggerTime, const std::string& trigger, bool forceRegenerate = true);
+
+	/*
+	* Add trigger to an existing event in the model
+	* If the given event already has a trigger object, the given trigger will replace the old trigger of the event
+	* By default, the peresistent attribute is false and the initial value attribute is false
+	* @param eid: the ID of the event to add trigger
+	* @param trigger: the math formula of event trigger
+	* @param forceRegenerate: a boolean value to indicate if the model is regenerated
+	*					      after this function call
+	*						  default value is true to regenerate model after each call
+	*                         of editing function
+	*						  to save time for editing for multiple times, one could
+	*					      set this flag to true only in the last call of editing
+	*/
+	void addTrigger(const std::string& eid, const std::string& trigger, bool forceRegenerate = true);
+
+	/*
+	* Set the persistent attribute of the trigger of given event
+	* @param eid: the ID of the event of the trigger
+	* @param persistent: the persistent attribute to be set
+	* @param forceRegenerate: a boolean value to indicate if the model is regenerated
+	*					      after this function call
+	*						  default value is true to regenerate model after each call
+	*                         of editing function
+	*						  to save time for editing for multiple times, one could
+	*					      set this flag to true only in the last call of editing
+	*/
+	void setPersistent(const std::string& eid, bool persistent, bool forceRegenerate = true);
+
+	/*
+	* Set the initial value attribute of the trigger of given event
+	* @param eid: the ID of the event of the trigger
+	* @param initValue: the initial value attribute to be set
+	* @param forceRegenerate: a boolean value to indicate if the model is regenerated
+	*					      after this function call
+	*						  default value is true to regenerate model after each call
+	*                         of editing function
+	*						  to save time for editing for multiple times, one could
+	*					      set this flag to true only in the last call of editing
+	*/
+	void setTriggerInitialValue(const std::string& eid, bool initValue, bool forceRegenerate = true);
+
+	/*
+	* Add priority to an existing event in the model
+	* If the given event already has a priority object, the given priority will replace the old priority of the event
+	* @param eid: the ID of the event to add priority
+	* @param priority: the math formula of event priority
+	* @param forceRegenerate: a boolean value to indicate if the model is regenerated
+	*					      after this function call
+	*						  default value is true to regenerate model after each call
+	*                         of editing function
+	*						  to save time for editing for multiple times, one could
+	*					      set this flag to true only in the last call of editing
+	*/
+	void addPriority(const std::string& eid, const std::string& priority, bool forceRegenerate = true);
+
+	/*
+	* Add delay to an existing event in the model
+	* If the given event already has a delay object, the given delay will replace the old delay of the event
+	* @param eid: the ID of the event to add priority
+	* @param delay: the math formula of event delay
+	* @param forceRegenerate: a boolean value to indicate if the model is regenerated
+	*					      after this function call
+	*						  default value is true to regenerate model after each call
+	*                         of editing function
+	*						  to save time for editing for multiple times, one could
+	*					      set this flag to true only in the last call of editing
+	*/
+	void addDelay(const std::string& eid, const std::string& delay, bool forceRegenerate = true);
+
+
+
+	/*
+	* Add an event assignment to an existing event in the current model
+	* @param eid: the ID of the event to add the assignment
+	* @param vid: the ID of the variable to assign formula
+	* @param fomula: the math formula to assign
+	* @param forceRegenerate: a boolean value to indicate if the model is regenerated
+	*					      after this function call
+	*						  default value is true to regenerate model after each call
+	*                         of editing function
+	*						  to save time for editing for multiple times, one could
+	*					      set this flag to true only in the last call of editing
+	*/
+	void addEventAssignment(const std::string& eid, const std::string& vid, const std::string& formula, bool forceRegenerate = true);
+
+
+	/**
+	 * Remove event assignments for given variable from an existing event
+	 * @param eid: the ID of the event
+	 * @param eid: the ID of the vairable of the event assignments
+	 * @param forceRegenerate: a boolean value to indicate if the model is regenerated
+	 *					       after this function call
+	 *						   default value is true to regenerate model after each call
+	 *                         of editing function
+	 *						   to save time for editing for multiple times, one could
+	 *					       set this flag to true only in the last call of editing
+	 */
+	void removeEventAssignments(const std::string& eid, const std::string& vid, bool forceRegenerate = true);
+
+	/**
+	 * Remove an event from the current model
+	 * @param eid: the ID of the event to be removed
+	 * @param forceRegenerate: a boolean value to indicate if the model is regenerated
+	 *					       after this function call
+	 *						   default value is true to regenerate model after each call
+	 *                         of editing function
+	 *						   to save time for editing for multiple times, one could
+	 *					       set this flag to true only in the last call of editing
+	 */
+	void removeEvent(const std::string& eid, bool forceRegenerate = true);
+
+	/**
+	 * Validate the current SBML
+	 */
+	void validateCurrentSBML();
+
 
     /******************************* Steady State Section *************************/
     #if (1) /**********************************************************************/
@@ -1146,10 +1579,45 @@ private:
      */
     class RoadRunnerImpl* impl;
 
-	void saveSelectionVector(std::ostream&, std::vector<SelectionRecord>&);
-	void loadSelectionVector(std::istream&, std::vector<SelectionRecord>&);
-	const int fileMagicNumber = 0xAD6F52;
-	const int dataVersionNumber = 1;
+    /* 
+    * Check if the id already existed in the model
+    */
+    void checkID(const std::string& functionName, const std::string& sid);
+    
+    /*
+    * Regenerate this RoadRunner instance's ExecutableModel based on the model in its SBMLDocument
+    */
+    void regenerate(bool forceRegenerate, bool reset = false);
+    
+    /*
+    * Parse a string with format stoichiometry + sID and return its stoichiometry value and sID
+    */
+    void parseSpecies(const string& species, double* stoichiometry, char** sid);
+    
+    /*
+    * Remove a variable from the current model.
+    */
+    void removeVariable(const string& sid);
+    
+    /*
+    * check recursively if a ASTnode or any of its child has the given variable
+    */
+    bool hasVariable(const libsbml::ASTNode* node, const string& sid);
+    
+    /*
+    * Get the names of all the species involved in a given AST
+    */
+    void getSpeciesIdsFromAST(const libsbml::ASTNode* node, std::vector<string>& species);
+    void getSpeciesIdsFromAST(const libsbml::ASTNode* node, std::vector<string>& species, std::vector<string>& speciesNames);
+    
+    /*
+    * check and remove all parameter without any assignments
+    */
+    void checkGlobalParameters();
+    void saveSelectionVector(std::ostream&, std::vector<SelectionRecord>&);
+    void loadSelectionVector(std::istream&, std::vector<SelectionRecord>&);
+    const int fileMagicNumber = 0xAD6F52;
+    const int dataVersionNumber = 1;
 };
 
 }

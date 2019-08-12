@@ -18,6 +18,7 @@
 
 # include "rrOSSpecifics.h"
 # include "rrException.h"
+# include "sbml/SBMLDocument.h"
 
 # include <stdint.h>
 # include <string>

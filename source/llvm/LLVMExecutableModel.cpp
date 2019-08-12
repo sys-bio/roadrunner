@@ -14,6 +14,8 @@
 #include "rrException.h"
 #include "LLVMException.h"
 #include "rrStringUtils.h"
+#include "rrRoadRunnerOptions.h"
+#include "LLVMModelGenerator.h"
 #include "rrConfig.h"
 #include <iomanip>
 #include <cstdlib>
@@ -299,9 +301,9 @@ LLVMExecutableModel::LLVMExecutableModel(std::istream& in, uint modelGeneratorOp
     getGlobalParameterInitValuePtr = resources->getGlobalParameterInitValuePtr;
     setGlobalParameterInitValuePtr = resources->setGlobalParameterInitValuePtr;
 
-	pendingEvents.loadState(in, *this);
-	rr::loadBinary(in, eventAssignTimes);
-	rr::loadBinary(in, tieBreakMap);
+    pendingEvents.loadState(in, *this);
+    rr::loadBinary(in, eventAssignTimes);
+    rr::loadBinary(in, tieBreakMap);
 }
 
 LLVMExecutableModel::~LLVMExecutableModel()
@@ -2297,6 +2299,7 @@ void LLVMExecutableModel::saveState(std::ostream& out)
 {
 	LLVMModelData_save(modelData, out);
 	resources->saveState(out);
+	
 	pendingEvents.saveState(out);
 	rr::saveBinary(out, eventAssignTimes);
 	rr::saveBinary(out, tieBreakMap);

@@ -522,6 +522,13 @@ public:
         ALLOW_EVENTS_IN_STEADY_STATE_CALCULATIONS,
 
 
+		/*
+		* Turn on SBML file validation during model regeneration after model editing
+		*	
+		*/
+		VALIDATION_IN_REGENERATION,
+
+
         // add lots of space so not to conflict with other branches.
 
 

@@ -8,8 +8,6 @@
 #include "SBMLValidator.h"
 #include "rrSBMLReader.h"
 
-#include <sbml/SBMLDocument.h>
-
 #include "rrLogger.h"
 
 #include <sstream>

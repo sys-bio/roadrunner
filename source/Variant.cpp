@@ -103,7 +103,7 @@ void Variant::assign(const std::type_info& info, const void* p)
 
     TRY_ASSIGN(uint64_t);
 
-	TRY_ASSIGN(std::vector<double>);
+    TRY_ASSIGN(std::vector<double>);
 
     string msg = "could not assign type ";
     msg += info.name();
@@ -257,7 +257,7 @@ Variant::TypeId Variant::type() const
     TYPE_KIND(char, CHAR);
     TYPE_KIND(unsigned char, UCHAR);
     TYPE_KIND(bool, BOOL);
-	TYPE_KIND(std::vector<double>, DOUBLEVECTOR);
+    TYPE_KIND(std::vector<double>, DOUBLEVECTOR);
 
     if(info == typeid(int)) {
         if(self->size == 4) return INT32;
@@ -311,12 +311,11 @@ void Variant::convert_to(const std::type_info& info, void* p) const
 
         TRY_CONVERT_TO(uint32_t);
 		
-		if (info == typeid(std::vector<double>)) {
-			std::vector<double>* out = static_cast<std::vector<double>*>(p);
-			*out = self->var.extract< std::vector<double> >();
-			return;
-		}
-
+	if (info == typeid(std::vector<double>)) {
+		std::vector<double>* out = static_cast<std::vector<double>*>(p);
+		*out = self->var.extract< std::vector<double> >();
+		return;
+	}
     }
     catch(Poco::SyntaxException& ex)
     {

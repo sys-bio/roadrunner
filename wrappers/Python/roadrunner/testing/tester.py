@@ -1213,6 +1213,173 @@ def unitTestIntegratorSettings(testDir):
 
     print(passMsg (errorFlag))
 
+def addSpecies(rrInstance):
+    words = []
+    words = divide(readLine())
+    print("Add species " + words[0])
+    rrInstance.addSpecies(words[0], words[1], float(words[2]), words[3], bool(words[4]))
+
+
+def addReaction(rrInstance):
+    words = []
+    words = divide(readLine())
+    print("Add reaction " + words[0])
+    reactants = words[1].split(',')
+    products = words[2].split(',')
+    rrInstance.addReaction(words[0], reactants, products, words[3], bool(words[4]))
+
+
+def addParameter(rrInstance):
+    words = []
+    words = divide(readLine())
+    print("Add parameter " + words[0])
+    rrInstance.addParameter(words[0], float(words[1]), bool(words[2]))
+
+def addCompartment(rrInstance):
+    words = []
+    words = divide(readLine())
+    print("Add compartment " + words[0])
+    rrInstance.addCompartment(words[0], float(words[1]), bool(words[2]))
+
+def addAssignmentRule(rrInstance):
+    words = []
+    words = divide(readLine())
+    print("Add assignment rule " + words[0])
+    rrInstance.addAssignmentRule(words[0], words[1], bool(words[2]))
+
+def addRateRule(rrInstance):
+    words = []
+    words = divide(readLine())
+    print("Add rate rule " + words[0])
+    rrInstance.addRateRule(words[0], words[1], bool(words[2]))
+
+def addEvent(rrInstance):
+    words = []
+    words = divide(readLine())
+    print("Add event " + words[0])
+    rrInstance.addEvent(words[0], bool(words[1]), words[2], bool(words[3]))
+
+def addTrigger(rrInstance):
+    words = []
+    words = divide(readLine())
+    print("Add trigger for " + words[0])
+    rrInstance.addTrigger(words[0], words[1], bool(words[2]))
+
+
+def addPriority(rrInstance):
+    words = []
+    words = divide(readLine())
+    print("Add priority for " + words[0])
+    rrInstance.addPriority(words[0], words[1], bool(words[2]))
+
+def addDelay(rrInstance):
+    words = []
+    words = divide(readLine())
+    print("Add delay for " + words[0])
+    rrInstance.addDelay(words[0], words[1], bool(words[2]))
+
+def addEventAssignment(rrInstance):
+    words = []
+    words = divide(readLine())
+    print("Add event assignment for " + words[1])
+    rrInstance.addEventAssignment(words[0], words[1], words[2], bool(words[3]))
+
+
+def removeSpecies(rrInstance):
+    words = []
+    words = divide(readLine())
+    print("Remove species " + words[0])
+    rrInstance.removeSpecies(words[0], bool(words[1]))
+
+def removeReaction(rrInstance):
+    words = []
+    words = divide(readLine())
+    print("Remove reaction " + words[0])
+    rrInstance.removeReaction(words[0], bool(words[1]))
+
+def removeParameter(rrInstance):
+    words = []
+    words = divide(readLine())
+    print("Remove parameter " + words[0])
+    rrInstance.removeParameter(words[0], bool(words[1]))
+
+def removeCompartment(rrInstance):
+    words = []
+    words = divide(readLine())
+    print("Remove compartment " + words[0])
+    rrInstance.removeCompartment(words[0], bool(words[1]))
+
+def removeRules(rrInstance):
+    words = []
+    words = divide(readLine())
+    print("Remove rules for " + words[0])
+    rrInstance.removeRules(words[0], bool(words[1]), bool(words[2]))
+
+def removeEvent(rrInstance):
+    words = []
+    words = divide(readLine())
+    print("Remove event " + words[0])
+    rrInstance.removeEvent(words[0], bool(words[1]))
+
+def removeEventAssignments(rrInstance):
+    words = []
+    words = divide(readLine())
+    print("Remove event assignments for" + words[1])
+    rrInstance.removeEventAssignments(words[0], words[1], bool(words[2]))
+
+def setBoundary(rrInstance):
+    words = []
+    words = divide(readLine())
+    print("Set boundary condition for" + words[0])
+    rrInstance.setBoundary(words[0], bool(words[1]), bool(words[2]))
+
+def setHasOnlySubstanceUnits(rrInstance):
+    words = []
+    words = divide(readLine())
+    print("Set HasOnlySubstanceUnits for" + words[0])
+    rrInstance.setHasOnlySubstanceUnits(words[0], bool(words[1]), bool(words[2]))
+
+def setInitAmount(rrInstance):
+    words = []
+    words = divide(readLine())
+    print("Set initial amount for" + words[0])
+    rrInstance.setInitAmount(words[0], words[1], bool(words[2]))
+
+def setInitConcentration(rrInstance):
+    words = []
+    words = divide(readLine())
+    print("Set initial concentration for" + words[0])
+    rrInstance.setInitConcentration(words[0], words[1], bool(words[2]))
+
+def setConstant(rrInstance):
+    words = []
+    words = divide(readLine())
+    print("Set constant attribute for" + words[0])
+    rrInstance.setConstant(words[0], bool(words[1]), bool(words[2]))
+
+def setReversible(rrInstance):
+    words = []
+    words = divide(readLine())
+    print("Set reversible attribute for" + words[0])
+    rrInstance.setReversible(words[0], bool(words[1]), bool(words[2]))
+
+def setPersistent(rrInstance):
+    words = []
+    words = divide(readLine())
+    print("Set persistent attribute for" + words[0])
+    rrInstance.setPersistent(words[0], bool(words[1]), bool(words[2]))
+
+def setTriggerInitialValue(rrInstance):
+    words = []
+    words = divide(readLine())
+    print("Set TriggerInitialValue attribute for" + words[0])
+    rrInstance.setPersistent(words[0], bool(words[1]), bool(words[2]))
+
+def setKineticLaw(rrInstance):
+    words = []
+    words = divide(readLine())
+    print("Set kinetic law for" + words[0])
+    rrInstance.setKineticLaw(words[0], words[1], bool(words[2]))
 
 def setVectorAmountAbsoluteTolerance(rrInstance, testId):
     errorFlag = False
@@ -1296,7 +1463,18 @@ def scriptTests():
 
 # ------------------------------------------------------------------------
 # List of tests
-functions = {'[Amount/Concentration Jacobians]' : checkJacobian,
+functions = {'[Add Species]' : addSpecies,
+             '[Add Reaction]' : addReaction,
+             '[Add Parameter]' : addParameter,
+             '[Add Compartment]' : addCompartment,
+             '[Add Assignment Rule]' : addAssignmentRule,
+             '[Add Rate Rule]' : addRateRule,
+             '[Add Event]' : addEvent,
+             '[Add Trigger]' : addTrigger,
+             '[Add Priority]' : addPriority,
+             '[Add Delay]' : addDelay,
+             '[Add Event Assignment]' : addEventAssignment,
+             '[Amount/Concentration Jacobians]' : checkJacobian,
              '[Amount Jacobian]' : checkAmountJacobian,
              '[Boundary Species Concentrations]': checkBoundarySpeciesConcentrations,
              '[Boundary Species Ids]': checkGetBoundarySpeciesIds,
@@ -1344,10 +1522,26 @@ functions = {'[Amount/Concentration Jacobians]' : checkJacobian,
              '[Reduced Eigenvalue Matrix]': checkReducedEigenvalueMatrix,
              '[Reduced Jacobian]': checkReducedJacobian,
              '[Reduced Stoichiometry Matrix]': checkReducedStoichiometryMatrix,
+             '[Remove Species]': removeSpecies,
+             '[Remove Reaction]': removeReaction,
+             '[Remove Parameter]': removeParameter,
+             '[Remove Compartment]': removeCompartment,
+             '[Remove Rules]': removeRules,
+             '[Remove Event]': removeEvent,
+             '[Remove Event Assignments]': removeEventAssignments,
              '[Scaled Concentration Control Matrix]': checkScaledConcentrationControlMatrix,
              '[Scaled Elasticity Matrix]': checkScaledElasticityMatrix,
              '[Scaled Elasticity Amount Matrix]': checkScaledElasticityAmountMatrix,
              '[Scaled Flux Control Matrix]': checkScaledFluxControlCoefficientMatrix,
+             '[Set Boundary]': setBoundary,
+             '[Set HasOnlySubstanceUnits]': setHasOnlySubstanceUnits,
+             '[Set Initial Amount]': setInitAmount,
+             '[Set Initial Concentration]': setInitConcentration,
+             '[Set Constant]': setConstant,
+             '[Set Reversible]': setReversible, 
+             '[Set Kinetic Law]': setKineticLaw,
+             '[Set Persistent]': setPersistent,
+             '[Set Trigger Initial Value]': setTriggerInitialValue,
              '[Set Species Initial Concentrations By Index]': checkSetSpeciesInitialConcentrationsByIndex,
              '[Set Species Initial Concentrations]': checkSetSpeciesInitialConcentrations,
              '[Set Steady State Selection List]': checkSetSteadyStateSelectionList,
@@ -1437,6 +1631,18 @@ def runTester (testDir=None):
         # create a RoadRunner obj with the sbml from the test file
         rrInstance = roadrunner.RoadRunner(sbmlStr)
         print('Successfully loaded model.\n')
+
+        # Model editing functions
+        if testId == '[EDITING]':
+            testId = jumpToNextTest ()
+            while testId != '[END_EDITING]':
+                if testId in functions:
+                    func = functions[testId]
+                    func (rrInstance)
+                else:
+                    print('No initialization function found for ' + testId)
+                testId = jumpToNextTest()
+            testId = jumpToNextTest()
 
 
         # Now start the tests proper
