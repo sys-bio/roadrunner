@@ -1,0 +1,81 @@
+[SBML]
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- Created by XMLPrettyPrinter on 11/28/2012 from  -->
+<sbml xmlns = "http://www.sbml.org/sbml/level2/version4" level = "2" version = "4">
+   <model id = "cell">
+      <listOfCompartments>
+         <compartment id = "compartment" size = "0.01"/>
+      </listOfCompartments>
+      <listOfSpecies>
+         <species id = "Xo" boundaryCondition = "false" initialConcentration = "1" compartment = "compartment"/>
+         <species id = "S1" boundaryCondition = "false" initialConcentration = "0.1" compartment = "compartment"/>
+      </listOfSpecies>
+      <listOfParameters>
+         <parameter id = "kk1" value = "1"/>
+         <parameter id = "k1" value = "0.1"/>
+         <parameter id = "k_1" value = "0.05"/>
+         <parameter id = "kk2" value = "1"/>
+         <parameter id = "k2" value = "0.15"/>
+         <parameter id = "k_2" value = "0.067"/>
+         <parameter id = "kk3" value = "1"/>
+         <parameter id = "k3" value = "0.4"/>
+         <parameter id = "k_3" value = "0.09"/>
+         <parameter id = "kk4" value = "1"/>
+         <parameter id = "k4" value = "0.55"/>
+         <parameter id = "k_4" value = "0.01"/>
+      </listOfParameters>
+      <listOfReactions>
+         <reaction id = "J1" reversible = "true">
+            <listOfReactants>
+               <speciesReference species = "Xo" stoichiometry = "1"/>
+            </listOfReactants>
+            <listOfProducts>
+               <speciesReference species = "S1" stoichiometry = "1"/>
+            </listOfProducts>
+            <kineticLaw>
+               <math xmlns = "http://www.w3.org/1998/Math/MathML">
+                  <apply>
+                     <times/>
+                     <ci>
+                           kk1
+                     </ci>
+                     <apply>
+                        <minus/>
+                        <apply>
+                           <times/>
+                           <ci>
+                                 k1
+                           </ci>
+                           <ci>
+                                 Xo
+                           </ci>
+                        </apply>
+                        <apply>
+                           <times/>
+                           <ci>
+                                 k_1
+                           </ci>
+                           <ci>
+                                 S1
+                           </ci>
+                        </apply>
+                     </apply>
+                  </apply>
+               </math>
+            </kineticLaw>
+         </reaction>
+      </listOfReactions>
+   </model>
+</sbml>
+
+[Set Vector Amount Absolute Tolerance]
+0.000000000000001 0.0000000000000001
+0.000000000000001 0.0000000000000001
+
+[Set Scalar Concentration Absolute Tolerance]
+0.0000000000000001
+0.000000000000000001 0.000000000000000001
+
+[Set Vector Concentration Absolute Tolerance]
+0.000000000000001 0.0000000000000001
+0.00000000000000001 0.000000000000000001

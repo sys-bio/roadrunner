@@ -1214,6 +1214,61 @@ def unitTestIntegratorSettings(testDir):
     print(passMsg (errorFlag))
 
 
+def setVectorAmountAbsoluteTolerance(rrInstance, testId):
+    errorFlag = False
+    value = divide(readLine())
+    floatValue = [float(i) for i in value]
+    rrInstance.getIntegrator().setValue('absolute_tolerance', floatValue)
+    tolerance = rrInstance.getIntegrator().getValue("absolute_tolerance")
+    expected = divide(readLine())
+    if not (len(tolerance) == len(expected)):
+        errorFlag = True
+    for i in range(len(expected)):
+        if not (tolerance[i] == float(expected[i])):
+            errorFlag = True
+    print(passMsg (errorFlag))
+
+
+def setScalarConcentrationAbsoluteTolerance(rrInstance, testId):
+    errorFlag = False
+    value = float(readLine())
+    rrInstance.getIntegrator().setConcentrationTolerance(value)
+    tolerance = rrInstance.getIntegrator().getValue("absolute_tolerance")
+    expected = divide(readLine())
+    if not (len(tolerance) == len(expected)):
+        errorFlag = True
+    for i in range(len(expected)):
+        if not (tolerance[i] == float(expected[i])):
+            errorFlag = True
+    print(passMsg (errorFlag))
+
+def setVectorConcentrationAbsoluteTolerance(rrInstance, testId):
+    errorFlag = False
+    value = divide(readLine())
+    floatValue = [float(i) for i in value]
+    rrInstance.getIntegrator().setConcentrationTolerance(floatValue)
+    tolerance = rrInstance.getIntegrator().getValue("absolute_tolerance")
+    expected = divide(readLine())
+    if not (len(tolerance) == len(expected)):
+        errorFlag = True
+    for i in range(len(expected)):
+        if not (tolerance[i] == float(expected[i])):
+            errorFlag = True
+    print(passMsg (errorFlag))
+
+
+def setIndividualTolerance(rrInstance, testId):
+    errorFlag = False
+    value = float(readLine())
+    rrInstance.getIntegrator().setIndividualTolerance(value)
+    tolerance = rrInstance.getIntegrator().getValue("absolute_tolerance")
+    expected = divide(readLine())
+    if not (len(tolerance) == len(expected)):
+        errorFlag = True
+    for i in range(len(expected)):
+        if not (tolerance[i] == float(expected[i])):
+            errorFlag = True
+    print(passMsg (errorFlag))
 
 
 
@@ -1298,6 +1353,10 @@ functions = {'[Amount/Concentration Jacobians]' : checkJacobian,
              '[Set Steady State Selection List]': checkSetSteadyStateSelectionList,
              '[Set Steady State Selection List 2]': checkSetSteadyStateSelectionList,
              '[Set Time Course Selection List]': checkSetTimeCourseSelectionList,
+             '[Set Vector Amount Absolute Tolerance]': setVectorAmountAbsoluteTolerance,
+             '[Set Scalar Concentration Absolute Tolerance]': setScalarConcentrationAbsoluteTolerance,
+             '[Set Vector Concentration Absolute Tolerance]': setVectorConcentrationAbsoluteTolerance,
+             '[Set Individual Tolerance]': setIndividualTolerance,
              '[Species Concentrations]': checkSpeciesConcentrations,
              '[Species Initial Concentration Ids]': checkFloatingSpeciesInitialConcentrationIds,
              '[Steady State Fluxes]': checkSteadyStateFluxes,
@@ -1378,6 +1437,7 @@ def runTester (testDir=None):
         # create a RoadRunner obj with the sbml from the test file
         rrInstance = roadrunner.RoadRunner(sbmlStr)
         print('Successfully loaded model.\n')
+
 
         # Now start the tests proper
         while testId != '':

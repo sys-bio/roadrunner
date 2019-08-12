@@ -1754,7 +1754,68 @@ int rrcCallConv setCurrentIntegratorParameterBoolean (RRHandle handle, char *par
 }
 
 
+int rrcCallConv getCurrentIntegratorParameterDoubleArray(RRHandle handle, char* parameterName, double** value, int* len)
 
+{
+	start_try
+		RoadRunner* rri = castToRoadRunner(handle);
+		stringstream key;
+		key << parameterName;
+		vector<double> v = rri->getIntegrator()->getValueAsDoubleVector(key.str());
+
+		// TODO: potential memory leak?
+		double* ptr = (double*)malloc(v.size() * sizeof(double));
+		for (int i = 0; i < v.size(); i++) {
+			ptr[i] = v[i];
+		}
+		*value = ptr;
+		*len = v.size();
+		return true;
+	catch_int_macro
+}
+
+
+int rrcCallConv setCurrentIntegratorParameterDoubleArray(RRHandle handle, char* parameterName, double* value, int len)
+{
+	start_try
+		RoadRunner* rri = castToRoadRunner(handle);
+		stringstream key;
+		key << parameterName;
+		vector<double> v(value, value + len);
+		rri->getIntegrator()->setValue(key.str(), v);
+		return true;
+	catch_int_macro
+}
+
+int rrcCallConv setCurrentIntegratorScalarConcentrationTolerance(RRHandle handle, double value)
+{
+	start_try
+		RoadRunner* rri = castToRoadRunner(handle);
+		rri->getIntegrator()->setConcentrationTolerance(value);
+		return true;
+	catch_int_macro
+}
+
+int rrcCallConv setCurrentIntegratorVectorConcentrationTolerance(RRHandle handle, double* value, int len)
+{
+	start_try
+		RoadRunner* rri = castToRoadRunner(handle);
+		vector<double> v(value, value + len);
+		rri->getIntegrator()->setConcentrationTolerance(v);
+		return true;
+	catch_int_macro
+}
+
+int rrcCallConv setCurrentIntegratorIndividualTolerance(RRHandle handle, char* sid, double value)
+{
+	start_try
+		RoadRunner* rri = castToRoadRunner(handle);
+		stringstream key;
+		key << sid;
+		rri->getIntegrator()->setIndividualTolerance(key.str(), value);
+		return true;
+	catch_int_macro
+}
 
 // ----------------------------------------------------------------------
 // Replacement methods for supporting solver configuration

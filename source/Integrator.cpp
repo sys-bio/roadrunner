@@ -62,7 +62,19 @@ namespace rr
         return ss.str();
     }
 
+	
     void Integrator::tweakTolerances() {}
+	
+	// since vector tolerance is only used in CVODEIntegrator
+	// the functions below will not be implemented here
+	void Integrator::setIndividualTolerance(string sid, double value) {}
+
+	void Integrator::setConcentrationTolerance(const Variant& value) {}
+
+	std::vector<double> Integrator::getConcentrationTolerance() {
+		vector<double> v;
+		return v;
+	}
 
     IntegratorRegistrar::~IntegratorRegistrar() {}
 

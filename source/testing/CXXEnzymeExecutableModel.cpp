@@ -263,6 +263,11 @@ int CXXEnzymeExecutableModel::getNumCompartments()
     return 0;
 }
 
+int CXXEnzymeExecutableModel::getCompartmentIndexForFloatingSpecies(int index)
+{
+	return 0;
+}
+
 int CXXEnzymeExecutableModel::getCompartmentIndex(const std::string& eid)
 {
     return 0;

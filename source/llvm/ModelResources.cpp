@@ -46,7 +46,8 @@ ModelResources::~ModelResources()
         Log(Logger::LOG_WARNING) << "Non-empty LLVM ExecutionEngine error string: " << *errStr;
     }
 
-//    delete symbols;
+    // delete symbols;
+
     // the exe engine owns all the functions
     delete executionEngine;
     delete context;

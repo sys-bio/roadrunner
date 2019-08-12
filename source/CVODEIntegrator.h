@@ -132,11 +132,34 @@ namespace rr
          */
         void setValue(std::string setting, const Variant& value);
 
+
+		/**
+		 * @author FY
+		 * @brief Sets tolerance for individual species
+		 */
+		void setIndividualTolerance(string sid, double value);
+
+		/**
+		 * @author FY
+		 * @brief Sets tolerance based on concentration of species
+		 * @details First converts the concentration tolerances to amount tolerances
+		 * by multiplying the compartment volume of species. Whichever is smaller
+		 * will be stored as absolute_tolerance and used in the integration process.
+		 */
+		void setConcentrationTolerance(const Variant& value);
+
+		/**
+		 * @author FY
+		 * @brief Gets tolerance based on concentration of species
+		 */
+		std::vector<double> getConcentrationTolerance();
+
         /**
         * @author JKM
         * @brief Reset all integrator settings to their respective default values
         */
         void resetSettings();
+
 
         /**
          * @author JKM, WBC, ETS, MTK
@@ -147,6 +170,7 @@ namespace rr
          * Config::CVODE_MIN_ABSOLUTE and Config::CVODE_MIN_RELATIVE resp.
          */
         void tweakTolerances();
+
 
         // ** Integration Routines *********************************************
 
@@ -183,6 +207,25 @@ namespace rr
          * @brief Does a RT type check which throws if it fails, EVEN IF RTTI IS DISABLED
          */
         void checkType() const;
+
+
+		/**
+		* @author FY
+		* @brief Does a size check which throws if it fails
+		*/
+		void checkVectorSize(int expected, int real) const;
+
+		/**
+		* @author FY
+		* @brief Does a index check which throws if it is out of bound
+		*/
+		void checkIndex(int index, int size) const;
+
+		/**
+		* @author FY
+		* @brief Converts integer to string for error print
+		*/
+		std::string ToString(int val) const;
 
         /**
          * @brief decode the cvode error code to a string

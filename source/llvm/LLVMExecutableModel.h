@@ -122,6 +122,7 @@ public:
     virtual int getNumGlobalParameters();
 
     virtual int getNumCompartments();
+	virtual int getCompartmentIndexForFloatingSpecies(int index);
 
     /**
      * get the global parameter values

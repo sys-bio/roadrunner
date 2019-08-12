@@ -377,6 +377,7 @@ public:
     /******************************************************************************/
 
     virtual int getNumCompartments() = 0;
+	virtual int getCompartmentIndexForFloatingSpecies(int index) = 0;
     virtual int getCompartmentIndex(const std::string& eid) = 0;
     virtual std::string getCompartmentId(int index) = 0;
 
