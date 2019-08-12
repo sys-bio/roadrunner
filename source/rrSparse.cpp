@@ -19,6 +19,7 @@
 #include <cmath>
 #include <cstdio>
 #include <limits>
+#include "rrStringUtils.h"
 
 #if defined(_WIN32) || defined(__WIN32__)
 #define isnan _isnan
@@ -241,9 +242,9 @@ void csr_matrix_fill_dense(const csr_matrix *A, double *dense)
 
 void csr_matrix_dump_binary(const csr_matrix *x, std::ostream& out) 
 {
-	out.write((char*)&(x->m), sizeof x->m);
-	out.write((char*)&(x->n), sizeof x->n);
-	out.write((char*)&(x->nnz), sizeof x->nnz);
+	rr::saveBinary(out, x->m);
+	rr::saveBinary(out, x->n);
+	rr::saveBinary(out, x->nnz);
 	out.write((char*)(x->values), x->nnz * sizeof(double));
 	out.write((char*)(x->colidx), x->nnz * sizeof(unsigned));
 	out.write((char*)(x->rowptr), (x->m + 1) * sizeof(unsigned));
@@ -252,9 +253,9 @@ void csr_matrix_dump_binary(const csr_matrix *x, std::ostream& out)
 csr_matrix* csr_matrix_new_from_binary(std::istream& in) 
 {
 	csr_matrix* x = (csr_matrix*)malloc(sizeof(csr_matrix));
-	in.read((char*)&(x->m), sizeof x->m);
-	in.read((char*)&(x->n), sizeof x->n);
-	in.read((char*)&(x->nnz), sizeof x->nnz);
+	rr::loadBinary(in, x->m);
+	rr::loadBinary(in, x->n);
+	rr::loadBinary(in, x->nnz);
 
 	x->values = (double*)malloc(x->nnz * sizeof(double));
 	in.read((char*)(x->values), x->nnz * sizeof(double));
