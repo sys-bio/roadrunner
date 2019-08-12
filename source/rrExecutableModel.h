@@ -744,10 +744,6 @@ public:
 		out << "Saving state not implemented for this model type";
 	}
 	
-	virtual bool loadSaveState(std::istream& in) {
-		return false;
-	}
-
     friend class RoadRunner;
 
 protected:
