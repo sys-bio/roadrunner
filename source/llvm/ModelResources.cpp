@@ -219,7 +219,7 @@ void ModelResources::loadState(std::istream& in, uint modelGeneratorOpt)
 	
 	llvm::object::OwningBinary<llvm::object::ObjectFile> owningObject(std::move(objectFile), std::move(memBuffer));
 
-	//Not sure why, but engineBuilder.create() crashes if not initialized with an empty module
+	//Not sure why, but engineBuilder.create() crashes here if not initialized with an empty module
 	auto emptyModule = std::unique_ptr<llvm::Module>(new llvm::Module("Module test", *context));
 	llvm::EngineBuilder engineBuilder(std::move(emptyModule));
 
@@ -228,13 +228,12 @@ void ModelResources::loadState(std::istream& in, uint modelGeneratorOpt)
 	engineBuilder.setErrorStr(&engineBuilderErrStr)
 		.setMCJITMemoryManager(std::unique_ptr<llvm::SectionMemoryManager>(new llvm::SectionMemoryManager()));
 	
-	//We have to call these functions before calling engineBuilder.create()
+	//We have to call this function before calling engineBuilder.create()
     llvm::InitializeNativeTarget();
-	llvm::InitializeNativeTargetAsmPrinter();
 
 	executionEngine = engineBuilder.create();
 	
-	//Add mappings to the functions that aren't saved as LLVM IR (like sin, cos etc.)
+	//Add mappings to the functions that aren't saved in the object file (like sin, cos, factorial)
 	addGlobalMappings();
 
 	//Add the object file we loaded to the execution engine

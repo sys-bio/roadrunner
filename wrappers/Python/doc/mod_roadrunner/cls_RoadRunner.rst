@@ -68,12 +68,12 @@ _________________________
 .. method:: RoadRunner.saveState(document, option = 'b')
    :module: RoadRunner
 
-   Saves the current state of simulation, e.g. integrator, steady state solver, simulation results,
+   Saves the current state of the RoadRunner instance, e.g. integrator, steady state solver, simulation results,
    given a string for file path.
-   If no option is given or the option is 'b', the state will be stored in the binary form, which
-   could be quickly reloaded and resume to simulate later.
-   It the option is 'r', the state will be stored in the human-readable form, which could be used
-   for debugging.
+   If no option is given or the option is 'b', the state will be stored in a binary format which
+   can be quickly reloaded for later simulation.
+   It the option is 'r', the state will be stored in a human-readable format which can be used
+   for debugging, but cannot be reloaded later.
    
    Some examples of saving binary files on Mac or Linux::
    
@@ -86,7 +86,7 @@ _________________________
        >>> r.saveState("current_state.txt")                        # save the state to a file from the current directory
        >>> r.saveState("file://localhost/c:/Users/Fred/current_state.txt")   # using a URI
 
-   One may also save the human-readable contents:
+   One may also save in a human-readable format:
 
        >>> r.saveState("current_state.txt", 'r')
        
@@ -104,7 +104,7 @@ _________________________
 .. method:: RoadRunner.loadState(document)
    :module: RoadRunner
 
-   Loads the saved state of simulation, e.g. integrator, steady state solver, simulation results,
+   Loads the saved state of a RoadRunner instance, e.g. integrator, steady state solver, simulation results,
    given a string for file path.
    All simulation calls after this function will start from the resumed state.
    
