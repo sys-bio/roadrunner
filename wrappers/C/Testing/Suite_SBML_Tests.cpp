@@ -1153,6 +1153,771 @@ TEST(1185) { CHECK(RunTest("l3v1", 1185 )); }
  * Tests 1186 -> 1196 use the FBC extension.
  * They are included in the SBML_TEST_SUITE_FBC set, below.
  */
+
+ /*
+ * Tests 1197 -> 1218 are 3.2.0 tests
+ */
+
+//// ???
+////TEST(1197) { CHECK(RunTest("l3v1", 1197)); }
+////TEST(1198) { CHECK(RunTest("l3v1", 1198)); } //temp
+//
+//// Piecewise
+////TEST(1199) { CHECK(RunTest("l3v1", 1199)); }
+////TEST(1200) { CHECK(RunTest("l3v1", 1200)); }
+////TEST(1201) { CHECK(RunTest("l3v1", 1201)); }
+////TEST(1202) { CHECK(RunTest("l3v1", 1202)); }
+////TEST(1203) { CHECK(RunTest("l3v1", 1203)); }
+////TEST(1204) { CHECK(RunTest("l3v1", 1204)); }
+//
+//// Variable-size compartments
+////TEST(1205) { CHECK(RunTest("l3v1", 1205)); }
+////TEST(1206) { CHECK(RunTest("l3v1", 1206)); }
+////TEST(1207) { CHECK(RunTest("l3v1", 1207)); }
+////TEST(1208) { CHECK(RunTest("l3v1", 1208)); } //temp
+//
+//// MathML relational operators
+////TEST(1209) { CHECK(RunTest("l3v1", 1209)); } //pass
+////TEST(1210) { CHECK(RunTest("l3v1", 1210)); } //pass
+////TEST(1211) { CHECK(RunTest("l3v1", 1211)); } //pass
+//TEST(1212) { CHECK(RunTest("l3v1", 1212)); }
+//TEST(1213) { CHECK(RunTest("l3v1", 1213)); }
+////TEST(1214) { CHECK(RunTest("l3v1", 1214)); } //pass
+////TEST(1215) { CHECK(RunTest("l3v1", 1215)); } //pass
+//TEST(1216) { CHECK(RunTest("l3v1", 1216)); }
+//
+////Interdependent initial assignments and assignment rules
+////TEST(1217) { CHECK(RunTest("l3v1", 1217)); }
+////TEST(1218) { CHECK(RunTest("l3v1", 1218)); }
+//
+///*
+//* Tests 1219 -> 1778 are 3.3.0 tests
+//*/
+//// compartment sizes other than 1
+////TEST(1219) { CHECK(RunTest("l3v2", 1219)); }
+////TEST(1220) { CHECK(RunTest("l3v2", 1220)); }
+////TEST(1221) { CHECK(RunTest("l3v2", 1221)); }
+////TEST(1222) { CHECK(RunTest("l3v2", 1222)); }
+////TEST(1223) { CHECK(RunTest("l3v2", 1223)); }
+//
+//// reaction identifier in the MathML
+////TEST(1224) { CHECK(RunTest("l3v2", 1224)); }
+////TEST(1225) { CHECK(RunTest("l3v2", 1225)); }
+////TEST(1226) { CHECK(RunTest("l3v2", 1226)); }
+////TEST(1227) { CHECK(RunTest("l3v2", 1227)); }
+////TEST(1228) { CHECK(RunTest("l3v2", 1228)); }
+////TEST(1229) { CHECK(RunTest("l3v2", 1229)); }
+////TEST(1230) { CHECK(RunTest("l3v2", 1230)); }
+////TEST(1231) { CHECK(RunTest("l3v2", 1231)); }
+////TEST(1232) { CHECK(RunTest("l3v2", 1232)); }
+////TEST(1233) { CHECK(RunTest("l3v2", 1233)); }
+//
+//// elements without child elements
+//TEST(1234) { CHECK(RunTest("l3v2", 1234)); }
+//TEST(1235) { CHECK(RunTest("l3v2", 1235)); }
+//TEST(1236) { CHECK(RunTest("l3v2", 1236)); }
+//TEST(1237) { CHECK(RunTest("l3v2", 1237)); }
+////TEST(1238) { CHECK(RunTest("l3v2", 1238)); } //temp
+////TEST(1239) { CHECK(RunTest("l3v2", 1239)); } //temp
+////TEST(1240) { CHECK(RunTest("l3v2", 1240)); } //pass
+//TEST(1241) { CHECK(RunTest("l3v2", 1241)); }
+//TEST(1242) { CHECK(RunTest("l3v2", 1242)); }
+//TEST(1243) { CHECK(RunTest("l3v2", 1243)); }
+////TEST(1244) { CHECK(RunTest("l3v2", 1244)); } //pass
+////TEST(1245) { CHECK(RunTest("l3v2", 1245)); } //pass
+////TEST(1246) { CHECK(RunTest("l3v2", 1246)); } //pass
+////TEST(1247) { CHECK(RunTest("l3v2", 1247)); } //pass
+//
+//// rateOf
+//TEST(1248) { CHECK(RunTest("l3v2", 1248)); }
+//TEST(1249) { CHECK(RunTest("l3v2", 1249)); }
+//TEST(1250) { CHECK(RunTest("l3v2", 1250)); }
+//TEST(1251) { CHECK(RunTest("l3v2", 1251)); }
+//TEST(1252) { CHECK(RunTest("l3v2", 1252)); }
+//TEST(1253) { CHECK(RunTest("l3v2", 1253)); }
+//TEST(1254) { CHECK(RunTest("l3v2", 1254)); }
+//TEST(1255) { CHECK(RunTest("l3v2", 1255)); }
+//TEST(1256) { CHECK(RunTest("l3v2", 1256)); }
+////TEST(1257) { CHECK(RunTest("l3v2", 1257)); } //temp
+//TEST(1258) { CHECK(RunTest("l3v2", 1258)); }
+//TEST(1259) { CHECK(RunTest("l3v2", 1259)); }
+//TEST(1260) { CHECK(RunTest("l3v2", 1260)); }
+//TEST(1261) { CHECK(RunTest("l3v2", 1261)); }
+//TEST(1262) { CHECK(RunTest("l3v2", 1262)); }
+//TEST(1263) { CHECK(RunTest("l3v2", 1263)); }
+//TEST(1264) { CHECK(RunTest("l3v2", 1264)); }
+//TEST(1265) { CHECK(RunTest("l3v2", 1265)); }
+//TEST(1266) { CHECK(RunTest("l3v2", 1266)); }
+//TEST(1267) { CHECK(RunTest("l3v2", 1267)); }
+////TEST(1268) { CHECK(RunTest("l3v2", 1268)); } //temp
+//TEST(1269) { CHECK(RunTest("l3v2", 1269)); }
+//TEST(1270) { CHECK(RunTest("l3v2", 1270)); }
+//
+//// elements without child elements
+////TEST(1271) { CHECK(RunTest("l3v2", 1271)); } //pass
+//
+////max, min, rem, quotient, and implies
+//TEST(1272) { CHECK(RunTest("l3v2", 1272)); }
+//TEST(1273) { CHECK(RunTest("l3v2", 1273)); }
+//TEST(1274) { CHECK(RunTest("l3v2", 1274)); }
+//TEST(1275) { CHECK(RunTest("l3v2", 1275)); }
+//TEST(1276) { CHECK(RunTest("l3v2", 1276)); }
+//TEST(1277) { CHECK(RunTest("l3v2", 1277)); }
+//TEST(1278) { CHECK(RunTest("l3v2", 1278)); }
+//TEST(1279) { CHECK(RunTest("l3v2", 1279)); }
+//TEST(1280) { CHECK(RunTest("l3v2", 1280)); }
+//TEST(1281) { CHECK(RunTest("l3v2", 1281)); }
+//
+//// Boolean values in numeric contexts
+//TEST(1282) { CHECK(RunTest("l3v2", 1282)); }
+//TEST(1283) { CHECK(RunTest("l3v2", 1283)); }
+//TEST(1284) { CHECK(RunTest("l3v2", 1284)); }
+//TEST(1285) { CHECK(RunTest("l3v2", 1285)); }
+//TEST(1286) { CHECK(RunTest("l3v2", 1286)); }
+//TEST(1287) { CHECK(RunTest("l3v2", 1287)); }
+//TEST(1288) { CHECK(RunTest("l3v2", 1288)); }
+//TEST(1289) { CHECK(RunTest("l3v2", 1289)); }
+//TEST(1290) { CHECK(RunTest("l3v2", 1290)); }
+//TEST(1291) { CHECK(RunTest("l3v2", 1291)); }
+//TEST(1292) { CHECK(RunTest("l3v2", 1292)); }
+//
+////rateOf
+////TEST(1293) { CHECK(RunTest("l3v2", 1293)); } //temp
+//TEST(1294) { CHECK(RunTest("l3v2", 1294)); }
+//TEST(1295) { CHECK(RunTest("l3v2", 1295)); }
+//TEST(1296) { CHECK(RunTest("l3v2", 1296)); }
+//TEST(1297) { CHECK(RunTest("l3v2", 1297)); }
+//TEST(1298) { CHECK(RunTest("l3v2", 1298)); }
+////TEST(1299) { CHECK(RunTest("l3v2", 1299)); } //temp
+//
+//// reaction identifier in the MathML and elements without child elements
+////TEST(1300) { CHECK(RunTest("l3v2", 1300)); }
+////TEST(1301) { CHECK(RunTest("l3v2", 1301)); }
+////TEST(1302) { CHECK(RunTest("l3v2", 1302)); }
+////TEST(1303) { CHECK(RunTest("l3v2", 1303)); }
+////TEST(1304) { CHECK(RunTest("l3v2", 1304)); }
+////TEST(1305) { CHECK(RunTest("l3v2", 1305)); }
+////TEST(1306) { CHECK(RunTest("l3v2", 1306)); }
+//
+//// species in the model is used as an amount
+////TEST(1307) { CHECK(RunTest("l3v2", 1307)); }
+////TEST(1308) { CHECK(RunTest("l3v2", 1308)); }
+////TEST(1309) { CHECK(RunTest("l3v2", 1309)); }
+//
+//// compartment with a spatialDimensions value of 2.7
+////TEST(1310) { CHECK(RunTest("l3v2", 1310)); }
+//
+//// nested function definitions
+////TEST(1311) { CHECK(RunTest("l3v2", 1311)); }
+////TEST(1312) { CHECK(RunTest("l3v2", 1312)); }
+////TEST(1313) { CHECK(RunTest("l3v2", 1313)); }
+////TEST(1314) { CHECK(RunTest("l3v2", 1314)); }
+////TEST(1315) { CHECK(RunTest("l3v2", 1315)); }
+//
+//// csymbols with names that shadow other parameters or functions
+////TEST(1316) { CHECK(RunTest("l3v2", 1316)); } //pass
+////TEST(1317) { CHECK(RunTest("l3v2", 1317)); } //pass
+//TEST(1318) { CHECK(RunTest("l3v2", 1318)); }
+//TEST(1319) { CHECK(RunTest("l3v2", 1319)); }
+//TEST(1320) { CHECK(RunTest("l3v2", 1320)); }
+//TEST(1321) { CHECK(RunTest("l3v2", 1321)); }
+//TEST(1322) { CHECK(RunTest("l3v2", 1322)); }
+//
+//// proper value of Avogadro's constant
+////TEST(1323) { CHECK(RunTest("l3v2", 1323)); }
+//
+////various event semantics
+////TEST(1324) { CHECK(RunTest("l3v2", 1324)); }
+////TEST(1325) { CHECK(RunTest("l3v2", 1325)); }
+////TEST(1326) { CHECK(RunTest("l3v2", 1326)); }
+////TEST(1327) { CHECK(RunTest("l3v2", 1327)); }
+////TEST(1328) { CHECK(RunTest("l3v2", 1328)); }
+////TEST(1329) { CHECK(RunTest("l3v2", 1329)); }
+////TEST(1330) { CHECK(RunTest("l3v2", 1330)); }
+////TEST(1331) { CHECK(RunTest("l3v2", 1331)); }
+////TEST(1332) { CHECK(RunTest("l3v2", 1332)); }
+//TEST(1333) { CHECK(RunTest("l3v2", 1333)); }
+////TEST(1334) { CHECK(RunTest("l3v2", 1334)); }
+////TEST(1335) { CHECK(RunTest("l3v2", 1335)); }
+////TEST(1336) { CHECK(RunTest("l3v2", 1336)); }
+////TEST(1337) { CHECK(RunTest("l3v2", 1337)); }
+////TEST(1338) { CHECK(RunTest("l3v2", 1338)); }
+//
+////rate changes between being negative and being positive
+////TEST(1339) { CHECK(RunTest("l3v2", 1339)); }
+////TEST(1340) { CHECK(RunTest("l3v2", 1340)); }
+//
+////existence of a compartment, species, and nothing else
+////TEST(1341) { CHECK(RunTest("l3v2", 1341)); }
+////TEST(1342) { CHECK(RunTest("l3v2", 1342)); }
+//
+////tanh 
+////TEST(1343) { CHECK(RunTest("l3v2", 1343)); }
+//
+////hierarchical models
+////TEST(1344) { CHECK(RunTest("l3v2", 1344)); }
+////TEST(1345) { CHECK(RunTest("l3v2", 1345)); }
+////TEST(1346) { CHECK(RunTest("l3v2", 1346)); }
+////TEST(1347) { CHECK(RunTest("l3v2", 1347)); }
+////TEST(1348) { CHECK(RunTest("l3v2", 1348)); }
+////TEST(1349) { CHECK(RunTest("l3v2", 1349)); }
+//////TEST(1350) { CHECK(RunTest("l3v2", 1350)); } // AlgebraicRule
+////TEST(1351) { CHECK(RunTest("l3v2", 1351)); }
+////TEST(1352) { CHECK(RunTest("l3v2", 1352)); }
+////TEST(1353) { CHECK(RunTest("l3v2", 1353)); }
+////TEST(1354) { CHECK(RunTest("l3v2", 1354)); }
+////TEST(1355) { CHECK(RunTest("l3v2", 1355)); }
+////TEST(1356) { CHECK(RunTest("l3v2", 1356)); }
+////TEST(1357) { CHECK(RunTest("l3v2", 1357)); }
+////TEST(1358) { CHECK(RunTest("l3v2", 1358)); }
+//////TEST(1359) { CHECK(RunTest("l3v2", 1359)); } // AlgebraicRule
+////TEST(1360) { CHECK(RunTest("l3v2", 1360)); }
+////TEST(1361) { CHECK(RunTest("l3v2", 1361)); }
+////TEST(1362) { CHECK(RunTest("l3v2", 1362)); }
+////TEST(1363) { CHECK(RunTest("l3v2", 1363)); }
+////TEST(1364) { CHECK(RunTest("l3v2", 1364)); }
+////TEST(1365) { CHECK(RunTest("l3v2", 1365)); }
+////TEST(1366) { CHECK(RunTest("l3v2", 1366)); }
+////TEST(1367) { CHECK(RunTest("l3v2", 1367)); }
+//////TEST(1368) { CHECK(RunTest("l3v2", 1368)); } // AlgebraicRule
+////TEST(1369) { CHECK(RunTest("l3v2", 1369)); }
+////TEST(1370) { CHECK(RunTest("l3v2", 1370)); }
+////TEST(1371) { CHECK(RunTest("l3v2", 1371)); }
+////TEST(1372) { CHECK(RunTest("l3v2", 1372)); }
+////TEST(1373) { CHECK(RunTest("l3v2", 1373)); }
+////TEST(1374) { CHECK(RunTest("l3v2", 1374)); }
+////TEST(1375) { CHECK(RunTest("l3v2", 1375)); }
+////TEST(1376) { CHECK(RunTest("l3v2", 1376)); }
+//////TEST(1377) { CHECK(RunTest("l3v2", 1377)); } // AlgebraicRule
+////TEST(1378) { CHECK(RunTest("l3v2", 1378)); }
+////TEST(1379) { CHECK(RunTest("l3v2", 1379)); }
+////TEST(1380) { CHECK(RunTest("l3v2", 1380)); }
+////TEST(1381) { CHECK(RunTest("l3v2", 1381)); }
+////TEST(1382) { CHECK(RunTest("l3v2", 1382)); }
+////TEST(1383) { CHECK(RunTest("l3v2", 1383)); }
+////TEST(1384) { CHECK(RunTest("l3v2", 1384)); }
+////TEST(1385) { CHECK(RunTest("l3v2", 1385)); }
+//////TEST(1386) { CHECK(RunTest("l3v2", 1386)); } // AlgebraicRule
+////TEST(1387) { CHECK(RunTest("l3v2", 1387)); }
+////TEST(1388) { CHECK(RunTest("l3v2", 1388)); }
+////TEST(1389) { CHECK(RunTest("l3v2", 1389)); }
+////TEST(1390) { CHECK(RunTest("l3v2", 1390)); }
+////TEST(1391) { CHECK(RunTest("l3v2", 1391)); }
+////TEST(1392) { CHECK(RunTest("l3v2", 1392)); }
+////TEST(1393) { CHECK(RunTest("l3v2", 1393)); }
+////TEST(1394) { CHECK(RunTest("l3v2", 1394)); }
+//
+////huge model
+////TEST(1395) { CHECK(RunTest("l3v2", 1395)); }
+//
+////combinations of fast reactions
+//////TEST(1396) { CHECK(RunTest("l3v1", 1396)); } // FastReaction
+//////TEST(1397) { CHECK(RunTest("l2v4", 1397)); } // FastReaction
+//////TEST(1398) { CHECK(RunTest("l3v1", 1398)); } // FastReaction
+//////TEST(1399) { CHECK(RunTest("l3v1", 1399)); } // FastReaction
+//
+////rateOf and delay csymbols
+//////TEST(1400) { CHECK(RunTest("l3v2", 1400)); } // CSymbolDelay
+//////TEST(1401) { CHECK(RunTest("l3v2", 1401)); } // CSymbolDelay
+//////TEST(1402) { CHECK(RunTest("l3v2", 1402)); } // CSymbolDelay
+//////TEST(1403) { CHECK(RunTest("l3v2", 1403)); } // CSymbolDelay
+//////TEST(1404) { CHECK(RunTest("l3v2", 1404)); } // CSymbolDelay
+//////TEST(1405) { CHECK(RunTest("l3v2", 1405)); } // CSymbolDelay
+//////TEST(1406) { CHECK(RunTest("l3v2", 1406)); } // CSymbolDelay
+//////TEST(1407) { CHECK(RunTest("l3v2", 1407)); } // CSymbolDelay
+//////TEST(1408) { CHECK(RunTest("l3v2", 1408)); } // CSymbolDelay
+//////TEST(1409) { CHECK(RunTest("l3v2", 1409)); } // CSymbolDelay
+//////TEST(1410) { CHECK(RunTest("l3v2", 1410)); } // CSymbolDelay
+//////TEST(1411) { CHECK(RunTest("l3v2", 1411)); } // CSymbolDelay
+//////TEST(1412) { CHECK(RunTest("l3v2", 1412)); } // CSymbolDelay
+//////TEST(1413) { CHECK(RunTest("l3v2", 1413)); } // CSymbolDelay
+//////TEST(1414) { CHECK(RunTest("l3v2", 1414)); } // CSymbolDelay
+//////TEST(1415) { CHECK(RunTest("l3v2", 1415)); } // CSymbolDelay
+//////TEST(1416) { CHECK(RunTest("l3v2", 1416)); } // CSymbolDelay
+//////TEST(1417) { CHECK(RunTest("l3v2", 1417)); } // CSymbolDelay
+//////TEST(1418) { CHECK(RunTest("l3v2", 1418)); } // CSymbolDelay
+//////TEST(1419) { CHECK(RunTest("l3v2", 1419)); } // CSymbolDelay
+//
+////single reactions that have multiple speciesReferences
+////TEST(1420) { CHECK(RunTest("l3v2", 1420)); }
+////TEST(1421) { CHECK(RunTest("l3v2", 1421)); }
+////TEST(1422) { CHECK(RunTest("l3v2", 1422)); }
+////TEST(1423) { CHECK(RunTest("l3v2", 1423)); }
+////TEST(1424) { CHECK(RunTest("l3v2", 1424)); }
+////TEST(1425) { CHECK(RunTest("l3v2", 1425)); }
+////TEST(1426) { CHECK(RunTest("l3v2", 1426)); }
+////TEST(1427) { CHECK(RunTest("l3v2", 1427)); }
+////TEST(1428) { CHECK(RunTest("l3v2", 1428)); }
+////TEST(1429) { CHECK(RunTest("l3v2", 1429)); }
+////TEST(1430) { CHECK(RunTest("l3v2", 1430)); }
+////TEST(1431) { CHECK(RunTest("l3v2", 1431)); }
+////TEST(1432) { CHECK(RunTest("l3v2", 1432)); }
+////TEST(1433) { CHECK(RunTest("l3v2", 1433)); }
+////TEST(1434) { CHECK(RunTest("l3v2", 1434)); }
+////TEST(1435) { CHECK(RunTest("l2v4", 1435)); }
+////TEST(1436) { CHECK(RunTest("l3v2", 1436)); }
+////TEST(1437) { CHECK(RunTest("l2v4", 1437)); }
+////TEST(1438) { CHECK(RunTest("l3v2", 1438)); }
+////TEST(1439) { CHECK(RunTest("l2v4", 1439)); }
+////TEST(1440) { CHECK(RunTest("l3v2", 1440)); }
+////TEST(1441) { CHECK(RunTest("l2v4", 1441)); }
+////TEST(1442) { CHECK(RunTest("l3v2", 1442)); }
+////TEST(1443) { CHECK(RunTest("l2v4", 1443)); }
+//TEST(1444) { CHECK(RunTest("l3v2", 1444)); }
+//TEST(1445) { CHECK(RunTest("l3v2", 1445)); }
+//TEST(1446) { CHECK(RunTest("l3v2", 1446)); }
+//TEST(1447) { CHECK(RunTest("l3v2", 1447)); }
+//TEST(1448) { CHECK(RunTest("l3v2", 1448)); }
+////TEST(1449) { CHECK(RunTest("l3v2", 1449)); } - temp
+////TEST(1450) { CHECK(RunTest("l3v2", 1450)); } - temp
+////TEST(1451) { CHECK(RunTest("l3v2", 1451)); } - temp
+////TEST(1452) { CHECK(RunTest("l3v2", 1452)); } - temp
+////TEST(1453) { CHECK(RunTest("l3v2", 1453)); } - temp
+//
+////delay csymbol and the VolumeConcentrationRates
+//////TEST(1454) { CHECK(RunTest("l3v2", 1454)); }  // CSymbolDelay
+//
+////rateOf csymbol with compartments having volumes other than 1
+//TEST(1455) { CHECK(RunTest("l3v2", 1455)); }
+//TEST(1456) { CHECK(RunTest("l3v2", 1456)); }
+//TEST(1457) { CHECK(RunTest("l3v2", 1457)); }
+//TEST(1458) { CHECK(RunTest("l3v2", 1458)); }
+//TEST(1459) { CHECK(RunTest("l3v2", 1459)); }
+//TEST(1460) { CHECK(RunTest("l3v2", 1460)); }
+//
+////rateOf csymbol that points to a parameter
+//TEST(1461) { CHECK(RunTest("l3v2", 1461)); }
+//
+////rateOf csymbol with VolumeConcentrationRates
+//TEST(1462) { CHECK(RunTest("l3v2", 1462)); }
+//TEST(1463) { CHECK(RunTest("l3v2", 1463)); }
+//
+////assigned stoichiometries with no MathML
+//TEST(1464) { CHECK(RunTest("l3v2", 1464)); }
+//TEST(1465) { CHECK(RunTest("l3v2", 1465)); }
+//
+////random event execution at time = 0
+////TEST(1466) { CHECK(RunTest("l3v2", 1466)); }
+//
+////conversion factors separated by submodel indirection
+////TEST(1467) { CHECK(RunTest("l3v2", 1467)); }
+////TEST(1468) { CHECK(RunTest("l3v2", 1468)); }
+////TEST(1469) { CHECK(RunTest("l3v2", 1469)); }
+////TEST(1470) { CHECK(RunTest("l3v2", 1470)); }
+//
+////combinations of comp elements, including external model definitions, conversion factors, and the replacedBy construct
+////TEST(1471) { CHECK(RunTest("l3v2", 1471)); }
+////TEST(1472) { CHECK(RunTest("l3v2", 1472)); }
+////TEST(1473) { CHECK(RunTest("l3v2", 1473)); }
+////TEST(1474) { CHECK(RunTest("l3v2", 1474)); }
+////TEST(1475) { CHECK(RunTest("l3v2", 1475)); }
+////TEST(1476) { CHECK(RunTest("l3v2", 1476)); }
+////TEST(1477) { CHECK(RunTest("l3v2", 1477)); }
+//
+////volume concentration rates with a function definition
+////TEST(1478) { CHECK(RunTest("l3v2", 1478)); } - temp
+//
+////csymbol avogadro
+//TEST(1479) { CHECK(RunTest("l3v2", 1479)); }
+//
+////stoichiometry math with the delay csymbol
+//////TEST(1480) { CHECK(RunTest("l3v2", 1480)); } // CSymbolDelay
+//////TEST(1481) { CHECK(RunTest("l2v4", 1481)); } // CSymbolDelay
+//
+////rateOf csymbol in an algebraic rule
+//////TEST(1482) { CHECK(RunTest("l3v2", 1482)); } // AlgebraicRule
+//////TEST(1483) { CHECK(RunTest("l3v2", 1483)); } // AlgebraicRule
+//////TEST(1484) { CHECK(RunTest("l3v2", 1484)); } // AlgebraicRule
+//
+////combinations of uncommon MathML
+////TEST(1485) { CHECK(RunTest("l3v2", 1485)); } - temp
+////TEST(1486) { CHECK(RunTest("l3v2", 1486)); } - temp
+////TEST(1487) { CHECK(RunTest("l3v2", 1487)); } - temp
+////TEST(1488) { CHECK(RunTest("l3v2", 1488)); } - temp
+////TEST(1489) { CHECK(RunTest("l3v2", 1489)); } - temp
+////TEST(1490) { CHECK(RunTest("l3v2", 1490)); } - temp
+////TEST(1491) { CHECK(RunTest("l3v2", 1491)); } - temp
+////TEST(1492) { CHECK(RunTest("l3v2", 1492)); } - temp
+////TEST(1493) { CHECK(RunTest("l3v2", 1493)); } - temp
+////TEST(1494) { CHECK(RunTest("l3v2", 1494)); } - temp
+////TEST(1495) { CHECK(RunTest("l3v2", 1495)); } - temp
+////TEST(1496) { CHECK(RunTest("l3v2", 1496)); } - temp
+////TEST(1497) { CHECK(RunTest("l3v2", 1497)); } - temp
+//
+////combination of species references in MathML with volume concentration rates
+////TEST(1498) { CHECK(RunTest("l3v2", 1498)); } - temp
+//
+////algebraic rules with conversion factors and uncommon MathML
+//////TEST(1499) { CHECK(RunTest("l3v2", 1499)); } // AlgebraicRule
+//////TEST(1500) { CHECK(RunTest("l3v2", 1500)); } // AlgebraicRule
+//////TEST(1501) { CHECK(RunTest("l3v2", 1501)); } // AlgebraicRule
+//////TEST(1502) { CHECK(RunTest("l3v2", 1502)); } // AlgebraicRule
+//////TEST(1503) { CHECK(RunTest("l3v2", 1503)); } // AlgebraicRule
+//
+////volume concentration rates in concert with events of various types
+////TEST(1504) { CHECK(RunTest("l3v2", 1504)); } - temp
+////TEST(1505) { CHECK(RunTest("l3v2", 1505)); } - temp
+////TEST(1506) { CHECK(RunTest("l3v2", 1506)); } - temp
+////TEST(1507) { CHECK(RunTest("l3v2", 1507)); } - temp
+////TEST(1508) { CHECK(RunTest("l3v2", 1508)); } - temp
+////TEST(1509) { CHECK(RunTest("l3v2", 1509)); } - temp
+////TEST(1510) { CHECK(RunTest("l3v2", 1510)); } - temp
+////TEST(1511) { CHECK(RunTest("l3v2", 1511)); } - temp
+////TEST(1512) { CHECK(RunTest("l3v2", 1512)); } - temp
+//
+////volume concentration rates in concert with initial assignments
+////TEST(1513) { CHECK(RunTest("l3v2", 1513)); } - temp
+////TEST(1514) { CHECK(RunTest("l3v2", 1514)); } - temp
+//
+////uncommon MathML in rate rules and with assigned stoichiometries
+////TEST(1515) { CHECK(RunTest("l3v2", 1515)); } - temp
+////TEST(1516) { CHECK(RunTest("l3v2", 1516)); } - temp
+////TEST(1517) { CHECK(RunTest("l2v4", 1517)); } - temp
+//
+////csymbol delay with various types of events
+//////TEST(1518) { CHECK(RunTest("l3v2", 1518)); } // CSymbolDelay
+//////TEST(1519) { CHECK(RunTest("l3v2", 1519)); } // CSymbolDelay
+//////TEST(1520) { CHECK(RunTest("l3v2", 1520)); } // CSymbolDelay
+//////TEST(1521) { CHECK(RunTest("l3v2", 1521)); } // CSymbolDelay
+//////TEST(1522) { CHECK(RunTest("l3v2", 1522)); } // CSymbolDelay
+//////TEST(1523) { CHECK(RunTest("l3v2", 1523)); } // CSymbolDelay
+//////TEST(1524) { CHECK(RunTest("l3v2", 1524)); } // CSymbolDelay
+//
+////rateOf csymbol with various types of events
+////TEST(1525) { CHECK(RunTest("l3v2", 1525)); } - temp
+////TEST(1526) { CHECK(RunTest("l3v2", 1526)); } - temp
+////TEST(1527) { CHECK(RunTest("l3v2", 1527)); } - temp
+////TEST(1528) { CHECK(RunTest("l3v2", 1528)); } - temp
+////TEST(1529) { CHECK(RunTest("l3v2", 1529)); } - temp
+//
+////uncommon MathML in event triggers, assignments, priorities, and delays
+////TEST(1530) { CHECK(RunTest("l3v2", 1530)); }
+////TEST(1531) { CHECK(RunTest("l3v2", 1531)); }
+////TEST(1532) { CHECK(RunTest("l3v2", 1532)); }
+////TEST(1533) { CHECK(RunTest("l3v2", 1533)); }
+//
+////csymbol delay when assigning to stoichiometries, with boundary species, and with fast reactions
+//////TEST(1534) { CHECK(RunTest("l3v2", 1534)); } // CSymbolDelay
+//////TEST(1535) { CHECK(RunTest("l3v2", 1535)); } // CSymbolDelay
+//////TEST(1536) { CHECK(RunTest("l3v2", 1536)); } // CSymbolDelay
+//////TEST(1537) { CHECK(RunTest("l3v2", 1537)); } // CSymbolDelay
+//////TEST(1538) { CHECK(RunTest("l3v2", 1538)); } // CSymbolDelay
+//////TEST(1539) { CHECK(RunTest("l3v1", 1539)); } // CSymbolDelay
+//
+////rateOf csymbol with boundary species and with assigned stoichiometries
+//TEST(1540) { CHECK(RunTest("l3v2", 1540)); }
+//TEST(1541) { CHECK(RunTest("l3v2", 1541)); }
+//TEST(1542) { CHECK(RunTest("l3v2", 1542)); }
+//TEST(1543) { CHECK(RunTest("l3v2", 1543)); }
+//
+////conversion factors in reactions that have a fast attribute value of true
+//TEST(1544) { CHECK(RunTest("l3v1", 1544)); }
+//TEST(1545) { CHECK(RunTest("l3v1", 1545)); }
+//TEST(1546) { CHECK(RunTest("l3v1", 1546)); }
+//
+////reactions that have fast="true" with function definitions having various kinetic laws
+//TEST(1547) { CHECK(RunTest("l3v1", 1547)); }
+//TEST(1548) { CHECK(RunTest("l3v1", 1548)); }
+//TEST(1549) { CHECK(RunTest("l3v1", 1549)); }
+//TEST(1550) { CHECK(RunTest("l3v1", 1550)); }
+//TEST(1551) { CHECK(RunTest("l3v1", 1551)); }
+//
+////assigning to stoichiometries, but with missing MathML
+//TEST(1552) { CHECK(RunTest("l3v2", 1552)); }
+//TEST(1553) { CHECK(RunTest("l3v2", 1553)); }
+//TEST(1554) { CHECK(RunTest("l3v2", 1554)); }
+//
+////assigning to boundary species, but with missing MathML
+////TEST(1555) { CHECK(RunTest("l3v2", 1555)); } - temp
+////TEST(1556) { CHECK(RunTest("l3v2", 1556)); } - temp
+////TEST(1557) { CHECK(RunTest("l3v2", 1557)); } - temp
+//
+////referencing a species reference from a fast reaction
+//////TEST(1558) { CHECK(RunTest("l3v1", 1558)); } // FastReaction
+//////TEST(1559) { CHECK(RunTest("l3v1", 1559)); } // FastReaction
+//////TEST(1560) { CHECK(RunTest("l3v1", 1560)); } // FastReaction
+//
+////uncommon MathML used to assign to stoichiometries
+////TEST(1561) { CHECK(RunTest("l3v2", 1561)); }
+////TEST(1562) { CHECK(RunTest("l2v4", 1562)); }
+////TEST(1563) { CHECK(RunTest("l3v2", 1563)); }
+//
+////uncommon MathML used to assign to kinetic laws of normal and fast reactions
+//TEST(1564) { CHECK(RunTest("l3v2", 1564)); }
+//////TEST(1565) { CHECK(RunTest("l3v1", 1565)); } // FastReaction
+//
+////uncommon MathML that use a species reference
+////TEST(1566) { CHECK(RunTest("l3v2", 1566)); }
+//
+////fast reactions with algebraic rules, assignment rules, rate rules, and initial assignments
+//////TEST(1567) { CHECK(RunTest("l3v1", 1567)); } // FastReaction // AlgebraicRule
+//////TEST(1568) { CHECK(RunTest("l3v1", 1568)); } // FastReaction
+//////TEST(1569) { CHECK(RunTest("l3v1", 1569)); } // FastReaction
+//////TEST(1570) { CHECK(RunTest("l3v1", 1570)); } // FastReaction
+//
+////fast reactions with assigned stoichiometries
+//////TEST(1571) { CHECK(RunTest("l3v1", 1571)); } // FastReaction
+//////TEST(1572) { CHECK(RunTest("l3v1", 1572)); } // FastReaction
+//
+////assigned stoichiometries for boundary species
+////TEST(1573) { CHECK(RunTest("l2v4", 1573)); }
+////TEST(1574) { CHECK(RunTest("l3v2", 1574)); } - temp
+//
+////algebraic rules with various types of events and event elements
+//////TEST(1575) { CHECK(RunTest("l3v2", 1575)); } // AlgebraicRule
+//////TEST(1576) { CHECK(RunTest("l3v2", 1576)); } // AlgebraicRule
+//////TEST(1577) { CHECK(RunTest("l3v2", 1577)); } // AlgebraicRule
+//////TEST(1578) { CHECK(RunTest("l3v2", 1578)); } // AlgebraicRule
+//////TEST(1579) { CHECK(RunTest("l3v2", 1579)); } // AlgebraicRule
+//
+////assigned stoichiometries in the context of various types of events
+////TEST(1580) { CHECK(RunTest("l3v2", 1580)); }
+////TEST(1581) { CHECK(RunTest("l2v4", 1581)); }
+////TEST(1582) { CHECK(RunTest("l3v2", 1582)); }
+////TEST(1583) { CHECK(RunTest("l3v2", 1583)); }
+////TEST(1584) { CHECK(RunTest("l3v2", 1584)); }
+////TEST(1585) { CHECK(RunTest("l2v4", 1585)); }
+////TEST(1586) { CHECK(RunTest("l3v2", 1586)); }
+////TEST(1587) { CHECK(RunTest("l2v4", 1587)); }
+//
+////random events with initial assignments, algebraic rules, rate rules, delayed events, and the csymbol delay
+////TEST(1588) { CHECK(RunTest("l3v2", 1588)); }
+//////TEST(1589) { CHECK(RunTest("l3v2", 1589)); } // AlgebraicRule
+////TEST(1590) { CHECK(RunTest("l3v2", 1590)); }
+////TEST(1591) { CHECK(RunTest("l3v2", 1591)); }
+//////TEST(1592) { CHECK(RunTest("l3v2", 1592)); } // CSymbolDelay
+//////TEST(1593) { CHECK(RunTest("l3v2", 1593)); } // CSymbolDelay
+//
+////uncommon MathML in various types of events
+////TEST(1594) { CHECK(RunTest("l3v2", 1594)); }
+////TEST(1595) { CHECK(RunTest("l3v2", 1595)); }
+////TEST(1596) { CHECK(RunTest("l3v2", 1596)); }
+////TEST(1597) { CHECK(RunTest("l3v2", 1597)); }
+////TEST(1598) { CHECK(RunTest("l3v2", 1598)); }
+////TEST(1599) { CHECK(RunTest("l3v2", 1599)); }
+//
+////missing MathML in delayed events
+//TEST(1600) { CHECK(RunTest("l3v2", 1600)); }
+//TEST(1601) { CHECK(RunTest("l3v2", 1601)); }
+//TEST(1602) { CHECK(RunTest("l3v2", 1602)); }
+//TEST(1603) { CHECK(RunTest("l3v2", 1603)); }
+//
+////time csymbol in a delayed event assignment
+//// TEST(1604) { CHECK(RunTest("l3v2", 1604)); }
+//
+////random events with additional event assignments with no MathML
+//TEST(1605) { CHECK(RunTest("l3v2", 1605)); }
+//
+////random events with stoichiometries and volume-concentration rates
+//TEST(1626) { CHECK(RunTest("l3v2", 1626)); }
+////TEST(1627) { CHECK(RunTest("l3v2", 1627)); } - temp
+//
+////multiple reactions with assigned stoichiometries affect the same species
+////TEST(1631) { CHECK(RunTest("l3v2", 1631)); }
+////TEST(1632) { CHECK(RunTest("l2v4", 1632)); }
+////TEST(1633) { CHECK(RunTest("l3v2", 1633)); }
+////TEST(1634) { CHECK(RunTest("l2v4", 1634)); }
+//
+////assigning variable stoichiometries to boundary species
+////TEST(1635) { CHECK(RunTest("l3v2", 1635)); }
+////TEST(1636) { CHECK(RunTest("l3v2", 1636)); }
+//
+////variable stoichiometry with the same ID as a local parameter
+////TEST(1637) { CHECK(RunTest("l3v1", 1637)); }
+//
+////boundary species and local parameter ID shadowing
+////TEST(1638) { CHECK(RunTest("l3v1", 1638)); }
+////TEST(1639) { CHECK(RunTest("l3v1", 1639)); }
+////TEST(1640) { CHECK(RunTest("l3v1", 1640)); }
+//
+////avogadro and time with the name of the other csymbol
+////TEST(1641) { CHECK(RunTest("l3v2", 1641)); }
+//
+////conversion factors with function definitions, substance-only species, local parameters, and species references
+////TEST(1642) { CHECK(RunTest("l3v2", 1642)); }
+////TEST(1643) { CHECK(RunTest("l3v2", 1643)); }
+////TEST(1644) { CHECK(RunTest("l3v2", 1644)); }
+////TEST(1645) { CHECK(RunTest("l3v2", 1645)); }
+////TEST(1646) { CHECK(RunTest("l3v2", 1646)); }
+////TEST(1647) { CHECK(RunTest("l3v2", 1647)); }
+////TEST(1648) { CHECK(RunTest("l3v2", 1648)); }
+////TEST(1649) { CHECK(RunTest("l3v2", 1649)); }
+////TEST(1650) { CHECK(RunTest("l3v2", 1650)); }
+////TEST(1651) { CHECK(RunTest("l3v2", 1651)); }
+////TEST(1652) { CHECK(RunTest("l3v2", 1652)); }
+////TEST(1653) { CHECK(RunTest("l3v2", 1653)); }
+//
+////calling a function definition with a species reference
+////TEST(1654) { CHECK(RunTest("l3v2", 1654)); }
+//
+////species reference to a substance-only species
+////TEST(1655) { CHECK(RunTest("l3v2", 1655)); }
+//
+////local parameters that shadow species reference IDs, in various MathML contexts
+////TEST(1656) { CHECK(RunTest("l3v1", 1656)); }
+//
+////species reference with an empty assignment rule
+//TEST(1657) { CHECK(RunTest("l3v2", 1657)); }
+//
+////csymbol avogadro in various event elements and a rate rule
+////TEST(1658) { CHECK(RunTest("l3v2", 1658)); }
+////TEST(1659) { CHECK(RunTest("l3v2", 1659)); }
+////TEST(1660) { CHECK(RunTest("l3v2", 1660)); }
+////TEST(1661) { CHECK(RunTest("l3v2", 1661)); }
+////TEST(1662) { CHECK(RunTest("l3v2", 1662)); }
+////TEST(1663) { CHECK(RunTest("l3v2", 1663)); }
+////TEST(1664) { CHECK(RunTest("l3v2", 1664)); }
+////TEST(1665) { CHECK(RunTest("l3v2", 1665)); }
+//
+////conversion factors are set for species only affected by rate rules
+////TEST(1666) { CHECK(RunTest("l3v2", 1666)); }
+////TEST(1667) { CHECK(RunTest("l3v2", 1667)); }
+////TEST(1668) { CHECK(RunTest("l3v2", 1668)); }
+//
+////conversion factors for species also affected by or used in events
+////TEST(1669) { CHECK(RunTest("l3v2", 1669)); }
+////TEST(1670) { CHECK(RunTest("l3v2", 1670)); }
+////TEST(1671) { CHECK(RunTest("l3v2", 1671)); }
+////TEST(1672) { CHECK(RunTest("l3v2", 1672)); }
+////TEST(1673) { CHECK(RunTest("l3v2", 1673)); }
+////TEST(1674) { CHECK(RunTest("l3v2", 1674)); }
+////TEST(1675) { CHECK(RunTest("l3v2", 1675)); }
+////TEST(1676) { CHECK(RunTest("l3v2", 1676)); }
+////TEST(1677) { CHECK(RunTest("l3v2", 1677)); }
+////TEST(1678) { CHECK(RunTest("l3v2", 1678)); }
+////TEST(1679) { CHECK(RunTest("l3v2", 1679)); }
+////TEST(1680) { CHECK(RunTest("l3v2", 1680)); }
+////TEST(1681) { CHECK(RunTest("l3v2", 1681)); }
+////TEST(1682) { CHECK(RunTest("l3v2", 1682)); }
+////TEST(1683) { CHECK(RunTest("l3v2", 1683)); }
+////TEST(1684) { CHECK(RunTest("l3v2", 1684)); }
+////TEST(1685) { CHECK(RunTest("l3v2", 1685)); }
+////TEST(1686) { CHECK(RunTest("l3v2", 1686)); }
+////TEST(1687) { CHECK(RunTest("l3v2", 1687)); }
+////TEST(1688) { CHECK(RunTest("l3v2", 1688)); }
+////TEST(1689) { CHECK(RunTest("l3v2", 1689)); }
+////TEST(1690) { CHECK(RunTest("l3v2", 1690)); }
+////TEST(1691) { CHECK(RunTest("l3v2", 1691)); }
+////TEST(1692) { CHECK(RunTest("l3v2", 1692)); }
+//
+////function definitions and various events, including ones that fire at t0, and those affected by assignment-time or trigger-time settings
+////TEST(1693) { CHECK(RunTest("l3v2", 1693)); }
+////TEST(1694) { CHECK(RunTest("l3v2", 1694)); }
+////TEST(1695) { CHECK(RunTest("l3v2", 1695)); }
+//TEST(1696) { CHECK(RunTest("l3v2", 1696)); }
+//TEST(1697) { CHECK(RunTest("l3v2", 1697)); }
+//TEST(1698) { CHECK(RunTest("l3v2", 1698)); }
+//TEST(1699) { CHECK(RunTest("l3v2", 1699)); }
+////TEST(1700) { CHECK(RunTest("l3v2", 1700)); }
+////TEST(1701) { CHECK(RunTest("l3v2", 1701)); }
+////TEST(1702) { CHECK(RunTest("l3v2", 1702)); }
+//
+////substance-only species together with various types of events
+////TEST(1703) { CHECK(RunTest("l3v2", 1703)); }
+////TEST(1704) { CHECK(RunTest("l3v2", 1704)); }
+////TEST(1705) { CHECK(RunTest("l3v2", 1705)); }
+////TEST(1706) { CHECK(RunTest("l3v2", 1706)); }
+////TEST(1707) { CHECK(RunTest("l3v2", 1707)); }
+////TEST(1708) { CHECK(RunTest("l3v2", 1708)); }
+////TEST(1709) { CHECK(RunTest("l3v2", 1709)); }
+//
+////local parameters shadowing global parameters that are used in various event constructs, and for different types of events
+////TEST(1710) { CHECK(RunTest("l3v2", 1710)); }
+////TEST(1711) { CHECK(RunTest("l3v2", 1711)); }
+////TEST(1712) { CHECK(RunTest("l3v2", 1712)); }
+////TEST(1713) { CHECK(RunTest("l3v2", 1713)); }
+////TEST(1714) { CHECK(RunTest("l3v2", 1714)); }
+////TEST(1715) { CHECK(RunTest("l3v2", 1715)); }
+////TEST(1716) { CHECK(RunTest("l3v2", 1716)); }
+//
+////referencing stoichiometries in various types of events
+////TEST(1717) { CHECK(RunTest("l3v2", 1717)); }
+////TEST(1718) { CHECK(RunTest("l3v2", 1718)); }
+////TEST(1719) { CHECK(RunTest("l3v2", 1719)); }
+////TEST(1720) { CHECK(RunTest("l3v2", 1720)); }
+////TEST(1721) { CHECK(RunTest("l3v2", 1721)); }
+//
+////avogadro with assigned stoichiometries
+////TEST(1722) { CHECK(RunTest("l3v2", 1722)); }
+////TEST(1723) { CHECK(RunTest("l3v2", 1723)); }
+//
+////conversion factors, assigned stoichiometries, and boundary conditions in different combinations
+////TEST(1724) { CHECK(RunTest("l3v2", 1724)); }
+////TEST(1725) { CHECK(RunTest("l3v2", 1725)); }
+////TEST(1726) { CHECK(RunTest("l3v2", 1726)); }
+////TEST(1727) { CHECK(RunTest("l3v2", 1727)); }
+////TEST(1728) { CHECK(RunTest("l3v2", 1728)); }
+////TEST(1729) { CHECK(RunTest("l3v2", 1729)); }
+////TEST(1730) { CHECK(RunTest("l3v2", 1730)); }
+////TEST(1731) { CHECK(RunTest("l3v2", 1731)); }
+////TEST(1732) { CHECK(RunTest("l3v2", 1732)); }
+////TEST(1733) { CHECK(RunTest("l3v2", 1733)); }
+////TEST(1734) { CHECK(RunTest("l3v2", 1734)); }
+////TEST(1735) { CHECK(RunTest("l3v2", 1735)); }
+////TEST(1736) { CHECK(RunTest("l3v2", 1736)); }
+////TEST(1737) { CHECK(RunTest("l3v2", 1737)); }
+////TEST(1738) { CHECK(RunTest("l3v2", 1738)); }
+//
+////conversion factors and local parameters
+////TEST(1739) { CHECK(RunTest("l3v2", 1739)); }
+////TEST(1740) { CHECK(RunTest("l3v2", 1740)); }
+////TEST(1741) { CHECK(RunTest("l3v2", 1741)); }
+//
+////stoichiometries assigned with function definitions
+////TEST(1742) { CHECK(RunTest("l3v2", 1742)); }
+////TEST(1743) { CHECK(RunTest("l2v4", 1743)); }
+////TEST(1744) { CHECK(RunTest("l3v2", 1744)); }
+////TEST(1745) { CHECK(RunTest("l2v4", 1745)); }
+//
+////substance-only species in reactions with set stoichiometries
+////TEST(1746) { CHECK(RunTest("l3v2", 1746)); }
+////TEST(1747) { CHECK(RunTest("l2v4", 1747)); }
+////TEST(1748) { CHECK(RunTest("l3v2", 1748)); }
+////TEST(1749) { CHECK(RunTest("l2v4", 1749)); }
+//
+////local parameters shadowing variable stoichiometries and boundary species
+////TEST(1750) { CHECK(RunTest("l3v1", 1750)); }
+////TEST(1751) { CHECK(RunTest("l2v4", 1751)); }
+////TEST(1752) { CHECK(RunTest("l3v1", 1752)); }
+////TEST(1753) { CHECK(RunTest("l3v1", 1753)); }
+//
+////initial assignments with various types of events, especially those that fire at time = 0
+////TEST(1754) { CHECK(RunTest("l3v2", 1754)); }
+////TEST(1755) { CHECK(RunTest("l3v2", 1755)); }
+////TEST(1756) { CHECK(RunTest("l3v2", 1756)); }
+//TEST(1757) { CHECK(RunTest("l3v2", 1757)); }
+//
+//// delayed events that trigger themselves
+////TEST(1758) { CHECK(RunTest("l3v2", 1758)); }
+////TEST(1759) { CHECK(RunTest("l3v2", 1759)); }
+//
+////potential conflict between the avogadro csymbol with parameters and local parameters named avogadro
+////TEST(1760) { CHECK(RunTest("l3v2", 1760)); }
+////TEST(1761) { CHECK(RunTest("l3v2", 1761)); }
+////TEST(1762) { CHECK(RunTest("l3v2", 1762)); }
+////TEST(1763) { CHECK(RunTest("l3v2", 1763)); }
+//
+////local parameters that shadow species reference IDs, in various MathML contexts
+////TEST(1764) { CHECK(RunTest("l3v1", 1764)); }
+////TEST(1765) { CHECK(RunTest("l3v1", 1765)); }
+////TEST(1766) { CHECK(RunTest("l3v2", 1766)); }
+////TEST(1767) { CHECK(RunTest("l3v2", 1767)); }
+////TEST(1768) { CHECK(RunTest("l3v2", 1768)); }
+////TEST(1769) { CHECK(RunTest("l3v2", 1769)); }
+////TEST(1770) { CHECK(RunTest("l3v2", 1770)); }
+////TEST(1771) { CHECK(RunTest("l3v2", 1771)); }
+////TEST(1772) { CHECK(RunTest("l3v2", 1772)); }
+////TEST(1773) { CHECK(RunTest("l3v2", 1773)); }
+////TEST(1774) { CHECK(RunTest("l3v2", 1774)); }
+//
+////avogadro to set conversion factor values
+////TEST(1775) { CHECK(RunTest("l3v2", 1775)); }
+////TEST(1776) { CHECK(RunTest("l3v2", 1776)); }
+////TEST(1777) { CHECK(RunTest("l3v2", 1777)); }
+//
+////combinations of comp elements, including external model definitions, conversion factors, and the replacedBy construct
+////TEST(1778) { CHECK(RunTest("l3v2", 1778)); }
+
 }
 
 
@@ -1664,4 +2429,40 @@ TEST(1193) { CHECK(RunTest("l3v1", 1193 )); } // FBC
 TEST(1194) { CHECK(RunTest("l3v1", 1194 )); } // FBC
 TEST(1195) { CHECK(RunTest("l3v1", 1195 )); } // FBC
 TEST(1196) { CHECK(RunTest("l3v1", 1196 )); } // FBC
+
+/*
+* SBML test suite 3.3.0
+*/
+
+//FBC v2 versions of the previously-added FBC v1 tests
+//TEST(1606) { CHECK(RunTest("l3v2", 1606)); }
+//TEST(1607) { CHECK(RunTest("l3v2", 1607)); }
+//TEST(1608) { CHECK(RunTest("l3v2", 1608)); }
+//TEST(1609) { CHECK(RunTest("l3v2", 1609)); }
+//TEST(1610) { CHECK(RunTest("l3v2", 1610)); }
+//TEST(1611) { CHECK(RunTest("l3v2", 1611)); }
+//TEST(1612) { CHECK(RunTest("l3v2", 1612)); }
+//TEST(1613) { CHECK(RunTest("l3v2", 1613)); }
+//TEST(1614) { CHECK(RunTest("l3v2", 1614)); }
+//TEST(1615) { CHECK(RunTest("l3v2", 1615)); }
+//TEST(1616) { CHECK(RunTest("l3v2", 1616)); }
+//
+////FBC v2 non-strict tests with assigned constant bounds and stoichiometries
+//TEST(1617) { CHECK(RunTest("l3v2", 1617)); }
+//TEST(1618) { CHECK(RunTest("l3v2", 1618)); }
+//TEST(1619) { CHECK(RunTest("l3v2", 1619)); }
+//TEST(1620) { CHECK(RunTest("l3v2", 1620)); }
+//TEST(1621) { CHECK(RunTest("l3v2", 1621)); }
+//TEST(1622) { CHECK(RunTest("l3v2", 1622)); }
+//TEST(1623) { CHECK(RunTest("l3v2", 1623)); }
+//
+////FBC minimization where one reaction has a fixed value (both v1 and v2)
+//TEST(1624) { CHECK(RunTest("l3v2", 1624)); }
+//TEST(1625) { CHECK(RunTest("l3v2", 1625)); }
+//
+////FBC initial assignments and assignment rules with no MathML
+//TEST(1628) { CHECK(RunTest("l3v2", 1628)); }
+//TEST(1629) { CHECK(RunTest("l3v2", 1629)); }
+//TEST(1630) { CHECK(RunTest("l3v2", 1630)); }
+
 }

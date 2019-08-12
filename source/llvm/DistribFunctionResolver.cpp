@@ -43,7 +43,7 @@ llvm::Value* DistribFunctionResolver::loadSymbolValue(
     // pointer to random field.
     llvm::Value *randomPtr = mdbuilder.createRandomLoad();
 
-    if (args.size() != 2)
+    if (args.size() > 2)
     {
         throw_llvm_exception("invalid number of args");
     }
@@ -53,7 +53,7 @@ llvm::Value* DistribFunctionResolver::loadSymbolValue(
 
     // const UncertMLNode *uml = distrib->getUncertML();
 
-    if (distrib->getName() == "uniformDistribution")
+    if (funcDef->getId() == "uniform")
     {
         llvm::Value *funcArgs[] = {randomPtr, args[0], args[1]};
 
@@ -64,7 +64,7 @@ llvm::Value* DistribFunctionResolver::loadSymbolValue(
         return builder.CreateCall(func, funcArgs, "call_rr_distrib_uniform");
     }
 
-    else if (distrib->getName() == "normalDistribution")
+    else if (funcDef->getId() == "normal")
     {
         llvm::Value *funcArgs[] = {randomPtr, args[0], args[1]};
 
@@ -75,9 +75,42 @@ llvm::Value* DistribFunctionResolver::loadSymbolValue(
         return builder.CreateCall(func, funcArgs, "call_rr_normal_uniform");
     }
 
+    else if (funcDef->getId() == "poisson")
+    {
+        llvm::Value *funcArgs[] = {randomPtr, args[0]};
+
+        llvm::Value *func = module->getFunction("rr_distrib_poisson");
+
+        assert(func && "could not get rr_distrib_poisson");
+
+        return builder.CreateCall(func, funcArgs, "call_rr_distrib_poisson");
+    }
+
+    else if (funcDef->getId() == "exponential")
+    {
+        llvm::Value *funcArgs[] = {randomPtr, args[0]};
+
+        llvm::Value *func = module->getFunction("rr_distrib_exponential");
+
+        assert(func && "could not get rr_distrib_exponential");
+
+        return builder.CreateCall(func, funcArgs, "call_rr_distrib_exponential");
+    }
+
+    else if (funcDef->getId() == "lognormal")
+    {
+        llvm::Value *funcArgs[] = {randomPtr, args[0], args[1]};
+
+        llvm::Value *func = module->getFunction("rr_distrib_lognormal");
+
+        assert(func && "could not get rr_distrib_lognormal");
+
+        return builder.CreateCall(func, funcArgs, "call_rr_distrib_lognormal");
+    }
+
     else
     {
-        string name = distrib->getName();
+        string name = funcDef->getId();
         throw_llvm_exception("Unsupported distribution: " + name);
     }
 }

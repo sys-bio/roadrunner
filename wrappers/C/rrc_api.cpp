@@ -60,6 +60,7 @@
 #include "SteadyStateSolver.h"
 #include "Dictionary.h"
 #include "rrConfig.h"
+#include <ctime>
 
 
 #if defined(_MSC_VER)
@@ -480,6 +481,24 @@ bool rrcCallConv loadSBMLEx(RRHandle handle, const char* sbml, bool forceRecompi
     catch_bool_macro
 }
 
+bool rrcCallConv saveState(RRHandle handle, const char* filename)
+{
+	start_try
+		RoadRunner* rri = castToRoadRunner(handle);
+	    rri->saveState(filename);
+		return true;
+	catch_bool_macro
+}
+
+bool rrcCallConv loadState(RRHandle handle, const char* filename)
+{
+	start_try
+		RoadRunner* rri = castToRoadRunner(handle);
+	    rri->loadState(filename);
+		return true;
+	catch_bool_macro
+}
+
 
 bool rrcCallConv loadSimulationSettings(RRHandle handle, const char* fileName)
 {
@@ -617,11 +636,13 @@ RRStringArrayPtr rrcCallConv getTimeCourseSelectionList(RRHandle handle)
     catch_ptr_macro
 }
 
+
+
 RRCDataPtr rrcCallConv simulate(RRHandle handle)
 {
-    start_try
-        RoadRunner* rri = castToRoadRunner(handle);
-        rri->simulate();
+	start_try
+		RoadRunner* rri = castToRoadRunner(handle);
+	    rri->simulate();
         return createRRCData(*rri);
     catch_ptr_macro
 }
@@ -751,7 +772,7 @@ RRDoubleMatrixPtr rrcCallConv getStoichiometryMatrix(RRHandle handle)
 
             return matrix;
         }
-        else
+		else
         {
             return 0;
         }

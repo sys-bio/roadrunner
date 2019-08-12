@@ -605,6 +605,7 @@ SUITE(TEST_MODEL)
 
         Config::setValue(Config::ROADRUNNER_JACOBIAN_MODE, (unsigned)Config::ROADRUNNER_JACOBIAN_MODE_CONCENTRATIONS);
         RoadRunner* rri = castToRoadRunner(gRR);
+		
 
         ls::DoubleMatrix   jActual = rri->getFullJacobian();
         ls::DoubleMatrix   jRef    = getDoubleMatrixFromString(aSection->GetNonKeysAsString());
@@ -721,7 +722,6 @@ SUITE(TEST_MODEL)
         RoadRunner* rri = castToRoadRunner(gRR);
         ls::DoubleMatrix ref = getDoubleMatrixFromString(aSection->GetNonKeysAsString());
         std::vector<ls::Complex> eigen = rri->getFullEigenValues();
-
         compareMatrices(ref, eigen);
     }
 

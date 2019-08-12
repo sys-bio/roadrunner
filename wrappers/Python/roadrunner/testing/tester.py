@@ -637,7 +637,7 @@ def checkGetRatesOfChange(rrInstance, testId):
     print(("Check " + testId).ljust( rpadding), end="")
     errorFlag = False
     words = divide(readLine())
-    values = rrInstance.getRatesOfChange()[0]
+    values = rrInstance.getRatesOfChange()
     for i in range (len(words)):
         if expectApproximately (float (words[i]), values[i], abs(values[i]+1e-7)*1E-5) == False:
             errorFlag = True

@@ -263,5 +263,23 @@ double arctanh(double a)
     return (std::log(1.0 + a) - std::log(1.0 - a)) / 2.0;
 }
 
+//// Quotient of division of two double numbers
+double quotient(double a, double b)
+{
+    return (double)(int)(a / b);
+}
+
+//// Maximum of two double numbers
+double max(double a, double b)
+{
+    return a > b ? a : b;
+}
+
+//// Minimum of two double numbers
+double min(double a, double b)
+{
+    return a < b ? a : b;
+}
+
 }
 } /* namespace sbmlsupport */

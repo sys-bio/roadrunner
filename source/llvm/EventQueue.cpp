@@ -8,6 +8,7 @@
 #include "EventQueue.h"
 #include "LLVMExecutableModel.h"
 #include "rrLogger.h"
+#include "rrStringUtils.h"
 #include <algorithm>
 #include <cstring>
 #include <iomanip>
@@ -181,8 +182,8 @@ struct EventPredicate
 bool EventQueue::eraseExpiredEvents()
 {
     bool erased = false;
-    iterator i = c.begin();
-    while (i != c.end())
+    iterator i = sequence.begin();
+    while (i != sequence.end())
     {
         if (!(*i).isExpired())
         {
@@ -191,7 +192,7 @@ bool EventQueue::eraseExpiredEvents()
         else
         {
             Log(Logger::LOG_DEBUG) << "removing expired event: " << *i;
-            i = c.erase(i);
+            i = sequence.erase(i);
             erased = true;
         }
     }
@@ -208,17 +209,17 @@ bool EventQueue::hasCurrentEvents()
 bool EventQueue::applyEvents()
 {
     bool applied = false;
-    if (c.size())
+    if (sequence.size())
     {
         Log(Logger::LOG_DEBUG) << "event list before sort: " << *this;
 
-        c.sort();
+        sequence.sort();
 
         Log(Logger::LOG_DEBUG) << "event list after sort, before apply: " << *this;
 
         std::deque<iterator> ripe;
-        iterator i = c.begin();
-        while (i != c.end())
+        iterator i = sequence.begin();
+        while (i != sequence.end())
         {
             if (i->isRipe())
             {
@@ -227,7 +228,7 @@ bool EventQueue::applyEvents()
 
             const Event& a = *i;
             ++i;
-            if (i != c.end() && a < (*i))
+            if (i != sequence.end() && a < (*i))
             {
                 break;
             }
@@ -243,7 +244,7 @@ bool EventQueue::applyEvents()
             Log(Logger::LOG_DEBUG) << "assigning the " << index << "\'th item";
             (*i).assign();
 
-            c.erase(i);
+            sequence.erase(i);
 
             applied = true;
 
@@ -265,18 +266,18 @@ bool EventQueue::applyEvents()
 
 uint EventQueue::size() const
 {
-    return c.size();
+    return sequence.size();
 }
 
 void EventQueue::push(const Event& e)
 {
-    c.push_back(e);
+    sequence.push_back(e);
 }
 
 EventQueue::const_reference EventQueue::top()
 {
-    c.sort();
-    return c.front();
+    sequence.sort();
+    return sequence.front();
 }
 
 double EventQueue::getNextPendingEventTime()
@@ -291,11 +292,41 @@ double EventQueue::getNextPendingEventTime()
     }
 }
 
+void EventQueue::saveState(std::ostream& out)
+{
+	rr::saveBinary(out, sequence.size());
+	for (Event e : sequence)
+	{
+		rr::saveBinary(out, e.id);
+		rr::saveBinary(out, e.delay);
+		rr::saveBinary(out, e.assignTime);
+		rr::saveBinary(out, e.dataSize);
+		out.write((char*)e.data, e.dataSize * sizeof(double));
+	}
+}
+
+void EventQueue::loadState(std::istream& in, LLVMExecutableModel& model)
+{
+	size_t sequence_size;
+	rr::loadBinary(in, sequence_size);
+	for (size_t i = 0; i < sequence_size; i++)
+	{
+		uint id;
+		rr::loadBinary(in, id);
+		Event e(model, id);
+		rr::loadBinary(in, e.delay);
+		rr::loadBinary(in, e.assignTime);
+		rr::loadBinary(in, e.dataSize);
+		in.read((char*)e.data, e.dataSize * sizeof(double));
+		push(e);
+	}
+}
+
 std::ostream& operator<< (std::ostream& stream, const EventQueue& queue)
 {
     stream << "EventQueue {" << std::endl;
     int j = 0;
-    for(EventQueue::const_iterator i = queue.c.begin(); i != queue.c.end(); ++i)
+    for(EventQueue::const_iterator i = queue.sequence.begin(); i != queue.sequence.end(); ++i)
     {
         stream << "event " << j++ << ": " << *i << std::endl;
     }

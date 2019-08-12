@@ -30,7 +30,7 @@ class RR_DECLSPEC TestSuiteModelSimulation : public SBMLModelSimulation
                                 TestSuiteModelSimulation(const string& dataOutputFolder = "", const string& modelFilePath = "", const string& modelFileName = "");
                                ~TestSuiteModelSimulation();
         void                    SetCaseNumber(int cNr);
-        bool                    LoadReferenceData();
+        bool                    LoadReferenceData(string refDataFileName = "");
         bool                    CreateErrorData();
         bool                    SaveAllData();
         bool                    CopyFilesToOutputFolder();

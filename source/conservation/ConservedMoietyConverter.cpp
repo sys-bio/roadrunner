@@ -721,7 +721,7 @@ static inline void conservedMoietyException(const std::string& what)
 {
     Log(rr::Logger::LOG_INFORMATION) << what;
 
-    static const char* help = "\n To disable conserved moeity conversion, either \n"
+    static const char* help = "\n To disable conserved moiety conversion, either \n"
             "\t a: set [Your roadrunner variable].conservedMoietyAnalysis = False, \n"
             "\t before calling the load(\'myfile.xml\') method, or\n"
             "\t b: create a LoadSBMLOptions object, set the conservedMoieties property \n"
@@ -749,9 +749,9 @@ static void conservedMoietyCheck(const SBMLDocument *doc)
                 rule->getVariable());
 
         const Species *species = dynamic_cast<const Species*>(element);
-        if(species && !species->getBoundaryCondition())
+        if(species && !species->getBoundaryCondition() && model->getNumReactions() > 0)
         {
-            string msg = "Cannot perform moeity conversion when floating "
+            string msg = "Cannot perform moiety conversion when floating "
                     "species are defined by rules. The floating species, "
                     + species->getId() + " is defined by rule " + rule->getId()
                     + ".";
@@ -762,7 +762,7 @@ static void conservedMoietyCheck(const SBMLDocument *doc)
                 dynamic_cast<const SpeciesReference*>(element);
         if(ref)
         {
-            string msg = "Cannot perform moeity conversion with non-constant "
+            string msg = "Cannot perform moiety conversion with non-constant "
                     "stoichiometry. The species reference " + ref->getId() +
                     " which refers to species " + ref->getSpecies() + " has "
                     "stoichiometry defined by rule " + rule->getId() + ".";
@@ -785,7 +785,7 @@ static void conservedMoietyCheck(const SBMLDocument *doc)
             // has the constant attribute
             if (doc->getLevel() >= 3 &&  !ref->getConstant())
             {
-                string msg = "Cannot perform moeity conversion with non-constant "
+                string msg = "Cannot perform moiety conversion with non-constant "
                         "stoichiometry. The species reference " + ref->getId() +
                         " which refers to species " + ref->getSpecies() +
                         " does not have the constant attribute set.";
@@ -794,7 +794,7 @@ static void conservedMoietyCheck(const SBMLDocument *doc)
 
             else if(ref->isSetStoichiometryMath())
             {
-                string msg = "Cannot perform moeity conversion with non-constant "
+                string msg = "Cannot perform moiety conversion with non-constant "
                         "stoichiometry. The species reference " + ref->getId() +
                         " which refers to species " + ref->getSpecies() +
                         " has stochiometryMath set.";
@@ -819,7 +819,7 @@ static void conservedMoietyCheck(const SBMLDocument *doc)
             const Species *species = dynamic_cast<const Species*>(element);
             if(species && !species->getBoundaryCondition())
             {
-                string msg = "Cannot perform moeity conversion when floating "
+                string msg = "Cannot perform moiety conversion when floating "
                         "species have events. The floating species, "
                         + species->getId() + " has event " + event->getId() + ".";
                 conservedMoietyException(msg);
@@ -829,7 +829,7 @@ static void conservedMoietyCheck(const SBMLDocument *doc)
                     dynamic_cast<const SpeciesReference*>(element);
             if(ref)
             {
-                string msg = "Cannot perform moeity conversion with non-constant "
+                string msg = "Cannot perform moiety conversion with non-constant "
                         "stoichiometry. The species reference " + ref->getId() +
                         " which refers to species " + ref->getSpecies() + " has "
                         "event " + event->getId() + ".";

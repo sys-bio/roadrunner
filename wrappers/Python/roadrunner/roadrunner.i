@@ -761,6 +761,7 @@ PyObject *Integrator_NewPythonObj(rr::Integrator* i) {
 %ignore rr::ExecutableModel::getNextPendingEventTime;
 %ignore rr::ExecutableModel::getPendingEventSize;
 %ignore rr::ExecutableModel::resetEvents;
+%ignore rr::ExecutableModel::saveState;
 
 %ignore rr::ExecutableModel::getFloatingSpeciesId(int index);
 %ignore rr::ExecutableModel::getBoundarySpeciesId(int index);

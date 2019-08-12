@@ -48,7 +48,7 @@ namespace rrllvm
  * are determined ahead of time before any code generation.
  *
  * They also make use of an llvm IRBuilder, one of these *could* be allocated
- * in each code gen object, but that would be wastefull, so we use a single one
+ * in each code gen object, but that would be wasteful, so we use a single one
  * per sbml compilation, and each code gen just resets the builder insert point,
  * that is what is was designed to do.
  *
@@ -136,7 +136,7 @@ public:
      * Michael Wu which is in effect, the act of ripping someone's bollocks off.
      */
     void stealThePeach(const LLVMModelDataSymbols **sym,
-            const llvm::LLVMContext **ctx, const llvm::ExecutionEngine **eng,
+             llvm::LLVMContext **ctx,  llvm::ExecutionEngine **eng,
             const Random **random, const std::string **errStr);
 
 
@@ -190,8 +190,9 @@ private:
     llvm::LLVMContext *context;
     llvm::ExecutionEngine *executionEngine;
     std::unique_ptr<llvm::Module> module_uniq;
+public:
 	llvm::Module* module;
-
+private:
     llvm::IRBuilder<> *builder;
 
     llvm::legacy::FunctionPassManager *functionPassManager;

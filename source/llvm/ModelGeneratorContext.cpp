@@ -283,7 +283,7 @@ ModelGeneratorContext::ModelGeneratorContext(libsbml::SBMLDocument const *doc,
         builder = new IRBuilder<>(*context);
 
         // engine take ownership of module
-        EngineBuilder engineBuilder(std::move(module_uniq));
+        EngineBuilder engineBuilder(unique_ptr<Module>(new Module("Empty LLVM Module", *context)));
 
         //engineBuilder.setEngineKind(EngineKind::JIT);
         engineBuilder.setErrorStr(errString);
@@ -417,7 +417,7 @@ llvm::IRBuilder<> &ModelGeneratorContext::getBuilder() const
 }
 
 void ModelGeneratorContext::stealThePeach(const LLVMModelDataSymbols **sym,
-        const llvm::LLVMContext** ctx, const llvm::ExecutionEngine** eng,
+         llvm::LLVMContext** ctx,  llvm::ExecutionEngine** eng,
         const Random** rnd, const string** err)
 {
     *sym = symbols;
@@ -639,7 +639,7 @@ void ModelGeneratorContext::addGlobalMappings()
                     FunctionType::get(double_type, args_d1, false), module),
                         (void*) sbmlsupport::factoriald);
 
-    // case AST_FUNCTION_LOG:
+    // AST_FUNCTION_LOG:
     addGlobalMapping(
             createGlobalMappingFunction("rr_logd",
                     FunctionType::get(double_type, args_d2, false), module),
@@ -680,6 +680,24 @@ void ModelGeneratorContext::addGlobalMappings()
             createGlobalMappingFunction("arctanh",
                     FunctionType::get(double_type, args_d1, false), module),
                         (void*)static_cast<double (*)(double)>(atanh));
+
+    // AST_FUNCTION_QUOTIENT:
+    executionEngine->addGlobalMapping(
+            createGlobalMappingFunction("quotient",
+                    FunctionType::get(double_type, args_d2, false), module),
+                        (void*)sbmlsupport::quotient);
+
+    // AST_FUNCTION_MAX:
+    executionEngine->addGlobalMapping(
+        createGlobalMappingFunction("rr_max",
+            FunctionType::get(double_type, args_d2, false), module),
+            (void*) sbmlsupport::max);
+
+    // AST_FUNCTION_MIN:
+    executionEngine->addGlobalMapping(
+        createGlobalMappingFunction("rr_min",
+            FunctionType::get(double_type, args_d2, false), module),
+            (void*) sbmlsupport::min);
 
 }
 
@@ -753,6 +771,10 @@ static void createLibraryFunctions(Module* module)
     /// double tanh(double x);
     createLibraryFunction(LibFunc_tanh,
             FunctionType::get(double_type, args_d1, false), module);
+
+    /// double fmod(double x, double y);
+    createLibraryFunction(LibFunc_fmod,
+            FunctionType::get(double_type, args_d2, false), module);
 }
 
 static void createLibraryFunction(llvm::LibFunc funcId,

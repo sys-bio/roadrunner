@@ -137,33 +137,6 @@ static std::string strip(const std::string& in)
     return out;
 }
 
-
-/*
-* Converts a string of the form "[double, double, ..., double]" to a vector
-* of doubles.
-* Pre: The string must start with '[' (with no preceding spaces) and end with ']',
-*      The doubles in the string must be separated by commas and be able to
-*      be parsed with std::stod
-*
-*/
-//std::vector<double> parseDoubleVector(const std::string& toParse) {
-//	std::vector<double> result;
-//	size_t index = 1;
-//	while (toParse[index] == ' ') {
-//		index++;
-//	}
-//	while (index < toParse.length() && toParse[index] != ']') {
-//		size_t lengthInStr = 0;
-//		result.push_back(std::stod(&toParse[index], &lengthInStr));
-//		index += lengthInStr;
-//		while (index < toParse.length() && (toParse[index] == ' '
-//			|| toParse[index] == ',')) {
-//			index++;
-//		}
-//	}
-//	return result;
-//}
-
 Variant Variant::parse(const std::string& s)
 {
     string str = strip(s);

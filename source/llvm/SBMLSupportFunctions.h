@@ -87,6 +87,14 @@ double arccosh(double a);
 //// Inverse hyperbolic tangent of a double number
 double arctanh(double a);
 
+//// Quotient of division of two double numbers
+double quotient(double a, double b);
+
+//// Maximum of two double numbers
+double max(double a, double b);
+
+//// Minimum of two double numbers
+double min(double a, double b);
 }
 
 } /* namespace sbmlsupport */

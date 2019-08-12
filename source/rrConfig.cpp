@@ -116,10 +116,10 @@ static Variant values[] =  {
     Variant(1.e-12),   // CVODE_MIN_ABSOLUTE
     Variant(1.e-6),    // CVODE_MIN_RELATIVE
     Variant(true),     // SIMULATEOPTIONS_COPY_RESULT
-    Variant(true),      // STEADYSTATE_PRESIMULATION
+    Variant(false),      // STEADYSTATE_PRESIMULATION
     Variant(100),      // STEADYSTATE_PRESIMULATION_MAX_STEPS
     Variant(100),      // STEADYSTATE_PRESIMULATION_TIME
-    Variant(true),      // STEADYSTATE_APPROX
+    Variant(false),      // STEADYSTATE_APPROX
     Variant(1.e-6),    // STEADYSTATE_APPROX_TOL
     Variant(10000),      // STEADYSTATE_APPROX_MAX_STEPS
     Variant(10000),      // STEADYSTATE_APPROX_TIME

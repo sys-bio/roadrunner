@@ -7,6 +7,7 @@
 #include <sstream>
 #include <cstring>
 #include <cctype>
+#include <map>
 #include "rrStringUtils.h"
 #include "rrUtils.h"
 #include "rrLogger.h"

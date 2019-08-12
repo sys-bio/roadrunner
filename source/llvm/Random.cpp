@@ -33,6 +33,12 @@ namespace rrllvm
 
 typedef cxx11_ns::normal_distribution<double> NormalDist;
 
+typedef cxx11_ns::poisson_distribution<int> PoissonDist;
+
+typedef cxx11_ns::exponential_distribution<double> ExponentialDist;
+
+typedef cxx11_ns::lognormal_distribution<double> LognormalDist;
+
 static int randomCount = 0;
 
 /**
@@ -41,6 +47,12 @@ static int randomCount = 0;
 static double distrib_uniform(Random *random, double _min, double _max);
 
 static double distrib_normal(Random* random, double mu, double sigma);
+
+static double distrib_poisson(Random* random, double lambda);
+
+static double distrib_exponential(Random* random, double lambda);
+
+static double distrib_lognormal(Random* random, double mu, double sigma);
 
 static Function* createGlobalMappingFunction(const char* funcName,
         llvm::FunctionType *funcType, Module *module);
@@ -108,6 +120,8 @@ void addGlobalMappings(const ModelGeneratorContext& ctx)
 
     Type* args_void_double_double[] = { voidPtrType, double_type, double_type };
 
+    Type* args_void_double[] = { voidPtrType, double_type };
+
 
 
     executionEngine->addGlobalMapping(
@@ -119,6 +133,21 @@ void addGlobalMappings(const ModelGeneratorContext& ctx)
             createGlobalMappingFunction("rr_distrib_normal",
                     FunctionType::get(double_type, args_void_double_double, false), module),
                         (void*) distrib_normal);
+    
+    executionEngine->addGlobalMapping(
+        createGlobalMappingFunction("rr_distrib_poisson",
+            FunctionType::get(double_type, args_void_double, false), module),
+            (void*)distrib_poisson);
+
+    executionEngine->addGlobalMapping(
+        createGlobalMappingFunction("rr_distrib_exponential",
+            FunctionType::get(double_type, args_void_double, false), module),
+            (void*)distrib_exponential);
+
+    executionEngine->addGlobalMapping(
+        createGlobalMappingFunction("rr_distrib_lognormal",
+            FunctionType::get(double_type, args_void_double_double, false), module),
+            (void*)distrib_lognormal);
 
 }
 
@@ -144,6 +173,36 @@ double distrib_normal(Random* random, double mu, double sigma)
 
     NormalDist normal(mu, sigma);
     return normal(*random);
+}
+
+double distrib_poisson(Random* random, double lambda)
+{
+    Log(Logger::LOG_DEBUG) << "distrib_poisson("
+        << static_cast<void*>(random)
+        << ", " << lambda << ")";
+
+    PoissonDist poisson(lambda);
+    return (double)poisson(*random);
+}
+
+double distrib_exponential(Random* random, double lambda)
+{
+    Log(Logger::LOG_DEBUG) << "distrib_exponential("
+        << static_cast<void*>(random)
+        << ", " << lambda << ")";
+
+    ExponentialDist exponential(lambda);
+    return exponential(*random);
+}
+
+double distrib_lognormal(Random* random, double mu, double sigma)
+{
+    Log(Logger::LOG_DEBUG) << "distrib_lognormal("
+        << static_cast<void*>(random)
+        << ", " << mu << ", " << sigma << ")";
+
+    LognormalDist lognormal(mu, sigma);
+    return lognormal(*random);
 }
 
 Random::~Random()

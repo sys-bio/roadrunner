@@ -246,6 +246,12 @@ public:
         //memset((void*)integrators, 0, sizeof(integrators)/sizeof(char));
     }
 
+	RoadRunnerImpl(const std::istream& in) :
+		mDiffStepSize(0.05)
+	{
+
+	}
+
 
     RoadRunnerImpl(const string& _compiler, const string& _tempDir,
             const string& _supportCodeDir) :
@@ -1569,7 +1575,6 @@ const DoubleMatrix* RoadRunner::simulate(const Dictionary* dict)
 
     // evalute the model with its current state
     self.model->getStateVectorRate(timeStart, 0, 0);
-
     // Variable Time Step Integration
     if (self.integrator->hasValue("variable_step_size") && self.integrator->getValueAsBool("variable_step_size"))
     {
@@ -1923,7 +1928,46 @@ DoubleMatrix RoadRunner::getFloatingSpeciesConcentrationsNamedArray()
     return v;
 }
 
-DoubleMatrix RoadRunner::getRatesOfChange()
+std::vector<double> RoadRunner::getRatesOfChange()
+{
+    check_model();
+
+    int ssvl = impl->model->getStateVector(NULL);
+    double* vals = new double[ssvl];
+    double* ssv = new double[ssvl];
+    std::vector<double> v(ssvl);
+
+    impl->model->getStateVector(ssv);
+    impl->model->getStateVectorRate(impl->model->getTime(), ssv, vals);
+
+    if (getConservedMoietyAnalysis())
+    {
+        LibStructural *ls = getLibStruct();
+        DoubleMatrix lm = *ls->getLinkMatrix();
+
+        for (int i = 0; i < ssvl; ++i)
+        {
+            double sum = 0;
+            for (int j = 0; j < ssvl; ++j)
+            {
+                sum += lm[i][j] * vals[j];
+            }
+            v[i] = sum;
+        }
+    }
+    else
+    {
+        for (int i = 0; i<ssvl; ++i)
+            v[i] = vals[i];
+    }
+
+    delete vals;
+    delete ssv;
+
+    return v;
+}
+
+DoubleMatrix RoadRunner::getRatesOfChangeNamedArray()
 {
     check_model();
 
@@ -1934,7 +1978,6 @@ DoubleMatrix RoadRunner::getRatesOfChange()
 
     impl->model->getStateVector(ssv);
     impl->model->getStateVectorRate(impl->model->getTime(), ssv, vals);
-
     if (getConservedMoietyAnalysis())
     {
         LibStructural *ls = getLibStruct();
@@ -1964,7 +2007,29 @@ DoubleMatrix RoadRunner::getRatesOfChange()
     return v;
 }
 
-DoubleMatrix RoadRunner::getIndependentRatesOfChange()
+std::vector<double> RoadRunner::getIndependentRatesOfChange()
+{
+    check_model();
+
+    vector<string> idfsId = getIndependentFloatingSpeciesIds();
+    vector<string> fsId = getFloatingSpeciesIds();
+    int nindep = idfsId.size();
+    std::vector<double> v(nindep);
+
+    std::vector<double> rate = getRatesOfChange();
+
+    for (int i = 0; i < nindep; ++i)
+    {
+        vector<string>::iterator it = find(fsId.begin(), fsId.end(), idfsId[i]);
+        int index = distance(fsId.begin(), it);
+
+        v[i] = rate[index];
+    }
+
+    return v;
+}
+
+DoubleMatrix RoadRunner::getIndependentRatesOfChangeNamedArray()
 {
     check_model();
 
@@ -1973,7 +2038,7 @@ DoubleMatrix RoadRunner::getIndependentRatesOfChange()
     int nindep = idfsId.size();
     DoubleMatrix v(1, nindep);
 
-    DoubleMatrix rate = getRatesOfChange();
+    DoubleMatrix rate = getRatesOfChangeNamedArray();
 
     for (int i = 0; i < nindep; ++i)
     {
@@ -1988,7 +2053,29 @@ DoubleMatrix RoadRunner::getIndependentRatesOfChange()
     return v;
 }
 
-DoubleMatrix RoadRunner::getDependentRatesOfChange()
+std::vector<double> RoadRunner::getDependentRatesOfChange()
+{
+    check_model();
+
+    vector<string> dfsId = getDependentFloatingSpeciesIds();
+    vector<string> fsId = getFloatingSpeciesIds();
+    int ndep = dfsId.size();
+    std::vector<double> v(ndep);
+
+    std::vector<double> rate = getRatesOfChange();
+
+    for (int i = 0; i < ndep; ++i)
+    {
+        vector<string>::iterator it = find(fsId.begin(), fsId.end(), dfsId[i]);
+        int index = distance(fsId.begin(), it);
+
+        v[i] = rate[index];
+    }
+
+    return v;
+}
+
+DoubleMatrix RoadRunner::getDependentRatesOfChangeNamedArray()
 {
     check_model();
 
@@ -1997,7 +2084,7 @@ DoubleMatrix RoadRunner::getDependentRatesOfChange()
     int ndep = dfsId.size();
     DoubleMatrix v(1, ndep);
 
-    DoubleMatrix rate = getRatesOfChange();
+    DoubleMatrix rate = getRatesOfChangeNamedArray();
 
     for (int i = 0; i < ndep; ++i)
     {
@@ -2018,32 +2105,177 @@ DoubleMatrix RoadRunner::getFullJacobian()
 
     get_self();
 
-    DoubleMatrix uelast = getUnscaledElasticityMatrix();
-
-    // ptr to libstruct owned obj.
-    DoubleMatrix *rsm;
-    LibStructural *ls = getLibStruct();
-    if (self.loadOpt.getConservedMoietyConversion())
+    if (self.model->getNumReactions() == 0 && self.model->getNumRateRules() > 0)
     {
-        rsm = ls->getReorderedStoichiometryMatrix();
+        DoubleMatrix jac(self.model->getNumRateRules(), self.model->getNumRateRules());
+
+        for (int i = 0; i < self.model->getNumRateRules(); i++)
+        {
+            for (int j = 0; j < self.model->getNumRateRules(); j++)
+            {
+                // function pointers to the model get values and get init values based on
+                // if we are doing amounts or concentrations.
+                typedef int (ExecutableModel::*GetValueFuncPtr)(int len, int const *indx,
+                    double *values);
+                typedef int (ExecutableModel::*SetValueFuncPtr)(int len, int const *indx,
+                    double const *values);
+
+                GetValueFuncPtr getValuePtr = 0;
+                GetValueFuncPtr getInitValuePtr = 0;
+                SetValueFuncPtr setValuePtr = 0;
+                SetValueFuncPtr setInitValuePtr = 0;
+
+                if (Config::getValue(Config::ROADRUNNER_JACOBIAN_MODE).convert<unsigned>()
+                    == Config::ROADRUNNER_JACOBIAN_MODE_AMOUNTS)
+                {
+                    getValuePtr = &ExecutableModel::getFloatingSpeciesAmounts;
+                    getInitValuePtr = &ExecutableModel::getFloatingSpeciesInitAmounts;
+                    setValuePtr = &ExecutableModel::setFloatingSpeciesAmounts;
+                    setInitValuePtr = &ExecutableModel::setFloatingSpeciesInitAmounts;
+                }
+                else
+                {
+                    getValuePtr = &ExecutableModel::getFloatingSpeciesConcentrations;
+                    getInitValuePtr = &ExecutableModel::getFloatingSpeciesInitConcentrations;
+                    setValuePtr = &ExecutableModel::setFloatingSpeciesConcentrations;
+                    setInitValuePtr = &ExecutableModel::setFloatingSpeciesInitConcentrations;
+                }
+
+                double value;
+                double originalConc = 0;
+                double result = std::numeric_limits<double>::quiet_NaN();
+
+                // note setting init values auotmatically sets the current values to the
+                // init values
+
+                // this causes a reset, so need to save the current amounts to set them back
+                // as init conditions.
+                std::vector<double> conc(self.model->getNumFloatingSpecies());
+                (self.model->*getValuePtr)(conc.size(), 0, &conc[0]);
+
+                // save the original init values
+                std::vector<double> initConc(self.model->getNumFloatingSpecies());
+                (self.model->*getInitValuePtr)(initConc.size(), 0, &initConc[0]);
+
+                // get the original value
+                (self.model->*getValuePtr)(1, &j, &originalConc);
+
+                // now we start changing things
+                try
+                {
+                    // set init amounts to current amounts, restore them later.
+                    // have to do this as this is only way to set conserved moiety values
+                    (self.model->*setInitValuePtr)(conc.size(), 0, &conc[0]);
+
+                    // sanity check
+                    assert_similar(originalConc, conc[j]);
+                    double tmp = 0;
+                    (self.model->*getInitValuePtr)(1, &j, &tmp);
+                    assert_similar(originalConc, tmp);
+                    (self.model->*getValuePtr)(1, &j, &tmp);
+                    assert_similar(originalConc, tmp);
+
+                    // things check out, start fiddling...
+                    double hstep = self.mDiffStepSize*originalConc;
+                    if (fabs(hstep) < 1E-12)
+                    {
+                        hstep = self.mDiffStepSize;
+                    }
+
+                    value = originalConc + hstep;
+                    setValue(self.model->getFloatingSpeciesId(j), value);
+                    double fi = 0;
+                    fi = getRatesOfChange()[i];
+
+                    value = originalConc + 2 * hstep;
+                    setValue(self.model->getFloatingSpeciesId(j), value);
+                    double fi2 = 0;
+                    fi2 = getRatesOfChange()[i];
+
+                    value = originalConc - hstep;
+                    setValue(self.model->getFloatingSpeciesId(j), value);
+                    double fd = 0;
+                    fd = getRatesOfChange()[i];
+
+                    value = originalConc - 2 * hstep;
+                    setValue(self.model->getFloatingSpeciesId(j), value);
+                    double fd2 = 0;
+                    fd2 = getRatesOfChange()[i];
+
+                    // Use instead the 5th order approximation
+                    // double unscaledElasticity = (0.5/hstep)*(fi-fd);
+                    // The following separated lines avoid small amounts of roundoff error
+                    double f1 = fd2 + 8 * fi;
+                    double f2 = -(8 * fd + fi2);
+
+                    result = 1 / (12 * hstep)*(f1 + f2);
+                }
+                catch (const std::exception& e)
+                {
+                    // What ever happens, make sure we restore the species level
+                    (self.model->*setInitValuePtr)(
+                        initConc.size(), 0, &initConc[0]);
+
+                    // only set the indep species, setting dep species is not permitted.
+                    (self.model->*setValuePtr)(
+                        self.model->getNumFloatingSpecies(), 0, &conc[0]);
+
+                    // re-throw the exception.
+                    throw;
+                }
+
+                // What ever happens, make sure we restore the species level
+                (self.model->*setInitValuePtr)(
+                    initConc.size(), 0, &initConc[0]);
+
+                // only set the indep species, setting dep species is not permitted.
+                (self.model->*setValuePtr)(
+                    self.model->getNumFloatingSpecies(), 0, &conc[0]);
+
+                jac[i][j] = result;
+            }
+        }
+
+        // get the row/column ids, independent floating species
+        std::list<std::string> list;
+        self.model->getIds(SelectionRecord::FLOATING_AMOUNT, list);
+        std::vector<std::string> ids(list.begin(), list.end());
+        assert(ids.size() == jac.RSize() &&
+            ids.size() == jac.CSize() && "independent species ids length != RSize && CSize");
+        jac.setColNames(ids);
+        jac.setRowNames(ids);
+
+        return jac;
     }
     else
     {
-        rsm = ls->getStoichiometryMatrix();
-    }
+        DoubleMatrix uelast = getUnscaledElasticityMatrix();
 
-    DoubleMatrix jac = ls::mult(*rsm, uelast);
+        // ptr to libstruct owned obj.
+        DoubleMatrix *rsm;
+        LibStructural *ls = getLibStruct();
+        if (self.loadOpt.getConservedMoietyConversion())
+        {
+            rsm = ls->getReorderedStoichiometryMatrix();
+        }
+        else
+        {
+            rsm = ls->getStoichiometryMatrix();
+        }
 
-    // get the row/column ids, independent floating species
-    std::list<std::string> list;
-    self.model->getIds(SelectionRecord::FLOATING_AMOUNT, list);
-    std::vector<std::string> ids(list.begin(), list.end());
-    assert(ids.size() == jac.RSize() &&
+        DoubleMatrix jac = ls::mult(*rsm, uelast);
+
+        // get the row/column ids, independent floating species
+        std::list<std::string> list;
+        self.model->getIds(SelectionRecord::FLOATING_AMOUNT, list);
+        std::vector<std::string> ids(list.begin(), list.end());
+        assert(ids.size() == jac.RSize() &&
             ids.size() == jac.CSize() && "independent species ids length != RSize && CSize");
-    jac.setColNames(ids);
-    jac.setRowNames(ids);
+        jac.setColNames(ids);
+        jac.setRowNames(ids);
 
-    return jac;
+        return jac;
+    }
 }
 
 DoubleMatrix RoadRunner::getFullReorderedJacobian()
@@ -2992,11 +3224,22 @@ double RoadRunner::getGlobalParameterByIndex(const int& index)
     if ((index >= 0) && (index < (impl->model->getNumGlobalParameters() + impl->model->getNumDepFloatingSpecies())))
     {
         int arraySize = impl->model->getNumGlobalParameters() + impl->model->getNumDepFloatingSpecies();
+        if (impl->model->getNumReactions() == 0 && impl->model->getNumRateRules() > 0)
+        {
+            int arraySize = impl->model->getNumGlobalParameters();
+        }
         double* data = new double[arraySize];
 
-        impl->model->getGlobalParameterValues(impl->model->getNumGlobalParameters(), 0, data);
+        if (impl->model->getNumReactions() == 0 && impl->model->getNumRateRules() > 0)
+        {
+            impl->model->getGlobalParameterValues(impl->model->getNumGlobalParameters(), 0, data);
+        }
+        else
+        {
+            impl->model->getGlobalParameterValues(impl->model->getNumGlobalParameters(), 0, data);
 
-        impl->model->getConservedMoietyValues(impl->model->getNumDepFloatingSpecies(), 0, data + impl->model->getNumGlobalParameters());
+            impl->model->getConservedMoietyValues(impl->model->getNumDepFloatingSpecies(), 0, data + impl->model->getNumGlobalParameters());
+        }        
 
         double result = data[index];
         delete[] data;
@@ -4663,16 +4906,376 @@ static void metabolicControlCheck(ExecutableModel *model)
 {
     static const char* e1 = "Metabolic control analysis only valid "
             "for primitive reaction kinetics models. ";
-    if (model->getNumRateRules() > 0)
+    /*if (model->getNumRateRules() > 0)
     {
         throw std::invalid_argument(string(e1) + "This model has rate rules");
-    }
+    }*/
 
     if (model->getNumEvents() > 0 && !Config::getBool(Config::ALLOW_EVENTS_IN_STEADY_STATE_CALCULATIONS))
     {
-        throw std::invalid_argument(string(e1) + "This model has events. Set Config.ALLOW_EVENTS_IN_STEADY_STATE_CALCULATIONS to true to override");
+        throw std::invalid_argument(string(e1) + "This model has events. Set ALLOW_EVENTS_IN_STEADY_STATE_CALCULATIONS to True to override. "
+        "To override, run 'Config.setValue(Config.ALLOW_EVENTS_IN_STEADY_STATE_CALCULATIONS, True)'.");
     }
 }
+
+
+void RoadRunner::saveState(std::string filename, char opt)
+{
+	check_model();
+	switch (opt) {
+		case 'b':
+		{
+			// binary mode
+			// can be loaded later
+			std::ofstream out(filename, iostream::binary);
+			if (!out)
+			{
+				throw std::invalid_argument("Error opening file " + filename + ": " + std::string(strerror(errno)));
+			}
+			rr::saveBinary(out, fileMagicNumber);
+			rr::saveBinary(out, dataVersionNumber);
+			//Save all of roadrunner's data to the file
+			rr::saveBinary(out, impl->mInstanceID);
+			rr::saveBinary(out, impl->mDiffStepSize);
+			rr::saveBinary(out, impl->mSteadyStateThreshold);
+
+			saveSelectionVector(out, impl->mSelectionList);
+
+			rr::saveBinary(out, impl->loadOpt.version);
+			rr::saveBinary(out, impl->loadOpt.size);
+			rr::saveBinary(out, impl->loadOpt.modelGeneratorOpt);
+			rr::saveBinary(out, impl->loadOpt.loadFlags);
+
+			rr::saveBinary(out, impl->loadOpt.getKeys().size());
+
+			for (std::string k : impl->loadOpt.getKeys())
+			{
+				rr::saveBinary(out, k);
+				rr::saveBinary(out, impl->loadOpt.getItem(k));
+			}
+
+			saveSelectionVector(out, impl->mSteadyStateSelection);
+
+			rr::saveBinary(out, impl->simulationResult.getColNames());
+			rr::saveBinary(out, impl->simulationResult.getRowNames());
+
+			rr::saveBinary(out, impl->simulateOpt.reset_model);
+			rr::saveBinary(out, impl->simulateOpt.structured_result);
+			rr::saveBinary(out, impl->simulateOpt.copy_result);
+			rr::saveBinary(out, impl->simulateOpt.steps);
+			rr::saveBinary(out, impl->simulateOpt.start);
+			rr::saveBinary(out, impl->simulateOpt.duration);
+			rr::saveBinary(out, impl->simulateOpt.variables);
+			rr::saveBinary(out, impl->simulateOpt.amounts);
+			rr::saveBinary(out, impl->simulateOpt.concentrations);
+
+			rr::saveBinary(out, impl->simulateOpt.getKeys().size());
+
+			for (std::string k : impl->simulateOpt.getKeys())
+			{
+				rr::saveBinary(out, k);
+				rr::saveBinary(out, impl->simulateOpt.getItem(k));
+			}
+
+			rr::saveBinary(out, impl->roadRunnerOptions.flags);
+			rr::saveBinary(out, impl->roadRunnerOptions.jacobianStepSize);
+
+			rr::saveBinary(out, impl->configurationXML);
+			//Save the model (which saves the model data symbols and model resources)
+			impl->model->saveState(out);
+
+			rr::saveBinary(out, impl->integrator->getName());
+			rr::saveBinary(out, impl->integrator->getNumParams());
+
+			for (std::string k : impl->integrator->getSettings())
+			{
+				rr::saveBinary(out, k);
+				rr::saveBinary(out, impl->integrator->getValue(k));
+			}
+
+			rr::saveBinary(out, impl->steady_state_solver->getName());
+			rr::saveBinary(out, impl->steady_state_solver->getNumParams());
+
+			for (std::string k : impl->steady_state_solver->getSettings())
+			{
+				rr::saveBinary(out, k);
+				rr::saveBinary(out, impl->steady_state_solver->getValue(k));
+			}
+			//Currently I save and reload the SBML that was used to create the model
+			//It is not parsed however, unless a instance of LibStructural needs to be
+			//created
+			//It might also be possible to construct LibStructural without SBML, but I'm not familiar with it
+			//If this implementation is too slow we can change that
+			rr::saveBinary(out, impl->mCurrentSBML);
+			break;
+		}
+
+		case 'r': 
+		{
+			// human-readble mode
+			// for user debugging
+			std::ofstream out(filename, ios::out);
+			if (!out)
+			{
+				throw std::invalid_argument("Error opening file " + filename + ": " + std::string(strerror(errno)));
+			}
+
+			out << "mInstanceID: " <<impl->mInstanceID << endl;
+			out << "mDiffStepSize: " << impl->mDiffStepSize << endl;
+			out << "mSteadyStateThreshold: " << impl->mSteadyStateThreshold << endl << endl;
+
+			out << "roadRunnerOptions: " << endl;
+			out << "	flags: " << impl->roadRunnerOptions.flags << endl;
+			out << "	jacobianStepSize: " << impl->roadRunnerOptions.jacobianStepSize << endl << endl;
+
+			out << "loadOpt: " << endl;
+			out << "	version: " << impl->loadOpt.version << endl;
+			out << "	modelGeneratorOpt: " << impl->loadOpt.modelGeneratorOpt << endl;
+			out << "	loadFlags: " << impl->loadOpt.loadFlags << endl;
+			for (std::string k : impl->loadOpt.getKeys())
+			{
+				out << "	" << k << ": ";
+
+				switch (impl->loadOpt.getItem(k).type())
+				{
+				case Variant::BOOL:
+					out << impl->loadOpt.getItem(k).convert<bool>();
+					break;
+				case Variant::CHAR:
+					out << impl->loadOpt.getItem(k).convert<char>();
+					break;
+				case Variant::DOUBLE:
+					out << impl->loadOpt.getItem(k).convert<double>();
+					break;
+				case Variant::FLOAT:
+					out << impl->loadOpt.getItem(k).convert<float>();
+					break;
+				case Variant::INT32:
+					out << impl->loadOpt.getItem(k).convert<int32_t>();
+					break;
+				case Variant::INT64:
+					out << impl->loadOpt.getItem(k).convert<long>();
+					break;
+				case Variant::STRING:
+					out << impl->loadOpt.getItem(k).convert<std::string>();
+					break;
+				case Variant::UCHAR:
+					out << impl->loadOpt.getItem(k).convert<unsigned char>();
+					break;
+				case Variant::UINT32:
+					out << impl->loadOpt.getItem(k).convert<unsigned int>();
+					break;
+				case Variant::UINT64:
+					out << impl->loadOpt.getItem(k).convert<unsigned long>();
+					break;
+				default:
+					break;
+				}
+				out << endl;
+			}
+			out << endl;
+
+			out << "simulateOpt: " << endl;
+			out << impl->simulateOpt.toString() << endl << endl;
+
+			out << "mSelectionList: " << endl;
+			for (SelectionRecord sr : impl->mSelectionList)
+			{
+				out << sr.to_string() << endl;
+			}
+			out << endl;
+
+			out << "mSteadyStateSelection: " << endl;
+			for (SelectionRecord sr : impl->mSteadyStateSelection)
+			{
+				out << sr.to_string() << endl;
+			}
+			out << endl;
+
+			out << impl->integrator->toString();
+			out << endl;
+			out << impl->steady_state_solver->toString();
+			out << endl;
+
+			out << "simulationResult: " << endl;
+			out << impl->simulationResult;
+			out << endl;
+
+			out << std::dec << impl->model;
+			
+			//out << "configurationXML" << impl->configurationXML << endl;
+			//out << impl->mCurrentSBML;
+			break;
+		}
+
+		default:
+			throw std::invalid_argument("Invalid option for saveState(), 'b' or 'r' expected");
+			break;
+	}
+}
+
+void RoadRunner::saveSelectionVector(std::ostream& out, std::vector<SelectionRecord>& v)
+{
+	rr::saveBinary(out, v.size());
+	for (SelectionRecord sr : v)
+	{
+		rr::saveBinary(out, sr.index);
+		rr::saveBinary(out, sr.p1);
+		rr::saveBinary(out, sr.p2);
+		rr::saveBinary(out, sr.selectionType);
+	}
+}
+
+
+void RoadRunner::loadState(std::string filename)
+{
+	std::ifstream in(filename, iostream::binary);
+	if (!in)
+	{
+		throw std::invalid_argument("Error opening file " + filename + ": " + std::string(strerror(errno)));
+	}
+	int inMagicNumber;
+	rr::loadBinary(in, inMagicNumber);
+	if (inMagicNumber != fileMagicNumber)
+	{
+		throw std::invalid_argument("The file " + filename + " has the wrong magic number. Are you sure it is a roadrunner save state?");
+	}
+
+	int inVersionNumber;
+	rr::loadBinary(in, inVersionNumber);
+	if (inVersionNumber != dataVersionNumber)
+	{
+		throw std::invalid_argument("The file " + filename + " was saved with an unrecognized version of roadrunner");
+	}
+   //load roadrunner's data in the same order saveState saves it in
+	rr::loadBinary(in, impl->mInstanceID);
+	rr::loadBinary(in, impl->mDiffStepSize);
+	rr::loadBinary(in, impl->mSteadyStateThreshold);
+    
+	loadSelectionVector(in, impl->mSelectionList);
+	
+	rr::loadBinary(in, impl->loadOpt.version);
+	rr::loadBinary(in, impl->loadOpt.size);
+	rr::loadBinary(in, impl->loadOpt.modelGeneratorOpt);
+	rr::loadBinary(in, impl->loadOpt.loadFlags);
+    
+	size_t loadOptSize;
+	rr::loadBinary(in, loadOptSize);
+
+	for (int i = 0; i < loadOptSize; i++)
+	{
+		std::string k;
+		rr::loadBinary(in, k);
+		rr::Variant v;
+		rr::loadBinary(in, v);
+		impl->loadOpt.setItem(k, v);
+	}
+
+
+	loadSelectionVector(in, impl->mSteadyStateSelection);
+
+	std::vector<std::string> colNames;
+	rr::loadBinary(in, colNames);
+	impl->simulationResult.setColNames(colNames.begin(), colNames.end());
+
+	std::vector<std::string> rowNames;
+	rr::loadBinary(in, rowNames);
+	impl->simulationResult.setRowNames(rowNames.begin(), rowNames.end());
+
+	rr::loadBinary(in, impl->simulateOpt.reset_model);
+	rr::loadBinary(in, impl->simulateOpt.structured_result);
+	rr::loadBinary(in, impl->simulateOpt.copy_result);
+	rr::loadBinary(in, impl->simulateOpt.steps);
+	rr::loadBinary(in, impl->simulateOpt.start);
+	rr::loadBinary(in, impl->simulateOpt.duration);
+	rr::loadBinary(in, impl->simulateOpt.variables);
+	rr::loadBinary(in, impl->simulateOpt.amounts);
+	rr::loadBinary(in, impl->simulateOpt.concentrations);
+
+	size_t simulateOptSize;
+	rr::loadBinary(in, simulateOptSize);
+
+	for (int i = 0; i < simulateOptSize; i++)
+	{
+		std::string k;
+		rr::loadBinary(in, k);
+		rr::Variant v;
+		rr::loadBinary(in, v);
+		impl->simulateOpt.setItem(k, v);
+	}
+
+	rr::loadBinary(in, impl->roadRunnerOptions.flags);
+	rr::loadBinary(in, impl->roadRunnerOptions.jacobianStepSize);
+
+	rr::loadBinary(in, impl->configurationXML);
+	if(impl->model)
+		delete impl->model;
+    
+	//Create a new model from the stream
+	//impl->model = new rrllvm::LLVMExecutableModel(in, impl->loadOpt.modelGeneratorOpt);
+	impl->model = ExecutableModelFactory::createModel(in, impl->loadOpt.modelGeneratorOpt);
+    impl->syncAllSolversWithModel(impl->model);
+
+
+	if (impl->mLS)
+		delete impl->mLS;
+	std::string integratorName;
+	rr::loadBinary(in, integratorName);
+	setIntegrator(integratorName);
+
+	unsigned long integratorNumParams;
+	rr::loadBinary(in, integratorNumParams);
+
+	for (int i = 0; i < integratorNumParams; i++)
+	{
+		std::string k;
+		rr::loadBinary(in, k);
+		rr::Variant v;
+		rr::loadBinary(in, v);
+		if(k != "maximum_adams_order")
+		    impl->integrator->setValue(k, v);
+	}
+
+	std::string steadyStateSolverName;
+	rr::loadBinary(in, steadyStateSolverName);
+	setSteadyStateSolver(steadyStateSolverName);
+
+	unsigned long solverNumParams;
+	rr::loadBinary(in, solverNumParams);
+	
+	for (int i = 0; i < solverNumParams; i++) 
+	{
+		std::string k;
+		rr::loadBinary(in, k);
+		rr::Variant v;
+		rr::loadBinary(in, v);
+		impl->steady_state_solver->setValue(k, v);
+	}
+
+	//Currently the SBML is saved with the binary data, see saveState above
+	rr::loadBinary(in, impl->mCurrentSBML);
+
+	//Restart the integrator and reset the model time
+	impl->integrator->restart(impl->model->getTime());
+	reset(SelectionRecord::TIME);
+}
+
+void RoadRunner::loadSelectionVector(std::istream& in, std::vector<SelectionRecord>& v)
+{
+	size_t vsize;
+	rr::loadBinary(in, vsize);
+	v.clear();
+	for (int i = 0; i < vsize; i++)
+	{
+		SelectionRecord sr;
+		rr::loadBinary(in, sr.index);
+		rr::loadBinary(in, sr.p1);
+		rr::loadBinary(in, sr.p2);
+		rr::loadBinary(in, sr.selectionType);
+		v.push_back(sr);
+	}
+}
+
 
 } //namespace
 

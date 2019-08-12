@@ -158,8 +158,14 @@ struct LLVMModelData
      */
     double*                             floatingSpeciesAmountRates;       // 20
 
-    // permanent data section
 
+ 
+	/** 
+	 * ******* Permanent data section *******
+	 * 
+	 * Ten Alias pointers below point to ten arrays stored continously in data[0] 
+	 * at the end of this struct.
+	 */
 
     /**
      * number of compartments, and compartment volumes.
@@ -212,7 +218,7 @@ struct LLVMModelData
     double*                             floatingSpeciesAmountsAlias;      // 30
 
     /**
-     * binary data layout:
+	 * binary data layout:
      *
      * compartmentVolumes                [numIndCompartmentVolumes]       // 31
      * initCompartmentVolumes            [numInitCompartmentVolumes]      // 32
@@ -226,9 +232,18 @@ struct LLVMModelData
      * rateRuleValues                    [numRateRules]                   // 39
      * floatingSpeciesAmounts            [numIndFloatingSpecies]          // 40
      */
+
+	 /**
+	 * This dynamic-sized array will be allocated while this ModelData is allocated.
+	 * Ten array in the permanent data section is stored contiously in this chunck.
+	 * Size of each array is defined by ten unsigned integer above.
+	 * Values can be accessed using ten alias pointers defined above.
+	 * 
+	 */
     double                              data[0];                          // not listed
 };
-
+void LLVMModelData_save(LLVMModelData*, std::ostream&);
+LLVMModelData* LLVMModelData_from_save(std::istream&);
 void LLVMModelData_free(LLVMModelData*);
 
 #ifdef _MSC_VER

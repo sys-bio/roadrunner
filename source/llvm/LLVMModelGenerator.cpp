@@ -12,6 +12,7 @@
 #include "LLVMExecutableModel.h"
 #include "ModelGeneratorContext.h"
 #include "LLVMIncludes.h"
+#include "llvm/Object/ObjectFile.h"
 #include "ModelResources.h"
 #include "Random.h"
 #include <rrLogger.h>
@@ -246,6 +247,43 @@ ExecutableModel* LLVMModelGenerator::createModel(const std::string& sbml,
 		setGlobalParameterInitValueIR			= 0;
 	}
 
+	//Currently we save jitted functions in object file format 
+	//in save state. Compiling the functions into this format in the first place
+	//makes saveState significantly faster than creating the object file when it is called
+	//We then load the object file into the jit engine to avoid compiling the functions twice
+	auto TargetMachine = context.getExecutionEngine().getTargetMachine();
+
+	llvm::InitializeNativeTarget();
+
+	//Write the object file to modBuffer
+	std::error_code EC;
+	llvm::SmallVector<char, 10> modBuffer;
+	llvm::raw_svector_ostream mStrStream(modBuffer);
+
+	llvm::legacy::PassManager pass;
+	auto FileType = TargetMachine->CGFT_ObjectFile;
+
+	if (TargetMachine->addPassesToEmitFile(pass, mStrStream, FileType))
+	{
+		throw "TargetMachine can't emit a file of type CGFT_ObjectFile";
+	}
+
+	pass.run(*context.module);
+	
+	//Read from modBuffer into our execution engine
+	std::string moduleStr(modBuffer.begin(), modBuffer.end());
+
+	auto memBuffer(llvm::MemoryBuffer::getMemBuffer(moduleStr));
+
+	llvm::Expected<std::unique_ptr<llvm::object::ObjectFile> > objectFileExpected =
+		llvm::object::ObjectFile::createObjectFile(llvm::MemoryBufferRef(moduleStr, "id"));
+    
+	std::unique_ptr<llvm::object::ObjectFile> objectFile(std::move(objectFileExpected.get()));
+	
+	llvm::object::OwningBinary<llvm::object::ObjectFile> owningObject(std::move(objectFile), std::move(memBuffer));
+
+	context.getExecutionEngine().addObjectFile(std::move(owningObject));
+
 	//https://stackoverflow.com/questions/28851646/llvm-jit-windows-8-1
 	context.getExecutionEngine().finalizeObject();
 
@@ -296,7 +334,6 @@ ExecutableModel* LLVMModelGenerator::createModel(const std::string& sbml,
 
 	rc->evalConversionFactorPtr = (EvalConversionFactorCodeGen::FunctionPtr)
         context.getExecutionEngine().getFunctionAddress("evalConversionFactor");
-
 	if (options & LoadSBMLOptions::READ_ONLY)
 	{
 		rc->setBoundarySpeciesAmountPtr = 0;
@@ -364,20 +401,20 @@ ExecutableModel* LLVMModelGenerator::createModel(const std::string& sbml,
 		rc->setGlobalParameterInitValuePtr = 0;
 	}
 
-	
-
-    
 
 
-    // if anything up to this point throws an exception, thats OK, because
-    // we have not allocated any memory yet that is not taken care of by
-    // something else.
-    // Now that everything that could have thrown would have thrown, we
-    // can now create the model and set its fields.
+
+
+
+	// if anything up to this point throws an exception, thats OK, because	
+	// we have not allocated any memory yet that is not taken care of by	
+	// something else.	
+	// Now that everything that could have thrown would have thrown, we	
+	// can now create the model and set its fields.
 
     LLVMModelData *modelData = createModelData(context.getModelDataSymbols(),
             context.getRandom());
-
+   
     uint llvmsize = ModelDataIRBuilder::getModelDataSize(context.getModule(),
             &context.getExecutionEngine());
 
@@ -399,6 +436,8 @@ ExecutableModel* LLVMModelGenerator::createModel(const std::string& sbml,
     context.stealThePeach(&rc->symbols, &rc->context,
             &rc->executionEngine, &rc->random, &rc->errStr);
 
+	//Save the object so we can saveState quickly later
+	rc->moduleStr = moduleStr;
 
     if (!forceReCompile)
     {
