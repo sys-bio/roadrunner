@@ -6390,12 +6390,35 @@ void RoadRunner::regenerate(bool forceRegenerate, bool reset)
 	if (forceRegenerate)
 	{
 		Log(Logger::LOG_DEBUG) << "Regenerating model..." << endl;
+		unordered_map<string, double> indTolerances;
+
+		bool toleranceVector = impl->integrator->getType("absolute_tolerance") == Variant::DOUBLEVECTOR;
+
+		if (toleranceVector)
+		{
+			for (int i = 0; i < getNumberOfFloatingSpecies(); i++)
+			{
+				indTolerances.emplace(getFloatingSpeciesIds()[i],
+					impl->integrator->getValueAsDoubleVector("absolute_tolerance")[i]);
+			}
+		}
+
+		ExecutableModel* oldModel = impl->model;
 		ExecutableModel* newModel = ExecutableModelFactory::regenerateModel(impl->model, impl->document, impl->loadOpt.modelGeneratorOpt);
-		if (impl->model)
-			delete impl->model;
+
 		impl->model = newModel;
+		
 		// TODO: update vector tolerance
+
 		impl->syncAllSolversWithModel(impl->model);
+		
+		if (toleranceVector)
+		{
+			for (auto p : indTolerances)
+			{
+				impl->integrator->setIndividualTolerance(p.first, p.second);
+			}
+		}
 		// reset();
 		if ((impl->loadOpt.loadFlags & LoadSBMLOptions::NO_DEFAULT_SELECTIONS) == 0)
 		{
@@ -6410,6 +6433,9 @@ void RoadRunner::regenerate(bool forceRegenerate, bool reset)
 				this->reset();
 			}
 		}
+
+		if (oldModel)
+			delete oldModel;
 	}
 	
 }
