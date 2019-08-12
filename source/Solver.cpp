@@ -125,6 +125,11 @@ namespace rr
         return getValue(key).convert<double>();
     }
 
+	vector<double> Solver::getValueAsDoubleVector(std::string key)
+	{
+		return getValue(key).convert< vector<double> >();
+	}
+
     char Solver::getValueAsChar(std::string key)
     {
         return getValue(key).convert<char>();
@@ -151,6 +156,7 @@ namespace rr
             throw std::invalid_argument(getName() + " invalid key: " + key);
         settings[key] = value;
     }
+
 
     const std::string& Solver::getDisplayName(std::string key) const
     {

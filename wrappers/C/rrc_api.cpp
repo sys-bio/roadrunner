@@ -60,6 +60,7 @@
 #include "SteadyStateSolver.h"
 #include "Dictionary.h"
 #include "rrConfig.h"
+#include <ctime>
 
 
 #if defined(_MSC_VER)
@@ -480,6 +481,24 @@ bool rrcCallConv loadSBMLEx(RRHandle handle, const char* sbml, bool forceRecompi
     catch_bool_macro
 }
 
+bool rrcCallConv saveState(RRHandle handle, const char* filename)
+{
+	start_try
+		RoadRunner* rri = castToRoadRunner(handle);
+	    rri->saveState(filename);
+		return true;
+	catch_bool_macro
+}
+
+bool rrcCallConv loadState(RRHandle handle, const char* filename)
+{
+	start_try
+		RoadRunner* rri = castToRoadRunner(handle);
+	    rri->loadState(filename);
+		return true;
+	catch_bool_macro
+}
+
 
 bool rrcCallConv loadSimulationSettings(RRHandle handle, const char* fileName)
 {
@@ -621,9 +640,9 @@ RRStringArrayPtr rrcCallConv getTimeCourseSelectionList(RRHandle handle)
 
 RRCDataPtr rrcCallConv simulate(RRHandle handle)
 {
-	start_try
-		RoadRunner* rri = castToRoadRunner(handle);
-		rri->simulate();
+    start_try
+	RoadRunner* rri = castToRoadRunner(handle);
+	rri->simulate();
         return createRRCData(*rri);
     catch_ptr_macro
 }
@@ -753,7 +772,7 @@ RRDoubleMatrixPtr rrcCallConv getStoichiometryMatrix(RRHandle handle)
 
             return matrix;
         }
-        else
+		else
         {
             return 0;
         }
@@ -2266,6 +2285,69 @@ int rrcCallConv setCurrentIntegratorParameterBoolean (RRHandle handle, char *par
 	catch_int_macro
 }
 
+
+int rrcCallConv getCurrentIntegratorParameterDoubleArray(RRHandle handle, char* parameterName, double** value, int* len)
+
+{
+	start_try
+		RoadRunner* rri = castToRoadRunner(handle);
+		stringstream key;
+		key << parameterName;
+		vector<double> v = rri->getIntegrator()->getValueAsDoubleVector(key.str());
+
+		// TODO: potential memory leak?
+		double* ptr = (double*)malloc(v.size() * sizeof(double));
+		for (int i = 0; i < v.size(); i++) {
+			ptr[i] = v[i];
+		}
+		*value = ptr;
+		*len = v.size();
+		return true;
+	catch_int_macro
+}
+
+
+int rrcCallConv setCurrentIntegratorParameterDoubleArray(RRHandle handle, char* parameterName, double* value, int len)
+{
+	start_try
+		RoadRunner* rri = castToRoadRunner(handle);
+		stringstream key;
+		key << parameterName;
+		vector<double> v(value, value + len);
+		rri->getIntegrator()->setValue(key.str(), v);
+		return true;
+	catch_int_macro
+}
+
+int rrcCallConv setCurrentIntegratorScalarConcentrationTolerance(RRHandle handle, double value)
+{
+	start_try
+		RoadRunner* rri = castToRoadRunner(handle);
+		rri->getIntegrator()->setConcentrationTolerance(value);
+		return true;
+	catch_int_macro
+}
+
+int rrcCallConv setCurrentIntegratorVectorConcentrationTolerance(RRHandle handle, double* value, int len)
+{
+	start_try
+		RoadRunner* rri = castToRoadRunner(handle);
+		vector<double> v(value, value + len);
+		rri->getIntegrator()->setConcentrationTolerance(v);
+		return true;
+	catch_int_macro
+}
+
+int rrcCallConv setCurrentIntegratorIndividualTolerance(RRHandle handle, char* sid, double value)
+{
+	start_try
+		RoadRunner* rri = castToRoadRunner(handle);
+		stringstream key;
+		key << sid;
+		rri->getIntegrator()->setIndividualTolerance(key.str(), value);
+		return true;
+	catch_int_macro
+}
 
 // ----------------------------------------------------------------------
 // Replacement methods for supporting solver configuration

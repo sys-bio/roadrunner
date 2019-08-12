@@ -88,6 +88,39 @@ int run_test_with_cvode(RRHandle _handle) {
 
     fprintf(stderr,"    Current value of multiple_steps: %d\n", getCurrentIntegratorParameterBoolean(_handle, "multiple_steps"));
 
+
+
+	fprintf(stderr, "\n  **** Test double vector parameters ****\n\n");
+	//fprintf(stderr, getSBML(_handle));
+
+	fprintf(stderr, "    Current value of absolute_tolerance: %e\n", getCurrentIntegratorParameterDouble(_handle, "absolute_tolerance"));
+	fprintf(stderr, "    Set absolute_tolerance to [0.1, 0.2]\n");
+	double a[2] = { 0.1, 0.2};
+	setCurrentIntegratorParameterDoubleArray(_handle, "absolute_tolerance", a, 2);
+
+	fprintf(stderr, "    Current value of absolute_tolerance: ");
+	double* res = 0;
+	int len = 0;
+	getCurrentIntegratorParameterDoubleArray(_handle, "absolute_tolerance", &res, &len);
+	for (int i = 0; i < len; ++i) {
+		fprintf(stderr, "%e ", res[i]);
+	}
+	fprintf(stderr, "\n");
+	fprintf(stderr, "\n");
+
+	
+	fprintf(stderr, "\n  **** Test setting individal tolerance ****\n\n");
+	fprintf(stderr, "    Current value of absolute_tolerance: %e\n", getCurrentIntegratorParameterDouble(_handle, "absolute_tolerance"));
+	fprintf(stderr, "    Set absolute tolerance for species \"node1\" to 0.3\n");
+	setCurrentIntegratorIndividualTolerance(_handle, "Node1", 0.3);
+
+	getCurrentIntegratorParameterDoubleArray(_handle, "absolute_tolerance", &res, &len);
+	for (int i = 0; i < len; ++i) {
+		fprintf(stderr, "%e ", res[i]);
+	}
+	fprintf(stderr, "\n");
+	fprintf(stderr, "\n");
+
     fprintf(stderr,"    New list of parameters:\n");
 
     strArray = getListOfCurrentIntegratorParameterNames(_handle);

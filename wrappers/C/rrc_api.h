@@ -356,6 +356,25 @@ C_DECL_SPEC bool rrcCallConv loadSBML(RRHandle handle, const char* sbml);
 C_DECL_SPEC bool rrcCallConv loadSBMLEx(RRHandle handle, const char* sbml, bool forceRecompile);
 
 /*!
+ \brief Save a road runner instance's state to a binary file
+ \param[in] handle Handle to the RoadRunner instance to be saved
+ \param[in] filename path to the file to be saved to
+ \return Returns true if successful
+ \ingroup loadsave
+*/
+C_DECL_SPEC bool rrcCallConv saveState(RRHandle handle, const char* filename);
+
+
+/*!
+ \brief Reload a road runner instance's state saved by saveState
+ \param[in] handle Handle to the RoadRunner instance to be loaded into
+ \param[in] filename path to the file to be loaded from
+ \return Returns true if successful
+ \ingroup loadsave
+*/
+C_DECL_SPEC bool rrcCallConv loadState(RRHandle handle, const char* filename);
+
+/*!
  \brief Load a model from a SBML file
  \param[in] handle Handle to a RoadRunner instance
  \param[in] fileName file name (or full path) to file that holds the SBML model
@@ -1370,6 +1389,62 @@ C_DECL_SPEC int rrcCallConv getCurrentIntegratorParameterBoolean (RRHandle handl
 \ingroup simopts
 */
 C_DECL_SPEC int rrcCallConv setCurrentIntegratorParameterBoolean (RRHandle handle, char *parameterName, int value);
+
+
+/*!
+\brief Get the double array value for a specific integrator setting. Should only used for absoluate tolerace.
+\param[in] handle Handle to a RoadRunner instance.
+\param[in] paramterName Name of the integrator setting.
+\param[in] value Return the values as in this double array.
+\param[in] len Return the length double array.
+\return Returns True if successful.
+\ingroup simopts
+*/
+C_DECL_SPEC int rrcCallConv getCurrentIntegratorParameterDoubleArray (RRHandle handle, char *parameterName, double** value, int* len);
+
+/*!
+\brief Set the double array value for a specific integrator setting. Should only used for absoluate tolerace.
+\param[in] handle Handle to a RoadRunner instance.
+\param[in] paramterName Name of the integrator setting.
+\param[in] value The double array value for the integrator setting.
+\param[in] len The length of given soubld array.
+\return Returns True if successful.
+\ingroup simopts
+*/
+C_DECL_SPEC int rrcCallConv setCurrentIntegratorParameterDoubleArray(RRHandle handle, char *parameterName, double* value, int len);
+
+
+/*!
+\brief Set the scalar tolerance based on concentration for the current integrator.
+\param[in] handle Handle to a RoadRunner instance.
+\param[in] value The double value for the integrator setting.
+\return Returns True if successful.
+\ingroup simopts
+*/
+C_DECL_SPEC int rrcCallConv setCurrentIntegratorScalarConcentrationTolerance(RRHandle handle, double value);
+
+
+/*!
+\brief Set the vector tolerance based on concentration for the current integrator.
+\param[in] handle Handle to a RoadRunner instance.
+\param[in] value The double array value for the integrator setting.
+\param[in] len The length of given soubld array.
+\return Returns True if successful.
+\ingroup simopts
+*/
+C_DECL_SPEC int rrcCallConv setCurrentIntegratorVectorConcentrationTolerance(RRHandle handle, double* value, int len);
+
+
+/*!
+\brief Set the double array value for a specific integrator setting. Should only used for absoluate tolerace.
+\param[in] handle Handle to a RoadRunner instance.
+\param[in] paramterName Name of the integrator setting.
+\param[in] value The double array value for the integrator setting.
+\param[in] len The length of given soubld array.
+\return Returns True if successful.
+\ingroup simopts
+*/
+C_DECL_SPEC int rrcCallConv setCurrentIntegratorIndividualTolerance(RRHandle handle, char* sid, double value);
 
 
 /* Steady State Solvers *******************************************************/

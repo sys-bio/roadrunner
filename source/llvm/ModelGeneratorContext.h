@@ -135,9 +135,9 @@ public:
      * Monkey steals the peach -- A martial arts technique mastered by
      * Michael Wu which is in effect, the act of ripping someone's bollocks off.
      */
-	void stealThePeach(const LLVMModelDataSymbols **sym,
-		llvm::LLVMContext **ctx, llvm::ExecutionEngine **eng,
-		const Random **random, const std::string **errStr, llvm::Module **mod);
+    void stealThePeach(const LLVMModelDataSymbols **sym,
+             llvm::LLVMContext **ctx,  llvm::ExecutionEngine **eng,
+            const Random **random, const std::string **errStr);
 
     bool getConservedMoietyAnalysis() const;
 
@@ -189,10 +189,13 @@ private:
     llvm::LLVMContext *context;
     llvm::ExecutionEngine *executionEngine;
     std::unique_ptr<llvm::Module> module_uniq;
-	const libsbml::Model *model;
+    const libsbml::Model *model;
+
+public:
+
+    llvm::Module* module;
 
 private:
-	llvm::Module* module;
     llvm::IRBuilder<> *builder;
 
     llvm::legacy::FunctionPassManager *functionPassManager;

@@ -245,8 +245,11 @@ public:
      */
     const ls::DoubleMatrix *simulate(const Dictionary* options = 0);
 
-	void saveState(std::string filename);
-	void loadState(std::string filename);
+    /*
+    *  Saves this roadrunner instance to a file so it can be reloaded later
+    */
+    void saveState(std::string filename, char opt = 'b');
+    void loadState(std::string filename);
 
     /**
      * RoadRunner keeps a copy of the simulation data around until the
@@ -1576,46 +1579,45 @@ private:
      */
     class RoadRunnerImpl* impl;
 
-	/* 
-	* Check if the id already existed in the model
-	*/
-	void checkID(const std::string& functionName, const std::string& sid);
-
-	/*
-	* Regenerate this RoadRunner instance's ExecutableModel based on the model in its SBMLDocument
-	*/
-	void regenerate(bool forceRegenerate, bool reset = false);
-
-	/*
-	* Parse a string with format stoichiometry + sID and return its stoichiometry value and sID
-	*/
-	void parseSpecies(const string& species, double* stoichiometry, char** sid);
-
-	/*
-	* Remove a variable from the current model.
-	*/
-	void removeVariable(const string& sid);
-
-	/*
-	* check recursively if a ASTnode or any of its child has the given variable
-	*/
-	bool hasVariable(const libsbml::ASTNode* node, const string& sid);
-
-	/*
-	* Get the names of all the species involved in a given AST
-	*/
-	void getSpeciesIdsFromAST(const libsbml::ASTNode* node, std::vector<string>& species);
-	void getSpeciesIdsFromAST(const libsbml::ASTNode* node, std::vector<string>& species, std::vector<string>& speciesNames);
-
-	/*
-	* check and remove all parameter without any assignments
-	*/
-	void checkGlobalParameters();
-
-	void saveSelectionVector(std::ostream&, std::vector<SelectionRecord>&);
-	void loadSelectionVector(std::istream&, std::vector<SelectionRecord>&);
-	const int fileMagicNumber = 0xAD6F52;
-	const int dataVersionNumber = 1;
+    /* 
+    * Check if the id already existed in the model
+    */
+    void checkID(const std::string& functionName, const std::string& sid);
+    
+    /*
+    * Regenerate this RoadRunner instance's ExecutableModel based on the model in its SBMLDocument
+    */
+    void regenerate(bool forceRegenerate, bool reset = false);
+    
+    /*
+    * Parse a string with format stoichiometry + sID and return its stoichiometry value and sID
+    */
+    void parseSpecies(const string& species, double* stoichiometry, char** sid);
+    
+    /*
+    * Remove a variable from the current model.
+    */
+    void removeVariable(const string& sid);
+    
+    /*
+    * check recursively if a ASTnode or any of its child has the given variable
+    */
+    bool hasVariable(const libsbml::ASTNode* node, const string& sid);
+    
+    /*
+    * Get the names of all the species involved in a given AST
+    */
+    void getSpeciesIdsFromAST(const libsbml::ASTNode* node, std::vector<string>& species);
+    void getSpeciesIdsFromAST(const libsbml::ASTNode* node, std::vector<string>& species, std::vector<string>& speciesNames);
+    
+    /*
+    * check and remove all parameter without any assignments
+    */
+    void checkGlobalParameters();
+    void saveSelectionVector(std::ostream&, std::vector<SelectionRecord>&);
+    void loadSelectionVector(std::istream&, std::vector<SelectionRecord>&);
+    const int fileMagicNumber = 0xAD6F52;
+    const int dataVersionNumber = 1;
 };
 
 }

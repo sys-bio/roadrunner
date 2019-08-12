@@ -300,6 +300,10 @@ LLVMExecutableModel::LLVMExecutableModel(std::istream& in, uint modelGeneratorOp
     setCompartmentInitVolumesPtr = resources->setCompartmentInitVolumesPtr;
     getGlobalParameterInitValuePtr = resources->getGlobalParameterInitValuePtr;
     setGlobalParameterInitValuePtr = resources->setGlobalParameterInitValuePtr;
+
+    pendingEvents.loadState(in, *this);
+    rr::loadBinary(in, eventAssignTimes);
+    rr::loadBinary(in, tieBreakMap);
 }
 
 LLVMExecutableModel::~LLVMExecutableModel()
@@ -356,6 +360,11 @@ int LLVMExecutableModel::getNumGlobalParameters()
 int LLVMExecutableModel::getNumCompartments()
 {
     return symbols->getCompartmentsSize();
+}
+
+int LLVMExecutableModel::getCompartmentIndexForFloatingSpecies(int index) 
+{
+	return symbols->getCompartmentIndexForFloatingSpecies(index);
 }
 
 int LLVMExecutableModel::getNumReactions()
@@ -2290,6 +2299,10 @@ void LLVMExecutableModel::saveState(std::ostream& out)
 {
 	LLVMModelData_save(modelData, out);
 	resources->saveState(out);
+	
+	pendingEvents.saveState(out);
+	rr::saveBinary(out, eventAssignTimes);
+	rr::saveBinary(out, tieBreakMap);
 }
 
 

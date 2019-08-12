@@ -114,14 +114,13 @@ void LLVMModelData_save(LLVMModelData *data, std::ostream& out)
 	rr::saveBinary(out, data->numInitFloatingSpecies);
 	rr::saveBinary(out, data->numInitBoundarySpecies);
 	rr::saveBinary(out, data->numInitGlobalParameters);
-
     
 	rr::saveBinary(out, data->numEvents);
 	rr::saveBinary(out, data->stateVectorSize);
 	//Save the stoichiometry matrix
 	rr::csr_matrix_dump_binary(data->stoichiometry, out);
 
-    //We do not need to save random because LLVMExecutableModel will make a new one if it is null
+	//We do not need to save random because LLVMExecutableModel will make a new one if it is null
     
 	//We do not need to save stateVector as it is allocated by the integrator
 

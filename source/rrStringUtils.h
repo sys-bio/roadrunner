@@ -57,6 +57,7 @@ RR_DECLSPEC int                 toInt(const string& str);
 RR_DECLSPEC bool                toBool(const string& str);
 RR_DECLSPEC double              toDouble(const string& str);
 
+RR_DECLSPEC vector<double>      toDoubleVector(const string& str);
 RR_DECLSPEC complex<double>     toComplex(const string& str);
 
 RR_DECLSPEC string              toString(const bool& b);

@@ -265,12 +265,10 @@ public:
      */
     bool isSigned() const;
 
-	/*
-	* true if this is a vector of doubles
-	* */
-	bool isDoubleVector() const;
-
-
+    /*
+    * true if this is a vector of doubles
+    * */
+    bool isDoubleVector() const;
 
 private:
     /**

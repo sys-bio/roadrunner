@@ -1639,9 +1639,11 @@ void LLVMModelDataSymbols::saveState(std::ostream& out) const
 	rr::saveBinary(out, reactionsMap);
 	rr::saveBinary(out, stoichColIndx);
 	rr::saveBinary(out, stoichRowIndx);
-    rr::saveBinary(out, stoichIds);
-    
-    rr::saveBinary(out, stoichTypes);
+
+	rr::saveBinary(out, stoichIds);
+
+	rr::saveBinary(out, stoichTypes);
+
 	rr::saveBinary(out, assignmentRules);
 	rr::saveBinary(out, rateRules);
 	rr::saveBinary(out, globalParameterRateRules);
@@ -1687,10 +1689,12 @@ void LLVMModelDataSymbols::loadState(std::istream& in)
 	rr::loadBinary(in, reactionsMap);
 	rr::loadBinary(in, stoichColIndx);
 	rr::loadBinary(in, stoichRowIndx);
-    rr::loadBinary(in, stoichIds);
+	rr::loadBinary(in, stoichIds);
 
-    rr::loadBinary(in, stoichTypes);
+	rr::loadBinary(in, stoichTypes);
+
 	rr::loadBinary(in, assignmentRules);
+
 	rr::loadBinary(in, rateRules);
 	rr::loadBinary(in, globalParameterRateRules);
 	rr::loadBinary(in, independentFloatingSpeciesSize);

@@ -378,6 +378,7 @@ public:
     /******************************************************************************/
 
     virtual int getNumCompartments() = 0;
+	virtual int getCompartmentIndexForFloatingSpecies(int index) = 0;
     virtual int getCompartmentIndex(const std::string& eid) = 0;
     virtual std::string getCompartmentId(int index) = 0;
 
@@ -738,17 +739,13 @@ public:
     void computeAllRatesOfChange() {};
 	
 	/*
-	* Returns "Not implemented for this model type" if not implemented for the underlying
+	* Writes "Not implemented for this model type" to out if not implemented for the underlying
 	* model type
 	*/
 	virtual void saveState(std::ostream& out) {
 		out << "Saving state not implemented for this model type";
 	}
 	
-	virtual bool loadSaveState(std::istream& in) {
-		return false;
-	}
-
     friend class RoadRunner;
 
 protected:
@@ -768,7 +765,6 @@ protected:
 
 
 };
-
 
 
 

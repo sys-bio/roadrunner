@@ -26,7 +26,8 @@ public:
     const LLVMModelDataSymbols *symbols;
     llvm::LLVMContext *context;
     llvm::ExecutionEngine *executionEngine;
-	llvm::Module *module;
+    llvm::Module *module = 0;
+    std::string moduleStr;
     const class Random *random;
     const std::string *errStr;
 
@@ -66,7 +67,7 @@ public:
     GetGlobalParameterInitValueCodeGen::FunctionPtr getGlobalParameterInitValuePtr;
     SetGlobalParameterInitValueCodeGen::FunctionPtr setGlobalParameterInitValuePtr;
 private:
-	void addGlobalMapping(const llvm::GlobalValue*, void*);
+	void addGlobalMapping(std::string name, void*);
 	void addGlobalMappings();
 	static llvm::Function* createGlobalMappingFunction(const char* funcName, llvm::FunctionType *funcType, llvm::Module*);
 };
