@@ -476,7 +476,7 @@ bool StateRunTestModelFromScratch(void(*generate)(RoadRunner*),std::string versi
 
 SUITE(STATE_SAVING_TEST_SUITE)
 {
-	/*TEST(SAVE_STATE_1)
+	TEST(SAVE_STATE_1)
 	{
 		CHECK(RunStateSavingTest(1, [](RoadRunner *rri)
 		{
@@ -703,7 +703,7 @@ SUITE(STATE_SAVING_TEST_SUITE)
 		clog << rri2.getIntegrator()->getConcentrationTolerance()[1] << endl;
 		CHECK(rri2.getIntegrator()->getConcentrationTolerance()[0] == 5.0);
 		CHECK(rri2.getIntegrator()->getConcentrationTolerance()[1] == 3.0);
-	}*/
+	}
 
 	TEST(FROM_SCRATCH_1)
 	{
@@ -818,5 +818,54 @@ SUITE(STATE_SAVING_TEST_SUITE)
 			rri->addEventAssignment("Rinc2", "R2", "R2 + 0.01", false);
 			rri->addPriority("Rinc2", "1");
 		}, "l3v1"));
+	}
+
+	TEST(FROM_SCRATCH_7)
+	{
+		CHECK(StateRunTestModelFromScratch([](RoadRunner *rri)
+		{
+			rri->addCompartment("compartment", 1);
+			rri->saveState("test-save-state.rr");
+			rri->clearModel();
+			rri->loadState("test-save-state.rr");
+			rri->addSpecies("S1", "compartment", 0.00015, "substance");
+			rri->addSpecies("S2", "compartment", 0, "substance");
+			rri->addParameter("k1", 1);
+			rri->addReaction("reaction1", {"S1"}, {"S2"}, "compartment * k1 * S1");
+		}));
+	}
+
+	TEST(FROM_SCRATCH_8)
+	{
+		CHECK(StateRunTestModelFromScratch([](RoadRunner *rri)
+		{
+			rri->addCompartment("compartment", 1);
+			rri->addSpecies("S1", "compartment", 1, "substance");
+			rri->addSpecies("S2", "compartment", 0, "substance");
+
+			rri->saveState("test-save-state.rr");
+			rri->clearModel();
+			rri->loadState("test-save-state.rr");
+
+			rri->addParameter("k1", 1);
+			rri->addReaction("reaction1", {"S1"}, {"S2"}, "compartment * k1 * S1");
+			rri->addEvent("event1", true, "S1 < 0.1");
+			rri->addDelay("event1", "1");
+			rri->addEventAssignment("event1", "S1", "1");
+		}));
+	}
+
+	TEST(FROM_SCRATCH_9)
+	{
+		CHECK(StateRunTestModelFromScratch([](RoadRunner *rri)
+		{
+			rri->addCompartment("compartment", 1);
+			rri->addSpecies("S1", "compartment", 0, "substance");
+			rri->addRateRule("S1", "7");
+			
+			rri->saveState("test-save-state.rr");
+			rri->clearModel();
+			rri->loadState("test-save-state.rr");
+		}));
 	}
 }
