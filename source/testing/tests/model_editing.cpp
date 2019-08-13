@@ -1412,6 +1412,26 @@ SUITE(MODEL_EDITING_TEST_SUITE)
 		}
 	}
 
+	TEST(RETAIN_ABSOLUTE_TOLERANCES_2)
+	{
+		clog << "RETAIN_ABSOLUTE_TOLERANCES_2" << endl;
+		RoadRunner *rri = new RoadRunner(gTSModelsPath + "/00001/00001-sbml-l2v4.xml");
+		rri->getIntegrator()->setIndividualTolerance("S1", 5.0);
+		rri->getIntegrator()->setIndividualTolerance("S2", 3.0);
+		rri->removeSpecies("S1");
+		if (rri->getIntegrator()->getConcentrationTolerance().size() != 1)
+		{
+			clog << "RETAIN_ABSOLUTE_TOLERANCES_2 failed, rri->getIntegrator()->getConcentrationTolerance().size() != 1" << endl;
+			UnitTest::CurrentTest::Results()->OnTestFailure(*UnitTest::CurrentTest::Details(), "RETAIN_ABSOLUTE_TOLERANCES_2 failed, rri->getIntegrator()->getConcentrationTolerance().size() != 1");
+		}
+
+		if (rri->getIntegrator()->getConcentrationTolerance()[0] != 3.0)
+		{
+			clog << "RETAIN_ABSOLUTE_TOLERANCES_2 failed, rri->getIntegrator()->getConcentrationTolerance()[0] == 3.0" << endl;
+			UnitTest::CurrentTest::Results()->OnTestFailure(*UnitTest::CurrentTest::Details(), "RETAIN_ABSOLUTE_TOLERANCES_2 failed, rri->getIntegrator()->getConcentrationTolerance()[0] != 3.0");
+		}
+	}
+
 	TEST(READD_SPECIES)
 	{
 		clog << endl << "==== CHECK_READD_SPECIES ====" << endl << endl;
