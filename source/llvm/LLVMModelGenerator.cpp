@@ -208,6 +208,42 @@ ExecutableModel* LLVMModelGenerator::regenerateModel(ExecutableModel* oldModel, 
 		setGlobalParameterInitValueIR = 0;
 	}
 
+	//Currently we save jitted functions in object file format 
+	//in save state. Compiling the functions into this format in the first place
+	//makes saveState significantly faster than creating the object file when it is called
+	//We then load the object file into the jit engine to avoid compiling the functions twice
+	auto TargetMachine = context.getExecutionEngine().getTargetMachine();
+
+	llvm::InitializeNativeTarget();
+
+	//Write the object file to modBuffer
+	std::error_code EC;
+	llvm::SmallVector<char, 10> modBuffer;
+	llvm::raw_svector_ostream mStrStream(modBuffer);
+
+	llvm::legacy::PassManager pass;
+	auto FileType = TargetMachine->CGFT_ObjectFile;
+
+	if (TargetMachine->addPassesToEmitFile(pass, mStrStream, FileType))
+	{
+		throw "TargetMachine can't emit a file of type CGFT_ObjectFile";
+	}
+
+	pass.run(*context.module);
+	
+	//Read from modBuffer into our execution engine
+	std::string moduleStr(modBuffer.begin(), modBuffer.end());
+
+	auto memBuffer(llvm::MemoryBuffer::getMemBuffer(moduleStr));
+
+	llvm::Expected<std::unique_ptr<llvm::object::ObjectFile> > objectFileExpected =
+		llvm::object::ObjectFile::createObjectFile(llvm::MemoryBufferRef(moduleStr, "id"));
+    
+	std::unique_ptr<llvm::object::ObjectFile> objectFile(std::move(objectFileExpected.get()));
+	
+	llvm::object::OwningBinary<llvm::object::ObjectFile> owningObject(std::move(objectFile), std::move(memBuffer));
+
+	context.getExecutionEngine().addObjectFile(std::move(owningObject));
 	//https://stackoverflow.com/questions/28851646/llvm-jit-windows-8-1
 	context.getExecutionEngine().finalizeObject();
 
@@ -356,6 +392,7 @@ context.getExecutionEngine().getFunctionAddress("setGlobalParameter");
 	// * MOVE * the bits over from the context to the exe model.
 	context.stealThePeach(&rc->symbols, &rc->context,
 		&rc->executionEngine, &rc->random, &rc->errStr);
+    rc->moduleStr = moduleStr;
 
 	LLVMExecutableModel* newModel = new LLVMExecutableModel(rc, modelData);
 
