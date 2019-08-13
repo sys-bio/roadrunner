@@ -6414,9 +6414,13 @@ void RoadRunner::regenerate(bool forceRegenerate, bool reset)
 		
 		if (toleranceVector)
 		{
+			//Force setIndividualTolerance to construct a vector of the correct size
+			impl->integrator->setValue("absolute_tolerance", 0.0);
 			for (auto p : indTolerances)
 			{
-				impl->integrator->setIndividualTolerance(p.first, p.second);
+				auto ids = getFloatingSpeciesIds();
+				if(std::find(ids.begin(), ids.end(), p.first) != ids.end())
+					impl->integrator->setIndividualTolerance(p.first, p.second);
 			}
 		}
 		// reset();

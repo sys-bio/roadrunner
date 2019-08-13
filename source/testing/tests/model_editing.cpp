@@ -1373,7 +1373,6 @@ SUITE(MODEL_EDITING_TEST_SUITE)
 		CHECK(RunModelEditingTest([](RoadRunner* rri)
 		{
 			rri->setTriggerInitialValue("event1", false);
-			//rri->reset();
 		}, "l3v1"));
 	}
 
@@ -1382,7 +1381,6 @@ SUITE(MODEL_EDITING_TEST_SUITE)
 		CHECK(RunModelEditingTest([](RoadRunner* rri)
 		{
 			rri->setTriggerInitialValue("event1", true);
-			//rri->reset();
 		}, "l3v1"));
 	}
 
@@ -1391,8 +1389,27 @@ SUITE(MODEL_EDITING_TEST_SUITE)
 		CHECK(RunModelEditingTest([](RoadRunner* rri)
 		{
 			rri->setTriggerInitialValue("event1", true);
-			//rri->reset();
 		}, "l3v1"));
+	}
+
+	TEST(RETAIN_ABSOLUTE_TOLERANCES_1)
+	{
+		clog << "RETAIN_ABSOLUTE_TOLERANCES_1" << endl;
+		RoadRunner *rri = new RoadRunner(gTSModelsPath + "/00001/00001-sbml-l2v4.xml");
+		rri->getIntegrator()->setIndividualTolerance("S1", 5.0);
+		rri->getIntegrator()->setIndividualTolerance("S2", 3.0);
+		rri->removeSpecies("S2");
+		if (rri->getIntegrator()->getConcentrationTolerance().size() != 1)
+		{
+			clog << "RETAIN_ABSOLUTE_TOLERANCES_1 failed, rri->getIntegrator()->getConcentrationTolerance().size() != 1" << endl;
+			UnitTest::CurrentTest::Results()->OnTestFailure(*UnitTest::CurrentTest::Details(), "RETAIN_ABSOLUTE_TOLERANCES_1 failed, rri->getIntegrator()->getConcentrationTolerance().size() != 1");
+		}
+
+		if (rri->getIntegrator()->getConcentrationTolerance()[0] != 5.0)
+		{
+			clog << "RETAIN_ABSOLUTE_TOLERANCES_1 failed, rri->getIntegrator()->getConcentrationTolerance()[0] == 5.0" << endl;
+			UnitTest::CurrentTest::Results()->OnTestFailure(*UnitTest::CurrentTest::Details(), "RETAIN_ABSOLUTE_TOLERANCES_1 failed, rri->getIntegrator()->getConcentrationTolerance()[0] != 5.0");
+		}
 	}
 
 	TEST(READD_SPECIES)
