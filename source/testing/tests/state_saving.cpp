@@ -524,4 +524,19 @@ SUITE(STATE_SAVING_TEST_SUITE)
 			rri->getSimulateOptions().duration = 3.0 - rri->getSimulateOptions().duration;
 		}, "l3v1"));
 	}
+	
+	TEST(RETAIN_ABSOLUTE_TOLERANCES_1)
+	{
+		clog << "RETAIN_ABSOLUTE_TOLERANCES_1" << endl;
+		RoadRunner rri(gTSModelsPath + "/00001/00001-sbml-l2v4.xml");
+		rri.getIntegrator()->setIndividualTolerance("S1", 5.0);
+		rri.getIntegrator()->setIndividualTolerance("S2", 3.0);
+		rri.saveState("save-state-test.rr");
+		RoadRunner rri2;
+		rri2.loadState("save-state-test.rr");
+		clog << rri2.getIntegrator()->getConcentrationTolerance()[0] << endl;
+		clog << rri2.getIntegrator()->getConcentrationTolerance()[1] << endl;
+		CHECK(rri2.getIntegrator()->getConcentrationTolerance()[0] == 5.0);
+		CHECK(rri2.getIntegrator()->getConcentrationTolerance()[1] == 3.0);
+	}
 }
