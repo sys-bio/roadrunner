@@ -5152,7 +5152,7 @@ void RoadRunner::saveState(std::string filename, char opt)
 			out << impl->simulationResult;
 			out << endl;
 
-			out << std::dec << impl->model;
+			out << std::dec << impl->model.get();
 			
 			//out << "configurationXML" << impl->configurationXML << endl;
 			//out << impl->mCurrentSBML;
