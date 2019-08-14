@@ -251,14 +251,16 @@ public:
                 mInstanceID(0),
                 loadOpt(dict),
                 compiler(Compiler::New()),
-				document()
+				document(0)
     {
         // have to init integrators the hard way in c++98
         //memset((void*)integrators, 0, sizeof(integrators)/sizeof(char));
     }
 
 	RoadRunnerImpl(const std::istream& in) :
-		mDiffStepSize(0.05)
+		mDiffStepSize(0.05),
+		document(0),
+		model(0)
 	{
 
 	}
@@ -276,7 +278,8 @@ public:
                 mLS(0),
                 simulateOpt(),
                 mInstanceID(0),
-                compiler(Compiler::New())
+                compiler(Compiler::New()),
+		document(0)
     {
         loadOpt.setItem("compiler", _compiler);
         loadOpt.setItem("tempDir", _tempDir);
@@ -1010,10 +1013,10 @@ void RoadRunner::load(const string& uriOrSbml, const Dictionary *dict)
     // the following lines load and compile the model. If anything fails here,
     // we validate the model to provide explicit details about where it
     // failed. Its *VERY* expensive to pre-validate the model.
-		libsbml::SBMLReader reader;
-		if(impl->document)
-			delete impl->document;
-		impl->document = reader.readSBMLFromString(mCurrentSBML);
+	libsbml::SBMLReader reader;
+	if(impl->document)
+		delete impl->document;
+	impl->document = reader.readSBMLFromString(mCurrentSBML);
 	if(impl->model)
 		delete impl->model;
         impl->model = ExecutableModelFactory::createModel(mCurrentSBML, &impl->loadOpt);
