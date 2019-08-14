@@ -6408,14 +6408,15 @@ void RoadRunner::regenerate(bool forceRegenerate, bool reset)
 
 		impl->model = newModel;
 		
-		// TODO: update vector tolerance
+
+		//Force setIndividualTolerance to construct a vector of the correct size
+		if(toleranceVector)
+			impl->integrator->setValue("absolute_tolerance", 1.0e-7);
 
 		impl->syncAllSolversWithModel(impl->model);
 		
 		if (toleranceVector)
 		{
-			//Force setIndividualTolerance to construct a vector of the correct size
-			impl->integrator->setValue("absolute_tolerance", 0.0);
 			for (auto p : indTolerances)
 			{
 				auto ids = getFloatingSpeciesIds();
@@ -6423,6 +6424,7 @@ void RoadRunner::regenerate(bool forceRegenerate, bool reset)
 					impl->integrator->setIndividualTolerance(p.first, p.second);
 			}
 		}
+		
 		// reset();
 		if ((impl->loadOpt.loadFlags & LoadSBMLOptions::NO_DEFAULT_SELECTIONS) == 0)
 		{
