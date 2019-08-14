@@ -175,6 +175,8 @@ namespace rr
         stateVectorVariables = false;
         variableStepPendingEvent = false;
         variableStepTimeEndEvent = false;
+	if(variableStepPostEventState)
+		delete[] variableStepPostEventState;
         variableStepPostEventState = NULL;
 
         if (m)
@@ -980,6 +982,8 @@ namespace rr
 
 		// allocate and init the cvode arrays
 		mStateVector = N_VNew_Serial(allocStateVectorSize);
+		if(variableStepPostEventState)
+			delete[] variableStepPostEventState;
 		variableStepPostEventState = new double[allocStateVectorSize];
 
 		for (int i = 0; i < allocStateVectorSize; i++)
