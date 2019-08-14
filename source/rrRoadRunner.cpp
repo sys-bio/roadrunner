@@ -6407,11 +6407,7 @@ void RoadRunner::regenerate(bool forceRegenerate, bool reset)
 			}
 		}
 
-		unique_ptr<ExecutableModel> oldModel;
-		oldModel.swap(impl->model);
-		
 		impl->model = unique_ptr<ExecutableModel>(ExecutableModelFactory::regenerateModel(impl->model.get(), impl->document, impl->loadOpt.modelGeneratorOpt));
-		
 
 		//Force setIndividualTolerance to construct a vector of the correct size
 		if(toleranceVector)
