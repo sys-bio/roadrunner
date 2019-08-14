@@ -235,7 +235,7 @@ public:
      */
     friend class aFinalizer;
 
-	libsbml::SBMLDocument* document;
+	unique_ptr<libsbml::SBMLDocument> document;
 
     RoadRunnerImpl(const std::string& uriOrSBML,
             const Dictionary* dict) :
@@ -249,16 +249,14 @@ public:
                 simulateOpt(),
                 mInstanceID(0),
                 loadOpt(dict),
-                compiler(Compiler::New()),
-				document(0)
+                compiler(Compiler::New())
     {
         // have to init integrators the hard way in c++98
         //memset((void*)integrators, 0, sizeof(integrators)/sizeof(char));
     }
 
 	RoadRunnerImpl(const std::istream& in) :
-		mDiffStepSize(0.05),
-		document(0)
+		mDiffStepSize(0.05)
 	{
 
 	}
@@ -275,8 +273,7 @@ public:
                 mLS(0),
                 simulateOpt(),
                 mInstanceID(0),
-                compiler(Compiler::New()),
-		document(0)
+                compiler(Compiler::New())
     {
         loadOpt.setItem("compiler", _compiler);
         loadOpt.setItem("tempDir", _tempDir);
@@ -292,8 +289,6 @@ public:
 
 		delete compiler;
         delete mLS;
-		if(document)
-			delete document;
 
 		deleteAllSolvers();
 
@@ -441,7 +436,7 @@ RoadRunner::RoadRunner() : impl(new RoadRunnerImpl("", NULL))
 
 	// enable building the model using editing methods
 	// and allow simultion without loading SBML files
-	impl->document = new libsbml::SBMLDocument();
+	impl->document = unique_ptr<libsbml::SBMLDocument>(new libsbml::SBMLDocument());
 	impl->document->createModel();
 }
 
@@ -464,7 +459,7 @@ RoadRunner::RoadRunner(unsigned int level, unsigned int version) : impl(new Road
 
 	// enable building the model using editing methods
 	// and allow simultion without loading SBML files
-	impl->document = new libsbml::SBMLDocument(level, version);
+	impl->document = unique_ptr<libsbml::SBMLDocument>(new libsbml::SBMLDocument(level, version));
 	impl->document->createModel();
 }
 
@@ -1008,9 +1003,7 @@ void RoadRunner::load(const string& uriOrSbml, const Dictionary *dict)
     // we validate the model to provide explicit details about where it
     // failed. Its *VERY* expensive to pre-validate the model.
 		libsbml::SBMLReader reader;
-		if(impl->document)
-			delete impl->document;
-		impl->document = reader.readSBMLFromString(mCurrentSBML);
+		impl->document = std::unique_ptr<libsbml::SBMLDocument>(reader.readSBMLFromString(mCurrentSBML));
 		impl->model = std::unique_ptr<ExecutableModel>(ExecutableModelFactory::createModel(mCurrentSBML, &impl->loadOpt));
     } catch (std::exception&) {
         string errors = validateSBML(mCurrentSBML);
@@ -3933,7 +3926,7 @@ string RoadRunner::getSBML(int level, int version)
     std::stringstream stream;
 
 	libsbml::SBMLWriter writer;
-	writer.writeSBML(impl->document, stream);
+	writer.writeSBML(impl->document.get(), stream);
 
     if (level > 0) {
         return convertSBMLVersion(stream.str(), level, version);
@@ -5303,9 +5296,7 @@ void RoadRunner::loadState(std::string filename)
 	std::string savedSBML;
 	rr::loadBinary(in, savedSBML);
 	libsbml::SBMLReader reader;
-	if(impl->document)
-		delete impl->document;
-	impl->document = reader.readSBMLFromString(savedSBML);
+	impl->document = unique_ptr<libsbml::SBMLDocument>(reader.readSBMLFromString(savedSBML));
 
 
 	//Restart the integrator and reset the model time
@@ -6407,7 +6398,7 @@ void RoadRunner::regenerate(bool forceRegenerate, bool reset)
 			}
 		}
 
-		impl->model = unique_ptr<ExecutableModel>(ExecutableModelFactory::regenerateModel(impl->model.get(), impl->document, impl->loadOpt.modelGeneratorOpt));
+		impl->model = unique_ptr<ExecutableModel>(ExecutableModelFactory::regenerateModel(impl->model.get(), impl->document.get(), impl->loadOpt.modelGeneratorOpt));
 
 		//Force setIndividualTolerance to construct a vector of the correct size
 		if(toleranceVector)
