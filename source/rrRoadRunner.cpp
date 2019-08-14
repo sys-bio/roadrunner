@@ -293,6 +293,8 @@ public:
         delete compiler;
         delete model;
         delete mLS;
+	if(document)
+		delete document;
 
 		deleteAllSolvers();
 
@@ -1009,7 +1011,11 @@ void RoadRunner::load(const string& uriOrSbml, const Dictionary *dict)
     // we validate the model to provide explicit details about where it
     // failed. Its *VERY* expensive to pre-validate the model.
 		libsbml::SBMLReader reader;
+		if(impl->document)
+			delete impl->document;
 		impl->document = reader.readSBMLFromString(mCurrentSBML);
+	if(impl->model)
+		delete impl->model;
         impl->model = ExecutableModelFactory::createModel(mCurrentSBML, &impl->loadOpt);
     } catch (std::exception&) {
         string errors = validateSBML(mCurrentSBML);
@@ -5303,6 +5309,8 @@ void RoadRunner::loadState(std::string filename)
 	std::string savedSBML;
 	rr::loadBinary(in, savedSBML);
 	libsbml::SBMLReader reader;
+	if(impl->document)
+		delete impl->document;
 	impl->document = reader.readSBMLFromString(savedSBML);
 
 

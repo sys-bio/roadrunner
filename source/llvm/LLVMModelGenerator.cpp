@@ -78,7 +78,11 @@ ExecutableModel* LLVMModelGenerator::regenerateModel(ExecutableModel* oldModel, 
 
 	SharedModelPtr rc(new ModelResources());
 
-	ModelGeneratorContext context(doc->toSBML(), options);
+	char* docSBML = doc->toSBML();
+
+	ModelGeneratorContext context(std::string(docSBML), options);
+
+	free(docSBML);
 
 	// code generation part
 

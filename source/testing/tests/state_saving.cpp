@@ -29,13 +29,14 @@ bool stateValidateModifiedSBML(std::string sbml)
 {
 
 	libsbml::SBMLDocument *doc = libsbml::readSBMLFromString(sbml.c_str());
+	bool result = true;
 	if (doc->getNumErrors() != 0)
 	{
 		for (int i = 0; i < doc->getNumErrors(); i++)
 		{
 			std::cout << doc->getError(i)->getMessage() << std::endl;
 		}
-		return false;
+		result = false;
 	}
 
 	doc->setConsistencyChecks(libsbml::LIBSBML_CAT_MODELING_PRACTICE, false);
@@ -47,9 +48,10 @@ bool stateValidateModifiedSBML(std::string sbml)
 		{
 			std::cout << doc->getError(i)->getMessage() << std::endl;
 		}
-		return false;
+		result = false;
 	}
-	return true;
+	delete doc;
+	return result;
 }
 
 
@@ -70,7 +72,7 @@ bool RunStateSavingTest(void(*modification)(RoadRunner*), std::string version = 
 	string testName(UnitTest::CurrentTest::Details()->testName);
 	string suiteName(UnitTest::CurrentTest::Details()->suiteName);
 
-	libsbml::SBMLDocument doc;
+	libsbml::SBMLDocument *doc;
 
 	try
 	{
@@ -119,7 +121,7 @@ bool RunStateSavingTest(void(*modification)(RoadRunner*), std::string version = 
 
 		libsbml::SBMLReader reader;
 		std::string fullPath = modelFilePath + "/" + modelFileName;
-		doc = *reader.readSBML(fullPath);
+		doc = reader.readSBML(fullPath);
 
 		if (!simulation.LoadSBMLFromFile())
 		{
@@ -193,10 +195,12 @@ bool RunStateSavingTest(void(*modification)(RoadRunner*), std::string version = 
 		string error = ex.what();
 		cerr << "Case " << testName << ": Exception: " << error << endl;
 		delete rr;
+		delete doc;
 		return false;
 	}
 
 	delete rr;
+	delete doc;
 	return result;
 }
 
@@ -213,7 +217,7 @@ bool RunStateSavingTest(int caseNumber, void(*modification)(RoadRunner*), std::s
 
 	//Setup environment
 	//setTempFolder(gRR, gTempFolder.c_str());
-	libsbml::SBMLDocument doc;
+	libsbml::SBMLDocument *doc;
 
 	try
 	{
@@ -260,7 +264,7 @@ bool RunStateSavingTest(int caseNumber, void(*modification)(RoadRunner*), std::s
 
 		libsbml::SBMLReader reader;
 		std::string fullPath = modelFilePath + "/" + modelFileName;
-		doc = *reader.readSBML(fullPath);
+		doc = reader.readSBML(fullPath);
 
 		if (!simulation.LoadSBMLFromFile())
 		{
@@ -335,10 +339,12 @@ bool RunStateSavingTest(int caseNumber, void(*modification)(RoadRunner*), std::s
 		string error = ex.what();
 		cerr << "Case " << caseNumber << ": Exception: " << error << endl;
 		delete rr;
+		delete doc;
 		return false;
 	}
 
 	delete rr;
+	delete doc;
 	return result;
 }
 
@@ -353,7 +359,7 @@ bool StateRunTestModelFromScratch(void(*generate)(RoadRunner*),std::string versi
 	string testName(UnitTest::CurrentTest::Details()->testName);
 	string suiteName(UnitTest::CurrentTest::Details()->suiteName);
 
-	libsbml::SBMLDocument doc;
+	libsbml::SBMLDocument *doc;
 
 	try
 	{
