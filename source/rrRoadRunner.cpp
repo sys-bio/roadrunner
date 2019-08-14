@@ -294,12 +294,13 @@ public:
         Log(Logger::LOG_DEBUG) << __FUNC__ << ", global instance count: " << mInstanceCount;
 
         delete compiler;
-        delete model;
+	if(model)
+		delete model;
         delete mLS;
 	if(document)
 		delete document;
 
-		deleteAllSolvers();
+	deleteAllSolvers();
 
         mInstanceCount--;
     }
@@ -980,8 +981,8 @@ void RoadRunner::load(const string& uriOrSbml, const Dictionary *dict)
 
     //self.mCurrentSBML = SBMLReader::read(uriOrSbml);
 	std::string mCurrentSBML = SBMLReader::read(uriOrSbml);
-
-    delete impl->model;
+    if(impl->model)
+	    delete impl->model;
     impl->model = 0;
 
     delete impl->mLS;
