@@ -5061,7 +5061,9 @@ void RoadRunner::saveState(std::string filename, char opt)
 			//created
 			//It might also be possible to construct LibStructural without SBML, but I'm not familiar with it
 			//If this implementation is too slow we can change that
-			rr::saveBinary(out, std::string(impl->document->toSBML()));
+			char* sbmlToSave = impl->document->toSBML();
+			rr::saveBinary(out, std::string(sbmlToSave));
+			free(sbmlToSave);
 			break;
 		}
 
@@ -6377,7 +6379,9 @@ void RoadRunner::validateCurrentSBML()
 {
 	// turn off unit validation for now
 	// TODO: passing options as parameters
-	string errors = validateSBML(impl->document->toSBML(), VALIDATE_GENERAL | VALIDATE_IDENTIFIER | VALIDATE_MATHML | VALIDATE_OVERDETERMINED);
+	char* documentSBML = impl->document->toSBML();
+	string errors = validateSBML(std::string(documentSBML), VALIDATE_GENERAL | VALIDATE_IDENTIFIER | VALIDATE_MATHML | VALIDATE_OVERDETERMINED);
+	free(documentSBML);
 	if (!errors.empty()) {
 		throw std::runtime_error(errors.c_str());
 	}
