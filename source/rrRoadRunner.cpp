@@ -195,7 +195,7 @@ public:
 
     std::vector<SelectionRecord> mSteadyStateSelection;
 
-    ExecutableModel* model;
+    std::unique_ptr<ExecutableModel> model;
 
     /**
      * here for compatiblity, will go.
@@ -245,7 +245,6 @@ public:
                 integrator(0),
                 mSelectionList(),
                 mSteadyStateSelection(),
-                model(0),
                 mLS(0),
                 simulateOpt(),
                 mInstanceID(0),
@@ -259,8 +258,7 @@ public:
 
 	RoadRunnerImpl(const std::istream& in) :
 		mDiffStepSize(0.05),
-		document(0),
-		model(0)
+		document(0)
 	{
 
 	}
@@ -274,7 +272,6 @@ public:
                 integrator(0),
                 mSelectionList(),
                 mSteadyStateSelection(),
-                model(0),
                 mLS(0),
                 simulateOpt(),
                 mInstanceID(0),
@@ -293,14 +290,12 @@ public:
     {
         Log(Logger::LOG_DEBUG) << __FUNC__ << ", global instance count: " << mInstanceCount;
 
-        delete compiler;
-	if(model)
-		delete model;
+		delete compiler;
         delete mLS;
-	if(document)
-		delete document;
+		if(document)
+			delete document;
 
-	deleteAllSolvers();
+		deleteAllSolvers();
 
         mInstanceCount--;
     }
@@ -526,7 +521,7 @@ RoadRunner::~RoadRunner()
 
 ExecutableModel* RoadRunner::getModel()
 {
-    return impl->model;
+    return impl->model.get();
 }
 
 void RoadRunner::setOptions(const RoadRunnerOptions& opt)
@@ -981,9 +976,7 @@ void RoadRunner::load(const string& uriOrSbml, const Dictionary *dict)
 
     //self.mCurrentSBML = SBMLReader::read(uriOrSbml);
 	std::string mCurrentSBML = SBMLReader::read(uriOrSbml);
-    if(impl->model)
-	    delete impl->model;
-    impl->model = 0;
+    impl->model = nullptr;
 
     delete impl->mLS;
     impl->mLS = NULL;
@@ -1014,13 +1007,11 @@ void RoadRunner::load(const string& uriOrSbml, const Dictionary *dict)
     // the following lines load and compile the model. If anything fails here,
     // we validate the model to provide explicit details about where it
     // failed. Its *VERY* expensive to pre-validate the model.
-	libsbml::SBMLReader reader;
-	if(impl->document)
-		delete impl->document;
-	impl->document = reader.readSBMLFromString(mCurrentSBML);
-	if(impl->model)
-		delete impl->model;
-        impl->model = ExecutableModelFactory::createModel(mCurrentSBML, &impl->loadOpt);
+		libsbml::SBMLReader reader;
+		if(impl->document)
+			delete impl->document;
+		impl->document = reader.readSBMLFromString(mCurrentSBML);
+		impl->model = std::unique_ptr<ExecutableModel>(ExecutableModelFactory::createModel(mCurrentSBML, &impl->loadOpt));
     } catch (std::exception&) {
         string errors = validateSBML(mCurrentSBML);
 
@@ -1032,7 +1023,7 @@ void RoadRunner::load(const string& uriOrSbml, const Dictionary *dict)
         throw;
     }
 
-    impl->syncAllSolversWithModel(impl->model);
+    impl->syncAllSolversWithModel(impl->model.get());
 
     reset();
     if ((impl->loadOpt.loadFlags & LoadSBMLOptions::NO_DEFAULT_SELECTIONS) == 0)
@@ -1075,8 +1066,7 @@ bool RoadRunner::clearModel()
     // its dtor unloads the shared lib.
     if(impl->model)
     {
-        delete impl->model;
-        impl->model = NULL;
+        impl->model = nullptr;
 
 		delete impl->mLS;
 		impl->mLS = NULL;
@@ -1182,7 +1172,7 @@ double RoadRunner::steadyState(const Dictionary* dict)
         Log(Logger::LOG_WARNING) << "to remove this warning, set ROADRUNNER_DISABLE_WARNINGS to 1 or 3 in the config file";
     }
 
-    metabolicControlCheck(impl->model);
+    metabolicControlCheck(impl->model.get());
 
     if (!impl->steady_state_solver) {
         Log(Logger::LOG_ERROR)<<"No steady state solver";
@@ -2217,28 +2207,28 @@ DoubleMatrix RoadRunner::getFullJacobian()
                 // this causes a reset, so need to save the current amounts to set them back
                 // as init conditions.
                 std::vector<double> conc(self.model->getNumFloatingSpecies());
-                (self.model->*getValuePtr)(conc.size(), 0, &conc[0]);
+                (self.model.get()->*getValuePtr)(conc.size(), 0, &conc[0]);
 
                 // save the original init values
                 std::vector<double> initConc(self.model->getNumFloatingSpecies());
-                (self.model->*getInitValuePtr)(initConc.size(), 0, &initConc[0]);
+                (self.model.get()->*getInitValuePtr)(initConc.size(), 0, &initConc[0]);
 
                 // get the original value
-                (self.model->*getValuePtr)(1, &j, &originalConc);
+                (self.model.get()->*getValuePtr)(1, &j, &originalConc);
 
                 // now we start changing things
                 try
                 {
                     // set init amounts to current amounts, restore them later.
                     // have to do this as this is only way to set conserved moiety values
-                    (self.model->*setInitValuePtr)(conc.size(), 0, &conc[0]);
+                    (self.model.get()->*setInitValuePtr)(conc.size(), 0, &conc[0]);
 
                     // sanity check
                     assert_similar(originalConc, conc[j]);
                     double tmp = 0;
-                    (self.model->*getInitValuePtr)(1, &j, &tmp);
+                    (self.model.get()->*getInitValuePtr)(1, &j, &tmp);
                     assert_similar(originalConc, tmp);
-                    (self.model->*getValuePtr)(1, &j, &tmp);
+                    (self.model.get()->*getValuePtr)(1, &j, &tmp);
                     assert_similar(originalConc, tmp);
 
                     // things check out, start fiddling...
@@ -2279,11 +2269,11 @@ DoubleMatrix RoadRunner::getFullJacobian()
                 catch (const std::exception& e)
                 {
                     // What ever happens, make sure we restore the species level
-                    (self.model->*setInitValuePtr)(
+                    (self.model.get()->*setInitValuePtr)(
                         initConc.size(), 0, &initConc[0]);
 
                     // only set the indep species, setting dep species is not permitted.
-                    (self.model->*setValuePtr)(
+                    (self.model.get()->*setValuePtr)(
                         self.model->getNumFloatingSpecies(), 0, &conc[0]);
 
                     // re-throw the exception.
@@ -2291,11 +2281,11 @@ DoubleMatrix RoadRunner::getFullJacobian()
                 }
 
                 // What ever happens, make sure we restore the species level
-                (self.model->*setInitValuePtr)(
+                (self.model.get()->*setInitValuePtr)(
                     initConc.size(), 0, &initConc[0]);
 
                 // only set the indep species, setting dep species is not permitted.
-                (self.model->*setValuePtr)(
+                (self.model.get()->*setValuePtr)(
                     self.model->getNumFloatingSpecies(), 0, &conc[0]);
 
                 jac[i][j] = result;
@@ -2418,23 +2408,23 @@ DoubleMatrix RoadRunner::getReducedJacobian(double h)
         double y = 0;
 
         // current value of species i
-        (self.model->*getValuePtr)(1, &i, &savedVal);
+        (self.model.get()->*getValuePtr)(1, &i, &savedVal);
 
         // get the entire rate of change for all the species with
         // species i being value(i) + h;
         y = savedVal + h;
-        (self.model->*setValuePtr)(1, &i, &y);
-        (self.model->*getRateValuePtr)(nIndSpecies, 0, dy0);
+        (self.model.get()->*setValuePtr)(1, &i, &y);
+        (self.model.get()->*getRateValuePtr)(nIndSpecies, 0, dy0);
 
 
         // get the entire rate of change for all the species with
         // species i being value(i) - h;
         y = savedVal - h;
-        (self.model->*setValuePtr)(1, &i, &y);
-        (self.model->*getRateValuePtr)(nIndSpecies, 0, dy1);
+        (self.model.get()->*setValuePtr)(1, &i, &y);
+        (self.model.get()->*getRateValuePtr)(nIndSpecies, 0, dy1);
 
         // restore original value
-        (self.model->*setValuePtr)(1, &i, &savedVal);
+        (self.model.get()->*setValuePtr)(1, &i, &savedVal);
 
         // matrix is row-major, so have to copy by elements
        for (int j = 0; j < nIndSpecies; ++j)
@@ -3523,7 +3513,7 @@ double RoadRunner::getUnscaledSpeciesElasticity(int reactionId, int speciesIndex
     check_model();
 
     // make sure no rate rules or events
-    metabolicControlCheck(self.model);
+    metabolicControlCheck(self.model.get());
 
     // function pointers to the model get values and get init values based on
     // if we are doing amounts or concentrations.
@@ -3563,28 +3553,28 @@ double RoadRunner::getUnscaledSpeciesElasticity(int reactionId, int speciesIndex
     // this causes a reset, so need to save the current amounts to set them back
     // as init conditions.
     std::vector<double> conc(self.model->getNumFloatingSpecies());
-    (self.model->*getValuePtr)(conc.size(), 0, &conc[0]);
+    (self.model.get()->*getValuePtr)(conc.size(), 0, &conc[0]);
 
     // save the original init values
     std::vector<double> initConc(self.model->getNumFloatingSpecies());
-    (self.model->*getInitValuePtr)(initConc.size(), 0, &initConc[0]);
+    (self.model.get()->*getInitValuePtr)(initConc.size(), 0, &initConc[0]);
 
     // get the original value
-    (self.model->*getValuePtr)(1, &speciesIndex, &originalConc);
+    (self.model.get()->*getValuePtr)(1, &speciesIndex, &originalConc);
 
     // now we start changing things
     try
     {
         // set init amounts to current amounts, restore them later.
         // have to do this as this is only way to set conserved moiety values
-        (self.model->*setInitValuePtr)(conc.size(), 0, &conc[0]);
+        (self.model.get()->*setInitValuePtr)(conc.size(), 0, &conc[0]);
 
         // sanity check
         assert_similar(originalConc, conc[speciesIndex]);
         double tmp = 0;
-        (self.model->*getInitValuePtr)(1, &speciesIndex, &tmp);
+        (self.model.get()->*getInitValuePtr)(1, &speciesIndex, &tmp);
         assert_similar(originalConc, tmp);
-        (self.model->*getValuePtr)(1, &speciesIndex, &tmp);
+        (self.model.get()->*getValuePtr)(1, &speciesIndex, &tmp);
         assert_similar(originalConc, tmp);
 
         // things check out, start fiddling...
@@ -3596,23 +3586,23 @@ double RoadRunner::getUnscaledSpeciesElasticity(int reactionId, int speciesIndex
         }
 
         value = originalConc + hstep;
-        (self.model->*setInitValuePtr)(1, &speciesIndex, &value);
+        (self.model.get()->*setInitValuePtr)(1, &speciesIndex, &value);
 
         double fi = 0;
         self.model->getReactionRates(1, &reactionId, &fi);
 
         value = originalConc + 2*hstep;
-        (self.model->*setInitValuePtr)(1, &speciesIndex, &value);
+        (self.model.get()->*setInitValuePtr)(1, &speciesIndex, &value);
         double fi2 = 0;
         self.model->getReactionRates(1, &reactionId, &fi2);
 
         value = originalConc - hstep;
-        (self.model->*setInitValuePtr)(1, &speciesIndex, &value);
+        (self.model.get()->*setInitValuePtr)(1, &speciesIndex, &value);
         double fd = 0;
         self.model->getReactionRates(1, &reactionId, &fd);
 
         value = originalConc - 2*hstep;
-        (self.model->*setInitValuePtr)(1, &speciesIndex, &value);
+        (self.model.get()->*setInitValuePtr)(1, &speciesIndex, &value);
         double fd2 = 0;
         self.model->getReactionRates(1, &reactionId, &fd2);
 
@@ -3627,11 +3617,11 @@ double RoadRunner::getUnscaledSpeciesElasticity(int reactionId, int speciesIndex
     catch(const std::exception& e)
     {
         // What ever happens, make sure we restore the species level
-        (self.model->*setInitValuePtr)(
+        (self.model.get()->*setInitValuePtr)(
                 initConc.size(), 0, &initConc[0]);
 
         // only set the indep species, setting dep species is not permitted.
-        (self.model->*setValuePtr)(
+        (self.model.get()->*setValuePtr)(
                 self.model->getNumIndFloatingSpecies(), 0, &conc[0]);
 
         // re-throw the exception.
@@ -3639,11 +3629,11 @@ double RoadRunner::getUnscaledSpeciesElasticity(int reactionId, int speciesIndex
     }
 
     // What ever happens, make sure we restore the species level
-    (self.model->*setInitValuePtr)(
+    (self.model.get()->*setInitValuePtr)(
             initConc.size(), 0, &initConc[0]);
 
     // only set the indep species, setting dep species is not permitted.
-    (self.model->*setValuePtr)(
+    (self.model.get()->*setValuePtr)(
             self.model->getNumIndFloatingSpecies(), 0, &conc[0]);
 
     return result;
@@ -4135,7 +4125,7 @@ Integrator* RoadRunner::makeIntegrator(std::string name)
         return NULL;
     }
     Log(Logger::LOG_DEBUG) << "Creating new integrator for " << name;
-    Integrator* result = IntegratorFactory::getInstance().New(name, impl->model);
+    Integrator* result = IntegratorFactory::getInstance().New(name, impl->model.get());
     impl->integrators.push_back(result);
     return result;
 }
@@ -4174,7 +4164,7 @@ void RoadRunner::setSteadyStateSolver(std::string name)
     else
     {
         Log(Logger::LOG_DEBUG) << "Creating new steady state solver for " << name;
-        impl->steady_state_solver = SteadyStateSolverFactory::getInstance().New(name, impl->model);
+        impl->steady_state_solver = SteadyStateSolverFactory::getInstance().New(name, impl->model.get());
         impl->steady_state_solvers.push_back(impl->steady_state_solver);
     }
 }
@@ -4857,7 +4847,7 @@ vector<string> RoadRunner::getBoundarySpeciesConcentrationIds()
 
 vector<string> RoadRunner::getConservedMoietyIds()
 {
-    return createModelStringList(impl->model, &ExecutableModel::getNumConservedMoieties,
+    return createModelStringList(impl->model.get(), &ExecutableModel::getNumConservedMoieties,
             &ExecutableModel::getConservedMoietyId);
 }
 
@@ -5269,12 +5259,10 @@ void RoadRunner::loadState(std::string filename)
 	rr::loadBinary(in, impl->roadRunnerOptions.jacobianStepSize);
 
 	rr::loadBinary(in, impl->configurationXML);
-	if(impl->model)
-		delete impl->model;
 	//Create a new model from the stream
 	//impl->model = new rrllvm::LLVMExecutableModel(in, impl->loadOpt.modelGeneratorOpt);
-	impl->model = ExecutableModelFactory::createModel(in, impl->loadOpt.modelGeneratorOpt);
-	impl->syncAllSolversWithModel(impl->model);
+	impl->model = std::unique_ptr<ExecutableModel>(ExecutableModelFactory::createModel(in, impl->loadOpt.modelGeneratorOpt));
+	impl->syncAllSolversWithModel(impl->model.get());
 
 	if (impl->mLS)
 		delete impl->mLS;
@@ -6419,17 +6407,17 @@ void RoadRunner::regenerate(bool forceRegenerate, bool reset)
 			}
 		}
 
-		ExecutableModel* oldModel = impl->model;
-		ExecutableModel* newModel = ExecutableModelFactory::regenerateModel(impl->model, impl->document, impl->loadOpt.modelGeneratorOpt);
-
-		impl->model = newModel;
+		unique_ptr<ExecutableModel> oldModel;
+		oldModel.swap(impl->model);
+		
+		impl->model = unique_ptr<ExecutableModel>(ExecutableModelFactory::regenerateModel(impl->model.get(), impl->document, impl->loadOpt.modelGeneratorOpt));
 		
 
 		//Force setIndividualTolerance to construct a vector of the correct size
 		if(toleranceVector)
 			impl->integrator->setValue("absolute_tolerance", 1.0e-7);
 
-		impl->syncAllSolversWithModel(impl->model);
+		impl->syncAllSolversWithModel(impl->model.get());
 		
 		if (toleranceVector)
 		{
@@ -6455,9 +6443,6 @@ void RoadRunner::regenerate(bool forceRegenerate, bool reset)
 				this->reset();
 			}
 		}
-
-		if (oldModel)
-			delete oldModel;
 	}
 	
 }
