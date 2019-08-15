@@ -27,6 +27,8 @@
 #include <math.h>
 #include <memory>
 
+#include "ModelResources.h"
+
 #include <sbml/common/libsbml-config-packages.h>
 #ifdef LIBSBML_HAS_PACKAGE_DISTRIB
 #include <sbml/packages/distrib/common/DistribExtensionTypes.h>
@@ -421,19 +423,18 @@ llvm::IRBuilder<> &ModelGeneratorContext::getBuilder() const
     return *builder;
 }
 
-void ModelGeneratorContext::stealThePeach(const LLVMModelDataSymbols **sym,
-         llvm::LLVMContext** ctx,  llvm::ExecutionEngine** eng,
-        const Random** rnd, const string** err)
+
+void ModelGeneratorContext::transferObjectsToResources(shared_ptr<rrllvm::ModelResources> rc)
 {
-    *sym = symbols;
+    rc->symbols = symbols;
     symbols = 0;
-    *ctx = context;
+    rc->context = context;
     context = 0;
-    *eng = executionEngine;
+    rc->executionEngine = executionEngine;
     executionEngine = 0;
-    *rnd = random;
+    rc->random = random;
     random = 0;
-    *err = errString;
+	rc->errStr = errString;
     errString = 0;
 }
 
