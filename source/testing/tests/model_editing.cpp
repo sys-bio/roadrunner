@@ -522,16 +522,22 @@ void readdAllEvents(RoadRunner *rri, libsbml::SBMLDocument *doc)
 	for (int i = 0; i < eventsToAdd->size(); i++)
 	{
 		next = eventsToAdd->get(i);
-		rri->addEvent(next->getId(), next->getUseValuesFromTriggerTime(), libsbml::SBML_formulaToL3String(next->getTrigger()->getMath()));
+		char* L3_str = libsbml::SBML_formulaToL3String(next->getTrigger()->getMath());
+		rri->addEvent(next->getId(), next->getUseValuesFromTriggerTime(), L3_str);
+		free(L3_str);
 		if (next->isSetDelay())
 		{
-			rri->addDelay(next->getId(), libsbml::SBML_formulaToL3String(next->getDelay()->getMath()));
+			L3_str = libsbml::SBML_formulaToL3String(next->getDelay()->getMath());
+			rri->addDelay(next->getId(), L3_str);
+			free(L3_str);
 		}
 		libsbml::ListOfEventAssignments *nextAssignments = next->getListOfEventAssignments();
 		for (int j = 0; j < nextAssignments->size(); j++)
 		{
 			libsbml::EventAssignment *nextEA = nextAssignments->get(j);
-			rri->addEventAssignment(next->getId(), nextEA->getVariable(), libsbml::SBML_formulaToL3String(nextEA->getMath()));
+			L3_str = libsbml::SBML_formulaToL3String(nextEA->getMath());
+			rri->addEventAssignment(next->getId(), nextEA->getVariable(), L3_str);
+			free(L3_str);
 		}
 	}
 }
@@ -603,7 +609,7 @@ void removeAndReaddAllCompartments(RoadRunner *rri, libsbml::SBMLDocument *doc)
 
 SUITE(MODEL_EDITING_TEST_SUITE)
 {
-	TEST(REMOVE_ASSIGNMENT_RULE_2)
+	/*TEST(REMOVE_ASSIGNMENT_RULE_2)
 	{
 		CHECK(RunModelEditingTest([](RoadRunner* rri) {
 			rri->removeRules("k1", true);
@@ -1471,7 +1477,7 @@ SUITE(MODEL_EDITING_TEST_SUITE)
 				UnitTest::CurrentTest::Results()->OnTestFailure(*UnitTest::CurrentTest::Details(), failureMessage.c_str());
 			}
 		}
-	}
+	}*/
 
 	TEST(READD_COMPARTMENTS)
 	{
