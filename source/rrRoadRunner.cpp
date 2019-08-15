@@ -6051,6 +6051,8 @@ void RoadRunner::addInitialAssignment(const std::string& vid, const std::string&
 	}
 	newAssignment->setMath(math);
 
+	delete math;
+
 	regenerate(forceRegenerate, true);
 }
 
@@ -6142,6 +6144,7 @@ void RoadRunner::addEvent(const std::string& eid, bool useValuesFromTriggerTime,
 		throw std::invalid_argument("Roadrunner::addEvent failed, an error occurred in parsing the trigger formula");
 	}
 	newTrigger->setMath(formula);
+	delete formula;
 	// set required attribute to default
 	// TODO: should default be true or false?
 	if (sbmlModel->getLevel() > 2)
@@ -6173,6 +6176,7 @@ void RoadRunner::addTrigger(const std::string& eid, const std::string& trigger, 
 		throw std::invalid_argument("Roadrunner::addTrigger failed, an error occurred in parsing the trigger formula");
 	}
 	newTrigger->setMath(formula);
+	delete formula;
 	// set required attributes to default
 	if (impl->document->getModel()->getLevel() > 3)
 	{
@@ -6258,6 +6262,7 @@ void RoadRunner::addPriority(const std::string& eid, const std::string& priority
 		throw std::invalid_argument("Roadrunner::addPriority failed, an error occurred in parsing the priority formula");
 	}
 	newPriority->setMath(formula);
+	delete formula;
 
 	// model regeneration will throw RuntimeError if the given formula is not valid
 	regenerate(forceRegenerate, true);
@@ -6281,6 +6286,7 @@ void RoadRunner::addDelay(const std::string& eid, const std::string& delay, bool
 		throw std::invalid_argument("Roadrunner::addDelay failed, an error occurred in parsing the delay formula");
 	}
 	newDelay->setMath(formula);
+	delete formula;
 
 	// model regeneration will throw RuntimeError if the given formula is not valid
 	regenerate(forceRegenerate, true);
@@ -6326,6 +6332,7 @@ void RoadRunner::addEventAssignment(const std::string& eid, const std::string& v
 		throw std::invalid_argument("Roadrunner::addEventAssignment failed, an error occurred in parsing the math formula");
 	}
 	assignment->setMath(math);
+	delete math;
 
 	// model regeneration will throw RuntimeError if the given formula is not valid
 	regenerate(forceRegenerate, true);

@@ -36,7 +36,7 @@ bool validateModifiedSBML(std::string sbml)
 	if (doc->getNumErrors() != 0)
 	{
 		for (int i = 0; i < doc->getNumErrors(); i++)
-		{
+		{ 
 			std::cout << doc->getError(i)->getMessage() << std::endl;
 		}
 		result = false;
@@ -485,8 +485,11 @@ void readdAllReactions(RoadRunner *rri, libsbml::SBMLDocument *doc)
 	{
 		libsbml::Reaction *next = reactionsToAdd->get(i);
 		if (std::find(currReactionIds.begin(), currReactionIds.end(), next->getId()) ==
-			currReactionIds.end())
-			rri->addReaction(next->toSBML());
+			currReactionIds.end()) {
+			char* nextSBML = next->toSBML();
+			rri->addReaction(nextSBML);
+			free(nextSBML);
+		}
 	}
 }
 
@@ -671,7 +674,7 @@ SUITE(MODEL_EDITING_TEST_SUITE)
 			rri->removeReaction("reaction2");
 		}));
 	}
-	/*TEST(ADD_REACTION_2)
+	TEST(ADD_REACTION_2)
 	{
 		CHECK(RunModelEditingTest([](RoadRunner* rri) {
 			rri->addReaction("reaction2", {"2S1", "S2"}, {"2S2"}, "compartment * k1 * S1 + compartment * k1 * S2", true);
@@ -1419,6 +1422,7 @@ SUITE(MODEL_EDITING_TEST_SUITE)
 			clog << "RETAIN_ABSOLUTE_TOLERANCES_1 failed, rri->getIntegrator()->getConcentrationTolerance()[0] == 5.0" << endl;
 			UnitTest::CurrentTest::Results()->OnTestFailure(*UnitTest::CurrentTest::Details(), "RETAIN_ABSOLUTE_TOLERANCES_1 failed, rri->getIntegrator()->getConcentrationTolerance()[0] != 5.0");
 		}
+		delete rri;
 	}
 
 	TEST(RETAIN_ABSOLUTE_TOLERANCES_2)
@@ -1439,6 +1443,7 @@ SUITE(MODEL_EDITING_TEST_SUITE)
 			clog << "RETAIN_ABSOLUTE_TOLERANCES_2 failed, rri->getIntegrator()->getConcentrationTolerance()[0] == 3.0" << endl;
 			UnitTest::CurrentTest::Results()->OnTestFailure(*UnitTest::CurrentTest::Details(), "RETAIN_ABSOLUTE_TOLERANCES_2 failed, rri->getIntegrator()->getConcentrationTolerance()[0] != 3.0");
 		}
+		delete rri;
 	}
 
 	TEST(READD_SPECIES)
@@ -1480,5 +1485,5 @@ SUITE(MODEL_EDITING_TEST_SUITE)
 				UnitTest::CurrentTest::Results()->OnTestFailure(*UnitTest::CurrentTest::Details(), failureMessage.c_str());
 			}
 		}
-	}*/
+	}
 }
