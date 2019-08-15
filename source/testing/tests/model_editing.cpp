@@ -609,7 +609,20 @@ void removeAndReaddAllCompartments(RoadRunner *rri, libsbml::SBMLDocument *doc)
 
 SUITE(MODEL_EDITING_TEST_SUITE)
 {
-	/*TEST(REMOVE_ASSIGNMENT_RULE_2)
+	TEST(SET_CONSERVED_MOIETY_ANALYSIS)
+	{
+		RoadRunner rri(gTSModelsPath + "/00001/00001-sbml-l2v4.xml");
+		clog << rri.getGlobalParameterByIndex(0) << endl;
+		rri.setGlobalParameterByIndex(0, 100);
+		rri.setConservedMoietyAnalysis(true);
+		
+		
+		clog << "SET_CONSERVED_MOIETY_ANALYSIS" << endl;
+		clog << (rri.getGlobalParameterByIndex(0) == 100 ? "pass" : "fail") << endl;
+		CHECK(rri.getGlobalParameterByIndex(0) == 100);
+	}
+
+	TEST(REMOVE_ASSIGNMENT_RULE_2)
 	{
 		CHECK(RunModelEditingTest([](RoadRunner* rri) {
 			rri->removeRules("k1", true);
@@ -1477,7 +1490,7 @@ SUITE(MODEL_EDITING_TEST_SUITE)
 				UnitTest::CurrentTest::Results()->OnTestFailure(*UnitTest::CurrentTest::Details(), failureMessage.c_str());
 			}
 		}
-	}*/
+	}
 
 	TEST(READD_COMPARTMENTS)
 	{
