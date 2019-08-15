@@ -140,7 +140,6 @@ namespace rr
 		stateVectorVariables(false),
 		variableStepPendingEvent(false),
 		variableStepTimeEndEvent(false),
-		variableStepPostEventState(0),
 		typecode_(CVODE_INT_TYPECODE)
 	{
 		Log(Logger::LOG_INFORMATION) << "creating CVODEIntegrator";
@@ -161,7 +160,6 @@ namespace rr
 
 	CVODEIntegrator::~CVODEIntegrator()
 	{
-		delete[] variableStepPostEventState;
 		freeCVode();
 	}
 
@@ -175,9 +173,6 @@ namespace rr
         stateVectorVariables = false;
         variableStepPendingEvent = false;
         variableStepTimeEndEvent = false;
-	if(variableStepPostEventState)
-		delete[] variableStepPostEventState;
-        variableStepPostEventState = NULL;
 
         if (m)
         {
@@ -844,7 +839,7 @@ namespace rr
 					// apply events and write state to variableStepPostEventState
 					// model state is updated by events.
 					int handled = mModel->applyEvents(timeEnd, &eventStatus[0],
-							NULL, variableStepPostEventState);
+							NULL, &variableStepPostEventState[0]);
 					if(handled > 0) {
 						// write original state back to model
 						mModel->setTime(timeEnd - epsilon);
@@ -982,9 +977,7 @@ namespace rr
 
 		// allocate and init the cvode arrays
 		mStateVector = N_VNew_Serial(allocStateVectorSize);
-		if(variableStepPostEventState)
-			delete[] variableStepPostEventState;
-		variableStepPostEventState = new double[allocStateVectorSize];
+		variableStepPostEventState.resize(allocStateVectorSize);
 
 		for (int i = 0; i < allocStateVectorSize; i++)
 		{
@@ -1278,7 +1271,7 @@ namespace rr
 	{
 		if (variableStepTimeEndEvent) {
 			// post event state allready calcuated.
-			mModel->setStateVector(variableStepPostEventState);
+			mModel->setStateVector(&variableStepPostEventState[0]);
 			// copy state vector into cvode memory
 			if (mStateVector)
 			{

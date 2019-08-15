@@ -245,7 +245,7 @@ namespace rr
         double lastEventTime;
         bool variableStepPendingEvent;
         bool variableStepTimeEndEvent;
-        double *variableStepPostEventState;
+		std::vector<double> variableStepPostEventState;
         std::vector<unsigned char> eventStatus;
 
         void testRootsAtInitialTime();

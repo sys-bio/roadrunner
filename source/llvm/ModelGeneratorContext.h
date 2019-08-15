@@ -12,7 +12,6 @@
 #define ModelGeneratorContext_H_
 
 #include "LLVMIncludes.h"
-#include "llvm/Object/ObjectFile.h"
 #include "llvm/IR/LegacyPassManager.h"
 #include "LLVMModelDataSymbols.h"
 #include "LLVMModelSymbols.h"
