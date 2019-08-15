@@ -394,8 +394,7 @@ context.getExecutionEngine().getFunctionAddress("setGlobalParameter");
 	}
 
 	// * MOVE * the bits over from the context to the exe model.
-	context.stealThePeach(&rc->symbols, &rc->context,
-		&rc->executionEngine, &rc->random, &rc->errStr);
+	context.transferObjectsToResources(rc);
     rc->moduleStr = moduleStr;
 
 	LLVMExecutableModel* newModel = new LLVMExecutableModel(rc, modelData);
@@ -993,8 +992,7 @@ ExecutableModel* LLVMModelGenerator::createModel(const std::string& sbml,
     }
 
     // * MOVE * the bits over from the context to the exe model.
-    context.stealThePeach(&rc->symbols, &rc->context,
-            &rc->executionEngine, &rc->random, &rc->errStr);
+    context.transferObjectsToResources(rc);
 
     //Save the object so we can saveState quickly later
     rc->moduleStr = moduleStr;

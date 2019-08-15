@@ -12,14 +12,15 @@
 #define ModelGeneratorContext_H_
 
 #include "LLVMIncludes.h"
+#include "llvm/Object/ObjectFile.h"
 #include "llvm/IR/LegacyPassManager.h"
 #include "LLVMModelDataSymbols.h"
 #include "LLVMModelSymbols.h"
 #include "Random.h"
-
 #include <sbml/Model.h>
 #include <sbml/SBMLDocument.h>
 #include <string>
+#include <memory>
 
 namespace libsbml {
 class SBMLDocument;
@@ -32,6 +33,12 @@ class ConservedMoietyConverter;
 
 namespace rrllvm
 {
+	class ModelResources;
+}
+
+namespace rrllvm
+{
+
 
 /**
  * All LLVM code generating objects basically need at a minimum three things
@@ -131,13 +138,9 @@ public:
      * So, this method exists so that the generated model can steal all the
      * objects it needs from us, these object are transfered to the model,
      * and our pointers to them are cleared.
-     *
-     * Monkey steals the peach -- A martial arts technique mastered by
-     * Michael Wu which is in effect, the act of ripping someone's bollocks off.
      */
-    void stealThePeach(const LLVMModelDataSymbols **sym,
-             llvm::LLVMContext **ctx,  llvm::ExecutionEngine **eng,
-            const Random **random, const std::string **errStr);
+	void transferObjectsToResources(std::shared_ptr<rrllvm::ModelResources> rc);
+	
 
     bool getConservedMoietyAnalysis() const;
 
