@@ -693,6 +693,13 @@ PyObject *Integrator_NewPythonObj(rr::Integrator* i) {
 %rename (_getConservedMoietyAnalysis) rr::RoadRunner::getConservedMoietyAnalysis();
 %rename (_setConservedMoietyAnalysis) rr::RoadRunner::setConservedMoietyAnalysis(bool);
 
+//Model editing proxies so that we can regenerate properties each time we regenerate the model
+%rename (_addParameter) rr::RoadRunner::addParameter(const std::string&, double, bool);
+%rename (_addSpecies) rr::RoadRunner::addSpecies(const std::string&, const std::string&, double, const std::string&, bool);
+%rename (_addCompartment) rr::RoadRunner::addCompartment(const std::string&, double, bool);
+%rename (_addReaction) rr::RoadRunner::addReaction(const std::string&, std::vector<string>, std::vector<string>, const std::string&, bool);
+
+
 // Swig wraps C++ vectors to tuples, need to wrap lists instead on some methods
 %rename (_getIndependentFloatingSpeciesIds) rr::RoadRunner::getIndependentFloatingSpeciesIds();
 %rename (_getDependentFloatingSpeciesIds) rr::RoadRunner::getDependentFloatingSpeciesIds();
@@ -1655,6 +1662,22 @@ namespace std { class ostream{}; }
         @steadyStateSolver.setter
         def steadyStateSolver(self, v):
             self.setSteadyStateSolver(v)
+
+        def addParameter(self, *args):
+            self._addParameter(*args)
+            self._makeProperties()
+
+        def addReaction(self, *args):
+            self._addReaction(*args)
+            self._makeProperties()
+                
+        def addSpecies(self, sid, compartment, initAmount = 0.0, substanceUnits = "", forceRegenerate = True):
+            self._addSpecies(sid, compartment, initAmount, substanceUnits, forceRegenerate)
+            self._makeProperties()
+
+        def addCompartment(self, *args):
+            self._addCompartment(*args)
+            self._makeProperties()
 
         def _diffstep_getter(self):
             '''Differential step size used in MCA'''
