@@ -46,11 +46,11 @@ int CopyArray(double dest[MAXPOP][MAXDIM], double src[MAXPOP][MAXDIM]) {
   return 0;
 }
 
-std::random_device rd;
-std::mt19937 gen(rd());
-std::uniform_real_distribution<double> dis(0.0, 1.0);
 double uniform()	//uniform real distribution btw 0 and 1
 {
+    std::random_device rd;
+    std::mt19937 gen(rd());
+    std::uniform_real_distribution<> dis(0.0, 1.0);
 	return dis(gen);
 }
 
