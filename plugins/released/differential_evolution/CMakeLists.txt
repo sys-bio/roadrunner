@@ -8,7 +8,7 @@ set(RRP_DIFFERENTIAL_EVOLUTION_SOURCES
     deUtils.cpp
     deObjectiveFunction.cpp
     deDifferentialEvolution.cpp
-    desimplex.h
+    deSimplex.h
     deWorker.h
     deUtils.h
     deObjectiveFunction.h
