@@ -13,7 +13,6 @@ add_library(telplugins_c_api SHARED
   telplugins_utilities
   telplugins_logging_api
   telAPIHandleManager
-  telplugins_utilities
 )
 
 target_link_libraries ( telplugins_c_api
