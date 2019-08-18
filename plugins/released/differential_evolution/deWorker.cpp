@@ -4,7 +4,7 @@
 #include "rr-libstruct/lsLA.h"
 #include "C/rrc_api.h" //Todo: no reason using the roaddrunner C API here, convert and use the CPP api directly
 #include "C/rrc_utilities.h"
-#include "desimplex.h"  //change it for DifferentialEvolution
+#include "deSimplex.h"  //change it for DifferentialEvolution
 #include "rrLogger.h"
 #include "rrException.h"
 #include "telTelluriumData.h"
