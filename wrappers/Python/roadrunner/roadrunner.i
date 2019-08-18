@@ -39,7 +39,7 @@
     #include <sstream>
     #include <rrRoadRunner.h>
 
-    /*#include "rrStringUtils.h"
+    #include "rrStringUtils.h"
     #include "wrappers/C/rrplugins/telplugins_exporter.h"
     #include "wrappers/C/rrplugins/telplugins_settings.h"
     #include "wrappers/C/rrplugins/telplugins_types.h"
@@ -50,9 +50,9 @@
     #include "wrappers/C/rrplugins/telplugins_telluriumdata_api.h"
     #include "wrappers/C/rrplugins/telplugins_logging_api.h"
 
-    #include "wrappers/C/rrplugins/telplugins_c_api.h"*/
+    #include "wrappers/C/rrplugins/telplugins_c_api.h"
 
-    /*#include "rrplugins/core/telCoreExporter.h"
+    #include "rrplugins/core/telCoreExporter.h"
     #include "rrExporter.h"
     #include "rrConstants.h"
     #include "c/rrStringList.h"
@@ -61,9 +61,9 @@
     #include "rrLogger.h"
     #include "rrplugins/core/telPlugin.h"
     #include "rrplugins/core/telCPlugin.h"
-    #include "rrUtils.h"*/
+    #include "rrUtils.h"
 
-    //#include "rrplugins/core/telPluginManager.h"
+    #include "rrplugins/core/telPluginManager.h"
 
     #include <SteadyStateSolver.h>
     #include <rrLogger.h>
