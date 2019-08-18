@@ -31,6 +31,8 @@ if (TLP_BUILD_AUTO2000_PLUGIN)
 add_subdirectory(auto2000)
 endif()
 
+add_subdirectory(differential_evolution)
+
 #if (TLP_BUILD_STAT_PLUGIN)
 #   add_subdirectory(statistics)
 #endif()

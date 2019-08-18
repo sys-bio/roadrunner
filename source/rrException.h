@@ -44,6 +44,14 @@ class RR_DECLSPEC CoreException : public Exception
         CoreException(const string& msg1, const string& msg2);
 };
 
+class RR_DECLSPEC BadHandleException : public Exception
+{
+    public:
+        BadHandleException(const string& msg);
+        BadHandleException(const string& msg1, const string& msg2);
+};
+
+
 class RR_DECLSPEC ScannerException : public Exception
 {
     public:

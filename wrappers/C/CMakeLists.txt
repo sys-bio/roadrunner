@@ -115,3 +115,5 @@ install(
     ARCHIVE DESTINATION lib COMPONENT c_api
     LIBRARY DESTINATION lib COMPONENT c_api
     )
+
+add_subdirectory(rrplugins)

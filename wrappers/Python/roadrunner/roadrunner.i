@@ -39,8 +39,32 @@
     #include <sstream>
     #include <rrRoadRunner.h>
 
-    #include "rrplugins/core/telPluginManager.h"
-    
+    #include "rrStringUtils.h"
+    #include "wrappers/C/rrplugins/telplugins_exporter.h"
+    #include "wrappers/C/rrplugins/telplugins_settings.h"
+    #include "wrappers/C/rrplugins/telplugins_types.h"
+    #include "wrappers/C/rrplugins/tel_macros.h"
+    #include "wrappers/C/rrplugins/telplugins_utilities.h"
+    #include "wrappers/C/rrplugins/teljobs_api.h"
+    #include "wrappers/C/rrplugins/telplugins_properties_api.h"
+    #include "wrappers/C/rrplugins/telplugins_telluriumdata_api.h"
+    #include "wrappers/C/rrplugins/telplugins_logging_api.h"
+
+    #include "wrappers/C/rrplugins/telplugins_c_api.h"
+
+    /*#include "rrplugins/core/telCoreExporter.h"
+    #include "rrExporter.h"
+    #include "rrConstants.h"
+    #include "c/rrStringList.h"
+    #include "Poco/SharedLibrary.h"
+    #include "rrException.h"
+    #include "rrLogger.h"
+    #include "rrplugins/core/telPlugin.h"
+    #include "rrplugins/core/telCPlugin.h"
+    #include "rrUtils.h"*/
+
+    //#include "rrplugins/core/telPluginManager.h"
+
     #include <SteadyStateSolver.h>
     #include <rrLogger.h>
     #include <rrConfig.h>
@@ -109,7 +133,33 @@
 
 %}
 
-%include "rrplugins/core/telPluginManager.h"
+%include "windows.i";
+
+%include "rrExporter.h";
+%include "rrStringUtils.h";
+%include "wrappers/C/rrplugins/telplugins_exporter.h";
+%include "wrappers/C/rrplugins/telplugins_settings.h";
+%include "wrappers/C/rrplugins/tel_macros.h"
+%include "wrappers/C/rrplugins/telplugins_types.h";
+//%include "wrappers/C/rrplugins/telplugins_utilities.h";
+//%include "wrappers/C/rrplugins/teljobs_api.h";
+/*%include "wrappers/C/rrplugins/telplugins_properties_api.h";
+%include "wrappers/C/rrplugins/telplugins_telluriumdata_api.h";
+%include "wrappers/C/rrplugins/telplugins_logging_api.h";*/
+%include "wrappers/C/rrplugins/telplugins_c_api.h";
+
+/*%include "rrplugins/core/telCoreExporter.h";
+%include "rrExporter.h";
+%include "rrConstants.h";
+%include "c/rrStringList.h";
+%include "Poco/SharedLibrary.h";
+%include "rrException.h";
+%include "rrLogger.h";
+%include "rrplugins/core/telPlugin.h";
+%include "rrplugins/core/telCPlugin.h";
+%include "rrUtils.h";
+
+%include "rrplugins/core/telPluginManager.h";*/
 
 %naturalvar;
 
@@ -2568,4 +2618,3 @@ integrators = list(RoadRunner.getRegisteredIntegratorNames())
 steadyStateSolvers = list(RoadRunner.getRegisteredSteadyStateSolverNames())
 solvers = integrators + steadyStateSolvers
 %}
-

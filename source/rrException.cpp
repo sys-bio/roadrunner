@@ -29,6 +29,11 @@ string Exception::getMessage() const
     return mMessage;
 }
 
+BadHandleException::BadHandleException(const string& msg)
+:
+Exception(msg)
+{}
+
 CoreException::CoreException(const string& msg)
 :
 Exception(msg)
