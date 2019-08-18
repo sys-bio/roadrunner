@@ -39,7 +39,7 @@
     #include <sstream>
     #include <rrRoadRunner.h>
 
-    #include "rrStringUtils.h"
+    /*#include "rrStringUtils.h"
     #include "wrappers/C/rrplugins/telplugins_exporter.h"
     #include "wrappers/C/rrplugins/telplugins_settings.h"
     #include "wrappers/C/rrplugins/telplugins_types.h"
@@ -50,7 +50,7 @@
     #include "wrappers/C/rrplugins/telplugins_telluriumdata_api.h"
     #include "wrappers/C/rrplugins/telplugins_logging_api.h"
 
-    #include "wrappers/C/rrplugins/telplugins_c_api.h"
+    #include "wrappers/C/rrplugins/telplugins_c_api.h"*/
 
     /*#include "rrplugins/core/telCoreExporter.h"
     #include "rrExporter.h"
@@ -135,6 +135,7 @@
 
 %include "windows.i";
 
+//this part not worling in travis ci
 /*%include "rrExporter.h";
 %include "rrStringUtils.h";
 %include "wrappers/C/rrplugins/telplugins_exporter.h";
