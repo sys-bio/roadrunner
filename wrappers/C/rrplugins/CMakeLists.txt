@@ -21,6 +21,7 @@ target_link_libraries ( telplugins_c_api
   #telplugins_math
   #${RRPLUGINS_COMMON_SHARED_LIBS}
   roadrunner
+  lapack
 )
 message(STATUS "C API: RRPLUGINS_COMMON_SHARED_LIBS = ${RRPLUGINS_COMMON_SHARED_LIBS}")
 
