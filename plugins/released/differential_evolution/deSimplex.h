@@ -46,13 +46,13 @@ int CopyArray(double dest[MAXPOP][MAXDIM], double src[MAXPOP][MAXDIM]) {
   return 0;
 }
 
-double uniform()	//uniform real distribution btw 0 and 1
+/*double uniform()	//uniform real distribution btw 0 and 1
 {
     std::random_device rd;
     std::mt19937 gen(rd());
     std::uniform_real_distribution<> dis(0.0, 1.0);
 	return dis(gen);
-}
+}*/
 
 double simplex2(
 double (*evaluate)(double[], const void* userData),
@@ -91,7 +91,7 @@ double inibound_l=-10000)
     energy[0]=evaluate(c[0],userData);
     for(i=1; i<NP; i++){
         for(j=0; j<D; j++){
-			r =uniform();
+			r =dis(gen);
             c[i][j]=inibound_l+r*(inibound_h-inibound_l);
         }
         energy[i]=evaluate(c[i],userData);
@@ -123,19 +123,19 @@ double inibound_l=-10000)
         for(i=0;i<NP;i++){
             // Pick a random population member 
             do{
-				random_no = uniform();
+				random_no = dis(gen);
 				random_no *= NP;
 				r1 = random_no;
 			} while (r1 == i);
             do{
 				//r2 = (int)(dis(gen)*NP); not working
-				random_no = uniform();
+				random_no = dis(gen);
 				random_no *= NP;
 				r2 = random_no;
 			} while (r1 == r2 || i == r2);
             do{
 				//r3 =(int)(dis(gen)*NP);
-				random_no = uniform();
+				random_no = dis(gen);
 				random_no *= NP;
 				r3 = random_no;
 			} while (r1 == r3 || i == r3 || r2 == r3);
@@ -144,7 +144,7 @@ double inibound_l=-10000)
                 tmp[k]=oldarray[i][k];
             }
 			//n = (int)(dis(gen)*D);
-			random_no = uniform();
+			random_no = dis(gen);
 			random_no *= D;
 			r1 = random_no;
             L=0;
@@ -152,7 +152,7 @@ double inibound_l=-10000)
                 tmp[n] = oldarray[r1][n] + F*(oldarray[r2][n] - oldarray[r3][n]);
                 n = (n+1)%D;
                 L++;
-			} while ((uniform() < CR) && (L < D));
+			} while ((dis(gen) < CR) && (L < D));
 
             // Trial mutation now in tmp[]. Test how good this choice really was.
             // Evaluate new vector in tmp[]
