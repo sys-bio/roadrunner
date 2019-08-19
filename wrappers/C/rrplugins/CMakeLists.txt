@@ -21,7 +21,7 @@ target_link_libraries ( telplugins_c_api
   #telplugins_math
   #${RRPLUGINS_COMMON_SHARED_LIBS}
   roadrunner
-  lapack
+  lapack      #need to explictly state for travis ci
 )
 message(STATUS "C API: RRPLUGINS_COMMON_SHARED_LIBS = ${RRPLUGINS_COMMON_SHARED_LIBS}")
 
