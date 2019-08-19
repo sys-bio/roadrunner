@@ -75,10 +75,10 @@ double inibound_l=-10000)
 	inibound_l= (-1)*std::numeric_limits<double>::infinity();
     int NP=10*D;
     int genmax=500;
-    std::random_device rd;  //Will be used to obtain a seed for the random number engine
-    std::mt19937 gen(rd()); //Standard mersenne_twister_engine seeded with rd()
+    //std::random_device rd;  //Will be used to obtain a seed for the random number engine
+    //std::mt19937 gen(rd()); //Standard mersenne_twister_engine seeded with rd()
 	//std::default_random_engine gen;
-    std::uniform_real_distribution<double> dis(0.0, 1.0);//dis(gen) will genereated uniform real distribution
+    //std::uniform_real_distribution<double> dis(0.0, 1.0);//dis(gen) will genereated uniform real distribution
     double energy[MAXPOP];  // obj. funct. values of ith candidate sol  
     double tmp[MAXDIM], best[MAXDIM], bestit[MAXDIM]; // members 
     double r;
