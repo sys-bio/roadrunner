@@ -57,9 +57,9 @@ before_script: true
 
 script:
   # Link gcc-6 and g++-6 to their standard commands
-  - ln -s /usr/bin/g++-6 /usr/local/bin/g++
+  - ln -s /usr/bin/g++-7 /usr/local/bin/g++
   # Export CC and CXX to tell cmake which compiler to use
-  - export CXX=/usr/bin/g++-6
+  - export CXX=/usr/bin/g++-7
 
   #real build code
   - cd ~/build/roadrunner
