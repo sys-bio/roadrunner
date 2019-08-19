@@ -5,7 +5,6 @@
 #pragma once
 
 #include <iostream>
-#include <random>
 #include <vector>
 #include <cassert>
 #include <random>
@@ -14,6 +13,7 @@
 #include <memory>
 #include <limits>
 
+#include "mtrand.h"
 #include "stdio.h"
 #include "stdlib.h"
 #include "math.h"
@@ -46,19 +46,6 @@ int CopyArray(double dest[MAXPOP][MAXDIM], double src[MAXPOP][MAXDIM]) {
   return 0;
 }
 
-/*double uniform()	//uniform real distribution btw 0 and 1
-{
-    std::random_device rd;
-    std::mt19937 gen(rd());
-    std::uniform_real_distribution<> dis(0.0, 1.0);
-	return dis(gen);
-}*/
-
-double uniform_real_number()
-{
-    return (static_cast <double> (rand()) / static_cast <double> (RAND_MAX));
-}
-
 double simplex2(
 double (*evaluate)(double[], const void* userData),
 const void* userData,       //&hmost
@@ -75,15 +62,12 @@ double inibound_l=-10000)
 	inibound_l= (-1)*std::numeric_limits<double>::infinity();
     int NP=10*D;
     int genmax=500;
-    //std::random_device rd;  //Will be used to obtain a seed for the random number engine
-    //std::mt19937 gen(rd()); //Standard mersenne_twister_engine seeded with rd()
-	//std::default_random_engine gen;
-    //std::uniform_real_distribution<double> dis(0.0, 1.0);//dis(gen) will genereated uniform real distribution
+    
+    MTRand drand;
+    
     double energy[MAXPOP];  // obj. funct. values of ith candidate sol  
     double tmp[MAXDIM], best[MAXDIM], bestit[MAXDIM]; // members 
     double r;
-	
-    srand (static_cast <unsigned> (time(0)));
 
 
     int   i, j, L, n;      // counting variables                 
@@ -99,7 +83,7 @@ double inibound_l=-10000)
     energy[0]=evaluate(c[0],userData);
     for(i=1; i<NP; i++){
         for(j=0; j<D; j++){
-			r =uniform_real_number();
+			r =drand();
             c[i][j]=inibound_l+r*(inibound_h-inibound_l);
         }
         energy[i]=evaluate(c[i],userData);
@@ -131,19 +115,19 @@ double inibound_l=-10000)
         for(i=0;i<NP;i++){
             // Pick a random population member 
             do{
-				random_no = uniform_real_number();
+				random_no = drand();
 				random_no *= NP;
 				r1 = random_no;
 			} while (r1 == i);
             do{
 				//r2 = (int)(dis(gen)*NP); not working
-				random_no = uniform_real_number();
+				random_no = drand();
 				random_no *= NP;
 				r2 = random_no;
 			} while (r1 == r2 || i == r2);
             do{
 				//r3 =(int)(dis(gen)*NP);
-				random_no = uniform_real_number();
+				random_no = drand();
 				random_no *= NP;
 				r3 = random_no;
 			} while (r1 == r3 || i == r3 || r2 == r3);
@@ -152,7 +136,7 @@ double inibound_l=-10000)
                 tmp[k]=oldarray[i][k];
             }
 			//n = (int)(dis(gen)*D);
-			random_no = uniform_real_number();
+			random_no = drand();
 			random_no *= D;
 			n = random_no;
             L=0;
@@ -160,7 +144,7 @@ double inibound_l=-10000)
                 tmp[n] = oldarray[r1][n] + F*(oldarray[r2][n] - oldarray[r3][n]);
                 n = (n+1)%D;
                 L++;
-			} while ((uniform_real_number() < CR) && (L < D));
+			} while ((drand() < CR) && (L < D));
 
             // Trial mutation now in tmp[]. Test how good this choice really was.
             // Evaluate new vector in tmp[]

@@ -3,6 +3,10 @@
 
 project( differential_evolution )
 
+include_directories(
+    ${CMAKE_SOURCE_DIR}/source/rrplugins/math/third_party
+)
+
 set(RRP_DIFFERENTIAL_EVOLUTION_SOURCES
     deWorker.cpp
     deUtils.cpp
@@ -13,6 +17,8 @@ set(RRP_DIFFERENTIAL_EVOLUTION_SOURCES
     deUtils.h
     deObjectiveFunction.h
     deDifferentialEvolution.h
+    ${CMAKE_SOURCE_DIR}/source/rrplugins/math/third_party/mtrand.cpp
+    ${CMAKE_SOURCE_DIR}/source/rrplugins/math/third_party/mtrand.h
 )
 
 add_definitions(
