@@ -13,14 +13,6 @@ branches:
   only:
     - plugins
 
-addons:
-  apt:
-    sources:
-      - ubuntu-toolchain-r-test
-    packages:
-      - g++-7
-
-
 before_install:
   # print the distro information
   - lsb_release -a
@@ -56,12 +48,6 @@ install:
 before_script: true
 
 script:
-  # Link gcc-6 and g++-6 to their standard commands
-  - ln -s /usr/bin/g++-7 /usr/local/bin/g++
-  # Export CC and CXX to tell cmake which compiler to use
-  - export CXX=/usr/bin/g++-7
-
-  #real build code
   - cd ~/build/roadrunner
   - make -j2 && make install
   - ctest -VV

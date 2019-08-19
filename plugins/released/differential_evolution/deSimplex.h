@@ -54,6 +54,11 @@ int CopyArray(double dest[MAXPOP][MAXDIM], double src[MAXPOP][MAXDIM]) {
 	return dis(gen);
 }*/
 
+double uniform_real_number()
+{
+    return (static_cast <double> (rand()) / static_cast <double> (RAND_MAX));
+}
+
 double simplex2(
 double (*evaluate)(double[], const void* userData),
 const void* userData,       //&hmost
@@ -77,7 +82,10 @@ double inibound_l=-10000)
     double energy[MAXPOP];  // obj. funct. values of ith candidate sol  
     double tmp[MAXDIM], best[MAXDIM], bestit[MAXDIM]; // members 
     double r;
-	//cout << dis(gen);
+	
+    srand (static_cast <unsigned> (time(0)));
+
+
     int   i, j, L, n;      // counting variables                 
     int   r1, r2, r3;  // placeholders for random indexes       
     int   imin;            // index to member with lowest energy     
@@ -91,7 +99,7 @@ double inibound_l=-10000)
     energy[0]=evaluate(c[0],userData);
     for(i=1; i<NP; i++){
         for(j=0; j<D; j++){
-			r =dis(gen);
+			r =uniform_real_number();
             c[i][j]=inibound_l+r*(inibound_h-inibound_l);
         }
         energy[i]=evaluate(c[i],userData);
@@ -123,19 +131,19 @@ double inibound_l=-10000)
         for(i=0;i<NP;i++){
             // Pick a random population member 
             do{
-				random_no = dis(gen);
+				random_no = uniform_real_number();
 				random_no *= NP;
 				r1 = random_no;
 			} while (r1 == i);
             do{
 				//r2 = (int)(dis(gen)*NP); not working
-				random_no = dis(gen);
+				random_no = uniform_real_number();
 				random_no *= NP;
 				r2 = random_no;
 			} while (r1 == r2 || i == r2);
             do{
 				//r3 =(int)(dis(gen)*NP);
-				random_no = dis(gen);
+				random_no = uniform_real_number();
 				random_no *= NP;
 				r3 = random_no;
 			} while (r1 == r3 || i == r3 || r2 == r3);
@@ -144,15 +152,15 @@ double inibound_l=-10000)
                 tmp[k]=oldarray[i][k];
             }
 			//n = (int)(dis(gen)*D);
-			random_no = dis(gen);
+			random_no = uniform_real_number();
 			random_no *= D;
-			r1 = random_no;
+			n = random_no;
             L=0;
             do{                       //mutation
                 tmp[n] = oldarray[r1][n] + F*(oldarray[r2][n] - oldarray[r3][n]);
                 n = (n+1)%D;
                 L++;
-			} while ((dis(gen) < CR) && (L < D));
+			} while ((uniform_real_number() < CR) && (L < D));
 
             // Trial mutation now in tmp[]. Test how good this choice really was.
             // Evaluate new vector in tmp[]
