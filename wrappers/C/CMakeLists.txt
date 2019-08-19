@@ -89,6 +89,8 @@ else() #Unix
 
 endif()
 
+add_subdirectory(rrplugins)     #rrplugins C API
+
 add_subdirectory(Apps)
 add_subdirectory(ApiTest)
 if(INSTALL_EXAMPLES)
@@ -115,5 +117,3 @@ install(
     ARCHIVE DESTINATION lib COMPONENT c_api
     LIBRARY DESTINATION lib COMPONENT c_api
     )
-
-add_subdirectory(rrplugins)
