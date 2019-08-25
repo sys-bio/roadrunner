@@ -3,6 +3,12 @@
 
 project( rrplugins_c_api )
 
+include_directories(
+    ${CMAKE_SOURCE_DIR}/source
+    ${THIRD_PARTY_INSTALL_FOLDER}/include
+  )
+
+
 #The C-api is built as a shared library..
 add_library(telplugins_c_api SHARED
   telplugins_c_api
@@ -49,7 +55,7 @@ else()
     PROPERTY  COMPILE_DEFINITIONS
     LIBSBML_STATIC
     LIBLAX_STATIC
-    #STATIC_PUGI
+    STATIC_PUGI
     POCO_STATIC
     STATIC_LIBSTRUCT
   )
@@ -73,3 +79,20 @@ install(
 if(RR_PLUGINS_INSTALL_TO_RR_SITE_PACKAGES)
   install(TARGETS telplugins_c_api DESTINATION site-packages/roadrunner)
 endif()
+
+#[[FIND_PACKAGE(SWIG REQUIRED)
+INCLUDE(${SWIG_USE_FILE})
+
+FIND_PACKAGE(PythonLibs)
+INCLUDE_DIRECTORIES(${PYTHON_INCLUDE_PATH})
+
+INCLUDE_DIRECTORIES(${CMAKE_CURRENT_SOURCE_DIR}/source
+	${CMAKE_CURRENT_SOURCE_DIR}/wrappers/C/rrplugins
+	)
+
+SET(CMAKE_SWIG_FLAGS "")
+
+SET_SOURCE_FILES_PROPERTIES(telplugins.i PROPERTIES CPLUSPLUS ON)
+SET_SOURCE_FILES_PROPERTIES(telplugins.i PROPERTIES SWIG_FLAGS "-includeall")
+SWIG_ADD_MODULE(telplugins python telplugins.i telplugins_c_api.cpp)
+SWIG_LINK_LIBRARIES(telplugins ${PYTHON_LIBRARIES})]]

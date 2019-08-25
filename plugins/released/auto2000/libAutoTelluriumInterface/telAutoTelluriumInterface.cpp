@@ -132,9 +132,9 @@ void AutoTellurimInterface::run()
         //Create fort.2 file
         string temp = getConstantsAsString();
         autolib::createFort2File(temp.c_str(), joinPath(getTempFolder(),"fort.2"));
-
         //Run AUTO
         CallAuto(getTempFolder());
+
 }
 
 bool AutoTellurimInterface::setupUsingCurrentModel()

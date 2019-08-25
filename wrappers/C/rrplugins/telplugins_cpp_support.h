@@ -46,6 +46,7 @@
 #include <string>
 #include <typeinfo>
 #include "telplugins_c_api.h"
+//#include "../../../source/rrplugins/common/telTelluriumData.h"
 #include "rrplugins/common/telTelluriumData.h"
 #include "rrplugins/core/telPluginManager.h"
 #include "rrplugins/common/telProperties.h"

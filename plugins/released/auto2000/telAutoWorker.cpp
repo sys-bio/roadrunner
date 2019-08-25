@@ -64,10 +64,8 @@ void AutoWorker::run()
         return;
     }
 
-
     //==================== This is where we call auto
     mRRAuto.run();
-
     //Capture output data files
     string tempFolder;
     if(mTheHost.mTempFolder.getValue() == ".")
@@ -78,7 +76,7 @@ void AutoWorker::run()
     {
         tempFolder = mTheHost.mTempFolder.getValue();
     }
-
+	
     if(mTheHost.mCaptureOutputFiles.getValue() == true)
     {
         mTheHost.mFort2.setValue(getFileContent(joinPath(tempFolder, "fort.2")));
@@ -86,24 +84,25 @@ void AutoWorker::run()
         mTheHost.mFort8.setValue(getFileContent(joinPath(tempFolder, "fort.8")));
         mTheHost.mFort9.setValue(getFileContent(joinPath(tempFolder, "fort.9")));
     }
-
+	
     //Fort 6 and 7 is always captured
     mTheHost.mFort6.setValue(getFileContent(joinPath(tempFolder, "fort.6")));
     //The bifurcation diagram is in fort.7, most important
     string fort7 = joinPath(tempFolder, "fort.7");
+	
     if(!fileExists(fort7))
     {
         throw(Exception("Could not read auto data output file fort.7!"));
     }
-
+	
     mTheHost.mFort7.setValue(getFileContent(fort7));
-
     //Cleanup after auto..
+	
     if(mTheHost.mKeepTempFiles.getValue() == false)
     {
         removeTempFiles(tempFolder);
     }
-
+	
     //Parse output data
     mAutoDataParser.parse(mTheHost.mFort7);
 
@@ -111,7 +110,7 @@ void AutoWorker::run()
     mTheHost.mBifurcationData.setValue(mAutoDataParser.getSolutionData());
     mTheHost.mBifurcationPoints.setValue(mAutoDataParser.getBifurcationPoints());
     mTheHost.mBifurcationLabels.setValue(mAutoDataParser.getBifurcationLabels());
-
+	
     //Change Telluriumdata header to match labels in the SBML model
     vector<rr::SelectionRecord>  selRecs = mTheHost.mRR->getSteadyStateSelections();
     StringList                   selList = getRecordsAsStrings(selRecs);
@@ -173,7 +172,7 @@ bool AutoWorker::removeTempFiles(const string& tempFolder)
     for(int i =0; i < tempFiles.Count(); i++)
     {
         Poco::File tempFile(joinPath(tempFolder, tempFiles[i]));
-        tempFile.remove();
+        if(i!=2)tempFile.remove();
     }
     return true;
 }

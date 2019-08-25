@@ -464,13 +464,13 @@ bool tlp_cc tpFreeText(char* text)
     return rr::freeText(text);
 }
 
-/*char* tlp_cc tpGetPluginPropertiesAsXML(TELHandle handle)
+char* tlp_cc tpGetPluginPropertiesAsXML(TELHandle handle)
 {
     start_try
         Plugin* aPlugin = castHandle<Plugin>(handle, __FUNC__);
         return createText(aPlugin->getPluginPropertiesAsXML().c_str());
     catch_ptr_macro
-}*/
+}
 
 TELHandle tlp_cc tpRegisterHandle(TELHandle handle, char* name)
 {
@@ -486,7 +486,7 @@ bool tlp_cc tpUnRegisterHandle(TELHandle handle)
     catch_bool_macro
 }
 
-/*TLP_C_DS char* tlp_cc tpGetVersion()
+TLP_C_DS char* tlp_cc tpGetVersion()
 {
     start_try
         return createText(rr::getVersion());
@@ -498,4 +498,4 @@ TLP_C_DS char* tlp_cc tpGetCopyright()
     start_try
         return createText(rr::getCopyright());
     catch_ptr_macro
-}*/
+}

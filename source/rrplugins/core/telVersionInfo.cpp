@@ -1,6 +1,6 @@
 #include "telVersionInfo.h"
 
-namespace tlp {
+namespace rr {
 
 std::string getVersion()
 {

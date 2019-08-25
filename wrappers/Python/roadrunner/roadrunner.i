@@ -40,17 +40,19 @@
     #include <rrRoadRunner.h>
 
     #include "rrStringUtils.h"
-    #include "wrappers/C/rrplugins/telplugins_exporter.h"
-    #include "wrappers/C/rrplugins/telplugins_settings.h"
-    #include "wrappers/C/rrplugins/telplugins_types.h"
-    #include "wrappers/C/rrplugins/tel_macros.h"
-    #include "wrappers/C/rrplugins/telplugins_utilities.h"
-    #include "wrappers/C/rrplugins/teljobs_api.h"
-    #include "wrappers/C/rrplugins/telplugins_properties_api.h"
-    #include "wrappers/C/rrplugins/telplugins_telluriumdata_api.h"
-    #include "wrappers/C/rrplugins/telplugins_logging_api.h"
+    /*#include "wrappers/C/rrplugins/telplugins_exporter.h"
+  	#include "wrappers/C/rrplugins/telplugins_settings.h"
+  	#include "wrappers/C/rrplugins/tel_macros.h"
+  	#include "wrappers/C/rrplugins/telplugins_types.h"
 
-    #include "wrappers/C/rrplugins/telplugins_c_api.h"
+  	#include "wrappers/C/rrplugins/telplugins_properties_api.h"
+  	#include "wrappers/C/rrplugins/telplugins_telluriumdata_api.h"
+  	#include "wrappers/C/rrplugins/telplugins_matrix_api.h"
+  	#include "wrappers/C/rrplugins/telplugins_cpp_support.h"
+  	#include "wrappers/C/rrplugins/telplugins_utilities.h"
+  	#include "wrappers/C/rrplugins/telplugins_logging_api.h"
+  	#include "wrappers/C/rrplugins/telAPIHandleManager.h"
+  	#include "wrappers/C/rrplugins/telplugins_c_api.h"*/
 
     #include "rrplugins/core/telCoreExporter.h"
     #include "rrExporter.h"
@@ -133,35 +135,20 @@
 
 %}
 
-%include "windows.i";
-
-//this part not worling in travis ci
-/*%include "rrExporter.h";
-%include "rrStringUtils.h";
-%include "wrappers/C/rrplugins/telplugins_exporter.h";
+/*%include "wrappers/C/rrplugins/telplugins_exporter.h";
 %include "wrappers/C/rrplugins/telplugins_settings.h";
-%include "wrappers/C/rrplugins/tel_macros.h"
-%include "wrappers/C/rrplugins/telplugins_types.h";
-%include "wrappers/C/rrplugins/telplugins_c_api.h";*/
+%include "wrappers/C/rrplugins/tel_macros.h";
+%include "wrappers/C/rrplugins/telplugins_types.h";*/
 
-//%include "wrappers/C/rrplugins/telplugins_utilities.h";
-//%include "wrappers/C/rrplugins/teljobs_api.h";
-/*%include "wrappers/C/rrplugins/telplugins_properties_api.h";
-%include "wrappers/C/rrplugins/telplugins_telluriumdata_api.h";
-%include "wrappers/C/rrplugins/telplugins_logging_api.h";*/
+/*%include "wrappers/C/rrplugins/telAPIHandleManager.h"
+%include "wrappers/C/rrplugins/telplugins_properties_api.h"
+%include "wrappers/C/rrplugins/telplugins_telluriumdata_api.h"
+%include "wrappers/C/rrplugins/telplugins_matrix_api.h"
+%include "wrappers/C/rrplugins/telplugins_cpp_support.h"
+%include "wrappers/C/rrplugins/telplugins_utilities.h"
+%include "wrappers/C/rrplugins/telplugins_logging_api.h"
 
-/*%include "rrplugins/core/telCoreExporter.h";
-%include "rrExporter.h";
-%include "rrConstants.h";
-%include "c/rrStringList.h";
-%include "Poco/SharedLibrary.h";
-%include "rrException.h";
-%include "rrLogger.h";
-%include "rrplugins/core/telPlugin.h";
-%include "rrplugins/core/telCPlugin.h";
-%include "rrUtils.h";
-
-%include "rrplugins/core/telPluginManager.h";*/
+%include "wrappers/C/rrplugins/telplugins_c_api.h"*/
 
 %naturalvar;
 

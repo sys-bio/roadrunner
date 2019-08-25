@@ -50,6 +50,9 @@ set(RR_USE_CXX11 FALSE CACHE BOOL "Set to TRUE to enable C++11 features")
 #plugins
 set ( RRP_PLUGINS_DIR site-packages/roadrunner CACHE PATH "Destination for plugins")
 
+set(RR_PLUGINS_INSTALL_TO_RR_SITE_PACKAGES site-packages/roadrunner 
+    CACHE PATH "Destination for telplugins_C_cpi")
+
 set (TLP_GENERATED_HEADER_PATH ${CMAKE_CURRENT_BINARY_DIR}/rrplugins )
 
 set ( TLP_BUILD_EXAMPLES   OFF CACHE BOOL   "Build examples" )

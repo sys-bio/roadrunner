@@ -133,10 +133,10 @@ bool Plugin::resetPlugin()
     return true;
 }
 
-/*string Plugin::getPluginPropertiesAsXML()
+string Plugin::getPluginPropertiesAsXML()
 {
     return mProperties.asXML();
-}*/
+}
 
 pair<void*, void*> Plugin::getWorkStartedData()
 {

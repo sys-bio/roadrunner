@@ -1,6 +1,6 @@
 #pragma hdrstop
-//#include "libxml/tree.h"
-//#include "libxml/xpath.h"
+#include "libxml/tree.h"
+#include "libxml/xpath.h"
 #include "../../rrLogger.h"
 #include "telProperties.h"
 #include "../../rrException.h"
@@ -196,7 +196,7 @@ bool Properties::setProperty(const string& name, const string& value)
     return true;
 }
 
-/*string Properties::asXML()
+string Properties::asXML()
 {
     xmlDocPtr doc = NULL;           // document pointer 
     xmlNodePtr root_node = NULL;
@@ -237,7 +237,7 @@ bool Properties::setProperty(const string& name, const string& value)
     xmlFreeDoc(doc);
     xmlCleanupParser();
     return xml;
-}*/
+}
 
 
 ostream& operator<<(ostream& stream, const Properties& props)

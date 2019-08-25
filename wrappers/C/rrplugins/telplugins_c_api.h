@@ -182,7 +182,7 @@ TLP_C_DS TELHandle tlp_cc tpGetCurrentPlugin(TELHandle handle);
  Returns NULL if the plugin is not found
  \ingroup plugin_manager
 */
-//TLP_C_DS TELHandle tlp_cc tpGetPlugin(TELHandle handle, const char* pluginName);
+TLP_C_DS TELHandle tlp_cc tpGetPlugin(TELHandle handle, const char* pluginName);
 
 /*!
  \brief Get a handle to a plugins shared library
@@ -251,7 +251,7 @@ TLP_C_DS char* tlp_cc tpGetPluginAuthor(TELHandle handle);
  \return Returns a string on success, NULL otherwise
  \ingroup plugins
 */
-//TLP_C_DS char* tlp_cc tpGetPluginCopyright(TELHandle handle);
+TLP_C_DS char* tlp_cc tpGetPluginCopyright(TELHandle handle);
 
 /*!
  \brief Return plugin version information
@@ -259,7 +259,7 @@ TLP_C_DS char* tlp_cc tpGetPluginAuthor(TELHandle handle);
  \return Returns a string on success, NULL otherwise
  \ingroup plugins
 */
-//TLP_C_DS char* tlp_cc tpGetPluginVersion(TELHandle handle);
+TLP_C_DS char* tlp_cc tpGetPluginVersion(TELHandle handle);
 
 /*!
  \brief Get Plugin manual as PDF. A plugin may embedd a help manual as a PDF. This function return such as a pointer to a string.
@@ -412,7 +412,7 @@ TLP_C_DS TELHandle tlp_cc tpGetRoadRunnerHandleFromPlugin(TELHandle handle);
  \return Returns available properties in the plugin, as a pointer to a string, NULL otherwise
  \ingroup plugins
 */
-//TLP_C_DS char* tlp_cc tpGetPluginPropertiesAsXML(TELHandle handle);
+TLP_C_DS char* tlp_cc tpGetPluginPropertiesAsXML(TELHandle handle);
 
 /*!
  \brief Get a handle to a plugins properties
@@ -484,13 +484,13 @@ TLP_C_DS bool tlp_cc tpFreeText(char* text);
  \brief Get the current version of the Plugis API, as a string
  \ingroup utilities
 */
-//TLP_C_DS char* tlp_cc tpGetVersion();
+TLP_C_DS char* tlp_cc tpGetVersion();
 
 /*!
  \brief Get the copyright of the current Plugis API, as a string
  \ingroup utilities
 */
-//TLP_C_DS char* tlp_cc tpGetCopyright();
+TLP_C_DS char* tlp_cc tpGetCopyright();
 
 /*!
  \brief Register a handle to be used with the API
