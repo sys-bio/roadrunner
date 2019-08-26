@@ -40,7 +40,10 @@ public:
     static rr::ExecutableModel *createModel(const std::string& sbml, uint options);
 
 	/**
-	 * Regenerate an executable model from an existing sbml document
+	 * Regenerate an executable model from an existing sbml document i.e. generate the model normally from the SBML document,
+	 * but copy the values of the floating species (initial and current), boundary species, compartments (initial and current),
+	 * global parameters (initial and current) that are in both oldModel and doc, as well as time 
+	 * from the old model into the one returned
 	 */
 	static rr::ExecutableModel *regenerateModel(rr::ExecutableModel* oldModel, libsbml::SBMLDocument* doc, uint options);
 

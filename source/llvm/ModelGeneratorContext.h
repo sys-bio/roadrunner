@@ -192,9 +192,6 @@ private:
     llvm::ExecutionEngine *executionEngine;
     std::unique_ptr<llvm::Module> module_uniq;
     const libsbml::Model *model;
-
-public:
-
     llvm::Module* module;
 
 private:

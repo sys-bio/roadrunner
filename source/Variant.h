@@ -278,7 +278,7 @@ private:
      */
     struct VariantImpl *self;
     /*
-	* Allocates this Variant's VariantImpl on the heap
+	* Allocates this Variant's VariantImpl on the free store
 	*/
 	void alloc();
 	/*

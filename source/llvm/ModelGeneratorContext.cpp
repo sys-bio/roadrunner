@@ -342,8 +342,6 @@ ModelGeneratorContext::ModelGeneratorContext() :
     // initialize LLVM
     // TODO check result
     InitializeNativeTarget();
-	//InitializeNativeTargetAsmPrinter();
-	//InitializeNativeTargetAsmParser();
 
     context = new LLVMContext();
     // Make the module, which holds all the code.

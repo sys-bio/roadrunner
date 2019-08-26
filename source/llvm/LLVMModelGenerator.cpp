@@ -74,8 +74,6 @@ void copyCachedModel(a_type* src, b_type* dst)
 
 ExecutableModel* LLVMModelGenerator::regenerateModel(ExecutableModel* oldModel, libsbml::SBMLDocument* doc, uint options)
 {
-	// string md5;
-
 	SharedModelPtr rc(new ModelResources());
 
 	char* docSBML = doc->toSBML();
@@ -233,7 +231,7 @@ ExecutableModel* LLVMModelGenerator::regenerateModel(ExecutableModel* oldModel, 
 		throw "TargetMachine can't emit a file of type CGFT_ObjectFile";
 	}
 
-	pass.run(*context.module);
+	pass.run(*context.getModule());
 	
 	//Read from modBuffer into our execution engine
 	std::string moduleStr(modBuffer.begin(), modBuffer.end());
@@ -827,7 +825,7 @@ ExecutableModel* LLVMModelGenerator::createModel(const std::string& sbml,
 		throw "TargetMachine can't emit a file of type CGFT_ObjectFile";
 	}
 
-	pass.run(*context.module);
+	pass.run(*context.getModule());
 	
 	//Read from modBuffer into our execution engine
 	std::string moduleStr(modBuffer.begin(), modBuffer.end());
