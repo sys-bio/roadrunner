@@ -19,40 +19,40 @@ Start using rrplugins package by importing the library and creating a Plugin ins
      >>>try: 
         #========== EVENT FUNCTION SETUP =========================== 
         	def myEvent(dummy): #We are not capturing any data from the plugin
-            	print("Iteration, Norm = "+nm.getProperty("NrOfIter") + ","+nm.getProperty("Norm"))
+            	print("Iteration, Norm = "+de.getProperty("NrOfIter") + ","+de.getProperty("Norm"))
      >>>#Setup progress event function 
      >>>    progressEvent =  NotifyEventEx(myEvent) 
-     >>>    assignOnProgressEvent(nm.plugin, progressEvent) 
+     >>>    assignOnProgressEvent(de.plugin, progressEvent) 
      >>>    #============================================================  
      >>>    #Create model data, with and without noise using the test_model plugin 
      >>>    modelPlugin.execute() 
    
      >>>    #Setup plugin properties. 
-     >>>    nm.SBML             = modelPlugin.Model 
-     >>>    nm.ExperimentalData = modelPlugin.TestDataWithNoise 
+     >>>    de.SBML             = modelPlugin.Model 
+     >>>    de.ExperimentalData = modelPlugin.TestDataWithNoise 
       
      >>>    # Add the parameters that we’re going to fit and an initial ’start’ value 
-     >>>    nm.setProperty("InputParameterList", ["k1", .3]) 
-     >>>    nm.setProperty("FittedDataSelectionList", "[S1] [S2]") 
-     >>>    nm.setProperty("ExperimentalDataSelectionList", "[S1] [S2]") 
+     >>>    de.setProperty("InputParameterList", ["k1", .3]) 
+     >>>    de.setProperty("FittedDataSelectionList", "[S1] [S2]") 
+     >>>    de.setProperty("ExperimentalDataSelectionList", "[S1] [S2]") 
       
      >>>    # Start minimization 
-     >>>    nm.execute() 
+     >>>    de.execute() 
       
      >>>    print("Minimization finished. \n==== Result ====")
       
      >>>    print("Hessian Matrix")
-     >>>    print(nm.getProperty("Hessian"))
+     >>>    print(de.getProperty("Hessian"))
       
      >>>    print("Covariance  Matrix")
-     >>>    print(nm.getProperty("CovarianceMatrix"))
+     >>>    print(de.getProperty("CovarianceMatrix"))
       
-     >>>    print("ChiSquare = " + nm.getProperty("ChiSquare"))
-     >>>    print("Reduced ChiSquare = " + nm.getProperty("ReducedChiSquare"))
+     >>>    print("ChiSquare = " + de.getProperty("ChiSquare"))
+     >>>    print("Reduced ChiSquare = " + de.getProperty("ReducedChiSquare"))
       
      >>>    #This is a list of parameters 
-     >>>    parameters = tpc.getPluginProperty (nm.plugin, "OutputParameterList") 
-     >>>    confLimits = tpc.getPluginProperty (nm.plugin, "ConfidenceLimits") 
+     >>>    parameters = tpc.getPluginProperty (de.plugin, "OutputParameterList") 
+     >>>    confLimits = tpc.getPluginProperty (de.plugin, "ConfidenceLimits") 
       
      >>>    #Iterate trough list of parameters and confidence limits 
      >>>    para  = getFirstProperty(parameters) 
@@ -63,8 +63,8 @@ Start using rrplugins package by importing the library and creating a Plugin ins
      >>>        limit = getNextProperty(confLimits) 
 
      >>>    # Get the fitted and residual data 
-     >>>    fittedData = nm.getProperty ("FittedData").toNumpy 
-     >>>    residuals  = nm.getProperty ("Residuals").toNumpy 
+     >>>    fittedData = de.getProperty ("FittedData").toNumpy 
+     >>>    residuals  = de.getProperty ("Residuals").toNumpy 
       
      >>>    # Get the experimental data as a numpy array 
      >>>    experimentalData = modelPlugin.TestDataWithNoise.toNumpy 
@@ -78,8 +78,8 @@ Start using rrplugins package by importing the library and creating a Plugin ins
      >>>    telplugins.plt.show() 
       
      >>>    #Finally, view the manual and version 
-     >>>    nm.viewManual() 
-     >>>    print("Plugin version: " + nm.getVersion()) 
+     >>>    de.viewManual() 
+     >>>    print("Plugin version: " + de.getVersion()) 
       
      >>>except Exception as e: 
         	print("Problem.. " + e) 
