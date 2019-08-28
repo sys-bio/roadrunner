@@ -192,6 +192,9 @@ void ModelResources::addGlobalMappings()
 
 void ModelResources::loadState(std::istream& in, uint modelGeneratorOpt) 
 {
+	llvm::InitializeNativeTarget();
+	llvm::InitializeNativeTargetAsmPrinter();
+	llvm::InitializeNativeTargetAsmParser();
 	if (symbols)
 		delete symbols;
 	//load the model data symbols from the stream
