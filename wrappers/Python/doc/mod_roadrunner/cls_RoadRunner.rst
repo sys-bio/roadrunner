@@ -71,7 +71,7 @@ _________________________
    Saves the current state of the RoadRunner instance, e.g. integrator, steady state solver, simulation results,
    given a string for file path.
    If no option is given or the option is 'b', the state will be stored in a binary format which
-   can be quickly reloaded for later simulation.
+   can be quickly reloaded for later simulation. This binary format is platform specific.
    It the option is 'r', the state will be stored in a human-readable format which can be used
    for debugging, but cannot be reloaded later.
    

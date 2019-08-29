@@ -247,8 +247,15 @@ public:
 
     /*
     *  Saves this roadrunner instance to a file so it can be reloaded later
+	* If opt == 'b' (the default value), this function will output a platform-specific
+	* binary file which can be reloaded later
+	* If opt == 'r', this function will output a human readable file which cannot be reloaded later
     */
     void saveState(std::string filename, char opt = 'b');
+	
+	/*
+	* Loads a roadrunner instance saved by saveState with the 'b' option
+	*/
     void loadState(std::string filename);
 
     /**

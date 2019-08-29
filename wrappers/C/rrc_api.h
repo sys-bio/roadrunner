@@ -356,7 +356,7 @@ C_DECL_SPEC bool rrcCallConv loadSBML(RRHandle handle, const char* sbml);
 C_DECL_SPEC bool rrcCallConv loadSBMLEx(RRHandle handle, const char* sbml, bool forceRecompile);
 
 /*!
- \brief Save a road runner instance's state to a binary file
+ \brief Save a road runner instance's state to a platform-specific binary file
  \param[in] handle Handle to the RoadRunner instance to be saved
  \param[in] filename path to the file to be saved to
  \return Returns true if successful
