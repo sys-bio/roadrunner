@@ -874,4 +874,11 @@ SUITE(STATE_SAVING_TEST_SUITE)
 			rri->loadState("test-save-state.rr");
 		}));
 	}
+
+	TEST(LOAD_ON_NEW_INSTANCE)
+	{
+		RoadRunner rri;
+		rri.loadState("test-save-state.rr");
+		CHECK(rri.getFloatingSpeciesByIndex(0) == 0);
+	}
 }

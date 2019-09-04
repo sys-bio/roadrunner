@@ -420,6 +420,10 @@ int RoadRunner::getInstanceID()
 
 RoadRunner::RoadRunner() : impl(new RoadRunnerImpl("", NULL))
 {
+
+	llvm::InitializeNativeTarget();
+	llvm::InitializeNativeTargetAsmPrinter();
+	llvm::InitializeNativeTargetAsmParser();
     // must be run to register integrators at startup
     IntegratorRegistrationMgr::Register();
     // must be run to register solvers at startup
@@ -443,6 +447,10 @@ RoadRunner::RoadRunner() : impl(new RoadRunnerImpl("", NULL))
 
 RoadRunner::RoadRunner(unsigned int level, unsigned int version) : impl(new RoadRunnerImpl("", NULL))
 {
+
+	llvm::InitializeNativeTarget();
+	llvm::InitializeNativeTargetAsmPrinter();
+	llvm::InitializeNativeTargetAsmParser();
 	// must be run to register integrators at startup
 	IntegratorRegistrationMgr::Register();
 	// must be run to register solvers at startup
@@ -468,6 +476,9 @@ RoadRunner::RoadRunner(const std::string& uriOrSBML,
         const Dictionary* options) :
             impl(new RoadRunnerImpl(uriOrSBML, options))
 {
+	llvm::InitializeNativeTarget();
+	llvm::InitializeNativeTargetAsmPrinter();
+	llvm::InitializeNativeTargetAsmParser();
     // must be run to register integrators at startup
     IntegratorRegistrationMgr::Register();
     // must be run to register solvers at startup
@@ -483,6 +494,7 @@ RoadRunner::RoadRunner(const std::string& uriOrSBML,
     //Increase instance count..
     mInstanceCount++;
     impl->mInstanceID = mInstanceCount;
+
 }
 
 
@@ -490,6 +502,9 @@ RoadRunner::RoadRunner(const string& _compiler, const string& _tempDir,
         const string& supportCodeDir) :
         impl(new RoadRunnerImpl(_compiler, _tempDir, supportCodeDir))
 {
+	llvm::InitializeNativeTarget();
+	llvm::InitializeNativeTargetAsmPrinter();
+	llvm::InitializeNativeTargetAsmParser();
     // must be run to register integrators at startup
     IntegratorRegistrationMgr::Register();
     // must be run to register solvers at startup
@@ -507,6 +522,7 @@ RoadRunner::RoadRunner(const string& _compiler, const string& _tempDir,
     setIntegrator("cvode");
     // make NLEQ2 the default steady state solver
     setSteadyStateSolver("nleq2");
+
 }
 
 RoadRunner::~RoadRunner()
