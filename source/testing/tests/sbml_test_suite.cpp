@@ -1012,13 +1012,37 @@ TEST(973) { CHECK(RunTest("l2v4", 973)); }
 //TEST(978) { CHECK(RunTest("l2v4", 978)); }
 TEST(979) { CHECK(RunTest("l2v4", 979)); }
 TEST(980) { CHECK(RunTest("l2v4", 980)); }
-TEST(BOOLEAN_DELAY)
+TEST(BOOLEAN_DELAY_1)
 {
 	try
 	{
 		RoadRunner rri(joinPath(getParentFolder(getParentFolder(getParentFolder(gTSModelsPath))), "boolean_trigger.l3v2.xml"));
 		rri.validateCurrentSBML();
+		rri.getSimulateOptions().duration = 2;
 		rri.simulate();
+		CHECK(rri.getValue(rri.createSelection("x")) == 0.0);
+		rri.getSimulateOptions().start = 0.1;
+		rri.simulate();
+		CHECK(rri.getValue(rri.createSelection("x")) == 3);
+	}
+	catch (std::exception& ex)
+	{
+		std::cout << "Exception: " << ex.what() << std::endl; 
+		CHECK(false);
+	}
+}
+TEST(BOOLEAN_DELAY_2)
+{
+	try
+	{
+		RoadRunner rri(joinPath(getParentFolder(getParentFolder(getParentFolder(gTSModelsPath))), "boolean_trigger_2.l3v2.xml"));
+		rri.validateCurrentSBML();
+		rri.getSimulateOptions().duration = 1;
+		rri.simulate();
+		CHECK(rri.getValue(rri.createSelection("x")) == 0.0);
+		rri.getSimulateOptions().start = 0.1;
+		rri.simulate();
+		CHECK(rri.getValue(rri.createSelection("x")) == 3);
 	}
 	catch (std::exception& ex)
 	{
