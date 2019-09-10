@@ -1012,6 +1012,20 @@ TEST(973) { CHECK(RunTest("l2v4", 973)); }
 //TEST(978) { CHECK(RunTest("l2v4", 978)); }
 TEST(979) { CHECK(RunTest("l2v4", 979)); }
 TEST(980) { CHECK(RunTest("l2v4", 980)); }
+TEST(BOOLEAN_DELAY)
+{
+	try
+	{
+		RoadRunner rri(joinPath(getParentFolder(getParentFolder(getParentFolder(gTSModelsPath))), "boolean_trigger.l3v2.xml"));
+		rri.validateCurrentSBML();
+		rri.simulate();
+	}
+	catch (std::exception& ex)
+	{
+		std::cout << "Exception: " << ex.what() << std::endl; 
+		CHECK(false);
+	}
+}
 }
 
 bool RunTest(const string& version, int caseNumber)

@@ -173,6 +173,18 @@ public:
 
     const libsbml::ASTNode *getMath(const libsbml::Event *);
 
+    llvm::Value *createRet(llvm::Value* value)
+    {
+		// Return the value for the default label
+		if (!value)
+            return llvm::ConstantFP::get(this->context, llvm::APFloat(123.456));
+		// If the delay evaluates to a double then just return it
+		if (value->getType() == llvm::Type::getDoubleTy(context))
+			return value;
+		// Otherwise it's a boolean (i.e. an i1), so convert it to a double
+		return this->builder.CreateCast(llvm::Instruction::CastOps::UIToFP, value, llvm::Type::getDoubleTy(context));
+    }
+
     static const char* FunctionName;
     static const char* IndexArgName;
 private:
