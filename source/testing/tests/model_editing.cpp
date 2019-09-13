@@ -609,6 +609,84 @@ void removeAndReaddAllCompartments(RoadRunner *rri, libsbml::SBMLDocument *doc)
 
 SUITE(MODEL_EDITING_TEST_SUITE)
 {
+	TEST(ALLOW_EVENT_ASSIGNMENT_AND_RATE_LAW_1)
+	{
+		std::cout << "ALLOW_EVENT_ASSIGNMENT_AND_RATE_LAW_1" << std::endl;
+		try
+		{
+			RoadRunner rri;
+			rri.addParameter("k1", 0.0);
+			rri.addRateRule("k1", "1");
+			rri.addEvent("e1", true, "k1 > 1");
+			rri.addEventAssignment("e1", "k1", "1");
+			std::cout << "pass" << std::endl;
+		}
+		catch (std::exception& ex)
+		{
+			string error = ex.what();
+			cerr << "ALLOW_EVENT_ASSIGNMENT_AND_RATE_LAW_1 Exception: " << error << endl;
+			CHECK(false);
+			std::cout << "fail" << std::endl;
+		}
+	}
+	TEST(ALLOW_EVENT_ASSIGNMENT_AND_RATE_LAW_2)
+	{
+		std::cout << "ALLOW_EVENT_ASSIGNMENT_AND_RATE_LAW_2" << std::endl;
+		try
+		{
+			RoadRunner rri;
+			rri.addParameter("k1", 0.0);
+			rri.addEvent("e1", true, "k1 > 1");
+			rri.addEventAssignment("e1", "k1", "1");
+			rri.addRateRule("k1", "1");
+			std::cout << "pass" << std::endl;
+		}
+		catch (std::exception& ex)
+		{
+			string error = ex.what();
+			cerr << "ALLOW_EVENT_ASSIGNMENT_AND_RATE_LAW_2 Exception: " << error << endl;
+			CHECK(false);
+			std::cout << "fail" << std::endl;
+		}
+	}
+	TEST(ALLOW_EVENT_ASSIGNMENT_AND_INITIAL_ASSIGNMENT_1)
+	{
+		std::cout << "ALLOW_EVENT_ASSIGNMENT_AND_INITIAL_ASSIGNMENT_1" << std::endl;
+		try
+		{
+			RoadRunner rri;
+			rri.addParameter("k1", 0.0);
+			rri.addRateRule("k1", "1");
+			rri.addInitialAssignment("k1", "1");
+			std::cout << "pass" << std::endl;
+		}
+		catch (std::exception& ex)
+		{
+			string error = ex.what();
+			cerr << "ALLOW_EVENT_ASSIGNMENT_AND_RATE_LAW_1 Exception: " << error << endl;
+			CHECK(false);
+			std::cout << "fail" << std::endl;
+		}
+	}
+	TEST(ALLOW_EVENT_ASSIGNMENT_AND_INITIAL_ASSIGNMENT_2)
+	{
+		std::cout << "ALLOW_EVENT_ASSIGNMENT_AND_INITIAL_ASSIGNMENT_2" << std::endl;
+		try
+		{
+			RoadRunner rri;
+			rri.addParameter("k1", 0.0);
+			rri.addInitialAssignment("k1", "1");
+			rri.addRateRule("k1", "1");
+			std::cout << "pass" << std::endl;
+		}
+		catch (std::exception& ex)
+		{
+			string error = ex.what();
+			cerr << "ALLOW_EVENT_ASSIGNMENT_AND_RATE_LAW_2 Exception: " << error << endl;
+			CHECK(false);
+			std::cout << "fail" << std::endl;
+		}
+	}
 	TEST(SET_CONSERVED_MOIETY_ANALYSIS)
 	{
 		RoadRunner rri(gTSModelsPath + "/00001/00001-sbml-l2v4.xml");
