@@ -155,7 +155,6 @@ if(BUILD_LLVM)
         llvm/EvalVolatileStoichCodeGen
         llvm/SBMLInitialValueSymbolResolver
         llvm/Random
-        llvm/DistribFunctionResolver
         )
 
     # set up appropriate flags for using LLVM

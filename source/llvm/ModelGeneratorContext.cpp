@@ -32,7 +32,6 @@
 #include <sbml/common/libsbml-config-packages.h>
 #ifdef LIBSBML_HAS_PACKAGE_DISTRIB
 #include <sbml/packages/distrib/common/DistribExtensionTypes.h>
-#include "DistribFunctionResolver.h"
 #endif
 
 using namespace llvm;
