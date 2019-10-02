@@ -21,7 +21,7 @@ namespace rrllvm
 ModelInitialValueSymbolResolver::ModelInitialValueSymbolResolver(
         llvm::Value *modelData,
         const ModelGeneratorContext& ctx) :
-            LoadSymbolResolverBase(ctx),
+            LoadSymbolResolverBase(ctx, modelData),
             modelData(modelData)
 {
 }
@@ -78,7 +78,7 @@ llvm::Value* ModelInitialValueSymbolResolver::loadSymbolValue(
         if (i != modelSymbols.getInitialAssignmentRules().end())
         {
             recursiveSymbolPush(symbol);
-            Value* result =  ASTNodeCodeGen(builder, *this).codeGen(i->second);
+            Value* result =  ASTNodeCodeGen(builder, *this, modelGenContext, modelData).codeGen(i->second);
             recursiveSymbolPop();
             return result;
         }
@@ -94,7 +94,7 @@ llvm::Value* ModelInitialValueSymbolResolver::loadSymbolValue(
         if (i != modelSymbols.getAssigmentRules().end())
         {
             recursiveSymbolPush(symbol);
-            Value* result = ASTNodeCodeGen(builder, *this).codeGen(i->second);
+            Value* result = ASTNodeCodeGen(builder, *this, modelGenContext, modelData).codeGen(i->second);
             recursiveSymbolPop();
             return result;
         }
@@ -181,7 +181,7 @@ llvm::Value* ModelInitialValueSymbolResolver::loadSymbolValue(
 
         if (i != modelSymbols.getInitialValues().end())
         {
-            return ASTNodeCodeGen(builder, *this).codeGen(i->second);
+            return ASTNodeCodeGen(builder, *this, modelGenContext, modelData).codeGen(i->second);
         }
     }
 

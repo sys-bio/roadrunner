@@ -47,8 +47,10 @@ std::string to_string(const libsbml::ASTNode *ast)
 }
 
 ASTNodeCodeGen::ASTNodeCodeGen(llvm::IRBuilder<> &builder,
-        LoadSymbolResolver &resolver) :
-        builder(builder), resolver(resolver),
+        LoadSymbolResolver &resolver, 
+        const ModelGeneratorContext& ctx, 
+        llvm::Value *modelData) :
+        builder(builder), resolver(resolver), ctx(ctx), modelData(modelData),
         scalar_mode_(false)
 {
 }
@@ -228,6 +230,15 @@ llvm::Value* ASTNodeCodeGen::codeGen(const libsbml::ASTNode* ast)
         result = notImplemented(ast);
         break;
 
+    case AST_DISTRIB_FUNCTION_UNIFORM:
+    case AST_DISTRIB_FUNCTION_NORMAL: 
+    case AST_DISTRIB_FUNCTION_POISSON: 
+    case AST_DISTRIB_FUNCTION_EXPONENTIAL: 
+    case AST_DISTRIB_FUNCTION_LOGNORMAL: {
+        ASTNodeCodeGenScalarTicket t(*this, true);
+        result = distribCodeGen(ast);
+        break;
+    }
     default:
         {
             stringstream msg;
@@ -250,6 +261,177 @@ llvm::Value* ASTNodeCodeGen::notImplemented(const libsbml::ASTNode* ast)
     throw_llvm_exception("AST type not implemented yet: " + str);
 
     return 0;
+}
+
+llvm::Value* ASTNodeCodeGen::distribCodeGen(const libsbml::ASTNode *ast)
+{
+    LibFunc funcId;
+    TargetLibraryInfoImpl defaultImpl;
+	TargetLibraryInfo targetLib(defaultImpl);
+    Function* func;
+    Module *module = getModule();
+
+    // check if the arg counts match
+    //if (ast->getNumChildren() > 2)
+    //{
+    //    throw_llvm_exception("invalid number of args");
+    //}
+
+    ModelDataIRBuilder mdbuilder(modelData, ctx.getModelDataSymbols(),
+        builder);
+
+    llvm::Value *randomPtr = mdbuilder.createRandomLoad();
+    
+    std::vector<Value*> args;
+    args.push_back(randomPtr);
+    for (unsigned i = 0; i < ast->getNumChildren(); ++i)
+    {
+        args.push_back(toDouble(codeGen(ast->getChild(i))));
+    }
+
+    switch (ast->getType())
+    {
+    case AST_DISTRIB_FUNCTION_UNIFORM:
+    {
+        if (ast->getNumChildren() == 2)
+        {
+            func = module->getFunction("rr_distrib_uniform");
+        }
+        else
+        {
+            stringstream err;
+            err << "function call argument count in "
+                << ast->getParentSBMLObject()->toSBML()
+                << " does not match the specfied number of arguments, "
+                << (string)func->getName() << " requires " << func->arg_size()
+                << " args, but was given " << ast->getNumChildren();
+            throw_llvm_exception(err.str());
+        }
+        break;
+    }
+    case AST_DISTRIB_FUNCTION_NORMAL:
+    {
+        if (ast->getNumChildren() == 2)
+        {
+            func = module->getFunction("rr_distrib_normal");
+        }
+        else if (ast->getNumChildren() == 4)
+        {
+            func = module->getFunction("rr_distrib_normal_four");
+        }
+        else
+        {
+            stringstream err;
+            err << "function call argument count in "
+                << ast->getParentSBMLObject()->toSBML()
+                << " does not match the specfied number of arguments, "
+                << (string)func->getName() << " requires " << func->arg_size()
+                << " args, but was given " << ast->getNumChildren();
+            throw_llvm_exception(err.str());
+        }
+        break;
+    }
+    case AST_DISTRIB_FUNCTION_POISSON:
+    {
+        if (ast->getNumChildren() == 1)
+        {
+            func = module->getFunction("rr_distrib_poisson");
+        }
+        else if (ast->getNumChildren() == 3)
+        {
+            func = module->getFunction("rr_distrib_poisson_three");
+        }
+        else
+        {
+            stringstream err;
+            err << "function call argument count in "
+                << ast->getParentSBMLObject()->toSBML()
+                << " does not match the specfied number of arguments, "
+                << (string)func->getName() << " requires " << func->arg_size()
+                << " args, but was given " << ast->getNumChildren();
+            throw_llvm_exception(err.str());
+        }
+        break;
+    }
+    case AST_DISTRIB_FUNCTION_EXPONENTIAL:
+    {
+        if (ast->getNumChildren() == 1)
+        {
+            func = module->getFunction("rr_distrib_exponential");
+        }
+        else if (ast->getNumChildren() == 3)
+        {
+            func = module->getFunction("rr_distrib_exponential_three");
+        }
+        else
+        {
+            stringstream err;
+            err << "function call argument count in "
+                << ast->getParentSBMLObject()->toSBML()
+                << " does not match the specfied number of arguments, "
+                << (string)func->getName() << " requires " << func->arg_size()
+                << " args, but was given " << ast->getNumChildren();
+            throw_llvm_exception(err.str());
+        }
+        break;
+    }
+    case AST_DISTRIB_FUNCTION_LOGNORMAL:
+    {
+        if (ast->getNumChildren() == 2)
+        {
+            func = module->getFunction("rr_distrib_lognormal");
+        }
+        else if (ast->getNumChildren() == 4)
+        {
+            func = module->getFunction("rr_distrib_lognormal_four");
+        }
+        else
+        {
+            stringstream err;
+            err << "function call argument count in "
+                << ast->getParentSBMLObject()->toSBML()
+                << " does not match the specfied number of arguments, "
+                << (string)func->getName() << " requires " << func->arg_size()
+                << " args, but was given " << ast->getNumChildren();
+            throw_llvm_exception(err.str());
+        }
+        break;
+    }
+    default:
+    {
+        string msg = "unknown distribution ";
+        msg += ast->getName();
+        throw_llvm_exception(msg);
+    }
+    break;
+    }
+
+    // get the function
+    if (func == 0)
+    {
+        string msg = "could not obtain a function for distrib " +
+            string(ast->getName());
+        msg += ", your operating system might not supoort it.";
+        throw_llvm_exception(msg);
+    }
+
+    // check if the arg counts match
+    //if (func->arg_size() != ast->getNumChildren())
+    //{
+    //    stringstream err;
+    //    err << "function call argument count in "
+    //        << ast->getParentSBMLObject()->toSBML()
+    //        << " does not match the specfied number of arguments, "
+    //        << (string)func->getName() << " requires " << func->arg_size()
+    //        << " args, but was given " << ast->getNumChildren();
+    //    throw_llvm_exception(err.str());
+    //}
+    
+    return builder.CreateCall(func, args, "calltmp");
+
+    assert(0 && "should not get here");
+    return 0;
+
 }
 
 llvm::Value* ASTNodeCodeGen::delayExprCodeGen(const libsbml::ASTNode* ast)

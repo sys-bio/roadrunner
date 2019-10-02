@@ -45,7 +45,7 @@ Value* EvalVolatileStoichCodeGen::codeGen()
     ModelDataLoadSymbolResolver resolver(modelData, modelGenContext);
     ModelDataIRBuilder mdbuilder(modelData, dataSymbols, builder);
 
-    ASTNodeCodeGen astCodeGen(builder, resolver);
+    ASTNodeCodeGen astCodeGen(builder, resolver, modelGenContext, modelData);
 
     const ListOfReactions *reactions = model->getListOfReactions();
     for (uint i = 0; i < reactions->size(); ++i)

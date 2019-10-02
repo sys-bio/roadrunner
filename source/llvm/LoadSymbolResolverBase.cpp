@@ -23,10 +23,11 @@ namespace rrllvm
 {
 
 LoadSymbolResolverBase::LoadSymbolResolverBase(
-        const ModelGeneratorContext& ctx) :
+        const ModelGeneratorContext& ctx, llvm::Value *modelData) :
         modelGenContext(ctx),
         model(ctx.getModel()),
         modelSymbols(ctx.getModelSymbols()),
+        modelData(modelData),
         modelDataSymbols(ctx.getModelDataSymbols()),
         builder(ctx.getBuilder())
 {
@@ -54,7 +55,7 @@ llvm::Value* LoadSymbolResolverBase::loadReactionRate(
     }
 
     KineticLawParameterResolver lpResolver(*this, *kinetic, builder);
-    ASTNodeCodeGen astCodeGen(builder, lpResolver);
+    ASTNodeCodeGen astCodeGen(builder, lpResolver, modelGenContext, modelData);
 
     ASTNodeCodeGenScalarTicket t(astCodeGen, true);
     return astCodeGen.codeGen(math);

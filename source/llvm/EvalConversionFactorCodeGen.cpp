@@ -47,7 +47,7 @@ Value* EvalConversionFactorCodeGen::codeGen()
 
     ModelDataIRBuilder mdbuilder(modelData, dataSymbols, builder);
 
-    ASTNodeCodeGen astCodeGen(builder, resolver);
+    ASTNodeCodeGen astCodeGen(builder, resolver, modelGenContext, modelData);
 
     string mcfName = model->isSetConversionFactor() ?
             model->getConversionFactor() : "";

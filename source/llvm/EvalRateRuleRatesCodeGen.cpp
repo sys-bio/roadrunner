@@ -44,7 +44,7 @@ Value* EvalRateRuleRatesCodeGen::codeGen()
 
     ModelDataLoadSymbolResolver resolver(modelData, modelGenContext);
     ModelDataIRBuilder mdbuilder(modelData, dataSymbols, builder);
-    ASTNodeCodeGen astCodeGen(builder, resolver);
+    ASTNodeCodeGen astCodeGen(builder, resolver, modelGenContext, modelData);
     ASTNodeFactory nodes;
 
     // iterate through all of the reaction, and generate code based on thier

@@ -12,6 +12,7 @@
 
 #include "LLVMIncludes.h"
 #include "CodeGen.h"
+#include "ModelGeneratorContext.h"
 
 namespace libsbml
 {
@@ -27,7 +28,9 @@ class ASTNodeCodeGen
 {
 public:
     ASTNodeCodeGen(llvm::IRBuilder<> &builder,
-            LoadSymbolResolver &resolver);
+            LoadSymbolResolver &resolver,
+            const ModelGeneratorContext& ctx,
+            llvm::Value *modelData);
     ~ASTNodeCodeGen();
 
     llvm::Value *codeGen(const libsbml::ASTNode *ast);
@@ -47,6 +50,12 @@ private:
     llvm::Value *nameExprCodeGen(const libsbml::ASTNode *ast);
 
     llvm::Value *realExprCodeGen(const libsbml::ASTNode *ast);
+
+    /**
+     * Support new AST nodes for distributions
+     */
+    llvm::Value *distribCodeGen(const libsbml::ASTNode *ast);
+
 
     /**
      * for now, just convert to double,
@@ -94,6 +103,8 @@ private:
 
     llvm::IRBuilder<> &builder;
     LoadSymbolResolver &resolver;
+    const ModelGeneratorContext& ctx;
+    llvm::Value *modelData;
 
     /**
      * get the module, only valid whilst a BasicBlock is begin filled.

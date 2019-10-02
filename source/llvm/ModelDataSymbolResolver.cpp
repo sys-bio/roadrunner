@@ -24,7 +24,7 @@ namespace rrllvm
 
 ModelDataLoadSymbolResolver::ModelDataLoadSymbolResolver(llvm::Value *modelData,
         const ModelGeneratorContext& ctx) :
-            LoadSymbolResolverBase(ctx),
+            LoadSymbolResolverBase(ctx, modelData),
             modelData(modelData)
 {
 }
@@ -88,7 +88,7 @@ llvm::Value* ModelDataLoadSymbolResolver::loadSymbolValue(
         if (i != modelSymbols.getAssigmentRules().end())
         {
             recursiveSymbolPush(symbol);
-            Value* result = ASTNodeCodeGen(builder, *this).codeGen(i->second);
+            Value* result = ASTNodeCodeGen(builder, *this, modelGenContext, modelData).codeGen(i->second);
             recursiveSymbolPop();
             return cacheValue(symbol, args, result);
         }

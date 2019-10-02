@@ -48,11 +48,19 @@ static double distrib_uniform(Random *random, double _min, double _max);
 
 static double distrib_normal(Random* random, double mu, double sigma);
 
+static double distrib_normal_four(Random* random, double mu, double sigma, double _min, double _max);
+
 static double distrib_poisson(Random* random, double lambda);
+
+static double distrib_poisson_three(Random* random, double lambda, double _min, double _max);
 
 static double distrib_exponential(Random* random, double lambda);
 
+static double distrib_exponential_three(Random* random, double lambda, double _min, double _max);
+
 static double distrib_lognormal(Random* random, double mu, double sigma);
+
+static double distrib_lognormal_four(Random* random, double mu, double sigma, double _min, double _max);
 
 static Function* createGlobalMappingFunction(const char* funcName,
         llvm::FunctionType *funcType, Module *module);
@@ -118,6 +126,10 @@ void addGlobalMappings(const ModelGeneratorContext& ctx)
     // see also, llvm::StructType *ModelDataIRBuilder::createModelDataStructType(...)
     Type *voidPtrType = Type::getInt8PtrTy(context);
 
+    Type* args_void_double_quadruple[] = { voidPtrType, double_type, double_type, double_type, double_type };
+
+    Type* args_void_double_triple[] = { voidPtrType, double_type, double_type, double_type };
+
     Type* args_void_double_double[] = { voidPtrType, double_type, double_type };
 
     Type* args_void_double[] = { voidPtrType, double_type };
@@ -125,14 +137,19 @@ void addGlobalMappings(const ModelGeneratorContext& ctx)
 
 
     executionEngine->addGlobalMapping(
-            createGlobalMappingFunction("rr_distrib_uniform",
-                    FunctionType::get(double_type, args_void_double_double, false), module),
-                        (void*) distrib_uniform);
+        createGlobalMappingFunction("rr_distrib_uniform",
+            FunctionType::get(double_type, args_void_double_double, false), module),
+            (void*) distrib_uniform);
 
     executionEngine->addGlobalMapping(
-            createGlobalMappingFunction("rr_distrib_normal",
-                    FunctionType::get(double_type, args_void_double_double, false), module),
-                        (void*) distrib_normal);
+        createGlobalMappingFunction("rr_distrib_normal",
+            FunctionType::get(double_type, args_void_double_double, false), module),
+            (void*) distrib_normal);
+
+    executionEngine->addGlobalMapping(
+        createGlobalMappingFunction("rr_distrib_normal_four",
+            FunctionType::get(double_type, args_void_double_quadruple, false), module),
+            (void*)distrib_normal_four);
     
     executionEngine->addGlobalMapping(
         createGlobalMappingFunction("rr_distrib_poisson",
@@ -140,14 +157,29 @@ void addGlobalMappings(const ModelGeneratorContext& ctx)
             (void*)distrib_poisson);
 
     executionEngine->addGlobalMapping(
+        createGlobalMappingFunction("rr_distrib_poisson_three",
+            FunctionType::get(double_type, args_void_double_triple, false), module),
+            (void*)distrib_poisson_three);
+
+    executionEngine->addGlobalMapping(
         createGlobalMappingFunction("rr_distrib_exponential",
             FunctionType::get(double_type, args_void_double, false), module),
             (void*)distrib_exponential);
 
     executionEngine->addGlobalMapping(
+        createGlobalMappingFunction("rr_distrib_exponential_three",
+            FunctionType::get(double_type, args_void_double_triple, false), module),
+            (void*)distrib_exponential_three);
+
+    executionEngine->addGlobalMapping(
         createGlobalMappingFunction("rr_distrib_lognormal",
             FunctionType::get(double_type, args_void_double_double, false), module),
             (void*)distrib_lognormal);
+
+    executionEngine->addGlobalMapping(
+        createGlobalMappingFunction("rr_distrib_lognormal_four",
+            FunctionType::get(double_type, args_void_double_quadruple, false), module),
+            (void*)distrib_lognormal_four);
 
 }
 
@@ -175,6 +207,19 @@ double distrib_normal(Random* random, double mu, double sigma)
     return normal(*random);
 }
 
+double distrib_normal_four(Random* random, double mu, double sigma, double _min, double _max)
+{
+    Log(Logger::LOG_DEBUG) << "distrib_normal("
+        << static_cast<void*>(random)
+        << ", " << mu << ", " << sigma << ", " << _min << ", " << _max << ")";
+
+    NormalDist normal(mu, sigma);
+    double distval = normal(*random);
+    double result = std::max(_min, std::min(distval, _max));
+    
+    return result;
+}
+
 double distrib_poisson(Random* random, double lambda)
 {
     Log(Logger::LOG_DEBUG) << "distrib_poisson("
@@ -183,6 +228,18 @@ double distrib_poisson(Random* random, double lambda)
 
     PoissonDist poisson(lambda);
     return (double)poisson(*random);
+}
+
+double distrib_poisson_three(Random* random, double lambda, double _min, double _max)
+{
+    Log(Logger::LOG_DEBUG) << "distrib_poisson("
+        << static_cast<void*>(random)
+        << ", " << lambda << ", " << _min << ", " << _max << ")";
+
+    PoissonDist poisson(lambda);
+    double distval = (double)poisson(*random);
+    double result = std::max(_min, std::min(distval, _max));
+    return result;
 }
 
 double distrib_exponential(Random* random, double lambda)
@@ -195,6 +252,18 @@ double distrib_exponential(Random* random, double lambda)
     return exponential(*random);
 }
 
+double distrib_exponential_three(Random* random, double lambda, double _min, double _max)
+{
+    Log(Logger::LOG_DEBUG) << "distrib_exponential("
+        << static_cast<void*>(random)
+        << ", " << lambda << ", " << _min << ", " << _max << ")";
+
+    ExponentialDist exponential(lambda);
+    double distval = exponential(*random);
+    double result = std::max(_min, std::min(distval, _max));
+    return result;
+}
+
 double distrib_lognormal(Random* random, double mu, double sigma)
 {
     Log(Logger::LOG_DEBUG) << "distrib_lognormal("
@@ -203,6 +272,18 @@ double distrib_lognormal(Random* random, double mu, double sigma)
 
     LognormalDist lognormal(mu, sigma);
     return lognormal(*random);
+}
+
+double distrib_lognormal_four(Random* random, double mu, double sigma, double _min, double _max)
+{
+    Log(Logger::LOG_DEBUG) << "distrib_lognormal("
+        << static_cast<void*>(random)
+        << ", " << mu << ", " << sigma << ")";
+
+    LognormalDist lognormal(mu, sigma);
+    double distval = lognormal(*random);
+    double result = std::max(_min, std::min(distval, _max));
+    return result;
 }
 
 Random::~Random()

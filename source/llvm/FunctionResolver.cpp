@@ -99,7 +99,7 @@ llvm::Value* FunctionResolver::loadSymbolValue(const std::string& symbol,
             (*symbols)[c->getName()] = args[i];
         }
 
-        ASTNodeCodeGen astCodeGen(builder, *this);
+        ASTNodeCodeGen astCodeGen(builder, *this, modelGenContext, modelData);
 
         // the last child should be an apply node
         const ASTNode *apply = math->getChild(nchild - 1);

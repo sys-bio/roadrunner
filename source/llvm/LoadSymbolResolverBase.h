@@ -66,7 +66,7 @@ public:
 
 
 protected:
-    LoadSymbolResolverBase(const ModelGeneratorContext &ctx);
+    LoadSymbolResolverBase(const ModelGeneratorContext &ctx, llvm::Value *modelData);
 
     typedef std::list<std::string> StringStack;
     typedef cxx11_ns::unordered_map<std::string, llvm::Value*> ValueMap;
@@ -77,6 +77,7 @@ protected:
     const LLVMModelDataSymbols &modelDataSymbols;
     const LLVMModelSymbols &modelSymbols;
     llvm::IRBuilder<> &builder;
+    llvm::Value *modelData;
 
     // check for recursive symbol definitions in rule evaluations
     StringStack symbolStack;

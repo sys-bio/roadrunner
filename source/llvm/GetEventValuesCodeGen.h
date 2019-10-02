@@ -88,7 +88,7 @@ llvm::Value *GetEventValueCodeGenBase<Derived, FunctionPtrType>::codeGen()
 
     ModelDataLoadSymbolResolver resolver(args[0], this->modelGenContext);
 
-    ASTNodeCodeGen astCodeGen(this->builder, resolver);
+    ASTNodeCodeGen astCodeGen(this->builder, resolver, this->modelGenContext, args[0]);
 
     // default, return NaN
     llvm::BasicBlock *def = llvm::BasicBlock::Create(this->context, "default", this->function);

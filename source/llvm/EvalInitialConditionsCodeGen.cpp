@@ -174,7 +174,7 @@ void EvalInitialConditionsCodeGen::codeGenStoichiometry(
 {
     ModelDataIRBuilder modelDataBuilder(modelData, dataSymbols,
                 builder);
-    ASTNodeCodeGen astCodeGen(builder, initialValueResolver);
+    ASTNodeCodeGen astCodeGen(builder, initialValueResolver, modelGenContext, modelData);
 
     Log(Logger::LOG_DEBUG) << "reactions: ";
     vector<string> ids = dataSymbols.getReactionIds();
