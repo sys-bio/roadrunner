@@ -5693,17 +5693,124 @@ void RoadRunner::addReaction(const string& rid, vector<string> reactants, vector
 }
 
 
-void RoadRunner::removeReaction(const std::string& rid, bool forceRegenerate)
+void RoadRunner::removeReaction(const std::string& rid, bool deleteUnusedParameters, bool forceRegenerate)
 {
+	using namespace libsbml;
 	libsbml::Reaction* toDelete = impl->document->getModel()->removeReaction(rid);
 	if (toDelete == NULL)
 	{
 		throw std::invalid_argument("Roadrunner::removeReaction failed, no reaction with ID " + rid + " existed in the model");
 	}
 	Log(Logger::LOG_DEBUG) << "Removing reaction " << rid << "..." << endl;
+	if (deleteUnusedParameters)
+	{
+		std::vector<std::string> toCheck;
+		getAllVariables(toDelete->getKineticLaw()->getMath(), toCheck);
+		if (impl->document->getLevel() == 2)
+		{
+			// only Level 2 support StoichiometryMath
+			const ListOfSpeciesReferences* reactants = toDelete->getListOfReactants();
+			for (uint j = 0; j < reactants->size(); j++)
+			{
+				// TODO: better way to cast?
+				SpeciesReference* reactant = (SpeciesReference*)reactants->get(j);
+				if (reactant->getStoichiometryMath() != NULL) 
+				{
+					getAllVariables(reactant->getStoichiometryMath()->getMath(), toCheck);
+				}
+				
+			}
+
+			const libsbml::ListOfSpeciesReferences* products = toDelete->getListOfProducts();
+			for (uint j = 0; j < products->size(); j++)
+			{
+				SpeciesReference* product = (SpeciesReference*)products->get(j);
+				if (product->getStoichiometryMath() != NULL)
+				{
+					getAllVariables(product->getStoichiometryMath()->getMath(), toCheck);
+				}
+				
+			}
+		}
+		for (std::string sid : toCheck)
+		{
+			if (!isParameterUsed(sid))
+			{
+				removeParameter(sid, false);
+			}
+		}
+	}
 	delete toDelete;
 	regenerate(forceRegenerate);
+}
 
+bool RoadRunner::isParameterUsed(const std::string& sid)
+{
+	using namespace libsbml;
+	Model* sbmlModel = impl->document->getModel();
+	int num = sbmlModel->getNumReactions();
+	//Check if this parameter occurs in a reaction
+	for (uint i = 0; i < num; i++)
+	{
+		Reaction* reaction = sbmlModel->getReaction(i);
+		if (impl->document->getLevel() == 2)
+		{
+			// only Level 2 support StoichiometryMath
+			const ListOfSpeciesReferences* reactants = reaction->getListOfReactants();
+			for (uint j = 0; j < reactants->size(); j++)
+			{
+				// TODO: better way to cast?
+				SpeciesReference* reactant = (SpeciesReference*)reactants->get(j);
+				if (reactant->getStoichiometryMath() != NULL) 
+				{
+					if (hasVariable(reactant->getStoichiometryMath()->getMath(), sid))
+					{
+						return true;
+					}
+				}
+				
+			}
+
+			const libsbml::ListOfSpeciesReferences* products = reaction->getListOfProducts();
+			for (uint j = 0; j < products->size(); j++)
+			{
+				SpeciesReference* product = (SpeciesReference*)products->get(j);
+				if (product->getStoichiometryMath() != NULL)
+				{
+					if (hasVariable(product->getStoichiometryMath()->getMath(), sid))
+					{
+						return true;
+					}
+				}
+				
+			}
+		}
+		
+		// TODO: check if getMath work with level 1
+		if (reaction->getKineticLaw() && hasVariable(reaction->getKineticLaw()->getMath(), sid))
+		{
+			return true;
+		}
+	}
+	// Check if this parameter occurs in an assignment rule or rate rule
+	for (uint i = 0; i < sbmlModel->getNumRules(); i++)
+	{
+		Rule* rule = sbmlModel->getRule(i);
+		if (hasVariable(rule->getMath(), sid))
+		{
+			return true;
+		}
+	}
+	// Check if this parameter occurs in an initial assigment
+	for (uint i = 0; i < sbmlModel->getNumInitialAssignments(); i++)
+	{
+		InitialAssignment* initialAssignment = sbmlModel->getInitialAssignment(i);
+		if (hasVariable(initialAssignment->getMath(), sid))
+		{
+			return true;
+		}
+	}
+	return false;
 }
 
 
@@ -6688,6 +6795,19 @@ void RoadRunner::removeVariable(const std::string& sid) {
 	}
 
 	checkGlobalParameters();
+}
+
+void RoadRunner::getAllVariables(const libsbml::ASTNode* node, std::vector<std::string>& ids)
+{
+	if (node == NULL) return;
+	if (!node->isOperator() && !node->isNumber()) 
+	{
+		ids.push_back(std::string(node->getName()));
+	}
+	for (uint i = 0; i < node->getNumChildren(); i++)
+	{
+		getAllVariables(node->getChild(i), ids);
+	}
 }
 
 bool RoadRunner::hasVariable(const libsbml::ASTNode* node, const string& sid) 

@@ -867,7 +867,7 @@ public:
 	 *						   to save time for editing for multiple times, one could
 	 *					       set this flag to true only in the last call of editing
 	 */
-	void removeReaction(const std::string& rid, bool forceRegenerate = true);
+	void removeReaction(const std::string& rid, bool deleteUnusedParameters = false, bool forceRegenerate = true);
 
 	/*
 	* Set the reversible attribut for an existing reaction in the current model
@@ -1533,6 +1533,9 @@ private:
 
     double getNthSelectedOutput(unsigned index, double currentTime);
 
+	bool isParameterUsed(const std::string& sid);
+
+	void getAllVariables(const libsbml::ASTNode* node, std::vector<std::string>& ids);
 
     /// Get the row index of the time variable in the output array (returns -1 if time is not selected)
     int getTimeRowIndex();
