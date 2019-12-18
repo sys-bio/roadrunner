@@ -51,7 +51,7 @@ llvm::Value* ModelDataLoadSymbolResolver::loadSymbolValue(
 {
     {
         Value* cachedValue = cacheValue(symbol, args);
-        if(cachedValue) return cachedValue;
+        //if(cachedValue) return cachedValue;
     }
 
     ModelDataIRBuilder mdbuilder(modelData, modelDataSymbols,
