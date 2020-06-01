@@ -10,9 +10,21 @@
 #include <iostream>
 
 #if defined(BUILD_LLVM)
+#ifdef _MSC_VER
+#pragma warning(disable: 4146)
+#pragma warning(disable: 4141)
+#pragma warning(disable: 4267)
+#pragma warning(disable: 4624)
+#endif
 #include "llvm/LLVMModelGenerator.h"
 #include "llvm/LLVMCompiler.h"
 #include "llvm/LLVMExecutableModel.h"
+#ifdef _MSC_VER
+#pragma warning(default: 4146)
+#pragma warning(default: 4141)
+#pragma warning(default: 4267)
+#pragma warning(default: 4624)
+#endif
 #endif
 
 #if defined(BUILD_LEGACY_C)

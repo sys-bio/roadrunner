@@ -23,6 +23,10 @@ using std::exception;
 namespace rr
 {
 
+#ifdef _MSC_VER
+#pragma warning(disable: 4275)
+#endif
+    
 class RR_DECLSPEC Exception : public std::exception
 {
     protected:

@@ -27,12 +27,26 @@
 #include "rrSBMLReader.h"
 #include "rrConfig.h"
 #include "SBMLValidator.h"
-#include "llvm/LLVMExecutableModel.h"
 #include "sbml/ListOf.h"
 #include "sbml/Model.h"
 #include "sbml/math/FormulaParser.h"
+
+
+#ifdef _MSC_VER
+#pragma warning(disable: 4146)
+#pragma warning(disable: 4141)
+#pragma warning(disable: 4267)
+#pragma warning(disable: 4624)
+#endif
+#include "llvm/LLVMExecutableModel.h"
 #include "llvm/ModelResources.h"
-#include <llvm/IR/IRBuilder.h>
+#include "llvm/IR/IRBuilder.h"
+#ifdef _MSC_VER
+#pragma warning(default: 4146)
+#pragma warning(default: 4141)
+#pragma warning(default: 4267)
+#pragma warning(default: 4624)
+#endif
 
 #include <sbml/conversion/SBMLLocalParameterConverter.h>
 #include <sbml/conversion/SBMLLevelVersionConverter.h>

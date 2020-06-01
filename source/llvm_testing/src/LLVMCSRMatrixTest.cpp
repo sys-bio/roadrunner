@@ -6,9 +6,22 @@
  */
 #pragma hdrstop
 #include "LLVMCSRMatrixTest.h"
-#include "llvm/ModelDataIRBuilder.h"
 #include "cpplapack.h"
 #include <iostream>
+
+#ifdef _MSC_VER
+#pragma warning(disable: 4146)
+#pragma warning(disable: 4141)
+#pragma warning(disable: 4267)
+#pragma warning(disable: 4624)
+#endif
+#include "llvm/ModelDataIRBuilder.h"
+#ifdef _MSC_VER
+#pragma warning(default: 4146)
+#pragma warning(default: 4141)
+#pragma warning(default: 4267)
+#pragma warning(default: 4624)
+#endif
 
 using namespace llvm;
 using namespace std;

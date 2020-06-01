@@ -15,11 +15,24 @@
 #include "conservation/ConservationExtension.h"
 #include "rrRoadRunnerOptions.h"
 #include "rrConfig.h"
+
+#ifdef _MSC_VER
+#pragma warning(disable: 4146)
+#pragma warning(disable: 4141)
+#pragma warning(disable: 4267)
+#pragma warning(disable: 4624)
+#endif
 #include "llvm/IR/DataLayout.h"
 #include "llvm/Support/TargetRegistry.h"
 #include "llvm/Support/DynamicLibrary.h"
 //#include "llvm/ExecutionEngine/OrcMCJITReplacement.h"
 #include "llvm/ExecutionEngine/SectionMemoryManager.h"
+#ifdef _MSC_VER
+#pragma warning(default: 4146)
+#pragma warning(default: 4141)
+#pragma warning(default: 4267)
+#pragma warning(default: 4624)
+#endif
 
 #include <sbml/SBMLReader.h>
 #include <string>
