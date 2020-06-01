@@ -695,7 +695,7 @@ PyObject *Integrator_NewPythonObj(rr::Integrator* i) {
 
 //Model editing proxies so that we can regenerate properties each time we regenerate the model
 %rename (_addParameter) rr::RoadRunner::addParameter(const std::string&, double, bool);
-%rename (_addSpecies) rr::RoadRunner::addSpecies(const std::string&, const std::string&, double, const std::string&, bool);
+%rename (_addSpecies) rr::RoadRunner::addSpecies(const std::string&, const std::string&, double, bool, bool, const std::string&, bool);
 %rename (_addCompartment) rr::RoadRunner::addCompartment(const std::string&, double, bool);
 %rename (_addReaction) rr::RoadRunner::addReaction(const std::string&, std::vector<string>, std::vector<string>, const std::string&, bool);
 
@@ -1671,8 +1671,8 @@ namespace std { class ostream{}; }
             self._addReaction(*args)
             self._makeProperties()
                 
-        def addSpecies(self, sid, compartment, initAmount = 0.0, substanceUnits = "", forceRegenerate = True):
-            self._addSpecies(sid, compartment, initAmount, substanceUnits, forceRegenerate)
+        def addSpecies(self, sid, compartment, initAmount = 0.0, hasOnlySubstanceUnits=False, boundaryCondition=False, substanceUnits = "", forceRegenerate = True):
+            self._addSpecies(sid, compartment, initAmount, hasOnlySubstanceUnits, boundaryCondition, substanceUnits, forceRegenerate)
             self._makeProperties()
 
         def addCompartment(self, *args):

@@ -1217,7 +1217,20 @@ def addSpecies(rrInstance):
     words = []
     words = divide(readLine())
     print("Add species " + words[0])
-    rrInstance.addSpecies(words[0], words[1], float(words[2]), words[3], bool(words[4]))
+    if (len(words)==2):
+        rrInstance.addSpecies(words[0], words[1])
+    elif (len(words)==3):
+        rrInstance.addSpecies(words[0], words[1], float(words[2]))
+    elif (len(words)==4):
+        rrInstance.addSpecies(words[0], words[1], float(words[2]), bool(words[3]))
+    elif (len(words)==5):
+        rrInstance.addSpecies(words[0], words[1], float(words[2]), bool(words[3]), bool(words[4]))
+    elif (len(words)==6):
+        rrInstance.addSpecies(words[0], words[1], float(words[2]), bool(words[3]), bool(words[4]), words[5])
+    elif (len(words)==7):
+        rrInstance.addSpecies(words[0], words[1], float(words[2]), bool(words[3]), bool(words[4]), words[5], bool(words[6]))
+    else:
+        print(passMsg(False, "Incorrect number of arguments given to addSpecies."))
 
 
 def addReaction(rrInstance):

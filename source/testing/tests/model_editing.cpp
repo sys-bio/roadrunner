@@ -1012,10 +1012,10 @@ SUITE(MODEL_EDITING_TEST_SUITE)
 		{
 			rri->removeSpecies("S1", true);
 			rri->removeSpecies("S2", true);
-			rri->addSpecies("S1", "compartment", 0.001, true, true);
-			rri->addSpecies("S2", "compartment", 0.001, true, true);
-			rri->addSpecies("S3", "compartment", 0.002, true, true);
-			rri->addSpecies("S4", "compartment", 0.001, true, true);
+			rri->addSpecies("S1", "compartment", 0.001);
+			rri->addSpecies("S2", "compartment", 0.001);
+			rri->addSpecies("S3", "compartment", 0.002);
+			rri->addSpecies("S4", "compartment", 0.001);
 			rri->removeParameter("k1", true);
 			rri->addParameter("k1", 750, true);
 			rri->addParameter("k2", 250, true);
@@ -1573,13 +1573,13 @@ SUITE(MODEL_EDITING_TEST_SUITE)
 	{
 		CHECK(RunModelEditingTest([](RoadRunner* rri)
 		{
-			rri->addSpecies("S1", "C", 0.0, "", false);
+			rri->addSpecies("S1", "C", 0.0);
 			rri->setInitConcentration("S1", 0.0004, false);
-			rri->addSpecies("S2", "C", 0.0, "", false);
+			rri->addSpecies("S2", "C", 0.0);
 			rri->setInitConcentration("S2", 0.00048, false);
-			rri->addSpecies("S3", "C", 0.0, "", false);
+			rri->addSpecies("S3", "C", 0.0);
 			rri->setInitConcentration("S3", 0.0008, false);
-			rri->addSpecies("S4", "C", 0.0, "", false);
+			rri->addSpecies("S4", "C", 0.0);
 			rri->setInitConcentration("S4", 0.0004);
 
 			rri->addReaction("reaction1", {"S1", "S2"}, {"S3", "S4"}, "C * k1 * S1 * S2", false);
