@@ -1463,7 +1463,7 @@ void LLVMExecutableModel::setEventListener(size_t index,
     }
     else
     {
-        throw_llvm_exception("index " + rr::toString(index) + " out of range");
+        throw_llvm_exception("index " + rr::sizeToString(index) + " out of range");
     }
 }
 
@@ -1475,7 +1475,7 @@ rr::EventListenerPtr LLVMExecutableModel::getEventListener(size_t index)
     }
     else
     {
-        throw_llvm_exception("index " + rr::toString(index) + " out of range");
+        throw_llvm_exception("index " + rr::sizeToString(index) + " out of range");
         return EventListenerPtr();
     }
 }

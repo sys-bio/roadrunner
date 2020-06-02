@@ -792,35 +792,6 @@ string toString(const int& n, const string& format, const int nBase)
     }
 }
 
-string toString(const size_t& n, const string& format, const int nBase)
-{
-    char sBuffer[256];
-    if (nBase == 16)
-    {
-        sprintf(sBuffer, "%X", n);
-        return string("0x") + string(sBuffer);
-    }
-    else if (nBase == 2)
-    {
-        string tmp = "";
-        int k = n;
-        for (int i = 0; i < 8; i++)
-        {
-            if ((k & 0x80) != 0)
-                tmp += "1";
-            else
-                tmp += "0";
-            k = k << 1;
-        }
-        return "0b" + tmp;
-    }
-    else
-    {
-        sprintf(sBuffer, "%d", n);
-        return string(sBuffer);
-    }
-}
-
 string toString(const int n, const int nBase)
 {
     char sBuffer[256];
@@ -921,6 +892,13 @@ string toString(const vector<string>& vec, const string& sep)
     }
     text<<"}";
     return text.str();
+}
+
+RR_DECLSPEC string sizeToString(const size_t& n)
+{
+    stringstream ss;
+    ss << n;
+    return ss.str();
 }
 
 int compareNoCase(const string& str1, const string& str2)

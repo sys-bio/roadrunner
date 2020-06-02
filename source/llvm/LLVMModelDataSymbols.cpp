@@ -470,7 +470,7 @@ std::string LLVMModelDataSymbols::getFloatingSpeciesId(size_t indx) const
         }
     }
 
-    throw std::out_of_range("attempted to access floating species id at index " + rr::toString(indx));
+    throw std::out_of_range("attempted to access floating species id at index " + rr::sizeToString(indx));
 }
 
 
@@ -1020,7 +1020,7 @@ std::string LLVMModelDataSymbols::getGlobalParameterId(size_t indx) const
         }
     }
 
-    throw std::out_of_range("attempted to access global parameter id at index " + rr::toString(indx));
+    throw std::out_of_range("attempted to access global parameter id at index " + rr::sizeToString(indx));
 }
 
 int LLVMModelDataSymbols::getCompartmentIndexForFloatingSpecies(
