@@ -978,15 +978,15 @@ RRStringArrayPtr rrcCallConv getGlobalParameterIds(RRHandle handle)
     catch_ptr_macro
 }
 
-bool rrcCallConv getFloatingSpeciesInitialConcentrationByIndex(RRHandle handle, size_t index, double* value)
+bool rrcCallConv getFloatingSpeciesInitialConcentrationByIndex(RRHandle handle, unsigned long index, double* value)
 {
     start_try
         RoadRunner* rri = castToRoadRunner(handle);
         ExecutableModel *model = rri->getModel();
-
-        if (model && model->getNumFloatingSpecies() > index)
+        size_t index_st = static_cast<size_t>(index)
+        if (model && model->getNumFloatingSpecies() > index_st)
         {
-            return model->getFloatingSpeciesInitConcentrations(1, &index, value) >= 0;
+            return model->getFloatingSpeciesInitConcentrations(1, &index_st, value) >= 0;
         }
         return true;
     catch_bool_macro
