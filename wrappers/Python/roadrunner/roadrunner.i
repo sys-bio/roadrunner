@@ -727,23 +727,23 @@ PyObject *Integrator_NewPythonObj(rr::Integrator* i) {
 
 
 %ignore rr::ExecutableModel::getFloatingSpeciesAmounts(size_t, const size_t*, double *);
-%ignore rr::ExecutableModel::setFloatingSpeciesAmounts(size_t len, int const *indx, const double *values);
+%ignore rr::ExecutableModel::setFloatingSpeciesAmounts(size_t len, const size_t* indx, const double *values);
 %ignore rr::ExecutableModel::getFloatingSpeciesAmountRates(size_t, const size_t*, double *);
 %ignore rr::ExecutableModel::getFloatingSpeciesConcentrationRates(size_t, const size_t*, double *);
 
 %ignore rr::ExecutableModel::getFloatingSpeciesConcentrations(size_t, const size_t*, double *);
-%ignore rr::ExecutableModel::setFloatingSpeciesConcentrations(size_t len, int const *indx, const double *values);
-%ignore rr::ExecutableModel::setFloatingSpeciesInitConcentrations(size_t len, int const *indx, const double *values);
+%ignore rr::ExecutableModel::setFloatingSpeciesConcentrations(size_t len, const size_t* indx, const double *values);
+%ignore rr::ExecutableModel::setFloatingSpeciesInitConcentrations(size_t len, const size_t* indx, const double *values);
 %ignore rr::ExecutableModel::getFloatingSpeciesInitConcentrations(size_t, const size_t*, double *);
 %ignore rr::ExecutableModel::getBoundarySpeciesAmounts(size_t, const size_t*, double *);
 %ignore rr::ExecutableModel::getBoundarySpeciesConcentrations(size_t, const size_t*, double *);
-%ignore rr::ExecutableModel::setBoundarySpeciesConcentrations(size_t len, int const *indx, const double *values);
+%ignore rr::ExecutableModel::setBoundarySpeciesConcentrations(size_t len, const size_t* indx, const double *values);
 %ignore rr::ExecutableModel::getGlobalParameterValues(size_t, const size_t*, double *);
-%ignore rr::ExecutableModel::setGlobalParameterValues(size_t len, int const *indx, const double *values);
+%ignore rr::ExecutableModel::setGlobalParameterValues(size_t len, const size_t* indx, const double *values);
 %ignore rr::ExecutableModel::getCompartmentVolumes(size_t, const size_t*, double *);
-%ignore rr::ExecutableModel::setCompartmentVolumes(size_t len, int const *indx, const double *values);
+%ignore rr::ExecutableModel::setCompartmentVolumes(size_t len, const size_t* indx, const double *values);
 %ignore rr::ExecutableModel::getConservedMoietyValues(size_t, const size_t*, double *);
-%ignore rr::ExecutableModel::setConservedMoietyValues(size_t len, int const *indx, const double *values);
+%ignore rr::ExecutableModel::setConservedMoietyValues(size_t len, const size_t* indx, const double *values);
 %ignore rr::ExecutableModel::getReactionRates(size_t, const size_t*, double *);
 %ignore rr::ExecutableModel::evalReactionRates;
 %ignore rr::ExecutableModel::convertToAmounts;
