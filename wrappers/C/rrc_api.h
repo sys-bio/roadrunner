@@ -2032,7 +2032,7 @@ C_DECL_SPEC bool rrcCallConv setFloatingSpeciesInitialConcentrationByIndex(RRHan
  \return Returns true if successful
  \ingroup floating
 */
-C_DECL_SPEC bool rrcCallConv getFloatingSpeciesInitialConcentrationByIndex(RRHandle handle, int index, double* value);
+C_DECL_SPEC bool rrcCallConv getFloatingSpeciesInitialConcentrationByIndex(RRHandle handle, size_t index, double* value);
 
 /*!
  \brief Set the concentration for a particular floating species.

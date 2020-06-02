@@ -978,7 +978,7 @@ RRStringArrayPtr rrcCallConv getGlobalParameterIds(RRHandle handle)
     catch_ptr_macro
 }
 
-bool rrcCallConv getFloatingSpeciesInitialConcentrationByIndex(RRHandle handle, int index, double* value)
+bool rrcCallConv getFloatingSpeciesInitialConcentrationByIndex(RRHandle handle, size_t index, double* value)
 {
     start_try
         RoadRunner* rri = castToRoadRunner(handle);
