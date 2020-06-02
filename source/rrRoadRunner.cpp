@@ -840,7 +840,7 @@ double RoadRunner::getValue(const SelectionRecord& record)
         string species = record.p1;
         size_t index = impl->model->getFloatingSpeciesIndex(species);
 
-        if (index < 0)
+        if (index == -1)
         {
             throw std::logic_error("Invalid species id" + record.p1 + " for eigenvalue");
         }
@@ -861,7 +861,7 @@ double RoadRunner::getValue(const SelectionRecord& record)
         string species = record.p1;
         size_t index = impl->model->getFloatingSpeciesIndex(species);
 
-        if (index < 0)
+        if (index == -1)
         {
             throw std::logic_error("Invalid species id" + record.p1 + " for eigenvalue");
         }
@@ -1423,19 +1423,19 @@ double RoadRunner::getEE(const string& reactionName, const string& parameterName
     }
 
     // Find out what kind of parameter we are dealing with
-    if (( parameterIndex = impl->model->getFloatingSpeciesIndex(parameterName)) >= 0)
+    if (( parameterIndex = impl->model->getFloatingSpeciesIndex(parameterName)) != -1)
     {
         parameterType = ptFloatingSpecies;
     }
-    else if ((parameterIndex = impl->model->getBoundarySpeciesIndex(parameterName)) >= 0)
+    else if ((parameterIndex = impl->model->getBoundarySpeciesIndex(parameterName)) != -1)
     {
         parameterType = ptBoundaryParameter;
     }
-    else if ((parameterIndex = impl->model->getGlobalParameterIndex(parameterName)) >= 0)
+    else if ((parameterIndex = impl->model->getGlobalParameterIndex(parameterName)) != -1)
     {
         parameterType = ptGlobalParameter;
     }
-    else if ((parameterIndex = impl->model->getConservedMoietyIndex(parameterName)) >= 0)
+    else if ((parameterIndex = impl->model->getConservedMoietyIndex(parameterName)) != -1)
     {
         parameterType = ptConservationParameter;
     }
@@ -1520,31 +1520,31 @@ double RoadRunner::getuEE(const string& reactionName, const string& parameterNam
         impl->model->getFloatingSpeciesConcentrations(l, NULL, ref);
 
         // Check the reaction name
-        if ((reactionIndex = impl->model->getReactionIndex(reactionName)) < 0)
+        if ((reactionIndex = impl->model->getReactionIndex(reactionName)) == -1)
         {
             throw CoreException("Unable to locate reaction name: [" + reactionName + "]");
         }
 
         // Find out what kind of parameter we are dealing with
-        if ((parameterIndex = impl->model->getFloatingSpeciesIndex(parameterName)) >= 0)
+        if ((parameterIndex = impl->model->getFloatingSpeciesIndex(parameterName)) != -1)
         {
             parameterType = ptFloatingSpecies;
             originalParameterValue = 0;
             impl->model->getFloatingSpeciesConcentrations(1, &parameterIndex, &originalParameterValue);
         }
-        else if ((parameterIndex = impl->model->getBoundarySpeciesIndex(parameterName)) >= 0)
+        else if ((parameterIndex = impl->model->getBoundarySpeciesIndex(parameterName)) != -1)
         {
             parameterType = ptBoundaryParameter;
             originalParameterValue = 0;
             impl->model->getBoundarySpeciesConcentrations(1, &parameterIndex, &originalParameterValue);
         }
-        else if ((parameterIndex = impl->model->getGlobalParameterIndex(parameterName)) >= 0)
+        else if ((parameterIndex = impl->model->getGlobalParameterIndex(parameterName)) != -1)
         {
             parameterType = ptGlobalParameter;
             originalParameterValue = 0;
             impl->model->getGlobalParameterValues(1, &parameterIndex, &originalParameterValue);
         }
-        else if ((parameterIndex = impl->model->getConservedMoietyIndex(parameterName)) >= 0)
+        else if ((parameterIndex = impl->model->getConservedMoietyIndex(parameterName)) != -1)
         {
             parameterType = ptConservationParameter;
             originalParameterValue = 0;
@@ -1693,7 +1693,7 @@ const DoubleMatrix* RoadRunner::simulate(const Dictionary* dict)
 
                         int itime = getTimeRowIndex();
 
-                        if (itime >= 0)
+                        if (itime != -1)
                         {
                             row.at(itime) = timeEnd;
                         }
@@ -2931,7 +2931,7 @@ double RoadRunner::getReactionRate(const size_t& index)
         throw CoreException(gEmptyModelMessage);
     }
 
-    if ((index >= 0) && (index < impl->model->getNumReactions()))
+    if ((index != -1) && (index < impl->model->getNumReactions()))
     {
         double result = 0;
         impl->model->getReactionRates(1, &index, &result);
@@ -2951,7 +2951,7 @@ double RoadRunner::getRateOfChange(const size_t& index)
         throw CoreException(gEmptyModelMessage);
     }
 
-    if ((index >= 0) && (index < impl->model->getNumFloatingSpecies()))
+    if ((index != -1) && (index < impl->model->getNumFloatingSpecies()))
     {
         double value = 0;
         impl->model->getFloatingSpeciesAmountRates(1, &index, &value);
@@ -2980,7 +2980,7 @@ void RoadRunner::setCompartmentByIndex(const size_t& index, const double& value)
          throw CoreException(gEmptyModelMessage);
     }
 
-    if ((index >= 0) && (index < impl->model->getNumCompartments()))
+    if ((index != -1) && (index < impl->model->getNumCompartments()))
     {
         impl->model->setCompartmentVolumes(1, &index, &value);
     }
@@ -2997,7 +2997,7 @@ double RoadRunner::getCompartmentByIndex(const size_t& index)
         throw CoreException(gEmptyModelMessage);
     }
 
-    if ((index >= 0) && (index < impl->model->getNumCompartments()))
+    if ((index != -1) && (index < impl->model->getNumCompartments()))
     {
         double result = 0;
         impl->model->getCompartmentVolumes(1, &index, &result);
@@ -3024,7 +3024,7 @@ void RoadRunner::setBoundarySpeciesByIndex(const size_t& index, const double& va
         throw Exception(gEmptyModelMessage);
     }
 
-    if ((index >= 0) && (index < impl->model->getNumBoundarySpecies()))
+    if ((index != -1) && (index < impl->model->getNumBoundarySpecies()))
     {
         impl->model->setBoundarySpeciesConcentrations(1, &index, &value);
     }
@@ -3041,7 +3041,7 @@ double RoadRunner::getBoundarySpeciesByIndex(const size_t& index)
     {
         throw Exception(gEmptyModelMessage);
     }
-    if ((index >= 0) && (index < impl->model->getNumBoundarySpecies()))
+    if ((index != -1) && (index < impl->model->getNumBoundarySpecies()))
     {
         double result = 0;
         impl->model->getBoundarySpeciesConcentrations(1, &index, &result);
@@ -3116,7 +3116,7 @@ void RoadRunner::setFloatingSpeciesInitialConcentrationByIndex(const size_t& ind
         throw CoreException(gEmptyModelMessage);
     }
 
-    if ((index >= 0) && (index < impl->model->getNumFloatingSpecies()))
+    if ((index != -1) && (index < impl->model->getNumFloatingSpecies()))
     {
         impl->model->setFloatingSpeciesInitConcentrations(1, &index, &value);
         reset();
@@ -3135,7 +3135,7 @@ void RoadRunner::setFloatingSpeciesByIndex(size_t index, double value)
         throw CoreException(gEmptyModelMessage);
     }
 
-    if ((index >= 0) && (index < impl->model->getNumFloatingSpecies()))
+    if ((index != -1) && (index < impl->model->getNumFloatingSpecies()))
     {
         impl->model->setFloatingSpeciesConcentrations(1, &index, &value); // This updates the amount vector aswell
     }
@@ -3153,7 +3153,7 @@ double RoadRunner::getFloatingSpeciesByIndex(const size_t index)
         throw CoreException(gEmptyModelMessage);
     }
 
-    if ((index >= 0) && (index < impl->model->getNumFloatingSpecies()))
+    if ((index != -1) && (index < impl->model->getNumFloatingSpecies()))
     {
         double result = 0;
         impl->model->getFloatingSpeciesConcentrations(1, &index, &result);
@@ -3296,7 +3296,7 @@ double RoadRunner::getGlobalParameterByIndex(const size_t& index)
         throw CoreException(gEmptyModelMessage);
     }
 
-    if ((index >= 0) && (index < (impl->model->getNumGlobalParameters() + impl->model->getNumDepFloatingSpecies())))
+    if ((index != -1) && (index < (impl->model->getNumGlobalParameters() + impl->model->getNumDepFloatingSpecies())))
     {
         int arraySize = impl->model->getNumGlobalParameters() + impl->model->getNumDepFloatingSpecies();
         if (impl->model->getNumReactions() == 0 && impl->model->getNumRateRules() > 0)
@@ -3380,11 +3380,11 @@ double RoadRunner::getuCC(const string& variableName, const string& parameterNam
         variableNameMod.erase(std::remove(variableNameMod.begin(), variableNameMod.end(), ']'), variableNameMod.end());
 
         // Check the variable name
-        if ((variableIndex = impl->model->getReactionIndex(variableNameMod)) >= 0)
+        if ((variableIndex = impl->model->getReactionIndex(variableNameMod)) != -1)
         {
             variableType = vtFlux;
         }
-        else if ((variableIndex = impl->model->getFloatingSpeciesIndex(variableNameMod)) >= 0)
+        else if ((variableIndex = impl->model->getFloatingSpeciesIndex(variableNameMod)) != -1)
         {
             variableType = vtSpecies;
         }
@@ -3394,19 +3394,19 @@ double RoadRunner::getuCC(const string& variableName, const string& parameterNam
         }
 
         // Check for the parameter name
-        if ((parameterIndex = impl->model->getGlobalParameterIndex(parameterName)) >= 0)
+        if ((parameterIndex = impl->model->getGlobalParameterIndex(parameterName)) != -1)
         {
             parameterType = ptGlobalParameter;
             originalParameterValue = 0;
             impl->model->getGlobalParameterValues(1, &parameterIndex, &originalParameterValue);
         }
-        else if ((parameterIndex = impl->model->getBoundarySpeciesIndex(parameterName)) >= 0)
+        else if ((parameterIndex = impl->model->getBoundarySpeciesIndex(parameterName)) != -1)
         {
             parameterType = ptBoundaryParameter;
             originalParameterValue = 0;
             impl->model->getBoundarySpeciesConcentrations(1, &parameterIndex, &originalParameterValue);
         }
-        else if ((parameterIndex = impl->model->getConservedMoietyIndex(parameterName)) >= 0)
+        else if ((parameterIndex = impl->model->getConservedMoietyIndex(parameterName)) != -1)
         {
             parameterType = ptConservationParameter;
             originalParameterValue = 0;
@@ -3488,11 +3488,11 @@ double RoadRunner::getCC(const string& variableName, const string& parameterName
     variableNameMod.erase(std::remove(variableNameMod.begin(), variableNameMod.end(), ']'), variableNameMod.end());
 
     // Check the variable name
-    if ((variableIndex = impl->model->getReactionIndex(variableNameMod)) >= 0)
+    if ((variableIndex = impl->model->getReactionIndex(variableNameMod)) != -1)
     {
         variableType = vtFlux;
     }
-    else if ((variableIndex = impl->model->getFloatingSpeciesIndex(variableNameMod)) >= 0)
+    else if ((variableIndex = impl->model->getFloatingSpeciesIndex(variableNameMod)) != -1)
     {
         variableType = vtSpecies;
     }
@@ -3502,15 +3502,15 @@ double RoadRunner::getCC(const string& variableName, const string& parameterName
     }
 
     // Check for the parameter name
-    if ((parameterIndex = impl->model->getGlobalParameterIndex(parameterName)) >= 0)
+    if ((parameterIndex = impl->model->getGlobalParameterIndex(parameterName)) != -1)
     {
         parameterType = ptGlobalParameter;
     }
-    else if ((parameterIndex = impl->model->getBoundarySpeciesIndex(parameterName)) >= 0)
+    else if ((parameterIndex = impl->model->getBoundarySpeciesIndex(parameterName)) != -1)
     {
         parameterType = ptBoundaryParameter;
     }
-    else if ((parameterIndex = impl->model->getConservedMoietyIndex(parameterName)) >= 0)
+    else if ((parameterIndex = impl->model->getConservedMoietyIndex(parameterName)) != -1)
     {
         parameterType = ptConservationParameter;
     }
@@ -3728,11 +3728,11 @@ double RoadRunner::getScaledFloatingSpeciesElasticity(const string& reactionName
     size_t speciesIndex = 0;
     size_t reactionIndex = 0;
 
-    if ((speciesIndex = self.model->getFloatingSpeciesIndex(speciesName)) < 0)
+    if ((speciesIndex = self.model->getFloatingSpeciesIndex(speciesName)) == -1)
     {
         throw std::invalid_argument("invalid species name: " + speciesName);
     }
-    if ((reactionIndex = self.model->getReactionIndex(reactionName)) < 0)
+    if ((reactionIndex = self.model->getReactionIndex(reactionName)) == -1)
     {
         throw std::invalid_argument("invalid reaction name: " + reactionName);
     }
@@ -4294,27 +4294,27 @@ SelectionRecord RoadRunner::createSelection(const std::string& str)
     case SelectionRecord::UNKNOWN_ELEMENT:
         // check for sbml element types
 
-        if ((sel.index = impl->model->getFloatingSpeciesIndex(sel.p1)) >= 0)
+        if ((sel.index = impl->model->getFloatingSpeciesIndex(sel.p1)) != -1)
         {
             sel.selectionType = SelectionRecord::FLOATING_AMOUNT;
             break;
         }
-        else if ((sel.index = impl->model->getBoundarySpeciesIndex(sel.p1)) >= 0)
+        else if ((sel.index = impl->model->getBoundarySpeciesIndex(sel.p1)) != -1)
         {
             sel.selectionType = SelectionRecord::BOUNDARY_AMOUNT;
             break;
         }
-        else if ((sel.index = impl->model->getCompartmentIndex(sel.p1)) >= 0)
+        else if ((sel.index = impl->model->getCompartmentIndex(sel.p1)) != -1)
         {
             sel.selectionType = SelectionRecord::COMPARTMENT;
             break;
         }
-        else if ((sel.index = impl->model->getGlobalParameterIndex(sel.p1)) >= 0)
+        else if ((sel.index = impl->model->getGlobalParameterIndex(sel.p1)) != -1)
         {
             sel.selectionType = SelectionRecord::GLOBAL_PARAMETER;
             break;
         }
-        else if ((sel.index = impl->model->getReactionIndex(sel.p1)) >= 0)
+        else if ((sel.index = impl->model->getReactionIndex(sel.p1)) != -1)
         {
             sel.selectionType = SelectionRecord::REACTION_RATE;
             break;
@@ -4325,12 +4325,12 @@ SelectionRecord RoadRunner::createSelection(const std::string& str)
             break;
         }
     case SelectionRecord::UNKNOWN_CONCENTRATION:
-        if ((sel.index = impl->model->getFloatingSpeciesIndex(sel.p1)) >= 0)
+        if ((sel.index = impl->model->getFloatingSpeciesIndex(sel.p1)) != -1)
         {
             sel.selectionType = SelectionRecord::FLOATING_CONCENTRATION;
             break;
         }
-        else if ((sel.index = impl->model->getBoundarySpeciesIndex(sel.p1)) >= 0)
+        else if ((sel.index = impl->model->getBoundarySpeciesIndex(sel.p1)) != -1)
         {
             sel.selectionType = SelectionRecord::BOUNDARY_CONCENTRATION;
             break;
@@ -4343,7 +4343,7 @@ SelectionRecord RoadRunner::createSelection(const std::string& str)
             break;
         }
     case SelectionRecord::FLOATING_AMOUNT_RATE:
-        if ((sel.index = impl->model->getFloatingSpeciesIndex(sel.p1)) >= 0)
+        if ((sel.index = impl->model->getFloatingSpeciesIndex(sel.p1)) != -1)
         {
             break;
         }
@@ -4357,13 +4357,13 @@ SelectionRecord RoadRunner::createSelection(const std::string& str)
     case SelectionRecord::CONTROL:
     case SelectionRecord::UNSCALED_CONTROL:
         // check that the control coef args are valid
-        if (impl->model->getReactionIndex(sel.p1) >= 0 ||
-                impl->model->getFloatingSpeciesIndex(sel.p1) >= 0)
+        if (impl->model->getReactionIndex(sel.p1) != -1 ||
+                impl->model->getFloatingSpeciesIndex(sel.p1) != -1)
 
         {
-            if (impl->model->getGlobalParameterIndex(sel.p2) >= 0 ||
-                    impl->model->getBoundarySpeciesIndex(sel.p2) >= 0 ||
-                    impl->model->getConservedMoietyIndex(sel.p2) >= 0)
+            if (impl->model->getGlobalParameterIndex(sel.p2) != -1 ||
+                    impl->model->getBoundarySpeciesIndex(sel.p2) != -1 ||
+                    impl->model->getConservedMoietyIndex(sel.p2) != -1)
             {
                 Log(Logger::LOG_INFORMATION) <<
                         "Valid metabolic control selection: " << sel.to_repr();
@@ -4386,7 +4386,7 @@ SelectionRecord RoadRunner::createSelection(const std::string& str)
     case SelectionRecord::EIGENVALUE_REAL:
     case SelectionRecord::EIGENVALUE_IMAG:
     case SelectionRecord::EIGENVALUE_COMPLEX:
-        if ((sel.index = impl->model->getFloatingSpeciesIndex(sel.p1)) >= 0)
+        if ((sel.index = impl->model->getFloatingSpeciesIndex(sel.p1)) != -1)
         {
             break;
         }
@@ -4396,9 +4396,9 @@ SelectionRecord RoadRunner::createSelection(const std::string& str)
         }
         break;
     case SelectionRecord::STOICHIOMETRY:
-        if (impl->model->getFloatingSpeciesIndex(sel.p1) >= 0)
+        if (impl->model->getFloatingSpeciesIndex(sel.p1) != -1)
         {
-            if (impl->model->getReactionIndex(sel.p2) >= 0)
+            if (impl->model->getReactionIndex(sel.p2) != -1)
             {
                 break;
             }
@@ -4413,7 +4413,7 @@ SelectionRecord RoadRunner::createSelection(const std::string& str)
         }
         break;
     case SelectionRecord::INITIAL_CONCENTRATION:
-        if ((sel.index = impl->model->getFloatingSpeciesIndex(sel.p1)) >= 0)
+        if ((sel.index = impl->model->getFloatingSpeciesIndex(sel.p1)) != -1)
         {
             break;
         }
@@ -4423,16 +4423,16 @@ SelectionRecord RoadRunner::createSelection(const std::string& str)
             break;
         }
     case SelectionRecord::INITIAL_AMOUNT:
-        if ((sel.index = impl->model->getFloatingSpeciesIndex(sel.p1)) >= 0)
+        if ((sel.index = impl->model->getFloatingSpeciesIndex(sel.p1)) != -1)
         {
             break;
         }
-        else if ((sel.index = impl->model->getGlobalParameterIndex(sel.p1)) >= 0)
+        else if ((sel.index = impl->model->getGlobalParameterIndex(sel.p1)) != -1)
         {
             sel.selectionType = SelectionRecord::INITIAL_GLOBAL_PARAMETER;
             break;
         }
-        else if ((sel.index = impl->model->getCompartmentIndex(sel.p1)) >= 0)
+        else if ((sel.index = impl->model->getCompartmentIndex(sel.p1)) != -1)
         {
             sel.selectionType = SelectionRecord::INITIAL_COMPARTMENT;
             break;
@@ -4742,15 +4742,15 @@ double phase(Complex& val)
 double getAdjustment(Complex& z)
 {
     double adjustment;
-    if (std::real(z) >= 0 && imag(z) >= 0)
+    if (std::real(z) != -1 && imag(z) != -1)
     {
         adjustment = 0;
     }
-    else if (std::real(z) >= 0 && imag(z) < 0)
+    else if (std::real(z) != -1 && imag(z) < 0)
     {
         adjustment = 360;
     }
-    else if (std::real(z) < 0 && imag(z) >= 0)
+    else if (std::real(z) < 0 && imag(z) != -1)
     {
         adjustment = 0;
     }
@@ -5531,7 +5531,7 @@ void RoadRunner::setInitAmount(const std::string& sid, double initAmount, bool f
 	
 	// recover the updated init amount
 	size_t index = impl->model->getFloatingSpeciesIndex(sid);
-	if (index >= 0 && index < impl->model->getNumIndFloatingSpecies()) {
+	if (index != -1 && index < impl->model->getNumIndFloatingSpecies()) {
 		impl->model->setFloatingSpeciesInitAmounts(1, &index, &initAmount);
 	}
 }
@@ -5559,7 +5559,7 @@ void RoadRunner::setInitConcentration(const std::string& sid, double initConcent
 	// recover the updated init concentration
 	size_t index = impl->model->getFloatingSpeciesIndex(sid);
 	
-	if (index >= 0 && index < impl->model->getNumIndFloatingSpecies()) {
+	if (index != -1 && index < impl->model->getNumIndFloatingSpecies()) {
 
         size_t compartment = impl->model->getCompartmentIndex(species->getCompartment());
 		double compartmentSize = 1;
@@ -6073,7 +6073,7 @@ void RoadRunner::removeRules(const std::string& vid, bool useInitialValueAsCurre
 	if (assignment)
 	{
 		size_t index = impl->model->getFloatingSpeciesIndex(vid);
-		if (index >= 0 && index < impl->model->getNumIndFloatingSpecies()) {
+		if (index != -1 && index < impl->model->getNumIndFloatingSpecies()) {
 
 			double initValue = 0;
 			if (sbmlModel->getSpecies(vid)->isSetInitialAmount())
@@ -6098,7 +6098,7 @@ void RoadRunner::removeRules(const std::string& vid, bool useInitialValueAsCurre
 		}
 
 		index = impl->model->getCompartmentIndex(vid);
-		if (index >= 0 && index < impl->model->getNumCompartments()) {
+		if (index != -1 && index < impl->model->getNumCompartments()) {
 			double initValue = 0;
 			if (sbmlModel->getCompartment(vid)->isSetSize())
 			{
@@ -6112,7 +6112,7 @@ void RoadRunner::removeRules(const std::string& vid, bool useInitialValueAsCurre
 		}
 
 		index = impl->model->getGlobalParameterIndex(vid);
-		if (index >= 0 && index < impl->model->getNumGlobalParameters()) {
+		if (index != -1 && index < impl->model->getNumGlobalParameters()) {
 			double initValue = 0;
 			if (sbmlModel->getParameter(vid)->isSetValue())
 			{
@@ -6129,7 +6129,7 @@ void RoadRunner::removeRules(const std::string& vid, bool useInitialValueAsCurre
 	{
 		// recover the initial value for rate rules
 		size_t index = impl->model->getFloatingSpeciesIndex(vid);
-		if (index >= 0 && index < impl->model->getNumIndFloatingSpecies()) {
+		if (index != -1 && index < impl->model->getNumIndFloatingSpecies()) {
 			double initValue = 0;
 			impl->model->getFloatingSpeciesInitAmounts(1, &index, &initValue);
 			impl->model->setFloatingSpeciesAmounts(1, &index, &initValue);
@@ -6137,14 +6137,14 @@ void RoadRunner::removeRules(const std::string& vid, bool useInitialValueAsCurre
 		}
 
 		index = impl->model->getCompartmentIndex(vid);
-		if (index >= 0 && index < impl->model->getNumCompartments()) {
+		if (index != -1 && index < impl->model->getNumCompartments()) {
 			double initValue = 0;
 			impl->model->getCompartmentInitVolumes(1, &index, &initValue);
 			impl->model->setCompartmentVolumes(1, &index, &initValue);
 		}
 
 		index = impl->model->getGlobalParameterIndex(vid);
-		if (index >= 0 && index < impl->model->getNumGlobalParameters()) {
+		if (index != -1 && index < impl->model->getNumGlobalParameters()) {
 			double initValue = 0;
 			impl->model->getGlobalParameterInitValues(1, &index, &initValue);
 			impl->model->setGlobalParameterValues(1, &index, &initValue);
@@ -6209,7 +6209,7 @@ void RoadRunner::removeInitialAssignment(const std::string& vid, bool forceRegen
 	{
 
 		size_t index = impl->model->getFloatingSpeciesIndex(vid);
-		if (index >= 0 && index < impl->model->getNumIndFloatingSpecies())
+		if (index != -1 && index < impl->model->getNumIndFloatingSpecies())
 		{
 
 			double initValue = 0;
@@ -6232,7 +6232,7 @@ void RoadRunner::removeInitialAssignment(const std::string& vid, bool forceRegen
 		}
 
 		index = impl->model->getCompartmentIndex(vid);
-		if (index >= 0 && index < impl->model->getNumCompartments())
+		if (index != -1 && index < impl->model->getNumCompartments())
 		{
 			double initValue = 0;
 			if (sbmlModel->getCompartment(vid)->isSetSize())
@@ -6244,7 +6244,7 @@ void RoadRunner::removeInitialAssignment(const std::string& vid, bool forceRegen
 		}
 
 		index = impl->model->getGlobalParameterIndex(vid);
-		if (index >= 0 && index < impl->model->getNumGlobalParameters())
+		if (index != -1 && index < impl->model->getNumGlobalParameters())
 		{
 			double initValue = 0;
 			if (sbmlModel->getParameter(vid)->isSetValue())

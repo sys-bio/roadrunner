@@ -220,7 +220,7 @@ bool LLVMModelSymbols::visit(const libsbml::Reaction& r)
     const ListOfSpeciesReferences *products = r.getListOfProducts();
 
     int index = symbols.getReactionIndex(r.getId());
-    if (index < 0) {
+    if (index == -1) {
         return false;
     }
     ReactionSymbols &rs = reactions[index];
@@ -230,7 +230,7 @@ bool LLVMModelSymbols::visit(const libsbml::Reaction& r)
         const SpeciesReference* reactant =
             dynamic_cast<const SpeciesReference*>(reactants->get(i));
         index = symbols.getFloatingSpeciesIndex(reactant->getSpecies());
-        if (index < 0) {
+        if (index == -1) {
             continue;
         }
 
@@ -255,7 +255,7 @@ bool LLVMModelSymbols::visit(const libsbml::Reaction& r)
         const SpeciesReference* product =
             dynamic_cast<const SpeciesReference*>(products->get(i));
         index = symbols.getFloatingSpeciesIndex(product->getSpecies());
-        if (index < 0) {
+        if (index == -1) {
             continue;
         }
 

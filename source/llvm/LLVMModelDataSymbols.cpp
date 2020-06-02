@@ -1095,7 +1095,7 @@ void LLVMModelDataSymbols::initReactions(const libsbml::Model* model)
             {
                 // at this point, we'd better have a floating species
                 int speciesIdx = getFloatingSpeciesIndex(r->getSpecies());
-                if (speciesIdx < 0) {
+                if (speciesIdx == -1) {
                     continue;
                 }
 
@@ -1172,7 +1172,7 @@ void LLVMModelDataSymbols::initReactions(const libsbml::Model* model)
             if (isValidFloatingSpeciesReference(p, "product"))
             {
                 uint speciesIdx = getFloatingSpeciesIndex(p->getSpecies());
-                if (speciesIdx < 0) {
+                if (speciesIdx == -1) {
                     continue;
                 }
 
