@@ -215,7 +215,7 @@ const std::string& LLVMModelDataSymbols::getModelName() const
 }
 
 LLVMModelDataSymbols::SymbolIndexType LLVMModelDataSymbols::getSymbolIndex(
-        const std::string& name, int& result) const
+        const std::string& name, size_t& result) const
 {
     StringUIntMap::const_iterator i;
 
@@ -459,7 +459,7 @@ std::vector<std::string> LLVMModelDataSymbols::getFloatingSpeciesIds() const
     return getIds(floatingSpeciesMap);
 }
 
-std::string LLVMModelDataSymbols::getFloatingSpeciesId(uint indx) const
+std::string LLVMModelDataSymbols::getFloatingSpeciesId(size_t indx) const
 {
     for (StringUIntMap::const_iterator i = floatingSpeciesMap.begin();
             i != floatingSpeciesMap.end(); ++i)
@@ -1009,7 +1009,7 @@ bool LLVMModelDataSymbols::isRateRuleGlobalParameter(uint gid) const
             ? globalParameterRateRules[gid] : false;
 }
 
-std::string LLVMModelDataSymbols::getGlobalParameterId(uint indx) const
+std::string LLVMModelDataSymbols::getGlobalParameterId(size_t indx) const
 {
     for (StringUIntMap::const_iterator i = globalParametersMap.begin();
             i != globalParametersMap.end(); ++i)
@@ -1033,7 +1033,7 @@ int LLVMModelDataSymbols::getCompartmentIndexForFloatingSpecies(
     return floatingSpeciesCompartmentIndices[floatIndex];
 }
 
-bool LLVMModelDataSymbols::isConservedMoietySpecies(uint id, uint& result) const
+bool LLVMModelDataSymbols::isConservedMoietySpecies(size_t id, uint& result) const
 {
     UIntUIntMap::const_iterator i = floatingSpeciesToConservedMoietyIdMap.find(id);
     if (i != floatingSpeciesToConservedMoietyIdMap.end())
@@ -1525,9 +1525,9 @@ int LLVMModelDataSymbols::getDepSpeciesIndexForConservedMoietyId(std::string id)
     return -1;
 }
 
-const std::vector<uint>& LLVMModelDataSymbols::getIndSpeciesIndexForConservedMoietyId(std::string id) const
+const std::vector<size_t>& LLVMModelDataSymbols::getIndSpeciesIndexForConservedMoietyId(std::string id) const
 {
-    StringUIntVectorMap::const_iterator i = conservedMoietyIndSpecies.find(id);
+    StringSizetVectorMap::const_iterator i = conservedMoietyIndSpecies.find(id);
     if (i != conservedMoietyIndSpecies.end())
     {
         return i->second;

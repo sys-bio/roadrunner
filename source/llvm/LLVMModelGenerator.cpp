@@ -427,7 +427,7 @@ context.getExecutionEngine().getFunctionAddress("setGlobalParameter");
 
 		std::vector<std::string> newSymbols = newModel->getRateRuleSymbols();
 
-		for (int i = 0; i < oldModel->getNumFloatingSpecies(); i++)
+		for (size_t i = 0; i < oldModel->getNumFloatingSpecies(); i++)
 		{
 			string id = oldModel->getFloatingSpeciesId(i);
 			int index = newModel->getFloatingSpeciesIndex(id);
@@ -450,7 +450,7 @@ context.getExecutionEngine().getFunctionAddress("setGlobalParameter");
 		}
 
 
-		for (int i = 0; i < oldModel->getNumFloatingSpecies(); i++)
+		for (size_t i = 0; i < oldModel->getNumFloatingSpecies(); i++)
 		{
 			string id = oldModel->getFloatingSpeciesId(i);
 			int index = newModel->getFloatingSpeciesIndex(id);
@@ -486,7 +486,7 @@ context.getExecutionEngine().getFunctionAddress("setGlobalParameter");
 
 
 
-		for (int i = 0; i < oldModel->getNumBoundarySpecies(); i++)
+		for (size_t i = 0; i < oldModel->getNumBoundarySpecies(); i++)
 		{
 			string id = oldModel->getBoundarySpeciesId(i);
 			int index = newModel->getBoundarySpeciesIndex(id);
@@ -521,7 +521,7 @@ context.getExecutionEngine().getFunctionAddress("setGlobalParameter");
 		}
 
 
-		for (int i = 0; i < oldModel->getNumCompartments(); i++)
+		for (size_t i = 0; i < oldModel->getNumCompartments(); i++)
 		{
 			string id = oldModel->getCompartmentId(i);
 			int index = newModel->getCompartmentIndex(id);
@@ -548,7 +548,7 @@ context.getExecutionEngine().getFunctionAddress("setGlobalParameter");
 
 
 
-		for (int i = 0; i < oldModel->getNumCompartments(); i++)
+		for (size_t i = 0; i < oldModel->getNumCompartments(); i++)
 		{
 			string id = oldModel->getCompartmentId(i);
 			int index = newModel->getCompartmentIndex(id);
@@ -581,7 +581,7 @@ context.getExecutionEngine().getFunctionAddress("setGlobalParameter");
 
 		}
 
-		for (int i = 0; i < oldModel->getNumGlobalParameters(); i++)
+		for (size_t i = 0; i < oldModel->getNumGlobalParameters(); i++)
 		{
 			string id = oldModel->getGlobalParameterId(i);
 			int index = newModel->getGlobalParameterIndex(id);
@@ -608,7 +608,7 @@ context.getExecutionEngine().getFunctionAddress("setGlobalParameter");
 		}
 
 
-		for (int i = 0; i < oldModel->getNumGlobalParameters(); i++)
+		for (size_t i = 0; i < oldModel->getNumGlobalParameters(); i++)
 		{
 			string id = oldModel->getGlobalParameterId(i);
 			int index = newModel->getGlobalParameterIndex(id);

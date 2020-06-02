@@ -213,19 +213,24 @@ namespace rr
 		* @author FY
 		* @brief Does a size check which throws if it fails
 		*/
-		void checkVectorSize(int expected, int real) const;
+		void checkVectorSize(int expected, size_t real) const;
 
 		/**
 		* @author FY
 		* @brief Does a index check which throws if it is out of bound
 		*/
-		void checkIndex(int index, int size) const;
+		void checkIndex(int index, size_t size) const;
 
 		/**
 		* @author FY
 		* @brief Converts integer to string for error print
 		*/
 		std::string ToString(int val) const;
+
+        /**
+        * @brief Converts size_t to string for error print
+        */
+        std::string ToString(size_t val) const;
 
         /**
          * @brief decode the cvode error code to a string

@@ -79,7 +79,7 @@ typedef std::vector<std::string> string_vector;
 // we can write a single function to pick the string lists out
 // of the model instead of duplicating it 6 times with
 // fun ptrs.
-typedef string (ExecutableModel::*GetNameFuncPtr)(int);
+typedef string (ExecutableModel::*GetNameFuncPtr)(size_t);
 typedef int (ExecutableModel::*GetNumFuncPtr)();
 
 // make this static here, hide our implementation...
@@ -91,7 +91,7 @@ static vector<string> createModelStringList(ExecutableModel *model,
         return vector<string>(0);
     }
 
-    const int num = (model->*numFunc)();
+    const size_t num = (model->*numFunc)();
     vector<string> strings(num);
 
     for(int i = 0; i < num; i++)
@@ -118,7 +118,7 @@ static std::vector<std::string> createSelectionList(const SimulateOptions& o);
  * d2 = ending value (10^d2)
  * n = number of values in the generated series
  */
-static vector<double>  logspace(const double& startW, const double& d2, const int& n);
+static vector<double>  logspace(const double& startW, const double& d2, const size_t& n);
 static double          phase(Complex& val);
 static double          getAdjustment(Complex& z);
 
@@ -338,7 +338,7 @@ public:
     }
 
     void setParameterValue(const ParameterType parameterType,
-            const int parameterIndex, const double value)
+            const size_t parameterIndex, const double value)
     {
         switch (parameterType)
         {
@@ -364,7 +364,7 @@ public:
     }
 
     double getParameterValue(const ParameterType parameterType,
-            const int parameterIndex)
+            const size_t parameterIndex)
     {
         switch (parameterType)
         {
@@ -649,12 +649,12 @@ string RoadRunner::getTempDir()
     return impl->loadOpt.getItem("tempDir");
 }
 
-int RoadRunner::createDefaultTimeCourseSelectionList()
+size_t RoadRunner::createDefaultTimeCourseSelectionList()
 {
     vector<string> selections;
     vector<string> oFloating  = getFloatingSpeciesIds();
-    int numFloatingSpecies = oFloating.size();
-    //int numIndSpecies = getNumberOfIndependentSpecies();
+    size_t numFloatingSpecies = oFloating.size();
+    //size_t numIndSpecies = getNumberOfIndependentSpecies();
 
     // add floating species to the default selection
 
@@ -696,7 +696,7 @@ int RoadRunner::createDefaultTimeCourseSelectionList()
     return impl->mSelectionList.size();
 }
 
-int RoadRunner::createTimeCourseSelectionList()
+size_t RoadRunner::createTimeCourseSelectionList()
 {
     // make a list out of the values in the settings,
     // will always have at least a "time" at the first item.
@@ -802,7 +802,7 @@ double RoadRunner::getValue(const SelectionRecord& record)
     {
         if (record.index > ((impl->model->getNumGlobalParameters()) - 1))
         {
-            int index = record.index - impl->model->getNumGlobalParameters();
+            size_t index = record.index - impl->model->getNumGlobalParameters();
             impl->model->getConservedMoietyValues(1, &index, &dResult);
         }
         else
@@ -838,7 +838,7 @@ double RoadRunner::getValue(const SelectionRecord& record)
     case SelectionRecord::EIGENVALUE_REAL:
     {
         string species = record.p1;
-        int index = impl->model->getFloatingSpeciesIndex(species);
+        size_t index = impl->model->getFloatingSpeciesIndex(species);
 
         if (index < 0)
         {
@@ -859,7 +859,7 @@ double RoadRunner::getValue(const SelectionRecord& record)
     case SelectionRecord::EIGENVALUE_IMAG:
     {
         string species = record.p1;
-        int index = impl->model->getFloatingSpeciesIndex(species);
+        size_t index = impl->model->getFloatingSpeciesIndex(species);
 
         if (index < 0)
         {
@@ -928,7 +928,7 @@ double RoadRunner::getNthSelectedOutput(unsigned index, double currentTime)
 
 int RoadRunner::getTimeRowIndex()
 {
-  for (u_int j = 0; j < impl->mSelectionList.size(); j++)
+  for (size_t j = 0; j < impl->mSelectionList.size(); j++)
   {
       const SelectionRecord &record = impl->mSelectionList[j];
       if (record.selectionType == SelectionRecord::TIME)
@@ -942,7 +942,7 @@ int RoadRunner::getTimeRowIndex()
 
 void RoadRunner::getSelectedValues(DoubleMatrix& results, int nRow, double currentTime)
 {
-    for (u_int j = 0; j < impl->mSelectionList.size(); j++)
+    for (size_t j = 0; j < impl->mSelectionList.size(); j++)
     {
         double out =  getNthSelectedOutput(j, currentTime);
         results(nRow,j) = out;
@@ -955,8 +955,8 @@ void RoadRunner::getSelectedValues(std::vector<double>& results,
     assert(results.size() == impl->mSelectionList.size()
             && "given vector and selection list different size");
 
-    u_int size = results.size();
-    for (u_int i = 0; i < size; ++i)
+    size_t size = results.size();
+    for (size_t i = 0; i < size; ++i)
     {
         results[i] = getNthSelectedOutput(i, currentTime);
     }
@@ -1250,7 +1250,7 @@ double RoadRunner::steadyState(const Dictionary* dict)
                 reset();
 
                 // Restore initial concentrations
-                for (int i = 0; i<l; ++i) {
+                for (size_t i = 0; i<l; ++i) {
                     impl->model->setFloatingSpeciesConcentrations(1, &i, &vals[i]);
                 }
 
@@ -1297,7 +1297,7 @@ double RoadRunner::steadyStateApproximate(const Dictionary* dict)
     // create selections
     vector<string> ss_selections_with_time;
     vector<string> ss_selections = getSteadyStateSelectionStrings();
-    int num_ss_sel = ss_selections.size();
+    size_t num_ss_sel = ss_selections.size();
 
     ss_selections_with_time.push_back("time");
     for (int i = 0; i < num_ss_sel; i++)
@@ -1408,8 +1408,8 @@ double RoadRunner::getEE(const string& reactionName, const string& parameterName
 double RoadRunner::getEE(const string& reactionName, const string& parameterName, bool computeSteadyState)
 {
     ParameterType parameterType;
-    int reactionIndex;
-    int parameterIndex;
+    size_t reactionIndex;
+    size_t parameterIndex;
 
     if (!impl->model)
     {
@@ -1490,10 +1490,10 @@ double RoadRunner::getuEE(const string& reactionName, const string& parameterNam
 }
 
 void RoadRunner::fixDependentSpeciesValues(int except, double* ref) {
-    int l = impl->model->getNumFloatingSpecies();
+    size_t l = impl->model->getNumFloatingSpecies();
     double* vals = new double[l];
     impl->model->getFloatingSpeciesConcentrations(l, NULL, vals);
-    for (int i=0; i<l; ++i) {
+    for (size_t i=0; i<l; ++i) {
         if (i != except && vals[i] != ref[i]) {
             impl->model->setFloatingSpeciesConcentrations(1, &i, &ref[i]);
         }
@@ -1512,8 +1512,8 @@ double RoadRunner::getuEE(const string& reactionName, const string& parameterNam
 
         ParameterType parameterType;
         double originalParameterValue;
-        int reactionIndex;
-        int parameterIndex;
+        size_t reactionIndex;
+        size_t parameterIndex;
 
         int l = impl->model->getNumFloatingSpecies();
         double* ref = new double[l];
@@ -1743,7 +1743,7 @@ const DoubleMatrix* RoadRunner::simulate(const Dictionary* dict)
                 << "Performing stochastic fixed step integration for "
                 << self.simulateOpt.steps + 1 << " steps";
 
-        int numPoints = self.simulateOpt.steps + 1;
+        size_t numPoints = self.simulateOpt.steps + 1;
 
         if (numPoints <= 1)
         {
@@ -1804,7 +1804,7 @@ const DoubleMatrix* RoadRunner::simulate(const Dictionary* dict)
                 << "Perfroming deterministic fixed step integration for  "
                 << self.simulateOpt.steps + 1 << " steps";
 
-        int numPoints = self.simulateOpt.steps + 1;
+        size_t numPoints = self.simulateOpt.steps + 1;
 
         if (numPoints <= 1)
         {
@@ -2077,7 +2077,7 @@ std::vector<double> RoadRunner::getIndependentRatesOfChange()
     for (int i = 0; i < nindep; ++i)
     {
         vector<string>::iterator it = find(fsId.begin(), fsId.end(), idfsId[i]);
-        int index = distance(fsId.begin(), it);
+        size_t index = distance(fsId.begin(), it);
 
         v[i] = rate[index];
     }
@@ -2099,7 +2099,7 @@ DoubleMatrix RoadRunner::getIndependentRatesOfChangeNamedArray()
     for (int i = 0; i < nindep; ++i)
     {
         vector<string>::iterator it = find(fsId.begin(), fsId.end(), idfsId[i]);
-        int index = distance(fsId.begin(), it);
+        size_t index = distance(fsId.begin(), it);
 
         v(0, i) = rate[0][index];
     }
@@ -2123,7 +2123,7 @@ std::vector<double> RoadRunner::getDependentRatesOfChange()
     for (int i = 0; i < ndep; ++i)
     {
         vector<string>::iterator it = find(fsId.begin(), fsId.end(), dfsId[i]);
-        int index = distance(fsId.begin(), it);
+        size_t index = distance(fsId.begin(), it);
 
         v[i] = rate[index];
     }
@@ -2137,15 +2137,15 @@ DoubleMatrix RoadRunner::getDependentRatesOfChangeNamedArray()
 
     vector<string> dfsId = getDependentFloatingSpeciesIds();
     vector<string> fsId = getFloatingSpeciesIds();
-    int ndep = dfsId.size();
+    size_t ndep = dfsId.size();
     DoubleMatrix v(1, ndep);
 
     DoubleMatrix rate = getRatesOfChangeNamedArray();
 
-    for (int i = 0; i < ndep; ++i)
+    for (size_t i = 0; i < ndep; ++i)
     {
         vector<string>::iterator it = find(fsId.begin(), fsId.end(), dfsId[i]);
-        int index = distance(fsId.begin(), it);
+        size_t index = distance(fsId.begin(), it);
 
         v(0, i) = rate[0][index];
     }
@@ -2165,15 +2165,15 @@ DoubleMatrix RoadRunner::getFullJacobian()
     {
         DoubleMatrix jac(self.model->getNumRateRules(), self.model->getNumRateRules());
 
-        for (int i = 0; i < self.model->getNumRateRules(); i++)
+        for (size_t i = 0; i < self.model->getNumRateRules(); i++)
         {
-            for (int j = 0; j < self.model->getNumRateRules(); j++)
+            for (size_t j = 0; j < self.model->getNumRateRules(); j++)
             {
                 // function pointers to the model get values and get init values based on
                 // if we are doing amounts or concentrations.
-                typedef int (ExecutableModel::*GetValueFuncPtr)(int len, int const *indx,
+                typedef int (ExecutableModel::*GetValueFuncPtr)(size_t len, size_t const *indx,
                     double *values);
-                typedef int (ExecutableModel::*SetValueFuncPtr)(int len, int const *indx,
+                typedef int (ExecutableModel::*SetValueFuncPtr)(size_t len, size_t const *indx,
                     double const *values);
 
                 GetValueFuncPtr getValuePtr = 0;
@@ -2377,9 +2377,9 @@ DoubleMatrix RoadRunner::getReducedJacobian(double h)
 
     // function pointers to the model get values and get init values based on
     // if we are doing amounts or concentrations.
-    typedef int (ExecutableModel::*GetValueFuncPtr)(int len, int const *indx,
+    typedef int (ExecutableModel::*GetValueFuncPtr)(size_t len, size_t const *indx,
             double *values);
-    typedef int (ExecutableModel::*SetValueFuncPtr)(int len, int const *indx,
+    typedef int (ExecutableModel::*SetValueFuncPtr)(size_t len, size_t const *indx,
                     double const *values);
 
     GetValueFuncPtr getValuePtr = 0;
@@ -2402,7 +2402,7 @@ DoubleMatrix RoadRunner::getReducedJacobian(double h)
         setValuePtr =     &ExecutableModel::setFloatingSpeciesConcentrations;
     }
 
-    for (int i = 0; i < nIndSpecies; ++i)
+    for (size_t i = 0; i < nIndSpecies; ++i)
     {
         double savedVal = 0;
         double y = 0;
@@ -2724,7 +2724,7 @@ int RoadRunner::getNumberOfIndependentSpecies()
 }
 
 double RoadRunner::getVariableValue(const VariableType variableType,
-        const int variableIndex)
+        const size_t variableIndex)
 {
     switch (variableType)
     {
@@ -2751,13 +2751,13 @@ double RoadRunner::getVariableValue(const VariableType variableType,
     return 0;
 }
 
-int RoadRunner::createDefaultSteadyStateSelectionList()
+size_t RoadRunner::createDefaultSteadyStateSelectionList()
 {
 	impl->mSteadyStateSelection.clear();
 	// default should be independent floating species only ...
 	vector<string> floatingSpecies = getFloatingSpeciesIds();
-	int numFloatingSpecies = floatingSpecies.size();
-	//int numIndSpecies = getNumberOfIndependentSpecies();
+	size_t numFloatingSpecies = floatingSpecies.size();
+	//size_t numIndSpecies = getNumberOfIndependentSpecies();
 	//impl->mSteadyStateSelection.resize(numIndSpecies);
 	impl->mSteadyStateSelection.resize(numFloatingSpecies);
 	//for (int i = 0; i < numIndSpecies; i++)
@@ -2924,7 +2924,7 @@ int RoadRunner::getNumberOfReactions()
 }
 
 // Help("Returns the rate of a reaction by its index")
-double RoadRunner::getReactionRate(const int& index)
+double RoadRunner::getReactionRate(const size_t& index)
 {
     if (!impl->model)
     {
@@ -2944,7 +2944,7 @@ double RoadRunner::getReactionRate(const int& index)
 }
 
 
-double RoadRunner::getRateOfChange(const int& index)
+double RoadRunner::getRateOfChange(const size_t& index)
 {
     if (!impl->model)
     {
@@ -2973,7 +2973,7 @@ int RoadRunner::getNumberOfCompartments()
 }
 
 
-void RoadRunner::setCompartmentByIndex(const int& index, const double& value)
+void RoadRunner::setCompartmentByIndex(const size_t& index, const double& value)
 {
     if (!impl->model)
     {
@@ -2990,7 +2990,7 @@ void RoadRunner::setCompartmentByIndex(const int& index, const double& value)
     }
 }
 
-double RoadRunner::getCompartmentByIndex(const int& index)
+double RoadRunner::getCompartmentByIndex(const size_t& index)
 {
     if (!impl->model)
     {
@@ -3017,7 +3017,7 @@ int RoadRunner::getNumberOfBoundarySpecies()
 }
 
 // Help("Sets the value of a boundary species by its index")
-void RoadRunner::setBoundarySpeciesByIndex(const int& index, const double& value)
+void RoadRunner::setBoundarySpeciesByIndex(const size_t& index, const double& value)
 {
     if (!impl->model)
     {
@@ -3035,7 +3035,7 @@ void RoadRunner::setBoundarySpeciesByIndex(const int& index, const double& value
 }
 
 // Help("Returns the value of a boundary species by its index")
-double RoadRunner::getBoundarySpeciesByIndex(const int& index)
+double RoadRunner::getBoundarySpeciesByIndex(const size_t& index)
 {
     if (!impl->model)
     {
@@ -3109,7 +3109,7 @@ int RoadRunner::getNumberOfFloatingSpecies()
 
 
 // Help("Sets the value of a floating species by its index")
-void RoadRunner::setFloatingSpeciesInitialConcentrationByIndex(const int& index, const double& value)
+void RoadRunner::setFloatingSpeciesInitialConcentrationByIndex(const size_t& index, const double& value)
 {
     if (!impl->model)
     {
@@ -3128,7 +3128,7 @@ void RoadRunner::setFloatingSpeciesInitialConcentrationByIndex(const int& index,
 }
 
 // Help("Sets the value of a floating species by its index")
-void RoadRunner::setFloatingSpeciesByIndex(int index, double value)
+void RoadRunner::setFloatingSpeciesByIndex(size_t index, double value)
 {
     if (!impl->model)
     {
@@ -3146,7 +3146,7 @@ void RoadRunner::setFloatingSpeciesByIndex(int index, double value)
 }
 
 // Help("Returns the value of a floating species by its index")
-double RoadRunner::getFloatingSpeciesByIndex(const int index)
+double RoadRunner::getFloatingSpeciesByIndex(const size_t index)
 {
     if (!impl->model)
     {
@@ -3278,7 +3278,7 @@ int RoadRunner::getNumberOfGlobalParameters()
     return getGlobalParameterIds().size();
 }
 
-void RoadRunner::setGlobalParameterByIndex(const int index, const double value)
+void RoadRunner::setGlobalParameterByIndex(const size_t index, const double value)
 {
     if (!impl->model)
     {
@@ -3289,7 +3289,7 @@ void RoadRunner::setGlobalParameterByIndex(const int index, const double value)
 }
 
 // Help("Returns the value of a global parameter by its index")
-double RoadRunner::getGlobalParameterByIndex(const int& index)
+double RoadRunner::getGlobalParameterByIndex(const size_t& index)
 {
     if (!impl->model)
     {
@@ -3371,8 +3371,8 @@ double RoadRunner::getuCC(const string& variableName, const string& parameterNam
         ParameterType parameterType;
         VariableType variableType;
         double originalParameterValue;
-        int variableIndex;
-        int parameterIndex;
+        size_t variableIndex;
+        size_t parameterIndex;
 
         std::string variableNameMod = variableName;
 
@@ -3474,8 +3474,8 @@ double RoadRunner::getCC(const string& variableName, const string& parameterName
 {
     VariableType variableType;
     ParameterType parameterType;
-    int variableIndex;
-    int parameterIndex;
+    size_t variableIndex;
+    size_t parameterIndex;
 
     if (!impl->model)
     {
@@ -3525,7 +3525,7 @@ double RoadRunner::getCC(const string& variableName, const string& parameterName
 }
 
 
-double RoadRunner::getUnscaledSpeciesElasticity(int reactionId, int speciesIndex)
+double RoadRunner::getUnscaledSpeciesElasticity(size_t reactionId, size_t speciesIndex)
 {
     get_self();
 
@@ -3536,9 +3536,9 @@ double RoadRunner::getUnscaledSpeciesElasticity(int reactionId, int speciesIndex
 
     // function pointers to the model get values and get init values based on
     // if we are doing amounts or concentrations.
-    typedef int (ExecutableModel::*GetValueFuncPtr)(int len, int const *indx,
+    typedef int (ExecutableModel::*GetValueFuncPtr)(size_t len, size_t const *indx,
             double *values);
-    typedef int (ExecutableModel::*SetValueFuncPtr)(int len, int const *indx,
+    typedef int (ExecutableModel::*SetValueFuncPtr)(size_t len, size_t const *indx,
                     double const *values);
 
     GetValueFuncPtr getValuePtr = 0;
@@ -3704,9 +3704,9 @@ DoubleMatrix RoadRunner::getScaledElasticityMatrix()
                 "than # of reactions");
     }
 
-    for (int i = 0; i < uelast.RSize(); i++)
+    for (size_t i = 0; i < uelast.RSize(); i++)
     {
-        for (int j = 0; j < uelast.CSize(); j++) // Columns are species
+        for (size_t j = 0; j < uelast.CSize(); j++) // Columns are species
         {
             double concentration = 0;
             self.model->getFloatingSpeciesConcentrations(1, &j, &concentration);
@@ -3725,8 +3725,8 @@ double RoadRunner::getScaledFloatingSpeciesElasticity(const string& reactionName
 
     check_model();
 
-    int speciesIndex = 0;
-    int reactionIndex = 0;
+    size_t speciesIndex = 0;
+    size_t reactionIndex = 0;
 
     if ((speciesIndex = self.model->getFloatingSpeciesIndex(speciesName)) < 0)
     {
@@ -3812,9 +3812,9 @@ DoubleMatrix RoadRunner::getScaledConcentrationControlCoefficientMatrix()
 
     if (ucc.size() > 0 )
     {
-        for (int i = 0; i < ucc.RSize(); i++)
+        for (size_t i = 0; i < ucc.RSize(); i++)
         {
-            for (int j = 0; j < ucc.CSize(); j++)
+            for (size_t j = 0; j < ucc.CSize(); j++)
             {
                 double conc = 0;
                 self.model->getFloatingSpeciesConcentrations(1, &i, &conc);
@@ -3866,9 +3866,9 @@ DoubleMatrix RoadRunner::getScaledFluxControlCoefficientMatrix()
 
         if (ufcc.RSize() > 0)
         {
-            for (int i = 0; i < ufcc.RSize(); i++)
+            for (size_t i = 0; i < ufcc.RSize(); i++)
             {
-                for (int j = 0; j < ufcc.CSize(); j++)
+                for (size_t j = 0; j < ufcc.CSize(); j++)
                 {
                     double irate = 0;
                     impl->model->getReactionRates(1, &i, &irate);
@@ -3972,7 +3972,7 @@ string RoadRunner::getCurrentSBML(int level, int version)
 	model = doc.getModel();
 
 	vector<string> array = getFloatingSpeciesIds();
-	for (int i = 0; i < array.size(); i++)
+	for (size_t i = 0; i < array.size(); i++)
 	{
 		double value = 0;
 		impl->model->getFloatingSpeciesAmounts(1, &i, &value);
@@ -3980,7 +3980,7 @@ string RoadRunner::getCurrentSBML(int level, int version)
 	}
 
 	array = getBoundarySpeciesIds();
-	for (int i = 0; i < array.size(); i++)
+	for (size_t i = 0; i < array.size(); i++)
 	{
 		double value = 0;
 		impl->model->getBoundarySpeciesConcentrations(1, &i, &value);
@@ -3988,7 +3988,7 @@ string RoadRunner::getCurrentSBML(int level, int version)
 	}
 
 	array = getCompartmentIds();
-	for (int i = 0; i < array.size(); i++)
+	for (size_t i = 0; i < array.size(); i++)
 	{
 		double value = 0;
 		impl->model->getCompartmentVolumes(1, &i, &value);
@@ -3996,7 +3996,7 @@ string RoadRunner::getCurrentSBML(int level, int version)
 	}
 
 	array = getGlobalParameterIds();
-	for (int i = 0; i < impl->model->getNumGlobalParameters(); i++)
+	for (size_t i = 0; i < impl->model->getNumGlobalParameters(); i++)
 	{
 		double value = 0;
 		impl->model->getGlobalParameterValues(1, &i, &value);
@@ -4490,7 +4490,7 @@ void RoadRunner::setSteadyStateSelections(const std::vector<rr::SelectionRecord>
 
 //Compute the frequency response, startW, Number Of Decades, Number of Points, parameterName, variableName
 Matrix<double> RoadRunner::getFrequencyResponse(double startFrequency,
-        int numberOfDecades, int numberOfPoints,
+        size_t numberOfDecades, size_t numberOfPoints,
         const std::string& parameterName, const std::string& variableName,
         bool useDB, bool useHz)
 {
@@ -4618,7 +4618,7 @@ Matrix<double> RoadRunner::getFrequencyResponse(double startFrequency,
 
 double RoadRunner::getUnscaledParameterElasticity(const string& reactionName, const string& parameterName)
 {
-    int parameterIndex;
+    size_t parameterIndex;
 
     if (!impl->model)
     {
@@ -4626,7 +4626,7 @@ double RoadRunner::getUnscaledParameterElasticity(const string& reactionName, co
     }
     try
     {
-        int reactionIndex = impl->model->getReactionIndex(reactionName);
+        size_t reactionIndex = impl->model->getReactionIndex(reactionName);
 
         if(reactionIndex == -1)
         {
@@ -4711,7 +4711,7 @@ double RoadRunner::getUnscaledParameterElasticity(const string& reactionName, co
 
 
 
-vector<double> logspace(const double& startW, const double& d2, const int& n)
+vector<double> logspace(const double& startW, const double& d2, const size_t& n)
 {
     double d1 = 0;
     vector<double> y(n);
@@ -5402,8 +5402,8 @@ void RoadRunner::removeSpecies(const std::string& sid, bool forceRegenerate)
 
 
 	// delete all related reactions as well
-	int index = 0;
-	int numReaction = sbmlModel->getNumReactions();
+	size_t index = 0;
+	size_t numReaction = sbmlModel->getNumReactions();
 
 	// TODO: will deleting one reaction interrupt with the order? 
 	// currently we are assuming that the order will keep the same
@@ -5530,7 +5530,7 @@ void RoadRunner::setInitAmount(const std::string& sid, double initAmount, bool f
 	regenerate(forceRegenerate);
 	
 	// recover the updated init amount
-	int index = impl->model->getFloatingSpeciesIndex(sid);
+	size_t index = impl->model->getFloatingSpeciesIndex(sid);
 	if (index >= 0 && index < impl->model->getNumIndFloatingSpecies()) {
 		impl->model->setFloatingSpeciesInitAmounts(1, &index, &initAmount);
 	}
@@ -5557,11 +5557,11 @@ void RoadRunner::setInitConcentration(const std::string& sid, double initConcent
 	regenerate(forceRegenerate);
 	
 	// recover the updated init concentration
-	int index = impl->model->getFloatingSpeciesIndex(sid);
+	size_t index = impl->model->getFloatingSpeciesIndex(sid);
 	
 	if (index >= 0 && index < impl->model->getNumIndFloatingSpecies()) {
 
-		int compartment = impl->model->getCompartmentIndex(species->getCompartment());
+        size_t compartment = impl->model->getCompartmentIndex(species->getCompartment());
 		double compartmentSize = 1;
 		impl->model->getCompartmentVolumes(1, &compartment, &compartmentSize);
 		
@@ -5756,7 +5756,7 @@ bool RoadRunner::isParameterUsed(const std::string& sid)
 {
 	using namespace libsbml;
 	Model* sbmlModel = impl->document->getModel();
-	int num = sbmlModel->getNumReactions();
+	size_t num = sbmlModel->getNumReactions();
 	//Check if this parameter occurs in a reaction
 	for (uint i = 0; i < num; i++)
 	{
@@ -5965,8 +5965,8 @@ void RoadRunner::removeCompartment(const std::string& cid, bool forceRegenerate)
 	
 
 	// remove all species in the compartment
-	int index = 0; 
-	int numSpecies = model->getNumSpecies();
+	size_t index = 0; 
+	size_t numSpecies = model->getNumSpecies();
 	for (int i = 0; i < numSpecies; i++) {
 		if (model->getSpecies(index)->getCompartment() == cid) 
 		{
@@ -6072,7 +6072,7 @@ void RoadRunner::removeRules(const std::string& vid, bool useInitialValueAsCurre
 	// grab the initial initial value from sbml model 
 	if (assignment)
 	{
-		int index = impl->model->getFloatingSpeciesIndex(vid);
+		size_t index = impl->model->getFloatingSpeciesIndex(vid);
 		if (index >= 0 && index < impl->model->getNumIndFloatingSpecies()) {
 
 			double initValue = 0;
@@ -6083,7 +6083,7 @@ void RoadRunner::removeRules(const std::string& vid, bool useInitialValueAsCurre
 			else if (sbmlModel->getSpecies(vid)->isSetInitialConcentration())
 			{
 				double initConcentration = sbmlModel->getSpecies(vid)->getInitialConcentration();
-				int compartment = impl->model->getCompartmentIndex(sbmlModel->getSpecies(vid)->getCompartment());
+                size_t compartment = impl->model->getCompartmentIndex(sbmlModel->getSpecies(vid)->getCompartment());
 				double compartmentSize = 1;
 				impl->model->getCompartmentVolumes(1, &compartment, &compartmentSize);
 
@@ -6128,7 +6128,7 @@ void RoadRunner::removeRules(const std::string& vid, bool useInitialValueAsCurre
 	else if (useInitialValueAsCurrent)
 	{
 		// recover the initial value for rate rules
-		int index = impl->model->getFloatingSpeciesIndex(vid);
+		size_t index = impl->model->getFloatingSpeciesIndex(vid);
 		if (index >= 0 && index < impl->model->getNumIndFloatingSpecies()) {
 			double initValue = 0;
 			impl->model->getFloatingSpeciesInitAmounts(1, &index, &initValue);
@@ -6208,7 +6208,7 @@ void RoadRunner::removeInitialAssignment(const std::string& vid, bool forceRegen
 	if (!impl->simulatedSinceReset)
 	{
 
-		int index = impl->model->getFloatingSpeciesIndex(vid);
+		size_t index = impl->model->getFloatingSpeciesIndex(vid);
 		if (index >= 0 && index < impl->model->getNumIndFloatingSpecies())
 		{
 
@@ -6220,7 +6220,7 @@ void RoadRunner::removeInitialAssignment(const std::string& vid, bool forceRegen
 			else if (sbmlModel->getSpecies(vid)->isSetInitialConcentration())
 			{
 				double initConcentration = sbmlModel->getSpecies(vid)->getInitialConcentration();
-				int compartment = impl->model->getCompartmentIndex(sbmlModel->getSpecies(vid)->getCompartment());
+                size_t compartment = impl->model->getCompartmentIndex(sbmlModel->getSpecies(vid)->getCompartment());
 				double compartmentSize = 1;
 				impl->model->getCompartmentVolumes(1, &compartment, &compartmentSize);
 
@@ -6600,8 +6600,8 @@ void RoadRunner::removeVariable(const std::string& sid) {
 	Log(Logger::LOG_DEBUG) << "Removing reactions related to " << sid << "..." << endl;
 
 	SBase* toDelete = nullptr;
-	int index = 0;
-	int num = sbmlModel->getNumReactions();
+	size_t index = 0;
+	size_t num = sbmlModel->getNumReactions();
 	for (uint i = 0; i < num; i++)
 	{
 		Reaction* reaction = sbmlModel->getReaction(index);
@@ -6794,7 +6794,7 @@ void RoadRunner::removeVariable(const std::string& sid) {
 		}
 		// look for other assignments that have a math formula using this variable
 		int assignmentIndex = 0;
-		int numAssign = event->getNumEventAssignments();
+		size_t numAssign = event->getNumEventAssignments();
 		for (uint j = 0; j < numAssign; j++) {
 			EventAssignment* assignment = event->getListOfEventAssignments()->get(assignmentIndex);
 			if (hasVariable(assignment->getMath(), sid))
@@ -6885,7 +6885,7 @@ void RoadRunner::checkGlobalParameters()
 	using namespace libsbml;
 	Model* sbmlModel = impl->document->getModel();
 
-	int index = 0;
+	size_t index = 0;
 	while (index < sbmlModel->getNumParameters())
 	{
 		const Parameter* param = sbmlModel->getParameter(index);

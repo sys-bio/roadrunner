@@ -340,7 +340,7 @@ public:
      * After the selection record is created by the roadrunner object, this
      * is an index into the variables list that the ExecutableModel has.
      */
-    int index;
+    size_t index;
 
     /**
      * For single argument selections, i.e. ee( S1 ), this is the argument, for
@@ -364,7 +364,7 @@ public:
      *
      * This just creates a new ebmpy selection.
      */
-    SelectionRecord(const int& index = 0,
+    SelectionRecord(const size_t& index = 0,
             const SelectionType type = UNKNOWN,
             const string& p1 = "", const string& p2 = "");
 

@@ -603,7 +603,7 @@ public:
 
 
     ls::DoubleMatrix getFrequencyResponse(double startFrequency,
-            int numberOfDecades, int numberOfPoints,
+            size_t numberOfDecades, size_t numberOfPoints,
             const std::string& parameterName, const std::string& variableName,
             bool useDB, bool useHz);
 
@@ -717,7 +717,7 @@ public:
      * IMPORTANT:
      * Assumes that the reaction rates have been precomputed at the operating point !!
      */
-    double getUnscaledSpeciesElasticity(int reactionId, int speciesIndex);
+    double getUnscaledSpeciesElasticity(size_t reactionId, size_t speciesIndex);
 
 	/**
 	 * Add a species to the current model.
@@ -1228,7 +1228,7 @@ public:
      * @internal
      * @deprecated
      */
-    void setBoundarySpeciesByIndex(const int& index, const double& value);
+    void setBoundarySpeciesByIndex(const size_t& index, const double& value);
 
     /**
      * @internal
@@ -1259,13 +1259,13 @@ public:
      * @internal
      * @deprecated
      */
-    double getBoundarySpeciesByIndex(const int& index);
+    double getBoundarySpeciesByIndex(const size_t& index);
 
     /**
      * @internal
      * @deprecated use ExecutableModel::getGlobalParameterValues
      */
-    double getGlobalParameterByIndex(const int& index);
+    double getGlobalParameterByIndex(const size_t& index);
 
 
     /******** !!! DEPRECATED INTERNAL METHODS * THESE WILL BE REMOVED!!! **********/
@@ -1292,13 +1292,13 @@ public:
      * @internal
      * @deprecated
      */
-    RR_DEPRECATED(double getReactionRate(const int& index));
+    RR_DEPRECATED(double getReactionRate(const size_t& index));
 
     /**
      * @internal
      * @deprecated
      */
-    RR_DEPRECATED(double getRateOfChange(const int& index));
+    RR_DEPRECATED(double getRateOfChange(const size_t& index));
 
     /**
      * @internal
@@ -1321,13 +1321,13 @@ public:
      * @internal
      * @deprecated
      */
-    RR_DEPRECATED(void setCompartmentByIndex(const int& index, const double& value));
+    RR_DEPRECATED(void setCompartmentByIndex(const size_t& index, const double& value));
 
     /**
      * @internal
      * @deprecated
      */
-    RR_DEPRECATED(double getCompartmentByIndex(const int& index));
+    RR_DEPRECATED(double getCompartmentByIndex(const size_t& index));
 
     /**
      * @internal
@@ -1363,13 +1363,13 @@ public:
      * @internal
      * @deprecated
      */
-    RR_DEPRECATED(double getFloatingSpeciesByIndex(int index));
+    RR_DEPRECATED(double getFloatingSpeciesByIndex(size_t index));
 
     /**
      * @internal
      * @deprecated
      */
-    RR_DEPRECATED(void setFloatingSpeciesByIndex(int index, double value));
+    RR_DEPRECATED(void setFloatingSpeciesByIndex(size_t index, double value));
 
     /**
      * @internal
@@ -1411,7 +1411,7 @@ public:
      * @internal
      * @deprecated
      */
-    RR_DEPRECATED(void setFloatingSpeciesInitialConcentrationByIndex(const int& index,
+    RR_DEPRECATED(void setFloatingSpeciesInitialConcentrationByIndex(const size_t& index,
             const double& value));
 
     /**
@@ -1442,7 +1442,7 @@ public:
      * @internal
      * @deprecated use ExecutableModel::setGlobalParameterValues
      */
-    RR_DEPRECATED(void setGlobalParameterByIndex(const int index, const double value));
+    RR_DEPRECATED(void setGlobalParameterByIndex(const size_t index, const double value));
 
     /**
      * @internal
@@ -1508,8 +1508,8 @@ private:
     void fixDependentSpeciesValues(int except, double* ref);
 
 
-    int createDefaultSteadyStateSelectionList();
-    int createDefaultTimeCourseSelectionList();
+    size_t createDefaultSteadyStateSelectionList();
+    size_t createDefaultTimeCourseSelectionList();
 
     /**
      * copies the current selection values into the n'th row of the
@@ -1541,7 +1541,7 @@ private:
     };
 
     double getVariableValue(const VariableType variableType,
-            const int variableIndex);
+            const size_t variableIndex);
 
     /**
      * the LibStruct is normally null, only created on demand here.
@@ -1560,7 +1560,7 @@ private:
      * creates a selection list from the amounts / conc / variables ivars of the
      * SimulationOptions struct.
      */
-    int createTimeCourseSelectionList();
+    size_t createTimeCourseSelectionList();
 
     std::vector<SelectionRecord> getSelectionList();
 

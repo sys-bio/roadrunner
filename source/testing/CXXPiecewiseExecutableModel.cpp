@@ -57,7 +57,7 @@ int CXXPiecewiseExecutableModel::getFloatingSpeciesIndex(const std::string& eid)
     return 0;
 }
 
-std::string CXXPiecewiseExecutableModel::getFloatingSpeciesId(int index)
+std::string CXXPiecewiseExecutableModel::getFloatingSpeciesId(size_t index)
 {
     return "";
 }
@@ -67,61 +67,61 @@ int CXXPiecewiseExecutableModel::getNumIndFloatingSpecies()
     return 0;
 }
 
-int CXXPiecewiseExecutableModel::getFloatingSpeciesAmounts(int len, const int* indx,
+int CXXPiecewiseExecutableModel::getFloatingSpeciesAmounts(size_t len, const size_t* indx,
         double* values)
 {
     return 0;
 }
 
-int CXXPiecewiseExecutableModel::setFloatingSpeciesAmounts(int len, const int* indx,
+int CXXPiecewiseExecutableModel::setFloatingSpeciesAmounts(size_t len, const size_t* indx,
         const double* values)
 {
     return 0;
 }
 
-int CXXPiecewiseExecutableModel::getFloatingSpeciesAmountRates(int len, const int* indx,
+int CXXPiecewiseExecutableModel::getFloatingSpeciesAmountRates(size_t len, const size_t* indx,
         double* values)
 {
     return 0;
 }
 
-int CXXPiecewiseExecutableModel::getFloatingSpeciesConcentrationRates(int len,
-        const int* indx, double* values)
+int CXXPiecewiseExecutableModel::getFloatingSpeciesConcentrationRates(size_t len,
+        const size_t* indx, double* values)
 {
     return 0;
 }
 
-int CXXPiecewiseExecutableModel::getFloatingSpeciesConcentrations(int len,
-        const int* indx, double* values)
+int CXXPiecewiseExecutableModel::getFloatingSpeciesConcentrations(size_t len,
+        const size_t* indx, double* values)
 {
     return 0;
 }
 
-int CXXPiecewiseExecutableModel::setFloatingSpeciesConcentrations(int len,
-        const int* indx, const double* values)
+int CXXPiecewiseExecutableModel::setFloatingSpeciesConcentrations(size_t len,
+        const size_t* indx, const double* values)
 {
     return 0;
 }
 
-int CXXPiecewiseExecutableModel::setFloatingSpeciesInitConcentrations(int len,
-        const int* indx, const double* values)
+int CXXPiecewiseExecutableModel::setFloatingSpeciesInitConcentrations(size_t len,
+        const size_t* indx, const double* values)
 {
     return 0;
 }
 
-int CXXPiecewiseExecutableModel::getFloatingSpeciesInitConcentrations(int len,
-        const int* indx, double* values)
+int CXXPiecewiseExecutableModel::getFloatingSpeciesInitConcentrations(size_t len,
+        const size_t* indx, double* values)
 {
     return 0;
 }
 
-int CXXPiecewiseExecutableModel::setFloatingSpeciesInitAmounts(int len, const int* indx,
+int CXXPiecewiseExecutableModel::setFloatingSpeciesInitAmounts(size_t len, const size_t* indx,
         const double* values)
 {
     return 0;
 }
 
-int CXXPiecewiseExecutableModel::getFloatingSpeciesInitAmounts(int len, const int* indx,
+int CXXPiecewiseExecutableModel::getFloatingSpeciesInitAmounts(size_t len, const size_t* indx,
         double* values)
 {
     return 0;
@@ -137,25 +137,25 @@ int CXXPiecewiseExecutableModel::getBoundarySpeciesIndex(const std::string& eid)
     return 0;
 }
 
-std::string CXXPiecewiseExecutableModel::getBoundarySpeciesId(int index)
+std::string CXXPiecewiseExecutableModel::getBoundarySpeciesId(size_t index)
 {
     return "";
 }
 
-int CXXPiecewiseExecutableModel::getBoundarySpeciesAmounts(int len, const int* indx,
+int CXXPiecewiseExecutableModel::getBoundarySpeciesAmounts(size_t len, const size_t* indx,
         double* values)
 {
     return 0;
 }
 
-int CXXPiecewiseExecutableModel::getBoundarySpeciesConcentrations(int len,
-        const int* indx, double* values)
+int CXXPiecewiseExecutableModel::getBoundarySpeciesConcentrations(size_t len,
+        const size_t* indx, double* values)
 {
     return 0;
 }
 
-int CXXPiecewiseExecutableModel::setBoundarySpeciesConcentrations(int len,
-        const int* indx, const double* values)
+int CXXPiecewiseExecutableModel::setBoundarySpeciesConcentrations(size_t len,
+        const size_t* indx, const double* values)
 {
     return 0;
 }
@@ -170,18 +170,18 @@ int CXXPiecewiseExecutableModel::getGlobalParameterIndex(const std::string& eid)
     return 0;
 }
 
-std::string CXXPiecewiseExecutableModel::getGlobalParameterId(int index)
+std::string CXXPiecewiseExecutableModel::getGlobalParameterId(size_t index)
 {
     return "";
 }
 
-int CXXPiecewiseExecutableModel::getGlobalParameterValues(int len, const int* indx,
+int CXXPiecewiseExecutableModel::getGlobalParameterValues(size_t len, const size_t* indx,
         double* values)
 {
     return 0;
 }
 
-int CXXPiecewiseExecutableModel::setGlobalParameterValues(int len, const int* indx,
+int CXXPiecewiseExecutableModel::setGlobalParameterValues(size_t len, const size_t* indx,
         const double* values)
 {
     return 0;
@@ -197,30 +197,30 @@ int CXXPiecewiseExecutableModel::getCompartmentIndex(const std::string& eid)
     return 0;
 }
 
-std::string CXXPiecewiseExecutableModel::getCompartmentId(int index)
+std::string CXXPiecewiseExecutableModel::getCompartmentId(size_t index)
 {
     return "";
 }
 
-int CXXPiecewiseExecutableModel::getCompartmentVolumes(int len, const int* indx,
+int CXXPiecewiseExecutableModel::getCompartmentVolumes(size_t len, const size_t* indx,
         double* values)
 {
     return 0;
 }
 
-int CXXPiecewiseExecutableModel::setCompartmentVolumes(int len, const int* indx,
+int CXXPiecewiseExecutableModel::setCompartmentVolumes(size_t len, const size_t* indx,
         const double* values)
 {
     return 0;
 }
 
-int CXXPiecewiseExecutableModel::setCompartmentInitVolumes(int len, const int* indx,
+int CXXPiecewiseExecutableModel::setCompartmentInitVolumes(size_t len, const size_t* indx,
         const double* values)
 {
     return 0;
 }
 
-int CXXPiecewiseExecutableModel::getCompartmentInitVolumes(int len, const int* indx,
+int CXXPiecewiseExecutableModel::getCompartmentInitVolumes(size_t len, const size_t* indx,
         double* values)
 {
     return 0;
@@ -265,18 +265,18 @@ int CXXPiecewiseExecutableModel::getConservedMoietyIndex(const std::string& eid)
     return 0;
 }
 
-std::string CXXPiecewiseExecutableModel::getConservedMoietyId(int index)
+std::string CXXPiecewiseExecutableModel::getConservedMoietyId(size_t index)
 {
     return "";
 }
 
-int CXXPiecewiseExecutableModel::getConservedMoietyValues(int len, const int* indx,
+int CXXPiecewiseExecutableModel::getConservedMoietyValues(size_t len, const size_t* indx,
         double* values)
 {
     return 0;
 }
 
-int CXXPiecewiseExecutableModel::setConservedMoietyValues(int len, const int* indx,
+int CXXPiecewiseExecutableModel::setConservedMoietyValues(size_t len, const size_t* indx,
         const double* values)
 {
     return 0;
@@ -297,12 +297,12 @@ int CXXPiecewiseExecutableModel::getReactionIndex(const std::string& eid)
     return 0;
 }
 
-std::string CXXPiecewiseExecutableModel::getReactionId(int index)
+std::string CXXPiecewiseExecutableModel::getReactionId(size_t index)
 {
     return "";
 }
 
-int CXXPiecewiseExecutableModel::getReactionRates(int len, const int* indx,
+int CXXPiecewiseExecutableModel::getReactionRates(size_t len, const size_t* indx,
         double* values)
 {
     return 0;
@@ -312,7 +312,7 @@ void CXXPiecewiseExecutableModel::getRateRuleValues(double* rateRuleValues)
 {
 }
 
-std::string CXXPiecewiseExecutableModel::getStateVectorId(int index)
+std::string CXXPiecewiseExecutableModel::getStateVectorId(size_t index)
 {
     return "";
 }
@@ -350,7 +350,7 @@ int CXXPiecewiseExecutableModel::getNumEvents()
     return 0;
 }
 
-int CXXPiecewiseExecutableModel::getEventTriggers(int len, const int* indx,
+int CXXPiecewiseExecutableModel::getEventTriggers(size_t len, const size_t* indx,
         unsigned char* values)
 {
     return 0;
@@ -392,22 +392,22 @@ int CXXPiecewiseExecutableModel::getEventIndex(const std::string& eid)
     return 0;
 }
 
-std::string CXXPiecewiseExecutableModel::getEventId(int index)
+std::string CXXPiecewiseExecutableModel::getEventId(size_t index)
 {
     return "";
 }
 
-void CXXPiecewiseExecutableModel::setEventListener(int index,
+void CXXPiecewiseExecutableModel::setEventListener(size_t index,
         rr::EventListenerPtr eventHandler)
 {
 }
 
-rr::EventListenerPtr CXXPiecewiseExecutableModel::getEventListener(int index)
+rr::EventListenerPtr CXXPiecewiseExecutableModel::getEventListener(size_t index)
 {
     return rr::EventListenerPtr();
 }
 
-double CXXPiecewiseExecutableModel::getFloatingSpeciesAmountRate(int index,
+double CXXPiecewiseExecutableModel::getFloatingSpeciesAmountRate(size_t index,
         const double* reactionRates)
 {
     return 0;

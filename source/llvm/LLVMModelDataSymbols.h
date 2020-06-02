@@ -129,6 +129,7 @@ public:
 
     typedef std::map<std::string, uint> StringUIntMap;
     typedef std::map<std::string, std::vector<uint> > StringUIntVectorMap;
+    typedef std::map<std::string, std::vector<size_t> > StringSizetVectorMap;
     typedef std::pair<std::string, uint> StringUIntPair;
     typedef cxx11_ns::unordered_map<uint, uint> UIntUIntMap;
 
@@ -181,7 +182,7 @@ public:
      * @returns the type of symbol, if no symbol is found, then
      * INVALID_SYMBOL is returned.
      */
-    SymbolIndexType getSymbolIndex(const std::string& name, int& result) const;
+    SymbolIndexType getSymbolIndex(const std::string& name, size_t& result) const;
 
     /**
      * get the index of a floating species.
@@ -250,13 +251,13 @@ public:
     /**
      * get the symbolic id of the i'th floating species.
      */
-    std::string getFloatingSpeciesId(uint indx) const;
+    std::string getFloatingSpeciesId(size_t indx) const;
 
 
     /**
      * find the id of the given global parameter index.
      */
-    std::string getGlobalParameterId(uint indx) const;
+    std::string getGlobalParameterId(size_t indx) const;
 
     /**
      * total size of all floating species.
@@ -365,7 +366,7 @@ public:
      * is a conserved moiety species.
      * @returns true or false if this is a cm species or not.
      */
-    bool isConservedMoietySpecies(uint id, uint &result) const;
+    bool isConservedMoietySpecies(size_t id, uint &result) const;
 
     /**
      * check if the global parameter with the given id is a
@@ -386,7 +387,7 @@ public:
     /**
      * get all the independent species for a given conserved moiety id
      */
-    const std::vector<uint>& getIndSpeciesIndexForConservedMoietyId(std::string id) const;
+    const std::vector<size_t>& getIndSpeciesIndexForConservedMoietyId(std::string id) const;
 
     /**
      * get the index of a global parameter given a conserved moiety index.
@@ -436,7 +437,7 @@ private:
     StringUIntMap conservedMoietyDepSpecies;
 
     // holds the conserved moiety id for each independent species
-    StringUIntVectorMap conservedMoietyIndSpecies;
+    StringSizetVectorMap conservedMoietyIndSpecies;
 
 
 /*****************************************************************************/

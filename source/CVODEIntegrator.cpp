@@ -92,17 +92,24 @@ namespace rr
             throw std::runtime_error("CVODEIntegrator::checkType failed, memory bug");
     }
 
-	void CVODEIntegrator::checkVectorSize(int expected, int real) const {
+	void CVODEIntegrator::checkVectorSize(int expected, size_t real) const {
 		if (expected != real)  
 			throw std::runtime_error("CVODEIntegrator::checkVectorSize failed, real size is " + CVODEIntegrator::ToString(real) + ", whereas expected size is " + CVODEIntegrator::ToString(expected));
 	}
 
-	void CVODEIntegrator::checkIndex(int index, int size) const {
+	void CVODEIntegrator::checkIndex(int index, size_t size) const {
 		if (index < 0 || index >= size)
 			throw std::out_of_range("CVODEIntegrator::checkIndex failed, index " + CVODEIntegrator::ToString(index) + " out of range from " + CVODEIntegrator::ToString(0) + " to " + CVODEIntegrator::ToString(size-1));
 	}
 
 	std::string CVODEIntegrator::ToString(int val) const
+	{
+		std::stringstream stream;
+		stream << val;
+		return stream.str();
+	}
+
+	std::string CVODEIntegrator::ToString(size_t val) const
 	{
 		std::stringstream stream;
 		stream << val;
@@ -345,7 +352,7 @@ namespace rr
 		}
 		else
 		{
-			// sid might has a rate rule
+			// sid might have a rate rule
 			vector<string> symbols = mModel->getRateRuleSymbols();
 			std::vector<string>::iterator it = std::find(symbols.begin(), symbols.end(), sid);
 			if (it != symbols.end())

@@ -57,7 +57,7 @@ int CXXExecutableModel::getFloatingSpeciesIndex(const std::string& eid)
     return 0;
 }
 
-std::string CXXExecutableModel::getFloatingSpeciesId(int index)
+std::string CXXExecutableModel::getFloatingSpeciesId(size_t index)
 {
     return "";
 }
@@ -67,61 +67,61 @@ int CXXExecutableModel::getNumIndFloatingSpecies()
     return 0;
 }
 
-int CXXExecutableModel::getFloatingSpeciesAmounts(int len, const int* indx,
+int CXXExecutableModel::getFloatingSpeciesAmounts(size_t len, const size_t* indx,
         double* values)
 {
     return 0;
 }
 
-int CXXExecutableModel::setFloatingSpeciesAmounts(int len, const int* indx,
+int CXXExecutableModel::setFloatingSpeciesAmounts(size_t len, const size_t* indx,
         const double* values)
 {
     return 0;
 }
 
-int CXXExecutableModel::getFloatingSpeciesAmountRates(int len, const int* indx,
+int CXXExecutableModel::getFloatingSpeciesAmountRates(size_t len, const size_t* indx,
         double* values)
 {
     return 0;
 }
 
-int CXXExecutableModel::getFloatingSpeciesConcentrationRates(int len,
-        const int* indx, double* values)
+int CXXExecutableModel::getFloatingSpeciesConcentrationRates(size_t len,
+        const size_t* indx, double* values)
 {
     return 0;
 }
 
-int CXXExecutableModel::getFloatingSpeciesConcentrations(int len,
-        const int* indx, double* values)
+int CXXExecutableModel::getFloatingSpeciesConcentrations(size_t len,
+        const size_t* indx, double* values)
 {
     return 0;
 }
 
-int CXXExecutableModel::setFloatingSpeciesConcentrations(int len,
-        const int* indx, const double* values)
+int CXXExecutableModel::setFloatingSpeciesConcentrations(size_t len,
+        const size_t* indx, const double* values)
 {
     return 0;
 }
 
-int CXXExecutableModel::setFloatingSpeciesInitConcentrations(int len,
-        const int* indx, const double* values)
+int CXXExecutableModel::setFloatingSpeciesInitConcentrations(size_t len,
+        const size_t* indx, const double* values)
 {
     return 0;
 }
 
-int CXXExecutableModel::getFloatingSpeciesInitConcentrations(int len,
-        const int* indx, double* values)
+int CXXExecutableModel::getFloatingSpeciesInitConcentrations(size_t len,
+        const size_t* indx, double* values)
 {
     return 0;
 }
 
-int CXXExecutableModel::setFloatingSpeciesInitAmounts(int len, const int* indx,
+int CXXExecutableModel::setFloatingSpeciesInitAmounts(size_t len, const size_t* indx,
         const double* values)
 {
     return 0;
 }
 
-int CXXExecutableModel::getFloatingSpeciesInitAmounts(int len, const int* indx,
+int CXXExecutableModel::getFloatingSpeciesInitAmounts(size_t len, const size_t* indx,
         double* values)
 {
     return 0;
@@ -137,25 +137,25 @@ int CXXExecutableModel::getBoundarySpeciesIndex(const std::string& eid)
     return 0;
 }
 
-std::string CXXExecutableModel::getBoundarySpeciesId(int index)
+std::string CXXExecutableModel::getBoundarySpeciesId(size_t index)
 {
     return "";
 }
 
-int CXXExecutableModel::getBoundarySpeciesAmounts(int len, const int* indx,
+int CXXExecutableModel::getBoundarySpeciesAmounts(size_t len, const size_t* indx,
         double* values)
 {
     return 0;
 }
 
-int CXXExecutableModel::getBoundarySpeciesConcentrations(int len,
-        const int* indx, double* values)
+int CXXExecutableModel::getBoundarySpeciesConcentrations(size_t len,
+        const size_t* indx, double* values)
 {
     return 0;
 }
 
-int CXXExecutableModel::setBoundarySpeciesConcentrations(int len,
-        const int* indx, const double* values)
+int CXXExecutableModel::setBoundarySpeciesConcentrations(size_t len,
+        const size_t* indx, const double* values)
 {
     return 0;
 }
@@ -170,18 +170,18 @@ int CXXExecutableModel::getGlobalParameterIndex(const std::string& eid)
     return 0;
 }
 
-std::string CXXExecutableModel::getGlobalParameterId(int index)
+std::string CXXExecutableModel::getGlobalParameterId(size_t index)
 {
     return "";
 }
 
-int CXXExecutableModel::getGlobalParameterValues(int len, const int* indx,
+int CXXExecutableModel::getGlobalParameterValues(size_t len, const size_t* indx,
         double* values)
 {
     return 0;
 }
 
-int CXXExecutableModel::setGlobalParameterValues(int len, const int* indx,
+int CXXExecutableModel::setGlobalParameterValues(size_t len, const size_t* indx,
         const double* values)
 {
     return 0;
@@ -197,30 +197,30 @@ int CXXExecutableModel::getCompartmentIndex(const std::string& eid)
     return 0;
 }
 
-std::string CXXExecutableModel::getCompartmentId(int index)
+std::string CXXExecutableModel::getCompartmentId(size_t index)
 {
     return "";
 }
 
-int CXXExecutableModel::getCompartmentVolumes(int len, const int* indx,
+int CXXExecutableModel::getCompartmentVolumes(size_t len, const size_t* indx,
         double* values)
 {
     return 0;
 }
 
-int CXXExecutableModel::setCompartmentVolumes(int len, const int* indx,
+int CXXExecutableModel::setCompartmentVolumes(size_t len, const size_t* indx,
         const double* values)
 {
     return 0;
 }
 
-int CXXExecutableModel::setCompartmentInitVolumes(int len, const int* indx,
+int CXXExecutableModel::setCompartmentInitVolumes(size_t len, const size_t* indx,
         const double* values)
 {
     return 0;
 }
 
-int CXXExecutableModel::getCompartmentInitVolumes(int len, const int* indx,
+int CXXExecutableModel::getCompartmentInitVolumes(size_t len, const size_t* indx,
         double* values)
 {
     return 0;
@@ -265,18 +265,18 @@ int CXXExecutableModel::getConservedMoietyIndex(const std::string& eid)
     return 0;
 }
 
-std::string CXXExecutableModel::getConservedMoietyId(int index)
+std::string CXXExecutableModel::getConservedMoietyId(size_t index)
 {
     return "";
 }
 
-int CXXExecutableModel::getConservedMoietyValues(int len, const int* indx,
+int CXXExecutableModel::getConservedMoietyValues(size_t len, const size_t* indx,
         double* values)
 {
     return 0;
 }
 
-int CXXExecutableModel::setConservedMoietyValues(int len, const int* indx,
+int CXXExecutableModel::setConservedMoietyValues(size_t len, const size_t* indx,
         const double* values)
 {
     return 0;
@@ -297,12 +297,12 @@ int CXXExecutableModel::getReactionIndex(const std::string& eid)
     return 0;
 }
 
-std::string CXXExecutableModel::getReactionId(int index)
+std::string CXXExecutableModel::getReactionId(size_t index)
 {
     return "";
 }
 
-int CXXExecutableModel::getReactionRates(int len, const int* indx,
+int CXXExecutableModel::getReactionRates(size_t len, const size_t* indx,
         double* values)
 {
     return 0;
@@ -312,7 +312,7 @@ void CXXExecutableModel::getRateRuleValues(double* rateRuleValues)
 {
 }
 
-std::string CXXExecutableModel::getStateVectorId(int index)
+std::string CXXExecutableModel::getStateVectorId(size_t index)
 {
     return "";
 }
@@ -350,7 +350,7 @@ int CXXExecutableModel::getNumEvents()
     return 0;
 }
 
-int CXXExecutableModel::getEventTriggers(int len, const int* indx,
+int CXXExecutableModel::getEventTriggers(size_t len, const size_t* indx,
         unsigned char* values)
 {
     return 0;
@@ -392,22 +392,22 @@ int CXXExecutableModel::getEventIndex(const std::string& eid)
     return 0;
 }
 
-std::string CXXExecutableModel::getEventId(int index)
+std::string CXXExecutableModel::getEventId(size_t index)
 {
     return "";
 }
 
-void CXXExecutableModel::setEventListener(int index,
+void CXXExecutableModel::setEventListener(size_t index,
         rr::EventListenerPtr eventHandler)
 {
 }
 
-rr::EventListenerPtr CXXExecutableModel::getEventListener(int index)
+rr::EventListenerPtr CXXExecutableModel::getEventListener(size_t index)
 {
     return rr::EventListenerPtr();
 }
 
-double CXXExecutableModel::getFloatingSpeciesAmountRate(int index,
+double CXXExecutableModel::getFloatingSpeciesAmountRate(size_t index,
         const double* reactionRates)
 {
     return 0;

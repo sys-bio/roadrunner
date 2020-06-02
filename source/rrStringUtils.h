@@ -64,6 +64,7 @@ RR_DECLSPEC string              toString(const bool& b);
 RR_DECLSPEC string              toString(const double& d, const string& format = gDoubleFormat);
 RR_DECLSPEC string              toString(const unsigned int& n, const string& format = gIntFormat, const int nBase=10);
 RR_DECLSPEC string              toString(const int& n, const string& format = gIntFormat, const int nBase=10);
+RR_DECLSPEC string              toString(const size_t& n, const string& format = gIntFormat, const int nBase = 10);
 RR_DECLSPEC string              toString(const long n, const int nBase=10);
 RR_DECLSPEC string              toString(const unsigned long n, const int nBase=10);
 RR_DECLSPEC string              toString(const unsigned short n, const int nBase=10);
