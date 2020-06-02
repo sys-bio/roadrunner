@@ -983,7 +983,7 @@ bool rrcCallConv getFloatingSpeciesInitialConcentrationByIndex(RRHandle handle, 
     start_try
         RoadRunner* rri = castToRoadRunner(handle);
         ExecutableModel *model = rri->getModel();
-        size_t index_st = static_cast<size_t>(index)
+        size_t index_st = static_cast<size_t>(index);
         if (model && model->getNumFloatingSpecies() > index_st)
         {
             return model->getFloatingSpeciesInitConcentrations(1, &index_st, value) >= 0;
