@@ -237,7 +237,7 @@ int cm_1_test(int argc, char* argv[])
 
         double val;
 
-        for (int i = 0; i < ncm; ++i) {
+        for (size_t i = 0; i < ncm; ++i) {
             std::string name = m->getConservedMoietyId(i);
             m->getConservedMoietyValues(1, &i, &val);
 

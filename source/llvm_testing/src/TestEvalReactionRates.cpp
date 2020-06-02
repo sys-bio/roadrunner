@@ -59,12 +59,12 @@ void testAmountRates(const char* fname)
 
     model->getReactionRates(reactions, NULL, &reactionRates[0]);
 
-    for (int i = 0; i < reactionRates.size(); ++i)
+    for (size_t i = 0; i < reactionRates.size(); ++i)
     {
         cout << "reaction rate " << i << ": " << reactionRates[i] << std::endl;
     }
 
-    for (int i = 0; i < species; ++i)
+    for (size_t i = 0; i < species; ++i)
     {
         double amtRate1;
         model->getFloatingSpeciesAmountRates(1, &i, &amtRate1);

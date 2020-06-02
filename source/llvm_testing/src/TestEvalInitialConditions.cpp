@@ -31,7 +31,7 @@ bool TestEvalInitialConditions::test()
 
     Log(Logger::LOG_INFORMATION) << model << endl;
 
-    for (int i = 0; i < model->getNumFloatingSpecies(); i++)
+    for (size_t i = 0; i < model->getNumFloatingSpecies(); i++)
     {
         double amt;
         double conc;
@@ -41,7 +41,7 @@ bool TestEvalInitialConditions::test()
         Log(Logger::LOG_INFORMATION) << "float species: " << i << ", amount: " << amt << ", conc: " << conc << endl;
     }
 
-    for (int i = 0; i < model->getNumBoundarySpecies(); i++)
+    for (size_t i = 0; i < model->getNumBoundarySpecies(); i++)
     {
         double amt;
         double conc;
