@@ -192,7 +192,7 @@
 /* Convert from C --> Python */
 %typemap(out) std::vector<double> {
 
-    int len = $1.size();
+    size_t len = $1.size();
     npy_intp dims[1] = {len};
 
     PyObject *array = PyArray_SimpleNew(1, dims, NPY_DOUBLE);
@@ -231,7 +231,7 @@
     }
 
     if (iscpx) {
-        int len = $1.size();
+        size_t len = $1.size();
         npy_intp dims[1] = {len};
 
         PyObject *array = PyArray_SimpleNew(1, dims, NPY_COMPLEX128);
@@ -248,7 +248,7 @@
 
         $result  = array;
     } else {
-        int len = $1.size();
+        size_t len = $1.size();
         npy_intp dims[1] = {len};
 
         PyObject *array = PyArray_SimpleNew(1, dims, NPY_DOUBLE);
@@ -261,7 +261,7 @@
 
         double *data = (double*)PyArray_DATA((PyArrayObject*)array);
 
-        for (int i = 0; i < vec.size(); ++i) {
+        for (size_t i = 0; i < vec.size(); ++i) {
             data[i] = std::real(vec[i]);
         }
 
@@ -342,11 +342,11 @@
 /*
 %typemap(out) std::vector<std::string> {
 
-    int len = $1.size();
+    size_t len = $1.size();
 
     PyObject* pyList = PyList_New(len);
 
-    for(int i = 0; i < len; i++)
+    for(size_t i = 0; i < len; i++)
     {
         const std::string& str  = $1.at(i);
         PyObject* pyStr = PyString_FromString(str.c_str());
@@ -407,13 +407,13 @@ size_t sigtrap();
 
 %{
 
-typedef int (rr::ExecutableModel::*getValuesPtr)(size_t, size_t const*, double*);
-typedef string (ExecutableModel::*getNamePtr)(int);
+typedef int (rr::ExecutableModel::*getValuesPtr)(size_t, const size_t*, double*);
+typedef string (ExecutableModel::*getNamePtr)(size_t);
 typedef int (ExecutableModel::*getNumPtr)();
 
 
 static PyObject* _ExecutableModel_getValues(rr::ExecutableModel *self, getValuesPtr func,
-                                            getNumPtr numPtr, size_t len, size_t const *indx) {
+                                            getNumPtr numPtr, size_t len, const size_t* indx) {
     if (len <= 0) {
         len = (self->*numPtr)();
         indx = 0;
@@ -442,7 +442,7 @@ static std::string strvec_to_pystring(const std::vector<std::string>& strvec) {
     std::stringstream s;
     s << "[";
 
-    for (int i = 0; i < strvec.size(); ++i) {
+    for (size_t i = 0; i < strvec.size(); ++i) {
         s << "'" << strvec[i] << "'";
         if (i + 1 < strvec.size()) {
             s << ",";
@@ -472,13 +472,13 @@ PyObject *Integrator_NewPythonObj(rr::Integrator* i) {
 %}
 
 
-%apply (int DIM1, int* IN_ARRAY1) {(int len, int const *indx)};
+%apply (size_t DIM1, size_t* IN_ARRAY1) {(size_t len, const size_t* indx)};
 
-%apply (int DIM1, double* IN_ARRAY1) {(int len, double const *values)};
+%apply (size_t DIM1, double* IN_ARRAY1) {(size_t len, double const *values)};
 
 // typemap for the set***Values methods
-%apply (int DIM1, int* IN_ARRAY1) {(int leni, int const* indx)};
-%apply (int DIM1, double* IN_ARRAY1) {(int lenv, const  double* values)};
+%apply (size_t DIM1, size_t* IN_ARRAY1) {(size_t leni, size_t const* indx)};
+%apply (size_t DIM1, double* IN_ARRAY1) {(size_t lenv, const  double* values)};
 
 #define LIB_EXTERN
 #define RR_DECLSPEC
@@ -1949,7 +1949,7 @@ namespace std { class ostream{}; }
      ** get values section
      ***/
 
-    PyObject *getFloatingSpeciesAmounts(size_t len, size_t const *indx) {
+    PyObject *getFloatingSpeciesAmounts(size_t len, const size_t* indx) {
         return _ExecutableModel_getValues($self, &rr::ExecutableModel::getFloatingSpeciesAmounts,
                                           &rr::ExecutableModel::getNumFloatingSpecies, len, indx);
     }
@@ -2165,7 +2165,7 @@ namespace std { class ostream{}; }
     }
 
 
-    int setFloatingSpeciesAmounts(size_t leni, const size_t* indx, size_t lenv, double const *values) {
+    int setFloatingSpeciesAmounts(size_t leni, const size_t* indx, int lenv, double const *values) {
         if (leni != lenv) {
             PyErr_Format(PyExc_ValueError,
                          "Arrays of lengths (%d,%d) given",
@@ -2176,7 +2176,7 @@ namespace std { class ostream{}; }
     }
 
 
-    int setFloatingSpeciesConcentrations(size_t leni, const size_t* indx, size_t lenv, double const *values) {
+    int setFloatingSpeciesConcentrations(size_t leni, const size_t* indx, int lenv, double const *values) {
         if (leni != lenv) {
             PyErr_Format(PyExc_ValueError,
                          "Arrays of lengths (%d,%d) given",
@@ -2186,7 +2186,7 @@ namespace std { class ostream{}; }
         return $self->setFloatingSpeciesConcentrations(leni, indx, values);
     }
 
-    int setBoundarySpeciesConcentrations(size_t leni, const size_t* indx, size_t lenv, double const *values) {
+    int setBoundarySpeciesConcentrations(size_t leni, const size_t* indx, int lenv, double const *values) {
         if (leni != lenv) {
             PyErr_Format(PyExc_ValueError,
                          "Arrays of lengths (%d,%d) given",
@@ -2196,7 +2196,7 @@ namespace std { class ostream{}; }
         return $self->setBoundarySpeciesConcentrations(leni, indx, values);
     }
 
-    int setGlobalParameterValues(size_t leni, const size_t* indx, size_t lenv, double const *values) {
+    int setGlobalParameterValues(size_t leni, const size_t* indx, int lenv, double const *values) {
         if (leni != lenv) {
             PyErr_Format(PyExc_ValueError,
                          "Arrays of lengths (%d,%d) given",
@@ -2206,7 +2206,7 @@ namespace std { class ostream{}; }
         return $self->setGlobalParameterValues(leni, indx, values);
     }
 
-    int setCompartmentVolumes(size_t leni, const size_t* indx, size_t lenv, double const *values) {
+    int setCompartmentVolumes(size_t leni, const size_t* indx, int lenv, double const *values) {
         if (leni != lenv) {
             PyErr_Format(PyExc_ValueError,
                          "Arrays of lengths (%d,%d) given",
@@ -2216,7 +2216,7 @@ namespace std { class ostream{}; }
         return $self->setCompartmentVolumes(leni, indx, values);
     }
 
-    int setConservedMoietyValues(size_t leni, const size_t* indx, size_t lenv, double const *values) {
+    int setConservedMoietyValues(size_t leni, const size_t* indx, int lenv, double const *values) {
         if (leni != lenv) {
             PyErr_Format(PyExc_ValueError,
                          "Arrays of lengths (%d,%d) given",
@@ -2226,7 +2226,7 @@ namespace std { class ostream{}; }
         return $self->setConservedMoietyValues(leni, indx, values);
     }
 
-    int setFloatingSpeciesInitConcentrations(size_t leni, const size_t* indx, size_t lenv, double const *values) {
+    int setFloatingSpeciesInitConcentrations(size_t leni, const size_t* indx, int lenv, double const *values) {
         if (leni != lenv) {
             PyErr_Format(PyExc_ValueError,
                          "Arrays of lengths (%d,%d) given",
@@ -2237,7 +2237,7 @@ namespace std { class ostream{}; }
     }
 
 
-    int setFloatingSpeciesInitAmounts(size_t leni, const size_t* indx, size_t lenv, double const *values) {
+    int setFloatingSpeciesInitAmounts(size_t leni, const size_t* indx, int lenv, double const *values) {
         if (leni != lenv) {
             PyErr_Format(PyExc_ValueError,
                          "Arrays of lengths (%d,%d) given",
@@ -2248,7 +2248,7 @@ namespace std { class ostream{}; }
     }
 
 
-    int setCompartmentInitVolumes(size_t leni, const size_t* indx, size_t lenv, double const *values) {
+    int setCompartmentInitVolumes(size_t leni, const size_t* indx, int lenv, double const *values) {
         if (leni != lenv) {
             PyErr_Format(PyExc_ValueError,
                          "Arrays of lengths (%d,%d) given",
@@ -2259,7 +2259,7 @@ namespace std { class ostream{}; }
     }
 
 
-    int setFloatingSpeciesInitConcentrations(size_t leni, const size_t* indx, size_t lenv, double const *values) {
+    int setFloatingSpeciesInitConcentrations(size_t leni, const size_t* indx, int lenv, double const *values) {
         if (leni != lenv) {
             PyErr_Format(PyExc_ValueError,
                          "Arrays of lengths (%d,%d) given",
@@ -2269,7 +2269,7 @@ namespace std { class ostream{}; }
         return $self->setFloatingSpeciesInitConcentrations(leni, indx, values);
     }
 
-    int setFloatingSpeciesInitAmounts(size_t leni, const size_t* indx, size_t lenv, double const *values) {
+    int setFloatingSpeciesInitAmounts(size_t leni, const size_t* indx, int lenv, double const *values) {
         if (leni != lenv) {
             PyErr_Format(PyExc_ValueError,
                          "Arrays of lengths (%d,%d) given",
@@ -2280,7 +2280,7 @@ namespace std { class ostream{}; }
     }
 
 
-    int setCompartmentInitVolumes(size_t leni, const size_t* indx, size_t lenv, double const *values) {
+    int setCompartmentInitVolumes(size_t leni, const size_t* indx, int lenv, double const *values) {
         if (leni != lenv) {
             PyErr_Format(PyExc_ValueError,
                          "Arrays of lengths (%d,%d) given",
