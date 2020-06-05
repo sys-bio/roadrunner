@@ -1,4 +1,5 @@
 #include <vector>
+#include <fstream>
 #include "rrUtils.h"
 #include "TestUtils.h"
 
@@ -62,5 +63,23 @@ ls::ComplexMatrix getComplexMatrixFromString(const string& textMatrix)
         }
     }
 	return mat;
+}
+
+bool filesAreEqual(const string& expected, const string& actual) {
+    ifstream efile(expected);
+    ifstream afile(actual);
+
+    string line1;
+    string line2;
+    while (efile && afile) {
+        getline(efile, line1);
+        getline(afile, line2);
+        if (line1 != line2) {
+            return false;
+        }
+    }
+
+    // check for remaining lines
+    return !(efile || afile);
 }
 

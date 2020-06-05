@@ -233,10 +233,19 @@ public:
      * is only used by the deterministic solvers, and it is safely ignored by the
      * stochastic solvers. Also, the "seed" sets the random seed that the integrator
      * uses. For more information about all of the avaialble options for each integrator,
+     *
+     * If one wants to not store the result matrix in memory and instead write it
+     * to a file during simulation, one can set the output_file option. When 
+     * output file is nonempty, simulate() will write to its path once every 
+     * Config::K_ROWS_PER_WRITE rows are generated and clear the matrix. So an
+     * empty result matrix is returned, and the last simulation results are not
+     * stored.
+     *
      * @see IntegratorFactory::getIntegratorOptions".
      *
      * @throws an std::exception if any options are invalid.
-     * @returns a borrowed reference to a DoubleMatrix object if successfull.
+     * @returns a borrowed reference to a DoubleMatrix object if successful. The matrix
+     * will be empty if output_file is specified and nonempty.
      */
     const ls::DoubleMatrix *simulate(const Dictionary* options = 0);
 

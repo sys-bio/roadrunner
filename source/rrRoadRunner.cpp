@@ -1,5 +1,5 @@
 #pragma hdrstop
-// on Windows, this needs to go first to get M_PI
+// in Windows, this needs to go first to get M_PI
 #define _USE_MATH_DEFINES
 
 #include "rrOSSpecifics.h"
@@ -50,6 +50,7 @@
 
 #include <sbml/conversion/SBMLLocalParameterConverter.h>
 #include <sbml/conversion/SBMLLevelVersionConverter.h>
+#include <sbml/UnitKind.h>
 
 #include <iostream>
 #include <math.h>
@@ -138,7 +139,13 @@ typedef std::list<std::vector<double> > DoubleVectorList;
  */
 static void metabolicControlCheck(ExecutableModel *model);
 
+/*
+* used to write simulation result to out stream. This is likely one batch out of many
+* for variable time step stochastic simulation
+*/
+static void writeDoubleVectorListToStream(std::ostream& out, const DoubleVectorList& results);
 
+static void writeDoubleMatrixToStream(std::ostream& out, const ls::DoubleMatrix& results, int nrows);
 
 //The instance count increases/decreases as instances are created/destroyed.
 static int mInstanceCount = 0;
@@ -1629,6 +1636,39 @@ const DoubleMatrix* RoadRunner::simulate(const Dictionary* dict)
 
 	impl->simulatedSinceReset = true;
 
+    const std::vector<SelectionRecord>& selList = getSelectionList();
+    bool writeToFile = !self.simulateOpt.output_file.empty() && !selList.empty();
+    std::string outfname = changeFileExtensionTo(self.simulateOpt.output_file, ".csv");
+    std::ofstream outfile;
+    int kRowsPerWrite = rr::Config::K_ROWS_PER_WRITE;  // only write to outfile every k rows processed
+    if (kRowsPerWrite < 1) {
+        // there are no checks for validity in rrConfig, so the check is done here.
+        throw std::invalid_argument("Config.K_ROWS_PER_WRITE should be at least 1.");
+    }
+    // used only for initializing double matrices for fixed time step simulations
+    // if writing to output file, this is kRowsPerWrite, i.e. the buffer matrix size
+    // otherwise this is just the full matrix size
+    int bufSize = writeToFile ? kRowsPerWrite : (self.simulateOpt.steps + 1);
+    if (writeToFile) {
+        std::string outfname = changeFileExtensionTo(self.simulateOpt.output_file, ".csv");
+        Log(Logger::LOG_DEBUG) << "Writing simulation result to output file '" << outfname
+            << "'...";
+        outfile = std::ofstream();
+        outfile.open(outfname);
+        if (!outfile) {
+            std::ostringstream ss;
+            ss << "cannot open file '" << outfname << "' for writing.";
+            throw std::invalid_argument(ss.str());
+        }
+
+        // write header
+        outfile << selList[0].to_string();
+        for (int i = 1; i < selList.size(); i++) {
+            outfile << "," << selList[i].to_string();
+        }
+        outfile << "\n";
+    }
+
     // evalute the model with its current state
     self.model->getStateVectorRate(timeStart, 0, 0);
     // Variable Time Step Integration
@@ -1653,12 +1693,19 @@ const DoubleMatrix* RoadRunner::simulate(const Dictionary* dict)
             // optimiziation for certain getValue operations.
             self.model->setIntegration(true);
 
-            int n=0;
+            int i=1;
 
+            // If there is an output file, do not place contraint on max output rows
             while( tout <= timeEnd &&
-              ( !self.simulateOpt.steps || n < self.simulateOpt.steps) &&
-              ( !rr::Config::getInt(rr::Config::MAX_OUTPUT_ROWS) || n < rr::Config::getInt(rr::Config::MAX_OUTPUT_ROWS)) )
+              ( !self.simulateOpt.steps || i < self.simulateOpt.steps) &&
+              ( writeToFile || !rr::Config::getInt(rr::Config::MAX_OUTPUT_ROWS) || i < rr::Config::getInt(rr::Config::MAX_OUTPUT_ROWS)) )
             {
+                // "flush" results to file
+                if (writeToFile && results.size() >= kRowsPerWrite) {
+                    writeDoubleVectorListToStream(outfile, results);
+                    results.clear();
+                }
+
                 Log(Logger::LOG_DEBUG) << "variable step, start: " << tout
                         << ", end: " << timeEnd;
                 tout = self.integrator->integrate(tout, timeEnd - tout);
@@ -1714,7 +1761,12 @@ const DoubleMatrix* RoadRunner::simulate(const Dictionary* dict)
 
                 results.push_back(row);
 
-                ++n;
+                ++i;
+            }
+            // flush leftover result
+            if (writeToFile && results.size() > 0) {
+                writeDoubleVectorListToStream(outfile, results);
+                results.clear();
             }
         }
         catch (EventListenerException& e)
@@ -1756,7 +1808,7 @@ const DoubleMatrix* RoadRunner::simulate(const Dictionary* dict)
         Log(Logger::LOG_DEBUG) << "starting simulation with " << nrCols << " selected columns";
 
         // ignored if same
-        self.simulationResult.resize(self.simulateOpt.steps + 1, nrCols);
+        self.simulationResult.resize(bufSize, nrCols);
 
         try
         {
@@ -1769,6 +1821,9 @@ const DoubleMatrix* RoadRunner::simulate(const Dictionary* dict)
             double next = timeStart + hstep;   // because of fixed steps, the times when the
                                                // value is recorded.
 
+            // for writing to file; only used if output_file is specified
+            // this gets reset to 0 when the buffer matrix is written to output and cleared
+            int bufIndex = 1;
             // index gets bumped in do-while loop.
             for (int i = 1; i < self.simulateOpt.steps + 1;)
             {
@@ -1780,15 +1835,28 @@ const DoubleMatrix* RoadRunner::simulate(const Dictionary* dict)
 
                 assert((tout >= next)
                         && "stochastic integrator did not integrate to end time");
-
                 // get the output, always get at least one output
                 do
                 {
+                    if (writeToFile && bufIndex == kRowsPerWrite) {
+                        writeDoubleMatrixToStream(outfile, self.simulationResult, bufIndex);
+                        // clear results
+                        self.simulationResult = ls::DoubleMatrix(bufSize, nrCols);
+                        bufIndex = 0;
+                    }
                     getSelectedValues(self.simulationResult, i, next);
                     i++;
+                    bufIndex++;
                     next = timeStart + i * hstep;
                 }
                 while((i < self.simulateOpt.steps + 1) && tout > next);
+            }
+            // write leftover stuff
+            if (writeToFile) {
+                if (bufIndex >= 1) {
+                    writeDoubleMatrixToStream(outfile, self.simulationResult, bufIndex);
+                }
+                self.simulationResult = ls::DoubleMatrix();
             }
         }
         catch (EventListenerException& e)
@@ -1817,7 +1885,7 @@ const DoubleMatrix* RoadRunner::simulate(const Dictionary* dict)
         Log(Logger::LOG_DEBUG) << "starting simulation with " << nrCols << " selected columns";
 
         // ignored if same
-        self.simulationResult.resize(self.simulateOpt.steps + 1, nrCols);
+        self.simulationResult.resize(bufSize, nrCols);
 
         try
         {
@@ -1831,8 +1899,17 @@ const DoubleMatrix* RoadRunner::simulate(const Dictionary* dict)
 
             double tout = timeStart;
 
-            for (int i = 1; i < self.simulateOpt.steps + 1; i++)
+            // for write to file
+            int bufIndex = 1;
+
+            for (int i = 1; i < self.simulateOpt.steps + 1; i++, bufIndex++)
             {
+                if (writeToFile && bufIndex == kRowsPerWrite) {
+                    writeDoubleMatrixToStream(outfile, self.simulationResult, bufIndex);
+                    // clear buf
+                    self.simulationResult = ls::DoubleMatrix(bufSize, nrCols);
+                    bufIndex = 0;
+                }
                 Log(Logger::LOG_DEBUG)<<"Step "<<i;
                 double itime = self.integrator->integrate(tout, hstep);
 
@@ -1841,7 +1918,14 @@ const DoubleMatrix* RoadRunner::simulate(const Dictionary* dict)
                 // will return a value just slightly off from the exact time
                 // value.
                 tout = timeStart + i * hstep;
-                getSelectedValues(self.simulationResult, i, tout);
+                getSelectedValues(self.simulationResult, bufIndex, tout);
+            }
+            // write leftover stuff
+            if (writeToFile) {
+                if (bufIndex >= 1) {
+                    writeDoubleMatrixToStream(outfile, self.simulationResult, bufIndex);
+                }
+                self.simulationResult = ls::DoubleMatrix();
             }
         }
         catch (EventListenerException& e)
@@ -2671,6 +2755,8 @@ DoubleMatrix RoadRunner::getConservationMatrix()
                     }
                 }
 
+                // Note that LibStruct::getGammaMatrixLabels() is not used because it merely populates
+                // the rows with indices, whereas we want the Moiety IDs
                 mat.setRowNames(getConservedMoietyIds());
                 mat.setColNames(getLibStruct()->getReorderedSpecies());
             }
@@ -6905,6 +6991,31 @@ void RoadRunner::checkGlobalParameters()
 		}
 
 	}
+}
+void writeDoubleVectorListToStream(std::ostream& out, const DoubleVectorList& results) {
+    for (const std::vector<double>& row : results) {
+        out << row[0];
+        for (int i = 1; i < row.size(); i++) {
+            out << "," << row[i];
+        }
+        out << "\n";
+    }
+    // clear buffer
+    out.flush();
+}
+
+void writeDoubleMatrixToStream(std::ostream& out, const ls::DoubleMatrix& results, int nrows) {
+    for (int row = 0; row < nrows; row++)
+    {
+        const double* prow = results[row];
+        out << prow[0];
+        for (int col = 1; col < results.numCols(); col++) {
+            out << "," << prow[col];
+        }
+        out << "\n";
+    }
+    // clear buffer
+    out.flush();
 }
 
 } //namespace

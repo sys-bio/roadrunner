@@ -49,7 +49,19 @@ PyObject* rrPyString_FromString(const char* s);
  */
 PyObject* rrPyString_FromStringAndSize(const char* s, Py_ssize_t size);
 
+/**
+ * @brief Creates a Python string/unicode object from a given UTF-8 buffer
+ * @details Python 2/3 API independent.
+ * Similar to @ref rrPyString_FromString but allows the user to
+ * specify the length of the buffer.
+ */
 char* rrPyString_AsString(PyObject* s);
+
+/**
+ * @brief Gets the current Python error message as C++ string
+ * @details You take ownership of returned string.
+ */
+char* rrGetPyErrMessage();
 
 class Dictionary;
 

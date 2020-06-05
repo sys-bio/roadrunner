@@ -3645,7 +3645,7 @@ class RoadRunner(_object):
         """
         return self.values(types).__iter__()
 
-    def simulate(self, start=None, end=None, points=None, selections=None, steps=None):
+    def simulate(self, start=None, end=None, points=None, selections=None, steps=None, output_file=""):
         '''
         Simulate the current SBML model.
 
@@ -3733,13 +3733,18 @@ class RoadRunner(_object):
         if steps is not None:
             o.steps = steps
 
+        o.output_file = output_file
+
         result = self._simulate(o)
 
         o.steps = originalSteps
 
-        if result.shape[0] > Config.getValue(Config.MAX_OUTPUT_ROWS):
-            warnings.warn("Simulation returned more points than max output rows specified. "
-                          "Try incresing the number of maximum output rows or minimum step size.")
+        if result.shape[0] > Config::MAX_OUTPUT_ROWS:
+            warn_msg = "Simulation returned more points than max output rows specified. Try "\
+                    + "setting output_file to directly write results to a file, or increasing "\
+                    + "Config.MAX_OUTPUT_ROWS."
+
+            warnings.warn(warn_msg)
 
         return result
 

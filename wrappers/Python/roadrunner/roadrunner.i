@@ -1164,33 +1164,46 @@ namespace std { class ostream{}; }
             """
             return self.values(types).__iter__()
 
-        def simulate(self, start=None, end=None, points=None, selections=None, steps=None):
+        def simulate(self, start=None, end=None, points=None, selections=None, output_file=None, steps=None):
             '''
-            Simulate the current SBML model.
+            Simulate and optionally plot current SBML model. This is the one stop shopping method
+            for simulation and plotting. 
 
-            simulate accepts a up to four positional arguments. The first four (optional) arguments are treated as:
+            simulate accepts up to five positional arguments. 
 
-            1: start (the simulation starting time)
+            The first five (optional) arguments are treated as:
+                    
+                1: Start Time, if this is a number. 
 
-            2: end (the simulation end time)
+                2: End Time, if this is a number.
 
-            3: points (the number of output points)
+                3: Number of points, if this is a number.
+                    
+                4: List of Selections. A list of variables to include in the output, e.g. ``['time','A']`` for a model with species ``A``. More below.
 
-            4: List of Selections.
+                5: output file path. The file to which simulation results will be written. If this is specified and
+                nonempty, simulation output will be written to output_file every Config::K_ROWS_PER_WRITE generated.
+                Note that simulate() will not return the result matrix if it is writing to output_file.
+                It will also not keep any simulation data, so in that case one should not call ``r.plot()``
+                without arguments. This should be specified when one cannot, or does not want to, keep the 
+                entire result matrix in memory.
 
-            3: steps (the number of output steps, can be only used when number points are not supplied)
 
             All five of the positional arguments are optional. If any of the positional arguments are
-            supplied as a list of strings, then they are interpreted as a list of selections.
+            a list of string instead of a number, then they are interpreted as a list of selections. 
 
+            There are a number of ways to call simulate.
 
-            There is only one correct way to call simulate. If one positional argument is specified,
-            it is the start time. If two are specified, they are the start and end time.
-            The third argument is the number of output points!
-            The fourth argument, if it is supplied, must be a list of strings that correspond to
-            proper timecourse selections as in timeCourseSelections.
-            The fifth argument, if supplied via keyword, is the number of intervals, not the
-            number of points. Specifying intervals and points is an error.
+            1: With no arguments. In this case, the current set of options from the previous 
+              ``simulate`` call will be used. If this is the first time ``simulate`` is called, 
+              then a default set of values is used. The default set of values are (start = 0, end = 5, points = 51).
+
+            2: With up to five positions arguments, described above. 
+
+            Finally, you can pass steps keyword argument instead of points. 
+
+            steps (Optional) Number of steps at which the output is sampled where the samples are evenly spaced. Steps = points-1. Steps and points may not both be specified.
+
             '''
 
             # fix issue #401 - this will check if a list was positioned at 3rd position. This allows users to
@@ -1228,6 +1241,14 @@ namespace std { class ostream{}; }
                 if steps < 1:
                     raise ValueError('Number of steps cannot be less than 1')
 
+            has_output_file = False
+            if output_file is not None:
+                if not isinstance(output_file, str):
+                    raise ValueError('Output file path must be a string')
+
+                has_output_file = bool(output_file)  # if not empty string
+
+
             # end error checking
 
             o = self.__simulateOptions
@@ -1249,12 +1270,22 @@ namespace std { class ostream{}; }
             if selections is not None:
                 self.timeCourseSelections = selections
 
+            if has_output_file:
+                o.output_file = output_file
+            else:
+                o.output_file = ""
+
             if steps is not None:
                 o.steps = steps
 
             result = self._simulate(o)
 
             o.steps = originalSteps
+
+            if has_output_file:
+                # result should be empty here.
+                return 'Your results have been written to "{}".'.format(output_file)\
+                    + 'To obtain the results directly, pass None or "" to the output_file keyword argument'
 
             if result.shape[0] > Config.getValue(Config.MAX_OUTPUT_ROWS):
                 warnings.warn("Simulation returned more points than max output rows specified. "

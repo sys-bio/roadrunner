@@ -139,6 +139,22 @@ char* rrPyString_AsString(PyObject* s) {
 #endif
 }
 
+char* rrGetPyErrMessage() {
+    // It is a bit convoluted to get the Python error message as a string
+    // from https://stackoverflow.com/a/1418703
+    // Don't need to free these as they are only "references"
+    PyObject* ptype, * pvalue, * ptraceback;
+    PyErr_Fetch(&ptype, &pvalue, &ptraceback);
+
+    if (ptype == NULL) {
+        return "No Error";
+    }
+
+    //Get error message
+    char* pStrErrorMessage = rrPyString_AsString(pvalue);
+    return pStrErrorMessage;
+}
+
 PyObject* Variant_to_py(const Variant& var)
 {
     PyObject *result = 0;
@@ -246,15 +262,16 @@ Variant Variant_from_py(PyObject* py)
 		// Borrowed reference.
 		PyObject* err = PyErr_Occurred();
 		if (err) {
+            char* message = rrGetPyErrMessage();
 			std::stringstream ss;
 			ss << "Could not convert Python long to C ";
 			ss << sizeof(long) * 8 << " bit long: ";
-			ss << rrPyString_getCPPString(err);
-
+            ss << std::string(message);
 			// clear error, raise our own
 			PyErr_Clear();
+            rr_strfree(message);
 
-			invalid_argument(ss.str());
+			throw invalid_argument(ss.str());
 		}
 
 		return var;
@@ -907,9 +924,9 @@ PyObject* NamedArray_New(int nd, npy_intp *dims, double *data, int pyFlags,
                         pyFlags, NULL);
 
         if (array == NULL) {
-            PyObject* pystr = PyObject_Str(PyErr_Occurred());
-            const char* error = rrPyString_AsString(pystr);
+            const char* error = rrGetPyErrMessage();
             Log(Logger::LOG_CRITICAL) << error;
+            rr_strfree(error);
             return NULL;
         }
 

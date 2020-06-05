@@ -163,6 +163,9 @@ namespace rr
 					}
 				}
 			}
+
+            it = settings.find("output_file");
+			output_file = (it != settings.end()) ? it->second : "";
 		}
 	}
 
@@ -201,7 +204,9 @@ namespace rr
 
 		ss << "'start' : " << start << "," << std::endl;
 
-		ss << "'duration' : " << duration;
+        ss << "'duration' : " << duration << std::endl;
+
+        ss << "'output_file' : " << output_file;
 
 		std::vector<std::string> keys = getKeys();
 

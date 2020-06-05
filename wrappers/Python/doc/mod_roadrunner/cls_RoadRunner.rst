@@ -902,39 +902,46 @@ All simulation related tasks can be accomplished with the single ``simulate`` me
    :module: RoadRunner
 
 
+    Simulate current SBML model.
 
-   Simulate and optionally plot current SBML model. This is the one stop shopping method
-   for simulation and plotting. 
+    simulate accepts up to five positional arguments. 
 
-   simulate accepts a up to four positional arguments. 
-
-   The first four (optional) arguments are treated as:
+    The first five (optional) arguments are treated as:
             
-      1: Start Time, if this is a number. 
+        1: Start Time, if this is a number. 
 
-      2: End Time, if this is a number.
+        2: End Time, if this is a number.
 
-      3: Number of points, if this is a number.
+        3: Number of points, if this is a number.
             
-      4: List of Selections. A list of variables to include in the output, e.g. ``['time','A']`` for a model with species ``A``. More below.
+        4: List of Selections. A list of variables to include in the output, e.g. ``['time','A']`` for a model with species ``A``. More below.
 
-   All four of the positional arguments are optional. If any of the positional arguments are
-   a list of string instead of a number, then they are interpreted as a list of selections. 
-   
-   There are a number of ways to call simulate.
+        5: output file path. The file to which simulation results will be written. If this is specified and
+        nonempty, simulation output will be written to output_file every Config::K_ROWS_PER_WRITE generated.
+        Note that simulate() will not return the result matrix if it is writing to output_file.
+        It will also not keep any simulation data, so in that case one should not call ``r.plot()``
+        without arguments. This should be specified when one cannot, or does not want to, keep the 
+        entire result matrix in memory.
 
-   1: With no arguments. In this case, the current set of options from the previous 
+
+    All five of the positional arguments are optional. If any of the positional arguments are
+    a list of string instead of a number, then they are interpreted as a list of selections. 
+
+    There are a number of ways to call simulate.
+
+    1: With no arguments. In this case, the current set of options from the previous 
       ``simulate`` call will be used. If this is the first time ``simulate`` is called, 
       then a default set of values is used. The default set of values are (start = 0, end = 5, points = 51).
 
-   2: With up to four positions arguments, described above. 
-   
-   Finally, you can pass steps keyword argument instead of points. 
-   
-   steps (Optional) Number of steps at which the output is sampled where the samples are evenly spaced. Steps = points-1. Steps and points may not both be specified.
+    2: With up to five positions arguments, described above. 
+
+    Finally, you can pass steps keyword argument instead of points. 
+
+    steps (Optional) Number of steps at which the output is sampled where the samples are evenly spaced. Steps = points-1. Steps and points may not both be specified.
 
    :returns: a numpy array with each selected output time series being a
-             column vector, and the 0'th column is the simulation time.
+             column vector, and the 0'th column is the simulation time; or
+             if output_file is specified and nonempty, a message string
    :rtype: numpy.ndarray
 
    

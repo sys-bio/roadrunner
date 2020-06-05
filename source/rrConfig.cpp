@@ -136,9 +136,10 @@ static Variant values[] =  {
     Variant(true),      // LLVM_SYMBOL_CACHE
     Variant(true),      // OPTIMIZE_REACTION_RATE_SELECTION
     Variant(true),     // LOADSBMLOPTIONS_PERMISSIVE
-    Variant(20000),      // MAX_OUTPUT_ROWS
+    Variant(40000),      // MAX_OUTPUT_ROWS
     Variant(false),      // ALLOW_EVENTS_IN_STEADY_STATE_CALCULATIONS
 	Variant(true),		// VALIDATION_IN_REGENERATION
+	Variant(1000),		// K_ROWS_PER_WRITE
     // add space after develop keys to clean up merging
 
 
@@ -251,6 +252,7 @@ static void getKeyNames(StringIntMap& keys)
     keys["MAX_OUTPUT_ROWS"] = rr::Config::MAX_OUTPUT_ROWS;
     keys["ALLOW_EVENTS_IN_STEADY_STATE_CALCULATIONS"] = rr::Config::ALLOW_EVENTS_IN_STEADY_STATE_CALCULATIONS;
 	keys["VALIDATION_IN_REGENERATION"] = rr::Config::VALIDATION_IN_REGENERATION;
+    keys["K_ROWS_PER_WRITE"] = rr::Config::K_ROWS_PER_WRITE;
 
 
     // add space after develop keys to clean up merging.
