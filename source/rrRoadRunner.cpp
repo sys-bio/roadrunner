@@ -2812,7 +2812,7 @@ DoubleMatrix RoadRunner::getL0Matrix()
     ls::LibStructural *ls = getLibStruct();
 
     // the libstruct getL0Matrix returns a NEW matrix,
-    // nice consistent API yes?!?!?
+    // nice consistent wrappers yes?!?!?
     DoubleMatrix *tmp = ls->getL0Matrix();
     DoubleMatrix m = *tmp;
     delete tmp;
@@ -3462,6 +3462,44 @@ void RoadRunner::setGlobalParameterByIndex(const int index, const double value)
     }
 
     impl->model->setGlobalParameterValues(1, &index, &value);
+}
+
+void RoadRunner::setGlobalParameterByName(const std::string& param, const double value)
+{
+    if (!impl->model)
+    {
+        throw CoreException(gEmptyModelMessage);
+    }
+    int index_of_param;
+    std::vector<std::string> global_parameter_ids = getGlobalParameterIds();
+    auto iterator = std::find(global_parameter_ids.begin(), global_parameter_ids.end(), param);
+    if (iterator == global_parameter_ids.end()){
+        throw std::invalid_argument("std::invalid_argument: RoadRunner::setGlobalParameterByName "
+                                    "Parameter \""+param+"\" not found in model");
+    } else {
+        index_of_param = std::distance(global_parameter_ids.begin(), iterator);
+    }
+    impl->model->setGlobalParameterValues(1, &index_of_param, &value);
+}
+
+double RoadRunner::getGlobalParameterByName(const std::string& param)
+{
+    if (!impl->model)
+    {
+        throw CoreException(gEmptyModelMessage);
+    }
+    int index_of_param;
+    std::vector<std::string> global_parameter_ids = getGlobalParameterIds();
+    auto iterator = std::find(global_parameter_ids.begin(), global_parameter_ids.end(), param);
+    if (iterator == global_parameter_ids.end()){
+        throw std::invalid_argument("std::invalid_argument: RoadRunner::setGlobalParameterByName "
+                                    "Parameter \""+param+"\" not found in model");
+    } else {
+        index_of_param = std::distance(global_parameter_ids.begin(), iterator);
+    }
+    double value;
+    impl->model->getGlobalParameterValues(1, &index_of_param, &value);
+    return value;
 }
 
 // Help("Returns the value of a global parameter by its index")
@@ -6241,7 +6279,7 @@ void RoadRunner::addRateRule(const std::string& vid, const std::string& formula,
 	regenerate(forceRegenerate);
 }
 
-// TODO: update C API
+// TODO: update C wrappers
 void RoadRunner::removeRules(const std::string& vid, bool useInitialValueAsCurrent, bool forceRegenerate)
 {
 	using namespace libsbml;
@@ -7025,7 +7063,7 @@ void RoadRunner::getAllVariables(const libsbml::ASTNode* node, std::set<std::str
 bool RoadRunner::hasVariable(const libsbml::ASTNode* node, const string& sid)
 {
 	// DFS
-	// TODO: faster API to iterate all childeren node?
+	// TODO: faster wrappers to iterate all childeren node?
 	if (node == NULL) return false;
 	const char* temp = node->getName();
 	if (!node->isOperator() && !node->isNumber() && sid.compare(node->getName()) == 0) 
