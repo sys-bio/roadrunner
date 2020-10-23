@@ -1,125 +1,91 @@
-CMAKE_MINIMUM_REQUIRED(VERSION 2.6.3 FATAL_ERROR)
-PROJECT(RR_CXX_API_TESTS)
+###########################################################
+#   Roadrunner testing
+#
+
+# add the googletest subdirectory to the build
+#add_subdirectory(googletest-release-1.10.0)
 
 set(target cxx_api_tests)
 
 set(tests
-tests/base
-tests/sbml_test_suite
-tests/steady_state
-tests/stoichiometric
-tests/model_editing
-tests/state_saving
-)
+        tests/base
+        tests/sbml_test_suite
+        tests/steady_state
+        tests/stoichiometric
+        tests/model_editing
+        tests/state_saving
+        tests/other_tests
+        )
 
-add_executable( ${target} 
-main
-src/Args
-src/rrTestUtils
-${tests}
-)
+add_executable(${target}
+        main
+        src/Args
+        src/rrTestUtils
+        ${tests}
+        )
 
-set_property(TARGET ${target}  
-             PROPERTY  COMPILE_DEFINITIONS 
-LIBSBML_USE_CPP_NAMESPACE
-LIBSBML_STATIC
-STATIC_LIBSTRUCT
-STATIC_PUGI
-STATIC_RR
-STATIC_NLEQ1
-STATIC_NLEQ2
-) 
+#set(CMAKE_CXX_FLAGS "-fno-rtti ${CMAKE_CXX_FLAGS}")
 
-link_directories(
-${THIRD_PARTY_INSTALL_FOLDER}/lib
-)
+add_compile_definitions(${target} STATIC_RR)
 
-include_directories(
-src
-${RR_ROOT}
-${THIRD_PARTY_FOLDER}/unit_test/src
-)
+target_include_directories(${target} PRIVATE
+        src
+        ${UNIT_TEST_INCLUDE_DIR}
+        ${INCLUDE_DIRECTORIES}
+        )
 
-if(UNIX)
-set(staticLibPrefix ".a")
-set(sharedLibPrefix ".so")
-else()
-set(staticLibPrefix "")
-set(sharedLibPrefix "")
-endif()
+target_link_libraries(${target} PRIVATE
+        roadrunner-static
+        ${TEST_TARGETS}
+        #        ${LINK_LIBRARIES}
+        )
 
-if(WIN32)
-target_link_libraries (${target} 
-roadrunner-static
-unit_test-static${staticLibPrefix}
-)
-endif()
+add_dependencies(${target} unit_test-static roadrunner-static)
+if (UNIX)
+    target_compile_options(${target} PRIVATE -frtti)
+endif ()
+set(resultsDir "${CMAKE_CURRENT_SOURCE_DIR}/reports")
+set(resultsFile "${resultsDir}/cpp_api_tests-${CMAKE_CXX_COMPILER_ID}-${CMAKE_CXX_COMPILER_VERSION}")
 
-if(UNIX) #Don't know why static roadrunner fails....?
-target_link_libraries (${target} 
-roadrunner-static
-libunit_test-static${staticLibPrefix}
-#nleq-static.a
-#rr-libstruct-static
-lapack
-blas
-f2c
-#libsbml-static.a
-#libxml2.so
-#sundials_nvecserial.a
-#sundials_cvode.a
-#pthread
-#poco_foundation-static.a
-#dl
-)
-endif()
+# TODO move the models directory
+set(sbmlModelsDir "${CMAKE_CURRENT_SOURCE_DIR}/models")
+set(compilerFolder "${CMAKE_CURRENT_SOURCE_DIR}/compilers")
+set(supportCodeFolder "${CMAKE_CURRENT_SOURCE_DIR}/rr_support")
 
-#set(resultsDir "${CMAKE_SOURCE_DIR}/reports")
-#
-#if(${BORLAND})
-#set(resultsFile "${resultsDir}/cpp_api_tests-cg_xe1.xml")
-#elseif(${MSVC})
-#set(resultsFile "${resultsDir}/cpp_api_tests-vs_2010.xml")
-#elseif(CMAKE_COMPILER_IS_GNUCC)
-#set(resultsFile "${resultsDir}/cpp_api_tests-gcc.xml")
-#else()
-#set(resultsFile "${resultsDir}/cpp_api_tests_unknown_compiler.xml")
-#endif()
-#
-#set(sbmlModelsDir       "${CMAKE_SOURCE_DIR}/models")
-#set(compilerFolder      "${CMAKE_SOURCE_DIR}/third_party/compilers/tcc")
-#set(supportCodeFolder   "/r/rrl/rr_support")
-#
-#if(UNIX)
-#set(compilerFolder     "")
-#endif()
-#
-#Message("SupportCodeFolder is: " ${supportCodeFolder})
-# Call like this -mr:\rrl\models -rr:\rrl\wiki\reports\file -tr:\rrTemp -sSupportCodeFolder -lCompilerFolder
+if (UNIX)
+    set(compilerFolder "")
+endif ()
+
+Message("SupportCodeFolder is: " ${supportCodeFolder})
+# Call like this -mr:/rrl/models -rr:/rrl/wiki/reports/file -tr:/rrTemp -sSupportCodeFolder -lCompilerFolder
 #add_custom_command(
 #    OUTPUT ${resultsFile}
 #    COMMAND ${target} -m${sbmlModelsDir} -l${compilerFolder} -s${supportCodeFolder} -r${resultsFile} -v
 #    WORKING_DIRECTORY ${PROJECT_SOURCE_DIR}
-#    COMMENT "=========== Generating CPP-API Wiki reports =============="
-#    VERBATIM 
+#    COMMENT "=========== Generating CPP-wrappers Wiki reports =============="
+#    VERBATIM
 #    )
 #
-#add_custom_target(cppTestingReport ALL DEPENDS ${resulsFile}
-#    COMMAND ${target} -m${sbmlModelsDir} -l${compilerFolder} -s"${supportCodeFolder}" -r${resultsFile} -v 
-#    COMMENT "=========== Generating CPP-API Wiki reports =============="
-#    COMMENT "Executing ${target} -m${sbmlModelsDir} -l${compilerFolder} -s${supportCodeFolder} -r${resultsFile} -v"
+set(CMD "${target} -m${sbmlModelsDir} -l${compilerFolder} -s${supportCodeFolder} -r${resultsFile} -v")
+MESSAGE(STATUS "CMD ${CMD}")
+add_custom_target(cppTestingReport ALL
+        COMMAND ${CMD}
+        COMMENT "=========== Generating CPP-API Wiki reports =============="
+        COMMENT ${CMD}
+        COMMENT "Executing ${target} -m${sbmlModelsDir} -l${compilerFolder} -s${supportCodeFolder} -r${resultsFile} -v"
+        )
+
+#add_dependencies(cppTestingReport cxx_api_tests)
 #
+#install(TARGETS ${target}
+#        DESTINATION bin
+#        COMPONENT testing
+#        )
+#
+#install(
+#        FILES run_cpp_tests.bat
+#        DESTINATION bin
+#        COMPONENT testing
 #)
-
-install (TARGETS ${target}  		
-DESTINATION bin 
-COMPONENT testing
-)
-
-install(
-FILES run_cpp_tests.bat 
-DESTINATION bin
-COMPONENT testing
-)
-
+#
 

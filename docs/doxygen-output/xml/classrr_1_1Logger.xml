@@ -1,0 +1,496 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.20" xml:lang="en-US">
+  <compounddef id="classrr_1_1Logger" kind="class" language="C++" prot="public">
+    <compoundname>rr::Logger</compoundname>
+    <includes refid="rrLogger_8h" local="no">rrLogger.h</includes>
+      <sectiondef kind="public-type">
+      <memberdef kind="enum" id="classrr_1_1Logger_1a72a52e7fe7be48e2ecad639c641ee8aa" prot="public" static="no" strong="no">
+        <type></type>
+        <name>Level</name>
+        <enumvalue id="classrr_1_1Logger_1a72a52e7fe7be48e2ecad639c641ee8aaac77ca2446a47c06b0cce63108ea18c18" prot="public">
+          <name>LOG_CURRENT</name>
+          <initializer>= 0</initializer>
+          <briefdescription>
+          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="classrr_1_1Logger_1a72a52e7fe7be48e2ecad639c641ee8aaa11cc16555fcf30d3c251bdc0c15a7f03" prot="public">
+          <name>LOG_FATAL</name>
+          <initializer>= 1</initializer>
+          <briefdescription>
+<para>Use the current level <ndash/> don&apos;t change the level from what it is. </para>
+          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="classrr_1_1Logger_1a72a52e7fe7be48e2ecad639c641ee8aaa8296259b3d5f3188030abd9b5ee0609a" prot="public">
+          <name>LOG_CRITICAL</name>
+          <briefdescription>
+<para>A fatal error. The application will most likely terminate. This is the highest priority. </para>
+          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="classrr_1_1Logger_1a72a52e7fe7be48e2ecad639c641ee8aaafdb1b7e45fd5de96e098cd30c552fa7b" prot="public">
+          <name>LOG_ERROR</name>
+          <briefdescription>
+<para>A critical error. The application might not be able to continue running successfully. </para>
+          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="classrr_1_1Logger_1a72a52e7fe7be48e2ecad639c641ee8aaaa6900cf102f98dfa521d7c11dc59344c" prot="public">
+          <name>LOG_WARNING</name>
+          <briefdescription>
+<para>An error. An operation did not complete successfully, but the application as a whole is not affected. </para>
+          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="classrr_1_1Logger_1a72a52e7fe7be48e2ecad639c641ee8aaaa3e3ead40b6448c9d7893f1a33573984" prot="public">
+          <name>LOG_NOTICE</name>
+          <briefdescription>
+<para>A warning. An operation completed with an unexpected result. </para>
+          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="classrr_1_1Logger_1a72a52e7fe7be48e2ecad639c641ee8aaa4877e8c5192b123e2f8e71cc538df17b" prot="public">
+          <name>LOG_INFORMATION</name>
+          <briefdescription>
+<para>A notice, which is an information with just a higher priority. </para>
+          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="classrr_1_1Logger_1a72a52e7fe7be48e2ecad639c641ee8aaadaf226f4b284b87851ddb9a9f7ddd0d5" prot="public">
+          <name>LOG_DEBUG</name>
+          <briefdescription>
+<para>An informational message, usually denoting the successful completion of an operation. </para>
+          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="classrr_1_1Logger_1a72a52e7fe7be48e2ecad639c641ee8aaa415b215c622543781b0dab9ddb0cc5cb" prot="public">
+          <name>LOG_TRACE</name>
+          <briefdescription>
+<para>A debugging message. </para>
+          </briefdescription>
+          <detaileddescription>
+<para>A tracing message. This is the lowest priority. </para>
+          </detaileddescription>
+        </enumvalue>
+        <briefdescription>
+<para>same as Poco level, repeat here to avoid including any Poco files as Poco is usually linked statically so third parties would not need to have Poco installed. </para>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="rrLogger.h" line="60" column="5" bodyfile="rrLogger.h" bodystart="61" bodyend="71"/>
+      </memberdef>
+      </sectiondef>
+      <sectiondef kind="public-static-func">
+      <memberdef kind="function" id="classrr_1_1Logger_1a932fba9c85c6a5eb806851e06b02e957" prot="public" static="yes" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>void rr::Logger::setLevel</definition>
+        <argsstring>(int level=LOG_CURRENT)</argsstring>
+        <name>setLevel</name>
+        <param>
+          <type>int</type>
+          <declname>level</declname>
+          <defval>LOG_CURRENT</defval>
+        </param>
+        <briefdescription>
+<para>sets the logging level to one a value from <ref refid="classrr_1_1Logger_1a72a52e7fe7be48e2ecad639c641ee8aa" kindref="member">Logger::Level</ref> </para>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="rrLogger.h" line="76" column="17" bodyfile="rrLogger.cpp" bodystart="203" bodyend="215"/>
+      </memberdef>
+      <memberdef kind="function" id="classrr_1_1Logger_1ad6b48d767c766eeb3db7505a59631b6b" prot="public" static="yes" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>int</type>
+        <definition>int rr::Logger::getLevel</definition>
+        <argsstring>()</argsstring>
+        <name>getLevel</name>
+        <briefdescription>
+<para>get the current logging level. </para>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="rrLogger.h" line="81" column="16" bodyfile="rrLogger.cpp" bodystart="217" bodyend="224"/>
+      </memberdef>
+      <memberdef kind="function" id="classrr_1_1Logger_1adb9e082ec2b6d896fe4f8f3158cf8dbc" prot="public" static="yes" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>void rr::Logger::disableLogging</definition>
+        <argsstring>()</argsstring>
+        <name>disableLogging</name>
+        <briefdescription>
+<para>Suppresses all logging output. </para>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="rrLogger.h" line="86" column="17" bodyfile="rrLogger.cpp" bodystart="227" bodyend="240"/>
+      </memberdef>
+      <memberdef kind="function" id="classrr_1_1Logger_1a65631bebd188023ff23a263e8d1b2ea2" prot="public" static="yes" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>void rr::Logger::disableConsoleLogging</definition>
+        <argsstring>()</argsstring>
+        <name>disableConsoleLogging</name>
+        <briefdescription>
+<para>stops logging to the console, but file logging may continue. </para>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="rrLogger.h" line="91" column="17" bodyfile="rrLogger.cpp" bodystart="475" bodyend="487"/>
+      </memberdef>
+      <memberdef kind="function" id="classrr_1_1Logger_1a859a9358480196476351e5e2a3466b71" prot="public" static="yes" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>void rr::Logger::enableConsoleLogging</definition>
+        <argsstring>(int level=LOG_CURRENT)</argsstring>
+        <name>enableConsoleLogging</name>
+        <param>
+          <type>int</type>
+          <declname>level</declname>
+          <defval>LOG_CURRENT</defval>
+        </param>
+        <briefdescription>
+<para>turns on console logging at the given level. </para>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="rrLogger.h" line="96" column="17" bodyfile="rrLogger.cpp" bodystart="242" bodyend="261"/>
+      </memberdef>
+      <memberdef kind="function" id="classrr_1_1Logger_1a2353c535f4e74dead4f0f1267556a906" prot="public" static="yes" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>void rr::Logger::enableFileLogging</definition>
+        <argsstring>(const std::string &amp;fileName=&quot;&quot;, int level=LOG_CURRENT)</argsstring>
+        <name>enableFileLogging</name>
+        <param>
+          <type>const std::string &amp;</type>
+          <declname>fileName</declname>
+          <defval>&quot;&quot;</defval>
+        </param>
+        <param>
+          <type>int</type>
+          <declname>level</declname>
+          <defval>LOG_CURRENT</defval>
+        </param>
+        <briefdescription>
+<para>turns on file logging to the given file as the given level. </para>
+        </briefdescription>
+        <detaileddescription>
+<para>If fileName is an empty string, then this will use the file specified in the <ref refid="classrr_1_1Config_1aed7c550b9e34222675cd152c9154d053aebebe893536932bb96d066c77d56ea1f" kindref="member">Config::LOGGER_LOG_FILE_PATH</ref>. If this is empty, a file called &quot;roadrunner.log&quot; will be created in the temp directory.</para>
+<para>The temp directory may be specified via <ref refid="classrr_1_1Config_1aed7c550b9e34222675cd152c9154d053aeed2c355140f97162b0a894e6c3c7710" kindref="member">Config::TEMP_DIR_PATH</ref>. If this is empty, then the system spefified temp dir is used. </para>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="rrLogger.h" line="110" column="17" bodyfile="rrLogger.cpp" bodystart="277" bodyend="330"/>
+      </memberdef>
+      <memberdef kind="function" id="classrr_1_1Logger_1a64d56c09af0322f3ec3164f4376fd624" prot="public" static="yes" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>void rr::Logger::disableFileLogging</definition>
+        <argsstring>()</argsstring>
+        <name>disableFileLogging</name>
+        <briefdescription>
+<para>turns off file logging, but has no effect on console logging. </para>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="rrLogger.h" line="116" column="17" bodyfile="rrLogger.cpp" bodystart="263" bodyend="275"/>
+      </memberdef>
+      <memberdef kind="function" id="classrr_1_1Logger_1adc95de06b2cfb00d95b327329893e767" prot="public" static="yes" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>std::string</type>
+        <definition>std::string rr::Logger::getCurrentLevelAsString</definition>
+        <argsstring>()</argsstring>
+        <name>getCurrentLevelAsString</name>
+        <briefdescription>
+<para>get the textural form of the current logging level. </para>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="rrLogger.h" line="121" column="24" bodyfile="rrLogger.cpp" bodystart="470" bodyend="473"/>
+      </memberdef>
+      <memberdef kind="function" id="classrr_1_1Logger_1a40f208d7bf2af73894ba3872296dbe9c" prot="public" static="yes" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>std::string</type>
+        <definition>std::string rr::Logger::getFileName</definition>
+        <argsstring>()</argsstring>
+        <name>getFileName</name>
+        <briefdescription>
+<para>get the name of the currently used log file. </para>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="rrLogger.h" line="126" column="24" bodyfile="rrLogger.cpp" bodystart="499" bodyend="502"/>
+      </memberdef>
+      <memberdef kind="function" id="classrr_1_1Logger_1a3a660978ecbd144b2c2c3aee17b5950b" prot="public" static="yes" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>void rr::Logger::setFormattingPattern</definition>
+        <argsstring>(const std::string &amp;format)</argsstring>
+        <name>setFormattingPattern</name>
+        <param>
+          <type>const std::string &amp;</type>
+          <declname>format</declname>
+        </param>
+        <briefdescription>
+<para>Internally, <ref refid="classrr_1_1RoadRunner" kindref="compound">RoadRunner</ref> uses the Poco logging framework, so we can custom format logging output based on a formatting pattern string. </para>
+        </briefdescription>
+        <detaileddescription>
+<para>The format pattern is used as a template to format the message and is copied character by character except for the following special characters, which are replaced by the corresponding value.</para>
+<para>An example pattern of &quot;%Y-%m-%d %H:%M:%S %p: %t&quot;</para>
+<para>would produce the following output:</para>
+<para>2013-10-25 14:12:45 Fatal: console and file: A fatal error 2013-10-25 14:12:45 Critical: console and file: A critical error 2013-10-25 14:12:45 Error: console and file: An error 2013-10-25 14:12:45 Warning: console and file: A warning. 2013-10-25 14:12:45 Notice: console and file: A notice.</para>
+<para>The following formatting pattern descriptions is copied from the Poco documentation:</para>
+<para><itemizedlist>
+<listitem><para>s - message source</para>
+</listitem><listitem><para>t - message text</para>
+</listitem><listitem><para>l - message priority level (1 .. 7)</para>
+</listitem><listitem><para>p - message priority (Fatal, Critical, Error, Warning, Notice, Information, Debug, Trace)</para>
+</listitem><listitem><para>q - abbreviated message priority (F, C, E, W, N, I, D, T)</para>
+</listitem><listitem><para>P - message process identifier</para>
+</listitem><listitem><para>T - message thread name</para>
+</listitem><listitem><para>I - message thread identifier (numeric)</para>
+</listitem><listitem><para>N - node or host name</para>
+</listitem><listitem><para>U - message source file path (empty string if not set)</para>
+</listitem><listitem><para>u - message source line number (0 if not set)</para>
+</listitem><listitem><para>w - message date/time abbreviated weekday (Mon, Tue, ...)</para>
+</listitem><listitem><para>W - message date/time full weekday (Monday, Tuesday, ...)</para>
+</listitem><listitem><para>b - message date/time abbreviated month (Jan, Feb, ...)</para>
+</listitem><listitem><para>B - message date/time full month (January, February, ...)</para>
+</listitem><listitem><para>d - message date/time zero-padded day of month (01 .. 31)</para>
+</listitem><listitem><para>e - message date/time day of month (1 .. 31)</para>
+</listitem><listitem><para>f - message date/time space-padded day of month ( 1 .. 31)</para>
+</listitem><listitem><para>m - message date/time zero-padded month (01 .. 12)</para>
+</listitem><listitem><para>n - message date/time month (1 .. 12)</para>
+</listitem><listitem><para>o - message date/time space-padded month ( 1 .. 12)</para>
+</listitem><listitem><para>y - message date/time year without century (70)</para>
+</listitem><listitem><para>Y - message date/time year with century (1970)</para>
+</listitem><listitem><para>H - message date/time hour (00 .. 23)</para>
+</listitem><listitem><para>h - message date/time hour (00 .. 12)</para>
+</listitem><listitem><para>a - message date/time am/pm</para>
+</listitem><listitem><para>A - message date/time AM/PM</para>
+</listitem><listitem><para>M - message date/time minute (00 .. 59)</para>
+</listitem><listitem><para>S - message date/time second (00 .. 59)</para>
+</listitem><listitem><para>i - message date/time millisecond (000 .. 999)</para>
+</listitem><listitem><para>c - message date/time centisecond (0 .. 9)</para>
+</listitem><listitem><para>F - message date/time fractional seconds/microseconds (000000 - 999999)</para>
+</listitem><listitem><para>z - time zone differential in ISO 8601 format (Z or +NN.NN)</para>
+</listitem><listitem><para>Z - time zone differential in RFC format (GMT or +NNNN)</para>
+</listitem><listitem><para>E - epoch time (UTC, seconds since midnight, January 1, 1970)</para>
+</listitem><listitem><para>%[name] - the value of the message parameter with the given name</para>
+</listitem><listitem><para>%% - percent sign </para>
+</listitem></itemizedlist>
+</para>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="rrLogger.h" line="188" column="17" bodyfile="rrLogger.cpp" bodystart="333" bodyend="342"/>
+      </memberdef>
+      <memberdef kind="function" id="classrr_1_1Logger_1a7b4e8ed1391f383f27ff6f12d951beff" prot="public" static="yes" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>std::string</type>
+        <definition>std::string rr::Logger::getFormattingPattern</definition>
+        <argsstring>()</argsstring>
+        <name>getFormattingPattern</name>
+        <briefdescription>
+<para>get the currently set formatting pattern. </para>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="rrLogger.h" line="193" column="24" bodyfile="rrLogger.cpp" bodystart="344" bodyend="350"/>
+      </memberdef>
+      <memberdef kind="function" id="classrr_1_1Logger_1abd7799fdcd8848cabd146bedd8b7d12a" prot="public" static="yes" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>std::string</type>
+        <definition>std::string rr::Logger::levelToString</definition>
+        <argsstring>(int level)</argsstring>
+        <name>levelToString</name>
+        <param>
+          <type>int</type>
+          <declname>level</declname>
+        </param>
+        <briefdescription>
+<para>gets the textual form of a logging level Enum for a given value. </para>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="rrLogger.h" line="198" column="24" bodyfile="rrLogger.cpp" bodystart="415" bodyend="447"/>
+      </memberdef>
+      <memberdef kind="function" id="classrr_1_1Logger_1a04c2fb0c06b2d55f2405c394153cbe30" prot="public" static="yes" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type><ref refid="classrr_1_1Logger_1a72a52e7fe7be48e2ecad639c641ee8aa" kindref="member">Level</ref></type>
+        <definition>Logger::Level rr::Logger::stringToLevel</definition>
+        <argsstring>(const std::string &amp;str)</argsstring>
+        <name>stringToLevel</name>
+        <param>
+          <type>const std::string &amp;</type>
+          <declname>str</declname>
+        </param>
+        <briefdescription>
+<para>parses a string and returns a <ref refid="classrr_1_1Logger_1a72a52e7fe7be48e2ecad639c641ee8aa" kindref="member">Logger::Level</ref> </para>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="rrLogger.h" line="203" column="18" bodyfile="rrLogger.cpp" bodystart="372" bodyend="413"/>
+      </memberdef>
+      <memberdef kind="function" id="classrr_1_1Logger_1a0f01c4474b91e705040db1ba59eccd07" prot="public" static="yes" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>bool</type>
+        <definition>bool rr::Logger::getColoredOutput</definition>
+        <argsstring>()</argsstring>
+        <name>getColoredOutput</name>
+        <briefdescription>
+<para>check if we have colored logging enabled. </para>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="rrLogger.h" line="208" column="17" bodyfile="rrLogger.cpp" bodystart="489" bodyend="492"/>
+      </memberdef>
+      <memberdef kind="function" id="classrr_1_1Logger_1ad194c06ed29a531c8cb00c9ada412b99" prot="public" static="yes" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>void rr::Logger::setColoredOutput</definition>
+        <argsstring>(bool)</argsstring>
+        <name>setColoredOutput</name>
+        <param>
+          <type>bool</type>
+          <defname>bool1</defname>
+        </param>
+        <briefdescription>
+<para>enable / disable colored output </para>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="rrLogger.h" line="213" column="17" bodyfile="rrLogger.cpp" bodystart="494" bodyend="496"/>
+      </memberdef>
+      <memberdef kind="function" id="classrr_1_1Logger_1a64831026de073177180ec72ad894ea29" prot="public" static="yes" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>void rr::Logger::setProperty</definition>
+        <argsstring>(const std::string &amp;name, const std::string &amp;value)</argsstring>
+        <name>setProperty</name>
+        <param>
+          <type>const std::string &amp;</type>
+          <declname>name</declname>
+        </param>
+        <param>
+          <type>const std::string &amp;</type>
+          <declname>value</declname>
+        </param>
+        <briefdescription>
+<para>Set the color of the output logging messages. </para>
+        </briefdescription>
+        <detaileddescription>
+<para>In the future, we may add additional properties her.</para>
+<para>The following properties are supported: enableColors: Enable or disable colors. traceColor: Specify color for trace messages. debugColor: Specify color for debug messages. informationColor: Specify color for information messages. noticeColor: Specify color for notice messages. warningColor: Specify color for warning messages. errorColor: Specify color for error messages. criticalColor: Specify color for critical messages. fatalColor: Specify color for fatal messages.</para>
+<para>The following color values are supported:</para>
+<para>default black red green brown blue magenta cyan gray darkgray lightRed lightGreen yellow lightBlue lightMagenta lightCyan white </para>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="rrLogger.h" line="253" column="17" bodyfile="rrLogger.cpp" bodystart="449" bodyend="468"/>
+      </memberdef>
+      <memberdef kind="function" id="classrr_1_1Logger_1a7d54a49c5245cf78fbcd9445d4872e41" prot="public" static="yes" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>void rr::Logger::log</definition>
+        <argsstring>(Level level, const std::string &amp;msg)</argsstring>
+        <name>log</name>
+        <param>
+          <type><ref refid="classrr_1_1Logger_1a72a52e7fe7be48e2ecad639c641ee8aa" kindref="member">Level</ref></type>
+          <declname>level</declname>
+        </param>
+        <param>
+          <type>const std::string &amp;</type>
+          <declname>msg</declname>
+        </param>
+        <briefdescription>
+<para>logs a message to the log. </para>
+        </briefdescription>
+        <detaileddescription>
+<para>This is most useful from Python as C++ code will typically call the <ref refid="classrr_1_1LoggingBuffer" kindref="compound">LoggingBuffer</ref> via the Log macro. </para>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="rrLogger.h" line="262" column="17" bodyfile="rrLogger.cpp" bodystart="509" bodyend="542"/>
+      </memberdef>
+      <memberdef kind="function" id="classrr_1_1Logger_1aaa118623cb0a11d39321cb6ecebf704a" prot="public" static="yes" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>void rr::Logger::setConsoleStream</definition>
+        <argsstring>(std::ostream *os)</argsstring>
+        <name>setConsoleStream</name>
+        <param>
+          <type>std::ostream *</type>
+          <declname>os</declname>
+        </param>
+        <briefdescription>
+<para>Set a pointer to an ostream object where the console logger should log to. </para>
+        </briefdescription>
+        <detaileddescription>
+<para>Normally, this points to std::clog.</para>
+<para>This is here so that the <ref refid="classrr_1_1Logger" kindref="compound">Logger</ref> can properly re-direct to the Python sys.stderr object as the QT IPython console only reads output from the python sys.stdout and sys.stderr file objects and not the C++ file streams. </para>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="rrLogger.h" line="277" column="17" bodyfile="rrLogger.cpp" bodystart="598" bodyend="607"/>
+      </memberdef>
+      </sectiondef>
+    <briefdescription>
+<para>The roadrunner logger. </para>
+    </briefdescription>
+    <detaileddescription>
+<para>A set of static method for setting the logging level. </para>
+    </detaileddescription>
+    <location file="rrLogger.h" line="52" column="1" bodyfile="rrLogger.h" bodystart="53" bodyend="279"/>
+    <listofallmembers>
+      <member refid="classrr_1_1Logger_1a65631bebd188023ff23a263e8d1b2ea2" prot="public" virt="non-virtual"><scope>rr::Logger</scope><name>disableConsoleLogging</name></member>
+      <member refid="classrr_1_1Logger_1a64d56c09af0322f3ec3164f4376fd624" prot="public" virt="non-virtual"><scope>rr::Logger</scope><name>disableFileLogging</name></member>
+      <member refid="classrr_1_1Logger_1adb9e082ec2b6d896fe4f8f3158cf8dbc" prot="public" virt="non-virtual"><scope>rr::Logger</scope><name>disableLogging</name></member>
+      <member refid="classrr_1_1Logger_1a859a9358480196476351e5e2a3466b71" prot="public" virt="non-virtual"><scope>rr::Logger</scope><name>enableConsoleLogging</name></member>
+      <member refid="classrr_1_1Logger_1a2353c535f4e74dead4f0f1267556a906" prot="public" virt="non-virtual"><scope>rr::Logger</scope><name>enableFileLogging</name></member>
+      <member refid="classrr_1_1Logger_1a0f01c4474b91e705040db1ba59eccd07" prot="public" virt="non-virtual"><scope>rr::Logger</scope><name>getColoredOutput</name></member>
+      <member refid="classrr_1_1Logger_1adc95de06b2cfb00d95b327329893e767" prot="public" virt="non-virtual"><scope>rr::Logger</scope><name>getCurrentLevelAsString</name></member>
+      <member refid="classrr_1_1Logger_1a40f208d7bf2af73894ba3872296dbe9c" prot="public" virt="non-virtual"><scope>rr::Logger</scope><name>getFileName</name></member>
+      <member refid="classrr_1_1Logger_1a7b4e8ed1391f383f27ff6f12d951beff" prot="public" virt="non-virtual"><scope>rr::Logger</scope><name>getFormattingPattern</name></member>
+      <member refid="classrr_1_1Logger_1ad6b48d767c766eeb3db7505a59631b6b" prot="public" virt="non-virtual"><scope>rr::Logger</scope><name>getLevel</name></member>
+      <member refid="classrr_1_1Logger_1a72a52e7fe7be48e2ecad639c641ee8aa" prot="public" virt="non-virtual"><scope>rr::Logger</scope><name>Level</name></member>
+      <member refid="classrr_1_1Logger_1abd7799fdcd8848cabd146bedd8b7d12a" prot="public" virt="non-virtual"><scope>rr::Logger</scope><name>levelToString</name></member>
+      <member refid="classrr_1_1Logger_1a7d54a49c5245cf78fbcd9445d4872e41" prot="public" virt="non-virtual"><scope>rr::Logger</scope><name>log</name></member>
+      <member refid="classrr_1_1Logger_1a72a52e7fe7be48e2ecad639c641ee8aaa8296259b3d5f3188030abd9b5ee0609a" prot="public" virt="non-virtual"><scope>rr::Logger</scope><name>LOG_CRITICAL</name></member>
+      <member refid="classrr_1_1Logger_1a72a52e7fe7be48e2ecad639c641ee8aaac77ca2446a47c06b0cce63108ea18c18" prot="public" virt="non-virtual"><scope>rr::Logger</scope><name>LOG_CURRENT</name></member>
+      <member refid="classrr_1_1Logger_1a72a52e7fe7be48e2ecad639c641ee8aaadaf226f4b284b87851ddb9a9f7ddd0d5" prot="public" virt="non-virtual"><scope>rr::Logger</scope><name>LOG_DEBUG</name></member>
+      <member refid="classrr_1_1Logger_1a72a52e7fe7be48e2ecad639c641ee8aaafdb1b7e45fd5de96e098cd30c552fa7b" prot="public" virt="non-virtual"><scope>rr::Logger</scope><name>LOG_ERROR</name></member>
+      <member refid="classrr_1_1Logger_1a72a52e7fe7be48e2ecad639c641ee8aaa11cc16555fcf30d3c251bdc0c15a7f03" prot="public" virt="non-virtual"><scope>rr::Logger</scope><name>LOG_FATAL</name></member>
+      <member refid="classrr_1_1Logger_1a72a52e7fe7be48e2ecad639c641ee8aaa4877e8c5192b123e2f8e71cc538df17b" prot="public" virt="non-virtual"><scope>rr::Logger</scope><name>LOG_INFORMATION</name></member>
+      <member refid="classrr_1_1Logger_1a72a52e7fe7be48e2ecad639c641ee8aaaa3e3ead40b6448c9d7893f1a33573984" prot="public" virt="non-virtual"><scope>rr::Logger</scope><name>LOG_NOTICE</name></member>
+      <member refid="classrr_1_1Logger_1a72a52e7fe7be48e2ecad639c641ee8aaa415b215c622543781b0dab9ddb0cc5cb" prot="public" virt="non-virtual"><scope>rr::Logger</scope><name>LOG_TRACE</name></member>
+      <member refid="classrr_1_1Logger_1a72a52e7fe7be48e2ecad639c641ee8aaaa6900cf102f98dfa521d7c11dc59344c" prot="public" virt="non-virtual"><scope>rr::Logger</scope><name>LOG_WARNING</name></member>
+      <member refid="classrr_1_1Logger_1ad194c06ed29a531c8cb00c9ada412b99" prot="public" virt="non-virtual"><scope>rr::Logger</scope><name>setColoredOutput</name></member>
+      <member refid="classrr_1_1Logger_1aaa118623cb0a11d39321cb6ecebf704a" prot="public" virt="non-virtual"><scope>rr::Logger</scope><name>setConsoleStream</name></member>
+      <member refid="classrr_1_1Logger_1a3a660978ecbd144b2c2c3aee17b5950b" prot="public" virt="non-virtual"><scope>rr::Logger</scope><name>setFormattingPattern</name></member>
+      <member refid="classrr_1_1Logger_1a932fba9c85c6a5eb806851e06b02e957" prot="public" virt="non-virtual"><scope>rr::Logger</scope><name>setLevel</name></member>
+      <member refid="classrr_1_1Logger_1a64831026de073177180ec72ad894ea29" prot="public" virt="non-virtual"><scope>rr::Logger</scope><name>setProperty</name></member>
+      <member refid="classrr_1_1Logger_1a04c2fb0c06b2d55f2405c394153cbe30" prot="public" virt="non-virtual"><scope>rr::Logger</scope><name>stringToLevel</name></member>
+    </listofallmembers>
+  </compounddef>
+</doxygen>

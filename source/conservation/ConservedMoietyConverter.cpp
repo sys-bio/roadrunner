@@ -496,14 +496,14 @@ static std::vector<std::string> createConservedMoietyParameters(
 
     Poco::UUIDGenerator uuidGen;
 
-    for (int i = 0; i < depSpecies.size(); ++i)
+    for (unsigned int i = 0; i < depSpecies.size(); ++i)
     {
         Poco::UUID uuid = uuidGen.create();
-        string id = "_CSUM" + rr::toString(i);
+        string id = "_CSUM" + rr::toStringSize(i);
         std::replace( id.begin(), id.end(), '-', '_');
 
 
-        ConservedMoietySpecies* cmDepSpecies = dynamic_cast<ConservedMoietySpecies*>(newModel->getSpecies(indSpecies.size()+i));
+        ConservedMoietySpecies* cmDepSpecies = dynamic_cast<ConservedMoietySpecies*>(newModel->getSpecies(static_cast<unsigned int>(indSpecies.size())+i));
         if (cmDepSpecies)
             cmDepSpecies->setConservedQuantity(id);
 
@@ -535,7 +535,7 @@ static std::vector<std::string> createConservedMoietyParameters(
         ASTNode *sum2 = new ASTNode(AST_PLUS);
         mult->addChild(sum2);
 
-        for (int j = 0; j < indSpecies.size(); ++j)
+        for (unsigned int j = 0; j < indSpecies.size(); ++j)
         {
             double stoich = L0(i, j);
 
@@ -553,7 +553,7 @@ static std::vector<std::string> createConservedMoietyParameters(
 
                 ConservedMoietySpecies* cmIndSpecies = dynamic_cast<ConservedMoietySpecies*>(newModel->getSpecies(j));
                 if (cmIndSpecies) {
-                    std::cerr << "cmIndSpecies " << cmIndSpecies->getId() << " conserved quantity " << id << "\n";
+                    //std::cerr << "cmIndSpecies " << cmIndSpecies->getId() << " conserved quantity " << id << "\n";
                     cmIndSpecies->addConservedQuantity(id);
                 }
             }
@@ -813,6 +813,9 @@ static void conservedMoietyCheck(const SBMLDocument *doc)
         for(int j = 0; j < assignments->size(); ++j)
         {
             const EventAssignment *ass = assignments->get(j);
+            if (!ass->isSetMath()) {
+                continue;
+            }
             const SBase *element = const_cast<Model*>(model)->getElementBySId(
                     ass->getVariable());
 

@@ -1,0 +1,710 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.20" xml:lang="en-US">
+  <compounddef id="classrr_1_1EulerIntegrator" kind="class" language="C++" prot="public">
+    <compoundname>rr::EulerIntegrator</compoundname>
+    <basecompoundref refid="classrr_1_1Integrator" prot="public" virt="non-virtual">rr::Integrator</basecompoundref>
+    <includes refid="EulerIntegrator_8h" local="no">EulerIntegrator.h</includes>
+      <sectiondef kind="private-attrib">
+      <memberdef kind="variable" id="classrr_1_1EulerIntegrator_1aea6c05713fb201763a1ac562e3fd6c1b" prot="private" static="no" mutable="no">
+        <type>double</type>
+        <definition>double rr::EulerIntegrator::exampleParameter1</definition>
+        <argsstring></argsstring>
+        <name>exampleParameter1</name>
+        <briefdescription>
+<para>a parameter which does nothing </para>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="EulerIntegrator.h" line="380" column="16" bodyfile="EulerIntegrator.h" bodystart="380" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="classrr_1_1EulerIntegrator_1ad18bd6541d7b30642f64bf6348fe2410" prot="private" static="no" mutable="no">
+        <type>string</type>
+        <definition>string rr::EulerIntegrator::exampleParameter2</definition>
+        <argsstring></argsstring>
+        <name>exampleParameter2</name>
+        <briefdescription>
+<para>another parameter which does nothing </para>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="EulerIntegrator.h" line="385" column="16" bodyfile="EulerIntegrator.h" bodystart="385" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="classrr_1_1EulerIntegrator_1a0dc191fb5002c17587815d6fe2935b12" prot="private" static="no" mutable="no">
+        <type><ref refid="classrr_1_1ExecutableModel" kindref="compound">ExecutableModel</ref> *</type>
+        <definition>ExecutableModel* rr::EulerIntegrator::model</definition>
+        <argsstring></argsstring>
+        <name>model</name>
+        <briefdescription>
+<para>a stolen reference to an existing model object. </para>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="EulerIntegrator.h" line="390" column="25" bodyfile="EulerIntegrator.h" bodystart="390" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="classrr_1_1EulerIntegrator_1a5d623d8a2d3c29942637188e8d2022e7" prot="private" static="no" mutable="no">
+        <type>double *</type>
+        <definition>double* rr::EulerIntegrator::rateBuffer</definition>
+        <argsstring></argsstring>
+        <name>rateBuffer</name>
+        <briefdescription>
+<para>two buffers to store the state vector rate, and new state vector </para>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="EulerIntegrator.h" line="396" column="16" bodyfile="EulerIntegrator.h" bodystart="396" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="classrr_1_1EulerIntegrator_1a3f774359914a8b7e4fb5c286fa102229" prot="private" static="no" mutable="no">
+        <type>double *</type>
+        <definition>double * rr::EulerIntegrator::stateBufferBegin</definition>
+        <argsstring></argsstring>
+        <name>stateBufferBegin</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="EulerIntegrator.h" line="396" column="27" bodyfile="EulerIntegrator.h" bodystart="396" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="classrr_1_1EulerIntegrator_1a271305a4bc859be8ed7e99d032b49662" prot="private" static="no" mutable="no">
+        <type>double *</type>
+        <definition>double * rr::EulerIntegrator::stateBufferEnd</definition>
+        <argsstring></argsstring>
+        <name>stateBufferEnd</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="EulerIntegrator.h" line="396" column="44" bodyfile="EulerIntegrator.h" bodystart="396" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="classrr_1_1EulerIntegrator_1a50666f1e4d372584edd21f0d76a4b11c" prot="private" static="no" mutable="no">
+        <type>int</type>
+        <definition>int rr::EulerIntegrator::stateVectorSize</definition>
+        <argsstring></argsstring>
+        <name>stateVectorSize</name>
+        <briefdescription>
+<para>size of state vector </para>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="EulerIntegrator.h" line="401" column="13" bodyfile="EulerIntegrator.h" bodystart="401" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="classrr_1_1EulerIntegrator_1a9e3b8bc7bbc246ed5d72afbf24a5b8ea" prot="private" static="no" mutable="no">
+        <type>std::vector&lt; unsigned char &gt;</type>
+        <definition>std::vector&lt;unsigned char&gt; rr::EulerIntegrator::eventStatus</definition>
+        <argsstring></argsstring>
+        <name>eventStatus</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="EulerIntegrator.h" line="403" column="13" bodyfile="EulerIntegrator.h" bodystart="403" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="classrr_1_1EulerIntegrator_1acc0f1564974e6a8ba2572ee44c6af556" prot="private" static="no" mutable="no">
+        <type>std::vector&lt; unsigned char &gt;</type>
+        <definition>std::vector&lt;unsigned char&gt; rr::EulerIntegrator::previousEventStatus</definition>
+        <argsstring></argsstring>
+        <name>previousEventStatus</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="EulerIntegrator.h" line="404" column="13" bodyfile="EulerIntegrator.h" bodystart="404" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="classrr_1_1EulerIntegrator_1a389bb963b4313a5b4fd45ff7a4ab2a34" prot="private" static="no" mutable="no">
+        <type>IntegratorListenerPtr</type>
+        <definition>IntegratorListenerPtr rr::EulerIntegrator::listener</definition>
+        <argsstring></argsstring>
+        <name>listener</name>
+        <briefdescription>
+<para>Clients may register a listener to listen for time steps, or sbml events. </para>
+        </briefdescription>
+        <detaileddescription>
+<para>Time step events are much more usefull for variable time step integrators where they may take long time steps and clients may be notified when these occur.</para>
+<para>This is a smart pointer to a object which implements the <ref refid="classrr_1_1IntegratorListener" kindref="compound">IntegratorListener</ref> interface. </para>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="EulerIntegrator.h" line="415" column="31" bodyfile="EulerIntegrator.h" bodystart="415" bodyend="-1"/>
+      </memberdef>
+      </sectiondef>
+      <sectiondef kind="public-func">
+      <memberdef kind="function" id="classrr_1_1EulerIntegrator_1afc90e9a20043ba1a05db9adba8d53cfe" prot="public" static="no" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <type></type>
+        <definition>rr::EulerIntegrator::EulerIntegrator</definition>
+        <argsstring>(ExecutableModel *m)</argsstring>
+        <name>EulerIntegrator</name>
+        <param>
+          <type><ref refid="classrr_1_1ExecutableModel" kindref="compound">ExecutableModel</ref> *</type>
+          <declname>m</declname>
+        </param>
+        <briefdescription>
+<para>Creates a new <ref refid="classrr_1_1EulerIntegrator" kindref="compound">EulerIntegrator</ref>. </para>
+        </briefdescription>
+        <detaileddescription>
+<para>The <ref refid="classrr_1_1IntegratorFactory" kindref="compound">IntegratorFactory</ref> is the ONLY object that creates integrators.</para>
+<para>Integrators are created when the <ref refid="classrr_1_1IntegratorFactory_1ab7298b70afb06e1200181cf3981f739c" kindref="member">IntegratorFactory::New</ref> method is called, typically by the top level <ref refid="classrr_1_1RoadRunner" kindref="compound">RoadRunner</ref> object.</para>
+<para>The integrator will hold onto the <ref refid="classrr_1_1ExecutableModel" kindref="compound">ExecutableModel</ref> pointer, m, and when the integrate method is called, will advance the model object forward in time.</para>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>m</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>a borrowed reference to an existing <ref refid="classrr_1_1ExecutableModel" kindref="compound">ExecutableModel</ref> object. </para>
+</parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>o</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>a reference to a SimulatOptions object where the configuration parameters will be read from. </para>
+</parameterdescription>
+</parameteritem>
+</parameterlist>
+</para>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="EulerIntegrator.h" line="75" column="9" bodyfile="EulerIntegrator.h" bodystart="75" bodyend="98"/>
+      </memberdef>
+      <memberdef kind="function" id="classrr_1_1EulerIntegrator_1a1f1d275a7be6a72e9e03b9dd35531fd8" prot="public" static="no" const="no" explicit="no" inline="yes" virt="virtual">
+        <type></type>
+        <definition>virtual rr::EulerIntegrator::~EulerIntegrator</definition>
+        <argsstring>()</argsstring>
+        <name>~EulerIntegrator</name>
+        <briefdescription>
+<para>delete any memory we allocated </para>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="EulerIntegrator.h" line="103" column="17" bodyfile="EulerIntegrator.h" bodystart="103" bodyend="107"/>
+      </memberdef>
+      <memberdef kind="function" id="classrr_1_1EulerIntegrator_1ab65a96963262cce17a56c2605da5416f" prot="public" static="no" const="no" explicit="no" inline="yes" virt="virtual">
+        <type>double</type>
+        <definition>virtual double rr::EulerIntegrator::integrate</definition>
+        <argsstring>(double t0, double h)</argsstring>
+        <name>integrate</name>
+        <reimplements refid="classrr_1_1Integrator_1aa29aac9228f7834cfb92d04f823e5ddf">integrate</reimplements>
+        <param>
+          <type>double</type>
+          <declname>t0</declname>
+        </param>
+        <param>
+          <type>double</type>
+          <declname>h</declname>
+        </param>
+        <briefdescription>
+<para>integrates the model from t0 to t0 + hstep </para>
+        </briefdescription>
+        <detaileddescription>
+<para>In this implementation, this performs a basic forward Euler step. This method also demonstrates how to notify the listener that a timestep has completed.</para>
+<para><simplesect kind="return"><para>the end time. </para>
+</simplesect>
+</para>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="EulerIntegrator.h" line="118" column="24" bodyfile="EulerIntegrator.h" bodystart="118" bodyend="179"/>
+      </memberdef>
+      <memberdef kind="function" id="classrr_1_1EulerIntegrator_1af348d85b0fbf92f117623d61bb8e5240" prot="public" static="no" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <type>void</type>
+        <definition>void rr::EulerIntegrator::applyEvents</definition>
+        <argsstring>(double timeEnd, std::vector&lt; unsigned char &gt; &amp;previousEventStatus)</argsstring>
+        <name>applyEvents</name>
+        <param>
+          <type>double</type>
+          <declname>timeEnd</declname>
+        </param>
+        <param>
+          <type>std::vector&lt; unsigned char &gt; &amp;</type>
+          <declname>previousEventStatus</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="EulerIntegrator.h" line="181" column="6" bodyfile="EulerIntegrator.h" bodystart="181" bodyend="188"/>
+      </memberdef>
+      <memberdef kind="function" id="classrr_1_1EulerIntegrator_1a08903e998cf527552442f8fa930772c8" prot="public" static="no" const="no" explicit="no" inline="yes" virt="virtual">
+        <type>void</type>
+        <definition>virtual void rr::EulerIntegrator::restart</definition>
+        <argsstring>(double t0)</argsstring>
+        <name>restart</name>
+        <reimplements refid="classrr_1_1Integrator_1a5469efaa4c234b7e59d82d98930fa5b9">restart</reimplements>
+        <param>
+          <type>double</type>
+          <declname>t0</declname>
+        </param>
+        <briefdescription>
+<para>This simple integrator has nothing to reset, so do nothing here. </para>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="EulerIntegrator.h" line="193" column="22" bodyfile="EulerIntegrator.h" bodystart="193" bodyend="193"/>
+      </memberdef>
+      <memberdef kind="function" id="classrr_1_1EulerIntegrator_1acb23167cc7463d67301f00608131eb4c" prot="public" static="no" const="no" explicit="no" inline="yes" virt="virtual">
+        <type>void</type>
+        <definition>virtual void rr::EulerIntegrator::setListener</definition>
+        <argsstring>(IntegratorListenerPtr p)</argsstring>
+        <name>setListener</name>
+        <reimplements refid="classrr_1_1Integrator_1ad4ebded6e6b2d28755a649f402962ba7">setListener</reimplements>
+        <param>
+          <type>IntegratorListenerPtr</type>
+          <declname>p</declname>
+        </param>
+        <briefdescription>
+<para>Clients may register a listener to listen for sbml events and time step events. </para>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="EulerIntegrator.h" line="199" column="22" bodyfile="EulerIntegrator.h" bodystart="199" bodyend="201"/>
+      </memberdef>
+      <memberdef kind="function" id="classrr_1_1EulerIntegrator_1a9ec7df905cdffbeb14e4f764ae0c2ac0" prot="public" static="no" const="no" explicit="no" inline="yes" virt="virtual">
+        <type>IntegratorListenerPtr</type>
+        <definition>virtual IntegratorListenerPtr rr::EulerIntegrator::getListener</definition>
+        <argsstring>()</argsstring>
+        <name>getListener</name>
+        <reimplements refid="classrr_1_1Integrator_1ae4105739ea0544fe66db1482e0aeae9d">getListener</reimplements>
+        <briefdescription>
+<para>get the integrator listener </para>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="EulerIntegrator.h" line="206" column="39" bodyfile="EulerIntegrator.h" bodystart="206" bodyend="208"/>
+      </memberdef>
+      <memberdef kind="function" id="classrr_1_1EulerIntegrator_1aeafbbe730c71a4627fb79f21e0d839ad" prot="public" static="no" const="yes" explicit="no" inline="yes" virt="virtual">
+        <type>std::string</type>
+        <definition>virtual std::string rr::EulerIntegrator::toString</definition>
+        <argsstring>() const</argsstring>
+        <name>toString</name>
+        <reimplements refid="classrr_1_1Solver_1af08f448f7eea26415a47caaae161de02">toString</reimplements>
+        <briefdescription>
+<para>get a description of this object, compatable with python <bold>str</bold> </para>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="EulerIntegrator.h" line="213" column="29" bodyfile="EulerIntegrator.h" bodystart="213" bodyend="221"/>
+      </memberdef>
+      <memberdef kind="function" id="classrr_1_1EulerIntegrator_1a4f484ed1c727f3f45f90586de64e329f" prot="public" static="no" const="yes" explicit="no" inline="yes" virt="virtual">
+        <type>std::string</type>
+        <definition>virtual std::string rr::EulerIntegrator::toRepr</definition>
+        <argsstring>() const</argsstring>
+        <name>toRepr</name>
+        <reimplements refid="classrr_1_1Integrator_1abb3c4ae3020a5df7abe40639037615cb">toRepr</reimplements>
+        <briefdescription>
+<para>get a short descriptions of this object, compatable with python <bold>repr</bold>. </para>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="EulerIntegrator.h" line="226" column="29" bodyfile="EulerIntegrator.h" bodystart="226" bodyend="231"/>
+      </memberdef>
+      <memberdef kind="function" id="classrr_1_1EulerIntegrator_1a44c17c0740b6d7855f10849bae3b1223" prot="public" static="no" const="yes" explicit="no" inline="yes" virt="virtual">
+        <type>std::string</type>
+        <definition>virtual std::string rr::EulerIntegrator::getName</definition>
+        <argsstring>() const</argsstring>
+        <name>getName</name>
+        <reimplements refid="classrr_1_1Solver_1a417cca64a18c63535f2091584f8fed91">getName</reimplements>
+        <briefdescription>
+<para>get the name of this integrator </para>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="EulerIntegrator.h" line="236" column="29" bodyfile="EulerIntegrator.h" bodystart="236" bodyend="238"/>
+      </memberdef>
+      <memberdef kind="function" id="classrr_1_1EulerIntegrator_1ae8553876982ae833839b7e33c08abdec" prot="public" static="no" const="yes" explicit="no" inline="yes" virt="virtual">
+        <type>std::string</type>
+        <definition>std::string rr::EulerIntegrator::getDescription</definition>
+        <argsstring>() const</argsstring>
+        <name>getDescription</name>
+        <reimplements refid="classrr_1_1Solver_1a86067147c7631ca80d51667322f1a8f5">getDescription</reimplements>
+        <briefdescription>
+<para>Get the description for this integrator. </para>
+        </briefdescription>
+        <detaileddescription>
+<para><simplesect kind="author"><para>JKM </para>
+</simplesect>
+<simplesect kind="note"><para>Delegates to <ref refid="classrr_1_1EulerIntegrator_1ae8553876982ae833839b7e33c08abdec" kindref="member">getDescription</ref> </para>
+</simplesect>
+</para>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="EulerIntegrator.h" line="253" column="21" bodyfile="EulerIntegrator.h" bodystart="253" bodyend="255"/>
+      </memberdef>
+      <memberdef kind="function" id="classrr_1_1EulerIntegrator_1a2acf8abc8c584f487b5a394bcd3a1bdb" prot="public" static="no" const="yes" explicit="no" inline="yes" virt="virtual">
+        <type>std::string</type>
+        <definition>std::string rr::EulerIntegrator::getHint</definition>
+        <argsstring>() const</argsstring>
+        <name>getHint</name>
+        <reimplements refid="classrr_1_1Solver_1aff005f7e71bc73123ecbd511a77f71b6">getHint</reimplements>
+        <briefdescription>
+<para>Get the hint for this integrator. </para>
+        </briefdescription>
+        <detaileddescription>
+<para><simplesect kind="author"><para>JKM </para>
+</simplesect>
+<simplesect kind="note"><para>Delegates to <ref refid="classrr_1_1EulerIntegrator_1a2acf8abc8c584f487b5a394bcd3a1bdb" kindref="member">getHint</ref> </para>
+</simplesect>
+</para>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="EulerIntegrator.h" line="275" column="21" bodyfile="EulerIntegrator.h" bodystart="275" bodyend="277"/>
+      </memberdef>
+      <memberdef kind="function" id="classrr_1_1EulerIntegrator_1a9bf013a3a23007eac2d5b71533dc4c9b" prot="public" static="no" const="yes" explicit="no" inline="yes" virt="virtual">
+        <type>IntegrationMethod</type>
+        <definition>IntegrationMethod rr::EulerIntegrator::getIntegrationMethod</definition>
+        <argsstring>() const</argsstring>
+        <name>getIntegrationMethod</name>
+        <reimplements refid="classrr_1_1Integrator_1a6166cbf32c54a1d95a8a830b8db1424c">getIntegrationMethod</reimplements>
+        <briefdescription>
+<para>Always deterministic for Euler. </para>
+        </briefdescription>
+        <detaileddescription>
+<para><simplesect kind="author"><para>JKM </para>
+</simplesect>
+</para>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="EulerIntegrator.h" line="291" column="27" bodyfile="EulerIntegrator.h" bodystart="291" bodyend="293"/>
+      </memberdef>
+      <memberdef kind="function" id="classrr_1_1EulerIntegrator_1a08066b2cde3b179f76968f7c612610b2" prot="public" static="no" const="no" explicit="no" inline="yes" virt="virtual">
+        <type>void</type>
+        <definition>virtual void rr::EulerIntegrator::setItem</definition>
+        <argsstring>(const std::string &amp;key, const rr::Variant &amp;value)</argsstring>
+        <name>setItem</name>
+        <param>
+          <type>const std::string &amp;</type>
+          <declname>key</declname>
+        </param>
+        <param>
+          <type>const <ref refid="classrr_1_1Variant" kindref="compound">rr::Variant</ref> &amp;</type>
+          <declname>value</declname>
+        </param>
+        <briefdescription>
+<para>sets the value for a key. </para>
+        </briefdescription>
+        <detaileddescription>
+<para>This integrator only supports 2 values, so those are the only two valid items to set. </para>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="EulerIntegrator.h" line="301" column="22" bodyfile="EulerIntegrator.h" bodystart="301" bodyend="315"/>
+      </memberdef>
+      <memberdef kind="function" id="classrr_1_1EulerIntegrator_1af0e49dbee9ed3fc80af2501dd958705c" prot="public" static="no" const="yes" explicit="no" inline="yes" virt="virtual">
+        <type><ref refid="classrr_1_1Variant" kindref="compound">Variant</ref></type>
+        <definition>virtual Variant rr::EulerIntegrator::getItem</definition>
+        <argsstring>(const std::string &amp;key) const</argsstring>
+        <name>getItem</name>
+        <param>
+          <type>const std::string &amp;</type>
+          <declname>key</declname>
+        </param>
+        <briefdescription>
+<para>Get a value. </para>
+        </briefdescription>
+        <detaileddescription>
+<para>This integrator only supports two parameters, those are the only valid ones to get. </para>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="EulerIntegrator.h" line="323" column="25" bodyfile="EulerIntegrator.h" bodystart="323" bodyend="334"/>
+      </memberdef>
+      <memberdef kind="function" id="classrr_1_1EulerIntegrator_1a38c66c42d843b391ac79ac6f352cbf6c" prot="public" static="no" const="yes" explicit="no" inline="yes" virt="virtual">
+        <type>bool</type>
+        <definition>virtual bool rr::EulerIntegrator::hasKey</definition>
+        <argsstring>(const std::string &amp;key) const</argsstring>
+        <name>hasKey</name>
+        <param>
+          <type>const std::string &amp;</type>
+          <declname>key</declname>
+        </param>
+        <briefdescription>
+<para>is there a key matching this name. </para>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="EulerIntegrator.h" line="339" column="22" bodyfile="EulerIntegrator.h" bodystart="339" bodyend="345"/>
+      </memberdef>
+      <memberdef kind="function" id="classrr_1_1EulerIntegrator_1a370a0145394d1a9ed17a798565651369" prot="public" static="no" const="no" explicit="no" inline="yes" virt="virtual">
+        <type>int</type>
+        <definition>virtual int rr::EulerIntegrator::deleteItem</definition>
+        <argsstring>(const std::string &amp;key)</argsstring>
+        <name>deleteItem</name>
+        <param>
+          <type>const std::string &amp;</type>
+          <declname>key</declname>
+        </param>
+        <briefdescription>
+<para>remove a value, this example class does not support deleting keys, so just raise an exception if someone tries to do so. </para>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="EulerIntegrator.h" line="351" column="21" bodyfile="EulerIntegrator.h" bodystart="351" bodyend="354"/>
+      </memberdef>
+      <memberdef kind="function" id="classrr_1_1EulerIntegrator_1a5fcbf9856452f3b22dbe87a52873b994" prot="public" static="no" const="yes" explicit="no" inline="yes" virt="virtual">
+        <type>std::vector&lt; std::string &gt;</type>
+        <definition>virtual std::vector&lt;std::string&gt; rr::EulerIntegrator::getKeys</definition>
+        <argsstring>() const</argsstring>
+        <name>getKeys</name>
+        <briefdescription>
+<para>list of keys in this object. </para>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="EulerIntegrator.h" line="359" column="29" bodyfile="EulerIntegrator.h" bodystart="359" bodyend="364"/>
+      </memberdef>
+      <memberdef kind="function" id="classrr_1_1EulerIntegrator_1ade4200288b7b99ec7eee7cde2d9729b6" prot="public" static="no" const="no" explicit="no" inline="yes" virt="virtual">
+        <type>void</type>
+        <definition>void rr::EulerIntegrator::resetSettings</definition>
+        <argsstring>()</argsstring>
+        <name>resetSettings</name>
+        <reimplements refid="classrr_1_1Solver_1a71c8b404a40447f879b2253e7dcc3b85">resetSettings</reimplements>
+        <briefdescription>
+<para>Reset all settings to their respective default values. </para>
+        </briefdescription>
+        <detaileddescription>
+<para><simplesect kind="author"><para>JKM </para>
+</simplesect>
+</para>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="EulerIntegrator.h" line="366" column="6" bodyfile="EulerIntegrator.h" bodystart="366" bodyend="374"/>
+      </memberdef>
+      </sectiondef>
+      <sectiondef kind="public-static-func">
+      <memberdef kind="function" id="classrr_1_1EulerIntegrator_1a61e5f7ed9ff9833c39df310797dd8bb5" prot="public" static="yes" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <type>std::string</type>
+        <definition>static std::string rr::EulerIntegrator::getEulerName</definition>
+        <argsstring>()</argsstring>
+        <name>getEulerName</name>
+        <briefdescription>
+<para>Get the name for this integrator. </para>
+        </briefdescription>
+        <detaileddescription>
+<para><simplesect kind="author"><para>JKM </para>
+</simplesect>
+</para>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="EulerIntegrator.h" line="244" column="28" bodyfile="EulerIntegrator.h" bodystart="244" bodyend="246"/>
+      </memberdef>
+      <memberdef kind="function" id="classrr_1_1EulerIntegrator_1a8aedb3236672bb9a15c74cff0260fb1c" prot="public" static="yes" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <type>std::string</type>
+        <definition>static std::string rr::EulerIntegrator::getEulerDescription</definition>
+        <argsstring>()</argsstring>
+        <name>getEulerDescription</name>
+        <briefdescription>
+<para>Get the description for this integrator. </para>
+        </briefdescription>
+        <detaileddescription>
+<para><simplesect kind="author"><para>JKM </para>
+</simplesect>
+</para>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="EulerIntegrator.h" line="261" column="28" bodyfile="EulerIntegrator.h" bodystart="261" bodyend="268"/>
+      </memberdef>
+      <memberdef kind="function" id="classrr_1_1EulerIntegrator_1a9d7fef3974038ee61e3a3eb59e6cd860" prot="public" static="yes" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <type>std::string</type>
+        <definition>static std::string rr::EulerIntegrator::getEulerHint</definition>
+        <argsstring>()</argsstring>
+        <name>getEulerHint</name>
+        <briefdescription>
+<para>Get the hint for this integrator. </para>
+        </briefdescription>
+        <detaileddescription>
+<para><simplesect kind="author"><para>JKM </para>
+</simplesect>
+</para>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="EulerIntegrator.h" line="283" column="28" bodyfile="EulerIntegrator.h" bodystart="283" bodyend="285"/>
+      </memberdef>
+      </sectiondef>
+    <briefdescription>
+<para>An example class intended to show how to create an <ref refid="classrr_1_1Integrator" kindref="compound">Integrator</ref>. </para>
+    </briefdescription>
+    <detaileddescription>
+<para>This class implements the most basic possible integration algorithm: the forward Euler method.</para>
+<para>This integrator should not really be used in practice as the forward Euler algorithm is highly unstable and will seldomly yield numerically correct values.</para>
+<para>This class also has two dummy variables, exampleParameter1 and exampleParameter2. These serve as examples of how to use the <ref refid="classrr_1_1Dictionary" kindref="compound">Dictionary</ref> interface to get/set various tuning paramters that an <ref refid="classrr_1_1Integrator" kindref="compound">Integrator</ref> might have. These values will be displayed when the toString method is called, typically by Python.</para>
+<para>An example of calling simulate in Python, and the results of specifying the parameters as keyword arguments is</para>
+<para><programlisting><codeline><highlight class="normal">r.simulate(integrator=&apos;euler&apos;,<sp/>exampleParameter1=123456,<sp/>exampleParameter2=&apos;some<sp/>value&apos;);</highlight></codeline>
+<codeline></codeline>
+<codeline><highlight class="normal">print(r.integrator)</highlight></codeline>
+<codeline><highlight class="normal">&lt;<sp/>roadrunner.EulerIntegrator()</highlight></codeline>
+<codeline><highlight class="normal">{<sp/>&apos;this&apos;<sp/>:<sp/>0x101f28350</highlight></codeline>
+<codeline><highlight class="normal">&apos;exampleParameter1&apos;<sp/>:<sp/>123456</highlight></codeline>
+<codeline><highlight class="normal">&apos;exampleParameter2&apos;<sp/>:<sp/>some<sp/>value</highlight></codeline>
+<codeline><highlight class="normal">}&gt;</highlight></codeline>
+</programlisting> </para>
+    </detaileddescription>
+    <inheritancegraph>
+      <node id="1">
+        <label>rr::EulerIntegrator</label>
+        <link refid="classrr_1_1EulerIntegrator"/>
+        <childnode refid="2" relation="public-inheritance">
+        </childnode>
+      </node>
+      <node id="2">
+        <label>rr::Integrator</label>
+        <link refid="classrr_1_1Integrator"/>
+        <childnode refid="3" relation="public-inheritance">
+        </childnode>
+      </node>
+      <node id="3">
+        <label>rr::Solver</label>
+        <link refid="classrr_1_1Solver"/>
+      </node>
+    </inheritancegraph>
+    <collaborationgraph>
+      <node id="1">
+        <label>rr::EulerIntegrator</label>
+        <link refid="classrr_1_1EulerIntegrator"/>
+        <childnode refid="2" relation="public-inheritance">
+        </childnode>
+      </node>
+      <node id="2">
+        <label>rr::Integrator</label>
+        <link refid="classrr_1_1Integrator"/>
+        <childnode refid="3" relation="public-inheritance">
+        </childnode>
+      </node>
+      <node id="3">
+        <label>rr::Solver</label>
+        <link refid="classrr_1_1Solver"/>
+      </node>
+    </collaborationgraph>
+    <location file="EulerIntegrator.h" line="56" column="5" bodyfile="EulerIntegrator.h" bodystart="57" bodyend="416"/>
+    <listofallmembers>
+      <member refid="classrr_1_1Solver_1aec6b159d96d73f2baafc74578b129ce8" prot="protected" virt="non-virtual"><scope>rr::EulerIntegrator</scope><name>addSetting</name></member>
+      <member refid="classrr_1_1EulerIntegrator_1af348d85b0fbf92f117623d61bb8e5240" prot="public" virt="non-virtual"><scope>rr::EulerIntegrator</scope><name>applyEvents</name></member>
+      <member refid="classrr_1_1EulerIntegrator_1a370a0145394d1a9ed17a798565651369" prot="public" virt="virtual"><scope>rr::EulerIntegrator</scope><name>deleteItem</name></member>
+      <member refid="classrr_1_1Solver_1a897a8b06197a02d72931de637bc9ac89" prot="protected" virt="non-virtual"><scope>rr::EulerIntegrator</scope><name>DescriptionMap</name></member>
+      <member refid="classrr_1_1Solver_1a7e07121f652db358045d6f7b95889ea3" prot="protected" virt="non-virtual"><scope>rr::EulerIntegrator</scope><name>descriptions</name></member>
+      <member refid="classrr_1_1Integrator_1a0912499450e66cb4301263362d64a0d0af737370ac52f7db68da0965ff5667255" prot="public" virt="non-virtual"><scope>rr::EulerIntegrator</scope><name>Deterministic</name></member>
+      <member refid="classrr_1_1Solver_1a199de66231b25fef30d8ef2bdff80db7" prot="protected" virt="non-virtual"><scope>rr::EulerIntegrator</scope><name>display_names_</name></member>
+      <member refid="classrr_1_1Solver_1afa810f2707ef6160e05c92e5812a8c6a" prot="protected" virt="non-virtual"><scope>rr::EulerIntegrator</scope><name>DisplayNameMap</name></member>
+      <member refid="classrr_1_1EulerIntegrator_1afc90e9a20043ba1a05db9adba8d53cfe" prot="public" virt="non-virtual"><scope>rr::EulerIntegrator</scope><name>EulerIntegrator</name></member>
+      <member refid="classrr_1_1EulerIntegrator_1a9e3b8bc7bbc246ed5d72afbf24a5b8ea" prot="private" virt="non-virtual"><scope>rr::EulerIntegrator</scope><name>eventStatus</name></member>
+      <member refid="classrr_1_1EulerIntegrator_1aea6c05713fb201763a1ac562e3fd6c1b" prot="private" virt="non-virtual"><scope>rr::EulerIntegrator</scope><name>exampleParameter1</name></member>
+      <member refid="classrr_1_1EulerIntegrator_1ad18bd6541d7b30642f64bf6348fe2410" prot="private" virt="non-virtual"><scope>rr::EulerIntegrator</scope><name>exampleParameter2</name></member>
+      <member refid="classrr_1_1Integrator_1a9bb4546b27c3b0b4552ebc1b36148629" prot="public" virt="virtual"><scope>rr::EulerIntegrator</scope><name>getConcentrationTolerance</name></member>
+      <member refid="classrr_1_1EulerIntegrator_1ae8553876982ae833839b7e33c08abdec" prot="public" virt="virtual"><scope>rr::EulerIntegrator</scope><name>getDescription</name></member>
+      <member refid="classrr_1_1Solver_1a63d1ab12d862663336c74721f67354f3" prot="public" virt="non-virtual" ambiguityscope="rr::Integrator::"><scope>rr::EulerIntegrator</scope><name>getDescription</name></member>
+      <member refid="classrr_1_1Solver_1a1242e881aa76493f73c4e32784c1cec6" prot="public" virt="non-virtual"><scope>rr::EulerIntegrator</scope><name>getDisplayName</name></member>
+      <member refid="classrr_1_1EulerIntegrator_1a8aedb3236672bb9a15c74cff0260fb1c" prot="public" virt="non-virtual"><scope>rr::EulerIntegrator</scope><name>getEulerDescription</name></member>
+      <member refid="classrr_1_1EulerIntegrator_1a9d7fef3974038ee61e3a3eb59e6cd860" prot="public" virt="non-virtual"><scope>rr::EulerIntegrator</scope><name>getEulerHint</name></member>
+      <member refid="classrr_1_1EulerIntegrator_1a61e5f7ed9ff9833c39df310797dd8bb5" prot="public" virt="non-virtual"><scope>rr::EulerIntegrator</scope><name>getEulerName</name></member>
+      <member refid="classrr_1_1EulerIntegrator_1a2acf8abc8c584f487b5a394bcd3a1bdb" prot="public" virt="virtual"><scope>rr::EulerIntegrator</scope><name>getHint</name></member>
+      <member refid="classrr_1_1Solver_1a7cef64c1874bd5cb95ddff1399e04c45" prot="public" virt="non-virtual" ambiguityscope="rr::Integrator::"><scope>rr::EulerIntegrator</scope><name>getHint</name></member>
+      <member refid="classrr_1_1EulerIntegrator_1a9bf013a3a23007eac2d5b71533dc4c9b" prot="public" virt="virtual"><scope>rr::EulerIntegrator</scope><name>getIntegrationMethod</name></member>
+      <member refid="classrr_1_1EulerIntegrator_1af0e49dbee9ed3fc80af2501dd958705c" prot="public" virt="virtual"><scope>rr::EulerIntegrator</scope><name>getItem</name></member>
+      <member refid="classrr_1_1EulerIntegrator_1a5fcbf9856452f3b22dbe87a52873b994" prot="public" virt="virtual"><scope>rr::EulerIntegrator</scope><name>getKeys</name></member>
+      <member refid="classrr_1_1EulerIntegrator_1a9ec7df905cdffbeb14e4f764ae0c2ac0" prot="public" virt="virtual"><scope>rr::EulerIntegrator</scope><name>getListener</name></member>
+      <member refid="classrr_1_1EulerIntegrator_1a44c17c0740b6d7855f10849bae3b1223" prot="public" virt="virtual"><scope>rr::EulerIntegrator</scope><name>getName</name></member>
+      <member refid="classrr_1_1Solver_1abbefd0f38dfa2651c74f8abbd6d7b143" prot="public" virt="virtual"><scope>rr::EulerIntegrator</scope><name>getNumParams</name></member>
+      <member refid="classrr_1_1Solver_1aa13e13a92531fde27fe5711790eee0f7" prot="public" virt="virtual"><scope>rr::EulerIntegrator</scope><name>getParamDesc</name></member>
+      <member refid="classrr_1_1Solver_1afc0a667f204105aa133376144ce14c75" prot="public" virt="virtual"><scope>rr::EulerIntegrator</scope><name>getParamDisplayName</name></member>
+      <member refid="classrr_1_1Solver_1aa604b810ab3f1a2c8bc6dfa6fc731dc2" prot="public" virt="virtual"><scope>rr::EulerIntegrator</scope><name>getParamHint</name></member>
+      <member refid="classrr_1_1Solver_1ae2bb88ffce40a0136c86a020b4c39037" prot="public" virt="virtual"><scope>rr::EulerIntegrator</scope><name>getParamName</name></member>
+      <member refid="classrr_1_1Solver_1ac12d82cf9d7f03ba39f82ae81ee0e168" prot="public" virt="non-virtual"><scope>rr::EulerIntegrator</scope><name>getSettings</name></member>
+      <member refid="classrr_1_1Solver_1a3f7a3671a4f2ee508fa015ed4b164213" prot="public" virt="non-virtual"><scope>rr::EulerIntegrator</scope><name>getSettingsRepr</name></member>
+      <member refid="classrr_1_1Solver_1a20add37bbd73f50d14047171f5f8e921" prot="public" virt="non-virtual"><scope>rr::EulerIntegrator</scope><name>getType</name></member>
+      <member refid="classrr_1_1Solver_1a773a06f0d64c9d79423efcef1b381da1" prot="public" virt="virtual"><scope>rr::EulerIntegrator</scope><name>getValue</name></member>
+      <member refid="classrr_1_1Solver_1a9f6e5069f1606a5f5e3d517ee01cfede" prot="public" virt="virtual"><scope>rr::EulerIntegrator</scope><name>getValueAsBool</name></member>
+      <member refid="classrr_1_1Solver_1a9bc55d0247a3aa629b0ab8f247ee009c" prot="public" virt="virtual"><scope>rr::EulerIntegrator</scope><name>getValueAsChar</name></member>
+      <member refid="classrr_1_1Solver_1a46987712b9dee2da90c7124761186eb1" prot="public" virt="virtual"><scope>rr::EulerIntegrator</scope><name>getValueAsDouble</name></member>
+      <member refid="classrr_1_1Solver_1a449a23882706072f4cfaa416887e42d3" prot="public" virt="virtual"><scope>rr::EulerIntegrator</scope><name>getValueAsDoubleVector</name></member>
+      <member refid="classrr_1_1Solver_1ad30b0e354acd5025b3162db55f1baa93" prot="public" virt="virtual"><scope>rr::EulerIntegrator</scope><name>getValueAsFloat</name></member>
+      <member refid="classrr_1_1Solver_1a415242398d22d3145ff68afbb73d6b07" prot="public" virt="virtual"><scope>rr::EulerIntegrator</scope><name>getValueAsInt</name></member>
+      <member refid="classrr_1_1Solver_1a858ce4395c8005ddec5a3ee811eda33a" prot="public" virt="virtual"><scope>rr::EulerIntegrator</scope><name>getValueAsLong</name></member>
+      <member refid="classrr_1_1Solver_1a6960c38714621daab7e92eadede5f83c" prot="public" virt="virtual"><scope>rr::EulerIntegrator</scope><name>getValueAsString</name></member>
+      <member refid="classrr_1_1Solver_1ae21e55aeea202e9151112fa00a4c0f82" prot="public" virt="virtual"><scope>rr::EulerIntegrator</scope><name>getValueAsUChar</name></member>
+      <member refid="classrr_1_1Solver_1a293296661e45b8cb3a092cf8ed5a196b" prot="public" virt="virtual"><scope>rr::EulerIntegrator</scope><name>getValueAsUInt</name></member>
+      <member refid="classrr_1_1Solver_1aafabb2cc0b41558dc3edae324977372c" prot="public" virt="virtual"><scope>rr::EulerIntegrator</scope><name>getValueAsULong</name></member>
+      <member refid="classrr_1_1EulerIntegrator_1a38c66c42d843b391ac79ac6f352cbf6c" prot="public" virt="virtual"><scope>rr::EulerIntegrator</scope><name>hasKey</name></member>
+      <member refid="classrr_1_1Solver_1a104f619f19529d57869310cd67fcc6d1" prot="public" virt="virtual"><scope>rr::EulerIntegrator</scope><name>hasValue</name></member>
+      <member refid="classrr_1_1Solver_1ab7675259f65ff348aa430747e48f0f90" prot="protected" virt="non-virtual"><scope>rr::EulerIntegrator</scope><name>HintMap</name></member>
+      <member refid="classrr_1_1Solver_1a39049af7a03fd00b1021c1ce9a9691fc" prot="protected" virt="non-virtual"><scope>rr::EulerIntegrator</scope><name>hints</name></member>
+      <member refid="classrr_1_1Integrator_1a0912499450e66cb4301263362d64a0d0aca69e7d9e0e8eb017d2351c375453822" prot="public" virt="non-virtual"><scope>rr::EulerIntegrator</scope><name>Hybrid</name></member>
+      <member refid="classrr_1_1EulerIntegrator_1ab65a96963262cce17a56c2605da5416f" prot="public" virt="virtual"><scope>rr::EulerIntegrator</scope><name>integrate</name></member>
+      <member refid="classrr_1_1Integrator_1a0912499450e66cb4301263362d64a0d0" prot="public" virt="non-virtual"><scope>rr::EulerIntegrator</scope><name>IntegrationMethod</name></member>
+      <member refid="classrr_1_1EulerIntegrator_1a389bb963b4313a5b4fd45ff7a4ab2a34" prot="private" virt="non-virtual"><scope>rr::EulerIntegrator</scope><name>listener</name></member>
+      <member refid="classrr_1_1Integrator_1a3753687554e7e6bcf0c14c174deb2b0f" prot="public" virt="virtual"><scope>rr::EulerIntegrator</scope><name>loadConfigSettings</name></member>
+      <member refid="classrr_1_1Integrator_1abd2e6c3616d1831c028f1061d927fbcd" prot="public" virt="virtual"><scope>rr::EulerIntegrator</scope><name>loadSBMLSettings</name></member>
+      <member refid="classrr_1_1EulerIntegrator_1a0dc191fb5002c17587815d6fe2935b12" prot="private" virt="non-virtual"><scope>rr::EulerIntegrator</scope><name>model</name></member>
+      <member refid="classrr_1_1Integrator_1a0912499450e66cb4301263362d64a0d0a0f9b8ec4e01a0fcd2ce808c42c039940" prot="public" virt="non-virtual"><scope>rr::EulerIntegrator</scope><name>Other</name></member>
+      <member refid="classrr_1_1EulerIntegrator_1acc0f1564974e6a8ba2572ee44c6af556" prot="private" virt="non-virtual"><scope>rr::EulerIntegrator</scope><name>previousEventStatus</name></member>
+      <member refid="classrr_1_1EulerIntegrator_1a5d623d8a2d3c29942637188e8d2022e7" prot="private" virt="non-virtual"><scope>rr::EulerIntegrator</scope><name>rateBuffer</name></member>
+      <member refid="classrr_1_1EulerIntegrator_1ade4200288b7b99ec7eee7cde2d9729b6" prot="public" virt="virtual"><scope>rr::EulerIntegrator</scope><name>resetSettings</name></member>
+      <member refid="classrr_1_1EulerIntegrator_1a08903e998cf527552442f8fa930772c8" prot="public" virt="virtual"><scope>rr::EulerIntegrator</scope><name>restart</name></member>
+      <member refid="classrr_1_1Integrator_1a1413e566ca980e08e2799777ad41a2ad" prot="public" virt="virtual"><scope>rr::EulerIntegrator</scope><name>setConcentrationTolerance</name></member>
+      <member refid="classrr_1_1Integrator_1ac64b02928caaa4fe411754815c98b4f7" prot="public" virt="virtual"><scope>rr::EulerIntegrator</scope><name>setIndividualTolerance</name></member>
+      <member refid="classrr_1_1EulerIntegrator_1a08066b2cde3b179f76968f7c612610b2" prot="public" virt="virtual"><scope>rr::EulerIntegrator</scope><name>setItem</name></member>
+      <member refid="classrr_1_1EulerIntegrator_1acb23167cc7463d67301f00608131eb4c" prot="public" virt="virtual"><scope>rr::EulerIntegrator</scope><name>setListener</name></member>
+      <member refid="classrr_1_1Solver_1a44a22cf0edead17a9cc923d87dcc063e" prot="protected" virt="non-virtual"><scope>rr::EulerIntegrator</scope><name>settings</name></member>
+      <member refid="classrr_1_1Solver_1a970d11482faab2f17428c760f3ec8240" prot="protected" virt="non-virtual"><scope>rr::EulerIntegrator</scope><name>SettingsList</name></member>
+      <member refid="classrr_1_1Solver_1a84e22bdecb76b77ddfbc8efda8219401" prot="protected" virt="non-virtual"><scope>rr::EulerIntegrator</scope><name>SettingsMap</name></member>
+      <member refid="classrr_1_1Solver_1a37b032d8755eaccd3480531bdc2a4596" prot="public" virt="non-virtual"><scope>rr::EulerIntegrator</scope><name>settingsPyDictRepr</name></member>
+      <member refid="classrr_1_1Solver_1a45dd9257f0b87546e7bdd607f3857260" prot="public" virt="virtual"><scope>rr::EulerIntegrator</scope><name>setValue</name></member>
+      <member refid="classrr_1_1Solver_1a99f48947491d7cd36c68cebba53915fe" prot="protected" virt="non-virtual"><scope>rr::EulerIntegrator</scope><name>sorted_settings</name></member>
+      <member refid="classrr_1_1EulerIntegrator_1a3f774359914a8b7e4fb5c286fa102229" prot="private" virt="non-virtual"><scope>rr::EulerIntegrator</scope><name>stateBufferBegin</name></member>
+      <member refid="classrr_1_1EulerIntegrator_1a271305a4bc859be8ed7e99d032b49662" prot="private" virt="non-virtual"><scope>rr::EulerIntegrator</scope><name>stateBufferEnd</name></member>
+      <member refid="classrr_1_1EulerIntegrator_1a50666f1e4d372584edd21f0d76a4b11c" prot="private" virt="non-virtual"><scope>rr::EulerIntegrator</scope><name>stateVectorSize</name></member>
+      <member refid="classrr_1_1Integrator_1a0912499450e66cb4301263362d64a0d0a35eaf1b6ad6c75eb82506ef35dd47c27" prot="public" virt="non-virtual"><scope>rr::EulerIntegrator</scope><name>Stochastic</name></member>
+      <member refid="classrr_1_1Integrator_1a6b12118cd1b0f047f5a64cfb0546b565" prot="public" virt="virtual"><scope>rr::EulerIntegrator</scope><name>syncWithModel</name></member>
+      <member refid="classrr_1_1EulerIntegrator_1a4f484ed1c727f3f45f90586de64e329f" prot="public" virt="virtual"><scope>rr::EulerIntegrator</scope><name>toRepr</name></member>
+      <member refid="classrr_1_1EulerIntegrator_1aeafbbe730c71a4627fb79f21e0d839ad" prot="public" virt="virtual"><scope>rr::EulerIntegrator</scope><name>toString</name></member>
+      <member refid="classrr_1_1Integrator_1a51c07785d8af1eb648878347529b2eb4" prot="public" virt="virtual"><scope>rr::EulerIntegrator</scope><name>tweakTolerances</name></member>
+      <member refid="classrr_1_1EulerIntegrator_1a1f1d275a7be6a72e9e03b9dd35531fd8" prot="public" virt="virtual"><scope>rr::EulerIntegrator</scope><name>~EulerIntegrator</name></member>
+      <member refid="classrr_1_1Integrator_1a35f0f55f14d225c1da02300f3f1c37b5" prot="public" virt="virtual"><scope>rr::EulerIntegrator</scope><name>~Integrator</name></member>
+      <member refid="classrr_1_1Solver_1a921e53563c59252d5180c2160e46986f" prot="public" virt="virtual"><scope>rr::EulerIntegrator</scope><name>~Solver</name></member>
+    </listofallmembers>
+  </compounddef>
+</doxygen>

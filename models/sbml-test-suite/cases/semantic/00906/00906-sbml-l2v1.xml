@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<sbml xmlns="http://www.sbml.org/sbml/level2" level="2" version="1">
+  <model metaid="_case00906" id="case00906" name="case00906">
+    <listOfCompartments>
+      <compartment id="c" name="c" spatialDimensions="2" size="0.002" units="area" constant="false"/>
+    </listOfCompartments>
+    <listOfParameters>
+      <parameter id="k1" name="k1" value="1.1"/>
+    </listOfParameters>
+    <listOfRules>
+      <rateRule metaid="rule1" variable="c">
+        <math xmlns="http://www.w3.org/1998/Math/MathML">
+          <apply>
+            <times/>
+            <cn type="integer"> -1 </cn>
+            <ci> c </ci>
+            <ci> k1 </ci>
+          </apply>
+        </math>
+      </rateRule>
+    </listOfRules>
+  </model>
+</sbml>

@@ -1,0 +1,62 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<sbml xmlns="http://www.sbml.org/sbml/level2" level="2" version="1">
+  <model id="case00946" name="case00946">
+    <listOfCompartments>
+      <compartment id="C" constant="false"/>
+    </listOfCompartments>
+    <listOfSpecies>
+      <species id="S1" compartment="C" initialAmount="1"/>
+    </listOfSpecies>
+    <listOfParameters>
+      <parameter id="fakeC" value="1" constant="false"/>
+      <parameter id="k1" value="1"/>
+    </listOfParameters>
+    <listOfRules>
+      <assignmentRule variable="C">
+        <math xmlns="http://www.w3.org/1998/Math/MathML">
+          <ci> fakeC </ci>
+        </math>
+      </assignmentRule>
+    </listOfRules>
+    <listOfReactions>
+      <reaction id="reaction1" reversible="false" fast="false">
+        <listOfProducts>
+          <speciesReference species="S1"/>
+        </listOfProducts>
+        <kineticLaw>
+          <math xmlns="http://www.w3.org/1998/Math/MathML">
+            <apply>
+              <divide/>
+              <apply>
+                <times/>
+                <ci> C </ci>
+                <ci> k1 </ci>
+              </apply>
+              <ci> S1 </ci>
+            </apply>
+          </math>
+        </kineticLaw>
+      </reaction>
+    </listOfReactions>
+    <listOfEvents>
+      <event id="event1">
+        <trigger>
+          <math xmlns="http://www.w3.org/1998/Math/MathML">
+            <apply>
+              <gt/>
+              <ci> S1 </ci>
+              <cn> 2.1 </cn>
+            </apply>
+          </math>
+        </trigger>
+        <listOfEventAssignments>
+          <eventAssignment variable="fakeC">
+            <math xmlns="http://www.w3.org/1998/Math/MathML">
+              <cn type="integer"> 10 </cn>
+            </math>
+          </eventAssignment>
+        </listOfEventAssignments>
+      </event>
+    </listOfEvents>
+  </model>
+</sbml>

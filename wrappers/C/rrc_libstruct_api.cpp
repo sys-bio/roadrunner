@@ -51,7 +51,7 @@ RRDoubleMatrixPtr rrcCallConv getEigenvaluesMatrix(const RRDoubleMatrixPtr mat)
         DoubleMatrix *dmat = createMatrix (mat);
 
         vector<Complex> vals = ls::getEigenValues((*dmat));
-        DoubleMatrix result(vals.size(), 2);
+        DoubleMatrix result(static_cast<unsigned int>(vals.size()), 2);
 
         for (int i = 0; i < vals.size(); i++)
         {

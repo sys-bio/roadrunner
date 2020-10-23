@@ -83,10 +83,10 @@ int RoadRunnerData::rSize() const
 double RoadRunnerData::getTimeStart() const
 {
     //Find time column
-    int timeCol = rr::indexOf(mColumnNames, "time");
+    ptrdiff_t timeCol = rr::indexOf(mColumnNames, "time");
     if(timeCol != -1)
     {
-        return mTheData(0,timeCol);
+        return mTheData(0, static_cast<unsigned int>(timeCol));
     }
     return gDoubleNaN;
 }
@@ -94,10 +94,10 @@ double RoadRunnerData::getTimeStart() const
 double RoadRunnerData::getTimeEnd() const
 {
     //Find time column
-    int timeCol = rr::indexOf(mColumnNames, "time");
+    ptrdiff_t timeCol = rr::indexOf(mColumnNames, "time");
     if(timeCol != -1)
     {
-        return mTheData(rSize() -1 ,timeCol);
+        return mTheData(rSize() -1 ,static_cast<unsigned int>(timeCol));
     }
     return gDoubleNaN;
 }
@@ -194,7 +194,7 @@ string RoadRunnerData::getColumnName(const int col) const
     return "Bad Column..";
 }
 
-int RoadRunnerData::getColumnIndex(const string& colName) const
+ptrdiff_t RoadRunnerData::getColumnIndex(const string& colName) const
 {
     return rr::indexOf(mColumnNames, colName);
 }
@@ -233,9 +233,9 @@ string RoadRunnerData::getColumnNamesAsString() const
     return lbls;
 }
 
-void RoadRunnerData::allocate(const int& cSize, const int& rSize)
+void RoadRunnerData::allocate(const size_t& cSize, const size_t& rSize)
 {
-    mTheData.Allocate(cSize, rSize);
+    mTheData.Allocate(static_cast<unsigned int>(cSize), static_cast<unsigned int>(rSize));
 }
 
 //=========== OPERATORS
@@ -323,7 +323,7 @@ bool RoadRunnerData::loadSimpleFormat(const string& fName)
     mColumnNames = rr::splitString(lines[0], ",");
     Log(lInfo) << rr::toString(mColumnNames);
 
-    mTheData.resize(lines.size() -1, mColumnNames.size());
+    mTheData.resize(static_cast<unsigned long>(lines.size()) -1, static_cast<unsigned long>(mColumnNames.size()));
 
     for(int i = 0; i < mTheData.RSize(); i++)
     {

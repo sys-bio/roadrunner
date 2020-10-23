@@ -1,23 +1,7 @@
-CMAKE_MINIMUM_REQUIRED(VERSION 2.6.3 FATAL_ERROR)
-PROJECT(RR_C_API_Examples)
-
-set(examples
-#get_c_code
-)
+cmake_minimum_required(VERSION 2.6.3 FATAL_ERROR)
+project(RR_C_API_Examples)
 
 
-foreach(example ${examples})
-     add_subdirectory(${example})
-    FILE (GLOB hdrs ${example}/*.h)
-     install (FILES ${hdrs}
-                DESTINATION Examples/c_api/${example}
-                COMPONENT example_files)
-
-    FILE (GLOB src ${example}/*.cpp)
-     install (FILES ${src}                         DESTINATION Examples/c_api/${example}    COMPONENT example_files)
-     install (FILES ${example}/Readme.txt         DESTINATION Examples/c_api/${example}    COMPONENT example_files)
-     install (FILES ${example}/CMakeLists.txt     DESTINATION Examples/c_api/${example}    COMPONENT example_files)
-endforeach(example)
-
-#install (FILES Readme.txt             DESTINATION Examples/c_api COMPONENT doc_file)
-#install (FILES CMakeLists.txt         DESTINATION Examples/c_api COMPONENT example_files)
+add_subdirectory(api_tester)
+#add_subdirectory(get_c_code) # doesn't compile, is this example using an old api??
+#add_subdirectory(simple_app) # doesn't have a FindRoadrunner.cmake

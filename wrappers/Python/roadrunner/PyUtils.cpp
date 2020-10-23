@@ -9,6 +9,8 @@
 // http://docs.scipy.org/doc/numpy/reference/c-api.array.html#miscellaneous
 #define NO_IMPORT_ARRAY
 #define PY_ARRAY_UNIQUE_SYMBOL RoadRunner_ARRAY_API
+//Still using some of deprecated wrappers
+//#define NPY_NO_DEPRECATED_API NPY_1_7_API_VERSION
 
 #include <stdexcept>
 #include <string>
@@ -139,6 +141,22 @@ char* rrPyString_AsString(PyObject* s) {
 #endif
 }
 
+char* rrGetPyErrMessage() {
+    // It is a bit convoluted to get the Python error message as a string
+    // from https://stackoverflow.com/a/1418703
+    // Don't need to free these as they are only "references"
+    PyObject* ptype, * pvalue, * ptraceback;
+    PyErr_Fetch(&ptype, &pvalue, &ptraceback);
+
+    if (ptype == NULL) {
+        return NULL;
+    }
+
+    //Get error message
+    char* pStrErrorMessage = rrPyString_AsString(pvalue);
+    return pStrErrorMessage;
+}
+
 PyObject* Variant_to_py(const Variant& var)
 {
     PyObject *result = 0;
@@ -246,15 +264,16 @@ Variant Variant_from_py(PyObject* py)
 		// Borrowed reference.
 		PyObject* err = PyErr_Occurred();
 		if (err) {
+            char* message = rrGetPyErrMessage();
 			std::stringstream ss;
 			ss << "Could not convert Python long to C ";
 			ss << sizeof(long) * 8 << " bit long: ";
-			ss << rrPyString_getCPPString(err);
-
+            ss << std::string(message);
 			// clear error, raise our own
 			PyErr_Clear();
+            rr_strfree(message);
 
-			invalid_argument(ss.str());
+			throw invalid_argument(ss.str());
 		}
 
 		return var;
@@ -298,7 +317,7 @@ PyObject* dictionary_keys(const Dictionary* dict)
 {
     std::vector<std::string> keys = dict->getKeys();
 
-    unsigned size = keys.size();
+    size_t size = keys.size();
 
     PyObject* pyList = PyList_New(size);
 
@@ -318,7 +337,7 @@ PyObject* dictionary_values(const Dictionary* dict)
 {
     std::vector<std::string> keys = dict->getKeys();
 
-    unsigned size = keys.size();
+    size_t size = keys.size();
 
     PyObject* pyList = PyList_New(size);
 
@@ -338,7 +357,7 @@ PyObject* dictionary_items(const Dictionary* dict)
 {
     std::vector<std::string> keys = dict->getKeys();
 
-    unsigned size = keys.size();
+    size_t size = keys.size();
 
     PyObject* pyList = PyList_New(size);
 
@@ -564,13 +583,13 @@ PyObject* doublematrix_to_py(const ls::DoubleMatrix* m, bool structured_result, 
                 int nd = 1;
                 npy_intp dims[1] = {rows};
                 pArray = PyArray_New(&PyArray_Type, nd, dims, NPY_DOUBLE,
-                        NULL, data, 0, NPY_CARRAY, NULL);
+                        NULL, data, 0, NPY_ARRAY_CARRAY, NULL);
             }
             else {
                 int nd = 2;
                 npy_intp dims[2] = {rows, cols};
                 pArray = NamedArray_New(nd, dims, data,
-                        NPY_CARRAY, mat);
+                        NPY_ARRAY_CARRAY, mat);
             }
 
             VERIFY_PYARRAY(pArray);
@@ -701,19 +720,19 @@ static PyObject *NammedArray_subscript(NamedArrayObject *self, PyObject *op)
         char* keyName = rrPyString_AsString(op);
 
         PyObject *colSeq = PySequence_Fast(self->colNames, "expected a sequence");
-        int len = PySequence_Size(colSeq);
+        Py_ssize_t len = PySequence_Size(colSeq);
         for (int col = 0; col < len; col++) {
             PyObject *item = PySequence_Fast_GET_ITEM(colSeq, col);
             char* itemStr = rrPyString_AsString(item);
 
             if(strcmp(keyName, itemStr) == 0) {
 
-                int rows = PyArray_DIM(self, 0);
-                int cols = PyArray_DIM(self, 1);
+                npy_intp rows = PyArray_DIM(self, 0);
+                npy_intp cols = PyArray_DIM(self, 1);
 
                 npy_intp dims[1] = {rows};
                 PyObject *result = PyArray_New(&PyArray_Type, 1, dims, NPY_DOUBLE, NULL, NULL, 0,
-                        NPY_CARRAY, NULL);
+                    NPY_ARRAY_CARRAY, NULL);
 
                 // copy data to result array
                 double* data = (double*)PyArray_DATA(self);
@@ -744,12 +763,12 @@ static PyObject *NammedArray_subscript(NamedArrayObject *self, PyObject *op)
 
             if(strcmp(keyName, itemStr) == 0) {
 
-                int rows = PyArray_DIM(self, 0);
-                int cols = PyArray_DIM(self, 1);
+                npy_intp rows = PyArray_DIM(self, 0);
+                npy_intp cols = PyArray_DIM(self, 1);
 
                 npy_intp dims[1] = {cols};
                 PyObject *result = PyArray_New(&PyArray_Type, 1, dims, NPY_DOUBLE, NULL, NULL, 0,
-                        NPY_CARRAY, NULL);
+                    NPY_ARRAY_CARRAY, NULL);
 
                 // copy data to result array
                 double* data = (double*)PyArray_DATA(self);
@@ -907,9 +926,9 @@ PyObject* NamedArray_New(int nd, npy_intp *dims, double *data, int pyFlags,
                         pyFlags, NULL);
 
         if (array == NULL) {
-            PyObject* pystr = PyObject_Str(PyErr_Occurred());
-            const char* error = rrPyString_AsString(pystr);
+            const char* error = rrGetPyErrMessage();
             Log(Logger::LOG_CRITICAL) << error;
+            rr_strfree(error);
             return NULL;
         }
 
@@ -929,7 +948,7 @@ PyObject* NamedArray_New(int nd, npy_intp *dims, double *data, int pyFlags,
 
 PyObject* stringvector_to_py(const std::vector<std::string>& vec)
 {
-    unsigned size = vec.size();
+    size_t size = vec.size();
 
     PyObject* pyList = PyList_New(size);
 
@@ -951,7 +970,7 @@ std::vector<std::string> py_to_stringvector(PyObject* obj)
     if(obj) {
         PyObject *seq = PySequence_Fast(obj, "expected a sequence");
         if(obj) {
-            unsigned len = PySequence_Size(obj);
+            Py_ssize_t len = PySequence_Size(obj);
             if (PyList_Check(seq))
                 for (unsigned i = 0; i < len; i++) {
                     PyObject *item = PyList_GET_ITEM(seq, i);
@@ -1048,15 +1067,15 @@ static int longestStrLen(const str_vector& s) {
     for(str_vector::const_iterator i = s.begin(); i != s.end(); ++i) {
         longest = std::max(longest, i->length());
     }
-    return longest;
+    return static_cast<int>(longest);
 }
 
 static std::string array_format(PyArrayObject *arr,
         const str_vector& rowNames, const str_vector& colNames) {
 
     unsigned ndim = PyArray_NDIM(arr);
-    unsigned rows = ndim > 0 ? PyArray_DIM(arr, 0) : 0;
-    unsigned cols = ndim > 1 ? PyArray_DIM(arr, 1) : 0;
+    npy_intp rows = ndim > 0 ? PyArray_DIM(arr, 0) : 0;
+    npy_intp cols = ndim > 1 ? PyArray_DIM(arr, 1) : 0;
 
     assert(rows > 0 && cols > 0);
 
@@ -1124,8 +1143,8 @@ PyObject *NamedArray_repr(NamedArrayObject *self)
     str_vector colNames = py_to_stringvector(self->colNames);
 
     unsigned ndim = PyArray_NDIM(array);
-    unsigned rows = ndim > 0 ? PyArray_DIM(array, 0) : 0;
-    unsigned cols = ndim > 1 ? PyArray_DIM(array, 1) : 0;
+    npy_intp rows = ndim > 0 ? PyArray_DIM(array, 0) : 0;
+    npy_intp cols = ndim > 1 ? PyArray_DIM(array, 1) : 0;
 
     if(rows == 0 || cols == 0) {
         return PyArray_Type.tp_str((PyObject*)self);

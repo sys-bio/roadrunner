@@ -1,0 +1,95 @@
+\hypertarget{classrr_1_1NLEQ2Interface}{}\doxysection{rr\+::N\+L\+E\+Q2\+Interface Class Reference}
+\label{classrr_1_1NLEQ2Interface}\index{rr::NLEQ2Interface@{rr::NLEQ2Interface}}
+Inheritance diagram for rr\+::N\+L\+E\+Q2\+Interface\+:\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[height=3.000000cm]{classrr_1_1NLEQ2Interface}
+\end{center}
+\end{figure}
+\doxysubsection*{Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\Hypertarget{classrr_1_1NLEQ2Interface_a8a81435af883b0dfcdc367b02ead6e60}\label{classrr_1_1NLEQ2Interface_a8a81435af883b0dfcdc367b02ead6e60}} 
+\mbox{\hyperlink{classrr_1_1NLEQ2Interface_a8a81435af883b0dfcdc367b02ead6e60}{N\+L\+E\+Q2\+Interface}} (\mbox{\hyperlink{classrr_1_1ExecutableModel}{Executable\+Model}} $\ast$\+\_\+model=N\+U\+LL)
+\begin{DoxyCompactList}\small\item\em Creates a new Instance of N\+L\+EQ for the given Model. \end{DoxyCompactList}\item 
+double \mbox{\hyperlink{classrr_1_1NLEQ2Interface_a0f1535692fbe346c98f1aa3090d00e82}{solve}} ()
+\begin{DoxyCompactList}\small\item\em Thea actual solver routine making the call to N\+L\+E\+Q2. \end{DoxyCompactList}\item 
+virtual void \mbox{\hyperlink{classrr_1_1NLEQ2Interface_a9495cf109b4ec802e3e8532099c73f5e}{set\+Item}} (const std\+::string \&key, const \mbox{\hyperlink{classrr_1_1Variant}{rr\+::\+Variant}} \&value)
+\begin{DoxyCompactList}\small\item\em Implement \mbox{\hyperlink{classrr_1_1Dictionary}{Dictionary}} Interface. \end{DoxyCompactList}\item 
+virtual \mbox{\hyperlink{classrr_1_1Variant}{Variant}} \mbox{\hyperlink{classrr_1_1NLEQ2Interface_a4ef5104c0c2bb69c42add51d3c6cb0d4}{get\+Item}} (const std\+::string \&key) const
+\begin{DoxyCompactList}\small\item\em get a value. \end{DoxyCompactList}\item 
+\mbox{\Hypertarget{classrr_1_1NLEQ2Interface_a544143f7d7780b7ae8a142ed9f352667}\label{classrr_1_1NLEQ2Interface_a544143f7d7780b7ae8a142ed9f352667}} 
+virtual bool \mbox{\hyperlink{classrr_1_1NLEQ2Interface_a544143f7d7780b7ae8a142ed9f352667}{has\+Key}} (const std\+::string \&key) const
+\begin{DoxyCompactList}\small\item\em is there a key matching this name. \end{DoxyCompactList}\item 
+\mbox{\Hypertarget{classrr_1_1NLEQ2Interface_a923f768a00e878aed2fd762fec66479a}\label{classrr_1_1NLEQ2Interface_a923f768a00e878aed2fd762fec66479a}} 
+virtual size\+\_\+t \mbox{\hyperlink{classrr_1_1NLEQ2Interface_a923f768a00e878aed2fd762fec66479a}{delete\+Item}} (const std\+::string \&key)
+\begin{DoxyCompactList}\small\item\em remove a value \end{DoxyCompactList}\item 
+\mbox{\Hypertarget{classrr_1_1NLEQ2Interface_afad85315aa2373f52cbfb12262df8c3f}\label{classrr_1_1NLEQ2Interface_afad85315aa2373f52cbfb12262df8c3f}} 
+virtual std\+::vector$<$ std\+::string $>$ \mbox{\hyperlink{classrr_1_1NLEQ2Interface_afad85315aa2373f52cbfb12262df8c3f}{get\+Keys}} () const
+\begin{DoxyCompactList}\small\item\em list of keys in this object. \end{DoxyCompactList}\end{DoxyCompactItemize}
+\doxysubsection*{Static Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\Hypertarget{classrr_1_1NLEQ2Interface_a80d203c777e3d3f6cc3959a4a1dc2de5}\label{classrr_1_1NLEQ2Interface_a80d203c777e3d3f6cc3959a4a1dc2de5}} 
+static const \mbox{\hyperlink{classrr_1_1Dictionary}{Dictionary}} $\ast$ \mbox{\hyperlink{classrr_1_1NLEQ2Interface_a80d203c777e3d3f6cc3959a4a1dc2de5}{get\+Steady\+State\+Options}} ()
+\begin{DoxyCompactList}\small\item\em list of keys that this integrator supports. \end{DoxyCompactList}\end{DoxyCompactItemize}
+\doxysubsection*{Friends}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\Hypertarget{classrr_1_1NLEQ2Interface_a69a00c6c3952a0634d7ed2ab8d729caa}\label{classrr_1_1NLEQ2Interface_a69a00c6c3952a0634d7ed2ab8d729caa}} 
+class {\bfseries N\+L\+E\+Q2\+Solver}
+\end{DoxyCompactItemize}
+
+
+\doxysubsection{Member Function Documentation}
+\mbox{\Hypertarget{classrr_1_1NLEQ2Interface_a4ef5104c0c2bb69c42add51d3c6cb0d4}\label{classrr_1_1NLEQ2Interface_a4ef5104c0c2bb69c42add51d3c6cb0d4}} 
+\index{rr::NLEQ2Interface@{rr::NLEQ2Interface}!getItem@{getItem}}
+\index{getItem@{getItem}!rr::NLEQ2Interface@{rr::NLEQ2Interface}}
+\doxysubsubsection{\texorpdfstring{getItem()}{getItem()}}
+{\footnotesize\ttfamily \mbox{\hyperlink{classrr_1_1Variant}{Variant}} rr\+::\+N\+L\+E\+Q2\+Interface\+::get\+Item (\begin{DoxyParamCaption}\item[{const std\+::string \&}]{key }\end{DoxyParamCaption}) const\hspace{0.3cm}{\ttfamily [virtual]}}
+
+
+
+get a value. 
+
+Variants are P\+OD. 
+
+Implements \mbox{\hyperlink{classrr_1_1Dictionary_a53cb5eee283727168630f6b1b918bdb0}{rr\+::\+Dictionary}}.
+
+\mbox{\Hypertarget{classrr_1_1NLEQ2Interface_a9495cf109b4ec802e3e8532099c73f5e}\label{classrr_1_1NLEQ2Interface_a9495cf109b4ec802e3e8532099c73f5e}} 
+\index{rr::NLEQ2Interface@{rr::NLEQ2Interface}!setItem@{setItem}}
+\index{setItem@{setItem}!rr::NLEQ2Interface@{rr::NLEQ2Interface}}
+\doxysubsubsection{\texorpdfstring{setItem()}{setItem()}}
+{\footnotesize\ttfamily void rr\+::\+N\+L\+E\+Q2\+Interface\+::set\+Item (\begin{DoxyParamCaption}\item[{const std\+::string \&}]{key,  }\item[{const \mbox{\hyperlink{classrr_1_1Variant}{rr\+::\+Variant}} \&}]{value }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [virtual]}}
+
+
+
+Implement \mbox{\hyperlink{classrr_1_1Dictionary}{Dictionary}} Interface. 
+
+set an arbitrary key 
+
+Implements \mbox{\hyperlink{classrr_1_1Dictionary_a6bb53c3bfeee7e3ee2bfcf9da8212949}{rr\+::\+Dictionary}}.
+
+\mbox{\Hypertarget{classrr_1_1NLEQ2Interface_a0f1535692fbe346c98f1aa3090d00e82}\label{classrr_1_1NLEQ2Interface_a0f1535692fbe346c98f1aa3090d00e82}} 
+\index{rr::NLEQ2Interface@{rr::NLEQ2Interface}!solve@{solve}}
+\index{solve@{solve}!rr::NLEQ2Interface@{rr::NLEQ2Interface}}
+\doxysubsubsection{\texorpdfstring{solve()}{solve()}}
+{\footnotesize\ttfamily double rr\+::\+N\+L\+E\+Q2\+Interface\+::solve (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [virtual]}}
+
+
+
+Thea actual solver routine making the call to N\+L\+E\+Q2. 
+
+\begin{DoxyReturn}{Returns}
+sums of squares 
+\end{DoxyReturn}
+
+
+Implements \mbox{\hyperlink{classrr_1_1rrSteadyStateSolver}{rr\+::rr\+Steady\+State\+Solver}}.
+
+
+
+The documentation for this class was generated from the following files\+:\begin{DoxyCompactItemize}
+\item 
+rr\+N\+L\+E\+Q2\+Interface.\+h\item 
+rr\+N\+L\+E\+Q2\+Interface.\+cpp\end{DoxyCompactItemize}

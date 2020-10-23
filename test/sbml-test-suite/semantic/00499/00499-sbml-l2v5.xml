@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<sbml xmlns="http://www.sbml.org/sbml/level2/version5" level="2" version="5">
+  <model metaid="_case00499" id="case00499" name="case00499">
+    <listOfCompartments>
+      <compartment id="C" name="C" size="1" units="volume"/>
+    </listOfCompartments>
+    <listOfSpecies>
+      <species id="S1" name="S1" compartment="C" initialAmount="30" substanceUnits="substance" boundaryCondition="true"/>
+      <species id="S2" name="S2" compartment="C" initialAmount="1.5" substanceUnits="substance"/>
+    </listOfSpecies>
+    <listOfParameters>
+      <parameter id="k1" name="k1" value="0.75"/>
+      <parameter id="k2" name="k2" value="50"/>
+    </listOfParameters>
+    <listOfInitialAssignments>
+      <initialAssignment symbol="S1">
+        <math xmlns="http://www.w3.org/1998/Math/MathML">
+          <apply>
+            <times/>
+            <ci> k1 </ci>
+            <ci> S2 </ci>
+          </apply>
+        </math>
+      </initialAssignment>
+    </listOfInitialAssignments>
+    <listOfReactions>
+      <reaction id="reaction1" name="reaction1" reversible="false" fast="false">
+        <listOfReactants>
+          <speciesReference species="S1"/>
+        </listOfReactants>
+        <listOfProducts>
+          <speciesReference species="S2"/>
+        </listOfProducts>
+        <kineticLaw>
+          <math xmlns="http://www.w3.org/1998/Math/MathML">
+            <apply>
+              <times/>
+              <ci> C </ci>
+              <ci> k2 </ci>
+              <ci> S1 </ci>
+            </apply>
+          </math>
+        </kineticLaw>
+      </reaction>
+    </listOfReactions>
+  </model>
+</sbml>

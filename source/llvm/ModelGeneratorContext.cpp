@@ -15,11 +15,24 @@
 #include "conservation/ConservationExtension.h"
 #include "rrRoadRunnerOptions.h"
 #include "rrConfig.h"
+
+#ifdef _MSC_VER
+#pragma warning(disable: 4146)
+#pragma warning(disable: 4141)
+#pragma warning(disable: 4267)
+#pragma warning(disable: 4624)
+#endif
 #include "llvm/IR/DataLayout.h"
 #include "llvm/Support/TargetRegistry.h"
 #include "llvm/Support/DynamicLibrary.h"
 //#include "llvm/ExecutionEngine/OrcMCJITReplacement.h"
 #include "llvm/ExecutionEngine/SectionMemoryManager.h"
+#ifdef _MSC_VER
+#pragma warning(default: 4146)
+#pragma warning(default: 4141)
+#pragma warning(default: 4267)
+#pragma warning(default: 4624)
+#endif
 
 #include <sbml/SBMLReader.h>
 #include <string>
@@ -189,7 +202,7 @@ ModelGeneratorContext::ModelGeneratorContext(std::string const &sbml,
         // Random adds mappings, need call after llvm objs created
 #ifdef LIBSBML_HAS_PACKAGE_DISTRIB
         const DistribSBMLDocumentPlugin* distrib =
-                dynamic_cast<const DistribSBMLDocumentPlugin*>(
+                static_cast<const DistribSBMLDocumentPlugin*>(
                         doc->getPlugin("distrib"));
         if(distrib)
         {
@@ -302,7 +315,7 @@ ModelGeneratorContext::ModelGeneratorContext(libsbml::SBMLDocument const *_doc,
         // Random adds mappings, need call after llvm objs created
 #ifdef LIBSBML_HAS_PACKAGE_DISTRIB
         const DistribSBMLDocumentPlugin* distrib =
-                dynamic_cast<const DistribSBMLDocumentPlugin*>(
+                static_cast<const DistribSBMLDocumentPlugin*>(
                         _doc->getPlugin("distrib"));
         if(distrib)
         {

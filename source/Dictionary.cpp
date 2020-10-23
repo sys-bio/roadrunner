@@ -17,7 +17,7 @@ void BasicDictionary::setItem(const std::string& key,
 
 Variant BasicDictionary::getItem(const std::string& key) const
 {
-    VariantMap::const_iterator i = items.find(key);
+    auto i = items.find(key);
 
     if (i != items.end()) {
         return i->second;
@@ -30,7 +30,7 @@ bool BasicDictionary::hasKey(const std::string& key) const
     return items.find(key) != items.end();
 }
 
-int  BasicDictionary::deleteItem(const std::string& key)
+size_t  BasicDictionary::deleteItem(const std::string& key)
 {
     return items.erase(key);
 }
@@ -39,7 +39,7 @@ std::vector<std::string> rr::BasicDictionary::getKeys() const
 {
     std::vector<std::string> keys(items.size());
     int j = 0;
-    for(VariantMap::const_iterator i = items.begin(); i != items.end(); ++i, ++j) {
+    for(auto i = items.begin(); i != items.end(); ++i, ++j) {
         keys[j] = i->first;
     }
     return keys;

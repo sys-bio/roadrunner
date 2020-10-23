@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<sbml xmlns="http://www.sbml.org/sbml/level2/version2" level="2" version="2">
+  <model id="case01751" name="case01751">
+    <listOfCompartments>
+      <compartment id="C" size="1"/>
+    </listOfCompartments>
+    <listOfSpecies>
+      <species id="S1" compartment="C" initialAmount="2"/>
+    </listOfSpecies>
+    <listOfReactions>
+      <reaction id="J0">
+        <listOfProducts>
+          <speciesReference id="S1_stoich" species="S1">
+            <stoichiometryMath>
+              <math xmlns="http://www.w3.org/1998/Math/MathML">
+                <apply>
+                  <divide/>
+                  <csymbol encoding="text" definitionURL="http://www.sbml.org/sbml/symbols/time"> time </csymbol>
+                  <cn type="integer"> 10 </cn>
+                </apply>
+              </math>
+            </stoichiometryMath>
+          </speciesReference>
+        </listOfProducts>
+        <kineticLaw>
+          <math xmlns="http://www.w3.org/1998/Math/MathML">
+            <ci> S1_stoich </ci>
+          </math>
+          <listOfParameters>
+            <parameter id="S1_stoich" value="0.1"/>
+          </listOfParameters>
+        </kineticLaw>
+      </reaction>
+    </listOfReactions>
+  </model>
+</sbml>

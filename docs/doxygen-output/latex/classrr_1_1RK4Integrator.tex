@@ -1,0 +1,280 @@
+\hypertarget{classrr_1_1RK4Integrator}{}\doxysection{rr\+::R\+K4\+Integrator Class Reference}
+\label{classrr_1_1RK4Integrator}\index{rr::RK4Integrator@{rr::RK4Integrator}}
+
+
+A super basic 4\textquotesingle{}th order fixed step integrator.  
+
+
+
+
+{\ttfamily \#include $<$R\+K4\+Integrator.\+h$>$}
+
+Inheritance diagram for rr\+::R\+K4\+Integrator\+:\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[height=3.000000cm]{classrr_1_1RK4Integrator}
+\end{center}
+\end{figure}
+\doxysubsection*{Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\hyperlink{classrr_1_1RK4Integrator_ac7059cef88e3a80e415855ec5fb2d2ef}{R\+K4\+Integrator}} (\mbox{\hyperlink{classrr_1_1ExecutableModel}{Executable\+Model}} $\ast$m)
+\begin{DoxyCompactList}\small\item\em Creates a new \mbox{\hyperlink{classrr_1_1RK4Integrator}{R\+K4\+Integrator}}. \end{DoxyCompactList}\item 
+\mbox{\Hypertarget{classrr_1_1RK4Integrator_a2b4921fff536a7eb7e1ed40c8c5d57c8}\label{classrr_1_1RK4Integrator_a2b4921fff536a7eb7e1ed40c8c5d57c8}} 
+virtual \mbox{\hyperlink{classrr_1_1RK4Integrator_a2b4921fff536a7eb7e1ed40c8c5d57c8}{$\sim$\+R\+K4\+Integrator}} ()
+\begin{DoxyCompactList}\small\item\em clean up any mess. \end{DoxyCompactList}\item 
+virtual void \mbox{\hyperlink{classrr_1_1RK4Integrator_a727b452ebf195fc36143ba8a2fa8c2c2}{sync\+With\+Model}} (\mbox{\hyperlink{classrr_1_1ExecutableModel}{Executable\+Model}} $\ast$m)
+\begin{DoxyCompactList}\small\item\em Called whenever a new model is loaded to allow integrator to reset internal state. \end{DoxyCompactList}\item 
+virtual double \mbox{\hyperlink{classrr_1_1RK4Integrator_af1e35f90daed9607d6536ca75734e51a}{integrate}} (double t0, double tf)
+\begin{DoxyCompactList}\small\item\em implement \mbox{\hyperlink{classrr_1_1Integrator}{Integrator}} interface \end{DoxyCompactList}\item 
+\mbox{\Hypertarget{classrr_1_1RK4Integrator_a75ca0574917ed21f598fb93b1837cec3}\label{classrr_1_1RK4Integrator_a75ca0574917ed21f598fb93b1837cec3}} 
+virtual void \mbox{\hyperlink{classrr_1_1RK4Integrator_a75ca0574917ed21f598fb93b1837cec3}{restart}} (double t0)
+\begin{DoxyCompactList}\small\item\em copies the state vector out of the model and into cvode vector, re-\/initializes cvode. \end{DoxyCompactList}\item 
+std\+::string \mbox{\hyperlink{classrr_1_1RK4Integrator_ae65f8c20d95f0bc6018992d3803c3287}{get\+Name}} () const
+\begin{DoxyCompactList}\small\item\em $\ast$$\ast$ \end{DoxyCompactList}\item 
+std\+::string \mbox{\hyperlink{classrr_1_1RK4Integrator_ad4638630bbbfc3bc62adfdfdebc9bde9}{get\+Description}} () const
+\begin{DoxyCompactList}\small\item\em Get the description for this integrator. \end{DoxyCompactList}\item 
+std\+::string \mbox{\hyperlink{classrr_1_1RK4Integrator_a2f98503350687e02bea28077f3538b07}{get\+Hint}} () const
+\begin{DoxyCompactList}\small\item\em Get the hint for this integrator. \end{DoxyCompactList}\item 
+\mbox{\Hypertarget{classrr_1_1RK4Integrator_ae621b95ad0336b25765f808154cb4e2f}\label{classrr_1_1RK4Integrator_ae621b95ad0336b25765f808154cb4e2f}} 
+virtual \mbox{\hyperlink{classrr_1_1Variant}{Variant}} {\bfseries get\+Value} (std\+::string key)
+\item 
+Integration\+Method \mbox{\hyperlink{classrr_1_1RK4Integrator_a018a18ad74f168f9faaf6887593ef57c}{get\+Integration\+Method}} () const
+\begin{DoxyCompactList}\small\item\em Always deterministic for R\+K4. \end{DoxyCompactList}\item 
+void \mbox{\hyperlink{classrr_1_1RK4Integrator_ae7537cb767479cd0ab19dc405ed13376}{reset\+Settings}} ()
+\begin{DoxyCompactList}\small\item\em Reset all integrator settings to their respective default values. \end{DoxyCompactList}\item 
+virtual void \mbox{\hyperlink{classrr_1_1RK4Integrator_af5bc29a4b5af9536ef312cb88e9f3b30}{set\+Listener}} (Integrator\+Listener\+Ptr)
+\begin{DoxyCompactList}\small\item\em the integrator can hold a single listener. \end{DoxyCompactList}\item 
+\mbox{\Hypertarget{classrr_1_1RK4Integrator_a11d4c8c5a4f0b807af86254d9005577d}\label{classrr_1_1RK4Integrator_a11d4c8c5a4f0b807af86254d9005577d}} 
+virtual Integrator\+Listener\+Ptr \mbox{\hyperlink{classrr_1_1RK4Integrator_a11d4c8c5a4f0b807af86254d9005577d}{get\+Listener}} ()
+\begin{DoxyCompactList}\small\item\em get the integrator listener \end{DoxyCompactList}\end{DoxyCompactItemize}
+\doxysubsection*{Static Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+static std\+::string \mbox{\hyperlink{classrr_1_1RK4Integrator_a81c46e8931486fb935a21dbe8d825e7f}{get\+R\+K4\+Name}} ()
+\begin{DoxyCompactList}\small\item\em Get the name for this integrator. \end{DoxyCompactList}\item 
+static std\+::string \mbox{\hyperlink{classrr_1_1RK4Integrator_acbe762b6c778c42d80c1bb8cacc9571e}{get\+R\+K4\+Description}} ()
+\begin{DoxyCompactList}\small\item\em Get the description for this integrator. \end{DoxyCompactList}\item 
+static std\+::string \mbox{\hyperlink{classrr_1_1RK4Integrator_a0cf30eea0ad35908ab2acfb19a7c1972}{get\+R\+K4\+Hint}} ()
+\begin{DoxyCompactList}\small\item\em Get the hint for this integrator. \end{DoxyCompactList}\end{DoxyCompactItemize}
+\doxysubsection*{Additional Inherited Members}
+
+
+\doxysubsection{Detailed Description}
+A super basic 4\textquotesingle{}th order fixed step integrator. 
+
+The Runge\+Kutta\+Integrator will be the more sophisticated, general purpose Runge-\/\+Kutta integrator which will support different orders and adaptive time stepping.
+
+This object is mainly here as an example of creating a new \mbox{\hyperlink{classrr_1_1Integrator}{Integrator}}. 
+
+\doxysubsection{Constructor \& Destructor Documentation}
+\mbox{\Hypertarget{classrr_1_1RK4Integrator_ac7059cef88e3a80e415855ec5fb2d2ef}\label{classrr_1_1RK4Integrator_ac7059cef88e3a80e415855ec5fb2d2ef}} 
+\index{rr::RK4Integrator@{rr::RK4Integrator}!RK4Integrator@{RK4Integrator}}
+\index{RK4Integrator@{RK4Integrator}!rr::RK4Integrator@{rr::RK4Integrator}}
+\doxysubsubsection{\texorpdfstring{RK4Integrator()}{RK4Integrator()}}
+{\footnotesize\ttfamily rr\+::\+R\+K4\+Integrator\+::\+R\+K4\+Integrator (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{classrr_1_1ExecutableModel}{Executable\+Model}} $\ast$}]{m }\end{DoxyParamCaption})}
+
+
+
+Creates a new \mbox{\hyperlink{classrr_1_1RK4Integrator}{R\+K4\+Integrator}}. 
+
+The \mbox{\hyperlink{classrr_1_1IntegratorFactory}{Integrator\+Factory}} is the O\+N\+LY object that creates integrators.
+
+Integrators are created when the \mbox{\hyperlink{classrr_1_1IntegratorFactory_ab7298b70afb06e1200181cf3981f739c}{Integrator\+Factory\+::\+New}} method is called, typically by the top level \mbox{\hyperlink{classrr_1_1RoadRunner}{Road\+Runner}} object.
+
+The integrator will hold onto the \mbox{\hyperlink{classrr_1_1ExecutableModel}{Executable\+Model}} pointer, m, and when the integrate method is called, will advance the model object forward in time.
+
+
+\begin{DoxyParams}{Parameters}
+{\em m} & a borrowed reference to an existing \mbox{\hyperlink{classrr_1_1ExecutableModel}{Executable\+Model}} object. \\
+\hline
+{\em o} & a reference to a Simulat\+Options object where the configuration parameters will be read from. \\
+\hline
+\end{DoxyParams}
+
+
+\doxysubsection{Member Function Documentation}
+\mbox{\Hypertarget{classrr_1_1RK4Integrator_ad4638630bbbfc3bc62adfdfdebc9bde9}\label{classrr_1_1RK4Integrator_ad4638630bbbfc3bc62adfdfdebc9bde9}} 
+\index{rr::RK4Integrator@{rr::RK4Integrator}!getDescription@{getDescription}}
+\index{getDescription@{getDescription}!rr::RK4Integrator@{rr::RK4Integrator}}
+\doxysubsubsection{\texorpdfstring{getDescription()}{getDescription()}}
+{\footnotesize\ttfamily std\+::string rr\+::\+R\+K4\+Integrator\+::get\+Description (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption}) const\hspace{0.3cm}{\ttfamily [virtual]}}
+
+
+
+Get the description for this integrator. 
+
+\begin{DoxyAuthor}{Author}
+J\+KM 
+\end{DoxyAuthor}
+\begin{DoxyNote}{Note}
+Delegates to \mbox{\hyperlink{classrr_1_1RK4Integrator_ad4638630bbbfc3bc62adfdfdebc9bde9}{get\+Description}} 
+\end{DoxyNote}
+
+
+Implements \mbox{\hyperlink{classrr_1_1Solver_a86067147c7631ca80d51667322f1a8f5}{rr\+::\+Solver}}.
+
+\mbox{\Hypertarget{classrr_1_1RK4Integrator_a2f98503350687e02bea28077f3538b07}\label{classrr_1_1RK4Integrator_a2f98503350687e02bea28077f3538b07}} 
+\index{rr::RK4Integrator@{rr::RK4Integrator}!getHint@{getHint}}
+\index{getHint@{getHint}!rr::RK4Integrator@{rr::RK4Integrator}}
+\doxysubsubsection{\texorpdfstring{getHint()}{getHint()}}
+{\footnotesize\ttfamily std\+::string rr\+::\+R\+K4\+Integrator\+::get\+Hint (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption}) const\hspace{0.3cm}{\ttfamily [virtual]}}
+
+
+
+Get the hint for this integrator. 
+
+\begin{DoxyAuthor}{Author}
+W\+BC 
+\end{DoxyAuthor}
+\begin{DoxyNote}{Note}
+Delegates to \mbox{\hyperlink{classrr_1_1RK4Integrator_a2f98503350687e02bea28077f3538b07}{get\+Hint}} 
+\end{DoxyNote}
+
+
+Implements \mbox{\hyperlink{classrr_1_1Solver_aff005f7e71bc73123ecbd511a77f71b6}{rr\+::\+Solver}}.
+
+\mbox{\Hypertarget{classrr_1_1RK4Integrator_a018a18ad74f168f9faaf6887593ef57c}\label{classrr_1_1RK4Integrator_a018a18ad74f168f9faaf6887593ef57c}} 
+\index{rr::RK4Integrator@{rr::RK4Integrator}!getIntegrationMethod@{getIntegrationMethod}}
+\index{getIntegrationMethod@{getIntegrationMethod}!rr::RK4Integrator@{rr::RK4Integrator}}
+\doxysubsubsection{\texorpdfstring{getIntegrationMethod()}{getIntegrationMethod()}}
+{\footnotesize\ttfamily Integrator\+::\+Integration\+Method rr\+::\+R\+K4\+Integrator\+::get\+Integration\+Method (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption}) const\hspace{0.3cm}{\ttfamily [virtual]}}
+
+
+
+Always deterministic for R\+K4. 
+
+\begin{DoxyAuthor}{Author}
+J\+KM 
+\end{DoxyAuthor}
+
+
+Implements \mbox{\hyperlink{classrr_1_1Integrator}{rr\+::\+Integrator}}.
+
+\mbox{\Hypertarget{classrr_1_1RK4Integrator_ae65f8c20d95f0bc6018992d3803c3287}\label{classrr_1_1RK4Integrator_ae65f8c20d95f0bc6018992d3803c3287}} 
+\index{rr::RK4Integrator@{rr::RK4Integrator}!getName@{getName}}
+\index{getName@{getName}!rr::RK4Integrator@{rr::RK4Integrator}}
+\doxysubsubsection{\texorpdfstring{getName()}{getName()}}
+{\footnotesize\ttfamily std\+::string rr\+::\+R\+K4\+Integrator\+::get\+Name (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption}) const\hspace{0.3cm}{\ttfamily [virtual]}}
+
+
+
+$\ast$$\ast$ 
+
+$\ast$$\ast$ \begin{DoxyAuthor}{Author}
+J\+KM
+\end{DoxyAuthor}
+Get the name for this integrator \begin{DoxyNote}{Note}
+Delegates to \mbox{\hyperlink{classrr_1_1RK4Integrator_ae65f8c20d95f0bc6018992d3803c3287}{get\+Name}} 
+\end{DoxyNote}
+
+
+Implements \mbox{\hyperlink{classrr_1_1Solver_a417cca64a18c63535f2091584f8fed91}{rr\+::\+Solver}}.
+
+\mbox{\Hypertarget{classrr_1_1RK4Integrator_acbe762b6c778c42d80c1bb8cacc9571e}\label{classrr_1_1RK4Integrator_acbe762b6c778c42d80c1bb8cacc9571e}} 
+\index{rr::RK4Integrator@{rr::RK4Integrator}!getRK4Description@{getRK4Description}}
+\index{getRK4Description@{getRK4Description}!rr::RK4Integrator@{rr::RK4Integrator}}
+\doxysubsubsection{\texorpdfstring{getRK4Description()}{getRK4Description()}}
+{\footnotesize\ttfamily std\+::string rr\+::\+R\+K4\+Integrator\+::get\+R\+K4\+Description (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [static]}}
+
+
+
+Get the description for this integrator. 
+
+\begin{DoxyAuthor}{Author}
+J\+KM 
+\end{DoxyAuthor}
+\mbox{\Hypertarget{classrr_1_1RK4Integrator_a0cf30eea0ad35908ab2acfb19a7c1972}\label{classrr_1_1RK4Integrator_a0cf30eea0ad35908ab2acfb19a7c1972}} 
+\index{rr::RK4Integrator@{rr::RK4Integrator}!getRK4Hint@{getRK4Hint}}
+\index{getRK4Hint@{getRK4Hint}!rr::RK4Integrator@{rr::RK4Integrator}}
+\doxysubsubsection{\texorpdfstring{getRK4Hint()}{getRK4Hint()}}
+{\footnotesize\ttfamily std\+::string rr\+::\+R\+K4\+Integrator\+::get\+R\+K4\+Hint (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [static]}}
+
+
+
+Get the hint for this integrator. 
+
+\begin{DoxyAuthor}{Author}
+J\+KM 
+\end{DoxyAuthor}
+\mbox{\Hypertarget{classrr_1_1RK4Integrator_a81c46e8931486fb935a21dbe8d825e7f}\label{classrr_1_1RK4Integrator_a81c46e8931486fb935a21dbe8d825e7f}} 
+\index{rr::RK4Integrator@{rr::RK4Integrator}!getRK4Name@{getRK4Name}}
+\index{getRK4Name@{getRK4Name}!rr::RK4Integrator@{rr::RK4Integrator}}
+\doxysubsubsection{\texorpdfstring{getRK4Name()}{getRK4Name()}}
+{\footnotesize\ttfamily std\+::string rr\+::\+R\+K4\+Integrator\+::get\+R\+K4\+Name (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [static]}}
+
+
+
+Get the name for this integrator. 
+
+\begin{DoxyAuthor}{Author}
+J\+KM 
+\end{DoxyAuthor}
+\mbox{\Hypertarget{classrr_1_1RK4Integrator_af1e35f90daed9607d6536ca75734e51a}\label{classrr_1_1RK4Integrator_af1e35f90daed9607d6536ca75734e51a}} 
+\index{rr::RK4Integrator@{rr::RK4Integrator}!integrate@{integrate}}
+\index{integrate@{integrate}!rr::RK4Integrator@{rr::RK4Integrator}}
+\doxysubsubsection{\texorpdfstring{integrate()}{integrate()}}
+{\footnotesize\ttfamily double rr\+::\+R\+K4\+Integrator\+::integrate (\begin{DoxyParamCaption}\item[{double}]{t0,  }\item[{double}]{tf }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [virtual]}}
+
+
+
+implement \mbox{\hyperlink{classrr_1_1Integrator}{Integrator}} interface 
+
+integrates the model from t0 to tf. 
+
+Implements \mbox{\hyperlink{classrr_1_1Integrator}{rr\+::\+Integrator}}.
+
+\mbox{\Hypertarget{classrr_1_1RK4Integrator_ae7537cb767479cd0ab19dc405ed13376}\label{classrr_1_1RK4Integrator_ae7537cb767479cd0ab19dc405ed13376}} 
+\index{rr::RK4Integrator@{rr::RK4Integrator}!resetSettings@{resetSettings}}
+\index{resetSettings@{resetSettings}!rr::RK4Integrator@{rr::RK4Integrator}}
+\doxysubsubsection{\texorpdfstring{resetSettings()}{resetSettings()}}
+{\footnotesize\ttfamily void rr\+::\+R\+K4\+Integrator\+::reset\+Settings (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [virtual]}}
+
+
+
+Reset all integrator settings to their respective default values. 
+
+\begin{DoxyAuthor}{Author}
+J\+KM 
+\end{DoxyAuthor}
+
+
+Reimplemented from \mbox{\hyperlink{classrr_1_1Solver_a71c8b404a40447f879b2253e7dcc3b85}{rr\+::\+Solver}}.
+
+\mbox{\Hypertarget{classrr_1_1RK4Integrator_af5bc29a4b5af9536ef312cb88e9f3b30}\label{classrr_1_1RK4Integrator_af5bc29a4b5af9536ef312cb88e9f3b30}} 
+\index{rr::RK4Integrator@{rr::RK4Integrator}!setListener@{setListener}}
+\index{setListener@{setListener}!rr::RK4Integrator@{rr::RK4Integrator}}
+\doxysubsubsection{\texorpdfstring{setListener()}{setListener()}}
+{\footnotesize\ttfamily void rr\+::\+R\+K4\+Integrator\+::set\+Listener (\begin{DoxyParamCaption}\item[{Integrator\+Listener\+Ptr}]{ }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [virtual]}}
+
+
+
+the integrator can hold a single listener. 
+
+If clients require multicast, they can create a multi-\/cast listener. 
+
+Implements \mbox{\hyperlink{classrr_1_1Integrator}{rr\+::\+Integrator}}.
+
+\mbox{\Hypertarget{classrr_1_1RK4Integrator_a727b452ebf195fc36143ba8a2fa8c2c2}\label{classrr_1_1RK4Integrator_a727b452ebf195fc36143ba8a2fa8c2c2}} 
+\index{rr::RK4Integrator@{rr::RK4Integrator}!syncWithModel@{syncWithModel}}
+\index{syncWithModel@{syncWithModel}!rr::RK4Integrator@{rr::RK4Integrator}}
+\doxysubsubsection{\texorpdfstring{syncWithModel()}{syncWithModel()}}
+{\footnotesize\ttfamily void rr\+::\+R\+K4\+Integrator\+::sync\+With\+Model (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{classrr_1_1ExecutableModel}{Executable\+Model}} $\ast$}]{m }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [virtual]}}
+
+
+
+Called whenever a new model is loaded to allow integrator to reset internal state. 
+
+\begin{DoxyAuthor}{Author}
+J\+KM 
+\end{DoxyAuthor}
+
+
+Reimplemented from \mbox{\hyperlink{classrr_1_1Integrator_a6b12118cd1b0f047f5a64cfb0546b565}{rr\+::\+Integrator}}.
+
+
+
+The documentation for this class was generated from the following files\+:\begin{DoxyCompactItemize}
+\item 
+R\+K4\+Integrator.\+h\item 
+R\+K4\+Integrator.\+cpp\end{DoxyCompactItemize}

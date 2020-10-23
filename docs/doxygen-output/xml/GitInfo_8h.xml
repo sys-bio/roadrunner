@@ -1,0 +1,70 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.20" xml:lang="en-US">
+  <compounddef id="GitInfo_8h" kind="file" language="C++">
+    <compoundname>GitInfo.h</compoundname>
+    <includedby refid="rrVersionInfo_8cpp" local="yes">rrVersionInfo.cpp</includedby>
+      <sectiondef kind="func">
+      <memberdef kind="function" id="GitInfo_8h_1a972a563dd7065bbbb7740dc59c6fca23" prot="public" static="yes" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>const char *</type>
+        <definition>static const char* getGitBranch</definition>
+        <argsstring>()</argsstring>
+        <name>getGitBranch</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="GitInfo.h" line="19" column="19" bodyfile="GitInfo.h" bodystart="19" bodyend="21"/>
+      </memberdef>
+      <memberdef kind="function" id="GitInfo_8h_1aa37299032f7ad65ff8a2a0e1de3026ac" prot="public" static="yes" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>const char *</type>
+        <definition>static const char* getGitLastCommit</definition>
+        <argsstring>()</argsstring>
+        <name>getGitLastCommit</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="GitInfo.h" line="24" column="19" bodyfile="GitInfo.h" bodystart="24" bodyend="26"/>
+      </memberdef>
+      </sectiondef>
+    <briefdescription>
+    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <programlisting>
+<codeline lineno="1"><highlight class="comment">/*</highlight></codeline>
+<codeline lineno="2"><highlight class="comment"><sp/>*<sp/>GitInfo.h</highlight></codeline>
+<codeline lineno="3"><highlight class="comment"><sp/>*</highlight></codeline>
+<codeline lineno="4"><highlight class="comment"><sp/>*<sp/><sp/>Created<sp/>on:<sp/>Sep<sp/>7,<sp/>2013</highlight></codeline>
+<codeline lineno="5"><highlight class="comment"><sp/>*<sp/><sp/><sp/><sp/><sp/><sp/>Author:<sp/>andy</highlight></codeline>
+<codeline lineno="6"><highlight class="comment"><sp/>*</highlight></codeline>
+<codeline lineno="7"><highlight class="comment"><sp/>*<sp/>A<sp/>file<sp/>that<sp/>is<sp/>pre-processed<sp/>by<sp/>cmake<sp/>to<sp/>generate<sp/>a<sp/>GitInfo.h.</highlight></codeline>
+<codeline lineno="8"><highlight class="comment"><sp/>*<sp/>The<sp/>generated<sp/>file<sp/>is<sp/>intended<sp/>to<sp/>be<sp/>include<sp/>only<sp/>in<sp/>VersionInfo.cpp</highlight></codeline>
+<codeline lineno="9"><highlight class="comment"><sp/>*<sp/>as<sp/>a<sp/>way<sp/>to<sp/>get<sp/>info<sp/>about<sp/>what<sp/>git<sp/>branch<sp/>we<sp/>are<sp/>on.<sp/></highlight></codeline>
+<codeline lineno="10"><highlight class="comment"><sp/>*<sp/></highlight></codeline>
+<codeline lineno="11"><highlight class="comment"><sp/>*<sp/>this<sp/>has<sp/>a<sp/>few<sp/>static<sp/>(so<sp/>they<sp/>only<sp/>show<sp/>up<sp/>in<sp/>the<sp/>current<sp/>compilation<sp/>unit)</highlight></codeline>
+<codeline lineno="12"><highlight class="comment"><sp/>*<sp/>function<sp/>get<sp/>return<sp/>info<sp/>about<sp/>the<sp/>git<sp/>branch<sp/>and<sp/>last<sp/>commit.<sp/></highlight></codeline>
+<codeline lineno="13"><highlight class="comment"><sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="14"><highlight class="normal"></highlight></codeline>
+<codeline lineno="15"><highlight class="normal"></highlight><highlight class="preprocessor">#ifndef<sp/>GITINFO_H_</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="16"><highlight class="normal"></highlight><highlight class="preprocessor">#define<sp/>GITINFO_H_</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="17"><highlight class="normal"></highlight></codeline>
+<codeline lineno="18"><highlight class="normal"></highlight></codeline>
+<codeline lineno="19"><highlight class="normal"></highlight><highlight class="keyword">static</highlight><highlight class="normal"><sp/></highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/></highlight><highlight class="keywordtype">char</highlight><highlight class="normal">*<sp/>getGitBranch()<sp/>{</highlight></codeline>
+<codeline lineno="20"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal"><sp/></highlight><highlight class="stringliteral">&quot;develop&quot;</highlight><highlight class="normal">;</highlight></codeline>
+<codeline lineno="21"><highlight class="normal">}</highlight></codeline>
+<codeline lineno="22"><highlight class="normal"></highlight></codeline>
+<codeline lineno="23"><highlight class="normal"></highlight></codeline>
+<codeline lineno="24"><highlight class="normal"></highlight><highlight class="keyword">static</highlight><highlight class="normal"><sp/></highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/></highlight><highlight class="keywordtype">char</highlight><highlight class="normal">*<sp/>getGitLastCommit()<sp/>{</highlight></codeline>
+<codeline lineno="25"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal"><sp/></highlight><highlight class="stringliteral">&quot;6fcfa915db3d71c137cf3c7357c063d5a5ea6d7a&quot;</highlight><highlight class="normal">;</highlight></codeline>
+<codeline lineno="26"><highlight class="normal">}</highlight></codeline>
+<codeline lineno="27"><highlight class="normal"></highlight></codeline>
+<codeline lineno="28"><highlight class="normal"></highlight><highlight class="preprocessor">#endif</highlight></codeline>
+    </programlisting>
+    <location file="GitInfo.h"/>
+  </compounddef>
+</doxygen>

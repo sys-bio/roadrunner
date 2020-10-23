@@ -1,0 +1,91 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<sbml xmlns="http://www.sbml.org/sbml/level2" level="2" version="1">
+  <model id="case00988" name="case00988">
+    <listOfCompartments>
+      <compartment id="comp" size="1"/>
+    </listOfCompartments>
+    <listOfSpecies>
+      <species id="A" compartment="comp" initialAmount="0" hasOnlySubstanceUnits="true"/>
+      <species id="B" compartment="comp" initialAmount="2" hasOnlySubstanceUnits="true"/>
+    </listOfSpecies>
+    <listOfParameters>
+      <parameter id="k1" value="1" constant="false"/>
+      <parameter id="k2" value="0" constant="false"/>
+    </listOfParameters>
+    <listOfReactions>
+      <reaction id="slow" fast="false">
+        <listOfReactants>
+          <speciesReference species="B"/>
+        </listOfReactants>
+        <listOfProducts>
+          <speciesReference species="A"/>
+        </listOfProducts>
+        <kineticLaw>
+          <math xmlns="http://www.w3.org/1998/Math/MathML">
+            <ci> k1 </ci>
+          </math>
+        </kineticLaw>
+      </reaction>
+      <reaction id="fast" fast="true">
+        <listOfReactants>
+          <speciesReference species="A"/>
+        </listOfReactants>
+        <listOfProducts>
+          <speciesReference species="B"/>
+        </listOfProducts>
+        <kineticLaw>
+          <math xmlns="http://www.w3.org/1998/Math/MathML">
+            <apply>
+              <times/>
+              <ci> k2 </ci>
+              <ci> A </ci>
+            </apply>
+          </math>
+        </kineticLaw>
+      </reaction>
+    </listOfReactions>
+    <listOfEvents>
+      <event id="E0">
+        <trigger>
+          <math xmlns="http://www.w3.org/1998/Math/MathML">
+            <apply>
+              <geq/>
+              <ci> A </ci>
+              <cn> 0.99 </cn>
+            </apply>
+          </math>
+        </trigger>
+        <listOfEventAssignments>
+          <eventAssignment variable="k2">
+            <math xmlns="http://www.w3.org/1998/Math/MathML">
+              <cn type="integer"> 1 </cn>
+            </math>
+          </eventAssignment>
+        </listOfEventAssignments>
+      </event>
+      <event id="E1">
+        <trigger>
+          <math xmlns="http://www.w3.org/1998/Math/MathML">
+            <apply>
+              <geq/>
+              <ci> A </ci>
+              <cn> 0.99 </cn>
+            </apply>
+          </math>
+        </trigger>
+        <delay>
+          <math xmlns="http://www.w3.org/1998/Math/MathML">
+            <cn> 0.1 </cn>
+          </math>
+        </delay>
+        <listOfEventAssignments>
+          <eventAssignment variable="k2">
+            <math xmlns="http://www.w3.org/1998/Math/MathML">
+              <cn type="integer"> 0 </cn>
+            </math>
+          </eventAssignment>
+        </listOfEventAssignments>
+      </event>
+    </listOfEvents>
+  </model>
+</sbml>

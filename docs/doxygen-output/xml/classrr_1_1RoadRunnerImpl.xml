@@ -1,0 +1,603 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.20" xml:lang="en-US">
+  <compounddef id="classrr_1_1RoadRunnerImpl" kind="class" language="C++" prot="public">
+    <compoundname>rr::RoadRunnerImpl</compoundname>
+      <sectiondef kind="public-attrib">
+      <memberdef kind="variable" id="classrr_1_1RoadRunnerImpl_1ae060f1fbeb0fb318fce843942e7e820e" prot="public" static="no" mutable="no">
+        <type>int</type>
+        <definition>int rr::RoadRunnerImpl::mInstanceID</definition>
+        <argsstring></argsstring>
+        <name>mInstanceID</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="rrRoadRunner.cpp" line="190" column="9" bodyfile="rrRoadRunner.cpp" bodystart="190" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="classrr_1_1RoadRunnerImpl_1a5522059d377f97e1c7da8dfa61e13a13" prot="public" static="no" mutable="no">
+        <type>double</type>
+        <definition>double rr::RoadRunnerImpl::mDiffStepSize</definition>
+        <argsstring></argsstring>
+        <name>mDiffStepSize</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="rrRoadRunner.cpp" line="191" column="12" bodyfile="rrRoadRunner.cpp" bodystart="191" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="classrr_1_1RoadRunnerImpl_1aa1e1a941280d94b051f20857ab492fd3" prot="public" static="no" mutable="no">
+        <type>double</type>
+        <definition>double rr::RoadRunnerImpl::mSteadyStateThreshold</definition>
+        <argsstring></argsstring>
+        <name>mSteadyStateThreshold</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="rrRoadRunner.cpp" line="193" column="12" bodyfile="rrRoadRunner.cpp" bodystart="193" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="classrr_1_1RoadRunnerImpl_1acb5d3e787499113b3c6c38c034363e7f" prot="public" static="no" mutable="no">
+        <type>ls::DoubleMatrix</type>
+        <definition>ls::DoubleMatrix rr::RoadRunnerImpl::simulationResult</definition>
+        <argsstring></argsstring>
+        <name>simulationResult</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="rrRoadRunner.cpp" line="194" column="22" bodyfile="rrRoadRunner.cpp" bodystart="194" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="classrr_1_1RoadRunnerImpl_1a399ac78c9504ddc6a30c516a987deba6" prot="public" static="no" mutable="no">
+        <type><ref refid="classrr_1_1Integrator" kindref="compound">Integrator</ref> *</type>
+        <definition>Integrator* rr::RoadRunnerImpl::integrator</definition>
+        <argsstring></argsstring>
+        <name>integrator</name>
+        <briefdescription>
+<para>Points to the current integrator. </para>
+        </briefdescription>
+        <detaileddescription>
+<para>This is a pointer into the integrators array. </para>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="rrRoadRunner.cpp" line="200" column="16" bodyfile="rrRoadRunner.cpp" bodystart="200" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="classrr_1_1RoadRunnerImpl_1ad6f73a00fb9c1e7ea7c7b743c760d3ff" prot="public" static="no" mutable="no">
+        <type>std::vector&lt; <ref refid="classrr_1_1Integrator" kindref="compound">Integrator</ref> * &gt;</type>
+        <definition>std::vector&lt;Integrator*&gt; rr::RoadRunnerImpl::integrators</definition>
+        <argsstring></argsstring>
+        <name>integrators</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="rrRoadRunner.cpp" line="201" column="13" bodyfile="rrRoadRunner.cpp" bodystart="201" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="classrr_1_1RoadRunnerImpl_1a63ac6d4a8a7ff2a6ccd257f524a90207" prot="public" static="no" mutable="no">
+        <type><ref refid="classrr_1_1SteadyStateSolver" kindref="compound">SteadyStateSolver</ref> *</type>
+        <definition>SteadyStateSolver* rr::RoadRunnerImpl::steady_state_solver</definition>
+        <argsstring></argsstring>
+        <name>steady_state_solver</name>
+        <briefdescription>
+<para>Points to the current steady state solver. </para>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="rrRoadRunner.cpp" line="206" column="23" bodyfile="rrRoadRunner.cpp" bodystart="206" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="classrr_1_1RoadRunnerImpl_1a192040a7feed12e2774f8ffd8e5c642f" prot="public" static="no" mutable="no">
+        <type>std::vector&lt; <ref refid="classrr_1_1SteadyStateSolver" kindref="compound">SteadyStateSolver</ref> * &gt;</type>
+        <definition>std::vector&lt;SteadyStateSolver*&gt; rr::RoadRunnerImpl::steady_state_solvers</definition>
+        <argsstring></argsstring>
+        <name>steady_state_solvers</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="rrRoadRunner.cpp" line="207" column="17" bodyfile="rrRoadRunner.cpp" bodystart="207" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="classrr_1_1RoadRunnerImpl_1aab066aadcb16f00cbffb56a14ab95721" prot="public" static="no" mutable="no">
+        <type>std::vector&lt; <ref refid="classrr_1_1SelectionRecord" kindref="compound">SelectionRecord</ref> &gt;</type>
+        <definition>std::vector&lt;SelectionRecord&gt; rr::RoadRunnerImpl::mSelectionList</definition>
+        <argsstring></argsstring>
+        <name>mSelectionList</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="rrRoadRunner.cpp" line="210" column="13" bodyfile="rrRoadRunner.cpp" bodystart="210" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="classrr_1_1RoadRunnerImpl_1a332b1440ab1affec5ffec18a290fca9d" prot="public" static="no" mutable="no">
+        <type><ref refid="classrr_1_1LoadSBMLOptions" kindref="compound">LoadSBMLOptions</ref></type>
+        <definition>LoadSBMLOptions rr::RoadRunnerImpl::loadOpt</definition>
+        <argsstring></argsstring>
+        <name>loadOpt</name>
+        <briefdescription>
+<para>ModelGenerator obtained from the factory. </para>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="rrRoadRunner.cpp" line="215" column="21" bodyfile="rrRoadRunner.cpp" bodystart="215" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="classrr_1_1RoadRunnerImpl_1a19f31dff952e138792bc594a62b38897" prot="public" static="no" mutable="no">
+        <type>std::vector&lt; <ref refid="classrr_1_1SelectionRecord" kindref="compound">SelectionRecord</ref> &gt;</type>
+        <definition>std::vector&lt;SelectionRecord&gt; rr::RoadRunnerImpl::mSteadyStateSelection</definition>
+        <argsstring></argsstring>
+        <name>mSteadyStateSelection</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="rrRoadRunner.cpp" line="217" column="17" bodyfile="rrRoadRunner.cpp" bodystart="217" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="classrr_1_1RoadRunnerImpl_1a0a098b7844b75dd6c4f1b792dd20a5a3" prot="public" static="no" mutable="no">
+        <type>std::unique_ptr&lt; <ref refid="classrr_1_1ExecutableModel" kindref="compound">ExecutableModel</ref> &gt;</type>
+        <definition>std::unique_ptr&lt;ExecutableModel&gt; rr::RoadRunnerImpl::model</definition>
+        <argsstring></argsstring>
+        <name>model</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="rrRoadRunner.cpp" line="219" column="21" bodyfile="rrRoadRunner.cpp" bodystart="219" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="classrr_1_1RoadRunnerImpl_1ac3984d20f7a889192b00d8e15acd06cf" prot="public" static="no" mutable="no">
+        <type><ref refid="classrr_1_1Compiler" kindref="compound">Compiler</ref> *</type>
+        <definition>Compiler* rr::RoadRunnerImpl::compiler</definition>
+        <argsstring></argsstring>
+        <name>compiler</name>
+        <briefdescription>
+<para>here for compatiblity, will go. </para>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="rrRoadRunner.cpp" line="224" column="14" bodyfile="rrRoadRunner.cpp" bodystart="224" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="classrr_1_1RoadRunnerImpl_1ab6af7c33cd8ad65332a28acb6e221a18" prot="public" static="no" mutable="no">
+        <type>LibStructural *</type>
+        <definition>LibStructural* rr::RoadRunnerImpl::mLS</definition>
+        <argsstring></argsstring>
+        <name>mLS</name>
+        <briefdescription>
+<para>structural analysis library. </para>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="rrRoadRunner.cpp" line="230" column="19" bodyfile="rrRoadRunner.cpp" bodystart="230" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="classrr_1_1RoadRunnerImpl_1a4097a1eb7855c1ddc66c9a18db9f3bfc" prot="public" static="no" mutable="no">
+        <type><ref refid="classrr_1_1SimulateOptions" kindref="compound">SimulateOptions</ref></type>
+        <definition>SimulateOptions rr::RoadRunnerImpl::simulateOpt</definition>
+        <argsstring></argsstring>
+        <name>simulateOpt</name>
+        <briefdescription>
+<para>options that are specific to the simulation </para>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="rrRoadRunner.cpp" line="235" column="21" bodyfile="rrRoadRunner.cpp" bodystart="235" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="classrr_1_1RoadRunnerImpl_1ab0d81fec655750d5e7a46be8be2d7aaa" prot="public" static="no" mutable="no">
+        <type><ref refid="structrr_1_1RoadRunnerOptions" kindref="compound">RoadRunnerOptions</ref></type>
+        <definition>RoadRunnerOptions rr::RoadRunnerImpl::roadRunnerOptions</definition>
+        <argsstring></argsstring>
+        <name>roadRunnerOptions</name>
+        <briefdescription>
+<para>various general options that can be modified by external callers. </para>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="rrRoadRunner.cpp" line="240" column="23" bodyfile="rrRoadRunner.cpp" bodystart="240" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="classrr_1_1RoadRunnerImpl_1ae22f2a7f705354d374d27a7fb51ff275" prot="public" static="no" mutable="no">
+        <type>std::string</type>
+        <definition>std::string rr::RoadRunnerImpl::configurationXML</definition>
+        <argsstring></argsstring>
+        <name>configurationXML</name>
+        <briefdescription>
+<para>the xml string that is given in setConfigurationXML. </para>
+        </briefdescription>
+        <detaileddescription>
+<para>Needed because the NLEQ is only created in the steadyState method. </para>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="rrRoadRunner.cpp" line="247" column="17" bodyfile="rrRoadRunner.cpp" bodystart="247" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="classrr_1_1RoadRunnerImpl_1a1ace36ac129fed50c43abf94c72fed9d" prot="public" static="no" mutable="no">
+        <type>bool</type>
+        <definition>bool rr::RoadRunnerImpl::simulatedSinceReset</definition>
+        <argsstring></argsstring>
+        <name>simulatedSinceReset</name>
+        <initializer>= false</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="rrRoadRunner.cpp" line="252" column="6" bodyfile="rrRoadRunner.cpp" bodystart="252" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="classrr_1_1RoadRunnerImpl_1ac82a29609a15ee6d9d0f3e55a62b30f8" prot="public" static="no" mutable="no">
+        <type>unique_ptr&lt; libsbml::SBMLDocument &gt;</type>
+        <definition>unique_ptr&lt;libsbml::SBMLDocument&gt; rr::RoadRunnerImpl::document</definition>
+        <argsstring></argsstring>
+        <name>document</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="rrRoadRunner.cpp" line="259" column="12" bodyfile="rrRoadRunner.cpp" bodystart="259" bodyend="-1"/>
+      </memberdef>
+      </sectiondef>
+      <sectiondef kind="friend">
+      <memberdef kind="friend" id="classrr_1_1RoadRunnerImpl_1af9179bd50e73e67094252c47c026531b" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>friend class</type>
+        <definition>friend class aFinalizer</definition>
+        <argsstring></argsstring>
+        <name>aFinalizer</name>
+        <briefdescription>
+<para>TODO get rid of this garbage. </para>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="rrRoadRunner.cpp" line="257" column="5" bodyfile="rrRoadRunner.cpp" bodystart="257" bodyend="-1"/>
+      </memberdef>
+      </sectiondef>
+      <sectiondef kind="public-func">
+      <memberdef kind="function" id="classrr_1_1RoadRunnerImpl_1a98a6346886edafdcc19398968f87209b" prot="public" static="no" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <type></type>
+        <definition>rr::RoadRunnerImpl::RoadRunnerImpl</definition>
+        <argsstring>(const std::string &amp;uriOrSBML, const Dictionary *dict)</argsstring>
+        <name>RoadRunnerImpl</name>
+        <param>
+          <type>const std::string &amp;</type>
+          <declname>uriOrSBML</declname>
+        </param>
+        <param>
+          <type>const <ref refid="classrr_1_1Dictionary" kindref="compound">Dictionary</ref> *</type>
+          <declname>dict</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="rrRoadRunner.cpp" line="261" column="5" bodyfile="rrRoadRunner.cpp" bodystart="261" bodyend="277"/>
+      </memberdef>
+      <memberdef kind="function" id="classrr_1_1RoadRunnerImpl_1ad59de4dfb7d325b5148bcf17a41cb920" prot="public" static="no" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <type></type>
+        <definition>rr::RoadRunnerImpl::RoadRunnerImpl</definition>
+        <argsstring>(const std::istream &amp;in)</argsstring>
+        <name>RoadRunnerImpl</name>
+        <param>
+          <type>const std::istream &amp;</type>
+          <declname>in</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="rrRoadRunner.cpp" line="279" column="1" bodyfile="rrRoadRunner.cpp" bodystart="279" bodyend="283"/>
+      </memberdef>
+      <memberdef kind="function" id="classrr_1_1RoadRunnerImpl_1a616ad32a12e2fb1405c0efc3b21827b9" prot="public" static="no" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <type></type>
+        <definition>rr::RoadRunnerImpl::RoadRunnerImpl</definition>
+        <argsstring>(const string &amp;_compiler, const string &amp;_tempDir, const string &amp;_supportCodeDir)</argsstring>
+        <name>RoadRunnerImpl</name>
+        <param>
+          <type>const string &amp;</type>
+          <declname>_compiler</declname>
+        </param>
+        <param>
+          <type>const string &amp;</type>
+          <declname>_tempDir</declname>
+        </param>
+        <param>
+          <type>const string &amp;</type>
+          <declname>_supportCodeDir</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="rrRoadRunner.cpp" line="286" column="5" bodyfile="rrRoadRunner.cpp" bodystart="286" bodyend="305"/>
+      </memberdef>
+      <memberdef kind="function" id="classrr_1_1RoadRunnerImpl_1a43e10c0ddfffa060a90217a7a311e6d4" prot="public" static="no" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <type></type>
+        <definition>rr::RoadRunnerImpl::RoadRunnerImpl</definition>
+        <argsstring>(const RoadRunnerImpl &amp;rri)</argsstring>
+        <name>RoadRunnerImpl</name>
+        <param>
+          <type>const <ref refid="classrr_1_1RoadRunnerImpl" kindref="compound">RoadRunnerImpl</ref> &amp;</type>
+          <declname>rri</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="rrRoadRunner.cpp" line="307" column="5" bodyfile="rrRoadRunner.cpp" bodystart="307" bodyend="340"/>
+      </memberdef>
+      <memberdef kind="function" id="classrr_1_1RoadRunnerImpl_1a83cb17b6fae34777a07fbfc1e6d6480c" prot="public" static="no" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <type></type>
+        <definition>rr::RoadRunnerImpl::~RoadRunnerImpl</definition>
+        <argsstring>()</argsstring>
+        <name>~RoadRunnerImpl</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="rrRoadRunner.cpp" line="341" column="5" bodyfile="rrRoadRunner.cpp" bodystart="341" bodyend="351"/>
+      </memberdef>
+      <memberdef kind="function" id="classrr_1_1RoadRunnerImpl_1a3096c8cbef76cdb9ee3df9e011086188" prot="public" static="no" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <type>void</type>
+        <definition>void rr::RoadRunnerImpl::deleteAllSolvers</definition>
+        <argsstring>()</argsstring>
+        <name>deleteAllSolvers</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="rrRoadRunner.cpp" line="353" column="10" bodyfile="rrRoadRunner.cpp" bodystart="353" bodyend="367"/>
+      </memberdef>
+      <memberdef kind="function" id="classrr_1_1RoadRunnerImpl_1a5142aa34305fe667568b9fd7016252d2" prot="public" static="no" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <type>void</type>
+        <definition>void rr::RoadRunnerImpl::syncAllSolversWithModel</definition>
+        <argsstring>(ExecutableModel *m)</argsstring>
+        <name>syncAllSolversWithModel</name>
+        <param>
+          <type><ref refid="classrr_1_1ExecutableModel" kindref="compound">ExecutableModel</ref> *</type>
+          <declname>m</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="rrRoadRunner.cpp" line="369" column="10" bodyfile="rrRoadRunner.cpp" bodystart="369" bodyend="379"/>
+      </memberdef>
+      <memberdef kind="function" id="classrr_1_1RoadRunnerImpl_1a90c9f423fe72446a48c0b866dbb2ac9e" prot="public" static="no" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <type>void</type>
+        <definition>void rr::RoadRunnerImpl::setParameterValue</definition>
+        <argsstring>(const ParameterType parameterType, const int parameterIndex, const double value)</argsstring>
+        <name>setParameterValue</name>
+        <param>
+          <type>const ParameterType</type>
+          <declname>parameterType</declname>
+        </param>
+        <param>
+          <type>const int</type>
+          <declname>parameterIndex</declname>
+        </param>
+        <param>
+          <type>const double</type>
+          <declname>value</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="rrRoadRunner.cpp" line="381" column="10" bodyfile="rrRoadRunner.cpp" bodystart="381" bodyend="405"/>
+      </memberdef>
+      <memberdef kind="function" id="classrr_1_1RoadRunnerImpl_1a2d8b657633c50a1b348c00ab2454ff11" prot="public" static="no" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <type>double</type>
+        <definition>double rr::RoadRunnerImpl::getParameterValue</definition>
+        <argsstring>(const ParameterType parameterType, const int parameterIndex)</argsstring>
+        <name>getParameterValue</name>
+        <param>
+          <type>const ParameterType</type>
+          <declname>parameterType</declname>
+        </param>
+        <param>
+          <type>const int</type>
+          <declname>parameterIndex</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="rrRoadRunner.cpp" line="407" column="12" bodyfile="rrRoadRunner.cpp" bodystart="407" bodyend="453"/>
+      </memberdef>
+      <memberdef kind="function" id="classrr_1_1RoadRunnerImpl_1a3bc658658e9c2b3ee0c604c75c6de7a2" prot="public" static="no" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <type>void</type>
+        <definition>void rr::RoadRunnerImpl::changeParameter</definition>
+        <argsstring>(ParameterType parameterType, int reactionIndex, int parameterIndex, double originalValue, double increment)</argsstring>
+        <name>changeParameter</name>
+        <param>
+          <type>ParameterType</type>
+          <declname>parameterType</declname>
+        </param>
+        <param>
+          <type>int</type>
+          <declname>reactionIndex</declname>
+        </param>
+        <param>
+          <type>int</type>
+          <declname>parameterIndex</declname>
+        </param>
+        <param>
+          <type>double</type>
+          <declname>originalValue</declname>
+        </param>
+        <param>
+          <type>double</type>
+          <declname>increment</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="rrRoadRunner.cpp" line="456" column="10" bodyfile="rrRoadRunner.cpp" bodystart="456" bodyend="460"/>
+      </memberdef>
+      </sectiondef>
+    <briefdescription>
+<para>implemention class, hide all details here. </para>
+    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <collaborationgraph>
+      <node id="11">
+        <label>rr::Integrator</label>
+        <link refid="classrr_1_1Integrator"/>
+        <childnode refid="8" relation="public-inheritance">
+        </childnode>
+      </node>
+      <node id="2">
+        <label>rr::SimulateOptions</label>
+        <link refid="classrr_1_1SimulateOptions"/>
+        <childnode refid="3" relation="public-inheritance">
+        </childnode>
+        <childnode refid="5" relation="usage">
+          <edgelabel>output_file</edgelabel>
+        </childnode>
+      </node>
+      <node id="9">
+        <label>rr::LoadSBMLOptions</label>
+        <link refid="classrr_1_1LoadSBMLOptions"/>
+        <childnode refid="3" relation="public-inheritance">
+        </childnode>
+      </node>
+      <node id="6">
+        <label>rr::RoadRunnerOptions</label>
+        <link refid="structrr_1_1RoadRunnerOptions"/>
+      </node>
+      <node id="3">
+        <label>rr::BasicDictionary</label>
+        <link refid="classrr_1_1BasicDictionary"/>
+        <childnode refid="4" relation="public-inheritance">
+        </childnode>
+      </node>
+      <node id="5">
+        <label>string</label>
+      </node>
+      <node id="7">
+        <label>rr::SteadyStateSolver</label>
+        <link refid="classrr_1_1SteadyStateSolver"/>
+        <childnode refid="8" relation="public-inheritance">
+        </childnode>
+      </node>
+      <node id="1">
+        <label>rr::RoadRunnerImpl</label>
+        <link refid="classrr_1_1RoadRunnerImpl"/>
+        <childnode refid="2" relation="usage">
+          <edgelabel>simulateOpt</edgelabel>
+        </childnode>
+        <childnode refid="6" relation="usage">
+          <edgelabel>roadRunnerOptions</edgelabel>
+        </childnode>
+        <childnode refid="7" relation="usage">
+          <edgelabel>steady_state_solver</edgelabel>
+        </childnode>
+        <childnode refid="5" relation="usage">
+          <edgelabel>configurationXML</edgelabel>
+        </childnode>
+        <childnode refid="9" relation="usage">
+          <edgelabel>loadOpt</edgelabel>
+        </childnode>
+        <childnode refid="10" relation="usage">
+          <edgelabel>compiler</edgelabel>
+        </childnode>
+        <childnode refid="11" relation="usage">
+          <edgelabel>integrator</edgelabel>
+        </childnode>
+      </node>
+      <node id="8">
+        <label>rr::Solver</label>
+        <link refid="classrr_1_1Solver"/>
+      </node>
+      <node id="4">
+        <label>rr::Dictionary</label>
+        <link refid="classrr_1_1Dictionary"/>
+      </node>
+      <node id="10">
+        <label>rr::Compiler</label>
+        <link refid="classrr_1_1Compiler"/>
+      </node>
+    </collaborationgraph>
+    <location file="rrRoadRunner.cpp" line="187" column="1" bodyfile="rrRoadRunner.cpp" bodystart="187" bodyend="462"/>
+    <listofallmembers>
+      <member refid="classrr_1_1RoadRunnerImpl_1af9179bd50e73e67094252c47c026531b" prot="public" virt="non-virtual"><scope>rr::RoadRunnerImpl</scope><name>aFinalizer</name></member>
+      <member refid="classrr_1_1RoadRunnerImpl_1a3bc658658e9c2b3ee0c604c75c6de7a2" prot="public" virt="non-virtual"><scope>rr::RoadRunnerImpl</scope><name>changeParameter</name></member>
+      <member refid="classrr_1_1RoadRunnerImpl_1ac3984d20f7a889192b00d8e15acd06cf" prot="public" virt="non-virtual"><scope>rr::RoadRunnerImpl</scope><name>compiler</name></member>
+      <member refid="classrr_1_1RoadRunnerImpl_1ae22f2a7f705354d374d27a7fb51ff275" prot="public" virt="non-virtual"><scope>rr::RoadRunnerImpl</scope><name>configurationXML</name></member>
+      <member refid="classrr_1_1RoadRunnerImpl_1a3096c8cbef76cdb9ee3df9e011086188" prot="public" virt="non-virtual"><scope>rr::RoadRunnerImpl</scope><name>deleteAllSolvers</name></member>
+      <member refid="classrr_1_1RoadRunnerImpl_1ac82a29609a15ee6d9d0f3e55a62b30f8" prot="public" virt="non-virtual"><scope>rr::RoadRunnerImpl</scope><name>document</name></member>
+      <member refid="classrr_1_1RoadRunnerImpl_1a2d8b657633c50a1b348c00ab2454ff11" prot="public" virt="non-virtual"><scope>rr::RoadRunnerImpl</scope><name>getParameterValue</name></member>
+      <member refid="classrr_1_1RoadRunnerImpl_1a399ac78c9504ddc6a30c516a987deba6" prot="public" virt="non-virtual"><scope>rr::RoadRunnerImpl</scope><name>integrator</name></member>
+      <member refid="classrr_1_1RoadRunnerImpl_1ad6f73a00fb9c1e7ea7c7b743c760d3ff" prot="public" virt="non-virtual"><scope>rr::RoadRunnerImpl</scope><name>integrators</name></member>
+      <member refid="classrr_1_1RoadRunnerImpl_1a332b1440ab1affec5ffec18a290fca9d" prot="public" virt="non-virtual"><scope>rr::RoadRunnerImpl</scope><name>loadOpt</name></member>
+      <member refid="classrr_1_1RoadRunnerImpl_1a5522059d377f97e1c7da8dfa61e13a13" prot="public" virt="non-virtual"><scope>rr::RoadRunnerImpl</scope><name>mDiffStepSize</name></member>
+      <member refid="classrr_1_1RoadRunnerImpl_1ae060f1fbeb0fb318fce843942e7e820e" prot="public" virt="non-virtual"><scope>rr::RoadRunnerImpl</scope><name>mInstanceID</name></member>
+      <member refid="classrr_1_1RoadRunnerImpl_1ab6af7c33cd8ad65332a28acb6e221a18" prot="public" virt="non-virtual"><scope>rr::RoadRunnerImpl</scope><name>mLS</name></member>
+      <member refid="classrr_1_1RoadRunnerImpl_1a0a098b7844b75dd6c4f1b792dd20a5a3" prot="public" virt="non-virtual"><scope>rr::RoadRunnerImpl</scope><name>model</name></member>
+      <member refid="classrr_1_1RoadRunnerImpl_1aab066aadcb16f00cbffb56a14ab95721" prot="public" virt="non-virtual"><scope>rr::RoadRunnerImpl</scope><name>mSelectionList</name></member>
+      <member refid="classrr_1_1RoadRunnerImpl_1a19f31dff952e138792bc594a62b38897" prot="public" virt="non-virtual"><scope>rr::RoadRunnerImpl</scope><name>mSteadyStateSelection</name></member>
+      <member refid="classrr_1_1RoadRunnerImpl_1aa1e1a941280d94b051f20857ab492fd3" prot="public" virt="non-virtual"><scope>rr::RoadRunnerImpl</scope><name>mSteadyStateThreshold</name></member>
+      <member refid="classrr_1_1RoadRunnerImpl_1a98a6346886edafdcc19398968f87209b" prot="public" virt="non-virtual"><scope>rr::RoadRunnerImpl</scope><name>RoadRunnerImpl</name></member>
+      <member refid="classrr_1_1RoadRunnerImpl_1ad59de4dfb7d325b5148bcf17a41cb920" prot="public" virt="non-virtual"><scope>rr::RoadRunnerImpl</scope><name>RoadRunnerImpl</name></member>
+      <member refid="classrr_1_1RoadRunnerImpl_1a616ad32a12e2fb1405c0efc3b21827b9" prot="public" virt="non-virtual"><scope>rr::RoadRunnerImpl</scope><name>RoadRunnerImpl</name></member>
+      <member refid="classrr_1_1RoadRunnerImpl_1a43e10c0ddfffa060a90217a7a311e6d4" prot="public" virt="non-virtual"><scope>rr::RoadRunnerImpl</scope><name>RoadRunnerImpl</name></member>
+      <member refid="classrr_1_1RoadRunnerImpl_1ab0d81fec655750d5e7a46be8be2d7aaa" prot="public" virt="non-virtual"><scope>rr::RoadRunnerImpl</scope><name>roadRunnerOptions</name></member>
+      <member refid="classrr_1_1RoadRunnerImpl_1a90c9f423fe72446a48c0b866dbb2ac9e" prot="public" virt="non-virtual"><scope>rr::RoadRunnerImpl</scope><name>setParameterValue</name></member>
+      <member refid="classrr_1_1RoadRunnerImpl_1a1ace36ac129fed50c43abf94c72fed9d" prot="public" virt="non-virtual"><scope>rr::RoadRunnerImpl</scope><name>simulatedSinceReset</name></member>
+      <member refid="classrr_1_1RoadRunnerImpl_1a4097a1eb7855c1ddc66c9a18db9f3bfc" prot="public" virt="non-virtual"><scope>rr::RoadRunnerImpl</scope><name>simulateOpt</name></member>
+      <member refid="classrr_1_1RoadRunnerImpl_1acb5d3e787499113b3c6c38c034363e7f" prot="public" virt="non-virtual"><scope>rr::RoadRunnerImpl</scope><name>simulationResult</name></member>
+      <member refid="classrr_1_1RoadRunnerImpl_1a63ac6d4a8a7ff2a6ccd257f524a90207" prot="public" virt="non-virtual"><scope>rr::RoadRunnerImpl</scope><name>steady_state_solver</name></member>
+      <member refid="classrr_1_1RoadRunnerImpl_1a192040a7feed12e2774f8ffd8e5c642f" prot="public" virt="non-virtual"><scope>rr::RoadRunnerImpl</scope><name>steady_state_solvers</name></member>
+      <member refid="classrr_1_1RoadRunnerImpl_1a5142aa34305fe667568b9fd7016252d2" prot="public" virt="non-virtual"><scope>rr::RoadRunnerImpl</scope><name>syncAllSolversWithModel</name></member>
+      <member refid="classrr_1_1RoadRunnerImpl_1a83cb17b6fae34777a07fbfc1e6d6480c" prot="public" virt="non-virtual"><scope>rr::RoadRunnerImpl</scope><name>~RoadRunnerImpl</name></member>
+    </listofallmembers>
+  </compounddef>
+</doxygen>

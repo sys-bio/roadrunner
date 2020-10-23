@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<sbml xmlns="http://www.sbml.org/sbml/level1" level="1" version="2">
+  <model name="case01122">
+    <listOfCompartments>
+      <compartment name="comp" volume="5"/>
+    </listOfCompartments>
+    <listOfSpecies>
+      <species name="S1" compartment="comp" initialAmount="1"/>
+      <species name="S3" compartment="comp" initialAmount="4" boundaryCondition="true"/>
+    </listOfSpecies>
+    <listOfRules>
+      <compartmentVolumeRule formula="1" type="rate" compartment="comp"/>
+    </listOfRules>
+    <listOfReactions>
+      <reaction name="_J0">
+        <listOfReactants>
+          <speciesReference species="S1" stoichiometry="1" denominator="1"/>
+        </listOfReactants>
+        <kineticLaw formula="S3 / 10"/>
+      </reaction>
+    </listOfReactions>
+  </model>
+</sbml>

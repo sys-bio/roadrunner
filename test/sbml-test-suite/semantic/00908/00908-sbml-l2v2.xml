@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<sbml xmlns="http://www.sbml.org/sbml/level2/version2" level="2" version="2">
+  <model metaid="_case00908" id="case00908" name="case00908">
+    <listOfCompartments>
+      <compartment id="C1" name="C1" size="1.5" units="volume" constant="false"/>
+      <compartment id="C2" name="C2" spatialDimensions="2" size="0.75" units="area" constant="false"/>
+    </listOfCompartments>
+    <listOfRules>
+      <rateRule metaid="rule1" variable="C1">
+        <math xmlns="http://www.w3.org/1998/Math/MathML">
+          <apply>
+            <minus/>
+            <apply>
+              <times/>
+              <cn> 0.15 </cn>
+              <ci> C2 </ci>
+            </apply>
+            <apply>
+              <times/>
+              <cn> 0.2 </cn>
+              <ci> C1 </ci>
+            </apply>
+          </apply>
+        </math>
+      </rateRule>
+      <rateRule metaid="rule2" variable="C2">
+        <math xmlns="http://www.w3.org/1998/Math/MathML">
+          <apply>
+            <minus/>
+            <apply>
+              <times/>
+              <cn> 0.3 </cn>
+              <ci> C1 </ci>
+            </apply>
+            <apply>
+              <times/>
+              <cn> 0.1 </cn>
+              <ci> C2 </ci>
+            </apply>
+          </apply>
+        </math>
+      </rateRule>
+    </listOfRules>
+  </model>
+</sbml>

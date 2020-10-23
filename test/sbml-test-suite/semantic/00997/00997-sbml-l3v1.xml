@@ -1,0 +1,82 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- Created by libAntimony version v2.1-beta on 2011-11-23 18:35 with libSBML version 5.1.0-b0. -->
+<sbml xmlns="http://www.sbml.org/sbml/level3/version1/core" level="3" version="1">
+  <model id="case00997" name="case00997">
+    <listOfParameters>
+      <parameter id="p1" value="1" constant="false"/>
+      <parameter id="p2" value="0" constant="false"/>
+      <parameter id="p3" value="0" constant="false"/>
+    </listOfParameters>
+    <listOfEvents>
+      <event id="E0" useValuesFromTriggerTime="true">
+        <trigger initialValue="false" persistent="true">
+          <math xmlns="http://www.w3.org/1998/Math/MathML">
+            <apply>
+              <geq/>
+              <ci> p1 </ci>
+              <cn type="integer"> 1 </cn>
+            </apply>
+          </math>
+        </trigger>
+        <priority>
+          <math xmlns="http://www.w3.org/1998/Math/MathML">
+            <cn type="integer"> 2 </cn>
+          </math>
+        </priority>
+        <listOfEventAssignments>
+          <eventAssignment variable="p2">
+            <math xmlns="http://www.w3.org/1998/Math/MathML">
+              <cn type="integer"> 1 </cn>
+            </math>
+          </eventAssignment>
+        </listOfEventAssignments>
+      </event>
+      <event id="E1" useValuesFromTriggerTime="true">
+        <trigger initialValue="true" persistent="true">
+          <math xmlns="http://www.w3.org/1998/Math/MathML">
+            <apply>
+              <geq/>
+              <ci> p1 </ci>
+              <cn type="integer"> 1 </cn>
+            </apply>
+          </math>
+        </trigger>
+        <priority>
+          <math xmlns="http://www.w3.org/1998/Math/MathML">
+            <cn type="integer"> 2 </cn>
+          </math>
+        </priority>
+        <listOfEventAssignments>
+          <eventAssignment variable="p3">
+            <math xmlns="http://www.w3.org/1998/Math/MathML">
+              <cn type="integer"> 1 </cn>
+            </math>
+          </eventAssignment>
+        </listOfEventAssignments>
+      </event>
+      <event id="E2" useValuesFromTriggerTime="true">
+        <trigger initialValue="false" persistent="true">
+          <math xmlns="http://www.w3.org/1998/Math/MathML">
+            <apply>
+              <geq/>
+              <ci> p1 </ci>
+              <cn type="integer"> 1 </cn>
+            </apply>
+          </math>
+        </trigger>
+        <priority>
+          <math xmlns="http://www.w3.org/1998/Math/MathML">
+            <cn type="integer"> 1 </cn>
+          </math>
+        </priority>
+        <listOfEventAssignments>
+          <eventAssignment variable="p1">
+            <math xmlns="http://www.w3.org/1998/Math/MathML">
+              <cn type="integer"> 0 </cn>
+            </math>
+          </eventAssignment>
+        </listOfEventAssignments>
+      </event>
+    </listOfEvents>
+  </model>
+</sbml>

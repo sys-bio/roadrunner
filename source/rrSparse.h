@@ -117,7 +117,7 @@ void  csr_matrix_dgemv(double alpha, const csr_matrix *A,
  * The given vector y must obviously be the same length as the
  * number of rows in matrix x.
  */
-double csr_matrix_ddot(int row, const csr_matrix *x, const double *y);
+double csr_matrix_ddot(size_t row, const csr_matrix *x, const double *y);
 
 /**
  * fill dense matrix

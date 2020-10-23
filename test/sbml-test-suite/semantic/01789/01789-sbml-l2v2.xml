@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<sbml xmlns="http://www.sbml.org/sbml/level2/version2" level="2" version="2">
+  <model metaid="case01789" id="case01789">
+    <listOfParameters>
+      <parameter id="P1" value="2" constant="false"/>
+      <parameter id="P2" value="3"/>
+    </listOfParameters>
+    <listOfRules>
+      <algebraicRule>
+        <math xmlns="http://www.w3.org/1998/Math/MathML">
+          <apply>
+            <minus/>
+            <ci> P2 </ci>
+            <ci> P1 </ci>
+          </apply>
+        </math>
+      </algebraicRule>
+    </listOfRules>
+  </model>
+</sbml>

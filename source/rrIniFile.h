@@ -35,48 +35,49 @@ class RR_DECLSPEC IniFile
     private:
         // When set, this define will cause SetValue() to create a new section, if
         // the requested section does not allready exist.
-        const int            mAutoCreateSections;
+        const int           mAutoCreateSections;
 
         // When set, this define causes SetValue() to create a new key, if the
         // requested key does not allready exist.
-        const int             mAutoCreateKeys;
+        const int           mAutoCreateKeys;
 
-        string                 mCommentIndicators;
-        const string         mEqualIndicator;
-        const string         mWhiteSpace;
+        string              mCommentIndicators;
+        const string        mEqualIndicator;
+        const string        mWhiteSpace;
 
         // General Purpose Utility Functions
-        string                GetNextWord(string& CommandLine);
-        string                Trim(string& Str);
-        int                    WriteLine(fstream& stream, const char* fmt, ...);
+        string              GetNextWord(string& CommandLine);
+        string              Trim(string& Str);
+        int                 WriteLine(fstream& stream, const char* fmt, ...);
 
     protected:
-        SectionList            mSections;        // List of sections
+        SectionList         mSections;        // List of sections
         FileName            mIniFileName;    // The filename to write to
         bool                mIsDirty;        // Tracks whether or not data has changed.
         bool                mWasFound;
-        bool                 mAutoSave;        //Save ini file automatically on destruction
+        bool                mAutoSave;        //Save ini file automatically on destruction
 
 
     public:
-        int                    mFlags;        // Our settings flags.
+        int                 mFlags;        // Our settings flags.
                             IniFile(const string& fName = "", bool autoLoad = false, bool autoSave = false);
         virtual                ~IniFile();
 
-        int                    GetNumberOfSections(){return mSections.size();}
+        size_t             GetNumberOfSections(){return mSections.size();}
         IniSection*        GetSection(int i){return mSections[i];}
+        IniSection*        GetSection(size_t i) { return mSections[i]; }
 
         // File handling methods
-        string              GetFilePath(){return mIniFileName.GetPath();}
-        string              GetFileName(){return mIniFileName;}
-        string              GetFullFileName(){return mIniFileName.GetPathAndFileName();}
-        bool                SetFilePath(const string& path);
-        bool                Load(const string& fName = "");
-        IniSection*          LoadSection(const string& theSection);
-        bool                Save(ios_base::openmode openMode = ios::out|ios::trunc);
-        bool                UnLoad(){return Save();}
-        bool                WasItFound(){return mWasFound;} //!Boolean indicating if the last key was found in the ini file
-        bool                SectionExists(const string& section);
+        string             GetFilePath(){return mIniFileName.GetPath();}
+        string             GetFileName(){return mIniFileName;}
+        string             GetFullFileName(){return mIniFileName.GetPathAndFileName();}
+        bool               SetFilePath(const string& path);
+        bool               Load(const string& fName = "");
+        IniSection*        LoadSection(const string& theSection);
+        bool               Save(ios_base::openmode openMode = ios::out|ios::trunc);
+        bool               UnLoad(){return Save();}
+        bool               WasItFound(){return mWasFound;} //!Boolean indicating if the last key was found in the ini file
+        bool               SectionExists(const string& section);
 
         //Reading
         // ReadValue: Default access method. Returns the raw string value
@@ -108,17 +109,17 @@ class RR_DECLSPEC IniFile
         bool                CreateSection(const string& Section, const string& Comment, KeyList Keys);
 
         // Utility Methods
-        int                    SectionCount();
-        int                    KeyCount();
-        int                 KeyCount(const string& section);
+        size_t              SectionCount();
+        size_t              KeyCount();
+        size_t              KeyCount(const string& section);
         void                Clear();
         void                SetFileName(const string& fName);
-        string                CommentStr(string& Comment);
-        IniKey*                GetKey(const string& Key, const string& Section);
-        IniSection*            GetSection(const string& Section, bool create = false);
-        IniSection*            GetSection(const unsigned int secNr);
-        bool                 ClearSection(const string& section);
-        bool                 IsModified(){return mIsDirty;}
+        string              CommentStr(string& Comment);
+        IniKey*             GetKey(const string& Key, const string& Section);
+        IniSection*         GetSection(const string& Section, bool create = false);
+        IniSection*         GetSection(const unsigned int secNr);
+        bool                ClearSection(const string& section);
+        bool                IsModified(){return mIsDirty;}
 };
 
 }

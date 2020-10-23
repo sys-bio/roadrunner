@@ -122,7 +122,7 @@ public:
     virtual int getNumGlobalParameters();
 
     virtual int getNumCompartments();
-	virtual int getCompartmentIndexForFloatingSpecies(int index);
+	virtual int getCompartmentIndexForFloatingSpecies(size_t index);
 
     /**
      * get the global parameter values
@@ -132,15 +132,15 @@ public:
      * @param[out] values an array of at least length len which will store the
      *                returned boundary species amounts.
      */
-    virtual int getGlobalParameterValues(int len, int const *indx,
+    virtual int getGlobalParameterValues(size_t len, int const *indx,
             double *values);
 
-    virtual int setGlobalParameterValues(int len, int const *indx,
+    virtual int setGlobalParameterValues(size_t len, int const *indx,
             const double *values);
 
     virtual int getNumReactions();
 
-    virtual int getReactionRates(int len, int const *indx,
+    virtual int getReactionRates(size_t len, int const *indx,
                     double *values);
 
     /**
@@ -151,7 +151,7 @@ public:
      * @param[out] values an array of at least length len which will store the
      *                returned boundary species amounts.
      */
-    virtual int getCompartmentVolumes(int len, int const *indx,
+    virtual int getCompartmentVolumes(size_t len, int const *indx,
             double *values);
 
     virtual int getNumRateRules();
@@ -171,7 +171,7 @@ public:
     virtual void getRateRuleValues(double *rateRuleValues);
 
 
-    virtual std::string getStateVectorId(int index);
+    virtual std::string getStateVectorId(size_t index);
 
     /**
      * copies the internal model state vector into the provided
@@ -219,9 +219,9 @@ public:
     virtual string getInfo();
 
     virtual int getFloatingSpeciesIndex(const string&);
-    virtual string getFloatingSpeciesId(int);
+    virtual string getFloatingSpeciesId(size_t index);
     virtual int getBoundarySpeciesIndex(const string&);
-    virtual string getBoundarySpeciesId(int);
+    virtual string getBoundarySpeciesId(size_t index);
 
     /**
      * get the floating species amounts
@@ -231,13 +231,13 @@ public:
      * @param[out] values an array of at least length len which will store the
      *                returned boundary species amounts.
      */
-    virtual int getFloatingSpeciesAmounts(int len, int const *indx,
+    virtual int getFloatingSpeciesAmounts(size_t len, int const *indx,
             double *values);
 
-    virtual int getFloatingSpeciesAmountRates(int len, int const *indx,
+    virtual int getFloatingSpeciesAmountRates(size_t len, int const *indx,
             double *values);
 
-    virtual int getFloatingSpeciesConcentrationRates(int len, int const *indx,
+    virtual int getFloatingSpeciesConcentrationRates(size_t len, int const *indx,
             double *values);
 
     /**
@@ -248,7 +248,7 @@ public:
      * @param[out] values an array of at least length len which will store the
      *                returned boundary species amounts.
      */
-    virtual int getFloatingSpeciesConcentrations(int len, int const *indx,
+    virtual int getFloatingSpeciesConcentrations(size_t len, int const *indx,
             double *values);
 
 
@@ -260,10 +260,10 @@ public:
      * @param[in] values an array of at least length len which will store the
      *                returned boundary species amounts.
      */
-    virtual int setFloatingSpeciesConcentrations(int len, int const *indx,
+    virtual int setFloatingSpeciesConcentrations(size_t len, int const *indx,
             double const *values);
 
-    virtual int setFloatingSpeciesAmounts(int len, int const *indx,
+    virtual int setFloatingSpeciesAmounts(size_t len, int const *indx,
             const double *values);
 
     /**
@@ -274,7 +274,7 @@ public:
      * @param[out] values an array of at least length len which will store the
      *                returned boundary species amounts.
      */
-    virtual int getBoundarySpeciesAmounts(int len, int const *indx,
+    virtual int getBoundarySpeciesAmounts(size_t len, int const *indx,
             double *values);
 
     /**
@@ -285,7 +285,7 @@ public:
      * @param[out] values an array of at least length len which will store the
      *                returned boundary species amounts.
      */
-    virtual int getBoundarySpeciesConcentrations(int len, int const *indx,
+    virtual int getBoundarySpeciesConcentrations(size_t len, int const *indx,
             double *values);
 
     /**
@@ -296,7 +296,7 @@ public:
      * @param[in] values an array of at least length len which will store the
      *                returned boundary species amounts.
      */
-    virtual int setBoundarySpeciesConcentrations(int len, int const *indx,
+    virtual int setBoundarySpeciesConcentrations(size_t len, int const *indx,
             double const *values);
 
 
@@ -308,28 +308,28 @@ public:
       * @param[in] values an array of at least length len which will store the
       *                returned boundary species amounts.
       */
-     virtual int setBoundarySpeciesAmounts(int len, int const *indx,
+     virtual int setBoundarySpeciesAmounts(size_t len, int const *indx,
              double const *values);
 
 
     virtual int getGlobalParameterIndex(const string&);
-    virtual string getGlobalParameterId(int);
+    virtual string getGlobalParameterId(size_t);
     virtual int getCompartmentIndex(const string&);
-    virtual string getCompartmentId(int);
+    virtual string getCompartmentId(size_t);
     virtual int getReactionIndex(const string&);
-    virtual string getReactionId(int);
+    virtual string getReactionId(size_t);
 
     virtual void print(std::ostream &stream);
 
     virtual int getNumConservedMoieties();
     virtual int getConservedMoietyIndex(const string& name);
-    virtual string getConservedMoietyId(int index);
-    virtual int getConservedMoietyValues(int len, int const *indx, double *values);
-    virtual int setConservedMoietyValues(int len, int const *indx,
+    virtual string getConservedMoietyId(size_t index);
+    virtual int getConservedMoietyValues(size_t len, int const *indx, double *values);
+    virtual int setConservedMoietyValues(size_t len, int const *indx,
             const double *values);
 
 
-    virtual int setCompartmentVolumes(int len, int const *indx,
+    virtual int setCompartmentVolumes(size_t len, int const *indx,
             const double *values);
 
 
@@ -352,28 +352,28 @@ public:
     #if (1) /**********************************************************************/
     /******************************************************************************/
 
-    virtual int setFloatingSpeciesInitConcentrations(int len, const int *indx,
+    virtual int setFloatingSpeciesInitConcentrations(size_t len, const int *indx,
             double const *values);
 
-    virtual int getFloatingSpeciesInitConcentrations(int len, const int *indx,
+    virtual int getFloatingSpeciesInitConcentrations(size_t len, const int *indx,
             double *values);
 
-    virtual int setFloatingSpeciesInitAmounts(int len, const int *indx,
+    virtual int setFloatingSpeciesInitAmounts(size_t len, const int *indx,
                 double const *values);
 
-    virtual int getFloatingSpeciesInitAmounts(int len, const int *indx,
+    virtual int getFloatingSpeciesInitAmounts(size_t size_t, const int *indx,
                     double *values);
 
-    virtual int setCompartmentInitVolumes(int len, const int *indx,
+    virtual int setCompartmentInitVolumes(size_t len, const int *indx,
                 double const *values);
 
-    virtual int getCompartmentInitVolumes(int len, const int *indx,
+    virtual int getCompartmentInitVolumes(size_t len, const int *indx,
                     double *values);
 
-    virtual int setGlobalParameterInitValues(int len, const int *indx,
+    virtual int setGlobalParameterInitValues(size_t len, const int *indx,
                 double const *values);
 
-    virtual int getGlobalParameterInitValues(int len, const int *indx,
+    virtual int getGlobalParameterInitValues(size_t len, const int *indx,
                     double *values);
 
     /******************************* End Initial Conditions Section ***************/
@@ -453,7 +453,7 @@ public:
      * @param[in] indx An index into @ref eventState
      * @param[out] eventState The state of the event triggers
      */
-    virtual int getEventTriggers(int len, const int *indx, unsigned char *eventState);
+    virtual int getEventTriggers(size_t len, const int *indx, unsigned char *eventState);
 
     /**
      * erases expired events, and applies ripe events as long as we have ripe
@@ -470,17 +470,17 @@ public:
 
     virtual void resetEvents();
 
-    inline double getEventDelay(uint event)
+    inline double getEventDelay(size_t event)
     {
         return getEventDelayPtr(modelData, event);
     }
 
-    inline double getEventPriority(uint event)
+    inline double getEventPriority(size_t event)
     {
         return getEventPriorityPtr(modelData, event);
     }
 
-    inline bool getEventTrigger(uint event)
+    inline bool getEventTrigger(size_t event)
     {
         assert(event < symbols->getEventAttributes().size()
                         && "event out of bounds");
@@ -495,7 +495,7 @@ public:
         }
     }
 
-    inline bool getEventUseValuesFromTriggerTime(uint event)
+    inline bool getEventUseValuesFromTriggerTime(size_t event)
     {
         assert(event < symbols->getEventAttributes().size()
             && "event out of bounds");
@@ -503,26 +503,26 @@ public:
                 & EventUseValuesFromTriggerTime;
     }
 
-    inline bool getEventInitialValue(uint event)
+    inline bool getEventInitialValue(size_t event)
     {
         assert(event < symbols->getEventAttributes().size()
             && "event out of bounds");
         return symbols->getEventAttributes()[event] & EventInitialValue;
     }
 
-    inline bool getEventPersistent(uint event)
+    inline bool getEventPersistent(size_t event)
     {
         assert(event < symbols->getEventAttributes().size()
             && "event out of bounds");
         return symbols->getEventAttributes()[event] & EventPersistent;
     }
 
-    inline uint getEventBufferSize(uint event)
+    inline size_t getEventBufferSize(size_t event)
     {
         return symbols->getEventBufferSize(event);
     }
 
-    inline void getEventData(uint eventId, double* data)
+    inline void getEventData(size_t eventId, double* data)
     {
         eventTriggerPtr(modelData, eventId, data);
     }
@@ -530,7 +530,7 @@ public:
     /**
      * assign or apply the event using the given data.
      */
-    inline void assignEvent(uint eventId, double* data)
+    inline void assignEvent(size_t eventId, double* data)
     {
         // apply the sbml JITed event assignments
         eventAssignPtr(modelData, eventId, data);
@@ -546,22 +546,23 @@ public:
         }
     }
 
-    bool getEventTieBreak(uint eventA, uint eventB);
+    bool getEventTieBreak(size_t eventA, size_t eventB);
 
     virtual int getEventIndex(const std::string& eid);
-    virtual std::string getEventId(int index);
-    virtual void setEventListener(int index, rr::EventListenerPtr eventHandler);
-    virtual rr::EventListenerPtr getEventListener(int index);
+    virtual std::string getEventId(size_t index);
+    virtual void getEventIds(std::list<std::string>& out);
+    virtual void setEventListener(size_t index, rr::EventListenerPtr eventHandler);
+    virtual rr::EventListenerPtr getEventListener(size_t index);
 
 
-    virtual double getFloatingSpeciesAmountRate(int index,
+    virtual double getFloatingSpeciesAmountRate(size_t index,
             const double *reactionRates);
 
     /**
      * calculate rate rule values.
      * TODO redo this function, not very effecient.
      */
-    int getRateRueRates(int len, int const *indx, double *values);
+    int getRateRueRates(size_t len, int const *indx, double *values);
 
 
     /**
@@ -659,7 +660,7 @@ private:
     SetGlobalParameterInitValueCodeGen::FunctionPtr setGlobalParameterInitValuePtr;
 
 
-    typedef string (LLVMExecutableModel::*GetNameFuncPtr)(int);
+    typedef string (LLVMExecutableModel::*GetNameFuncPtr)(size_t);
 
     /**
      * cache the selection records
@@ -677,13 +678,13 @@ private:
     /**
      * get the values from the model struct and populate the given values array.
      */
-    int getValues(double (*funcPtr)(LLVMModelData*, int), int len,
+    int getValues(double (*funcPtr)(LLVMModelData*, size_t), size_t len,
             const int *indx, double *values);
 
     /**
      * set the model struct values from the given array.
      */
-    int setValues(bool (*funcPtr)(LLVMModelData*, int, double), GetNameFuncPtr, int len,
+    int setValues(bool (*funcPtr)(LLVMModelData*, int, double), GetNameFuncPtr, size_t len,
             const int *indx, const double *values);
 
     static LLVMExecutableModel* dummy();

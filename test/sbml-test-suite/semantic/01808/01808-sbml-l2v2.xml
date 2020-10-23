@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<sbml xmlns="http://www.sbml.org/sbml/level2/version2" level="2" version="2">
+  <model metaid="case01808" id="case01808">
+    <listOfCompartments>
+      <compartment id="C" size="1"/>
+      <compartment id="c" size="2"/>
+    </listOfCompartments>
+    <listOfSpecies>
+      <species id="spec" compartment="C" initialConcentration="3"/>
+      <species id="Spec" compartment="c" initialConcentration="4"/>
+      <species id="sPeC" compartment="C" initialConcentration="5"/>
+    </listOfSpecies>
+    <listOfParameters>
+      <parameter id="K" value="1"/>
+      <parameter id="k" value="2"/>
+    </listOfParameters>
+    <listOfReactions>
+      <reaction id="J" fast="false">
+        <listOfProducts>
+          <speciesReference species="spec"/>
+        </listOfProducts>
+        <kineticLaw>
+          <math xmlns="http://www.w3.org/1998/Math/MathML">
+            <ci> K </ci>
+          </math>
+        </kineticLaw>
+      </reaction>
+      <reaction id="j" fast="false">
+        <listOfProducts>
+          <speciesReference species="Spec"/>
+          <speciesReference species="sPeC" stoichiometry="2"/>
+        </listOfProducts>
+        <kineticLaw>
+          <math xmlns="http://www.w3.org/1998/Math/MathML">
+            <ci> k </ci>
+          </math>
+        </kineticLaw>
+      </reaction>
+    </listOfReactions>
+  </model>
+</sbml>

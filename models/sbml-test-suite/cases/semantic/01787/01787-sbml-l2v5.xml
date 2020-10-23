@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- Created by libAntimony version v2.12.0 with libSBML version 5.18.1. -->
+<sbml xmlns="http://www.sbml.org/sbml/level2/version5" level="2" version="5">
+  <model metaid="case01787" id="case01787">
+    <listOfCompartments>
+      <compartment id="C" size="1"/>
+    </listOfCompartments>
+    <listOfSpecies>
+      <species id="S1" compartment="C" initialConcentration="2"/>
+      <species id="S2" compartment="C" initialConcentration="3" boundaryCondition="true"/>
+    </listOfSpecies>
+    <listOfRules>
+      <algebraicRule>
+        <math xmlns="http://www.w3.org/1998/Math/MathML">
+          <apply>
+            <minus/>
+            <ci> S2 </ci>
+            <ci> S1 </ci>
+          </apply>
+        </math>
+      </algebraicRule>
+    </listOfRules>
+  </model>
+</sbml>

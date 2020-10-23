@@ -1,0 +1,206 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.20" xml:lang="en-US">
+  <compounddef id="classrr_1_1Dictionary" kind="class" language="C++" prot="public" abstract="yes">
+    <compoundname>rr::Dictionary</compoundname>
+    <derivedcompoundref refid="classrr_1_1BasicDictionary" prot="public" virt="non-virtual">rr::BasicDictionary</derivedcompoundref>
+    <derivedcompoundref refid="classrr_1_1rrSteadyStateSolver" prot="public" virt="non-virtual">rr::rrSteadyStateSolver</derivedcompoundref>
+    <includes refid="Dictionary_8h" local="no">Dictionary.h</includes>
+      <sectiondef kind="public-func">
+      <memberdef kind="function" id="classrr_1_1Dictionary_1a6bb53c3bfeee7e3ee2bfcf9da8212949" prot="public" static="no" const="no" explicit="no" inline="no" virt="pure-virtual">
+        <type>void</type>
+        <definition>virtual void rr::Dictionary::setItem</definition>
+        <argsstring>(const std::string &amp;key, const rr::Variant &amp;value)=0</argsstring>
+        <name>setItem</name>
+        <reimplementedby refid="classrr_1_1NLEQ1Interface_1a83ca9720f6b5aa8fedfc10c83ea2ef24">setItem</reimplementedby>
+        <reimplementedby refid="classrr_1_1NLEQ2Interface_1a9495cf109b4ec802e3e8532099c73f5e">setItem</reimplementedby>
+        <reimplementedby refid="classrr_1_1LoadSBMLOptions_1a0ea929664c0ac7b28120ad131ae08ae9">setItem</reimplementedby>
+        <reimplementedby refid="classrr_1_1SimulateOptions_1ae864e702c9a40669ac9088731ff49884">setItem</reimplementedby>
+        <reimplementedby refid="classrr_1_1BasicDictionary_1ae7b6b6c90561295e2e07c45fe50358ce">setItem</reimplementedby>
+        <param>
+          <type>const std::string &amp;</type>
+          <declname>key</declname>
+        </param>
+        <param>
+          <type>const <ref refid="classrr_1_1Variant" kindref="compound">rr::Variant</ref> &amp;</type>
+          <declname>value</declname>
+        </param>
+        <briefdescription>
+<para>Set the value for an arbitrary key. </para>
+        </briefdescription>
+        <detaileddescription>
+<para>The <ref refid="classrr_1_1Variant" kindref="compound">Variant</ref> object has a large number of creation operators so you only have to give the value as native C++ object i.e.</para>
+<para><programlisting><codeline><highlight class="normal">Dictionary*d<sp/>=<sp/>(...);</highlight></codeline>
+<codeline><highlight class="normal">d-&gt;setItem(&quot;someIntKey&quot;,<sp/>1);</highlight></codeline>
+<codeline><highlight class="normal">d-&gt;setItem(&quot;someStrKey&quot;,<sp/>string(&quot;some<sp/>string&quot;));</highlight></codeline>
+<codeline><highlight class="normal">d-&gt;setItem(&quot;someFloatVal,<sp/>0.123);</highlight></codeline>
+</programlisting> </para>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="Dictionary.h" line="50" column="18"/>
+      </memberdef>
+      <memberdef kind="function" id="classrr_1_1Dictionary_1a53cb5eee283727168630f6b1b918bdb0" prot="public" static="no" const="yes" explicit="no" inline="no" virt="pure-virtual">
+        <type><ref refid="classrr_1_1Variant" kindref="compound">Variant</ref></type>
+        <definition>virtual Variant rr::Dictionary::getItem</definition>
+        <argsstring>(const std::string &amp;key) const =0</argsstring>
+        <name>getItem</name>
+        <reimplementedby refid="classrr_1_1NLEQ1Interface_1af2c0bfc32e56ad8c71300b5f6ed7a0b7">getItem</reimplementedby>
+        <reimplementedby refid="classrr_1_1NLEQ2Interface_1a4ef5104c0c2bb69c42add51d3c6cb0d4">getItem</reimplementedby>
+        <reimplementedby refid="classrr_1_1LoadSBMLOptions_1a42644c69463fd75bafb1ead69b9681e6">getItem</reimplementedby>
+        <reimplementedby refid="classrr_1_1BasicDictionary_1a3357b3d49d8353f19ec9aa83884f6ef1">getItem</reimplementedby>
+        <param>
+          <type>const std::string &amp;</type>
+          <declname>key</declname>
+        </param>
+        <briefdescription>
+<para>Get a value. </para>
+        </briefdescription>
+        <detaileddescription>
+<para>Variants are POD. If the key does not exist, an std::exception will be thrown.</para>
+<para>The <ref refid="classrr_1_1Variant" kindref="compound">Variant</ref> object has the assigment operator overloaded so it will automatically convert to any native C++ object. If the <ref refid="classrr_1_1Variant" kindref="compound">Variant</ref> can not be converted, it will raise an exception, i.e.</para>
+<para><programlisting><codeline><highlight class="normal">Dictionary*<sp/>d<sp/>=<sp/>...;</highlight></codeline>
+<codeline><highlight class="normal">int<sp/>a<sp/>=<sp/>d-&gt;getItem(&quot;someIntKey&quot;);</highlight></codeline>
+<codeline><highlight class="normal">string<sp/>s<sp/>=<sp/>d-&gt;getItem(&quot;someStrVal&quot;);</highlight></codeline>
+<codeline><highlight class="normal">double<sp/>val<sp/>=<sp/>d-&gt;getItem(&quot;someDoubleVal&quot;);</highlight></codeline>
+</programlisting> </para>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="Dictionary.h" line="67" column="21"/>
+      </memberdef>
+      <memberdef kind="function" id="classrr_1_1Dictionary_1a7ec0accc7149a403ee5eeeb9457059ed" prot="public" static="no" const="yes" explicit="no" inline="no" virt="pure-virtual">
+        <type>bool</type>
+        <definition>virtual bool rr::Dictionary::hasKey</definition>
+        <argsstring>(const std::string &amp;key) const =0</argsstring>
+        <name>hasKey</name>
+        <reimplementedby refid="classrr_1_1NLEQ1Interface_1aa3e2aca38a96402f1d7d33c4b5fb186f">hasKey</reimplementedby>
+        <reimplementedby refid="classrr_1_1NLEQ2Interface_1a544143f7d7780b7ae8a142ed9f352667">hasKey</reimplementedby>
+        <reimplementedby refid="classrr_1_1LoadSBMLOptions_1a5fd757435841abdb20215d65af77bd84">hasKey</reimplementedby>
+        <reimplementedby refid="classrr_1_1BasicDictionary_1ab78190d645a8eb84bb3494453a6f6ea8">hasKey</reimplementedby>
+        <param>
+          <type>const std::string &amp;</type>
+          <declname>key</declname>
+        </param>
+        <briefdescription>
+<para>is there a key matching this name. </para>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="Dictionary.h" line="72" column="18"/>
+      </memberdef>
+      <memberdef kind="function" id="classrr_1_1Dictionary_1aafd395297acc9cb73ea1e244b3f02d5c" prot="public" static="no" const="no" explicit="no" inline="no" virt="pure-virtual">
+        <type>size_t</type>
+        <definition>virtual size_t rr::Dictionary::deleteItem</definition>
+        <argsstring>(const std::string &amp;key)=0</argsstring>
+        <name>deleteItem</name>
+        <reimplementedby refid="classrr_1_1NLEQ1Interface_1ac6515e4785ab7094a19bf3e0747c5f6b">deleteItem</reimplementedby>
+        <reimplementedby refid="classrr_1_1NLEQ2Interface_1a923f768a00e878aed2fd762fec66479a">deleteItem</reimplementedby>
+        <reimplementedby refid="classrr_1_1LoadSBMLOptions_1ab1cf127ce1f97bab98be173fd1f48e80">deleteItem</reimplementedby>
+        <reimplementedby refid="classrr_1_1BasicDictionary_1af80331f200f57eaa1d22c85104731dda">deleteItem</reimplementedby>
+        <param>
+          <type>const std::string &amp;</type>
+          <declname>key</declname>
+        </param>
+        <briefdescription>
+<para>remove a value </para>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="Dictionary.h" line="77" column="20"/>
+      </memberdef>
+      <memberdef kind="function" id="classrr_1_1Dictionary_1ae8e4240deda5ee2dc7d472476bd92b47" prot="public" static="no" const="yes" explicit="no" inline="no" virt="pure-virtual">
+        <type>std::vector&lt; std::string &gt;</type>
+        <definition>virtual std::vector&lt;std::string&gt; rr::Dictionary::getKeys</definition>
+        <argsstring>() const =0</argsstring>
+        <name>getKeys</name>
+        <reimplementedby refid="classrr_1_1NLEQ1Interface_1a72c681cfe17374a786130a3740841238">getKeys</reimplementedby>
+        <reimplementedby refid="classrr_1_1NLEQ2Interface_1afad85315aa2373f52cbfb12262df8c3f">getKeys</reimplementedby>
+        <reimplementedby refid="classrr_1_1LoadSBMLOptions_1ae7eb8e9235b38ece702c662b04da3734">getKeys</reimplementedby>
+        <reimplementedby refid="classrr_1_1BasicDictionary_1a4e87ed4bed586a041a2c51249448d2fa">getKeys</reimplementedby>
+        <briefdescription>
+<para>list of keys in this object. </para>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="Dictionary.h" line="82" column="25"/>
+      </memberdef>
+      <memberdef kind="function" id="classrr_1_1Dictionary_1ada6593bddd5fd2f3f75374863191f419" prot="public" static="no" const="no" explicit="no" inline="yes" virt="virtual">
+        <type></type>
+        <definition>virtual rr::Dictionary::~Dictionary</definition>
+        <argsstring>()</argsstring>
+        <name>~Dictionary</name>
+        <briefdescription>
+<para>Pure virtual interface, you should never have to delete an instance of this type directly. </para>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="Dictionary.h" line="88" column="13" bodyfile="Dictionary.h" bodystart="88" bodyend="88"/>
+      </memberdef>
+      </sectiondef>
+    <briefdescription>
+<para>This class is frozen, no new features A dictionary interface that objects can implement. </para>
+    </briefdescription>
+    <detaileddescription>
+<para>These are automatically mapped to python dictionaries. </para>
+    </detaileddescription>
+    <inheritancegraph>
+      <node id="4">
+        <label>rr::SimulateOptions</label>
+        <link refid="classrr_1_1SimulateOptions"/>
+        <childnode refid="2" relation="public-inheritance">
+        </childnode>
+      </node>
+      <node id="3">
+        <label>rr::LoadSBMLOptions</label>
+        <link refid="classrr_1_1LoadSBMLOptions"/>
+        <childnode refid="2" relation="public-inheritance">
+        </childnode>
+      </node>
+      <node id="2">
+        <label>rr::BasicDictionary</label>
+        <link refid="classrr_1_1BasicDictionary"/>
+        <childnode refid="1" relation="public-inheritance">
+        </childnode>
+      </node>
+      <node id="6">
+        <label>rr::NLEQ1Interface</label>
+        <link refid="classrr_1_1NLEQ1Interface"/>
+        <childnode refid="5" relation="public-inheritance">
+        </childnode>
+      </node>
+      <node id="5">
+        <label>rr::rrSteadyStateSolver</label>
+        <link refid="classrr_1_1rrSteadyStateSolver"/>
+        <childnode refid="1" relation="public-inheritance">
+        </childnode>
+      </node>
+      <node id="7">
+        <label>rr::NLEQ2Interface</label>
+        <link refid="classrr_1_1NLEQ2Interface"/>
+        <childnode refid="5" relation="public-inheritance">
+        </childnode>
+      </node>
+      <node id="1">
+        <label>rr::Dictionary</label>
+        <link refid="classrr_1_1Dictionary"/>
+      </node>
+    </inheritancegraph>
+    <location file="Dictionary.h" line="30" column="1" bodyfile="Dictionary.h" bodystart="31" bodyend="132"/>
+    <listofallmembers>
+      <member refid="classrr_1_1Dictionary_1aafd395297acc9cb73ea1e244b3f02d5c" prot="public" virt="pure-virtual"><scope>rr::Dictionary</scope><name>deleteItem</name></member>
+      <member refid="classrr_1_1Dictionary_1a53cb5eee283727168630f6b1b918bdb0" prot="public" virt="pure-virtual"><scope>rr::Dictionary</scope><name>getItem</name></member>
+      <member refid="classrr_1_1Dictionary_1ae8e4240deda5ee2dc7d472476bd92b47" prot="public" virt="pure-virtual"><scope>rr::Dictionary</scope><name>getKeys</name></member>
+      <member refid="classrr_1_1Dictionary_1a7ec0accc7149a403ee5eeeb9457059ed" prot="public" virt="pure-virtual"><scope>rr::Dictionary</scope><name>hasKey</name></member>
+      <member refid="classrr_1_1Dictionary_1a6bb53c3bfeee7e3ee2bfcf9da8212949" prot="public" virt="pure-virtual"><scope>rr::Dictionary</scope><name>setItem</name></member>
+      <member refid="classrr_1_1Dictionary_1ada6593bddd5fd2f3f75374863191f419" prot="public" virt="virtual"><scope>rr::Dictionary</scope><name>~Dictionary</name></member>
+    </listofallmembers>
+  </compounddef>
+</doxygen>

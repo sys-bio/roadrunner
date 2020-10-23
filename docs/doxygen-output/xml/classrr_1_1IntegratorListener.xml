@@ -1,0 +1,83 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.20" xml:lang="en-US">
+  <compounddef id="classrr_1_1IntegratorListener" kind="class" language="C++" prot="public" abstract="yes">
+    <compoundname>rr::IntegratorListener</compoundname>
+      <sectiondef kind="public-func">
+      <memberdef kind="function" id="classrr_1_1IntegratorListener_1a78bcb1c840e549d0d18f60ef010fd5e2" prot="public" static="no" const="no" explicit="no" inline="no" virt="pure-virtual">
+        <type>uint</type>
+        <definition>virtual uint rr::IntegratorListener::onTimeStep</definition>
+        <argsstring>(Integrator *integrator, ExecutableModel *model, double time)=0</argsstring>
+        <name>onTimeStep</name>
+        <param>
+          <type><ref refid="classrr_1_1Integrator" kindref="compound">Integrator</ref> *</type>
+          <declname>integrator</declname>
+        </param>
+        <param>
+          <type><ref refid="classrr_1_1ExecutableModel" kindref="compound">ExecutableModel</ref> *</type>
+          <declname>model</declname>
+        </param>
+        <param>
+          <type>double</type>
+          <declname>time</declname>
+        </param>
+        <briefdescription>
+<para>is called after the internal integrator completes each internal time step. </para>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="Integrator.h" line="47" column="14"/>
+      </memberdef>
+      <memberdef kind="function" id="classrr_1_1IntegratorListener_1a4ff64f8bf4a208d25b37b7e99560d82e" prot="public" static="no" const="no" explicit="no" inline="no" virt="pure-virtual">
+        <type>uint</type>
+        <definition>virtual uint rr::IntegratorListener::onEvent</definition>
+        <argsstring>(Integrator *integrator, ExecutableModel *model, double time)=0</argsstring>
+        <name>onEvent</name>
+        <param>
+          <type><ref refid="classrr_1_1Integrator" kindref="compound">Integrator</ref> *</type>
+          <declname>integrator</declname>
+        </param>
+        <param>
+          <type><ref refid="classrr_1_1ExecutableModel" kindref="compound">ExecutableModel</ref> *</type>
+          <declname>model</declname>
+        </param>
+        <param>
+          <type>double</type>
+          <declname>time</declname>
+        </param>
+        <briefdescription>
+<para>whenever model event occurs and after it is procesed. </para>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="Integrator.h" line="52" column="14"/>
+      </memberdef>
+      <memberdef kind="function" id="classrr_1_1IntegratorListener_1a2d167491afeb88aafd9bb6a476316e3d" prot="public" static="no" const="no" explicit="no" inline="yes" virt="virtual">
+        <type></type>
+        <definition>virtual rr::IntegratorListener::~IntegratorListener</definition>
+        <argsstring>()</argsstring>
+        <name>~IntegratorListener</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="Integrator.h" line="54" column="9" bodyfile="Integrator.h" bodystart="54" bodyend="54"/>
+      </memberdef>
+      </sectiondef>
+    <briefdescription>
+    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <location file="Integrator.h" line="40" column="1" bodyfile="Integrator.h" bodystart="41" bodyend="55"/>
+    <listofallmembers>
+      <member refid="classrr_1_1IntegratorListener_1a4ff64f8bf4a208d25b37b7e99560d82e" prot="public" virt="pure-virtual"><scope>rr::IntegratorListener</scope><name>onEvent</name></member>
+      <member refid="classrr_1_1IntegratorListener_1a78bcb1c840e549d0d18f60ef010fd5e2" prot="public" virt="pure-virtual"><scope>rr::IntegratorListener</scope><name>onTimeStep</name></member>
+      <member refid="classrr_1_1IntegratorListener_1a2d167491afeb88aafd9bb6a476316e3d" prot="public" virt="virtual"><scope>rr::IntegratorListener</scope><name>~IntegratorListener</name></member>
+    </listofallmembers>
+  </compounddef>
+</doxygen>

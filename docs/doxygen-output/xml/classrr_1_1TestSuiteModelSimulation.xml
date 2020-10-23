@@ -1,0 +1,470 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.20" xml:lang="en-US">
+  <compounddef id="classrr_1_1TestSuiteModelSimulation" kind="class" language="C++" prot="public">
+    <compoundname>rr::TestSuiteModelSimulation</compoundname>
+    <basecompoundref refid="classrr_1_1SBMLModelSimulation" prot="public" virt="non-virtual">rr::SBMLModelSimulation</basecompoundref>
+      <sectiondef kind="protected-attrib">
+      <memberdef kind="variable" id="classrr_1_1TestSuiteModelSimulation_1abd1ea039542d15f2f0acdc7a76ec3ac4" prot="protected" static="no" mutable="no">
+        <type>int</type>
+        <definition>int rr::TestSuiteModelSimulation::mCurrentCaseNumber</definition>
+        <argsstring></argsstring>
+        <name>mCurrentCaseNumber</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="rrTestSuiteModelSimulation.h" line="19" column="33" bodyfile="rrTestSuiteModelSimulation.h" bodystart="19" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="classrr_1_1TestSuiteModelSimulation_1a123607f10a4785304b6797a42d676451" prot="protected" static="no" mutable="no">
+        <type>string</type>
+        <definition>string rr::TestSuiteModelSimulation::mModelSettingsFileName</definition>
+        <argsstring></argsstring>
+        <name>mModelSettingsFileName</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="rrTestSuiteModelSimulation.h" line="20" column="33" bodyfile="rrTestSuiteModelSimulation.h" bodystart="20" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="classrr_1_1TestSuiteModelSimulation_1a701149b4c7cac375879822be5ad923e3" prot="protected" static="no" mutable="no">
+        <type><ref refid="classrr_1_1RoadRunnerData" kindref="compound">RoadRunnerData</ref></type>
+        <definition>RoadRunnerData rr::TestSuiteModelSimulation::mResultData</definition>
+        <argsstring></argsstring>
+        <name>mResultData</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="rrTestSuiteModelSimulation.h" line="21" column="33" bodyfile="rrTestSuiteModelSimulation.h" bodystart="21" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="classrr_1_1TestSuiteModelSimulation_1ae07d99464dec480b77ac4f703e8bac52" prot="protected" static="no" mutable="no">
+        <type><ref refid="classrr_1_1RoadRunnerData" kindref="compound">RoadRunnerData</ref></type>
+        <definition>RoadRunnerData rr::TestSuiteModelSimulation::mReferenceData</definition>
+        <argsstring></argsstring>
+        <name>mReferenceData</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="rrTestSuiteModelSimulation.h" line="22" column="33" bodyfile="rrTestSuiteModelSimulation.h" bodystart="22" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="classrr_1_1TestSuiteModelSimulation_1aa57d0d1247e9420a6dca9313b9cc18e6" prot="protected" static="no" mutable="no">
+        <type><ref refid="classrr_1_1RoadRunnerData" kindref="compound">RoadRunnerData</ref></type>
+        <definition>RoadRunnerData rr::TestSuiteModelSimulation::mErrorData</definition>
+        <argsstring></argsstring>
+        <name>mErrorData</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="rrTestSuiteModelSimulation.h" line="23" column="33" bodyfile="rrTestSuiteModelSimulation.h" bodystart="23" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="classrr_1_1TestSuiteModelSimulation_1a59fd59a407df17e843db1d084ee297c9" prot="protected" static="no" mutable="no">
+        <type>int</type>
+        <definition>int rr::TestSuiteModelSimulation::mNrOfFailingPoints</definition>
+        <argsstring></argsstring>
+        <name>mNrOfFailingPoints</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="rrTestSuiteModelSimulation.h" line="26" column="33" bodyfile="rrTestSuiteModelSimulation.h" bodystart="26" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="classrr_1_1TestSuiteModelSimulation_1ad2bbd3e128e592886ffe884656115a95" prot="protected" static="no" mutable="no">
+        <type>double</type>
+        <definition>double rr::TestSuiteModelSimulation::mLargestError</definition>
+        <argsstring></argsstring>
+        <name>mLargestError</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="rrTestSuiteModelSimulation.h" line="27" column="33" bodyfile="rrTestSuiteModelSimulation.h" bodystart="27" bodyend="-1"/>
+      </memberdef>
+      </sectiondef>
+      <sectiondef kind="protected-func">
+      <memberdef kind="function" id="classrr_1_1TestSuiteModelSimulation_1ab043cb27a75925c6ae1fb9e975549265" prot="protected" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>string</type>
+        <definition>string rr::TestSuiteModelSimulation::GetSettingsFileNameForCase</definition>
+        <argsstring>(int sim_case)</argsstring>
+        <name>GetSettingsFileNameForCase</name>
+        <param>
+          <type>int</type>
+          <declname>sim_case</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="rrTestSuiteModelSimulation.h" line="24" column="33" bodyfile="rrTestSuiteModelSimulation.cpp" bodystart="280" bodyend="287"/>
+      </memberdef>
+      <memberdef kind="function" id="classrr_1_1TestSuiteModelSimulation_1ac1458a90bafac9f8dc4c9f3b89d310cf" prot="protected" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>string</type>
+        <definition>string rr::TestSuiteModelSimulation::GetReferenceDataFileNameForCase</definition>
+        <argsstring>(int caseNr)</argsstring>
+        <name>GetReferenceDataFileNameForCase</name>
+        <param>
+          <type>int</type>
+          <declname>caseNr</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="rrTestSuiteModelSimulation.h" line="25" column="33" bodyfile="rrTestSuiteModelSimulation.cpp" bodystart="289" bodyend="295"/>
+      </memberdef>
+      </sectiondef>
+      <sectiondef kind="public-func">
+      <memberdef kind="function" id="classrr_1_1TestSuiteModelSimulation_1a56a48df0a7972f381ad9776741e2bc0a" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type></type>
+        <definition>rr::TestSuiteModelSimulation::TestSuiteModelSimulation</definition>
+        <argsstring>(const string &amp;dataOutputFolder=&quot;&quot;, const string &amp;modelFilePath=&quot;&quot;, const string &amp;modelFileName=&quot;&quot;)</argsstring>
+        <name>TestSuiteModelSimulation</name>
+        <param>
+          <type>const string &amp;</type>
+          <declname>dataOutputFolder</declname>
+          <defval>&quot;&quot;</defval>
+        </param>
+        <param>
+          <type>const string &amp;</type>
+          <declname>modelFilePath</declname>
+          <defval>&quot;&quot;</defval>
+        </param>
+        <param>
+          <type>const string &amp;</type>
+          <declname>modelFileName</declname>
+          <defval>&quot;&quot;</defval>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="rrTestSuiteModelSimulation.h" line="30" column="33" bodyfile="rrTestSuiteModelSimulation.cpp" bodystart="15" bodyend="26"/>
+      </memberdef>
+      <memberdef kind="function" id="classrr_1_1TestSuiteModelSimulation_1a7a01addc1704a63ffbcad0b35a281794" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type></type>
+        <definition>rr::TestSuiteModelSimulation::~TestSuiteModelSimulation</definition>
+        <argsstring>()</argsstring>
+        <name>~TestSuiteModelSimulation</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="rrTestSuiteModelSimulation.h" line="31" column="32" bodyfile="rrTestSuiteModelSimulation.cpp" bodystart="28" bodyend="29"/>
+      </memberdef>
+      <memberdef kind="function" id="classrr_1_1TestSuiteModelSimulation_1a19df03ff6ffe762381ffe84d5365cc90" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>void rr::TestSuiteModelSimulation::SetCaseNumber</definition>
+        <argsstring>(int cNr)</argsstring>
+        <name>SetCaseNumber</name>
+        <param>
+          <type>int</type>
+          <declname>cNr</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="rrTestSuiteModelSimulation.h" line="32" column="33" bodyfile="rrTestSuiteModelSimulation.cpp" bodystart="31" bodyend="34"/>
+      </memberdef>
+      <memberdef kind="function" id="classrr_1_1TestSuiteModelSimulation_1ab7f9c8e99098b09b071b2a524695c4aa" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>bool</type>
+        <definition>bool rr::TestSuiteModelSimulation::LoadReferenceData</definition>
+        <argsstring>(string refDataFileName=&quot;&quot;)</argsstring>
+        <name>LoadReferenceData</name>
+        <param>
+          <type>string</type>
+          <declname>refDataFileName</declname>
+          <defval>&quot;&quot;</defval>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="rrTestSuiteModelSimulation.h" line="33" column="33" bodyfile="rrTestSuiteModelSimulation.cpp" bodystart="83" bodyend="125"/>
+      </memberdef>
+      <memberdef kind="function" id="classrr_1_1TestSuiteModelSimulation_1ab84ebb55fa44c62b0318c64f00e9c99c" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>bool</type>
+        <definition>bool rr::TestSuiteModelSimulation::CreateErrorData</definition>
+        <argsstring>()</argsstring>
+        <name>CreateErrorData</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="rrTestSuiteModelSimulation.h" line="34" column="33" bodyfile="rrTestSuiteModelSimulation.cpp" bodystart="142" bodyend="175"/>
+      </memberdef>
+      <memberdef kind="function" id="classrr_1_1TestSuiteModelSimulation_1a7236cc31d52fa3d73c95f4a5d781920a" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>bool</type>
+        <definition>bool rr::TestSuiteModelSimulation::SaveAllData</definition>
+        <argsstring>()</argsstring>
+        <name>SaveAllData</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="rrTestSuiteModelSimulation.h" line="35" column="33" bodyfile="rrTestSuiteModelSimulation.cpp" bodystart="177" bodyend="278"/>
+      </memberdef>
+      <memberdef kind="function" id="classrr_1_1TestSuiteModelSimulation_1aba716bb560c028ffcb59724d952d307c" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>bool</type>
+        <definition>bool rr::TestSuiteModelSimulation::CopyFilesToOutputFolder</definition>
+        <argsstring>()</argsstring>
+        <name>CopyFilesToOutputFolder</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="rrTestSuiteModelSimulation.h" line="36" column="33" bodyfile="rrTestSuiteModelSimulation.cpp" bodystart="36" bodyend="50"/>
+      </memberdef>
+      <memberdef kind="function" id="classrr_1_1TestSuiteModelSimulation_1a75aacfcd88048d3abb9b73b3b7136023" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>double</type>
+        <definition>double rr::TestSuiteModelSimulation::LargestError</definition>
+        <argsstring>()</argsstring>
+        <name>LargestError</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="rrTestSuiteModelSimulation.h" line="37" column="33" bodyfile="rrTestSuiteModelSimulation.cpp" bodystart="137" bodyend="140"/>
+      </memberdef>
+      <memberdef kind="function" id="classrr_1_1TestSuiteModelSimulation_1a96f82290fd5589cead73b90e42bd8110" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>bool</type>
+        <definition>bool rr::TestSuiteModelSimulation::Pass</definition>
+        <argsstring>()</argsstring>
+        <name>Pass</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="rrTestSuiteModelSimulation.h" line="38" column="33" bodyfile="rrTestSuiteModelSimulation.cpp" bodystart="127" bodyend="130"/>
+      </memberdef>
+      <memberdef kind="function" id="classrr_1_1TestSuiteModelSimulation_1af91c62936cdedf4a3c13efc847703206" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>int</type>
+        <definition>int rr::TestSuiteModelSimulation::NrOfFailingPoints</definition>
+        <argsstring>()</argsstring>
+        <name>NrOfFailingPoints</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="rrTestSuiteModelSimulation.h" line="39" column="33" bodyfile="rrTestSuiteModelSimulation.cpp" bodystart="132" bodyend="135"/>
+      </memberdef>
+      <memberdef kind="function" id="classrr_1_1TestSuiteModelSimulation_1a7b7b403bef96bd72203f04c56a431c22" prot="public" static="no" const="no" explicit="no" inline="no" virt="virtual">
+        <type>bool</type>
+        <definition>bool rr::TestSuiteModelSimulation::LoadSettings</definition>
+        <argsstring>(const string &amp;fName=&quot;&quot;)</argsstring>
+        <name>LoadSettings</name>
+        <reimplements refid="classrr_1_1SBMLModelSimulation_1a664500e9203e54058c06cfb977586e2c">LoadSettings</reimplements>
+        <param>
+          <type>const string &amp;</type>
+          <declname>fName</declname>
+          <defval>&quot;&quot;</defval>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="rrTestSuiteModelSimulation.h" line="40" column="33" bodyfile="rrTestSuiteModelSimulation.cpp" bodystart="52" bodyend="61"/>
+      </memberdef>
+      <memberdef kind="function" id="classrr_1_1TestSuiteModelSimulation_1a9017d8cc80bd95b254a0137d65d26e08" prot="public" static="no" const="no" explicit="no" inline="no" virt="virtual">
+        <type>bool</type>
+        <definition>bool rr::TestSuiteModelSimulation::LoadSettingsEx</definition>
+        <argsstring>(const string &amp;settingsFName)</argsstring>
+        <name>LoadSettingsEx</name>
+        <param>
+          <type>const string &amp;</type>
+          <declname>settingsFName</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="rrTestSuiteModelSimulation.h" line="41" column="33" bodyfile="rrTestSuiteModelSimulation.cpp" bodystart="63" bodyend="81"/>
+      </memberdef>
+      </sectiondef>
+    <briefdescription>
+    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <inheritancegraph>
+      <node id="2">
+        <label>rr::SBMLModelSimulation</label>
+        <link refid="classrr_1_1SBMLModelSimulation"/>
+      </node>
+      <node id="1">
+        <label>rr::TestSuiteModelSimulation</label>
+        <link refid="classrr_1_1TestSuiteModelSimulation"/>
+        <childnode refid="2" relation="public-inheritance">
+        </childnode>
+      </node>
+    </inheritancegraph>
+    <collaborationgraph>
+      <node id="2">
+        <label>rr::SBMLModelSimulation</label>
+        <link refid="classrr_1_1SBMLModelSimulation"/>
+        <childnode refid="3" relation="usage">
+          <edgelabel>mSettings</edgelabel>
+        </childnode>
+        <childnode refid="7" relation="usage">
+          <edgelabel>mEngine</edgelabel>
+        </childnode>
+        <childnode refid="6" relation="usage">
+          <edgelabel>mDataOutputFolder</edgelabel>
+          <edgelabel>mModelFileName</edgelabel>
+          <edgelabel>mModelFilePath</edgelabel>
+          <edgelabel>mModelSettingsFileName</edgelabel>
+          <edgelabel>mSimulationLogFile</edgelabel>
+          <edgelabel>mTempDataFolder</edgelabel>
+        </childnode>
+      </node>
+      <node id="3">
+        <label>rr::SimulateOptions</label>
+        <link refid="classrr_1_1SimulateOptions"/>
+        <childnode refid="4" relation="public-inheritance">
+        </childnode>
+        <childnode refid="6" relation="usage">
+          <edgelabel>output_file</edgelabel>
+        </childnode>
+      </node>
+      <node id="4">
+        <label>rr::BasicDictionary</label>
+        <link refid="classrr_1_1BasicDictionary"/>
+        <childnode refid="5" relation="public-inheritance">
+        </childnode>
+      </node>
+      <node id="6">
+        <label>string</label>
+      </node>
+      <node id="1">
+        <label>rr::TestSuiteModelSimulation</label>
+        <link refid="classrr_1_1TestSuiteModelSimulation"/>
+        <childnode refid="2" relation="public-inheritance">
+        </childnode>
+        <childnode refid="8" relation="usage">
+          <edgelabel>mErrorData</edgelabel>
+          <edgelabel>mReferenceData</edgelabel>
+          <edgelabel>mResultData</edgelabel>
+        </childnode>
+        <childnode refid="6" relation="usage">
+          <edgelabel>mModelSettingsFileName</edgelabel>
+        </childnode>
+      </node>
+      <node id="8">
+        <label>rr::RoadRunnerData</label>
+        <link refid="classrr_1_1RoadRunnerData"/>
+        <childnode refid="6" relation="usage">
+          <edgelabel>mName</edgelabel>
+        </childnode>
+      </node>
+      <node id="5">
+        <label>rr::Dictionary</label>
+        <link refid="classrr_1_1Dictionary"/>
+      </node>
+      <node id="7">
+        <label>rr::RoadRunner</label>
+        <link refid="classrr_1_1RoadRunner"/>
+      </node>
+    </collaborationgraph>
+    <location file="rrTestSuiteModelSimulation.h" line="16" column="1" bodyfile="rrTestSuiteModelSimulation.h" bodystart="17" bodyend="42"/>
+    <listofallmembers>
+      <member refid="classrr_1_1SBMLModelSimulation_1a511226c185bb96944b24ccbf926e0975" prot="public" virt="non-virtual"><scope>rr::TestSuiteModelSimulation</scope><name>CompileModel</name></member>
+      <member refid="classrr_1_1TestSuiteModelSimulation_1aba716bb560c028ffcb59724d952d307c" prot="public" virt="non-virtual"><scope>rr::TestSuiteModelSimulation</scope><name>CopyFilesToOutputFolder</name></member>
+      <member refid="classrr_1_1TestSuiteModelSimulation_1ab84ebb55fa44c62b0318c64f00e9c99c" prot="public" virt="non-virtual"><scope>rr::TestSuiteModelSimulation</scope><name>CreateErrorData</name></member>
+      <member refid="classrr_1_1SBMLModelSimulation_1a326b154a6f0f01cf72f5567278663898" prot="public" virt="non-virtual"><scope>rr::TestSuiteModelSimulation</scope><name>CreateModel</name></member>
+      <member refid="classrr_1_1SBMLModelSimulation_1a3f1ee8cf88c2be2830b9e7517e9e8b7e" prot="public" virt="non-virtual"><scope>rr::TestSuiteModelSimulation</scope><name>DoCompileIfDllExists</name></member>
+      <member refid="classrr_1_1SBMLModelSimulation_1aae3423ec2aac83e5f990a3e13d0681ca" prot="public" virt="non-virtual"><scope>rr::TestSuiteModelSimulation</scope><name>GenerateAndCompileModel</name></member>
+      <member refid="classrr_1_1SBMLModelSimulation_1a1cbedff957c9fc3be5c381678f431500" prot="public" virt="non-virtual"><scope>rr::TestSuiteModelSimulation</scope><name>GenerateModelCode</name></member>
+      <member refid="classrr_1_1SBMLModelSimulation_1a8160a3bf345b2333c70f5b2b2120dea9" prot="public" virt="non-virtual"><scope>rr::TestSuiteModelSimulation</scope><name>GetDataOutputFolder</name></member>
+      <member refid="classrr_1_1SBMLModelSimulation_1a3a884571a8337da75f89aac9fb9c5cc0" prot="public" virt="non-virtual"><scope>rr::TestSuiteModelSimulation</scope><name>GetModelsFullFilePath</name></member>
+      <member refid="classrr_1_1TestSuiteModelSimulation_1ac1458a90bafac9f8dc4c9f3b89d310cf" prot="protected" virt="non-virtual"><scope>rr::TestSuiteModelSimulation</scope><name>GetReferenceDataFileNameForCase</name></member>
+      <member refid="classrr_1_1SBMLModelSimulation_1a6958421f1a2e4790b281f1c41a97c9a7" prot="public" virt="virtual"><scope>rr::TestSuiteModelSimulation</scope><name>GetResult</name></member>
+      <member refid="classrr_1_1TestSuiteModelSimulation_1ab043cb27a75925c6ae1fb9e975549265" prot="protected" virt="non-virtual"><scope>rr::TestSuiteModelSimulation</scope><name>GetSettingsFileNameForCase</name></member>
+      <member refid="classrr_1_1SBMLModelSimulation_1a80114ca7df9fdb41534238eced1404e5" prot="public" virt="non-virtual"><scope>rr::TestSuiteModelSimulation</scope><name>GetTempDataFolder</name></member>
+      <member refid="classrr_1_1TestSuiteModelSimulation_1a75aacfcd88048d3abb9b73b3b7136023" prot="public" virt="non-virtual"><scope>rr::TestSuiteModelSimulation</scope><name>LargestError</name></member>
+      <member refid="classrr_1_1TestSuiteModelSimulation_1ab7f9c8e99098b09b071b2a524695c4aa" prot="public" virt="non-virtual"><scope>rr::TestSuiteModelSimulation</scope><name>LoadReferenceData</name></member>
+      <member refid="classrr_1_1SBMLModelSimulation_1acd01ef98f39da61f98470cd2e7bf80f7" prot="public" virt="virtual"><scope>rr::TestSuiteModelSimulation</scope><name>LoadSBMLFromFile</name></member>
+      <member refid="classrr_1_1SBMLModelSimulation_1a7ac7fc2c2464bbc1a6f02aeed6293edd" prot="public" virt="non-virtual"><scope>rr::TestSuiteModelSimulation</scope><name>loadSBMLTolerances</name></member>
+      <member refid="classrr_1_1TestSuiteModelSimulation_1a7b7b403bef96bd72203f04c56a431c22" prot="public" virt="virtual"><scope>rr::TestSuiteModelSimulation</scope><name>LoadSettings</name></member>
+      <member refid="classrr_1_1TestSuiteModelSimulation_1a9017d8cc80bd95b254a0137d65d26e08" prot="public" virt="virtual"><scope>rr::TestSuiteModelSimulation</scope><name>LoadSettingsEx</name></member>
+      <member refid="classrr_1_1SBMLModelSimulation_1ae819e501d0e5ff1e538e05ed4c7d71df" prot="public" virt="non-virtual"><scope>rr::TestSuiteModelSimulation</scope><name>mAbsolute</name></member>
+      <member refid="classrr_1_1SBMLModelSimulation_1a7824e8e1bad88a364acce34295fbb067" prot="protected" virt="non-virtual"><scope>rr::TestSuiteModelSimulation</scope><name>mCompileIfDllExists</name></member>
+      <member refid="classrr_1_1TestSuiteModelSimulation_1abd1ea039542d15f2f0acdc7a76ec3ac4" prot="protected" virt="non-virtual"><scope>rr::TestSuiteModelSimulation</scope><name>mCurrentCaseNumber</name></member>
+      <member refid="classrr_1_1SBMLModelSimulation_1accdc5c822520b2b01f3313c3f512f585" prot="protected" virt="non-virtual"><scope>rr::TestSuiteModelSimulation</scope><name>mDataOutputFolder</name></member>
+      <member refid="classrr_1_1SBMLModelSimulation_1a60f7673c75dc2d7ab3e907dc2ec53c39" prot="protected" virt="non-virtual"><scope>rr::TestSuiteModelSimulation</scope><name>mEngine</name></member>
+      <member refid="classrr_1_1TestSuiteModelSimulation_1aa57d0d1247e9420a6dca9313b9cc18e6" prot="protected" virt="non-virtual"><scope>rr::TestSuiteModelSimulation</scope><name>mErrorData</name></member>
+      <member refid="classrr_1_1TestSuiteModelSimulation_1ad2bbd3e128e592886ffe884656115a95" prot="protected" virt="non-virtual"><scope>rr::TestSuiteModelSimulation</scope><name>mLargestError</name></member>
+      <member refid="classrr_1_1SBMLModelSimulation_1a1b9524e46c6763794ea8cdfe6c57b172" prot="protected" virt="non-virtual"><scope>rr::TestSuiteModelSimulation</scope><name>mModelFileName</name></member>
+      <member refid="classrr_1_1SBMLModelSimulation_1abe193c4217ff4fd5d97d037b688b8739" prot="protected" virt="non-virtual"><scope>rr::TestSuiteModelSimulation</scope><name>mModelFilePath</name></member>
+      <member refid="classrr_1_1TestSuiteModelSimulation_1a123607f10a4785304b6797a42d676451" prot="protected" virt="non-virtual"><scope>rr::TestSuiteModelSimulation</scope><name>mModelSettingsFileName</name></member>
+      <member refid="classrr_1_1TestSuiteModelSimulation_1a59fd59a407df17e843db1d084ee297c9" prot="protected" virt="non-virtual"><scope>rr::TestSuiteModelSimulation</scope><name>mNrOfFailingPoints</name></member>
+      <member refid="classrr_1_1TestSuiteModelSimulation_1ae07d99464dec480b77ac4f703e8bac52" prot="protected" virt="non-virtual"><scope>rr::TestSuiteModelSimulation</scope><name>mReferenceData</name></member>
+      <member refid="classrr_1_1SBMLModelSimulation_1aa14afbec06bec714797453aa72acb305" prot="public" virt="non-virtual"><scope>rr::TestSuiteModelSimulation</scope><name>mRelative</name></member>
+      <member refid="classrr_1_1TestSuiteModelSimulation_1a701149b4c7cac375879822be5ad923e3" prot="protected" virt="non-virtual"><scope>rr::TestSuiteModelSimulation</scope><name>mResultData</name></member>
+      <member refid="classrr_1_1SBMLModelSimulation_1a82a1613c7dc11b95958aa3c98097a9e5" prot="protected" virt="non-virtual"><scope>rr::TestSuiteModelSimulation</scope><name>mSettings</name></member>
+      <member refid="classrr_1_1SBMLModelSimulation_1a6a6c8fc3c3f4576420f036e01c76d1a1" prot="protected" virt="non-virtual"><scope>rr::TestSuiteModelSimulation</scope><name>mSimulationLogFile</name></member>
+      <member refid="classrr_1_1SBMLModelSimulation_1a829d4b8bdf2ca2682d0cc2f131ba0fdf" prot="protected" virt="non-virtual"><scope>rr::TestSuiteModelSimulation</scope><name>mTempDataFolder</name></member>
+      <member refid="classrr_1_1TestSuiteModelSimulation_1af91c62936cdedf4a3c13efc847703206" prot="public" virt="non-virtual"><scope>rr::TestSuiteModelSimulation</scope><name>NrOfFailingPoints</name></member>
+      <member refid="classrr_1_1TestSuiteModelSimulation_1a96f82290fd5589cead73b90e42bd8110" prot="public" virt="non-virtual"><scope>rr::TestSuiteModelSimulation</scope><name>Pass</name></member>
+      <member refid="classrr_1_1SBMLModelSimulation_1ac60b90040174b677ceba1404126c039c" prot="public" virt="non-virtual"><scope>rr::TestSuiteModelSimulation</scope><name>ReCompileIfDllExists</name></member>
+      <member refid="classrr_1_1TestSuiteModelSimulation_1a7236cc31d52fa3d73c95f4a5d781920a" prot="public" virt="non-virtual"><scope>rr::TestSuiteModelSimulation</scope><name>SaveAllData</name></member>
+      <member refid="classrr_1_1SBMLModelSimulation_1a9f0b4ac1670fcf542f4ee1630b1d2adb" prot="public" virt="non-virtual"><scope>rr::TestSuiteModelSimulation</scope><name>SaveModelAsXML</name></member>
+      <member refid="classrr_1_1SBMLModelSimulation_1a0136b688f12b277e005053784eddc570" prot="public" virt="virtual"><scope>rr::TestSuiteModelSimulation</scope><name>SaveResult</name></member>
+      <member refid="classrr_1_1SBMLModelSimulation_1ae836bdd0b9ba32e716bb936f23c394d0" prot="public" virt="non-virtual"><scope>rr::TestSuiteModelSimulation</scope><name>SBMLModelSimulation</name></member>
+      <member refid="classrr_1_1TestSuiteModelSimulation_1a19df03ff6ffe762381ffe84d5365cc90" prot="public" virt="non-virtual"><scope>rr::TestSuiteModelSimulation</scope><name>SetCaseNumber</name></member>
+      <member refid="classrr_1_1SBMLModelSimulation_1a92fb11cb280df97eff51973a17be8d88" prot="public" virt="non-virtual"><scope>rr::TestSuiteModelSimulation</scope><name>SetDataOutputFolder</name></member>
+      <member refid="classrr_1_1SBMLModelSimulation_1a29a0e1955d7f5b1ae1fea6fbd19ad85d" prot="public" virt="non-virtual"><scope>rr::TestSuiteModelSimulation</scope><name>SetModelFileName</name></member>
+      <member refid="classrr_1_1SBMLModelSimulation_1a3e1f9dbf8939eafeed739a84d9e02ddb" prot="public" virt="non-virtual"><scope>rr::TestSuiteModelSimulation</scope><name>SetModelFilePath</name></member>
+      <member refid="classrr_1_1SBMLModelSimulation_1a80106e5d163765ea77126724208ab050" prot="public" virt="non-virtual"><scope>rr::TestSuiteModelSimulation</scope><name>SetNumberOfPoints</name></member>
+      <member refid="classrr_1_1SBMLModelSimulation_1af40d37dceedf482ae65658561a1de402" prot="public" virt="non-virtual"><scope>rr::TestSuiteModelSimulation</scope><name>SetSelectionList</name></member>
+      <member refid="classrr_1_1SBMLModelSimulation_1af26709ba41de596f4b90fdfef7cc2c16" prot="public" virt="non-virtual"><scope>rr::TestSuiteModelSimulation</scope><name>SetTimeEnd</name></member>
+      <member refid="classrr_1_1SBMLModelSimulation_1adec0da24ef269f439d884145fa3f445f" prot="public" virt="non-virtual"><scope>rr::TestSuiteModelSimulation</scope><name>SetTimeStart</name></member>
+      <member refid="classrr_1_1SBMLModelSimulation_1a19e34114c0c2284ab897ed6d4af0319d" prot="public" virt="virtual"><scope>rr::TestSuiteModelSimulation</scope><name>Simulate</name></member>
+      <member refid="classrr_1_1TestSuiteModelSimulation_1a56a48df0a7972f381ad9776741e2bc0a" prot="public" virt="non-virtual"><scope>rr::TestSuiteModelSimulation</scope><name>TestSuiteModelSimulation</name></member>
+      <member refid="classrr_1_1SBMLModelSimulation_1ad14d2dc5321366ac8f0453e557514189" prot="public" virt="non-virtual"><scope>rr::TestSuiteModelSimulation</scope><name>UseEngine</name></member>
+      <member refid="classrr_1_1SBMLModelSimulation_1ab628b60aba408043a66b78698b34cba6" prot="public" virt="virtual"><scope>rr::TestSuiteModelSimulation</scope><name>~SBMLModelSimulation</name></member>
+      <member refid="classrr_1_1TestSuiteModelSimulation_1a7a01addc1704a63ffbcad0b35a281794" prot="public" virt="non-virtual"><scope>rr::TestSuiteModelSimulation</scope><name>~TestSuiteModelSimulation</name></member>
+    </listofallmembers>
+  </compounddef>
+</doxygen>

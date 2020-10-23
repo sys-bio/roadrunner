@@ -1,0 +1,784 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.20" xml:lang="en-US">
+  <compounddef id="classrr_1_1SelectionRecord" kind="class" language="C++" prot="public">
+    <compoundname>rr::SelectionRecord</compoundname>
+    <includes refid="rrSelectionRecord_8h" local="no">rrSelectionRecord.h</includes>
+      <sectiondef kind="public-type">
+      <memberdef kind="enum" id="classrr_1_1SelectionRecord_1a898963ab24a6ba614913715c981d8394" prot="public" static="no" strong="no">
+        <type></type>
+        <name>SelectionType</name>
+        <enumvalue id="classrr_1_1SelectionRecord_1a898963ab24a6ba614913715c981d8394add36248cdf4b1f588dd6fdd11855b012" prot="public">
+          <name>TIME</name>
+          <initializer>=                              (0x1 &lt;&lt; 0)</initializer>
+          <briefdescription>
+<para>SelectionType for time. </para>
+          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="classrr_1_1SelectionRecord_1a898963ab24a6ba614913715c981d8394ae72dbc661f328ef509b24a1d4b895672" prot="public">
+          <name>CONCENTRATION</name>
+          <initializer>=                     (0x1 &lt;&lt; 1)</initializer>
+          <briefdescription>
+<para>SelectionType for concentrations. </para>
+          </briefdescription>
+          <detaileddescription>
+<para>Species must have either a CONCENTRATION or AMOUNT modifer to distinguish it. </para>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="classrr_1_1SelectionRecord_1a898963ab24a6ba614913715c981d8394aa8e1a28e890003044b5c4d71077862fe" prot="public">
+          <name>AMOUNT</name>
+          <initializer>=                            (0x1 &lt;&lt; 2)</initializer>
+          <briefdescription>
+<para>SelectionType for amounts. </para>
+          </briefdescription>
+          <detaileddescription>
+<para>Species must have either a CONCENTRATION or AMOUNT modifer to distinguish it. </para>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="classrr_1_1SelectionRecord_1a898963ab24a6ba614913715c981d8394a2235d37b12b17d658b8f33a87712c806" prot="public">
+          <name>RATE</name>
+          <initializer>=                              (0x1 &lt;&lt; 3)</initializer>
+          <briefdescription>
+<para>SelectionType for rates. </para>
+          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="classrr_1_1SelectionRecord_1a898963ab24a6ba614913715c981d8394a97983fd26f427d96e0a318d676b4c087" prot="public">
+          <name>BOUNDARY</name>
+          <initializer>=                          (0x1 &lt;&lt; 4)</initializer>
+          <briefdescription>
+<para>SelectionType for bounary species. </para>
+          </briefdescription>
+          <detaileddescription>
+<para>Species must have either a BOUNDARY or FLOATING modifiers. </para>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="classrr_1_1SelectionRecord_1a898963ab24a6ba614913715c981d8394a6782153cdd565a17aef949662aa11a4a" prot="public">
+          <name>FLOATING</name>
+          <initializer>=                          (0x1 &lt;&lt; 5)</initializer>
+          <briefdescription>
+<para>SelectionType for floating species. </para>
+          </briefdescription>
+          <detaileddescription>
+<para>Species must have either a BOUNDARY or FLOATING modifiers. </para>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="classrr_1_1SelectionRecord_1a898963ab24a6ba614913715c981d8394a4cfafd7db04d37e6776a5305f3919a95" prot="public">
+          <name>_COMPARTMENT</name>
+          <initializer>=                      (0x1 &lt;&lt; 6)</initializer>
+          <briefdescription>
+<para>SelectionType for comparments. </para>
+          </briefdescription>
+          <detaileddescription>
+<para>Compartments and parameters can be either current or initial values. These values with and underscore, &apos;_&apos; are intended to be used with either an CURRENT or INITIAL value modifier. </para>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="classrr_1_1SelectionRecord_1a898963ab24a6ba614913715c981d8394aa5791049b0e78ca11971abb1d1f9636c" prot="public">
+          <name>_GLOBAL_PARAMETER</name>
+          <initializer>=                 (0x1 &lt;&lt; 7)</initializer>
+          <briefdescription>
+<para>SelectionType for global parameters. </para>
+          </briefdescription>
+          <detaileddescription>
+<para>Compartments and parameters can be either current or initial values. These values with and underscore, &apos;_&apos; are intended to be used with either an CURRENT or INITIAL value modifier. </para>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="classrr_1_1SelectionRecord_1a898963ab24a6ba614913715c981d8394ab324bc886789f735bfb63ee1906606a7" prot="public">
+          <name>REACTION</name>
+          <initializer>=                          (0x1 &lt;&lt; 8)</initializer>
+          <briefdescription>
+<para>SelectionType for reactions. </para>
+          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="classrr_1_1SelectionRecord_1a898963ab24a6ba614913715c981d8394af9b29d29725646241b8abc86f54fab83" prot="public">
+          <name>INITIAL</name>
+          <initializer>=                           (0x1 &lt;&lt; 9)</initializer>
+          <briefdescription>
+<para>SelectionType for initial values. </para>
+          </briefdescription>
+          <detaileddescription>
+<para>SBML elements can be accessed as either a initial value, or a current value, they must have one or the other. </para>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="classrr_1_1SelectionRecord_1a898963ab24a6ba614913715c981d8394a7970cc9cb4171e0e6d4bbf27dbc03dac" prot="public">
+          <name>CURRENT</name>
+          <initializer>=                           (0x1 &lt;&lt; 10)</initializer>
+          <briefdescription>
+<para>SelectionType for current values. </para>
+          </briefdescription>
+          <detaileddescription>
+<para>SBML elements can be accessed as either a initial value, or a current value, they must have one or the other. </para>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="classrr_1_1SelectionRecord_1a898963ab24a6ba614913715c981d8394a01193eeb0025a4fb1aa45bfaf42745c4" prot="public">
+          <name>UNSCALED</name>
+          <initializer>=                          (0x1 &lt;&lt; 11)</initializer>
+          <briefdescription>
+<para>SelectionType for unscaled values. </para>
+          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="classrr_1_1SelectionRecord_1a898963ab24a6ba614913715c981d8394a6132e0add959431deb8a3684a4a7f8a4" prot="public">
+          <name>ELASTICITY</name>
+          <initializer>=                        (0x1 &lt;&lt; 12)</initializer>
+          <briefdescription>
+<para>SelectionType for elasticities. </para>
+          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="classrr_1_1SelectionRecord_1a898963ab24a6ba614913715c981d8394a6a29116cc7216218cd1513bd029624cb" prot="public">
+          <name>CONTROL</name>
+          <initializer>=                           (0x1 &lt;&lt; 13)</initializer>
+          <briefdescription>
+<para>SelectionType for control coefficients. </para>
+          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="classrr_1_1SelectionRecord_1a898963ab24a6ba614913715c981d8394aef9a8e9bf3eaae38c6a4bc366a81b290" prot="public">
+          <name>EIGENVALUE_REAL</name>
+          <initializer>=                   (0x1 &lt;&lt; 14)</initializer>
+          <briefdescription>
+<para>SelectionType for eigenvalues. </para>
+          </briefdescription>
+          <detaileddescription>
+<para>Eigenvalue without complex is real part of eigenvalue. </para>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="classrr_1_1SelectionRecord_1a898963ab24a6ba614913715c981d8394acf9e2386b61e0601e991e6f9098b0a9e" prot="public">
+          <name>ELEMENT</name>
+          <initializer>=                           (0x1 &lt;&lt; 15)</initializer>
+          <briefdescription>
+<para>SelectionType for elements. </para>
+          </briefdescription>
+          <detaileddescription>
+<para>(Unused) </para>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="classrr_1_1SelectionRecord_1a898963ab24a6ba614913715c981d8394ac9c744f62b4c2a7854162775973e07bf" prot="public">
+          <name>STOICHIOMETRY</name>
+          <initializer>=                     (0x1 &lt;&lt; 16)</initializer>
+          <briefdescription>
+<para>SelectionType for stoichiometries. </para>
+          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="classrr_1_1SelectionRecord_1a898963ab24a6ba614913715c981d8394ac49b992764e069258380f3effa097121" prot="public">
+          <name>UNKNOWN</name>
+          <initializer>=                           (0x1 &lt;&lt; 17)</initializer>
+          <briefdescription>
+<para>SelectionType for unknown values. </para>
+          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="classrr_1_1SelectionRecord_1a898963ab24a6ba614913715c981d8394a17cfd7af15fff7aaac2aa9f3a0127b2a" prot="public">
+          <name>DEPENDENT</name>
+          <initializer>=                         (0x1 &lt;&lt; 18)</initializer>
+          <briefdescription>
+<para>SelectionType for dependent species. </para>
+          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="classrr_1_1SelectionRecord_1a898963ab24a6ba614913715c981d8394ad2c8b91f1396688ab7945fd115ea821e" prot="public">
+          <name>INDEPENDENT</name>
+          <initializer>=                       (0x1 &lt;&lt; 19)</initializer>
+          <briefdescription>
+<para>SelectionType for independent species. </para>
+          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="classrr_1_1SelectionRecord_1a898963ab24a6ba614913715c981d8394a0ddde2cdd2b9169b7cdd51082b4b3e45" prot="public">
+          <name>CONSERVED_MOIETY</name>
+          <initializer>=                  (0x1 &lt;&lt; 20)</initializer>
+          <briefdescription>
+<para>SelectionType for conserved moieties. </para>
+          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="classrr_1_1SelectionRecord_1a898963ab24a6ba614913715c981d8394affd2f3ff0ba9a13a69df1c6ad5d51e88" prot="public">
+          <name>STATE_VECTOR</name>
+          <initializer>=                      (0x1 &lt;&lt; 21)</initializer>
+          <briefdescription>
+<para>SelectionType for state vectors. </para>
+          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="classrr_1_1SelectionRecord_1a898963ab24a6ba614913715c981d8394a66324e5a359e47a28cc148b14cbfed32" prot="public">
+          <name>EVENT</name>
+          <initializer>=                             (0x1 &lt;&lt; 22)</initializer>
+          <briefdescription>
+<para>SelectionType for events. </para>
+          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="classrr_1_1SelectionRecord_1a898963ab24a6ba614913715c981d8394aad1a91b29af006a8225fa97e2bc1ef72" prot="public">
+          <name>EIGENVALUE_IMAG</name>
+          <initializer>=                    (0x1 &lt;&lt; 23)</initializer>
+          <briefdescription>
+<para>SelectionType for complex values. </para>
+          </briefdescription>
+          <detaileddescription>
+<para>The complex bit, off to get real values, on to get imaginary parts.</para>
+<para>Only used with EIGENVALUE currently. </para>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="classrr_1_1SelectionRecord_1a898963ab24a6ba614913715c981d8394a3a2fe85e292d8ed2f4f80c55b6960a14" prot="public">
+          <name>EIGENVALUE_COMPLEX</name>
+          <initializer>=                EIGENVALUE_REAL | EIGENVALUE_IMAG</initializer>
+          <briefdescription>
+<para>SelectionType for complex eigenvalues. </para>
+          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="classrr_1_1SelectionRecord_1a898963ab24a6ba614913715c981d8394a09e554a1b9dffe758c0f7104cd3acbea" prot="public">
+          <name>UNKNOWN_CONCENTRATION</name>
+          <initializer>=             UNKNOWN | CONCENTRATION</initializer>
+          <briefdescription>
+<para>SelectionType for unknown concentrations. </para>
+          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="classrr_1_1SelectionRecord_1a898963ab24a6ba614913715c981d8394ad85e8fa280643ea91b202647dc90058d" prot="public">
+          <name>COMPARTMENT</name>
+          <initializer>=                       _COMPARTMENT | INDEPENDENT | DEPENDENT | CURRENT</initializer>
+          <briefdescription>
+<para>SelectionType for the current compartment value. </para>
+          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="classrr_1_1SelectionRecord_1a898963ab24a6ba614913715c981d8394a928fc146c94a09862bd41bac7707c678" prot="public">
+          <name>GLOBAL_PARAMETER</name>
+          <initializer>=                  _GLOBAL_PARAMETER | INDEPENDENT | DEPENDENT | CURRENT</initializer>
+          <briefdescription>
+<para>SelectionType for the current global parameter value. </para>
+          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="classrr_1_1SelectionRecord_1a898963ab24a6ba614913715c981d8394a97ca399197e5fd929907a0ed4d89376a" prot="public">
+          <name>FLOATING_AMOUNT</name>
+          <initializer>=                   FLOATING | AMOUNT | INDEPENDENT | DEPENDENT | CURRENT</initializer>
+          <briefdescription>
+<para>SelectionType for current floating species amounts. </para>
+          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="classrr_1_1SelectionRecord_1a898963ab24a6ba614913715c981d8394a6f87b59e6fc23b804b1508b190b63c6b" prot="public">
+          <name>INDEPENDENT_FLOATING_AMOUNT</name>
+          <initializer>=       FLOATING | AMOUNT | INDEPENDENT | CURRENT</initializer>
+          <briefdescription>
+<para>SelectionType for independent floating species amounts. </para>
+          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="classrr_1_1SelectionRecord_1a898963ab24a6ba614913715c981d8394aa08447b81625696af0c8f619d00652c9" prot="public">
+          <name>DEPENDENT_FLOATING_AMOUNT</name>
+          <initializer>=         FLOATING | AMOUNT | DEPENDENT   | CURRENT</initializer>
+          <briefdescription>
+<para>SelectionType for dependent floating species amounts. </para>
+          </briefdescription>
+          <detaileddescription>
+<para>(Unused) </para>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="classrr_1_1SelectionRecord_1a898963ab24a6ba614913715c981d8394aaa2ec44f8ba163da3928c57efd91a6fa" prot="public">
+          <name>BOUNDARY_AMOUNT</name>
+          <initializer>=                   BOUNDARY | AMOUNT | INDEPENDENT | DEPENDENT | CURRENT</initializer>
+          <briefdescription>
+<para>SelectionType for boundary species amounts. </para>
+          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="classrr_1_1SelectionRecord_1a898963ab24a6ba614913715c981d8394ae02e022418ffd5b35b6f68bf46842d28" prot="public">
+          <name>BOUNDARY_CONCENTRATION</name>
+          <initializer>=            BOUNDARY | CONCENTRATION | INDEPENDENT | DEPENDENT | CURRENT</initializer>
+          <briefdescription>
+<para>SelectionType for current boundary species concentrations. </para>
+          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="classrr_1_1SelectionRecord_1a898963ab24a6ba614913715c981d8394a273f59f060edd0d4085773a15bc2e936" prot="public">
+          <name>FLOATING_CONCENTRATION</name>
+          <initializer>=            FLOATING | CONCENTRATION | INDEPENDENT | DEPENDENT | CURRENT</initializer>
+          <briefdescription>
+<para>SelectionType for current floating species concentrations. </para>
+          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="classrr_1_1SelectionRecord_1a898963ab24a6ba614913715c981d8394ac8d68d5b70417c692c1a88fe9b2d16a6" prot="public">
+          <name>FLOATING_AMOUNT_RATE</name>
+          <initializer>=              FLOATING | RATE | DEPENDENT</initializer>
+          <briefdescription>
+<para>SelectionType for floating species amount rates (value, not reaction rates), these are always current. </para>
+          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="classrr_1_1SelectionRecord_1a898963ab24a6ba614913715c981d8394aea618f54792dbf90539f21ef7964073f" prot="public">
+          <name>FLOATING_CONCENTRATION_RATE</name>
+          <initializer>=       FLOATING | CONCENTRATION | RATE | DEPENDENT</initializer>
+          <briefdescription>
+<para>SelectionType for floating species concentration rates (value, not reaction rates), these are always current. </para>
+          </briefdescription>
+          <detaileddescription>
+<para>(Unused) </para>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="classrr_1_1SelectionRecord_1a898963ab24a6ba614913715c981d8394a9e87d4763af9a8774b31ad1f69d66e25" prot="public">
+          <name>GLOBAL_PARAMETER_RATE</name>
+          <initializer>=             _GLOBAL_PARAMETER | RATE</initializer>
+          <briefdescription>
+<para>SelectionType for global parameter rates. </para>
+          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="classrr_1_1SelectionRecord_1a898963ab24a6ba614913715c981d8394a474f33e2264e1732ec7dd131f840083b" prot="public">
+          <name>REACTION_RATE</name>
+          <initializer>=                     REACTION | RATE | DEPENDENT</initializer>
+          <briefdescription>
+<para>SelectionType for reaction rate, always current. </para>
+          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="classrr_1_1SelectionRecord_1a898963ab24a6ba614913715c981d8394a75155196d55bd80b547835a668473e49" prot="public">
+          <name>INITIAL_AMOUNT</name>
+          <initializer>=                    INITIAL | AMOUNT | INDEPENDENT | DEPENDENT</initializer>
+          <briefdescription>
+<para>SelectionType for initial species amounts. </para>
+          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="classrr_1_1SelectionRecord_1a898963ab24a6ba614913715c981d8394a0a5b576c41331713c0cff67639e934dc" prot="public">
+          <name>INITIAL_FLOATING_AMOUNT</name>
+          <initializer>=           INITIAL | FLOATING | AMOUNT | INDEPENDENT | DEPENDENT</initializer>
+          <briefdescription>
+<para>SelectionType for initial floating species amounts. </para>
+          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="classrr_1_1SelectionRecord_1a898963ab24a6ba614913715c981d8394a9b128c51cc095f71f839fcffb3e74bb3" prot="public">
+          <name>INITIAL_CONCENTRATION</name>
+          <initializer>=             INITIAL | CONCENTRATION | INDEPENDENT | DEPENDENT</initializer>
+          <briefdescription>
+<para>SelectionType for initial species concentrations. </para>
+          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="classrr_1_1SelectionRecord_1a898963ab24a6ba614913715c981d8394a731d1669fec8c53a6f783a0df0469002" prot="public">
+          <name>INITIAL_FLOATING_CONCENTRATION</name>
+          <initializer>=    INITIAL | FLOATING | CONCENTRATION | INDEPENDENT | DEPENDENT</initializer>
+          <briefdescription>
+<para>SelectionType for initial floating species concentrations. </para>
+          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="classrr_1_1SelectionRecord_1a898963ab24a6ba614913715c981d8394a4f5a65a461692bc847e9e8c6851bb951" prot="public">
+          <name>INITIAL_COMPARTMENT</name>
+          <initializer>=               INITIAL | _COMPARTMENT | INDEPENDENT | DEPENDENT</initializer>
+          <briefdescription>
+<para>SelectionType for initial compartment values. </para>
+          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="classrr_1_1SelectionRecord_1a898963ab24a6ba614913715c981d8394ae4ecdedc44b9bae7bfe0cdf954e7c6fe" prot="public">
+          <name>INITIAL_GLOBAL_PARAMETER</name>
+          <initializer>=          INITIAL | _GLOBAL_PARAMETER | INDEPENDENT | DEPENDENT</initializer>
+          <briefdescription>
+<para>SelectionType for initial global parameter values. </para>
+          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="classrr_1_1SelectionRecord_1a898963ab24a6ba614913715c981d8394a6035b6215bcb10361a15b6279c7e38e4" prot="public">
+          <name>DEPENDENT_INITIAL_GLOBAL_PARAMETER</name>
+          <initializer>=  INITIAL | _GLOBAL_PARAMETER | DEPENDENT</initializer>
+          <briefdescription>
+<para>SelectionType for global parameters that have initial assignment rules. </para>
+          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="classrr_1_1SelectionRecord_1a898963ab24a6ba614913715c981d8394a7da913ccc0935bd57b4bd28479013d92" prot="public">
+          <name>UNSCALED_ELASTICITY</name>
+          <initializer>=               UNSCALED | ELASTICITY</initializer>
+          <briefdescription>
+<para>SelectionType for unscaled elasticity. </para>
+          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="classrr_1_1SelectionRecord_1a898963ab24a6ba614913715c981d8394a4e2a1649b976611b8a1487a429a7ca33" prot="public">
+          <name>UNSCALED_CONTROL</name>
+          <initializer>=                  UNSCALED | CONTROL</initializer>
+          <briefdescription>
+<para>SelectionType for unscaled control coefficient. </para>
+          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="classrr_1_1SelectionRecord_1a898963ab24a6ba614913715c981d8394ab8a2d26885cd338bfefca1a34e9631ea" prot="public">
+          <name>UNKNOWN_ELEMENT</name>
+          <initializer>=                   UNKNOWN | ELEMENT</initializer>
+          <briefdescription>
+<para>SelectionType for unscaled control coefficient. </para>
+          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="classrr_1_1SelectionRecord_1a898963ab24a6ba614913715c981d8394aa8a8dd7317ca1dcd33f7acb018dab6dc" prot="public">
+          <name>ALL</name>
+          <initializer>=                               (0xffffffff)</initializer>
+          <briefdescription>
+<para>SelectionType for everything. </para>
+          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="classrr_1_1SelectionRecord_1a898963ab24a6ba614913715c981d8394a28cdf88cef2db8260a3617dc0d0d46fa" prot="public">
+          <name>ALL_INDEPENDENT</name>
+          <initializer>=                   ~DEPENDENT</initializer>
+          <briefdescription>
+<para>SelectionType for all values related to independent species. </para>
+          </briefdescription>
+          <detaileddescription>
+<para>(Unused) </para>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="classrr_1_1SelectionRecord_1a898963ab24a6ba614913715c981d8394adf157f5fec6e3935763838b96025dae4" prot="public">
+          <name>ALL_DEPENDENT</name>
+          <initializer>=                     ~INDEPENDENT</initializer>
+          <briefdescription>
+<para>SelectionType for all values related to dependent species. </para>
+          </briefdescription>
+          <detaileddescription>
+<para>(Unused) </para>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="classrr_1_1SelectionRecord_1a898963ab24a6ba614913715c981d8394a44d0147a8879445f40232b4d0e02d405" prot="public">
+          <name>ALL_INDEPENDENT_AMOUNT</name>
+          <initializer>=            ~DEPENDENT &amp; ~CONCENTRATION</initializer>
+          <briefdescription>
+<para>SelectionType for all independent species amount. </para>
+          </briefdescription>
+          <detaileddescription>
+<para>(Unused) </para>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="classrr_1_1SelectionRecord_1a898963ab24a6ba614913715c981d8394a89e49a2dee1cc2f6af232c5a6d954400" prot="public">
+          <name>ALL_DEPENDENT_AMOUNT</name>
+          <initializer>=              ~INDEPENDENT &amp; ~CONCENTRATION</initializer>
+          <briefdescription>
+<para>SelectionType for all dependent species amount. </para>
+          </briefdescription>
+          <detaileddescription>
+<para>(Unused) </para>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="classrr_1_1SelectionRecord_1a898963ab24a6ba614913715c981d8394acb7b2689c46383e5cfae9b456d4a03b9" prot="public">
+          <name>ALL_INDEPENDENT_CONCENTRATION</name>
+          <initializer>=     ~DEPENDENT &amp; ~AMOUNT</initializer>
+          <briefdescription>
+<para>SelectionType for all independent species concentration. </para>
+          </briefdescription>
+          <detaileddescription>
+<para>(Unused) </para>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="classrr_1_1SelectionRecord_1a898963ab24a6ba614913715c981d8394ac9247d6b9b8d34655df993c2b9734e66" prot="public">
+          <name>ALL_DEPENDENT_CONCENTRATION</name>
+          <initializer>=       ~INDEPENDENT &amp; ~AMOUNT</initializer>
+          <briefdescription>
+<para>SelectionType for all dependent species concentration. </para>
+          </briefdescription>
+          <detaileddescription>
+<para>(Unused) </para>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="classrr_1_1SelectionRecord_1a898963ab24a6ba614913715c981d8394a042c7745287999549dfaba12fc66d110" prot="public">
+          <name>MODEL_STATE</name>
+          <initializer>=                       ALL_INDEPENDENT_AMOUNT &amp; ~INITIAL</initializer>
+          <briefdescription>
+<para>The combination of values that uniquely define the current state of the sbml model. </para>
+          </briefdescription>
+          <detaileddescription>
+<para>Note, any sbml variable can be defined by a rule, the model state is defined as the set of variabls that define the current state of the model. These do not include the initial values as the initial values can not be changed by advancing the model with the integrator. (Unused) </para>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="classrr_1_1SelectionRecord_1a898963ab24a6ba614913715c981d8394a8f3e6cd5beca2bc0b0c80d90d0010707" prot="public">
+          <name>SBML_INITIALIZE</name>
+          <initializer>=                   STATE_VECTOR</initializer>
+          <briefdescription>
+<para>If this bit is set, then the reset function evaluates all of the SBML model init conditions (init values and all init assignment rules), and assigns them to the model state variable. </para>
+          </briefdescription>
+          <detaileddescription>
+<para>This setting brings the model back the originally loaded state. </para>
+          </detaileddescription>
+        </enumvalue>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="rrSelectionRecord.h" line="18" column="5" bodyfile="rrSelectionRecord.h" bodystart="19" bodyend="337"/>
+      </memberdef>
+      </sectiondef>
+      <sectiondef kind="public-attrib">
+      <memberdef kind="variable" id="classrr_1_1SelectionRecord_1a82a0f91850fedab552cf932a1404b41b" prot="public" static="no" mutable="no">
+        <type>int</type>
+        <definition>int rr::SelectionRecord::index</definition>
+        <argsstring></argsstring>
+        <name>index</name>
+        <briefdescription>
+<para>After the selection record is created by the roadrunner object, this is an index into the variables list that the <ref refid="classrr_1_1ExecutableModel" kindref="compound">ExecutableModel</ref> has. </para>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="rrSelectionRecord.h" line="343" column="9" bodyfile="rrSelectionRecord.h" bodystart="343" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="classrr_1_1SelectionRecord_1ad97672baac3b6608f10a253d8594d39b" prot="public" static="no" mutable="no">
+        <type>string</type>
+        <definition>string rr::SelectionRecord::p1</definition>
+        <argsstring></argsstring>
+        <name>p1</name>
+        <briefdescription>
+<para>For single argument selections, i.e. </para>
+        </briefdescription>
+        <detaileddescription>
+<para>ee( S1 ), this is the argument, for two arg selections, this is the first arg. </para>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="rrSelectionRecord.h" line="349" column="12" bodyfile="rrSelectionRecord.h" bodystart="349" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="classrr_1_1SelectionRecord_1a541046e11c7748d5fe403cbb681629a5" prot="public" static="no" mutable="no">
+        <type>string</type>
+        <definition>string rr::SelectionRecord::p2</definition>
+        <argsstring></argsstring>
+        <name>p2</name>
+        <briefdescription>
+<para>the second argument of two arg selections. </para>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="rrSelectionRecord.h" line="354" column="12" bodyfile="rrSelectionRecord.h" bodystart="354" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="classrr_1_1SelectionRecord_1adae706f827ce8b7c3873b2fd77fa833c" prot="public" static="no" mutable="no">
+        <type><ref refid="classrr_1_1SelectionRecord_1a898963ab24a6ba614913715c981d8394" kindref="member">SelectionType</ref></type>
+        <definition>SelectionType rr::SelectionRecord::selectionType</definition>
+        <argsstring></argsstring>
+        <name>selectionType</name>
+        <briefdescription>
+<para>the type of selection. </para>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="rrSelectionRecord.h" line="359" column="19" bodyfile="rrSelectionRecord.h" bodystart="359" bodyend="-1"/>
+      </memberdef>
+      </sectiondef>
+      <sectiondef kind="public-func">
+      <memberdef kind="function" id="classrr_1_1SelectionRecord_1a391032a40def4753695ab6325446e67a" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type></type>
+        <definition>rr::SelectionRecord::SelectionRecord</definition>
+        <argsstring>(const int &amp;index=0, const SelectionType type=UNKNOWN, const string &amp;p1=&quot;&quot;, const string &amp;p2=&quot;&quot;)</argsstring>
+        <name>SelectionRecord</name>
+        <param>
+          <type>const int &amp;</type>
+          <declname>index</declname>
+          <defval>0</defval>
+        </param>
+        <param>
+          <type>const <ref refid="classrr_1_1SelectionRecord_1a898963ab24a6ba614913715c981d8394" kindref="member">SelectionType</ref></type>
+          <declname>type</declname>
+          <defval><ref refid="classrr_1_1SelectionRecord_1a898963ab24a6ba614913715c981d8394ac49b992764e069258380f3effa097121" kindref="member">UNKNOWN</ref></defval>
+        </param>
+        <param>
+          <type>const string &amp;</type>
+          <declname>p1</declname>
+          <defval>&quot;&quot;</defval>
+        </param>
+        <param>
+          <type>const string &amp;</type>
+          <declname>p2</declname>
+          <defval>&quot;&quot;</defval>
+        </param>
+        <briefdescription>
+<para>Selections really should be constructed by the <ref refid="classrr_1_1RoadRunner_1a422a0c1c50dfe1b6ae343e9313a005ee" kindref="member">RoadRunner::createSelection</ref> method. </para>
+        </briefdescription>
+        <detaileddescription>
+<para>This just creates a new ebmpy selection. </para>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="rrSelectionRecord.h" line="367" column="5" bodyfile="rrSelectionRecord.cpp" bodystart="252" bodyend="257"/>
+      </memberdef>
+      <memberdef kind="function" id="classrr_1_1SelectionRecord_1a4482905716a2b6b5c031c629484bc944" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type></type>
+        <definition>rr::SelectionRecord::SelectionRecord</definition>
+        <argsstring>(const std::string str)</argsstring>
+        <name>SelectionRecord</name>
+        <param>
+          <type>const std::string</type>
+          <declname>str</declname>
+        </param>
+        <briefdescription>
+<para>creates a empty selection. </para>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="rrSelectionRecord.h" line="374" column="5" bodyfile="rrSelectionRecord.cpp" bodystart="306" bodyend="370"/>
+      </memberdef>
+      <memberdef kind="function" id="classrr_1_1SelectionRecord_1a0ddd6b4af382e08f848d4e85c2010e19" prot="public" static="no" const="yes" explicit="no" inline="no" virt="non-virtual">
+        <type>std::string</type>
+        <definition>std::string rr::SelectionRecord::to_string</definition>
+        <argsstring>() const</argsstring>
+        <name>to_string</name>
+        <briefdescription>
+<para>get a short description of this selection, this returns a string compatable with <ref refid="classrr_1_1RoadRunner_1a422a0c1c50dfe1b6ae343e9313a005ee" kindref="member">RoadRunner::createSelection</ref>. </para>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="rrSelectionRecord.h" line="380" column="17" bodyfile="rrSelectionRecord.cpp" bodystart="372" bodyend="438"/>
+      </memberdef>
+      <memberdef kind="function" id="classrr_1_1SelectionRecord_1a8a43de991cecad05200332229c45e586" prot="public" static="no" const="yes" explicit="no" inline="no" virt="non-virtual">
+        <type>std::string</type>
+        <definition>std::string rr::SelectionRecord::to_repr</definition>
+        <argsstring>() const</argsstring>
+        <name>to_repr</name>
+        <briefdescription>
+<para>gets a longer description of this selection, this is intended to called as a python <bold>repr</bold> </para>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="rrSelectionRecord.h" line="386" column="17" bodyfile="rrSelectionRecord.cpp" bodystart="269" bodyend="304"/>
+      </memberdef>
+      </sectiondef>
+    <briefdescription>
+<para>a way to find sbml model elements using the <ref refid="classrr_1_1RoadRunner" kindref="compound">RoadRunner</ref> syntax. </para>
+    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <collaborationgraph>
+      <node id="2">
+        <label>string</label>
+      </node>
+      <node id="1">
+        <label>rr::SelectionRecord</label>
+        <link refid="classrr_1_1SelectionRecord"/>
+        <childnode refid="2" relation="usage">
+          <edgelabel>p1</edgelabel>
+          <edgelabel>p2</edgelabel>
+        </childnode>
+      </node>
+    </collaborationgraph>
+    <location file="rrSelectionRecord.h" line="15" column="1" bodyfile="rrSelectionRecord.h" bodystart="16" bodyend="387"/>
+    <listofallmembers>
+      <member refid="classrr_1_1SelectionRecord_1a898963ab24a6ba614913715c981d8394a4cfafd7db04d37e6776a5305f3919a95" prot="public" virt="non-virtual"><scope>rr::SelectionRecord</scope><name>_COMPARTMENT</name></member>
+      <member refid="classrr_1_1SelectionRecord_1a898963ab24a6ba614913715c981d8394aa5791049b0e78ca11971abb1d1f9636c" prot="public" virt="non-virtual"><scope>rr::SelectionRecord</scope><name>_GLOBAL_PARAMETER</name></member>
+      <member refid="classrr_1_1SelectionRecord_1a898963ab24a6ba614913715c981d8394aa8a8dd7317ca1dcd33f7acb018dab6dc" prot="public" virt="non-virtual"><scope>rr::SelectionRecord</scope><name>ALL</name></member>
+      <member refid="classrr_1_1SelectionRecord_1a898963ab24a6ba614913715c981d8394adf157f5fec6e3935763838b96025dae4" prot="public" virt="non-virtual"><scope>rr::SelectionRecord</scope><name>ALL_DEPENDENT</name></member>
+      <member refid="classrr_1_1SelectionRecord_1a898963ab24a6ba614913715c981d8394a89e49a2dee1cc2f6af232c5a6d954400" prot="public" virt="non-virtual"><scope>rr::SelectionRecord</scope><name>ALL_DEPENDENT_AMOUNT</name></member>
+      <member refid="classrr_1_1SelectionRecord_1a898963ab24a6ba614913715c981d8394ac9247d6b9b8d34655df993c2b9734e66" prot="public" virt="non-virtual"><scope>rr::SelectionRecord</scope><name>ALL_DEPENDENT_CONCENTRATION</name></member>
+      <member refid="classrr_1_1SelectionRecord_1a898963ab24a6ba614913715c981d8394a28cdf88cef2db8260a3617dc0d0d46fa" prot="public" virt="non-virtual"><scope>rr::SelectionRecord</scope><name>ALL_INDEPENDENT</name></member>
+      <member refid="classrr_1_1SelectionRecord_1a898963ab24a6ba614913715c981d8394a44d0147a8879445f40232b4d0e02d405" prot="public" virt="non-virtual"><scope>rr::SelectionRecord</scope><name>ALL_INDEPENDENT_AMOUNT</name></member>
+      <member refid="classrr_1_1SelectionRecord_1a898963ab24a6ba614913715c981d8394acb7b2689c46383e5cfae9b456d4a03b9" prot="public" virt="non-virtual"><scope>rr::SelectionRecord</scope><name>ALL_INDEPENDENT_CONCENTRATION</name></member>
+      <member refid="classrr_1_1SelectionRecord_1a898963ab24a6ba614913715c981d8394aa8e1a28e890003044b5c4d71077862fe" prot="public" virt="non-virtual"><scope>rr::SelectionRecord</scope><name>AMOUNT</name></member>
+      <member refid="classrr_1_1SelectionRecord_1a898963ab24a6ba614913715c981d8394a97983fd26f427d96e0a318d676b4c087" prot="public" virt="non-virtual"><scope>rr::SelectionRecord</scope><name>BOUNDARY</name></member>
+      <member refid="classrr_1_1SelectionRecord_1a898963ab24a6ba614913715c981d8394aaa2ec44f8ba163da3928c57efd91a6fa" prot="public" virt="non-virtual"><scope>rr::SelectionRecord</scope><name>BOUNDARY_AMOUNT</name></member>
+      <member refid="classrr_1_1SelectionRecord_1a898963ab24a6ba614913715c981d8394ae02e022418ffd5b35b6f68bf46842d28" prot="public" virt="non-virtual"><scope>rr::SelectionRecord</scope><name>BOUNDARY_CONCENTRATION</name></member>
+      <member refid="classrr_1_1SelectionRecord_1a898963ab24a6ba614913715c981d8394ad85e8fa280643ea91b202647dc90058d" prot="public" virt="non-virtual"><scope>rr::SelectionRecord</scope><name>COMPARTMENT</name></member>
+      <member refid="classrr_1_1SelectionRecord_1a898963ab24a6ba614913715c981d8394ae72dbc661f328ef509b24a1d4b895672" prot="public" virt="non-virtual"><scope>rr::SelectionRecord</scope><name>CONCENTRATION</name></member>
+      <member refid="classrr_1_1SelectionRecord_1a898963ab24a6ba614913715c981d8394a0ddde2cdd2b9169b7cdd51082b4b3e45" prot="public" virt="non-virtual"><scope>rr::SelectionRecord</scope><name>CONSERVED_MOIETY</name></member>
+      <member refid="classrr_1_1SelectionRecord_1a898963ab24a6ba614913715c981d8394a6a29116cc7216218cd1513bd029624cb" prot="public" virt="non-virtual"><scope>rr::SelectionRecord</scope><name>CONTROL</name></member>
+      <member refid="classrr_1_1SelectionRecord_1a898963ab24a6ba614913715c981d8394a7970cc9cb4171e0e6d4bbf27dbc03dac" prot="public" virt="non-virtual"><scope>rr::SelectionRecord</scope><name>CURRENT</name></member>
+      <member refid="classrr_1_1SelectionRecord_1a898963ab24a6ba614913715c981d8394a17cfd7af15fff7aaac2aa9f3a0127b2a" prot="public" virt="non-virtual"><scope>rr::SelectionRecord</scope><name>DEPENDENT</name></member>
+      <member refid="classrr_1_1SelectionRecord_1a898963ab24a6ba614913715c981d8394aa08447b81625696af0c8f619d00652c9" prot="public" virt="non-virtual"><scope>rr::SelectionRecord</scope><name>DEPENDENT_FLOATING_AMOUNT</name></member>
+      <member refid="classrr_1_1SelectionRecord_1a898963ab24a6ba614913715c981d8394a6035b6215bcb10361a15b6279c7e38e4" prot="public" virt="non-virtual"><scope>rr::SelectionRecord</scope><name>DEPENDENT_INITIAL_GLOBAL_PARAMETER</name></member>
+      <member refid="classrr_1_1SelectionRecord_1a898963ab24a6ba614913715c981d8394a3a2fe85e292d8ed2f4f80c55b6960a14" prot="public" virt="non-virtual"><scope>rr::SelectionRecord</scope><name>EIGENVALUE_COMPLEX</name></member>
+      <member refid="classrr_1_1SelectionRecord_1a898963ab24a6ba614913715c981d8394aad1a91b29af006a8225fa97e2bc1ef72" prot="public" virt="non-virtual"><scope>rr::SelectionRecord</scope><name>EIGENVALUE_IMAG</name></member>
+      <member refid="classrr_1_1SelectionRecord_1a898963ab24a6ba614913715c981d8394aef9a8e9bf3eaae38c6a4bc366a81b290" prot="public" virt="non-virtual"><scope>rr::SelectionRecord</scope><name>EIGENVALUE_REAL</name></member>
+      <member refid="classrr_1_1SelectionRecord_1a898963ab24a6ba614913715c981d8394a6132e0add959431deb8a3684a4a7f8a4" prot="public" virt="non-virtual"><scope>rr::SelectionRecord</scope><name>ELASTICITY</name></member>
+      <member refid="classrr_1_1SelectionRecord_1a898963ab24a6ba614913715c981d8394acf9e2386b61e0601e991e6f9098b0a9e" prot="public" virt="non-virtual"><scope>rr::SelectionRecord</scope><name>ELEMENT</name></member>
+      <member refid="classrr_1_1SelectionRecord_1a898963ab24a6ba614913715c981d8394a66324e5a359e47a28cc148b14cbfed32" prot="public" virt="non-virtual"><scope>rr::SelectionRecord</scope><name>EVENT</name></member>
+      <member refid="classrr_1_1SelectionRecord_1a898963ab24a6ba614913715c981d8394a6782153cdd565a17aef949662aa11a4a" prot="public" virt="non-virtual"><scope>rr::SelectionRecord</scope><name>FLOATING</name></member>
+      <member refid="classrr_1_1SelectionRecord_1a898963ab24a6ba614913715c981d8394a97ca399197e5fd929907a0ed4d89376a" prot="public" virt="non-virtual"><scope>rr::SelectionRecord</scope><name>FLOATING_AMOUNT</name></member>
+      <member refid="classrr_1_1SelectionRecord_1a898963ab24a6ba614913715c981d8394ac8d68d5b70417c692c1a88fe9b2d16a6" prot="public" virt="non-virtual"><scope>rr::SelectionRecord</scope><name>FLOATING_AMOUNT_RATE</name></member>
+      <member refid="classrr_1_1SelectionRecord_1a898963ab24a6ba614913715c981d8394a273f59f060edd0d4085773a15bc2e936" prot="public" virt="non-virtual"><scope>rr::SelectionRecord</scope><name>FLOATING_CONCENTRATION</name></member>
+      <member refid="classrr_1_1SelectionRecord_1a898963ab24a6ba614913715c981d8394aea618f54792dbf90539f21ef7964073f" prot="public" virt="non-virtual"><scope>rr::SelectionRecord</scope><name>FLOATING_CONCENTRATION_RATE</name></member>
+      <member refid="classrr_1_1SelectionRecord_1a898963ab24a6ba614913715c981d8394a928fc146c94a09862bd41bac7707c678" prot="public" virt="non-virtual"><scope>rr::SelectionRecord</scope><name>GLOBAL_PARAMETER</name></member>
+      <member refid="classrr_1_1SelectionRecord_1a898963ab24a6ba614913715c981d8394a9e87d4763af9a8774b31ad1f69d66e25" prot="public" virt="non-virtual"><scope>rr::SelectionRecord</scope><name>GLOBAL_PARAMETER_RATE</name></member>
+      <member refid="classrr_1_1SelectionRecord_1a898963ab24a6ba614913715c981d8394ad2c8b91f1396688ab7945fd115ea821e" prot="public" virt="non-virtual"><scope>rr::SelectionRecord</scope><name>INDEPENDENT</name></member>
+      <member refid="classrr_1_1SelectionRecord_1a898963ab24a6ba614913715c981d8394a6f87b59e6fc23b804b1508b190b63c6b" prot="public" virt="non-virtual"><scope>rr::SelectionRecord</scope><name>INDEPENDENT_FLOATING_AMOUNT</name></member>
+      <member refid="classrr_1_1SelectionRecord_1a82a0f91850fedab552cf932a1404b41b" prot="public" virt="non-virtual"><scope>rr::SelectionRecord</scope><name>index</name></member>
+      <member refid="classrr_1_1SelectionRecord_1a898963ab24a6ba614913715c981d8394af9b29d29725646241b8abc86f54fab83" prot="public" virt="non-virtual"><scope>rr::SelectionRecord</scope><name>INITIAL</name></member>
+      <member refid="classrr_1_1SelectionRecord_1a898963ab24a6ba614913715c981d8394a75155196d55bd80b547835a668473e49" prot="public" virt="non-virtual"><scope>rr::SelectionRecord</scope><name>INITIAL_AMOUNT</name></member>
+      <member refid="classrr_1_1SelectionRecord_1a898963ab24a6ba614913715c981d8394a4f5a65a461692bc847e9e8c6851bb951" prot="public" virt="non-virtual"><scope>rr::SelectionRecord</scope><name>INITIAL_COMPARTMENT</name></member>
+      <member refid="classrr_1_1SelectionRecord_1a898963ab24a6ba614913715c981d8394a9b128c51cc095f71f839fcffb3e74bb3" prot="public" virt="non-virtual"><scope>rr::SelectionRecord</scope><name>INITIAL_CONCENTRATION</name></member>
+      <member refid="classrr_1_1SelectionRecord_1a898963ab24a6ba614913715c981d8394a0a5b576c41331713c0cff67639e934dc" prot="public" virt="non-virtual"><scope>rr::SelectionRecord</scope><name>INITIAL_FLOATING_AMOUNT</name></member>
+      <member refid="classrr_1_1SelectionRecord_1a898963ab24a6ba614913715c981d8394a731d1669fec8c53a6f783a0df0469002" prot="public" virt="non-virtual"><scope>rr::SelectionRecord</scope><name>INITIAL_FLOATING_CONCENTRATION</name></member>
+      <member refid="classrr_1_1SelectionRecord_1a898963ab24a6ba614913715c981d8394ae4ecdedc44b9bae7bfe0cdf954e7c6fe" prot="public" virt="non-virtual"><scope>rr::SelectionRecord</scope><name>INITIAL_GLOBAL_PARAMETER</name></member>
+      <member refid="classrr_1_1SelectionRecord_1a898963ab24a6ba614913715c981d8394a042c7745287999549dfaba12fc66d110" prot="public" virt="non-virtual"><scope>rr::SelectionRecord</scope><name>MODEL_STATE</name></member>
+      <member refid="classrr_1_1SelectionRecord_1ad97672baac3b6608f10a253d8594d39b" prot="public" virt="non-virtual"><scope>rr::SelectionRecord</scope><name>p1</name></member>
+      <member refid="classrr_1_1SelectionRecord_1a541046e11c7748d5fe403cbb681629a5" prot="public" virt="non-virtual"><scope>rr::SelectionRecord</scope><name>p2</name></member>
+      <member refid="classrr_1_1SelectionRecord_1a898963ab24a6ba614913715c981d8394a2235d37b12b17d658b8f33a87712c806" prot="public" virt="non-virtual"><scope>rr::SelectionRecord</scope><name>RATE</name></member>
+      <member refid="classrr_1_1SelectionRecord_1a898963ab24a6ba614913715c981d8394ab324bc886789f735bfb63ee1906606a7" prot="public" virt="non-virtual"><scope>rr::SelectionRecord</scope><name>REACTION</name></member>
+      <member refid="classrr_1_1SelectionRecord_1a898963ab24a6ba614913715c981d8394a474f33e2264e1732ec7dd131f840083b" prot="public" virt="non-virtual"><scope>rr::SelectionRecord</scope><name>REACTION_RATE</name></member>
+      <member refid="classrr_1_1SelectionRecord_1a898963ab24a6ba614913715c981d8394a8f3e6cd5beca2bc0b0c80d90d0010707" prot="public" virt="non-virtual"><scope>rr::SelectionRecord</scope><name>SBML_INITIALIZE</name></member>
+      <member refid="classrr_1_1SelectionRecord_1a391032a40def4753695ab6325446e67a" prot="public" virt="non-virtual"><scope>rr::SelectionRecord</scope><name>SelectionRecord</name></member>
+      <member refid="classrr_1_1SelectionRecord_1a4482905716a2b6b5c031c629484bc944" prot="public" virt="non-virtual"><scope>rr::SelectionRecord</scope><name>SelectionRecord</name></member>
+      <member refid="classrr_1_1SelectionRecord_1adae706f827ce8b7c3873b2fd77fa833c" prot="public" virt="non-virtual"><scope>rr::SelectionRecord</scope><name>selectionType</name></member>
+      <member refid="classrr_1_1SelectionRecord_1a898963ab24a6ba614913715c981d8394" prot="public" virt="non-virtual"><scope>rr::SelectionRecord</scope><name>SelectionType</name></member>
+      <member refid="classrr_1_1SelectionRecord_1a898963ab24a6ba614913715c981d8394affd2f3ff0ba9a13a69df1c6ad5d51e88" prot="public" virt="non-virtual"><scope>rr::SelectionRecord</scope><name>STATE_VECTOR</name></member>
+      <member refid="classrr_1_1SelectionRecord_1a898963ab24a6ba614913715c981d8394ac9c744f62b4c2a7854162775973e07bf" prot="public" virt="non-virtual"><scope>rr::SelectionRecord</scope><name>STOICHIOMETRY</name></member>
+      <member refid="classrr_1_1SelectionRecord_1a898963ab24a6ba614913715c981d8394add36248cdf4b1f588dd6fdd11855b012" prot="public" virt="non-virtual"><scope>rr::SelectionRecord</scope><name>TIME</name></member>
+      <member refid="classrr_1_1SelectionRecord_1a8a43de991cecad05200332229c45e586" prot="public" virt="non-virtual"><scope>rr::SelectionRecord</scope><name>to_repr</name></member>
+      <member refid="classrr_1_1SelectionRecord_1a0ddd6b4af382e08f848d4e85c2010e19" prot="public" virt="non-virtual"><scope>rr::SelectionRecord</scope><name>to_string</name></member>
+      <member refid="classrr_1_1SelectionRecord_1a898963ab24a6ba614913715c981d8394ac49b992764e069258380f3effa097121" prot="public" virt="non-virtual"><scope>rr::SelectionRecord</scope><name>UNKNOWN</name></member>
+      <member refid="classrr_1_1SelectionRecord_1a898963ab24a6ba614913715c981d8394a09e554a1b9dffe758c0f7104cd3acbea" prot="public" virt="non-virtual"><scope>rr::SelectionRecord</scope><name>UNKNOWN_CONCENTRATION</name></member>
+      <member refid="classrr_1_1SelectionRecord_1a898963ab24a6ba614913715c981d8394ab8a2d26885cd338bfefca1a34e9631ea" prot="public" virt="non-virtual"><scope>rr::SelectionRecord</scope><name>UNKNOWN_ELEMENT</name></member>
+      <member refid="classrr_1_1SelectionRecord_1a898963ab24a6ba614913715c981d8394a01193eeb0025a4fb1aa45bfaf42745c4" prot="public" virt="non-virtual"><scope>rr::SelectionRecord</scope><name>UNSCALED</name></member>
+      <member refid="classrr_1_1SelectionRecord_1a898963ab24a6ba614913715c981d8394a4e2a1649b976611b8a1487a429a7ca33" prot="public" virt="non-virtual"><scope>rr::SelectionRecord</scope><name>UNSCALED_CONTROL</name></member>
+      <member refid="classrr_1_1SelectionRecord_1a898963ab24a6ba614913715c981d8394a7da913ccc0935bd57b4bd28479013d92" prot="public" virt="non-virtual"><scope>rr::SelectionRecord</scope><name>UNSCALED_ELASTICITY</name></member>
+    </listofallmembers>
+  </compounddef>
+</doxygen>

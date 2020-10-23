@@ -11,8 +11,6 @@ int main(int argc, char** argv)
 
     try
     {
-        LogOutput::mLogToConsole = true;
-
         //Use a list of roadrunners
         const char* rootPath = "..";
 
@@ -25,8 +23,8 @@ int main(int argc, char** argv)
         //Load modelFiles..
         Log(lInfo)<<" ---------- LOADING/GENERATING MODELS ------";
 
-        RoadRunner rr1("", tmpFolder);
-        RoadRunner rr2("", tmpFolder);
+        RoadRunner rr1("");
+        RoadRunner rr2("");
         rr1.load(modelFile);
         rr2.load(modelFile);
 
@@ -37,13 +35,10 @@ int main(int argc, char** argv)
     }
     catch(const Exception& ex)
     {
-        Log(Logger::ERROR)<<"There was a  problem: "<<ex.getMessage();
+        Log(lError)<<"There was a  problem: "<<ex.getMessage();
     }
 
     //Pause(true);
     return 0;
 }
 
-#pragma comment(lib, "roadrunner.lib")
-#pragma comment(lib, "poco_foundation-static.lib")
-#pragma comment(lib, "rr-libstruct-static.lib")

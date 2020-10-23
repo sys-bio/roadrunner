@@ -1,0 +1,777 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.20" xml:lang="en-US">
+  <compounddef id="classrr_1_1Variant" kind="class" language="C++" prot="public">
+    <compoundname>rr::Variant</compoundname>
+    <includes refid="Variant_8h" local="no">Variant.h</includes>
+      <sectiondef kind="public-type">
+      <memberdef kind="enum" id="classrr_1_1Variant_1a64c7b2189f8d391527919e46a72402a8" prot="public" static="no" strong="no">
+        <type></type>
+        <name>TypeId</name>
+        <enumvalue id="classrr_1_1Variant_1a64c7b2189f8d391527919e46a72402a8ab7bc9a0e4b0d7a0d2f3a9ab926745e2a" prot="public">
+          <name>STRING</name>
+          <briefdescription>
+          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="classrr_1_1Variant_1a64c7b2189f8d391527919e46a72402a8a9020c2880cbd80c9aa7bcf68f4dc09b3" prot="public">
+          <name>BOOL</name>
+          <briefdescription>
+          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="classrr_1_1Variant_1a64c7b2189f8d391527919e46a72402a8a5156f21fda3e9d666e657a00f76b3892" prot="public">
+          <name>INT32</name>
+          <briefdescription>
+          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="classrr_1_1Variant_1a64c7b2189f8d391527919e46a72402a8a285d6aabfc97d5cf9b22613adb75aefa" prot="public">
+          <name>UINT32</name>
+          <briefdescription>
+          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="classrr_1_1Variant_1a64c7b2189f8d391527919e46a72402a8a0dfb27dbc2818087428f17b03915fda5" prot="public">
+          <name>INT64</name>
+          <briefdescription>
+          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="classrr_1_1Variant_1a64c7b2189f8d391527919e46a72402a8aae5648b7b8f5da033be4fdcfe29e76dd" prot="public">
+          <name>UINT64</name>
+          <briefdescription>
+          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="classrr_1_1Variant_1a64c7b2189f8d391527919e46a72402a8a5133925a530bf64be7b5a6249603ec65" prot="public">
+          <name>FLOAT</name>
+          <briefdescription>
+          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="classrr_1_1Variant_1a64c7b2189f8d391527919e46a72402a8a47b78ea8f5662103e784f9d228d80de1" prot="public">
+          <name>DOUBLE</name>
+          <briefdescription>
+          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="classrr_1_1Variant_1a64c7b2189f8d391527919e46a72402a8a5ae341fd6e898cfb64ba6d328e85b145" prot="public">
+          <name>CHAR</name>
+          <briefdescription>
+          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="classrr_1_1Variant_1a64c7b2189f8d391527919e46a72402a8ac330aee0f3ea041b0e25f238ddac2533" prot="public">
+          <name>UCHAR</name>
+          <briefdescription>
+          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="classrr_1_1Variant_1a64c7b2189f8d391527919e46a72402a8a1014e10a53eb5d7d91452ea43c68afd2" prot="public">
+          <name>EMPTY</name>
+          <briefdescription>
+          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="classrr_1_1Variant_1a64c7b2189f8d391527919e46a72402a8a0f165f07ea0fd724994ccbe5c3405764" prot="public">
+          <name>DOUBLEVECTOR</name>
+          <briefdescription>
+          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <briefdescription>
+<para>list of currently supported types that a <ref refid="classrr_1_1Variant" kindref="compound">Variant</ref> can hold. </para>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="Variant.h" line="81" column="5" bodyfile="Variant.h" bodystart="82" bodyend="84"/>
+      </memberdef>
+      </sectiondef>
+      <sectiondef kind="private-attrib">
+      <memberdef kind="variable" id="classrr_1_1Variant_1a1fc8fb51d9ac7bdf4cc4a87d68685873" prot="private" static="no" mutable="no">
+        <type>struct <ref refid="structrr_1_1VariantImpl" kindref="compound">VariantImpl</ref> *</type>
+        <definition>struct VariantImpl* rr::Variant::self</definition>
+        <argsstring></argsstring>
+        <name>self</name>
+        <briefdescription>
+<para>private implementation, this gives us the flexibility to use different implementations in the future and maintain binary compatability. </para>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="Variant.h" line="279" column="22" bodyfile="Variant.h" bodystart="279" bodyend="-1"/>
+      </memberdef>
+      </sectiondef>
+      <sectiondef kind="public-func">
+      <memberdef kind="function" id="classrr_1_1Variant_1a551b6ad03e790d2fca61f95c62b283b7" prot="public" static="no" const="yes" explicit="no" inline="no" virt="non-virtual">
+        <type><ref refid="classrr_1_1Variant_1a64c7b2189f8d391527919e46a72402a8" kindref="member">TypeId</ref></type>
+        <definition>Variant::TypeId rr::Variant::type</definition>
+        <argsstring>() const</argsstring>
+        <name>type</name>
+        <briefdescription>
+<para>the current type that this <ref refid="classrr_1_1Variant" kindref="compound">Variant</ref> is. </para>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="Variant.h" line="89" column="12" bodyfile="Variant.cpp" bodystart="249" bodyend="286"/>
+      </memberdef>
+      <memberdef kind="function" id="classrr_1_1Variant_1a48f0736e18b6463303047b46cccca550" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type></type>
+        <definition>rr::Variant::Variant</definition>
+        <argsstring>()</argsstring>
+        <name>Variant</name>
+        <briefdescription>
+<para>creates an emtpy variant </para>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="Variant.h" line="94" column="5" bodyfile="Variant.cpp" bodystart="34" bodyend="37"/>
+      </memberdef>
+      <memberdef kind="function" id="classrr_1_1Variant_1a81b0ca7e57d1985f2e05ef7f0805b1cf" prot="public" static="no" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <templateparamlist>
+          <param>
+            <type>typename T</type>
+          </param>
+        </templateparamlist>
+        <type></type>
+        <definition>rr::Variant::Variant</definition>
+        <argsstring>(const T &amp;val)</argsstring>
+        <name>Variant</name>
+        <param>
+          <type>const T &amp;</type>
+          <declname>val</declname>
+        </param>
+        <briefdescription>
+<para>create a new variant from an existing supported data type. </para>
+        </briefdescription>
+        <detaileddescription>
+<para>This templated constructor can assign any primitive type: <programlisting><codeline><highlight class="normal">Variant<sp/>v<sp/>=<sp/>(int)1;</highlight></codeline>
+<codeline><highlight class="normal">Variant<sp/>v<sp/>=<sp/>std::string(&quot;a<sp/>string&quot;);</highlight></codeline>
+</programlisting> </para>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="Variant.h" line="105" column="5" bodyfile="Variant.h" bodystart="105" bodyend="110"/>
+      </memberdef>
+      <memberdef kind="function" id="classrr_1_1Variant_1adeeea17e7e9aa35fd079c3eee2794b4b" prot="public" static="no" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <type></type>
+        <definition>rr::Variant::Variant</definition>
+        <argsstring>(const char *str)</argsstring>
+        <name>Variant</name>
+        <param>
+          <type>const char *</type>
+          <declname>str</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="Variant.h" line="112" column="5" bodyfile="Variant.h" bodystart="112" bodyend="118"/>
+      </memberdef>
+      <memberdef kind="function" id="classrr_1_1Variant_1a950ad51abe6f9e7ed4bbe865bac93e99" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type></type>
+        <definition>rr::Variant::Variant</definition>
+        <argsstring>(const Variant &amp;other)</argsstring>
+        <name>Variant</name>
+        <param>
+          <type>const <ref refid="classrr_1_1Variant" kindref="compound">Variant</ref> &amp;</type>
+          <declname>other</declname>
+        </param>
+        <briefdescription>
+<para>Copy constructor. </para>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="Variant.h" line="123" column="5" bodyfile="Variant.cpp" bodystart="39" bodyend="44"/>
+      </memberdef>
+      <memberdef kind="function" id="classrr_1_1Variant_1a22c85776d05ff8009e6f6686db25f949" prot="public" static="no" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <templateparamlist>
+          <param>
+            <type>typename T</type>
+          </param>
+        </templateparamlist>
+        <type><ref refid="classrr_1_1Variant" kindref="compound">Variant</ref> &amp;</type>
+        <definition>Variant&amp; rr::Variant::operator=</definition>
+        <argsstring>(const T &amp;value)</argsstring>
+        <name>operator=</name>
+        <param>
+          <type>const T &amp;</type>
+          <declname>value</declname>
+        </param>
+        <briefdescription>
+<para>Assignment operator for assigning POD to Var same as the constructor, this assigns a value to an existing <ref refid="classrr_1_1Variant" kindref="compound">Variant</ref>. </para>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="Variant.h" line="131" column="13" bodyfile="Variant.h" bodystart="131" bodyend="136"/>
+      </memberdef>
+      <memberdef kind="function" id="classrr_1_1Variant_1ac04cac2d0b4d939f789658bebbb05f21" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type><ref refid="classrr_1_1Variant" kindref="compound">Variant</ref> &amp;</type>
+        <definition>Variant &amp; rr::Variant::operator=</definition>
+        <argsstring>(const Variant &amp;other)</argsstring>
+        <name>operator=</name>
+        <param>
+          <type>const <ref refid="classrr_1_1Variant" kindref="compound">Variant</ref> &amp;</type>
+          <declname>other</declname>
+        </param>
+        <briefdescription>
+<para>Assignment operator. </para>
+        </briefdescription>
+        <detaileddescription>
+<para>Assign one variant to another. </para>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="Variant.h" line="141" column="13" bodyfile="Variant.cpp" bodystart="46" bodyend="51"/>
+      </memberdef>
+      <memberdef kind="function" id="classrr_1_1Variant_1a5bfdfef2698dc62678ed6e5b9f807c2a" prot="public" static="no" const="no" explicit="no" inline="no" virt="virtual">
+        <type></type>
+        <definition>rr::Variant::~Variant</definition>
+        <argsstring>()</argsstring>
+        <name>~Variant</name>
+        <briefdescription>
+<para>clean up any data owned by this object. </para>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="Variant.h" line="146" column="13" bodyfile="Variant.cpp" bodystart="53" bodyend="56"/>
+      </memberdef>
+      <memberdef kind="function" id="classrr_1_1Variant_1ab221d80ddd0d06174c61d90e25ebb0d2" prot="public" static="no" const="yes" explicit="no" inline="no" virt="non-virtual">
+        <type>const std::type_info &amp;</type>
+        <definition>const std::type_info &amp; rr::Variant::typeInfo</definition>
+        <argsstring>() const</argsstring>
+        <name>typeInfo</name>
+        <briefdescription>
+<para>get the type id of the stored data type. </para>
+        </briefdescription>
+        <detaileddescription>
+<para>This will let you check what kind of data is strored in this variant.</para>
+<para><programlisting><codeline><highlight class="normal">//<sp/>to<sp/>check<sp/>if<sp/>this<sp/>is<sp/>an<sp/>integer:</highlight></codeline>
+<codeline><highlight class="normal">Variant<sp/>v<sp/>=<sp/>...</highlight></codeline>
+<codeline><highlight class="normal">if<sp/>(v.type()<sp/>==<sp/>typeid(int))</highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/><sp/><sp/>cout<sp/>&lt;&lt;<sp/>&quot;its<sp/>an<sp/>int&quot;;</highlight></codeline>
+<codeline></codeline>
+<codeline><highlight class="normal">//<sp/>to<sp/>check<sp/>if<sp/>its<sp/>a<sp/>string:</highlight></codeline>
+<codeline><highlight class="normal">if<sp/>(v.type()<sp/>==<sp/>typeid(std::string))</highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/><sp/><sp/>cout<sp/>&lt;&lt;<sp/>&quot;ints<sp/>a<sp/>string&quot;;</highlight></codeline>
+</programlisting> </para>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="Variant.h" line="163" column="26" bodyfile="Variant.cpp" bodystart="58" bodyend="61"/>
+      </memberdef>
+      <memberdef kind="function" id="classrr_1_1Variant_1a7bb371be936601754f61d5285f834352" prot="public" static="no" const="yes" explicit="no" inline="yes" virt="non-virtual">
+        <templateparamlist>
+          <param>
+            <type>typename T</type>
+          </param>
+        </templateparamlist>
+        <type>T</type>
+        <definition>T rr::Variant::convert</definition>
+        <argsstring>() const</argsstring>
+        <name>convert</name>
+        <briefdescription>
+<para>Convert this variant to a supported data type. </para>
+        </briefdescription>
+        <detaileddescription>
+<para>This method will try to perform type coercion, i.e. if this variant contains a string, and it is asked to convert to a int, the string will be parsed as an int. Similary, doubles will be rounded to int, so forth.</para>
+<para><programlisting><codeline><highlight class="normal">//<sp/>convert<sp/>to<sp/>int:</highlight></codeline>
+<codeline><highlight class="normal">int<sp/>i<sp/>=<sp/>v.convert&lt;int&gt;();</highlight></codeline>
+</programlisting> </para>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="Variant.h" line="178" column="7" bodyfile="Variant.h" bodystart="178" bodyend="183"/>
+      </memberdef>
+      <memberdef kind="function" id="classrr_1_1Variant_1a1e671df21f20cf4cea3cd97b91d74bad" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type></type>
+        <definition>rr::Variant::VARIANT_IMPLICIT_CONVERT</definition>
+        <argsstring>(std::string)</argsstring>
+        <name>VARIANT_IMPLICIT_CONVERT</name>
+        <param>
+          <type>std::string</type>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="Variant.h" line="196" column="5"/>
+      </memberdef>
+      <memberdef kind="function" id="classrr_1_1Variant_1a80fb1e965dafc1d64a72baaf4dfb74a7" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type></type>
+        <definition>rr::Variant::VARIANT_IMPLICIT_CONVERT</definition>
+        <argsstring>(long)</argsstring>
+        <name>VARIANT_IMPLICIT_CONVERT</name>
+        <param>
+          <type>long</type>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="Variant.h" line="198" column="5"/>
+      </memberdef>
+      <memberdef kind="function" id="classrr_1_1Variant_1affffce16e5c854be89c5ad19565b662e" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type></type>
+        <definition>rr::Variant::VARIANT_IMPLICIT_CONVERT</definition>
+        <argsstring>(bool)</argsstring>
+        <name>VARIANT_IMPLICIT_CONVERT</name>
+        <param>
+          <type>bool</type>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="Variant.h" line="200" column="5"/>
+      </memberdef>
+      <memberdef kind="function" id="classrr_1_1Variant_1a0c5b814015afebf10133a5040a4ba5dd" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type></type>
+        <definition>rr::Variant::VARIANT_IMPLICIT_CONVERT</definition>
+        <argsstring>(float)</argsstring>
+        <name>VARIANT_IMPLICIT_CONVERT</name>
+        <param>
+          <type>float</type>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="Variant.h" line="202" column="5"/>
+      </memberdef>
+      <memberdef kind="function" id="classrr_1_1Variant_1a4b997ca2b06a76b4ce2eee7b71a32f02" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type></type>
+        <definition>rr::Variant::VARIANT_IMPLICIT_CONVERT</definition>
+        <argsstring>(double)</argsstring>
+        <name>VARIANT_IMPLICIT_CONVERT</name>
+        <param>
+          <type>double</type>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="Variant.h" line="204" column="5"/>
+      </memberdef>
+      <memberdef kind="function" id="classrr_1_1Variant_1a7a91de1a107d4c7e2e9fd36955051758" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type></type>
+        <definition>rr::Variant::VARIANT_IMPLICIT_CONVERT</definition>
+        <argsstring>(unsigned long)</argsstring>
+        <name>VARIANT_IMPLICIT_CONVERT</name>
+        <param>
+          <type>unsigned long</type>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="Variant.h" line="206" column="5"/>
+      </memberdef>
+      <memberdef kind="function" id="classrr_1_1Variant_1ad3c33516ac06d47ad80ce1838a41503d" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type></type>
+        <definition>rr::Variant::VARIANT_IMPLICIT_CONVERT</definition>
+        <argsstring>(int)</argsstring>
+        <name>VARIANT_IMPLICIT_CONVERT</name>
+        <param>
+          <type>int</type>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="Variant.h" line="208" column="5"/>
+      </memberdef>
+      <memberdef kind="function" id="classrr_1_1Variant_1aeaecee8f6ff49545b3feb060f4a2fc6b" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type></type>
+        <definition>rr::Variant::VARIANT_IMPLICIT_CONVERT</definition>
+        <argsstring>(unsigned int)</argsstring>
+        <name>VARIANT_IMPLICIT_CONVERT</name>
+        <param>
+          <type>unsigned int</type>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="Variant.h" line="210" column="5"/>
+      </memberdef>
+      <memberdef kind="function" id="classrr_1_1Variant_1a4455d0058d6627a8291c5b7ede89cf1b" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type></type>
+        <definition>rr::Variant::VARIANT_IMPLICIT_CONVERT</definition>
+        <argsstring>(char)</argsstring>
+        <name>VARIANT_IMPLICIT_CONVERT</name>
+        <param>
+          <type>char</type>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="Variant.h" line="212" column="5"/>
+      </memberdef>
+      <memberdef kind="function" id="classrr_1_1Variant_1aaec35f10a7667638c62206c83f090352" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type></type>
+        <definition>rr::Variant::VARIANT_IMPLICIT_CONVERT</definition>
+        <argsstring>(unsigned char)</argsstring>
+        <name>VARIANT_IMPLICIT_CONVERT</name>
+        <param>
+          <type>unsigned char</type>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="Variant.h" line="214" column="5"/>
+      </memberdef>
+      <memberdef kind="function" id="classrr_1_1Variant_1a6cee1990f0e04b644c0cac5af847a67c" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type></type>
+        <definition>rr::Variant::VARIANT_IMPLICIT_CONVERT</definition>
+        <argsstring>(std::vector&lt; double &gt;)</argsstring>
+        <name>VARIANT_IMPLICIT_CONVERT</name>
+        <param>
+          <type>std::vector&lt; double &gt;</type>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="Variant.h" line="216" column="1"/>
+      </memberdef>
+      <memberdef kind="function" id="classrr_1_1Variant_1ab1e6879f232971ab8fa285cf50139f8a" prot="public" static="no" const="yes" explicit="no" inline="no" virt="non-virtual">
+        <type>std::string</type>
+        <definition>std::string rr::Variant::toString</definition>
+        <argsstring>() const</argsstring>
+        <name>toString</name>
+        <briefdescription>
+<para>Converts the <ref refid="classrr_1_1Variant" kindref="compound">Variant</ref> to a string in JSON format. </para>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="Variant.h" line="230" column="17" bodyfile="Variant.cpp" bodystart="184" bodyend="187"/>
+      </memberdef>
+      <memberdef kind="function" id="classrr_1_1Variant_1aae71df98365e03148ca33a3d3f354115" prot="public" static="no" const="yes" explicit="no" inline="no" virt="non-virtual">
+        <type>std::string</type>
+        <definition>std::string rr::Variant::pythonRepr</definition>
+        <argsstring>() const</argsstring>
+        <name>pythonRepr</name>
+        <briefdescription>
+<para>Convert to Python-compatible representation. </para>
+        </briefdescription>
+        <detaileddescription>
+<para><simplesect kind="author"><para>JKM </para>
+</simplesect>
+</para>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="Variant.h" line="236" column="17" bodyfile="Variant.cpp" bodystart="189" bodyend="204"/>
+      </memberdef>
+      <memberdef kind="function" id="classrr_1_1Variant_1a287a173e395dafe75f1631c69f00551a" prot="public" static="no" const="yes" explicit="no" inline="no" virt="non-virtual">
+        <type>bool</type>
+        <definition>bool rr::Variant::isString</definition>
+        <argsstring>() const</argsstring>
+        <name>isString</name>
+        <briefdescription>
+<para>is this variant a string. </para>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="Variant.h" line="241" column="10" bodyfile="Variant.cpp" bodystart="206" bodyend="209"/>
+      </memberdef>
+      <memberdef kind="function" id="classrr_1_1Variant_1ac6e06d899cd97644275c585e22673163" prot="public" static="no" const="yes" explicit="no" inline="no" virt="non-virtual">
+        <type>bool</type>
+        <definition>bool rr::Variant::isInteger</definition>
+        <argsstring>() const</argsstring>
+        <name>isInteger</name>
+        <briefdescription>
+<para>was an integer stored here. </para>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="Variant.h" line="246" column="10" bodyfile="Variant.cpp" bodystart="211" bodyend="214"/>
+      </memberdef>
+      <memberdef kind="function" id="classrr_1_1Variant_1ae92df0ebd531b0d0103202676beabfe3" prot="public" static="no" const="yes" explicit="no" inline="no" virt="non-virtual">
+        <type>bool</type>
+        <definition>bool rr::Variant::isNumeric</definition>
+        <argsstring>() const</argsstring>
+        <name>isNumeric</name>
+        <briefdescription>
+<para>is this a numeric type. </para>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="Variant.h" line="251" column="10" bodyfile="Variant.cpp" bodystart="216" bodyend="219"/>
+      </memberdef>
+      <memberdef kind="function" id="classrr_1_1Variant_1abbaafbb2c10aa25b6879f4a2cd5f85ca" prot="public" static="no" const="yes" explicit="no" inline="no" virt="non-virtual">
+        <type>bool</type>
+        <definition>bool rr::Variant::isBool</definition>
+        <argsstring>() const</argsstring>
+        <name>isBool</name>
+        <briefdescription>
+<para>is this a boolean type. </para>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="Variant.h" line="256" column="10" bodyfile="Variant.cpp" bodystart="221" bodyend="224"/>
+      </memberdef>
+      <memberdef kind="function" id="classrr_1_1Variant_1ad98e0f4d0491e78d4ab7c13d74e2b976" prot="public" static="no" const="yes" explicit="no" inline="no" virt="non-virtual">
+        <type>bool</type>
+        <definition>bool rr::Variant::isEmpty</definition>
+        <argsstring>() const</argsstring>
+        <name>isEmpty</name>
+        <briefdescription>
+<para>true if empty. </para>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="Variant.h" line="261" column="10" bodyfile="Variant.cpp" bodystart="237" bodyend="240"/>
+      </memberdef>
+      <memberdef kind="function" id="classrr_1_1Variant_1a6b61a4ca6b375886c7cb145ffd910b20" prot="public" static="no" const="yes" explicit="no" inline="no" virt="non-virtual">
+        <type>bool</type>
+        <definition>bool rr::Variant::isSigned</definition>
+        <argsstring>() const</argsstring>
+        <name>isSigned</name>
+        <briefdescription>
+<para>true if this is a signed number. </para>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="Variant.h" line="266" column="10" bodyfile="Variant.cpp" bodystart="242" bodyend="245"/>
+      </memberdef>
+      <memberdef kind="function" id="classrr_1_1Variant_1ab45d42c136c47493a285d6fc38ba9057" prot="public" static="no" const="yes" explicit="no" inline="no" virt="non-virtual">
+        <type>bool</type>
+        <definition>bool rr::Variant::isDoubleVector</definition>
+        <argsstring>() const</argsstring>
+        <name>isDoubleVector</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="Variant.h" line="271" column="10" bodyfile="Variant.cpp" bodystart="226" bodyend="228"/>
+      </memberdef>
+      </sectiondef>
+      <sectiondef kind="public-static-func">
+      <memberdef kind="function" id="classrr_1_1Variant_1abe42f3be24595157e92e255ddf5ef082" prot="public" static="yes" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type><ref refid="classrr_1_1Variant" kindref="compound">Variant</ref></type>
+        <definition>Variant rr::Variant::parse</definition>
+        <argsstring>(const std::string &amp;val)</argsstring>
+        <name>parse</name>
+        <param>
+          <type>const std::string &amp;</type>
+          <declname>val</declname>
+        </param>
+        <briefdescription>
+<para>Parses the string which must be in JSON format. </para>
+        </briefdescription>
+        <detaileddescription>
+<para>This is a common way to read a <ref refid="classrr_1_1Variant" kindref="compound">Variant</ref> from a file or create a new one from a string: <programlisting><codeline><highlight class="normal">Variant<sp/>v<sp/>=<sp/>Variant::parse(&quot;0.123&quot;);</highlight></codeline>
+</programlisting> </para>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="Variant.h" line="225" column="20" bodyfile="Variant.cpp" bodystart="140" bodyend="182"/>
+      </memberdef>
+      </sectiondef>
+      <sectiondef kind="private-func">
+      <memberdef kind="function" id="classrr_1_1Variant_1a3a86aef3e40907e3759b8e0ed1658cdd" prot="private" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>void rr::Variant::alloc</definition>
+        <argsstring>()</argsstring>
+        <name>alloc</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="Variant.h" line="283" column="6" bodyfile="Variant.cpp" bodystart="63" bodyend="66"/>
+      </memberdef>
+      <memberdef kind="function" id="classrr_1_1Variant_1af22522667e6ac08a37038fd07586dd90" prot="private" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>void rr::Variant::assign</definition>
+        <argsstring>(const std::type_info &amp;info, const void *value)</argsstring>
+        <name>assign</name>
+        <param>
+          <type>const std::type_info &amp;</type>
+          <declname>info</declname>
+        </param>
+        <param>
+          <type>const void *</type>
+          <declname>value</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="Variant.h" line="293" column="10" bodyfile="Variant.cpp" bodystart="76" bodyend="113"/>
+      </memberdef>
+      <memberdef kind="function" id="classrr_1_1Variant_1ac7cd517b96241e449427245b2a5dea12" prot="private" static="no" const="yes" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>void rr::Variant::convert_to</definition>
+        <argsstring>(const std::type_info &amp;info, void *value) const</argsstring>
+        <name>convert_to</name>
+        <param>
+          <type>const std::type_info &amp;</type>
+          <declname>info</declname>
+        </param>
+        <param>
+          <type>void *</type>
+          <declname>value</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="Variant.h" line="306" column="10" bodyfile="Variant.cpp" bodystart="288" bodyend="342"/>
+      </memberdef>
+      </sectiondef>
+    <briefdescription>
+<para>A basic type to hold a variety of data types. </para>
+    </briefdescription>
+    <detaileddescription>
+<para>Unfourtunatly C++ does not have a standard variant type so we have to create one here.</para>
+<para>This is a fairly low performance class and is intended soley for infrequent operations such as setting configuration parameters.</para>
+<para>If Python support is enabled, this class can convert to and from a Python object.</para>
+<para>Usage: This class can convert to and from any primitive data type, and some collections types. More type conversions will be added as needed.</para>
+<para>To store a value, just assign it, the assignment operator automatically takes care of everything for you: <programlisting><codeline><highlight class="normal">//<sp/>store<sp/>an<sp/>int:</highlight></codeline>
+<codeline><highlight class="normal">int<sp/>i<sp/>=<sp/>23;</highlight></codeline>
+<codeline><highlight class="normal">Variant<sp/>v<sp/>=<sp/>i;</highlight></codeline>
+<codeline></codeline>
+<codeline><highlight class="normal">//<sp/>store<sp/>a<sp/>double:</highlight></codeline>
+<codeline><highlight class="normal">Variant<sp/>v<sp/>=<sp/>(double)0.123;</highlight></codeline>
+</programlisting></para>
+<para>Extraction: To retrieve the stored data, uses the convert function, this is templated so it can convert and extract to any type:</para>
+<para><programlisting><codeline><highlight class="normal">Variant<sp/>v<sp/>=<sp/>getSomeVariant();</highlight></codeline>
+<codeline></codeline>
+<codeline><highlight class="normal">//<sp/>to<sp/>convert<sp/>to<sp/>integer:</highlight></codeline>
+<codeline><highlight class="normal">int<sp/>i<sp/>=<sp/>v.convert&lt;int&gt;();</highlight></codeline>
+<codeline></codeline>
+<codeline><highlight class="normal">//<sp/>to<sp/>convert<sp/>to<sp/>string:</highlight></codeline>
+<codeline><highlight class="normal">std::string<sp/>s<sp/>=<sp/>v.convert&lt;std::string&gt;();</highlight></codeline>
+</programlisting></para>
+<para>Rationale: C++ does not have a built in variant type. Other variant types exist such as boost::any and Poco dynamic var. However including the one of these as part of our public wrappers would forever tie us to that particular library, and would impose yet another dependency.</para>
+<para>Only very basic variant type support is needed and this class exposes the absolute minimum possible wrappers to support such features, and provides just two methods of getting and storing native C++ types in it.</para>
+<para>This is <emphasis>currently</emphasis> implemented by Poco but the implementation is fully opaque and may change in the future. </para>
+    </detaileddescription>
+    <location file="Variant.h" line="74" column="1" bodyfile="Variant.h" bodystart="75" bodyend="307"/>
+    <listofallmembers>
+      <member refid="classrr_1_1Variant_1a3a86aef3e40907e3759b8e0ed1658cdd" prot="private" virt="non-virtual"><scope>rr::Variant</scope><name>alloc</name></member>
+      <member refid="classrr_1_1Variant_1af22522667e6ac08a37038fd07586dd90" prot="private" virt="non-virtual"><scope>rr::Variant</scope><name>assign</name></member>
+      <member refid="classrr_1_1Variant_1a64c7b2189f8d391527919e46a72402a8a9020c2880cbd80c9aa7bcf68f4dc09b3" prot="public" virt="non-virtual"><scope>rr::Variant</scope><name>BOOL</name></member>
+      <member refid="classrr_1_1Variant_1a64c7b2189f8d391527919e46a72402a8a5ae341fd6e898cfb64ba6d328e85b145" prot="public" virt="non-virtual"><scope>rr::Variant</scope><name>CHAR</name></member>
+      <member refid="classrr_1_1Variant_1a7bb371be936601754f61d5285f834352" prot="public" virt="non-virtual"><scope>rr::Variant</scope><name>convert</name></member>
+      <member refid="classrr_1_1Variant_1ac7cd517b96241e449427245b2a5dea12" prot="private" virt="non-virtual"><scope>rr::Variant</scope><name>convert_to</name></member>
+      <member refid="classrr_1_1Variant_1a64c7b2189f8d391527919e46a72402a8a47b78ea8f5662103e784f9d228d80de1" prot="public" virt="non-virtual"><scope>rr::Variant</scope><name>DOUBLE</name></member>
+      <member refid="classrr_1_1Variant_1a64c7b2189f8d391527919e46a72402a8a0f165f07ea0fd724994ccbe5c3405764" prot="public" virt="non-virtual"><scope>rr::Variant</scope><name>DOUBLEVECTOR</name></member>
+      <member refid="classrr_1_1Variant_1a64c7b2189f8d391527919e46a72402a8a1014e10a53eb5d7d91452ea43c68afd2" prot="public" virt="non-virtual"><scope>rr::Variant</scope><name>EMPTY</name></member>
+      <member refid="classrr_1_1Variant_1a64c7b2189f8d391527919e46a72402a8a5133925a530bf64be7b5a6249603ec65" prot="public" virt="non-virtual"><scope>rr::Variant</scope><name>FLOAT</name></member>
+      <member refid="classrr_1_1Variant_1a64c7b2189f8d391527919e46a72402a8a5156f21fda3e9d666e657a00f76b3892" prot="public" virt="non-virtual"><scope>rr::Variant</scope><name>INT32</name></member>
+      <member refid="classrr_1_1Variant_1a64c7b2189f8d391527919e46a72402a8a0dfb27dbc2818087428f17b03915fda5" prot="public" virt="non-virtual"><scope>rr::Variant</scope><name>INT64</name></member>
+      <member refid="classrr_1_1Variant_1abbaafbb2c10aa25b6879f4a2cd5f85ca" prot="public" virt="non-virtual"><scope>rr::Variant</scope><name>isBool</name></member>
+      <member refid="classrr_1_1Variant_1ab45d42c136c47493a285d6fc38ba9057" prot="public" virt="non-virtual"><scope>rr::Variant</scope><name>isDoubleVector</name></member>
+      <member refid="classrr_1_1Variant_1ad98e0f4d0491e78d4ab7c13d74e2b976" prot="public" virt="non-virtual"><scope>rr::Variant</scope><name>isEmpty</name></member>
+      <member refid="classrr_1_1Variant_1ac6e06d899cd97644275c585e22673163" prot="public" virt="non-virtual"><scope>rr::Variant</scope><name>isInteger</name></member>
+      <member refid="classrr_1_1Variant_1ae92df0ebd531b0d0103202676beabfe3" prot="public" virt="non-virtual"><scope>rr::Variant</scope><name>isNumeric</name></member>
+      <member refid="classrr_1_1Variant_1a6b61a4ca6b375886c7cb145ffd910b20" prot="public" virt="non-virtual"><scope>rr::Variant</scope><name>isSigned</name></member>
+      <member refid="classrr_1_1Variant_1a287a173e395dafe75f1631c69f00551a" prot="public" virt="non-virtual"><scope>rr::Variant</scope><name>isString</name></member>
+      <member refid="classrr_1_1Variant_1a22c85776d05ff8009e6f6686db25f949" prot="public" virt="non-virtual"><scope>rr::Variant</scope><name>operator=</name></member>
+      <member refid="classrr_1_1Variant_1ac04cac2d0b4d939f789658bebbb05f21" prot="public" virt="non-virtual"><scope>rr::Variant</scope><name>operator=</name></member>
+      <member refid="classrr_1_1Variant_1abe42f3be24595157e92e255ddf5ef082" prot="public" virt="non-virtual"><scope>rr::Variant</scope><name>parse</name></member>
+      <member refid="classrr_1_1Variant_1aae71df98365e03148ca33a3d3f354115" prot="public" virt="non-virtual"><scope>rr::Variant</scope><name>pythonRepr</name></member>
+      <member refid="classrr_1_1Variant_1a1fc8fb51d9ac7bdf4cc4a87d68685873" prot="private" virt="non-virtual"><scope>rr::Variant</scope><name>self</name></member>
+      <member refid="classrr_1_1Variant_1a64c7b2189f8d391527919e46a72402a8ab7bc9a0e4b0d7a0d2f3a9ab926745e2a" prot="public" virt="non-virtual"><scope>rr::Variant</scope><name>STRING</name></member>
+      <member refid="classrr_1_1Variant_1ab1e6879f232971ab8fa285cf50139f8a" prot="public" virt="non-virtual"><scope>rr::Variant</scope><name>toString</name></member>
+      <member refid="classrr_1_1Variant_1a551b6ad03e790d2fca61f95c62b283b7" prot="public" virt="non-virtual"><scope>rr::Variant</scope><name>type</name></member>
+      <member refid="classrr_1_1Variant_1a64c7b2189f8d391527919e46a72402a8" prot="public" virt="non-virtual"><scope>rr::Variant</scope><name>TypeId</name></member>
+      <member refid="classrr_1_1Variant_1ab221d80ddd0d06174c61d90e25ebb0d2" prot="public" virt="non-virtual"><scope>rr::Variant</scope><name>typeInfo</name></member>
+      <member refid="classrr_1_1Variant_1a64c7b2189f8d391527919e46a72402a8ac330aee0f3ea041b0e25f238ddac2533" prot="public" virt="non-virtual"><scope>rr::Variant</scope><name>UCHAR</name></member>
+      <member refid="classrr_1_1Variant_1a64c7b2189f8d391527919e46a72402a8a285d6aabfc97d5cf9b22613adb75aefa" prot="public" virt="non-virtual"><scope>rr::Variant</scope><name>UINT32</name></member>
+      <member refid="classrr_1_1Variant_1a64c7b2189f8d391527919e46a72402a8aae5648b7b8f5da033be4fdcfe29e76dd" prot="public" virt="non-virtual"><scope>rr::Variant</scope><name>UINT64</name></member>
+      <member refid="classrr_1_1Variant_1a48f0736e18b6463303047b46cccca550" prot="public" virt="non-virtual"><scope>rr::Variant</scope><name>Variant</name></member>
+      <member refid="classrr_1_1Variant_1a81b0ca7e57d1985f2e05ef7f0805b1cf" prot="public" virt="non-virtual"><scope>rr::Variant</scope><name>Variant</name></member>
+      <member refid="classrr_1_1Variant_1adeeea17e7e9aa35fd079c3eee2794b4b" prot="public" virt="non-virtual"><scope>rr::Variant</scope><name>Variant</name></member>
+      <member refid="classrr_1_1Variant_1a950ad51abe6f9e7ed4bbe865bac93e99" prot="public" virt="non-virtual"><scope>rr::Variant</scope><name>Variant</name></member>
+      <member refid="classrr_1_1Variant_1a1e671df21f20cf4cea3cd97b91d74bad" prot="public" virt="non-virtual"><scope>rr::Variant</scope><name>VARIANT_IMPLICIT_CONVERT</name></member>
+      <member refid="classrr_1_1Variant_1a80fb1e965dafc1d64a72baaf4dfb74a7" prot="public" virt="non-virtual"><scope>rr::Variant</scope><name>VARIANT_IMPLICIT_CONVERT</name></member>
+      <member refid="classrr_1_1Variant_1affffce16e5c854be89c5ad19565b662e" prot="public" virt="non-virtual"><scope>rr::Variant</scope><name>VARIANT_IMPLICIT_CONVERT</name></member>
+      <member refid="classrr_1_1Variant_1a0c5b814015afebf10133a5040a4ba5dd" prot="public" virt="non-virtual"><scope>rr::Variant</scope><name>VARIANT_IMPLICIT_CONVERT</name></member>
+      <member refid="classrr_1_1Variant_1a4b997ca2b06a76b4ce2eee7b71a32f02" prot="public" virt="non-virtual"><scope>rr::Variant</scope><name>VARIANT_IMPLICIT_CONVERT</name></member>
+      <member refid="classrr_1_1Variant_1a7a91de1a107d4c7e2e9fd36955051758" prot="public" virt="non-virtual"><scope>rr::Variant</scope><name>VARIANT_IMPLICIT_CONVERT</name></member>
+      <member refid="classrr_1_1Variant_1ad3c33516ac06d47ad80ce1838a41503d" prot="public" virt="non-virtual"><scope>rr::Variant</scope><name>VARIANT_IMPLICIT_CONVERT</name></member>
+      <member refid="classrr_1_1Variant_1aeaecee8f6ff49545b3feb060f4a2fc6b" prot="public" virt="non-virtual"><scope>rr::Variant</scope><name>VARIANT_IMPLICIT_CONVERT</name></member>
+      <member refid="classrr_1_1Variant_1a4455d0058d6627a8291c5b7ede89cf1b" prot="public" virt="non-virtual"><scope>rr::Variant</scope><name>VARIANT_IMPLICIT_CONVERT</name></member>
+      <member refid="classrr_1_1Variant_1aaec35f10a7667638c62206c83f090352" prot="public" virt="non-virtual"><scope>rr::Variant</scope><name>VARIANT_IMPLICIT_CONVERT</name></member>
+      <member refid="classrr_1_1Variant_1a6cee1990f0e04b644c0cac5af847a67c" prot="public" virt="non-virtual"><scope>rr::Variant</scope><name>VARIANT_IMPLICIT_CONVERT</name></member>
+      <member refid="classrr_1_1Variant_1a5bfdfef2698dc62678ed6e5b9f807c2a" prot="public" virt="virtual"><scope>rr::Variant</scope><name>~Variant</name></member>
+    </listofallmembers>
+  </compounddef>
+</doxygen>

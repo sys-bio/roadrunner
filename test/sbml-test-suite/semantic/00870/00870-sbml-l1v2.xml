@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<sbml xmlns="http://www.sbml.org/sbml/level1" level="1" version="2">
+  <model name="case00870">
+    <listOfCompartments>
+      <compartment name="C" volume="1"/>
+    </listOfCompartments>
+    <listOfSpecies>
+      <species name="A1" compartment="C" initialAmount="2"/>
+      <species name="A2" compartment="C" initialAmount="3"/>
+      <species name="A3" compartment="C" initialAmount="4"/>
+      <species name="A4" compartment="C" initialAmount="1"/>
+    </listOfSpecies>
+    <listOfParameters>
+      <parameter name="Kr1" value="2"/>
+      <parameter name="Kf1" value="1"/>
+      <parameter name="Kf" value="1"/>
+      <parameter name="Kr" value="2"/>
+    </listOfParameters>
+    <listOfReactions>
+      <reaction name="fasterReaction" fast="true">
+        <listOfReactants>
+          <speciesReference species="A4"/>
+        </listOfReactants>
+        <listOfProducts>
+          <speciesReference species="A2"/>
+        </listOfProducts>
+        <kineticLaw formula="(Kf1 * A4 + -(Kr1 * A2)) * C"/>
+      </reaction>
+      <reaction name="slowerReaction1">
+        <listOfReactants>
+          <speciesReference species="A1"/>
+          <speciesReference species="A2"/>
+        </listOfReactants>
+        <listOfProducts>
+          <speciesReference species="A3"/>
+        </listOfProducts>
+        <kineticLaw formula="(Kf * A1 * A2 + -(Kr * A3)) * C"/>
+      </reaction>
+    </listOfReactions>
+  </model>
+</sbml>

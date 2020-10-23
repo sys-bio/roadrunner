@@ -25,7 +25,7 @@
 namespace rrllvm
 {
 
-typedef double (*GetEventValueCodeGenBase_FunctionPtr)(LLVMModelData*, int32_t);
+typedef double (*GetEventValueCodeGenBase_FunctionPtr)(LLVMModelData*, size_t);
 
 template <typename Derived, typename
     FunctionPtrType=GetEventValueCodeGenBase_FunctionPtr>
@@ -128,7 +128,7 @@ llvm::Value *GetEventValueCodeGenBase<Derived, FunctionPtrType>::codeGen()
     return this->verifyFunction();
 }
 
-typedef unsigned char (*GetEventTriggerCodeGen_FunctionPtr)(LLVMModelData*, int32_t);
+typedef unsigned char (*GetEventTriggerCodeGen_FunctionPtr)(LLVMModelData*, size_t);
 
 class GetEventTriggerCodeGen: public
     GetEventValueCodeGenBase<GetEventTriggerCodeGen,

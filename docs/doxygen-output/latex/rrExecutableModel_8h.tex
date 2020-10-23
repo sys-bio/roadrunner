@@ -1,0 +1,48 @@
+\hypertarget{rrExecutableModel_8h}{}\doxysection{rr\+Executable\+Model.\+h File Reference}
+\label{rrExecutableModel_8h}\index{rrExecutableModel.h@{rrExecutableModel.h}}
+
+
+Base class for all code generators in Road\+Runner.  
+
+
+{\ttfamily \#include \char`\"{}rr\+O\+S\+Specifics.\+h\char`\"{}}\newline
+{\ttfamily \#include \char`\"{}rr\+Exception.\+h\char`\"{}}\newline
+{\ttfamily \#include \char`\"{}sbml/\+S\+B\+M\+L\+Document.\+h\char`\"{}}\newline
+{\ttfamily \#include $<$stdint.\+h$>$}\newline
+{\ttfamily \#include $<$string$>$}\newline
+{\ttfamily \#include $<$vector$>$}\newline
+{\ttfamily \#include $<$list$>$}\newline
+{\ttfamily \#include $<$ostream$>$}\newline
+{\ttfamily \#include \char`\"{}tr1proxy/rr\+\_\+memory.\+h\char`\"{}}\newline
+\doxysubsection*{Classes}
+\begin{DoxyCompactItemize}
+\item 
+class \mbox{\hyperlink{classrr_1_1EventListener}{rr\+::\+Event\+Listener}}
+\begin{DoxyCompactList}\small\item\em Notifies the user of S\+B\+ML events. \end{DoxyCompactList}\item 
+class \mbox{\hyperlink{classrr_1_1EventListenerException}{rr\+::\+Event\+Listener\+Exception}}
+\item 
+class \mbox{\hyperlink{classrr_1_1ExecutableModel}{rr\+::\+Executable\+Model}}
+\begin{DoxyCompactList}\small\item\em Base class for all code generation systems; allows compiling and evaluating the model. \end{DoxyCompactList}\end{DoxyCompactItemize}
+\doxysubsection*{Typedefs}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\Hypertarget{rrExecutableModel_8h_af42654ad469e89c71909fbbff90b3c07}\label{rrExecutableModel_8h_af42654ad469e89c71909fbbff90b3c07}} 
+typedef cxx11\+\_\+ns\+::shared\+\_\+ptr$<$ Event\+Listener $>$ \mbox{\hyperlink{rrExecutableModel_8h_af42654ad469e89c71909fbbff90b3c07}{rr\+::\+Event\+Listener\+Ptr}}
+\begin{DoxyCompactList}\small\item\em listeners are shared objects, so use std smart pointers to manage them. \end{DoxyCompactList}\end{DoxyCompactItemize}
+\doxysubsection*{Functions}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\Hypertarget{rrExecutableModel_8cpp_a73a38b8990efe427c7b88405375bf256}\label{rrExecutableModel_8cpp_a73a38b8990efe427c7b88405375bf256}} 
+std\+::ostream \& {\bfseries rr\+::operator$<$$<$} (std\+::ostream \&stream, Executable\+Model $\ast$model)
+\begin{DoxyCompactList}\small\item\em dump the model to a stream convenience func \end{DoxyCompactList}\end{DoxyCompactItemize}
+
+
+\doxysubsection{Detailed Description}
+Base class for all code generators in Road\+Runner. 
+
+\begin{DoxyAuthor}{Author}
+M\+TK, E\+TS, J\+KM 
+\end{DoxyAuthor}
+\begin{DoxyCopyright}{Copyright}
+Apache License, Version 2.\+0 
+\end{DoxyCopyright}

@@ -1,0 +1,132 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<sbml xmlns="http://www.sbml.org/sbml/level2/version4" level="2" version="4">
+  <model metaid="_case00760" id="case00760" name="case00760">
+    <listOfFunctionDefinitions>
+      <functionDefinition id="greaterthan" name="greaterthan">
+        <math xmlns="http://www.w3.org/1998/Math/MathML">
+          <lambda>
+            <bvar>
+              <ci> x </ci>
+            </bvar>
+            <bvar>
+              <ci> y </ci>
+            </bvar>
+            <apply>
+              <gt/>
+              <ci> x </ci>
+              <ci> y </ci>
+            </apply>
+          </lambda>
+        </math>
+      </functionDefinition>
+      <functionDefinition id="add" name="add">
+        <math xmlns="http://www.w3.org/1998/Math/MathML">
+          <lambda>
+            <bvar>
+              <ci> x </ci>
+            </bvar>
+            <bvar>
+              <ci> y </ci>
+            </bvar>
+            <apply>
+              <plus/>
+              <ci> x </ci>
+              <ci> y </ci>
+            </apply>
+          </lambda>
+        </math>
+      </functionDefinition>
+    </listOfFunctionDefinitions>
+    <listOfCompartments>
+      <compartment id="C" name="C" size="1" units="volume"/>
+    </listOfCompartments>
+    <listOfSpecies>
+      <species id="X0" name="X0" compartment="C" initialAmount="1.25" substanceUnits="substance"/>
+      <species id="X1" name="X1" compartment="C" initialAmount="1.5" substanceUnits="substance"/>
+      <species id="T" name="T" compartment="C" initialAmount="1" substanceUnits="substance"/>
+      <species id="S1" name="S1" compartment="C" initialAmount="3.75" substanceUnits="substance"/>
+    </listOfSpecies>
+    <listOfParameters>
+      <parameter id="k1" name="k1" value="0.1"/>
+      <parameter id="k2" name="k2" value="0.2"/>
+    </listOfParameters>
+    <listOfRules>
+      <algebraicRule metaid="rule1">
+        <math xmlns="http://www.w3.org/1998/Math/MathML">
+          <apply>
+            <plus/>
+            <apply>
+              <times/>
+              <cn type="integer"> -1 </cn>
+              <ci> S1 </ci>
+            </apply>
+            <ci> T </ci>
+            <apply>
+              <ci> add </ci>
+              <ci> X0 </ci>
+              <ci> X1 </ci>
+            </apply>
+          </apply>
+        </math>
+      </algebraicRule>
+    </listOfRules>
+    <listOfReactions>
+      <reaction id="reaction1" name="reaction1" reversible="false" fast="false">
+        <listOfReactants>
+          <speciesReference species="X0"/>
+        </listOfReactants>
+        <listOfProducts>
+          <speciesReference species="T"/>
+        </listOfProducts>
+        <kineticLaw>
+          <math xmlns="http://www.w3.org/1998/Math/MathML">
+            <apply>
+              <times/>
+              <ci> C </ci>
+              <ci> k1 </ci>
+              <ci> X0 </ci>
+            </apply>
+          </math>
+        </kineticLaw>
+      </reaction>
+      <reaction id="reaction2" name="reaction2" reversible="false" fast="false">
+        <listOfReactants>
+          <speciesReference species="T"/>
+        </listOfReactants>
+        <listOfProducts>
+          <speciesReference species="X1"/>
+        </listOfProducts>
+        <kineticLaw>
+          <math xmlns="http://www.w3.org/1998/Math/MathML">
+            <apply>
+              <times/>
+              <ci> C </ci>
+              <ci> k2 </ci>
+              <ci> T </ci>
+            </apply>
+          </math>
+        </kineticLaw>
+      </reaction>
+    </listOfReactions>
+    <listOfEvents>
+      <event id="event1" name="event1">
+        <trigger>
+          <math xmlns="http://www.w3.org/1998/Math/MathML">
+            <apply>
+              <ci> greaterthan </ci>
+              <ci> X1 </ci>
+              <cn type="integer"> 2 </cn>
+            </apply>
+          </math>
+        </trigger>
+        <listOfEventAssignments>
+          <eventAssignment variable="X1">
+            <math xmlns="http://www.w3.org/1998/Math/MathML">
+              <cn type="integer"> 1 </cn>
+            </math>
+          </eventAssignment>
+        </listOfEventAssignments>
+      </event>
+    </listOfEvents>
+  </model>
+</sbml>

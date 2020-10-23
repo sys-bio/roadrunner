@@ -1,0 +1,87 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<sbml xmlns="http://www.sbml.org/sbml/level2" level="2" version="1">
+  <model metaid="_case00565" id="case00565" name="case00565">
+    <listOfCompartments>
+      <compartment id="C" name="C" size="1" units="volume"/>
+    </listOfCompartments>
+    <listOfSpecies>
+      <species id="X0" name="X0" compartment="C" initialAmount="1" substanceUnits="substance"/>
+      <species id="X1" name="X1" compartment="C" initialAmount="0" substanceUnits="substance"/>
+      <species id="T" name="T" compartment="C" initialAmount="0" substanceUnits="substance"/>
+      <species id="S1" name="S1" compartment="C" initialAmount="0" substanceUnits="substance"/>
+    </listOfSpecies>
+    <listOfParameters>
+      <parameter id="k" name="k" value="2.5"/>
+    </listOfParameters>
+    <listOfRules>
+      <algebraicRule metaid="rule1">
+        <math xmlns="http://www.w3.org/1998/Math/MathML">
+          <apply>
+            <plus/>
+            <apply>
+              <times/>
+              <apply>
+                <plus/>
+                <ci> k </ci>
+                <cn type="integer"> 1 </cn>
+              </apply>
+              <ci> S1 </ci>
+            </apply>
+            <apply>
+              <times/>
+              <cn type="integer"> -1 </cn>
+              <ci> T </ci>
+            </apply>
+          </apply>
+        </math>
+      </algebraicRule>
+    </listOfRules>
+    <listOfReactions>
+      <reaction id="reaction1" name="reaction1" reversible="false" fast="false">
+        <listOfReactants>
+          <speciesReference species="X0"/>
+        </listOfReactants>
+        <listOfProducts>
+          <speciesReference species="T"/>
+        </listOfProducts>
+        <kineticLaw>
+          <math xmlns="http://www.w3.org/1998/Math/MathML">
+            <apply>
+              <times/>
+              <ci> C </ci>
+              <ci> k </ci>
+              <ci> X0 </ci>
+            </apply>
+          </math>
+          <listOfParameters>
+            <parameter id="k" value="0.1"/>
+          </listOfParameters>
+        </kineticLaw>
+      </reaction>
+      <reaction id="reaction2" name="reaction2" reversible="false" fast="false">
+        <listOfReactants>
+          <speciesReference species="T"/>
+        </listOfReactants>
+        <listOfProducts>
+          <speciesReference species="X1"/>
+        </listOfProducts>
+        <listOfModifiers>
+          <modifierSpeciesReference species="S1"/>
+        </listOfModifiers>
+        <kineticLaw>
+          <math xmlns="http://www.w3.org/1998/Math/MathML">
+            <apply>
+              <times/>
+              <ci> C </ci>
+              <ci> k </ci>
+              <ci> S1 </ci>
+            </apply>
+          </math>
+          <listOfParameters>
+            <parameter id="k" value="0.375"/>
+          </listOfParameters>
+        </kineticLaw>
+      </reaction>
+    </listOfReactions>
+  </model>
+</sbml>

@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<sbml xmlns="http://www.sbml.org/sbml/level1" level="1" version="2">
+  <model name="case00719">
+    <listOfCompartments>
+      <compartment name="C" volume="1" units="volume"/>
+    </listOfCompartments>
+    <listOfSpecies>
+      <species name="S1" compartment="C" initialAmount="1.5" units="substance"/>
+      <species name="S2" compartment="C" initialAmount="2" units="substance"/>
+      <species name="S3" compartment="C" initialAmount="1.5" units="substance"/>
+      <species name="S4" compartment="C" initialAmount="4" units="substance"/>
+    </listOfSpecies>
+    <listOfParameters>
+      <parameter name="k1" value="0.75"/>
+      <parameter name="k2" value="0.25"/>
+    </listOfParameters>
+    <listOfRules>
+      <speciesConcentrationRule formula="0.5 * k1" type="rate" species="S3"/>
+      <speciesConcentrationRule formula="-0.5 * k2" type="rate" species="S4"/>
+    </listOfRules>
+    <listOfReactions>
+      <reaction name="reaction1" reversible="false">
+        <listOfReactants>
+          <speciesReference species="S1"/>
+        </listOfReactants>
+        <listOfProducts>
+          <speciesReference species="S2" stoichiometry="2"/>
+        </listOfProducts>
+        <kineticLaw formula="C * k1 * S1"/>
+      </reaction>
+    </listOfReactions>
+  </model>
+</sbml>

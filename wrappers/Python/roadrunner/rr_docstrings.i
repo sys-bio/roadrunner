@@ -1680,6 +1680,19 @@ If the model is flattened, the variable will appear automatically.
 ";
 
 
+%feature("docstring") rr::SimulateOptions::output_file "
+
+The output file path to write to, if not empty. 
+
+If not empty, the simulation results will be written to the path specified
+by output_file during the simulation, in batches. Specifically, the results
+will be written as soon as Config::K_ROWS_PER_WRITE rows are in the result
+buffer. The result buffer will be cleared every time it is written, so
+simulate() will return an empty matrix.
+
+If it is empty, simulation is done as usual and the full result matrix will
+be returned.
+";
 
 %feature("docstring") rr::LoadSBMLOptions::conservedMoieties "
 :annotation: bool

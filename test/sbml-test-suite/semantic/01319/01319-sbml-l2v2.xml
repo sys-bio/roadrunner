@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<sbml xmlns="http://www.sbml.org/sbml/level2/version2" level="2" version="2">
+  <model id="case01319" name="case01319">
+    <listOfParameters>
+      <parameter id="p2" constant="false"/>
+      <parameter id="p3" constant="false"/>
+      <parameter id="p1" value="5"/>
+    </listOfParameters>
+    <listOfRules>
+      <assignmentRule variable="p2">
+        <math xmlns="http://www.w3.org/1998/Math/MathML">
+          <apply>
+            <plus/>
+            <cn type="integer"> 1 </cn>
+            <csymbol encoding="text" definitionURL="http://www.sbml.org/sbml/symbols/time"> time </csymbol>
+          </apply>
+        </math>
+      </assignmentRule>
+      <assignmentRule variable="p3">
+        <math xmlns="http://www.w3.org/1998/Math/MathML">
+          <apply>
+            <csymbol encoding="text" definitionURL="http://www.sbml.org/sbml/symbols/delay"> plus </csymbol>
+            <ci> p2 </ci>
+            <cn type="integer"> 1 </cn>
+          </apply>
+        </math>
+      </assignmentRule>
+    </listOfRules>
+  </model>
+</sbml>

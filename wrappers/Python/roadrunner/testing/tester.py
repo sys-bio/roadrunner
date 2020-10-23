@@ -8,7 +8,7 @@
 #-------------------------------------------------------------
 # Tests for steady state and stoichiometric calculations in
 # roadRunner. Herbert M Sauro November 2012
-# Nov 2013: Modified to test Andy's SWIG API
+# Nov 2013: Modified to test Andy's SWIG wrappers
 #-------------------------------------------------------------
 
 #------------------------------------------
@@ -56,6 +56,14 @@ def passMsg (errorFlag, msg = ""):
     gFailedTests = gFailedTests+1
     return "*****FAIL*****" + msg
 
+def str2bool(check):
+    if check in ["True", "true", 1,]:
+        return True
+    elif check in ["False", "false", 0]:
+        return False
+    raise RuntimeError("Incorrect .rrtest file: '" + str(check) + "' should be 'True' or 'False'.")
+ 
+
 # Empty lines are ignored
 # Lines starting with # are also ignored
 
@@ -67,6 +75,20 @@ def readLine ():
             return line
         line = fHandle.readline();
     return line.strip('\n')
+
+def readBlock ():
+    block = []
+    prevx = fHandle.tell()
+    line = fHandle.readline()
+    while (line != '' and line[0] != "[" and line[0] != "\n"):
+        if (line[0] != '#'):
+            block.append(line.strip('\n'))
+        prevx = fHandle.tell()
+        line = fHandle.readline();
+    if line[0] == "[":
+        fHandle.seek(prevx)
+    return block
+    
 
 def divide(line):
     words = line.strip()
@@ -996,10 +1018,13 @@ def checkJacobian(rrInstance, testId):
 def checkControlCoefficient(rrInstance, testId):
     print(("Check " + testId).ljust( rpadding), end="")
     errorFlag = False
-    words = divide(readLine())
-    n = rrInstance.getCC(words[0], words[1])
-    if abs(n - float(words[2])) > 1e-6:
-        errorFlag = True
+    block = readBlock()
+    for line in block:
+        words = divide(line)
+        n = rrInstance.getCC(words[0], words[1])
+        if abs(n - float(words[2])) > 1e-4:
+            errorFlag = True
+            print("Control coefficient for", words[0], ",", words[1], "is", str(n), ", which is different from", words[2], "by more than 0.000001.")
     print(passMsg (errorFlag))
 
 def checkVariableEndTime(rrInstance, testId):
@@ -1213,173 +1238,186 @@ def unitTestIntegratorSettings(testDir):
 
     print(passMsg (errorFlag))
 
-def addSpecies(rrInstance):
+def addSpecies(rrInstance, testId):
     words = []
     words = divide(readLine())
     print("Add species " + words[0])
-    rrInstance.addSpecies(words[0], words[1], float(words[2]), words[3], bool(words[4]))
+    if (len(words)==2):
+        rrInstance.addSpecies(words[0], words[1])
+    elif (len(words)==3):
+        rrInstance.addSpecies(words[0], words[1], float(words[2]))
+    elif (len(words)==4):
+        rrInstance.addSpecies(words[0], words[1], float(words[2]), str2bool(words[3]))
+    elif (len(words)==5):
+        rrInstance.addSpecies(words[0], words[1], float(words[2]), str2bool(words[3]), str2bool(words[4]))
+    elif (len(words)==6):
+        rrInstance.addSpecies(words[0], words[1], float(words[2]), str2bool(words[3]), str2bool(words[4]), words[5])
+    elif (len(words)==7):
+        rrInstance.addSpecies(words[0], words[1], float(words[2]), str2bool(words[3]), str2bool(words[4]), words[5], str2bool(words[6]))
+    else:
+        print(passMsg(False, "Incorrect number of arguments given to addSpecies."))
 
 
-def addReaction(rrInstance):
+def addReaction(rrInstance, testId):
     words = []
     words = divide(readLine())
     print("Add reaction " + words[0])
     reactants = words[1].split(',')
     products = words[2].split(',')
-    rrInstance.addReaction(words[0], reactants, products, words[3], bool(words[4]))
+    rrInstance.addReaction(words[0], reactants, products, words[3], str2bool(words[4]))
 
 
-def addParameter(rrInstance):
+def addParameter(rrInstance, testId):
     words = []
     words = divide(readLine())
     print("Add parameter " + words[0])
-    rrInstance.addParameter(words[0], float(words[1]), bool(words[2]))
+    rrInstance.addParameter(words[0], float(words[1]), str2bool(words[2]))
 
-def addCompartment(rrInstance):
+def addCompartment(rrInstance, testId):
     words = []
     words = divide(readLine())
     print("Add compartment " + words[0])
-    rrInstance.addCompartment(words[0], float(words[1]), bool(words[2]))
+    rrInstance.addCompartment(words[0], float(words[1]), str2bool(words[2]))
 
-def addAssignmentRule(rrInstance):
+def addAssignmentRule(rrInstance, testId):
     words = []
     words = divide(readLine())
     print("Add assignment rule " + words[0])
-    rrInstance.addAssignmentRule(words[0], words[1], bool(words[2]))
+    rrInstance.addAssignmentRule(words[0], words[1], str2bool(words[2]))
 
-def addRateRule(rrInstance):
+def addRateRule(rrInstance, testId):
     words = []
     words = divide(readLine())
     print("Add rate rule " + words[0])
-    rrInstance.addRateRule(words[0], words[1], bool(words[2]))
+    rrInstance.addRateRule(words[0], words[1], str2bool(words[2]))
 
-def addEvent(rrInstance):
+def addEvent(rrInstance, testId):
     words = []
     words = divide(readLine())
     print("Add event " + words[0])
-    rrInstance.addEvent(words[0], bool(words[1]), words[2], bool(words[3]))
+    rrInstance.addEvent(words[0], str2bool(words[1]), words[2], str2bool(words[3]))
 
-def addTrigger(rrInstance):
+def addTrigger(rrInstance, testId):
     words = []
     words = divide(readLine())
     print("Add trigger for " + words[0])
-    rrInstance.addTrigger(words[0], words[1], bool(words[2]))
+    rrInstance.addTrigger(words[0], words[1], str2bool(words[2]))
 
 
-def addPriority(rrInstance):
+def addPriority(rrInstance, testId):
     words = []
     words = divide(readLine())
     print("Add priority for " + words[0])
-    rrInstance.addPriority(words[0], words[1], bool(words[2]))
+    rrInstance.addPriority(words[0], words[1], str2bool(words[2]))
 
-def addDelay(rrInstance):
+def addDelay(rrInstance, testId):
     words = []
     words = divide(readLine())
     print("Add delay for " + words[0])
-    rrInstance.addDelay(words[0], words[1], bool(words[2]))
+    rrInstance.addDelay(words[0], words[1], str2bool(words[2]))
 
-def addEventAssignment(rrInstance):
+def addEventAssignment(rrInstance, testId):
     words = []
     words = divide(readLine())
     print("Add event assignment for " + words[1])
-    rrInstance.addEventAssignment(words[0], words[1], words[2], bool(words[3]))
+    rrInstance.addEventAssignment(words[0], words[1], words[2], str2bool(words[3]))
 
 
-def removeSpecies(rrInstance):
+def removeSpecies(rrInstance, testId):
     words = []
     words = divide(readLine())
     print("Remove species " + words[0])
-    rrInstance.removeSpecies(words[0], bool(words[1]))
+    rrInstance.removeSpecies(words[0], str2bool(words[1]))
 
-def removeReaction(rrInstance):
+def removeReaction(rrInstance, testId):
     words = []
     words = divide(readLine())
     print("Remove reaction " + words[0])
-    rrInstance.removeReaction(words[0], bool(words[1]))
+    rrInstance.removeReaction(words[0], str2bool(words[1]))
 
-def removeParameter(rrInstance):
+def removeParameter(rrInstance, testId):
     words = []
     words = divide(readLine())
     print("Remove parameter " + words[0])
-    rrInstance.removeParameter(words[0], bool(words[1]))
+    rrInstance.removeParameter(words[0], str2bool(words[1]))
 
-def removeCompartment(rrInstance):
+def removeCompartment(rrInstance, testId):
     words = []
     words = divide(readLine())
     print("Remove compartment " + words[0])
-    rrInstance.removeCompartment(words[0], bool(words[1]))
+    rrInstance.removeCompartment(words[0], str2bool(words[1]))
 
-def removeRules(rrInstance):
+def removeRules(rrInstance, testId):
     words = []
     words = divide(readLine())
     print("Remove rules for " + words[0])
-    rrInstance.removeRules(words[0], bool(words[1]), bool(words[2]))
+    rrInstance.removeRules(words[0], str2bool(words[1]), str2bool(words[2]))
 
-def removeEvent(rrInstance):
+def removeEvent(rrInstance, testId):
     words = []
     words = divide(readLine())
     print("Remove event " + words[0])
-    rrInstance.removeEvent(words[0], bool(words[1]))
+    rrInstance.removeEvent(words[0], str2bool(words[1]))
 
-def removeEventAssignments(rrInstance):
+def removeEventAssignments(rrInstance, testId):
     words = []
     words = divide(readLine())
-    print("Remove event assignments for" + words[1])
-    rrInstance.removeEventAssignments(words[0], words[1], bool(words[2]))
+    print("Remove event assignments for " + words[1])
+    rrInstance.removeEventAssignments(words[0], words[1], str2bool(words[2]))
 
-def setBoundary(rrInstance):
+def setBoundary(rrInstance, testId):
     words = []
     words = divide(readLine())
-    print("Set boundary condition for" + words[0])
-    rrInstance.setBoundary(words[0], bool(words[1]), bool(words[2]))
+    print("Set boundary condition for " + words[0])
+    rrInstance.setBoundary(words[0], str2bool(words[1]))
 
-def setHasOnlySubstanceUnits(rrInstance):
+def setHasOnlySubstanceUnits(rrInstance, testId):
     words = []
     words = divide(readLine())
-    print("Set HasOnlySubstanceUnits for" + words[0])
-    rrInstance.setHasOnlySubstanceUnits(words[0], bool(words[1]), bool(words[2]))
+    print("Set HasOnlySubstanceUnits for " + words[0])
+    rrInstance.setHasOnlySubstanceUnits(words[0], str2bool(words[1]), str2bool(words[2]))
 
-def setInitAmount(rrInstance):
+def setInitAmount(rrInstance, testId):
     words = []
     words = divide(readLine())
-    print("Set initial amount for" + words[0])
-    rrInstance.setInitAmount(words[0], words[1], bool(words[2]))
+    print("Set initial amount for " + words[0])
+    rrInstance.setInitAmount(words[0], words[1], str2bool(words[2]))
 
-def setInitConcentration(rrInstance):
+def setInitConcentration(rrInstance, testId):
     words = []
     words = divide(readLine())
-    print("Set initial concentration for" + words[0])
-    rrInstance.setInitConcentration(words[0], words[1], bool(words[2]))
+    print("Set initial concentration for " + words[0])
+    rrInstance.setInitConcentration(words[0], words[1], str2bool(words[2]))
 
-def setConstant(rrInstance):
+def setConstant(rrInstance, testId):
     words = []
     words = divide(readLine())
-    print("Set constant attribute for" + words[0])
-    rrInstance.setConstant(words[0], bool(words[1]), bool(words[2]))
+    print("Set constant attribute for " + words[0])
+    rrInstance.setConstant(words[0], str2bool(words[1]), str2bool(words[2]))
 
-def setReversible(rrInstance):
+def setReversible(rrInstance, testId):
     words = []
     words = divide(readLine())
-    print("Set reversible attribute for" + words[0])
-    rrInstance.setReversible(words[0], bool(words[1]), bool(words[2]))
+    print("Set reversible attribute for " + words[0])
+    rrInstance.setReversible(words[0], str2bool(words[1]), str2bool(words[2]))
 
-def setPersistent(rrInstance):
+def setPersistent(rrInstance, testId):
     words = []
     words = divide(readLine())
-    print("Set persistent attribute for" + words[0])
-    rrInstance.setPersistent(words[0], bool(words[1]), bool(words[2]))
+    print("Set persistent attribute for " + words[0])
+    rrInstance.setPersistent(words[0], str2bool(words[1]), str2bool(words[2]))
 
-def setTriggerInitialValue(rrInstance):
+def setTriggerInitialValue(rrInstance, testId):
     words = []
     words = divide(readLine())
-    print("Set TriggerInitialValue attribute for" + words[0])
-    rrInstance.setPersistent(words[0], bool(words[1]), bool(words[2]))
+    print("Set TriggerInitialValue attribute for " + words[0])
+    rrInstance.setPersistent(words[0], str2bool(words[1]), str2bool(words[2]))
 
-def setKineticLaw(rrInstance):
+def setKineticLaw(rrInstance, testId):
     words = []
     words = divide(readLine())
-    print("Set kinetic law for" + words[0])
-    rrInstance.setKineticLaw(words[0], words[1], bool(words[2]))
+    print("Set kinetic law for " + words[0])
+    rrInstance.setKineticLaw(words[0], words[1], str2bool(words[2]))
 
 def setVectorAmountAbsoluteTolerance(rrInstance, testId):
     errorFlag = False
@@ -1526,7 +1564,7 @@ functions = {'[Add Species]' : addSpecies,
              '[Remove Reaction]': removeReaction,
              '[Remove Parameter]': removeParameter,
              '[Remove Compartment]': removeCompartment,
-             '[Remove Rules]': removeRules,
+             '[Remove Rule]': removeRules,
              '[Remove Event]': removeEvent,
              '[Remove Event Assignments]': removeEventAssignments,
              '[Scaled Concentration Control Matrix]': checkScaledConcentrationControlMatrix,
@@ -1638,7 +1676,7 @@ def runTester (testDir=None):
             while testId != '[END_EDITING]':
                 if testId in functions:
                     func = functions[testId]
-                    func (rrInstance)
+                    func (rrInstance, testId)
                 else:
                     print('No initialization function found for ' + testId)
                 testId = jumpToNextTest()

@@ -1,0 +1,110 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<sbml xmlns="http://www.sbml.org/sbml/level2" level="2" version="1">
+  <model metaid="_case00430" id="case00430" name="case00430">
+    <listOfCompartments>
+      <compartment id="C" name="C" size="0.1" units="volume"/>
+    </listOfCompartments>
+    <listOfSpecies>
+      <species id="S1" name="S1" compartment="C" initialAmount="0.001" substanceUnits="substance"/>
+      <species id="S2" name="S2" compartment="C" initialAmount="0.0012" substanceUnits="substance"/>
+      <species id="S3" name="S3" compartment="C" initialAmount="0.002" substanceUnits="substance"/>
+      <species id="S4" name="S4" compartment="C" initialAmount="0.001" substanceUnits="substance"/>
+    </listOfSpecies>
+    <listOfParameters>
+      <parameter id="k1" name="k1" value="750"/>
+      <parameter id="k2" name="k2" value="250"/>
+    </listOfParameters>
+    <listOfReactions>
+      <reaction id="reaction1" name="reaction1" reversible="false" fast="false">
+        <listOfReactants>
+          <speciesReference species="S1"/>
+          <speciesReference species="S2"/>
+        </listOfReactants>
+        <listOfProducts>
+          <speciesReference species="S3"/>
+          <speciesReference species="S4"/>
+        </listOfProducts>
+        <kineticLaw>
+          <math xmlns="http://www.w3.org/1998/Math/MathML">
+            <apply>
+              <times/>
+              <ci> C </ci>
+              <ci> k1 </ci>
+              <ci> S1 </ci>
+              <ci> S2 </ci>
+            </apply>
+          </math>
+        </kineticLaw>
+      </reaction>
+      <reaction id="reaction2" name="reaction2" reversible="false" fast="false">
+        <listOfReactants>
+          <speciesReference species="S3"/>
+          <speciesReference species="S4"/>
+        </listOfReactants>
+        <listOfProducts>
+          <speciesReference species="S1"/>
+          <speciesReference species="S2"/>
+        </listOfProducts>
+        <kineticLaw>
+          <math xmlns="http://www.w3.org/1998/Math/MathML">
+            <apply>
+              <times/>
+              <ci> C </ci>
+              <ci> k2 </ci>
+              <ci> S3 </ci>
+              <ci> S4 </ci>
+            </apply>
+          </math>
+        </kineticLaw>
+      </reaction>
+    </listOfReactions>
+    <listOfEvents>
+      <event id="event1" name="event1">
+        <trigger>
+          <math xmlns="http://www.w3.org/1998/Math/MathML">
+            <apply>
+              <gt/>
+              <ci> S4 </ci>
+              <ci> S2 </ci>
+            </apply>
+          </math>
+        </trigger>
+        <delay>
+          <math xmlns="http://www.w3.org/1998/Math/MathML">
+            <cn> 0.5 </cn>
+          </math>
+        </delay>
+        <listOfEventAssignments>
+          <eventAssignment variable="S1">
+            <math xmlns="http://www.w3.org/1998/Math/MathML">
+              <cn type="rational"> 1 <sep/> 500 </cn>
+            </math>
+          </eventAssignment>
+        </listOfEventAssignments>
+      </event>
+      <event id="event2" name="event2">
+        <trigger>
+          <math xmlns="http://www.w3.org/1998/Math/MathML">
+            <apply>
+              <lt/>
+              <ci> S3 </ci>
+              <cn type="rational"> 1 <sep/> 50 </cn>
+            </apply>
+          </math>
+        </trigger>
+        <delay>
+          <math xmlns="http://www.w3.org/1998/Math/MathML">
+            <cn type="integer"> 1 </cn>
+          </math>
+        </delay>
+        <listOfEventAssignments>
+          <eventAssignment variable="S4">
+            <math xmlns="http://www.w3.org/1998/Math/MathML">
+              <cn type="rational"> 1 <sep/> 1000 </cn>
+            </math>
+          </eventAssignment>
+        </listOfEventAssignments>
+      </event>
+    </listOfEvents>
+  </model>
+</sbml>

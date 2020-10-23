@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<sbml xmlns="http://www.sbml.org/sbml/level1" level="1" version="2">
+  <model name="case00168">
+    <listOfCompartments>
+      <compartment name="AssignedName"/>
+    </listOfCompartments>
+    <listOfParameters>
+      <parameter name="S1" value="0.02"/>
+      <parameter name="S2" value="0.02"/>
+      <parameter name="S3" value="0"/>
+      <parameter name="S4" value="0"/>
+      <parameter name="k1" value="100"/>
+      <parameter name="k2" value="0.9"/>
+      <parameter name="k3" value="0.7"/>
+    </listOfParameters>
+    <listOfRules>
+      <parameterRule formula="-1 * k1 * S1 * S2 + k2 * S3 + k3 * S3" type="rate" name="S1"/>
+      <parameterRule formula="k2 * S3 + -1 * k1 * S1 * S2" type="rate" name="S2"/>
+      <parameterRule formula="k1 * S1 * S2 + -1 * k2 * S3 + -1 * k3 * S3" type="rate" name="S3"/>
+      <parameterRule formula="k3 * S3" type="rate" name="S4"/>
+    </listOfRules>
+  </model>
+</sbml>

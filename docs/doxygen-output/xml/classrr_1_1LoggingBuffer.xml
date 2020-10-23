@@ -1,0 +1,134 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.20" xml:lang="en-US">
+  <compounddef id="classrr_1_1LoggingBuffer" kind="class" language="C++" prot="public">
+    <compoundname>rr::LoggingBuffer</compoundname>
+    <includes refid="rrLogger_8h" local="no">rrLogger.h</includes>
+      <sectiondef kind="private-attrib">
+      <memberdef kind="variable" id="classrr_1_1LoggingBuffer_1a290b76b0e6cb89c58703971a6a474fec" prot="private" static="no" mutable="no">
+        <type>std::stringstream</type>
+        <definition>std::stringstream rr::LoggingBuffer::buffer</definition>
+        <argsstring></argsstring>
+        <name>buffer</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="rrLogger.h" line="41" column="23" bodyfile="rrLogger.h" bodystart="41" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="classrr_1_1LoggingBuffer_1aac93dd6e75e99df1b4841388f42db9f2" prot="private" static="no" mutable="no">
+        <type>int</type>
+        <definition>int rr::LoggingBuffer::level</definition>
+        <argsstring></argsstring>
+        <name>level</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="rrLogger.h" line="42" column="9" bodyfile="rrLogger.h" bodystart="42" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="classrr_1_1LoggingBuffer_1adb7e4ff29400e8b874602167ae3c4108" prot="private" static="no" mutable="no">
+        <type>const char *</type>
+        <definition>const char* rr::LoggingBuffer::file</definition>
+        <argsstring></argsstring>
+        <name>file</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="rrLogger.h" line="43" column="16" bodyfile="rrLogger.h" bodystart="43" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="classrr_1_1LoggingBuffer_1a37b76a863e73200728cf4eba6bcdf056" prot="private" static="no" mutable="no">
+        <type>int</type>
+        <definition>int rr::LoggingBuffer::line</definition>
+        <argsstring></argsstring>
+        <name>line</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="rrLogger.h" line="44" column="9" bodyfile="rrLogger.h" bodystart="44" bodyend="-1"/>
+      </memberdef>
+      </sectiondef>
+      <sectiondef kind="public-func">
+      <memberdef kind="function" id="classrr_1_1LoggingBuffer_1a1f514c583a4f6348957313a26009480e" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type></type>
+        <definition>rr::LoggingBuffer::LoggingBuffer</definition>
+        <argsstring>(int level, const char *file, int line)</argsstring>
+        <name>LoggingBuffer</name>
+        <param>
+          <type>int</type>
+          <declname>level</declname>
+        </param>
+        <param>
+          <type>const char *</type>
+          <declname>file</declname>
+        </param>
+        <param>
+          <type>int</type>
+          <declname>line</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="rrLogger.h" line="28" column="5" bodyfile="rrLogger.cpp" bodystart="544" bodyend="556"/>
+      </memberdef>
+      <memberdef kind="function" id="classrr_1_1LoggingBuffer_1a604487b60a968da939c335195a9fba19" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type></type>
+        <definition>rr::LoggingBuffer::~LoggingBuffer</definition>
+        <argsstring>()</argsstring>
+        <name>~LoggingBuffer</name>
+        <briefdescription>
+<para>dump the contents of the stringstream to the log. </para>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="rrLogger.h" line="33" column="5" bodyfile="rrLogger.cpp" bodystart="558" bodyend="591"/>
+      </memberdef>
+      <memberdef kind="function" id="classrr_1_1LoggingBuffer_1a23c72224ad52f14bc2d52d1eb361d479" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>std::ostream &amp;</type>
+        <definition>std::ostream &amp; rr::LoggingBuffer::stream</definition>
+        <argsstring>()</argsstring>
+        <name>stream</name>
+        <briefdescription>
+<para>get the stream this buffer holds. </para>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="rrLogger.h" line="38" column="18" bodyfile="rrLogger.cpp" bodystart="593" bodyend="596"/>
+      </memberdef>
+      </sectiondef>
+    <briefdescription>
+<para>Poco LogStream dumps to the log when a newline i.e. </para>
+    </briefdescription>
+    <detaileddescription>
+<para>std::endl is encountered, howeve the old proprietary logging system dumps basically when the stream object goes out of scope.</para>
+<para>This object allows us to to use the new Poco logging system and maintain compatability with all existing code.</para>
+<para>This object is returne from the <ref refid="classrr_1_1Logger" kindref="compound">rr::Logger</ref>, exposes a ostream interface, and and dumps to the log when it goes out of scope. </para>
+    </detaileddescription>
+    <location file="rrLogger.h" line="25" column="1" bodyfile="rrLogger.h" bodystart="26" bodyend="45"/>
+    <listofallmembers>
+      <member refid="classrr_1_1LoggingBuffer_1a290b76b0e6cb89c58703971a6a474fec" prot="private" virt="non-virtual"><scope>rr::LoggingBuffer</scope><name>buffer</name></member>
+      <member refid="classrr_1_1LoggingBuffer_1adb7e4ff29400e8b874602167ae3c4108" prot="private" virt="non-virtual"><scope>rr::LoggingBuffer</scope><name>file</name></member>
+      <member refid="classrr_1_1LoggingBuffer_1aac93dd6e75e99df1b4841388f42db9f2" prot="private" virt="non-virtual"><scope>rr::LoggingBuffer</scope><name>level</name></member>
+      <member refid="classrr_1_1LoggingBuffer_1a37b76a863e73200728cf4eba6bcdf056" prot="private" virt="non-virtual"><scope>rr::LoggingBuffer</scope><name>line</name></member>
+      <member refid="classrr_1_1LoggingBuffer_1a1f514c583a4f6348957313a26009480e" prot="public" virt="non-virtual"><scope>rr::LoggingBuffer</scope><name>LoggingBuffer</name></member>
+      <member refid="classrr_1_1LoggingBuffer_1a23c72224ad52f14bc2d52d1eb361d479" prot="public" virt="non-virtual"><scope>rr::LoggingBuffer</scope><name>stream</name></member>
+      <member refid="classrr_1_1LoggingBuffer_1a604487b60a968da939c335195a9fba19" prot="public" virt="non-virtual"><scope>rr::LoggingBuffer</scope><name>~LoggingBuffer</name></member>
+    </listofallmembers>
+  </compounddef>
+</doxygen>

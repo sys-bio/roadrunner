@@ -138,7 +138,7 @@ private:
             // frees both new objects
             Py_XDECREF(args);
 
-            // Release the thread. No Python API allowed beyond this point.
+            // Release the thread. No Python wrappers allowed beyond this point.
             PyGILState_Release(gstate);
 
             if (!err.empty())
@@ -194,7 +194,7 @@ private:
             Py_XDECREF(pyres);
             Py_XDECREF(args);
 
-            // Release the thread. No Python API allowed beyond this point.
+            // Release the thread. No Python wrappers allowed beyond this point.
             PyGILState_Release(gstate);
 
             if (!err.empty())

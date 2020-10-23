@@ -1,0 +1,2314 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.20" xml:lang="en-US">
+  <compounddef id="classrr_1_1ExecutableModel" kind="class" language="C++" prot="public" abstract="yes">
+    <compoundname>rr::ExecutableModel</compoundname>
+    <includes refid="rrExecutableModel_8h" local="no">rrExecutableModel.h</includes>
+      <sectiondef kind="public-type">
+      <memberdef kind="enum" id="classrr_1_1ExecutableModel_1a0503ffbf5c6c971cf545d7570ec0404c" prot="public" static="no" strong="no">
+        <type></type>
+        <name>ExecutableModelFlags</name>
+        <enumvalue id="classrr_1_1ExecutableModel_1a0503ffbf5c6c971cf545d7570ec0404ca389fbe7a44e9cb64d2e16415cd08554f" prot="public">
+          <name>INTEGRATION</name>
+          <initializer>= (0x1 &lt;&lt; 0)</initializer>
+          <briefdescription>
+<para>A simulation is currently running. </para>
+          </briefdescription>
+          <detaileddescription>
+<para>This means that the model should not have to re-calculate the reaction rate vector as it was calculated in the previous integration step. </para>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="classrr_1_1ExecutableModel_1a0503ffbf5c6c971cf545d7570ec0404ca3a399e67ea485968593a0c692643e107" prot="public">
+          <name>OPTIMIZE_REACTION_RATE_SELECTION</name>
+          <initializer>= (0x1 &lt;&lt; 1)</initializer>
+          <briefdescription>
+<para>optimize not-recalculating the reaction rates during selection. </para>
+          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="rrExecutableModel.h" line="728" column="9" bodyfile="rrExecutableModel.h" bodystart="728" bodyend="740"/>
+      </memberdef>
+      </sectiondef>
+      <sectiondef kind="friend">
+      <memberdef kind="friend" id="classrr_1_1ExecutableModel_1a4ee035f139a2124731903f5911c22690" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>friend class</type>
+        <definition>friend class RoadRunner</definition>
+        <argsstring></argsstring>
+        <name>RoadRunner</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="rrExecutableModel.h" line="755" column="9" bodyfile="rrExecutableModel.h" bodystart="755" bodyend="-1"/>
+      </memberdef>
+      </sectiondef>
+      <sectiondef kind="public-func">
+      <memberdef kind="function" id="classrr_1_1ExecutableModel_1a07791b0ccd6feeb665278e9888cb8af7" prot="public" static="no" const="yes" explicit="no" inline="no" virt="pure-virtual">
+        <type>std::string</type>
+        <definition>virtual std::string rr::ExecutableModel::getExecutableModelDesc</definition>
+        <argsstring>() const =0</argsstring>
+        <name>getExecutableModelDesc</name>
+        <briefdescription>
+<para>Returns a human-readable description of the code generation backend, e.g. LLVM, legacy C, etc. </para>
+        </briefdescription>
+        <detaileddescription>
+<para><simplesect kind="author"><para>JKM </para>
+</simplesect>
+<simplesect kind="date"><para>07/31/2015 </para>
+</simplesect>
+</para>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="rrExecutableModel.h" line="127" column="29"/>
+      </memberdef>
+      <memberdef kind="function" id="classrr_1_1ExecutableModel_1a6ad7fd317a2335c337d7c8a3aeb8e044" prot="public" static="no" const="no" explicit="no" inline="no" virt="pure-virtual">
+        <type>std::string</type>
+        <definition>virtual std::string rr::ExecutableModel::getModelName</definition>
+        <argsstring>()=0</argsstring>
+        <name>getModelName</name>
+        <briefdescription>
+<para>get the name of the model </para>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="rrExecutableModel.h" line="132" column="29"/>
+      </memberdef>
+      <memberdef kind="function" id="classrr_1_1ExecutableModel_1ad38c7e2bf987ce1f7cbb8ac7316b8760" prot="public" static="no" const="no" explicit="no" inline="no" virt="pure-virtual">
+        <type>void</type>
+        <definition>virtual void rr::ExecutableModel::setTime</definition>
+        <argsstring>(double _time)=0</argsstring>
+        <name>setTime</name>
+        <param>
+          <type>double</type>
+          <declname>_time</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="rrExecutableModel.h" line="134" column="22"/>
+      </memberdef>
+      <memberdef kind="function" id="classrr_1_1ExecutableModel_1a9f4ae8c898f3c1553377b0f90b96c8e4" prot="public" static="no" const="no" explicit="no" inline="no" virt="pure-virtual">
+        <type>double</type>
+        <definition>virtual double rr::ExecutableModel::getTime</definition>
+        <argsstring>()=0</argsstring>
+        <name>getTime</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="rrExecutableModel.h" line="136" column="24"/>
+      </memberdef>
+      <memberdef kind="function" id="classrr_1_1ExecutableModel_1a217c61819d9b029c5928ace53b805e89" prot="public" static="no" const="no" explicit="no" inline="no" virt="pure-virtual">
+        <type>void</type>
+        <definition>virtual void rr::ExecutableModel::reset</definition>
+        <argsstring>()=0</argsstring>
+        <name>reset</name>
+        <briefdescription>
+<para>Loads the initial conditions into the current model state. </para>
+        </briefdescription>
+        <detaileddescription>
+<para>Initial conditions may have been updated at any time externally. </para>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="rrExecutableModel.h" line="144" column="22"/>
+      </memberdef>
+      <memberdef kind="function" id="classrr_1_1ExecutableModel_1a2acd2a498cee58cfdc676d9010be5ec0" prot="public" static="no" const="no" explicit="no" inline="no" virt="pure-virtual">
+        <type>int</type>
+        <definition>virtual int rr::ExecutableModel::getNumDepFloatingSpecies</definition>
+        <argsstring>()=0</argsstring>
+        <name>getNumDepFloatingSpecies</name>
+        <briefdescription>
+<para>dependent species are defined by rules and the only way to change them is by changing the values on which they depend. </para>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="rrExecutableModel.h" line="156" column="21"/>
+      </memberdef>
+      <memberdef kind="function" id="classrr_1_1ExecutableModel_1aa2999a84a5a0d691dc08f3f78b94636d" prot="public" static="no" const="no" explicit="no" inline="no" virt="pure-virtual">
+        <type>int</type>
+        <definition>virtual int rr::ExecutableModel::getNumFloatingSpecies</definition>
+        <argsstring>()=0</argsstring>
+        <name>getNumFloatingSpecies</name>
+        <briefdescription>
+<para>total number of floating species. </para>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="rrExecutableModel.h" line="161" column="21"/>
+      </memberdef>
+      <memberdef kind="function" id="classrr_1_1ExecutableModel_1a390a1905aabac6056f6dceff11833c43" prot="public" static="no" const="no" explicit="no" inline="no" virt="pure-virtual">
+        <type>int</type>
+        <definition>virtual int rr::ExecutableModel::getFloatingSpeciesIndex</definition>
+        <argsstring>(const std::string &amp;eid)=0</argsstring>
+        <name>getFloatingSpeciesIndex</name>
+        <param>
+          <type>const std::string &amp;</type>
+          <declname>eid</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="rrExecutableModel.h" line="163" column="21"/>
+      </memberdef>
+      <memberdef kind="function" id="classrr_1_1ExecutableModel_1a50dfa7535bec552fbc8396bd1ce99155" prot="public" static="no" const="no" explicit="no" inline="no" virt="pure-virtual">
+        <type>std::string</type>
+        <definition>virtual std::string rr::ExecutableModel::getFloatingSpeciesId</definition>
+        <argsstring>(size_t index)=0</argsstring>
+        <name>getFloatingSpeciesId</name>
+        <param>
+          <type>size_t</type>
+          <declname>index</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="rrExecutableModel.h" line="165" column="29"/>
+      </memberdef>
+      <memberdef kind="function" id="classrr_1_1ExecutableModel_1ace75e9d47e3eeb59661e7c2e2b2ed6e4" prot="public" static="no" const="no" explicit="no" inline="no" virt="pure-virtual">
+        <type>int</type>
+        <definition>virtual int rr::ExecutableModel::getNumIndFloatingSpecies</definition>
+        <argsstring>()=0</argsstring>
+        <name>getNumIndFloatingSpecies</name>
+        <briefdescription>
+<para>independent species do are not defined by rules, they typically participate in reactions and can have thier values set at any time. </para>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="rrExecutableModel.h" line="171" column="21"/>
+      </memberdef>
+      <memberdef kind="function" id="classrr_1_1ExecutableModel_1ac83c1f5b678079babd5eeb76c87a4e02" prot="public" static="no" const="no" explicit="no" inline="no" virt="pure-virtual">
+        <type>int</type>
+        <definition>virtual int rr::ExecutableModel::getFloatingSpeciesAmounts</definition>
+        <argsstring>(size_t len, int const *indx, double *values)=0</argsstring>
+        <name>getFloatingSpeciesAmounts</name>
+        <param>
+          <type>size_t</type>
+          <declname>len</declname>
+        </param>
+        <param>
+          <type>int const *</type>
+          <declname>indx</declname>
+        </param>
+        <param>
+          <type>double *</type>
+          <declname>values</declname>
+        </param>
+        <briefdescription>
+<para>get the floating species amounts </para>
+        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername direction="in">len</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>the length of the indx and values arrays. </para>
+</parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername direction="in">indx</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>an array of length len of boundary species to return. </para>
+</parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername direction="out">values</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>an array of at least length len which will store the returned boundary species amounts. </para>
+</parameterdescription>
+</parameteritem>
+</parameterlist>
+</para>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="rrExecutableModel.h" line="181" column="21"/>
+      </memberdef>
+      <memberdef kind="function" id="classrr_1_1ExecutableModel_1a47b3aed1ff982849b4398e85735650fc" prot="public" static="no" const="no" explicit="no" inline="no" virt="pure-virtual">
+        <type>int</type>
+        <definition>virtual int rr::ExecutableModel::setFloatingSpeciesAmounts</definition>
+        <argsstring>(size_t len, int const *indx, const double *values)=0</argsstring>
+        <name>setFloatingSpeciesAmounts</name>
+        <param>
+          <type>size_t</type>
+          <declname>len</declname>
+        </param>
+        <param>
+          <type>int const *</type>
+          <declname>indx</declname>
+        </param>
+        <param>
+          <type>const double *</type>
+          <declname>values</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="rrExecutableModel.h" line="184" column="21"/>
+      </memberdef>
+      <memberdef kind="function" id="classrr_1_1ExecutableModel_1ae1e4374bedf764a353165d7f3acc31c0" prot="public" static="no" const="no" explicit="no" inline="no" virt="pure-virtual">
+        <type>int</type>
+        <definition>virtual int rr::ExecutableModel::getFloatingSpeciesAmountRates</definition>
+        <argsstring>(size_t len, int const *indx, double *values)=0</argsstring>
+        <name>getFloatingSpeciesAmountRates</name>
+        <param>
+          <type>size_t</type>
+          <declname>len</declname>
+        </param>
+        <param>
+          <type>int const *</type>
+          <declname>indx</declname>
+        </param>
+        <param>
+          <type>double *</type>
+          <declname>values</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="rrExecutableModel.h" line="187" column="21"/>
+      </memberdef>
+      <memberdef kind="function" id="classrr_1_1ExecutableModel_1aae51da13c4dbe4e0ae21f12f3a23cdb8" prot="public" static="no" const="no" explicit="no" inline="no" virt="pure-virtual">
+        <type>int</type>
+        <definition>virtual int rr::ExecutableModel::getFloatingSpeciesConcentrationRates</definition>
+        <argsstring>(size_t len, int const *indx, double *values)=0</argsstring>
+        <name>getFloatingSpeciesConcentrationRates</name>
+        <param>
+          <type>size_t</type>
+          <declname>len</declname>
+        </param>
+        <param>
+          <type>int const *</type>
+          <declname>indx</declname>
+        </param>
+        <param>
+          <type>double *</type>
+          <declname>values</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="rrExecutableModel.h" line="191" column="21"/>
+      </memberdef>
+      <memberdef kind="function" id="classrr_1_1ExecutableModel_1afdb9b1204d85b4baf496e685e16c0479" prot="public" static="no" const="no" explicit="no" inline="no" virt="pure-virtual">
+        <type>int</type>
+        <definition>virtual int rr::ExecutableModel::getFloatingSpeciesConcentrations</definition>
+        <argsstring>(size_t len, int const *indx, double *values)=0</argsstring>
+        <name>getFloatingSpeciesConcentrations</name>
+        <param>
+          <type>size_t</type>
+          <declname>len</declname>
+        </param>
+        <param>
+          <type>int const *</type>
+          <declname>indx</declname>
+        </param>
+        <param>
+          <type>double *</type>
+          <declname>values</declname>
+        </param>
+        <briefdescription>
+<para>get the floating species concentrations </para>
+        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername direction="in">len</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>the length of the indx and values arrays. </para>
+</parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername direction="in">indx</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>an array of length len of boundary species to return. </para>
+</parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername direction="out">values</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>an array of at least length len which will store the returned boundary species amounts. </para>
+</parameterdescription>
+</parameteritem>
+</parameterlist>
+</para>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="rrExecutableModel.h" line="202" column="21"/>
+      </memberdef>
+      <memberdef kind="function" id="classrr_1_1ExecutableModel_1aecd3bdfe291bd3791fe7e4e75a71ac3f" prot="public" static="no" const="no" explicit="no" inline="no" virt="pure-virtual">
+        <type>int</type>
+        <definition>virtual int rr::ExecutableModel::setFloatingSpeciesConcentrations</definition>
+        <argsstring>(size_t len, int const *indx, double const *values)=0</argsstring>
+        <name>setFloatingSpeciesConcentrations</name>
+        <param>
+          <type>size_t</type>
+          <declname>len</declname>
+        </param>
+        <param>
+          <type>int const *</type>
+          <declname>indx</declname>
+        </param>
+        <param>
+          <type>double const *</type>
+          <declname>values</declname>
+        </param>
+        <briefdescription>
+<para>set the floating species concentrations </para>
+        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername direction="in">len</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>the length of the indx and values arrays. </para>
+</parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername direction="in">indx</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>an array of length len of boundary species to return. </para>
+</parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername direction="in">values</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>an array of at least length len which will store the returned boundary species amounts. </para>
+</parameterdescription>
+</parameteritem>
+</parameterlist>
+</para>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="rrExecutableModel.h" line="213" column="21"/>
+      </memberdef>
+      <memberdef kind="function" id="classrr_1_1ExecutableModel_1a29d64b57e270120b9ee37d3464ffbb3c" prot="public" static="no" const="no" explicit="no" inline="no" virt="pure-virtual">
+        <type>int</type>
+        <definition>virtual int rr::ExecutableModel::setFloatingSpeciesInitConcentrations</definition>
+        <argsstring>(size_t len, int const *indx, double const *values)=0</argsstring>
+        <name>setFloatingSpeciesInitConcentrations</name>
+        <param>
+          <type>size_t</type>
+          <declname>len</declname>
+        </param>
+        <param>
+          <type>int const *</type>
+          <declname>indx</declname>
+        </param>
+        <param>
+          <type>double const *</type>
+          <declname>values</declname>
+        </param>
+        <briefdescription>
+<para>Set the initial concentrations of the floating species. </para>
+        </briefdescription>
+        <detaileddescription>
+<para>Takes the same indices as the other floating species methods.</para>
+<para>Note, if a floating species has an initial assignment rule, than the initial conditions value can only be set by updating the values on which it depends, it can not be set directly. </para>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="rrExecutableModel.h" line="226" column="21"/>
+      </memberdef>
+      <memberdef kind="function" id="classrr_1_1ExecutableModel_1a6545a8afda7e5a52d9fb0ae945990d80" prot="public" static="no" const="no" explicit="no" inline="no" virt="pure-virtual">
+        <type>int</type>
+        <definition>virtual int rr::ExecutableModel::getFloatingSpeciesInitConcentrations</definition>
+        <argsstring>(size_t len, int const *indx, double *values)=0</argsstring>
+        <name>getFloatingSpeciesInitConcentrations</name>
+        <param>
+          <type>size_t</type>
+          <declname>len</declname>
+        </param>
+        <param>
+          <type>int const *</type>
+          <declname>indx</declname>
+        </param>
+        <param>
+          <type>double *</type>
+          <declname>values</declname>
+        </param>
+        <briefdescription>
+<para>Get the initial concentrations of the floating species, uses the same indexing as the other floating species methods. </para>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="rrExecutableModel.h" line="233" column="21"/>
+      </memberdef>
+      <memberdef kind="function" id="classrr_1_1ExecutableModel_1ab18c3070d601ba587d24a16353fc8b60" prot="public" static="no" const="no" explicit="no" inline="no" virt="pure-virtual">
+        <type>int</type>
+        <definition>virtual int rr::ExecutableModel::setFloatingSpeciesInitAmounts</definition>
+        <argsstring>(size_t len, int const *indx, double const *values)=0</argsstring>
+        <name>setFloatingSpeciesInitAmounts</name>
+        <param>
+          <type>size_t</type>
+          <declname>len</declname>
+        </param>
+        <param>
+          <type>int const *</type>
+          <declname>indx</declname>
+        </param>
+        <param>
+          <type>double const *</type>
+          <declname>values</declname>
+        </param>
+        <briefdescription>
+<para>Set the initial amounts of the floating species. </para>
+        </briefdescription>
+        <detaileddescription>
+<para>Takes the same indices as the other floating species methods.</para>
+<para>Note, if a floating species has an initial assignment rule, than the initial conditions value can only be set by updating the values on which it depends, it can not be set directly. </para>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="rrExecutableModel.h" line="246" column="21"/>
+      </memberdef>
+      <memberdef kind="function" id="classrr_1_1ExecutableModel_1a21232f10be3c16a112ddd93170d9caa8" prot="public" static="no" const="no" explicit="no" inline="no" virt="pure-virtual">
+        <type>int</type>
+        <definition>virtual int rr::ExecutableModel::getFloatingSpeciesInitAmounts</definition>
+        <argsstring>(size_t len, int const *indx, double *values)=0</argsstring>
+        <name>getFloatingSpeciesInitAmounts</name>
+        <param>
+          <type>size_t</type>
+          <declname>len</declname>
+        </param>
+        <param>
+          <type>int const *</type>
+          <declname>indx</declname>
+        </param>
+        <param>
+          <type>double *</type>
+          <declname>values</declname>
+        </param>
+        <briefdescription>
+<para>Get the initial amounts of the floating species, uses the same indexing as the other floating species methods. </para>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="rrExecutableModel.h" line="253" column="21"/>
+      </memberdef>
+      <memberdef kind="function" id="classrr_1_1ExecutableModel_1a6ee272090a6b7a4a6808f091c1930495" prot="public" static="no" const="no" explicit="no" inline="no" virt="pure-virtual">
+        <type>int</type>
+        <definition>virtual int rr::ExecutableModel::getNumBoundarySpecies</definition>
+        <argsstring>()=0</argsstring>
+        <name>getNumBoundarySpecies</name>
+        <briefdescription>
+<para>get the number of boundary species. </para>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="rrExecutableModel.h" line="270" column="21"/>
+      </memberdef>
+      <memberdef kind="function" id="classrr_1_1ExecutableModel_1a28488139fa975776eded9e8c899c307d" prot="public" static="no" const="no" explicit="no" inline="no" virt="pure-virtual">
+        <type>int</type>
+        <definition>virtual int rr::ExecutableModel::getBoundarySpeciesIndex</definition>
+        <argsstring>(const std::string &amp;eid)=0</argsstring>
+        <name>getBoundarySpeciesIndex</name>
+        <param>
+          <type>const std::string &amp;</type>
+          <declname>eid</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="rrExecutableModel.h" line="272" column="21"/>
+      </memberdef>
+      <memberdef kind="function" id="classrr_1_1ExecutableModel_1a1eda6c6d5e9db5d9057510dbd9bbbef5" prot="public" static="no" const="no" explicit="no" inline="no" virt="pure-virtual">
+        <type>std::string</type>
+        <definition>virtual std::string rr::ExecutableModel::getBoundarySpeciesId</definition>
+        <argsstring>(size_t index)=0</argsstring>
+        <name>getBoundarySpeciesId</name>
+        <param>
+          <type>size_t</type>
+          <declname>index</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="rrExecutableModel.h" line="274" column="29"/>
+      </memberdef>
+      <memberdef kind="function" id="classrr_1_1ExecutableModel_1a892be60159e501929cbb1169533d5104" prot="public" static="no" const="no" explicit="no" inline="no" virt="pure-virtual">
+        <type>int</type>
+        <definition>virtual int rr::ExecutableModel::getBoundarySpeciesAmounts</definition>
+        <argsstring>(size_t len, int const *indx, double *values)=0</argsstring>
+        <name>getBoundarySpeciesAmounts</name>
+        <param>
+          <type>size_t</type>
+          <declname>len</declname>
+        </param>
+        <param>
+          <type>int const *</type>
+          <declname>indx</declname>
+        </param>
+        <param>
+          <type>double *</type>
+          <declname>values</declname>
+        </param>
+        <briefdescription>
+<para>get the boundary species amounts </para>
+        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername direction="in">len</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>the length of the indx and values arrays. </para>
+</parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername direction="in">indx</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>an array of length len of boundary species to return. </para>
+</parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername direction="out">values</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>an array of at least length len which will store the returned boundary species amounts. </para>
+</parameterdescription>
+</parameteritem>
+</parameterlist>
+</para>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="rrExecutableModel.h" line="284" column="21"/>
+      </memberdef>
+      <memberdef kind="function" id="classrr_1_1ExecutableModel_1a17dbc546d79fe987ff625e0c387f5cbd" prot="public" static="no" const="no" explicit="no" inline="no" virt="pure-virtual">
+        <type>int</type>
+        <definition>virtual int rr::ExecutableModel::getBoundarySpeciesConcentrations</definition>
+        <argsstring>(size_t len, int const *indx, double *values)=0</argsstring>
+        <name>getBoundarySpeciesConcentrations</name>
+        <param>
+          <type>size_t</type>
+          <declname>len</declname>
+        </param>
+        <param>
+          <type>int const *</type>
+          <declname>indx</declname>
+        </param>
+        <param>
+          <type>double *</type>
+          <declname>values</declname>
+        </param>
+        <briefdescription>
+<para>get the boundary species concentrations </para>
+        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername direction="in">len</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>the length of the indx and values arrays. </para>
+</parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername direction="in">indx</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>an array of length len of boundary species to return. </para>
+</parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername direction="out">values</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>an array of at least length len which will store the returned boundary species amounts. </para>
+</parameterdescription>
+</parameteritem>
+</parameterlist>
+</para>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="rrExecutableModel.h" line="296" column="21"/>
+      </memberdef>
+      <memberdef kind="function" id="classrr_1_1ExecutableModel_1a1a4409ff1e5e41a13b1dcf2ab936ab23" prot="public" static="no" const="no" explicit="no" inline="no" virt="pure-virtual">
+        <type>int</type>
+        <definition>virtual int rr::ExecutableModel::setBoundarySpeciesConcentrations</definition>
+        <argsstring>(size_t len, int const *indx, double const *values)=0</argsstring>
+        <name>setBoundarySpeciesConcentrations</name>
+        <param>
+          <type>size_t</type>
+          <declname>len</declname>
+        </param>
+        <param>
+          <type>int const *</type>
+          <declname>indx</declname>
+        </param>
+        <param>
+          <type>double const *</type>
+          <declname>values</declname>
+        </param>
+        <briefdescription>
+<para>set the boundary species concentrations </para>
+        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername direction="in">len</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>the length of the indx and values arrays. </para>
+</parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername direction="in">indx</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>an array of length len of boundary species to return. </para>
+</parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername direction="in">values</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>an array of at least length len which will store the returned boundary species amounts. </para>
+</parameterdescription>
+</parameteritem>
+</parameterlist>
+</para>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="rrExecutableModel.h" line="307" column="21"/>
+      </memberdef>
+      <memberdef kind="function" id="classrr_1_1ExecutableModel_1aabbf6f025ea3c064f0dcaa5e4afaa87e" prot="public" static="no" const="no" explicit="no" inline="no" virt="pure-virtual">
+        <type>int</type>
+        <definition>virtual int rr::ExecutableModel::getNumGlobalParameters</definition>
+        <argsstring>()=0</argsstring>
+        <name>getNumGlobalParameters</name>
+        <briefdescription>
+<para>get the number of global parameters </para>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="rrExecutableModel.h" line="323" column="21"/>
+      </memberdef>
+      <memberdef kind="function" id="classrr_1_1ExecutableModel_1abcdcc03c4563dfbe6b64f932812906ee" prot="public" static="no" const="no" explicit="no" inline="no" virt="pure-virtual">
+        <type>int</type>
+        <definition>virtual int rr::ExecutableModel::getGlobalParameterIndex</definition>
+        <argsstring>(const std::string &amp;eid)=0</argsstring>
+        <name>getGlobalParameterIndex</name>
+        <param>
+          <type>const std::string &amp;</type>
+          <declname>eid</declname>
+        </param>
+        <briefdescription>
+<para>index of the global parameter id, -1 if it does not exist. </para>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="rrExecutableModel.h" line="328" column="21"/>
+      </memberdef>
+      <memberdef kind="function" id="classrr_1_1ExecutableModel_1a741aa1e4a24bca93c8eb12019a33cd81" prot="public" static="no" const="no" explicit="no" inline="no" virt="pure-virtual">
+        <type>std::string</type>
+        <definition>virtual std::string rr::ExecutableModel::getGlobalParameterId</definition>
+        <argsstring>(size_t index)=0</argsstring>
+        <name>getGlobalParameterId</name>
+        <param>
+          <type>size_t</type>
+          <declname>index</declname>
+        </param>
+        <briefdescription>
+<para>id of the indexed global parameter. </para>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="rrExecutableModel.h" line="333" column="29"/>
+      </memberdef>
+      <memberdef kind="function" id="classrr_1_1ExecutableModel_1af598ac63c984d7101b0d026dd217a822" prot="public" static="no" const="no" explicit="no" inline="no" virt="pure-virtual">
+        <type>int</type>
+        <definition>virtual int rr::ExecutableModel::getGlobalParameterValues</definition>
+        <argsstring>(size_t len, int const *indx, double *values)=0</argsstring>
+        <name>getGlobalParameterValues</name>
+        <param>
+          <type>size_t</type>
+          <declname>len</declname>
+        </param>
+        <param>
+          <type>int const *</type>
+          <declname>indx</declname>
+        </param>
+        <param>
+          <type>double *</type>
+          <declname>values</declname>
+        </param>
+        <briefdescription>
+<para>get the global parameter values </para>
+        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername direction="in">len</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>the length of the indx and values arrays. </para>
+</parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername direction="in">indx</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>an array of length len of boundary species to return. </para>
+</parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername direction="out">values</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>an array of at least length len which will store the returned boundary species amounts. </para>
+</parameterdescription>
+</parameteritem>
+</parameterlist>
+</para>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="rrExecutableModel.h" line="343" column="21"/>
+      </memberdef>
+      <memberdef kind="function" id="classrr_1_1ExecutableModel_1a46fbc6162f59ac7052c25879dba8e423" prot="public" static="no" const="no" explicit="no" inline="no" virt="pure-virtual">
+        <type>int</type>
+        <definition>virtual int rr::ExecutableModel::setGlobalParameterValues</definition>
+        <argsstring>(size_t len, int const *indx, const double *values)=0</argsstring>
+        <name>setGlobalParameterValues</name>
+        <param>
+          <type>size_t</type>
+          <declname>len</declname>
+        </param>
+        <param>
+          <type>int const *</type>
+          <declname>indx</declname>
+        </param>
+        <param>
+          <type>const double *</type>
+          <declname>values</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="rrExecutableModel.h" line="346" column="21"/>
+      </memberdef>
+      <memberdef kind="function" id="classrr_1_1ExecutableModel_1a71d62fc8b558dfb4da4de4dbd3845665" prot="public" static="no" const="no" explicit="no" inline="no" virt="pure-virtual">
+        <type>int</type>
+        <definition>virtual int rr::ExecutableModel::setGlobalParameterInitValues</definition>
+        <argsstring>(size_t len, int const *indx, double const *values)=0</argsstring>
+        <name>setGlobalParameterInitValues</name>
+        <param>
+          <type>size_t</type>
+          <declname>len</declname>
+        </param>
+        <param>
+          <type>int const *</type>
+          <declname>indx</declname>
+        </param>
+        <param>
+          <type>double const *</type>
+          <declname>values</declname>
+        </param>
+        <briefdescription>
+<para>Set the initial value of the global parameter. </para>
+        </briefdescription>
+        <detaileddescription>
+<para>Takes the same indices as the other global parameter methods. </para>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="rrExecutableModel.h" line="354" column="21"/>
+      </memberdef>
+      <memberdef kind="function" id="classrr_1_1ExecutableModel_1a8a1693fc65e2e34772ca5acecad1e90b" prot="public" static="no" const="no" explicit="no" inline="no" virt="pure-virtual">
+        <type>int</type>
+        <definition>virtual int rr::ExecutableModel::getGlobalParameterInitValues</definition>
+        <argsstring>(size_t len, int const *indx, double *values)=0</argsstring>
+        <name>getGlobalParameterInitValues</name>
+        <param>
+          <type>size_t</type>
+          <declname>len</declname>
+        </param>
+        <param>
+          <type>int const *</type>
+          <declname>indx</declname>
+        </param>
+        <param>
+          <type>double *</type>
+          <declname>values</declname>
+        </param>
+        <briefdescription>
+<para>Get the initial amounts of the global parameter, uses the same indexing as the other global parameter methods. </para>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="rrExecutableModel.h" line="361" column="21"/>
+      </memberdef>
+      <memberdef kind="function" id="classrr_1_1ExecutableModel_1acada1e982eafe06d0d5e46defdb40ca7" prot="public" static="no" const="no" explicit="no" inline="no" virt="pure-virtual">
+        <type>int</type>
+        <definition>virtual int rr::ExecutableModel::getNumCompartments</definition>
+        <argsstring>()=0</argsstring>
+        <name>getNumCompartments</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="rrExecutableModel.h" line="375" column="21"/>
+      </memberdef>
+      <memberdef kind="function" id="classrr_1_1ExecutableModel_1aa19f2c21557264ce883bd24c3b8f647a" prot="public" static="no" const="no" explicit="no" inline="no" virt="pure-virtual">
+        <type>int</type>
+        <definition>virtual int rr::ExecutableModel::getCompartmentIndexForFloatingSpecies</definition>
+        <argsstring>(size_t index)=0</argsstring>
+        <name>getCompartmentIndexForFloatingSpecies</name>
+        <param>
+          <type>size_t</type>
+          <declname>index</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="rrExecutableModel.h" line="377" column="21"/>
+      </memberdef>
+      <memberdef kind="function" id="classrr_1_1ExecutableModel_1a366727be244766db2ff917b64949858c" prot="public" static="no" const="no" explicit="no" inline="no" virt="pure-virtual">
+        <type>int</type>
+        <definition>virtual int rr::ExecutableModel::getCompartmentIndex</definition>
+        <argsstring>(const std::string &amp;eid)=0</argsstring>
+        <name>getCompartmentIndex</name>
+        <param>
+          <type>const std::string &amp;</type>
+          <declname>eid</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="rrExecutableModel.h" line="379" column="21"/>
+      </memberdef>
+      <memberdef kind="function" id="classrr_1_1ExecutableModel_1a8edf24e2351bc5796ddfa0901dcbaee5" prot="public" static="no" const="no" explicit="no" inline="no" virt="pure-virtual">
+        <type>std::string</type>
+        <definition>virtual std::string rr::ExecutableModel::getCompartmentId</definition>
+        <argsstring>(size_t index)=0</argsstring>
+        <name>getCompartmentId</name>
+        <param>
+          <type>size_t</type>
+          <declname>index</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="rrExecutableModel.h" line="381" column="29"/>
+      </memberdef>
+      <memberdef kind="function" id="classrr_1_1ExecutableModel_1a977a5a3a7ed0fcfa04fe74369a4526ae" prot="public" static="no" const="no" explicit="no" inline="no" virt="pure-virtual">
+        <type>int</type>
+        <definition>virtual int rr::ExecutableModel::getCompartmentVolumes</definition>
+        <argsstring>(size_t len, int const *indx, double *values)=0</argsstring>
+        <name>getCompartmentVolumes</name>
+        <param>
+          <type>size_t</type>
+          <declname>len</declname>
+        </param>
+        <param>
+          <type>int const *</type>
+          <declname>indx</declname>
+        </param>
+        <param>
+          <type>double *</type>
+          <declname>values</declname>
+        </param>
+        <briefdescription>
+<para>get the compartment volumes </para>
+        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername direction="in">len</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>the length of the indx and values arrays. </para>
+</parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername direction="in">indx</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>an array of length len of boundary species to return. </para>
+</parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername direction="out">values</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>an array of at least length len which will store the returned boundary species amounts. </para>
+</parameterdescription>
+</parameteritem>
+</parameterlist>
+</para>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="rrExecutableModel.h" line="391" column="21"/>
+      </memberdef>
+      <memberdef kind="function" id="classrr_1_1ExecutableModel_1a81a08dad23cb196914961e41d1f2f491" prot="public" static="no" const="no" explicit="no" inline="no" virt="pure-virtual">
+        <type>int</type>
+        <definition>virtual int rr::ExecutableModel::setCompartmentVolumes</definition>
+        <argsstring>(size_t len, int const *indx, const double *values)=0</argsstring>
+        <name>setCompartmentVolumes</name>
+        <param>
+          <type>size_t</type>
+          <declname>len</declname>
+        </param>
+        <param>
+          <type>int const *</type>
+          <declname>indx</declname>
+        </param>
+        <param>
+          <type>const double *</type>
+          <declname>values</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="rrExecutableModel.h" line="394" column="21"/>
+      </memberdef>
+      <memberdef kind="function" id="classrr_1_1ExecutableModel_1a83fa84b59feb32abe1f2a6b178b6f106" prot="public" static="no" const="no" explicit="no" inline="no" virt="pure-virtual">
+        <type>int</type>
+        <definition>virtual int rr::ExecutableModel::setCompartmentInitVolumes</definition>
+        <argsstring>(size_t len, int const *indx, double const *values)=0</argsstring>
+        <name>setCompartmentInitVolumes</name>
+        <param>
+          <type>size_t</type>
+          <declname>len</declname>
+        </param>
+        <param>
+          <type>int const *</type>
+          <declname>indx</declname>
+        </param>
+        <param>
+          <type>double const *</type>
+          <declname>values</declname>
+        </param>
+        <briefdescription>
+<para>Set the initial volumes of the compartments. </para>
+        </briefdescription>
+        <detaileddescription>
+<para>Takes the same indices as the other compartment methods.</para>
+<para>Note, if a compartment has an initial assignment rule, than the initial conditions value can only be set by updating the values on which it depends, it can not be set directly. </para>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="rrExecutableModel.h" line="407" column="21"/>
+      </memberdef>
+      <memberdef kind="function" id="classrr_1_1ExecutableModel_1afbc91472ec905f668e0cc5714fdc30db" prot="public" static="no" const="no" explicit="no" inline="no" virt="pure-virtual">
+        <type>int</type>
+        <definition>virtual int rr::ExecutableModel::getCompartmentInitVolumes</definition>
+        <argsstring>(size_t len, int const *indx, double *values)=0</argsstring>
+        <name>getCompartmentInitVolumes</name>
+        <param>
+          <type>size_t</type>
+          <declname>len</declname>
+        </param>
+        <param>
+          <type>int const *</type>
+          <declname>indx</declname>
+        </param>
+        <param>
+          <type>double *</type>
+          <declname>values</declname>
+        </param>
+        <briefdescription>
+<para>Get the initial volume of the compartments, uses the same indexing as the other compartment methods. </para>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="rrExecutableModel.h" line="414" column="21"/>
+      </memberdef>
+      <memberdef kind="function" id="classrr_1_1ExecutableModel_1a172aeacd0685bcce8153ae67718fc697" prot="public" static="no" const="no" explicit="no" inline="no" virt="pure-virtual">
+        <type>void</type>
+        <definition>virtual void rr::ExecutableModel::getIds</definition>
+        <argsstring>(int types, std::list&lt; std::string &gt; &amp;ids)=0</argsstring>
+        <name>getIds</name>
+        <param>
+          <type>int</type>
+          <declname>types</declname>
+        </param>
+        <param>
+          <type>std::list&lt; std::string &gt; &amp;</type>
+          <declname>ids</declname>
+        </param>
+        <briefdescription>
+<para>populates a given list with all the ids that this class can accept. </para>
+        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>ids</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>a list of strings that will be filled by this class. </para>
+</parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>types</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>the types of ids that are requested. Can be set to 0xffffffff to request all the ids that this class supports. This should by a bitwise OR of the filelds in <ref refid="classrr_1_1SelectionRecord_1a898963ab24a6ba614913715c981d8394" kindref="member">SelectionRecord::SelectionType</ref> </para>
+</parameterdescription>
+</parameteritem>
+</parameterlist>
+</para>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="rrExecutableModel.h" line="435" column="22"/>
+      </memberdef>
+      <memberdef kind="function" id="classrr_1_1ExecutableModel_1a200b81cd9a7f1f9a6b3af6a35fcc4c63" prot="public" static="no" const="no" explicit="no" inline="no" virt="pure-virtual">
+        <type>int</type>
+        <definition>virtual int rr::ExecutableModel::getSupportedIdTypes</definition>
+        <argsstring>()=0</argsstring>
+        <name>getSupportedIdTypes</name>
+        <briefdescription>
+<para>returns a bit field of the ids that this class supports. </para>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="rrExecutableModel.h" line="440" column="21"/>
+      </memberdef>
+      <memberdef kind="function" id="classrr_1_1ExecutableModel_1aebaced13ef2afd070d7a1c35eec8d9f2" prot="public" static="no" const="no" explicit="no" inline="no" virt="pure-virtual">
+        <type>double</type>
+        <definition>virtual double rr::ExecutableModel::getValue</definition>
+        <argsstring>(const std::string &amp;id)=0</argsstring>
+        <name>getValue</name>
+        <param>
+          <type>const std::string &amp;</type>
+          <declname>id</declname>
+        </param>
+        <briefdescription>
+<para>gets the value for the given id string. </para>
+        </briefdescription>
+        <detaileddescription>
+<para>The string must be a <ref refid="classrr_1_1SelectionRecord" kindref="compound">SelectionRecord</ref> string that is accepted by this class. </para>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="rrExecutableModel.h" line="446" column="24"/>
+      </memberdef>
+      <memberdef kind="function" id="classrr_1_1ExecutableModel_1ac98de72b8f4f43bc6b93b191852702b5" prot="public" static="no" const="no" explicit="no" inline="no" virt="pure-virtual">
+        <type>void</type>
+        <definition>virtual void rr::ExecutableModel::setValue</definition>
+        <argsstring>(const std::string &amp;id, double value)=0</argsstring>
+        <name>setValue</name>
+        <param>
+          <type>const std::string &amp;</type>
+          <declname>id</declname>
+        </param>
+        <param>
+          <type>double</type>
+          <declname>value</declname>
+        </param>
+        <briefdescription>
+<para>sets the value coresponding to the given selection stringl </para>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="rrExecutableModel.h" line="451" column="22"/>
+      </memberdef>
+      <memberdef kind="function" id="classrr_1_1ExecutableModel_1a2aacbf75ac32b2b188f7850cd48b8f71" prot="public" static="no" const="no" explicit="no" inline="no" virt="pure-virtual">
+        <type>int</type>
+        <definition>virtual int rr::ExecutableModel::getStoichiometryMatrix</definition>
+        <argsstring>(int *rows, int *cols, double **data)=0</argsstring>
+        <name>getStoichiometryMatrix</name>
+        <param>
+          <type>int *</type>
+          <declname>rows</declname>
+        </param>
+        <param>
+          <type>int *</type>
+          <declname>cols</declname>
+        </param>
+        <param>
+          <type>double **</type>
+          <declname>data</declname>
+        </param>
+        <briefdescription>
+<para>allocate a block of memory and copy the stochiometric values into it, and return it. </para>
+        </briefdescription>
+        <detaileddescription>
+<para>The caller is responsible for freeing the memory that is referenced by data.</para>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername direction="out">rows</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>will hold the number of rows in the matrix. </para>
+</parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername direction="out">cols</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>will hold the number of columns in the matrix. </para>
+</parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername direction="out">data</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>a pointer which will hold a newly allocated memory block. </para>
+</parameterdescription>
+</parameteritem>
+</parameterlist>
+</para>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="rrExecutableModel.h" line="468" column="21"/>
+      </memberdef>
+      <memberdef kind="function" id="classrr_1_1ExecutableModel_1af9f7809b903426c14942b01a8e24a2b7" prot="public" static="no" const="no" explicit="no" inline="no" virt="pure-virtual">
+        <type>double</type>
+        <definition>virtual double rr::ExecutableModel::getStoichiometry</definition>
+        <argsstring>(int speciesIndex, int reactionIndex)=0</argsstring>
+        <name>getStoichiometry</name>
+        <param>
+          <type>int</type>
+          <declname>speciesIndex</declname>
+        </param>
+        <param>
+          <type>int</type>
+          <declname>reactionIndex</declname>
+        </param>
+        <briefdescription>
+<para>Get the current stiochiometry value for the given species / reaction. </para>
+        </briefdescription>
+        <detaileddescription>
+<para>If either are not valid, NaN is returned. </para>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="rrExecutableModel.h" line="475" column="24"/>
+      </memberdef>
+      <memberdef kind="function" id="classrr_1_1ExecutableModel_1ab4927aa2d8bf20c59b75a568757d369b" prot="public" static="no" const="no" explicit="no" inline="no" virt="pure-virtual">
+        <type>int</type>
+        <definition>virtual int rr::ExecutableModel::getNumConservedMoieties</definition>
+        <argsstring>()=0</argsstring>
+        <name>getNumConservedMoieties</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="rrExecutableModel.h" line="478" column="21"/>
+      </memberdef>
+      <memberdef kind="function" id="classrr_1_1ExecutableModel_1afb584e140ba5ef19865d0256d275e538" prot="public" static="no" const="no" explicit="no" inline="no" virt="pure-virtual">
+        <type>int</type>
+        <definition>virtual int rr::ExecutableModel::getConservedMoietyIndex</definition>
+        <argsstring>(const std::string &amp;eid)=0</argsstring>
+        <name>getConservedMoietyIndex</name>
+        <param>
+          <type>const std::string &amp;</type>
+          <declname>eid</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="rrExecutableModel.h" line="480" column="21"/>
+      </memberdef>
+      <memberdef kind="function" id="classrr_1_1ExecutableModel_1a0fac30c0c3cab7e52e7f305be6a453fb" prot="public" static="no" const="no" explicit="no" inline="no" virt="pure-virtual">
+        <type>std::string</type>
+        <definition>virtual std::string rr::ExecutableModel::getConservedMoietyId</definition>
+        <argsstring>(size_t index)=0</argsstring>
+        <name>getConservedMoietyId</name>
+        <param>
+          <type>size_t</type>
+          <declname>index</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="rrExecutableModel.h" line="482" column="29"/>
+      </memberdef>
+      <memberdef kind="function" id="classrr_1_1ExecutableModel_1a8a155a08e3a7f015ebbe54e6dded9cfb" prot="public" static="no" const="no" explicit="no" inline="no" virt="pure-virtual">
+        <type>int</type>
+        <definition>virtual int rr::ExecutableModel::getConservedMoietyValues</definition>
+        <argsstring>(size_t len, int const *indx, double *values)=0</argsstring>
+        <name>getConservedMoietyValues</name>
+        <param>
+          <type>size_t</type>
+          <declname>len</declname>
+        </param>
+        <param>
+          <type>int const *</type>
+          <declname>indx</declname>
+        </param>
+        <param>
+          <type>double *</type>
+          <declname>values</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="rrExecutableModel.h" line="484" column="21"/>
+      </memberdef>
+      <memberdef kind="function" id="classrr_1_1ExecutableModel_1a3281ae63f4ab21a070a7858f022c3f9a" prot="public" static="no" const="no" explicit="no" inline="no" virt="pure-virtual">
+        <type>int</type>
+        <definition>virtual int rr::ExecutableModel::setConservedMoietyValues</definition>
+        <argsstring>(size_t len, int const *indx, const double *values)=0</argsstring>
+        <name>setConservedMoietyValues</name>
+        <param>
+          <type>size_t</type>
+          <declname>len</declname>
+        </param>
+        <param>
+          <type>int const *</type>
+          <declname>indx</declname>
+        </param>
+        <param>
+          <type>const double *</type>
+          <declname>values</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="rrExecutableModel.h" line="486" column="21"/>
+      </memberdef>
+      <memberdef kind="function" id="classrr_1_1ExecutableModel_1aa6ccf1c5b3b8817c7ce291a933bcaab7" prot="public" static="no" const="no" explicit="no" inline="no" virt="pure-virtual">
+        <type>int</type>
+        <definition>virtual int rr::ExecutableModel::getNumRateRules</definition>
+        <argsstring>()=0</argsstring>
+        <name>getNumRateRules</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="rrExecutableModel.h" line="489" column="21"/>
+      </memberdef>
+      <memberdef kind="function" id="classrr_1_1ExecutableModel_1ab045cbd84ce98fb9dff8ff250fdb131c" prot="public" static="no" const="yes" explicit="no" inline="yes" virt="virtual">
+        <type>std::vector&lt; std::string &gt;</type>
+        <definition>virtual std::vector&lt;std::string&gt; rr::ExecutableModel::getRateRuleSymbols</definition>
+        <argsstring>() const</argsstring>
+        <name>getRateRuleSymbols</name>
+        <briefdescription>
+<para>Gets the symbols defined by rate rules, i.e. returns all x such that x&apos; = f(x) is a rule which defines parameter x. </para>
+        </briefdescription>
+        <detaileddescription>
+<para><simplesect kind="author"><para>JKM </para>
+</simplesect>
+<simplesect kind="date"><para>07/31/2015 </para>
+</simplesect>
+</para>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="rrExecutableModel.h" line="497" column="29" bodyfile="rrExecutableModel.h" bodystart="497" bodyend="499"/>
+      </memberdef>
+      <memberdef kind="function" id="classrr_1_1ExecutableModel_1acb056a72125190c2abe39dba9c3600f1" prot="public" static="no" const="no" explicit="no" inline="no" virt="pure-virtual">
+        <type>int</type>
+        <definition>virtual int rr::ExecutableModel::getNumReactions</definition>
+        <argsstring>()=0</argsstring>
+        <name>getNumReactions</name>
+        <briefdescription>
+<para>get the number of reactions the model has </para>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="rrExecutableModel.h" line="504" column="21"/>
+      </memberdef>
+      <memberdef kind="function" id="classrr_1_1ExecutableModel_1a86fe96598b06cee5ca9a28dfdfd9d437" prot="public" static="no" const="no" explicit="no" inline="no" virt="pure-virtual">
+        <type>int</type>
+        <definition>virtual int rr::ExecutableModel::getReactionIndex</definition>
+        <argsstring>(const std::string &amp;eid)=0</argsstring>
+        <name>getReactionIndex</name>
+        <param>
+          <type>const std::string &amp;</type>
+          <declname>eid</declname>
+        </param>
+        <briefdescription>
+<para>get the index of a named reaction </para>
+        </briefdescription>
+        <detaileddescription>
+<para><simplesect kind="return"><para>&gt;= 0 on success, &lt; 0 on failure. </para>
+</simplesect>
+</para>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="rrExecutableModel.h" line="510" column="21"/>
+      </memberdef>
+      <memberdef kind="function" id="classrr_1_1ExecutableModel_1aeb911dc90408981370c78149680d9027" prot="public" static="no" const="no" explicit="no" inline="no" virt="pure-virtual">
+        <type>std::string</type>
+        <definition>virtual std::string rr::ExecutableModel::getReactionId</definition>
+        <argsstring>(size_t index)=0</argsstring>
+        <name>getReactionId</name>
+        <param>
+          <type>size_t</type>
+          <declname>index</declname>
+        </param>
+        <briefdescription>
+<para>get the name of the specified reaction </para>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="rrExecutableModel.h" line="515" column="29"/>
+      </memberdef>
+      <memberdef kind="function" id="classrr_1_1ExecutableModel_1a37c53cc370ff236657272f5596fd27ff" prot="public" static="no" const="no" explicit="no" inline="no" virt="pure-virtual">
+        <type>int</type>
+        <definition>virtual int rr::ExecutableModel::getReactionRates</definition>
+        <argsstring>(size_t len, int const *indx, double *values)=0</argsstring>
+        <name>getReactionRates</name>
+        <param>
+          <type>size_t</type>
+          <declname>len</declname>
+        </param>
+        <param>
+          <type>int const *</type>
+          <declname>indx</declname>
+        </param>
+        <param>
+          <type>double *</type>
+          <declname>values</declname>
+        </param>
+        <briefdescription>
+<para>get the vector of reaction rates. </para>
+        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>len</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>the length of the suplied buffer, must be &gt;= reaction rates size. </para>
+</parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>indx</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>pointer to index array. If NULL, then it is ignored and the reaction rates are copied directly into the suplied buffer. </para>
+</parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>values</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>pointer to user suplied buffer where rates will be stored. </para>
+</parameterdescription>
+</parameteritem>
+</parameterlist>
+</para>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="rrExecutableModel.h" line="525" column="21"/>
+      </memberdef>
+      <memberdef kind="function" id="classrr_1_1ExecutableModel_1a8372872ec5858e91adc81080ad763c84" prot="public" static="no" const="no" explicit="no" inline="no" virt="pure-virtual">
+        <type>void</type>
+        <definition>virtual void rr::ExecutableModel::getRateRuleValues</definition>
+        <argsstring>(double *rateRuleValues)=0</argsstring>
+        <name>getRateRuleValues</name>
+        <param>
+          <type>double *</type>
+          <declname>rateRuleValues</declname>
+        </param>
+        <briefdescription>
+<para>get the &apos;values&apos; i.e. </para>
+        </briefdescription>
+        <detaileddescription>
+<para>the what the rate rule integrates to, and store it in the given array.</para>
+<para>The length of rateRuleValues obviously must be the number of rate rules we have. </para>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="rrExecutableModel.h" line="535" column="22"/>
+      </memberdef>
+      <memberdef kind="function" id="classrr_1_1ExecutableModel_1ac6c245edd9ecea5feea84cff15db7b26" prot="public" static="no" const="no" explicit="no" inline="no" virt="pure-virtual">
+        <type>std::string</type>
+        <definition>virtual std::string rr::ExecutableModel::getStateVectorId</definition>
+        <argsstring>(size_t index)=0</argsstring>
+        <name>getStateVectorId</name>
+        <param>
+          <type>size_t</type>
+          <declname>index</declname>
+        </param>
+        <briefdescription>
+<para>get the id of an element of the state vector. </para>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="rrExecutableModel.h" line="540" column="29"/>
+      </memberdef>
+      <memberdef kind="function" id="classrr_1_1ExecutableModel_1a75b6f37ac538d2d2a0709fe4080b0570" prot="public" static="no" const="no" explicit="no" inline="no" virt="pure-virtual">
+        <type>int</type>
+        <definition>virtual int rr::ExecutableModel::getStateVector</definition>
+        <argsstring>(double *stateVector)=0</argsstring>
+        <name>getStateVector</name>
+        <param>
+          <type>double *</type>
+          <declname>stateVector</declname>
+        </param>
+        <briefdescription>
+<para>The state vector is a vector of elements that are defined by differential equations (rate rules) or independent floating species are defined by reactions. </para>
+        </briefdescription>
+        <detaileddescription>
+<para>To get the ids of the state vector elements, use getStateVectorId.</para>
+<para>copies the internal model state vector into the provided buffer.</para>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername direction="out">stateVector</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>a buffer to copy the state vector into, if NULL, return the size required.</para>
+</parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para>the number of items coppied into the provided buffer, if stateVector is NULL, returns the length of the state vector. </para>
+</simplesect>
+</para>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="rrExecutableModel.h" line="558" column="21"/>
+      </memberdef>
+      <memberdef kind="function" id="classrr_1_1ExecutableModel_1a57a67063c957714b916d4a3d4277c3b9" prot="public" static="no" const="no" explicit="no" inline="no" virt="pure-virtual">
+        <type>int</type>
+        <definition>virtual int rr::ExecutableModel::setStateVector</definition>
+        <argsstring>(const double *stateVector)=0</argsstring>
+        <name>setStateVector</name>
+        <param>
+          <type>const double *</type>
+          <declname>stateVector</declname>
+        </param>
+        <briefdescription>
+<para>sets the internal model state to the provided packed state vector. </para>
+        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername direction="in">an</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>array which holds the packed state vector, must be at least the size returned by getStateVector.</para>
+</parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para>the number of items copied from the state vector, negative on failure. </para>
+</simplesect>
+</para>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="rrExecutableModel.h" line="569" column="21"/>
+      </memberdef>
+      <memberdef kind="function" id="classrr_1_1ExecutableModel_1a0495c2ece9edad29d61849b2443d4274" prot="public" static="no" const="no" explicit="no" inline="no" virt="pure-virtual">
+        <type>void</type>
+        <definition>virtual void rr::ExecutableModel::getStateVectorRate</definition>
+        <argsstring>(double time, const double *y, double *dydt=0)=0</argsstring>
+        <name>getStateVectorRate</name>
+        <param>
+          <type>double</type>
+          <declname>time</declname>
+        </param>
+        <param>
+          <type>const double *</type>
+          <declname>y</declname>
+        </param>
+        <param>
+          <type>double *</type>
+          <declname>dydt</declname>
+          <defval>0</defval>
+        </param>
+        <briefdescription>
+<para>the state vector y is the rate rule values and floating species concentrations concatenated. </para>
+        </briefdescription>
+        <detaileddescription>
+<para>y is of length numFloatingSpecies + numRateRules.</para>
+<para>The state vector is packed such that the first n raterule elements are the values of the rate rules, and the last n floatingspecies are the floating species values.</para>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername direction="in">time</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>current simulator time </para>
+</parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername direction="in">y</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>state vector, must be either null, or have a size of that speciefied by getStateVector. If y is null, then the model is evaluated using its current state. If y is not null, then the y is considered the state vector. </para>
+</parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername direction="out">dydt</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>calculated rate of change of the state vector, if null, it is ignored. </para>
+</parameterdescription>
+</parameteritem>
+</parameterlist>
+</para>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="rrExecutableModel.h" line="587" column="22"/>
+      </memberdef>
+      <memberdef kind="function" id="classrr_1_1ExecutableModel_1abe4be4ec2e96aaf0a256776dff3cc9a9" prot="public" static="no" const="no" explicit="no" inline="no" virt="pure-virtual">
+        <type>void</type>
+        <definition>virtual void rr::ExecutableModel::testConstraints</definition>
+        <argsstring>()=0</argsstring>
+        <name>testConstraints</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="rrExecutableModel.h" line="589" column="22"/>
+      </memberdef>
+      <memberdef kind="function" id="classrr_1_1ExecutableModel_1ab8073e0f3e57cb6f0d807bdf60d1d2a1" prot="public" static="no" const="no" explicit="no" inline="no" virt="pure-virtual">
+        <type>std::string</type>
+        <definition>virtual std::string rr::ExecutableModel::getInfo</definition>
+        <argsstring>()=0</argsstring>
+        <name>getInfo</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="rrExecutableModel.h" line="591" column="29"/>
+      </memberdef>
+      <memberdef kind="function" id="classrr_1_1ExecutableModel_1acea87cea26a0f322a8df7b5ae73f065c" prot="public" static="no" const="no" explicit="no" inline="no" virt="pure-virtual">
+        <type>void</type>
+        <definition>virtual void rr::ExecutableModel::print</definition>
+        <argsstring>(std::ostream &amp;stream)=0</argsstring>
+        <name>print</name>
+        <param>
+          <type>std::ostream &amp;</type>
+          <declname>stream</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="rrExecutableModel.h" line="593" column="22"/>
+      </memberdef>
+      <memberdef kind="function" id="classrr_1_1ExecutableModel_1abd94b60defc6ffa9ab17166ebaa440c5" prot="public" static="no" const="no" explicit="no" inline="no" virt="pure-virtual">
+        <type>int</type>
+        <definition>virtual int rr::ExecutableModel::getNumEvents</definition>
+        <argsstring>()=0</argsstring>
+        <name>getNumEvents</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="rrExecutableModel.h" line="600" column="21"/>
+      </memberdef>
+      <memberdef kind="function" id="classrr_1_1ExecutableModel_1a6402d7445658e1828be487e1a63bbc89" prot="public" static="no" const="no" explicit="no" inline="no" virt="pure-virtual">
+        <type>int</type>
+        <definition>virtual int rr::ExecutableModel::getEventTriggers</definition>
+        <argsstring>(size_t len, const int *indx, unsigned char *values)=0</argsstring>
+        <name>getEventTriggers</name>
+        <param>
+          <type>size_t</type>
+          <declname>len</declname>
+        </param>
+        <param>
+          <type>const int *</type>
+          <declname>indx</declname>
+        </param>
+        <param>
+          <type>unsigned char *</type>
+          <declname>values</declname>
+        </param>
+        <briefdescription>
+<para>get the event status, false if the even is not triggered, true if it is. </para>
+        </briefdescription>
+        <detaileddescription>
+<para>The reason this returns an unsigned char instead of a bool array is this array is typically stuffed into an std::vector, and std::vector&lt;bool&gt; is well, weird as it&apos;s actually implemented as a bitfield, and can not be used as a C array.</para>
+<para>So, on every modern system I&apos;m aware of, bool is an unsigned char, so use that data type here. </para>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="rrExecutableModel.h" line="613" column="21"/>
+      </memberdef>
+      <memberdef kind="function" id="classrr_1_1ExecutableModel_1ae30181bdbfd3e4fedc2dedcf988ecb95" prot="public" static="no" const="no" explicit="no" inline="no" virt="pure-virtual">
+        <type>int</type>
+        <definition>virtual int rr::ExecutableModel::applyEvents</definition>
+        <argsstring>(double timeEnd, const unsigned char *previousEventStatus, const double *initialState, double *finalState)=0</argsstring>
+        <name>applyEvents</name>
+        <param>
+          <type>double</type>
+          <declname>timeEnd</declname>
+        </param>
+        <param>
+          <type>const unsigned char *</type>
+          <declname>previousEventStatus</declname>
+        </param>
+        <param>
+          <type>const double *</type>
+          <declname>initialState</declname>
+        </param>
+        <param>
+          <type>double *</type>
+          <declname>finalState</declname>
+        </param>
+        <briefdescription>
+<para>Itterate through all of the current and pending events and apply them. </para>
+        </briefdescription>
+        <detaileddescription>
+<para>If any events trigger a state change which triggers any additional events, these are applied as well. After this method finishes, all events are processed.</para>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>timeEnd</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>model time when the event occured. </para>
+</parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>previousEventStatus</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>array of previous event triggered states. </para>
+</parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>initialState</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>(optional): initial state vector, may be NULL, in which the current state is used. </para>
+</parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>finalState</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>(optional): final state vector, where the final state is coppied to. May be NULL, in which case, ignored. </para>
+</parameterdescription>
+</parameteritem>
+</parameterlist>
+</para>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="rrExecutableModel.h" line="628" column="21"/>
+      </memberdef>
+      <memberdef kind="function" id="classrr_1_1ExecutableModel_1a2c4d631f32873d4d98d613add078d9b3" prot="public" static="no" const="no" explicit="no" inline="no" virt="pure-virtual">
+        <type>void</type>
+        <definition>virtual void rr::ExecutableModel::getEventRoots</definition>
+        <argsstring>(double time, const double *y, double *gdot)=0</argsstring>
+        <name>getEventRoots</name>
+        <param>
+          <type>double</type>
+          <declname>time</declname>
+        </param>
+        <param>
+          <type>const double *</type>
+          <declname>y</declname>
+        </param>
+        <param>
+          <type>double *</type>
+          <declname>gdot</declname>
+        </param>
+        <briefdescription>
+<para>evaluate the event &apos;roots&apos; <ndash/> when events transition form triggered - non-triggered or triggered to non-triggered state. </para>
+        </briefdescription>
+        <detaileddescription>
+<para>Simplest method is to return 1 for triggered, -1 for not-triggered, so long as there is a zero crossing.</para>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>time[in]</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>current time </para>
+</parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>y[in]</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>the state vector </para>
+</parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>gdot[out]</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>result event roots, this is of length numEvents. </para>
+</parameterdescription>
+</parameteritem>
+</parameterlist>
+</para>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="rrExecutableModel.h" line="643" column="22"/>
+      </memberdef>
+      <memberdef kind="function" id="classrr_1_1ExecutableModel_1ad80b6a7167b0a78364dc680475ab2e3c" prot="public" static="no" const="no" explicit="no" inline="no" virt="pure-virtual">
+        <type>double</type>
+        <definition>virtual double rr::ExecutableModel::getNextPendingEventTime</definition>
+        <argsstring>(bool pop)=0</argsstring>
+        <name>getNextPendingEventTime</name>
+        <param>
+          <type>bool</type>
+          <declname>pop</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="rrExecutableModel.h" line="645" column="24"/>
+      </memberdef>
+      <memberdef kind="function" id="classrr_1_1ExecutableModel_1a9875c1203e09d4d51c29fdb2318f9a4c" prot="public" static="no" const="no" explicit="no" inline="no" virt="pure-virtual">
+        <type>int</type>
+        <definition>virtual int rr::ExecutableModel::getPendingEventSize</definition>
+        <argsstring>()=0</argsstring>
+        <name>getPendingEventSize</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="rrExecutableModel.h" line="647" column="21"/>
+      </memberdef>
+      <memberdef kind="function" id="classrr_1_1ExecutableModel_1a936756fa4facd2b182b4cfcbe0f07fab" prot="public" static="no" const="no" explicit="no" inline="no" virt="pure-virtual">
+        <type>void</type>
+        <definition>virtual void rr::ExecutableModel::resetEvents</definition>
+        <argsstring>()=0</argsstring>
+        <name>resetEvents</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="rrExecutableModel.h" line="649" column="22"/>
+      </memberdef>
+      <memberdef kind="function" id="classrr_1_1ExecutableModel_1a7d670c92b720d7dcf3ab70fa9d1b14d0" prot="public" static="no" const="no" explicit="no" inline="yes" virt="virtual">
+        <type></type>
+        <definition>virtual rr::ExecutableModel::~ExecutableModel</definition>
+        <argsstring>()</argsstring>
+        <name>~ExecutableModel</name>
+        <briefdescription>
+<para>need a virtual destructor as object implementing this interface can be deleted directly, i.e. </para>
+        </briefdescription>
+        <detaileddescription>
+<para><ref refid="classrr_1_1ExecutableModel" kindref="compound">ExecutableModel</ref> *p = createModel(...); delete p; </para>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="rrExecutableModel.h" line="657" column="17" bodyfile="rrExecutableModel.h" bodystart="657" bodyend="657"/>
+      </memberdef>
+      <memberdef kind="function" id="classrr_1_1ExecutableModel_1ae9b3e5baef45072822f9ccaf9d13ffa8" prot="public" static="no" const="no" explicit="no" inline="no" virt="pure-virtual">
+        <type>int</type>
+        <definition>virtual int rr::ExecutableModel::getEventIndex</definition>
+        <argsstring>(const std::string &amp;eid)=0</argsstring>
+        <name>getEventIndex</name>
+        <param>
+          <type>const std::string &amp;</type>
+          <declname>eid</declname>
+        </param>
+        <briefdescription>
+<para>Gets the index for an event id. </para>
+        </briefdescription>
+        <detaileddescription>
+<para>If there is no event with this id, returns -1. </para>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="rrExecutableModel.h" line="668" column="21"/>
+      </memberdef>
+      <memberdef kind="function" id="classrr_1_1ExecutableModel_1a4ae80f154f19c3cb39957630e803a152" prot="public" static="no" const="no" explicit="no" inline="no" virt="pure-virtual">
+        <type>std::string</type>
+        <definition>virtual std::string rr::ExecutableModel::getEventId</definition>
+        <argsstring>(size_t index)=0</argsstring>
+        <name>getEventId</name>
+        <param>
+          <type>size_t</type>
+          <declname>index</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="rrExecutableModel.h" line="670" column="29"/>
+      </memberdef>
+      <memberdef kind="function" id="classrr_1_1ExecutableModel_1abc6d0913ac6cf58b413186e7dbfa2502" prot="public" static="no" const="no" explicit="no" inline="no" virt="pure-virtual">
+        <type>void</type>
+        <definition>virtual void rr::ExecutableModel::setEventListener</definition>
+        <argsstring>(size_t index, EventListenerPtr eventHandler)=0</argsstring>
+        <name>setEventListener</name>
+        <param>
+          <type>size_t</type>
+          <declname>index</declname>
+        </param>
+        <param>
+          <type><ref refid="rrExecutableModel_8h_1af42654ad469e89c71909fbbff90b3c07" kindref="member">EventListenerPtr</ref></type>
+          <declname>eventHandler</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="rrExecutableModel.h" line="672" column="22"/>
+      </memberdef>
+      <memberdef kind="function" id="classrr_1_1ExecutableModel_1a93633ae9a0f5b04c16115e291176aa9e" prot="public" static="no" const="no" explicit="no" inline="no" virt="pure-virtual">
+        <type><ref refid="rrExecutableModel_8h_1af42654ad469e89c71909fbbff90b3c07" kindref="member">EventListenerPtr</ref></type>
+        <definition>virtual EventListenerPtr rr::ExecutableModel::getEventListener</definition>
+        <argsstring>(size_t index)=0</argsstring>
+        <name>getEventListener</name>
+        <param>
+          <type>size_t</type>
+          <declname>index</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="rrExecutableModel.h" line="674" column="34"/>
+      </memberdef>
+      <memberdef kind="function" id="classrr_1_1ExecutableModel_1a460387891972dfb029d5fdd6134c10eb" prot="public" static="no" const="no" explicit="no" inline="no" virt="pure-virtual">
+        <type>double</type>
+        <definition>virtual double rr::ExecutableModel::getFloatingSpeciesAmountRate</definition>
+        <argsstring>(size_t index, const double *reactionRates)=0</argsstring>
+        <name>getFloatingSpeciesAmountRate</name>
+        <param>
+          <type>size_t</type>
+          <declname>index</declname>
+        </param>
+        <param>
+          <type>const double *</type>
+          <declname>reactionRates</declname>
+        </param>
+        <briefdescription>
+<para>Get the amount rate of change for the i&apos;th floating species given a reaction rates vector. </para>
+        </briefdescription>
+        <detaileddescription>
+<para>TODO: This should be merged with getFloatingSpeciesAmountRates, but that will break inteface, will do in next point release.</para>
+<para>TODO: If the conversion factor changes in between getting the reaction rates vector via getReactionRates</para>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>index</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>index of the desired floating speceis rate. </para>
+</parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>reactionRates</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>pointer to buffer of reaction rates. </para>
+</parameterdescription>
+</parameteritem>
+</parameterlist>
+</para>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="rrExecutableModel.h" line="689" column="24"/>
+      </memberdef>
+      <memberdef kind="function" id="classrr_1_1ExecutableModel_1ac87e7f485678d07d7567398dea63c512" prot="public" static="no" const="no" explicit="no" inline="no" virt="pure-virtual">
+        <type>void</type>
+        <definition>virtual void rr::ExecutableModel::reset</definition>
+        <argsstring>(int options)=0</argsstring>
+        <name>reset</name>
+        <param>
+          <type>int</type>
+          <declname>options</declname>
+        </param>
+        <briefdescription>
+<para>reset the model accordign to a bitfield specified by the <ref refid="classrr_1_1SelectionRecord_1a898963ab24a6ba614913715c981d8394" kindref="member">SelectionRecord::SelectionType</ref> values. </para>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="rrExecutableModel.h" line="696" column="22"/>
+      </memberdef>
+      <memberdef kind="function" id="classrr_1_1ExecutableModel_1aa5b4c23527fab27a54ac279de045c735" prot="public" static="no" const="no" explicit="no" inline="no" virt="pure-virtual">
+        <type>void</type>
+        <definition>virtual void rr::ExecutableModel::setRandomSeed</definition>
+        <argsstring>(int64_t)=0</argsstring>
+        <name>setRandomSeed</name>
+        <param>
+          <type>int64_t</type>
+        </param>
+        <briefdescription>
+<para>set the seed used by the random number generator. </para>
+        </briefdescription>
+        <detaileddescription>
+<para>This will by definition reset the RNG. </para>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="rrExecutableModel.h" line="702" column="22"/>
+      </memberdef>
+      <memberdef kind="function" id="classrr_1_1ExecutableModel_1a7a543cc2ccca4130d26c871308fa2b4d" prot="public" static="no" const="no" explicit="no" inline="no" virt="pure-virtual">
+        <type>int64_t</type>
+        <definition>virtual int64_t rr::ExecutableModel::getRandomSeed</definition>
+        <argsstring>()=0</argsstring>
+        <name>getRandomSeed</name>
+        <briefdescription>
+<para>get the seed used by the RNG. </para>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="rrExecutableModel.h" line="707" column="25"/>
+      </memberdef>
+      <memberdef kind="function" id="classrr_1_1ExecutableModel_1a1f69d29d4291440935ed41122ed83e7f" prot="public" static="no" const="no" explicit="no" inline="no" virt="pure-virtual">
+        <type>double</type>
+        <definition>virtual double rr::ExecutableModel::getRandom</definition>
+        <argsstring>()=0</argsstring>
+        <name>getRandom</name>
+        <briefdescription>
+<para>Get a uniform random number between 0 and 1 created by the RNG. </para>
+        </briefdescription>
+        <detaileddescription>
+<para>The type of RNG can be specified in the config file with the RANDOM_GENERATOR_TYPE key. </para>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="rrExecutableModel.h" line="715" column="24"/>
+      </memberdef>
+      <memberdef kind="function" id="classrr_1_1ExecutableModel_1a86c218fc4ad993ddd532a50f2918f383" prot="public" static="no" const="yes" explicit="no" inline="no" virt="pure-virtual">
+        <type>uint32_t</type>
+        <definition>virtual uint32_t rr::ExecutableModel::getFlags</definition>
+        <argsstring>() const =0</argsstring>
+        <name>getFlags</name>
+        <briefdescription>
+<para>Get the current set of flags. </para>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="rrExecutableModel.h" line="720" column="26"/>
+      </memberdef>
+      <memberdef kind="function" id="classrr_1_1ExecutableModel_1a3474ace3dd70d16662142d377bd1b5f6" prot="public" static="no" const="no" explicit="no" inline="no" virt="pure-virtual">
+        <type>void</type>
+        <definition>virtual void rr::ExecutableModel::setFlags</definition>
+        <argsstring>(uint32_t)=0</argsstring>
+        <name>setFlags</name>
+        <param>
+          <type>uint32_t</type>
+        </param>
+        <briefdescription>
+<para>Set certain options that determine the state of the <ref refid="classrr_1_1ExecutableModel" kindref="compound">ExecutableModel</ref>, these are listed in. </para>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="rrExecutableModel.h" line="726" column="22"/>
+      </memberdef>
+      <memberdef kind="function" id="classrr_1_1ExecutableModel_1ad7d5fb21f3d7ad10f8e8714a49c11184" prot="public" static="no" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <type>void</type>
+        <definition>void rr::ExecutableModel::computeAllRatesOfChange</definition>
+        <argsstring>()</argsstring>
+        <name>computeAllRatesOfChange</name>
+        <briefdescription>
+<para>for source compatability </para>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="rrExecutableModel.h" line="745" column="14" bodyfile="rrExecutableModel.h" bodystart="745" bodyend="745"/>
+      </memberdef>
+      <memberdef kind="function" id="classrr_1_1ExecutableModel_1a8db1a8a035e0b226b16ae10b18caaf1e" prot="public" static="no" const="no" explicit="no" inline="yes" virt="virtual">
+        <type>void</type>
+        <definition>virtual void rr::ExecutableModel::saveState</definition>
+        <argsstring>(std::ostream &amp;out)</argsstring>
+        <name>saveState</name>
+        <param>
+          <type>std::ostream &amp;</type>
+          <declname>out</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="rrExecutableModel.h" line="751" column="22" bodyfile="rrExecutableModel.h" bodystart="751" bodyend="753"/>
+      </memberdef>
+      </sectiondef>
+      <sectiondef kind="protected-func">
+      <memberdef kind="function" id="classrr_1_1ExecutableModel_1aec2ca2935ed5ed13500204fdec32e058" prot="protected" static="no" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <type>void</type>
+        <definition>void rr::ExecutableModel::setIntegration</definition>
+        <argsstring>(bool value)</argsstring>
+        <name>setIntegration</name>
+        <param>
+          <type>bool</type>
+          <declname>value</declname>
+        </param>
+        <briefdescription>
+<para>is integration is currently proceeding. </para>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="rrExecutableModel.h" line="762" column="14" bodyfile="rrExecutableModel.h" bodystart="762" bodyend="770"/>
+      </memberdef>
+      </sectiondef>
+    <briefdescription>
+<para>Base class for all code generation systems; allows compiling and evaluating the model. </para>
+    </briefdescription>
+    <detaileddescription>
+<para>The <ref refid="classrr_1_1ExecutableModel" kindref="compound">ExecutableModel</ref> interface provides a way to access an sbml model that was compiled, JIT&apos;d or interpreted as executable (runnable) module.</para>
+<para>An <ref refid="classrr_1_1ExecutableModel" kindref="compound">ExecutableModel</ref> holds a ModelData structure, all the simulation values are stored in the ModelData struct, i.e. the dynamic state of the model is fully contained in the ModelData structure.</para>
+<para>An <ref refid="classrr_1_1ExecutableModel" kindref="compound">ExecutableModel</ref> shoud also contain all of the initial condisions, rules, functions and whatever other semantic information that was specified in the sbml model. </para>
+    </detaileddescription>
+    <location file="rrExecutableModel.h" line="119" column="5" bodyfile="rrExecutableModel.h" bodystart="119" bodyend="773"/>
+    <listofallmembers>
+      <member refid="classrr_1_1ExecutableModel_1ae30181bdbfd3e4fedc2dedcf988ecb95" prot="public" virt="pure-virtual"><scope>rr::ExecutableModel</scope><name>applyEvents</name></member>
+      <member refid="classrr_1_1ExecutableModel_1ad7d5fb21f3d7ad10f8e8714a49c11184" prot="public" virt="non-virtual"><scope>rr::ExecutableModel</scope><name>computeAllRatesOfChange</name></member>
+      <member refid="classrr_1_1ExecutableModel_1a0503ffbf5c6c971cf545d7570ec0404c" prot="public" virt="non-virtual"><scope>rr::ExecutableModel</scope><name>ExecutableModelFlags</name></member>
+      <member refid="classrr_1_1ExecutableModel_1a892be60159e501929cbb1169533d5104" prot="public" virt="pure-virtual"><scope>rr::ExecutableModel</scope><name>getBoundarySpeciesAmounts</name></member>
+      <member refid="classrr_1_1ExecutableModel_1a17dbc546d79fe987ff625e0c387f5cbd" prot="public" virt="pure-virtual"><scope>rr::ExecutableModel</scope><name>getBoundarySpeciesConcentrations</name></member>
+      <member refid="classrr_1_1ExecutableModel_1a1eda6c6d5e9db5d9057510dbd9bbbef5" prot="public" virt="pure-virtual"><scope>rr::ExecutableModel</scope><name>getBoundarySpeciesId</name></member>
+      <member refid="classrr_1_1ExecutableModel_1a28488139fa975776eded9e8c899c307d" prot="public" virt="pure-virtual"><scope>rr::ExecutableModel</scope><name>getBoundarySpeciesIndex</name></member>
+      <member refid="classrr_1_1ExecutableModel_1a8edf24e2351bc5796ddfa0901dcbaee5" prot="public" virt="pure-virtual"><scope>rr::ExecutableModel</scope><name>getCompartmentId</name></member>
+      <member refid="classrr_1_1ExecutableModel_1a366727be244766db2ff917b64949858c" prot="public" virt="pure-virtual"><scope>rr::ExecutableModel</scope><name>getCompartmentIndex</name></member>
+      <member refid="classrr_1_1ExecutableModel_1aa19f2c21557264ce883bd24c3b8f647a" prot="public" virt="pure-virtual"><scope>rr::ExecutableModel</scope><name>getCompartmentIndexForFloatingSpecies</name></member>
+      <member refid="classrr_1_1ExecutableModel_1afbc91472ec905f668e0cc5714fdc30db" prot="public" virt="pure-virtual"><scope>rr::ExecutableModel</scope><name>getCompartmentInitVolumes</name></member>
+      <member refid="classrr_1_1ExecutableModel_1a977a5a3a7ed0fcfa04fe74369a4526ae" prot="public" virt="pure-virtual"><scope>rr::ExecutableModel</scope><name>getCompartmentVolumes</name></member>
+      <member refid="classrr_1_1ExecutableModel_1a0fac30c0c3cab7e52e7f305be6a453fb" prot="public" virt="pure-virtual"><scope>rr::ExecutableModel</scope><name>getConservedMoietyId</name></member>
+      <member refid="classrr_1_1ExecutableModel_1afb584e140ba5ef19865d0256d275e538" prot="public" virt="pure-virtual"><scope>rr::ExecutableModel</scope><name>getConservedMoietyIndex</name></member>
+      <member refid="classrr_1_1ExecutableModel_1a8a155a08e3a7f015ebbe54e6dded9cfb" prot="public" virt="pure-virtual"><scope>rr::ExecutableModel</scope><name>getConservedMoietyValues</name></member>
+      <member refid="classrr_1_1ExecutableModel_1a4ae80f154f19c3cb39957630e803a152" prot="public" virt="pure-virtual"><scope>rr::ExecutableModel</scope><name>getEventId</name></member>
+      <member refid="classrr_1_1ExecutableModel_1ae9b3e5baef45072822f9ccaf9d13ffa8" prot="public" virt="pure-virtual"><scope>rr::ExecutableModel</scope><name>getEventIndex</name></member>
+      <member refid="classrr_1_1ExecutableModel_1a93633ae9a0f5b04c16115e291176aa9e" prot="public" virt="pure-virtual"><scope>rr::ExecutableModel</scope><name>getEventListener</name></member>
+      <member refid="classrr_1_1ExecutableModel_1a2c4d631f32873d4d98d613add078d9b3" prot="public" virt="pure-virtual"><scope>rr::ExecutableModel</scope><name>getEventRoots</name></member>
+      <member refid="classrr_1_1ExecutableModel_1a6402d7445658e1828be487e1a63bbc89" prot="public" virt="pure-virtual"><scope>rr::ExecutableModel</scope><name>getEventTriggers</name></member>
+      <member refid="classrr_1_1ExecutableModel_1a07791b0ccd6feeb665278e9888cb8af7" prot="public" virt="pure-virtual"><scope>rr::ExecutableModel</scope><name>getExecutableModelDesc</name></member>
+      <member refid="classrr_1_1ExecutableModel_1a86c218fc4ad993ddd532a50f2918f383" prot="public" virt="pure-virtual"><scope>rr::ExecutableModel</scope><name>getFlags</name></member>
+      <member refid="classrr_1_1ExecutableModel_1a460387891972dfb029d5fdd6134c10eb" prot="public" virt="pure-virtual"><scope>rr::ExecutableModel</scope><name>getFloatingSpeciesAmountRate</name></member>
+      <member refid="classrr_1_1ExecutableModel_1ae1e4374bedf764a353165d7f3acc31c0" prot="public" virt="pure-virtual"><scope>rr::ExecutableModel</scope><name>getFloatingSpeciesAmountRates</name></member>
+      <member refid="classrr_1_1ExecutableModel_1ac83c1f5b678079babd5eeb76c87a4e02" prot="public" virt="pure-virtual"><scope>rr::ExecutableModel</scope><name>getFloatingSpeciesAmounts</name></member>
+      <member refid="classrr_1_1ExecutableModel_1aae51da13c4dbe4e0ae21f12f3a23cdb8" prot="public" virt="pure-virtual"><scope>rr::ExecutableModel</scope><name>getFloatingSpeciesConcentrationRates</name></member>
+      <member refid="classrr_1_1ExecutableModel_1afdb9b1204d85b4baf496e685e16c0479" prot="public" virt="pure-virtual"><scope>rr::ExecutableModel</scope><name>getFloatingSpeciesConcentrations</name></member>
+      <member refid="classrr_1_1ExecutableModel_1a50dfa7535bec552fbc8396bd1ce99155" prot="public" virt="pure-virtual"><scope>rr::ExecutableModel</scope><name>getFloatingSpeciesId</name></member>
+      <member refid="classrr_1_1ExecutableModel_1a390a1905aabac6056f6dceff11833c43" prot="public" virt="pure-virtual"><scope>rr::ExecutableModel</scope><name>getFloatingSpeciesIndex</name></member>
+      <member refid="classrr_1_1ExecutableModel_1a21232f10be3c16a112ddd93170d9caa8" prot="public" virt="pure-virtual"><scope>rr::ExecutableModel</scope><name>getFloatingSpeciesInitAmounts</name></member>
+      <member refid="classrr_1_1ExecutableModel_1a6545a8afda7e5a52d9fb0ae945990d80" prot="public" virt="pure-virtual"><scope>rr::ExecutableModel</scope><name>getFloatingSpeciesInitConcentrations</name></member>
+      <member refid="classrr_1_1ExecutableModel_1a741aa1e4a24bca93c8eb12019a33cd81" prot="public" virt="pure-virtual"><scope>rr::ExecutableModel</scope><name>getGlobalParameterId</name></member>
+      <member refid="classrr_1_1ExecutableModel_1abcdcc03c4563dfbe6b64f932812906ee" prot="public" virt="pure-virtual"><scope>rr::ExecutableModel</scope><name>getGlobalParameterIndex</name></member>
+      <member refid="classrr_1_1ExecutableModel_1a8a1693fc65e2e34772ca5acecad1e90b" prot="public" virt="pure-virtual"><scope>rr::ExecutableModel</scope><name>getGlobalParameterInitValues</name></member>
+      <member refid="classrr_1_1ExecutableModel_1af598ac63c984d7101b0d026dd217a822" prot="public" virt="pure-virtual"><scope>rr::ExecutableModel</scope><name>getGlobalParameterValues</name></member>
+      <member refid="classrr_1_1ExecutableModel_1a172aeacd0685bcce8153ae67718fc697" prot="public" virt="pure-virtual"><scope>rr::ExecutableModel</scope><name>getIds</name></member>
+      <member refid="classrr_1_1ExecutableModel_1ab8073e0f3e57cb6f0d807bdf60d1d2a1" prot="public" virt="pure-virtual"><scope>rr::ExecutableModel</scope><name>getInfo</name></member>
+      <member refid="classrr_1_1ExecutableModel_1a6ad7fd317a2335c337d7c8a3aeb8e044" prot="public" virt="pure-virtual"><scope>rr::ExecutableModel</scope><name>getModelName</name></member>
+      <member refid="classrr_1_1ExecutableModel_1ad80b6a7167b0a78364dc680475ab2e3c" prot="public" virt="pure-virtual"><scope>rr::ExecutableModel</scope><name>getNextPendingEventTime</name></member>
+      <member refid="classrr_1_1ExecutableModel_1a6ee272090a6b7a4a6808f091c1930495" prot="public" virt="pure-virtual"><scope>rr::ExecutableModel</scope><name>getNumBoundarySpecies</name></member>
+      <member refid="classrr_1_1ExecutableModel_1acada1e982eafe06d0d5e46defdb40ca7" prot="public" virt="pure-virtual"><scope>rr::ExecutableModel</scope><name>getNumCompartments</name></member>
+      <member refid="classrr_1_1ExecutableModel_1ab4927aa2d8bf20c59b75a568757d369b" prot="public" virt="pure-virtual"><scope>rr::ExecutableModel</scope><name>getNumConservedMoieties</name></member>
+      <member refid="classrr_1_1ExecutableModel_1a2acd2a498cee58cfdc676d9010be5ec0" prot="public" virt="pure-virtual"><scope>rr::ExecutableModel</scope><name>getNumDepFloatingSpecies</name></member>
+      <member refid="classrr_1_1ExecutableModel_1abd94b60defc6ffa9ab17166ebaa440c5" prot="public" virt="pure-virtual"><scope>rr::ExecutableModel</scope><name>getNumEvents</name></member>
+      <member refid="classrr_1_1ExecutableModel_1aa2999a84a5a0d691dc08f3f78b94636d" prot="public" virt="pure-virtual"><scope>rr::ExecutableModel</scope><name>getNumFloatingSpecies</name></member>
+      <member refid="classrr_1_1ExecutableModel_1aabbf6f025ea3c064f0dcaa5e4afaa87e" prot="public" virt="pure-virtual"><scope>rr::ExecutableModel</scope><name>getNumGlobalParameters</name></member>
+      <member refid="classrr_1_1ExecutableModel_1ace75e9d47e3eeb59661e7c2e2b2ed6e4" prot="public" virt="pure-virtual"><scope>rr::ExecutableModel</scope><name>getNumIndFloatingSpecies</name></member>
+      <member refid="classrr_1_1ExecutableModel_1aa6ccf1c5b3b8817c7ce291a933bcaab7" prot="public" virt="pure-virtual"><scope>rr::ExecutableModel</scope><name>getNumRateRules</name></member>
+      <member refid="classrr_1_1ExecutableModel_1acb056a72125190c2abe39dba9c3600f1" prot="public" virt="pure-virtual"><scope>rr::ExecutableModel</scope><name>getNumReactions</name></member>
+      <member refid="classrr_1_1ExecutableModel_1a9875c1203e09d4d51c29fdb2318f9a4c" prot="public" virt="pure-virtual"><scope>rr::ExecutableModel</scope><name>getPendingEventSize</name></member>
+      <member refid="classrr_1_1ExecutableModel_1a1f69d29d4291440935ed41122ed83e7f" prot="public" virt="pure-virtual"><scope>rr::ExecutableModel</scope><name>getRandom</name></member>
+      <member refid="classrr_1_1ExecutableModel_1a7a543cc2ccca4130d26c871308fa2b4d" prot="public" virt="pure-virtual"><scope>rr::ExecutableModel</scope><name>getRandomSeed</name></member>
+      <member refid="classrr_1_1ExecutableModel_1ab045cbd84ce98fb9dff8ff250fdb131c" prot="public" virt="virtual"><scope>rr::ExecutableModel</scope><name>getRateRuleSymbols</name></member>
+      <member refid="classrr_1_1ExecutableModel_1a8372872ec5858e91adc81080ad763c84" prot="public" virt="pure-virtual"><scope>rr::ExecutableModel</scope><name>getRateRuleValues</name></member>
+      <member refid="classrr_1_1ExecutableModel_1aeb911dc90408981370c78149680d9027" prot="public" virt="pure-virtual"><scope>rr::ExecutableModel</scope><name>getReactionId</name></member>
+      <member refid="classrr_1_1ExecutableModel_1a86fe96598b06cee5ca9a28dfdfd9d437" prot="public" virt="pure-virtual"><scope>rr::ExecutableModel</scope><name>getReactionIndex</name></member>
+      <member refid="classrr_1_1ExecutableModel_1a37c53cc370ff236657272f5596fd27ff" prot="public" virt="pure-virtual"><scope>rr::ExecutableModel</scope><name>getReactionRates</name></member>
+      <member refid="classrr_1_1ExecutableModel_1a75b6f37ac538d2d2a0709fe4080b0570" prot="public" virt="pure-virtual"><scope>rr::ExecutableModel</scope><name>getStateVector</name></member>
+      <member refid="classrr_1_1ExecutableModel_1ac6c245edd9ecea5feea84cff15db7b26" prot="public" virt="pure-virtual"><scope>rr::ExecutableModel</scope><name>getStateVectorId</name></member>
+      <member refid="classrr_1_1ExecutableModel_1a0495c2ece9edad29d61849b2443d4274" prot="public" virt="pure-virtual"><scope>rr::ExecutableModel</scope><name>getStateVectorRate</name></member>
+      <member refid="classrr_1_1ExecutableModel_1af9f7809b903426c14942b01a8e24a2b7" prot="public" virt="pure-virtual"><scope>rr::ExecutableModel</scope><name>getStoichiometry</name></member>
+      <member refid="classrr_1_1ExecutableModel_1a2aacbf75ac32b2b188f7850cd48b8f71" prot="public" virt="pure-virtual"><scope>rr::ExecutableModel</scope><name>getStoichiometryMatrix</name></member>
+      <member refid="classrr_1_1ExecutableModel_1a200b81cd9a7f1f9a6b3af6a35fcc4c63" prot="public" virt="pure-virtual"><scope>rr::ExecutableModel</scope><name>getSupportedIdTypes</name></member>
+      <member refid="classrr_1_1ExecutableModel_1a9f4ae8c898f3c1553377b0f90b96c8e4" prot="public" virt="pure-virtual"><scope>rr::ExecutableModel</scope><name>getTime</name></member>
+      <member refid="classrr_1_1ExecutableModel_1aebaced13ef2afd070d7a1c35eec8d9f2" prot="public" virt="pure-virtual"><scope>rr::ExecutableModel</scope><name>getValue</name></member>
+      <member refid="classrr_1_1ExecutableModel_1a0503ffbf5c6c971cf545d7570ec0404ca389fbe7a44e9cb64d2e16415cd08554f" prot="public" virt="non-virtual"><scope>rr::ExecutableModel</scope><name>INTEGRATION</name></member>
+      <member refid="classrr_1_1ExecutableModel_1a0503ffbf5c6c971cf545d7570ec0404ca3a399e67ea485968593a0c692643e107" prot="public" virt="non-virtual"><scope>rr::ExecutableModel</scope><name>OPTIMIZE_REACTION_RATE_SELECTION</name></member>
+      <member refid="classrr_1_1ExecutableModel_1acea87cea26a0f322a8df7b5ae73f065c" prot="public" virt="pure-virtual"><scope>rr::ExecutableModel</scope><name>print</name></member>
+      <member refid="classrr_1_1ExecutableModel_1a217c61819d9b029c5928ace53b805e89" prot="public" virt="pure-virtual"><scope>rr::ExecutableModel</scope><name>reset</name></member>
+      <member refid="classrr_1_1ExecutableModel_1ac87e7f485678d07d7567398dea63c512" prot="public" virt="pure-virtual"><scope>rr::ExecutableModel</scope><name>reset</name></member>
+      <member refid="classrr_1_1ExecutableModel_1a936756fa4facd2b182b4cfcbe0f07fab" prot="public" virt="pure-virtual"><scope>rr::ExecutableModel</scope><name>resetEvents</name></member>
+      <member refid="classrr_1_1ExecutableModel_1a4ee035f139a2124731903f5911c22690" prot="public" virt="non-virtual"><scope>rr::ExecutableModel</scope><name>RoadRunner</name></member>
+      <member refid="classrr_1_1ExecutableModel_1a8db1a8a035e0b226b16ae10b18caaf1e" prot="public" virt="virtual"><scope>rr::ExecutableModel</scope><name>saveState</name></member>
+      <member refid="classrr_1_1ExecutableModel_1a1a4409ff1e5e41a13b1dcf2ab936ab23" prot="public" virt="pure-virtual"><scope>rr::ExecutableModel</scope><name>setBoundarySpeciesConcentrations</name></member>
+      <member refid="classrr_1_1ExecutableModel_1a83fa84b59feb32abe1f2a6b178b6f106" prot="public" virt="pure-virtual"><scope>rr::ExecutableModel</scope><name>setCompartmentInitVolumes</name></member>
+      <member refid="classrr_1_1ExecutableModel_1a81a08dad23cb196914961e41d1f2f491" prot="public" virt="pure-virtual"><scope>rr::ExecutableModel</scope><name>setCompartmentVolumes</name></member>
+      <member refid="classrr_1_1ExecutableModel_1a3281ae63f4ab21a070a7858f022c3f9a" prot="public" virt="pure-virtual"><scope>rr::ExecutableModel</scope><name>setConservedMoietyValues</name></member>
+      <member refid="classrr_1_1ExecutableModel_1abc6d0913ac6cf58b413186e7dbfa2502" prot="public" virt="pure-virtual"><scope>rr::ExecutableModel</scope><name>setEventListener</name></member>
+      <member refid="classrr_1_1ExecutableModel_1a3474ace3dd70d16662142d377bd1b5f6" prot="public" virt="pure-virtual"><scope>rr::ExecutableModel</scope><name>setFlags</name></member>
+      <member refid="classrr_1_1ExecutableModel_1a47b3aed1ff982849b4398e85735650fc" prot="public" virt="pure-virtual"><scope>rr::ExecutableModel</scope><name>setFloatingSpeciesAmounts</name></member>
+      <member refid="classrr_1_1ExecutableModel_1aecd3bdfe291bd3791fe7e4e75a71ac3f" prot="public" virt="pure-virtual"><scope>rr::ExecutableModel</scope><name>setFloatingSpeciesConcentrations</name></member>
+      <member refid="classrr_1_1ExecutableModel_1ab18c3070d601ba587d24a16353fc8b60" prot="public" virt="pure-virtual"><scope>rr::ExecutableModel</scope><name>setFloatingSpeciesInitAmounts</name></member>
+      <member refid="classrr_1_1ExecutableModel_1a29d64b57e270120b9ee37d3464ffbb3c" prot="public" virt="pure-virtual"><scope>rr::ExecutableModel</scope><name>setFloatingSpeciesInitConcentrations</name></member>
+      <member refid="classrr_1_1ExecutableModel_1a71d62fc8b558dfb4da4de4dbd3845665" prot="public" virt="pure-virtual"><scope>rr::ExecutableModel</scope><name>setGlobalParameterInitValues</name></member>
+      <member refid="classrr_1_1ExecutableModel_1a46fbc6162f59ac7052c25879dba8e423" prot="public" virt="pure-virtual"><scope>rr::ExecutableModel</scope><name>setGlobalParameterValues</name></member>
+      <member refid="classrr_1_1ExecutableModel_1aec2ca2935ed5ed13500204fdec32e058" prot="protected" virt="non-virtual"><scope>rr::ExecutableModel</scope><name>setIntegration</name></member>
+      <member refid="classrr_1_1ExecutableModel_1aa5b4c23527fab27a54ac279de045c735" prot="public" virt="pure-virtual"><scope>rr::ExecutableModel</scope><name>setRandomSeed</name></member>
+      <member refid="classrr_1_1ExecutableModel_1a57a67063c957714b916d4a3d4277c3b9" prot="public" virt="pure-virtual"><scope>rr::ExecutableModel</scope><name>setStateVector</name></member>
+      <member refid="classrr_1_1ExecutableModel_1ad38c7e2bf987ce1f7cbb8ac7316b8760" prot="public" virt="pure-virtual"><scope>rr::ExecutableModel</scope><name>setTime</name></member>
+      <member refid="classrr_1_1ExecutableModel_1ac98de72b8f4f43bc6b93b191852702b5" prot="public" virt="pure-virtual"><scope>rr::ExecutableModel</scope><name>setValue</name></member>
+      <member refid="classrr_1_1ExecutableModel_1abe4be4ec2e96aaf0a256776dff3cc9a9" prot="public" virt="pure-virtual"><scope>rr::ExecutableModel</scope><name>testConstraints</name></member>
+      <member refid="classrr_1_1ExecutableModel_1a7d670c92b720d7dcf3ab70fa9d1b14d0" prot="public" virt="virtual"><scope>rr::ExecutableModel</scope><name>~ExecutableModel</name></member>
+    </listofallmembers>
+  </compounddef>
+</doxygen>

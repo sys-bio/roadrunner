@@ -1,0 +1,225 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.20" xml:lang="en-US">
+  <compounddef id="classrr_1_1Compiler" kind="class" language="C++" prot="public" abstract="yes">
+    <compoundname>rr::Compiler</compoundname>
+    <includes refid="rrCompiler_8h" local="no">rrCompiler.h</includes>
+      <sectiondef kind="public-func">
+      <memberdef kind="function" id="classrr_1_1Compiler_1a30d924b503ddddc0056108f6f08e86ee" prot="public" static="no" const="yes" explicit="no" inline="no" virt="pure-virtual">
+        <type>std::string</type>
+        <definition>virtual std::string rr::Compiler::getCompiler</definition>
+        <argsstring>() const =0</argsstring>
+        <name>getCompiler</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="rrCompiler.h" line="28" column="25"/>
+      </memberdef>
+      <memberdef kind="function" id="classrr_1_1Compiler_1a0556fb1db12b7f693d37a6108068103d" prot="public" static="no" const="no" explicit="no" inline="no" virt="pure-virtual">
+        <type>bool</type>
+        <definition>virtual bool rr::Compiler::setCompiler</definition>
+        <argsstring>(const std::string &amp;compiler)=0</argsstring>
+        <name>setCompiler</name>
+        <param>
+          <type>const std::string &amp;</type>
+          <declname>compiler</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="rrCompiler.h" line="29" column="18"/>
+      </memberdef>
+      <memberdef kind="function" id="classrr_1_1Compiler_1a2d39ffe37cd77cbbc802085197e7b3de" prot="public" static="no" const="yes" explicit="no" inline="no" virt="pure-virtual">
+        <type>std::string</type>
+        <definition>virtual std::string rr::Compiler::getCompilerLocation</definition>
+        <argsstring>() const =0</argsstring>
+        <name>getCompilerLocation</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="rrCompiler.h" line="31" column="25"/>
+      </memberdef>
+      <memberdef kind="function" id="classrr_1_1Compiler_1a08a268ed8d239e64f7dca5ffe883e606" prot="public" static="no" const="no" explicit="no" inline="no" virt="pure-virtual">
+        <type>bool</type>
+        <definition>virtual bool rr::Compiler::setCompilerLocation</definition>
+        <argsstring>(const std::string &amp;path)=0</argsstring>
+        <name>setCompilerLocation</name>
+        <param>
+          <type>const std::string &amp;</type>
+          <declname>path</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="rrCompiler.h" line="32" column="18"/>
+      </memberdef>
+      <memberdef kind="function" id="classrr_1_1Compiler_1ac9bcede80a7f19a2294e812f0f9f2208" prot="public" static="no" const="yes" explicit="no" inline="no" virt="pure-virtual">
+        <type>std::string</type>
+        <definition>virtual std::string rr::Compiler::getSupportCodeFolder</definition>
+        <argsstring>() const =0</argsstring>
+        <name>getSupportCodeFolder</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="rrCompiler.h" line="34" column="25"/>
+      </memberdef>
+      <memberdef kind="function" id="classrr_1_1Compiler_1a79c97dd74e6eea11b64c7469c55a6d89" prot="public" static="no" const="no" explicit="no" inline="no" virt="pure-virtual">
+        <type>bool</type>
+        <definition>virtual bool rr::Compiler::setSupportCodeFolder</definition>
+        <argsstring>(const std::string &amp;path)=0</argsstring>
+        <name>setSupportCodeFolder</name>
+        <param>
+          <type>const std::string &amp;</type>
+          <declname>path</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="rrCompiler.h" line="35" column="18"/>
+      </memberdef>
+      <memberdef kind="function" id="classrr_1_1Compiler_1a244cefa6a995aeb5d2793ff893f1893b" prot="public" static="no" const="no" explicit="no" inline="no" virt="pure-virtual">
+        <type>std::string</type>
+        <definition>virtual std::string rr::Compiler::getDefaultTargetTriple</definition>
+        <argsstring>()=0</argsstring>
+        <name>getDefaultTargetTriple</name>
+        <briefdescription>
+<para><ref refid="classrr_1_1Compiler_1a244cefa6a995aeb5d2793ff893f1893b" kindref="member">getDefaultTargetTriple()</ref> - Return the default target triple the compiler has been configured to produce code for. </para>
+        </briefdescription>
+        <detaileddescription>
+<para>The target triple is a string in the format of: CPU_TYPE-VENDOR-OPERATING_SYSTEM or CPU_TYPE-VENDOR-KERNEL-OPERATING_SYSTEM </para>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="rrCompiler.h" line="47" column="25"/>
+      </memberdef>
+      <memberdef kind="function" id="classrr_1_1Compiler_1afe24151183f7db59208bfe86da2b3c79" prot="public" static="no" const="no" explicit="no" inline="no" virt="pure-virtual">
+        <type>std::string</type>
+        <definition>virtual std::string rr::Compiler::getProcessTriple</definition>
+        <argsstring>()=0</argsstring>
+        <name>getProcessTriple</name>
+        <briefdescription>
+<para><ref refid="classrr_1_1Compiler_1afe24151183f7db59208bfe86da2b3c79" kindref="member">getProcessTriple()</ref> - Return an appropriate target triple for generating code to be loaded into the current process, e.g. </para>
+        </briefdescription>
+        <detaileddescription>
+<para>when using the JIT. </para>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="rrCompiler.h" line="53" column="25"/>
+      </memberdef>
+      <memberdef kind="function" id="classrr_1_1Compiler_1a1718efebfe7936512a299c2f32e8c800" prot="public" static="no" const="no" explicit="no" inline="no" virt="pure-virtual">
+        <type>std::string</type>
+        <definition>virtual std::string rr::Compiler::getHostCPUName</definition>
+        <argsstring>()=0</argsstring>
+        <name>getHostCPUName</name>
+        <briefdescription>
+<para>getHostCPUName - Get the LLVM name for the host CPU. </para>
+        </briefdescription>
+        <detaileddescription>
+<para>The particular format of the name is target dependent, and suitable for passing as -mcpu to the target which matches the host.</para>
+<para><simplesect kind="return"><para>- The host CPU name, or empty if the CPU could not be determined. </para>
+</simplesect>
+</para>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="rrCompiler.h" line="62" column="25"/>
+      </memberdef>
+      <memberdef kind="function" id="classrr_1_1Compiler_1ace56af18a4bc2cd882bdf4685e18fb33" prot="public" static="no" const="no" explicit="no" inline="no" virt="pure-virtual">
+        <type>std::string</type>
+        <definition>virtual std::string rr::Compiler::getVersion</definition>
+        <argsstring>()=0</argsstring>
+        <name>getVersion</name>
+        <briefdescription>
+<para>get the version of the compiler. </para>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="rrCompiler.h" line="67" column="25"/>
+      </memberdef>
+      <memberdef kind="function" id="classrr_1_1Compiler_1a344fb49215070b32990da67cd59b28e9" prot="public" static="no" const="no" explicit="no" inline="yes" virt="virtual">
+        <type></type>
+        <definition>virtual rr::Compiler::~Compiler</definition>
+        <argsstring>()</argsstring>
+        <name>~Compiler</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="rrCompiler.h" line="73" column="13" bodyfile="rrCompiler.h" bodystart="73" bodyend="73"/>
+      </memberdef>
+      </sectiondef>
+      <sectiondef kind="public-static-func">
+      <memberdef kind="function" id="classrr_1_1Compiler_1a5144b370c3c98e8d4d3ae93a2e4bb57b" prot="public" static="yes" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>std::string</type>
+        <definition>std::string rr::Compiler::getDefaultCompiler</definition>
+        <argsstring>()</argsstring>
+        <name>getDefaultCompiler</name>
+        <briefdescription>
+<para>implement the couple <ref refid="classrr_1_1Compiler" kindref="compound">Compiler</ref> methods, this will go, here for source compatiblity. </para>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="rrCompiler.h" line="69" column="24" bodyfile="ExecutableModelFactory.cpp" bodystart="53" bodyend="66"/>
+      </memberdef>
+      <memberdef kind="function" id="classrr_1_1Compiler_1a09cf96dd0f59ca06473aba26f1e4702c" prot="public" static="yes" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type><ref refid="classrr_1_1Compiler" kindref="compound">Compiler</ref> *</type>
+        <definition>Compiler * rr::Compiler::New</definition>
+        <argsstring>()</argsstring>
+        <name>New</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="rrCompiler.h" line="71" column="21" bodyfile="ExecutableModelFactory.cpp" bodystart="68" bodyend="70"/>
+      </memberdef>
+      </sectiondef>
+    <briefdescription>
+<para>interface to manipulate &apos;compiler&apos; settings. </para>
+    </briefdescription>
+    <detaileddescription>
+<para>In the C generating model sytem, an external C compiler is used to compile generated C code. However, in the LLVM system, there is no code generation nor compilation, so this interface is not really usefull, but is implemented for compatiblity with the C system. </para>
+    </detaileddescription>
+    <location file="rrCompiler.h" line="25" column="1" bodyfile="rrCompiler.h" bodystart="26" bodyend="74"/>
+    <listofallmembers>
+      <member refid="classrr_1_1Compiler_1a30d924b503ddddc0056108f6f08e86ee" prot="public" virt="pure-virtual"><scope>rr::Compiler</scope><name>getCompiler</name></member>
+      <member refid="classrr_1_1Compiler_1a2d39ffe37cd77cbbc802085197e7b3de" prot="public" virt="pure-virtual"><scope>rr::Compiler</scope><name>getCompilerLocation</name></member>
+      <member refid="classrr_1_1Compiler_1a5144b370c3c98e8d4d3ae93a2e4bb57b" prot="public" virt="non-virtual"><scope>rr::Compiler</scope><name>getDefaultCompiler</name></member>
+      <member refid="classrr_1_1Compiler_1a244cefa6a995aeb5d2793ff893f1893b" prot="public" virt="pure-virtual"><scope>rr::Compiler</scope><name>getDefaultTargetTriple</name></member>
+      <member refid="classrr_1_1Compiler_1a1718efebfe7936512a299c2f32e8c800" prot="public" virt="pure-virtual"><scope>rr::Compiler</scope><name>getHostCPUName</name></member>
+      <member refid="classrr_1_1Compiler_1afe24151183f7db59208bfe86da2b3c79" prot="public" virt="pure-virtual"><scope>rr::Compiler</scope><name>getProcessTriple</name></member>
+      <member refid="classrr_1_1Compiler_1ac9bcede80a7f19a2294e812f0f9f2208" prot="public" virt="pure-virtual"><scope>rr::Compiler</scope><name>getSupportCodeFolder</name></member>
+      <member refid="classrr_1_1Compiler_1ace56af18a4bc2cd882bdf4685e18fb33" prot="public" virt="pure-virtual"><scope>rr::Compiler</scope><name>getVersion</name></member>
+      <member refid="classrr_1_1Compiler_1a09cf96dd0f59ca06473aba26f1e4702c" prot="public" virt="non-virtual"><scope>rr::Compiler</scope><name>New</name></member>
+      <member refid="classrr_1_1Compiler_1a0556fb1db12b7f693d37a6108068103d" prot="public" virt="pure-virtual"><scope>rr::Compiler</scope><name>setCompiler</name></member>
+      <member refid="classrr_1_1Compiler_1a08a268ed8d239e64f7dca5ffe883e606" prot="public" virt="pure-virtual"><scope>rr::Compiler</scope><name>setCompilerLocation</name></member>
+      <member refid="classrr_1_1Compiler_1a79c97dd74e6eea11b64c7469c55a6d89" prot="public" virt="pure-virtual"><scope>rr::Compiler</scope><name>setSupportCodeFolder</name></member>
+      <member refid="classrr_1_1Compiler_1a344fb49215070b32990da67cd59b28e9" prot="public" virt="virtual"><scope>rr::Compiler</scope><name>~Compiler</name></member>
+    </listofallmembers>
+  </compounddef>
+</doxygen>

@@ -48,7 +48,7 @@ bool FileName::operator!=(const char* fN)
 string FileName::GetFileName() const {return mName;}
 string FileName::GetPath() const {return mPath;}
 string FileName::GetPathAndFileName() const {return mPathAndName;}
-unsigned int FileName::size(){return mName.size();}
+size_t FileName::size(){return mName.size();}
 
 FileName::operator string() {return mPathAndName;}
 string FileName::Get()

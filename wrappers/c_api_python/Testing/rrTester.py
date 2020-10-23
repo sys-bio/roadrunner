@@ -2,18 +2,13 @@
 #
 # Usage:
 # import rrTester
-# runTest ('mymodel')
+# runTest (pathToTests, 'mymodel')
 
 
 #-------------------------------------------------------------
 # Tests for steady state and stoichiometric calculations in
 # roadRunner. Herbert M Sauro November 2012
 #-------------------------------------------------------------
-
-#------------------------------------------
-# Change this line for different test files
-#nameOfResultsFile = 'results_roadRunnerTest_1.txt'
-
 
 import sys
 import random

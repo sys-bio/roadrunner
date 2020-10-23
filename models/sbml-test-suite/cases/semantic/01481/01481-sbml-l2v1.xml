@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<sbml xmlns="http://www.sbml.org/sbml/level2" level="2" version="1">
+  <model id="case01481" name="case01481">
+    <listOfCompartments>
+      <compartment id="C" size="1"/>
+    </listOfCompartments>
+    <listOfSpecies>
+      <species id="S1" compartment="C" initialConcentration="1"/>
+    </listOfSpecies>
+    <listOfReactions>
+      <reaction id="J0" fast="false">
+        <listOfProducts>
+          <speciesReference species="S1">
+            <stoichiometryMath>
+              <math xmlns="http://www.w3.org/1998/Math/MathML">
+                <apply>
+                  <csymbol encoding="text" definitionURL="http://www.sbml.org/sbml/symbols/delay"> delay </csymbol>
+                  <ci> S1 </ci>
+                  <cn type="integer"> 1 </cn>
+                </apply>
+              </math>
+            </stoichiometryMath>
+          </speciesReference>
+        </listOfProducts>
+        <kineticLaw>
+          <math xmlns="http://www.w3.org/1998/Math/MathML">
+            <cn type="integer"> 1 </cn>
+          </math>
+        </kineticLaw>
+      </reaction>
+    </listOfReactions>
+  </model>
+</sbml>

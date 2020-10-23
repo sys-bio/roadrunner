@@ -3,7 +3,7 @@
 //
 // basically all this program does is read the config from the sbml test
 // suite and dump out a csv of the results, nothing more.
-// the actuall RoadRunner sbml test suite does much more as it
+// the actual RoadRunner sbml test suite does much more as it
 // also generates a formated report and compares results to
 // the sbml test suite.
 
@@ -12,7 +12,6 @@
 
 #include "rrRoadRunner.h"
 #include "rrRoadRunnerOptions.h"
-#include "wrappers/C/rrc_api.h"
 
 #include <iostream>
 #include <fstream>
@@ -191,7 +190,7 @@ int main(int argc, char** argv)
             }
         }
     }
-    catch (std::exception& ex)
+    catch (std::exception&)
     {
         return false;
     }

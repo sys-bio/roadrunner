@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<sbml xmlns="http://www.sbml.org/sbml/level2/version4" level="2" version="4">
+  <model metaid="_case00182" id="case00182" name="case00182">
+    <listOfParameters>
+      <parameter id="S1" name="S1" value="0.5" constant="false"/>
+      <parameter id="S2" name="S2" value="0.5" constant="false"/>
+      <parameter id="k1" name="k1" value="1"/>
+      <parameter id="k2" name="k2" value="0.8"/>
+    </listOfParameters>
+    <listOfRules>
+      <algebraicRule metaid="rule1">
+        <math xmlns="http://www.w3.org/1998/Math/MathML">
+          <apply>
+            <plus/>
+            <apply>
+              <times/>
+              <cn type="integer"> -1 </cn>
+              <ci> k1 </ci>
+            </apply>
+            <ci> S1 </ci>
+            <ci> S2 </ci>
+          </apply>
+        </math>
+      </algebraicRule>
+      <rateRule metaid="rule2" variable="S1">
+        <math xmlns="http://www.w3.org/1998/Math/MathML">
+          <apply>
+            <times/>
+            <ci> k2 </ci>
+            <ci> S2 </ci>
+          </apply>
+        </math>
+      </rateRule>
+    </listOfRules>
+  </model>
+</sbml>

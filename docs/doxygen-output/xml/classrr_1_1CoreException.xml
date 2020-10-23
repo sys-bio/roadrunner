@@ -1,0 +1,102 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.20" xml:lang="en-US">
+  <compounddef id="classrr_1_1CoreException" kind="class" language="C++" prot="public">
+    <compoundname>rr::CoreException</compoundname>
+    <basecompoundref refid="classrr_1_1Exception" prot="public" virt="non-virtual">rr::Exception</basecompoundref>
+      <sectiondef kind="public-func">
+      <memberdef kind="function" id="classrr_1_1CoreException_1aa5fae377d761664916e618a671512435" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type></type>
+        <definition>rr::CoreException::CoreException</definition>
+        <argsstring>(const string &amp;msg)</argsstring>
+        <name>CoreException</name>
+        <param>
+          <type>const string &amp;</type>
+          <declname>msg</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="rrException.h" line="47" column="9" bodyfile="rrException.cpp" bodystart="32" bodyend="35"/>
+      </memberdef>
+      <memberdef kind="function" id="classrr_1_1CoreException_1ae3db9042e1f7db934a2710a87649f4ff" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type></type>
+        <definition>rr::CoreException::CoreException</definition>
+        <argsstring>(const string &amp;msg1, const string &amp;msg2)</argsstring>
+        <name>CoreException</name>
+        <param>
+          <type>const string &amp;</type>
+          <declname>msg1</declname>
+        </param>
+        <param>
+          <type>const string &amp;</type>
+          <declname>msg2</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="rrException.h" line="48" column="9" bodyfile="rrException.cpp" bodystart="37" bodyend="40"/>
+      </memberdef>
+      </sectiondef>
+    <briefdescription>
+    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <inheritancegraph>
+      <node id="1">
+        <label>rr::CoreException</label>
+        <link refid="classrr_1_1CoreException"/>
+        <childnode refid="2" relation="public-inheritance">
+        </childnode>
+      </node>
+      <node id="3">
+        <label>std::exception</label>
+      </node>
+      <node id="2">
+        <label>rr::Exception</label>
+        <link refid="classrr_1_1Exception"/>
+        <childnode refid="3" relation="public-inheritance">
+        </childnode>
+      </node>
+    </inheritancegraph>
+    <collaborationgraph>
+      <node id="4">
+        <label>string</label>
+      </node>
+      <node id="1">
+        <label>rr::CoreException</label>
+        <link refid="classrr_1_1CoreException"/>
+        <childnode refid="2" relation="public-inheritance">
+        </childnode>
+      </node>
+      <node id="3">
+        <label>std::exception</label>
+      </node>
+      <node id="2">
+        <label>rr::Exception</label>
+        <link refid="classrr_1_1Exception"/>
+        <childnode refid="3" relation="public-inheritance">
+        </childnode>
+        <childnode refid="4" relation="usage">
+          <edgelabel>mMessage</edgelabel>
+        </childnode>
+      </node>
+    </collaborationgraph>
+    <location file="rrException.h" line="44" column="1" bodyfile="rrException.h" bodystart="45" bodyend="49"/>
+    <listofallmembers>
+      <member refid="classrr_1_1CoreException_1aa5fae377d761664916e618a671512435" prot="public" virt="non-virtual"><scope>rr::CoreException</scope><name>CoreException</name></member>
+      <member refid="classrr_1_1CoreException_1ae3db9042e1f7db934a2710a87649f4ff" prot="public" virt="non-virtual"><scope>rr::CoreException</scope><name>CoreException</name></member>
+      <member refid="classrr_1_1Exception_1a1eedd425af5fe42da04a373eaba4f63c" prot="public" virt="non-virtual"><scope>rr::CoreException</scope><name>Exception</name></member>
+      <member refid="classrr_1_1Exception_1ad413ee4754699c6eb57c317d6afb7f20" prot="public" virt="non-virtual"><scope>rr::CoreException</scope><name>getMessage</name></member>
+      <member refid="classrr_1_1Exception_1a7c8cbc34ae41d4225c6dbc5f98867c40" prot="public" virt="non-virtual"><scope>rr::CoreException</scope><name>Message</name></member>
+      <member refid="classrr_1_1Exception_1a6201902a23b56dab5704a726049a7908" prot="protected" virt="non-virtual"><scope>rr::CoreException</scope><name>mMessage</name></member>
+      <member refid="classrr_1_1Exception_1a597e6b53a80305816d9ebc8dfef64871" prot="public" virt="virtual"><scope>rr::CoreException</scope><name>what</name></member>
+      <member refid="classrr_1_1Exception_1a73f2d73dc12d195e61fc1f427b1cd2a4" prot="public" virt="virtual"><scope>rr::CoreException</scope><name>~Exception</name></member>
+    </listofallmembers>
+  </compounddef>
+</doxygen>

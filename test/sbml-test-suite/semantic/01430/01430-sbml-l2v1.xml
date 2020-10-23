@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<sbml xmlns="http://www.sbml.org/sbml/level2" level="2" version="1">
+  <model id="case01430" name="case01430">
+    <listOfCompartments>
+      <compartment id="C" size="1"/>
+    </listOfCompartments>
+    <listOfSpecies>
+      <species id="A" compartment="C" initialConcentration="20"/>
+      <species id="B" compartment="C" initialConcentration="1"/>
+    </listOfSpecies>
+    <listOfReactions>
+      <reaction id="J0" fast="false">
+        <listOfReactants>
+          <speciesReference species="A"/>
+          <speciesReference species="A"/>
+        </listOfReactants>
+        <listOfProducts>
+          <speciesReference species="B"/>
+          <speciesReference species="B"/>
+        </listOfProducts>
+        <kineticLaw>
+          <math xmlns="http://www.w3.org/1998/Math/MathML">
+            <cn type="integer"> 1 </cn>
+          </math>
+        </kineticLaw>
+      </reaction>
+    </listOfReactions>
+  </model>
+</sbml>

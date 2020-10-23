@@ -1,0 +1,597 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.20" xml:lang="en-US">
+  <compounddef id="classrr_1_1RK4Integrator" kind="class" language="C++" prot="public">
+    <compoundname>rr::RK4Integrator</compoundname>
+    <basecompoundref refid="classrr_1_1Integrator" prot="public" virt="non-virtual">rr::Integrator</basecompoundref>
+    <includes refid="RK4Integrator_8h" local="no">RK4Integrator.h</includes>
+      <sectiondef kind="private-attrib">
+      <memberdef kind="variable" id="classrr_1_1RK4Integrator_1a4821a5f2687a483f7452a0c846ca5f87" prot="private" static="no" mutable="no">
+        <type><ref refid="classrr_1_1ExecutableModel" kindref="compound">ExecutableModel</ref> *</type>
+        <definition>ExecutableModel* rr::RK4Integrator::model</definition>
+        <argsstring></argsstring>
+        <name>model</name>
+        <briefdescription>
+<para>set an arbitrary key </para>
+        </briefdescription>
+        <detaileddescription>
+<para>get a value. Variants are POD. is there a key matching this name. remove a value list of keys in this object. </para>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="RK4Integrator.h" line="188" column="25" bodyfile="RK4Integrator.h" bodystart="188" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="classrr_1_1RK4Integrator_1a6bd835e997f20d4ba1d5b12abaaff7ec" prot="private" static="no" mutable="no">
+        <type>unsigned</type>
+        <definition>unsigned rr::RK4Integrator::stateVectorSize</definition>
+        <argsstring></argsstring>
+        <name>stateVectorSize</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="RK4Integrator.h" line="190" column="18" bodyfile="RK4Integrator.h" bodystart="190" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="classrr_1_1RK4Integrator_1a3a4fbea2d72967669f32b121a75ee87f" prot="private" static="no" mutable="no">
+        <type>double *</type>
+        <definition>double* rr::RK4Integrator::k1</definition>
+        <argsstring></argsstring>
+        <name>k1</name>
+        <briefdescription>
+<para>arrays to store function eval values. </para>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="RK4Integrator.h" line="195" column="16" bodyfile="RK4Integrator.h" bodystart="195" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="classrr_1_1RK4Integrator_1a58329362c8c33d6b15b4b6073777255c" prot="private" static="no" mutable="no">
+        <type>double *</type>
+        <definition>double * rr::RK4Integrator::k2</definition>
+        <argsstring></argsstring>
+        <name>k2</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="RK4Integrator.h" line="195" column="19" bodyfile="RK4Integrator.h" bodystart="195" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="classrr_1_1RK4Integrator_1a660e4df634e375166e0cae3967e9d21e" prot="private" static="no" mutable="no">
+        <type>double *</type>
+        <definition>double * rr::RK4Integrator::k3</definition>
+        <argsstring></argsstring>
+        <name>k3</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="RK4Integrator.h" line="195" column="22" bodyfile="RK4Integrator.h" bodystart="195" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="classrr_1_1RK4Integrator_1ac251c2d6f6b41c65d378649a51a73243" prot="private" static="no" mutable="no">
+        <type>double *</type>
+        <definition>double * rr::RK4Integrator::k4</definition>
+        <argsstring></argsstring>
+        <name>k4</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="RK4Integrator.h" line="195" column="25" bodyfile="RK4Integrator.h" bodystart="195" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="classrr_1_1RK4Integrator_1ab5574d24cb9d1bb2ef91264e0760eded" prot="private" static="no" mutable="no">
+        <type>double *</type>
+        <definition>double * rr::RK4Integrator::y</definition>
+        <argsstring></argsstring>
+        <name>y</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="RK4Integrator.h" line="195" column="28" bodyfile="RK4Integrator.h" bodystart="195" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="classrr_1_1RK4Integrator_1a2ff04bf0c8d00cdd9fdd0901caa294f6" prot="private" static="no" mutable="no">
+        <type>double *</type>
+        <definition>double * rr::RK4Integrator::ytmp</definition>
+        <argsstring></argsstring>
+        <name>ytmp</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="RK4Integrator.h" line="195" column="30" bodyfile="RK4Integrator.h" bodystart="195" bodyend="-1"/>
+      </memberdef>
+      </sectiondef>
+      <sectiondef kind="public-func">
+      <memberdef kind="function" id="classrr_1_1RK4Integrator_1ac7059cef88e3a80e415855ec5fb2d2ef" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type></type>
+        <definition>rr::RK4Integrator::RK4Integrator</definition>
+        <argsstring>(ExecutableModel *m)</argsstring>
+        <name>RK4Integrator</name>
+        <param>
+          <type><ref refid="classrr_1_1ExecutableModel" kindref="compound">ExecutableModel</ref> *</type>
+          <declname>m</declname>
+        </param>
+        <briefdescription>
+<para>Creates a new <ref refid="classrr_1_1RK4Integrator" kindref="compound">RK4Integrator</ref>. </para>
+        </briefdescription>
+        <detaileddescription>
+<para>The <ref refid="classrr_1_1IntegratorFactory" kindref="compound">IntegratorFactory</ref> is the ONLY object that creates integrators.</para>
+<para>Integrators are created when the <ref refid="classrr_1_1IntegratorFactory_1ab7298b70afb06e1200181cf3981f739c" kindref="member">IntegratorFactory::New</ref> method is called, typically by the top level <ref refid="classrr_1_1RoadRunner" kindref="compound">RoadRunner</ref> object.</para>
+<para>The integrator will hold onto the <ref refid="classrr_1_1ExecutableModel" kindref="compound">ExecutableModel</ref> pointer, m, and when the integrate method is called, will advance the model object forward in time.</para>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>m</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>a borrowed reference to an existing <ref refid="classrr_1_1ExecutableModel" kindref="compound">ExecutableModel</ref> object. </para>
+</parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>o</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>a reference to a SimulatOptions object where the configuration parameters will be read from. </para>
+</parameterdescription>
+</parameteritem>
+</parameterlist>
+</para>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="RK4Integrator.h" line="48" column="9" bodyfile="RK4Integrator.cpp" bodystart="21" bodyend="28"/>
+      </memberdef>
+      <memberdef kind="function" id="classrr_1_1RK4Integrator_1a2b4921fff536a7eb7e1ed40c8c5d57c8" prot="public" static="no" const="no" explicit="no" inline="no" virt="virtual">
+        <type></type>
+        <definition>rr::RK4Integrator::~RK4Integrator</definition>
+        <argsstring>()</argsstring>
+        <name>~RK4Integrator</name>
+        <briefdescription>
+<para>clean up any mess. </para>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="RK4Integrator.h" line="53" column="17" bodyfile="RK4Integrator.cpp" bodystart="58" bodyend="66"/>
+      </memberdef>
+      <memberdef kind="function" id="classrr_1_1RK4Integrator_1a727b452ebf195fc36143ba8a2fa8c2c2" prot="public" static="no" const="no" explicit="no" inline="no" virt="virtual">
+        <type>void</type>
+        <definition>void rr::RK4Integrator::syncWithModel</definition>
+        <argsstring>(ExecutableModel *m)</argsstring>
+        <name>syncWithModel</name>
+        <reimplements refid="classrr_1_1Integrator_1a6b12118cd1b0f047f5a64cfb0546b565">syncWithModel</reimplements>
+        <param>
+          <type><ref refid="classrr_1_1ExecutableModel" kindref="compound">ExecutableModel</ref> *</type>
+          <declname>m</declname>
+        </param>
+        <briefdescription>
+<para>Called whenever a new model is loaded to allow integrator to reset internal state. </para>
+        </briefdescription>
+        <detaileddescription>
+<para><simplesect kind="author"><para>JKM </para>
+</simplesect>
+</para>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="RK4Integrator.h" line="60" column="22" bodyfile="RK4Integrator.cpp" bodystart="30" bodyend="56"/>
+      </memberdef>
+      <memberdef kind="function" id="classrr_1_1RK4Integrator_1af1e35f90daed9607d6536ca75734e51a" prot="public" static="no" const="no" explicit="no" inline="no" virt="virtual">
+        <type>double</type>
+        <definition>double rr::RK4Integrator::integrate</definition>
+        <argsstring>(double t0, double tf)</argsstring>
+        <name>integrate</name>
+        <reimplements refid="classrr_1_1Integrator_1aa29aac9228f7834cfb92d04f823e5ddf">integrate</reimplements>
+        <param>
+          <type>double</type>
+          <declname>t0</declname>
+        </param>
+        <param>
+          <type>double</type>
+          <declname>tf</declname>
+        </param>
+        <briefdescription>
+<para>implement <ref refid="classrr_1_1Integrator" kindref="compound">Integrator</ref> interface </para>
+        </briefdescription>
+        <detaileddescription>
+<para>integrates the model from t0 to tf. </para>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="RK4Integrator.h" line="71" column="24" bodyfile="RK4Integrator.cpp" bodystart="68" bodyend="136"/>
+      </memberdef>
+      <memberdef kind="function" id="classrr_1_1RK4Integrator_1a75ca0574917ed21f598fb93b1837cec3" prot="public" static="no" const="no" explicit="no" inline="no" virt="virtual">
+        <type>void</type>
+        <definition>void rr::RK4Integrator::restart</definition>
+        <argsstring>(double t0)</argsstring>
+        <name>restart</name>
+        <reimplements refid="classrr_1_1Integrator_1a5469efaa4c234b7e59d82d98930fa5b9">restart</reimplements>
+        <param>
+          <type>double</type>
+          <declname>t0</declname>
+        </param>
+        <briefdescription>
+<para>copies the state vector out of the model and into cvode vector, re-initializes cvode. </para>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="RK4Integrator.h" line="77" column="22" bodyfile="RK4Integrator.cpp" bodystart="150" bodyend="172"/>
+      </memberdef>
+      <memberdef kind="function" id="classrr_1_1RK4Integrator_1ae65f8c20d95f0bc6018992d3803c3287" prot="public" static="no" const="yes" explicit="no" inline="no" virt="virtual">
+        <type>std::string</type>
+        <definition>std::string rr::RK4Integrator::getName</definition>
+        <argsstring>() const</argsstring>
+        <name>getName</name>
+        <reimplements refid="classrr_1_1Solver_1a417cca64a18c63535f2091584f8fed91">getName</reimplements>
+        <briefdescription>
+<para><zwj/>** </para>
+        </briefdescription>
+        <detaileddescription>
+<para><zwj/>** <simplesect kind="author"><para>JKM</para>
+</simplesect>
+Get the name for this integrator <simplesect kind="note"><para>Delegates to <ref refid="classrr_1_1RK4Integrator_1ae65f8c20d95f0bc6018992d3803c3287" kindref="member">getName</ref> </para>
+</simplesect>
+</para>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="RK4Integrator.h" line="96" column="21" bodyfile="RK4Integrator.cpp" bodystart="196" bodyend="198"/>
+      </memberdef>
+      <memberdef kind="function" id="classrr_1_1RK4Integrator_1ad4638630bbbfc3bc62adfdfdebc9bde9" prot="public" static="no" const="yes" explicit="no" inline="no" virt="virtual">
+        <type>std::string</type>
+        <definition>std::string rr::RK4Integrator::getDescription</definition>
+        <argsstring>() const</argsstring>
+        <name>getDescription</name>
+        <reimplements refid="classrr_1_1Solver_1a86067147c7631ca80d51667322f1a8f5">getDescription</reimplements>
+        <briefdescription>
+<para>Get the description for this integrator. </para>
+        </briefdescription>
+        <detaileddescription>
+<para><simplesect kind="author"><para>JKM </para>
+</simplesect>
+<simplesect kind="note"><para>Delegates to <ref refid="classrr_1_1RK4Integrator_1ad4638630bbbfc3bc62adfdfdebc9bde9" kindref="member">getDescription</ref> </para>
+</simplesect>
+</para>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="RK4Integrator.h" line="109" column="21" bodyfile="RK4Integrator.cpp" bodystart="204" bodyend="206"/>
+      </memberdef>
+      <memberdef kind="function" id="classrr_1_1RK4Integrator_1a2f98503350687e02bea28077f3538b07" prot="public" static="no" const="yes" explicit="no" inline="no" virt="virtual">
+        <type>std::string</type>
+        <definition>std::string rr::RK4Integrator::getHint</definition>
+        <argsstring>() const</argsstring>
+        <name>getHint</name>
+        <reimplements refid="classrr_1_1Solver_1aff005f7e71bc73123ecbd511a77f71b6">getHint</reimplements>
+        <briefdescription>
+<para>Get the hint for this integrator. </para>
+        </briefdescription>
+        <detaileddescription>
+<para><simplesect kind="author"><para>WBC </para>
+</simplesect>
+<simplesect kind="note"><para>Delegates to <ref refid="classrr_1_1RK4Integrator_1a2f98503350687e02bea28077f3538b07" kindref="member">getHint</ref> </para>
+</simplesect>
+</para>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="RK4Integrator.h" line="122" column="21" bodyfile="RK4Integrator.cpp" bodystart="215" bodyend="217"/>
+      </memberdef>
+      <memberdef kind="function" id="classrr_1_1RK4Integrator_1ae621b95ad0336b25765f808154cb4e2f" prot="public" static="no" const="no" explicit="no" inline="no" virt="virtual">
+        <type><ref refid="classrr_1_1Variant" kindref="compound">Variant</ref></type>
+        <definition>Variant rr::RK4Integrator::getValue</definition>
+        <argsstring>(std::string key)</argsstring>
+        <name>getValue</name>
+        <param>
+          <type>std::string</type>
+          <declname>key</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="RK4Integrator.h" line="132" column="25" bodyfile="RK4Integrator.cpp" bodystart="223" bodyend="229"/>
+      </memberdef>
+      <memberdef kind="function" id="classrr_1_1RK4Integrator_1a018a18ad74f168f9faaf6887593ef57c" prot="public" static="no" const="yes" explicit="no" inline="no" virt="virtual">
+        <type>IntegrationMethod</type>
+        <definition>Integrator::IntegrationMethod rr::RK4Integrator::getIntegrationMethod</definition>
+        <argsstring>() const</argsstring>
+        <name>getIntegrationMethod</name>
+        <reimplements refid="classrr_1_1Integrator_1a6166cbf32c54a1d95a8a830b8db1424c">getIntegrationMethod</reimplements>
+        <briefdescription>
+<para>Always deterministic for RK4. </para>
+        </briefdescription>
+        <detaileddescription>
+<para><simplesect kind="author"><para>JKM </para>
+</simplesect>
+</para>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="RK4Integrator.h" line="138" column="27" bodyfile="RK4Integrator.cpp" bodystart="231" bodyend="234"/>
+      </memberdef>
+      <memberdef kind="function" id="classrr_1_1RK4Integrator_1ae7537cb767479cd0ab19dc405ed13376" prot="public" static="no" const="no" explicit="no" inline="no" virt="virtual">
+        <type>void</type>
+        <definition>void rr::RK4Integrator::resetSettings</definition>
+        <argsstring>()</argsstring>
+        <name>resetSettings</name>
+        <reimplements refid="classrr_1_1Solver_1a71c8b404a40447f879b2253e7dcc3b85">resetSettings</reimplements>
+        <briefdescription>
+<para>Reset all integrator settings to their respective default values. </para>
+        </briefdescription>
+        <detaileddescription>
+<para><simplesect kind="author"><para>JKM </para>
+</simplesect>
+</para>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="RK4Integrator.h" line="144" column="14" bodyfile="RK4Integrator.cpp" bodystart="236" bodyend="239"/>
+      </memberdef>
+      <memberdef kind="function" id="classrr_1_1RK4Integrator_1af5bc29a4b5af9536ef312cb88e9f3b30" prot="public" static="no" const="no" explicit="no" inline="no" virt="virtual">
+        <type>void</type>
+        <definition>void rr::RK4Integrator::setListener</definition>
+        <argsstring>(IntegratorListenerPtr)</argsstring>
+        <name>setListener</name>
+        <reimplements refid="classrr_1_1Integrator_1ad4ebded6e6b2d28755a649f402962ba7">setListener</reimplements>
+        <param>
+          <type>IntegratorListenerPtr</type>
+        </param>
+        <briefdescription>
+<para>the integrator can hold a single listener. </para>
+        </briefdescription>
+        <detaileddescription>
+<para>If clients require multicast, they can create a multi-cast listener. </para>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="RK4Integrator.h" line="152" column="22" bodyfile="RK4Integrator.cpp" bodystart="174" bodyend="176"/>
+      </memberdef>
+      <memberdef kind="function" id="classrr_1_1RK4Integrator_1a11d4c8c5a4f0b807af86254d9005577d" prot="public" static="no" const="no" explicit="no" inline="no" virt="virtual">
+        <type>IntegratorListenerPtr</type>
+        <definition>IntegratorListenerPtr rr::RK4Integrator::getListener</definition>
+        <argsstring>()</argsstring>
+        <name>getListener</name>
+        <reimplements refid="classrr_1_1Integrator_1ae4105739ea0544fe66db1482e0aeae9d">getListener</reimplements>
+        <briefdescription>
+<para>get the integrator listener </para>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="RK4Integrator.h" line="157" column="39" bodyfile="RK4Integrator.cpp" bodystart="178" bodyend="181"/>
+      </memberdef>
+      </sectiondef>
+      <sectiondef kind="public-static-func">
+      <memberdef kind="function" id="classrr_1_1RK4Integrator_1a81c46e8931486fb935a21dbe8d825e7f" prot="public" static="yes" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>std::string</type>
+        <definition>std::string rr::RK4Integrator::getRK4Name</definition>
+        <argsstring>()</argsstring>
+        <name>getRK4Name</name>
+        <briefdescription>
+<para>Get the name for this integrator. </para>
+        </briefdescription>
+        <detaileddescription>
+<para><simplesect kind="author"><para>JKM </para>
+</simplesect>
+</para>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="RK4Integrator.h" line="102" column="28" bodyfile="RK4Integrator.cpp" bodystart="200" bodyend="202"/>
+      </memberdef>
+      <memberdef kind="function" id="classrr_1_1RK4Integrator_1acbe762b6c778c42d80c1bb8cacc9571e" prot="public" static="yes" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>std::string</type>
+        <definition>std::string rr::RK4Integrator::getRK4Description</definition>
+        <argsstring>()</argsstring>
+        <name>getRK4Description</name>
+        <briefdescription>
+<para>Get the description for this integrator. </para>
+        </briefdescription>
+        <detaileddescription>
+<para><simplesect kind="author"><para>JKM </para>
+</simplesect>
+</para>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="RK4Integrator.h" line="115" column="28" bodyfile="RK4Integrator.cpp" bodystart="208" bodyend="213"/>
+      </memberdef>
+      <memberdef kind="function" id="classrr_1_1RK4Integrator_1a0cf30eea0ad35908ab2acfb19a7c1972" prot="public" static="yes" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>std::string</type>
+        <definition>std::string rr::RK4Integrator::getRK4Hint</definition>
+        <argsstring>()</argsstring>
+        <name>getRK4Hint</name>
+        <briefdescription>
+<para>Get the hint for this integrator. </para>
+        </briefdescription>
+        <detaileddescription>
+<para><simplesect kind="author"><para>JKM </para>
+</simplesect>
+</para>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="RK4Integrator.h" line="128" column="28" bodyfile="RK4Integrator.cpp" bodystart="219" bodyend="221"/>
+      </memberdef>
+      </sectiondef>
+      <sectiondef kind="private-func">
+      <memberdef kind="function" id="classrr_1_1RK4Integrator_1a3b9acce50104e02572ff96e891d7a06c" prot="private" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>void rr::RK4Integrator::testRootsAtInitialTime</definition>
+        <argsstring>()</argsstring>
+        <name>testRootsAtInitialTime</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="RK4Integrator.h" line="197" column="14" bodyfile="RK4Integrator.cpp" bodystart="138" bodyend="143"/>
+      </memberdef>
+      <memberdef kind="function" id="classrr_1_1RK4Integrator_1a572b31f2b67c7d9d6ca0c2da66154d61" prot="private" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>void rr::RK4Integrator::applyEvents</definition>
+        <argsstring>(double timeEnd, std::vector&lt; unsigned char &gt; &amp;previousEventStatus)</argsstring>
+        <name>applyEvents</name>
+        <param>
+          <type>double</type>
+          <declname>timeEnd</declname>
+        </param>
+        <param>
+          <type>std::vector&lt; unsigned char &gt; &amp;</type>
+          <declname>previousEventStatus</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="RK4Integrator.h" line="198" column="14" bodyfile="RK4Integrator.cpp" bodystart="145" bodyend="148"/>
+      </memberdef>
+      </sectiondef>
+    <briefdescription>
+<para>A super basic 4&apos;th order fixed step integrator. </para>
+    </briefdescription>
+    <detaileddescription>
+<para>The RungeKuttaIntegrator will be the more sophisticated, general purpose Runge-Kutta integrator which will support different orders and adaptive time stepping.</para>
+<para>This object is mainly here as an example of creating a new <ref refid="classrr_1_1Integrator" kindref="compound">Integrator</ref>. </para>
+    </detaileddescription>
+    <inheritancegraph>
+      <node id="2">
+        <label>rr::Integrator</label>
+        <link refid="classrr_1_1Integrator"/>
+        <childnode refid="3" relation="public-inheritance">
+        </childnode>
+      </node>
+      <node id="1">
+        <label>rr::RK4Integrator</label>
+        <link refid="classrr_1_1RK4Integrator"/>
+        <childnode refid="2" relation="public-inheritance">
+        </childnode>
+      </node>
+      <node id="3">
+        <label>rr::Solver</label>
+        <link refid="classrr_1_1Solver"/>
+      </node>
+    </inheritancegraph>
+    <collaborationgraph>
+      <node id="2">
+        <label>rr::Integrator</label>
+        <link refid="classrr_1_1Integrator"/>
+        <childnode refid="3" relation="public-inheritance">
+        </childnode>
+      </node>
+      <node id="1">
+        <label>rr::RK4Integrator</label>
+        <link refid="classrr_1_1RK4Integrator"/>
+        <childnode refid="2" relation="public-inheritance">
+        </childnode>
+      </node>
+      <node id="3">
+        <label>rr::Solver</label>
+        <link refid="classrr_1_1Solver"/>
+      </node>
+    </collaborationgraph>
+    <location file="RK4Integrator.h" line="28" column="5" bodyfile="RK4Integrator.h" bodystart="29" bodyend="200"/>
+    <listofallmembers>
+      <member refid="classrr_1_1Solver_1aec6b159d96d73f2baafc74578b129ce8" prot="protected" virt="non-virtual"><scope>rr::RK4Integrator</scope><name>addSetting</name></member>
+      <member refid="classrr_1_1RK4Integrator_1a572b31f2b67c7d9d6ca0c2da66154d61" prot="private" virt="non-virtual"><scope>rr::RK4Integrator</scope><name>applyEvents</name></member>
+      <member refid="classrr_1_1Solver_1a897a8b06197a02d72931de637bc9ac89" prot="protected" virt="non-virtual"><scope>rr::RK4Integrator</scope><name>DescriptionMap</name></member>
+      <member refid="classrr_1_1Solver_1a7e07121f652db358045d6f7b95889ea3" prot="protected" virt="non-virtual"><scope>rr::RK4Integrator</scope><name>descriptions</name></member>
+      <member refid="classrr_1_1Integrator_1a0912499450e66cb4301263362d64a0d0af737370ac52f7db68da0965ff5667255" prot="public" virt="non-virtual"><scope>rr::RK4Integrator</scope><name>Deterministic</name></member>
+      <member refid="classrr_1_1Solver_1a199de66231b25fef30d8ef2bdff80db7" prot="protected" virt="non-virtual"><scope>rr::RK4Integrator</scope><name>display_names_</name></member>
+      <member refid="classrr_1_1Solver_1afa810f2707ef6160e05c92e5812a8c6a" prot="protected" virt="non-virtual"><scope>rr::RK4Integrator</scope><name>DisplayNameMap</name></member>
+      <member refid="classrr_1_1Integrator_1a9bb4546b27c3b0b4552ebc1b36148629" prot="public" virt="virtual"><scope>rr::RK4Integrator</scope><name>getConcentrationTolerance</name></member>
+      <member refid="classrr_1_1RK4Integrator_1ad4638630bbbfc3bc62adfdfdebc9bde9" prot="public" virt="virtual"><scope>rr::RK4Integrator</scope><name>getDescription</name></member>
+      <member refid="classrr_1_1Solver_1a63d1ab12d862663336c74721f67354f3" prot="public" virt="non-virtual" ambiguityscope="rr::Integrator::"><scope>rr::RK4Integrator</scope><name>getDescription</name></member>
+      <member refid="classrr_1_1Solver_1a1242e881aa76493f73c4e32784c1cec6" prot="public" virt="non-virtual"><scope>rr::RK4Integrator</scope><name>getDisplayName</name></member>
+      <member refid="classrr_1_1RK4Integrator_1a2f98503350687e02bea28077f3538b07" prot="public" virt="virtual"><scope>rr::RK4Integrator</scope><name>getHint</name></member>
+      <member refid="classrr_1_1Solver_1a7cef64c1874bd5cb95ddff1399e04c45" prot="public" virt="non-virtual" ambiguityscope="rr::Integrator::"><scope>rr::RK4Integrator</scope><name>getHint</name></member>
+      <member refid="classrr_1_1RK4Integrator_1a018a18ad74f168f9faaf6887593ef57c" prot="public" virt="virtual"><scope>rr::RK4Integrator</scope><name>getIntegrationMethod</name></member>
+      <member refid="classrr_1_1RK4Integrator_1a11d4c8c5a4f0b807af86254d9005577d" prot="public" virt="virtual"><scope>rr::RK4Integrator</scope><name>getListener</name></member>
+      <member refid="classrr_1_1RK4Integrator_1ae65f8c20d95f0bc6018992d3803c3287" prot="public" virt="virtual"><scope>rr::RK4Integrator</scope><name>getName</name></member>
+      <member refid="classrr_1_1Solver_1abbefd0f38dfa2651c74f8abbd6d7b143" prot="public" virt="virtual"><scope>rr::RK4Integrator</scope><name>getNumParams</name></member>
+      <member refid="classrr_1_1Solver_1aa13e13a92531fde27fe5711790eee0f7" prot="public" virt="virtual"><scope>rr::RK4Integrator</scope><name>getParamDesc</name></member>
+      <member refid="classrr_1_1Solver_1afc0a667f204105aa133376144ce14c75" prot="public" virt="virtual"><scope>rr::RK4Integrator</scope><name>getParamDisplayName</name></member>
+      <member refid="classrr_1_1Solver_1aa604b810ab3f1a2c8bc6dfa6fc731dc2" prot="public" virt="virtual"><scope>rr::RK4Integrator</scope><name>getParamHint</name></member>
+      <member refid="classrr_1_1Solver_1ae2bb88ffce40a0136c86a020b4c39037" prot="public" virt="virtual"><scope>rr::RK4Integrator</scope><name>getParamName</name></member>
+      <member refid="classrr_1_1RK4Integrator_1acbe762b6c778c42d80c1bb8cacc9571e" prot="public" virt="non-virtual"><scope>rr::RK4Integrator</scope><name>getRK4Description</name></member>
+      <member refid="classrr_1_1RK4Integrator_1a0cf30eea0ad35908ab2acfb19a7c1972" prot="public" virt="non-virtual"><scope>rr::RK4Integrator</scope><name>getRK4Hint</name></member>
+      <member refid="classrr_1_1RK4Integrator_1a81c46e8931486fb935a21dbe8d825e7f" prot="public" virt="non-virtual"><scope>rr::RK4Integrator</scope><name>getRK4Name</name></member>
+      <member refid="classrr_1_1Solver_1ac12d82cf9d7f03ba39f82ae81ee0e168" prot="public" virt="non-virtual"><scope>rr::RK4Integrator</scope><name>getSettings</name></member>
+      <member refid="classrr_1_1Solver_1a3f7a3671a4f2ee508fa015ed4b164213" prot="public" virt="non-virtual"><scope>rr::RK4Integrator</scope><name>getSettingsRepr</name></member>
+      <member refid="classrr_1_1Solver_1a20add37bbd73f50d14047171f5f8e921" prot="public" virt="non-virtual"><scope>rr::RK4Integrator</scope><name>getType</name></member>
+      <member refid="classrr_1_1RK4Integrator_1ae621b95ad0336b25765f808154cb4e2f" prot="public" virt="virtual"><scope>rr::RK4Integrator</scope><name>getValue</name></member>
+      <member refid="classrr_1_1Solver_1a773a06f0d64c9d79423efcef1b381da1" prot="public" virt="virtual" ambiguityscope="rr::Integrator::"><scope>rr::RK4Integrator</scope><name>getValue</name></member>
+      <member refid="classrr_1_1Solver_1a9f6e5069f1606a5f5e3d517ee01cfede" prot="public" virt="virtual"><scope>rr::RK4Integrator</scope><name>getValueAsBool</name></member>
+      <member refid="classrr_1_1Solver_1a9bc55d0247a3aa629b0ab8f247ee009c" prot="public" virt="virtual"><scope>rr::RK4Integrator</scope><name>getValueAsChar</name></member>
+      <member refid="classrr_1_1Solver_1a46987712b9dee2da90c7124761186eb1" prot="public" virt="virtual"><scope>rr::RK4Integrator</scope><name>getValueAsDouble</name></member>
+      <member refid="classrr_1_1Solver_1a449a23882706072f4cfaa416887e42d3" prot="public" virt="virtual"><scope>rr::RK4Integrator</scope><name>getValueAsDoubleVector</name></member>
+      <member refid="classrr_1_1Solver_1ad30b0e354acd5025b3162db55f1baa93" prot="public" virt="virtual"><scope>rr::RK4Integrator</scope><name>getValueAsFloat</name></member>
+      <member refid="classrr_1_1Solver_1a415242398d22d3145ff68afbb73d6b07" prot="public" virt="virtual"><scope>rr::RK4Integrator</scope><name>getValueAsInt</name></member>
+      <member refid="classrr_1_1Solver_1a858ce4395c8005ddec5a3ee811eda33a" prot="public" virt="virtual"><scope>rr::RK4Integrator</scope><name>getValueAsLong</name></member>
+      <member refid="classrr_1_1Solver_1a6960c38714621daab7e92eadede5f83c" prot="public" virt="virtual"><scope>rr::RK4Integrator</scope><name>getValueAsString</name></member>
+      <member refid="classrr_1_1Solver_1ae21e55aeea202e9151112fa00a4c0f82" prot="public" virt="virtual"><scope>rr::RK4Integrator</scope><name>getValueAsUChar</name></member>
+      <member refid="classrr_1_1Solver_1a293296661e45b8cb3a092cf8ed5a196b" prot="public" virt="virtual"><scope>rr::RK4Integrator</scope><name>getValueAsUInt</name></member>
+      <member refid="classrr_1_1Solver_1aafabb2cc0b41558dc3edae324977372c" prot="public" virt="virtual"><scope>rr::RK4Integrator</scope><name>getValueAsULong</name></member>
+      <member refid="classrr_1_1Solver_1a104f619f19529d57869310cd67fcc6d1" prot="public" virt="virtual"><scope>rr::RK4Integrator</scope><name>hasValue</name></member>
+      <member refid="classrr_1_1Solver_1ab7675259f65ff348aa430747e48f0f90" prot="protected" virt="non-virtual"><scope>rr::RK4Integrator</scope><name>HintMap</name></member>
+      <member refid="classrr_1_1Solver_1a39049af7a03fd00b1021c1ce9a9691fc" prot="protected" virt="non-virtual"><scope>rr::RK4Integrator</scope><name>hints</name></member>
+      <member refid="classrr_1_1Integrator_1a0912499450e66cb4301263362d64a0d0aca69e7d9e0e8eb017d2351c375453822" prot="public" virt="non-virtual"><scope>rr::RK4Integrator</scope><name>Hybrid</name></member>
+      <member refid="classrr_1_1RK4Integrator_1af1e35f90daed9607d6536ca75734e51a" prot="public" virt="virtual"><scope>rr::RK4Integrator</scope><name>integrate</name></member>
+      <member refid="classrr_1_1Integrator_1a0912499450e66cb4301263362d64a0d0" prot="public" virt="non-virtual"><scope>rr::RK4Integrator</scope><name>IntegrationMethod</name></member>
+      <member refid="classrr_1_1RK4Integrator_1a3a4fbea2d72967669f32b121a75ee87f" prot="private" virt="non-virtual"><scope>rr::RK4Integrator</scope><name>k1</name></member>
+      <member refid="classrr_1_1RK4Integrator_1a58329362c8c33d6b15b4b6073777255c" prot="private" virt="non-virtual"><scope>rr::RK4Integrator</scope><name>k2</name></member>
+      <member refid="classrr_1_1RK4Integrator_1a660e4df634e375166e0cae3967e9d21e" prot="private" virt="non-virtual"><scope>rr::RK4Integrator</scope><name>k3</name></member>
+      <member refid="classrr_1_1RK4Integrator_1ac251c2d6f6b41c65d378649a51a73243" prot="private" virt="non-virtual"><scope>rr::RK4Integrator</scope><name>k4</name></member>
+      <member refid="classrr_1_1Integrator_1a3753687554e7e6bcf0c14c174deb2b0f" prot="public" virt="virtual"><scope>rr::RK4Integrator</scope><name>loadConfigSettings</name></member>
+      <member refid="classrr_1_1Integrator_1abd2e6c3616d1831c028f1061d927fbcd" prot="public" virt="virtual"><scope>rr::RK4Integrator</scope><name>loadSBMLSettings</name></member>
+      <member refid="classrr_1_1RK4Integrator_1a4821a5f2687a483f7452a0c846ca5f87" prot="private" virt="non-virtual"><scope>rr::RK4Integrator</scope><name>model</name></member>
+      <member refid="classrr_1_1Integrator_1a0912499450e66cb4301263362d64a0d0a0f9b8ec4e01a0fcd2ce808c42c039940" prot="public" virt="non-virtual"><scope>rr::RK4Integrator</scope><name>Other</name></member>
+      <member refid="classrr_1_1RK4Integrator_1ae7537cb767479cd0ab19dc405ed13376" prot="public" virt="virtual"><scope>rr::RK4Integrator</scope><name>resetSettings</name></member>
+      <member refid="classrr_1_1RK4Integrator_1a75ca0574917ed21f598fb93b1837cec3" prot="public" virt="virtual"><scope>rr::RK4Integrator</scope><name>restart</name></member>
+      <member refid="classrr_1_1RK4Integrator_1ac7059cef88e3a80e415855ec5fb2d2ef" prot="public" virt="non-virtual"><scope>rr::RK4Integrator</scope><name>RK4Integrator</name></member>
+      <member refid="classrr_1_1Integrator_1a1413e566ca980e08e2799777ad41a2ad" prot="public" virt="virtual"><scope>rr::RK4Integrator</scope><name>setConcentrationTolerance</name></member>
+      <member refid="classrr_1_1Integrator_1ac64b02928caaa4fe411754815c98b4f7" prot="public" virt="virtual"><scope>rr::RK4Integrator</scope><name>setIndividualTolerance</name></member>
+      <member refid="classrr_1_1RK4Integrator_1af5bc29a4b5af9536ef312cb88e9f3b30" prot="public" virt="virtual"><scope>rr::RK4Integrator</scope><name>setListener</name></member>
+      <member refid="classrr_1_1Solver_1a44a22cf0edead17a9cc923d87dcc063e" prot="protected" virt="non-virtual"><scope>rr::RK4Integrator</scope><name>settings</name></member>
+      <member refid="classrr_1_1Solver_1a970d11482faab2f17428c760f3ec8240" prot="protected" virt="non-virtual"><scope>rr::RK4Integrator</scope><name>SettingsList</name></member>
+      <member refid="classrr_1_1Solver_1a84e22bdecb76b77ddfbc8efda8219401" prot="protected" virt="non-virtual"><scope>rr::RK4Integrator</scope><name>SettingsMap</name></member>
+      <member refid="classrr_1_1Solver_1a37b032d8755eaccd3480531bdc2a4596" prot="public" virt="non-virtual"><scope>rr::RK4Integrator</scope><name>settingsPyDictRepr</name></member>
+      <member refid="classrr_1_1Solver_1a45dd9257f0b87546e7bdd607f3857260" prot="public" virt="virtual"><scope>rr::RK4Integrator</scope><name>setValue</name></member>
+      <member refid="classrr_1_1Solver_1a99f48947491d7cd36c68cebba53915fe" prot="protected" virt="non-virtual"><scope>rr::RK4Integrator</scope><name>sorted_settings</name></member>
+      <member refid="classrr_1_1RK4Integrator_1a6bd835e997f20d4ba1d5b12abaaff7ec" prot="private" virt="non-virtual"><scope>rr::RK4Integrator</scope><name>stateVectorSize</name></member>
+      <member refid="classrr_1_1Integrator_1a0912499450e66cb4301263362d64a0d0a35eaf1b6ad6c75eb82506ef35dd47c27" prot="public" virt="non-virtual"><scope>rr::RK4Integrator</scope><name>Stochastic</name></member>
+      <member refid="classrr_1_1RK4Integrator_1a727b452ebf195fc36143ba8a2fa8c2c2" prot="public" virt="virtual"><scope>rr::RK4Integrator</scope><name>syncWithModel</name></member>
+      <member refid="classrr_1_1RK4Integrator_1a3b9acce50104e02572ff96e891d7a06c" prot="private" virt="non-virtual"><scope>rr::RK4Integrator</scope><name>testRootsAtInitialTime</name></member>
+      <member refid="classrr_1_1Integrator_1abb3c4ae3020a5df7abe40639037615cb" prot="public" virt="virtual"><scope>rr::RK4Integrator</scope><name>toRepr</name></member>
+      <member refid="classrr_1_1Integrator_1adde5221e0d61f9f5398d69020e1a5a86" prot="public" virt="virtual"><scope>rr::RK4Integrator</scope><name>toString</name></member>
+      <member refid="classrr_1_1Integrator_1a51c07785d8af1eb648878347529b2eb4" prot="public" virt="virtual"><scope>rr::RK4Integrator</scope><name>tweakTolerances</name></member>
+      <member refid="classrr_1_1RK4Integrator_1ab5574d24cb9d1bb2ef91264e0760eded" prot="private" virt="non-virtual"><scope>rr::RK4Integrator</scope><name>y</name></member>
+      <member refid="classrr_1_1RK4Integrator_1a2ff04bf0c8d00cdd9fdd0901caa294f6" prot="private" virt="non-virtual"><scope>rr::RK4Integrator</scope><name>ytmp</name></member>
+      <member refid="classrr_1_1Integrator_1a35f0f55f14d225c1da02300f3f1c37b5" prot="public" virt="virtual"><scope>rr::RK4Integrator</scope><name>~Integrator</name></member>
+      <member refid="classrr_1_1RK4Integrator_1a2b4921fff536a7eb7e1ed40c8c5d57c8" prot="public" virt="virtual"><scope>rr::RK4Integrator</scope><name>~RK4Integrator</name></member>
+      <member refid="classrr_1_1Solver_1a921e53563c59252d5180c2160e46986f" prot="public" virt="virtual"><scope>rr::RK4Integrator</scope><name>~Solver</name></member>
+    </listofallmembers>
+  </compounddef>
+</doxygen>

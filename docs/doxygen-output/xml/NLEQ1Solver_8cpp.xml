@@ -1,0 +1,479 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.20" xml:lang="en-US">
+  <compounddef id="NLEQ1Solver_8cpp" kind="file" language="C++">
+    <compoundname>NLEQ1Solver.cpp</compoundname>
+    <includes refid="NLEQ1Solver_8h" local="yes">NLEQ1Solver.h</includes>
+    <includes refid="rrExecutableModel_8h" local="yes">rrExecutableModel.h</includes>
+    <includes refid="rrStringUtils_8h" local="yes">rrStringUtils.h</includes>
+    <includes refid="rrUtils_8h" local="yes">rrUtils.h</includes>
+    <includes local="yes">nleq1/nleq1.h</includes>
+    <includes refid="rrLogger_8h" local="yes">rrLogger.h</includes>
+    <includes refid="rrException_8h" local="yes">rrException.h</includes>
+    <includes refid="rrConfig_8h" local="yes">rrConfig.h</includes>
+    <includes refid="rrNLEQ1Interface_8h" local="yes">rrNLEQ1Interface.h</includes>
+    <includes local="no">Poco/Mutex.h</includes>
+    <includes local="no">assert.h</includes>
+    <includes local="no">math.h</includes>
+    <includes local="no">vector</includes>
+    <includes local="yes">tr1proxy/rr_unordered_map.h</includes>
+    <incdepgraph>
+      <node id="22">
+        <label>list</label>
+      </node>
+      <node id="24">
+        <label>rrStringUtils.h</label>
+        <link refid="rrStringUtils_8h_source"/>
+        <childnode refid="12" relation="include">
+        </childnode>
+        <childnode refid="22" relation="include">
+        </childnode>
+        <childnode refid="3" relation="include">
+        </childnode>
+        <childnode refid="25" relation="include">
+        </childnode>
+        <childnode refid="26" relation="include">
+        </childnode>
+        <childnode refid="27" relation="include">
+        </childnode>
+        <childnode refid="28" relation="include">
+        </childnode>
+        <childnode refid="29" relation="include">
+        </childnode>
+        <childnode refid="7" relation="include">
+        </childnode>
+        <childnode refid="10" relation="include">
+        </childnode>
+      </node>
+      <node id="30">
+        <label>limits</label>
+      </node>
+      <node id="20">
+        <label>sbml/SBMLDocument.h</label>
+      </node>
+      <node id="10">
+        <label>Variant.h</label>
+        <link refid="Variant_8h_source"/>
+        <childnode refid="7" relation="include">
+        </childnode>
+        <childnode refid="11" relation="include">
+        </childnode>
+        <childnode refid="12" relation="include">
+        </childnode>
+        <childnode refid="3" relation="include">
+        </childnode>
+      </node>
+      <node id="40">
+        <label>assert.h</label>
+      </node>
+      <node id="33">
+        <label>float.h</label>
+      </node>
+      <node id="21">
+        <label>stdint.h</label>
+      </node>
+      <node id="29">
+        <label>rrConstants.h</label>
+        <link refid="rrConstants_8h_source"/>
+        <childnode refid="30" relation="include">
+        </childnode>
+        <childnode refid="12" relation="include">
+        </childnode>
+        <childnode refid="31" relation="include">
+        </childnode>
+        <childnode refid="7" relation="include">
+        </childnode>
+      </node>
+      <node id="18">
+        <label>stdexcept</label>
+      </node>
+      <node id="5">
+        <label>rrLogger.h</label>
+        <link refid="rrLogger_8h_source"/>
+        <childnode refid="6" relation="include">
+        </childnode>
+        <childnode refid="7" relation="include">
+        </childnode>
+      </node>
+      <node id="38">
+        <label>rrSteadyStateSolver.h</label>
+        <link refid="rrSteadyStateSolver_8h_source"/>
+        <childnode refid="7" relation="include">
+        </childnode>
+        <childnode refid="19" relation="include">
+        </childnode>
+        <childnode refid="9" relation="include">
+        </childnode>
+        <childnode refid="3" relation="include">
+        </childnode>
+      </node>
+      <node id="32">
+        <label>rrUtils.h</label>
+        <link refid="rrUtils_8h_source"/>
+        <childnode refid="33" relation="include">
+        </childnode>
+        <childnode refid="3" relation="include">
+        </childnode>
+        <childnode refid="12" relation="include">
+        </childnode>
+        <childnode refid="34" relation="include">
+        </childnode>
+        <childnode refid="28" relation="include">
+        </childnode>
+        <childnode refid="7" relation="include">
+        </childnode>
+        <childnode refid="29" relation="include">
+        </childnode>
+        <childnode refid="24" relation="include">
+        </childnode>
+        <childnode refid="21" relation="include">
+        </childnode>
+      </node>
+      <node id="15">
+        <label>rrException.h</label>
+        <link refid="rrException_8h_source"/>
+        <childnode refid="16" relation="include">
+        </childnode>
+        <childnode refid="12" relation="include">
+        </childnode>
+        <childnode refid="7" relation="include">
+        </childnode>
+      </node>
+      <node id="12">
+        <label>string</label>
+      </node>
+      <node id="35">
+        <label>nleq1/nleq1.h</label>
+      </node>
+      <node id="14">
+        <label>tr1proxy/rr_unordered_map.h</label>
+      </node>
+      <node id="26">
+        <label>map</label>
+      </node>
+      <node id="9">
+        <label>Dictionary.h</label>
+        <link refid="Dictionary_8h_source"/>
+        <childnode refid="10" relation="include">
+        </childnode>
+        <childnode refid="12" relation="include">
+        </childnode>
+        <childnode refid="3" relation="include">
+        </childnode>
+        <childnode refid="13" relation="include">
+        </childnode>
+        <childnode refid="14" relation="include">
+        </childnode>
+      </node>
+      <node id="16">
+        <label>exception</label>
+      </node>
+      <node id="2">
+        <label>NLEQ1Solver.h</label>
+        <link refid="NLEQ1Solver_8h"/>
+        <childnode refid="3" relation="include">
+        </childnode>
+        <childnode refid="4" relation="include">
+        </childnode>
+        <childnode refid="19" relation="include">
+        </childnode>
+      </node>
+      <node id="23">
+        <label>ostream</label>
+      </node>
+      <node id="17">
+        <label>Solver.h</label>
+        <link refid="Solver_8h"/>
+        <childnode refid="5" relation="include">
+        </childnode>
+        <childnode refid="8" relation="include">
+        </childnode>
+        <childnode refid="9" relation="include">
+        </childnode>
+        <childnode refid="15" relation="include">
+        </childnode>
+        <childnode refid="13" relation="include">
+        </childnode>
+        <childnode refid="14" relation="include">
+        </childnode>
+        <childnode refid="18" relation="include">
+        </childnode>
+      </node>
+      <node id="19">
+        <label>rrExecutableModel.h</label>
+        <link refid="rrExecutableModel_8h"/>
+        <childnode refid="8" relation="include">
+        </childnode>
+        <childnode refid="15" relation="include">
+        </childnode>
+        <childnode refid="20" relation="include">
+        </childnode>
+        <childnode refid="21" relation="include">
+        </childnode>
+        <childnode refid="12" relation="include">
+        </childnode>
+        <childnode refid="3" relation="include">
+        </childnode>
+        <childnode refid="22" relation="include">
+        </childnode>
+        <childnode refid="23" relation="include">
+        </childnode>
+        <childnode refid="13" relation="include">
+        </childnode>
+      </node>
+      <node id="11">
+        <label>typeinfo</label>
+      </node>
+      <node id="36">
+        <label>rrConfig.h</label>
+        <link refid="rrConfig_8h_source"/>
+        <childnode refid="12" relation="include">
+        </childnode>
+        <childnode refid="7" relation="include">
+        </childnode>
+        <childnode refid="10" relation="include">
+        </childnode>
+        <childnode refid="3" relation="include">
+        </childnode>
+      </node>
+      <node id="3">
+        <label>vector</label>
+      </node>
+      <node id="1">
+        <label>NLEQ1Solver.cpp</label>
+        <link refid="NLEQ1Solver_8cpp"/>
+        <childnode refid="2" relation="include">
+        </childnode>
+        <childnode refid="19" relation="include">
+        </childnode>
+        <childnode refid="24" relation="include">
+        </childnode>
+        <childnode refid="32" relation="include">
+        </childnode>
+        <childnode refid="35" relation="include">
+        </childnode>
+        <childnode refid="5" relation="include">
+        </childnode>
+        <childnode refid="15" relation="include">
+        </childnode>
+        <childnode refid="36" relation="include">
+        </childnode>
+        <childnode refid="37" relation="include">
+        </childnode>
+        <childnode refid="39" relation="include">
+        </childnode>
+        <childnode refid="40" relation="include">
+        </childnode>
+        <childnode refid="41" relation="include">
+        </childnode>
+        <childnode refid="3" relation="include">
+        </childnode>
+        <childnode refid="14" relation="include">
+        </childnode>
+      </node>
+      <node id="6">
+        <label>sstream</label>
+      </node>
+      <node id="41">
+        <label>math.h</label>
+      </node>
+      <node id="31">
+        <label>cstdlib</label>
+      </node>
+      <node id="34">
+        <label>iostream</label>
+      </node>
+      <node id="8">
+        <label>rrOSSpecifics.h</label>
+        <link refid="rrOSSpecifics_8h_source"/>
+        <childnode refid="7" relation="include">
+        </childnode>
+      </node>
+      <node id="27">
+        <label>unordered_map</label>
+      </node>
+      <node id="13">
+        <label>tr1proxy/rr_memory.h</label>
+      </node>
+      <node id="7">
+        <label>rrExporter.h</label>
+        <link refid="rrExporter_8h_source"/>
+      </node>
+      <node id="4">
+        <label>SteadyStateSolver.h</label>
+        <link refid="SteadyStateSolver_8h"/>
+        <childnode refid="5" relation="include">
+        </childnode>
+        <childnode refid="8" relation="include">
+        </childnode>
+        <childnode refid="9" relation="include">
+        </childnode>
+        <childnode refid="15" relation="include">
+        </childnode>
+        <childnode refid="17" relation="include">
+        </childnode>
+        <childnode refid="13" relation="include">
+        </childnode>
+        <childnode refid="14" relation="include">
+        </childnode>
+        <childnode refid="18" relation="include">
+        </childnode>
+      </node>
+      <node id="28">
+        <label>set</label>
+      </node>
+      <node id="25">
+        <label>complex</label>
+      </node>
+      <node id="39">
+        <label>Poco/Mutex.h</label>
+      </node>
+      <node id="37">
+        <label>rrNLEQ1Interface.h</label>
+        <link refid="rrNLEQ1Interface_8h_source"/>
+        <childnode refid="3" relation="include">
+        </childnode>
+        <childnode refid="7" relation="include">
+        </childnode>
+        <childnode refid="19" relation="include">
+        </childnode>
+        <childnode refid="38" relation="include">
+        </childnode>
+      </node>
+    </incdepgraph>
+    <innernamespace refid="namespacerr">rr</innernamespace>
+    <briefdescription>
+    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <programlisting>
+<codeline lineno="1"><highlight class="preprocessor">#pragma<sp/>hdrstop</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="2"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&quot;<ref refid="NLEQ1Solver_8h" kindref="compound">NLEQ1Solver.h</ref>&quot;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="3"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&quot;<ref refid="rrExecutableModel_8h" kindref="compound">rrExecutableModel.h</ref>&quot;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="4"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&quot;rrStringUtils.h&quot;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="5"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&quot;rrUtils.h&quot;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="6"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&quot;nleq1/nleq1.h&quot;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="7"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&quot;rrLogger.h&quot;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="8"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&quot;rrUtils.h&quot;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="9"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&quot;rrException.h&quot;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="10"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&quot;rrConfig.h&quot;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="11"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&quot;rrNLEQ1Interface.h&quot;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="12"><highlight class="normal"></highlight></codeline>
+<codeline lineno="13"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&lt;Poco/Mutex.h&gt;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="14"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&lt;assert.h&gt;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="15"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&lt;math.h&gt;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="16"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&lt;vector&gt;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="17"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&quot;tr1proxy/rr_unordered_map.h&quot;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="18"><highlight class="normal"></highlight></codeline>
+<codeline lineno="19"><highlight class="normal"></highlight><highlight class="keyword">namespace<sp/></highlight><highlight class="normal">rr</highlight></codeline>
+<codeline lineno="20"><highlight class="normal">{</highlight></codeline>
+<codeline lineno="21"><highlight class="normal"></highlight></codeline>
+<codeline lineno="22"><highlight class="normal"><ref refid="classrr_1_1NLEQ1Solver_1a793640e077ef19ff994c7b1f7cf841f6" kindref="member">NLEQ1Solver::NLEQ1Solver</ref>(ExecutableModel<sp/>*_model)<sp/>:</highlight></codeline>
+<codeline lineno="23"><highlight class="normal"><sp/><sp/><sp/><sp/>model(_model)</highlight></codeline>
+<codeline lineno="24"><highlight class="normal">{</highlight></codeline>
+<codeline lineno="25"><highlight class="normal"><sp/><sp/><sp/><sp/>resetSettings();</highlight></codeline>
+<codeline lineno="26"><highlight class="normal">}</highlight></codeline>
+<codeline lineno="27"><highlight class="normal"></highlight></codeline>
+<codeline lineno="28"><highlight class="normal">NLEQ1Solver::~NLEQ1Solver()</highlight></codeline>
+<codeline lineno="29"><highlight class="normal">{</highlight></codeline>
+<codeline lineno="30"><highlight class="normal">}</highlight></codeline>
+<codeline lineno="31"><highlight class="normal"></highlight></codeline>
+<codeline lineno="32"><highlight class="normal"></highlight><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/><ref refid="classrr_1_1NLEQ1Solver_1aedc3e56a66274ee29cc44c590366cfc4" kindref="member">NLEQ1Solver::syncWithModel</ref>(ExecutableModel*<sp/>m)</highlight></codeline>
+<codeline lineno="33"><highlight class="normal">{</highlight></codeline>
+<codeline lineno="34"><highlight class="normal"><sp/><sp/><sp/><sp/>model<sp/>=<sp/>m;</highlight></codeline>
+<codeline lineno="35"><highlight class="normal">}</highlight></codeline>
+<codeline lineno="36"><highlight class="normal"></highlight></codeline>
+<codeline lineno="37"><highlight class="normal"></highlight><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/>NLEQ1Solver::loadConfigSettings()</highlight></codeline>
+<codeline lineno="38"><highlight class="normal">{</highlight></codeline>
+<codeline lineno="39"><highlight class="normal"><sp/><sp/><sp/><sp/>SteadyStateSolver::loadConfigSettings();</highlight></codeline>
+<codeline lineno="40"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="comment">//<sp/>Load<sp/>settings<sp/>specific<sp/>to<sp/>solver<sp/>integrator</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="41"><highlight class="normal"></highlight></codeline>
+<codeline lineno="42"><highlight class="normal"><sp/><sp/><sp/><sp/>NLEQ1Solver::setValue(</highlight><highlight class="stringliteral">&quot;allow_presimulation&quot;</highlight><highlight class="normal">,<sp/>Config::getBool(<ref refid="classrr_1_1Config_1aed7c550b9e34222675cd152c9154d053a4686986010864b67984769a014f60676" kindref="member">Config::STEADYSTATE_PRESIMULATION</ref>));</highlight></codeline>
+<codeline lineno="43"><highlight class="normal"><sp/><sp/><sp/><sp/>NLEQ1Solver::setValue(</highlight><highlight class="stringliteral">&quot;presimulation_maximum_steps&quot;</highlight><highlight class="normal">,<sp/><ref refid="classrr_1_1Config_1a66454fca7b7357d5b3180d8589bacebf" kindref="member">Config::getInt</ref>(<ref refid="classrr_1_1Config_1aed7c550b9e34222675cd152c9154d053ae1c4eb4d8956fd74282f7244b699b22d" kindref="member">Config::STEADYSTATE_PRESIMULATION_MAX_STEPS</ref>));</highlight></codeline>
+<codeline lineno="44"><highlight class="normal"><sp/><sp/><sp/><sp/>NLEQ1Solver::setValue(</highlight><highlight class="stringliteral">&quot;presimulation_time&quot;</highlight><highlight class="normal">,<sp/><ref refid="classrr_1_1Config_1a6cf432148717f8bbadc861481340f3bd" kindref="member">Config::getDouble</ref>(<ref refid="classrr_1_1Config_1aed7c550b9e34222675cd152c9154d053a211de9124bd3db79a3752c58f14f7b51" kindref="member">Config::STEADYSTATE_PRESIMULATION_TIME</ref>));</highlight></codeline>
+<codeline lineno="45"><highlight class="normal"><sp/><sp/><sp/><sp/>NLEQ1Solver::setValue(</highlight><highlight class="stringliteral">&quot;allow_approx&quot;</highlight><highlight class="normal">,<sp/>Config::getBool(<ref refid="classrr_1_1Config_1aed7c550b9e34222675cd152c9154d053adf2850a7abf4024849642d512f2d175e" kindref="member">Config::STEADYSTATE_APPROX</ref>));</highlight></codeline>
+<codeline lineno="46"><highlight class="normal"><sp/><sp/><sp/><sp/>NLEQ1Solver::setValue(</highlight><highlight class="stringliteral">&quot;approx_tolerance&quot;</highlight><highlight class="normal">,<sp/><ref refid="classrr_1_1Config_1a6cf432148717f8bbadc861481340f3bd" kindref="member">Config::getDouble</ref>(<ref refid="classrr_1_1Config_1aed7c550b9e34222675cd152c9154d053a0f93ab971ed7c5d9dfdd092e96244052" kindref="member">Config::STEADYSTATE_APPROX_TOL</ref>));</highlight></codeline>
+<codeline lineno="47"><highlight class="normal"><sp/><sp/><sp/><sp/>NLEQ1Solver::setValue(</highlight><highlight class="stringliteral">&quot;approx_maximum_steps&quot;</highlight><highlight class="normal">,<sp/><ref refid="classrr_1_1Config_1a66454fca7b7357d5b3180d8589bacebf" kindref="member">Config::getInt</ref>(<ref refid="classrr_1_1Config_1aed7c550b9e34222675cd152c9154d053a918423c8152c2de247f32b9634e63a27" kindref="member">Config::STEADYSTATE_APPROX_MAX_STEPS</ref>));</highlight></codeline>
+<codeline lineno="48"><highlight class="normal"><sp/><sp/><sp/><sp/>NLEQ1Solver::setValue(</highlight><highlight class="stringliteral">&quot;approx_time&quot;</highlight><highlight class="normal">,<sp/><ref refid="classrr_1_1Config_1a6cf432148717f8bbadc861481340f3bd" kindref="member">Config::getDouble</ref>(<ref refid="classrr_1_1Config_1aed7c550b9e34222675cd152c9154d053a9e7868b91c7f6f94da14d1b8797b7829" kindref="member">Config::STEADYSTATE_APPROX_TIME</ref>));</highlight></codeline>
+<codeline lineno="49"><highlight class="normal"><sp/><sp/><sp/><sp/>NLEQ1Solver::setValue(</highlight><highlight class="stringliteral">&quot;relative_tolerance&quot;</highlight><highlight class="normal">,<sp/><ref refid="classrr_1_1Config_1a6cf432148717f8bbadc861481340f3bd" kindref="member">Config::getDouble</ref>(<ref refid="classrr_1_1Config_1aed7c550b9e34222675cd152c9154d053ab00d49173c79792fd08c3fb5731f018d" kindref="member">Config::STEADYSTATE_RELATIVE</ref>));</highlight></codeline>
+<codeline lineno="50"><highlight class="normal"><sp/><sp/><sp/><sp/>NLEQ1Solver::setValue(</highlight><highlight class="stringliteral">&quot;maximum_iterations&quot;</highlight><highlight class="normal">,<sp/><ref refid="classrr_1_1Config_1a66454fca7b7357d5b3180d8589bacebf" kindref="member">Config::getInt</ref>(<ref refid="classrr_1_1Config_1aed7c550b9e34222675cd152c9154d053a2d28b310561d790f8814ae1ae871bb64" kindref="member">Config::STEADYSTATE_MAXIMUM_NUM_STEPS</ref>));</highlight></codeline>
+<codeline lineno="51"><highlight class="normal"><sp/><sp/><sp/><sp/>NLEQ1Solver::setValue(</highlight><highlight class="stringliteral">&quot;minimum_damping&quot;</highlight><highlight class="normal">,<sp/><ref refid="classrr_1_1Config_1a6cf432148717f8bbadc861481340f3bd" kindref="member">Config::getDouble</ref>(<ref refid="classrr_1_1Config_1aed7c550b9e34222675cd152c9154d053ae91fd0851ea18a519556f71376c57164" kindref="member">Config::STEADYSTATE_MINIMUM_DAMPING</ref>));</highlight></codeline>
+<codeline lineno="52"><highlight class="normal"><sp/><sp/><sp/><sp/>NLEQ1Solver::setValue(</highlight><highlight class="stringliteral">&quot;broyden_method&quot;</highlight><highlight class="normal">,<sp/><ref refid="classrr_1_1Config_1a66454fca7b7357d5b3180d8589bacebf" kindref="member">Config::getInt</ref>(<ref refid="classrr_1_1Config_1aed7c550b9e34222675cd152c9154d053a568a6ea36735903f07f255e965205b50" kindref="member">Config::STEADYSTATE_BROYDEN</ref>));</highlight></codeline>
+<codeline lineno="53"><highlight class="normal"><sp/><sp/><sp/><sp/>NLEQ1Solver::setValue(</highlight><highlight class="stringliteral">&quot;linearity&quot;</highlight><highlight class="normal">,<sp/><ref refid="classrr_1_1Config_1a66454fca7b7357d5b3180d8589bacebf" kindref="member">Config::getInt</ref>(<ref refid="classrr_1_1Config_1aed7c550b9e34222675cd152c9154d053ad2d3f863115b60f11279d413b4bc2baa" kindref="member">Config::STEADYSTATE_LINEARITY</ref>));</highlight></codeline>
+<codeline lineno="54"><highlight class="normal">}</highlight></codeline>
+<codeline lineno="55"><highlight class="normal"></highlight></codeline>
+<codeline lineno="56"><highlight class="normal"></highlight><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/><ref refid="classrr_1_1NLEQ1Solver_1acff80edbc665b7489be400e174a0dc6c" kindref="member">NLEQ1Solver::resetSettings</ref>()</highlight></codeline>
+<codeline lineno="57"><highlight class="normal">{</highlight></codeline>
+<codeline lineno="58"><highlight class="normal"><sp/><sp/><sp/><sp/><ref refid="classrr_1_1Solver_1a71c8b404a40447f879b2253e7dcc3b85" kindref="member">Solver::resetSettings</ref>();</highlight></codeline>
+<codeline lineno="59"><highlight class="normal"></highlight></codeline>
+<codeline lineno="60"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="comment">//<sp/>Set<sp/>default<sp/>settings.</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="61"><highlight class="normal"><sp/><sp/><sp/><sp/>addSetting(</highlight><highlight class="stringliteral">&quot;allow_presimulation&quot;</highlight><highlight class="normal">,<sp/></highlight><highlight class="keyword">false</highlight><highlight class="normal">,<sp/></highlight><highlight class="stringliteral">&quot;Allow<sp/>Presimulation&quot;</highlight><highlight class="normal">,<sp/></highlight><highlight class="stringliteral">&quot;Flag<sp/>for<sp/>starting<sp/>steady<sp/>state<sp/>analysis<sp/>with<sp/>simulation<sp/>(bool).&quot;</highlight><highlight class="normal">,<sp/></highlight><highlight class="stringliteral">&quot;(bool)<sp/>This<sp/>flag<sp/>does<sp/>not<sp/>affect<sp/>the<sp/>usage<sp/>of<sp/>approximation<sp/>routine<sp/>when<sp/>the<sp/>default<sp/>steaty<sp/>state<sp/>solver<sp/>fails&quot;</highlight><highlight class="normal">);</highlight></codeline>
+<codeline lineno="62"><highlight class="normal"><sp/><sp/><sp/><sp/>addSetting(</highlight><highlight class="stringliteral">&quot;presimulation_maximum_steps&quot;</highlight><highlight class="normal">,<sp/>100,<sp/></highlight><highlight class="stringliteral">&quot;Presimulation<sp/>Maximum<sp/>Steps&quot;</highlight><highlight class="normal">,<sp/></highlight><highlight class="stringliteral">&quot;Maximum<sp/>number<sp/>of<sp/>steps<sp/>that<sp/>can<sp/>be<sp/>taken<sp/>for<sp/>presimulation<sp/>before<sp/>steady<sp/>state<sp/>analysis<sp/>(int).&quot;</highlight><highlight class="normal">,<sp/></highlight><highlight class="stringliteral">&quot;(int)<sp/>Takes<sp/>priority<sp/>over<sp/>presimulation_time.<sp/>Only<sp/>used<sp/>when<sp/>allow_presimulation<sp/>is<sp/>True&quot;</highlight><highlight class="normal">);</highlight></codeline>
+<codeline lineno="63"><highlight class="normal"><sp/><sp/><sp/><sp/>addSetting(</highlight><highlight class="stringliteral">&quot;presimulation_time&quot;</highlight><highlight class="normal">,<sp/>100,<sp/></highlight><highlight class="stringliteral">&quot;Presimulation<sp/>Time&quot;</highlight><highlight class="normal">,<sp/></highlight><highlight class="stringliteral">&quot;End<sp/>time<sp/>for<sp/>presimulation<sp/>steady<sp/>state<sp/>analysis<sp/>(double).&quot;</highlight><highlight class="normal">,<sp/></highlight><highlight class="stringliteral">&quot;(double)<sp/>presimulation_maximum_steps<sp/>takes<sp/>priority.<sp/>Only<sp/>used<sp/>when<sp/>allow_presimulation<sp/>is<sp/>True&quot;</highlight><highlight class="normal">);</highlight></codeline>
+<codeline lineno="64"><highlight class="normal"><sp/><sp/><sp/><sp/>addSetting(</highlight><highlight class="stringliteral">&quot;allow_approx&quot;</highlight><highlight class="normal">,<sp/></highlight><highlight class="keyword">false</highlight><highlight class="normal">,<sp/></highlight><highlight class="stringliteral">&quot;Allow<sp/>Approximiation&quot;</highlight><highlight class="normal">,<sp/></highlight><highlight class="stringliteral">&quot;Flag<sp/>for<sp/>using<sp/>steady<sp/>state<sp/>approximation<sp/>routine<sp/>when<sp/>steady<sp/>state<sp/>solver<sp/>fails<sp/>(bool).&quot;</highlight><highlight class="normal">,<sp/></highlight><highlight class="stringliteral">&quot;(bool)<sp/>Approximation<sp/>routine<sp/>will<sp/>run<sp/>only<sp/>when<sp/>the<sp/>default<sp/>solver<sp/>fails<sp/>to<sp/>fine<sp/>a<sp/>solution.<sp/>This<sp/>flag<sp/>does<sp/>not<sp/>affect<sp/>usage<sp/>of<sp/>approximation<sp/>routine<sp/>for<sp/>pre-simulation&quot;</highlight><highlight class="normal">);</highlight></codeline>
+<codeline lineno="65"><highlight class="normal"><sp/><sp/><sp/><sp/>addSetting(</highlight><highlight class="stringliteral">&quot;approx_tolerance&quot;</highlight><highlight class="normal">,<sp/>1e-6,<sp/></highlight><highlight class="stringliteral">&quot;Approximation<sp/>Tolerance&quot;</highlight><highlight class="normal">,<sp/></highlight><highlight class="stringliteral">&quot;Tolerance<sp/>for<sp/>steady<sp/>state<sp/>approximation<sp/>routine<sp/>(double).&quot;</highlight><highlight class="normal">,<sp/></highlight><highlight class="stringliteral">&quot;(double)<sp/>Absolute<sp/>tolerance<sp/>used<sp/>by<sp/>steady<sp/>state<sp/>approximation<sp/>routine.<sp/>Only<sp/>used<sp/>when<sp/>steady<sp/>state<sp/>approximation<sp/>routine<sp/>is<sp/>used&quot;</highlight><highlight class="normal">);</highlight></codeline>
+<codeline lineno="66"><highlight class="normal"><sp/><sp/><sp/><sp/>addSetting(</highlight><highlight class="stringliteral">&quot;approx_maximum_steps&quot;</highlight><highlight class="normal">,<sp/>10000,<sp/></highlight><highlight class="stringliteral">&quot;Approximation<sp/>Maximum<sp/>Steps&quot;</highlight><highlight class="normal">,<sp/></highlight><highlight class="stringliteral">&quot;Maximum<sp/>number<sp/>of<sp/>steps<sp/>that<sp/>can<sp/>be<sp/>taken<sp/>for<sp/>steady<sp/>state<sp/>approximation<sp/>routine<sp/>(int).&quot;</highlight><highlight class="normal">,<sp/></highlight><highlight class="stringliteral">&quot;(int)<sp/>Takes<sp/>priority<sp/>over<sp/>approx_time.<sp/>Only<sp/>used<sp/>when<sp/>steady<sp/>state<sp/>approximation<sp/>routine<sp/>is<sp/>used&quot;</highlight><highlight class="normal">);</highlight></codeline>
+<codeline lineno="67"><highlight class="normal"><sp/><sp/><sp/><sp/>addSetting(</highlight><highlight class="stringliteral">&quot;approx_time&quot;</highlight><highlight class="normal">,<sp/>10000,<sp/></highlight><highlight class="stringliteral">&quot;Approximation<sp/>Time&quot;</highlight><highlight class="normal">,<sp/></highlight><highlight class="stringliteral">&quot;End<sp/>time<sp/>for<sp/>steady<sp/>state<sp/>approximation<sp/>routine<sp/>(double).&quot;</highlight><highlight class="normal">,<sp/></highlight><highlight class="stringliteral">&quot;(double)<sp/>approx_maximum_steps<sp/>takes<sp/>priority.<sp/>Only<sp/>used<sp/>when<sp/>steady<sp/>state<sp/>approximation<sp/>routine<sp/>is<sp/>used&quot;</highlight><highlight class="normal">);</highlight></codeline>
+<codeline lineno="68"><highlight class="normal"><sp/><sp/><sp/><sp/>addSetting(</highlight><highlight class="stringliteral">&quot;relative_tolerance&quot;</highlight><highlight class="normal">,<sp/>1e-12,<sp/></highlight><highlight class="stringliteral">&quot;Relative<sp/>Tolerance&quot;</highlight><highlight class="normal">,<sp/></highlight><highlight class="stringliteral">&quot;Specifies<sp/>the<sp/>relative<sp/>tolerance<sp/>(double).&quot;</highlight><highlight class="normal">,<sp/></highlight><highlight class="stringliteral">&quot;(double)<sp/>Relative<sp/>tolerance<sp/>used<sp/>by<sp/>the<sp/>solver&quot;</highlight><highlight class="normal">);</highlight></codeline>
+<codeline lineno="69"><highlight class="normal"><sp/><sp/><sp/><sp/>addSetting(</highlight><highlight class="stringliteral">&quot;maximum_iterations&quot;</highlight><highlight class="normal">,<sp/>100,<sp/></highlight><highlight class="stringliteral">&quot;Maximum<sp/>Iterations&quot;</highlight><highlight class="normal">,<sp/></highlight><highlight class="stringliteral">&quot;The<sp/>maximum<sp/>number<sp/>of<sp/>iterations<sp/>the<sp/>solver<sp/>is<sp/>allowed<sp/>to<sp/>use<sp/>(int)&quot;</highlight><highlight class="normal">,<sp/></highlight><highlight class="stringliteral">&quot;(int)<sp/>Iteration<sp/>caps<sp/>off<sp/>at<sp/>the<sp/>maximum,<sp/>regardless<sp/>of<sp/>whether<sp/>a<sp/>solution<sp/>has<sp/>been<sp/>reached&quot;</highlight><highlight class="normal">);</highlight></codeline>
+<codeline lineno="70"><highlight class="normal"><sp/><sp/><sp/><sp/>addSetting(</highlight><highlight class="stringliteral">&quot;minimum_damping&quot;</highlight><highlight class="normal">,<sp/>1e-20,<sp/></highlight><highlight class="stringliteral">&quot;Minimum<sp/>Damping&quot;</highlight><highlight class="normal">,<sp/></highlight><highlight class="stringliteral">&quot;The<sp/>minimum<sp/>damping<sp/>factor<sp/>(double).&quot;</highlight><highlight class="normal">,<sp/></highlight><highlight class="stringliteral">&quot;(double)<sp/>Minumum<sp/>damping<sp/>factor<sp/>used<sp/>by<sp/>the<sp/>algorithm&quot;</highlight><highlight class="normal">);</highlight></codeline>
+<codeline lineno="71"><highlight class="normal"><sp/><sp/><sp/><sp/>addSetting(</highlight><highlight class="stringliteral">&quot;broyden_method&quot;</highlight><highlight class="normal">,<sp/>0,<sp/></highlight><highlight class="stringliteral">&quot;Broyden<sp/>Method&quot;</highlight><highlight class="normal">,<sp/></highlight><highlight class="stringliteral">&quot;Switches<sp/>on<sp/>Broyden<sp/>method<sp/>(int)&quot;</highlight><highlight class="normal">,<sp/></highlight><highlight class="stringliteral">&quot;(int)<sp/>Broyden<sp/>method<sp/>is<sp/>a<sp/>quasi-Newton<sp/>approximation<sp/>for<sp/>rank-1<sp/>updates&quot;</highlight><highlight class="normal">);</highlight></codeline>
+<codeline lineno="72"><highlight class="normal"><sp/><sp/><sp/><sp/>addSetting(</highlight><highlight class="stringliteral">&quot;linearity&quot;</highlight><highlight class="normal">,<sp/>3,<sp/></highlight><highlight class="stringliteral">&quot;Problem<sp/>Linearity&quot;</highlight><highlight class="normal">,<sp/></highlight><highlight class="stringliteral">&quot;Specifies<sp/>linearity<sp/>of<sp/>the<sp/>problem<sp/>(int).&quot;</highlight><highlight class="normal">,<sp/></highlight><highlight class="stringliteral">&quot;(int)<sp/>1<sp/>is<sp/>for<sp/>linear<sp/>problem<sp/>and<sp/>4<sp/>is<sp/>for<sp/>extremly<sp/>nonlinear<sp/>problem&quot;</highlight><highlight class="normal">);</highlight></codeline>
+<codeline lineno="73"><highlight class="normal"><sp/><sp/><sp/><sp/>NLEQ1Solver::loadConfigSettings();</highlight></codeline>
+<codeline lineno="74"><highlight class="normal">}</highlight></codeline>
+<codeline lineno="75"><highlight class="normal"></highlight></codeline>
+<codeline lineno="76"><highlight class="normal">std::string<sp/><ref refid="classrr_1_1NLEQ1Solver_1ad0d9601d9d272cb97fde279e89e50203" kindref="member">NLEQ1Solver::getName</ref>()</highlight><highlight class="keyword"><sp/>const<sp/></highlight><highlight class="normal">{</highlight></codeline>
+<codeline lineno="77"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal"><sp/><ref refid="classrr_1_1NLEQ1Solver_1aae1f007468323d8fd2e83ebd88118145" kindref="member">NLEQ1Solver::getNLEQName</ref>();</highlight></codeline>
+<codeline lineno="78"><highlight class="normal">}</highlight></codeline>
+<codeline lineno="79"><highlight class="normal"></highlight></codeline>
+<codeline lineno="80"><highlight class="normal">std::string<sp/><ref refid="classrr_1_1NLEQ1Solver_1aae1f007468323d8fd2e83ebd88118145" kindref="member">NLEQ1Solver::getNLEQName</ref>()<sp/>{</highlight></codeline>
+<codeline lineno="81"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal"><sp/></highlight><highlight class="stringliteral">&quot;nleq1&quot;</highlight><highlight class="normal">;</highlight></codeline>
+<codeline lineno="82"><highlight class="normal">}</highlight></codeline>
+<codeline lineno="83"><highlight class="normal"></highlight></codeline>
+<codeline lineno="84"><highlight class="normal">std::string<sp/><ref refid="classrr_1_1NLEQ1Solver_1a563c9b0d67f800a54e587134c6ab40f4" kindref="member">NLEQ1Solver::getDescription</ref>()</highlight><highlight class="keyword"><sp/>const<sp/></highlight><highlight class="normal">{</highlight></codeline>
+<codeline lineno="85"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal"><sp/><ref refid="classrr_1_1NLEQ1Solver_1a1a4630dc439bbe7a9662aa0c824246f5" kindref="member">NLEQ1Solver::getNLEQDescription</ref>();</highlight></codeline>
+<codeline lineno="86"><highlight class="normal">}</highlight></codeline>
+<codeline lineno="87"><highlight class="normal"></highlight></codeline>
+<codeline lineno="88"><highlight class="normal">std::string<sp/><ref refid="classrr_1_1NLEQ1Solver_1a1a4630dc439bbe7a9662aa0c824246f5" kindref="member">NLEQ1Solver::getNLEQDescription</ref>()<sp/>{</highlight></codeline>
+<codeline lineno="89"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal"><sp/></highlight><highlight class="stringliteral">&quot;NLEQ1<sp/>is<sp/>a<sp/>non-linear<sp/>equation<sp/>solver<sp/>which<sp/>uses<sp/>a<sp/>global<sp/>Newton<sp/>&quot;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="90"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="stringliteral">&quot;method<sp/>with<sp/>adaptive<sp/>damping<sp/>strategies<sp/>(see<sp/>http://elib.zib.de/pub/elib/codelib/NewtonLib/)&quot;</highlight><highlight class="normal">;</highlight></codeline>
+<codeline lineno="91"><highlight class="normal">}</highlight></codeline>
+<codeline lineno="92"><highlight class="normal"></highlight></codeline>
+<codeline lineno="93"><highlight class="normal">std::string<sp/><ref refid="classrr_1_1NLEQ1Solver_1af2dc9efdd38fc60056dbdd055a6f11f1" kindref="member">NLEQ1Solver::getHint</ref>()</highlight><highlight class="keyword"><sp/>const<sp/></highlight><highlight class="normal">{</highlight></codeline>
+<codeline lineno="94"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal"><sp/><ref refid="classrr_1_1NLEQ1Solver_1add507b9e399ec4abc2eee354d1281353" kindref="member">NLEQ1Solver::getNLEQHint</ref>();</highlight></codeline>
+<codeline lineno="95"><highlight class="normal">}</highlight></codeline>
+<codeline lineno="96"><highlight class="normal"></highlight></codeline>
+<codeline lineno="97"><highlight class="normal">std::string<sp/><ref refid="classrr_1_1NLEQ1Solver_1add507b9e399ec4abc2eee354d1281353" kindref="member">NLEQ1Solver::getNLEQHint</ref>()<sp/>{</highlight></codeline>
+<codeline lineno="98"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal"><sp/></highlight><highlight class="stringliteral">&quot;Steady-state<sp/>nonlinear<sp/>systems<sp/>of<sp/>equations<sp/>solver&quot;</highlight><highlight class="normal">;</highlight></codeline>
+<codeline lineno="99"><highlight class="normal">}</highlight></codeline>
+<codeline lineno="100"><highlight class="normal"></highlight></codeline>
+<codeline lineno="101"><highlight class="normal"></highlight><highlight class="keywordtype">double</highlight><highlight class="normal"><sp/>NLEQ1Solver::solve()</highlight></codeline>
+<codeline lineno="102"><highlight class="normal">{</highlight></codeline>
+<codeline lineno="103"><highlight class="normal"><sp/><sp/><sp/><sp/>Log(<ref refid="classrr_1_1Logger_1a72a52e7fe7be48e2ecad639c641ee8aaadaf226f4b284b87851ddb9a9f7ddd0d5" kindref="member">Logger::LOG_DEBUG</ref>)<sp/>&lt;&lt;<sp/></highlight><highlight class="stringliteral">&quot;NLEQ1Solver::solve&quot;</highlight><highlight class="normal">;</highlight></codeline>
+<codeline lineno="104"><highlight class="normal"></highlight></codeline>
+<codeline lineno="105"><highlight class="normal"><sp/><sp/><sp/><sp/>NLEQ1Interface*<sp/>nleq1<sp/>=<sp/></highlight><highlight class="keyword">new</highlight><highlight class="normal"><sp/>NLEQ1Interface(model);</highlight></codeline>
+<codeline lineno="106"><highlight class="normal"></highlight></codeline>
+<codeline lineno="107"><highlight class="normal"><sp/><sp/><sp/><sp/>nleq1-&gt;allowPreSim<sp/>=<sp/><ref refid="classrr_1_1Solver_1a773a06f0d64c9d79423efcef1b381da1" kindref="member">getValue</ref>(</highlight><highlight class="stringliteral">&quot;allow_presimulation&quot;</highlight><highlight class="normal">);</highlight></codeline>
+<codeline lineno="108"><highlight class="normal"><sp/><sp/><sp/><sp/>nleq1-&gt;preSimMaximumSteps<sp/>=<sp/><ref refid="classrr_1_1Solver_1a773a06f0d64c9d79423efcef1b381da1" kindref="member">getValue</ref>(</highlight><highlight class="stringliteral">&quot;presimulation_maximum_steps&quot;</highlight><highlight class="normal">);</highlight></codeline>
+<codeline lineno="109"><highlight class="normal"><sp/><sp/><sp/><sp/>nleq1-&gt;preSimTime<sp/>=<sp/><ref refid="classrr_1_1Solver_1a773a06f0d64c9d79423efcef1b381da1" kindref="member">getValue</ref>(</highlight><highlight class="stringliteral">&quot;presimulation_time&quot;</highlight><highlight class="normal">);</highlight></codeline>
+<codeline lineno="110"><highlight class="normal"><sp/><sp/><sp/><sp/>nleq1-&gt;allowApprox<sp/>=<sp/><ref refid="classrr_1_1Solver_1a773a06f0d64c9d79423efcef1b381da1" kindref="member">getValue</ref>(</highlight><highlight class="stringliteral">&quot;allow_approx&quot;</highlight><highlight class="normal">);</highlight></codeline>
+<codeline lineno="111"><highlight class="normal"><sp/><sp/><sp/><sp/>nleq1-&gt;approxTolerance<sp/>=<sp/><ref refid="classrr_1_1Solver_1a773a06f0d64c9d79423efcef1b381da1" kindref="member">getValue</ref>(</highlight><highlight class="stringliteral">&quot;approx_tolerance&quot;</highlight><highlight class="normal">);</highlight></codeline>
+<codeline lineno="112"><highlight class="normal"><sp/><sp/><sp/><sp/>nleq1-&gt;approxMaximumSteps<sp/>=<sp/><ref refid="classrr_1_1Solver_1a773a06f0d64c9d79423efcef1b381da1" kindref="member">getValue</ref>(</highlight><highlight class="stringliteral">&quot;approx_maximum_steps&quot;</highlight><highlight class="normal">);</highlight></codeline>
+<codeline lineno="113"><highlight class="normal"><sp/><sp/><sp/><sp/>nleq1-&gt;approxTime<sp/>=<sp/><ref refid="classrr_1_1Solver_1a773a06f0d64c9d79423efcef1b381da1" kindref="member">getValue</ref>(</highlight><highlight class="stringliteral">&quot;approx_time&quot;</highlight><highlight class="normal">);</highlight></codeline>
+<codeline lineno="114"><highlight class="normal"><sp/><sp/><sp/><sp/>nleq1-&gt;relativeTolerance<sp/>=<sp/><ref refid="classrr_1_1Solver_1a773a06f0d64c9d79423efcef1b381da1" kindref="member">getValue</ref>(</highlight><highlight class="stringliteral">&quot;relative_tolerance&quot;</highlight><highlight class="normal">);</highlight></codeline>
+<codeline lineno="115"><highlight class="normal"><sp/><sp/><sp/><sp/>nleq1-&gt;maxIterations<sp/>=<sp/><ref refid="classrr_1_1Solver_1a773a06f0d64c9d79423efcef1b381da1" kindref="member">getValue</ref>(</highlight><highlight class="stringliteral">&quot;maximum_iterations&quot;</highlight><highlight class="normal">);</highlight></codeline>
+<codeline lineno="116"><highlight class="normal"><sp/><sp/><sp/><sp/>nleq1-&gt;minDamping<sp/>=<sp/><ref refid="classrr_1_1Solver_1a773a06f0d64c9d79423efcef1b381da1" kindref="member">getValue</ref>(</highlight><highlight class="stringliteral">&quot;minimum_damping&quot;</highlight><highlight class="normal">);</highlight></codeline>
+<codeline lineno="117"><highlight class="normal"><sp/><sp/><sp/><sp/>nleq1-&gt;broyden<sp/>=<sp/><ref refid="classrr_1_1Solver_1a773a06f0d64c9d79423efcef1b381da1" kindref="member">getValue</ref>(</highlight><highlight class="stringliteral">&quot;broyden_method&quot;</highlight><highlight class="normal">);</highlight></codeline>
+<codeline lineno="118"><highlight class="normal"><sp/><sp/><sp/><sp/>nleq1-&gt;linearity<sp/>=<sp/><ref refid="classrr_1_1Solver_1a773a06f0d64c9d79423efcef1b381da1" kindref="member">getValue</ref>(</highlight><highlight class="stringliteral">&quot;linearity&quot;</highlight><highlight class="normal">);</highlight></codeline>
+<codeline lineno="119"><highlight class="normal"></highlight></codeline>
+<codeline lineno="120"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keywordtype">double</highlight><highlight class="normal"><sp/>result<sp/>=<sp/>nleq1-&gt;solve();</highlight></codeline>
+<codeline lineno="121"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keyword">delete</highlight><highlight class="normal"><sp/>nleq1;</highlight></codeline>
+<codeline lineno="122"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal"><sp/>result;</highlight></codeline>
+<codeline lineno="123"><highlight class="normal">}</highlight></codeline>
+<codeline lineno="124"><highlight class="normal"></highlight></codeline>
+<codeline lineno="125"><highlight class="normal">}<sp/><sp/><sp/><sp/></highlight><highlight class="comment">//end<sp/>of<sp/>namespace</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="126"><highlight class="normal"></highlight></codeline>
+<codeline lineno="127"><highlight class="normal"></highlight></codeline>
+    </programlisting>
+    <location file="NLEQ1Solver.cpp"/>
+  </compounddef>
+</doxygen>

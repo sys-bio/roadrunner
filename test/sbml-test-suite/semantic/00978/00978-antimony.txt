@@ -1,0 +1,33 @@
+model case00978()
+  multitrig=0;
+  x = 0;
+  y = 0;
+  z = 0;
+  //On!
+  at(time>=.99), priority = 10: multitrig=2;
+  //Off!
+  at(time>=.99), priority =  9: multitrig=0;
+  //On!
+  at(time>=.99), priority =  8: multitrig=2;
+  //Off!
+  at(time>=.99), priority =  7: multitrig=0;
+  //On!
+  at(time>=.99), priority =  6: multitrig=2;
+  //Off!
+  at(time>=.99), priority =  5: multitrig=0;
+  //On!
+  at(time>=.99), priority =  4: multitrig=2;
+  //Off!
+  at(time>=.99), priority =  3: multitrig=0;
+  //On!
+  at(time>=.99), priority =  2: multitrig=2;
+
+  //Our events that just got triggered 5 times:
+  //  This one will end up executing five times:
+  at(multitrig > 1), priority = 1, persistent=true, fromTrigger=false : x = x+1;
+  //  This one will end up executing five times, but performing the same action each time, since fromTrigger was true:
+  at(multitrig > 1), priority = 1, persistent=true, fromTrigger=true : y = y+1;
+  //  And this one will only end up executing once:
+  at(multitrig > 1), priority = 1, persistent=false, fromTrigger=false: z = z+3;
+
+end

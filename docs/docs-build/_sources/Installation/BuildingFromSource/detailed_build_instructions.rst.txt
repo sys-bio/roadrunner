@@ -1,0 +1,70 @@
+Detailed Build Instructions
+============================
+
+To build roadrunner, you first need:
+    #. `LLVM-6.x <https://github.com/sys-bio/llvm-6.x>`_
+    #. The `roadrunner-deps <https://github.com/CiaranWelsh/roadrunner-deps>`_ package
+
+LLVM is big and takes a long time to build. Therefore there are two options regarding obtaining this dependency.
+    #. D
+
+Therefore if possible we recommend using the prebuilt binaries for llvm. If
+you need to build llvm from source, please see the :ref:`building llvm section <LLVM-6.x dependency>`.
+
+Using prebuilt llvm binaries
+----------------------------
+
+#. Install and extract the :ref:`llvm-6.x dependency<LLVM-6.x dependency>`.
+#. Install the `roadrunner dependency package <https://github.com/CiaranWelsh/roadrunner-deps>`_
+
+.. code-block:: bash
+
+	$ git clone https://github.com/CiaranWelsh/roadrunner-deps.git --recurse-submodules 	# get the dependency package using git
+	$ cd roadrunner-deps-install
+	$ mkdir build
+	$ cd build
+	$ cmake -DCMAKE_INSTALL_PREFIX="D:\roadrunner-deps\roadrunner-deps-install" -DCMAKE_BUILD_TYPE="Release" .. # configure the dependency package
+	$ cmake --build . --target install --config Release # build the install target
+	$ cd ../../ # return to directory containing roadrunner-deps
+
+#. Install roadrunner
+
+.. code-block:: bash
+
+	$ git clone https://github.com/CiaranWelsh/roadrunner.git # get roadrunner
+	$ cd roadrunner
+	$ mkdir build
+	$ cd build
+	$ cmake -DCMAKE_INSTALL_PREFIX="D:\roadrunner\install-msvc2019" -DLLVM_INSTALL_PREFIX="D:\llvm-6.x\llvm\llvm-6.x-msvc-x64-release" -DRR_DEPENDENCIES_INSTALL_PREFIX="D:\roadrunner-deps\roadrunner-deps-install" -DCMAKE_BUILD_TYPE="Release" ..
+	$ cmake --build . --target install --config Release
+
+Building llxm6.x with the other roadrunner dependencies
+-------------------------------------------------------------------------------
+
+This is very similar to :ref:`Building with the prebuilt LLVM instructions <Quick Build Instructions - using prebuilt llvm binaries>`. The only difference is the inclusion of `-DBUILD_LLVM=ON` in the cmake command of the dependency package
+
+#. Install the [roadrunner dependency package](https://github.com/CiaranWelsh/roadrunner-deps).
+
+.. code-block:: bash
+
+	$ git clone https://github.com/CiaranWelsh/roadrunner-deps.git --recurse-submodules 	# get the dependency package using git
+	$ cd roadrunner-deps-install
+	$ mkdir build
+	$ cd build
+	$ cmake -DCMAKE_INSTALL_PREFIX="D:\roadrunner-deps\roadrunner-deps-install" -DCMAKE_BUILD_TYPE="Release" -DBUILD_LLVM=ON .. # configure the dependency package
+	$ cmake --build . --target install --config Release # build the install target
+	$ cd ../../ # return to directory containing roadrunner-deps
+
+#. Install roadrunner
+
+Now that we've included the LLVM dependency with the other dependencies, we only need to provide the path to the `RR_DEPENDENCIES_INSTALL_PREFIX` variable and LLVM will be picked up automatically.
+
+.. code-block:: bash
+
+	$ git clone https://github.com/CiaranWelsh/roadrunner.git # get roadrunner
+	$ cd roadrunner
+	$ mkdir build
+	$ cd build
+	$ cmake -DCMAKE_INSTALL_PREFIX="D:\roadrunner\install-msvc2019" -DRR_DEPENDENCIES_INSTALL_PREFIX="D:\roadrunner-deps\roadrunner-deps-install" -DCMAKE_BUILD_TYPE="Release" ..
+	$ cmake --build . --target install --config Release
+

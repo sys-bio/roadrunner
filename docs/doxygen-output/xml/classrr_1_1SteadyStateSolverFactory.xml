@@ -1,0 +1,237 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.20" xml:lang="en-US">
+  <compounddef id="classrr_1_1SteadyStateSolverFactory" kind="class" language="C++" prot="public">
+    <compoundname>rr::SteadyStateSolverFactory</compoundname>
+    <includes refid="SteadyStateSolver_8h" local="no">SteadyStateSolver.h</includes>
+      <sectiondef kind="private-type">
+      <memberdef kind="typedef" id="classrr_1_1SteadyStateSolverFactory_1aec35481f0f64a15c68ba6b45b8cfafdb" prot="private" static="no">
+        <type>std::vector&lt; <ref refid="classrr_1_1SteadyStateSolverRegistrar" kindref="compound">SteadyStateSolverRegistrar</ref> * &gt;</type>
+        <definition>typedef std::vector&lt;SteadyStateSolverRegistrar*&gt; rr::SteadyStateSolverFactory::SteadyStateSolverRegistrars</definition>
+        <argsstring></argsstring>
+        <name>SteadyStateSolverRegistrars</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="SteadyStateSolver.h" line="170" column="29" bodyfile="SteadyStateSolver.h" bodystart="170" bodyend="-1"/>
+      </memberdef>
+      </sectiondef>
+      <sectiondef kind="private-attrib">
+      <memberdef kind="variable" id="classrr_1_1SteadyStateSolverFactory_1a4f96a07154d86caf322f9fab6a36bae2" prot="private" static="no" mutable="no">
+        <type>SteadyStateSolverRegistrars</type>
+        <definition>SteadyStateSolverRegistrars rr::SteadyStateSolverFactory::mRegisteredSteadyStateSolvers</definition>
+        <argsstring></argsstring>
+        <name>mRegisteredSteadyStateSolvers</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="SteadyStateSolver.h" line="171" column="37" bodyfile="SteadyStateSolver.h" bodystart="171" bodyend="-1"/>
+      </memberdef>
+      </sectiondef>
+      <sectiondef kind="public-func">
+      <memberdef kind="function" id="classrr_1_1SteadyStateSolverFactory_1a1e466d7333677c52f6d28399e693e877" prot="public" static="no" const="no" explicit="no" inline="no" virt="virtual">
+        <type></type>
+        <definition>rr::SteadyStateSolverFactory::~SteadyStateSolverFactory</definition>
+        <argsstring>()</argsstring>
+        <name>~SteadyStateSolverFactory</name>
+        <briefdescription>
+<para><ref refid="classrr_1_1SteadyStateSolver" kindref="compound">SteadyStateSolver</ref> FACTORY. </para>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="SteadyStateSolver.h" line="129" column="17" bodyfile="SteadyStateSolver.cpp" bodystart="43" bodyend="47"/>
+      </memberdef>
+      <memberdef kind="function" id="classrr_1_1SteadyStateSolverFactory_1a2f6ae03a7d0ac0486bc8618b78cf7834" prot="public" static="no" const="yes" explicit="no" inline="no" virt="non-virtual">
+        <type><ref refid="classrr_1_1SteadyStateSolver" kindref="compound">SteadyStateSolver</ref> *</type>
+        <definition>SteadyStateSolver * rr::SteadyStateSolverFactory::New</definition>
+        <argsstring>(std::string name, ExecutableModel *m) const</argsstring>
+        <name>New</name>
+        <param>
+          <type>std::string</type>
+          <declname>name</declname>
+        </param>
+        <param>
+          <type><ref refid="classrr_1_1ExecutableModel" kindref="compound">ExecutableModel</ref> *</type>
+          <declname>m</declname>
+        </param>
+        <briefdescription>
+<para>Constructs a new solver given the name (e.g. cvode, gillespie) </para>
+        </briefdescription>
+        <detaileddescription>
+<para><simplesect kind="author"><para>JKM, WBC </para>
+</simplesect>
+</para>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="SteadyStateSolver.h" line="136" column="27" bodyfile="SteadyStateSolver.cpp" bodystart="49" bodyend="57"/>
+      </memberdef>
+      <memberdef kind="function" id="classrr_1_1SteadyStateSolverFactory_1a72ca5c71f45c89304c40c5f880c84547" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>void rr::SteadyStateSolverFactory::registerSteadyStateSolver</definition>
+        <argsstring>(SteadyStateSolverRegistrar *i)</argsstring>
+        <name>registerSteadyStateSolver</name>
+        <param>
+          <type><ref refid="classrr_1_1SteadyStateSolverRegistrar" kindref="compound">SteadyStateSolverRegistrar</ref> *</type>
+          <declname>i</declname>
+        </param>
+        <briefdescription>
+<para>Registers a new solver with the factory so that it can be constructed. </para>
+        </briefdescription>
+        <detaileddescription>
+<para><simplesect kind="author"><para>JKM, WBC  Should be called at startup for new solvers. </para>
+</simplesect>
+</para>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="SteadyStateSolver.h" line="144" column="14" bodyfile="SteadyStateSolver.cpp" bodystart="59" bodyend="63"/>
+      </memberdef>
+      <memberdef kind="function" id="classrr_1_1SteadyStateSolverFactory_1a9113440134a88733237b921b47f1d771" prot="public" static="no" const="yes" explicit="no" inline="no" virt="non-virtual">
+        <type>std::size_t</type>
+        <definition>std::size_t rr::SteadyStateSolverFactory::getNumSteadyStateSolvers</definition>
+        <argsstring>() const</argsstring>
+        <name>getNumSteadyStateSolvers</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="SteadyStateSolver.h" line="154" column="21" bodyfile="SteadyStateSolver.cpp" bodystart="71" bodyend="73"/>
+      </memberdef>
+      <memberdef kind="function" id="classrr_1_1SteadyStateSolverFactory_1a380304ba84a103de7f271a2ba162d277" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>std::vector&lt; std::string &gt;</type>
+        <definition>std::vector&lt; std::string &gt; rr::SteadyStateSolverFactory::getListSteadyStateSolverNames</definition>
+        <argsstring>()</argsstring>
+        <name>getListSteadyStateSolverNames</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="SteadyStateSolver.h" line="156" column="13" bodyfile="SteadyStateSolver.cpp" bodystart="75" bodyend="85"/>
+      </memberdef>
+      <memberdef kind="function" id="classrr_1_1SteadyStateSolverFactory_1a0b934c758610ed4aaf2766054d1c3dcb" prot="public" static="no" const="yes" explicit="no" inline="no" virt="non-virtual">
+        <type>std::string</type>
+        <definition>std::string rr::SteadyStateSolverFactory::getSteadyStateSolverName</definition>
+        <argsstring>(std::size_t n) const</argsstring>
+        <name>getSteadyStateSolverName</name>
+        <param>
+          <type>std::size_t</type>
+          <declname>n</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="SteadyStateSolver.h" line="158" column="21" bodyfile="SteadyStateSolver.cpp" bodystart="87" bodyend="89"/>
+      </memberdef>
+      <memberdef kind="function" id="classrr_1_1SteadyStateSolverFactory_1a8df4ab644b69ac6d5585bae3e8022ab8" prot="public" static="no" const="yes" explicit="no" inline="no" virt="non-virtual">
+        <type>std::string</type>
+        <definition>std::string rr::SteadyStateSolverFactory::getSteadyStateSolverHint</definition>
+        <argsstring>(std::size_t n) const</argsstring>
+        <name>getSteadyStateSolverHint</name>
+        <param>
+          <type>std::size_t</type>
+          <declname>n</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="SteadyStateSolver.h" line="160" column="21" bodyfile="SteadyStateSolver.cpp" bodystart="91" bodyend="93"/>
+      </memberdef>
+      <memberdef kind="function" id="classrr_1_1SteadyStateSolverFactory_1adfabe724ce4160390f4733b3c6d6b9d0" prot="public" static="no" const="yes" explicit="no" inline="no" virt="non-virtual">
+        <type>std::string</type>
+        <definition>std::string rr::SteadyStateSolverFactory::getSteadyStateSolverDescription</definition>
+        <argsstring>(std::size_t n) const</argsstring>
+        <name>getSteadyStateSolverDescription</name>
+        <param>
+          <type>std::size_t</type>
+          <declname>n</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="SteadyStateSolver.h" line="162" column="21" bodyfile="SteadyStateSolver.cpp" bodystart="95" bodyend="97"/>
+      </memberdef>
+      </sectiondef>
+      <sectiondef kind="public-static-func">
+      <memberdef kind="function" id="classrr_1_1SteadyStateSolverFactory_1aa3b79f8ddd6f63bc2aad49234a662108" prot="public" static="yes" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type><ref refid="classrr_1_1SteadyStateSolverFactory" kindref="compound">SteadyStateSolverFactory</ref> &amp;</type>
+        <definition>SteadyStateSolverFactory &amp; rr::SteadyStateSolverFactory::getInstance</definition>
+        <argsstring>()</argsstring>
+        <name>getInstance</name>
+        <briefdescription>
+<para>Returns the singleton instance of the solver factory. </para>
+        </briefdescription>
+        <detaileddescription>
+<para><simplesect kind="author"><para>JKM, WBC </para>
+</simplesect>
+</para>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="SteadyStateSolver.h" line="150" column="41" bodyfile="SteadyStateSolver.cpp" bodystart="65" bodyend="69"/>
+      </memberdef>
+      </sectiondef>
+      <sectiondef kind="private-func">
+      <memberdef kind="function" id="classrr_1_1SteadyStateSolverFactory_1a49d84674a8c397c424983b60f7e8e798" prot="private" static="no" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <type></type>
+        <definition>rr::SteadyStateSolverFactory::SteadyStateSolverFactory</definition>
+        <argsstring>()</argsstring>
+        <name>SteadyStateSolverFactory</name>
+        <briefdescription>
+<para>Prevents external instantiation. </para>
+        </briefdescription>
+        <detaileddescription>
+<para><simplesect kind="author"><para>JKM, WBC </para>
+</simplesect>
+</para>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="SteadyStateSolver.h" line="169" column="9" bodyfile="SteadyStateSolver.h" bodystart="169" bodyend="169"/>
+      </memberdef>
+      </sectiondef>
+    <briefdescription>
+<para>Constructs new integrators. </para>
+    </briefdescription>
+    <detaileddescription>
+<para><simplesect kind="author"><para>JKM, WBC  Implements the factory and singleton patterns. Constructs a new integrator given the name (e.g. cvode, gillespie) and returns a base pointer to <ref refid="classrr_1_1SteadyStateSolver" kindref="compound">rr::SteadyStateSolver</ref>. </para>
+</simplesect>
+</para>
+    </detaileddescription>
+    <location file="SteadyStateSolver.h" line="126" column="5" bodyfile="SteadyStateSolver.h" bodystart="127" bodyend="172"/>
+    <listofallmembers>
+      <member refid="classrr_1_1SteadyStateSolverFactory_1aa3b79f8ddd6f63bc2aad49234a662108" prot="public" virt="non-virtual"><scope>rr::SteadyStateSolverFactory</scope><name>getInstance</name></member>
+      <member refid="classrr_1_1SteadyStateSolverFactory_1a380304ba84a103de7f271a2ba162d277" prot="public" virt="non-virtual"><scope>rr::SteadyStateSolverFactory</scope><name>getListSteadyStateSolverNames</name></member>
+      <member refid="classrr_1_1SteadyStateSolverFactory_1a9113440134a88733237b921b47f1d771" prot="public" virt="non-virtual"><scope>rr::SteadyStateSolverFactory</scope><name>getNumSteadyStateSolvers</name></member>
+      <member refid="classrr_1_1SteadyStateSolverFactory_1adfabe724ce4160390f4733b3c6d6b9d0" prot="public" virt="non-virtual"><scope>rr::SteadyStateSolverFactory</scope><name>getSteadyStateSolverDescription</name></member>
+      <member refid="classrr_1_1SteadyStateSolverFactory_1a8df4ab644b69ac6d5585bae3e8022ab8" prot="public" virt="non-virtual"><scope>rr::SteadyStateSolverFactory</scope><name>getSteadyStateSolverHint</name></member>
+      <member refid="classrr_1_1SteadyStateSolverFactory_1a0b934c758610ed4aaf2766054d1c3dcb" prot="public" virt="non-virtual"><scope>rr::SteadyStateSolverFactory</scope><name>getSteadyStateSolverName</name></member>
+      <member refid="classrr_1_1SteadyStateSolverFactory_1a4f96a07154d86caf322f9fab6a36bae2" prot="private" virt="non-virtual"><scope>rr::SteadyStateSolverFactory</scope><name>mRegisteredSteadyStateSolvers</name></member>
+      <member refid="classrr_1_1SteadyStateSolverFactory_1a2f6ae03a7d0ac0486bc8618b78cf7834" prot="public" virt="non-virtual"><scope>rr::SteadyStateSolverFactory</scope><name>New</name></member>
+      <member refid="classrr_1_1SteadyStateSolverFactory_1a72ca5c71f45c89304c40c5f880c84547" prot="public" virt="non-virtual"><scope>rr::SteadyStateSolverFactory</scope><name>registerSteadyStateSolver</name></member>
+      <member refid="classrr_1_1SteadyStateSolverFactory_1a49d84674a8c397c424983b60f7e8e798" prot="private" virt="non-virtual"><scope>rr::SteadyStateSolverFactory</scope><name>SteadyStateSolverFactory</name></member>
+      <member refid="classrr_1_1SteadyStateSolverFactory_1aec35481f0f64a15c68ba6b45b8cfafdb" prot="private" virt="non-virtual"><scope>rr::SteadyStateSolverFactory</scope><name>SteadyStateSolverRegistrars</name></member>
+      <member refid="classrr_1_1SteadyStateSolverFactory_1a1e466d7333677c52f6d28399e693e877" prot="public" virt="virtual"><scope>rr::SteadyStateSolverFactory</scope><name>~SteadyStateSolverFactory</name></member>
+    </listofallmembers>
+  </compounddef>
+</doxygen>

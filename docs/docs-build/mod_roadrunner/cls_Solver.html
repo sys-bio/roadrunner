@@ -1,0 +1,541 @@
+
+
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" >
+<head>
+  <meta charset="utf-8">
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+  <title>Solver Class &mdash; libRoadRunner 1.1.16 documentation</title>
+  
+
+  
+  <link rel="stylesheet" href="../_static/css/theme.css" type="text/css" />
+  <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
+
+  
+  
+  
+  
+
+  
+  <!--[if lt IE 9]>
+    <script src="../_static/js/html5shiv.min.js"></script>
+  <![endif]-->
+  
+    
+      <script type="text/javascript" id="documentation_options" data-url_root="../" src="../_static/documentation_options.js"></script>
+        <script src="../_static/jquery.js"></script>
+        <script src="../_static/underscore.js"></script>
+        <script src="../_static/doctools.js"></script>
+        <script src="../_static/language_data.js"></script>
+    
+    <script type="text/javascript" src="../_static/js/theme.js"></script>
+
+    
+    <link rel="index" title="Index" href="../genindex.html" />
+    <link rel="search" title="Search" href="../search.html" /> 
+</head>
+
+<body class="wy-body-for-nav">
+
+   
+  <div class="wy-grid-for-nav">
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+          
+
+          
+            <a href="../index.html" class="icon icon-home" alt="Documentation Home"> libRoadRunner
+          
+
+          
+          </a>
+
+          
+            
+            
+          
+
+          
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+
+          
+        </div>
+
+        
+        <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+          
+            
+            
+              
+            
+            
+              <ul>
+<li class="toctree-l1"><a class="reference internal" href="../index.html">RoadRunner Documentation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../introduction.html">Introduction</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../Installation/installation.html">Installing RoadRunner</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../read_write_functions.html">SBML Read/Write Functions</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../selecting_values.html">Selecting Values</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../steady_state.html">Steady State Analysis</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../stochastic.html">Stochastic Simulation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../metabolic.html">Metabolic Control Analysis</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../stability.html">Stability Analysis</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../stoichiometric.html">Stoichiometric Analysis</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../bifurcation.html">Bifurcation Analysis</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../integration.html">Simulation and Integration</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../utility_functions.html">Utility Functions</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../accessing_model.html">Accessing the SBML Model Variables</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../api_reference.html">RoadRunner API Reference</a></li>
+</ul>
+
+            
+          
+        </div>
+        
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" aria-label="top navigation">
+        
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../index.html">libRoadRunner</a>
+        
+      </nav>
+
+
+      <div class="wy-nav-content">
+        
+        <div class="rst-content">
+        
+          
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div role="navigation" aria-label="breadcrumbs navigation">
+
+  <ul class="wy-breadcrumbs">
+    
+      <li><a href="../index.html" class="icon icon-home"></a> &raquo;</li>
+        
+      <li>Solver Class</li>
+    
+    
+      <li class="wy-breadcrumbs-aside">
+        
+            
+            <a href="../_sources/mod_roadrunner/cls_Solver.rst.txt" rel="nofollow"> View page source</a>
+          
+        
+      </li>
+    
+  </ul>
+
+  
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+            
+  <div class="section" id="solver-class">
+<h1>Solver Class<a class="headerlink" href="#solver-class" title="Permalink to this headline">¶</a></h1>
+<dl class="py class">
+<dt id="roadrunner.Solver">
+<em class="property">class </em><code class="sig-prename descclassname">roadrunner.</code><code class="sig-name descname">Solver</code><a class="headerlink" href="#roadrunner.Solver" title="Permalink to this definition">¶</a></dt>
+<dd><p>Following functions are supported for a given solver instance which can be obtained by calling RoadRunner.getIntegrator() or RoadRunner.getSteadyStateSolver() methods. There are two types of solvers: Integrators(cvode, gillespie, rk4, rk45) - RoadRunner.Integrator() and Steady State Solvers(nleq2) - RoadRunner.SteadyStateSolver()</p>
+</dd></dl>
+
+<dl class="py method">
+<dt id="Solver.getDescription">
+<code class="sig-prename descclassname">Solver.</code><code class="sig-name descname">getDescription</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">key</span></em><span class="sig-paren">)</span><a class="headerlink" href="#Solver.getDescription" title="Permalink to this definition">¶</a></dt>
+<dd><p>If key = None,  returns description of this solver.
+Else, returns the description associated with a given key.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>key</strong> (<em>str</em>) – settings name</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt id="Solver.getDisplayName">
+<code class="sig-prename descclassname">Solver.</code><code class="sig-name descname">getDisplayName</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">key</span></em><span class="sig-paren">)</span><a class="headerlink" href="#Solver.getDisplayName" title="Permalink to this definition">¶</a></dt>
+<dd><p>Returns display name of given key.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>key</strong> (<em>str</em>) – settings name</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt id="Solver.getHint">
+<code class="sig-prename descclassname">Solver.</code><code class="sig-name descname">getHint</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">key</span></em><span class="sig-paren">)</span><a class="headerlink" href="#Solver.getHint" title="Permalink to this definition">¶</a></dt>
+<dd><p>If key = None,  returns a (user-readable) hint for this solver.
+Else, Returns the hint associated with a given key.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>key</strong> (<em>str</em>) – settings name</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt id="Solver.getName">
+<code class="sig-prename descclassname">Solver.</code><code class="sig-name descname">getName</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#Solver.getName" title="Permalink to this definition">¶</a></dt>
+<dd><p>Returns the name of this solver</p>
+</dd></dl>
+
+<dl class="py method">
+<dt id="Solver.getNumParams">
+<code class="sig-prename descclassname">Solver.</code><code class="sig-name descname">getNumParams</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#Solver.getNumParams" title="Permalink to this definition">¶</a></dt>
+<dd><p>Get the number of parameters.</p>
+</dd></dl>
+
+<dl class="py method">
+<dt id="Solver.getParamDesc">
+<code class="sig-prename descclassname">Solver.</code><code class="sig-name descname">getParamDesc</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">n</span></em><span class="sig-paren">)</span><a class="headerlink" href="#Solver.getParamDesc" title="Permalink to this definition">¶</a></dt>
+<dd><p>Get the description of the parameter at index n</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>n</strong> (<em>int</em>) – index of parameter</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt id="Solver.getParamDisplayName">
+<code class="sig-prename descclassname">Solver.</code><code class="sig-name descname">getParamDisplayName</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">n</span></em><span class="sig-paren">)</span><a class="headerlink" href="#Solver.getParamDisplayName" title="Permalink to this definition">¶</a></dt>
+<dd><p>Get the display name of the parameter at index n</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>n</strong> (<em>int</em>) – index of parameter</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt id="Solver.getParamHint">
+<code class="sig-prename descclassname">Solver.</code><code class="sig-name descname">getParamHint</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">n</span></em><span class="sig-paren">)</span><a class="headerlink" href="#Solver.getParamHint" title="Permalink to this definition">¶</a></dt>
+<dd><p>Get the hint of the parameter at index n.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>n</strong> (<em>int</em>) – index of parameter</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt id="Solver.getParamName">
+<code class="sig-prename descclassname">Solver.</code><code class="sig-name descname">getParamName</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">n</span></em><span class="sig-paren">)</span><a class="headerlink" href="#Solver.getParamName" title="Permalink to this definition">¶</a></dt>
+<dd><p>Get the display name of the parameter at index n.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>n</strong> (<em>int</em>) – index of parameter</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt id="Solver.getSetting">
+<code class="sig-prename descclassname">Solver.</code><code class="sig-name descname">getSetting</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">k</span></em><span class="sig-paren">)</span><a class="headerlink" href="#Solver.getSetting" title="Permalink to this definition">¶</a></dt>
+<dd><p>Get value of a solver setting</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>k</strong> (<em>str</em>) – settings name</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt id="Solver.getSettings">
+<code class="sig-prename descclassname">Solver.</code><code class="sig-name descname">getSettings</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#Solver.getSettings" title="Permalink to this definition">¶</a></dt>
+<dd><p>Returns a list of all settings for this solver.</p>
+</dd></dl>
+
+<dl class="py method">
+<dt id="Solver.getSettingsRepr">
+<code class="sig-prename descclassname">Solver.</code><code class="sig-name descname">getSettingsRepr</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#Solver.getSettingsRepr" title="Permalink to this definition">¶</a></dt>
+<dd><p>Returns the solver settings as a string.</p>
+</dd></dl>
+
+<dl class="py method">
+<dt id="Solver.getType">
+<code class="sig-prename descclassname">Solver.</code><code class="sig-name descname">getType</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">key</span></em><span class="sig-paren">)</span><a class="headerlink" href="#Solver.getType" title="Permalink to this definition">¶</a></dt>
+<dd><p>Returns the type associated with a given key.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>key</strong> (<em>str</em>) – settings name</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt id="Solver.getValue">
+<code class="sig-prename descclassname">Solver.</code><code class="sig-name descname">getValue</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">key</span></em><span class="sig-paren">)</span><a class="headerlink" href="#Solver.getValue" title="Permalink to this definition">¶</a></dt>
+<dd><p>Get the value of an integrator setting.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>key</strong> (<em>str</em>) – settings name</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt id="Solver.getValueAsBool">
+<code class="sig-prename descclassname">Solver.</code><code class="sig-name descname">getValueAsBool</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">key</span></em><span class="sig-paren">)</span><a class="headerlink" href="#Solver.getValueAsBool" title="Permalink to this definition">¶</a></dt>
+<dd><p>Wrapper for <a class="reference internal" href="#Solver.getValue" title="Solver.getValue"><code class="xref py py-meth docutils literal notranslate"><span class="pre">Solver.getValue()</span></code></a> which converts output to a specific type</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>key</strong> (<em>str</em>) – settings name</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt id="Solver.getValueAsChar">
+<code class="sig-prename descclassname">Solver.</code><code class="sig-name descname">getValueAsChar</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">key</span></em><span class="sig-paren">)</span><a class="headerlink" href="#Solver.getValueAsChar" title="Permalink to this definition">¶</a></dt>
+<dd><p>Wrapper for <a class="reference internal" href="#Solver.getValue" title="Solver.getValue"><code class="xref py py-meth docutils literal notranslate"><span class="pre">Solver.getValue()</span></code></a> which converts output to a specific type</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>key</strong> (<em>str</em>) – settings name</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt id="Solver.getValueAsDouble">
+<code class="sig-prename descclassname">Solver.</code><code class="sig-name descname">getValueAsDouble</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">key</span></em><span class="sig-paren">)</span><a class="headerlink" href="#Solver.getValueAsDouble" title="Permalink to this definition">¶</a></dt>
+<dd><p>Wrapper for <a class="reference internal" href="#Solver.getValue" title="Solver.getValue"><code class="xref py py-meth docutils literal notranslate"><span class="pre">Solver.getValue()</span></code></a> which converts output to a specific type</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>key</strong> (<em>str</em>) – settings name</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt id="Solver.getValueAsFloat">
+<code class="sig-prename descclassname">Solver.</code><code class="sig-name descname">getValueAsFloat</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">key</span></em><span class="sig-paren">)</span><a class="headerlink" href="#Solver.getValueAsFloat" title="Permalink to this definition">¶</a></dt>
+<dd><p>Wrapper for <a class="reference internal" href="#Solver.getValue" title="Solver.getValue"><code class="xref py py-meth docutils literal notranslate"><span class="pre">Solver.getValue()</span></code></a> which converts output to a specific type</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>key</strong> (<em>str</em>) – settings name</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt id="Solver.getValueAsInt">
+<code class="sig-prename descclassname">Solver.</code><code class="sig-name descname">getValueAsInt</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">key</span></em><span class="sig-paren">)</span><a class="headerlink" href="#Solver.getValueAsInt" title="Permalink to this definition">¶</a></dt>
+<dd><p>Wrapper for <a class="reference internal" href="#Solver.getValue" title="Solver.getValue"><code class="xref py py-meth docutils literal notranslate"><span class="pre">Solver.getValue()</span></code></a> which converts output to a specific type</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>key</strong> (<em>str</em>) – settings name</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt id="Solver.getValueAsLong">
+<code class="sig-prename descclassname">Solver.</code><code class="sig-name descname">getValueAsLong</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">key</span></em><span class="sig-paren">)</span><a class="headerlink" href="#Solver.getValueAsLong" title="Permalink to this definition">¶</a></dt>
+<dd><p>Wrapper for <a class="reference internal" href="#Solver.getValue" title="Solver.getValue"><code class="xref py py-meth docutils literal notranslate"><span class="pre">Solver.getValue()</span></code></a> which converts output to a specific type</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>key</strong> (<em>str</em>) – settings name</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt id="Solver.getValueAsString">
+<code class="sig-prename descclassname">Solver.</code><code class="sig-name descname">getValueAsString</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">key</span></em><span class="sig-paren">)</span><a class="headerlink" href="#Solver.getValueAsString" title="Permalink to this definition">¶</a></dt>
+<dd><p>Wrapper for <a class="reference internal" href="#Solver.getValue" title="Solver.getValue"><code class="xref py py-meth docutils literal notranslate"><span class="pre">Solver.getValue()</span></code></a> which converts output to a specific type</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>key</strong> (<em>str</em>) – settings name</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt id="Solver.getValueAsUChar">
+<code class="sig-prename descclassname">Solver.</code><code class="sig-name descname">getValueAsUChar</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">key</span></em><span class="sig-paren">)</span><a class="headerlink" href="#Solver.getValueAsUChar" title="Permalink to this definition">¶</a></dt>
+<dd><p>Wrapper for <a class="reference internal" href="#Solver.getValue" title="Solver.getValue"><code class="xref py py-meth docutils literal notranslate"><span class="pre">Solver.getValue()</span></code></a> which converts output to a specific type</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>key</strong> (<em>str</em>) – settings name</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt id="Solver.getValueAsUInt">
+<code class="sig-prename descclassname">Solver.</code><code class="sig-name descname">getValueAsUInt</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">key</span></em><span class="sig-paren">)</span><a class="headerlink" href="#Solver.getValueAsUInt" title="Permalink to this definition">¶</a></dt>
+<dd><p>Wrapper for <a class="reference internal" href="#Solver.getValue" title="Solver.getValue"><code class="xref py py-meth docutils literal notranslate"><span class="pre">Solver.getValue()</span></code></a> which converts output to a specific type</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>key</strong> (<em>str</em>) – settings name</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt id="Solver.getValueAsULong">
+<code class="sig-prename descclassname">Solver.</code><code class="sig-name descname">getValueAsULong</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">key</span></em><span class="sig-paren">)</span><a class="headerlink" href="#Solver.getValueAsULong" title="Permalink to this definition">¶</a></dt>
+<dd><p>Wrapper for <a class="reference internal" href="#Solver.getValue" title="Solver.getValue"><code class="xref py py-meth docutils literal notranslate"><span class="pre">Solver.getValue()</span></code></a> which converts output to a specific type</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>key</strong> (<em>str</em>) – settings name</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt id="Solver.hasValue">
+<code class="sig-prename descclassname">Solver.</code><code class="sig-name descname">hasValue</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">key</span></em><span class="sig-paren">)</span><a class="headerlink" href="#Solver.hasValue" title="Permalink to this definition">¶</a></dt>
+<dd><p>Return true if this setting is supported by the integrator.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>key</strong> (<em>str</em>) – settings name</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt id="Solver.resetSettings">
+<code class="sig-prename descclassname">Solver.</code><code class="sig-name descname">resetSettings</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#Solver.resetSettings" title="Permalink to this definition">¶</a></dt>
+<dd><p>Reset all settings to their respective default values.</p>
+</dd></dl>
+
+<dl class="py method">
+<dt id="Solver.setSetting">
+<code class="sig-prename descclassname">Solver.</code><code class="sig-name descname">setSetting</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">k</span></em>, <em class="sig-param"><span class="n">v</span></em><span class="sig-paren">)</span><a class="headerlink" href="#Solver.setSetting" title="Permalink to this definition">¶</a></dt>
+<dd><p>Set value of a solver setting</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>k</strong> (<em>str</em>) – settings name</p></li>
+<li><p><strong>v</strong> (<em>const</em>) – value of the setting</p></li>
+</ul>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt id="Solver.setValue">
+<code class="sig-prename descclassname">Solver.</code><code class="sig-name descname">setValue</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">key</span></em>, <em class="sig-param"><span class="n">value</span></em><span class="sig-paren">)</span><a class="headerlink" href="#Solver.setValue" title="Permalink to this definition">¶</a></dt>
+<dd><p>Sets value of a specific setting.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>key</strong> (<em>str</em>) – settings name</p></li>
+<li><p><strong>value</strong> (<em>const</em>) – value of the setting</p></li>
+</ul>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt id="Solver.settingsPyDictRepr">
+<code class="sig-prename descclassname">Solver.</code><code class="sig-name descname">settingsPyDictRepr</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#Solver.settingsPyDictRepr" title="Permalink to this definition">¶</a></dt>
+<dd><p>Returns Python dictionary-style string representation of settings.</p>
+</dd></dl>
+
+<dl class="py method">
+<dt id="Solver.syncWithModel">
+<code class="sig-prename descclassname">Solver.</code><code class="sig-name descname">syncWithModel</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">m</span></em><span class="sig-paren">)</span><a class="headerlink" href="#Solver.syncWithModel" title="Permalink to this definition">¶</a></dt>
+<dd><p>Called whenever a new model is loaded to allow integrator to reset internal state</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>m</strong> (<em>object</em>) – new model</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt id="Solver.toRepr">
+<code class="sig-prename descclassname">Solver.</code><code class="sig-name descname">toRepr</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#Solver.toRepr" title="Permalink to this definition">¶</a></dt>
+<dd><p>Return string representation a la Python __repr__ method.</p>
+</dd></dl>
+
+<dl class="py method">
+<dt id="Solver.toString">
+<code class="sig-prename descclassname">Solver.</code><code class="sig-name descname">toString</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#Solver.toString" title="Permalink to this definition">¶</a></dt>
+<dd><p>Return a string representation of the solver.</p>
+</dd></dl>
+
+</div>
+
+
+           </div>
+           
+          </div>
+          <footer>
+  
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>
+        
+        &copy; Copyright 2013-2018, Andy Somogyi, J Kyle Medley, Kiri Choi, Herbert Suaro
+
+    </p>
+  </div>
+    
+    
+    
+    Built with <a href="http://sphinx-doc.org/">Sphinx</a> using a
+    
+    <a href="https://github.com/rtfd/sphinx_rtd_theme">theme</a>
+    
+    provided by <a href="https://readthedocs.org">Read the Docs</a>. 
+
+</footer>
+
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+  
+
+  <script type="text/javascript">
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script>
+
+  
+  
+    
+   
+
+</body>
+</html>

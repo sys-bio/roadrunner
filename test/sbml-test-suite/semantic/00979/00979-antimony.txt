@@ -1,0 +1,8 @@
+model case00979()
+  x = 0;
+  y = 0;
+  p = 0;
+  q = 0;
+  at(time>=.98): x = 2, y = y+x;
+  at(time>=.99): q = p+1, p = 3;
+end

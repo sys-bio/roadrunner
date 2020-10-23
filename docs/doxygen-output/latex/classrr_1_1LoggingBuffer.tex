@@ -1,0 +1,38 @@
+\hypertarget{classrr_1_1LoggingBuffer}{}\doxysection{rr\+::Logging\+Buffer Class Reference}
+\label{classrr_1_1LoggingBuffer}\index{rr::LoggingBuffer@{rr::LoggingBuffer}}
+
+
+Poco Log\+Stream dumps to the log when a newline i.\+e.  
+
+
+
+
+{\ttfamily \#include $<$rr\+Logger.\+h$>$}
+
+\doxysubsection*{Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\Hypertarget{classrr_1_1LoggingBuffer_a1f514c583a4f6348957313a26009480e}\label{classrr_1_1LoggingBuffer_a1f514c583a4f6348957313a26009480e}} 
+{\bfseries Logging\+Buffer} (int level, const char $\ast$file, int line)
+\item 
+\mbox{\Hypertarget{classrr_1_1LoggingBuffer_a604487b60a968da939c335195a9fba19}\label{classrr_1_1LoggingBuffer_a604487b60a968da939c335195a9fba19}} 
+\mbox{\hyperlink{classrr_1_1LoggingBuffer_a604487b60a968da939c335195a9fba19}{$\sim$\+Logging\+Buffer}} ()
+\begin{DoxyCompactList}\small\item\em dump the contents of the stringstream to the log. \end{DoxyCompactList}\item 
+\mbox{\Hypertarget{classrr_1_1LoggingBuffer_a23c72224ad52f14bc2d52d1eb361d479}\label{classrr_1_1LoggingBuffer_a23c72224ad52f14bc2d52d1eb361d479}} 
+std\+::ostream \& \mbox{\hyperlink{classrr_1_1LoggingBuffer_a23c72224ad52f14bc2d52d1eb361d479}{stream}} ()
+\begin{DoxyCompactList}\small\item\em get the stream this buffer holds. \end{DoxyCompactList}\end{DoxyCompactItemize}
+
+
+\doxysubsection{Detailed Description}
+Poco Log\+Stream dumps to the log when a newline i.\+e. 
+
+std\+::endl is encountered, howeve the old proprietary logging system dumps basically when the stream object goes out of scope.
+
+This object allows us to to use the new Poco logging system and maintain compatability with all existing code.
+
+This object is returne from the \mbox{\hyperlink{classrr_1_1Logger}{rr\+::\+Logger}}, exposes a ostream interface, and and dumps to the log when it goes out of scope. 
+
+The documentation for this class was generated from the following files\+:\begin{DoxyCompactItemize}
+\item 
+rr\+Logger.\+h\item 
+rr\+Logger.\+cpp\end{DoxyCompactItemize}

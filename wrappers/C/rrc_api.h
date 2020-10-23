@@ -1,6 +1,6 @@
 /**
  * @file rrc_api.h
- * @brief libRoadRunner C API 2012-2013
+ * @brief libRoadRunner C wrappers 2012-2013
  * @author Totte Karlsson & Herbert M Sauro
  *
  * <--------------------------------------------------------------
@@ -78,14 +78,14 @@ C_DECL_SPEC RRHandle rrcCallConv createRRInstanceEx(const char* tempFolder, cons
 C_DECL_SPEC bool rrcCallConv freeRRInstance(RRHandle handle);
 
 /*!
- \brief Returns the folder in which the RoadRunner API is installed
+ \brief Returns the folder in which the RoadRunner wrappers is installed
  \return Pointer to string holding the install folder
  \ingroup initialization
 */
 C_DECL_SPEC char* rrcCallConv  getInstallFolder(void);
 
 /*!
- \brief Set the internal string containing the folder in where the RoadRunner C API is installed
+ \brief Set the internal string containing the folder in where the RoadRunner C wrappers is installed
  \param[in] folder Pointer to string holding the install folder
  \return Boolean indicating success
  \ingroup initialization
@@ -93,16 +93,16 @@ C_DECL_SPEC char* rrcCallConv  getInstallFolder(void);
 C_DECL_SPEC bool  rrcCallConv  setInstallFolder(const char* folder);
 
 /*!
- \brief Retrieve the current version number of the C API library
- \return Returns null if it fails, otherwise it returns the version number of the C API library
+ \brief Retrieve the current version number of the C wrappers library
+ \return Returns null if it fails, otherwise it returns the version number of the C wrappers library
  \ingroup utility
 */
 C_DECL_SPEC char* rrcCallConv getAPIVersion(void);
 
 /*!
- \brief Retrieve the current version number of the C++ API (Core RoadRunner API) library
+ \brief Retrieve the current version number of the C++ wrappers (Core RoadRunner wrappers) library
  \param[in] handle RoadRunner instance handle
- \return Returns null if it fails, otherwise it returns the version number of the C++ API library
+ \return Returns null if it fails, otherwise it returns the version number of the C++ wrappers library
  \ingroup utility
 */
 C_DECL_SPEC char* rrcCallConv getCPPAPIVersion(RRHandle handle);
@@ -131,7 +131,7 @@ C_DECL_SPEC char*  rrcCallConv getVersionStr();
 C_DECL_SPEC char*  rrcCallConv getVersionEx();
 
 /*!
- \brief Retrieve extended API info.
+ \brief Retrieve extended wrappers info.
  \return Returns null if it fails, otherwise it returns a string with the info
  \ingroup utility
 */
@@ -452,7 +452,7 @@ C_DECL_SPEC char* rrcCallConv getSBML(RRHandle handle);
  \return Returns false if the call fails, otherwise returns a true
  \ingroup edit
 */
-C_DECL_SPEC bool rrcCallConv addSpecies(RRHandle handle, const char* sid, const char* compartment, double initialAmount, const char* substanceUnit);
+C_DECL_SPEC bool rrcCallConv addSpecies(RRHandle handle, const char* sid, const char* compartment, double initialAmount, bool hasOnlySubstanceUnits, bool boundaryCondition);
 
 /*!
  \brief Add a species to the current model, without regenerating it
@@ -465,7 +465,7 @@ C_DECL_SPEC bool rrcCallConv addSpecies(RRHandle handle, const char* sid, const 
  \return Returns false if the call fails, otherwise returns a true
  \ingroup edit
 */
-C_DECL_SPEC bool rrcCallConv addSpeciesNoRegen(RRHandle handle, const char* sid, const char* compartment, double initialAmount, const char* substanceUnit);
+C_DECL_SPEC bool rrcCallConv addSpeciesNoRegen(RRHandle handle, const char* sid, const char* compartment, double initialAmount, bool hasOnlySubstanceUnits, bool boundaryCondition);
 
 
 /*!
@@ -712,6 +712,15 @@ C_DECL_SPEC bool rrcCallConv setKineticLawNoRegen(RRHandle handle, const char* r
 
 
 /*!
+ \brief Get the kinetic law for a existing reaction in the current model
+ \param[in] handle Handle to a RoadRunner instance
+ \param[in] rid ID of reaction to be modified
+ \return Returns the kinetic law.
+ \ingroup edit
+*/
+C_DECL_SPEC char* rrcCallConv getKineticLaw(RRHandle handle, const char* rid);
+
+/*!
  \brief Add a parameter to the current model
  \param[in] handle Handle to a RoadRunner instance
  \param[in] pid ID of the parameter to be added
@@ -861,7 +870,7 @@ C_DECL_SPEC bool rrcCallConv removeRulesNoRegen(RRHandle handle, const char* vid
  \brief Add an event to the current model
  \param[in] handle Handle to a RoadRunner instance
  \param[in] eid ID of the event to be added
- \param[in] useValuesFromTriggerTime indicate the moment at which the event’s assignments are to be evaluated
+ \param[in] useValuesFromTriggerTime indicate the moment at which the eventï¿½s assignments are to be evaluated
  \param[in] trigger the math formula of event trigger
  \return Returns false if the call fails, otherwise returns a true
  \ingroup edit
@@ -873,7 +882,7 @@ C_DECL_SPEC bool rrcCallConv addEvent(RRHandle handle, const char* eid, bool use
 		The last modification must regenerate for the modifications to take effect
  \param[in] handle Handle to a RoadRunner instance
  \param[in] eid ID of the event to be added
- \param[in] useValuesFromTriggerTime indicate the moment at which the event’s assignments are to be evaluated
+ \param[in] useValuesFromTriggerTime indicate the moment at which the eventï¿½s assignments are to be evaluated
  \param[in] trigger the math formula of event trigger
  \return Returns false if the call fails, otherwise returns a true
  \ingroup edit
@@ -2010,7 +2019,7 @@ C_DECL_SPEC RRVectorPtr rrcCallConv getGlobalParameterValues(RRHandle handle);
  \return Returns true if successful
  \ingroup boundary
 */
-C_DECL_SPEC bool rrcCallConv setBoundarySpeciesByIndex(RRHandle handle, const int index, const double value);
+C_DECL_SPEC bool rrcCallConv setBoundarySpeciesByIndex(RRHandle handle, const unsigned int index, const double value);
 
 /*!
  \brief Set the initial concentration for a particular floating species.
@@ -2987,6 +2996,35 @@ C_DECL_SPEC int rrcCallConv getConfigInt(const char* key);
 */
 C_DECL_SPEC int rrcCallConv setConfigDouble(const char* key, double value);
 
+
+//RRPLugins
+/*!
+    \return the number of floating species pointed by the model by handle
+*/
+
+C_DECL_SPEC int rrcCallConv _getNumIndFloatingSpecies(RRHandle handle);
+
+/*!
+    \return the number of rate rules pointed by the model by handle
+*/
+C_DECL_SPEC int rrcCallConv _getNumRateRules(RRHandle handle);
+
+/*!
+    \return the time for getsteadyvectorrate
+*/
+C_DECL_SPEC double rrcCallConv _getTime(RRHandle handle);
+
+/*!
+    \return getsteadyvectorrate
+*/
+C_DECL_SPEC int rrcCallConv _getStateVector(RRHandle handle);
+
+/*!
+    \return getsteadyvectorrate
+*/
+C_DECL_SPEC void rrcCallConv _getStateVectorRate(RRHandle handle,double time, double *value);
+
+
 /*!
  \brief Get a double configuration value
 
@@ -3010,7 +3048,7 @@ C_DECL_SPEC RRStringArrayPtr rrcCallConv getListOfConfigKeys();
 #endif
 
 #endif
-/*! \mainpage RoadRunner C API Library
+/*! \mainpage RoadRunner C wrappers Library
  *
  * \section intro_sec Introduction
  *
@@ -3046,7 +3084,7 @@ int main (int argc, char *argv[]) {
 }
  \endcode
 
-More complex example, using C API:
+More complex example, using C wrappers:
 \code
 #undef __cplusplus
 #define STATIC_RRC
@@ -3226,7 +3264,7 @@ Notice: Creating C based model generator using ..\compilers\tcc\tcc.exe compiler
  these routines make it easier to manipulate lists
 
  \defgroup helperRoutines Helper routines
- \brief Helper routines for accessing the various C API types, eg lists and arrays
+ \brief Helper routines for accessing the various C wrappers types, eg lists and arrays
 
  \defgroup toString ToString routines
  \brief Render various result data types as strings
@@ -3240,8 +3278,8 @@ Notice: Creating C based model generator using ..\compilers\tcc\tcc.exe compiler
  \defgroup reset Reset methods
  \brief Methods for resetting instances to various initial states
 
- \defgroup simopts Solver options API
- \brief Reflective API for interacting with steady state solvers and integrators
+ \defgroup simopts Solver options wrappers
+ \brief Reflective wrappers for interacting with steady state solvers and integrators
 
  \defgroup config Configuration keys/values
  \brief Loads and sets configuration options

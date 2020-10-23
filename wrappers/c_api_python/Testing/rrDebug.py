@@ -13,7 +13,7 @@ else:
     rr.setTempFolder('/home/totte/rrTemp/python')
 
 print rr.getLastError()
-print 'RoadRunner C API Version: ' + rr.getAPIVersion()
+print 'RoadRunner C wrappers Version: ' + rr.getAPIVersion()
 print 'RoadRunner Build DateTime: ' + rr.getBuildDateTime()
 print 'Copyright: ' + rr.getCopyright()
 

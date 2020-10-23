@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<sbml xmlns="http://www.sbml.org/sbml/level2" level="2" version="1">
+  <model id="case01326" name="case01326">
+    <listOfCompartments>
+      <compartment id="C" size="1"/>
+    </listOfCompartments>
+    <listOfSpecies>
+      <species id="x" compartment="C" initialConcentration="1"/>
+    </listOfSpecies>
+    <listOfParameters>
+      <parameter id="y" value="0" constant="false"/>
+    </listOfParameters>
+    <listOfReactions>
+      <reaction id="J0" fast="false">
+        <listOfProducts>
+          <speciesReference species="x"/>
+        </listOfProducts>
+        <kineticLaw>
+          <math xmlns="http://www.w3.org/1998/Math/MathML">
+            <cn type="integer"> 1 </cn>
+          </math>
+        </kineticLaw>
+      </reaction>
+    </listOfReactions>
+    <listOfEvents>
+      <event id="E0">
+        <trigger>
+          <math xmlns="http://www.w3.org/1998/Math/MathML">
+            <apply>
+              <geq/>
+              <ci> x </ci>
+              <cn> 3.5 </cn>
+            </apply>
+          </math>
+        </trigger>
+        <delay>
+          <math xmlns="http://www.w3.org/1998/Math/MathML">
+            <cn type="integer"> 2 </cn>
+          </math>
+        </delay>
+        <listOfEventAssignments>
+          <eventAssignment variable="y">
+            <math xmlns="http://www.w3.org/1998/Math/MathML">
+              <ci> x </ci>
+            </math>
+          </eventAssignment>
+        </listOfEventAssignments>
+      </event>
+    </listOfEvents>
+  </model>
+</sbml>

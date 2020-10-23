@@ -54,7 +54,7 @@ public:
      * symbols would be chached. These need to be popped as these symbols are
      * not valid outside of the local conditional or scope block.
      */
-    virtual unsigned pushCacheBlock();
+    virtual size_t pushCacheBlock();
 
     /**
      * Pop a scoped cache block, this clears these values, and any subsequent reads
@@ -62,7 +62,7 @@ public:
      *
      * Will throw an exception if an empty stack pop is attempted.
      */
-    virtual unsigned popCacheBlock();
+    virtual size_t popCacheBlock();
 
 
 protected:

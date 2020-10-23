@@ -528,6 +528,12 @@ public:
 		*/
 		VALIDATION_IN_REGENERATION,
 
+        /* 
+        * If outputting to a file in simulate(), write to the output every k rows of data
+        * is generated. Increase this for better speed and decrease to save memory.
+        */
+        K_ROWS_PER_WRITE,
+
 
         // add lots of space so not to conflict with other branches.
 

@@ -21,7 +21,7 @@ namespace rr
 
 /**
  * @brief Convert a Python string object to a @a std::string
- * @details Python 2/3 API independent.
+ * @details Python 2/3 wrappers independent.
  * Supports either Python 2 strings or Python 3 unicode
  * objects
  */
@@ -29,13 +29,13 @@ std::string rrPyString_getCPPString(PyObject* uni);
 
 /**
  * @brief Returns true if strings are equal, false otherwise
- * @details Python 2/3 API independent
+ * @details Python 2/3 wrappers independent
  */
 int rrPyCompareString(PyObject* uni, const char* str);
 
 /**
  * @brief Creates a Python string/unicode object from a given UTF-8 buffer
- * @details Python 2/3 API independent.
+ * @details Python 2/3 wrappers independent.
  * If using Python 2, will return a string object.
  * If using Python 3, will return a unicode object.
  */
@@ -43,19 +43,31 @@ PyObject* rrPyString_FromString(const char* s);
 
 /**
  * @brief Creates a Python string/unicode object from a given UTF-8 buffer
- * @details Python 2/3 API independent.
+ * @details Python 2/3 wrappers independent.
  * Similar to @ref rrPyString_FromString but allows the user to
  * specify the length of the buffer.
  */
 PyObject* rrPyString_FromStringAndSize(const char* s, Py_ssize_t size);
 
+/**
+ * @brief Creates a Python string/unicode object from a given UTF-8 buffer
+ * @details Python 2/3 wrappers independent.
+ * Similar to @ref rrPyString_FromString but allows the user to
+ * specify the length of the buffer.
+ */
 char* rrPyString_AsString(PyObject* s);
+
+/**
+ * @brief Gets the current Python error message as C++ string
+ * @details You take ownership of returned string.
+ */
+char* rrGetPyErrMessage();
 
 class Dictionary;
 
 /**
  * @brief Convert a variant to a Python object
- * @details Python 2/3 API independent.
+ * @details Python 2/3 wrappers independent.
  * This conversion handles most simple types
  * (strings and basic numeric types).
  * The exact type of the resultant Python object

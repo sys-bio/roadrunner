@@ -1,0 +1,272 @@
+
+
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" >
+<head>
+  <meta charset="utf-8">
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+  <title>Simulation and Integration &mdash; libRoadRunner 1.1.16 documentation</title>
+  
+
+  
+  <link rel="stylesheet" href="_static/css/theme.css" type="text/css" />
+  <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
+
+  
+  
+  
+  
+
+  
+  <!--[if lt IE 9]>
+    <script src="_static/js/html5shiv.min.js"></script>
+  <![endif]-->
+  
+    
+      <script type="text/javascript" id="documentation_options" data-url_root="./" src="_static/documentation_options.js"></script>
+        <script src="_static/jquery.js"></script>
+        <script src="_static/underscore.js"></script>
+        <script src="_static/doctools.js"></script>
+        <script src="_static/language_data.js"></script>
+    
+    <script type="text/javascript" src="_static/js/theme.js"></script>
+
+    
+    <link rel="index" title="Index" href="genindex.html" />
+    <link rel="search" title="Search" href="search.html" />
+    <link rel="next" title="Utility Functions" href="utility_functions.html" />
+    <link rel="prev" title="Bifurcation Analysis" href="bifurcation.html" /> 
+</head>
+
+<body class="wy-body-for-nav">
+
+   
+  <div class="wy-grid-for-nav">
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+          
+
+          
+            <a href="index.html" class="icon icon-home" alt="Documentation Home"> libRoadRunner
+          
+
+          
+          </a>
+
+          
+            
+            
+          
+
+          
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+
+          
+        </div>
+
+        
+        <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+          
+            
+            
+              
+            
+            
+              <ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="index.html">RoadRunner Documentation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="introduction.html">Introduction</a></li>
+<li class="toctree-l1"><a class="reference internal" href="Installation/installation.html">Installing RoadRunner</a></li>
+<li class="toctree-l1"><a class="reference internal" href="read_write_functions.html">SBML Read/Write Functions</a></li>
+<li class="toctree-l1"><a class="reference internal" href="selecting_values.html">Selecting Values</a></li>
+<li class="toctree-l1"><a class="reference internal" href="steady_state.html">Steady State Analysis</a></li>
+<li class="toctree-l1"><a class="reference internal" href="stochastic.html">Stochastic Simulation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="metabolic.html">Metabolic Control Analysis</a></li>
+<li class="toctree-l1"><a class="reference internal" href="stability.html">Stability Analysis</a></li>
+<li class="toctree-l1"><a class="reference internal" href="stoichiometric.html">Stoichiometric Analysis</a></li>
+<li class="toctree-l1"><a class="reference internal" href="bifurcation.html">Bifurcation Analysis</a></li>
+<li class="toctree-l1 current"><a class="current reference internal" href="#">Simulation and Integration</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="#preliminaries">Preliminaries</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="utility_functions.html">Utility Functions</a></li>
+<li class="toctree-l1"><a class="reference internal" href="accessing_model.html">Accessing the SBML Model Variables</a></li>
+<li class="toctree-l1"><a class="reference internal" href="api_reference.html">RoadRunner API Reference</a></li>
+</ul>
+
+            
+          
+        </div>
+        
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" aria-label="top navigation">
+        
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="index.html">libRoadRunner</a>
+        
+      </nav>
+
+
+      <div class="wy-nav-content">
+        
+        <div class="rst-content">
+        
+          
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div role="navigation" aria-label="breadcrumbs navigation">
+
+  <ul class="wy-breadcrumbs">
+    
+      <li><a href="index.html" class="icon icon-home"></a> &raquo;</li>
+        
+      <li>Simulation and Integration</li>
+    
+    
+      <li class="wy-breadcrumbs-aside">
+        
+            
+            <a href="_sources/integration.rst.txt" rel="nofollow"> View page source</a>
+          
+        
+      </li>
+    
+  </ul>
+
+  
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+            
+  <div class="section" id="simulation-and-integration">
+<h1>Simulation and Integration<a class="headerlink" href="#simulation-and-integration" title="Permalink to this headline">¶</a></h1>
+<div class="section" id="preliminaries">
+<h2>Preliminaries<a class="headerlink" href="#preliminaries" title="Permalink to this headline">¶</a></h2>
+<p>At the highest level, RoadRunner generates and solves ODE (ordinary differential equation) problem
+of the form</p>
+<div class="math">
+<p><img src="_images/math/396da1500a83ba9a565344100cb23bd344f32215.png" alt="y(t) = \int_0^t f(t, y) dt"/></p>
+</div><p>where the function :math: f(t) is generated from the SBML document.</p>
+<p>As this is numerically integrated, it is impossible to specify a time step and other integration
+parameters that are ideal for all functions. As a general rule for numeric stability, if you have a
+periodic function, you need a time step that is approximately 1/12 the period.</p>
+<p>There are a number of tuning parameters that allows one to fine tune the numeric integration to
+their function at hand. We have chosen a set of precision values that we feel are a good balance
+between performance and numeric stability for most systems. However, one may frequently encounter
+stiffer systems which require tighter tolerances . Note that specifying very tight tolerances will
+drastically decrease performance.</p>
+<p>Another parameter which is a significant role in numeric stability and performance is the initial
+time step. If no initial time step is provided (initial time step &lt; 0, the default
+value), the internal integrator (defaults to CVODE) will estimate an initial time step based on
+total time span and and other numeric attributes calculated from the system. If the estimated
+initial time step is too large, then a significant amount of time will be spent by the integrator
+adjusting it down to a stable value. If the initial time step is too small, the integrator will
+waste needless steps re-evaluating the system function. As we use variable time step integrators,
+the time step will increase if the function is relatively smooth, however, by the time the time step
+has been increased, the simulation time may be over.</p>
+<p>If one encounters exceptions from the integrator, the first thing that one should try is specifying
+an initial time step and tighter absolute and relative tolerances.</p>
+<p>All of the parameters to tune the integration are specified on the integrator object:</p>
+<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span> <span class="n">r</span><span class="o">=</span><span class="n">roadrunner</span><span class="o">.</span><span class="n">RoadRunner</span><span class="p">(</span><span class="s2">&quot;mymodel.xml&quot;</span><span class="p">)</span>
+</pre></div>
+</div>
+<p>Now specify absolute and relative tolerances</p>
+<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span> <span class="n">r</span><span class="o">.</span><span class="n">integrator</span><span class="o">.</span><span class="n">absolute_tolerance</span> <span class="o">=</span> <span class="mf">5e-10</span>
+<span class="gp">&gt;&gt;&gt; </span> <span class="n">r</span><span class="o">.</span><span class="n">integrator</span><span class="o">.</span><span class="n">relative_tolerance</span> <span class="o">=</span> <span class="mf">1e-3</span>
+</pre></div>
+</div>
+<p>and specify initial time step.</p>
+<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span> <span class="n">r</span><span class="o">.</span><span class="n">integrator</span><span class="o">.</span><span class="n">initial_time_step</span> <span class="o">=</span> <span class="mf">0.00001</span>
+<span class="gp">&gt;&gt;&gt; </span> <span class="n">r</span><span class="o">.</span><span class="n">simulate</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">10</span><span class="p">)</span>
+</pre></div>
+</div>
+<p>This will specify the absolute and relative tolerances and initial time step, and will integrate the system from
+time 0 to 10. The internal integrator will take many time steps before it reaches time 10.</p>
+</div>
+</div>
+
+
+           </div>
+           
+          </div>
+          <footer>
+  
+    <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
+      
+        <a href="utility_functions.html" class="btn btn-neutral float-right" title="Utility Functions" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right"></span></a>
+      
+      
+        <a href="bifurcation.html" class="btn btn-neutral float-left" title="Bifurcation Analysis" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left"></span> Previous</a>
+      
+    </div>
+  
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>
+        
+        &copy; Copyright 2013-2018, Andy Somogyi, J Kyle Medley, Kiri Choi, Herbert Suaro
+
+    </p>
+  </div>
+    
+    
+    
+    Built with <a href="http://sphinx-doc.org/">Sphinx</a> using a
+    
+    <a href="https://github.com/rtfd/sphinx_rtd_theme">theme</a>
+    
+    provided by <a href="https://readthedocs.org">Read the Docs</a>. 
+
+</footer>
+
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+  
+
+  <script type="text/javascript">
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script>
+
+  
+  
+    
+   
+
+</body>
+</html>

@@ -1,0 +1,369 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.20" xml:lang="en-US">
+  <compounddef id="ExecutableModelFactory_8cpp" kind="file" language="C++">
+    <compoundname>ExecutableModelFactory.cpp</compoundname>
+    <includes refid="ExecutableModelFactory_8h" local="no">ExecutableModelFactory.h</includes>
+    <includes refid="rrRoadRunnerOptions_8h" local="yes">rrRoadRunnerOptions.h</includes>
+    <includes local="no">iostream</includes>
+    <includes refid="rrLogger_8h" local="yes">rrLogger.h</includes>
+    <includes local="no">string</includes>
+    <includes local="no">algorithm</includes>
+    <includes local="yes">testing/CXXExecutableModel.h</includes>
+    <includes local="yes">testing/CXXEnzymeExecutableModel.h</includes>
+    <incdepgraph>
+      <node id="12">
+        <label>list</label>
+      </node>
+      <node id="9">
+        <label>sbml/SBMLDocument.h</label>
+      </node>
+      <node id="16">
+        <label>Variant.h</label>
+        <link refid="Variant_8h_source"/>
+        <childnode refid="5" relation="include">
+        </childnode>
+        <childnode refid="17" relation="include">
+        </childnode>
+        <childnode refid="8" relation="include">
+        </childnode>
+        <childnode refid="11" relation="include">
+        </childnode>
+      </node>
+      <node id="27">
+        <label>testing/CXXExecutableModel.h</label>
+      </node>
+      <node id="10">
+        <label>stdint.h</label>
+      </node>
+      <node id="25">
+        <label>stdexcept</label>
+      </node>
+      <node id="22">
+        <label>rrLogger.h</label>
+        <link refid="rrLogger_8h_source"/>
+        <childnode refid="23" relation="include">
+        </childnode>
+        <childnode refid="5" relation="include">
+        </childnode>
+      </node>
+      <node id="6">
+        <label>rrException.h</label>
+        <link refid="rrException_8h_source"/>
+        <childnode refid="7" relation="include">
+        </childnode>
+        <childnode refid="8" relation="include">
+        </childnode>
+        <childnode refid="5" relation="include">
+        </childnode>
+      </node>
+      <node id="8">
+        <label>string</label>
+      </node>
+      <node id="18">
+        <label>tr1proxy/rr_unordered_map.h</label>
+      </node>
+      <node id="15">
+        <label>Dictionary.h</label>
+        <link refid="Dictionary_8h_source"/>
+        <childnode refid="16" relation="include">
+        </childnode>
+        <childnode refid="8" relation="include">
+        </childnode>
+        <childnode refid="11" relation="include">
+        </childnode>
+        <childnode refid="14" relation="include">
+        </childnode>
+        <childnode refid="18" relation="include">
+        </childnode>
+      </node>
+      <node id="7">
+        <label>exception</label>
+      </node>
+      <node id="13">
+        <label>ostream</label>
+      </node>
+      <node id="24">
+        <label>Solver.h</label>
+        <link refid="Solver_8h"/>
+        <childnode refid="22" relation="include">
+        </childnode>
+        <childnode refid="4" relation="include">
+        </childnode>
+        <childnode refid="15" relation="include">
+        </childnode>
+        <childnode refid="6" relation="include">
+        </childnode>
+        <childnode refid="14" relation="include">
+        </childnode>
+        <childnode refid="18" relation="include">
+        </childnode>
+        <childnode refid="25" relation="include">
+        </childnode>
+      </node>
+      <node id="21">
+        <label>Integrator.h</label>
+        <link refid="Integrator_8h"/>
+        <childnode refid="22" relation="include">
+        </childnode>
+        <childnode refid="4" relation="include">
+        </childnode>
+        <childnode refid="15" relation="include">
+        </childnode>
+        <childnode refid="6" relation="include">
+        </childnode>
+        <childnode refid="24" relation="include">
+        </childnode>
+        <childnode refid="14" relation="include">
+        </childnode>
+        <childnode refid="18" relation="include">
+        </childnode>
+        <childnode refid="25" relation="include">
+        </childnode>
+      </node>
+      <node id="3">
+        <label>rrExecutableModel.h</label>
+        <link refid="rrExecutableModel_8h"/>
+        <childnode refid="4" relation="include">
+        </childnode>
+        <childnode refid="6" relation="include">
+        </childnode>
+        <childnode refid="9" relation="include">
+        </childnode>
+        <childnode refid="10" relation="include">
+        </childnode>
+        <childnode refid="8" relation="include">
+        </childnode>
+        <childnode refid="11" relation="include">
+        </childnode>
+        <childnode refid="12" relation="include">
+        </childnode>
+        <childnode refid="13" relation="include">
+        </childnode>
+        <childnode refid="14" relation="include">
+        </childnode>
+      </node>
+      <node id="17">
+        <label>typeinfo</label>
+      </node>
+      <node id="11">
+        <label>vector</label>
+      </node>
+      <node id="28">
+        <label>testing/CXXEnzymeExecutableModel.h</label>
+      </node>
+      <node id="23">
+        <label>sstream</label>
+      </node>
+      <node id="2">
+        <label>ExecutableModelFactory.h</label>
+        <link refid="ExecutableModelFactory_8h_source"/>
+        <childnode refid="3" relation="include">
+        </childnode>
+        <childnode refid="15" relation="include">
+        </childnode>
+        <childnode refid="8" relation="include">
+        </childnode>
+        <childnode refid="19" relation="include">
+        </childnode>
+      </node>
+      <node id="19">
+        <label>iostream</label>
+      </node>
+      <node id="4">
+        <label>rrOSSpecifics.h</label>
+        <link refid="rrOSSpecifics_8h_source"/>
+        <childnode refid="5" relation="include">
+        </childnode>
+      </node>
+      <node id="14">
+        <label>tr1proxy/rr_memory.h</label>
+      </node>
+      <node id="5">
+        <label>rrExporter.h</label>
+        <link refid="rrExporter_8h_source"/>
+      </node>
+      <node id="1">
+        <label>ExecutableModelFactory.cpp</label>
+        <link refid="ExecutableModelFactory_8cpp"/>
+        <childnode refid="2" relation="include">
+        </childnode>
+        <childnode refid="20" relation="include">
+        </childnode>
+        <childnode refid="19" relation="include">
+        </childnode>
+        <childnode refid="22" relation="include">
+        </childnode>
+        <childnode refid="8" relation="include">
+        </childnode>
+        <childnode refid="26" relation="include">
+        </childnode>
+        <childnode refid="27" relation="include">
+        </childnode>
+        <childnode refid="28" relation="include">
+        </childnode>
+      </node>
+      <node id="26">
+        <label>algorithm</label>
+      </node>
+      <node id="20">
+        <label>rrRoadRunnerOptions.h</label>
+        <link refid="rrRoadRunnerOptions_8h_source"/>
+        <childnode refid="5" relation="include">
+        </childnode>
+        <childnode refid="15" relation="include">
+        </childnode>
+        <childnode refid="21" relation="include">
+        </childnode>
+        <childnode refid="8" relation="include">
+        </childnode>
+        <childnode refid="11" relation="include">
+        </childnode>
+        <childnode refid="14" relation="include">
+        </childnode>
+        <childnode refid="18" relation="include">
+        </childnode>
+        <childnode refid="10" relation="include">
+        </childnode>
+      </node>
+    </incdepgraph>
+    <innernamespace refid="namespacerr">rr</innernamespace>
+    <briefdescription>
+    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <programlisting>
+<codeline lineno="1"><highlight class="comment">/*</highlight></codeline>
+<codeline lineno="2"><highlight class="comment"><sp/>*<sp/>ExecutableModelFactory.cpp</highlight></codeline>
+<codeline lineno="3"><highlight class="comment"><sp/>*</highlight></codeline>
+<codeline lineno="4"><highlight class="comment"><sp/>*<sp/><sp/>Created<sp/>on:<sp/>Dec<sp/>11,<sp/>2014</highlight></codeline>
+<codeline lineno="5"><highlight class="comment"><sp/>*<sp/><sp/><sp/><sp/><sp/><sp/>Author:<sp/>andy</highlight></codeline>
+<codeline lineno="6"><highlight class="comment"><sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="7"><highlight class="normal"></highlight></codeline>
+<codeline lineno="8"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&lt;ExecutableModelFactory.h&gt;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="9"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&quot;rrRoadRunnerOptions.h&quot;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="10"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&lt;iostream&gt;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="11"><highlight class="normal"></highlight></codeline>
+<codeline lineno="12"><highlight class="normal"></highlight><highlight class="preprocessor">#if<sp/>defined(BUILD_LLVM)</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="13"><highlight class="normal"></highlight><highlight class="preprocessor">#ifdef<sp/>_MSC_VER</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="14"><highlight class="normal"></highlight><highlight class="preprocessor">#pragma<sp/>warning(disable:<sp/>4146)</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="15"><highlight class="normal"></highlight><highlight class="preprocessor">#pragma<sp/>warning(disable:<sp/>4141)</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="16"><highlight class="normal"></highlight><highlight class="preprocessor">#pragma<sp/>warning(disable:<sp/>4267)</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="17"><highlight class="normal"></highlight><highlight class="preprocessor">#pragma<sp/>warning(disable:<sp/>4624)</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="18"><highlight class="normal"></highlight><highlight class="preprocessor">#endif</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="19"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&quot;llvm/LLVMModelGenerator.h&quot;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="20"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&quot;llvm/LLVMCompiler.h&quot;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="21"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&quot;llvm/LLVMExecutableModel.h&quot;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="22"><highlight class="normal"></highlight><highlight class="preprocessor">#ifdef<sp/>_MSC_VER</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="23"><highlight class="normal"></highlight><highlight class="preprocessor">#pragma<sp/>warning(default:<sp/>4146)</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="24"><highlight class="normal"></highlight><highlight class="preprocessor">#pragma<sp/>warning(default:<sp/>4141)</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="25"><highlight class="normal"></highlight><highlight class="preprocessor">#pragma<sp/>warning(default:<sp/>4267)</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="26"><highlight class="normal"></highlight><highlight class="preprocessor">#pragma<sp/>warning(default:<sp/>4624)</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="27"><highlight class="normal"></highlight><highlight class="preprocessor">#endif</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="28"><highlight class="normal"></highlight><highlight class="preprocessor">#endif</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="29"><highlight class="normal"></highlight></codeline>
+<codeline lineno="30"><highlight class="normal"></highlight><highlight class="preprocessor">#if<sp/>defined(BUILD_LEGACY_C)</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="31"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&quot;c/rrCModelGenerator.h&quot;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="32"><highlight class="normal"></highlight><highlight class="preprocessor">#endif</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="33"><highlight class="normal"></highlight></codeline>
+<codeline lineno="34"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&quot;rrLogger.h&quot;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="35"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&lt;string&gt;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="36"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&lt;algorithm&gt;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="37"><highlight class="normal"></highlight></codeline>
+<codeline lineno="38"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&quot;testing/CXXExecutableModel.h&quot;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="39"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&quot;testing/CXXEnzymeExecutableModel.h&quot;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="40"><highlight class="normal"></highlight></codeline>
+<codeline lineno="41"><highlight class="normal"></highlight><highlight class="keyword">using<sp/>namespace<sp/></highlight><highlight class="normal">std;</highlight></codeline>
+<codeline lineno="42"><highlight class="normal"></highlight><highlight class="keyword">namespace<sp/></highlight><highlight class="normal">rr<sp/>{</highlight></codeline>
+<codeline lineno="43"><highlight class="normal"></highlight></codeline>
+<codeline lineno="44"><highlight class="normal"></highlight><highlight class="comment">/*</highlight></codeline>
+<codeline lineno="45"><highlight class="comment">static<sp/>ModelGenerator*<sp/>createModelGenerator(const<sp/>string&amp;<sp/>compiler,<sp/>const<sp/>string&amp;<sp/>tempFolder,</highlight></codeline>
+<codeline lineno="46"><highlight class="comment"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>const<sp/>string&amp;<sp/>supportCodeFolder);</highlight></codeline>
+<codeline lineno="47"><highlight class="comment">*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="48"><highlight class="normal"></highlight></codeline>
+<codeline lineno="53"><highlight class="normal">std::string<sp/>Compiler::getDefaultCompiler()</highlight></codeline>
+<codeline lineno="54"><highlight class="normal">{</highlight></codeline>
+<codeline lineno="55"><highlight class="normal"></highlight><highlight class="preprocessor">#if<sp/>defined(BUILD_LLVM)</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="56"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal"><sp/></highlight><highlight class="stringliteral">&quot;LLVM&quot;</highlight><highlight class="normal">;</highlight></codeline>
+<codeline lineno="57"><highlight class="normal"></highlight><highlight class="preprocessor">#else</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="58"><highlight class="normal"></highlight><highlight class="preprocessor"><sp/><sp/><sp/><sp/>#if<sp/>defined(_WIN32)</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="59"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal"><sp/>joinPath(</highlight><highlight class="stringliteral">&quot;..&quot;</highlight><highlight class="normal">,<sp/></highlight><highlight class="stringliteral">&quot;compilers&quot;</highlight><highlight class="normal">,<sp/></highlight><highlight class="stringliteral">&quot;tcc&quot;</highlight><highlight class="normal">,<sp/></highlight><highlight class="stringliteral">&quot;tcc.exe&quot;</highlight><highlight class="normal">);</highlight></codeline>
+<codeline lineno="60"><highlight class="normal"></highlight><highlight class="preprocessor"><sp/><sp/><sp/><sp/>#else</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="61"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">//<sp/>the<sp/>default<sp/>compiler<sp/>on<sp/>Unix<sp/>systems<sp/>is<sp/>&apos;cc&apos;,<sp/>the<sp/>standard<sp/>enviornment</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="62"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">//<sp/>for<sp/>the<sp/>default<sp/>compiler<sp/>is<sp/>&apos;CC&apos;.</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="63"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal"><sp/>getenv(</highlight><highlight class="stringliteral">&quot;CC&quot;</highlight><highlight class="normal">)<sp/>?<sp/>getenv(</highlight><highlight class="stringliteral">&quot;CC&quot;</highlight><highlight class="normal">)<sp/>:<sp/></highlight><highlight class="stringliteral">&quot;gcc&quot;</highlight><highlight class="normal">;</highlight></codeline>
+<codeline lineno="64"><highlight class="normal"></highlight><highlight class="preprocessor"><sp/><sp/><sp/><sp/>#endif</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="65"><highlight class="normal"></highlight><highlight class="preprocessor">#endif</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="66"><highlight class="normal">}</highlight></codeline>
+<codeline lineno="67"><highlight class="normal"></highlight></codeline>
+<codeline lineno="68"><highlight class="normal">Compiler*<sp/>Compiler::New()<sp/>{</highlight></codeline>
+<codeline lineno="69"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal"><sp/></highlight><highlight class="keyword">new</highlight><highlight class="normal"><sp/>rrllvm::LLVMCompiler();</highlight></codeline>
+<codeline lineno="70"><highlight class="normal">}</highlight></codeline>
+<codeline lineno="71"><highlight class="normal"></highlight></codeline>
+<codeline lineno="72"><highlight class="normal">ExecutableModel*<sp/><ref refid="classrr_1_1ExecutableModelFactory_1a522884de93dc83ce2958b32874a956a8" kindref="member">rr::ExecutableModelFactory::createModel</ref>(</highlight></codeline>
+<codeline lineno="73"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/>std::string&amp;<sp/>sbml,<sp/></highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/>Dictionary*<sp/>dict)</highlight></codeline>
+<codeline lineno="74"><highlight class="normal">{</highlight></codeline>
+<codeline lineno="75"><highlight class="normal"><sp/><sp/><sp/><sp/>LoadSBMLOptions<sp/>opt(dict);</highlight></codeline>
+<codeline lineno="76"><highlight class="normal"></highlight></codeline>
+<codeline lineno="77"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal">(opt.hasKey(</highlight><highlight class="stringliteral">&quot;cxxEnzymeTest&quot;</highlight><highlight class="normal">))<sp/>{</highlight></codeline>
+<codeline lineno="78"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal"><sp/></highlight><highlight class="keyword">new</highlight><highlight class="normal"><sp/>rrtesting::CXXEnzymeExecutableModel(dict);</highlight></codeline>
+<codeline lineno="79"><highlight class="normal"><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="80"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal"><sp/>rrllvm::LLVMModelGenerator::createModel(sbml,<sp/>opt.modelGeneratorOpt);</highlight></codeline>
+<codeline lineno="81"><highlight class="normal">}</highlight></codeline>
+<codeline lineno="82"><highlight class="normal"></highlight></codeline>
+<codeline lineno="83"><highlight class="normal">ExecutableModel<sp/>*<ref refid="classrr_1_1ExecutableModelFactory_1a522884de93dc83ce2958b32874a956a8" kindref="member">rr::ExecutableModelFactory::createModel</ref>(std::istream&amp;<sp/>in,<sp/>uint<sp/>modelGeneratorOpt)</highlight></codeline>
+<codeline lineno="84"><highlight class="normal">{</highlight></codeline>
+<codeline lineno="85"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal"><sp/></highlight><highlight class="keyword">new</highlight><highlight class="normal"><sp/>rrllvm::LLVMExecutableModel(in,<sp/>modelGeneratorOpt);</highlight></codeline>
+<codeline lineno="86"><highlight class="normal">}</highlight></codeline>
+<codeline lineno="87"><highlight class="normal"></highlight></codeline>
+<codeline lineno="88"><highlight class="normal">ExecutableModel*<sp/>ExecutableModelFactory::regenerateModel(ExecutableModel*<sp/>oldModel,<sp/>libsbml::SBMLDocument*<sp/>doc,<sp/>uint<sp/>options)</highlight></codeline>
+<codeline lineno="89"><highlight class="normal">{</highlight></codeline>
+<codeline lineno="90"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal"><sp/><sp/>rrllvm::LLVMModelGenerator::regenerateModel(oldModel,<sp/>doc,<sp/>options);</highlight></codeline>
+<codeline lineno="91"><highlight class="normal">}</highlight></codeline>
+<codeline lineno="92"><highlight class="normal"></highlight></codeline>
+<codeline lineno="93"><highlight class="normal"></highlight><highlight class="comment">/*</highlight></codeline>
+<codeline lineno="94"><highlight class="comment">ModelGenerator*<sp/>createModelGenerator(const<sp/>string&amp;<sp/>compiler,<sp/>const<sp/>string&amp;<sp/>tempFolder,</highlight></codeline>
+<codeline lineno="95"><highlight class="comment"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>const<sp/>string&amp;<sp/>supportCodeFolder)</highlight></codeline>
+<codeline lineno="96"><highlight class="comment">{</highlight></codeline>
+<codeline lineno="97"><highlight class="comment">#if<sp/>defined(BUILD_LLVM)<sp/>&amp;&amp;<sp/>!defined(BUILD_LEGACY_C)</highlight></codeline>
+<codeline lineno="98"><highlight class="comment"></highlight></codeline>
+<codeline lineno="99"><highlight class="comment"><sp/><sp/><sp/><sp/>Log(Logger::LOG_INFORMATION)<sp/>&lt;&lt;<sp/>&quot;Creating<sp/>LLVM<sp/>based<sp/>model<sp/>generator.&quot;;</highlight></codeline>
+<codeline lineno="100"><highlight class="comment"><sp/><sp/><sp/><sp/>return<sp/>new<sp/>rrllvm::LLVMModelGenerator();</highlight></codeline>
+<codeline lineno="101"><highlight class="comment"></highlight></codeline>
+<codeline lineno="102"><highlight class="comment">#endif</highlight></codeline>
+<codeline lineno="103"><highlight class="comment"></highlight></codeline>
+<codeline lineno="104"><highlight class="comment">#if<sp/>defined(BUILD_LLVM)<sp/>&amp;&amp;<sp/>defined(BUILD_LEGACY_C)</highlight></codeline>
+<codeline lineno="105"><highlight class="comment"><sp/><sp/><sp/><sp/>string<sp/>ucomp<sp/>=<sp/>compiler;</highlight></codeline>
+<codeline lineno="106"><highlight class="comment"><sp/><sp/><sp/><sp/>std::transform(ucomp.begin(),<sp/>ucomp.end(),ucomp.begin(),<sp/>::toupper);</highlight></codeline>
+<codeline lineno="107"><highlight class="comment"></highlight></codeline>
+<codeline lineno="108"><highlight class="comment"><sp/><sp/><sp/><sp/>if<sp/>(ucomp<sp/>==<sp/>&quot;LLVM&quot;)</highlight></codeline>
+<codeline lineno="109"><highlight class="comment"><sp/><sp/><sp/><sp/>{</highlight></codeline>
+<codeline lineno="110"><highlight class="comment"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Log(Logger::LOG_INFORMATION)<sp/>&lt;&lt;<sp/>&quot;Creating<sp/>LLVM<sp/>based<sp/>model<sp/>generator.&quot;;</highlight></codeline>
+<codeline lineno="111"><highlight class="comment"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>return<sp/>new<sp/>rrllvm::LLVMModelGenerator();</highlight></codeline>
+<codeline lineno="112"><highlight class="comment"><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="113"><highlight class="comment"></highlight></codeline>
+<codeline lineno="114"><highlight class="comment"><sp/><sp/><sp/><sp/>Log(Logger::LOG_INFORMATION)<sp/>&lt;&lt;<sp/>&quot;Creating<sp/>C<sp/>based<sp/>model<sp/>generator<sp/>using<sp/>&quot;<sp/>&lt;&lt;<sp/>compiler<sp/>&lt;&lt;<sp/>&quot;<sp/>compiler.&quot;;</highlight></codeline>
+<codeline lineno="115"><highlight class="comment"></highlight></codeline>
+<codeline lineno="116"><highlight class="comment"><sp/><sp/><sp/><sp/>return<sp/>new<sp/>CModelGenerator(tempFolder,<sp/>supportCodeFolder,<sp/>compiler);</highlight></codeline>
+<codeline lineno="117"><highlight class="comment">#endif</highlight></codeline>
+<codeline lineno="118"><highlight class="comment"></highlight></codeline>
+<codeline lineno="119"><highlight class="comment">#if<sp/>!defined(BUILD_LLVM)<sp/>&amp;&amp;<sp/>defined(BUILD_LEGACY_C)</highlight></codeline>
+<codeline lineno="120"><highlight class="comment"></highlight></codeline>
+<codeline lineno="121"><highlight class="comment"><sp/><sp/><sp/><sp/>Log(Logger::LOG_INFORMATION)<sp/>&lt;&lt;<sp/>&quot;Creating<sp/>C<sp/>based<sp/>model<sp/>generator<sp/>using<sp/>&quot;<sp/>&lt;&lt;<sp/>compiler<sp/>&lt;&lt;<sp/>&quot;<sp/>compiler.&quot;;</highlight></codeline>
+<codeline lineno="122"><highlight class="comment"></highlight></codeline>
+<codeline lineno="123"><highlight class="comment"><sp/><sp/><sp/><sp/>//<sp/>default<sp/>(for<sp/>now...),<sp/>the<sp/>old<sp/>C<sp/>code<sp/>generating<sp/>model<sp/>generator.</highlight></codeline>
+<codeline lineno="124"><highlight class="comment"><sp/><sp/><sp/><sp/>return<sp/>new<sp/>CModelGenerator(tempFolder,<sp/>supportCodeFolder,<sp/>compiler);</highlight></codeline>
+<codeline lineno="125"><highlight class="comment">#endif</highlight></codeline>
+<codeline lineno="126"><highlight class="comment"></highlight></codeline>
+<codeline lineno="127"><highlight class="comment">#if<sp/>!defined(BUILD_LLVM)<sp/>&amp;&amp;<sp/>!defined(BUILD_LEGACY_C)</highlight></codeline>
+<codeline lineno="128"><highlight class="comment">#error<sp/>Must<sp/>built<sp/>at<sp/>least<sp/>one<sp/>ModelGenerator<sp/>backend,<sp/>either<sp/>BUILD_LLVM<sp/>or<sp/>BUILD_LEGACY_C</highlight></codeline>
+<codeline lineno="129"><highlight class="comment">#endif</highlight></codeline>
+<codeline lineno="130"><highlight class="comment">}</highlight></codeline>
+<codeline lineno="131"><highlight class="comment">*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="132"><highlight class="normal"></highlight></codeline>
+<codeline lineno="133"><highlight class="normal"></highlight></codeline>
+<codeline lineno="134"><highlight class="normal">}<sp/></highlight><highlight class="comment">/*<sp/>namespace<sp/>rr<sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="135"><highlight class="normal"></highlight></codeline>
+    </programlisting>
+    <location file="ExecutableModelFactory.cpp"/>
+  </compounddef>
+</doxygen>

@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<sbml xmlns="http://www.sbml.org/sbml/level1" level="1" version="2">
+  <model name="case00927">
+    <listOfCompartments>
+      <compartment name="c" volume="1" units="volume"/>
+    </listOfCompartments>
+    <listOfSpecies>
+      <species name="s" compartment="c" initialAmount="2" units="substance"/>
+    </listOfSpecies>
+    <listOfRules>
+      <compartmentVolumeRule formula="0.5 * c" type="rate" compartment="c"/>
+    </listOfRules>
+  </model>
+</sbml>

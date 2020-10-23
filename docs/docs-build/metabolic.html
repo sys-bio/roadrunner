@@ -1,0 +1,321 @@
+
+
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" >
+<head>
+  <meta charset="utf-8">
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+  <title>Metabolic Control Analysis &mdash; libRoadRunner 1.1.16 documentation</title>
+  
+
+  
+  <link rel="stylesheet" href="_static/css/theme.css" type="text/css" />
+  <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
+
+  
+  
+  
+  
+
+  
+  <!--[if lt IE 9]>
+    <script src="_static/js/html5shiv.min.js"></script>
+  <![endif]-->
+  
+    
+      <script type="text/javascript" id="documentation_options" data-url_root="./" src="_static/documentation_options.js"></script>
+        <script src="_static/jquery.js"></script>
+        <script src="_static/underscore.js"></script>
+        <script src="_static/doctools.js"></script>
+        <script src="_static/language_data.js"></script>
+    
+    <script type="text/javascript" src="_static/js/theme.js"></script>
+
+    
+    <link rel="index" title="Index" href="genindex.html" />
+    <link rel="search" title="Search" href="search.html" />
+    <link rel="next" title="Stability Analysis" href="stability.html" />
+    <link rel="prev" title="Stochastic Simulation" href="stochastic.html" /> 
+</head>
+
+<body class="wy-body-for-nav">
+
+   
+  <div class="wy-grid-for-nav">
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+          
+
+          
+            <a href="index.html" class="icon icon-home" alt="Documentation Home"> libRoadRunner
+          
+
+          
+          </a>
+
+          
+            
+            
+          
+
+          
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+
+          
+        </div>
+
+        
+        <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+          
+            
+            
+              
+            
+            
+              <ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="index.html">RoadRunner Documentation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="introduction.html">Introduction</a></li>
+<li class="toctree-l1"><a class="reference internal" href="Installation/installation.html">Installing RoadRunner</a></li>
+<li class="toctree-l1"><a class="reference internal" href="read_write_functions.html">SBML Read/Write Functions</a></li>
+<li class="toctree-l1"><a class="reference internal" href="selecting_values.html">Selecting Values</a></li>
+<li class="toctree-l1"><a class="reference internal" href="steady_state.html">Steady State Analysis</a></li>
+<li class="toctree-l1"><a class="reference internal" href="stochastic.html">Stochastic Simulation</a></li>
+<li class="toctree-l1 current"><a class="current reference internal" href="#">Metabolic Control Analysis</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="#preliminaries">Preliminaries</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#methods">Methods</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="stability.html">Stability Analysis</a></li>
+<li class="toctree-l1"><a class="reference internal" href="stoichiometric.html">Stoichiometric Analysis</a></li>
+<li class="toctree-l1"><a class="reference internal" href="bifurcation.html">Bifurcation Analysis</a></li>
+<li class="toctree-l1"><a class="reference internal" href="integration.html">Simulation and Integration</a></li>
+<li class="toctree-l1"><a class="reference internal" href="utility_functions.html">Utility Functions</a></li>
+<li class="toctree-l1"><a class="reference internal" href="accessing_model.html">Accessing the SBML Model Variables</a></li>
+<li class="toctree-l1"><a class="reference internal" href="api_reference.html">RoadRunner API Reference</a></li>
+</ul>
+
+            
+          
+        </div>
+        
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" aria-label="top navigation">
+        
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="index.html">libRoadRunner</a>
+        
+      </nav>
+
+
+      <div class="wy-nav-content">
+        
+        <div class="rst-content">
+        
+          
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div role="navigation" aria-label="breadcrumbs navigation">
+
+  <ul class="wy-breadcrumbs">
+    
+      <li><a href="index.html" class="icon icon-home"></a> &raquo;</li>
+        
+      <li>Metabolic Control Analysis</li>
+    
+    
+      <li class="wy-breadcrumbs-aside">
+        
+            
+            <a href="_sources/metabolic.rst.txt" rel="nofollow"> View page source</a>
+          
+        
+      </li>
+    
+  </ul>
+
+  
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+            
+  <div class="section" id="metabolic-control-analysis">
+<h1>Metabolic Control Analysis<a class="headerlink" href="#metabolic-control-analysis" title="Permalink to this headline">¶</a></h1>
+<div class="section" id="preliminaries">
+<h2>Preliminaries<a class="headerlink" href="#preliminaries" title="Permalink to this headline">¶</a></h2>
+<p>Metabolic control analysis is the study of how sensitive the system is to pertubrations in parameters and how those perturbations
+progagate through the network. Two kinds of sensitivity are defined, system and local. The local sensitivities are
+described by the elasticities. These are defined as follows:</p>
+<div class="math">
+<p><img src="_images/math/e63962441d5dd8a9a866eb7e3def06cca1d95758.png" alt="\varepsilon^v_S = \frac{\partial v}{\partial S} \frac{S}{v} = \frac{\partial \ln v}{\partial \ln S}"/></p>
+</div><p>Given a reaction rate <img class="math" src="_images/math/5bd39cc00b680a56dad487c2aa31394db3e90140.png" alt="v_i"/>, the elasticity describes how a given effector of the reaction step affects
+the reaction rate. Because the definition is in terms of partial deriviatives, any effector that is perturbed assumes
+that all other potential effectors are unchanged.</p>
+<p>The system sensitivities are described by the control and response coefficients. These come in two forms, flux
+and concentration. The flux control coefficients measures how senstive a given flux is to a perturbation in the
+local rate of a reaction step. Often the local rate is perturbed by changing the enzyme concentration at the step.
+In this siutation the flux control coefficicent with respect to enzyme <img class="math" src="_images/math/9c58f0e8b0fe372667bf1fad2943133f3a2b4370.png" alt="E_i"/> is defined as follow:</p>
+<div class="math">
+<p><img src="_images/math/7cff1fb3a4e17883b36bd4cf446b3bd8f72a0dd6.png" alt="C^J_{E_i} = \frac{dJ}{dE_i} \frac{E_1}{J} = \frac{d\ln J}{d\ln E_i}"/></p>
+</div><p>Likewise the concentration control coefficient is defined by:</p>
+<div class="math">
+<p><img src="_images/math/91ae9e829cccc56293bed54d54c13b51ae3af087.png" alt="C^S_{E_i} = \frac{dS}{d E_i} \frac{E_1}{S} = \frac{d\ln S}{d\ln E_i}"/></p>
+</div><p>where <img class="math" src="_images/math/b988975be41fd13b4d091c10202ba19374643586.png" alt="S"/> is a given species. The response coefficients measure the sensitivity of a flux or species concentration
+to a perturbation in some external effector. These are defined by:</p>
+<div class="math">
+<p><img src="_images/math/ee87ddf656c7e0d3511e97b47f80b6d675a77eb3.png" alt="R^J_{X} = \frac{dJ}{dX} \frac{X}{J} = \frac{d\ln J}{d\ln X}"/></p>
+</div><div class="math">
+<p><img src="_images/math/0fded292aa273bcbe6be7682a9744195bc343bd1.png" alt="R^S_{X} = \frac{dJ}{dX} \frac{X}{S} = \frac{d\ln S}{d\ln X}"/></p>
+</div><p>where <img class="math" src="_images/math/ed38fa24f1c94891bd312012aab3f6673be3eb83.png" alt="X"/> is the external effector.</p>
+</div>
+<div class="section" id="methods">
+<h2>Methods<a class="headerlink" href="#methods" title="Permalink to this headline">¶</a></h2>
+<p>The following methods allow users to obtain various metabolic control coefficients.</p>
+<p>This first block of methods are for parameter independent coefficients.</p>
+<table class="longtable docutils align-default">
+<colgroup>
+<col style="width: 10%" />
+<col style="width: 90%" />
+</colgroup>
+<tbody>
+<tr class="row-odd"><td><p><a class="reference internal" href="mod_roadrunner/cls_RoadRunner.html#RoadRunner.RoadRunner.getUnscaledFluxControlCoefficientMatrix" title="RoadRunner.RoadRunner.getUnscaledFluxControlCoefficientMatrix"><code class="xref py py-obj docutils literal notranslate"><span class="pre">RoadRunner.getUnscaledFluxControlCoefficientMatrix</span></code></a></p></td>
+<td><p></p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="mod_roadrunner/cls_RoadRunner.html#RoadRunner.RoadRunner.getUnscaledConcentrationControlCoefficientMatrix" title="RoadRunner.RoadRunner.getUnscaledConcentrationControlCoefficientMatrix"><code class="xref py py-obj docutils literal notranslate"><span class="pre">RoadRunner.getUnscaledConcentrationControlCoefficientMatrix</span></code></a></p></td>
+<td><p></p></td>
+</tr>
+<tr class="row-odd"><td><p><a class="reference internal" href="mod_roadrunner/cls_RoadRunner.html#RoadRunner.RoadRunner.getUnscaledElasticityMatrix" title="RoadRunner.RoadRunner.getUnscaledElasticityMatrix"><code class="xref py py-obj docutils literal notranslate"><span class="pre">RoadRunner.getUnscaledElasticityMatrix</span></code></a></p></td>
+<td><p></p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="mod_roadrunner/cls_RoadRunner.html#RoadRunner.RoadRunner.getUnscaledSpeciesElasticity" title="RoadRunner.RoadRunner.getUnscaledSpeciesElasticity"><code class="xref py py-obj docutils literal notranslate"><span class="pre">RoadRunner.getUnscaledSpeciesElasticity</span></code></a></p></td>
+<td><p></p></td>
+</tr>
+<tr class="row-odd"><td><p><a class="reference internal" href="mod_roadrunner/cls_RoadRunner.html#RoadRunner.RoadRunner.getScaledElasticityMatrix" title="RoadRunner.RoadRunner.getScaledElasticityMatrix"><code class="xref py py-obj docutils literal notranslate"><span class="pre">RoadRunner.getScaledElasticityMatrix</span></code></a></p></td>
+<td><p></p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="mod_roadrunner/cls_RoadRunner.html#RoadRunner.RoadRunner.getScaledFloatingSpeciesElasticity" title="RoadRunner.RoadRunner.getScaledFloatingSpeciesElasticity"><code class="xref py py-obj docutils literal notranslate"><span class="pre">RoadRunner.getScaledFloatingSpeciesElasticity</span></code></a></p></td>
+<td><p></p></td>
+</tr>
+<tr class="row-odd"><td><p><a class="reference internal" href="mod_roadrunner/cls_RoadRunner.html#RoadRunner.RoadRunner.getScaledFluxControlCoefficientMatrix" title="RoadRunner.RoadRunner.getScaledFluxControlCoefficientMatrix"><code class="xref py py-obj docutils literal notranslate"><span class="pre">RoadRunner.getScaledFluxControlCoefficientMatrix</span></code></a></p></td>
+<td><p></p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="mod_roadrunner/cls_RoadRunner.html#RoadRunner.RoadRunner.getScaledConcentrationControlCoefficientMatrix" title="RoadRunner.RoadRunner.getScaledConcentrationControlCoefficientMatrix"><code class="xref py py-obj docutils literal notranslate"><span class="pre">RoadRunner.getScaledConcentrationControlCoefficientMatrix</span></code></a></p></td>
+<td><p></p></td>
+</tr>
+</tbody>
+</table>
+<p>Use these to obtain metabolic control coefficients.</p>
+<table class="longtable docutils align-default">
+<colgroup>
+<col style="width: 10%" />
+<col style="width: 90%" />
+</colgroup>
+<tbody>
+<tr class="row-odd"><td><p><a class="reference internal" href="mod_roadrunner/cls_RoadRunner.html#RoadRunner.RoadRunner.getuCC" title="RoadRunner.RoadRunner.getuCC"><code class="xref py py-obj docutils literal notranslate"><span class="pre">RoadRunner.getuCC</span></code></a></p></td>
+<td><p></p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="mod_roadrunner/cls_RoadRunner.html#RoadRunner.RoadRunner.getCC" title="RoadRunner.RoadRunner.getCC"><code class="xref py py-obj docutils literal notranslate"><span class="pre">RoadRunner.getCC</span></code></a></p></td>
+<td><p></p></td>
+</tr>
+<tr class="row-odd"><td><p><a class="reference internal" href="mod_roadrunner/cls_RoadRunner.html#RoadRunner.RoadRunner.getDiffStepSize" title="RoadRunner.RoadRunner.getDiffStepSize"><code class="xref py py-obj docutils literal notranslate"><span class="pre">RoadRunner.getDiffStepSize</span></code></a></p></td>
+<td><p></p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="mod_roadrunner/cls_RoadRunner.html#RoadRunner.RoadRunner.setDiffStepSize" title="RoadRunner.RoadRunner.setDiffStepSize"><code class="xref py py-obj docutils literal notranslate"><span class="pre">RoadRunner.setDiffStepSize</span></code></a></p></td>
+<td><p></p></td>
+</tr>
+<tr class="row-odd"><td><p><a class="reference internal" href="mod_roadrunner/cls_RoadRunner.html#RoadRunner.RoadRunner.getuEE" title="RoadRunner.RoadRunner.getuEE"><code class="xref py py-obj docutils literal notranslate"><span class="pre">RoadRunner.getuEE</span></code></a></p></td>
+<td><p></p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="mod_roadrunner/cls_RoadRunner.html#RoadRunner.RoadRunner.getEE" title="RoadRunner.RoadRunner.getEE"><code class="xref py py-obj docutils literal notranslate"><span class="pre">RoadRunner.getEE</span></code></a></p></td>
+<td><p></p></td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+
+
+           </div>
+           
+          </div>
+          <footer>
+  
+    <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
+      
+        <a href="stability.html" class="btn btn-neutral float-right" title="Stability Analysis" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right"></span></a>
+      
+      
+        <a href="stochastic.html" class="btn btn-neutral float-left" title="Stochastic Simulation" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left"></span> Previous</a>
+      
+    </div>
+  
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>
+        
+        &copy; Copyright 2013-2018, Andy Somogyi, J Kyle Medley, Kiri Choi, Herbert Suaro
+
+    </p>
+  </div>
+    
+    
+    
+    Built with <a href="http://sphinx-doc.org/">Sphinx</a> using a
+    
+    <a href="https://github.com/rtfd/sphinx_rtd_theme">theme</a>
+    
+    provided by <a href="https://readthedocs.org">Read the Docs</a>. 
+
+</footer>
+
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+  
+
+  <script type="text/javascript">
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script>
+
+  
+  
+    
+   
+
+</body>
+</html>

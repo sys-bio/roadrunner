@@ -1,0 +1,183 @@
+\hypertarget{classrr_1_1RoadRunnerData}{}\doxysection{rr\+::Road\+Runner\+Data Class Reference}
+\label{classrr_1_1RoadRunnerData}\index{rr::RoadRunnerData@{rr::RoadRunnerData}}
+
+
+{\ttfamily \#include $<$rr\+Road\+Runner\+Data.\+h$>$}
+
+\doxysubsection*{Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\Hypertarget{classrr_1_1RoadRunnerData_ad4deaa7901ca4fa8d8e4081f8f54ac06}\label{classrr_1_1RoadRunnerData_ad4deaa7901ca4fa8d8e4081f8f54ac06}} 
+{\bfseries Road\+Runner\+Data} (const int \&r\+Size=0, const int \&c\+Size=0)
+\item 
+\mbox{\Hypertarget{classrr_1_1RoadRunnerData_a08c7c6658f76db5c65871b395848a5b5}\label{classrr_1_1RoadRunnerData_a08c7c6658f76db5c65871b395848a5b5}} 
+{\bfseries Road\+Runner\+Data} (const std\+::vector$<$ std\+::string $>$ \&col\+Names, const Double\+Matrix \&data)
+\item 
+\mbox{\Hypertarget{classrr_1_1RoadRunnerData_a631f56bb50745c200bc4ea9340bcb57d}\label{classrr_1_1RoadRunnerData_a631f56bb50745c200bc4ea9340bcb57d}} 
+{\bfseries Road\+Runner\+Data} (const \mbox{\hyperlink{classrr_1_1RoadRunner}{Road\+Runner}} $\ast$rr)
+\item 
+\mbox{\Hypertarget{classrr_1_1RoadRunnerData_afc570dd5ee2435b356f3d4eee26560c4}\label{classrr_1_1RoadRunnerData_afc570dd5ee2435b356f3d4eee26560c4}} 
+void {\bfseries allocate} (const size\+\_\+t \&c\+Size, const size\+\_\+t \&r\+Size)
+\item 
+\mbox{\Hypertarget{classrr_1_1RoadRunnerData_a7748604c075338816ba419e015b75847}\label{classrr_1_1RoadRunnerData_a7748604c075338816ba419e015b75847}} 
+void {\bfseries allocate\+Weights} ()
+\item 
+\mbox{\Hypertarget{classrr_1_1RoadRunnerData_ac5d161f3795986d1769a4001dec62a40}\label{classrr_1_1RoadRunnerData_ac5d161f3795986d1769a4001dec62a40}} 
+bool {\bfseries has\+Weights} () const
+\item 
+\mbox{\Hypertarget{classrr_1_1RoadRunnerData_ab493b3babacd13cf6d54c4da3e98b69f}\label{classrr_1_1RoadRunnerData_ab493b3babacd13cf6d54c4da3e98b69f}} 
+const std\+::vector$<$ std\+::string $>$ \& {\bfseries get\+Column\+Names} () const
+\item 
+\mbox{\Hypertarget{classrr_1_1RoadRunnerData_a6592891d7b60c9bc273b5b44d0157348}\label{classrr_1_1RoadRunnerData_a6592891d7b60c9bc273b5b44d0157348}} 
+std\+::string {\bfseries get\+Column\+Name} (const int col) const
+\item 
+\mbox{\Hypertarget{classrr_1_1RoadRunnerData_aa57252142bc328bd0ae54215422bcf99}\label{classrr_1_1RoadRunnerData_aa57252142bc328bd0ae54215422bcf99}} 
+std\+::string {\bfseries get\+Column\+Names\+As\+String} () const
+\item 
+\mbox{\Hypertarget{classrr_1_1RoadRunnerData_a2b8a0b91625c4401e3aa6475cda8ff4d}\label{classrr_1_1RoadRunnerData_a2b8a0b91625c4401e3aa6475cda8ff4d}} 
+void {\bfseries set\+Column\+Names} (const std\+::vector$<$ std\+::string $>$ \&col\+Names)
+\item 
+\mbox{\Hypertarget{classrr_1_1RoadRunnerData_a376981a194525eaa08d26248596ee188}\label{classrr_1_1RoadRunnerData_a376981a194525eaa08d26248596ee188}} 
+std\+::ptrdiff\+\_\+t {\bfseries get\+Column\+Index} (const std\+::string \&col\+Name) const
+\item 
+\mbox{\Hypertarget{classrr_1_1RoadRunnerData_a46f8855d9846a4a37119207089d0076e}\label{classrr_1_1RoadRunnerData_a46f8855d9846a4a37119207089d0076e}} 
+void {\bfseries set\+Time\+Data\+Precision} (const int \&prec)
+\item 
+\mbox{\Hypertarget{classrr_1_1RoadRunnerData_a08c080a6697054db157cf129b88df5ef}\label{classrr_1_1RoadRunnerData_a08c080a6697054db157cf129b88df5ef}} 
+void {\bfseries set\+Data\+Precision} (const int \&prec)
+\item 
+\mbox{\Hypertarget{classrr_1_1RoadRunnerData_a1dbe710a51790160c8e8e726237c3668}\label{classrr_1_1RoadRunnerData_a1dbe710a51790160c8e8e726237c3668}} 
+void {\bfseries re\+Size} (int rows, int cols)
+\item 
+\mbox{\Hypertarget{classrr_1_1RoadRunnerData_a19883313a699c497e2d9d69e66437ee8}\label{classrr_1_1RoadRunnerData_a19883313a699c497e2d9d69e66437ee8}} 
+void {\bfseries clear} ()
+\item 
+\mbox{\Hypertarget{classrr_1_1RoadRunnerData_a1c868aeb2b1daa53421fc93b66a0a878}\label{classrr_1_1RoadRunnerData_a1c868aeb2b1daa53421fc93b66a0a878}} 
+int {\bfseries r\+Size} () const
+\item 
+\mbox{\Hypertarget{classrr_1_1RoadRunnerData_a2d82d79c47e003d11439f9bb2f9babc8}\label{classrr_1_1RoadRunnerData_a2d82d79c47e003d11439f9bb2f9babc8}} 
+int {\bfseries c\+Size} () const
+\item 
+\mbox{\Hypertarget{classrr_1_1RoadRunnerData_af3eb1531027cd5a189c2995598d6f9c1}\label{classrr_1_1RoadRunnerData_af3eb1531027cd5a189c2995598d6f9c1}} 
+void {\bfseries set\+Data} (const Double\+Matrix \&the\+Data)
+\item 
+\mbox{\Hypertarget{classrr_1_1RoadRunnerData_a0c2069f9120a466864734342c39eb70e}\label{classrr_1_1RoadRunnerData_a0c2069f9120a466864734342c39eb70e}} 
+bool {\bfseries load\+Simple\+Format} (const std\+::string \&file\+Name)
+\item 
+\mbox{\Hypertarget{classrr_1_1RoadRunnerData_a3b532095484cce98f5d2644b6dba1c05}\label{classrr_1_1RoadRunnerData_a3b532095484cce98f5d2644b6dba1c05}} 
+bool {\bfseries write\+To} (const std\+::string \&file\+Name) const
+\item 
+\mbox{\Hypertarget{classrr_1_1RoadRunnerData_adc2dd42c0ba6072d31a03166a837032b}\label{classrr_1_1RoadRunnerData_adc2dd42c0ba6072d31a03166a837032b}} 
+bool {\bfseries read\+From} (const std\+::string \&file\+Name)
+\item 
+\mbox{\Hypertarget{classrr_1_1RoadRunnerData_a0295464279a611a6983ade805aa1cd78}\label{classrr_1_1RoadRunnerData_a0295464279a611a6983ade805aa1cd78}} 
+bool {\bfseries check} () const
+\item 
+\mbox{\Hypertarget{classrr_1_1RoadRunnerData_a1570070ebc8b338bf8abcbfd3438027b}\label{classrr_1_1RoadRunnerData_a1570070ebc8b338bf8abcbfd3438027b}} 
+double \& {\bfseries operator()} (const unsigned \&row, const unsigned \&col)
+\item 
+\mbox{\Hypertarget{classrr_1_1RoadRunnerData_addae6731bf529494dc8f542779633446}\label{classrr_1_1RoadRunnerData_addae6731bf529494dc8f542779633446}} 
+double {\bfseries operator()} (const unsigned \&row, const unsigned \&col) const
+\item 
+\mbox{\Hypertarget{classrr_1_1RoadRunnerData_a66c3e307969df3ad37d4197cc265d2fb}\label{classrr_1_1RoadRunnerData_a66c3e307969df3ad37d4197cc265d2fb}} 
+double {\bfseries get\+Data\+Element} (int row, int col)
+\item 
+\mbox{\Hypertarget{classrr_1_1RoadRunnerData_ad755f11ecc72698c244cff5b7c517c40}\label{classrr_1_1RoadRunnerData_ad755f11ecc72698c244cff5b7c517c40}} 
+void {\bfseries set\+Data\+Element} (int row, int col, double value)
+\item 
+\mbox{\Hypertarget{classrr_1_1RoadRunnerData_a55e9129f9943104f74d7e273e001d3c4}\label{classrr_1_1RoadRunnerData_a55e9129f9943104f74d7e273e001d3c4}} 
+\mbox{\hyperlink{classrr_1_1RoadRunnerData}{Road\+Runner\+Data}} \& {\bfseries operator=} (const \mbox{\hyperlink{classrr_1_1RoadRunnerData}{Road\+Runner\+Data}} \&rhs)
+\item 
+\mbox{\Hypertarget{classrr_1_1RoadRunnerData_a31d1b2caccd082767766baa685f9d3d6}\label{classrr_1_1RoadRunnerData_a31d1b2caccd082767766baa685f9d3d6}} 
+double {\bfseries get\+Weight} (int row, int col) const
+\item 
+\mbox{\Hypertarget{classrr_1_1RoadRunnerData_af78c0d44106d72d7d4ef633c46e24dcf}\label{classrr_1_1RoadRunnerData_af78c0d44106d72d7d4ef633c46e24dcf}} 
+void {\bfseries set\+Weight} (int row, int col, double val)
+\item 
+\mbox{\Hypertarget{classrr_1_1RoadRunnerData_ad50eae194274efde23f2d9635bbed64e}\label{classrr_1_1RoadRunnerData_ad50eae194274efde23f2d9635bbed64e}} 
+void {\bfseries set\+Name} (const std\+::string \&name)
+\item 
+\mbox{\Hypertarget{classrr_1_1RoadRunnerData_a1ef9ba8e17c4141660dcdacb1cc0e693}\label{classrr_1_1RoadRunnerData_a1ef9ba8e17c4141660dcdacb1cc0e693}} 
+std\+::string {\bfseries get\+Name} () const
+\item 
+\mbox{\Hypertarget{classrr_1_1RoadRunnerData_a98652630f45718b2d97b66dee4d40c35}\label{classrr_1_1RoadRunnerData_a98652630f45718b2d97b66dee4d40c35}} 
+std\+::pair$<$ int, int $>$ {\bfseries dimension} () const
+\item 
+\mbox{\Hypertarget{classrr_1_1RoadRunnerData_a912269ac3e3da96b4200f3ca26ed45c8}\label{classrr_1_1RoadRunnerData_a912269ac3e3da96b4200f3ca26ed45c8}} 
+bool {\bfseries append} (const \mbox{\hyperlink{classrr_1_1RoadRunnerData}{Road\+Runner\+Data}} \&data)
+\item 
+\mbox{\Hypertarget{classrr_1_1RoadRunnerData_a318f88a0941c2ce2188830322b9e4b01}\label{classrr_1_1RoadRunnerData_a318f88a0941c2ce2188830322b9e4b01}} 
+double {\bfseries get\+Time\+Start} () const
+\item 
+\mbox{\Hypertarget{classrr_1_1RoadRunnerData_a3a60259bff38d82080a9a27f6eb19938}\label{classrr_1_1RoadRunnerData_a3a60259bff38d82080a9a27f6eb19938}} 
+double {\bfseries get\+Time\+End} () const
+\item 
+\mbox{\Hypertarget{classrr_1_1RoadRunnerData_a3f1a8eb55c02aa709ad4288fb293033a}\label{classrr_1_1RoadRunnerData_a3f1a8eb55c02aa709ad4288fb293033a}} 
+const Double\+Matrix \& {\bfseries get\+Data} () const
+\item 
+\mbox{\Hypertarget{classrr_1_1RoadRunnerData_a48d0e814f50fc6e07d4559dfa04618b9}\label{classrr_1_1RoadRunnerData_a48d0e814f50fc6e07d4559dfa04618b9}} 
+const Double\+Matrix \& {\bfseries get\+Weights} () const
+\end{DoxyCompactItemize}
+\doxysubsection*{Public Attributes}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\Hypertarget{classrr_1_1RoadRunnerData_a9f3a379e8cc430248ffcb9f910cd1870}\label{classrr_1_1RoadRunnerData_a9f3a379e8cc430248ffcb9f910cd1870}} 
+bool {\bfseries structured\+Result}
+\end{DoxyCompactItemize}
+\doxysubsection*{Protected Attributes}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\Hypertarget{classrr_1_1RoadRunnerData_ab8717fd648deaa62f96f10b3f017dd19}\label{classrr_1_1RoadRunnerData_ab8717fd648deaa62f96f10b3f017dd19}} 
+std\+::vector$<$ std\+::string $>$ \mbox{\hyperlink{classrr_1_1RoadRunnerData_ab8717fd648deaa62f96f10b3f017dd19}{m\+Column\+Names}}
+\begin{DoxyCompactList}\small\item\em Container holding column names. \end{DoxyCompactList}\item 
+\mbox{\Hypertarget{classrr_1_1RoadRunnerData_a881dfd840f8cfaf304f5a8134a82fc08}\label{classrr_1_1RoadRunnerData_a881dfd840f8cfaf304f5a8134a82fc08}} 
+Double\+Matrix \mbox{\hyperlink{classrr_1_1RoadRunnerData_a881dfd840f8cfaf304f5a8134a82fc08}{m\+The\+Data}}
+\begin{DoxyCompactList}\small\item\em Container holding the actual data. \end{DoxyCompactList}\item 
+\mbox{\Hypertarget{classrr_1_1RoadRunnerData_a35237d1ad85d1610d907c9dd3168517d}\label{classrr_1_1RoadRunnerData_a35237d1ad85d1610d907c9dd3168517d}} 
+Double\+Matrix \mbox{\hyperlink{classrr_1_1RoadRunnerData_a35237d1ad85d1610d907c9dd3168517d}{m\+Weights}}
+\begin{DoxyCompactList}\small\item\em Container holding the data weights. \end{DoxyCompactList}\item 
+\mbox{\Hypertarget{classrr_1_1RoadRunnerData_a7580d39e2d41620af80842a1af411beb}\label{classrr_1_1RoadRunnerData_a7580d39e2d41620af80842a1af411beb}} 
+int \mbox{\hyperlink{classrr_1_1RoadRunnerData_a7580d39e2d41620af80842a1af411beb}{m\+Time\+Precision}}
+\begin{DoxyCompactList}\small\item\em Integer setting the precision of \textquotesingle{}time\textquotesingle{} double numbers when writing to file. \end{DoxyCompactList}\item 
+\mbox{\Hypertarget{classrr_1_1RoadRunnerData_a13da357ba080cf43f424947d996bfc4c}\label{classrr_1_1RoadRunnerData_a13da357ba080cf43f424947d996bfc4c}} 
+int \mbox{\hyperlink{classrr_1_1RoadRunnerData_a13da357ba080cf43f424947d996bfc4c}{m\+Data\+Precision}}
+\begin{DoxyCompactList}\small\item\em Integer setting the precision of \textquotesingle{}data\textquotesingle{} double numbers when writing to file. \end{DoxyCompactList}\item 
+std\+::string \mbox{\hyperlink{classrr_1_1RoadRunnerData_a7381cafbd851a5646d8fd4985eeb5bd6}{m\+Name}}
+\begin{DoxyCompactList}\small\item\em String holding the \textquotesingle{}name\textquotesingle{} of the object. \end{DoxyCompactList}\end{DoxyCompactItemize}
+\doxysubsection*{Friends}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\Hypertarget{classrr_1_1RoadRunnerData_a86bcd0a6b613c0776ba6ddc658345116}\label{classrr_1_1RoadRunnerData_a86bcd0a6b613c0776ba6ddc658345116}} 
+R\+R\+\_\+\+D\+E\+C\+L\+S\+P\+EC friend std\+::ostream \& {\bfseries operator$<$$<$} (std\+::ostream \&ss, const \mbox{\hyperlink{classrr_1_1RoadRunnerData}{Road\+Runner\+Data}} \&data)
+\item 
+\mbox{\Hypertarget{classrr_1_1RoadRunnerData_af18f4e6f8e1559b84f469054eff433a6}\label{classrr_1_1RoadRunnerData_af18f4e6f8e1559b84f469054eff433a6}} 
+R\+R\+\_\+\+D\+E\+C\+L\+S\+P\+EC friend std\+::istream \& {\bfseries operator$>$$>$} (std\+::istream \&ss, \mbox{\hyperlink{classrr_1_1RoadRunnerData}{Road\+Runner\+Data}} \&data)
+\end{DoxyCompactItemize}
+
+
+\doxysubsection{Detailed Description}
+\begin{DoxyRefDesc}{Deprecated}
+\item[\mbox{\hyperlink{deprecated__deprecated000002}{Deprecated}}]\end{DoxyRefDesc}
+
+
+DO N\+OT U\+SE T\+H\+IS, IT IS D\+E\+P\+R\+E\+C\+A\+T\+ED A\+ND W\+I\+LL BE R\+E\+M\+O\+V\+ED. 
+
+\doxysubsection{Member Data Documentation}
+\mbox{\Hypertarget{classrr_1_1RoadRunnerData_a7381cafbd851a5646d8fd4985eeb5bd6}\label{classrr_1_1RoadRunnerData_a7381cafbd851a5646d8fd4985eeb5bd6}} 
+\index{rr::RoadRunnerData@{rr::RoadRunnerData}!mName@{mName}}
+\index{mName@{mName}!rr::RoadRunnerData@{rr::RoadRunnerData}}
+\doxysubsubsection{\texorpdfstring{mName}{mName}}
+{\footnotesize\ttfamily std\+::string rr\+::\+Road\+Runner\+Data\+::m\+Name\hspace{0.3cm}{\ttfamily [protected]}}
+
+
+
+String holding the \textquotesingle{}name\textquotesingle{} of the object. 
+
+\begin{DoxyRefDesc}{Todo}
+\item[\mbox{\hyperlink{todo__todo000001}{Todo}}]Remove \end{DoxyRefDesc}
+
+
+The documentation for this class was generated from the following files\+:\begin{DoxyCompactItemize}
+\item 
+rr\+Road\+Runner\+Data.\+h\item 
+rr\+Road\+Runner\+Data.\+cpp\end{DoxyCompactItemize}

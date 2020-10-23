@@ -1,0 +1,27 @@
+Quick Build Instructions
+=========================
+
+#. Install and extract the :ref:`llvm-6.x dependency<LLVM-6.x dependency>`.
+#. Install the `roadrunner dependency package <https://github.com/CiaranWelsh/roadrunner-deps>`_
+
+.. code-block:: bash
+
+	$ git clone https://github.com/CiaranWelsh/roadrunner-deps.git --recurse-submodules 	# get the dependency package using git
+	$ cd roadrunner-deps-install
+	$ mkdir build
+	$ cd build
+	$ cmake -DCMAKE_INSTALL_PREFIX="D:\roadrunner-deps\roadrunner-deps-install" -DCMAKE_BUILD_TYPE="Release" .. # configure the dependency package
+	$ cmake --build . --target install --config Release # build the install target
+	$ cd ../../ # return to directory containing roadrunner-deps
+
+#. Install roadrunner
+
+.. code-block:: bash
+
+	$ git clone https://github.com/CiaranWelsh/roadrunner.git # get roadrunner
+	$ cd roadrunner
+	$ mkdir build
+	$ cd build
+	$ cmake -DCMAKE_INSTALL_PREFIX="D:\roadrunner\install-msvc2019" -DLLVM_INSTALL_PREFIX="D:\llvm-6.x\llvm\llvm-6.x-msvc-x64-release" -DRR_DEPENDENCIES_INSTALL_PREFIX="D:\roadrunner-deps\roadrunner-deps-install" -DCMAKE_BUILD_TYPE="Release" ..
+	$ cmake --build . --target install --config Release
+

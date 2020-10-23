@@ -1,0 +1,170 @@
+\hypertarget{classrr_1_1IniFile}{}\doxysection{rr\+::Ini\+File Class Reference}
+\label{classrr_1_1IniFile}\index{rr::IniFile@{rr::IniFile}}
+\doxysubsection*{Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\Hypertarget{classrr_1_1IniFile_ab792ef51065dfdf4141b81bb2add44c7}\label{classrr_1_1IniFile_ab792ef51065dfdf4141b81bb2add44c7}} 
+{\bfseries Ini\+File} (const string \&f\+Name=\char`\"{}\char`\"{}, bool auto\+Load=false, bool auto\+Save=false)
+\item 
+\mbox{\Hypertarget{classrr_1_1IniFile_a039069a816202c5d1103bafda4467126}\label{classrr_1_1IniFile_a039069a816202c5d1103bafda4467126}} 
+size\+\_\+t {\bfseries Get\+Number\+Of\+Sections} ()
+\item 
+\mbox{\Hypertarget{classrr_1_1IniFile_a8236e6ce6a56429276b25060d5e36f08}\label{classrr_1_1IniFile_a8236e6ce6a56429276b25060d5e36f08}} 
+\mbox{\hyperlink{classrr_1_1IniSection}{Ini\+Section}} $\ast$ {\bfseries Get\+Section} (int i)
+\item 
+\mbox{\Hypertarget{classrr_1_1IniFile_aae0d84e192854f205cc463e1781c78be}\label{classrr_1_1IniFile_aae0d84e192854f205cc463e1781c78be}} 
+\mbox{\hyperlink{classrr_1_1IniSection}{Ini\+Section}} $\ast$ {\bfseries Get\+Section} (size\+\_\+t i)
+\item 
+\mbox{\Hypertarget{classrr_1_1IniFile_ab59fe8169dc21705f942819eb61cecbc}\label{classrr_1_1IniFile_ab59fe8169dc21705f942819eb61cecbc}} 
+string {\bfseries Get\+File\+Path} ()
+\item 
+\mbox{\Hypertarget{classrr_1_1IniFile_a4584f793b8d33c4849bc4694ce2a38c5}\label{classrr_1_1IniFile_a4584f793b8d33c4849bc4694ce2a38c5}} 
+string {\bfseries Get\+File\+Name} ()
+\item 
+\mbox{\Hypertarget{classrr_1_1IniFile_a81951d80e536625d8bd2204f6e58e6df}\label{classrr_1_1IniFile_a81951d80e536625d8bd2204f6e58e6df}} 
+string {\bfseries Get\+Full\+File\+Name} ()
+\item 
+\mbox{\Hypertarget{classrr_1_1IniFile_ac3bda93be399fa98a50685d3be10a41d}\label{classrr_1_1IniFile_ac3bda93be399fa98a50685d3be10a41d}} 
+bool {\bfseries Set\+File\+Path} (const string \&path)
+\item 
+\mbox{\Hypertarget{classrr_1_1IniFile_afcde82ef7aab2e4cf68b67ff54abdf9b}\label{classrr_1_1IniFile_afcde82ef7aab2e4cf68b67ff54abdf9b}} 
+bool {\bfseries Load} (const string \&f\+Name=\char`\"{}\char`\"{})
+\item 
+\mbox{\Hypertarget{classrr_1_1IniFile_af6b76931e49087a27695b7a27ed04a42}\label{classrr_1_1IniFile_af6b76931e49087a27695b7a27ed04a42}} 
+\mbox{\hyperlink{classrr_1_1IniSection}{Ini\+Section}} $\ast$ {\bfseries Load\+Section} (const string \&the\+Section)
+\item 
+\mbox{\Hypertarget{classrr_1_1IniFile_a2485647178f4b9c733b5a5abb54b3bf2}\label{classrr_1_1IniFile_a2485647178f4b9c733b5a5abb54b3bf2}} 
+bool {\bfseries Save} (ios\+\_\+base\+::openmode open\+Mode=ios\+::out$\vert$ios\+::trunc)
+\item 
+\mbox{\Hypertarget{classrr_1_1IniFile_abd7e7981536ea59c2171ac3304c76ccd}\label{classrr_1_1IniFile_abd7e7981536ea59c2171ac3304c76ccd}} 
+bool {\bfseries Un\+Load} ()
+\item 
+\mbox{\Hypertarget{classrr_1_1IniFile_aff8ccbf611e3a58769005a6cdc627f8a}\label{classrr_1_1IniFile_aff8ccbf611e3a58769005a6cdc627f8a}} 
+bool {\bfseries Was\+It\+Found} ()
+\item 
+\mbox{\Hypertarget{classrr_1_1IniFile_a0f6042f001ebab2e3b2e29ae69c10f84}\label{classrr_1_1IniFile_a0f6042f001ebab2e3b2e29ae69c10f84}} 
+bool \mbox{\hyperlink{classrr_1_1IniFile_a0f6042f001ebab2e3b2e29ae69c10f84}{Section\+Exists}} (const string \&section)
+\begin{DoxyCompactList}\small\item\em Boolean indicating if the last key was found in the ini file. \end{DoxyCompactList}\item 
+\mbox{\Hypertarget{classrr_1_1IniFile_a910bafca6c0bdcf5d267f37ee18bddfb}\label{classrr_1_1IniFile_a910bafca6c0bdcf5d267f37ee18bddfb}} 
+string {\bfseries Read\+Value} (const string \&Key, const string \&Section=\char`\"{}\char`\"{})
+\item 
+\mbox{\Hypertarget{classrr_1_1IniFile_a67876ac86232543dcb885d5e5a20b58a}\label{classrr_1_1IniFile_a67876ac86232543dcb885d5e5a20b58a}} 
+string {\bfseries Read\+String} (const string \&Key, const string \&Section=\char`\"{}\char`\"{}, const string \&def\+\_\+val=\char`\"{}\char`\"{})
+\item 
+\mbox{\Hypertarget{classrr_1_1IniFile_ae9861c538c12de4141984157a1593c53}\label{classrr_1_1IniFile_ae9861c538c12de4141984157a1593c53}} 
+double {\bfseries Read\+Double} (const string \&Key, const string \&Section=\char`\"{}\char`\"{}, double def\+\_\+value=0)
+\item 
+\mbox{\Hypertarget{classrr_1_1IniFile_aa176fc7df6bda8f1c1472bea7a9addc6}\label{classrr_1_1IniFile_aa176fc7df6bda8f1c1472bea7a9addc6}} 
+float {\bfseries Read\+Float} (const string \&Key, const string \&Section=\char`\"{}\char`\"{}, double def\+\_\+value=0)
+\item 
+\mbox{\Hypertarget{classrr_1_1IniFile_a37e6968493969d5990cf8b371d050085}\label{classrr_1_1IniFile_a37e6968493969d5990cf8b371d050085}} 
+int {\bfseries Read\+Integer} (const string \&Key, const string \&Section=\char`\"{}\char`\"{}, int def\+\_\+value=0)
+\item 
+\mbox{\Hypertarget{classrr_1_1IniFile_a764b97b4510f765e21d9c37d102f8d4e}\label{classrr_1_1IniFile_a764b97b4510f765e21d9c37d102f8d4e}} 
+bool {\bfseries Read\+Bool} (const string \&Key, const string \&Section=\char`\"{}\char`\"{}, bool def\+\_\+value=false)
+\item 
+\mbox{\Hypertarget{classrr_1_1IniFile_ad8d19bb0fb31a51b5b4619d5b44211bc}\label{classrr_1_1IniFile_ad8d19bb0fb31a51b5b4619d5b44211bc}} 
+bool {\bfseries Write\+Value} (const string \&Key, const string \&Value, const string \&Comment=\char`\"{}\char`\"{}, const string \&Section=\char`\"{}\char`\"{})
+\item 
+\mbox{\Hypertarget{classrr_1_1IniFile_ae592cbb7a5f2605dcf49f1fded994899}\label{classrr_1_1IniFile_ae592cbb7a5f2605dcf49f1fded994899}} 
+bool {\bfseries Write\+Float} (const string \&Key, double value, const string \&Comment=\char`\"{}\char`\"{}, const string \&Section=\char`\"{}\char`\"{})
+\item 
+\mbox{\Hypertarget{classrr_1_1IniFile_a073e519df19400685248dc67f6b57c7a}\label{classrr_1_1IniFile_a073e519df19400685248dc67f6b57c7a}} 
+bool {\bfseries Write\+Integer} (const string \&Key, int n\+Value, const string \&Comment=\char`\"{}\char`\"{}, const string \&Section=\char`\"{}\char`\"{})
+\item 
+\mbox{\Hypertarget{classrr_1_1IniFile_a90905ce6e586e318b978bf21a8c5558e}\label{classrr_1_1IniFile_a90905ce6e586e318b978bf21a8c5558e}} 
+bool {\bfseries Write\+Bool} (const string \&Key, bool b\+Value, const string \&Comment=\char`\"{}\char`\"{}, const string \&Section=\char`\"{}\char`\"{})
+\item 
+\mbox{\Hypertarget{classrr_1_1IniFile_a866bd7d05ee3b8b6a267661c3755d267}\label{classrr_1_1IniFile_a866bd7d05ee3b8b6a267661c3755d267}} 
+bool {\bfseries Write\+String} (const string \&Key, const string \&Value, const string \&Comment=\char`\"{}\char`\"{}, const string \&Section=\char`\"{}\char`\"{})
+\item 
+\mbox{\Hypertarget{classrr_1_1IniFile_a05b1dbd4fc8bde379736870cc26fe7db}\label{classrr_1_1IniFile_a05b1dbd4fc8bde379736870cc26fe7db}} 
+bool {\bfseries Write\+Non\+Key} (const string \&non\+Key, const string \&Section=\char`\"{}\char`\"{})
+\item 
+\mbox{\Hypertarget{classrr_1_1IniFile_a368f38bf1369323541d27087a64c6633}\label{classrr_1_1IniFile_a368f38bf1369323541d27087a64c6633}} 
+bool {\bfseries Set\+Key\+Comment} (const string \&Key, const string \&Comment, const string \&Section=\char`\"{}\char`\"{})
+\item 
+\mbox{\Hypertarget{classrr_1_1IniFile_a09070f111aaa9380c509a6df0f51d10f}\label{classrr_1_1IniFile_a09070f111aaa9380c509a6df0f51d10f}} 
+bool {\bfseries Set\+Section\+Comment} (const string \&Section, const string \&Comment)
+\item 
+\mbox{\Hypertarget{classrr_1_1IniFile_a04bc7759e92239370fcbebb263d8d882}\label{classrr_1_1IniFile_a04bc7759e92239370fcbebb263d8d882}} 
+bool {\bfseries Delete\+Key} (const string \&Key, const string \&From\+Section=\char`\"{}\char`\"{})
+\item 
+\mbox{\Hypertarget{classrr_1_1IniFile_a1b3bd5bfb77e49330a4c7b886d162537}\label{classrr_1_1IniFile_a1b3bd5bfb77e49330a4c7b886d162537}} 
+bool {\bfseries Delete\+Section} (const string \&Section)
+\item 
+\mbox{\Hypertarget{classrr_1_1IniFile_abadf22edc3ce9e12d8ad03f554f90d3e}\label{classrr_1_1IniFile_abadf22edc3ce9e12d8ad03f554f90d3e}} 
+bool {\bfseries Delete\+Sections\+With\+Key\+Value} (const string \&key, const string \&value)
+\item 
+\mbox{\Hypertarget{classrr_1_1IniFile_a7eebc3708fd1cb4b29afa08730fc3f50}\label{classrr_1_1IniFile_a7eebc3708fd1cb4b29afa08730fc3f50}} 
+bool {\bfseries Create\+Key} (const string \&Key, const string \&Value, const string \&Comment=\char`\"{}\char`\"{}, const string \&Section=\char`\"{}\char`\"{})
+\item 
+\mbox{\Hypertarget{classrr_1_1IniFile_adc60e078656f62ad2fd6646b227c8ebc}\label{classrr_1_1IniFile_adc60e078656f62ad2fd6646b227c8ebc}} 
+bool {\bfseries Create\+Section} (const string \&Section, const string \&Comment=\char`\"{}\char`\"{})
+\item 
+\mbox{\Hypertarget{classrr_1_1IniFile_aa61d11c5887653f29e7af627b8c664f0}\label{classrr_1_1IniFile_aa61d11c5887653f29e7af627b8c664f0}} 
+bool {\bfseries Create\+Section} (const string \&Section, const string \&Comment, Key\+List Keys)
+\item 
+\mbox{\Hypertarget{classrr_1_1IniFile_a0af07e5fe97fc53e4f8af4be98288a8b}\label{classrr_1_1IniFile_a0af07e5fe97fc53e4f8af4be98288a8b}} 
+size\+\_\+t {\bfseries Section\+Count} ()
+\item 
+\mbox{\Hypertarget{classrr_1_1IniFile_a3de8a80dfe82b458ab84dbe72ca48397}\label{classrr_1_1IniFile_a3de8a80dfe82b458ab84dbe72ca48397}} 
+size\+\_\+t {\bfseries Key\+Count} ()
+\item 
+\mbox{\Hypertarget{classrr_1_1IniFile_ae3c57da7631c79edf4bb835d75d74ed1}\label{classrr_1_1IniFile_ae3c57da7631c79edf4bb835d75d74ed1}} 
+size\+\_\+t {\bfseries Key\+Count} (const string \&section)
+\item 
+\mbox{\Hypertarget{classrr_1_1IniFile_a16b14b66bb99a33ef9a1f63208243c24}\label{classrr_1_1IniFile_a16b14b66bb99a33ef9a1f63208243c24}} 
+void {\bfseries Clear} ()
+\item 
+\mbox{\Hypertarget{classrr_1_1IniFile_a11b30f1eaaebf63eecf83bbe71b7c792}\label{classrr_1_1IniFile_a11b30f1eaaebf63eecf83bbe71b7c792}} 
+void {\bfseries Set\+File\+Name} (const string \&f\+Name)
+\item 
+\mbox{\Hypertarget{classrr_1_1IniFile_a0b35fb7a348df800676fc71eca8be989}\label{classrr_1_1IniFile_a0b35fb7a348df800676fc71eca8be989}} 
+string {\bfseries Comment\+Str} (string \&Comment)
+\item 
+\mbox{\Hypertarget{classrr_1_1IniFile_ae00212a8f80890e04fc0d54edab53860}\label{classrr_1_1IniFile_ae00212a8f80890e04fc0d54edab53860}} 
+\mbox{\hyperlink{classrr_1_1IniKey}{Ini\+Key}} $\ast$ {\bfseries Get\+Key} (const string \&Key, const string \&Section)
+\item 
+\mbox{\Hypertarget{classrr_1_1IniFile_af1c349158b375e19f73be3e86119e3ff}\label{classrr_1_1IniFile_af1c349158b375e19f73be3e86119e3ff}} 
+\mbox{\hyperlink{classrr_1_1IniSection}{Ini\+Section}} $\ast$ {\bfseries Get\+Section} (const string \&Section, bool create=false)
+\item 
+\mbox{\Hypertarget{classrr_1_1IniFile_a4d569729086baaed36eb80bb2acd1dd6}\label{classrr_1_1IniFile_a4d569729086baaed36eb80bb2acd1dd6}} 
+\mbox{\hyperlink{classrr_1_1IniSection}{Ini\+Section}} $\ast$ {\bfseries Get\+Section} (const unsigned int sec\+Nr)
+\item 
+\mbox{\Hypertarget{classrr_1_1IniFile_a855673a5b2c81c72cd60cc6ac58c05ef}\label{classrr_1_1IniFile_a855673a5b2c81c72cd60cc6ac58c05ef}} 
+bool {\bfseries Clear\+Section} (const string \&section)
+\item 
+\mbox{\Hypertarget{classrr_1_1IniFile_aee0e075188471d394dad72f73a105f04}\label{classrr_1_1IniFile_aee0e075188471d394dad72f73a105f04}} 
+bool {\bfseries Is\+Modified} ()
+\end{DoxyCompactItemize}
+\doxysubsection*{Public Attributes}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\Hypertarget{classrr_1_1IniFile_a1f61bb8810be3b11858c61aa58b65516}\label{classrr_1_1IniFile_a1f61bb8810be3b11858c61aa58b65516}} 
+int {\bfseries m\+Flags}
+\end{DoxyCompactItemize}
+\doxysubsection*{Protected Attributes}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\Hypertarget{classrr_1_1IniFile_afe160378b79f83310a173fccbcb591aa}\label{classrr_1_1IniFile_afe160378b79f83310a173fccbcb591aa}} 
+Section\+List {\bfseries m\+Sections}
+\item 
+\mbox{\Hypertarget{classrr_1_1IniFile_a892cc3520f3558f15b295db69b0f6fa2}\label{classrr_1_1IniFile_a892cc3520f3558f15b295db69b0f6fa2}} 
+\mbox{\hyperlink{classrr_1_1FileName}{File\+Name}} {\bfseries m\+Ini\+File\+Name}
+\item 
+\mbox{\Hypertarget{classrr_1_1IniFile_ab86814e8ede20550a978599ddb9f8493}\label{classrr_1_1IniFile_ab86814e8ede20550a978599ddb9f8493}} 
+bool {\bfseries m\+Is\+Dirty}
+\item 
+\mbox{\Hypertarget{classrr_1_1IniFile_a01fd6810d2c0c4713208975e6e1bb0e9}\label{classrr_1_1IniFile_a01fd6810d2c0c4713208975e6e1bb0e9}} 
+bool {\bfseries m\+Was\+Found}
+\item 
+\mbox{\Hypertarget{classrr_1_1IniFile_a02f1d8f69fc00103cd3c455020c7a750}\label{classrr_1_1IniFile_a02f1d8f69fc00103cd3c455020c7a750}} 
+bool {\bfseries m\+Auto\+Save}
+\end{DoxyCompactItemize}
+
+
+The documentation for this class was generated from the following files\+:\begin{DoxyCompactItemize}
+\item 
+rr\+Ini\+File.\+h\item 
+rr\+Ini\+File.\+cpp\end{DoxyCompactItemize}

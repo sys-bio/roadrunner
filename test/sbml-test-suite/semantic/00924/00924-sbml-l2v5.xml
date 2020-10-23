@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<sbml xmlns="http://www.sbml.org/sbml/level2/version5" level="2" version="5">
+  <model metaid="_case00924" id="case00924" name="case00924">
+    <listOfParameters>
+      <parameter id="k1" name="k1" value="1" constant="false"/>
+      <parameter id="k2" name="k2" value="0.3"/>
+    </listOfParameters>
+    <listOfRules>
+      <assignmentRule metaid="rule1" variable="k1">
+        <math xmlns="http://www.w3.org/1998/Math/MathML">
+          <apply>
+            <times/>
+            <cn type="integer"> 3 </cn>
+            <ci> k2 </ci>
+          </apply>
+        </math>
+      </assignmentRule>
+    </listOfRules>
+  </model>
+</sbml>

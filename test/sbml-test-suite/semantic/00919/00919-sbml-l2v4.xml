@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<sbml xmlns="http://www.sbml.org/sbml/level2/version4" level="2" version="4">
+  <model metaid="_case00919" id="case00919" name="case00919">
+    <listOfCompartments>
+      <compartment id="c" name="c" spatialDimensions="1" size="2" units="length" constant="false"/>
+    </listOfCompartments>
+    <listOfInitialAssignments>
+      <initialAssignment symbol="c">
+        <math xmlns="http://www.w3.org/1998/Math/MathML">
+          <apply>
+            <divide/>
+            <cn> 2.1 </cn>
+            <cn> 4 </cn>
+          </apply>
+        </math>
+      </initialAssignment>
+    </listOfInitialAssignments>
+    <listOfRules>
+      <rateRule metaid="rule1" variable="c">
+        <math xmlns="http://www.w3.org/1998/Math/MathML">
+          <apply>
+            <times/>
+            <cn> 1.25 </cn>
+            <ci> c </ci>
+          </apply>
+        </math>
+      </rateRule>
+    </listOfRules>
+  </model>
+</sbml>

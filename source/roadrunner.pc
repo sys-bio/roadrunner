@@ -1,0 +1,12 @@
+prefix=
+exec_prefix=${prefix}
+libdir=${exec_prefix}/lib
+includedir=${prefix}/include/rr
+
+Name: libRoadRunner
+Description: SBML-compliant simulation engine
+Version: 2.0.1
+Libs: -L${libdir} -lroadrunner
+Libs.private: 
+Cflags: -I${includedir}
+

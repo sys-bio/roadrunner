@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<sbml xmlns="http://www.sbml.org/sbml/level1" level="1" version="2">
+  <model name="case00820">
+    <listOfCompartments>
+      <compartment name="C" volume="1" units="volume"/>
+    </listOfCompartments>
+    <listOfSpecies>
+      <species name="S1" compartment="C" initialAmount="1" units="substance" boundaryCondition="true"/>
+      <species name="S2" compartment="C" initialAmount="0.5" units="substance"/>
+      <species name="S3" compartment="C" initialAmount="0" units="substance"/>
+    </listOfSpecies>
+    <listOfParameters>
+      <parameter name="kf" value="2.5"/>
+      <parameter name="kr" value="0.2"/>
+    </listOfParameters>
+    <listOfReactions>
+      <reaction name="reaction1">
+        <listOfReactants>
+          <speciesReference species="S1"/>
+        </listOfReactants>
+        <listOfProducts>
+          <speciesReference species="S2"/>
+          <speciesReference species="S3"/>
+        </listOfProducts>
+        <kineticLaw formula="C * (kf * S1 + -1 * kr * S2 * S3)"/>
+      </reaction>
+    </listOfReactions>
+  </model>
+</sbml>

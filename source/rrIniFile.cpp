@@ -794,15 +794,15 @@ bool IniFile::CreateSection(const string& Section, const string& Comment, KeyLis
 }
 
 // Simply returns the number of sections in the list.
-int IniFile::SectionCount()
+size_t IniFile::SectionCount()
 {
 	return mSections.size();
 }
 
 // Returns the total number of keys contained within all the sections.
-int IniFile::KeyCount()
+size_t IniFile::KeyCount()
 {
-	int nCounter = 0;
+	size_t nCounter = 0;
 	SectionItor s_pos;
 
 	for (s_pos = mSections.begin(); s_pos != mSections.end(); s_pos++)
@@ -811,7 +811,7 @@ int IniFile::KeyCount()
 	return nCounter;
 }
 
-int IniFile::KeyCount(const string& section)
+size_t IniFile::KeyCount(const string& section)
 {
 	//Get the section
     IniSection* iniSection = GetSection(section);
@@ -902,10 +902,10 @@ string IniFile::CommentStr(string& mComment)
 // remainder.  Returns the key
 string IniFile::GetNextWord(string& CommandLine)
 {
-	int nPos = CommandLine.find_first_of(mEqualIndicator);
+	size_t nPos = CommandLine.find_first_of(mEqualIndicator);
 	string sWord = string("");
 
-	if ( nPos > -1 )
+	if ( nPos != string::npos )
 	{
 		sWord = CommandLine.substr(0, nPos);
 		CommandLine.erase(0, nPos+1);

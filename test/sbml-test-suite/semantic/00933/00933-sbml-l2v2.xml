@@ -1,0 +1,69 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- Created by libAntimony version v1.4 on 2011-03-18 13:24 with libSBML version 5.0.0-b1. -->
+<sbml xmlns="http://www.sbml.org/sbml/level2/version2" level="2" version="2">
+  <model metaid="_case00933" id="case00933" name="case00933">
+    <listOfCompartments>
+      <compartment id="C" size="1"/>
+    </listOfCompartments>
+    <listOfSpecies>
+      <species id="S1" compartment="C" initialAmount="1"/>
+      <species id="S2" compartment="C" initialAmount="0"/>
+    </listOfSpecies>
+    <listOfParameters>
+      <parameter id="k1" name="k1" value="1"/>
+    </listOfParameters>
+    <listOfReactions>
+      <reaction id="reaction1" name="reaction1" reversible="false" fast="false">
+        <listOfReactants>
+          <speciesReference species="S1"/>
+        </listOfReactants>
+        <listOfProducts>
+          <speciesReference species="S2"/>
+        </listOfProducts>
+        <kineticLaw>
+          <math xmlns="http://www.w3.org/1998/Math/MathML">
+            <apply>
+              <times/>
+              <ci> C </ci>
+              <ci> k1 </ci>
+              <ci> S1 </ci>
+            </apply>
+          </math>
+        </kineticLaw>
+      </reaction>
+    </listOfReactions>
+    <listOfEvents>
+      <event id="event1" name="event1">
+        <trigger>
+          <math xmlns="http://www.w3.org/1998/Math/MathML">
+            <apply>
+              <and/>
+              <apply>
+                <lt/>
+                <ci> S1 </ci>
+                <cn> 0.1 </cn>
+              </apply>
+              <apply>
+                <lt/>
+                <ci> S2 </ci>
+                <cn> 0.95 </cn>
+              </apply>
+            </apply>
+          </math>
+        </trigger>
+        <delay>
+          <math xmlns="http://www.w3.org/1998/Math/MathML">
+            <cn type="integer"> 1 </cn>
+          </math>
+        </delay>
+        <listOfEventAssignments>
+          <eventAssignment variable="S1">
+            <math xmlns="http://www.w3.org/1998/Math/MathML">
+              <cn type="integer"> 1 </cn>
+            </math>
+          </eventAssignment>
+        </listOfEventAssignments>
+      </event>
+    </listOfEvents>
+  </model>
+</sbml>

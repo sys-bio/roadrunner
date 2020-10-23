@@ -1,6 +1,6 @@
 /**
  * @file rrc_cpp_support.h
- * @brief roadRunner C API 2012
+ * @brief roadRunner C wrappers 2012
  * @author Totte Karlsson & Herbert M Sauro
  *
  * <--------------------------------------------------------------
@@ -43,7 +43,17 @@
 #define rrc_cpp_supportH
 
 #include <vector>
+
+#ifdef _MSC_VER
+#pragma warning(disable: 26812)
+#pragma warning(disable: 26451)
+#endif
 #include "rr-libstruct/lsMatrix.h"
+#ifdef _MSC_VER
+#pragma warning(disable: 26812)
+#pragma warning(disable: 26451)
+#endif
+
 #include "rrRoadRunnerData.h"
 #include "rrcStringList.h"
 #include "rrArrayList.h"
@@ -62,7 +72,7 @@ using std::string;
 using std::vector;
 
 /*!
- \brief Set API error
+ \brief Set wrappers error
 
  \param[in] error A string containg the error
  \ingroup cpp_support

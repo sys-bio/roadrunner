@@ -1,6 +1,6 @@
 /**
  * @file rrc_api.h
- * @brief libRoadRunner C API 2012-2015
+ * @brief libRoadRunner C wrappers 2012-2015
  * @author Totte Karlsson & Herbert M Sauro
  *
  * <--------------------------------------------------------------
@@ -78,14 +78,14 @@ C_DECL_SPEC RRHandle rrcCallConv createRRInstanceEx(const char* tempFolder, cons
 C_DECL_SPEC bool rrcCallConv freeRRInstance(RRHandle handle);
 
 /*!
- \brief Returns the folder in which the RoadRunner API is installed
+ \brief Returns the folder in which the RoadRunner wrappers is installed
  \return Pointer to string holding the install folder
  \ingroup initialization
 */
 C_DECL_SPEC char* rrcCallConv  getInstallFolder(void);
 
 /*!
- \brief Set the internal string containing the folder in where the RoadRunner C API is installed
+ \brief Set the internal string containing the folder in where the RoadRunner C wrappers is installed
  \param[in] folder Pointer to string holding the install folder
  \return Boolean indicating success
  \ingroup initialization
@@ -93,16 +93,16 @@ C_DECL_SPEC char* rrcCallConv  getInstallFolder(void);
 C_DECL_SPEC bool  rrcCallConv  setInstallFolder(const char* folder);
 
 /*!
- \brief Retrieve the current version number of the C API library
- \return Returns null if it fails, otherwise it returns the version number of the C API library
+ \brief Retrieve the current version number of the C wrappers library
+ \return Returns null if it fails, otherwise it returns the version number of the C wrappers library
  \ingroup utility
 */
 C_DECL_SPEC char* rrcCallConv getAPIVersion(void);
 
 /*!
- \brief Retrieve the current version number of the C++ API (Core RoadRunner API) library
+ \brief Retrieve the current version number of the C++ wrappers (Core RoadRunner wrappers) library
  \param[in] handle RoadRunner instance handle
- \return Returns null if it fails, otherwise it returns the version number of the C++ API library
+ \return Returns null if it fails, otherwise it returns the version number of the C++ wrappers library
  \ingroup utility
 */
 C_DECL_SPEC char* rrcCallConv getCPPAPIVersion(RRHandle handle);
@@ -131,7 +131,7 @@ C_DECL_SPEC char*  rrcCallConv getVersionStr();
 C_DECL_SPEC char*  rrcCallConv getVersionEx();
 
 /*!
- \brief Retrieve extended API info.
+ \brief Retrieve extended wrappers info.
  \return Returns null if it fails, otherwise it returns a string with the info
  \ingroup utility
 */
@@ -1652,7 +1652,7 @@ C_DECL_SPEC bool rrcCallConv resetToOrigin(RRHandle handle);
 #endif
 
 #endif
-/*! \mainpage RoadRunner C API Library
+/*! \mainpage RoadRunner C wrappers Library
  *
  * \section intro_sec Introduction
  *
@@ -1688,7 +1688,7 @@ int main (int argc, char *argv[]) {
 }
 \endcode
 
-More complex example, using C API:
+More complex example, using C wrappers:
 \code
 #undef __cplusplus
 #define STATIC_RRC
@@ -1864,7 +1864,7 @@ Starting Test Program: <File path Here>
  these routines make it easier to manipulate lists
 
  \defgroup helperRoutines Helper routines
- \brief Helper routines for accessing the various C API types, eg lists and arrays
+ \brief Helper routines for accessing the various C wrappers types, eg lists and arrays
 
  \defgroup toString ToString routines
  \brief Render various result data types as strings

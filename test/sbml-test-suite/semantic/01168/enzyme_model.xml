@@ -1,0 +1,69 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- Created by libAntimony version v2.3-beta with libSBML version 5.6.0. -->
+<sbml xmlns="http://www.sbml.org/sbml/level3/version1/core" xmlns:comp="http://www.sbml.org/sbml/level3/version1/comp/version1" level="3" version="1" comp:required="true">
+  <model id="aggregate" name="aggregate">
+    <comp:listOfSubmodels>
+      <comp:submodel comp:id="submod1" comp:modelRef="enzyme"/>
+      <comp:submodel comp:id="submod2" comp:modelRef="enzyme"/>
+    </comp:listOfSubmodels>
+  </model>
+  <comp:listOfModelDefinitions>
+    <comp:modelDefinition id="enzyme" name="enzyme">
+      <listOfCompartments>
+        <compartment id="comp" spatialDimensions="3" size="1" constant="true"/>
+      </listOfCompartments>
+      <listOfSpecies>
+        <species id="S" compartment="comp" initialConcentration="10" hasOnlySubstanceUnits="false" boundaryCondition="false" constant="false"/>
+        <species id="E" compartment="comp" initialConcentration="5" hasOnlySubstanceUnits="false" boundaryCondition="false" constant="false"/>
+        <species id="D" compartment="comp" initialConcentration="7" hasOnlySubstanceUnits="false" boundaryCondition="false" constant="false"/>
+        <species id="ES" compartment="comp" initialConcentration="0.1" hasOnlySubstanceUnits="false" boundaryCondition="false" constant="false"/>
+      </listOfSpecies>
+      <listOfReactions>
+        <reaction id="J0" reversible="true" fast="false">
+          <listOfReactants>
+            <speciesReference species="S" stoichiometry="1" constant="true"/>
+            <speciesReference species="E" stoichiometry="1" constant="true"/>
+          </listOfReactants>
+          <listOfProducts>
+            <speciesReference species="ES" stoichiometry="1" constant="true"/>
+          </listOfProducts>
+          <kineticLaw>
+            <math xmlns="http://www.w3.org/1998/Math/MathML">
+              <apply>
+                <divide/>
+                <apply>
+                  <plus/>
+                  <ci> S </ci>
+                  <ci> E </ci>
+                </apply>
+                <ci> ES </ci>
+              </apply>
+            </math>
+          </kineticLaw>
+        </reaction>
+        <reaction id="J1" reversible="true" fast="false">
+          <listOfReactants>
+            <speciesReference species="ES" stoichiometry="1" constant="true"/>
+          </listOfReactants>
+          <listOfProducts>
+            <speciesReference species="E" stoichiometry="1" constant="true"/>
+            <speciesReference species="D" stoichiometry="1" constant="true"/>
+          </listOfProducts>
+          <kineticLaw>
+            <math xmlns="http://www.w3.org/1998/Math/MathML">
+              <apply>
+                <divide/>
+                <ci> ES </ci>
+                <apply>
+                  <plus/>
+                  <ci> E </ci>
+                  <ci> D </ci>
+                </apply>
+              </apply>
+            </math>
+          </kineticLaw>
+        </reaction>
+      </listOfReactions>
+    </comp:modelDefinition>
+  </comp:listOfModelDefinitions>
+</sbml>

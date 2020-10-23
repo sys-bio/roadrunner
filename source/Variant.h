@@ -61,11 +61,11 @@ namespace rr
  * Rationale:
  * C++ does not have a built in variant type. Other variant types exist
  * such as boost::any and Poco dynamic var. However including the one of these
- * as part of our public API would forever tie us to that particular library, and
+ * as part of our public wrappers would forever tie us to that particular library, and
  * would impose yet another dependency.
  *
  * Only very basic variant type support is needed and this class exposes the
- * absolute minimum possible API to support such features, and provides
+ * absolute minimum possible wrappers to support such features, and provides
  * just two methods of getting and storing native C++ types in it.
  *
  * This is *currently* implemented by Poco but the implementation is fully

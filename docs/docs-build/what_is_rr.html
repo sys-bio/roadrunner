@@ -1,0 +1,388 @@
+
+
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" >
+<head>
+  <meta charset="utf-8">
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+  <title>What is libRoadRunner &mdash; libRoadRunner 1.1.16 documentation</title>
+  
+
+  
+  <link rel="stylesheet" href="_static/css/theme.css" type="text/css" />
+  <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
+
+  
+  
+  
+  
+
+  
+  <!--[if lt IE 9]>
+    <script src="_static/js/html5shiv.min.js"></script>
+  <![endif]-->
+  
+    
+      <script type="text/javascript" id="documentation_options" data-url_root="./" src="_static/documentation_options.js"></script>
+        <script src="_static/jquery.js"></script>
+        <script src="_static/underscore.js"></script>
+        <script src="_static/doctools.js"></script>
+        <script src="_static/language_data.js"></script>
+    
+    <script type="text/javascript" src="_static/js/theme.js"></script>
+
+    
+    <link rel="index" title="Index" href="genindex.html" />
+    <link rel="search" title="Search" href="search.html" />
+    <link rel="next" title="Installing RoadRunner" href="Installation/installation.html" />
+    <link rel="prev" title="What Is SBML?" href="what_is_sbml.html" /> 
+</head>
+
+<body class="wy-body-for-nav">
+
+   
+  <div class="wy-grid-for-nav">
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+          
+
+          
+            <a href="index.html" class="icon icon-home" alt="Documentation Home"> libRoadRunner
+          
+
+          
+          </a>
+
+          
+            
+            
+          
+
+          
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+
+          
+        </div>
+
+        
+        <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+          
+            
+            
+              
+            
+            
+              <ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="index.html">RoadRunner Documentation</a></li>
+<li class="toctree-l1 current"><a class="reference internal" href="introduction.html">Introduction</a><ul class="current">
+<li class="toctree-l2"><a class="reference internal" href="using_roadrunner.html">Basic Tutorial</a></li>
+<li class="toctree-l2"><a class="reference internal" href="what_is_sbml.html">What Is SBML?</a></li>
+<li class="toctree-l2 current"><a class="current reference internal" href="#">What is libRoadRunner</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#licence-and-copyright">Licence and Copyright</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#fundamental-objects">Fundamental Objects</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#example-of-libroadrunner-in-use">Example of libRoadRunner in Use</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#technical-footnotes">Technical Footnotes</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="Installation/installation.html">Installing RoadRunner</a></li>
+<li class="toctree-l1"><a class="reference internal" href="read_write_functions.html">SBML Read/Write Functions</a></li>
+<li class="toctree-l1"><a class="reference internal" href="selecting_values.html">Selecting Values</a></li>
+<li class="toctree-l1"><a class="reference internal" href="steady_state.html">Steady State Analysis</a></li>
+<li class="toctree-l1"><a class="reference internal" href="stochastic.html">Stochastic Simulation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="metabolic.html">Metabolic Control Analysis</a></li>
+<li class="toctree-l1"><a class="reference internal" href="stability.html">Stability Analysis</a></li>
+<li class="toctree-l1"><a class="reference internal" href="stoichiometric.html">Stoichiometric Analysis</a></li>
+<li class="toctree-l1"><a class="reference internal" href="bifurcation.html">Bifurcation Analysis</a></li>
+<li class="toctree-l1"><a class="reference internal" href="integration.html">Simulation and Integration</a></li>
+<li class="toctree-l1"><a class="reference internal" href="utility_functions.html">Utility Functions</a></li>
+<li class="toctree-l1"><a class="reference internal" href="accessing_model.html">Accessing the SBML Model Variables</a></li>
+<li class="toctree-l1"><a class="reference internal" href="api_reference.html">RoadRunner API Reference</a></li>
+</ul>
+
+            
+          
+        </div>
+        
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" aria-label="top navigation">
+        
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="index.html">libRoadRunner</a>
+        
+      </nav>
+
+
+      <div class="wy-nav-content">
+        
+        <div class="rst-content">
+        
+          
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div role="navigation" aria-label="breadcrumbs navigation">
+
+  <ul class="wy-breadcrumbs">
+    
+      <li><a href="index.html" class="icon icon-home"></a> &raquo;</li>
+        
+          <li><a href="introduction.html">Introduction</a> &raquo;</li>
+        
+      <li>What is libRoadRunner</li>
+    
+    
+      <li class="wy-breadcrumbs-aside">
+        
+            
+            <a href="_sources/what_is_rr.rst.txt" rel="nofollow"> View page source</a>
+          
+        
+      </li>
+    
+  </ul>
+
+  
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+            
+  <div class="section" id="what-is-libroadrunner">
+<h1>What is libRoadRunner<a class="headerlink" href="#what-is-libroadrunner" title="Permalink to this headline">¶</a></h1>
+<p>RoadRunner is a package for loading, simulating and
+analyzing SBML based systems biology models utilzing JIT compilation.</p>
+<p>RoadRunner 1.4.3</p>
+<p>Up to date documentation can be found on <a class="reference external" href="http://libroadrunner.org/">http://libroadrunner.org/</a>.</p>
+<p>Also <a class="reference external" href="../index.html">documentation home page</a> provides an introduction.</p>
+<div class="section" id="licence-and-copyright">
+<h2>Licence and Copyright<a class="headerlink" href="#licence-and-copyright" title="Permalink to this headline">¶</a></h2>
+<p>libRoadRunner is free and open source. Licensing and Distribution
+Terms can be found in the LICENCE.txt file in the root directory
+of the distribution.</p>
+<p>Copyright (C) 2012-2016 University of Washington, Seattle, WA, USA</p>
+<p>Licensed under the Apache License, Version 2.0: <a class="reference external" href="http://www.apache.org/licenses/LICENSE-2.0.html">http://www.apache.org/licenses/LICENSE-2.0.html</a></p>
+<p><a class="reference external" href="http://libroadrunner.org/">http://libroadrunner.org/</a></p>
+</div>
+<div class="section" id="fundamental-objects">
+<h2>Fundamental Objects<a class="headerlink" href="#fundamental-objects" title="Permalink to this headline">¶</a></h2>
+<p>The libRoadRunner package uses two fundametal objects e.g. <code class="docutils literal notranslate"><span class="pre">rr</span></code> of
+class <code class="docutils literal notranslate"><span class="pre">RoadRunner</span></code> and e.g. <code class="docutils literal notranslate"><span class="pre">rr.model</span></code> of class <code class="docutils literal notranslate"><span class="pre">ExecutableModel</span></code>.</p>
+<dl class="simple">
+<dt><strong>RoadRunner</strong></dt><dd><ul class="simple">
+<li><p>Typically the top level object</p></li>
+<li><p>Responsible for orchestrating all of the internal components, such as model loading,
+JIT compilation, integration and output.</p></li>
+<li><p>Initialized with <code class="docutils literal notranslate"><span class="pre">rr</span> <span class="pre">=</span> <span class="pre">roadrunner.RoadRunner()</span></code></p></li>
+</ul>
+</dd>
+<dt><strong>ExecutableModel</strong></dt><dd><ul class="simple">
+<li><p>Represents a compiled sbml model</p></li>
+<li><p>Properties to get and set any state variables.</p></li>
+<li><p>Initialized when SBML is loaded <code class="docutils literal notranslate"><span class="pre">r.load('mymodel.xml')</span></code></p></li>
+</ul>
+</dd>
+</dl>
+<p>The Python API is a very clean simple interface that uses all native Python objects.
+All the returned types are structured <cite>Numpy</cite> arrays.</p>
+</div>
+<div class="section" id="example-of-libroadrunner-in-use">
+<h2>Example of libRoadRunner in Use<a class="headerlink" href="#example-of-libroadrunner-in-use" title="Permalink to this headline">¶</a></h2>
+<p>Transcript from an Python session to demonstrate libRoadRunner use on this interactive Python console.</p>
+<p><strong>Import</strong> roardrunner and numpy:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">roadrunner</span>
+<span class="kn">import</span> <span class="nn">roadrunner.testing</span>
+<span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">n</span>
+<span class="kn">import</span> <span class="nn">numpy.linalg</span> <span class="k">as</span> <span class="nn">lin</span>
+</pre></div>
+</div>
+<p><strong>Load</strong> an SBML model:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span> <span class="n">rr</span> <span class="o">=</span> <span class="n">roadrunner</span><span class="o">.</span><span class="n">RoadRunner</span><span class="p">()</span>
+<span class="gp">&gt;&gt;&gt; </span> <span class="n">rr</span><span class="o">.</span><span class="n">load</span><span class="p">(</span><span class="n">roadrunner</span><span class="o">.</span><span class="n">testing</span><span class="o">.</span><span class="n">get_data</span><span class="p">(</span><span class="s1">&#39;Test_1.xml&#39;</span><span class="p">))</span>
+<span class="go">True</span>
+</pre></div>
+</div>
+<p>Get the <strong>model</strong>, the model object has all the accessors sbml elements, names, values:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span> <span class="n">m</span> <span class="o">=</span> <span class="n">rr</span><span class="o">.</span><span class="n">getModel</span><span class="p">()</span>
+</pre></div>
+</div>
+<p>Use the built in RR function to get the <strong>Jacobian</strong>, notice this is returned as a native
+numpy matrix, and display it:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span> <span class="n">jac</span> <span class="o">=</span> <span class="n">rr</span><span class="o">.</span><span class="n">getFullJacobian</span><span class="p">()</span>
+<span class="gp">&gt;&gt;&gt; </span> <span class="n">jac</span>
+<span class="go">array([[-0.2  ,  0.067,  0.   ],</span>
+<span class="go">       [ 0.15 , -0.467,  0.09 ],</span>
+<span class="go">       [ 0.   ,  0.4  , -0.64 ]])</span>
+</pre></div>
+</div>
+<p>Get a vector of <strong>floating species amounts</strong>, and display it:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span> <span class="n">amt</span> <span class="o">=</span> <span class="n">m</span><span class="o">.</span><span class="n">getFloatingSpeciesAmounts</span><span class="p">()</span>
+<span class="gp">&gt;&gt;&gt; </span> <span class="n">amt</span>
+<span class="go">array([ 0.1 ,  0.25,  0.1 ])</span>
+</pre></div>
+</div>
+<p>Look at the <strong>floating species ids</strong>:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span> <span class="n">m</span><span class="o">.</span><span class="n">getFloatingSpeciesIds</span><span class="p">()</span>
+<span class="go">[&#39;S1&#39;, &#39;S2&#39;, &#39;S3&#39;]</span>
+</pre></div>
+</div>
+<p>Numpy has a huge amount of numeric capability, here we calculate
+the <strong>eigensystem from the Jacobian</strong>.:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span> <span class="n">lin</span><span class="o">.</span><span class="n">eig</span><span class="p">(</span><span class="n">jac</span><span class="p">)</span>
+<span class="go">(array([-0.15726345, -0.38237134, -0.76736521]),</span>
+<span class="go"> array([[ 0.77009381, -0.19510707,  0.03580588],</span>
+<span class="go">        [ 0.49121122,  0.53107368, -0.30320915],</span>
+<span class="go">        [ 0.40702219,  0.82455683,  0.95225109]]))</span>
+</pre></div>
+</div>
+<p>Suppose we wanted to calculate the matrix vector product of the <strong>jacobian with the
+floating species amounts</strong>, its a single statement, since we use native types.:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span> <span class="n">n</span><span class="o">.</span><span class="n">dot</span><span class="p">(</span><span class="n">jac</span><span class="p">,</span> <span class="n">amt</span><span class="p">)</span>
+<span class="go">array([-0.00325, -0.09275,  0.036  ])</span>
+</pre></div>
+</div>
+<p>Finally, you can of course <strong>simulate over time</strong>. The first column in result is time,
+the rest are whatever is selected. The easies way to plot is to use <code class="xref py py-meth docutils literal notranslate"><span class="pre">RoadRunner.plot()</span></code>:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span> <span class="n">results</span> <span class="o">=</span> <span class="n">rr</span><span class="o">.</span><span class="n">simulate</span><span class="p">()</span>
+<span class="gp">&gt;&gt;&gt; </span> <span class="n">rr</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">results</span><span class="p">)</span>
+</pre></div>
+</div>
+<div class="admonition seealso">
+<p class="admonition-title">See also</p>
+<p><a class="reference internal" href="using_roadrunner.html#plotting-data"><span class="std std-ref">Plotting Data</span></a></p>
+</div>
+<p>Using libRoadRunner in <a class="reference external" href="http://ipython.org/">IPython</a> you can <strong>get documentation</strong>
+easily using a <code class="docutils literal notranslate"><span class="pre">?</span></code> after the object or method:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span>&gt;&gt;&gt;  r.plot?
+
+Type:        instancemethod
+String form: &lt;bound method RoadRunner.plot of &lt;roadrunner.RoadRunner() { this = 0x101c70a00 }&gt;&gt;
+File:        /Users/andy/Library/Python/2.7/lib/python/site-packages/roadrunner/roadrunner.py
+Definition:  r.plot(self, show=True)
+Docstring:
+RoadRunner.plot([show])
+
+Plot the previously run simulation result using Matplotlib.
+
+This takes the contents of the simulation result and builds a
+legend from the selection list.
+
+
+If the optional prameter &#39;show&#39; [default is True] is given, the pylab
+show() method is called.
+</pre></div>
+</div>
+</div>
+<div class="section" id="technical-footnotes">
+<h2>Technical Footnotes<a class="headerlink" href="#technical-footnotes" title="Permalink to this headline">¶</a></h2>
+<dl class="footnote brackets">
+<dt class="label" id="id1"><span class="brackets">1</span></dt>
+<dd><p>Most of the time, Numpy array holds a pointer to a block of data owned
+by RoadRunner. For example, the array returned by <cite>rr.simulate()</cite> has a pointer
+to the results matrix which is owned by the <cite>RoadRunner</cite>, therefore NO COPYING
+is involved. If you have no need for the result, simply ignore it, since it costs virtually nothing to return it.</p>
+</dd>
+<dt class="label" id="id2"><span class="brackets">2</span></dt>
+<dd><p>Current State of the System Group</p>
+<p>When using the LLVM back end, all model state calculation are automatically
+performed using a techinque called lazy evaluation. If one sets the concentration
+of a specie, the amount of of that specie is automatically available without
+having to perform any addition operations, similar to any other value in the model.
+If an SBML parameter is defined by an assigment rule or a function and its value
+depends on a number of other values, simply setting to other values automatically
+cause the value of the most dependent variable to be set.
+This is identical how one operates in a spredsheet such as Microsoft Excel. For
+example, if one has a cell with an equation that depends on other cell, and those
+other cell depend on other values, setting the value of any upstream cell automatically
+causes that value to cascade down to the terminal cells. The LLVM back end roadruner
+function identically.</p>
+</dd>
+</dl>
+</div>
+</div>
+
+
+           </div>
+           
+          </div>
+          <footer>
+  
+    <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
+      
+        <a href="Installation/installation.html" class="btn btn-neutral float-right" title="Installing RoadRunner" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right"></span></a>
+      
+      
+        <a href="what_is_sbml.html" class="btn btn-neutral float-left" title="What Is SBML?" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left"></span> Previous</a>
+      
+    </div>
+  
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>
+        
+        &copy; Copyright 2013-2018, Andy Somogyi, J Kyle Medley, Kiri Choi, Herbert Suaro
+
+    </p>
+  </div>
+    
+    
+    
+    Built with <a href="http://sphinx-doc.org/">Sphinx</a> using a
+    
+    <a href="https://github.com/rtfd/sphinx_rtd_theme">theme</a>
+    
+    provided by <a href="https://readthedocs.org">Read the Docs</a>. 
+
+</footer>
+
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+  
+
+  <script type="text/javascript">
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script>
+
+  
+  
+    
+   
+
+</body>
+</html>

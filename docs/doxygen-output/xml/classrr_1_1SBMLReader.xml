@@ -1,0 +1,61 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.20" xml:lang="en-US">
+  <compounddef id="classrr_1_1SBMLReader" kind="class" language="C++" prot="public">
+    <compoundname>rr::SBMLReader</compoundname>
+    <includes refid="rrSBMLReader_8h" local="no">rrSBMLReader.h</includes>
+      <sectiondef kind="public-static-func">
+      <memberdef kind="function" id="classrr_1_1SBMLReader_1a44068da2706c5ee19f091b5c81def54c" prot="public" static="yes" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>std::string</type>
+        <definition>std::string rr::SBMLReader::read</definition>
+        <argsstring>(const std::string &amp;sbml_or_uri)</argsstring>
+        <name>read</name>
+        <param>
+          <type>const std::string &amp;</type>
+          <declname>sbml_or_uri</declname>
+        </param>
+        <briefdescription>
+<para>read an SBML document from a local file path, a remote URI, or directlly from a sbml string. </para>
+        </briefdescription>
+        <detaileddescription>
+<para>If the document is a local file, and has the comp extension, it is automatically flattened before begin returned.</para>
+<para>If the string is already a SBML string, it is passed through. If the string is a local file or URI, the document is read from the source and the contents returned (and flattened if comp). </para>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="rrSBMLReader.h" line="47" column="24" bodyfile="rrSBMLReader.cpp" bodystart="195" bodyend="272"/>
+      </memberdef>
+      <memberdef kind="function" id="classrr_1_1SBMLReader_1a54b61d2e7ddf0da6646c3936ad548df3" prot="public" static="yes" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>bool</type>
+        <definition>bool rr::SBMLReader::is_sbml</definition>
+        <argsstring>(const std::string &amp;str)</argsstring>
+        <name>is_sbml</name>
+        <param>
+          <type>const std::string &amp;</type>
+          <declname>str</declname>
+        </param>
+        <briefdescription>
+<para>performs some basic checks to see if the string is an sbml string. </para>
+        </briefdescription>
+        <detaileddescription>
+<para>This just checks the basic format and checks on characters that are not valid file path characters. So if this string matches this function, there should basically be no way that this is a valid path or uri. </para>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="rrSBMLReader.h" line="49" column="17" bodyfile="rrSBMLReader.cpp" bodystart="51" bodyend="94"/>
+      </memberdef>
+      </sectiondef>
+    <briefdescription>
+<para>Read an sbml document from either disk, a remote url, or as a string. </para>
+    </briefdescription>
+    <detaileddescription>
+<para>This function will first try to iterperet the string as uri, if that fails, it will try as a local file path, and finally if that fails, it will treat the string as whole sbml document and return the string.</para>
+<para>This is simple enough that it should belong in <ref refid="classrr_1_1RoadRunner" kindref="compound">RoadRunner</ref> proper, however we currently use Poco for reading http streams, and it seems to compilation issues if &quot;windows.h&quot; is included before, an evidently some other roadrunner file includes windows.h, so we put all of this here by itself we we can make sure that there is no nasty windows files included.</para>
+<para>also, we put it as a static class method because libSBML already uses &apos;readSBML&apos; and we want to avoid namespace collisions. </para>
+    </detaileddescription>
+    <location file="rrSBMLReader.h" line="33" column="1" bodyfile="rrSBMLReader.h" bodystart="34" bodyend="51"/>
+    <listofallmembers>
+      <member refid="classrr_1_1SBMLReader_1a54b61d2e7ddf0da6646c3936ad548df3" prot="public" virt="non-virtual"><scope>rr::SBMLReader</scope><name>is_sbml</name></member>
+      <member refid="classrr_1_1SBMLReader_1a44068da2706c5ee19f091b5c81def54c" prot="public" virt="non-virtual"><scope>rr::SBMLReader</scope><name>read</name></member>
+    </listofallmembers>
+  </compounddef>
+</doxygen>

@@ -10,6 +10,7 @@
 * @brief Contains the RoadRunner CVODE integrator interface
 **/
 
+//todo replace the include guards to match the filename
 #ifndef rrCvodeInterfaceH
 #define rrCvodeInterfaceH
 
@@ -213,7 +214,7 @@ namespace rr
 		* @author FY
 		* @brief Does a size check which throws if it fails
 		*/
-		void checkVectorSize(int expected, int real) const;
+		void checkVectorSize(int expected, size_t real) const;
 
 		/**
 		* @author FY
@@ -226,6 +227,12 @@ namespace rr
 		* @brief Converts integer to string for error print
 		*/
 		std::string ToString(int val) const;
+
+        /**
+        * @author LPS
+        * @brief Converts size_t to string for error print
+        */
+        std::string ToString(size_t val) const;
 
         /**
          * @brief decode the cvode error code to a string

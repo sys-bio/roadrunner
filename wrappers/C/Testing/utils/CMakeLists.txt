@@ -1,6 +1,6 @@
 CMAKE_MINIMUM_REQUIRED(VERSION 2.6.3 FATAL_ERROR)
 PROJECT(RR_C_API_Tests)
-include(${RR_SOURCE_PATH}/cmake/SlicerMacroGetOperatingSystemArchitectureBitness.cmake)
+include(${CMAKE_SOURCE_DIR}/cmake/SlicerMacroGetOperatingSystemArchitectureBitness.cmake)
 
 message(STATUS "Testing/utils...")
 

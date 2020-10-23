@@ -46,25 +46,25 @@ csr_matrix* csr_matrix_new(unsigned m, unsigned n,
 	const std::vector<double>& values)
 {
 	char err[64];
-	unsigned nnz = rowidx.size();
+	size_t nnz = rowidx.size();
 
 	if (colidx.size() != nnz || values.size() != nnz)
 	{
 		throw runtime_error("rowidx, colidx and values must be the same length");
 	}
 
-	for (unsigned i = 0; i < nnz; i++)
+	for (size_t i = 0; i < nnz; i++)
 	{
 		if (rowidx[i] >= m)
 		{
 			snprintf(err, sizeof(err) / sizeof(char),
-				"rowidx[%i] == %i >= row count %i", i, rowidx[i], m);
+				"rowidx[%zi] == %i >= row count %ui", i, rowidx[i], m);
 			throw runtime_error(err);
 		}
 		if (colidx[i] >= n)
 		{
 			snprintf(err, sizeof(err) / sizeof(char),
-				"colidx[%i] == %i >= column count %i", i, colidx[i], n);
+				"colidx[%zi] == %i >= column count %ui", i, colidx[i], n);
 			throw runtime_error(err);
 		}
 	}
@@ -73,8 +73,8 @@ csr_matrix* csr_matrix_new(unsigned m, unsigned n,
 
 	// values that will get stuffed into struct
 	vector<double> mvalues;
-	vector<unsigned> mcolidx;
-	vector<unsigned> mrowptr;
+	vector<unsigned int> mcolidx;
+	vector<unsigned int> mrowptr;
 
 	mat->m = m;
 	mat->n = n;
@@ -103,7 +103,7 @@ csr_matrix* csr_matrix_new(unsigned m, unsigned n,
 			mcolidx.push_back(j->first);
 			mvalues.push_back(j->second);
 		}
-		mrowptr.push_back((mat->nnz += cols.size()));
+		mrowptr.push_back((mat->nnz += static_cast<unsigned int>(cols.size())));
 	}
 
 	assert(mat->nnz == nnz);
@@ -202,7 +202,7 @@ void csr_matrix_dgemv(double alpha, const csr_matrix* A, const double* x,
 }
 
 
-double csr_matrix_ddot(int row, const csr_matrix *A, const double *x)
+double csr_matrix_ddot(size_t row, const csr_matrix *A, const double *x)
 {
     assert(row < A->m && "invalid row");
     unsigned *rowptr = A->rowptr;

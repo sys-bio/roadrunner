@@ -1,0 +1,119 @@
+\hypertarget{classrr_1_1SteadyStateSolverRegistrar}{}\doxysection{rr\+::Steady\+State\+Solver\+Registrar Class Reference}
+\label{classrr_1_1SteadyStateSolverRegistrar}\index{rr::SteadyStateSolverRegistrar@{rr::SteadyStateSolverRegistrar}}
+
+
+Handles constructing a solver and contains meta information about it.  
+
+
+
+
+{\ttfamily \#include $<$Steady\+State\+Solver.\+h$>$}
+
+Inheritance diagram for rr\+::Steady\+State\+Solver\+Registrar\+:\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[height=2.000000cm]{classrr_1_1SteadyStateSolverRegistrar}
+\end{center}
+\end{figure}
+\doxysubsection*{Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+virtual std\+::string \mbox{\hyperlink{classrr_1_1SteadyStateSolverRegistrar_adf5cbf8f2c5df0d1a25807c80fbc3549}{get\+Name}} () const =0
+\begin{DoxyCompactList}\small\item\em Gets the name associated with this integrator type. \end{DoxyCompactList}\item 
+virtual std\+::string \mbox{\hyperlink{classrr_1_1SteadyStateSolverRegistrar_a0b2f22b7a1c4989e97ac3fdb64ac983c}{get\+Description}} () const =0
+\begin{DoxyCompactList}\small\item\em Gets the description associated with this integrator type. \end{DoxyCompactList}\item 
+virtual std\+::string \mbox{\hyperlink{classrr_1_1SteadyStateSolverRegistrar_a00f5ff21ffc7322a244ed27d8cff4d64}{get\+Hint}} () const =0
+\begin{DoxyCompactList}\small\item\em Gets the hint associated with this integrator type. \end{DoxyCompactList}\item 
+virtual \mbox{\hyperlink{classrr_1_1SteadyStateSolver}{Steady\+State\+Solver}} $\ast$ \mbox{\hyperlink{classrr_1_1SteadyStateSolverRegistrar_a48fba27b1da7285714fabbfc9383ba6c}{construct}} (\mbox{\hyperlink{classrr_1_1ExecutableModel}{Executable\+Model}} $\ast$model) const =0
+\begin{DoxyCompactList}\small\item\em Constructs a new integrator of a given type. \end{DoxyCompactList}\end{DoxyCompactItemize}
+\doxysubsection*{Protected Types}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\Hypertarget{classrr_1_1SteadyStateSolverRegistrar_a88a6f7ded8eddf850ef18d7cc6d88d2e}\label{classrr_1_1SteadyStateSolverRegistrar_a88a6f7ded8eddf850ef18d7cc6d88d2e}} 
+typedef \mbox{\hyperlink{classrr_1_1SteadyStateSolver}{Steady\+State\+Solver}} $\ast$($\ast$ {\bfseries Steady\+State\+Solver\+Ctor}) (\mbox{\hyperlink{classrr_1_1ExecutableModel}{Executable\+Model}} $\ast$model)
+\end{DoxyCompactItemize}
+
+
+\doxysubsection{Detailed Description}
+Handles constructing a solver and contains meta information about it. 
+
+\begin{DoxyAuthor}{Author}
+J\+KM, W\+BC 
+\end{DoxyAuthor}
+
+
+\doxysubsection{Member Function Documentation}
+\mbox{\Hypertarget{classrr_1_1SteadyStateSolverRegistrar_a48fba27b1da7285714fabbfc9383ba6c}\label{classrr_1_1SteadyStateSolverRegistrar_a48fba27b1da7285714fabbfc9383ba6c}} 
+\index{rr::SteadyStateSolverRegistrar@{rr::SteadyStateSolverRegistrar}!construct@{construct}}
+\index{construct@{construct}!rr::SteadyStateSolverRegistrar@{rr::SteadyStateSolverRegistrar}}
+\doxysubsubsection{\texorpdfstring{construct()}{construct()}}
+{\footnotesize\ttfamily virtual \mbox{\hyperlink{classrr_1_1SteadyStateSolver}{Steady\+State\+Solver}}$\ast$ rr\+::\+Steady\+State\+Solver\+Registrar\+::construct (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{classrr_1_1ExecutableModel}{Executable\+Model}} $\ast$}]{model }\end{DoxyParamCaption}) const\hspace{0.3cm}{\ttfamily [pure virtual]}}
+
+
+
+Constructs a new integrator of a given type. 
+
+\begin{DoxyAuthor}{Author}
+J\+KM, W\+BC 
+\end{DoxyAuthor}
+
+
+Implemented in \mbox{\hyperlink{classrr_1_1NLEQ2SolverRegistrar_aa2857b672347b53fdcceb855471100e2}{rr\+::\+N\+L\+E\+Q2\+Solver\+Registrar}}, and \mbox{\hyperlink{classrr_1_1NLEQ1SolverRegistrar_a20bd0b80b4623615381dfbb7d4e589ad}{rr\+::\+N\+L\+E\+Q1\+Solver\+Registrar}}.
+
+\mbox{\Hypertarget{classrr_1_1SteadyStateSolverRegistrar_a0b2f22b7a1c4989e97ac3fdb64ac983c}\label{classrr_1_1SteadyStateSolverRegistrar_a0b2f22b7a1c4989e97ac3fdb64ac983c}} 
+\index{rr::SteadyStateSolverRegistrar@{rr::SteadyStateSolverRegistrar}!getDescription@{getDescription}}
+\index{getDescription@{getDescription}!rr::SteadyStateSolverRegistrar@{rr::SteadyStateSolverRegistrar}}
+\doxysubsubsection{\texorpdfstring{getDescription()}{getDescription()}}
+{\footnotesize\ttfamily virtual std\+::string rr\+::\+Steady\+State\+Solver\+Registrar\+::get\+Description (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption}) const\hspace{0.3cm}{\ttfamily [pure virtual]}}
+
+
+
+Gets the description associated with this integrator type. 
+
+\begin{DoxyAuthor}{Author}
+J\+KM, W\+BC 
+\end{DoxyAuthor}
+
+
+Implemented in \mbox{\hyperlink{classrr_1_1NLEQ2SolverRegistrar_adcba98550142a6495f3e65ad14e3e349}{rr\+::\+N\+L\+E\+Q2\+Solver\+Registrar}}, and \mbox{\hyperlink{classrr_1_1NLEQ1SolverRegistrar_a20685e66dfe3a028e4c493d8af53e743}{rr\+::\+N\+L\+E\+Q1\+Solver\+Registrar}}.
+
+\mbox{\Hypertarget{classrr_1_1SteadyStateSolverRegistrar_a00f5ff21ffc7322a244ed27d8cff4d64}\label{classrr_1_1SteadyStateSolverRegistrar_a00f5ff21ffc7322a244ed27d8cff4d64}} 
+\index{rr::SteadyStateSolverRegistrar@{rr::SteadyStateSolverRegistrar}!getHint@{getHint}}
+\index{getHint@{getHint}!rr::SteadyStateSolverRegistrar@{rr::SteadyStateSolverRegistrar}}
+\doxysubsubsection{\texorpdfstring{getHint()}{getHint()}}
+{\footnotesize\ttfamily virtual std\+::string rr\+::\+Steady\+State\+Solver\+Registrar\+::get\+Hint (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption}) const\hspace{0.3cm}{\ttfamily [pure virtual]}}
+
+
+
+Gets the hint associated with this integrator type. 
+
+\begin{DoxyAuthor}{Author}
+J\+KM, W\+BC 
+\end{DoxyAuthor}
+
+
+Implemented in \mbox{\hyperlink{classrr_1_1NLEQ2SolverRegistrar_a856af2879611da2eada0874dd8252b29}{rr\+::\+N\+L\+E\+Q2\+Solver\+Registrar}}, and \mbox{\hyperlink{classrr_1_1NLEQ1SolverRegistrar_ab2ee3d7f162ccee398badecf0f390d6a}{rr\+::\+N\+L\+E\+Q1\+Solver\+Registrar}}.
+
+\mbox{\Hypertarget{classrr_1_1SteadyStateSolverRegistrar_adf5cbf8f2c5df0d1a25807c80fbc3549}\label{classrr_1_1SteadyStateSolverRegistrar_adf5cbf8f2c5df0d1a25807c80fbc3549}} 
+\index{rr::SteadyStateSolverRegistrar@{rr::SteadyStateSolverRegistrar}!getName@{getName}}
+\index{getName@{getName}!rr::SteadyStateSolverRegistrar@{rr::SteadyStateSolverRegistrar}}
+\doxysubsubsection{\texorpdfstring{getName()}{getName()}}
+{\footnotesize\ttfamily virtual std\+::string rr\+::\+Steady\+State\+Solver\+Registrar\+::get\+Name (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption}) const\hspace{0.3cm}{\ttfamily [pure virtual]}}
+
+
+
+Gets the name associated with this integrator type. 
+
+\begin{DoxyAuthor}{Author}
+J\+KM, W\+BC 
+\end{DoxyAuthor}
+
+
+Implemented in \mbox{\hyperlink{classrr_1_1NLEQ2SolverRegistrar_a6d9c3dc02579c94f76900fffe550ff3b}{rr\+::\+N\+L\+E\+Q2\+Solver\+Registrar}}, and \mbox{\hyperlink{classrr_1_1NLEQ1SolverRegistrar_a7f83e11e81d93d165534351e10aa02ed}{rr\+::\+N\+L\+E\+Q1\+Solver\+Registrar}}.
+
+
+
+The documentation for this class was generated from the following files\+:\begin{DoxyCompactItemize}
+\item 
+\mbox{\hyperlink{SteadyStateSolver_8h}{Steady\+State\+Solver.\+h}}\item 
+\mbox{\hyperlink{SteadyStateSolver_8cpp}{Steady\+State\+Solver.\+cpp}}\end{DoxyCompactItemize}

@@ -46,16 +46,29 @@ static bool isWarning(int e)
 }
 
 NLEQ1Interface::NLEQ1Interface(ExecutableModel *_model) :
-    IWK(0),
+    nOpts(50),
+    IWK(NULL),
     LIWK(0),
     LRWK(0),
-    RWK(0),
-    XScal(0),
+    RWK(NULL),
+    XScal(NULL),
     ierr(0),
-    iopt(0),
-    model(0),
-    nOpts(50)
-
+    iopt(NULL),
+    model(NULL),
+    n(0),
+    allowPreSim(false),
+    preSimTolerance(0.0),
+    preSimMaximumSteps(0),
+    preSimTime(0.0),
+    allowApprox(false),
+    approxTolerance(0.0),
+    approxMaximumSteps(0),
+    approxTime(0.0),
+    relativeTolerance(0.0),
+    maxIterations(0),
+    minDamping(0.0),
+    broyden(0),
+    linearity(0)
 {
     model = _model;
 
@@ -425,7 +438,7 @@ bool NLEQ1Interface::hasKey(const std::string& key) const
     return false;
 }
 
-int NLEQ1Interface::deleteItem(const std::string& key)
+size_t NLEQ1Interface::deleteItem(const std::string& key)
 {
     return 0;
 }

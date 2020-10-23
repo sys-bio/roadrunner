@@ -23,7 +23,8 @@ namespace rr
     {
         Log(Logger::LOG_NOTICE) << "Creating Runge-Kutta-Fehlberg integrator";
         resetSettings();
-        stateVectorSize = hmin = hmax = 0;
+        stateVectorSize = 0;
+        hmin = hmax = 0;
         k1 = k2 = k3 = k4 = k5 = k6 = err = y = ytmp = NULL;
         syncWithModel(m);
     }
@@ -59,7 +60,8 @@ namespace rr
             hmin = getValueAsDouble("minimum_time_step"); // TODO: replace hmin with getValueAsDouble("minimum_time_step")
             hmax = getValueAsDouble("maximum_time_step"); // TODO: replace hmax with getValueAsDouble("maximum_time_step")
         } else {
-            stateVectorSize = hmin = hmax = 0;
+            stateVectorSize = 0;
+            hmin = hmax = 0;
             k1 = k2 = k3 = k4 = k5 = k6 = err = y = ytmp = NULL;
         }
     }

@@ -1,0 +1,132 @@
+\hypertarget{classrr_1_1RoadRunnerImpl}{}\doxysection{rr\+::Road\+Runner\+Impl Class Reference}
+\label{classrr_1_1RoadRunnerImpl}\index{rr::RoadRunnerImpl@{rr::RoadRunnerImpl}}
+
+
+implemention class, hide all details here.  
+
+
+\doxysubsection*{Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\Hypertarget{classrr_1_1RoadRunnerImpl_a98a6346886edafdcc19398968f87209b}\label{classrr_1_1RoadRunnerImpl_a98a6346886edafdcc19398968f87209b}} 
+{\bfseries Road\+Runner\+Impl} (const std\+::string \&uri\+Or\+S\+B\+ML, const \mbox{\hyperlink{classrr_1_1Dictionary}{Dictionary}} $\ast$dict)
+\item 
+\mbox{\Hypertarget{classrr_1_1RoadRunnerImpl_ad59de4dfb7d325b5148bcf17a41cb920}\label{classrr_1_1RoadRunnerImpl_ad59de4dfb7d325b5148bcf17a41cb920}} 
+{\bfseries Road\+Runner\+Impl} (const std\+::istream \&in)
+\item 
+\mbox{\Hypertarget{classrr_1_1RoadRunnerImpl_a616ad32a12e2fb1405c0efc3b21827b9}\label{classrr_1_1RoadRunnerImpl_a616ad32a12e2fb1405c0efc3b21827b9}} 
+{\bfseries Road\+Runner\+Impl} (const string \&\+\_\+compiler, const string \&\+\_\+temp\+Dir, const string \&\+\_\+support\+Code\+Dir)
+\item 
+\mbox{\Hypertarget{classrr_1_1RoadRunnerImpl_a43e10c0ddfffa060a90217a7a311e6d4}\label{classrr_1_1RoadRunnerImpl_a43e10c0ddfffa060a90217a7a311e6d4}} 
+{\bfseries Road\+Runner\+Impl} (const \mbox{\hyperlink{classrr_1_1RoadRunnerImpl}{Road\+Runner\+Impl}} \&rri)
+\item 
+\mbox{\Hypertarget{classrr_1_1RoadRunnerImpl_a3096c8cbef76cdb9ee3df9e011086188}\label{classrr_1_1RoadRunnerImpl_a3096c8cbef76cdb9ee3df9e011086188}} 
+void {\bfseries delete\+All\+Solvers} ()
+\item 
+\mbox{\Hypertarget{classrr_1_1RoadRunnerImpl_a5142aa34305fe667568b9fd7016252d2}\label{classrr_1_1RoadRunnerImpl_a5142aa34305fe667568b9fd7016252d2}} 
+void {\bfseries sync\+All\+Solvers\+With\+Model} (\mbox{\hyperlink{classrr_1_1ExecutableModel}{Executable\+Model}} $\ast$m)
+\item 
+\mbox{\Hypertarget{classrr_1_1RoadRunnerImpl_a90c9f423fe72446a48c0b866dbb2ac9e}\label{classrr_1_1RoadRunnerImpl_a90c9f423fe72446a48c0b866dbb2ac9e}} 
+void {\bfseries set\+Parameter\+Value} (const Parameter\+Type parameter\+Type, const int parameter\+Index, const double value)
+\item 
+\mbox{\Hypertarget{classrr_1_1RoadRunnerImpl_a2d8b657633c50a1b348c00ab2454ff11}\label{classrr_1_1RoadRunnerImpl_a2d8b657633c50a1b348c00ab2454ff11}} 
+double {\bfseries get\+Parameter\+Value} (const Parameter\+Type parameter\+Type, const int parameter\+Index)
+\item 
+\mbox{\Hypertarget{classrr_1_1RoadRunnerImpl_a3bc658658e9c2b3ee0c604c75c6de7a2}\label{classrr_1_1RoadRunnerImpl_a3bc658658e9c2b3ee0c604c75c6de7a2}} 
+void {\bfseries change\+Parameter} (Parameter\+Type parameter\+Type, int reaction\+Index, int parameter\+Index, double original\+Value, double increment)
+\end{DoxyCompactItemize}
+\doxysubsection*{Public Attributes}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\Hypertarget{classrr_1_1RoadRunnerImpl_ae060f1fbeb0fb318fce843942e7e820e}\label{classrr_1_1RoadRunnerImpl_ae060f1fbeb0fb318fce843942e7e820e}} 
+int {\bfseries m\+Instance\+ID}
+\item 
+\mbox{\Hypertarget{classrr_1_1RoadRunnerImpl_a5522059d377f97e1c7da8dfa61e13a13}\label{classrr_1_1RoadRunnerImpl_a5522059d377f97e1c7da8dfa61e13a13}} 
+double {\bfseries m\+Diff\+Step\+Size}
+\item 
+\mbox{\Hypertarget{classrr_1_1RoadRunnerImpl_aa1e1a941280d94b051f20857ab492fd3}\label{classrr_1_1RoadRunnerImpl_aa1e1a941280d94b051f20857ab492fd3}} 
+double {\bfseries m\+Steady\+State\+Threshold}
+\item 
+\mbox{\Hypertarget{classrr_1_1RoadRunnerImpl_acb5d3e787499113b3c6c38c034363e7f}\label{classrr_1_1RoadRunnerImpl_acb5d3e787499113b3c6c38c034363e7f}} 
+ls\+::\+Double\+Matrix {\bfseries simulation\+Result}
+\item 
+\mbox{\hyperlink{classrr_1_1Integrator}{Integrator}} $\ast$ \mbox{\hyperlink{classrr_1_1RoadRunnerImpl_a399ac78c9504ddc6a30c516a987deba6}{integrator}}
+\begin{DoxyCompactList}\small\item\em Points to the current integrator. \end{DoxyCompactList}\item 
+\mbox{\Hypertarget{classrr_1_1RoadRunnerImpl_ad6f73a00fb9c1e7ea7c7b743c760d3ff}\label{classrr_1_1RoadRunnerImpl_ad6f73a00fb9c1e7ea7c7b743c760d3ff}} 
+std\+::vector$<$ \mbox{\hyperlink{classrr_1_1Integrator}{Integrator}} $\ast$ $>$ {\bfseries integrators}
+\item 
+\mbox{\Hypertarget{classrr_1_1RoadRunnerImpl_a63ac6d4a8a7ff2a6ccd257f524a90207}\label{classrr_1_1RoadRunnerImpl_a63ac6d4a8a7ff2a6ccd257f524a90207}} 
+\mbox{\hyperlink{classrr_1_1SteadyStateSolver}{Steady\+State\+Solver}} $\ast$ \mbox{\hyperlink{classrr_1_1RoadRunnerImpl_a63ac6d4a8a7ff2a6ccd257f524a90207}{steady\+\_\+state\+\_\+solver}}
+\begin{DoxyCompactList}\small\item\em Points to the current steady state solver. \end{DoxyCompactList}\item 
+\mbox{\Hypertarget{classrr_1_1RoadRunnerImpl_a192040a7feed12e2774f8ffd8e5c642f}\label{classrr_1_1RoadRunnerImpl_a192040a7feed12e2774f8ffd8e5c642f}} 
+std\+::vector$<$ \mbox{\hyperlink{classrr_1_1SteadyStateSolver}{Steady\+State\+Solver}} $\ast$ $>$ {\bfseries steady\+\_\+state\+\_\+solvers}
+\item 
+\mbox{\Hypertarget{classrr_1_1RoadRunnerImpl_aab066aadcb16f00cbffb56a14ab95721}\label{classrr_1_1RoadRunnerImpl_aab066aadcb16f00cbffb56a14ab95721}} 
+std\+::vector$<$ \mbox{\hyperlink{classrr_1_1SelectionRecord}{Selection\+Record}} $>$ {\bfseries m\+Selection\+List}
+\item 
+\mbox{\Hypertarget{classrr_1_1RoadRunnerImpl_a332b1440ab1affec5ffec18a290fca9d}\label{classrr_1_1RoadRunnerImpl_a332b1440ab1affec5ffec18a290fca9d}} 
+\mbox{\hyperlink{classrr_1_1LoadSBMLOptions}{Load\+S\+B\+M\+L\+Options}} \mbox{\hyperlink{classrr_1_1RoadRunnerImpl_a332b1440ab1affec5ffec18a290fca9d}{load\+Opt}}
+\begin{DoxyCompactList}\small\item\em Model\+Generator obtained from the factory. \end{DoxyCompactList}\item 
+\mbox{\Hypertarget{classrr_1_1RoadRunnerImpl_a19f31dff952e138792bc594a62b38897}\label{classrr_1_1RoadRunnerImpl_a19f31dff952e138792bc594a62b38897}} 
+std\+::vector$<$ \mbox{\hyperlink{classrr_1_1SelectionRecord}{Selection\+Record}} $>$ {\bfseries m\+Steady\+State\+Selection}
+\item 
+\mbox{\Hypertarget{classrr_1_1RoadRunnerImpl_a0a098b7844b75dd6c4f1b792dd20a5a3}\label{classrr_1_1RoadRunnerImpl_a0a098b7844b75dd6c4f1b792dd20a5a3}} 
+std\+::unique\+\_\+ptr$<$ \mbox{\hyperlink{classrr_1_1ExecutableModel}{Executable\+Model}} $>$ {\bfseries model}
+\item 
+\mbox{\Hypertarget{classrr_1_1RoadRunnerImpl_ac3984d20f7a889192b00d8e15acd06cf}\label{classrr_1_1RoadRunnerImpl_ac3984d20f7a889192b00d8e15acd06cf}} 
+\mbox{\hyperlink{classrr_1_1Compiler}{Compiler}} $\ast$ \mbox{\hyperlink{classrr_1_1RoadRunnerImpl_ac3984d20f7a889192b00d8e15acd06cf}{compiler}}
+\begin{DoxyCompactList}\small\item\em here for compatiblity, will go. \end{DoxyCompactList}\item 
+\mbox{\Hypertarget{classrr_1_1RoadRunnerImpl_ab6af7c33cd8ad65332a28acb6e221a18}\label{classrr_1_1RoadRunnerImpl_ab6af7c33cd8ad65332a28acb6e221a18}} 
+Lib\+Structural $\ast$ \mbox{\hyperlink{classrr_1_1RoadRunnerImpl_ab6af7c33cd8ad65332a28acb6e221a18}{m\+LS}}
+\begin{DoxyCompactList}\small\item\em structural analysis library. \end{DoxyCompactList}\item 
+\mbox{\Hypertarget{classrr_1_1RoadRunnerImpl_a4097a1eb7855c1ddc66c9a18db9f3bfc}\label{classrr_1_1RoadRunnerImpl_a4097a1eb7855c1ddc66c9a18db9f3bfc}} 
+\mbox{\hyperlink{classrr_1_1SimulateOptions}{Simulate\+Options}} \mbox{\hyperlink{classrr_1_1RoadRunnerImpl_a4097a1eb7855c1ddc66c9a18db9f3bfc}{simulate\+Opt}}
+\begin{DoxyCompactList}\small\item\em options that are specific to the simulation \end{DoxyCompactList}\item 
+\mbox{\Hypertarget{classrr_1_1RoadRunnerImpl_ab0d81fec655750d5e7a46be8be2d7aaa}\label{classrr_1_1RoadRunnerImpl_ab0d81fec655750d5e7a46be8be2d7aaa}} 
+\mbox{\hyperlink{structrr_1_1RoadRunnerOptions}{Road\+Runner\+Options}} \mbox{\hyperlink{classrr_1_1RoadRunnerImpl_ab0d81fec655750d5e7a46be8be2d7aaa}{road\+Runner\+Options}}
+\begin{DoxyCompactList}\small\item\em various general options that can be modified by external callers. \end{DoxyCompactList}\item 
+std\+::string \mbox{\hyperlink{classrr_1_1RoadRunnerImpl_ae22f2a7f705354d374d27a7fb51ff275}{configuration\+X\+ML}}
+\begin{DoxyCompactList}\small\item\em the xml string that is given in set\+Configuration\+X\+ML. \end{DoxyCompactList}\item 
+\mbox{\Hypertarget{classrr_1_1RoadRunnerImpl_a1ace36ac129fed50c43abf94c72fed9d}\label{classrr_1_1RoadRunnerImpl_a1ace36ac129fed50c43abf94c72fed9d}} 
+bool {\bfseries simulated\+Since\+Reset} = false
+\item 
+\mbox{\Hypertarget{classrr_1_1RoadRunnerImpl_ac82a29609a15ee6d9d0f3e55a62b30f8}\label{classrr_1_1RoadRunnerImpl_ac82a29609a15ee6d9d0f3e55a62b30f8}} 
+unique\+\_\+ptr$<$ libsbml\+::\+S\+B\+M\+L\+Document $>$ {\bfseries document}
+\end{DoxyCompactItemize}
+\doxysubsection*{Friends}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\Hypertarget{classrr_1_1RoadRunnerImpl_af9179bd50e73e67094252c47c026531b}\label{classrr_1_1RoadRunnerImpl_af9179bd50e73e67094252c47c026531b}} 
+class \mbox{\hyperlink{classrr_1_1RoadRunnerImpl_af9179bd50e73e67094252c47c026531b}{a\+Finalizer}}
+\begin{DoxyCompactList}\small\item\em T\+O\+DO get rid of this garbage. \end{DoxyCompactList}\end{DoxyCompactItemize}
+
+
+\doxysubsection{Detailed Description}
+implemention class, hide all details here. 
+
+\doxysubsection{Member Data Documentation}
+\mbox{\Hypertarget{classrr_1_1RoadRunnerImpl_ae22f2a7f705354d374d27a7fb51ff275}\label{classrr_1_1RoadRunnerImpl_ae22f2a7f705354d374d27a7fb51ff275}} 
+\index{rr::RoadRunnerImpl@{rr::RoadRunnerImpl}!configurationXML@{configurationXML}}
+\index{configurationXML@{configurationXML}!rr::RoadRunnerImpl@{rr::RoadRunnerImpl}}
+\doxysubsubsection{\texorpdfstring{configurationXML}{configurationXML}}
+{\footnotesize\ttfamily std\+::string rr\+::\+Road\+Runner\+Impl\+::configuration\+X\+ML}
+
+
+
+the xml string that is given in set\+Configuration\+X\+ML. 
+
+Needed because the N\+L\+EQ is only created in the steady\+State method. \mbox{\Hypertarget{classrr_1_1RoadRunnerImpl_a399ac78c9504ddc6a30c516a987deba6}\label{classrr_1_1RoadRunnerImpl_a399ac78c9504ddc6a30c516a987deba6}} 
+\index{rr::RoadRunnerImpl@{rr::RoadRunnerImpl}!integrator@{integrator}}
+\index{integrator@{integrator}!rr::RoadRunnerImpl@{rr::RoadRunnerImpl}}
+\doxysubsubsection{\texorpdfstring{integrator}{integrator}}
+{\footnotesize\ttfamily \mbox{\hyperlink{classrr_1_1Integrator}{Integrator}}$\ast$ rr\+::\+Road\+Runner\+Impl\+::integrator}
+
+
+
+Points to the current integrator. 
+
+This is a pointer into the integrators array. 
+
+The documentation for this class was generated from the following file\+:\begin{DoxyCompactItemize}
+\item 
+rr\+Road\+Runner.\+cpp\end{DoxyCompactItemize}

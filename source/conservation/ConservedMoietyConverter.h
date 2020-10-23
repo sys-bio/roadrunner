@@ -183,7 +183,7 @@ private:
  * a thin wrapper for python access. In the next release, we will
  * use the native SWIG wrapped libsbml api.
  *
- * This is only for the python API and should not be used anywhere else.
+ * This is only for the python wrappers and should not be used anywhere else.
  *
  * In the roadrunner namespace as the SWIG puts everhthing here and the
  * generated docs are currently set up to use this namespace.

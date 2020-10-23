@@ -1,0 +1,240 @@
+
+
+<!DOCTYPE html>
+<!--[if IE 8]><html class="no-js lt-ie9" lang="en" > <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js" lang="en" > <!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+  <title>Building Roadrunner from Source &mdash; libRoadRunner 1.1.16 documentation</title>
+  
+
+  
+  
+  
+  
+
+  
+  <script type="text/javascript" src="../_static/js/modernizr.min.js"></script>
+  
+    
+      <script type="text/javascript" id="documentation_options" data-url_root="../" src="../_static/documentation_options.js"></script>
+        <script src="../_static/jquery.js"></script>
+        <script src="../_static/underscore.js"></script>
+        <script src="../_static/doctools.js"></script>
+        <script src="../_static/language_data.js"></script>
+    
+    <script type="text/javascript" src="../_static/js/theme.js"></script>
+
+    
+
+  
+  <link rel="stylesheet" href="../_static/css/theme.css" type="text/css" />
+  <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
+    <link rel="index" title="Index" href="../genindex.html" />
+    <link rel="search" title="Search" href="../search.html" />
+    <link rel="next" title="Quick Build Instructions" href="quickbuild_instructions.html" />
+    <link rel="prev" title="What is libRoadRunner" href="../what_is_rr.html" /> 
+</head>
+
+<body class="wy-body-for-nav">
+
+   
+  <div class="wy-grid-for-nav">
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+          
+
+          
+            <a href="../index.html" class="icon icon-home"> libRoadRunner
+          
+
+          
+          </a>
+
+          
+            
+            
+          
+
+          
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+
+          
+        </div>
+
+        <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+          
+            
+            
+              
+            
+            
+              <ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="../index.html">RoadRunner Documentation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../introduction.html">Introduction</a></li>
+<li class="toctree-l1 current"><a class="current reference internal" href="#">Building Roadrunner from Source</a></li>
+<li class="toctree-l1"><a class="reference internal" href="#prerequisites">Prerequisites</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="quickbuild_instructions.html">Quick Build Instructions</a></li>
+<li class="toctree-l2"><a class="reference internal" href="building_python_bindings.html">Building Python Bindings</a></li>
+<li class="toctree-l2"><a class="reference internal" href="building_plugins.html">Building Plugins</a></li>
+<li class="toctree-l2"><a class="reference internal" href="windows_warning.html">A warning for windows users</a></li>
+<li class="toctree-l2"><a class="reference internal" href="llvm_dependency.html">LLVM-6.x dependency</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="#troubleshooting-the-build">Troubleshooting the build</a></li>
+</ul>
+
+            
+          
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" aria-label="top navigation">
+        
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../index.html">libRoadRunner</a>
+        
+      </nav>
+
+
+      <div class="wy-nav-content">
+        
+        <div class="rst-content">
+        
+          
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div role="navigation" aria-label="breadcrumbs navigation">
+
+  <ul class="wy-breadcrumbs">
+    
+      <li><a href="../index.html">Docs</a> &raquo;</li>
+        
+      <li>Building Roadrunner from Source</li>
+    
+    
+      <li class="wy-breadcrumbs-aside">
+        
+            
+            <a href="../_sources/BuildingFromSource/building_from_source_index.rst.txt" rel="nofollow"> View page source</a>
+          
+        
+      </li>
+    
+  </ul>
+
+  
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+            
+  <div class="section" id="building-roadrunner-from-source">
+<h1>Building Roadrunner from Source<a class="headerlink" href="#building-roadrunner-from-source" title="Permalink to this headline">¶</a></h1>
+<p>There are several ways to build from source. Please navigate to your chosen method.</p>
+</div>
+<div class="section" id="prerequisites">
+<h1>Prerequisites<a class="headerlink" href="#prerequisites" title="Permalink to this headline">¶</a></h1>
+<ul class="simple">
+<li><p><a class="reference external" href="https://cmake.org/download/">CMake</a> version &gt; 3.14. The build system was developed with version 3.18.4.</p></li>
+<li><p><a class="reference external" href="https://visualstudio.microsoft.com/downloads/">Visual studio</a> (windows only) with the C++ package installed.</p></li>
+<li><p><a class="reference external" href="https://git-scm.com/book/en/v2/Getting-Started-Installing-Git">git</a></p></li>
+</ul>
+<div class="toctree-wrapper compound">
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="quickbuild_instructions.html">Quick Build Instructions</a></li>
+<li class="toctree-l1"><a class="reference internal" href="building_python_bindings.html">Building Python Bindings</a></li>
+<li class="toctree-l1"><a class="reference internal" href="building_plugins.html">Building Plugins</a></li>
+<li class="toctree-l1"><a class="reference internal" href="windows_warning.html">A warning for windows users</a></li>
+<li class="toctree-l1"><a class="reference internal" href="llvm_dependency.html">LLVM-6.x dependency</a></li>
+</ul>
+</div>
+<p>Building the plugins</p>
+<p>Building the Python Bindings</p>
+<p>Building the tests</p>
+<p>Running the tests</p>
+</div>
+<div class="section" id="troubleshooting-the-build">
+<h1>Troubleshooting the build<a class="headerlink" href="#troubleshooting-the-build" title="Permalink to this headline">¶</a></h1>
+<p>Section on CMake bin directory being in the path environment</p>
+<p>Section on forgetting the –recurse-submodules flag on git clone</p>
+</div>
+
+
+           </div>
+           
+          </div>
+          <footer>
+  
+    <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
+      
+        <a href="quickbuild_instructions.html" class="btn btn-neutral float-right" title="Quick Build Instructions" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right"></span></a>
+      
+      
+        <a href="../what_is_rr.html" class="btn btn-neutral float-left" title="What is libRoadRunner" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left"></span> Previous</a>
+      
+    </div>
+  
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>
+        &copy; Copyright 2013-2018, Andy Somogyi, J Kyle Medley, Kiri Choi, Herbert Suaro
+
+    </p>
+  </div>
+  Built with <a href="http://sphinx-doc.org/">Sphinx</a> using a <a href="https://github.com/rtfd/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>. 
+
+</footer>
+
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+  
+
+
+  <script type="text/javascript">
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script>
+
+  
+  
+    
+   
+
+</body>
+</html>

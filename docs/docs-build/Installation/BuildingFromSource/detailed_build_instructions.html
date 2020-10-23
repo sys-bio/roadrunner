@@ -1,0 +1,261 @@
+
+
+<!DOCTYPE html>
+<!--[if IE 8]><html class="no-js lt-ie9" lang="en" > <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js" lang="en" > <!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+  <title>Detailed Build Instructions &mdash; libRoadRunner 1.1.16 documentation</title>
+  
+
+  
+  
+  
+  
+
+  
+  <script type="text/javascript" src="../../_static/js/modernizr.min.js"></script>
+  
+    
+      <script type="text/javascript" id="documentation_options" data-url_root="../../" src="../../_static/documentation_options.js"></script>
+        <script src="../../_static/jquery.js"></script>
+        <script src="../../_static/underscore.js"></script>
+        <script src="../../_static/doctools.js"></script>
+        <script src="../../_static/language_data.js"></script>
+    
+    <script type="text/javascript" src="../../_static/js/theme.js"></script>
+
+    
+
+  
+  <link rel="stylesheet" href="../../_static/css/theme.css" type="text/css" />
+  <link rel="stylesheet" href="../../_static/pygments.css" type="text/css" />
+    <link rel="index" title="Index" href="../../genindex.html" />
+    <link rel="search" title="Search" href="../../search.html" /> 
+</head>
+
+<body class="wy-body-for-nav">
+
+   
+  <div class="wy-grid-for-nav">
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+          
+
+          
+            <a href="../../index.html" class="icon icon-home"> libRoadRunner
+          
+
+          
+          </a>
+
+          
+            
+            
+          
+
+          
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+
+          
+        </div>
+
+        <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+          
+            
+            
+              
+            
+            
+              <ul>
+<li class="toctree-l1"><a class="reference internal" href="../../index.html">RoadRunner Documentation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../introduction.html">Introduction</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../installation.html">Installing RoadRunner</a></li>
+</ul>
+
+            
+          
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" aria-label="top navigation">
+        
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../../index.html">libRoadRunner</a>
+        
+      </nav>
+
+
+      <div class="wy-nav-content">
+        
+        <div class="rst-content">
+        
+          
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div role="navigation" aria-label="breadcrumbs navigation">
+
+  <ul class="wy-breadcrumbs">
+    
+      <li><a href="../../index.html">Docs</a> &raquo;</li>
+        
+      <li>Detailed Build Instructions</li>
+    
+    
+      <li class="wy-breadcrumbs-aside">
+        
+            
+            <a href="../../_sources/Installation/BuildingFromSource/detailed_build_instructions.rst.txt" rel="nofollow"> View page source</a>
+          
+        
+      </li>
+    
+  </ul>
+
+  
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+            
+  <div class="section" id="detailed-build-instructions">
+<h1>Detailed Build Instructions<a class="headerlink" href="#detailed-build-instructions" title="Permalink to this headline">¶</a></h1>
+<dl class="simple">
+<dt>To build roadrunner, you first need:</dt><dd><ol class="arabic simple">
+<li><p><a class="reference external" href="https://github.com/sys-bio/llvm-6.x">LLVM-6.x</a></p></li>
+<li><p>The <a class="reference external" href="https://github.com/CiaranWelsh/roadrunner-deps">roadrunner-deps</a> package</p></li>
+</ol>
+</dd>
+<dt>LLVM is big and takes a long time to build. Therefore there are two options regarding obtaining this dependency.</dt><dd><ol class="arabic simple">
+<li><p>D</p></li>
+</ol>
+</dd>
+</dl>
+<p>Therefore if possible we recommend using the prebuilt binaries for llvm. If
+you need to build llvm from source, please see the <a class="reference internal" href="llvm_dependency.html#llvm-6-x-dependency"><span class="std std-ref">building llvm section</span></a>.</p>
+<div class="section" id="using-prebuilt-llvm-binaries">
+<h2>Using prebuilt llvm binaries<a class="headerlink" href="#using-prebuilt-llvm-binaries" title="Permalink to this headline">¶</a></h2>
+<ol class="arabic simple">
+<li><p>Install and extract the <a class="reference internal" href="llvm_dependency.html#llvm-6-x-dependency"><span class="std std-ref">llvm-6.x dependency</span></a>.</p></li>
+<li><p>Install the <a class="reference external" href="https://github.com/CiaranWelsh/roadrunner-deps">roadrunner dependency package</a></p></li>
+</ol>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>$ git clone https://github.com/CiaranWelsh/roadrunner-deps.git --recurse-submodules     <span class="c1"># get the dependency package using git</span>
+$ <span class="nb">cd</span> roadrunner-deps-install
+$ mkdir build
+$ <span class="nb">cd</span> build
+$ cmake -DCMAKE_INSTALL_PREFIX<span class="o">=</span><span class="s2">&quot;D:\roadrunner-deps\roadrunner-deps-install&quot;</span> -DCMAKE_BUILD_TYPE<span class="o">=</span><span class="s2">&quot;Release&quot;</span> .. <span class="c1"># configure the dependency package</span>
+$ cmake --build . --target install --config Release <span class="c1"># build the install target</span>
+$ <span class="nb">cd</span> ../../ <span class="c1"># return to directory containing roadrunner-deps</span>
+</pre></div>
+</div>
+<ol class="arabic simple">
+<li><p>Install roadrunner</p></li>
+</ol>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>$ git clone https://github.com/CiaranWelsh/roadrunner.git <span class="c1"># get roadrunner</span>
+$ <span class="nb">cd</span> roadrunner
+$ mkdir build
+$ <span class="nb">cd</span> build
+$ cmake -DCMAKE_INSTALL_PREFIX<span class="o">=</span><span class="s2">&quot;D:\roadrunner\install-msvc2019&quot;</span> -DLLVM_INSTALL_PREFIX<span class="o">=</span><span class="s2">&quot;D:\llvm-6.x\llvm\llvm-6.x-msvc-x64-release&quot;</span> -DRR_DEPENDENCIES_INSTALL_PREFIX<span class="o">=</span><span class="s2">&quot;D:\roadrunner-deps\roadrunner-deps-install&quot;</span> -DCMAKE_BUILD_TYPE<span class="o">=</span><span class="s2">&quot;Release&quot;</span> ..
+$ cmake --build . --target install --config Release
+</pre></div>
+</div>
+</div>
+<div class="section" id="building-llxm6-x-with-the-other-roadrunner-dependencies">
+<h2>Building llxm6.x with the other roadrunner dependencies<a class="headerlink" href="#building-llxm6-x-with-the-other-roadrunner-dependencies" title="Permalink to this headline">¶</a></h2>
+<p>This is very similar to <span class="xref std std-ref">Building with the prebuilt LLVM instructions</span>. The only difference is the inclusion of <cite>-DBUILD_LLVM=ON</cite> in the cmake command of the dependency package</p>
+<ol class="arabic simple">
+<li><p>Install the [roadrunner dependency package](<a class="reference external" href="https://github.com/CiaranWelsh/roadrunner-deps">https://github.com/CiaranWelsh/roadrunner-deps</a>).</p></li>
+</ol>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>$ git clone https://github.com/CiaranWelsh/roadrunner-deps.git --recurse-submodules     <span class="c1"># get the dependency package using git</span>
+$ <span class="nb">cd</span> roadrunner-deps-install
+$ mkdir build
+$ <span class="nb">cd</span> build
+$ cmake -DCMAKE_INSTALL_PREFIX<span class="o">=</span><span class="s2">&quot;D:\roadrunner-deps\roadrunner-deps-install&quot;</span> -DCMAKE_BUILD_TYPE<span class="o">=</span><span class="s2">&quot;Release&quot;</span> -DBUILD_LLVM<span class="o">=</span>ON .. <span class="c1"># configure the dependency package</span>
+$ cmake --build . --target install --config Release <span class="c1"># build the install target</span>
+$ <span class="nb">cd</span> ../../ <span class="c1"># return to directory containing roadrunner-deps</span>
+</pre></div>
+</div>
+<ol class="arabic simple">
+<li><p>Install roadrunner</p></li>
+</ol>
+<p>Now that we’ve included the LLVM dependency with the other dependencies, we only need to provide the path to the <cite>RR_DEPENDENCIES_INSTALL_PREFIX</cite> variable and LLVM will be picked up automatically.</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>$ git clone https://github.com/CiaranWelsh/roadrunner.git <span class="c1"># get roadrunner</span>
+$ <span class="nb">cd</span> roadrunner
+$ mkdir build
+$ <span class="nb">cd</span> build
+$ cmake -DCMAKE_INSTALL_PREFIX<span class="o">=</span><span class="s2">&quot;D:\roadrunner\install-msvc2019&quot;</span> -DRR_DEPENDENCIES_INSTALL_PREFIX<span class="o">=</span><span class="s2">&quot;D:\roadrunner-deps\roadrunner-deps-install&quot;</span> -DCMAKE_BUILD_TYPE<span class="o">=</span><span class="s2">&quot;Release&quot;</span> ..
+$ cmake --build . --target install --config Release
+</pre></div>
+</div>
+</div>
+</div>
+
+
+           </div>
+           
+          </div>
+          <footer>
+  
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>
+        &copy; Copyright 2013-2018, Andy Somogyi, J Kyle Medley, Kiri Choi, Herbert Suaro
+
+    </p>
+  </div>
+  Built with <a href="http://sphinx-doc.org/">Sphinx</a> using a <a href="https://github.com/rtfd/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>. 
+
+</footer>
+
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+  
+
+
+  <script type="text/javascript">
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script>
+
+  
+  
+    
+   
+
+</body>
+</html>

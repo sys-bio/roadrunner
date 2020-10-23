@@ -6,9 +6,22 @@
  */
 #pragma hdrstop
 #include "LLVMCSRMatrixTest.h"
-#include "llvm/ModelDataIRBuilder.h"
 #include "cpplapack.h"
 #include <iostream>
+
+#ifdef _MSC_VER
+#pragma warning(disable: 4146)
+#pragma warning(disable: 4141)
+#pragma warning(disable: 4267)
+#pragma warning(disable: 4624)
+#endif
+#include "llvm/ModelDataIRBuilder.h"
+#ifdef _MSC_VER
+#pragma warning(default: 4146)
+#pragma warning(default: 4141)
+#pragma warning(default: 4267)
+#pragma warning(default: 4624)
+#endif
 
 using namespace llvm;
 using namespace std;
@@ -51,7 +64,6 @@ double LLVMCSRMatrixTest::callCSRMatrixGetNZ(csr_matrix* mat, int row, int col)
 
 llvm::Function* LLVMCSRMatrixTest::getCSRMatrixSetNZTestFunc()
 {
-    LLVMContext &ctx = context.getContext();
     IRBuilder<> &builder = context.getBuilder();
     Module *module = context.getModule();
 
@@ -82,7 +94,6 @@ llvm::Function* LLVMCSRMatrixTest::getCSRMatrixSetNZTestFunc()
         std::vector<Value*> args;
 
         // Set names for all arguments.
-        unsigned idx = 0;
         for (Function::arg_iterator ai = setFunc->arg_begin();
                 ai != setFunc->arg_end(); ++ai)
         {
@@ -122,9 +133,9 @@ bool runLLVMCSRMatrixTest(const std::string& version, int caseNumber)
 {
     LLVMCSRMatrixTest tester;
 
-    Function *func = tester.getCSRMatrixSetNZTestFunc();
-
 #if !defined(NDEBUG)
+    Function* func = tester.getCSRMatrixSetNZTestFunc();
+
     func->dump();
 #endif
 
@@ -277,7 +288,6 @@ bool runLLVMCSRMatrixTest(const int m, const int n, const int nnz)
 
 llvm::Function* LLVMCSRMatrixTest::getCSRMatrixGetNZTestFunc()
 {
-    LLVMContext &ctx = context.getContext();
     IRBuilder<> &builder = context.getBuilder();
     Module *module = context.getModule();
 
@@ -306,7 +316,6 @@ llvm::Function* LLVMCSRMatrixTest::getCSRMatrixGetNZTestFunc()
         std::vector<Value*> args;
 
         // Set names for all arguments.
-        unsigned idx = 0;
         for (Function::arg_iterator ai = getFunc->arg_begin();
                 ai != getFunc->arg_end(); ++ai)
         {

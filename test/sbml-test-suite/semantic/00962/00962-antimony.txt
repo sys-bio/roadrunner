@@ -1,0 +1,21 @@
+//Created by libAntimony v1.4
+model case00962()
+
+  // Assignment Rules:
+  S := Q + R;
+
+  // Events:
+  Qinc: at time - reset >= 0.01, priority = 1, persistent=false: Q = Q + 0.01, reset = time;
+  Rinc: at time - reset >= 0.01, priority = 1, persistent=false: R = R + 0.01, reset = time;
+  maxcheck: at(abs(Q-R)>maxdiff): maxdiff = abs(Q-R);
+  error_check: at (time>=99) && (maxdiff < .2) : error = 1;
+
+  // Variable initializations:
+  reset = 0;
+  Q = 0;
+  R = 0;
+  maxdiff = 0;
+  error = 0;
+
+end
+

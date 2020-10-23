@@ -25,7 +25,7 @@
 namespace rrllvm
 {
 
-typedef void (*EventCodeGenBase_FunctionPtr)(LLVMModelData*, int32_t, double*);
+typedef void (*EventCodeGenBase_FunctionPtr)(LLVMModelData*, size_t, double*);
 
 template <typename Derived>
 class EventCodeGenBase :

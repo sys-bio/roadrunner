@@ -1,0 +1,84 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<sbml xmlns="http://www.sbml.org/sbml/level2/version4" level="2" version="4">
+  <model id="case01315" name="case01315">
+    <listOfFunctionDefinitions>
+      <functionDefinition id="addone">
+        <math xmlns="http://www.w3.org/1998/Math/MathML">
+          <lambda>
+            <bvar>
+              <ci> x </ci>
+            </bvar>
+            <apply>
+              <plus/>
+              <ci> x </ci>
+              <cn type="integer"> 1 </cn>
+            </apply>
+          </lambda>
+        </math>
+      </functionDefinition>
+      <functionDefinition id="addoneagain2x">
+        <math xmlns="http://www.w3.org/1998/Math/MathML">
+          <lambda>
+            <bvar>
+              <ci> x </ci>
+            </bvar>
+            <apply>
+              <plus/>
+              <apply>
+                <ci> addone </ci>
+                <ci> x </ci>
+              </apply>
+              <apply>
+                <ci> addone </ci>
+                <ci> x </ci>
+              </apply>
+              <cn type="integer"> 1 </cn>
+            </apply>
+          </lambda>
+        </math>
+      </functionDefinition>
+      <functionDefinition id="addoneagainandagain2x">
+        <math xmlns="http://www.w3.org/1998/Math/MathML">
+          <lambda>
+            <bvar>
+              <ci> x </ci>
+            </bvar>
+            <apply>
+              <plus/>
+              <apply>
+                <ci> addoneagain2x </ci>
+                <ci> x </ci>
+              </apply>
+              <apply>
+                <ci> addoneagain2x </ci>
+                <ci> x </ci>
+              </apply>
+              <apply>
+                <ci> addone </ci>
+                <ci> x </ci>
+              </apply>
+              <apply>
+                <ci> addone </ci>
+                <ci> x </ci>
+              </apply>
+              <cn type="integer"> 1 </cn>
+            </apply>
+          </lambda>
+        </math>
+      </functionDefinition>
+    </listOfFunctionDefinitions>
+    <listOfParameters>
+      <parameter id="p1"/>
+    </listOfParameters>
+    <listOfInitialAssignments>
+      <initialAssignment symbol="p1">
+        <math xmlns="http://www.w3.org/1998/Math/MathML">
+          <apply>
+            <ci> addoneagainandagain2x </ci>
+            <cn type="integer"> 3 </cn>
+          </apply>
+        </math>
+      </initialAssignment>
+    </listOfInitialAssignments>
+  </model>
+</sbml>

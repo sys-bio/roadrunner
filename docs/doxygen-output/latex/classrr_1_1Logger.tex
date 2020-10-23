@@ -1,0 +1,250 @@
+\hypertarget{classrr_1_1Logger}{}\doxysection{rr\+::Logger Class Reference}
+\label{classrr_1_1Logger}\index{rr::Logger@{rr::Logger}}
+
+
+The roadrunner logger.  
+
+
+
+
+{\ttfamily \#include $<$rr\+Logger.\+h$>$}
+
+\doxysubsection*{Public Types}
+\begin{DoxyCompactItemize}
+\item 
+enum \mbox{\hyperlink{classrr_1_1Logger_a72a52e7fe7be48e2ecad639c641ee8aa}{Level}} \{ \newline
+{\bfseries L\+O\+G\+\_\+\+C\+U\+R\+R\+E\+NT} = 0, 
+\mbox{\hyperlink{classrr_1_1Logger_a72a52e7fe7be48e2ecad639c641ee8aaa11cc16555fcf30d3c251bdc0c15a7f03}{L\+O\+G\+\_\+\+F\+A\+T\+AL}} = 1, 
+\mbox{\hyperlink{classrr_1_1Logger_a72a52e7fe7be48e2ecad639c641ee8aaa8296259b3d5f3188030abd9b5ee0609a}{L\+O\+G\+\_\+\+C\+R\+I\+T\+I\+C\+AL}}, 
+\mbox{\hyperlink{classrr_1_1Logger_a72a52e7fe7be48e2ecad639c641ee8aaafdb1b7e45fd5de96e098cd30c552fa7b}{L\+O\+G\+\_\+\+E\+R\+R\+OR}}, 
+\newline
+\mbox{\hyperlink{classrr_1_1Logger_a72a52e7fe7be48e2ecad639c641ee8aaaa6900cf102f98dfa521d7c11dc59344c}{L\+O\+G\+\_\+\+W\+A\+R\+N\+I\+NG}}, 
+\mbox{\hyperlink{classrr_1_1Logger_a72a52e7fe7be48e2ecad639c641ee8aaaa3e3ead40b6448c9d7893f1a33573984}{L\+O\+G\+\_\+\+N\+O\+T\+I\+CE}}, 
+\mbox{\hyperlink{classrr_1_1Logger_a72a52e7fe7be48e2ecad639c641ee8aaa4877e8c5192b123e2f8e71cc538df17b}{L\+O\+G\+\_\+\+I\+N\+F\+O\+R\+M\+A\+T\+I\+ON}}, 
+\mbox{\hyperlink{classrr_1_1Logger_a72a52e7fe7be48e2ecad639c641ee8aaadaf226f4b284b87851ddb9a9f7ddd0d5}{L\+O\+G\+\_\+\+D\+E\+B\+UG}}, 
+\newline
+\mbox{\hyperlink{classrr_1_1Logger_a72a52e7fe7be48e2ecad639c641ee8aaa415b215c622543781b0dab9ddb0cc5cb}{L\+O\+G\+\_\+\+T\+R\+A\+CE}}
+ \}
+\begin{DoxyCompactList}\small\item\em same as Poco level, repeat here to avoid including any Poco files as Poco is usually linked statically so third parties would not need to have Poco installed. \end{DoxyCompactList}\end{DoxyCompactItemize}
+\doxysubsection*{Static Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\Hypertarget{classrr_1_1Logger_a932fba9c85c6a5eb806851e06b02e957}\label{classrr_1_1Logger_a932fba9c85c6a5eb806851e06b02e957}} 
+static void \mbox{\hyperlink{classrr_1_1Logger_a932fba9c85c6a5eb806851e06b02e957}{set\+Level}} (int level=L\+O\+G\+\_\+\+C\+U\+R\+R\+E\+NT)
+\begin{DoxyCompactList}\small\item\em sets the logging level to one a value from \mbox{\hyperlink{classrr_1_1Logger_a72a52e7fe7be48e2ecad639c641ee8aa}{Logger\+::\+Level}} \end{DoxyCompactList}\item 
+\mbox{\Hypertarget{classrr_1_1Logger_ad6b48d767c766eeb3db7505a59631b6b}\label{classrr_1_1Logger_ad6b48d767c766eeb3db7505a59631b6b}} 
+static int \mbox{\hyperlink{classrr_1_1Logger_ad6b48d767c766eeb3db7505a59631b6b}{get\+Level}} ()
+\begin{DoxyCompactList}\small\item\em get the current logging level. \end{DoxyCompactList}\item 
+\mbox{\Hypertarget{classrr_1_1Logger_adb9e082ec2b6d896fe4f8f3158cf8dbc}\label{classrr_1_1Logger_adb9e082ec2b6d896fe4f8f3158cf8dbc}} 
+static void \mbox{\hyperlink{classrr_1_1Logger_adb9e082ec2b6d896fe4f8f3158cf8dbc}{disable\+Logging}} ()
+\begin{DoxyCompactList}\small\item\em Suppresses all logging output. \end{DoxyCompactList}\item 
+\mbox{\Hypertarget{classrr_1_1Logger_a65631bebd188023ff23a263e8d1b2ea2}\label{classrr_1_1Logger_a65631bebd188023ff23a263e8d1b2ea2}} 
+static void \mbox{\hyperlink{classrr_1_1Logger_a65631bebd188023ff23a263e8d1b2ea2}{disable\+Console\+Logging}} ()
+\begin{DoxyCompactList}\small\item\em stops logging to the console, but file logging may continue. \end{DoxyCompactList}\item 
+\mbox{\Hypertarget{classrr_1_1Logger_a859a9358480196476351e5e2a3466b71}\label{classrr_1_1Logger_a859a9358480196476351e5e2a3466b71}} 
+static void \mbox{\hyperlink{classrr_1_1Logger_a859a9358480196476351e5e2a3466b71}{enable\+Console\+Logging}} (int level=L\+O\+G\+\_\+\+C\+U\+R\+R\+E\+NT)
+\begin{DoxyCompactList}\small\item\em turns on console logging at the given level. \end{DoxyCompactList}\item 
+static void \mbox{\hyperlink{classrr_1_1Logger_a2353c535f4e74dead4f0f1267556a906}{enable\+File\+Logging}} (const std\+::string \&file\+Name=\char`\"{}\char`\"{}, int level=L\+O\+G\+\_\+\+C\+U\+R\+R\+E\+NT)
+\begin{DoxyCompactList}\small\item\em turns on file logging to the given file as the given level. \end{DoxyCompactList}\item 
+\mbox{\Hypertarget{classrr_1_1Logger_a64d56c09af0322f3ec3164f4376fd624}\label{classrr_1_1Logger_a64d56c09af0322f3ec3164f4376fd624}} 
+static void \mbox{\hyperlink{classrr_1_1Logger_a64d56c09af0322f3ec3164f4376fd624}{disable\+File\+Logging}} ()
+\begin{DoxyCompactList}\small\item\em turns off file logging, but has no effect on console logging. \end{DoxyCompactList}\item 
+\mbox{\Hypertarget{classrr_1_1Logger_adc95de06b2cfb00d95b327329893e767}\label{classrr_1_1Logger_adc95de06b2cfb00d95b327329893e767}} 
+static std\+::string \mbox{\hyperlink{classrr_1_1Logger_adc95de06b2cfb00d95b327329893e767}{get\+Current\+Level\+As\+String}} ()
+\begin{DoxyCompactList}\small\item\em get the textural form of the current logging level. \end{DoxyCompactList}\item 
+\mbox{\Hypertarget{classrr_1_1Logger_a40f208d7bf2af73894ba3872296dbe9c}\label{classrr_1_1Logger_a40f208d7bf2af73894ba3872296dbe9c}} 
+static std\+::string \mbox{\hyperlink{classrr_1_1Logger_a40f208d7bf2af73894ba3872296dbe9c}{get\+File\+Name}} ()
+\begin{DoxyCompactList}\small\item\em get the name of the currently used log file. \end{DoxyCompactList}\item 
+static void \mbox{\hyperlink{classrr_1_1Logger_a3a660978ecbd144b2c2c3aee17b5950b}{set\+Formatting\+Pattern}} (const std\+::string \&format)
+\begin{DoxyCompactList}\small\item\em Internally, \mbox{\hyperlink{classrr_1_1RoadRunner}{Road\+Runner}} uses the Poco logging framework, so we can custom format logging output based on a formatting pattern string. \end{DoxyCompactList}\item 
+\mbox{\Hypertarget{classrr_1_1Logger_a7b4e8ed1391f383f27ff6f12d951beff}\label{classrr_1_1Logger_a7b4e8ed1391f383f27ff6f12d951beff}} 
+static std\+::string \mbox{\hyperlink{classrr_1_1Logger_a7b4e8ed1391f383f27ff6f12d951beff}{get\+Formatting\+Pattern}} ()
+\begin{DoxyCompactList}\small\item\em get the currently set formatting pattern. \end{DoxyCompactList}\item 
+\mbox{\Hypertarget{classrr_1_1Logger_abd7799fdcd8848cabd146bedd8b7d12a}\label{classrr_1_1Logger_abd7799fdcd8848cabd146bedd8b7d12a}} 
+static std\+::string \mbox{\hyperlink{classrr_1_1Logger_abd7799fdcd8848cabd146bedd8b7d12a}{level\+To\+String}} (int level)
+\begin{DoxyCompactList}\small\item\em gets the textual form of a logging level Enum for a given value. \end{DoxyCompactList}\item 
+\mbox{\Hypertarget{classrr_1_1Logger_a04c2fb0c06b2d55f2405c394153cbe30}\label{classrr_1_1Logger_a04c2fb0c06b2d55f2405c394153cbe30}} 
+static \mbox{\hyperlink{classrr_1_1Logger_a72a52e7fe7be48e2ecad639c641ee8aa}{Level}} \mbox{\hyperlink{classrr_1_1Logger_a04c2fb0c06b2d55f2405c394153cbe30}{string\+To\+Level}} (const std\+::string \&str)
+\begin{DoxyCompactList}\small\item\em parses a string and returns a \mbox{\hyperlink{classrr_1_1Logger_a72a52e7fe7be48e2ecad639c641ee8aa}{Logger\+::\+Level}} \end{DoxyCompactList}\item 
+\mbox{\Hypertarget{classrr_1_1Logger_a0f01c4474b91e705040db1ba59eccd07}\label{classrr_1_1Logger_a0f01c4474b91e705040db1ba59eccd07}} 
+static bool \mbox{\hyperlink{classrr_1_1Logger_a0f01c4474b91e705040db1ba59eccd07}{get\+Colored\+Output}} ()
+\begin{DoxyCompactList}\small\item\em check if we have colored logging enabled. \end{DoxyCompactList}\item 
+\mbox{\Hypertarget{classrr_1_1Logger_ad194c06ed29a531c8cb00c9ada412b99}\label{classrr_1_1Logger_ad194c06ed29a531c8cb00c9ada412b99}} 
+static void \mbox{\hyperlink{classrr_1_1Logger_ad194c06ed29a531c8cb00c9ada412b99}{set\+Colored\+Output}} (bool)
+\begin{DoxyCompactList}\small\item\em enable / disable colored output \end{DoxyCompactList}\item 
+static void \mbox{\hyperlink{classrr_1_1Logger_a64831026de073177180ec72ad894ea29}{set\+Property}} (const std\+::string \&name, const std\+::string \&value)
+\begin{DoxyCompactList}\small\item\em Set the color of the output logging messages. \end{DoxyCompactList}\item 
+static void \mbox{\hyperlink{classrr_1_1Logger_a7d54a49c5245cf78fbcd9445d4872e41}{log}} (\mbox{\hyperlink{classrr_1_1Logger_a72a52e7fe7be48e2ecad639c641ee8aa}{Level}} level, const std\+::string \&msg)
+\begin{DoxyCompactList}\small\item\em logs a message to the log. \end{DoxyCompactList}\item 
+static void \mbox{\hyperlink{classrr_1_1Logger_aaa118623cb0a11d39321cb6ecebf704a}{set\+Console\+Stream}} (std\+::ostream $\ast$os)
+\begin{DoxyCompactList}\small\item\em Set a pointer to an ostream object where the console logger should log to. \end{DoxyCompactList}\end{DoxyCompactItemize}
+
+
+\doxysubsection{Detailed Description}
+The roadrunner logger. 
+
+A set of static method for setting the logging level. 
+
+\doxysubsection{Member Enumeration Documentation}
+\mbox{\Hypertarget{classrr_1_1Logger_a72a52e7fe7be48e2ecad639c641ee8aa}\label{classrr_1_1Logger_a72a52e7fe7be48e2ecad639c641ee8aa}} 
+\index{rr::Logger@{rr::Logger}!Level@{Level}}
+\index{Level@{Level}!rr::Logger@{rr::Logger}}
+\doxysubsubsection{\texorpdfstring{Level}{Level}}
+{\footnotesize\ttfamily enum \mbox{\hyperlink{classrr_1_1Logger_a72a52e7fe7be48e2ecad639c641ee8aa}{rr\+::\+Logger\+::\+Level}}}
+
+
+
+same as Poco level, repeat here to avoid including any Poco files as Poco is usually linked statically so third parties would not need to have Poco installed. 
+
+\begin{DoxyEnumFields}{Enumerator}
+\raisebox{\heightof{T}}[0pt][0pt]{\index{LOG\_FATAL@{LOG\_FATAL}!rr::Logger@{rr::Logger}}\index{rr::Logger@{rr::Logger}!LOG\_FATAL@{LOG\_FATAL}}}\mbox{\Hypertarget{classrr_1_1Logger_a72a52e7fe7be48e2ecad639c641ee8aaa11cc16555fcf30d3c251bdc0c15a7f03}\label{classrr_1_1Logger_a72a52e7fe7be48e2ecad639c641ee8aaa11cc16555fcf30d3c251bdc0c15a7f03}} 
+L\+O\+G\+\_\+\+F\+A\+T\+AL&Use the current level -- don\textquotesingle{}t change the level from what it is. \\
+\hline
+
+\raisebox{\heightof{T}}[0pt][0pt]{\index{LOG\_CRITICAL@{LOG\_CRITICAL}!rr::Logger@{rr::Logger}}\index{rr::Logger@{rr::Logger}!LOG\_CRITICAL@{LOG\_CRITICAL}}}\mbox{\Hypertarget{classrr_1_1Logger_a72a52e7fe7be48e2ecad639c641ee8aaa8296259b3d5f3188030abd9b5ee0609a}\label{classrr_1_1Logger_a72a52e7fe7be48e2ecad639c641ee8aaa8296259b3d5f3188030abd9b5ee0609a}} 
+L\+O\+G\+\_\+\+C\+R\+I\+T\+I\+C\+AL&A fatal error. The application will most likely terminate. This is the highest priority. \\
+\hline
+
+\raisebox{\heightof{T}}[0pt][0pt]{\index{LOG\_ERROR@{LOG\_ERROR}!rr::Logger@{rr::Logger}}\index{rr::Logger@{rr::Logger}!LOG\_ERROR@{LOG\_ERROR}}}\mbox{\Hypertarget{classrr_1_1Logger_a72a52e7fe7be48e2ecad639c641ee8aaafdb1b7e45fd5de96e098cd30c552fa7b}\label{classrr_1_1Logger_a72a52e7fe7be48e2ecad639c641ee8aaafdb1b7e45fd5de96e098cd30c552fa7b}} 
+L\+O\+G\+\_\+\+E\+R\+R\+OR&A critical error. The application might not be able to continue running successfully. \\
+\hline
+
+\raisebox{\heightof{T}}[0pt][0pt]{\index{LOG\_WARNING@{LOG\_WARNING}!rr::Logger@{rr::Logger}}\index{rr::Logger@{rr::Logger}!LOG\_WARNING@{LOG\_WARNING}}}\mbox{\Hypertarget{classrr_1_1Logger_a72a52e7fe7be48e2ecad639c641ee8aaaa6900cf102f98dfa521d7c11dc59344c}\label{classrr_1_1Logger_a72a52e7fe7be48e2ecad639c641ee8aaaa6900cf102f98dfa521d7c11dc59344c}} 
+L\+O\+G\+\_\+\+W\+A\+R\+N\+I\+NG&An error. An operation did not complete successfully, but the application as a whole is not affected. \\
+\hline
+
+\raisebox{\heightof{T}}[0pt][0pt]{\index{LOG\_NOTICE@{LOG\_NOTICE}!rr::Logger@{rr::Logger}}\index{rr::Logger@{rr::Logger}!LOG\_NOTICE@{LOG\_NOTICE}}}\mbox{\Hypertarget{classrr_1_1Logger_a72a52e7fe7be48e2ecad639c641ee8aaaa3e3ead40b6448c9d7893f1a33573984}\label{classrr_1_1Logger_a72a52e7fe7be48e2ecad639c641ee8aaaa3e3ead40b6448c9d7893f1a33573984}} 
+L\+O\+G\+\_\+\+N\+O\+T\+I\+CE&A warning. An operation completed with an unexpected result. \\
+\hline
+
+\raisebox{\heightof{T}}[0pt][0pt]{\index{LOG\_INFORMATION@{LOG\_INFORMATION}!rr::Logger@{rr::Logger}}\index{rr::Logger@{rr::Logger}!LOG\_INFORMATION@{LOG\_INFORMATION}}}\mbox{\Hypertarget{classrr_1_1Logger_a72a52e7fe7be48e2ecad639c641ee8aaa4877e8c5192b123e2f8e71cc538df17b}\label{classrr_1_1Logger_a72a52e7fe7be48e2ecad639c641ee8aaa4877e8c5192b123e2f8e71cc538df17b}} 
+L\+O\+G\+\_\+\+I\+N\+F\+O\+R\+M\+A\+T\+I\+ON&A notice, which is an information with just a higher priority. \\
+\hline
+
+\raisebox{\heightof{T}}[0pt][0pt]{\index{LOG\_DEBUG@{LOG\_DEBUG}!rr::Logger@{rr::Logger}}\index{rr::Logger@{rr::Logger}!LOG\_DEBUG@{LOG\_DEBUG}}}\mbox{\Hypertarget{classrr_1_1Logger_a72a52e7fe7be48e2ecad639c641ee8aaadaf226f4b284b87851ddb9a9f7ddd0d5}\label{classrr_1_1Logger_a72a52e7fe7be48e2ecad639c641ee8aaadaf226f4b284b87851ddb9a9f7ddd0d5}} 
+L\+O\+G\+\_\+\+D\+E\+B\+UG&An informational message, usually denoting the successful completion of an operation. \\
+\hline
+
+\raisebox{\heightof{T}}[0pt][0pt]{\index{LOG\_TRACE@{LOG\_TRACE}!rr::Logger@{rr::Logger}}\index{rr::Logger@{rr::Logger}!LOG\_TRACE@{LOG\_TRACE}}}\mbox{\Hypertarget{classrr_1_1Logger_a72a52e7fe7be48e2ecad639c641ee8aaa415b215c622543781b0dab9ddb0cc5cb}\label{classrr_1_1Logger_a72a52e7fe7be48e2ecad639c641ee8aaa415b215c622543781b0dab9ddb0cc5cb}} 
+L\+O\+G\+\_\+\+T\+R\+A\+CE&A debugging message. A tracing message. This is the lowest priority. \\
+\hline
+
+\end{DoxyEnumFields}
+
+
+\doxysubsection{Member Function Documentation}
+\mbox{\Hypertarget{classrr_1_1Logger_a2353c535f4e74dead4f0f1267556a906}\label{classrr_1_1Logger_a2353c535f4e74dead4f0f1267556a906}} 
+\index{rr::Logger@{rr::Logger}!enableFileLogging@{enableFileLogging}}
+\index{enableFileLogging@{enableFileLogging}!rr::Logger@{rr::Logger}}
+\doxysubsubsection{\texorpdfstring{enableFileLogging()}{enableFileLogging()}}
+{\footnotesize\ttfamily void rr\+::\+Logger\+::enable\+File\+Logging (\begin{DoxyParamCaption}\item[{const std\+::string \&}]{file\+Name = {\ttfamily \char`\"{}\char`\"{}},  }\item[{int}]{level = {\ttfamily LOG\+\_\+CURRENT} }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [static]}}
+
+
+
+turns on file logging to the given file as the given level. 
+
+If file\+Name is an empty string, then this will use the file specified in the \mbox{\hyperlink{classrr_1_1Config_aed7c550b9e34222675cd152c9154d053aebebe893536932bb96d066c77d56ea1f}{Config\+::\+L\+O\+G\+G\+E\+R\+\_\+\+L\+O\+G\+\_\+\+F\+I\+L\+E\+\_\+\+P\+A\+TH}}. If this is empty, a file called \char`\"{}roadrunner.\+log\char`\"{} will be created in the temp directory.
+
+The temp directory may be specified via \mbox{\hyperlink{classrr_1_1Config_aed7c550b9e34222675cd152c9154d053aeed2c355140f97162b0a894e6c3c7710}{Config\+::\+T\+E\+M\+P\+\_\+\+D\+I\+R\+\_\+\+P\+A\+TH}}. If this is empty, then the system spefified temp dir is used. \mbox{\Hypertarget{classrr_1_1Logger_a7d54a49c5245cf78fbcd9445d4872e41}\label{classrr_1_1Logger_a7d54a49c5245cf78fbcd9445d4872e41}} 
+\index{rr::Logger@{rr::Logger}!log@{log}}
+\index{log@{log}!rr::Logger@{rr::Logger}}
+\doxysubsubsection{\texorpdfstring{log()}{log()}}
+{\footnotesize\ttfamily void rr\+::\+Logger\+::log (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{classrr_1_1Logger_a72a52e7fe7be48e2ecad639c641ee8aa}{Level}}}]{level,  }\item[{const std\+::string \&}]{msg }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [static]}}
+
+
+
+logs a message to the log. 
+
+This is most useful from Python as C++ code will typically call the \mbox{\hyperlink{classrr_1_1LoggingBuffer}{Logging\+Buffer}} via the Log macro. \mbox{\Hypertarget{classrr_1_1Logger_aaa118623cb0a11d39321cb6ecebf704a}\label{classrr_1_1Logger_aaa118623cb0a11d39321cb6ecebf704a}} 
+\index{rr::Logger@{rr::Logger}!setConsoleStream@{setConsoleStream}}
+\index{setConsoleStream@{setConsoleStream}!rr::Logger@{rr::Logger}}
+\doxysubsubsection{\texorpdfstring{setConsoleStream()}{setConsoleStream()}}
+{\footnotesize\ttfamily void rr\+::\+Logger\+::set\+Console\+Stream (\begin{DoxyParamCaption}\item[{std\+::ostream $\ast$}]{os }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [static]}}
+
+
+
+Set a pointer to an ostream object where the console logger should log to. 
+
+Normally, this points to std\+::clog.
+
+This is here so that the \mbox{\hyperlink{classrr_1_1Logger}{Logger}} can properly re-\/direct to the Python sys.\+stderr object as the QT I\+Python console only reads output from the python sys.\+stdout and sys.\+stderr file objects and not the C++ file streams. \mbox{\Hypertarget{classrr_1_1Logger_a3a660978ecbd144b2c2c3aee17b5950b}\label{classrr_1_1Logger_a3a660978ecbd144b2c2c3aee17b5950b}} 
+\index{rr::Logger@{rr::Logger}!setFormattingPattern@{setFormattingPattern}}
+\index{setFormattingPattern@{setFormattingPattern}!rr::Logger@{rr::Logger}}
+\doxysubsubsection{\texorpdfstring{setFormattingPattern()}{setFormattingPattern()}}
+{\footnotesize\ttfamily void rr\+::\+Logger\+::set\+Formatting\+Pattern (\begin{DoxyParamCaption}\item[{const std\+::string \&}]{format }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [static]}}
+
+
+
+Internally, \mbox{\hyperlink{classrr_1_1RoadRunner}{Road\+Runner}} uses the Poco logging framework, so we can custom format logging output based on a formatting pattern string. 
+
+The format pattern is used as a template to format the message and is copied character by character except for the following special characters, which are replaced by the corresponding value.
+
+An example pattern of \char`\"{}\%\+Y-\/\%m-\/\%d \%\+H\+:\%\+M\+:\%\+S \%p\+: \%t\char`\"{}
+
+would produce the following output\+:
+
+2013-\/10-\/25 14\+:12\+:45 Fatal\+: console and file\+: A fatal error 2013-\/10-\/25 14\+:12\+:45 Critical\+: console and file\+: A critical error 2013-\/10-\/25 14\+:12\+:45 Error\+: console and file\+: An error 2013-\/10-\/25 14\+:12\+:45 Warning\+: console and file\+: A warning. 2013-\/10-\/25 14\+:12\+:45 Notice\+: console and file\+: A notice.
+
+The following formatting pattern descriptions is copied from the Poco documentation\+:
+
+
+\begin{DoxyItemize}
+\item s -\/ message source
+\item t -\/ message text
+\item l -\/ message priority level (1 .. 7)
+\item p -\/ message priority (Fatal, Critical, Error, Warning, Notice, Information, Debug, Trace)
+\item q -\/ abbreviated message priority (F, C, E, W, N, I, D, T)
+\item P -\/ message process identifier
+\item T -\/ message thread name
+\item I -\/ message thread identifier (numeric)
+\item N -\/ node or host name
+\item U -\/ message source file path (empty string if not set)
+\item u -\/ message source line number (0 if not set)
+\item w -\/ message date/time abbreviated weekday (Mon, Tue, ...)
+\item W -\/ message date/time full weekday (Monday, Tuesday, ...)
+\item b -\/ message date/time abbreviated month (Jan, Feb, ...)
+\item B -\/ message date/time full month (January, February, ...)
+\item d -\/ message date/time zero-\/padded day of month (01 .. 31)
+\item e -\/ message date/time day of month (1 .. 31)
+\item f -\/ message date/time space-\/padded day of month ( 1 .. 31)
+\item m -\/ message date/time zero-\/padded month (01 .. 12)
+\item n -\/ message date/time month (1 .. 12)
+\item o -\/ message date/time space-\/padded month ( 1 .. 12)
+\item y -\/ message date/time year without century (70)
+\item Y -\/ message date/time year with century (1970)
+\item H -\/ message date/time hour (00 .. 23)
+\item h -\/ message date/time hour (00 .. 12)
+\item a -\/ message date/time am/pm
+\item A -\/ message date/time A\+M/\+PM
+\item M -\/ message date/time minute (00 .. 59)
+\item S -\/ message date/time second (00 .. 59)
+\item i -\/ message date/time millisecond (000 .. 999)
+\item c -\/ message date/time centisecond (0 .. 9)
+\item F -\/ message date/time fractional seconds/microseconds (000000 -\/ 999999)
+\item z -\/ time zone differential in I\+SO 8601 format (Z or +N\+N.\+NN)
+\item Z -\/ time zone differential in R\+FC format (G\+MT or +N\+N\+NN)
+\item E -\/ epoch time (U\+TC, seconds since midnight, January 1, 1970)
+\item \%\mbox{[}name\mbox{]} -\/ the value of the message parameter with the given name
+\item \%\% -\/ percent sign 
+\end{DoxyItemize}\mbox{\Hypertarget{classrr_1_1Logger_a64831026de073177180ec72ad894ea29}\label{classrr_1_1Logger_a64831026de073177180ec72ad894ea29}} 
+\index{rr::Logger@{rr::Logger}!setProperty@{setProperty}}
+\index{setProperty@{setProperty}!rr::Logger@{rr::Logger}}
+\doxysubsubsection{\texorpdfstring{setProperty()}{setProperty()}}
+{\footnotesize\ttfamily void rr\+::\+Logger\+::set\+Property (\begin{DoxyParamCaption}\item[{const std\+::string \&}]{name,  }\item[{const std\+::string \&}]{value }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [static]}}
+
+
+
+Set the color of the output logging messages. 
+
+In the future, we may add additional properties her.
+
+The following properties are supported\+: enable\+Colors\+: Enable or disable colors. trace\+Color\+: Specify color for trace messages. debug\+Color\+: Specify color for debug messages. information\+Color\+: Specify color for information messages. notice\+Color\+: Specify color for notice messages. warning\+Color\+: Specify color for warning messages. error\+Color\+: Specify color for error messages. critical\+Color\+: Specify color for critical messages. fatal\+Color\+: Specify color for fatal messages.
+
+The following color values are supported\+:
+
+default black red green brown blue magenta cyan gray darkgray light\+Red light\+Green yellow light\+Blue light\+Magenta light\+Cyan white 
+
+The documentation for this class was generated from the following files\+:\begin{DoxyCompactItemize}
+\item 
+rr\+Logger.\+h\item 
+rr\+Logger.\+cpp\end{DoxyCompactItemize}

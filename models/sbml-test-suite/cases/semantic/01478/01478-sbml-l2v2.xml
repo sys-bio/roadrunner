@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<sbml xmlns="http://www.sbml.org/sbml/level2/version2" level="2" version="2">
+  <model id="case01478" name="case01478">
+    <listOfFunctionDefinitions>
+      <functionDefinition id="getPointFour">
+        <math xmlns="http://www.w3.org/1998/Math/MathML">
+          <lambda>
+            <cn> 0.4 </cn>
+          </lambda>
+        </math>
+      </functionDefinition>
+    </listOfFunctionDefinitions>
+    <listOfCompartments>
+      <compartment id="C1" size="0.5" constant="false"/>
+    </listOfCompartments>
+    <listOfSpecies>
+      <species id="S1" compartment="C1" initialConcentration="0" boundaryCondition="true"/>
+    </listOfSpecies>
+    <listOfParameters>
+      <parameter id="x" constant="false"/>
+    </listOfParameters>
+    <listOfRules>
+      <rateRule variable="S1">
+        <math xmlns="http://www.w3.org/1998/Math/MathML">
+          <apply>
+            <ci> getPointFour </ci>
+          </apply>
+        </math>
+      </rateRule>
+      <rateRule variable="C1">
+        <math xmlns="http://www.w3.org/1998/Math/MathML">
+          <cn> 0.2 </cn>
+        </math>
+      </rateRule>
+      <assignmentRule variable="x">
+        <math xmlns="http://www.w3.org/1998/Math/MathML">
+          <ci> S1 </ci>
+        </math>
+      </assignmentRule>
+    </listOfRules>
+  </model>
+</sbml>

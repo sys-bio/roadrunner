@@ -1,0 +1,64 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<sbml xmlns="http://www.sbml.org/sbml/level2" level="2" version="1">
+  <model id="case01511" name="case01511">
+    <listOfCompartments>
+      <compartment id="C1" size="0.5" constant="false"/>
+    </listOfCompartments>
+    <listOfSpecies>
+      <species id="S1" compartment="C1" initialConcentration="0" boundaryCondition="true"/>
+    </listOfSpecies>
+    <listOfParameters>
+      <parameter id="x" constant="false"/>
+    </listOfParameters>
+    <listOfRules>
+      <rateRule variable="S1">
+        <math xmlns="http://www.w3.org/1998/Math/MathML">
+          <cn> 0.4 </cn>
+        </math>
+      </rateRule>
+      <rateRule variable="C1">
+        <math xmlns="http://www.w3.org/1998/Math/MathML">
+          <cn> 0.2 </cn>
+        </math>
+      </rateRule>
+      <assignmentRule variable="x">
+        <math xmlns="http://www.w3.org/1998/Math/MathML">
+          <ci> S1 </ci>
+        </math>
+      </assignmentRule>
+    </listOfRules>
+    <listOfEvents>
+      <event id="E0">
+        <trigger>
+          <math xmlns="http://www.w3.org/1998/Math/MathML">
+            <apply>
+              <and/>
+              <apply>
+                <gt/>
+                <ci> S1 </ci>
+                <cn> 0.18 </cn>
+              </apply>
+              <apply>
+                <lt/>
+                <ci> S1 </ci>
+                <cn> 0.19 </cn>
+              </apply>
+            </apply>
+          </math>
+        </trigger>
+        <delay>
+          <math xmlns="http://www.w3.org/1998/Math/MathML">
+            <cn> 0.1 </cn>
+          </math>
+        </delay>
+        <listOfEventAssignments>
+          <eventAssignment variable="S1">
+            <math xmlns="http://www.w3.org/1998/Math/MathML">
+              <cn> 0.2 </cn>
+            </math>
+          </eventAssignment>
+        </listOfEventAssignments>
+      </event>
+    </listOfEvents>
+  </model>
+</sbml>

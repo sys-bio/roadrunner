@@ -95,7 +95,7 @@ std::streamsize PyLoggerStream::xsputn (const char* s,
 
     Py_DECREF(args);
 
-    int result = EOF;
+    std::streamsize result = EOF;
 
     if (retval) {
         if (retval == Py_None) {
@@ -195,7 +195,7 @@ void PyLoggerStream::setPyStream(PyObject* ps)
         if (!PyCallable_Check(flush)) {
             throw std::invalid_argument("flush attribute of python stream object is not callable");
         }
-    } catch(std::exception& e) {
+    } catch(std::exception&) {
         freePyObjects();
         throw;
     }

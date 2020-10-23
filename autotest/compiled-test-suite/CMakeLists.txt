@@ -3,7 +3,7 @@
 
 # == FILEDOC =================================================
 
-# @file autotest/CMakeLists.txt
+# @file autotest/_CMakeLists.txt
 # @author JKM(0u812)
 # @date 11/17/2015
 # @copyright Apache License, Version 2.0

@@ -92,7 +92,7 @@ namespace rr
             throw std::runtime_error("CVODEIntegrator::checkType failed, memory bug");
     }
 
-	void CVODEIntegrator::checkVectorSize(int expected, int real) const {
+	void CVODEIntegrator::checkVectorSize(int expected, size_t real) const {
 		if (expected != real)  
 			throw std::runtime_error("CVODEIntegrator::checkVectorSize failed, real size is " + CVODEIntegrator::ToString(real) + ", whereas expected size is " + CVODEIntegrator::ToString(expected));
 	}
@@ -103,6 +103,13 @@ namespace rr
 	}
 
 	std::string CVODEIntegrator::ToString(int val) const
+	{
+		std::stringstream stream;
+		stream << val;
+		return stream.str();
+	}
+
+	std::string CVODEIntegrator::ToString(size_t val) const
 	{
 		std::stringstream stream;
 		stream << val;
@@ -337,7 +344,7 @@ namespace rr
 		vector<double> v;
 
 		int speciesIndex = mModel->getFloatingSpeciesIndex(sid);
-		int index;
+		std::ptrdiff_t index;
 		if (speciesIndex > -1 && speciesIndex < mModel->getNumIndFloatingSpecies())
 		{
 			// sid is an independent floating species
@@ -1128,7 +1135,7 @@ namespace rr
 				double* arr = new double[v.size()];
 				for (int i = 0; i < v.size(); i++)
 					arr[i] = v[i];
-				N_Vector nv = N_VMake_Serial(v.size(), arr);
+				N_Vector nv = N_VMake_Serial(static_cast<long>(v.size()), arr);
 				
 
 				err = CVodeSVtolerances(mCVODE_Memory, getValueAsDouble("relative_tolerance"), nv);
@@ -1169,8 +1176,9 @@ namespace rr
 				Log(Logger::LOG_INFORMATION) << "Set tolerance to abs: " << setprecision(16) << "[";
 				vector<double> v = getValueAsDoubleVector("absolute_tolerance");
 				for (int i = 0; i < v.size(); i++) {
-					if (i != 0)
+					if (i != 0) {
 						Log(Logger::LOG_INFORMATION) << ", ";
+					}
 					Log(Logger::LOG_INFORMATION) << v[i];
 				}
 				Log(Logger::LOG_INFORMATION) << "], rel: " << getValueAsDouble("relative_tolerance") << endl;

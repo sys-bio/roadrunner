@@ -1,0 +1,56 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<sbml xmlns="http://www.sbml.org/sbml/level2/version3" level="2" version="3">
+  <model id="case01312" name="case01312">
+    <listOfFunctionDefinitions>
+      <functionDefinition id="this">
+        <math xmlns="http://www.w3.org/1998/Math/MathML">
+          <lambda>
+            <bvar>
+              <ci> x </ci>
+            </bvar>
+            <ci> x </ci>
+          </lambda>
+        </math>
+      </functionDefinition>
+      <functionDefinition id="getthis">
+        <math xmlns="http://www.w3.org/1998/Math/MathML">
+          <lambda>
+            <bvar>
+              <ci> x </ci>
+            </bvar>
+            <apply>
+              <ci> this </ci>
+              <ci> x </ci>
+            </apply>
+          </lambda>
+        </math>
+      </functionDefinition>
+      <functionDefinition id="getgetthis">
+        <math xmlns="http://www.w3.org/1998/Math/MathML">
+          <lambda>
+            <bvar>
+              <ci> x </ci>
+            </bvar>
+            <apply>
+              <ci> getthis </ci>
+              <ci> x </ci>
+            </apply>
+          </lambda>
+        </math>
+      </functionDefinition>
+    </listOfFunctionDefinitions>
+    <listOfParameters>
+      <parameter id="p1"/>
+    </listOfParameters>
+    <listOfInitialAssignments>
+      <initialAssignment symbol="p1">
+        <math xmlns="http://www.w3.org/1998/Math/MathML">
+          <apply>
+            <ci> getgetthis </ci>
+            <cn type="integer"> 3 </cn>
+          </apply>
+        </math>
+      </initialAssignment>
+    </listOfInitialAssignments>
+  </model>
+</sbml>

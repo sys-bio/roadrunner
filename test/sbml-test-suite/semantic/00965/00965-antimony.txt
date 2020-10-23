@@ -1,0 +1,23 @@
+model case00965()
+
+  // Assignment Rules:
+  S := Q + R;
+
+  // Events:
+  Qinc: at (time - reset >= 0.01), priority = 10, persistent=false: Q = Q + 0.01, Qrun = Qrun + 1, Rrun = 0, reset = time;
+  Rinc: at (time - reset >= 0.01), priority = 10, persistent=false: R = R + 0.01, Rrun = Rrun + 1, Qrun = 0, reset = time;
+  maxrun_check1: at (Qrun > maxrun), priority = 9: maxrun = Qrun;
+  maxrun_check2: at (Rrun > maxrun), priority = 8: maxrun = Rrun;
+  error_check: at (maxrun > 300), priority = 7: error = 1;
+
+  // Variable initializations:
+  reset = 0;
+  Q = 0;
+  R = 0;
+  Qrun = 0;
+  Rrun = 0;
+  maxrun = 0;
+  error = 0;
+
+end
+

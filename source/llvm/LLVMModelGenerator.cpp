@@ -12,12 +12,26 @@
 #include "LLVMExecutableModel.h"
 #include "ModelGeneratorContext.h"
 #include "LLVMIncludes.h"
-#include "llvm/Object/ObjectFile.h"
 #include "ModelResources.h"
 #include "Random.h"
 #include <rrLogger.h>
 #include <rrUtils.h>
 #include <Poco/Mutex.h>
+
+#ifdef _MSC_VER
+#pragma warning(disable: 4146)
+#pragma warning(disable: 4141)
+#pragma warning(disable: 4267)
+#pragma warning(disable: 4624)
+#endif
+#include "llvm/Object/ObjectFile.h"
+#ifdef _MSC_VER
+#pragma warning(default: 4146)
+#pragma warning(default: 4141)
+#pragma warning(default: 4267)
+#pragma warning(default: 4624)
+#endif
+
 
 using rr::Logger;
 using rr::getLogger;
@@ -78,59 +92,29 @@ ExecutableModel* LLVMModelGenerator::regenerateModel(ExecutableModel* oldModel, 
 
 	char* docSBML = doc->toSBML();
 
-	ModelGeneratorContext context(std::string(docSBML), options);
+	ModelGeneratorContext context(docSBML, options);
 
 	free(docSBML);
 
 	// code generation part
 
-	Function* evalInitialConditionsIR =
-		EvalInitialConditionsCodeGen(context).createFunction();
-
-	Function* evalReactionRatesIR =
-		EvalReactionRatesCodeGen(context).createFunction();
-
-	Function* getBoundarySpeciesAmountIR =
-		GetBoundarySpeciesAmountCodeGen(context).createFunction();
-
-	Function* getFloatingSpeciesAmountIR =
-		GetFloatingSpeciesAmountCodeGen(context).createFunction();
-
-	Function* getBoundarySpeciesConcentrationIR =
-		GetBoundarySpeciesConcentrationCodeGen(context).createFunction();
-
-	Function* getFloatingSpeciesConcentrationIR =
-		GetFloatingSpeciesConcentrationCodeGen(context).createFunction();
-
-	Function* getCompartmentVolumeIR =
-		GetCompartmentVolumeCodeGen(context).createFunction();
-
-	Function* getGlobalParameterIR =
-		GetGlobalParameterCodeGen(context).createFunction();
-
-	Function* evalRateRuleRatesIR =
-		EvalRateRuleRatesCodeGen(context).createFunction();
-
-	Function* getEventTriggerIR =
-		GetEventTriggerCodeGen(context).createFunction();
-
-	Function* getEventPriorityIR =
-		GetEventPriorityCodeGen(context).createFunction();
-
-	Function* getEventDelayIR =
-		GetEventDelayCodeGen(context).createFunction();
-
-	Function* eventTriggerIR =
-		EventTriggerCodeGen(context).createFunction();
-
-	Function* eventAssignIR =
-		EventAssignCodeGen(context).createFunction();
-
-	Function* evalVolatileStoichIR =
-		EvalVolatileStoichCodeGen(context).createFunction();
-
-	Function* evalConversionFactorIR =
-		EvalConversionFactorCodeGen(context).createFunction();
+	//Need to create these functions even though we don't use them directly.
+	EvalInitialConditionsCodeGen(context).createFunction();
+    EvalReactionRatesCodeGen(context).createFunction();
+    GetBoundarySpeciesAmountCodeGen(context).createFunction();
+    GetFloatingSpeciesAmountCodeGen(context).createFunction();
+    GetBoundarySpeciesConcentrationCodeGen(context).createFunction();
+    GetFloatingSpeciesConcentrationCodeGen(context).createFunction();
+    GetCompartmentVolumeCodeGen(context).createFunction();
+    GetGlobalParameterCodeGen(context).createFunction();
+    EvalRateRuleRatesCodeGen(context).createFunction();
+    GetEventTriggerCodeGen(context).createFunction();
+    GetEventPriorityCodeGen(context).createFunction();
+    GetEventDelayCodeGen(context).createFunction();
+    EventTriggerCodeGen(context).createFunction();
+    EventAssignCodeGen(context).createFunction();
+    EvalVolatileStoichCodeGen(context).createFunction();
+    EvalConversionFactorCodeGen(context).createFunction();
 
 	Function* setBoundarySpeciesAmountIR = 0;
 	Function* setBoundarySpeciesConcentrationIR;
@@ -686,53 +670,23 @@ ExecutableModel* LLVMModelGenerator::createModel(const std::string& sbml,
 
     ModelGeneratorContext context(sbml, options);
 
-    Function* evalInitialConditionsIR =
-            EvalInitialConditionsCodeGen(context).createFunction();
-
-	Function* evalReactionRatesIR =
-            EvalReactionRatesCodeGen(context).createFunction();
-
-	Function* getBoundarySpeciesAmountIR =
-            GetBoundarySpeciesAmountCodeGen(context).createFunction();
-
-	Function* getFloatingSpeciesAmountIR =
-            GetFloatingSpeciesAmountCodeGen(context).createFunction();
-
-	Function* getBoundarySpeciesConcentrationIR =
-            GetBoundarySpeciesConcentrationCodeGen(context).createFunction();
-
-	Function* getFloatingSpeciesConcentrationIR =
-            GetFloatingSpeciesConcentrationCodeGen(context).createFunction();
-
-	Function* getCompartmentVolumeIR =
-            GetCompartmentVolumeCodeGen(context).createFunction();
-
-	Function* getGlobalParameterIR =
-            GetGlobalParameterCodeGen(context).createFunction();
-
-	Function* evalRateRuleRatesIR =
-            EvalRateRuleRatesCodeGen(context).createFunction();
-
-	Function* getEventTriggerIR =
-            GetEventTriggerCodeGen(context).createFunction();
-
-	Function* getEventPriorityIR =
-            GetEventPriorityCodeGen(context).createFunction();
-
-	Function* getEventDelayIR =
-            GetEventDelayCodeGen(context).createFunction();
-
-	Function* eventTriggerIR =
-            EventTriggerCodeGen(context).createFunction();
-
-	Function* eventAssignIR =
-            EventAssignCodeGen(context).createFunction();
-
-	Function* evalVolatileStoichIR =
-            EvalVolatileStoichCodeGen(context).createFunction();
-
-	Function* evalConversionFactorIR =
-            EvalConversionFactorCodeGen(context).createFunction();
+	//Need to create these functions even though we don't use them directly.
+	EvalInitialConditionsCodeGen(context).createFunction();
+    EvalReactionRatesCodeGen(context).createFunction();
+    GetBoundarySpeciesAmountCodeGen(context).createFunction();
+    GetFloatingSpeciesAmountCodeGen(context).createFunction();
+    GetBoundarySpeciesConcentrationCodeGen(context).createFunction();
+    GetFloatingSpeciesConcentrationCodeGen(context).createFunction();
+    GetCompartmentVolumeCodeGen(context).createFunction();
+    GetGlobalParameterCodeGen(context).createFunction();
+    EvalRateRuleRatesCodeGen(context).createFunction();
+    GetEventTriggerCodeGen(context).createFunction();
+    GetEventPriorityCodeGen(context).createFunction();
+    GetEventDelayCodeGen(context).createFunction();
+    EventTriggerCodeGen(context).createFunction();
+    EventAssignCodeGen(context).createFunction();
+    EvalVolatileStoichCodeGen(context).createFunction();
+    EvalConversionFactorCodeGen(context).createFunction();
 
 	Function* setBoundarySpeciesAmountIR = 0 ;
 	Function* setBoundarySpeciesConcentrationIR;
@@ -1073,19 +1027,19 @@ LLVMModelData *createModelData(const rrllvm::LLVMModelDataSymbols &symbols,
 {
     uint modelDataBaseSize = sizeof(LLVMModelData);
 
-    uint numIndCompartments = symbols.getIndependentCompartmentSize();
-    uint numIndFloatingSpecies = symbols.getIndependentFloatingSpeciesSize();
-    uint numIndBoundarySpecies = symbols.getIndependentBoundarySpeciesSize();
-    uint numIndGlobalParameters = symbols.getIndependentGlobalParameterSize();
+    uint numIndCompartments = static_cast<uint>(symbols.getIndependentCompartmentSize());
+    uint numIndFloatingSpecies = static_cast<uint>(symbols.getIndependentFloatingSpeciesSize());
+    uint numIndBoundarySpecies = static_cast<uint>(symbols.getIndependentBoundarySpeciesSize());
+    uint numIndGlobalParameters = static_cast<uint>(symbols.getIndependentGlobalParameterSize());
 
-    uint numInitCompartments = symbols.getInitCompartmentSize();
-    uint numInitFloatingSpecies = symbols.getInitFloatingSpeciesSize();
-    uint numInitBoundarySpecies = symbols.getInitBoundarySpeciesSize();
-    uint numInitGlobalParameters = symbols.getInitGlobalParameterSize();
+    uint numInitCompartments = static_cast<uint>(symbols.getInitCompartmentSize());
+    uint numInitFloatingSpecies = static_cast<uint>(symbols.getInitFloatingSpeciesSize());
+    uint numInitBoundarySpecies = static_cast<uint>(symbols.getInitBoundarySpeciesSize());
+    uint numInitGlobalParameters = static_cast<uint>(symbols.getInitGlobalParameterSize());
 
     // no initial conditions for these
-    uint numRateRules = symbols.getRateRuleSize();
-    uint numReactions = symbols.getReactionSize();
+    uint numRateRules = static_cast<uint>(symbols.getRateRuleSize());
+    uint numReactions = static_cast<uint>(symbols.getReactionSize());
 
     uint modelDataSize = modelDataBaseSize +
         sizeof(double) * (
@@ -1117,7 +1071,7 @@ LLVMModelData *createModelData(const rrllvm::LLVMModelDataSymbols &symbols,
 
     modelData->numRateRules = numRateRules;
     modelData->numReactions = numReactions;
-    modelData->numEvents = symbols.getEventAttributes().size();
+    modelData->numEvents = static_cast<uint>(symbols.getEventAttributes().size());
 
     // set the aliases to the offsets
     uint offset = 0;

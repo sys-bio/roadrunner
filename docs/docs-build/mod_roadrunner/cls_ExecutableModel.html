@@ -1,0 +1,1126 @@
+
+
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" >
+<head>
+  <meta charset="utf-8">
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+  <title>Accessing the SBML Model Variables &mdash; libRoadRunner 1.1.16 documentation</title>
+  
+
+  
+  <link rel="stylesheet" href="../_static/css/theme.css" type="text/css" />
+  <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
+
+  
+  
+  
+  
+
+  
+  <!--[if lt IE 9]>
+    <script src="../_static/js/html5shiv.min.js"></script>
+  <![endif]-->
+  
+    
+      <script type="text/javascript" id="documentation_options" data-url_root="../" src="../_static/documentation_options.js"></script>
+        <script src="../_static/jquery.js"></script>
+        <script src="../_static/underscore.js"></script>
+        <script src="../_static/doctools.js"></script>
+        <script src="../_static/language_data.js"></script>
+    
+    <script type="text/javascript" src="../_static/js/theme.js"></script>
+
+    
+    <link rel="index" title="Index" href="../genindex.html" />
+    <link rel="search" title="Search" href="../search.html" /> 
+</head>
+
+<body class="wy-body-for-nav">
+
+   
+  <div class="wy-grid-for-nav">
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+          
+
+          
+            <a href="../index.html" class="icon icon-home" alt="Documentation Home"> libRoadRunner
+          
+
+          
+          </a>
+
+          
+            
+            
+          
+
+          
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+
+          
+        </div>
+
+        
+        <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+          
+            
+            
+              
+            
+            
+              <ul>
+<li class="toctree-l1"><a class="reference internal" href="../index.html">RoadRunner Documentation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../introduction.html">Introduction</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../Installation/installation.html">Installing RoadRunner</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../read_write_functions.html">SBML Read/Write Functions</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../selecting_values.html">Selecting Values</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../steady_state.html">Steady State Analysis</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../stochastic.html">Stochastic Simulation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../metabolic.html">Metabolic Control Analysis</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../stability.html">Stability Analysis</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../stoichiometric.html">Stoichiometric Analysis</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../bifurcation.html">Bifurcation Analysis</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../integration.html">Simulation and Integration</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../utility_functions.html">Utility Functions</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../accessing_model.html">Accessing the SBML Model Variables</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../api_reference.html">RoadRunner API Reference</a></li>
+</ul>
+
+            
+          
+        </div>
+        
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" aria-label="top navigation">
+        
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../index.html">libRoadRunner</a>
+        
+      </nav>
+
+
+      <div class="wy-nav-content">
+        
+        <div class="rst-content">
+        
+          
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div role="navigation" aria-label="breadcrumbs navigation">
+
+  <ul class="wy-breadcrumbs">
+    
+      <li><a href="../index.html" class="icon icon-home"></a> &raquo;</li>
+        
+      <li>Accessing the SBML Model Variables</li>
+    
+    
+      <li class="wy-breadcrumbs-aside">
+        
+            
+            <a href="../_sources/mod_roadrunner/cls_ExecutableModel.rst.txt" rel="nofollow"> View page source</a>
+          
+        
+      </li>
+    
+  </ul>
+
+  
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+            
+  <div class="section" id="accessing-the-sbml-model-variables">
+<h1>Accessing the SBML Model Variables<a class="headerlink" href="#accessing-the-sbml-model-variables" title="Permalink to this headline">¶</a></h1>
+<p>All of the SBML model variables are accessed via the <code class="docutils literal notranslate"><span class="pre">RoadRunner.model</span></code> object. This is an instance of
+the ExecutableModel class described here. One always access the model object that belongs to the top
+RoadRunner object, i.e. <code class="docutils literal notranslate"><span class="pre">r.model</span></code>, where <code class="docutils literal notranslate"><span class="pre">r</span></code> is an instance of the <code class="docutils literal notranslate"><span class="pre">RoadRunner</span></code> class.</p>
+<p>The ExecutableModel class also implements the Python dictionary protocol, so that it can be used as
+a dictionary. The dictionary keys are all of the symbols specified in the original model as well as
+a number of selection strings described in the Selections section.</p>
+<dl class="py method">
+<dt id="RoadRunner.ExecutableModel.keys">
+<code class="sig-prename descclassname">ExecutableModel.</code><code class="sig-name descname">keys</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#RoadRunner.ExecutableModel.keys" title="Permalink to this definition">¶</a></dt>
+<dd><p>Get a list of all the keys that this model has. This is a very good way of looking at all the
+available symbols and selection strings:</p>
+<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">r</span><span class="o">.</span><span class="n">model</span><span class="o">.</span><span class="n">keys</span><span class="p">()</span>
+<span class="go">[ &#39;S1&#39;, &#39;S2&#39;, &#39;[S1]&#39;, &#39;[S2]&#39;, &#39;compartment&#39;, &#39;k1&#39;, &#39;cm0&#39;,</span>
+<span class="go">  &#39;reaction1&#39;,  &#39;init([S1])&#39;,  &#39;init([S2])&#39;, &#39;init(S1)&#39;,</span>
+<span class="go">  &#39;init(S2)&#39;,  &quot;S1&#39;&quot;]</span>
+</pre></div>
+</div>
+</dd></dl>
+
+<dl class="py method">
+<dt id="RoadRunner.ExecutableModel.items">
+<code class="sig-prename descclassname">ExecutableModel.</code><code class="sig-name descname">items</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#RoadRunner.ExecutableModel.items" title="Permalink to this definition">¶</a></dt>
+<dd><p>Get a list of key / value pairs of all the selections / values in the model.</p>
+<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">r</span><span class="o">.</span><span class="n">model</span><span class="o">.</span><span class="n">items</span><span class="p">()</span>
+<span class="go">[(&#39;S1&#39;, 0.5), (&#39;S2&#39;, 9.99954570660308), (&#39;[S1]&#39;, 0.5), (&#39;[S2]&#39;, 9.99954570660308),</span>
+<span class="go">(&#39;default_compartment&#39;, 1.0), (&#39;k1&#39;, 1.0), (&#39;init(k1)&#39;, 1.0), (&#39;_J0&#39;, 0.5), (&#39;init([S1])&#39;, 10.0),</span>
+<span class="go">(&#39;init([S2])&#39;, 0.0), (&#39;init(S1)&#39;, 10.0), (&#39;init(S2)&#39;, 0.0), (&quot;S1&#39;&quot;, -0.5), (&quot;S2&#39;&quot;, 0.5)]</span>
+</pre></div>
+</div>
+</dd></dl>
+
+<dl class="py method">
+<dt id="RoadRunner.ExecutableModel.__getitem__">
+<code class="sig-prename descclassname">ExecutableModel.</code><code class="sig-name descname">__getitem__</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#RoadRunner.ExecutableModel.__getitem__" title="Permalink to this definition">¶</a></dt>
+<dd><p>Implements the python <code class="docutils literal notranslate"><span class="pre">[]</span></code> indexing operator, so the model values can be accessed like:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">r</span><span class="o">.</span><span class="n">model</span><span class="p">[</span><span class="s2">&quot;S1&quot;</span><span class="p">]</span>
+<span class="go">0.0</span>
+</pre></div>
+</div>
+<p>Following notation is also accepted:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">r</span><span class="o">.</span><span class="n">S1</span>
+<span class="go">0.0</span>
+</pre></div>
+</div>
+</dd></dl>
+
+<dl class="py method">
+<dt id="RoadRunner.ExecutableModel.__setitem__">
+<code class="sig-prename descclassname">ExecutableModel.</code><code class="sig-name descname">__setitem__</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#RoadRunner.ExecutableModel.__setitem__" title="Permalink to this definition">¶</a></dt>
+<dd><p>Implements the python <code class="docutils literal notranslate"><span class="pre">[]</span></code> indexing operator for setting values:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">r</span><span class="o">.</span><span class="n">model</span><span class="p">[</span><span class="s2">&quot;S1]</span>
+<span class="go">0.0</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">r</span><span class="o">.</span><span class="n">model</span><span class="p">[</span><span class="s2">&quot;S1&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="mf">1.3</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">r</span><span class="o">.</span><span class="n">model</span><span class="p">[</span><span class="s2">&quot;S1&quot;</span><span class="p">]</span>
+<span class="go">1.3</span>
+</pre></div>
+</div>
+<p>Following notation is also accepted:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">r</span><span class="o">.</span><span class="n">S1</span> <span class="o">=</span> <span class="mf">1.0</span>
+</pre></div>
+</div>
+<p>Note, some keys are read only such as values defined by rules, or calculated values such as
+reaction rates. If one attempts to set the value of a read-only symbol,
+an exception is raised indicating the error, and no harm done.</p>
+</dd></dl>
+
+<div class="section" id="floating-species">
+<h2>Floating Species<a class="headerlink" href="#floating-species" title="Permalink to this headline">¶</a></h2>
+<dl class="py method">
+<dt id="RoadRunner.ExecutableModel.getFloatingSpeciesIds">
+<code class="sig-prename descclassname">ExecutableModel.</code><code class="sig-name descname">getFloatingSpeciesIds</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#RoadRunner.ExecutableModel.getFloatingSpeciesIds" title="Permalink to this definition">¶</a></dt>
+<dd><p>Return a list of all floating species SBML ids.</p>
+<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">r</span><span class="o">.</span><span class="n">getFloatingSpeciesIds</span><span class="p">()</span>
+<span class="go">[&#39;S1&#39;, &#39;S2&#39;, &#39;S3&#39;, &#39;S4&#39;]</span>
+</pre></div>
+</div>
+</dd></dl>
+
+<dl class="py method">
+<dt id="RoadRunner.ExecutableModel.getDependentFloatingSpeciesIds">
+<code class="sig-prename descclassname">ExecutableModel.</code><code class="sig-name descname">getDependentFloatingSpeciesIds</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#RoadRunner.ExecutableModel.getDependentFloatingSpeciesIds" title="Permalink to this definition">¶</a></dt>
+<dd><p>Return a list of dependent floating species SBML ids.</p>
+<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">r</span><span class="o">.</span><span class="n">getDependentFloatingSpeciesIds</span><span class="p">()</span>
+<span class="go">[&#39;S4&#39;]</span>
+</pre></div>
+</div>
+</dd></dl>
+
+<dl class="py method">
+<dt id="RoadRunner.ExecutableModel.getIndependentFloatingSpeciesIds">
+<code class="sig-prename descclassname">ExecutableModel.</code><code class="sig-name descname">getIndependentFloatingSpeciesIds</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#RoadRunner.ExecutableModel.getIndependentFloatingSpeciesIds" title="Permalink to this definition">¶</a></dt>
+<dd><p>Return a list of independent floating species SBML ids.</p>
+<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">r</span><span class="o">.</span><span class="n">getIndependentFloatingSpeciesIds</span><span class="p">()</span>
+<span class="go">[&#39;S1&#39;, &#39;S2&#39;, &#39;S3&#39;]</span>
+</pre></div>
+</div>
+</dd></dl>
+
+<dl class="py method">
+<dt id="RoadRunner.ExecutableModel.getFloatingSpeciesConcentrationIds">
+<code class="sig-prename descclassname">ExecutableModel.</code><code class="sig-name descname">getFloatingSpeciesConcentrationIds</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#RoadRunner.ExecutableModel.getFloatingSpeciesConcentrationIds" title="Permalink to this definition">¶</a></dt>
+<dd><p>Return a list of all floating species concentration ids.</p>
+<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">r</span><span class="o">.</span><span class="n">getFloatingSpeciesConcentrationIds</span><span class="p">()</span>
+<span class="go">[&#39;[S1]&#39;, &#39;[S2]&#39;, &#39;[S3]&#39;, &#39;[S4]&#39;]</span>
+</pre></div>
+</div>
+</dd></dl>
+
+<dl class="py method">
+<dt id="RoadRunner.ExecutableModel.getNumFloatingSpecies">
+<code class="sig-prename descclassname">ExecutableModel.</code><code class="sig-name descname">getNumFloatingSpecies</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#RoadRunner.ExecutableModel.getNumFloatingSpecies" title="Permalink to this definition">¶</a></dt>
+<dd><p>Return the number of floating species in the model.</p>
+<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">r</span><span class="o">.</span><span class="n">getNumFloatingSpecies</span><span class="p">()</span>
+<span class="go">2</span>
+</pre></div>
+</div>
+</dd></dl>
+
+<dl class="py method">
+<dt id="RoadRunner.ExecutableModel.getFloatingSpeciesAmounts">
+<code class="sig-prename descclassname">ExecutableModel.</code><code class="sig-name descname">getFloatingSpeciesAmounts</code><span class="sig-paren">(</span><span class="optional">[</span><em class="sig-param">index</em><span class="optional">]</span><span class="sig-paren">)</span><a class="headerlink" href="#RoadRunner.ExecutableModel.getFloatingSpeciesAmounts" title="Permalink to this definition">¶</a></dt>
+<dd><p>Get the list of floating species amounts. If no arguments are given, this
+returns all floating species amounts.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>index</strong> (<em>numpy.ndarray</em>) – (optional) an optional array of desired floating species indices.</p>
+</dd>
+<dt class="field-even">Retuns</dt>
+<dd class="field-even"><p>an array of floating species amounts.</p>
+</dd>
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p>numpy.ndarray</p>
+</dd>
+</dl>
+<p>To get all the amounts:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">r</span><span class="o">.</span><span class="n">model</span><span class="o">.</span><span class="n">getFloatingSpeciesAmounts</span><span class="p">()</span>
+<span class="go">array([ 0.97390578,  1.56331018,  1.15301155,  1.22717548])</span>
+</pre></div>
+</div>
+<p>To get amounts from index 0 and 1:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">r</span><span class="o">.</span><span class="n">model</span><span class="o">.</span><span class="n">getFloatingSpeciesAmounts</span><span class="p">([</span><span class="mi">0</span><span class="p">,</span><span class="mi">1</span><span class="p">])</span>
+<span class="go">array([ 0.97390578,  1.56331018])</span>
+</pre></div>
+</div>
+</dd></dl>
+
+<dl class="py method">
+<dt id="RoadRunner.ExecutableModel.setFloatingSpeciesAmounts">
+<code class="sig-prename descclassname">ExecutableModel.</code><code class="sig-name descname">setFloatingSpeciesAmounts</code><span class="sig-paren">(</span><span class="optional">[</span><em class="sig-param">index</em>, <span class="optional">]</span><em class="sig-param">values</em><span class="sig-paren">)</span><a class="headerlink" href="#RoadRunner.ExecutableModel.setFloatingSpeciesAmounts" title="Permalink to this definition">¶</a></dt>
+<dd><p>Use this to set the entire set of floating species amounts in one call.
+The order of species is given by the order of Ids returned by getFloatingSpeciesIds()</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>index</strong> (<em>numpy.ndarray</em>) – (optional) an index array indicating which items to set,
+or if no index array is given, the first param should be
+an array of all the values to set.</p></li>
+<li><p><strong>values</strong> (<em>numpy.ndarray</em>) – the values to set.</p></li>
+</ul>
+</dd>
+</dl>
+<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">r</span><span class="o">.</span><span class="n">model</span><span class="o">.</span><span class="n">getFloatingSpeciesAmounts</span><span class="p">([</span><span class="mi">0</span><span class="p">,</span><span class="mi">1</span><span class="p">])</span>
+<span class="go">array([ 0.97390578,  1.56331018])</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">r</span><span class="o">.</span><span class="n">model</span><span class="o">.</span><span class="n">setFloatingSpeciesAmounts</span><span class="p">([</span><span class="mi">0</span><span class="p">,</span><span class="mi">1</span><span class="p">],</span> <span class="p">[</span><span class="mf">1.0</span><span class="p">,</span> <span class="mf">1.5</span><span class="p">])</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">r</span><span class="o">.</span><span class="n">model</span><span class="o">.</span><span class="n">getFloatingSpeciesAmounts</span><span class="p">([</span><span class="mi">0</span><span class="p">,</span><span class="mi">1</span><span class="p">])</span>
+<span class="go">array([ 1. ,  1.5])</span>
+</pre></div>
+</div>
+</dd></dl>
+
+<dl class="py method">
+<dt id="RoadRunner.ExecutableModel.getFloatingSpeciesConcentrations">
+<code class="sig-prename descclassname">ExecutableModel.</code><code class="sig-name descname">getFloatingSpeciesConcentrations</code><span class="sig-paren">(</span><span class="optional">[</span><em class="sig-param">index</em><span class="optional">]</span><span class="sig-paren">)</span><a class="headerlink" href="#RoadRunner.ExecutableModel.getFloatingSpeciesConcentrations" title="Permalink to this definition">¶</a></dt>
+<dd><p>Return a vector of floating species concentrations. The order of species is
+given by the order of Ids returned by getFloatingSpeciesIds()</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>index</strong> (<em>numpy.ndarray</em>) – (optional) an index array indicating which items to return.</p>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>an array of floating species concentrations.</p>
+</dd>
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p>numpy.ndarray</p>
+</dd>
+</dl>
+<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">r</span><span class="o">.</span><span class="n">model</span><span class="o">.</span><span class="n">getFloatingSpeciesConcentrations</span><span class="p">()</span>
+<span class="go">array([  4.54293397e-04,   9.99954571e+00])</span>
+</pre></div>
+</div>
+</dd></dl>
+
+<dl class="py method">
+<dt id="RoadRunner.ExecutableModel.setFloatingSpeciesConcentrations">
+<code class="sig-prename descclassname">ExecutableModel.</code><code class="sig-name descname">setFloatingSpeciesConcentrations</code><span class="sig-paren">(</span><span class="optional">[</span><em class="sig-param">index</em>, <span class="optional">]</span><em class="sig-param">values</em><span class="sig-paren">)</span><a class="headerlink" href="#RoadRunner.ExecutableModel.setFloatingSpeciesConcentrations" title="Permalink to this definition">¶</a></dt>
+<dd><p>Use this to set the entire set of floating species concentrations in one call.
+The order of species is given by the order of Ids returned by getFloatingSpeciesIds()</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>index</strong> (<em>numpy.ndarray</em>) – (optional) an index array indicating which items to set,
+or if no index array is given, the first param should be an
+array of all the  values to set.</p></li>
+<li><p><strong>values</strong> (<em>numpy.ndarray</em>) – the values to set.</p></li>
+</ul>
+</dd>
+</dl>
+<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">r</span><span class="o">.</span><span class="n">model</span><span class="o">.</span><span class="n">getFloatingSpeciesConcentrations</span><span class="p">()</span>
+<span class="go">array([  4.54293397e-04,   9.99954571e+00])</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">r</span><span class="o">.</span><span class="n">model</span><span class="o">.</span><span class="n">setFloatingSpeciesConcentrations</span><span class="p">([</span><span class="mi">0</span><span class="p">],[</span><span class="mf">0.5</span><span class="p">])</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">r</span><span class="o">.</span><span class="n">model</span><span class="o">.</span><span class="n">getFloatingSpeciesConcentrations</span><span class="p">()</span>
+<span class="go">array([ 0.5       ,  9.99954571])</span>
+</pre></div>
+</div>
+</dd></dl>
+
+</div>
+<div class="section" id="floating-species-initial-conditions">
+<h2>Floating Species Initial Conditions<a class="headerlink" href="#floating-species-initial-conditions" title="Permalink to this headline">¶</a></h2>
+<p>RoadRunner stores all initial conditions separately from the model state variables. This means that
+you can update the initial conditions at any time, and it does not affect the current state of the
+model. To reset the model, that is, reset it to its original state, or a new original state where
+what has changed the initial conditions use the <code class="xref py py-meth docutils literal notranslate"><span class="pre">reset()</span></code> method.</p>
+<p>The following methods allow access to the floating species initial condition values:</p>
+<dl class="py method">
+<dt id="RoadRunner.ExecutableModel.getFloatingSpeciesInitAmountIds">
+<code class="sig-prename descclassname">ExecutableModel.</code><code class="sig-name descname">getFloatingSpeciesInitAmountIds</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#RoadRunner.ExecutableModel.getFloatingSpeciesInitAmountIds" title="Permalink to this definition">¶</a></dt>
+<dd><p>Return a list of the floating species amount initial amount selection symbols.</p>
+<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">r</span><span class="o">.</span><span class="n">model</span><span class="o">.</span><span class="n">getFloatingSpeciesInitAmountIds</span><span class="p">()</span>
+<span class="go">[&#39;init(S1)&#39;, &#39;init(S2)&#39;]</span>
+</pre></div>
+</div>
+</dd></dl>
+
+<dl class="py method">
+<dt id="RoadRunner.ExecutableModel.getFloatingSpeciesInitConcentrationIds">
+<code class="sig-prename descclassname">ExecutableModel.</code><code class="sig-name descname">getFloatingSpeciesInitConcentrationIds</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#RoadRunner.ExecutableModel.getFloatingSpeciesInitConcentrationIds" title="Permalink to this definition">¶</a></dt>
+<dd><p>Return a list of the floating species amount initial concentration selection symbols.</p>
+<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">r</span><span class="o">.</span><span class="n">model</span><span class="o">.</span><span class="n">getFloatingSpeciesInitConcentrationIds</span><span class="p">()</span>
+<span class="go">[&#39;init([S1])&#39;, &#39;init([S2])&#39;]</span>
+</pre></div>
+</div>
+</dd></dl>
+
+<dl class="py method">
+<dt id="RoadRunner.ExecutableModel.getFloatingSpeciesInitConcentrations">
+<code class="sig-prename descclassname">ExecutableModel.</code><code class="sig-name descname">getFloatingSpeciesInitConcentrations</code><span class="sig-paren">(</span><span class="optional">[</span><em class="sig-param">index</em><span class="optional">]</span><span class="sig-paren">)</span><a class="headerlink" href="#RoadRunner.ExecutableModel.getFloatingSpeciesInitConcentrations" title="Permalink to this definition">¶</a></dt>
+<dd><p>Return a vector of floating species initial concentrations. The order of species is
+given by the order of Ids returned by getFloatingSpeciesInitialConcentrationIds()</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>index</strong> (<em>numpy.ndarray</em>) – (optional) an index array indicating which items to return.</p>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>an array of floating species initial concentrations.</p>
+</dd>
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p>numpy.ndarray</p>
+</dd>
+</dl>
+<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">r</span><span class="o">.</span><span class="n">model</span><span class="o">.</span><span class="n">getFloatingSpeciesInitConcentrations</span><span class="p">()</span>
+<span class="go">array([ 10.,   0.])</span>
+</pre></div>
+</div>
+</dd></dl>
+
+<dl class="py method">
+<dt id="RoadRunner.ExecutableModel.setFloatingSpeciesInitConcentrations">
+<code class="sig-prename descclassname">ExecutableModel.</code><code class="sig-name descname">setFloatingSpeciesInitConcentrations</code><span class="sig-paren">(</span><span class="optional">[</span><em class="sig-param">index</em>, <span class="optional">]</span><em class="sig-param">values</em><span class="sig-paren">)</span><a class="headerlink" href="#RoadRunner.ExecutableModel.setFloatingSpeciesInitConcentrations" title="Permalink to this definition">¶</a></dt>
+<dd><p>Set a vector of floating species initial concentrations. The order of species is
+given by the order of Ids returned by getFloatingSpeciesInitialAmountIds()</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>index</strong> (<em>numpy.ndarray</em>) – (optional) an index array indicating which items to return.</p>
+</dd>
+</dl>
+<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">r</span><span class="o">.</span><span class="n">model</span><span class="o">.</span><span class="n">setFloatingSpeciesInitConcentrations</span><span class="p">([</span><span class="mi">0</span><span class="p">],</span> <span class="p">[</span><span class="mi">1</span><span class="p">])</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">r</span><span class="o">.</span><span class="n">model</span><span class="o">.</span><span class="n">getFloatingSpeciesInitConcentrations</span><span class="p">()</span>
+<span class="go">array([ 1.,  0.])</span>
+</pre></div>
+</div>
+</dd></dl>
+
+<dl class="py method">
+<dt id="RoadRunner.ExecutableModel.getFloatingSpeciesInitAmounts">
+<code class="sig-prename descclassname">ExecutableModel.</code><code class="sig-name descname">getFloatingSpeciesInitAmounts</code><span class="sig-paren">(</span><span class="optional">[</span><em class="sig-param">index</em><span class="optional">]</span><span class="sig-paren">)</span><a class="headerlink" href="#RoadRunner.ExecutableModel.getFloatingSpeciesInitAmounts" title="Permalink to this definition">¶</a></dt>
+<dd><p>Return a vector of floating species initial amounts. The order of species is
+given by the order of Ids returned by getFloatingSpeciesInitialConcentrationIds()</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>index</strong> (<em>numpy.ndarray</em>) – (optional) an index array indicating which items to return.</p>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>an array of floating species initial amounts.</p>
+</dd>
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p>numpy.ndarray</p>
+</dd>
+</dl>
+<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">r</span><span class="o">.</span><span class="n">model</span><span class="o">.</span><span class="n">getFloatingSpeciesInitAmounts</span><span class="p">()</span>
+<span class="go">array([ 10.,   0.])</span>
+</pre></div>
+</div>
+</dd></dl>
+
+<dl class="py method">
+<dt id="RoadRunner.ExecutableModel.setFloatingSpeciesInitAmounts">
+<code class="sig-prename descclassname">ExecutableModel.</code><code class="sig-name descname">setFloatingSpeciesInitAmounts</code><span class="sig-paren">(</span><span class="optional">[</span><em class="sig-param">index</em>, <span class="optional">]</span><em class="sig-param">values</em><span class="sig-paren">)</span><a class="headerlink" href="#RoadRunner.ExecutableModel.setFloatingSpeciesInitAmounts" title="Permalink to this definition">¶</a></dt>
+<dd><p>Set a vector of floating species initial amounts. The order of species is
+given by the order of Ids returned by getFloatingSpeciesInitialAmountIds()</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>index</strong> (<em>numpy.ndarray</em>) – (optional) an index array indicating which items to return.</p>
+</dd>
+</dl>
+<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">r</span><span class="o">.</span><span class="n">model</span><span class="o">.</span><span class="n">setFloatingSpeciesInitAmounts</span><span class="p">([</span><span class="mi">0</span><span class="p">],</span> <span class="p">[</span><span class="mf">0.1</span><span class="p">])</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">r</span><span class="o">.</span><span class="n">model</span><span class="o">.</span><span class="n">getFloatingSpeciesInitAmounts</span><span class="p">()</span>
+<span class="go">array([ 0.1,  0. ])</span>
+</pre></div>
+</div>
+</dd></dl>
+
+</div>
+<div class="section" id="boundary-species">
+<h2>Boundary Species<a class="headerlink" href="#boundary-species" title="Permalink to this headline">¶</a></h2>
+<dl class="py method">
+<dt id="RoadRunner.ExecutableModel.getBoundarySpeciesAmounts">
+<code class="sig-prename descclassname">ExecutableModel.</code><code class="sig-name descname">getBoundarySpeciesAmounts</code><span class="sig-paren">(</span><span class="optional">[</span><em class="sig-param">index</em><span class="optional">]</span><span class="sig-paren">)</span><a class="headerlink" href="#RoadRunner.ExecutableModel.getBoundarySpeciesAmounts" title="Permalink to this definition">¶</a></dt>
+<dd><p>Return a vector of boundary species amounts. The order of species is
+given by the order of Ids returned by getBoundarySpeciesIds()</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>index</strong> (<em>numpy.ndarray</em>) – (optional) an index array indicating which items to return.</p>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>an array of the boundary species amounts.</p>
+</dd>
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p>numpy.ndarray</p>
+</dd>
+</dl>
+<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">r</span><span class="o">.</span><span class="n">model</span><span class="o">.</span><span class="n">getBoundarySpeciesAmounts</span><span class="p">()</span>
+<span class="go">array([ 15.,   0.])</span>
+</pre></div>
+</div>
+</dd></dl>
+
+<dl class="py method">
+<dt id="RoadRunner.ExecutableModel.getBoundarySpeciesConcentrations">
+<code class="sig-prename descclassname">ExecutableModel.</code><code class="sig-name descname">getBoundarySpeciesConcentrations</code><span class="sig-paren">(</span><span class="optional">[</span><em class="sig-param">index</em><span class="optional">]</span><span class="sig-paren">)</span><a class="headerlink" href="#RoadRunner.ExecutableModel.getBoundarySpeciesConcentrations" title="Permalink to this definition">¶</a></dt>
+<dd><p>Return a vector of boundary species concentrations. The order of species is
+given by the order of Ids returned by getBoundarySpeciesIds()</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>index</strong> (<em>numpy.ndarray</em>) – (optional) an index array indicating which items to return.</p>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>an array of the boundary species concentrations.</p>
+</dd>
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p>numpy.ndarray</p>
+</dd>
+</dl>
+<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">r</span><span class="o">.</span><span class="n">getBoundarySpeciesConcentrations</span><span class="p">()</span>
+<span class="go">array([ 0.5,   0.])</span>
+</pre></div>
+</div>
+</dd></dl>
+
+<dl class="py method">
+<dt id="RoadRunner.ExecutableModel.getBoundarySpeciesIds">
+<code class="sig-prename descclassname">ExecutableModel.</code><code class="sig-name descname">getBoundarySpeciesIds</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#RoadRunner.ExecutableModel.getBoundarySpeciesIds" title="Permalink to this definition">¶</a></dt>
+<dd><p>Return a vector of boundary species Ids.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>index</strong> (<em>numpy.ndarray</em>) – (optional) an index array indicating which items to return.</p>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>a list of boundary species ids.</p>
+</dd>
+</dl>
+<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">r</span><span class="o">.</span><span class="n">getBoundarySpeciesIds</span><span class="p">()</span>
+<span class="go">[&#39;X0&#39;, &#39;X1&#39;]</span>
+</pre></div>
+</div>
+</dd></dl>
+
+<dl class="py method">
+<dt id="RoadRunner.ExecutableModel.getBoundarySpeciesConcentrationIds">
+<code class="sig-prename descclassname">ExecutableModel.</code><code class="sig-name descname">getBoundarySpeciesConcentrationIds</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#RoadRunner.ExecutableModel.getBoundarySpeciesConcentrationIds" title="Permalink to this definition">¶</a></dt>
+<dd><p>Return a vector of boundary species concentration Ids.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>index</strong> (<em>numpy.ndarray</em>) – (optional) an index array indicating which items to return.</p>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>a list of boundary species concentration ids.</p>
+</dd>
+</dl>
+<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">r</span><span class="o">.</span><span class="n">getBoundarySpeciesConcentrationIds</span><span class="p">()</span>
+<span class="go">[&#39;[X0]&#39;, &#39;[X1]&#39;]</span>
+</pre></div>
+</div>
+</dd></dl>
+
+<dl class="py method">
+<dt id="RoadRunner.ExecutableModel.getNumBoundarySpecies">
+<code class="sig-prename descclassname">ExecutableModel.</code><code class="sig-name descname">getNumBoundarySpecies</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#RoadRunner.ExecutableModel.getNumBoundarySpecies" title="Permalink to this definition">¶</a></dt>
+<dd><p>Return the number of boundary species in the model.</p>
+<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">r</span><span class="o">.</span><span class="n">getNumBoundarySpecies</span><span class="p">()</span>
+<span class="go">2</span>
+</pre></div>
+</div>
+</dd></dl>
+
+<dl class="py method">
+<dt id="RoadRunner.ExecutableModel.setBoundarySpeciesConcentrations">
+<code class="sig-prename descclassname">ExecutableModel.</code><code class="sig-name descname">setBoundarySpeciesConcentrations</code><span class="sig-paren">(</span><span class="optional">[</span><em class="sig-param">index</em>, <span class="optional">]</span><em class="sig-param">values</em><span class="sig-paren">)</span><a class="headerlink" href="#RoadRunner.ExecutableModel.setBoundarySpeciesConcentrations" title="Permalink to this definition">¶</a></dt>
+<dd><p>Use this to set the entire set of boundary species concentrations in one call.
+The order of species is given by the order of boundary species returned by getBoundarySpeciesIds()</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>index</strong> (<em>numpy.ndarray</em>) – (optional) an index array indicating which items to set,
+or if no index array is given, the first param should be an
+array of all the  values to set.</p></li>
+<li><p><strong>values</strong> (<em>numpy.ndarray</em>) – the values to set.</p></li>
+</ul>
+</dd>
+</dl>
+<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">r</span><span class="o">.</span><span class="n">model</span><span class="o">.</span><span class="n">setBoundarySpeciesConcentrations</span><span class="p">([</span><span class="mi">0</span><span class="p">],</span> <span class="p">[</span><span class="mi">1</span><span class="p">])</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">r</span><span class="o">.</span><span class="n">getBoundarySpeciesConcentrations</span><span class="p">()</span>
+<span class="go">array([ 1.,  0.])</span>
+</pre></div>
+</div>
+</dd></dl>
+
+</div>
+<div class="section" id="compartments">
+<h2>Compartments<a class="headerlink" href="#compartments" title="Permalink to this headline">¶</a></h2>
+<dl class="py method">
+<dt id="RoadRunner.ExecutableModel.getCompartmentIds">
+<code class="sig-prename descclassname">ExecutableModel.</code><code class="sig-name descname">getCompartmentIds</code><span class="sig-paren">(</span><span class="optional">[</span><em class="sig-param">index</em><span class="optional">]</span><span class="sig-paren">)</span><a class="headerlink" href="#RoadRunner.ExecutableModel.getCompartmentIds" title="Permalink to this definition">¶</a></dt>
+<dd><p>Return a vector of compartment identifier symbols.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>index</strong> (<em>None</em><em> or </em><em>numpy.ndarray</em>) – A array of compartment indices indicating which compartment ids to return.</p>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>a list of compartment ids.</p>
+</dd>
+</dl>
+<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">r</span><span class="o">.</span><span class="n">getCompartmentIds</span><span class="p">()</span>
+<span class="go">[&#39;compartment1&#39;]</span>
+</pre></div>
+</div>
+</dd></dl>
+
+<dl class="py method">
+<dt id="RoadRunner.ExecutableModel.getCompartmentVolumes">
+<code class="sig-prename descclassname">ExecutableModel.</code><code class="sig-name descname">getCompartmentVolumes</code><span class="sig-paren">(</span><span class="optional">[</span><em class="sig-param">index</em><span class="optional">]</span><span class="sig-paren">)</span><a class="headerlink" href="#RoadRunner.ExecutableModel.getCompartmentVolumes" title="Permalink to this definition">¶</a></dt>
+<dd><p>Return a vector of compartment volumes. The order of volumes is
+given by the order of Ids returned by getCompartmentIds()</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>index</strong> (<em>numpy.ndarray</em>) – (optional) an index array indicating which items to return.</p>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>an array of compartment volumes.</p>
+</dd>
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p>numpy.ndarray.</p>
+</dd>
+</dl>
+<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">r</span><span class="o">.</span><span class="n">getCompartmentVolumes</span><span class="p">()</span>
+<span class="go">array([ 1.])</span>
+</pre></div>
+</div>
+</dd></dl>
+
+<dl class="py method">
+<dt id="RoadRunner.ExecutableModel.getNumCompartments">
+<code class="sig-prename descclassname">ExecutableModel.</code><code class="sig-name descname">getNumCompartments</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#RoadRunner.ExecutableModel.getNumCompartments" title="Permalink to this definition">¶</a></dt>
+<dd><p>Return the number of compartments in the model.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p>int</p>
+</dd>
+</dl>
+<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">r</span><span class="o">.</span><span class="n">getNumCompartments</span><span class="p">()</span>
+<span class="go">1</span>
+</pre></div>
+</div>
+</dd></dl>
+
+<dl class="py method">
+<dt id="RoadRunner.ExecutableModel.setCompartmentVolumes">
+<code class="sig-prename descclassname">ExecutableModel.</code><code class="sig-name descname">setCompartmentVolumes</code><span class="sig-paren">(</span><span class="optional">[</span><em class="sig-param">index</em>, <span class="optional">]</span><em class="sig-param">values</em><span class="sig-paren">)</span><a class="headerlink" href="#RoadRunner.ExecutableModel.setCompartmentVolumes" title="Permalink to this definition">¶</a></dt>
+<dd><p>Set a vector of compartment volumes.</p>
+<p>If the index vector is not give, then the values vector treated as a vector of all
+compartment volumes to set. If index is given, then  values should have the same
+length as index.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>index</strong> (<em>numpy.ndarray</em>) – (optional) an index array indicating which items to set,
+or if no index array is given, the first param should be an
+array of all the  values to set.</p></li>
+<li><p><strong>values</strong> (<em>numpy.ndarray</em>) – the values to set.</p></li>
+</ul>
+</dd>
+</dl>
+<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">r</span><span class="o">.</span><span class="n">model</span><span class="o">.</span><span class="n">setCompartmentVolumes</span><span class="p">([</span><span class="mi">0</span><span class="p">],</span> <span class="p">[</span><span class="mf">2.5</span><span class="p">])</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">r</span><span class="o">.</span><span class="n">getCompartmentVolumes</span><span class="p">()</span>
+<span class="go">array([ 2.5])</span>
+</pre></div>
+</div>
+</dd></dl>
+
+</div>
+<div class="section" id="global-parameters">
+<h2>Global Parameters<a class="headerlink" href="#global-parameters" title="Permalink to this headline">¶</a></h2>
+<dl class="py method">
+<dt id="RoadRunner.ExecutableModel.getGlobalParameterIds">
+<code class="sig-prename descclassname">ExecutableModel.</code><code class="sig-name descname">getGlobalParameterIds</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#RoadRunner.ExecutableModel.getGlobalParameterIds" title="Permalink to this definition">¶</a></dt>
+<dd><p>Return a list of global parameter ids.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Returns</dt>
+<dd class="field-odd"><p>a list of global parameter ids.</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt id="RoadRunner.ExecutableModel.getGlobalParameterValues">
+<code class="sig-prename descclassname">ExecutableModel.</code><code class="sig-name descname">getGlobalParameterValues</code><span class="sig-paren">(</span><span class="optional">[</span><em class="sig-param">index</em><span class="optional">]</span><span class="sig-paren">)</span><a class="headerlink" href="#RoadRunner.ExecutableModel.getGlobalParameterValues" title="Permalink to this definition">¶</a></dt>
+<dd><p>Returns a vector of global parameter values. The order of species is
+given by the order of Ids returned by getGlobalParameterIds()</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>index</strong> (<em>numpy.ndarray</em>) – (optional) an index array indicating which items to return.</p>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>an array of global parameter values.</p>
+</dd>
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p>numpy.ndarray.</p>
+</dd>
+</dl>
+<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">r</span><span class="o">.</span><span class="n">getGlobalParameterValues</span><span class="p">()</span>
+<span class="go">array([ 10. ,  10. ,  10. ,   2.5,   0.5])</span>
+</pre></div>
+</div>
+</dd></dl>
+
+<dl class="py method">
+<dt id="RoadRunner.ExecutableModel.getNumGlobalParameters">
+<code class="sig-prename descclassname">ExecutableModel.</code><code class="sig-name descname">getNumGlobalParameters</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#RoadRunner.ExecutableModel.getNumGlobalParameters" title="Permalink to this definition">¶</a></dt>
+<dd><p>Returns the number of global parameters in the model.</p>
+<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">r</span><span class="o">.</span><span class="n">getNumGlobalParameters</span><span class="p">()</span>
+<span class="go">5</span>
+</pre></div>
+</div>
+</dd></dl>
+
+<dl class="py method">
+<dt id="RoadRunner.ExecutableModel.setGlobalParameterValues">
+<code class="sig-prename descclassname">ExecutableModel.</code><code class="sig-name descname">setGlobalParameterValues</code><span class="sig-paren">(</span><span class="optional">[</span><em class="sig-param">index</em>, <span class="optional">]</span><em class="sig-param">values</em><span class="sig-paren">)</span><a class="headerlink" href="#RoadRunner.ExecutableModel.setGlobalParameterValues" title="Permalink to this definition">¶</a></dt>
+<dd><p>Sets the entire set of global parameters.
+The order of parameters is given by the order of Ids returned by getGlobalParameterIds()</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>index</strong> (<em>numpy.ndarray</em>) – (optional) an index array indicating which items to set,
+or if no index array is given, the first param should be an
+array of all the values to set.</p></li>
+<li><p><strong>values</strong> (<em>numpy.ndarray</em>) – the values to set.</p></li>
+</ul>
+</dd>
+</dl>
+<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">r</span><span class="o">.</span><span class="n">model</span><span class="o">.</span><span class="n">setGlobalParameterValues</span><span class="p">([</span><span class="mi">0</span><span class="p">],</span> <span class="p">[</span><span class="mf">1.5</span><span class="p">])</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">r</span><span class="o">.</span><span class="n">getGlobalParameterValues</span><span class="p">()</span>
+<span class="go">array([  1.5,  10. ,  10. ,   2.5,   0.5])</span>
+</pre></div>
+</div>
+</dd></dl>
+
+</div>
+<div class="section" id="reactions">
+<h2>Reactions<a class="headerlink" href="#reactions" title="Permalink to this headline">¶</a></h2>
+<dl class="py method">
+<dt id="RoadRunner.ExecutableModel.getNumReactions">
+<code class="sig-prename descclassname">ExecutableModel.</code><code class="sig-name descname">getNumReactions</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#RoadRunner.ExecutableModel.getNumReactions" title="Permalink to this definition">¶</a></dt>
+<dd><p>Return the number of reactions in the model.</p>
+<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">r</span><span class="o">.</span><span class="n">getNumReactions</span><span class="p">()</span>
+<span class="go">5</span>
+</pre></div>
+</div>
+</dd></dl>
+
+<dl class="py method">
+<dt id="RoadRunner.ExecutableModel.getReactionIds">
+<code class="sig-prename descclassname">ExecutableModel.</code><code class="sig-name descname">getReactionIds</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#RoadRunner.ExecutableModel.getReactionIds" title="Permalink to this definition">¶</a></dt>
+<dd><p>Return a vector of reaction Ids.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>index</strong> (<em>numpy.ndarray</em>) – (optional) an index array indicating which items to return.</p>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>a list of reaction ids.</p>
+</dd>
+</dl>
+<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">r</span><span class="o">.</span><span class="n">getReactionIds</span><span class="p">()</span>
+<span class="go">[&#39;J0&#39;, &#39;J1&#39;, &#39;J2&#39;, &#39;J3&#39;, &#39;J4&#39;]</span>
+</pre></div>
+</div>
+</dd></dl>
+
+<dl class="py method">
+<dt id="RoadRunner.ExecutableModel.getReactionRates">
+<code class="sig-prename descclassname">ExecutableModel.</code><code class="sig-name descname">getReactionRates</code><span class="sig-paren">(</span><span class="optional">[</span><em class="sig-param">index</em><span class="optional">]</span><span class="sig-paren">)</span><a class="headerlink" href="#RoadRunner.ExecutableModel.getReactionRates" title="Permalink to this definition">¶</a></dt>
+<dd><p>Return a vector of reaction rates (reaction velocity) for the current state of the model. The
+order of reaction rates is given by the order of Ids returned by getReactionIds()</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>index</strong> (<em>numpy.ndarray</em>) – (optional) an index array indicating which items to return.</p>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>an array of reaction rates.</p>
+</dd>
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p>numpy.ndarray</p>
+</dd>
+</dl>
+<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">r</span><span class="o">.</span><span class="n">getReactionRates</span><span class="p">()</span>
+<span class="go">array([ 0.14979613,  2.37711263,  2.68498886,  2.41265507,  1.89417737])</span>
+</pre></div>
+</div>
+</dd></dl>
+
+</div>
+<div class="section" id="events">
+<h2>Events<a class="headerlink" href="#events" title="Permalink to this headline">¶</a></h2>
+<dl class="py method">
+<dt id="RoadRunner.ExecutableModel.getNumEvents">
+<code class="sig-prename descclassname">ExecutableModel.</code><code class="sig-name descname">getNumEvents</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#RoadRunner.ExecutableModel.getNumEvents" title="Permalink to this definition">¶</a></dt>
+<dd><p>Returns the number of events.</p>
+<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">r</span><span class="o">.</span><span class="n">getNumEvents</span><span class="p">()</span>
+<span class="go">1</span>
+</pre></div>
+</div>
+</dd></dl>
+
+</div>
+<div class="section" id="rate-rules">
+<h2>Rate Rules<a class="headerlink" href="#rate-rules" title="Permalink to this headline">¶</a></h2>
+<dl class="py method">
+<dt id="RoadRunner.ExecutableModel.getNumRateRules">
+<code class="sig-prename descclassname">ExecutableModel.</code><code class="sig-name descname">getNumRateRules</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#RoadRunner.ExecutableModel.getNumRateRules" title="Permalink to this definition">¶</a></dt>
+<dd><p>Returns the number of rate rules.</p>
+<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">r</span><span class="o">.</span><span class="n">getNumRateRules</span><span class="p">()</span>
+<span class="go">1</span>
+</pre></div>
+</div>
+</dd></dl>
+
+<dl class="py method">
+<dt id="RoadRunner.ExecutableModel.getEventIds">
+<code class="sig-prename descclassname">ExecutableModel.</code><code class="sig-name descname">getEventIds</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#RoadRunner.ExecutableModel.getEventIds" title="Permalink to this definition">¶</a></dt>
+<dd><p>Returns a list of event ids.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Returns</dt>
+<dd class="field-odd"><p>a list of event ids.</p>
+</dd>
+</dl>
+<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">r</span><span class="o">.</span><span class="n">model</span><span class="o">.</span><span class="n">getEventIds</span><span class="p">()</span>
+<span class="go">[&#39;E1&#39;]</span>
+</pre></div>
+</div>
+</dd></dl>
+
+</div>
+<div class="section" id="stoichiometry">
+<h2>Stoichiometry<a class="headerlink" href="#stoichiometry" title="Permalink to this headline">¶</a></h2>
+<dl class="py method">
+<dt id="RoadRunner.ExecutableModel.getStoichiometry">
+<code class="sig-prename descclassname">ExecutableModel.</code><code class="sig-name descname">getStoichiometry</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">speciesIndex</span></em>, <em class="sig-param"><span class="n">reactionIndex</span></em><span class="sig-paren">)</span><a class="headerlink" href="#RoadRunner.ExecutableModel.getStoichiometry" title="Permalink to this definition">¶</a></dt>
+<dd><p>Return the stochiometric coefficient for the given species index and reaction index.</p>
+<p>Frequently one does not need the full stochiometrix matrix, particularly if the system is
+large and only a single coefficient is needed.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>speciesIndex</strong> – a floating species index from <a class="reference internal" href="#RoadRunner.ExecutableModel.getFloatingSpeciesIds" title="RoadRunner.ExecutableModel.getFloatingSpeciesIds"><code class="xref py py-meth docutils literal notranslate"><span class="pre">getFloatingSpeciesIds()</span></code></a></p></li>
+<li><p><strong>reactionIndex</strong> – a reaction index from <a class="reference internal" href="#RoadRunner.ExecutableModel.getReactionIds" title="RoadRunner.ExecutableModel.getReactionIds"><code class="xref py py-meth docutils literal notranslate"><span class="pre">getReactionIds()</span></code></a></p></li>
+</ul>
+</dd>
+</dl>
+<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">r</span><span class="o">.</span><span class="n">model</span><span class="o">.</span><span class="n">getStoichiometry</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">3</span><span class="p">)</span>
+<span class="go">1.0</span>
+</pre></div>
+</div>
+</dd></dl>
+
+</div>
+<div class="section" id="conserved-moieties">
+<h2>Conserved Moieties<a class="headerlink" href="#conserved-moieties" title="Permalink to this headline">¶</a></h2>
+<p>Refer to <code class="xref py py-attr docutils literal notranslate"><span class="pre">RoadRunner.conservedMoietyAnalysis</span></code> and <code class="xref py py-attr docutils literal notranslate"><span class="pre">Config.LOADSBMLOPTIONS_CONSERVED_MOIETIES</span></code> for more information.</p>
+<dl class="py method">
+<dt id="RoadRunner.ExecutableModel.getNumConservedMoieties">
+<code class="sig-prename descclassname">ExecutableModel.</code><code class="sig-name descname">getNumConservedMoieties</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#RoadRunner.ExecutableModel.getNumConservedMoieties" title="Permalink to this definition">¶</a></dt>
+<dd><p>Return the number of conserved moieties in the model.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p>int</p>
+</dd>
+</dl>
+<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">r</span><span class="o">.</span><span class="n">getNumConservedMoieties</span><span class="p">()</span>
+<span class="go">1</span>
+</pre></div>
+</div>
+</dd></dl>
+
+<dl class="py method">
+<dt id="RoadRunner.ExecutableModel.getConservedMoietyIds">
+<code class="sig-prename descclassname">ExecutableModel.</code><code class="sig-name descname">getConservedMoietyIds</code><span class="sig-paren">(</span><span class="optional">[</span><em class="sig-param">index</em><span class="optional">]</span><span class="sig-paren">)</span><a class="headerlink" href="#RoadRunner.ExecutableModel.getConservedMoietyIds" title="Permalink to this definition">¶</a></dt>
+<dd><p>Return a vector of conserved moiety identifier symbols.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>index</strong> (<em>None</em><em> or </em><em>numpy.ndarray</em>) – A array of compartment indices indicating which compartment ids to return.</p>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>a list of compartment ids.</p>
+</dd>
+</dl>
+<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">r</span><span class="o">.</span><span class="n">getConservedMoietyIds</span><span class="p">()</span>
+<span class="go">[&#39;_CSUM0&#39;]</span>
+</pre></div>
+</div>
+</dd></dl>
+
+<dl class="py method">
+<dt id="RoadRunner.ExecutableModel.getConservedMoietyValues">
+<code class="sig-prename descclassname">ExecutableModel.</code><code class="sig-name descname">getConservedMoietyValues</code><span class="sig-paren">(</span><span class="optional">[</span><em class="sig-param">index</em><span class="optional">]</span><span class="sig-paren">)</span><a class="headerlink" href="#RoadRunner.ExecutableModel.getConservedMoietyValues" title="Permalink to this definition">¶</a></dt>
+<dd><p>Return a vector of conserved moiety volumes. The order of values is
+given by the order of Ids returned by getConservedMoietyIds()</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>index</strong> (<em>numpy.ndarray</em>) – (optional) an index array indicating which items to return.</p>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>an array of conserved moiety values.</p>
+</dd>
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p>numpy.ndarray.</p>
+</dd>
+</dl>
+<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">r</span><span class="o">.</span><span class="n">getConservedMoietyValues</span><span class="p">()</span>
+<span class="go">array([ 2.])</span>
+</pre></div>
+</div>
+</dd></dl>
+
+<dl class="py method">
+<dt id="RoadRunner.ExecutableModel.setConservedMoietyValues">
+<code class="sig-prename descclassname">ExecutableModel.</code><code class="sig-name descname">setConservedMoietyValues</code><span class="sig-paren">(</span><span class="optional">[</span><em class="sig-param">index</em>, <span class="optional">]</span><em class="sig-param">values</em><span class="sig-paren">)</span><a class="headerlink" href="#RoadRunner.ExecutableModel.setConservedMoietyValues" title="Permalink to this definition">¶</a></dt>
+<dd><p>Set a vector of conserved moiety values.</p>
+<p><em>Note</em> This method currently only updates the conserved moiety values, it does
+not update the initial species condition from which the values were calculated.</p>
+<p>If the index vector is not given, then the values vector treated as a vector of all
+values to set. If index is given, then  values should have the same
+length as index.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>index</strong> (<em>numpy.ndarray</em>) – (optional) an index array indicating which items to set,
+or if no index array is given, the first param should be an
+array of all the  values to set.</p></li>
+<li><p><strong>values</strong> (<em>numpy.ndarray</em>) – the values to set.</p></li>
+</ul>
+</dd>
+</dl>
+<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">r</span><span class="o">.</span><span class="n">model</span><span class="o">.</span><span class="n">setConservedMoietyValues</span><span class="p">([</span><span class="mi">0</span><span class="p">],</span> <span class="p">[</span><span class="mi">5</span><span class="p">])</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">r</span><span class="o">.</span><span class="n">getConservedMoietyValues</span><span class="p">()</span>
+<span class="go">array([ 5.])</span>
+</pre></div>
+</div>
+</dd></dl>
+
+</div>
+<div class="section" id="misc">
+<h2>Misc<a class="headerlink" href="#misc" title="Permalink to this headline">¶</a></h2>
+<dl class="py method">
+<dt id="RoadRunner.ExecutableModel.getAllTimeCourseComponentIds">
+<code class="sig-prename descclassname">ExecutableModel.</code><code class="sig-name descname">getAllTimeCourseComponentIds</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#RoadRunner.ExecutableModel.getAllTimeCourseComponentIds" title="Permalink to this definition">¶</a></dt>
+<dd><p>Return a list of all component ids.  The list includes ids of amount/concentration of
+floating species, boundary species, global parameters, compartments, and reactions,
+as well as <cite>time</cite>.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Returns</dt>
+<dd class="field-odd"><p>a list of all component ids widely used in time course selections.</p>
+</dd>
+</dl>
+<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">r</span><span class="o">.</span><span class="n">model</span><span class="o">.</span><span class="n">getAllTimeCourseComponentIds</span><span class="p">()</span>
+<span class="go">[&#39;time&#39;, &#39;S1&#39;, &#39;S2&#39;, &#39;S3&#39;, &#39;k1&#39;, &#39;k2&#39;, &#39;default_compartment&#39;, &#39;_J0&#39;, &#39;_J1&#39;]</span>
+</pre></div>
+</div>
+</dd></dl>
+
+<dl class="py method">
+<dt id="RoadRunner.ExecutableModel.getInfo">
+<code class="sig-prename descclassname">ExecutableModel.</code><code class="sig-name descname">getInfo</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#RoadRunner.ExecutableModel.getInfo" title="Permalink to this definition">¶</a></dt>
+<dd><p>Get various info about the model.</p>
+<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="nb">print</span><span class="p">(</span><span class="n">r</span><span class="o">.</span><span class="n">getInfo</span><span class="p">())</span>
+<span class="go">&lt;roadrunner.RoadRunner() {</span>
+<span class="go">&#39;this&#39; : 13DEF5F8</span>
+<span class="go">&#39;modelLoaded&#39; : true</span>
+<span class="go">&#39;modelName&#39; : feedback</span>
+<span class="go">&#39;libSBMLVersion&#39; : LibSBML Version: 5.12.0</span>
+<span class="go">&#39;jacobianStepSize&#39; : 1e-005</span>
+<span class="go">&#39;conservedMoietyAnalysis&#39; : false</span>
+<span class="go">&#39;simulateOptions&#39; :</span>
+<span class="go">&lt; roadrunner.SimulateOptions()</span>
+<span class="go">{</span>
+<span class="go">&#39;this&#39; : 0068A7F0,</span>
+<span class="go">&#39;reset&#39; : 0,</span>
+<span class="go">&#39;structuredResult&#39; : 0,</span>
+<span class="go">&#39;copyResult&#39; : 1,</span>
+<span class="go">&#39;steps&#39; : 50,</span>
+<span class="go">&#39;start&#39; : 0,</span>
+<span class="go">&#39;duration&#39; : 40</span>
+<span class="go">}&gt;,</span>
+<span class="go">&#39;integrator&#39; :</span>
+<span class="go">&lt; roadrunner.Integrator() &gt;</span>
+<span class="go">  name: cvode</span>
+<span class="go">  settings:</span>
+<span class="go">      relative_tolerance: 0.00001</span>
+<span class="go">      absolute_tolerance: 0.0000000001</span>
+<span class="go">                   stiff: true</span>
+<span class="go">       maximum_bdf_order: 5</span>
+<span class="go">     maximum_adams_order: 12</span>
+<span class="go">       maximum_num_steps: 20000</span>
+<span class="go">       maximum_time_step: 0</span>
+<span class="go">          minimum_time_step: 0</span>
+<span class="go">       initial_time_step: 0</span>
+<span class="go">          multiple_steps: false</span>
+<span class="go">      variable_step_size: false</span>
+<span class="go">}&gt;</span>
+</pre></div>
+</div>
+</dd></dl>
+
+<dl class="py method">
+<dt id="RoadRunner.ExecutableModel.getModelName">
+<code class="sig-prename descclassname">ExecutableModel.</code><code class="sig-name descname">getModelName</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#RoadRunner.ExecutableModel.getModelName" title="Permalink to this definition">¶</a></dt>
+<dd><p>Get the model name specified in the SBML.</p>
+<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">r</span><span class="o">.</span><span class="n">model</span><span class="o">.</span><span class="n">getModelName</span><span class="p">()</span>
+<span class="go">&#39;feedback&#39;</span>
+</pre></div>
+</div>
+</dd></dl>
+
+<dl class="py method">
+<dt id="RoadRunner.ExecutableModel.getTime">
+<code class="sig-prename descclassname">ExecutableModel.</code><code class="sig-name descname">getTime</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#RoadRunner.ExecutableModel.getTime" title="Permalink to this definition">¶</a></dt>
+<dd><p>Get the model time. The model originally start at time t=0 and is advaced forward in time by the
+integrator. So, if one ran a simulation from time = 0 to time = 10, the model will then have it’s
+time = 10.</p>
+<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">r</span><span class="o">.</span><span class="n">model</span><span class="o">.</span><span class="n">getTime</span><span class="p">()</span>
+<span class="go">40.0</span>
+</pre></div>
+</div>
+</dd></dl>
+
+<dl class="py method">
+<dt id="RoadRunner.ExecutableModel.setTime">
+<code class="sig-prename descclassname">ExecutableModel.</code><code class="sig-name descname">setTime</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">time</span></em><span class="sig-paren">)</span><a class="headerlink" href="#RoadRunner.ExecutableModel.setTime" title="Permalink to this definition">¶</a></dt>
+<dd><p>Set the model time variable.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>time</strong> – time the time value to set.</p>
+</dd>
+</dl>
+<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">rr</span><span class="o">.</span><span class="n">model</span><span class="o">.</span><span class="n">setTime</span><span class="p">(</span><span class="mf">20.</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">rr</span><span class="o">.</span><span class="n">model</span><span class="o">.</span><span class="n">getTime</span><span class="p">()</span>
+<span class="go">20.0</span>
+</pre></div>
+</div>
+</dd></dl>
+
+<dl class="py method">
+<dt id="RoadRunner.ExecutableModel.reset">
+<code class="sig-prename descclassname">ExecutableModel.</code><code class="sig-name descname">reset</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#RoadRunner.ExecutableModel.reset" title="Permalink to this definition">¶</a></dt>
+<dd><p>Resets all the floating species concentrations to their initial values.</p>
+</dd></dl>
+
+<dl class="py method">
+<dt id="RoadRunner.ExecutableModel.resetAll">
+<code class="sig-prename descclassname">ExecutableModel.</code><code class="sig-name descname">resetAll</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#RoadRunner.ExecutableModel.resetAll" title="Permalink to this definition">¶</a></dt>
+<dd><p>Resets all variables, species, etc. to the CURRENT initial values.
+It also resets all parameter back to the values they had when the model was first loaded</p>
+</dd></dl>
+
+<dl class="py method">
+<dt id="RoadRunner.ExecutableModel.resetToOrigin">
+<code class="sig-prename descclassname">ExecutableModel.</code><code class="sig-name descname">resetToOrigin</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#RoadRunner.ExecutableModel.resetToOrigin" title="Permalink to this definition">¶</a></dt>
+<dd><p>Resets the model back to the state is was when it was FIRST loaded.
+The scope of reset includes all initial values and parameters, etc.</p>
+</dd></dl>
+
+</div>
+</div>
+
+
+           </div>
+           
+          </div>
+          <footer>
+  
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>
+        
+        &copy; Copyright 2013-2018, Andy Somogyi, J Kyle Medley, Kiri Choi, Herbert Suaro
+
+    </p>
+  </div>
+    
+    
+    
+    Built with <a href="http://sphinx-doc.org/">Sphinx</a> using a
+    
+    <a href="https://github.com/rtfd/sphinx_rtd_theme">theme</a>
+    
+    provided by <a href="https://readthedocs.org">Read the Docs</a>. 
+
+</footer>
+
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+  
+
+  <script type="text/javascript">
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script>
+
+  
+  
+    
+   
+
+</body>
+</html>

@@ -1,6 +1,6 @@
 #pragma hdrstop
 #include <stdio.h>
-#include "../../rrc_api.h"
+#include "rrc_api.h"
 
 /*--------------------------------------------------------------------------
 Example showing how to obtain model generated C code

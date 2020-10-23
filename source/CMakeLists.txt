@@ -1,403 +1,443 @@
-CMAKE_MINIMUM_REQUIRED(VERSION 2.8)
+#####################################
+#
+include(GNUInstallDirs)
 
 set(target roadrunner)
 
-configure_file(rrConfigure.h.in rrConfigure.h)
-include_directories(${RR_GENERATED_HEADER_PATH}) #we have to do this to get the generated header
+# Configures
 
-install( FILES ${CMAKE_CURRENT_BINARY_DIR}/rrConfigure.h DESTINATION include/rr )
+configure_file(${CMAKE_CURRENT_SOURCE_DIR}/rrConfigure.h.in ${CMAKE_CURRENT_BINARY_DIR}/rrConfigure.h @ONLY)
+configure_file(${CMAKE_CURRENT_SOURCE_DIR}/rrVersionInfo.h.in ${CMAKE_CURRENT_BINARY_DIR}/rrVersionInfo.h @ONLY)
+configure_file(${CMAKE_CURRENT_SOURCE_DIR}/GitInfo.h.in ${CMAKE_CURRENT_BINARY_DIR}/GitInfo.h @ONLY)
+configure_file(${CMAKE_CURRENT_SOURCE_DIR}/roadrunner.pc.in ${CMAKE_CURRENT_BINARY_DIR}/roadrunner.pc @ONLY)
+set(
+        GENERATED_HEADERS
+        ${CMAKE_CURRENT_BINARY_DIR}/rrConfigure.h
+        ${CMAKE_CURRENT_BINARY_DIR}/rrVersionInfo.h
+        ${CMAKE_CURRENT_BINARY_DIR}/GitInfo.h
+        ${CMAKE_CURRENT_BINARY_DIR}/roadrunner.pc
+)
+set_source_files_properties(${GENERATED_HEADERS} PROPERTIES GENERATED TRUE)
 
-OPTION(USE_POCO_NET "Use poco net library" ON)
-
-# pre-process the GitInfo.h.in file and insert the response from git about
-# last commit and current branch.
-# may not have git, set default replacement strings then.
-find_program(GIT git)
-
-if(GIT)
-    message("found git: ${GIT}")
-    execute_process(
-        COMMAND ${GIT} symbolic-ref -q --short HEAD
-        WORKING_DIRECTORY ${PROJECT_SOURCE_DIR}
-        OUTPUT_VARIABLE ROADRUNNER_GIT_BRANCH
-        OUTPUT_STRIP_TRAILING_WHITESPACE
-        )
+# Create the .pc file
+install(FILES ${CMAKE_CURRENT_BINARY_DIR}/roadrunner.pc DESTINATION lib/pkgconfig)
+install(FILES ${CMAKE_CURRENT_BINARY_DIR}/roadrunner.pc DESTINATION share/pkgconfig)
+install(FILES ${GENERATED_HEADERS} DESTINATION ${CMAKE_INSTALL_INCLUDEDIR}/rr)
 
 
-    execute_process(
-        COMMAND ${GIT} log -1 --format=%H
-        WORKING_DIRECTORY ${PROJECT_SOURCE_DIR}
-        OUTPUT_VARIABLE ROADRUNNER_GIT_LAST_COMMIT
-        OUTPUT_STRIP_TRAILING_WHITESPACE
-        )
-else()
-    # could not find GIT
-    message("could not find git")
+############################################################
+# Get a list of source file to build
+#
 
-    set(ROADRUNNER_GIT_BRANCH "git not found, unknown git branch")
-    set(ROADRUNNER_GIT_LAST_COMMIT "git not found, unknown git commit")
-endif(GIT)
+set(rrSources)
+set(rrHeaders)
 
-# Add semantic version info set in root-level CMake script
-configure_file(rrVersionInfo.h.in rrVersionInfo.h @ONLY)
+# add core sources. These are always needed
+set(
+        rrCoreSources
+        rrConfig.cpp
+        rrSteadyStateSolver.cpp
+        rrConstants.cpp
+        rrException.cpp
+        rrGetOptions.cpp
+        rrLogger.cpp
+        rrExecutableModel.cpp
+        rrRoadRunner.cpp
+        rrRoadRunnerOptions.cpp
+        rrStringUtils.cpp
+        rrUtils.cpp
+        Integrator.cpp
+        IntegratorRegistration.cpp
+        CVODEIntegrator.cpp
+        Dictionary.cpp
+        GillespieIntegrator.cpp
+        RK4Integrator.cpp
+        RK45Integrator.cpp
+        NLEQ1Solver.cpp
+        NLEQ2Solver.cpp
+        rrNLEQ1Interface.cpp
+        rrNLEQ2Interface.cpp
+        rrTestSuiteModelSimulation.cpp
+        rrIniKey.cpp
+        rrIniSection.cpp
+        rrIniFile.cpp
+        rrFileName.cpp
+        rrRoadRunnerData.cpp
+        rrSelectionRecord.cpp
+        ExecutableModelFactory.cpp
+        rrVersionInfo.cpp
+        rrSparse.cpp
+        rrSBMLModelSimulation.cpp
+        rrSBMLReader.cpp
+        SBMLValidator.cpp
+        SteadyStateSolver.cpp
+        Solver.cpp
+        SolverRegistration.cpp
+        Variant.cpp
+        conservation/ConservationExtension.cpp
+        conservation/ConservationDocumentPlugin.cpp
+        conservation/ConservedMoietyPlugin.cpp
+        conservation/ConservedMoietyConverter.cpp
+        #todo pull test files out of main library sources.
+        testing/CXXExecutableModel.cpp
+        testing/CXXEnzymeExecutableModel.cpp
+        testing/CXXBrusselatorExecutableModel.cpp
+        testing/CXXPiecewiseExecutableModel.cpp
+)
 
-install( FILES ${CMAKE_CURRENT_BINARY_DIR}/rrVersionInfo.h DESTINATION include/rr )
+set(
+        rrCoreHeaders
+        rrExporter.h
+        rrOSSpecifics.h
+        rrConfig.h
+        rrSteadyStateSolver.h
+        rrConstants.h
+        rrException.h
+        rrGetOptions.h
+        rrLogger.h
+        rrExecutableModel.h
+        rrRoadRunner.h
+        rrRoadRunnerOptions.h
+        rrStringUtils.h
+        rrUtils.h
+        Integrator.h
+        IntegratorRegistration.h
+        CVODEIntegrator.h
+        Dictionary.h
+        GillespieIntegrator.h
+        RK4Integrator.h
+        RK45Integrator.h
+        NLEQ1Solver.h
+        NLEQ2Solver.h
+        rrNLEQ1Interface.h
+        rrNLEQ2Interface.h
+        rrTestSuiteModelSimulation.h
+        rrIniKey.h
+        rrIniSection.h
+        rrIniFile.h
+        rrFileName.h
+        rrRoadRunnerData.h
+        rrSelectionRecord.h
+        ExecutableModelFactory.h
+        rrVersionInfo.h
+        rrSparse.h
+        rrSBMLModelSimulation.h
+        rrSBMLReader.h
+        SBMLValidator.h
+        SteadyStateSolver.h
+        Solver.h
+        SolverRegistration.h
+        Variant.h
+)
+install(FILES ${rrCoreHeaders} DESTINATION ${CMAKE_INSTALL_INCLUDEDIR}/rr)
 
-# writes the results of the git commands to GitInfo.h
-message("ROADRUNNER_GIT_BRANCH ${ROADRUNNER_GIT_BRANCH}")
-message("ROADRUNNER_GIT_LAST_COMMIT: ${ROADRUNNER_GIT_LAST_COMMIT}")
-configure_file(GitInfo.h.in GitInfo.h @ONLY)
 
-install( FILES ${CMAKE_CURRENT_BINARY_DIR}/GitInfo.h DESTINATION include/rr )
+set(
+        rrCoreConservationHeaders
+        conservation/ConservationExtension.h
+        conservation/ConservationDocumentPlugin.h
+        conservation/ConservedMoietyPlugin.h
+        conservation/ConservedMoietyConverter.h
 
-set(ROADRUNNER_SHARED_DEPS xml2)
+)
+install(FILES ${rrCoreConservationHeaders} DESTINATION ${CMAKE_INSTALL_INCLUDEDIR}/rr/conservation)
+set(
+        rrCoreTr1ProxyHeaders
+        tr1proxy/cxx11_ns.h
+        tr1proxy/rr_memory.h
+        tr1proxy/rr_random.h
+        tr1proxy/rr_unordered_map.h
 
-configure_file(roadrunner.pc.in roadrunner.pc @ONLY)
-install( FILES ${CMAKE_CURRENT_BINARY_DIR}/roadrunner.pc DESTINATION lib/pkgconfig )
-install( FILES ${CMAKE_CURRENT_BINARY_DIR}/roadrunner.pc DESTINATION share/pkgconfig )
+)
+install(FILES ${rrCoreTr1ProxyHeaders} DESTINATION ${CMAKE_INSTALL_INCLUDEDIR}/rr/tr1proxy)
 
-include_directories(
-    .
-    ${THIRD_PARTY_INSTALL_FOLDER}/include
-    ${THIRD_PARTY_INSTALL_FOLDER}/include/rr-libstruct
-    ${THIRD_PARTY_INSTALL_FOLDER}/include/sbml
-    ${THIRD_PARTY_INSTALL_FOLDER}/include/cvode
-    )
+set(rrSources ${rrSources} ${rrCoreSources})
+set(rrHeaders ${rrHeaders} ${rrCoreHeaders} ${rrCoreConservationHeaders} ${rrCoreTr1ProxyHeaders})
 
-set(rrCoreSources
-    rrConfig
-    rrSteadyStateSolver
-    rrConstants
-    rrException
-    rrGetOptions
-    rrLogger
-    rrExecutableModel
-    rrRoadRunner
-    rrRoadRunnerOptions
-    rrStringUtils
-    rrUtils
-    Integrator
-    IntegratorRegistration
-    CVODEIntegrator
-    Dictionary
-    GillespieIntegrator
-    RK4Integrator
-    RK45Integrator
-    NLEQ1Solver
-    NLEQ2Solver
-    rrNLEQ1Interface
-    rrNLEQ2Interface
-    rrTestSuiteModelSimulation
-    rrIniKey
-    rrIniSection
-    rrIniFile
-    rrFileName
-    rrRoadRunnerData
-    rrSelectionRecord
-    ExecutableModelFactory
-    rrVersionInfo.cpp
-    rrSparse
-    rrSBMLModelSimulation
-    rrSBMLReader
-    SBMLValidator
-    SteadyStateSolver
-    Solver
-    SolverRegistration
-    Variant
-    conservation/ConservationExtension
-    conservation/ConservationDocumentPlugin
-    conservation/ConservedMoietyPlugin
-    conservation/ConservedMoietyConverter
-    testing/CXXExecutableModel
-    testing/CXXEnzymeExecutableModel
-    testing/CXXBrusselatorExecutableModel
-    testing/CXXPiecewiseExecutableModel
-    )
 
-set(rrSources ${rrCoreSources})
-
-set_source_files_properties(rrVersionInfo.h PROPERTIES GENERATED TRUE)
-
+#
 # Add the LLVM sources to compilation
-if(BUILD_LLVM)
+if (BUILD_LLVM)
     set(rrLLVMSources
-        llvm/AssignmentRuleEvaluator
-        llvm/ASTNodeCodeGen
-        llvm/ASTNodeFactory
-        llvm/ModelResources
-        llvm/CodeGenBase
-        llvm/LLVMCompiler
-        llvm/EvalConversionFactorCodeGen
-        llvm/EvalInitialConditionsCodeGen
-        llvm/EvalRateRuleRatesCodeGen
-        llvm/EvalReactionRatesCodeGen
-        llvm/EventAssignCodeGen
-        llvm/EventTriggerCodeGen
-        llvm/EventQueue
-        llvm/FunctionResolver
-        llvm/LLVMExecutableModel
-        llvm/GetValuesCodeGen
-        llvm/LoadSymbolResolverBase
-        llvm/GetInitialValuesCodeGen
-        llvm/GetEventValuesCodeGen
-        llvm/KineticLawParameterResolver
-        llvm/LLVMModelData
-        llvm/ModelDataIRBuilder
-        llvm/ModelDataSymbolResolver
-        llvm/ModelInitialValueSymbolResolver
-        llvm/LLVMModelDataSymbols
-        llvm/LLVMModelGenerator
-        llvm/ModelGeneratorContext
-        llvm/LLVMModelSymbols
-        llvm/SetValuesCodeGen
-        llvm/SetInitialValuesCodeGen
-        llvm/SBMLSupportFunctions
-        llvm/EvalVolatileStoichCodeGen
-        llvm/SBMLInitialValueSymbolResolver
-        llvm/Random
-        )
+            llvm/AssignmentRuleEvaluator.cpp
+            llvm/ASTNodeCodeGen.cpp
+            llvm/ASTNodeFactory.cpp
+            llvm/ModelResources.cpp
+            llvm/CodeGenBase.cpp
+            llvm/LLVMCompiler.cpp
+            llvm/EvalConversionFactorCodeGen.cpp
+            llvm/EvalInitialConditionsCodeGen.cpp
+            llvm/EvalRateRuleRatesCodeGen.cpp
+            llvm/EvalReactionRatesCodeGen.cpp
+            llvm/EventAssignCodeGen.cpp
+            llvm/EventTriggerCodeGen.cpp
+            llvm/EventQueue.cpp
+            llvm/FunctionResolver.cpp
+            llvm/LLVMExecutableModel.cpp
+            llvm/GetValuesCodeGen.cpp
+            llvm/LoadSymbolResolverBase.cpp
+            llvm/GetInitialValuesCodeGen.cpp
+            llvm/GetEventValuesCodeGen.cpp
+            llvm/KineticLawParameterResolver.cpp
+            llvm/LLVMModelData.cpp
+            llvm/ModelDataIRBuilder.cpp
+            llvm/ModelDataSymbolResolver.cpp
+            llvm/ModelInitialValueSymbolResolver.cpp
+            llvm/LLVMModelDataSymbols.cpp
+            llvm/LLVMModelGenerator.cpp
+            llvm/ModelGeneratorContext.cpp
+            llvm/LLVMModelSymbols.cpp
+            llvm/SetValuesCodeGen.cpp
+            llvm/SetInitialValuesCodeGen.cpp
+            llvm/SBMLSupportFunctions.cpp
+            llvm/EvalVolatileStoichCodeGen.cpp
+            llvm/SBMLInitialValueSymbolResolver.cpp
+            llvm/Random.cpp
+            )
 
-    # set up appropriate flags for using LLVM
-    if(LLVM_FLAGS)
-      set_source_files_properties(${rrLLVMSources} PROPERTIES COMPILE_FLAGS ${LLVM_FLAGS})
-    endif()
-    # add LLVM-based model sources to list
+    set(rrLLVMHeaders
+            llvm/AssignmentRuleEvaluator.h
+            llvm/ASTNodeCodeGen.h
+            llvm/ASTNodeFactory.h
+            llvm/ModelResources.h
+            llvm/CodeGenBase.h
+            llvm/LLVMCompiler.h
+            llvm/EvalConversionFactorCodeGen.h
+            llvm/EvalInitialConditionsCodeGen.h
+            llvm/EvalRateRuleRatesCodeGen.h
+            llvm/EvalReactionRatesCodeGen.h
+            llvm/EventAssignCodeGen.h
+            llvm/EventTriggerCodeGen.h
+            llvm/EventQueue.h
+            llvm/FunctionResolver.h
+            llvm/LLVMExecutableModel.h
+            llvm/GetValuesCodeGen.h
+            llvm/LoadSymbolResolverBase.h
+            llvm/GetInitialValuesCodeGen.h
+            llvm/GetEventValuesCodeGen.h
+            llvm/KineticLawParameterResolver.h
+            llvm/LLVMModelData.h
+            llvm/ModelDataIRBuilder.h
+            llvm/ModelDataSymbolResolver.h
+            llvm/ModelInitialValueSymbolResolver.h
+            llvm/LLVMModelDataSymbols.h
+            llvm/LLVMModelGenerator.h
+            llvm/ModelGeneratorContext.h
+            llvm/LLVMModelSymbols.h
+            llvm/SetValuesCodeGen.h
+            llvm/SetInitialValuesCodeGen.h
+            llvm/SBMLSupportFunctions.h
+            llvm/EvalVolatileStoichCodeGen.h
+            llvm/SBMLInitialValueSymbolResolver.h
+            llvm/Random.h
+            )
+    install(FILES ${rrLLVMHeaders} DESTINATION ${CMAKE_INSTALL_INCLUDEDIR}/rr/llvm)
+
+
     set(rrSources ${rrSources} ${rrLLVMSources})
-endif(BUILD_LLVM)
+    set(rrHeaders ${rrHeaders} ${rrLLVMHeaders})
 
-if(BUILD_LEGACY_C)
-    set(rrSources
-        ${rrSources}
-        c/rrStringList
-        c/mtrand
-        c/rrStringBuilder
-        c/rrStringListContainer
-        c/rrSBMLSymbolDependencies
-        c/rrSBMLSymbol
-        c/rrHashTable
-        c/rrRule
-        c/rrModelSymbols
-        c/rrSymbol
-        c/rrSymbolList
-        c/rrCompiledModelState
-        c/rrNOMSupport
-        c/rrPendingAssignment
-        c/rrCompiledModelGenerator
-        c/rrCModelGenerator
-        c/rrCodeBuilder
-        c/rrCCompiler
-        c/rrScanner
-        c/rrToken
-        c/rrEvent
-        c/rrModelSharedLibrary
-        c/rrCModelDataUtil
-        c/rrCompiledExecutableModel
-        c/rrRandom
-        )
-endif(BUILD_LEGACY_C)
+    if (NOT LLVM_FLAGS)
+        message(FATAL_ERROR "No LLVM_FLAGS variable found")
+    endif ()
+    # Don't use add_definitions for LLVM flags per http://stackoverflow.com/questions/13638408/cmake-override-compile-flags-for-single-files
+    # Line below kept commented out on purpose - we don't want this.
+    #     set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} ${LLVM_FLAGS}") # Set per-source
+    # set up appropriate flags for using LLVM
+    # TODO remove the code below and check for errors. Are these actually needed?
+    set_source_files_properties(${rrLLVMSources} PROPERTIES COMPILE_FLAGS ${LLVM_FLAGS})
+    # add LLVM-based model sources to list
+    set(rrSources ${rrSources} ${rrLLVMSources} ${rrLLVMHeaders})
+    #cl   /TP -DBUILD_LLVM -DCRT_NONSTDC_NO_DEPRECATE -DLIBLAX_STATIC -DLIBSBML_STATIC -DLIBSBML_USE_CPP_NAMESPACE -DPOCO_NO_AUTOMATIC_LIBS -DPOCO_STATIC -DSTATIC_LIBSTRUCT -DSTATIC_NLEQ1 -DSTATIC_NLEQ2 -DSTATIC_PUGI -DSTATIC_RR -D_CRT_SECURE_NO_WARNINGS -ID:\rrbuild\roadrunner\source -ID:\rrbuild\roadrunner\third_party\nleq1\include -ID:\rrbuild\roadrunner\third_party\nleq2\include -ID:\rrbuild\roadrunner\third_party\clapack3.2.1\include -ID:\rrbuild\roadrunner\third_party\libSBML-5.18.1-experimental-Source\include -ID:\rrbuild\roadrunner\third_party\rr-libstruct\include -ID:\rrbuild\roadrunner\third_party\poco_1.5.3\include -ID:\rrbuild\roadrunner\third_party\sundials\include -ID:\rrbuild\roadrunner\third_party\unit_test -ID:\LLVM6.0.1\install-msvc-with-extra-flags\include /DWIN32 /D_WINDOWS /GR /EHsc /O2 /Ob2 /DNDEBUG -MT   /wd4251 /wd4018 /wd4996 /EHsc -DSTATIC_RR -ID:\LLVM6.0.1\install-msvc-with-extra-flags\include /DWIN32 /D_WINDOWS   /Zc:inline /Zc:strictStrings /Oi /Zc:rvalueCast /W4 -wd4141 -wd4146 -wd4180 -wd4244 -wd4258 -wd4267 -wd4291 -wd4345 -wd4351 -wd4355 -wd4456 -wd4457 -wd4458 -wd4459 -wd4503 -wd4624 -wd4722 -wd4800 -wd4100 -wd4127 -wd4512 -wd4505 -wd4610 -wd4510 -wd4702 -wd4245 -wd4706 -wd4310 -wd4701 -wd4703 -wd4389 -wd4611 -wd4805 -wd4204 -wd4577 -wd4091 -wd4592 -wd4319 -wd4324 -w14062 -we4238 /MD /O2 /Ob2 /DNDEBUG  /EHsc /GR -D_CRT_SECURE_NO_DEPRECATE -D_CRT_SECURE_NO_WARNINGS -D_CRT_NONSTDC_NO_DEPRECATE -D_CRT_NONSTDC_NO_WARNINGS -D_SCL_SECURE_NO_DEPRECATE -D_SCL_SECURE_NO_WARNINGS -DUNICODE -D_UNICODE -D__STDC_CONSTANT_MACROS -D__STDC_FORMAT_MACROS -D__STDC_LIMIT_MACROS /FoCMakeFiles\roadrunner-static.dir\llvm\Random.cpp.obj /FdCMakeFiles\roadrunner-static.dir\roadrunner-static.pdb /FS -c D:\rrbuild\roadrunner\source\llvm\Random.cpp
+endif (BUILD_LLVM)
 
+# Add C legacy code to sources if needed
+if (${BUILD_LEGACY_C})
+    set(
+            rrCSources
+            c/rrStringList.cpp
+            c/mtrand.cpp
+            c/rrStringBuilder.cpp
+            c/rrStringListContainer.cpp
+            c/rrSBMLSymbolDependencies.cpp
+            c/rrSBMLSymbol.cpp
+            c/rrHashTable.cpp
+            c/rrRule.cpp
+            c/rrModelSymbols.cpp
+            c/rrSymbol.cpp
+            c/rrSymbolList.cpp
+            c/rrCompiledModelState.cpp
+            c/rrNOMSupport.cpp
+            c/rrPendingAssignment.cpp
+            c/rrCompiledModelGenerator.cpp
+            c/rrCModelGenerator.cpp
+            c/rrCodeBuilder.cpp
+            c/rrCCompiler.cpp
+            c/rrScanner.cpp
+            c/rrToken.cpp
+            c/rrEvent.cpp
+            c/rrModelSharedLibrary.cpp
+            c/rrCModelDataUtil.cpp
+            c/rrCompiledExecutableModel.cpp
+            c/rrRandom.cpp
+    )
+    set(
+            rrCHeaders
+            c/rrStringList.h
+            c/mtrand.h
+            c/rrStringBuilder.h
+            c/rrStringListContainer.h
+            c/rrSBMLSymbolDependencies.h
+            c/rrSBMLSymbol.h
+            c/rrHashTable.h
+            c/rrRule.h
+            c/rrModelSymbols.h
+            c/rrSymbol.h
+            c/rrSymbolList.h
+            c/rrCompiledModelState.h
+            c/rrNOMSupport.h
+            c/rrPendingAssignment.h
+            c/rrCompiledModelGenerator.h
+            c/rrCModelGenerator.h
+            c/rrCodeBuilder.h
+            c/rrCCompiler.h
+            c/rrScanner.h
+            c/rrToken.h
+            c/rrEvent.h
+            c/rrModelSharedLibrary.h
+            c/rrCModelDataUtil.h
+            c/rrCompiledExecutableModel.h
+            c/rrRandom.h
+    )
 
-# set up linking libs
-if(RR_BUILD_SHARED_CORE)
-    #Link with static libs
-    add_library(${target} SHARED ${rrSources})
+    install(FILES ${rrCHeaders} DESTINATION ${CMAKE_INSTALL_INCLUDEDIR}/rr/c)
 
-    set_target_properties( ${target} PROPERTIES SOVERSION ${ROADRUNNER_VERSION} )
+    set(rrSources ${rrSources} ${rrCSources})
+    set(rrHeaders ${rrHeaders} ${rrCHeaders})
 
-    set_property(TARGET ${target}
-        PROPERTY  COMPILE_DEFINITIONS
-        EXPORT_RR
-        LIBSBML_STATIC
-        LIBLAX_STATIC
-        STATIC_LIBSTRUCT
-        STATIC_PUGI
-        STATIC_NLEQ1
-        STATIC_NLEQ2
-        POCO_STATIC
-        POCO_NO_AUTOMATIC_LIBS
-        )
+    # install the rr_support if building legacy c
+    add_subdirectory(rr_support)
+endif (${BUILD_LEGACY_C})
 
-    #libraries to link with our shared lib
-    if(UNIX)
-        set(staticLibExt ".a")
-    else()
-        set(staticLibExt "")
-    endif(UNIX)
-
-    target_link_libraries (${target}
-        sundials_cvode
-        sundials_nvecserial
-        blas
-        lapack
-        nleq1-static
-        nleq2-static
-        rr-libstruct-static
-        PocoNet
-        PocoFoundation
-        )
-
-
-    # link with libxml, aperently borland can't link with a
-    # conventional C library, need to be specially converted for borland
-
-    if(UNIX)
-    target_link_libraries(${target} xml2)
-    elseif(${MSVC})
-    target_link_libraries (${target} libxml2)
-    elseif(${BORLAND})
-        target_link_libraries (${target} libxml2_xe)
-    endif()
-
-    if(UNIX)
-        target_link_libraries (${target}
-            pthread
-            ${LIBSBML_STATIC_LIBRARY}
-            dl
-            f2c${staticLibExt}
-            )
-        target_link_libraries(${target} ${LIBSBML_EXTRA_LIBS})
-    else()
-        target_link_libraries (${target}
-            libf2c
-            ${LIBSBML_LIBRARY}
-            ws2_32
-            iphlpapi
-            )
-        target_link_libraries(${target} ${LIBSBML_EXTRA_LIBS})
-    endif(UNIX)
-
-
-    #Libxml is not built. Use a VS converted import file for Borland
-    if(${BORLAND})
-        target_link_libraries (${target}
-            libxml2_xe
-            )
-    endif()
-
-
-    if(${INSTALL_CXX_API})
-        install(TARGETS ${target}
-            RUNTIME DESTINATION bin COMPONENT rr_core
-            LIBRARY DESTINATION lib COMPONENT rr_core
-            ARCHIVE DESTINATION lib COMPONENT rr_core
-            )
-
-        if(${BUILD_PYTHON})
-			      install(TARGETS roadrunner DESTINATION ${PYTHON_PACKAGE_DEST_DIR})
-		    endif()
-    endif()
-
-
-    if(BUILD_LLVM)
-        target_link_libraries(${target}
-            ${LLVM_LIBRARIES}
-            )
-    endif(BUILD_LLVM)
-
-endif(RR_BUILD_SHARED_CORE)
-
-# static allways gets build
+##############################################################
+#   Build the static library
+#
 
 add_library(${target}-static STATIC ${rrSources})
 
-set_target_properties( ${target}-static PROPERTIES SOVERSION ${ROADRUNNER_VERSION} )
 
-set_property(TARGET ${target}-static
-    PROPERTY COMPILE_DEFINITIONS
-    STATIC_RR
-    LIBSBML_USE_CPP_NAMESPACE
-    LIBSBML_STATIC
-    LIBLAX_STATIC
-    STATIC_LIBSTRUCT
-    STATIC_PUGI
-    STATIC_NLEQ1
-    STATIC_NLEQ2
-    POCO_STATIC
-    POCO_NO_AUTOMATIC_LIBS
-    )
+# we add compiler flag to announce the static library.
+# make it public so consumers of the library do not need to manually
+# specify STATIC_RR
+target_compile_definitions(${target}-static PUBLIC STATIC_RR)
 
-#libraries to link with static lib
-#======== We need to split up this one to satisfy linking in both windows and posix.
-#=== windows need libsbml-static and libf2c and posix uses sbml-static and f2c
-if(BUILD_LLVM)
-    target_link_libraries(${target}-static
+target_include_directories(
+        ${target}-static PUBLIC
+        "$<BUILD_INTERFACE:${LLVM_INCLUDE_DIRS}>"
+        "$<BUILD_INTERFACE:${CMAKE_CURRENT_SOURCE_DIR}>"
+        "$<BUILD_INTERFACE:${CMAKE_CURRENT_SOURCE_DIR}/llvm>"
+        "$<BUILD_INTERFACE:${LLVM_INCLUDE_DIRS}>"
+        "$<BUILD_INTERFACE:${DEPENDENCY_INCLUDE_DIR}>"
+        # though roadrunner does not link libxml2 directly, it does
+        # so in the plugins. This next item enables targets that
+        # link to roadrunner-static to use
+        # #include "libxml/tree.h", for instance in the plugin code.
+        "$<BUILD_INTERFACE:${DEPENDENCY_INCLUDE_DIR}/libxml2>"
+        "$<INSTALL_INTERFACE:${CMAKE_INSTALL_INCLUDEDIR}>"
+)
+
+# Extra platform specific libraries
+# These were not needed to actually build roadrunner binaries
+# but linking the tests fails without them.
+set(PLATFORM_SPECIFIC_LIBS)
+if (UNIX)
+    #    icui18n icuuc (can be used instead of iconv)
+    set(PLATFORM_SPECIFIC_LIBS ${PLATFORM_SPECIFIC_LIBS} pthread dl m)
+elseif (WIN32)
+    set(PLATFORM_SPECIFIC_LIBS ${PLATFORM_SPECIFIC_LIBS} Ws2_32)
+elseif (APPLE)
+    message(WARNING "mac specific link libraries should go here, I don't know if they
+will be different from linux Please remove this warning. (Ciaran)")
+endif ()
+
+# link the libraries -- remember that order here
+#   is important on linux builds so don't change
+
+target_link_libraries(
+        ${target}-static
+        PUBLIC
         ${LLVM_LIBRARIES}
-        )
-endif(BUILD_LLVM)
+        rr-libstruct::rr-libstruct-static
+        sbml-static
+        libz2
+        zlib::zlibstatic
+        LibXml2::LibXml2
+        nleq2::nleq2-static
+        nleq1::nleq1-static
+        clapack::lapack clapack::blas clapack::f2c
+        sundials::sundials_cvode_static sundials::sundials_nvecserial_static
+        PocoFoundation::PocoFoundation
+        PocoNet::PocoNet
+        iconv::libcharset iconv::libiconv-static
+        ${PLATFORM_SPECIFIC_LIBS}
+)
+
+add_library(${target} SHARED ${rrSources})
+target_compile_definitions(${target} PRIVATE EXPORT_RR)
+target_link_libraries(${target} PUBLIC $<TARGET_PROPERTY:${target}-static,LINK_LIBRARIES> )
+target_include_directories(${target} PUBLIC $<TARGET_PROPERTY:${target}-static,INCLUDE_DIRECTORIES>)
 
 
-target_link_libraries (${target}-static
-    sundials_cvode
-    sundials_nvecserial
-    blas
-    lapack
-    nleq1-static
-    nleq2-static
-    rr-libstruct-static
-    PocoNet
-    PocoFoundation
-    )
+install(
+        TARGETS ${target}
+        EXPORT ${target}
+        RUNTIME DESTINATION ${CMAKE_INSTALL_BINDIR} COMPONENT ${target}
+        ARCHIVE DESTINATION ${CMAKE_INSTALL_LIBDIR} COMPONENT ${target}
+        LIBRARY DESTINATION ${CMAKE_INSTALL_LIBDIR} COMPONENT ${target}
+        PUBLIC_HEADER DESTINATION ${CMAKE_INSTALL_INCLUDEDIR}/rr COMPONENT ${target}
+)
 
-if(WIN32)
-    target_link_libraries (${target}-static
-        ${LIBSBML_STATIC_LIBRARY}
-        libf2c
-        ws2_32
-        iphlpapi
-        )
-    target_link_libraries(${target}-static ${LIBSBML_EXTRA_LIBS})
-endif(WIN32)
+# install export info so roadrunner can be used with find_package in CONFIG mode
+install(
+        EXPORT ${target}
+        DESTINATION ${CMAKE_INSTALL_LIBDIR}/cmake
+        NAMESPACE ${target}::
+        FILE ${target}-config.cmake
+        COMPONENT ${target}
+        EXPORT_LINK_INTERFACE_LIBRARIES
+)
 
+#################################################################3
+#   install code for COMPONENT RR
+#
 
-if(UNIX)
-    target_link_libraries (${target}-static
-        ${LIBSBML_STATIC_LIBRARY}
-        f2c
-        xml2
-        dl
-        pthread
-        )
-    target_link_libraries(${target}-static ${LIBSBML_EXTRA_LIBS})
-endif(UNIX)
+install(
+        TARGETS ${target}-static
+        EXPORT ${target}-static
+        RUNTIME DESTINATION ${CMAKE_INSTALL_BINDIR} COMPONENT ${target}-static
+        ARCHIVE DESTINATION ${CMAKE_INSTALL_LIBDIR} COMPONENT ${target}-static
+        LIBRARY DESTINATION ${CMAKE_INSTALL_LIBDIR} COMPONENT ${target}-static
+        PUBLIC_HEADER DESTINATION ${CMAKE_INSTALL_INCLUDEDIR}/rr COMPONENT ${target}-static
+)
+
+# install export info so roadrunner can be used with find_package in CONFIG mode
+install(
+        EXPORT ${target}-static
+        DESTINATION ${CMAKE_INSTALL_LIBDIR}/cmake
+        NAMESPACE ${target}-static::
+        FILE ${target}-static-config.cmake
+        COMPONENT ${target}-static
+        EXPORT_LINK_INTERFACE_LIBRARIES
+)
 
 #Libxml we can't build right now
 if(${BORLAND})
     target_link_libraries (${target}-static libxml2_xe)
 endif()
 
-if(${MSVC})
-    target_link_libraries(${target}-static libxml2)
-endif()
 
 if(BUILD_TEST_TOOLS)
     if(BUILD_LLVM)
         add_subdirectory(llvm_testing)
     endif(BUILD_LLVM)
-    add_subdirectory(testing)
 endif()
-
-#--- INSTALL STUFF
-if(${INSTALL_CXX_API})
-
-    #if(INSTALL_STATIC_LIB)
-    install(TARGETS ${target}-static
-        LIBRARY DESTINATION lib COMPONENT rr_core
-        ARCHIVE DESTINATION lib COMPONENT rr_core
-        )
-    #endif()
-
-#     set(install_headers
-#         rrRoadRunner.h)
-    set(subfolders
-          .
-          tr1proxy
-          )
-
-    foreach(subfolder ${subfolders})
-       FILE (GLOB headers ${subfolder}/*.h)
-       message(STATUS "*** headers *** ${headers}")
-       install (   FILES ${headers}
-           DESTINATION include/rr/${subfolder}
-           COMPONENT rr_core)
-    endforeach(subfolder)
-endif() #Install CXX API

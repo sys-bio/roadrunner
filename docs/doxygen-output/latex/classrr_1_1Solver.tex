@@ -1,0 +1,562 @@
+\hypertarget{classrr_1_1Solver}{}\doxysection{rr\+::Solver Class Reference}
+\label{classrr_1_1Solver}\index{rr::Solver@{rr::Solver}}
+
+
+Base class for all integrators and steady state solvers.  
+
+
+
+
+{\ttfamily \#include $<$Solver.\+h$>$}
+
+Inheritance diagram for rr\+::Solver\+:\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[height=1.714286cm]{classrr_1_1Solver}
+\end{center}
+\end{figure}
+\doxysubsection*{Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+virtual std\+::string \mbox{\hyperlink{classrr_1_1Solver_a417cca64a18c63535f2091584f8fed91}{get\+Name}} () const =0
+\begin{DoxyCompactList}\small\item\em Get the name of this solver. \end{DoxyCompactList}\item 
+virtual std\+::string \mbox{\hyperlink{classrr_1_1Solver_a86067147c7631ca80d51667322f1a8f5}{get\+Description}} () const =0
+\begin{DoxyCompactList}\small\item\em Get the description of this solver. \end{DoxyCompactList}\item 
+virtual std\+::string \mbox{\hyperlink{classrr_1_1Solver_aff005f7e71bc73123ecbd511a77f71b6}{get\+Hint}} () const =0
+\begin{DoxyCompactList}\small\item\em Get a (user-\/readable) hint for this solver. \end{DoxyCompactList}\item 
+std\+::vector$<$ std\+::string $>$ \mbox{\hyperlink{classrr_1_1Solver_ac12d82cf9d7f03ba39f82ae81ee0e168}{get\+Settings}} () const
+\begin{DoxyCompactList}\small\item\em Get a list of all settings for this solver. \end{DoxyCompactList}\item 
+virtual void \mbox{\hyperlink{classrr_1_1Solver_a71c8b404a40447f879b2253e7dcc3b85}{reset\+Settings}} ()
+\begin{DoxyCompactList}\small\item\em Reset all settings to their respective default values. \end{DoxyCompactList}\item 
+virtual \mbox{\hyperlink{classrr_1_1Variant}{Variant}} \mbox{\hyperlink{classrr_1_1Solver_a773a06f0d64c9d79423efcef1b381da1}{get\+Value}} (std\+::string key) const
+\begin{DoxyCompactList}\small\item\em Get the value of an integrator setting. \end{DoxyCompactList}\item 
+virtual \mbox{\hyperlink{classrr_1_1Variant}{Variant}} \mbox{\hyperlink{classrr_1_1Solver_a104f619f19529d57869310cd67fcc6d1}{has\+Value}} (std\+::string key) const
+\begin{DoxyCompactList}\small\item\em Return true if this setting is supported by the integrator. \end{DoxyCompactList}\item 
+virtual size\+\_\+t \mbox{\hyperlink{classrr_1_1Solver_abbefd0f38dfa2651c74f8abbd6d7b143}{get\+Num\+Params}} () const
+\begin{DoxyCompactList}\small\item\em Get the number of parameters. \end{DoxyCompactList}\item 
+virtual std\+::string \mbox{\hyperlink{classrr_1_1Solver_ae2bb88ffce40a0136c86a020b4c39037}{get\+Param\+Name}} (size\+\_\+t n) const
+\begin{DoxyCompactList}\small\item\em Get the name of the parameter at index n. \end{DoxyCompactList}\item 
+virtual std\+::string \mbox{\hyperlink{classrr_1_1Solver_afc0a667f204105aa133376144ce14c75}{get\+Param\+Display\+Name}} (int n) const
+\begin{DoxyCompactList}\small\item\em Get the display name of the parameter at index n. \end{DoxyCompactList}\item 
+virtual std\+::string \mbox{\hyperlink{classrr_1_1Solver_aa604b810ab3f1a2c8bc6dfa6fc731dc2}{get\+Param\+Hint}} (int n) const
+\begin{DoxyCompactList}\small\item\em Get the hint of the parameter at index n. \end{DoxyCompactList}\item 
+virtual std\+::string \mbox{\hyperlink{classrr_1_1Solver_aa13e13a92531fde27fe5711790eee0f7}{get\+Param\+Desc}} (int n) const
+\begin{DoxyCompactList}\small\item\em Get the description of the parameter at index n. \end{DoxyCompactList}\item 
+virtual int \mbox{\hyperlink{classrr_1_1Solver_a415242398d22d3145ff68afbb73d6b07}{get\+Value\+As\+Int}} (std\+::string key)
+\begin{DoxyCompactList}\small\item\em Wrapper for \mbox{\hyperlink{classrr_1_1Solver_a773a06f0d64c9d79423efcef1b381da1}{get\+Value}} which converts output to a specific type. \end{DoxyCompactList}\item 
+virtual unsigned int \mbox{\hyperlink{classrr_1_1Solver_a293296661e45b8cb3a092cf8ed5a196b}{get\+Value\+As\+U\+Int}} (std\+::string key)
+\begin{DoxyCompactList}\small\item\em Wrapper for \mbox{\hyperlink{classrr_1_1Solver_a773a06f0d64c9d79423efcef1b381da1}{get\+Value}} which converts output to a specific type. \end{DoxyCompactList}\item 
+virtual long \mbox{\hyperlink{classrr_1_1Solver_a858ce4395c8005ddec5a3ee811eda33a}{get\+Value\+As\+Long}} (std\+::string key)
+\begin{DoxyCompactList}\small\item\em Wrapper for \mbox{\hyperlink{classrr_1_1Solver_a773a06f0d64c9d79423efcef1b381da1}{get\+Value}} which converts output to a specific type. \end{DoxyCompactList}\item 
+virtual unsigned long \mbox{\hyperlink{classrr_1_1Solver_aafabb2cc0b41558dc3edae324977372c}{get\+Value\+As\+U\+Long}} (std\+::string key)
+\begin{DoxyCompactList}\small\item\em Wrapper for \mbox{\hyperlink{classrr_1_1Solver_a773a06f0d64c9d79423efcef1b381da1}{get\+Value}} which converts output to a specific type. \end{DoxyCompactList}\item 
+virtual float \mbox{\hyperlink{classrr_1_1Solver_ad30b0e354acd5025b3162db55f1baa93}{get\+Value\+As\+Float}} (std\+::string key)
+\begin{DoxyCompactList}\small\item\em Wrapper for \mbox{\hyperlink{classrr_1_1Solver_a773a06f0d64c9d79423efcef1b381da1}{get\+Value}} which converts output to a specific type. \end{DoxyCompactList}\item 
+virtual double \mbox{\hyperlink{classrr_1_1Solver_a46987712b9dee2da90c7124761186eb1}{get\+Value\+As\+Double}} (std\+::string key)
+\begin{DoxyCompactList}\small\item\em Wrapper for \mbox{\hyperlink{classrr_1_1Solver_a773a06f0d64c9d79423efcef1b381da1}{get\+Value}} which converts output to a specific type. \end{DoxyCompactList}\item 
+\mbox{\Hypertarget{classrr_1_1Solver_a449a23882706072f4cfaa416887e42d3}\label{classrr_1_1Solver_a449a23882706072f4cfaa416887e42d3}} 
+virtual std\+::vector$<$ double $>$ \mbox{\hyperlink{classrr_1_1Solver_a449a23882706072f4cfaa416887e42d3}{get\+Value\+As\+Double\+Vector}} (std\+::string key)
+\begin{DoxyCompactList}\small\item\em Wrapper for \mbox{\hyperlink{classrr_1_1Solver_a773a06f0d64c9d79423efcef1b381da1}{get\+Value}} which converts output to a specific type. \end{DoxyCompactList}\item 
+virtual char \mbox{\hyperlink{classrr_1_1Solver_a9bc55d0247a3aa629b0ab8f247ee009c}{get\+Value\+As\+Char}} (std\+::string key)
+\begin{DoxyCompactList}\small\item\em Wrapper for \mbox{\hyperlink{classrr_1_1Solver_a773a06f0d64c9d79423efcef1b381da1}{get\+Value}} which converts output to a specific type. \end{DoxyCompactList}\item 
+virtual unsigned char \mbox{\hyperlink{classrr_1_1Solver_ae21e55aeea202e9151112fa00a4c0f82}{get\+Value\+As\+U\+Char}} (std\+::string key)
+\begin{DoxyCompactList}\small\item\em Wrapper for \mbox{\hyperlink{classrr_1_1Solver_a773a06f0d64c9d79423efcef1b381da1}{get\+Value}} which converts output to a specific type. \end{DoxyCompactList}\item 
+virtual std\+::string \mbox{\hyperlink{classrr_1_1Solver_a6960c38714621daab7e92eadede5f83c}{get\+Value\+As\+String}} (std\+::string key)
+\begin{DoxyCompactList}\small\item\em Wrapper for \mbox{\hyperlink{classrr_1_1Solver_a773a06f0d64c9d79423efcef1b381da1}{get\+Value}} which converts output to a specific type. \end{DoxyCompactList}\item 
+virtual bool \mbox{\hyperlink{classrr_1_1Solver_a9f6e5069f1606a5f5e3d517ee01cfede}{get\+Value\+As\+Bool}} (std\+::string key)
+\begin{DoxyCompactList}\small\item\em Wrapper for \mbox{\hyperlink{classrr_1_1Solver_a773a06f0d64c9d79423efcef1b381da1}{get\+Value}} which converts output to a specific type. \end{DoxyCompactList}\item 
+\mbox{\Hypertarget{classrr_1_1Solver_a45dd9257f0b87546e7bdd607f3857260}\label{classrr_1_1Solver_a45dd9257f0b87546e7bdd607f3857260}} 
+virtual void {\bfseries set\+Value} (std\+::string key, const \mbox{\hyperlink{classrr_1_1Variant}{Variant}} \&value)
+\item 
+const std\+::string \& \mbox{\hyperlink{classrr_1_1Solver_a1242e881aa76493f73c4e32784c1cec6}{get\+Display\+Name}} (std\+::string key) const
+\begin{DoxyCompactList}\small\item\em Gets the hint associated with a given key. \end{DoxyCompactList}\item 
+const std\+::string \& \mbox{\hyperlink{classrr_1_1Solver_a7cef64c1874bd5cb95ddff1399e04c45}{get\+Hint}} (std\+::string key) const
+\begin{DoxyCompactList}\small\item\em Gets the hint associated with a given key. \end{DoxyCompactList}\item 
+const std\+::string \& \mbox{\hyperlink{classrr_1_1Solver_a63d1ab12d862663336c74721f67354f3}{get\+Description}} (std\+::string key) const
+\begin{DoxyCompactList}\small\item\em Gets the description associated with a given key. \end{DoxyCompactList}\item 
+const \mbox{\hyperlink{classrr_1_1Variant_a64c7b2189f8d391527919e46a72402a8}{Variant\+::\+Type\+Id}} \mbox{\hyperlink{classrr_1_1Solver_a20add37bbd73f50d14047171f5f8e921}{get\+Type}} (std\+::string key)
+\begin{DoxyCompactList}\small\item\em Gets the type associated with a given key. \end{DoxyCompactList}\item 
+std\+::string \mbox{\hyperlink{classrr_1_1Solver_a3f7a3671a4f2ee508fa015ed4b164213}{get\+Settings\+Repr}} () const
+\begin{DoxyCompactList}\small\item\em Get the solver settings as a string. \end{DoxyCompactList}\item 
+std\+::string \mbox{\hyperlink{classrr_1_1Solver_a37b032d8755eaccd3480531bdc2a4596}{settings\+Py\+Dict\+Repr}} () const
+\begin{DoxyCompactList}\small\item\em Python dictionary-\/style string representation of settings. \end{DoxyCompactList}\item 
+virtual std\+::string \mbox{\hyperlink{classrr_1_1Solver_af08f448f7eea26415a47caaae161de02}{to\+String}} () const
+\begin{DoxyCompactList}\small\item\em Return a string representation of the solver. \end{DoxyCompactList}\item 
+virtual std\+::string \mbox{\hyperlink{classrr_1_1Solver_a2f2b574b220becfebd1be2d8cc34d550}{to\+Repr}} () const
+\begin{DoxyCompactList}\small\item\em Return string representation a la Python {\bfseries{repr}} method. \end{DoxyCompactList}\end{DoxyCompactItemize}
+\doxysubsection*{Protected Types}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\Hypertarget{classrr_1_1Solver_a970d11482faab2f17428c760f3ec8240}\label{classrr_1_1Solver_a970d11482faab2f17428c760f3ec8240}} 
+typedef std\+::vector$<$ std\+::string $>$ {\bfseries Settings\+List}
+\item 
+\mbox{\Hypertarget{classrr_1_1Solver_a84e22bdecb76b77ddfbc8efda8219401}\label{classrr_1_1Solver_a84e22bdecb76b77ddfbc8efda8219401}} 
+typedef R\+R\+\_\+\+U\+N\+O\+R\+D\+E\+R\+E\+D\+\_\+\+M\+AP$<$ std\+::string, \mbox{\hyperlink{classrr_1_1Variant}{Variant}} $>$ {\bfseries Settings\+Map}
+\item 
+\mbox{\Hypertarget{classrr_1_1Solver_afa810f2707ef6160e05c92e5812a8c6a}\label{classrr_1_1Solver_afa810f2707ef6160e05c92e5812a8c6a}} 
+typedef R\+R\+\_\+\+U\+N\+O\+R\+D\+E\+R\+E\+D\+\_\+\+M\+AP$<$ std\+::string, std\+::string $>$ {\bfseries Display\+Name\+Map}
+\item 
+\mbox{\Hypertarget{classrr_1_1Solver_ab7675259f65ff348aa430747e48f0f90}\label{classrr_1_1Solver_ab7675259f65ff348aa430747e48f0f90}} 
+typedef R\+R\+\_\+\+U\+N\+O\+R\+D\+E\+R\+E\+D\+\_\+\+M\+AP$<$ std\+::string, std\+::string $>$ {\bfseries Hint\+Map}
+\item 
+\mbox{\Hypertarget{classrr_1_1Solver_a897a8b06197a02d72931de637bc9ac89}\label{classrr_1_1Solver_a897a8b06197a02d72931de637bc9ac89}} 
+typedef R\+R\+\_\+\+U\+N\+O\+R\+D\+E\+R\+E\+D\+\_\+\+M\+AP$<$ std\+::string, std\+::string $>$ {\bfseries Description\+Map}
+\end{DoxyCompactItemize}
+\doxysubsection*{Protected Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\Hypertarget{classrr_1_1Solver_aec6b159d96d73f2baafc74578b129ce8}\label{classrr_1_1Solver_aec6b159d96d73f2baafc74578b129ce8}} 
+void {\bfseries add\+Setting} (std\+::string name, \mbox{\hyperlink{classrr_1_1Variant}{Variant}} val, string display\+\_\+name, std\+::string hint, std\+::string description)
+\end{DoxyCompactItemize}
+\doxysubsection*{Protected Attributes}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\Hypertarget{classrr_1_1Solver_a99f48947491d7cd36c68cebba53915fe}\label{classrr_1_1Solver_a99f48947491d7cd36c68cebba53915fe}} 
+Settings\+List {\bfseries sorted\+\_\+settings}
+\item 
+\mbox{\Hypertarget{classrr_1_1Solver_a44a22cf0edead17a9cc923d87dcc063e}\label{classrr_1_1Solver_a44a22cf0edead17a9cc923d87dcc063e}} 
+Settings\+Map {\bfseries settings}
+\item 
+\mbox{\Hypertarget{classrr_1_1Solver_a199de66231b25fef30d8ef2bdff80db7}\label{classrr_1_1Solver_a199de66231b25fef30d8ef2bdff80db7}} 
+Display\+Name\+Map {\bfseries display\+\_\+names\+\_\+}
+\item 
+\mbox{\Hypertarget{classrr_1_1Solver_a39049af7a03fd00b1021c1ce9a9691fc}\label{classrr_1_1Solver_a39049af7a03fd00b1021c1ce9a9691fc}} 
+Hint\+Map {\bfseries hints}
+\item 
+\mbox{\Hypertarget{classrr_1_1Solver_a7e07121f652db358045d6f7b95889ea3}\label{classrr_1_1Solver_a7e07121f652db358045d6f7b95889ea3}} 
+Description\+Map {\bfseries descriptions}
+\end{DoxyCompactItemize}
+
+
+\doxysubsection{Detailed Description}
+Base class for all integrators and steady state solvers. 
+
+\begin{DoxyAuthor}{Author}
+J\+KM 
+\end{DoxyAuthor}
+
+
+\doxysubsection{Member Function Documentation}
+\mbox{\Hypertarget{classrr_1_1Solver_a86067147c7631ca80d51667322f1a8f5}\label{classrr_1_1Solver_a86067147c7631ca80d51667322f1a8f5}} 
+\index{rr::Solver@{rr::Solver}!getDescription@{getDescription}}
+\index{getDescription@{getDescription}!rr::Solver@{rr::Solver}}
+\doxysubsubsection{\texorpdfstring{getDescription()}{getDescription()}\hspace{0.1cm}{\footnotesize\ttfamily [1/2]}}
+{\footnotesize\ttfamily virtual std\+::string rr\+::\+Solver\+::get\+Description (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption}) const\hspace{0.3cm}{\ttfamily [pure virtual]}}
+
+
+
+Get the description of this solver. 
+
+\begin{DoxyAuthor}{Author}
+J\+KM 
+\end{DoxyAuthor}
+
+
+Implemented in \mbox{\hyperlink{classrr_1_1RK4Integrator_ad4638630bbbfc3bc62adfdfdebc9bde9}{rr\+::\+R\+K4\+Integrator}}, \mbox{\hyperlink{classrr_1_1RK45Integrator_a45d69589da662628a6f0f66c200614e3}{rr\+::\+R\+K45\+Integrator}}, \mbox{\hyperlink{classrr_1_1NLEQ2Solver_ab5005ced545fa4b22178b2047b12557c}{rr\+::\+N\+L\+E\+Q2\+Solver}}, \mbox{\hyperlink{classrr_1_1NLEQ1Solver_a563c9b0d67f800a54e587134c6ab40f4}{rr\+::\+N\+L\+E\+Q1\+Solver}}, \mbox{\hyperlink{classrr_1_1GillespieIntegrator_adc46266d77d8c9d54bca86ca3d402f8f}{rr\+::\+Gillespie\+Integrator}}, \mbox{\hyperlink{classrr_1_1EulerIntegrator_ae8553876982ae833839b7e33c08abdec}{rr\+::\+Euler\+Integrator}}, and \mbox{\hyperlink{classrr_1_1CVODEIntegrator_a41af2579ae0fbca95fdf2eb36990e3ae}{rr\+::\+C\+V\+O\+D\+E\+Integrator}}.
+
+\mbox{\Hypertarget{classrr_1_1Solver_a63d1ab12d862663336c74721f67354f3}\label{classrr_1_1Solver_a63d1ab12d862663336c74721f67354f3}} 
+\index{rr::Solver@{rr::Solver}!getDescription@{getDescription}}
+\index{getDescription@{getDescription}!rr::Solver@{rr::Solver}}
+\doxysubsubsection{\texorpdfstring{getDescription()}{getDescription()}\hspace{0.1cm}{\footnotesize\ttfamily [2/2]}}
+{\footnotesize\ttfamily const std\+::string \& rr\+::\+Solver\+::get\+Description (\begin{DoxyParamCaption}\item[{std\+::string}]{key }\end{DoxyParamCaption}) const}
+
+
+
+Gets the description associated with a given key. 
+
+\begin{DoxyAuthor}{Author}
+W\+BC 
+\end{DoxyAuthor}
+\mbox{\Hypertarget{classrr_1_1Solver_a1242e881aa76493f73c4e32784c1cec6}\label{classrr_1_1Solver_a1242e881aa76493f73c4e32784c1cec6}} 
+\index{rr::Solver@{rr::Solver}!getDisplayName@{getDisplayName}}
+\index{getDisplayName@{getDisplayName}!rr::Solver@{rr::Solver}}
+\doxysubsubsection{\texorpdfstring{getDisplayName()}{getDisplayName()}}
+{\footnotesize\ttfamily const std\+::string \& rr\+::\+Solver\+::get\+Display\+Name (\begin{DoxyParamCaption}\item[{std\+::string}]{key }\end{DoxyParamCaption}) const}
+
+
+
+Gets the hint associated with a given key. 
+
+\begin{DoxyAuthor}{Author}
+W\+BC 
+\end{DoxyAuthor}
+\mbox{\Hypertarget{classrr_1_1Solver_aff005f7e71bc73123ecbd511a77f71b6}\label{classrr_1_1Solver_aff005f7e71bc73123ecbd511a77f71b6}} 
+\index{rr::Solver@{rr::Solver}!getHint@{getHint}}
+\index{getHint@{getHint}!rr::Solver@{rr::Solver}}
+\doxysubsubsection{\texorpdfstring{getHint()}{getHint()}\hspace{0.1cm}{\footnotesize\ttfamily [1/2]}}
+{\footnotesize\ttfamily virtual std\+::string rr\+::\+Solver\+::get\+Hint (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption}) const\hspace{0.3cm}{\ttfamily [pure virtual]}}
+
+
+
+Get a (user-\/readable) hint for this solver. 
+
+\begin{DoxyAuthor}{Author}
+J\+KM 
+\end{DoxyAuthor}
+
+
+Implemented in \mbox{\hyperlink{classrr_1_1RK4Integrator_a2f98503350687e02bea28077f3538b07}{rr\+::\+R\+K4\+Integrator}}, \mbox{\hyperlink{classrr_1_1RK45Integrator_ae5526461902e834afff94a18f679dbe3}{rr\+::\+R\+K45\+Integrator}}, \mbox{\hyperlink{classrr_1_1NLEQ2Solver_a310f481e87ff32cc51fa62345afe6e83}{rr\+::\+N\+L\+E\+Q2\+Solver}}, \mbox{\hyperlink{classrr_1_1NLEQ1Solver_af2dc9efdd38fc60056dbdd055a6f11f1}{rr\+::\+N\+L\+E\+Q1\+Solver}}, \mbox{\hyperlink{classrr_1_1GillespieIntegrator_a9903b945ac591f39cb3e93167fe45514}{rr\+::\+Gillespie\+Integrator}}, \mbox{\hyperlink{classrr_1_1EulerIntegrator_a2acf8abc8c584f487b5a394bcd3a1bdb}{rr\+::\+Euler\+Integrator}}, and \mbox{\hyperlink{classrr_1_1CVODEIntegrator_a89b7e1161329480ae2fe84e7f2a8ca1e}{rr\+::\+C\+V\+O\+D\+E\+Integrator}}.
+
+\mbox{\Hypertarget{classrr_1_1Solver_a7cef64c1874bd5cb95ddff1399e04c45}\label{classrr_1_1Solver_a7cef64c1874bd5cb95ddff1399e04c45}} 
+\index{rr::Solver@{rr::Solver}!getHint@{getHint}}
+\index{getHint@{getHint}!rr::Solver@{rr::Solver}}
+\doxysubsubsection{\texorpdfstring{getHint()}{getHint()}\hspace{0.1cm}{\footnotesize\ttfamily [2/2]}}
+{\footnotesize\ttfamily const std\+::string \& rr\+::\+Solver\+::get\+Hint (\begin{DoxyParamCaption}\item[{std\+::string}]{key }\end{DoxyParamCaption}) const}
+
+
+
+Gets the hint associated with a given key. 
+
+\begin{DoxyAuthor}{Author}
+W\+BC 
+\end{DoxyAuthor}
+\mbox{\Hypertarget{classrr_1_1Solver_a417cca64a18c63535f2091584f8fed91}\label{classrr_1_1Solver_a417cca64a18c63535f2091584f8fed91}} 
+\index{rr::Solver@{rr::Solver}!getName@{getName}}
+\index{getName@{getName}!rr::Solver@{rr::Solver}}
+\doxysubsubsection{\texorpdfstring{getName()}{getName()}}
+{\footnotesize\ttfamily virtual std\+::string rr\+::\+Solver\+::get\+Name (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption}) const\hspace{0.3cm}{\ttfamily [pure virtual]}}
+
+
+
+Get the name of this solver. 
+
+\begin{DoxyAuthor}{Author}
+J\+KM 
+\end{DoxyAuthor}
+
+
+Implemented in \mbox{\hyperlink{classrr_1_1RK4Integrator_ae65f8c20d95f0bc6018992d3803c3287}{rr\+::\+R\+K4\+Integrator}}, \mbox{\hyperlink{classrr_1_1RK45Integrator_aebee4c612006c929ba1d194b4258fa55}{rr\+::\+R\+K45\+Integrator}}, \mbox{\hyperlink{classrr_1_1NLEQ2Solver_a23b111e063e51f20ecb44c8b81eee98c}{rr\+::\+N\+L\+E\+Q2\+Solver}}, \mbox{\hyperlink{classrr_1_1NLEQ1Solver_ad0d9601d9d272cb97fde279e89e50203}{rr\+::\+N\+L\+E\+Q1\+Solver}}, \mbox{\hyperlink{classrr_1_1GillespieIntegrator_a290f7167ef2a6da01ff1543c496e1215}{rr\+::\+Gillespie\+Integrator}}, \mbox{\hyperlink{classrr_1_1EulerIntegrator_a44c17c0740b6d7855f10849bae3b1223}{rr\+::\+Euler\+Integrator}}, and \mbox{\hyperlink{classrr_1_1CVODEIntegrator_a8cf0e265974ca6cfba2b22d98c77801a}{rr\+::\+C\+V\+O\+D\+E\+Integrator}}.
+
+\mbox{\Hypertarget{classrr_1_1Solver_abbefd0f38dfa2651c74f8abbd6d7b143}\label{classrr_1_1Solver_abbefd0f38dfa2651c74f8abbd6d7b143}} 
+\index{rr::Solver@{rr::Solver}!getNumParams@{getNumParams}}
+\index{getNumParams@{getNumParams}!rr::Solver@{rr::Solver}}
+\doxysubsubsection{\texorpdfstring{getNumParams()}{getNumParams()}}
+{\footnotesize\ttfamily size\+\_\+t rr\+::\+Solver\+::get\+Num\+Params (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption}) const\hspace{0.3cm}{\ttfamily [virtual]}}
+
+
+
+Get the number of parameters. 
+
+\begin{DoxyAuthor}{Author}
+J\+KM 
+\end{DoxyAuthor}
+\mbox{\Hypertarget{classrr_1_1Solver_aa13e13a92531fde27fe5711790eee0f7}\label{classrr_1_1Solver_aa13e13a92531fde27fe5711790eee0f7}} 
+\index{rr::Solver@{rr::Solver}!getParamDesc@{getParamDesc}}
+\index{getParamDesc@{getParamDesc}!rr::Solver@{rr::Solver}}
+\doxysubsubsection{\texorpdfstring{getParamDesc()}{getParamDesc()}}
+{\footnotesize\ttfamily std\+::string rr\+::\+Solver\+::get\+Param\+Desc (\begin{DoxyParamCaption}\item[{int}]{n }\end{DoxyParamCaption}) const\hspace{0.3cm}{\ttfamily [virtual]}}
+
+
+
+Get the description of the parameter at index n. 
+
+\begin{DoxyAuthor}{Author}
+J\+KM 
+\end{DoxyAuthor}
+\mbox{\Hypertarget{classrr_1_1Solver_afc0a667f204105aa133376144ce14c75}\label{classrr_1_1Solver_afc0a667f204105aa133376144ce14c75}} 
+\index{rr::Solver@{rr::Solver}!getParamDisplayName@{getParamDisplayName}}
+\index{getParamDisplayName@{getParamDisplayName}!rr::Solver@{rr::Solver}}
+\doxysubsubsection{\texorpdfstring{getParamDisplayName()}{getParamDisplayName()}}
+{\footnotesize\ttfamily std\+::string rr\+::\+Solver\+::get\+Param\+Display\+Name (\begin{DoxyParamCaption}\item[{int}]{n }\end{DoxyParamCaption}) const\hspace{0.3cm}{\ttfamily [virtual]}}
+
+
+
+Get the display name of the parameter at index n. 
+
+\begin{DoxyAuthor}{Author}
+J\+KM 
+\end{DoxyAuthor}
+\mbox{\Hypertarget{classrr_1_1Solver_aa604b810ab3f1a2c8bc6dfa6fc731dc2}\label{classrr_1_1Solver_aa604b810ab3f1a2c8bc6dfa6fc731dc2}} 
+\index{rr::Solver@{rr::Solver}!getParamHint@{getParamHint}}
+\index{getParamHint@{getParamHint}!rr::Solver@{rr::Solver}}
+\doxysubsubsection{\texorpdfstring{getParamHint()}{getParamHint()}}
+{\footnotesize\ttfamily std\+::string rr\+::\+Solver\+::get\+Param\+Hint (\begin{DoxyParamCaption}\item[{int}]{n }\end{DoxyParamCaption}) const\hspace{0.3cm}{\ttfamily [virtual]}}
+
+
+
+Get the hint of the parameter at index n. 
+
+\begin{DoxyAuthor}{Author}
+J\+KM 
+\end{DoxyAuthor}
+\mbox{\Hypertarget{classrr_1_1Solver_ae2bb88ffce40a0136c86a020b4c39037}\label{classrr_1_1Solver_ae2bb88ffce40a0136c86a020b4c39037}} 
+\index{rr::Solver@{rr::Solver}!getParamName@{getParamName}}
+\index{getParamName@{getParamName}!rr::Solver@{rr::Solver}}
+\doxysubsubsection{\texorpdfstring{getParamName()}{getParamName()}}
+{\footnotesize\ttfamily std\+::string rr\+::\+Solver\+::get\+Param\+Name (\begin{DoxyParamCaption}\item[{size\+\_\+t}]{n }\end{DoxyParamCaption}) const\hspace{0.3cm}{\ttfamily [virtual]}}
+
+
+
+Get the name of the parameter at index n. 
+
+\begin{DoxyAuthor}{Author}
+J\+KM 
+\end{DoxyAuthor}
+\mbox{\Hypertarget{classrr_1_1Solver_ac12d82cf9d7f03ba39f82ae81ee0e168}\label{classrr_1_1Solver_ac12d82cf9d7f03ba39f82ae81ee0e168}} 
+\index{rr::Solver@{rr::Solver}!getSettings@{getSettings}}
+\index{getSettings@{getSettings}!rr::Solver@{rr::Solver}}
+\doxysubsubsection{\texorpdfstring{getSettings()}{getSettings()}}
+{\footnotesize\ttfamily std\+::vector$<$ string $>$ rr\+::\+Solver\+::get\+Settings (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption}) const}
+
+
+
+Get a list of all settings for this solver. 
+
+\begin{DoxyAuthor}{Author}
+J\+KM 
+\end{DoxyAuthor}
+\mbox{\Hypertarget{classrr_1_1Solver_a3f7a3671a4f2ee508fa015ed4b164213}\label{classrr_1_1Solver_a3f7a3671a4f2ee508fa015ed4b164213}} 
+\index{rr::Solver@{rr::Solver}!getSettingsRepr@{getSettingsRepr}}
+\index{getSettingsRepr@{getSettingsRepr}!rr::Solver@{rr::Solver}}
+\doxysubsubsection{\texorpdfstring{getSettingsRepr()}{getSettingsRepr()}}
+{\footnotesize\ttfamily std\+::string rr\+::\+Solver\+::get\+Settings\+Repr (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption}) const}
+
+
+
+Get the solver settings as a string. 
+
+\begin{DoxyAuthor}{Author}
+J\+KM 
+\end{DoxyAuthor}
+\mbox{\Hypertarget{classrr_1_1Solver_a20add37bbd73f50d14047171f5f8e921}\label{classrr_1_1Solver_a20add37bbd73f50d14047171f5f8e921}} 
+\index{rr::Solver@{rr::Solver}!getType@{getType}}
+\index{getType@{getType}!rr::Solver@{rr::Solver}}
+\doxysubsubsection{\texorpdfstring{getType()}{getType()}}
+{\footnotesize\ttfamily const \mbox{\hyperlink{classrr_1_1Variant_a64c7b2189f8d391527919e46a72402a8}{Variant\+::\+Type\+Id}} rr\+::\+Solver\+::get\+Type (\begin{DoxyParamCaption}\item[{std\+::string}]{key }\end{DoxyParamCaption})}
+
+
+
+Gets the type associated with a given key. 
+
+\begin{DoxyAuthor}{Author}
+W\+BC 
+\end{DoxyAuthor}
+\mbox{\Hypertarget{classrr_1_1Solver_a773a06f0d64c9d79423efcef1b381da1}\label{classrr_1_1Solver_a773a06f0d64c9d79423efcef1b381da1}} 
+\index{rr::Solver@{rr::Solver}!getValue@{getValue}}
+\index{getValue@{getValue}!rr::Solver@{rr::Solver}}
+\doxysubsubsection{\texorpdfstring{getValue()}{getValue()}}
+{\footnotesize\ttfamily \mbox{\hyperlink{classrr_1_1Variant}{Variant}} rr\+::\+Solver\+::get\+Value (\begin{DoxyParamCaption}\item[{std\+::string}]{key }\end{DoxyParamCaption}) const\hspace{0.3cm}{\ttfamily [virtual]}}
+
+
+
+Get the value of an integrator setting. 
+
+\begin{DoxyAuthor}{Author}
+J\+KM, W\+BC 
+\end{DoxyAuthor}
+\begin{DoxyNote}{Note}
+Use one of the type-\/concrete versions like \mbox{\hyperlink{classrr_1_1Solver_a415242398d22d3145ff68afbb73d6b07}{get\+Value\+As\+Int}} to avoid type conversion gotchas 
+\end{DoxyNote}
+\mbox{\Hypertarget{classrr_1_1Solver_a9f6e5069f1606a5f5e3d517ee01cfede}\label{classrr_1_1Solver_a9f6e5069f1606a5f5e3d517ee01cfede}} 
+\index{rr::Solver@{rr::Solver}!getValueAsBool@{getValueAsBool}}
+\index{getValueAsBool@{getValueAsBool}!rr::Solver@{rr::Solver}}
+\doxysubsubsection{\texorpdfstring{getValueAsBool()}{getValueAsBool()}}
+{\footnotesize\ttfamily bool rr\+::\+Solver\+::get\+Value\+As\+Bool (\begin{DoxyParamCaption}\item[{std\+::string}]{key }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [virtual]}}
+
+
+
+Wrapper for \mbox{\hyperlink{classrr_1_1Solver_a773a06f0d64c9d79423efcef1b381da1}{get\+Value}} which converts output to a specific type. 
+
+\begin{DoxyAuthor}{Author}
+W\+BC, J\+KM 
+\end{DoxyAuthor}
+\mbox{\Hypertarget{classrr_1_1Solver_a9bc55d0247a3aa629b0ab8f247ee009c}\label{classrr_1_1Solver_a9bc55d0247a3aa629b0ab8f247ee009c}} 
+\index{rr::Solver@{rr::Solver}!getValueAsChar@{getValueAsChar}}
+\index{getValueAsChar@{getValueAsChar}!rr::Solver@{rr::Solver}}
+\doxysubsubsection{\texorpdfstring{getValueAsChar()}{getValueAsChar()}}
+{\footnotesize\ttfamily char rr\+::\+Solver\+::get\+Value\+As\+Char (\begin{DoxyParamCaption}\item[{std\+::string}]{key }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [virtual]}}
+
+
+
+Wrapper for \mbox{\hyperlink{classrr_1_1Solver_a773a06f0d64c9d79423efcef1b381da1}{get\+Value}} which converts output to a specific type. 
+
+\begin{DoxyAuthor}{Author}
+W\+BC, J\+KM 
+\end{DoxyAuthor}
+\mbox{\Hypertarget{classrr_1_1Solver_a46987712b9dee2da90c7124761186eb1}\label{classrr_1_1Solver_a46987712b9dee2da90c7124761186eb1}} 
+\index{rr::Solver@{rr::Solver}!getValueAsDouble@{getValueAsDouble}}
+\index{getValueAsDouble@{getValueAsDouble}!rr::Solver@{rr::Solver}}
+\doxysubsubsection{\texorpdfstring{getValueAsDouble()}{getValueAsDouble()}}
+{\footnotesize\ttfamily double rr\+::\+Solver\+::get\+Value\+As\+Double (\begin{DoxyParamCaption}\item[{std\+::string}]{key }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [virtual]}}
+
+
+
+Wrapper for \mbox{\hyperlink{classrr_1_1Solver_a773a06f0d64c9d79423efcef1b381da1}{get\+Value}} which converts output to a specific type. 
+
+\begin{DoxyAuthor}{Author}
+W\+BC, J\+KM 
+\end{DoxyAuthor}
+\mbox{\Hypertarget{classrr_1_1Solver_ad30b0e354acd5025b3162db55f1baa93}\label{classrr_1_1Solver_ad30b0e354acd5025b3162db55f1baa93}} 
+\index{rr::Solver@{rr::Solver}!getValueAsFloat@{getValueAsFloat}}
+\index{getValueAsFloat@{getValueAsFloat}!rr::Solver@{rr::Solver}}
+\doxysubsubsection{\texorpdfstring{getValueAsFloat()}{getValueAsFloat()}}
+{\footnotesize\ttfamily float rr\+::\+Solver\+::get\+Value\+As\+Float (\begin{DoxyParamCaption}\item[{std\+::string}]{key }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [virtual]}}
+
+
+
+Wrapper for \mbox{\hyperlink{classrr_1_1Solver_a773a06f0d64c9d79423efcef1b381da1}{get\+Value}} which converts output to a specific type. 
+
+\begin{DoxyAuthor}{Author}
+W\+BC, J\+KM 
+\end{DoxyAuthor}
+\mbox{\Hypertarget{classrr_1_1Solver_a415242398d22d3145ff68afbb73d6b07}\label{classrr_1_1Solver_a415242398d22d3145ff68afbb73d6b07}} 
+\index{rr::Solver@{rr::Solver}!getValueAsInt@{getValueAsInt}}
+\index{getValueAsInt@{getValueAsInt}!rr::Solver@{rr::Solver}}
+\doxysubsubsection{\texorpdfstring{getValueAsInt()}{getValueAsInt()}}
+{\footnotesize\ttfamily int rr\+::\+Solver\+::get\+Value\+As\+Int (\begin{DoxyParamCaption}\item[{std\+::string}]{key }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [virtual]}}
+
+
+
+Wrapper for \mbox{\hyperlink{classrr_1_1Solver_a773a06f0d64c9d79423efcef1b381da1}{get\+Value}} which converts output to a specific type. 
+
+\begin{DoxyAuthor}{Author}
+W\+BC, J\+KM 
+\end{DoxyAuthor}
+\mbox{\Hypertarget{classrr_1_1Solver_a858ce4395c8005ddec5a3ee811eda33a}\label{classrr_1_1Solver_a858ce4395c8005ddec5a3ee811eda33a}} 
+\index{rr::Solver@{rr::Solver}!getValueAsLong@{getValueAsLong}}
+\index{getValueAsLong@{getValueAsLong}!rr::Solver@{rr::Solver}}
+\doxysubsubsection{\texorpdfstring{getValueAsLong()}{getValueAsLong()}}
+{\footnotesize\ttfamily long rr\+::\+Solver\+::get\+Value\+As\+Long (\begin{DoxyParamCaption}\item[{std\+::string}]{key }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [virtual]}}
+
+
+
+Wrapper for \mbox{\hyperlink{classrr_1_1Solver_a773a06f0d64c9d79423efcef1b381da1}{get\+Value}} which converts output to a specific type. 
+
+\begin{DoxyAuthor}{Author}
+W\+BC, J\+KM 
+\end{DoxyAuthor}
+\mbox{\Hypertarget{classrr_1_1Solver_a6960c38714621daab7e92eadede5f83c}\label{classrr_1_1Solver_a6960c38714621daab7e92eadede5f83c}} 
+\index{rr::Solver@{rr::Solver}!getValueAsString@{getValueAsString}}
+\index{getValueAsString@{getValueAsString}!rr::Solver@{rr::Solver}}
+\doxysubsubsection{\texorpdfstring{getValueAsString()}{getValueAsString()}}
+{\footnotesize\ttfamily std\+::string rr\+::\+Solver\+::get\+Value\+As\+String (\begin{DoxyParamCaption}\item[{std\+::string}]{key }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [virtual]}}
+
+
+
+Wrapper for \mbox{\hyperlink{classrr_1_1Solver_a773a06f0d64c9d79423efcef1b381da1}{get\+Value}} which converts output to a specific type. 
+
+\begin{DoxyAuthor}{Author}
+W\+BC, J\+KM 
+\end{DoxyAuthor}
+\mbox{\Hypertarget{classrr_1_1Solver_ae21e55aeea202e9151112fa00a4c0f82}\label{classrr_1_1Solver_ae21e55aeea202e9151112fa00a4c0f82}} 
+\index{rr::Solver@{rr::Solver}!getValueAsUChar@{getValueAsUChar}}
+\index{getValueAsUChar@{getValueAsUChar}!rr::Solver@{rr::Solver}}
+\doxysubsubsection{\texorpdfstring{getValueAsUChar()}{getValueAsUChar()}}
+{\footnotesize\ttfamily unsigned char rr\+::\+Solver\+::get\+Value\+As\+U\+Char (\begin{DoxyParamCaption}\item[{std\+::string}]{key }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [virtual]}}
+
+
+
+Wrapper for \mbox{\hyperlink{classrr_1_1Solver_a773a06f0d64c9d79423efcef1b381da1}{get\+Value}} which converts output to a specific type. 
+
+\begin{DoxyAuthor}{Author}
+W\+BC, J\+KM 
+\end{DoxyAuthor}
+\mbox{\Hypertarget{classrr_1_1Solver_a293296661e45b8cb3a092cf8ed5a196b}\label{classrr_1_1Solver_a293296661e45b8cb3a092cf8ed5a196b}} 
+\index{rr::Solver@{rr::Solver}!getValueAsUInt@{getValueAsUInt}}
+\index{getValueAsUInt@{getValueAsUInt}!rr::Solver@{rr::Solver}}
+\doxysubsubsection{\texorpdfstring{getValueAsUInt()}{getValueAsUInt()}}
+{\footnotesize\ttfamily unsigned int rr\+::\+Solver\+::get\+Value\+As\+U\+Int (\begin{DoxyParamCaption}\item[{std\+::string}]{key }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [virtual]}}
+
+
+
+Wrapper for \mbox{\hyperlink{classrr_1_1Solver_a773a06f0d64c9d79423efcef1b381da1}{get\+Value}} which converts output to a specific type. 
+
+\begin{DoxyAuthor}{Author}
+W\+BC, J\+KM 
+\end{DoxyAuthor}
+\mbox{\Hypertarget{classrr_1_1Solver_aafabb2cc0b41558dc3edae324977372c}\label{classrr_1_1Solver_aafabb2cc0b41558dc3edae324977372c}} 
+\index{rr::Solver@{rr::Solver}!getValueAsULong@{getValueAsULong}}
+\index{getValueAsULong@{getValueAsULong}!rr::Solver@{rr::Solver}}
+\doxysubsubsection{\texorpdfstring{getValueAsULong()}{getValueAsULong()}}
+{\footnotesize\ttfamily unsigned long rr\+::\+Solver\+::get\+Value\+As\+U\+Long (\begin{DoxyParamCaption}\item[{std\+::string}]{key }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [virtual]}}
+
+
+
+Wrapper for \mbox{\hyperlink{classrr_1_1Solver_a773a06f0d64c9d79423efcef1b381da1}{get\+Value}} which converts output to a specific type. 
+
+\begin{DoxyAuthor}{Author}
+W\+BC, J\+KM 
+\end{DoxyAuthor}
+\mbox{\Hypertarget{classrr_1_1Solver_a104f619f19529d57869310cd67fcc6d1}\label{classrr_1_1Solver_a104f619f19529d57869310cd67fcc6d1}} 
+\index{rr::Solver@{rr::Solver}!hasValue@{hasValue}}
+\index{hasValue@{hasValue}!rr::Solver@{rr::Solver}}
+\doxysubsubsection{\texorpdfstring{hasValue()}{hasValue()}}
+{\footnotesize\ttfamily \mbox{\hyperlink{classrr_1_1Variant}{Variant}} rr\+::\+Solver\+::has\+Value (\begin{DoxyParamCaption}\item[{std\+::string}]{key }\end{DoxyParamCaption}) const\hspace{0.3cm}{\ttfamily [virtual]}}
+
+
+
+Return true if this setting is supported by the integrator. 
+
+\begin{DoxyAuthor}{Author}
+J\+KM 
+\end{DoxyAuthor}
+\mbox{\Hypertarget{classrr_1_1Solver_a71c8b404a40447f879b2253e7dcc3b85}\label{classrr_1_1Solver_a71c8b404a40447f879b2253e7dcc3b85}} 
+\index{rr::Solver@{rr::Solver}!resetSettings@{resetSettings}}
+\index{resetSettings@{resetSettings}!rr::Solver@{rr::Solver}}
+\doxysubsubsection{\texorpdfstring{resetSettings()}{resetSettings()}}
+{\footnotesize\ttfamily void rr\+::\+Solver\+::reset\+Settings (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [virtual]}}
+
+
+
+Reset all settings to their respective default values. 
+
+\begin{DoxyAuthor}{Author}
+J\+KM 
+\end{DoxyAuthor}
+
+
+Reimplemented in \mbox{\hyperlink{classrr_1_1RK4Integrator_ae7537cb767479cd0ab19dc405ed13376}{rr\+::\+R\+K4\+Integrator}}, \mbox{\hyperlink{classrr_1_1RK45Integrator_a68cd9b39288762b25f1410aa743f703c}{rr\+::\+R\+K45\+Integrator}}, \mbox{\hyperlink{classrr_1_1NLEQ2Solver_a53f872e0ee1a0afeb4a81b433c5cb7fc}{rr\+::\+N\+L\+E\+Q2\+Solver}}, \mbox{\hyperlink{classrr_1_1NLEQ1Solver_acff80edbc665b7489be400e174a0dc6c}{rr\+::\+N\+L\+E\+Q1\+Solver}}, \mbox{\hyperlink{classrr_1_1GillespieIntegrator_a2dcbd5a36b094a9b14d1e8e423204c7b}{rr\+::\+Gillespie\+Integrator}}, \mbox{\hyperlink{classrr_1_1EulerIntegrator_ade4200288b7b99ec7eee7cde2d9729b6}{rr\+::\+Euler\+Integrator}}, and \mbox{\hyperlink{classrr_1_1CVODEIntegrator_a455f08dc01b03a527482edc3d2db95b1}{rr\+::\+C\+V\+O\+D\+E\+Integrator}}.
+
+\mbox{\Hypertarget{classrr_1_1Solver_a37b032d8755eaccd3480531bdc2a4596}\label{classrr_1_1Solver_a37b032d8755eaccd3480531bdc2a4596}} 
+\index{rr::Solver@{rr::Solver}!settingsPyDictRepr@{settingsPyDictRepr}}
+\index{settingsPyDictRepr@{settingsPyDictRepr}!rr::Solver@{rr::Solver}}
+\doxysubsubsection{\texorpdfstring{settingsPyDictRepr()}{settingsPyDictRepr()}}
+{\footnotesize\ttfamily std\+::string rr\+::\+Solver\+::settings\+Py\+Dict\+Repr (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption}) const}
+
+
+
+Python dictionary-\/style string representation of settings. 
+
+\begin{DoxyAuthor}{Author}
+J\+KM 
+\end{DoxyAuthor}
+\mbox{\Hypertarget{classrr_1_1Solver_a2f2b574b220becfebd1be2d8cc34d550}\label{classrr_1_1Solver_a2f2b574b220becfebd1be2d8cc34d550}} 
+\index{rr::Solver@{rr::Solver}!toRepr@{toRepr}}
+\index{toRepr@{toRepr}!rr::Solver@{rr::Solver}}
+\doxysubsubsection{\texorpdfstring{toRepr()}{toRepr()}}
+{\footnotesize\ttfamily std\+::string rr\+::\+Solver\+::to\+Repr (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption}) const\hspace{0.3cm}{\ttfamily [virtual]}}
+
+
+
+Return string representation a la Python {\bfseries{repr}} method. 
+
+\begin{DoxyAuthor}{Author}
+J\+KM 
+\end{DoxyAuthor}
+
+
+Reimplemented in \mbox{\hyperlink{classrr_1_1SteadyStateSolver_a1ce4941762d7605e03655432a0a38283}{rr\+::\+Steady\+State\+Solver}}, \mbox{\hyperlink{classrr_1_1Integrator_abb3c4ae3020a5df7abe40639037615cb}{rr\+::\+Integrator}}, and \mbox{\hyperlink{classrr_1_1EulerIntegrator_a4f484ed1c727f3f45f90586de64e329f}{rr\+::\+Euler\+Integrator}}.
+
+\mbox{\Hypertarget{classrr_1_1Solver_af08f448f7eea26415a47caaae161de02}\label{classrr_1_1Solver_af08f448f7eea26415a47caaae161de02}} 
+\index{rr::Solver@{rr::Solver}!toString@{toString}}
+\index{toString@{toString}!rr::Solver@{rr::Solver}}
+\doxysubsubsection{\texorpdfstring{toString()}{toString()}}
+{\footnotesize\ttfamily std\+::string rr\+::\+Solver\+::to\+String (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption}) const\hspace{0.3cm}{\ttfamily [virtual]}}
+
+
+
+Return a string representation of the solver. 
+
+\begin{DoxyAuthor}{Author}
+J\+KM 
+\end{DoxyAuthor}
+
+
+Reimplemented in \mbox{\hyperlink{classrr_1_1SteadyStateSolver_afcc15369d04e99ad76cdb8390a94b103}{rr\+::\+Steady\+State\+Solver}}, \mbox{\hyperlink{classrr_1_1Integrator_adde5221e0d61f9f5398d69020e1a5a86}{rr\+::\+Integrator}}, and \mbox{\hyperlink{classrr_1_1EulerIntegrator_aeafbbe730c71a4627fb79f21e0d839ad}{rr\+::\+Euler\+Integrator}}.
+
+
+
+The documentation for this class was generated from the following files\+:\begin{DoxyCompactItemize}
+\item 
+\mbox{\hyperlink{Solver_8h}{Solver.\+h}}\item 
+Solver.\+cpp\end{DoxyCompactItemize}

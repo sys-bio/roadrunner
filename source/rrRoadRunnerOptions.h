@@ -195,7 +195,7 @@ namespace rr
 		/**
 		* remove a value
 		*/
-		virtual int deleteItem(const std::string& key);
+		virtual size_t deleteItem(const std::string& key);
 
 		/**
 		* list of keys in this object.
@@ -280,6 +280,15 @@ namespace rr
 		* The duration of the simulation run, in the model's units of time.
 		*/
 		double duration;
+
+
+        /**
+        * The ouptut file for simulation results. If non-empty, then the
+        * simulation results are batch-written to output_file every 
+        * Config::K_ROWS_PER_WRITE rows, and an empty
+        * result matrix is returned.
+        */
+        std::string output_file;
 
 		/**
 		* The variables (in addition to time) whose values will be saved in the result.

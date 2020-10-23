@@ -45,7 +45,7 @@ Event::Event(LLVMExecutableModel& model, uint id) :
         id(id),
         delay(model.getEventDelay(id)),
         assignTime(delay + model.getTime()),
-        dataSize(model.getEventBufferSize(id)),
+        dataSize(static_cast<uint>(model.getEventBufferSize(id))),
         data(new double[model.getEventBufferSize(id)])
 {
     if (model.getEventUseValuesFromTriggerTime(id))
@@ -266,7 +266,7 @@ bool EventQueue::applyEvents()
 
 uint EventQueue::size() const
 {
-    return sequence.size();
+    return static_cast<uint>(sequence.size());
 }
 
 void EventQueue::push(const Event& e)

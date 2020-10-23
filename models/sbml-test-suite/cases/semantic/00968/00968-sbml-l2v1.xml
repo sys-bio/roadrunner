@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- Created by libAntimony version v2.1-beta on 2011-11-16 11:29 with libSBML version 5.1.0-b0. -->
+<sbml xmlns="http://www.sbml.org/sbml/level2" level="2" version="1">
+  <model id="case00968" name="case00968">
+    <listOfCompartments>
+      <compartment id="default_compartment" size="1"/>
+    </listOfCompartments>
+    <listOfSpecies>
+      <species id="X" compartment="default_compartment" initialAmount="0"/>
+    </listOfSpecies>
+    <listOfParameters>
+      <parameter id="k1" value="1"/>
+    </listOfParameters>
+    <listOfReactions>
+      <reaction id="J0" fast="false">
+        <listOfProducts>
+          <speciesReference species="X">
+            <annotation>
+              <layoutId xmlns="http://projects.eml.org/bcb/sbml/level2" id="Xref"/>
+            </annotation>
+            <stoichiometryMath>
+              <math xmlns="http://www.w3.org/1998/Math/MathML">
+                <cn type="integer"> 3 </cn>
+              </math>
+            </stoichiometryMath>
+          </speciesReference>
+        </listOfProducts>
+        <kineticLaw>
+          <math xmlns="http://www.w3.org/1998/Math/MathML">
+            <ci> k1 </ci>
+          </math>
+        </kineticLaw>
+      </reaction>
+    </listOfReactions>
+  </model>
+</sbml>

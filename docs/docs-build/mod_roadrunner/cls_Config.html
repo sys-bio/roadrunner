@@ -1,0 +1,459 @@
+
+
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" >
+<head>
+  <meta charset="utf-8">
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+  <title>Configuration &mdash; libRoadRunner 1.1.16 documentation</title>
+  
+
+  
+  <link rel="stylesheet" href="../_static/css/theme.css" type="text/css" />
+  <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
+
+  
+  
+  
+  
+
+  
+  <!--[if lt IE 9]>
+    <script src="../_static/js/html5shiv.min.js"></script>
+  <![endif]-->
+  
+    
+      <script type="text/javascript" id="documentation_options" data-url_root="../" src="../_static/documentation_options.js"></script>
+        <script src="../_static/jquery.js"></script>
+        <script src="../_static/underscore.js"></script>
+        <script src="../_static/doctools.js"></script>
+        <script src="../_static/language_data.js"></script>
+    
+    <script type="text/javascript" src="../_static/js/theme.js"></script>
+
+    
+    <link rel="index" title="Index" href="../genindex.html" />
+    <link rel="search" title="Search" href="../search.html" /> 
+</head>
+
+<body class="wy-body-for-nav">
+
+   
+  <div class="wy-grid-for-nav">
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+          
+
+          
+            <a href="../index.html" class="icon icon-home" alt="Documentation Home"> libRoadRunner
+          
+
+          
+          </a>
+
+          
+            
+            
+          
+
+          
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+
+          
+        </div>
+
+        
+        <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+          
+            
+            
+              
+            
+            
+              <ul>
+<li class="toctree-l1"><a class="reference internal" href="../index.html">RoadRunner Documentation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../introduction.html">Introduction</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../Installation/installation.html">Installing RoadRunner</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../read_write_functions.html">SBML Read/Write Functions</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../selecting_values.html">Selecting Values</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../steady_state.html">Steady State Analysis</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../stochastic.html">Stochastic Simulation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../metabolic.html">Metabolic Control Analysis</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../stability.html">Stability Analysis</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../stoichiometric.html">Stoichiometric Analysis</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../bifurcation.html">Bifurcation Analysis</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../integration.html">Simulation and Integration</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../utility_functions.html">Utility Functions</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../accessing_model.html">Accessing the SBML Model Variables</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../api_reference.html">RoadRunner API Reference</a></li>
+</ul>
+
+            
+          
+        </div>
+        
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" aria-label="top navigation">
+        
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../index.html">libRoadRunner</a>
+        
+      </nav>
+
+
+      <div class="wy-nav-content">
+        
+        <div class="rst-content">
+        
+          
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div role="navigation" aria-label="breadcrumbs navigation">
+
+  <ul class="wy-breadcrumbs">
+    
+      <li><a href="../index.html" class="icon icon-home"></a> &raquo;</li>
+        
+      <li>Configuration</li>
+    
+    
+      <li class="wy-breadcrumbs-aside">
+        
+            
+            <a href="../_sources/mod_roadrunner/cls_Config.rst.txt" rel="nofollow"> View page source</a>
+          
+        
+      </li>
+    
+  </ul>
+
+  
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+            
+  <div class="section" id="configuration">
+<h1>Configuration<a class="headerlink" href="#configuration" title="Permalink to this headline">¶</a></h1>
+<p>Many of RoadRunner classes use a number of configuration parameters. Most of these can be set using
+the Config class. The values stored in the Config class only determine the <em>default</em> values of
+parameters. The Config class will look in the following locations for the config file, and will
+load the values from the first config file it finds. If it does not find a config file in one of
+the following locations, a default set of configuration parameters are used. The search locations
+of the config file are:</p>
+<p>#1: the ROADRUNNER_CONFIG environment variable</p>
+<p>#2: try the user’s home directory for roadrunner.conf, i.e.:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="o">/</span><span class="n">Users</span><span class="o">/</span><span class="n">andy</span><span class="o">/</span><span class="n">roadrunner</span><span class="o">.</span><span class="n">conf</span>
+</pre></div>
+</div>
+<p>#3: try the user’s home directory for .roadrunner.conf, i.e.:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="o">/</span><span class="n">Users</span><span class="o">/</span><span class="n">andy</span><span class="o">/.</span><span class="n">roadrunner</span><span class="o">.</span><span class="n">conf</span>
+</pre></div>
+</div>
+<p>#4: try the same directory as the roadrunner shared library, this will be the same directory as the python _roadrunner.pyd
+python extension module, i.e.:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="o">/</span><span class="n">Users</span><span class="o">/</span><span class="n">andy</span><span class="o">/</span><span class="n">local</span><span class="o">/</span><span class="n">lib</span><span class="o">/</span><span class="n">roadrunner</span><span class="o">.</span><span class="n">conf</span>
+</pre></div>
+</div>
+<p>#5: try one directory up from the where the shared library or program is at, i.e.:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="o">/</span><span class="n">Users</span><span class="o">/</span><span class="n">andy</span><span class="o">/</span><span class="n">local</span><span class="o">/</span><span class="n">roadrunner</span><span class="o">.</span><span class="n">conf</span>
+</pre></div>
+</div>
+<p>The conf file is just a plain text file of where each line may be key / value pair separated by a
+“:”, i.e.</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">KEY_NAME</span> <span class="p">:</span> <span class="n">Value</span>
+</pre></div>
+</div>
+<p>Any line that does not match this format is ignored, and keys that are not found are also
+ignored. Therefore, any line that does not start with a word character is considered a comment.</p>
+<p>All of the configuration management functions are static method of the Config class, and
+all of the configuration keys are static attributes of the Config class, these are documented in the
+Configuration Functions section.</p>
+<p>As all of the Config class methods are static, one never instantiates the Config class.</p>
+<div class="section" id="configuration-functions">
+<h2>Configuration Functions<a class="headerlink" href="#configuration-functions" title="Permalink to this headline">¶</a></h2>
+<dl class="py method">
+<dt id="RoadRunner.Config.setValue">
+<em class="property">static </em><code class="sig-prename descclassname">Config.</code><code class="sig-name descname">setValue</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">key</span></em>, <em class="sig-param"><span class="n">value</span></em><span class="sig-paren">)</span><a class="headerlink" href="#RoadRunner.Config.setValue" title="Permalink to this definition">¶</a></dt>
+<dd><p>Set the value of a configuration key. The value must be either a string, integer, double or
+boolean. If one wanted to turn off moiety conservation (this will not have an effect on
+already loaded models):</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">roadrunner</span> <span class="kn">import</span> <span class="n">Config</span>
+<span class="n">Config</span><span class="o">.</span><span class="n">setValue</span><span class="p">(</span><span class="n">Config</span><span class="o">.</span><span class="n">LOADSBMLOPTIONS_CONSERVED_MOIETIES</span><span class="p">,</span> <span class="kc">False</span><span class="p">)</span>
+</pre></div>
+</div>
+<p>Or, other options may be set to Boolean or integer values. To enable an optimization features:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">Config</span><span class="o">.</span><span class="n">setValue</span><span class="p">(</span><span class="n">Config</span><span class="o">.</span><span class="n">LOADSBMLOPTIONS_OPTIMIZE_INSTRUCTION_SIMPLIFIER</span><span class="p">,</span> <span class="kc">True</span><span class="p">)</span>
+</pre></div>
+</div>
+</dd></dl>
+
+<dl class="py method">
+<dt id="RoadRunner.Config.getConfigFilePath">
+<em class="property">static </em><code class="sig-prename descclassname">Config.</code><code class="sig-name descname">getConfigFilePath</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#RoadRunner.Config.getConfigFilePath" title="Permalink to this definition">¶</a></dt>
+<dd><p>If roadrunner was able to find a configuration file on the file system, its full path is returned
+here. If no file was found, this returns a empty string.</p>
+</dd></dl>
+
+<dl class="py method">
+<dt id="RoadRunner.Config.readConfigFile">
+<em class="property">static </em><code class="sig-prename descclassname">Config.</code><code class="sig-name descname">readConfigFile</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">path</span></em><span class="sig-paren">)</span><a class="headerlink" href="#RoadRunner.Config.readConfigFile" title="Permalink to this definition">¶</a></dt>
+<dd><p>Read all of the values from a configuration file at the given path. This overrides any previously
+stored configuration. This allows users to have any number of configuration files and load them
+at any time. Say someone had to use Windows, and they had a file in their C: drive, this would be
+loaded via:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">Config</span><span class="o">.</span><span class="n">readConfigFile</span><span class="p">(</span><span class="s2">&quot;C:/my_config_file.txt&quot;</span><span class="p">)</span>
+</pre></div>
+</div>
+<p>Note, the forward slash works on both Unix and Windows, using the forward slash eliminates the
+need to use a double back slash, “\”.</p>
+</dd></dl>
+
+<dl class="py method">
+<dt id="RoadRunner.Config.writeConfigFile">
+<em class="property">static </em><code class="sig-prename descclassname">Config.</code><code class="sig-name descname">writeConfigFile</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">path</span></em><span class="sig-paren">)</span><a class="headerlink" href="#RoadRunner.Config.writeConfigFile" title="Permalink to this definition">¶</a></dt>
+<dd><p>Write all of the current configuration values to a file. This could be written to one of the
+default locations, or to any other location, and re-loaded at a later time.</p>
+</dd></dl>
+
+</div>
+<div class="section" id="available-configuration-parameters">
+<h2>Available Configuration Parameters<a class="headerlink" href="#available-configuration-parameters" title="Permalink to this headline">¶</a></h2>
+<p>All of the configuration parameter keys are static attributes of the Config class and are listed
+here. The variable type of the parameter is listed after the key name.</p>
+<dl class="py attribute">
+<dt id="RoadRunner.Config.LOADSBMLOPTIONS_CONSERVED_MOIETIES">
+<code class="sig-prename descclassname">Config.</code><code class="sig-name descname">LOADSBMLOPTIONS_CONSERVED_MOIETIES</code><em class="property"> bool</em><a class="headerlink" href="#RoadRunner.Config.LOADSBMLOPTIONS_CONSERVED_MOIETIES" title="Permalink to this definition">¶</a></dt>
+<dd><p>Perform conservation analysis. By default, this attribute is set as False.</p>
+<p>This causes a re-ordering of the species, so results generated
+with this flag enabled can not be compared index wise to results
+generated otherwise.</p>
+<p>Moiety conservation is only compatible with simple models which do NOT have any events or rules
+which define or alter any floating species, and which have simple constant stoichiometries.</p>
+<p>Moiety conservation may cause unexpected results, be aware of what it is before enabling.</p>
+<p>Not recommended for time series simulations.</p>
+<p>To enable, type:</p>
+<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">roadrunner</span><span class="o">.</span><span class="n">Config</span><span class="o">.</span><span class="n">setValue</span><span class="p">(</span><span class="n">roadrunner</span><span class="o">.</span><span class="n">Config</span><span class="o">.</span><span class="n">LOADSBMLOPTIONS_CONSERVED_MOIETIES</span><span class="p">,</span> <span class="kc">True</span><span class="p">)</span>
+</pre></div>
+</div>
+</dd></dl>
+
+<dl class="py attribute">
+<dt id="RoadRunner.Config.LOADSBMLOPTIONS_RECOMPILE">
+<code class="sig-prename descclassname">Config.</code><code class="sig-name descname">LOADSBMLOPTIONS_RECOMPILE</code><em class="property"> bool</em><a class="headerlink" href="#RoadRunner.Config.LOADSBMLOPTIONS_RECOMPILE" title="Permalink to this definition">¶</a></dt>
+<dd><p>Should the model be recompiled?
+The LLVM ModelGenerator maintains a hash table of currently running
+models. If this flag is NOT set, then the generator will look to see
+if there is already a running instance of the given model and
+use the generated code from that one.</p>
+<p>If only a single instance of a model is run, there is no
+need to cache the models, and this can safely be enabled,
+realizing some performance gains.</p>
+</dd></dl>
+
+<dl class="py attribute">
+<dt id="RoadRunner.Config.LOADSBMLOPTIONS_READ_ONLY">
+<code class="sig-prename descclassname">Config.</code><code class="sig-name descname">LOADSBMLOPTIONS_READ_ONLY</code><em class="property"> bool</em><a class="headerlink" href="#RoadRunner.Config.LOADSBMLOPTIONS_READ_ONLY" title="Permalink to this definition">¶</a></dt>
+<dd><p>If this is set, then a read-only model is generated. A read-only
+model can be simulated, but no code is generated to set model
+values, i.e. parameters, amounts, values, etc…</p>
+<p>It takes a finite amount of time to generate the model value setting
+functions, and if they are not needed, one may see some performance
+gains, especially in very large models.</p>
+</dd></dl>
+
+<dl class="py attribute">
+<dt id="RoadRunner.Config.LOADSBMLOPTIONS_MUTABLE_INITIAL_CONDITIONS">
+<code class="sig-prename descclassname">Config.</code><code class="sig-name descname">LOADSBMLOPTIONS_MUTABLE_INITIAL_CONDITIONS</code><em class="property"> bool</em><a class="headerlink" href="#RoadRunner.Config.LOADSBMLOPTIONS_MUTABLE_INITIAL_CONDITIONS" title="Permalink to this definition">¶</a></dt>
+<dd><p>Generate accessors functions to allow changing of initial
+conditions.</p>
+</dd></dl>
+
+<dl class="py attribute">
+<dt id="RoadRunner.Config.LOADSBMLOPTIONS_OPTIMIZE_GVN">
+<code class="sig-prename descclassname">Config.</code><code class="sig-name descname">LOADSBMLOPTIONS_OPTIMIZE_GVN</code><em class="property"> bool</em><a class="headerlink" href="#RoadRunner.Config.LOADSBMLOPTIONS_OPTIMIZE_GVN" title="Permalink to this definition">¶</a></dt>
+<dd><p>GVN - This pass performs global value numbering and redundant load
+elimination contemporaneously.</p>
+</dd></dl>
+
+<dl class="py attribute">
+<dt id="RoadRunner.Config.LOADSBMLOPTIONS_OPTIMIZE_CFG_SIMPLIFICATION">
+<code class="sig-prename descclassname">Config.</code><code class="sig-name descname">LOADSBMLOPTIONS_OPTIMIZE_CFG_SIMPLIFICATION</code><em class="property"> bool</em><a class="headerlink" href="#RoadRunner.Config.LOADSBMLOPTIONS_OPTIMIZE_CFG_SIMPLIFICATION" title="Permalink to this definition">¶</a></dt>
+<dd><p>CFGSimplification - Merge basic blocks, eliminate unreachable blocks,
+simplify terminator instructions, etc…</p>
+</dd></dl>
+
+<dl class="py attribute">
+<dt id="RoadRunner.Config.LOADSBMLOPTIONS_OPTIMIZE_INSTRUCTION_COMBINING">
+<code class="sig-prename descclassname">Config.</code><code class="sig-name descname">LOADSBMLOPTIONS_OPTIMIZE_INSTRUCTION_COMBINING</code><em class="property"> bool</em><a class="headerlink" href="#RoadRunner.Config.LOADSBMLOPTIONS_OPTIMIZE_INSTRUCTION_COMBINING" title="Permalink to this definition">¶</a></dt>
+<dd><p>InstructionCombining - Combine instructions to form fewer, simple
+instructions. This pass does not modify the CFG, and has a tendency to make
+instructions dead, so a subsequent DCE pass is useful.</p>
+</dd></dl>
+
+<dl class="py attribute">
+<dt id="RoadRunner.Config.LOADSBMLOPTIONS_OPTIMIZE_DEAD_INST_ELIMINATION">
+<code class="sig-prename descclassname">Config.</code><code class="sig-name descname">LOADSBMLOPTIONS_OPTIMIZE_DEAD_INST_ELIMINATION</code><em class="property"> bool</em><a class="headerlink" href="#RoadRunner.Config.LOADSBMLOPTIONS_OPTIMIZE_DEAD_INST_ELIMINATION" title="Permalink to this definition">¶</a></dt>
+<dd><p>DeadInstElimination - This pass quickly removes trivially dead instructions
+without modifying the CFG of the function.  It is a BasicBlockPass, so it
+runs efficiently when queued next to other BasicBlockPass’s.</p>
+</dd></dl>
+
+<dl class="py attribute">
+<dt id="RoadRunner.Config.LOADSBMLOPTIONS_OPTIMIZE_DEAD_CODE_ELIMINATION">
+<code class="sig-prename descclassname">Config.</code><code class="sig-name descname">LOADSBMLOPTIONS_OPTIMIZE_DEAD_CODE_ELIMINATION</code><em class="property"> bool</em><a class="headerlink" href="#RoadRunner.Config.LOADSBMLOPTIONS_OPTIMIZE_DEAD_CODE_ELIMINATION" title="Permalink to this definition">¶</a></dt>
+<dd><p>DeadCodeElimination - This pass is more powerful than DeadInstElimination,
+because it is worklist driven that can potentially revisit instructions when
+their other instructions become dead, to eliminate chains of dead
+computations.</p>
+</dd></dl>
+
+<dl class="py attribute">
+<dt id="RoadRunner.Config.LOADSBMLOPTIONS_OPTIMIZE_INSTRUCTION_SIMPLIFIER">
+<code class="sig-prename descclassname">Config.</code><code class="sig-name descname">LOADSBMLOPTIONS_OPTIMIZE_INSTRUCTION_SIMPLIFIER</code><em class="property"> bool</em><a class="headerlink" href="#RoadRunner.Config.LOADSBMLOPTIONS_OPTIMIZE_INSTRUCTION_SIMPLIFIER" title="Permalink to this definition">¶</a></dt>
+<dd><p>InstructionSimplifier - Remove redundant instructions.</p>
+</dd></dl>
+
+<dl class="py attribute">
+<dt id="RoadRunner.Config.LOADSBMLOPTIONS_USE_MCJIT">
+<code class="sig-prename descclassname">Config.</code><code class="sig-name descname">LOADSBMLOPTIONS_USE_MCJIT</code><em class="property"> bool</em><a class="headerlink" href="#RoadRunner.Config.LOADSBMLOPTIONS_USE_MCJIT" title="Permalink to this definition">¶</a></dt>
+<dd><p>Currently disabled.</p>
+<p>Use the LLVM MCJIT JIT engine.</p>
+<p>Defaults to false.</p>
+<p>The MCJIT is the new LLVM JIT engine, it is not as well tested as the
+original JIT engine. Does NOT work on LLVM 3.1</p>
+</dd></dl>
+
+<dl class="py attribute">
+<dt id="RoadRunner.Config.ROADRUNNER_DISABLE_PYTHON_DYNAMIC_PROPERTIES">
+<code class="sig-prename descclassname">Config.</code><code class="sig-name descname">ROADRUNNER_DISABLE_PYTHON_DYNAMIC_PROPERTIES</code><em class="property"> int</em><a class="headerlink" href="#RoadRunner.Config.ROADRUNNER_DISABLE_PYTHON_DYNAMIC_PROPERTIES" title="Permalink to this definition">¶</a></dt>
+<dd><p>RoadRunner by default dynamically generates accessors properties
+for all SBML symbol names on the model object when it is retrieved
+in Python. This feature is very nice for interactive use, but
+can slow things down. If this feature is not needed, it
+can be disabled here.</p>
+</dd></dl>
+
+<dl class="py attribute">
+<dt id="RoadRunner.Config.ROADRUNNER_DISABLE_WARNINGS">
+<code class="sig-prename descclassname">Config.</code><code class="sig-name descname">ROADRUNNER_DISABLE_WARNINGS</code><em class="property"> int</em><a class="headerlink" href="#RoadRunner.Config.ROADRUNNER_DISABLE_WARNINGS" title="Permalink to this definition">¶</a></dt>
+<dd><p>Disable SBML conserved moiety warnings.</p>
+<p>Conserved Moiety Conversion may cause unexpected behavior, be aware of what it
+is before enabling.</p>
+<p>RoadRunner will issue a warning in steadyState if conservedMoieties are NOT
+enabled because of a potential singular Jacobian. To disable this warning,
+set this value to 1</p>
+<p>A notice will be issued whenever a document is loaded and conserved moieties
+are enabled. To disable this notice, set this value to 2.</p>
+<p>To disable both the warning and notice, set this value to 3</p>
+<p>Rationale for these numbers: This is actual a bit field, disabling the steady state
+warning value is actually 0b01 &lt;&lt; 0 which is 1, and the loading warning is 0b01 &lt;&lt; 1
+which is 2 and 0b01 &amp; 0b10 is 0b11 which is 3 in decimal.</p>
+</dd></dl>
+
+<dl class="py attribute">
+<dt id="RoadRunner.Config.LOADSBMLOPTIONS_PERMISSIVE">
+<code class="sig-prename descclassname">Config.</code><code class="sig-name descname">LOADSBMLOPTIONS_PERMISSIVE</code><em class="property"> int</em><a class="headerlink" href="#RoadRunner.Config.LOADSBMLOPTIONS_PERMISSIVE" title="Permalink to this definition">¶</a></dt>
+<dd><p>Accept some non-valid SBML (such as Booleans in numberic expressions).</p>
+<p>For legacy code only. Do not use.</p>
+</dd></dl>
+
+<dl class="py attribute">
+<dt id="RoadRunner.Config.MAX_OUTPUT_ROWS">
+<code class="sig-prename descclassname">Config.</code><code class="sig-name descname">MAX_OUTPUT_ROWS</code><em class="property"> int</em><a class="headerlink" href="#RoadRunner.Config.MAX_OUTPUT_ROWS" title="Permalink to this definition">¶</a></dt>
+<dd><p>Set the maximum number of rows in the output matrix.</p>
+<p>For models with very fine time stepping, the output of simulate can
+use up all available memory and crash the system. This option provides
+an upper bound on the maximum number of rows the output can contain.
+The simulation will be aborted and the output truncated if this value is exceeded.</p>
+</dd></dl>
+
+<dl class="py attribute">
+<dt id="RoadRunner.Config.ALLOW_EVENTS_IN_STEADY_STATE_CALCULATIONS">
+<code class="sig-prename descclassname">Config.</code><code class="sig-name descname">ALLOW_EVENTS_IN_STEADY_STATE_CALCULATIONS</code><em class="property"> bool</em><a class="headerlink" href="#RoadRunner.Config.ALLOW_EVENTS_IN_STEADY_STATE_CALCULATIONS" title="Permalink to this definition">¶</a></dt>
+<dd><p>Enable or disable steady state calculations when a model contains events</p>
+<p>If true, steady state calculations will be carried out irrespective
+of whether events are present or not.
+If false, steady state calculations will not be carried out
+in the presence of events.</p>
+</dd></dl>
+
+</div>
+</div>
+
+
+           </div>
+           
+          </div>
+          <footer>
+  
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>
+        
+        &copy; Copyright 2013-2018, Andy Somogyi, J Kyle Medley, Kiri Choi, Herbert Suaro
+
+    </p>
+  </div>
+    
+    
+    
+    Built with <a href="http://sphinx-doc.org/">Sphinx</a> using a
+    
+    <a href="https://github.com/rtfd/sphinx_rtd_theme">theme</a>
+    
+    provided by <a href="https://readthedocs.org">Read the Docs</a>. 
+
+</footer>
+
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+  
+
+  <script type="text/javascript">
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script>
+
+  
+  
+    
+   
+
+</body>
+</html>

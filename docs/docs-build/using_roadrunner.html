@@ -1,0 +1,606 @@
+
+
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" >
+<head>
+  <meta charset="utf-8">
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+  <title>Basic Tutorial &mdash; libRoadRunner 1.1.16 documentation</title>
+  
+
+  
+  <link rel="stylesheet" href="_static/css/theme.css" type="text/css" />
+  <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
+
+  
+  
+  
+  
+
+  
+  <!--[if lt IE 9]>
+    <script src="_static/js/html5shiv.min.js"></script>
+  <![endif]-->
+  
+    
+      <script type="text/javascript" id="documentation_options" data-url_root="./" src="_static/documentation_options.js"></script>
+        <script src="_static/jquery.js"></script>
+        <script src="_static/underscore.js"></script>
+        <script src="_static/doctools.js"></script>
+        <script src="_static/language_data.js"></script>
+    
+    <script type="text/javascript" src="_static/js/theme.js"></script>
+
+    
+    <link rel="index" title="Index" href="genindex.html" />
+    <link rel="search" title="Search" href="search.html" />
+    <link rel="next" title="What Is SBML?" href="what_is_sbml.html" />
+    <link rel="prev" title="Introduction" href="introduction.html" /> 
+</head>
+
+<body class="wy-body-for-nav">
+
+   
+  <div class="wy-grid-for-nav">
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+          
+
+          
+            <a href="index.html" class="icon icon-home" alt="Documentation Home"> libRoadRunner
+          
+
+          
+          </a>
+
+          
+            
+            
+          
+
+          
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+
+          
+        </div>
+
+        
+        <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+          
+            
+            
+              
+            
+            
+              <ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="index.html">RoadRunner Documentation</a></li>
+<li class="toctree-l1 current"><a class="reference internal" href="introduction.html">Introduction</a><ul class="current">
+<li class="toctree-l2 current"><a class="current reference internal" href="#">Basic Tutorial</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#import-roadrunner">Import RoadRunner</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#loading-models">Loading Models</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#running-simulations">Running Simulations</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#changing-parameters">Changing Parameters</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#selecting-simulation-output">Selecting Simulation Output</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#plotting-data">Plotting Data</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#changing-initial-conditions">Changing Initial Conditions</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#solvers">Solvers</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="what_is_sbml.html">What Is SBML?</a></li>
+<li class="toctree-l2"><a class="reference internal" href="what_is_rr.html">What is libRoadRunner</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="Installation/installation.html">Installing RoadRunner</a></li>
+<li class="toctree-l1"><a class="reference internal" href="read_write_functions.html">SBML Read/Write Functions</a></li>
+<li class="toctree-l1"><a class="reference internal" href="selecting_values.html">Selecting Values</a></li>
+<li class="toctree-l1"><a class="reference internal" href="steady_state.html">Steady State Analysis</a></li>
+<li class="toctree-l1"><a class="reference internal" href="stochastic.html">Stochastic Simulation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="metabolic.html">Metabolic Control Analysis</a></li>
+<li class="toctree-l1"><a class="reference internal" href="stability.html">Stability Analysis</a></li>
+<li class="toctree-l1"><a class="reference internal" href="stoichiometric.html">Stoichiometric Analysis</a></li>
+<li class="toctree-l1"><a class="reference internal" href="bifurcation.html">Bifurcation Analysis</a></li>
+<li class="toctree-l1"><a class="reference internal" href="integration.html">Simulation and Integration</a></li>
+<li class="toctree-l1"><a class="reference internal" href="utility_functions.html">Utility Functions</a></li>
+<li class="toctree-l1"><a class="reference internal" href="accessing_model.html">Accessing the SBML Model Variables</a></li>
+<li class="toctree-l1"><a class="reference internal" href="api_reference.html">RoadRunner API Reference</a></li>
+</ul>
+
+            
+          
+        </div>
+        
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" aria-label="top navigation">
+        
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="index.html">libRoadRunner</a>
+        
+      </nav>
+
+
+      <div class="wy-nav-content">
+        
+        <div class="rst-content">
+        
+          
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div role="navigation" aria-label="breadcrumbs navigation">
+
+  <ul class="wy-breadcrumbs">
+    
+      <li><a href="index.html" class="icon icon-home"></a> &raquo;</li>
+        
+          <li><a href="introduction.html">Introduction</a> &raquo;</li>
+        
+      <li>Basic Tutorial</li>
+    
+    
+      <li class="wy-breadcrumbs-aside">
+        
+            
+            <a href="_sources/using_roadrunner.rst.txt" rel="nofollow"> View page source</a>
+          
+        
+      </li>
+    
+  </ul>
+
+  
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+            
+  <div class="section" id="basic-tutorial">
+<h1>Basic Tutorial<a class="headerlink" href="#basic-tutorial" title="Permalink to this headline">¶</a></h1>
+<div class="section" id="import-roadrunner">
+<h2>Import RoadRunner<a class="headerlink" href="#import-roadrunner" title="Permalink to this headline">¶</a></h2>
+<p>To startup RoadRunner use the commands at the Python prompt:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">roadrunner</span>
+<span class="n">rr</span> <span class="o">=</span> <span class="n">roadrunner</span><span class="o">.</span><span class="n">RoadRunner</span><span class="p">()</span>
+</pre></div>
+</div>
+<p>The variable <code class="docutils literal notranslate"><span class="pre">rr</span></code> is your reference to roadrunner. Anything you want to do with roadrunner must be
+specified using the variable <code class="docutils literal notranslate"><span class="pre">rr</span></code>.</p>
+<p>To get the current version of libRoadRunner type the following:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">roadrunner</span><span class="o">.</span><span class="n">__version__</span>
+</pre></div>
+</div>
+</div>
+<div class="section" id="loading-models">
+<span id="id1"></span><h2>Loading Models<a class="headerlink" href="#loading-models" title="Permalink to this headline">¶</a></h2>
+<p>RoadRunner reads models using the SBML format. If you have a SBML model stored on your hard drive, it is
+possible to load that model either by giving he document contents or path to the Roadrunner
+constructor, or later by using the method, <a class="reference internal" href="mod_roadrunner/cls_RoadRunner.html#RoadRunner.RoadRunner.load" title="RoadRunner.RoadRunner.load"><code class="xref py py-meth docutils literal notranslate"><span class="pre">load()</span></code></a>. Let’s assume you have a model called
+mymodel.xml in <code class="docutils literal notranslate"><span class="pre">C:\MyModels</span></code>. To load this model in <strong>Windows</strong> we would use the command:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">rr</span> <span class="o">=</span> <span class="n">roadrunner</span><span class="o">.</span><span class="n">RoadRunner</span><span class="p">(</span><span class="s2">&quot;C:/MyModels/mymodel.xml&quot;</span><span class="p">)</span>
+</pre></div>
+</div>
+<p>Note, Windows typically used the back slash, ‘' to indicate a directory separator, however in
+most languages including python, this is the escape character, therefore one can also enter Windows
+paths using the forward slash ‘/’ which does not cause issues. If one want to use the backslash,
+these must be typed twice, i.e. <code class="docutils literal notranslate"><span class="pre">'C:\\MyModels\\mymodel.xml'</span></code>.</p>
+<p>On the <strong>Mac or Linux</strong> we might use:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">rr</span> <span class="o">=</span> <span class="n">roadrunner</span><span class="o">.</span><span class="n">RoadRunner</span><span class="p">(</span><span class="s2">&quot;/home/MyModels/mymodel.xml&quot;</span><span class="p">)</span>
+</pre></div>
+</div>
+<p>RoadRunner can also load models directly from a URL via:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">rr</span> <span class="o">=</span> <span class="n">roadrunner</span><span class="o">.</span><span class="n">RoadRunner</span><span class="p">(</span><span class="s2">&quot;http://www.ebi.ac.uk/biomodels-main/download?mid=BIOMD0000000010&quot;</span><span class="p">)</span>
+</pre></div>
+</div>
+<p>If the model was loaded successfully, the RoadRunner object is now ready to use,  otherwise an exception will
+be raised that contains extended information detailing exactly what failed. If any warnings are
+found in the SBML document, these will be displayed in the console error log.</p>
+<p>It is also possible to load a model from a string containing a SBML model, for example:</p>
+<blockquote>
+<div><p>rr = roadrunner.RoadRunner (sbmlStr)</p>
+</div></blockquote>
+<p>This is useful when one wishes to create a new roadrunner instance from an existing model, eg:</p>
+<blockquote>
+<div><p>sbmlStr = rr.getCurrentSBML()
+rrnew = roadrunner.RoadRunner (sbmlStr)</p>
+</div></blockquote>
+<p>Additionally, there are a couple models <strong>included with libRoadRunner</strong>. The models  <code class="docutils literal notranslate"><span class="pre">feedback.xml</span></code>
+and <code class="docutils literal notranslate"><span class="pre">Test_1.xml</span></code> are available in the <code class="docutils literal notranslate"><span class="pre">roadrunner.testing</span></code> module. To access these use:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">roadrunner.testing</span> <span class="k">as</span> <span class="nn">test</span>
+<span class="n">r</span> <span class="o">=</span> <span class="n">test</span><span class="o">.</span><span class="n">getRoadRunner</span><span class="p">(</span><span class="s1">&#39;feedback.xml&#39;</span><span class="p">)</span>
+</pre></div>
+</div>
+<p>There are a few additional models in the <code class="docutils literal notranslate"><span class="pre">models/</span></code> directory of the distribution, where you installed libRoadRunner.</p>
+</div>
+<div class="section" id="running-simulations">
+<h2>Running Simulations<a class="headerlink" href="#running-simulations" title="Permalink to this headline">¶</a></h2>
+<p>Once a model is successfully loaded we can run a time course simulation. To run a simulation we use the
+<a class="reference internal" href="mod_roadrunner/cls_RoadRunner.html#RoadRunner.RoadRunner.simulate" title="RoadRunner.RoadRunner.simulate"><code class="xref py py-meth docutils literal notranslate"><span class="pre">simulate()</span></code></a> method:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">result</span> <span class="o">=</span> <span class="n">rr</span><span class="o">.</span><span class="n">simulate</span><span class="p">()</span>
+</pre></div>
+</div>
+<p>The output will be in a Python numpy array. The first column will contain time points and the remaining columns will include
+all the floating species amounts/concentrations. In the simulate method we didn’t specify how long to run the simulation or how many
+points to generate.  By default the starting time is set to zero, ending time to 10 and the number of points to 51.
+There are two ways to set these values. The easiest way is to change the positional arguments in <a class="reference internal" href="mod_roadrunner/cls_RoadRunner.html#RoadRunner.RoadRunner.simulate" title="RoadRunner.RoadRunner.simulate"><code class="xref py py-meth docutils literal notranslate"><span class="pre">simulate()</span></code></a>
+in the following manner:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">result</span> <span class="o">=</span> <span class="n">rr</span><span class="o">.</span><span class="n">simulate</span> <span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">10</span><span class="p">,</span> <span class="mi">100</span><span class="p">)</span>
+</pre></div>
+</div>
+<p>This will set the starting time to zero, the ending time to 10 and generate 100 points. This means that the result will
+be out in time intervals of 1/99.</p>
+<p>The simulate method also accepts the steps keyword argument instead of points:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">result</span> <span class="o">=</span> <span class="n">rr</span><span class="o">.</span><span class="n">simulate</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">10</span><span class="p">,</span> <span class="n">steps</span><span class="o">=</span><span class="mi">99</span><span class="p">)</span>
+</pre></div>
+</div>
+<p>For more details of the simulate method see <a class="reference internal" href="mod_roadrunner/cls_RoadRunner.html#RoadRunner.RoadRunner.simulate" title="RoadRunner.RoadRunner.simulate"><code class="xref py py-meth docutils literal notranslate"><span class="pre">simulate()</span></code></a>.
+The following table summarizes the various options.</p>
+<table class="docutils align-default">
+<colgroup>
+<col style="width: 8%" />
+<col style="width: 92%" />
+</colgroup>
+<thead>
+<tr class="row-odd"><th class="head"><p>Option</p></th>
+<th class="head"><p>Description</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p>start</p></td>
+<td><p>Starting time for simulation</p></td>
+</tr>
+<tr class="row-odd"><td><p>end</p></td>
+<td><p>Ending time for simulation. Setting ‘end’ will automatically change ‘duration’</p></td>
+</tr>
+<tr class="row-even"><td><p>points</p></td>
+<td><p>Number of rows to include in the output matrix</p></td>
+</tr>
+<tr class="row-odd"><td><p>selections</p></td>
+<td><p>(Optional) A list of variables to include in the output, e.g. <code class="docutils literal notranslate"><span class="pre">['time','A']</span></code> for a model with species <code class="docutils literal notranslate"><span class="pre">A</span></code>. More below.</p></td>
+</tr>
+<tr class="row-even"><td><p>steps</p></td>
+<td><p>(Optional keyword argument) Number of steps at which the output is sampled where the samples are evenly spaced. Steps = points-1. Steps and points may not both be specified.</p></td>
+</tr>
+</tbody>
+</table>
+<p>One important point to note about <a class="reference internal" href="mod_roadrunner/cls_RoadRunner.html#RoadRunner.RoadRunner.simulate" title="RoadRunner.RoadRunner.simulate"><code class="xref py py-meth docutils literal notranslate"><span class="pre">simulate()</span></code></a>: When <a class="reference internal" href="mod_roadrunner/cls_RoadRunner.html#RoadRunner.RoadRunner.simulate" title="RoadRunner.RoadRunner.simulate"><code class="xref py py-meth docutils literal notranslate"><span class="pre">simulate()</span></code></a> is run, the concentration of
+the floating species will naturally change. If <a class="reference internal" href="mod_roadrunner/cls_RoadRunner.html#RoadRunner.RoadRunner.simulate" title="RoadRunner.RoadRunner.simulate"><code class="xref py py-meth docutils literal notranslate"><span class="pre">simulate()</span></code></a> is called a second time, the simulation
+will start the simulation from the previous simulated values. This can be used to easily follow on
+simulations. However there will be times when we wish to run the same simulation again but perhaps
+with slightly different parameters values. For this we must reset the model to its initial conditions. To do that we run the command <a class="reference internal" href="mod_roadrunner/cls_RoadRunner.html#RoadRunner.RoadRunner.reset" title="RoadRunner.RoadRunner.reset"><code class="xref py py-meth docutils literal notranslate"><span class="pre">reset()</span></code></a>:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">rr</span><span class="o">.</span><span class="n">reset</span><span class="p">()</span>
+</pre></div>
+</div>
+<p>RoadRunner also has two other reset methods: <a class="reference internal" href="mod_roadrunner/cls_RoadRunner.html#RoadRunner.RoadRunner.resetAll" title="RoadRunner.RoadRunner.resetAll"><code class="xref py py-meth docutils literal notranslate"><span class="pre">resetAll()</span></code></a> and <a class="reference internal" href="mod_roadrunner/cls_RoadRunner.html#RoadRunner.RoadRunner.resetToOrigin" title="RoadRunner.RoadRunner.resetToOrigin"><code class="xref py py-meth docutils literal notranslate"><span class="pre">resetToOrigin()</span></code></a>. These are typically only used in advanced scenarios. This is because RoadRunner maintains its own copy of the “initial” value of every quantity, which can be set via <code class="docutils literal notranslate"><span class="pre">rr_instance.setValue('init(quantity)',123)</span></code>. When <a class="reference internal" href="mod_roadrunner/cls_RoadRunner.html#RoadRunner.RoadRunner.resetAll" title="RoadRunner.RoadRunner.resetAll"><code class="xref py py-meth docutils literal notranslate"><span class="pre">resetAll()</span></code></a> is called, it resets the quantity to RoadRunner’s internal copy, not the SBML-defined value. <a class="reference internal" href="mod_roadrunner/cls_RoadRunner.html#RoadRunner.RoadRunner.resetToOrigin" title="RoadRunner.RoadRunner.resetToOrigin"><code class="xref py py-meth docutils literal notranslate"><span class="pre">resetToOrigin()</span></code></a> completely reverts everything in the model back to the SBML-specified values, whereas <a class="reference internal" href="mod_roadrunner/cls_RoadRunner.html#RoadRunner.RoadRunner.resetAll" title="RoadRunner.RoadRunner.resetAll"><code class="xref py py-meth docutils literal notranslate"><span class="pre">resetAll()</span></code></a> preserves any changes you have made to initial values.</p>
+</div>
+<div class="section" id="changing-parameters">
+<h2>Changing Parameters<a class="headerlink" href="#changing-parameters" title="Permalink to this headline">¶</a></h2>
+<p>Often during a modeling experiment we will need to change parameter values, that is the values of the various
+kinetic constants in the model. If a model has a kinetic constants k1, then we can change or inspect the value using
+the following syntax:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="nb">print</span> <span class="n">rr</span><span class="o">.</span><span class="n">k1</span>
+<span class="n">rr</span><span class="o">.</span><span class="n">k1</span> <span class="o">=</span> <span class="mf">1.2</span>
+</pre></div>
+</div>
+</div>
+<div class="section" id="selecting-simulation-output">
+<h2>Selecting Simulation Output<a class="headerlink" href="#selecting-simulation-output" title="Permalink to this headline">¶</a></h2>
+<p>RoadRunner supports a range of options for selecting what data a simulation should return. For more
+detailed information on selections, see the <a class="reference internal" href="selecting_values.html#selecting-values"><span class="std std-ref">Selecting Values</span></a> section.</p>
+<p>The simulate method, by default returns an <a class="reference external" href="http://docs.scipy.org/doc/numpy/user/basics.rec.html">structured array</a>,
+which are arrays that also contain column names. These can be plotted directly using the
+built in <a class="reference internal" href="mod_roadrunner/cls_RoadRunner.html#RoadRunner.RoadRunner.plot" title="RoadRunner.RoadRunner.plot"><code class="xref py py-meth docutils literal notranslate"><span class="pre">plot()</span></code></a> function.</p>
+<p>The output selections default to time and the set of floating species.
+It is possible to change the simulation result values by changing the selection list.
+For example assume that a model has three species, S1, S2, and S3 but we only want <a class="reference internal" href="mod_roadrunner/cls_RoadRunner.html#RoadRunner.RoadRunner.simulate" title="RoadRunner.RoadRunner.simulate"><code class="xref py py-meth docutils literal notranslate"><span class="pre">simulate()</span></code></a> to
+return time in the first column and S2 in the second column. To specify this we would type:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">rr</span><span class="o">.</span><span class="n">timeCourseSelections</span> <span class="o">=</span> <span class="p">[</span><span class="s1">&#39;time&#39;</span><span class="p">,</span> <span class="s1">&#39;S2&#39;</span><span class="p">]</span>
+<span class="n">result</span> <span class="o">=</span> <span class="n">rr</span><span class="o">.</span><span class="n">simulate</span> <span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">10</span><span class="p">,</span> <span class="mi">100</span><span class="p">)</span>
+</pre></div>
+</div>
+<p>In another example let say we wanted to plot a phase plot where S1 is plotted against S2. To do this we
+type the following:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">rr</span><span class="o">.</span><span class="n">timeCourseSelections</span> <span class="o">=</span> <span class="p">[</span><span class="s1">&#39;S1&#39;</span><span class="p">,</span> <span class="s1">&#39;S2&#39;</span><span class="p">]</span>
+<span class="n">result</span> <span class="o">=</span> <span class="n">rr</span><span class="o">.</span><span class="n">simulate</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">10</span><span class="p">,</span> <span class="mi">100</span><span class="p">)</span>
+</pre></div>
+</div>
+<p>Some additional examples include:</p>
+<div class="highlight-Python notranslate"><div class="highlight"><pre><span></span><span class="c1"># Select time and two rates of change (dS1/dt and dS2/dt)</span>
+<span class="n">rr</span><span class="o">.</span><span class="n">timeCourseSelections</span> <span class="o">=</span> <span class="p">[</span><span class="s2">&quot;time&quot;</span><span class="p">,</span> <span class="s2">&quot;S1&#39;&quot;</span><span class="p">,</span> <span class="s2">&quot;S2&#39;&quot;</span><span class="p">]</span>
+
+<span class="c1"># By default species names yield amounts, concentrations can be obtained</span>
+<span class="c1"># using square brackets, e.g.</span>
+<span class="n">rr</span><span class="o">.</span><span class="n">timeCourseSelections</span> <span class="o">=</span> <span class="p">[</span><span class="s1">&#39;time&#39;</span><span class="p">,</span> <span class="s1">&#39;[S1]&#39;</span><span class="p">,</span> <span class="s1">&#39;[S2]&#39;</span><span class="p">]</span>
+</pre></div>
+</div>
+<div class="admonition seealso">
+<p class="admonition-title">See also</p>
+<p>More details on <a class="reference internal" href="selecting_values.html"><span class="doc">Selecting Values</span></a></p>
+</div>
+</div>
+<div class="section" id="plotting-data">
+<span id="id2"></span><h2>Plotting Data<a class="headerlink" href="#plotting-data" title="Permalink to this headline">¶</a></h2>
+<p>RoadRunner has a built in <a class="reference internal" href="mod_roadrunner/cls_RoadRunner.html#RoadRunner.RoadRunner.plot" title="RoadRunner.RoadRunner.plot"><code class="xref py py-meth docutils literal notranslate"><span class="pre">plot()</span></code></a> method which can perform basic plotting.
+Simply call:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">result</span> <span class="o">=</span> <span class="n">rr</span><span class="o">.</span><span class="n">simulate</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">10</span><span class="p">,</span> <span class="mi">100</span><span class="p">)</span>
+<span class="n">rr</span><span class="o">.</span><span class="n">plot</span><span class="p">()</span>
+</pre></div>
+</div>
+<p>If one wants more control over the data plots, one may use matplotlib directly.  Assuming the
+simulate returns an array called result, and that the first column represents the x axis and the
+remaining columns the y axis, we type:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">pylab</span>
+<span class="n">pylab</span><span class="o">.</span><span class="n">plot</span> <span class="p">(</span><span class="n">result</span><span class="p">[:,</span><span class="mi">0</span><span class="p">],</span><span class="n">result</span><span class="p">[:,</span><span class="mi">1</span><span class="p">:])</span>
+<span class="n">pylab</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
+</pre></div>
+</div>
+<p>This will bring up a new window showing the plot. To clear the plot for next time, type the command:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">pylab</span><span class="o">.</span><span class="n">clf</span><span class="p">()</span>
+</pre></div>
+</div>
+<p>One may also override the built-in <a class="reference internal" href="mod_roadrunner/cls_RoadRunner.html#RoadRunner.RoadRunner.plot" title="RoadRunner.RoadRunner.plot"><code class="xref py py-meth docutils literal notranslate"><span class="pre">plot()</span></code></a> method with a more more capable plotting routine.</p>
+<p>Below is a simplified version of the <a class="reference internal" href="mod_roadrunner/cls_RoadRunner.html#RoadRunner.RoadRunner.plot" title="RoadRunner.RoadRunner.plot"><code class="xref py py-meth docutils literal notranslate"><span class="pre">plot()</span></code></a> method. You may copy and write a
+customized version and even attach it to the RoadRunner object. The first argument is a RoadRunner
+object instance, and the second is a flag which tells the method to show the plot or not:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="k">def</span> <span class="nf">plot</span><span class="p">(</span><span class="n">r</span><span class="p">,</span> <span class="n">show</span><span class="o">=</span><span class="kc">True</span><span class="p">):</span>
+
+    <span class="kn">import</span> <span class="nn">pylab</span> <span class="k">as</span> <span class="nn">p</span>
+
+    <span class="n">result</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">getSimulationData</span><span class="p">()</span>
+
+    <span class="k">if</span> <span class="n">result</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
+        <span class="k">raise</span> <span class="ne">Exception</span><span class="p">(</span><span class="s2">&quot;no simulation result&quot;</span><span class="p">)</span>
+
+    <span class="c1"># assume result is a standard numpy array</span>
+
+    <span class="n">selections</span> <span class="o">=</span> <span class="n">r</span><span class="o">.</span><span class="n">timeCourseSelections</span>
+
+    <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="n">result</span><span class="o">.</span><span class="n">shape</span><span class="p">)</span> <span class="o">!=</span> <span class="mi">2</span> <span class="ow">or</span> <span class="n">result</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span> <span class="o">!=</span> <span class="nb">len</span><span class="p">(</span><span class="n">selections</span><span class="p">):</span>
+        <span class="k">raise</span> <span class="ne">Exception</span><span class="p">(</span><span class="s2">&quot;simulation result columns not equal to number of selections,&quot;</span>
+                        <span class="s2">&quot;likely a simulation has not been run&quot;</span><span class="p">)</span>
+
+    <span class="n">times</span> <span class="o">=</span> <span class="n">result</span><span class="p">[:,</span><span class="mi">0</span><span class="p">]</span>
+
+    <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="nb">len</span><span class="p">(</span><span class="n">selections</span><span class="p">)):</span>
+        <span class="n">series</span> <span class="o">=</span> <span class="n">result</span><span class="p">[:,</span><span class="n">i</span><span class="p">]</span>
+        <span class="n">name</span> <span class="o">=</span> <span class="n">selections</span><span class="p">[</span><span class="n">i</span><span class="p">]</span>
+        <span class="n">p</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">times</span><span class="p">,</span> <span class="n">series</span><span class="p">,</span> <span class="n">label</span><span class="o">=</span><span class="nb">str</span><span class="p">(</span><span class="n">name</span><span class="p">))</span>
+
+        <span class="n">p</span><span class="o">.</span><span class="n">legend</span><span class="p">()</span>
+
+    <span class="k">if</span> <span class="n">show</span><span class="p">:</span>
+        <span class="n">p</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
+</pre></div>
+</div>
+<p>You can attach your plotting function to the RoadRunner object by simply setting the plot
+method:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="k">def</span> <span class="nf">my_plot</span><span class="p">(</span><span class="n">r</span><span class="p">,</span> <span class="n">show</span><span class="p">):</span>
+    <span class="k">pass</span>
+
+<span class="kn">import</span> <span class="nn">roadrunner</span>
+<span class="n">roadrunner</span><span class="o">.</span><span class="n">RoadRunner</span><span class="o">.</span><span class="n">plot</span> <span class="o">=</span> <span class="n">my_plot</span>
+</pre></div>
+</div>
+<p>Now, whenever the <a class="reference internal" href="mod_roadrunner/cls_RoadRunner.html#RoadRunner.RoadRunner.plot" title="RoadRunner.RoadRunner.plot"><code class="xref py py-meth docutils literal notranslate"><span class="pre">plot()</span></code></a> method is called, your plot function will be the one that is
+invoked.</p>
+</div>
+<div class="section" id="changing-initial-conditions">
+<h2>Changing Initial Conditions<a class="headerlink" href="#changing-initial-conditions" title="Permalink to this headline">¶</a></h2>
+<p>There are a number of methods to get and set the initial conditions of a loaded model. In order to
+specify a given initial conditions we use the notation, <code class="docutils literal notranslate"><span class="pre">init()</span></code>.  The values stored in the
+initial conditions are applied to the model whenever it is reset. The list of all initial condition
+symbols can be obtained by the methods, <a class="reference internal" href="mod_roadrunner/cls_ExecutableModel.html#RoadRunner.ExecutableModel.getFloatingSpeciesInitAmountIds" title="RoadRunner.ExecutableModel.getFloatingSpeciesInitAmountIds"><code class="xref py py-meth docutils literal notranslate"><span class="pre">getFloatingSpeciesInitAmountIds()</span></code></a>
+and <a class="reference internal" href="mod_roadrunner/cls_ExecutableModel.html#RoadRunner.ExecutableModel.getFloatingSpeciesInitConcentrationIds" title="RoadRunner.ExecutableModel.getFloatingSpeciesInitConcentrationIds"><code class="xref py py-meth docutils literal notranslate"><span class="pre">getFloatingSpeciesInitConcentrationIds()</span></code></a> assuming <code class="docutils literal notranslate"><span class="pre">r</span></code> is a RoadRunner
+instance. As with all other selection symbols, the <a class="reference internal" href="mod_roadrunner/cls_ExecutableModel.html#RoadRunner.ExecutableModel.keys" title="RoadRunner.ExecutableModel.keys"><code class="xref py py-meth docutils literal notranslate"><span class="pre">keys()</span></code></a> returns all
+available selection symbols:</p>
+<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span> <span class="n">r</span><span class="o">.</span><span class="n">model</span><span class="o">.</span><span class="n">keys</span><span class="p">()</span>
+<span class="go">[ &#39;S1&#39;, &#39;S2&#39;, &#39;[S1]&#39;, &#39;[S2]&#39;, &#39;compartment&#39;, &#39;k1&#39;, &#39;_CSUM0&#39;,</span>
+<span class="go">  &#39;reaction1&#39;,  &#39;init([S1])&#39;,  &#39;init([S2])&#39;, &#39;init(S1)&#39;,</span>
+<span class="go">  &#39;init(S2)&#39;,  &quot;S1&#39;&quot;]</span>
+</pre></div>
+</div>
+<p>Symbols for selecting initial values specifically for amounts and concentrations can be obtained
+via:</p>
+<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">r</span><span class="o">.</span><span class="n">model</span><span class="o">.</span><span class="n">getFloatingSpeciesInitAmountIds</span><span class="p">()</span>
+<span class="go">[&#39;init(S1)&#39;, &#39;init(S2)&#39;]</span>
+</pre></div>
+</div>
+<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">r</span><span class="o">.</span><span class="n">model</span><span class="o">.</span><span class="n">getFloatingSpeciesInitConcentrationIds</span><span class="p">()</span>
+<span class="go">[&#39;init([S1])&#39;, &#39;init([S2])&#39;]</span>
+</pre></div>
+</div>
+<p>Getting or setting initial values is easily accomplished using the array operator and the selection
+symbols:</p>
+<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">r</span><span class="o">.</span><span class="n">model</span><span class="p">[</span><span class="s2">&quot;init(S1)&quot;</span><span class="p">]</span>
+<span class="go">0.00015</span>
+</pre></div>
+</div>
+<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">r</span><span class="o">.</span><span class="n">model</span><span class="p">[</span><span class="s2">&quot;init([S1])&quot;</span><span class="p">]</span>
+<span class="go">2.9999999999999997e-05</span>
+</pre></div>
+</div>
+<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">r</span><span class="o">.</span><span class="n">model</span><span class="p">[</span><span class="s2">&quot;init([S1])&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="mi">2</span>
+</pre></div>
+</div>
+<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">r</span><span class="o">.</span><span class="n">model</span><span class="p">[</span><span class="s2">&quot;init(S1)&quot;</span><span class="p">]</span>
+<span class="go">10.0</span>
+</pre></div>
+</div>
+<p>The values for the initial conditions for all floating species can be obtained using the calls:</p>
+<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">r</span><span class="o">.</span><span class="n">model</span><span class="o">.</span><span class="n">getFloatingSpeciesInitConcentrations</span><span class="p">()</span>
+<span class="go">array([ 0.7,  5.6])</span>
+</pre></div>
+</div>
+<p>Initial conditions can be set using the two methods for all species in one call:</p>
+<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">r</span><span class="o">.</span><span class="n">model</span><span class="o">.</span><span class="n">setFloatingSpeciesInitAmounts</span> <span class="p">([</span><span class="mf">3.4</span><span class="p">,</span> <span class="mf">5.6</span><span class="p">])</span>
+</pre></div>
+</div>
+<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">r</span><span class="o">.</span><span class="n">model</span><span class="o">.</span><span class="n">setFloatingSpeciesInitConcentrations</span> <span class="p">([</span><span class="mf">6.7</span><span class="p">,</span> <span class="mf">0.1</span><span class="p">])</span>
+</pre></div>
+</div>
+</div>
+<div class="section" id="solvers">
+<span id="roadrunner-solver"></span><h2>Solvers<a class="headerlink" href="#solvers" title="Permalink to this headline">¶</a></h2>
+<p>RoadRunner has multiple types of solvers including integrators and steady-state solvers.
+Integrators control numerical timecourse integration via the <a class="reference internal" href="mod_roadrunner/cls_RoadRunner.html#RoadRunner.RoadRunner.simulate" title="RoadRunner.RoadRunner.simulate"><code class="xref py py-meth docutils literal notranslate"><span class="pre">simulate()</span></code></a> method.
+By default, RoadRunner uses CVODE, a real differential equation solver from the
+SUNDIALS suite. Internally, CVODE features an adaptive timestep. However, unless <cite>variableStep</cite>
+is specified in the call to <a class="reference internal" href="mod_roadrunner/cls_RoadRunner.html#RoadRunner.RoadRunner.simulate" title="RoadRunner.RoadRunner.simulate"><code class="xref py py-meth docutils literal notranslate"><span class="pre">simulate()</span></code></a>, the output will contain evenly spaced intervals.</p>
+<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span> <span class="n">r</span><span class="o">.</span><span class="n">simulate</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">10</span><span class="p">,</span> <span class="mi">10</span><span class="p">)</span>
+<span class="go"># Output will contain evenly spaced intervals</span>
+<span class="gp">&gt;&gt;&gt; </span> <span class="n">r</span><span class="o">.</span><span class="n">simulate</span><span class="p">(</span><span class="n">variableStep</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+<span class="go"># Intervals will vary according to CVODE step size</span>
+</pre></div>
+</div>
+<p>To use basic 4th-order Runge-Kutta integrator (‘rk4’), call <a class="reference internal" href="mod_roadrunner/cls_RoadRunner.html#RoadRunner.RoadRunner.setIntegrator" title="RoadRunner.RoadRunner.setIntegrator"><code class="xref py py-meth docutils literal notranslate"><span class="pre">setIntegrator()</span></code></a>:</p>
+<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span> <span class="n">r</span><span class="o">.</span><span class="n">setIntegrator</span><span class="p">(</span><span class="s1">&#39;rk4&#39;</span><span class="p">)</span>
+</pre></div>
+</div>
+<p>Runge-Kutta always uses a fixed step size, and does not support events.
+RoadRunner supports Runge-Kutta-Fehlberg Method (‘rkf45’) as well as a stochastic integrator based on Gillespie algorithm (‘gilliespie’). To get a list of all available integrators, run:</p>
+<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span> <span class="n">roadrunner</span><span class="o">.</span><span class="n">integrators</span>
+<span class="go">[&#39;cvode&#39;, &#39;gillespie&#39;, &#39;rk4&#39;, &#39;rk45&#39;]</span>
+</pre></div>
+</div>
+<p>Some integrators, such as CVODE, have parameters which can be set by the user.
+To see a list of these settings, use <a class="reference internal" href="api_reference.html#roadrunner.Solver.getSettings" title="roadrunner.Solver.getSettings"><code class="xref py py-meth docutils literal notranslate"><span class="pre">getSettings()</span></code></a> on an integrator instance:</p>
+<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span> <span class="n">r</span><span class="o">.</span><span class="n">getIntegrator</span><span class="p">()</span><span class="o">.</span><span class="n">getSettings</span><span class="p">()</span>
+<span class="go">(&#39;relative_tolerance&#39;,</span>
+<span class="go">&#39;absolute_tolerance&#39;,</span>
+<span class="go">&#39;stiff&#39;,</span>
+<span class="go">&#39;maximum_bdf_order&#39;,</span>
+<span class="go">&#39;maximum_adams_order&#39;,</span>
+<span class="go">&#39;maximum_num_steps&#39;,</span>
+<span class="go">&#39;maximum_time_step&#39;,</span>
+<span class="go">&#39;minimum_time_step&#39;,</span>
+<span class="go">&#39;initial_time_step&#39;,</span>
+<span class="go">&#39;multiple_steps&#39;,</span>
+<span class="go">&#39;variable_step_size&#39;)</span>
+</pre></div>
+</div>
+<p>To set a parameter, you can use both methods described below:</p>
+<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span> <span class="n">r</span><span class="o">.</span><span class="n">getIntegrator</span><span class="p">()</span><span class="o">.</span><span class="n">relative_tolerance</span> <span class="o">=</span> <span class="mf">1e-10</span>
+<span class="gp">&gt;&gt;&gt; </span> <span class="n">r</span><span class="o">.</span><span class="n">getIntegrator</span><span class="p">()</span><span class="o">.</span><span class="n">setValue</span><span class="p">(</span><span class="s1">&#39;relative_tolerance&#39;</span><span class="p">,</span> <span class="mf">1e-10</span><span class="p">)</span>
+</pre></div>
+</div>
+<p>Be sure to set the parameter to the correct type, which can be obtained from
+the parameter’s hint or description:</p>
+<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span> <span class="n">r</span><span class="o">.</span><span class="n">getIntegrator</span><span class="p">()</span><span class="o">.</span><span class="n">getHint</span><span class="p">(</span><span class="s1">&#39;relative_tolerance&#39;</span><span class="p">)</span>
+<span class="go">&#39;Specifies the scalar relative tolerance (double).&#39;</span>
+<span class="gp">&gt;&gt;&gt; </span> <span class="n">r</span><span class="o">.</span><span class="n">getIntegrator</span><span class="p">()</span><span class="o">.</span><span class="n">getDescription</span><span class="p">(</span><span class="s1">&#39;relative_tolerance&#39;</span><span class="p">)</span>
+<span class="go">&#39;(double) CVODE calculates a vector of error weights which is used in all error and convergence tests. The weighted RMS norm for the relative tolerance should not become smaller than this value.&#39;</span>
+</pre></div>
+</div>
+<p>Parameters also have a display name:</p>
+<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span> <span class="n">r</span><span class="o">.</span><span class="n">getIntegrator</span><span class="p">()</span><span class="o">.</span><span class="n">getDisplayName</span><span class="p">(</span><span class="s1">&#39;relative_tolerance&#39;</span><span class="p">)</span>
+<span class="go">&#39;Relative Tolerance&#39;</span>
+</pre></div>
+</div>
+<p>If you prefer to change settings on integrators without switching the current integrator,
+you can use <a class="reference internal" href="mod_roadrunner/cls_RoadRunner.html#RoadRunner.RoadRunner.getIntegratorByName" title="RoadRunner.RoadRunner.getIntegratorByName"><code class="xref py py-meth docutils literal notranslate"><span class="pre">getIntegratorByName()</span></code></a> as follows:</p>
+<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span> <span class="n">r</span><span class="o">.</span><span class="n">getIntegratorByName</span><span class="p">(</span><span class="s1">&#39;gillespie&#39;</span><span class="p">)</span><span class="o">.</span><span class="n">seed</span> <span class="o">=</span> <span class="mi">12345</span>
+</pre></div>
+</div>
+<p>Also, if you find yourself switching back and forth between integrators a lot, you can use
+<a class="reference internal" href="mod_roadrunner/cls_RoadRunner.html#RoadRunner.RoadRunner.setIntegratorSetting" title="RoadRunner.RoadRunner.setIntegratorSetting"><code class="xref py py-meth docutils literal notranslate"><span class="pre">setIntegratorSetting()</span></code></a>.</p>
+<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span> <span class="n">r</span><span class="o">.</span><span class="n">setIntegratorSetting</span><span class="p">(</span><span class="s1">&#39;gillespie&#39;</span><span class="p">,</span> <span class="s1">&#39;seed&#39;</span><span class="p">,</span> <span class="mi">12345</span><span class="p">)</span>
+</pre></div>
+</div>
+<p>The other type of solver is a steady-state solver, which works in essentially the same way:</p>
+<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span> <span class="n">r</span><span class="o">.</span><span class="n">getSteadyStateSolver</span><span class="p">()</span><span class="o">.</span><span class="n">getSettings</span><span class="p">()</span>
+<span class="go">(&#39;maximum_iterations&#39;,</span>
+<span class="go">&#39;minimum_damping&#39;,</span>
+<span class="go">&#39;relative_tolerance&#39;)</span>
+<span class="gp">&gt;&gt;&gt; </span> <span class="n">r</span><span class="o">.</span><span class="n">getSteadyStateSolver</span><span class="p">()</span><span class="o">.</span><span class="n">getHint</span><span class="p">(</span><span class="s1">&#39;maximum_iterations&#39;</span><span class="p">)</span>
+<span class="go">&#39;The maximum number of iterations the solver is allowed to use (int)&#39;</span>
+<span class="gp">&gt;&gt;&gt; </span> <span class="n">r</span><span class="o">.</span><span class="n">getSteadyStateSolver</span><span class="p">()</span><span class="o">.</span><span class="n">getDescription</span><span class="p">(</span><span class="s1">&#39;maximum_iterations&#39;</span><span class="p">)</span>
+<span class="go">&#39;(int) Iteration caps off at the maximum, regardless of whether a solution has been reached&#39;</span>
+</pre></div>
+</div>
+<p>The steady state solver is invoked by a call to <a class="reference internal" href="mod_roadrunner/cls_RoadRunner.html#RoadRunner.RoadRunner.steadyState" title="RoadRunner.RoadRunner.steadyState"><code class="xref py py-meth docutils literal notranslate"><span class="pre">steadyState()</span></code></a>.
+Currently, RoadRunner only has a single steady state solver (NLEQ).</p>
+</div>
+</div>
+
+
+           </div>
+           
+          </div>
+          <footer>
+  
+    <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
+      
+        <a href="what_is_sbml.html" class="btn btn-neutral float-right" title="What Is SBML?" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right"></span></a>
+      
+      
+        <a href="introduction.html" class="btn btn-neutral float-left" title="Introduction" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left"></span> Previous</a>
+      
+    </div>
+  
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>
+        
+        &copy; Copyright 2013-2018, Andy Somogyi, J Kyle Medley, Kiri Choi, Herbert Suaro
+
+    </p>
+  </div>
+    
+    
+    
+    Built with <a href="http://sphinx-doc.org/">Sphinx</a> using a
+    
+    <a href="https://github.com/rtfd/sphinx_rtd_theme">theme</a>
+    
+    provided by <a href="https://readthedocs.org">Read the Docs</a>. 
+
+</footer>
+
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+  
+
+  <script type="text/javascript">
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script>
+
+  
+  
+    
+   
+
+</body>
+</html>

@@ -1,0 +1,8 @@
+model case00980()
+  x = 0;
+  y = 0;
+  p = 0;
+  q = 0;
+  at 0.1 after (time>=.99), fromTrigger=false: x = 2, y = y+x;
+  at 0.1 after (time>=.99), fromTrigger=false: q = p+1, p = 3;
+end

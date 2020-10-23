@@ -1,7 +1,7 @@
 CMAKE_MINIMUM_REQUIRED(VERSION 2.6.3 FATAL_ERROR)
 PROJECT(RR_CXX_API_TESTS)
 
-set(target llvm_testing)
+set(target rr_analysis)
 
 if (BUILD_PYTHON)
 
@@ -11,84 +11,59 @@ if (BUILD_PYTHON)
 
 endif(BUILD_PYTHON)
 
-set(llvm_testing_src
-    main
-    src/tests
-    src/cpplapack
-    src/CSRMatrixTest
-    src/LLVMCSRMatrixTest
-    src/test_compiler
-    src/TestBase
-    src/TestEvalInitialConditions
-    src/TestGetSetValues
-    src/TestEvalReactionRates
-    src/TestEvalModel
-    src/TestRoadRunner
-    src/GetBoundarySpeciesAmountTest
-    src/TestCapabilities
-    src/ConfigurableTest
-    src/TestVariant
+set(rr_analysis_src
+    main.cpp
+    src/tests.cpp
+    src/cpplapack.cpp
+    src/CSRMatrixTest.cpp
+    src/LLVMCSRMatrixTest.cpp
+    src/test_compiler.cpp
+    src/TestBase.cpp
+    src/TestEvalInitialConditions.cpp
+    src/TestGetSetValues.cpp
+    src/TestEvalReactionRates.cpp
+    src/TestEvalModel.cpp
+    src/TestRoadRunner.cpp
+    src/GetBoundarySpeciesAmountTest.cpp
+    src/TestCapabilities.cpp
+    src/ConfigurableTest.cpp
+    src/TestVariant.cpp
+    src/tests.h
+    src/cpplapack.h
+    src/CSRMatrixTest.h
+    src/LLVMCSRMatrixTest.h
+    src/test_compiler.h
+    src/TestBase.h
+    src/TestEvalInitialConditions.h
+    src/TestGetSetValues.h
+    src/TestEvalReactionRates.h
+    src/TestEvalModel.h
+    src/TestRoadRunner.h
+    src/GetBoundarySpeciesAmountTest.h
+    src/TestCapabilities.h
+    src/ConfigurableTest.h
+    src/TestVariant.h
     )
 
 if(LLVM_FLAGS)
-  set_source_files_properties(${llvm_testing_src} PROPERTIES COMPILE_FLAGS ${LLVM_FLAGS})
+  set_source_files_properties(${rr_analysis_src} PROPERTIES COMPILE_FLAGS ${LLVM_FLAGS})
 endif()
 
-add_executable( ${target} ${llvm_testing_src} )
+add_executable( ${target} ${rr_analysis_src} )
 
-set_property(TARGET ${target}
-    PROPERTY  COMPILE_DEFINITIONS
-    LIBSBML_USE_CPP_NAMESPACE
-    LIBSBML_STATIC
-    STATIC_LIBSTRUCT
-    STATIC_PUGI
-    STATIC_RR
-    STATIC_NLEQ1
-    STATIC_NLEQ2
-    )
+# The additional required flags are set at global level. Here
+# we only need to tell it about static rr.
+target_compile_definitions(${target} PRIVATE STATIC_RR)
 
-link_directories(
-    ${THIRD_PARTY_INSTALL_FOLDER}/lib
-    )
-
-include_directories(
-    src
-    ${RR_ROOT}
-    ${RR_ROOT}/wrappers/C
-    ${THIRD_PARTY_INSTALL_FOLDER}/include/clapack
-    )
+target_link_libraries(${target} PRIVATE unit_test-static roadrunner-static )
+target_include_directories(${target} PRIVATE
+        src
+        ${INCLUDE_DIRECTORIES}
+        )
 
 if (BUILD_PYTHON)
-    target_link_libraries (${target} ${PYTHON_LIBRARIES})
+    target_link_libraries (${target} PRIVATE ${PYTHON_LIBRARIES})
 endif(BUILD_PYTHON)
-
-if(UNIX)
-    set(staticLibPrefix ".a")
-    set(sharedLibPrefix ".so")
-else()
-    set(staticLibPrefix "")
-    set(sharedLibPrefix "")
-endif()
-
-
-if(WIN32)
-    target_link_libraries (${target}
-        roadrunner-static
-        unit_test-static${staticLibPrefix}
-        )
-endif()
-
-if(UNIX)
-    target_link_libraries (${target}
-        roadrunner_c_api
-        roadrunner-static
-        libunit_test-static${staticLibPrefix}
-        lapack
-        blas
-        f2c
-        dl
-        )
-endif()
 
 install (TARGETS ${target}
     DESTINATION bin

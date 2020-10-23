@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<sbml xmlns="http://www.sbml.org/sbml/level1" level="1" version="2">
+  <model name="case00196">
+    <listOfCompartments>
+      <compartment name="compartment" volume="1" units="volume"/>
+    </listOfCompartments>
+    <listOfSpecies>
+      <species name="S1" compartment="compartment" initialAmount="1" units="substance"/>
+      <species name="S2" compartment="compartment" initialAmount="0" units="substance"/>
+    </listOfSpecies>
+    <listOfParameters>
+      <parameter name="p1" value="10.5"/>
+      <parameter name="p2" value="10"/>
+    </listOfParameters>
+    <listOfReactions>
+      <reaction name="reaction1" reversible="false">
+        <listOfReactants>
+          <speciesReference species="S1"/>
+        </listOfReactants>
+        <listOfProducts>
+          <speciesReference species="S2"/>
+        </listOfProducts>
+        <kineticLaw formula="floor(p1 * S1) * pow(p2, -1)"/>
+      </reaction>
+    </listOfReactions>
+  </model>
+</sbml>

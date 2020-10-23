@@ -54,7 +54,7 @@ public:
     /**
      * remove a value
      */
-    virtual int deleteItem(const std::string& key);
+    virtual size_t deleteItem(const std::string& key);
 
     /**
      * list of keys in this object.

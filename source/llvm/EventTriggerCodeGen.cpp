@@ -43,6 +43,9 @@ bool EventTriggerCodeGen::eventCodeGen(llvm::Value *modelData,
     {
         const EventAssignment *a = assignments->get(id);
         const ASTNode *math = a->getMath();
+        if (math == NULL) {
+            continue;
+        }
         Value *value = astCodeGen.codeGen(math);
 
         Value *loc = builder.CreateConstGEP1_32(data, id);

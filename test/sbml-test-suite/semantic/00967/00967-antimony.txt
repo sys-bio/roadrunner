@@ -1,0 +1,12 @@
+model case00967()
+
+  // Events:
+  Qinc: at (time - reset >= 0.01), priority = R, persistent=false: Q = Q + 0.01, reset = time;
+  Rinc: at (time - reset >= 0.01), priority = 5.001, persistent=false: R = R + 0.01, reset = time;
+
+  // Variable initializations:
+  Q = 0;
+  R = 0;
+  reset = 0;
+
+end

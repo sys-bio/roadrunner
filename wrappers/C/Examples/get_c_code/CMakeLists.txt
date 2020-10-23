@@ -1,25 +1,26 @@
-set(target get_c_code)
+set(target ExamplesCAPIGetCCode)
 
-set(rrSrc "../../../../source")
-add_executable( ${target} 
-main.cpp
-${rrSrc}/rrFileLog.cpp
-${rrSrc}/rrLogger.cpp
-${rrSrc}/rrLogFile.cpp
-${rrSrc}/rrLoggerUtils.cpp
-${rrSrc}/rrLogOutput.cpp
-${rrSrc}/rrObject.cpp
-${rrSrc}/rrStringUtils.cpp
-${rrSrc}/rrUtils.cpp
-)
+add_executable(${target}
+        main.c
+#        ${CMAKE_SOURCE_DIR}/source/rrFileLog.cpp
+#        ${CMAKE_SOURCE_DIR}/source/rrLogger.cpp
+#        ${CMAKE_SOURCE_DIR}/source/rrLogFile.cpp
+#        ${CMAKE_SOURCE_DIR}/source/rrLoggerUtils.cpp
+#        ${CMAKE_SOURCE_DIR}/source/rrLogOutput.cpp
+#        ${CMAKE_SOURCE_DIR}/source/rrObject.cpp
+        ${CMAKE_SOURCE_DIR}/source/rrStringUtils.cpp
+        ${CMAKE_SOURCE_DIR}/source/rrUtils.cpp
+        )
 
-set_property(   TARGET ${target} 
-                PROPERTY  COMPILE_DEFINITIONS 
-                          STATIC_RR             #when linking with static lib, no declspec shuld be present..
-)
-target_link_libraries (${target} roadrunner_c_api roadrunner)
+add_compile_definitions(${target} PRIVATE STATIC_RR)
+target_link_libraries(${target} PRIVATE roadrunner_c_api roadrunner-static)
+target_include_directories(${target} PRIVATE ${INCLUDE_DIRECTORIES})
 
 install(
-        TARGETS ${target} 		
-        DESTINATION bin 
-        COMPONENT compiled_examples)
+        TARGETS ${target}
+        DESTINATION bin
+        COMPONENT compiled_examples
+)
+
+
+

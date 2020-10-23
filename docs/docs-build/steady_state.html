@@ -1,0 +1,287 @@
+
+
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" >
+<head>
+  <meta charset="utf-8">
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+  <title>Steady State Analysis &mdash; libRoadRunner 1.1.16 documentation</title>
+  
+
+  
+  <link rel="stylesheet" href="_static/css/theme.css" type="text/css" />
+  <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
+
+  
+  
+  
+  
+
+  
+  <!--[if lt IE 9]>
+    <script src="_static/js/html5shiv.min.js"></script>
+  <![endif]-->
+  
+    
+      <script type="text/javascript" id="documentation_options" data-url_root="./" src="_static/documentation_options.js"></script>
+        <script src="_static/jquery.js"></script>
+        <script src="_static/underscore.js"></script>
+        <script src="_static/doctools.js"></script>
+        <script src="_static/language_data.js"></script>
+    
+    <script type="text/javascript" src="_static/js/theme.js"></script>
+
+    
+    <link rel="index" title="Index" href="genindex.html" />
+    <link rel="search" title="Search" href="search.html" />
+    <link rel="next" title="Stochastic Simulation" href="stochastic.html" />
+    <link rel="prev" title="Selecting Values" href="selecting_values.html" /> 
+</head>
+
+<body class="wy-body-for-nav">
+
+   
+  <div class="wy-grid-for-nav">
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+          
+
+          
+            <a href="index.html" class="icon icon-home" alt="Documentation Home"> libRoadRunner
+          
+
+          
+          </a>
+
+          
+            
+            
+          
+
+          
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+
+          
+        </div>
+
+        
+        <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+          
+            
+            
+              
+            
+            
+              <ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="index.html">RoadRunner Documentation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="introduction.html">Introduction</a></li>
+<li class="toctree-l1"><a class="reference internal" href="Installation/installation.html">Installing RoadRunner</a></li>
+<li class="toctree-l1"><a class="reference internal" href="read_write_functions.html">SBML Read/Write Functions</a></li>
+<li class="toctree-l1"><a class="reference internal" href="selecting_values.html">Selecting Values</a></li>
+<li class="toctree-l1 current"><a class="current reference internal" href="#">Steady State Analysis</a></li>
+<li class="toctree-l1"><a class="reference internal" href="stochastic.html">Stochastic Simulation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="metabolic.html">Metabolic Control Analysis</a></li>
+<li class="toctree-l1"><a class="reference internal" href="stability.html">Stability Analysis</a></li>
+<li class="toctree-l1"><a class="reference internal" href="stoichiometric.html">Stoichiometric Analysis</a></li>
+<li class="toctree-l1"><a class="reference internal" href="bifurcation.html">Bifurcation Analysis</a></li>
+<li class="toctree-l1"><a class="reference internal" href="integration.html">Simulation and Integration</a></li>
+<li class="toctree-l1"><a class="reference internal" href="utility_functions.html">Utility Functions</a></li>
+<li class="toctree-l1"><a class="reference internal" href="accessing_model.html">Accessing the SBML Model Variables</a></li>
+<li class="toctree-l1"><a class="reference internal" href="api_reference.html">RoadRunner API Reference</a></li>
+</ul>
+
+            
+          
+        </div>
+        
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" aria-label="top navigation">
+        
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="index.html">libRoadRunner</a>
+        
+      </nav>
+
+
+      <div class="wy-nav-content">
+        
+        <div class="rst-content">
+        
+          
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div role="navigation" aria-label="breadcrumbs navigation">
+
+  <ul class="wy-breadcrumbs">
+    
+      <li><a href="index.html" class="icon icon-home"></a> &raquo;</li>
+        
+      <li>Steady State Analysis</li>
+    
+    
+      <li class="wy-breadcrumbs-aside">
+        
+            
+            <a href="_sources/steady_state.rst.txt" rel="nofollow"> View page source</a>
+          
+        
+      </li>
+    
+  </ul>
+
+  
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+            
+  <div class="section" id="steady-state-analysis">
+<h1>Steady State Analysis<a class="headerlink" href="#steady-state-analysis" title="Permalink to this headline">¶</a></h1>
+<p>The dynamics of a biochemical network is described by the system equation</p>
+<div class="math">
+<p><img src="_images/math/1a419a6a6e05433235913e605955c489f0260a02.png" alt="\frac{d}{dt}\mathbf{s}(t) = \mathbf{N} \mathbf{v}(\mathbf{s}(t),\mathbf{p},t),"/></p>
+</div><p>where <img class="math" src="_images/math/464e1592f73b030553a806f080b3a0370d1c6543.png" alt="\mathbf{s}"/> is the vector of species concentrations, <img class="math" src="_images/math/c11f55e4a25377e79397d43a2cb7ec0365799d59.png" alt="\mathbf{p}"/>
+is a vector of time independent parameters, and <img class="math" src="_images/math/907a4add6d5db5b7f197f7924f1371b8ac404fe6.png" alt="t"/> is time. The steady state is the solution to
+the network equations when all the rates of change are zero. That is the concentrations of the floating
+species, <img class="math" src="_images/math/464e1592f73b030553a806f080b3a0370d1c6543.png" alt="\mathbf{s}"/> that satisfy:</p>
+<div class="math">
+<p><img src="_images/math/7412940a3b325f587db4dba17dbbedb5ec652197.png" alt="\mathbf{N} \mathbf{v}(\mathbf{s}(t),\mathbf{p},t) = 0"/></p>
+</div><p>The steady state is easily calculated using the steady state method:</p>
+<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">rr</span><span class="o">.</span><span class="n">steadyState</span><span class="p">()</span>
+<span class="go">1.234567E-9</span>
+</pre></div>
+</div>
+<p>The call to <code class="docutils literal notranslate"><span class="pre">steadyState</span></code> returns a value that represents the sum of squares of the rates of change. Therefore the
+smaller this value the more likely the steady state solution has been found. Often a value less that 10E-6 indicates
+a steady state has been found. After a successful call all the species levels will be at their steady state values.</p>
+<p>Steady state values can be obtained using <a class="reference internal" href="mod_roadrunner/cls_RoadRunner.html#RoadRunner.RoadRunner.getSteadyStateValues" title="RoadRunner.RoadRunner.getSteadyStateValues"><code class="xref py py-meth docutils literal notranslate"><span class="pre">getSteadyStateValues()</span></code></a> and <a class="reference internal" href="mod_roadrunner/cls_RoadRunner.html#RoadRunner.RoadRunner.steadyStateSelections" title="RoadRunner.RoadRunner.steadyStateSelections"><code class="xref py py-meth docutils literal notranslate"><span class="pre">steadyStateSelections()</span></code></a> can be used to
+decide what values to return. For example the following would retrieve a single value:</p>
+<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">rr</span><span class="o">.</span><span class="n">steadyStateSelections</span> <span class="o">=</span> <span class="p">[</span><span class="s1">&#39;S1&#39;</span><span class="p">]</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">rr</span><span class="o">.</span><span class="n">getSteadyStateValues</span><span class="p">()</span>
+<span class="go">array([ 0.54314239])</span>
+</pre></div>
+</div>
+<p>One important element in running steady state analysis is the concept of moiety conservation. If the model in question contains moiety conserved cycles, traditional approach to obtain steady state solution fails as it is impossible to calculate the inverse of Jacobian. In such case, we use a walkaround and split the species in a cycle into groups. To do this in RoadRunner, type:</p>
+<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">rr</span><span class="o">.</span><span class="n">conservedMoietyAnalysis</span> <span class="o">=</span> <span class="kc">True</span>
+</pre></div>
+</div>
+<p>Currently, RoadRunner only support <code class="docutils literal notranslate"><span class="pre">nleq1</span></code> solver for performing steady state analysis. This will be expanded in the future, and we included framework to select different solvers for steady state analysis. To set the solver and see all settings, type:</p>
+<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">rr</span><span class="o">.</span><span class="n">setSteadyStateSolver</span><span class="p">(</span><span class="s1">&#39;nleq&#39;</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">solver</span> <span class="o">=</span> <span class="n">rr</span><span class="o">.</span><span class="n">getSteadyStateSolver</span><span class="p">()</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">solver</span><span class="o">.</span><span class="n">settingsPyDictRepr</span><span class="p">()</span>
+<span class="go">&quot;&#39;maximum_iterations&#39;: 100, &#39;minimum_damping&#39;: 1e-16, &#39;relative_tolerance&#39;: 0.0001&quot;</span>
+</pre></div>
+</div>
+<p>To see all available steady state solvers, type:</p>
+<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">rr</span><span class="o">.</span><span class="n">getRegisteredSteadyStateSolverNames</span><span class="p">()</span>
+<span class="go">(&#39;nleq&#39;,)</span>
+</pre></div>
+</div>
+<p>The following methods deal with steady state analysis:</p>
+<table class="longtable docutils align-default">
+<colgroup>
+<col style="width: 10%" />
+<col style="width: 90%" />
+</colgroup>
+<tbody>
+<tr class="row-odd"><td><p><a class="reference internal" href="mod_roadrunner/cls_RoadRunner.html#RoadRunner.RoadRunner.steadyStateSelections" title="RoadRunner.RoadRunner.steadyStateSelections"><code class="xref py py-obj docutils literal notranslate"><span class="pre">RoadRunner.steadyStateSelections</span></code></a></p></td>
+<td><p></p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="mod_roadrunner/cls_RoadRunner.html#RoadRunner.RoadRunner.steadyState" title="RoadRunner.RoadRunner.steadyState"><code class="xref py py-obj docutils literal notranslate"><span class="pre">RoadRunner.steadyState</span></code></a></p></td>
+<td><p></p></td>
+</tr>
+<tr class="row-odd"><td><p><a class="reference internal" href="mod_roadrunner/cls_RoadRunner.html#RoadRunner.RoadRunner.getSteadyStateValues" title="RoadRunner.RoadRunner.getSteadyStateValues"><code class="xref py py-obj docutils literal notranslate"><span class="pre">RoadRunner.getSteadyStateValues</span></code></a></p></td>
+<td><p></p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="mod_roadrunner/cls_RoadRunner.html#RoadRunner.RoadRunner.conservedMoietyAnalysis" title="RoadRunner.RoadRunner.conservedMoietyAnalysis"><code class="xref py py-obj docutils literal notranslate"><span class="pre">RoadRunner.conservedMoietyAnalysis</span></code></a></p></td>
+<td><p></p></td>
+</tr>
+</tbody>
+</table>
+</div>
+
+
+           </div>
+           
+          </div>
+          <footer>
+  
+    <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
+      
+        <a href="stochastic.html" class="btn btn-neutral float-right" title="Stochastic Simulation" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right"></span></a>
+      
+      
+        <a href="selecting_values.html" class="btn btn-neutral float-left" title="Selecting Values" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left"></span> Previous</a>
+      
+    </div>
+  
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>
+        
+        &copy; Copyright 2013-2018, Andy Somogyi, J Kyle Medley, Kiri Choi, Herbert Suaro
+
+    </p>
+  </div>
+    
+    
+    
+    Built with <a href="http://sphinx-doc.org/">Sphinx</a> using a
+    
+    <a href="https://github.com/rtfd/sphinx_rtd_theme">theme</a>
+    
+    provided by <a href="https://readthedocs.org">Read the Docs</a>. 
+
+</footer>
+
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+  
+
+  <script type="text/javascript">
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script>
+
+  
+  
+    
+   
+
+</body>
+</html>

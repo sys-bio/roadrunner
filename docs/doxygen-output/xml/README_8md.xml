@@ -1,0 +1,99 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.20" xml:lang="en-US">
+  <compounddef id="README_8md" kind="file" language="Markdown">
+    <compoundname>README.md</compoundname>
+    <briefdescription>
+    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <programlisting>
+<codeline><highlight class="normal">#<sp/>libRoadRunner</highlight></codeline>
+<codeline><highlight class="normal">[![GitHub<sp/>version](https://badge.fury.io/gh/sys-bio%2Froadrunner.svg)](http://badge.fury.io/gh/sys-bio%2Froadrunner)</highlight></codeline>
+<codeline><highlight class="normal">[![Build<sp/>Status](https://travis-ci.org/sys-bio/roadrunner.svg?branch=develop)](https://travis-ci.org/sys-bio/roadrunner)</highlight></codeline>
+<codeline></codeline>
+<codeline><highlight class="normal">Copyright<sp/>2013-2018</highlight></codeline>
+<codeline></codeline>
+<codeline><highlight class="normal">E.<sp/>T.<sp/>Somogyi<sp/>&lt;sup&gt;1&lt;/sup&gt;,<sp/>J.<sp/>K.<sp/>Medley<sp/>&lt;sup&gt;3&lt;/sup&gt;,<sp/>M.<sp/>T.<sp/>Karlsson<sp/>&lt;sup&gt;2&lt;/sup&gt;,<sp/>M.<sp/>Swat<sp/>&lt;sup&gt;1&lt;/sup&gt;,<sp/>M.<sp/>Galdzicki<sp/>&lt;sup&gt;3&lt;/sup&gt;,<sp/>K.<sp/>Choi<sp/>&lt;sup&gt;3&lt;/sup&gt;,<sp/>W.<sp/>Copeland<sp/>&lt;sup&gt;3&lt;/sup&gt;<sp/>and<sp/>H.<sp/>M.<sp/>Sauro<sp/>&lt;sup&gt;3&lt;/sup&gt;</highlight></codeline>
+<codeline></codeline>
+<codeline><highlight class="normal">1.<sp/>Biocomplexity<sp/>Institute,<sp/>Indiana<sp/>University,<sp/>Simon<sp/>Hall<sp/>MSB1,<sp/>Bloomington,<sp/>IN<sp/>47405</highlight></codeline>
+<codeline><highlight class="normal">2.<sp/>Dune<sp/>Scientific,<sp/>10522<sp/>Lake<sp/>City<sp/>Way<sp/>NE,<sp/>#302<sp/>Seattle<sp/>WA</highlight></codeline>
+<codeline><highlight class="normal">3.<sp/>Department<sp/>of<sp/>Bioengineering,<sp/>University<sp/>of<sp/>Washington,<sp/>Seattle,<sp/>WA,<sp/>98195</highlight></codeline>
+<codeline></codeline>
+<codeline><highlight class="normal">##<sp/>Introduction</highlight></codeline>
+<codeline></codeline>
+<codeline><highlight class="normal">libRoadRunner<sp/>is<sp/>a<sp/>high-performance<sp/>and<sp/>portable<sp/>simulation<sp/>engine<sp/>for<sp/>systems<sp/>and<sp/>synthetic<sp/>biology.</highlight></codeline>
+<codeline></codeline>
+<codeline><highlight class="normal">##<sp/>Contributing</highlight></codeline>
+<codeline></codeline>
+<codeline><highlight class="normal">**IMPORTANT!**<sp/>Contributors<sp/>**must**<sp/>follow<sp/>the<sp/>[contribution<sp/>guidelines](https://github.com/sys-bio/roadrunner/wiki).<sp/>Contibuters<sp/>are<sp/>responsible<sp/>for<sp/>complying<sp/>with<sp/>the<sp/>guidelines,<sp/>including<sp/>(but<sp/>not<sp/>limited<sp/>to)<sp/>making<sp/>commits<sp/>to<sp/>the<sp/>correct<sp/>branch.<sp/>Maintainers<sp/>are<sp/>not<sp/>responsible<sp/>for<sp/>changes<sp/>made<sp/>to<sp/>the<sp/>wrong<sp/>branch.<sp/>Contributors<sp/>take<sp/>full<sp/>responsibility<sp/>for<sp/>ensuring<sp/>that<sp/>their<sp/>changes<sp/>get<sp/>merged<sp/>into<sp/>the<sp/>develop<sp/>branch.</highlight></codeline>
+<codeline></codeline>
+<codeline><highlight class="normal">##<sp/>libRoadRunner<sp/>supports<sp/>the<sp/>following<sp/>features:</highlight></codeline>
+<codeline></codeline>
+<codeline><highlight class="normal">*<sp/>Time<sp/>Dependent<sp/>Simulation<sp/>(with<sp/>optional<sp/>conservation<sp/>law<sp/>reduction)<sp/>using<sp/>CVODE</highlight></codeline>
+<codeline><highlight class="normal">*<sp/>Supports<sp/>SBML<sp/>Level<sp/>2<sp/>to<sp/>3<sp/>but<sp/>currently<sp/>excludes<sp/>algebraic<sp/>rules<sp/>and<sp/>delay<sp/>differential<sp/>equations</highlight></codeline>
+<codeline><highlight class="normal">*<sp/>Uses<sp/>latest<sp/>libSBML<sp/>distribution</highlight></codeline>
+<codeline><highlight class="normal">*<sp/>Defaults<sp/>to<sp/>LLVM<sp/>code<sp/>generation<sp/>on<sp/>the<sp/>backend,<sp/>resulting<sp/>is<sp/>very<sp/>fast<sp/>simulation<sp/>times</highlight></codeline>
+<codeline><highlight class="normal">*<sp/>Optional<sp/>generation<sp/>of<sp/>model<sp/>C<sp/>code<sp/>and<sp/>linking<sp/>at<sp/>run-time</highlight></codeline>
+<codeline><highlight class="normal">*<sp/>Add<sp/>plugins,<sp/>distribution<sp/>comes<sp/>with<sp/>Levenberg-Marquardt<sp/>optimizer<sp/>plugin</highlight></codeline>
+<codeline><highlight class="normal">*<sp/>Compute<sp/>steady<sp/>state</highlight></codeline>
+<codeline><highlight class="normal">*<sp/>Metabolic<sp/>Control<sp/>Analysis</highlight></codeline>
+<codeline><highlight class="normal">*<sp/>Frequency<sp/>Domain<sp/>Analysis</highlight></codeline>
+<codeline><highlight class="normal">*<sp/>Access<sp/>to:</highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/>*<sp/>Eigenvalues<sp/>and<sp/>Eigenvectors</highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/>*<sp/>Jacobian,<sp/>full<sp/>and<sp/>reduced</highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/>*<sp/>Structural<sp/>Matrices<sp/>of<sp/>the<sp/>stoichiometry<sp/>matrix</highlight></codeline>
+<codeline></codeline>
+<codeline></codeline>
+<codeline><highlight class="normal">##<sp/>Availability</highlight></codeline>
+<codeline></codeline>
+<codeline><highlight class="normal">RoadRunner<sp/>is<sp/>licensed<sp/>for<sp/>free<sp/>as<sp/>an<sp/>open<sp/>source<sp/>programmatic<sp/>library<sp/>for<sp/>use<sp/>in<sp/>other<sp/></highlight></codeline>
+<codeline><highlight class="normal">applications<sp/>and<sp/>as<sp/>a<sp/>standalone<sp/>command<sp/>line<sp/>driven<sp/>application.<sp/>Its<sp/>C++<sp/>API,<sp/>C<sp/>API,<sp/>and<sp/></highlight></codeline>
+<codeline><highlight class="normal">Python<sp/>APIs<sp/>have<sp/>comprehensive<sp/>documentation.<sp/>On<sp/>Windows,<sp/>OS<sp/>X,<sp/>and<sp/>Linux<sp/>binary<sp/>files<sp/>can<sp/>be<sp/></highlight></codeline>
+<codeline></codeline>
+<codeline><highlight class="normal">downloaded<sp/>from<sp/>http://sourceforge.net/projects/libroadrunner/files<sp/>and<sp/>can<sp/>be<sp/>installed<sp/></highlight></codeline>
+<codeline><highlight class="normal">ready<sp/>for<sp/>use.</highlight></codeline>
+<codeline></codeline>
+<codeline></codeline>
+<codeline><highlight class="normal">##<sp/>Acknowledgements</highlight></codeline>
+<codeline></codeline>
+<codeline><highlight class="normal">This<sp/>work<sp/>is<sp/>funded<sp/>by<sp/>NIGMS<sp/>grant:<sp/>GM081070</highlight></codeline>
+<codeline></codeline>
+<codeline><highlight class="normal">Licence</highlight></codeline>
+<codeline></codeline>
+<codeline><highlight class="normal">Licensed<sp/>under<sp/>the<sp/>Apache<sp/>License,<sp/>Version<sp/>2.0<sp/>(the<sp/>License);<sp/>you<sp/>may<sp/>not<sp/>use<sp/>this<sp/></highlight></codeline>
+<codeline><highlight class="normal">file<sp/>except<sp/>in<sp/>compliance<sp/>with<sp/>the<sp/>License.<sp/>You<sp/>may<sp/>obtain<sp/>a<sp/>copy<sp/>of<sp/>the<sp/>License<sp/>at</highlight></codeline>
+<codeline></codeline>
+<codeline><highlight class="normal">http://www.apache.org/licenses/LICENSE-2.0</highlight></codeline>
+<codeline></codeline>
+<codeline><highlight class="normal">Unless<sp/>required<sp/>by<sp/>applicable<sp/>law<sp/>or<sp/>agreed<sp/>to<sp/>in<sp/>writing,<sp/>software<sp/>distributed<sp/></highlight></codeline>
+<codeline><highlight class="normal">under<sp/>the<sp/>License<sp/>is<sp/>distributed<sp/>on<sp/>an<sp/>ÎAS<sp/>IS<sp/>BASIS,<sp/>WITHOUT<sp/>WARRANTIES<sp/>OR<sp/>CONDITIONS<sp/></highlight></codeline>
+<codeline><highlight class="normal">OF<sp/>ANY<sp/>KIND,<sp/>either<sp/>express<sp/>or<sp/>implied.<sp/>See<sp/>the<sp/>License<sp/>for<sp/>the<sp/>specific<sp/>language<sp/></highlight></codeline>
+<codeline><highlight class="normal">governing<sp/>permissions<sp/>and<sp/>limitations<sp/>under<sp/>the<sp/>License.</highlight></codeline>
+<codeline></codeline>
+<codeline><highlight class="normal">In<sp/>plain<sp/>english<sp/>this<sp/>means:</highlight></codeline>
+<codeline></codeline>
+<codeline><highlight class="normal">You<sp/>CAN<sp/>freely<sp/>download<sp/>and<sp/>use<sp/>this<sp/>software,<sp/>in<sp/>whole<sp/>or<sp/>in<sp/>part,<sp/>for<sp/>personal,<sp/></highlight></codeline>
+<codeline><highlight class="normal">company<sp/>internal,<sp/>or<sp/>commercial<sp/>purposes;</highlight></codeline>
+<codeline></codeline>
+<codeline><highlight class="normal">You<sp/>CAN<sp/>use<sp/>the<sp/>software<sp/>in<sp/>packages<sp/>or<sp/>distributions<sp/>that<sp/>you<sp/>create.</highlight></codeline>
+<codeline></codeline>
+<codeline><highlight class="normal">You<sp/>SHOULD<sp/>include<sp/>a<sp/>copy<sp/>of<sp/>the<sp/>license<sp/>in<sp/>any<sp/>redistribution<sp/>you<sp/>may<sp/>make;</highlight></codeline>
+<codeline></codeline>
+<codeline><highlight class="normal">You<sp/>are<sp/>NOT<sp/>required<sp/>include<sp/>the<sp/>source<sp/>of<sp/>software,<sp/>or<sp/>of<sp/>any<sp/>modifications<sp/>you<sp/>may<sp/></highlight></codeline>
+<codeline><highlight class="normal">have<sp/>made<sp/>to<sp/>it,<sp/>in<sp/>any<sp/>redistribution<sp/>you<sp/>may<sp/>assemble<sp/>that<sp/>includes<sp/>it.</highlight></codeline>
+<codeline></codeline>
+<codeline><highlight class="normal">YOU<sp/>CANNOT:<sp/>redistribute<sp/>any<sp/>piece<sp/>of<sp/>this<sp/>software<sp/>without<sp/>proper<sp/>attribution;</highlight></codeline>
+<codeline></codeline>
+<codeline><highlight class="normal"><sp/></highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/></highlight></codeline>
+<codeline></codeline>
+<codeline><highlight class="normal">libRoadRunner<sp/>logo</highlight></codeline>
+<codeline></codeline>
+<codeline><highlight class="normal"><sp/><sp/>The<sp/>libroadrunner<sp/>logo<sp/>is<sp/>an<sp/>adaptation<sp/>of<sp/>the<sp/>image<sp/>originally<sp/>posted<sp/>to<sp/>Flickr<sp/>by<sp/></highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/>El<sp/>Brujo+<sp/>at<sp/>http://flickr.com/photos/11039104@N08/2954808342.<sp/>It<sp/>was<sp/>reviewed<sp/>on<sp/></highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/>9<sp/>August<sp/>2009<sp/>by<sp/>the<sp/>FlickreviewR<sp/>robot<sp/>and<sp/>was<sp/>confirmed<sp/>to<sp/>be<sp/>licensed<sp/>under<sp/>the<sp/></highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/>terms<sp/>of<sp/>the<sp/>cc-by-sa-2.0.</highlight></codeline>
+    </programlisting>
+    <location file="README.md"/>
+  </compounddef>
+</doxygen>

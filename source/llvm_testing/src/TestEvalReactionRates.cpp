@@ -78,8 +78,6 @@ void testStoch(const char* fname)
 {
     RoadRunner r(fname);
 
-    ExecutableModel *model = r.getModel();
-
     SimulateOptions o = SimulateOptions();
 
 	r.setIntegrator("gillespie");

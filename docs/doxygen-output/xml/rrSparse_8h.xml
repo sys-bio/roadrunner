@@ -1,0 +1,107 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.20" xml:lang="en-US">
+  <compounddef id="rrSparse_8h" kind="file" language="C++">
+    <compoundname>rrSparse.h</compoundname>
+    <includes refid="rrOSSpecifics_8h" local="yes">rrOSSpecifics.h</includes>
+    <includes local="no">vector</includes>
+    <includes local="no">ostream</includes>
+    <includedby refid="rrExecutableModel_8cpp" local="yes">rrExecutableModel.cpp</includedby>
+    <includedby refid="rrSparse_8cpp" local="yes">rrSparse.cpp</includedby>
+    <incdepgraph>
+      <node id="1">
+        <label>rrSparse.h</label>
+        <link refid="rrSparse_8h"/>
+        <childnode refid="2" relation="include">
+        </childnode>
+        <childnode refid="4" relation="include">
+        </childnode>
+        <childnode refid="5" relation="include">
+        </childnode>
+      </node>
+      <node id="5">
+        <label>ostream</label>
+      </node>
+      <node id="4">
+        <label>vector</label>
+      </node>
+      <node id="2">
+        <label>rrOSSpecifics.h</label>
+        <link refid="rrOSSpecifics_8h_source"/>
+        <childnode refid="3" relation="include">
+        </childnode>
+      </node>
+      <node id="3">
+        <label>rrExporter.h</label>
+        <link refid="rrExporter_8h_source"/>
+      </node>
+    </incdepgraph>
+    <innerclass refid="structrr_1_1csr__matrix__t" prot="public">rr::csr_matrix_t</innerclass>
+    <innernamespace refid="namespacerr">rr</innernamespace>
+    <briefdescription>
+    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <programlisting>
+<codeline lineno="1"><highlight class="comment">/*</highlight></codeline>
+<codeline lineno="2"><highlight class="comment"><sp/>*<sp/>rrCSparse.h</highlight></codeline>
+<codeline lineno="3"><highlight class="comment"><sp/>*</highlight></codeline>
+<codeline lineno="4"><highlight class="comment"><sp/>*<sp/><sp/>Created<sp/>on:<sp/>Jul<sp/>10,<sp/>2013</highlight></codeline>
+<codeline lineno="5"><highlight class="comment"><sp/>*<sp/><sp/><sp/><sp/><sp/><sp/>Author:<sp/>andy</highlight></codeline>
+<codeline lineno="6"><highlight class="comment"><sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="7"><highlight class="normal"></highlight></codeline>
+<codeline lineno="8"><highlight class="normal"></highlight><highlight class="preprocessor">#ifndef<sp/>RRCSPARSE_H_</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="9"><highlight class="normal"></highlight><highlight class="preprocessor">#define<sp/>RRCSPARSE_H_</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="10"><highlight class="normal"></highlight></codeline>
+<codeline lineno="11"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&quot;rrOSSpecifics.h&quot;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="12"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&lt;vector&gt;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="13"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&lt;ostream&gt;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="14"><highlight class="normal"></highlight></codeline>
+<codeline lineno="15"><highlight class="normal"></highlight><highlight class="keyword">namespace<sp/></highlight><highlight class="normal">rr</highlight></codeline>
+<codeline lineno="16"><highlight class="normal">{</highlight></codeline>
+<codeline lineno="17"><highlight class="normal"></highlight></codeline>
+<codeline lineno="27" refid="structrr_1_1csr__matrix__t" refkind="compound"><highlight class="keyword">typedef</highlight><highlight class="normal"><sp/></highlight><highlight class="keyword">struct<sp/></highlight><highlight class="normal"><ref refid="structrr_1_1csr__matrix__t" kindref="compound">csr_matrix_t</ref></highlight></codeline>
+<codeline lineno="28"><highlight class="normal">{</highlight></codeline>
+<codeline lineno="32" refid="structrr_1_1csr__matrix__t_1a649049dcf50b83aba245e008d4991038" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keywordtype">unsigned</highlight><highlight class="normal"><sp/><ref refid="structrr_1_1csr__matrix__t_1a649049dcf50b83aba245e008d4991038" kindref="member">m</ref>;</highlight></codeline>
+<codeline lineno="33"><highlight class="normal"></highlight></codeline>
+<codeline lineno="37" refid="structrr_1_1csr__matrix__t_1af55d6f915237d4fbf1d99d515abce8a5" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keywordtype">unsigned</highlight><highlight class="normal"><sp/><ref refid="structrr_1_1csr__matrix__t_1af55d6f915237d4fbf1d99d515abce8a5" kindref="member">n</ref>;</highlight></codeline>
+<codeline lineno="38"><highlight class="normal"></highlight></codeline>
+<codeline lineno="42" refid="structrr_1_1csr__matrix__t_1a18c05b074c76a960debc0cfa33b8757a" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keywordtype">unsigned</highlight><highlight class="normal"><sp/><ref refid="structrr_1_1csr__matrix__t_1a18c05b074c76a960debc0cfa33b8757a" kindref="member">nnz</ref>;</highlight></codeline>
+<codeline lineno="43"><highlight class="normal"></highlight></codeline>
+<codeline lineno="49" refid="structrr_1_1csr__matrix__t_1a0d2c69751a73afdfa97a44f3093a070c" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keywordtype">double</highlight><highlight class="normal">*<sp/><ref refid="structrr_1_1csr__matrix__t_1a0d2c69751a73afdfa97a44f3093a070c" kindref="member">values</ref>;</highlight></codeline>
+<codeline lineno="50"><highlight class="normal"></highlight></codeline>
+<codeline lineno="55" refid="structrr_1_1csr__matrix__t_1aef6ab9aaaba240f9ad7d333bca1ff71a" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keywordtype">unsigned</highlight><highlight class="normal">*<sp/><ref refid="structrr_1_1csr__matrix__t_1aef6ab9aaaba240f9ad7d333bca1ff71a" kindref="member">colidx</ref>;</highlight></codeline>
+<codeline lineno="56"><highlight class="normal"></highlight></codeline>
+<codeline lineno="66" refid="structrr_1_1csr__matrix__t_1ac4f924004760ce3905ab171a054813c0" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keywordtype">unsigned</highlight><highlight class="normal">*<sp/><ref refid="structrr_1_1csr__matrix__t_1ac4f924004760ce3905ab171a054813c0" kindref="member">rowptr</ref>;</highlight></codeline>
+<codeline lineno="67"><highlight class="normal"></highlight></codeline>
+<codeline lineno="68"><highlight class="normal">}<sp/><ref refid="structrr_1_1csr__matrix__t" kindref="compound">csr_matrix</ref>;</highlight></codeline>
+<codeline lineno="69"><highlight class="normal"></highlight></codeline>
+<codeline lineno="70"><highlight class="normal"></highlight></codeline>
+<codeline lineno="79"><highlight class="normal"><ref refid="structrr_1_1csr__matrix__t" kindref="compound">csr_matrix</ref>*<sp/>csr_matrix_new(</highlight><highlight class="keywordtype">unsigned</highlight><highlight class="normal"><sp/>m,<sp/></highlight><highlight class="keywordtype">unsigned</highlight><highlight class="normal"><sp/>n,</highlight></codeline>
+<codeline lineno="80"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/>std::vector&lt;unsigned&gt;&amp;<sp/>rowidx,<sp/></highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/>std::vector&lt;unsigned&gt;&amp;<sp/>colidx,</highlight></codeline>
+<codeline lineno="81"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/>std::vector&lt;double&gt;&amp;<sp/>values);</highlight></codeline>
+<codeline lineno="82"><highlight class="normal"></highlight></codeline>
+<codeline lineno="87"><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/>csr_matrix_delete(<ref refid="structrr_1_1csr__matrix__t" kindref="compound">csr_matrix</ref><sp/>*mat);</highlight></codeline>
+<codeline lineno="88"><highlight class="normal"></highlight></codeline>
+<codeline lineno="94"><highlight class="keywordtype">bool</highlight><highlight class="normal"><sp/>csr_matrix_set_nz(<ref refid="structrr_1_1csr__matrix__t" kindref="compound">csr_matrix</ref><sp/>*mat,<sp/></highlight><highlight class="keywordtype">unsigned</highlight><highlight class="normal"><sp/>row,<sp/></highlight><highlight class="keywordtype">unsigned</highlight><highlight class="normal"><sp/>col,<sp/></highlight><highlight class="keywordtype">double</highlight><highlight class="normal"><sp/>val);</highlight></codeline>
+<codeline lineno="95"><highlight class="normal"></highlight></codeline>
+<codeline lineno="101"><highlight class="keywordtype">double</highlight><highlight class="normal"><sp/>csr_matrix_get_nz(</highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/><ref refid="structrr_1_1csr__matrix__t" kindref="compound">csr_matrix</ref><sp/>*mat,<sp/></highlight><highlight class="keywordtype">unsigned</highlight><highlight class="normal"><sp/>row,<sp/></highlight><highlight class="keywordtype">unsigned</highlight><highlight class="normal"><sp/>col);</highlight></codeline>
+<codeline lineno="102"><highlight class="normal"></highlight></codeline>
+<codeline lineno="111"><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/><sp/>csr_matrix_dgemv(</highlight><highlight class="keywordtype">double</highlight><highlight class="normal"><sp/>alpha,<sp/></highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/><ref refid="structrr_1_1csr__matrix__t" kindref="compound">csr_matrix</ref><sp/>*A,</highlight></codeline>
+<codeline lineno="112"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordtype">double</highlight><highlight class="normal"><sp/></highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/>*x,<sp/></highlight><highlight class="keywordtype">double</highlight><highlight class="normal"><sp/>beta,<sp/></highlight><highlight class="keywordtype">double</highlight><highlight class="normal"><sp/>*y);</highlight></codeline>
+<codeline lineno="113"><highlight class="normal"></highlight></codeline>
+<codeline lineno="120"><highlight class="keywordtype">double</highlight><highlight class="normal"><sp/>csr_matrix_ddot(</highlight><highlight class="keywordtype">size_t</highlight><highlight class="normal"><sp/>row,<sp/></highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/><ref refid="structrr_1_1csr__matrix__t" kindref="compound">csr_matrix</ref><sp/>*x,<sp/></highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/></highlight><highlight class="keywordtype">double</highlight><highlight class="normal"><sp/>*y);</highlight></codeline>
+<codeline lineno="121"><highlight class="normal"></highlight></codeline>
+<codeline lineno="125"><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/>csr_matrix_fill_dense(</highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/><ref refid="structrr_1_1csr__matrix__t" kindref="compound">csr_matrix</ref><sp/>*x,<sp/></highlight><highlight class="keywordtype">double</highlight><highlight class="normal"><sp/>*dense);</highlight></codeline>
+<codeline lineno="126"><highlight class="normal"></highlight></codeline>
+<codeline lineno="127"><highlight class="normal"></highlight><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/>csr_matrix_dump_binary(</highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/><ref refid="structrr_1_1csr__matrix__t" kindref="compound">csr_matrix</ref><sp/>*x,<sp/>std::ostream&amp;<sp/>out);</highlight></codeline>
+<codeline lineno="128"><highlight class="normal"><ref refid="structrr_1_1csr__matrix__t" kindref="compound">csr_matrix</ref>*<sp/>csr_matrix_new_from_binary(std::istream&amp;);</highlight></codeline>
+<codeline lineno="132"><highlight class="normal">std::ostream&amp;<sp/>operator&lt;&lt;<sp/>(std::ostream&amp;<sp/>os,<sp/></highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/><ref refid="structrr_1_1csr__matrix__t" kindref="compound">csr_matrix</ref>*<sp/>mat);</highlight></codeline>
+<codeline lineno="133"><highlight class="normal"></highlight></codeline>
+<codeline lineno="134"><highlight class="normal"></highlight></codeline>
+<codeline lineno="135"><highlight class="normal">}</highlight></codeline>
+<codeline lineno="136"><highlight class="normal"></highlight></codeline>
+<codeline lineno="137"><highlight class="normal"></highlight><highlight class="preprocessor">#endif<sp/></highlight><highlight class="comment">/*<sp/>RRCSPARSE_H_<sp/>*/</highlight><highlight class="preprocessor"></highlight></codeline>
+    </programlisting>
+    <location file="rrSparse.h"/>
+  </compounddef>
+</doxygen>

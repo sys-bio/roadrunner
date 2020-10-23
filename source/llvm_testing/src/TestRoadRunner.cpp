@@ -9,7 +9,6 @@
 #include "rrUtils.h"
 #include "rrException.h"
 #include "rrLogger.h"
-#include "rrc_api.h"
 #include "rrSBMLReader.h"
 #include "rrExecutableModel.h"
 
@@ -46,7 +45,7 @@ TestRoadRunner::TestRoadRunner(const std::string& version, int caseNumber) :
 
 
     //Create a log file name
-    createTestSuiteFileNameParts(caseNumber, ".log", dummy, logFileName, settingsFileName);
+    createTestSuiteFileNameParts(caseNumber, ".log", dummy, logFileName, settingsFileName, dummy);
 
     //Create subfolder for data output
     dataOutputFolder = joinPath(dataOutputFolder, getTestSuiteSubFolderName(caseNumber));
@@ -79,8 +78,9 @@ void TestRoadRunner::loadSBML(const std::string& compiler)
     modelFilePath = home + "/src/sbml_test/cases/semantic";
 
     simulation->SetCaseNumber(caseNumber);
+    string dummy;
     createTestSuiteFileNameParts(caseNumber, "-sbml-" + version + ".xml",
-            modelFilePath, modelFileName, settingsFileName);
+            modelFilePath, modelFileName, settingsFileName, dummy);
 
     //The following will load and compile and simulate the sbml model in the file
     simulation->SetModelFilePath(modelFilePath);
@@ -422,7 +422,7 @@ void TestRoadRunner::testCons2(const std::string& fname)
 
     conv.setDocument(doc);
 
-    int result = conv.convert();
+    conv.convert();
 
     SBMLDocument *newDoc = conv.getDocument();
 

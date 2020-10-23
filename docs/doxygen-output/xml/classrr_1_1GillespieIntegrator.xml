@@ -1,0 +1,788 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.20" xml:lang="en-US">
+  <compounddef id="classrr_1_1GillespieIntegrator" kind="class" language="C++" prot="public">
+    <compoundname>rr::GillespieIntegrator</compoundname>
+    <basecompoundref refid="classrr_1_1Integrator" prot="public" virt="non-virtual">rr::Integrator</basecompoundref>
+    <includes refid="GillespieIntegrator_8h" local="no">GillespieIntegrator.h</includes>
+      <sectiondef kind="private-attrib">
+      <memberdef kind="variable" id="classrr_1_1GillespieIntegrator_1a3a2dadae50d0d9546a58b49ee407d4ca" prot="private" static="no" mutable="no">
+        <type><ref refid="classrr_1_1ExecutableModel" kindref="compound">ExecutableModel</ref> *</type>
+        <definition>ExecutableModel* rr::GillespieIntegrator::model</definition>
+        <argsstring></argsstring>
+        <name>model</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="GillespieIntegrator.h" line="138" column="25" bodyfile="GillespieIntegrator.h" bodystart="138" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="classrr_1_1GillespieIntegrator_1a069999524d0cd62a7a5c9b4843b284a0" prot="private" static="no" mutable="no">
+        <type>cxx11_ns::mt19937</type>
+        <definition>cxx11_ns::mt19937 rr::GillespieIntegrator::engine</definition>
+        <argsstring></argsstring>
+        <name>engine</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="GillespieIntegrator.h" line="139" column="27" bodyfile="GillespieIntegrator.h" bodystart="139" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="classrr_1_1GillespieIntegrator_1a754bebeaaec896660dbf6465e72b9e44" prot="private" static="no" mutable="no">
+        <type>double</type>
+        <definition>double rr::GillespieIntegrator::timeScale</definition>
+        <argsstring></argsstring>
+        <name>timeScale</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="GillespieIntegrator.h" line="141" column="16" bodyfile="GillespieIntegrator.h" bodystart="141" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="classrr_1_1GillespieIntegrator_1a77a507ba9fefdea805b52a9b6a90f27a" prot="private" static="no" mutable="no">
+        <type>double</type>
+        <definition>double rr::GillespieIntegrator::stoichScale</definition>
+        <argsstring></argsstring>
+        <name>stoichScale</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="GillespieIntegrator.h" line="142" column="16" bodyfile="GillespieIntegrator.h" bodystart="142" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="classrr_1_1GillespieIntegrator_1a6fc05dfea74798ea6a14476bf29e2c10" prot="private" static="no" mutable="no">
+        <type>int</type>
+        <definition>int rr::GillespieIntegrator::nReactions</definition>
+        <argsstring></argsstring>
+        <name>nReactions</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="GillespieIntegrator.h" line="143" column="13" bodyfile="GillespieIntegrator.h" bodystart="143" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="classrr_1_1GillespieIntegrator_1a24aaea898e9562b2ca30da5ff570655b" prot="private" static="no" mutable="no">
+        <type>int</type>
+        <definition>int rr::GillespieIntegrator::floatingSpeciesStart</definition>
+        <argsstring></argsstring>
+        <name>floatingSpeciesStart</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="GillespieIntegrator.h" line="144" column="13" bodyfile="GillespieIntegrator.h" bodystart="144" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="classrr_1_1GillespieIntegrator_1a9c8ea763074e121c4d0fdc764458a25e" prot="private" static="no" mutable="no">
+        <type>double *</type>
+        <definition>double* rr::GillespieIntegrator::reactionRates</definition>
+        <argsstring></argsstring>
+        <name>reactionRates</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="GillespieIntegrator.h" line="145" column="16" bodyfile="GillespieIntegrator.h" bodystart="145" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="classrr_1_1GillespieIntegrator_1a4fbbed7832459eba85a5763b089a57f3" prot="private" static="no" mutable="no">
+        <type>double *</type>
+        <definition>double* rr::GillespieIntegrator::reactionRatesBuffer</definition>
+        <argsstring></argsstring>
+        <name>reactionRatesBuffer</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="GillespieIntegrator.h" line="146" column="16" bodyfile="GillespieIntegrator.h" bodystart="146" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="classrr_1_1GillespieIntegrator_1a9733e594e41d5e25385dff4da657ebf4" prot="private" static="no" mutable="no">
+        <type>int</type>
+        <definition>int rr::GillespieIntegrator::stateVectorSize</definition>
+        <argsstring></argsstring>
+        <name>stateVectorSize</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="GillespieIntegrator.h" line="147" column="13" bodyfile="GillespieIntegrator.h" bodystart="147" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="classrr_1_1GillespieIntegrator_1ae7485fd344521da1399e18fee90dfec0" prot="private" static="no" mutable="no">
+        <type>double *</type>
+        <definition>double* rr::GillespieIntegrator::stateVector</definition>
+        <argsstring></argsstring>
+        <name>stateVector</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="GillespieIntegrator.h" line="148" column="16" bodyfile="GillespieIntegrator.h" bodystart="148" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="classrr_1_1GillespieIntegrator_1ac87ff4fe8008c062e1c7f2573ece23ce" prot="private" static="no" mutable="no">
+        <type>double *</type>
+        <definition>double* rr::GillespieIntegrator::stateVectorRate</definition>
+        <argsstring></argsstring>
+        <name>stateVectorRate</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="GillespieIntegrator.h" line="149" column="16" bodyfile="GillespieIntegrator.h" bodystart="149" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="classrr_1_1GillespieIntegrator_1a73aa49ae624f2eff1872e275f083733b" prot="private" static="no" mutable="no">
+        <type>int</type>
+        <definition>int rr::GillespieIntegrator::stoichRows</definition>
+        <argsstring></argsstring>
+        <name>stoichRows</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="GillespieIntegrator.h" line="152" column="13" bodyfile="GillespieIntegrator.h" bodystart="152" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="classrr_1_1GillespieIntegrator_1adeca1a671e321f9c3c7fe12647876972" prot="private" static="no" mutable="no">
+        <type>int</type>
+        <definition>int rr::GillespieIntegrator::stoichCols</definition>
+        <argsstring></argsstring>
+        <name>stoichCols</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="GillespieIntegrator.h" line="153" column="13" bodyfile="GillespieIntegrator.h" bodystart="153" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="classrr_1_1GillespieIntegrator_1ae394922712ee63181b3584471993708a" prot="private" static="no" mutable="no">
+        <type>double *</type>
+        <definition>double* rr::GillespieIntegrator::stoichData</definition>
+        <argsstring></argsstring>
+        <name>stoichData</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="GillespieIntegrator.h" line="154" column="16" bodyfile="GillespieIntegrator.h" bodystart="154" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="classrr_1_1GillespieIntegrator_1a2ad59189650fbd78f0845f45ef4f7980" prot="private" static="no" mutable="no">
+        <type>std::vector&lt; unsigned char &gt;</type>
+        <definition>std::vector&lt;unsigned char&gt; rr::GillespieIntegrator::eventStatus</definition>
+        <argsstring></argsstring>
+        <name>eventStatus</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="GillespieIntegrator.h" line="155" column="21" bodyfile="GillespieIntegrator.h" bodystart="155" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="classrr_1_1GillespieIntegrator_1ab2aa5380cdd6355fbc8274019aad96a8" prot="private" static="no" mutable="no">
+        <type>std::vector&lt; unsigned char &gt;</type>
+        <definition>std::vector&lt;unsigned char&gt; rr::GillespieIntegrator::previousEventStatus</definition>
+        <argsstring></argsstring>
+        <name>previousEventStatus</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="GillespieIntegrator.h" line="156" column="21" bodyfile="GillespieIntegrator.h" bodystart="156" bodyend="-1"/>
+      </memberdef>
+      </sectiondef>
+      <sectiondef kind="public-func">
+      <memberdef kind="function" id="classrr_1_1GillespieIntegrator_1a0c6205ef0acd1f1940f17f524118695f" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type></type>
+        <definition>rr::GillespieIntegrator::GillespieIntegrator</definition>
+        <argsstring>(ExecutableModel *model)</argsstring>
+        <name>GillespieIntegrator</name>
+        <param>
+          <type><ref refid="classrr_1_1ExecutableModel" kindref="compound">ExecutableModel</ref> *</type>
+          <declname>model</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="GillespieIntegrator.h" line="38" column="9" bodyfile="GillespieIntegrator.cpp" bodystart="70" bodyend="86"/>
+      </memberdef>
+      <memberdef kind="function" id="classrr_1_1GillespieIntegrator_1aea6ce82c04bfff1c757c12a1b9ffe9db" prot="public" static="no" const="no" explicit="no" inline="no" virt="virtual">
+        <type></type>
+        <definition>rr::GillespieIntegrator::~GillespieIntegrator</definition>
+        <argsstring>()</argsstring>
+        <name>~GillespieIntegrator</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="GillespieIntegrator.h" line="39" column="17" bodyfile="GillespieIntegrator.cpp" bodystart="88" bodyend="100"/>
+      </memberdef>
+      <memberdef kind="function" id="classrr_1_1GillespieIntegrator_1ab9964aeac6eb46f5f44b16c48924f699" prot="public" static="no" const="no" explicit="no" inline="no" virt="virtual">
+        <type>void</type>
+        <definition>void rr::GillespieIntegrator::syncWithModel</definition>
+        <argsstring>(ExecutableModel *m)</argsstring>
+        <name>syncWithModel</name>
+        <reimplements refid="classrr_1_1Integrator_1a6b12118cd1b0f047f5a64cfb0546b565">syncWithModel</reimplements>
+        <param>
+          <type><ref refid="classrr_1_1ExecutableModel" kindref="compound">ExecutableModel</ref> *</type>
+          <declname>m</declname>
+        </param>
+        <briefdescription>
+<para>Called whenever a new model is loaded to allow integrator to reset internal state. </para>
+        </briefdescription>
+        <detaileddescription>
+<para><simplesect kind="author"><para>JKM </para>
+</simplesect>
+</para>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="GillespieIntegrator.h" line="46" column="22" bodyfile="GillespieIntegrator.cpp" bodystart="102" bodyend="130"/>
+      </memberdef>
+      <memberdef kind="function" id="classrr_1_1GillespieIntegrator_1a290f7167ef2a6da01ff1543c496e1215" prot="public" static="no" const="yes" explicit="no" inline="no" virt="virtual">
+        <type>std::string</type>
+        <definition>std::string rr::GillespieIntegrator::getName</definition>
+        <argsstring>() const</argsstring>
+        <name>getName</name>
+        <reimplements refid="classrr_1_1Solver_1a417cca64a18c63535f2091584f8fed91">getName</reimplements>
+        <briefdescription>
+<para>Get the name for this integrator. </para>
+        </briefdescription>
+        <detaileddescription>
+<para><simplesect kind="author"><para>WBC </para>
+</simplesect>
+<simplesect kind="note"><para>Delegates to <ref refid="classrr_1_1GillespieIntegrator_1a290f7167ef2a6da01ff1543c496e1215" kindref="member">getName</ref> </para>
+</simplesect>
+</para>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="GillespieIntegrator.h" line="55" column="21" bodyfile="GillespieIntegrator.cpp" bodystart="132" bodyend="134"/>
+      </memberdef>
+      <memberdef kind="function" id="classrr_1_1GillespieIntegrator_1adc46266d77d8c9d54bca86ca3d402f8f" prot="public" static="no" const="yes" explicit="no" inline="no" virt="virtual">
+        <type>std::string</type>
+        <definition>std::string rr::GillespieIntegrator::getDescription</definition>
+        <argsstring>() const</argsstring>
+        <name>getDescription</name>
+        <reimplements refid="classrr_1_1Solver_1a86067147c7631ca80d51667322f1a8f5">getDescription</reimplements>
+        <briefdescription>
+<para>Get the description for this integrator. </para>
+        </briefdescription>
+        <detaileddescription>
+<para><simplesect kind="author"><para>WBC </para>
+</simplesect>
+<simplesect kind="note"><para>Delegates to <ref refid="classrr_1_1GillespieIntegrator_1adc46266d77d8c9d54bca86ca3d402f8f" kindref="member">getDescription</ref> </para>
+</simplesect>
+</para>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="GillespieIntegrator.h" line="68" column="21" bodyfile="GillespieIntegrator.cpp" bodystart="140" bodyend="142"/>
+      </memberdef>
+      <memberdef kind="function" id="classrr_1_1GillespieIntegrator_1a9903b945ac591f39cb3e93167fe45514" prot="public" static="no" const="yes" explicit="no" inline="no" virt="virtual">
+        <type>std::string</type>
+        <definition>std::string rr::GillespieIntegrator::getHint</definition>
+        <argsstring>() const</argsstring>
+        <name>getHint</name>
+        <reimplements refid="classrr_1_1Solver_1aff005f7e71bc73123ecbd511a77f71b6">getHint</reimplements>
+        <briefdescription>
+<para>Get the hint for this integrator. </para>
+        </briefdescription>
+        <detaileddescription>
+<para><simplesect kind="author"><para>WBC </para>
+</simplesect>
+<simplesect kind="note"><para>Delegates to <ref refid="classrr_1_1GillespieIntegrator_1a9903b945ac591f39cb3e93167fe45514" kindref="member">getHint</ref> </para>
+</simplesect>
+</para>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="GillespieIntegrator.h" line="81" column="21" bodyfile="GillespieIntegrator.cpp" bodystart="152" bodyend="154"/>
+      </memberdef>
+      <memberdef kind="function" id="classrr_1_1GillespieIntegrator_1a01237f3e6d841e05479dcd914d9f11dc" prot="public" static="no" const="yes" explicit="no" inline="no" virt="virtual">
+        <type>IntegrationMethod</type>
+        <definition>Integrator::IntegrationMethod rr::GillespieIntegrator::getIntegrationMethod</definition>
+        <argsstring>() const</argsstring>
+        <name>getIntegrationMethod</name>
+        <reimplements refid="classrr_1_1Integrator_1a6166cbf32c54a1d95a8a830b8db1424c">getIntegrationMethod</reimplements>
+        <briefdescription>
+<para>Always stochastic for Gillespie. </para>
+        </briefdescription>
+        <detaileddescription>
+<para><simplesect kind="author"><para>WBC, ETS </para>
+</simplesect>
+</para>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="GillespieIntegrator.h" line="95" column="27" bodyfile="GillespieIntegrator.cpp" bodystart="160" bodyend="163"/>
+      </memberdef>
+      <memberdef kind="function" id="classrr_1_1GillespieIntegrator_1a3b7430200b51e63f449704f0ee300b07" prot="public" static="no" const="no" explicit="no" inline="no" virt="virtual">
+        <type>void</type>
+        <definition>void rr::GillespieIntegrator::setValue</definition>
+        <argsstring>(std::string setting, const Variant &amp;value)</argsstring>
+        <name>setValue</name>
+        <reimplements refid="classrr_1_1Solver_1a45dd9257f0b87546e7bdd607f3857260">setValue</reimplements>
+        <param>
+          <type>std::string</type>
+          <declname>setting</declname>
+        </param>
+        <param>
+          <type>const <ref refid="classrr_1_1Variant" kindref="compound">Variant</ref> &amp;</type>
+          <declname>value</declname>
+        </param>
+        <briefdescription>
+<para>Sets the value of an integrator setting (e.g. absolute_tolerance) </para>
+        </briefdescription>
+        <detaileddescription>
+<para><simplesect kind="author"><para>WBC, ETS </para>
+</simplesect>
+</para>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="GillespieIntegrator.h" line="101" column="14" bodyfile="GillespieIntegrator.cpp" bodystart="165" bodyend="189"/>
+      </memberdef>
+      <memberdef kind="function" id="classrr_1_1GillespieIntegrator_1a2dcbd5a36b094a9b14d1e8e423204c7b" prot="public" static="no" const="no" explicit="no" inline="no" virt="virtual">
+        <type>void</type>
+        <definition>void rr::GillespieIntegrator::resetSettings</definition>
+        <argsstring>()</argsstring>
+        <name>resetSettings</name>
+        <reimplements refid="classrr_1_1Solver_1a71c8b404a40447f879b2253e7dcc3b85">resetSettings</reimplements>
+        <briefdescription>
+<para>Reset all integrator settings to their respective default values. </para>
+        </briefdescription>
+        <detaileddescription>
+<para><simplesect kind="author"><para>JKM </para>
+</simplesect>
+</para>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="GillespieIntegrator.h" line="107" column="14" bodyfile="GillespieIntegrator.cpp" bodystart="191" bodyend="202"/>
+      </memberdef>
+      <memberdef kind="function" id="classrr_1_1GillespieIntegrator_1a73574edf62f01ef8b2eeadf6c70e802f" prot="public" static="no" const="no" explicit="no" inline="no" virt="virtual">
+        <type>double</type>
+        <definition>double rr::GillespieIntegrator::integrate</definition>
+        <argsstring>(double t0, double tf)</argsstring>
+        <name>integrate</name>
+        <reimplements refid="classrr_1_1Integrator_1aa29aac9228f7834cfb92d04f823e5ddf">integrate</reimplements>
+        <param>
+          <type>double</type>
+          <declname>t0</declname>
+        </param>
+        <param>
+          <type>double</type>
+          <declname>tf</declname>
+        </param>
+        <briefdescription>
+<para>Main integration routine. </para>
+        </briefdescription>
+        <detaileddescription>
+<para><simplesect kind="author"><para>WBC, ETS </para>
+</simplesect>
+</para>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="GillespieIntegrator.h" line="115" column="16" bodyfile="GillespieIntegrator.cpp" bodystart="204" bodyend="371"/>
+      </memberdef>
+      <memberdef kind="function" id="classrr_1_1GillespieIntegrator_1a85af2d5361d972ddb222f53ca2675f8d" prot="public" static="no" const="no" explicit="no" inline="no" virt="virtual">
+        <type>void</type>
+        <definition>void rr::GillespieIntegrator::restart</definition>
+        <argsstring>(double timeStart)</argsstring>
+        <name>restart</name>
+        <reimplements refid="classrr_1_1Integrator_1a5469efaa4c234b7e59d82d98930fa5b9">restart</reimplements>
+        <param>
+          <type>double</type>
+          <declname>timeStart</declname>
+        </param>
+        <briefdescription>
+<para>Reset time to zero and reinitialize model. </para>
+        </briefdescription>
+        <detaileddescription>
+<para><simplesect kind="author"><para>WBC, ETS </para>
+</simplesect>
+</para>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="GillespieIntegrator.h" line="121" column="14" bodyfile="GillespieIntegrator.cpp" bodystart="385" bodyend="407"/>
+      </memberdef>
+      <memberdef kind="function" id="classrr_1_1GillespieIntegrator_1a722d13b4535fbdbee5e5f2845503cbba" prot="public" static="no" const="no" explicit="no" inline="no" virt="virtual">
+        <type>IntegratorListenerPtr</type>
+        <definition>IntegratorListenerPtr rr::GillespieIntegrator::getListener</definition>
+        <argsstring>()</argsstring>
+        <name>getListener</name>
+        <reimplements refid="classrr_1_1Integrator_1ae4105739ea0544fe66db1482e0aeae9d">getListener</reimplements>
+        <briefdescription>
+<para>Gets the integrator listener. </para>
+        </briefdescription>
+        <detaileddescription>
+<para><simplesect kind="author"><para>WBC, ETS </para>
+</simplesect>
+</para>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="GillespieIntegrator.h" line="129" column="31" bodyfile="GillespieIntegrator.cpp" bodystart="413" bodyend="416"/>
+      </memberdef>
+      <memberdef kind="function" id="classrr_1_1GillespieIntegrator_1adb13139574014bfffe50b127e0e5dfe0" prot="public" static="no" const="no" explicit="no" inline="no" virt="virtual">
+        <type>void</type>
+        <definition>void rr::GillespieIntegrator::setListener</definition>
+        <argsstring>(IntegratorListenerPtr)</argsstring>
+        <name>setListener</name>
+        <reimplements refid="classrr_1_1Integrator_1ad4ebded6e6b2d28755a649f402962ba7">setListener</reimplements>
+        <param>
+          <type>IntegratorListenerPtr</type>
+        </param>
+        <briefdescription>
+<para>Sets the integrator listener. </para>
+        </briefdescription>
+        <detaileddescription>
+<para><simplesect kind="author"><para>WBC, ETS </para>
+</simplesect>
+</para>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="GillespieIntegrator.h" line="135" column="14" bodyfile="GillespieIntegrator.cpp" bodystart="409" bodyend="411"/>
+      </memberdef>
+      </sectiondef>
+      <sectiondef kind="public-static-func">
+      <memberdef kind="function" id="classrr_1_1GillespieIntegrator_1a829f4d120d6d1f4dd6fb33a9e4adad82" prot="public" static="yes" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>std::string</type>
+        <definition>std::string rr::GillespieIntegrator::getGillespieName</definition>
+        <argsstring>()</argsstring>
+        <name>getGillespieName</name>
+        <briefdescription>
+<para>Get the name for this integrator. </para>
+        </briefdescription>
+        <detaileddescription>
+<para><simplesect kind="author"><para>JKM </para>
+</simplesect>
+</para>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="GillespieIntegrator.h" line="61" column="28" bodyfile="GillespieIntegrator.cpp" bodystart="136" bodyend="138"/>
+      </memberdef>
+      <memberdef kind="function" id="classrr_1_1GillespieIntegrator_1a9a4886181bbcb6f7e74e84180047efce" prot="public" static="yes" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>std::string</type>
+        <definition>std::string rr::GillespieIntegrator::getGillespieDescription</definition>
+        <argsstring>()</argsstring>
+        <name>getGillespieDescription</name>
+        <briefdescription>
+<para>Get the description for this integrator. </para>
+        </briefdescription>
+        <detaileddescription>
+<para><simplesect kind="author"><para>JKM </para>
+</simplesect>
+</para>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="GillespieIntegrator.h" line="74" column="28" bodyfile="GillespieIntegrator.cpp" bodystart="144" bodyend="150"/>
+      </memberdef>
+      <memberdef kind="function" id="classrr_1_1GillespieIntegrator_1a334bc34d669e35289e71cf99c72c239f" prot="public" static="yes" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>std::string</type>
+        <definition>std::string rr::GillespieIntegrator::getGillespieHint</definition>
+        <argsstring>()</argsstring>
+        <name>getGillespieHint</name>
+        <briefdescription>
+<para>Get the hint for this integrator. </para>
+        </briefdescription>
+        <detaileddescription>
+<para><simplesect kind="author"><para>JKM </para>
+</simplesect>
+</para>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="GillespieIntegrator.h" line="87" column="28" bodyfile="GillespieIntegrator.cpp" bodystart="156" bodyend="158"/>
+      </memberdef>
+      </sectiondef>
+      <sectiondef kind="private-func">
+      <memberdef kind="function" id="classrr_1_1GillespieIntegrator_1a428dfc2f707841441124464acf942de9" prot="private" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>void rr::GillespieIntegrator::testRootsAtInitialTime</definition>
+        <argsstring>()</argsstring>
+        <name>testRootsAtInitialTime</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="GillespieIntegrator.h" line="158" column="14" bodyfile="GillespieIntegrator.cpp" bodystart="373" bodyend="378"/>
+      </memberdef>
+      <memberdef kind="function" id="classrr_1_1GillespieIntegrator_1ad65023f113a676f396e986ee8d7fc97f" prot="private" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>void rr::GillespieIntegrator::applyEvents</definition>
+        <argsstring>(double timeEnd, std::vector&lt; unsigned char &gt; &amp;previousEventStatus)</argsstring>
+        <name>applyEvents</name>
+        <param>
+          <type>double</type>
+          <declname>timeEnd</declname>
+        </param>
+        <param>
+          <type>std::vector&lt; unsigned char &gt; &amp;</type>
+          <declname>previousEventStatus</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="GillespieIntegrator.h" line="159" column="14" bodyfile="GillespieIntegrator.cpp" bodystart="380" bodyend="383"/>
+      </memberdef>
+      <memberdef kind="function" id="classrr_1_1GillespieIntegrator_1afedd845c9444ad8a7c1ff560f6655b46" prot="private" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>double</type>
+        <definition>double rr::GillespieIntegrator::urand</definition>
+        <argsstring>()</argsstring>
+        <name>urand</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="GillespieIntegrator.h" line="161" column="16" bodyfile="GillespieIntegrator.cpp" bodystart="418" bodyend="421"/>
+      </memberdef>
+      <memberdef kind="function" id="classrr_1_1GillespieIntegrator_1ac82c25cff4d5e9865efd3c479eb1eab5" prot="private" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>void rr::GillespieIntegrator::setEngineSeed</definition>
+        <argsstring>(unsigned long seed)</argsstring>
+        <name>setEngineSeed</name>
+        <param>
+          <type>unsigned long</type>
+          <declname>seed</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="GillespieIntegrator.h" line="162" column="14" bodyfile="GillespieIntegrator.cpp" bodystart="423" bodyend="429"/>
+      </memberdef>
+      <memberdef kind="function" id="classrr_1_1GillespieIntegrator_1a7242c0277ca2e69ccdcb620b7707d716" prot="private" static="no" const="yes" explicit="no" inline="no" virt="non-virtual">
+        <type>unsigned long</type>
+        <definition>unsigned long rr::GillespieIntegrator::getSeed</definition>
+        <argsstring>() const</argsstring>
+        <name>getSeed</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="GillespieIntegrator.h" line="163" column="23"/>
+      </memberdef>
+      <memberdef kind="function" id="classrr_1_1GillespieIntegrator_1a22fdbb8cf9753f7f1f7d0f4994faecef" prot="private" static="no" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <type>double</type>
+        <definition>double rr::GillespieIntegrator::getStoich</definition>
+        <argsstring>(uint species, uint reaction)</argsstring>
+        <name>getStoich</name>
+        <param>
+          <type>uint</type>
+          <declname>species</declname>
+        </param>
+        <param>
+          <type>uint</type>
+          <declname>reaction</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="GillespieIntegrator.h" line="165" column="23" bodyfile="GillespieIntegrator.h" bodystart="165" bodyend="168"/>
+      </memberdef>
+      <memberdef kind="function" id="classrr_1_1GillespieIntegrator_1a01af81042738555b6346a26c83eb28ab" prot="private" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>void rr::GillespieIntegrator::initializeFromModel</definition>
+        <argsstring>()</argsstring>
+        <name>initializeFromModel</name>
+        <briefdescription>
+<para>Initialize model-specific variables. </para>
+        </briefdescription>
+        <detaileddescription>
+<para><simplesect kind="author"><para>JKM  Called whenever a model is loaded or a Gillespie integrator is constructed </para>
+</simplesect>
+</para>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="GillespieIntegrator.h" line="176" column="14" bodyfile="GillespieIntegrator.cpp" bodystart="45" bodyend="68"/>
+      </memberdef>
+      </sectiondef>
+    <briefdescription>
+<para><ref refid="classrr_1_1RoadRunner" kindref="compound">RoadRunner</ref>&apos;s implementation of the Gillespie SSA. </para>
+    </briefdescription>
+    <detaileddescription>
+<para><simplesect kind="author"><para>WBC, ETS </para>
+</simplesect>
+</para>
+    </detaileddescription>
+    <inheritancegraph>
+      <node id="2">
+        <label>rr::Integrator</label>
+        <link refid="classrr_1_1Integrator"/>
+        <childnode refid="3" relation="public-inheritance">
+        </childnode>
+      </node>
+      <node id="1">
+        <label>rr::GillespieIntegrator</label>
+        <link refid="classrr_1_1GillespieIntegrator"/>
+        <childnode refid="2" relation="public-inheritance">
+        </childnode>
+      </node>
+      <node id="3">
+        <label>rr::Solver</label>
+        <link refid="classrr_1_1Solver"/>
+      </node>
+    </inheritancegraph>
+    <collaborationgraph>
+      <node id="2">
+        <label>rr::Integrator</label>
+        <link refid="classrr_1_1Integrator"/>
+        <childnode refid="3" relation="public-inheritance">
+        </childnode>
+      </node>
+      <node id="1">
+        <label>rr::GillespieIntegrator</label>
+        <link refid="classrr_1_1GillespieIntegrator"/>
+        <childnode refid="2" relation="public-inheritance">
+        </childnode>
+      </node>
+      <node id="3">
+        <label>rr::Solver</label>
+        <link refid="classrr_1_1Solver"/>
+      </node>
+    </collaborationgraph>
+    <location file="GillespieIntegrator.h" line="35" column="5" bodyfile="GillespieIntegrator.h" bodystart="36" bodyend="177"/>
+    <listofallmembers>
+      <member refid="classrr_1_1Solver_1aec6b159d96d73f2baafc74578b129ce8" prot="protected" virt="non-virtual"><scope>rr::GillespieIntegrator</scope><name>addSetting</name></member>
+      <member refid="classrr_1_1GillespieIntegrator_1ad65023f113a676f396e986ee8d7fc97f" prot="private" virt="non-virtual"><scope>rr::GillespieIntegrator</scope><name>applyEvents</name></member>
+      <member refid="classrr_1_1Solver_1a897a8b06197a02d72931de637bc9ac89" prot="protected" virt="non-virtual"><scope>rr::GillespieIntegrator</scope><name>DescriptionMap</name></member>
+      <member refid="classrr_1_1Solver_1a7e07121f652db358045d6f7b95889ea3" prot="protected" virt="non-virtual"><scope>rr::GillespieIntegrator</scope><name>descriptions</name></member>
+      <member refid="classrr_1_1Integrator_1a0912499450e66cb4301263362d64a0d0af737370ac52f7db68da0965ff5667255" prot="public" virt="non-virtual"><scope>rr::GillespieIntegrator</scope><name>Deterministic</name></member>
+      <member refid="classrr_1_1Solver_1a199de66231b25fef30d8ef2bdff80db7" prot="protected" virt="non-virtual"><scope>rr::GillespieIntegrator</scope><name>display_names_</name></member>
+      <member refid="classrr_1_1Solver_1afa810f2707ef6160e05c92e5812a8c6a" prot="protected" virt="non-virtual"><scope>rr::GillespieIntegrator</scope><name>DisplayNameMap</name></member>
+      <member refid="classrr_1_1GillespieIntegrator_1a069999524d0cd62a7a5c9b4843b284a0" prot="private" virt="non-virtual"><scope>rr::GillespieIntegrator</scope><name>engine</name></member>
+      <member refid="classrr_1_1GillespieIntegrator_1a2ad59189650fbd78f0845f45ef4f7980" prot="private" virt="non-virtual"><scope>rr::GillespieIntegrator</scope><name>eventStatus</name></member>
+      <member refid="classrr_1_1GillespieIntegrator_1a24aaea898e9562b2ca30da5ff570655b" prot="private" virt="non-virtual"><scope>rr::GillespieIntegrator</scope><name>floatingSpeciesStart</name></member>
+      <member refid="classrr_1_1Integrator_1a9bb4546b27c3b0b4552ebc1b36148629" prot="public" virt="virtual"><scope>rr::GillespieIntegrator</scope><name>getConcentrationTolerance</name></member>
+      <member refid="classrr_1_1GillespieIntegrator_1adc46266d77d8c9d54bca86ca3d402f8f" prot="public" virt="virtual"><scope>rr::GillespieIntegrator</scope><name>getDescription</name></member>
+      <member refid="classrr_1_1Solver_1a63d1ab12d862663336c74721f67354f3" prot="public" virt="non-virtual" ambiguityscope="rr::Integrator::"><scope>rr::GillespieIntegrator</scope><name>getDescription</name></member>
+      <member refid="classrr_1_1Solver_1a1242e881aa76493f73c4e32784c1cec6" prot="public" virt="non-virtual"><scope>rr::GillespieIntegrator</scope><name>getDisplayName</name></member>
+      <member refid="classrr_1_1GillespieIntegrator_1a9a4886181bbcb6f7e74e84180047efce" prot="public" virt="non-virtual"><scope>rr::GillespieIntegrator</scope><name>getGillespieDescription</name></member>
+      <member refid="classrr_1_1GillespieIntegrator_1a334bc34d669e35289e71cf99c72c239f" prot="public" virt="non-virtual"><scope>rr::GillespieIntegrator</scope><name>getGillespieHint</name></member>
+      <member refid="classrr_1_1GillespieIntegrator_1a829f4d120d6d1f4dd6fb33a9e4adad82" prot="public" virt="non-virtual"><scope>rr::GillespieIntegrator</scope><name>getGillespieName</name></member>
+      <member refid="classrr_1_1GillespieIntegrator_1a9903b945ac591f39cb3e93167fe45514" prot="public" virt="virtual"><scope>rr::GillespieIntegrator</scope><name>getHint</name></member>
+      <member refid="classrr_1_1Solver_1a7cef64c1874bd5cb95ddff1399e04c45" prot="public" virt="non-virtual" ambiguityscope="rr::Integrator::"><scope>rr::GillespieIntegrator</scope><name>getHint</name></member>
+      <member refid="classrr_1_1GillespieIntegrator_1a01237f3e6d841e05479dcd914d9f11dc" prot="public" virt="virtual"><scope>rr::GillespieIntegrator</scope><name>getIntegrationMethod</name></member>
+      <member refid="classrr_1_1GillespieIntegrator_1a722d13b4535fbdbee5e5f2845503cbba" prot="public" virt="virtual"><scope>rr::GillespieIntegrator</scope><name>getListener</name></member>
+      <member refid="classrr_1_1GillespieIntegrator_1a290f7167ef2a6da01ff1543c496e1215" prot="public" virt="virtual"><scope>rr::GillespieIntegrator</scope><name>getName</name></member>
+      <member refid="classrr_1_1Solver_1abbefd0f38dfa2651c74f8abbd6d7b143" prot="public" virt="virtual"><scope>rr::GillespieIntegrator</scope><name>getNumParams</name></member>
+      <member refid="classrr_1_1Solver_1aa13e13a92531fde27fe5711790eee0f7" prot="public" virt="virtual"><scope>rr::GillespieIntegrator</scope><name>getParamDesc</name></member>
+      <member refid="classrr_1_1Solver_1afc0a667f204105aa133376144ce14c75" prot="public" virt="virtual"><scope>rr::GillespieIntegrator</scope><name>getParamDisplayName</name></member>
+      <member refid="classrr_1_1Solver_1aa604b810ab3f1a2c8bc6dfa6fc731dc2" prot="public" virt="virtual"><scope>rr::GillespieIntegrator</scope><name>getParamHint</name></member>
+      <member refid="classrr_1_1Solver_1ae2bb88ffce40a0136c86a020b4c39037" prot="public" virt="virtual"><scope>rr::GillespieIntegrator</scope><name>getParamName</name></member>
+      <member refid="classrr_1_1GillespieIntegrator_1a7242c0277ca2e69ccdcb620b7707d716" prot="private" virt="non-virtual"><scope>rr::GillespieIntegrator</scope><name>getSeed</name></member>
+      <member refid="classrr_1_1Solver_1ac12d82cf9d7f03ba39f82ae81ee0e168" prot="public" virt="non-virtual"><scope>rr::GillespieIntegrator</scope><name>getSettings</name></member>
+      <member refid="classrr_1_1Solver_1a3f7a3671a4f2ee508fa015ed4b164213" prot="public" virt="non-virtual"><scope>rr::GillespieIntegrator</scope><name>getSettingsRepr</name></member>
+      <member refid="classrr_1_1GillespieIntegrator_1a22fdbb8cf9753f7f1f7d0f4994faecef" prot="private" virt="non-virtual"><scope>rr::GillespieIntegrator</scope><name>getStoich</name></member>
+      <member refid="classrr_1_1Solver_1a20add37bbd73f50d14047171f5f8e921" prot="public" virt="non-virtual"><scope>rr::GillespieIntegrator</scope><name>getType</name></member>
+      <member refid="classrr_1_1Solver_1a773a06f0d64c9d79423efcef1b381da1" prot="public" virt="virtual"><scope>rr::GillespieIntegrator</scope><name>getValue</name></member>
+      <member refid="classrr_1_1Solver_1a9f6e5069f1606a5f5e3d517ee01cfede" prot="public" virt="virtual"><scope>rr::GillespieIntegrator</scope><name>getValueAsBool</name></member>
+      <member refid="classrr_1_1Solver_1a9bc55d0247a3aa629b0ab8f247ee009c" prot="public" virt="virtual"><scope>rr::GillespieIntegrator</scope><name>getValueAsChar</name></member>
+      <member refid="classrr_1_1Solver_1a46987712b9dee2da90c7124761186eb1" prot="public" virt="virtual"><scope>rr::GillespieIntegrator</scope><name>getValueAsDouble</name></member>
+      <member refid="classrr_1_1Solver_1a449a23882706072f4cfaa416887e42d3" prot="public" virt="virtual"><scope>rr::GillespieIntegrator</scope><name>getValueAsDoubleVector</name></member>
+      <member refid="classrr_1_1Solver_1ad30b0e354acd5025b3162db55f1baa93" prot="public" virt="virtual"><scope>rr::GillespieIntegrator</scope><name>getValueAsFloat</name></member>
+      <member refid="classrr_1_1Solver_1a415242398d22d3145ff68afbb73d6b07" prot="public" virt="virtual"><scope>rr::GillespieIntegrator</scope><name>getValueAsInt</name></member>
+      <member refid="classrr_1_1Solver_1a858ce4395c8005ddec5a3ee811eda33a" prot="public" virt="virtual"><scope>rr::GillespieIntegrator</scope><name>getValueAsLong</name></member>
+      <member refid="classrr_1_1Solver_1a6960c38714621daab7e92eadede5f83c" prot="public" virt="virtual"><scope>rr::GillespieIntegrator</scope><name>getValueAsString</name></member>
+      <member refid="classrr_1_1Solver_1ae21e55aeea202e9151112fa00a4c0f82" prot="public" virt="virtual"><scope>rr::GillespieIntegrator</scope><name>getValueAsUChar</name></member>
+      <member refid="classrr_1_1Solver_1a293296661e45b8cb3a092cf8ed5a196b" prot="public" virt="virtual"><scope>rr::GillespieIntegrator</scope><name>getValueAsUInt</name></member>
+      <member refid="classrr_1_1Solver_1aafabb2cc0b41558dc3edae324977372c" prot="public" virt="virtual"><scope>rr::GillespieIntegrator</scope><name>getValueAsULong</name></member>
+      <member refid="classrr_1_1GillespieIntegrator_1a0c6205ef0acd1f1940f17f524118695f" prot="public" virt="non-virtual"><scope>rr::GillespieIntegrator</scope><name>GillespieIntegrator</name></member>
+      <member refid="classrr_1_1Solver_1a104f619f19529d57869310cd67fcc6d1" prot="public" virt="virtual"><scope>rr::GillespieIntegrator</scope><name>hasValue</name></member>
+      <member refid="classrr_1_1Solver_1ab7675259f65ff348aa430747e48f0f90" prot="protected" virt="non-virtual"><scope>rr::GillespieIntegrator</scope><name>HintMap</name></member>
+      <member refid="classrr_1_1Solver_1a39049af7a03fd00b1021c1ce9a9691fc" prot="protected" virt="non-virtual"><scope>rr::GillespieIntegrator</scope><name>hints</name></member>
+      <member refid="classrr_1_1Integrator_1a0912499450e66cb4301263362d64a0d0aca69e7d9e0e8eb017d2351c375453822" prot="public" virt="non-virtual"><scope>rr::GillespieIntegrator</scope><name>Hybrid</name></member>
+      <member refid="classrr_1_1GillespieIntegrator_1a01af81042738555b6346a26c83eb28ab" prot="private" virt="non-virtual"><scope>rr::GillespieIntegrator</scope><name>initializeFromModel</name></member>
+      <member refid="classrr_1_1GillespieIntegrator_1a73574edf62f01ef8b2eeadf6c70e802f" prot="public" virt="virtual"><scope>rr::GillespieIntegrator</scope><name>integrate</name></member>
+      <member refid="classrr_1_1Integrator_1a0912499450e66cb4301263362d64a0d0" prot="public" virt="non-virtual"><scope>rr::GillespieIntegrator</scope><name>IntegrationMethod</name></member>
+      <member refid="classrr_1_1Integrator_1a3753687554e7e6bcf0c14c174deb2b0f" prot="public" virt="virtual"><scope>rr::GillespieIntegrator</scope><name>loadConfigSettings</name></member>
+      <member refid="classrr_1_1Integrator_1abd2e6c3616d1831c028f1061d927fbcd" prot="public" virt="virtual"><scope>rr::GillespieIntegrator</scope><name>loadSBMLSettings</name></member>
+      <member refid="classrr_1_1GillespieIntegrator_1a3a2dadae50d0d9546a58b49ee407d4ca" prot="private" virt="non-virtual"><scope>rr::GillespieIntegrator</scope><name>model</name></member>
+      <member refid="classrr_1_1GillespieIntegrator_1a6fc05dfea74798ea6a14476bf29e2c10" prot="private" virt="non-virtual"><scope>rr::GillespieIntegrator</scope><name>nReactions</name></member>
+      <member refid="classrr_1_1Integrator_1a0912499450e66cb4301263362d64a0d0a0f9b8ec4e01a0fcd2ce808c42c039940" prot="public" virt="non-virtual"><scope>rr::GillespieIntegrator</scope><name>Other</name></member>
+      <member refid="classrr_1_1GillespieIntegrator_1ab2aa5380cdd6355fbc8274019aad96a8" prot="private" virt="non-virtual"><scope>rr::GillespieIntegrator</scope><name>previousEventStatus</name></member>
+      <member refid="classrr_1_1GillespieIntegrator_1a9c8ea763074e121c4d0fdc764458a25e" prot="private" virt="non-virtual"><scope>rr::GillespieIntegrator</scope><name>reactionRates</name></member>
+      <member refid="classrr_1_1GillespieIntegrator_1a4fbbed7832459eba85a5763b089a57f3" prot="private" virt="non-virtual"><scope>rr::GillespieIntegrator</scope><name>reactionRatesBuffer</name></member>
+      <member refid="classrr_1_1GillespieIntegrator_1a2dcbd5a36b094a9b14d1e8e423204c7b" prot="public" virt="virtual"><scope>rr::GillespieIntegrator</scope><name>resetSettings</name></member>
+      <member refid="classrr_1_1GillespieIntegrator_1a85af2d5361d972ddb222f53ca2675f8d" prot="public" virt="virtual"><scope>rr::GillespieIntegrator</scope><name>restart</name></member>
+      <member refid="classrr_1_1Integrator_1a1413e566ca980e08e2799777ad41a2ad" prot="public" virt="virtual"><scope>rr::GillespieIntegrator</scope><name>setConcentrationTolerance</name></member>
+      <member refid="classrr_1_1GillespieIntegrator_1ac82c25cff4d5e9865efd3c479eb1eab5" prot="private" virt="non-virtual"><scope>rr::GillespieIntegrator</scope><name>setEngineSeed</name></member>
+      <member refid="classrr_1_1Integrator_1ac64b02928caaa4fe411754815c98b4f7" prot="public" virt="virtual"><scope>rr::GillespieIntegrator</scope><name>setIndividualTolerance</name></member>
+      <member refid="classrr_1_1GillespieIntegrator_1adb13139574014bfffe50b127e0e5dfe0" prot="public" virt="virtual"><scope>rr::GillespieIntegrator</scope><name>setListener</name></member>
+      <member refid="classrr_1_1Solver_1a44a22cf0edead17a9cc923d87dcc063e" prot="protected" virt="non-virtual"><scope>rr::GillespieIntegrator</scope><name>settings</name></member>
+      <member refid="classrr_1_1Solver_1a970d11482faab2f17428c760f3ec8240" prot="protected" virt="non-virtual"><scope>rr::GillespieIntegrator</scope><name>SettingsList</name></member>
+      <member refid="classrr_1_1Solver_1a84e22bdecb76b77ddfbc8efda8219401" prot="protected" virt="non-virtual"><scope>rr::GillespieIntegrator</scope><name>SettingsMap</name></member>
+      <member refid="classrr_1_1Solver_1a37b032d8755eaccd3480531bdc2a4596" prot="public" virt="non-virtual"><scope>rr::GillespieIntegrator</scope><name>settingsPyDictRepr</name></member>
+      <member refid="classrr_1_1GillespieIntegrator_1a3b7430200b51e63f449704f0ee300b07" prot="public" virt="virtual"><scope>rr::GillespieIntegrator</scope><name>setValue</name></member>
+      <member refid="classrr_1_1Solver_1a99f48947491d7cd36c68cebba53915fe" prot="protected" virt="non-virtual"><scope>rr::GillespieIntegrator</scope><name>sorted_settings</name></member>
+      <member refid="classrr_1_1GillespieIntegrator_1ae7485fd344521da1399e18fee90dfec0" prot="private" virt="non-virtual"><scope>rr::GillespieIntegrator</scope><name>stateVector</name></member>
+      <member refid="classrr_1_1GillespieIntegrator_1ac87ff4fe8008c062e1c7f2573ece23ce" prot="private" virt="non-virtual"><scope>rr::GillespieIntegrator</scope><name>stateVectorRate</name></member>
+      <member refid="classrr_1_1GillespieIntegrator_1a9733e594e41d5e25385dff4da657ebf4" prot="private" virt="non-virtual"><scope>rr::GillespieIntegrator</scope><name>stateVectorSize</name></member>
+      <member refid="classrr_1_1Integrator_1a0912499450e66cb4301263362d64a0d0a35eaf1b6ad6c75eb82506ef35dd47c27" prot="public" virt="non-virtual"><scope>rr::GillespieIntegrator</scope><name>Stochastic</name></member>
+      <member refid="classrr_1_1GillespieIntegrator_1adeca1a671e321f9c3c7fe12647876972" prot="private" virt="non-virtual"><scope>rr::GillespieIntegrator</scope><name>stoichCols</name></member>
+      <member refid="classrr_1_1GillespieIntegrator_1ae394922712ee63181b3584471993708a" prot="private" virt="non-virtual"><scope>rr::GillespieIntegrator</scope><name>stoichData</name></member>
+      <member refid="classrr_1_1GillespieIntegrator_1a73aa49ae624f2eff1872e275f083733b" prot="private" virt="non-virtual"><scope>rr::GillespieIntegrator</scope><name>stoichRows</name></member>
+      <member refid="classrr_1_1GillespieIntegrator_1a77a507ba9fefdea805b52a9b6a90f27a" prot="private" virt="non-virtual"><scope>rr::GillespieIntegrator</scope><name>stoichScale</name></member>
+      <member refid="classrr_1_1GillespieIntegrator_1ab9964aeac6eb46f5f44b16c48924f699" prot="public" virt="virtual"><scope>rr::GillespieIntegrator</scope><name>syncWithModel</name></member>
+      <member refid="classrr_1_1GillespieIntegrator_1a428dfc2f707841441124464acf942de9" prot="private" virt="non-virtual"><scope>rr::GillespieIntegrator</scope><name>testRootsAtInitialTime</name></member>
+      <member refid="classrr_1_1GillespieIntegrator_1a754bebeaaec896660dbf6465e72b9e44" prot="private" virt="non-virtual"><scope>rr::GillespieIntegrator</scope><name>timeScale</name></member>
+      <member refid="classrr_1_1Integrator_1abb3c4ae3020a5df7abe40639037615cb" prot="public" virt="virtual"><scope>rr::GillespieIntegrator</scope><name>toRepr</name></member>
+      <member refid="classrr_1_1Integrator_1adde5221e0d61f9f5398d69020e1a5a86" prot="public" virt="virtual"><scope>rr::GillespieIntegrator</scope><name>toString</name></member>
+      <member refid="classrr_1_1Integrator_1a51c07785d8af1eb648878347529b2eb4" prot="public" virt="virtual"><scope>rr::GillespieIntegrator</scope><name>tweakTolerances</name></member>
+      <member refid="classrr_1_1GillespieIntegrator_1afedd845c9444ad8a7c1ff560f6655b46" prot="private" virt="non-virtual"><scope>rr::GillespieIntegrator</scope><name>urand</name></member>
+      <member refid="classrr_1_1GillespieIntegrator_1aea6ce82c04bfff1c757c12a1b9ffe9db" prot="public" virt="virtual"><scope>rr::GillespieIntegrator</scope><name>~GillespieIntegrator</name></member>
+      <member refid="classrr_1_1Integrator_1a35f0f55f14d225c1da02300f3f1c37b5" prot="public" virt="virtual"><scope>rr::GillespieIntegrator</scope><name>~Integrator</name></member>
+      <member refid="classrr_1_1Solver_1a921e53563c59252d5180c2160e46986f" prot="public" virt="virtual"><scope>rr::GillespieIntegrator</scope><name>~Solver</name></member>
+    </listofallmembers>
+  </compounddef>
+</doxygen>

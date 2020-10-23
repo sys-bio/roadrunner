@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<sbml xmlns="http://www.sbml.org/sbml/level2/version2" level="2" version="2">
+  <model id="case01311" name="case01311">
+    <listOfFunctionDefinitions>
+      <functionDefinition id="three">
+        <math xmlns="http://www.w3.org/1998/Math/MathML">
+          <lambda>
+            <cn type="integer"> 3 </cn>
+          </lambda>
+        </math>
+      </functionDefinition>
+      <functionDefinition id="getthree">
+        <math xmlns="http://www.w3.org/1998/Math/MathML">
+          <lambda>
+            <apply>
+              <ci> three </ci>
+            </apply>
+          </lambda>
+        </math>
+      </functionDefinition>
+      <functionDefinition id="getgetthree">
+        <math xmlns="http://www.w3.org/1998/Math/MathML">
+          <lambda>
+            <apply>
+              <ci> getthree </ci>
+            </apply>
+          </lambda>
+        </math>
+      </functionDefinition>
+    </listOfFunctionDefinitions>
+    <listOfParameters>
+      <parameter id="p1"/>
+    </listOfParameters>
+    <listOfInitialAssignments>
+      <initialAssignment symbol="p1">
+        <math xmlns="http://www.w3.org/1998/Math/MathML">
+          <apply>
+            <ci> getgetthree </ci>
+          </apply>
+        </math>
+      </initialAssignment>
+    </listOfInitialAssignments>
+  </model>
+</sbml>

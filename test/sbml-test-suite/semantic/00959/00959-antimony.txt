@@ -1,0 +1,30 @@
+model case000959()
+
+  // Assignment Rules:
+  P1 := sec(time);
+  P2 := sec(-time);
+  P3 := csc(time + 0.001);
+  P4 := csc(-time - 0.001);
+  P5 := cot(time + 0.001);
+  P6 := cot(-time - 0.001);
+  P7 := sinh(time);
+  P8 := sinh(-time);
+  P9 := cosh(time);
+  P10 := cosh(-time);
+  P11 := arcsec(time + 1);
+  P12 := arcsec(-time - 1);
+  P13 := arccsc(time + 1);
+  P14 := arccsc(-time - 1);
+  P15 := arccot(time);
+  P16 := arccot(-time);
+  P17 := arcsinh(time);
+  P18 := arcsinh(-time);
+  P19 := arccosh(time + 1);
+  P20 := piecewise(arctanh(time), (time < 1), 10);
+  P21 := piecewise(arctanh(-time), (time < 1), -10);
+  P22 := piecewise(0,((time<=0) || (time>=1)),arcsech(time + 0.001));
+  P23 := arccsch(time + 1);
+  P24 := arccsch(-time - 1);
+  P25 := arccoth(time + 1.001);
+  P26 := arccoth(-time - 1.001);
+end

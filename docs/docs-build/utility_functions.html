@@ -1,0 +1,278 @@
+
+
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" >
+<head>
+  <meta charset="utf-8">
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+  <title>Utility Functions &mdash; libRoadRunner 1.1.16 documentation</title>
+  
+
+  
+  <link rel="stylesheet" href="_static/css/theme.css" type="text/css" />
+  <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
+
+  
+  
+  
+  
+
+  
+  <!--[if lt IE 9]>
+    <script src="_static/js/html5shiv.min.js"></script>
+  <![endif]-->
+  
+    
+      <script type="text/javascript" id="documentation_options" data-url_root="./" src="_static/documentation_options.js"></script>
+        <script src="_static/jquery.js"></script>
+        <script src="_static/underscore.js"></script>
+        <script src="_static/doctools.js"></script>
+        <script src="_static/language_data.js"></script>
+    
+    <script type="text/javascript" src="_static/js/theme.js"></script>
+
+    
+    <link rel="index" title="Index" href="genindex.html" />
+    <link rel="search" title="Search" href="search.html" />
+    <link rel="next" title="Accessing the SBML Model Variables" href="accessing_model.html" />
+    <link rel="prev" title="Simulation and Integration" href="integration.html" /> 
+</head>
+
+<body class="wy-body-for-nav">
+
+   
+  <div class="wy-grid-for-nav">
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+          
+
+          
+            <a href="index.html" class="icon icon-home" alt="Documentation Home"> libRoadRunner
+          
+
+          
+          </a>
+
+          
+            
+            
+          
+
+          
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+
+          
+        </div>
+
+        
+        <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+          
+            
+            
+              
+            
+            
+              <ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="index.html">RoadRunner Documentation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="introduction.html">Introduction</a></li>
+<li class="toctree-l1"><a class="reference internal" href="Installation/installation.html">Installing RoadRunner</a></li>
+<li class="toctree-l1"><a class="reference internal" href="read_write_functions.html">SBML Read/Write Functions</a></li>
+<li class="toctree-l1"><a class="reference internal" href="selecting_values.html">Selecting Values</a></li>
+<li class="toctree-l1"><a class="reference internal" href="steady_state.html">Steady State Analysis</a></li>
+<li class="toctree-l1"><a class="reference internal" href="stochastic.html">Stochastic Simulation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="metabolic.html">Metabolic Control Analysis</a></li>
+<li class="toctree-l1"><a class="reference internal" href="stability.html">Stability Analysis</a></li>
+<li class="toctree-l1"><a class="reference internal" href="stoichiometric.html">Stoichiometric Analysis</a></li>
+<li class="toctree-l1"><a class="reference internal" href="bifurcation.html">Bifurcation Analysis</a></li>
+<li class="toctree-l1"><a class="reference internal" href="integration.html">Simulation and Integration</a></li>
+<li class="toctree-l1 current"><a class="current reference internal" href="#">Utility Functions</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="#information-group">Information Group</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="accessing_model.html">Accessing the SBML Model Variables</a></li>
+<li class="toctree-l1"><a class="reference internal" href="api_reference.html">RoadRunner API Reference</a></li>
+</ul>
+
+            
+          
+        </div>
+        
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" aria-label="top navigation">
+        
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="index.html">libRoadRunner</a>
+        
+      </nav>
+
+
+      <div class="wy-nav-content">
+        
+        <div class="rst-content">
+        
+          
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div role="navigation" aria-label="breadcrumbs navigation">
+
+  <ul class="wy-breadcrumbs">
+    
+      <li><a href="index.html" class="icon icon-home"></a> &raquo;</li>
+        
+      <li>Utility Functions</li>
+    
+    
+      <li class="wy-breadcrumbs-aside">
+        
+            
+            <a href="_sources/utility_functions.rst.txt" rel="nofollow"> View page source</a>
+          
+        
+      </li>
+    
+  </ul>
+
+  
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+            
+  <div class="section" id="utility-functions">
+<h1>Utility Functions<a class="headerlink" href="#utility-functions" title="Permalink to this headline">¶</a></h1>
+<p>The following methodsprovide basic information about the current roadRunner installation.</p>
+<div class="section" id="information-group">
+<h2>Information Group<a class="headerlink" href="#information-group" title="Permalink to this headline">¶</a></h2>
+<p><a class="reference internal" href="mod_roadrunner/cls_RoadRunner.html#RoadRunner.RoadRunner.getInfo" title="RoadRunner.RoadRunner.getInfo"><code class="xref py py-meth docutils literal notranslate"><span class="pre">getInfo()</span></code></a> returns useful information about libRoadRunner’s current state:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="nb">print</span> <span class="n">rr</span><span class="o">.</span><span class="n">getInfo</span><span class="p">()</span>
+<span class="go">Model Loaded: false</span>
+<span class="go">ConservationAnalysis: 0</span>
+<span class="go">libSBML version: LibSBML Version: 5.12.0</span>
+<span class="go">Temporary folder: not used</span>
+<span class="go">Compiler location: not used</span>
+<span class="go">Support Code Folder: not used</span>
+<span class="go">Working Directory: C:\dev\eclipse</span>
+</pre></div>
+</div>
+<p><a class="reference internal" href="mod_roadrunner/cls_Misc.html#roadrunner.getVersionStr" title="roadrunner.getVersionStr"><code class="xref py py-meth docutils literal notranslate"><span class="pre">getVersionStr()</span></code></a> returns specific information Strings based on arguments passed to it.
+For example to get the libSBML version used, you can:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="kn">import</span> <span class="nn">roadrunner</span>
+
+<span class="gp">&gt;&gt;&gt; </span><span class="nb">print</span> <span class="n">roadrunner</span><span class="o">.</span><span class="n">getVersionStr</span><span class="p">(</span><span class="n">roadrunner</span><span class="o">.</span><span class="n">VERSIONSTR_LIBSBML</span><span class="p">)</span>
+<span class="go">LibSBML Version: 5.9.0</span>
+</pre></div>
+</div>
+<p>or you can do any combination of the <em>VERSIONSTR_</em> options:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="nb">print</span> <span class="n">roadrunner</span><span class="o">.</span><span class="n">getVersionStr</span><span class="p">(</span>
+<span class="go">                             roadrunner.VERSIONSTR_BASIC |</span>
+<span class="go">                             roadrunner.VERSIONSTR_COMPILER |</span>
+<span class="go">                             roadrunner.VERSIONSTR_DATE |</span>
+<span class="go">                             roadrunner.VERSIONSTR_LIBSBML)</span>
+<span class="go">1.4.3; Compiler: Microsoft Visual Studio 2013; Date: Dec 18 2013, 22:59:30; LibSBML Version: 5.12.0</span>
+</pre></div>
+</div>
+<p>There is also the standard python <code class="docutils literal notranslate"><span class="pre">__version__</span></code> which is actually set
+when the module is loaded from <code class="docutils literal notranslate"><span class="pre">getVersionStr</span></code>:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="nb">print</span> <span class="n">roadrunner</span><span class="o">.</span><span class="n">__version__</span>
+<span class="go">1.4.3; Compiler: Microsoft Visual Studio 2013; Date: Dec 18 2013, 22:59:30</span>
+</pre></div>
+</div>
+<table class="longtable docutils align-default">
+<colgroup>
+<col style="width: 10%" />
+<col style="width: 90%" />
+</colgroup>
+<tbody>
+<tr class="row-odd"><td><p><a class="reference internal" href="mod_roadrunner/cls_RoadRunner.html#RoadRunner.RoadRunner.getInfo" title="RoadRunner.RoadRunner.getInfo"><code class="xref py py-obj docutils literal notranslate"><span class="pre">RoadRunner.getInfo</span></code></a></p></td>
+<td><p></p></td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+
+
+           </div>
+           
+          </div>
+          <footer>
+  
+    <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
+      
+        <a href="accessing_model.html" class="btn btn-neutral float-right" title="Accessing the SBML Model Variables" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right"></span></a>
+      
+      
+        <a href="integration.html" class="btn btn-neutral float-left" title="Simulation and Integration" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left"></span> Previous</a>
+      
+    </div>
+  
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>
+        
+        &copy; Copyright 2013-2018, Andy Somogyi, J Kyle Medley, Kiri Choi, Herbert Suaro
+
+    </p>
+  </div>
+    
+    
+    
+    Built with <a href="http://sphinx-doc.org/">Sphinx</a> using a
+    
+    <a href="https://github.com/rtfd/sphinx_rtd_theme">theme</a>
+    
+    provided by <a href="https://readthedocs.org">Read the Docs</a>. 
+
+</footer>
+
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+  
+
+  <script type="text/javascript">
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script>
+
+  
+  
+    
+   
+
+</body>
+</html>

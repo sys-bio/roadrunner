@@ -147,7 +147,7 @@ vector<double> createVector(const RRVector* vec)
 RRVector* createVector(const vector<double>& vec)
 {
     RRVector* aVec = new RRVector;
-    aVec->Count = vec.size();
+    aVec->Count = static_cast<int>(vec.size());
 
     if(aVec->Count)
     {
@@ -165,7 +165,7 @@ RRVector* createVector(const vector<double>& vec)
 RRComplexVector* createVector(const vector<ls::Complex>& vec)
 {
     RRComplexVector* aVec = new RRComplexVector;
-    aVec->Count = vec.size();
+    aVec->Count = static_cast<int>(vec.size());
 
     if(aVec->Count)
     {

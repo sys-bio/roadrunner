@@ -275,7 +275,7 @@ bool CCompiler::compile(const string& cmdLine)
         // Retrieve the system error message for the last-error code
         DWORD errorCode = GetLastError();
         string anError = getWINAPIError(errorCode, TEXT("CreateFile"));
-        Log(Logger::LOG_ERROR)<<"WIN API Error (after CreateFile): "<<anError;
+        Log(Logger::LOG_ERROR)<<"WIN wrappers Error (after CreateFile): "<<anError;
         Log(Logger::LOG_ERROR)<<"Failed creating logFile for compiler output";
     }
 
@@ -315,7 +315,7 @@ bool CCompiler::compile(const string& cmdLine)
         DWORD errorCode = GetLastError();
 
         string anError = getWINAPIError(errorCode, TEXT("CreateProcess"));
-        Log(Logger::LOG_ERROR)<<"WIN API Error: (after CreateProcess) "<<anError;
+        Log(Logger::LOG_ERROR)<<"WIN wrappers Error: (after CreateProcess) "<<anError;
 
         // Close process and thread handles.
         CloseHandle(pi.hProcess);
@@ -335,7 +335,7 @@ bool CCompiler::compile(const string& cmdLine)
     if(errorCode != 0)
     {
         string anError = getWINAPIError(errorCode, TEXT("CloseHandle"));
-        Log(lDebug)<<"WIN API error: (pi.hProcess)"<<anError;
+        Log(lDebug)<<"WIN wrappers error: (pi.hProcess)"<<anError;
     }
 
     CloseHandle(pi.hThread);
@@ -343,7 +343,7 @@ bool CCompiler::compile(const string& cmdLine)
     if(errorCode != 0)
     {
         string anError = getWINAPIError(errorCode, TEXT("CloseHandle"));
-        Log(lDebug)<<"WIN API error: (pi.hThread)"<<anError;
+        Log(lDebug)<<"WIN wrappers error: (pi.hThread)"<<anError;
     }
 
     //Read the log file and log it

@@ -1,0 +1,79 @@
+\hypertarget{classrr_1_1BasicDictionary}{}\doxysection{rr\+::Basic\+Dictionary Class Reference}
+\label{classrr_1_1BasicDictionary}\index{rr::BasicDictionary@{rr::BasicDictionary}}
+
+
+This class is frozen, no new features Basic implementation of the \mbox{\hyperlink{classrr_1_1Dictionary}{Dictionary}} interface which uses a std unordered map to store the values.  
+
+
+
+
+{\ttfamily \#include $<$Dictionary.\+h$>$}
+
+Inheritance diagram for rr\+::Basic\+Dictionary\+:\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[height=3.000000cm]{classrr_1_1BasicDictionary}
+\end{center}
+\end{figure}
+\doxysubsection*{Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\Hypertarget{classrr_1_1BasicDictionary_ae7b6b6c90561295e2e07c45fe50358ce}\label{classrr_1_1BasicDictionary_ae7b6b6c90561295e2e07c45fe50358ce}} 
+void \mbox{\hyperlink{classrr_1_1BasicDictionary_ae7b6b6c90561295e2e07c45fe50358ce}{set\+Item}} (const std\+::string \&key, const \mbox{\hyperlink{classrr_1_1Variant}{rr\+::\+Variant}} \&value) override
+\begin{DoxyCompactList}\small\item\em sets an item in the internal unordered map. \end{DoxyCompactList}\item 
+\mbox{\Hypertarget{classrr_1_1BasicDictionary_a3357b3d49d8353f19ec9aa83884f6ef1}\label{classrr_1_1BasicDictionary_a3357b3d49d8353f19ec9aa83884f6ef1}} 
+\mbox{\hyperlink{classrr_1_1Variant}{Variant}} \mbox{\hyperlink{classrr_1_1BasicDictionary_a3357b3d49d8353f19ec9aa83884f6ef1}{get\+Item}} (const std\+::string \&key) const override
+\begin{DoxyCompactList}\small\item\em gets an item from the internal unordered map. \end{DoxyCompactList}\item 
+bool \mbox{\hyperlink{classrr_1_1BasicDictionary_ab78190d645a8eb84bb3494453a6f6ea8}{has\+Key}} (const std\+::string \&key) const override
+\begin{DoxyCompactList}\small\item\em is there a key matching this name. \end{DoxyCompactList}\item 
+\mbox{\Hypertarget{classrr_1_1BasicDictionary_af80331f200f57eaa1d22c85104731dda}\label{classrr_1_1BasicDictionary_af80331f200f57eaa1d22c85104731dda}} 
+size\+\_\+t \mbox{\hyperlink{classrr_1_1BasicDictionary_af80331f200f57eaa1d22c85104731dda}{delete\+Item}} (const std\+::string \&key) override
+\begin{DoxyCompactList}\small\item\em remove a value \end{DoxyCompactList}\item 
+\mbox{\Hypertarget{classrr_1_1BasicDictionary_a4e87ed4bed586a041a2c51249448d2fa}\label{classrr_1_1BasicDictionary_a4e87ed4bed586a041a2c51249448d2fa}} 
+std\+::vector$<$ std\+::string $>$ \mbox{\hyperlink{classrr_1_1BasicDictionary_a4e87ed4bed586a041a2c51249448d2fa}{get\+Keys}} () const override
+\begin{DoxyCompactList}\small\item\em list of keys in this object. \end{DoxyCompactList}\item 
+\mbox{\Hypertarget{classrr_1_1BasicDictionary_ad76c8129a4634d039f320659dfe28e0a}\label{classrr_1_1BasicDictionary_ad76c8129a4634d039f320659dfe28e0a}} 
+\mbox{\hyperlink{classrr_1_1BasicDictionary_ad76c8129a4634d039f320659dfe28e0a}{$\sim$\+Basic\+Dictionary}} () override=default
+\begin{DoxyCompactList}\small\item\em Pure virtual interface, you should never have to delete an instance of this type directly. \end{DoxyCompactList}\end{DoxyCompactItemize}
+\doxysubsection*{Protected Types}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\Hypertarget{classrr_1_1BasicDictionary_aedf8f5947090adb89828e602181a0a2f}\label{classrr_1_1BasicDictionary_aedf8f5947090adb89828e602181a0a2f}} 
+typedef cxx11\+\_\+ns\+::unordered\+\_\+map$<$ std\+::string, \mbox{\hyperlink{classrr_1_1Variant}{Variant}} $>$ {\bfseries Variant\+Map}
+\end{DoxyCompactItemize}
+\doxysubsection*{Protected Attributes}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\Hypertarget{classrr_1_1BasicDictionary_aeecca9d2b0b63711fc5e70e428e4f94d}\label{classrr_1_1BasicDictionary_aeecca9d2b0b63711fc5e70e428e4f94d}} 
+Variant\+Map {\bfseries items}
+\end{DoxyCompactItemize}
+
+
+\doxysubsection{Detailed Description}
+This class is frozen, no new features Basic implementation of the \mbox{\hyperlink{classrr_1_1Dictionary}{Dictionary}} interface which uses a std unordered map to store the values. 
+
+\doxysubsection{Member Function Documentation}
+\mbox{\Hypertarget{classrr_1_1BasicDictionary_ab78190d645a8eb84bb3494453a6f6ea8}\label{classrr_1_1BasicDictionary_ab78190d645a8eb84bb3494453a6f6ea8}} 
+\index{rr::BasicDictionary@{rr::BasicDictionary}!hasKey@{hasKey}}
+\index{hasKey@{hasKey}!rr::BasicDictionary@{rr::BasicDictionary}}
+\doxysubsubsection{\texorpdfstring{hasKey()}{hasKey()}}
+{\footnotesize\ttfamily bool rr\+::\+Basic\+Dictionary\+::has\+Key (\begin{DoxyParamCaption}\item[{const std\+::string \&}]{key }\end{DoxyParamCaption}) const\hspace{0.3cm}{\ttfamily [override]}, {\ttfamily [virtual]}}
+
+
+
+is there a key matching this name. 
+
+@retruns true if this key exists, false otherwise. 
+
+Implements \mbox{\hyperlink{classrr_1_1Dictionary_a7ec0accc7149a403ee5eeeb9457059ed}{rr\+::\+Dictionary}}.
+
+
+
+Reimplemented in \mbox{\hyperlink{classrr_1_1LoadSBMLOptions_a5fd757435841abdb20215d65af77bd84}{rr\+::\+Load\+S\+B\+M\+L\+Options}}.
+
+
+
+The documentation for this class was generated from the following files\+:\begin{DoxyCompactItemize}
+\item 
+Dictionary.\+h\item 
+Dictionary.\+cpp\end{DoxyCompactItemize}

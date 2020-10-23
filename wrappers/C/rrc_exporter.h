@@ -1,6 +1,6 @@
 /**
  * @file rrc_exporter.h
- * @brief roadRunner C API 2012
+ * @brief roadRunner C wrappers 2012
  * @author Totte Karlsson & Herbert M Sauro
  *
  * <--------------------------------------------------------------
@@ -42,7 +42,7 @@
 #ifndef rrc_exporterH
 #define rrc_exporterH
 
-//Export/Import API functions
+//Export/Import wrappers functions
 #if defined(_WIN32) || defined(__WIN32__)
     #if defined(STATIC_RRC)
         #define C_DECL_SPEC

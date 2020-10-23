@@ -137,7 +137,7 @@ void ArrayList::Clear()
 
 unsigned int ArrayList::Count() const
 {
-    return mList.size();
+    return static_cast<unsigned int>(mList.size());
 }
 
 ArrayList::ArrayList(const ArrayList& copyMe)

@@ -95,12 +95,12 @@ const string& StringList::operator[](const int& index) const
 
 unsigned int StringList::size() const
 {
-    return mStrings.size();
+    return static_cast<unsigned int>(mStrings.size());
 }
 
 unsigned int StringList::Count() const
 {
-    return mStrings.size();
+    return static_cast<unsigned int>(mStrings.size());
 }
 
 string StringList::AsString(const string& delimiter) const
@@ -170,12 +170,12 @@ void StringList::add(const string& item)
 
 int StringList::find(const string& item)
 {
-    return rr::indexOf(mStrings, item);
+    return static_cast<int>(rr::indexOf(mStrings, item));
 }
 
 int StringList::indexOf(const string& item)
 {
-    return rr::indexOf(mStrings, item);
+    return static_cast<int>(rr::indexOf(mStrings, item));
 }
 
 void StringList::removeAt(const int& index)

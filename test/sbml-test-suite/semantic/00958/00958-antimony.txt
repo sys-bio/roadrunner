@@ -1,0 +1,31 @@
+model case000958()
+  P1 = pi;
+  P3 = piecewise(2, gt(1, 0.5), 3);
+  P4 = piecewise(2, geq(1, 0.5), 3);
+  P5 = piecewise(2, lt(1, 0.5), 3);
+  P6 = piecewise(2, leq(1, 0.5), 3);
+  P7 = piecewise(2, eq(P1, pi), 3);
+  P8 = piecewise(2, neq(P1, pi), 3);
+  P9 = factorial(4);
+  P10 = piecewise(2, and(true, false), 3);
+  P11 = piecewise(2, or(true, false), 3);
+  P12 = piecewise(2, xor(true, false), 3);
+  P13 = piecewise(2, not(false), 3);
+  P14 = sec(0.5);
+  P15 = csc(4.5);
+  P16 = cot(0.2);
+  P17 = sinh(0.3);
+  P18 = cosh(1.7);
+  P19 = arcsec(2.3);
+  P20 = arccsc(1.1);
+  P21 = arccot(-0.1);
+  P22 = arcsinh(99);
+  P23 = arccosh(1.34);
+  P24 = arctanh(-0.7);
+  P25 = arcsech(.42);
+  P26 = arccsch(0.01);
+  P27 = arccoth(8.2);
+  P28 = exponentiale;
+  P29 = exp(exponentiale);
+
+end

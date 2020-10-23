@@ -1,0 +1,523 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.20" xml:lang="en-US">
+  <compounddef id="classrr_1_1LoadSBMLOptions" kind="class" language="C++" prot="public">
+    <compoundname>rr::LoadSBMLOptions</compoundname>
+    <basecompoundref refid="classrr_1_1BasicDictionary" prot="public" virt="non-virtual">rr::BasicDictionary</basecompoundref>
+    <includes refid="rrRoadRunnerOptions_8h" local="no">rrRoadRunnerOptions.h</includes>
+      <sectiondef kind="public-type">
+      <memberdef kind="enum" id="classrr_1_1LoadSBMLOptions_1a7b6ca6fc32892dbe782f3eb718762ad6" prot="public" static="no" strong="no">
+        <type></type>
+        <name>ModelGeneratorOpt</name>
+        <enumvalue id="classrr_1_1LoadSBMLOptions_1a7b6ca6fc32892dbe782f3eb718762ad6ae77d97fa1a40a716d3e15f216965a26f" prot="public">
+          <name>CONSERVED_MOIETIES</name>
+          <initializer>= (0x1 &lt;&lt; 0)</initializer>
+          <briefdescription>
+<para>perform conservation analysis. </para>
+          </briefdescription>
+          <detaileddescription>
+<para>This causes a re-ordering of the species, so results generated with this flag enabled can not be compared index wise to results generated otherwise.</para>
+<para>currently only implemented with the C code generating model </para>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="classrr_1_1LoadSBMLOptions_1a7b6ca6fc32892dbe782f3eb718762ad6a9dcbd508a994cd5a803e231e0054ff3d" prot="public">
+          <name>RECOMPILE</name>
+          <initializer>= (0x1 &lt;&lt; 1)</initializer>
+          <briefdescription>
+<para>Should the model be recompiled? The LLVM ModelGenerator maintins a hash table of currently running models. </para>
+          </briefdescription>
+          <detaileddescription>
+<para>If this flag is NOT set, then the generator will look to see if there is already a running instance of the given model and use the generated code from that one.</para>
+<para>If only a single instance of a model is run, there is no need to cache the models, and this can safetly be enabled, realizing some performance gains. </para>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="classrr_1_1LoadSBMLOptions_1a7b6ca6fc32892dbe782f3eb718762ad6a8058d91b0aebc14e1045b721a5162d60" prot="public">
+          <name>READ_ONLY</name>
+          <initializer>= (0x1 &lt;&lt; 2)</initializer>
+          <briefdescription>
+<para>If this is set, then a read-only model is generated. </para>
+          </briefdescription>
+          <detaileddescription>
+<para>A read-only model can be simulated, but no code is generated to set model values, i.e. parameters, amounts, values, etc...</para>
+<para>It takes a finite amount of time to generate the model value setting functions, and if they are not needed, one may see some performance gains, especially in very large models. </para>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="classrr_1_1LoadSBMLOptions_1a7b6ca6fc32892dbe782f3eb718762ad6aac3f87fdc0fe128777ff39245e179386" prot="public">
+          <name>MUTABLE_INITIAL_CONDITIONS</name>
+          <initializer>= (0x1 &lt;&lt; 3)</initializer>
+          <briefdescription>
+<para>Generate accessor functions to allow changing of initial conditions. </para>
+          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="classrr_1_1LoadSBMLOptions_1a7b6ca6fc32892dbe782f3eb718762ad6a394b597c8d7ad74dbeae9b1dbf5c506c" prot="public">
+          <name>OPTIMIZE_GVN</name>
+          <initializer>= (0x1 &lt;&lt; 4)</initializer>
+          <briefdescription>
+<para>GVN - This pass performs global value numbering and redundant load elimination cotemporaneously. </para>
+          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="classrr_1_1LoadSBMLOptions_1a7b6ca6fc32892dbe782f3eb718762ad6a835bf2f8dc46986611fb3964cba2e16c" prot="public">
+          <name>OPTIMIZE_CFG_SIMPLIFICATION</name>
+          <initializer>= (0x1 &lt;&lt; 5)</initializer>
+          <briefdescription>
+<para>CFGSimplification - Merge basic blocks, eliminate unreachable blocks, simplify terminator instructions, etc... </para>
+          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="classrr_1_1LoadSBMLOptions_1a7b6ca6fc32892dbe782f3eb718762ad6a79d5b76ab944a753edbe6f17afcba245" prot="public">
+          <name>OPTIMIZE_INSTRUCTION_COMBINING</name>
+          <initializer>= (0x1 &lt;&lt; 6)</initializer>
+          <briefdescription>
+<para>InstructionCombining - Combine instructions to form fewer, simple instructions. </para>
+          </briefdescription>
+          <detaileddescription>
+<para>This pass does not modify the CFG, and has a tendency to make instructions dead, so a subsequent DCE pass is useful. </para>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="classrr_1_1LoadSBMLOptions_1a7b6ca6fc32892dbe782f3eb718762ad6aeb5debe90dbf97e493c575344d400f1d" prot="public">
+          <name>OPTIMIZE_DEAD_INST_ELIMINATION</name>
+          <initializer>= (0x1 &lt;&lt; 7)</initializer>
+          <briefdescription>
+<para>DeadInstElimination - This pass quickly removes trivially dead instructions without modifying the CFG of the function. </para>
+          </briefdescription>
+          <detaileddescription>
+<para>It is a BasicBlockPass, so it runs efficiently when queued next to other BasicBlockPass&apos;s. </para>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="classrr_1_1LoadSBMLOptions_1a7b6ca6fc32892dbe782f3eb718762ad6ad2af9d75e3a874196cead78d2b77e4ef" prot="public">
+          <name>OPTIMIZE_DEAD_CODE_ELIMINATION</name>
+          <initializer>= (0x1 &lt;&lt; 8)</initializer>
+          <briefdescription>
+<para>DeadCodeElimination - This pass is more powerful than DeadInstElimination, because it is worklist driven that can potentially revisit instructions when their other instructions become dead, to eliminate chains of dead computations. </para>
+          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="classrr_1_1LoadSBMLOptions_1a7b6ca6fc32892dbe782f3eb718762ad6ad7277e17a05d1916c93fd12ba5ec7bf2" prot="public">
+          <name>OPTIMIZE_INSTRUCTION_SIMPLIFIER</name>
+          <initializer>= (0x1 &lt;&lt; 9)</initializer>
+          <briefdescription>
+<para>InstructionSimplifier - Remove redundant instructions. </para>
+          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="classrr_1_1LoadSBMLOptions_1a7b6ca6fc32892dbe782f3eb718762ad6ad53a6cbbe3215d196e9727e153535ef7" prot="public">
+          <name>OPTIMIZE</name>
+          <initializer>= OPTIMIZE_GVN | OPTIMIZE_CFG_SIMPLIFICATION |
+			OPTIMIZE_INSTRUCTION_COMBINING |
+			OPTIMIZE_DEAD_INST_ELIMINATION | OPTIMIZE_DEAD_CODE_ELIMINATION |
+			OPTIMIZE_INSTRUCTION_SIMPLIFIER</initializer>
+          <briefdescription>
+<para>all optimizations, use to check if bit mask has any optimizations. </para>
+          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="classrr_1_1LoadSBMLOptions_1a7b6ca6fc32892dbe782f3eb718762ad6a9d06cd74f97fe87123e9fd1733438b87" prot="public">
+          <name>USE_MCJIT</name>
+          <initializer>= (0x1 &lt;&lt; 10)</initializer>
+          <briefdescription>
+<para>Use the LLVM MCJIT JIT engine. </para>
+          </briefdescription>
+          <detaileddescription>
+<para>Defaults to false.</para>
+<para>The MCJIT is the new LLVM JIT engine, it is not as well tested as the original JIT engine. Does NOT work on LLVM 3.1 </para>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="classrr_1_1LoadSBMLOptions_1a7b6ca6fc32892dbe782f3eb718762ad6a8247e6c2cbac74940a03f90078719085" prot="public">
+          <name>LLVM_SYMBOL_CACHE</name>
+          <initializer>= (0x1 &lt;&lt; 11)</initializer>
+          <briefdescription>
+          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="classrr_1_1LoadSBMLOptions_1a7b6ca6fc32892dbe782f3eb718762ad6a02ec96c88cb0ed7374b72474bc4e5be0" prot="public">
+          <name>TURN_ON_VALIDATION</name>
+          <initializer>= (0x1 &lt;&lt; 12)</initializer>
+          <briefdescription>
+<para>Turn on SBML validation. </para>
+          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="rrRoadRunnerOptions.h" line="34" column="1" bodyfile="rrRoadRunnerOptions.h" bodystart="35" bodyend="142"/>
+      </memberdef>
+      <memberdef kind="enum" id="classrr_1_1LoadSBMLOptions_1a686f9d0515d333b1551f5afd2db39e2a" prot="public" static="no" strong="no">
+        <type></type>
+        <name>LoadOpt</name>
+        <enumvalue id="classrr_1_1LoadSBMLOptions_1a686f9d0515d333b1551f5afd2db39e2aa8b896a0fb0b7b957c11d4624e96c728b" prot="public">
+          <name>NO_DEFAULT_SELECTIONS</name>
+          <initializer>= (0x1 &lt;&lt; 0)</initializer>
+          <briefdescription>
+<para>Do not create a default selection list when the model is loaded. </para>
+          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="rrRoadRunnerOptions.h" line="144" column="1" bodyfile="rrRoadRunnerOptions.h" bodystart="145" bodyend="150"/>
+      </memberdef>
+      </sectiondef>
+      <sectiondef kind="public-attrib">
+      <memberdef kind="variable" id="classrr_1_1LoadSBMLOptions_1a131407b1f65a4bba3e7a4af04af5bfe6" prot="public" static="no" mutable="no">
+        <type>uint16_t</type>
+        <definition>uint16_t rr::LoadSBMLOptions::version</definition>
+        <argsstring></argsstring>
+        <name>version</name>
+        <briefdescription>
+<para>the version this struct </para>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="rrRoadRunnerOptions.h" line="165" column="10" bodyfile="rrRoadRunnerOptions.h" bodystart="165" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="classrr_1_1LoadSBMLOptions_1aa73e004cfce50848e0ea5a9803800d3c" prot="public" static="no" mutable="no">
+        <type>uint16_t</type>
+        <definition>uint16_t rr::LoadSBMLOptions::size</definition>
+        <argsstring></argsstring>
+        <name>size</name>
+        <briefdescription>
+<para>sizeof this struct </para>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="rrRoadRunnerOptions.h" line="170" column="10" bodyfile="rrRoadRunnerOptions.h" bodystart="170" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="classrr_1_1LoadSBMLOptions_1afea20bb329fec8f8ab45be9b0ab78661" prot="public" static="no" mutable="no">
+        <type>uint32_t</type>
+        <definition>uint32_t rr::LoadSBMLOptions::modelGeneratorOpt</definition>
+        <argsstring></argsstring>
+        <name>modelGeneratorOpt</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="rrRoadRunnerOptions.h" line="173" column="10" bodyfile="rrRoadRunnerOptions.h" bodystart="173" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="classrr_1_1LoadSBMLOptions_1a4db75c9edf3f0f0fba4373965a4a8c29" prot="public" static="no" mutable="no">
+        <type>uint32_t</type>
+        <definition>uint32_t rr::LoadSBMLOptions::loadFlags</definition>
+        <argsstring></argsstring>
+        <name>loadFlags</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="rrRoadRunnerOptions.h" line="175" column="10" bodyfile="rrRoadRunnerOptions.h" bodystart="175" bodyend="-1"/>
+      </memberdef>
+      </sectiondef>
+      <sectiondef kind="public-func">
+      <memberdef kind="function" id="classrr_1_1LoadSBMLOptions_1aa95998812baf41557f365fa6a6118db3" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type></type>
+        <definition>rr::LoadSBMLOptions::LoadSBMLOptions</definition>
+        <argsstring>()</argsstring>
+        <name>LoadSBMLOptions</name>
+        <briefdescription>
+<para>initializes the struct with the default options. </para>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="rrRoadRunnerOptions.h" line="155" column="1" bodyfile="rrRoadRunnerOptions.cpp" bodystart="49" bodyend="52"/>
+      </memberdef>
+      <memberdef kind="function" id="classrr_1_1LoadSBMLOptions_1a16a0bc21e030a836579b2c1b9231b29a" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type></type>
+        <definition>rr::LoadSBMLOptions::LoadSBMLOptions</definition>
+        <argsstring>(const Dictionary *dict)</argsstring>
+        <name>LoadSBMLOptions</name>
+        <param>
+          <type>const <ref refid="classrr_1_1Dictionary" kindref="compound">Dictionary</ref> *</type>
+          <declname>dict</declname>
+        </param>
+        <briefdescription>
+<para>creates an object from an existing dictionary. </para>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="rrRoadRunnerOptions.h" line="160" column="1" bodyfile="rrRoadRunnerOptions.cpp" bodystart="26" bodyend="45"/>
+      </memberdef>
+      <memberdef kind="function" id="classrr_1_1LoadSBMLOptions_1a0ea929664c0ac7b28120ad131ae08ae9" prot="public" static="no" const="no" explicit="no" inline="no" virt="virtual">
+        <type>void</type>
+        <definition>void rr::LoadSBMLOptions::setItem</definition>
+        <argsstring>(const std::string &amp;key, const rr::Variant &amp;value)</argsstring>
+        <name>setItem</name>
+        <reimplements refid="classrr_1_1BasicDictionary_1ae7b6b6c90561295e2e07c45fe50358ce">setItem</reimplements>
+        <param>
+          <type>const std::string &amp;</type>
+          <declname>key</declname>
+        </param>
+        <param>
+          <type>const <ref refid="classrr_1_1Variant" kindref="compound">rr::Variant</ref> &amp;</type>
+          <declname>value</declname>
+        </param>
+        <briefdescription>
+<para>sets an item in the internal unordered map. </para>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="rrRoadRunnerOptions.h" line="181" column="14" bodyfile="rrRoadRunnerOptions.cpp" bodystart="250" bodyend="253"/>
+      </memberdef>
+      <memberdef kind="function" id="classrr_1_1LoadSBMLOptions_1a42644c69463fd75bafb1ead69b9681e6" prot="public" static="no" const="yes" explicit="no" inline="no" virt="virtual">
+        <type><ref refid="classrr_1_1Variant" kindref="compound">Variant</ref></type>
+        <definition>Variant rr::LoadSBMLOptions::getItem</definition>
+        <argsstring>(const std::string &amp;key) const</argsstring>
+        <name>getItem</name>
+        <reimplements refid="classrr_1_1BasicDictionary_1a3357b3d49d8353f19ec9aa83884f6ef1">getItem</reimplements>
+        <param>
+          <type>const std::string &amp;</type>
+          <declname>key</declname>
+        </param>
+        <briefdescription>
+<para>gets an item from the internal unordered map. </para>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="rrRoadRunnerOptions.h" line="186" column="17" bodyfile="rrRoadRunnerOptions.cpp" bodystart="255" bodyend="258"/>
+      </memberdef>
+      <memberdef kind="function" id="classrr_1_1LoadSBMLOptions_1a5fd757435841abdb20215d65af77bd84" prot="public" static="no" const="yes" explicit="no" inline="no" virt="virtual">
+        <type>bool</type>
+        <definition>bool rr::LoadSBMLOptions::hasKey</definition>
+        <argsstring>(const std::string &amp;key) const</argsstring>
+        <name>hasKey</name>
+        <reimplements refid="classrr_1_1BasicDictionary_1ab78190d645a8eb84bb3494453a6f6ea8">hasKey</reimplements>
+        <param>
+          <type>const std::string &amp;</type>
+          <declname>key</declname>
+        </param>
+        <briefdescription>
+<para>is there a key matching this name. </para>
+        </briefdescription>
+        <detaileddescription>
+<para>@retruns true if this key exists, false otherwise. </para>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="rrRoadRunnerOptions.h" line="193" column="14" bodyfile="rrRoadRunnerOptions.cpp" bodystart="260" bodyend="263"/>
+      </memberdef>
+      <memberdef kind="function" id="classrr_1_1LoadSBMLOptions_1ab1cf127ce1f97bab98be173fd1f48e80" prot="public" static="no" const="no" explicit="no" inline="no" virt="virtual">
+        <type>size_t</type>
+        <definition>size_t rr::LoadSBMLOptions::deleteItem</definition>
+        <argsstring>(const std::string &amp;key)</argsstring>
+        <name>deleteItem</name>
+        <reimplements refid="classrr_1_1BasicDictionary_1af80331f200f57eaa1d22c85104731dda">deleteItem</reimplements>
+        <param>
+          <type>const std::string &amp;</type>
+          <declname>key</declname>
+        </param>
+        <briefdescription>
+<para>remove a value </para>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="rrRoadRunnerOptions.h" line="198" column="16" bodyfile="rrRoadRunnerOptions.cpp" bodystart="265" bodyend="268"/>
+      </memberdef>
+      <memberdef kind="function" id="classrr_1_1LoadSBMLOptions_1ae7eb8e9235b38ece702c662b04da3734" prot="public" static="no" const="yes" explicit="no" inline="no" virt="virtual">
+        <type>std::vector&lt; std::string &gt;</type>
+        <definition>std::vector&lt; std::string &gt; rr::LoadSBMLOptions::getKeys</definition>
+        <argsstring>() const</argsstring>
+        <name>getKeys</name>
+        <reimplements refid="classrr_1_1BasicDictionary_1a4e87ed4bed586a041a2c51249448d2fa">getKeys</reimplements>
+        <briefdescription>
+<para>list of keys in this object. </para>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="rrRoadRunnerOptions.h" line="203" column="21" bodyfile="rrRoadRunnerOptions.cpp" bodystart="270" bodyend="273"/>
+      </memberdef>
+      <memberdef kind="function" id="classrr_1_1LoadSBMLOptions_1a99b7bd04cd04619967e715e344fa956d" prot="public" static="no" const="yes" explicit="no" inline="yes" virt="non-virtual">
+        <type>bool</type>
+        <definition>bool rr::LoadSBMLOptions::getConservedMoietyConversion</definition>
+        <argsstring>() const</argsstring>
+        <name>getConservedMoietyConversion</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="rrRoadRunnerOptions.h" line="206" column="13" bodyfile="rrRoadRunnerOptions.h" bodystart="206" bodyend="208"/>
+      </memberdef>
+      <memberdef kind="function" id="classrr_1_1LoadSBMLOptions_1a61e314efca08b481df81f8cd5724d22a" prot="public" static="no" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <type>void</type>
+        <definition>void rr::LoadSBMLOptions::setConservedMoietyConversion</definition>
+        <argsstring>(bool val)</argsstring>
+        <name>setConservedMoietyConversion</name>
+        <param>
+          <type>bool</type>
+          <declname>val</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="rrRoadRunnerOptions.h" line="210" column="13" bodyfile="rrRoadRunnerOptions.h" bodystart="210" bodyend="214"/>
+      </memberdef>
+      <memberdef kind="function" id="classrr_1_1LoadSBMLOptions_1ac6491b53bfe499f254c1655586daf7b8" prot="public" static="no" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <type>void</type>
+        <definition>void rr::LoadSBMLOptions::setValidation</definition>
+        <argsstring>(bool val)</argsstring>
+        <name>setValidation</name>
+        <param>
+          <type>bool</type>
+          <declname>val</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="rrRoadRunnerOptions.h" line="216" column="13" bodyfile="rrRoadRunnerOptions.h" bodystart="216" bodyend="220"/>
+      </memberdef>
+      <memberdef kind="function" id="classrr_1_1LoadSBMLOptions_1a7dbd7dfdedbcdddb0dbfc3f2d123748c" prot="public" static="no" const="no" explicit="no" inline="no" virt="virtual">
+        <type></type>
+        <definition>rr::LoadSBMLOptions::~LoadSBMLOptions</definition>
+        <argsstring>()</argsstring>
+        <name>~LoadSBMLOptions</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="rrRoadRunnerOptions.h" line="222" column="9" bodyfile="rrRoadRunnerOptions.cpp" bodystart="275" bodyend="277"/>
+      </memberdef>
+      </sectiondef>
+      <sectiondef kind="private-func">
+      <memberdef kind="function" id="classrr_1_1LoadSBMLOptions_1a6cc8569d880ed2a6a031ed58701c3e61" prot="private" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>void rr::LoadSBMLOptions::defaultInit</definition>
+        <argsstring>()</argsstring>
+        <name>defaultInit</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="rrRoadRunnerOptions.h" line="227" column="6" bodyfile="rrRoadRunnerOptions.cpp" bodystart="279" bodyend="327"/>
+      </memberdef>
+      </sectiondef>
+    <briefdescription>
+<para>Options for loading SBML into <ref refid="classrr_1_1RoadRunner" kindref="compound">RoadRunner</ref>. </para>
+    </briefdescription>
+    <detaileddescription>
+<para>Future version may add additional fields to the end of this struct, this way we can maintain binary compatibility with older <ref refid="classrr_1_1RoadRunner" kindref="compound">RoadRunner</ref> versions. </para>
+    </detaileddescription>
+    <inheritancegraph>
+      <node id="1">
+        <label>rr::LoadSBMLOptions</label>
+        <link refid="classrr_1_1LoadSBMLOptions"/>
+        <childnode refid="2" relation="public-inheritance">
+        </childnode>
+      </node>
+      <node id="2">
+        <label>rr::BasicDictionary</label>
+        <link refid="classrr_1_1BasicDictionary"/>
+        <childnode refid="3" relation="public-inheritance">
+        </childnode>
+      </node>
+      <node id="3">
+        <label>rr::Dictionary</label>
+        <link refid="classrr_1_1Dictionary"/>
+      </node>
+    </inheritancegraph>
+    <collaborationgraph>
+      <node id="1">
+        <label>rr::LoadSBMLOptions</label>
+        <link refid="classrr_1_1LoadSBMLOptions"/>
+        <childnode refid="2" relation="public-inheritance">
+        </childnode>
+      </node>
+      <node id="2">
+        <label>rr::BasicDictionary</label>
+        <link refid="classrr_1_1BasicDictionary"/>
+        <childnode refid="3" relation="public-inheritance">
+        </childnode>
+      </node>
+      <node id="3">
+        <label>rr::Dictionary</label>
+        <link refid="classrr_1_1Dictionary"/>
+      </node>
+    </collaborationgraph>
+    <location file="rrRoadRunnerOptions.h" line="31" column="1" bodyfile="rrRoadRunnerOptions.h" bodystart="32" bodyend="228"/>
+    <listofallmembers>
+      <member refid="classrr_1_1BasicDictionary_1ac10aa5eba2ee4ba618cfc959db7dffc6" prot="public" virt="non-virtual"><scope>rr::LoadSBMLOptions</scope><name>BasicDictionary</name></member>
+      <member refid="classrr_1_1LoadSBMLOptions_1a7b6ca6fc32892dbe782f3eb718762ad6ae77d97fa1a40a716d3e15f216965a26f" prot="public" virt="non-virtual"><scope>rr::LoadSBMLOptions</scope><name>CONSERVED_MOIETIES</name></member>
+      <member refid="classrr_1_1LoadSBMLOptions_1a6cc8569d880ed2a6a031ed58701c3e61" prot="private" virt="non-virtual"><scope>rr::LoadSBMLOptions</scope><name>defaultInit</name></member>
+      <member refid="classrr_1_1LoadSBMLOptions_1ab1cf127ce1f97bab98be173fd1f48e80" prot="public" virt="virtual"><scope>rr::LoadSBMLOptions</scope><name>deleteItem</name></member>
+      <member refid="classrr_1_1LoadSBMLOptions_1a99b7bd04cd04619967e715e344fa956d" prot="public" virt="non-virtual"><scope>rr::LoadSBMLOptions</scope><name>getConservedMoietyConversion</name></member>
+      <member refid="classrr_1_1LoadSBMLOptions_1a42644c69463fd75bafb1ead69b9681e6" prot="public" virt="virtual"><scope>rr::LoadSBMLOptions</scope><name>getItem</name></member>
+      <member refid="classrr_1_1LoadSBMLOptions_1ae7eb8e9235b38ece702c662b04da3734" prot="public" virt="virtual"><scope>rr::LoadSBMLOptions</scope><name>getKeys</name></member>
+      <member refid="classrr_1_1LoadSBMLOptions_1a5fd757435841abdb20215d65af77bd84" prot="public" virt="virtual"><scope>rr::LoadSBMLOptions</scope><name>hasKey</name></member>
+      <member refid="classrr_1_1BasicDictionary_1aeecca9d2b0b63711fc5e70e428e4f94d" prot="protected" virt="non-virtual"><scope>rr::LoadSBMLOptions</scope><name>items</name></member>
+      <member refid="classrr_1_1LoadSBMLOptions_1a7b6ca6fc32892dbe782f3eb718762ad6a8247e6c2cbac74940a03f90078719085" prot="public" virt="non-virtual"><scope>rr::LoadSBMLOptions</scope><name>LLVM_SYMBOL_CACHE</name></member>
+      <member refid="classrr_1_1LoadSBMLOptions_1a4db75c9edf3f0f0fba4373965a4a8c29" prot="public" virt="non-virtual"><scope>rr::LoadSBMLOptions</scope><name>loadFlags</name></member>
+      <member refid="classrr_1_1LoadSBMLOptions_1a686f9d0515d333b1551f5afd2db39e2a" prot="public" virt="non-virtual"><scope>rr::LoadSBMLOptions</scope><name>LoadOpt</name></member>
+      <member refid="classrr_1_1LoadSBMLOptions_1aa95998812baf41557f365fa6a6118db3" prot="public" virt="non-virtual"><scope>rr::LoadSBMLOptions</scope><name>LoadSBMLOptions</name></member>
+      <member refid="classrr_1_1LoadSBMLOptions_1a16a0bc21e030a836579b2c1b9231b29a" prot="public" virt="non-virtual"><scope>rr::LoadSBMLOptions</scope><name>LoadSBMLOptions</name></member>
+      <member refid="classrr_1_1LoadSBMLOptions_1afea20bb329fec8f8ab45be9b0ab78661" prot="public" virt="non-virtual"><scope>rr::LoadSBMLOptions</scope><name>modelGeneratorOpt</name></member>
+      <member refid="classrr_1_1LoadSBMLOptions_1a7b6ca6fc32892dbe782f3eb718762ad6" prot="public" virt="non-virtual"><scope>rr::LoadSBMLOptions</scope><name>ModelGeneratorOpt</name></member>
+      <member refid="classrr_1_1LoadSBMLOptions_1a7b6ca6fc32892dbe782f3eb718762ad6aac3f87fdc0fe128777ff39245e179386" prot="public" virt="non-virtual"><scope>rr::LoadSBMLOptions</scope><name>MUTABLE_INITIAL_CONDITIONS</name></member>
+      <member refid="classrr_1_1LoadSBMLOptions_1a686f9d0515d333b1551f5afd2db39e2aa8b896a0fb0b7b957c11d4624e96c728b" prot="public" virt="non-virtual"><scope>rr::LoadSBMLOptions</scope><name>NO_DEFAULT_SELECTIONS</name></member>
+      <member refid="classrr_1_1LoadSBMLOptions_1a7b6ca6fc32892dbe782f3eb718762ad6ad53a6cbbe3215d196e9727e153535ef7" prot="public" virt="non-virtual"><scope>rr::LoadSBMLOptions</scope><name>OPTIMIZE</name></member>
+      <member refid="classrr_1_1LoadSBMLOptions_1a7b6ca6fc32892dbe782f3eb718762ad6a835bf2f8dc46986611fb3964cba2e16c" prot="public" virt="non-virtual"><scope>rr::LoadSBMLOptions</scope><name>OPTIMIZE_CFG_SIMPLIFICATION</name></member>
+      <member refid="classrr_1_1LoadSBMLOptions_1a7b6ca6fc32892dbe782f3eb718762ad6ad2af9d75e3a874196cead78d2b77e4ef" prot="public" virt="non-virtual"><scope>rr::LoadSBMLOptions</scope><name>OPTIMIZE_DEAD_CODE_ELIMINATION</name></member>
+      <member refid="classrr_1_1LoadSBMLOptions_1a7b6ca6fc32892dbe782f3eb718762ad6aeb5debe90dbf97e493c575344d400f1d" prot="public" virt="non-virtual"><scope>rr::LoadSBMLOptions</scope><name>OPTIMIZE_DEAD_INST_ELIMINATION</name></member>
+      <member refid="classrr_1_1LoadSBMLOptions_1a7b6ca6fc32892dbe782f3eb718762ad6a394b597c8d7ad74dbeae9b1dbf5c506c" prot="public" virt="non-virtual"><scope>rr::LoadSBMLOptions</scope><name>OPTIMIZE_GVN</name></member>
+      <member refid="classrr_1_1LoadSBMLOptions_1a7b6ca6fc32892dbe782f3eb718762ad6a79d5b76ab944a753edbe6f17afcba245" prot="public" virt="non-virtual"><scope>rr::LoadSBMLOptions</scope><name>OPTIMIZE_INSTRUCTION_COMBINING</name></member>
+      <member refid="classrr_1_1LoadSBMLOptions_1a7b6ca6fc32892dbe782f3eb718762ad6ad7277e17a05d1916c93fd12ba5ec7bf2" prot="public" virt="non-virtual"><scope>rr::LoadSBMLOptions</scope><name>OPTIMIZE_INSTRUCTION_SIMPLIFIER</name></member>
+      <member refid="classrr_1_1LoadSBMLOptions_1a7b6ca6fc32892dbe782f3eb718762ad6a8058d91b0aebc14e1045b721a5162d60" prot="public" virt="non-virtual"><scope>rr::LoadSBMLOptions</scope><name>READ_ONLY</name></member>
+      <member refid="classrr_1_1LoadSBMLOptions_1a7b6ca6fc32892dbe782f3eb718762ad6a9dcbd508a994cd5a803e231e0054ff3d" prot="public" virt="non-virtual"><scope>rr::LoadSBMLOptions</scope><name>RECOMPILE</name></member>
+      <member refid="classrr_1_1LoadSBMLOptions_1a61e314efca08b481df81f8cd5724d22a" prot="public" virt="non-virtual"><scope>rr::LoadSBMLOptions</scope><name>setConservedMoietyConversion</name></member>
+      <member refid="classrr_1_1LoadSBMLOptions_1a0ea929664c0ac7b28120ad131ae08ae9" prot="public" virt="virtual"><scope>rr::LoadSBMLOptions</scope><name>setItem</name></member>
+      <member refid="classrr_1_1LoadSBMLOptions_1ac6491b53bfe499f254c1655586daf7b8" prot="public" virt="non-virtual"><scope>rr::LoadSBMLOptions</scope><name>setValidation</name></member>
+      <member refid="classrr_1_1LoadSBMLOptions_1aa73e004cfce50848e0ea5a9803800d3c" prot="public" virt="non-virtual"><scope>rr::LoadSBMLOptions</scope><name>size</name></member>
+      <member refid="classrr_1_1LoadSBMLOptions_1a7b6ca6fc32892dbe782f3eb718762ad6a02ec96c88cb0ed7374b72474bc4e5be0" prot="public" virt="non-virtual"><scope>rr::LoadSBMLOptions</scope><name>TURN_ON_VALIDATION</name></member>
+      <member refid="classrr_1_1LoadSBMLOptions_1a7b6ca6fc32892dbe782f3eb718762ad6a9d06cd74f97fe87123e9fd1733438b87" prot="public" virt="non-virtual"><scope>rr::LoadSBMLOptions</scope><name>USE_MCJIT</name></member>
+      <member refid="classrr_1_1BasicDictionary_1aedf8f5947090adb89828e602181a0a2f" prot="protected" virt="non-virtual"><scope>rr::LoadSBMLOptions</scope><name>VariantMap</name></member>
+      <member refid="classrr_1_1LoadSBMLOptions_1a131407b1f65a4bba3e7a4af04af5bfe6" prot="public" virt="non-virtual"><scope>rr::LoadSBMLOptions</scope><name>version</name></member>
+      <member refid="classrr_1_1BasicDictionary_1ad76c8129a4634d039f320659dfe28e0a" prot="public" virt="non-virtual"><scope>rr::LoadSBMLOptions</scope><name>~BasicDictionary</name></member>
+      <member refid="classrr_1_1Dictionary_1ada6593bddd5fd2f3f75374863191f419" prot="public" virt="virtual"><scope>rr::LoadSBMLOptions</scope><name>~Dictionary</name></member>
+      <member refid="classrr_1_1LoadSBMLOptions_1a7dbd7dfdedbcdddb0dbfc3f2d123748c" prot="public" virt="virtual"><scope>rr::LoadSBMLOptions</scope><name>~LoadSBMLOptions</name></member>
+    </listofallmembers>
+  </compounddef>
+</doxygen>

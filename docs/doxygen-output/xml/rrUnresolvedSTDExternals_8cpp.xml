@@ -1,0 +1,89 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.20" xml:lang="en-US">
+  <compounddef id="rrUnresolvedSTDExternals_8cpp" kind="file" language="C++">
+    <compoundname>rrUnresolvedSTDExternals.cpp</compoundname>
+    <includes local="no">sstream</includes>
+    <includes local="no">limits</includes>
+    <incdepgraph>
+      <node id="3">
+        <label>limits</label>
+      </node>
+      <node id="2">
+        <label>sstream</label>
+      </node>
+      <node id="1">
+        <label>rrUnresolvedSTDExternals.cpp</label>
+        <link refid="rrUnresolvedSTDExternals_8cpp"/>
+        <childnode refid="2" relation="include">
+        </childnode>
+        <childnode refid="3" relation="include">
+        </childnode>
+      </node>
+    </incdepgraph>
+      <sectiondef kind="func">
+      <memberdef kind="function" id="rrUnresolvedSTDExternals_8cpp_1a7e1ba41656a22dec7b6a50b2dbd1883c" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>void UnresolvedSTDExternals</definition>
+        <argsstring>()</argsstring>
+        <name>UnresolvedSTDExternals</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="rrUnresolvedSTDExternals.cpp" line="5" column="6" bodyfile="rrUnresolvedSTDExternals.cpp" bodystart="5" bodyend="42"/>
+      </memberdef>
+      </sectiondef>
+    <briefdescription>
+    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <programlisting>
+<codeline lineno="1"><highlight class="preprocessor">#include<sp/>&lt;sstream&gt;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="2"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&lt;limits&gt;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="3"><highlight class="normal"></highlight></codeline>
+<codeline lineno="4"><highlight class="normal"></highlight><highlight class="keyword">using<sp/>namespace<sp/></highlight><highlight class="normal">std;</highlight></codeline>
+<codeline lineno="5"><highlight class="normal"></highlight><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/>UnresolvedSTDExternals()</highlight></codeline>
+<codeline lineno="6"><highlight class="normal">{</highlight></codeline>
+<codeline lineno="7"><highlight class="normal"></highlight></codeline>
+<codeline lineno="8"><highlight class="normal">ostringstream<sp/>output;</highlight></codeline>
+<codeline lineno="9"><highlight class="normal">output.precision(1);</highlight></codeline>
+<codeline lineno="10"><highlight class="normal">std::ostream<sp/>st;</highlight></codeline>
+<codeline lineno="11"><highlight class="normal">st.exceptions(2);</highlight></codeline>
+<codeline lineno="12"><highlight class="normal"></highlight></codeline>
+<codeline lineno="13"><highlight class="normal">st.setf(<sp/>std::ios::showbase,<sp/><sp/>std::ios::showbase);</highlight></codeline>
+<codeline lineno="14"><highlight class="normal"></highlight></codeline>
+<codeline lineno="15"><highlight class="normal">st.eof();</highlight></codeline>
+<codeline lineno="16"><highlight class="normal">st.bad();</highlight></codeline>
+<codeline lineno="17"><highlight class="normal">st.operator<sp/></highlight><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/>*();</highlight></codeline>
+<codeline lineno="18"><highlight class="normal">st.operator<sp/>!();</highlight></codeline>
+<codeline lineno="19"><highlight class="normal"></highlight></codeline>
+<codeline lineno="20"><highlight class="normal">locale<sp/>loc;</highlight></codeline>
+<codeline lineno="21"><highlight class="normal">st&lt;&lt;use_facet<sp/>&lt;codecvt&lt;wchar_t,<sp/>char,<sp/>mbstate_t&gt;<sp/>&gt;(loc).max_length();</highlight></codeline>
+<codeline lineno="22"><highlight class="normal"></highlight></codeline>
+<codeline lineno="23"><highlight class="normal">char_traits&lt;char&gt;::find(</highlight><highlight class="stringliteral">&quot;The<sp/>Hell<sp/>Boy&quot;</highlight><highlight class="normal">,<sp/>0,<sp/></highlight><highlight class="charliteral">&apos;q&apos;</highlight><highlight class="normal">);</highlight></codeline>
+<codeline lineno="24"><highlight class="normal">char_traits&lt;wchar_t&gt;::char_type<sp/>str1[25]<sp/>=<sp/>L</highlight><highlight class="stringliteral">&quot;The<sp/>Hell<sp/>Boy&quot;</highlight><highlight class="normal">;</highlight></codeline>
+<codeline lineno="25"><highlight class="normal">char_traits&lt;wchar_t&gt;::char_type<sp/>str2[25]<sp/>=<sp/>L</highlight><highlight class="stringliteral">&quot;Something<sp/>To<sp/>ponder&quot;</highlight><highlight class="normal">;</highlight></codeline>
+<codeline lineno="26"><highlight class="normal">char_traits&lt;wchar_t&gt;::char_type<sp/>*result1;</highlight></codeline>
+<codeline lineno="27"><highlight class="normal">result1<sp/>=<sp/>char_traits&lt;wchar_t&gt;::move(str2,<sp/>str1,<sp/>10);</highlight></codeline>
+<codeline lineno="28"><highlight class="normal">result1<sp/>=<sp/>char_traits&lt;wchar_t&gt;::copy(str1,<sp/>str2,<sp/>2);</highlight></codeline>
+<codeline lineno="29"><highlight class="normal">char_traits&lt;wchar_t&gt;::assign(*str1,<sp/>*str2);</highlight></codeline>
+<codeline lineno="30"><highlight class="normal">char_traits&lt;wchar_t&gt;::assign(str1,<sp/>2,<sp/>*str2);</highlight></codeline>
+<codeline lineno="31"><highlight class="normal"></highlight></codeline>
+<codeline lineno="32"><highlight class="normal"></highlight><highlight class="comment">//ios_base::precision(2);</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="33"><highlight class="normal"></highlight><highlight class="keywordtype">double</highlight><highlight class="normal"><sp/>test<sp/>=<sp/>std::numeric_limits&lt;unsigned<sp/>int&gt;::quiet_NaN();</highlight></codeline>
+<codeline lineno="34"><highlight class="normal">test<sp/>=<sp/>std::numeric_limits&lt;int&gt;::quiet_NaN();</highlight></codeline>
+<codeline lineno="35"><highlight class="normal">test<sp/>=<sp/>std::numeric_limits&lt;unsigned<sp/>int&gt;::quiet_NaN();</highlight></codeline>
+<codeline lineno="36"><highlight class="normal">test<sp/>=<sp/>std::numeric_limits&lt;int&gt;::quiet_NaN();</highlight></codeline>
+<codeline lineno="37"><highlight class="normal">test<sp/>=<sp/>std::numeric_limits&lt;double&gt;::quiet_NaN();</highlight></codeline>
+<codeline lineno="38"><highlight class="normal">test<sp/>=<sp/>std::numeric_limits&lt;float&gt;::quiet_NaN();</highlight></codeline>
+<codeline lineno="39"><highlight class="normal">test<sp/>=<sp/>std::numeric_limits&lt;float&gt;::infinity();</highlight></codeline>
+<codeline lineno="40"><highlight class="normal">test<sp/>=<sp/>std::numeric_limits&lt;double&gt;::infinity();</highlight></codeline>
+<codeline lineno="41"><highlight class="normal">test<sp/>=<sp/>std::numeric_limits&lt;int&gt;::max();</highlight></codeline>
+<codeline lineno="42"><highlight class="normal">}</highlight></codeline>
+<codeline lineno="43"><highlight class="normal"></highlight></codeline>
+    </programlisting>
+    <location file="rrUnresolvedSTDExternals.cpp"/>
+  </compounddef>
+</doxygen>

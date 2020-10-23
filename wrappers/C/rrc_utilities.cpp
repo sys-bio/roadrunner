@@ -30,7 +30,7 @@ using namespace std;
 using namespace rr;
 using namespace rrc;
 
-const char* ALLOCATE_API_ERROR_MSG         = "Allocate a handle to the roadrunner API before calling any API function";
+const char* ALLOCATE_API_ERROR_MSG         = "Allocate a handle to the roadrunner wrappers before calling any wrappers function";
 const char* INVALID_HANDLE_ERROR_MSG     = "The HANDLE passed to this function was invalid";
 char*       gLastError                  = NULL;
 char        gInstallFolderBuffer[RR_MAX_PATH] = {0};

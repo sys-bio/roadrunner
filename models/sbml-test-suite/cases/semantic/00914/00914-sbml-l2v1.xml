@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<sbml xmlns="http://www.sbml.org/sbml/level2" level="2" version="1">
+  <model metaid="_case00914" id="case00914" name="case00914">
+    <listOfFunctionDefinitions>
+      <functionDefinition id="multiply" name="multiply">
+        <math xmlns="http://www.w3.org/1998/Math/MathML">
+          <lambda>
+            <bvar>
+              <ci> x </ci>
+            </bvar>
+            <bvar>
+              <ci> y </ci>
+            </bvar>
+            <apply>
+              <times/>
+              <ci> x </ci>
+              <ci> y </ci>
+            </apply>
+          </lambda>
+        </math>
+      </functionDefinition>
+    </listOfFunctionDefinitions>
+    <listOfCompartments>
+      <compartment id="c" name="c" spatialDimensions="2" size="0.5" units="area" constant="false"/>
+    </listOfCompartments>
+    <listOfRules>
+      <rateRule metaid="rule1" variable="c">
+        <math xmlns="http://www.w3.org/1998/Math/MathML">
+          <apply>
+            <ci> multiply </ci>
+            <ci> c </ci>
+            <cn> 0.5 </cn>
+          </apply>
+        </math>
+      </rateRule>
+    </listOfRules>
+  </model>
+</sbml>

@@ -1,0 +1,113 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.20" xml:lang="en-US">
+  <compounddef id="classrr_1_1EventListener" kind="class" language="C++" prot="public" abstract="yes">
+    <compoundname>rr::EventListener</compoundname>
+    <includes refid="rrExecutableModel_8h" local="no">rrExecutableModel.h</includes>
+      <sectiondef kind="public-type">
+      <memberdef kind="enum" id="classrr_1_1EventListener_1adec5ad68634f11e5109e73e43b08c00d" prot="public" static="no" strong="no">
+        <type></type>
+        <name>Result</name>
+        <enumvalue id="classrr_1_1EventListener_1adec5ad68634f11e5109e73e43b08c00da33ab6fc26b17900067a59a913faa3a98" prot="public">
+          <name>HALT_SIMULATION</name>
+          <initializer>= (0x1 &lt;&lt; 0)</initializer>
+          <briefdescription>
+          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="rrExecutableModel.h" line="56" column="9" bodyfile="rrExecutableModel.h" bodystart="56" bodyend="58"/>
+      </memberdef>
+      </sectiondef>
+      <sectiondef kind="public-func">
+      <memberdef kind="function" id="classrr_1_1EventListener_1ab04e89d945a2a241955d5eb354d11446" prot="public" static="no" const="no" explicit="no" inline="no" virt="pure-virtual">
+        <type>uint</type>
+        <definition>virtual uint rr::EventListener::onTrigger</definition>
+        <argsstring>(ExecutableModel *model, size_t eventIndex, const std::string &amp;eventId)=0</argsstring>
+        <name>onTrigger</name>
+        <param>
+          <type><ref refid="classrr_1_1ExecutableModel" kindref="compound">ExecutableModel</ref> *</type>
+          <declname>model</declname>
+        </param>
+        <param>
+          <type>size_t</type>
+          <declname>eventIndex</declname>
+        </param>
+        <param>
+          <type>const std::string &amp;</type>
+          <declname>eventId</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="rrExecutableModel.h" line="60" column="22"/>
+      </memberdef>
+      <memberdef kind="function" id="classrr_1_1EventListener_1a740ef2da64883b6dd2c39c3f10805d8c" prot="public" static="no" const="no" explicit="no" inline="no" virt="pure-virtual">
+        <type>uint</type>
+        <definition>virtual uint rr::EventListener::onAssignment</definition>
+        <argsstring>(ExecutableModel *model, size_t eventIndex, const std::string &amp;eventId)=0</argsstring>
+        <name>onAssignment</name>
+        <param>
+          <type><ref refid="classrr_1_1ExecutableModel" kindref="compound">ExecutableModel</ref> *</type>
+          <declname>model</declname>
+        </param>
+        <param>
+          <type>size_t</type>
+          <declname>eventIndex</declname>
+        </param>
+        <param>
+          <type>const std::string &amp;</type>
+          <declname>eventId</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="rrExecutableModel.h" line="62" column="22"/>
+      </memberdef>
+      </sectiondef>
+      <sectiondef kind="protected-func">
+      <memberdef kind="function" id="classrr_1_1EventListener_1a23bee54c3681aa6cbf27d6cbeff5bbee" prot="protected" static="no" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <type></type>
+        <definition>rr::EventListener::~EventListener</definition>
+        <argsstring>()</argsstring>
+        <name>~EventListener</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="rrExecutableModel.h" line="65" column="9" bodyfile="rrExecutableModel.h" bodystart="65" bodyend="65"/>
+      </memberdef>
+      </sectiondef>
+    <briefdescription>
+<para>Notifies the user of SBML events. </para>
+    </briefdescription>
+    <detaileddescription>
+<para><ref refid="classrr_1_1RoadRunner" kindref="compound">RoadRunner</ref> has the capatiblity to notify user objects of any sbml event.</para>
+<para>In order to listen to sbml events, one simply implements the EventHandler interface and resgisters it with the ExecutableModel::setEventHandler method.</para>
+<para>To remove it, just pass in a 0.</para>
+<para>EventHanders are free to change any model parameters.</para>
+<para>They may return a result value specified by the Result enum. Currently, we we only have the HALT_SIMULATION which will result in <ref refid="classrr_1_1RoadRunner_1a27aedd28b2a2d5453200ca4a4a2bf4c0" kindref="member">RoadRunner::oneStep</ref> or <ref refid="classrr_1_1RoadRunner_1a0843eb317d47d28a27929d326d4f1f88" kindref="member">RoadRunner::simulate</ref> to stop at the current time and return. This may be usefull if someone wants to run a simulation up until some threshold or state is reached. </para>
+    </detaileddescription>
+    <location file="rrExecutableModel.h" line="54" column="5" bodyfile="rrExecutableModel.h" bodystart="54" bodyend="66"/>
+    <listofallmembers>
+      <member refid="classrr_1_1EventListener_1adec5ad68634f11e5109e73e43b08c00da33ab6fc26b17900067a59a913faa3a98" prot="public" virt="non-virtual"><scope>rr::EventListener</scope><name>HALT_SIMULATION</name></member>
+      <member refid="classrr_1_1EventListener_1a740ef2da64883b6dd2c39c3f10805d8c" prot="public" virt="pure-virtual"><scope>rr::EventListener</scope><name>onAssignment</name></member>
+      <member refid="classrr_1_1EventListener_1ab04e89d945a2a241955d5eb354d11446" prot="public" virt="pure-virtual"><scope>rr::EventListener</scope><name>onTrigger</name></member>
+      <member refid="classrr_1_1EventListener_1adec5ad68634f11e5109e73e43b08c00d" prot="public" virt="non-virtual"><scope>rr::EventListener</scope><name>Result</name></member>
+      <member refid="classrr_1_1EventListener_1a23bee54c3681aa6cbf27d6cbeff5bbee" prot="protected" virt="non-virtual"><scope>rr::EventListener</scope><name>~EventListener</name></member>
+    </listofallmembers>
+  </compounddef>
+</doxygen>

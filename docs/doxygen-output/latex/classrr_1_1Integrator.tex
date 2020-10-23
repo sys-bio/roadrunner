@@ -1,0 +1,189 @@
+\hypertarget{classrr_1_1Integrator}{}\doxysection{rr\+::Integrator Class Reference}
+\label{classrr_1_1Integrator}\index{rr::Integrator@{rr::Integrator}}
+Inheritance diagram for rr\+::Integrator\+:\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[height=2.434783cm]{classrr_1_1Integrator}
+\end{center}
+\end{figure}
+\doxysubsection*{Public Types}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\Hypertarget{classrr_1_1Integrator_a0912499450e66cb4301263362d64a0d0}\label{classrr_1_1Integrator_a0912499450e66cb4301263362d64a0d0}} 
+enum {\bfseries Integration\+Method} \{ {\bfseries Deterministic}, 
+{\bfseries Stochastic}, 
+{\bfseries Hybrid}, 
+{\bfseries Other}
+ \}
+\end{DoxyCompactItemize}
+\doxysubsection*{Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\Hypertarget{classrr_1_1Integrator_a6166cbf32c54a1d95a8a830b8db1424c}\label{classrr_1_1Integrator_a6166cbf32c54a1d95a8a830b8db1424c}} 
+virtual Integration\+Method {\bfseries get\+Integration\+Method} () const =0
+\item 
+virtual void \mbox{\hyperlink{classrr_1_1Integrator_a6b12118cd1b0f047f5a64cfb0546b565}{sync\+With\+Model}} (\mbox{\hyperlink{classrr_1_1ExecutableModel}{Executable\+Model}} $\ast$m)
+\begin{DoxyCompactList}\small\item\em Called whenever a new model is loaded to allow integrator to reset internal state. \end{DoxyCompactList}\item 
+\mbox{\Hypertarget{classrr_1_1Integrator_a3753687554e7e6bcf0c14c174deb2b0f}\label{classrr_1_1Integrator_a3753687554e7e6bcf0c14c174deb2b0f}} 
+virtual void {\bfseries load\+Config\+Settings} ()
+\item 
+\mbox{\Hypertarget{classrr_1_1Integrator_abd2e6c3616d1831c028f1061d927fbcd}\label{classrr_1_1Integrator_abd2e6c3616d1831c028f1061d927fbcd}} 
+virtual void {\bfseries load\+S\+B\+M\+L\+Settings} (const std\+::string \&filename)
+\item 
+\mbox{\Hypertarget{classrr_1_1Integrator_aa29aac9228f7834cfb92d04f823e5ddf}\label{classrr_1_1Integrator_aa29aac9228f7834cfb92d04f823e5ddf}} 
+virtual double {\bfseries integrate} (double t0, double hstep)=0
+\item 
+\mbox{\Hypertarget{classrr_1_1Integrator_a5469efaa4c234b7e59d82d98930fa5b9}\label{classrr_1_1Integrator_a5469efaa4c234b7e59d82d98930fa5b9}} 
+virtual void {\bfseries restart} (double t0)=0
+\item 
+virtual void \mbox{\hyperlink{classrr_1_1Integrator_a51c07785d8af1eb648878347529b2eb4}{tweak\+Tolerances}} ()
+\begin{DoxyCompactList}\small\item\em Fix tolerances for S\+B\+ML tests. \end{DoxyCompactList}\item 
+virtual void \mbox{\hyperlink{classrr_1_1Integrator_ac64b02928caaa4fe411754815c98b4f7}{set\+Individual\+Tolerance}} (string sid, double value)
+\begin{DoxyCompactList}\small\item\em Set tolerance for floating species or variables that have a rate rule, will only be used in \mbox{\hyperlink{classrr_1_1CVODEIntegrator}{C\+V\+O\+D\+E\+Integrator}}. \end{DoxyCompactList}\item 
+virtual void \mbox{\hyperlink{classrr_1_1Integrator_a1413e566ca980e08e2799777ad41a2ad}{set\+Concentration\+Tolerance}} (const \mbox{\hyperlink{classrr_1_1Variant}{Variant}} \&value)
+\begin{DoxyCompactList}\small\item\em Set tolerance based on concentration of species, will only be used in \mbox{\hyperlink{classrr_1_1CVODEIntegrator}{C\+V\+O\+D\+E\+Integrator}}. \end{DoxyCompactList}\item 
+virtual std\+::vector$<$ double $>$ \mbox{\hyperlink{classrr_1_1Integrator_a9bb4546b27c3b0b4552ebc1b36148629}{get\+Concentration\+Tolerance}} ()
+\begin{DoxyCompactList}\small\item\em Get tolerance based on concentration of species, will only be used in \mbox{\hyperlink{classrr_1_1CVODEIntegrator}{C\+V\+O\+D\+E\+Integrator}}. \end{DoxyCompactList}\item 
+\mbox{\Hypertarget{classrr_1_1Integrator_ad4ebded6e6b2d28755a649f402962ba7}\label{classrr_1_1Integrator_ad4ebded6e6b2d28755a649f402962ba7}} 
+virtual void {\bfseries set\+Listener} (Integrator\+Listener\+Ptr)=0
+\item 
+\mbox{\Hypertarget{classrr_1_1Integrator_ae4105739ea0544fe66db1482e0aeae9d}\label{classrr_1_1Integrator_ae4105739ea0544fe66db1482e0aeae9d}} 
+virtual Integrator\+Listener\+Ptr {\bfseries get\+Listener} ()=0
+\item 
+std\+::string \mbox{\hyperlink{classrr_1_1Integrator_adde5221e0d61f9f5398d69020e1a5a86}{to\+String}} () const
+\begin{DoxyCompactList}\small\item\em Return a string representation of the solver. \end{DoxyCompactList}\item 
+virtual std\+::string \mbox{\hyperlink{classrr_1_1Integrator_abb3c4ae3020a5df7abe40639037615cb}{to\+Repr}} () const
+\begin{DoxyCompactList}\small\item\em Return string representation a la Python {\bfseries{repr}} method. \end{DoxyCompactList}\end{DoxyCompactItemize}
+\doxysubsection*{Additional Inherited Members}
+
+
+\doxysubsection{Member Function Documentation}
+\mbox{\Hypertarget{classrr_1_1Integrator_a9bb4546b27c3b0b4552ebc1b36148629}\label{classrr_1_1Integrator_a9bb4546b27c3b0b4552ebc1b36148629}} 
+\index{rr::Integrator@{rr::Integrator}!getConcentrationTolerance@{getConcentrationTolerance}}
+\index{getConcentrationTolerance@{getConcentrationTolerance}!rr::Integrator@{rr::Integrator}}
+\doxysubsubsection{\texorpdfstring{getConcentrationTolerance()}{getConcentrationTolerance()}}
+{\footnotesize\ttfamily std\+::vector$<$ double $>$ rr\+::\+Integrator\+::get\+Concentration\+Tolerance (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [virtual]}}
+
+
+
+Get tolerance based on concentration of species, will only be used in \mbox{\hyperlink{classrr_1_1CVODEIntegrator}{C\+V\+O\+D\+E\+Integrator}}. 
+
+\begin{DoxyAuthor}{Author}
+FY 
+\end{DoxyAuthor}
+
+
+Reimplemented in \mbox{\hyperlink{classrr_1_1CVODEIntegrator_ab4c042d6db38872117a3c0196c3af9cf}{rr\+::\+C\+V\+O\+D\+E\+Integrator}}.
+
+\mbox{\Hypertarget{classrr_1_1Integrator_a1413e566ca980e08e2799777ad41a2ad}\label{classrr_1_1Integrator_a1413e566ca980e08e2799777ad41a2ad}} 
+\index{rr::Integrator@{rr::Integrator}!setConcentrationTolerance@{setConcentrationTolerance}}
+\index{setConcentrationTolerance@{setConcentrationTolerance}!rr::Integrator@{rr::Integrator}}
+\doxysubsubsection{\texorpdfstring{setConcentrationTolerance()}{setConcentrationTolerance()}}
+{\footnotesize\ttfamily void rr\+::\+Integrator\+::set\+Concentration\+Tolerance (\begin{DoxyParamCaption}\item[{const \mbox{\hyperlink{classrr_1_1Variant}{Variant}} \&}]{value }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [virtual]}}
+
+
+
+Set tolerance based on concentration of species, will only be used in \mbox{\hyperlink{classrr_1_1CVODEIntegrator}{C\+V\+O\+D\+E\+Integrator}}. 
+
+\begin{DoxyAuthor}{Author}
+FY 
+\end{DoxyAuthor}
+
+
+Reimplemented in \mbox{\hyperlink{classrr_1_1CVODEIntegrator_a6b4a601f240b60e29cccc73eddb837c0}{rr\+::\+C\+V\+O\+D\+E\+Integrator}}.
+
+\mbox{\Hypertarget{classrr_1_1Integrator_ac64b02928caaa4fe411754815c98b4f7}\label{classrr_1_1Integrator_ac64b02928caaa4fe411754815c98b4f7}} 
+\index{rr::Integrator@{rr::Integrator}!setIndividualTolerance@{setIndividualTolerance}}
+\index{setIndividualTolerance@{setIndividualTolerance}!rr::Integrator@{rr::Integrator}}
+\doxysubsubsection{\texorpdfstring{setIndividualTolerance()}{setIndividualTolerance()}}
+{\footnotesize\ttfamily void rr\+::\+Integrator\+::set\+Individual\+Tolerance (\begin{DoxyParamCaption}\item[{string}]{sid,  }\item[{double}]{value }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [virtual]}}
+
+
+
+Set tolerance for floating species or variables that have a rate rule, will only be used in \mbox{\hyperlink{classrr_1_1CVODEIntegrator}{C\+V\+O\+D\+E\+Integrator}}. 
+
+\begin{DoxyAuthor}{Author}
+FY 
+\end{DoxyAuthor}
+
+
+Reimplemented in \mbox{\hyperlink{classrr_1_1CVODEIntegrator_a8d0e25e6170b3f017ada84f4bdf148ab}{rr\+::\+C\+V\+O\+D\+E\+Integrator}}.
+
+\mbox{\Hypertarget{classrr_1_1Integrator_a6b12118cd1b0f047f5a64cfb0546b565}\label{classrr_1_1Integrator_a6b12118cd1b0f047f5a64cfb0546b565}} 
+\index{rr::Integrator@{rr::Integrator}!syncWithModel@{syncWithModel}}
+\index{syncWithModel@{syncWithModel}!rr::Integrator@{rr::Integrator}}
+\doxysubsubsection{\texorpdfstring{syncWithModel()}{syncWithModel()}}
+{\footnotesize\ttfamily void rr\+::\+Integrator\+::sync\+With\+Model (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{classrr_1_1ExecutableModel}{Executable\+Model}} $\ast$}]{m }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [virtual]}}
+
+
+
+Called whenever a new model is loaded to allow integrator to reset internal state. 
+
+\begin{DoxyAuthor}{Author}
+J\+KM 
+\end{DoxyAuthor}
+
+
+Reimplemented in \mbox{\hyperlink{classrr_1_1RK4Integrator_a727b452ebf195fc36143ba8a2fa8c2c2}{rr\+::\+R\+K4\+Integrator}}, \mbox{\hyperlink{classrr_1_1RK45Integrator_ac72e73c1d53f4884d9976cacee27f738}{rr\+::\+R\+K45\+Integrator}}, \mbox{\hyperlink{classrr_1_1GillespieIntegrator_ab9964aeac6eb46f5f44b16c48924f699}{rr\+::\+Gillespie\+Integrator}}, and \mbox{\hyperlink{classrr_1_1CVODEIntegrator_ae099098e43b2219fbc4e29af10d22c84}{rr\+::\+C\+V\+O\+D\+E\+Integrator}}.
+
+\mbox{\Hypertarget{classrr_1_1Integrator_abb3c4ae3020a5df7abe40639037615cb}\label{classrr_1_1Integrator_abb3c4ae3020a5df7abe40639037615cb}} 
+\index{rr::Integrator@{rr::Integrator}!toRepr@{toRepr}}
+\index{toRepr@{toRepr}!rr::Integrator@{rr::Integrator}}
+\doxysubsubsection{\texorpdfstring{toRepr()}{toRepr()}}
+{\footnotesize\ttfamily std\+::string rr\+::\+Integrator\+::to\+Repr (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption}) const\hspace{0.3cm}{\ttfamily [virtual]}}
+
+
+
+Return string representation a la Python {\bfseries{repr}} method. 
+
+\begin{DoxyAuthor}{Author}
+J\+KM 
+\end{DoxyAuthor}
+
+
+Reimplemented from \mbox{\hyperlink{classrr_1_1Solver_a2f2b574b220becfebd1be2d8cc34d550}{rr\+::\+Solver}}.
+
+
+
+Reimplemented in \mbox{\hyperlink{classrr_1_1EulerIntegrator_a4f484ed1c727f3f45f90586de64e329f}{rr\+::\+Euler\+Integrator}}.
+
+\mbox{\Hypertarget{classrr_1_1Integrator_adde5221e0d61f9f5398d69020e1a5a86}\label{classrr_1_1Integrator_adde5221e0d61f9f5398d69020e1a5a86}} 
+\index{rr::Integrator@{rr::Integrator}!toString@{toString}}
+\index{toString@{toString}!rr::Integrator@{rr::Integrator}}
+\doxysubsubsection{\texorpdfstring{toString()}{toString()}}
+{\footnotesize\ttfamily std\+::string rr\+::\+Integrator\+::to\+String (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption}) const\hspace{0.3cm}{\ttfamily [virtual]}}
+
+
+
+Return a string representation of the solver. 
+
+\begin{DoxyAuthor}{Author}
+J\+KM 
+\end{DoxyAuthor}
+
+
+Reimplemented from \mbox{\hyperlink{classrr_1_1Solver_af08f448f7eea26415a47caaae161de02}{rr\+::\+Solver}}.
+
+\mbox{\Hypertarget{classrr_1_1Integrator_a51c07785d8af1eb648878347529b2eb4}\label{classrr_1_1Integrator_a51c07785d8af1eb648878347529b2eb4}} 
+\index{rr::Integrator@{rr::Integrator}!tweakTolerances@{tweakTolerances}}
+\index{tweakTolerances@{tweakTolerances}!rr::Integrator@{rr::Integrator}}
+\doxysubsubsection{\texorpdfstring{tweakTolerances()}{tweakTolerances()}}
+{\footnotesize\ttfamily void rr\+::\+Integrator\+::tweak\+Tolerances (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [virtual]}}
+
+
+
+Fix tolerances for S\+B\+ML tests. 
+
+\begin{DoxyAuthor}{Author}
+J\+KM, W\+BC, E\+TS, M\+TK  In order to ensure that the results of the S\+B\+ML test suite remain valid, this method enforces a lower bound on tolerance values. Sets minimum absolute and relative tolerances to \mbox{\hyperlink{classrr_1_1Config_aed7c550b9e34222675cd152c9154d053a0c3075c04786354a026c56410edb47be}{Config\+::\+C\+V\+O\+D\+E\+\_\+\+M\+I\+N\+\_\+\+A\+B\+S\+O\+L\+U\+TE}} and \mbox{\hyperlink{classrr_1_1Config_aed7c550b9e34222675cd152c9154d053a4fba6c43b4d137bab9f42ee9c4cb1e6b}{Config\+::\+C\+V\+O\+D\+E\+\_\+\+M\+I\+N\+\_\+\+R\+E\+L\+A\+T\+I\+VE}} resp. 
+\end{DoxyAuthor}
+
+
+Reimplemented in \mbox{\hyperlink{classrr_1_1CVODEIntegrator_afec3efa20453cabe7fd826a1a27fd920}{rr\+::\+C\+V\+O\+D\+E\+Integrator}}.
+
+
+
+The documentation for this class was generated from the following files\+:\begin{DoxyCompactItemize}
+\item 
+\mbox{\hyperlink{Integrator_8h}{Integrator.\+h}}\item 
+\mbox{\hyperlink{Integrator_8cpp}{Integrator.\+cpp}}\end{DoxyCompactItemize}

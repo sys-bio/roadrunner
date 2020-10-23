@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<sbml xmlns="http://www.sbml.org/sbml/level1" level="1" version="2">
+  <model name="case01059">
+    <listOfUnitDefinitions>
+      <unitDefinition name="volume">
+        <listOfUnits>
+          <unit kind="litre"/>
+        </listOfUnits>
+      </unitDefinition>
+      <unitDefinition name="substance">
+        <listOfUnits>
+          <unit kind="mole"/>
+        </listOfUnits>
+      </unitDefinition>
+      <unitDefinition name="time">
+        <listOfUnits>
+          <unit kind="second"/>
+        </listOfUnits>
+      </unitDefinition>
+    </listOfUnitDefinitions>
+    <listOfCompartments>
+      <compartment name="C" volume="2.3" units="volume"/>
+    </listOfCompartments>
+    <listOfSpecies>
+      <species name="S1" compartment="C" initialAmount="1" units="substance"/>
+      <species name="S2" compartment="C" initialAmount="0.5" units="substance"/>
+      <species name="S3" compartment="C" initialAmount="0" units="substance"/>
+    </listOfSpecies>
+    <listOfParameters>
+      <parameter name="kf" value="1.1"/>
+      <parameter name="kr" value="0.09"/>
+    </listOfParameters>
+    <listOfReactions>
+      <reaction name="reaction1">
+        <listOfReactants>
+          <speciesReference species="S3"/>
+        </listOfReactants>
+        <listOfProducts>
+          <speciesReference species="S1"/>
+          <speciesReference species="S2"/>
+        </listOfProducts>
+        <kineticLaw formula="-(C * (kf * S1 * S2 + -1 * kr * S3))"/>
+      </reaction>
+    </listOfReactions>
+  </model>
+</sbml>

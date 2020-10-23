@@ -1,117 +1,81 @@
+include(GNUInstallDirs)
 set(target roadrunner_c_api)
 
-set(C_API_INCLUDE_ROOT "${RR_ROOT}/wrappers/C")
+set(
+        HEADERS
+        rrcStringList.h
+        rrArrayList.h
+        rrArrayListItem.h
+        rrArrayListItemBase.h
+        rrc_api.h
+        rrc_logging_api.h
+        rrc_nom_api.h
+        rrc_libstruct_api.h
+        rrc_utilities.h
+        rrc_cpp_support.h
+#=======
+#set(C_API_INCLUDE_ROOT "${RR_ROOT}/wrappers/C")
 
-include_directories(${RR_GENERATED_HEADER_PATH}) #we have to do this to get the generated header
 
-include_directories(
-${C_API_INCLUDE_ROOT}
-${RR_ROOT}/source
-${THIRD_PARTY_INSTALL_FOLDER}/include
+#include_directories(
+#${RR_GENERATED_HEADER_PATH}     #we have to do this to get the generated header, NEEDED FOR rrVersionInfo.h file
+#${C_API_INCLUDE_ROOT}
+#${RR_ROOT}/source
+#${THIRD_PARTY_INSTALL_FOLDER}/include
+#>>>>>>> 32624909156eb38d84edf40566b07980f7435fca
 )
 
-# TODO: remove all the deprecated definition when we have time...
-#if(CMAKE_COMPILER_IS_GNUCXX)
-if(UNIX)
-    # should work with either gcc or clang
-    add_definitions(-Wno-deprecated-declarations)
-endif(UNIX)
+set(
+        SOURCES
+        rrcStringList.cpp
+        rrArrayList.cpp
+        rrArrayListItem.cpp
+        rrArrayListItemBase.cpp
+        rrc_api.cpp
+        rrc_logging_api.cpp
+        rrc_nom_api.cpp
+        rrc_libstruct_api.cpp
+        rrc_utilities.cpp
+        rrc_cpp_support.cpp
+)
 
 #The C-api is built as a shared library..
-add_library(${target} SHARED
-    rrcStringList
-    rrArrayList
-    rrArrayListItem
-    rrArrayListItemBase
-    rrc_api
-    rrc_logging_api
-    rrc_nom_api
-    rrc_libstruct_api
-    rrc_utilities
-    rrc_cpp_support
+add_library(${target} SHARED ${HEADERS} ${SOURCES})
+
+target_include_directories(${target} PUBLIC
+        "$<BUILD_INTERFACE:${CMAKE_CURRENT_SOURCE_DIR}/..>" # for #include "C/rrc_api.h"
+        "$<INSTALL_INTERFACE:${CMAKE_INSTALL_INCLUDEDIR}>"
+        )
+
+# link statically so users of the c library will not also need the shared.
+# Note: properties of roadrunner-static are transitive. Link libraries and
+# include_directories for roadrunner-static all come with the
+# roadrunner-static target automatically.
+target_link_libraries(${target} PUBLIC roadrunner-static)
+
+add_dependencies(${target} roadrunner-static)
+
+target_compile_definitions(${target} PRIVATE EXPORT_RRC STATIC_RR)
+
+install(
+        TARGETS ${target}
+        EXPORT ${target}
+        RUNTIME DESTINATION "${CMAKE_INSTALL_BINDIR}" COMPONENT ${target}
+        LIBRARY DESTINATION "${CMAKE_INSTALL_LIBDIR}" COMPONENT ${target}
+        ARCHIVE DESTINATION "${CMAKE_INSTALL_LIBDIR}" COMPONENT ${target}
+        PUBLIC_HEADER DESTINATION "${CMAKE_INSTALL_INCLUDEDIR}/rr" COMPONENT ${target}
+)
+install(FILES ${HEADERS} DESTINATION "${CMAKE_INSTALL_INCLUDEDIR}/rr")
+
+# install export info
+install(
+        EXPORT ${target}
+        DESTINATION "${CMAKE_INSTALL_LIBDIR}/cmake"
+        NAMESPACE ${target}::
+        FILE ${target}-config.cmake
+        COMPONENT ${target}
+        EXPORT_LINK_INTERFACE_LIBRARIES
 )
 
-#Link C_api dll statically to roadrunner and libsbml
-if(WIN32)
-    set_property(TARGET ${target}
-        PROPERTY  COMPILE_DEFINITIONS
-        EXPORT_RRC
-        LIBSBML_STATIC
-        LIBLAX_STATIC
-        POCO_STATIC
-        STATIC_LIBSTRUCT
-        STATIC_RR
-        )
 
-    target_link_libraries ( ${target}
-        roadrunner-static
-        )
 
-else() #Unix
-    # OSX flags:
-    #"${CMAKE_SHARED_LINKER_FLAGS} -Wl,-no_implicit_dylibs -undefined error")
-    # OSX seems to link fine without this flag
-    if(APPLE)
-        #set(CMAKE_SHARED_LINKER_FLAGS "${CMAKE_SHARED_LINKER_FLAGS} -Wl,-no_implicit_dylibs -undefined error")
-        SET_TARGET_PROPERTIES(${target} PROPERTIES INSTALL_RPATH "@loader_path/;@loader_path/../python2.7/roadrunner/" INSTALL_NAME_DIR "@rpath")
-        target_link_libraries ( ${target}
-            roadrunner
-            rr-libstruct-static
-            nleq1-static
-            nleq2-static
-            sbml-static
-            lapack
-            blas
-            f2c
-            pthread
-            )
-    else()
-        set(CMAKE_SHARED_LINKER_FLAGS "-Wl,--no-undefined")
-        target_link_libraries ( ${target}
-            roadrunner-static
-            rr-libstruct-static
-            nleq1-static
-            nleq2-static
-            sbml-static
-            lapack
-            blas
-            f2c
-            pthread
-            )
-    endif()
-
-    set_property(TARGET ${target}
-        PROPERTY  COMPILE_DEFINITIONS
-        LIBSBML_STATIC
-        LIBLAX_STATIC
-        STATIC_LIBSTRUCT
-        )
-
-endif()
-
-add_subdirectory(Apps)
-add_subdirectory(ApiTest)
-if(INSTALL_EXAMPLES)
-    add_subdirectory(Examples)
-endif()
-
-if(BUILD_TEST_TOOLS)
-    add_subdirectory(Testing)
-endif()
-
-#=============== INSTALL =====================
-#Glob all header files
-FILE (GLOB headers rrc*.h)
-
-install(
-    FILES
-    ${headers}
-    DESTINATION include/rr/C COMPONENT c_api
-    )
-
-install(
-    TARGETS ${target}
-    RUNTIME DESTINATION bin COMPONENT c_api
-    ARCHIVE DESTINATION lib COMPONENT c_api
-    LIBRARY DESTINATION lib COMPONENT c_api
-    )

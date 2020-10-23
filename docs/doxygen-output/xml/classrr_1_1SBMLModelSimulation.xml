@@ -1,0 +1,658 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.20" xml:lang="en-US">
+  <compounddef id="classrr_1_1SBMLModelSimulation" kind="class" language="C++" prot="public">
+    <compoundname>rr::SBMLModelSimulation</compoundname>
+    <derivedcompoundref refid="classrr_1_1TestSuiteModelSimulation" prot="public" virt="non-virtual">rr::TestSuiteModelSimulation</derivedcompoundref>
+      <sectiondef kind="protected-attrib">
+      <memberdef kind="variable" id="classrr_1_1SBMLModelSimulation_1a1b9524e46c6763794ea8cdfe6c57b172" prot="protected" static="no" mutable="no">
+        <type>string</type>
+        <definition>string rr::SBMLModelSimulation::mModelFileName</definition>
+        <argsstring></argsstring>
+        <name>mModelFileName</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="rrSBMLModelSimulation.h" line="23" column="33" bodyfile="rrSBMLModelSimulation.h" bodystart="23" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="classrr_1_1SBMLModelSimulation_1abe193c4217ff4fd5d97d037b688b8739" prot="protected" static="no" mutable="no">
+        <type>string</type>
+        <definition>string rr::SBMLModelSimulation::mModelFilePath</definition>
+        <argsstring></argsstring>
+        <name>mModelFilePath</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="rrSBMLModelSimulation.h" line="24" column="33" bodyfile="rrSBMLModelSimulation.h" bodystart="24" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="classrr_1_1SBMLModelSimulation_1ac1f08e8a2bd59043bd1ecf421d3ad2d6" prot="protected" static="no" mutable="no">
+        <type>string</type>
+        <definition>string rr::SBMLModelSimulation::mModelSettingsFileName</definition>
+        <argsstring></argsstring>
+        <name>mModelSettingsFileName</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="rrSBMLModelSimulation.h" line="25" column="33" bodyfile="rrSBMLModelSimulation.h" bodystart="25" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="classrr_1_1SBMLModelSimulation_1a6a6c8fc3c3f4576420f036e01c76d1a1" prot="protected" static="no" mutable="no">
+        <type>string</type>
+        <definition>string rr::SBMLModelSimulation::mSimulationLogFile</definition>
+        <argsstring></argsstring>
+        <name>mSimulationLogFile</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="rrSBMLModelSimulation.h" line="26" column="33" bodyfile="rrSBMLModelSimulation.h" bodystart="26" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="classrr_1_1SBMLModelSimulation_1accdc5c822520b2b01f3313c3f512f585" prot="protected" static="no" mutable="no">
+        <type>string</type>
+        <definition>string rr::SBMLModelSimulation::mDataOutputFolder</definition>
+        <argsstring></argsstring>
+        <name>mDataOutputFolder</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="rrSBMLModelSimulation.h" line="27" column="33" bodyfile="rrSBMLModelSimulation.h" bodystart="27" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="classrr_1_1SBMLModelSimulation_1a829d4b8bdf2ca2682d0cc2f131ba0fdf" prot="protected" static="no" mutable="no">
+        <type>string</type>
+        <definition>string rr::SBMLModelSimulation::mTempDataFolder</definition>
+        <argsstring></argsstring>
+        <name>mTempDataFolder</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="rrSBMLModelSimulation.h" line="28" column="33" bodyfile="rrSBMLModelSimulation.h" bodystart="28" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="classrr_1_1SBMLModelSimulation_1a60f7673c75dc2d7ab3e907dc2ec53c39" prot="protected" static="no" mutable="no">
+        <type><ref refid="classrr_1_1RoadRunner" kindref="compound">RoadRunner</ref> *</type>
+        <definition>RoadRunner* rr::SBMLModelSimulation::mEngine</definition>
+        <argsstring></argsstring>
+        <name>mEngine</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="rrSBMLModelSimulation.h" line="29" column="32" bodyfile="rrSBMLModelSimulation.h" bodystart="29" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="classrr_1_1SBMLModelSimulation_1a82a1613c7dc11b95958aa3c98097a9e5" prot="protected" static="no" mutable="no">
+        <type><ref refid="classrr_1_1SimulateOptions" kindref="compound">SimulateOptions</ref></type>
+        <definition>SimulateOptions rr::SBMLModelSimulation::mSettings</definition>
+        <argsstring></argsstring>
+        <name>mSettings</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="rrSBMLModelSimulation.h" line="30" column="33" bodyfile="rrSBMLModelSimulation.h" bodystart="30" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="classrr_1_1SBMLModelSimulation_1a7824e8e1bad88a364acce34295fbb067" prot="protected" static="no" mutable="no">
+        <type>bool</type>
+        <definition>bool rr::SBMLModelSimulation::mCompileIfDllExists</definition>
+        <argsstring></argsstring>
+        <name>mCompileIfDllExists</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="rrSBMLModelSimulation.h" line="31" column="33" bodyfile="rrSBMLModelSimulation.h" bodystart="31" bodyend="-1"/>
+      </memberdef>
+      </sectiondef>
+      <sectiondef kind="public-attrib">
+      <memberdef kind="variable" id="classrr_1_1SBMLModelSimulation_1ae819e501d0e5ff1e538e05ed4c7d71df" prot="public" static="no" mutable="no">
+        <type>double</type>
+        <definition>double rr::SBMLModelSimulation::mAbsolute</definition>
+        <argsstring></argsstring>
+        <name>mAbsolute</name>
+        <briefdescription>
+<para>absolute tolerance for residual comparison, does not affect integrator </para>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="rrSBMLModelSimulation.h" line="71" column="16" bodyfile="rrSBMLModelSimulation.h" bodystart="71" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="classrr_1_1SBMLModelSimulation_1aa14afbec06bec714797453aa72acb305" prot="public" static="no" mutable="no">
+        <type>double</type>
+        <definition>double rr::SBMLModelSimulation::mRelative</definition>
+        <argsstring></argsstring>
+        <name>mRelative</name>
+        <briefdescription>
+<para>relative tolerance for residual comparison, does not affect integrator </para>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="rrSBMLModelSimulation.h" line="73" column="16" bodyfile="rrSBMLModelSimulation.h" bodystart="73" bodyend="-1"/>
+      </memberdef>
+      </sectiondef>
+      <sectiondef kind="public-func">
+      <memberdef kind="function" id="classrr_1_1SBMLModelSimulation_1ae836bdd0b9ba32e716bb936f23c394d0" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type></type>
+        <definition>rr::SBMLModelSimulation::SBMLModelSimulation</definition>
+        <argsstring>(const string &amp;dataOutputFolder=&quot;&quot;, const string &amp;tempDataFilePath=&quot;&quot;)</argsstring>
+        <name>SBMLModelSimulation</name>
+        <param>
+          <type>const string &amp;</type>
+          <declname>dataOutputFolder</declname>
+          <defval>&quot;&quot;</defval>
+        </param>
+        <param>
+          <type>const string &amp;</type>
+          <declname>tempDataFilePath</declname>
+          <defval>&quot;&quot;</defval>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="rrSBMLModelSimulation.h" line="34" column="33" bodyfile="rrSBMLModelSimulation.cpp" bodystart="16" bodyend="27"/>
+      </memberdef>
+      <memberdef kind="function" id="classrr_1_1SBMLModelSimulation_1ab628b60aba408043a66b78698b34cba6" prot="public" static="no" const="no" explicit="no" inline="no" virt="virtual">
+        <type></type>
+        <definition>rr::SBMLModelSimulation::~SBMLModelSimulation</definition>
+        <argsstring>()</argsstring>
+        <name>~SBMLModelSimulation</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="rrSBMLModelSimulation.h" line="35" column="32" bodyfile="rrSBMLModelSimulation.cpp" bodystart="29" bodyend="30"/>
+      </memberdef>
+      <memberdef kind="function" id="classrr_1_1SBMLModelSimulation_1a3e1f9dbf8939eafeed739a84d9e02ddb" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>bool</type>
+        <definition>bool rr::SBMLModelSimulation::SetModelFilePath</definition>
+        <argsstring>(const string &amp;path)</argsstring>
+        <name>SetModelFilePath</name>
+        <param>
+          <type>const string &amp;</type>
+          <declname>path</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="rrSBMLModelSimulation.h" line="36" column="33" bodyfile="rrSBMLModelSimulation.cpp" bodystart="42" bodyend="46"/>
+      </memberdef>
+      <memberdef kind="function" id="classrr_1_1SBMLModelSimulation_1a29a0e1955d7f5b1ae1fea6fbd19ad85d" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>bool</type>
+        <definition>bool rr::SBMLModelSimulation::SetModelFileName</definition>
+        <argsstring>(const string &amp;name)</argsstring>
+        <name>SetModelFileName</name>
+        <param>
+          <type>const string &amp;</type>
+          <declname>name</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="rrSBMLModelSimulation.h" line="37" column="33" bodyfile="rrSBMLModelSimulation.cpp" bodystart="60" bodyend="76"/>
+      </memberdef>
+      <memberdef kind="function" id="classrr_1_1SBMLModelSimulation_1a92fb11cb280df97eff51973a17be8d88" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>bool</type>
+        <definition>bool rr::SBMLModelSimulation::SetDataOutputFolder</definition>
+        <argsstring>(const string &amp;name)</argsstring>
+        <name>SetDataOutputFolder</name>
+        <param>
+          <type>const string &amp;</type>
+          <declname>name</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="rrSBMLModelSimulation.h" line="38" column="33" bodyfile="rrSBMLModelSimulation.cpp" bodystart="78" bodyend="82"/>
+      </memberdef>
+      <memberdef kind="function" id="classrr_1_1SBMLModelSimulation_1a3a884571a8337da75f89aac9fb9c5cc0" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>string</type>
+        <definition>string rr::SBMLModelSimulation::GetModelsFullFilePath</definition>
+        <argsstring>()</argsstring>
+        <name>GetModelsFullFilePath</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="rrSBMLModelSimulation.h" line="39" column="33" bodyfile="rrSBMLModelSimulation.cpp" bodystart="84" bodyend="87"/>
+      </memberdef>
+      <memberdef kind="function" id="classrr_1_1SBMLModelSimulation_1a8160a3bf345b2333c70f5b2b2120dea9" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>string</type>
+        <definition>string rr::SBMLModelSimulation::GetDataOutputFolder</definition>
+        <argsstring>()</argsstring>
+        <name>GetDataOutputFolder</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="rrSBMLModelSimulation.h" line="40" column="33" bodyfile="rrSBMLModelSimulation.cpp" bodystart="89" bodyend="92"/>
+      </memberdef>
+      <memberdef kind="function" id="classrr_1_1SBMLModelSimulation_1a80114ca7df9fdb41534238eced1404e5" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>string</type>
+        <definition>string rr::SBMLModelSimulation::GetTempDataFolder</definition>
+        <argsstring>()</argsstring>
+        <name>GetTempDataFolder</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="rrSBMLModelSimulation.h" line="41" column="33" bodyfile="rrSBMLModelSimulation.cpp" bodystart="32" bodyend="35"/>
+      </memberdef>
+      <memberdef kind="function" id="classrr_1_1SBMLModelSimulation_1ad14d2dc5321366ac8f0453e557514189" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>bool</type>
+        <definition>bool rr::SBMLModelSimulation::UseEngine</definition>
+        <argsstring>(RoadRunner *engine)</argsstring>
+        <name>UseEngine</name>
+        <param>
+          <type><ref refid="classrr_1_1RoadRunner" kindref="compound">RoadRunner</ref> *</type>
+          <declname>engine</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="rrSBMLModelSimulation.h" line="42" column="33" bodyfile="rrSBMLModelSimulation.cpp" bodystart="99" bodyend="103"/>
+      </memberdef>
+      <memberdef kind="function" id="classrr_1_1SBMLModelSimulation_1a9f0b4ac1670fcf542f4ee1630b1d2adb" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>bool</type>
+        <definition>bool rr::SBMLModelSimulation::SaveModelAsXML</definition>
+        <argsstring>(const string &amp;folder)</argsstring>
+        <name>SaveModelAsXML</name>
+        <param>
+          <type>const string &amp;</type>
+          <declname>folder</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="rrSBMLModelSimulation.h" line="47" column="33" bodyfile="rrSBMLModelSimulation.cpp" bodystart="252" bodyend="271"/>
+      </memberdef>
+      <memberdef kind="function" id="classrr_1_1SBMLModelSimulation_1adec0da24ef269f439d884145fa3f445f" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>bool</type>
+        <definition>bool rr::SBMLModelSimulation::SetTimeStart</definition>
+        <argsstring>(const double &amp;tStart)</argsstring>
+        <name>SetTimeStart</name>
+        <param>
+          <type>const double &amp;</type>
+          <declname>tStart</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="rrSBMLModelSimulation.h" line="50" column="33" bodyfile="rrSBMLModelSimulation.cpp" bodystart="204" bodyend="208"/>
+      </memberdef>
+      <memberdef kind="function" id="classrr_1_1SBMLModelSimulation_1af26709ba41de596f4b90fdfef7cc2c16" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>bool</type>
+        <definition>bool rr::SBMLModelSimulation::SetTimeEnd</definition>
+        <argsstring>(const double &amp;tEnd)</argsstring>
+        <name>SetTimeEnd</name>
+        <param>
+          <type>const double &amp;</type>
+          <declname>tEnd</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="rrSBMLModelSimulation.h" line="51" column="33" bodyfile="rrSBMLModelSimulation.cpp" bodystart="210" bodyend="214"/>
+      </memberdef>
+      <memberdef kind="function" id="classrr_1_1SBMLModelSimulation_1a80106e5d163765ea77126724208ab050" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>bool</type>
+        <definition>bool rr::SBMLModelSimulation::SetNumberOfPoints</definition>
+        <argsstring>(const int &amp;pts)</argsstring>
+        <name>SetNumberOfPoints</name>
+        <param>
+          <type>const int &amp;</type>
+          <declname>pts</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="rrSBMLModelSimulation.h" line="52" column="33" bodyfile="rrSBMLModelSimulation.cpp" bodystart="216" bodyend="220"/>
+      </memberdef>
+      <memberdef kind="function" id="classrr_1_1SBMLModelSimulation_1af40d37dceedf482ae65658561a1de402" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>bool</type>
+        <definition>bool rr::SBMLModelSimulation::SetSelectionList</definition>
+        <argsstring>(const string &amp;list)</argsstring>
+        <name>SetSelectionList</name>
+        <param>
+          <type>const string &amp;</type>
+          <declname>list</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="rrSBMLModelSimulation.h" line="53" column="33" bodyfile="rrSBMLModelSimulation.cpp" bodystart="222" bodyend="233"/>
+      </memberdef>
+      <memberdef kind="function" id="classrr_1_1SBMLModelSimulation_1acd01ef98f39da61f98470cd2e7bf80f7" prot="public" static="no" const="no" explicit="no" inline="no" virt="virtual">
+        <type>bool</type>
+        <definition>bool rr::SBMLModelSimulation::LoadSBMLFromFile</definition>
+        <argsstring>()</argsstring>
+        <name>LoadSBMLFromFile</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="rrSBMLModelSimulation.h" line="54" column="33" bodyfile="rrSBMLModelSimulation.cpp" bodystart="236" bodyend="250"/>
+      </memberdef>
+      <memberdef kind="function" id="classrr_1_1SBMLModelSimulation_1a19e34114c0c2284ab897ed6d4af0319d" prot="public" static="no" const="no" explicit="no" inline="no" virt="virtual">
+        <type>bool</type>
+        <definition>bool rr::SBMLModelSimulation::Simulate</definition>
+        <argsstring>()</argsstring>
+        <name>Simulate</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="rrSBMLModelSimulation.h" line="55" column="33" bodyfile="rrSBMLModelSimulation.cpp" bodystart="289" bodyend="297"/>
+      </memberdef>
+      <memberdef kind="function" id="classrr_1_1SBMLModelSimulation_1a0136b688f12b277e005053784eddc570" prot="public" static="no" const="no" explicit="no" inline="no" virt="virtual">
+        <type>bool</type>
+        <definition>bool rr::SBMLModelSimulation::SaveResult</definition>
+        <argsstring>()</argsstring>
+        <name>SaveResult</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="rrSBMLModelSimulation.h" line="56" column="33" bodyfile="rrSBMLModelSimulation.cpp" bodystart="299" bodyend="310"/>
+      </memberdef>
+      <memberdef kind="function" id="classrr_1_1SBMLModelSimulation_1a7ac7fc2c2464bbc1a6f02aeed6293edd" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>void rr::SBMLModelSimulation::loadSBMLTolerances</definition>
+        <argsstring>(std::string const &amp;filename)</argsstring>
+        <name>loadSBMLTolerances</name>
+        <param>
+          <type>std::string const &amp;</type>
+          <declname>filename</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="rrSBMLModelSimulation.h" line="57" column="33" bodyfile="rrSBMLModelSimulation.cpp" bodystart="115" bodyend="160"/>
+      </memberdef>
+      <memberdef kind="function" id="classrr_1_1SBMLModelSimulation_1a664500e9203e54058c06cfb977586e2c" prot="public" static="no" const="no" explicit="no" inline="no" virt="virtual">
+        <type>bool</type>
+        <definition>bool rr::SBMLModelSimulation::LoadSettings</definition>
+        <argsstring>(const string &amp;fName=&quot;&quot;)</argsstring>
+        <name>LoadSettings</name>
+        <reimplementedby refid="classrr_1_1TestSuiteModelSimulation_1a7b7b403bef96bd72203f04c56a431c22">LoadSettings</reimplementedby>
+        <param>
+          <type>const string &amp;</type>
+          <declname>fName</declname>
+          <defval>&quot;&quot;</defval>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="rrSBMLModelSimulation.h" line="58" column="33" bodyfile="rrSBMLModelSimulation.cpp" bodystart="162" bodyend="202"/>
+      </memberdef>
+      <memberdef kind="function" id="classrr_1_1SBMLModelSimulation_1a6958421f1a2e4790b281f1c41a97c9a7" prot="public" static="no" const="no" explicit="no" inline="no" virt="virtual">
+        <type><ref refid="classrr_1_1RoadRunnerData" kindref="compound">RoadRunnerData</ref></type>
+        <definition>RoadRunnerData rr::SBMLModelSimulation::GetResult</definition>
+        <argsstring>()</argsstring>
+        <name>GetResult</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="rrSBMLModelSimulation.h" line="59" column="33" bodyfile="rrSBMLModelSimulation.cpp" bodystart="48" bodyend="58"/>
+      </memberdef>
+      <memberdef kind="function" id="classrr_1_1SBMLModelSimulation_1ac60b90040174b677ceba1404126c039c" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>void rr::SBMLModelSimulation::ReCompileIfDllExists</definition>
+        <argsstring>(const bool &amp;doIt)</argsstring>
+        <name>ReCompileIfDllExists</name>
+        <param>
+          <type>const bool &amp;</type>
+          <declname>doIt</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="rrSBMLModelSimulation.h" line="61" column="33" bodyfile="rrSBMLModelSimulation.cpp" bodystart="37" bodyend="40"/>
+      </memberdef>
+      <memberdef kind="function" id="classrr_1_1SBMLModelSimulation_1a3f1ee8cf88c2be2830b9e7517e9e8b7e" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>bool</type>
+        <definition>bool rr::SBMLModelSimulation::DoCompileIfDllExists</definition>
+        <argsstring>()</argsstring>
+        <name>DoCompileIfDllExists</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="rrSBMLModelSimulation.h" line="62" column="33" bodyfile="rrSBMLModelSimulation.cpp" bodystart="94" bodyend="97"/>
+      </memberdef>
+      <memberdef kind="function" id="classrr_1_1SBMLModelSimulation_1a326b154a6f0f01cf72f5567278663898" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>bool</type>
+        <definition>bool rr::SBMLModelSimulation::CreateModel</definition>
+        <argsstring>()</argsstring>
+        <name>CreateModel</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="rrSBMLModelSimulation.h" line="65" column="33" bodyfile="rrSBMLModelSimulation.cpp" bodystart="273" bodyend="281"/>
+      </memberdef>
+      <memberdef kind="function" id="classrr_1_1SBMLModelSimulation_1a1cbedff957c9fc3be5c381678f431500" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>bool</type>
+        <definition>bool rr::SBMLModelSimulation::GenerateModelCode</definition>
+        <argsstring>()</argsstring>
+        <name>GenerateModelCode</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="rrSBMLModelSimulation.h" line="66" column="33" bodyfile="rrSBMLModelSimulation.cpp" bodystart="105" bodyend="108"/>
+      </memberdef>
+      <memberdef kind="function" id="classrr_1_1SBMLModelSimulation_1a511226c185bb96944b24ccbf926e0975" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>bool</type>
+        <definition>bool rr::SBMLModelSimulation::CompileModel</definition>
+        <argsstring>()</argsstring>
+        <name>CompileModel</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="rrSBMLModelSimulation.h" line="67" column="33" bodyfile="rrSBMLModelSimulation.cpp" bodystart="110" bodyend="113"/>
+      </memberdef>
+      <memberdef kind="function" id="classrr_1_1SBMLModelSimulation_1aae3423ec2aac83e5f990a3e13d0681ca" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>bool</type>
+        <definition>bool rr::SBMLModelSimulation::GenerateAndCompileModel</definition>
+        <argsstring>()</argsstring>
+        <name>GenerateAndCompileModel</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="rrSBMLModelSimulation.h" line="68" column="33" bodyfile="rrSBMLModelSimulation.cpp" bodystart="284" bodyend="287"/>
+      </memberdef>
+      </sectiondef>
+    <briefdescription>
+    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <inheritancegraph>
+      <node id="1">
+        <label>rr::SBMLModelSimulation</label>
+        <link refid="classrr_1_1SBMLModelSimulation"/>
+      </node>
+      <node id="2">
+        <label>rr::TestSuiteModelSimulation</label>
+        <link refid="classrr_1_1TestSuiteModelSimulation"/>
+        <childnode refid="1" relation="public-inheritance">
+        </childnode>
+      </node>
+    </inheritancegraph>
+    <collaborationgraph>
+      <node id="1">
+        <label>rr::SBMLModelSimulation</label>
+        <link refid="classrr_1_1SBMLModelSimulation"/>
+        <childnode refid="2" relation="usage">
+          <edgelabel>mSettings</edgelabel>
+        </childnode>
+        <childnode refid="6" relation="usage">
+          <edgelabel>mEngine</edgelabel>
+        </childnode>
+        <childnode refid="5" relation="usage">
+          <edgelabel>mDataOutputFolder</edgelabel>
+          <edgelabel>mModelFileName</edgelabel>
+          <edgelabel>mModelFilePath</edgelabel>
+          <edgelabel>mModelSettingsFileName</edgelabel>
+          <edgelabel>mSimulationLogFile</edgelabel>
+          <edgelabel>mTempDataFolder</edgelabel>
+        </childnode>
+      </node>
+      <node id="2">
+        <label>rr::SimulateOptions</label>
+        <link refid="classrr_1_1SimulateOptions"/>
+        <childnode refid="3" relation="public-inheritance">
+        </childnode>
+        <childnode refid="5" relation="usage">
+          <edgelabel>output_file</edgelabel>
+        </childnode>
+      </node>
+      <node id="3">
+        <label>rr::BasicDictionary</label>
+        <link refid="classrr_1_1BasicDictionary"/>
+        <childnode refid="4" relation="public-inheritance">
+        </childnode>
+      </node>
+      <node id="5">
+        <label>string</label>
+      </node>
+      <node id="4">
+        <label>rr::Dictionary</label>
+        <link refid="classrr_1_1Dictionary"/>
+      </node>
+      <node id="6">
+        <label>rr::RoadRunner</label>
+        <link refid="classrr_1_1RoadRunner"/>
+      </node>
+    </collaborationgraph>
+    <location file="rrSBMLModelSimulation.h" line="20" column="1" bodyfile="rrSBMLModelSimulation.h" bodystart="21" bodyend="74"/>
+    <listofallmembers>
+      <member refid="classrr_1_1SBMLModelSimulation_1a511226c185bb96944b24ccbf926e0975" prot="public" virt="non-virtual"><scope>rr::SBMLModelSimulation</scope><name>CompileModel</name></member>
+      <member refid="classrr_1_1SBMLModelSimulation_1a326b154a6f0f01cf72f5567278663898" prot="public" virt="non-virtual"><scope>rr::SBMLModelSimulation</scope><name>CreateModel</name></member>
+      <member refid="classrr_1_1SBMLModelSimulation_1a3f1ee8cf88c2be2830b9e7517e9e8b7e" prot="public" virt="non-virtual"><scope>rr::SBMLModelSimulation</scope><name>DoCompileIfDllExists</name></member>
+      <member refid="classrr_1_1SBMLModelSimulation_1aae3423ec2aac83e5f990a3e13d0681ca" prot="public" virt="non-virtual"><scope>rr::SBMLModelSimulation</scope><name>GenerateAndCompileModel</name></member>
+      <member refid="classrr_1_1SBMLModelSimulation_1a1cbedff957c9fc3be5c381678f431500" prot="public" virt="non-virtual"><scope>rr::SBMLModelSimulation</scope><name>GenerateModelCode</name></member>
+      <member refid="classrr_1_1SBMLModelSimulation_1a8160a3bf345b2333c70f5b2b2120dea9" prot="public" virt="non-virtual"><scope>rr::SBMLModelSimulation</scope><name>GetDataOutputFolder</name></member>
+      <member refid="classrr_1_1SBMLModelSimulation_1a3a884571a8337da75f89aac9fb9c5cc0" prot="public" virt="non-virtual"><scope>rr::SBMLModelSimulation</scope><name>GetModelsFullFilePath</name></member>
+      <member refid="classrr_1_1SBMLModelSimulation_1a6958421f1a2e4790b281f1c41a97c9a7" prot="public" virt="virtual"><scope>rr::SBMLModelSimulation</scope><name>GetResult</name></member>
+      <member refid="classrr_1_1SBMLModelSimulation_1a80114ca7df9fdb41534238eced1404e5" prot="public" virt="non-virtual"><scope>rr::SBMLModelSimulation</scope><name>GetTempDataFolder</name></member>
+      <member refid="classrr_1_1SBMLModelSimulation_1acd01ef98f39da61f98470cd2e7bf80f7" prot="public" virt="virtual"><scope>rr::SBMLModelSimulation</scope><name>LoadSBMLFromFile</name></member>
+      <member refid="classrr_1_1SBMLModelSimulation_1a7ac7fc2c2464bbc1a6f02aeed6293edd" prot="public" virt="non-virtual"><scope>rr::SBMLModelSimulation</scope><name>loadSBMLTolerances</name></member>
+      <member refid="classrr_1_1SBMLModelSimulation_1a664500e9203e54058c06cfb977586e2c" prot="public" virt="virtual"><scope>rr::SBMLModelSimulation</scope><name>LoadSettings</name></member>
+      <member refid="classrr_1_1SBMLModelSimulation_1ae819e501d0e5ff1e538e05ed4c7d71df" prot="public" virt="non-virtual"><scope>rr::SBMLModelSimulation</scope><name>mAbsolute</name></member>
+      <member refid="classrr_1_1SBMLModelSimulation_1a7824e8e1bad88a364acce34295fbb067" prot="protected" virt="non-virtual"><scope>rr::SBMLModelSimulation</scope><name>mCompileIfDllExists</name></member>
+      <member refid="classrr_1_1SBMLModelSimulation_1accdc5c822520b2b01f3313c3f512f585" prot="protected" virt="non-virtual"><scope>rr::SBMLModelSimulation</scope><name>mDataOutputFolder</name></member>
+      <member refid="classrr_1_1SBMLModelSimulation_1a60f7673c75dc2d7ab3e907dc2ec53c39" prot="protected" virt="non-virtual"><scope>rr::SBMLModelSimulation</scope><name>mEngine</name></member>
+      <member refid="classrr_1_1SBMLModelSimulation_1a1b9524e46c6763794ea8cdfe6c57b172" prot="protected" virt="non-virtual"><scope>rr::SBMLModelSimulation</scope><name>mModelFileName</name></member>
+      <member refid="classrr_1_1SBMLModelSimulation_1abe193c4217ff4fd5d97d037b688b8739" prot="protected" virt="non-virtual"><scope>rr::SBMLModelSimulation</scope><name>mModelFilePath</name></member>
+      <member refid="classrr_1_1SBMLModelSimulation_1ac1f08e8a2bd59043bd1ecf421d3ad2d6" prot="protected" virt="non-virtual"><scope>rr::SBMLModelSimulation</scope><name>mModelSettingsFileName</name></member>
+      <member refid="classrr_1_1SBMLModelSimulation_1aa14afbec06bec714797453aa72acb305" prot="public" virt="non-virtual"><scope>rr::SBMLModelSimulation</scope><name>mRelative</name></member>
+      <member refid="classrr_1_1SBMLModelSimulation_1a82a1613c7dc11b95958aa3c98097a9e5" prot="protected" virt="non-virtual"><scope>rr::SBMLModelSimulation</scope><name>mSettings</name></member>
+      <member refid="classrr_1_1SBMLModelSimulation_1a6a6c8fc3c3f4576420f036e01c76d1a1" prot="protected" virt="non-virtual"><scope>rr::SBMLModelSimulation</scope><name>mSimulationLogFile</name></member>
+      <member refid="classrr_1_1SBMLModelSimulation_1a829d4b8bdf2ca2682d0cc2f131ba0fdf" prot="protected" virt="non-virtual"><scope>rr::SBMLModelSimulation</scope><name>mTempDataFolder</name></member>
+      <member refid="classrr_1_1SBMLModelSimulation_1ac60b90040174b677ceba1404126c039c" prot="public" virt="non-virtual"><scope>rr::SBMLModelSimulation</scope><name>ReCompileIfDllExists</name></member>
+      <member refid="classrr_1_1SBMLModelSimulation_1a9f0b4ac1670fcf542f4ee1630b1d2adb" prot="public" virt="non-virtual"><scope>rr::SBMLModelSimulation</scope><name>SaveModelAsXML</name></member>
+      <member refid="classrr_1_1SBMLModelSimulation_1a0136b688f12b277e005053784eddc570" prot="public" virt="virtual"><scope>rr::SBMLModelSimulation</scope><name>SaveResult</name></member>
+      <member refid="classrr_1_1SBMLModelSimulation_1ae836bdd0b9ba32e716bb936f23c394d0" prot="public" virt="non-virtual"><scope>rr::SBMLModelSimulation</scope><name>SBMLModelSimulation</name></member>
+      <member refid="classrr_1_1SBMLModelSimulation_1a92fb11cb280df97eff51973a17be8d88" prot="public" virt="non-virtual"><scope>rr::SBMLModelSimulation</scope><name>SetDataOutputFolder</name></member>
+      <member refid="classrr_1_1SBMLModelSimulation_1a29a0e1955d7f5b1ae1fea6fbd19ad85d" prot="public" virt="non-virtual"><scope>rr::SBMLModelSimulation</scope><name>SetModelFileName</name></member>
+      <member refid="classrr_1_1SBMLModelSimulation_1a3e1f9dbf8939eafeed739a84d9e02ddb" prot="public" virt="non-virtual"><scope>rr::SBMLModelSimulation</scope><name>SetModelFilePath</name></member>
+      <member refid="classrr_1_1SBMLModelSimulation_1a80106e5d163765ea77126724208ab050" prot="public" virt="non-virtual"><scope>rr::SBMLModelSimulation</scope><name>SetNumberOfPoints</name></member>
+      <member refid="classrr_1_1SBMLModelSimulation_1af40d37dceedf482ae65658561a1de402" prot="public" virt="non-virtual"><scope>rr::SBMLModelSimulation</scope><name>SetSelectionList</name></member>
+      <member refid="classrr_1_1SBMLModelSimulation_1af26709ba41de596f4b90fdfef7cc2c16" prot="public" virt="non-virtual"><scope>rr::SBMLModelSimulation</scope><name>SetTimeEnd</name></member>
+      <member refid="classrr_1_1SBMLModelSimulation_1adec0da24ef269f439d884145fa3f445f" prot="public" virt="non-virtual"><scope>rr::SBMLModelSimulation</scope><name>SetTimeStart</name></member>
+      <member refid="classrr_1_1SBMLModelSimulation_1a19e34114c0c2284ab897ed6d4af0319d" prot="public" virt="virtual"><scope>rr::SBMLModelSimulation</scope><name>Simulate</name></member>
+      <member refid="classrr_1_1SBMLModelSimulation_1ad14d2dc5321366ac8f0453e557514189" prot="public" virt="non-virtual"><scope>rr::SBMLModelSimulation</scope><name>UseEngine</name></member>
+      <member refid="classrr_1_1SBMLModelSimulation_1ab628b60aba408043a66b78698b34cba6" prot="public" virt="virtual"><scope>rr::SBMLModelSimulation</scope><name>~SBMLModelSimulation</name></member>
+    </listofallmembers>
+  </compounddef>
+</doxygen>

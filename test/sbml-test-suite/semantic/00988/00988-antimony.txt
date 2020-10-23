@@ -1,0 +1,24 @@
+//Created by libAntimony v2.1-beta
+model *case00988()
+
+  species A in comp, B in comp;
+  // Reactions:
+  slow: B -> A; k1 ;
+  fast: A -> B; k2 * A;
+
+  // Events:
+  E0: at (A>=1): k2 = 1;
+  E1: at 0.1 after (A>=1): k2 = 0;
+
+  // Species initializations:
+  A = 0/comp;
+  B = 2/comp;
+  comp = 1;
+
+  // Variable initializations:
+  k1 = 1;
+  k2 = 0;
+
+  //Other declarations:
+  var k1;
+end

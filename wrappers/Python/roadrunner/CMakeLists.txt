@@ -1,180 +1,108 @@
-#we have to do this to get the generated header
-include_directories(${RR_GENERATED_HEADER_PATH})
-
-include_directories(
-    ${CMAKE_CURRENT_SOURCE_DIR}
-    ${CMAKE_CURRENT_SOURCE_DIR}/../include
-    ${RR_SOURCE_ROOT}
-    ${THIRD_PARTY_INSTALL_FOLDER}/include
-    ${THIRD_PARTY_INSTALL_FOLDER}/include/rr-libstruct
-    ${THIRD_PARTY_INSTALL_FOLDER}/include/sbml
-    ${THIRD_PARTY_INSTALL_FOLDER}/include/cvode
-    )
-
-
-# configure compilation of modules for old and new player. Old player modules are compiled with ("threads"=0) option and new are compiled with ("threads"=1) option
-# set(thread_option \(\"threads\"=1\))
-
-
-
 # copy to /lib so we can import roadrunner in the build tree
 configure_file(__init__.py ${CMAKE_BINARY_DIR}/lib/site-packages/roadrunner/__init__.py COPYONLY)
-# configure_file(roadrunner.py ${CMAKE_BINARY_DIR}/lib/site-packages/roadrunner/roadrunner.py COPYONLY)
 
-SET_SOURCE_FILES_PROPERTIES(roadrunner.i PROPERTIES CPLUSPLUS ON)
-SET_SOURCE_FILES_PROPERTIES(roadrunner.i PROPERTIES SWIG_FLAGS "-threads")
+set_source_files_properties(roadrunner.i PROPERTIES CPLUSPLUS ON)
+set_source_files_properties(roadrunner.i PROPERTIES SWIG_FLAGS "-threads")
 
+if (USE_TR1_CXX_NS)
+    message(STATUS "Using tr1 for SWIG smart pointer namespace")
+    set(CMAKE_SWIG_FLAGS "-DSWIG_SHARED_PTR_SUBNAMESPACE=tr1")
+endif ()
 
-if(USE_TR1_CXX_NS)
-  message(STATUS "Using tr1 for SWIG smart pointer namespace")
-  set(CMAKE_SWIG_FLAGS "-DSWIG_SHARED_PTR_SUBNAMESPACE=tr1")
-endif()
-
-set(CMAKE_SWIG_OUTDIR ${CMAKE_BINARY_DIR}/lib/site-packages/roadrunner)
-
-SWIG_ADD_MODULE(roadrunner python roadrunner.i PyUtils PyLoggerStream)
-
+# we make this target a module library (dll only on windows, so extension on mac and linux).
+swig_add_library(roadrunner_python
+        TYPE MODULE LANGUAGE python
+        SOURCES roadrunner.i PyUtils PyLoggerStream)
 
 
-set_target_properties(_roadrunner PROPERTIES RUNTIME_OUTPUT_DIRECTORY ${CMAKE_BINARY_DIR}/lib/python/roadrunner LIBRARY_OUTPUT_DIRECTORY ${CMAKE_BINARY_DIR}/lib/site-packages/roadrunner ARCHIVE_OUTPUT_DIRECTORY ${CMAKE_BINARY_DIR}/lib/site-packages/roadrunner)
-
-if(WIN32)
-    # changes dll name to pyd sop that it is compatible with new Python standard
-    SET_TARGET_PROPERTIES(_roadrunner PROPERTIES SUFFIX ".pyd")
-
-
-    set_property(TARGET _roadrunner
-        PROPERTY  COMPILE_DEFINITIONS
-        EXPORT_RRC
-        LIBSBML_STATIC
-        LIBLAX_STATIC
-        STATIC_PUGI
-        POCO_STATIC
-        STATIC_LIBSTRUCT
-        STATIC_RR
-        )
-
-    SWIG_LINK_LIBRARIES ( roadrunner
-        roadrunner-static
-        ${PYTHON_LIBRARIES}
+set_target_properties(roadrunner_python PROPERTIES
+        RUNTIME_OUTPUT_DIRECTORY ${CMAKE_BINARY_DIR}/lib/python/roadrunner
+        LIBRARY_OUTPUT_DIRECTORY ${CMAKE_BINARY_DIR}/lib/site-packages/roadrunner
+        ARCHIVE_OUTPUT_DIRECTORY ${CMAKE_BINARY_DIR}/lib/site-packages/roadrunner
+        OUTPUT_NAME roadrunner
+#        SHARED_LIBRARY_SUFFIX .so
+        SWIG_USE_TARGET_INCLUDE_DIRECTORIES TRUE # Needed for target_include_directories to have any effect on swig target
         )
 
 
-else(WIN32)
-
-    #    set(CMAKE_SHARED_LINKER_FLAGS "-Wl, -z,defs --no-undefined")
-    #    set(CMAKE_SHARED_LINKER_FLAGS "-Wl,--no-undefined")
-
-    if(${CMAKE_SYSTEM_NAME} MATCHES "Linux")
-        # Linux specific code
-        #SET_TARGET_PROPERTIES(_roadrunner PROPERTIES LINK_FLAGS "-Wl,--no-undefined")
-
-    else()
-        # OSX section.
-        # we do not link directly with python at at link time, so that at run time,
-        # the hosting python would provice all the sybols, we only
-        # link with the external libs that we uses.
-        SET_TARGET_PROPERTIES(_roadrunner PROPERTIES LINK_FLAGS "-undefined dynamic_lookup" INSTALL_RPATH "@loader_path/../../lib;@loader_path/" INSTALL_NAME_DIR "@rpath")
-    endif(${CMAKE_SYSTEM_NAME} MATCHES "Linux")
-
-    set_property(TARGET _roadrunner
-        PROPERTY  COMPILE_DEFINITIONS
-        LIBSBML_STATIC
-        LIBLAX_STATIC
-        STATIC_PUGI
-        STATIC_LIBSTRUCT
+target_include_directories(roadrunner_python PUBLIC
+        ${CMAKE_CURRENT_SOURCE_DIR}
+        ${CMAKE_CURRENT_SOURCE_DIR}/../include
+        ${RR_SOURCE_ROOT}
+        "$<TARGET_PROPERTY:roadrunner-static,INCLUDE_DIRECTORIES>"
+        ${RR_DEPENDENCIES_INSTALL_PREFIX}/include/rr-libstruct
+        ${PYTHON_INCLUDE_PATH}
+        ${NUMPY_INCLUDE_DIRS}
         )
 
-    if(${CMAKE_SYSTEM_NAME} MATCHES "Darwin")
-        SWIG_LINK_LIBRARIES ( roadrunner
-            roadrunner
-            rr-libstruct-static
-            nleq1-static
-            nleq2-static
-            ${LIBSBML_STATIC_LIBRARY}
-            lapack
-            blas
-            f2c
-    #        ${PYTHON_LIBRARIES}
-            )
-    else()
-        SWIG_LINK_LIBRARIES ( roadrunner
+if (WIN32)
+    target_compile_definitions(roadrunner_python PRIVATE EXPORT_RRC STATIC_RR)
+
+    swig_link_libraries(roadrunner_python
             roadrunner-static
-            rr-libstruct-static
-            nleq1-static
-            nleq2-static
-            ${LIBSBML_STATIC_LIBRARY}
-            lapack
-            blas
-            f2c
-    #        ${PYTHON_LIBRARIES}
+            ${PYTHON_LIBRARIES}
             )
-    endif()
+    # changes dll name to pyd sop that it is compatible with new Python standard
+    set_target_properties(roadrunner_python PROPERTIES SUFFIX ".pyd")
+elseif (UNIX AND NOT APPLE)
+    # Linux specific code
+    #SET_TARGET_PROPERTIES(roadrunner_python PROPERTIES LINK_FLAGS "-Wl,--no-undefined")
+    swig_link_libraries(roadrunner_python
+            roadrunner-static
+            ${PYTHON_LIBRARIES}
+            )
+    # Note: elseif(APPLE) did not work
+elseif (APPLE)
+    # OSX section.
+    # we do not link directly with python at at link time, so that at run time,
+    # the hosting python would provide all the symbols, we only
+    # link with the external libs that we use. This behaviour is enbaled by the -undefined dynamic_lookup flag (I think cw)
+    set_target_properties(roadrunner_python PROPERTIES
+            LINK_FLAGS "-undefined dynamic_lookup"
+            INSTALL_RPATH "@loader_path/../../lib;@loader_path/;@executable_path"
+            INSTALL_NAME_DIR "@rpath"
+            )
+#    set_target_properties(roadrunner_python PROPERTIES SUFFIX ".so") # default is dylib
+    # we use roadrunner not roadrunner-static so we can use shared libraries at runtime
+    # question: If we do this with windows, would we forego the need to build a version for each python ?
+    swig_link_libraries(roadrunner_python roadrunner)
 
-    #        lapack
-    #        blas
-    #        f2c
-    #        "-Wl,--whole-archive"
-    #        rr-libstruct-static
-    #        "-Wl,--no-whole-archive"
-    #        lmfit-static
-    #        sbml-static
-    #        roadrunner-static
-
-
-endif(WIN32)
+else ()
+    message(STATIC "system not supported")
+endif ()
 
 install(
-    TARGETS _roadrunner
-    DESTINATION ${PYTHON_PACKAGE_DEST_DIR}
+        TARGETS roadrunner_python
+        DESTINATION ${PYTHON_PACKAGE_INSTALL_PREFIX}
 )
 
-set(python_files_path ${CMAKE_BINARY_DIR}/wrappers/Python/roadrunner/)
+install(FILES "${CMAKE_CURRENT_BINARY_DIR}/roadrunner.py"
+        DESTINATION "${PYTHON_PACKAGE_INSTALL_PREFIX}")
 
-#THIS IS EXAMPLE OF WORKING COMMAND
-# ADD_CUSTOM_COMMAND(
-#     OUTPUT CompuCell.py.mod
-#     COMMAND ${PYTHON_EXECUTABLE} ${CMAKE_SOURCE_DIR}/core/pyinterface/swigmodifier.py ${python_files_path}/CompuCell.py
-#     DEPENDS _CompuCell
-# )
-#
-# ADD_CUSTOM_TARGET(_swigmodifier ALL DEPENDS CompuCell.py.mod)
-
-#FILE(GLOB Mac_CPP "*_Mac.cpp")
-
-#INSTALL(FILES ${python_files_path}/roadrunner.py
-#    DESTINATION site-packages/roadrunner )
 
 install(
-    FILES ${CMAKE_BINARY_DIR}/lib/site-packages/roadrunner/roadrunner.py
-    DESTINATION ${PYTHON_PACKAGE_DEST_DIR}
-)
-
-install(
-    FILES __init__.py
-    DESTINATION ${PYTHON_PACKAGE_DEST_DIR}
-)
-
-install(
-    DIRECTORY testing
-    DESTINATION ${PYTHON_PACKAGE_DEST_DIR}
-    FILES_MATCHING PATTERN "*.*"
+    FILES testing/__init__.py
+    	  testing/__main__.py 
+    	  testing/README.txt 
+    	  testing/tester.py 
+    	  testing/testfiles.py 
+    	  testing/SBMLTest.py
+    DESTINATION ${PYTHON_PACKAGE_INSTALL_PREFIX}/testing
 )
 
 install(
-    DIRECTORY stochastic
-    DESTINATION ${PYTHON_PACKAGE_DEST_DIR}
-    FILES_MATCHING PATTERN "*.*"
+        DIRECTORY stochastic
+        DESTINATION ${PYTHON_PACKAGE_INSTALL_PREFIX}
+        FILES_MATCHING PATTERN "*.*"
 )
 
-file(GLOB rrtest_files "${RR_ROOT}/testing/*.rrtest")
+file(GLOB rrtest_files1 "${RR_ROOT}/test/rrtest_files/*.rrtest")
 install(
-    FILES ${rrtest_files}
-    DESTINATION ${PYTHON_PACKAGE_DEST_DIR}/testing/test_data
+    FILES ${rrtest_files1}
+    DESTINATION ${PYTHON_PACKAGE_INSTALL_PREFIX}/testing/test_data
 )
 
-file(GLOB rrtest_files "${RR_ROOT}/testing/*.xml")
-install(
-    FILES ${rrtest_files}
-    DESTINATION ${PYTHON_PACKAGE_DEST_DIR}/testing/test_data
+file(GLOB rrtest_files2 "${RR_ROOT}/test/rrtest_files/*.xml"
+    FILES ${rrtest_files2}
+    DESTINATION ${PYTHON_PACKAGE_INSTALL_PREFIX}/testing/test_data
 )

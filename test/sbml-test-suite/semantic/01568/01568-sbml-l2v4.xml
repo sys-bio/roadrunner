@@ -1,0 +1,61 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<sbml xmlns="http://www.sbml.org/sbml/level2/version4" level="2" version="4">
+  <model id="case01568" name="case01568">
+    <listOfCompartments>
+      <compartment id="C" size="1"/>
+    </listOfCompartments>
+    <listOfSpecies>
+      <species id="S1" compartment="C" initialConcentration="3"/>
+      <species id="S2" compartment="C" initialConcentration="3"/>
+    </listOfSpecies>
+    <listOfParameters>
+      <parameter id="k" constant="false"/>
+    </listOfParameters>
+    <listOfRules>
+      <assignmentRule variable="k">
+        <math xmlns="http://www.w3.org/1998/Math/MathML">
+          <apply>
+            <minus/>
+            <cn> 5.5 </cn>
+            <csymbol encoding="text" definitionURL="http://www.sbml.org/sbml/symbols/time"> time </csymbol>
+          </apply>
+        </math>
+      </assignmentRule>
+    </listOfRules>
+    <listOfReactions>
+      <reaction id="J0" fast="true">
+        <listOfReactants>
+          <speciesReference species="S1"/>
+        </listOfReactants>
+        <listOfProducts>
+          <speciesReference species="S2"/>
+        </listOfProducts>
+        <kineticLaw>
+          <math xmlns="http://www.w3.org/1998/Math/MathML">
+            <piecewise>
+              <piece>
+                <apply>
+                  <times/>
+                  <ci> S1 </ci>
+                  <ci> k </ci>
+                </apply>
+                <apply>
+                  <gt/>
+                  <ci> k </ci>
+                  <cn type="integer"> 0 </cn>
+                </apply>
+              </piece>
+              <otherwise>
+                <apply>
+                  <times/>
+                  <ci> S2 </ci>
+                  <ci> k </ci>
+                </apply>
+              </otherwise>
+            </piecewise>
+          </math>
+        </kineticLaw>
+      </reaction>
+    </listOfReactions>
+  </model>
+</sbml>

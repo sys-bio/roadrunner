@@ -55,12 +55,13 @@ Value* EvalInitialConditionsCodeGen::codeGen()
 
     llvm::Value *args[] = {0, 0};
 
-    llvm::BasicBlock *entry = codeGenHeader(FunctionName,
+    //The side effects of creating this codeGenHeader are required for functionality, 
+    // even though we don't use the element produced.
+    codeGenHeader(FunctionName,
             llvm::Type::getVoidTy(context),
             argTypes, argNames, args);
 
     Value* modelData = args[0];
-    Value *flagsArg = args[1];
 
 
     if (Logger::LOG_DEBUG <= rr::Logger::getLevel())

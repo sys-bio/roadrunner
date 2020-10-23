@@ -81,7 +81,7 @@
 %include "rr_stdint.i"
 
 
-// the cmake CMakeLists.txt file in this directory sets the value of the
+// the cmake _CMakeLists.txt file in this directory sets the value of the
 // SWIG_SHARED_PTR_SUBNAMESPACE as a pre-processor symbol based on the
 // USE_TR1_CXX_NS CMake option. SWIG has no way of getting this info
 // from the compiler so have to reley on the CMake system.

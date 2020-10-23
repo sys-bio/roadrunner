@@ -1,0 +1,63 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<sbml xmlns="http://www.sbml.org/sbml/level2" level="2" version="1">
+  <model metaid="_case00839" id="case00839" name="case00839">
+    <listOfCompartments>
+      <compartment id="C" name="C" size="1" units="volume"/>
+    </listOfCompartments>
+    <listOfSpecies>
+      <species id="S1" name="S1" compartment="C" initialAmount="1" substanceUnits="substance"/>
+      <species id="S2" name="S2" compartment="C" initialAmount="0.5" substanceUnits="substance"/>
+      <species id="S3" name="S3" compartment="C" initialAmount="0" substanceUnits="substance"/>
+      <species id="S4" name="S4" compartment="C" substanceUnits="substance"/>
+    </listOfSpecies>
+    <listOfParameters>
+      <parameter id="kf" name="kf" value="2.5"/>
+      <parameter id="kr" name="kr" value="0.2"/>
+    </listOfParameters>
+    <listOfRules>
+      <assignmentRule metaid="rule1" variable="S4">
+        <math xmlns="http://www.w3.org/1998/Math/MathML">
+          <apply>
+            <times/>
+            <cn> 0.5 </cn>
+            <ci> S1 </ci>
+          </apply>
+        </math>
+      </assignmentRule>
+    </listOfRules>
+    <listOfReactions>
+      <reaction id="reaction1" name="reaction1" fast="false">
+        <listOfReactants>
+          <speciesReference species="S1"/>
+        </listOfReactants>
+        <listOfProducts>
+          <speciesReference species="S2"/>
+          <speciesReference species="S3"/>
+        </listOfProducts>
+        <kineticLaw>
+          <math xmlns="http://www.w3.org/1998/Math/MathML">
+            <apply>
+              <times/>
+              <ci> C </ci>
+              <apply>
+                <plus/>
+                <apply>
+                  <times/>
+                  <ci> kf </ci>
+                  <ci> S1 </ci>
+                </apply>
+                <apply>
+                  <times/>
+                  <cn type="integer"> -1 </cn>
+                  <ci> kr </ci>
+                  <ci> S2 </ci>
+                  <ci> S3 </ci>
+                </apply>
+              </apply>
+            </apply>
+          </math>
+        </kineticLaw>
+      </reaction>
+    </listOfReactions>
+  </model>
+</sbml>

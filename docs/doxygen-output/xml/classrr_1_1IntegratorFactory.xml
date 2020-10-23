@@ -1,0 +1,223 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.20" xml:lang="en-US">
+  <compounddef id="classrr_1_1IntegratorFactory" kind="class" language="C++" prot="public">
+    <compoundname>rr::IntegratorFactory</compoundname>
+    <includes refid="Integrator_8h" local="no">Integrator.h</includes>
+      <sectiondef kind="private-type">
+      <memberdef kind="typedef" id="classrr_1_1IntegratorFactory_1a2ba7ea9be22db3b0a2dabd6eaf2893e7" prot="private" static="no">
+        <type>std::vector&lt; <ref refid="classrr_1_1IntegratorRegistrar" kindref="compound">IntegratorRegistrar</ref> * &gt;</type>
+        <definition>typedef std::vector&lt;IntegratorRegistrar*&gt; rr::IntegratorFactory::IntegratorRegistrars</definition>
+        <argsstring></argsstring>
+        <name>IntegratorRegistrars</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="Integrator.h" line="237" column="29" bodyfile="Integrator.h" bodystart="237" bodyend="-1"/>
+      </memberdef>
+      </sectiondef>
+      <sectiondef kind="private-attrib">
+      <memberdef kind="variable" id="classrr_1_1IntegratorFactory_1a70c2e8417c0fd10bda69be641c473780" prot="private" static="no" mutable="no">
+        <type>IntegratorRegistrars</type>
+        <definition>IntegratorRegistrars rr::IntegratorFactory::mRegisteredIntegrators</definition>
+        <argsstring></argsstring>
+        <name>mRegisteredIntegrators</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="Integrator.h" line="238" column="30" bodyfile="Integrator.h" bodystart="238" bodyend="-1"/>
+      </memberdef>
+      </sectiondef>
+      <sectiondef kind="public-func">
+      <memberdef kind="function" id="classrr_1_1IntegratorFactory_1a16f496b70c5356bc9e06a35f888663ae" prot="public" static="no" const="no" explicit="no" inline="no" virt="virtual">
+        <type></type>
+        <definition>rr::IntegratorFactory::~IntegratorFactory</definition>
+        <argsstring>()</argsstring>
+        <name>~IntegratorFactory</name>
+        <briefdescription>
+<para>INTEGRATOR FACTORY. </para>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="Integrator.h" line="198" column="17" bodyfile="Integrator.cpp" bodystart="85" bodyend="89"/>
+      </memberdef>
+      <memberdef kind="function" id="classrr_1_1IntegratorFactory_1ab7298b70afb06e1200181cf3981f739c" prot="public" static="no" const="yes" explicit="no" inline="no" virt="non-virtual">
+        <type><ref refid="classrr_1_1Integrator" kindref="compound">Integrator</ref> *</type>
+        <definition>Integrator * rr::IntegratorFactory::New</definition>
+        <argsstring>(std::string name, ExecutableModel *m) const</argsstring>
+        <name>New</name>
+        <param>
+          <type>std::string</type>
+          <declname>name</declname>
+        </param>
+        <param>
+          <type><ref refid="classrr_1_1ExecutableModel" kindref="compound">ExecutableModel</ref> *</type>
+          <declname>m</declname>
+        </param>
+        <briefdescription>
+<para>Constructs a new integrator given the name (e.g. cvode, gillespie) </para>
+        </briefdescription>
+        <detaileddescription>
+<para><simplesect kind="author"><para>JKM, WBC </para>
+</simplesect>
+</para>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="Integrator.h" line="205" column="20" bodyfile="Integrator.cpp" bodystart="91" bodyend="98"/>
+      </memberdef>
+      <memberdef kind="function" id="classrr_1_1IntegratorFactory_1ac519fc98f09e635cd209d96283a3c57e" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>void rr::IntegratorFactory::registerIntegrator</definition>
+        <argsstring>(IntegratorRegistrar *i)</argsstring>
+        <name>registerIntegrator</name>
+        <param>
+          <type><ref refid="classrr_1_1IntegratorRegistrar" kindref="compound">IntegratorRegistrar</ref> *</type>
+          <declname>i</declname>
+        </param>
+        <briefdescription>
+<para>Registers a new integrator with the factory so that it can be constructed. </para>
+        </briefdescription>
+        <detaileddescription>
+<para><simplesect kind="author"><para>JKM, WBC  Should be called at startup for new integrators. </para>
+</simplesect>
+</para>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="Integrator.h" line="213" column="14" bodyfile="Integrator.cpp" bodystart="100" bodyend="104"/>
+      </memberdef>
+      <memberdef kind="function" id="classrr_1_1IntegratorFactory_1a20355a54ec265c91bbb4a18c3b66271b" prot="public" static="no" const="yes" explicit="no" inline="no" virt="non-virtual">
+        <type>std::size_t</type>
+        <definition>std::size_t rr::IntegratorFactory::getNumIntegrators</definition>
+        <argsstring>() const</argsstring>
+        <name>getNumIntegrators</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="Integrator.h" line="223" column="21" bodyfile="Integrator.cpp" bodystart="112" bodyend="114"/>
+      </memberdef>
+      <memberdef kind="function" id="classrr_1_1IntegratorFactory_1a0d073238dde422b9f2f381f36289f3c5" prot="public" static="no" const="yes" explicit="no" inline="no" virt="non-virtual">
+        <type>std::string</type>
+        <definition>std::string rr::IntegratorFactory::getIntegratorName</definition>
+        <argsstring>(std::size_t n) const</argsstring>
+        <name>getIntegratorName</name>
+        <param>
+          <type>std::size_t</type>
+          <declname>n</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="Integrator.h" line="225" column="21" bodyfile="Integrator.cpp" bodystart="116" bodyend="118"/>
+      </memberdef>
+      <memberdef kind="function" id="classrr_1_1IntegratorFactory_1abf5bfa4f7ed2aa0a0728b926f85d9edc" prot="public" static="no" const="yes" explicit="no" inline="no" virt="non-virtual">
+        <type>std::string</type>
+        <definition>std::string rr::IntegratorFactory::getIntegratorHint</definition>
+        <argsstring>(std::size_t n) const</argsstring>
+        <name>getIntegratorHint</name>
+        <param>
+          <type>std::size_t</type>
+          <declname>n</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="Integrator.h" line="227" column="21" bodyfile="Integrator.cpp" bodystart="120" bodyend="122"/>
+      </memberdef>
+      <memberdef kind="function" id="classrr_1_1IntegratorFactory_1a8304df66871ae1a0d41d0ff75920bafb" prot="public" static="no" const="yes" explicit="no" inline="no" virt="non-virtual">
+        <type>std::string</type>
+        <definition>std::string rr::IntegratorFactory::getIntegratorDescription</definition>
+        <argsstring>(std::size_t n) const</argsstring>
+        <name>getIntegratorDescription</name>
+        <param>
+          <type>std::size_t</type>
+          <declname>n</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="Integrator.h" line="229" column="21" bodyfile="Integrator.cpp" bodystart="124" bodyend="126"/>
+      </memberdef>
+      </sectiondef>
+      <sectiondef kind="public-static-func">
+      <memberdef kind="function" id="classrr_1_1IntegratorFactory_1a3bd934950b0c1523d8c1b482bb85ab15" prot="public" static="yes" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type><ref refid="classrr_1_1IntegratorFactory" kindref="compound">IntegratorFactory</ref> &amp;</type>
+        <definition>IntegratorFactory &amp; rr::IntegratorFactory::getInstance</definition>
+        <argsstring>()</argsstring>
+        <name>getInstance</name>
+        <briefdescription>
+<para>Returns the singleton instance of the integrator factory. </para>
+        </briefdescription>
+        <detaileddescription>
+<para><simplesect kind="author"><para>JKM, WBC </para>
+</simplesect>
+</para>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="Integrator.h" line="219" column="34" bodyfile="Integrator.cpp" bodystart="106" bodyend="110"/>
+      </memberdef>
+      </sectiondef>
+      <sectiondef kind="private-func">
+      <memberdef kind="function" id="classrr_1_1IntegratorFactory_1a2fbfeee1ceab8b9ddbce170337b3d7f9" prot="private" static="no" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <type></type>
+        <definition>rr::IntegratorFactory::IntegratorFactory</definition>
+        <argsstring>()</argsstring>
+        <name>IntegratorFactory</name>
+        <briefdescription>
+<para>Prevents external instantiation. </para>
+        </briefdescription>
+        <detaileddescription>
+<para><simplesect kind="author"><para>JKM, WBC </para>
+</simplesect>
+</para>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="Integrator.h" line="236" column="9" bodyfile="Integrator.h" bodystart="236" bodyend="236"/>
+      </memberdef>
+      </sectiondef>
+    <briefdescription>
+<para>Constructs new integrators. </para>
+    </briefdescription>
+    <detaileddescription>
+<para><simplesect kind="author"><para>JKM, WBC  Implements the factory and singleton patterns. Constructs a new integrator given the name (e.g. cvode, gillespie) and returns a base pointer to <ref refid="classrr_1_1Integrator" kindref="compound">rr::Integrator</ref>. </para>
+</simplesect>
+</para>
+    </detaileddescription>
+    <location file="Integrator.h" line="195" column="5" bodyfile="Integrator.h" bodystart="196" bodyend="239"/>
+    <listofallmembers>
+      <member refid="classrr_1_1IntegratorFactory_1a3bd934950b0c1523d8c1b482bb85ab15" prot="public" virt="non-virtual"><scope>rr::IntegratorFactory</scope><name>getInstance</name></member>
+      <member refid="classrr_1_1IntegratorFactory_1a8304df66871ae1a0d41d0ff75920bafb" prot="public" virt="non-virtual"><scope>rr::IntegratorFactory</scope><name>getIntegratorDescription</name></member>
+      <member refid="classrr_1_1IntegratorFactory_1abf5bfa4f7ed2aa0a0728b926f85d9edc" prot="public" virt="non-virtual"><scope>rr::IntegratorFactory</scope><name>getIntegratorHint</name></member>
+      <member refid="classrr_1_1IntegratorFactory_1a0d073238dde422b9f2f381f36289f3c5" prot="public" virt="non-virtual"><scope>rr::IntegratorFactory</scope><name>getIntegratorName</name></member>
+      <member refid="classrr_1_1IntegratorFactory_1a20355a54ec265c91bbb4a18c3b66271b" prot="public" virt="non-virtual"><scope>rr::IntegratorFactory</scope><name>getNumIntegrators</name></member>
+      <member refid="classrr_1_1IntegratorFactory_1a2fbfeee1ceab8b9ddbce170337b3d7f9" prot="private" virt="non-virtual"><scope>rr::IntegratorFactory</scope><name>IntegratorFactory</name></member>
+      <member refid="classrr_1_1IntegratorFactory_1a2ba7ea9be22db3b0a2dabd6eaf2893e7" prot="private" virt="non-virtual"><scope>rr::IntegratorFactory</scope><name>IntegratorRegistrars</name></member>
+      <member refid="classrr_1_1IntegratorFactory_1a70c2e8417c0fd10bda69be641c473780" prot="private" virt="non-virtual"><scope>rr::IntegratorFactory</scope><name>mRegisteredIntegrators</name></member>
+      <member refid="classrr_1_1IntegratorFactory_1ab7298b70afb06e1200181cf3981f739c" prot="public" virt="non-virtual"><scope>rr::IntegratorFactory</scope><name>New</name></member>
+      <member refid="classrr_1_1IntegratorFactory_1ac519fc98f09e635cd209d96283a3c57e" prot="public" virt="non-virtual"><scope>rr::IntegratorFactory</scope><name>registerIntegrator</name></member>
+      <member refid="classrr_1_1IntegratorFactory_1a16f496b70c5356bc9e06a35f888663ae" prot="public" virt="virtual"><scope>rr::IntegratorFactory</scope><name>~IntegratorFactory</name></member>
+    </listofallmembers>
+  </compounddef>
+</doxygen>

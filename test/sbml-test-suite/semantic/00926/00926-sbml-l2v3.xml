@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<sbml xmlns="http://www.sbml.org/sbml/level2/version3" level="2" version="3">
+  <model metaid="_case00926" id="case00926" name="case00926">
+    <listOfCompartments>
+      <compartment id="c" name="c" size="1" units="volume" constant="false"/>
+    </listOfCompartments>
+    <listOfSpecies>
+      <species id="s" name="s" compartment="c" initialConcentration="2" substanceUnits="substance"/>
+    </listOfSpecies>
+    <listOfRules>
+      <rateRule metaid="rule1" variable="c">
+        <math xmlns="http://www.w3.org/1998/Math/MathML">
+          <apply>
+            <times/>
+            <cn> 0.5 </cn>
+            <ci> c </ci>
+          </apply>
+        </math>
+      </rateRule>
+    </listOfRules>
+  </model>
+</sbml>

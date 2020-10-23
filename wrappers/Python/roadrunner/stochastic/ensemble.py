@@ -89,7 +89,7 @@ def ensemble(src, ensembles, seeds=None, *sim_args, **sim_kwargs):
     mean = None
 
     # Get and print results
-    print 'Unordered results:'
+    print('Unordered results:')
     for i in range(ensembles):
 
         res = results.get()

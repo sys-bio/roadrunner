@@ -157,10 +157,11 @@ static Channel *createConsoleChannel()
 
 Poco::Logger& getLogger()
 {
-    Mutex::ScopedLock lock(loggerMutex);
-
     if (pocoLogger == 0)
     {
+        //Must put the lock here because other functions in this block call 'getLogger' themselves.
+        Mutex::ScopedLock lock(loggerMutex);
+
         pocoLogger = &Poco::Logger::get("RoadRunner");
 
         // first time this is called, channels better be null

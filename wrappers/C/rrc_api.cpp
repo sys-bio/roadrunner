@@ -1,6 +1,6 @@
 /**
  * @file rrc_api.cpp
- * @brief roadRunner C API 2012
+ * @brief roadRunner C wrappers 2012
  * @author Totte Karlsson & Herbert M Sauro
  *
  * <--------------------------------------------------------------
@@ -108,7 +108,7 @@ static vector<string>    sel_getBoundarySpeciesConcSymbols(RoadRunner* rr);
 static vector<double> rr_getRatesOfChange(RoadRunner* rr);
 
 
-// TODO: move all the depracated method here:
+// TODO: move all the deprecated methods here:
 /*
 static int rr_getNumberOfReactions(RoadRunner* r);
 static double rr_getReactionRate(RoadRunner* r, const int& index);
@@ -306,7 +306,7 @@ bool rrcCallConv setComputeAndAssignConservationLaws(RRHandle handle, const bool
         rri->setConservedMoietyAnalysis(OnOrOff);
         return true;
     } catch (std::exception& e) {
-        std::cerr << "Error in conserved moeity analysis " << e.what() << std::endl;
+        std::cerr << "Error in conserved moeity analysis: " << e.what() << std::endl;
         return false;
     }
     //catch_bool_macro
@@ -750,6 +750,47 @@ bool rrcCallConv setValue(RRHandle handle, const char* symbolId, const double va
     catch_bool_macro
 }
 
+// RRPLugins
+double rrcCallConv _getTime(RRHandle handle) {
+    start_try
+        RoadRunner* rri = castToRoadRunner(handle);
+        ExecutableModel* model = rri->getModel();
+        return model->getTime();
+    catch_double_macro
+}
+
+int rrcCallConv _getNumIndFloatingSpecies(RRHandle handle) {
+    start_try
+        RoadRunner* rri = castToRoadRunner(handle);
+        ExecutableModel* model = rri->getModel();
+        return model->getNumIndFloatingSpecies();
+    catch_int_macro
+}
+
+int rrcCallConv _getStateVector(RRHandle handle) {
+    start_try
+        RoadRunner* rri = castToRoadRunner(handle);
+        ExecutableModel* model = rri->getModel();
+        return model->getStateVector(NULL);
+    catch_int_macro
+}
+
+void rrcCallConv _getStateVectorRate(RRHandle handle, double time, double* value) {
+    start_try
+        RoadRunner* rri = castToRoadRunner(handle);
+        ExecutableModel* model = rri->getModel();
+        model->getStateVectorRate(time, NULL,value);
+    catch_void_macro
+}
+
+int rrcCallConv _getNumRateRules(RRHandle handle) {
+    start_try
+        RoadRunner* rri = castToRoadRunner(handle);
+        ExecutableModel* model = rri->getModel();
+        return model->getNumRateRules();
+    catch_int_macro
+}
+
 RRDoubleMatrixPtr rrcCallConv getStoichiometryMatrix(RRHandle handle)
 {
     start_try
@@ -959,7 +1000,7 @@ int rrcCallConv getNumberOfGlobalParameters(RRHandle handle)
 {
     start_try
         RoadRunner* rri = castToRoadRunner(handle);
-        return rri->getNumberOfGlobalParameters();
+        return static_cast<int>(rri->getNumberOfGlobalParameters());
     catch_int_macro
 }
 
@@ -1051,7 +1092,7 @@ bool rrcCallConv setFloatingSpeciesByIndex (RRHandle handle, const int index, co
     catch_bool_macro
 }
 
-bool rrcCallConv setBoundarySpeciesByIndex (RRHandle handle, const int index, const double value)
+bool rrcCallConv setBoundarySpeciesByIndex (RRHandle handle, const unsigned int index, const double value)
 {
     start_try
         RoadRunner* rri = castToRoadRunner(handle);
@@ -1235,8 +1276,7 @@ bool rrcCallConv steadyState(RRHandle handle, double* value)
 {
     start_try
         RoadRunner* rri = castToRoadRunner(handle);
-        std::cerr << "rrcCallConv steadyState\n";
-        Log(Logger::LOG_DEBUG) << "rrcCallConv steadyState ";
+        Log(Logger::LOG_DEBUG) << "rrcCallConv steadyState";
         *value = rri->steadyState();
         return true;
     catch_bool_macro
@@ -1324,7 +1364,7 @@ RRDoubleMatrixPtr rrcCallConv getEigenvalues(RRHandle handle)
 
     RRDoubleMatrixPtr matrix = new RRDoubleMatrix;
 
-    matrix->RSize = eigen.size();
+    matrix->RSize = static_cast<int>(eigen.size());
     matrix->CSize = 2;
     int dim =  matrix->RSize * matrix->CSize;
     if(dim)
@@ -1435,7 +1475,7 @@ RRListPtr rrcCallConv getElasticityCoefficientIds(RRHandle handle)
 int rrcCallConv getNumRegisteredIntegrators()
 {
 	start_try;
-		return IntegratorFactory::getInstance().getNumIntegrators();
+		return static_cast<int>(IntegratorFactory::getInstance().getNumIntegrators());
     catch_int_macro
 }
 
@@ -1476,7 +1516,7 @@ int rrcCallConv getNumInstantiatedIntegrators(RRHandle handle)
 {
     start_try
         RoadRunner* rri = castToRoadRunner(handle);
-        return rri->getExistingIntegratorNames().size();
+        return static_cast<int>(rri->getExistingIntegratorNames().size());
     catch_int_macro
 }
 
@@ -1535,7 +1575,7 @@ int rrcCallConv getNumberOfCurrentIntegratorParameters (RRHandle handle)
 	start_try
 		RoadRunner* rri = castToRoadRunner(handle);
 	    vector<std::string> keys = rri->getIntegrator()->getSettings();
-		return keys.size();
+		return static_cast<int>(keys.size());
     catch_int_macro
 }
 
@@ -1643,20 +1683,20 @@ int rrcCallConv getCurrentIntegratorParameterType (RRHandle handle, char *parame
 // Model editing methods
 // -------------------------------------------------------------------------------------
 
-bool rrcCallConv addSpecies(RRHandle handle, const char* sid, const char* compartment, double initialAmount, const char* substanceUnit)
+bool rrcCallConv addSpecies(RRHandle handle, const char* sid, const char* compartment, double initialAmount, bool hasOnlySubstanceUnits, bool boundaryCondition)
 {
 	start_try
 		RoadRunner* rri = castToRoadRunner(handle);
-		rri->addSpecies(sid, compartment, initialAmount, substanceUnit);
+		rri->addSpecies(sid, compartment, initialAmount, hasOnlySubstanceUnits, boundaryCondition);
 		return true;
 	catch_bool_macro
 }
 
-bool rrcCallConv addSpeciesNoRegen(RRHandle handle, const char* sid, const char* compartment, double initialAmount, const char* substanceUnit)
+bool rrcCallConv addSpeciesNoRegen(RRHandle handle, const char* sid, const char* compartment, double initialAmount, bool hasOnlySubstanceUnits, bool boundaryCondition)
 {
 	start_try
 		RoadRunner* rri = castToRoadRunner(handle);
-		rri->addSpecies(sid, compartment, initialAmount, substanceUnit, false);
+		rri->addSpecies(sid, compartment, initialAmount, hasOnlySubstanceUnits, boundaryCondition, "", false);
 		return true;
 	catch_bool_macro
 }
@@ -1866,6 +1906,16 @@ bool rrcCallConv setKineticLawNoRegen(RRHandle handle, const char* rid, const ch
 	rri->setKineticLaw(rid, kineticLaw, false);
 	return true;
 	catch_bool_macro
+}
+
+C_DECL_SPEC char* rrcCallConv getKineticLaw(RRHandle handle, const char* rid)
+{
+    start_try
+        RoadRunner* rri = castToRoadRunner(handle);
+    std::string kl = rri->getKineticLaw(rid);
+    char* text = rr::createText(kl.c_str());
+    return text;
+    catch_ptr_macro
 }
 
 bool rrcCallConv addParameter(RRHandle handle, const char* pid, double value)
@@ -2301,7 +2351,7 @@ int rrcCallConv getCurrentIntegratorParameterDoubleArray(RRHandle handle, char* 
 			ptr[i] = v[i];
 		}
 		*value = ptr;
-		*len = v.size();
+		*len = static_cast<int>(v.size());
 		return true;
 	catch_int_macro
 }
@@ -2356,7 +2406,7 @@ int rrcCallConv setCurrentIntegratorIndividualTolerance(RRHandle handle, char* s
 int rrcCallConv getNumRegisteredSteadyStateSolvers()
 {
     start_try;
-        return SteadyStateSolverFactory::getInstance().getNumSteadyStateSolvers();
+        return static_cast<int>(SteadyStateSolverFactory::getInstance().getNumSteadyStateSolvers());
     catch_int_macro
 }
 
@@ -2448,7 +2498,7 @@ int rrcCallConv getNumberOfCurrentSteadyStateSolverParameters (RRHandle handle)
     start_try
         RoadRunner* rri = castToRoadRunner(handle);
         vector<std::string> keys = rri->getSteadyStateSolver()->getSettings();
-        return keys.size();
+        return static_cast<int>(keys.size());
     catch_int_macro
 }
 

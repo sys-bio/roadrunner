@@ -26,6 +26,7 @@
 #include <cmath>
 #include <math.h>
 #include <float.h>
+#include <fstream>
 #if defined(_WIN32)
 #include <strsafe.h> //StringCchPrintf need to be included AFTER all other system headers :(
 #endif
@@ -326,7 +327,7 @@ vector<string> getLinesInFile(const string& fName)
     return lines;
 }
 
-int indexOf(const std::vector<std::string>& vec, const std::string& elem )
+std::ptrdiff_t indexOf(const std::vector<std::string>& vec, const std::string& elem )
 {
     if(!vec.size())
     {
@@ -334,7 +335,7 @@ int indexOf(const std::vector<std::string>& vec, const std::string& elem )
     }
     else
     {
-        int index = distance(vec.begin(), find(vec.begin(), vec.end(), elem));
+        std::ptrdiff_t index = distance(vec.begin(), find(vec.begin(), vec.end(), elem));
         return index;
     }
 }
@@ -345,7 +346,7 @@ string removeTrailingSeparator(const string& _folder, const char sep)
 {
     if((_folder.size() > 0) && (_folder[_folder.size() -1] == sep))
     {
-        const int endOfPathIndex = _folder.rfind(sep, _folder.size());
+        size_t endOfPathIndex = _folder.rfind(sep, _folder.size());
         string folder = _folder.substr(0, endOfPathIndex);
         return folder;
     }
@@ -423,18 +424,18 @@ bool folderExists(const string& folderName)
 #endif
 }
 
-void createTestSuiteFileNameParts(int caseNr, const string& postFixPart, string& modelFilePath, string& modelName, string& settingsFName)
+void createTestSuiteFileNameParts(int caseNr, const string& postFixPart, string& modelFilePath, string& modelName, string& settingsFName, string& descriptionFName)
 {
-    stringstream modelSubPath;
-    stringstream modelFileName;
-    stringstream settingsFileName;
+    stringstream modelSubPath, modelFileName, settingsFileName, descriptionFileName;
 
     modelSubPath<<setfill('0')<<setw(5)<<caseNr;        //create the "00023" subfolder format
     modelFileName<<setfill('0')<<setw(5)<<caseNr<<postFixPart;
     modelFilePath = joinPath(modelFilePath, modelSubPath.str());
     modelName =  modelFileName.str();
-    settingsFileName <<setfill('0')<<setw(5)<<caseNr<<"-settings.txt";
+    settingsFileName << setfill('0')<<setw(5)<<caseNr<<"-settings.txt";
     settingsFName = settingsFileName.str();
+    descriptionFileName << setfill('0') << setw(5) << caseNr << "-model.m";
+    descriptionFName = descriptionFileName.str();
 }
 
 string getTestSuiteSubFolderName(int caseNr)
@@ -442,6 +443,64 @@ string getTestSuiteSubFolderName(int caseNr)
     stringstream modelSubPath;
     modelSubPath<<setfill('0')<<setw(5)<<caseNr;        //create the "00023" subfolder format
     return modelSubPath.str();
+}
+
+bool hasUnimplementedTags(const string& descriptionFileName)
+{
+    vector<string> badtags;
+    badtags.push_back("AlgebraicRule");
+    badtags.push_back("CSymbolDelay");
+    badtags.push_back("fbc");
+    badtags.push_back("BoolNumericSwap");
+    badtags.push_back("FastReaction");
+    ifstream descfile(descriptionFileName);
+    if (descfile.good()) {
+        string line;
+        while (getline(descfile, line)) {
+            if (line.find("Tags") != string::npos) {
+                for (size_t i = 0; i < badtags.size(); i++) {
+                    string tag = badtags[i];
+                    if (line.find(tag) != string::npos) {
+                        return true;
+                    }
+                }
+            }
+        }
+    }
+    return false;
+}
+
+bool isSemiStochasticTest(const string& descriptionFileName)
+{
+    ifstream descfile(descriptionFileName);
+    if (descfile.good()) {
+        string line;
+        while (getline(descfile, line)) {
+            if (line.find("synopsis") != string::npos && line.find("STOCHASTIC") != string::npos) {
+                return true;
+            }
+        }
+    }
+    return false;
+}
+
+bool isFBCTest(const string& descriptionFileName)
+{
+    ifstream descfile(descriptionFileName);
+    if (descfile.good()) {
+        string line;
+        while (getline(descfile, line)) {
+            if (line.find("testType") != string::npos) {
+                if (line.find("FluxBalanceSteadyState") != string::npos) {
+                    return true;
+                }
+                else {
+                    return false;
+                }
+            }
+        }
+    }
+    return false;
 }
 
 bool createFolder(const string& folder)
@@ -670,7 +729,7 @@ string getWINAPIError(DWORD errorCode, LPTSTR lpszFunction)
     return errorMsg;
 }
 
-int populateFileSet(const string& folder, set<string>& files)
+size_t populateFileSet(const string& folder, set<string>& files)
 {
      //Get models file names in models folder
     string globPath =  rr::joinPath(folder, "*.xml");

@@ -1,6 +1,6 @@
 /**
  * @file rrc_macros.h
- * @brief roadRunner C API 2012
+ * @brief roadRunner C wrappers 2012
  * @author Totte Karlsson & Herbert M Sauro
  *
  * <--------------------------------------------------------------
@@ -83,6 +83,20 @@
  \ingroup macros
 */
 #define catch_int_macro                                     \
+    }                                                       \
+    catch(exception& ex)                                    \
+    {                                                       \
+        stringstream msg;                                   \
+        msg<<"RoadRunner exception: "<<ex.what()<<endl;     \
+        setError(msg.str());                                \
+        return -1;                                          \
+    }
+
+/*!
+ \brief macro for catch statement in a routine returning a real numbers
+ \ingroup macros
+*/
+#define catch_double_macro                                     \
     }                                                       \
     catch(exception& ex)                                    \
     {                                                       \

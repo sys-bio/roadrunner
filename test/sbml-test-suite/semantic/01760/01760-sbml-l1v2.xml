@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<sbml xmlns="http://www.sbml.org/sbml/level1" level="1" version="2">
+  <model name="case01760">
+    <listOfCompartments>
+      <compartment name="C" volume="1"/>
+    </listOfCompartments>
+    <listOfSpecies>
+      <species name="S1" compartment="C" initialAmount="1"/>
+    </listOfSpecies>
+    <listOfReactions>
+      <reaction name="J0" fast="false">
+        <listOfProducts>
+          <speciesReference species="S1"/>
+        </listOfProducts>
+        <kineticLaw formula="avogadro">
+          <listOfParameters>
+            <parameter name="avogadro" value="0.1"/>
+          </listOfParameters>
+        </kineticLaw>
+      </reaction>
+    </listOfReactions>
+  </model>
+</sbml>

@@ -1,0 +1,59 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.20" xml:lang="en-US">
+  <compounddef id="rrLibMain_8cpp" kind="file" language="C++">
+    <compoundname>rrLibMain.cpp</compoundname>
+      <sectiondef kind="func">
+      <memberdef kind="function" id="rrLibMain_8cpp_1a43af1182ba8585c03482939d9fa52363" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>int</type>
+        <definition>int _libmain</definition>
+        <argsstring>(unsigned long reason)</argsstring>
+        <name>_libmain</name>
+        <param>
+          <type>unsigned long</type>
+          <declname>reason</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="rrLibMain.cpp" line="23" column="16" bodyfile="rrLibMain.cpp" bodystart="23" bodyend="26"/>
+      </memberdef>
+      </sectiondef>
+    <briefdescription>
+    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <programlisting>
+<codeline lineno="1"><highlight class="comment">//<sp/><sp/><sp/>Important<sp/>note<sp/>about<sp/>DLL<sp/>memory<sp/>management<sp/>when<sp/>your<sp/>DLL<sp/>uses<sp/>the</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="2"><highlight class="normal"></highlight><highlight class="comment">//<sp/><sp/><sp/>static<sp/>version<sp/>of<sp/>the<sp/>RunTime<sp/>Library:</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="3"><highlight class="normal"></highlight><highlight class="comment">//</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="4"><highlight class="normal"></highlight><highlight class="comment">//<sp/><sp/><sp/>If<sp/>your<sp/>DLL<sp/>exports<sp/>any<sp/>functions<sp/>that<sp/>pass<sp/>String<sp/>objects<sp/>(or<sp/>structs/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="5"><highlight class="normal"></highlight><highlight class="comment">//<sp/><sp/><sp/>classes<sp/>containing<sp/>nested<sp/>Strings)<sp/>as<sp/>parameter<sp/>or<sp/>function<sp/>results,</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="6"><highlight class="normal"></highlight><highlight class="comment">//<sp/><sp/><sp/>you<sp/>will<sp/>need<sp/>to<sp/>add<sp/>the<sp/>library<sp/>MEMMGR.LIB<sp/>to<sp/>both<sp/>the<sp/>DLL<sp/>project<sp/>and</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="7"><highlight class="normal"></highlight><highlight class="comment">//<sp/><sp/><sp/>any<sp/>other<sp/>projects<sp/>that<sp/>use<sp/>the<sp/>DLL.<sp/><sp/>You<sp/>will<sp/>also<sp/>need<sp/>to<sp/>use<sp/>MEMMGR.LIB</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="8"><highlight class="normal"></highlight><highlight class="comment">//<sp/><sp/><sp/>if<sp/>any<sp/>other<sp/>projects<sp/>which<sp/>use<sp/>the<sp/>DLL<sp/>will<sp/>be<sp/>performing<sp/>new<sp/>or<sp/>delete</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="9"><highlight class="normal"></highlight><highlight class="comment">//<sp/><sp/><sp/>operations<sp/>on<sp/>any<sp/>non-TObject-derived<sp/>classes<sp/>which<sp/>are<sp/>exported<sp/>from<sp/>the</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="10"><highlight class="normal"></highlight><highlight class="comment">//<sp/><sp/><sp/>DLL.<sp/>Adding<sp/>MEMMGR.LIB<sp/>to<sp/>your<sp/>project<sp/>will<sp/>change<sp/>the<sp/>DLL<sp/>and<sp/>its<sp/>calling</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="11"><highlight class="normal"></highlight><highlight class="comment">//<sp/><sp/><sp/>EXE&apos;s<sp/>to<sp/>use<sp/>the<sp/>BORLNDMM.DLL<sp/>as<sp/>their<sp/>memory<sp/>manager.<sp/><sp/>In<sp/>these<sp/>cases,</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="12"><highlight class="normal"></highlight><highlight class="comment">//<sp/><sp/><sp/>the<sp/>file<sp/>BORLNDMM.DLL<sp/>should<sp/>be<sp/>deployed<sp/>along<sp/>with<sp/>your<sp/>DLL.</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="13"><highlight class="normal"></highlight><highlight class="comment">//</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="14"><highlight class="normal"></highlight><highlight class="comment">//<sp/><sp/><sp/>To<sp/>avoid<sp/>using<sp/>BORLNDMM.DLL,<sp/>pass<sp/>string<sp/>information<sp/>using<sp/>&quot;char<sp/>*&quot;<sp/>or</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="15"><highlight class="normal"></highlight><highlight class="comment">//<sp/><sp/><sp/>ShortString<sp/>parameters.</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="16"><highlight class="normal"></highlight><highlight class="comment">//</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="17"><highlight class="normal"></highlight><highlight class="comment">//<sp/><sp/><sp/>If<sp/>your<sp/>DLL<sp/>uses<sp/>the<sp/>dynamic<sp/>version<sp/>of<sp/>the<sp/>RTL,<sp/>you<sp/>do<sp/>not<sp/>need<sp/>to</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="18"><highlight class="normal"></highlight><highlight class="comment">//<sp/><sp/><sp/>explicitly<sp/>add<sp/>MEMMGR.LIB<sp/>as<sp/>this<sp/>will<sp/>be<sp/>done<sp/>implicitly<sp/>for<sp/>you</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="19"><highlight class="normal"></highlight></codeline>
+<codeline lineno="20"><highlight class="normal"></highlight><highlight class="preprocessor">#pragma<sp/>hdrstop</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="21"><highlight class="normal"></highlight><highlight class="preprocessor">#pragma<sp/>argsused</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="22"><highlight class="normal"></highlight></codeline>
+<codeline lineno="23"><highlight class="normal"></highlight><highlight class="keyword">extern</highlight><highlight class="normal"><sp/></highlight><highlight class="stringliteral">&quot;C&quot;</highlight><highlight class="normal"><sp/></highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/>_libmain(</highlight><highlight class="keywordtype">unsigned</highlight><highlight class="normal"><sp/></highlight><highlight class="keywordtype">long</highlight><highlight class="normal"><sp/>reason)</highlight></codeline>
+<codeline lineno="24"><highlight class="normal">{</highlight></codeline>
+<codeline lineno="25"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal"><sp/>1;</highlight></codeline>
+<codeline lineno="26"><highlight class="normal">}</highlight></codeline>
+<codeline lineno="27"><highlight class="normal"></highlight></codeline>
+    </programlisting>
+    <location file="rrLibMain.cpp"/>
+  </compounddef>
+</doxygen>

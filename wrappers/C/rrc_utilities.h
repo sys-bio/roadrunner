@@ -1,6 +1,6 @@
 /**
  * @file rrc_utilities.h
- * @brief roadRunner C API 2012
+ * @brief roadRunner C wrappers 2012
  * @author Totte Karlsson & Herbert M Sauro
  *
  * <--------------------------------------------------------------
@@ -60,13 +60,13 @@ extern "C"
 extern char* gLastError;
 
 /*!
- \brief Global parameter holding C API install folder
+ \brief Global parameter holding C wrappers install folder
 */
 extern char* gInstallFolder;
 
 //Error/Warning Messages
 /*!
- \brief Global parameter holding message for an un-allocated API
+ \brief Global parameter holding message for an un-allocated wrappers
 */
 extern const char*  ALLOCATE_API_ERROR_MSG;
 

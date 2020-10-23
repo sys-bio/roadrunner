@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<sbml xmlns="http://www.sbml.org/sbml/level2" level="2" version="1">
+  <model id="case01785">
+    <listOfCompartments>
+      <compartment id="C1" size="2" constant="false"/>
+      <compartment id="C2" size="3"/>
+    </listOfCompartments>
+    <listOfRules>
+      <algebraicRule>
+        <math xmlns="http://www.w3.org/1998/Math/MathML">
+          <apply>
+            <minus/>
+            <ci> C2 </ci>
+            <ci> C1 </ci>
+          </apply>
+        </math>
+      </algebraicRule>
+    </listOfRules>
+  </model>
+</sbml>

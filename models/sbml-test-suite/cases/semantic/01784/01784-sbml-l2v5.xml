@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- Created by libAntimony version v2.12.0 with libSBML version 5.18.1. -->
+<sbml xmlns="http://www.sbml.org/sbml/level2/version5" level="2" version="5">
+  <model metaid="case01784" id="case01784">
+    <listOfCompartments>
+      <compartment id="C" size="1"/>
+    </listOfCompartments>
+    <listOfSpecies>
+      <species id="S1" compartment="C" initialConcentration="0"/>
+    </listOfSpecies>
+    <listOfReactions>
+      <reaction id="J0">
+        <listOfProducts>
+          <speciesReference species="S1"/>
+        </listOfProducts>
+        <kineticLaw>
+          <math xmlns="http://www.w3.org/1998/Math/MathML">
+            <apply>
+              <times/>
+              <cn type="integer"> 1 </cn>
+              <apply>
+                <minus/>
+                <cn type="integer"> 1 </cn>
+                <ci> S1 </ci>
+              </apply>
+            </apply>
+          </math>
+        </kineticLaw>
+      </reaction>
+    </listOfReactions>
+  </model>
+</sbml>

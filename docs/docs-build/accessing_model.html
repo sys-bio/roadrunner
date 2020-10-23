@@ -1,0 +1,400 @@
+
+
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" >
+<head>
+  <meta charset="utf-8">
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+  <title>Accessing the SBML Model Variables &mdash; libRoadRunner 1.1.16 documentation</title>
+  
+
+  
+  <link rel="stylesheet" href="_static/css/theme.css" type="text/css" />
+  <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
+
+  
+  
+  
+  
+
+  
+  <!--[if lt IE 9]>
+    <script src="_static/js/html5shiv.min.js"></script>
+  <![endif]-->
+  
+    
+      <script type="text/javascript" id="documentation_options" data-url_root="./" src="_static/documentation_options.js"></script>
+        <script src="_static/jquery.js"></script>
+        <script src="_static/underscore.js"></script>
+        <script src="_static/doctools.js"></script>
+        <script src="_static/language_data.js"></script>
+    
+    <script type="text/javascript" src="_static/js/theme.js"></script>
+
+    
+    <link rel="index" title="Index" href="genindex.html" />
+    <link rel="search" title="Search" href="search.html" />
+    <link rel="next" title="RoadRunner API Reference" href="api_reference.html" />
+    <link rel="prev" title="Utility Functions" href="utility_functions.html" /> 
+</head>
+
+<body class="wy-body-for-nav">
+
+   
+  <div class="wy-grid-for-nav">
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+          
+
+          
+            <a href="index.html" class="icon icon-home" alt="Documentation Home"> libRoadRunner
+          
+
+          
+          </a>
+
+          
+            
+            
+          
+
+          
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+
+          
+        </div>
+
+        
+        <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+          
+            
+            
+              
+            
+            
+              <ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="index.html">RoadRunner Documentation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="introduction.html">Introduction</a></li>
+<li class="toctree-l1"><a class="reference internal" href="Installation/installation.html">Installing RoadRunner</a></li>
+<li class="toctree-l1"><a class="reference internal" href="read_write_functions.html">SBML Read/Write Functions</a></li>
+<li class="toctree-l1"><a class="reference internal" href="selecting_values.html">Selecting Values</a></li>
+<li class="toctree-l1"><a class="reference internal" href="steady_state.html">Steady State Analysis</a></li>
+<li class="toctree-l1"><a class="reference internal" href="stochastic.html">Stochastic Simulation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="metabolic.html">Metabolic Control Analysis</a></li>
+<li class="toctree-l1"><a class="reference internal" href="stability.html">Stability Analysis</a></li>
+<li class="toctree-l1"><a class="reference internal" href="stoichiometric.html">Stoichiometric Analysis</a></li>
+<li class="toctree-l1"><a class="reference internal" href="bifurcation.html">Bifurcation Analysis</a></li>
+<li class="toctree-l1"><a class="reference internal" href="integration.html">Simulation and Integration</a></li>
+<li class="toctree-l1"><a class="reference internal" href="utility_functions.html">Utility Functions</a></li>
+<li class="toctree-l1 current"><a class="current reference internal" href="#">Accessing the SBML Model Variables</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="#compartments">Compartments</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#boundary-species">Boundary Species</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#floating-species">Floating Species</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#initial-conditions">Initial Conditions</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#reactions">Reactions</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#reaction-rates">Reaction Rates</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#global-parameters">Global Parameters</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="api_reference.html">RoadRunner API Reference</a></li>
+</ul>
+
+            
+          
+        </div>
+        
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" aria-label="top navigation">
+        
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="index.html">libRoadRunner</a>
+        
+      </nav>
+
+
+      <div class="wy-nav-content">
+        
+        <div class="rst-content">
+        
+          
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div role="navigation" aria-label="breadcrumbs navigation">
+
+  <ul class="wy-breadcrumbs">
+    
+      <li><a href="index.html" class="icon icon-home"></a> &raquo;</li>
+        
+      <li>Accessing the SBML Model Variables</li>
+    
+    
+      <li class="wy-breadcrumbs-aside">
+        
+            
+            <a href="_sources/accessing_model.rst.txt" rel="nofollow"> View page source</a>
+          
+        
+      </li>
+    
+  </ul>
+
+  
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+            
+  <div class="section" id="accessing-the-sbml-model-variables">
+<h1>Accessing the SBML Model Variables<a class="headerlink" href="#accessing-the-sbml-model-variables" title="Permalink to this headline">¶</a></h1>
+<p>The following methods allow users to obtain information on the model</p>
+<div class="section" id="compartments">
+<h2>Compartments<a class="headerlink" href="#compartments" title="Permalink to this headline">¶</a></h2>
+<table class="longtable docutils align-default">
+<colgroup>
+<col style="width: 10%" />
+<col style="width: 90%" />
+</colgroup>
+<tbody>
+<tr class="row-odd"><td><p><a class="reference internal" href="mod_roadrunner/cls_ExecutableModel.html#RoadRunner.ExecutableModel.getCompartmentVolumes" title="RoadRunner.ExecutableModel.getCompartmentVolumes"><code class="xref py py-obj docutils literal notranslate"><span class="pre">ExecutableModel.getCompartmentVolumes</span></code></a></p></td>
+<td><p></p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="mod_roadrunner/cls_ExecutableModel.html#RoadRunner.ExecutableModel.getNumCompartments" title="RoadRunner.ExecutableModel.getNumCompartments"><code class="xref py py-obj docutils literal notranslate"><span class="pre">ExecutableModel.getNumCompartments</span></code></a></p></td>
+<td><p></p></td>
+</tr>
+<tr class="row-odd"><td><p><a class="reference internal" href="mod_roadrunner/cls_ExecutableModel.html#RoadRunner.ExecutableModel.getCompartmentIds" title="RoadRunner.ExecutableModel.getCompartmentIds"><code class="xref py py-obj docutils literal notranslate"><span class="pre">ExecutableModel.getCompartmentIds</span></code></a></p></td>
+<td><p></p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="mod_roadrunner/cls_ExecutableModel.html#RoadRunner.ExecutableModel.setCompartmentVolumes" title="RoadRunner.ExecutableModel.setCompartmentVolumes"><code class="xref py py-obj docutils literal notranslate"><span class="pre">ExecutableModel.setCompartmentVolumes</span></code></a></p></td>
+<td><p></p></td>
+</tr>
+</tbody>
+</table>
+</div>
+<div class="section" id="boundary-species">
+<h2>Boundary Species<a class="headerlink" href="#boundary-species" title="Permalink to this headline">¶</a></h2>
+<table class="longtable docutils align-default">
+<colgroup>
+<col style="width: 10%" />
+<col style="width: 90%" />
+</colgroup>
+<tbody>
+<tr class="row-odd"><td><p><a class="reference internal" href="mod_roadrunner/cls_ExecutableModel.html#RoadRunner.ExecutableModel.getBoundarySpeciesConcentrations" title="RoadRunner.ExecutableModel.getBoundarySpeciesConcentrations"><code class="xref py py-obj docutils literal notranslate"><span class="pre">ExecutableModel.getBoundarySpeciesConcentrations</span></code></a></p></td>
+<td><p></p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="mod_roadrunner/cls_ExecutableModel.html#RoadRunner.ExecutableModel.setBoundarySpeciesConcentrations" title="RoadRunner.ExecutableModel.setBoundarySpeciesConcentrations"><code class="xref py py-obj docutils literal notranslate"><span class="pre">ExecutableModel.setBoundarySpeciesConcentrations</span></code></a></p></td>
+<td><p></p></td>
+</tr>
+<tr class="row-odd"><td><p><a class="reference internal" href="mod_roadrunner/cls_ExecutableModel.html#RoadRunner.ExecutableModel.getNumBoundarySpecies" title="RoadRunner.ExecutableModel.getNumBoundarySpecies"><code class="xref py py-obj docutils literal notranslate"><span class="pre">ExecutableModel.getNumBoundarySpecies</span></code></a></p></td>
+<td><p></p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="mod_roadrunner/cls_ExecutableModel.html#RoadRunner.ExecutableModel.getBoundarySpeciesIds" title="RoadRunner.ExecutableModel.getBoundarySpeciesIds"><code class="xref py py-obj docutils literal notranslate"><span class="pre">ExecutableModel.getBoundarySpeciesIds</span></code></a></p></td>
+<td><p></p></td>
+</tr>
+</tbody>
+</table>
+</div>
+<div class="section" id="floating-species">
+<h2>Floating Species<a class="headerlink" href="#floating-species" title="Permalink to this headline">¶</a></h2>
+<table class="longtable docutils align-default">
+<colgroup>
+<col style="width: 10%" />
+<col style="width: 90%" />
+</colgroup>
+<tbody>
+<tr class="row-odd"><td><p><a class="reference internal" href="mod_roadrunner/cls_ExecutableModel.html#RoadRunner.ExecutableModel.getFloatingSpeciesConcentrations" title="RoadRunner.ExecutableModel.getFloatingSpeciesConcentrations"><code class="xref py py-obj docutils literal notranslate"><span class="pre">ExecutableModel.getFloatingSpeciesConcentrations</span></code></a></p></td>
+<td><p></p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="mod_roadrunner/cls_ExecutableModel.html#RoadRunner.ExecutableModel.setFloatingSpeciesConcentrations" title="RoadRunner.ExecutableModel.setFloatingSpeciesConcentrations"><code class="xref py py-obj docutils literal notranslate"><span class="pre">ExecutableModel.setFloatingSpeciesConcentrations</span></code></a></p></td>
+<td><p></p></td>
+</tr>
+<tr class="row-odd"><td><p><a class="reference internal" href="mod_roadrunner/cls_ExecutableModel.html#RoadRunner.ExecutableModel.getNumFloatingSpecies" title="RoadRunner.ExecutableModel.getNumFloatingSpecies"><code class="xref py py-obj docutils literal notranslate"><span class="pre">ExecutableModel.getNumFloatingSpecies</span></code></a></p></td>
+<td><p></p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="mod_roadrunner/cls_ExecutableModel.html#RoadRunner.ExecutableModel.getFloatingSpeciesIds" title="RoadRunner.ExecutableModel.getFloatingSpeciesIds"><code class="xref py py-obj docutils literal notranslate"><span class="pre">ExecutableModel.getFloatingSpeciesIds</span></code></a></p></td>
+<td><p></p></td>
+</tr>
+</tbody>
+</table>
+</div>
+<div class="section" id="initial-conditions">
+<h2>Initial Conditions<a class="headerlink" href="#initial-conditions" title="Permalink to this headline">¶</a></h2>
+<table class="longtable docutils align-default">
+<colgroup>
+<col style="width: 10%" />
+<col style="width: 90%" />
+</colgroup>
+<tbody>
+<tr class="row-odd"><td><p><a class="reference internal" href="mod_roadrunner/cls_ExecutableModel.html#RoadRunner.ExecutableModel.getFloatingSpeciesInitAmountIds" title="RoadRunner.ExecutableModel.getFloatingSpeciesInitAmountIds"><code class="xref py py-obj docutils literal notranslate"><span class="pre">ExecutableModel.getFloatingSpeciesInitAmountIds</span></code></a></p></td>
+<td><p></p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="mod_roadrunner/cls_ExecutableModel.html#RoadRunner.ExecutableModel.getFloatingSpeciesInitConcentrationIds" title="RoadRunner.ExecutableModel.getFloatingSpeciesInitConcentrationIds"><code class="xref py py-obj docutils literal notranslate"><span class="pre">ExecutableModel.getFloatingSpeciesInitConcentrationIds</span></code></a></p></td>
+<td><p></p></td>
+</tr>
+<tr class="row-odd"><td><p><a class="reference internal" href="mod_roadrunner/cls_ExecutableModel.html#RoadRunner.ExecutableModel.getFloatingSpeciesInitAmounts" title="RoadRunner.ExecutableModel.getFloatingSpeciesInitAmounts"><code class="xref py py-obj docutils literal notranslate"><span class="pre">ExecutableModel.getFloatingSpeciesInitAmounts</span></code></a></p></td>
+<td><p></p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="mod_roadrunner/cls_ExecutableModel.html#RoadRunner.ExecutableModel.setFloatingSpeciesInitAmounts" title="RoadRunner.ExecutableModel.setFloatingSpeciesInitAmounts"><code class="xref py py-obj docutils literal notranslate"><span class="pre">ExecutableModel.setFloatingSpeciesInitAmounts</span></code></a></p></td>
+<td><p></p></td>
+</tr>
+<tr class="row-odd"><td><p><a class="reference internal" href="mod_roadrunner/cls_ExecutableModel.html#RoadRunner.ExecutableModel.getFloatingSpeciesInitConcentrations" title="RoadRunner.ExecutableModel.getFloatingSpeciesInitConcentrations"><code class="xref py py-obj docutils literal notranslate"><span class="pre">ExecutableModel.getFloatingSpeciesInitConcentrations</span></code></a></p></td>
+<td><p></p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="mod_roadrunner/cls_ExecutableModel.html#RoadRunner.ExecutableModel.setFloatingSpeciesInitConcentrations" title="RoadRunner.ExecutableModel.setFloatingSpeciesInitConcentrations"><code class="xref py py-obj docutils literal notranslate"><span class="pre">ExecutableModel.setFloatingSpeciesInitConcentrations</span></code></a></p></td>
+<td><p></p></td>
+</tr>
+</tbody>
+</table>
+</div>
+<div class="section" id="reactions">
+<h2>Reactions<a class="headerlink" href="#reactions" title="Permalink to this headline">¶</a></h2>
+<table class="longtable docutils align-default">
+<colgroup>
+<col style="width: 10%" />
+<col style="width: 90%" />
+</colgroup>
+<tbody>
+<tr class="row-odd"><td><p><a class="reference internal" href="mod_roadrunner/cls_ExecutableModel.html#RoadRunner.ExecutableModel.getNumReactions" title="RoadRunner.ExecutableModel.getNumReactions"><code class="xref py py-obj docutils literal notranslate"><span class="pre">ExecutableModel.getNumReactions</span></code></a></p></td>
+<td><p></p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="mod_roadrunner/cls_ExecutableModel.html#RoadRunner.ExecutableModel.getReactionRates" title="RoadRunner.ExecutableModel.getReactionRates"><code class="xref py py-obj docutils literal notranslate"><span class="pre">ExecutableModel.getReactionRates</span></code></a></p></td>
+<td><p></p></td>
+</tr>
+<tr class="row-odd"><td><p><a class="reference internal" href="mod_roadrunner/cls_ExecutableModel.html#RoadRunner.ExecutableModel.getReactionIds" title="RoadRunner.ExecutableModel.getReactionIds"><code class="xref py py-obj docutils literal notranslate"><span class="pre">ExecutableModel.getReactionIds</span></code></a></p></td>
+<td><p></p></td>
+</tr>
+</tbody>
+</table>
+</div>
+<div class="section" id="reaction-rates">
+<h2>Reaction Rates<a class="headerlink" href="#reaction-rates" title="Permalink to this headline">¶</a></h2>
+<table class="longtable docutils align-default">
+<colgroup>
+<col style="width: 10%" />
+<col style="width: 90%" />
+</colgroup>
+<tbody>
+<tr class="row-odd"><td><p><code class="xref py py-obj docutils literal notranslate"><span class="pre">ExecutableModel.getFloatingSpeciesAmountRates</span></code></p></td>
+<td><p></p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="mod_roadrunner/cls_ExecutableModel.html#RoadRunner.ExecutableModel.getReactionRates" title="RoadRunner.ExecutableModel.getReactionRates"><code class="xref py py-obj docutils literal notranslate"><span class="pre">ExecutableModel.getReactionRates</span></code></a></p></td>
+<td><p></p></td>
+</tr>
+<tr class="row-odd"><td><p><a class="reference internal" href="mod_roadrunner/cls_ExecutableModel.html#RoadRunner.ExecutableModel.getNumReactions" title="RoadRunner.ExecutableModel.getNumReactions"><code class="xref py py-obj docutils literal notranslate"><span class="pre">ExecutableModel.getNumReactions</span></code></a></p></td>
+<td><p></p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="mod_roadrunner/cls_ExecutableModel.html#RoadRunner.ExecutableModel.getReactionIds" title="RoadRunner.ExecutableModel.getReactionIds"><code class="xref py py-obj docutils literal notranslate"><span class="pre">ExecutableModel.getReactionIds</span></code></a></p></td>
+<td><p></p></td>
+</tr>
+</tbody>
+</table>
+</div>
+<div class="section" id="global-parameters">
+<h2>Global Parameters<a class="headerlink" href="#global-parameters" title="Permalink to this headline">¶</a></h2>
+<table class="longtable docutils align-default">
+<colgroup>
+<col style="width: 10%" />
+<col style="width: 90%" />
+</colgroup>
+<tbody>
+<tr class="row-odd"><td><p><a class="reference internal" href="mod_roadrunner/cls_ExecutableModel.html#RoadRunner.ExecutableModel.setGlobalParameterValues" title="RoadRunner.ExecutableModel.setGlobalParameterValues"><code class="xref py py-obj docutils literal notranslate"><span class="pre">ExecutableModel.setGlobalParameterValues</span></code></a></p></td>
+<td><p></p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="mod_roadrunner/cls_ExecutableModel.html#RoadRunner.ExecutableModel.getGlobalParameterValues" title="RoadRunner.ExecutableModel.getGlobalParameterValues"><code class="xref py py-obj docutils literal notranslate"><span class="pre">ExecutableModel.getGlobalParameterValues</span></code></a></p></td>
+<td><p></p></td>
+</tr>
+<tr class="row-odd"><td><p><a class="reference internal" href="mod_roadrunner/cls_ExecutableModel.html#RoadRunner.ExecutableModel.getNumGlobalParameters" title="RoadRunner.ExecutableModel.getNumGlobalParameters"><code class="xref py py-obj docutils literal notranslate"><span class="pre">ExecutableModel.getNumGlobalParameters</span></code></a></p></td>
+<td><p></p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="mod_roadrunner/cls_ExecutableModel.html#RoadRunner.ExecutableModel.getNumGlobalParameters" title="RoadRunner.ExecutableModel.getNumGlobalParameters"><code class="xref py py-obj docutils literal notranslate"><span class="pre">ExecutableModel.getNumGlobalParameters</span></code></a></p></td>
+<td><p></p></td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+
+
+           </div>
+           
+          </div>
+          <footer>
+  
+    <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
+      
+        <a href="api_reference.html" class="btn btn-neutral float-right" title="RoadRunner API Reference" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right"></span></a>
+      
+      
+        <a href="utility_functions.html" class="btn btn-neutral float-left" title="Utility Functions" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left"></span> Previous</a>
+      
+    </div>
+  
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>
+        
+        &copy; Copyright 2013-2018, Andy Somogyi, J Kyle Medley, Kiri Choi, Herbert Suaro
+
+    </p>
+  </div>
+    
+    
+    
+    Built with <a href="http://sphinx-doc.org/">Sphinx</a> using a
+    
+    <a href="https://github.com/rtfd/sphinx_rtd_theme">theme</a>
+    
+    provided by <a href="https://readthedocs.org">Read the Docs</a>. 
+
+</footer>
+
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+  
+
+  <script type="text/javascript">
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script>
+
+  
+  
+    
+   
+
+</body>
+</html>

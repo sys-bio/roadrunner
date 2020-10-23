@@ -74,7 +74,7 @@ public:                       // *mistakenly* complains in ONE instance.
     /**
      * remove a value
      */
-    virtual int deleteItem(const std::string& key) = 0;
+    virtual size_t deleteItem(const std::string& key) = 0;
 
     /**
      * list of keys in this object.
@@ -140,40 +140,40 @@ public:                       // *mistakenly* complains in ONE instance.
 class RR_DECLSPEC BasicDictionary : public Dictionary
 {
 public:
-    BasicDictionary() {};
+    BasicDictionary() = default;;
 
     /**
      * sets an item in the internal unordered map.
      */
-    virtual void setItem(const std::string& key, const rr::Variant& value);
+    void setItem(const std::string& key, const rr::Variant& value) override;
 
     /**
      * gets an item from the internal unordered map.
      */
-    virtual Variant getItem(const std::string& key) const;
+    Variant getItem(const std::string& key) const override;
 
     /**
      * is there a key matching this name.
      *
      * @retruns true if this key exists, false otherwise.
      */
-    virtual bool hasKey(const std::string& key) const;
+    bool hasKey(const std::string& key) const override;
 
     /**
      * remove a value
      */
-    virtual int deleteItem(const std::string& key);
+    size_t deleteItem(const std::string& key) override;
 
     /**
      * list of keys in this object.
      */
-    virtual std::vector<std::string> getKeys() const;
+    std::vector<std::string> getKeys() const override;
 
     /**
      * Pure virtual interface, you should never have to delete
      * an instance of this type directly.
      */
-    virtual ~BasicDictionary() {};
+    ~BasicDictionary() override = default;
 
 protected:
     typedef cxx11_ns::unordered_map<std::string, Variant> VariantMap;

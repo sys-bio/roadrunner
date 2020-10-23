@@ -46,7 +46,7 @@ class RR_DECLSPEC SBMLModelSimulation
 
         bool                    SaveModelAsXML(const string& folder);
 
-        //API
+        //wrappers
         bool                    SetTimeStart(const double& tStart);
         bool                    SetTimeEnd(const double& tEnd);
         bool                    SetNumberOfPoints(const int& pts);

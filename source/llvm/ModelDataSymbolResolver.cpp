@@ -49,11 +49,6 @@ llvm::Value* ModelDataLoadSymbolResolver::loadSymbolValue(
         const std::string& symbol,
         const llvm::ArrayRef<llvm::Value*>& args)
 {
-    {
-        Value* cachedValue = cacheValue(symbol, args);
-        //if(cachedValue) return cachedValue;
-    }
-
     ModelDataIRBuilder mdbuilder(modelData, modelDataSymbols,
             builder);
 

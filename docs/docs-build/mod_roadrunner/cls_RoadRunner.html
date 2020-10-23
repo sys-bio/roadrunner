@@ -1,0 +1,1873 @@
+
+
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" >
+<head>
+  <meta charset="utf-8">
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+  <title>The Main RoadRunner Class &mdash; libRoadRunner 1.1.16 documentation</title>
+  
+
+  
+  <link rel="stylesheet" href="../_static/css/theme.css" type="text/css" />
+  <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
+
+  
+  
+  
+  
+
+  
+  <!--[if lt IE 9]>
+    <script src="../_static/js/html5shiv.min.js"></script>
+  <![endif]-->
+  
+    
+      <script type="text/javascript" id="documentation_options" data-url_root="../" src="../_static/documentation_options.js"></script>
+        <script src="../_static/jquery.js"></script>
+        <script src="../_static/underscore.js"></script>
+        <script src="../_static/doctools.js"></script>
+        <script src="../_static/language_data.js"></script>
+    
+    <script type="text/javascript" src="../_static/js/theme.js"></script>
+
+    
+    <link rel="index" title="Index" href="../genindex.html" />
+    <link rel="search" title="Search" href="../search.html" /> 
+</head>
+
+<body class="wy-body-for-nav">
+
+   
+  <div class="wy-grid-for-nav">
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+          
+
+          
+            <a href="../index.html" class="icon icon-home" alt="Documentation Home"> libRoadRunner
+          
+
+          
+          </a>
+
+          
+            
+            
+          
+
+          
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+
+          
+        </div>
+
+        
+        <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+          
+            
+            
+              
+            
+            
+              <ul>
+<li class="toctree-l1"><a class="reference internal" href="../index.html">RoadRunner Documentation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../introduction.html">Introduction</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../Installation/installation.html">Installing RoadRunner</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../read_write_functions.html">SBML Read/Write Functions</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../selecting_values.html">Selecting Values</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../steady_state.html">Steady State Analysis</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../stochastic.html">Stochastic Simulation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../metabolic.html">Metabolic Control Analysis</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../stability.html">Stability Analysis</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../stoichiometric.html">Stoichiometric Analysis</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../bifurcation.html">Bifurcation Analysis</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../integration.html">Simulation and Integration</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../utility_functions.html">Utility Functions</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../accessing_model.html">Accessing the SBML Model Variables</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../api_reference.html">RoadRunner API Reference</a></li>
+</ul>
+
+            
+          
+        </div>
+        
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" aria-label="top navigation">
+        
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../index.html">libRoadRunner</a>
+        
+      </nav>
+
+
+      <div class="wy-nav-content">
+        
+        <div class="rst-content">
+        
+          
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div role="navigation" aria-label="breadcrumbs navigation">
+
+  <ul class="wy-breadcrumbs">
+    
+      <li><a href="../index.html" class="icon icon-home"></a> &raquo;</li>
+        
+      <li>The Main RoadRunner Class</li>
+    
+    
+      <li class="wy-breadcrumbs-aside">
+        
+            
+            <a href="../_sources/mod_roadrunner/cls_RoadRunner.rst.txt" rel="nofollow"> View page source</a>
+          
+        
+      </li>
+    
+  </ul>
+
+  
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+            
+  <div class="section" id="the-main-roadrunner-class">
+<h1>The Main RoadRunner Class<a class="headerlink" href="#the-main-roadrunner-class" title="Permalink to this headline">¶</a></h1>
+<dl class="py class">
+<dt id="RoadRunner">
+<em class="property">class </em><code class="sig-name descname">RoadRunner</code><a class="headerlink" href="#RoadRunner" title="Permalink to this definition">¶</a></dt>
+<dd><p>The main RoadRunner class. Its objects, i.e. <code class="docutils literal notranslate"><span class="pre">rr</span> <span class="pre">=</span> <span class="pre">RoadRunner()</span></code> perform
+the libRoaRunner functions, i.e. <code class="docutils literal notranslate"><span class="pre">rr.simulate()</span></code>.</p>
+</dd></dl>
+
+<dl class="py method">
+<dt id="RoadRunner.__init__">
+<code class="sig-prename descclassname">RoadRunner.</code><code class="sig-name descname">__init__</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">uriOrSBML</span><span class="o">=</span><span class="default_value">''</span></em>, <em class="sig-param"><span class="n">options</span><span class="o">=</span><span class="default_value">None</span></em><span class="sig-paren">)</span><a class="headerlink" href="#RoadRunner.__init__" title="Permalink to this definition">¶</a></dt>
+<dd><p>Creates a new RoadRunner object. If the first argument is specified,
+it should be a string containing either the contents of an SBML document,
+or a formatted URI specifying the path or location of a SBML document.</p>
+<p>If options is given, it should be a LoadSBMLOptions object.</p>
+<p>If no arguments are given, a document may be loaded at any future time
+using the load method.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>uriOrSBML</strong> – a URI, local path or SBML document contents.</p></li>
+<li><p><strong>options</strong> – (LoadSBMLOptions) an options object specifying how the
+SBML document should be loaded</p></li>
+</ul>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt id="RoadRunner.RoadRunner.load">
+<code class="sig-prename descclassname">RoadRunner.</code><code class="sig-name descname">load</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">uriOrDocument</span></em><span class="sig-paren">)</span><a class="headerlink" href="#RoadRunner.RoadRunner.load" title="Permalink to this definition">¶</a></dt>
+<dd><p>Loads an SBML document, given a string for file path, URI, or contents.</p>
+<p>This method also accepts HTTP URI for remote files, however this feature is currently limited
+to the Mac version, plan on enabling HTTP loading of SBML documents on Windows and Linux
+shortly.</p>
+<p>Some examples of loading files on Mac or Linux:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">r</span><span class="o">.</span><span class="n">load</span><span class="p">(</span><span class="s2">&quot;myfile.xml&quot;</span><span class="p">)</span>                               <span class="c1"># load a file from the current directory</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">r</span><span class="o">.</span><span class="n">load</span><span class="p">(</span><span class="s2">&quot;/Users/Fred/myfile.xml&quot;</span><span class="p">)</span>                   <span class="c1"># absolute path</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">r</span><span class="o">.</span><span class="n">load</span><span class="p">(</span><span class="s2">&quot;http://sbml.org/example_system.xml&quot;</span><span class="p">)</span>       <span class="c1"># remote file</span>
+</pre></div>
+</div>
+<p>Or on Windows:</p>
+<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">r</span><span class="o">.</span><span class="n">load</span><span class="p">(</span><span class="s2">&quot;myfile.xml&quot;</span><span class="p">)</span>                                  <span class="c1"># load a file from the current directory</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">r</span><span class="o">.</span><span class="n">load</span><span class="p">(</span><span class="s2">&quot;file://localhost/c:/Users/Fred/myfile.xml&quot;</span><span class="p">)</span>   <span class="c1"># using a URI</span>
+</pre></div>
+</div>
+<p>One may also load the contents of a document:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">myfile</span> <span class="o">=</span> <span class="nb">open</span><span class="p">(</span><span class="s2">&quot;myfile.xml, &quot;</span><span class="sa">r</span><span class="s2">&quot;)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">contents</span> <span class="o">=</span> <span class="n">file</span><span class="o">.</span><span class="n">read</span><span class="p">()</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">r</span><span class="o">.</span><span class="n">load</span><span class="p">(</span><span class="n">contents</span><span class="p">)</span>
+</pre></div>
+</div>
+<p>Loading in a raw SBML string is also possible:</p>
+<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">sbmlstr</span> <span class="o">=</span> <span class="n">rr</span><span class="o">.</span><span class="n">getCurrentSBML</span><span class="p">()</span>         <span class="c1"># Or any other properly formatted SBML string block</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">r</span><span class="o">.</span><span class="n">load</span><span class="p">(</span><span class="n">sbmlstr</span><span class="p">)</span>
+</pre></div>
+</div>
+<p>In future version, we will also support loading directly from a libSBML Document object.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>uriOrDocument</strong> – A string which may be a local path, URI or contents of an SBML document.</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt id="RoadRunner.RoadRunner.saveState">
+<code class="sig-prename descclassname">RoadRunner.</code><code class="sig-name descname">saveState</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">document</span></em>, <em class="sig-param"><span class="n">option</span><span class="o">=</span><span class="default_value">'b'</span></em><span class="sig-paren">)</span><a class="headerlink" href="#RoadRunner.RoadRunner.saveState" title="Permalink to this definition">¶</a></dt>
+<dd><p>Saves the current state of the RoadRunner instance, e.g. integrator, steady state solver, simulation results,
+given a string for file path.
+If no option is given or the option is ‘b’, the state will be stored in a binary format which
+can be quickly reloaded for later simulation. This binary format is platform specific.
+It the option is ‘r’, the state will be stored in a human-readable format which can be used
+for debugging, but cannot be reloaded later.</p>
+<p>Some examples of saving binary files on Mac or Linux:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">r</span><span class="o">.</span><span class="n">saveState</span><span class="p">(</span><span class="s2">&quot;current_state.txt&quot;</span><span class="p">)</span>                        <span class="c1"># save the state to a file from the current directory</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">r</span><span class="o">.</span><span class="n">saveState</span><span class="p">(</span><span class="s2">&quot;/Users/Fred/current_state.txt&quot;</span><span class="p">)</span>            <span class="c1"># absolute path</span>
+</pre></div>
+</div>
+<p>Or on Windows:</p>
+<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">r</span><span class="o">.</span><span class="n">saveState</span><span class="p">(</span><span class="s2">&quot;current_state.txt&quot;</span><span class="p">)</span>                        <span class="c1"># save the state to a file from the current directory</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">r</span><span class="o">.</span><span class="n">saveState</span><span class="p">(</span><span class="s2">&quot;file://localhost/c:/Users/Fred/current_state.txt&quot;</span><span class="p">)</span>   <span class="c1"># using a URI</span>
+</pre></div>
+</div>
+<p>One may also save in a human-readable format:</p>
+<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">r</span><span class="o">.</span><span class="n">saveState</span><span class="p">(</span><span class="s2">&quot;current_state.txt&quot;</span><span class="p">,</span> <span class="s1">&#39;r&#39;</span><span class="p">)</span>
+</pre></div>
+</div>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>document</strong> – The file path where the current state will be stored</p></li>
+<li><p><strong>option</strong> – an option object specifying how the state should be saved
+‘b’ - binary (default)
+‘r’ - human-readable</p></li>
+</ul>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt id="RoadRunner.RoadRunner.loadState">
+<code class="sig-prename descclassname">RoadRunner.</code><code class="sig-name descname">loadState</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">document</span></em><span class="sig-paren">)</span><a class="headerlink" href="#RoadRunner.RoadRunner.loadState" title="Permalink to this definition">¶</a></dt>
+<dd><p>Loads the saved state of a RoadRunner instance, e.g. integrator, steady state solver, simulation results,
+given a string for file path.
+All simulation calls after this function will start from the resumed state.</p>
+<p>Some examples of reloading binary files on Mac or Linux:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">r</span><span class="o">.</span><span class="n">loadState</span><span class="p">(</span><span class="s2">&quot;current_state.txt&quot;</span><span class="p">)</span>                        <span class="c1"># load the state from a file from the current directory</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">r</span><span class="o">.</span><span class="n">loadState</span><span class="p">(</span><span class="s2">&quot;/Users/Fred/current_state.txt&quot;</span><span class="p">)</span>            <span class="c1"># absolute path</span>
+</pre></div>
+</div>
+<p>Or on Windows:</p>
+<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">r</span><span class="o">.</span><span class="n">loadState</span><span class="p">(</span><span class="s2">&quot;current_state.txt&quot;</span><span class="p">)</span>                        <span class="c1"># load the state from a file from the current directory</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">r</span><span class="o">.</span><span class="n">loadState</span><span class="p">(</span><span class="s2">&quot;file://localhost/c:/Users/Fred/current_state.txt&quot;</span><span class="p">)</span>   <span class="c1"># using a URI</span>
+</pre></div>
+</div>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>document</strong> – The file path where the state of simulation will be loaded from</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt id="RoadRunner.getCompiler">
+<code class="sig-prename descclassname">RoadRunner.</code><code class="sig-name descname">getCompiler</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#RoadRunner.getCompiler" title="Permalink to this definition">¶</a></dt>
+<dd><p>Returns the JIT <a class="reference internal" href="cls_Compiler.html#RoadRunner.Compiler" title="RoadRunner.Compiler"><code class="xref py py-class docutils literal notranslate"><span class="pre">Compiler</span></code></a> object currently being used.
+This object provides various information about the current processor and system.</p>
+</dd></dl>
+
+<dl class="py method">
+<dt id="RoadRunner.RoadRunner.getConfigurationXML">
+<code class="sig-prename descclassname">RoadRunner.</code><code class="sig-name descname">getConfigurationXML</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#RoadRunner.RoadRunner.getConfigurationXML" title="Permalink to this definition">¶</a></dt>
+<dd><p>Recurse through all of the child configurable objects that this
+class ones and build an assemble all of their configuration parameters
+into a single xml document which is returned as a string.</p>
+<p>The value of this result depends on what child objects are presently loaded.</p>
+</dd></dl>
+
+<dl class="py method">
+<dt id="RoadRunner.RoadRunner.getExtendedVersionInfo">
+<code class="sig-prename descclassname">RoadRunner.</code><code class="sig-name descname">getExtendedVersionInfo</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#RoadRunner.RoadRunner.getExtendedVersionInfo" title="Permalink to this definition">¶</a></dt>
+<dd><p>Returns <code class="xref py py-meth docutils literal notranslate"><span class="pre">getVersionStr()</span></code> as well as info about dependent libs versions.</p>
+</dd></dl>
+
+<dl class="py method">
+<dt id="RoadRunner.RoadRunner.getInfo">
+<code class="sig-prename descclassname">RoadRunner.</code><code class="sig-name descname">getInfo</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#RoadRunner.RoadRunner.getInfo" title="Permalink to this definition">¶</a></dt>
+<dd><p>Returns info about the current state of the object.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p>str</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt id="RoadRunner.RoadRunner.getInstanceCount">
+<code class="sig-prename descclassname">RoadRunner.</code><code class="sig-name descname">getInstanceCount</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#RoadRunner.RoadRunner.getInstanceCount" title="Permalink to this definition">¶</a></dt>
+<dd><p>Returns number of currently running RoadRunner instances.</p>
+</dd></dl>
+
+<dl class="py method">
+<dt id="RoadRunner.RoadRunner.getInstanceID">
+<code class="sig-prename descclassname">RoadRunner.</code><code class="sig-name descname">getInstanceID</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#RoadRunner.RoadRunner.getInstanceID" title="Permalink to this definition">¶</a></dt>
+<dd><p>Returns the instance id when there are multiple instances of RoadRunner.</p>
+</dd></dl>
+
+<dl class="py method">
+<dt id="RoadRunner.RoadRunner.getIntegrator">
+<code class="sig-prename descclassname">RoadRunner.</code><code class="sig-name descname">getIntegrator</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#RoadRunner.RoadRunner.getIntegrator" title="Permalink to this definition">¶</a></dt>
+<dd><p>Returns the solver instance. See <a class="reference internal" href="cls_Solver.html#roadrunner.Solver" title="roadrunner.Solver"><code class="xref py py-class docutils literal notranslate"><span class="pre">roadrunner.Solver</span></code></a>.
+For more information on the possible settings, see <a class="reference internal" href="../using_roadrunner.html#roadrunner-solver"><span class="std std-ref">Solvers</span></a>.</p>
+</dd></dl>
+
+<dl class="py method">
+<dt id="RoadRunner.RoadRunner.getIntegratorByName">
+<code class="sig-prename descclassname">RoadRunner.</code><code class="sig-name descname">getIntegratorByName</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">name</span></em><span class="sig-paren">)</span><a class="headerlink" href="#RoadRunner.RoadRunner.getIntegratorByName" title="Permalink to this definition">¶</a></dt>
+<dd><p>Returns the solver instance by given name. See <a class="reference internal" href="cls_Solver.html#roadrunner.Solver" title="roadrunner.Solver"><code class="xref py py-class docutils literal notranslate"><span class="pre">roadrunner.Solver</span></code></a>.
+For more information on the possible settings, see <a class="reference internal" href="../using_roadrunner.html#roadrunner-solver"><span class="std std-ref">Solvers</span></a>.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>name</strong> (<em>str</em>) – Name of the integrator</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt id="RoadRunner.RoadRunner.getAvailableIntegrators">
+<code class="sig-prename descclassname">RoadRunner.</code><code class="sig-name descname">getAvailableIntegrators</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#RoadRunner.RoadRunner.getAvailableIntegrators" title="Permalink to this definition">¶</a></dt>
+<dd><p>Returns a list of names of available integrators.</p>
+</dd></dl>
+
+<dl class="py method">
+<dt id="RoadRunner.RoadRunner.getExistingIntegratorNames">
+<code class="sig-prename descclassname">RoadRunner.</code><code class="sig-name descname">getExistingIntegratorNames</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#RoadRunner.RoadRunner.getExistingIntegratorNames" title="Permalink to this definition">¶</a></dt>
+<dd><p>Returns a list of names of all integrators.</p>
+</dd></dl>
+
+<dl class="py method">
+<dt id="RoadRunner.RoadRunner.getParamPromotedSBML">
+<code class="sig-prename descclassname">RoadRunner.</code><code class="sig-name descname">getParamPromotedSBML</code><span class="sig-paren">(</span><em class="sig-param"><span class="o">*</span><span class="n">args</span></em><span class="sig-paren">)</span><a class="headerlink" href="#RoadRunner.RoadRunner.getParamPromotedSBML" title="Permalink to this definition">¶</a></dt>
+<dd><p>Takes an SBML document (in textual form) and changes all of the local parameters
+to be global parameters.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>SBML</strong> (<em>str</em>) – the contents of an SBML document</p>
+</dd>
+<dt class="field-even">Return type</dt>
+<dd class="field-even"><p>str</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt id="RoadRunner.RoadRunner.getCurrentSBML">
+<code class="sig-prename descclassname">RoadRunner.</code><code class="sig-name descname">getCurrentSBML</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#RoadRunner.RoadRunner.getCurrentSBML" title="Permalink to this definition">¶</a></dt>
+<dd><p>Returns the SBML with the current model parameters.
+This is different than <a class="reference internal" href="#RoadRunner.RoadRunner.getSBML" title="RoadRunner.RoadRunner.getSBML"><code class="xref py py-meth docutils literal notranslate"><span class="pre">getSBML()</span></code></a> which returns the original SBML.
+This may optionally up or down-convert the document to a different version, if the level and version arguments are non-zero.
+If both arguments are zero, then the document is left alone and the original version is returned.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p>str</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt id="RoadRunner.RoadRunner.getSBML">
+<code class="sig-prename descclassname">RoadRunner.</code><code class="sig-name descname">getSBML</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#RoadRunner.RoadRunner.getSBML" title="Permalink to this definition">¶</a></dt>
+<dd><p>Returns the original SBML model that was loaded into roadrunner.
+If the model is edited by methods in editing section, it will return the most updated model with
+the initial model parameters.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p>str</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt id="RoadRunner.RoadRunner.setIntegrator">
+<code class="sig-prename descclassname">RoadRunner.</code><code class="sig-name descname">setIntegrator</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">name</span></em><span class="sig-paren">)</span><a class="headerlink" href="#RoadRunner.RoadRunner.setIntegrator" title="Permalink to this definition">¶</a></dt>
+<dd><p>Sets specific integrator. For more information on the possible settings, see <a class="reference internal" href="../using_roadrunner.html#roadrunner-solver"><span class="std std-ref">Solvers</span></a>.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>name</strong> (<em>str</em>) – name of the integrator.</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt id="RoadRunner.RoadRunner.setIntegratorSetting">
+<code class="sig-prename descclassname">RoadRunner.</code><code class="sig-name descname">setIntegratorSetting</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">name</span></em>, <em class="sig-param"><span class="n">key</span></em>, <em class="sig-param"><span class="n">value</span></em><span class="sig-paren">)</span><a class="headerlink" href="#RoadRunner.RoadRunner.setIntegratorSetting" title="Permalink to this definition">¶</a></dt>
+<dd><p>Sets settings for a specific integrator. See <a class="reference internal" href="cls_Solver.html#roadrunner.Solver" title="roadrunner.Solver"><code class="xref py py-class docutils literal notranslate"><span class="pre">roadrunner.Solver</span></code></a>.
+For more information on the possible settings, see <a class="reference internal" href="../using_roadrunner.html#roadrunner-solver"><span class="std std-ref">Solvers</span></a>.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>name</strong> (<em>str</em>) – name of the integrator.</p></li>
+<li><p><strong>key</strong> (<em>str</em>) – name of the setting.</p></li>
+<li><p><strong>value</strong> (<em>const</em>) – value of the setting.</p></li>
+</ul>
+</dd>
+</dl>
+</dd></dl>
+
+<div class="section" id="selections">
+<h2>Selections<a class="headerlink" href="#selections" title="Permalink to this headline">¶</a></h2>
+<dl class="py method">
+<dt id="RoadRunner.getIds">
+<code class="sig-prename descclassname">RoadRunner.</code><code class="sig-name descname">getIds</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#RoadRunner.getIds" title="Permalink to this definition">¶</a></dt>
+<dd><p>Return a list of selection ids that this object can select on.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p>list</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt id="RoadRunner.getValue">
+<code class="sig-prename descclassname">RoadRunner.</code><code class="sig-name descname">getValue</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">sel</span></em><span class="sig-paren">)</span><a class="headerlink" href="#RoadRunner.getValue" title="Permalink to this definition">¶</a></dt>
+<dd><p>Returns the value for a given selection. For more information on accepted selection types
+see <a class="reference internal" href="../selecting_values.html#selecting-values"><span class="std std-ref">Selecting Values</span></a>.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>sel</strong> (<em>str</em><em> or </em><a class="reference internal" href="cls_SelectionRecord.html#roadrunner.SelectionRecord" title="roadrunner.SelectionRecord"><em>SelectionRecord</em></a>) – a selection that is either a string or a SelectionRecord that was
+obtained from createSelection</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt id="RoadRunner.RoadRunner.getSelectedValues">
+<code class="sig-prename descclassname">RoadRunner.</code><code class="sig-name descname">getSelectedValues</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#RoadRunner.RoadRunner.getSelectedValues" title="Permalink to this definition">¶</a></dt>
+<dd><p>returns the values of the current timecourse selections for the current state of the model</p>
+<dl class="field-list simple">
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p>numpy.ndarray</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py attribute">
+<dt id="RoadRunner.RoadRunner.timeCourseSelections">
+<code class="sig-prename descclassname">RoadRunner.</code><code class="sig-name descname">timeCourseSelections</code><a class="headerlink" href="#RoadRunner.RoadRunner.timeCourseSelections" title="Permalink to this definition">¶</a></dt>
+<dd><p>Get or set the list of current selections used for the time course simulation result columns.
+For more information on accepted selection types, see <a class="reference internal" href="../selecting_values.html#selecting-values"><span class="std std-ref">Selecting Values</span></a>.</p>
+<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">rr</span><span class="o">.</span><span class="n">timeCourseSelections</span> <span class="o">=</span> <span class="p">[</span><span class="s1">&#39;time&#39;</span><span class="p">,</span> <span class="s1">&#39;S1&#39;</span><span class="p">,</span> <span class="s1">&#39;S2&#39;</span><span class="p">]</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">rr</span><span class="o">.</span><span class="n">timeCourseSelections</span>
+<span class="go">[&#39;time&#39;, &#39;S1&#39;, &#39;S2&#39;]</span>
+</pre></div>
+</div>
+</dd></dl>
+
+<dl class="py method">
+<dt id="RoadRunner.createSelection">
+<code class="sig-prename descclassname">RoadRunner.</code><code class="sig-name descname">createSelection</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">sel</span></em><span class="sig-paren">)</span><a class="headerlink" href="#RoadRunner.createSelection" title="Permalink to this definition">¶</a></dt>
+<dd><p>Create a new selection based on a selection string</p>
+<dl class="field-list simple">
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p><a class="reference internal" href="cls_SelectionRecord.html#roadrunner.SelectionRecord" title="roadrunner.SelectionRecord">roadrunner.SelectionRecord</a></p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt id="RoadRunner.resetSelectionLists">
+<code class="sig-prename descclassname">RoadRunner.</code><code class="sig-name descname">resetSelectionLists</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#RoadRunner.resetSelectionLists" title="Permalink to this definition">¶</a></dt>
+<dd><p>Resets time course and steady state selection lists to defaults</p>
+</dd></dl>
+
+</div>
+<div class="section" id="model-access">
+<h2>Model Access<a class="headerlink" href="#model-access" title="Permalink to this headline">¶</a></h2>
+<dl class="py method">
+<dt id="RoadRunner.RoadRunner.isModelLoaded">
+<code class="sig-prename descclassname">RoadRunner.</code><code class="sig-name descname">isModelLoaded</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#RoadRunner.RoadRunner.isModelLoaded" title="Permalink to this definition">¶</a></dt>
+<dd><p>Return True if model was loaded; False otherwise</p>
+</dd></dl>
+
+<dl class="py attribute">
+<dt id="RoadRunner.RoadRunner.model">
+<code class="sig-prename descclassname">RoadRunner.</code><code class="sig-name descname">model</code><em class="property"> None</em><a class="headerlink" href="#RoadRunner.RoadRunner.model" title="Permalink to this definition">¶</a></dt>
+<dd><p>Get the currently loaded model. The model object contains the entire state of the SBML model.</p>
+</dd></dl>
+
+<dl class="py method">
+<dt id="RoadRunner.RoadRunner.getModel">
+<code class="sig-prename descclassname">RoadRunner.</code><code class="sig-name descname">getModel</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#RoadRunner.RoadRunner.getModel" title="Permalink to this definition">¶</a></dt>
+<dd><p>Function form of the RoadRunner.model property, identical to model.</p>
+</dd></dl>
+
+<dl class="py method">
+<dt id="RoadRunner.RoadRunner.clearModel">
+<code class="sig-prename descclassname">RoadRunner.</code><code class="sig-name descname">clearModel</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#RoadRunner.RoadRunner.clearModel" title="Permalink to this definition">¶</a></dt>
+<dd><p>Clears the currently loaded model and all associated memory.
+Returns True if memory was freed, False if no model was loaded in the first place.</p>
+<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">r</span><span class="o">.</span><span class="n">isModelLoaded</span><span class="p">()</span>
+<span class="go">True</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">r</span><span class="o">.</span><span class="n">clearModel</span><span class="p">()</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">r</span><span class="o">.</span><span class="n">isModelLoaded</span><span class="p">()</span>
+<span class="go">False</span>
+</pre></div>
+</div>
+</dd></dl>
+
+<dl class="py method">
+<dt id="RoadRunner.RoadRunner.oneStep">
+<code class="sig-prename descclassname">RoadRunner.</code><code class="sig-name descname">oneStep</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">startTime</span></em>, <em class="sig-param"><span class="n">stepSize</span></em><span class="sig-paren">)</span><a class="headerlink" href="#RoadRunner.RoadRunner.oneStep" title="Permalink to this definition">¶</a></dt>
+<dd><p>Carry out a one step integration of the model. The method takes two arguments,
+the current time and the step size to use in the integration.
+Returs the new time which will be currentTime + StepSize:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">newTime</span> <span class="o">=</span> <span class="n">rr</span><span class="o">.</span><span class="n">oneStep</span> <span class="p">(</span><span class="mi">10</span><span class="p">,</span> <span class="mf">0.5</span><span class="p">)</span>
+</pre></div>
+</div>
+</dd></dl>
+
+<dl class="py method">
+<dt id="RoadRunner.RoadRunner.internalOneStep">
+<code class="sig-prename descclassname">RoadRunner.</code><code class="sig-name descname">internalOneStep</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">startTime</span></em>, <em class="sig-param"><span class="n">stepSize</span></em>, <em class="sig-param"><span class="n">reset</span></em><span class="sig-paren">)</span><a class="headerlink" href="#RoadRunner.RoadRunner.internalOneStep" title="Permalink to this definition">¶</a></dt>
+<dd><p>Carry out a single internal solver integration step. The method takes three arguments,
+the current time and the step size to use in the integration and reset. Reset defaults to true, set to false to stop integrator instance from restarting. Returns the end time.</p>
+</dd></dl>
+
+<dl class="py method">
+<dt id="RoadRunner.RoadRunner.reset">
+<code class="sig-prename descclassname">RoadRunner.</code><code class="sig-name descname">reset</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#RoadRunner.RoadRunner.reset" title="Permalink to this definition">¶</a></dt>
+<dd><p>Resets time, all floating species, and rates to their initial values.
+Does NOT reset changed global parameters.</p>
+</dd></dl>
+
+<dl class="py method">
+<dt id="RoadRunner.RoadRunner.resetAll">
+<code class="sig-prename descclassname">RoadRunner.</code><code class="sig-name descname">resetAll</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#RoadRunner.RoadRunner.resetAll" title="Permalink to this definition">¶</a></dt>
+<dd><p>Resets time, all floating species, and rates to their CURRENT initial values.
+Also resets all global parameters back to the values they had when the model was first loaded.
+“Current” initial values are set by using <code class="docutils literal notranslate"><span class="pre">r.setValue('init(S1)',</span> <span class="pre">5)</span></code> which sets a species
+named S1 to have current initial value of 5. Note it is NOT the initial values of when the model was first loaded in.</p>
+</dd></dl>
+
+<dl class="py method">
+<dt id="RoadRunner.RoadRunner.resetParameter">
+<code class="sig-prename descclassname">RoadRunner.</code><code class="sig-name descname">resetParameter</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#RoadRunner.RoadRunner.resetParameter" title="Permalink to this definition">¶</a></dt>
+<dd><p>Resets only global parameters to their CURRENT initial values.</p>
+</dd></dl>
+
+<dl class="py method">
+<dt id="RoadRunner.RoadRunner.resetToOrigin">
+<code class="sig-prename descclassname">RoadRunner.</code><code class="sig-name descname">resetToOrigin</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#RoadRunner.RoadRunner.resetToOrigin" title="Permalink to this definition">¶</a></dt>
+<dd><p>Resets the model back to the state it was when FIRST loaded.
+The scope of this reset includes all initial values and parameters (everything).</p>
+</dd></dl>
+
+<dl class="py method">
+<dt id="RoadRunner.RoadRunner.setConfigurationXML">
+<code class="sig-prename descclassname">RoadRunner.</code><code class="sig-name descname">setConfigurationXML</code><span class="sig-paren">(</span><em class="sig-param"><span class="o">*</span><span class="n">args</span></em><span class="sig-paren">)</span><a class="headerlink" href="#RoadRunner.RoadRunner.setConfigurationXML" title="Permalink to this definition">¶</a></dt>
+<dd><p>Given a xml document, which should have been returned from getConfigurationXML,
+this method recurses though all the child configurable elements and sets their
+configuration to the values specified in the document.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>xml</strong> (<em>str</em>) – the contents of an xml document.</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py attribute">
+<dt id="RoadRunner.RoadRunner.conservedMoietyAnalysis">
+<code class="sig-prename descclassname">RoadRunner.</code><code class="sig-name descname">conservedMoietyAnalysis</code><a class="headerlink" href="#RoadRunner.RoadRunner.conservedMoietyAnalysis" title="Permalink to this definition">¶</a></dt>
+<dd><p>Enables / Disables conserved moiety analysis (boolean).</p>
+<p>If this is enabled, the SBML document (either current, or one about to be loaded)
+is converted using the ConservedMoietyConverter. All of the linearly dependent
+species are replaced with assignment rules and a new set of conserved moiety
+parameters are introduced.</p>
+<p>To enable, type:</p>
+<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">r</span><span class="o">.</span><span class="n">conservedMoietyAnalysis</span> <span class="o">=</span> <span class="kc">True</span>
+</pre></div>
+</div>
+</dd></dl>
+
+</div>
+<div class="section" id="model-editing">
+<h2>Model Editing<a class="headerlink" href="#model-editing" title="Permalink to this headline">¶</a></h2>
+<p>Easy edit to the model without modifying and reloading sbml files.</p>
+<dl class="py method">
+<dt id="RoadRunner.RoadRunner.addSpecies">
+<code class="sig-prename descclassname">RoadRunner.</code><code class="sig-name descname">addSpecies</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">sid</span></em>, <em class="sig-param"><span class="n">compartment</span></em>, <em class="sig-param"><span class="n">initValue</span></em>, <em class="sig-param"><span class="n">substanceUnits</span></em>, <em class="sig-param"><span class="n">forceRegenerate</span></em><span class="sig-paren">)</span><a class="headerlink" href="#RoadRunner.RoadRunner.addSpecies" title="Permalink to this definition">¶</a></dt>
+<dd><p>Add a species to the current model. Note that the species to be added must have an ID
+that did not existed in the model. The given compartment must also exist in the model.</p>
+<p>Default substanceUnits is “concentration”, which will set initValue as initial concentration
+of the new species. Other substanceUnits will set initValue as initial amount of the new species.</p>
+<p>forceRegenerate is a boolean value that indicates whether the new model will be regenerated. Its
+default value is true, which means to regenerate model every time after this function is called.
+Note that regenerating model is time-consuming. To save time for editing model for multiple times,
+one could set this flag to false excepting for the last call, so that Roadrunner will only regenerate
+the model once after all editings are completed.</p>
+<p>For example,</p>
+<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">r</span><span class="o">.</span><span class="n">addSpecies</span><span class="p">(</span><span class="s2">&quot;s1&quot;</span><span class="p">,</span> <span class="s2">&quot;compartment&quot;</span><span class="p">,</span> <span class="mf">0.1</span><span class="p">,</span> <span class="s2">&quot;concentration&quot;</span><span class="p">,</span> <span class="kc">False</span><span class="p">)</span> <span class="c1"># it will not regenerate the model, nothing actually happened</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">r</span><span class="o">.</span><span class="n">addSpecies</span><span class="p">(</span><span class="s2">&quot;s2&quot;</span><span class="p">,</span> <span class="s2">&quot;compartment&quot;</span><span class="p">,</span> <span class="mf">0.1</span><span class="p">,</span> <span class="s2">&quot;concentration&quot;</span><span class="p">,</span> <span class="kc">True</span><span class="p">)</span>  <span class="c1"># new model is generated and saved</span>
+</pre></div>
+</div>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>sid</strong> (<em>str</em>) – the ID of the species to be added</p></li>
+<li><p><strong>compartment</strong> (<em>str</em>) – the compartment of the species to be added</p></li>
+<li><p><strong>initValue</strong> (<em>double</em>) – the initial amount or concentration of the species to be added</p></li>
+<li><p><strong>substanceUnits</strong> (<em>str</em>) – the substance unit of the species to be added</p></li>
+<li><p><strong>forceRegenerate</strong> (<em>bool</em>) – indicate whether the new model is regenerated after this function call</p></li>
+</ul>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt id="RoadRunner.RoadRunner.removeSpecies">
+<code class="sig-prename descclassname">RoadRunner.</code><code class="sig-name descname">removeSpecies</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">sid</span></em>, <em class="sig-param"><span class="n">forceRegenerate</span></em><span class="sig-paren">)</span><a class="headerlink" href="#RoadRunner.RoadRunner.removeSpecies" title="Permalink to this definition">¶</a></dt>
+<dd><p>Remove a species from the current model. Note that the given species must exist in the
+current model.</p>
+<p>All reactions related to this species(as reactants, products or modifiers or used in
+stoichiometry) will be removed.
+Kinetic law used this species in the math formula will be unset.
+All function definitions, constraints, initial assignments and rules related to this species
+(as variables or used in math formula) will be removed.
+All events used this speices in trigger formula will be removed.
+Priority and delay used this sepcies in the math formula will be unset.
+All event assignment related to this species(as variables or used in math formula) will be removed.</p>
+<p>If any global parameters become uninitialized during this process, i.e, has no initial assignment or
+assignment rule, they will be removed recursively following the rules in removeParameter().</p>
+<p>forceRegenerate is a boolean value that indicates whether the new model will be regenerated. Its
+default value is true, which means to regenerate model every time after this function is called.
+Note that regenerating model is time-consuming. To save time for editing model for multiple times,
+one could set this flag to false excepting for the last call, so that Roadrunner will only regenerate
+the model once after all editings are completed.</p>
+<p>For example,</p>
+<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">r</span><span class="o">.</span><span class="n">removeSpecies</span><span class="p">(</span><span class="s2">&quot;s1&quot;</span><span class="p">,</span> <span class="n">false</span><span class="p">)</span> <span class="c1"># it will not regenerate the model, nothing actually happened</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">r</span><span class="o">.</span><span class="n">removeSpecies</span><span class="p">(</span><span class="s2">&quot;s2&quot;</span><span class="p">,</span> <span class="n">true</span><span class="p">)</span>  <span class="c1"># new model is generated and saved</span>
+</pre></div>
+</div>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>sid</strong> (<em>str</em>) – the ID of the species to be removed</p></li>
+<li><p><strong>forceRegenerate</strong> (<em>bool</em>) – indicate whether the new model is regenerated after this function call</p></li>
+</ul>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt id="RoadRunner.RoadRunner.addReaction">
+<code class="sig-prename descclassname">RoadRunner.</code><code class="sig-name descname">addReaction</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">rid</span></em>, <em class="sig-param"><span class="n">reactants</span></em>, <em class="sig-param"><span class="n">products</span></em>, <em class="sig-param"><span class="n">kineticLaw</span></em>, <em class="sig-param"><span class="n">forceRegenerate</span></em><span class="sig-paren">)</span><a class="headerlink" href="#RoadRunner.RoadRunner.addReaction" title="Permalink to this definition">¶</a></dt>
+<dd><p>Add a reaction to the current model by passing its info as parameters.
+Note that the reaction to be added must have an ID that did not existed in the model.</p>
+<p>forceRegenerate is a boolean value that indicates whether the new model will be regenerated. Its
+default value is true, which means to regenerate model every time after this function is called.
+Note that regenerating model is time-consuming. To save time for editing model for multiple times,
+one could set this flag to false excepting for the last call, so that Roadrunner will only regenerate
+the model once after all editings are completed.</p>
+<p>For example,</p>
+<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">r</span><span class="o">.</span><span class="n">addReaction</span><span class="p">(</span><span class="s2">&quot;r1&quot;</span><span class="p">,</span> <span class="p">[</span><span class="s2">&quot;s1&quot;</span><span class="p">],</span> <span class="p">[</span><span class="s2">&quot;s2&quot;</span><span class="p">],</span> <span class="s2">&quot;s1 * k1&quot;</span><span class="p">,</span> <span class="kc">False</span><span class="p">)</span> <span class="c1"># it will not regenerate the model, nothing actually happened</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">r</span><span class="o">.</span><span class="n">addReaction</span><span class="p">(</span><span class="s2">&quot;r2&quot;</span><span class="p">,</span> <span class="p">[</span><span class="s2">&quot;s2&quot;</span><span class="p">],</span> <span class="p">[</span><span class="s2">&quot;s1&quot;</span><span class="p">],</span> <span class="s2">&quot;s2 * k1&quot;</span><span class="p">,</span> <span class="kc">True</span><span class="p">)</span>  <span class="c1"># new model is generated and saved</span>
+</pre></div>
+</div>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>rid</strong> (<em>str</em>) – the ID of the reaction to be added</p></li>
+<li><p><strong>reactants</strong> (<em>list</em>) – the list of reactants ID of reaction to be added</p></li>
+<li><p><strong>products</strong> (<em>list</em>) – the list of products ID of reaction to be added</p></li>
+<li><p><strong>kineticLaw</strong> (<em>str</em>) – the kinetic formular of reaction to be added</p></li>
+<li><p><strong>forceRegenerate</strong> (<em>bool</em>) – indicate whether the new model is regenerated after this function call</p></li>
+</ul>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt id="id0">
+<code class="sig-prename descclassname">RoadRunner.</code><code class="sig-name descname">addReaction</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">sbmlRep</span></em>, <em class="sig-param"><span class="n">forceRegenerate</span></em><span class="sig-paren">)</span><a class="headerlink" href="#id0" title="Permalink to this definition">¶</a></dt>
+<dd><p>Add a reaction to the current model by passing a sbml repesentation as parameter.
+Note that the reaction to be added must have an ID that did not existed in the model.</p>
+<p>forceRegenerate is a boolean value that indicates whether the new model will be regenerated. Its
+default value is true, which means to regenerate model every time after this function is called.
+Note that regenerating model is time-consuming. To save time for editing model for multiple times,
+one could set this flag to false excepting for the last call, so that Roadrunner will only regenerate
+the model once after all editings are completed.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>sbmlRep</strong> (<em>str</em>) – the SBML representation (i.e. a reaction tag) describing the reaction to be added</p></li>
+<li><p><strong>forceRegenerate</strong> (<em>bool</em>) – indicate whether the new model is regenerated after this function call</p></li>
+</ul>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt id="RoadRunner.RoadRunner.removeReaction">
+<code class="sig-prename descclassname">RoadRunner.</code><code class="sig-name descname">removeReaction</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">rid</span></em>, <em class="sig-param"><span class="n">forceRegenerate</span></em><span class="sig-paren">)</span><a class="headerlink" href="#RoadRunner.RoadRunner.removeReaction" title="Permalink to this definition">¶</a></dt>
+<dd><p>Remove a reaction from the current model. Note that the given reaction must exist in the
+current model.</p>
+<p>forceRegenerate is a boolean value that indicates whether the new model will be regenerated. Its
+default value is true, which means to regenerate model every time after this function is called.
+Note that regenerating model is time-consuming. To save time for editing model for multiple times,
+one could set this flag to false excepting for the last call, so that Roadrunner will only regenerate
+the model once after all editings are completed.</p>
+<p>For example,</p>
+<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">r</span><span class="o">.</span><span class="n">removeReaction</span><span class="p">(</span><span class="s2">&quot;r1&quot;</span><span class="p">,</span> <span class="kc">False</span><span class="p">)</span> <span class="c1"># it will not regenerate the model, nothing actually happened</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">r</span><span class="o">.</span><span class="n">removeReaction</span><span class="p">(</span><span class="s2">&quot;r2&quot;</span><span class="p">,</span> <span class="kc">True</span><span class="p">)</span>  <span class="c1"># new model is generated and saved</span>
+</pre></div>
+</div>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>rid</strong> (<em>str</em>) – the ID of the reaction to be removed</p></li>
+<li><p><strong>forceRegenerate</strong> (<em>bool</em>) – indicate whether the new model is regenerated after this function call</p></li>
+</ul>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt id="RoadRunner.RoadRunner.addParameter">
+<code class="sig-prename descclassname">RoadRunner.</code><code class="sig-name descname">addParameter</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">pid</span></em>, <em class="sig-param"><span class="n">value</span></em>, <em class="sig-param"><span class="n">forceRegenerate</span></em><span class="sig-paren">)</span><a class="headerlink" href="#RoadRunner.RoadRunner.addParameter" title="Permalink to this definition">¶</a></dt>
+<dd><p>Add a parameter to the current model. Note that the parameter to be added must have an ID
+that did not existed in the model.</p>
+<p>forceRegenerate is a boolean value that indicates whether the new model will be regenerated. Its
+default value is true, which means to regenerate model every time after this function is called.
+Note that regenerating model is time-consuming. To save time for editing model for multiple times,
+one could set this flag to false excepting for the last call, so that Roadrunner will only regenerate
+the model once after all editings are completed.</p>
+<p>For example,</p>
+<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">r</span><span class="o">.</span><span class="n">addParameter</span><span class="p">(</span><span class="s2">&quot;p1&quot;</span><span class="p">,</span> <span class="mf">0.1</span><span class="p">,</span> <span class="kc">False</span><span class="p">)</span> <span class="c1"># it will not regenerate the model, nothing actually happened</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">r</span><span class="o">.</span><span class="n">addParameter</span><span class="p">(</span><span class="s2">&quot;p2&quot;</span><span class="p">,</span> <span class="mf">0.1</span><span class="p">,</span> <span class="kc">True</span><span class="p">)</span>  <span class="c1"># new model is generated and saved</span>
+</pre></div>
+</div>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>pid</strong> (<em>str</em>) – the ID of the parameter to be added</p></li>
+<li><p><strong>value</strong> (<em>double</em>) – the initial value of the parameter to be added</p></li>
+<li><p><strong>forceRegenerate</strong> (<em>bool</em>) – indicate whether the new model is regenerated after this function call</p></li>
+</ul>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt id="RoadRunner.RoadRunner.removeParameter">
+<code class="sig-prename descclassname">RoadRunner.</code><code class="sig-name descname">removeParameter</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">pid</span></em>, <em class="sig-param"><span class="n">forceRegenerate</span></em><span class="sig-paren">)</span><a class="headerlink" href="#RoadRunner.RoadRunner.removeParameter" title="Permalink to this definition">¶</a></dt>
+<dd><p>Remove a parameter from the current model. Note that the given parameter must exist in the
+current model.</p>
+<p>All reactions related to this parameter(used in stoichiometry) will be removed.
+Kinetic law used this parameter in the math formula will be unset.
+All function definitions, constraints, initial assignments and rules related to this parameter
+(as variables or used in math formula) will be removed.
+All events used this parameter in trigger formula will be removed.
+Priority and delay used this parameter in the math formula will be unset.
+All event assignment related to this parameter(as variables or used in math formula) will be removed.</p>
+<p>If any global parameters become uninitialized during this process, i.e, has no initial assignment or
+assignment rule, they will be removed recursively following the above rules.</p>
+<p>forceRegenerate is a boolean value that indicates whether the new model will be regenerated. Its
+default value is true, which means to regenerate model every time after this function is called.
+Note that regenerating model is time-consuming. To save time for editing model for multiple times,
+one could set this flag to false excepting for the last call, so that Roadrunner will only regenerate
+the model once after all editings are completed.</p>
+<p>For example,</p>
+<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">r</span><span class="o">.</span><span class="n">removeParameter</span><span class="p">(</span><span class="s2">&quot;p1&quot;</span><span class="p">,</span> <span class="kc">False</span><span class="p">)</span> <span class="c1"># it will not regenerate the model, nothing actually happened</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">r</span><span class="o">.</span><span class="n">removeParameter</span><span class="p">(</span><span class="s2">&quot;p2&quot;</span><span class="p">,</span> <span class="kc">True</span><span class="p">)</span>  <span class="c1"># new model is generated and saved</span>
+</pre></div>
+</div>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>pid</strong> (<em>str</em>) – the ID of the parameter to be removed</p></li>
+<li><p><strong>forceRegenerate</strong> (<em>bool</em>) – indicate whether the new model is regenerated after this function call</p></li>
+</ul>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt id="RoadRunner.RoadRunner.addCompartment">
+<code class="sig-prename descclassname">RoadRunner.</code><code class="sig-name descname">addCompartment</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">cid</span></em>, <em class="sig-param"><span class="n">initVolume</span></em>, <em class="sig-param"><span class="n">forceRegenerate</span></em><span class="sig-paren">)</span><a class="headerlink" href="#RoadRunner.RoadRunner.addCompartment" title="Permalink to this definition">¶</a></dt>
+<dd><p>Add a compartment to the current model. Note that the compartment to be added must have an ID
+that did not existed in the model.</p>
+<p>forceRegenerate is a boolean value that indicates whether the new model will be regenerated. Its
+default value is true, which means to regenerate model every time after this function is called.
+Note that regenerating model is time-consuming. To save time for editing model for multiple times,
+one could set this flag to false excepting for the last call, so that Roadrunner will only regenerate
+the model once after all editings are completed.</p>
+<p>For example,</p>
+<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">r</span><span class="o">.</span><span class="n">addCompartment</span><span class="p">(</span><span class="s2">&quot;c1&quot;</span><span class="p">,</span> <span class="mf">0.1</span><span class="p">,</span> <span class="kc">False</span><span class="p">)</span> <span class="c1"># it will not regenerate the model, nothing actually happened</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">r</span><span class="o">.</span><span class="n">addCompartment</span><span class="p">(</span><span class="s2">&quot;c2&quot;</span><span class="p">,</span> <span class="mf">0.1</span><span class="p">,</span> <span class="kc">True</span><span class="p">)</span>  <span class="c1"># new model is generated and saved</span>
+</pre></div>
+</div>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>cid</strong> (<em>str</em>) – the ID of the compartment to be added</p></li>
+<li><p><strong>initVolume</strong> (<em>double</em>) – the initial volume of the compartment to be added</p></li>
+<li><p><strong>forceRegenerate</strong> (<em>bool</em>) – indicate whether the new model is regenerated after this function call</p></li>
+</ul>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt id="RoadRunner.RoadRunner.removeCompartment">
+<code class="sig-prename descclassname">RoadRunner.</code><code class="sig-name descname">removeCompartment</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">cid</span></em>, <em class="sig-param"><span class="n">forceRegenerate</span></em><span class="sig-paren">)</span><a class="headerlink" href="#RoadRunner.RoadRunner.removeCompartment" title="Permalink to this definition">¶</a></dt>
+<dd><p>Remove a compartment from the current model. Note that the given compartment must exist in the
+current model.</p>
+<p>All reactions related to this compartment(used in stoichiometry) will be removed.
+Kinetic law used this compartment in the math formula will be unset.
+All function definitions, constraints, initial assignments and rules related to this compartment
+(as variables or used in math formula) will be removed.
+All events used this compartment in trigger formula will be removed.
+Priority and delay used this compartment in the math formula will be unset.
+All event assignment related to this compartment(as variables or used in math formula) will be removed.</p>
+<p>If any global parameters become uninitialized during this process, i.e, has no initial assignment or
+assignment rule, they will be removed recursively following the rules in removeParameter().</p>
+<p>forceRegenerate is a boolean value that indicates whether the new model will be regenerated. Its
+default value is true, which means to regenerate model every time after this function is called.
+Note that regenerating model is time-consuming. To save time for editing model for multiple times,
+one could set this flag to false excepting for the last call, so that Roadrunner will only regenerate
+the model once after all editings are completed.</p>
+<p>For example,</p>
+<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">r</span><span class="o">.</span><span class="n">removeCompartment</span><span class="p">(</span><span class="s2">&quot;c1&quot;</span><span class="p">,</span> <span class="kc">False</span><span class="p">)</span> <span class="c1"># it will not regenerate the model, nothing actually happened</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">r</span><span class="o">.</span><span class="n">removeCompartment</span><span class="p">(</span><span class="s2">&quot;c2&quot;</span><span class="p">,</span> <span class="kc">True</span><span class="p">)</span>  <span class="c1"># new model is generated and saved</span>
+</pre></div>
+</div>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>cid</strong> (<em>str</em>) – the ID of the compartment to be removed</p></li>
+<li><p><strong>forceRegenerate</strong> (<em>bool</em>) – indicate whether the new model is regenerated after this function call</p></li>
+</ul>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt id="RoadRunner.RoadRunner.setKineticLaw">
+<code class="sig-prename descclassname">RoadRunner.</code><code class="sig-name descname">setKineticLaw</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">rid</span></em>, <em class="sig-param"><span class="n">kineticLaw</span></em>, <em class="sig-param"><span class="n">forceRegenerate</span></em><span class="sig-paren">)</span><a class="headerlink" href="#RoadRunner.RoadRunner.setKineticLaw" title="Permalink to this definition">¶</a></dt>
+<dd><p>Set hte kinetic law for an existing reaction in the current model.
+Note that given reaction must exist in the model.</p>
+<p>forceRegenerate is a boolean value that indicates whether the new model will be regenerated. Its
+default value is true, which means to regenerate model every time after this function is called.
+Note that regenerating model is time-consuming. To save time for editing model for multiple times,
+one could set this flag to false excepting for the last call, so that Roadrunner will only regenerate
+the model once after all editings are completed.</p>
+<p>For example,</p>
+<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">r</span><span class="o">.</span><span class="n">setKineticLaw</span><span class="p">(</span><span class="s2">&quot;r1&quot;</span><span class="p">,</span> <span class="s2">&quot;s1 * k1&quot;</span><span class="p">,</span> <span class="kc">False</span><span class="p">)</span> <span class="c1"># it will not regenerate the model, nothing actually happened</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">r</span><span class="o">.</span><span class="n">setKineticLaw</span><span class="p">(</span><span class="s2">&quot;r2&quot;</span><span class="p">,</span> <span class="s2">&quot;s2 * k1&quot;</span><span class="p">,</span> <span class="kc">True</span><span class="p">)</span>  <span class="c1"># new model is generated and saved</span>
+</pre></div>
+</div>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>rid</strong> (<em>str</em>) – the ID of the reaction to be modified</p></li>
+<li><p><strong>kineticLaw</strong> (<em>str</em>) – the kinetic formular of reaction to be set</p></li>
+<li><p><strong>forceRegenerate</strong> (<em>bool</em>) – indicate whether the new model is regenerated after this function call</p></li>
+</ul>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt id="RoadRunner.RoadRunner.addAssignmentRule">
+<code class="sig-prename descclassname">RoadRunner.</code><code class="sig-name descname">addAssignmentRule</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">vid</span></em>, <em class="sig-param"><span class="n">formula</span></em>, <em class="sig-param"><span class="n">forceRegenerate</span></em><span class="sig-paren">)</span><a class="headerlink" href="#RoadRunner.RoadRunner.addAssignmentRule" title="Permalink to this definition">¶</a></dt>
+<dd><p>Add an assignment rule for a variable to the current model.</p>
+<p>forceRegenerate is a boolean value that indicates whether the new model will be regenerated. Its
+default value is true, which means to regenerate model every time after this function is called.
+Note that regenerating model is time-consuming. To save time for editing model for multiple times,
+one could set this flag to false excepting for the last call, so that Roadrunner will only regenerate
+the model once after all editings are completed.</p>
+<p>For example,</p>
+<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">r</span><span class="o">.</span><span class="n">addAssignmentRule</span><span class="p">(</span><span class="s2">&quot;s1&quot;</span><span class="p">,</span> <span class="s2">&quot;s1 * k1&quot;</span><span class="p">,</span> <span class="kc">False</span><span class="p">)</span> <span class="c1"># it will not regenerate the model, nothing actually happened</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">r</span><span class="o">.</span><span class="n">addAssignmentRule</span><span class="p">(</span><span class="s2">&quot;s2&quot;</span><span class="p">,</span> <span class="s2">&quot;s2 * k1&quot;</span><span class="p">,</span> <span class="kc">True</span><span class="p">)</span>  <span class="c1"># new model is generated and saved</span>
+</pre></div>
+</div>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>vid</strong> (<em>str</em>) – the ID of the variable that the new rule assigns formula to</p></li>
+<li><p><strong>formula</strong> (<em>str</em>) – the math formula of assignment rule to be added</p></li>
+<li><p><strong>forceRegenerate</strong> (<em>bool</em>) – indicate whether the new model is regenerated after this function call</p></li>
+</ul>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt id="RoadRunner.RoadRunner.addRateRule">
+<code class="sig-prename descclassname">RoadRunner.</code><code class="sig-name descname">addRateRule</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">vid</span></em>, <em class="sig-param"><span class="n">formula</span></em>, <em class="sig-param"><span class="n">forceRegenerate</span></em><span class="sig-paren">)</span><a class="headerlink" href="#RoadRunner.RoadRunner.addRateRule" title="Permalink to this definition">¶</a></dt>
+<dd><p>Add a rate rule for a variable to the current model.</p>
+<p>forceRegenerate is a boolean value that indicates whether the new model will be regenerated. Its
+default value is true, which means to regenerate model every time after this function is called.
+Note that regenerating model is time-consuming. To save time for editing model for multiple times,
+one could set this flag to false excepting for the last call, so that Roadrunner will only regenerate
+the model once after all editings are completed.</p>
+<p>For example,</p>
+<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">r</span><span class="o">.</span><span class="n">addRateRule</span><span class="p">(</span><span class="s2">&quot;s1&quot;</span><span class="p">,</span> <span class="s2">&quot;k1&quot;</span><span class="p">,</span> <span class="kc">False</span><span class="p">)</span> <span class="c1"># it will not regenerate the model, nothing actually happened</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">r</span><span class="o">.</span><span class="n">addRateRule</span><span class="p">(</span><span class="s2">&quot;s2&quot;</span><span class="p">,</span> <span class="s2">&quot;k1&quot;</span><span class="p">,</span> <span class="kc">True</span><span class="p">)</span>  <span class="c1"># new model is generated and saved</span>
+</pre></div>
+</div>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>vid</strong> (<em>str</em>) – the ID of the variable that the new rule assigns formula to</p></li>
+<li><p><strong>formula</strong> (<em>str</em>) – the math formula of rate rule to be added</p></li>
+<li><p><strong>forceRegenerate</strong> (<em>bool</em>) – indicate whether the new model is regenerated after this function call</p></li>
+</ul>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt id="RoadRunner.RoadRunner.removeRules">
+<code class="sig-prename descclassname">RoadRunner.</code><code class="sig-name descname">removeRules</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">vid</span></em>, <em class="sig-param"><span class="n">forceRegenerate</span></em><span class="sig-paren">)</span><a class="headerlink" href="#RoadRunner.RoadRunner.removeRules" title="Permalink to this definition">¶</a></dt>
+<dd><p>Remove all rules for a variable from the current model, including assignment and rate rules.
+Note that the given variable must have at least one rule in the current model.</p>
+<p>If any global parameters become uninitialized during this process, i.e, has no initial assignment or
+assignment rule, they will be removed recursively following the rules in removeParameter().</p>
+<p>forceRegenerate is a boolean value that indicates whether the new model will be regenerated. Its
+default value is true, which means to regenerate model every time after this function is called.
+Note that regenerating model is time-consuming. To save time for editing model for multiple times,
+one could set this flag to false excepting for the last call, so that Roadrunner will only regenerate
+the model once after all editings are completed.</p>
+<p>For example,</p>
+<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">r</span><span class="o">.</span><span class="n">removeRules</span><span class="p">(</span><span class="s2">&quot;s1&quot;</span><span class="p">,</span> <span class="kc">False</span><span class="p">)</span> <span class="c1"># it will not regenerate the model, nothing actually happened</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">r</span><span class="o">.</span><span class="n">removeRules</span><span class="p">(</span><span class="s2">&quot;s2&quot;</span><span class="p">,</span> <span class="kc">True</span><span class="p">)</span>  <span class="c1"># new model is generated and saved</span>
+</pre></div>
+</div>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>vid</strong> (<em>str</em>) – the ID of the variables that rules assign formula to</p></li>
+<li><p><strong>forceRegenerate</strong> (<em>bool</em>) – indicate whether the new model is regenerated after this function call</p></li>
+</ul>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt id="RoadRunner.RoadRunner.addEvent">
+<code class="sig-prename descclassname">RoadRunner.</code><code class="sig-name descname">addEvent</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">eid</span></em>, <em class="sig-param"><span class="n">useValuesFromTriggerTime</span></em>, <em class="sig-param"><span class="n">trigger</span></em>, <em class="sig-param"><span class="n">forceRegenerate</span></em><span class="sig-paren">)</span><a class="headerlink" href="#RoadRunner.RoadRunner.addEvent" title="Permalink to this definition">¶</a></dt>
+<dd><p>Add an event to the current model. Note that the event to be added must have an ID that
+did not existed in the model.</p>
+<p>forceRegenerate is a boolean value that indicates whether the new model will be regenerated. Its
+default value is true, which means to regenerate model every time after this function is called.
+Note that regenerating model is time-consuming. To save time for editing model for multiple times,
+one could set this flag to false excepting for the last call, so that Roadrunner will only regenerate
+the model once after all editings are completed.</p>
+<p>For example,</p>
+<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">r</span><span class="o">.</span><span class="n">addEvent</span><span class="p">(</span><span class="s2">&quot;e1&quot;</span><span class="p">,</span> <span class="kc">False</span><span class="p">,</span> <span class="s2">&quot;s1 &gt; 0&quot;</span><span class="p">,</span> <span class="kc">False</span><span class="p">)</span> <span class="c1"># it will not regenerate the model, nothing actually happened</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">r</span><span class="o">.</span><span class="n">addEvent</span><span class="p">(</span><span class="s2">&quot;e2&quot;</span><span class="p">,</span> <span class="kc">False</span><span class="p">,</span> <span class="s2">&quot;s2 == s1&quot;</span><span class="p">,</span> <span class="kc">True</span><span class="p">)</span>  <span class="c1"># new model is generated and saved</span>
+</pre></div>
+</div>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>eid</strong> (<em>str</em>) – the ID of the event to be added</p></li>
+<li><p><strong>useValuesFromTriggerTime</strong> (<em>bool</em>) – indicate the moment at which the event’s assignments are to be evaluated</p></li>
+<li><p><strong>trigger</strong> (<em>str</em>) – the math formula of event trigger</p></li>
+<li><p><strong>forceRegenerate</strong> (<em>bool</em>) – indicate whether the new model is regenerated after this function call</p></li>
+</ul>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt id="RoadRunner.RoadRunner.addTrigger">
+<code class="sig-prename descclassname">RoadRunner.</code><code class="sig-name descname">addTrigger</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">eid</span></em>, <em class="sig-param"><span class="n">trigger</span></em>, <em class="sig-param"><span class="n">forceRegenerate</span></em><span class="sig-paren">)</span><a class="headerlink" href="#RoadRunner.RoadRunner.addTrigger" title="Permalink to this definition">¶</a></dt>
+<dd><p>Add trigger to an existing event in the model. Note that the given event must exist in the
+current model. If the given event already has a trigger object, the given trigger will replace the
+old trigger of the event.</p>
+<p>forceRegenerate is a boolean value that indicates whether the new model will be regenerated. Its
+default value is true, which means to regenerate model every time after this function is called.
+Note that regenerating model is time-consuming. To save time for editing model for multiple times,
+one could set this flag to false excepting for the last call, so that Roadrunner will only regenerate
+the model once after all editings are completed.</p>
+<p>For example,</p>
+<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">r</span><span class="o">.</span><span class="n">addTrigger</span><span class="p">(</span><span class="s2">&quot;e1&quot;</span><span class="p">,</span> <span class="s2">&quot;s1 &gt; 0&quot;</span><span class="p">,</span> <span class="kc">False</span><span class="p">)</span> <span class="c1"># it will not regenerate the model, nothing actually happened</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">r</span><span class="o">.</span><span class="n">addTrigger</span><span class="p">(</span><span class="s2">&quot;e2&quot;</span><span class="p">,</span> <span class="s2">&quot;s2 == s1&quot;</span><span class="p">,</span> <span class="kc">True</span><span class="p">)</span>  <span class="c1"># new model is generated and saved</span>
+</pre></div>
+</div>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>eid</strong> (<em>str</em>) – the ID of the event to add the trigger to</p></li>
+<li><p><strong>trigger</strong> (<em>str</em>) – the math formula of event trigger</p></li>
+<li><p><strong>forceRegenerate</strong> (<em>bool</em>) – indicate whether the new model is regenerated after this function call</p></li>
+</ul>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt id="RoadRunner.RoadRunner.addPriority">
+<code class="sig-prename descclassname">RoadRunner.</code><code class="sig-name descname">addPriority</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">eid</span></em>, <em class="sig-param"><span class="n">priority</span></em>, <em class="sig-param"><span class="n">forceRegenerate</span></em><span class="sig-paren">)</span><a class="headerlink" href="#RoadRunner.RoadRunner.addPriority" title="Permalink to this definition">¶</a></dt>
+<dd><p>Add priority to an existing event in the model. Note that the given event must exist in the
+current model. If the given event already has a priority object, the given priority will replace the
+old priority of the event.</p>
+<p>forceRegenerate is a boolean value that indicates whether the new model will be regenerated. Its
+default value is true, which means to regenerate model every time after this function is called.
+Note that regenerating model is time-consuming. To save time for editing model for multiple times,
+one could set this flag to false excepting for the last call, so that Roadrunner will only regenerate
+the model once after all editings are completed.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>eid</strong> (<em>str</em>) – the ID of the event to add the priority to</p></li>
+<li><p><strong>priority</strong> (<em>str</em>) – the math formula of event priority</p></li>
+<li><p><strong>forceRegenerate</strong> (<em>bool</em>) – indicate whether the new model is regenerated after this function call</p></li>
+</ul>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt id="RoadRunner.RoadRunner.addDelay">
+<code class="sig-prename descclassname">RoadRunner.</code><code class="sig-name descname">addDelay</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">eid</span></em>, <em class="sig-param"><span class="n">delay</span></em>, <em class="sig-param"><span class="n">forceRegenerate</span></em><span class="sig-paren">)</span><a class="headerlink" href="#RoadRunner.RoadRunner.addDelay" title="Permalink to this definition">¶</a></dt>
+<dd><p>Add delay to an existing event in the model. Note that the given event must exist in the
+current model. If the given event already has a delay object, the given delay will replace the
+old delay of the event.</p>
+<p>forceRegenerate is a boolean value that indicates whether the new model will be regenerated. Its
+default value is true, which means to regenerate model every time after this function is called.
+Note that regenerating model is time-consuming. To save time for editing model for multiple times,
+one could set this flag to false excepting for the last call, so that Roadrunner will only regenerate
+the model once after all editings are completed.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>eid</strong> (<em>str</em>) – the ID of the event to add the delay to</p></li>
+<li><p><strong>delay</strong> (<em>str</em>) – the math formula of event delay</p></li>
+<li><p><strong>forceRegenerate</strong> (<em>bool</em>) – indicate whether the new model is regenerated after this function call</p></li>
+</ul>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt id="RoadRunner.RoadRunner.addEventAssignment">
+<code class="sig-prename descclassname">RoadRunner.</code><code class="sig-name descname">addEventAssignment</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">eid</span></em>, <em class="sig-param"><span class="n">vid</span></em>, <em class="sig-param"><span class="n">formula</span></em>, <em class="sig-param"><span class="n">forceRegenerate</span></em><span class="sig-paren">)</span><a class="headerlink" href="#RoadRunner.RoadRunner.addEventAssignment" title="Permalink to this definition">¶</a></dt>
+<dd><p>Add an event assignment to an existing event in the model. Note that the given event must exist in the
+current model.</p>
+<p>forceRegenerate is a boolean value that indicates whether the new model will be regenerated. Its
+default value is true, which means to regenerate model every time after this function is called.
+Note that regenerating model is time-consuming. To save time for editing model for multiple times,
+one could set this flag to false excepting for the last call, so that Roadrunner will only regenerate
+the model once after all editings are completed.</p>
+<blockquote>
+<div><p>For example,</p>
+</div></blockquote>
+<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">r</span><span class="o">.</span><span class="n">addEventAssignment</span><span class="p">(</span><span class="s2">&quot;e1&quot;</span><span class="p">,</span> <span class="s2">&quot;s1&quot;</span><span class="p">,</span> <span class="s2">&quot;k1&quot;</span><span class="p">,</span> <span class="kc">False</span><span class="p">)</span> <span class="c1"># it will not regenerate the model, nothing actually happened</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">r</span><span class="o">.</span><span class="n">addEventAssignment</span><span class="p">(</span><span class="s2">&quot;e2&quot;</span><span class="p">,</span> <span class="s2">&quot;s2&quot;</span><span class="p">,</span> <span class="s2">&quot;s1&quot;</span><span class="p">,</span> <span class="kc">True</span><span class="p">)</span>  <span class="c1"># new model is generated and saved</span>
+</pre></div>
+</div>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>eid</strong> (<em>str</em>) – the ID of the event to add the event assignment to</p></li>
+<li><p><strong>vid</strong> (<em>str</em>) – the ID of the variables that assignment assigns formula to</p></li>
+<li><p><strong>formula</strong> (<em>str</em>) – the math formula of event assignment</p></li>
+<li><p><strong>forceRegenerate</strong> (<em>bool</em>) – indicate whether the new model is regenerated after this function call</p></li>
+</ul>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt id="RoadRunner.RoadRunner.removeEventAssignment">
+<code class="sig-prename descclassname">RoadRunner.</code><code class="sig-name descname">removeEventAssignment</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">eid</span></em>, <em class="sig-param"><span class="n">vid</span></em>, <em class="sig-param"><span class="n">forceRegenerate</span></em><span class="sig-paren">)</span><a class="headerlink" href="#RoadRunner.RoadRunner.removeEventAssignment" title="Permalink to this definition">¶</a></dt>
+<dd><p>Add all event assignments for a variable from an existing event in the model.
+Note that the given event must exist in the current model and given variable must have an event
+assignment in the given event.</p>
+<p>forceRegenerate is a boolean value that indicates whether the new model will be regenerated. Its
+default value is true, which means to regenerate model every time after this function is called.
+Note that regenerating model is time-consuming. To save time for editing model for multiple times,
+one could set this flag to false excepting for the last call, so that Roadrunner will only regenerate
+the model once after all editings are completed.</p>
+<blockquote>
+<div><p>For example,</p>
+</div></blockquote>
+<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">r</span><span class="o">.</span><span class="n">removeEventAssignment</span><span class="p">(</span><span class="s2">&quot;e1&quot;</span><span class="p">,</span> <span class="s2">&quot;s1&quot;</span><span class="p">,</span> <span class="kc">False</span><span class="p">)</span> <span class="c1"># it will not regenerate the model, nothing actually happened</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">r</span><span class="o">.</span><span class="n">removeEventAssignment</span><span class="p">(</span><span class="s2">&quot;e2&quot;</span><span class="p">,</span> <span class="s2">&quot;s2&quot;</span><span class="p">,</span> <span class="kc">True</span><span class="p">)</span>  <span class="c1"># new model is generated and saved</span>
+</pre></div>
+</div>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>eid</strong> (<em>str</em>) – the ID of the event</p></li>
+<li><p><strong>vid</strong> (<em>str</em>) – the ID of the variables of the event assignments to be removed</p></li>
+<li><p><strong>forceRegenerate</strong> (<em>bool</em>) – indicate whether the new model is regenerated after this function call</p></li>
+</ul>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt id="RoadRunner.RoadRunner.removeEvent">
+<code class="sig-prename descclassname">RoadRunner.</code><code class="sig-name descname">removeEvent</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">eid</span></em>, <em class="sig-param"><span class="n">forceRegenerate</span></em><span class="sig-paren">)</span><a class="headerlink" href="#RoadRunner.RoadRunner.removeEvent" title="Permalink to this definition">¶</a></dt>
+<dd><p>Add an event from the current model. Note that the given event must exist in the current model.</p>
+<p>If any global parameters become uninitialized during this process, i.e, has no initial assignment or
+assignment rule, they will be removed recursively following the rules in removeParameter().</p>
+<p>forceRegenerate is a boolean value that indicates whether the new model will be regenerated. Its
+default value is true, which means to regenerate model every time after this function is called.
+Note that regenerating model is time-consuming. To save time for editing model for multiple times,
+one could set this flag to false excepting for the last call, so that Roadrunner will only regenerate
+the model once after all editings are completed.</p>
+<blockquote>
+<div><p>For example,</p>
+</div></blockquote>
+<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">r</span><span class="o">.</span><span class="n">removeEvent</span><span class="p">(</span><span class="s2">&quot;e1&quot;</span><span class="p">,</span> <span class="kc">False</span><span class="p">)</span> <span class="c1"># it will not regenerate the model, nothing actually happened</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">r</span><span class="o">.</span><span class="n">removeEvent</span><span class="p">(</span><span class="s2">&quot;e2&quot;</span><span class="p">,</span> <span class="kc">True</span><span class="p">)</span>  <span class="c1"># new model is generated and saved</span>
+</pre></div>
+</div>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>eid</strong> (<em>str</em>) – the ID of the event to be removed</p></li>
+<li><p><strong>forceRegenerate</strong> (<em>bool</em>) – indicate whether the new model is regenerated after this function call</p></li>
+</ul>
+</dd>
+</dl>
+</dd></dl>
+
+</div>
+<div class="section" id="simulation">
+<h2>Simulation<a class="headerlink" href="#simulation" title="Permalink to this headline">¶</a></h2>
+<p>Fast and easy time series simulations is one of the main objectives of the RoadRunner project.</p>
+<p>All simulation related tasks can be accomplished with the single <code class="docutils literal notranslate"><span class="pre">simulate</span></code> method.</p>
+<dl class="py method">
+<dt id="RoadRunner.RoadRunner.simulate">
+<code class="sig-prename descclassname">RoadRunner.</code><code class="sig-name descname">simulate</code><span class="sig-paren">(</span><em class="sig-param"><span class="o">*</span><span class="n">args</span></em>, <em class="sig-param"><span class="o">**</span><span class="n">kwargs</span></em><span class="sig-paren">)</span><a class="headerlink" href="#RoadRunner.RoadRunner.simulate" title="Permalink to this definition">¶</a></dt>
+<dd><blockquote>
+<div><p>Simulate current SBML model.</p>
+<p>simulate accepts up to five positional arguments.</p>
+<p>The first five (optional) arguments are treated as:</p>
+<blockquote>
+<div><p>1: Start Time, if this is a number.</p>
+<p>2: End Time, if this is a number.</p>
+<p>3: Number of points, if this is a number.</p>
+<p>4: List of Selections. A list of variables to include in the output, e.g. <code class="docutils literal notranslate"><span class="pre">['time','A']</span></code> for a model with species <code class="docutils literal notranslate"><span class="pre">A</span></code>. More below.</p>
+<p>5: output file path. The file to which simulation results will be written. If this is specified and
+nonempty, simulation output will be written to output_file every Config::K_ROWS_PER_WRITE generated.
+Note that simulate() will not return the result matrix if it is writing to output_file.
+It will also not keep any simulation data, so in that case one should not call <code class="docutils literal notranslate"><span class="pre">r.plot()</span></code>
+without arguments. This should be specified when one cannot, or does not want to, keep the
+entire result matrix in memory.</p>
+</div></blockquote>
+<p>All five of the positional arguments are optional. If any of the positional arguments are
+a list of string instead of a number, then they are interpreted as a list of selections.</p>
+<p>There are a number of ways to call simulate.</p>
+<dl class="simple">
+<dt>1: With no arguments. In this case, the current set of options from the previous</dt><dd><p><code class="docutils literal notranslate"><span class="pre">simulate</span></code> call will be used. If this is the first time <code class="docutils literal notranslate"><span class="pre">simulate</span></code> is called,
+then a default set of values is used. The default set of values are (start = 0, end = 5, points = 51).</p>
+</dd>
+</dl>
+<p>2: With up to five positions arguments, described above.</p>
+<p>Finally, you can pass steps keyword argument instead of points.</p>
+<p>steps (Optional) Number of steps at which the output is sampled where the samples are evenly spaced. Steps = points-1. Steps and points may not both be specified.</p>
+</div></blockquote>
+<dl class="field-list simple">
+<dt class="field-odd">Returns</dt>
+<dd class="field-odd"><p>a numpy array with each selected output time series being a
+column vector, and the 0’th column is the simulation time; or
+if output_file is specified and nonempty, a message string</p>
+</dd>
+<dt class="field-even">Return type</dt>
+<dd class="field-even"><p>numpy.ndarray</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt id="RoadRunner.RoadRunner.gillespie">
+<code class="sig-prename descclassname">RoadRunner.</code><code class="sig-name descname">gillespie</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">start</span></em>, <em class="sig-param"><span class="n">end</span></em>, <em class="sig-param"><span class="n">steps</span></em><span class="sig-paren">)</span><a class="headerlink" href="#RoadRunner.RoadRunner.gillespie" title="Permalink to this definition">¶</a></dt>
+<dd><p>Run a Gillespie stochastic simulation.</p>
+<p>Use <a class="reference internal" href="#RoadRunner.RoadRunner.reset" title="RoadRunner.RoadRunner.reset"><code class="xref py py-meth docutils literal notranslate"><span class="pre">RoadRunner.reset()</span></code></a> to reset the model each time.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>start</strong> – start time</p></li>
+<li><p><strong>end</strong> – end time</p></li>
+<li><p><strong>steps</strong> – number of steps</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>a numpy array with each selected output time series being a
+column vector, and the 0’th column is the simulation time.</p>
+</dd>
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p>numpy.ndarray</p>
+</dd>
+</dl>
+<p>Examples:</p>
+<p>Simulate from time zero to 40 time units</p>
+<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">result</span> <span class="o">=</span> <span class="n">r</span><span class="o">.</span><span class="n">gillespie</span> <span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">40</span><span class="p">)</span>
+</pre></div>
+</div>
+<p>Simulate on a grid with 10 points from start 0 to end time 40</p>
+<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">result</span> <span class="o">=</span> <span class="n">r</span><span class="o">.</span><span class="n">gillespie</span> <span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">40</span><span class="p">,</span> <span class="mi">10</span><span class="p">)</span>
+</pre></div>
+</div>
+<p>Simulate from time zero to 40 time units using the given selection list</p>
+<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span>&gt;&gt;&gt; result = r.gillespie (0, 40, [‘time’, ‘S1’])
+</pre></div>
+</div>
+<p>Simulate from time zero to 40 time units, on a grid with 20 points using the given selection list</p>
+<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span>&gt;&gt;&gt; result = r.gillespie (0, 40, 20, [‘time’, ‘S1’])
+</pre></div>
+</div>
+</dd></dl>
+
+<dl class="py function">
+<dt id="RoadRunner.RoadRunner.plot">
+<code class="sig-prename descclassname">RoadRunner.</code><code class="sig-name descname">plot</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">result</span><span class="o">=</span><span class="default_value">None</span></em>, <em class="sig-param"><span class="n">loc</span><span class="o">=</span><span class="default_value">'upper left'</span></em>, <em class="sig-param"><span class="n">show</span><span class="o">=</span><span class="default_value">True</span></em><span class="sig-paren">)</span><a class="headerlink" href="#RoadRunner.RoadRunner.plot" title="Permalink to this definition">¶</a></dt>
+<dd><p>Plot results from a simulation carried out by the simulate or gillespie functions.</p>
+<p>To plot data currently held by roadrunner that was generated in the last simulation, use:</p>
+<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">r</span><span class="o">.</span><span class="n">plot</span><span class="p">()</span>
+</pre></div>
+</div>
+<p>If you are using Tellurium, see <a class="reference external" href="https://tellurium.readthedocs.io/en/latest/tellurium_methods.html#tellurium.tellurium.ExtendedRoadRunner.plot">tellurium.ExtendedRoadRunner.plot</a> which supports extra arguements.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>result</strong> (<em>numpy.ndarray</em>) – Data returned from a simulate or gillespie call</p></li>
+<li><p><strong>loc</strong> (<em>str</em>) – string representing the location of legend i.e. “upper right”</p></li>
+</ul>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt id="RoadRunner.Roadrunner.getSimulationData">
+<code class="sig-prename descclassname">Roadrunner.</code><code class="sig-name descname">getSimulationData</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#RoadRunner.Roadrunner.getSimulationData" title="Permalink to this definition">¶</a></dt>
+<dd><p>Returns the array of simulated data. When simulation has not been run,
+the function will return an empty array.</p>
+</dd></dl>
+
+</div>
+<div class="section" id="steady-state">
+<h2>Steady State<a class="headerlink" href="#steady-state" title="Permalink to this headline">¶</a></h2>
+<dl class="py class">
+<dt id="RoadRunner.RoadRunner.SteadyStateSolver">
+<em class="property">class </em><code class="sig-prename descclassname">RoadRunner.</code><code class="sig-name descname">SteadyStateSolver</code><a class="headerlink" href="#RoadRunner.RoadRunner.SteadyStateSolver" title="Permalink to this definition">¶</a></dt>
+<dd><p>RoadRunner.SteadyStateSolver class.</p>
+</dd></dl>
+
+<dl class="py attribute">
+<dt id="RoadRunner.RoadRunner.steadyStateSelections">
+<code class="sig-prename descclassname">RoadRunner.</code><code class="sig-name descname">steadyStateSelections</code><a class="headerlink" href="#RoadRunner.RoadRunner.steadyStateSelections" title="Permalink to this definition">¶</a></dt>
+<dd><p>A list of SelectionRecords which determine what values are used for
+a steady state calculation. This list may be set by assigning a list
+of valid selection symbols:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">r</span><span class="o">.</span><span class="n">steadyStateSelections</span> <span class="o">=</span> <span class="p">[</span><span class="s1">&#39;S1&#39;</span><span class="p">,</span> <span class="s1">&#39;[S2]&#39;</span><span class="p">,</span> <span class="s1">&#39;P1&#39;</span><span class="p">]</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">r</span><span class="o">.</span><span class="n">steadyStateSelections</span>
+<span class="go">[&#39;S1&#39;, &#39;[S2]&#39;, &#39;P1&#39;]</span>
+</pre></div>
+</div>
+</dd></dl>
+
+<dl class="py method">
+<dt id="RoadRunner.RoadRunner.steadyState">
+<code class="sig-prename descclassname">RoadRunner.</code><code class="sig-name descname">steadyState</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#RoadRunner.RoadRunner.steadyState" title="Permalink to this definition">¶</a></dt>
+<dd><p>Attempts to evaluate the steady state for the model. The method returns
+a value that indicates how close the solution is to the steady state.
+The smaller the value the better. Values less than 1E-6 usually indicate a
+steady state has been found. If necessary the method can be called a
+second time to improve the solution.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Returns</dt>
+<dd class="field-odd"><p>the sum of squares of the steady state solution.</p>
+</dd>
+<dt class="field-even">Return type</dt>
+<dd class="field-even"><p>double</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt id="RoadRunner.RoadRunner.getSteadyStateValues">
+<code class="sig-prename descclassname">RoadRunner.</code><code class="sig-name descname">getSteadyStateValues</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#RoadRunner.RoadRunner.getSteadyStateValues" title="Permalink to this definition">¶</a></dt>
+<dd><p>Performs a steady state calculation (evolves the system to a steady
+state), then calculates and returns the set of values specified by
+the steady state selections.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Returns</dt>
+<dd class="field-odd"><p>a numpy array corresponding to the values specified by steadyStateSelections</p>
+</dd>
+<dt class="field-even">Return type</dt>
+<dd class="field-even"><p>numpy.ndarray</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt id="RoadRunner.RoadRunner.getSteadyStateValuesNamedArray">
+<code class="sig-prename descclassname">RoadRunner.</code><code class="sig-name descname">getSteadyStateValuesNamedArray</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#RoadRunner.RoadRunner.getSteadyStateValuesNamedArray" title="Permalink to this definition">¶</a></dt>
+<dd><p>Performs a steady state calculation (evolves the system to a steady
+state), then calculates and returns the set of values specified by
+the steady state selections with all necessary labels.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Returns</dt>
+<dd class="field-odd"><p>a NamedArray corresponding to the values specified by steadyStateSelections</p>
+</dd>
+<dt class="field-even">Return type</dt>
+<dd class="field-even"><p>NamedArray</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt id="RoadRunner.RoadRunner.getSteadyStateSolver">
+<code class="sig-prename descclassname">RoadRunner.</code><code class="sig-name descname">getSteadyStateSolver</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#RoadRunner.RoadRunner.getSteadyStateSolver" title="Permalink to this definition">¶</a></dt>
+<dd><p>Returns the steady state solver which is currently being used.</p>
+</dd></dl>
+
+<dl class="py method">
+<dt id="RoadRunner.RoadRunner.steadyStateSolverExists">
+<code class="sig-prename descclassname">RoadRunner.</code><code class="sig-name descname">steadyStateSolverExists</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">name</span></em><span class="sig-paren">)</span><a class="headerlink" href="#RoadRunner.RoadRunner.steadyStateSolverExists" title="Permalink to this definition">¶</a></dt>
+<dd><p>Checks whether a steady state solver exists.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>name</strong> (<em>str</em>) – name of a steady state solver</p>
+</dd>
+</dl>
+</dd></dl>
+
+</div>
+<div class="section" id="metabolic-control-analysis">
+<h2>Metabolic control analysis<a class="headerlink" href="#metabolic-control-analysis" title="Permalink to this headline">¶</a></h2>
+<p>In the special case when an SBML model is a purely reaction kinetics model – no rate rules, no
+assignment rules for chemical species, and time invariant stoichiometry, specialized analysis methods
+related to metabolic control analysis are applicable. These methods are described in this section.</p>
+<dl class="py method">
+<dt id="RoadRunner.RoadRunner.getCC">
+<code class="sig-prename descclassname">RoadRunner.</code><code class="sig-name descname">getCC</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">variable</span></em>, <em class="sig-param"><span class="n">parameter</span></em><span class="sig-paren">)</span><a class="headerlink" href="#RoadRunner.RoadRunner.getCC" title="Permalink to this definition">¶</a></dt>
+<dd><p>Returns a scaled control coefficient with respect to a global parameter.</p>
+<p>For example:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">rr</span><span class="o">.</span><span class="n">getCC</span> <span class="p">(</span><span class="s1">&#39;J1&#39;</span><span class="p">,</span> <span class="s1">&#39;Vmax&#39;</span><span class="p">)</span>
+<span class="n">rr</span><span class="o">.</span><span class="n">getCC</span> <span class="p">(</span><span class="s1">&#39;S1&#39;</span><span class="p">,</span> <span class="s1">&#39;Xo&#39;</span><span class="p">)</span>
+<span class="n">rr</span><span class="o">.</span><span class="n">getCC</span> <span class="p">(</span><span class="s1">&#39;S2&#39;</span><span class="p">,</span> <span class="s1">&#39;Km&#39;</span><span class="p">)</span>
+</pre></div>
+</div>
+<p>The first returns a flux control coefficient with respect to flux J1. The second and third
+return concentration control coefficients with respect to species S1 and S2.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>variable</strong> – The id of a dependent variable of the coefficient, for example a
+reaction or species concentration.</p></li>
+<li><p><strong>parameter</strong> – The id of the independent parameter, for example a kinetic constant
+or boundary species</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>the value of the scaled control coefficient.</p>
+</dd>
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p>double</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt id="RoadRunner.RoadRunner.getuCC">
+<code class="sig-prename descclassname">RoadRunner.</code><code class="sig-name descname">getuCC</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">variableId</span></em>, <em class="sig-param"><span class="n">parameterId</span></em><span class="sig-paren">)</span><a class="headerlink" href="#RoadRunner.RoadRunner.getuCC" title="Permalink to this definition">¶</a></dt>
+<dd><p>Get unscaled control coefficient with respect to a global parameter.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>variableId</strong> – The id of a dependent variable of the coefficient, for example a
+reaction or species concentration.</p></li>
+<li><p><strong>parameterId</strong> – The id of the independent parameter, for example a kinetic constant
+or boundary species</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>the value of the unscaled control coefficient.</p>
+</dd>
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p>double</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt id="RoadRunner.RoadRunner.getEE">
+<code class="sig-prename descclassname">RoadRunner.</code><code class="sig-name descname">getEE</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">reactionId</span></em>, <em class="sig-param"><span class="n">parameterId</span></em>, <em class="sig-param"><span class="n">steadyState</span><span class="o">=</span><span class="default_value">True</span></em><span class="sig-paren">)</span><a class="headerlink" href="#RoadRunner.RoadRunner.getEE" title="Permalink to this definition">¶</a></dt>
+<dd><p>Retrieve a single elasticity coefficient with respect to a global parameter.</p>
+<p>For example:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">x</span> <span class="o">=</span> <span class="n">rr</span><span class="o">.</span><span class="n">getEE</span> <span class="p">(</span><span class="s1">&#39;J1&#39;</span><span class="p">,</span> <span class="s1">&#39;Vmax&#39;</span><span class="p">)</span>
+</pre></div>
+</div>
+<p>calculates elasticity coefficient of reaction ‘J1’ with restpect to parameter ‘Vmax’.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>variable</strong> (<em>str</em>) – A reaction Id</p></li>
+<li><p><strong>parameter</strong> (<em>str</em>) – The independent parameter, for example a kinetic constant, floating or boundary species</p></li>
+<li><p><strong>steadyState</strong> (<em>Boolean</em>) – should the steady state value be computed.</p></li>
+</ul>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt id="RoadRunner.RoadRunner.getuEE">
+<code class="sig-prename descclassname">RoadRunner.</code><code class="sig-name descname">getuEE</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">reactionId</span></em>, <em class="sig-param"><span class="n">parameterId</span></em><span class="sig-paren">)</span><a class="headerlink" href="#RoadRunner.RoadRunner.getuEE" title="Permalink to this definition">¶</a></dt>
+<dd><p>Get unscaled elasticity coefficient with respect to a global parameter or species.</p>
+</dd></dl>
+
+<dl class="py method">
+<dt id="RoadRunner.RoadRunner.getEigenValueIds">
+<code class="sig-prename descclassname">RoadRunner.</code><code class="sig-name descname">getEigenValueIds</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#RoadRunner.RoadRunner.getEigenValueIds" title="Permalink to this definition">¶</a></dt>
+<dd><p>Returns a list of selection symbols for the eigenvalues of the floating species. The eigen value
+selection symbol is <code class="docutils literal notranslate"><span class="pre">eigen(XX)</span></code>, where <code class="docutils literal notranslate"><span class="pre">XX</span></code> is the floating species name.</p>
+</dd></dl>
+
+<dl class="py method">
+<dt id="RoadRunner.RoadRunner.getFullEigenValues">
+<code class="sig-prename descclassname">RoadRunner.</code><code class="sig-name descname">getFullEigenValues</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#RoadRunner.RoadRunner.getFullEigenValues" title="Permalink to this definition">¶</a></dt>
+<dd><p>Calculates the eigen values of the Full Jacobian as a real matrix, first column real part, second
+column imaginary part.</p>
+<p>Note, only valid for pure reaction kinetics models (no rate rules, no floating species rules and
+time invariant stoichiometry).</p>
+<dl class="field-list simple">
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p>numpy.ndarray</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt id="RoadRunner.RoadRunner.getReducedEigenValues">
+<code class="sig-prename descclassname">RoadRunner.</code><code class="sig-name descname">getReducedEigenValues</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#RoadRunner.RoadRunner.getReducedEigenValues" title="Permalink to this definition">¶</a></dt>
+<dd><p>Calculates the eigen values of the Reduced Jacobian as a real matrix, first column real part, second
+column imaginary part.</p>
+<p>Only valid if moiety conversion is enabled.</p>
+<p>Note, only valid for pure reaction kinetics models (no rate rules, no floating species rules and
+time invariant stoichiometry).</p>
+<dl class="field-list simple">
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p>numpy.ndarray</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt id="RoadRunner.RoadRunner.getFullJacobian">
+<code class="sig-prename descclassname">RoadRunner.</code><code class="sig-name descname">getFullJacobian</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#RoadRunner.RoadRunner.getFullJacobian" title="Permalink to this definition">¶</a></dt>
+<dd><p>Compute the full Jacobian at the current operating point.</p>
+<p>This is the Jacobian of ONLY the floating species.</p>
+</dd></dl>
+
+<dl class="py method">
+<dt id="RoadRunner.RoadRunner.getReducedJacobian">
+<code class="sig-prename descclassname">RoadRunner.</code><code class="sig-name descname">getReducedJacobian</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#RoadRunner.RoadRunner.getReducedJacobian" title="Permalink to this definition">¶</a></dt>
+<dd><p>Returns the <em>reduced</em> Jacobian for the independent species. This matrix will be non-singular
+for models that include moiety-conserved cycles.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p>numpy.ndarray</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt id="RoadRunner.RoadRunner.getScaledConcentrationControlCoefficientMatrix">
+<code class="sig-prename descclassname">RoadRunner.</code><code class="sig-name descname">getScaledConcentrationControlCoefficientMatrix</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#RoadRunner.RoadRunner.getScaledConcentrationControlCoefficientMatrix" title="Permalink to this definition">¶</a></dt>
+<dd><p>Returns the m by n matrix of scaled concentration control coefficients where m is the number
+of floating species and n the number of reactions.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p>numpy.ndarray</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt id="RoadRunner.RoadRunner.getScaledFloatingSpeciesElasticity">
+<code class="sig-prename descclassname">RoadRunner.</code><code class="sig-name descname">getScaledFloatingSpeciesElasticity</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">reactionId</span></em>, <em class="sig-param"><span class="n">speciesId</span></em><span class="sig-paren">)</span><a class="headerlink" href="#RoadRunner.RoadRunner.getScaledFloatingSpeciesElasticity" title="Permalink to this definition">¶</a></dt>
+<dd><p>Returns the scaled elasticity for a given reaction and given species.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>reactionId</strong> (<em>str</em>) – the SBML id of a reaction.</p></li>
+<li><p><strong>speciesId</strong> (<em>str</em>) – the SBML id of a species.</p></li>
+</ul>
+</dd>
+<dt class="field-even">Return type</dt>
+<dd class="field-even"><p>double</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt id="RoadRunner.RoadRunner.getUnscaledParameterElasticity">
+<code class="sig-prename descclassname">RoadRunner.</code><code class="sig-name descname">getUnscaledParameterElasticity</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">reactionId</span></em>, <em class="sig-param"><span class="n">parameterId</span></em><span class="sig-paren">)</span><a class="headerlink" href="#RoadRunner.RoadRunner.getUnscaledParameterElasticity" title="Permalink to this definition">¶</a></dt>
+<dd><p>Returns the unscaled elasticity for a named reaction with respect to a
+named parameter</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>reactionId</strong> (<em>str</em>) – the SBML id of a reaction.</p></li>
+<li><p><strong>parameterId</strong> (<em>str</em>) – the SBML id of a parameter.</p></li>
+</ul>
+</dd>
+<dt class="field-even">Return type</dt>
+<dd class="field-even"><p>double</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt id="RoadRunner.RoadRunner.getUnscaledConcentrationControlCoefficientMatrix">
+<code class="sig-prename descclassname">RoadRunner.</code><code class="sig-name descname">getUnscaledConcentrationControlCoefficientMatrix</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#RoadRunner.RoadRunner.getUnscaledConcentrationControlCoefficientMatrix" title="Permalink to this definition">¶</a></dt>
+<dd><p>Returns the unscaled concentration control coefficient matrix.</p>
+</dd></dl>
+
+<dl class="py method">
+<dt id="RoadRunner.RoadRunner.getUnscaledElasticityMatrix">
+<code class="sig-prename descclassname">RoadRunner.</code><code class="sig-name descname">getUnscaledElasticityMatrix</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#RoadRunner.RoadRunner.getUnscaledElasticityMatrix" title="Permalink to this definition">¶</a></dt>
+<dd><p>Returns the unscaled species elasticity matrix at the current operating point.</p>
+</dd></dl>
+
+<dl class="py method">
+<dt id="RoadRunner.RoadRunner.getUnscaledFluxControlCoefficientMatrix">
+<code class="sig-prename descclassname">RoadRunner.</code><code class="sig-name descname">getUnscaledFluxControlCoefficientMatrix</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#RoadRunner.RoadRunner.getUnscaledFluxControlCoefficientMatrix" title="Permalink to this definition">¶</a></dt>
+<dd><p>Returns the unscaled flux control coefficient matrix.</p>
+</dd></dl>
+
+<dl class="py method">
+<dt id="RoadRunner.RoadRunner.getUnscaledSpeciesElasticity">
+<code class="sig-prename descclassname">RoadRunner.</code><code class="sig-name descname">getUnscaledSpeciesElasticity</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">reactionIndx</span></em>, <em class="sig-param"><span class="n">speciesIndx</span></em><span class="sig-paren">)</span><a class="headerlink" href="#RoadRunner.RoadRunner.getUnscaledSpeciesElasticity" title="Permalink to this definition">¶</a></dt>
+<dd><p>Get a single species elasticity value.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>reactionIndx</strong> (<em>int</em>) – index of reaction</p></li>
+<li><p><strong>speciesIndx</strong> (<em>int</em>) – index of species.</p></li>
+</ul>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt id="RoadRunner.RoadRunner.getScaledFluxControlCoefficientMatrix">
+<code class="sig-prename descclassname">RoadRunner.</code><code class="sig-name descname">getScaledFluxControlCoefficientMatrix</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#RoadRunner.RoadRunner.getScaledFluxControlCoefficientMatrix" title="Permalink to this definition">¶</a></dt>
+<dd><p>Returns the n by n matrix of scaled flux control coefficients where n is the number of reactions.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p>numpy.ndarray</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt id="RoadRunner.RoadRunner.getScaledElasticityMatrix">
+<code class="sig-prename descclassname">RoadRunner.</code><code class="sig-name descname">getScaledElasticityMatrix</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#RoadRunner.RoadRunner.getScaledElasticityMatrix" title="Permalink to this definition">¶</a></dt>
+<dd><p>Returns the scaled elasticity matrix at the current operating point.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p>numpy.ndarray</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt id="RoadRunner.RoadRunner.getDiffStepSize">
+<code class="sig-prename descclassname">RoadRunner.</code><code class="sig-name descname">getDiffStepSize</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#RoadRunner.RoadRunner.getDiffStepSize" title="Permalink to this definition">¶</a></dt>
+<dd><p>Returns the differential step size used in routines such as <a class="reference internal" href="#RoadRunner.RoadRunner.getCC" title="RoadRunner.RoadRunner.getCC"><code class="xref py py-meth docutils literal notranslate"><span class="pre">getCC()</span></code></a>.</p>
+</dd></dl>
+
+<dl class="py method">
+<dt id="RoadRunner.RoadRunner.setDiffStepSize">
+<code class="sig-prename descclassname">RoadRunner.</code><code class="sig-name descname">setDiffStepSize</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">val</span></em><span class="sig-paren">)</span><a class="headerlink" href="#RoadRunner.RoadRunner.setDiffStepSize" title="Permalink to this definition">¶</a></dt>
+<dd><p>Sets the differential step size used in routines such as <a class="reference internal" href="#RoadRunner.RoadRunner.getCC" title="RoadRunner.RoadRunner.getCC"><code class="xref py py-meth docutils literal notranslate"><span class="pre">getCC()</span></code></a>.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>val</strong> – differential step size</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt id="RoadRunner.RoadRunner.getSteadyStateThreshold">
+<code class="sig-prename descclassname">RoadRunner.</code><code class="sig-name descname">getSteadyStateThreshold</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#RoadRunner.RoadRunner.getSteadyStateThreshold" title="Permalink to this definition">¶</a></dt>
+<dd><p>Returns the threshold used in steady state solver in routines such as <a class="reference internal" href="#RoadRunner.RoadRunner.getCC" title="RoadRunner.RoadRunner.getCC"><code class="xref py py-meth docutils literal notranslate"><span class="pre">getCC()</span></code></a>.</p>
+</dd></dl>
+
+<dl class="py method">
+<dt id="RoadRunner.RoadRunner.setSteadyStateThreshold">
+<code class="sig-prename descclassname">RoadRunner.</code><code class="sig-name descname">setSteadyStateThreshold</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">val</span></em><span class="sig-paren">)</span><a class="headerlink" href="#RoadRunner.RoadRunner.setSteadyStateThreshold" title="Permalink to this definition">¶</a></dt>
+<dd><p>Sets the threshold used in steady state solver in routines such as <a class="reference internal" href="#RoadRunner.RoadRunner.getCC" title="RoadRunner.RoadRunner.getCC"><code class="xref py py-meth docutils literal notranslate"><span class="pre">getCC()</span></code></a>.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>val</strong> – threshold value</p>
+</dd>
+</dl>
+</dd></dl>
+
+</div>
+<div class="section" id="stoichiometric-analysis">
+<h2>Stoichiometric Analysis<a class="headerlink" href="#stoichiometric-analysis" title="Permalink to this headline">¶</a></h2>
+<dl class="py method">
+<dt id="RoadRunner.RoadRunner.getFullStoichiometryMatrix">
+<code class="sig-prename descclassname">RoadRunner.</code><code class="sig-name descname">getFullStoichiometryMatrix</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#RoadRunner.RoadRunner.getFullStoichiometryMatrix" title="Permalink to this definition">¶</a></dt>
+<dd><p>Get the stoichiometry matrix that coresponds to the full model, even it
+it was converted via conservation conversion.</p>
+</dd></dl>
+
+<dl class="py method">
+<dt id="RoadRunner.RoadRunner.getReducedStoichiometryMatrix">
+<code class="sig-prename descclassname">RoadRunner.</code><code class="sig-name descname">getReducedStoichiometryMatrix</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#RoadRunner.RoadRunner.getReducedStoichiometryMatrix" title="Permalink to this definition">¶</a></dt>
+<dd><p>Get the reduced stochiometry matrix. If conservation conversion is enabled,
+this is the matrix that coresponds to the independent species.</p>
+<p>A synonym for getNrMatrix().</p>
+</dd></dl>
+
+<dl class="py method">
+<dt id="RoadRunner.RoadRunner.getConservationMatrix">
+<code class="sig-prename descclassname">RoadRunner.</code><code class="sig-name descname">getConservationMatrix</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#RoadRunner.RoadRunner.getConservationMatrix" title="Permalink to this definition">¶</a></dt>
+<dd><p>Returns a conservation matrix <img class="math" src="../_images/math/e7003fd3463f843ee1e53385878369f078d362ad.png" alt="\Gamma"/> which is a <img class="math" src="../_images/math/0bcf53c61f33b169107655d4c7a4243e94a4227f.png" alt="c \times m"/> matrix
+where <img class="math" src="../_images/math/d520a12f1579170834c32ad5f656de081bbb36fe.png" alt="c"/> is the number of conservation laws and <img class="math" src="../_images/math/e9bc7da808d33a16a8347f27a519bd067186aa66.png" alt="m"/> the number of species.</p>
+</dd></dl>
+
+<dl class="py method">
+<dt id="RoadRunner.RoadRunner.getL0Matrix">
+<code class="sig-prename descclassname">RoadRunner.</code><code class="sig-name descname">getL0Matrix</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#RoadRunner.RoadRunner.getL0Matrix" title="Permalink to this definition">¶</a></dt>
+<dd><p>Returns the L0 matrix for the current model. The L0 matrix is an (m-r) by r matrix that expresses
+the dependent reaction rates in terms of the independent rates. m is the number of floating species
+and r is the rank of the stoichiometry matrix.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p>numpy.ndarray</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt id="RoadRunner.RoadRunner.getLinkMatrix">
+<code class="sig-prename descclassname">RoadRunner.</code><code class="sig-name descname">getLinkMatrix</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#RoadRunner.RoadRunner.getLinkMatrix" title="Permalink to this definition">¶</a></dt>
+<dd><p>Returns the full link matrix, L for the current model. The Link matrix is an m by r matrix where m
+is the number of floating species and r the rank of the stoichiometric matrix, N.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p>numpy.ndarray</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt id="RoadRunner.RoadRunner.getNrMatrix">
+<code class="sig-prename descclassname">RoadRunner.</code><code class="sig-name descname">getNrMatrix</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#RoadRunner.RoadRunner.getNrMatrix" title="Permalink to this definition">¶</a></dt>
+<dd><p>Returns the reduced stoichiometry matrix, <img class="math" src="../_images/math/0e9e98fcfc2cd5b0587d8d9571609869a7f8bbb2.png" alt="N_R"/>, which will have only r rows where r is the rank of
+the full stoichiometry matrix. The matrix will be reordered such that the rows of <img class="math" src="../_images/math/0e9e98fcfc2cd5b0587d8d9571609869a7f8bbb2.png" alt="N_R"/> are independent.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p>numpy.ndarray</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt id="RoadRunner.RoadRunner.getKMatrix">
+<code class="sig-prename descclassname">RoadRunner.</code><code class="sig-name descname">getKMatrix</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#RoadRunner.RoadRunner.getKMatrix" title="Permalink to this definition">¶</a></dt>
+<dd><p>Returns the K matrix, <img class="math" src="../_images/math/2f2d393903a4dca6ea8baac0db8535dc80345434.png" alt="ker(N_R)"/>, (right nullspace of Nr)
+The K matrix has the structure, <img class="math" src="../_images/math/adc2c97900ab88829eb36ff8437d7283b0f8a30c.png" alt="[I K0]'"/></p>
+<dl class="field-list simple">
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p>numpy.ndarray</p>
+</dd>
+</dl>
+</dd></dl>
+
+</div>
+<div class="section" id="analysis">
+<h2>Analysis<a class="headerlink" href="#analysis" title="Permalink to this headline">¶</a></h2>
+<dl class="py method">
+<dt id="RoadRunner.RoadRunner.getFrequencyResponse">
+<code class="sig-prename descclassname">RoadRunner.</code><code class="sig-name descname">getFrequencyResponse</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">startFrequency</span></em>, <em class="sig-param"><span class="n">numberOfDecades</span></em>, <em class="sig-param"><span class="n">numberOfPoints</span></em>, <em class="sig-param"><span class="n">parameterName</span></em>, <em class="sig-param"><span class="n">variableName</span></em>, <em class="sig-param"><span class="n">useDB</span></em>, <em class="sig-param"><span class="n">useHz</span></em><span class="sig-paren">)</span><a class="headerlink" href="#RoadRunner.RoadRunner.getFrequencyResponse" title="Permalink to this definition">¶</a></dt>
+<dd><p>Computes the frequency response.
+Returns a numpy array with three columns. First column is the frequency,
+second column the amplitude, and the third column the phase.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>startFrequency</strong> – Start frequency for the first column in the output</p></li>
+<li><p><strong>numberOfDecades</strong> (<em>int</em>) – Number of decades for the frequency range, eg 4 means the frequency span 10,000</p></li>
+<li><p><strong>numberOfPoints</strong> (<em>int</em>) – The number of points to generate in the output</p></li>
+<li><p><strong>parameterName</strong> (<em>str</em>) – The parameter where the input frequency is applied, usually a boundary species, eg ‘Xo’</p></li>
+<li><p><strong>variableName</strong> (<em>str</em>) – The amplitude and phase will be output for this variable, usually a floating species, eg ‘S1’</p></li>
+<li><p><strong>useDB</strong> (<em>boolean</em>) – If true use Decibels on the amplitude axis</p></li>
+<li><p><strong>useHz</strong> (<em>boolean</em>) – If true use Hertz on the x axis, the default is rads/sec</p></li>
+</ul>
+</dd>
+</dl>
+<p>For example:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">tellurium</span> <span class="k">as</span> <span class="nn">te</span>
+<span class="kn">import</span> <span class="nn">roadrunner</span>
+<span class="kn">from</span> <span class="nn">matplotlib</span> <span class="kn">import</span> <span class="n">pyplot</span> <span class="k">as</span> <span class="n">plt</span>
+
+<span class="n">r</span> <span class="o">=</span> <span class="n">te</span><span class="o">.</span><span class="n">loada</span><span class="p">(</span><span class="s2">&quot;&quot;&quot;</span>
+<span class="s2">    $Xo -&gt; x1; k1*Xo - k2*x1;</span>
+<span class="s2">     x1 -&gt; x2; k2*x1 - k3*x2;</span>
+<span class="s2">     x2 -&gt;; k3*x2;</span>
+
+<span class="s2">     k1 = 0.5; k2 = 0.23; k3 = 0.4;  Xo = 5;</span>
+<span class="s2">&quot;&quot;&quot;</span><span class="p">)</span>
+
+<span class="n">r</span><span class="o">.</span><span class="n">steadyState</span><span class="p">()</span>
+
+<span class="n">m</span> <span class="o">=</span> <span class="n">r</span><span class="o">.</span><span class="n">getFrequencyResponse</span><span class="p">(</span><span class="mf">0.001</span><span class="p">,</span> <span class="mi">5</span><span class="p">,</span> <span class="mi">1000</span><span class="p">,</span> <span class="s1">&#39;Xo&#39;</span><span class="p">,</span> <span class="s1">&#39;x2&#39;</span><span class="p">,</span> <span class="kc">True</span><span class="p">,</span> <span class="kc">False</span><span class="p">)</span>
+
+<span class="n">fig</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">figure</span><span class="p">(</span><span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">10</span><span class="p">,</span><span class="mi">4</span><span class="p">))</span>
+
+<span class="n">ax1</span> <span class="o">=</span> <span class="n">fig</span><span class="o">.</span><span class="n">add_subplot</span> <span class="p">(</span><span class="mi">121</span><span class="p">)</span>
+<span class="n">ax1</span><span class="o">.</span><span class="n">semilogx</span> <span class="p">(</span><span class="n">m</span><span class="p">[:,</span><span class="mi">0</span><span class="p">],</span> <span class="n">m</span><span class="p">[:,</span><span class="mi">1</span><span class="p">],</span> <span class="n">color</span><span class="o">=</span><span class="s2">&quot;blue&quot;</span><span class="p">,</span> <span class="n">linewidth</span><span class="o">=</span><span class="s2">&quot;2&quot;</span><span class="p">)</span>
+<span class="n">ax1</span><span class="o">.</span><span class="n">set_title</span> <span class="p">(</span><span class="s1">&#39;Amplitude&#39;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">xlabel</span> <span class="p">(</span><span class="s1">&#39;Frequency&#39;</span><span class="p">)</span>
+
+<span class="n">ax2</span> <span class="o">=</span> <span class="n">fig</span><span class="o">.</span><span class="n">add_subplot</span> <span class="p">(</span><span class="mi">122</span><span class="p">)</span>
+<span class="n">ax2</span><span class="o">.</span><span class="n">semilogx</span> <span class="p">(</span><span class="n">m</span><span class="p">[:,</span><span class="mi">0</span><span class="p">],</span> <span class="n">m</span><span class="p">[:,</span><span class="mi">2</span><span class="p">],</span> <span class="n">color</span><span class="o">=</span><span class="s2">&quot;blue&quot;</span><span class="p">,</span> <span class="n">linewidth</span><span class="o">=</span><span class="s2">&quot;2&quot;</span><span class="p">)</span>
+<span class="n">ax2</span><span class="o">.</span><span class="n">set_title</span> <span class="p">(</span><span class="s1">&#39;Phase&#39;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">xlabel</span> <span class="p">(</span><span class="s1">&#39;Frequency&#39;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
+</pre></div>
+</div>
+</dd></dl>
+
+<dl class="py method">
+<dt id="RoadRunner.RoadRunner.getRatesOfChange">
+<code class="sig-prename descclassname">RoadRunner.</code><code class="sig-name descname">getRatesOfChange</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#RoadRunner.RoadRunner.getRatesOfChange" title="Permalink to this definition">¶</a></dt>
+<dd><p>Returns the rates of change of all floating species. The order of species is
+given by the order of Ids returned by getFloatingSpeciesIds()</p>
+<dl class="field-list simple">
+<dt class="field-odd">Returns</dt>
+<dd class="field-odd"><p>a named array of floating species rates of change.</p>
+</dd>
+<dt class="field-even">Return type</dt>
+<dd class="field-even"><p>numpy.ndarray</p>
+</dd>
+</dl>
+<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">r</span><span class="o">.</span><span class="n">getRatesOfChange</span><span class="p">()</span>
+<span class="go">          MKKK,       MKKK_P,      MKK,      MKK_P,    MKK_PP,     MAPK,   MAPK_P,  MAPK_PP</span>
+<span class="go">[[ 0.000503289, -0.000503289, 0.537508, -0.0994839, -0.438024, 0.061993, 0.108417, -0.17041]]</span>
+</pre></div>
+</div>
+</dd></dl>
+
+<dl class="py method">
+<dt id="RoadRunner.RoadRunner.getIndependentRatesOfChange">
+<code class="sig-prename descclassname">RoadRunner.</code><code class="sig-name descname">getIndependentRatesOfChange</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#RoadRunner.RoadRunner.getIndependentRatesOfChange" title="Permalink to this definition">¶</a></dt>
+<dd><p>Returns the rates of change of all independent floating species. The order of species is
+given by the order of Ids returned by getIndependentFloatingSpeciesIds()</p>
+<dl class="field-list simple">
+<dt class="field-odd">Returns</dt>
+<dd class="field-odd"><p>a named array of independent floating species rates of change.</p>
+</dd>
+<dt class="field-even">Return type</dt>
+<dd class="field-even"><p>numpy.ndarray</p>
+</dd>
+</dl>
+<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">r</span><span class="o">.</span><span class="n">getIndependentRatesOfChange</span><span class="p">()</span>
+<span class="go">        MKK_P,   MAPK_P,        MKKK,      MKK,     MAPK</span>
+<span class="go">[[ -0.0994839, 0.108417, 0.000503289, 0.537508, 0.061993]]</span>
+</pre></div>
+</div>
+</dd></dl>
+
+<dl class="py method">
+<dt id="RoadRunner.RoadRunner.getDependentRatesOfChange">
+<code class="sig-prename descclassname">RoadRunner.</code><code class="sig-name descname">getDependentRatesOfChange</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#RoadRunner.RoadRunner.getDependentRatesOfChange" title="Permalink to this definition">¶</a></dt>
+<dd><p>Returns the rates of change of all dependent floating species. The order of species is
+given by the order of Ids returned by getDependentFloatingSpeciesIds()</p>
+<dl class="field-list simple">
+<dt class="field-odd">Returns</dt>
+<dd class="field-odd"><p>a named array of dependent floating species rates of change.</p>
+</dd>
+<dt class="field-even">Return type</dt>
+<dd class="field-even"><p>numpy.ndarray</p>
+</dd>
+</dl>
+<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">r</span><span class="o">.</span><span class="n">getDependentRatesOfChange</span><span class="p">()</span>
+<span class="go">      MKK_PP,       MKKK_P,  MAPK_PP</span>
+<span class="go">[[ -0.438024, -0.000503289, -0.17041]]</span>
+</pre></div>
+</div>
+</dd></dl>
+
+</div>
+</div>
+
+
+           </div>
+           
+          </div>
+          <footer>
+  
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>
+        
+        &copy; Copyright 2013-2018, Andy Somogyi, J Kyle Medley, Kiri Choi, Herbert Suaro
+
+    </p>
+  </div>
+    
+    
+    
+    Built with <a href="http://sphinx-doc.org/">Sphinx</a> using a
+    
+    <a href="https://github.com/rtfd/sphinx_rtd_theme">theme</a>
+    
+    provided by <a href="https://readthedocs.org">Read the Docs</a>. 
+
+</footer>
+
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+  
+
+  <script type="text/javascript">
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script>
+
+  
+  
+    
+   
+
+</body>
+</html>

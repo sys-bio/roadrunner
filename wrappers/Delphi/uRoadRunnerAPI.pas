@@ -466,7 +466,7 @@ end;
 
 
 // -----------------------------------------------------------------
-// For doumentation, see the C API docs at:
+// For doumentation, see the C wrappers docs at:
 //      http://code.google.com/p/roadrunnerwork/
 // -----------------------------------------------------------------
 

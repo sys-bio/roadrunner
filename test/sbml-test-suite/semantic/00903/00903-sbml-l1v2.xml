@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<sbml xmlns="http://www.sbml.org/sbml/level1" level="1" version="2">
+  <model name="case00903">
+    <listOfCompartments>
+      <compartment name="C1" volume="1.5" units="volume"/>
+      <compartment name="C2" volume="1.5" units="volume"/>
+    </listOfCompartments>
+    <listOfRules>
+      <compartmentVolumeRule formula="0.5 * C2 - 0.2 * C1" type="rate" compartment="C1"/>
+      <compartmentVolumeRule formula="0.75 * C1 - 2.1 * C2" type="rate" compartment="C2"/>
+    </listOfRules>
+  </model>
+</sbml>

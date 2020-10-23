@@ -28,7 +28,7 @@
 #pragma warning( disable : 4244 )
 #endif
 
-#if (LLVM_VERSION_MAJOR == 6)
+#if (LLVM_VERSION_MAJOR >= 6)
 #include <llvm/IR/DataLayout.h>
 #include <llvm/IR/DerivedTypes.h>
 #include <llvm/IR/IRBuilder.h>

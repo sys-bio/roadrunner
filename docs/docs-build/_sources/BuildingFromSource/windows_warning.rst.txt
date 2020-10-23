@@ -1,0 +1,18 @@
+A warning for windows users
+==============================
+
+The easiest way to build roadrunner and its dependencies on windows is to 1) use the cmake-gui to select build options and 2) use the visual studio GUI to build the cmake generated solution files. You can also just use the command line but you need to be careful that you are using the correct architecture (x86 or x64) and the correct build type (Release vs Debug).
+
+To ensure you are using the correct architecture, use the "x64 Native Tools Command Prompt for VS2019" shell for x64 bit builds.
+
+To reliably pick the build type, you must explicitely specify the build type twice, once at configure time and again at build time. During configure time ensure you have provided an argument to `CMAKE_BUILD_TYPE`, i.e.:
+
+.. code-block: bash
+
+	$ cmake -DCMAKE_BUILD_TYPE="Release"
+
+During build time, make sure you provide an argument to `--config`. The default will always be `Debug` regardless of what you did at configure time, i.e. do this:
+
+.. code-block: bash
+
+	cmake --build . --config Release

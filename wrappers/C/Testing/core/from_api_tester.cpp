@@ -88,7 +88,7 @@ int main(int argc, char* argv[])
         cout<<"No handle...";
     }
 
-	cout<<"API Version: "<<getVersion()<<endl;
+	cout<<"wrappers Version: "<<getVersion()<<endl;
 	cout<<"libSBML Version: "<<getlibSBMLVersion()<<endl;
     setTempFolder("c:\\rrTemp");
     enableLogging();

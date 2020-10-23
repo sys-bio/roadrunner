@@ -1,0 +1,122 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.20" xml:lang="en-US">
+  <compounddef id="classrr_1_1NLEQ2SolverRegistrar" kind="class" language="C++" prot="public">
+    <compoundname>rr::NLEQ2SolverRegistrar</compoundname>
+    <basecompoundref refid="classrr_1_1SteadyStateSolverRegistrar" prot="public" virt="non-virtual">rr::SteadyStateSolverRegistrar</basecompoundref>
+      <sectiondef kind="public-func">
+      <memberdef kind="function" id="classrr_1_1NLEQ2SolverRegistrar_1a6d9c3dc02579c94f76900fffe550ff3b" prot="public" static="no" const="yes" explicit="no" inline="yes" virt="virtual">
+        <type>std::string</type>
+        <definition>virtual std::string rr::NLEQ2SolverRegistrar::getName</definition>
+        <argsstring>() const</argsstring>
+        <name>getName</name>
+        <reimplements refid="classrr_1_1SteadyStateSolverRegistrar_1adf5cbf8f2c5df0d1a25807c80fbc3549">getName</reimplements>
+        <briefdescription>
+<para>Gets the name associated with this integrator type. </para>
+        </briefdescription>
+        <detaileddescription>
+<para><simplesect kind="author"><para>JKM </para>
+</simplesect>
+</para>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="NLEQ2Solver.h" line="107" column="33" bodyfile="NLEQ2Solver.h" bodystart="107" bodyend="109"/>
+      </memberdef>
+      <memberdef kind="function" id="classrr_1_1NLEQ2SolverRegistrar_1adcba98550142a6495f3e65ad14e3e349" prot="public" static="no" const="yes" explicit="no" inline="yes" virt="virtual">
+        <type>std::string</type>
+        <definition>virtual std::string rr::NLEQ2SolverRegistrar::getDescription</definition>
+        <argsstring>() const</argsstring>
+        <name>getDescription</name>
+        <reimplements refid="classrr_1_1SteadyStateSolverRegistrar_1a0b2f22b7a1c4989e97ac3fdb64ac983c">getDescription</reimplements>
+        <briefdescription>
+<para>Gets the description associated with this integrator type. </para>
+        </briefdescription>
+        <detaileddescription>
+<para><simplesect kind="author"><para>JKM </para>
+</simplesect>
+</para>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="NLEQ2Solver.h" line="115" column="33" bodyfile="NLEQ2Solver.h" bodystart="115" bodyend="117"/>
+      </memberdef>
+      <memberdef kind="function" id="classrr_1_1NLEQ2SolverRegistrar_1a856af2879611da2eada0874dd8252b29" prot="public" static="no" const="yes" explicit="no" inline="yes" virt="virtual">
+        <type>std::string</type>
+        <definition>virtual std::string rr::NLEQ2SolverRegistrar::getHint</definition>
+        <argsstring>() const</argsstring>
+        <name>getHint</name>
+        <reimplements refid="classrr_1_1SteadyStateSolverRegistrar_1a00f5ff21ffc7322a244ed27d8cff4d64">getHint</reimplements>
+        <briefdescription>
+<para>Gets the hint associated with this integrator type. </para>
+        </briefdescription>
+        <detaileddescription>
+<para><simplesect kind="author"><para>JKM </para>
+</simplesect>
+</para>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="NLEQ2Solver.h" line="123" column="33" bodyfile="NLEQ2Solver.h" bodystart="123" bodyend="125"/>
+      </memberdef>
+      <memberdef kind="function" id="classrr_1_1NLEQ2SolverRegistrar_1aa2857b672347b53fdcceb855471100e2" prot="public" static="no" const="yes" explicit="no" inline="yes" virt="virtual">
+        <type><ref refid="classrr_1_1SteadyStateSolver" kindref="compound">SteadyStateSolver</ref> *</type>
+        <definition>virtual SteadyStateSolver* rr::NLEQ2SolverRegistrar::construct</definition>
+        <argsstring>(ExecutableModel *model) const</argsstring>
+        <name>construct</name>
+        <reimplements refid="classrr_1_1SteadyStateSolverRegistrar_1a48fba27b1da7285714fabbfc9383ba6c">construct</reimplements>
+        <param>
+          <type><ref refid="classrr_1_1ExecutableModel" kindref="compound">ExecutableModel</ref> *</type>
+          <declname>model</declname>
+        </param>
+        <briefdescription>
+<para>Constructs a new integrator of a given type. </para>
+        </briefdescription>
+        <detaileddescription>
+<para><simplesect kind="author"><para>JKM </para>
+</simplesect>
+</para>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="NLEQ2Solver.h" line="131" column="39" bodyfile="NLEQ2Solver.h" bodystart="131" bodyend="133"/>
+      </memberdef>
+      </sectiondef>
+    <briefdescription>
+    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <inheritancegraph>
+      <node id="2">
+        <label>rr::SteadyStateSolverRegistrar</label>
+        <link refid="classrr_1_1SteadyStateSolverRegistrar"/>
+      </node>
+      <node id="1">
+        <label>rr::NLEQ2SolverRegistrar</label>
+        <link refid="classrr_1_1NLEQ2SolverRegistrar"/>
+        <childnode refid="2" relation="public-inheritance">
+        </childnode>
+      </node>
+    </inheritancegraph>
+    <collaborationgraph>
+      <node id="2">
+        <label>rr::SteadyStateSolverRegistrar</label>
+        <link refid="classrr_1_1SteadyStateSolverRegistrar"/>
+      </node>
+      <node id="1">
+        <label>rr::NLEQ2SolverRegistrar</label>
+        <link refid="classrr_1_1NLEQ2SolverRegistrar"/>
+        <childnode refid="2" relation="public-inheritance">
+        </childnode>
+      </node>
+    </collaborationgraph>
+    <location file="NLEQ2Solver.h" line="101" column="5" bodyfile="NLEQ2Solver.h" bodystart="101" bodyend="134"/>
+    <listofallmembers>
+      <member refid="classrr_1_1NLEQ2SolverRegistrar_1aa2857b672347b53fdcceb855471100e2" prot="public" virt="virtual"><scope>rr::NLEQ2SolverRegistrar</scope><name>construct</name></member>
+      <member refid="classrr_1_1NLEQ2SolverRegistrar_1adcba98550142a6495f3e65ad14e3e349" prot="public" virt="virtual"><scope>rr::NLEQ2SolverRegistrar</scope><name>getDescription</name></member>
+      <member refid="classrr_1_1NLEQ2SolverRegistrar_1a856af2879611da2eada0874dd8252b29" prot="public" virt="virtual"><scope>rr::NLEQ2SolverRegistrar</scope><name>getHint</name></member>
+      <member refid="classrr_1_1NLEQ2SolverRegistrar_1a6d9c3dc02579c94f76900fffe550ff3b" prot="public" virt="virtual"><scope>rr::NLEQ2SolverRegistrar</scope><name>getName</name></member>
+      <member refid="classrr_1_1SteadyStateSolverRegistrar_1a88a6f7ded8eddf850ef18d7cc6d88d2e" prot="protected" virt="non-virtual"><scope>rr::NLEQ2SolverRegistrar</scope><name>SteadyStateSolverCtor</name></member>
+      <member refid="classrr_1_1SteadyStateSolverRegistrar_1a746bc5daf544d135f351e8bbc9e1d92d" prot="public" virt="virtual"><scope>rr::NLEQ2SolverRegistrar</scope><name>~SteadyStateSolverRegistrar</name></member>
+    </listofallmembers>
+  </compounddef>
+</doxygen>

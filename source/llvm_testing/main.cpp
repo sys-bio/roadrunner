@@ -465,14 +465,6 @@ int matnames_test(int argc, char* argv[]) {
     cout << endl;
 
 
-
-
-
-
-
-
-
-
     return 0;
 }
 
@@ -525,8 +517,6 @@ int main(int argc, char* argv[])
     if(strcmp("matnames", argv[1]) == 0) {
         return matnames_test(argc, argv);
     }
-
-
 
     cout << "error, invalid test name: " << argv[1] << endl;
     return -1;

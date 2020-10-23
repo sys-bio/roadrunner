@@ -1,0 +1,318 @@
+
+
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" >
+<head>
+  <meta charset="utf-8">
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+  <title>JIT Compilation &mdash; libRoadRunner 1.1.16 documentation</title>
+  
+
+  
+  <link rel="stylesheet" href="../_static/css/theme.css" type="text/css" />
+  <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
+
+  
+  
+  
+  
+
+  
+  <!--[if lt IE 9]>
+    <script src="../_static/js/html5shiv.min.js"></script>
+  <![endif]-->
+  
+    
+      <script type="text/javascript" id="documentation_options" data-url_root="../" src="../_static/documentation_options.js"></script>
+        <script src="../_static/jquery.js"></script>
+        <script src="../_static/underscore.js"></script>
+        <script src="../_static/doctools.js"></script>
+        <script src="../_static/language_data.js"></script>
+    
+    <script type="text/javascript" src="../_static/js/theme.js"></script>
+
+    
+    <link rel="index" title="Index" href="../genindex.html" />
+    <link rel="search" title="Search" href="../search.html" /> 
+</head>
+
+<body class="wy-body-for-nav">
+
+   
+  <div class="wy-grid-for-nav">
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+          
+
+          
+            <a href="../index.html" class="icon icon-home" alt="Documentation Home"> libRoadRunner
+          
+
+          
+          </a>
+
+          
+            
+            
+          
+
+          
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+
+          
+        </div>
+
+        
+        <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+          
+            
+            
+              
+            
+            
+              <ul>
+<li class="toctree-l1"><a class="reference internal" href="../index.html">RoadRunner Documentation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../introduction.html">Introduction</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../Installation/installation.html">Installing RoadRunner</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../read_write_functions.html">SBML Read/Write Functions</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../selecting_values.html">Selecting Values</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../steady_state.html">Steady State Analysis</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../stochastic.html">Stochastic Simulation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../metabolic.html">Metabolic Control Analysis</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../stability.html">Stability Analysis</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../stoichiometric.html">Stoichiometric Analysis</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../bifurcation.html">Bifurcation Analysis</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../integration.html">Simulation and Integration</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../utility_functions.html">Utility Functions</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../accessing_model.html">Accessing the SBML Model Variables</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../api_reference.html">RoadRunner API Reference</a></li>
+</ul>
+
+            
+          
+        </div>
+        
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" aria-label="top navigation">
+        
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../index.html">libRoadRunner</a>
+        
+      </nav>
+
+
+      <div class="wy-nav-content">
+        
+        <div class="rst-content">
+        
+          
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div role="navigation" aria-label="breadcrumbs navigation">
+
+  <ul class="wy-breadcrumbs">
+    
+      <li><a href="../index.html" class="icon icon-home"></a> &raquo;</li>
+        
+      <li>JIT Compilation</li>
+    
+    
+      <li class="wy-breadcrumbs-aside">
+        
+            
+            <a href="../_sources/mod_roadrunner/cls_Compiler.rst.txt" rel="nofollow"> View page source</a>
+          
+        
+      </li>
+    
+  </ul>
+
+  
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+            
+  <div class="section" id="jit-compilation">
+<h1>JIT Compilation<a class="headerlink" href="#jit-compilation" title="Permalink to this headline">¶</a></h1>
+<dl class="py class">
+<dt id="RoadRunner.Compiler">
+<em class="property">class </em><code class="sig-prename descclassname">RoadRunner.</code><code class="sig-name descname">Compiler</code><a class="headerlink" href="#RoadRunner.Compiler" title="Permalink to this definition">¶</a></dt>
+<dd><p>The Compiler object provides information about the JIT compiler
+currently in use.</p>
+</dd></dl>
+
+<dl class="py method">
+<dt id="RoadRunner.Compiler.getCompiler">
+<code class="sig-prename descclassname">Compiler.</code><code class="sig-name descname">getCompiler</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#RoadRunner.Compiler.getCompiler" title="Permalink to this definition">¶</a></dt>
+<dd><p>gets the name of the JIT compiler, i.e. “LLVM” means we are using the
+LLVM JIT compiler.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p>str</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt id="RoadRunner-.Compiler.getVersion">
+<span id="RoadRunner:.Compiler.getVersion"></span><code class="sig-prename descclassname">Compiler.</code><code class="sig-name descname">getVersion</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#RoadRunner-.Compiler.getVersion" title="Permalink to this definition">¶</a></dt>
+<dd><p>get the version of the JIT compiler.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p>str</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt id="RoadRunner.Compiler.getDefaultTargetTriple">
+<code class="sig-prename descclassname">Compiler.</code><code class="sig-name descname">getDefaultTargetTriple</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#RoadRunner.Compiler.getDefaultTargetTriple" title="Permalink to this definition">¶</a></dt>
+<dd><p>Return the default target triple the compiler  has been configured to produce code for.
+A ‘triple’ is just a string that contains three items, it is called ‘triple’ as
+that is a LLVM historical convention.</p>
+<p>The target triple is a string in the format of:
+CPU_TYPE-VENDOR-OPERATING_SYSTEM</p>
+<p>or</p>
+<p>CPU_TYPE-VENDOR-KERNEL-OPERATING_SYSTEM</p>
+<dl class="field-list simple">
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p>str</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt id="RoadRunner.Compiler.getProcessTriple">
+<code class="sig-prename descclassname">Compiler.</code><code class="sig-name descname">getProcessTriple</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#RoadRunner.Compiler.getProcessTriple" title="Permalink to this definition">¶</a></dt>
+<dd><p>Return an appropriate target triple for generating
+code to be loaded into the current process, e.g. when using the JIT.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p>str</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt id="RoadRunner.Compiler.getHostCPUName">
+<code class="sig-prename descclassname">Compiler.</code><code class="sig-name descname">getHostCPUName</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#RoadRunner.Compiler.getHostCPUName" title="Permalink to this definition">¶</a></dt>
+<dd><p>getHostCPUName - Get the LLVM name for the host CPU. The particular format
+of the name is target dependent, and suitable for passing as -mcpu to the
+target which matches the host.</p>
+<p>return - The host CPU name, or empty if the CPU could not be determined.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p>str</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt id="RoadRunner.Compiler.setCompiler">
+<code class="sig-prename descclassname">Compiler.</code><code class="sig-name descname">setCompiler</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">compiler</span></em><span class="sig-paren">)</span><a class="headerlink" href="#RoadRunner.Compiler.setCompiler" title="Permalink to this definition">¶</a></dt>
+<dd><p>A legacy method that currently does not do anything.</p>
+</dd></dl>
+
+<dl class="py method">
+<dt id="RoadRunner.Compiler.getCompilerLocation">
+<code class="sig-prename descclassname">Compiler.</code><code class="sig-name descname">getCompilerLocation</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#RoadRunner.Compiler.getCompilerLocation" title="Permalink to this definition">¶</a></dt>
+<dd><p>A legacy method that currently does not do anything.</p>
+</dd></dl>
+
+<dl class="py method">
+<dt id="RoadRunner.Compiler.setCompilerLocation">
+<code class="sig-prename descclassname">Compiler.</code><code class="sig-name descname">setCompilerLocation</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">loc</span></em><span class="sig-paren">)</span><a class="headerlink" href="#RoadRunner.Compiler.setCompilerLocation" title="Permalink to this definition">¶</a></dt>
+<dd><p>A legacy method that currently does not do anything.</p>
+</dd></dl>
+
+<dl class="py method">
+<dt id="RoadRunner.Compiler.getSupportCodeFolder">
+<code class="sig-prename descclassname">Compiler.</code><code class="sig-name descname">getSupportCodeFolder</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#RoadRunner.Compiler.getSupportCodeFolder" title="Permalink to this definition">¶</a></dt>
+<dd><p>A legacy method that currently does not do anything.</p>
+</dd></dl>
+
+<dl class="py method">
+<dt id="RoadRunner.Compiler.setSupportCodeFolder">
+<code class="sig-prename descclassname">Compiler.</code><code class="sig-name descname">setSupportCodeFolder</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">path</span></em><span class="sig-paren">)</span><a class="headerlink" href="#RoadRunner.Compiler.setSupportCodeFolder" title="Permalink to this definition">¶</a></dt>
+<dd><p>A legacy method that currently does not do anything.</p>
+</dd></dl>
+
+</div>
+
+
+           </div>
+           
+          </div>
+          <footer>
+  
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>
+        
+        &copy; Copyright 2013-2018, Andy Somogyi, J Kyle Medley, Kiri Choi, Herbert Suaro
+
+    </p>
+  </div>
+    
+    
+    
+    Built with <a href="http://sphinx-doc.org/">Sphinx</a> using a
+    
+    <a href="https://github.com/rtfd/sphinx_rtd_theme">theme</a>
+    
+    provided by <a href="https://readthedocs.org">Read the Docs</a>. 
+
+</footer>
+
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+  
+
+  <script type="text/javascript">
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script>
+
+  
+  
+    
+   
+
+</body>
+</html>

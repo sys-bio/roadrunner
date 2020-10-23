@@ -1,0 +1,89 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.20" xml:lang="en-US">
+  <compounddef id="structrr_1_1RoadRunnerOptions" kind="struct" language="C++" prot="public">
+    <compoundname>rr::RoadRunnerOptions</compoundname>
+    <includes refid="rrRoadRunnerOptions_8h" local="no">rrRoadRunnerOptions.h</includes>
+      <sectiondef kind="public-type">
+      <memberdef kind="enum" id="structrr_1_1RoadRunnerOptions_1a835c7d4848b4611885e41029261ef2db" prot="public" static="no" strong="no">
+        <type></type>
+        <name>Options</name>
+        <enumvalue id="structrr_1_1RoadRunnerOptions_1a835c7d4848b4611885e41029261ef2dbaf22b160124e62a6fa93c6737e96bfcb8" prot="public">
+          <name>DISABLE_PYTHON_DYNAMIC_PROPERTIES</name>
+          <initializer>= (0x1 &lt;&lt; 0)</initializer>
+          <briefdescription>
+<para><ref refid="classrr_1_1RoadRunner" kindref="compound">RoadRunner</ref> by default dynamically generates accessor properties for all sbml symbol names on the model object when it is retrieved in Python. </para>
+          </briefdescription>
+          <detaileddescription>
+<para>This feature is very nice for interactive use, but can slow things down. If this feature is not needed, it can be disabled here. </para>
+          </detaileddescription>
+        </enumvalue>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="rrRoadRunnerOptions.h" line="353" column="1" bodyfile="rrRoadRunnerOptions.h" bodystart="354" bodyend="363"/>
+      </memberdef>
+      </sectiondef>
+      <sectiondef kind="public-attrib">
+      <memberdef kind="variable" id="structrr_1_1RoadRunnerOptions_1a8ee2e8f6c5c3214f59de5cf773163702" prot="public" static="no" mutable="no">
+        <type>uint32_t</type>
+        <definition>uint32_t rr::RoadRunnerOptions::flags</definition>
+        <argsstring></argsstring>
+        <name>flags</name>
+        <briefdescription>
+<para>a bitmask of the options specified in the Options enumeration. </para>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="rrRoadRunnerOptions.h" line="368" column="10" bodyfile="rrRoadRunnerOptions.h" bodystart="368" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="structrr_1_1RoadRunnerOptions_1a2d2fb9efd9f69c0ab754bba73e3f8a1c" prot="public" static="no" mutable="no">
+        <type>double</type>
+        <definition>double rr::RoadRunnerOptions::jacobianStepSize</definition>
+        <argsstring></argsstring>
+        <name>jacobianStepSize</name>
+        <briefdescription>
+<para>step size used for numeric Jacobian calculations. </para>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="rrRoadRunnerOptions.h" line="373" column="8" bodyfile="rrRoadRunnerOptions.h" bodystart="373" bodyend="-1"/>
+      </memberdef>
+      </sectiondef>
+      <sectiondef kind="public-func">
+      <memberdef kind="function" id="structrr_1_1RoadRunnerOptions_1a8942b03083aa37387d0fd666c0d5878a" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type></type>
+        <definition>rr::RoadRunnerOptions::RoadRunnerOptions</definition>
+        <argsstring>()</argsstring>
+        <name>RoadRunnerOptions</name>
+        <briefdescription>
+<para>load default valued from config. </para>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="rrRoadRunnerOptions.h" line="378" column="1" bodyfile="rrRoadRunnerOptions.cpp" bodystart="174" bodyend="183"/>
+      </memberdef>
+      </sectiondef>
+    <briefdescription>
+<para>A set of options that determine how the top level <ref refid="classrr_1_1RoadRunner" kindref="compound">RoadRunner</ref> class should behave. </para>
+    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <location file="rrRoadRunnerOptions.h" line="351" column="1" bodyfile="rrRoadRunnerOptions.h" bodystart="352" bodyend="380"/>
+    <listofallmembers>
+      <member refid="structrr_1_1RoadRunnerOptions_1a835c7d4848b4611885e41029261ef2dbaf22b160124e62a6fa93c6737e96bfcb8" prot="public" virt="non-virtual"><scope>rr::RoadRunnerOptions</scope><name>DISABLE_PYTHON_DYNAMIC_PROPERTIES</name></member>
+      <member refid="structrr_1_1RoadRunnerOptions_1a8ee2e8f6c5c3214f59de5cf773163702" prot="public" virt="non-virtual"><scope>rr::RoadRunnerOptions</scope><name>flags</name></member>
+      <member refid="structrr_1_1RoadRunnerOptions_1a2d2fb9efd9f69c0ab754bba73e3f8a1c" prot="public" virt="non-virtual"><scope>rr::RoadRunnerOptions</scope><name>jacobianStepSize</name></member>
+      <member refid="structrr_1_1RoadRunnerOptions_1a835c7d4848b4611885e41029261ef2db" prot="public" virt="non-virtual"><scope>rr::RoadRunnerOptions</scope><name>Options</name></member>
+      <member refid="structrr_1_1RoadRunnerOptions_1a8942b03083aa37387d0fd666c0d5878a" prot="public" virt="non-virtual"><scope>rr::RoadRunnerOptions</scope><name>RoadRunnerOptions</name></member>
+    </listofallmembers>
+  </compounddef>
+</doxygen>

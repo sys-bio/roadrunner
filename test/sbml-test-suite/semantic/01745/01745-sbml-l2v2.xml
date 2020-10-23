@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<sbml xmlns="http://www.sbml.org/sbml/level2/version2" level="2" version="2">
+  <model id="case01745" name="case01745">
+    <listOfFunctionDefinitions>
+      <functionDefinition id="getOneTenth">
+        <math xmlns="http://www.w3.org/1998/Math/MathML">
+          <lambda>
+            <bvar>
+              <ci> x </ci>
+            </bvar>
+            <apply>
+              <divide/>
+              <ci> x </ci>
+              <cn type="integer"> 10 </cn>
+            </apply>
+          </lambda>
+        </math>
+      </functionDefinition>
+    </listOfFunctionDefinitions>
+    <listOfCompartments>
+      <compartment id="C" size="1"/>
+    </listOfCompartments>
+    <listOfSpecies>
+      <species id="S1" compartment="C" initialAmount="2"/>
+    </listOfSpecies>
+    <listOfReactions>
+      <reaction id="J0" fast="false">
+        <listOfProducts>
+          <speciesReference id="S1_stoich" species="S1">
+            <stoichiometryMath>
+              <math xmlns="http://www.w3.org/1998/Math/MathML">
+                <apply>
+                  <ci> getOneTenth </ci>
+                  <csymbol encoding="text" definitionURL="http://www.sbml.org/sbml/symbols/time"> time </csymbol>
+                </apply>
+              </math>
+            </stoichiometryMath>
+          </speciesReference>
+        </listOfProducts>
+        <kineticLaw>
+          <math xmlns="http://www.w3.org/1998/Math/MathML">
+            <cn> 0.1 </cn>
+          </math>
+        </kineticLaw>
+      </reaction>
+    </listOfReactions>
+  </model>
+</sbml>

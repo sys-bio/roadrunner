@@ -1,0 +1,152 @@
+\hypertarget{classrr_1_1SimulateOptions}{}\doxysection{rr\+::Simulate\+Options Class Reference}
+\label{classrr_1_1SimulateOptions}\index{rr::SimulateOptions@{rr::SimulateOptions}}
+
+
+This class is frozen, no new features \mbox{\hyperlink{classrr_1_1RoadRunner}{Road\+Runner}} simulation options.  
+
+
+
+
+{\ttfamily \#include $<$rr\+Road\+Runner\+Options.\+h$>$}
+
+Inheritance diagram for rr\+::Simulate\+Options\+:\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[height=3.000000cm]{classrr_1_1SimulateOptions}
+\end{center}
+\end{figure}
+\doxysubsection*{Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\Hypertarget{classrr_1_1SimulateOptions_af9d66c8fdefdb149ed56ff9b61725e35}\label{classrr_1_1SimulateOptions_af9d66c8fdefdb149ed56ff9b61725e35}} 
+\mbox{\hyperlink{classrr_1_1SimulateOptions_af9d66c8fdefdb149ed56ff9b61725e35}{Simulate\+Options}} ()
+\begin{DoxyCompactList}\small\item\em init with default options. \end{DoxyCompactList}\item 
+\mbox{\Hypertarget{classrr_1_1SimulateOptions_af028e3752c6c9c3e25d5ced5c3752b9d}\label{classrr_1_1SimulateOptions_af028e3752c6c9c3e25d5ced5c3752b9d}} 
+std\+::string \mbox{\hyperlink{classrr_1_1SimulateOptions_af028e3752c6c9c3e25d5ced5c3752b9d}{to\+String}} () const
+\begin{DoxyCompactList}\small\item\em get a description of this object, compatable with python {\bfseries{str}} \end{DoxyCompactList}\item 
+\mbox{\Hypertarget{classrr_1_1SimulateOptions_ae95f2f7ba2b8af37a27e8c8f47f0ae72}\label{classrr_1_1SimulateOptions_ae95f2f7ba2b8af37a27e8c8f47f0ae72}} 
+std\+::string \mbox{\hyperlink{classrr_1_1SimulateOptions_ae95f2f7ba2b8af37a27e8c8f47f0ae72}{to\+Repr}} () const
+\begin{DoxyCompactList}\small\item\em get a short descriptions of this object, compatable with python {\bfseries{repr}}. \end{DoxyCompactList}\item 
+\mbox{\Hypertarget{classrr_1_1SimulateOptions_a670a8cca2fd579cc776e70e95221bc81}\label{classrr_1_1SimulateOptions_a670a8cca2fd579cc776e70e95221bc81}} 
+void {\bfseries load\+S\+B\+M\+L\+Settings} (const std\+::string \&filename)
+\item 
+\mbox{\Hypertarget{classrr_1_1SimulateOptions_ae864e702c9a40669ac9088731ff49884}\label{classrr_1_1SimulateOptions_ae864e702c9a40669ac9088731ff49884}} 
+virtual void \mbox{\hyperlink{classrr_1_1SimulateOptions_ae864e702c9a40669ac9088731ff49884}{set\+Item}} (const std\+::string \&key, const \mbox{\hyperlink{classrr_1_1Variant}{rr\+::\+Variant}} \&value)
+\begin{DoxyCompactList}\small\item\em sets an item in the internal unordered map. \end{DoxyCompactList}\end{DoxyCompactItemize}
+\doxysubsection*{Public Attributes}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\Hypertarget{classrr_1_1SimulateOptions_a4fd459e58c6ad47dc8cd271591f28a3a}\label{classrr_1_1SimulateOptions_a4fd459e58c6ad47dc8cd271591f28a3a}} 
+bool \mbox{\hyperlink{classrr_1_1SimulateOptions_a4fd459e58c6ad47dc8cd271591f28a3a}{reset\+\_\+model}}
+\begin{DoxyCompactList}\small\item\em reset the model to the initial state. \end{DoxyCompactList}\item 
+\mbox{\Hypertarget{classrr_1_1SimulateOptions_a9087842fab7661b93dbc103e02f8908d}\label{classrr_1_1SimulateOptions_a9087842fab7661b93dbc103e02f8908d}} 
+bool \mbox{\hyperlink{classrr_1_1SimulateOptions_a9087842fab7661b93dbc103e02f8908d}{structured\+\_\+result}}
+\begin{DoxyCompactList}\small\item\em Simulate should return a raw result matrix without adding any column names. \end{DoxyCompactList}\item 
+bool \mbox{\hyperlink{classrr_1_1SimulateOptions_a93e8b08b6e526f96226333f83a1ac049}{copy\+\_\+result}}
+\begin{DoxyCompactList}\small\item\em Make a copy of the simulation result in Python. \end{DoxyCompactList}\item 
+int \mbox{\hyperlink{classrr_1_1SimulateOptions_a20008b16d84ef52a564648671d0c544b}{steps}}
+\begin{DoxyCompactList}\small\item\em The number of steps at which the output is sampled. \end{DoxyCompactList}\item 
+double \mbox{\hyperlink{classrr_1_1SimulateOptions_ae25c38171cedd08bf0cc43932c07822e}{start}}
+\begin{DoxyCompactList}\small\item\em The start time of the simulation time-\/series data. \end{DoxyCompactList}\item 
+\mbox{\Hypertarget{classrr_1_1SimulateOptions_a6917a73a48307d38643923182b28b0c4}\label{classrr_1_1SimulateOptions_a6917a73a48307d38643923182b28b0c4}} 
+double \mbox{\hyperlink{classrr_1_1SimulateOptions_a6917a73a48307d38643923182b28b0c4}{duration}}
+\begin{DoxyCompactList}\small\item\em The duration of the simulation run, in the model\textquotesingle{}s units of time. \end{DoxyCompactList}\item 
+std\+::string \mbox{\hyperlink{classrr_1_1SimulateOptions_a09d7ee18803cb8ca6f96f71d60eeb78e}{output\+\_\+file}}
+\begin{DoxyCompactList}\small\item\em The ouptut file for simulation results. \end{DoxyCompactList}\item 
+std\+::vector$<$ std\+::string $>$ \mbox{\hyperlink{classrr_1_1SimulateOptions_a0953c07a719d03a4d558a9bf2ce16f83}{variables}}
+\begin{DoxyCompactList}\small\item\em The variables (in addition to time) whose values will be saved in the result. \end{DoxyCompactList}\item 
+std\+::vector$<$ std\+::string $>$ \mbox{\hyperlink{classrr_1_1SimulateOptions_a13c457ced6a6396d9cb8dcecf42f0dee}{amounts}}
+\begin{DoxyCompactList}\small\item\em A list of the variable whose output in the results file is in amount (not concentration) units. \end{DoxyCompactList}\item 
+std\+::vector$<$ std\+::string $>$ \mbox{\hyperlink{classrr_1_1SimulateOptions_a3fb8836610f52922ee371fdf06331e97}{concentrations}}
+\begin{DoxyCompactList}\small\item\em A list of the variable whose output in the results file is in concentration (not amount) units. \end{DoxyCompactList}\end{DoxyCompactItemize}
+\doxysubsection*{Additional Inherited Members}
+
+
+\doxysubsection{Detailed Description}
+This class is frozen, no new features \mbox{\hyperlink{classrr_1_1RoadRunner}{Road\+Runner}} simulation options. 
+
+This is the full set of options that determines how \mbox{\hyperlink{classrr_1_1RoadRunner}{Road\+Runner}} performs a simulation of an sbml model.
+
+This is a superset of the values stored in a sbml test suite settings file, the documentation of the fields which correspond to an sbml test suite settings was taken from \href{http://sbml.org}{\texttt{ http\+://sbml.\+org}} 
+
+\doxysubsection{Member Data Documentation}
+\mbox{\Hypertarget{classrr_1_1SimulateOptions_a13c457ced6a6396d9cb8dcecf42f0dee}\label{classrr_1_1SimulateOptions_a13c457ced6a6396d9cb8dcecf42f0dee}} 
+\index{rr::SimulateOptions@{rr::SimulateOptions}!amounts@{amounts}}
+\index{amounts@{amounts}!rr::SimulateOptions@{rr::SimulateOptions}}
+\doxysubsubsection{\texorpdfstring{amounts}{amounts}}
+{\footnotesize\ttfamily std\+::vector$<$std\+::string$>$ rr\+::\+Simulate\+Options\+::amounts}
+
+
+
+A list of the variable whose output in the results file is in amount (not concentration) units. 
+
+This list of variables must be a subset of the names listed in variables. \mbox{\Hypertarget{classrr_1_1SimulateOptions_a3fb8836610f52922ee371fdf06331e97}\label{classrr_1_1SimulateOptions_a3fb8836610f52922ee371fdf06331e97}} 
+\index{rr::SimulateOptions@{rr::SimulateOptions}!concentrations@{concentrations}}
+\index{concentrations@{concentrations}!rr::SimulateOptions@{rr::SimulateOptions}}
+\doxysubsubsection{\texorpdfstring{concentrations}{concentrations}}
+{\footnotesize\ttfamily std\+::vector$<$std\+::string$>$ rr\+::\+Simulate\+Options\+::concentrations}
+
+
+
+A list of the variable whose output in the results file is in concentration (not amount) units. 
+
+This list of variables must be a subset of the names listed in variables. \mbox{\Hypertarget{classrr_1_1SimulateOptions_a93e8b08b6e526f96226333f83a1ac049}\label{classrr_1_1SimulateOptions_a93e8b08b6e526f96226333f83a1ac049}} 
+\index{rr::SimulateOptions@{rr::SimulateOptions}!copy\_result@{copy\_result}}
+\index{copy\_result@{copy\_result}!rr::SimulateOptions@{rr::SimulateOptions}}
+\doxysubsubsection{\texorpdfstring{copy\_result}{copy\_result}}
+{\footnotesize\ttfamily bool rr\+::\+Simulate\+Options\+::copy\+\_\+result}
+
+
+
+Make a copy of the simulation result in Python. 
+
+Large simulations should have this disabled. \mbox{\Hypertarget{classrr_1_1SimulateOptions_a09d7ee18803cb8ca6f96f71d60eeb78e}\label{classrr_1_1SimulateOptions_a09d7ee18803cb8ca6f96f71d60eeb78e}} 
+\index{rr::SimulateOptions@{rr::SimulateOptions}!output\_file@{output\_file}}
+\index{output\_file@{output\_file}!rr::SimulateOptions@{rr::SimulateOptions}}
+\doxysubsubsection{\texorpdfstring{output\_file}{output\_file}}
+{\footnotesize\ttfamily std\+::string rr\+::\+Simulate\+Options\+::output\+\_\+file}
+
+
+
+The ouptut file for simulation results. 
+
+If non-\/empty, then the simulation results are batch-\/written to output\+\_\+file every Config\+::\+K\+\_\+\+R\+O\+W\+S\+\_\+\+P\+E\+R\+\_\+\+W\+R\+I\+TE rows, and an empty result matrix is returned. \mbox{\Hypertarget{classrr_1_1SimulateOptions_ae25c38171cedd08bf0cc43932c07822e}\label{classrr_1_1SimulateOptions_ae25c38171cedd08bf0cc43932c07822e}} 
+\index{rr::SimulateOptions@{rr::SimulateOptions}!start@{start}}
+\index{start@{start}!rr::SimulateOptions@{rr::SimulateOptions}}
+\doxysubsubsection{\texorpdfstring{start}{start}}
+{\footnotesize\ttfamily double rr\+::\+Simulate\+Options\+::start}
+
+
+
+The start time of the simulation time-\/series data. 
+
+Often this is 0, but not necessarily. \mbox{\Hypertarget{classrr_1_1SimulateOptions_a20008b16d84ef52a564648671d0c544b}\label{classrr_1_1SimulateOptions_a20008b16d84ef52a564648671d0c544b}} 
+\index{rr::SimulateOptions@{rr::SimulateOptions}!steps@{steps}}
+\index{steps@{steps}!rr::SimulateOptions@{rr::SimulateOptions}}
+\doxysubsubsection{\texorpdfstring{steps}{steps}}
+{\footnotesize\ttfamily int rr\+::\+Simulate\+Options\+::steps}
+
+
+
+The number of steps at which the output is sampled. 
+
+The samples are evenly spaced. When a simulation system calculates the data points to record, it will typically divide the duration by the number of time steps. Thus, for X steps, the output will have X+1 data rows. \mbox{\Hypertarget{classrr_1_1SimulateOptions_a0953c07a719d03a4d558a9bf2ce16f83}\label{classrr_1_1SimulateOptions_a0953c07a719d03a4d558a9bf2ce16f83}} 
+\index{rr::SimulateOptions@{rr::SimulateOptions}!variables@{variables}}
+\index{variables@{variables}!rr::SimulateOptions@{rr::SimulateOptions}}
+\doxysubsubsection{\texorpdfstring{variables}{variables}}
+{\footnotesize\ttfamily std\+::vector$<$std\+::string$>$ rr\+::\+Simulate\+Options\+::variables}
+
+
+
+The variables (in addition to time) whose values will be saved in the result. 
+
+These are S\+B\+ML model id\textquotesingle{}s. Order is significant, as this determines the order of the columns in the result matrix.
+
+Important\+: if a symbol in this list refers to a species in the model, then that symbol will also be listed in either the amount or concentration lists below.
+
+N\+O\+TE\+:If a listed variable has two underscores in it (\textquotesingle{}\+\_\+\+\_\+\textquotesingle{}), that variable is actually present only in a submodel of the main model, from the Hierarchical Model Composition package, in the format submodel\+I\+D\+\_\+\+\_\+variable\+ID. If the model is flattened, the variable will appear automatically. 
+
+The documentation for this class was generated from the following files\+:\begin{DoxyCompactItemize}
+\item 
+rr\+Road\+Runner\+Options.\+h\item 
+rr\+Road\+Runner\+Options.\+cpp\end{DoxyCompactItemize}

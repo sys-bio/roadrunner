@@ -21,7 +21,7 @@
 namespace rrllvm
 {
 
-typedef void (*EvalInitialConditions_FunctionPtr)(LLVMModelData*, uint32_t);
+typedef void (*EvalInitialConditions_FunctionPtr)(LLVMModelData*, size_t);
 
 /**
  * Generates a function called 'modeldata_initialvalues_set', which evaluates

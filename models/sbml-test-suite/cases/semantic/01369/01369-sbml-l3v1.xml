@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- Created by libAntimony version v2.9.0 with libSBML version 5.14.1. -->
+<sbml xmlns="http://www.sbml.org/sbml/level3/version1/core" xmlns:comp="http://www.sbml.org/sbml/level3/version1/comp/version1" level="3" version="1" comp:required="true">
+  <model id="case01369" name="case01369">
+    <listOfCompartments>
+      <compartment id="C" spatialDimensions="3" size="1" constant="true">
+        <comp:listOfReplacedElements>
+          <comp:replacedElement comp:idRef="C" comp:submodelRef="A"/>
+        </comp:listOfReplacedElements>
+      </compartment>
+      <compartment id="J1" spatialDimensions="3" size="5" constant="true">
+        <comp:listOfReplacedElements>
+          <comp:replacedElement comp:idRef="J0" comp:submodelRef="A"/>
+        </comp:listOfReplacedElements>
+      </compartment>
+    </listOfCompartments>
+    <listOfSpecies>
+      <species id="S1" compartment="C" initialConcentration="3" hasOnlySubstanceUnits="false" boundaryCondition="false" constant="false">
+        <comp:listOfReplacedElements>
+          <comp:replacedElement comp:idRef="S1" comp:submodelRef="A"/>
+        </comp:listOfReplacedElements>
+      </species>
+    </listOfSpecies>
+    <comp:listOfSubmodels>
+      <comp:submodel comp:id="A" comp:modelRef="sub1"/>
+    </comp:listOfSubmodels>
+  </model>
+  <comp:listOfModelDefinitions>
+    <comp:modelDefinition id="sub1" name="sub1">
+      <listOfCompartments>
+        <compartment id="C" spatialDimensions="3" size="1" constant="true"/>
+        <compartment id="J0" spatialDimensions="3" size="2" constant="true"/>
+      </listOfCompartments>
+      <listOfSpecies>
+        <species id="S1" compartment="C" initialConcentration="3" hasOnlySubstanceUnits="false" boundaryCondition="false" constant="false"/>
+      </listOfSpecies>
+      <listOfReactions>
+        <reaction id="J2" reversible="true" fast="false">
+          <listOfProducts>
+            <speciesReference species="S1" stoichiometry="1" constant="true"/>
+          </listOfProducts>
+          <kineticLaw>
+            <math xmlns="http://www.w3.org/1998/Math/MathML">
+              <ci> J0 </ci>
+            </math>
+          </kineticLaw>
+        </reaction>
+      </listOfReactions>
+    </comp:modelDefinition>
+  </comp:listOfModelDefinitions>
+</sbml>

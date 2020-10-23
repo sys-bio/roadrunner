@@ -158,7 +158,7 @@ protected:
         /// verifyFunction - Check a function for errors, printing messages on stderr.
         /// Return true if the function is corrupt.
 //#if (LLVM_VERSION_MAJOR == 3) && (LLVM_VERSION_MINOR >= 5)
-#if (LLVM_VERSION_MAJOR == 6)
+#if (LLVM_VERSION_MAJOR >= 6)
         if (llvm::verifyFunction(*function))
 #else
         if (llvm::verifyFunction(*function, llvm::AbortProcessAction))

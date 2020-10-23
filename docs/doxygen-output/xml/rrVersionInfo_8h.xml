@@ -1,0 +1,203 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.20" xml:lang="en-US">
+  <compounddef id="rrVersionInfo_8h" kind="file" language="C++">
+    <compoundname>rrVersionInfo.h</compoundname>
+    <includes refid="rrExporter_8h" local="yes">rrExporter.h</includes>
+    <includes local="no">string</includes>
+    <includedby refid="rrRoadRunner_8cpp" local="yes">rrRoadRunner.cpp</includedby>
+    <includedby refid="rrVersionInfo_8cpp" local="yes">rrVersionInfo.cpp</includedby>
+    <incdepgraph>
+      <node id="3">
+        <label>string</label>
+      </node>
+      <node id="1">
+        <label>rrVersionInfo.h</label>
+        <link refid="rrVersionInfo_8h"/>
+        <childnode refid="2" relation="include">
+        </childnode>
+        <childnode refid="3" relation="include">
+        </childnode>
+      </node>
+      <node id="2">
+        <label>rrExporter.h</label>
+        <link refid="rrExporter_8h_source"/>
+      </node>
+    </incdepgraph>
+    <innernamespace refid="namespacerr">rr</innernamespace>
+      <sectiondef kind="define">
+      <memberdef kind="define" id="rrVersionInfo_8h_1a9f1bee956cf0770933daa371cb055232" prot="public" static="no">
+        <name>RR_STRINGIZE2</name>
+        <param><defname>s</defname></param>
+        <initializer>#s</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="rrVersionInfo.h" line="10" column="9" bodyfile="rrVersionInfo.h" bodystart="10" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="rrVersionInfo_8h_1aec56b9278a0fa9a2fc1a487fd14fc5e5" prot="public" static="no">
+        <name>RR_STRINGIZE</name>
+        <param><defname>s</defname></param>
+        <initializer>RR_STRINGIZE2(s)</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="rrVersionInfo.h" line="11" column="9" bodyfile="rrVersionInfo.h" bodystart="11" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="rrVersionInfo_8h_1a45d410b52221a82382d92076b2aa88ca" prot="public" static="no">
+        <name>RR_VERSION_MAJOR</name>
+        <initializer>2</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="rrVersionInfo.h" line="13" column="9" bodyfile="rrVersionInfo.h" bodystart="13" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="rrVersionInfo_8h_1a37859c6942351e8faaa353e4737eafc7" prot="public" static="no">
+        <name>RR_VERSION_MINOR</name>
+        <initializer>0</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="rrVersionInfo.h" line="14" column="9" bodyfile="rrVersionInfo.h" bodystart="14" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="rrVersionInfo_8h_1a11b4a06ba8374fbeefd48c311b754f04" prot="public" static="no">
+        <name>RR_VERSION_PATCH</name>
+        <initializer>1</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="rrVersionInfo.h" line="15" column="9" bodyfile="rrVersionInfo.h" bodystart="15" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="rrVersionInfo_8h_1aff7a97c14973d2ef918c8954bf76b880" prot="public" static="no">
+        <name>RR_VERSION_STR</name>
+        <initializer>  RR_STRINGIZE(RR_VERSION_MAJOR) &quot;.&quot; \
+  RR_STRINGIZE(RR_VERSION_MINOR) &quot;.&quot; \
+  RR_STRINGIZE(RR_VERSION_PATCH)</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="rrVersionInfo.h" line="16" column="9" bodyfile="rrVersionInfo.h" bodystart="16" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="rrVersionInfo_8h_1ab72014dfc599a8191e8d586e5da2a0bb" prot="public" static="no">
+        <name>RR_COMPILER</name>
+        <initializer>&quot;Unknown, but evidently working compiler&quot;</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="rrVersionInfo.h" line="54" column="13" bodyfile="rrVersionInfo.h" bodystart="54" bodyend="-1"/>
+      </memberdef>
+      </sectiondef>
+    <briefdescription>
+    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <programlisting>
+<codeline lineno="1"><highlight class="preprocessor">#ifndef<sp/>rrVersionInfoH</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="2"><highlight class="normal"></highlight><highlight class="preprocessor">#define<sp/>rrVersionInfoH</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="3"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&quot;rrExporter.h&quot;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="4"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&lt;string&gt;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="5"><highlight class="normal"></highlight></codeline>
+<codeline lineno="6"><highlight class="normal"></highlight><highlight class="keyword">namespace<sp/></highlight><highlight class="normal">rr<sp/>{</highlight></codeline>
+<codeline lineno="7"><highlight class="normal"></highlight></codeline>
+<codeline lineno="8"><highlight class="normal"></highlight><highlight class="preprocessor">#ifndef<sp/>SWIG</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="9"><highlight class="normal"></highlight></codeline>
+<codeline lineno="10"><highlight class="normal"></highlight><highlight class="preprocessor">#define<sp/>RR_STRINGIZE2(s)<sp/>#s</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="11"><highlight class="normal"></highlight><highlight class="preprocessor">#define<sp/>RR_STRINGIZE(s)<sp/>RR_STRINGIZE2(s)</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="12"><highlight class="normal"></highlight></codeline>
+<codeline lineno="13"><highlight class="normal"></highlight><highlight class="preprocessor">#define<sp/>RR_VERSION_MAJOR<sp/>2</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="14"><highlight class="normal"></highlight><highlight class="preprocessor">#define<sp/>RR_VERSION_MINOR<sp/>0</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="15"><highlight class="normal"></highlight><highlight class="preprocessor">#define<sp/>RR_VERSION_PATCH<sp/>1</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="16"><highlight class="normal"></highlight><highlight class="preprocessor">#define<sp/>RR_VERSION_STR<sp/>RR_STRINGIZE(RR_VERSION_MAJOR)<sp/>&quot;.&quot;<sp/>\</highlight></codeline>
+<codeline lineno="17"><highlight class="preprocessor"><sp/><sp/>RR_STRINGIZE(RR_VERSION_MINOR)<sp/>&quot;.&quot;<sp/>\</highlight></codeline>
+<codeline lineno="18"><highlight class="preprocessor"><sp/><sp/>RR_STRINGIZE(RR_VERSION_PATCH)</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="19"><highlight class="normal"></highlight></codeline>
+<codeline lineno="20"><highlight class="normal"></highlight></codeline>
+<codeline lineno="21"><highlight class="normal"></highlight><highlight class="preprocessor">#if<sp/>defined(__llvm__)</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="22"><highlight class="normal"></highlight><highlight class="preprocessor"><sp/><sp/><sp/><sp/>#define<sp/>RR_COMPILER<sp/>&quot;clang<sp/>&quot;<sp/>RR_STRINGIZE(__clang_version__)</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="23"><highlight class="normal"></highlight><highlight class="preprocessor">#endif</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="24"><highlight class="normal"></highlight></codeline>
+<codeline lineno="25"><highlight class="normal"></highlight><highlight class="preprocessor">#if<sp/>defined(__GNUC__)<sp/>&amp;&amp;<sp/>!defined(__llvm__)</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="26"><highlight class="normal"></highlight><highlight class="preprocessor"><sp/><sp/><sp/><sp/>#define<sp/>RR_COMPILER<sp/>&quot;gcc<sp/>&quot;<sp/>RR_STRINGIZE(__GNUC__)<sp/>&quot;.&quot;<sp/>RR_STRINGIZE(__GNUC_MINOR__)<sp/>&quot;.&quot;<sp/>RR_STRINGIZE(__GNUC_PATCHLEVEL__)</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="27"><highlight class="normal"></highlight><highlight class="preprocessor">#endif</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="28"><highlight class="normal"></highlight></codeline>
+<codeline lineno="29"><highlight class="normal"></highlight><highlight class="preprocessor">#if<sp/>defined<sp/>(_MSC_VER)</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="30"><highlight class="normal"></highlight><highlight class="preprocessor"><sp/><sp/><sp/><sp/>#if<sp/>(_MSC_VER<sp/>==<sp/>1800)</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="31"><highlight class="normal"></highlight><highlight class="preprocessor"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>#define<sp/>RR_COMPILER<sp/>&quot;Microsoft<sp/>Visual<sp/>Studio<sp/>2013&quot;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="32"><highlight class="normal"></highlight><highlight class="preprocessor"><sp/><sp/><sp/><sp/>#elif<sp/>(_MSC_VER<sp/>==<sp/>1900)</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="33"><highlight class="normal"></highlight><highlight class="preprocessor"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>#define<sp/>RR_COMPILER<sp/>&quot;Microsoft<sp/>Visual<sp/>Studio<sp/>2015&quot;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="34"><highlight class="normal"></highlight><highlight class="preprocessor"><sp/><sp/><sp/><sp/>#elif<sp/>(_MSC_VER<sp/>==<sp/>1700)</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="35"><highlight class="normal"></highlight><highlight class="preprocessor"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>#define<sp/>RR_COMPILER<sp/>&quot;Microsoft<sp/>Visual<sp/>Studio<sp/>2012&quot;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="36"><highlight class="normal"></highlight><highlight class="preprocessor"><sp/><sp/><sp/><sp/>#elif<sp/>(_MSC_VER<sp/>==<sp/>1600)</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="37"><highlight class="normal"></highlight><highlight class="preprocessor"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>#define<sp/>RR_COMPILER<sp/>&quot;Microsoft<sp/>Visual<sp/>Studio<sp/>2010&quot;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="38"><highlight class="normal"></highlight><highlight class="preprocessor"><sp/><sp/><sp/><sp/>#elif<sp/>(_MSC_VER<sp/>==<sp/>1500)</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="39"><highlight class="normal"></highlight><highlight class="preprocessor"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>#define<sp/>RR_COMPILER<sp/>&quot;Microsoft<sp/>Visual<sp/>Studio<sp/>2008&quot;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="40"><highlight class="normal"></highlight><highlight class="preprocessor"><sp/><sp/><sp/><sp/>#elif<sp/>(_MSC_VER<sp/>==<sp/>1400)</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="41"><highlight class="normal"></highlight><highlight class="preprocessor"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>#define<sp/>RR_COMPILER<sp/>&quot;Microsoft<sp/>Visual<sp/>Studio<sp/>2005&quot;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="42"><highlight class="normal"></highlight><highlight class="preprocessor"><sp/><sp/><sp/><sp/>#elif<sp/>(_MSC_VER<sp/>==<sp/>1310)</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="43"><highlight class="normal"></highlight><highlight class="preprocessor"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>#define<sp/>RR_COMPILER<sp/>&quot;Microsoft<sp/>Visual<sp/>Studio<sp/>2003&quot;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="44"><highlight class="normal"></highlight><highlight class="preprocessor"><sp/><sp/><sp/><sp/>#else</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="45"><highlight class="normal"></highlight><highlight class="preprocessor"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>#define<sp/>RR_COMPILER<sp/>&quot;Microsoft<sp/>Visual<sp/>Studio<sp/>Unknown<sp/>Version&quot;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="46"><highlight class="normal"></highlight><highlight class="preprocessor"><sp/><sp/><sp/><sp/>#endif</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="47"><highlight class="normal"></highlight><highlight class="preprocessor">#endif</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="48"><highlight class="normal"></highlight></codeline>
+<codeline lineno="49"><highlight class="normal"></highlight><highlight class="preprocessor">#if<sp/>defined<sp/>(__BORLANDC__)</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="50"><highlight class="normal"></highlight><highlight class="preprocessor"><sp/><sp/><sp/><sp/>#define<sp/>RR_COMPILER<sp/>&quot;Borland&quot;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="51"><highlight class="normal"></highlight><highlight class="preprocessor">#endif</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="52"><highlight class="normal"></highlight></codeline>
+<codeline lineno="53"><highlight class="normal"></highlight><highlight class="preprocessor">#if<sp/>!defined(RR_COMPILER)</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="54"><highlight class="normal"></highlight><highlight class="preprocessor"><sp/><sp/><sp/><sp/>#define<sp/>RR_COMPILER<sp/>&quot;Unknown,<sp/>but<sp/>evidently<sp/>working<sp/>compiler&quot;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="55"><highlight class="normal"></highlight><highlight class="preprocessor">#endif</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="56"><highlight class="normal"></highlight></codeline>
+<codeline lineno="57"><highlight class="normal"></highlight><highlight class="preprocessor">#endif<sp/>//<sp/>SWIG</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="58"><highlight class="normal"></highlight></codeline>
+<codeline lineno="62"><highlight class="keyword">enum</highlight><highlight class="normal"><sp/>VersionStrOptions</highlight></codeline>
+<codeline lineno="63"><highlight class="normal">{</highlight></codeline>
+<codeline lineno="67"><highlight class="normal"><sp/><sp/><sp/><sp/>VERSIONSTR_BASIC<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>=<sp/>(0x1<sp/>&lt;&lt;<sp/>0),</highlight></codeline>
+<codeline lineno="68"><highlight class="normal"></highlight></codeline>
+<codeline lineno="72"><highlight class="normal"><sp/><sp/><sp/><sp/>VERSIONSTR_COMPILER<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>=<sp/>(0x1<sp/>&lt;&lt;<sp/>1),</highlight></codeline>
+<codeline lineno="73"><highlight class="normal"></highlight></codeline>
+<codeline lineno="77"><highlight class="normal"><sp/><sp/><sp/><sp/>VERSIONSTR_DATE<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>=<sp/>(0x1<sp/>&lt;&lt;<sp/>2),</highlight></codeline>
+<codeline lineno="78"><highlight class="normal"></highlight></codeline>
+<codeline lineno="82"><highlight class="normal"><sp/><sp/><sp/><sp/>VERSIONSTR_LIBSBML<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>=<sp/>(0x1<sp/>&lt;&lt;<sp/>3),</highlight></codeline>
+<codeline lineno="83"><highlight class="normal"></highlight></codeline>
+<codeline lineno="84"><highlight class="normal"><sp/><sp/><sp/><sp/>VERSIONSTR_JITCOMPILER<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>=<sp/>(0x1<sp/>&lt;&lt;<sp/>4),</highlight></codeline>
+<codeline lineno="85"><highlight class="normal"></highlight></codeline>
+<codeline lineno="89"><highlight class="normal"><sp/><sp/><sp/><sp/>VERSIONSTR_GIT_BRANCH<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>=<sp/>(0x1<sp/>&lt;&lt;<sp/>5),</highlight></codeline>
+<codeline lineno="90"><highlight class="normal"></highlight></codeline>
+<codeline lineno="94"><highlight class="normal"><sp/><sp/><sp/><sp/>VERSIONSTR_GIT_COMMIT<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>=<sp/>(0x1<sp/>&lt;&lt;<sp/>6)</highlight></codeline>
+<codeline lineno="95"><highlight class="normal">};</highlight></codeline>
+<codeline lineno="96"><highlight class="normal"></highlight></codeline>
+<codeline lineno="105"><highlight class="normal">RR_DECLSPEC<sp/>std::string<sp/>getVersionStr(</highlight><highlight class="keywordtype">unsigned</highlight><highlight class="normal"><sp/>options<sp/>=<sp/>VERSIONSTR_BASIC</highlight></codeline>
+<codeline lineno="106"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>|<sp/>VERSIONSTR_COMPILER<sp/>|<sp/>VERSIONSTR_LIBSBML<sp/>|<sp/>VERSIONSTR_JITCOMPILER<sp/>|<sp/>VERSIONSTR_DATE);</highlight></codeline>
+<codeline lineno="107"><highlight class="normal"></highlight></codeline>
+<codeline lineno="108"><highlight class="normal"></highlight></codeline>
+<codeline lineno="112"><highlight class="normal">RR_DECLSPEC<sp/>std::string<sp/>getCopyrightStr();</highlight></codeline>
+<codeline lineno="113"><highlight class="normal"></highlight></codeline>
+<codeline lineno="114"><highlight class="normal"></highlight></codeline>
+<codeline lineno="115"><highlight class="normal">}</highlight></codeline>
+<codeline lineno="116"><highlight class="normal"></highlight></codeline>
+<codeline lineno="117"><highlight class="normal"></highlight><highlight class="preprocessor">#endif</highlight></codeline>
+    </programlisting>
+    <location file="rrVersionInfo.h"/>
+  </compounddef>
+</doxygen>

@@ -100,11 +100,39 @@ static bool isStoichDefined(const SpeciesReference* s) {
     if (hasInitialAssignment(s) || hasAssignmentRule(s))
         // stoich can be set by assignments
         return true;
-    return s->isSetStoichiometry();
+    return (s->isSetStoichiometry() || s->isSetStoichiometryMath());
 }
 
-// Return true if stoichiometry is defined for every reaction in the model
-bool isStoichDefined(const std::string sbml) {
+void setSpeciesRefId(SpeciesReference* sr, const string& idbase) 
+{
+    Model* model = const_cast<Model*>(sr->getModel());
+    const SBase* sbase = model->getElementBySId(idbase);
+    int i = 0;
+    std::stringstream newid(idbase);
+    while (sbase != NULL) {
+        i++;
+        newid.clear();
+        newid << idbase << i;
+        sbase = model->getElementBySId(newid.str());
+    }
+    int setret = sr->setId(newid.str());
+    if (setret != LIBSBML_OPERATION_SUCCESS && sr->getLevel() == 2 && sr->getVersion() == 1) {
+        // Might have to move to l2v2 to get ids on speciesReferences.
+        //  They don't officially exist in l2v1, but setId usually works
+        //  anyway because there's special layout code to handle it.
+        //
+        // If we do update the doc l/v, the objects remain the same, so it's OK
+        //  to continue in the same loops.
+        SBMLDocument* doc = model->getSBMLDocument();
+        doc->setLevelAndVersion(2, 2, false);
+        setret = sr->setId(newid.str());
+    }
+    if (setret != LIBSBML_OPERATION_SUCCESS) {
+        throw std::runtime_error("Unable to set variable stoichiometry ID.");
+    }
+}
+
+std::string fixMissingStoich(const std::string sbml) {
     SBMLDocument *doc = NULL;
 
     bool sbml_decl_okay = false;
@@ -131,56 +159,6 @@ bool isStoichDefined(const std::string sbml) {
     if (!sbml_decl_okay)
       throw std::runtime_error("SBML document must begin with an XML declaration or an SBML declaration");
 
-    try {
-        doc =  readSBMLFromString (sbml.c_str());
-
-        if (!doc)
-          throw std::runtime_error("Unable to read SBML");
-
-        if (doc->getLevel() < 3) {
-            delete doc;
-            return true;                                    // stoichiometry has a default value in level 1 & 2
-        }
-
-        const Model *m = doc->getModel();
-
-        if (!m)
-          throw std::runtime_error("SBML string invalid or missing model");
-
-        for (int j = 0; j<m->getNumReactions(); ++j) {
-            const Reaction* r = m->getReaction(j);
-            if (!r)
-                throw std::runtime_error("No reaction");
-
-            // check stoich defined on reactants / products
-            for (int k = 0; k<r->getNumReactants(); ++k) {
-                if (!isStoichDefined(r->getReactant(k))) {
-                    delete doc;
-                    return false;
-                }
-            }
-
-            for (int k = 0; k<r->getNumProducts(); ++k) {
-                if (!isStoichDefined(r->getProduct(k))) {
-                    delete doc;
-                    return false;
-                }
-            }
-
-            // modifiers have no stoichiometry
-        }
-
-    } catch(...) {
-        delete doc;
-        throw;
-    }
-
-    delete doc;
-    return true;
-}
-
-std::string fixMissingStoich(const std::string sbml) {
-    SBMLDocument *doc = NULL;
 
     try {
         doc =  readSBMLFromString (sbml.c_str());
@@ -196,15 +174,29 @@ std::string fixMissingStoich(const std::string sbml) {
             for (int k = 0; k<r->getNumReactants(); ++k) {
                 SpeciesReference* s = r->getReactant(k);
                 if (!isStoichDefined(s))
-                    if (s->setStoichiometry(1.) != LIBSBML_OPERATION_SUCCESS)
+                    if (s->setStoichiometry(1.) != LIBSBML_OPERATION_SUCCESS) {
                         throw std::runtime_error("Unable to set stoichiometry");
+                    }
+                if (s->isSetStoichiometryMath()) {
+                    string id = s->getId();
+                    if (!s->isSetId()) {
+                        setSpeciesRefId(s, r->getId() + "_reactant_" + s->getSpecies() + "_stoichiometry");
+                    }
+                }
             }
 
             for (int k = 0; k<r->getNumProducts(); ++k) {
                 SpeciesReference* s = r->getProduct(k);
                 if (!isStoichDefined(s))
-                    if (s->setStoichiometry(1.) != LIBSBML_OPERATION_SUCCESS)
+                    if (s->setStoichiometry(1.) != LIBSBML_OPERATION_SUCCESS) {
                         throw std::runtime_error("Unable to set stoichiometry");
+                    }
+                if (s->isSetStoichiometryMath()) {
+                    string id = s->getId();
+                    if (!s->isSetId()) {
+                        setSpeciesRefId(s, r->getId() + "_product_" + s->getSpecies() + "_stoichiometry");
+                    }
+                }
             }
 
             // modifiers have no stoichiometry
@@ -215,12 +207,8 @@ std::string fixMissingStoich(const std::string sbml) {
         throw;
     }
 
-    SBMLWriter writer;
-
-    char* sbml_cstr = writer.writeSBMLToString(doc);
+    string result = writeSBMLToStdString(doc);
     delete doc;
-    std::string result(sbml_cstr);
-    free(sbml_cstr);
     return result;
 }
 

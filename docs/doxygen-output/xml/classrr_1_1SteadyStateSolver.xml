@@ -1,0 +1,238 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.20" xml:lang="en-US">
+  <compounddef id="classrr_1_1SteadyStateSolver" kind="class" language="C++" prot="public" abstract="yes">
+    <compoundname>rr::SteadyStateSolver</compoundname>
+    <basecompoundref refid="classrr_1_1Solver" prot="public" virt="non-virtual">rr::Solver</basecompoundref>
+    <derivedcompoundref refid="classrr_1_1NLEQ1Solver" prot="public" virt="non-virtual">rr::NLEQ1Solver</derivedcompoundref>
+    <derivedcompoundref refid="classrr_1_1NLEQ2Solver" prot="public" virt="non-virtual">rr::NLEQ2Solver</derivedcompoundref>
+      <sectiondef kind="public-func">
+      <memberdef kind="function" id="classrr_1_1SteadyStateSolver_1ade09831f8f396dcaa240abf94604fc69" prot="public" static="no" const="no" explicit="no" inline="yes" virt="virtual">
+        <type></type>
+        <definition>virtual rr::SteadyStateSolver::~SteadyStateSolver</definition>
+        <argsstring>()</argsstring>
+        <name>~SteadyStateSolver</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="SteadyStateSolver.h" line="44" column="17" bodyfile="SteadyStateSolver.h" bodystart="44" bodyend="44"/>
+      </memberdef>
+      <memberdef kind="function" id="classrr_1_1SteadyStateSolver_1ac69478bcf73ab02178b001250293c4c9" prot="public" static="no" const="no" explicit="no" inline="no" virt="pure-virtual">
+        <type>void</type>
+        <definition>virtual void rr::SteadyStateSolver::syncWithModel</definition>
+        <argsstring>(ExecutableModel *m)=0</argsstring>
+        <name>syncWithModel</name>
+        <reimplementedby refid="classrr_1_1NLEQ1Solver_1aedc3e56a66274ee29cc44c590366cfc4">syncWithModel</reimplementedby>
+        <reimplementedby refid="classrr_1_1NLEQ2Solver_1af9a54df7b295c801430f213699c33512">syncWithModel</reimplementedby>
+        <param>
+          <type><ref refid="classrr_1_1ExecutableModel" kindref="compound">ExecutableModel</ref> *</type>
+          <declname>m</declname>
+        </param>
+        <briefdescription>
+<para>Called whenever a new model is loaded to allow integrator to reset internal state. </para>
+        </briefdescription>
+        <detaileddescription>
+<para><simplesect kind="author"><para>JKM </para>
+</simplesect>
+</para>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="SteadyStateSolver.h" line="51" column="22"/>
+      </memberdef>
+      <memberdef kind="function" id="classrr_1_1SteadyStateSolver_1ae7ef6c028ac70664cb37c2cb69e546a2" prot="public" static="no" const="no" explicit="no" inline="no" virt="pure-virtual">
+        <type>double</type>
+        <definition>virtual double rr::SteadyStateSolver::solve</definition>
+        <argsstring>()=0</argsstring>
+        <name>solve</name>
+        <reimplementedby refid="classrr_1_1NLEQ1Solver_1a1fc4bf6aa2f8821dddd3f323dbe36d1b">solve</reimplementedby>
+        <reimplementedby refid="classrr_1_1NLEQ2Solver_1ad729943f552f731f9dc7adea75626453">solve</reimplementedby>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="SteadyStateSolver.h" line="53" column="24"/>
+      </memberdef>
+      <memberdef kind="function" id="classrr_1_1SteadyStateSolver_1a613605d22b7da35a526473d107ca65bd" prot="public" static="no" const="no" explicit="no" inline="no" virt="virtual">
+        <type>void</type>
+        <definition>void rr::SteadyStateSolver::loadConfigSettings</definition>
+        <argsstring>()</argsstring>
+        <name>loadConfigSettings</name>
+        <reimplementedby refid="classrr_1_1NLEQ1Solver_1a06834a94c2d566be64991d9cde565661">loadConfigSettings</reimplementedby>
+        <reimplementedby refid="classrr_1_1NLEQ2Solver_1afad697f8ba18773dcdb229a0cf44f130">loadConfigSettings</reimplementedby>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="SteadyStateSolver.h" line="55" column="22" bodyfile="SteadyStateSolver.cpp" bodystart="32" bodyend="35"/>
+      </memberdef>
+      <memberdef kind="function" id="classrr_1_1SteadyStateSolver_1ab07b512395ec018885548aa83a79f5ae" prot="public" static="no" const="yes" explicit="no" inline="no" virt="non-virtual">
+        <type>std::string</type>
+        <definition>std::string rr::SteadyStateSolver::getSettingsRepr</definition>
+        <argsstring>() const</argsstring>
+        <name>getSettingsRepr</name>
+        <briefdescription>
+<para>Get the solver settings as a string. </para>
+        </briefdescription>
+        <detaileddescription>
+<para><simplesect kind="author"><para>KC </para>
+</simplesect>
+</para>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="SteadyStateSolver.h" line="61" column="13" bodyfile="SteadyStateSolver.cpp" bodystart="99" bodyend="105"/>
+      </memberdef>
+      <memberdef kind="function" id="classrr_1_1SteadyStateSolver_1a0dcf06495066f67d790ca41656bb6c4c" prot="public" static="no" const="yes" explicit="no" inline="no" virt="non-virtual">
+        <type>std::string</type>
+        <definition>std::string rr::SteadyStateSolver::settingsPyDictRepr</definition>
+        <argsstring>() const</argsstring>
+        <name>settingsPyDictRepr</name>
+        <briefdescription>
+<para>Python dictionary-style string representation of settings. </para>
+        </briefdescription>
+        <detaileddescription>
+<para><simplesect kind="author"><para>KC </para>
+</simplesect>
+</para>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="SteadyStateSolver.h" line="67" column="13" bodyfile="SteadyStateSolver.cpp" bodystart="107" bodyend="113"/>
+      </memberdef>
+      <memberdef kind="function" id="classrr_1_1SteadyStateSolver_1afcc15369d04e99ad76cdb8390a94b103" prot="public" static="no" const="yes" explicit="no" inline="no" virt="virtual">
+        <type>std::string</type>
+        <definition>std::string rr::SteadyStateSolver::toString</definition>
+        <argsstring>() const</argsstring>
+        <name>toString</name>
+        <reimplements refid="classrr_1_1Solver_1af08f448f7eea26415a47caaae161de02">toString</reimplements>
+        <briefdescription>
+<para>Return a string representation of the solver. </para>
+        </briefdescription>
+        <detaileddescription>
+<para><simplesect kind="author"><para>KC </para>
+</simplesect>
+</para>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="SteadyStateSolver.h" line="73" column="21" bodyfile="SteadyStateSolver.cpp" bodystart="115" bodyend="123"/>
+      </memberdef>
+      <memberdef kind="function" id="classrr_1_1SteadyStateSolver_1a1ce4941762d7605e03655432a0a38283" prot="public" static="no" const="yes" explicit="no" inline="no" virt="virtual">
+        <type>std::string</type>
+        <definition>std::string rr::SteadyStateSolver::toRepr</definition>
+        <argsstring>() const</argsstring>
+        <name>toRepr</name>
+        <reimplements refid="classrr_1_1Solver_1a2f2b574b220becfebd1be2d8cc34d550">toRepr</reimplements>
+        <briefdescription>
+<para>Return string representation a la Python <bold>repr</bold> method. </para>
+        </briefdescription>
+        <detaileddescription>
+<para><simplesect kind="author"><para>KC </para>
+</simplesect>
+</para>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="SteadyStateSolver.h" line="79" column="21" bodyfile="SteadyStateSolver.cpp" bodystart="125" bodyend="130"/>
+      </memberdef>
+      </sectiondef>
+    <briefdescription>
+    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <inheritancegraph>
+      <node id="4">
+        <label>rr::NLEQ2Solver</label>
+        <link refid="classrr_1_1NLEQ2Solver"/>
+        <childnode refid="1" relation="public-inheritance">
+        </childnode>
+      </node>
+      <node id="1">
+        <label>rr::SteadyStateSolver</label>
+        <link refid="classrr_1_1SteadyStateSolver"/>
+        <childnode refid="2" relation="public-inheritance">
+        </childnode>
+      </node>
+      <node id="2">
+        <label>rr::Solver</label>
+        <link refid="classrr_1_1Solver"/>
+      </node>
+      <node id="3">
+        <label>rr::NLEQ1Solver</label>
+        <link refid="classrr_1_1NLEQ1Solver"/>
+        <childnode refid="1" relation="public-inheritance">
+        </childnode>
+      </node>
+    </inheritancegraph>
+    <collaborationgraph>
+      <node id="1">
+        <label>rr::SteadyStateSolver</label>
+        <link refid="classrr_1_1SteadyStateSolver"/>
+        <childnode refid="2" relation="public-inheritance">
+        </childnode>
+      </node>
+      <node id="2">
+        <label>rr::Solver</label>
+        <link refid="classrr_1_1Solver"/>
+      </node>
+    </collaborationgraph>
+    <location file="SteadyStateSolver.h" line="40" column="5" bodyfile="SteadyStateSolver.h" bodystart="41" bodyend="80"/>
+    <listofallmembers>
+      <member refid="classrr_1_1Solver_1aec6b159d96d73f2baafc74578b129ce8" prot="protected" virt="non-virtual"><scope>rr::SteadyStateSolver</scope><name>addSetting</name></member>
+      <member refid="classrr_1_1Solver_1a897a8b06197a02d72931de637bc9ac89" prot="protected" virt="non-virtual"><scope>rr::SteadyStateSolver</scope><name>DescriptionMap</name></member>
+      <member refid="classrr_1_1Solver_1a7e07121f652db358045d6f7b95889ea3" prot="protected" virt="non-virtual"><scope>rr::SteadyStateSolver</scope><name>descriptions</name></member>
+      <member refid="classrr_1_1Solver_1a199de66231b25fef30d8ef2bdff80db7" prot="protected" virt="non-virtual"><scope>rr::SteadyStateSolver</scope><name>display_names_</name></member>
+      <member refid="classrr_1_1Solver_1afa810f2707ef6160e05c92e5812a8c6a" prot="protected" virt="non-virtual"><scope>rr::SteadyStateSolver</scope><name>DisplayNameMap</name></member>
+      <member refid="classrr_1_1Solver_1a86067147c7631ca80d51667322f1a8f5" prot="public" virt="pure-virtual"><scope>rr::SteadyStateSolver</scope><name>getDescription</name></member>
+      <member refid="classrr_1_1Solver_1a63d1ab12d862663336c74721f67354f3" prot="public" virt="non-virtual"><scope>rr::SteadyStateSolver</scope><name>getDescription</name></member>
+      <member refid="classrr_1_1Solver_1a1242e881aa76493f73c4e32784c1cec6" prot="public" virt="non-virtual"><scope>rr::SteadyStateSolver</scope><name>getDisplayName</name></member>
+      <member refid="classrr_1_1Solver_1aff005f7e71bc73123ecbd511a77f71b6" prot="public" virt="pure-virtual"><scope>rr::SteadyStateSolver</scope><name>getHint</name></member>
+      <member refid="classrr_1_1Solver_1a7cef64c1874bd5cb95ddff1399e04c45" prot="public" virt="non-virtual"><scope>rr::SteadyStateSolver</scope><name>getHint</name></member>
+      <member refid="classrr_1_1Solver_1a417cca64a18c63535f2091584f8fed91" prot="public" virt="pure-virtual"><scope>rr::SteadyStateSolver</scope><name>getName</name></member>
+      <member refid="classrr_1_1Solver_1abbefd0f38dfa2651c74f8abbd6d7b143" prot="public" virt="virtual"><scope>rr::SteadyStateSolver</scope><name>getNumParams</name></member>
+      <member refid="classrr_1_1Solver_1aa13e13a92531fde27fe5711790eee0f7" prot="public" virt="virtual"><scope>rr::SteadyStateSolver</scope><name>getParamDesc</name></member>
+      <member refid="classrr_1_1Solver_1afc0a667f204105aa133376144ce14c75" prot="public" virt="virtual"><scope>rr::SteadyStateSolver</scope><name>getParamDisplayName</name></member>
+      <member refid="classrr_1_1Solver_1aa604b810ab3f1a2c8bc6dfa6fc731dc2" prot="public" virt="virtual"><scope>rr::SteadyStateSolver</scope><name>getParamHint</name></member>
+      <member refid="classrr_1_1Solver_1ae2bb88ffce40a0136c86a020b4c39037" prot="public" virt="virtual"><scope>rr::SteadyStateSolver</scope><name>getParamName</name></member>
+      <member refid="classrr_1_1Solver_1ac12d82cf9d7f03ba39f82ae81ee0e168" prot="public" virt="non-virtual"><scope>rr::SteadyStateSolver</scope><name>getSettings</name></member>
+      <member refid="classrr_1_1SteadyStateSolver_1ab07b512395ec018885548aa83a79f5ae" prot="public" virt="non-virtual"><scope>rr::SteadyStateSolver</scope><name>getSettingsRepr</name></member>
+      <member refid="classrr_1_1Solver_1a20add37bbd73f50d14047171f5f8e921" prot="public" virt="non-virtual"><scope>rr::SteadyStateSolver</scope><name>getType</name></member>
+      <member refid="classrr_1_1Solver_1a773a06f0d64c9d79423efcef1b381da1" prot="public" virt="virtual"><scope>rr::SteadyStateSolver</scope><name>getValue</name></member>
+      <member refid="classrr_1_1Solver_1a9f6e5069f1606a5f5e3d517ee01cfede" prot="public" virt="virtual"><scope>rr::SteadyStateSolver</scope><name>getValueAsBool</name></member>
+      <member refid="classrr_1_1Solver_1a9bc55d0247a3aa629b0ab8f247ee009c" prot="public" virt="virtual"><scope>rr::SteadyStateSolver</scope><name>getValueAsChar</name></member>
+      <member refid="classrr_1_1Solver_1a46987712b9dee2da90c7124761186eb1" prot="public" virt="virtual"><scope>rr::SteadyStateSolver</scope><name>getValueAsDouble</name></member>
+      <member refid="classrr_1_1Solver_1a449a23882706072f4cfaa416887e42d3" prot="public" virt="virtual"><scope>rr::SteadyStateSolver</scope><name>getValueAsDoubleVector</name></member>
+      <member refid="classrr_1_1Solver_1ad30b0e354acd5025b3162db55f1baa93" prot="public" virt="virtual"><scope>rr::SteadyStateSolver</scope><name>getValueAsFloat</name></member>
+      <member refid="classrr_1_1Solver_1a415242398d22d3145ff68afbb73d6b07" prot="public" virt="virtual"><scope>rr::SteadyStateSolver</scope><name>getValueAsInt</name></member>
+      <member refid="classrr_1_1Solver_1a858ce4395c8005ddec5a3ee811eda33a" prot="public" virt="virtual"><scope>rr::SteadyStateSolver</scope><name>getValueAsLong</name></member>
+      <member refid="classrr_1_1Solver_1a6960c38714621daab7e92eadede5f83c" prot="public" virt="virtual"><scope>rr::SteadyStateSolver</scope><name>getValueAsString</name></member>
+      <member refid="classrr_1_1Solver_1ae21e55aeea202e9151112fa00a4c0f82" prot="public" virt="virtual"><scope>rr::SteadyStateSolver</scope><name>getValueAsUChar</name></member>
+      <member refid="classrr_1_1Solver_1a293296661e45b8cb3a092cf8ed5a196b" prot="public" virt="virtual"><scope>rr::SteadyStateSolver</scope><name>getValueAsUInt</name></member>
+      <member refid="classrr_1_1Solver_1aafabb2cc0b41558dc3edae324977372c" prot="public" virt="virtual"><scope>rr::SteadyStateSolver</scope><name>getValueAsULong</name></member>
+      <member refid="classrr_1_1Solver_1a104f619f19529d57869310cd67fcc6d1" prot="public" virt="virtual"><scope>rr::SteadyStateSolver</scope><name>hasValue</name></member>
+      <member refid="classrr_1_1Solver_1ab7675259f65ff348aa430747e48f0f90" prot="protected" virt="non-virtual"><scope>rr::SteadyStateSolver</scope><name>HintMap</name></member>
+      <member refid="classrr_1_1Solver_1a39049af7a03fd00b1021c1ce9a9691fc" prot="protected" virt="non-virtual"><scope>rr::SteadyStateSolver</scope><name>hints</name></member>
+      <member refid="classrr_1_1SteadyStateSolver_1a613605d22b7da35a526473d107ca65bd" prot="public" virt="virtual"><scope>rr::SteadyStateSolver</scope><name>loadConfigSettings</name></member>
+      <member refid="classrr_1_1Solver_1a71c8b404a40447f879b2253e7dcc3b85" prot="public" virt="virtual"><scope>rr::SteadyStateSolver</scope><name>resetSettings</name></member>
+      <member refid="classrr_1_1Solver_1a44a22cf0edead17a9cc923d87dcc063e" prot="protected" virt="non-virtual"><scope>rr::SteadyStateSolver</scope><name>settings</name></member>
+      <member refid="classrr_1_1Solver_1a970d11482faab2f17428c760f3ec8240" prot="protected" virt="non-virtual"><scope>rr::SteadyStateSolver</scope><name>SettingsList</name></member>
+      <member refid="classrr_1_1Solver_1a84e22bdecb76b77ddfbc8efda8219401" prot="protected" virt="non-virtual"><scope>rr::SteadyStateSolver</scope><name>SettingsMap</name></member>
+      <member refid="classrr_1_1SteadyStateSolver_1a0dcf06495066f67d790ca41656bb6c4c" prot="public" virt="non-virtual"><scope>rr::SteadyStateSolver</scope><name>settingsPyDictRepr</name></member>
+      <member refid="classrr_1_1Solver_1a45dd9257f0b87546e7bdd607f3857260" prot="public" virt="virtual"><scope>rr::SteadyStateSolver</scope><name>setValue</name></member>
+      <member refid="classrr_1_1SteadyStateSolver_1ae7ef6c028ac70664cb37c2cb69e546a2" prot="public" virt="pure-virtual"><scope>rr::SteadyStateSolver</scope><name>solve</name></member>
+      <member refid="classrr_1_1Solver_1a99f48947491d7cd36c68cebba53915fe" prot="protected" virt="non-virtual"><scope>rr::SteadyStateSolver</scope><name>sorted_settings</name></member>
+      <member refid="classrr_1_1SteadyStateSolver_1ac69478bcf73ab02178b001250293c4c9" prot="public" virt="pure-virtual"><scope>rr::SteadyStateSolver</scope><name>syncWithModel</name></member>
+      <member refid="classrr_1_1SteadyStateSolver_1a1ce4941762d7605e03655432a0a38283" prot="public" virt="virtual"><scope>rr::SteadyStateSolver</scope><name>toRepr</name></member>
+      <member refid="classrr_1_1SteadyStateSolver_1afcc15369d04e99ad76cdb8390a94b103" prot="public" virt="virtual"><scope>rr::SteadyStateSolver</scope><name>toString</name></member>
+      <member refid="classrr_1_1Solver_1a921e53563c59252d5180c2160e46986f" prot="public" virt="virtual"><scope>rr::SteadyStateSolver</scope><name>~Solver</name></member>
+      <member refid="classrr_1_1SteadyStateSolver_1ade09831f8f396dcaa240abf94604fc69" prot="public" virt="virtual"><scope>rr::SteadyStateSolver</scope><name>~SteadyStateSolver</name></member>
+    </listofallmembers>
+  </compounddef>
+</doxygen>

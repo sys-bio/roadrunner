@@ -99,7 +99,7 @@ namespace rr
 	std::string SteadyStateSolver::getSettingsRepr() const
 	{
 		std::stringstream ss;
-		for (int n = 0; n<getNumParams(); ++n)
+		for (size_t n = 0; n<getNumParams(); ++n)
 			ss << "    " << std::setw(20) << getParamName(n) << ": " << getValue(getParamName(n)).toString() << "\n";
 		return ss.str();
 	}
@@ -107,7 +107,7 @@ namespace rr
 	std::string SteadyStateSolver::settingsPyDictRepr() const
 	{
 		std::stringstream ss;
-		for (int n = 0; n<getNumParams(); ++n)
+		for (size_t n = 0; n<getNumParams(); ++n)
 			ss << (n ? ", " : "") << "'" << getParamName(n) << "': " << getValue(getParamName(n)).pythonRepr();
 		return ss.str();
 	}

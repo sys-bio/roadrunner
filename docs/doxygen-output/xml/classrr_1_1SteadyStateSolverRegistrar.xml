@@ -1,0 +1,154 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.20" xml:lang="en-US">
+  <compounddef id="classrr_1_1SteadyStateSolverRegistrar" kind="class" language="C++" prot="public" abstract="yes">
+    <compoundname>rr::SteadyStateSolverRegistrar</compoundname>
+    <derivedcompoundref refid="classrr_1_1NLEQ1SolverRegistrar" prot="public" virt="non-virtual">rr::NLEQ1SolverRegistrar</derivedcompoundref>
+    <derivedcompoundref refid="classrr_1_1NLEQ2SolverRegistrar" prot="public" virt="non-virtual">rr::NLEQ2SolverRegistrar</derivedcompoundref>
+    <includes refid="SteadyStateSolver_8h" local="no">SteadyStateSolver.h</includes>
+      <sectiondef kind="protected-type">
+      <memberdef kind="typedef" id="classrr_1_1SteadyStateSolverRegistrar_1a88a6f7ded8eddf850ef18d7cc6d88d2e" prot="protected" static="no">
+        <type><ref refid="classrr_1_1SteadyStateSolver" kindref="compound">SteadyStateSolver</ref> *(*</type>
+        <definition>typedef SteadyStateSolver*(* rr::SteadyStateSolverRegistrar::SteadyStateSolverCtor) (ExecutableModel *model)</definition>
+        <argsstring>)(ExecutableModel *model)</argsstring>
+        <name>SteadyStateSolverCtor</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="SteadyStateSolver.h" line="90" column="17" bodyfile="SteadyStateSolver.h" bodystart="90" bodyend="-1"/>
+      </memberdef>
+      </sectiondef>
+      <sectiondef kind="public-func">
+      <memberdef kind="function" id="classrr_1_1SteadyStateSolverRegistrar_1a746bc5daf544d135f351e8bbc9e1d92d" prot="public" static="no" const="no" explicit="no" inline="no" virt="virtual">
+        <type></type>
+        <definition>rr::SteadyStateSolverRegistrar::~SteadyStateSolverRegistrar</definition>
+        <argsstring>()</argsstring>
+        <name>~SteadyStateSolverRegistrar</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="SteadyStateSolver.h" line="92" column="17" bodyfile="SteadyStateSolver.cpp" bodystart="37" bodyend="37"/>
+      </memberdef>
+      <memberdef kind="function" id="classrr_1_1SteadyStateSolverRegistrar_1adf5cbf8f2c5df0d1a25807c80fbc3549" prot="public" static="no" const="yes" explicit="no" inline="no" virt="pure-virtual">
+        <type>std::string</type>
+        <definition>virtual std::string rr::SteadyStateSolverRegistrar::getName</definition>
+        <argsstring>() const =0</argsstring>
+        <name>getName</name>
+        <reimplementedby refid="classrr_1_1NLEQ1SolverRegistrar_1a7f83e11e81d93d165534351e10aa02ed">getName</reimplementedby>
+        <reimplementedby refid="classrr_1_1NLEQ2SolverRegistrar_1a6d9c3dc02579c94f76900fffe550ff3b">getName</reimplementedby>
+        <briefdescription>
+<para>Gets the name associated with this integrator type. </para>
+        </briefdescription>
+        <detaileddescription>
+<para><simplesect kind="author"><para>JKM, WBC </para>
+</simplesect>
+</para>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="SteadyStateSolver.h" line="98" column="29"/>
+      </memberdef>
+      <memberdef kind="function" id="classrr_1_1SteadyStateSolverRegistrar_1a0b2f22b7a1c4989e97ac3fdb64ac983c" prot="public" static="no" const="yes" explicit="no" inline="no" virt="pure-virtual">
+        <type>std::string</type>
+        <definition>virtual std::string rr::SteadyStateSolverRegistrar::getDescription</definition>
+        <argsstring>() const =0</argsstring>
+        <name>getDescription</name>
+        <reimplementedby refid="classrr_1_1NLEQ1SolverRegistrar_1a20685e66dfe3a028e4c493d8af53e743">getDescription</reimplementedby>
+        <reimplementedby refid="classrr_1_1NLEQ2SolverRegistrar_1adcba98550142a6495f3e65ad14e3e349">getDescription</reimplementedby>
+        <briefdescription>
+<para>Gets the description associated with this integrator type. </para>
+        </briefdescription>
+        <detaileddescription>
+<para><simplesect kind="author"><para>JKM, WBC </para>
+</simplesect>
+</para>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="SteadyStateSolver.h" line="104" column="29"/>
+      </memberdef>
+      <memberdef kind="function" id="classrr_1_1SteadyStateSolverRegistrar_1a00f5ff21ffc7322a244ed27d8cff4d64" prot="public" static="no" const="yes" explicit="no" inline="no" virt="pure-virtual">
+        <type>std::string</type>
+        <definition>virtual std::string rr::SteadyStateSolverRegistrar::getHint</definition>
+        <argsstring>() const =0</argsstring>
+        <name>getHint</name>
+        <reimplementedby refid="classrr_1_1NLEQ1SolverRegistrar_1ab2ee3d7f162ccee398badecf0f390d6a">getHint</reimplementedby>
+        <reimplementedby refid="classrr_1_1NLEQ2SolverRegistrar_1a856af2879611da2eada0874dd8252b29">getHint</reimplementedby>
+        <briefdescription>
+<para>Gets the hint associated with this integrator type. </para>
+        </briefdescription>
+        <detaileddescription>
+<para><simplesect kind="author"><para>JKM, WBC </para>
+</simplesect>
+</para>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="SteadyStateSolver.h" line="110" column="29"/>
+      </memberdef>
+      <memberdef kind="function" id="classrr_1_1SteadyStateSolverRegistrar_1a48fba27b1da7285714fabbfc9383ba6c" prot="public" static="no" const="yes" explicit="no" inline="no" virt="pure-virtual">
+        <type><ref refid="classrr_1_1SteadyStateSolver" kindref="compound">SteadyStateSolver</ref> *</type>
+        <definition>virtual SteadyStateSolver* rr::SteadyStateSolverRegistrar::construct</definition>
+        <argsstring>(ExecutableModel *model) const =0</argsstring>
+        <name>construct</name>
+        <reimplementedby refid="classrr_1_1NLEQ1SolverRegistrar_1a20bd0b80b4623615381dfbb7d4e589ad">construct</reimplementedby>
+        <reimplementedby refid="classrr_1_1NLEQ2SolverRegistrar_1aa2857b672347b53fdcceb855471100e2">construct</reimplementedby>
+        <param>
+          <type><ref refid="classrr_1_1ExecutableModel" kindref="compound">ExecutableModel</ref> *</type>
+          <declname>model</declname>
+        </param>
+        <briefdescription>
+<para>Constructs a new integrator of a given type. </para>
+        </briefdescription>
+        <detaileddescription>
+<para><simplesect kind="author"><para>JKM, WBC </para>
+</simplesect>
+</para>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="SteadyStateSolver.h" line="116" column="35"/>
+      </memberdef>
+      </sectiondef>
+    <briefdescription>
+<para>Handles constructing a solver and contains meta information about it. </para>
+    </briefdescription>
+    <detaileddescription>
+<para><simplesect kind="author"><para>JKM, WBC </para>
+</simplesect>
+</para>
+    </detaileddescription>
+    <inheritancegraph>
+      <node id="1">
+        <label>rr::SteadyStateSolverRegistrar</label>
+        <link refid="classrr_1_1SteadyStateSolverRegistrar"/>
+      </node>
+      <node id="3">
+        <label>rr::NLEQ2SolverRegistrar</label>
+        <link refid="classrr_1_1NLEQ2SolverRegistrar"/>
+        <childnode refid="1" relation="public-inheritance">
+        </childnode>
+      </node>
+      <node id="2">
+        <label>rr::NLEQ1SolverRegistrar</label>
+        <link refid="classrr_1_1NLEQ1SolverRegistrar"/>
+        <childnode refid="1" relation="public-inheritance">
+        </childnode>
+      </node>
+    </inheritancegraph>
+    <location file="SteadyStateSolver.h" line="87" column="5" bodyfile="SteadyStateSolver.h" bodystart="88" bodyend="117"/>
+    <listofallmembers>
+      <member refid="classrr_1_1SteadyStateSolverRegistrar_1a48fba27b1da7285714fabbfc9383ba6c" prot="public" virt="pure-virtual"><scope>rr::SteadyStateSolverRegistrar</scope><name>construct</name></member>
+      <member refid="classrr_1_1SteadyStateSolverRegistrar_1a0b2f22b7a1c4989e97ac3fdb64ac983c" prot="public" virt="pure-virtual"><scope>rr::SteadyStateSolverRegistrar</scope><name>getDescription</name></member>
+      <member refid="classrr_1_1SteadyStateSolverRegistrar_1a00f5ff21ffc7322a244ed27d8cff4d64" prot="public" virt="pure-virtual"><scope>rr::SteadyStateSolverRegistrar</scope><name>getHint</name></member>
+      <member refid="classrr_1_1SteadyStateSolverRegistrar_1adf5cbf8f2c5df0d1a25807c80fbc3549" prot="public" virt="pure-virtual"><scope>rr::SteadyStateSolverRegistrar</scope><name>getName</name></member>
+      <member refid="classrr_1_1SteadyStateSolverRegistrar_1a88a6f7ded8eddf850ef18d7cc6d88d2e" prot="protected" virt="non-virtual"><scope>rr::SteadyStateSolverRegistrar</scope><name>SteadyStateSolverCtor</name></member>
+      <member refid="classrr_1_1SteadyStateSolverRegistrar_1a746bc5daf544d135f351e8bbc9e1d92d" prot="public" virt="virtual"><scope>rr::SteadyStateSolverRegistrar</scope><name>~SteadyStateSolverRegistrar</name></member>
+    </listofallmembers>
+  </compounddef>
+</doxygen>

@@ -1,0 +1,107 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.20" xml:lang="en-US">
+  <compounddef id="classrr_1_1ExecutableModelFactory" kind="class" language="C++" prot="public">
+    <compoundname>rr::ExecutableModelFactory</compoundname>
+    <includes refid="ExecutableModelFactory_8h" local="no">ExecutableModelFactory.h</includes>
+      <sectiondef kind="public-static-func">
+      <memberdef kind="function" id="classrr_1_1ExecutableModelFactory_1a522884de93dc83ce2958b32874a956a8" prot="public" static="yes" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type><ref refid="classrr_1_1ExecutableModel" kindref="compound">ExecutableModel</ref> *</type>
+        <definition>ExecutableModel * rr::ExecutableModelFactory::createModel</definition>
+        <argsstring>(const std::string &amp;sbml, const Dictionary *dict=0)</argsstring>
+        <name>createModel</name>
+        <param>
+          <type>const std::string &amp;</type>
+          <declname>sbml</declname>
+        </param>
+        <param>
+          <type>const <ref refid="classrr_1_1Dictionary" kindref="compound">Dictionary</ref> *</type>
+          <declname>dict</declname>
+          <defval>0</defval>
+        </param>
+        <briefdescription>
+<para>creates a NEW object which must be deleted by the caller. </para>
+        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>sbml</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>an sbml string </para>
+</parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>dict</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>a dictionary of options, this is typcally a <ref refid="classrr_1_1LoadSBMLOptions" kindref="compound">LoadSBMLOptions</ref> object, but it may be any dictionary. </para>
+</parameterdescription>
+</parameteritem>
+</parameterlist>
+</para>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="ExecutableModelFactory.h" line="33" column="28" bodyfile="ExecutableModelFactory.cpp" bodystart="72" bodyend="81"/>
+      </memberdef>
+      <memberdef kind="function" id="classrr_1_1ExecutableModelFactory_1a23c5051dcf9ea4615029bf6305338dcc" prot="public" static="yes" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type><ref refid="classrr_1_1ExecutableModel" kindref="compound">ExecutableModel</ref> *</type>
+        <definition>ExecutableModel * rr::ExecutableModelFactory::createModel</definition>
+        <argsstring>(std::istream &amp;in, uint modelGeneratorOpt)</argsstring>
+        <name>createModel</name>
+        <param>
+          <type>std::istream &amp;</type>
+          <declname>in</declname>
+        </param>
+        <param>
+          <type>uint</type>
+          <declname>modelGeneratorOpt</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="ExecutableModelFactory.h" line="42" column="24" bodyfile="ExecutableModelFactory.cpp" bodystart="83" bodyend="86"/>
+      </memberdef>
+      <memberdef kind="function" id="classrr_1_1ExecutableModelFactory_1a71cd447b734c18c4514d238db701205f" prot="public" static="yes" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type><ref refid="classrr_1_1ExecutableModel" kindref="compound">ExecutableModel</ref> *</type>
+        <definition>ExecutableModel * rr::ExecutableModelFactory::regenerateModel</definition>
+        <argsstring>(ExecutableModel *oldModel, libsbml::SBMLDocument *doc, uint options)</argsstring>
+        <name>regenerateModel</name>
+        <param>
+          <type><ref refid="classrr_1_1ExecutableModel" kindref="compound">ExecutableModel</ref> *</type>
+          <declname>oldModel</declname>
+        </param>
+        <param>
+          <type>libsbml::SBMLDocument *</type>
+          <declname>doc</declname>
+        </param>
+        <param>
+          <type>uint</type>
+          <declname>options</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="ExecutableModelFactory.h" line="51" column="24" bodyfile="ExecutableModelFactory.cpp" bodystart="88" bodyend="91"/>
+      </memberdef>
+      </sectiondef>
+    <briefdescription>
+<para>A factory class to create <ref refid="classrr_1_1ExecutableModel" kindref="compound">ExecutableModel</ref> objects. </para>
+    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <location file="ExecutableModelFactory.h" line="23" column="1" bodyfile="ExecutableModelFactory.h" bodystart="24" bodyend="52"/>
+    <listofallmembers>
+      <member refid="classrr_1_1ExecutableModelFactory_1a522884de93dc83ce2958b32874a956a8" prot="public" virt="non-virtual"><scope>rr::ExecutableModelFactory</scope><name>createModel</name></member>
+      <member refid="classrr_1_1ExecutableModelFactory_1a23c5051dcf9ea4615029bf6305338dcc" prot="public" virt="non-virtual"><scope>rr::ExecutableModelFactory</scope><name>createModel</name></member>
+      <member refid="classrr_1_1ExecutableModelFactory_1a71cd447b734c18c4514d238db701205f" prot="public" virt="non-virtual"><scope>rr::ExecutableModelFactory</scope><name>regenerateModel</name></member>
+    </listofallmembers>
+  </compounddef>
+</doxygen>

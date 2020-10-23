@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- Created by libAntimony version v2.12.0 with libSBML version 5.18.1. -->
+<sbml xmlns="http://www.sbml.org/sbml/level2/version5" level="2" version="5">
+  <model metaid="case01796" id="case01796">
+    <listOfCompartments>
+      <compartment id="C" size="3"/>
+    </listOfCompartments>
+    <listOfSpecies>
+      <species id="S1" compartment="C" initialAmount="2"/>
+      <species id="S2" compartment="C" initialAmount="2" hasOnlySubstanceUnits="false"/>
+      <species id="S3" compartment="C" initialAmount="2" hasOnlySubstanceUnits="true"/>
+    </listOfSpecies>
+    <listOfParameters>
+      <parameter id="x" constant="false"/>
+      <parameter id="y" constant="false"/>
+      <parameter id="z" constant="false"/>
+    </listOfParameters>
+    <listOfRules>
+      <assignmentRule variable="z">
+        <math xmlns="http://www.w3.org/1998/Math/MathML">
+          <ci> S3 </ci>
+        </math>
+      </assignmentRule>
+      <assignmentRule variable="y">
+        <math xmlns="http://www.w3.org/1998/Math/MathML">
+          <ci> S2 </ci>
+        </math>
+      </assignmentRule>
+      <assignmentRule variable="x">
+        <math xmlns="http://www.w3.org/1998/Math/MathML">
+          <ci> S1 </ci>
+        </math>
+      </assignmentRule>
+    </listOfRules>
+  </model>
+</sbml>

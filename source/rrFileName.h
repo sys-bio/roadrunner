@@ -41,7 +41,7 @@ class RR_DECLSPEC FileName
         string                      GetPathAndFileName() const;
         string                      Get();
         string                      GetFileNameNoExtension();
-        unsigned int                size();
+        size_t                      size();
 };
 
 RR_DECLSPEC std::ostream& operator         <<(std::ostream &os, FileName &obj);

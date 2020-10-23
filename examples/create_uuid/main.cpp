@@ -18,5 +18,3 @@ int main()
     return 0;
 }
 
-
-#pragma comment(lib, "poco_foundation-static.lib")

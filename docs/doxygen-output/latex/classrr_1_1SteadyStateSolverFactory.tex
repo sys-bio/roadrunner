@@ -1,0 +1,97 @@
+\hypertarget{classrr_1_1SteadyStateSolverFactory}{}\doxysection{rr\+::Steady\+State\+Solver\+Factory Class Reference}
+\label{classrr_1_1SteadyStateSolverFactory}\index{rr::SteadyStateSolverFactory@{rr::SteadyStateSolverFactory}}
+
+
+Constructs new integrators.  
+
+
+
+
+{\ttfamily \#include $<$Steady\+State\+Solver.\+h$>$}
+
+\doxysubsection*{Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\Hypertarget{classrr_1_1SteadyStateSolverFactory_a1e466d7333677c52f6d28399e693e877}\label{classrr_1_1SteadyStateSolverFactory_a1e466d7333677c52f6d28399e693e877}} 
+virtual \mbox{\hyperlink{classrr_1_1SteadyStateSolverFactory_a1e466d7333677c52f6d28399e693e877}{$\sim$\+Steady\+State\+Solver\+Factory}} ()
+\begin{DoxyCompactList}\small\item\em \mbox{\hyperlink{classrr_1_1SteadyStateSolver}{Steady\+State\+Solver}} F\+A\+C\+T\+O\+RY. \end{DoxyCompactList}\item 
+\mbox{\hyperlink{classrr_1_1SteadyStateSolver}{Steady\+State\+Solver}} $\ast$ \mbox{\hyperlink{classrr_1_1SteadyStateSolverFactory_a2f6ae03a7d0ac0486bc8618b78cf7834}{New}} (std\+::string name, \mbox{\hyperlink{classrr_1_1ExecutableModel}{Executable\+Model}} $\ast$m) const
+\begin{DoxyCompactList}\small\item\em Constructs a new solver given the name (e.\+g. cvode, gillespie) \end{DoxyCompactList}\item 
+void \mbox{\hyperlink{classrr_1_1SteadyStateSolverFactory_a72ca5c71f45c89304c40c5f880c84547}{register\+Steady\+State\+Solver}} (\mbox{\hyperlink{classrr_1_1SteadyStateSolverRegistrar}{Steady\+State\+Solver\+Registrar}} $\ast$i)
+\begin{DoxyCompactList}\small\item\em Registers a new solver with the factory so that it can be constructed. \end{DoxyCompactList}\item 
+\mbox{\Hypertarget{classrr_1_1SteadyStateSolverFactory_a9113440134a88733237b921b47f1d771}\label{classrr_1_1SteadyStateSolverFactory_a9113440134a88733237b921b47f1d771}} 
+std\+::size\+\_\+t {\bfseries get\+Num\+Steady\+State\+Solvers} () const
+\item 
+\mbox{\Hypertarget{classrr_1_1SteadyStateSolverFactory_a380304ba84a103de7f271a2ba162d277}\label{classrr_1_1SteadyStateSolverFactory_a380304ba84a103de7f271a2ba162d277}} 
+std\+::vector$<$ std\+::string $>$ {\bfseries get\+List\+Steady\+State\+Solver\+Names} ()
+\item 
+\mbox{\Hypertarget{classrr_1_1SteadyStateSolverFactory_a0b934c758610ed4aaf2766054d1c3dcb}\label{classrr_1_1SteadyStateSolverFactory_a0b934c758610ed4aaf2766054d1c3dcb}} 
+std\+::string {\bfseries get\+Steady\+State\+Solver\+Name} (std\+::size\+\_\+t n) const
+\item 
+\mbox{\Hypertarget{classrr_1_1SteadyStateSolverFactory_a8df4ab644b69ac6d5585bae3e8022ab8}\label{classrr_1_1SteadyStateSolverFactory_a8df4ab644b69ac6d5585bae3e8022ab8}} 
+std\+::string {\bfseries get\+Steady\+State\+Solver\+Hint} (std\+::size\+\_\+t n) const
+\item 
+\mbox{\Hypertarget{classrr_1_1SteadyStateSolverFactory_adfabe724ce4160390f4733b3c6d6b9d0}\label{classrr_1_1SteadyStateSolverFactory_adfabe724ce4160390f4733b3c6d6b9d0}} 
+std\+::string {\bfseries get\+Steady\+State\+Solver\+Description} (std\+::size\+\_\+t n) const
+\end{DoxyCompactItemize}
+\doxysubsection*{Static Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+static \mbox{\hyperlink{classrr_1_1SteadyStateSolverFactory}{Steady\+State\+Solver\+Factory}} \& \mbox{\hyperlink{classrr_1_1SteadyStateSolverFactory_aa3b79f8ddd6f63bc2aad49234a662108}{get\+Instance}} ()
+\begin{DoxyCompactList}\small\item\em Returns the singleton instance of the solver factory. \end{DoxyCompactList}\end{DoxyCompactItemize}
+
+
+\doxysubsection{Detailed Description}
+Constructs new integrators. 
+
+\begin{DoxyAuthor}{Author}
+J\+KM, W\+BC  Implements the factory and singleton patterns. Constructs a new integrator given the name (e.\+g. cvode, gillespie) and returns a base pointer to \mbox{\hyperlink{classrr_1_1SteadyStateSolver}{rr\+::\+Steady\+State\+Solver}}. 
+\end{DoxyAuthor}
+
+
+\doxysubsection{Member Function Documentation}
+\mbox{\Hypertarget{classrr_1_1SteadyStateSolverFactory_aa3b79f8ddd6f63bc2aad49234a662108}\label{classrr_1_1SteadyStateSolverFactory_aa3b79f8ddd6f63bc2aad49234a662108}} 
+\index{rr::SteadyStateSolverFactory@{rr::SteadyStateSolverFactory}!getInstance@{getInstance}}
+\index{getInstance@{getInstance}!rr::SteadyStateSolverFactory@{rr::SteadyStateSolverFactory}}
+\doxysubsubsection{\texorpdfstring{getInstance()}{getInstance()}}
+{\footnotesize\ttfamily \mbox{\hyperlink{classrr_1_1SteadyStateSolverFactory}{Steady\+State\+Solver\+Factory}} \& rr\+::\+Steady\+State\+Solver\+Factory\+::get\+Instance (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [static]}}
+
+
+
+Returns the singleton instance of the solver factory. 
+
+\begin{DoxyAuthor}{Author}
+J\+KM, W\+BC 
+\end{DoxyAuthor}
+\mbox{\Hypertarget{classrr_1_1SteadyStateSolverFactory_a2f6ae03a7d0ac0486bc8618b78cf7834}\label{classrr_1_1SteadyStateSolverFactory_a2f6ae03a7d0ac0486bc8618b78cf7834}} 
+\index{rr::SteadyStateSolverFactory@{rr::SteadyStateSolverFactory}!New@{New}}
+\index{New@{New}!rr::SteadyStateSolverFactory@{rr::SteadyStateSolverFactory}}
+\doxysubsubsection{\texorpdfstring{New()}{New()}}
+{\footnotesize\ttfamily \mbox{\hyperlink{classrr_1_1SteadyStateSolver}{Steady\+State\+Solver}} $\ast$ rr\+::\+Steady\+State\+Solver\+Factory\+::\+New (\begin{DoxyParamCaption}\item[{std\+::string}]{name,  }\item[{\mbox{\hyperlink{classrr_1_1ExecutableModel}{Executable\+Model}} $\ast$}]{m }\end{DoxyParamCaption}) const}
+
+
+
+Constructs a new solver given the name (e.\+g. cvode, gillespie) 
+
+\begin{DoxyAuthor}{Author}
+J\+KM, W\+BC 
+\end{DoxyAuthor}
+\mbox{\Hypertarget{classrr_1_1SteadyStateSolverFactory_a72ca5c71f45c89304c40c5f880c84547}\label{classrr_1_1SteadyStateSolverFactory_a72ca5c71f45c89304c40c5f880c84547}} 
+\index{rr::SteadyStateSolverFactory@{rr::SteadyStateSolverFactory}!registerSteadyStateSolver@{registerSteadyStateSolver}}
+\index{registerSteadyStateSolver@{registerSteadyStateSolver}!rr::SteadyStateSolverFactory@{rr::SteadyStateSolverFactory}}
+\doxysubsubsection{\texorpdfstring{registerSteadyStateSolver()}{registerSteadyStateSolver()}}
+{\footnotesize\ttfamily void rr\+::\+Steady\+State\+Solver\+Factory\+::register\+Steady\+State\+Solver (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{classrr_1_1SteadyStateSolverRegistrar}{Steady\+State\+Solver\+Registrar}} $\ast$}]{i }\end{DoxyParamCaption})}
+
+
+
+Registers a new solver with the factory so that it can be constructed. 
+
+\begin{DoxyAuthor}{Author}
+J\+KM, W\+BC  Should be called at startup for new solvers. 
+\end{DoxyAuthor}
+
+
+The documentation for this class was generated from the following files\+:\begin{DoxyCompactItemize}
+\item 
+\mbox{\hyperlink{SteadyStateSolver_8h}{Steady\+State\+Solver.\+h}}\item 
+\mbox{\hyperlink{SteadyStateSolver_8cpp}{Steady\+State\+Solver.\+cpp}}\end{DoxyCompactItemize}

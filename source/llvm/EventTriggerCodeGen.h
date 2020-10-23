@@ -13,7 +13,7 @@
 namespace rrllvm
 {
 
-typedef void (*EventTriggerCodeGen_FunctionPtr)(LLVMModelData*, int32_t);
+typedef void (*EventTriggerCodeGen_FunctionPtr)(LLVMModelData*, size_t);
 
 class EventTriggerCodeGen: public EventCodeGenBase<EventTriggerCodeGen>
 {

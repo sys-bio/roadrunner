@@ -186,8 +186,7 @@ bool TestSuiteModelSimulation::SaveAllData()
 
     string outputAllFileName;
     string dummy;
-    string dummy2;
-    createTestSuiteFileNameParts(mCurrentCaseNumber, "-result-comparison.csv", dummy, outputAllFileName, dummy2);
+    createTestSuiteFileNameParts(mCurrentCaseNumber, "-result-comparison.csv", dummy, outputAllFileName, dummy, dummy);
     fs.open(joinPath(mDataOutputFolder, outputAllFileName).c_str());
 
     //Check matrices dimension, if they are not equal, bail..?

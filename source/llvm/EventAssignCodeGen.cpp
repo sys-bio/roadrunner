@@ -40,6 +40,9 @@ bool EventAssignCodeGen::eventCodeGen(llvm::Value *modelData,
     for(uint id = 0; id < assignments->size(); ++id)
     {
         const EventAssignment *a = assignments->get(id);
+        if (!a->isSetMath()) {
+            continue;
+        }
         Value *loc = builder.CreateConstGEP1_32(data, id);
         Value *value = builder.CreateLoad(loc, a->getVariable() + "_data");
         mdStoreResolver.storeSymbolValue(a->getVariable(), value);

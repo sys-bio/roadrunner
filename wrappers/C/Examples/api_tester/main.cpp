@@ -384,7 +384,7 @@ int main(int argc, char* argv[])
     getRateOfChange(0, value);
     cout<<"Rate of change:"<<value<<endl;
 
-	cout<<"API Version: "<<getVersion()<<endl;
+	cout<<"wrappers Version: "<<getVersion()<<endl;
 
     //cout<<stringArrayToString(getFloatingSpeciesInitialConditionIds())<<endl;
 

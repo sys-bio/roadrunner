@@ -1,6 +1,6 @@
 /**
  * @file rrc_nom_api.h
- * @brief roadRunner C API 2012
+ * @brief roadRunner C wrappers 2012
  * @author Totte Karlsson & Herbert M Sauro
  *
  * <--------------------------------------------------------------

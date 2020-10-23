@@ -1,0 +1,263 @@
+
+
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" >
+<head>
+  <meta charset="utf-8">
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+  <title>Bifurcation Analysis &mdash; libRoadRunner 1.1.16 documentation</title>
+  
+
+  
+  <link rel="stylesheet" href="_static/css/theme.css" type="text/css" />
+  <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
+
+  
+  
+  
+  
+
+  
+  <!--[if lt IE 9]>
+    <script src="_static/js/html5shiv.min.js"></script>
+  <![endif]-->
+  
+    
+      <script type="text/javascript" id="documentation_options" data-url_root="./" src="_static/documentation_options.js"></script>
+        <script src="_static/jquery.js"></script>
+        <script src="_static/underscore.js"></script>
+        <script src="_static/doctools.js"></script>
+        <script src="_static/language_data.js"></script>
+    
+    <script type="text/javascript" src="_static/js/theme.js"></script>
+
+    
+    <link rel="index" title="Index" href="genindex.html" />
+    <link rel="search" title="Search" href="search.html" />
+    <link rel="next" title="Simulation and Integration" href="integration.html" />
+    <link rel="prev" title="Stoichiometric Analysis" href="stoichiometric.html" /> 
+</head>
+
+<body class="wy-body-for-nav">
+
+   
+  <div class="wy-grid-for-nav">
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+          
+
+          
+            <a href="index.html" class="icon icon-home" alt="Documentation Home"> libRoadRunner
+          
+
+          
+          </a>
+
+          
+            
+            
+          
+
+          
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+
+          
+        </div>
+
+        
+        <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+          
+            
+            
+              
+            
+            
+              <ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="index.html">RoadRunner Documentation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="introduction.html">Introduction</a></li>
+<li class="toctree-l1"><a class="reference internal" href="Installation/installation.html">Installing RoadRunner</a></li>
+<li class="toctree-l1"><a class="reference internal" href="read_write_functions.html">SBML Read/Write Functions</a></li>
+<li class="toctree-l1"><a class="reference internal" href="selecting_values.html">Selecting Values</a></li>
+<li class="toctree-l1"><a class="reference internal" href="steady_state.html">Steady State Analysis</a></li>
+<li class="toctree-l1"><a class="reference internal" href="stochastic.html">Stochastic Simulation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="metabolic.html">Metabolic Control Analysis</a></li>
+<li class="toctree-l1"><a class="reference internal" href="stability.html">Stability Analysis</a></li>
+<li class="toctree-l1"><a class="reference internal" href="stoichiometric.html">Stoichiometric Analysis</a></li>
+<li class="toctree-l1 current"><a class="current reference internal" href="#">Bifurcation Analysis</a></li>
+<li class="toctree-l1"><a class="reference internal" href="integration.html">Simulation and Integration</a></li>
+<li class="toctree-l1"><a class="reference internal" href="utility_functions.html">Utility Functions</a></li>
+<li class="toctree-l1"><a class="reference internal" href="accessing_model.html">Accessing the SBML Model Variables</a></li>
+<li class="toctree-l1"><a class="reference internal" href="api_reference.html">RoadRunner API Reference</a></li>
+</ul>
+
+            
+          
+        </div>
+        
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" aria-label="top navigation">
+        
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="index.html">libRoadRunner</a>
+        
+      </nav>
+
+
+      <div class="wy-nav-content">
+        
+        <div class="rst-content">
+        
+          
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div role="navigation" aria-label="breadcrumbs navigation">
+
+  <ul class="wy-breadcrumbs">
+    
+      <li><a href="index.html" class="icon icon-home"></a> &raquo;</li>
+        
+      <li>Bifurcation Analysis</li>
+    
+    
+      <li class="wy-breadcrumbs-aside">
+        
+            
+            <a href="_sources/bifurcation.rst.txt" rel="nofollow"> View page source</a>
+          
+        
+      </li>
+    
+  </ul>
+
+  
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+            
+  <div class="section" id="bifurcation-analysis">
+<h1>Bifurcation Analysis<a class="headerlink" href="#bifurcation-analysis" title="Permalink to this headline">¶</a></h1>
+<p>Bifurcation analysis is useful for understanding model with multiple steady states. RoadRunner supports bifurcation analysis through <a class="reference external" href="https://github.com/sys-bio/rrplugins">rrplugins</a> package, which is an extension package to RoadRunner and provides an interface to AUTO2000.</p>
+<p>Start using rrplugins package by importing the library and creating a Plugin instance.</p>
+<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="kn">from</span> <span class="nn">rrplugins</span> <span class="kn">import</span> <span class="o">*</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">auto</span> <span class="o">=</span> <span class="n">Plugin</span><span class="p">(</span><span class="s2">&quot;tel_auto2000&quot;</span><span class="p">)</span>
+</pre></div>
+</div>
+<p>The Plugin instance will have various properties you can set. For example, to load a model:</p>
+<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">sbmlModel</span> <span class="o">=</span> <span class="s2">&quot;path/to/SBML/model/&quot;</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">auto</span><span class="o">.</span><span class="n">setProperty</span><span class="p">(</span><span class="s2">&quot;SBML&quot;</span><span class="p">,</span> <span class="n">readAllText</span><span class="p">(</span><span class="n">sbmlModel</span><span class="p">))</span>
+</pre></div>
+</div>
+<p>To change number maximum number of steps:</p>
+<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">auto</span><span class="o">.</span><span class="n">setProperty</span><span class="p">(</span><span class="s2">&quot;NMX&quot;</span><span class="p">,</span> <span class="mi">5000</span><span class="p">)</span>
+</pre></div>
+</div>
+<p>To change the scan direction:</p>
+<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">auto</span><span class="o">.</span><span class="n">setProperty</span><span class="p">(</span><span class="s2">&quot;ScanDirection&quot;</span><span class="p">,</span> <span class="s2">&quot;Positive&quot;</span><span class="p">)</span>
+</pre></div>
+</div>
+<p>To change principal continuation parameter as well as its lower and upper bounds:</p>
+<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">auto</span><span class="o">.</span><span class="n">setProperty</span><span class="p">(</span><span class="s2">&quot;PrincipalContinuationParameter&quot;</span><span class="p">,</span> <span class="n">A</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">auto</span><span class="o">.</span><span class="n">setProperty</span><span class="p">(</span><span class="s2">&quot;PCPLowerBound&quot;</span><span class="p">,</span> <span class="mi">10</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">auto</span><span class="o">.</span><span class="n">setProperty</span><span class="p">(</span><span class="s2">&quot;PCPUpperBound&quot;</span><span class="p">,</span> <span class="mi">200</span><span class="p">)</span>
+</pre></div>
+</div>
+<p>Execute the plugin by running:</p>
+<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">auto</span><span class="o">.</span><span class="n">execute</span><span class="p">()</span>
+</pre></div>
+</div>
+<p>rrplugins package comes with several plotting functions as well, which is espeicially useful for plotting bifucation diagrams with ease. After executing the plugin, results will be stored in <code class="docutils literal notranslate"><span class="pre">BifurcationPoints</span></code>, <code class="docutils literal notranslate"><span class="pre">BifurcationLabels</span></code>, and <code class="docutils literal notranslate"><span class="pre">BifurcationData</span></code>. You can use these information to plot a bifurcation diagram.</p>
+<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">pts</span>     <span class="o">=</span> <span class="n">auto</span><span class="o">.</span><span class="n">BifurcationPoints</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">lbls</span>    <span class="o">=</span> <span class="n">auto</span><span class="o">.</span><span class="n">BifurcationLabels</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">biData</span>  <span class="o">=</span> <span class="n">auto</span><span class="o">.</span><span class="n">BifurcationData</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">biData</span><span class="o">.</span><span class="n">plotBifurcationDiagram</span><span class="p">(</span><span class="n">pts</span><span class="p">,</span> <span class="n">lbls</span><span class="p">)</span>
+</pre></div>
+</div>
+<p>To see the full list of properties, go to <a class="reference external" href="https://sys-bio.github.io/rrplugins/docs/plugins/auto2000/index.html">rrplugins AUTO2000 documentation</a></p>
+</div>
+
+
+           </div>
+           
+          </div>
+          <footer>
+  
+    <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
+      
+        <a href="integration.html" class="btn btn-neutral float-right" title="Simulation and Integration" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right"></span></a>
+      
+      
+        <a href="stoichiometric.html" class="btn btn-neutral float-left" title="Stoichiometric Analysis" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left"></span> Previous</a>
+      
+    </div>
+  
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>
+        
+        &copy; Copyright 2013-2018, Andy Somogyi, J Kyle Medley, Kiri Choi, Herbert Suaro
+
+    </p>
+  </div>
+    
+    
+    
+    Built with <a href="http://sphinx-doc.org/">Sphinx</a> using a
+    
+    <a href="https://github.com/rtfd/sphinx_rtd_theme">theme</a>
+    
+    provided by <a href="https://readthedocs.org">Read the Docs</a>. 
+
+</footer>
+
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+  
+
+  <script type="text/javascript">
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script>
+
+  
+  
+    
+   
+
+</body>
+</html>

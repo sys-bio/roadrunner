@@ -1,0 +1,307 @@
+\hypertarget{classrr_1_1GillespieIntegrator}{}\doxysection{rr\+::Gillespie\+Integrator Class Reference}
+\label{classrr_1_1GillespieIntegrator}\index{rr::GillespieIntegrator@{rr::GillespieIntegrator}}
+
+
+\mbox{\hyperlink{classrr_1_1RoadRunner}{Road\+Runner}}\textquotesingle{}s implementation of the Gillespie S\+SA.  
+
+
+
+
+{\ttfamily \#include $<$Gillespie\+Integrator.\+h$>$}
+
+Inheritance diagram for rr\+::Gillespie\+Integrator\+:\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[height=3.000000cm]{classrr_1_1GillespieIntegrator}
+\end{center}
+\end{figure}
+\doxysubsection*{Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\Hypertarget{classrr_1_1GillespieIntegrator_a0c6205ef0acd1f1940f17f524118695f}\label{classrr_1_1GillespieIntegrator_a0c6205ef0acd1f1940f17f524118695f}} 
+{\bfseries Gillespie\+Integrator} (\mbox{\hyperlink{classrr_1_1ExecutableModel}{Executable\+Model}} $\ast$model)
+\item 
+virtual void \mbox{\hyperlink{classrr_1_1GillespieIntegrator_ab9964aeac6eb46f5f44b16c48924f699}{sync\+With\+Model}} (\mbox{\hyperlink{classrr_1_1ExecutableModel}{Executable\+Model}} $\ast$m)
+\begin{DoxyCompactList}\small\item\em Called whenever a new model is loaded to allow integrator to reset internal state. \end{DoxyCompactList}\item 
+std\+::string \mbox{\hyperlink{classrr_1_1GillespieIntegrator_a290f7167ef2a6da01ff1543c496e1215}{get\+Name}} () const
+\begin{DoxyCompactList}\small\item\em Get the name for this integrator. \end{DoxyCompactList}\item 
+std\+::string \mbox{\hyperlink{classrr_1_1GillespieIntegrator_adc46266d77d8c9d54bca86ca3d402f8f}{get\+Description}} () const
+\begin{DoxyCompactList}\small\item\em Get the description for this integrator. \end{DoxyCompactList}\item 
+std\+::string \mbox{\hyperlink{classrr_1_1GillespieIntegrator_a9903b945ac591f39cb3e93167fe45514}{get\+Hint}} () const
+\begin{DoxyCompactList}\small\item\em Get the hint for this integrator. \end{DoxyCompactList}\item 
+Integration\+Method \mbox{\hyperlink{classrr_1_1GillespieIntegrator_a01237f3e6d841e05479dcd914d9f11dc}{get\+Integration\+Method}} () const
+\begin{DoxyCompactList}\small\item\em Always stochastic for Gillespie. \end{DoxyCompactList}\item 
+void \mbox{\hyperlink{classrr_1_1GillespieIntegrator_a3b7430200b51e63f449704f0ee300b07}{set\+Value}} (std\+::string setting, const \mbox{\hyperlink{classrr_1_1Variant}{Variant}} \&value)
+\begin{DoxyCompactList}\small\item\em Sets the value of an integrator setting (e.\+g. absolute\+\_\+tolerance) \end{DoxyCompactList}\item 
+void \mbox{\hyperlink{classrr_1_1GillespieIntegrator_a2dcbd5a36b094a9b14d1e8e423204c7b}{reset\+Settings}} ()
+\begin{DoxyCompactList}\small\item\em Reset all integrator settings to their respective default values. \end{DoxyCompactList}\item 
+double \mbox{\hyperlink{classrr_1_1GillespieIntegrator_a73574edf62f01ef8b2eeadf6c70e802f}{integrate}} (double t0, double tf)
+\begin{DoxyCompactList}\small\item\em Main integration routine. \end{DoxyCompactList}\item 
+void \mbox{\hyperlink{classrr_1_1GillespieIntegrator_a85af2d5361d972ddb222f53ca2675f8d}{restart}} (double time\+Start)
+\begin{DoxyCompactList}\small\item\em Reset time to zero and reinitialize model. \end{DoxyCompactList}\item 
+Integrator\+Listener\+Ptr \mbox{\hyperlink{classrr_1_1GillespieIntegrator_a722d13b4535fbdbee5e5f2845503cbba}{get\+Listener}} ()
+\begin{DoxyCompactList}\small\item\em Gets the integrator listener. \end{DoxyCompactList}\item 
+void \mbox{\hyperlink{classrr_1_1GillespieIntegrator_adb13139574014bfffe50b127e0e5dfe0}{set\+Listener}} (Integrator\+Listener\+Ptr)
+\begin{DoxyCompactList}\small\item\em Sets the integrator listener. \end{DoxyCompactList}\end{DoxyCompactItemize}
+\doxysubsection*{Static Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+static std\+::string \mbox{\hyperlink{classrr_1_1GillespieIntegrator_a829f4d120d6d1f4dd6fb33a9e4adad82}{get\+Gillespie\+Name}} ()
+\begin{DoxyCompactList}\small\item\em Get the name for this integrator. \end{DoxyCompactList}\item 
+static std\+::string \mbox{\hyperlink{classrr_1_1GillespieIntegrator_a9a4886181bbcb6f7e74e84180047efce}{get\+Gillespie\+Description}} ()
+\begin{DoxyCompactList}\small\item\em Get the description for this integrator. \end{DoxyCompactList}\item 
+static std\+::string \mbox{\hyperlink{classrr_1_1GillespieIntegrator_a334bc34d669e35289e71cf99c72c239f}{get\+Gillespie\+Hint}} ()
+\begin{DoxyCompactList}\small\item\em Get the hint for this integrator. \end{DoxyCompactList}\end{DoxyCompactItemize}
+\doxysubsection*{Additional Inherited Members}
+
+
+\doxysubsection{Detailed Description}
+\mbox{\hyperlink{classrr_1_1RoadRunner}{Road\+Runner}}\textquotesingle{}s implementation of the Gillespie S\+SA. 
+
+\begin{DoxyAuthor}{Author}
+W\+BC, E\+TS 
+\end{DoxyAuthor}
+
+
+\doxysubsection{Member Function Documentation}
+\mbox{\Hypertarget{classrr_1_1GillespieIntegrator_adc46266d77d8c9d54bca86ca3d402f8f}\label{classrr_1_1GillespieIntegrator_adc46266d77d8c9d54bca86ca3d402f8f}} 
+\index{rr::GillespieIntegrator@{rr::GillespieIntegrator}!getDescription@{getDescription}}
+\index{getDescription@{getDescription}!rr::GillespieIntegrator@{rr::GillespieIntegrator}}
+\doxysubsubsection{\texorpdfstring{getDescription()}{getDescription()}}
+{\footnotesize\ttfamily std\+::string rr\+::\+Gillespie\+Integrator\+::get\+Description (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption}) const\hspace{0.3cm}{\ttfamily [virtual]}}
+
+
+
+Get the description for this integrator. 
+
+\begin{DoxyAuthor}{Author}
+W\+BC 
+\end{DoxyAuthor}
+\begin{DoxyNote}{Note}
+Delegates to \mbox{\hyperlink{classrr_1_1GillespieIntegrator_adc46266d77d8c9d54bca86ca3d402f8f}{get\+Description}} 
+\end{DoxyNote}
+
+
+Implements \mbox{\hyperlink{classrr_1_1Solver_a86067147c7631ca80d51667322f1a8f5}{rr\+::\+Solver}}.
+
+\mbox{\Hypertarget{classrr_1_1GillespieIntegrator_a9a4886181bbcb6f7e74e84180047efce}\label{classrr_1_1GillespieIntegrator_a9a4886181bbcb6f7e74e84180047efce}} 
+\index{rr::GillespieIntegrator@{rr::GillespieIntegrator}!getGillespieDescription@{getGillespieDescription}}
+\index{getGillespieDescription@{getGillespieDescription}!rr::GillespieIntegrator@{rr::GillespieIntegrator}}
+\doxysubsubsection{\texorpdfstring{getGillespieDescription()}{getGillespieDescription()}}
+{\footnotesize\ttfamily std\+::string rr\+::\+Gillespie\+Integrator\+::get\+Gillespie\+Description (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [static]}}
+
+
+
+Get the description for this integrator. 
+
+\begin{DoxyAuthor}{Author}
+J\+KM 
+\end{DoxyAuthor}
+\mbox{\Hypertarget{classrr_1_1GillespieIntegrator_a334bc34d669e35289e71cf99c72c239f}\label{classrr_1_1GillespieIntegrator_a334bc34d669e35289e71cf99c72c239f}} 
+\index{rr::GillespieIntegrator@{rr::GillespieIntegrator}!getGillespieHint@{getGillespieHint}}
+\index{getGillespieHint@{getGillespieHint}!rr::GillespieIntegrator@{rr::GillespieIntegrator}}
+\doxysubsubsection{\texorpdfstring{getGillespieHint()}{getGillespieHint()}}
+{\footnotesize\ttfamily std\+::string rr\+::\+Gillespie\+Integrator\+::get\+Gillespie\+Hint (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [static]}}
+
+
+
+Get the hint for this integrator. 
+
+\begin{DoxyAuthor}{Author}
+J\+KM 
+\end{DoxyAuthor}
+\mbox{\Hypertarget{classrr_1_1GillespieIntegrator_a829f4d120d6d1f4dd6fb33a9e4adad82}\label{classrr_1_1GillespieIntegrator_a829f4d120d6d1f4dd6fb33a9e4adad82}} 
+\index{rr::GillespieIntegrator@{rr::GillespieIntegrator}!getGillespieName@{getGillespieName}}
+\index{getGillespieName@{getGillespieName}!rr::GillespieIntegrator@{rr::GillespieIntegrator}}
+\doxysubsubsection{\texorpdfstring{getGillespieName()}{getGillespieName()}}
+{\footnotesize\ttfamily std\+::string rr\+::\+Gillespie\+Integrator\+::get\+Gillespie\+Name (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [static]}}
+
+
+
+Get the name for this integrator. 
+
+\begin{DoxyAuthor}{Author}
+J\+KM 
+\end{DoxyAuthor}
+\mbox{\Hypertarget{classrr_1_1GillespieIntegrator_a9903b945ac591f39cb3e93167fe45514}\label{classrr_1_1GillespieIntegrator_a9903b945ac591f39cb3e93167fe45514}} 
+\index{rr::GillespieIntegrator@{rr::GillespieIntegrator}!getHint@{getHint}}
+\index{getHint@{getHint}!rr::GillespieIntegrator@{rr::GillespieIntegrator}}
+\doxysubsubsection{\texorpdfstring{getHint()}{getHint()}}
+{\footnotesize\ttfamily std\+::string rr\+::\+Gillespie\+Integrator\+::get\+Hint (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption}) const\hspace{0.3cm}{\ttfamily [virtual]}}
+
+
+
+Get the hint for this integrator. 
+
+\begin{DoxyAuthor}{Author}
+W\+BC 
+\end{DoxyAuthor}
+\begin{DoxyNote}{Note}
+Delegates to \mbox{\hyperlink{classrr_1_1GillespieIntegrator_a9903b945ac591f39cb3e93167fe45514}{get\+Hint}} 
+\end{DoxyNote}
+
+
+Implements \mbox{\hyperlink{classrr_1_1Solver_aff005f7e71bc73123ecbd511a77f71b6}{rr\+::\+Solver}}.
+
+\mbox{\Hypertarget{classrr_1_1GillespieIntegrator_a01237f3e6d841e05479dcd914d9f11dc}\label{classrr_1_1GillespieIntegrator_a01237f3e6d841e05479dcd914d9f11dc}} 
+\index{rr::GillespieIntegrator@{rr::GillespieIntegrator}!getIntegrationMethod@{getIntegrationMethod}}
+\index{getIntegrationMethod@{getIntegrationMethod}!rr::GillespieIntegrator@{rr::GillespieIntegrator}}
+\doxysubsubsection{\texorpdfstring{getIntegrationMethod()}{getIntegrationMethod()}}
+{\footnotesize\ttfamily Integrator\+::\+Integration\+Method rr\+::\+Gillespie\+Integrator\+::get\+Integration\+Method (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption}) const\hspace{0.3cm}{\ttfamily [virtual]}}
+
+
+
+Always stochastic for Gillespie. 
+
+\begin{DoxyAuthor}{Author}
+W\+BC, E\+TS 
+\end{DoxyAuthor}
+
+
+Implements \mbox{\hyperlink{classrr_1_1Integrator}{rr\+::\+Integrator}}.
+
+\mbox{\Hypertarget{classrr_1_1GillespieIntegrator_a722d13b4535fbdbee5e5f2845503cbba}\label{classrr_1_1GillespieIntegrator_a722d13b4535fbdbee5e5f2845503cbba}} 
+\index{rr::GillespieIntegrator@{rr::GillespieIntegrator}!getListener@{getListener}}
+\index{getListener@{getListener}!rr::GillespieIntegrator@{rr::GillespieIntegrator}}
+\doxysubsubsection{\texorpdfstring{getListener()}{getListener()}}
+{\footnotesize\ttfamily Integrator\+Listener\+Ptr rr\+::\+Gillespie\+Integrator\+::get\+Listener (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [virtual]}}
+
+
+
+Gets the integrator listener. 
+
+\begin{DoxyAuthor}{Author}
+W\+BC, E\+TS 
+\end{DoxyAuthor}
+
+
+Implements \mbox{\hyperlink{classrr_1_1Integrator}{rr\+::\+Integrator}}.
+
+\mbox{\Hypertarget{classrr_1_1GillespieIntegrator_a290f7167ef2a6da01ff1543c496e1215}\label{classrr_1_1GillespieIntegrator_a290f7167ef2a6da01ff1543c496e1215}} 
+\index{rr::GillespieIntegrator@{rr::GillespieIntegrator}!getName@{getName}}
+\index{getName@{getName}!rr::GillespieIntegrator@{rr::GillespieIntegrator}}
+\doxysubsubsection{\texorpdfstring{getName()}{getName()}}
+{\footnotesize\ttfamily std\+::string rr\+::\+Gillespie\+Integrator\+::get\+Name (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption}) const\hspace{0.3cm}{\ttfamily [virtual]}}
+
+
+
+Get the name for this integrator. 
+
+\begin{DoxyAuthor}{Author}
+W\+BC 
+\end{DoxyAuthor}
+\begin{DoxyNote}{Note}
+Delegates to \mbox{\hyperlink{classrr_1_1GillespieIntegrator_a290f7167ef2a6da01ff1543c496e1215}{get\+Name}} 
+\end{DoxyNote}
+
+
+Implements \mbox{\hyperlink{classrr_1_1Solver_a417cca64a18c63535f2091584f8fed91}{rr\+::\+Solver}}.
+
+\mbox{\Hypertarget{classrr_1_1GillespieIntegrator_a73574edf62f01ef8b2eeadf6c70e802f}\label{classrr_1_1GillespieIntegrator_a73574edf62f01ef8b2eeadf6c70e802f}} 
+\index{rr::GillespieIntegrator@{rr::GillespieIntegrator}!integrate@{integrate}}
+\index{integrate@{integrate}!rr::GillespieIntegrator@{rr::GillespieIntegrator}}
+\doxysubsubsection{\texorpdfstring{integrate()}{integrate()}}
+{\footnotesize\ttfamily double rr\+::\+Gillespie\+Integrator\+::integrate (\begin{DoxyParamCaption}\item[{double}]{t0,  }\item[{double}]{tf }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [virtual]}}
+
+
+
+Main integration routine. 
+
+\begin{DoxyAuthor}{Author}
+W\+BC, E\+TS 
+\end{DoxyAuthor}
+
+
+Implements \mbox{\hyperlink{classrr_1_1Integrator}{rr\+::\+Integrator}}.
+
+\mbox{\Hypertarget{classrr_1_1GillespieIntegrator_a2dcbd5a36b094a9b14d1e8e423204c7b}\label{classrr_1_1GillespieIntegrator_a2dcbd5a36b094a9b14d1e8e423204c7b}} 
+\index{rr::GillespieIntegrator@{rr::GillespieIntegrator}!resetSettings@{resetSettings}}
+\index{resetSettings@{resetSettings}!rr::GillespieIntegrator@{rr::GillespieIntegrator}}
+\doxysubsubsection{\texorpdfstring{resetSettings()}{resetSettings()}}
+{\footnotesize\ttfamily void rr\+::\+Gillespie\+Integrator\+::reset\+Settings (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [virtual]}}
+
+
+
+Reset all integrator settings to their respective default values. 
+
+\begin{DoxyAuthor}{Author}
+J\+KM 
+\end{DoxyAuthor}
+
+
+Reimplemented from \mbox{\hyperlink{classrr_1_1Solver_a71c8b404a40447f879b2253e7dcc3b85}{rr\+::\+Solver}}.
+
+\mbox{\Hypertarget{classrr_1_1GillespieIntegrator_a85af2d5361d972ddb222f53ca2675f8d}\label{classrr_1_1GillespieIntegrator_a85af2d5361d972ddb222f53ca2675f8d}} 
+\index{rr::GillespieIntegrator@{rr::GillespieIntegrator}!restart@{restart}}
+\index{restart@{restart}!rr::GillespieIntegrator@{rr::GillespieIntegrator}}
+\doxysubsubsection{\texorpdfstring{restart()}{restart()}}
+{\footnotesize\ttfamily void rr\+::\+Gillespie\+Integrator\+::restart (\begin{DoxyParamCaption}\item[{double}]{time\+Start }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [virtual]}}
+
+
+
+Reset time to zero and reinitialize model. 
+
+\begin{DoxyAuthor}{Author}
+W\+BC, E\+TS 
+\end{DoxyAuthor}
+
+
+Implements \mbox{\hyperlink{classrr_1_1Integrator}{rr\+::\+Integrator}}.
+
+\mbox{\Hypertarget{classrr_1_1GillespieIntegrator_adb13139574014bfffe50b127e0e5dfe0}\label{classrr_1_1GillespieIntegrator_adb13139574014bfffe50b127e0e5dfe0}} 
+\index{rr::GillespieIntegrator@{rr::GillespieIntegrator}!setListener@{setListener}}
+\index{setListener@{setListener}!rr::GillespieIntegrator@{rr::GillespieIntegrator}}
+\doxysubsubsection{\texorpdfstring{setListener()}{setListener()}}
+{\footnotesize\ttfamily void rr\+::\+Gillespie\+Integrator\+::set\+Listener (\begin{DoxyParamCaption}\item[{Integrator\+Listener\+Ptr}]{ }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [virtual]}}
+
+
+
+Sets the integrator listener. 
+
+\begin{DoxyAuthor}{Author}
+W\+BC, E\+TS 
+\end{DoxyAuthor}
+
+
+Implements \mbox{\hyperlink{classrr_1_1Integrator}{rr\+::\+Integrator}}.
+
+\mbox{\Hypertarget{classrr_1_1GillespieIntegrator_a3b7430200b51e63f449704f0ee300b07}\label{classrr_1_1GillespieIntegrator_a3b7430200b51e63f449704f0ee300b07}} 
+\index{rr::GillespieIntegrator@{rr::GillespieIntegrator}!setValue@{setValue}}
+\index{setValue@{setValue}!rr::GillespieIntegrator@{rr::GillespieIntegrator}}
+\doxysubsubsection{\texorpdfstring{setValue()}{setValue()}}
+{\footnotesize\ttfamily void rr\+::\+Gillespie\+Integrator\+::set\+Value (\begin{DoxyParamCaption}\item[{std\+::string}]{setting,  }\item[{const \mbox{\hyperlink{classrr_1_1Variant}{Variant}} \&}]{value }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [virtual]}}
+
+
+
+Sets the value of an integrator setting (e.\+g. absolute\+\_\+tolerance) 
+
+\begin{DoxyAuthor}{Author}
+W\+BC, E\+TS 
+\end{DoxyAuthor}
+
+
+Reimplemented from \mbox{\hyperlink{classrr_1_1Solver}{rr\+::\+Solver}}.
+
+\mbox{\Hypertarget{classrr_1_1GillespieIntegrator_ab9964aeac6eb46f5f44b16c48924f699}\label{classrr_1_1GillespieIntegrator_ab9964aeac6eb46f5f44b16c48924f699}} 
+\index{rr::GillespieIntegrator@{rr::GillespieIntegrator}!syncWithModel@{syncWithModel}}
+\index{syncWithModel@{syncWithModel}!rr::GillespieIntegrator@{rr::GillespieIntegrator}}
+\doxysubsubsection{\texorpdfstring{syncWithModel()}{syncWithModel()}}
+{\footnotesize\ttfamily void rr\+::\+Gillespie\+Integrator\+::sync\+With\+Model (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{classrr_1_1ExecutableModel}{Executable\+Model}} $\ast$}]{m }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [virtual]}}
+
+
+
+Called whenever a new model is loaded to allow integrator to reset internal state. 
+
+\begin{DoxyAuthor}{Author}
+J\+KM 
+\end{DoxyAuthor}
+
+
+Reimplemented from \mbox{\hyperlink{classrr_1_1Integrator_a6b12118cd1b0f047f5a64cfb0546b565}{rr\+::\+Integrator}}.
+
+
+
+The documentation for this class was generated from the following files\+:\begin{DoxyCompactItemize}
+\item 
+Gillespie\+Integrator.\+h\item 
+Gillespie\+Integrator.\+cpp\end{DoxyCompactItemize}

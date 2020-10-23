@@ -1,0 +1,335 @@
+
+
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" >
+<head>
+  <meta charset="utf-8">
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+  <title>Stoichiometric Analysis &mdash; libRoadRunner 1.1.16 documentation</title>
+  
+
+  
+  <link rel="stylesheet" href="_static/css/theme.css" type="text/css" />
+  <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
+
+  
+  
+  
+  
+
+  
+  <!--[if lt IE 9]>
+    <script src="_static/js/html5shiv.min.js"></script>
+  <![endif]-->
+  
+    
+      <script type="text/javascript" id="documentation_options" data-url_root="./" src="_static/documentation_options.js"></script>
+        <script src="_static/jquery.js"></script>
+        <script src="_static/underscore.js"></script>
+        <script src="_static/doctools.js"></script>
+        <script src="_static/language_data.js"></script>
+    
+    <script type="text/javascript" src="_static/js/theme.js"></script>
+
+    
+    <link rel="index" title="Index" href="genindex.html" />
+    <link rel="search" title="Search" href="search.html" />
+    <link rel="next" title="Bifurcation Analysis" href="bifurcation.html" />
+    <link rel="prev" title="Stability Analysis" href="stability.html" /> 
+</head>
+
+<body class="wy-body-for-nav">
+
+   
+  <div class="wy-grid-for-nav">
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+          
+
+          
+            <a href="index.html" class="icon icon-home" alt="Documentation Home"> libRoadRunner
+          
+
+          
+          </a>
+
+          
+            
+            
+          
+
+          
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+
+          
+        </div>
+
+        
+        <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+          
+            
+            
+              
+            
+            
+              <ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="index.html">RoadRunner Documentation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="introduction.html">Introduction</a></li>
+<li class="toctree-l1"><a class="reference internal" href="Installation/installation.html">Installing RoadRunner</a></li>
+<li class="toctree-l1"><a class="reference internal" href="read_write_functions.html">SBML Read/Write Functions</a></li>
+<li class="toctree-l1"><a class="reference internal" href="selecting_values.html">Selecting Values</a></li>
+<li class="toctree-l1"><a class="reference internal" href="steady_state.html">Steady State Analysis</a></li>
+<li class="toctree-l1"><a class="reference internal" href="stochastic.html">Stochastic Simulation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="metabolic.html">Metabolic Control Analysis</a></li>
+<li class="toctree-l1"><a class="reference internal" href="stability.html">Stability Analysis</a></li>
+<li class="toctree-l1 current"><a class="current reference internal" href="#">Stoichiometric Analysis</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="#preliminaries">Preliminaries</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#full-vs-extended-stoichiometry-matrix">Full vs. Extended Stoichiometry Matrix</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#methods">Methods</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="bifurcation.html">Bifurcation Analysis</a></li>
+<li class="toctree-l1"><a class="reference internal" href="integration.html">Simulation and Integration</a></li>
+<li class="toctree-l1"><a class="reference internal" href="utility_functions.html">Utility Functions</a></li>
+<li class="toctree-l1"><a class="reference internal" href="accessing_model.html">Accessing the SBML Model Variables</a></li>
+<li class="toctree-l1"><a class="reference internal" href="api_reference.html">RoadRunner API Reference</a></li>
+</ul>
+
+            
+          
+        </div>
+        
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" aria-label="top navigation">
+        
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="index.html">libRoadRunner</a>
+        
+      </nav>
+
+
+      <div class="wy-nav-content">
+        
+        <div class="rst-content">
+        
+          
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div role="navigation" aria-label="breadcrumbs navigation">
+
+  <ul class="wy-breadcrumbs">
+    
+      <li><a href="index.html" class="icon icon-home"></a> &raquo;</li>
+        
+      <li>Stoichiometric Analysis</li>
+    
+    
+      <li class="wy-breadcrumbs-aside">
+        
+            
+            <a href="_sources/stoichiometric.rst.txt" rel="nofollow"> View page source</a>
+          
+        
+      </li>
+    
+  </ul>
+
+  
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+            
+  <div class="section" id="stoichiometric-analysis">
+<h1>Stoichiometric Analysis<a class="headerlink" href="#stoichiometric-analysis" title="Permalink to this headline">¶</a></h1>
+<div class="section" id="preliminaries">
+<h2>Preliminaries<a class="headerlink" href="#preliminaries" title="Permalink to this headline">¶</a></h2>
+<p>A network of <img class="math" src="_images/math/e9bc7da808d33a16a8347f27a519bd067186aa66.png" alt="m"/> chemical species and <img class="math" src="_images/math/5a939c5280da7202ca4531f175a7780ad5e1f80a.png" alt="n"/> reactions can be described by the
+<img class="math" src="_images/math/e9bc7da808d33a16a8347f27a519bd067186aa66.png" alt="m"/> by <img class="math" src="_images/math/5a939c5280da7202ca4531f175a7780ad5e1f80a.png" alt="n"/> stochiometry matrix <img class="math" src="_images/math/ea18548ce92f7f30b06ad9b72a157be42ff2ca44.png" alt="\mathbf{N}"/>. <img class="math" src="_images/math/eee64e36e8aaf0b2ee7f8771812575247e7f248c.png" alt="\mathbf{N}_{i,j}"/> is the net number of
+species <img class="math" src="_images/math/5aa339d4daf45a810dda332e3c80a0698e526e04.png" alt="i"/> produced or consumed in reaction <img class="math" src="_images/math/e3fc28292267f066fee7718c64f4bbfece521f24.png" alt="j"/>.  The dynamics of the network are
+described by</p>
+<div class="math">
+<p><img src="_images/math/1a419a6a6e05433235913e605955c489f0260a02.png" alt="\frac{d}{dt}\mathbf{s}(t) = \mathbf{N} \mathbf{v}(\mathbf{s}(t),\mathbf{p},t),"/></p>
+</div><p>where <img class="math" src="_images/math/464e1592f73b030553a806f080b3a0370d1c6543.png" alt="\mathbf{s}"/> is the vector of species concentrations, <img class="math" src="_images/math/c11f55e4a25377e79397d43a2cb7ec0365799d59.png" alt="\mathbf{p}"/>
+is a vector of time independent parameters, and <img class="math" src="_images/math/907a4add6d5db5b7f197f7924f1371b8ac404fe6.png" alt="t"/> is time.</p>
+<p>Each structural conservation, or interchangably, <em>conserved sum</em> (e.g. conserved moiety) in
+the network coresponds to a lineraly dependent row in the stoichiometry matrix <img class="math" src="_images/math/ea18548ce92f7f30b06ad9b72a157be42ff2ca44.png" alt="\mathbf{N}"/>.</p>
+<p>If there are conserved sums, then the row rank, <img class="math" src="_images/math/79a3d439d28652c547386f39b555d90d3aaf102d.png" alt="r"/> of <img class="math" src="_images/math/3bfb3a64189a14b2704f4610827762d5e3145114.png" alt="N"/> is <img class="math" src="_images/math/db27e81b5043871690d5a4931735c1956e2ec546.png" alt="&lt; m"/>, and
+the stochiometry matrix <img class="math" src="_images/math/3bfb3a64189a14b2704f4610827762d5e3145114.png" alt="N"/> may first be re-ordered such that the first <img class="math" src="_images/math/79a3d439d28652c547386f39b555d90d3aaf102d.png" alt="r"/> are linearly
+independent, and the remaining <img class="math" src="_images/math/086cd74c9904c93b79178f3ba70e62ccdd15b965.png" alt="m-r"/> rows are linear combinations of the first <img class="math" src="_images/math/79a3d439d28652c547386f39b555d90d3aaf102d.png" alt="r"/>
+rows. The <em>reduced stochiometry matrix</em> <img class="math" src="_images/math/2c72c1075a2c3832027d935c6eb8309244b4e719.png" alt="\mathbf{N_R}"/> is then formed from the first
+<img class="math" src="_images/math/79a3d439d28652c547386f39b555d90d3aaf102d.png" alt="r"/> rows of <img class="math" src="_images/math/3bfb3a64189a14b2704f4610827762d5e3145114.png" alt="N"/>. Finally, <img class="math" src="_images/math/3bfb3a64189a14b2704f4610827762d5e3145114.png" alt="N"/> may be expressed as a product of the <img class="math" src="_images/math/06507d0275a183f9e76fa928f5fa8267c3d9a560.png" alt="m \times r"/>
+<em>link matrix</em> <img class="math" src="_images/math/6ee4d528434e9cc050483bee7faf289b37f2e009.png" alt="\mathbf{L}"/> and the <img class="math" src="_images/math/206aaa090beda7a9f021e91e89168008c395fd70.png" alt="r \times n"/> <img class="math" src="_images/math/2c72c1075a2c3832027d935c6eb8309244b4e719.png" alt="\mathbf{N_R}"/> matrix:</p>
+<div class="math">
+<p><img src="_images/math/ae61aad36fddef879163eab34799d66db6e93b19.png" alt="\mathbf{N} = \mathbf{L}\mathbf{N_R}."/></p>
+</div><p>The link matrix <img class="math" src="_images/math/6ee4d528434e9cc050483bee7faf289b37f2e009.png" alt="\mathbf{L}"/> has the form</p>
+<div class="math">
+<p><img src="_images/math/c6977eac5c8c4130105d582c2ef1d2f666ac533a.png" alt="\mathbf{L} = \left[ \begin{array}{c}
+                    \mathbf{I}_{r} \\
+                    \mathbf{L}_0    \end{array} \right],"/></p>
+</div><p>where <img class="math" src="_images/math/6936cef5cd163fc7a980484698867c3d74316594.png" alt="\mathbf{I}_{r}"/> is the <img class="math" src="_images/math/624d5b647a5e5e2a9043877f387cbb9632637dfe.png" alt="r \times r"/> identity matrix and <img class="math" src="_images/math/3276c0da6ae1d98d129fdbc0336f66156e0d5db1.png" alt="\mathbf{L}_0"/> is a <img class="math" src="_images/math/b70ca4b8e6bef577623306f53b72e08fbbcd7843.png" alt="(m-r) \times r"/>
+matrix.</p>
+</div>
+<div class="section" id="full-vs-extended-stoichiometry-matrix">
+<h2>Full vs. Extended Stoichiometry Matrix<a class="headerlink" href="#full-vs-extended-stoichiometry-matrix" title="Permalink to this headline">¶</a></h2>
+<p>The “full” stoichiometric matrix includes any conserved quantities (as opposed to the reduced stoichiometric matrix,
+which does not). The <em>extended</em> stoichiometric matrix is equal to the full stoichiometric matrix plus additional
+rows representing boundary species and sources / sinks. For example, consider the following reaction system:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">reaction1</span><span class="p">:</span>  <span class="o">=&gt;</span> <span class="n">C</span>
+<span class="n">reaction2</span><span class="p">:</span> <span class="n">C</span> <span class="o">=&gt;</span>
+<span class="n">reaction3</span><span class="p">:</span> <span class="n">C</span> <span class="o">=&gt;</span>
+<span class="n">reaction4</span><span class="p">:</span> <span class="n">MI</span> <span class="o">=&gt;</span> <span class="n">M</span>
+<span class="n">reaction5</span><span class="p">:</span> <span class="n">M</span> <span class="o">=&gt;</span> <span class="n">MI</span>
+<span class="n">reaction6</span><span class="p">:</span> <span class="n">XI</span> <span class="o">=&gt;</span> <span class="n">X</span>
+<span class="n">reaction7</span><span class="p">:</span> <span class="n">X</span> <span class="o">=&gt;</span> <span class="n">XI</span>
+</pre></div>
+</div>
+<p>The extended stoichiometry matrix for this system is:</p>
+<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span> <span class="n">rr</span><span class="o">.</span><span class="n">getExtendedStoichiometryMatrix</span><span class="p">()</span>
+<span class="go">                     reaction1, reaction2, reaction3, reaction4, reaction5, reaction6, reaction7</span>
+<span class="go"> C                [[         1,        -1,        -1,         0,         0,         0,         0],</span>
+<span class="go"> M                 [         0,         0,         0,         1,        -1,         0,         0],</span>
+<span class="go"> X                 [         0,         0,         0,         0,         0,         1,        -1],</span>
+<span class="go"> MI                [         0,         0,         0,        -1,         1,         0,         0],</span>
+<span class="go"> XI                [         0,         0,         0,         0,         0,        -1,         1],</span>
+<span class="go"> reaction1_source  [        -1,         0,         0,         0,         0,         0,         0],</span>
+<span class="go"> reaction2_sink    [         0,         1,         0,         0,         0,         0,         0],</span>
+<span class="go"> reaction3_sink    [         0,         0,         1,         0,         0,         0,         0]]</span>
+</pre></div>
+</div>
+</div>
+<div class="section" id="methods">
+<h2>Methods<a class="headerlink" href="#methods" title="Permalink to this headline">¶</a></h2>
+<p>The following methods are related to the analysis of the stoichiometric matrix.</p>
+<table class="longtable docutils align-default">
+<colgroup>
+<col style="width: 10%" />
+<col style="width: 90%" />
+</colgroup>
+<tbody>
+<tr class="row-odd"><td><p><a class="reference internal" href="mod_roadrunner/cls_RoadRunner.html#RoadRunner.RoadRunner.getLinkMatrix" title="RoadRunner.RoadRunner.getLinkMatrix"><code class="xref py py-obj docutils literal notranslate"><span class="pre">RoadRunner.getLinkMatrix</span></code></a></p></td>
+<td><p></p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="mod_roadrunner/cls_RoadRunner.html#RoadRunner.RoadRunner.getNrMatrix" title="RoadRunner.RoadRunner.getNrMatrix"><code class="xref py py-obj docutils literal notranslate"><span class="pre">RoadRunner.getNrMatrix</span></code></a></p></td>
+<td><p></p></td>
+</tr>
+<tr class="row-odd"><td><p><a class="reference internal" href="mod_roadrunner/cls_RoadRunner.html#RoadRunner.RoadRunner.getKMatrix" title="RoadRunner.RoadRunner.getKMatrix"><code class="xref py py-obj docutils literal notranslate"><span class="pre">RoadRunner.getKMatrix</span></code></a></p></td>
+<td><p></p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="mod_roadrunner/cls_RoadRunner.html#RoadRunner.RoadRunner.getConservationMatrix" title="RoadRunner.RoadRunner.getConservationMatrix"><code class="xref py py-obj docutils literal notranslate"><span class="pre">RoadRunner.getConservationMatrix</span></code></a></p></td>
+<td><p></p></td>
+</tr>
+<tr class="row-odd"><td><p><a class="reference internal" href="mod_roadrunner/cls_RoadRunner.html#RoadRunner.RoadRunner.getL0Matrix" title="RoadRunner.RoadRunner.getL0Matrix"><code class="xref py py-obj docutils literal notranslate"><span class="pre">RoadRunner.getL0Matrix</span></code></a></p></td>
+<td><p></p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="mod_roadrunner/cls_RoadRunner.html#RoadRunner.RoadRunner.getFullStoichiometryMatrix" title="RoadRunner.RoadRunner.getFullStoichiometryMatrix"><code class="xref py py-obj docutils literal notranslate"><span class="pre">RoadRunner.getFullStoichiometryMatrix</span></code></a></p></td>
+<td><p></p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="xref py py-obj docutils literal notranslate"><span class="pre">RoadRunner.getExtendedStoichiometryMatrix</span></code></p></td>
+<td><p></p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="mod_roadrunner/cls_RoadRunner.html#RoadRunner.RoadRunner.getReducedStoichiometryMatrix" title="RoadRunner.RoadRunner.getReducedStoichiometryMatrix"><code class="xref py py-obj docutils literal notranslate"><span class="pre">RoadRunner.getReducedStoichiometryMatrix</span></code></a></p></td>
+<td><p></p></td>
+</tr>
+<tr class="row-odd"><td><p><a class="reference internal" href="mod_roadrunner/cls_ExecutableModel.html#RoadRunner.ExecutableModel.getNumConservedMoieties" title="RoadRunner.ExecutableModel.getNumConservedMoieties"><code class="xref py py-obj docutils literal notranslate"><span class="pre">ExecutableModel.getNumConservedMoieties</span></code></a></p></td>
+<td><p></p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="mod_roadrunner/cls_ExecutableModel.html#RoadRunner.ExecutableModel.getConservedMoietyIds" title="RoadRunner.ExecutableModel.getConservedMoietyIds"><code class="xref py py-obj docutils literal notranslate"><span class="pre">ExecutableModel.getConservedMoietyIds</span></code></a></p></td>
+<td><p></p></td>
+</tr>
+<tr class="row-odd"><td><p><a class="reference internal" href="mod_roadrunner/cls_ExecutableModel.html#RoadRunner.ExecutableModel.getConservedMoietyValues" title="RoadRunner.ExecutableModel.getConservedMoietyValues"><code class="xref py py-obj docutils literal notranslate"><span class="pre">ExecutableModel.getConservedMoietyValues</span></code></a></p></td>
+<td><p></p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="mod_roadrunner/cls_ExecutableModel.html#RoadRunner.ExecutableModel.setConservedMoietyValues" title="RoadRunner.ExecutableModel.setConservedMoietyValues"><code class="xref py py-obj docutils literal notranslate"><span class="pre">ExecutableModel.setConservedMoietyValues</span></code></a></p></td>
+<td><p></p></td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+
+
+           </div>
+           
+          </div>
+          <footer>
+  
+    <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
+      
+        <a href="bifurcation.html" class="btn btn-neutral float-right" title="Bifurcation Analysis" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right"></span></a>
+      
+      
+        <a href="stability.html" class="btn btn-neutral float-left" title="Stability Analysis" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left"></span> Previous</a>
+      
+    </div>
+  
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>
+        
+        &copy; Copyright 2013-2018, Andy Somogyi, J Kyle Medley, Kiri Choi, Herbert Suaro
+
+    </p>
+  </div>
+    
+    
+    
+    Built with <a href="http://sphinx-doc.org/">Sphinx</a> using a
+    
+    <a href="https://github.com/rtfd/sphinx_rtd_theme">theme</a>
+    
+    provided by <a href="https://readthedocs.org">Read the Docs</a>. 
+
+</footer>
+
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+  
+
+  <script type="text/javascript">
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script>
+
+  
+  
+    
+   
+
+</body>
+</html>

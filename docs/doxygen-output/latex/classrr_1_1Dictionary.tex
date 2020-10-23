@@ -1,0 +1,97 @@
+\hypertarget{classrr_1_1Dictionary}{}\doxysection{rr\+::Dictionary Class Reference}
+\label{classrr_1_1Dictionary}\index{rr::Dictionary@{rr::Dictionary}}
+
+
+This class is frozen, no new features A dictionary interface that objects can implement.  
+
+
+
+
+{\ttfamily \#include $<$Dictionary.\+h$>$}
+
+Inheritance diagram for rr\+::Dictionary\+:\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[height=2.800000cm]{classrr_1_1Dictionary}
+\end{center}
+\end{figure}
+\doxysubsection*{Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+virtual void \mbox{\hyperlink{classrr_1_1Dictionary_a6bb53c3bfeee7e3ee2bfcf9da8212949}{set\+Item}} (const std\+::string \&key, const \mbox{\hyperlink{classrr_1_1Variant}{rr\+::\+Variant}} \&value)=0
+\begin{DoxyCompactList}\small\item\em Set the value for an arbitrary key. \end{DoxyCompactList}\item 
+virtual \mbox{\hyperlink{classrr_1_1Variant}{Variant}} \mbox{\hyperlink{classrr_1_1Dictionary_a53cb5eee283727168630f6b1b918bdb0}{get\+Item}} (const std\+::string \&key) const =0
+\begin{DoxyCompactList}\small\item\em Get a value. \end{DoxyCompactList}\item 
+\mbox{\Hypertarget{classrr_1_1Dictionary_a7ec0accc7149a403ee5eeeb9457059ed}\label{classrr_1_1Dictionary_a7ec0accc7149a403ee5eeeb9457059ed}} 
+virtual bool \mbox{\hyperlink{classrr_1_1Dictionary_a7ec0accc7149a403ee5eeeb9457059ed}{has\+Key}} (const std\+::string \&key) const =0
+\begin{DoxyCompactList}\small\item\em is there a key matching this name. \end{DoxyCompactList}\item 
+\mbox{\Hypertarget{classrr_1_1Dictionary_aafd395297acc9cb73ea1e244b3f02d5c}\label{classrr_1_1Dictionary_aafd395297acc9cb73ea1e244b3f02d5c}} 
+virtual size\+\_\+t \mbox{\hyperlink{classrr_1_1Dictionary_aafd395297acc9cb73ea1e244b3f02d5c}{delete\+Item}} (const std\+::string \&key)=0
+\begin{DoxyCompactList}\small\item\em remove a value \end{DoxyCompactList}\item 
+\mbox{\Hypertarget{classrr_1_1Dictionary_ae8e4240deda5ee2dc7d472476bd92b47}\label{classrr_1_1Dictionary_ae8e4240deda5ee2dc7d472476bd92b47}} 
+virtual std\+::vector$<$ std\+::string $>$ \mbox{\hyperlink{classrr_1_1Dictionary_ae8e4240deda5ee2dc7d472476bd92b47}{get\+Keys}} () const =0
+\begin{DoxyCompactList}\small\item\em list of keys in this object. \end{DoxyCompactList}\item 
+\mbox{\Hypertarget{classrr_1_1Dictionary_ada6593bddd5fd2f3f75374863191f419}\label{classrr_1_1Dictionary_ada6593bddd5fd2f3f75374863191f419}} 
+virtual \mbox{\hyperlink{classrr_1_1Dictionary_ada6593bddd5fd2f3f75374863191f419}{$\sim$\+Dictionary}} ()
+\begin{DoxyCompactList}\small\item\em Pure virtual interface, you should never have to delete an instance of this type directly. \end{DoxyCompactList}\end{DoxyCompactItemize}
+
+
+\doxysubsection{Detailed Description}
+This class is frozen, no new features A dictionary interface that objects can implement. 
+
+These are automatically mapped to python dictionaries. 
+
+\doxysubsection{Member Function Documentation}
+\mbox{\Hypertarget{classrr_1_1Dictionary_a53cb5eee283727168630f6b1b918bdb0}\label{classrr_1_1Dictionary_a53cb5eee283727168630f6b1b918bdb0}} 
+\index{rr::Dictionary@{rr::Dictionary}!getItem@{getItem}}
+\index{getItem@{getItem}!rr::Dictionary@{rr::Dictionary}}
+\doxysubsubsection{\texorpdfstring{getItem()}{getItem()}}
+{\footnotesize\ttfamily virtual \mbox{\hyperlink{classrr_1_1Variant}{Variant}} rr\+::\+Dictionary\+::get\+Item (\begin{DoxyParamCaption}\item[{const std\+::string \&}]{key }\end{DoxyParamCaption}) const\hspace{0.3cm}{\ttfamily [pure virtual]}}
+
+
+
+Get a value. 
+
+Variants are P\+OD. If the key does not exist, an std\+::exception will be thrown.
+
+The \mbox{\hyperlink{classrr_1_1Variant}{Variant}} object has the assigment operator overloaded so it will automatically convert to any native C++ object. If the \mbox{\hyperlink{classrr_1_1Variant}{Variant}} can not be converted, it will raise an exception, i.\+e.
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{Dictionary* d = ...;}
+\DoxyCodeLine{\textcolor{keywordtype}{int} a = d-\/>getItem(\textcolor{stringliteral}{"{}someIntKey"{}});}
+\DoxyCodeLine{\textcolor{keywordtype}{string} s = d-\/>getItem(\textcolor{stringliteral}{"{}someStrVal"{}});}
+\DoxyCodeLine{\textcolor{keywordtype}{double} val = d-\/>getItem(\textcolor{stringliteral}{"{}someDoubleVal"{}});}
+\end{DoxyCode}
+ 
+
+Implemented in \mbox{\hyperlink{classrr_1_1BasicDictionary_a3357b3d49d8353f19ec9aa83884f6ef1}{rr\+::\+Basic\+Dictionary}}, \mbox{\hyperlink{classrr_1_1LoadSBMLOptions_a42644c69463fd75bafb1ead69b9681e6}{rr\+::\+Load\+S\+B\+M\+L\+Options}}, \mbox{\hyperlink{classrr_1_1NLEQ2Interface_a4ef5104c0c2bb69c42add51d3c6cb0d4}{rr\+::\+N\+L\+E\+Q2\+Interface}}, and \mbox{\hyperlink{classrr_1_1NLEQ1Interface_af2c0bfc32e56ad8c71300b5f6ed7a0b7}{rr\+::\+N\+L\+E\+Q1\+Interface}}.
+
+\mbox{\Hypertarget{classrr_1_1Dictionary_a6bb53c3bfeee7e3ee2bfcf9da8212949}\label{classrr_1_1Dictionary_a6bb53c3bfeee7e3ee2bfcf9da8212949}} 
+\index{rr::Dictionary@{rr::Dictionary}!setItem@{setItem}}
+\index{setItem@{setItem}!rr::Dictionary@{rr::Dictionary}}
+\doxysubsubsection{\texorpdfstring{setItem()}{setItem()}}
+{\footnotesize\ttfamily virtual void rr\+::\+Dictionary\+::set\+Item (\begin{DoxyParamCaption}\item[{const std\+::string \&}]{key,  }\item[{const \mbox{\hyperlink{classrr_1_1Variant}{rr\+::\+Variant}} \&}]{value }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [pure virtual]}}
+
+
+
+Set the value for an arbitrary key. 
+
+The \mbox{\hyperlink{classrr_1_1Variant}{Variant}} object has a large number of creation operators so you only have to give the value as native C++ object i.\+e.
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{Dictionary*d = (...);}
+\DoxyCodeLine{d-\/>setItem(\textcolor{stringliteral}{"{}someIntKey"{}}, 1);}
+\DoxyCodeLine{d-\/>setItem(\textcolor{stringliteral}{"{}someStrKey"{}}, \textcolor{keywordtype}{string}(\textcolor{stringliteral}{"{}some string"{}}));}
+\DoxyCodeLine{d-\/>setItem(\textcolor{stringliteral}{"{}someFloatVal, 0.123);}}
+\end{DoxyCode}
+ 
+
+Implemented in \mbox{\hyperlink{classrr_1_1BasicDictionary_ae7b6b6c90561295e2e07c45fe50358ce}{rr\+::\+Basic\+Dictionary}}, \mbox{\hyperlink{classrr_1_1SimulateOptions_ae864e702c9a40669ac9088731ff49884}{rr\+::\+Simulate\+Options}}, \mbox{\hyperlink{classrr_1_1LoadSBMLOptions_a0ea929664c0ac7b28120ad131ae08ae9}{rr\+::\+Load\+S\+B\+M\+L\+Options}}, \mbox{\hyperlink{classrr_1_1NLEQ2Interface_a9495cf109b4ec802e3e8532099c73f5e}{rr\+::\+N\+L\+E\+Q2\+Interface}}, and \mbox{\hyperlink{classrr_1_1NLEQ1Interface_a83ca9720f6b5aa8fedfc10c83ea2ef24}{rr\+::\+N\+L\+E\+Q1\+Interface}}.
+
+
+
+The documentation for this class was generated from the following file\+:\begin{DoxyCompactItemize}
+\item 
+Dictionary.\+h\end{DoxyCompactItemize}

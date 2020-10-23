@@ -64,15 +64,6 @@ std::string validateSBML(const std::string src, unsigned opt
 
 /**
 * @author JKM
-* @brief Returns true if stoichiometry is defined for every species
-* in every reaction.
-* @details Missing stoichiometry is not handled by the integrator.
-* Must bail or results are undefined.
-*/
-bool isStoichDefined(const std::string sbml);
-
-/**
-* @author JKM
 * @brief Adds missing stoichiometry information.
 * Assumes unit stoichiometry where not specified
 * @return SBML string with stoich fixed

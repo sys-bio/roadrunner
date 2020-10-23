@@ -1,0 +1,94 @@
+\hypertarget{classrr_1_1IntegratorFactory}{}\doxysection{rr\+::Integrator\+Factory Class Reference}
+\label{classrr_1_1IntegratorFactory}\index{rr::IntegratorFactory@{rr::IntegratorFactory}}
+
+
+Constructs new integrators.  
+
+
+
+
+{\ttfamily \#include $<$Integrator.\+h$>$}
+
+\doxysubsection*{Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\Hypertarget{classrr_1_1IntegratorFactory_a16f496b70c5356bc9e06a35f888663ae}\label{classrr_1_1IntegratorFactory_a16f496b70c5356bc9e06a35f888663ae}} 
+virtual \mbox{\hyperlink{classrr_1_1IntegratorFactory_a16f496b70c5356bc9e06a35f888663ae}{$\sim$\+Integrator\+Factory}} ()
+\begin{DoxyCompactList}\small\item\em I\+N\+T\+E\+G\+R\+A\+T\+OR F\+A\+C\+T\+O\+RY. \end{DoxyCompactList}\item 
+\mbox{\hyperlink{classrr_1_1Integrator}{Integrator}} $\ast$ \mbox{\hyperlink{classrr_1_1IntegratorFactory_ab7298b70afb06e1200181cf3981f739c}{New}} (std\+::string name, \mbox{\hyperlink{classrr_1_1ExecutableModel}{Executable\+Model}} $\ast$m) const
+\begin{DoxyCompactList}\small\item\em Constructs a new integrator given the name (e.\+g. cvode, gillespie) \end{DoxyCompactList}\item 
+void \mbox{\hyperlink{classrr_1_1IntegratorFactory_ac519fc98f09e635cd209d96283a3c57e}{register\+Integrator}} (\mbox{\hyperlink{classrr_1_1IntegratorRegistrar}{Integrator\+Registrar}} $\ast$i)
+\begin{DoxyCompactList}\small\item\em Registers a new integrator with the factory so that it can be constructed. \end{DoxyCompactList}\item 
+\mbox{\Hypertarget{classrr_1_1IntegratorFactory_a20355a54ec265c91bbb4a18c3b66271b}\label{classrr_1_1IntegratorFactory_a20355a54ec265c91bbb4a18c3b66271b}} 
+std\+::size\+\_\+t {\bfseries get\+Num\+Integrators} () const
+\item 
+\mbox{\Hypertarget{classrr_1_1IntegratorFactory_a0d073238dde422b9f2f381f36289f3c5}\label{classrr_1_1IntegratorFactory_a0d073238dde422b9f2f381f36289f3c5}} 
+std\+::string {\bfseries get\+Integrator\+Name} (std\+::size\+\_\+t n) const
+\item 
+\mbox{\Hypertarget{classrr_1_1IntegratorFactory_abf5bfa4f7ed2aa0a0728b926f85d9edc}\label{classrr_1_1IntegratorFactory_abf5bfa4f7ed2aa0a0728b926f85d9edc}} 
+std\+::string {\bfseries get\+Integrator\+Hint} (std\+::size\+\_\+t n) const
+\item 
+\mbox{\Hypertarget{classrr_1_1IntegratorFactory_a8304df66871ae1a0d41d0ff75920bafb}\label{classrr_1_1IntegratorFactory_a8304df66871ae1a0d41d0ff75920bafb}} 
+std\+::string {\bfseries get\+Integrator\+Description} (std\+::size\+\_\+t n) const
+\end{DoxyCompactItemize}
+\doxysubsection*{Static Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+static \mbox{\hyperlink{classrr_1_1IntegratorFactory}{Integrator\+Factory}} \& \mbox{\hyperlink{classrr_1_1IntegratorFactory_a3bd934950b0c1523d8c1b482bb85ab15}{get\+Instance}} ()
+\begin{DoxyCompactList}\small\item\em Returns the singleton instance of the integrator factory. \end{DoxyCompactList}\end{DoxyCompactItemize}
+
+
+\doxysubsection{Detailed Description}
+Constructs new integrators. 
+
+\begin{DoxyAuthor}{Author}
+J\+KM, W\+BC  Implements the factory and singleton patterns. Constructs a new integrator given the name (e.\+g. cvode, gillespie) and returns a base pointer to \mbox{\hyperlink{classrr_1_1Integrator}{rr\+::\+Integrator}}. 
+\end{DoxyAuthor}
+
+
+\doxysubsection{Member Function Documentation}
+\mbox{\Hypertarget{classrr_1_1IntegratorFactory_a3bd934950b0c1523d8c1b482bb85ab15}\label{classrr_1_1IntegratorFactory_a3bd934950b0c1523d8c1b482bb85ab15}} 
+\index{rr::IntegratorFactory@{rr::IntegratorFactory}!getInstance@{getInstance}}
+\index{getInstance@{getInstance}!rr::IntegratorFactory@{rr::IntegratorFactory}}
+\doxysubsubsection{\texorpdfstring{getInstance()}{getInstance()}}
+{\footnotesize\ttfamily \mbox{\hyperlink{classrr_1_1IntegratorFactory}{Integrator\+Factory}} \& rr\+::\+Integrator\+Factory\+::get\+Instance (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [static]}}
+
+
+
+Returns the singleton instance of the integrator factory. 
+
+\begin{DoxyAuthor}{Author}
+J\+KM, W\+BC 
+\end{DoxyAuthor}
+\mbox{\Hypertarget{classrr_1_1IntegratorFactory_ab7298b70afb06e1200181cf3981f739c}\label{classrr_1_1IntegratorFactory_ab7298b70afb06e1200181cf3981f739c}} 
+\index{rr::IntegratorFactory@{rr::IntegratorFactory}!New@{New}}
+\index{New@{New}!rr::IntegratorFactory@{rr::IntegratorFactory}}
+\doxysubsubsection{\texorpdfstring{New()}{New()}}
+{\footnotesize\ttfamily \mbox{\hyperlink{classrr_1_1Integrator}{Integrator}} $\ast$ rr\+::\+Integrator\+Factory\+::\+New (\begin{DoxyParamCaption}\item[{std\+::string}]{name,  }\item[{\mbox{\hyperlink{classrr_1_1ExecutableModel}{Executable\+Model}} $\ast$}]{m }\end{DoxyParamCaption}) const}
+
+
+
+Constructs a new integrator given the name (e.\+g. cvode, gillespie) 
+
+\begin{DoxyAuthor}{Author}
+J\+KM, W\+BC 
+\end{DoxyAuthor}
+\mbox{\Hypertarget{classrr_1_1IntegratorFactory_ac519fc98f09e635cd209d96283a3c57e}\label{classrr_1_1IntegratorFactory_ac519fc98f09e635cd209d96283a3c57e}} 
+\index{rr::IntegratorFactory@{rr::IntegratorFactory}!registerIntegrator@{registerIntegrator}}
+\index{registerIntegrator@{registerIntegrator}!rr::IntegratorFactory@{rr::IntegratorFactory}}
+\doxysubsubsection{\texorpdfstring{registerIntegrator()}{registerIntegrator()}}
+{\footnotesize\ttfamily void rr\+::\+Integrator\+Factory\+::register\+Integrator (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{classrr_1_1IntegratorRegistrar}{Integrator\+Registrar}} $\ast$}]{i }\end{DoxyParamCaption})}
+
+
+
+Registers a new integrator with the factory so that it can be constructed. 
+
+\begin{DoxyAuthor}{Author}
+J\+KM, W\+BC  Should be called at startup for new integrators. 
+\end{DoxyAuthor}
+
+
+The documentation for this class was generated from the following files\+:\begin{DoxyCompactItemize}
+\item 
+\mbox{\hyperlink{Integrator_8h}{Integrator.\+h}}\item 
+\mbox{\hyperlink{Integrator_8cpp}{Integrator.\+cpp}}\end{DoxyCompactItemize}

@@ -67,14 +67,8 @@ LLVMModelSymbols::LLVMModelSymbols(const libsbml::Model *m, LLVMModelDataSymbols
             if (model->getInitialAssignment(id) == NULL &&
                     model->getAssignmentRule(id) == NULL)
             {
-                Log(Logger::LOG_WARNING) << "Global parameter, \'"
-                        << param->getId() << "\' missing value and missing init "
-                        "assignment and assignment rule!, defaulting value to 0.0.";
-                Log(Logger::LOG_WARNING) << "This probably is NOT what you want "
-                        "with global parameter \'" << param->getId() << "\'.";
-                value->setValue(0.0);
                 std::stringstream ss;
-                ss << "Global parameter '" << param->getId() << "' missing value and missing init assignment and assignment rule!";
+                ss << "Global parameter '" << param->getId() << "' is missing a value.  While roadrunner gives species a default value of zero, and compartments a default value of one, it requires parameters to be initialized.  Set one by giving it a value, initial assignment, or an assignment rule.";
                 rr::UninitializedValue(ss.str());
             }
             else
@@ -175,29 +169,25 @@ bool LLVMModelSymbols::visit (const libsbml::Event &event)
 void LLVMModelSymbols::processElement(SymbolForest& currentSymbols,
         const libsbml::SBase *element, const ASTNode* math)
 {
-    const Compartment *comp = 0;
-    const Parameter *param = 0;
-    const Species *species = 0;
-    const SpeciesReference *reference = 0;
-
     if (!element)
         throw LLVMException("LLVMModelSymbols: Unable to process element");
 
-    if ((comp = dynamic_cast<const Compartment*>(element)))
+    if (element->getTypeCode() == SBML_COMPARTMENT)
     {
-        currentSymbols.compartments[comp->getId()] = math;
+        currentSymbols.compartments[element->getId()] = math;
     }
-    else if ((param = dynamic_cast<const Parameter*>(element)))
+    else if (element->getTypeCode() == SBML_PARAMETER)
     {
-        currentSymbols.globalParameters[param->getId()] = math;
+        currentSymbols.globalParameters[element->getId()] = math;
     }
-    else if ((species = dynamic_cast<const Species*>(element)))
+    else if (element->getTypeCode() == SBML_SPECIES)
     {
+        const Species* species = static_cast<const Species*>(element);
         processSpecies(currentSymbols, species, math);
     }
-    else if ((reference = dynamic_cast<const SpeciesReference*>(element)))
+    else if (element->getTypeCode() == SBML_SPECIES_REFERENCE)
     {
-        currentSymbols.speciesReferences[reference->getId()] = math;
+        currentSymbols.speciesReferences[element->getId()] = math;
     }
     else
     {
@@ -219,68 +209,59 @@ bool LLVMModelSymbols::visit(const libsbml::Reaction& r)
     const ListOfSpeciesReferences *reactants = r.getListOfReactants();
     const ListOfSpeciesReferences *products = r.getListOfProducts();
 
-    ReactionSymbols &rs = reactions[symbols.getReactionIndex(r.getId())];
+    int index = symbols.getReactionIndex(r.getId());
+    if (index < 0) {
+        return false;
+    }
+    ReactionSymbols &rs = reactions[index];
 
     for (int i = 0; i < reactants->size(); i++)
     {
         const SpeciesReference* reactant =
-                dynamic_cast<const SpeciesReference*>(reactants->get(i));
-        try
-        {
-
-            ASTNodeList &speciesNodes =
-                    rs.reactants[symbols.getFloatingSpeciesIndex(reactant->getSpecies())];
-
-            const ASTNode *stoich = getSpeciesReferenceStoichMath(reactant);
-
-            if(reactant->isSetId() && reactant->getId().size())
-            {
-                initialValues.speciesReferences[reactant->getId()] = stoich;
-                ASTNode *refName = nodes.create(AST_NAME);
-                refName->setName(reactant->getId().c_str());
-                speciesNodes.push_back(refName);
-            }
-            else
-            {
-                speciesNodes.push_back(stoich);
-            }
+            static_cast<const SpeciesReference*>(reactants->get(i));
+        index = symbols.getFloatingSpeciesIndex(reactant->getSpecies());
+        if (index < 0) {
+            continue;
         }
-        catch (LLVMException&)
+
+        ASTNodeList& speciesNodes = rs.reactants[index];
+        const ASTNode* stoich = getSpeciesReferenceStoichMath(reactant);
+
+        if (reactant->isSetId() && reactant->getId().size())
         {
-            // we get here if the getFloatingSpeciesIndex throws an exception, that's OK
-            // because the species is most likely a boundary species, which is OK
-            // to be used as a reactant (it just won't get consumed like a floating species).
-            // TODO this is normal, should not throw an exception!
+            initialValues.speciesReferences[reactant->getId()] = stoich;
+            ASTNode* refName = nodes.create(AST_NAME);
+            refName->setName(reactant->getId().c_str());
+            speciesNodes.push_back(refName);
+        }
+        else
+        {
+            speciesNodes.push_back(stoich);
         }
     }
 
     for (int i = 0; i < products->size(); i++)
     {
         const SpeciesReference* product =
-                dynamic_cast<const SpeciesReference*>(products->get(i));
-        try
-        {
-            ASTNodeList &speciesNodes =
-                    rs.products[symbols.getFloatingSpeciesIndex(product->getSpecies())];
-
-            const ASTNode *stoich = getSpeciesReferenceStoichMath(product);
-
-            if(product->isSetId() && product->getId().size())
-            {
-                initialValues.speciesReferences[product->getId()] = stoich;
-                ASTNode *refName = nodes.create(AST_NAME);
-                refName->setName(product->getId().c_str());
-                speciesNodes.push_back(refName);
-            }
-            else
-            {
-                speciesNodes.push_back(stoich);
-            }
+            static_cast<const SpeciesReference*>(products->get(i));
+        index = symbols.getFloatingSpeciesIndex(product->getSpecies());
+        if (index < 0) {
+            continue;
         }
-        catch (LLVMException&)
+
+        ASTNodeList& speciesNodes = rs.products[index];
+        const ASTNode* stoich = getSpeciesReferenceStoichMath(product);
+
+        if (product->isSetId() && product->getId().size())
         {
-            // get here if product is not a floating species, its OK if its a
-            // boundary or conserved moiety
+            initialValues.speciesReferences[product->getId()] = stoich;
+            ASTNode* refName = nodes.create(AST_NAME);
+            refName->setName(product->getId().c_str());
+            speciesNodes.push_back(refName);
+        }
+        else
+        {
+            speciesNodes.push_back(stoich);
         }
     }
 
@@ -422,102 +403,13 @@ const ASTNode* LLVMModelSymbols::getSpeciesReferenceStoichMath(
     {
         ASTNode *m = nodes.create(AST_REAL);
         m->setValue(reference->getStoichiometry());
+        if (reference->getLevel() == 1 && reference->getDenominator() != 1) {
+            m->setValue(reference->getStoichiometry() / reference->getDenominator());
+        }
         stoich = m;
     }
     return stoich;
 }
-
-/*
-void LLVMModelSymbols::processSpeciesReference(
-        const libsbml::SpeciesReference* ref, const libsbml::Reaction* reaction,
-        SpeciesReferenceType type, const ASTNode* stoich)
-{
-    // we might not have a floating species for this reference,
-    // that should probably be an error, but there are many
-    // cases in the test suite that have this, so just ignore
-    // the ref in such cases.
-    try
-    {
-        if (stoich == 0)
-        {
-            if (ref->isSetStoichiometryMath()
-                    && ref->getStoichiometryMath()->isSetMath())
-            {
-                stoich = ref->getStoichiometryMath()->getMath();
-            }
-            else
-            {
-                ASTNode *m = nodes.create(AST_REAL);
-                m->setValue(ref->getStoichiometry());
-                stoich = m;
-            }
-        }
-
-        if (ref->isSetId() && ref->getId().length() > 0)
-        {
-            currentSymbols->speciesReferences[ref->getId()] = stoich;
-        }
-
-        int rowIdx = symbols.getFloatingSpeciesIndex(ref->getSpecies());
-        int colIdx = symbols.getReactionIndex(reaction->getId());
-
-        ReactionSymbols &reacSym = reactions[colIdx];
-
-        // check if we already have a species ref with this id, if so
-        // replace it, if not, add it
-
-        if (type == Reactant)
-        {
-            StringIntMap::iterator i;
-            if (ref->isSetId() &&
-                    (i = reacSym.reactantRefIds.find(ref->getId())) !=
-                            reacSym.reactantRefIds.end())
-            {
-                reacSym.nodes[i->second] = stoich;
-            }
-            else
-            {
-                reacSym.nodes.push_back(stoich);
-                int stoichIdx = reacSym.nodes.size()-1; // index of new node
-                reacSym.reactantIdx[rowIdx].push_back(stoichIdx);
-                if (ref->isSetId())
-                {
-                    reacSym.reactantRefIds[ref->getId()] = stoichIdx;
-                }
-            }
-        }
-        else
-        {
-            StringIntMap::iterator i;
-            if (ref->isSetId() &&
-                    (i = reacSym.productRefIds.find(ref->getId())) !=
-                            reacSym.productRefIds.end())
-            {
-                reacSym.nodes[i->second] = stoich;
-            }
-            else
-            {
-                reacSym.nodes.push_back(stoich);
-                int stoichIdx = reacSym.nodes.size()-1; // index of new node
-                reacSym.productIdx[rowIdx].push_back(stoichIdx);
-                if (ref->isSetId())
-                {
-                    reacSym.productRefIds[ref->getId()] = stoichIdx;
-                }
-            }
-        }
-    }
-    catch (LLVMException &)
-    {
-        string err = "could not find product ";
-        err += ref->getSpecies();
-        err += " in the list of floating species for reaction ";
-        err += ref->getId();
-        err += ", this species will be ignored in this reaction.";
-        Log(lWarning) << err;
-    }
-}
-*/
 
 
 

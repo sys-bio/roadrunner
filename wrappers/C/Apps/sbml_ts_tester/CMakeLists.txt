@@ -1,44 +1,22 @@
 cmake_minimum_required(VERSION 2.8)
-set(target sbml_ts_tester)
+set(target rr_run_test_suite)
 set(rrSrc "../../../../source")
 
-add_executable(${target} 
-main.cpp 
-Args.cpp
-TestSuiteSimulation.cpp
-)
+add_executable(${target}
+        main.cpp
+        Args.cpp
+        TestSuiteSimulation.cpp
+        Args.h
+        TestSuiteSimulation.h
+        )
+target_compile_definitions(${target} PRIVATE STATIC_RR)
+target_link_libraries(${target} PRIVATE roadrunner_c_api roadrunner-static) # poco_foundation-static
 
-add_definitions(
--DPOCO_STATIC
--DSTATIC_PUGI
--DLIBSBML_STATIC
--DSTATIC_RR
--DSTATIC_LIBSTRUCT
--DLIBLAX_STATIC
--DSTATIC_NLEQ1
--DSTATIC_NLEQ2
-)
+target_include_directories(${target} PRIVATE
+        ${INCLUDE_DIRECTORIES}
+        )
 
-target_link_libraries (${target} 
-roadrunner_c_api
-#roadrunner-static
-#poco_foundation-static
-)
-
-#Not sure why linux linker need all libraries at linktime?? All symbols 'should' be in roadrunner-static
-if(UNIX)
-target_link_libraries (${target} 
-f2c
-lapack
-blas
-dl
-z
-xml2
-pthread
-)
-endif()
-
-install(    
-TARGETS ${target} 		
-DESTINATION bin COMPONENT apps
+install(
+        TARGETS ${target}
+        DESTINATION bin COMPONENT apps
 )

@@ -1,7 +1,16 @@
 #ifndef rrRoadRunnerDataH
 #define rrRoadRunnerDataH
 
+#ifdef _MSC_VER
+#pragma warning(disable: 26812)
+#pragma warning(disable: 26451)
+#endif
 #include "rr-libstruct/lsMatrix.h"
+#ifdef _MSC_VER
+#pragma warning(disable: 26812)
+#pragma warning(disable: 26451)
+#endif
+
 #include "rrExporter.h"
 
 #include <string>
@@ -36,7 +45,7 @@ public:
 
     ~RoadRunnerData();
 
-    void allocate(const int& cSize, const int& rSize);
+    void allocate(const size_t& cSize, const size_t& rSize);
 
     void allocateWeights();
 
@@ -46,7 +55,7 @@ public:
     std::string getColumnName(const int col) const;
     std::string getColumnNamesAsString() const;
     void setColumnNames(const std::vector<std::string>& colNames);
-    int getColumnIndex(const std::string& colName) const;
+    std::ptrdiff_t getColumnIndex(const std::string& colName) const;
     void setTimeDataPrecision(const int& prec);
     void setDataPrecision(const int& prec);
     void reSize(int rows, int cols);

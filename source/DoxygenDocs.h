@@ -12,7 +12,7 @@ namespace rr {
  
 
 
-This document describes the application programming interface (API) of RoadRunner, 
+This document describes the application programming interface (wrappers) of RoadRunner,
 an open source (BSD) library for computing structural characteristics of cellular networks.
 
 

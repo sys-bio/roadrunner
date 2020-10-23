@@ -1,0 +1,17 @@
+model case00952()
+
+  // Assignment Rules:
+  S := Q + R;
+
+  // Events:
+  Qinc: at (time - reset >= 0.01), priority = 1, persistent=false: Q = Q + 0.01, reset = time;
+  Rinc: at (time - reset >= 0.01), priority = 1, persistent=false: R = R + 0.01, reset = time;
+  error_check: at (abs(Q - R) >= 4): error = 1;
+
+  // Variable initializations:
+  Q = 0;
+  R = 0;
+  reset = 0;
+  error = 0;
+
+end

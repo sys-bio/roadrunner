@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<sbml xmlns="http://www.sbml.org/sbml/level2/version3" level="2" version="3">
+  <model metaid="case01793" id="case01793">
+    <listOfCompartments>
+      <compartment id="C1" size="1"/>
+    </listOfCompartments>
+    <listOfSpecies>
+      <species id="S2" compartment="C1" initialAmount="3" hasOnlySubstanceUnits="true"/>
+    </listOfSpecies>
+    <listOfRules>
+      <algebraicRule>
+        <math xmlns="http://www.w3.org/1998/Math/MathML">
+          <apply>
+            <minus/>
+            <apply>
+              <times/>
+              <cn type="integer"> 1 </cn>
+              <ci> C1 </ci>
+            </apply>
+            <ci> S2 </ci>
+          </apply>
+        </math>
+      </algebraicRule>
+    </listOfRules>
+  </model>
+</sbml>

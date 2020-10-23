@@ -1,0 +1,33 @@
+LLVM-6.x dependency
+=====================
+
+LLVM-6.x prebuilt binaries
+--------------------------
+
+You may use prebuilt binaries if the compiler you use to build roadrunner is the same as the compiler use to build llvm-6.x:
+	- [VisualStudio 2019 x64 release](https://github.com/sys-bio/llvm-6.x/releases/download/release%2F6.x/llvm-6.x-msvc2019-x64-release.zip)
+	- [VisualStudio 2019 x64 debug](https://github.com/sys-bio/llvm-6.x/releases/download/release%2F6.x/llvm-6.x-msvc2019-x64-debug.zip),
+	- [GCC7.5.0 x64 release](https://github.com/sys-bio/llvm-6.x/releases/download/release%2F6.x/llvm-6.x-gcc7.5.0-x64-release.tar.gz)
+	- [AppleClang11.0.3 darwin19.4.0 x86-64 release](https://github.com/sys-bio/llvm-6.x/releases/download/release%2F6.x/llvm-6.x-macos-x64-release.zip)
+	- [AppleClang11.0.3 darwin19.4.0 x86-64 debug](https://github.com/sys-bio/llvm-6.x/releases/download/release%2F6.x/llvm-6.x-macos-x64-debug.zip)
+
+.. note:
+
+	The debug binary for llvm-6.x on linux (gcc) is too big for github, so you will have to build this yourself if you want llvm in debug mode on ubuntu.
+
+LLVM-6.x build from source
+--------------------------
+
+.. note::
+
+	If you need to build llvm from source, consider whether to include the building of llvm-6.x :ref:`along with the other roadrunner dependencies <Quick Build Instructions - build llxm6.x with the other roadrunner dependencies>`.
+
+.. code-block: bash
+
+	$ git clone https://github.com/sys-bio/llvm-6.x.git
+	$ cd llvm-6.x
+	$ mkdir build
+	$ cd build
+	$ cmake -DCMAKE_INSTALL_PREFIX="D:\llvm-6.x\install-msvc2019" -DCMAKE_BUILD_TYPE="Release" ..
+	$ cmake --build . --target install --config Release
+

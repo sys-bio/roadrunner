@@ -30,7 +30,7 @@ else:
 #=======================rr_c_api=======================#
 rrLib.createRRInstance.restype = c_void_p
 
-#===== The Python API allocate an internal global handle to ONE instance of the Roadrunner API
+#===== The Python wrappers allocate an internal global handle to ONE instance of the Roadrunner wrappers
 gHandle = rrLib.createRRInstance()
 
 # Utility and informational methods
@@ -2019,7 +2019,7 @@ def compileSource(sourceFileName, rrHandle = None):
 # \brief Linear algebra based methods for analyzing a reaction network
 #
 # \defgroup helperRoutines Helper Routines
-# \brief Helper routines for acessing the various C API types, eg lists and arrays
+# \brief Helper routines for acessing the various C wrappers types, eg lists and arrays
 #
 # \defgroup toString ToString Routines
 # \brief Render various result data types as strings

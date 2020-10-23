@@ -1,0 +1,81 @@
+function calculateerror(x0, x1, x2, x3, x4, x5, x6, x7, x8, x9, x10, x11, x12, x13, x14, x15, x16)
+  (x0-.0952)^2/.0952 + \
+  (x1-1.523)^2/1.523 + \
+  (x2-11.428)^2/11.428 + \
+  (x3-53.32)^2/53.32 + \
+  (x4-173.29)^2/173.29 + \
+  (x5-415.898)^2/415.898 + \
+  (x6-762.48)^2/762.48 + \
+  (x7-1089.26)^2/1089.26 + \
+  (x8-1225.415)^2/1225.415 + \
+  (x9-1089.26)^2/1089.26 + \
+  (x10-762.48)^2/762.48 + \
+  (x11-415.898)^2/415.898 + \
+  (x12-173.29)^2/173.29 + \
+  (x13-53.32)^2/53.32 + \
+  (x14-11.428)^2/11.428 + \
+  (x15-1.523)^2/1.523 + \
+  (x16-.0952)^2/.0952
+end
+
+model case00966()
+
+  // Assignment Rules:
+  S := Q + R;
+
+  // Events:
+  Rinc: at (time - reset >= 0.01), priority = 10, persistent=false: R = R + 0.01, chicount = chicount+1, reset = time;
+  Qinc: at (time - reset >= 0.01), priority = 10, persistent=false: Q = Q + 0.01, chicount = chicount+1, chitest = chitest+1, reset = time;
+
+  repeat: at floor(chicount/16) >= 1, priority = 5: chicount = 0, assemble = 1.5;
+  at ((assemble >= 1) && (chitest==0)), priority = 3: chi0 = chi0+1;
+  at ((assemble >= 1) && (chitest==1)), priority = 3: chi1 = chi1+1;
+  at ((assemble >= 1) && (chitest==2)), priority = 3: chi2 = chi2+1;
+  at ((assemble >= 1) && (chitest==3)), priority = 3: chi3 = chi3+1;
+  at ((assemble >= 1) && (chitest==4)), priority = 3: chi4 = chi4+1;
+  at ((assemble >= 1) && (chitest==5)), priority = 3: chi5 = chi5+1;
+  at ((assemble >= 1) && (chitest==6)), priority = 3: chi6 = chi6+1;
+  at ((assemble >= 1) && (chitest==7)), priority = 3: chi7 = chi7+1;
+  at ((assemble >= 1) && (chitest==8)), priority = 3: chi8 = chi8+1;
+  at ((assemble >= 1) && (chitest==9)), priority = 3: chi9 = chi9+1;
+  at ((assemble >= 1) && (chitest==10)), priority = 3: chi10 = chi10+1;
+  at ((assemble >= 1) && (chitest==11)), priority = 3: chi11 = chi11+1;
+  at ((assemble >= 1) && (chitest==12)), priority = 3: chi12 = chi12+1;
+  at ((assemble >= 1) && (chitest==13)), priority = 3: chi13 = chi13+1;
+  at ((assemble >= 1) && (chitest==14)), priority = 3: chi14 = chi14+1;
+  at ((assemble >= 1) && (chitest==15)), priority = 3: chi15 = chi15+1;
+  at ((assemble >= 1) && (chitest==16)), priority = 3: chi16 = chi16+1;
+  at (assemble >= 1), priority = 1: assemble = 0, chitest=0, tests = tests+1;
+
+  at ((tests >= 6240) && (finalchi==0)), priority = 0: finalchi = calculateerror(chi0, chi1, chi2, chi3, chi4, chi5, chi6, chi7, chi8, chi9, chi10, chi11, chi12, chi13, chi14, chi15, chi16)
+  error_check: at (finalchi > 50), priority = -1: error = 1;
+
+  // Variable initializations:
+  chicount = 0;
+  chitest = 0;
+  assemble = 0;
+  reset = 0;
+  tests = 0;
+  Q = 0;
+  R = 0;
+  chi0 = 0;
+  chi1 = 0;
+  chi2 = 0;
+  chi3 = 0;
+  chi4 = 0;
+  chi5 = 0;
+  chi6 = 0;
+  chi7 = 0;
+  chi8 = 0;
+  chi9 = 0;
+  chi10 = 0;
+  chi11 = 0;
+  chi12 = 0;
+  chi13 = 0;
+  chi14 = 0;
+  chi15 = 0;
+  chi16 = 0;
+  error = 0;
+
+end
+
