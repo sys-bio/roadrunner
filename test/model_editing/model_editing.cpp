@@ -26,6 +26,29 @@ void removeAndReaddAllReactions(RoadRunner* rri, libsbml::SBMLDocument* doc);
 void removeAndReaddAllCompartments(RoadRunner* rri, libsbml::SBMLDocument* doc);
 
 
+TEST(MODEL_EDITING_TEST_SUITE, SET_INIT_1)
+{
+    RoadRunner rri(gRRTestDir + "models/MODEL_EDITING_TEST_SUITE/initial_assignment.xml");
+    rri.setValue("init(D)", 2);
+    double rval = rri.getValue("init(D)");
+    //SelectionRecord.TIME |
+    //    SelectionRecord.RATE |
+    //    SelectionRecord.FLOATING |
+    //    SelectionRecord.GLOBAL_PARAMETER
+    rri.reset(SelectionRecord::TIME);
+    rval = rri.getValue("E");
+    rri.reset(SelectionRecord::RATE);
+    rval = rri.getValue("E");
+    rri.reset(SelectionRecord::FLOATING);
+    rval = rri.getValue("E");
+    rri.reset(SelectionRecord::GLOBAL_PARAMETER);
+    rval = rri.getValue("E");
+    rval = rri.getValue("init(D)");
+    rval = rri.getValue("[A1]");
+
+
+}
+
 TEST(MODEL_EDITING_TEST_SUITE, CLEAR_MODEL_1)
 {
     RoadRunner rri;
@@ -38,6 +61,7 @@ TEST(MODEL_EDITING_TEST_SUITE, CLEAR_MODEL_1)
     rri.addSpecies("S2", "compartment", 2.0, false, false);
     ASSERT_TRUE(rri.getNumberOfFloatingSpecies() == 1);
 }
+
 TEST(MODEL_EDITING_TEST_SUITE, ALLOW_EVENT_ASSIGNMENT_AND_RATE_LAW_1)
 {
     try

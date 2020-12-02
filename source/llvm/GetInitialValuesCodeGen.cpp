@@ -31,12 +31,31 @@ GetFloatingSpeciesInitConcentrationCodeGen::GetFloatingSpeciesInitConcentrationC
 }
 
 
+const char* GetBoundarySpeciesInitConcentrationCodeGen::FunctionName = "getBoundarySpeciesInitConcentrations";
+const char* GetBoundarySpeciesInitConcentrationCodeGen::IndexArgName = "floatingSpeciesIndex";
+
+GetBoundarySpeciesInitConcentrationCodeGen::GetBoundarySpeciesInitConcentrationCodeGen(
+    const ModelGeneratorContext& mgc) :
+    GetInitialValueCodeGenBase<GetBoundarySpeciesInitConcentrationCodeGen, false>(mgc)
+{
+}
+
+
 const char* GetFloatingSpeciesInitAmountCodeGen::FunctionName = "getFloatingSpeciesInitAmounts";
 const char* GetFloatingSpeciesInitAmountCodeGen::IndexArgName = "floatingSpeciesIndex";
 
 GetFloatingSpeciesInitAmountCodeGen::GetFloatingSpeciesInitAmountCodeGen(
         const ModelGeneratorContext &mgc) :
         GetInitialValueCodeGenBase<GetFloatingSpeciesInitAmountCodeGen, true>(mgc)
+{
+}
+
+const char* GetBoundarySpeciesInitAmountCodeGen::FunctionName = "getBoundarySpeciesInitAmounts";
+const char* GetBoundarySpeciesInitAmountCodeGen::IndexArgName = "floatingSpeciesIndex";
+
+GetBoundarySpeciesInitAmountCodeGen::GetBoundarySpeciesInitAmountCodeGen(
+    const ModelGeneratorContext& mgc) :
+    GetInitialValueCodeGenBase<GetBoundarySpeciesInitAmountCodeGen, true>(mgc)
 {
 }
 

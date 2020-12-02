@@ -48,6 +48,31 @@ StringIntVector SetFloatingSpeciesInitConcentrationCodeGen::getIds()
 }
 
 
+const char* SetBoundarySpeciesInitConcentrationCodeGen::FunctionName = "setBoundarySpeciesInitConcentrations";
+const char* SetBoundarySpeciesInitConcentrationCodeGen::IndexArgName = "floatingSpeciesIndex";
+
+SetBoundarySpeciesInitConcentrationCodeGen::SetBoundarySpeciesInitConcentrationCodeGen(
+    const ModelGeneratorContext& mgc) :
+    SetInitialValueCodeGenBase<SetBoundarySpeciesInitConcentrationCodeGen, false>(mgc)
+{
+}
+
+StringIntVector SetBoundarySpeciesInitConcentrationCodeGen::getIds()
+{
+    std::vector<string> ids = dataSymbols.getBoundarySpeciesIds();
+    StringIntVector result;
+
+    for (StringVector::iterator i = ids.begin(); i != ids.end(); ++i)
+    {
+        if (dataSymbols.isIndependentInitBoundarySpecies(*i))
+        {
+            result.push_back(make_pair(*i, distance(ids.begin(), i)));
+        }
+    }
+    return result;
+}
+
+
 const char* SetFloatingSpeciesInitAmountCodeGen::FunctionName = "setFloatingSpeciesInitAmounts";
 const char* SetFloatingSpeciesInitAmountCodeGen::IndexArgName = "floatingSpeciesIndex";
 
@@ -65,6 +90,30 @@ StringIntVector SetFloatingSpeciesInitAmountCodeGen::getIds()
     for(StringVector::iterator i = ids.begin(); i != ids.end(); ++i)
     {
         if (dataSymbols.isIndependentInitFloatingSpecies(*i))
+        {
+            result.push_back(make_pair(*i, distance(ids.begin(), i)));
+        }
+    }
+    return result;
+}
+
+const char* SetBoundarySpeciesInitAmountCodeGen::FunctionName = "setBoundarySpeciesInitAmounts";
+const char* SetBoundarySpeciesInitAmountCodeGen::IndexArgName = "floatingSpeciesIndex";
+
+SetBoundarySpeciesInitAmountCodeGen::SetBoundarySpeciesInitAmountCodeGen(
+    const ModelGeneratorContext& mgc) :
+    SetInitialValueCodeGenBase<SetBoundarySpeciesInitAmountCodeGen, true>(mgc)
+{
+}
+
+StringIntVector SetBoundarySpeciesInitAmountCodeGen::getIds()
+{
+    std::vector<string> ids = dataSymbols.getBoundarySpeciesIds();
+    StringIntVector result;
+
+    for (StringVector::iterator i = ids.begin(); i != ids.end(); ++i)
+    {
+        if (dataSymbols.isIndependentInitBoundarySpecies(*i))
         {
             result.push_back(make_pair(*i, distance(ids.begin(), i)));
         }

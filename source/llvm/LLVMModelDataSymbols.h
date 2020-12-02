@@ -483,6 +483,16 @@ public:
     bool isIndependentInitFloatingSpecies(const std::string& symbol) const;
 
     /**
+     * checks if the given symbol is an init value for an independent
+     * boundary species.
+     *
+     * Conserved Moiety species are considered to have independent
+     * initial condtions as in this case, the assignment rule only applies
+     * at time t > 0.
+     */
+    bool isIndependentInitBoundarySpecies(const std::string& symbol) const;
+
+    /**
      * Is this sbml element an independent initial value.
      *
      * True if this value does NOT have an assignment or initial

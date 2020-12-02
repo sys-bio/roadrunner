@@ -4447,7 +4447,13 @@ void RoadRunner::setValue(const string& sId, double dValue)
     SelectionRecord sel(sId);
 
     if (sel.selectionType == SelectionRecord::INITIAL_FLOATING_AMOUNT ||
-            sel.selectionType == SelectionRecord::INITIAL_FLOATING_CONCENTRATION)
+        sel.selectionType == SelectionRecord::INITIAL_FLOATING_CONCENTRATION ||
+        sel.selectionType == SelectionRecord::INITIAL_BOUNDARY_AMOUNT ||
+        sel.selectionType == SelectionRecord::INITIAL_BOUNDARY_CONCENTRATION ||
+        sel.selectionType == SelectionRecord::INITIAL_COMPARTMENT ||
+        sel.selectionType == SelectionRecord::INITIAL_GLOBAL_PARAMETER ||
+        sel.selectionType == SelectionRecord::INITIAL_AMOUNT ||
+        sel.selectionType == SelectionRecord::INITIAL_CONCENTRATION)
     {
         reset();
     }

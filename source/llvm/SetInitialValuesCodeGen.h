@@ -37,12 +37,50 @@ public:
 
 
 
+class SetBoundarySpeciesInitConcentrationCodeGen : public
+    SetInitialValueCodeGenBase<SetBoundarySpeciesInitConcentrationCodeGen, false>
+{
+public:
+    SetBoundarySpeciesInitConcentrationCodeGen(const ModelGeneratorContext& mgc);
+    ~SetBoundarySpeciesInitConcentrationCodeGen() {};
+
+    StringIntVector getIds();
+
+    bool isInitialValue() {
+        return true;
+    }
+
+    static const char* FunctionName;
+    static const char* IndexArgName;
+};
+
+
+
 class SetFloatingSpeciesInitAmountCodeGen: public
     SetInitialValueCodeGenBase<SetFloatingSpeciesInitAmountCodeGen, true>
 {
 public:
     SetFloatingSpeciesInitAmountCodeGen(const ModelGeneratorContext &mgc);
     ~SetFloatingSpeciesInitAmountCodeGen() {};
+
+    StringIntVector getIds();
+
+    bool isInitialValue() {
+        return true;
+    }
+
+    static const char* FunctionName;
+    static const char* IndexArgName;
+};
+
+
+
+class SetBoundarySpeciesInitAmountCodeGen : public
+    SetInitialValueCodeGenBase<SetBoundarySpeciesInitAmountCodeGen, true>
+{
+public:
+    SetBoundarySpeciesInitAmountCodeGen(const ModelGeneratorContext& mgc);
+    ~SetBoundarySpeciesInitAmountCodeGen() {};
 
     StringIntVector getIds();
 

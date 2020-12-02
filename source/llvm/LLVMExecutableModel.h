@@ -355,14 +355,26 @@ public:
     virtual int setFloatingSpeciesInitConcentrations(size_t len, const int *indx,
             double const *values);
 
+    virtual int setBoundarySpeciesInitConcentrations(size_t len, const int* indx,
+        double const* values);
+
     virtual int getFloatingSpeciesInitConcentrations(size_t len, const int *indx,
             double *values);
+
+    virtual int getBoundarySpeciesInitConcentrations(size_t len, const int* indx,
+        double* values);
 
     virtual int setFloatingSpeciesInitAmounts(size_t len, const int *indx,
                 double const *values);
 
+    virtual int setBoundarySpeciesInitAmounts(size_t len, const int* indx,
+        double const* values);
+
     virtual int getFloatingSpeciesInitAmounts(size_t size_t, const int *indx,
                     double *values);
+
+    virtual int getBoundarySpeciesInitAmounts(size_t size_t, const int* indx,
+        double* values);
 
     virtual int setCompartmentInitVolumes(size_t len, const int *indx,
                 double const *values);
@@ -651,9 +663,13 @@ private:
 
     // init value accessors
     SetFloatingSpeciesInitConcentrationCodeGen::FunctionPtr setFloatingSpeciesInitConcentrationsPtr;
+    SetBoundarySpeciesInitConcentrationCodeGen::FunctionPtr setBoundarySpeciesInitConcentrationsPtr;
     GetFloatingSpeciesInitConcentrationCodeGen::FunctionPtr getFloatingSpeciesInitConcentrationsPtr;
+    GetBoundarySpeciesInitConcentrationCodeGen::FunctionPtr getBoundarySpeciesInitConcentrationsPtr;
     SetFloatingSpeciesInitAmountCodeGen::FunctionPtr setFloatingSpeciesInitAmountsPtr;
     GetFloatingSpeciesInitAmountCodeGen::FunctionPtr getFloatingSpeciesInitAmountsPtr;
+    SetBoundarySpeciesInitAmountCodeGen::FunctionPtr setBoundarySpeciesInitAmountsPtr;
+    GetBoundarySpeciesInitAmountCodeGen::FunctionPtr getBoundarySpeciesInitAmountsPtr;
     SetCompartmentInitVolumeCodeGen::FunctionPtr setCompartmentInitVolumesPtr;
     GetCompartmentInitVolumeCodeGen::FunctionPtr getCompartmentInitVolumesPtr;
     GetGlobalParameterInitValueCodeGen::FunctionPtr getGlobalParameterInitValuePtr;

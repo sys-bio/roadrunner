@@ -161,7 +161,7 @@ Function* createGlobalMappingFunction(const char* funcName,
 void addGlobalMappings(const ModelGeneratorContext& ctx)
 {
     llvm::Module *module = ctx.getModule();
-    LLVMContext& context = module->getContext();
+    LLVMContext& context = ctx.getContext();// module->getContext();
     llvm::ExecutionEngine *executionEngine = &ctx.getExecutionEngine();
     Type *double_type = Type::getDoubleTy(context);
 

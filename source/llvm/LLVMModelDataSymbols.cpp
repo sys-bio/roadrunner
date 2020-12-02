@@ -1461,6 +1461,14 @@ bool LLVMModelDataSymbols::isIndependentInitFloatingSpecies(
             i->second < independentInitFloatingSpeciesSize;
 }
 
+bool LLVMModelDataSymbols::isIndependentInitBoundarySpecies(
+    const std::string& symbol) const
+{
+    StringUIntMap::const_iterator i = initBoundarySpeciesMap.find(symbol);
+    return i != initBoundarySpeciesMap.end() &&
+        i->second < independentInitBoundarySpeciesSize;
+}
+
 bool LLVMModelDataSymbols::isIndependentInitCompartment(
         const std::string& symbol) const
 {

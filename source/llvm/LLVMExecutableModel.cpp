@@ -1107,6 +1107,9 @@ double LLVMExecutableModel::getValue(const std::string& id)
     case SelectionRecord::INITIAL_FLOATING_CONCENTRATION:
         getFloatingSpeciesInitConcentrations(1, &index, &result);
         break;
+    case SelectionRecord::INITIAL_BOUNDARY_CONCENTRATION:
+        getBoundarySpeciesInitConcentrations(1, &index, &result);
+        break;
     case SelectionRecord::INITIAL_GLOBAL_PARAMETER:
         getGlobalParameterInitValues(1, &index, &result);
         break;
@@ -1216,6 +1219,7 @@ const rr::SelectionRecord& LLVMExecutableModel::getSelection(const std::string& 
             switch(symbols->getSymbolIndex(sel.p1, index))
             {
             case LLVMModelDataSymbols::FLOATING_SPECIES:
+            case LLVMModelDataSymbols::BOUNDARY_SPECIES:
                 sel.selectionType = SelectionRecord::INITIAL_FLOATING_AMOUNT;
                 sel.index = index;
                 break;
@@ -1241,7 +1245,13 @@ const rr::SelectionRecord& LLVMExecutableModel::getSelection(const std::string& 
                 sel.index = index;
                 break;
             }
-            else
+            else if (symbols->getSymbolIndex(sel.p1, index) == LLVMModelDataSymbols::BOUNDARY_SPECIES)
+            {
+                sel.selectionType = SelectionRecord::INITIAL_BOUNDARY_CONCENTRATION;
+                sel.index = index;
+                break;
+            }
+
             {
                 throw LLVMException("Invalid id '" + str + "' for inital floating species concentration");
                 break;
@@ -1338,11 +1348,17 @@ void LLVMExecutableModel::setValue(const std::string& id, double value)
     case SelectionRecord::INITIAL_FLOATING_AMOUNT:
         setFloatingSpeciesInitAmounts(1, &index, &value);
         break;
+    case SelectionRecord::INITIAL_BOUNDARY_AMOUNT:
+        setBoundarySpeciesInitAmounts(1, &index, &value);
+        break;
     case SelectionRecord::INITIAL_COMPARTMENT:
         setCompartmentInitVolumes(1, &index, &value);
         break;
     case SelectionRecord::INITIAL_FLOATING_CONCENTRATION:
         setFloatingSpeciesInitConcentrations(1, &index, &value);
+        break;
+    case SelectionRecord::INITIAL_BOUNDARY_CONCENTRATION:
+        setBoundarySpeciesInitConcentrations(1, &index, &value);
         break;
     case SelectionRecord::INITIAL_GLOBAL_PARAMETER:
         setGlobalParameterInitValues(1, &index, &value);
@@ -2118,6 +2134,25 @@ int LLVMExecutableModel::setFloatingSpeciesInitConcentrations(size_t len,
     return result;
 }
 
+int LLVMExecutableModel::setBoundarySpeciesInitConcentrations(size_t len,
+    const int* indx, const double* values)
+{
+    int result = -1;
+    if (setBoundarySpeciesInitConcentrationsPtr)
+    {
+        result = setValues(setBoundarySpeciesInitConcentrationsPtr,
+            &LLVMExecutableModel::getBoundarySpeciesId, len, indx, values);
+    }
+
+    dirty |= DIRTY_INIT_SPECIES;
+
+    // as a convienice to users, this resets the amounts and whatever depends
+    // on them.
+    reset(SelectionRecord::TIME | SelectionRecord::FLOATING);
+
+    return result;
+}
+
 int LLVMExecutableModel::getFloatingSpeciesInitConcentrations(size_t len,
         const int* indx, double* values)
 {
@@ -2125,6 +2160,17 @@ int LLVMExecutableModel::getFloatingSpeciesInitConcentrations(size_t len,
     if (getFloatingSpeciesInitConcentrationsPtr)
     {
         result = getValues(getFloatingSpeciesInitConcentrationsPtr, len, indx, values);
+    }
+    return result;
+}
+
+int LLVMExecutableModel::getBoundarySpeciesInitConcentrations(size_t len,
+    const int* indx, double* values)
+{
+    int result = -1;
+    if (getBoundarySpeciesInitConcentrationsPtr)
+    {
+        result = getValues(getBoundarySpeciesInitConcentrationsPtr, len, indx, values);
     }
     return result;
 }
@@ -2147,6 +2193,24 @@ int LLVMExecutableModel::setFloatingSpeciesInitAmounts(size_t len, int const *in
     return result;
 }
 
+int LLVMExecutableModel::setBoundarySpeciesInitAmounts(size_t len, int const* indx,
+    double const* values)
+{
+    int result = -1;
+    if (setBoundarySpeciesInitAmountsPtr)
+    {
+        result = setValues(setBoundarySpeciesInitAmountsPtr,
+            &LLVMExecutableModel::getBoundarySpeciesId, len, indx, values);
+    }
+
+    dirty |= DIRTY_INIT_SPECIES;
+
+    // as a convienice to users, this resets the amounts and whatever depends
+    // on them.
+    reset(SelectionRecord::TIME | SelectionRecord::FLOATING);
+    return result;
+}
+
 int LLVMExecutableModel::getFloatingSpeciesInitAmounts(size_t len, int const *indx,
                 double *values)
 {
@@ -2154,6 +2218,17 @@ int LLVMExecutableModel::getFloatingSpeciesInitAmounts(size_t len, int const *in
     if (getFloatingSpeciesInitAmountsPtr)
     {
         result = getValues(getFloatingSpeciesInitAmountsPtr, len, indx, values);
+    }
+    return result;
+}
+
+int LLVMExecutableModel::getBoundarySpeciesInitAmounts(size_t len, int const* indx,
+    double* values)
+{
+    int result = -1;
+    if (getBoundarySpeciesInitAmountsPtr)
+    {
+        result = getValues(getBoundarySpeciesInitAmountsPtr, len, indx, values);
     }
     return result;
 }

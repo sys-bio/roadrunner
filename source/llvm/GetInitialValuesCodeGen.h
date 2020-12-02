@@ -37,6 +37,22 @@ public:
     static const char* IndexArgName;
 };
 
+class GetBoundarySpeciesInitConcentrationCodeGen : public
+    GetInitialValueCodeGenBase<GetBoundarySpeciesInitConcentrationCodeGen, false>
+{
+public:
+    GetBoundarySpeciesInitConcentrationCodeGen(const ModelGeneratorContext& mgc);
+    ~GetBoundarySpeciesInitConcentrationCodeGen() {};
+
+    std::vector<string> getIds()
+    {
+        return dataSymbols.getBoundarySpeciesIds();
+    }
+
+    static const char* FunctionName;
+    static const char* IndexArgName;
+};
+
 class GetFloatingSpeciesInitAmountCodeGen: public
     GetInitialValueCodeGenBase<GetFloatingSpeciesInitAmountCodeGen, true>
 {
@@ -47,6 +63,22 @@ public:
     std::vector<string> getIds()
     {
         return dataSymbols.getFloatingSpeciesIds();
+    }
+
+    static const char* FunctionName;
+    static const char* IndexArgName;
+};
+
+class GetBoundarySpeciesInitAmountCodeGen : public
+    GetInitialValueCodeGenBase<GetBoundarySpeciesInitAmountCodeGen, true>
+{
+public:
+    GetBoundarySpeciesInitAmountCodeGen(const ModelGeneratorContext& mgc);
+    ~GetBoundarySpeciesInitAmountCodeGen() {};
+
+    std::vector<string> getIds()
+    {
+        return dataSymbols.getBoundarySpeciesIds();
     }
 
     static const char* FunctionName;
