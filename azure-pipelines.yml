@@ -43,6 +43,15 @@ stages:
           # we cannot upload prebuilt binaries onto github for linux debug version because of github file size limits.
           # therefore we do this build with Release llvm for both debug and release. Oddly enough it seems to work.
           - script: |
+              echo "SOURCE_DIR $(SOURCE_DIR)"
+              echo "BUILD_DIR $(BUILD_DIR)"
+              echo "INSTALL_DIR $(INSTALL_DIR)"
+              echo "LLVM_INSTALL_PREFIX $(LLVM_INSTALL_PREFIX)"
+              echo "DEPS_INSTALL_PREFIX $(DEPS_INSTALL_PREFIX)"
+              echo "Build.DefinitionName $(Build.DefinitionName)"
+              echo "Agent.OS $(Agent.OS)"
+
+          - script: |
               mkdir $(LLVM_INSTALL_PREFIX)
               mkdir $(DEPS_INSTALL_PREFIX)
             displayName: MakeDirs
