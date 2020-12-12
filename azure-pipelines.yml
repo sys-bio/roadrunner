@@ -109,7 +109,7 @@ stages:
               echo "ls: "
               ls
               echo "moving contents of $(DEPS_INSTALL_PREFIX)/install to  $(DEPS_INSTALL_PREFIX)"
-              mv $(DEPS_INSTALL_PREFIX)/** .
+              mv $(DEPS_INSTALL_PREFIX)/install/** .
               ls
             displayName: Move Dependencies
 #              echo "current driectory is: "
