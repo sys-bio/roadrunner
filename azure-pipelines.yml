@@ -250,10 +250,12 @@ stages:
               eval "$(conda shell.bash hook)"
               conda create -y --name $(PythonName) python=$(PythonVersion)
               conda activate $(PythonName)
-              conda install -y nose
-              python_dir=$(dirname $(which python))
+              conda install --yes --quiet nose numpy
+              echo "which python: $(which python)"
+              echo "which conda: $(which conda)"
+              python_dir="$(dirname $(which python))"
               echo "python_dir == $(python_dir)"
-              cmake -DLLVM_INSTALL_PREFIX=$(LLVM_INSTALL_PREFIX) -DRR_DEPENDENCIES_INSTALL_PREFIX=$(DEPS_INSTALL_PREFIX) -DBUILD_TESTS=ON -DCMAKE_INSTALL_PREFIX=$(INSTALL_DIR) -DBUILD_RR_PLUGINS=ON -DBUILD_RR_CAPI=ON -DCMAKE_BUILD_TYPE=$(BuildType) -DBUILD_PYTHON=ON -DPython_ROOT_DIR=$(python_dir) ..
+              cmake -DLLVM_INSTALL_PREFIX=$(LLVM_INSTALL_PREFIX) -DRR_DEPENDENCIES_INSTALL_PREFIX=$(DEPS_INSTALL_PREFIX) -DBUILD_TESTS=ON -DCMAKE_INSTALL_PREFIX=$(INSTALL_DIR) -DBUILD_RR_PLUGINS=ON -DBUILD_RR_CAPI=ON -DCMAKE_BUILD_TYPE=Release -DBUILD_PYTHON=ON -DPython_ROOT_DIR=$(python_dir) ..
               cmake --build . --target install --config Release -j 12
             displayName: BuildRoadrunnerWithTests
           - script: |
