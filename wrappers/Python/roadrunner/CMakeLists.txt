@@ -76,12 +76,13 @@ install(
         DESTINATION ${PYTHON_PACKAGE_INSTALL_PREFIX}
 )
 
-install(FILES "${CMAKE_CURRENT_SOURCE_DIR}/__init__.py" DESTINATION "${CMAKE_CURRENT_BINARY_DIR}")
+install(FILES "${CMAKE_CURRENT_SOURCE_DIR}/__init__.py" DESTINATION "${CMAKE_CURRENT_BINARY_DIR}" COMPONENT Python)
 
 install(FILES
         "${CMAKE_CURRENT_BINARY_DIR}/roadrunner.py"
         "${CMAKE_CURRENT_SOURCE_DIR}/__init__.py"
-        DESTINATION "${PYTHON_PACKAGE_INSTALL_PREFIX}")
+        DESTINATION "${PYTHON_PACKAGE_INSTALL_PREFIX}"
+        COMPONENT Python)
 
 
 install(
@@ -92,11 +93,13 @@ install(
     	  testing/testfiles.py 
     	  testing/SBMLTest.py
     DESTINATION ${PYTHON_PACKAGE_INSTALL_PREFIX}/testing
+    COMPONENT Python
 )
 
 install(
         DIRECTORY stochastic
         DESTINATION ${PYTHON_PACKAGE_INSTALL_PREFIX}
+        COMPONENT Python
         FILES_MATCHING PATTERN "*.*"
 )
 
@@ -104,15 +107,16 @@ file(GLOB rrtest_files1 "${RR_ROOT}/test/rrtest_files/*.rrtest")
 install(
     FILES ${rrtest_files1}
     DESTINATION ${PYTHON_PACKAGE_INSTALL_PREFIX}/testing/test_data
+        COMPONENT Python
 )
 
 file(GLOB rrtest_files2 "${RR_ROOT}/test/rrtest_files/*.xml")
 install(
     FILES ${rrtest_files2}
     DESTINATION ${PYTHON_PACKAGE_INSTALL_PREFIX}/testing/test_data
+        COMPONENT Python
 )
 
-#todo add building of python bindings to azure. Generate python wheels and export artefacts
 
 
 

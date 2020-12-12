@@ -14,9 +14,9 @@ install(FILES
         ${CMAKE_CURRENT_SOURCE_DIR}/INSTALL.txt
         ${CMAKE_CURRENT_SOURCE_DIR}/setup.py
         ${CMAKE_CURRENT_SOURCE_DIR}/MANIFEST.in
-        "${CMAKE_BINARY_DIR}/VERSION.txt" DESTINATION .)
+        "${CMAKE_BINARY_DIR}/VERSION.txt" DESTINATION . COMPONENT Python)
 
 if (WITH_CONDA_BUILDER)
     configure_file(conda/meta.yaml.in conda/meta.yaml @ONLY)
-    install(FILES ${CMAKE_CURRENT_BINARY_DIR}/conda/meta.yaml conda/build.sh conda/bld.bat DESTINATION .)
+    install(FILES ${CMAKE_CURRENT_BINARY_DIR}/conda/meta.yaml conda/build.sh conda/bld.bat DESTINATION . COMPONENT Python)
 endif ()
