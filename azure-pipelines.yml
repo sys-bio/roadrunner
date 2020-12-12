@@ -21,7 +21,7 @@ variables:
   DEPS_INSTALL_PREFIX: '$(Agent.BuildDirectory)/libroadrunner-deps' # e.g./home/vsts/work/1
   SWIG_SOURCE_DIR: '$(Agent.BuildDirectory)/swig'
   SWIG_INSTALL_PREFIX: '$(SWIG_SOURCE_DIR)/install-azure'
-  SWIG_EXECUTABLE: $(SWIG_INSTALL_PREFIX)/swig
+  SWIG_EXECUTABLE: '$(SWIG_INSTALL_PREFIX)/swig'
 
 stages:
   - stage: BuildRoadrunner
@@ -135,7 +135,9 @@ stages:
           - publish: $(Build.ArtifactStagingDirectory)
             artifact: roadrunner-$(Agent.OS)-$(BuildType)
             displayName: Publish
+
   - stage: TestRoadrunnerC
+    dependsOn: BuildRoadrunner
     jobs:
       - job: Linux
         timeoutInMinutes: "0"
@@ -179,6 +181,7 @@ stages:
 
 
   - stage: TestRoadrunnerPython
+    dependsOn: BuildRoadrunner
     jobs:
       - job: Linux
         timeoutInMinutes: "0"
@@ -222,9 +225,9 @@ stages:
               cd $(SWIG_INSTALL_PREFIX)
               echo "ls from SWIG_INSTALL_PREFIX: $(SWIG_INSTALL_PREFIX)"
               ls
-              if [ ! -F "$(SWIG_EXECUTABLE)" ]; then
+              if [ ! -f "$(SWIG_EXECUTABLE)" ]; then
                 echo "didn not locate swig executable, exiting"
-                exit(1)
+                exit
               fi
             displayName: Install Swig
           - script: |
@@ -274,6 +277,23 @@ stages:
 
 
             #              echo "current driectory is: "
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 #              pwd
 #              echo "doing ls"
 #              ls -lh
