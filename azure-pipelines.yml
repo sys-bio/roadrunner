@@ -16,7 +16,7 @@ pr:
 variables:
   SOURCE_DIR: '$(System.DefaultWorkingDirectory)' # eg /home/vsts/work/1/s
   BUILD_DIR: '$(SOURCE_DIR)/build'
-  INSTALL_DIR: '$(SOURCE_DIR)/install'
+  INSTALL_DIR: '$(SOURCE_DIR)/install-azure'
   LLVM_INSTALL_PREFIX: '$(Agent.BuildDirectory)/llvm' # e.g./home/vsts/work/1
   DEPS_INSTALL_PREFIX: '$(Agent.BuildDirectory)/libroadrunner-deps' # e.g./home/vsts/work/1
   SWIG_SOURCE_DIR: '$(Agent.BuildDirectory)/swig'
@@ -245,17 +245,21 @@ stages:
           - script: |
               echo "cd to source dir: $(SOURCE_DIR)"
               cd $(SOURCE_DIR)
-              echo "Run ls -R -lh"
-              ls -R -lh
-
-            displayName: RunPythonTests
-          - script: |
+              echo "ls"
+              ls
               eval "$(conda shell.bash hook)"
               conda create -y --name $(PythonName) python=$(PythonVersion)
               conda activate $(PythonName)
               conda install -y nose
+              python_dir=$(dirname $(which python))
+              echo "python_dir == $(python_dir)
+              cmake -DLLVM_INSTALL_PREFIX=$(LLVM_INSTALL_PREFIX) -DRR_DEPENDENCIES_INSTALL_PREFIX=$(DEPS_INSTALL_PREFIX) -DBUILD_TESTS=ON -DCMAKE_INSTALL_PREFIX=$(INSTALL_DIR) -DBUILD_RR_PLUGINS=ON -DBUILD_RR_CAPI=ON -DCMAKE_BUILD_TYPE=$(BuildType) -DBUILD_PYTHON=ON -DPython_ROOT_DIR=$(python_dir) ..
+              cmake --build . --target install --config Release -j 12
+            displayName: BuildRoadrunnerWithTests
+          - script: |
               echo "cd to install dir: $(INSTALL_DIR)"
               nosetests
+            displayName: RunPythonTests
 
 
 
