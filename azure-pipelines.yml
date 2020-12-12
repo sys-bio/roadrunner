@@ -33,13 +33,8 @@ stages:
           matrix:
             64-bit Linux Release:
               BuildType: Release
-              SelfHost: false
-              CMakeArgs: "-DCMAKE_INSTALL_PREFIX=$(Build.BinariesDirectory)/install-azure-release"
             64-bit Linux Debug:
               BuildType: Debug
-              SelfHost: false
-              CMakeArgs: "-DCMAKE_INSTALL_PREFIX=$(Build.BinariesDirectory)/install-azure-debug"
-
         steps:
           # we cannot upload prebuilt binaries onto github for linux debug version because of github file size limits.
           # therefore we do this build with Release llvm for both debug and release. Oddly enough it seems to work.
@@ -87,7 +82,7 @@ stages:
           - script: |
               echo "current driectory is: $(pwd)"
               echo "ls $(ls)"
-              wget https://github.com/sys-bio/llvm-6.x/releases/download/release%2F6.x/llvm-6.x-gcc7.5-x64-release.tar.gz
+              wget -q https://github.com/sys-bio/llvm-6.x/releases/download/release%2F6.x/llvm-6.x-gcc7.5-x64-release.tar.gz
               tar -zxf llvm-6.x-gcc7.5-x64-release.tar.gz
               mv llvm-6.x-gcc7.5-x64-release/** '$(LLVM_INSTALL_PREFIX)'
               echo "cd to LLVM_INSTALL_PREFIX: $(LLVM_INSTALL_PREFIX)"
@@ -121,7 +116,7 @@ stages:
               mkdir $(BUILD_DIR)
               echo "CD to build dir: $(BUILD_DIR)"
               cd $(BUILD_DIR)
-              cmake -DLLVM_INSTALL_PREFIX=$(LLVM_INSTALL_PREFIX) -DRR_DEPENDENCIES_INSTALL_PREFIX=$(DEPS_INSTALL_PREFIX) -DBUILD_TESTS=ON -DCMAKE_INSTALL_PREFIX=$(INSTALL_DIR) ..
+              cmake -DLLVM_INSTALL_PREFIX=$(LLVM_INSTALL_PREFIX) -DRR_DEPENDENCIES_INSTALL_PREFIX=$(DEPS_INSTALL_PREFIX) -DBUILD_TESTS=ON -DCMAKE_INSTALL_PREFIX=$(INSTALL_DIR) -DBUILD_RR_PLUGINS=ON -DBUILD_RR_CAPI=ON -DCMAKE_BUILD_TYPE=$(BuildType)  ..
             displayName: Run CMake Configure Command
           - script: |
               echo "Building roadrunner"
@@ -129,7 +124,53 @@ stages:
               cd $(BUILD_DIR)
               cmake --build . --target install --config $(BuildType) -j 12
             displayName: Run CMake Build Command
-#              echo "current driectory is: "
+          - task: CopyFiles@2
+            inputs:
+              contents: '$(BUILD_DIR)/**'
+              targetFolder: $(Build.ArtifactStagingDirectory)
+            displayName: Copy Build Tree to Staging Area
+          - publish: $(Build.ArtifactStagingDirectory)
+            artifact: roadrunner-$(Agent.OS)-$(BUILD_TYPE)
+            displayName: Publish Build Directory
+  - stage: TestRoadrunner
+    jobs:
+      - job: TestRoadrunnerLinux
+        timeoutInMinutes: "0"
+        displayName: Linux
+        continueOnError: "false"
+        pool:
+          vmImage: "ubuntu-18.04"
+        strategy:
+          matrix:
+            64-bit Linux Release:
+              BuildType: Release
+            64-bit Linux Debug:
+              BuildType: Debug
+        steps:
+          - checkout: 'none'
+          - script: |
+              mkdir -p $(SOURCE_DIR)
+              mkdir -p $(BUILD_DIR)
+              mkdir -p $(INSTALL_DIR)
+            displayName: Make directories
+          - task: DownloadPipelineArtifact@2
+            inputs:
+              source: current
+              artifact: roadrunner-$(Agent.OS)-$(BUILD_TYPE)
+              # copy into parent of where you want it.
+              path: '$(SOURCE_DIR)'
+          - script: |
+              echo "cd to source dir: $(SOURCE_DIR)"
+              cd $(SOURCE_DIR)
+              echo "ls"
+              ls
+              echo "cd to build dir: $(BUILD_DIR)"
+              echo "ls"
+              ls
+
+
+
+            #              echo "current driectory is: "
 #              pwd
 #              echo "doing ls"
 #              ls -lh
