@@ -130,7 +130,7 @@ stages:
               targetFolder: $(Build.ArtifactStagingDirectory)
             displayName: Copy Build Tree to Staging Area
           - publish: $(Build.ArtifactStagingDirectory)
-            artifact: roadrunner-$(Agent.OS)-$(BUILD_TYPE)
+            artifact: roadrunner-$(Agent.OS)-$(BuildType)
             displayName: Publish Build Directory
   - stage: TestRoadrunner
     jobs:
@@ -156,7 +156,7 @@ stages:
           - task: DownloadPipelineArtifact@2
             inputs:
               source: current
-              artifact: roadrunner-$(Agent.OS)-$(BUILD_TYPE)
+              artifact: roadrunner-$(Agent.OS)-$(BuildType)
               # copy into parent of where you want it.
               path: '$(SOURCE_DIR)'
           - script: |
