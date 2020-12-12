@@ -134,9 +134,9 @@ stages:
             displayName: Publish
   - stage: TestRoadrunnerC
     jobs:
-      - job: $(Agent.OS)
+      - job: Linux
         timeoutInMinutes: "0"
-        displayName: $(Agent.OS)
+        displayName: Linux
         continueOnError: "false"
         pool:
           vmImage: "ubuntu-18.04"
@@ -180,9 +180,9 @@ stages:
             #              echo "current driectory is: "
   - stage: TestRoadrunnerPython
     jobs:
-      - job: $(Agent.OS)
+      - job: Linux
         timeoutInMinutes: "0"
-        displayName: $(Agent.OS)
+        displayName: Linux
         continueOnError: "false"
         pool:
           vmImage: "ubuntu-18.04"
