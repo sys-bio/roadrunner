@@ -126,7 +126,7 @@ stages:
             displayName: Run CMake Build Command
           - task: CopyFiles@2
             inputs:
-              contents: '$(SOURCE_DIR)/**'
+              contents: '$(Agent.BuildDirectory)/**'
               targetFolder: $(Build.ArtifactStagingDirectory)
             displayName: Copy Build Tree to Staging Area
           - publish: $(Build.ArtifactStagingDirectory)
