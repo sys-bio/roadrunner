@@ -21,6 +21,7 @@ variables:
   DEPS_INSTALL_PREFIX: '$(Agent.BuildDirectory)/libroadrunner-deps' # e.g./home/vsts/work/1
   SWIG_SOURCE_DIR: '$(Agent.BuildDirectory)/swig'
   SWIG_INSTALL_PREFIX: '$(SWIG_SOURCE_DIR)/install-azure'
+  SWIG_EXECUTABLE: $(SWIG_INSTALL_PREFIX)/swig
 
 stages:
   - stage: BuildRoadrunner
@@ -208,7 +209,7 @@ stages:
               wget -p https://sourceforge.net/projects/swig/files/swig/swig-3.0.0/swig-3.0.0.tar.gz $(SWIG_SOURCE_DIR)
               tar -xf swig-3.0.0.tar.gz
               echo "Copying swig content from swig-3.0.0 to SWIG_SOURCE_DIR"
-              mv $(SWIG_SOURCE_DIR)/swig-3.0.0 $(SWIG_SOURCE_DIR)
+              mv $(SWIG_SOURCE_DIR)/swig-3.0.0/** $(SWIG_SOURCE_DIR)
               rm -r swig-3.0.0
               echo "ls in swig source dir $(SWIG_SOURCE_DIR)"
               ls
@@ -221,6 +222,10 @@ stages:
               cd $(SWIG_INSTALL_PREFIX)
               echo "ls from SWIG_INSTALL_PREFIX: $(SWIG_INSTALL_PREFIX)"
               ls
+              if [ ! -F "$(SWIG_EXECUTABLE)" ]; then
+                echo "didn not locate swig executable, exiting"
+                exit(1)
+              fi
             displayName: Install Swig
           - script: |
               mkdir -p $(SOURCE_DIR)
@@ -253,9 +258,10 @@ stages:
               conda install --yes --quiet nose numpy
               echo "which python: $(which python)"
               echo "which conda: $(which conda)"
+              python_exe="$(which python)"
               python_dir="$(dirname $(which python))"
-              echo "python_dir == $(python_dir)"
-              cmake -DLLVM_INSTALL_PREFIX=$(LLVM_INSTALL_PREFIX) -DRR_DEPENDENCIES_INSTALL_PREFIX=$(DEPS_INSTALL_PREFIX) -DBUILD_TESTS=ON -DCMAKE_INSTALL_PREFIX=$(INSTALL_DIR) -DBUILD_RR_PLUGINS=ON -DBUILD_RR_CAPI=ON -DCMAKE_BUILD_TYPE=Release -DBUILD_PYTHON=ON -DPython_ROOT_DIR=$(python_dir) ..
+              echo "python_dir == $python_dir"
+              cmake -DLLVM_INSTALL_PREFIX=$(LLVM_INSTALL_PREFIX) -DRR_DEPENDENCIES_INSTALL_PREFIX=$(DEPS_INSTALL_PREFIX) -DBUILD_TESTS=ON -DCMAKE_INSTALL_PREFIX=$(INSTALL_DIR) -DBUILD_RR_PLUGINS=ON -DBUILD_RR_CAPI=ON -DCMAKE_BUILD_TYPE=Release -DBUILD_PYTHON=ON -DPython_ROOT_DIR=$python_dir -DSWIG_EXECUTABLE=$(SWIG_EXECUTABLE) ..
               cmake --build . --target install --config Release -j 12
             displayName: BuildRoadrunnerWithTests
           - script: |
