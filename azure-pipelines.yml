@@ -126,7 +126,7 @@ stages:
             displayName: Run CMake Build Command
           - task: CopyFiles@2
             inputs:
-              contents: '$(BUILD_DIR)/**'
+              contents: '$(SOURCE_DIR)/**'
               targetFolder: $(Build.ArtifactStagingDirectory)
             displayName: Copy Build Tree to Staging Area
           - publish: $(Build.ArtifactStagingDirectory)
@@ -162,18 +162,19 @@ stages:
           - script: |
               echo "cd to source dir: $(SOURCE_DIR)"
               cd $(SOURCE_DIR)
+              chmod -R 755 .
               echo "ls"
+              cd
               ls
               echo
               echo "cd to build dir: $(BUILD_DIR)"
               cd $(BUILD_DIR)
               echo "ls"
               ls
-              chmod -R 755 .
             displayName: Permissions
           - script: |
-              echo "cd to build dir $(BUILD_DIR)"
-              cd $(BUILD_DIR)
+              echo "cd to build dir $(SOURCE_DIR)"
+              cd $(SOURCE_DIR)/roadrunner-$(Agent.OS)-$(BuildType)/build
               ctest --verbose --extra-verbose --progress
             displayName: RunCTest
 
