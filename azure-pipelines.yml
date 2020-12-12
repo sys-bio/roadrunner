@@ -168,6 +168,12 @@ stages:
               cd $(BUILD_DIR)
               echo "ls"
               ls
+          - script: |
+              echo "cd to build dir $(BUILD_DIR)"
+              cd $(BUILD_DIR)
+              ctest --verbose --extra-verbose --progress
+            displayName: RunCTest
+
 
 
 
