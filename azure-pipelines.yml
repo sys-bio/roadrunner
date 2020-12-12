@@ -54,7 +54,7 @@ stages:
               wget https://github.com/sys-bio/llvm-6.x/releases/download/release%2F6.x/llvm-6.x-gcc7.5-x64-release.tar.gz
               tar -zxvf llvm-6.x-gcc7.5-x64-release.tar.gz
               cd llvm-6.x-gcc7.5-x64-release
-              cp */** '$(LLVM_INSTALL_PREFIX)'
+              cp -r */** '$(LLVM_INSTALL_PREFIX)'
             displayName: "Get LLVM"
           - task: DownloadPipelineArtifact@2
             inputs:
