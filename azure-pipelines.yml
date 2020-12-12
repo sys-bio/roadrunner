@@ -164,10 +164,13 @@ stages:
               cd $(SOURCE_DIR)
               echo "ls"
               ls
+              echo
               echo "cd to build dir: $(BUILD_DIR)"
               cd $(BUILD_DIR)
               echo "ls"
               ls
+              chmod -R 755 .
+            displayName: Permissions
           - script: |
               echo "cd to build dir $(BUILD_DIR)"
               cd $(BUILD_DIR)
