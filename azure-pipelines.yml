@@ -124,7 +124,7 @@ stages:
           - script: |
               echo "Building roadrunner"
               echo "cd to build dir"
-              cd $(BUILD_DIR)
+              mkdir $(BUILD_DIR) && cd $(BUILD_DIR)
               cmake --build . --target install --config $(BuildType) -j 12
             displayName: Run CMake Build Command
 #              echo "current driectory is: "
