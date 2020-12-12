@@ -17,18 +17,18 @@ variables:
   SOURCE_DIR: '$(System.DefaultWorkingDirectory)' # eg /home/vsts/work/1/s
   BUILD_DIR: '$(SOURCE_DIR)/build'
   INSTALL_DIR: '$(SOURCE_DIR)/install-azure'
-  LLVM_INSTALL_PREFIX: '$(Agent.BuildDirectory)/llvm' # e.g./home/vsts/work/1
-  DEPS_INSTALL_PREFIX: '$(Agent.BuildDirectory)/libroadrunner-deps' # e.g./home/vsts/work/1
-  SWIG_SOURCE_DIR: '$(Agent.BuildDirectory)/swig'
+  LLVM_INSTALL_PREFIX: '$(SOURCE_DIR)/llvm' # e.g./home/vsts/work/1
+  DEPS_INSTALL_PREFIX: '$(SOURCE_DIR)/libroadrunner-deps' # e.g./home/vsts/work/1
+  SWIG_SOURCE_DIR: '$(SOURCE_DIR)/swig'
   SWIG_INSTALL_PREFIX: '$(SWIG_SOURCE_DIR)/install-azure'
   SWIG_EXECUTABLE: '$(SWIG_INSTALL_PREFIX)/swig'
 
 stages:
-  - stage: BuildRoadrunner
+  - stage: LinuxBuild
     jobs:
-      - job: BuildRoadrunnerLinux
+      - job: Build
         timeoutInMinutes: "0"
-        displayName: Linux
+        displayName: LinuxBuild
         continueOnError: "false"
         pool:
           vmImage: "ubuntu-18.04"
@@ -137,11 +137,11 @@ stages:
             displayName: Publish
 
   - stage: TestRoadrunnerC
-    dependsOn: BuildRoadrunner
+    dependsOn: LinuxBuild
     jobs:
-      - job: Linux
+      - job: RunTestsC
         timeoutInMinutes: "0"
-        displayName: Linux
+        displayName: Run C/C++ tests
         continueOnError: "false"
         pool:
           vmImage: "ubuntu-18.04"
@@ -179,13 +179,12 @@ stages:
               ctest --verbose --extra-verbose --progress
             displayName: RunCTest
 
-
   - stage: TestRoadrunnerPython
-    dependsOn: BuildRoadrunner
+    dependsOn: LinuxBuild
     jobs:
-      - job: Linux
+      - job: RunTestsPython
         timeoutInMinutes: "0"
-        displayName: Linux
+        displayName: Run Python Tests
         continueOnError: "false"
         pool:
           vmImage: "ubuntu-18.04"
@@ -204,6 +203,7 @@ stages:
           - checkout: 'none'
           - bash: echo "##vso[task.prependpath]$CONDA/bin"
             displayName: Add conda to PATH
+
           - script: |
               echo "installing pcre"
               sudo apt install -y libpcre3 libpcre3-dev
