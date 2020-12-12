@@ -39,6 +39,7 @@ stages:
               BuildType: Debug
               SelfHost: false
               CMakeArgs: "-DCMAKE_INSTALL_PREFIX=$(Build.BinariesDirectory)/install-azure-debug"
+
         steps:
           # we cannot upload prebuilt binaries onto github for linux debug version because of github file size limits.
           # therefore we do this build with Release llvm for both debug and release. Oddly enough it seems to work.
@@ -109,7 +110,7 @@ stages:
               echo "ls: "
               ls
               echo "moving contents of $(DEPS_INSTALL_PREFIX)/install to  $(DEPS_INSTALL_PREFIX)"
-              mv $(DEPS_INSTALL_PREFIX)/install-azure/** .
+              mv $(DEPS_INSTALL_PREFIX)/install-azure/$(BuildType)/** .
               ls
             displayName: Move Dependencies
 #              echo "current driectory is: "
