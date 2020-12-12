@@ -116,7 +116,7 @@ stages:
               mkdir $(BUILD_DIR)
               echo "CD to build dir: $(BUILD_DIR)"
               cd $(BUILD_DIR)
-              cmake -DLLVM_INSTALL_PREFIX=$(LLVM_INSTALL_PREFIX) -DRR_DEPENDENCIES_INSTALL_PREFIX=$(DEPS_INSTALL_PREFIX) -DBUILD_TESTS=ON -DCMAKE_INSTALL_PREFIX=$(INSTALL_DIR) -DBUILD_RR_PLUGINS=ON -DBUILD_RR_CAPI=ON -DCMAKE_BUILD_TYPE=$(BuildType)  ..
+              cmake -DLLVM_INSTALL_PREFIX=$(LLVM_INSTALL_PREFIX) -DRR_DEPENDENCIES_INSTALL_PREFIX=$(DEPS_INSTALL_PREFIX) -DBUILD_TESTS=ON -DCMAKE_INSTALL_PREFIX=$(INSTALL_DIR) -DBUILD_RR_PLUGINS=ON -DBUILD_RR_CAPI=ON -DCMAKE_BUILD_TYPE=$(BuildType) -DBUILD_PYTHON=ON ..
             displayName: Run CMake Configure Command
           - script: |
               echo "Building roadrunner"
@@ -132,11 +132,11 @@ stages:
           - publish: $(Build.ArtifactStagingDirectory)
             artifact: roadrunner-$(Agent.OS)-$(BuildType)
             displayName: Publish
-  - stage: TestRoadrunner
+  - stage: TestRoadrunnerC
     jobs:
-      - job: TestRoadrunnerLinux
+      - job: $(Agent.OS)
         timeoutInMinutes: "0"
-        displayName: Linux
+        displayName: $(Agent.OS)
         continueOnError: "false"
         pool:
           vmImage: "ubuntu-18.04"
@@ -160,16 +160,82 @@ stages:
               # copy into parent of where you want it.
               path: '$(SOURCE_DIR)'
           - script: |
+              echo "Ensure tests have execute permission"
               echo "cd to source dir: $(SOURCE_DIR)"
               cd $(SOURCE_DIR)
+              echo "Run chmod -R 755 ."
               chmod -R 755 .
               echo "ls"
+              ls
             displayName: Permissions
           - script: |
               echo "cd to build dir $(BUILD_DIR)"
               cd $(BUILD_DIR)
               ctest --verbose --extra-verbose --progress
             displayName: RunCTest
+
+
+
+
+            #              echo "current driectory is: "
+  - stage: TestRoadrunnerPython
+    jobs:
+      - job: $(Agent.OS)
+        timeoutInMinutes: "0"
+        displayName: $(Agent.OS)
+        continueOnError: "false"
+        pool:
+          vmImage: "ubuntu-18.04"
+        strategy:
+          matrix:
+            py36:
+              PythonVersion: 3.6
+              PythonName: py36
+            py37:
+              PythonVersion: 3.7
+              PythonName: py37
+            py38:
+              PythonVersion: 3.8
+              PythonName: py38
+        steps:
+          - checkout: 'none'
+          - bash: echo "##vso[task.prependpath]$CONDA/bin"
+            displayName: Add conda to PATH
+          - script: |
+              mkdir -p $(SOURCE_DIR)
+              mkdir -p $(BUILD_DIR)
+              mkdir -p $(INSTALL_DIR)
+            displayName: Make directories
+          - task: DownloadPipelineArtifact@2
+            inputs:
+              source: current
+              artifact: roadrunner-$(Agent.OS)-$(BuildType)
+              # copy into parent of where you want it.
+              path: '$(SOURCE_DIR)'
+          - script: |
+              echo "Ensure tests have execute permission"
+              echo "cd to source dir: $(SOURCE_DIR)"
+              cd $(SOURCE_DIR)
+              echo "Run chmod -R 755 ."
+              chmod -R 755 .
+              echo "ls"
+              ls
+            displayName: Permissions
+          - script: |
+              echo "cd to source dir: $(SOURCE_DIR)"
+              cd $(SOURCE_DIR)
+              echo "Run ls -R -lh"
+              ls -R -lh
+
+            displayName: RunPythonTests
+          - script: |
+              eval "$(conda shell.bash hook)"
+              conda create -y --name $(PythonName) python=$(PythonVersion)
+              conda activate $(PythonName)
+              conda install nose
+              echo "cd to install dir: $(INSTALL_DIR)"
+              nosetests
+
 
 
 
