@@ -131,7 +131,7 @@ stages:
             displayName: Copy to Staging Area
           - publish: $(Build.ArtifactStagingDirectory)
             artifact: roadrunner-$(Agent.OS)-$(BuildType)
-            displayName: Publish Build Directory
+            displayName: Publish
   - stage: TestRoadrunner
     jobs:
       - job: TestRoadrunnerLinux
@@ -164,17 +164,10 @@ stages:
               cd $(SOURCE_DIR)
               chmod -R 755 .
               echo "ls"
-              cd
-              ls
-              echo
-              echo "cd to build dir: $(BUILD_DIR)"
-              cd $(BUILD_DIR)
-              echo "ls"
-              ls
             displayName: Permissions
           - script: |
-              echo "cd to build dir $(SOURCE_DIR)"
-              cd $(SOURCE_DIR)/roadrunner-$(Agent.OS)-$(BuildType)/build
+              echo "cd to build dir $(BUILD_DIR)"
+              cd $(BUILD_DIR)
               ctest --verbose --extra-verbose --progress
             displayName: RunCTest
 
