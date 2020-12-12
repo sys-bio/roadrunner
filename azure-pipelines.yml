@@ -202,7 +202,7 @@ stages:
             displayName: Add conda to PATH
           - script: |
               echo "installing pcre"
-              sudo apt install libpcre libpcre-dev
+              sudo apt install -y libpcre3 libpcre3-dev
               echo "cd to swig source dir: $(SWIG_SOURCE_DIR)
               cd $(SWIG_SOURCE_DIR)
               wget -p https://sourceforge.net/projects/swig/files/swig/swig-3.0.0/swig-3.0.0.tar.gz $(SWIG_SOURCE_DIR)
@@ -253,7 +253,7 @@ stages:
               eval "$(conda shell.bash hook)"
               conda create -y --name $(PythonName) python=$(PythonVersion)
               conda activate $(PythonName)
-              conda install nose
+              conda install -y nose
               echo "cd to install dir: $(INSTALL_DIR)"
               nosetests
 
