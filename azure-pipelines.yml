@@ -137,6 +137,7 @@ stages:
   - stage: TestRoadrunnerC
     jobs:
       - job: Linux
+        dependsOn: BuildRunner
         timeoutInMinutes: "0"
         displayName: Linux
         continueOnError: "false"
@@ -180,6 +181,7 @@ stages:
   - stage: TestRoadrunnerPython
     jobs:
       - job: Linux
+        dependsOn: BuildRunner
         timeoutInMinutes: "0"
         displayName: Linux
         continueOnError: "false"
@@ -221,12 +223,7 @@ stages:
               cd $(SWIG_INSTALL_PREFIX)
               echo "ls from SWIG_INSTALL_PREFIX: $(SWIG_INSTALL_PREFIX)"
               ls
-
             displayName: Install Swig
-
-
-
-
           - script: |
               mkdir -p $(SOURCE_DIR)
               mkdir -p $(BUILD_DIR)
@@ -235,7 +232,7 @@ stages:
           - task: DownloadPipelineArtifact@2
             inputs:
               source: current
-              artifact: roadrunner-$(Agent.OS)-$(BuildType)
+              artifact: roadrunner-$(Agent.OS)-Release
               # copy into parent of where you want it.
               path: '$(SOURCE_DIR)'
           - script: |
