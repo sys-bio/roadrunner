@@ -117,6 +117,8 @@ stages:
             displayName: Move Dependencies
           - script: |
               echo "Configuring roadrunner"
+              echo "mkdir build directory: $(BUILD_DIR)"
+              MKDIR $(BUILD_DIR)
               echo "CD to build dir: $(BUILD_DIR)"
               cd $(BUILD_DIR)
               cmake -DLLVM_INSTALL_PREFIX=$(LLVM_INSTALL_PREFIX) -DRR_DEPENDENCIES_INSTALL_PREFIX=$(DEPS_INSTALL_PREFIX) -DBUILD_TESTS=ON -DCMAKE_INSTALL_PREFIX=$(INSTALL_DIR) ..
@@ -124,7 +126,7 @@ stages:
           - script: |
               echo "Building roadrunner"
               echo "cd to build dir"
-              mkdir $(BUILD_DIR) && cd $(BUILD_DIR)
+              cd $(BUILD_DIR)
               cmake --build . --target install --config $(BuildType) -j 12
             displayName: Run CMake Build Command
 #              echo "current driectory is: "
