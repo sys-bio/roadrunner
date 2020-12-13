@@ -278,23 +278,29 @@ stages:
               cmake --build . --target install --config Release -j 12
             displayName: BuildRoadrunnerWithTests
           - script: |
+              eval "$(conda shell.bash hook)"
+              conda activate $(PythonName)
+              echo "which python: $(which python)"
+              echo "which conda: $(which conda)"
+              python_exe="$(which python)"
               echo "cd to isntall dir: $(INSTALL_DIR)"
               cd $(INSTALL_DIR)
               echo "ls in install dir"
               ls
-              eval "$(conda shell.bash hook)"
-              conda activate $(PythonName)
-              python site-packages/roadrunner/testing/__main__.py
+              $python_exe site-packages/roadrunner/testing/__main__.py
             displayName: RunPythonTests
           - script: |
+              eval "$(conda shell.bash hook)"
+              conda activate $(PythonName)
+              echo "which python: $(which python)"
+              echo "which conda: $(which conda)"
+              python_exe="$(which python)"
               echo "cd to isntall dir: $(INSTALL_DIR)"
               cd $(INSTALL_DIR)
               echo "ls in install dir"
               ls
-              eval "$(conda shell.bash hook)"
-              conda activate $(PythonName)
-              python setup.py bdist_wheel
-              python setup_rrplugins.py bdist_wheel
+              $python_exe setup.py bdist_wheel
+              $python_exe setup_rrplugins.py bdist_wheel
             displayName: Generate pip wheel
 
 
