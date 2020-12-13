@@ -553,7 +553,7 @@ stages:
               echo "ls"
               ls
               eval "$(conda shell.bash hook)"
-              conda create -y --name $(PythonName) python=$(PythonVersion)
+              conda create --quiet --yes --name $(PythonName) python=$(PythonVersion)
               source activate $(PythonName)
               conda install --yes --quiet nose numpy
               echo "which python: $(which python)"
@@ -613,6 +613,298 @@ stages:
 
 
 
+
+########################################################################
+# Windows Build
+#
+  - stage: WindowsBuildRoadrunnerCpp
+    dependsOn: []
+    jobs:
+      - job: WindowsBuildRoadrunnerCpp
+        timeoutInMinutes: "0"
+        displayName: WindowsBuildRoadrunnerCpp
+        continueOnError: "false"
+        pool:
+          vmImage: 'windows-2019'
+        strategy:
+          matrix:
+            64-bit Windows Release:
+              BuildType: Release
+            64-bit Windows Debug:
+              BuildType: Debug
+        steps:
+          - script: |
+              echo "SOURCE_DIR $(SOURCE_DIR)"
+              echo "BUILD_DIR $(BUILD_DIR)"
+              echo "INSTALL_DIR $(INSTALL_DIR)"
+              echo "LLVM_INSTALL_PREFIX $(LLVM_INSTALL_PREFIX)"
+              echo "DEPS_INSTALL_PREFIX $(DEPS_INSTALL_PREFIX)"
+              echo "Build.DefinitionName $(Build.DefinitionName)"
+              echo "System.DefinitionId	 $(System.DefinitionId)"
+              echo "Agent.OS $(Agent.OS)"
+
+              echo "System.AccessToken  $(System.AccessToken)"
+              echo "System.CollectionId $(System.CollectionId)"
+              echo "System.CollectionUri  $(System.CollectionUri)"
+              echo "System.DefaultWorkingDirectory  $(System.DefaultWorkingDirectory)"
+              echo "System.DefinitionId $(System.DefinitionId)"
+              echo "System.HostType $(System.HostType)"
+              echo "System.JobAttempt $(System.JobAttempt)"
+              echo "System.JobDisplayName $(System.JobDisplayName)"
+              echo "System.JobId  $(System.JobId)"
+              echo "System.JobName  $(System.JobName)"
+              echo "System.PhaseAttempt $(System.PhaseAttempt)"
+              echo "System.PhaseDisplayName $(System.PhaseDisplayName)"
+              echo "System.PhaseName  $(System.PhaseName)"
+              echo "System.StageAttempt $(System.StageAttempt)"
+              echo "System.StageDisplayName $(System.StageDisplayName)"
+              echo "System.StageName  $(System.StageName)"
+              echo "System.PullRequest.IsFork $(System.PullRequest.IsFork)"
+              echo "System.PullRequest.PullRequestId $(System.PullRequest.PullRequestId)"
+              echo "System.PullRequest.PullRequestNumber $(System.PullRequest.PullRequestNumber)"
+              echo "System.PullRequest.SourceBranch $(System.PullRequest.SourceBranch)"
+              echo "System.PullRequest.SourceRepositoryURI $(System.PullRequest.SourceRepositoryURI)"
+              echo "System.PullRequest.TargetBranch $(System.PullRequest.TargetBranch)"
+              echo "System.TeamFoundationCollectionUri $(System.TeamFoundationCollectionUri)"
+              echo "System.TeamProject $(System.TeamProject)"
+              echo "System.TeamProjectId $(System.TeamProjectId)"
+              echo "TF_BUILD $(TF_BUILD)"
+            displayName: Print Variables
+          - script: |
+              mkdir $(LLVM_INSTALL_PREFIX)
+              mkdir $(DEPS_INSTALL_PREFIX)
+            displayName: Make Directories
+          - powershell: |
+              # todo put into actual script
+              echo "current driectory is: $(pwd)"
+              echo "ls $(ls)"
+              wget -q https://github.com/sys-bio/llvm-6.x/releases/download/release%2F6.x/llvm-6.x-clang11.0.3-x64-release.zip
+              unzip llvm-6.x-clang11.0.3-x64-release.zip
+              mv llvm-6.x-clang11.0.3-x64-release/** '$(LLVM_INSTALL_PREFIX)'
+              echo "cd to LLVM_INSTALL_PREFIX: $(LLVM_INSTALL_PREFIX)"
+              cd $(LLVM_INSTALL_PREFIX)
+              echo "ls:"
+              ls
+            displayName: "Get LLVM"
+          - task: DownloadPipelineArtifact@2
+            inputs:
+              source: 'specific'
+              project: 'libroadrunner-deps'
+              pipeline: 9
+              runVersion: 'latest'
+              artifact: libroadrunner-deps-$(Agent.OS)-$(BuildType)
+              path: $(DEPS_INSTALL_PREFIX)
+            displayName: Download libroadrunner-deps install artifacts
+          - powershell: |
+              echo "$(DEPS_INSTALL_PREFIX)"
+              echo "cd to $(DEPS_INSTALL_PREFIX)"
+              cd $(DEPS_INSTALL_PREFIX)
+              echo "ls: "
+              ls
+              echo "moving contents of $(DEPS_INSTALL_PREFIX)/install to  $(DEPS_INSTALL_PREFIX)"
+              mv $(DEPS_INSTALL_PREFIX)/install-azure/$(BuildType)/** .
+              rm -R $(DEPS_INSTALL_PREFIX)/install-azure
+              ls
+            displayName: Move Dependencies
+          - powershell: |
+              echo "Configuring roadrunner"
+              echo "mkdir build directory: $(BUILD_DIR)"
+              mkdir $(BUILD_DIR)
+              echo "CD to build dir: $(BUILD_DIR)"
+              cd $(BUILD_DIR)
+              cmake -DLLVM_INSTALL_PREFIX=$(LLVM_INSTALL_PREFIX) -DRR_DEPENDENCIES_INSTALL_PREFIX=$(DEPS_INSTALL_PREFIX) -DBUILD_TESTS=ON -DCMAKE_INSTALL_PREFIX=$(INSTALL_DIR) -DBUILD_RR_PLUGINS=ON -DBUILD_RR_CAPI=ON -DCMAKE_BUILD_TYPE=$(BuildType) ..
+            displayName: Run CMake Configure Command
+          - powershell: |
+              echo "Building roadrunner"
+              echo "cd to build dir"
+              cd $(BUILD_DIR)
+              cmake --build . --target install --config $(BuildType) -j 12
+            displayName: Run CMake Build Command
+          - powershell: |
+              echo "cd to build dir $(BUILD_DIR)"
+              cd $(BUILD_DIR)
+              ctest --verbose --extra-verbose --progress
+            displayName: RunCTest
+          - task: CopyFiles@2
+            inputs:
+              contents: '$(INSTALL_DIR)/**'
+              targetFolder: $(Build.ArtifactStagingDirectory)
+            displayName: Copy to Staging Area
+          - publish: $(Build.ArtifactStagingDirectory)
+            artifact: _roadrunner-$(Agent.OS)-$(BuildType)
+            displayName: Publish
+
+
+  - stage: WindowsBuildRoadrunnerPython
+    dependsOn: []
+    jobs:
+      - job: WindowsBuildRoadrunnerPython
+        timeoutInMinutes: "0"
+        displayName: WindowsBuildRoadrunnerPython
+        continueOnError: "false"
+        pool:
+          vmImage: 'windows-2019'
+        strategy:
+          matrix:
+            py36:
+              PythonVersion: 3.6
+              PythonName: py36
+            py37:
+              PythonVersion: 3.7
+              PythonName: py37
+            py38:
+              PythonVersion: 3.8
+              PythonName: py38
+        variables:
+          MinicondaRoot : 'C:\miniconda'
+          PythonRoot: '$(MinicondaRoot)\envs\$(PythonName)'
+          PythonLibDir: '$(PythonRoot)\lib'
+          PythonExecutable: '$(PythonRoot)\bin\python'
+        steps:
+          - powershell: Write-Host "##vso[task.prependpath]$env:CONDA\Scripts"
+            displayName: Add conda to PATH
+          - powershell: |
+              echo "PythonVersion $(PythonVersion)"
+              echo "PythonName $(PythonName)"
+              echo "MinicondaRoot $(MinicondaRoot)"
+              echo "PythonRoot $(PythonRoot)"
+              echo "PythonLibDir $(PythonLibDir)"
+            displayName: PrintPythonVariables
+          - powershell: |
+              mkdir $(LLVM_INSTALL_PREFIX)
+              mkdir $(DEPS_INSTALL_PREFIX)
+            displayName: Make Directories
+          - powershell: |
+              # todo put into actual script
+              echo "current driectory is: $(pwd)"
+              echo "ls $(ls)"
+              wget -q https://github.com/sys-bio/llvm-6.x/releases/download/release%2F6.x/llvm-6.x-clang11.0.3-x64-release.zip
+              unzip llvm-6.x-clang11.0.3-x64-release.zip
+              mv llvm-6.x-clang11.0.3-x64-release/** '$(LLVM_INSTALL_PREFIX)'
+              echo "cd to LLVM_INSTALL_PREFIX: $(LLVM_INSTALL_PREFIX)"
+              cd $(LLVM_INSTALL_PREFIX)
+              echo "ls:"
+              ls
+            displayName: "Get LLVM"
+          - task: DownloadPipelineArtifact@2
+            inputs:
+              source: 'specific'
+              project: 'libroadrunner-deps'
+              pipeline: 9
+              runVersion: 'latest'
+              artifact: libroadrunner-deps-$(Agent.OS)-Release
+              path: $(DEPS_INSTALL_PREFIX)
+            displayName: Download libroadrunner-deps install artifacts
+          - powershell: |
+              echo "$(DEPS_INSTALL_PREFIX)"
+              echo "cd to $(DEPS_INSTALL_PREFIX)"
+              cd $(DEPS_INSTALL_PREFIX)
+              echo "ls: "
+              ls
+              echo "moving contents of $(DEPS_INSTALL_PREFIX)/install to  $(DEPS_INSTALL_PREFIX)"
+              mv $(DEPS_INSTALL_PREFIX)/install-azure/Release/** .
+              rm -r $(DEPS_INSTALL_PREFIX)/install-azure
+              ls
+            displayName: Move Dependencies
+          - powershell: |
+              echo "installing pcre"
+              sudo apt install -y libpcre3 libpcre3-dev
+              mkdir -p $(SWIG_SOURCE_DIR)
+              echo "cd to swig source dir: $(SWIG_SOURCE_DIR)"
+              cd $(SWIG_SOURCE_DIR)
+              echo "ls"
+              ls -lh
+              wget -q https://sourceforge.net/projects/swig/files/swig/swig-3.0.0/swig-3.0.0.tar.gz $(SWIG_SOURCE_DIR)
+              tar -xf swig-3.0.0.tar.gz
+              ls -lh
+              echo "Copying swig content from swig-3.0.0 to SWIG_SOURCE_DIR"
+              mv swig-3.0.0/** $(SWIG_SOURCE_DIR)
+              echo "ls"
+              ls -lh
+              echo "ls in swig source dir $(SWIG_SOURCE_DIR)"
+              ls -lh
+              ./configure --prefix=$(SWIG_INSTALL_PREFIX)
+              make -j 12
+              make install
+              echo "ls in swig source dir $(SWIG_SOURCE_DIR)"
+              ls
+              echo "cd to swig install dir: $(SWIG_INSTALL_PREFIX)"
+              cd $(SWIG_INSTALL_PREFIX)
+              echo "ls from SWIG_INSTALL_PREFIX: $(SWIG_INSTALL_PREFIX)"
+              ls
+              if [ ! -f "$(SWIG_EXECUTABLE)" ]; then
+                echo "did not locate swig executable, exiting"
+                exit
+              fi
+            displayName: Install Swig
+          - powershell: |
+              mkdir -p $(SOURCE_DIR)
+              mkdir -p $(BUILD_DIR)
+              mkdir -p $(INSTALL_DIR)
+            displayName: Make directories
+          - powershell: |
+              echo "cd to source dir: $(SOURCE_DIR)"
+              cd $(SOURCE_DIR)
+              echo "ls"
+              ls
+              eval "$(conda shell.bash hook)"
+              conda create --quiet --yes --name $(PythonName) python=$(PythonVersion)
+              source activate $(PythonName)
+              conda install --yes --quiet nose numpy
+              echo "which python: $(which python)"
+              echo "which conda: $(which conda)"
+              python_exe="$(which python)"
+              python_dir="$(dirname $(which python))"
+              echo "python_dir == $python_dir"
+              echo "Variable PythonRoot set to $(PythonRoot)"
+              echo "cd to build dir $(BUILD_DIR)"
+              cd $(BUILD_DIR)
+              ls
+              export LD_LIBRARY_PATH=$(PythonLibDir)
+              cmake -DLLVM_INSTALL_PREFIX=$(LLVM_INSTALL_PREFIX) -DRR_DEPENDENCIES_INSTALL_PREFIX=$(DEPS_INSTALL_PREFIX) -DBUILD_TESTS=ON -DCMAKE_INSTALL_PREFIX=$(INSTALL_DIR) -DBUILD_RR_PLUGINS=ON -DBUILD_RR_CAPI=ON -DCMAKE_BUILD_TYPE=Release -DBUILD_PYTHON=ON -DPython_ROOT_DIR=$(PythonRoot) -DSWIG_EXECUTABLE=$(SWIG_EXECUTABLE) ..
+              cmake --build . --target install --config Release -j 12
+            displayName: BuildRoadrunnerWithPython
+          - powershell: |
+              eval "$(conda shell.bash hook)"
+              source activate $(PythonName)
+              echo "LD_LIBRARY_PATH $LD_LIBRARY_PATH"
+              export LD_LIBRARY_PATH=$(PythonLibDir)
+              echo "which python: $(which python)"
+              echo "which conda: $(which conda)"
+              echo "cd to isntall dir: $(INSTALL_DIR)"
+              cd $(INSTALL_DIR)
+              echo "ls in install dir"
+              ls
+              $(PythonExecutable) site-packages/roadrunner/testing/__main__.py
+            displayName: RunPythonTests
+          - powershell: |
+              # todo workout whether the top few lines are needed now I'm using $(PythonExecutable)
+              eval "$(conda shell.bash hook)"
+              source activate $(PythonName)
+              echo "which python: $(which python)"
+              echo "which conda: $(which conda)"
+              python_exe="$(which python)"
+              echo "cd to isntall dir: $(INSTALL_DIR)"
+              cd $(INSTALL_DIR)
+              echo "ls in install dir"
+              ls
+              $(PythonExecutable) setup.py bdist_wheel
+              $(PythonExecutable) setup_rrplugins.py bdist_wheel
+            displayName: Generate pip wheel
+
+          - task: CopyFiles@2
+            inputs:
+              contents: '$(INSTALL_DIR)/**'
+              targetFolder: $(Build.ArtifactStagingDirectory)/Install-$(PythonName)
+            displayName: Copy Install Tree to Staging Area
+          - task: CopyFiles@2
+            inputs:
+              contents: '$(INSTALL_DIR)/dist/**'
+              targetFolder: $(Build.ArtifactStagingDirectory)/pip-wheels
+            displayName: Copy Pip Wheels to Staging Area
+          - publish: $(Build.ArtifactStagingDirectory)
+            artifact: PipWheels-$(Agent.OS)-$(PythonName)
+            displayName: Publish Pip Wheels Artifacts
 
 
 
