@@ -24,14 +24,14 @@ variables:
   SWIG_EXECUTABLE: '$(SWIG_INSTALL_PREFIX)/bin/swig'
 
 stages:
-  - stage: LinuxBuild
+  - stage: Build
     jobs:
-      - job: Build
+      - job: Build-$(Agent.OS)
         timeoutInMinutes: "0"
-        displayName: LinuxBuild
+        displayName: $(Agent.OS) Build
         continueOnError: "false"
         pool:
-          vmImage: "ubuntu-18.04"
+          vmImage: $(ImageName)
         strategy:
           matrix:
             64-bit Linux Release:
@@ -200,11 +200,21 @@ stages:
             py38:
               PythonVersion: 3.8
               PythonName: py38
+        variables:
+          MinicondaRoot : '/usr/share/miniconda'
+          PythonRoot: '$(MinicondaRoot)/envs/$(PythonName)'
+          PythonLibDir: '$(PythonRoot)/lib'
         steps:
           - checkout: 'none'
           - bash: echo "##vso[task.prependpath]$CONDA/bin"
             displayName: Add conda to PATH
-
+          - script: |
+              echo "PythonVersion $(PythonVersion)"
+              echo "PythonName $(PythonName)"
+              echo "MinicondaRoot $(MinicondaRoot)"
+              echo "PythonRoot $(PythonRoot)"
+              echo "PythonLibDir $(PythonLibDir)"
+            displayName: PrintVariables
           - script: |
               echo "installing pcre"
               sudo apt install -y libpcre3 libpcre3-dev
@@ -272,14 +282,16 @@ stages:
               echo "python_dir == $python_dir"
               echo "cd to build dir $(BUILD_DIR)"
               cd $(BUILD_DIR)
-
               ls
+              export LD_LIBRARY_PATH=$(PythonLibDir)
               cmake -DLLVM_INSTALL_PREFIX=$(LLVM_INSTALL_PREFIX) -DRR_DEPENDENCIES_INSTALL_PREFIX=$(DEPS_INSTALL_PREFIX) -DBUILD_TESTS=ON -DCMAKE_INSTALL_PREFIX=$(INSTALL_DIR) -DBUILD_RR_PLUGINS=ON -DBUILD_RR_CAPI=ON -DCMAKE_BUILD_TYPE=Release -DBUILD_PYTHON=ON -DPython_ROOT_DIR=$python_dir -DSWIG_EXECUTABLE=$(SWIG_EXECUTABLE) ..
               cmake --build . --target install --config Release -j 12
             displayName: BuildRoadrunnerWithTests
           - script: |
               eval "$(conda shell.bash hook)"
               conda activate $(PythonName)
+              echo "LD_LIBRARY_PATH $LD_LIBRARY_PATH"
+              export LD_LIBRARY_PATH=$(PythonLibDir)
               echo "which python: $(which python)"
               echo "which conda: $(which conda)"
               python_exe="$(which python)"
@@ -287,7 +299,7 @@ stages:
               cd $(INSTALL_DIR)
               echo "ls in install dir"
               ls
-              $python_exe site-packages/roadrunner/testing/__main__.py
+              python site-packages/roadrunner/testing/__main__.py
             displayName: RunPythonTests
           - script: |
               eval "$(conda shell.bash hook)"
@@ -299,8 +311,8 @@ stages:
               cd $(INSTALL_DIR)
               echo "ls in install dir"
               ls
-              $python_exe setup.py bdist_wheel
-              $python_exe setup_rrplugins.py bdist_wheel
+              python setup.py bdist_wheel
+              python setup_rrplugins.py bdist_wheel
             displayName: Generate pip wheel
 
 
