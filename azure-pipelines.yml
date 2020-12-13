@@ -207,7 +207,7 @@ stages:
           MinicondaRoot : '/usr/share/miniconda'
           PythonRoot: '$(MinicondaRoot)/envs/$(PythonName)'
           PythonLibDir: '$(PythonRoot)/lib'
-          PythonExecutable: '$(PythonRoot)/python'
+          PythonExecutable: '$(PythonRoot)/bin/python'
         steps:
           - bash: echo "##vso[task.prependpath]$CONDA/bin"
             displayName: Add conda to PATH
