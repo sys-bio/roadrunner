@@ -24,14 +24,14 @@ variables:
   SWIG_EXECUTABLE: '$(SWIG_INSTALL_PREFIX)/bin/swig'
 
 stages:
-  - stage: LinuxBuild
+  - stage: Build
     jobs:
-      - job: LinuxBuild
+      - job: Build-$(Agent.OS)
         timeoutInMinutes: "0"
         displayName: $(Agent.OS) Build
         continueOnError: "false"
         pool:
-          vmImage: $(ImageName)
+          vmImage: 'Ubuntu-20.04'
         strategy:
           matrix:
             64-bit Linux Release:
