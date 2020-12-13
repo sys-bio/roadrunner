@@ -97,7 +97,7 @@ stages:
               echo "ls:"
               ls
             displayName: "Get LLVM"
-          - task: DownloadPipelineArtifact@2
+          - task: DownloadBuildArtifacts@0
             inputs:
               source: 'specific'
               project: 'libroadrunner-deps'
@@ -196,7 +196,7 @@ stages:
               echo "ls:"
               ls
             displayName: "Get LLVM"
-          - task: DownloadPipelineArtifact@2
+          - task: DownloadBuildArtifacts@0
             inputs:
               source: 'specific'
               project: 'libroadrunner-deps'
@@ -388,7 +388,7 @@ stages:
               echo "ls:"
               ls
             displayName: "Get LLVM"
-          - task: DownloadBuildArtifact@2
+          - task: DownloadBuildArtifacts@0
             inputs:
               source: 'specific'
               project: 'libroadrunner-deps'
@@ -491,7 +491,7 @@ stages:
               echo "ls:"
               ls
             displayName: "Get LLVM"
-          - task: DownloadBuildArtifact@2
+          - task: DownloadBuildArtifacts@0
             inputs:
               source: 'specific'
               project: 'libroadrunner-deps'
