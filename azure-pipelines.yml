@@ -457,7 +457,7 @@ stages:
               PythonVersion: 3.8
               PythonName: py38
         variables:
-          MinicondaRoot : '/usr/share/miniconda'
+          MinicondaRoot : '/usr/local/miniconda'
           PythonRoot: '$(MinicondaRoot)/envs/$(PythonName)'
           PythonLibDir: '$(PythonRoot)/lib'
           PythonExecutable: '$(PythonRoot)/bin/python'
