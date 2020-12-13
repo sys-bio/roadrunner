@@ -21,7 +21,7 @@ variables:
   DEPS_INSTALL_PREFIX: '$(SOURCE_DIR)/libroadrunner-deps' # e.g./home/vsts/work/1
   SWIG_SOURCE_DIR: '$(SOURCE_DIR)/swig'
   SWIG_INSTALL_PREFIX: '$(SWIG_SOURCE_DIR)/install-azure'
-  SWIG_EXECUTABLE: '$(SWIG_INSTALL_PREFIX)/swig'
+  SWIG_EXECUTABLE: '$(SWIG_INSTALL_PREFIX)/bin/swig'
 
 stages:
   - stage: LinuxBuild
@@ -83,6 +83,7 @@ stages:
               mkdir $(DEPS_INSTALL_PREFIX)
             displayName: Make Directories
           - script: |
+              # todo put into actual script
               echo "current driectory is: $(pwd)"
               echo "ls $(ls)"
               wget -q https://github.com/sys-bio/llvm-6.x/releases/download/release%2F6.x/llvm-6.x-gcc7.5-x64-release.tar.gz
