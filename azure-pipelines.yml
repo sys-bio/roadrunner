@@ -468,8 +468,6 @@ stages:
           # We need to take ownership if we want to update conda or install packages globally
           - bash: sudo chown -R $USER $CONDA
             displayName: Take ownership of conda installation
-          - bash: conda update conda && conda update anaconda
-            displayName: Update Conda
           - script: |
               echo "PythonVersion $(PythonVersion)"
               echo "PythonName $(PythonName)"
