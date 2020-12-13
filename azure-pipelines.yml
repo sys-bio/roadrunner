@@ -348,15 +348,15 @@ stages:
             inputs:
               contents: '$(INSTALL_DIR)/**'
               targetFolder: $(Build.ArtifactStagingDirectory)/Install-$(PythonName)
-            displayName: Copy to Staging Area
+            displayName: Copy Install Tree to Staging Area
           - task: CopyFiles@2
             inputs:
               contents: '$(INSTALL_DIR)/dist/*'
               targetFolder: $(Build.ArtifactStagingDirectory)/pip-wheels
-            displayName: Copy to Staging Area
+            displayName: Copy Pip Wheels to Staging Area
           - publish: $(Build.ArtifactStagingDirectory)
-            artifact: roadrunner-install-$(Agent.OS)
-            displayName: Publish
+            artifact: roadrunner-$(Agent.OS)-$(PythonName)
+            displayName: Publish Installed Atrifacts
 
 
 
