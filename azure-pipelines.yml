@@ -82,7 +82,8 @@ stages:
               mkdir $(LLVM_INSTALL_PREFIX)
               mkdir $(DEPS_INSTALL_PREFIX)
             displayName: Make Directories
-          - script: azure-pipelines/get_llvm.sh
+          - script: |
+              bash azure-pipelines/get_llvm.sh
             displayName: "Get LLVM"
           - task: DownloadPipelineArtifact@2
             inputs:
