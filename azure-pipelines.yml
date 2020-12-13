@@ -152,6 +152,7 @@ stages:
               BuildType: Release
             64-bit Linux Debug:
               BuildType: Debug
+
         steps:
           - checkout: 'none'
           - script: |
@@ -165,6 +166,8 @@ stages:
               artifact: roadrunner-$(Agent.OS)-$(BuildType)
               # copy into parent of where you want it.
               path: '$(SOURCE_DIR)'
+          - script: sudo apt install -y libtinfo5
+            displayName: Install system deps (for ubuntu 20.04)
           - script: |
               echo "Ensure tests have execute permission"
               echo "cd to source dir: $(SOURCE_DIR)"
@@ -314,18 +317,19 @@ stages:
               python setup.py bdist_wheel
               python setup_rrplugins.py bdist_wheel
             displayName: Generate pip wheel
-
-
-
-
-            #          - task: CopyFiles@2
-#            inputs:
-#              contents: '$(INSTALL_DIR)/**'
-#              targetFolder: $(Build.ArtifactStagingDirectory)
-#            displayName: Copy to Staging Area
-#          - publish: $(Build.ArtifactStagingDirectory)
-#            artifact: roadrunner-install-$(Agent.OS)
-#            displayName: Publish
+          - task: CopyFiles@2
+            inputs:
+              contents: '$(INSTALL_DIR)/**'
+              targetFolder: $(Build.ArtifactStagingDirectory)/Install-$(PythonName)
+            displayName: Copy to Staging Area
+          - task: CopyFiles@2
+            inputs:
+              contents: '$(INSTALL_DIR)/dist/*'
+              targetFolder: $(Build.ArtifactStagingDirectory)/pip-wheels
+            displayName: Copy to Staging Area
+          - publish: $(Build.ArtifactStagingDirectory)
+            artifact: roadrunner-install-$(Agent.OS)-$(PythonName)
+            displayName: Publish
 
 
 
