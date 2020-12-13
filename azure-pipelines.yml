@@ -24,9 +24,9 @@ variables:
   SWIG_EXECUTABLE: '$(SWIG_INSTALL_PREFIX)/bin/swig'
 
 stages:
-  - stage: Build
+  - stage: LinuxBuild
     jobs:
-      - job: Build-$(Agent.OS)
+      - job: LinuxBuild
         timeoutInMinutes: "0"
         displayName: $(Agent.OS) Build
         continueOnError: "false"
