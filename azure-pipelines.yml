@@ -133,14 +133,14 @@ stages:
               cd $(BUILD_DIR)
               ctest --verbose --extra-verbose --progress
             displayName: RunCTest
-#          - task: CopyFiles@2
-#            inputs:
-#              contents: '$(SOURCE_DIR)/**'
-#              targetFolder: $(Build.ArtifactStagingDirectory)
-#            displayName: Copy to Staging Area
-#          - publish: $(Build.ArtifactStagingDirectory)
-#            artifact: _roadrunner-$(Agent.OS)-$(BuildType)
-#            displayName: Publish
+          - task: CopyFiles@2
+            inputs:
+              contents: '$(INSTALL_DIR)/**'
+              targetFolder: $(Build.ArtifactStagingDirectory)
+            displayName: Copy to Staging Area
+          - publish: $(Build.ArtifactStagingDirectory)
+            artifact: _roadrunner-$(Agent.OS)-$(BuildType)
+            displayName: Publish
 
 #  - stage: TestRoadrunnerC
 #    dependsOn: LinuxBuildRoadrunnerCpp
