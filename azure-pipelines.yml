@@ -355,7 +355,7 @@ stages:
               contents: '$(INSTALL_DIR)/dist/**'
               targetFolder: $(Build.ArtifactStagingDirectory)/pip-wheels
             displayName: Copy Pip Wheels to Staging Area
-          - publish: $(Build.ArtifactStagingDirectory)/pip-wheels
+          - publish: $(Build.ArtifactStagingDirectory)
             artifact: PipWheels-$(Agent.OS)-$(PythonName)
             displayName: Publish Pip Wheels Atrifacts
 
