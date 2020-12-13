@@ -633,7 +633,7 @@ stages:
             64-bit Windows Debug:
               BuildType: Debug
         steps:
-          - script: |
+          - powershell: |
               echo "SOURCE_DIR $(SOURCE_DIR)"
               echo "BUILD_DIR $(BUILD_DIR)"
               echo "INSTALL_DIR $(INSTALL_DIR)"
@@ -670,7 +670,7 @@ stages:
               echo "System.TeamProjectId $(System.TeamProjectId)"
               echo "TF_BUILD $(TF_BUILD)"
             displayName: Print Variables
-          - script: |
+          - powershell: |
               mkdir $(LLVM_INSTALL_PREFIX)
               mkdir $(DEPS_INSTALL_PREFIX)
             displayName: Make Directories
