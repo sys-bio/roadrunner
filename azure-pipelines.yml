@@ -668,17 +668,16 @@ stages:
               mkdir $(DEPS_INSTALL_PREFIX)
             displayName: Make Directories
           - powershell: |
-              # todo put into actual script
-              echo "current driectory is: $(pwd)"
-              echo "ls $(ls)"
-              wget -q https://github.com/sys-bio/llvm-6.x/releases/download/release%2F6.x/llvm-6.x-clang11.0.3-x64-release.zip
-              unzip llvm-6.x-clang11.0.3-x64-release.zip
-              mv llvm-6.x-clang11.0.3-x64-release/** '$(LLVM_INSTALL_PREFIX)'
-              echo "cd to LLVM_INSTALL_PREFIX: $(LLVM_INSTALL_PREFIX)"
-              cd $(LLVM_INSTALL_PREFIX)
-              echo "ls:"
-              ls
+              $ProgressPreference = 'SilentlyContinue'
+              Invoke-WebRequest $(llvm_link) -OutFile $(llvm_zip)
+              Expand-Archive  $(llvm_zip) -Destination .
+              rm $(llvm_zip) # since we are limited to 10gb space per job we clean up zips
+              echo "pwd: $(pwd)"
+              dir
+              cd '$(llvm_install)'
+              dir
             displayName: "Get LLVM"
+            errorActionPreference: 'stop'
           - task: DownloadPipelineArtifact@2
             inputs:
               source: 'specific'
@@ -768,17 +767,16 @@ stages:
               mkdir $(DEPS_INSTALL_PREFIX)
             displayName: Make Directories
           - powershell: |
-              # todo put into actual script
-              echo "current driectory is: $(pwd)"
-              echo "ls $(ls)"
-              wget -q https://github.com/sys-bio/llvm-6.x/releases/download/release%2F6.x/llvm-6.x-clang11.0.3-x64-release.zip
-              unzip llvm-6.x-clang11.0.3-x64-release.zip
-              mv llvm-6.x-clang11.0.3-x64-release/** '$(LLVM_INSTALL_PREFIX)'
-              echo "cd to LLVM_INSTALL_PREFIX: $(LLVM_INSTALL_PREFIX)"
-              cd $(LLVM_INSTALL_PREFIX)
-              echo "ls:"
-              ls
+              $ProgressPreference = 'SilentlyContinue'
+              Invoke-WebRequest $(llvm_link) -OutFile $(llvm_zip)
+              Expand-Archive  $(llvm_zip) -Destination .
+              rm $(llvm_zip) # since we are limited to 10gb space per job we clean up zips
+              echo "pwd: $(pwd)"
+              dir
+              cd '$(llvm_install)'
+              dir
             displayName: "Get LLVM"
+            errorActionPreference: 'stop'
           - task: DownloadPipelineArtifact@2
             inputs:
               source: 'specific'
