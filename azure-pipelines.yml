@@ -757,10 +757,9 @@ stages:
           PythonLibDir: '$(PythonRoot)\lib'
           PythonExecutable: '$(PythonRoot)\bin\python'
 
-          llvm_install: llvm-6.x-msvc2019-x64-release
-          rr_deps_link: https://github.com/CiaranWelsh/roadrunner-deps/releases/download/v2.0.1/roadrunner-deps-msvc2019-x64-release.zip
-          rr_deps_zip: roadrunner_deps-msvc2019-x64-release.zip
-          rr_deps_install: roadrunner-deps-msvc2019-x64-release
+          # override the variable for swigwin since swig exe is in different place
+          SWIG_EXECUTABLE: '$(SWIG_INSTALL_PREFIX)/swig'
+
         steps:
           - powershell: Write-Host "##vso[task.prependpath]$env:CONDA\Scripts"
             displayName: Add conda to PATH
@@ -780,13 +779,14 @@ stages:
               Invoke-WebRequest https://github.com/sys-bio/llvm-6.x/releases/download/release%2F6.x/llvm-6.x-msvc2019-x64-release.zip -OutFile llvm-6.x-msvc2019-x64-release.zip
               Expand-Archive  llvm-6.x-msvc2019-x64-release.zip -Destination $(LLVM_INSTALL_PREFIX)
               rm llvm-6.x-msvc2019-x64-release.zip # since we are limited to 10gb space per job we clean up zips
-              cd $(LLVM_INSTALL_PREFIX)/llvm-6.x-msvc2019-x64-release
+              cd $(LLVM_INSTALL_PREFIX)\llvm-6.x-msvc2019-x64-release
               echo "pwd: $(pwd)"
               ls
-              cp * ..
+              mv * ..
               cd ..
               rm -R llvm-6.x-msvc2019-x64-release
               echo "ls in l_dir: $(LLVM_INSTALL_PREFIX)"
+              ls
             displayName: "Get LLVM"
             errorActionPreference: 'stop'
           - task: DownloadPipelineArtifact@2
@@ -810,35 +810,21 @@ stages:
               ls
             displayName: Move Dependencies
           - powershell: |
-              echo "installing pcre"
-              sudo apt install -y libpcre3 libpcre3-dev
-              mkdir -p $(SWIG_SOURCE_DIR)
               echo "cd to swig source dir: $(SWIG_SOURCE_DIR)"
               cd $(SWIG_SOURCE_DIR)
               echo "ls"
               ls -lh
-              wget -q https://sourceforge.net/projects/swig/files/swig/swig-3.0.0/swig-3.0.0.tar.gz $(SWIG_SOURCE_DIR)
-              tar -xf swig-3.0.0.tar.gz
-              ls -lh
-              echo "Copying swig content from swig-3.0.0 to SWIG_SOURCE_DIR"
-              mv swig-3.0.0/** $(SWIG_SOURCE_DIR)
-              echo "ls"
-              ls -lh
-              echo "ls in swig source dir $(SWIG_SOURCE_DIR)"
-              ls -lh
-              ./configure --prefix=$(SWIG_INSTALL_PREFIX)
-              make -j 12
-              make install
-              echo "ls in swig source dir $(SWIG_SOURCE_DIR)"
-              ls
-              echo "cd to swig install dir: $(SWIG_INSTALL_PREFIX)"
+              Invoke-WebRequest "https://downloads.sourceforge.net/project/swig/swigwin/swigwin-3.0.0/swigwin-3.0.0.zip?r=https%3A%2F%2Fsourceforge.net%2Fprojects%2Fswig%2Ffiles%2Fswigwin%2Fswigwin-3.0.0%2Fswigwin-3.0.0.zip%2Fdownload&ts=1607955177" -OutFile swigwin-3.0.0.zip
+              Expand-Archive swigwin-3.0.0.zip -Destination $(SWIG_INSTALL_PREFIX)
+              echo "CD to swig install prefix $(SWIG_INSTALL_PREFIX)"
               cd $(SWIG_INSTALL_PREFIX)
-              echo "ls from SWIG_INSTALL_PREFIX: $(SWIG_INSTALL_PREFIX)"
+              echo "ls"
               ls
-              if [ ! -f "$(SWIG_EXECUTABLE)" ]; then
-                echo "did not locate swig executable, exiting"
-                exit
-              fi
+              cd swigwin-3.0.0
+              mv * ..
+              cd ..
+              rm -R swigwin-3.0.0
+              # Note: swig is already built when we download on windows.
             displayName: Install Swig
           - powershell: |
               mkdir -p $(SOURCE_DIR)
@@ -850,20 +836,18 @@ stages:
               cd $(SOURCE_DIR)
               echo "ls"
               ls
-              eval "$(conda shell.bash hook)"
               conda create --quiet --yes --name $(PythonName) python=$(PythonVersion)
-              source activate $(PythonName)
+              conda activate $(PythonName)
               conda install --yes --quiet nose numpy
               echo "which python: $(which python)"
               echo "which conda: $(which conda)"
-              python_exe="$(which python)"
-              python_dir="$(dirname $(which python))"
+              python_exe="$(where.exe python)"
               echo "python_dir == $python_dir"
               echo "Variable PythonRoot set to $(PythonRoot)"
               echo "cd to build dir $(BUILD_DIR)"
               cd $(BUILD_DIR)
               ls
-              export LD_LIBRARY_PATH=$(PythonLibDir)
+#              export LD_LIBRARY_PATH=$(PythonLibDir)
               cmake -DLLVM_INSTALL_PREFIX=$(LLVM_INSTALL_PREFIX) -DRR_DEPENDENCIES_INSTALL_PREFIX=$(DEPS_INSTALL_PREFIX) -DBUILD_TESTS=ON -DCMAKE_INSTALL_PREFIX=$(INSTALL_DIR) -DBUILD_RR_PLUGINS=ON -DBUILD_RR_CAPI=ON -DCMAKE_BUILD_TYPE=Release -DBUILD_PYTHON=ON -DPython_ROOT_DIR=$(PythonRoot) -DSWIG_EXECUTABLE=$(SWIG_EXECUTABLE) ..
               cmake --build . --target install --config Release -j 12
             displayName: BuildRoadrunnerWithPython
