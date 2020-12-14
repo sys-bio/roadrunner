@@ -469,6 +469,8 @@ stages:
           - bash: sudo chown -R $USER $CONDA
             displayName: Take ownership of conda installation
           - script: |
+              which conda
+              which python
               echo "PythonVersion $(PythonVersion)"
               echo "PythonName $(PythonName)"
               echo "MinicondaRoot $(MinicondaRoot)"
@@ -854,6 +856,10 @@ stages:
               conda activate $(PythonName)
               echo "cd to isntall dir: $(INSTALL_DIR)"
               cd $(INSTALL_DIR)
+              echo "where python?"
+              where.exe python
+              echo "python exe $(PythonExecutable)"
+              $(PythonExecutable)
               echo "ls in install dir"
               ls
               $(PythonExecutable) site-packages/roadrunner/testing/__main__.py
