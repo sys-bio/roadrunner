@@ -752,6 +752,11 @@ stages:
           PythonRoot: '$(MinicondaRoot)\envs\$(PythonName)'
           PythonLibDir: '$(PythonRoot)\lib'
           PythonExecutable: '$(PythonRoot)\bin\python'
+
+          llvm_install: llvm-6.x-msvc2019-x64-release
+          rr_deps_link: https://github.com/CiaranWelsh/roadrunner-deps/releases/download/v2.0.1/roadrunner-deps-msvc2019-x64-release.zip
+          rr_deps_zip: roadrunner_deps-msvc2019-x64-release.zip
+          rr_deps_install: roadrunner-deps-msvc2019-x64-release
         steps:
           - powershell: Write-Host "##vso[task.prependpath]$env:CONDA\Scripts"
             displayName: Add conda to PATH
@@ -768,13 +773,14 @@ stages:
             displayName: Make Directories
           - powershell: |
               $ProgressPreference = 'SilentlyContinue'
-              Invoke-WebRequest $(llvm_link) -OutFile $(llvm_zip)
-              Expand-Archive  $(llvm_zip) -Destination .
-              rm $(llvm_zip) # since we are limited to 10gb space per job we clean up zips
+              Invoke-WebRequest https://github.com/sys-bio/llvm-6.x/releases/download/release%2F6.x/llvm-6.x-msvc2019-x64-release.zip -OutFile llvm-6.x-msvc2019-x64-release.zip
+              Expand-Archive  llvm-6.x-msvc2019-x64-release.zip -Destination $(LLVM_INSTALL_PREFIX)
+              rm llvm-6.x-msvc2019-x64-release.zip # since we are limited to 10gb space per job we clean up zips
+              cd llvm-6.x-msvc2019-x64-release
               echo "pwd: $(pwd)"
               dir
-              cd '$(llvm_install)'
-              dir
+              cd '$(LLVM_INSTALL_PREFIX)'
+              ls
             displayName: "Get LLVM"
             errorActionPreference: 'stop'
           - task: DownloadPipelineArtifact@2
