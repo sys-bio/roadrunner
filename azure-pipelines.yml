@@ -814,7 +814,7 @@ stages:
               echo "cd to swig source dir: $(SWIG_SOURCE_DIR)"
               cd $(SWIG_SOURCE_DIR)
               echo "ls"
-              ls -lh
+              ls
               Invoke-WebRequest "https://downloads.sourceforge.net/project/swig/swigwin/swigwin-3.0.0/swigwin-3.0.0.zip?r=https%3A%2F%2Fsourceforge.net%2Fprojects%2Fswig%2Ffiles%2Fswigwin%2Fswigwin-3.0.0%2Fswigwin-3.0.0.zip%2Fdownload&ts=1607955177" -OutFile swigwin-3.0.0.zip
               Expand-Archive swigwin-3.0.0.zip -Destination $(SWIG_INSTALL_PREFIX)
               echo "CD to swig install prefix $(SWIG_INSTALL_PREFIX)"
