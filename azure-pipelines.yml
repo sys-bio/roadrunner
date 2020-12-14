@@ -840,25 +840,15 @@ stages:
               conda create --quiet --yes --name $(PythonName) python=$(PythonVersion)
               conda activate $(PythonName)
               conda install --yes --quiet nose numpy
-              echo "which python: $(which python)"
-              echo "which conda: $(which conda)"
-              python_exe="$(where.exe python)"
-              echo "python_dir == $python_dir"
               echo "Variable PythonRoot set to $(PythonRoot)"
               echo "cd to build dir $(BUILD_DIR)"
               cd $(BUILD_DIR)
               ls
-              #export LD_LIBRARY_PATH=$(PythonLibDir)
               cmake -DLLVM_INSTALL_PREFIX=$(LLVM_INSTALL_PREFIX) -DRR_DEPENDENCIES_INSTALL_PREFIX=$(DEPS_INSTALL_PREFIX) -DBUILD_TESTS=ON -DCMAKE_INSTALL_PREFIX=$(INSTALL_DIR) -DBUILD_RR_PLUGINS=ON -DBUILD_RR_CAPI=ON -DCMAKE_BUILD_TYPE=Release -DBUILD_PYTHON=ON -DPython_ROOT_DIR=$(PythonRoot) -DSWIG_EXECUTABLE=$(SWIG_EXECUTABLE) ..
               cmake --build . --target install --config Release -j 12
             displayName: BuildRoadrunnerWithPython
           - powershell: |
-              eval "$(conda shell.bash hook)"
-              source activate $(PythonName)
-              echo "LD_LIBRARY_PATH $LD_LIBRARY_PATH"
-              export LD_LIBRARY_PATH=$(PythonLibDir)
-              echo "which python: $(which python)"
-              echo "which conda: $(which conda)"
+              conda activate $(PythonName)
               echo "cd to isntall dir: $(INSTALL_DIR)"
               cd $(INSTALL_DIR)
               echo "ls in install dir"
@@ -867,11 +857,7 @@ stages:
             displayName: RunPythonTests
           - powershell: |
               # todo workout whether the top few lines are needed now I'm using $(PythonExecutable)
-              eval "$(conda shell.bash hook)"
-              source activate $(PythonName)
-              echo "which python: $(which python)"
-              echo "which conda: $(which conda)"
-              python_exe="$(which python)"
+              conda activate $(PythonName)
               echo "cd to isntall dir: $(INSTALL_DIR)"
               cd $(INSTALL_DIR)
               echo "ls in install dir"
