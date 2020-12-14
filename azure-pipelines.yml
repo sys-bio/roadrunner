@@ -771,8 +771,12 @@ stages:
               echo "PythonLibDir $(PythonLibDir)"
             displayName: PrintPythonVariables
           - powershell: |
-              mkdir $(LLVM_INSTALL_PREFIX)
-              mkdir $(DEPS_INSTALL_PREFIX)
+              mkdir -p $(LLVM_INSTALL_PREFIX)
+              mkdir -p $(SWIG_INSTALL_PREFIX)
+              mkdir -p $(DEPS_INSTALL_PREFIX)
+              mkdir -p $(SOURCE_DIR)
+              mkdir -p $(BUILD_DIR)
+              mkdir -p $(INSTALL_DIR)
             displayName: Make Directories
           - powershell: |
               $ProgressPreference = 'SilentlyContinue'
@@ -826,11 +830,6 @@ stages:
               rm -R swigwin-3.0.0
               # Note: swig is already built when we download on windows.
             displayName: Install Swig
-          - powershell: |
-              mkdir -p $(SOURCE_DIR)
-              mkdir -p $(BUILD_DIR)
-              mkdir -p $(INSTALL_DIR)
-            displayName: Make directories
           - powershell: |
               echo "cd to source dir: $(SOURCE_DIR)"
               cd $(SOURCE_DIR)
