@@ -564,6 +564,8 @@ stages:
               python_dir="$(dirname $(which python))"
               echo "python_dir == $python_dir"
               echo "Variable PythonRoot set to $(PythonRoot)"
+              echo "Checking to see whether I can CD to PythonRoot"
+              cd $(PythonRoot)
               echo "cd to build dir $(BUILD_DIR)"
               cd $(BUILD_DIR)
               ls
