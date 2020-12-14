@@ -630,8 +630,6 @@ stages:
           matrix:
             64-bit Windows Release:
               BuildType: Release
-            64-bit Windows Debug:
-              BuildType: Debug
         steps:
           - powershell: |
               echo "SOURCE_DIR $(SOURCE_DIR)"
@@ -815,16 +813,23 @@ stages:
               cd $(SWIG_SOURCE_DIR)
               echo "ls"
               ls
+              echo "Invoke-WebRequest"
               Invoke-WebRequest "https://downloads.sourceforge.net/project/swig/swigwin/swigwin-3.0.0/swigwin-3.0.0.zip?r=https%3A%2F%2Fsourceforge.net%2Fprojects%2Fswig%2Ffiles%2Fswigwin%2Fswigwin-3.0.0%2Fswigwin-3.0.0.zip%2Fdownload&ts=1607955177" -OutFile swigwin-3.0.0.zip
+              echo "Expand-Archive"
               Expand-Archive swigwin-3.0.0.zip -Destination $(SWIG_INSTALL_PREFIX)
               echo "CD to swig install prefix $(SWIG_INSTALL_PREFIX)"
               cd $(SWIG_INSTALL_PREFIX)
               echo "ls"
               ls
+              echo "cd swigwwin-3.0.0"
               cd swigwin-3.0.0
+              echo " moving contents of swigwin-3.0.0 to .."
               mv * ..
               cd ..
               rm -R swigwin-3.0.0
+              echo "ls"
+              ls
+
               # Note: swig is already built when we download on windows.
             displayName: Install Swig
           - powershell: |
