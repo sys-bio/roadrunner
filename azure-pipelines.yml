@@ -750,10 +750,10 @@ stages:
               PythonVersion: 3.8
               PythonName: py38
         variables:
-          MinicondaRoot : 'C:\miniconda'
+          MinicondaRoot : 'C:\Miniconda'
           PythonRoot: '$(MinicondaRoot)\envs\$(PythonName)'
-          PythonLibDir: '$(PythonRoot)\lib'
-          PythonExecutable: '$(PythonRoot)\bin\python'
+          PythonLibDir: '$(PythonRoot)\Lib'
+          PythonExecutable: '$(PythonRoot)\python.exe'
 
           # override the variable for swigwin since swig exe is in different place
           SWIG_EXECUTABLE: '$(SWIG_INSTALL_PREFIX)/swig'
