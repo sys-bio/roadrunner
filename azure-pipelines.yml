@@ -774,9 +774,6 @@ stages:
               mkdir -p $(LLVM_INSTALL_PREFIX)
               mkdir -p $(SWIG_INSTALL_PREFIX)
               mkdir -p $(DEPS_INSTALL_PREFIX)
-              mkdir -p $(SOURCE_DIR)
-              mkdir -p $(BUILD_DIR)
-              mkdir -p $(INSTALL_DIR)
             displayName: Make Directories
           - powershell: |
               $ProgressPreference = 'SilentlyContinue'
