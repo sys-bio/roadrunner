@@ -284,9 +284,7 @@ stages:
               conda create --quiet --yes --name $(PythonName) python=$(PythonVersion)
               echo "Installing nose and numpy: $(PipExecutable) install --yes nose numpy"
               $(PipExecutable) install --yes --quiet nose numpy
-
               $ENV:PATH="$ENV:PATH;$(PythonScriptsDir)"
-
               echo "cd to build dir $(BUILD_DIR)"
               cd $(BUILD_DIR)
               ls
