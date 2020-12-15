@@ -294,7 +294,6 @@ stages:
 #              cmake --build . --target install --config Release -j 12
             displayName: BuildRoadrunnerWithPython
           - powershell: |
-              conda activate $(PythonName)
               echo "cd to isntall dir: $(INSTALL_DIR)"
               cd $(INSTALL_DIR)
               echo "where python?"
@@ -303,17 +302,16 @@ stages:
               $(PythonExecutable)
               echo "ls in install dir"
               ls
-#              $(PythonExecutable) site-packages/roadrunner/testing/__main__.py
+              $(PythonExecutable) site-packages/roadrunner/testing/__main__.py
             displayName: RunPythonTests
           - powershell: |
               # todo workout whether the top few lines are needed now I'm using $(PythonExecutable)
-              conda activate $(PythonName)
               echo "cd to isntall dir: $(INSTALL_DIR)"
               cd $(INSTALL_DIR)
               echo "ls in install dir"
               ls
-#              $(PythonExecutable) setup.py bdist_wheel
-#              $(PythonExecutable) setup_rrplugins.py bdist_wheel
+              $(PythonExecutable) setup.py bdist_wheel
+              $(PythonExecutable) setup_rrplugins.py bdist_wheel
             displayName: Generate pip wheel
 
           - task: CopyFiles@2
