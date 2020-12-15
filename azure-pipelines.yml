@@ -225,7 +225,7 @@ stages:
             displayName: Move Dependencies
           - task: Cache@2
             inputs:
-              key: "'Swig' | $(Agent.OS)"
+              key: "Swig | $(Agent.OS)"
               path: $(SWIG_INSTALL_PREFIX)
               cacheHitVar: SWIG_CACHE
             displayName: Cache Swig-3.0.0
