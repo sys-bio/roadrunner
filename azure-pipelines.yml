@@ -282,10 +282,6 @@ stages:
               ls
               echo "Creating new conda environment"
               conda create --quiet --yes --name $(PythonName) python=$(PythonVersion)
-              if(![System.IO.File]::Exists('$(PythonRoot)'){
-                  echo "Did not find path PythonRoot $(PythonRoot)"
-              }
-
               echo "Installing nose and numpy: $(PipExecutable) install --yes nose numpy"
               $(PipExecutable) install --yes --quiet nose numpy
 
