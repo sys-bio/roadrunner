@@ -164,7 +164,7 @@ stages:
           PythonLibDir: '$(PythonRoot)\Lib'
           PythonScriptsDir: '$(PythonRoot)\Scripts'
           PythonExecutable: '$(PythonRoot)\python.exe'
-          PipExecutable: "$(PythonScriptsDir)\pip.exe"
+          PipExecutable: '$(PythonScriptsDir)\pip.exe'
 
           # override the variable for swigwin since swig exe is in different place
           SWIG_EXECUTABLE: '$(SWIG_INSTALL_PREFIX)/swig'
