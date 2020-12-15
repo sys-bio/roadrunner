@@ -847,6 +847,10 @@ stages:
               conda create --quiet --yes --name $(PythonName) python=$(PythonVersion)
               conda activate $(PythonName)
               conda install --yes --quiet nose numpy
+              echo "where.exe conda"
+              where.exe conda
+              echo "where.exe python"
+              where.exe python
               echo "Variable PythonRoot set to $(PythonRoot)"
               echo "cd to build dir $(BUILD_DIR)"
               cd $(BUILD_DIR)
