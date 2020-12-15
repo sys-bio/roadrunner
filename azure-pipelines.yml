@@ -40,6 +40,8 @@ stages:
           matrix:
             64-bit Windows Release:
               BuildType: Release
+        variables:
+          LLVM_CACHE: 'false'
         steps:
           - powershell: |
               echo "SOURCE_DIR $(SOURCE_DIR)"
@@ -75,6 +77,11 @@ stages:
               mkdir $(LLVM_INSTALL_PREFIX)
               mkdir $(DEPS_INSTALL_PREFIX)
             displayName: Make Directories
+          - task: Cache@2
+            inputs:
+              key: "llvm | $(Agent.OS)"
+              path: $(LLVM_INSTALL_PREFIX)
+              cacheHitVar: LLVM_CACHE
           - powershell: |
               $ProgressPreference = 'SilentlyContinue'
               Invoke-WebRequest https://github.com/sys-bio/llvm-6.x/releases/download/release%2F6.x/llvm-6.x-msvc2019-x64-release.zip -OutFile llvm-6.x-msvc2019-x64-release.zip
@@ -89,6 +96,7 @@ stages:
               echo "ls in l_dir: $(LLVM_INSTALL_PREFIX)"
               ls
             displayName: "Get LLVM"
+            condition: ne(variables.LLVM_CACHE, 'true')
             errorActionPreference: 'stop'
           - task: DownloadPipelineArtifact@2
             inputs:
@@ -169,6 +177,7 @@ stages:
           # override the variable for swigwin since swig exe is in different place
           SWIG_EXECUTABLE: '$(SWIG_INSTALL_PREFIX)/swig'
           SWIG_CACHE: 'false'
+          LLVM_CACHE: 'false'
 
         steps:
           - powershell: Write-Host "##vso[task.prependpath]$env:CONDA\Scripts"
@@ -188,6 +197,11 @@ stages:
               mkdir -p $(DEPS_INSTALL_PREFIX)
               mkdir -p $(BUILD_DIR)
             displayName: Make Directories
+          - task: Cache@2
+            inputs:
+              key: "llvm | $(Agent.OS)"
+              path: $(LLVM_INSTALL_PREFIX)
+              cacheHitVar: LLVM_CACHE
           - powershell: |
               $ProgressPreference = 'SilentlyContinue'
               Invoke-WebRequest https://github.com/sys-bio/llvm-6.x/releases/download/release%2F6.x/llvm-6.x-msvc2019-x64-release.zip -OutFile llvm-6.x-msvc2019-x64-release.zip
@@ -202,6 +216,7 @@ stages:
               echo "ls in l_dir: $(LLVM_INSTALL_PREFIX)"
               ls
             displayName: "Get LLVM"
+            condition: ne(variables.LLVM_CACHE, 'true')
             errorActionPreference: 'stop'
           - task: DownloadPipelineArtifact@2
             inputs:
@@ -267,7 +282,7 @@ stages:
               ls
               echo "Creating new conda environment"
               conda create --quiet --yes --name $(PythonName) python=$(PythonVersion)
-              if(![System.IO.File]::Exists($(PythonRoot)){
+              if(![System.IO.File]::Exists('$(PythonRoot)'){
                   echo "Did not find path PythonRoot $(PythonRoot)"
               }
 
@@ -279,8 +294,8 @@ stages:
               echo "cd to build dir $(BUILD_DIR)"
               cd $(BUILD_DIR)
               ls
-              cmake -DLLVM_INSTALL_PREFIX=$(LLVM_INSTALL_PREFIX) -DRR_DEPENDENCIES_INSTALL_PREFIX=$(DEPS_INSTALL_PREFIX) -DBUILD_TESTS=ON -DCMAKE_INSTALL_PREFIX=$(INSTALL_DIR) -DBUILD_RR_PLUGINS=ON -DBUILD_RR_CAPI=ON -DCMAKE_BUILD_TYPE=Release -DBUILD_PYTHON=ON -DPython_ROOT_DIR=$(PythonRoot) -DSWIG_EXECUTABLE=$(SWIG_EXECUTABLE) ..
-              cmake --build . --target install --config Release -j 12
+#              cmake -DLLVM_INSTALL_PREFIX=$(LLVM_INSTALL_PREFIX) -DRR_DEPENDENCIES_INSTALL_PREFIX=$(DEPS_INSTALL_PREFIX) -DBUILD_TESTS=ON -DCMAKE_INSTALL_PREFIX=$(INSTALL_DIR) -DBUILD_RR_PLUGINS=ON -DBUILD_RR_CAPI=ON -DCMAKE_BUILD_TYPE=Release -DBUILD_PYTHON=ON -DPython_ROOT_DIR=$(PythonRoot) -DSWIG_EXECUTABLE=$(SWIG_EXECUTABLE) ..
+#              cmake --build . --target install --config Release -j 12
             displayName: BuildRoadrunnerWithPython
           - powershell: |
               conda activate $(PythonName)
@@ -292,7 +307,7 @@ stages:
               $(PythonExecutable)
               echo "ls in install dir"
               ls
-              $(PythonExecutable) site-packages/roadrunner/testing/__main__.py
+#              $(PythonExecutable) site-packages/roadrunner/testing/__main__.py
             displayName: RunPythonTests
           - powershell: |
               # todo workout whether the top few lines are needed now I'm using $(PythonExecutable)
@@ -301,8 +316,8 @@ stages:
               cd $(INSTALL_DIR)
               echo "ls in install dir"
               ls
-              $(PythonExecutable) setup.py bdist_wheel
-              $(PythonExecutable) setup_rrplugins.py bdist_wheel
+#              $(PythonExecutable) setup.py bdist_wheel
+#              $(PythonExecutable) setup_rrplugins.py bdist_wheel
             displayName: Generate pip wheel
 
           - task: CopyFiles@2
@@ -623,6 +638,7 @@ stages:
 # Linux Build
 #
   - stage: LinuxBuildRoadrunnerCpp
+    dependsOn: []
     jobs:
       - job: LinuxBuildRoadrunnerCpp
         timeoutInMinutes: "0"
