@@ -183,12 +183,16 @@ stages:
           LLVM_CACHE: 'false'
           SWIG_CACHE: 'false'
         steps:
-          - bash: echo "##vso[task.prependpath]$CONDA/bin"
-            displayName: Add conda to PATH
-          # On Hosted macOS, the agent user doesn't have ownership of Miniconda's installation directory/
-          # We need to take ownership if we want to update conda or install packages globally
-          - bash: sudo chown -R $USER $CONDA
-            displayName: Take ownership of conda installation
+          - script: |
+              wget https://repo.anaconda.com/miniconda/Miniconda3-latest-MacOSX-x86_64.sh
+              bash Miniconda3-latest-MacOSX-x86_64.sh -b
+              which conda
+#          - bash: echo "##vso[task.prependpath]$CONDA/bin"
+#            displayName: Add conda to PATH
+#          # On Hosted macOS, the agent user doesn't have ownership of Miniconda's installation directory/
+#          # We need to take ownership if we want to update conda or install packages globally
+#          - bash: sudo chown -R $USER $CONDA
+#            displayName: Take ownership of conda installation
           - script: |
               which conda
               which python
