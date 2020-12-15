@@ -202,7 +202,7 @@ stages:
               echo "$(PipExecutable) install numpy nose"
               echo $(PipExecutable) install numpy nose
             displayName: InstallConda
-            condition: ne(variables.MINICONDA_CACHE, "true")
+            condition: ne(variables.MINICONDA_CACHE, 'true')
 #          - bash: echo "##vso[task.prependpath]$CONDA/bin"
 #            displayName: Add conda to PATH
 #          # On Hosted macOS, the agent user doesn't have ownership of Miniconda's installation directory/
