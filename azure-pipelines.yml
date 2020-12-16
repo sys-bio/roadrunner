@@ -197,8 +197,10 @@ stages:
               cd $(SOURCE_DIR)
               echo "ls"
               ls
+              echo "which conda"
               which conda
-              cd $MinicondaRoot
+              echo "cd miniconda root: $(MinicondaRoot)"
+              cd $(MinicondaRoot)
               echo "ls"
               ls
               $(CondaExecutable) create --quiet --yes --name $(PythonName) python=$(PythonVersion)
@@ -206,6 +208,7 @@ stages:
               $(CondaExecutable)  env list
               echo "running: $(PipExecutable) install numpy"
               $(PipExecutable) install numpy
+            displayName: InstallCondaEnv
           - script: |
               which conda
               which python
