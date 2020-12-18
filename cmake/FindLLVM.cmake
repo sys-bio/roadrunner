@@ -209,7 +209,9 @@ correct location. ")
         #message("UNIX true")
         #        message("LLVM VERSION >= 3.4, looking for curses library")
         # sudo apt-get install libncurses5-dev libncursesw5-dev
-        find_package(Curses REQUIRED)
+        set(CURSES_NEED_NCURSES 1)
+        # Need to link statically since Ubuntu 18 and 20 ship with different ncurses versions.
+        find_library(Curses NAMES libncurses.a REQUIRED)
         #        message(STATUS "curses: ${CURSES_FOUND}")
         #        message(STATUS "curdir: ${CURSES_INCLUDE_DIR}")
         #        message(STATUS "curlib: ${CURSES_LIBRARIES}")
