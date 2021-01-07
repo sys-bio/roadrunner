@@ -39,7 +39,6 @@ extensions = [
     'sphinx.ext.autosummary',
     "sphinx.ext.autosectionlabel",
     "breathe",
-    "sphinxcontrib.bibtex",
     "sphinx.ext.doctest",
     "sphinx_tabs.tabs",
     "sphinx_rtd_theme",
