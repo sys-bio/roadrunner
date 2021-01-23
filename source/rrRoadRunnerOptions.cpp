@@ -55,7 +55,7 @@ namespace rr
 	SimulateOptions::SimulateOptions()
 		: reset_model(false)
 		, structured_result(Config::getBool(Config::SIMULATEOPTIONS_STRUCTURED_RESULT))
-		, copy_result(Config::getBool(Config::SIMULATEOPTIONS_STRUCTURED_RESULT))
+		, copy_result(Config::getBool(Config::SIMULATEOPTIONS_COPY_RESULT))
 		, steps(Config::getInt(Config::SIMULATEOPTIONS_STEPS))
 		, start(0)
 		, duration(Config::getDouble(Config::SIMULATEOPTIONS_DURATION))

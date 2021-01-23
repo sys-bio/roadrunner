@@ -87,11 +87,16 @@ install(FILES
 
 install(
     FILES testing/__init__.py
-    	  testing/__main__.py 
-    	  testing/README.txt 
-    	  testing/tester.py 
-    	  testing/testfiles.py 
-    	  testing/SBMLTest.py
+          testing/__main__.py 
+          testing/README.txt 
+          testing/tester.py 
+          testing/testfiles.py 
+          testing/SBMLTest.py
+          testing/feedback.xml
+          testing/EcoliCore.xml
+          testing/linearPathwayClosed.xml
+          testing/linearPathwayOpen.xml
+          testing/test_1.xml
     DESTINATION ${PYTHON_PACKAGE_INSTALL_PREFIX}/testing
     COMPONENT Python
 )

@@ -18,6 +18,7 @@
 #include "rrUtils.h"
 #include "rrException.h"
 #include "rrLogger.h"
+#include "rrRoadRunner.h"
 
 using namespace std;
 using namespace rr;
@@ -32,6 +33,13 @@ extern string gRRTestDir;
 extern string gRROutputDir;
 
 string getListOfReactionsText(const string& fName);
+
+TEST(C_API_CORE, VERSION)
+{
+    RoadRunner aRR;
+    string versionInfo = aRR.getExtendedVersionInfo();
+}
+
 
 TEST(C_API_CORE, LOGGING)
 {

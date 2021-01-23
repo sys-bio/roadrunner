@@ -31,6 +31,23 @@ if (RR_PLUGINS_BUILD_HELLO_PLUGIN)
     add_subdirectory(hello_roadrunner)
 endif()
 
+
+#The beta plugins (off by default, since they're currently broken)
+
+if (RR_PLUGINS_BUILD_LEVENBERG_MARQUARDT_PLUGIN)
+    add_subdirectory(levenberg_marquardt)
+endif()
+
+if (RR_PLUGINS_BUILD_NELDER_MEAD_PLUGIN)
+    add_subdirectory(nelder_mead)
+endif()
+
+if (RR_PLUGINS_BUILD_MONTE_CARLO_PLUGIN)
+    add_subdirectory(monte_carlo_bs)
+endif()
+
+
+#Python
 if (WITH_PYTHON)
     install(
         FILES README.txt

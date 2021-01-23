@@ -488,8 +488,8 @@ PyObject* doublematrix_to_py(const ls::DoubleMatrix* m, bool structured_result, 
         std::vector<string> names = mat->getColNames();
 
 
-        int rows = mat->numRows();
-        int cols = mat->numCols();
+        unsigned int rows = mat->numRows();
+        unsigned int cols = mat->numCols();
 
         if (cols == 0) {
             Py_RETURN_NONE;
@@ -533,7 +533,7 @@ PyObject* doublematrix_to_py(const ls::DoubleMatrix* m, bool structured_result, 
 
             double* data = (double*)PyArray_BYTES(pyres);
 
-            memcpy(data, mData, rows*cols*sizeof(double));
+            memcpy(data, mData, sizeof(double) * rows * cols);
         }
 
         return pyres;
