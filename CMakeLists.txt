@@ -294,9 +294,7 @@ set(CMAKE_DEBUG_POSTFIX "d")
 
 if (NOT EXISTS ${RR_DEPENDENCIES_INSTALL_PREFIX})
     message(FATAL_ERROR "The path given to -DRR_DEPENDENCIES_INSTALL_PREFIX (\"${RR_DEPENDENCIES_INSTALL_PREFIX}\") does not exist. Please \
-build the dependency package. If you set
-    -DCMAKE_INSTALL_PREFIX=/path/to/roadrunner/root/dependencies
-they will be found automatically. If not, you will need to pass in
+pass in
     -DRR_DEPENDENCIES_INSTALL_PREFIX=\"/full/path/to/dependency/install/tree\"
 to the roadrunner cmake command.")
 endif ()
