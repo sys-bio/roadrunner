@@ -5485,10 +5485,9 @@ rr::loadBinary(in, impl->simulateOpt.duration);
 rr::loadBinary(in, impl->simulateOpt.variables);
 rr::loadBinary(in, impl->simulateOpt.amounts);
 rr::loadBinary(in, impl->simulateOpt.concentrations);
-std::cout << __FILE__ <<":"<<__LINE__ << std::endl;
+
 	size_t simulateOptSize;
 rr::loadBinary(in, simulateOptSize);
-std::cout << __FILE__ <<":"<<__LINE__ << std::endl;
 	for (int i = 0; i < simulateOptSize; i++)
 	{
 		std::string k;
@@ -5542,7 +5541,6 @@ unsigned long solverNumParams;
 //Currently the SBML is saved with the binary data, see saveState above
 	std::string savedSBML;
 rr::loadBinary(in, savedSBML);
-std::cout << __FILE__ <<":"<<__LINE__ << std::endl;
 	libsbml::SBMLReader reader;
 	impl->document = unique_ptr<libsbml::SBMLDocument>(reader.readSBMLFromString(savedSBML));
 
