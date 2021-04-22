@@ -5,6 +5,71 @@ add_subdirectory(googletest-release-1.10.0)
 # we be naughty and use include_directories here to include googletest globally
 include_directories(googletest-release-1.10.0/googletest/include)
 
+# set directory here to be used in subdirectories for locating site-packages in build tree
+set(RR_PYTHON_TESTING_DIR "${CMAKE_BINARY_DIR}/lib/site-packages/roadrunner/testing")
+
+###########################################################
+# CMake function for adding roadrunner test executables
+#
+
+# "CMAKE_CURRENT_SOURCE_DIR" changes in the different files were
+# add_test_executable gets called. We can use this as a constant
+set(ThisDirectory ${CMAKE_CURRENT_SOURCE_DIR})
+
+# Adds a new executable cmake target to cmake.
+# Links roadrunner-static and gtest.
+# Parameters:
+#   - TEST_TARGET: name of the binary
+#   - OUT_VARIABLE: list variable to append BINARY. Creates the list if not exist.
+#   - All further arguments are added to the binary as sources.
+# Usage:
+#   To add a new test target called myTestTargetName which is linked to appropriate libraries do
+#
+#       add_test_executable(myTestTargetName RoadRunnerTestTargetList testFile1.h testFile1.cpp ...)
+#
+function(add_test_executable TEST_TARGET OUT_VARIABLE)
+    add_executable(${TEST_TARGET} ${ARGN})
+
+    target_include_directories(
+            ${TEST_TARGET} PRIVATE
+            "${ThisDirectory}"
+    )
+
+    target_link_libraries(${TEST_TARGET} PUBLIC
+            roadrunner-static gtest gtest_main gmock gmock_main
+            )
+
+    # This line is a hack for enabling targets built with add_test_executable function
+    # access to the TestModelFactory. Eventally, it'd be nice to pull TestModelFactory
+    # into its own directory, and this will feel like less of a hack.
+    target_include_directories(${TEST_TARGET} PUBLIC "${ThisDirectory}/sundials-tests")
+
+    add_dependencies(${TEST_TARGET} roadrunner-static gtest gtest_main gmock gmock_main)
+    set_target_properties(${TEST_TARGET} PROPERTIES LINKER_LANGUAGE CXX)
+
+    # Add to ctest.
+    # add_test(NAME ${BINARY} COMMAND "$<TARGET_FILE:${BINARY}>")
+    gtest_discover_tests(
+            ${TEST_TARGET}
+            TEST_LIST sundials-tests
+            DISCOVERY_TIMEOUT 500
+            )
+
+    set_tests_properties(${sundials-tests} PROPERTIES TIMEOUT 500)
+
+
+    set(test_targets "${test_targets}" "${testid}")
+    if ("${${OUT_VARIABLE}}" STREQUAL "")
+        set(${OUT_VARIABLE} "${TEST_LIST}" PARENT_SCOPE)
+    else ()
+        set(${OUT_VARIABLE} "${${OUT_VARIABLE}}" "${TEST_LIST}" PARENT_SCOPE)
+    endif ()
+
+endfunction()
+
+
+
+
 ########################################################
 #   Tests
 #
@@ -67,10 +132,11 @@ foreach (dirid IN LISTS TESTDIRS)
 
 endforeach ()
 
-install(TARGETS ${test_targets})
-
+# other directories to be added to tests
 add_subdirectory(sundials-tests)
+add_subdirectory(picklable-roadrunner)
 
+install(TARGETS ${test_targets})
 
 add_custom_target(
         run-ctest
