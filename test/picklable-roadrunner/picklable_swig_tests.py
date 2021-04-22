@@ -1,38 +1,12 @@
-import os
 import sys
 
-sys.path += [r"D:\roadrunner\roadrunner\install-msvc2019-rel\site-packages"]
+sys.path += [
+    # r"D:\roadrunner\roadrunner\install-msvc2019-rel\site-packages",
+    r"D:\roadrunner\roadrunner\cmake-build-release-visual-studio\lib\site-packages"
+]
 
+import roadrunner.testing.TestModelFactory as tmf
 
-import roadrunner as rr
+print(dir(tmf))
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+print(tmf.listOfModelNames())

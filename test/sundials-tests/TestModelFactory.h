@@ -355,6 +355,15 @@ public:
 
 TestModel *TestModelFactory(const std::string &modelName);
 
+/**
+ * @brief returns a list of available model names
+ * @note we could be smarter about this and implement a factory with self registration
+ * (or use observer pattern?) however manually keeping track of these is fine for now
+ * @warning Remember, if you extend the TestModelFactory, also extend this list
+ */
+std::vector<std::string> listOfModelNames();
+
+
 
 namespace privateSwigTests_ {
     // this section exists only to test the swig bindings
@@ -364,7 +373,8 @@ namespace privateSwigTests_ {
     // These were originally built as simple examples of how to
     // use swig. However, given the steep learning curve that is
     // swig - instead of deleting these they are left as an example
-    // to future developers (including my future self).
+    // to future developers (including my future self.
+    //     - ciaran
     //
 
     DoublePair *_testDoublePair(double first, double second);

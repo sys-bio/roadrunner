@@ -299,9 +299,9 @@ std::string OpenLinearFlux::modelName() {
 std::unordered_map<std::string, rr::Variant> OpenLinearFlux::steadyStateSettings() {
     return std::unordered_map<std::string, rr::Variant>{
 //            {"allow_presimulation", true},
-            {"allow_presimulation", false},
-            {"presimulation_time",  5},
-            {"moiety_conservation", false},
+            {"allow_presimulation",  false},
+            {"presimulation_time",   5},
+            {"moiety_conservation",  false},
             {"auto_moiety_analysis", false},
     };
 }
@@ -1831,6 +1831,30 @@ std::unordered_map<std::string, rr::Variant> Brown2004::steadyStateSettings() {
 }
 
 
+std::vector<std::string> listOfModelNames() {
+    return std::vector<std::string>(
+            {
+                    "SimpleFlux",
+                    "Model269",
+                    "Model28",
+                    "CeilInRateLaw",
+                    "FactorialInRateLaw",
+                    "Venkatraman2010",
+                    "OpenLinearFlux",
+                    "SimpleFluxManuallyReduced",
+                    "Brown2004",
+            });
+}
+
+/**
+ * @brief construct a test model type on the heap and
+ * return it to the caller. The returned TestModel
+ * is owned by the caller.
+ * @param modelName call listOfModelNames() to see a list of available model names
+ * (or get it wrong to see an informative error message)
+ * @note The return type does not use smart pointers because
+ * this complicates swig.
+ */
 TestModel *TestModelFactory(const std::string &modelName) {
     if (modelName == "SimpleFlux") {
         return new SimpleFlux();
@@ -1851,8 +1875,14 @@ TestModel *TestModelFactory(const std::string &modelName) {
     } else if (modelName == "Brown2004") {
         return new Brown2004();
     } else {
-        throw std::runtime_error(
-                "TestModelFactory::TestModelFactory(): no model called \"" + modelName + "\" found\n");
+        std::ostringstream s;
+        s << "TestModelFactory::TestModelFactory(): no model called \"" << modelName << "\" found\n";
+        s << "these are the available models: ";
+        for (auto i: listOfModelNames()){
+            s << i << ", ";
+        }
+        s << std::endl;
+        throw std::runtime_error(s.str());
     }
 }
 

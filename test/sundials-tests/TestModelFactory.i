@@ -188,6 +188,27 @@ rr::pyutil_init(m);
     }
 }
 
+/**
+ * @brief typemap to convert vector of strings to Python list of strings
+ */
+%typemap(out) std::vector< std::string>  {
+    $result = PyList_New(0);
+    if (!$result){
+        std::cerr << "Could not create Python List" << std::endl;
+    }
+    // swig create a SwigValueWrapper here. In order to
+    // iterate over the map, we extract the pointer
+    auto valPtr = &$1;
+    for (const auto& string: *valPtr){
+        // now add to the list
+        int err = PyList_Append($result, PyUnicode_FromString(string.c_str()));
+        if (err < 0){
+            std::cout << "Could not create \"" << string << "\" item in Python List" << std::endl;
+        }
+    }
+}
+
+
 
 
 // allows polymorphism to work correctly in python
