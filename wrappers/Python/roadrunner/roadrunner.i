@@ -8,6 +8,7 @@
 // and load release the GIL.
 %nothread;
 
+
 //%feature("director") PyEventListener;
 
 // ************************************************************
@@ -69,6 +70,11 @@
     #include "BasicNewtonIteration.h"
     #include "LinesearchNewtonIteration.h"
 
+    #include "NLEQSolver.h"
+    #include "NLEQ1Solver.h"
+    #include "NLEQ2Solver.h"
+    #include "CVODEIntegrator.h"
+
     // make a python obj out of the C++ ExecutableModel, this is used by the PyEventListener
     // class. This function is defined later in this compilation unit.
     PyObject *ExecutableModel_NewPythonObj(rr::ExecutableModel*);
@@ -84,6 +90,8 @@
     using ls::DoubleMatrix;
     using ls::Complex;
     using ls::ComplexMatrix;
+
+    using namespace rr;
 
 
 // Windows is just so special...
@@ -122,6 +130,8 @@
 // C++ std::string handling
 %include "std_string.i"
 
+%include "attribute.i"
+
 // C++ std::map handling
 %include "std_unordered_map.i"
 //%include "std_map.i"
@@ -155,6 +165,19 @@
 %template(IntVector) std::vector<int>;
 %template(StringVector) std::vector<std::string>;
 %template(StringList) std::list<std::string>;
+
+// see section 32.5.1 in swig 4.0.2 docs
+// see also tutorial: https://staticallytyped.wordpress.com/2010/05/25/swig-python-cross-language-polymorphism-and-c-exception-handling/
+//  however, this is not what we need for SteadyStateSolver heirachy. So disabling for now.
+// Directors allow extension of C++ classes in Python. We only want
+// solver types to be the correct type in Python, instead of always pointing to
+// the abstract Solver*.
+//%module(directors="1") roadrunner
+//%feature("director") Solver;
+//%feature("director") SteadyStateSolver;
+//%feature("director") KinsolSteadyStateSolver;
+//%feature("director") BasicNewtonIteration;
+
 
 
 %apply std::vector<std::string> {std::vector<std::string>, std::vector<std::string>, std::vector<std::string> };
@@ -379,25 +402,50 @@
 
 
 
-/*
-%typemap(out) std::vector<std::string> {
+/**
+ * @brief typemap to convert vector of strings to Python list of strings
+ */
+%typemap(out) std::vector< std::string>  {
+    $result = PyList_New(0);
+    if (!$result){
+        std::cerr << "Could not create Python List" << std::endl;
+    }
+    // swig create a SwigValueWrapper here. In order to
+    // iterate over the map, we extract the pointer
+    auto valPtr = &$1;
+    for (const auto& string: *valPtr){
+        // now add to the list
+        int err = PyList_Append($result, PyUnicode_FromString(string.c_str()));
+        if (err < 0){
+            std::cout << "Could not create \"" << string << "\" item in Python List" << std::endl;
+        }
+    }
+}
 
-    size_t len = $1.size();
+/**
+ * Typemap to convert list of SelectionRecords to a list of string
+ */
+ %typemap(out) std::vector<rr::SelectionRecord>  {
+     $result = PyList_New($1->size());
+    if (!$result){
+        std::cerr << "Could not create Python List" << std::endl;
+    }
+    // swig create a SwigValueWrapper here. In order to
+    // iterate over the map, we extract the pointer
+    auto valPtr = &$1;
 
-    PyObject* pyList = PyList_New(len);
-
-    for(int i = 0; i < len; i++)
-    {
-        const std::string& str  = $1.at(i);
-        PyObject* pyStr = PyString_FromString(str.c_str());
-        PyList_SET_ITEM(pyList, i, pyStr);
+    for (int i=0; i<$1->size(); i++){
+        std::string str = $1[i]->to_string();
+        PyObject *pystr = PyString_FromString(str.c_str());
+        PyList_SET_ITEM(pysel, i, pystr);
     }
 
-    $result = pyList;
+    return pysel;
 }
-*/
+%apply std::vector<rr::SelectionRecord> {
+     std::vector<rr::SelectionRecord>&
+ };
 
-//%apply std::vector<std::string> {std::vector<std::string>, std::vector<std::string>, std::vector<std::string> };
 
 %include "numpy.i"
 
@@ -436,7 +484,8 @@ rr::pyutil_init(m);
 size_t sigtrap();
 
 
-
+// Swig docs, section 5.6.2:
+// The bare %{ ... %} directive is a shortcut that is the same as %header %{ ... %}.
 %{
 
 typedef int (rr::ExecutableModel::*getValuesPtr)(size_t, int const*, double*);
@@ -469,7 +518,11 @@ static PyObject* _ExecutableModel_getValues(rr::ExecutableModel *self, getValues
 }
 
 
-
+/**
+ * todo remove this function
+ * deprecated. The typemap for converting std::vector<std::string> to Pythons List[str]
+ * should be used instead and is automatically applied by swig.
+ */
 static std::string strvec_to_pystring(const std::vector<std::string>& strvec) {
     std::stringstream s;
     s << "[";
@@ -889,11 +942,21 @@ namespace std { class ostream{}; }
 
 
 /**
- * this returns a new object
+ * this returns a new object. Also informs swig that the pointer is heap allocated
  */
 %newobject rr::ExecutableModelFactory::createModel;
 
 
+
+// allows polymorphism to work correctly in python regarding solver types
+// (Define before including decls)
+%typemap(out) rr::SteadyStateSolver* rr::RoadRunner::getSteadyStateSolver {
+        const std::string lookup_typename = result->getName()+ " *";
+        swig_type_info * const outtype = SWIG_TypeQuery("BasicNewtonIteration *");
+        $result = SWIG_NewPointerObj(SWIG_as_voidptr($1), outtype, $owner);
+}
+
+//%apply Solver* {SteadyStateSolver*};
 
 %include <Dictionary.h>
 %include <rrRoadRunnerOptions.h>
@@ -915,9 +978,21 @@ namespace std { class ostream{}; }
 %include <rrSelectionRecord.h>
 %include <conservation/ConservedMoietyConverter.h>
 
+
 %include <Solver.h>
 %include <Integrator.h>
 %include <SteadyStateSolver.h>
+// for polymorphism to work correctly, and therefore pickling correct options
+// per solver we need to also include individual solvers in swig bindings
+%include "KinsolSteadyStateSolver.h"
+%include "NLEQSolver.h"
+%include "NLEQ1Solver.h"
+%include "NLEQ2Solver.h"
+%include "NewtonIteration.h"
+%include "LinesearchNewtonIteration.h"
+%include "BasicNewtonIteration.h"
+%include "CVODEIntegrator.h"
+
 
 %include "PyEventListener.h"
 %include "PyIntegratorListener.h"
@@ -1119,7 +1194,7 @@ namespace std { class ostream{}; }
 
 
 
-        # Set up the python dyanic properties for model access,
+        # Set up the python dynamic properties for model access,
         # save the original init method
         _swig_init = __init__
 
@@ -1761,6 +1836,7 @@ namespace std { class ostream{}; }
     %}
 }
 
+
 %{
     rr::SimulateOptions* rr_RoadRunner___simulateOptions_get(RoadRunner* r) {
         rrLog(Logger::LOG_WARNING) << "DO NOT USE simulateOptions, it is DEPRECATED";
@@ -1965,7 +2041,6 @@ namespace std { class ostream{}; }
         }
     }
 %}
-
 
 
 

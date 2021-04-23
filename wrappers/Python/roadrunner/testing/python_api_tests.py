@@ -15,11 +15,12 @@ thisDir = os.path.dirname(os.path.realpath(__file__))
 rr_site_packages = os.path.dirname(os.path.dirname(thisDir))
 
 
-
+# note for developers: you may add path to build (or install) tree
+# rr site-packages to this list temporarily, for testing
+# (python will use first roadrunner package it finds)
 sys.path += [
-    rr_site_packages
-    # r"D:\roadrunner\roadrunner\install-msvc2019-rel-swig3.0.0\site-packages",
-    # r"D:\roadrunner\roadrunner\install-msvc2019-rel-swig-4.0.2\site-packages",
+    r"D:\roadrunner\roadrunner\cmake-build-release-visual-studio\lib\site-packages",
+    # rr_site_packages,
 ]
 import roadrunner
 
@@ -978,3 +979,8 @@ class RoadRunnerTests(unittest.TestCase):
     @unittest.skip("unclear how to test. Should this method be private?")
     def test_validateCurrentSBML(self):
         self.assertTrue(self.rr.validateCurrentSBML())
+
+    def test_solverPolymorphism(self):
+        self.rr.setSteadyStateSolver("newton")
+        s = self.rr.getSteadyStateSolver()
+        self.assertIsInstance(s, roadrunner.roadrunner.BasicNewtonIteration)

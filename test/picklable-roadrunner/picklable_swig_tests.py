@@ -1,7 +1,8 @@
 import unittest
 
 import sys
-
+import pickle
+import os
 sys.path += [
     # r"D:\roadrunner\roadrunner\install-msvc2019-rel\site-packages",
     r"D:\roadrunner\roadrunner\cmake-build-release-visual-studio\lib\site-packages"
@@ -12,7 +13,12 @@ from roadrunner.roadrunner import RoadRunner
 
 
 class RoadRunnerPickleTests(unittest.TestCase):
-
+    ignore = [
+                "<class 'method'>",
+                "<class 'builtin_function_or_method'>",
+                "<class 'method-wrapper'>",
+                "<class 'function'>"
+            ]
     def setUp(self):
         self.testModelObj = tmf.TestModelFactory("SimpleFlux")
         self.testModelSbml = self.testModelObj.str()
@@ -59,10 +65,30 @@ class RoadRunnerPickleTests(unittest.TestCase):
 
         for i in sorted(dir(r)):
             t = type(getattr(r, i))
-            if str(t) not in [
-                "<class 'method'>",
-                "<class 'builtin_function_or_method'>",
-                "<class 'method-wrapper'>",
-                "<class 'function'>"
-            ]:
+            if str(t) not in self.ignore:
                 print(i, t)
+
+    def test2(self):
+        r1 = RoadRunner(self.testModelSbml)
+        s = r1.getSteadyStateSolver()
+        print(s.getSettingsMap())
+
+        r1.setSteadyStateSolver("newton")
+        s = r1.getSteadyStateSolver()
+        print(type(s))
+        print(s.getSettingsMap())
+        print(s)
+        fname = os.path.join(os.path.dirname(__file__), "pickletest.dat")
+        with open(fname, "wb") as f:
+            pickle.dump(s, f)
+        print(fname)
+
+        with open(fname, "rb") as f:
+            sloaded = pickle.load(f)
+
+        # print(sloaded)
+        # for k, v in s.__class__.__dict__.items():
+        #     print(k, v)
+            # if str(v) in self.ignore:
+            #     print(k, type(v)
+
