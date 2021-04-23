@@ -38,6 +38,8 @@
     #pragma warning(disable: 26812)
     #pragma warning(disable: 26451)
     #endif
+    #include <typeinfo>
+
     #include <lsLibla.h>
     #include <lsLA.h>
     #include <lsLUResult.h>
@@ -950,13 +952,22 @@ namespace std { class ostream{}; }
 
 // allows polymorphism to work correctly in python regarding solver types
 // (Define before including decls)
-%typemap(out) rr::SteadyStateSolver* rr::RoadRunner::getSteadyStateSolver {
-        const std::string lookup_typename = result->getName()+ " *";
-        swig_type_info * const outtype = SWIG_TypeQuery("BasicNewtonIteration *");
+// note, rr::Solver* didn't work directly
+%typemap(out) rr::SteadyStateSolver*  {
+        // use c++ type introspection system to get type
+        std::string lookup_typename = typeid(*result).name();
+        // strip off the "class " string from the prefix, if exists
+        if (lookup_typename.find("class ") != std::string::npos){
+            lookup_typename.erase(lookup_typename.begin(), lookup_typename.begin() + 6 );
+        }
+        // make const copy of string
+        const std::string lookup_typename_const = lookup_typename + " *";
+        // lookup in swig, make and return as $result
+        swig_type_info * const outtype = SWIG_TypeQuery(lookup_typename_const.c_str());
         $result = SWIG_NewPointerObj(SWIG_as_voidptr($1), outtype, $owner);
 }
-
-//%apply Solver* {SteadyStateSolver*};
+// Aplpy typemap to integrator* as well
+%apply rr::SteadyStateSolver* { rr::Integrator* };
 
 %include <Dictionary.h>
 %include <rrRoadRunnerOptions.h>

@@ -15,7 +15,7 @@ public:
 
     ApproxSteadyStateDecoratorTests() {}
 
-    void checkResults(RoadRunner& rr) {
+    void checkResults(RoadRunner &rr) {
         const auto &expectedResult = testModel.steadyState();
         for (auto &r: expectedResult) {
             const auto &speciesName = r.first;
@@ -172,7 +172,6 @@ TEST_F(ApproxSteadyStateDecoratorTests, CheckSolveTwiceBackToBack) {
     delete basicNewtonIteration;
 
 }
-
 
 
 

@@ -980,7 +980,28 @@ class RoadRunnerTests(unittest.TestCase):
     def test_validateCurrentSBML(self):
         self.assertTrue(self.rr.validateCurrentSBML())
 
-    def test_solverPolymorphism(self):
+    def test_solverPolymorphismBasicNewtonIteration(self):
         self.rr.setSteadyStateSolver("newton")
         s = self.rr.getSteadyStateSolver()
         self.assertIsInstance(s, roadrunner.roadrunner.BasicNewtonIteration)
+
+    def test_solverPolymorphismNewtonIterationLinesearch(self):
+        self.rr.setSteadyStateSolver("newton_linesearch")
+        s = self.rr.getSteadyStateSolver()
+        self.assertIsInstance(s, roadrunner.roadrunner.LinesearchNewtonIteration)
+
+    def test_solverPolymorphismNLEQ1(self):
+        self.rr.setSteadyStateSolver("nleq1")
+        s = self.rr.getSteadyStateSolver()
+        self.assertIsInstance(s, roadrunner.roadrunner.NLEQ1Solver)
+
+    def test_solverPolymorphismNLEQ2(self):
+        self.rr.setSteadyStateSolver("nleq2")
+        s = self.rr.getSteadyStateSolver()
+        self.assertIsInstance(s, roadrunner.roadrunner.NLEQ2Solver)
+
+    def test_solverPolymorphismCVODE(self):
+        self.rr.setIntegrator("cvode")
+        s = self.rr.getIntegrator()
+        print(s)
+        self.assertIsInstance(s, roadrunner.roadrunner.CVODEIntegrator)
