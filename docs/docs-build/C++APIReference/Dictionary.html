@@ -13,10 +13,7 @@
   
   <link rel="stylesheet" href="../_static/css/theme.css" type="text/css" />
   <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
-  <link rel="stylesheet" href="../_static/sphinx_tabs/semantic-ui-2.4.1/segment.min.css" type="text/css" />
-  <link rel="stylesheet" href="../_static/sphinx_tabs/semantic-ui-2.4.1/menu.min.css" type="text/css" />
-  <link rel="stylesheet" href="../_static/sphinx_tabs/semantic-ui-2.4.1/tab.min.css" type="text/css" />
-  <link rel="stylesheet" href="../_static/sphinx_tabs/tabs.css" type="text/css" />
+  <link rel="stylesheet" href="../_static/tabs.css" type="text/css" />
 
   
   
@@ -231,7 +228,7 @@
 <p class="breathe-sectiondef-title rubric">Public Functions</p>
 <dl class="cpp function">
 <dt id="_CPPv4N2rr10Dictionary7setItemERKNSt6stringERKN2rr7VariantE">
-<span id="_CPPv3N2rr10Dictionary7setItemERKNSt6stringERKN2rr7VariantE"></span><span id="_CPPv2N2rr10Dictionary7setItemERKNSt6stringERKN2rr7VariantE"></span><span id="rr::Dictionary::setItem__ssCR.rr::VariantCR"></span><span class="target" id="classrr_1_1Dictionary_1a6bb53c3bfeee7e3ee2bfcf9da8212949"></span>void <code class="sig-name descname">setItem</code><span class="sig-paren">(</span><em class="property">const</em> std::string &amp;<em>key</em>, <em class="property">const</em> rr::<a class="reference internal" href="Variant.html#_CPPv4N2rr7VariantE" title="rr::Variant">Variant</a> &amp;<em>value</em><span class="sig-paren">)</span> = 0<a class="headerlink" href="#_CPPv4N2rr10Dictionary7setItemERKNSt6stringERKN2rr7VariantE" title="Permalink to this definition">¶</a><br /></dt>
+<span id="_CPPv3N2rr10Dictionary7setItemERKNSt6stringERKN2rr7VariantE"></span><span id="_CPPv2N2rr10Dictionary7setItemERKNSt6stringERKN2rr7VariantE"></span><span id="rr::Dictionary::setItem__ssCR.rr::VariantCR"></span><span class="target" id="classrr_1_1Dictionary_1a6bb53c3bfeee7e3ee2bfcf9da8212949"></span><em class="property">virtual</em> void <code class="sig-name descname">setItem</code><span class="sig-paren">(</span><em class="property">const</em> std::string &amp;<em>key</em>, <em class="property">const</em> rr::<a class="reference internal" href="Variant.html#_CPPv4N2rr7VariantE" title="rr::Variant">Variant</a> &amp;<em>value</em><span class="sig-paren">)</span> = 0<a class="headerlink" href="#_CPPv4N2rr10Dictionary7setItemERKNSt6stringERKN2rr7VariantE" title="Permalink to this definition">¶</a><br /></dt>
 <dd><p>Set the value for an arbitrary key. </p>
 <p>The <a class="reference internal" href="Variant.html#classrr_1_1Variant"><span class="std std-ref">Variant</span></a> object has a large number of creation operators so you only have to give the value as native C++ object i.e.</p>
 <p><div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">Dictionary</span><span class="o">*</span><span class="n">d</span> <span class="o">=</span> <span class="p">(</span><span class="o">...</span><span class="p">);</span>
@@ -245,7 +242,7 @@
 
 <dl class="cpp function">
 <dt id="_CPPv4NK2rr10Dictionary7getItemERKNSt6stringE">
-<span id="_CPPv3NK2rr10Dictionary7getItemERKNSt6stringE"></span><span id="_CPPv2NK2rr10Dictionary7getItemERKNSt6stringE"></span><span id="rr::Dictionary::getItem__ssCRC"></span><span class="target" id="classrr_1_1Dictionary_1a53cb5eee283727168630f6b1b918bdb0"></span><a class="reference internal" href="Variant.html#_CPPv4N2rr7VariantE" title="rr::Variant">Variant</a> <code class="sig-name descname">getItem</code><span class="sig-paren">(</span><em class="property">const</em> std::string &amp;<em>key</em><span class="sig-paren">)</span> <em class="property">const</em> = 0<a class="headerlink" href="#_CPPv4NK2rr10Dictionary7getItemERKNSt6stringE" title="Permalink to this definition">¶</a><br /></dt>
+<span id="_CPPv3NK2rr10Dictionary7getItemERKNSt6stringE"></span><span id="_CPPv2NK2rr10Dictionary7getItemERKNSt6stringE"></span><span id="rr::Dictionary::getItem__ssCRC"></span><span class="target" id="classrr_1_1Dictionary_1a53cb5eee283727168630f6b1b918bdb0"></span><em class="property">virtual</em> <a class="reference internal" href="Variant.html#_CPPv4N2rr7VariantE" title="rr::Variant">Variant</a> <code class="sig-name descname">getItem</code><span class="sig-paren">(</span><em class="property">const</em> std::string &amp;<em>key</em><span class="sig-paren">)</span> <em class="property">const</em> = 0<a class="headerlink" href="#_CPPv4NK2rr10Dictionary7getItemERKNSt6stringE" title="Permalink to this definition">¶</a><br /></dt>
 <dd><p>Get a value. </p>
 <p>Variants are POD. If the key does not exist, an std::exception will be thrown.</p>
 <p>The <a class="reference internal" href="Variant.html#classrr_1_1Variant"><span class="std std-ref">Variant</span></a> object has the assigment operator overloaded so it will automatically convert to any native C++ object. If the <a class="reference internal" href="Variant.html#classrr_1_1Variant"><span class="std std-ref">Variant</span></a> can not be converted, it will raise an exception, i.e.</p>
@@ -260,25 +257,25 @@
 
 <dl class="cpp function">
 <dt id="_CPPv4NK2rr10Dictionary6hasKeyERKNSt6stringE">
-<span id="_CPPv3NK2rr10Dictionary6hasKeyERKNSt6stringE"></span><span id="_CPPv2NK2rr10Dictionary6hasKeyERKNSt6stringE"></span><span id="rr::Dictionary::hasKey__ssCRC"></span><span class="target" id="classrr_1_1Dictionary_1a7ec0accc7149a403ee5eeeb9457059ed"></span>bool <code class="sig-name descname">hasKey</code><span class="sig-paren">(</span><em class="property">const</em> std::string &amp;<em>key</em><span class="sig-paren">)</span> <em class="property">const</em> = 0<a class="headerlink" href="#_CPPv4NK2rr10Dictionary6hasKeyERKNSt6stringE" title="Permalink to this definition">¶</a><br /></dt>
+<span id="_CPPv3NK2rr10Dictionary6hasKeyERKNSt6stringE"></span><span id="_CPPv2NK2rr10Dictionary6hasKeyERKNSt6stringE"></span><span id="rr::Dictionary::hasKey__ssCRC"></span><span class="target" id="classrr_1_1Dictionary_1a7ec0accc7149a403ee5eeeb9457059ed"></span><em class="property">virtual</em> bool <code class="sig-name descname">hasKey</code><span class="sig-paren">(</span><em class="property">const</em> std::string &amp;<em>key</em><span class="sig-paren">)</span> <em class="property">const</em> = 0<a class="headerlink" href="#_CPPv4NK2rr10Dictionary6hasKeyERKNSt6stringE" title="Permalink to this definition">¶</a><br /></dt>
 <dd><p>is there a key matching this name. </p>
 </dd></dl>
 
 <dl class="cpp function">
 <dt id="_CPPv4N2rr10Dictionary10deleteItemERKNSt6stringE">
-<span id="_CPPv3N2rr10Dictionary10deleteItemERKNSt6stringE"></span><span id="_CPPv2N2rr10Dictionary10deleteItemERKNSt6stringE"></span><span id="rr::Dictionary::deleteItem__ssCR"></span><span class="target" id="classrr_1_1Dictionary_1aafd395297acc9cb73ea1e244b3f02d5c"></span>size_t <code class="sig-name descname">deleteItem</code><span class="sig-paren">(</span><em class="property">const</em> std::string &amp;<em>key</em><span class="sig-paren">)</span> = 0<a class="headerlink" href="#_CPPv4N2rr10Dictionary10deleteItemERKNSt6stringE" title="Permalink to this definition">¶</a><br /></dt>
+<span id="_CPPv3N2rr10Dictionary10deleteItemERKNSt6stringE"></span><span id="_CPPv2N2rr10Dictionary10deleteItemERKNSt6stringE"></span><span id="rr::Dictionary::deleteItem__ssCR"></span><span class="target" id="classrr_1_1Dictionary_1aafd395297acc9cb73ea1e244b3f02d5c"></span><em class="property">virtual</em> size_t <code class="sig-name descname">deleteItem</code><span class="sig-paren">(</span><em class="property">const</em> std::string &amp;<em>key</em><span class="sig-paren">)</span> = 0<a class="headerlink" href="#_CPPv4N2rr10Dictionary10deleteItemERKNSt6stringE" title="Permalink to this definition">¶</a><br /></dt>
 <dd><p>remove a value </p>
 </dd></dl>
 
 <dl class="cpp function">
 <dt id="_CPPv4NK2rr10Dictionary7getKeysEv">
-<span id="_CPPv3NK2rr10Dictionary7getKeysEv"></span><span id="_CPPv2NK2rr10Dictionary7getKeysEv"></span><span id="rr::Dictionary::getKeysC"></span><span class="target" id="classrr_1_1Dictionary_1ae8e4240deda5ee2dc7d472476bd92b47"></span>std::vector&lt;std::string&gt; <code class="sig-name descname">getKeys</code><span class="sig-paren">(</span><span class="sig-paren">)</span> <em class="property">const</em> = 0<a class="headerlink" href="#_CPPv4NK2rr10Dictionary7getKeysEv" title="Permalink to this definition">¶</a><br /></dt>
+<span id="_CPPv3NK2rr10Dictionary7getKeysEv"></span><span id="_CPPv2NK2rr10Dictionary7getKeysEv"></span><span id="rr::Dictionary::getKeysC"></span><span class="target" id="classrr_1_1Dictionary_1ae8e4240deda5ee2dc7d472476bd92b47"></span><em class="property">virtual</em> std::vector&lt;std::string&gt; <code class="sig-name descname">getKeys</code><span class="sig-paren">(</span><span class="sig-paren">)</span> <em class="property">const</em> = 0<a class="headerlink" href="#_CPPv4NK2rr10Dictionary7getKeysEv" title="Permalink to this definition">¶</a><br /></dt>
 <dd><p>list of keys in this object. </p>
 </dd></dl>
 
 <dl class="cpp function">
 <dt id="_CPPv4N2rr10DictionaryD0Ev">
-<span id="_CPPv3N2rr10DictionaryD0Ev"></span><span id="_CPPv2N2rr10DictionaryD0Ev"></span><span id="rr::Dictionary::~Dictionary"></span><span class="target" id="classrr_1_1Dictionary_1ada6593bddd5fd2f3f75374863191f419"></span><code class="sig-name descname">~Dictionary</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#_CPPv4N2rr10DictionaryD0Ev" title="Permalink to this definition">¶</a><br /></dt>
+<span id="_CPPv3N2rr10DictionaryD0Ev"></span><span id="_CPPv2N2rr10DictionaryD0Ev"></span><span id="rr::Dictionary::~Dictionary"></span><span class="target" id="classrr_1_1Dictionary_1ada6593bddd5fd2f3f75374863191f419"></span><em class="property">inline</em> <em class="property">virtual</em> <code class="sig-name descname">~Dictionary</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#_CPPv4N2rr10DictionaryD0Ev" title="Permalink to this definition">¶</a><br /></dt>
 <dd><p>Pure virtual interface, you should never have to delete an instance of this type directly. </p>
 </dd></dl>
 

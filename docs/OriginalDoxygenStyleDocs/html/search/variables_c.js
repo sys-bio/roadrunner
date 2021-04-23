@@ -1,23 +1,8 @@
 var searchData=
 [
-  ['m_2281',['m',['../structrr_1_1csr__matrix__t.html#a649049dcf50b83aba245e008d4991038',1,'rr::csr_matrix_t']]],
-  ['mabsolute_2282',['mAbsolute',['../classrr_1_1SBMLModelSimulation.html#ae819e501d0e5ff1e538e05ed4c7d71df',1,'rr::SBMLModelSimulation']]],
-  ['mcolumnnames_2283',['mColumnNames',['../classrr_1_1RoadRunnerData.html#ab8717fd648deaa62f96f10b3f017dd19',1,'rr::RoadRunnerData']]],
-  ['mdata_2284',['mData',['../classrr_1_1CompiledExecutableModel.html#a0e9f631e3808545a6e9c19c64b7ce089',1,'rr::CompiledExecutableModel']]],
-  ['mdataprecision_2285',['mDataPrecision',['../classrr_1_1RoadRunnerData.html#a13da357ba080cf43f424947d996bfc4c',1,'rr::RoadRunnerData']]],
-  ['mdependentspecieslist_2286',['mDependentSpeciesList',['../classrr_1_1ModelSymbols.html#a3f353e7e5cd69f066fed17cef5cbc944',1,'rr::ModelSymbols']]],
-  ['mindependentspecieslist_2287',['mIndependentSpeciesList',['../classrr_1_1ModelSymbols.html#a215ce854979c423a02495fe856949e2b',1,'rr::ModelSymbols']]],
-  ['misinitialized_2288',['mIsInitialized',['../classrr_1_1CompiledExecutableModel.html#a8a1e046aa716f81c30ebb4a8ffbd4a42',1,'rr::CompiledExecutableModel']]],
-  ['mlibstruct_2289',['mLibStruct',['../classrr_1_1CompiledModelGenerator.html#af346298187993ac6d970c58f32a7af4f',1,'rr::CompiledModelGenerator']]],
-  ['mls_2290',['mLS',['../classrr_1_1RoadRunnerImpl.html#ab6af7c33cd8ad65332a28acb6e221a18',1,'rr::RoadRunnerImpl']]],
-  ['mmodelname_2291',['mModelName',['../classrr_1_1ModelSymbols.html#a868750824ff39027f62a56d0e5ef1bd2',1,'rr::ModelSymbols']]],
-  ['mname_2292',['mName',['../classrr_1_1RoadRunnerData.html#a7381cafbd851a5646d8fd4985eeb5bd6',1,'rr::RoadRunnerData']]],
-  ['mnom_2293',['mNOM',['../classrr_1_1CompiledModelGenerator.html#a95eb17b0b46dc689ee4e1eb4d737c6f1',1,'rr::CompiledModelGenerator']]],
-  ['model_2294',['model',['../classrrllvm_1_1LLVMCodeGenTest.html#a3bc1ecdb1e13954ec3007c366a4b2abd',1,'rrllvm::LLVMCodeGenTest::model()'],['../classrrllvm_1_1CodeGenBase.html#afb6ef03ee896534cde79895141a8a666',1,'rrllvm::CodeGenBase::model()']]],
-  ['modelname_2295',['modelName',['../structSModelData.html#a7411d36addc07fb2d3195bb1945f5568',1,'SModelData']]],
-  ['mrelative_2296',['mRelative',['../classrr_1_1SBMLModelSimulation.html#aa14afbec06bec714797453aa72acb305',1,'rr::SBMLModelSimulation']]],
-  ['ms_2297',['ms',['../classrr_1_1CompiledModelGenerator.html#aae0da14da795acd4122229c1b306c262',1,'rr::CompiledModelGenerator']]],
-  ['mthedata_2298',['mTheData',['../classrr_1_1RoadRunnerData.html#a881dfd840f8cfaf304f5a8134a82fc08',1,'rr::RoadRunnerData']]],
-  ['mtimeprecision_2299',['mTimePrecision',['../classrr_1_1RoadRunnerData.html#a7580d39e2d41620af80842a1af411beb',1,'rr::RoadRunnerData']]],
-  ['mweights_2300',['mWeights',['../classrr_1_1RoadRunnerData.html#a35237d1ad85d1610d907c9dd3168517d',1,'rr::RoadRunnerData']]]
+  ['selectiontype_1596',['selectionType',['../classrr_1_1_selection_record.html#adae706f827ce8b7c3873b2fd77fa833c',1,'rr::SelectionRecord']]],
+  ['size_1597',['size',['../classrr_1_1_load_s_b_m_l_options.html#aa73e004cfce50848e0ea5a9803800d3c',1,'rr::LoadSBMLOptions']]],
+  ['start_1598',['start',['../classrr_1_1_simulate_options.html#ae25c38171cedd08bf0cc43932c07822e',1,'rr::SimulateOptions']]],
+  ['steps_1599',['steps',['../classrr_1_1_simulate_options.html#a20008b16d84ef52a564648671d0c544b',1,'rr::SimulateOptions']]],
+  ['structured_5fresult_1600',['structured_result',['../classrr_1_1_simulate_options.html#a9087842fab7661b93dbc103e02f8908d',1,'rr::SimulateOptions']]]
 ];

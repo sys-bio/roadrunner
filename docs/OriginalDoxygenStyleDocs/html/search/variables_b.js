@@ -1,8 +1,5 @@
 var searchData=
 [
-  ['loadopt_2276',['loadOpt',['../classrr_1_1RoadRunnerImpl.html#a332b1440ab1affec5ffec18a290fca9d',1,'rr::RoadRunnerImpl']]],
-  ['localparameters_2277',['localParameters',['../structSModelData.html#afac5f917906b816f2b346226f2d2a544',1,'SModelData']]],
-  ['localparametersnum_2278',['localParametersNum',['../structSModelData.html#aa311a625134da0823c75c1579de35a99',1,'SModelData']]],
-  ['localparametersoffsets_2279',['localParametersOffsets',['../structSModelData.html#a164fe6af8658f84db289ae47ee47ba5d',1,'SModelData']]],
-  ['lvalue_2280',['lValue',['../structRRListItem.html#a7ba0216f30cfc65a905470abcf01534d',1,'RRListItem']]]
+  ['reset_5fmodel_1594',['reset_model',['../classrr_1_1_simulate_options.html#a4fd459e58c6ad47dc8cd271591f28a3a',1,'rr::SimulateOptions']]],
+  ['rowptr_1595',['rowptr',['../structrr_1_1csr__matrix__t.html#ac4f924004760ce3905ab171a054813c0',1,'rr::csr_matrix_t']]]
 ];

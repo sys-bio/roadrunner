@@ -13,6 +13,8 @@ set(
         rrc_libstruct_api.h
         rrc_utilities.h
         rrc_cpp_support.h
+	rrc_exporter.h
+	rrc_types.h
 #=======
 #set(C_API_INCLUDE_ROOT "${RR_ROOT}/wrappers/C")
 

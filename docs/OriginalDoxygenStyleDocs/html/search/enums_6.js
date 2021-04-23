@@ -1,4 +1,4 @@
 var searchData=
 [
-  ['rrparametertype_2372',['RRParameterType',['../rrc__types_8h.html#a705fcde69bcc554991c99dd9c16913d0',1,'rrc_types.h']]]
+  ['selectiontype_1613',['SelectionType',['../classrr_1_1_selection_record.html#a898963ab24a6ba614913715c981d8394',1,'rr::SelectionRecord']]]
 ];

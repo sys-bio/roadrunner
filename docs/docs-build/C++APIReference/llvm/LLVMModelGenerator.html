@@ -13,10 +13,7 @@
   
   <link rel="stylesheet" href="../../_static/css/theme.css" type="text/css" />
   <link rel="stylesheet" href="../../_static/pygments.css" type="text/css" />
-  <link rel="stylesheet" href="../../_static/sphinx_tabs/semantic-ui-2.4.1/segment.min.css" type="text/css" />
-  <link rel="stylesheet" href="../../_static/sphinx_tabs/semantic-ui-2.4.1/menu.min.css" type="text/css" />
-  <link rel="stylesheet" href="../../_static/sphinx_tabs/semantic-ui-2.4.1/tab.min.css" type="text/css" />
-  <link rel="stylesheet" href="../../_static/sphinx_tabs/tabs.css" type="text/css" />
+  <link rel="stylesheet" href="../../_static/tabs.css" type="text/css" />
 
   
   
@@ -271,13 +268,13 @@
 <p class="breathe-sectiondef-title rubric">Public Static Functions</p>
 <dl class="cpp function">
 <dt id="_CPPv4N6rrllvm18LLVMModelGenerator11createModelERKNSt6stringE4uint">
-<span id="_CPPv3N6rrllvm18LLVMModelGenerator11createModelERKNSt6stringE4uint"></span><span id="_CPPv2N6rrllvm18LLVMModelGenerator11createModelERKNSt6stringE4uint"></span><span id="rrllvm::LLVMModelGenerator::createModel__ssCR.uint"></span><span class="target" id="classrrllvm_1_1LLVMModelGenerator_1a4356fc010a0aa998ff588c210427f09b"></span>rr::<a class="reference internal" href="../rrExecutableModel.html#_CPPv4N2rr15ExecutableModelE" title="rr::ExecutableModel">ExecutableModel</a> *<code class="sig-name descname">createModel</code><span class="sig-paren">(</span><em class="property">const</em> std::string &amp;<em>sbml</em>, uint <em>options</em><span class="sig-paren">)</span><a class="headerlink" href="#_CPPv4N6rrllvm18LLVMModelGenerator11createModelERKNSt6stringE4uint" title="Permalink to this definition">¶</a><br /></dt>
+<span id="_CPPv3N6rrllvm18LLVMModelGenerator11createModelERKNSt6stringE4uint"></span><span id="_CPPv2N6rrllvm18LLVMModelGenerator11createModelERKNSt6stringE4uint"></span><span id="rrllvm::LLVMModelGenerator::createModel__ssCR.uint"></span><span class="target" id="classrrllvm_1_1LLVMModelGenerator_1a4356fc010a0aa998ff588c210427f09b"></span><em class="property">static</em> rr::<a class="reference internal" href="../rrExecutableModel.html#_CPPv4N2rr15ExecutableModelE" title="rr::ExecutableModel">ExecutableModel</a> *<code class="sig-name descname">createModel</code><span class="sig-paren">(</span><em class="property">const</em> std::string &amp;<em>sbml</em>, uint <em>options</em><span class="sig-paren">)</span><a class="headerlink" href="#_CPPv4N6rrllvm18LLVMModelGenerator11createModelERKNSt6stringE4uint" title="Permalink to this definition">¶</a><br /></dt>
 <dd><p>Create an executable model from an sbml string. </p>
 </dd></dl>
 
 <dl class="cpp function">
 <dt id="_CPPv4N6rrllvm18LLVMModelGenerator15regenerateModelEPN2rr15ExecutableModelEPN7libsbml12SBMLDocumentE4uint">
-<span id="_CPPv3N6rrllvm18LLVMModelGenerator15regenerateModelEPN2rr15ExecutableModelEPN7libsbml12SBMLDocumentE4uint"></span><span id="_CPPv2N6rrllvm18LLVMModelGenerator15regenerateModelEPN2rr15ExecutableModelEPN7libsbml12SBMLDocumentE4uint"></span><span id="rrllvm::LLVMModelGenerator::regenerateModel__rr::ExecutableModelP.libsbml::SBMLDocumentP.uint"></span><span class="target" id="classrrllvm_1_1LLVMModelGenerator_1acca1a198b41b71a1abfc28f45422b861"></span>rr::<a class="reference internal" href="../rrExecutableModel.html#_CPPv4N2rr15ExecutableModelE" title="rr::ExecutableModel">ExecutableModel</a> *<code class="sig-name descname">regenerateModel</code><span class="sig-paren">(</span>rr::<a class="reference internal" href="../rrExecutableModel.html#_CPPv4N2rr15ExecutableModelE" title="rr::ExecutableModel">ExecutableModel</a> *<em>oldModel</em>, libsbml::SBMLDocument *<em>doc</em>, uint <em>options</em><span class="sig-paren">)</span><a class="headerlink" href="#_CPPv4N6rrllvm18LLVMModelGenerator15regenerateModelEPN2rr15ExecutableModelEPN7libsbml12SBMLDocumentE4uint" title="Permalink to this definition">¶</a><br /></dt>
+<span id="_CPPv3N6rrllvm18LLVMModelGenerator15regenerateModelEPN2rr15ExecutableModelEPN7libsbml12SBMLDocumentE4uint"></span><span id="_CPPv2N6rrllvm18LLVMModelGenerator15regenerateModelEPN2rr15ExecutableModelEPN7libsbml12SBMLDocumentE4uint"></span><span id="rrllvm::LLVMModelGenerator::regenerateModel__rr::ExecutableModelP.libsbml::SBMLDocumentP.uint"></span><span class="target" id="classrrllvm_1_1LLVMModelGenerator_1acca1a198b41b71a1abfc28f45422b861"></span><em class="property">static</em> rr::<a class="reference internal" href="../rrExecutableModel.html#_CPPv4N2rr15ExecutableModelE" title="rr::ExecutableModel">ExecutableModel</a> *<code class="sig-name descname">regenerateModel</code><span class="sig-paren">(</span>rr::<a class="reference internal" href="../rrExecutableModel.html#_CPPv4N2rr15ExecutableModelE" title="rr::ExecutableModel">ExecutableModel</a> *<em>oldModel</em>, libsbml::SBMLDocument *<em>doc</em>, uint <em>options</em><span class="sig-paren">)</span><a class="headerlink" href="#_CPPv4N6rrllvm18LLVMModelGenerator15regenerateModelEPN2rr15ExecutableModelEPN7libsbml12SBMLDocumentE4uint" title="Permalink to this definition">¶</a><br /></dt>
 <dd><p>Regenerate an executable model from an existing sbml document i.e. </p>
 <p>generate the model normally from the SBML document, but copy the values of the floating species (initial and current), boundary species, compartments (initial and current), global parameters (initial and current) that are in both oldModel and doc, as well as time from the old model into the one returned </p>
 </dd></dl>

@@ -13,10 +13,7 @@
   
   <link rel="stylesheet" href="../_static/css/theme.css" type="text/css" />
   <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
-  <link rel="stylesheet" href="../_static/sphinx_tabs/semantic-ui-2.4.1/segment.min.css" type="text/css" />
-  <link rel="stylesheet" href="../_static/sphinx_tabs/semantic-ui-2.4.1/menu.min.css" type="text/css" />
-  <link rel="stylesheet" href="../_static/sphinx_tabs/semantic-ui-2.4.1/tab.min.css" type="text/css" />
-  <link rel="stylesheet" href="../_static/sphinx_tabs/tabs.css" type="text/css" />
+  <link rel="stylesheet" href="../_static/tabs.css" type="text/css" />
 
   
   
@@ -245,7 +242,7 @@
 
 <dl class="cpp function">
 <dt id="_CPPv4N2rr14RK45IntegratorD0Ev">
-<span id="_CPPv3N2rr14RK45IntegratorD0Ev"></span><span id="_CPPv2N2rr14RK45IntegratorD0Ev"></span><span id="rr::RK45Integrator::~RK45Integrator"></span><span class="target" id="classrr_1_1RK45Integrator_1a8f080676c2c77fb14fc1f45b5705ebb4"></span><code class="sig-name descname">~RK45Integrator</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#_CPPv4N2rr14RK45IntegratorD0Ev" title="Permalink to this definition">¶</a><br /></dt>
+<span id="_CPPv3N2rr14RK45IntegratorD0Ev"></span><span id="_CPPv2N2rr14RK45IntegratorD0Ev"></span><span id="rr::RK45Integrator::~RK45Integrator"></span><span class="target" id="classrr_1_1RK45Integrator_1a8f080676c2c77fb14fc1f45b5705ebb4"></span><em class="property">virtual</em> <code class="sig-name descname">~RK45Integrator</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#_CPPv4N2rr14RK45IntegratorD0Ev" title="Permalink to this definition">¶</a><br /></dt>
 <dd><p>Destructor. </p>
 <p><dl class="simple">
 <dt><strong>Author</strong></dt><dd><p>KC </p>
@@ -256,7 +253,7 @@
 
 <dl class="cpp function">
 <dt id="_CPPv4N2rr14RK45Integrator13syncWithModelEP15ExecutableModel">
-<span id="_CPPv3N2rr14RK45Integrator13syncWithModelEP15ExecutableModel"></span><span id="_CPPv2N2rr14RK45Integrator13syncWithModelEP15ExecutableModel"></span><span id="rr::RK45Integrator::syncWithModel__ExecutableModelP"></span><span class="target" id="classrr_1_1RK45Integrator_1ac72e73c1d53f4884d9976cacee27f738"></span>void <code class="sig-name descname">syncWithModel</code><span class="sig-paren">(</span><a class="reference internal" href="rrExecutableModel.html#_CPPv4N2rr15ExecutableModelE" title="rr::ExecutableModel">ExecutableModel</a> *<em>m</em><span class="sig-paren">)</span><a class="headerlink" href="#_CPPv4N2rr14RK45Integrator13syncWithModelEP15ExecutableModel" title="Permalink to this definition">¶</a><br /></dt>
+<span id="_CPPv3N2rr14RK45Integrator13syncWithModelEP15ExecutableModel"></span><span id="_CPPv2N2rr14RK45Integrator13syncWithModelEP15ExecutableModel"></span><span id="rr::RK45Integrator::syncWithModel__ExecutableModelP"></span><span class="target" id="classrr_1_1RK45Integrator_1ac72e73c1d53f4884d9976cacee27f738"></span><em class="property">virtual</em> void <code class="sig-name descname">syncWithModel</code><span class="sig-paren">(</span><a class="reference internal" href="rrExecutableModel.html#_CPPv4N2rr15ExecutableModelE" title="rr::ExecutableModel">ExecutableModel</a> *<em>m</em><span class="sig-paren">)</span><a class="headerlink" href="#_CPPv4N2rr14RK45Integrator13syncWithModelEP15ExecutableModel" title="Permalink to this definition">¶</a><br /></dt>
 <dd><p>Called whenever a new model is loaded to allow integrator to reset internal state. </p>
 <p><dl class="simple">
 <dt><strong>Author</strong></dt><dd><p>JKM </p>
@@ -267,7 +264,7 @@
 
 <dl class="cpp function">
 <dt id="_CPPv4N2rr14RK45Integrator9integrateEdd">
-<span id="_CPPv3N2rr14RK45Integrator9integrateEdd"></span><span id="_CPPv2N2rr14RK45Integrator9integrateEdd"></span><span id="rr::RK45Integrator::integrate__double.double"></span><span class="target" id="classrr_1_1RK45Integrator_1ab181e94750addee7066f7b35cce2fb4d"></span>double <code class="sig-name descname">integrate</code><span class="sig-paren">(</span>double <em>t</em>, double <em>h</em><span class="sig-paren">)</span><a class="headerlink" href="#_CPPv4N2rr14RK45Integrator9integrateEdd" title="Permalink to this definition">¶</a><br /></dt>
+<span id="_CPPv3N2rr14RK45Integrator9integrateEdd"></span><span id="_CPPv2N2rr14RK45Integrator9integrateEdd"></span><span id="rr::RK45Integrator::integrate__double.double"></span><span class="target" id="classrr_1_1RK45Integrator_1ab181e94750addee7066f7b35cce2fb4d"></span><em class="property">virtual</em> double <code class="sig-name descname">integrate</code><span class="sig-paren">(</span>double <em>t</em>, double <em>h</em><span class="sig-paren">)</span><a class="headerlink" href="#_CPPv4N2rr14RK45Integrator9integrateEdd" title="Permalink to this definition">¶</a><br /></dt>
 <dd><p>implement <a class="reference internal" href="Integrator.html#classrr_1_1Integrator"><span class="std std-ref">Integrator</span></a> interface </p>
 <p><p>Integrates the model from t to t + h.  Attempts to find the state vector at t + h, and returns time t + h if successful. If the integrator does not find a convergent solution, the state vector is not updated and t is returned. Also calculates a new timestep and saves it to a member variable for future use. </p>
 <dl class="simple">
@@ -279,13 +276,13 @@
 
 <dl class="cpp function">
 <dt id="_CPPv4N2rr14RK45Integrator7restartEd">
-<span id="_CPPv3N2rr14RK45Integrator7restartEd"></span><span id="_CPPv2N2rr14RK45Integrator7restartEd"></span><span id="rr::RK45Integrator::restart__double"></span><span class="target" id="classrr_1_1RK45Integrator_1abde959ca72506e25e6c1187a4fa15b2b"></span>void <code class="sig-name descname">restart</code><span class="sig-paren">(</span>double <em>t0</em><span class="sig-paren">)</span><a class="headerlink" href="#_CPPv4N2rr14RK45Integrator7restartEd" title="Permalink to this definition">¶</a><br /></dt>
+<span id="_CPPv3N2rr14RK45Integrator7restartEd"></span><span id="_CPPv2N2rr14RK45Integrator7restartEd"></span><span id="rr::RK45Integrator::restart__double"></span><span class="target" id="classrr_1_1RK45Integrator_1abde959ca72506e25e6c1187a4fa15b2b"></span><em class="property">virtual</em> void <code class="sig-name descname">restart</code><span class="sig-paren">(</span>double <em>t0</em><span class="sig-paren">)</span><a class="headerlink" href="#_CPPv4N2rr14RK45Integrator7restartEd" title="Permalink to this definition">¶</a><br /></dt>
 <dd><p>Restarts the integrator. </p>
 </dd></dl>
 
 <dl class="cpp function">
 <dt id="_CPPv4NK2rr14RK45Integrator7getNameEv">
-<span id="_CPPv3NK2rr14RK45Integrator7getNameEv"></span><span id="_CPPv2NK2rr14RK45Integrator7getNameEv"></span><span id="rr::RK45Integrator::getNameC"></span><span class="target" id="classrr_1_1RK45Integrator_1aebee4c612006c929ba1d194b4258fa55"></span>std::string <code class="sig-name descname">getName</code><span class="sig-paren">(</span><span class="sig-paren">)</span> <em class="property">const</em><a class="headerlink" href="#_CPPv4NK2rr14RK45Integrator7getNameEv" title="Permalink to this definition">¶</a><br /></dt>
+<span id="_CPPv3NK2rr14RK45Integrator7getNameEv"></span><span id="_CPPv2NK2rr14RK45Integrator7getNameEv"></span><span id="rr::RK45Integrator::getNameC"></span><span class="target" id="classrr_1_1RK45Integrator_1aebee4c612006c929ba1d194b4258fa55"></span><em class="property">virtual</em> std::string <code class="sig-name descname">getName</code><span class="sig-paren">(</span><span class="sig-paren">)</span> <em class="property">const</em><a class="headerlink" href="#_CPPv4NK2rr14RK45Integrator7getNameEv" title="Permalink to this definition">¶</a><br /></dt>
 <dd><p>Get the name for this integrator. </p>
 <p><dl class="simple">
 <dt><strong>Author</strong></dt><dd><p>JKM </p>
@@ -298,7 +295,7 @@
 
 <dl class="cpp function">
 <dt id="_CPPv4NK2rr14RK45Integrator14getDescriptionEv">
-<span id="_CPPv3NK2rr14RK45Integrator14getDescriptionEv"></span><span id="_CPPv2NK2rr14RK45Integrator14getDescriptionEv"></span><span id="rr::RK45Integrator::getDescriptionC"></span><span class="target" id="classrr_1_1RK45Integrator_1a45d69589da662628a6f0f66c200614e3"></span>std::string <code class="sig-name descname">getDescription</code><span class="sig-paren">(</span><span class="sig-paren">)</span> <em class="property">const</em><a class="headerlink" href="#_CPPv4NK2rr14RK45Integrator14getDescriptionEv" title="Permalink to this definition">¶</a><br /></dt>
+<span id="_CPPv3NK2rr14RK45Integrator14getDescriptionEv"></span><span id="_CPPv2NK2rr14RK45Integrator14getDescriptionEv"></span><span id="rr::RK45Integrator::getDescriptionC"></span><span class="target" id="classrr_1_1RK45Integrator_1a45d69589da662628a6f0f66c200614e3"></span><em class="property">virtual</em> std::string <code class="sig-name descname">getDescription</code><span class="sig-paren">(</span><span class="sig-paren">)</span> <em class="property">const</em><a class="headerlink" href="#_CPPv4NK2rr14RK45Integrator14getDescriptionEv" title="Permalink to this definition">¶</a><br /></dt>
 <dd><p>Get the description for this integrator. </p>
 <p><dl class="simple">
 <dt><strong>Author</strong></dt><dd><p>JKM </p>
@@ -311,7 +308,7 @@
 
 <dl class="cpp function">
 <dt id="_CPPv4NK2rr14RK45Integrator7getHintEv">
-<span id="_CPPv3NK2rr14RK45Integrator7getHintEv"></span><span id="_CPPv2NK2rr14RK45Integrator7getHintEv"></span><span id="rr::RK45Integrator::getHintC"></span><span class="target" id="classrr_1_1RK45Integrator_1ae5526461902e834afff94a18f679dbe3"></span>std::string <code class="sig-name descname">getHint</code><span class="sig-paren">(</span><span class="sig-paren">)</span> <em class="property">const</em><a class="headerlink" href="#_CPPv4NK2rr14RK45Integrator7getHintEv" title="Permalink to this definition">¶</a><br /></dt>
+<span id="_CPPv3NK2rr14RK45Integrator7getHintEv"></span><span id="_CPPv2NK2rr14RK45Integrator7getHintEv"></span><span id="rr::RK45Integrator::getHintC"></span><span class="target" id="classrr_1_1RK45Integrator_1ae5526461902e834afff94a18f679dbe3"></span><em class="property">virtual</em> std::string <code class="sig-name descname">getHint</code><span class="sig-paren">(</span><span class="sig-paren">)</span> <em class="property">const</em><a class="headerlink" href="#_CPPv4NK2rr14RK45Integrator7getHintEv" title="Permalink to this definition">¶</a><br /></dt>
 <dd><p>Get the hint for this integrator. </p>
 <p><dl class="simple">
 <dt><strong>Author</strong></dt><dd><p>WBC </p>
@@ -324,12 +321,12 @@
 
 <dl class="cpp function">
 <dt id="_CPPv4N2rr14RK45Integrator8getValueENSt6stringE">
-<span id="_CPPv3N2rr14RK45Integrator8getValueENSt6stringE"></span><span id="_CPPv2N2rr14RK45Integrator8getValueENSt6stringE"></span><span id="rr::RK45Integrator::getValue__ss"></span><span class="target" id="classrr_1_1RK45Integrator_1a00de0a531065bed24f6a31e68194bb39"></span><a class="reference internal" href="Variant.html#_CPPv4N2rr7VariantE" title="rr::Variant">Variant</a> <code class="sig-name descname">getValue</code><span class="sig-paren">(</span>std::string <em>key</em><span class="sig-paren">)</span><a class="headerlink" href="#_CPPv4N2rr14RK45Integrator8getValueENSt6stringE" title="Permalink to this definition">¶</a><br /></dt>
+<span id="_CPPv3N2rr14RK45Integrator8getValueENSt6stringE"></span><span id="_CPPv2N2rr14RK45Integrator8getValueENSt6stringE"></span><span id="rr::RK45Integrator::getValue__ss"></span><span class="target" id="classrr_1_1RK45Integrator_1a00de0a531065bed24f6a31e68194bb39"></span><em class="property">virtual</em> <a class="reference internal" href="Variant.html#_CPPv4N2rr7VariantE" title="rr::Variant">Variant</a> <code class="sig-name descname">getValue</code><span class="sig-paren">(</span>std::string <em>key</em><span class="sig-paren">)</span><a class="headerlink" href="#_CPPv4N2rr14RK45Integrator8getValueENSt6stringE" title="Permalink to this definition">¶</a><br /></dt>
 <dd></dd></dl>
 
 <dl class="cpp function">
 <dt id="_CPPv4NK2rr14RK45Integrator20getIntegrationMethodEv">
-<span id="_CPPv3NK2rr14RK45Integrator20getIntegrationMethodEv"></span><span id="_CPPv2NK2rr14RK45Integrator20getIntegrationMethodEv"></span><span id="rr::RK45Integrator::getIntegrationMethodC"></span><span class="target" id="classrr_1_1RK45Integrator_1ade69fdfc91f614a6f20bc8027d5e2f0a"></span>IntegrationMethod <code class="sig-name descname">getIntegrationMethod</code><span class="sig-paren">(</span><span class="sig-paren">)</span> <em class="property">const</em><a class="headerlink" href="#_CPPv4NK2rr14RK45Integrator20getIntegrationMethodEv" title="Permalink to this definition">¶</a><br /></dt>
+<span id="_CPPv3NK2rr14RK45Integrator20getIntegrationMethodEv"></span><span id="_CPPv2NK2rr14RK45Integrator20getIntegrationMethodEv"></span><span id="rr::RK45Integrator::getIntegrationMethodC"></span><span class="target" id="classrr_1_1RK45Integrator_1ade69fdfc91f614a6f20bc8027d5e2f0a"></span><em class="property">virtual</em> IntegrationMethod <code class="sig-name descname">getIntegrationMethod</code><span class="sig-paren">(</span><span class="sig-paren">)</span> <em class="property">const</em><a class="headerlink" href="#_CPPv4NK2rr14RK45Integrator20getIntegrationMethodEv" title="Permalink to this definition">¶</a><br /></dt>
 <dd><p>Always deterministic for RK45. </p>
 <p><dl class="simple">
 <dt><strong>Author</strong></dt><dd><p>JKM </p>
@@ -340,7 +337,7 @@
 
 <dl class="cpp function">
 <dt id="_CPPv4N2rr14RK45Integrator13resetSettingsEv">
-<span id="_CPPv3N2rr14RK45Integrator13resetSettingsEv"></span><span id="_CPPv2N2rr14RK45Integrator13resetSettingsEv"></span><span id="rr::RK45Integrator::resetSettings"></span><span class="target" id="classrr_1_1RK45Integrator_1a68cd9b39288762b25f1410aa743f703c"></span>void <code class="sig-name descname">resetSettings</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#_CPPv4N2rr14RK45Integrator13resetSettingsEv" title="Permalink to this definition">¶</a><br /></dt>
+<span id="_CPPv3N2rr14RK45Integrator13resetSettingsEv"></span><span id="_CPPv2N2rr14RK45Integrator13resetSettingsEv"></span><span id="rr::RK45Integrator::resetSettings"></span><span class="target" id="classrr_1_1RK45Integrator_1a68cd9b39288762b25f1410aa743f703c"></span><em class="property">virtual</em> void <code class="sig-name descname">resetSettings</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#_CPPv4N2rr14RK45Integrator13resetSettingsEv" title="Permalink to this definition">¶</a><br /></dt>
 <dd><p>Reset all integrator settings to their respective default values. </p>
 <p><dl class="simple">
 <dt><strong>Author</strong></dt><dd><p>JKM </p>
@@ -351,14 +348,14 @@
 
 <dl class="cpp function">
 <dt id="_CPPv4N2rr14RK45Integrator11setListenerE21IntegratorListenerPtr">
-<span id="_CPPv3N2rr14RK45Integrator11setListenerE21IntegratorListenerPtr"></span><span id="_CPPv2N2rr14RK45Integrator11setListenerE21IntegratorListenerPtr"></span><span id="rr::RK45Integrator::setListener__IntegratorListenerPtr"></span><span class="target" id="classrr_1_1RK45Integrator_1a7fdc3829b5635e1b0cd18cced396261d"></span>void <code class="sig-name descname">setListener</code><span class="sig-paren">(</span>IntegratorListenerPtr<span class="sig-paren">)</span><a class="headerlink" href="#_CPPv4N2rr14RK45Integrator11setListenerE21IntegratorListenerPtr" title="Permalink to this definition">¶</a><br /></dt>
+<span id="_CPPv3N2rr14RK45Integrator11setListenerE21IntegratorListenerPtr"></span><span id="_CPPv2N2rr14RK45Integrator11setListenerE21IntegratorListenerPtr"></span><span id="rr::RK45Integrator::setListener__IntegratorListenerPtr"></span><span class="target" id="classrr_1_1RK45Integrator_1a7fdc3829b5635e1b0cd18cced396261d"></span><em class="property">virtual</em> void <code class="sig-name descname">setListener</code><span class="sig-paren">(</span>IntegratorListenerPtr<span class="sig-paren">)</span><a class="headerlink" href="#_CPPv4N2rr14RK45Integrator11setListenerE21IntegratorListenerPtr" title="Permalink to this definition">¶</a><br /></dt>
 <dd><p>the integrator can hold a single listener. </p>
 <p>If clients require multicast, they can create a multi-cast listener. </p>
 </dd></dl>
 
 <dl class="cpp function">
 <dt id="_CPPv4N2rr14RK45Integrator11getListenerEv">
-<span id="_CPPv3N2rr14RK45Integrator11getListenerEv"></span><span id="_CPPv2N2rr14RK45Integrator11getListenerEv"></span><span id="rr::RK45Integrator::getListener"></span><span class="target" id="classrr_1_1RK45Integrator_1af31a4d9eaff51261d8589f6020f2d612"></span>IntegratorListenerPtr <code class="sig-name descname">getListener</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#_CPPv4N2rr14RK45Integrator11getListenerEv" title="Permalink to this definition">¶</a><br /></dt>
+<span id="_CPPv3N2rr14RK45Integrator11getListenerEv"></span><span id="_CPPv2N2rr14RK45Integrator11getListenerEv"></span><span id="rr::RK45Integrator::getListener"></span><span class="target" id="classrr_1_1RK45Integrator_1af31a4d9eaff51261d8589f6020f2d612"></span><em class="property">virtual</em> IntegratorListenerPtr <code class="sig-name descname">getListener</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#_CPPv4N2rr14RK45Integrator11getListenerEv" title="Permalink to this definition">¶</a><br /></dt>
 <dd><p>get the integrator listener </p>
 </dd></dl>
 
@@ -367,7 +364,7 @@
 <p class="breathe-sectiondef-title rubric">Public Static Functions</p>
 <dl class="cpp function">
 <dt id="_CPPv4N2rr14RK45Integrator11getRK45NameEv">
-<span id="_CPPv3N2rr14RK45Integrator11getRK45NameEv"></span><span id="_CPPv2N2rr14RK45Integrator11getRK45NameEv"></span><span id="rr::RK45Integrator::getRK45Name"></span><span class="target" id="classrr_1_1RK45Integrator_1a79b1afc7612cb7646fa288dea1425655"></span>std::string <code class="sig-name descname">getRK45Name</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#_CPPv4N2rr14RK45Integrator11getRK45NameEv" title="Permalink to this definition">¶</a><br /></dt>
+<span id="_CPPv3N2rr14RK45Integrator11getRK45NameEv"></span><span id="_CPPv2N2rr14RK45Integrator11getRK45NameEv"></span><span id="rr::RK45Integrator::getRK45Name"></span><span class="target" id="classrr_1_1RK45Integrator_1a79b1afc7612cb7646fa288dea1425655"></span><em class="property">static</em> std::string <code class="sig-name descname">getRK45Name</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#_CPPv4N2rr14RK45Integrator11getRK45NameEv" title="Permalink to this definition">¶</a><br /></dt>
 <dd><p>Get the name for this integrator. </p>
 <p><dl class="simple">
 <dt><strong>Author</strong></dt><dd><p>JKM </p>
@@ -378,7 +375,7 @@
 
 <dl class="cpp function">
 <dt id="_CPPv4N2rr14RK45Integrator18getRK45DescriptionEv">
-<span id="_CPPv3N2rr14RK45Integrator18getRK45DescriptionEv"></span><span id="_CPPv2N2rr14RK45Integrator18getRK45DescriptionEv"></span><span id="rr::RK45Integrator::getRK45Description"></span><span class="target" id="classrr_1_1RK45Integrator_1a4540762ed7dca923baa3849f25c4a88f"></span>std::string <code class="sig-name descname">getRK45Description</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#_CPPv4N2rr14RK45Integrator18getRK45DescriptionEv" title="Permalink to this definition">¶</a><br /></dt>
+<span id="_CPPv3N2rr14RK45Integrator18getRK45DescriptionEv"></span><span id="_CPPv2N2rr14RK45Integrator18getRK45DescriptionEv"></span><span id="rr::RK45Integrator::getRK45Description"></span><span class="target" id="classrr_1_1RK45Integrator_1a4540762ed7dca923baa3849f25c4a88f"></span><em class="property">static</em> std::string <code class="sig-name descname">getRK45Description</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#_CPPv4N2rr14RK45Integrator18getRK45DescriptionEv" title="Permalink to this definition">¶</a><br /></dt>
 <dd><p>Get the description for this integrator. </p>
 <p><dl class="simple">
 <dt><strong>Author</strong></dt><dd><p>JKM </p>
@@ -389,7 +386,7 @@
 
 <dl class="cpp function">
 <dt id="_CPPv4N2rr14RK45Integrator11getRK45HintEv">
-<span id="_CPPv3N2rr14RK45Integrator11getRK45HintEv"></span><span id="_CPPv2N2rr14RK45Integrator11getRK45HintEv"></span><span id="rr::RK45Integrator::getRK45Hint"></span><span class="target" id="classrr_1_1RK45Integrator_1a0adfabeb7354eb4b364106b30d7b91e1"></span>std::string <code class="sig-name descname">getRK45Hint</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#_CPPv4N2rr14RK45Integrator11getRK45HintEv" title="Permalink to this definition">¶</a><br /></dt>
+<span id="_CPPv3N2rr14RK45Integrator11getRK45HintEv"></span><span id="_CPPv2N2rr14RK45Integrator11getRK45HintEv"></span><span id="rr::RK45Integrator::getRK45Hint"></span><span class="target" id="classrr_1_1RK45Integrator_1a0adfabeb7354eb4b364106b30d7b91e1"></span><em class="property">static</em> std::string <code class="sig-name descname">getRK45Hint</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#_CPPv4N2rr14RK45Integrator11getRK45HintEv" title="Permalink to this definition">¶</a><br /></dt>
 <dd><p>Get the hint for this integrator. </p>
 <p><dl class="simple">
 <dt><strong>Author</strong></dt><dd><p>JKM </p>

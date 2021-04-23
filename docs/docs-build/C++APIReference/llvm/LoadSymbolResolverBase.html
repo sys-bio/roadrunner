@@ -13,10 +13,7 @@
   
   <link rel="stylesheet" href="../../_static/css/theme.css" type="text/css" />
   <link rel="stylesheet" href="../../_static/pygments.css" type="text/css" />
-  <link rel="stylesheet" href="../../_static/sphinx_tabs/semantic-ui-2.4.1/segment.min.css" type="text/css" />
-  <link rel="stylesheet" href="../../_static/sphinx_tabs/semantic-ui-2.4.1/menu.min.css" type="text/css" />
-  <link rel="stylesheet" href="../../_static/sphinx_tabs/semantic-ui-2.4.1/tab.min.css" type="text/css" />
-  <link rel="stylesheet" href="../../_static/sphinx_tabs/tabs.css" type="text/css" />
+  <link rel="stylesheet" href="../../_static/tabs.css" type="text/css" />
 
   
   
@@ -277,12 +274,12 @@
 
 <dl class="cpp function">
 <dt id="_CPPv4N6rrllvm22LoadSymbolResolverBase19recursiveSymbolPushERKNSt6stringE">
-<span id="_CPPv3N6rrllvm22LoadSymbolResolverBase19recursiveSymbolPushERKNSt6stringE"></span><span id="_CPPv2N6rrllvm22LoadSymbolResolverBase19recursiveSymbolPushERKNSt6stringE"></span><span id="rrllvm::LoadSymbolResolverBase::recursiveSymbolPush__ssCR"></span><span class="target" id="classrrllvm_1_1LoadSymbolResolverBase_1a774ff517a485e464ad00de533461f2b1"></span>void <code class="sig-name descname">recursiveSymbolPush</code><span class="sig-paren">(</span><em class="property">const</em> std::string &amp;<em>symbol</em><span class="sig-paren">)</span><a class="headerlink" href="#_CPPv4N6rrllvm22LoadSymbolResolverBase19recursiveSymbolPushERKNSt6stringE" title="Permalink to this definition">¶</a><br /></dt>
+<span id="_CPPv3N6rrllvm22LoadSymbolResolverBase19recursiveSymbolPushERKNSt6stringE"></span><span id="_CPPv2N6rrllvm22LoadSymbolResolverBase19recursiveSymbolPushERKNSt6stringE"></span><span id="rrllvm::LoadSymbolResolverBase::recursiveSymbolPush__ssCR"></span><span class="target" id="classrrllvm_1_1LoadSymbolResolverBase_1a774ff517a485e464ad00de533461f2b1"></span><em class="property">virtual</em> void <code class="sig-name descname">recursiveSymbolPush</code><span class="sig-paren">(</span><em class="property">const</em> std::string &amp;<em>symbol</em><span class="sig-paren">)</span><a class="headerlink" href="#_CPPv4N6rrllvm22LoadSymbolResolverBase19recursiveSymbolPushERKNSt6stringE" title="Permalink to this definition">¶</a><br /></dt>
 <dd></dd></dl>
 
 <dl class="cpp function">
 <dt id="_CPPv4N6rrllvm22LoadSymbolResolverBase18recursiveSymbolPopEv">
-<span id="_CPPv3N6rrllvm22LoadSymbolResolverBase18recursiveSymbolPopEv"></span><span id="_CPPv2N6rrllvm22LoadSymbolResolverBase18recursiveSymbolPopEv"></span><span id="rrllvm::LoadSymbolResolverBase::recursiveSymbolPop"></span><span class="target" id="classrrllvm_1_1LoadSymbolResolverBase_1ade0623a0a82d7594aaa50d28e95eec6b"></span>void <code class="sig-name descname">recursiveSymbolPop</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#_CPPv4N6rrllvm22LoadSymbolResolverBase18recursiveSymbolPopEv" title="Permalink to this definition">¶</a><br /></dt>
+<span id="_CPPv3N6rrllvm22LoadSymbolResolverBase18recursiveSymbolPopEv"></span><span id="_CPPv2N6rrllvm22LoadSymbolResolverBase18recursiveSymbolPopEv"></span><span id="rrllvm::LoadSymbolResolverBase::recursiveSymbolPop"></span><span class="target" id="classrrllvm_1_1LoadSymbolResolverBase_1ade0623a0a82d7594aaa50d28e95eec6b"></span><em class="property">virtual</em> void <code class="sig-name descname">recursiveSymbolPop</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#_CPPv4N6rrllvm22LoadSymbolResolverBase18recursiveSymbolPopEv" title="Permalink to this definition">¶</a><br /></dt>
 <dd></dd></dl>
 
 <dl class="cpp function">
@@ -294,14 +291,14 @@
 
 <dl class="cpp function">
 <dt id="_CPPv4N6rrllvm22LoadSymbolResolverBase14pushCacheBlockEv">
-<span id="_CPPv3N6rrllvm22LoadSymbolResolverBase14pushCacheBlockEv"></span><span id="_CPPv2N6rrllvm22LoadSymbolResolverBase14pushCacheBlockEv"></span><span id="rrllvm::LoadSymbolResolverBase::pushCacheBlock"></span><span class="target" id="classrrllvm_1_1LoadSymbolResolverBase_1a1c2f43e60c68b47222758a9ed2dc0bb1"></span>size_t <code class="sig-name descname">pushCacheBlock</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#_CPPv4N6rrllvm22LoadSymbolResolverBase14pushCacheBlockEv" title="Permalink to this definition">¶</a><br /></dt>
+<span id="_CPPv3N6rrllvm22LoadSymbolResolverBase14pushCacheBlockEv"></span><span id="_CPPv2N6rrllvm22LoadSymbolResolverBase14pushCacheBlockEv"></span><span id="rrllvm::LoadSymbolResolverBase::pushCacheBlock"></span><span class="target" id="classrrllvm_1_1LoadSymbolResolverBase_1a1c2f43e60c68b47222758a9ed2dc0bb1"></span><em class="property">virtual</em> size_t <code class="sig-name descname">pushCacheBlock</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#_CPPv4N6rrllvm22LoadSymbolResolverBase14pushCacheBlockEv" title="Permalink to this definition">¶</a><br /></dt>
 <dd><p>nested conditionals (or functions?) can push a local cache block, where symbols would be chached. </p>
 <p>These need to be popped as these symbols are not valid outside of the local conditional or scope block. </p>
 </dd></dl>
 
 <dl class="cpp function">
 <dt id="_CPPv4N6rrllvm22LoadSymbolResolverBase13popCacheBlockEv">
-<span id="_CPPv3N6rrllvm22LoadSymbolResolverBase13popCacheBlockEv"></span><span id="_CPPv2N6rrllvm22LoadSymbolResolverBase13popCacheBlockEv"></span><span id="rrllvm::LoadSymbolResolverBase::popCacheBlock"></span><span class="target" id="classrrllvm_1_1LoadSymbolResolverBase_1ada819479484b73cc11daa4a22beb0406"></span>size_t <code class="sig-name descname">popCacheBlock</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#_CPPv4N6rrllvm22LoadSymbolResolverBase13popCacheBlockEv" title="Permalink to this definition">¶</a><br /></dt>
+<span id="_CPPv3N6rrllvm22LoadSymbolResolverBase13popCacheBlockEv"></span><span id="_CPPv2N6rrllvm22LoadSymbolResolverBase13popCacheBlockEv"></span><span id="rrllvm::LoadSymbolResolverBase::popCacheBlock"></span><span class="target" id="classrrllvm_1_1LoadSymbolResolverBase_1ada819479484b73cc11daa4a22beb0406"></span><em class="property">virtual</em> size_t <code class="sig-name descname">popCacheBlock</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#_CPPv4N6rrllvm22LoadSymbolResolverBase13popCacheBlockEv" title="Permalink to this definition">¶</a><br /></dt>
 <dd><p>Pop a scoped cache block, this clears these values, and any subsequent reads re-evaluate the requested symbol. </p>
 <p>Will throw an exception if an empty stack pop is attempted. </p>
 </dd></dl>
