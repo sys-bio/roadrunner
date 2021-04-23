@@ -63,8 +63,6 @@ namespace rr {
     public:
         /**
         * Pull down the setValue from superclass.
-        * We do not need to reimplement this
-        * but we make it explicit.
         */
         using Solver::setValue;
 

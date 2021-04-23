@@ -153,6 +153,7 @@ set(
         PresimulationDecorator.h
         PresimulationProgramDecorator.h
         ApproxSteadyStateDecorator.h
+        IPyPickle.h
 )
 install(FILES ${rrCoreHeaders} DESTINATION ${CMAKE_INSTALL_INCLUDEDIR}/rr)
 
