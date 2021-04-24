@@ -991,6 +991,14 @@ namespace std { class ostream{}; }
 
 
 %include <Solver.h>
+
+%extend rr::Solver {
+    %pythoncode %{
+        def __getstate__(self):
+            return self.getSettingsMap()
+    %}
+};
+
 %include <Integrator.h>
 %include <SteadyStateSolver.h>
 // for polymorphism to work correctly, and therefore pickling correct options

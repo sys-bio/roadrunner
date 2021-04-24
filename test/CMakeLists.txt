@@ -46,7 +46,7 @@ function(add_test_executable TEST_TARGET OUT_VARIABLE)
 
     add_dependencies(${TEST_TARGET} roadrunner-static gtest gtest_main gmock gmock_main)
     set_target_properties(${TEST_TARGET} PROPERTIES LINKER_LANGUAGE CXX)
-
+    set(x ${CMAKE_CURRENT_SOURCE_DIR})
     # Add to ctest.
     # add_test(NAME ${BINARY} COMMAND "$<TARGET_FILE:${BINARY}>")
     gtest_discover_tests(
