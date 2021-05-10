@@ -53,7 +53,7 @@ if (RR_PLUGINS_BUILD_SHARED_LIB)
     target_link_libraries(${target} PUBLIC
             rr-libstruct::rr-libstruct-static
             LibXml2::LibXml2
-            PocoXML::PocoXML
+            Poco::XML
             )
     target_include_directories(${target}
             PUBLIC ${CMAKE_CURRENT_SOURCE_DIR}
