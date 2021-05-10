@@ -38,7 +38,7 @@ class TA_DS AutoTellurimInterface
         bool                        selectParameter(const string& para);
         bool                        setScanDirection(ScanDirection val);
 		//bool						setPreSimulation(bool val);
-        void                        assignRoadRunner(rrc::RRHandle rrInstance, rrc::THostInterface* tHostInterface);
+        void                        assignRoadRunner(rrc::RRHandle rrInstance);
         void                        assignProperties(Properties* props);
 
     private:
@@ -48,7 +48,6 @@ class TA_DS AutoTellurimInterface
         string                      mTempFolder;
 
         static rrc::RRHandle mRR;
-        static rrc::THostInterface *mHostInterface;
         //static rrc::THostInterface*          mRR;     //# static RoadRunner*          mRR;      //Static so we can access this in autos callback
         static Properties*          mProperties;
         static AutoConstants        mAutoConstants;

@@ -133,7 +133,7 @@ class DataSeries:
         """
         if handle == None:
             self._myData = True
-            self._data = tpc.rrpLib.tpCreateTelluriumData(0, 0, "")
+            self._data = tpc.createTelluriumData(0, 0)
         else:
             self._data = handle
             self._myData = myData
@@ -156,12 +156,14 @@ class DataSeries:
             raise ValueError ('fromNumPy only accepts two dimensional arrays')
 
         # If there are no column names then make some up
-        if numPyData.dtype.names == None:
+        if hasattr(numPyData, "colnames") and not numPyData.colnames == None:
+            colHdr  = numPyData.colnames
+        elif not numPyData.colnames == None:
+            colHdr  = numPyData.colnames
+        else:
             colHdr = []
             for i in range (nrCols):
                 colHdr.append ('x' + str (i))
-        else:
-            colHdr  = numPyData.dtype.names
 
         columnStr = str(colHdr).strip('[]')
         columnStr = columnStr.strip('()')
@@ -195,7 +197,7 @@ class DataSeries:
         return self._data
 
     @property
-    def __getNumberOfRows (self):
+    def rows (self):
         """Use x.rows to get the number of rows"""
         return tpc.getTelluriumDataNumRows(self._data)
     # Use x.toNumpy to get NumPy array
@@ -205,7 +207,7 @@ class DataSeries:
         return tpc.getNumpyData (self._data)
 
     @property
-    def __getNumberOfColumns (self):
+    def cols (self):
         """Use x.cols to get the number of columns"""
         return tpc.getTelluriumDataNumCols(self._data)
 
@@ -272,7 +274,7 @@ class DataSeries:
         if col >= colCount:
             raise Exception("Column index out of bounds in dataseries element access")
 
-        if not tpc.rrpLib.tpHasWeights(self._data):
+        if not tpc.hasWeights(self._data):
             raise Exception("This data object do not have any weights allocated. Allocate weights first before using.")
 
         val = ctypes.c_double()
@@ -298,7 +300,7 @@ class DataSeries:
         if col >= colCount:
             raise Exception("Column index out of bounds in dataseries element access")
 
-        if not tpc.rrpLib.tpHasWeights(self._data):
+        if not tpc.hasWeights(self._data):
             raise Exception("This data object do not have any weights allocated. Allocate weights first before using.")
 
         tpc.setTelluriumDataWeight(self._data, row, col, value)
@@ -318,7 +320,7 @@ class DataSeries:
         """
         if not os.path.isfile (fileName):
             raise Exception ("File not found: " + fileName)
-        data = tpc.createTelluriumDataFromFile (fileName)
+        data = tpc.createTelluriumDataFromFile(ctypes.c_char_p(fileName.encode('utf-8')))
         return cls (data, True)
 
     def writeDataSeries(self, fileName):
@@ -458,14 +460,16 @@ class Plugin:
             t1 = tpc.getPropertyType (handle)
             if (t1 == "listOfProperties"):
                 if isinstance (value, list):
-                    if len(value) != 2:
-                        raise TypeError ("Expecting two elements in the property list")
-                    if not isinstance(value[0], str):
-                        raise TypeError("Expecting property name in first element of list")
-                    if (not isinstance(value[1], float)) and (isinstance(value[1], int)):
-                        raise TypeError("Expecting floating value in second element of list")
-                    para1 = tpc.createProperty(value[0], "double", "", value[1])
-                    tpc.addPropertyToList (handle, para1)
+                    if len(value) % 2 != 0:
+                        raise TypeError ("Expecting even numbers of elements in the property list")
+                    for pair in range(int(len(value)/2)):
+                        p = pair*2
+                        if not isinstance(value[p], str):
+                            raise TypeError("Expecting property name in first element of list")
+                        if (not isinstance(value[p+1], float)) and (isinstance(value[p+1], int)):
+                            raise TypeError("Expecting floating value in second element of list")
+                        para1 = tpc.createProperty(value[p], "double", "", value[p+1])
+                        tpc.addPropertyToList (handle, para1)
                 else:
                     raise  TypeError ("Expecting a list in setProperty")
             else:

@@ -111,7 +111,7 @@ bool tlp_cc tpLoadPlugins(TELHandle handle)
 
         //Register plugins with Handle manager.
         //We also need to register plugin attributes that may be
-        //accessed trough the API
+        //accessed through the API
         Plugin* pl = pm->getFirstPlugin();
         while(pl)
         {
@@ -470,7 +470,7 @@ char* tlp_cc tpGetPluginPropertiesAsXML(TELHandle handle)
     tel_catch_ptr_macro
 }
 
-TELHandle tlp_cc tpRegisterHandle(TELHandle handle, char* name)
+TELHandle tlp_cc tpRegisterHandle(TELHandle handle, const char* name)
 {
     start_try
         return gHM.registerHandle(handle, name);

@@ -24,9 +24,7 @@ if (RR_PLUGINS_BUILD_SHARED_LIB)
     target_link_libraries(${target} PUBLIC
             telplugins_common-static
             telpluginsBaseClass-static
-            ${RRPLUGINS_COMMON_STATIC_LIBS}
-            roadrunner_c_api
-            roadrunner-static
+            telplugins_c_api
             )
     target_include_directories(${target} PUBLIC ${CMAKE_CURRENT_SOURCE_DIR} ${RR_PLUGINS_ROOT})
 
@@ -50,9 +48,7 @@ if (RR_PLUGINS_BUILD_STATIC_LIB)
     target_link_libraries(${target}-static PUBLIC
             telplugins_common-static
             telpluginsBaseClass-static
-            ${RRPLUGINS_COMMON_STATIC_LIBS}
             roadrunner_c_api
-            roadrunner-static
             )
     target_include_directories(${target}-static PUBLIC ${CMAKE_CURRENT_SOURCE_DIR} ${RR_PLUGINS_ROOT})
 

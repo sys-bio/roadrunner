@@ -20,7 +20,6 @@ target_link_libraries(${target} PRIVATE
         telpluginsBaseClass-static
         telplugins_math-static
         telplugins_common-static
-        ${RRPLUGINS_COMMON_SHARED_LIBS}
         )
 
 target_compile_definitions(${target} PRIVATE
@@ -45,7 +44,7 @@ if(BUILD_PYTHON)
         DESTINATION ${RR_PLUGINS_PYLIB_INSTALL_PREFIX}
         COMPONENT plugins
         )
-    file(GLOB EXAMPLES docs/*)
+    file(GLOB EXAMPLES docs/Examples/*)
     install(FILES ${EXAMPLES} DESTINATION "${RR_PLUGINS_PYTHON_INSTALL_PREFIX}" COMPONENT plugins)
     unset(EXAMPLES)
 endif()

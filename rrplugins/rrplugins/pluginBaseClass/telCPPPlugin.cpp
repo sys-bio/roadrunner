@@ -20,7 +20,7 @@ string CPPPlugin::getImplementationLanguage()
 
 /*
 void CPPPlugin::setHostInterface(rrc::THostInterface* _hostInterface) {
-    mhostInterface = _hostInterface;
+    gHostInterface = _hostInterface;
 }*/
 
 }

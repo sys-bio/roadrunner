@@ -5,71 +5,70 @@
 #include "telProperties.h"
 //---------------------------------------------------------------------------
 
-using namespace tlp;
-
-double NelderMeadObjectiveFunction(double par[], const void* userData)
+namespace nmfit
 {
-    NelderMead&         plugin      = *((NelderMead*) userData);
-    TelluriumData&      expData     = plugin.mExperimentalData;
-    RoadRunner*         rr          = plugin.getRoadRunner();
+    extern rrc::THostInterface* gHostInterface;
 
-    if(!rr)
+    using namespace tlp;
+
+    double NelderMeadObjectiveFunction(double par[], const void* userData)
     {
-        throw(Exception("RoadRunner is NULL in Nelder-Mead objective function"));
-    }
-    //Reset roadrunner
-    rr->reset();
+        nmfit::NelderMead& plugin = *((nmfit::NelderMead*)userData);
+        TelluriumData& expData = plugin.mExperimentalData;
+        //Reset roadrunner
+        gHostInterface->reset(plugin.rrHandle);
 
-    //Get current parameter values
-    Properties* inParas = (Properties*) plugin.mInputParameterList.getValueHandle();
-    int nrOfParameters = inParas->count();
+        //Get current parameter values
+        Properties* inParas = (Properties*)plugin.mInputParameterList.getValueHandle();
+        int nrOfParameters = inParas->count();
 
-    for(int i = 0; i < nrOfParameters; i++)
-    {
-        PropertyBase* para = inParas->getPropertyAt(i);
-        rr->setValue(para->getName(), par[i]);
-    }
-
-    rr::SimulateOptions opt;
-    opt.start       = expData.getTimeStart();
-    opt.duration    = expData.getTimeEnd() - expData.getTimeStart();
-    opt.steps       = expData.rSize() -1;
-
-    //Simulate
-    rr->simulate(&opt);
-    TelluriumData   simData;
-    simData.setData(*rr->getSimulationData());
-
-    StringList* species = (StringList*) plugin.mExperimentalDataSelectionList.getValueHandle();
-    int nrOfSpecies = species->count();
-
-    //Calculate residuals
-    vector<double> residuals(simData.rSize() * nrOfSpecies);
-
-    int resIndex = 0;
-    for(int specie = 0; specie < nrOfSpecies; specie++)
-    {
-        for(int timePoint = 0; timePoint < simData.rSize(); timePoint++)
+        for (int i = 0; i < nrOfParameters; i++)
         {
-            residuals[resIndex] = expData(timePoint, specie + 1) - simData(timePoint, specie); //+1 because of time
-            resIndex ++;
+            Property<double>* para = (Property<double>*) (inParas->getPropertyAt(i));
+            gHostInterface->setValue(plugin.rrHandle, para->getName().c_str(), par[i]);
         }
+
+        //Simulate
+        double norm = DBL_MAX; //For if the simulation fails.
+        bool ret = gHostInterface->simulateExNoReturn(plugin.rrHandle, expData.getTimeStart(), expData.getTimeEnd(), expData.rSize());
+        if (ret)
+        {
+            DoubleMatrix* modelData = (DoubleMatrix*)gHostInterface->getSimulationResultAsDoubleMatrix(plugin.rrHandle);
+            TelluriumData   simData;
+            simData.setData(*modelData);
+
+            StringList* species = (StringList*)plugin.mExperimentalDataSelectionList.getValueHandle();
+            int nrOfSpecies = species->count();
+
+            //Calculate residuals
+            vector<double> residuals(simData.rSize() * nrOfSpecies);
+
+            int resIndex = 0;
+            for (int specie = 0; specie < nrOfSpecies; specie++)
+            {
+                for (int timePoint = 0; timePoint < simData.rSize(); timePoint++)
+                {
+                    residuals[resIndex] = expData(timePoint, specie + 1) - simData(timePoint, specie); //+1 because of time
+                    resIndex++;
+                }
+            }
+
+            //Calculate Norm
+            norm = getEuclideanNorm(residuals);
+        }
+        plugin.mNorm.setValue(norm);
+        plugin.mTheNorms.push_back(norm);
+        //Assign data relevant to the progress
+        plugin.mNrOfFuncIter.setValue(plugin.mNrOfFuncIter.getValue() + 1);
+
+        //Call OnProgress
+        if (plugin.hasProgressEvent())
+        {
+            //Pass trough event data
+            pair<void*, void*> passTroughData = plugin.getWorkProgressData();
+            plugin.WorkProgressEvent(passTroughData.first, passTroughData.second);
+        }
+
+        return norm;
     }
-
-    //Calculate Norm
-    double norm = getEuclideanNorm(residuals);
-    plugin.mNorm.setValue(norm);
-    plugin.mTheNorms.push_back(norm);
-    //Assign data relevant to the progress
-     plugin.mNrOfFuncIter.setValue(plugin.mNrOfFuncIter.getValue() + 1);
-
-    //Call OnProgress
-    if(plugin.hasProgressEvent())
-    {
-        //Pass trough event data
-        pair<void*, void*> passTroughData = plugin.getWorkProgressData();
-        plugin.WorkProgressEvent(passTroughData.first, passTroughData.second);
-    }
-
-    return norm;
 }

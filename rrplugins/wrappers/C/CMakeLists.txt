@@ -5,14 +5,23 @@ set(target telplugins_c_api)
 
 #The C-api is built as a shared library..
 add_library(${target} SHARED
-        telplugins_c_api
-        telplugins_properties_api
-        telplugins_telluriumdata_api
-        telplugins_matrix_api
-        telplugins_cpp_support
-        telplugins_utilities
-        telplugins_logging_api
-        telAPIHandleManager
+        telplugins_c_api.cpp
+        telplugins_properties_api.cpp
+        telplugins_telluriumdata_api.cpp
+        telplugins_matrix_api.cpp
+        telplugins_cpp_support.cpp
+        telplugins_utilities.cpp
+        telplugins_logging_api.cpp
+        telAPIHandleManager.cpp
+
+        telplugins_c_api.h
+        telplugins_properties_api.h
+        telplugins_telluriumdata_api.h
+        telplugins_matrix_api.h
+        telplugins_cpp_support.h
+        telplugins_utilities.h
+        telplugins_logging_api.h
+        telAPIHandleManager.h
         )
 
 target_link_libraries(${target} PUBLIC
@@ -20,12 +29,10 @@ target_link_libraries(${target} PUBLIC
         telplugins_core-static
         telplugins_math-static
         telpluginsBaseClass-static
-        ${RRPLUGINS_COMMON_SHARED_LIBS}
         )
 
 # remove the "lib" prefix on some platforms
 set_target_properties(${target} PROPERTIES PREFIX "")
-message(STATUS "C API: RRPLUGINS_COMMON_SHARED_LIBS = ${RRPLUGINS_COMMON_SHARED_LIBS}")
 
 #Link C_api shared lib statically to roadrunner and libsbml
 if (WIN32)

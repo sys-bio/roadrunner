@@ -10,35 +10,35 @@ class Logger;
 namespace tlp
 {
 
-class COMMON_DECLSPEC LoggingBuffer
-{
+    class COMMON_DECLSPEC LoggingBuffer
+    {
     public:
-                            LoggingBuffer(int level, const char* file, int line);
+        LoggingBuffer(int level, const char* file, int line);
 
         /**
          * dump the contents of the stringstream to the log.
          */
-                           ~LoggingBuffer();
+        ~LoggingBuffer();
 
         /**
          * get the stream this buffer holds.
          */
-        std::ostream&       stream();
+        std::ostream& stream();
 
     private:
         std::stringstream   buffer;
         int                 level;
-        const char*         file;
+        const char* file;
         int                 line;
-};
+    };
 
-/**
- * The Tellurium logger.
- *
- * A set of static method for setting the logging level.
- */
-class COMMON_DECLSPEC Logger
-{
+    /**
+     * The Tellurium logger.
+     *
+     * A set of static method for setting the logging level.
+     */
+    class COMMON_DECLSPEC Logger
+    {
     public:
         /**
          * same as Poco level, repeat here to avoid including any Poco files
@@ -163,7 +163,7 @@ class COMMON_DECLSPEC Logger
          *   * %[name] - the value of the message parameter with the given name
          *   * %% - percent sign
          */
-        static void setFormattingPattern(const std::string &format);
+        static void setFormattingPattern(const std::string& format);
 
         /**
          * get the currently set formatting pattern.
@@ -179,42 +179,42 @@ class COMMON_DECLSPEC Logger
          * parses a string and returns a Logger::Level
          */
         static Level stringToLevel(const std::string& str);
-};
+    };
 
-/**
- * old logging levels, here for compatibility
- */
-enum LogLevel
-{
-    lAny        = Logger::LOG_ERROR,
-    lError      = Logger::LOG_ERROR,
-    lWarning    = Logger::LOG_WARNING,
-    lInfo       = Logger::LOG_INFORMATION,
-    lDebug      = Logger::LOG_DEBUG,
-    lDebug1     = Logger::LOG_TRACE,
-    lDebug2     = Logger::LOG_TRACE,
-    lDebug3     = Logger::LOG_TRACE,
-    lDebug4     = Logger::LOG_TRACE,
-    lDebug5     = Logger::LOG_TRACE,
-    lUser       = Logger::LOG_TRACE
-};
+    /**
+     * old logging levels, here for compatibility
+     */
+    enum LogLevel
+    {
+        lAny = Logger::LOG_ERROR,
+        lError = Logger::LOG_ERROR,
+        lWarning = Logger::LOG_WARNING,
+        lInfo = Logger::LOG_INFORMATION,
+        lDebug = Logger::LOG_DEBUG,
+        lDebug1 = Logger::LOG_TRACE,
+        lDebug2 = Logger::LOG_TRACE,
+        lDebug3 = Logger::LOG_TRACE,
+        lDebug4 = Logger::LOG_TRACE,
+        lDebug5 = Logger::LOG_TRACE,
+        lUser = Logger::LOG_TRACE
+    };
 
-/**
- * the real logger is actually a Poco::Logger named "RoadRunner", i.e.
- * Poco::Logger::get("RoadRunner").
- *
- * This returns that logger.
- */
-COMMON_DECLSPEC Poco::Logger& getLogger();
+    /**
+     * the real logger is actually a Poco::Logger named "RoadRunner", i.e.
+     * Poco::Logger::get("RoadRunner").
+     *
+     * This returns that logger.
+     */
+    COMMON_DECLSPEC Poco::Logger& getLogger();
 
 #define gLog Logger()
 
 #ifndef NO_LOGGER
-    #define RRPLOG(level) \
+#define RRPLOG(level) \
         if (level > tlp::Logger::getLevel()) { ; } \
         else tlp::LoggingBuffer(level, __FILE__, __LINE__).stream()
 #else
-    #define RRPLOG(level) \
+#define RRPLOG(level) \
         if (true) {  }\
         else \
         LoggingBuffer(level, __FILE__, __LINE__)

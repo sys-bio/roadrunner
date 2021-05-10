@@ -23,6 +23,9 @@ set(RRPLUGINS_COMMON_SOURCES
         telUtils.cpp
         telArrayList.h
         telArrayedParameter.h
+        telBuildSettings.h
+        telCommon_pch.h
+        telCommonExporter.h
         telConstants.h
         telException.h
         telFileName.h
@@ -30,7 +33,9 @@ set(RRPLUGINS_COMMON_SOURCES
         telIniKey.h
         telIniSection.h
         telLogger.h
+        telOSSpecifics.h
         telProperties.h
+        telProperty.h
         telPropertyBase.h
         telStringBuilder.h
         telStringList.h
@@ -46,9 +51,9 @@ if (RR_PLUGINS_BUILD_SHARED_LIB)
     target_compile_definitions(${target} PRIVATE EXPORT_COMMON_API)
 
     target_link_libraries(${target} PUBLIC
-            ${RRPLUGINS_COMMON_SHARED_LIBS}
-            roadrunner-static
-            roadrunner_c_api
+            rr-libstruct::rr-libstruct-static
+            LibXml2::LibXml2
+            PocoXML::PocoXML
             )
     target_include_directories(${target}
             PUBLIC ${CMAKE_CURRENT_SOURCE_DIR}

@@ -5,15 +5,18 @@
 
 namespace hello
 {
-    rrc::THostInterface* mhostInterface;
+    rrc::THostInterface* gHostInterface = NULL;
 
     Hello::Hello():CPPPlugin("Hello","General Plugin")//Construct Base
     {}
 
     bool Hello::execute(bool inThread)
     {
-        if (mhostInterface)mVersion= mhostInterface->getVersionStr();
-        else return false;
+        if (!gHostInterface)
+        {
+            return false;
+        }
+        mVersion = gHostInterface->getVersionStr();
         std::cout<< "Executing the Hello plugin by Debashish Roy: " << mVersion << std::endl;
         return true;
     }
@@ -30,7 +33,7 @@ namespace hello
         return "CPP";
     }
     void plugins_cc setHostInterface(rrc::THostInterface* _hostInterface) {
-        mhostInterface = _hostInterface;
+        gHostInterface = _hostInterface;
     }
     #endif
 }

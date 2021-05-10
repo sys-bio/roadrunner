@@ -524,7 +524,7 @@ PyObject* doublematrix_to_py(const ls::DoubleMatrix* m, bool structured_result, 
             Py_DECREF(col);
             Py_DECREF(type);
 
-            // list takes ownershipt of tuple
+            // list takes ownership of tuple
             void PyList_SET_ITEM(list, i, tup);
         }
 

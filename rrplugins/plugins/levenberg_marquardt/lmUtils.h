@@ -3,13 +3,12 @@
 #include "telplugins_types.h"
 #include "telplugins_settings.h"
 #include "telPluginsManagerSettings.h"
-#include "rrRoadRunner.h"
 //---------------------------------------------------------------------------
 
 namespace lmfit
 {
-//using namespace rrc;
 using namespace tlpc;
+class LM;
 
 /* data structure to transmit model data to function evalution */
 typedef struct
@@ -32,7 +31,7 @@ typedef struct
     char*                   mProgressEventMessage;
     int                     mNrOfIterations;
     double                  mNorm;
-    rr::RoadRunner*         roadrunner;
+    LM*                     mTheHost;
 } lmDataStructure;
 
 //Evaluate is the event function that lmfit call to evaulate residuals

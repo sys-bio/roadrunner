@@ -1,0 +1,804 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<sbml xmlns="http://www.sbml.org/sbml/level2/version3" level="2" metaid="metaid_0000001" version="3">
+  <model id="MODEL7957907314" metaid="metaid_0000002" name="Chickarmane2006 - Stem cell switch reversible">
+    <notes>
+      <body xmlns="http://www.w3.org/1999/xhtml">
+        <div class="dc:title">Chickarmane2006 - Stem cell switch reversible</div>
+            <div class="dc:description">      <p>Kinetic modeling approach of the transcriptional dynamics of the embryonic stem cell switch.</p>
+                </div>
+            <div class="dc:bibliographicCitation">      <p>This model is described in the article:</p>
+                <div class="bibo:title">        <a href="http://identifiers.org/pubmed/16978048" title="Access to this publication">Transcriptional dynamics of the embryonic stem cell switch.</a>
+                    </div>
+                <div class="bibo:authorList">Chickarmane V, Troein C, Nuber UA, Sauro HM, Peterson C</div>
+                <div class="bibo:Journal">PLoS Computational Biology. 2006; 2(9):e123</div>
+                <p>Abstract:</p>
+                <div class="bibo:abstract">        <p>Recent ChIP experiments of human and mouse embryonic stem cells have elucidated the architecture of the transcriptional regulatory circuitry responsible for cell determination, which involves the transcription factors OCT4, SOX2, and NANOG. In addition to regulating each other through feedback loops, these genes also regulate downstream target genes involved in the maintenance and differentiation of embryonic stem cells. A search for the OCT4-SOX2-NANOG network motif in other species reveals that it is unique to mammals. With a kinetic modeling approach, we ascribe function to the observed OCT4-SOX2-NANOG network by making plausible assumptions about the interactions between the transcription factors at the gene promoter binding sites and RNA polymerase (RNAP), at each of the three genes as well as at the target genes. We identify a bistable switch in the network, which arises due to several positive feedback loops, and is switched on/off by input environmental signals. The switch stabilizes the expression levels of the three genes, and through their regulatory roles on the downstream target genes, leads to a binary decision: when OCT4, SOX2, and NANOG are expressed and the switch is on, the self-renewal genes are on and the differentiation genes are off. The opposite holds when the switch is off. The model is extremely robust to parameter changes. In addition to providing a self-consistent picture of the transcriptional circuit, the model generates several predictions. Increasing the binding strength of NANOG to OCT4 and SOX2, or increasing its basal transcriptional rate, leads to an irreversible bistable switch: the switch remains on even when the activating signal is removed. Hence, the stem cell can be manipulated to be self-renewing without the requirement of input signals. We also suggest tests that could discriminate between a variety of feedforward regulation architectures of the target genes by OCT4, SOX2, and NANOG.</p>
+                    </div>
+                </div>
+            <div class="dc:publisher">      <p>This model is hosted on        <a href="http://www.ebi.ac.uk/biomodels/">BioModels Database</a>
+            and identified by:        <a href="http://identifiers.org/biomodels.db/MODEL7957907314">MODEL7957907314</a>
+            .        </p>
+                <p>To cite BioModels Database, please use:        <a href="http://identifiers.org/pubmed/20587024" title="Latest BioModels Database publication">BioModels Database: An enhanced, curated and annotated resource for published quantitative kinetic models</a>
+            .        </p>
+                </div>
+            <div class="dc:license">      <p>To the extent possible under law, all copyright and related or neighbouring rights to this encoded model have been dedicated to the public domain worldwide. Please refer to        <a href="http://creativecommons.org/publicdomain/zero/1.0/" title="Access to: CC0 1.0 Universal (CC0 1.0), Public Domain Dedication">CC0 Public Domain Dedication</a>
+            for more information.        </p>
+                </div>
+            </body>
+      
+    </notes>
+    <annotation>
+      <rdf:RDF xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#" xmlns:bqmodel="http://biomodels.net/model-qualifiers/" xmlns:vCard="http://www.w3.org/2001/vcard-rdf/3.0#" xmlns:dc="http://purl.org/dc/elements/1.1/" xmlns:dcterms="http://purl.org/dc/terms/" xmlns:bqbiol="http://biomodels.net/biology-qualifiers/">
+        <rdf:Description rdf:about="#metaid_0000002">
+	<dc:creator>
+	<rdf:Bag>
+	<rdf:li rdf:parseType="Resource">
+	<vCard:N rdf:parseType="Resource">
+	<vCard:Family>Endler</vCard:Family>
+	<vCard:Given>Lukas</vCard:Given>
+	</vCard:N>
+	<vCard:EMAIL>lukas@ebi.ac.uk</vCard:EMAIL>
+	<vCard:ORG rdf:parseType="Resource">
+	<vCard:Orgname>EMBL-EBI</vCard:Orgname>
+	</vCard:ORG>
+	</rdf:li>
+	
+	
+	<rdf:li rdf:parseType="Resource">
+	<vCard:N rdf:parseType="Resource">
+	<vCard:Family>Chickarmane</vCard:Family>
+	<vCard:Given>Vijay</vCard:Given>
+	</vCard:N>
+	<vCard:EMAIL>vchickar@caltech.edu</vCard:EMAIL>
+	<vCard:ORG rdf:parseType="Resource">
+	<vCard:Orgname>Keck Graduate Institute, California</vCard:Orgname>
+	</vCard:ORG>
+	</rdf:li>
+	<rdf:li rdf:parseType="Resource">
+	<vCard:N rdf:parseType="Resource">
+	<vCard:Family>Peterson</vCard:Family>
+	<vCard:Given>Carsten</vCard:Given>
+	</vCard:N>
+	<vCard:EMAIL>carsten@thep.lu.se</vCard:EMAIL>
+	<vCard:ORG rdf:parseType="Resource">
+	<vCard:Orgname>Lund Strategic Research Centre for Stem Cell Biology and Cell Therapy, Lund University, Sweden.</vCard:Orgname>
+	</vCard:ORG>
+	</rdf:li>
+	<rdf:li rdf:parseType="Resource">
+	<vCard:N rdf:parseType="Resource">
+	<vCard:Family>Chelliah</vCard:Family>
+	<vCard:Given>Vijayalakshmi</vCard:Given>
+	</vCard:N>
+	<vCard:EMAIL>viji@ebi.ac.uk</vCard:EMAIL>
+	<vCard:ORG rdf:parseType="Resource">
+	<vCard:Orgname>EMBL-EBI</vCard:Orgname>
+	</vCard:ORG>
+	</rdf:li>
+	</rdf:Bag>
+	</dc:creator>
+	<dcterms:created rdf:parseType="Resource">
+	<dcterms:W3CDTF>2008-11-25T17:19:46Z</dcterms:W3CDTF>
+	</dcterms:created>
+	<dcterms:modified rdf:parseType="Resource">
+	<dcterms:W3CDTF>2013-06-05T16:59:33Z</dcterms:W3CDTF>
+	</dcterms:modified>
+	<bqmodel:is>
+	<rdf:Bag>
+	<rdf:li rdf:resource="http://identifiers.org/biomodels.db/MODEL7957907314"/>
+	</rdf:Bag>
+	</bqmodel:is>
+	<bqmodel:is>
+	<rdf:Bag>
+	<rdf:li rdf:resource="http://identifiers.org/biomodels.db/BIOMD0000000203"/>
+	</rdf:Bag>
+	</bqmodel:is>
+	<bqmodel:isDescribedBy>
+	<rdf:Bag>
+	<rdf:li rdf:resource="http://identifiers.org/pubmed/16978048"/>
+	</rdf:Bag>
+	</bqmodel:isDescribedBy>
+	<bqbiol:isVersionOf>
+	<rdf:Bag>
+	<rdf:li rdf:resource="http://identifiers.org/obo.go/GO:0048863"/>
+	</rdf:Bag>
+	</bqbiol:isVersionOf>
+	<bqbiol:hasTaxon>
+	<rdf:Bag>
+	<rdf:li rdf:resource="http://identifiers.org/taxonomy/9606"/>
+	<rdf:li rdf:resource="http://identifiers.org/taxonomy/10090"/>
+	</rdf:Bag>
+	</bqbiol:hasTaxon>
+	</rdf:Description>
+	
+      </rdf:RDF>
+    </annotation>
+      <listOfUnitDefinitions>
+      <unitDefinition id="substance" metaid="metaid_0000058" name="arb_substance">
+        <listOfUnits>
+          <unit kind="dimensionless" metaid="_361647"/>
+        </listOfUnits>
+      </unitDefinition>
+      <unitDefinition id="volume" metaid="metaid_0000059" name="arb_volume">
+        <listOfUnits>
+          <unit kind="litre" metaid="_361659"/>
+        </listOfUnits>
+      </unitDefinition>
+      <unitDefinition id="time" metaid="metaid_0000060" name="arb_time">
+        <listOfUnits>
+          <unit kind="dimensionless" metaid="_361671"/>
+        </listOfUnits>
+      </unitDefinition>
+    </listOfUnitDefinitions>
+    <listOfCompartments>
+      <compartment id="compartment" metaid="metaid_0000035" size="1">
+        <annotation>
+          <rdf:RDF xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#" xmlns:bqmodel="http://biomodels.net/model-qualifiers/" xmlns:bqbiol="http://biomodels.net/biology-qualifiers/">
+            <rdf:Description rdf:about="#metaid_0000035">
+	<bqbiol:isVersionOf>
+	<rdf:Bag>
+	<rdf:li rdf:resource="http://identifiers.org/obo.go/GO:0005623"/>
+	</rdf:Bag>
+	</bqbiol:isVersionOf>
+	</rdf:Description>
+	
+          </rdf:RDF>
+        </annotation>
+            </compartment>
+    </listOfCompartments>
+    <listOfSpecies>
+      <species boundaryCondition="true" compartment="compartment" id="OCT4_Gene" initialAmount="0" metaid="metaid_0000036">
+        <annotation>
+          <rdf:RDF xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#" xmlns:bqmodel="http://biomodels.net/model-qualifiers/" xmlns:bqbiol="http://biomodels.net/biology-qualifiers/">
+            <rdf:Description rdf:about="#metaid_0000036">
+              <bqbiol:isVersionOf>
+	<rdf:Bag>
+	<rdf:li rdf:resource="http://identifiers.org/ensembl/ENSG00000204531"/>
+	</rdf:Bag>
+	</bqbiol:isVersionOf>
+	
+	<bqbiol:encodes>
+	<rdf:Bag>
+	<rdf:li rdf:resource="http://identifiers.org/uniprot/Q01860"/>
+	</rdf:Bag>
+	</bqbiol:encodes>
+	</rdf:Description>
+	
+          </rdf:RDF>
+        </annotation>
+            </species>
+      <species boundaryCondition="true" compartment="compartment" id="NANOG_Gene" initialAmount="0" metaid="metaid_0000037">
+        <annotation>
+          <rdf:RDF xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#" xmlns:bqmodel="http://biomodels.net/model-qualifiers/" xmlns:bqbiol="http://biomodels.net/biology-qualifiers/">
+            <rdf:Description rdf:about="#metaid_0000037">
+              <bqbiol:isVersionOf>
+	<rdf:Bag>
+	<rdf:li rdf:resource="http://identifiers.org/ensembl/ENSG00000176654"/>
+	</rdf:Bag>
+	</bqbiol:isVersionOf>
+	
+	<bqbiol:encodes>
+	<rdf:Bag>
+	<rdf:li rdf:resource="http://identifiers.org/uniprot/Q8N7R0"/>
+	</rdf:Bag>
+	</bqbiol:encodes>
+	</rdf:Description>
+	
+          </rdf:RDF>
+        </annotation>
+            </species>
+      <species boundaryCondition="true" compartment="compartment" id="SOX2_Gene" initialAmount="0" metaid="metaid_0000038">
+        <annotation>
+          <rdf:RDF xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#" xmlns:bqmodel="http://biomodels.net/model-qualifiers/" xmlns:bqbiol="http://biomodels.net/biology-qualifiers/">
+            <rdf:Description rdf:about="#metaid_0000038">
+              <bqbiol:isVersionOf>
+	<rdf:Bag>
+	<rdf:li rdf:resource="http://identifiers.org/ensembl/ENSG00000165661"/>
+	</rdf:Bag>
+	</bqbiol:isVersionOf>
+	
+	<bqbiol:encodes>
+	<rdf:Bag>
+	<rdf:li rdf:resource="http://identifiers.org/uniprot/Q6ZRP7"/>
+	</rdf:Bag>
+	</bqbiol:encodes>
+	</rdf:Description>
+	
+          </rdf:RDF>
+        </annotation>
+            </species>
+      <species boundaryCondition="true" compartment="compartment" id="targetGene" initialAmount="0.01" metaid="metaid_0000039"/>
+      <species boundaryCondition="true" compartment="compartment" id="degradation" initialAmount="0" metaid="metaid_0000040"/>
+      <species boundaryCondition="true" compartment="compartment" id="p53" initialAmount="0" metaid="metaid_0000041">
+        <annotation>
+          <rdf:RDF xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#" xmlns:bqmodel="http://biomodels.net/model-qualifiers/" xmlns:bqbiol="http://biomodels.net/biology-qualifiers/">
+            <rdf:Description rdf:about="#metaid_0000041">
+	<bqbiol:isVersionOf>
+	<rdf:Bag>
+	<rdf:li rdf:resource="http://identifiers.org/uniprot/P04637"/>
+	</rdf:Bag>
+	</bqbiol:isVersionOf>
+	</rdf:Description>
+	
+          </rdf:RDF>
+        </annotation>
+            </species>
+      <species boundaryCondition="true" compartment="compartment" id="A" initialAmount="10" metaid="metaid_0000042">
+        <annotation>
+          <rdf:RDF xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#" xmlns:bqmodel="http://biomodels.net/model-qualifiers/" xmlns:bqbiol="http://biomodels.net/biology-qualifiers/">
+            <rdf:Description rdf:about="#metaid_0000042">
+	<bqbiol:isVersionOf>
+	<rdf:Bag>
+	<rdf:li rdf:resource="http://identifiers.org/obo.go/GO:0042813"/>
+	</rdf:Bag>
+	</bqbiol:isVersionOf>
+	</rdf:Description>
+	
+          </rdf:RDF>
+        </annotation>
+            </species>
+      <species compartment="compartment" id="OCT4" initialAmount="0.01" metaid="metaid_0000043">
+        <annotation>
+          <rdf:RDF xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#" xmlns:bqmodel="http://biomodels.net/model-qualifiers/" xmlns:bqbiol="http://biomodels.net/biology-qualifiers/">
+            <rdf:Description rdf:about="#metaid_0000043">
+	<bqbiol:isVersionOf>
+	<rdf:Bag>
+	<rdf:li rdf:resource="http://identifiers.org/uniprot/Q01860"/>
+	</rdf:Bag>
+	</bqbiol:isVersionOf>
+	</rdf:Description>
+	
+          </rdf:RDF>
+        </annotation>
+            </species>
+      <species compartment="compartment" id="SOX2" initialAmount="0.01" metaid="metaid_0000044">
+        <annotation>
+          <rdf:RDF xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#" xmlns:bqmodel="http://biomodels.net/model-qualifiers/" xmlns:bqbiol="http://biomodels.net/biology-qualifiers/">
+            <rdf:Description rdf:about="#metaid_0000044">
+	<bqbiol:isVersionOf>
+	<rdf:Bag>
+	<rdf:li rdf:resource="http://identifiers.org/uniprot/Q6ZRP7"/>
+	</rdf:Bag>
+	</bqbiol:isVersionOf>
+	</rdf:Description>
+	
+          </rdf:RDF>
+        </annotation>
+            </species>
+      <species compartment="compartment" id="NANOG" initialAmount="0.01" metaid="metaid_0000045">
+        <annotation>
+          <rdf:RDF xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#" xmlns:bqmodel="http://biomodels.net/model-qualifiers/" xmlns:bqbiol="http://biomodels.net/biology-qualifiers/">
+            <rdf:Description rdf:about="#metaid_0000045">
+	<bqbiol:isVersionOf>
+	<rdf:Bag>
+	<rdf:li rdf:resource="http://identifiers.org/uniprot/Q8N7R0"/>
+	</rdf:Bag>
+	</bqbiol:isVersionOf>
+	</rdf:Description>
+	
+          </rdf:RDF>
+        </annotation>
+            </species>
+      <species compartment="compartment" id="OCT4_SOX2" initialAmount="0.1" metaid="metaid_0000046">
+        <annotation>
+          <rdf:RDF xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#" xmlns:bqmodel="http://biomodels.net/model-qualifiers/" xmlns:bqbiol="http://biomodels.net/biology-qualifiers/">
+            <rdf:Description rdf:about="#metaid_0000046">
+	<bqbiol:hasPart>
+	<rdf:Bag>
+	<rdf:li rdf:resource="http://identifiers.org/uniprot/Q01860"/>
+	<rdf:li rdf:resource="http://identifiers.org/uniprot/Q6ZRP7"/>
+	</rdf:Bag>
+	</bqbiol:hasPart>
+	</rdf:Description>
+	
+          </rdf:RDF>
+        </annotation>
+            </species>
+      <species compartment="compartment" id="Protein" initialAmount="0" metaid="metaid_0000047"/>
+    </listOfSpecies>
+    <listOfParameters>
+      <parameter id="eta1" metaid="metaid_0000003" name="eta1" value="0.0001"/>
+      <parameter id="a1" metaid="metaid_0000004" name="a1" value="1"/>
+      <parameter id="a2" metaid="metaid_0000005" name="a2" value="0.01"/>
+      <parameter id="a3" metaid="metaid_0000006" name="a3" value="0.2"/>
+      <parameter id="f" metaid="metaid_0000007" name="f" value="1000"/>
+      <parameter id="b1" metaid="metaid_0000008" name="b1" value="0.0011"/>
+      <parameter id="b2" metaid="metaid_0000009" name="b2" value="0.001"/>
+      <parameter id="b3" metaid="metaid_0000010" name="b3" value="0.0007"/>
+      <parameter id="gamma1" metaid="metaid_0000011" name="gamma1" value="1"/>
+      <parameter id="eta5" metaid="metaid_0000012" name="eta5" value="0.0001"/>
+      <parameter id="e1" metaid="metaid_0000013" name="e1" value="0.005"/>
+      <parameter id="e2" metaid="metaid_0000014" name="e2" value="0.1"/>
+      <parameter id="f2" metaid="metaid_0000015" name="f2" value="0.000995"/>
+      <parameter id="f1" metaid="metaid_0000016" name="f1" value="0.001"/>
+      <parameter id="f3" metaid="metaid_0000017" name="f3" value="0.01"/>
+      <parameter id="gamma2" metaid="metaid_0000018" name="gamma2" value="1"/>
+      <parameter id="k1c" metaid="metaid_0000019" name="k1c" value="0.05"/>
+      <parameter id="k2c" metaid="metaid_0000020" name="k2c" value="0.001"/>
+      <parameter id="k3c" metaid="metaid_0000021" name="k3c" value="5"/>
+      <parameter id="eta3" metaid="metaid_0000022" name="eta3" value="0.0001"/>
+      <parameter id="c1" metaid="metaid_0000023" name="c1" value="1"/>
+      <parameter id="c2" metaid="metaid_0000024" name="c2" value="0.01"/>
+      <parameter id="c3" metaid="metaid_0000025" name="c3" value="0.2"/>
+      <parameter id="d1" metaid="metaid_0000026" name="d1" value="0.0011"/>
+      <parameter id="d2" metaid="metaid_0000027" name="d2" value="0.001"/>
+      <parameter id="d3" metaid="metaid_0000028" name="d3" value="0.0007"/>
+      <parameter id="gamma3" metaid="metaid_0000029" name="gamma3" value="1"/>
+      <parameter id="g1" metaid="metaid_0000030" name="g1" value="0.1"/>
+      <parameter id="eta7" metaid="metaid_0000031" name="eta7" value="0.0001"/>
+      <parameter id="h1" metaid="metaid_0000032" name="h1" value="0.0019"/>
+      <parameter id="h2" metaid="metaid_0000033" name="h2" value="0.05"/>
+      <parameter id="gamma4" metaid="metaid_0000034" name="gamma4" value="0.01"/>
+    </listOfParameters>
+    <listOfReactions>
+      <reaction id="J0" metaid="metaid_0000048" reversible="false">
+        <annotation>
+          <rdf:RDF xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#" xmlns:bqmodel="http://biomodels.net/model-qualifiers/" xmlns:bqbiol="http://biomodels.net/biology-qualifiers/">
+            <rdf:Description rdf:about="#metaid_0000048">
+	<bqbiol:isVersionOf>
+	<rdf:Bag>
+	<rdf:li rdf:resource="http://identifiers.org/obo.go/GO:0010467"/>
+	</rdf:Bag>
+	</bqbiol:isVersionOf>
+	</rdf:Description>
+	
+          </rdf:RDF>
+        </annotation>
+              <listOfReactants>
+          <speciesReference metaid="_361683" species="OCT4_Gene"/>
+        </listOfReactants>
+        <listOfProducts>
+          <speciesReference metaid="_361695" species="OCT4"/>
+        </listOfProducts>
+        <listOfModifiers>
+          <modifierSpeciesReference metaid="_361707" species="A"/>
+          <modifierSpeciesReference metaid="_361719" species="OCT4_SOX2"/>
+          <modifierSpeciesReference metaid="_361731" species="NANOG"/>
+        </listOfModifiers>
+        <kineticLaw metaid="_361743">
+          <math xmlns="http://www.w3.org/1998/Math/MathML">          
+            <apply>
+              <divide/>
+              <apply>
+                <plus/>
+                <ci> eta1 </ci>
+                <apply>
+                  <times/>
+                  <ci> a1 </ci>
+                  <ci> A </ci>
+                </apply>
+                <apply>
+                  <times/>
+                  <ci> a2 </ci>
+                  <ci> OCT4_SOX2 </ci>
+                </apply>
+                <apply>
+                  <times/>
+                  <ci> a3 </ci>
+                  <ci> OCT4_SOX2 </ci>
+                  <ci> NANOG </ci>
+                </apply>
+              </apply>
+              <apply>
+                <plus/>
+                <cn type="integer"> 1 </cn>
+                <apply>
+                  <divide/>
+                  <ci> eta1 </ci>
+                  <ci> f </ci>
+                </apply>
+                <apply>
+                  <times/>
+                  <ci> b1 </ci>
+                  <ci> A </ci>
+                </apply>
+                <apply>
+                  <times/>
+                  <ci> b2 </ci>
+                  <ci> OCT4_SOX2 </ci>
+                </apply>
+                <apply>
+                  <times/>
+                  <ci> b3 </ci>
+                  <ci> OCT4_SOX2 </ci>
+                  <ci> NANOG </ci>
+                </apply>
+              </apply>
+            </apply>
+          </math>
+                </kineticLaw>
+      </reaction>
+      <reaction id="J1" metaid="metaid_0000049" reversible="false">
+        <annotation>
+          <rdf:RDF xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#" xmlns:bqmodel="http://biomodels.net/model-qualifiers/" xmlns:bqbiol="http://biomodels.net/biology-qualifiers/">
+            <rdf:Description rdf:about="#metaid_0000049">
+	<bqbiol:isVersionOf>
+	<rdf:Bag>
+	<rdf:li rdf:resource="http://identifiers.org/obo.go/GO:0030163"/>
+	</rdf:Bag>
+	</bqbiol:isVersionOf>
+	</rdf:Description>
+	
+          </rdf:RDF>
+        </annotation>
+              <listOfReactants>
+          <speciesReference metaid="_361755" species="OCT4"/>
+        </listOfReactants>
+        <listOfProducts>
+          <speciesReference metaid="_361767" species="degradation"/>
+        </listOfProducts>
+        <kineticLaw metaid="_361779">
+          <math xmlns="http://www.w3.org/1998/Math/MathML">          
+            <apply>
+              <times/>
+              <ci> gamma1 </ci>
+              <ci> OCT4 </ci>
+            </apply>
+          </math>
+                </kineticLaw>
+      </reaction>
+      <reaction id="J2" metaid="metaid_0000050" reversible="false">
+        <annotation>
+          <rdf:RDF xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#" xmlns:bqmodel="http://biomodels.net/model-qualifiers/" xmlns:bqbiol="http://biomodels.net/biology-qualifiers/">
+            <rdf:Description rdf:about="#metaid_0000050">
+	<bqbiol:isVersionOf>
+	<rdf:Bag>
+	<rdf:li rdf:resource="http://identifiers.org/obo.go/GO:0010467"/>
+	</rdf:Bag>
+	</bqbiol:isVersionOf>
+	</rdf:Description>
+	
+          </rdf:RDF>
+        </annotation>
+              <listOfReactants>
+          <speciesReference metaid="_361791" species="NANOG_Gene"/>
+        </listOfReactants>
+        <listOfProducts>
+          <speciesReference metaid="_361803" species="NANOG"/>
+        </listOfProducts>
+        <listOfModifiers>
+          <modifierSpeciesReference metaid="_361815" species="OCT4_SOX2"/>
+          <modifierSpeciesReference metaid="_361827" species="p53"/>
+        </listOfModifiers>
+        <kineticLaw metaid="_361839">
+          <math xmlns="http://www.w3.org/1998/Math/MathML">          
+            <apply>
+              <divide/>
+              <apply>
+                <plus/>
+                <ci> eta5 </ci>
+                <apply>
+                  <times/>
+                  <ci> e1 </ci>
+                  <ci> OCT4_SOX2 </ci>
+                </apply>
+                <apply>
+                  <times/>
+                  <ci> e2 </ci>
+                  <ci> OCT4_SOX2 </ci>
+                  <ci> NANOG </ci>
+                </apply>
+              </apply>
+              <apply>
+                <plus/>
+                <cn type="integer"> 1 </cn>
+                <apply>
+                  <divide/>
+                  <ci> eta5 </ci>
+                  <ci> f </ci>
+                </apply>
+                <apply>
+                  <times/>
+                  <ci> f2 </ci>
+                  <ci> OCT4_SOX2 </ci>
+                </apply>
+                <apply>
+                  <times/>
+                  <ci> f1 </ci>
+                  <ci> OCT4_SOX2 </ci>
+                  <ci> NANOG </ci>
+                </apply>
+                <apply>
+                  <times/>
+                  <ci> f3 </ci>
+                  <ci> p53 </ci>
+                </apply>
+              </apply>
+            </apply>
+          </math>
+                </kineticLaw>
+      </reaction>
+      <reaction id="J3" metaid="metaid_0000051" reversible="false">
+        <annotation>
+          <rdf:RDF xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#" xmlns:bqmodel="http://biomodels.net/model-qualifiers/" xmlns:bqbiol="http://biomodels.net/biology-qualifiers/">
+            <rdf:Description rdf:about="#metaid_0000051">
+	<bqbiol:isVersionOf>
+	<rdf:Bag>
+	<rdf:li rdf:resource="http://identifiers.org/obo.go/GO:0030163"/>
+	</rdf:Bag>
+	</bqbiol:isVersionOf>
+	</rdf:Description>
+	
+          </rdf:RDF>
+        </annotation>
+              <listOfReactants>
+          <speciesReference metaid="_361852" species="NANOG"/>
+        </listOfReactants>
+        <listOfProducts>
+          <speciesReference metaid="_361864" species="degradation"/>
+        </listOfProducts>
+        <kineticLaw metaid="_361876">
+          <math xmlns="http://www.w3.org/1998/Math/MathML">          
+            <apply>
+              <times/>
+              <ci> gamma2 </ci>
+              <ci> NANOG </ci>
+            </apply>
+          </math>
+                </kineticLaw>
+      </reaction>
+      <reaction id="J4" metaid="metaid_0000052" reversible="false">
+        <annotation>
+          <rdf:RDF xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#" xmlns:bqmodel="http://biomodels.net/model-qualifiers/" xmlns:bqbiol="http://biomodels.net/biology-qualifiers/">
+            <rdf:Description rdf:about="#metaid_0000052">
+	<bqbiol:isVersionOf>
+	<rdf:Bag>
+	<rdf:li rdf:resource="http://identifiers.org/obo.go/GO:0006461"/>
+	</rdf:Bag>
+	</bqbiol:isVersionOf>
+	</rdf:Description>
+	
+          </rdf:RDF>
+        </annotation>
+              <listOfReactants>
+          <speciesReference metaid="_361888" species="OCT4"/>
+          <speciesReference metaid="_361900" species="SOX2"/>
+        </listOfReactants>
+        <listOfProducts>
+          <speciesReference metaid="_361912" species="OCT4_SOX2"/>
+        </listOfProducts>
+        <kineticLaw metaid="_361924">
+          <math xmlns="http://www.w3.org/1998/Math/MathML">          
+            <apply>
+              <minus/>
+              <apply>
+                <times/>
+                <ci> k1c </ci>
+                <ci> OCT4 </ci>
+                <ci> SOX2 </ci>
+              </apply>
+              <apply>
+                <times/>
+                <ci> k2c </ci>
+                <ci> OCT4_SOX2 </ci>
+              </apply>
+            </apply>
+          </math>
+                </kineticLaw>
+      </reaction>
+      <reaction id="J5" metaid="metaid_0000053" reversible="false">
+        <annotation>
+          <rdf:RDF xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#" xmlns:bqmodel="http://biomodels.net/model-qualifiers/" xmlns:bqbiol="http://biomodels.net/biology-qualifiers/">
+            <rdf:Description rdf:about="#metaid_0000053">
+	<bqbiol:isVersionOf>
+	<rdf:Bag>
+	<rdf:li rdf:resource="http://identifiers.org/obo.go/GO:0030163"/>
+	</rdf:Bag>
+	</bqbiol:isVersionOf>
+	</rdf:Description>
+	
+          </rdf:RDF>
+        </annotation>
+              <listOfReactants>
+          <speciesReference metaid="_361936" species="OCT4_SOX2"/>
+        </listOfReactants>
+        <listOfProducts>
+          <speciesReference metaid="_361948" species="degradation"/>
+        </listOfProducts>
+        <kineticLaw metaid="_361960">
+          <math xmlns="http://www.w3.org/1998/Math/MathML">          
+            <apply>
+              <times/>
+              <ci> k3c </ci>
+              <ci> OCT4_SOX2 </ci>
+            </apply>
+          </math>
+                </kineticLaw>
+      </reaction>
+      <reaction id="J6" metaid="metaid_0000054" reversible="false">
+        <annotation>
+          <rdf:RDF xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#" xmlns:bqmodel="http://biomodels.net/model-qualifiers/" xmlns:bqbiol="http://biomodels.net/biology-qualifiers/">
+            <rdf:Description rdf:about="#metaid_0000054">
+	<bqbiol:isVersionOf>
+	<rdf:Bag>
+	<rdf:li rdf:resource="http://identifiers.org/obo.go/GO:0010467"/>
+	</rdf:Bag>
+	</bqbiol:isVersionOf>
+	</rdf:Description>
+	
+          </rdf:RDF>
+        </annotation>
+              <listOfReactants>
+          <speciesReference metaid="_361972" species="SOX2_Gene"/>
+        </listOfReactants>
+        <listOfProducts>
+          <speciesReference metaid="_361984" species="SOX2"/>
+        </listOfProducts>
+        <listOfModifiers>
+          <modifierSpeciesReference metaid="_361996" species="A"/>
+          <modifierSpeciesReference metaid="_362008" species="OCT4_SOX2"/>
+          <modifierSpeciesReference metaid="_362020" species="NANOG"/>
+        </listOfModifiers>
+        <kineticLaw metaid="_362032">
+          <math xmlns="http://www.w3.org/1998/Math/MathML">          
+            <apply>
+              <divide/>
+              <apply>
+                <plus/>
+                <ci> eta3 </ci>
+                <apply>
+                  <times/>
+                  <ci> c1 </ci>
+                  <ci> A </ci>
+                </apply>
+                <apply>
+                  <times/>
+                  <ci> c2 </ci>
+                  <ci> OCT4_SOX2 </ci>
+                </apply>
+                <apply>
+                  <times/>
+                  <ci> c3 </ci>
+                  <ci> OCT4_SOX2 </ci>
+                  <ci> NANOG </ci>
+                </apply>
+              </apply>
+              <apply>
+                <plus/>
+                <cn type="integer"> 1 </cn>
+                <apply>
+                  <divide/>
+                  <ci> eta3 </ci>
+                  <ci> f </ci>
+                </apply>
+                <apply>
+                  <times/>
+                  <ci> d1 </ci>
+                  <ci> A </ci>
+                </apply>
+                <apply>
+                  <times/>
+                  <ci> d2 </ci>
+                  <ci> OCT4_SOX2 </ci>
+                </apply>
+                <apply>
+                  <times/>
+                  <ci> d3 </ci>
+                  <ci> OCT4_SOX2 </ci>
+                  <ci> NANOG </ci>
+                </apply>
+              </apply>
+            </apply>
+          </math>
+                </kineticLaw>
+      </reaction>
+      <reaction id="J7" metaid="metaid_0000055" reversible="false">
+        <annotation>
+          <rdf:RDF xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#" xmlns:bqmodel="http://biomodels.net/model-qualifiers/" xmlns:bqbiol="http://biomodels.net/biology-qualifiers/">
+            <rdf:Description rdf:about="#metaid_0000055">
+	<bqbiol:isVersionOf>
+	<rdf:Bag>
+	<rdf:li rdf:resource="http://identifiers.org/obo.go/GO:0030163"/>
+	</rdf:Bag>
+	</bqbiol:isVersionOf>
+	</rdf:Description>
+	
+          </rdf:RDF>
+        </annotation>
+              <listOfReactants>
+          <speciesReference metaid="_362044" species="SOX2"/>
+        </listOfReactants>
+        <listOfProducts>
+          <speciesReference metaid="_362056" species="degradation"/>
+        </listOfProducts>
+        <kineticLaw metaid="_362068">
+          <math xmlns="http://www.w3.org/1998/Math/MathML">          
+            <apply>
+              <times/>
+              <ci> gamma3 </ci>
+              <ci> SOX2 </ci>
+            </apply>
+          </math>
+                </kineticLaw>
+      </reaction>
+      <reaction id="J8" metaid="metaid_0000056" reversible="false">
+        <annotation>
+          <rdf:RDF xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#" xmlns:bqmodel="http://biomodels.net/model-qualifiers/" xmlns:bqbiol="http://biomodels.net/biology-qualifiers/">
+            <rdf:Description rdf:about="#metaid_0000056">
+	<bqbiol:isVersionOf>
+	<rdf:Bag>
+	<rdf:li rdf:resource="http://identifiers.org/obo.go/GO:0010467"/>
+	</rdf:Bag>
+	</bqbiol:isVersionOf>
+	</rdf:Description>
+	
+          </rdf:RDF>
+        </annotation>
+              <listOfReactants>
+          <speciesReference metaid="_362080" species="targetGene"/>
+        </listOfReactants>
+        <listOfProducts>
+          <speciesReference metaid="_362092" species="Protein"/>
+        </listOfProducts>
+        <listOfModifiers>
+          <modifierSpeciesReference metaid="_362104" species="OCT4_SOX2"/>
+          <modifierSpeciesReference metaid="_362116" species="NANOG"/>
+        </listOfModifiers>
+        <kineticLaw metaid="_362128">
+          <math xmlns="http://www.w3.org/1998/Math/MathML">          
+            <apply>
+              <divide/>
+              <apply>
+                <plus/>
+                <apply>
+                  <times/>
+                  <ci> g1 </ci>
+                  <ci> OCT4_SOX2 </ci>
+                </apply>
+                <ci> eta7 </ci>
+              </apply>
+              <apply>
+                <plus/>
+                <cn type="integer"> 1 </cn>
+                <apply>
+                  <divide/>
+                  <ci> eta7 </ci>
+                  <ci> f </ci>
+                </apply>
+                <apply>
+                  <times/>
+                  <ci> h1 </ci>
+                  <ci> OCT4_SOX2 </ci>
+                </apply>
+                <apply>
+                  <times/>
+                  <ci> h2 </ci>
+                  <ci> OCT4_SOX2 </ci>
+                  <ci> NANOG </ci>
+                </apply>
+              </apply>
+            </apply>
+          </math>
+                </kineticLaw>
+      </reaction>
+      <reaction id="J9" metaid="metaid_0000057" reversible="false">
+        <annotation>
+          <rdf:RDF xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#" xmlns:bqmodel="http://biomodels.net/model-qualifiers/" xmlns:bqbiol="http://biomodels.net/biology-qualifiers/">
+            <rdf:Description rdf:about="#metaid_0000057">
+	<bqbiol:isVersionOf>
+	<rdf:Bag>
+	<rdf:li rdf:resource="http://identifiers.org/obo.go/GO:0030163"/>
+	</rdf:Bag>
+	</bqbiol:isVersionOf>
+	</rdf:Description>
+	
+          </rdf:RDF>
+        </annotation>
+              <listOfReactants>
+          <speciesReference metaid="_362140" species="Protein"/>
+        </listOfReactants>
+        <listOfProducts>
+          <speciesReference metaid="_362153" species="degradation"/>
+        </listOfProducts>
+        <kineticLaw metaid="_362165">
+          <math xmlns="http://www.w3.org/1998/Math/MathML">          
+            <apply>
+              <times/>
+              <ci> gamma4 </ci>
+              <ci> Protein </ci>
+            </apply>
+          </math>
+                </kineticLaw>
+      </reaction>
+    </listOfReactions>
+  </model>
+</sbml>

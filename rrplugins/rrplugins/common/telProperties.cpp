@@ -8,7 +8,8 @@
 namespace tlp
 {
 Properties::Properties(bool canClientClear)
-    :mCanClientClearList(canClientClear)
+    : mCanClientClearList(canClientClear)
+    , mProperties()
 {}
 
 Properties::~Properties()
@@ -18,7 +19,7 @@ Properties::~Properties()
 
 Properties::Properties(const Properties& cpyMe)
 {
-
+    mProperties.clear();
     //Copy each property
     for(int i = 0; i < cpyMe.count(); i++)
     {

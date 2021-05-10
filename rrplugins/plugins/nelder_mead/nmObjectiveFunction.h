@@ -1,6 +1,8 @@
 #ifndef nmObjectiveFunctionH
 #define nmObjectiveFunctionH
 //---------------------------------------------------------------------------
-double NelderMeadObjectiveFunction(double par[], const void* userData);
-
+namespace nmfit
+{
+    double NelderMeadObjectiveFunction(double par[], const void* userData);
+}
 #endif

@@ -38,7 +38,6 @@ target_include_directories(${target}
 target_link_libraries(${target} PRIVATE
         telplugins_c_api
         libTelluriumAutoInterface-static
-        ${RRPLUGINS_COMMON_SHARED_LIBS}
         )
 
 add_dependencies(${target} libTelluriumAutoInterface-static libAuto-static)
@@ -58,7 +57,7 @@ if(BUILD_PYTHON)
         DESTINATION ${RR_PLUGINS_PYLIB_INSTALL_PREFIX}
         COMPONENT plugins
     )
-    file(GLOB EXAMPLES docs/*)
+    file(GLOB EXAMPLES docs/Examples/*)
     install(FILES ${EXAMPLES} DESTINATION "${RR_PLUGINS_PYTHON_INSTALL_PREFIX}" COMPONENT plugins)
     unset(EXAMPLES)
 endif()

@@ -3,11 +3,15 @@
 //Debashish Roy
 // API used to connect roadrunner functionality with plugins
 
-#include "../../../wrappers/C/rrc_types.h"		//decleration of types such as rrhandle		
+#include "../../../rrplugins/wrappers/C/telplugins_types.h"
+#include "../../../wrappers/C/rrc_types.h"		//declaration of types such as rrhandle
 
 #if defined(__cplusplus)
 	namespace rrc { 
 	extern "C" {
+#define TLPCTELHANDLE tlpc::TELHandle 
+#else
+#define TLPCTELHANDLE TELHandle 
 #endif
 
 typedef struct
@@ -26,12 +30,26 @@ typedef struct {			// THostInterface
 	RRHandle  (*createRRInstance)(void);
 
 	/*!
+	 \brief Find and return the requested plugin.
+	 \return Returns a plugin with the given name, returns null if it fails
+	 \ingroup initialization
+	*/
+	TLPCTELHANDLE(*getPlugin)(TLPCTELHANDLE pmhandle, const char* name);
+
+	/*!
 	 \brief Retrieve info about current state of roadrunner, e.g. loaded model, conservationAnalysis etc.
 	 \param[in] handle Handle to a RoadRunner instance
 	 \return Returns null if it fails, otherwise it returns a string with the info
 	 \ingroup utility
 	*/
 	char*   (*getInfo)(RRHandle handle);
+
+	/*!
+	 \brief Retrieve the last error message from roadrunner.
+	 \return Returns "No error" if none was set, otherwise it returns a string with the error message.
+	 \ingroup utility
+	*/
+	char* (*getLastError)();
 
 	/*!
 	\brief Load a model from an SBML string
@@ -57,6 +75,22 @@ typedef struct {			// THostInterface
 	*/
 
 	RRCDataPtr (*simulateEx)(RRHandle handle, const double timeStart, const double timeEnd, const int numberOfPoints);
+
+	/*!
+	\brief Carry out a time-course simulation based on the given arguments, time start,
+	time end and number of points, but don't return results.
+
+	\param[in] handle Handle to a RoadRunner instance
+	\param[in] timeStart Time start
+	\param[in] timeEnd Time end
+	\param[in] numberOfPoints Number of points to generate
+	\return Returns an array (RRCDataPtr) of columns containing the results of the
+	simulation including string labels for the individual columns. The client is
+	responsible for freeing the resulting RRCDataPtr structure.
+	\ingroup simulation
+	*/
+
+	bool (*simulateExNoReturn)(RRHandle handle, const double timeStart, const double timeEnd, const int numberOfPoints);
 
 	/*!
 	\brief Specify the current steady state solver to be used for simulation.
@@ -146,6 +180,14 @@ typedef struct {			// THostInterface
 	\ingroup simulation
 	*/
 	RRCDataPtr (*simulate)(RRHandle handle);
+
+	/*!
+	\brief Carry out a time-course simulation, but don't return results.
+	The simulation parameters are used as stored in the RoadRunner instance itself.
+	\param[in] handle Handle to a RoadRunner instance
+	\ingroup simulation
+	*/
+	bool (*simulateNoReturn)(RRHandle handle);
 
 	/*!
 	\brief Retrieve the concentration for a particular floating species.
@@ -272,6 +314,16 @@ typedef struct {			// THostInterface
 	RRCDataPtr (*getSimulationResult)(RRHandle handle);
 
 	/*!
+	\brief Retrieve the result of the last simulation.
+	\param[in] handle Handle to a RoadRunner instance
+	\return Returns a pointer (RRHandle) to a double matrix containing the results of the
+	simulation. This is a non-owning pointer, and the client 
+	should not attempt to free the resulting structure.
+	\ingroup simulation
+	*/
+	RRHandle(*getSimulationResultAsDoubleMatrix)(RRHandle handle);
+
+	/*!
 	\brief Set the selection list for output from simulate(void) or simulateEx(void)
 	Use getAvailableTimeCourseSymbols(void) to retrieve the list of all possible symbols.
 	Example: \code setTimeCourseSelectionList ("Time, S1, J1, J2"); \endcode
@@ -283,6 +335,22 @@ typedef struct {			// THostInterface
 	\ingroup simulation
 	*/
 	bool (*setTimeCourseSelectionList)(RRHandle handle, const char* list);
+
+	/*!
+	\brief Set the current logging level for Roadrunner functions.
+	\param[in] level level to set for RoadRunner functions.
+	\return Success (true) or failur (false).
+	\ingroup simulation
+	*/
+	bool (*setLogLevel)(const char* level);// = rrc::setLogLevel;
+
+	/*!
+	\brief Get the current logging level for Roadrunner functions.
+	\return the log level currently being used.
+	\ingroup simulation
+	*/
+	char* (*getLogLevel)();
+
 
 } THostInterface;
 

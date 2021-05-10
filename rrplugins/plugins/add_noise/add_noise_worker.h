@@ -22,6 +22,7 @@ class AddNoiseWorker : public Poco::Runnable
         bool                    start(bool runInThread = true);
         void                    run();
         bool                    isRunning() const;
+        void                    setSeed(unsigned long val);
 };
 
 }

@@ -4,30 +4,31 @@
 #include "Poco/Thread.h"
 #include "Poco/Runnable.h"
 #include "rrRoadRunner.h"
-#include "nmUtils.h"
 #include "telTelluriumData.h"
 #include "telProperties.h"
 //---------------------------------------------------------------------------
 
-using std::vector;
-using tlp::TelluriumData;
-using tlp::Properties;
-
-class NelderMead;
-
-class nmWorker : public Poco::Runnable
+namespace nmfit
 {
-    friend class NelderMead;
+    using std::vector;
+    using tlp::TelluriumData;
+    using tlp::Properties;
+
+    class NelderMead;
+
+    class nmWorker : public Poco::Runnable
+    {
+        friend class NelderMead;
 
     public:
-                                    nmWorker(NelderMead& host);
+        nmWorker(NelderMead& host);
         void                        start(bool runInThread = true);
         void                        run();
         bool                        isRunning() const;
 
     protected:
         Poco::Thread                mThread;
-        NelderMead&                 mHost;
+        NelderMead&                 mTheHost;
         bool                        setupRoadRunner();
 
         void                        createModelData(TelluriumData* data);
@@ -43,6 +44,7 @@ class nmWorker : public Poco::Runnable
         double                      getChi(const Properties& parameters);
         int                         getNumberOfParameters();
 
-};
+    };
 
+}
 #endif

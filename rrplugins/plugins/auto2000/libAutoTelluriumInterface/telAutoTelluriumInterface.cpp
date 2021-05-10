@@ -11,14 +11,15 @@
 #include "rrplugins/core/tel_api.h"
 #include "../../../wrappers/C/rrc_types.h"
 
+extern rrc::THostInterface* gHostInterface;
+
 namespace telauto
 {
 using namespace tlp;
 using namespace autolib;
 
 //Statics
-rrc::RRHandle AutoTellurimInterface::mRR = NULL;		
-rrc::THostInterface *AutoTellurimInterface::mHostInterface = NULL;
+rrc::RRHandle AutoTellurimInterface::mRR = NULL;
 
 Properties*     AutoTellurimInterface::mProperties              = NULL;
 AutoConstants   AutoTellurimInterface::mAutoConstants;
@@ -34,10 +35,9 @@ AutoTellurimInterface::AutoTellurimInterface(rrc::RRHandle rr)
 AutoTellurimInterface::~AutoTellurimInterface()
 {}
 
-void AutoTellurimInterface::assignRoadRunner(rrc::RRHandle rrInstance,rrc::THostInterface* tHostInterface)//#::assignRoadRunner(RoadRunner* rrInstance)
+void AutoTellurimInterface::assignRoadRunner(rrc::RRHandle rrInstance)
 {
     mRR = rrInstance;
-	mHostInterface = tHostInterface;
 }
 
 void AutoTellurimInterface::assignProperties(Properties* props) 
@@ -101,23 +101,23 @@ void AutoTellurimInterface::setInitialPCPValue()
 	{
 		unsigned int index = static_cast<unsigned int>(mModelBoundarySpecies.indexOf(mPCPParameterName));
 		
-		mHostInterface->setBoundarySpeciesByIndex(mRR,index, value);
+		gHostInterface->setBoundarySpeciesByIndex(mRR,index, value);
 	}
 	else
 	{
-		mHostInterface->setValue(mRR,mPCPParameterName.c_str(), value);
+		gHostInterface->setValue(mRR,mPCPParameterName.c_str(), value);
 	}
 
 
 	if(mAutoConstants.PreSimulation)
 	{
 		// Two simulations gives better results. 
-		mHostInterface->simulateEx(mRR, mAutoConstants.PreSimulationStart, mAutoConstants.PreSimulationDuration, mAutoConstants.PreSimulationSteps);
-		mHostInterface->simulateEx(mRR, mAutoConstants.PreSimulationStart, mAutoConstants.PreSimulationDuration, mAutoConstants.PreSimulationSteps);
+		gHostInterface->simulateEx(mRR, mAutoConstants.PreSimulationStart, mAutoConstants.PreSimulationDuration, mAutoConstants.PreSimulationSteps);
+		gHostInterface->simulateEx(mRR, mAutoConstants.PreSimulationStart, mAutoConstants.PreSimulationDuration, mAutoConstants.PreSimulationSteps);
 	}
 	
 	double* val= new double;		//just to make the call compatible else no use
-	mHostInterface->steadyState(mRR,val);
+	gHostInterface->steadyState(mRR,val);
 	delete val;
 }
 
@@ -142,13 +142,13 @@ void AutoTellurimInterface::run()
 
 bool AutoTellurimInterface::setupUsingCurrentModel()
 {
-	mAutoConstants.NDIM = mHostInterface->_getNumIndFloatingSpecies(mRR) + mHostInterface->_getNumRateRules(mRR);
+	mAutoConstants.NDIM = gHostInterface->_getNumIndFloatingSpecies(mRR) + gHostInterface->_getNumRateRules(mRR);
     //k1,k2 etc
-	rrc::RRStringArrayPtr lists= mHostInterface->getGlobalParameterIds(mRR);
+	rrc::RRStringArrayPtr lists= gHostInterface->getGlobalParameterIds(mRR);
 	StringList list1(lists->String,lists->Count);
 	mModelParameters = list1;
 
-	lists= mHostInterface->getBoundarySpeciesIds(mRR);
+	lists= gHostInterface->getBoundarySpeciesIds(mRR);
 	StringList list2(lists->String, lists->Count);
     //Boundary species can be used as PCP as well
     mModelBoundarySpecies   = list2;
@@ -185,7 +185,7 @@ int autoCallConv AutoTellurimInterface::ModelInitializationCallback(long ndim, d
 		for (int i = 0; i < numBoundaries; i++)
 		{
 			unsigned int selSpecieIndex = static_cast<unsigned int>(mModelBoundarySpecies.indexOf(mPCPParameterName));
-			mHostInterface->getBoundarySpeciesByIndex(mRR,selSpecieIndex,value);
+			gHostInterface->getBoundarySpeciesByIndex(mRR,selSpecieIndex,value);
 			boundaryValues[i] = *value;
 		}
 		delete value;
@@ -197,7 +197,7 @@ int autoCallConv AutoTellurimInterface::ModelInitializationCallback(long ndim, d
 		for (int i = 0; i < numParameters; i++)
 		{
 			unsigned int selParameter = static_cast<unsigned int>(mModelParameters.indexOf(mPCPParameterName));
-			mHostInterface->getGlobalParameterByIndex(mRR,selParameter,value);
+			gHostInterface->getGlobalParameterByIndex(mRR,selParameter,value);
 			globalParameters[i] = *value;
 		}
 		delete value;
@@ -221,10 +221,10 @@ int autoCallConv AutoTellurimInterface::ModelInitializationCallback(long ndim, d
 		par[i] = parameterValues[i];
 	}
 
-	int    nrIndFloatingSpecies = mHostInterface->_getNumIndFloatingSpecies(mRR)+mHostInterface->_getNumRateRules(mRR);
+	int    nrIndFloatingSpecies = gHostInterface->_getNumIndFloatingSpecies(mRR)+gHostInterface->_getNumRateRules(mRR);
 	double* floatCon            = new double[nrIndFloatingSpecies];
 
-	floatCon = (mHostInterface->getFloatingSpeciesConcentrations(mRR))->Data;
+	floatCon = (gHostInterface->getFloatingSpeciesConcentrations(mRR))->Data;
 
 	int nMin = min(nrIndFloatingSpecies, ndim);
 	for(int i = 0; i < nMin; i++)
@@ -264,7 +264,7 @@ void autoCallConv AutoTellurimInterface::ModelFunctionCallback(const double* oVa
 		{
 			double val = oBoundary[i];
 			unsigned int selSpecieIndex = static_cast<unsigned int>(mModelBoundarySpecies.indexOf(mPCPParameterName));
-			mHostInterface->setBoundarySpeciesByIndex(mRR,selSpecieIndex, val);
+			gHostInterface->setBoundarySpeciesByIndex(mRR,selSpecieIndex, val);
 		}
 	}
 
@@ -278,10 +278,10 @@ void autoCallConv AutoTellurimInterface::ModelFunctionCallback(const double* oVa
 		}
 
 		//Currently only one variable is supported
-		mHostInterface->setValue(mRR, mPCPParameterName.c_str(), oParameters[0]);
+		gHostInterface->setValue(mRR, mPCPParameterName.c_str(), oParameters[0]);
 	}
 		
-	rrc::RRStringArrayPtr temp= mHostInterface->getSteadyStateSelectionList(mRR);
+	rrc::RRStringArrayPtr temp= gHostInterface->getSteadyStateSelectionList(mRR);
 	tlp::StringList selRecs(temp->String, temp->Count);
 
 	tlp::StringList              selList = selRecs;
@@ -294,7 +294,7 @@ void autoCallConv AutoTellurimInterface::ModelFunctionCallback(const double* oVa
 		variableTemp[i] = oVariables[i];
 	}
 
-	int  numIndFloatingSpecies  = mHostInterface->_getNumIndFloatingSpecies(mRR) + mHostInterface->_getNumRateRules(mRR);
+	int  numIndFloatingSpecies  = gHostInterface->_getNumIndFloatingSpecies(mRR) + gHostInterface->_getNumRateRules(mRR);
 	double* tempConc            = new double[numIndFloatingSpecies];
 	if(!tempConc)
 	{
@@ -316,16 +316,16 @@ void autoCallConv AutoTellurimInterface::ModelFunctionCallback(const double* oVa
 	rrc::RRVectorPtr intermediate= new rrc::RRVector;
 	intermediate->Count = numIndFloatingSpecies;
 	intermediate->Data = tempConc;
-	mHostInterface->setFloatingSpeciesConcentrations(mRR, intermediate);
+	gHostInterface->setFloatingSpeciesConcentrations(mRR, intermediate);
 
 
 	delete [] tempConc;
 
-	double  time            = mHostInterface->_getTime(mRR);
-	int     stateVecSize    = mHostInterface->_getStateVector(mRR);
+	double  time            = gHostInterface->_getTime(mRR);
+	int     stateVecSize    = gHostInterface->_getStateVector(mRR);
 	double* dydts           = new double[stateVecSize];
 
-	mHostInterface->_getStateVectorRate(mRR,time,dydts);
+	gHostInterface->_getStateVectorRate(mRR,time,dydts);
 	nMin = min(stateVecSize, ndim);
 
 	for(int i = 0; i < nMin; i++)

@@ -1,5 +1,5 @@
 /**
- * @file telplugins_roadrunnerdata_api.h
+ * @file telplugins_telluriumdata_api.h
  * @brief Header containing roadrunner data wrappers
  * @author Totte Karlsson & Herbert M Sauro
  *
@@ -218,15 +218,6 @@ TLP_C_DS int tlp_cc tpGetTelluriumDataNumCols(TELHandle data);
  \ingroup roadrunnerdata
 */
 TLP_C_DS TELHandle tlp_cc tpCreateTelluriumData(int rows, int cols, char* colNames);
-
-/*!
- \brief Creates a Tellurium data object from a RoadRunner Data object.
-
- \param rrData  Handle to a roadrunner data object
- \return Returns a handle to a Tellurium data object, NULL if unsuccessfull.
- \ingroup roadrunnerdata
-*/
-TLP_C_DS TELHandle tlp_cc tpCreateTelluriumDataFromRoadRunnerData(TELHandle rrData);
 
 /*!
  \brief Free the memory allocated by a Tellurium data object.

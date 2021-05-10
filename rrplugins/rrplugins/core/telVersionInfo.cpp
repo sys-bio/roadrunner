@@ -9,7 +9,7 @@ std::string getVersion()
 
 std::string getCopyright()
 {
-    return "(C) 2009-2014  Totte Karlsson, H. M. Sauro";
+    return "(C) 2009-2021  Totte Karlsson, H. M. Sauro";
 }
 
 

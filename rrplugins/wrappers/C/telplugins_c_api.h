@@ -497,7 +497,7 @@ TLP_C_DS char* tlp_cc tpGetCopyright();
  \return Returns NULL if unsuccefull, otherwise return the registered handle
  \ingroup utilities
 */
-TLP_C_DS TELHandle tlp_cc tpRegisterHandle(TELHandle handle, char* name);
+TLP_C_DS TELHandle tlp_cc tpRegisterHandle(TELHandle handle, const char* name);
 
 /*!
  \brief UnRegister a handle

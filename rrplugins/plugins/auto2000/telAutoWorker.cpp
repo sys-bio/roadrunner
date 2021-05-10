@@ -11,14 +11,14 @@
 //---------------------------------------------------------------------------
 
 extern int max_auto_columns_;
+extern rrc::THostInterface* gHostInterface;
 
 using namespace tlp;
 using namespace telauto;
 
 AutoWorker::AutoWorker(AutoPlugin& host)
-:
-mTheHost(host),
-mRRAuto(mTheHost.getRRAuto())
+    : mTheHost(host)
+    , mRRAuto(mTheHost.getRRAuto())
 {
 }
 
@@ -49,10 +49,9 @@ bool AutoWorker::start(bool runInThread)
     return true;
 }
 
-void AutoWorker::assignRoadRunner(rrc::RRHandle _rrHandle,rrc::THostInterface* tHostInterface)
+void AutoWorker::assignRoadRunner(rrc::RRHandle _rrHandle)
 {
     mTheHost.rrHandle = _rrHandle;  
-    mhostInterface = tHostInterface;
 }
 
 void AutoWorker::run()
@@ -122,7 +121,7 @@ void AutoWorker::run()
 
     //Change Telluriumdata header to match labe ls in the SBML model
     
-    rrc::RRStringArrayPtr temp = mTheHost.mhostInterface->getSteadyStateSelectionList(mTheHost.rrHandle);
+    rrc::RRStringArrayPtr temp = gHostInterface->getSteadyStateSelectionList(mTheHost.rrHandle);
     StringList selRecs (temp->String, temp->Count);
     StringList              selList = selRecs;
 
@@ -148,16 +147,16 @@ bool AutoWorker::setupAuto()
     //The following flag need to be true
     if (mTheHost.mAllowConservedMoiety.getValue() == true)
     {
-        mTheHost.mhostInterface->setComputeAndAssignConservationLaws(mTheHost.rrHandle,true);
+        gHostInterface->setComputeAndAssignConservationLaws(mTheHost.rrHandle,true);
     }
     else
     {
-        mTheHost.mhostInterface->setComputeAndAssignConservationLaws(mTheHost.rrHandle, false);
+        gHostInterface->setComputeAndAssignConservationLaws(mTheHost.rrHandle, false);
     }
 
     //Transfer AUTO constants to AUTO interface
     mRRAuto.assignProperties(&(mTheHost.mProperties));
-    mTheHost.mhostInterface->loadSBML(mTheHost.rrHandle,mTheHost.getSBML().c_str());
+    gHostInterface->loadSBML(mTheHost.rrHandle,mTheHost.getSBML().c_str());
     
     mRRAuto.selectParameter(mTheHost.mPrincipalContinuationParameter.getValue());
 

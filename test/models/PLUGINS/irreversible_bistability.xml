@@ -1,0 +1,159 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- Created by XMLPrettyPrinter on 1/30/2015 from  -->
+<sbml xmlns = "http://www.sbml.org/sbml/level2/version4" level = "2" version = "4">
+   <model id = "cell">
+      <listOfCompartments>
+         <compartment id = "compartment" size = "1"/>
+      </listOfCompartments>
+      <listOfSpecies>
+         <species id = "X" boundaryCondition = "true" initialConcentration = "0" compartment = "compartment"/>
+         <species id = "w" boundaryCondition = "true" initialConcentration = "0" compartment = "compartment"/>
+         <species id = "R1" boundaryCondition = "false" initialConcentration = "9.93562993988549" compartment = "compartment"/>
+         <species id = "EP" boundaryCondition = "false" initialConcentration = "18.3818606237075" compartment = "compartment"/>
+         <species id = "E" boundaryCondition = "false" initialConcentration = "1.61813937629253" compartment = "compartment"/>
+      </listOfSpecies>
+      <listOfParameters>
+         <parameter id = "k1" value = "1.6"/>
+         <parameter id = "k2" value = "4"/>
+         <parameter id = "Signal" value = "0.1"/>
+         <parameter id = "k3" value = "3"/>
+         <parameter id = "Vm1" value = "12"/>
+         <parameter id = "Km" value = "0.6"/>
+         <parameter id = "Vm2" value = "6"/>
+      </listOfParameters>
+      <listOfReactions>
+         <reaction id = "_J1" reversible = "false">
+            <listOfReactants>
+               <speciesReference species = "X" stoichiometry = "1"/>
+            </listOfReactants>
+            <listOfProducts>
+               <speciesReference species = "R1" stoichiometry = "1"/>
+            </listOfProducts>
+            <listOfModifiers>
+               <modifierSpeciesReference species = "EP"/>
+            </listOfModifiers>
+            <kineticLaw>
+               <math xmlns = "http://www.w3.org/1998/Math/MathML">
+                  <apply>
+                     <plus/>
+                     <apply>
+                        <times/>
+                        <ci>
+                              k1
+                        </ci>
+                        <ci>
+                              EP
+                        </ci>
+                     </apply>
+                     <apply>
+                        <times/>
+                        <ci>
+                              k2
+                        </ci>
+                        <ci>
+                              Signal
+                        </ci>
+                     </apply>
+                  </apply>
+               </math>
+            </kineticLaw>
+         </reaction>
+         <reaction id = "_J2" reversible = "false">
+            <listOfReactants>
+               <speciesReference species = "R1" stoichiometry = "1"/>
+            </listOfReactants>
+            <listOfProducts>
+               <speciesReference species = "w" stoichiometry = "1"/>
+            </listOfProducts>
+            <kineticLaw>
+               <math xmlns = "http://www.w3.org/1998/Math/MathML">
+                  <apply>
+                     <times/>
+                     <ci>
+                           k3
+                     </ci>
+                     <ci>
+                           R1
+                     </ci>
+                  </apply>
+               </math>
+            </kineticLaw>
+         </reaction>
+         <reaction id = "_J3" reversible = "false">
+            <listOfReactants>
+               <speciesReference species = "EP" stoichiometry = "1"/>
+            </listOfReactants>
+            <listOfProducts>
+               <speciesReference species = "E" stoichiometry = "1"/>
+            </listOfProducts>
+            <kineticLaw>
+               <math xmlns = "http://www.w3.org/1998/Math/MathML">
+                  <apply>
+                     <divide/>
+                     <apply>
+                        <times/>
+                        <ci>
+                              Vm1
+                        </ci>
+                        <ci>
+                              EP
+                        </ci>
+                     </apply>
+                     <apply>
+                        <plus/>
+                        <ci>
+                              Km
+                        </ci>
+                        <ci>
+                              EP
+                        </ci>
+                     </apply>
+                  </apply>
+               </math>
+            </kineticLaw>
+         </reaction>
+         <reaction id = "_J4" reversible = "false">
+            <listOfReactants>
+               <speciesReference species = "E" stoichiometry = "1"/>
+            </listOfReactants>
+            <listOfProducts>
+               <speciesReference species = "EP" stoichiometry = "1"/>
+            </listOfProducts>
+            <listOfModifiers>
+               <modifierSpeciesReference species = "R1"/>
+            </listOfModifiers>
+            <kineticLaw>
+               <math xmlns = "http://www.w3.org/1998/Math/MathML">
+                  <apply>
+                     <divide/>
+                     <apply>
+                        <times/>
+                        <apply>
+                           <plus/>
+                           <ci>
+                                 Vm2
+                           </ci>
+                           <ci>
+                                 R1
+                           </ci>
+                        </apply>
+                        <ci>
+                              E
+                        </ci>
+                     </apply>
+                     <apply>
+                        <plus/>
+                        <ci>
+                              Km
+                        </ci>
+                        <ci>
+                              E
+                        </ci>
+                     </apply>
+                  </apply>
+               </math>
+            </kineticLaw>
+         </reaction>
+      </listOfReactions>
+   </model>
+</sbml>

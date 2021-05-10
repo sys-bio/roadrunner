@@ -648,6 +648,11 @@ int toInt(const string& str)
     return atoi(str.c_str());
 }
 
+unsigned int toUnsignedInt(const string& str)
+{
+    return strtoul(str.c_str(), NULL, 0);
+}
+
 bool toBool(const string& str)
 {
     if(str.size() < 2)

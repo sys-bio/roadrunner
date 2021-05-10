@@ -24,3 +24,6 @@ add_subdirectory(plugins)
 
 add_subdirectory(wrappers)
 
+if(BUILD_EXAMPLES)
+    add_subdirectory(examples)
+endif()

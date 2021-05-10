@@ -11,7 +11,7 @@
 namespace cs_ChiSquare {
     using namespace std;
     using tlp::StringList;
-    rrc::THostInterface* mhostInterface;
+    rrc::THostInterface* gHostInterface = NULL;
 
 
     ChiSquare::ChiSquare() :
@@ -111,7 +111,7 @@ namespace cs_ChiSquare {
     }
 
     void plugins_cc setHostInterface(rrc::THostInterface* _hostInterface) {
-        mhostInterface = _hostInterface;
+        gHostInterface = _hostInterface;
     }
     #endif
 

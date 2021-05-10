@@ -11,24 +11,27 @@
 #include "telProperties.h"
 //---------------------------------------------------------------------------
 
-class MonteCarlo;
-using tlp::TelluriumData;
-using tlp::Properties;
-using tlpc::TELHandle;
-
-class bsWorker : public Poco::Runnable
+namespace bsmc
 {
-    friend class MonteCarlo;
+    class MonteCarlo;
+    using tlp::TelluriumData;
+    using tlp::Properties;
+    using tlpc::TELHandle;
+
+    class bsWorker : public Poco::Runnable
+    {
+        friend class MonteCarlo;
 
     public:
-                                        bsWorker(MonteCarlo& plugin);
+        bsWorker(MonteCarlo& plugin);
+        ~bsWorker();
         void                            start(bool runInThread = true);
         void                            run();
         bool                            isRunning() const;
 
     protected:
         Poco::Thread                    mThread;
-        MonteCarlo&                     mParent;
+        MonteCarlo& mParent;
 
         bool                            setup();
 
@@ -38,10 +41,9 @@ class bsWorker : public Poco::Runnable
 
 
     private:
-        const tlp::PluginManager*       mPM;
-        tlp::Random                     mRandom;
+        tlp::Random*                    mRandom;
 
-        TELHandle                       mMinimizerPlugin;
+        tlp::Plugin*                    mMinimizerPlugin;
         std::vector<double>             mResiduals;
         std::vector<TelluriumData*>     mMCDataSets;
         std::vector<Properties>         mMCParameters;
@@ -52,6 +54,7 @@ class bsWorker : public Poco::Runnable
         bool                            createMonteCarloDataSets();
         Properties                      getParameters(TelluriumData* data);
 
-};
+    };
 
+}
 #endif

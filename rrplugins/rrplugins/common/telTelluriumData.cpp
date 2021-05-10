@@ -351,7 +351,7 @@ bool TelluriumData::check() const
 {
     if(mTheData.CSize() != mColumnNames.size())
     {
-        RRPLOG(Logger::LOG_ERROR)<<"Number of columns ("<<mTheData.CSize()<<") in simulation data is not equal to number of columns in column header ("<<mColumnNames.size()<<")";
+        RRPLOG(Logger::LOG_WARNING)<<"Number of columns ("<<mTheData.CSize()<<") in simulation data is not equal to number of columns in column header ("<<mColumnNames.size()<<")";
         return false;
     }
     return true;
