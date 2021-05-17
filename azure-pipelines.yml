@@ -8,8 +8,9 @@ name: $(Date:yyyyMMdd)$(Rev:.r)
 trigger:
   branches:
     include:
-    - master
     - develop
+    - release
+    - experimental-release
 
 variables:
   SOURCE_DIR: '$(System.DefaultWorkingDirectory)' # eg /home/vsts/work/1/s
