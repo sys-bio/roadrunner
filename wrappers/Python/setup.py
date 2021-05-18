@@ -18,9 +18,13 @@ class BinaryDistribution(Distribution):
     def has_ext_modules(foo):
         return True
 
+# when true, the pip package will have the name libroadrunner[experimental]
+# and will be downloadable via pip from the experimental namespace:
+#   pip install libroadrunner[experimental]
+EXPERIMENTAL = True
 
 setup(
-    name='libroadrunner',
+    name='libroadrunner[experimental]' if EXPERIMENTAL else "libroadrunner",
     author='J Kyle Medley, Andy Somogyi, Herbert Sauro',
     author_email='tellurium-discuss@u.washington.edu',
     classifiers=[
