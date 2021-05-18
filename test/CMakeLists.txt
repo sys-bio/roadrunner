@@ -161,7 +161,7 @@ if (BUILD_PYTHON AND BUILD_TESTS)
             "../wrappers/Python/roadrunner/PyUtils"
             )
 
-    configure_file(testTestModelFactory.py "${RR_PYTHON_TESTING_DIR}" COPYONLY)
+    configure_file(testTestModelFactory.py "${RR_PYTHON_TESTING_BUILD_PREFIX}" COPYONLY)
 
     # install python test files to install tree
     install(TARGETS TestModelFactory DESTINATION site-packages/roadrunner/testing)
