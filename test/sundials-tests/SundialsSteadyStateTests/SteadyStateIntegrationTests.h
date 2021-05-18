@@ -7,7 +7,7 @@
 #include "NewtonIteration.h"
 #include "BasicNewtonIteration.h"
 #include "LinesearchNewtonIteration.h"
-#include "TestModelInterface.h"
+#include "TestModelFactory.h"
 #include <chrono>
 #include "rrRoadRunner.h"
 
