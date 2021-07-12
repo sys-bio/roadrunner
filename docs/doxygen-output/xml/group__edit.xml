@@ -4,11 +4,11 @@
     <compoundname>edit</compoundname>
     <title>Edit models</title>
       <sectiondef kind="func">
-      <memberdef kind="function" id="group__edit_1ga8046c3bfa3d0c126ff1a64dc875e914e" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+      <memberdef kind="function" id="group__edit_1gaef2fc31f4dbe5b5d7bd0d76ce6a296ff" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
         <type>C_DECL_SPEC bool rrcCallConv</type>
-        <definition>C_DECL_SPEC bool rrcCallConv addSpecies</definition>
+        <definition>C_DECL_SPEC bool rrcCallConv addSpeciesAmount</definition>
         <argsstring>(RRHandle handle, const char *sid, const char *compartment, double initialAmount, bool hasOnlySubstanceUnits, bool boundaryCondition)</argsstring>
-        <name>addSpecies</name>
+        <name>addSpeciesAmount</name>
         <param>
           <type><ref refid="rrc__types_8h_1a1d68f0592372208fa5a5f2799ea4b3ae" kindref="member">RRHandle</ref></type>
           <declname>handle</declname>
@@ -84,13 +84,177 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="D:/roadrunner/roadrunner/wrappers/C/rrc_api.h" line="455" column="30" declfile="D:/roadrunner/roadrunner/wrappers/C/rrc_api.h" declline="455" declcolumn="30"/>
+        <location file="/Users/ciaranwelsh/Documents/roadrunner/wrappers/C/rrc_api.h" line="455" column="30" declfile="/Users/ciaranwelsh/Documents/roadrunner/wrappers/C/rrc_api.h" declline="455" declcolumn="30"/>
       </memberdef>
-      <memberdef kind="function" id="group__edit_1ga32500bd1249d5d5fc380d489154e4c85" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+      <memberdef kind="function" id="group__edit_1ga213287c567b88a4f3619fdf379f67ac5" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
         <type>C_DECL_SPEC bool rrcCallConv</type>
-        <definition>C_DECL_SPEC bool rrcCallConv addSpeciesNoRegen</definition>
+        <definition>C_DECL_SPEC bool rrcCallConv addSpeciesConcentration</definition>
+        <argsstring>(RRHandle handle, const char *sid, const char *compartment, double initialConcentration, bool hasOnlySubstanceUnits, bool boundaryCondition)</argsstring>
+        <name>addSpeciesConcentration</name>
+        <param>
+          <type><ref refid="rrc__types_8h_1a1d68f0592372208fa5a5f2799ea4b3ae" kindref="member">RRHandle</ref></type>
+          <declname>handle</declname>
+        </param>
+        <param>
+          <type>const char *</type>
+          <declname>sid</declname>
+        </param>
+        <param>
+          <type>const char *</type>
+          <declname>compartment</declname>
+        </param>
+        <param>
+          <type>double</type>
+          <declname>initialConcentration</declname>
+        </param>
+        <param>
+          <type>bool</type>
+          <declname>hasOnlySubstanceUnits</declname>
+        </param>
+        <param>
+          <type>bool</type>
+          <declname>boundaryCondition</declname>
+        </param>
+        <briefdescription>
+<para>Add a species to the current model. </para>
+        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername direction="in">handle</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Handle to a RoadRunner instance </para>
+</parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername direction="in">sid</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>ID of the species to be added </para>
+</parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername direction="in">compartment</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Compartment of the species to be added </para>
+</parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername direction="in">initialConcentration</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Initial concentration of the species to be added </para>
+</parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername direction="in">substanceUnit</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Substance unit of the species to be added </para>
+</parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para>Returns false if the call fails, otherwise returns a true </para>
+</simplesect>
+</para>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/Users/ciaranwelsh/Documents/roadrunner/wrappers/C/rrc_api.h" line="467" column="30" declfile="/Users/ciaranwelsh/Documents/roadrunner/wrappers/C/rrc_api.h" declline="467" declcolumn="30"/>
+      </memberdef>
+      <memberdef kind="function" id="group__edit_1ga48236ef5d127c7b685fd774d879c028a" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>C_DECL_SPEC bool rrcCallConv</type>
+        <definition>C_DECL_SPEC bool rrcCallConv addSpeciesConcentrationNoRegen</definition>
+        <argsstring>(RRHandle handle, const char *sid, const char *compartment, double initialConcentration, bool hasOnlySubstanceUnits, bool boundaryCondition)</argsstring>
+        <name>addSpeciesConcentrationNoRegen</name>
+        <param>
+          <type><ref refid="rrc__types_8h_1a1d68f0592372208fa5a5f2799ea4b3ae" kindref="member">RRHandle</ref></type>
+          <declname>handle</declname>
+        </param>
+        <param>
+          <type>const char *</type>
+          <declname>sid</declname>
+        </param>
+        <param>
+          <type>const char *</type>
+          <declname>compartment</declname>
+        </param>
+        <param>
+          <type>double</type>
+          <declname>initialConcentration</declname>
+        </param>
+        <param>
+          <type>bool</type>
+          <declname>hasOnlySubstanceUnits</declname>
+        </param>
+        <param>
+          <type>bool</type>
+          <declname>boundaryCondition</declname>
+        </param>
+        <briefdescription>
+<para>Add a species to the current model, without regenerating it The last modification must regenerate for the modifications to take effect. </para>
+        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername direction="in">handle</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Handle to a RoadRunner instance </para>
+</parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername direction="in">sid</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>ID of the species to be added </para>
+</parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername direction="in">compartment</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Compartment of the species to be added </para>
+</parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername direction="in">initialConcentration</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Initial concentration of the species to be added </para>
+</parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername direction="in">substanceUnit</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Substance unit of the species to be added </para>
+</parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para>Returns false if the call fails, otherwise returns a true </para>
+</simplesect>
+</para>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/Users/ciaranwelsh/Documents/roadrunner/wrappers/C/rrc_api.h" line="480" column="30" declfile="/Users/ciaranwelsh/Documents/roadrunner/wrappers/C/rrc_api.h" declline="480" declcolumn="30"/>
+      </memberdef>
+      <memberdef kind="function" id="group__edit_1ga6eb04c102f6da7d25d84bd39894d5697" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>C_DECL_SPEC bool rrcCallConv</type>
+        <definition>C_DECL_SPEC bool rrcCallConv addSpeciesAmountNoRegen</definition>
         <argsstring>(RRHandle handle, const char *sid, const char *compartment, double initialAmount, bool hasOnlySubstanceUnits, bool boundaryCondition)</argsstring>
-        <name>addSpeciesNoRegen</name>
+        <name>addSpeciesAmountNoRegen</name>
         <param>
           <type><ref refid="rrc__types_8h_1a1d68f0592372208fa5a5f2799ea4b3ae" kindref="member">RRHandle</ref></type>
           <declname>handle</declname>
@@ -166,7 +330,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="D:/roadrunner/roadrunner/wrappers/C/rrc_api.h" line="468" column="30" declfile="D:/roadrunner/roadrunner/wrappers/C/rrc_api.h" declline="468" declcolumn="30"/>
+        <location file="/Users/ciaranwelsh/Documents/roadrunner/wrappers/C/rrc_api.h" line="494" column="30" declfile="/Users/ciaranwelsh/Documents/roadrunner/wrappers/C/rrc_api.h" declline="494" declcolumn="30"/>
       </memberdef>
       <memberdef kind="function" id="group__edit_1gaf5ebfc87d97383ffb003897259a21b6b" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
         <type>C_DECL_SPEC bool rrcCallConv</type>
@@ -208,7 +372,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="D:/roadrunner/roadrunner/wrappers/C/rrc_api.h" line="478" column="30" declfile="D:/roadrunner/roadrunner/wrappers/C/rrc_api.h" declline="478" declcolumn="30"/>
+        <location file="/Users/ciaranwelsh/Documents/roadrunner/wrappers/C/rrc_api.h" line="504" column="30" declfile="/Users/ciaranwelsh/Documents/roadrunner/wrappers/C/rrc_api.h" declline="504" declcolumn="30"/>
       </memberdef>
       <memberdef kind="function" id="group__edit_1gaa5476fe243ffdaf0bcbfe66aea494235" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
         <type>C_DECL_SPEC bool rrcCallConv</type>
@@ -250,7 +414,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="D:/roadrunner/roadrunner/wrappers/C/rrc_api.h" line="488" column="30" declfile="D:/roadrunner/roadrunner/wrappers/C/rrc_api.h" declline="488" declcolumn="30"/>
+        <location file="/Users/ciaranwelsh/Documents/roadrunner/wrappers/C/rrc_api.h" line="514" column="30" declfile="/Users/ciaranwelsh/Documents/roadrunner/wrappers/C/rrc_api.h" declline="514" declcolumn="30"/>
       </memberdef>
       <memberdef kind="function" id="group__edit_1ga8921bdb73c1e763803e5b09f805d69b3" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
         <type>C_DECL_SPEC bool rrcCallConv</type>
@@ -304,7 +468,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="D:/roadrunner/roadrunner/wrappers/C/rrc_api.h" line="498" column="30" declfile="D:/roadrunner/roadrunner/wrappers/C/rrc_api.h" declline="498" declcolumn="30"/>
+        <location file="/Users/ciaranwelsh/Documents/roadrunner/wrappers/C/rrc_api.h" line="524" column="30" declfile="/Users/ciaranwelsh/Documents/roadrunner/wrappers/C/rrc_api.h" declline="524" declcolumn="30"/>
       </memberdef>
       <memberdef kind="function" id="group__edit_1gab9365d945c1d34faf59d9c5e7a00a82e" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
         <type>C_DECL_SPEC bool rrcCallConv</type>
@@ -358,7 +522,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="D:/roadrunner/roadrunner/wrappers/C/rrc_api.h" line="509" column="30" declfile="D:/roadrunner/roadrunner/wrappers/C/rrc_api.h" declline="509" declcolumn="30"/>
+        <location file="/Users/ciaranwelsh/Documents/roadrunner/wrappers/C/rrc_api.h" line="535" column="30" declfile="/Users/ciaranwelsh/Documents/roadrunner/wrappers/C/rrc_api.h" declline="535" declcolumn="30"/>
       </memberdef>
       <memberdef kind="function" id="group__edit_1ga248d8ff19df589804f1c1694ac7e5f9e" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
         <type>C_DECL_SPEC bool rrcCallConv</type>
@@ -412,7 +576,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="D:/roadrunner/roadrunner/wrappers/C/rrc_api.h" line="520" column="30" declfile="D:/roadrunner/roadrunner/wrappers/C/rrc_api.h" declline="520" declcolumn="30"/>
+        <location file="/Users/ciaranwelsh/Documents/roadrunner/wrappers/C/rrc_api.h" line="546" column="30" declfile="/Users/ciaranwelsh/Documents/roadrunner/wrappers/C/rrc_api.h" declline="546" declcolumn="30"/>
       </memberdef>
       <memberdef kind="function" id="group__edit_1ga9c7e43b21d3e26b38e66418790d8f3d1" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
         <type>C_DECL_SPEC bool rrcCallConv</type>
@@ -466,7 +630,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="D:/roadrunner/roadrunner/wrappers/C/rrc_api.h" line="531" column="30" declfile="D:/roadrunner/roadrunner/wrappers/C/rrc_api.h" declline="531" declcolumn="30"/>
+        <location file="/Users/ciaranwelsh/Documents/roadrunner/wrappers/C/rrc_api.h" line="557" column="30" declfile="/Users/ciaranwelsh/Documents/roadrunner/wrappers/C/rrc_api.h" declline="557" declcolumn="30"/>
       </memberdef>
       <memberdef kind="function" id="group__edit_1ga9ba3074a869cb39d563ae7d1506af16d" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
         <type>C_DECL_SPEC bool rrcCallConv</type>
@@ -520,7 +684,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="D:/roadrunner/roadrunner/wrappers/C/rrc_api.h" line="543" column="30" declfile="D:/roadrunner/roadrunner/wrappers/C/rrc_api.h" declline="543" declcolumn="30"/>
+        <location file="/Users/ciaranwelsh/Documents/roadrunner/wrappers/C/rrc_api.h" line="569" column="30" declfile="/Users/ciaranwelsh/Documents/roadrunner/wrappers/C/rrc_api.h" declline="569" declcolumn="30"/>
       </memberdef>
       <memberdef kind="function" id="group__edit_1ga80abbff53934b6f04a9afacd15473b96" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
         <type>C_DECL_SPEC bool rrcCallConv</type>
@@ -574,7 +738,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="D:/roadrunner/roadrunner/wrappers/C/rrc_api.h" line="554" column="30" declfile="D:/roadrunner/roadrunner/wrappers/C/rrc_api.h" declline="554" declcolumn="30"/>
+        <location file="/Users/ciaranwelsh/Documents/roadrunner/wrappers/C/rrc_api.h" line="580" column="30" declfile="/Users/ciaranwelsh/Documents/roadrunner/wrappers/C/rrc_api.h" declline="580" declcolumn="30"/>
       </memberdef>
       <memberdef kind="function" id="group__edit_1ga5026531e15978c336b2b4d4abcb2e9be" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
         <type>C_DECL_SPEC bool rrcCallConv</type>
@@ -628,7 +792,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="D:/roadrunner/roadrunner/wrappers/C/rrc_api.h" line="564" column="30" declfile="D:/roadrunner/roadrunner/wrappers/C/rrc_api.h" declline="564" declcolumn="30"/>
+        <location file="/Users/ciaranwelsh/Documents/roadrunner/wrappers/C/rrc_api.h" line="590" column="30" declfile="/Users/ciaranwelsh/Documents/roadrunner/wrappers/C/rrc_api.h" declline="590" declcolumn="30"/>
       </memberdef>
       <memberdef kind="function" id="group__edit_1gadcd74cac7960af27a524825400a4a742" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
         <type>C_DECL_SPEC bool rrcCallConv</type>
@@ -682,7 +846,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="D:/roadrunner/roadrunner/wrappers/C/rrc_api.h" line="575" column="30" declfile="D:/roadrunner/roadrunner/wrappers/C/rrc_api.h" declline="575" declcolumn="30"/>
+        <location file="/Users/ciaranwelsh/Documents/roadrunner/wrappers/C/rrc_api.h" line="601" column="30" declfile="/Users/ciaranwelsh/Documents/roadrunner/wrappers/C/rrc_api.h" declline="601" declcolumn="30"/>
       </memberdef>
       <memberdef kind="function" id="group__edit_1ga6c9b053218414056b281784601620a02" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
         <type>C_DECL_SPEC bool rrcCallConv</type>
@@ -736,7 +900,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="D:/roadrunner/roadrunner/wrappers/C/rrc_api.h" line="586" column="30" declfile="D:/roadrunner/roadrunner/wrappers/C/rrc_api.h" declline="586" declcolumn="30"/>
+        <location file="/Users/ciaranwelsh/Documents/roadrunner/wrappers/C/rrc_api.h" line="612" column="30" declfile="/Users/ciaranwelsh/Documents/roadrunner/wrappers/C/rrc_api.h" declline="612" declcolumn="30"/>
       </memberdef>
       <memberdef kind="function" id="group__edit_1ga6fbb9c364b89b3d2314abf1a2f51fb18" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
         <type>C_DECL_SPEC bool rrcCallConv</type>
@@ -790,7 +954,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="D:/roadrunner/roadrunner/wrappers/C/rrc_api.h" line="597" column="30" declfile="D:/roadrunner/roadrunner/wrappers/C/rrc_api.h" declline="597" declcolumn="30"/>
+        <location file="/Users/ciaranwelsh/Documents/roadrunner/wrappers/C/rrc_api.h" line="623" column="30" declfile="/Users/ciaranwelsh/Documents/roadrunner/wrappers/C/rrc_api.h" declline="623" declcolumn="30"/>
       </memberdef>
       <memberdef kind="function" id="group__edit_1ga293a05e2160ded1dc93f6b9690fc1a13" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
         <type>C_DECL_SPEC bool rrcCallConv</type>
@@ -832,7 +996,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="D:/roadrunner/roadrunner/wrappers/C/rrc_api.h" line="607" column="30" declfile="D:/roadrunner/roadrunner/wrappers/C/rrc_api.h" declline="607" declcolumn="30"/>
+        <location file="/Users/ciaranwelsh/Documents/roadrunner/wrappers/C/rrc_api.h" line="633" column="30" declfile="/Users/ciaranwelsh/Documents/roadrunner/wrappers/C/rrc_api.h" declline="633" declcolumn="30"/>
       </memberdef>
       <memberdef kind="function" id="group__edit_1gadac1a7b790b66943345dfcdf828cc113" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
         <type>C_DECL_SPEC bool rrcCallConv</type>
@@ -874,7 +1038,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="D:/roadrunner/roadrunner/wrappers/C/rrc_api.h" line="617" column="30" declfile="D:/roadrunner/roadrunner/wrappers/C/rrc_api.h" declline="617" declcolumn="30"/>
+        <location file="/Users/ciaranwelsh/Documents/roadrunner/wrappers/C/rrc_api.h" line="643" column="30" declfile="/Users/ciaranwelsh/Documents/roadrunner/wrappers/C/rrc_api.h" declline="643" declcolumn="30"/>
       </memberdef>
       <memberdef kind="function" id="group__edit_1gaa7f6b9bba1b2f0b8b58c8f482996cb45" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
         <type>C_DECL_SPEC bool rrcCallConv</type>
@@ -976,7 +1140,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="D:/roadrunner/roadrunner/wrappers/C/rrc_api.h" line="631" column="30" declfile="D:/roadrunner/roadrunner/wrappers/C/rrc_api.h" declline="631" declcolumn="30"/>
+        <location file="/Users/ciaranwelsh/Documents/roadrunner/wrappers/C/rrc_api.h" line="657" column="30" declfile="/Users/ciaranwelsh/Documents/roadrunner/wrappers/C/rrc_api.h" declline="657" declcolumn="30"/>
       </memberdef>
       <memberdef kind="function" id="group__edit_1ga1fa5c6e3d14d7f3365c2dceb65d99dd0" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
         <type>C_DECL_SPEC bool rrcCallConv</type>
@@ -1078,7 +1242,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="D:/roadrunner/roadrunner/wrappers/C/rrc_api.h" line="647" column="30" declfile="D:/roadrunner/roadrunner/wrappers/C/rrc_api.h" declline="647" declcolumn="30"/>
+        <location file="/Users/ciaranwelsh/Documents/roadrunner/wrappers/C/rrc_api.h" line="673" column="30" declfile="/Users/ciaranwelsh/Documents/roadrunner/wrappers/C/rrc_api.h" declline="673" declcolumn="30"/>
       </memberdef>
       <memberdef kind="function" id="group__edit_1ga18bb32c66077d71a3b9cd9b811c3e0c8" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
         <type>C_DECL_SPEC bool rrcCallConv</type>
@@ -1120,7 +1284,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="D:/roadrunner/roadrunner/wrappers/C/rrc_api.h" line="657" column="30" declfile="D:/roadrunner/roadrunner/wrappers/C/rrc_api.h" declline="657" declcolumn="30"/>
+        <location file="/Users/ciaranwelsh/Documents/roadrunner/wrappers/C/rrc_api.h" line="683" column="30" declfile="/Users/ciaranwelsh/Documents/roadrunner/wrappers/C/rrc_api.h" declline="683" declcolumn="30"/>
       </memberdef>
       <memberdef kind="function" id="group__edit_1ga47763245848a18dd12875537dabdcaa5" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
         <type>C_DECL_SPEC bool rrcCallConv</type>
@@ -1162,7 +1326,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="D:/roadrunner/roadrunner/wrappers/C/rrc_api.h" line="668" column="30" declfile="D:/roadrunner/roadrunner/wrappers/C/rrc_api.h" declline="668" declcolumn="30"/>
+        <location file="/Users/ciaranwelsh/Documents/roadrunner/wrappers/C/rrc_api.h" line="694" column="30" declfile="/Users/ciaranwelsh/Documents/roadrunner/wrappers/C/rrc_api.h" declline="694" declcolumn="30"/>
       </memberdef>
       <memberdef kind="function" id="group__edit_1ga2b076cf359d49f90b45166de827f5d0e" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
         <type>C_DECL_SPEC bool rrcCallConv</type>
@@ -1216,7 +1380,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="D:/roadrunner/roadrunner/wrappers/C/rrc_api.h" line="678" column="30" declfile="D:/roadrunner/roadrunner/wrappers/C/rrc_api.h" declline="678" declcolumn="30"/>
+        <location file="/Users/ciaranwelsh/Documents/roadrunner/wrappers/C/rrc_api.h" line="704" column="30" declfile="/Users/ciaranwelsh/Documents/roadrunner/wrappers/C/rrc_api.h" declline="704" declcolumn="30"/>
       </memberdef>
       <memberdef kind="function" id="group__edit_1ga381bd92c722f99592f023ee9638b1acd" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
         <type>C_DECL_SPEC bool rrcCallConv</type>
@@ -1270,7 +1434,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="D:/roadrunner/roadrunner/wrappers/C/rrc_api.h" line="689" column="30" declfile="D:/roadrunner/roadrunner/wrappers/C/rrc_api.h" declline="689" declcolumn="30"/>
+        <location file="/Users/ciaranwelsh/Documents/roadrunner/wrappers/C/rrc_api.h" line="715" column="30" declfile="/Users/ciaranwelsh/Documents/roadrunner/wrappers/C/rrc_api.h" declline="715" declcolumn="30"/>
       </memberdef>
       <memberdef kind="function" id="group__edit_1ga65af700ff39d9a62c478223c682bb820" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
         <type>C_DECL_SPEC bool rrcCallConv</type>
@@ -1324,7 +1488,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="D:/roadrunner/roadrunner/wrappers/C/rrc_api.h" line="700" column="30" declfile="D:/roadrunner/roadrunner/wrappers/C/rrc_api.h" declline="700" declcolumn="30"/>
+        <location file="/Users/ciaranwelsh/Documents/roadrunner/wrappers/C/rrc_api.h" line="726" column="30" declfile="/Users/ciaranwelsh/Documents/roadrunner/wrappers/C/rrc_api.h" declline="726" declcolumn="30"/>
       </memberdef>
       <memberdef kind="function" id="group__edit_1ga13a6acbdb848b6eb8f5bbd1cdd6b5da0" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
         <type>C_DECL_SPEC bool rrcCallConv</type>
@@ -1378,7 +1542,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="D:/roadrunner/roadrunner/wrappers/C/rrc_api.h" line="711" column="30" declfile="D:/roadrunner/roadrunner/wrappers/C/rrc_api.h" declline="711" declcolumn="30"/>
+        <location file="/Users/ciaranwelsh/Documents/roadrunner/wrappers/C/rrc_api.h" line="737" column="30" declfile="/Users/ciaranwelsh/Documents/roadrunner/wrappers/C/rrc_api.h" declline="737" declcolumn="30"/>
       </memberdef>
       <memberdef kind="function" id="group__edit_1gadbf20490f39ce700b719dc17810f186e" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
         <type>C_DECL_SPEC char *rrcCallConv</type>
@@ -1420,7 +1584,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="D:/roadrunner/roadrunner/wrappers/C/rrc_api.h" line="721" column="30" declfile="D:/roadrunner/roadrunner/wrappers/C/rrc_api.h" declline="721" declcolumn="30"/>
+        <location file="/Users/ciaranwelsh/Documents/roadrunner/wrappers/C/rrc_api.h" line="747" column="30" declfile="/Users/ciaranwelsh/Documents/roadrunner/wrappers/C/rrc_api.h" declline="747" declcolumn="30"/>
       </memberdef>
       <memberdef kind="function" id="group__edit_1gacfd1209c0b382d7b6a6f2b3515e5db34" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
         <type>C_DECL_SPEC bool rrcCallConv</type>
@@ -1474,7 +1638,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="D:/roadrunner/roadrunner/wrappers/C/rrc_api.h" line="731" column="30" declfile="D:/roadrunner/roadrunner/wrappers/C/rrc_api.h" declline="731" declcolumn="30"/>
+        <location file="/Users/ciaranwelsh/Documents/roadrunner/wrappers/C/rrc_api.h" line="757" column="30" declfile="/Users/ciaranwelsh/Documents/roadrunner/wrappers/C/rrc_api.h" declline="757" declcolumn="30"/>
       </memberdef>
       <memberdef kind="function" id="group__edit_1ga4f437dc218d90dbee5ceb7d4da81a6fd" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
         <type>C_DECL_SPEC bool rrcCallConv</type>
@@ -1528,7 +1692,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="D:/roadrunner/roadrunner/wrappers/C/rrc_api.h" line="741" column="30" declfile="D:/roadrunner/roadrunner/wrappers/C/rrc_api.h" declline="741" declcolumn="30"/>
+        <location file="/Users/ciaranwelsh/Documents/roadrunner/wrappers/C/rrc_api.h" line="767" column="30" declfile="/Users/ciaranwelsh/Documents/roadrunner/wrappers/C/rrc_api.h" declline="767" declcolumn="30"/>
       </memberdef>
       <memberdef kind="function" id="group__edit_1gac7df3bdfc5e286c38d8c01083c7758ae" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
         <type>C_DECL_SPEC bool rrcCallConv</type>
@@ -1570,7 +1734,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="D:/roadrunner/roadrunner/wrappers/C/rrc_api.h" line="750" column="30" declfile="D:/roadrunner/roadrunner/wrappers/C/rrc_api.h" declline="750" declcolumn="30"/>
+        <location file="/Users/ciaranwelsh/Documents/roadrunner/wrappers/C/rrc_api.h" line="776" column="30" declfile="/Users/ciaranwelsh/Documents/roadrunner/wrappers/C/rrc_api.h" declline="776" declcolumn="30"/>
       </memberdef>
       <memberdef kind="function" id="group__edit_1ga0d02f47a521474e66796e6dc61315d42" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
         <type>C_DECL_SPEC bool rrcCallConv</type>
@@ -1612,7 +1776,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="D:/roadrunner/roadrunner/wrappers/C/rrc_api.h" line="761" column="30" declfile="D:/roadrunner/roadrunner/wrappers/C/rrc_api.h" declline="761" declcolumn="30"/>
+        <location file="/Users/ciaranwelsh/Documents/roadrunner/wrappers/C/rrc_api.h" line="787" column="30" declfile="/Users/ciaranwelsh/Documents/roadrunner/wrappers/C/rrc_api.h" declline="787" declcolumn="30"/>
       </memberdef>
       <memberdef kind="function" id="group__edit_1ga7c977e3f0f4ce6bc995a8da3cad7a3ca" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
         <type>C_DECL_SPEC bool rrcCallConv</type>
@@ -1666,7 +1830,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="D:/roadrunner/roadrunner/wrappers/C/rrc_api.h" line="772" column="30" declfile="D:/roadrunner/roadrunner/wrappers/C/rrc_api.h" declline="772" declcolumn="30"/>
+        <location file="/Users/ciaranwelsh/Documents/roadrunner/wrappers/C/rrc_api.h" line="798" column="30" declfile="/Users/ciaranwelsh/Documents/roadrunner/wrappers/C/rrc_api.h" declline="798" declcolumn="30"/>
       </memberdef>
       <memberdef kind="function" id="group__edit_1gabaf4d71079e13cfe0230c17f4852c999" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
         <type>C_DECL_SPEC bool rrcCallConv</type>
@@ -1720,7 +1884,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="D:/roadrunner/roadrunner/wrappers/C/rrc_api.h" line="782" column="30" declfile="D:/roadrunner/roadrunner/wrappers/C/rrc_api.h" declline="782" declcolumn="30"/>
+        <location file="/Users/ciaranwelsh/Documents/roadrunner/wrappers/C/rrc_api.h" line="808" column="30" declfile="/Users/ciaranwelsh/Documents/roadrunner/wrappers/C/rrc_api.h" declline="808" declcolumn="30"/>
       </memberdef>
       <memberdef kind="function" id="group__edit_1gaf8605b6f7b39d858088ba4e19397432b" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
         <type>C_DECL_SPEC bool rrcCallConv</type>
@@ -1762,7 +1926,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="D:/roadrunner/roadrunner/wrappers/C/rrc_api.h" line="792" column="30" declfile="D:/roadrunner/roadrunner/wrappers/C/rrc_api.h" declline="792" declcolumn="30"/>
+        <location file="/Users/ciaranwelsh/Documents/roadrunner/wrappers/C/rrc_api.h" line="818" column="30" declfile="/Users/ciaranwelsh/Documents/roadrunner/wrappers/C/rrc_api.h" declline="818" declcolumn="30"/>
       </memberdef>
       <memberdef kind="function" id="group__edit_1gafaed1396ad11b33059bb3ce43d366437" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
         <type>C_DECL_SPEC bool rrcCallConv</type>
@@ -1804,7 +1968,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="D:/roadrunner/roadrunner/wrappers/C/rrc_api.h" line="803" column="30" declfile="D:/roadrunner/roadrunner/wrappers/C/rrc_api.h" declline="803" declcolumn="30"/>
+        <location file="/Users/ciaranwelsh/Documents/roadrunner/wrappers/C/rrc_api.h" line="829" column="30" declfile="/Users/ciaranwelsh/Documents/roadrunner/wrappers/C/rrc_api.h" declline="829" declcolumn="30"/>
       </memberdef>
       <memberdef kind="function" id="group__edit_1gabbe9164c7a231ec1897b499fde57c575" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
         <type>C_DECL_SPEC bool rrcCallConv</type>
@@ -1858,7 +2022,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="D:/roadrunner/roadrunner/wrappers/C/rrc_api.h" line="815" column="30" declfile="D:/roadrunner/roadrunner/wrappers/C/rrc_api.h" declline="815" declcolumn="30"/>
+        <location file="/Users/ciaranwelsh/Documents/roadrunner/wrappers/C/rrc_api.h" line="851" column="30" declfile="/Users/ciaranwelsh/Documents/roadrunner/wrappers/C/rrc_api.h" declline="851" declcolumn="30"/>
       </memberdef>
       <memberdef kind="function" id="group__edit_1ga1587edf0539fbe8e8c1eeab7649817fc" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
         <type>C_DECL_SPEC bool rrcCallConv</type>
@@ -1912,7 +2076,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="D:/roadrunner/roadrunner/wrappers/C/rrc_api.h" line="826" column="30" declfile="D:/roadrunner/roadrunner/wrappers/C/rrc_api.h" declline="826" declcolumn="30"/>
+        <location file="/Users/ciaranwelsh/Documents/roadrunner/wrappers/C/rrc_api.h" line="862" column="30" declfile="/Users/ciaranwelsh/Documents/roadrunner/wrappers/C/rrc_api.h" declline="862" declcolumn="30"/>
       </memberdef>
       <memberdef kind="function" id="group__edit_1ga6d307cf036da117093ce7c12a1bbac12" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
         <type>C_DECL_SPEC bool rrcCallConv</type>
@@ -1966,7 +2130,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="D:/roadrunner/roadrunner/wrappers/C/rrc_api.h" line="836" column="30" declfile="D:/roadrunner/roadrunner/wrappers/C/rrc_api.h" declline="836" declcolumn="30"/>
+        <location file="/Users/ciaranwelsh/Documents/roadrunner/wrappers/C/rrc_api.h" line="872" column="30" declfile="/Users/ciaranwelsh/Documents/roadrunner/wrappers/C/rrc_api.h" declline="872" declcolumn="30"/>
       </memberdef>
       <memberdef kind="function" id="group__edit_1gaa976a37b5ae524589962a2e221bd5494" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
         <type>C_DECL_SPEC bool rrcCallConv</type>
@@ -2020,7 +2184,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="D:/roadrunner/roadrunner/wrappers/C/rrc_api.h" line="847" column="30" declfile="D:/roadrunner/roadrunner/wrappers/C/rrc_api.h" declline="847" declcolumn="30"/>
+        <location file="/Users/ciaranwelsh/Documents/roadrunner/wrappers/C/rrc_api.h" line="883" column="30" declfile="/Users/ciaranwelsh/Documents/roadrunner/wrappers/C/rrc_api.h" declline="883" declcolumn="30"/>
       </memberdef>
       <memberdef kind="function" id="group__edit_1gacdcdce22857ccd8b1b50b23e9bb87a6d" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
         <type>C_DECL_SPEC bool rrcCallConv</type>
@@ -2062,7 +2226,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="D:/roadrunner/roadrunner/wrappers/C/rrc_api.h" line="856" column="30" declfile="D:/roadrunner/roadrunner/wrappers/C/rrc_api.h" declline="856" declcolumn="30"/>
+        <location file="/Users/ciaranwelsh/Documents/roadrunner/wrappers/C/rrc_api.h" line="892" column="30" declfile="/Users/ciaranwelsh/Documents/roadrunner/wrappers/C/rrc_api.h" declline="892" declcolumn="30"/>
       </memberdef>
       <memberdef kind="function" id="group__edit_1ga3e9e96480b844f89f7747ff393296e31" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
         <type>C_DECL_SPEC bool rrcCallConv</type>
@@ -2104,7 +2268,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="D:/roadrunner/roadrunner/wrappers/C/rrc_api.h" line="867" column="30" declfile="D:/roadrunner/roadrunner/wrappers/C/rrc_api.h" declline="867" declcolumn="30"/>
+        <location file="/Users/ciaranwelsh/Documents/roadrunner/wrappers/C/rrc_api.h" line="903" column="30" declfile="/Users/ciaranwelsh/Documents/roadrunner/wrappers/C/rrc_api.h" declline="903" declcolumn="30"/>
       </memberdef>
       <memberdef kind="function" id="group__edit_1ga422f646318432c53e55a21023d0a1c6a" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
         <type>C_DECL_SPEC bool rrcCallConv</type>
@@ -2170,7 +2334,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="D:/roadrunner/roadrunner/wrappers/C/rrc_api.h" line="878" column="30" declfile="D:/roadrunner/roadrunner/wrappers/C/rrc_api.h" declline="878" declcolumn="30"/>
+        <location file="/Users/ciaranwelsh/Documents/roadrunner/wrappers/C/rrc_api.h" line="914" column="30" declfile="/Users/ciaranwelsh/Documents/roadrunner/wrappers/C/rrc_api.h" declline="914" declcolumn="30"/>
       </memberdef>
       <memberdef kind="function" id="group__edit_1ga8ab641b74a9c41f4acc279743f3cbea3" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
         <type>C_DECL_SPEC bool rrcCallConv</type>
@@ -2236,7 +2400,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="D:/roadrunner/roadrunner/wrappers/C/rrc_api.h" line="890" column="30" declfile="D:/roadrunner/roadrunner/wrappers/C/rrc_api.h" declline="890" declcolumn="30"/>
+        <location file="/Users/ciaranwelsh/Documents/roadrunner/wrappers/C/rrc_api.h" line="926" column="30" declfile="/Users/ciaranwelsh/Documents/roadrunner/wrappers/C/rrc_api.h" declline="926" declcolumn="30"/>
       </memberdef>
       <memberdef kind="function" id="group__edit_1gab37b31b061870deec86b90d66957597f" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
         <type>C_DECL_SPEC bool rrcCallConv</type>
@@ -2290,7 +2454,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="D:/roadrunner/roadrunner/wrappers/C/rrc_api.h" line="901" column="30" declfile="D:/roadrunner/roadrunner/wrappers/C/rrc_api.h" declline="901" declcolumn="30"/>
+        <location file="/Users/ciaranwelsh/Documents/roadrunner/wrappers/C/rrc_api.h" line="937" column="30" declfile="/Users/ciaranwelsh/Documents/roadrunner/wrappers/C/rrc_api.h" declline="937" declcolumn="30"/>
       </memberdef>
       <memberdef kind="function" id="group__edit_1ga4c96ec4c2ceaed371f66ea3ded851b78" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
         <type>C_DECL_SPEC bool rrcCallConv</type>
@@ -2344,7 +2508,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="D:/roadrunner/roadrunner/wrappers/C/rrc_api.h" line="913" column="30" declfile="D:/roadrunner/roadrunner/wrappers/C/rrc_api.h" declline="913" declcolumn="30"/>
+        <location file="/Users/ciaranwelsh/Documents/roadrunner/wrappers/C/rrc_api.h" line="949" column="30" declfile="/Users/ciaranwelsh/Documents/roadrunner/wrappers/C/rrc_api.h" declline="949" declcolumn="30"/>
       </memberdef>
       <memberdef kind="function" id="group__edit_1ga63c76df048f9f101192fd246a477b009" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
         <type>C_DECL_SPEC bool rrcCallConv</type>
@@ -2398,7 +2562,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="D:/roadrunner/roadrunner/wrappers/C/rrc_api.h" line="923" column="30" declfile="D:/roadrunner/roadrunner/wrappers/C/rrc_api.h" declline="923" declcolumn="30"/>
+        <location file="/Users/ciaranwelsh/Documents/roadrunner/wrappers/C/rrc_api.h" line="959" column="30" declfile="/Users/ciaranwelsh/Documents/roadrunner/wrappers/C/rrc_api.h" declline="959" declcolumn="30"/>
       </memberdef>
       <memberdef kind="function" id="group__edit_1gae14f71e017601ee6e0318b500b86737d" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
         <type>C_DECL_SPEC bool rrcCallConv</type>
@@ -2452,7 +2616,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="D:/roadrunner/roadrunner/wrappers/C/rrc_api.h" line="934" column="30" declfile="D:/roadrunner/roadrunner/wrappers/C/rrc_api.h" declline="934" declcolumn="30"/>
+        <location file="/Users/ciaranwelsh/Documents/roadrunner/wrappers/C/rrc_api.h" line="970" column="30" declfile="/Users/ciaranwelsh/Documents/roadrunner/wrappers/C/rrc_api.h" declline="970" declcolumn="30"/>
       </memberdef>
       <memberdef kind="function" id="group__edit_1gaced895f2114902810f012e9fe9802585" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
         <type>C_DECL_SPEC bool rrcCallConv</type>
@@ -2506,7 +2670,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="D:/roadrunner/roadrunner/wrappers/C/rrc_api.h" line="945" column="30" declfile="D:/roadrunner/roadrunner/wrappers/C/rrc_api.h" declline="945" declcolumn="30"/>
+        <location file="/Users/ciaranwelsh/Documents/roadrunner/wrappers/C/rrc_api.h" line="981" column="30" declfile="/Users/ciaranwelsh/Documents/roadrunner/wrappers/C/rrc_api.h" declline="981" declcolumn="30"/>
       </memberdef>
       <memberdef kind="function" id="group__edit_1ga85761d21e4b36832b9aa9c92eaf2b96a" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
         <type>C_DECL_SPEC bool rrcCallConv</type>
@@ -2560,7 +2724,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="D:/roadrunner/roadrunner/wrappers/C/rrc_api.h" line="956" column="30" declfile="D:/roadrunner/roadrunner/wrappers/C/rrc_api.h" declline="956" declcolumn="30"/>
+        <location file="/Users/ciaranwelsh/Documents/roadrunner/wrappers/C/rrc_api.h" line="992" column="30" declfile="/Users/ciaranwelsh/Documents/roadrunner/wrappers/C/rrc_api.h" declline="992" declcolumn="30"/>
       </memberdef>
       <memberdef kind="function" id="group__edit_1ga711302f1fd5c858986d3dfc1dc08b1b3" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
         <type>C_DECL_SPEC bool rrcCallConv</type>
@@ -2614,7 +2778,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="D:/roadrunner/roadrunner/wrappers/C/rrc_api.h" line="968" column="30" declfile="D:/roadrunner/roadrunner/wrappers/C/rrc_api.h" declline="968" declcolumn="30"/>
+        <location file="/Users/ciaranwelsh/Documents/roadrunner/wrappers/C/rrc_api.h" line="1004" column="30" declfile="/Users/ciaranwelsh/Documents/roadrunner/wrappers/C/rrc_api.h" declline="1004" declcolumn="30"/>
       </memberdef>
       <memberdef kind="function" id="group__edit_1ga474febd50aafbafcf28a527c02eb7379" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
         <type>C_DECL_SPEC bool rrcCallConv</type>
@@ -2668,7 +2832,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="D:/roadrunner/roadrunner/wrappers/C/rrc_api.h" line="980" column="30" declfile="D:/roadrunner/roadrunner/wrappers/C/rrc_api.h" declline="980" declcolumn="30"/>
+        <location file="/Users/ciaranwelsh/Documents/roadrunner/wrappers/C/rrc_api.h" line="1016" column="30" declfile="/Users/ciaranwelsh/Documents/roadrunner/wrappers/C/rrc_api.h" declline="1016" declcolumn="30"/>
       </memberdef>
       <memberdef kind="function" id="group__edit_1gad8bb54099f75e3c008876b814d637b51" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
         <type>C_DECL_SPEC bool rrcCallConv</type>
@@ -2722,7 +2886,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="D:/roadrunner/roadrunner/wrappers/C/rrc_api.h" line="991" column="30" declfile="D:/roadrunner/roadrunner/wrappers/C/rrc_api.h" declline="991" declcolumn="30"/>
+        <location file="/Users/ciaranwelsh/Documents/roadrunner/wrappers/C/rrc_api.h" line="1027" column="30" declfile="/Users/ciaranwelsh/Documents/roadrunner/wrappers/C/rrc_api.h" declline="1027" declcolumn="30"/>
       </memberdef>
       <memberdef kind="function" id="group__edit_1ga4071a87f536f73010a975e176008b341" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
         <type>C_DECL_SPEC bool rrcCallConv</type>
@@ -2776,7 +2940,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="D:/roadrunner/roadrunner/wrappers/C/rrc_api.h" line="1003" column="30" declfile="D:/roadrunner/roadrunner/wrappers/C/rrc_api.h" declline="1003" declcolumn="30"/>
+        <location file="/Users/ciaranwelsh/Documents/roadrunner/wrappers/C/rrc_api.h" line="1039" column="30" declfile="/Users/ciaranwelsh/Documents/roadrunner/wrappers/C/rrc_api.h" declline="1039" declcolumn="30"/>
       </memberdef>
       <memberdef kind="function" id="group__edit_1gaa0de38be452631012b064cb9bb1e33e2" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
         <type>C_DECL_SPEC bool rrcCallConv</type>
@@ -2842,7 +3006,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="D:/roadrunner/roadrunner/wrappers/C/rrc_api.h" line="1014" column="30" declfile="D:/roadrunner/roadrunner/wrappers/C/rrc_api.h" declline="1014" declcolumn="30"/>
+        <location file="/Users/ciaranwelsh/Documents/roadrunner/wrappers/C/rrc_api.h" line="1050" column="30" declfile="/Users/ciaranwelsh/Documents/roadrunner/wrappers/C/rrc_api.h" declline="1050" declcolumn="30"/>
       </memberdef>
       <memberdef kind="function" id="group__edit_1ga4732dfe59580be7767a15cc46cecfeac" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
         <type>C_DECL_SPEC bool rrcCallConv</type>
@@ -2908,7 +3072,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="D:/roadrunner/roadrunner/wrappers/C/rrc_api.h" line="1026" column="30" declfile="D:/roadrunner/roadrunner/wrappers/C/rrc_api.h" declline="1026" declcolumn="30"/>
+        <location file="/Users/ciaranwelsh/Documents/roadrunner/wrappers/C/rrc_api.h" line="1062" column="30" declfile="/Users/ciaranwelsh/Documents/roadrunner/wrappers/C/rrc_api.h" declline="1062" declcolumn="30"/>
       </memberdef>
       <memberdef kind="function" id="group__edit_1ga0b3a2c5332a40b9c48ff95af3bfe3e4b" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
         <type>C_DECL_SPEC bool rrcCallConv</type>
@@ -2962,7 +3126,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="D:/roadrunner/roadrunner/wrappers/C/rrc_api.h" line="1036" column="30" declfile="D:/roadrunner/roadrunner/wrappers/C/rrc_api.h" declline="1036" declcolumn="30"/>
+        <location file="/Users/ciaranwelsh/Documents/roadrunner/wrappers/C/rrc_api.h" line="1072" column="30" declfile="/Users/ciaranwelsh/Documents/roadrunner/wrappers/C/rrc_api.h" declline="1072" declcolumn="30"/>
       </memberdef>
       <memberdef kind="function" id="group__edit_1ga1c270f6f8e51a359b4b82ccecba79204" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
         <type>C_DECL_SPEC bool rrcCallConv</type>
@@ -3016,7 +3180,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="D:/roadrunner/roadrunner/wrappers/C/rrc_api.h" line="1047" column="30" declfile="D:/roadrunner/roadrunner/wrappers/C/rrc_api.h" declline="1047" declcolumn="30"/>
+        <location file="/Users/ciaranwelsh/Documents/roadrunner/wrappers/C/rrc_api.h" line="1083" column="30" declfile="/Users/ciaranwelsh/Documents/roadrunner/wrappers/C/rrc_api.h" declline="1083" declcolumn="30"/>
       </memberdef>
       <memberdef kind="function" id="group__edit_1gafa104b283510299c93d7c869de763342" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
         <type>C_DECL_SPEC bool rrcCallConv</type>
@@ -3058,7 +3222,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="D:/roadrunner/roadrunner/wrappers/C/rrc_api.h" line="1056" column="30" declfile="D:/roadrunner/roadrunner/wrappers/C/rrc_api.h" declline="1056" declcolumn="30"/>
+        <location file="/Users/ciaranwelsh/Documents/roadrunner/wrappers/C/rrc_api.h" line="1092" column="30" declfile="/Users/ciaranwelsh/Documents/roadrunner/wrappers/C/rrc_api.h" declline="1092" declcolumn="30"/>
       </memberdef>
       <memberdef kind="function" id="group__edit_1ga322382e2cb2e35312cd4a88ceee906a5" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
         <type>C_DECL_SPEC bool rrcCallConv</type>
@@ -3100,7 +3264,37 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="D:/roadrunner/roadrunner/wrappers/C/rrc_api.h" line="1066" column="30" declfile="D:/roadrunner/roadrunner/wrappers/C/rrc_api.h" declline="1066" declcolumn="30"/>
+        <location file="/Users/ciaranwelsh/Documents/roadrunner/wrappers/C/rrc_api.h" line="1102" column="30" declfile="/Users/ciaranwelsh/Documents/roadrunner/wrappers/C/rrc_api.h" declline="1102" declcolumn="30"/>
+      </memberdef>
+      <memberdef kind="function" id="group__edit_1gae8d120bbf287b0879707510d1df86328" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>C_DECL_SPEC bool rrcCallConv</type>
+        <definition>C_DECL_SPEC bool rrcCallConv regenerate</definition>
+        <argsstring>(RRHandle handle)</argsstring>
+        <name>regenerate</name>
+        <param>
+          <type><ref refid="rrc__types_8h_1a1d68f0592372208fa5a5f2799ea4b3ae" kindref="member">RRHandle</ref></type>
+          <declname>handle</declname>
+        </param>
+        <briefdescription>
+<para>After a model has been edited, it needs to be compiled. Call regenerate to recompile a model so that it is ready for use. </para>
+        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername direction="in">handle</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Handle to a RoadRunner instance </para>
+</parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para>Returns false if the call fails, otherwise returns a true </para>
+</simplesect>
+</para>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/Users/ciaranwelsh/Documents/roadrunner/wrappers/C/rrc_api.h" line="1112" column="30" declfile="/Users/ciaranwelsh/Documents/roadrunner/wrappers/C/rrc_api.h" declline="1112" declcolumn="30"/>
       </memberdef>
       <memberdef kind="function" id="group__edit_1ga63e642abda6ec0756781e159be5d3010" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
         <type>C_DECL_SPEC bool rrcCallConv</type>
@@ -3130,7 +3324,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="D:/roadrunner/roadrunner/wrappers/C/rrc_api.h" line="1074" column="30" declfile="D:/roadrunner/roadrunner/wrappers/C/rrc_api.h" declline="1074" declcolumn="30"/>
+        <location file="/Users/ciaranwelsh/Documents/roadrunner/wrappers/C/rrc_api.h" line="1120" column="30" declfile="/Users/ciaranwelsh/Documents/roadrunner/wrappers/C/rrc_api.h" declline="1120" declcolumn="30"/>
       </memberdef>
       </sectiondef>
     <briefdescription>

@@ -1,5 +1,5 @@
-\hypertarget{rrc__api_8cpp}{}\doxysection{D\+:/roadrunner/roadrunner/wrappers/\+C/rrc\+\_\+api.cpp File Reference}
-\label{rrc__api_8cpp}\index{D:/roadrunner/roadrunner/wrappers/C/rrc\_api.cpp@{D:/roadrunner/roadrunner/wrappers/C/rrc\_api.cpp}}
+\hypertarget{rrc__api_8cpp}{}\doxysection{/\+Users/ciaranwelsh/\+Documents/roadrunner/wrappers/\+C/rrc\+\_\+api.cpp File Reference}
+\label{rrc__api_8cpp}\index{/Users/ciaranwelsh/Documents/roadrunner/wrappers/C/rrc\_api.cpp@{/Users/ciaranwelsh/Documents/roadrunner/wrappers/C/rrc\_api.cpp}}
 
 
 road\+Runner C wrappers 2012  
@@ -28,6 +28,7 @@ road\+Runner C wrappers 2012
 {\ttfamily \#include $<$ctime$>$}\newline
 {\ttfamily \#include $<$unistd.\+h$>$}\newline
 {\ttfamily \#include $<$limits.\+h$>$}\newline
+{\ttfamily \#include $<$filesystem$>$}\newline
 \doxysubsection*{Macros}
 \begin{DoxyCompactItemize}
 \item 
@@ -454,11 +455,17 @@ char $\ast$rrc\+Call\+Conv {\bfseries rrc\+::get\+Current\+Integrator\+Parameter
 \mbox{\Hypertarget{rrc__api_8cpp_a5d6a8f4782b09a0f5785024d92997dcd}\label{rrc__api_8cpp_a5d6a8f4782b09a0f5785024d92997dcd}} 
 int rrc\+Call\+Conv {\bfseries rrc\+::get\+Current\+Integrator\+Parameter\+Type} (\mbox{\hyperlink{rrc__types_8h_a1d68f0592372208fa5a5f2799ea4b3ae}{R\+R\+Handle}} handle, char $\ast$parameter\+Name)
 \item 
-\mbox{\Hypertarget{rrc__api_8cpp_aeff99b44688e00cfc0a021619376e739}\label{rrc__api_8cpp_aeff99b44688e00cfc0a021619376e739}} 
-bool rrc\+Call\+Conv {\bfseries rrc\+::add\+Species} (\mbox{\hyperlink{rrc__types_8h_a1d68f0592372208fa5a5f2799ea4b3ae}{R\+R\+Handle}} handle, const char $\ast$sid, const char $\ast$compartment, double initial\+Amount, bool has\+Only\+Substance\+Units, bool boundary\+Condition)
+\mbox{\Hypertarget{rrc__api_8cpp_a6270295eb07b4088ca55fbe99a0648a2}\label{rrc__api_8cpp_a6270295eb07b4088ca55fbe99a0648a2}} 
+bool rrc\+Call\+Conv {\bfseries rrc\+::add\+Species\+Concentration} (\mbox{\hyperlink{rrc__types_8h_a1d68f0592372208fa5a5f2799ea4b3ae}{R\+R\+Handle}} handle, const char $\ast$sid, const char $\ast$compartment, double initial\+Concentration, bool has\+Only\+Substance\+Units, bool boundary\+Condition)
 \item 
-\mbox{\Hypertarget{rrc__api_8cpp_ab47f032865e2453f98b1ead510dd85e5}\label{rrc__api_8cpp_ab47f032865e2453f98b1ead510dd85e5}} 
-bool rrc\+Call\+Conv {\bfseries rrc\+::add\+Species\+No\+Regen} (\mbox{\hyperlink{rrc__types_8h_a1d68f0592372208fa5a5f2799ea4b3ae}{R\+R\+Handle}} handle, const char $\ast$sid, const char $\ast$compartment, double initial\+Amount, bool has\+Only\+Substance\+Units, bool boundary\+Condition)
+\mbox{\Hypertarget{rrc__api_8cpp_a348e357c4aea3bca42f8166479b4b536}\label{rrc__api_8cpp_a348e357c4aea3bca42f8166479b4b536}} 
+bool rrc\+Call\+Conv {\bfseries rrc\+::add\+Species\+Amount} (\mbox{\hyperlink{rrc__types_8h_a1d68f0592372208fa5a5f2799ea4b3ae}{R\+R\+Handle}} handle, const char $\ast$sid, const char $\ast$compartment, double initial\+Amount, bool has\+Only\+Substance\+Units, bool boundary\+Condition)
+\item 
+\mbox{\Hypertarget{rrc__api_8cpp_a888bcdbd915e772fa5bc91fb6f75f013}\label{rrc__api_8cpp_a888bcdbd915e772fa5bc91fb6f75f013}} 
+bool rrc\+Call\+Conv {\bfseries rrc\+::add\+Species\+Concentration\+No\+Regen} (\mbox{\hyperlink{rrc__types_8h_a1d68f0592372208fa5a5f2799ea4b3ae}{R\+R\+Handle}} handle, const char $\ast$sid, const char $\ast$compartment, double initial\+Concentration, bool has\+Only\+Substance\+Units, bool boundary\+Condition)
+\item 
+\mbox{\Hypertarget{rrc__api_8cpp_a8131657015d8355b71fe37583cc484c7}\label{rrc__api_8cpp_a8131657015d8355b71fe37583cc484c7}} 
+bool rrc\+Call\+Conv {\bfseries rrc\+::add\+Species\+Amount\+No\+Regen} (\mbox{\hyperlink{rrc__types_8h_a1d68f0592372208fa5a5f2799ea4b3ae}{R\+R\+Handle}} handle, const char $\ast$sid, const char $\ast$compartment, double initial\+Amount, bool has\+Only\+Substance\+Units, bool boundary\+Condition)
 \item 
 \mbox{\Hypertarget{rrc__api_8cpp_a2ca2cf1a7e9b686cb9d808149696c494}\label{rrc__api_8cpp_a2ca2cf1a7e9b686cb9d808149696c494}} 
 bool rrc\+Call\+Conv {\bfseries rrc\+::remove\+Species} (\mbox{\hyperlink{rrc__types_8h_a1d68f0592372208fa5a5f2799ea4b3ae}{R\+R\+Handle}} handle, const char $\ast$sid)
@@ -553,6 +560,9 @@ bool rrc\+Call\+Conv {\bfseries rrc\+::remove\+Compartment} (\mbox{\hyperlink{rr
 \mbox{\Hypertarget{rrc__api_8cpp_a5e934fd6954de2fff4b2dd629c657679}\label{rrc__api_8cpp_a5e934fd6954de2fff4b2dd629c657679}} 
 bool rrc\+Call\+Conv {\bfseries rrc\+::remove\+Compartment\+No\+Regen} (\mbox{\hyperlink{rrc__types_8h_a1d68f0592372208fa5a5f2799ea4b3ae}{R\+R\+Handle}} handle, const char $\ast$cid)
 \item 
+\mbox{\Hypertarget{rrc__api_8cpp_afe5a19864a5d3d3b5d247e93a7252d05}\label{rrc__api_8cpp_afe5a19864a5d3d3b5d247e93a7252d05}} 
+bool rrc\+Call\+Conv {\bfseries rrc\+::add\+Initial\+Assignment} (\mbox{\hyperlink{rrc__types_8h_a1d68f0592372208fa5a5f2799ea4b3ae}{R\+R\+Handle}} handle, char $\ast$vid, char $\ast$formula, bool force\+Regenerate)
+\item 
 \mbox{\Hypertarget{rrc__api_8cpp_a616d37bfc017fefabb409a5cf72de581}\label{rrc__api_8cpp_a616d37bfc017fefabb409a5cf72de581}} 
 bool rrc\+Call\+Conv {\bfseries rrc\+::add\+Assignment\+Rule} (\mbox{\hyperlink{rrc__types_8h_a1d68f0592372208fa5a5f2799ea4b3ae}{R\+R\+Handle}} handle, const char $\ast$vid, const char $\ast$formula)
 \item 
@@ -624,6 +634,9 @@ bool rrc\+Call\+Conv {\bfseries rrc\+::remove\+Event} (\mbox{\hyperlink{rrc__typ
 \item 
 \mbox{\Hypertarget{rrc__api_8cpp_ac7ecabe9d11b79c4158ea518fee55539}\label{rrc__api_8cpp_ac7ecabe9d11b79c4158ea518fee55539}} 
 bool rrc\+Call\+Conv {\bfseries rrc\+::remove\+Events\+No\+Regen} (\mbox{\hyperlink{rrc__types_8h_a1d68f0592372208fa5a5f2799ea4b3ae}{R\+R\+Handle}} handle, const char $\ast$eid)
+\item 
+\mbox{\Hypertarget{rrc__api_8cpp_ad20b7bbbd76dd666a057a6270775df87}\label{rrc__api_8cpp_ad20b7bbbd76dd666a057a6270775df87}} 
+bool rrc\+Call\+Conv {\bfseries rrc\+::regenerate} (\mbox{\hyperlink{rrc__types_8h_a1d68f0592372208fa5a5f2799ea4b3ae}{R\+R\+Handle}} handle)
 \item 
 \mbox{\Hypertarget{rrc__api_8cpp_a53423a5720ed7b47d1dbec6b1274ac9a}\label{rrc__api_8cpp_a53423a5720ed7b47d1dbec6b1274ac9a}} 
 bool rrc\+Call\+Conv {\bfseries rrc\+::validate\+Current\+S\+B\+ML} (\mbox{\hyperlink{rrc__types_8h_a1d68f0592372208fa5a5f2799ea4b3ae}{R\+R\+Handle}} handle)

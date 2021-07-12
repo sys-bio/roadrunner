@@ -72,6 +72,10 @@ namespace rr
 
         // ** Loading Settings *************************************************
 
+        /**
+         * It looks like this method only get used
+         * inside resetSettings.
+         */
         void loadConfigSettings() override;
 
         /**
@@ -259,6 +263,7 @@ namespace rr
         void *getCvodeMemory() const;
 
     private:
+        // defaults directly from CVODE docs
         static const int mDefaultMaxNumSteps;
         static const int mDefaultMaxAdamsOrder;
         static const int mDefaultMaxBDFOrder;

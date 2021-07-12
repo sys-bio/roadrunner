@@ -46,10 +46,27 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="Integrator.h" line="66" column="1" bodyfile="Integrator.h" bodystart="67" bodyend="72"/>
+        <location file="Integrator.h" line="71" column="9" bodyfile="Integrator.h" bodystart="71" bodyend="76"/>
       </memberdef>
       </sectiondef>
       <sectiondef kind="public-func">
+      <memberdef kind="function" id="classrr_1_1Integrator_1a8a79e9633a25767a1683a0334fd1d917" prot="public" static="no" const="no" explicit="yes" inline="no" virt="non-virtual">
+        <type></type>
+        <definition>rr::Integrator::Integrator</definition>
+        <argsstring>(ExecutableModel *model)</argsstring>
+        <name>Integrator</name>
+        <param>
+          <type><ref refid="classrr_1_1ExecutableModel" kindref="compound">ExecutableModel</ref> *</type>
+          <declname>model</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="Integrator.h" line="78" column="18" bodyfile="Integrator.cpp" bodystart="35" bodyend="36"/>
+      </memberdef>
       <memberdef kind="function" id="classrr_1_1Integrator_1a35f0f55f14d225c1da02300f3f1c37b5" prot="public" static="no" const="no" explicit="no" inline="yes" virt="virtual">
         <type></type>
         <definition>virtual rr::Integrator::~Integrator</definition>
@@ -61,35 +78,35 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="Integrator.h" line="74" column="9" bodyfile="Integrator.h" bodystart="74" bodyend="74"/>
+        <location file="Integrator.h" line="80" column="17" bodyfile="Integrator.h" bodystart="80" bodyend="80"/>
       </memberdef>
       <memberdef kind="function" id="classrr_1_1Integrator_1a6166cbf32c54a1d95a8a830b8db1424c" prot="public" static="no" const="yes" explicit="no" inline="no" virt="pure-virtual">
         <type>IntegrationMethod</type>
         <definition>virtual IntegrationMethod rr::Integrator::getIntegrationMethod</definition>
         <argsstring>() const =0</argsstring>
         <name>getIntegrationMethod</name>
-        <reimplementedby refid="classrr_1_1CVODEIntegrator_1a0f96e9ef8da207e68b4389631ce2eb26">getIntegrationMethod</reimplementedby>
         <reimplementedby refid="classrr_1_1EulerIntegrator_1a9bf013a3a23007eac2d5b71533dc4c9b">getIntegrationMethod</reimplementedby>
         <reimplementedby refid="classrr_1_1GillespieIntegrator_1a01237f3e6d841e05479dcd914d9f11dc">getIntegrationMethod</reimplementedby>
         <reimplementedby refid="classrr_1_1RK45Integrator_1ade69fdfc91f614a6f20bc8027d5e2f0a">getIntegrationMethod</reimplementedby>
         <reimplementedby refid="classrr_1_1RK4Integrator_1a018a18ad74f168f9faaf6887593ef57c">getIntegrationMethod</reimplementedby>
+        <reimplementedby refid="classrr_1_1CVODEIntegrator_1a7cc1f774e58f179fb2e69c515c9f2a1f">getIntegrationMethod</reimplementedby>
         <briefdescription>
         </briefdescription>
         <detaileddescription>
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="Integrator.h" line="76" column="35"/>
+        <location file="Integrator.h" line="82" column="35"/>
       </memberdef>
       <memberdef kind="function" id="classrr_1_1Integrator_1a6b12118cd1b0f047f5a64cfb0546b565" prot="public" static="no" const="no" explicit="no" inline="no" virt="virtual">
         <type>void</type>
         <definition>void rr::Integrator::syncWithModel</definition>
         <argsstring>(ExecutableModel *m)</argsstring>
         <name>syncWithModel</name>
-        <reimplementedby refid="classrr_1_1CVODEIntegrator_1ae099098e43b2219fbc4e29af10d22c84">syncWithModel</reimplementedby>
         <reimplementedby refid="classrr_1_1GillespieIntegrator_1ab9964aeac6eb46f5f44b16c48924f699">syncWithModel</reimplementedby>
         <reimplementedby refid="classrr_1_1RK45Integrator_1ac72e73c1d53f4884d9976cacee27f738">syncWithModel</reimplementedby>
         <reimplementedby refid="classrr_1_1RK4Integrator_1a727b452ebf195fc36143ba8a2fa8c2c2">syncWithModel</reimplementedby>
+        <reimplementedby refid="classrr_1_1CVODEIntegrator_1a6ffad2eceae5fda58900a1bbaa738eff">syncWithModel</reimplementedby>
         <param>
           <type><ref refid="classrr_1_1ExecutableModel" kindref="compound">ExecutableModel</ref> *</type>
           <declname>m</declname>
@@ -104,28 +121,28 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="Integrator.h" line="83" column="22" bodyfile="Integrator.cpp" bodystart="36" bodyend="36"/>
+        <location file="Integrator.h" line="89" column="22" bodyfile="Integrator.cpp" bodystart="38" bodyend="38"/>
       </memberdef>
       <memberdef kind="function" id="classrr_1_1Integrator_1a3753687554e7e6bcf0c14c174deb2b0f" prot="public" static="no" const="no" explicit="no" inline="no" virt="virtual">
         <type>void</type>
         <definition>void rr::Integrator::loadConfigSettings</definition>
         <argsstring>()</argsstring>
         <name>loadConfigSettings</name>
-        <reimplementedby refid="classrr_1_1CVODEIntegrator_1a182d96d39d04ef49f3fa085ade88bdd9">loadConfigSettings</reimplementedby>
+        <reimplementedby refid="classrr_1_1CVODEIntegrator_1ac43da51656919e15d30f450e81b3887b">loadConfigSettings</reimplementedby>
         <briefdescription>
         </briefdescription>
         <detaileddescription>
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="Integrator.h" line="85" column="14" bodyfile="Integrator.cpp" bodystart="38" bodyend="38"/>
+        <location file="Integrator.h" line="91" column="22" bodyfile="Integrator.cpp" bodystart="40" bodyend="40"/>
       </memberdef>
       <memberdef kind="function" id="classrr_1_1Integrator_1abd2e6c3616d1831c028f1061d927fbcd" prot="public" static="no" const="no" explicit="no" inline="no" virt="virtual">
         <type>void</type>
         <definition>void rr::Integrator::loadSBMLSettings</definition>
         <argsstring>(const std::string &amp;filename)</argsstring>
         <name>loadSBMLSettings</name>
-        <reimplementedby refid="classrr_1_1CVODEIntegrator_1ad5f73de9630fda4eac2816c49319662a">loadSBMLSettings</reimplementedby>
+        <reimplementedby refid="classrr_1_1CVODEIntegrator_1acaa6878fb0d972aa96dba554a7bc65a4">loadSBMLSettings</reimplementedby>
         <param>
           <type>const std::string &amp;</type>
           <declname>filename</declname>
@@ -136,7 +153,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="Integrator.h" line="86" column="14" bodyfile="Integrator.cpp" bodystart="40" bodyend="43"/>
+        <location file="Integrator.h" line="93" column="22" bodyfile="Integrator.cpp" bodystart="42" bodyend="45"/>
       </memberdef>
       <memberdef kind="function" id="classrr_1_1Integrator_1aa29aac9228f7834cfb92d04f823e5ddf" prot="public" static="no" const="no" explicit="no" inline="no" virt="pure-virtual">
         <type>double</type>
@@ -145,7 +162,7 @@
         <name>integrate</name>
         <reimplementedby refid="classrr_1_1RK45Integrator_1ab181e94750addee7066f7b35cce2fb4d">integrate</reimplementedby>
         <reimplementedby refid="classrr_1_1EulerIntegrator_1ab65a96963262cce17a56c2605da5416f">integrate</reimplementedby>
-        <reimplementedby refid="classrr_1_1CVODEIntegrator_1acab8c62349294152e2b331bea7585166">integrate</reimplementedby>
+        <reimplementedby refid="classrr_1_1CVODEIntegrator_1a1e29429af0ec90aa2f47be15bbe8856c">integrate</reimplementedby>
         <reimplementedby refid="classrr_1_1GillespieIntegrator_1a73574edf62f01ef8b2eeadf6c70e802f">integrate</reimplementedby>
         <reimplementedby refid="classrr_1_1RK4Integrator_1af1e35f90daed9607d6536ca75734e51a">integrate</reimplementedby>
         <param>
@@ -162,7 +179,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="Integrator.h" line="88" column="16"/>
+        <location file="Integrator.h" line="95" column="24"/>
       </memberdef>
       <memberdef kind="function" id="classrr_1_1Integrator_1a5469efaa4c234b7e59d82d98930fa5b9" prot="public" static="no" const="no" explicit="no" inline="no" virt="pure-virtual">
         <type>void</type>
@@ -172,8 +189,8 @@
         <reimplementedby refid="classrr_1_1EulerIntegrator_1a08903e998cf527552442f8fa930772c8">restart</reimplementedby>
         <reimplementedby refid="classrr_1_1RK45Integrator_1abde959ca72506e25e6c1187a4fa15b2b">restart</reimplementedby>
         <reimplementedby refid="classrr_1_1RK4Integrator_1a75ca0574917ed21f598fb93b1837cec3">restart</reimplementedby>
-        <reimplementedby refid="classrr_1_1CVODEIntegrator_1ad845bc1acfbeef03f374413928eaa3ee">restart</reimplementedby>
         <reimplementedby refid="classrr_1_1GillespieIntegrator_1a85af2d5361d972ddb222f53ca2675f8d">restart</reimplementedby>
+        <reimplementedby refid="classrr_1_1CVODEIntegrator_1acde5e92ec049c105b7d22b0f125d94a9">restart</reimplementedby>
         <param>
           <type>double</type>
           <declname>t0</declname>
@@ -184,14 +201,14 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="Integrator.h" line="89" column="14"/>
+        <location file="Integrator.h" line="97" column="22"/>
       </memberdef>
       <memberdef kind="function" id="classrr_1_1Integrator_1a51c07785d8af1eb648878347529b2eb4" prot="public" static="no" const="no" explicit="no" inline="no" virt="virtual">
         <type>void</type>
         <definition>void rr::Integrator::tweakTolerances</definition>
         <argsstring>()</argsstring>
         <name>tweakTolerances</name>
-        <reimplementedby refid="classrr_1_1CVODEIntegrator_1afec3efa20453cabe7fd826a1a27fd920">tweakTolerances</reimplementedby>
+        <reimplementedby refid="classrr_1_1CVODEIntegrator_1a137ada502a737819ca3ad78d0573c35d">tweakTolerances</reimplementedby>
         <briefdescription>
 <para>Fix tolerances for SBML tests. </para>
         </briefdescription>
@@ -202,16 +219,16 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="Integrator.h" line="99" column="18" bodyfile="Integrator.cpp" bodystart="66" bodyend="66"/>
+        <location file="Integrator.h" line="107" column="22" bodyfile="Integrator.cpp" bodystart="66" bodyend="66"/>
       </memberdef>
-      <memberdef kind="function" id="classrr_1_1Integrator_1ac64b02928caaa4fe411754815c98b4f7" prot="public" static="no" const="no" explicit="no" inline="no" virt="virtual">
+      <memberdef kind="function" id="classrr_1_1Integrator_1a53099879e74aa5bea1139453db9b5732" prot="public" static="no" const="no" explicit="no" inline="no" virt="virtual">
         <type>void</type>
         <definition>void rr::Integrator::setIndividualTolerance</definition>
-        <argsstring>(string sid, double value)</argsstring>
+        <argsstring>(std::string sid, double value)</argsstring>
         <name>setIndividualTolerance</name>
-        <reimplementedby refid="classrr_1_1CVODEIntegrator_1a8d0e25e6170b3f017ada84f4bdf148ab">setIndividualTolerance</reimplementedby>
+        <reimplementedby refid="classrr_1_1CVODEIntegrator_1a57e9e604b2c2ba388a3fe219e87c326c">setIndividualTolerance</reimplementedby>
         <param>
-          <type>string</type>
+          <type>std::string</type>
           <declname>sid</declname>
         </param>
         <param>
@@ -228,16 +245,16 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="Integrator.h" line="105" column="14" bodyfile="Integrator.cpp" bodystart="70" bodyend="70"/>
+        <location file="Integrator.h" line="113" column="22" bodyfile="Integrator.cpp" bodystart="70" bodyend="70"/>
       </memberdef>
-      <memberdef kind="function" id="classrr_1_1Integrator_1a1413e566ca980e08e2799777ad41a2ad" prot="public" static="no" const="no" explicit="no" inline="no" virt="virtual">
+      <memberdef kind="function" id="classrr_1_1Integrator_1a21645210737f35264504c3125c4679fe" prot="public" static="no" const="no" explicit="no" inline="no" virt="virtual">
         <type>void</type>
         <definition>void rr::Integrator::setConcentrationTolerance</definition>
-        <argsstring>(const Variant &amp;value)</argsstring>
+        <argsstring>(Setting value)</argsstring>
         <name>setConcentrationTolerance</name>
-        <reimplementedby refid="classrr_1_1CVODEIntegrator_1a6b4a601f240b60e29cccc73eddb837c0">setConcentrationTolerance</reimplementedby>
+        <reimplementedby refid="classrr_1_1CVODEIntegrator_1a386a755bab0c72a5d93a7e09ba95fafe">setConcentrationTolerance</reimplementedby>
         <param>
-          <type>const <ref refid="classrr_1_1Variant" kindref="compound">Variant</ref> &amp;</type>
+          <type><ref refid="classrr_1_1Setting" kindref="compound">Setting</ref></type>
           <declname>value</declname>
         </param>
         <briefdescription>
@@ -250,14 +267,14 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="Integrator.h" line="112" column="14" bodyfile="Integrator.cpp" bodystart="72" bodyend="72"/>
+        <location file="Integrator.h" line="120" column="22" bodyfile="Integrator.cpp" bodystart="72" bodyend="72"/>
       </memberdef>
       <memberdef kind="function" id="classrr_1_1Integrator_1a9bb4546b27c3b0b4552ebc1b36148629" prot="public" static="no" const="no" explicit="no" inline="no" virt="virtual">
         <type>std::vector&lt; double &gt;</type>
         <definition>std::vector&lt; double &gt; rr::Integrator::getConcentrationTolerance</definition>
         <argsstring>()</argsstring>
         <name>getConcentrationTolerance</name>
-        <reimplementedby refid="classrr_1_1CVODEIntegrator_1ab4c042d6db38872117a3c0196c3af9cf">getConcentrationTolerance</reimplementedby>
+        <reimplementedby refid="classrr_1_1CVODEIntegrator_1a7f68228148cf04688881f636a34deb48">getConcentrationTolerance</reimplementedby>
         <briefdescription>
 <para>Get tolerance based on concentration of species, will only be used in <ref refid="classrr_1_1CVODEIntegrator" kindref="compound">CVODEIntegrator</ref>. </para>
         </briefdescription>
@@ -268,7 +285,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="Integrator.h" line="118" column="21" bodyfile="Integrator.cpp" bodystart="74" bodyend="77"/>
+        <location file="Integrator.h" line="126" column="29" bodyfile="Integrator.cpp" bodystart="74" bodyend="77"/>
       </memberdef>
       <memberdef kind="function" id="classrr_1_1Integrator_1ad4ebded6e6b2d28755a649f402962ba7" prot="public" static="no" const="no" explicit="no" inline="no" virt="pure-virtual">
         <type>void</type>
@@ -276,10 +293,10 @@
         <argsstring>(IntegratorListenerPtr)=0</argsstring>
         <name>setListener</name>
         <reimplementedby refid="classrr_1_1EulerIntegrator_1acb23167cc7463d67301f00608131eb4c">setListener</reimplementedby>
-        <reimplementedby refid="classrr_1_1CVODEIntegrator_1a4dc5fe6ecf244b0a0cac214db29d4914">setListener</reimplementedby>
         <reimplementedby refid="classrr_1_1GillespieIntegrator_1adb13139574014bfffe50b127e0e5dfe0">setListener</reimplementedby>
         <reimplementedby refid="classrr_1_1RK45Integrator_1a7fdc3829b5635e1b0cd18cced396261d">setListener</reimplementedby>
         <reimplementedby refid="classrr_1_1RK4Integrator_1af5bc29a4b5af9536ef312cb88e9f3b30">setListener</reimplementedby>
+        <reimplementedby refid="classrr_1_1CVODEIntegrator_1aca2901ed7b5a503e054fd18e8f0392ad">setListener</reimplementedby>
         <param>
           <type>IntegratorListenerPtr</type>
         </param>
@@ -289,25 +306,25 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="Integrator.h" line="122" column="14"/>
+        <location file="Integrator.h" line="130" column="22"/>
       </memberdef>
       <memberdef kind="function" id="classrr_1_1Integrator_1ae4105739ea0544fe66db1482e0aeae9d" prot="public" static="no" const="no" explicit="no" inline="no" virt="pure-virtual">
         <type>IntegratorListenerPtr</type>
         <definition>virtual IntegratorListenerPtr rr::Integrator::getListener</definition>
         <argsstring>()=0</argsstring>
         <name>getListener</name>
-        <reimplementedby refid="classrr_1_1CVODEIntegrator_1ad1c04bdb1c00267d1a0f6b2cc5143b73">getListener</reimplementedby>
         <reimplementedby refid="classrr_1_1EulerIntegrator_1a9ec7df905cdffbeb14e4f764ae0c2ac0">getListener</reimplementedby>
         <reimplementedby refid="classrr_1_1GillespieIntegrator_1a722d13b4535fbdbee5e5f2845503cbba">getListener</reimplementedby>
         <reimplementedby refid="classrr_1_1RK45Integrator_1af31a4d9eaff51261d8589f6020f2d612">getListener</reimplementedby>
         <reimplementedby refid="classrr_1_1RK4Integrator_1a11d4c8c5a4f0b807af86254d9005577d">getListener</reimplementedby>
+        <reimplementedby refid="classrr_1_1CVODEIntegrator_1a480b8dad2e4dabcdb8fec1439ab7c5f7">getListener</reimplementedby>
         <briefdescription>
         </briefdescription>
         <detaileddescription>
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="Integrator.h" line="123" column="31"/>
+        <location file="Integrator.h" line="132" column="39"/>
       </memberdef>
       <memberdef kind="function" id="classrr_1_1Integrator_1adde5221e0d61f9f5398d69020e1a5a86" prot="public" static="no" const="yes" explicit="no" inline="no" virt="virtual">
         <type>std::string</type>
@@ -316,7 +333,7 @@
         <name>toString</name>
         <reimplements refid="classrr_1_1Solver_1af08f448f7eea26415a47caaae161de02">toString</reimplements>
         <briefdescription>
-<para>Return a string representation of the solver. </para>
+<para>Return a std::string representation of the solver. </para>
         </briefdescription>
         <detaileddescription>
 <para><simplesect kind="author"><para>JKM </para>
@@ -325,7 +342,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="Integrator.h" line="124" column="13" bodyfile="Integrator.cpp" bodystart="47" bodyend="56"/>
+        <location file="Integrator.h" line="134" column="21" bodyfile="Integrator.cpp" bodystart="47" bodyend="56"/>
       </memberdef>
       <memberdef kind="function" id="classrr_1_1Integrator_1abb3c4ae3020a5df7abe40639037615cb" prot="public" static="no" const="yes" explicit="no" inline="no" virt="virtual">
         <type>std::string</type>
@@ -335,7 +352,7 @@
         <reimplements refid="classrr_1_1Solver_1a2f2b574b220becfebd1be2d8cc34d550">toRepr</reimplements>
         <reimplementedby refid="classrr_1_1EulerIntegrator_1a4f484ed1c727f3f45f90586de64e329f">toRepr</reimplementedby>
         <briefdescription>
-<para>Return string representation a la Python <bold>repr</bold> method. </para>
+<para>Return std::string representation a la Python <bold>repr</bold> method. </para>
         </briefdescription>
         <detaileddescription>
 <para><simplesect kind="author"><para>JKM </para>
@@ -344,7 +361,30 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="Integrator.h" line="130" column="25" bodyfile="Integrator.cpp" bodystart="58" bodyend="63"/>
+        <location file="Integrator.h" line="140" column="29" bodyfile="Integrator.cpp" bodystart="58" bodyend="63"/>
+      </memberdef>
+      <memberdef kind="function" id="classrr_1_1Integrator_1a18fa004a818506c15d47fa28015039c6" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>void rr::Solver::setValue</definition>
+        <argsstring>(const std::string &amp;key, Setting value)</argsstring>
+        <name>setValue</name>
+        <param>
+          <type>const std::string &amp;</type>
+          <declname>key</declname>
+        </param>
+        <param>
+          <type><ref refid="classrr_1_1Setting" kindref="compound">Setting</ref></type>
+          <declname>value</declname>
+        </param>
+        <briefdescription>
+<para>Pull down the setValue from superclass. </para>
+        </briefdescription>
+        <detaileddescription>
+<para>We do not need to reimplement this but we make it explicit. </para>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="Integrator.h" line="69" column="9" bodyfile="Solver.cpp" bodystart="123" bodyend="128"/>
       </memberdef>
       </sectiondef>
     <briefdescription>
@@ -403,72 +443,77 @@
       <node id="2">
         <label>rr::Solver</label>
         <link refid="classrr_1_1Solver"/>
+        <childnode refid="3" relation="usage">
+          <edgelabel>mModel</edgelabel>
+        </childnode>
+      </node>
+      <node id="3">
+        <label>rr::ExecutableModel</label>
+        <link refid="classrr_1_1ExecutableModel"/>
       </node>
     </collaborationgraph>
-    <location file="Integrator.h" line="63" column="1" bodyfile="Integrator.h" bodystart="64" bodyend="132"/>
+    <location file="Integrator.h" line="62" column="5" bodyfile="Integrator.h" bodystart="62" bodyend="142"/>
     <listofallmembers>
-      <member refid="classrr_1_1Solver_1aec6b159d96d73f2baafc74578b129ce8" prot="protected" virt="non-virtual"><scope>rr::Integrator</scope><name>addSetting</name></member>
-      <member refid="classrr_1_1Solver_1a897a8b06197a02d72931de637bc9ac89" prot="protected" virt="non-virtual"><scope>rr::Integrator</scope><name>DescriptionMap</name></member>
+      <member refid="classrr_1_1Solver_1ad5b8ac1ef687d1a3c9f1f305cb73804d" prot="protected" virt="non-virtual"><scope>rr::Integrator</scope><name>addSetting</name></member>
+      <member refid="classrr_1_1Solver_1a7d58e224664ab44e56f90802d9601f01" prot="protected" virt="non-virtual"><scope>rr::Integrator</scope><name>DescriptionMap</name></member>
       <member refid="classrr_1_1Solver_1a7e07121f652db358045d6f7b95889ea3" prot="protected" virt="non-virtual"><scope>rr::Integrator</scope><name>descriptions</name></member>
       <member refid="classrr_1_1Integrator_1a0912499450e66cb4301263362d64a0d0af737370ac52f7db68da0965ff5667255" prot="public" virt="non-virtual"><scope>rr::Integrator</scope><name>Deterministic</name></member>
       <member refid="classrr_1_1Solver_1a199de66231b25fef30d8ef2bdff80db7" prot="protected" virt="non-virtual"><scope>rr::Integrator</scope><name>display_names_</name></member>
-      <member refid="classrr_1_1Solver_1afa810f2707ef6160e05c92e5812a8c6a" prot="protected" virt="non-virtual"><scope>rr::Integrator</scope><name>DisplayNameMap</name></member>
+      <member refid="classrr_1_1Solver_1a76b76c8ba3a31a2c6a600322c90a0452" prot="protected" virt="non-virtual"><scope>rr::Integrator</scope><name>DisplayNameMap</name></member>
       <member refid="classrr_1_1Integrator_1a9bb4546b27c3b0b4552ebc1b36148629" prot="public" virt="virtual"><scope>rr::Integrator</scope><name>getConcentrationTolerance</name></member>
       <member refid="classrr_1_1Solver_1a86067147c7631ca80d51667322f1a8f5" prot="public" virt="pure-virtual"><scope>rr::Integrator</scope><name>getDescription</name></member>
-      <member refid="classrr_1_1Solver_1a63d1ab12d862663336c74721f67354f3" prot="public" virt="non-virtual"><scope>rr::Integrator</scope><name>getDescription</name></member>
-      <member refid="classrr_1_1Solver_1a1242e881aa76493f73c4e32784c1cec6" prot="public" virt="non-virtual"><scope>rr::Integrator</scope><name>getDisplayName</name></member>
+      <member refid="classrr_1_1Solver_1a522a881e88165986944db55a8f2da845" prot="public" virt="non-virtual"><scope>rr::Integrator</scope><name>getDescription</name></member>
+      <member refid="classrr_1_1Solver_1a1fce02df70c95855d9d3cd7e3d352c08" prot="public" virt="non-virtual"><scope>rr::Integrator</scope><name>getDisplayName</name></member>
       <member refid="classrr_1_1Solver_1aff005f7e71bc73123ecbd511a77f71b6" prot="public" virt="pure-virtual"><scope>rr::Integrator</scope><name>getHint</name></member>
-      <member refid="classrr_1_1Solver_1a7cef64c1874bd5cb95ddff1399e04c45" prot="public" virt="non-virtual"><scope>rr::Integrator</scope><name>getHint</name></member>
+      <member refid="classrr_1_1Solver_1a4915611d49d03f0fe499bed99a05aae1" prot="public" virt="non-virtual"><scope>rr::Integrator</scope><name>getHint</name></member>
       <member refid="classrr_1_1Integrator_1a6166cbf32c54a1d95a8a830b8db1424c" prot="public" virt="pure-virtual"><scope>rr::Integrator</scope><name>getIntegrationMethod</name></member>
       <member refid="classrr_1_1Integrator_1ae4105739ea0544fe66db1482e0aeae9d" prot="public" virt="pure-virtual"><scope>rr::Integrator</scope><name>getListener</name></member>
+      <member refid="classrr_1_1Solver_1ac89194d54aaad3ecc71e1cfbbef83d15" prot="public" virt="virtual"><scope>rr::Integrator</scope><name>getModel</name></member>
       <member refid="classrr_1_1Solver_1a417cca64a18c63535f2091584f8fed91" prot="public" virt="pure-virtual"><scope>rr::Integrator</scope><name>getName</name></member>
       <member refid="classrr_1_1Solver_1abbefd0f38dfa2651c74f8abbd6d7b143" prot="public" virt="virtual"><scope>rr::Integrator</scope><name>getNumParams</name></member>
       <member refid="classrr_1_1Solver_1aa13e13a92531fde27fe5711790eee0f7" prot="public" virt="virtual"><scope>rr::Integrator</scope><name>getParamDesc</name></member>
       <member refid="classrr_1_1Solver_1afc0a667f204105aa133376144ce14c75" prot="public" virt="virtual"><scope>rr::Integrator</scope><name>getParamDisplayName</name></member>
       <member refid="classrr_1_1Solver_1aa604b810ab3f1a2c8bc6dfa6fc731dc2" prot="public" virt="virtual"><scope>rr::Integrator</scope><name>getParamHint</name></member>
       <member refid="classrr_1_1Solver_1ae2bb88ffce40a0136c86a020b4c39037" prot="public" virt="virtual"><scope>rr::Integrator</scope><name>getParamName</name></member>
-      <member refid="classrr_1_1Solver_1ac12d82cf9d7f03ba39f82ae81ee0e168" prot="public" virt="non-virtual"><scope>rr::Integrator</scope><name>getSettings</name></member>
-      <member refid="classrr_1_1Solver_1a3f7a3671a4f2ee508fa015ed4b164213" prot="public" virt="non-virtual"><scope>rr::Integrator</scope><name>getSettingsRepr</name></member>
-      <member refid="classrr_1_1Solver_1a20add37bbd73f50d14047171f5f8e921" prot="public" virt="non-virtual"><scope>rr::Integrator</scope><name>getType</name></member>
-      <member refid="classrr_1_1Solver_1a773a06f0d64c9d79423efcef1b381da1" prot="public" virt="virtual"><scope>rr::Integrator</scope><name>getValue</name></member>
-      <member refid="classrr_1_1Solver_1a9f6e5069f1606a5f5e3d517ee01cfede" prot="public" virt="virtual"><scope>rr::Integrator</scope><name>getValueAsBool</name></member>
-      <member refid="classrr_1_1Solver_1a9bc55d0247a3aa629b0ab8f247ee009c" prot="public" virt="virtual"><scope>rr::Integrator</scope><name>getValueAsChar</name></member>
-      <member refid="classrr_1_1Solver_1a46987712b9dee2da90c7124761186eb1" prot="public" virt="virtual"><scope>rr::Integrator</scope><name>getValueAsDouble</name></member>
-      <member refid="classrr_1_1Solver_1a449a23882706072f4cfaa416887e42d3" prot="public" virt="virtual"><scope>rr::Integrator</scope><name>getValueAsDoubleVector</name></member>
-      <member refid="classrr_1_1Solver_1ad30b0e354acd5025b3162db55f1baa93" prot="public" virt="virtual"><scope>rr::Integrator</scope><name>getValueAsFloat</name></member>
-      <member refid="classrr_1_1Solver_1a415242398d22d3145ff68afbb73d6b07" prot="public" virt="virtual"><scope>rr::Integrator</scope><name>getValueAsInt</name></member>
-      <member refid="classrr_1_1Solver_1a858ce4395c8005ddec5a3ee811eda33a" prot="public" virt="virtual"><scope>rr::Integrator</scope><name>getValueAsLong</name></member>
-      <member refid="classrr_1_1Solver_1a6960c38714621daab7e92eadede5f83c" prot="public" virt="virtual"><scope>rr::Integrator</scope><name>getValueAsString</name></member>
-      <member refid="classrr_1_1Solver_1ae21e55aeea202e9151112fa00a4c0f82" prot="public" virt="virtual"><scope>rr::Integrator</scope><name>getValueAsUChar</name></member>
-      <member refid="classrr_1_1Solver_1a293296661e45b8cb3a092cf8ed5a196b" prot="public" virt="virtual"><scope>rr::Integrator</scope><name>getValueAsUInt</name></member>
-      <member refid="classrr_1_1Solver_1aafabb2cc0b41558dc3edae324977372c" prot="public" virt="virtual"><scope>rr::Integrator</scope><name>getValueAsULong</name></member>
-      <member refid="classrr_1_1Solver_1a104f619f19529d57869310cd67fcc6d1" prot="public" virt="virtual"><scope>rr::Integrator</scope><name>hasValue</name></member>
-      <member refid="classrr_1_1Solver_1ab7675259f65ff348aa430747e48f0f90" prot="protected" virt="non-virtual"><scope>rr::Integrator</scope><name>HintMap</name></member>
+      <member refid="classrr_1_1Solver_1ae2b13c6ae06980b14a80e8a32766dcfa" prot="public" virt="non-virtual"><scope>rr::Integrator</scope><name>getSettings</name></member>
+      <member refid="classrr_1_1Solver_1a925e4dae5c4e3e71a2983dc58af9e550" prot="public" virt="non-virtual"><scope>rr::Integrator</scope><name>getSettingsMap</name></member>
+      <member refid="classrr_1_1Solver_1a3f7a3671a4f2ee508fa015ed4b164213" prot="public" virt="virtual"><scope>rr::Integrator</scope><name>getSettingsRepr</name></member>
+      <member refid="classrr_1_1Solver_1a0bd064d494a0701edffca5eb67b64b2a" prot="public" virt="non-virtual"><scope>rr::Integrator</scope><name>getType</name></member>
+      <member refid="classrr_1_1Solver_1a87339915a211b22ecd63078bb1cb7ca9" prot="public" virt="virtual"><scope>rr::Integrator</scope><name>getValue</name></member>
+      <member refid="classrr_1_1Solver_1a83b99af970b895d62998bf90ec619168" prot="public" virt="virtual"><scope>rr::Integrator</scope><name>getValueAsString</name></member>
+      <member refid="classrr_1_1Solver_1afc1e25855220cbe469433c70f8c44ea5" prot="public" virt="virtual"><scope>rr::Integrator</scope><name>hasValue</name></member>
+      <member refid="classrr_1_1Solver_1ac39f2073d482cdf591d93415557c6751" prot="protected" virt="non-virtual"><scope>rr::Integrator</scope><name>HintMap</name></member>
       <member refid="classrr_1_1Solver_1a39049af7a03fd00b1021c1ce9a9691fc" prot="protected" virt="non-virtual"><scope>rr::Integrator</scope><name>hints</name></member>
       <member refid="classrr_1_1Integrator_1a0912499450e66cb4301263362d64a0d0aca69e7d9e0e8eb017d2351c375453822" prot="public" virt="non-virtual"><scope>rr::Integrator</scope><name>Hybrid</name></member>
       <member refid="classrr_1_1Integrator_1aa29aac9228f7834cfb92d04f823e5ddf" prot="public" virt="pure-virtual"><scope>rr::Integrator</scope><name>integrate</name></member>
       <member refid="classrr_1_1Integrator_1a0912499450e66cb4301263362d64a0d0" prot="public" virt="non-virtual"><scope>rr::Integrator</scope><name>IntegrationMethod</name></member>
+      <member refid="classrr_1_1Integrator_1a8a79e9633a25767a1683a0334fd1d917" prot="public" virt="non-virtual"><scope>rr::Integrator</scope><name>Integrator</name></member>
       <member refid="classrr_1_1Integrator_1a3753687554e7e6bcf0c14c174deb2b0f" prot="public" virt="virtual"><scope>rr::Integrator</scope><name>loadConfigSettings</name></member>
       <member refid="classrr_1_1Integrator_1abd2e6c3616d1831c028f1061d927fbcd" prot="public" virt="virtual"><scope>rr::Integrator</scope><name>loadSBMLSettings</name></member>
+      <member refid="classrr_1_1Solver_1ab60e7640a8c959558a144d9d7ee45515" prot="protected" virt="non-virtual"><scope>rr::Integrator</scope><name>mModel</name></member>
       <member refid="classrr_1_1Integrator_1a0912499450e66cb4301263362d64a0d0a0f9b8ec4e01a0fcd2ce808c42c039940" prot="public" virt="non-virtual"><scope>rr::Integrator</scope><name>Other</name></member>
       <member refid="classrr_1_1Solver_1a71c8b404a40447f879b2253e7dcc3b85" prot="public" virt="virtual"><scope>rr::Integrator</scope><name>resetSettings</name></member>
       <member refid="classrr_1_1Integrator_1a5469efaa4c234b7e59d82d98930fa5b9" prot="public" virt="pure-virtual"><scope>rr::Integrator</scope><name>restart</name></member>
-      <member refid="classrr_1_1Integrator_1a1413e566ca980e08e2799777ad41a2ad" prot="public" virt="virtual"><scope>rr::Integrator</scope><name>setConcentrationTolerance</name></member>
-      <member refid="classrr_1_1Integrator_1ac64b02928caaa4fe411754815c98b4f7" prot="public" virt="virtual"><scope>rr::Integrator</scope><name>setIndividualTolerance</name></member>
+      <member refid="classrr_1_1Integrator_1a21645210737f35264504c3125c4679fe" prot="public" virt="virtual"><scope>rr::Integrator</scope><name>setConcentrationTolerance</name></member>
+      <member refid="classrr_1_1Integrator_1a53099879e74aa5bea1139453db9b5732" prot="public" virt="virtual"><scope>rr::Integrator</scope><name>setIndividualTolerance</name></member>
       <member refid="classrr_1_1Integrator_1ad4ebded6e6b2d28755a649f402962ba7" prot="public" virt="pure-virtual"><scope>rr::Integrator</scope><name>setListener</name></member>
       <member refid="classrr_1_1Solver_1a44a22cf0edead17a9cc923d87dcc063e" prot="protected" virt="non-virtual"><scope>rr::Integrator</scope><name>settings</name></member>
-      <member refid="classrr_1_1Solver_1a970d11482faab2f17428c760f3ec8240" prot="protected" virt="non-virtual"><scope>rr::Integrator</scope><name>SettingsList</name></member>
-      <member refid="classrr_1_1Solver_1a84e22bdecb76b77ddfbc8efda8219401" prot="protected" virt="non-virtual"><scope>rr::Integrator</scope><name>SettingsMap</name></member>
-      <member refid="classrr_1_1Solver_1a37b032d8755eaccd3480531bdc2a4596" prot="public" virt="non-virtual"><scope>rr::Integrator</scope><name>settingsPyDictRepr</name></member>
-      <member refid="classrr_1_1Solver_1a45dd9257f0b87546e7bdd607f3857260" prot="public" virt="virtual"><scope>rr::Integrator</scope><name>setValue</name></member>
+      <member refid="classrr_1_1Solver_1adcbacd57e2871a83bb9c4d7a4038a069" prot="protected" virt="non-virtual"><scope>rr::Integrator</scope><name>SettingsList</name></member>
+      <member refid="classrr_1_1Solver_1a61c0fd04ad69fc173c51dac3bdde2431" prot="protected" virt="non-virtual"><scope>rr::Integrator</scope><name>SettingsMap</name></member>
+      <member refid="classrr_1_1Solver_1a37b032d8755eaccd3480531bdc2a4596" prot="public" virt="virtual"><scope>rr::Integrator</scope><name>settingsPyDictRepr</name></member>
+      <member refid="classrr_1_1Integrator_1a18fa004a818506c15d47fa28015039c6" prot="public" virt="non-virtual"><scope>rr::Integrator</scope><name>setValue</name></member>
+      <member refid="classrr_1_1Solver_1a18fa004a818506c15d47fa28015039c6" prot="public" virt="virtual" ambiguityscope="rr::Solver::"><scope>rr::Integrator</scope><name>setValue</name></member>
+      <member refid="classrr_1_1Solver_1a04bba4a342cc7197750f080d41d439e5" prot="public" virt="non-virtual"><scope>rr::Integrator</scope><name>Solver</name></member>
+      <member refid="classrr_1_1Solver_1aa0a07553e368f0be33b9bfc429782a97" prot="public" virt="non-virtual"><scope>rr::Integrator</scope><name>Solver</name></member>
       <member refid="classrr_1_1Solver_1a99f48947491d7cd36c68cebba53915fe" prot="protected" virt="non-virtual"><scope>rr::Integrator</scope><name>sorted_settings</name></member>
       <member refid="classrr_1_1Integrator_1a0912499450e66cb4301263362d64a0d0a35eaf1b6ad6c75eb82506ef35dd47c27" prot="public" virt="non-virtual"><scope>rr::Integrator</scope><name>Stochastic</name></member>
       <member refid="classrr_1_1Integrator_1a6b12118cd1b0f047f5a64cfb0546b565" prot="public" virt="virtual"><scope>rr::Integrator</scope><name>syncWithModel</name></member>
       <member refid="classrr_1_1Integrator_1abb3c4ae3020a5df7abe40639037615cb" prot="public" virt="virtual"><scope>rr::Integrator</scope><name>toRepr</name></member>
       <member refid="classrr_1_1Integrator_1adde5221e0d61f9f5398d69020e1a5a86" prot="public" virt="virtual"><scope>rr::Integrator</scope><name>toString</name></member>
       <member refid="classrr_1_1Integrator_1a51c07785d8af1eb648878347529b2eb4" prot="public" virt="virtual"><scope>rr::Integrator</scope><name>tweakTolerances</name></member>
+      <member refid="classrr_1_1Solver_1a19315632eeab070bdbfe2fa4ae66ca6c" prot="public" virt="non-virtual"><scope>rr::Integrator</scope><name>updateSettings</name></member>
       <member refid="classrr_1_1Integrator_1a35f0f55f14d225c1da02300f3f1c37b5" prot="public" virt="virtual"><scope>rr::Integrator</scope><name>~Integrator</name></member>
-      <member refid="classrr_1_1Solver_1a921e53563c59252d5180c2160e46986f" prot="public" virt="virtual"><scope>rr::Integrator</scope><name>~Solver</name></member>
+      <member refid="classrr_1_1Solver_1a0e6558e376aee7e4d3a9b69b8c3ae08b" prot="public" virt="virtual"><scope>rr::Integrator</scope><name>~Solver</name></member>
     </listofallmembers>
   </compounddef>
 </doxygen>

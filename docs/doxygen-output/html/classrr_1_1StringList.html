@@ -22,7 +22,7 @@
  <tr style="height: 56px;">
   <td id="projectalign" style="padding-left: 0.5em;">
    <div id="projectname">roadrunner
-   &#160;<span id="projectnumber">2.0.5</span>
+   &#160;<span id="projectnumber">2.0.8</span>
    </div>
    <div id="projectbrief">Fast simulator for SBML models</div>
   </td>
@@ -82,30 +82,30 @@ Public Member Functions</h2></td></tr>
 <tr class="memitem:ae9224ec7dbf38c7ce031beb75e6e29bf"><td class="memItemLeft" align="right" valign="top"><a id="ae9224ec7dbf38c7ce031beb75e6e29bf"></a>
 &#160;</td><td class="memItemRight" valign="bottom"><b>StringList</b> (char **stringList, const int &amp;count)</td></tr>
 <tr class="separator:ae9224ec7dbf38c7ce031beb75e6e29bf"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:aee4477df3cb127a8ea888edeabc0a17e"><td class="memItemLeft" align="right" valign="top"><a id="aee4477df3cb127a8ea888edeabc0a17e"></a>
-&#160;</td><td class="memItemRight" valign="bottom"><b>StringList</b> (const string &amp;str, const string &amp;delimiters=&quot;, &quot;)</td></tr>
-<tr class="separator:aee4477df3cb127a8ea888edeabc0a17e"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a6ec1b2091fe34e4b10a140a90c0527d8"><td class="memItemLeft" align="right" valign="top"><a id="a6ec1b2091fe34e4b10a140a90c0527d8"></a>
-&#160;</td><td class="memItemRight" valign="bottom"><b>StringList</b> (const vector&lt; string &gt; &amp;strings)</td></tr>
-<tr class="separator:a6ec1b2091fe34e4b10a140a90c0527d8"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a538159c3b687e37b86dda2f4f7f508e5"><td class="memItemLeft" align="right" valign="top"><a id="a538159c3b687e37b86dda2f4f7f508e5"></a>
+&#160;</td><td class="memItemRight" valign="bottom"><b>StringList</b> (const std::string &amp;str, const std::string &amp;delimiters=&quot;, &quot;)</td></tr>
+<tr class="separator:a538159c3b687e37b86dda2f4f7f508e5"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a85de339326fbffa2f91941315375415a"><td class="memItemLeft" align="right" valign="top"><a id="a85de339326fbffa2f91941315375415a"></a>
+&#160;</td><td class="memItemRight" valign="bottom"><b>StringList</b> (const std::vector&lt; std::string &gt; &amp;strings)</td></tr>
+<tr class="separator:a85de339326fbffa2f91941315375415a"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a36cdefed17e6a9c8b085202e7cc32b75"><td class="memItemLeft" align="right" valign="top"><a id="a36cdefed17e6a9c8b085202e7cc32b75"></a>
 &#160;</td><td class="memItemRight" valign="bottom"><b>StringList</b> (const <a class="el" href="classrr_1_1StringList.html">StringList</a> &amp;cp)</td></tr>
 <tr class="separator:a36cdefed17e6a9c8b085202e7cc32b75"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a3ff5c3c0b4a742ceeb78fa54eef7f4da"><td class="memItemLeft" align="right" valign="top"><a id="a3ff5c3c0b4a742ceeb78fa54eef7f4da"></a>
 &#160;</td><td class="memItemRight" valign="bottom"><b>StringList</b> (<a class="el" href="rrc__types_8h.html#a7c9475df6c7337d99482b13a365e7596">rrc::RRStringArrayPtr</a> cp)</td></tr>
 <tr class="separator:a3ff5c3c0b4a742ceeb78fa54eef7f4da"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:abace2c802bdb1693828d75c33bf60226"><td class="memItemLeft" align="right" valign="top"><a id="abace2c802bdb1693828d75c33bf60226"></a>
-void&#160;</td><td class="memItemRight" valign="bottom"><b>InsertAt</b> (const int &amp;index, const string &amp;item)</td></tr>
-<tr class="separator:abace2c802bdb1693828d75c33bf60226"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a29bfaf342dffb539620eea0839d4c98f"><td class="memItemLeft" align="right" valign="top"><a id="a29bfaf342dffb539620eea0839d4c98f"></a>
+void&#160;</td><td class="memItemRight" valign="bottom"><b>InsertAt</b> (const int &amp;index, const std::string &amp;item)</td></tr>
+<tr class="separator:a29bfaf342dffb539620eea0839d4c98f"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:ab0efc21ec5b7fe3073b9cd0f742fd6b2"><td class="memItemLeft" align="right" valign="top"><a id="ab0efc21ec5b7fe3073b9cd0f742fd6b2"></a>
 void&#160;</td><td class="memItemRight" valign="bottom"><b>Append</b> (const <a class="el" href="classrr_1_1StringList.html">StringList</a> &amp;list)</td></tr>
 <tr class="separator:ab0efc21ec5b7fe3073b9cd0f742fd6b2"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a980b782bcb434f669eb58359893bbd7e"><td class="memItemLeft" align="right" valign="top"><a id="a980b782bcb434f669eb58359893bbd7e"></a>
-string&#160;</td><td class="memItemRight" valign="bottom"><b>AsString</b> (const string &amp;delimiter=gComma) const</td></tr>
-<tr class="separator:a980b782bcb434f669eb58359893bbd7e"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a169cb28ee7e92fdb80d4faaed49dcec8"><td class="memItemLeft" align="right" valign="top"><a id="a169cb28ee7e92fdb80d4faaed49dcec8"></a>
+std::string&#160;</td><td class="memItemRight" valign="bottom"><b>AsString</b> (const std::string &amp;delimiter=gComma) const</td></tr>
+<tr class="separator:a169cb28ee7e92fdb80d4faaed49dcec8"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:ab1c2e10fd65a3a6c3600114b8d704760"><td class="memItemLeft" align="right" valign="top"><a id="ab1c2e10fd65a3a6c3600114b8d704760"></a>
 unsigned int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classrr_1_1StringList.html#ab1c2e10fd65a3a6c3600114b8d704760">size</a> () const</td></tr>
-<tr class="memdesc:ab1c2e10fd65a3a6c3600114b8d704760"><td class="mdescLeft">&#160;</td><td class="mdescRight">get the size to be compatible with vector&lt;string&gt; <br /></td></tr>
+<tr class="memdesc:ab1c2e10fd65a3a6c3600114b8d704760"><td class="mdescLeft">&#160;</td><td class="mdescRight">get the size to be compatible with std::vector&lt;std::string&gt; <br /></td></tr>
 <tr class="separator:ab1c2e10fd65a3a6c3600114b8d704760"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a5a2fd2e237b4f841cacc45ee93d5a5e1"><td class="memItemLeft" align="right" valign="top"><a id="a5a2fd2e237b4f841cacc45ee93d5a5e1"></a>
 unsigned int&#160;</td><td class="memItemRight" valign="bottom"><b>Count</b> () const</td></tr>
@@ -113,14 +113,14 @@ unsigned int&#160;</td><td class="memItemRight" valign="bottom"><b>Count</b> () 
 <tr class="memitem:a531b42e8fa64872b03df476f5edfcc63"><td class="memItemLeft" align="right" valign="top"><a id="a531b42e8fa64872b03df476f5edfcc63"></a>
 <a class="el" href="classrr_1_1StringList.html">StringList</a> &amp;&#160;</td><td class="memItemRight" valign="bottom"><b>operator=</b> (const <a class="el" href="classrr_1_1StringList.html">StringList</a> &amp;rhs)</td></tr>
 <tr class="separator:a531b42e8fa64872b03df476f5edfcc63"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:aa80c3e9baf77e63f2dae48ba520fa947"><td class="memItemLeft" align="right" valign="top"><a id="aa80c3e9baf77e63f2dae48ba520fa947"></a>
-<a class="el" href="classrr_1_1StringList.html">StringList</a> &amp;&#160;</td><td class="memItemRight" valign="bottom"><b>operator=</b> (const vector&lt; string &gt; &amp;rhs)</td></tr>
-<tr class="separator:aa80c3e9baf77e63f2dae48ba520fa947"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a19fc72a15c857d7bc6c6a57744020a74"><td class="memItemLeft" align="right" valign="top"><a id="a19fc72a15c857d7bc6c6a57744020a74"></a>
+<a class="el" href="classrr_1_1StringList.html">StringList</a> &amp;&#160;</td><td class="memItemRight" valign="bottom"><b>operator=</b> (const std::vector&lt; std::string &gt; &amp;rhs)</td></tr>
+<tr class="separator:a19fc72a15c857d7bc6c6a57744020a74"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a09f43d630b50512eca1c6d16d57f3904"><td class="memItemLeft" align="right" valign="top"><a id="a09f43d630b50512eca1c6d16d57f3904"></a>
-string &amp;&#160;</td><td class="memItemRight" valign="bottom"><b>operator[]</b> (const int &amp;index)</td></tr>
+std::string &amp;&#160;</td><td class="memItemRight" valign="bottom"><b>operator[]</b> (const int &amp;index)</td></tr>
 <tr class="separator:a09f43d630b50512eca1c6d16d57f3904"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a0c67d25599ee22bc930fa68749c30941"><td class="memItemLeft" align="right" valign="top"><a id="a0c67d25599ee22bc930fa68749c30941"></a>
-const string &amp;&#160;</td><td class="memItemRight" valign="bottom"><b>operator[]</b> (const int &amp;index) const</td></tr>
+const std::string &amp;&#160;</td><td class="memItemRight" valign="bottom"><b>operator[]</b> (const int &amp;index) const</td></tr>
 <tr class="separator:a0c67d25599ee22bc930fa68749c30941"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a75c23082809a6f16e5de805916275feb"><td class="memItemLeft" align="right" valign="top"><a id="a75c23082809a6f16e5de805916275feb"></a>
 <a class="el" href="classrr_1_1StringList.html">StringList</a>&#160;</td><td class="memItemRight" valign="bottom"><b>operator-</b> (const <a class="el" href="classrr_1_1StringList.html">StringList</a> &amp;rhs)</td></tr>
@@ -128,63 +128,63 @@ const string &amp;&#160;</td><td class="memItemRight" valign="bottom"><b>operato
 <tr class="memitem:a720fc28bc958d429a329dbdf5547bcf7"><td class="memItemLeft" align="right" valign="top"><a id="a720fc28bc958d429a329dbdf5547bcf7"></a>
 void&#160;</td><td class="memItemRight" valign="bottom"><b>removeAt</b> (const int &amp;index)</td></tr>
 <tr class="separator:a720fc28bc958d429a329dbdf5547bcf7"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a1383f91bdc96c52459b9d68a8e7f83fd"><td class="memItemLeft" align="right" valign="top"><a id="a1383f91bdc96c52459b9d68a8e7f83fd"></a>
-int&#160;</td><td class="memItemRight" valign="bottom"><b>find</b> (const string &amp;item)</td></tr>
-<tr class="separator:a1383f91bdc96c52459b9d68a8e7f83fd"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a3395785bcfee9ea7026efb1f590fed9f"><td class="memItemLeft" align="right" valign="top"><a id="a3395785bcfee9ea7026efb1f590fed9f"></a>
-int&#160;</td><td class="memItemRight" valign="bottom"><b>indexOf</b> (const string &amp;item)</td></tr>
-<tr class="separator:a3395785bcfee9ea7026efb1f590fed9f"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a479c8b95904f84607c638453481415fc"><td class="memItemLeft" align="right" valign="top"><a id="a479c8b95904f84607c638453481415fc"></a>
+int&#160;</td><td class="memItemRight" valign="bottom"><b>find</b> (const std::string &amp;item)</td></tr>
+<tr class="separator:a479c8b95904f84607c638453481415fc"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:aa8f4afc21492d5bde6f0e09fcf7ac948"><td class="memItemLeft" align="right" valign="top"><a id="aa8f4afc21492d5bde6f0e09fcf7ac948"></a>
+int&#160;</td><td class="memItemRight" valign="bottom"><b>indexOf</b> (const std::string &amp;item)</td></tr>
+<tr class="separator:aa8f4afc21492d5bde6f0e09fcf7ac948"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a862d06f12a2223487ca3e996cf3c8244"><td class="memItemLeft" align="right" valign="top"><a id="a862d06f12a2223487ca3e996cf3c8244"></a>
 void&#160;</td><td class="memItemRight" valign="bottom"><b>clear</b> ()</td></tr>
 <tr class="separator:a862d06f12a2223487ca3e996cf3c8244"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:aadd170cd6392ba0a83e03e7d3c0afb7b"><td class="memItemLeft" align="right" valign="top"><a id="aadd170cd6392ba0a83e03e7d3c0afb7b"></a>
 void&#160;</td><td class="memItemRight" valign="bottom"><b>empty</b> ()</td></tr>
 <tr class="separator:aadd170cd6392ba0a83e03e7d3c0afb7b"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a35d2fc7071a657509cece1dd9e653420"><td class="memItemLeft" align="right" valign="top"><a id="a35d2fc7071a657509cece1dd9e653420"></a>
-bool&#160;</td><td class="memItemRight" valign="bottom"><b>Contains</b> (const string &amp;item) const</td></tr>
-<tr class="separator:a35d2fc7071a657509cece1dd9e653420"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ae0f55ae77915f08d8441061fd8d9e299"><td class="memItemLeft" align="right" valign="top"><a id="ae0f55ae77915f08d8441061fd8d9e299"></a>
-bool&#160;</td><td class="memItemRight" valign="bottom"><b>DontContain</b> (const string &amp;item) const</td></tr>
-<tr class="separator:ae0f55ae77915f08d8441061fd8d9e299"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a5c733730e1fc23621967c457ecc39a45"><td class="memItemLeft" align="right" valign="top"><a id="a5c733730e1fc23621967c457ecc39a45"></a>
-void&#160;</td><td class="memItemRight" valign="bottom"><b>add</b> (const string &amp;item)</td></tr>
-<tr class="separator:a5c733730e1fc23621967c457ecc39a45"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a7ea2ca4ce00a73c87b8d0a4551f942a7"><td class="memItemLeft" align="right" valign="top"><a id="a7ea2ca4ce00a73c87b8d0a4551f942a7"></a>
+bool&#160;</td><td class="memItemRight" valign="bottom"><b>Contains</b> (const std::string &amp;item) const</td></tr>
+<tr class="separator:a7ea2ca4ce00a73c87b8d0a4551f942a7"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a1505a3ca4384ddc6ba50e39553e09046"><td class="memItemLeft" align="right" valign="top"><a id="a1505a3ca4384ddc6ba50e39553e09046"></a>
+bool&#160;</td><td class="memItemRight" valign="bottom"><b>DontContain</b> (const std::string &amp;item) const</td></tr>
+<tr class="separator:a1505a3ca4384ddc6ba50e39553e09046"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:aa328e792f49b515e6115e60c932304a6"><td class="memItemLeft" align="right" valign="top"><a id="aa328e792f49b515e6115e60c932304a6"></a>
+void&#160;</td><td class="memItemRight" valign="bottom"><b>add</b> (const std::string &amp;item)</td></tr>
+<tr class="separator:aa328e792f49b515e6115e60c932304a6"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:afa5b2a04ee297a172bf1cb1a8f3aa42a"><td class="memItemLeft" align="right" valign="top"><a id="afa5b2a04ee297a172bf1cb1a8f3aa42a"></a>
-vector&lt; string &gt;::iterator&#160;</td><td class="memItemRight" valign="bottom"><b>begin</b> ()</td></tr>
+std::vector&lt; std::string &gt;::iterator&#160;</td><td class="memItemRight" valign="bottom"><b>begin</b> ()</td></tr>
 <tr class="separator:afa5b2a04ee297a172bf1cb1a8f3aa42a"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a107cdc0f7114ec4da97407195469d20a"><td class="memItemLeft" align="right" valign="top"><a id="a107cdc0f7114ec4da97407195469d20a"></a>
-vector&lt; string &gt;::iterator&#160;</td><td class="memItemRight" valign="bottom"><b>end</b> ()</td></tr>
+std::vector&lt; std::string &gt;::iterator&#160;</td><td class="memItemRight" valign="bottom"><b>end</b> ()</td></tr>
 <tr class="separator:a107cdc0f7114ec4da97407195469d20a"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a771d4138b29bb160af2cd7ef7fcc151b"><td class="memItemLeft" align="right" valign="top"><a id="a771d4138b29bb160af2cd7ef7fcc151b"></a>
-void&#160;</td><td class="memItemRight" valign="bottom"><b>PreFix</b> (const string &amp;fix)</td></tr>
-<tr class="separator:a771d4138b29bb160af2cd7ef7fcc151b"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a0ccd3fd6f7ec068542004333ac80efd5"><td class="memItemLeft" align="right" valign="top"><a id="a0ccd3fd6f7ec068542004333ac80efd5"></a>
-void&#160;</td><td class="memItemRight" valign="bottom"><b>PostFix</b> (const string &amp;fix)</td></tr>
-<tr class="separator:a0ccd3fd6f7ec068542004333ac80efd5"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a7aaee2352ec87ec8967f4033ce45ddcb"><td class="memItemLeft" align="right" valign="top"><a id="a7aaee2352ec87ec8967f4033ce45ddcb"></a>
-&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classrr_1_1StringList.html#a7aaee2352ec87ec8967f4033ce45ddcb">operator const vector&lt; string &gt; &amp;</a> () const</td></tr>
-<tr class="memdesc:a7aaee2352ec87ec8967f4033ce45ddcb"><td class="mdescLeft">&#160;</td><td class="mdescRight">so we can start getting rid of this and using standard vector&lt;string&gt; <br /></td></tr>
-<tr class="separator:a7aaee2352ec87ec8967f4033ce45ddcb"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ae59331dda15e6edfe7ad6e448a49c20e"><td class="memItemLeft" align="right" valign="top"><a id="ae59331dda15e6edfe7ad6e448a49c20e"></a>
+void&#160;</td><td class="memItemRight" valign="bottom"><b>PreFix</b> (const std::string &amp;fix)</td></tr>
+<tr class="separator:ae59331dda15e6edfe7ad6e448a49c20e"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a1202c422ebdbe12259b4e38bb7154031"><td class="memItemLeft" align="right" valign="top"><a id="a1202c422ebdbe12259b4e38bb7154031"></a>
+void&#160;</td><td class="memItemRight" valign="bottom"><b>PostFix</b> (const std::string &amp;fix)</td></tr>
+<tr class="separator:a1202c422ebdbe12259b4e38bb7154031"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ab9df1f41a8963154433c26e71b892056"><td class="memItemLeft" align="right" valign="top"><a id="ab9df1f41a8963154433c26e71b892056"></a>
+&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classrr_1_1StringList.html#ab9df1f41a8963154433c26e71b892056">operator const std::vector&lt; std::string &gt; &amp;</a> () const</td></tr>
+<tr class="memdesc:ab9df1f41a8963154433c26e71b892056"><td class="mdescLeft">&#160;</td><td class="mdescRight">so we can start getting rid of this and using standard std::vector&lt;std::string&gt; <br /></td></tr>
+<tr class="separator:ab9df1f41a8963154433c26e71b892056"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pro-attribs"></a>
 Protected Attributes</h2></td></tr>
-<tr class="memitem:a77fbf5ded294145b45422782d4ccab07"><td class="memItemLeft" align="right" valign="top"><a id="a77fbf5ded294145b45422782d4ccab07"></a>
-vector&lt; string &gt;&#160;</td><td class="memItemRight" valign="bottom"><b>mStrings</b></td></tr>
-<tr class="separator:a77fbf5ded294145b45422782d4ccab07"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a599cb59468528bbf0456b68cbdb1e848"><td class="memItemLeft" align="right" valign="top"><a id="a599cb59468528bbf0456b68cbdb1e848"></a>
-vector&lt; string &gt;::iterator&#160;</td><td class="memItemRight" valign="bottom"><b>mLI</b></td></tr>
-<tr class="separator:a599cb59468528bbf0456b68cbdb1e848"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:aeb2650ad8e6eb397ee72dacf0003f95c"><td class="memItemLeft" align="right" valign="top"><a id="aeb2650ad8e6eb397ee72dacf0003f95c"></a>
+std::vector&lt; std::string &gt;&#160;</td><td class="memItemRight" valign="bottom"><b>mStrings</b></td></tr>
+<tr class="separator:aeb2650ad8e6eb397ee72dacf0003f95c"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a0d9482124c6f0c537825e9e793202a14"><td class="memItemLeft" align="right" valign="top"><a id="a0d9482124c6f0c537825e9e793202a14"></a>
+std::vector&lt; std::string &gt;::iterator&#160;</td><td class="memItemRight" valign="bottom"><b>mLI</b></td></tr>
+<tr class="separator:a0d9482124c6f0c537825e9e793202a14"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="friends"></a>
 Friends</h2></td></tr>
-<tr class="memitem:aa3ce47607ddae8b81ab08d118918a5fc"><td class="memItemLeft" align="right" valign="top"><a id="aa3ce47607ddae8b81ab08d118918a5fc"></a>
-RR_DECLSPEC friend ostream &amp;&#160;</td><td class="memItemRight" valign="bottom"><b>operator&lt;&lt;</b> (ostream &amp;stream, const <a class="el" href="classrr_1_1StringList.html">StringList</a> &amp;list)</td></tr>
-<tr class="separator:aa3ce47607ddae8b81ab08d118918a5fc"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ae35ab1e7dae364d4f4e9460b150b1f4e"><td class="memItemLeft" align="right" valign="top"><a id="ae35ab1e7dae364d4f4e9460b150b1f4e"></a>
+RR_DECLSPEC friend std::ostream &amp;&#160;</td><td class="memItemRight" valign="bottom"><b>operator&lt;&lt;</b> (std::ostream &amp;stream, const <a class="el" href="classrr_1_1StringList.html">StringList</a> &amp;list)</td></tr>
+<tr class="separator:ae35ab1e7dae364d4f4e9460b150b1f4e"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <hr/>The documentation for this class was generated from the following files:<ul>
 <li>c/<a class="el" href="rrStringList_8h_source.html">rrStringList.h</a></li>
 <li>c/rrStringList.cpp</li>
-<li>D:/roadrunner/roadrunner/wrappers/C/rrcStringList.cpp</li>
+<li>/Users/ciaranwelsh/Documents/roadrunner/wrappers/C/rrcStringList.cpp</li>
 </ul>
 </div><!-- contents -->
 <!-- start footer part -->

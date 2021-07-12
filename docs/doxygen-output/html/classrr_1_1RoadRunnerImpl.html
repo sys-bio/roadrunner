@@ -22,7 +22,7 @@
  <tr style="height: 56px;">
   <td id="projectalign" style="padding-left: 0.5em;">
    <div id="projectname">roadrunner
-   &#160;<span id="projectnumber">2.0.5</span>
+   &#160;<span id="projectnumber">2.0.8</span>
    </div>
    <div id="projectbrief">Fast simulator for SBML models</div>
   </td>
@@ -70,7 +70,6 @@ $(function() {
   <div class="summary">
 <a href="#pub-methods">Public Member Functions</a> &#124;
 <a href="#pub-attribs">Public Attributes</a> &#124;
-<a href="#friends">Friends</a> &#124;
 <a href="classrr_1_1RoadRunnerImpl-members.html">List of all members</a>  </div>
   <div class="headertitle">
 <div class="title">rr::RoadRunnerImpl Class Reference</div>  </div>
@@ -88,9 +87,9 @@ Public Member Functions</h2></td></tr>
 <tr class="memitem:ad59de4dfb7d325b5148bcf17a41cb920"><td class="memItemLeft" align="right" valign="top"><a id="ad59de4dfb7d325b5148bcf17a41cb920"></a>
 &#160;</td><td class="memItemRight" valign="bottom"><b>RoadRunnerImpl</b> (const std::istream &amp;in)</td></tr>
 <tr class="separator:ad59de4dfb7d325b5148bcf17a41cb920"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a616ad32a12e2fb1405c0efc3b21827b9"><td class="memItemLeft" align="right" valign="top"><a id="a616ad32a12e2fb1405c0efc3b21827b9"></a>
-&#160;</td><td class="memItemRight" valign="bottom"><b>RoadRunnerImpl</b> (const string &amp;_compiler, const string &amp;_tempDir, const string &amp;_supportCodeDir)</td></tr>
-<tr class="separator:a616ad32a12e2fb1405c0efc3b21827b9"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ae70ba989534390c53ab2eafc75dd189f"><td class="memItemLeft" align="right" valign="top"><a id="ae70ba989534390c53ab2eafc75dd189f"></a>
+&#160;</td><td class="memItemRight" valign="bottom"><b>RoadRunnerImpl</b> (const std::string &amp;_compiler, const std::string &amp;_tempDir, const std::string &amp;_supportCodeDir)</td></tr>
+<tr class="separator:ae70ba989534390c53ab2eafc75dd189f"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a43e10c0ddfffa060a90217a7a311e6d4"><td class="memItemLeft" align="right" valign="top"><a id="a43e10c0ddfffa060a90217a7a311e6d4"></a>
 &#160;</td><td class="memItemRight" valign="bottom"><b>RoadRunnerImpl</b> (const <a class="el" href="classrr_1_1RoadRunnerImpl.html">RoadRunnerImpl</a> &amp;rri)</td></tr>
 <tr class="separator:a43e10c0ddfffa060a90217a7a311e6d4"><td class="memSeparator" colspan="2">&#160;</td></tr>
@@ -167,21 +166,14 @@ LibStructural *&#160;</td><td class="memItemRight" valign="bottom"><a class="el"
 <tr class="memdesc:ab0d81fec655750d5e7a46be8be2d7aaa"><td class="mdescLeft">&#160;</td><td class="mdescRight">various general options that can be modified by external callers. <br /></td></tr>
 <tr class="separator:ab0d81fec655750d5e7a46be8be2d7aaa"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:ae22f2a7f705354d374d27a7fb51ff275"><td class="memItemLeft" align="right" valign="top">std::string&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classrr_1_1RoadRunnerImpl.html#ae22f2a7f705354d374d27a7fb51ff275">configurationXML</a></td></tr>
-<tr class="memdesc:ae22f2a7f705354d374d27a7fb51ff275"><td class="mdescLeft">&#160;</td><td class="mdescRight">the xml string that is given in setConfigurationXML.  <a href="classrr_1_1RoadRunnerImpl.html#ae22f2a7f705354d374d27a7fb51ff275">More...</a><br /></td></tr>
+<tr class="memdesc:ae22f2a7f705354d374d27a7fb51ff275"><td class="mdescLeft">&#160;</td><td class="mdescRight">the xml std::string that is given in setConfigurationXML.  <a href="classrr_1_1RoadRunnerImpl.html#ae22f2a7f705354d374d27a7fb51ff275">More...</a><br /></td></tr>
 <tr class="separator:ae22f2a7f705354d374d27a7fb51ff275"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a1ace36ac129fed50c43abf94c72fed9d"><td class="memItemLeft" align="right" valign="top"><a id="a1ace36ac129fed50c43abf94c72fed9d"></a>
 bool&#160;</td><td class="memItemRight" valign="bottom"><b>simulatedSinceReset</b> = false</td></tr>
 <tr class="separator:a1ace36ac129fed50c43abf94c72fed9d"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ac82a29609a15ee6d9d0f3e55a62b30f8"><td class="memItemLeft" align="right" valign="top"><a id="ac82a29609a15ee6d9d0f3e55a62b30f8"></a>
-unique_ptr&lt; libsbml::SBMLDocument &gt;&#160;</td><td class="memItemRight" valign="bottom"><b>document</b></td></tr>
-<tr class="separator:ac82a29609a15ee6d9d0f3e55a62b30f8"><td class="memSeparator" colspan="2">&#160;</td></tr>
-</table><table class="memberdecls">
-<tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="friends"></a>
-Friends</h2></td></tr>
-<tr class="memitem:af9179bd50e73e67094252c47c026531b"><td class="memItemLeft" align="right" valign="top"><a id="af9179bd50e73e67094252c47c026531b"></a>
-class&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classrr_1_1RoadRunnerImpl.html#af9179bd50e73e67094252c47c026531b">aFinalizer</a></td></tr>
-<tr class="memdesc:af9179bd50e73e67094252c47c026531b"><td class="mdescLeft">&#160;</td><td class="mdescRight">TODO get rid of this garbage. <br /></td></tr>
-<tr class="separator:af9179bd50e73e67094252c47c026531b"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a351eec90f0cb0348667df95ce9bd22e7"><td class="memItemLeft" align="right" valign="top"><a id="a351eec90f0cb0348667df95ce9bd22e7"></a>
+std::unique_ptr&lt; libsbml::SBMLDocument &gt;&#160;</td><td class="memItemRight" valign="bottom"><b>document</b></td></tr>
+<tr class="separator:a351eec90f0cb0348667df95ce9bd22e7"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
 <div class="textblock"><p>implemention class, hide all details here. </p>
@@ -198,7 +190,7 @@ class&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="cla
       </table>
 </div><div class="memdoc">
 
-<p>the xml string that is given in setConfigurationXML. </p>
+<p>the xml std::string that is given in setConfigurationXML. </p>
 <p>Needed because the NLEQ is only created in the steadyState method. </p>
 
 </div>

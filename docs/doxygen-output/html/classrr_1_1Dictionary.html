@@ -22,7 +22,7 @@
  <tr style="height: 56px;">
   <td id="projectalign" style="padding-left: 0.5em;">
    <div id="projectname">roadrunner
-   &#160;<span id="projectnumber">2.0.5</span>
+   &#160;<span id="projectnumber">2.0.8</span>
    </div>
    <div id="projectbrief">Fast simulator for SBML models</div>
   </td>
@@ -85,23 +85,22 @@ Inheritance diagram for rr::Dictionary:</div>
  <div class="center">
   <img src="classrr_1_1Dictionary.png" usemap="#rr::Dictionary_map" alt=""/>
   <map id="rr::Dictionary_map" name="rr::Dictionary_map">
-<area href="classrr_1_1BasicDictionary.html" title="This class is frozen, no new features Basic implementation of the Dictionary interface which uses a s..." alt="rr::BasicDictionary" shape="rect" coords="76,56,218,80"/>
-<area href="classrr_1_1rrSteadyStateSolver.html" title="Interface that all steady state solvers must implement." alt="rr::rrSteadyStateSolver" shape="rect" coords="380,56,522,80"/>
-<area href="classrr_1_1LoadSBMLOptions.html" title="Options for loading SBML into RoadRunner." alt="rr::LoadSBMLOptions" shape="rect" coords="0,112,142,136"/>
-<area href="classrr_1_1SimulateOptions.html" title="This class is frozen, no new features RoadRunner simulation options." alt="rr::SimulateOptions" shape="rect" coords="152,112,294,136"/>
-<area href="classrr_1_1NLEQ1Interface.html" alt="rr::NLEQ1Interface" shape="rect" coords="304,112,446,136"/>
-<area href="classrr_1_1NLEQ2Interface.html" alt="rr::NLEQ2Interface" shape="rect" coords="456,112,598,136"/>
+<area href="classrr_1_1BasicDictionary.html" title="This class is frozen, no new features Basic implementation of the Dictionary interface which uses a s..." alt="rr::BasicDictionary" shape="rect" coords="71,56,204,80"/>
+<area href="classrr_1_1NLEQ1Interface.html" alt="rr::NLEQ1Interface" shape="rect" coords="214,56,347,80"/>
+<area href="classrr_1_1NLEQ2Interface.html" alt="rr::NLEQ2Interface" shape="rect" coords="357,56,490,80"/>
+<area href="classrr_1_1LoadSBMLOptions.html" title="Options for loading SBML into RoadRunner." alt="rr::LoadSBMLOptions" shape="rect" coords="0,112,133,136"/>
+<area href="classrr_1_1SimulateOptions.html" title="This class is frozen, no new features RoadRunner simulation options." alt="rr::SimulateOptions" shape="rect" coords="143,112,276,136"/>
   </map>
 </div></div>
 <table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pub-methods"></a>
 Public Member Functions</h2></td></tr>
-<tr class="memitem:a6bb53c3bfeee7e3ee2bfcf9da8212949"><td class="memItemLeft" align="right" valign="top">virtual void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classrr_1_1Dictionary.html#a6bb53c3bfeee7e3ee2bfcf9da8212949">setItem</a> (const std::string &amp;key, const <a class="el" href="classrr_1_1Variant.html">rr::Variant</a> &amp;value)=0</td></tr>
-<tr class="memdesc:a6bb53c3bfeee7e3ee2bfcf9da8212949"><td class="mdescLeft">&#160;</td><td class="mdescRight">Set the value for an arbitrary key.  <a href="classrr_1_1Dictionary.html#a6bb53c3bfeee7e3ee2bfcf9da8212949">More...</a><br /></td></tr>
-<tr class="separator:a6bb53c3bfeee7e3ee2bfcf9da8212949"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a53cb5eee283727168630f6b1b918bdb0"><td class="memItemLeft" align="right" valign="top">virtual <a class="el" href="classrr_1_1Variant.html">Variant</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classrr_1_1Dictionary.html#a53cb5eee283727168630f6b1b918bdb0">getItem</a> (const std::string &amp;key) const =0</td></tr>
-<tr class="memdesc:a53cb5eee283727168630f6b1b918bdb0"><td class="mdescLeft">&#160;</td><td class="mdescRight">Get a value.  <a href="classrr_1_1Dictionary.html#a53cb5eee283727168630f6b1b918bdb0">More...</a><br /></td></tr>
-<tr class="separator:a53cb5eee283727168630f6b1b918bdb0"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a4708fee12ec4cd5e879df9bf5570c02a"><td class="memItemLeft" align="right" valign="top">virtual void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classrr_1_1Dictionary.html#a4708fee12ec4cd5e879df9bf5570c02a">setItem</a> (const std::string &amp;key, const <a class="el" href="classrr_1_1Setting.html">rr::Setting</a> &amp;value)=0</td></tr>
+<tr class="memdesc:a4708fee12ec4cd5e879df9bf5570c02a"><td class="mdescLeft">&#160;</td><td class="mdescRight">Set the value for an arbitrary key.  <a href="classrr_1_1Dictionary.html#a4708fee12ec4cd5e879df9bf5570c02a">More...</a><br /></td></tr>
+<tr class="separator:a4708fee12ec4cd5e879df9bf5570c02a"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a0fcdd3d9089af14e49e8713c254c9b67"><td class="memItemLeft" align="right" valign="top">virtual <a class="el" href="classrr_1_1Setting.html">Setting</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classrr_1_1Dictionary.html#a0fcdd3d9089af14e49e8713c254c9b67">getItem</a> (const std::string &amp;key) const =0</td></tr>
+<tr class="memdesc:a0fcdd3d9089af14e49e8713c254c9b67"><td class="mdescLeft">&#160;</td><td class="mdescRight">Get a value.  <a href="classrr_1_1Dictionary.html#a0fcdd3d9089af14e49e8713c254c9b67">More...</a><br /></td></tr>
+<tr class="separator:a0fcdd3d9089af14e49e8713c254c9b67"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a7ec0accc7149a403ee5eeeb9457059ed"><td class="memItemLeft" align="right" valign="top"><a id="a7ec0accc7149a403ee5eeeb9457059ed"></a>
 virtual bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classrr_1_1Dictionary.html#a7ec0accc7149a403ee5eeeb9457059ed">hasKey</a> (const std::string &amp;key) const =0</td></tr>
 <tr class="memdesc:a7ec0accc7149a403ee5eeeb9457059ed"><td class="mdescLeft">&#160;</td><td class="mdescRight">is there a key matching this name. <br /></td></tr>
@@ -123,8 +122,8 @@ virtual&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="c
 <div class="textblock"><p>This class is frozen, no new features A dictionary interface that objects can implement. </p>
 <p>These are automatically mapped to python dictionaries. </p>
 </div><h2 class="groupheader">Member Function Documentation</h2>
-<a id="a53cb5eee283727168630f6b1b918bdb0"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a53cb5eee283727168630f6b1b918bdb0">&#9670;&nbsp;</a></span>getItem()</h2>
+<a id="a0fcdd3d9089af14e49e8713c254c9b67"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a0fcdd3d9089af14e49e8713c254c9b67">&#9670;&nbsp;</a></span>getItem()</h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -133,7 +132,7 @@ virtual&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="c
   <td class="mlabels-left">
       <table class="memname">
         <tr>
-          <td class="memname">virtual <a class="el" href="classrr_1_1Variant.html">Variant</a> rr::Dictionary::getItem </td>
+          <td class="memname">virtual <a class="el" href="classrr_1_1Setting.html">Setting</a> rr::Dictionary::getItem </td>
           <td>(</td>
           <td class="paramtype">const std::string &amp;&#160;</td>
           <td class="paramname"><em>key</em></td><td>)</td>
@@ -149,18 +148,18 @@ virtual&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="c
 
 <p>Get a value. </p>
 <p>Variants are POD. If the key does not exist, an std::exception will be thrown.</p>
-<p>The <a class="el" href="classrr_1_1Variant.html" title="A basic type to hold a variety of data types.">Variant</a> object has the assigment operator overloaded so it will automatically convert to any native C++ object. If the <a class="el" href="classrr_1_1Variant.html" title="A basic type to hold a variety of data types.">Variant</a> can not be converted, it will raise an exception, i.e.</p>
+<p>The <a class="el" href="classrr_1_1Setting.html" title="Store a roadrunner option (or setting) as a Variant type.">Setting</a> object has the assigment operator overloaded so it will automatically convert to any native C++ object. If the <a class="el" href="classrr_1_1Setting.html" title="Store a roadrunner option (or setting) as a Variant type.">Setting</a> can not be converted, it will raise an exception, i.e.</p>
 <div class="fragment"><div class="line">Dictionary* d = ...;</div>
 <div class="line"><span class="keywordtype">int</span> a = d-&gt;getItem(<span class="stringliteral">&quot;someIntKey&quot;</span>);</div>
-<div class="line"><span class="keywordtype">string</span> s = d-&gt;getItem(<span class="stringliteral">&quot;someStrVal&quot;</span>);</div>
+<div class="line">std::string s = d-&gt;getItem(<span class="stringliteral">&quot;someStrVal&quot;</span>);</div>
 <div class="line"><span class="keywordtype">double</span> val = d-&gt;getItem(<span class="stringliteral">&quot;someDoubleVal&quot;</span>);</div>
 </div><!-- fragment --> 
-<p>Implemented in <a class="el" href="classrr_1_1BasicDictionary.html#a3357b3d49d8353f19ec9aa83884f6ef1">rr::BasicDictionary</a>, <a class="el" href="classrr_1_1LoadSBMLOptions.html#a42644c69463fd75bafb1ead69b9681e6">rr::LoadSBMLOptions</a>, <a class="el" href="classrr_1_1NLEQ2Interface.html#a4ef5104c0c2bb69c42add51d3c6cb0d4">rr::NLEQ2Interface</a>, and <a class="el" href="classrr_1_1NLEQ1Interface.html#af2c0bfc32e56ad8c71300b5f6ed7a0b7">rr::NLEQ1Interface</a>.</p>
+<p>Implemented in <a class="el" href="classrr_1_1LoadSBMLOptions.html#ae4dd5db25b55f9561e231c23c53ae941">rr::LoadSBMLOptions</a>, <a class="el" href="classrr_1_1BasicDictionary.html#afb43f812d4aaf7809c79d1300bc9fe8c">rr::BasicDictionary</a>, <a class="el" href="classrr_1_1NLEQ2Interface.html#abb1a5d9b9039568fbf6f7c34ab91f670">rr::NLEQ2Interface</a>, and <a class="el" href="classrr_1_1NLEQ1Interface.html#a1a8928cba0c954524c5361a79ee3d0b4">rr::NLEQ1Interface</a>.</p>
 
 </div>
 </div>
-<a id="a6bb53c3bfeee7e3ee2bfcf9da8212949"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a6bb53c3bfeee7e3ee2bfcf9da8212949">&#9670;&nbsp;</a></span>setItem()</h2>
+<a id="a4708fee12ec4cd5e879df9bf5570c02a"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a4708fee12ec4cd5e879df9bf5570c02a">&#9670;&nbsp;</a></span>setItem()</h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -177,7 +176,7 @@ virtual&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="c
         <tr>
           <td class="paramkey"></td>
           <td></td>
-          <td class="paramtype">const <a class="el" href="classrr_1_1Variant.html">rr::Variant</a> &amp;&#160;</td>
+          <td class="paramtype">const <a class="el" href="classrr_1_1Setting.html">rr::Setting</a> &amp;&#160;</td>
           <td class="paramname"><em>value</em>&#160;</td>
         </tr>
         <tr>
@@ -194,13 +193,13 @@ virtual&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="c
 </div><div class="memdoc">
 
 <p>Set the value for an arbitrary key. </p>
-<p>The <a class="el" href="classrr_1_1Variant.html" title="A basic type to hold a variety of data types.">Variant</a> object has a large number of creation operators so you only have to give the value as native C++ object i.e.</p>
+<p>The <a class="el" href="classrr_1_1Setting.html" title="Store a roadrunner option (or setting) as a Variant type.">Setting</a> object has a large number of creation operators so you only have to give the value as native C++ object i.e.</p>
 <div class="fragment"><div class="line">Dictionary*d = (...);</div>
 <div class="line">d-&gt;setItem(<span class="stringliteral">&quot;someIntKey&quot;</span>, 1);</div>
-<div class="line">d-&gt;setItem(<span class="stringliteral">&quot;someStrKey&quot;</span>, <span class="keywordtype">string</span>(<span class="stringliteral">&quot;some string&quot;</span>));</div>
+<div class="line">d-&gt;setItem(<span class="stringliteral">&quot;someStrKey&quot;</span>, std::string(<span class="stringliteral">&quot;some std::string&quot;</span>));</div>
 <div class="line">d-&gt;setItem(<span class="stringliteral">&quot;someFloatVal, 0.123);</span></div>
 </div><!-- fragment --> 
-<p>Implemented in <a class="el" href="classrr_1_1BasicDictionary.html#ae7b6b6c90561295e2e07c45fe50358ce">rr::BasicDictionary</a>, <a class="el" href="classrr_1_1SimulateOptions.html#ae864e702c9a40669ac9088731ff49884">rr::SimulateOptions</a>, <a class="el" href="classrr_1_1LoadSBMLOptions.html#a0ea929664c0ac7b28120ad131ae08ae9">rr::LoadSBMLOptions</a>, <a class="el" href="classrr_1_1NLEQ2Interface.html#a9495cf109b4ec802e3e8532099c73f5e">rr::NLEQ2Interface</a>, and <a class="el" href="classrr_1_1NLEQ1Interface.html#a83ca9720f6b5aa8fedfc10c83ea2ef24">rr::NLEQ1Interface</a>.</p>
+<p>Implemented in <a class="el" href="classrr_1_1LoadSBMLOptions.html#a5c681de2711ebbc2591d11a280b9db94">rr::LoadSBMLOptions</a>, <a class="el" href="classrr_1_1BasicDictionary.html#ae3e2fc27e776cf5c791b4194534d3082">rr::BasicDictionary</a>, <a class="el" href="classrr_1_1SimulateOptions.html#ac37d1c469b5ca3f1a259b49f0c3b041a">rr::SimulateOptions</a>, <a class="el" href="classrr_1_1NLEQ2Interface.html#aaaece125dad7d037daa8e14e296cf127">rr::NLEQ2Interface</a>, and <a class="el" href="classrr_1_1NLEQ1Interface.html#af96bd43cb07909357c1dd102e8d81e51">rr::NLEQ1Interface</a>.</p>
 
 </div>
 </div>

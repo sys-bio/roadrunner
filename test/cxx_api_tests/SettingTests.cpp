@@ -480,7 +480,7 @@ struct TypeThatContainsASettingsMap {
     TypeThatContainsASettingsMap() {
         settingsMap["string"] = Setting("string");
         settingsMap["int"] = Setting(1);
-        settingsMap["long"] = Setting(100l);
+        settingsMap["long"] = Setting(std::int64_t(100));
     };
 
     void setValue(const std::string &key, Setting value) {
@@ -560,9 +560,6 @@ TEST_F(SettingTests, UseVisitorWrapper) {
     Setting s(1234);
     ASSERT_EQ(typeid(int), s.visit([&](auto t) -> decltype(auto) { return typeid(t); }));
 }
-
-
-
 
 
 

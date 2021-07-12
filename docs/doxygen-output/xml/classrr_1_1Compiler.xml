@@ -11,7 +11,7 @@
         <definition>virtual std::string rr::Compiler::getCompiler</definition>
         <argsstring>() const =0</argsstring>
         <name>getCompiler</name>
-        <reimplementedby refid="classrr_1_1CCompiler_1a991ca70498a707b972ef9edd2fd9576b">getCompiler</reimplementedby>
+        <reimplementedby refid="classrr_1_1CCompiler_1acc4b3aed4b1d75cb19b6ac5d48cb3331">getCompiler</reimplementedby>
         <reimplementedby refid="classrrllvm_1_1LLVMCompiler_1af60c9c0772a118ad6601ef05280503ea">getCompiler</reimplementedby>
         <briefdescription>
         </briefdescription>
@@ -26,6 +26,7 @@
         <definition>virtual bool rr::Compiler::setCompiler</definition>
         <argsstring>(const std::string &amp;compiler)=0</argsstring>
         <name>setCompiler</name>
+        <reimplementedby refid="classrr_1_1CCompiler_1a02c966c014a88888366c63b36b81208e">setCompiler</reimplementedby>
         <reimplementedby refid="classrrllvm_1_1LLVMCompiler_1a8707e79ee48a442da849734dde908709">setCompiler</reimplementedby>
         <param>
           <type>const std::string &amp;</type>
@@ -44,7 +45,7 @@
         <definition>virtual std::string rr::Compiler::getCompilerLocation</definition>
         <argsstring>() const =0</argsstring>
         <name>getCompilerLocation</name>
-        <reimplementedby refid="classrr_1_1CCompiler_1a5681005b4ce9d9b969c7ff8bc5a4222e">getCompilerLocation</reimplementedby>
+        <reimplementedby refid="classrr_1_1CCompiler_1a8678949cfc3cfeef38ea4f6580128de2">getCompilerLocation</reimplementedby>
         <reimplementedby refid="classrrllvm_1_1LLVMCompiler_1a38932bfff982e7939c13eace4eddde3c">getCompilerLocation</reimplementedby>
         <briefdescription>
         </briefdescription>
@@ -59,6 +60,7 @@
         <definition>virtual bool rr::Compiler::setCompilerLocation</definition>
         <argsstring>(const std::string &amp;path)=0</argsstring>
         <name>setCompilerLocation</name>
+        <reimplementedby refid="classrr_1_1CCompiler_1aa4813603ddea58db34bce8f29efbfc1f">setCompilerLocation</reimplementedby>
         <reimplementedby refid="classrrllvm_1_1LLVMCompiler_1adb6ba40c7dcb5d26d5ff33074af28492">setCompilerLocation</reimplementedby>
         <param>
           <type>const std::string &amp;</type>
@@ -77,7 +79,7 @@
         <definition>virtual std::string rr::Compiler::getSupportCodeFolder</definition>
         <argsstring>() const =0</argsstring>
         <name>getSupportCodeFolder</name>
-        <reimplementedby refid="classrr_1_1CCompiler_1a67c74e412cb873d6558d47abf378bfd2">getSupportCodeFolder</reimplementedby>
+        <reimplementedby refid="classrr_1_1CCompiler_1aaf1532e74657fb6285011f0752d087e4">getSupportCodeFolder</reimplementedby>
         <reimplementedby refid="classrrllvm_1_1LLVMCompiler_1a3b711ae71d3b808fe1d7c2517f42c91e">getSupportCodeFolder</reimplementedby>
         <briefdescription>
         </briefdescription>
@@ -92,6 +94,7 @@
         <definition>virtual bool rr::Compiler::setSupportCodeFolder</definition>
         <argsstring>(const std::string &amp;path)=0</argsstring>
         <name>setSupportCodeFolder</name>
+        <reimplementedby refid="classrr_1_1CCompiler_1a139cb4e7c5ec1ddf4ed92d3c9e2f17f9">setSupportCodeFolder</reimplementedby>
         <reimplementedby refid="classrrllvm_1_1LLVMCompiler_1a6a9910411f41ba0fc47d95bd30b04fd2">setSupportCodeFolder</reimplementedby>
         <param>
           <type>const std::string &amp;</type>
@@ -116,7 +119,7 @@
 <para><ref refid="classrr_1_1Compiler_1a244cefa6a995aeb5d2793ff893f1893b" kindref="member">getDefaultTargetTriple()</ref> - Return the default target triple the compiler has been configured to produce code for. </para>
         </briefdescription>
         <detaileddescription>
-<para>The target triple is a string in the format of: CPU_TYPE-VENDOR-OPERATING_SYSTEM or CPU_TYPE-VENDOR-KERNEL-OPERATING_SYSTEM </para>
+<para>The target triple is a std::string in the format of: CPU_TYPE-VENDOR-OPERATING_SYSTEM or CPU_TYPE-VENDOR-KERNEL-OPERATING_SYSTEM </para>
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>

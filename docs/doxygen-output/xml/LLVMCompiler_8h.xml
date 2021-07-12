@@ -6,18 +6,18 @@
     <includedby refid="LLVMCompiler_8cpp" local="yes">llvm/LLVMCompiler.cpp</includedby>
     <includedby refid="LLVMModelGenerator_8h" local="yes">llvm/LLVMModelGenerator.h</includedby>
     <incdepgraph>
-      <node id="1">
-        <label>llvm/LLVMCompiler.h</label>
-        <link refid="LLVMCompiler_8h"/>
-        <childnode refid="2" relation="include">
+      <node id="3">
+        <label>rrOSSpecifics.h</label>
+        <link refid="rrOSSpecifics_8h_source"/>
+        <childnode refid="4" relation="include">
         </childnode>
+      </node>
+      <node id="5">
+        <label>string</label>
       </node>
       <node id="4">
         <label>rrExporter.h</label>
         <link refid="rrExporter_8h_source"/>
-      </node>
-      <node id="5">
-        <label>string</label>
       </node>
       <node id="2">
         <label>rrCompiler.h</label>
@@ -27,23 +27,23 @@
         <childnode refid="5" relation="include">
         </childnode>
       </node>
-      <node id="3">
-        <label>rrOSSpecifics.h</label>
-        <link refid="rrOSSpecifics_8h_source"/>
-        <childnode refid="4" relation="include">
-        </childnode>
-      </node>
-    </incdepgraph>
-    <invincdepgraph>
       <node id="1">
         <label>llvm/LLVMCompiler.h</label>
         <link refid="LLVMCompiler_8h"/>
         <childnode refid="2" relation="include">
         </childnode>
       </node>
+    </incdepgraph>
+    <invincdepgraph>
       <node id="2">
         <label>llvm/LLVMModelGenerator.h</label>
         <link refid="LLVMModelGenerator_8h_source"/>
+      </node>
+      <node id="1">
+        <label>llvm/LLVMCompiler.h</label>
+        <link refid="LLVMCompiler_8h"/>
+        <childnode refid="2" relation="include">
+        </childnode>
       </node>
     </invincdepgraph>
     <innerclass refid="classrrllvm_1_1LLVMCompiler" prot="public">rrllvm::LLVMCompiler</innerclass>

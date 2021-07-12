@@ -8,7 +8,7 @@ cmake_minimum_required(VERSION 3.16)
 
 set(ROADRUNNER_VERSION_MAJOR 2)
 set(ROADRUNNER_VERSION_MINOR 0)
-set(ROADRUNNER_VERSION_PATCH 6)
+set(ROADRUNNER_VERSION_PATCH 8)
 
 set(ROADRUNNER_VERSION "${ROADRUNNER_VERSION_MAJOR}.${ROADRUNNER_VERSION_MINOR}.${ROADRUNNER_VERSION_PATCH}")
 project(
@@ -19,11 +19,11 @@ project(
 )
 
 if (${CMAKE_VERSION} VERSION_GREATER_EQUAL "3.20")
-    # Source file extensions do not need to be explicitly
+    # Source file extensions (.h/.cpp) do not need to be explicitly
     #   specified if CMP0115 set to OLD.
     #   New behavior requires all extensions be explicit
     cmake_policy(SET CMP0115 OLD)
-endif()
+endif ()
 
 
 if ("${CMAKE_SIZEOF_VOID_P}" STREQUAL "4")
@@ -349,7 +349,7 @@ find_package(PocoXML CONFIG REQUIRED)
 find_package(LLVM REQUIRED)
 find_package(SUNDIALS CONFIG REQUIRED)
 
-# not for windows. So not required, but we throw error not not win and not found.
+# not for windows. So not required, but we throw error if not win and not found.
 find_package(Curses)
 
 if (NOT WIN32 AND NOT ${CURSES_FOUND})
@@ -443,6 +443,13 @@ if (BUILD_TESTS)
     # defined here, passed on to running the Python tests via CTest
     set(PYTHON_API_IN_BINARY_TREE "${CMAKE_CURRENT_BINARY_DIR}/wrappers/Python")
 
+    # these sources are needed in some tests
+    set(
+            RR_PYTHON_PYUTILS_SRC
+            "${CMAKE_CURRENT_SOURCE_DIR}/wrappers/Python/roadrunner/PyUtils.cpp"
+            "${CMAKE_CURRENT_SOURCE_DIR}/wrappers/Python/roadrunner/PyUtils.h"
+    )
+
     add_subdirectory(test)
 
     message(STATUS "building tests")
@@ -507,8 +514,17 @@ if (${BORLAND})
 endif ()
 
 configure_file(
-        ${CMAKE_CURRENT_SOURCE_DIR}/VERSION.txt.in
-        ${CMAKE_CURRENT_BINARY_DIR}/VERSION.txt @ONLY
+        "${CMAKE_CURRENT_SOURCE_DIR}/VERSION.txt.in"
+        "${CMAKE_CURRENT_BINARY_DIR}/VERSION.txt" @ONLY
+)
+
+configure_file(
+        "${CMAKE_CURRENT_SOURCE_DIR}/requirements.txt"
+        "${CMAKE_BINARY_DIR}/requirements.txt" @ONLY
+)
+install(
+        FILES "${CMAKE_CURRENT_SOURCE_DIR}/requirements.txt"
+        DESTINATION .
 )
 
 install(

@@ -13,6 +13,8 @@
   
   <link rel="stylesheet" href="../_static/css/theme.css" type="text/css" />
   <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
+  <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
+  <link rel="stylesheet" href="../_static/css/theme.css" type="text/css" />
   <link rel="stylesheet" href="../_static/tabs.css" type="text/css" />
 
   
@@ -30,10 +32,10 @@
   
     
       <script type="text/javascript" id="documentation_options" data-url_root="../" src="../_static/documentation_options.js"></script>
+        <script data-url_root="../" id="documentation_options" src="../_static/documentation_options.js"></script>
         <script src="../_static/jquery.js"></script>
         <script src="../_static/underscore.js"></script>
         <script src="../_static/doctools.js"></script>
-        <script src="../_static/language_data.js"></script>
     
     <script type="text/javascript" src="../_static/js/theme.js"></script>
 
@@ -147,6 +149,7 @@
 <li class="toctree-l2"><a class="reference internal" href="index.html#a-complete-example-of-creating-an-integrator">A complete example of creating an integrator</a></li>
 </ul>
 </li>
+<li class="toctree-l1"><a class="reference internal" href="../developers_docs/index.html">Developers Documentation</a></li>
 </ul>
 
             
@@ -219,8 +222,8 @@
   <div class="section" id="eulerintegrator">
 <h1>EulerIntegrator<a class="headerlink" href="#eulerintegrator" title="Permalink to this headline">¶</a></h1>
 <dl class="cpp class">
-<dt id="_CPPv4N2rr15EulerIntegratorE">
-<span id="_CPPv3N2rr15EulerIntegratorE"></span><span id="_CPPv2N2rr15EulerIntegratorE"></span><span id="rr::EulerIntegrator"></span><span class="target" id="classrr_1_1EulerIntegrator"></span><em class="property">class </em><code class="sig-prename descclassname">rr<code class="sig-prename descclassname">::</code></code><code class="sig-name descname">EulerIntegrator</code> : <em class="property">public</em> rr::<a class="reference internal" href="Integrator.html#_CPPv4N2rr10IntegratorE" title="rr::Integrator">Integrator</a><a class="headerlink" href="#_CPPv4N2rr15EulerIntegratorE" title="Permalink to this definition">¶</a><br /></dt>
+<dt class="sig sig-object cpp" id="_CPPv4N2rr15EulerIntegratorE">
+<span id="_CPPv3N2rr15EulerIntegratorE"></span><span id="_CPPv2N2rr15EulerIntegratorE"></span><span id="rr::EulerIntegrator"></span><span class="target" id="classrr_1_1EulerIntegrator"></span><span class="k"><span class="pre">class</span></span><span class="w"> </span><span class="sig-prename descclassname"><span class="n"><span class="pre">rr</span></span><span class="p"><span class="pre">::</span></span></span><span class="sig-name descname"><span class="n"><span class="pre">EulerIntegrator</span></span></span><span class="w"> </span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="k"><span class="pre">public</span></span><span class="w"> </span><span class="n"><span class="pre">rr</span></span><span class="p"><span class="pre">::</span></span><a class="reference internal" href="Integrator.html#_CPPv4N2rr10IntegratorE" title="rr::Integrator"><span class="n"><span class="pre">Integrator</span></span></a><a class="headerlink" href="#_CPPv4N2rr15EulerIntegratorE" title="Permalink to this definition">¶</a><br /></dt>
 <dd><p>An example class intended to show how to create an <a class="reference internal" href="Integrator.html#classrr_1_1Integrator"><span class="std std-ref">Integrator</span></a>. </p>
 <p>This class implements the most basic possible integration algorithm: the forward Euler method.</p>
 <p>This integrator should not really be used in practice as the forward Euler algorithm is highly unstable and will seldomly yield numerically correct values.</p>
@@ -238,112 +241,116 @@
 </div>
  </p>
 <div class="breathe-sectiondef docutils container">
-<p class="breathe-sectiondef-title rubric">Public Functions</p>
+<p class="breathe-sectiondef-title rubric" id="breathe-section-title-public-functions">Public Functions</p>
 <dl class="cpp function">
-<dt id="_CPPv4N2rr15EulerIntegrator15EulerIntegratorEP15ExecutableModel">
-<span id="_CPPv3N2rr15EulerIntegrator15EulerIntegratorEP15ExecutableModel"></span><span id="_CPPv2N2rr15EulerIntegrator15EulerIntegratorEP15ExecutableModel"></span><span id="rr::EulerIntegrator::EulerIntegrator__ExecutableModelP"></span><span class="target" id="classrr_1_1EulerIntegrator_1afc90e9a20043ba1a05db9adba8d53cfe"></span><em class="property">inline</em> <code class="sig-name descname">EulerIntegrator</code><span class="sig-paren">(</span><a class="reference internal" href="rrExecutableModel.html#_CPPv4N2rr15ExecutableModelE" title="rr::ExecutableModel">ExecutableModel</a> *<em>m</em><span class="sig-paren">)</span><a class="headerlink" href="#_CPPv4N2rr15EulerIntegrator15EulerIntegratorEP15ExecutableModel" title="Permalink to this definition">¶</a><br /></dt>
+<dt class="sig sig-object cpp" id="_CPPv4N2rr15EulerIntegrator15EulerIntegratorEP15ExecutableModel">
+<span id="_CPPv3N2rr15EulerIntegrator15EulerIntegratorEP15ExecutableModel"></span><span id="_CPPv2N2rr15EulerIntegrator15EulerIntegratorEP15ExecutableModel"></span><span id="rr::EulerIntegrator::EulerIntegrator__ExecutableModelP"></span><span class="target" id="classrr_1_1EulerIntegrator_1afc90e9a20043ba1a05db9adba8d53cfe"></span><span class="k"><span class="pre">inline</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">EulerIntegrator</span></span></span><span class="sig-paren">(</span><a class="reference internal" href="rrExecutableModel.html#_CPPv4N2rr15ExecutableModelE" title="rr::ExecutableModel"><span class="n"><span class="pre">ExecutableModel</span></span></a><span class="w"> </span><span class="p"><span class="pre">*</span></span><span class="n sig-param"><span class="pre">m</span></span><span class="sig-paren">)</span><a class="headerlink" href="#_CPPv4N2rr15EulerIntegrator15EulerIntegratorEP15ExecutableModel" title="Permalink to this definition">¶</a><br /></dt>
 <dd><p>Creates a new <a class="reference internal" href="#classrr_1_1EulerIntegrator"><span class="std std-ref">EulerIntegrator</span></a>. </p>
 <p>The IntegratorFactory is the ONLY object that creates integrators.</p>
 <p>Integrators are created when the IntegratorFactory::New method is called, typically by the top level <a class="reference internal" href="rrRoadRunner.html#classrr_1_1RoadRunner"><span class="std std-ref">RoadRunner</span></a> object.</p>
 <p>The integrator will hold onto the <a class="reference internal" href="rrExecutableModel.html#classrr_1_1ExecutableModel"><span class="std std-ref">ExecutableModel</span></a> pointer, m, and when the integrate method is called, will advance the model object forward in time.</p>
-<p><dl class="simple">
-<dt><strong>Parameters</strong></dt><dd><ul class="breatheparameterlist simple">
-<li><p><code class="docutils literal notranslate"><span class="pre">m</span></code>: a borrowed reference to an existing <a class="reference internal" href="rrExecutableModel.html#classrr_1_1ExecutableModel"><span class="std std-ref">ExecutableModel</span></a> object. </p></li>
-<li><p><code class="docutils literal notranslate"><span class="pre">o</span></code>: a reference to a SimulatOptions object where the configuration parameters will be read from. </p></li>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>m</strong> – a borrowed reference to an existing <a class="reference internal" href="rrExecutableModel.html#classrr_1_1ExecutableModel"><span class="std std-ref">ExecutableModel</span></a> object. </p></li>
+<li><p><strong>o</strong> – a reference to a SimulatOptions object where the configuration parameters will be read from. </p></li>
 </ul>
 </dd>
 </dl>
-</p>
 </dd></dl>
 
 <dl class="cpp function">
-<dt id="_CPPv4N2rr15EulerIntegratorD0Ev">
-<span id="_CPPv3N2rr15EulerIntegratorD0Ev"></span><span id="_CPPv2N2rr15EulerIntegratorD0Ev"></span><span id="rr::EulerIntegrator::~EulerIntegrator"></span><span class="target" id="classrr_1_1EulerIntegrator_1a1f1d275a7be6a72e9e03b9dd35531fd8"></span><em class="property">inline</em> <em class="property">virtual</em> <code class="sig-name descname">~EulerIntegrator</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#_CPPv4N2rr15EulerIntegratorD0Ev" title="Permalink to this definition">¶</a><br /></dt>
+<dt class="sig sig-object cpp" id="_CPPv4N2rr15EulerIntegratorD0Ev">
+<span id="_CPPv3N2rr15EulerIntegratorD0Ev"></span><span id="_CPPv2N2rr15EulerIntegratorD0Ev"></span><span id="rr::EulerIntegrator::~EulerIntegrator"></span><span class="target" id="classrr_1_1EulerIntegrator_1a1f1d275a7be6a72e9e03b9dd35531fd8"></span><span class="k"><span class="pre">inline</span></span><span class="w"> </span><span class="k"><span class="pre">virtual</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">~EulerIntegrator</span></span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#_CPPv4N2rr15EulerIntegratorD0Ev" title="Permalink to this definition">¶</a><br /></dt>
 <dd><p>delete any memory we allocated </p>
 </dd></dl>
 
 <dl class="cpp function">
-<dt id="_CPPv4N2rr15EulerIntegrator9integrateEdd">
-<span id="_CPPv3N2rr15EulerIntegrator9integrateEdd"></span><span id="_CPPv2N2rr15EulerIntegrator9integrateEdd"></span><span id="rr::EulerIntegrator::integrate__double.double"></span><span class="target" id="classrr_1_1EulerIntegrator_1ab65a96963262cce17a56c2605da5416f"></span><em class="property">inline</em> <em class="property">virtual</em> double <code class="sig-name descname">integrate</code><span class="sig-paren">(</span>double <em>t0</em>, double <em>h</em><span class="sig-paren">)</span><a class="headerlink" href="#_CPPv4N2rr15EulerIntegrator9integrateEdd" title="Permalink to this definition">¶</a><br /></dt>
+<dt class="sig sig-object cpp" id="_CPPv4N2rr15EulerIntegrator9integrateEdd">
+<span id="_CPPv3N2rr15EulerIntegrator9integrateEdd"></span><span id="_CPPv2N2rr15EulerIntegrator9integrateEdd"></span><span id="rr::EulerIntegrator::integrate__double.double"></span><span class="target" id="classrr_1_1EulerIntegrator_1ab65a96963262cce17a56c2605da5416f"></span><span class="k"><span class="pre">inline</span></span><span class="w"> </span><span class="k"><span class="pre">virtual</span></span><span class="w"> </span><span class="kt"><span class="pre">double</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">integrate</span></span></span><span class="sig-paren">(</span><span class="kt"><span class="pre">double</span></span><span class="w"> </span><span class="n sig-param"><span class="pre">t0</span></span>, <span class="kt"><span class="pre">double</span></span><span class="w"> </span><span class="n sig-param"><span class="pre">h</span></span><span class="sig-paren">)</span><a class="headerlink" href="#_CPPv4N2rr15EulerIntegrator9integrateEdd" title="Permalink to this definition">¶</a><br /></dt>
 <dd><p>integrates the model from t0 to t0 + hstep </p>
 <p>In this implementation, this performs a basic forward Euler step. This method also demonstrates how to notify the listener that a timestep has completed.</p>
-<p><dl class="simple">
-<dt><strong>Return</strong></dt><dd><p>the end time. </p>
+<dl class="field-list simple">
+<dt class="field-odd">Returns</dt>
+<dd class="field-odd"><p>the end time. </p>
 </dd>
 </dl>
-</p>
 </dd></dl>
 
 <dl class="cpp function">
-<dt id="_CPPv4N2rr15EulerIntegrator11applyEventsEdRNSt6vectorIhEE">
-<span id="_CPPv3N2rr15EulerIntegrator11applyEventsEdRNSt6vectorIhEE"></span><span id="_CPPv2N2rr15EulerIntegrator11applyEventsEdRNSt6vectorIhEE"></span><span id="rr::EulerIntegrator::applyEvents__double.std::vector:unsigned-c:R"></span><span class="target" id="classrr_1_1EulerIntegrator_1af348d85b0fbf92f117623d61bb8e5240"></span><em class="property">inline</em> void <code class="sig-name descname">applyEvents</code><span class="sig-paren">(</span>double <em>timeEnd</em>, std::vector&lt;unsigned char&gt; &amp;<em>previousEventStatus</em><span class="sig-paren">)</span><a class="headerlink" href="#_CPPv4N2rr15EulerIntegrator11applyEventsEdRNSt6vectorIhEE" title="Permalink to this definition">¶</a><br /></dt>
+<dt class="sig sig-object cpp" id="_CPPv4N2rr15EulerIntegrator11applyEventsEdRNSt6vectorIhEE">
+<span id="_CPPv3N2rr15EulerIntegrator11applyEventsEdRNSt6vectorIhEE"></span><span id="_CPPv2N2rr15EulerIntegrator11applyEventsEdRNSt6vectorIhEE"></span><span id="rr::EulerIntegrator::applyEvents__double.std::vector:unsigned-c:R"></span><span class="target" id="classrr_1_1EulerIntegrator_1af348d85b0fbf92f117623d61bb8e5240"></span><span class="k"><span class="pre">inline</span></span><span class="w"> </span><span class="kt"><span class="pre">void</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">applyEvents</span></span></span><span class="sig-paren">(</span><span class="kt"><span class="pre">double</span></span><span class="w"> </span><span class="n sig-param"><span class="pre">timeEnd</span></span>, <span class="n"><span class="pre">std</span></span><span class="p"><span class="pre">::</span></span><span class="n"><span class="pre">vector</span></span><span class="p"><span class="pre">&lt;</span></span><span class="kt"><span class="pre">unsigned</span> <span class="pre">char</span></span><span class="p"><span class="pre">&gt;</span></span><span class="w"> </span><span class="p"><span class="pre">&amp;</span></span><span class="n sig-param"><span class="pre">previousEventStatus</span></span><span class="sig-paren">)</span><a class="headerlink" href="#_CPPv4N2rr15EulerIntegrator11applyEventsEdRNSt6vectorIhEE" title="Permalink to this definition">¶</a><br /></dt>
 <dd></dd></dl>
 
 <dl class="cpp function">
-<dt id="_CPPv4N2rr15EulerIntegrator7restartEd">
-<span id="_CPPv3N2rr15EulerIntegrator7restartEd"></span><span id="_CPPv2N2rr15EulerIntegrator7restartEd"></span><span id="rr::EulerIntegrator::restart__double"></span><span class="target" id="classrr_1_1EulerIntegrator_1a08903e998cf527552442f8fa930772c8"></span><em class="property">inline</em> <em class="property">virtual</em> void <code class="sig-name descname">restart</code><span class="sig-paren">(</span>double <em>t0</em><span class="sig-paren">)</span><a class="headerlink" href="#_CPPv4N2rr15EulerIntegrator7restartEd" title="Permalink to this definition">¶</a><br /></dt>
+<dt class="sig sig-object cpp" id="_CPPv4N2rr15EulerIntegrator7restartEd">
+<span id="_CPPv3N2rr15EulerIntegrator7restartEd"></span><span id="_CPPv2N2rr15EulerIntegrator7restartEd"></span><span id="rr::EulerIntegrator::restart__double"></span><span class="target" id="classrr_1_1EulerIntegrator_1a08903e998cf527552442f8fa930772c8"></span><span class="k"><span class="pre">inline</span></span><span class="w"> </span><span class="k"><span class="pre">virtual</span></span><span class="w"> </span><span class="kt"><span class="pre">void</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">restart</span></span></span><span class="sig-paren">(</span><span class="kt"><span class="pre">double</span></span><span class="w"> </span><span class="n sig-param"><span class="pre">t0</span></span><span class="sig-paren">)</span><a class="headerlink" href="#_CPPv4N2rr15EulerIntegrator7restartEd" title="Permalink to this definition">¶</a><br /></dt>
 <dd><p>This simple integrator has nothing to reset, so do nothing here. </p>
 </dd></dl>
 
 <dl class="cpp function">
-<dt id="_CPPv4N2rr15EulerIntegrator11setListenerE21IntegratorListenerPtr">
-<span id="_CPPv3N2rr15EulerIntegrator11setListenerE21IntegratorListenerPtr"></span><span id="_CPPv2N2rr15EulerIntegrator11setListenerE21IntegratorListenerPtr"></span><span id="rr::EulerIntegrator::setListener__IntegratorListenerPtr"></span><span class="target" id="classrr_1_1EulerIntegrator_1acb23167cc7463d67301f00608131eb4c"></span><em class="property">inline</em> <em class="property">virtual</em> void <code class="sig-name descname">setListener</code><span class="sig-paren">(</span>IntegratorListenerPtr <em>p</em><span class="sig-paren">)</span><a class="headerlink" href="#_CPPv4N2rr15EulerIntegrator11setListenerE21IntegratorListenerPtr" title="Permalink to this definition">¶</a><br /></dt>
+<dt class="sig sig-object cpp" id="_CPPv4N2rr15EulerIntegrator11setListenerE21IntegratorListenerPtr">
+<span id="_CPPv3N2rr15EulerIntegrator11setListenerE21IntegratorListenerPtr"></span><span id="_CPPv2N2rr15EulerIntegrator11setListenerE21IntegratorListenerPtr"></span><span id="rr::EulerIntegrator::setListener__IntegratorListenerPtr"></span><span class="target" id="classrr_1_1EulerIntegrator_1acb23167cc7463d67301f00608131eb4c"></span><span class="k"><span class="pre">inline</span></span><span class="w"> </span><span class="k"><span class="pre">virtual</span></span><span class="w"> </span><span class="kt"><span class="pre">void</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">setListener</span></span></span><span class="sig-paren">(</span><span class="n"><span class="pre">IntegratorListenerPtr</span></span><span class="w"> </span><span class="n sig-param"><span class="pre">p</span></span><span class="sig-paren">)</span><a class="headerlink" href="#_CPPv4N2rr15EulerIntegrator11setListenerE21IntegratorListenerPtr" title="Permalink to this definition">¶</a><br /></dt>
 <dd><p>Clients may register a listener to listen for sbml events and time step events. </p>
 </dd></dl>
 
 <dl class="cpp function">
-<dt id="_CPPv4N2rr15EulerIntegrator11getListenerEv">
-<span id="_CPPv3N2rr15EulerIntegrator11getListenerEv"></span><span id="_CPPv2N2rr15EulerIntegrator11getListenerEv"></span><span id="rr::EulerIntegrator::getListener"></span><span class="target" id="classrr_1_1EulerIntegrator_1a9ec7df905cdffbeb14e4f764ae0c2ac0"></span><em class="property">inline</em> <em class="property">virtual</em> IntegratorListenerPtr <code class="sig-name descname">getListener</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#_CPPv4N2rr15EulerIntegrator11getListenerEv" title="Permalink to this definition">¶</a><br /></dt>
+<dt class="sig sig-object cpp" id="_CPPv4N2rr15EulerIntegrator11getListenerEv">
+<span id="_CPPv3N2rr15EulerIntegrator11getListenerEv"></span><span id="_CPPv2N2rr15EulerIntegrator11getListenerEv"></span><span id="rr::EulerIntegrator::getListener"></span><span class="target" id="classrr_1_1EulerIntegrator_1a9ec7df905cdffbeb14e4f764ae0c2ac0"></span><span class="k"><span class="pre">inline</span></span><span class="w"> </span><span class="k"><span class="pre">virtual</span></span><span class="w"> </span><span class="n"><span class="pre">IntegratorListenerPtr</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">getListener</span></span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#_CPPv4N2rr15EulerIntegrator11getListenerEv" title="Permalink to this definition">¶</a><br /></dt>
 <dd><p>get the integrator listener </p>
 </dd></dl>
 
 <dl class="cpp function">
-<dt id="_CPPv4NK2rr15EulerIntegrator8toStringEv">
-<span id="_CPPv3NK2rr15EulerIntegrator8toStringEv"></span><span id="_CPPv2NK2rr15EulerIntegrator8toStringEv"></span><span id="rr::EulerIntegrator::toStringC"></span><span class="target" id="classrr_1_1EulerIntegrator_1aeafbbe730c71a4627fb79f21e0d839ad"></span><em class="property">inline</em> <em class="property">virtual</em> std::string <code class="sig-name descname">toString</code><span class="sig-paren">(</span><span class="sig-paren">)</span> <em class="property">const</em><a class="headerlink" href="#_CPPv4NK2rr15EulerIntegrator8toStringEv" title="Permalink to this definition">¶</a><br /></dt>
+<dt class="sig sig-object cpp" id="_CPPv4NK2rr15EulerIntegrator8toStringEv">
+<span id="_CPPv3NK2rr15EulerIntegrator8toStringEv"></span><span id="_CPPv2NK2rr15EulerIntegrator8toStringEv"></span><span id="rr::EulerIntegrator::toStringC"></span><span class="target" id="classrr_1_1EulerIntegrator_1aeafbbe730c71a4627fb79f21e0d839ad"></span><span class="k"><span class="pre">inline</span></span><span class="w"> </span><span class="k"><span class="pre">virtual</span></span><span class="w"> </span><span class="n"><span class="pre">std</span></span><span class="p"><span class="pre">::</span></span><span class="n"><span class="pre">string</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">toString</span></span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><span class="w"> </span><span class="k"><span class="pre">const</span></span><a class="headerlink" href="#_CPPv4NK2rr15EulerIntegrator8toStringEv" title="Permalink to this definition">¶</a><br /></dt>
 <dd><p>get a description of this object, compatable with python <strong>str</strong> </p>
 </dd></dl>
 
 <dl class="cpp function">
-<dt id="_CPPv4NK2rr15EulerIntegrator6toReprEv">
-<span id="_CPPv3NK2rr15EulerIntegrator6toReprEv"></span><span id="_CPPv2NK2rr15EulerIntegrator6toReprEv"></span><span id="rr::EulerIntegrator::toReprC"></span><span class="target" id="classrr_1_1EulerIntegrator_1a4f484ed1c727f3f45f90586de64e329f"></span><em class="property">inline</em> <em class="property">virtual</em> std::string <code class="sig-name descname">toRepr</code><span class="sig-paren">(</span><span class="sig-paren">)</span> <em class="property">const</em><a class="headerlink" href="#_CPPv4NK2rr15EulerIntegrator6toReprEv" title="Permalink to this definition">¶</a><br /></dt>
+<dt class="sig sig-object cpp" id="_CPPv4NK2rr15EulerIntegrator6toReprEv">
+<span id="_CPPv3NK2rr15EulerIntegrator6toReprEv"></span><span id="_CPPv2NK2rr15EulerIntegrator6toReprEv"></span><span id="rr::EulerIntegrator::toReprC"></span><span class="target" id="classrr_1_1EulerIntegrator_1a4f484ed1c727f3f45f90586de64e329f"></span><span class="k"><span class="pre">inline</span></span><span class="w"> </span><span class="k"><span class="pre">virtual</span></span><span class="w"> </span><span class="n"><span class="pre">std</span></span><span class="p"><span class="pre">::</span></span><span class="n"><span class="pre">string</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">toRepr</span></span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><span class="w"> </span><span class="k"><span class="pre">const</span></span><a class="headerlink" href="#_CPPv4NK2rr15EulerIntegrator6toReprEv" title="Permalink to this definition">¶</a><br /></dt>
 <dd><p>get a short descriptions of this object, compatable with python <strong>repr</strong>. </p>
 </dd></dl>
 
 <dl class="cpp function">
-<dt id="_CPPv4NK2rr15EulerIntegrator7getNameEv">
-<span id="_CPPv3NK2rr15EulerIntegrator7getNameEv"></span><span id="_CPPv2NK2rr15EulerIntegrator7getNameEv"></span><span id="rr::EulerIntegrator::getNameC"></span><span class="target" id="classrr_1_1EulerIntegrator_1a44c17c0740b6d7855f10849bae3b1223"></span><em class="property">inline</em> <em class="property">virtual</em> std::string <code class="sig-name descname">getName</code><span class="sig-paren">(</span><span class="sig-paren">)</span> <em class="property">const</em><a class="headerlink" href="#_CPPv4NK2rr15EulerIntegrator7getNameEv" title="Permalink to this definition">¶</a><br /></dt>
+<dt class="sig sig-object cpp" id="_CPPv4NK2rr15EulerIntegrator7getNameEv">
+<span id="_CPPv3NK2rr15EulerIntegrator7getNameEv"></span><span id="_CPPv2NK2rr15EulerIntegrator7getNameEv"></span><span id="rr::EulerIntegrator::getNameC"></span><span class="target" id="classrr_1_1EulerIntegrator_1a44c17c0740b6d7855f10849bae3b1223"></span><span class="k"><span class="pre">inline</span></span><span class="w"> </span><span class="k"><span class="pre">virtual</span></span><span class="w"> </span><span class="n"><span class="pre">std</span></span><span class="p"><span class="pre">::</span></span><span class="n"><span class="pre">string</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">getName</span></span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><span class="w"> </span><span class="k"><span class="pre">const</span></span><a class="headerlink" href="#_CPPv4NK2rr15EulerIntegrator7getNameEv" title="Permalink to this definition">¶</a><br /></dt>
 <dd><p>get the name of this integrator </p>
 </dd></dl>
 
 <dl class="cpp function">
-<dt id="_CPPv4NK2rr15EulerIntegrator14getDescriptionEv">
-<span id="_CPPv3NK2rr15EulerIntegrator14getDescriptionEv"></span><span id="_CPPv2NK2rr15EulerIntegrator14getDescriptionEv"></span><span id="rr::EulerIntegrator::getDescriptionC"></span><span class="target" id="classrr_1_1EulerIntegrator_1ae8553876982ae833839b7e33c08abdec"></span><em class="property">inline</em> <em class="property">virtual</em> std::string <code class="sig-name descname">getDescription</code><span class="sig-paren">(</span><span class="sig-paren">)</span> <em class="property">const</em><a class="headerlink" href="#_CPPv4NK2rr15EulerIntegrator14getDescriptionEv" title="Permalink to this definition">¶</a><br /></dt>
+<dt class="sig sig-object cpp" id="_CPPv4NK2rr15EulerIntegrator14getDescriptionEv">
+<span id="_CPPv3NK2rr15EulerIntegrator14getDescriptionEv"></span><span id="_CPPv2NK2rr15EulerIntegrator14getDescriptionEv"></span><span id="rr::EulerIntegrator::getDescriptionC"></span><span class="target" id="classrr_1_1EulerIntegrator_1ae8553876982ae833839b7e33c08abdec"></span><span class="k"><span class="pre">inline</span></span><span class="w"> </span><span class="k"><span class="pre">virtual</span></span><span class="w"> </span><span class="n"><span class="pre">std</span></span><span class="p"><span class="pre">::</span></span><span class="n"><span class="pre">string</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">getDescription</span></span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><span class="w"> </span><span class="k"><span class="pre">const</span></span><a class="headerlink" href="#_CPPv4NK2rr15EulerIntegrator14getDescriptionEv" title="Permalink to this definition">¶</a><br /></dt>
 <dd><p>Get the description for this integrator. </p>
 <p><dl class="simple">
 <dt><strong>Author</strong></dt><dd><p>JKM </p>
 </dd>
-<dt><strong>Note</strong></dt><dd><p>Delegates to <a class="reference internal" href="#classrr_1_1EulerIntegrator_1ae8553876982ae833839b7e33c08abdec"><span class="std std-ref">getDescription</span></a> </p>
-</dd>
 </dl>
 </p>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>Delegates to <a class="reference internal" href="#classrr_1_1EulerIntegrator_1ae8553876982ae833839b7e33c08abdec"><span class="std std-ref">getDescription</span></a> </p>
+</div>
 </dd></dl>
 
 <dl class="cpp function">
-<dt id="_CPPv4NK2rr15EulerIntegrator7getHintEv">
-<span id="_CPPv3NK2rr15EulerIntegrator7getHintEv"></span><span id="_CPPv2NK2rr15EulerIntegrator7getHintEv"></span><span id="rr::EulerIntegrator::getHintC"></span><span class="target" id="classrr_1_1EulerIntegrator_1a2acf8abc8c584f487b5a394bcd3a1bdb"></span><em class="property">inline</em> <em class="property">virtual</em> std::string <code class="sig-name descname">getHint</code><span class="sig-paren">(</span><span class="sig-paren">)</span> <em class="property">const</em><a class="headerlink" href="#_CPPv4NK2rr15EulerIntegrator7getHintEv" title="Permalink to this definition">¶</a><br /></dt>
+<dt class="sig sig-object cpp" id="_CPPv4NK2rr15EulerIntegrator7getHintEv">
+<span id="_CPPv3NK2rr15EulerIntegrator7getHintEv"></span><span id="_CPPv2NK2rr15EulerIntegrator7getHintEv"></span><span id="rr::EulerIntegrator::getHintC"></span><span class="target" id="classrr_1_1EulerIntegrator_1a2acf8abc8c584f487b5a394bcd3a1bdb"></span><span class="k"><span class="pre">inline</span></span><span class="w"> </span><span class="k"><span class="pre">virtual</span></span><span class="w"> </span><span class="n"><span class="pre">std</span></span><span class="p"><span class="pre">::</span></span><span class="n"><span class="pre">string</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">getHint</span></span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><span class="w"> </span><span class="k"><span class="pre">const</span></span><a class="headerlink" href="#_CPPv4NK2rr15EulerIntegrator7getHintEv" title="Permalink to this definition">¶</a><br /></dt>
 <dd><p>Get the hint for this integrator. </p>
 <p><dl class="simple">
 <dt><strong>Author</strong></dt><dd><p>JKM </p>
 </dd>
-<dt><strong>Note</strong></dt><dd><p>Delegates to <a class="reference internal" href="#classrr_1_1EulerIntegrator_1a2acf8abc8c584f487b5a394bcd3a1bdb"><span class="std std-ref">getHint</span></a> </p>
-</dd>
 </dl>
 </p>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>Delegates to <a class="reference internal" href="#classrr_1_1EulerIntegrator_1a2acf8abc8c584f487b5a394bcd3a1bdb"><span class="std std-ref">getHint</span></a> </p>
+</div>
 </dd></dl>
 
 <dl class="cpp function">
-<dt id="_CPPv4NK2rr15EulerIntegrator20getIntegrationMethodEv">
-<span id="_CPPv3NK2rr15EulerIntegrator20getIntegrationMethodEv"></span><span id="_CPPv2NK2rr15EulerIntegrator20getIntegrationMethodEv"></span><span id="rr::EulerIntegrator::getIntegrationMethodC"></span><span class="target" id="classrr_1_1EulerIntegrator_1a9bf013a3a23007eac2d5b71533dc4c9b"></span><em class="property">inline</em> <em class="property">virtual</em> IntegrationMethod <code class="sig-name descname">getIntegrationMethod</code><span class="sig-paren">(</span><span class="sig-paren">)</span> <em class="property">const</em><a class="headerlink" href="#_CPPv4NK2rr15EulerIntegrator20getIntegrationMethodEv" title="Permalink to this definition">¶</a><br /></dt>
+<dt class="sig sig-object cpp" id="_CPPv4NK2rr15EulerIntegrator20getIntegrationMethodEv">
+<span id="_CPPv3NK2rr15EulerIntegrator20getIntegrationMethodEv"></span><span id="_CPPv2NK2rr15EulerIntegrator20getIntegrationMethodEv"></span><span id="rr::EulerIntegrator::getIntegrationMethodC"></span><span class="target" id="classrr_1_1EulerIntegrator_1a9bf013a3a23007eac2d5b71533dc4c9b"></span><span class="k"><span class="pre">inline</span></span><span class="w"> </span><span class="k"><span class="pre">virtual</span></span><span class="w"> </span><span class="n"><span class="pre">IntegrationMethod</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">getIntegrationMethod</span></span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><span class="w"> </span><span class="k"><span class="pre">const</span></span><a class="headerlink" href="#_CPPv4NK2rr15EulerIntegrator20getIntegrationMethodEv" title="Permalink to this definition">¶</a><br /></dt>
 <dd><p>Always deterministic for Euler. </p>
 <p><dl class="simple">
 <dt><strong>Author</strong></dt><dd><p>JKM </p>
@@ -353,54 +360,49 @@
 </dd></dl>
 
 <dl class="cpp function">
-<dt id="_CPPv4N2rr15EulerIntegrator7setItemERKNSt6stringERKN2rr7VariantE">
-<span id="_CPPv3N2rr15EulerIntegrator7setItemERKNSt6stringERKN2rr7VariantE"></span><span id="_CPPv2N2rr15EulerIntegrator7setItemERKNSt6stringERKN2rr7VariantE"></span><span id="rr::EulerIntegrator::setItem__ssCR.rr::VariantCR"></span><span class="target" id="classrr_1_1EulerIntegrator_1a08066b2cde3b179f76968f7c612610b2"></span><em class="property">inline</em> <em class="property">virtual</em> void <code class="sig-name descname">setItem</code><span class="sig-paren">(</span><em class="property">const</em> std::string &amp;<em>key</em>, <em class="property">const</em> rr::<a class="reference internal" href="Variant.html#_CPPv4N2rr7VariantE" title="rr::Variant">Variant</a> &amp;<em>value</em><span class="sig-paren">)</span><a class="headerlink" href="#_CPPv4N2rr15EulerIntegrator7setItemERKNSt6stringERKN2rr7VariantE" title="Permalink to this definition">¶</a><br /></dt>
+<dt class="sig sig-object cpp" id="_CPPv4N2rr15EulerIntegrator7setItemERKNSt6stringERKN2rr7SettingE">
+<span id="_CPPv3N2rr15EulerIntegrator7setItemERKNSt6stringERKN2rr7SettingE"></span><span id="_CPPv2N2rr15EulerIntegrator7setItemERKNSt6stringERKN2rr7SettingE"></span><span id="rr::EulerIntegrator::setItem__ssCR.rr::SettingCR"></span><span class="target" id="classrr_1_1EulerIntegrator_1a023226258950d8437b7a27c077b693b3"></span><span class="k"><span class="pre">inline</span></span><span class="w"> </span><span class="k"><span class="pre">virtual</span></span><span class="w"> </span><span class="kt"><span class="pre">void</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">setItem</span></span></span><span class="sig-paren">(</span><span class="k"><span class="pre">const</span></span><span class="w"> </span><span class="n"><span class="pre">std</span></span><span class="p"><span class="pre">::</span></span><span class="n"><span class="pre">string</span></span><span class="w"> </span><span class="p"><span class="pre">&amp;</span></span><span class="n sig-param"><span class="pre">key</span></span>, <span class="k"><span class="pre">const</span></span><span class="w"> </span><span class="n"><span class="pre">rr</span></span><span class="p"><span class="pre">::</span></span><span class="n"><span class="pre">Setting</span></span><span class="w"> </span><span class="p"><span class="pre">&amp;</span></span><span class="n sig-param"><span class="pre">value</span></span><span class="sig-paren">)</span><a class="headerlink" href="#_CPPv4N2rr15EulerIntegrator7setItemERKNSt6stringERKN2rr7SettingE" title="Permalink to this definition">¶</a><br /></dt>
 <dd><p>sets the value for a key. </p>
 <p>This integrator only supports 2 values, so those are the only two valid items to set. </p>
 </dd></dl>
 
 <dl class="cpp function">
-<dt id="_CPPv4NK2rr15EulerIntegrator7getItemERKNSt6stringE">
-<span id="_CPPv3NK2rr15EulerIntegrator7getItemERKNSt6stringE"></span><span id="_CPPv2NK2rr15EulerIntegrator7getItemERKNSt6stringE"></span><span id="rr::EulerIntegrator::getItem__ssCRC"></span><span class="target" id="classrr_1_1EulerIntegrator_1af0e49dbee9ed3fc80af2501dd958705c"></span><em class="property">inline</em> <em class="property">virtual</em> <a class="reference internal" href="Variant.html#_CPPv4N2rr7VariantE" title="rr::Variant">Variant</a> <code class="sig-name descname">getItem</code><span class="sig-paren">(</span><em class="property">const</em> std::string &amp;<em>key</em><span class="sig-paren">)</span> <em class="property">const</em><a class="headerlink" href="#_CPPv4NK2rr15EulerIntegrator7getItemERKNSt6stringE" title="Permalink to this definition">¶</a><br /></dt>
+<dt class="sig sig-object cpp" id="_CPPv4NK2rr15EulerIntegrator7getItemERKNSt6stringE">
+<span id="_CPPv3NK2rr15EulerIntegrator7getItemERKNSt6stringE"></span><span id="_CPPv2NK2rr15EulerIntegrator7getItemERKNSt6stringE"></span><span id="rr::EulerIntegrator::getItem__ssCRC"></span><span class="target" id="classrr_1_1EulerIntegrator_1a243b2296bfee9540f967a73968cc66f6"></span><span class="k"><span class="pre">inline</span></span><span class="w"> </span><span class="k"><span class="pre">virtual</span></span><span class="w"> </span><span class="n"><span class="pre">Setting</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">getItem</span></span></span><span class="sig-paren">(</span><span class="k"><span class="pre">const</span></span><span class="w"> </span><span class="n"><span class="pre">std</span></span><span class="p"><span class="pre">::</span></span><span class="n"><span class="pre">string</span></span><span class="w"> </span><span class="p"><span class="pre">&amp;</span></span><span class="n sig-param"><span class="pre">key</span></span><span class="sig-paren">)</span><span class="w"> </span><span class="k"><span class="pre">const</span></span><a class="headerlink" href="#_CPPv4NK2rr15EulerIntegrator7getItemERKNSt6stringE" title="Permalink to this definition">¶</a><br /></dt>
 <dd><p>Get a value. </p>
 <p>This integrator only supports two parameters, those are the only valid ones to get. </p>
 </dd></dl>
 
 <dl class="cpp function">
-<dt id="_CPPv4NK2rr15EulerIntegrator6hasKeyERKNSt6stringE">
-<span id="_CPPv3NK2rr15EulerIntegrator6hasKeyERKNSt6stringE"></span><span id="_CPPv2NK2rr15EulerIntegrator6hasKeyERKNSt6stringE"></span><span id="rr::EulerIntegrator::hasKey__ssCRC"></span><span class="target" id="classrr_1_1EulerIntegrator_1a38c66c42d843b391ac79ac6f352cbf6c"></span><em class="property">inline</em> <em class="property">virtual</em> bool <code class="sig-name descname">hasKey</code><span class="sig-paren">(</span><em class="property">const</em> std::string &amp;<em>key</em><span class="sig-paren">)</span> <em class="property">const</em><a class="headerlink" href="#_CPPv4NK2rr15EulerIntegrator6hasKeyERKNSt6stringE" title="Permalink to this definition">¶</a><br /></dt>
+<dt class="sig sig-object cpp" id="_CPPv4NK2rr15EulerIntegrator6hasKeyERKNSt6stringE">
+<span id="_CPPv3NK2rr15EulerIntegrator6hasKeyERKNSt6stringE"></span><span id="_CPPv2NK2rr15EulerIntegrator6hasKeyERKNSt6stringE"></span><span id="rr::EulerIntegrator::hasKey__ssCRC"></span><span class="target" id="classrr_1_1EulerIntegrator_1a38c66c42d843b391ac79ac6f352cbf6c"></span><span class="k"><span class="pre">inline</span></span><span class="w"> </span><span class="k"><span class="pre">virtual</span></span><span class="w"> </span><span class="kt"><span class="pre">bool</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">hasKey</span></span></span><span class="sig-paren">(</span><span class="k"><span class="pre">const</span></span><span class="w"> </span><span class="n"><span class="pre">std</span></span><span class="p"><span class="pre">::</span></span><span class="n"><span class="pre">string</span></span><span class="w"> </span><span class="p"><span class="pre">&amp;</span></span><span class="n sig-param"><span class="pre">key</span></span><span class="sig-paren">)</span><span class="w"> </span><span class="k"><span class="pre">const</span></span><a class="headerlink" href="#_CPPv4NK2rr15EulerIntegrator6hasKeyERKNSt6stringE" title="Permalink to this definition">¶</a><br /></dt>
 <dd><p>is there a key matching this name. </p>
 </dd></dl>
 
 <dl class="cpp function">
-<dt id="_CPPv4N2rr15EulerIntegrator10deleteItemERKNSt6stringE">
-<span id="_CPPv3N2rr15EulerIntegrator10deleteItemERKNSt6stringE"></span><span id="_CPPv2N2rr15EulerIntegrator10deleteItemERKNSt6stringE"></span><span id="rr::EulerIntegrator::deleteItem__ssCR"></span><span class="target" id="classrr_1_1EulerIntegrator_1a370a0145394d1a9ed17a798565651369"></span><em class="property">inline</em> <em class="property">virtual</em> int <code class="sig-name descname">deleteItem</code><span class="sig-paren">(</span><em class="property">const</em> std::string &amp;<em>key</em><span class="sig-paren">)</span><a class="headerlink" href="#_CPPv4N2rr15EulerIntegrator10deleteItemERKNSt6stringE" title="Permalink to this definition">¶</a><br /></dt>
+<dt class="sig sig-object cpp" id="_CPPv4N2rr15EulerIntegrator10deleteItemERKNSt6stringE">
+<span id="_CPPv3N2rr15EulerIntegrator10deleteItemERKNSt6stringE"></span><span id="_CPPv2N2rr15EulerIntegrator10deleteItemERKNSt6stringE"></span><span id="rr::EulerIntegrator::deleteItem__ssCR"></span><span class="target" id="classrr_1_1EulerIntegrator_1a370a0145394d1a9ed17a798565651369"></span><span class="k"><span class="pre">inline</span></span><span class="w"> </span><span class="k"><span class="pre">virtual</span></span><span class="w"> </span><span class="kt"><span class="pre">int</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">deleteItem</span></span></span><span class="sig-paren">(</span><span class="k"><span class="pre">const</span></span><span class="w"> </span><span class="n"><span class="pre">std</span></span><span class="p"><span class="pre">::</span></span><span class="n"><span class="pre">string</span></span><span class="w"> </span><span class="p"><span class="pre">&amp;</span></span><span class="n sig-param"><span class="pre">key</span></span><span class="sig-paren">)</span><a class="headerlink" href="#_CPPv4N2rr15EulerIntegrator10deleteItemERKNSt6stringE" title="Permalink to this definition">¶</a><br /></dt>
 <dd><p>remove a value, this example class does not support deleting keys, so just raise an exception if someone tries to do so. </p>
 </dd></dl>
 
 <dl class="cpp function">
-<dt id="_CPPv4NK2rr15EulerIntegrator7getKeysEv">
-<span id="_CPPv3NK2rr15EulerIntegrator7getKeysEv"></span><span id="_CPPv2NK2rr15EulerIntegrator7getKeysEv"></span><span id="rr::EulerIntegrator::getKeysC"></span><span class="target" id="classrr_1_1EulerIntegrator_1a5fcbf9856452f3b22dbe87a52873b994"></span><em class="property">inline</em> <em class="property">virtual</em> std::vector&lt;std::string&gt; <code class="sig-name descname">getKeys</code><span class="sig-paren">(</span><span class="sig-paren">)</span> <em class="property">const</em><a class="headerlink" href="#_CPPv4NK2rr15EulerIntegrator7getKeysEv" title="Permalink to this definition">¶</a><br /></dt>
+<dt class="sig sig-object cpp" id="_CPPv4NK2rr15EulerIntegrator7getKeysEv">
+<span id="_CPPv3NK2rr15EulerIntegrator7getKeysEv"></span><span id="_CPPv2NK2rr15EulerIntegrator7getKeysEv"></span><span id="rr::EulerIntegrator::getKeysC"></span><span class="target" id="classrr_1_1EulerIntegrator_1a5fcbf9856452f3b22dbe87a52873b994"></span><span class="k"><span class="pre">inline</span></span><span class="w"> </span><span class="k"><span class="pre">virtual</span></span><span class="w"> </span><span class="n"><span class="pre">std</span></span><span class="p"><span class="pre">::</span></span><span class="n"><span class="pre">vector</span></span><span class="p"><span class="pre">&lt;</span></span><span class="n"><span class="pre">std</span></span><span class="p"><span class="pre">::</span></span><span class="n"><span class="pre">string</span></span><span class="p"><span class="pre">&gt;</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">getKeys</span></span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><span class="w"> </span><span class="k"><span class="pre">const</span></span><a class="headerlink" href="#_CPPv4NK2rr15EulerIntegrator7getKeysEv" title="Permalink to this definition">¶</a><br /></dt>
 <dd><p>list of keys in this object. </p>
 </dd></dl>
 
 <dl class="cpp function">
-<dt id="_CPPv4N2rr15EulerIntegrator13resetSettingsEv">
-<span id="_CPPv3N2rr15EulerIntegrator13resetSettingsEv"></span><span id="_CPPv2N2rr15EulerIntegrator13resetSettingsEv"></span><span id="rr::EulerIntegrator::resetSettings"></span><span class="target" id="classrr_1_1EulerIntegrator_1ade4200288b7b99ec7eee7cde2d9729b6"></span><em class="property">inline</em> <em class="property">virtual</em> void <code class="sig-name descname">resetSettings</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#_CPPv4N2rr15EulerIntegrator13resetSettingsEv" title="Permalink to this definition">¶</a><br /></dt>
+<dt class="sig sig-object cpp" id="_CPPv4N2rr15EulerIntegrator13resetSettingsEv">
+<span id="_CPPv3N2rr15EulerIntegrator13resetSettingsEv"></span><span id="_CPPv2N2rr15EulerIntegrator13resetSettingsEv"></span><span id="rr::EulerIntegrator::resetSettings"></span><span class="target" id="classrr_1_1EulerIntegrator_1ade4200288b7b99ec7eee7cde2d9729b6"></span><span class="k"><span class="pre">inline</span></span><span class="w"> </span><span class="k"><span class="pre">virtual</span></span><span class="w"> </span><span class="kt"><span class="pre">void</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">resetSettings</span></span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#_CPPv4N2rr15EulerIntegrator13resetSettingsEv" title="Permalink to this definition">¶</a><br /></dt>
 <dd><p>Reset all settings to their respective default values. </p>
-<p><dl class="simple">
-<dt><strong>Author</strong></dt><dd><p>JKM </p>
-</dd>
-</dl>
-</p>
 </dd></dl>
 
 </div>
 <div class="breathe-sectiondef docutils container">
-<p class="breathe-sectiondef-title rubric">Public Static Functions</p>
+<p class="breathe-sectiondef-title rubric" id="breathe-section-title-public-static-functions">Public Static Functions</p>
 <dl class="cpp function">
-<dt id="_CPPv4N2rr15EulerIntegrator12getEulerNameEv">
-<span id="_CPPv3N2rr15EulerIntegrator12getEulerNameEv"></span><span id="_CPPv2N2rr15EulerIntegrator12getEulerNameEv"></span><span id="rr::EulerIntegrator::getEulerName"></span><span class="target" id="classrr_1_1EulerIntegrator_1a61e5f7ed9ff9833c39df310797dd8bb5"></span><em class="property">static</em> <em class="property">inline</em> std::string <code class="sig-name descname">getEulerName</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#_CPPv4N2rr15EulerIntegrator12getEulerNameEv" title="Permalink to this definition">¶</a><br /></dt>
+<dt class="sig sig-object cpp" id="_CPPv4N2rr15EulerIntegrator12getEulerNameEv">
+<span id="_CPPv3N2rr15EulerIntegrator12getEulerNameEv"></span><span id="_CPPv2N2rr15EulerIntegrator12getEulerNameEv"></span><span id="rr::EulerIntegrator::getEulerName"></span><span class="target" id="classrr_1_1EulerIntegrator_1a61e5f7ed9ff9833c39df310797dd8bb5"></span><span class="k"><span class="pre">static</span></span><span class="w"> </span><span class="k"><span class="pre">inline</span></span><span class="w"> </span><span class="n"><span class="pre">std</span></span><span class="p"><span class="pre">::</span></span><span class="n"><span class="pre">string</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">getEulerName</span></span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#_CPPv4N2rr15EulerIntegrator12getEulerNameEv" title="Permalink to this definition">¶</a><br /></dt>
 <dd><p>Get the name for this integrator. </p>
 <p><dl class="simple">
 <dt><strong>Author</strong></dt><dd><p>JKM </p>
@@ -410,8 +412,8 @@
 </dd></dl>
 
 <dl class="cpp function">
-<dt id="_CPPv4N2rr15EulerIntegrator19getEulerDescriptionEv">
-<span id="_CPPv3N2rr15EulerIntegrator19getEulerDescriptionEv"></span><span id="_CPPv2N2rr15EulerIntegrator19getEulerDescriptionEv"></span><span id="rr::EulerIntegrator::getEulerDescription"></span><span class="target" id="classrr_1_1EulerIntegrator_1a8aedb3236672bb9a15c74cff0260fb1c"></span><em class="property">static</em> <em class="property">inline</em> std::string <code class="sig-name descname">getEulerDescription</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#_CPPv4N2rr15EulerIntegrator19getEulerDescriptionEv" title="Permalink to this definition">¶</a><br /></dt>
+<dt class="sig sig-object cpp" id="_CPPv4N2rr15EulerIntegrator19getEulerDescriptionEv">
+<span id="_CPPv3N2rr15EulerIntegrator19getEulerDescriptionEv"></span><span id="_CPPv2N2rr15EulerIntegrator19getEulerDescriptionEv"></span><span id="rr::EulerIntegrator::getEulerDescription"></span><span class="target" id="classrr_1_1EulerIntegrator_1a8aedb3236672bb9a15c74cff0260fb1c"></span><span class="k"><span class="pre">static</span></span><span class="w"> </span><span class="k"><span class="pre">inline</span></span><span class="w"> </span><span class="n"><span class="pre">std</span></span><span class="p"><span class="pre">::</span></span><span class="n"><span class="pre">string</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">getEulerDescription</span></span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#_CPPv4N2rr15EulerIntegrator19getEulerDescriptionEv" title="Permalink to this definition">¶</a><br /></dt>
 <dd><p>Get the description for this integrator. </p>
 <p><dl class="simple">
 <dt><strong>Author</strong></dt><dd><p>JKM </p>
@@ -421,8 +423,8 @@
 </dd></dl>
 
 <dl class="cpp function">
-<dt id="_CPPv4N2rr15EulerIntegrator12getEulerHintEv">
-<span id="_CPPv3N2rr15EulerIntegrator12getEulerHintEv"></span><span id="_CPPv2N2rr15EulerIntegrator12getEulerHintEv"></span><span id="rr::EulerIntegrator::getEulerHint"></span><span class="target" id="classrr_1_1EulerIntegrator_1a9d7fef3974038ee61e3a3eb59e6cd860"></span><em class="property">static</em> <em class="property">inline</em> std::string <code class="sig-name descname">getEulerHint</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#_CPPv4N2rr15EulerIntegrator12getEulerHintEv" title="Permalink to this definition">¶</a><br /></dt>
+<dt class="sig sig-object cpp" id="_CPPv4N2rr15EulerIntegrator12getEulerHintEv">
+<span id="_CPPv3N2rr15EulerIntegrator12getEulerHintEv"></span><span id="_CPPv2N2rr15EulerIntegrator12getEulerHintEv"></span><span id="rr::EulerIntegrator::getEulerHint"></span><span class="target" id="classrr_1_1EulerIntegrator_1a9d7fef3974038ee61e3a3eb59e6cd860"></span><span class="k"><span class="pre">static</span></span><span class="w"> </span><span class="k"><span class="pre">inline</span></span><span class="w"> </span><span class="n"><span class="pre">std</span></span><span class="p"><span class="pre">::</span></span><span class="n"><span class="pre">string</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">getEulerHint</span></span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#_CPPv4N2rr15EulerIntegrator12getEulerHintEv" title="Permalink to this definition">¶</a><br /></dt>
 <dd><p>Get the hint for this integrator. </p>
 <p><dl class="simple">
 <dt><strong>Author</strong></dt><dd><p>JKM </p>
@@ -433,60 +435,54 @@
 
 </div>
 <div class="breathe-sectiondef docutils container">
-<p class="breathe-sectiondef-title rubric">Private Members</p>
+<p class="breathe-sectiondef-title rubric" id="breathe-section-title-private-members">Private Members</p>
 <dl class="cpp var">
-<dt id="_CPPv4N2rr15EulerIntegrator17exampleParameter1E">
-<span id="_CPPv3N2rr15EulerIntegrator17exampleParameter1E"></span><span id="_CPPv2N2rr15EulerIntegrator17exampleParameter1E"></span><span id="rr::EulerIntegrator::exampleParameter1__double"></span><span class="target" id="classrr_1_1EulerIntegrator_1aea6c05713fb201763a1ac562e3fd6c1b"></span>double <code class="sig-name descname">exampleParameter1</code><a class="headerlink" href="#_CPPv4N2rr15EulerIntegrator17exampleParameter1E" title="Permalink to this definition">¶</a><br /></dt>
+<dt class="sig sig-object cpp" id="_CPPv4N2rr15EulerIntegrator17exampleParameter1E">
+<span id="_CPPv3N2rr15EulerIntegrator17exampleParameter1E"></span><span id="_CPPv2N2rr15EulerIntegrator17exampleParameter1E"></span><span id="rr::EulerIntegrator::exampleParameter1__double"></span><span class="target" id="classrr_1_1EulerIntegrator_1aea6c05713fb201763a1ac562e3fd6c1b"></span><span class="kt"><span class="pre">double</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">exampleParameter1</span></span></span><a class="headerlink" href="#_CPPv4N2rr15EulerIntegrator17exampleParameter1E" title="Permalink to this definition">¶</a><br /></dt>
 <dd><p>a parameter which does nothing </p>
 </dd></dl>
 
 <dl class="cpp var">
-<dt id="_CPPv4N2rr15EulerIntegrator17exampleParameter2E">
-<span id="_CPPv3N2rr15EulerIntegrator17exampleParameter2E"></span><span id="_CPPv2N2rr15EulerIntegrator17exampleParameter2E"></span><span id="rr::EulerIntegrator::exampleParameter2__string"></span><span class="target" id="classrr_1_1EulerIntegrator_1ad18bd6541d7b30642f64bf6348fe2410"></span>string <code class="sig-name descname">exampleParameter2</code><a class="headerlink" href="#_CPPv4N2rr15EulerIntegrator17exampleParameter2E" title="Permalink to this definition">¶</a><br /></dt>
+<dt class="sig sig-object cpp" id="_CPPv4N2rr15EulerIntegrator17exampleParameter2E">
+<span id="_CPPv3N2rr15EulerIntegrator17exampleParameter2E"></span><span id="_CPPv2N2rr15EulerIntegrator17exampleParameter2E"></span><span id="rr::EulerIntegrator::exampleParameter2__ss"></span><span class="target" id="classrr_1_1EulerIntegrator_1adf3da706708d7bbdcab686c37e54810d"></span><span class="n"><span class="pre">std</span></span><span class="p"><span class="pre">::</span></span><span class="n"><span class="pre">string</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">exampleParameter2</span></span></span><a class="headerlink" href="#_CPPv4N2rr15EulerIntegrator17exampleParameter2E" title="Permalink to this definition">¶</a><br /></dt>
 <dd><p>another parameter which does nothing </p>
 </dd></dl>
 
 <dl class="cpp var">
-<dt id="_CPPv4N2rr15EulerIntegrator5modelE">
-<span id="_CPPv3N2rr15EulerIntegrator5modelE"></span><span id="_CPPv2N2rr15EulerIntegrator5modelE"></span><span id="rr::EulerIntegrator::model__ExecutableModelP"></span><span class="target" id="classrr_1_1EulerIntegrator_1a0dc191fb5002c17587815d6fe2935b12"></span><a class="reference internal" href="rrExecutableModel.html#_CPPv4N2rr15ExecutableModelE" title="rr::ExecutableModel">ExecutableModel</a> *<code class="sig-name descname">model</code><a class="headerlink" href="#_CPPv4N2rr15EulerIntegrator5modelE" title="Permalink to this definition">¶</a><br /></dt>
-<dd><p>a stolen reference to an existing model object. </p>
+<dt class="sig sig-object cpp" id="_CPPv4N2rr15EulerIntegrator10rateBufferE">
+<span id="_CPPv3N2rr15EulerIntegrator10rateBufferE"></span><span id="_CPPv2N2rr15EulerIntegrator10rateBufferE"></span><span id="rr::EulerIntegrator::rateBuffer__doubleP"></span><span class="target" id="classrr_1_1EulerIntegrator_1a5d623d8a2d3c29942637188e8d2022e7"></span><span class="kt"><span class="pre">double</span></span><span class="w"> </span><span class="p"><span class="pre">*</span></span><span class="sig-name descname"><span class="n"><span class="pre">rateBuffer</span></span></span><a class="headerlink" href="#_CPPv4N2rr15EulerIntegrator10rateBufferE" title="Permalink to this definition">¶</a><br /></dt>
+<dd><p>two buffers to store the state std::vector rate, and new state std::vector </p>
 </dd></dl>
 
 <dl class="cpp var">
-<dt id="_CPPv4N2rr15EulerIntegrator10rateBufferE">
-<span id="_CPPv3N2rr15EulerIntegrator10rateBufferE"></span><span id="_CPPv2N2rr15EulerIntegrator10rateBufferE"></span><span id="rr::EulerIntegrator::rateBuffer__doubleP"></span><span class="target" id="classrr_1_1EulerIntegrator_1a5d623d8a2d3c29942637188e8d2022e7"></span>double *<code class="sig-name descname">rateBuffer</code><a class="headerlink" href="#_CPPv4N2rr15EulerIntegrator10rateBufferE" title="Permalink to this definition">¶</a><br /></dt>
-<dd><p>two buffers to store the state vector rate, and new state vector </p>
+<dt class="sig sig-object cpp" id="_CPPv4N2rr15EulerIntegrator16stateBufferBeginE">
+<span id="_CPPv3N2rr15EulerIntegrator16stateBufferBeginE"></span><span id="_CPPv2N2rr15EulerIntegrator16stateBufferBeginE"></span><span id="rr::EulerIntegrator::stateBufferBegin__doubleP"></span><span class="target" id="classrr_1_1EulerIntegrator_1a3f774359914a8b7e4fb5c286fa102229"></span><span class="kt"><span class="pre">double</span></span><span class="w"> </span><span class="p"><span class="pre">*</span></span><span class="sig-name descname"><span class="n"><span class="pre">stateBufferBegin</span></span></span><a class="headerlink" href="#_CPPv4N2rr15EulerIntegrator16stateBufferBeginE" title="Permalink to this definition">¶</a><br /></dt>
+<dd></dd></dl>
+
+<dl class="cpp var">
+<dt class="sig sig-object cpp" id="_CPPv4N2rr15EulerIntegrator14stateBufferEndE">
+<span id="_CPPv3N2rr15EulerIntegrator14stateBufferEndE"></span><span id="_CPPv2N2rr15EulerIntegrator14stateBufferEndE"></span><span id="rr::EulerIntegrator::stateBufferEnd__doubleP"></span><span class="target" id="classrr_1_1EulerIntegrator_1a271305a4bc859be8ed7e99d032b49662"></span><span class="kt"><span class="pre">double</span></span><span class="w"> </span><span class="p"><span class="pre">*</span></span><span class="sig-name descname"><span class="n"><span class="pre">stateBufferEnd</span></span></span><a class="headerlink" href="#_CPPv4N2rr15EulerIntegrator14stateBufferEndE" title="Permalink to this definition">¶</a><br /></dt>
+<dd></dd></dl>
+
+<dl class="cpp var">
+<dt class="sig sig-object cpp" id="_CPPv4N2rr15EulerIntegrator15stateVectorSizeE">
+<span id="_CPPv3N2rr15EulerIntegrator15stateVectorSizeE"></span><span id="_CPPv2N2rr15EulerIntegrator15stateVectorSizeE"></span><span id="rr::EulerIntegrator::stateVectorSize__i"></span><span class="target" id="classrr_1_1EulerIntegrator_1a50666f1e4d372584edd21f0d76a4b11c"></span><span class="kt"><span class="pre">int</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">stateVectorSize</span></span></span><a class="headerlink" href="#_CPPv4N2rr15EulerIntegrator15stateVectorSizeE" title="Permalink to this definition">¶</a><br /></dt>
+<dd><p>size of state std::vector </p>
 </dd></dl>
 
 <dl class="cpp var">
-<dt id="_CPPv4N2rr15EulerIntegrator16stateBufferBeginE">
-<span id="_CPPv3N2rr15EulerIntegrator16stateBufferBeginE"></span><span id="_CPPv2N2rr15EulerIntegrator16stateBufferBeginE"></span><span id="rr::EulerIntegrator::stateBufferBegin__doubleP"></span><span class="target" id="classrr_1_1EulerIntegrator_1a3f774359914a8b7e4fb5c286fa102229"></span>double *<code class="sig-name descname">stateBufferBegin</code><a class="headerlink" href="#_CPPv4N2rr15EulerIntegrator16stateBufferBeginE" title="Permalink to this definition">¶</a><br /></dt>
+<dt class="sig sig-object cpp" id="_CPPv4N2rr15EulerIntegrator11eventStatusE">
+<span id="_CPPv3N2rr15EulerIntegrator11eventStatusE"></span><span id="_CPPv2N2rr15EulerIntegrator11eventStatusE"></span><span id="rr::EulerIntegrator::eventStatus__std::vector:unsigned-c:"></span><span class="target" id="classrr_1_1EulerIntegrator_1a9e3b8bc7bbc246ed5d72afbf24a5b8ea"></span><span class="n"><span class="pre">std</span></span><span class="p"><span class="pre">::</span></span><span class="n"><span class="pre">vector</span></span><span class="p"><span class="pre">&lt;</span></span><span class="kt"><span class="pre">unsigned</span> <span class="pre">char</span></span><span class="p"><span class="pre">&gt;</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">eventStatus</span></span></span><a class="headerlink" href="#_CPPv4N2rr15EulerIntegrator11eventStatusE" title="Permalink to this definition">¶</a><br /></dt>
 <dd></dd></dl>
 
 <dl class="cpp var">
-<dt id="_CPPv4N2rr15EulerIntegrator14stateBufferEndE">
-<span id="_CPPv3N2rr15EulerIntegrator14stateBufferEndE"></span><span id="_CPPv2N2rr15EulerIntegrator14stateBufferEndE"></span><span id="rr::EulerIntegrator::stateBufferEnd__doubleP"></span><span class="target" id="classrr_1_1EulerIntegrator_1a271305a4bc859be8ed7e99d032b49662"></span>double *<code class="sig-name descname">stateBufferEnd</code><a class="headerlink" href="#_CPPv4N2rr15EulerIntegrator14stateBufferEndE" title="Permalink to this definition">¶</a><br /></dt>
+<dt class="sig sig-object cpp" id="_CPPv4N2rr15EulerIntegrator19previousEventStatusE">
+<span id="_CPPv3N2rr15EulerIntegrator19previousEventStatusE"></span><span id="_CPPv2N2rr15EulerIntegrator19previousEventStatusE"></span><span id="rr::EulerIntegrator::previousEventStatus__std::vector:unsigned-c:"></span><span class="target" id="classrr_1_1EulerIntegrator_1acc0f1564974e6a8ba2572ee44c6af556"></span><span class="n"><span class="pre">std</span></span><span class="p"><span class="pre">::</span></span><span class="n"><span class="pre">vector</span></span><span class="p"><span class="pre">&lt;</span></span><span class="kt"><span class="pre">unsigned</span> <span class="pre">char</span></span><span class="p"><span class="pre">&gt;</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">previousEventStatus</span></span></span><a class="headerlink" href="#_CPPv4N2rr15EulerIntegrator19previousEventStatusE" title="Permalink to this definition">¶</a><br /></dt>
 <dd></dd></dl>
 
 <dl class="cpp var">
-<dt id="_CPPv4N2rr15EulerIntegrator15stateVectorSizeE">
-<span id="_CPPv3N2rr15EulerIntegrator15stateVectorSizeE"></span><span id="_CPPv2N2rr15EulerIntegrator15stateVectorSizeE"></span><span id="rr::EulerIntegrator::stateVectorSize__i"></span><span class="target" id="classrr_1_1EulerIntegrator_1a50666f1e4d372584edd21f0d76a4b11c"></span>int <code class="sig-name descname">stateVectorSize</code><a class="headerlink" href="#_CPPv4N2rr15EulerIntegrator15stateVectorSizeE" title="Permalink to this definition">¶</a><br /></dt>
-<dd><p>size of state vector </p>
-</dd></dl>
-
-<dl class="cpp var">
-<dt id="_CPPv4N2rr15EulerIntegrator11eventStatusE">
-<span id="_CPPv3N2rr15EulerIntegrator11eventStatusE"></span><span id="_CPPv2N2rr15EulerIntegrator11eventStatusE"></span><span id="rr::EulerIntegrator::eventStatus__std::vector:unsigned-c:"></span><span class="target" id="classrr_1_1EulerIntegrator_1a9e3b8bc7bbc246ed5d72afbf24a5b8ea"></span>std::vector&lt;unsigned char&gt; <code class="sig-name descname">eventStatus</code><a class="headerlink" href="#_CPPv4N2rr15EulerIntegrator11eventStatusE" title="Permalink to this definition">¶</a><br /></dt>
-<dd></dd></dl>
-
-<dl class="cpp var">
-<dt id="_CPPv4N2rr15EulerIntegrator19previousEventStatusE">
-<span id="_CPPv3N2rr15EulerIntegrator19previousEventStatusE"></span><span id="_CPPv2N2rr15EulerIntegrator19previousEventStatusE"></span><span id="rr::EulerIntegrator::previousEventStatus__std::vector:unsigned-c:"></span><span class="target" id="classrr_1_1EulerIntegrator_1acc0f1564974e6a8ba2572ee44c6af556"></span>std::vector&lt;unsigned char&gt; <code class="sig-name descname">previousEventStatus</code><a class="headerlink" href="#_CPPv4N2rr15EulerIntegrator19previousEventStatusE" title="Permalink to this definition">¶</a><br /></dt>
-<dd></dd></dl>
-
-<dl class="cpp var">
-<dt id="_CPPv4N2rr15EulerIntegrator8listenerE">
-<span id="_CPPv3N2rr15EulerIntegrator8listenerE"></span><span id="_CPPv2N2rr15EulerIntegrator8listenerE"></span><span id="rr::EulerIntegrator::listener__IntegratorListenerPtr"></span><span class="target" id="classrr_1_1EulerIntegrator_1a389bb963b4313a5b4fd45ff7a4ab2a34"></span>IntegratorListenerPtr <code class="sig-name descname">listener</code><a class="headerlink" href="#_CPPv4N2rr15EulerIntegrator8listenerE" title="Permalink to this definition">¶</a><br /></dt>
+<dt class="sig sig-object cpp" id="_CPPv4N2rr15EulerIntegrator8listenerE">
+<span id="_CPPv3N2rr15EulerIntegrator8listenerE"></span><span id="_CPPv2N2rr15EulerIntegrator8listenerE"></span><span id="rr::EulerIntegrator::listener__IntegratorListenerPtr"></span><span class="target" id="classrr_1_1EulerIntegrator_1a389bb963b4313a5b4fd45ff7a4ab2a34"></span><span class="n"><span class="pre">IntegratorListenerPtr</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">listener</span></span></span><a class="headerlink" href="#_CPPv4N2rr15EulerIntegrator8listenerE" title="Permalink to this definition">¶</a><br /></dt>
 <dd><p>Clients may register a listener to listen for time steps, or sbml events. </p>
 <p>Time step events are much more usefull for variable time step integrators where they may take long time steps and clients may be notified when these occur.</p>
 <p>This is a smart pointer to a object which implements the IntegratorListener interface. </p>

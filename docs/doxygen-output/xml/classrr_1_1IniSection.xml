@@ -31,9 +31,9 @@
         </inbodydescription>
         <location file="rrIniSection.h" line="29" column="27" bodyfile="rrIniSection.h" bodystart="29" bodyend="-1"/>
       </memberdef>
-      <memberdef kind="variable" id="classrr_1_1IniSection_1a0e119942f124e1e41d767981ae5da973" prot="public" static="no" mutable="no">
-        <type>string</type>
-        <definition>string rr::IniSection::mName</definition>
+      <memberdef kind="variable" id="classrr_1_1IniSection_1a1f5c191587c7943e12e0d7dd352dec03" prot="public" static="no" mutable="no">
+        <type>std::string</type>
+        <definition>std::string rr::IniSection::mName</definition>
         <argsstring></argsstring>
         <name>mName</name>
         <briefdescription>
@@ -42,11 +42,11 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="rrIniSection.h" line="30" column="27" bodyfile="rrIniSection.h" bodystart="30" bodyend="-1"/>
+        <location file="rrIniSection.h" line="30" column="32" bodyfile="rrIniSection.h" bodystart="30" bodyend="-1"/>
       </memberdef>
-      <memberdef kind="variable" id="classrr_1_1IniSection_1addef9556beaef11c5b7ef589b2c9c0fb" prot="public" static="no" mutable="no">
-        <type>string</type>
-        <definition>string rr::IniSection::mComment</definition>
+      <memberdef kind="variable" id="classrr_1_1IniSection_1a1b5806840a0d840116ffcc0aa03b72d7" prot="public" static="no" mutable="no">
+        <type>std::string</type>
+        <definition>std::string rr::IniSection::mComment</definition>
         <argsstring></argsstring>
         <name>mComment</name>
         <briefdescription>
@@ -55,7 +55,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="rrIniSection.h" line="31" column="27" bodyfile="rrIniSection.h" bodystart="31" bodyend="-1"/>
+        <location file="rrIniSection.h" line="31" column="32" bodyfile="rrIniSection.h" bodystart="31" bodyend="-1"/>
       </memberdef>
       <memberdef kind="variable" id="classrr_1_1IniSection_1acf07b88798fac7d8f417b949bcee3270" prot="public" static="no" mutable="no">
         <type>KeyList</type>
@@ -117,7 +117,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="rrIniSection.h" line="36" column="25"/>
+        <location file="rrIniSection.h" line="36" column="25" bodyfile="rrIniSection.cpp" bodystart="21" bodyend="36"/>
       </memberdef>
       <memberdef kind="function" id="classrr_1_1IniSection_1a1ddce2c712a0fe4d503aa56d441b206e" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
         <type></type>
@@ -132,22 +132,22 @@
         </inbodydescription>
         <location file="rrIniSection.h" line="37" column="24" bodyfile="rrIniSection.cpp" bodystart="38" bodyend="47"/>
       </memberdef>
-      <memberdef kind="function" id="classrr_1_1IniSection_1a3b5b12a47976000a3c4bfa6a77283fe4" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+      <memberdef kind="function" id="classrr_1_1IniSection_1a5ff02c1e101e2d081de4b13f8bef6f7f" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
         <type><ref refid="classrr_1_1IniKey" kindref="compound">IniKey</ref> *</type>
         <definition>IniKey * rr::IniSection::CreateKey</definition>
-        <argsstring>(const string &amp;_keyName, const string &amp;Value=&quot;&quot;, const string &amp;Comment=&quot;&quot;)</argsstring>
+        <argsstring>(const std::string &amp;_keyName, const std::string &amp;Value=&quot;&quot;, const std::string &amp;Comment=&quot;&quot;)</argsstring>
         <name>CreateKey</name>
         <param>
-          <type>const string &amp;</type>
+          <type>const std::string &amp;</type>
           <declname>_keyName</declname>
         </param>
         <param>
-          <type>const string &amp;</type>
+          <type>const std::string &amp;</type>
           <declname>Value</declname>
           <defval>&quot;&quot;</defval>
         </param>
         <param>
-          <type>const string &amp;</type>
+          <type>const std::string &amp;</type>
           <declname>Comment</declname>
           <defval>&quot;&quot;</defval>
         </param>
@@ -176,13 +176,13 @@
         </inbodydescription>
         <location file="rrIniSection.h" line="39" column="27" bodyfile="rrIniSection.cpp" bodystart="70" bodyend="80"/>
       </memberdef>
-      <memberdef kind="function" id="classrr_1_1IniSection_1a26dad6c933841e28343c44fbe57802b0" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+      <memberdef kind="function" id="classrr_1_1IniSection_1a834bf1b7a6cebe7e342eb8ada3175f8a" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
         <type><ref refid="classrr_1_1IniKey" kindref="compound">IniKey</ref> *</type>
         <definition>IniKey * rr::IniSection::GetKey</definition>
-        <argsstring>(const string &amp;keyName, bool create=false)</argsstring>
+        <argsstring>(const std::string &amp;keyName, bool create=false)</argsstring>
         <name>GetKey</name>
         <param>
-          <type>const string &amp;</type>
+          <type>const std::string &amp;</type>
           <declname>keyName</declname>
         </param>
         <param>
@@ -237,9 +237,9 @@
         </inbodydescription>
         <location file="rrIniSection.h" line="43" column="25" bodyfile="rrIniSection.h" bodystart="43" bodyend="43"/>
       </memberdef>
-      <memberdef kind="function" id="classrr_1_1IniSection_1a71a2b41ef41c960aa41f7c6a8a6bd53e" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
-        <type>string</type>
-        <definition>string rr::IniSection::GetNonKeysAsString</definition>
+      <memberdef kind="function" id="classrr_1_1IniSection_1a2758eb2a45f574df20ade9e4cc4ce227" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>std::string</type>
+        <definition>std::string rr::IniSection::GetNonKeysAsString</definition>
         <argsstring>()</argsstring>
         <name>GetNonKeysAsString</name>
         <briefdescription>
@@ -248,11 +248,11 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="rrIniSection.h" line="44" column="30" bodyfile="rrIniSection.cpp" bodystart="82" bodyend="102"/>
+        <location file="rrIniSection.h" line="44" column="35" bodyfile="rrIniSection.cpp" bodystart="82" bodyend="102"/>
       </memberdef>
-      <memberdef kind="function" id="classrr_1_1IniSection_1a5fa1c847673ca3ff300932e25fbea2cc" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
-        <type>string</type>
-        <definition>string rr::IniSection::AsString</definition>
+      <memberdef kind="function" id="classrr_1_1IniSection_1a9211af8df48f2dc4dc600c7d9967dff6" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>std::string</type>
+        <definition>std::string rr::IniSection::AsString</definition>
         <argsstring>()</argsstring>
         <name>AsString</name>
         <briefdescription>
@@ -261,7 +261,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="rrIniSection.h" line="45" column="27" bodyfile="rrIniSection.cpp" bodystart="104" bodyend="118"/>
+        <location file="rrIniSection.h" line="45" column="32" bodyfile="rrIniSection.cpp" bodystart="104" bodyend="118"/>
       </memberdef>
       </sectiondef>
     <briefdescription>
@@ -283,20 +283,20 @@
     </collaborationgraph>
     <location file="rrIniSection.h" line="23" column="1" bodyfile="rrIniSection.h" bodystart="24" bodyend="46"/>
     <listofallmembers>
-      <member refid="classrr_1_1IniSection_1a5fa1c847673ca3ff300932e25fbea2cc" prot="public" virt="non-virtual"><scope>rr::IniSection</scope><name>AsString</name></member>
+      <member refid="classrr_1_1IniSection_1a9211af8df48f2dc4dc600c7d9967dff6" prot="public" virt="non-virtual"><scope>rr::IniSection</scope><name>AsString</name></member>
       <member refid="classrr_1_1IniSection_1a2e0183fcbd33de05c7bec177768dcab8" prot="public" virt="non-virtual"><scope>rr::IniSection</scope><name>Clear</name></member>
-      <member refid="classrr_1_1IniSection_1a3b5b12a47976000a3c4bfa6a77283fe4" prot="public" virt="non-virtual"><scope>rr::IniSection</scope><name>CreateKey</name></member>
+      <member refid="classrr_1_1IniSection_1a5ff02c1e101e2d081de4b13f8bef6f7f" prot="public" virt="non-virtual"><scope>rr::IniSection</scope><name>CreateKey</name></member>
       <member refid="classrr_1_1IniSection_1abc0fbaaae8bb21b40e5e3a3c71ebfbb1" prot="public" virt="non-virtual"><scope>rr::IniSection</scope><name>GetKey</name></member>
-      <member refid="classrr_1_1IniSection_1a26dad6c933841e28343c44fbe57802b0" prot="public" virt="non-virtual"><scope>rr::IniSection</scope><name>GetKey</name></member>
-      <member refid="classrr_1_1IniSection_1a71a2b41ef41c960aa41f7c6a8a6bd53e" prot="public" virt="non-virtual"><scope>rr::IniSection</scope><name>GetNonKeysAsString</name></member>
+      <member refid="classrr_1_1IniSection_1a834bf1b7a6cebe7e342eb8ada3175f8a" prot="public" virt="non-virtual"><scope>rr::IniSection</scope><name>GetKey</name></member>
+      <member refid="classrr_1_1IniSection_1a2758eb2a45f574df20ade9e4cc4ce227" prot="public" virt="non-virtual"><scope>rr::IniSection</scope><name>GetNonKeysAsString</name></member>
       <member refid="classrr_1_1IniSection_1a308aaaf960386ac07636206b43d89098" prot="public" virt="non-virtual"><scope>rr::IniSection</scope><name>IniSection</name></member>
       <member refid="classrr_1_1IniSection_1aa77ce6b9a237b024621af4400023d401" prot="public" virt="non-virtual"><scope>rr::IniSection</scope><name>IniSection</name></member>
       <member refid="classrr_1_1IniSection_1ac46e9a424738d99e3ccf4d78dfdbde7c" prot="public" virt="non-virtual"><scope>rr::IniSection</scope><name>KeyCount</name></member>
-      <member refid="classrr_1_1IniSection_1addef9556beaef11c5b7ef589b2c9c0fb" prot="public" virt="non-virtual"><scope>rr::IniSection</scope><name>mComment</name></member>
+      <member refid="classrr_1_1IniSection_1a1b5806840a0d840116ffcc0aa03b72d7" prot="public" virt="non-virtual"><scope>rr::IniSection</scope><name>mComment</name></member>
       <member refid="classrr_1_1IniSection_1ab7569705b834ce94a29f0509d86d5803" prot="private" virt="non-virtual"><scope>rr::IniSection</scope><name>mIsDirty</name></member>
       <member refid="classrr_1_1IniSection_1a7a6105b7f5730814cbf53fbce445bc71" prot="public" virt="non-virtual"><scope>rr::IniSection</scope><name>mIsUsed</name></member>
       <member refid="classrr_1_1IniSection_1acf07b88798fac7d8f417b949bcee3270" prot="public" virt="non-virtual"><scope>rr::IniSection</scope><name>mKeys</name></member>
-      <member refid="classrr_1_1IniSection_1a0e119942f124e1e41d767981ae5da973" prot="public" virt="non-virtual"><scope>rr::IniSection</scope><name>mName</name></member>
+      <member refid="classrr_1_1IniSection_1a1f5c191587c7943e12e0d7dd352dec03" prot="public" virt="non-virtual"><scope>rr::IniSection</scope><name>mName</name></member>
       <member refid="classrr_1_1IniSection_1aa319e2e48ac1704b9653bd9a013fbb46" prot="public" virt="non-virtual"><scope>rr::IniSection</scope><name>mNonKeys</name></member>
       <member refid="classrr_1_1IniSection_1ab270d8747e58310b4e5e23f8717594e4" prot="public" virt="non-virtual"><scope>rr::IniSection</scope><name>NonKeyCount</name></member>
       <member refid="classrr_1_1IniSection_1a1ddce2c712a0fe4d503aa56d441b206e" prot="public" virt="non-virtual"><scope>rr::IniSection</scope><name>~IniSection</name></member>

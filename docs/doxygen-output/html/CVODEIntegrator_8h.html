@@ -22,7 +22,7 @@
  <tr style="height: 56px;">
   <td id="projectalign" style="padding-left: 0.5em;">
    <div id="projectname">roadrunner
-   &#160;<span id="projectnumber">2.0.5</span>
+   &#160;<span id="projectnumber">2.0.8</span>
    </div>
    <div id="projectbrief">Fast simulator for SBML models</div>
   </td>
@@ -77,6 +77,8 @@ $(function() {
 <code>#include &quot;rrRoadRunnerOptions.h&quot;</code><br />
 <code>#include &lt;string&gt;</code><br />
 <code>#include &lt;vector&gt;</code><br />
+<code>#include &lt;sundials/sundials_linearsolver.h&gt;</code><br />
+<code>#include &lt;sundials/sundials_nonlinearsolver.h&gt;</code><br />
 </div>
 <p><a href="CVODEIntegrator_8h_source.html">Go to the source code of this file.</a></p>
 <table class="memberdecls">
@@ -92,7 +94,7 @@ Classes</h2></td></tr>
 Typedefs</h2></td></tr>
 <tr class="memitem:a8a91260811ab3718acff6bc5bd55d374"><td class="memItemLeft" align="right" valign="top"><a id="a8a91260811ab3718acff6bc5bd55d374"></a>
 typedef struct _generic_N_Vector *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="CVODEIntegrator_8h.html#a8a91260811ab3718acff6bc5bd55d374">N_Vector</a></td></tr>
-<tr class="memdesc:a8a91260811ab3718acff6bc5bd55d374"><td class="mdescLeft">&#160;</td><td class="mdescRight">CVode vector struct. <br /></td></tr>
+<tr class="memdesc:a8a91260811ab3718acff6bc5bd55d374"><td class="mdescLeft">&#160;</td><td class="mdescRight">CVode std::vector struct. <br /></td></tr>
 <tr class="separator:a8a91260811ab3718acff6bc5bd55d374"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>

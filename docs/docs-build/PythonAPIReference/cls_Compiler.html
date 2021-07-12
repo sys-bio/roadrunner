@@ -13,6 +13,8 @@
   
   <link rel="stylesheet" href="../_static/css/theme.css" type="text/css" />
   <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
+  <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
+  <link rel="stylesheet" href="../_static/css/theme.css" type="text/css" />
   <link rel="stylesheet" href="../_static/tabs.css" type="text/css" />
 
   
@@ -30,10 +32,10 @@
   
     
       <script type="text/javascript" id="documentation_options" data-url_root="../" src="../_static/documentation_options.js"></script>
+        <script data-url_root="../" id="documentation_options" src="../_static/documentation_options.js"></script>
         <script src="../_static/jquery.js"></script>
         <script src="../_static/underscore.js"></script>
         <script src="../_static/doctools.js"></script>
-        <script src="../_static/language_data.js"></script>
     
     <script type="text/javascript" src="../_static/js/theme.js"></script>
 
@@ -118,6 +120,7 @@
 </ul>
 </li>
 <li class="toctree-l1"><a class="reference internal" href="../C%2B%2BAPIReference/index.html">The LibRoadRunner C++ Library</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../developers_docs/index.html">Developers Documentation</a></li>
 </ul>
 
             
@@ -190,15 +193,15 @@
   <div class="section" id="jit-compilation">
 <h1>JIT Compilation<a class="headerlink" href="#jit-compilation" title="Permalink to this headline">¶</a></h1>
 <dl class="py class">
-<dt id="RoadRunner.Compiler">
-<em class="property">class </em><code class="sig-prename descclassname">RoadRunner.</code><code class="sig-name descname">Compiler</code><a class="headerlink" href="#RoadRunner.Compiler" title="Permalink to this definition">¶</a></dt>
+<dt class="sig sig-object py" id="RoadRunner.Compiler">
+<em class="property"><span class="pre">class</span> </em><span class="sig-prename descclassname"><span class="pre">RoadRunner.</span></span><span class="sig-name descname"><span class="pre">Compiler</span></span><a class="headerlink" href="#RoadRunner.Compiler" title="Permalink to this definition">¶</a></dt>
 <dd><p>The Compiler object provides information about the JIT compiler
 currently in use.</p>
 </dd></dl>
 
 <dl class="py method">
-<dt id="RoadRunner.Compiler.getCompiler">
-<code class="sig-prename descclassname">Compiler.</code><code class="sig-name descname">getCompiler</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#RoadRunner.Compiler.getCompiler" title="Permalink to this definition">¶</a></dt>
+<dt class="sig sig-object py" id="RoadRunner.Compiler.getCompiler">
+<span class="sig-prename descclassname"><span class="pre">Compiler.</span></span><span class="sig-name descname"><span class="pre">getCompiler</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#RoadRunner.Compiler.getCompiler" title="Permalink to this definition">¶</a></dt>
 <dd><p>gets the name of the JIT compiler, i.e. “LLVM” means we are using the
 LLVM JIT compiler.</p>
 <dl class="field-list simple">
@@ -209,8 +212,8 @@ LLVM JIT compiler.</p>
 </dd></dl>
 
 <dl class="py method">
-<dt id="RoadRunner-.Compiler.getVersion">
-<span id="RoadRunner:.Compiler.getVersion"></span><code class="sig-prename descclassname">Compiler.</code><code class="sig-name descname">getVersion</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#RoadRunner-.Compiler.getVersion" title="Permalink to this definition">¶</a></dt>
+<dt class="sig sig-object py" id="RoadRunner-.Compiler.getVersion">
+<span id="RoadRunner:.Compiler.getVersion"></span><span class="sig-prename descclassname"><span class="pre">Compiler.</span></span><span class="sig-name descname"><span class="pre">getVersion</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#RoadRunner-.Compiler.getVersion" title="Permalink to this definition">¶</a></dt>
 <dd><p>get the version of the JIT compiler.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Return type</dt>
@@ -220,8 +223,8 @@ LLVM JIT compiler.</p>
 </dd></dl>
 
 <dl class="py method">
-<dt id="RoadRunner.Compiler.getDefaultTargetTriple">
-<code class="sig-prename descclassname">Compiler.</code><code class="sig-name descname">getDefaultTargetTriple</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#RoadRunner.Compiler.getDefaultTargetTriple" title="Permalink to this definition">¶</a></dt>
+<dt class="sig sig-object py" id="RoadRunner.Compiler.getDefaultTargetTriple">
+<span class="sig-prename descclassname"><span class="pre">Compiler.</span></span><span class="sig-name descname"><span class="pre">getDefaultTargetTriple</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#RoadRunner.Compiler.getDefaultTargetTriple" title="Permalink to this definition">¶</a></dt>
 <dd><p>Return the default target triple the compiler  has been configured to produce code for.
 A ‘triple’ is just a string that contains three items, it is called ‘triple’ as
 that is a LLVM historical convention.</p>
@@ -237,8 +240,8 @@ CPU_TYPE-VENDOR-OPERATING_SYSTEM</p>
 </dd></dl>
 
 <dl class="py method">
-<dt id="RoadRunner.Compiler.getProcessTriple">
-<code class="sig-prename descclassname">Compiler.</code><code class="sig-name descname">getProcessTriple</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#RoadRunner.Compiler.getProcessTriple" title="Permalink to this definition">¶</a></dt>
+<dt class="sig sig-object py" id="RoadRunner.Compiler.getProcessTriple">
+<span class="sig-prename descclassname"><span class="pre">Compiler.</span></span><span class="sig-name descname"><span class="pre">getProcessTriple</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#RoadRunner.Compiler.getProcessTriple" title="Permalink to this definition">¶</a></dt>
 <dd><p>Return an appropriate target triple for generating
 code to be loaded into the current process, e.g. when using the JIT.</p>
 <dl class="field-list simple">
@@ -249,8 +252,8 @@ code to be loaded into the current process, e.g. when using the JIT.</p>
 </dd></dl>
 
 <dl class="py method">
-<dt id="RoadRunner.Compiler.getHostCPUName">
-<code class="sig-prename descclassname">Compiler.</code><code class="sig-name descname">getHostCPUName</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#RoadRunner.Compiler.getHostCPUName" title="Permalink to this definition">¶</a></dt>
+<dt class="sig sig-object py" id="RoadRunner.Compiler.getHostCPUName">
+<span class="sig-prename descclassname"><span class="pre">Compiler.</span></span><span class="sig-name descname"><span class="pre">getHostCPUName</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#RoadRunner.Compiler.getHostCPUName" title="Permalink to this definition">¶</a></dt>
 <dd><p>getHostCPUName - Get the LLVM name for the host CPU. The particular format
 of the name is target dependent, and suitable for passing as -mcpu to the
 target which matches the host.</p>
@@ -263,32 +266,32 @@ target which matches the host.</p>
 </dd></dl>
 
 <dl class="py method">
-<dt id="RoadRunner.Compiler.setCompiler">
-<code class="sig-prename descclassname">Compiler.</code><code class="sig-name descname">setCompiler</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">compiler</span></em><span class="sig-paren">)</span><a class="headerlink" href="#RoadRunner.Compiler.setCompiler" title="Permalink to this definition">¶</a></dt>
+<dt class="sig sig-object py" id="RoadRunner.Compiler.setCompiler">
+<span class="sig-prename descclassname"><span class="pre">Compiler.</span></span><span class="sig-name descname"><span class="pre">setCompiler</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">compiler</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#RoadRunner.Compiler.setCompiler" title="Permalink to this definition">¶</a></dt>
 <dd><p>A legacy method that currently does not do anything.</p>
 </dd></dl>
 
 <dl class="py method">
-<dt id="RoadRunner.Compiler.getCompilerLocation">
-<code class="sig-prename descclassname">Compiler.</code><code class="sig-name descname">getCompilerLocation</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#RoadRunner.Compiler.getCompilerLocation" title="Permalink to this definition">¶</a></dt>
+<dt class="sig sig-object py" id="RoadRunner.Compiler.getCompilerLocation">
+<span class="sig-prename descclassname"><span class="pre">Compiler.</span></span><span class="sig-name descname"><span class="pre">getCompilerLocation</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#RoadRunner.Compiler.getCompilerLocation" title="Permalink to this definition">¶</a></dt>
 <dd><p>A legacy method that currently does not do anything.</p>
 </dd></dl>
 
 <dl class="py method">
-<dt id="RoadRunner.Compiler.setCompilerLocation">
-<code class="sig-prename descclassname">Compiler.</code><code class="sig-name descname">setCompilerLocation</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">loc</span></em><span class="sig-paren">)</span><a class="headerlink" href="#RoadRunner.Compiler.setCompilerLocation" title="Permalink to this definition">¶</a></dt>
+<dt class="sig sig-object py" id="RoadRunner.Compiler.setCompilerLocation">
+<span class="sig-prename descclassname"><span class="pre">Compiler.</span></span><span class="sig-name descname"><span class="pre">setCompilerLocation</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">loc</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#RoadRunner.Compiler.setCompilerLocation" title="Permalink to this definition">¶</a></dt>
 <dd><p>A legacy method that currently does not do anything.</p>
 </dd></dl>
 
 <dl class="py method">
-<dt id="RoadRunner.Compiler.getSupportCodeFolder">
-<code class="sig-prename descclassname">Compiler.</code><code class="sig-name descname">getSupportCodeFolder</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#RoadRunner.Compiler.getSupportCodeFolder" title="Permalink to this definition">¶</a></dt>
+<dt class="sig sig-object py" id="RoadRunner.Compiler.getSupportCodeFolder">
+<span class="sig-prename descclassname"><span class="pre">Compiler.</span></span><span class="sig-name descname"><span class="pre">getSupportCodeFolder</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#RoadRunner.Compiler.getSupportCodeFolder" title="Permalink to this definition">¶</a></dt>
 <dd><p>A legacy method that currently does not do anything.</p>
 </dd></dl>
 
 <dl class="py method">
-<dt id="RoadRunner.Compiler.setSupportCodeFolder">
-<code class="sig-prename descclassname">Compiler.</code><code class="sig-name descname">setSupportCodeFolder</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">path</span></em><span class="sig-paren">)</span><a class="headerlink" href="#RoadRunner.Compiler.setSupportCodeFolder" title="Permalink to this definition">¶</a></dt>
+<dt class="sig sig-object py" id="RoadRunner.Compiler.setSupportCodeFolder">
+<span class="sig-prename descclassname"><span class="pre">Compiler.</span></span><span class="sig-name descname"><span class="pre">setSupportCodeFolder</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">path</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#RoadRunner.Compiler.setSupportCodeFolder" title="Permalink to this definition">¶</a></dt>
 <dd><p>A legacy method that currently does not do anything.</p>
 </dd></dl>
 

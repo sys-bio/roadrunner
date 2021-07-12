@@ -22,7 +22,7 @@
  <tr style="height: 56px;">
   <td id="projectalign" style="padding-left: 0.5em;">
    <div id="projectname">roadrunner
-   &#160;<span id="projectnumber">2.0.5</span>
+   &#160;<span id="projectnumber">2.0.8</span>
    </div>
    <div id="projectbrief">Fast simulator for SBML models</div>
   </td>
@@ -87,7 +87,7 @@ Public Member Functions</h2></td></tr>
 <tr class="separator:a1f514c583a4f6348957313a26009480e"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a604487b60a968da939c335195a9fba19"><td class="memItemLeft" align="right" valign="top"><a id="a604487b60a968da939c335195a9fba19"></a>
 &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classrr_1_1LoggingBuffer.html#a604487b60a968da939c335195a9fba19">~LoggingBuffer</a> ()</td></tr>
-<tr class="memdesc:a604487b60a968da939c335195a9fba19"><td class="mdescLeft">&#160;</td><td class="mdescRight">dump the contents of the stringstream to the log. <br /></td></tr>
+<tr class="memdesc:a604487b60a968da939c335195a9fba19"><td class="mdescLeft">&#160;</td><td class="mdescRight">dump the contents of the std::stringstream to the log. <br /></td></tr>
 <tr class="separator:a604487b60a968da939c335195a9fba19"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a23c72224ad52f14bc2d52d1eb361d479"><td class="memItemLeft" align="right" valign="top"><a id="a23c72224ad52f14bc2d52d1eb361d479"></a>
 std::ostream &amp;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classrr_1_1LoggingBuffer.html#a23c72224ad52f14bc2d52d1eb361d479">stream</a> ()</td></tr>
@@ -98,7 +98,17 @@ std::ostream &amp;&#160;</td><td class="memItemRight" valign="bottom"><a class="
 <div class="textblock"><p>Poco LogStream dumps to the log when a newline i.e. </p>
 <p>std::endl is encountered, howeve the old proprietary logging system dumps basically when the stream object goes out of scope.</p>
 <p>This object allows us to to use the new Poco logging system and maintain compatability with all existing code.</p>
-<p>This object is returne from the <a class="el" href="classrr_1_1Logger.html" title="The roadrunner logger.">rr::Logger</a>, exposes a ostream interface, and and dumps to the log when it goes out of scope. </p>
+<p>This object is returne from the <a class="el" href="classrr_1_1Logger.html" title="The roadrunner logger.">rr::Logger</a>, exposes a std::ostream interface, and and dumps to the log when it goes out of scope.</p>
+<p>Levels are determined by Poco::Message::Priority:</p><ul>
+<li>Poco::Message::Priority::PRIO_FATAL = 1</li>
+<li>Poco::Message::Priority::PRIO_CRITICAL = 2</li>
+<li>Poco::Message::Priority::PRIO_ERROR = 3</li>
+<li>Poco::Message::Priority::PRIO_WARNING = 4</li>
+<li>Poco::Message::Priority::PRIO_NOTICE = 5</li>
+<li>Poco::Message::Priority::PRIO_INFORMATION = 6</li>
+<li>Poco::Message::Priority::PRIO_DEBUG = 7</li>
+<li>Poco::Message::Priority::PRIO_TRACE = 8 </li>
+</ul>
 </div><hr/>The documentation for this class was generated from the following files:<ul>
 <li><a class="el" href="rrLogger_8h_source.html">rrLogger.h</a></li>
 <li>rrLogger.cpp</li>

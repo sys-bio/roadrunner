@@ -1,0 +1,877 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.20" xml:lang="en-US">
+  <compounddef id="classrr_1_1KinsolSteadyStateSolver" kind="class" language="C++" prot="public">
+    <compoundname>rr::KinsolSteadyStateSolver</compoundname>
+    <basecompoundref refid="classrr_1_1SteadyStateSolver" prot="public" virt="non-virtual">rr::SteadyStateSolver</basecompoundref>
+    <derivedcompoundref refid="classrr_1_1FixedPointIteration" prot="public" virt="non-virtual">rr::FixedPointIteration</derivedcompoundref>
+    <derivedcompoundref refid="classrr_1_1NewtonIteration" prot="public" virt="non-virtual">rr::NewtonIteration</derivedcompoundref>
+    <includes refid="KinsolSteadyStateSolver_8h" local="no">KinsolSteadyStateSolver.h</includes>
+      <sectiondef kind="protected-attrib">
+      <memberdef kind="variable" id="classrr_1_1KinsolSteadyStateSolver_1a64033039dc53f114855985463ad108f6" prot="protected" static="no" mutable="no">
+        <type>void *</type>
+        <definition>void* rr::KinsolSteadyStateSolver::mKinsol_Memory</definition>
+        <argsstring></argsstring>
+        <name>mKinsol_Memory</name>
+        <initializer>= nullptr</initializer>
+        <briefdescription>
+<para>Pointer to the kinsol memory block. </para>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="KinsolSteadyStateSolver.h" line="223" column="14" bodyfile="KinsolSteadyStateSolver.h" bodystart="223" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="classrr_1_1KinsolSteadyStateSolver_1a5f5802fe0c668fe5569bfb163748a621" prot="protected" static="no" mutable="no">
+        <type><ref refid="CVODEIntegrator_8h_1a8a91260811ab3718acff6bc5bd55d374" kindref="member">N_Vector</ref></type>
+        <definition>N_Vector rr::KinsolSteadyStateSolver::mStateVector</definition>
+        <argsstring></argsstring>
+        <name>mStateVector</name>
+        <initializer>= nullptr</initializer>
+        <briefdescription>
+<para>a sundials N_Vector for storing system state variables </para>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="KinsolSteadyStateSolver.h" line="228" column="18" bodyfile="KinsolSteadyStateSolver.h" bodystart="228" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="classrr_1_1KinsolSteadyStateSolver_1ad3bc465ff768913724631e8d4daf62c1" prot="protected" static="no" mutable="no">
+        <type><ref refid="CVODEIntegrator_8h_1a8a91260811ab3718acff6bc5bd55d374" kindref="member">N_Vector</ref></type>
+        <definition>N_Vector rr::KinsolSteadyStateSolver::fscale</definition>
+        <argsstring></argsstring>
+        <name>fscale</name>
+        <initializer>= nullptr</initializer>
+        <briefdescription>
+<para>std::vector containing diagonal elements of scaling matrix DF for F(u) chosen so that the components of D_F*F(u) (as a matrix multiplication) all have roughly the same magnitude when u is not too near a root of F(u). </para>
+        </briefdescription>
+        <detaileddescription>
+<para>In the case of a fixed-point iteration, consider F(u) = G(u) - u. <simplesect kind="note"><para>here u is mStateVector, F is the std::vector of rate functions and D_u an internal variable inside kinsol </para>
+</simplesect>
+</para>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="KinsolSteadyStateSolver.h" line="239" column="18" bodyfile="KinsolSteadyStateSolver.h" bodystart="239" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="classrr_1_1KinsolSteadyStateSolver_1ab0bf299b6530378feb374d92a58a959e" prot="protected" static="no" mutable="no">
+        <type><ref refid="CVODEIntegrator_8h_1a8a91260811ab3718acff6bc5bd55d374" kindref="member">N_Vector</ref></type>
+        <definition>N_Vector rr::KinsolSteadyStateSolver::uscale</definition>
+        <argsstring></argsstring>
+        <name>uscale</name>
+        <initializer>= nullptr</initializer>
+        <briefdescription>
+<para>std::vector containing diagonal elements of scaling matrix Du for std::vector u chosen so that the components of D_u*u (as a matrix multiplication) all have roughly the same magnitude when u is close to a root of F(u). </para>
+        </briefdescription>
+        <detaileddescription>
+<para><simplesect kind="note"><para>here u is mStateVector, F is the std::vector of rate functions and D_u an internal variable inside kinsol </para>
+</simplesect>
+</para>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="KinsolSteadyStateSolver.h" line="248" column="18" bodyfile="KinsolSteadyStateSolver.h" bodystart="248" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="classrr_1_1KinsolSteadyStateSolver_1a80807be1f440f524769e55568a3abcf2" prot="protected" static="no" mutable="no">
+        <type><ref refid="CVODEIntegrator_8h_1a8a91260811ab3718acff6bc5bd55d374" kindref="member">N_Vector</ref></type>
+        <definition>N_Vector rr::KinsolSteadyStateSolver::constraints</definition>
+        <argsstring></argsstring>
+        <name>constraints</name>
+        <initializer>= nullptr</initializer>
+        <briefdescription>
+<para>vector of constraints used to ensure positive solution. </para>
+        </briefdescription>
+        <detaileddescription>
+<para>only in effect when allow_negative option set to false </para>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="KinsolSteadyStateSolver.h" line="255" column="18" bodyfile="KinsolSteadyStateSolver.h" bodystart="255" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="classrr_1_1KinsolSteadyStateSolver_1a94eae6c3534054b7fff476be111133ca" prot="protected" static="no" mutable="no">
+        <type>long int</type>
+        <definition>long int rr::KinsolSteadyStateSolver::numFuncEvals</definition>
+        <argsstring></argsstring>
+        <name>numFuncEvals</name>
+        <briefdescription>
+<para>kinsol output variables. </para>
+        </briefdescription>
+        <detaileddescription>
+<para>fileld when </para>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="KinsolSteadyStateSolver.h" line="269" column="18" bodyfile="KinsolSteadyStateSolver.h" bodystart="269" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="classrr_1_1KinsolSteadyStateSolver_1aba0fbf91989bf1c45393e685480d9e2e" prot="protected" static="no" mutable="no">
+        <type>long int</type>
+        <definition>long int rr::KinsolSteadyStateSolver::numNolinSolvIters</definition>
+        <argsstring></argsstring>
+        <name>numNolinSolvIters</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="KinsolSteadyStateSolver.h" line="270" column="18" bodyfile="KinsolSteadyStateSolver.h" bodystart="270" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="classrr_1_1KinsolSteadyStateSolver_1a7d293e46d24822ab546b43b747ffae26" prot="protected" static="no" mutable="no">
+        <type>long int</type>
+        <definition>long int rr::KinsolSteadyStateSolver::numBetaCondFails</definition>
+        <argsstring></argsstring>
+        <name>numBetaCondFails</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="KinsolSteadyStateSolver.h" line="271" column="18" bodyfile="KinsolSteadyStateSolver.h" bodystart="271" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="classrr_1_1KinsolSteadyStateSolver_1a0d20709e7f23755cc14443671be182ec" prot="protected" static="no" mutable="no">
+        <type>long int</type>
+        <definition>long int rr::KinsolSteadyStateSolver::numBacktrackOps</definition>
+        <argsstring></argsstring>
+        <name>numBacktrackOps</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="KinsolSteadyStateSolver.h" line="272" column="18" bodyfile="KinsolSteadyStateSolver.h" bodystart="272" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="classrr_1_1KinsolSteadyStateSolver_1a6152af9e64fe79d7af756df58dcd0e5e" prot="protected" static="no" mutable="no">
+        <type>double</type>
+        <definition>double rr::KinsolSteadyStateSolver::funcNorm</definition>
+        <argsstring></argsstring>
+        <name>funcNorm</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="KinsolSteadyStateSolver.h" line="273" column="16" bodyfile="KinsolSteadyStateSolver.h" bodystart="273" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="classrr_1_1KinsolSteadyStateSolver_1aed41325ac8469d5b24fcd55df1eeb52f" prot="protected" static="no" mutable="no">
+        <type>double</type>
+        <definition>double rr::KinsolSteadyStateSolver::stepLength</definition>
+        <argsstring></argsstring>
+        <name>stepLength</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="KinsolSteadyStateSolver.h" line="274" column="16" bodyfile="KinsolSteadyStateSolver.h" bodystart="274" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="classrr_1_1KinsolSteadyStateSolver_1a2c01c0251e55420afb73d327be298f5e" prot="protected" static="no" mutable="no">
+        <type>long int</type>
+        <definition>long int rr::KinsolSteadyStateSolver::numJacEvals</definition>
+        <argsstring></argsstring>
+        <name>numJacEvals</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="KinsolSteadyStateSolver.h" line="275" column="18" bodyfile="KinsolSteadyStateSolver.h" bodystart="275" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="classrr_1_1KinsolSteadyStateSolver_1a21927581610717145d906b309d5c8c1c" prot="protected" static="no" mutable="no">
+        <type>long int</type>
+        <definition>long int rr::KinsolSteadyStateSolver::numJtimesEvals</definition>
+        <argsstring></argsstring>
+        <name>numJtimesEvals</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="KinsolSteadyStateSolver.h" line="276" column="18" bodyfile="KinsolSteadyStateSolver.h" bodystart="276" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="classrr_1_1KinsolSteadyStateSolver_1a2b804980c88ea178c357dcbc36083d0a" prot="protected" static="no" mutable="no">
+        <type>long int</type>
+        <definition>long int rr::KinsolSteadyStateSolver::numLinConvFails</definition>
+        <argsstring></argsstring>
+        <name>numLinConvFails</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="KinsolSteadyStateSolver.h" line="277" column="18" bodyfile="KinsolSteadyStateSolver.h" bodystart="277" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="classrr_1_1KinsolSteadyStateSolver_1a8db0a7fb478dac8c9f7609660bb8b383" prot="protected" static="no" mutable="no">
+        <type>long int</type>
+        <definition>long int rr::KinsolSteadyStateSolver::numLinFuncEvals</definition>
+        <argsstring></argsstring>
+        <name>numLinFuncEvals</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="KinsolSteadyStateSolver.h" line="278" column="18" bodyfile="KinsolSteadyStateSolver.h" bodystart="278" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="classrr_1_1KinsolSteadyStateSolver_1a84e0685146b9494801ac7eb410e80b79" prot="protected" static="no" mutable="no">
+        <type>long int</type>
+        <definition>long int rr::KinsolSteadyStateSolver::numLinIters</definition>
+        <argsstring></argsstring>
+        <name>numLinIters</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="KinsolSteadyStateSolver.h" line="279" column="18" bodyfile="KinsolSteadyStateSolver.h" bodystart="279" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="classrr_1_1KinsolSteadyStateSolver_1a2155651618977ffc99020b2c6a6459a0" prot="protected" static="no" mutable="no">
+        <type>long int</type>
+        <definition>long int rr::KinsolSteadyStateSolver::numNonlinSolvIters</definition>
+        <argsstring></argsstring>
+        <name>numNonlinSolvIters</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="KinsolSteadyStateSolver.h" line="280" column="18" bodyfile="KinsolSteadyStateSolver.h" bodystart="280" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="classrr_1_1KinsolSteadyStateSolver_1a06d1f105ae874107693221ec90b50bce" prot="protected" static="no" mutable="no">
+        <type>long int</type>
+        <definition>long int rr::KinsolSteadyStateSolver::numPrecEvals</definition>
+        <argsstring></argsstring>
+        <name>numPrecEvals</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="KinsolSteadyStateSolver.h" line="281" column="18" bodyfile="KinsolSteadyStateSolver.h" bodystart="281" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="classrr_1_1KinsolSteadyStateSolver_1a879e57a3ff26a4769d399933c47cfeb4" prot="protected" static="no" mutable="no">
+        <type>long int</type>
+        <definition>long int rr::KinsolSteadyStateSolver::numPrecSolves</definition>
+        <argsstring></argsstring>
+        <name>numPrecSolves</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="KinsolSteadyStateSolver.h" line="282" column="18" bodyfile="KinsolSteadyStateSolver.h" bodystart="282" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="classrr_1_1KinsolSteadyStateSolver_1a5587c29038218f7e3d8f83b32a3eaf80" prot="protected" static="no" mutable="no">
+        <type>long int</type>
+        <definition>long int rr::KinsolSteadyStateSolver::nSolverIterations</definition>
+        <argsstring></argsstring>
+        <name>nSolverIterations</name>
+        <initializer>= 0</initializer>
+        <briefdescription>
+<para>stores the number of iterations required by the solver to converge. </para>
+        </briefdescription>
+        <detaileddescription>
+<para>empty until after solve() has been called. This method uses kinsol&apos;s KINGetNumNonlinSolvIters function </para>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="KinsolSteadyStateSolver.h" line="290" column="18" bodyfile="KinsolSteadyStateSolver.h" bodystart="290" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="classrr_1_1KinsolSteadyStateSolver_1a1a51e6de634532f7e73051a6129940ae" prot="protected" static="no" mutable="no">
+        <type>std::unordered_map&lt; std::string, <ref refid="classrr_1_1Setting" kindref="compound">Setting</ref> &gt;</type>
+        <definition>std::unordered_map&lt;std::string, Setting&gt; rr::KinsolSteadyStateSolver::solverStats</definition>
+        <argsstring></argsstring>
+        <name>solverStats</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="KinsolSteadyStateSolver.h" line="292" column="28" bodyfile="KinsolSteadyStateSolver.h" bodystart="292" bodyend="-1"/>
+      </memberdef>
+      </sectiondef>
+      <sectiondef kind="public-func">
+      <memberdef kind="function" id="classrr_1_1KinsolSteadyStateSolver_1a493e4b60babe10d121bd4d960cede006" prot="public" static="no" const="no" explicit="yes" inline="no" virt="non-virtual">
+        <type></type>
+        <definition>rr::KinsolSteadyStateSolver::KinsolSteadyStateSolver</definition>
+        <argsstring>(ExecutableModel *executableModel)</argsstring>
+        <name>KinsolSteadyStateSolver</name>
+        <param>
+          <type><ref refid="classrr_1_1ExecutableModel" kindref="compound">ExecutableModel</ref> *</type>
+          <declname>executableModel</declname>
+        </param>
+        <briefdescription>
+<para>constructor for creating <ref refid="classrr_1_1KinsolSteadyStateSolver" kindref="compound">KinsolSteadyStateSolver</ref> from an executable model only. </para>
+        </briefdescription>
+        <detaileddescription>
+<para>This constructor should be inherited by subclasses </para>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="KinsolSteadyStateSolver.h" line="52" column="18" bodyfile="KinsolSteadyStateSolver.cpp" bodystart="13" bodyend="16"/>
+      </memberdef>
+      <memberdef kind="function" id="classrr_1_1KinsolSteadyStateSolver_1a7cc99b1d285e7e1afae54f217135d0b5" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type></type>
+        <definition>rr::KinsolSteadyStateSolver::KinsolSteadyStateSolver</definition>
+        <argsstring>()=default</argsstring>
+        <name>KinsolSteadyStateSolver</name>
+        <briefdescription>
+<para>The default constructor for constructing without a model. </para>
+        </briefdescription>
+        <detaileddescription>
+<para>useful only for testing. </para>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="KinsolSteadyStateSolver.h" line="58" column="9"/>
+      </memberdef>
+      <memberdef kind="function" id="classrr_1_1KinsolSteadyStateSolver_1ab8569c93c7aa13a0656919d692bc08fe" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type></type>
+        <definition>rr::KinsolSteadyStateSolver::~KinsolSteadyStateSolver</definition>
+        <argsstring>() override=default</argsstring>
+        <name>~KinsolSteadyStateSolver</name>
+        <briefdescription>
+<para>virtual destructor </para>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="KinsolSteadyStateSolver.h" line="63" column="9"/>
+      </memberdef>
+      <memberdef kind="function" id="classrr_1_1KinsolSteadyStateSolver_1a49ceabb3db818eabcf56d77d28d60d6d" prot="public" static="no" const="no" explicit="no" inline="no" virt="virtual">
+        <type>void</type>
+        <definition>void rr::KinsolSteadyStateSolver::syncWithModel</definition>
+        <argsstring>(ExecutableModel *m) override</argsstring>
+        <name>syncWithModel</name>
+        <reimplements refid="classrr_1_1SteadyStateSolver_1ac69478bcf73ab02178b001250293c4c9">syncWithModel</reimplements>
+        <param>
+          <type><ref refid="classrr_1_1ExecutableModel" kindref="compound">ExecutableModel</ref> *</type>
+          <declname>m</declname>
+        </param>
+        <briefdescription>
+<para>implementation of Solver::syncWithModel. </para>
+        </briefdescription>
+        <detaileddescription>
+<para>called by the main <ref refid="classrr_1_1RoadRunner" kindref="compound">RoadRunner</ref> class to syncronize the model with its solvers (to be sure were not simulating an out of date model). </para>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="KinsolSteadyStateSolver.h" line="71" column="14" bodyfile="KinsolSteadyStateSolver.cpp" bodystart="18" bodyend="24"/>
+      </memberdef>
+      <memberdef kind="function" id="classrr_1_1KinsolSteadyStateSolver_1af702594542f53277aa41afcea984e287" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>void rr::KinsolSteadyStateSolver::setFScale</definition>
+        <argsstring>(double value)</argsstring>
+        <name>setFScale</name>
+        <param>
+          <type>double</type>
+          <declname>value</declname>
+        </param>
+        <briefdescription>
+<para>set all elements of the fscale variable to </para>
+        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>value.</parametername>
+</parameternamelist>
+<parameterdescription>
+<para></para>
+</parameterdescription>
+</parameteritem>
+</parameterlist>
+</para>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="KinsolSteadyStateSolver.h" line="76" column="14" bodyfile="KinsolSteadyStateSolver.cpp" bodystart="195" bodyend="197"/>
+      </memberdef>
+      <memberdef kind="function" id="classrr_1_1KinsolSteadyStateSolver_1a42a0f373ffcc60e88cd56f023aa0b481" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>void rr::KinsolSteadyStateSolver::setFScale</definition>
+        <argsstring>(const std::vector&lt; double &gt; &amp;value)</argsstring>
+        <name>setFScale</name>
+        <param>
+          <type>const std::vector&lt; double &gt; &amp;</type>
+          <declname>value</declname>
+        </param>
+        <briefdescription>
+<para>set elements of the fscale variable to </para>
+        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>value.</parametername>
+</parameternamelist>
+<parameterdescription>
+<para></para>
+</parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>value</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>should have the same size as the state std::vector </para>
+</parameterdescription>
+</parameteritem>
+</parameterlist>
+</para>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="KinsolSteadyStateSolver.h" line="82" column="14" bodyfile="KinsolSteadyStateSolver.cpp" bodystart="199" bodyend="210"/>
+      </memberdef>
+      <memberdef kind="function" id="classrr_1_1KinsolSteadyStateSolver_1a6b80db848ae533f85d9696ac82c0f07d" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>void rr::KinsolSteadyStateSolver::setUScale</definition>
+        <argsstring>(double value)</argsstring>
+        <name>setUScale</name>
+        <param>
+          <type>double</type>
+          <declname>value</declname>
+        </param>
+        <briefdescription>
+<para>set all elements of the uscale variable to </para>
+        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>value.</parametername>
+</parameternamelist>
+<parameterdescription>
+<para></para>
+</parameterdescription>
+</parameteritem>
+</parameterlist>
+</para>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="KinsolSteadyStateSolver.h" line="87" column="14" bodyfile="KinsolSteadyStateSolver.cpp" bodystart="212" bodyend="214"/>
+      </memberdef>
+      <memberdef kind="function" id="classrr_1_1KinsolSteadyStateSolver_1af82dcd66c4a8143f8bcc2ff765d74e07" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>void rr::KinsolSteadyStateSolver::setUScale</definition>
+        <argsstring>(std::vector&lt; double &gt; value)</argsstring>
+        <name>setUScale</name>
+        <param>
+          <type>std::vector&lt; double &gt;</type>
+          <declname>value</declname>
+        </param>
+        <briefdescription>
+<para>set elements of the uscale variable to </para>
+        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>value.</parametername>
+</parameternamelist>
+<parameterdescription>
+<para></para>
+</parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>value</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>should have the same size as the state std::vector </para>
+</parameterdescription>
+</parameteritem>
+</parameterlist>
+</para>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="KinsolSteadyStateSolver.h" line="93" column="14" bodyfile="KinsolSteadyStateSolver.cpp" bodystart="216" bodyend="227"/>
+      </memberdef>
+      <memberdef kind="function" id="classrr_1_1KinsolSteadyStateSolver_1a7523fec309a03e68bd30d2cf604510f3" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>double</type>
+        <definition>double rr::KinsolSteadyStateSolver::solveForSteadyState</definition>
+        <argsstring>(KinsolSteadyStateSolver *solverInstance, int kinsolStrategy)</argsstring>
+        <name>solveForSteadyState</name>
+        <param>
+          <type><ref refid="classrr_1_1KinsolSteadyStateSolver" kindref="compound">KinsolSteadyStateSolver</ref> *</type>
+          <declname>solverInstance</declname>
+        </param>
+        <param>
+          <type>int</type>
+          <declname>kinsolStrategy</declname>
+        </param>
+        <briefdescription>
+<para>Generic solver method. </para>
+        </briefdescription>
+        <detaileddescription>
+<para>When this method is called sundials steady state algorithms solver for steady state. Subclasses use specialized versions of this template using their desired kinsol strategy.  this method cannot be called <computeroutput>solve()</computeroutput> since that is already taken with different signature requirements. <parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>solverInstance</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>pointer (non owning) to instance of subclass of <ref refid="classrr_1_1KinsolSteadyStateSolver" kindref="compound">KinsolSteadyStateSolver</ref>. </para>
+</parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>kinsolStrategy</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>one of:<itemizedlist>
+<listitem><para>KIN_NONE: basic newton iteration</para>
+</listitem><listitem><para>KIN_LINESEARCH: newton iteration with linesearch globalization</para>
+</listitem><listitem><para>KIN_FP: Fixed point iteration, with anderson acceleration (no linear solver is used)</para>
+</listitem><listitem><para>KIN_PICCARD: Piccad iteration, with anderson aceleration (with linear solver) These options are macro&apos;s defined by sundials. They correspond to : KIN_NONE 0 KIN_LINESEARCH 1 KIN_PICARD 2 KIN_FP 3 </para>
+</listitem></itemizedlist>
+</para>
+</parameterdescription>
+</parameteritem>
+</parameterlist>
+</para>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="KinsolSteadyStateSolver.h" line="165" column="16" bodyfile="KinsolSteadyStateSolver.cpp" bodystart="306" bodyend="367"/>
+      </memberdef>
+      <memberdef kind="function" id="classrr_1_1KinsolSteadyStateSolver_1a5ebba0ecca346216d982d9533d32d811" prot="public" static="no" const="yes" explicit="no" inline="no" virt="non-virtual">
+        <type>void *</type>
+        <definition>void * rr::KinsolSteadyStateSolver::getKinsolMemory</definition>
+        <argsstring>() const</argsstring>
+        <name>getKinsolMemory</name>
+        <briefdescription>
+<para>getter for the underlying memory block that is used by kinsol. </para>
+        </briefdescription>
+        <detaileddescription>
+<para>mostly useful in testing. </para>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="KinsolSteadyStateSolver.h" line="172" column="14" bodyfile="KinsolSteadyStateSolver.cpp" bodystart="229" bodyend="231"/>
+      </memberdef>
+      <memberdef kind="function" id="classrr_1_1KinsolSteadyStateSolver_1a953b279ea00b86a0fbd2a1e82d52d331" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>std::unordered_map&lt; std::string, <ref refid="classrr_1_1Setting" kindref="compound">Setting</ref> &gt; &amp;</type>
+        <definition>std::unordered_map&lt; std::string, Setting &gt; &amp; rr::KinsolSteadyStateSolver::getSolverStats</definition>
+        <argsstring>()</argsstring>
+        <name>getSolverStats</name>
+        <briefdescription>
+<para>return a mapping containing solver statistics. </para>
+        </briefdescription>
+        <detaileddescription>
+<para>only filled once solve has been called. <simplesect kind="see"><para><ref refid="classrr_1_1KinsolSteadyStateSolver_1a6e2deeb6268b4dcf40893529abd6c192" kindref="member">getSolverStatsFromKinsol</ref> which actually collects the data from kinsol. Whereas this method returns the data in a unordered_map </para>
+</simplesect>
+</para>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="KinsolSteadyStateSolver.h" line="180" column="29" bodyfile="KinsolSteadyStateSolver.cpp" bodystart="280" bodyend="297"/>
+      </memberdef>
+      <memberdef kind="function" id="classrr_1_1KinsolSteadyStateSolver_1a4588d8d7266adc7df1f7ed6cacac84d7" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>void rr::KinsolSteadyStateSolver::printSolverStats</definition>
+        <argsstring>()</argsstring>
+        <name>printSolverStats</name>
+        <briefdescription>
+<para>display solver stats to console </para>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="KinsolSteadyStateSolver.h" line="185" column="16" bodyfile="KinsolSteadyStateSolver.cpp" bodystart="299" bodyend="304"/>
+      </memberdef>
+      </sectiondef>
+      <sectiondef kind="public-static-func">
+      <memberdef kind="function" id="classrr_1_1KinsolSteadyStateSolver_1aa9d3cb9634ec030d4755c863145a6e5e" prot="public" static="yes" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <templateparamlist>
+          <param>
+            <type>class KinsolSteadyStateSolverType</type>
+          </param>
+        </templateparamlist>
+        <type>int</type>
+        <definition>static int rr::KinsolSteadyStateSolver::kinsolDyDtFcn</definition>
+        <argsstring>(N_Vector stateVecIn, N_Vector stateVecOut, void *userData)</argsstring>
+        <name>kinsolDyDtFcn</name>
+        <param>
+          <type><ref refid="CVODEIntegrator_8h_1a8a91260811ab3718acff6bc5bd55d374" kindref="member">N_Vector</ref></type>
+          <declname>stateVecIn</declname>
+        </param>
+        <param>
+          <type><ref refid="CVODEIntegrator_8h_1a8a91260811ab3718acff6bc5bd55d374" kindref="member">N_Vector</ref></type>
+          <declname>stateVecOut</declname>
+        </param>
+        <param>
+          <type>void *</type>
+          <declname>userData</declname>
+        </param>
+        <briefdescription>
+<para>kinsol callback function that implements system equations </para>
+        </briefdescription>
+        <detaileddescription>
+<para>This is the function that gets called by the kinsol <computeroutput>KINSol</computeroutput> command for solving the system. <simplesect kind="note"><para>this member must be static in order to be used as a function pointer by KINInit. </para>
+</simplesect>
+</para>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="KinsolSteadyStateSolver.h" line="104" column="20" bodyfile="KinsolSteadyStateSolver.h" bodystart="104" bodyend="142"/>
+      </memberdef>
+      </sectiondef>
+      <sectiondef kind="protected-func">
+      <memberdef kind="function" id="classrr_1_1KinsolSteadyStateSolver_1a9ddc7acd14dad905333c11667363de66" prot="protected" static="no" const="no" explicit="no" inline="no" virt="virtual">
+        <type>void</type>
+        <definition>void rr::KinsolSteadyStateSolver::freeKinsol</definition>
+        <argsstring>()</argsstring>
+        <name>freeKinsol</name>
+        <reimplementedby refid="classrr_1_1FixedPointIteration_1aaabbfb6ff1bc59dd9cc4371368dc9348">freeKinsol</reimplementedby>
+        <reimplementedby refid="classrr_1_1NewtonIteration_1ae27ea4ad5e78a6fb781bb1d8272f0756">freeKinsol</reimplementedby>
+        <briefdescription>
+<para>Destory kinsol objects. </para>
+        </briefdescription>
+        <detaileddescription>
+<para>Destroys the kinsol objects that are shared among KinsolSteadyStateSolvers </para>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="KinsolSteadyStateSolver.h" line="194" column="22" bodyfile="KinsolSteadyStateSolver.cpp" bodystart="92" bodyend="115"/>
+      </memberdef>
+      <memberdef kind="function" id="classrr_1_1KinsolSteadyStateSolver_1a46e1ca358f9d1a8bbfe1150a1f6cf8ed" prot="protected" static="no" const="no" explicit="no" inline="no" virt="virtual">
+        <type>void</type>
+        <definition>void rr::KinsolSteadyStateSolver::updateKinsol</definition>
+        <argsstring>()</argsstring>
+        <name>updateKinsol</name>
+        <reimplementedby refid="classrr_1_1FixedPointIteration_1abc9ebf35d6ea07b7a6d8a8798eb3d68d">updateKinsol</reimplementedby>
+        <reimplementedby refid="classrr_1_1NewtonIteration_1a6d10c08312d90016647826dd1c824ad2">updateKinsol</reimplementedby>
+        <briefdescription>
+<para>Calls methods for updating options in kinsol. </para>
+        </briefdescription>
+        <detaileddescription>
+<para>The settings configuration system in roadrunner make this particular aspect of interacting with sundials libraries a little akward.</para>
+<para>User passes in arguments like uScale and they are stored at the class level. This method passed them on to kinsol.</para>
+<para>When a user updates a setting with setValue, they are only updating the value in roadrunner. The change doesn&apos;t occur in sundials until we call the corresponding sundials function with the new value. We cannot use regular &quot;setters&quot; because they won&apos;t get called when a user changes a value. Instead, here we update all kinsol options at once, and this method is called before we call KIN_Solve. </para>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="KinsolSteadyStateSolver.h" line="202" column="22" bodyfile="KinsolSteadyStateSolver.cpp" bodystart="243" bodyend="278"/>
+      </memberdef>
+      <memberdef kind="function" id="classrr_1_1KinsolSteadyStateSolver_1a7c7a941fbf27c7a3a5326b254ee2f1b1" prot="protected" static="no" const="no" explicit="no" inline="no" virt="virtual">
+        <type>void</type>
+        <definition>void rr::KinsolSteadyStateSolver::createKinsol</definition>
+        <argsstring>()</argsstring>
+        <name>createKinsol</name>
+        <reimplementedby refid="classrr_1_1FixedPointIteration_1a9228e46a342accb7defbccd76e674b9d">createKinsol</reimplementedby>
+        <reimplementedby refid="classrr_1_1NewtonIteration_1a17436ae1ae76642be8f525addd8e2834">createKinsol</reimplementedby>
+        <briefdescription>
+<para>Initialize kinsol objects. </para>
+        </briefdescription>
+        <detaileddescription>
+<para>All subclasses require some of the same initial calls (such as N_VNew_Serial and KINCreate). </para>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="KinsolSteadyStateSolver.h" line="209" column="22" bodyfile="KinsolSteadyStateSolver.cpp" bodystart="26" bodyend="90"/>
+      </memberdef>
+      <memberdef kind="function" id="classrr_1_1KinsolSteadyStateSolver_1ad6bb33d80ec7660150167cac4aefa2ae" prot="protected" static="no" const="no" explicit="no" inline="no" virt="virtual">
+        <type>void</type>
+        <definition>void rr::KinsolSteadyStateSolver::resetSettings</definition>
+        <argsstring>() override</argsstring>
+        <name>resetSettings</name>
+        <reimplements refid="classrr_1_1Solver_1a71c8b404a40447f879b2253e7dcc3b85">resetSettings</reimplements>
+        <reimplementedby refid="classrr_1_1NewtonIteration_1aef52744c9ff9f21ad69a49b1fe8ef9c4">resetSettings</reimplementedby>
+        <briefdescription>
+<para>add settings to the Solver::settings std::map when called for the first time or reset the settings std::map back to default values when called subsequent times. </para>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="KinsolSteadyStateSolver.h" line="217" column="14" bodyfile="KinsolSteadyStateSolver.cpp" bodystart="117" bodyend="183"/>
+      </memberdef>
+      <memberdef kind="function" id="classrr_1_1KinsolSteadyStateSolver_1a6e2deeb6268b4dcf40893529abd6c192" prot="protected" static="no" const="no" explicit="no" inline="no" virt="virtual">
+        <type>void</type>
+        <definition>void rr::KinsolSteadyStateSolver::getSolverStatsFromKinsol</definition>
+        <argsstring>()</argsstring>
+        <name>getSolverStatsFromKinsol</name>
+        <reimplementedby refid="classrr_1_1NewtonIteration_1a46d2940bc5e23fa377be239f5cc21e4a">getSolverStatsFromKinsol</reimplementedby>
+        <briefdescription>
+<para>after solve() has been called, this method collects some details such as number of function evals </para>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="KinsolSteadyStateSolver.h" line="263" column="22" bodyfile="KinsolSteadyStateSolver.cpp" bodystart="185" bodyend="193"/>
+      </memberdef>
+      </sectiondef>
+    <briefdescription>
+<para>base class to steady state solvers from the Sundials package. </para>
+    </briefdescription>
+    <detaileddescription>
+<para>The steady state solver in Sundials is called Kinsol. They have multiple different strategies some which require model integration, and some that do not. </para>
+    </detaileddescription>
+    <inheritancegraph>
+      <node id="7">
+        <label>rr::LinesearchNewtonIteration</label>
+        <link refid="classrr_1_1LinesearchNewtonIteration"/>
+        <childnode refid="5" relation="public-inheritance">
+        </childnode>
+      </node>
+      <node id="1">
+        <label>rr::KinsolSteadyStateSolver</label>
+        <link refid="classrr_1_1KinsolSteadyStateSolver"/>
+        <childnode refid="2" relation="public-inheritance">
+        </childnode>
+      </node>
+      <node id="2">
+        <label>rr::SteadyStateSolver</label>
+        <link refid="classrr_1_1SteadyStateSolver"/>
+        <childnode refid="3" relation="public-inheritance">
+        </childnode>
+      </node>
+      <node id="5">
+        <label>rr::NewtonIteration</label>
+        <link refid="classrr_1_1NewtonIteration"/>
+        <childnode refid="1" relation="public-inheritance">
+        </childnode>
+      </node>
+      <node id="3">
+        <label>rr::Solver</label>
+        <link refid="classrr_1_1Solver"/>
+      </node>
+      <node id="6">
+        <label>rr::BasicNewtonIteration</label>
+        <link refid="classrr_1_1BasicNewtonIteration"/>
+        <childnode refid="5" relation="public-inheritance">
+        </childnode>
+      </node>
+      <node id="4">
+        <label>rr::FixedPointIteration</label>
+        <link refid="classrr_1_1FixedPointIteration"/>
+        <childnode refid="1" relation="public-inheritance">
+        </childnode>
+      </node>
+    </inheritancegraph>
+    <collaborationgraph>
+      <node id="1">
+        <label>rr::KinsolSteadyStateSolver</label>
+        <link refid="classrr_1_1KinsolSteadyStateSolver"/>
+        <childnode refid="2" relation="public-inheritance">
+        </childnode>
+      </node>
+      <node id="2">
+        <label>rr::SteadyStateSolver</label>
+        <link refid="classrr_1_1SteadyStateSolver"/>
+        <childnode refid="3" relation="public-inheritance">
+        </childnode>
+      </node>
+      <node id="3">
+        <label>rr::Solver</label>
+        <link refid="classrr_1_1Solver"/>
+        <childnode refid="4" relation="usage">
+          <edgelabel>mModel</edgelabel>
+        </childnode>
+      </node>
+      <node id="4">
+        <label>rr::ExecutableModel</label>
+        <link refid="classrr_1_1ExecutableModel"/>
+      </node>
+    </collaborationgraph>
+    <location file="KinsolSteadyStateSolver.h" line="44" column="5" bodyfile="KinsolSteadyStateSolver.h" bodystart="44" bodyend="295"/>
+    <listofallmembers>
+      <member refid="classrr_1_1Solver_1ad5b8ac1ef687d1a3c9f1f305cb73804d" prot="protected" virt="non-virtual"><scope>rr::KinsolSteadyStateSolver</scope><name>addSetting</name></member>
+      <member refid="classrr_1_1KinsolSteadyStateSolver_1a80807be1f440f524769e55568a3abcf2" prot="protected" virt="non-virtual"><scope>rr::KinsolSteadyStateSolver</scope><name>constraints</name></member>
+      <member refid="classrr_1_1KinsolSteadyStateSolver_1a7c7a941fbf27c7a3a5326b254ee2f1b1" prot="protected" virt="virtual"><scope>rr::KinsolSteadyStateSolver</scope><name>createKinsol</name></member>
+      <member refid="classrr_1_1Solver_1a7d58e224664ab44e56f90802d9601f01" prot="protected" virt="non-virtual"><scope>rr::KinsolSteadyStateSolver</scope><name>DescriptionMap</name></member>
+      <member refid="classrr_1_1Solver_1a7e07121f652db358045d6f7b95889ea3" prot="protected" virt="non-virtual"><scope>rr::KinsolSteadyStateSolver</scope><name>descriptions</name></member>
+      <member refid="classrr_1_1Solver_1a199de66231b25fef30d8ef2bdff80db7" prot="protected" virt="non-virtual"><scope>rr::KinsolSteadyStateSolver</scope><name>display_names_</name></member>
+      <member refid="classrr_1_1Solver_1a76b76c8ba3a31a2c6a600322c90a0452" prot="protected" virt="non-virtual"><scope>rr::KinsolSteadyStateSolver</scope><name>DisplayNameMap</name></member>
+      <member refid="classrr_1_1KinsolSteadyStateSolver_1a9ddc7acd14dad905333c11667363de66" prot="protected" virt="virtual"><scope>rr::KinsolSteadyStateSolver</scope><name>freeKinsol</name></member>
+      <member refid="classrr_1_1KinsolSteadyStateSolver_1ad3bc465ff768913724631e8d4daf62c1" prot="protected" virt="non-virtual"><scope>rr::KinsolSteadyStateSolver</scope><name>fscale</name></member>
+      <member refid="classrr_1_1KinsolSteadyStateSolver_1a6152af9e64fe79d7af756df58dcd0e5e" prot="protected" virt="non-virtual"><scope>rr::KinsolSteadyStateSolver</scope><name>funcNorm</name></member>
+      <member refid="classrr_1_1Solver_1a86067147c7631ca80d51667322f1a8f5" prot="public" virt="pure-virtual"><scope>rr::KinsolSteadyStateSolver</scope><name>getDescription</name></member>
+      <member refid="classrr_1_1Solver_1a522a881e88165986944db55a8f2da845" prot="public" virt="non-virtual"><scope>rr::KinsolSteadyStateSolver</scope><name>getDescription</name></member>
+      <member refid="classrr_1_1Solver_1a1fce02df70c95855d9d3cd7e3d352c08" prot="public" virt="non-virtual"><scope>rr::KinsolSteadyStateSolver</scope><name>getDisplayName</name></member>
+      <member refid="classrr_1_1Solver_1aff005f7e71bc73123ecbd511a77f71b6" prot="public" virt="pure-virtual"><scope>rr::KinsolSteadyStateSolver</scope><name>getHint</name></member>
+      <member refid="classrr_1_1Solver_1a4915611d49d03f0fe499bed99a05aae1" prot="public" virt="non-virtual"><scope>rr::KinsolSteadyStateSolver</scope><name>getHint</name></member>
+      <member refid="classrr_1_1KinsolSteadyStateSolver_1a5ebba0ecca346216d982d9533d32d811" prot="public" virt="non-virtual"><scope>rr::KinsolSteadyStateSolver</scope><name>getKinsolMemory</name></member>
+      <member refid="classrr_1_1Solver_1ac89194d54aaad3ecc71e1cfbbef83d15" prot="public" virt="virtual"><scope>rr::KinsolSteadyStateSolver</scope><name>getModel</name></member>
+      <member refid="classrr_1_1Solver_1a417cca64a18c63535f2091584f8fed91" prot="public" virt="pure-virtual"><scope>rr::KinsolSteadyStateSolver</scope><name>getName</name></member>
+      <member refid="classrr_1_1Solver_1abbefd0f38dfa2651c74f8abbd6d7b143" prot="public" virt="virtual"><scope>rr::KinsolSteadyStateSolver</scope><name>getNumParams</name></member>
+      <member refid="classrr_1_1Solver_1aa13e13a92531fde27fe5711790eee0f7" prot="public" virt="virtual"><scope>rr::KinsolSteadyStateSolver</scope><name>getParamDesc</name></member>
+      <member refid="classrr_1_1Solver_1afc0a667f204105aa133376144ce14c75" prot="public" virt="virtual"><scope>rr::KinsolSteadyStateSolver</scope><name>getParamDisplayName</name></member>
+      <member refid="classrr_1_1Solver_1aa604b810ab3f1a2c8bc6dfa6fc731dc2" prot="public" virt="virtual"><scope>rr::KinsolSteadyStateSolver</scope><name>getParamHint</name></member>
+      <member refid="classrr_1_1Solver_1ae2bb88ffce40a0136c86a020b4c39037" prot="public" virt="virtual"><scope>rr::KinsolSteadyStateSolver</scope><name>getParamName</name></member>
+      <member refid="classrr_1_1Solver_1ae2b13c6ae06980b14a80e8a32766dcfa" prot="public" virt="non-virtual"><scope>rr::KinsolSteadyStateSolver</scope><name>getSettings</name></member>
+      <member refid="classrr_1_1Solver_1a925e4dae5c4e3e71a2983dc58af9e550" prot="public" virt="non-virtual"><scope>rr::KinsolSteadyStateSolver</scope><name>getSettingsMap</name></member>
+      <member refid="classrr_1_1Solver_1a3f7a3671a4f2ee508fa015ed4b164213" prot="public" virt="virtual"><scope>rr::KinsolSteadyStateSolver</scope><name>getSettingsRepr</name></member>
+      <member refid="classrr_1_1KinsolSteadyStateSolver_1a953b279ea00b86a0fbd2a1e82d52d331" prot="public" virt="non-virtual"><scope>rr::KinsolSteadyStateSolver</scope><name>getSolverStats</name></member>
+      <member refid="classrr_1_1KinsolSteadyStateSolver_1a6e2deeb6268b4dcf40893529abd6c192" prot="protected" virt="virtual"><scope>rr::KinsolSteadyStateSolver</scope><name>getSolverStatsFromKinsol</name></member>
+      <member refid="classrr_1_1Solver_1a0bd064d494a0701edffca5eb67b64b2a" prot="public" virt="non-virtual"><scope>rr::KinsolSteadyStateSolver</scope><name>getType</name></member>
+      <member refid="classrr_1_1Solver_1a87339915a211b22ecd63078bb1cb7ca9" prot="public" virt="virtual"><scope>rr::KinsolSteadyStateSolver</scope><name>getValue</name></member>
+      <member refid="classrr_1_1Solver_1a83b99af970b895d62998bf90ec619168" prot="public" virt="virtual"><scope>rr::KinsolSteadyStateSolver</scope><name>getValueAsString</name></member>
+      <member refid="classrr_1_1Solver_1afc1e25855220cbe469433c70f8c44ea5" prot="public" virt="virtual"><scope>rr::KinsolSteadyStateSolver</scope><name>hasValue</name></member>
+      <member refid="classrr_1_1Solver_1ac39f2073d482cdf591d93415557c6751" prot="protected" virt="non-virtual"><scope>rr::KinsolSteadyStateSolver</scope><name>HintMap</name></member>
+      <member refid="classrr_1_1Solver_1a39049af7a03fd00b1021c1ce9a9691fc" prot="protected" virt="non-virtual"><scope>rr::KinsolSteadyStateSolver</scope><name>hints</name></member>
+      <member refid="classrr_1_1KinsolSteadyStateSolver_1aa9d3cb9634ec030d4755c863145a6e5e" prot="public" virt="non-virtual"><scope>rr::KinsolSteadyStateSolver</scope><name>kinsolDyDtFcn</name></member>
+      <member refid="classrr_1_1KinsolSteadyStateSolver_1a493e4b60babe10d121bd4d960cede006" prot="public" virt="non-virtual"><scope>rr::KinsolSteadyStateSolver</scope><name>KinsolSteadyStateSolver</name></member>
+      <member refid="classrr_1_1KinsolSteadyStateSolver_1a7cc99b1d285e7e1afae54f217135d0b5" prot="public" virt="non-virtual"><scope>rr::KinsolSteadyStateSolver</scope><name>KinsolSteadyStateSolver</name></member>
+      <member refid="classrr_1_1SteadyStateSolver_1a613605d22b7da35a526473d107ca65bd" prot="public" virt="virtual"><scope>rr::KinsolSteadyStateSolver</scope><name>loadConfigSettings</name></member>
+      <member refid="classrr_1_1KinsolSteadyStateSolver_1a64033039dc53f114855985463ad108f6" prot="protected" virt="non-virtual"><scope>rr::KinsolSteadyStateSolver</scope><name>mKinsol_Memory</name></member>
+      <member refid="classrr_1_1Solver_1ab60e7640a8c959558a144d9d7ee45515" prot="protected" virt="non-virtual"><scope>rr::KinsolSteadyStateSolver</scope><name>mModel</name></member>
+      <member refid="classrr_1_1KinsolSteadyStateSolver_1a5f5802fe0c668fe5569bfb163748a621" prot="protected" virt="non-virtual"><scope>rr::KinsolSteadyStateSolver</scope><name>mStateVector</name></member>
+      <member refid="classrr_1_1KinsolSteadyStateSolver_1a5587c29038218f7e3d8f83b32a3eaf80" prot="protected" virt="non-virtual"><scope>rr::KinsolSteadyStateSolver</scope><name>nSolverIterations</name></member>
+      <member refid="classrr_1_1KinsolSteadyStateSolver_1a0d20709e7f23755cc14443671be182ec" prot="protected" virt="non-virtual"><scope>rr::KinsolSteadyStateSolver</scope><name>numBacktrackOps</name></member>
+      <member refid="classrr_1_1KinsolSteadyStateSolver_1a7d293e46d24822ab546b43b747ffae26" prot="protected" virt="non-virtual"><scope>rr::KinsolSteadyStateSolver</scope><name>numBetaCondFails</name></member>
+      <member refid="classrr_1_1KinsolSteadyStateSolver_1a94eae6c3534054b7fff476be111133ca" prot="protected" virt="non-virtual"><scope>rr::KinsolSteadyStateSolver</scope><name>numFuncEvals</name></member>
+      <member refid="classrr_1_1KinsolSteadyStateSolver_1a2c01c0251e55420afb73d327be298f5e" prot="protected" virt="non-virtual"><scope>rr::KinsolSteadyStateSolver</scope><name>numJacEvals</name></member>
+      <member refid="classrr_1_1KinsolSteadyStateSolver_1a21927581610717145d906b309d5c8c1c" prot="protected" virt="non-virtual"><scope>rr::KinsolSteadyStateSolver</scope><name>numJtimesEvals</name></member>
+      <member refid="classrr_1_1KinsolSteadyStateSolver_1a2b804980c88ea178c357dcbc36083d0a" prot="protected" virt="non-virtual"><scope>rr::KinsolSteadyStateSolver</scope><name>numLinConvFails</name></member>
+      <member refid="classrr_1_1KinsolSteadyStateSolver_1a8db0a7fb478dac8c9f7609660bb8b383" prot="protected" virt="non-virtual"><scope>rr::KinsolSteadyStateSolver</scope><name>numLinFuncEvals</name></member>
+      <member refid="classrr_1_1KinsolSteadyStateSolver_1a84e0685146b9494801ac7eb410e80b79" prot="protected" virt="non-virtual"><scope>rr::KinsolSteadyStateSolver</scope><name>numLinIters</name></member>
+      <member refid="classrr_1_1KinsolSteadyStateSolver_1aba0fbf91989bf1c45393e685480d9e2e" prot="protected" virt="non-virtual"><scope>rr::KinsolSteadyStateSolver</scope><name>numNolinSolvIters</name></member>
+      <member refid="classrr_1_1KinsolSteadyStateSolver_1a2155651618977ffc99020b2c6a6459a0" prot="protected" virt="non-virtual"><scope>rr::KinsolSteadyStateSolver</scope><name>numNonlinSolvIters</name></member>
+      <member refid="classrr_1_1KinsolSteadyStateSolver_1a06d1f105ae874107693221ec90b50bce" prot="protected" virt="non-virtual"><scope>rr::KinsolSteadyStateSolver</scope><name>numPrecEvals</name></member>
+      <member refid="classrr_1_1KinsolSteadyStateSolver_1a879e57a3ff26a4769d399933c47cfeb4" prot="protected" virt="non-virtual"><scope>rr::KinsolSteadyStateSolver</scope><name>numPrecSolves</name></member>
+      <member refid="classrr_1_1KinsolSteadyStateSolver_1a4588d8d7266adc7df1f7ed6cacac84d7" prot="public" virt="non-virtual"><scope>rr::KinsolSteadyStateSolver</scope><name>printSolverStats</name></member>
+      <member refid="classrr_1_1KinsolSteadyStateSolver_1ad6bb33d80ec7660150167cac4aefa2ae" prot="protected" virt="virtual"><scope>rr::KinsolSteadyStateSolver</scope><name>resetSettings</name></member>
+      <member refid="classrr_1_1KinsolSteadyStateSolver_1af702594542f53277aa41afcea984e287" prot="public" virt="non-virtual"><scope>rr::KinsolSteadyStateSolver</scope><name>setFScale</name></member>
+      <member refid="classrr_1_1KinsolSteadyStateSolver_1a42a0f373ffcc60e88cd56f023aa0b481" prot="public" virt="non-virtual"><scope>rr::KinsolSteadyStateSolver</scope><name>setFScale</name></member>
+      <member refid="classrr_1_1Solver_1a44a22cf0edead17a9cc923d87dcc063e" prot="protected" virt="non-virtual"><scope>rr::KinsolSteadyStateSolver</scope><name>settings</name></member>
+      <member refid="classrr_1_1Solver_1adcbacd57e2871a83bb9c4d7a4038a069" prot="protected" virt="non-virtual"><scope>rr::KinsolSteadyStateSolver</scope><name>SettingsList</name></member>
+      <member refid="classrr_1_1Solver_1a61c0fd04ad69fc173c51dac3bdde2431" prot="protected" virt="non-virtual"><scope>rr::KinsolSteadyStateSolver</scope><name>SettingsMap</name></member>
+      <member refid="classrr_1_1Solver_1a37b032d8755eaccd3480531bdc2a4596" prot="public" virt="virtual"><scope>rr::KinsolSteadyStateSolver</scope><name>settingsPyDictRepr</name></member>
+      <member refid="classrr_1_1KinsolSteadyStateSolver_1a6b80db848ae533f85d9696ac82c0f07d" prot="public" virt="non-virtual"><scope>rr::KinsolSteadyStateSolver</scope><name>setUScale</name></member>
+      <member refid="classrr_1_1KinsolSteadyStateSolver_1af82dcd66c4a8143f8bcc2ff765d74e07" prot="public" virt="non-virtual"><scope>rr::KinsolSteadyStateSolver</scope><name>setUScale</name></member>
+      <member refid="classrr_1_1Solver_1a18fa004a818506c15d47fa28015039c6" prot="public" virt="virtual"><scope>rr::KinsolSteadyStateSolver</scope><name>setValue</name></member>
+      <member refid="classrr_1_1SteadyStateSolver_1ae7ef6c028ac70664cb37c2cb69e546a2" prot="public" virt="pure-virtual"><scope>rr::KinsolSteadyStateSolver</scope><name>solve</name></member>
+      <member refid="classrr_1_1KinsolSteadyStateSolver_1a7523fec309a03e68bd30d2cf604510f3" prot="public" virt="non-virtual"><scope>rr::KinsolSteadyStateSolver</scope><name>solveForSteadyState</name></member>
+      <member refid="classrr_1_1SteadyStateSolver_1a04bba4a342cc7197750f080d41d439e5" prot="public" virt="non-virtual"><scope>rr::KinsolSteadyStateSolver</scope><name>Solver</name></member>
+      <member refid="classrr_1_1SteadyStateSolver_1aa0a07553e368f0be33b9bfc429782a97" prot="public" virt="non-virtual"><scope>rr::KinsolSteadyStateSolver</scope><name>Solver</name></member>
+      <member refid="classrr_1_1Solver_1aa0a07553e368f0be33b9bfc429782a97" prot="public" virt="non-virtual" ambiguityscope="rr::Solver::"><scope>rr::KinsolSteadyStateSolver</scope><name>Solver</name></member>
+      <member refid="classrr_1_1KinsolSteadyStateSolver_1a1a51e6de634532f7e73051a6129940ae" prot="protected" virt="non-virtual"><scope>rr::KinsolSteadyStateSolver</scope><name>solverStats</name></member>
+      <member refid="classrr_1_1Solver_1a99f48947491d7cd36c68cebba53915fe" prot="protected" virt="non-virtual"><scope>rr::KinsolSteadyStateSolver</scope><name>sorted_settings</name></member>
+      <member refid="classrr_1_1KinsolSteadyStateSolver_1aed41325ac8469d5b24fcd55df1eeb52f" prot="protected" virt="non-virtual"><scope>rr::KinsolSteadyStateSolver</scope><name>stepLength</name></member>
+      <member refid="classrr_1_1KinsolSteadyStateSolver_1a49ceabb3db818eabcf56d77d28d60d6d" prot="public" virt="virtual"><scope>rr::KinsolSteadyStateSolver</scope><name>syncWithModel</name></member>
+      <member refid="classrr_1_1SteadyStateSolver_1a4307ed20fd04adf61cc8b4ef9a88f747" prot="public" virt="virtual"><scope>rr::KinsolSteadyStateSolver</scope><name>toRepr</name></member>
+      <member refid="classrr_1_1SteadyStateSolver_1aaf40e2ae58d2f4fef80a00f5bb7fd413" prot="public" virt="virtual"><scope>rr::KinsolSteadyStateSolver</scope><name>toString</name></member>
+      <member refid="classrr_1_1KinsolSteadyStateSolver_1a46e1ca358f9d1a8bbfe1150a1f6cf8ed" prot="protected" virt="virtual"><scope>rr::KinsolSteadyStateSolver</scope><name>updateKinsol</name></member>
+      <member refid="classrr_1_1Solver_1a19315632eeab070bdbfe2fa4ae66ca6c" prot="public" virt="non-virtual"><scope>rr::KinsolSteadyStateSolver</scope><name>updateSettings</name></member>
+      <member refid="classrr_1_1KinsolSteadyStateSolver_1ab0bf299b6530378feb374d92a58a959e" prot="protected" virt="non-virtual"><scope>rr::KinsolSteadyStateSolver</scope><name>uscale</name></member>
+      <member refid="classrr_1_1KinsolSteadyStateSolver_1ab8569c93c7aa13a0656919d692bc08fe" prot="public" virt="non-virtual"><scope>rr::KinsolSteadyStateSolver</scope><name>~KinsolSteadyStateSolver</name></member>
+      <member refid="classrr_1_1Solver_1a0e6558e376aee7e4d3a9b69b8c3ae08b" prot="public" virt="virtual"><scope>rr::KinsolSteadyStateSolver</scope><name>~Solver</name></member>
+      <member refid="classrr_1_1SteadyStateSolver_1aaa617ea8e7cbbd464dd9ff44220c65d7" prot="public" virt="non-virtual"><scope>rr::KinsolSteadyStateSolver</scope><name>~SteadyStateSolver</name></member>
+    </listofallmembers>
+  </compounddef>
+</doxygen>

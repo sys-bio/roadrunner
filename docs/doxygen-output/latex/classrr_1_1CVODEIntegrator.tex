@@ -20,42 +20,42 @@ Inheritance diagram for rr\+::C\+V\+O\+D\+E\+Integrator\+:\begin{figure}[H]
 \item 
 \mbox{\hyperlink{classrr_1_1CVODEIntegrator_ad83f14144a59c66b5feac18d37a22060}{C\+V\+O\+D\+E\+Integrator}} (\mbox{\hyperlink{classrr_1_1ExecutableModel}{Executable\+Model}} $\ast$o\+Model)
 \begin{DoxyCompactList}\small\item\em Constructor\+: takes an executable model, does not own the pointer. \end{DoxyCompactList}\item 
-virtual \mbox{\hyperlink{classrr_1_1CVODEIntegrator_aa2297bb73f99304ea620312f53bc2eb7}{$\sim$\+C\+V\+O\+D\+E\+Integrator}} ()
+\mbox{\hyperlink{classrr_1_1CVODEIntegrator_ad60746a373a8de7a5163d56475bfd55c}{$\sim$\+C\+V\+O\+D\+E\+Integrator}} () override
 \begin{DoxyCompactList}\small\item\em Destructor. \end{DoxyCompactList}\item 
-virtual void \mbox{\hyperlink{classrr_1_1CVODEIntegrator_ae099098e43b2219fbc4e29af10d22c84}{sync\+With\+Model}} (\mbox{\hyperlink{classrr_1_1ExecutableModel}{Executable\+Model}} $\ast$m)
+void \mbox{\hyperlink{classrr_1_1CVODEIntegrator_a6ffad2eceae5fda58900a1bbaa738eff}{sync\+With\+Model}} (\mbox{\hyperlink{classrr_1_1ExecutableModel}{Executable\+Model}} $\ast$m) override
 \begin{DoxyCompactList}\small\item\em Called whenever a new model is loaded to allow integrator to reset internal state. \end{DoxyCompactList}\item 
-\mbox{\Hypertarget{classrr_1_1CVODEIntegrator_a182d96d39d04ef49f3fa085ade88bdd9}\label{classrr_1_1CVODEIntegrator_a182d96d39d04ef49f3fa085ade88bdd9}} 
-void {\bfseries load\+Config\+Settings} ()
-\item 
-void \mbox{\hyperlink{classrr_1_1CVODEIntegrator_ad5f73de9630fda4eac2816c49319662a}{load\+S\+B\+M\+L\+Settings}} (const std\+::string \&filename)
+\mbox{\Hypertarget{classrr_1_1CVODEIntegrator_ac43da51656919e15d30f450e81b3887b}\label{classrr_1_1CVODEIntegrator_ac43da51656919e15d30f450e81b3887b}} 
+void \mbox{\hyperlink{classrr_1_1CVODEIntegrator_ac43da51656919e15d30f450e81b3887b}{load\+Config\+Settings}} () override
+\begin{DoxyCompactList}\small\item\em It looks like this method only get used inside reset\+Settings. \end{DoxyCompactList}\item 
+void \mbox{\hyperlink{classrr_1_1CVODEIntegrator_acaa6878fb0d972aa96dba554a7bc65a4}{load\+S\+B\+M\+L\+Settings}} (const std\+::string \&filename) override
 \begin{DoxyCompactList}\small\item\em Load an S\+B\+ML settings file and apply the configuration options. \end{DoxyCompactList}\item 
-std\+::string \mbox{\hyperlink{classrr_1_1CVODEIntegrator_a8cf0e265974ca6cfba2b22d98c77801a}{get\+Name}} () const
+std\+::string \mbox{\hyperlink{classrr_1_1CVODEIntegrator_aa889b08549036792918c41e88e2097f4}{get\+Name}} () const override
 \begin{DoxyCompactList}\small\item\em Get the name for this integrator. \end{DoxyCompactList}\item 
-std\+::string \mbox{\hyperlink{classrr_1_1CVODEIntegrator_a41af2579ae0fbca95fdf2eb36990e3ae}{get\+Description}} () const
+std\+::string \mbox{\hyperlink{classrr_1_1CVODEIntegrator_a1c6a393504cc85f2dc236abd0cb5577a}{get\+Description}} () const override
 \begin{DoxyCompactList}\small\item\em Get the description for this integrator. \end{DoxyCompactList}\item 
-std\+::string \mbox{\hyperlink{classrr_1_1CVODEIntegrator_a89b7e1161329480ae2fe84e7f2a8ca1e}{get\+Hint}} () const
+std\+::string \mbox{\hyperlink{classrr_1_1CVODEIntegrator_addde67b3639fe1347efc2a37bbfdd60e}{get\+Hint}} () const override
 \begin{DoxyCompactList}\small\item\em Get the hint for this integrator. \end{DoxyCompactList}\item 
-Integration\+Method \mbox{\hyperlink{classrr_1_1CVODEIntegrator_a0f96e9ef8da207e68b4389631ce2eb26}{get\+Integration\+Method}} () const
+Integration\+Method \mbox{\hyperlink{classrr_1_1CVODEIntegrator_a7cc1f774e58f179fb2e69c515c9f2a1f}{get\+Integration\+Method}} () const override
 \begin{DoxyCompactList}\small\item\em Always deterministic for C\+V\+O\+DE. \end{DoxyCompactList}\item 
-void \mbox{\hyperlink{classrr_1_1CVODEIntegrator_acd45a44a9da5910aa9a02085372ace0e}{set\+Value}} (std\+::string setting, const \mbox{\hyperlink{classrr_1_1Variant}{Variant}} \&value)
+void \mbox{\hyperlink{classrr_1_1CVODEIntegrator_a2ba8be5c51129d05dd8ab5315dc12edc}{set\+Value}} (const std\+::string \&setting, \mbox{\hyperlink{classrr_1_1Setting}{Setting}} value) override
 \begin{DoxyCompactList}\small\item\em Sets the value of an integrator setting (e.\+g. absolute\+\_\+tolerance) \end{DoxyCompactList}\item 
-void \mbox{\hyperlink{classrr_1_1CVODEIntegrator_a8d0e25e6170b3f017ada84f4bdf148ab}{set\+Individual\+Tolerance}} (string sid, double value)
+void \mbox{\hyperlink{classrr_1_1CVODEIntegrator_a57e9e604b2c2ba388a3fe219e87c326c}{set\+Individual\+Tolerance}} (std\+::string sid, double value) override
 \begin{DoxyCompactList}\small\item\em Sets tolerance for individual species. \end{DoxyCompactList}\item 
-void \mbox{\hyperlink{classrr_1_1CVODEIntegrator_a6b4a601f240b60e29cccc73eddb837c0}{set\+Concentration\+Tolerance}} (const \mbox{\hyperlink{classrr_1_1Variant}{Variant}} \&value)
+void \mbox{\hyperlink{classrr_1_1CVODEIntegrator_a386a755bab0c72a5d93a7e09ba95fafe}{set\+Concentration\+Tolerance}} (\mbox{\hyperlink{classrr_1_1Setting}{Setting}} value) override
 \begin{DoxyCompactList}\small\item\em Sets tolerance based on concentration of species. \end{DoxyCompactList}\item 
-std\+::vector$<$ double $>$ \mbox{\hyperlink{classrr_1_1CVODEIntegrator_ab4c042d6db38872117a3c0196c3af9cf}{get\+Concentration\+Tolerance}} ()
+std\+::vector$<$ double $>$ \mbox{\hyperlink{classrr_1_1CVODEIntegrator_a7f68228148cf04688881f636a34deb48}{get\+Concentration\+Tolerance}} () override
 \begin{DoxyCompactList}\small\item\em Gets tolerance based on concentration of species. \end{DoxyCompactList}\item 
-void \mbox{\hyperlink{classrr_1_1CVODEIntegrator_a455f08dc01b03a527482edc3d2db95b1}{reset\+Settings}} ()
+void \mbox{\hyperlink{classrr_1_1CVODEIntegrator_ac18581f5c000940449032e166ef48e79}{reset\+Settings}} () override
 \begin{DoxyCompactList}\small\item\em Reset all integrator settings to their respective default values. \end{DoxyCompactList}\item 
-void \mbox{\hyperlink{classrr_1_1CVODEIntegrator_afec3efa20453cabe7fd826a1a27fd920}{tweak\+Tolerances}} ()
+void \mbox{\hyperlink{classrr_1_1CVODEIntegrator_a137ada502a737819ca3ad78d0573c35d}{tweak\+Tolerances}} () override
 \begin{DoxyCompactList}\small\item\em Fix tolerances for S\+B\+ML tests. \end{DoxyCompactList}\item 
-double \mbox{\hyperlink{classrr_1_1CVODEIntegrator_acab8c62349294152e2b331bea7585166}{integrate}} (double t0, double tf)
+double \mbox{\hyperlink{classrr_1_1CVODEIntegrator_a1e29429af0ec90aa2f47be15bbe8856c}{integrate}} (double t0, double hstep) override
 \begin{DoxyCompactList}\small\item\em Main integration routine. \end{DoxyCompactList}\item 
-void \mbox{\hyperlink{classrr_1_1CVODEIntegrator_ad845bc1acfbeef03f374413928eaa3ee}{restart}} (double time\+Start)
+void \mbox{\hyperlink{classrr_1_1CVODEIntegrator_acde5e92ec049c105b7d22b0f125d94a9}{restart}} (double time\+Start) override
 \begin{DoxyCompactList}\small\item\em Reset time to zero and reinitialize model. \end{DoxyCompactList}\item 
-Integrator\+Listener\+Ptr \mbox{\hyperlink{classrr_1_1CVODEIntegrator_ad1c04bdb1c00267d1a0f6b2cc5143b73}{get\+Listener}} ()
+Integrator\+Listener\+Ptr \mbox{\hyperlink{classrr_1_1CVODEIntegrator_a480b8dad2e4dabcdb8fec1439ab7c5f7}{get\+Listener}} () override
 \begin{DoxyCompactList}\small\item\em Gets the integrator listener. \end{DoxyCompactList}\item 
-void \mbox{\hyperlink{classrr_1_1CVODEIntegrator_a4dc5fe6ecf244b0a0cac214db29d4914}{set\+Listener}} (Integrator\+Listener\+Ptr)
+void \mbox{\hyperlink{classrr_1_1CVODEIntegrator_aca2901ed7b5a503e054fd18e8f0392ad}{set\+Listener}} (Integrator\+Listener\+Ptr) override
 \begin{DoxyCompactList}\small\item\em Sets the integrator listener. \end{DoxyCompactList}\item 
 void \mbox{\hyperlink{classrr_1_1CVODEIntegrator_a7f67f51344e7a63ac6a84f67046dfbc5}{check\+Type}} () const
 \begin{DoxyCompactList}\small\item\em Does a RT type check which throws if it fails, E\+V\+EN IF R\+T\+TI IS D\+I\+S\+A\+B\+L\+ED. \end{DoxyCompactList}\item 
@@ -64,12 +64,21 @@ void \mbox{\hyperlink{classrr_1_1CVODEIntegrator_afdbcc5be9fb361ffdedf2364118b87
 void \mbox{\hyperlink{classrr_1_1CVODEIntegrator_a8f2a01ce70a6aa67e652b9d9dde9be08}{check\+Index}} (int index, int size) const
 \begin{DoxyCompactList}\small\item\em Does a index check which throws if it is out of bound. \end{DoxyCompactList}\item 
 std\+::string \mbox{\hyperlink{classrr_1_1CVODEIntegrator_a38290b6c0c66556fed4a9e673c6ddd69}{To\+String}} (int val) const
-\begin{DoxyCompactList}\small\item\em Converts integer to string for error print. \end{DoxyCompactList}\item 
+\begin{DoxyCompactList}\small\item\em Converts integer to std\+::string for error print. \end{DoxyCompactList}\item 
 std\+::string \mbox{\hyperlink{classrr_1_1CVODEIntegrator_a5f7253ee990e699dbc5affe54097fe5a}{To\+String}} (size\+\_\+t val) const
-\begin{DoxyCompactList}\small\item\em Converts size\+\_\+t to string for error print. \end{DoxyCompactList}\item 
+\begin{DoxyCompactList}\small\item\em Converts size\+\_\+t to std\+::string for error print. \end{DoxyCompactList}\item 
 \mbox{\Hypertarget{classrr_1_1CVODEIntegrator_aaaec91efc64a4d2e422276daaba29f96}\label{classrr_1_1CVODEIntegrator_aaaec91efc64a4d2e422276daaba29f96}} 
 std\+::string \mbox{\hyperlink{classrr_1_1CVODEIntegrator_aaaec91efc64a4d2e422276daaba29f96}{cvode\+Decode\+Error}} (int cvode\+Error, bool ex\+Info=true)
-\begin{DoxyCompactList}\small\item\em decode the cvode error code to a string \end{DoxyCompactList}\end{DoxyCompactItemize}
+\begin{DoxyCompactList}\small\item\em decode the cvode error code to a std\+::string \end{DoxyCompactList}\item 
+\mbox{\Hypertarget{classrr_1_1CVODEIntegrator_a20f0ef30d096122a556f8690b81d7ef0}\label{classrr_1_1CVODEIntegrator_a20f0ef30d096122a556f8690b81d7ef0}} 
+\mbox{\hyperlink{CVODEIntegrator_8h_a8a91260811ab3718acff6bc5bd55d374}{N\+\_\+\+Vector}} \mbox{\hyperlink{classrr_1_1CVODEIntegrator_a20f0ef30d096122a556f8690b81d7ef0}{get\+State\+Vector}} () const
+\begin{DoxyCompactList}\small\item\em getter for the internal state std\+::vector \end{DoxyCompactList}\item 
+\mbox{\Hypertarget{classrr_1_1CVODEIntegrator_a72452ef342616919777874ba32dcd1c3}\label{classrr_1_1CVODEIntegrator_a72452ef342616919777874ba32dcd1c3}} 
+S\+U\+N\+Nonlinear\+Solver \mbox{\hyperlink{classrr_1_1CVODEIntegrator_a72452ef342616919777874ba32dcd1c3}{get\+Solver}} () const
+\begin{DoxyCompactList}\small\item\em getter for the internal Sundials linear solver object \end{DoxyCompactList}\item 
+\mbox{\Hypertarget{classrr_1_1CVODEIntegrator_ad3ad4d2d9d49bce33f8d34d177ff703a}\label{classrr_1_1CVODEIntegrator_ad3ad4d2d9d49bce33f8d34d177ff703a}} 
+void $\ast$ \mbox{\hyperlink{classrr_1_1CVODEIntegrator_ad3ad4d2d9d49bce33f8d34d177ff703a}{get\+Cvode\+Memory}} () const
+\begin{DoxyCompactList}\small\item\em getter for the internal C\+Vode memory buffer \end{DoxyCompactList}\end{DoxyCompactItemize}
 \doxysubsection*{Static Public Member Functions}
 \begin{DoxyCompactItemize}
 \item 
@@ -104,7 +113,7 @@ W\+BC, E\+TS, M\+TK  Provides a wrapper around C\+V\+O\+DE from the S\+U\+N\+D\+
 \index{rr::CVODEIntegrator@{rr::CVODEIntegrator}!CVODEIntegrator@{CVODEIntegrator}}
 \index{CVODEIntegrator@{CVODEIntegrator}!rr::CVODEIntegrator@{rr::CVODEIntegrator}}
 \doxysubsubsection{\texorpdfstring{CVODEIntegrator()}{CVODEIntegrator()}}
-{\footnotesize\ttfamily rr\+::\+C\+V\+O\+D\+E\+Integrator\+::\+C\+V\+O\+D\+E\+Integrator (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{classrr_1_1ExecutableModel}{Executable\+Model}} $\ast$}]{o\+Model }\end{DoxyParamCaption})}
+{\footnotesize\ttfamily rr\+::\+C\+V\+O\+D\+E\+Integrator\+::\+C\+V\+O\+D\+E\+Integrator (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{classrr_1_1ExecutableModel}{Executable\+Model}} $\ast$}]{o\+Model }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [explicit]}}
 
 
 
@@ -113,11 +122,11 @@ Constructor\+: takes an executable model, does not own the pointer.
 \begin{DoxyAuthor}{Author}
 W\+BC, E\+TS, M\+TK 
 \end{DoxyAuthor}
-\mbox{\Hypertarget{classrr_1_1CVODEIntegrator_aa2297bb73f99304ea620312f53bc2eb7}\label{classrr_1_1CVODEIntegrator_aa2297bb73f99304ea620312f53bc2eb7}} 
+\mbox{\Hypertarget{classrr_1_1CVODEIntegrator_ad60746a373a8de7a5163d56475bfd55c}\label{classrr_1_1CVODEIntegrator_ad60746a373a8de7a5163d56475bfd55c}} 
 \index{rr::CVODEIntegrator@{rr::CVODEIntegrator}!````~CVODEIntegrator@{$\sim$CVODEIntegrator}}
 \index{````~CVODEIntegrator@{$\sim$CVODEIntegrator}!rr::CVODEIntegrator@{rr::CVODEIntegrator}}
 \doxysubsubsection{\texorpdfstring{$\sim$CVODEIntegrator()}{~CVODEIntegrator()}}
-{\footnotesize\ttfamily rr\+::\+C\+V\+O\+D\+E\+Integrator\+::$\sim$\+C\+V\+O\+D\+E\+Integrator (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [virtual]}}
+{\footnotesize\ttfamily rr\+::\+C\+V\+O\+D\+E\+Integrator\+::$\sim$\+C\+V\+O\+D\+E\+Integrator (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [override]}}
 
 
 
@@ -168,11 +177,11 @@ Does a size check which throws if it fails.
 \begin{DoxyAuthor}{Author}
 FY 
 \end{DoxyAuthor}
-\mbox{\Hypertarget{classrr_1_1CVODEIntegrator_ab4c042d6db38872117a3c0196c3af9cf}\label{classrr_1_1CVODEIntegrator_ab4c042d6db38872117a3c0196c3af9cf}} 
+\mbox{\Hypertarget{classrr_1_1CVODEIntegrator_a7f68228148cf04688881f636a34deb48}\label{classrr_1_1CVODEIntegrator_a7f68228148cf04688881f636a34deb48}} 
 \index{rr::CVODEIntegrator@{rr::CVODEIntegrator}!getConcentrationTolerance@{getConcentrationTolerance}}
 \index{getConcentrationTolerance@{getConcentrationTolerance}!rr::CVODEIntegrator@{rr::CVODEIntegrator}}
 \doxysubsubsection{\texorpdfstring{getConcentrationTolerance()}{getConcentrationTolerance()}}
-{\footnotesize\ttfamily vector$<$ double $>$ rr\+::\+C\+V\+O\+D\+E\+Integrator\+::get\+Concentration\+Tolerance (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [virtual]}}
+{\footnotesize\ttfamily std\+::vector$<$ double $>$ rr\+::\+C\+V\+O\+D\+E\+Integrator\+::get\+Concentration\+Tolerance (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [override]}, {\ttfamily [virtual]}}
 
 
 
@@ -224,11 +233,11 @@ Get the name for this integrator.
 \begin{DoxyAuthor}{Author}
 J\+KM 
 \end{DoxyAuthor}
-\mbox{\Hypertarget{classrr_1_1CVODEIntegrator_a41af2579ae0fbca95fdf2eb36990e3ae}\label{classrr_1_1CVODEIntegrator_a41af2579ae0fbca95fdf2eb36990e3ae}} 
+\mbox{\Hypertarget{classrr_1_1CVODEIntegrator_a1c6a393504cc85f2dc236abd0cb5577a}\label{classrr_1_1CVODEIntegrator_a1c6a393504cc85f2dc236abd0cb5577a}} 
 \index{rr::CVODEIntegrator@{rr::CVODEIntegrator}!getDescription@{getDescription}}
 \index{getDescription@{getDescription}!rr::CVODEIntegrator@{rr::CVODEIntegrator}}
 \doxysubsubsection{\texorpdfstring{getDescription()}{getDescription()}}
-{\footnotesize\ttfamily std\+::string rr\+::\+C\+V\+O\+D\+E\+Integrator\+::get\+Description (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption}) const\hspace{0.3cm}{\ttfamily [virtual]}}
+{\footnotesize\ttfamily std\+::string rr\+::\+C\+V\+O\+D\+E\+Integrator\+::get\+Description (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption}) const\hspace{0.3cm}{\ttfamily [override]}, {\ttfamily [virtual]}}
 
 
 
@@ -238,17 +247,17 @@ Get the description for this integrator.
 W\+BC 
 \end{DoxyAuthor}
 \begin{DoxyNote}{Note}
-Delegates to \mbox{\hyperlink{classrr_1_1CVODEIntegrator_a41af2579ae0fbca95fdf2eb36990e3ae}{get\+Description}} 
+Delegates to \mbox{\hyperlink{classrr_1_1CVODEIntegrator_a1c6a393504cc85f2dc236abd0cb5577a}{get\+Description}} 
 \end{DoxyNote}
 
 
 Implements \mbox{\hyperlink{classrr_1_1Solver_a86067147c7631ca80d51667322f1a8f5}{rr\+::\+Solver}}.
 
-\mbox{\Hypertarget{classrr_1_1CVODEIntegrator_a89b7e1161329480ae2fe84e7f2a8ca1e}\label{classrr_1_1CVODEIntegrator_a89b7e1161329480ae2fe84e7f2a8ca1e}} 
+\mbox{\Hypertarget{classrr_1_1CVODEIntegrator_addde67b3639fe1347efc2a37bbfdd60e}\label{classrr_1_1CVODEIntegrator_addde67b3639fe1347efc2a37bbfdd60e}} 
 \index{rr::CVODEIntegrator@{rr::CVODEIntegrator}!getHint@{getHint}}
 \index{getHint@{getHint}!rr::CVODEIntegrator@{rr::CVODEIntegrator}}
 \doxysubsubsection{\texorpdfstring{getHint()}{getHint()}}
-{\footnotesize\ttfamily std\+::string rr\+::\+C\+V\+O\+D\+E\+Integrator\+::get\+Hint (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption}) const\hspace{0.3cm}{\ttfamily [virtual]}}
+{\footnotesize\ttfamily std\+::string rr\+::\+C\+V\+O\+D\+E\+Integrator\+::get\+Hint (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption}) const\hspace{0.3cm}{\ttfamily [override]}, {\ttfamily [virtual]}}
 
 
 
@@ -258,17 +267,17 @@ Get the hint for this integrator.
 W\+BC 
 \end{DoxyAuthor}
 \begin{DoxyNote}{Note}
-Delegates to \mbox{\hyperlink{classrr_1_1CVODEIntegrator_a89b7e1161329480ae2fe84e7f2a8ca1e}{get\+Hint}} 
+Delegates to \mbox{\hyperlink{classrr_1_1CVODEIntegrator_addde67b3639fe1347efc2a37bbfdd60e}{get\+Hint}} 
 \end{DoxyNote}
 
 
 Implements \mbox{\hyperlink{classrr_1_1Solver_aff005f7e71bc73123ecbd511a77f71b6}{rr\+::\+Solver}}.
 
-\mbox{\Hypertarget{classrr_1_1CVODEIntegrator_a0f96e9ef8da207e68b4389631ce2eb26}\label{classrr_1_1CVODEIntegrator_a0f96e9ef8da207e68b4389631ce2eb26}} 
+\mbox{\Hypertarget{classrr_1_1CVODEIntegrator_a7cc1f774e58f179fb2e69c515c9f2a1f}\label{classrr_1_1CVODEIntegrator_a7cc1f774e58f179fb2e69c515c9f2a1f}} 
 \index{rr::CVODEIntegrator@{rr::CVODEIntegrator}!getIntegrationMethod@{getIntegrationMethod}}
 \index{getIntegrationMethod@{getIntegrationMethod}!rr::CVODEIntegrator@{rr::CVODEIntegrator}}
 \doxysubsubsection{\texorpdfstring{getIntegrationMethod()}{getIntegrationMethod()}}
-{\footnotesize\ttfamily Integrator\+::\+Integration\+Method rr\+::\+C\+V\+O\+D\+E\+Integrator\+::get\+Integration\+Method (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption}) const\hspace{0.3cm}{\ttfamily [virtual]}}
+{\footnotesize\ttfamily Integrator\+::\+Integration\+Method rr\+::\+C\+V\+O\+D\+E\+Integrator\+::get\+Integration\+Method (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption}) const\hspace{0.3cm}{\ttfamily [override]}, {\ttfamily [virtual]}}
 
 
 
@@ -281,11 +290,11 @@ W\+BC, E\+TS, M\+TK
 
 Implements \mbox{\hyperlink{classrr_1_1Integrator}{rr\+::\+Integrator}}.
 
-\mbox{\Hypertarget{classrr_1_1CVODEIntegrator_ad1c04bdb1c00267d1a0f6b2cc5143b73}\label{classrr_1_1CVODEIntegrator_ad1c04bdb1c00267d1a0f6b2cc5143b73}} 
+\mbox{\Hypertarget{classrr_1_1CVODEIntegrator_a480b8dad2e4dabcdb8fec1439ab7c5f7}\label{classrr_1_1CVODEIntegrator_a480b8dad2e4dabcdb8fec1439ab7c5f7}} 
 \index{rr::CVODEIntegrator@{rr::CVODEIntegrator}!getListener@{getListener}}
 \index{getListener@{getListener}!rr::CVODEIntegrator@{rr::CVODEIntegrator}}
 \doxysubsubsection{\texorpdfstring{getListener()}{getListener()}}
-{\footnotesize\ttfamily Integrator\+Listener\+Ptr rr\+::\+C\+V\+O\+D\+E\+Integrator\+::get\+Listener (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [virtual]}}
+{\footnotesize\ttfamily Integrator\+Listener\+Ptr rr\+::\+C\+V\+O\+D\+E\+Integrator\+::get\+Listener (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [override]}, {\ttfamily [virtual]}}
 
 
 
@@ -298,11 +307,11 @@ W\+BC, E\+TS
 
 Implements \mbox{\hyperlink{classrr_1_1Integrator}{rr\+::\+Integrator}}.
 
-\mbox{\Hypertarget{classrr_1_1CVODEIntegrator_a8cf0e265974ca6cfba2b22d98c77801a}\label{classrr_1_1CVODEIntegrator_a8cf0e265974ca6cfba2b22d98c77801a}} 
+\mbox{\Hypertarget{classrr_1_1CVODEIntegrator_aa889b08549036792918c41e88e2097f4}\label{classrr_1_1CVODEIntegrator_aa889b08549036792918c41e88e2097f4}} 
 \index{rr::CVODEIntegrator@{rr::CVODEIntegrator}!getName@{getName}}
 \index{getName@{getName}!rr::CVODEIntegrator@{rr::CVODEIntegrator}}
 \doxysubsubsection{\texorpdfstring{getName()}{getName()}}
-{\footnotesize\ttfamily std\+::string rr\+::\+C\+V\+O\+D\+E\+Integrator\+::get\+Name (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption}) const\hspace{0.3cm}{\ttfamily [virtual]}}
+{\footnotesize\ttfamily std\+::string rr\+::\+C\+V\+O\+D\+E\+Integrator\+::get\+Name (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption}) const\hspace{0.3cm}{\ttfamily [override]}, {\ttfamily [virtual]}}
 
 
 
@@ -312,17 +321,17 @@ Get the name for this integrator.
 W\+BC 
 \end{DoxyAuthor}
 \begin{DoxyNote}{Note}
-Delegates to \mbox{\hyperlink{classrr_1_1CVODEIntegrator_a8cf0e265974ca6cfba2b22d98c77801a}{get\+Name}} 
+Delegates to \mbox{\hyperlink{classrr_1_1CVODEIntegrator_aa889b08549036792918c41e88e2097f4}{get\+Name}} 
 \end{DoxyNote}
 
 
 Implements \mbox{\hyperlink{classrr_1_1Solver_a417cca64a18c63535f2091584f8fed91}{rr\+::\+Solver}}.
 
-\mbox{\Hypertarget{classrr_1_1CVODEIntegrator_acab8c62349294152e2b331bea7585166}\label{classrr_1_1CVODEIntegrator_acab8c62349294152e2b331bea7585166}} 
+\mbox{\Hypertarget{classrr_1_1CVODEIntegrator_a1e29429af0ec90aa2f47be15bbe8856c}\label{classrr_1_1CVODEIntegrator_a1e29429af0ec90aa2f47be15bbe8856c}} 
 \index{rr::CVODEIntegrator@{rr::CVODEIntegrator}!integrate@{integrate}}
 \index{integrate@{integrate}!rr::CVODEIntegrator@{rr::CVODEIntegrator}}
 \doxysubsubsection{\texorpdfstring{integrate()}{integrate()}}
-{\footnotesize\ttfamily double rr\+::\+C\+V\+O\+D\+E\+Integrator\+::integrate (\begin{DoxyParamCaption}\item[{double}]{t0,  }\item[{double}]{tf }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [virtual]}}
+{\footnotesize\ttfamily double rr\+::\+C\+V\+O\+D\+E\+Integrator\+::integrate (\begin{DoxyParamCaption}\item[{double}]{t0,  }\item[{double}]{hstep }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [override]}, {\ttfamily [virtual]}}
 
 
 
@@ -335,11 +344,11 @@ W\+BC, E\+TS, M\+TK
 
 Implements \mbox{\hyperlink{classrr_1_1Integrator}{rr\+::\+Integrator}}.
 
-\mbox{\Hypertarget{classrr_1_1CVODEIntegrator_ad5f73de9630fda4eac2816c49319662a}\label{classrr_1_1CVODEIntegrator_ad5f73de9630fda4eac2816c49319662a}} 
+\mbox{\Hypertarget{classrr_1_1CVODEIntegrator_acaa6878fb0d972aa96dba554a7bc65a4}\label{classrr_1_1CVODEIntegrator_acaa6878fb0d972aa96dba554a7bc65a4}} 
 \index{rr::CVODEIntegrator@{rr::CVODEIntegrator}!loadSBMLSettings@{loadSBMLSettings}}
 \index{loadSBMLSettings@{loadSBMLSettings}!rr::CVODEIntegrator@{rr::CVODEIntegrator}}
 \doxysubsubsection{\texorpdfstring{loadSBMLSettings()}{loadSBMLSettings()}}
-{\footnotesize\ttfamily void rr\+::\+C\+V\+O\+D\+E\+Integrator\+::load\+S\+B\+M\+L\+Settings (\begin{DoxyParamCaption}\item[{const std\+::string \&}]{filename }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [virtual]}}
+{\footnotesize\ttfamily void rr\+::\+C\+V\+O\+D\+E\+Integrator\+::load\+S\+B\+M\+L\+Settings (\begin{DoxyParamCaption}\item[{const std\+::string \&}]{filename }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [override]}, {\ttfamily [virtual]}}
 
 
 
@@ -355,11 +364,11 @@ Can assign relative and absolute tolerances
 
 Reimplemented from \mbox{\hyperlink{classrr_1_1Integrator}{rr\+::\+Integrator}}.
 
-\mbox{\Hypertarget{classrr_1_1CVODEIntegrator_a455f08dc01b03a527482edc3d2db95b1}\label{classrr_1_1CVODEIntegrator_a455f08dc01b03a527482edc3d2db95b1}} 
+\mbox{\Hypertarget{classrr_1_1CVODEIntegrator_ac18581f5c000940449032e166ef48e79}\label{classrr_1_1CVODEIntegrator_ac18581f5c000940449032e166ef48e79}} 
 \index{rr::CVODEIntegrator@{rr::CVODEIntegrator}!resetSettings@{resetSettings}}
 \index{resetSettings@{resetSettings}!rr::CVODEIntegrator@{rr::CVODEIntegrator}}
 \doxysubsubsection{\texorpdfstring{resetSettings()}{resetSettings()}}
-{\footnotesize\ttfamily void rr\+::\+C\+V\+O\+D\+E\+Integrator\+::reset\+Settings (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [virtual]}}
+{\footnotesize\ttfamily void rr\+::\+C\+V\+O\+D\+E\+Integrator\+::reset\+Settings (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [override]}, {\ttfamily [virtual]}}
 
 
 
@@ -372,11 +381,11 @@ J\+KM
 
 Reimplemented from \mbox{\hyperlink{classrr_1_1Solver_a71c8b404a40447f879b2253e7dcc3b85}{rr\+::\+Solver}}.
 
-\mbox{\Hypertarget{classrr_1_1CVODEIntegrator_ad845bc1acfbeef03f374413928eaa3ee}\label{classrr_1_1CVODEIntegrator_ad845bc1acfbeef03f374413928eaa3ee}} 
+\mbox{\Hypertarget{classrr_1_1CVODEIntegrator_acde5e92ec049c105b7d22b0f125d94a9}\label{classrr_1_1CVODEIntegrator_acde5e92ec049c105b7d22b0f125d94a9}} 
 \index{rr::CVODEIntegrator@{rr::CVODEIntegrator}!restart@{restart}}
 \index{restart@{restart}!rr::CVODEIntegrator@{rr::CVODEIntegrator}}
 \doxysubsubsection{\texorpdfstring{restart()}{restart()}}
-{\footnotesize\ttfamily void rr\+::\+C\+V\+O\+D\+E\+Integrator\+::restart (\begin{DoxyParamCaption}\item[{double}]{time\+Start }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [virtual]}}
+{\footnotesize\ttfamily void rr\+::\+C\+V\+O\+D\+E\+Integrator\+::restart (\begin{DoxyParamCaption}\item[{double}]{time\+Start }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [override]}, {\ttfamily [virtual]}}
 
 
 
@@ -389,11 +398,11 @@ W\+BC, E\+TS, M\+TK  Applies events which occur before time zero. Reinitializes 
 
 Implements \mbox{\hyperlink{classrr_1_1Integrator}{rr\+::\+Integrator}}.
 
-\mbox{\Hypertarget{classrr_1_1CVODEIntegrator_a6b4a601f240b60e29cccc73eddb837c0}\label{classrr_1_1CVODEIntegrator_a6b4a601f240b60e29cccc73eddb837c0}} 
+\mbox{\Hypertarget{classrr_1_1CVODEIntegrator_a386a755bab0c72a5d93a7e09ba95fafe}\label{classrr_1_1CVODEIntegrator_a386a755bab0c72a5d93a7e09ba95fafe}} 
 \index{rr::CVODEIntegrator@{rr::CVODEIntegrator}!setConcentrationTolerance@{setConcentrationTolerance}}
 \index{setConcentrationTolerance@{setConcentrationTolerance}!rr::CVODEIntegrator@{rr::CVODEIntegrator}}
 \doxysubsubsection{\texorpdfstring{setConcentrationTolerance()}{setConcentrationTolerance()}}
-{\footnotesize\ttfamily void rr\+::\+C\+V\+O\+D\+E\+Integrator\+::set\+Concentration\+Tolerance (\begin{DoxyParamCaption}\item[{const \mbox{\hyperlink{classrr_1_1Variant}{Variant}} \&}]{value }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [virtual]}}
+{\footnotesize\ttfamily void rr\+::\+C\+V\+O\+D\+E\+Integrator\+::set\+Concentration\+Tolerance (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{classrr_1_1Setting}{Setting}}}]{value }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [override]}, {\ttfamily [virtual]}}
 
 
 
@@ -404,13 +413,13 @@ FY  First converts the concentration tolerances to amount tolerances by multiply
 \end{DoxyAuthor}
 
 
-Reimplemented from \mbox{\hyperlink{classrr_1_1Integrator_a1413e566ca980e08e2799777ad41a2ad}{rr\+::\+Integrator}}.
+Reimplemented from \mbox{\hyperlink{classrr_1_1Integrator_a21645210737f35264504c3125c4679fe}{rr\+::\+Integrator}}.
 
-\mbox{\Hypertarget{classrr_1_1CVODEIntegrator_a8d0e25e6170b3f017ada84f4bdf148ab}\label{classrr_1_1CVODEIntegrator_a8d0e25e6170b3f017ada84f4bdf148ab}} 
+\mbox{\Hypertarget{classrr_1_1CVODEIntegrator_a57e9e604b2c2ba388a3fe219e87c326c}\label{classrr_1_1CVODEIntegrator_a57e9e604b2c2ba388a3fe219e87c326c}} 
 \index{rr::CVODEIntegrator@{rr::CVODEIntegrator}!setIndividualTolerance@{setIndividualTolerance}}
 \index{setIndividualTolerance@{setIndividualTolerance}!rr::CVODEIntegrator@{rr::CVODEIntegrator}}
 \doxysubsubsection{\texorpdfstring{setIndividualTolerance()}{setIndividualTolerance()}}
-{\footnotesize\ttfamily void rr\+::\+C\+V\+O\+D\+E\+Integrator\+::set\+Individual\+Tolerance (\begin{DoxyParamCaption}\item[{string}]{sid,  }\item[{double}]{value }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [virtual]}}
+{\footnotesize\ttfamily void rr\+::\+C\+V\+O\+D\+E\+Integrator\+::set\+Individual\+Tolerance (\begin{DoxyParamCaption}\item[{std\+::string}]{sid,  }\item[{double}]{value }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [override]}, {\ttfamily [virtual]}}
 
 
 
@@ -421,13 +430,13 @@ FY
 \end{DoxyAuthor}
 
 
-Reimplemented from \mbox{\hyperlink{classrr_1_1Integrator_ac64b02928caaa4fe411754815c98b4f7}{rr\+::\+Integrator}}.
+Reimplemented from \mbox{\hyperlink{classrr_1_1Integrator_a53099879e74aa5bea1139453db9b5732}{rr\+::\+Integrator}}.
 
-\mbox{\Hypertarget{classrr_1_1CVODEIntegrator_a4dc5fe6ecf244b0a0cac214db29d4914}\label{classrr_1_1CVODEIntegrator_a4dc5fe6ecf244b0a0cac214db29d4914}} 
+\mbox{\Hypertarget{classrr_1_1CVODEIntegrator_aca2901ed7b5a503e054fd18e8f0392ad}\label{classrr_1_1CVODEIntegrator_aca2901ed7b5a503e054fd18e8f0392ad}} 
 \index{rr::CVODEIntegrator@{rr::CVODEIntegrator}!setListener@{setListener}}
 \index{setListener@{setListener}!rr::CVODEIntegrator@{rr::CVODEIntegrator}}
 \doxysubsubsection{\texorpdfstring{setListener()}{setListener()}}
-{\footnotesize\ttfamily void rr\+::\+C\+V\+O\+D\+E\+Integrator\+::set\+Listener (\begin{DoxyParamCaption}\item[{Integrator\+Listener\+Ptr}]{p }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [virtual]}}
+{\footnotesize\ttfamily void rr\+::\+C\+V\+O\+D\+E\+Integrator\+::set\+Listener (\begin{DoxyParamCaption}\item[{Integrator\+Listener\+Ptr}]{p }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [override]}, {\ttfamily [virtual]}}
 
 
 
@@ -440,11 +449,11 @@ W\+BC, E\+TS
 
 Implements \mbox{\hyperlink{classrr_1_1Integrator}{rr\+::\+Integrator}}.
 
-\mbox{\Hypertarget{classrr_1_1CVODEIntegrator_acd45a44a9da5910aa9a02085372ace0e}\label{classrr_1_1CVODEIntegrator_acd45a44a9da5910aa9a02085372ace0e}} 
+\mbox{\Hypertarget{classrr_1_1CVODEIntegrator_a2ba8be5c51129d05dd8ab5315dc12edc}\label{classrr_1_1CVODEIntegrator_a2ba8be5c51129d05dd8ab5315dc12edc}} 
 \index{rr::CVODEIntegrator@{rr::CVODEIntegrator}!setValue@{setValue}}
 \index{setValue@{setValue}!rr::CVODEIntegrator@{rr::CVODEIntegrator}}
 \doxysubsubsection{\texorpdfstring{setValue()}{setValue()}}
-{\footnotesize\ttfamily void rr\+::\+C\+V\+O\+D\+E\+Integrator\+::set\+Value (\begin{DoxyParamCaption}\item[{std\+::string}]{setting,  }\item[{const \mbox{\hyperlink{classrr_1_1Variant}{Variant}} \&}]{value }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [virtual]}}
+{\footnotesize\ttfamily void rr\+::\+C\+V\+O\+D\+E\+Integrator\+::set\+Value (\begin{DoxyParamCaption}\item[{const std\+::string \&}]{setting,  }\item[{\mbox{\hyperlink{classrr_1_1Setting}{Setting}}}]{value }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [override]}, {\ttfamily [virtual]}}
 
 
 
@@ -453,15 +462,15 @@ Sets the value of an integrator setting (e.\+g. absolute\+\_\+tolerance)
 \begin{DoxyAuthor}{Author}
 W\+BC, E\+TS, M\+TK 
 \end{DoxyAuthor}
-Values and keys are stored in the settings map, which is updated in every call to \mbox{\hyperlink{classrr_1_1CVODEIntegrator_acd45a44a9da5910aa9a02085372ace0e}{set\+Value}}. In addition, changing C\+V\+O\+D\+E-\/specific parameters requires a call into the C\+V\+O\+DE library to synchronize C\+V\+O\+DE\textquotesingle{}s internal memory with the settings map.
+Values and keys are stored in the settings std\+::map, which is updated in every call to \mbox{\hyperlink{classrr_1_1CVODEIntegrator_a2ba8be5c51129d05dd8ab5315dc12edc}{set\+Value}}. In addition, changing C\+V\+O\+D\+E-\/specific parameters requires a call into the C\+V\+O\+DE library to synchronize C\+V\+O\+DE\textquotesingle{}s internal memory with the settings std\+::map.
 
 Reimplemented from \mbox{\hyperlink{classrr_1_1Solver}{rr\+::\+Solver}}.
 
-\mbox{\Hypertarget{classrr_1_1CVODEIntegrator_ae099098e43b2219fbc4e29af10d22c84}\label{classrr_1_1CVODEIntegrator_ae099098e43b2219fbc4e29af10d22c84}} 
+\mbox{\Hypertarget{classrr_1_1CVODEIntegrator_a6ffad2eceae5fda58900a1bbaa738eff}\label{classrr_1_1CVODEIntegrator_a6ffad2eceae5fda58900a1bbaa738eff}} 
 \index{rr::CVODEIntegrator@{rr::CVODEIntegrator}!syncWithModel@{syncWithModel}}
 \index{syncWithModel@{syncWithModel}!rr::CVODEIntegrator@{rr::CVODEIntegrator}}
 \doxysubsubsection{\texorpdfstring{syncWithModel()}{syncWithModel()}}
-{\footnotesize\ttfamily void rr\+::\+C\+V\+O\+D\+E\+Integrator\+::sync\+With\+Model (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{classrr_1_1ExecutableModel}{Executable\+Model}} $\ast$}]{m }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [virtual]}}
+{\footnotesize\ttfamily void rr\+::\+C\+V\+O\+D\+E\+Integrator\+::sync\+With\+Model (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{classrr_1_1ExecutableModel}{Executable\+Model}} $\ast$}]{m }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [override]}, {\ttfamily [virtual]}}
 
 
 
@@ -482,7 +491,7 @@ Reimplemented from \mbox{\hyperlink{classrr_1_1Integrator_a6b12118cd1b0f047f5a64
 
 
 
-Converts integer to string for error print. 
+Converts integer to std\+::string for error print. 
 
 \begin{DoxyAuthor}{Author}
 FY 
@@ -495,16 +504,16 @@ FY
 
 
 
-Converts size\+\_\+t to string for error print. 
+Converts size\+\_\+t to std\+::string for error print. 
 
 \begin{DoxyAuthor}{Author}
 L\+PS 
 \end{DoxyAuthor}
-\mbox{\Hypertarget{classrr_1_1CVODEIntegrator_afec3efa20453cabe7fd826a1a27fd920}\label{classrr_1_1CVODEIntegrator_afec3efa20453cabe7fd826a1a27fd920}} 
+\mbox{\Hypertarget{classrr_1_1CVODEIntegrator_a137ada502a737819ca3ad78d0573c35d}\label{classrr_1_1CVODEIntegrator_a137ada502a737819ca3ad78d0573c35d}} 
 \index{rr::CVODEIntegrator@{rr::CVODEIntegrator}!tweakTolerances@{tweakTolerances}}
 \index{tweakTolerances@{tweakTolerances}!rr::CVODEIntegrator@{rr::CVODEIntegrator}}
 \doxysubsubsection{\texorpdfstring{tweakTolerances()}{tweakTolerances()}}
-{\footnotesize\ttfamily void rr\+::\+C\+V\+O\+D\+E\+Integrator\+::tweak\+Tolerances (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [virtual]}}
+{\footnotesize\ttfamily void rr\+::\+C\+V\+O\+D\+E\+Integrator\+::tweak\+Tolerances (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [override]}, {\ttfamily [virtual]}}
 
 
 

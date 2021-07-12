@@ -1,23 +1,22 @@
 
 
-set(SHARED_TEST_FILES ../TestModelFactory SundialsSteadyStateSolverUnitTest)
-
+set(SharedTestFiles "${SharedTestFiles}" "${CMAKE_CURRENT_SOURCE_DIR}/SundialsSteadyStateSolverUnitTest")
 ## FixedPointIteration not finished due to difficulties getting it to work.
 #add_test_executable(
 #        FixedPointIterationTests test_targets
-#        FixedPointIterationUnitTests.cpp SundialsSteadyStateSolverUnitTest ${SHARED_TEST_FILES}
+#        FixedPointIterationUnitTests.cpp SundialsSteadyStateSolverUnitTest ${SharedTestFiles}
 #)
 
 add_test_executable(
         test_steady_state_unit_approx test_targets
-        ApproxSteadyStateDecoratorTests.cpp ${SHARED_TEST_FILES}
+        ApproxSteadyStateDecoratorTests.cpp ${SharedTestFiles}
 )
 
 add_test_executable(
         test_steady_state_unit_automatic_moiety_conservation test_targets
         AutomaticMoietyConservationTests.cpp
         SundialsSteadyStateSolverUnitTest
-        ${SHARED_TEST_FILES}
+        ${SharedTestFiles}
 )
 
 
@@ -25,16 +24,16 @@ add_test_executable(
         test_steady_state_unit_basic_newton test_targets
         BasicNewtonIterationUnitTests.cpp
         SundialsSteadyStateSolverUnitTest
-        ${SHARED_TEST_FILES}
+        ${SharedTestFiles}
 )
 
 add_test_executable(
         test_steady_state_unit_presimulation test_targets
-        PresimulationDecoratorTests.cpp ${SHARED_TEST_FILES}
+        PresimulationDecoratorTests.cpp ${SharedTestFiles}
 )
 
 add_test_executable(
-        test_unit_svd test_targets SVDTests.cpp ${SHARED_TEST_FILES}
+        test_unit_svd test_targets SVDTests.cpp ${SharedTestFiles}
 )
 
 add_test_executable(
@@ -45,7 +44,7 @@ add_test_executable(
         LinesearchNewtonIntegrationTests.cpp
         NLEQ1IntegrationTests.cpp
         NLEQ2IntegrationTests.cpp
-        ${SHARED_TEST_FILES}
+        ${SharedTestFiles}
 )
 
 
@@ -83,7 +82,7 @@ install(
 ##        LinesearchNewtonIntegrationTests.cpp
 ##        NLEQ1IntegrationTests.cpp
 ##        NLEQ2IntegrationTests.cpp
-#        ${SHARED_TEST_FILES}
+#        ${SharedTestFiles}
 #)
 
 

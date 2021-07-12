@@ -22,7 +22,7 @@
  <tr style="height: 56px;">
   <td id="projectalign" style="padding-left: 0.5em;">
    <div id="projectname">roadrunner
-   &#160;<span id="projectnumber">2.0.5</span>
+   &#160;<span id="projectnumber">2.0.8</span>
    </div>
    <div id="projectbrief">Fast simulator for SBML models</div>
   </td>
@@ -86,18 +86,18 @@ $(function() {
 <div class="line"><a name="l00013"></a><span class="lineno">   13</span>&#160;<span class="keyword">namespace </span>rr</div>
 <div class="line"><a name="l00014"></a><span class="lineno">   14</span>&#160;{</div>
 <div class="line"><a name="l00015"></a><span class="lineno">   15</span>&#160; </div>
-<div class="line"><a name="l00016"></a><span class="lineno"><a class="line" href="classrr_1_1StringSymbolHashTable.html">   16</a></span>&#160;<span class="keyword">class </span>RR_DECLSPEC <a class="code" href="classrr_1_1StringSymbolHashTable.html">StringSymbolHashTable</a>: <span class="keyword">public</span> map&lt;string, SBMLSymbol&gt;</div>
+<div class="line"><a name="l00016"></a><span class="lineno"><a class="line" href="classrr_1_1StringSymbolHashTable.html">   16</a></span>&#160;<span class="keyword">class </span>RR_DECLSPEC <a class="code" href="classrr_1_1StringSymbolHashTable.html">StringSymbolHashTable</a>: <span class="keyword">public</span> std::map&lt;std::string, SBMLSymbol&gt;</div>
 <div class="line"><a name="l00017"></a><span class="lineno">   17</span>&#160;{</div>
 <div class="line"><a name="l00018"></a><span class="lineno">   18</span>&#160;    <span class="keyword">protected</span>:</div>
 <div class="line"><a name="l00019"></a><span class="lineno">   19</span>&#160; </div>
 <div class="line"><a name="l00020"></a><span class="lineno">   20</span>&#160;    <span class="keyword">public</span>:</div>
 <div class="line"><a name="l00021"></a><span class="lineno">   21</span>&#160;        <a class="code" href="classrr_1_1StringSymbolHashTable.html">StringSymbolHashTable</a>();</div>
-<div class="line"><a name="l00022"></a><span class="lineno">   22</span>&#160;        map&lt;string, SBMLSymbol&gt;::iterator     mIter;</div>
-<div class="line"><a name="l00023"></a><span class="lineno">   23</span>&#160;        <span class="keywordtype">bool</span>                                  ContainsKey(<span class="keyword">const</span> <span class="keywordtype">string</span>&amp; aKey);</div>
+<div class="line"><a name="l00022"></a><span class="lineno">   22</span>&#160;        std::map&lt;std::string, SBMLSymbol&gt;::iterator     mIter;</div>
+<div class="line"><a name="l00023"></a><span class="lineno">   23</span>&#160;        <span class="keywordtype">bool</span>                                  ContainsKey(<span class="keyword">const</span> std::string&amp; aKey);</div>
 <div class="line"><a name="l00024"></a><span class="lineno">   24</span>&#160;};</div>
 <div class="line"><a name="l00025"></a><span class="lineno">   25</span>&#160; </div>
-<div class="line"><a name="l00026"></a><span class="lineno">   26</span>&#160;ostream&amp; operator&lt;&lt;(ostream&amp; stream, <a class="code" href="classrr_1_1StringSymbolHashTable.html">StringSymbolHashTable</a>&amp; hash);</div>
-<div class="line"><a name="l00027"></a><span class="lineno"><a class="line" href="classrr_1_1IntStringHashTable.html">   27</a></span>&#160;<span class="keyword">class </span>RR_DECLSPEC <a class="code" href="classrr_1_1IntStringHashTable.html">IntStringHashTable</a>:  <span class="keyword">public</span> map&lt;int, string&gt;</div>
+<div class="line"><a name="l00026"></a><span class="lineno">   26</span>&#160;std::ostream&amp; operator&lt;&lt;(std::ostream&amp; stream, <a class="code" href="classrr_1_1StringSymbolHashTable.html">StringSymbolHashTable</a>&amp; hash);</div>
+<div class="line"><a name="l00027"></a><span class="lineno"><a class="line" href="classrr_1_1IntStringHashTable.html">   27</a></span>&#160;<span class="keyword">class </span>RR_DECLSPEC <a class="code" href="classrr_1_1IntStringHashTable.html">IntStringHashTable</a>:  <span class="keyword">public</span> std::map&lt;int, std::string&gt;</div>
 <div class="line"><a name="l00028"></a><span class="lineno">   28</span>&#160;{</div>
 <div class="line"><a name="l00029"></a><span class="lineno">   29</span>&#160;    <span class="keyword">protected</span>:</div>
 <div class="line"><a name="l00030"></a><span class="lineno">   30</span>&#160; </div>

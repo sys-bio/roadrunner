@@ -52,9 +52,9 @@ std\+::string \mbox{\hyperlink{classrr_1_1EulerIntegrator_a2acf8abc8c584f487b5a3
 \begin{DoxyCompactList}\small\item\em Get the hint for this integrator. \end{DoxyCompactList}\item 
 Integration\+Method \mbox{\hyperlink{classrr_1_1EulerIntegrator_a9bf013a3a23007eac2d5b71533dc4c9b}{get\+Integration\+Method}} () const
 \begin{DoxyCompactList}\small\item\em Always deterministic for Euler. \end{DoxyCompactList}\item 
-virtual void \mbox{\hyperlink{classrr_1_1EulerIntegrator_a08066b2cde3b179f76968f7c612610b2}{set\+Item}} (const std\+::string \&key, const \mbox{\hyperlink{classrr_1_1Variant}{rr\+::\+Variant}} \&value)
+virtual void \mbox{\hyperlink{classrr_1_1EulerIntegrator_a023226258950d8437b7a27c077b693b3}{set\+Item}} (const std\+::string \&key, const \mbox{\hyperlink{classrr_1_1Setting}{rr\+::\+Setting}} \&value)
 \begin{DoxyCompactList}\small\item\em sets the value for a key. \end{DoxyCompactList}\item 
-virtual \mbox{\hyperlink{classrr_1_1Variant}{Variant}} \mbox{\hyperlink{classrr_1_1EulerIntegrator_af0e49dbee9ed3fc80af2501dd958705c}{get\+Item}} (const std\+::string \&key) const
+virtual \mbox{\hyperlink{classrr_1_1Setting}{Setting}} \mbox{\hyperlink{classrr_1_1EulerIntegrator_a243b2296bfee9540f967a73968cc66f6}{get\+Item}} (const std\+::string \&key) const
 \begin{DoxyCompactList}\small\item\em Get a value. \end{DoxyCompactList}\item 
 \mbox{\Hypertarget{classrr_1_1EulerIntegrator_a38c66c42d843b391ac79ac6f352cbf6c}\label{classrr_1_1EulerIntegrator_a38c66c42d843b391ac79ac6f352cbf6c}} 
 virtual bool \mbox{\hyperlink{classrr_1_1EulerIntegrator_a38c66c42d843b391ac79ac6f352cbf6c}{has\+Key}} (const std\+::string \&key) const
@@ -65,6 +65,7 @@ virtual int \mbox{\hyperlink{classrr_1_1EulerIntegrator_a370a0145394d1a9ed17a798
 \mbox{\Hypertarget{classrr_1_1EulerIntegrator_a5fcbf9856452f3b22dbe87a52873b994}\label{classrr_1_1EulerIntegrator_a5fcbf9856452f3b22dbe87a52873b994}} 
 virtual std\+::vector$<$ std\+::string $>$ \mbox{\hyperlink{classrr_1_1EulerIntegrator_a5fcbf9856452f3b22dbe87a52873b994}{get\+Keys}} () const
 \begin{DoxyCompactList}\small\item\em list of keys in this object. \end{DoxyCompactList}\item 
+\mbox{\Hypertarget{classrr_1_1EulerIntegrator_ade4200288b7b99ec7eee7cde2d9729b6}\label{classrr_1_1EulerIntegrator_ade4200288b7b99ec7eee7cde2d9729b6}} 
 void \mbox{\hyperlink{classrr_1_1EulerIntegrator_ade4200288b7b99ec7eee7cde2d9729b6}{reset\+Settings}} ()
 \begin{DoxyCompactList}\small\item\em Reset all settings to their respective default values. \end{DoxyCompactList}\end{DoxyCompactItemize}
 \doxysubsection*{Static Public Member Functions}
@@ -226,11 +227,11 @@ J\+KM
 
 Implements \mbox{\hyperlink{classrr_1_1Integrator}{rr\+::\+Integrator}}.
 
-\mbox{\Hypertarget{classrr_1_1EulerIntegrator_af0e49dbee9ed3fc80af2501dd958705c}\label{classrr_1_1EulerIntegrator_af0e49dbee9ed3fc80af2501dd958705c}} 
+\mbox{\Hypertarget{classrr_1_1EulerIntegrator_a243b2296bfee9540f967a73968cc66f6}\label{classrr_1_1EulerIntegrator_a243b2296bfee9540f967a73968cc66f6}} 
 \index{rr::EulerIntegrator@{rr::EulerIntegrator}!getItem@{getItem}}
 \index{getItem@{getItem}!rr::EulerIntegrator@{rr::EulerIntegrator}}
 \doxysubsubsection{\texorpdfstring{getItem()}{getItem()}}
-{\footnotesize\ttfamily virtual \mbox{\hyperlink{classrr_1_1Variant}{Variant}} rr\+::\+Euler\+Integrator\+::get\+Item (\begin{DoxyParamCaption}\item[{const std\+::string \&}]{key }\end{DoxyParamCaption}) const\hspace{0.3cm}{\ttfamily [inline]}, {\ttfamily [virtual]}}
+{\footnotesize\ttfamily virtual \mbox{\hyperlink{classrr_1_1Setting}{Setting}} rr\+::\+Euler\+Integrator\+::get\+Item (\begin{DoxyParamCaption}\item[{const std\+::string \&}]{key }\end{DoxyParamCaption}) const\hspace{0.3cm}{\ttfamily [inline]}, {\ttfamily [virtual]}}
 
 
 
@@ -255,28 +256,11 @@ the end time.
 
 Implements \mbox{\hyperlink{classrr_1_1Integrator}{rr\+::\+Integrator}}.
 
-\mbox{\Hypertarget{classrr_1_1EulerIntegrator_ade4200288b7b99ec7eee7cde2d9729b6}\label{classrr_1_1EulerIntegrator_ade4200288b7b99ec7eee7cde2d9729b6}} 
-\index{rr::EulerIntegrator@{rr::EulerIntegrator}!resetSettings@{resetSettings}}
-\index{resetSettings@{resetSettings}!rr::EulerIntegrator@{rr::EulerIntegrator}}
-\doxysubsubsection{\texorpdfstring{resetSettings()}{resetSettings()}}
-{\footnotesize\ttfamily void rr\+::\+Euler\+Integrator\+::reset\+Settings (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}, {\ttfamily [virtual]}}
-
-
-
-Reset all settings to their respective default values. 
-
-\begin{DoxyAuthor}{Author}
-J\+KM 
-\end{DoxyAuthor}
-
-
-Reimplemented from \mbox{\hyperlink{classrr_1_1Solver_a71c8b404a40447f879b2253e7dcc3b85}{rr\+::\+Solver}}.
-
-\mbox{\Hypertarget{classrr_1_1EulerIntegrator_a08066b2cde3b179f76968f7c612610b2}\label{classrr_1_1EulerIntegrator_a08066b2cde3b179f76968f7c612610b2}} 
+\mbox{\Hypertarget{classrr_1_1EulerIntegrator_a023226258950d8437b7a27c077b693b3}\label{classrr_1_1EulerIntegrator_a023226258950d8437b7a27c077b693b3}} 
 \index{rr::EulerIntegrator@{rr::EulerIntegrator}!setItem@{setItem}}
 \index{setItem@{setItem}!rr::EulerIntegrator@{rr::EulerIntegrator}}
 \doxysubsubsection{\texorpdfstring{setItem()}{setItem()}}
-{\footnotesize\ttfamily virtual void rr\+::\+Euler\+Integrator\+::set\+Item (\begin{DoxyParamCaption}\item[{const std\+::string \&}]{key,  }\item[{const \mbox{\hyperlink{classrr_1_1Variant}{rr\+::\+Variant}} \&}]{value }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}, {\ttfamily [virtual]}}
+{\footnotesize\ttfamily virtual void rr\+::\+Euler\+Integrator\+::set\+Item (\begin{DoxyParamCaption}\item[{const std\+::string \&}]{key,  }\item[{const \mbox{\hyperlink{classrr_1_1Setting}{rr\+::\+Setting}} \&}]{value }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}, {\ttfamily [virtual]}}
 
 
 

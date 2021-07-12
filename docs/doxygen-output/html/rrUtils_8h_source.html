@@ -22,7 +22,7 @@
  <tr style="height: 56px;">
   <td id="projectalign" style="padding-left: 0.5em;">
    <div id="projectname">roadrunner
-   &#160;<span id="projectnumber">2.0.5</span>
+   &#160;<span id="projectnumber">2.0.8</span>
    </div>
    <div id="projectbrief">Fast simulator for SBML models</div>
   </td>
@@ -84,101 +84,107 @@ $(function() {
 <div class="line"><a name="l00015"></a><span class="lineno">   15</span>&#160;<span class="preprocessor">#include &quot;rrConstants.h&quot;</span></div>
 <div class="line"><a name="l00016"></a><span class="lineno">   16</span>&#160;<span class="preprocessor">#include &quot;rrStringUtils.h&quot;</span></div>
 <div class="line"><a name="l00017"></a><span class="lineno">   17</span>&#160;<span class="preprocessor">#include &lt;stdint.h&gt;</span></div>
-<div class="line"><a name="l00018"></a><span class="lineno">   18</span>&#160; </div>
+<div class="line"><a name="l00018"></a><span class="lineno">   18</span>&#160;<span class="preprocessor">#include &lt;filesystem&gt;</span></div>
 <div class="line"><a name="l00019"></a><span class="lineno">   19</span>&#160; </div>
-<div class="line"><a name="l00020"></a><span class="lineno">   20</span>&#160;<span class="keyword">namespace </span>rr</div>
-<div class="line"><a name="l00021"></a><span class="lineno">   21</span>&#160;{</div>
-<div class="line"><a name="l00022"></a><span class="lineno">   22</span>&#160; </div>
-<div class="line"><a name="l00023"></a><span class="lineno">   23</span>&#160;<span class="keyword">using</span> std::vector;</div>
-<div class="line"><a name="l00024"></a><span class="lineno">   24</span>&#160;<span class="keyword">using</span> std::string;</div>
-<div class="line"><a name="l00025"></a><span class="lineno">   25</span>&#160;<span class="keyword">using</span> std::set;</div>
-<div class="line"><a name="l00026"></a><span class="lineno">   26</span>&#160; </div>
-<div class="line"><a name="l00027"></a><span class="lineno">   27</span>&#160;RR_DECLSPEC <span class="keywordtype">bool</span>            cleanFolder(<span class="keyword">const</span> <span class="keywordtype">string</span>&amp; folder, <span class="keyword">const</span> <span class="keywordtype">string</span>&amp; baseName,  <span class="keyword">const</span> std::vector&lt;std::string&gt;&amp; extensions);</div>
-<div class="line"><a name="l00028"></a><span class="lineno">   28</span>&#160;RR_DECLSPEC <span class="keywordtype">string</span>          getTime();</div>
-<div class="line"><a name="l00029"></a><span class="lineno">   29</span>&#160;RR_DECLSPEC <span class="keywordtype">string</span>          getDateTime();</div>
-<div class="line"><a name="l00030"></a><span class="lineno">   30</span>&#160;RR_DECLSPEC <span class="keywordtype">string</span>          getMD5(<span class="keyword">const</span> <span class="keywordtype">string</span>&amp; text);</div>
-<div class="line"><a name="l00031"></a><span class="lineno">   31</span>&#160;RR_DECLSPEC <span class="keywordtype">void</span>            sleep(<span class="keywordtype">int</span> ms);</div>
-<div class="line"><a name="l00032"></a><span class="lineno">   32</span>&#160; </div>
-<div class="line"><a name="l00033"></a><span class="lineno">   33</span>&#160;<span class="comment">//Misc.</span></div>
-<div class="line"><a name="l00037"></a><span class="lineno">   37</span>&#160;<span class="comment"></span>RR_DECLSPEC std::ptrdiff_t       indexOf(<span class="keyword">const</span> std::vector&lt;std::string&gt;&amp; vec, <span class="keyword">const</span> std::string&amp; elem );</div>
-<div class="line"><a name="l00038"></a><span class="lineno">   38</span>&#160;RR_DECLSPEC <span class="keywordtype">bool</span>            isNaN(<span class="keyword">const</span> <span class="keywordtype">double</span>&amp; aNum);</div>
-<div class="line"><a name="l00039"></a><span class="lineno">   39</span>&#160;RR_DECLSPEC <span class="keywordtype">bool</span>            isNullOrEmpty(<span class="keyword">const</span> <span class="keywordtype">string</span>&amp; str);    <span class="comment">//Can&#39;t be null, but empty</span></div>
-<div class="line"><a name="l00040"></a><span class="lineno">   40</span>&#160;RR_DECLSPEC <span class="keywordtype">void</span>            pause(<span class="keywordtype">bool</span> doIt = <span class="keyword">true</span>, <span class="keyword">const</span> <span class="keywordtype">string</span>&amp; msg = <span class="stringliteral">&quot;&quot;</span>);</div>
-<div class="line"><a name="l00041"></a><span class="lineno">   41</span>&#160; </div>
-<div class="line"><a name="l00042"></a><span class="lineno">   42</span>&#160;<span class="comment">//String utilities</span></div>
-<div class="line"><a name="l00043"></a><span class="lineno">   43</span>&#160;RR_DECLSPEC <span class="keywordtype">string</span>          removeTrailingSeparator(<span class="keyword">const</span> <span class="keywordtype">string</span>&amp; fldr, <span class="keyword">const</span> <span class="keywordtype">char</span> sep = gPathSeparator);<span class="comment">//&quot;\\&quot;);</span></div>
-<div class="line"><a name="l00044"></a><span class="lineno">   44</span>&#160; </div>
-<div class="line"><a name="l00045"></a><span class="lineno">   45</span>&#160;<span class="comment">//File  Utilities</span></div>
-<div class="line"><a name="l00046"></a><span class="lineno">   46</span>&#160;RR_DECLSPEC <span class="keywordtype">size_t</span>          populateFileSet(<span class="keyword">const</span> <span class="keywordtype">string</span>&amp; modelsFolder, set&lt;string&gt;&amp; models);</div>
-<div class="line"><a name="l00047"></a><span class="lineno">   47</span>&#160; </div>
-<div class="line"><a name="l00048"></a><span class="lineno">   48</span>&#160; </div>
-<div class="line"><a name="l00058"></a><span class="lineno">   58</span>&#160;RR_DECLSPEC <span class="keywordtype">bool</span> fileExists(<span class="keyword">const</span> <span class="keywordtype">string</span>&amp; fileN, <span class="keywordtype">int</span> fileMode=0);</div>
-<div class="line"><a name="l00059"></a><span class="lineno">   59</span>&#160; </div>
-<div class="line"><a name="l00060"></a><span class="lineno">   60</span>&#160;RR_DECLSPEC <span class="keywordtype">bool</span>            folderExists(<span class="keyword">const</span> <span class="keywordtype">string</span>&amp; folderN);</div>
-<div class="line"><a name="l00061"></a><span class="lineno">   61</span>&#160;RR_DECLSPEC <span class="keywordtype">bool</span>            createFolder(<span class="keyword">const</span> <span class="keywordtype">string</span>&amp; path);</div>
-<div class="line"><a name="l00062"></a><span class="lineno">   62</span>&#160; </div>
-<div class="line"><a name="l00063"></a><span class="lineno">   63</span>&#160;RR_DECLSPEC <span class="keywordtype">string</span>          getParentFolder(<span class="keyword">const</span> <span class="keywordtype">string</span>&amp; path);</div>
-<div class="line"><a name="l00064"></a><span class="lineno">   64</span>&#160;RR_DECLSPEC <span class="keywordtype">string</span>          getCurrentExeFolder();</div>
-<div class="line"><a name="l00065"></a><span class="lineno">   65</span>&#160; </div>
-<div class="line"><a name="l00071"></a><span class="lineno">   71</span>&#160;RR_DECLSPEC std::string getCurrentSharedLibDir();</div>
-<div class="line"><a name="l00072"></a><span class="lineno">   72</span>&#160; </div>
-<div class="line"><a name="l00079"></a><span class="lineno">   79</span>&#160;RR_DECLSPEC std::string getTempDir();</div>
-<div class="line"><a name="l00080"></a><span class="lineno">   80</span>&#160; </div>
-<div class="line"><a name="l00084"></a><span class="lineno">   84</span>&#160;RR_DECLSPEC std::string joinPath(<span class="keyword">const</span> <span class="keywordtype">string</span>&amp; p1, <span class="keyword">const</span> <span class="keywordtype">string</span>&amp; p2,</div>
-<div class="line"><a name="l00085"></a><span class="lineno">   85</span>&#160;        <span class="keyword">const</span> <span class="keywordtype">char</span> pathSeparator = gPathSeparator);</div>
-<div class="line"><a name="l00086"></a><span class="lineno">   86</span>&#160; </div>
-<div class="line"><a name="l00090"></a><span class="lineno">   90</span>&#160;RR_DECLSPEC std::string joinPath(<span class="keyword">const</span> <span class="keywordtype">string</span>&amp; p1, <span class="keyword">const</span> <span class="keywordtype">string</span>&amp; p2,</div>
-<div class="line"><a name="l00091"></a><span class="lineno">   91</span>&#160;        <span class="keyword">const</span> <span class="keywordtype">string</span>&amp; p3, <span class="keyword">const</span> <span class="keywordtype">char</span> pathSeparator = gPathSeparator);</div>
-<div class="line"><a name="l00092"></a><span class="lineno">   92</span>&#160; </div>
-<div class="line"><a name="l00093"></a><span class="lineno">   93</span>&#160;RR_DECLSPEC std::string joinPath(<span class="keyword">const</span> <span class="keywordtype">string</span>&amp; p1, <span class="keyword">const</span> <span class="keywordtype">string</span>&amp; p2,</div>
-<div class="line"><a name="l00094"></a><span class="lineno">   94</span>&#160;        <span class="keyword">const</span> <span class="keywordtype">string</span>&amp; p3, <span class="keyword">const</span> <span class="keywordtype">string</span>&amp; p4, <span class="keyword">const</span> <span class="keywordtype">char</span> pathSeparator =</div>
-<div class="line"><a name="l00095"></a><span class="lineno">   95</span>&#160;                gPathSeparator);</div>
-<div class="line"><a name="l00096"></a><span class="lineno">   96</span>&#160; </div>
-<div class="line"><a name="l00097"></a><span class="lineno">   97</span>&#160;RR_DECLSPEC std::string joinPath(<span class="keyword">const</span> <span class="keywordtype">string</span>&amp; p1, <span class="keyword">const</span> <span class="keywordtype">string</span>&amp; p2,</div>
-<div class="line"><a name="l00098"></a><span class="lineno">   98</span>&#160;        <span class="keyword">const</span> <span class="keywordtype">string</span>&amp; p3, <span class="keyword">const</span> <span class="keywordtype">string</span>&amp; p4, <span class="keyword">const</span> <span class="keywordtype">string</span>&amp; p5,</div>
-<div class="line"><a name="l00099"></a><span class="lineno">   99</span>&#160;        <span class="keyword">const</span> <span class="keywordtype">char</span> pathSeparator = gPathSeparator);</div>
-<div class="line"><a name="l00100"></a><span class="lineno">  100</span>&#160; </div>
-<div class="line"><a name="l00101"></a><span class="lineno">  101</span>&#160; </div>
-<div class="line"><a name="l00102"></a><span class="lineno">  102</span>&#160;RR_DECLSPEC <span class="keywordtype">string</span>          getCWD();</div>
-<div class="line"><a name="l00103"></a><span class="lineno">  103</span>&#160;RR_DECLSPEC <span class="keyword">const</span> <span class="keywordtype">char</span>      getPathSeparator();</div>
-<div class="line"><a name="l00104"></a><span class="lineno">  104</span>&#160; </div>
-<div class="line"><a name="l00105"></a><span class="lineno">  105</span>&#160;RR_DECLSPEC vector&lt;string&gt;  getLinesInFile(<span class="keyword">const</span> <span class="keywordtype">string</span>&amp; fName);</div>
-<div class="line"><a name="l00106"></a><span class="lineno">  106</span>&#160;RR_DECLSPEC <span class="keywordtype">string</span>          <a class="code" href="rrc__utilities_8h.html#acc9949f745af42ea6b3539620e2b8d9d">getFileContent</a>(<span class="keyword">const</span> <span class="keywordtype">string</span>&amp; fName);</div>
-<div class="line"><a name="l00107"></a><span class="lineno">  107</span>&#160;RR_DECLSPEC <span class="keywordtype">void</span>            createTestSuiteFileNameParts(<span class="keywordtype">int</span> caseNr, <span class="keyword">const</span> <span class="keywordtype">string</span>&amp; postFixPart, <span class="keywordtype">string</span>&amp; FilePath, <span class="keywordtype">string</span>&amp; modelFileName, <span class="keywordtype">string</span>&amp; settingsFileName, <span class="keywordtype">string</span>&amp; descriptionFileName);</div>
-<div class="line"><a name="l00108"></a><span class="lineno">  108</span>&#160;RR_DECLSPEC <span class="keywordtype">string</span>          getTestSuiteSubFolderName(<span class="keywordtype">int</span> caseNr);</div>
-<div class="line"><a name="l00109"></a><span class="lineno">  109</span>&#160; </div>
-<div class="line"><a name="l00110"></a><span class="lineno">  110</span>&#160;RR_DECLSPEC <span class="keywordtype">bool</span>            hasUnimplementedTags(<span class="keyword">const</span> <span class="keywordtype">string</span>&amp; descriptionFileName);</div>
+<div class="line"><a name="l00020"></a><span class="lineno">   20</span>&#160; </div>
+<div class="line"><a name="l00021"></a><span class="lineno">   21</span>&#160;<span class="keyword">namespace </span>rr</div>
+<div class="line"><a name="l00022"></a><span class="lineno">   22</span>&#160;{</div>
+<div class="line"><a name="l00023"></a><span class="lineno">   23</span>&#160; </div>
+<div class="line"><a name="l00024"></a><span class="lineno">   24</span>&#160;<span class="keyword">using</span> std::vector;</div>
+<div class="line"><a name="l00025"></a><span class="lineno">   25</span>&#160;<span class="keyword">using</span> std::string;</div>
+<div class="line"><a name="l00026"></a><span class="lineno">   26</span>&#160;<span class="keyword">using</span> std::set;</div>
+<div class="line"><a name="l00027"></a><span class="lineno">   27</span>&#160;<span class="comment">//namespace fs = std::filesystem ;</span></div>
+<div class="line"><a name="l00028"></a><span class="lineno">   28</span>&#160; </div>
+<div class="line"><a name="l00029"></a><span class="lineno">   29</span>&#160;RR_DECLSPEC <span class="keywordtype">bool</span>                 cleanFolder(<span class="keyword">const</span> std::string&amp; folder, <span class="keyword">const</span> std::string&amp; baseName,  <span class="keyword">const</span> std::vector&lt;std::string&gt;&amp; extensions);</div>
+<div class="line"><a name="l00030"></a><span class="lineno">   30</span>&#160;RR_DECLSPEC std::string          getTime();</div>
+<div class="line"><a name="l00031"></a><span class="lineno">   31</span>&#160;RR_DECLSPEC std::string          getDateTime();</div>
+<div class="line"><a name="l00032"></a><span class="lineno">   32</span>&#160;RR_DECLSPEC std::string          getMD5(<span class="keyword">const</span> std::string&amp; text);</div>
+<div class="line"><a name="l00033"></a><span class="lineno">   33</span>&#160;RR_DECLSPEC <span class="keywordtype">void</span>                 sleep(<span class="keywordtype">int</span> ms);</div>
+<div class="line"><a name="l00034"></a><span class="lineno">   34</span>&#160; </div>
+<div class="line"><a name="l00035"></a><span class="lineno">   35</span>&#160;<span class="comment">//Misc.</span></div>
+<div class="line"><a name="l00039"></a><span class="lineno">   39</span>&#160;<span class="comment"></span>RR_DECLSPEC std::ptrdiff_t       indexOf(<span class="keyword">const</span> std::vector&lt;std::string&gt;&amp; vec, <span class="keyword">const</span> std::string&amp; elem );</div>
+<div class="line"><a name="l00040"></a><span class="lineno">   40</span>&#160;RR_DECLSPEC <span class="keywordtype">bool</span>            isNaN(<span class="keyword">const</span> <span class="keywordtype">double</span>&amp; aNum);</div>
+<div class="line"><a name="l00041"></a><span class="lineno">   41</span>&#160;RR_DECLSPEC <span class="keywordtype">bool</span>            isNullOrEmpty(<span class="keyword">const</span> std::string&amp; str);    <span class="comment">//Can&#39;t be null, but empty</span></div>
+<div class="line"><a name="l00042"></a><span class="lineno">   42</span>&#160;RR_DECLSPEC <span class="keywordtype">void</span>            pause(<span class="keywordtype">bool</span> doIt = <span class="keyword">true</span>, <span class="keyword">const</span> std::string&amp; msg = <span class="stringliteral">&quot;&quot;</span>);</div>
+<div class="line"><a name="l00043"></a><span class="lineno">   43</span>&#160; </div>
+<div class="line"><a name="l00044"></a><span class="lineno">   44</span>&#160;<span class="comment">//String utilities</span></div>
+<div class="line"><a name="l00045"></a><span class="lineno">   45</span>&#160;RR_DECLSPEC std::string          removeTrailingSeparator(<span class="keyword">const</span> std::string&amp; fldr, <span class="keyword">const</span> <span class="keywordtype">char</span> sep = gPathSeparator);<span class="comment">//&quot;\\&quot;);</span></div>
+<div class="line"><a name="l00046"></a><span class="lineno">   46</span>&#160; </div>
+<div class="line"><a name="l00047"></a><span class="lineno">   47</span>&#160;<span class="comment">//File  Utilities</span></div>
+<div class="line"><a name="l00048"></a><span class="lineno">   48</span>&#160;RR_DECLSPEC <span class="keywordtype">size_t</span>          populateFileSet(<span class="keyword">const</span> std::string&amp; modelsFolder, std::set&lt;std::string&gt;&amp; models);</div>
+<div class="line"><a name="l00049"></a><span class="lineno">   49</span>&#160; </div>
+<div class="line"><a name="l00050"></a><span class="lineno">   50</span>&#160; </div>
+<div class="line"><a name="l00060"></a><span class="lineno">   60</span>&#160;<span class="comment">//RR_DECLSPEC bool fileExists(const std::string&amp; fileN, int fileMode=0);</span></div>
+<div class="line"><a name="l00061"></a><span class="lineno">   61</span>&#160;<span class="comment">//</span></div>
+<div class="line"><a name="l00062"></a><span class="lineno">   62</span>&#160;<span class="comment">//RR_DECLSPEC bool            folderExists(const std::string&amp; folderN);</span></div>
+<div class="line"><a name="l00063"></a><span class="lineno">   63</span>&#160;RR_DECLSPEC <span class="keywordtype">bool</span>            createFolder(<span class="keyword">const</span> std::string&amp; path);</div>
+<div class="line"><a name="l00064"></a><span class="lineno">   64</span>&#160; </div>
+<div class="line"><a name="l00065"></a><span class="lineno">   65</span>&#160;RR_DECLSPEC std::string          getParentFolder(<span class="keyword">const</span> std::string&amp; path);</div>
+<div class="line"><a name="l00066"></a><span class="lineno">   66</span>&#160;RR_DECLSPEC std::string          getCurrentExeFolder();</div>
+<div class="line"><a name="l00067"></a><span class="lineno">   67</span>&#160; </div>
+<div class="line"><a name="l00073"></a><span class="lineno">   73</span>&#160;RR_DECLSPEC std::string getCurrentSharedLibDir();</div>
+<div class="line"><a name="l00074"></a><span class="lineno">   74</span>&#160; </div>
+<div class="line"><a name="l00081"></a><span class="lineno">   81</span>&#160;RR_DECLSPEC std::string getTempDir();</div>
+<div class="line"><a name="l00082"></a><span class="lineno">   82</span>&#160; </div>
+<div class="line"><a name="l00084"></a><span class="lineno">   84</span>&#160;<span class="comment">// * Join two file paths together.</span></div>
+<div class="line"><a name="l00085"></a><span class="lineno">   85</span>&#160;<span class="comment">// */</span></div>
+<div class="line"><a name="l00086"></a><span class="lineno">   86</span>&#160;<span class="comment">//RR_DECLSPEC std::string joinPath(const std::string&amp; p1, const std::string&amp; p2,</span></div>
+<div class="line"><a name="l00087"></a><span class="lineno">   87</span>&#160;<span class="comment">//        const char pathSeparator = gPathSeparator);</span></div>
+<div class="line"><a name="l00088"></a><span class="lineno">   88</span>&#160;<span class="comment">//</span></div>
+<div class="line"><a name="l00090"></a><span class="lineno">   90</span>&#160;<span class="comment"></span><span class="comment">// * join three file paths together.</span></div>
+<div class="line"><a name="l00091"></a><span class="lineno">   91</span>&#160;<span class="comment">// */</span></div>
+<div class="line"><a name="l00092"></a><span class="lineno">   92</span>&#160;<span class="comment">//RR_DECLSPEC std::string joinPath(const std::string&amp; p1, const std::string&amp; p2,</span></div>
+<div class="line"><a name="l00093"></a><span class="lineno">   93</span>&#160;<span class="comment">//        const std::string&amp; p3, const char pathSeparator = gPathSeparator);</span></div>
+<div class="line"><a name="l00094"></a><span class="lineno">   94</span>&#160;<span class="comment">//</span></div>
+<div class="line"><a name="l00095"></a><span class="lineno">   95</span>&#160;<span class="comment">//RR_DECLSPEC std::string joinPath(const std::string&amp; p1, const std::string&amp; p2,</span></div>
+<div class="line"><a name="l00096"></a><span class="lineno">   96</span>&#160;<span class="comment">//        const std::string&amp; p3, const std::string&amp; p4, const char pathSeparator =</span></div>
+<div class="line"><a name="l00097"></a><span class="lineno">   97</span>&#160;<span class="comment">//                gPathSeparator);</span></div>
+<div class="line"><a name="l00098"></a><span class="lineno">   98</span>&#160;<span class="comment">//</span></div>
+<div class="line"><a name="l00099"></a><span class="lineno">   99</span>&#160;<span class="comment">//RR_DECLSPEC std::string joinPath(const std::string&amp; p1, const std::string&amp; p2,</span></div>
+<div class="line"><a name="l00100"></a><span class="lineno">  100</span>&#160;<span class="comment">//        const std::string&amp; p3, const std::string&amp; p4, const std::string&amp; p5,</span></div>
+<div class="line"><a name="l00101"></a><span class="lineno">  101</span>&#160;<span class="comment">//        const char pathSeparator = gPathSeparator);</span></div>
+<div class="line"><a name="l00102"></a><span class="lineno">  102</span>&#160; </div>
+<div class="line"><a name="l00103"></a><span class="lineno">  103</span>&#160; </div>
+<div class="line"><a name="l00104"></a><span class="lineno">  104</span>&#160;RR_DECLSPEC std::string          getCWD();</div>
+<div class="line"><a name="l00105"></a><span class="lineno">  105</span>&#160;RR_DECLSPEC <span class="keyword">const</span> <span class="keywordtype">char</span>      getPathSeparator();</div>
+<div class="line"><a name="l00106"></a><span class="lineno">  106</span>&#160; </div>
+<div class="line"><a name="l00107"></a><span class="lineno">  107</span>&#160;RR_DECLSPEC std::vector&lt;std::string&gt;    getLinesInFile(std::filesystem::path fName);</div>
+<div class="line"><a name="l00108"></a><span class="lineno">  108</span>&#160;RR_DECLSPEC std::string                 <a class="code" href="rrc__utilities_8h.html#acc9949f745af42ea6b3539620e2b8d9d">getFileContent</a>(std::filesystem::path fName);</div>
+<div class="line"><a name="l00109"></a><span class="lineno">  109</span>&#160;RR_DECLSPEC <span class="keywordtype">void</span>                        createTestSuiteFileNameParts(<span class="keywordtype">int</span> caseNr, <span class="keyword">const</span> std::string&amp; postFixPart, std::string&amp; FilePath, std::string&amp; modelFileName, std::string&amp; settingsFileName, std::string&amp; descriptionFileName);</div>
+<div class="line"><a name="l00110"></a><span class="lineno">  110</span>&#160;RR_DECLSPEC std::string                 getTestSuiteSubFolderName(<span class="keywordtype">int</span> caseNr);</div>
 <div class="line"><a name="l00111"></a><span class="lineno">  111</span>&#160; </div>
-<div class="line"><a name="l00112"></a><span class="lineno">  112</span>&#160;RR_DECLSPEC <span class="keywordtype">bool</span>            isSemiStochasticTest(<span class="keyword">const</span> <span class="keywordtype">string</span>&amp; descriptionFileName);</div>
+<div class="line"><a name="l00112"></a><span class="lineno">  112</span>&#160;RR_DECLSPEC <span class="keywordtype">bool</span>            hasUnimplementedTags(<span class="keyword">const</span> std::string&amp; descriptionFileName);</div>
 <div class="line"><a name="l00113"></a><span class="lineno">  113</span>&#160; </div>
-<div class="line"><a name="l00114"></a><span class="lineno">  114</span>&#160;RR_DECLSPEC <span class="keywordtype">bool</span>            isFBCTest(<span class="keyword">const</span> <span class="keywordtype">string</span>&amp; descriptionFileName);</div>
+<div class="line"><a name="l00114"></a><span class="lineno">  114</span>&#160;RR_DECLSPEC <span class="keywordtype">bool</span>            isSemiStochasticTest(<span class="keyword">const</span> std::string&amp; descriptionFileName);</div>
 <div class="line"><a name="l00115"></a><span class="lineno">  115</span>&#160; </div>
-<div class="line"><a name="l00116"></a><span class="lineno">  116</span>&#160;<span class="comment">//CArray utilities</span></div>
-<div class="line"><a name="l00117"></a><span class="lineno">  117</span>&#160;RR_DECLSPEC <span class="keywordtype">bool</span>            copyCArrayToStdVector(<span class="keyword">const</span> <span class="keywordtype">int</span>* src,     vector&lt;int&gt;&amp; dest, <span class="keywordtype">int</span> size);</div>
-<div class="line"><a name="l00118"></a><span class="lineno">  118</span>&#160;RR_DECLSPEC <span class="keywordtype">bool</span>            copyCArrayToStdVector(<span class="keyword">const</span> <span class="keywordtype">double</span>* src,  vector&lt;double&gt;&amp; dest, <span class="keywordtype">int</span> size);</div>
-<div class="line"><a name="l00119"></a><span class="lineno">  119</span>&#160;RR_DECLSPEC <span class="keywordtype">bool</span>            copyValues(vector&lt;double&gt;&amp; dest, <span class="keywordtype">double</span>* source, <span class="keyword">const</span> <span class="keywordtype">int</span>&amp; nrVals, <span class="keyword">const</span> <span class="keywordtype">int</span>&amp; startIndex);</div>
-<div class="line"><a name="l00120"></a><span class="lineno">  120</span>&#160;RR_DECLSPEC <span class="keywordtype">bool</span>            copyCArrayToStdVector(<span class="keyword">const</span> <span class="keywordtype">bool</span>* src,    vector&lt;bool&gt;&amp; dest, <span class="keywordtype">int</span> size);</div>
-<div class="line"><a name="l00121"></a><span class="lineno">  121</span>&#160;RR_DECLSPEC <span class="keywordtype">bool</span>            copyStdVectorToCArray(<span class="keyword">const</span> vector&lt;double&gt;&amp; src, <span class="keywordtype">double</span>* dest,  <span class="keywordtype">int</span> size);</div>
-<div class="line"><a name="l00122"></a><span class="lineno">  122</span>&#160;RR_DECLSPEC <span class="keywordtype">bool</span>            copyStdVectorToCArray(<span class="keyword">const</span> vector&lt;bool&gt;&amp;   src,  <span class="keywordtype">bool</span>*  dest,  <span class="keywordtype">int</span> size);</div>
-<div class="line"><a name="l00123"></a><span class="lineno">  123</span>&#160;RR_DECLSPEC <span class="keywordtype">double</span>*         <a class="code" href="group__helperRoutines.html#ga9f52eab51dfe4dcd3d87538bf8ecd453">createVector</a>(<span class="keyword">const</span> vector&lt;double&gt;&amp; vec);</div>
-<div class="line"><a name="l00124"></a><span class="lineno">  124</span>&#160;RR_DECLSPEC vector&lt;double&gt;  <a class="code" href="group__helperRoutines.html#ga9f52eab51dfe4dcd3d87538bf8ecd453">createVector</a>(<span class="keyword">const</span> <span class="keywordtype">double</span>* src, <span class="keyword">const</span> <span class="keywordtype">int</span>&amp; size);</div>
-<div class="line"><a name="l00125"></a><span class="lineno">  125</span>&#160; </div>
-<div class="line"><a name="l00126"></a><span class="lineno">  126</span>&#160;<span class="preprocessor">#if defined(_WIN32) || defined(__WIN32__)</span></div>
-<div class="line"><a name="l00127"></a><span class="lineno">  127</span>&#160;RR_DECLSPEC HINSTANCE       loadDLL(<span class="keyword">const</span> <span class="keywordtype">string</span>&amp; dll);</div>
-<div class="line"><a name="l00128"></a><span class="lineno">  128</span>&#160;RR_DECLSPEC <span class="keywordtype">bool</span>            unLoadDLL(HINSTANCE dllHandle);</div>
-<div class="line"><a name="l00129"></a><span class="lineno">  129</span>&#160;RR_DECLSPEC FARPROC         getFunctionPtr(<span class="keyword">const</span> <span class="keywordtype">string</span>&amp; funcName, HINSTANCE DLLHandle);</div>
-<div class="line"><a name="l00130"></a><span class="lineno">  130</span>&#160;RR_DECLSPEC <span class="keywordtype">string</span>          getWINAPIError(DWORD errorCode, LPTSTR lpszFunction);</div>
-<div class="line"><a name="l00131"></a><span class="lineno">  131</span>&#160;<span class="preprocessor">#endif</span></div>
-<div class="line"><a name="l00132"></a><span class="lineno">  132</span>&#160; </div>
-<div class="line"><a name="l00133"></a><span class="lineno">  133</span>&#160;<span class="preprocessor">#undef CreateFile</span></div>
-<div class="line"><a name="l00134"></a><span class="lineno">  134</span>&#160;RR_DECLSPEC <span class="keywordtype">bool</span>            createFile(<span class="keyword">const</span> <span class="keywordtype">string</span>&amp; fName, std::ios_base::openmode mode = std::ios::trunc );</div>
-<div class="line"><a name="l00135"></a><span class="lineno">  135</span>&#160; </div>
-<div class="line"><a name="l00136"></a><span class="lineno">  136</span>&#160; </div>
+<div class="line"><a name="l00116"></a><span class="lineno">  116</span>&#160;RR_DECLSPEC <span class="keywordtype">bool</span>            isFBCTest(<span class="keyword">const</span> std::string&amp; descriptionFileName);</div>
+<div class="line"><a name="l00117"></a><span class="lineno">  117</span>&#160; </div>
+<div class="line"><a name="l00118"></a><span class="lineno">  118</span>&#160;<span class="comment">//CArray utilities</span></div>
+<div class="line"><a name="l00119"></a><span class="lineno">  119</span>&#160;RR_DECLSPEC <span class="keywordtype">bool</span>            copyCArrayToStdVector(<span class="keyword">const</span> <span class="keywordtype">int</span>* src,     std::vector&lt;int&gt;&amp; dest, <span class="keywordtype">int</span> size);</div>
+<div class="line"><a name="l00120"></a><span class="lineno">  120</span>&#160;RR_DECLSPEC <span class="keywordtype">bool</span>            copyCArrayToStdVector(<span class="keyword">const</span> <span class="keywordtype">double</span>* src,  std::vector&lt;double&gt;&amp; dest, <span class="keywordtype">int</span> size);</div>
+<div class="line"><a name="l00121"></a><span class="lineno">  121</span>&#160;RR_DECLSPEC <span class="keywordtype">bool</span>            copyValues(std::vector&lt;double&gt;&amp; dest, <span class="keywordtype">double</span>* source, <span class="keyword">const</span> <span class="keywordtype">int</span>&amp; nrVals, <span class="keyword">const</span> <span class="keywordtype">int</span>&amp; startIndex);</div>
+<div class="line"><a name="l00122"></a><span class="lineno">  122</span>&#160;RR_DECLSPEC <span class="keywordtype">bool</span>            copyCArrayToStdVector(<span class="keyword">const</span> <span class="keywordtype">bool</span>* src,    std::vector&lt;bool&gt;&amp; dest, <span class="keywordtype">int</span> size);</div>
+<div class="line"><a name="l00123"></a><span class="lineno">  123</span>&#160;RR_DECLSPEC <span class="keywordtype">bool</span>            copyStdVectorToCArray(<span class="keyword">const</span> std::vector&lt;double&gt;&amp; src, <span class="keywordtype">double</span>* dest,  <span class="keywordtype">int</span> size);</div>
+<div class="line"><a name="l00124"></a><span class="lineno">  124</span>&#160;RR_DECLSPEC <span class="keywordtype">bool</span>            copyStdVectorToCArray(<span class="keyword">const</span> std::vector&lt;bool&gt;&amp;   src,  <span class="keywordtype">bool</span>*  dest,  <span class="keywordtype">int</span> size);</div>
+<div class="line"><a name="l00125"></a><span class="lineno">  125</span>&#160;RR_DECLSPEC <span class="keywordtype">double</span>*         <a class="code" href="group__helperRoutines.html#ga9f52eab51dfe4dcd3d87538bf8ecd453">createVector</a>(<span class="keyword">const</span> std::vector&lt;double&gt;&amp; vec);</div>
+<div class="line"><a name="l00126"></a><span class="lineno">  126</span>&#160;RR_DECLSPEC std::vector&lt;double&gt;  <a class="code" href="group__helperRoutines.html#ga9f52eab51dfe4dcd3d87538bf8ecd453">createVector</a>(<span class="keyword">const</span> <span class="keywordtype">double</span>* src, <span class="keyword">const</span> <span class="keywordtype">int</span>&amp; size);</div>
+<div class="line"><a name="l00127"></a><span class="lineno">  127</span>&#160; </div>
+<div class="line"><a name="l00128"></a><span class="lineno">  128</span>&#160;<span class="preprocessor">#if defined(_WIN32) || defined(__WIN32__)</span></div>
+<div class="line"><a name="l00129"></a><span class="lineno">  129</span>&#160;RR_DECLSPEC HINSTANCE       loadDLL(<span class="keyword">const</span> std::string&amp; dll);</div>
+<div class="line"><a name="l00130"></a><span class="lineno">  130</span>&#160;RR_DECLSPEC <span class="keywordtype">bool</span>            unLoadDLL(HINSTANCE dllHandle);</div>
+<div class="line"><a name="l00131"></a><span class="lineno">  131</span>&#160;RR_DECLSPEC FARPROC         getFunctionPtr(<span class="keyword">const</span> std::string&amp; funcName, HINSTANCE DLLHandle);</div>
+<div class="line"><a name="l00132"></a><span class="lineno">  132</span>&#160;RR_DECLSPEC std::string          getWINAPIError(DWORD errorCode, LPTSTR lpszFunction);</div>
+<div class="line"><a name="l00133"></a><span class="lineno">  133</span>&#160;<span class="preprocessor">#endif</span></div>
+<div class="line"><a name="l00134"></a><span class="lineno">  134</span>&#160; </div>
+<div class="line"><a name="l00135"></a><span class="lineno">  135</span>&#160;<span class="preprocessor">#undef CreateFile</span></div>
+<div class="line"><a name="l00136"></a><span class="lineno">  136</span>&#160;RR_DECLSPEC <span class="keywordtype">bool</span>            createFile(<span class="keyword">const</span> std::string&amp; fName, std::ios_base::openmode mode = std::ios::trunc );</div>
 <div class="line"><a name="l00137"></a><span class="lineno">  137</span>&#160; </div>
-<div class="line"><a name="l00144"></a><span class="lineno">  144</span>&#160;RR_DECLSPEC int64_t getMicroSeconds();</div>
-<div class="line"><a name="l00145"></a><span class="lineno">  145</span>&#160; </div>
-<div class="line"><a name="l00146"></a><span class="lineno">  146</span>&#160;} <span class="comment">// rr Namespace</span></div>
-<div class="line"><a name="l00147"></a><span class="lineno">  147</span>&#160;<span class="preprocessor">#endif</span></div>
+<div class="line"><a name="l00138"></a><span class="lineno">  138</span>&#160; </div>
+<div class="line"><a name="l00139"></a><span class="lineno">  139</span>&#160; </div>
+<div class="line"><a name="l00146"></a><span class="lineno">  146</span>&#160;RR_DECLSPEC int64_t getMicroSeconds();</div>
+<div class="line"><a name="l00147"></a><span class="lineno">  147</span>&#160; </div>
+<div class="line"><a name="l00148"></a><span class="lineno">  148</span>&#160;} <span class="comment">// rr Namespace</span></div>
+<div class="line"><a name="l00149"></a><span class="lineno">  149</span>&#160;<span class="preprocessor">#endif</span></div>
 </div><!-- fragment --></div><!-- contents -->
 <div class="ttc" id="agroup__helperRoutines_html_ga9f52eab51dfe4dcd3d87538bf8ecd453"><div class="ttname"><a href="group__helperRoutines.html#ga9f52eab51dfe4dcd3d87538bf8ecd453">createVector</a></div><div class="ttdeci">C_DECL_SPEC RRVectorPtr rrcCallConv createVector(int size)</div><div class="ttdoc">Create a new vector with a given size.</div></div>
 <div class="ttc" id="arrc__utilities_8h_html_acc9949f745af42ea6b3539620e2b8d9d"><div class="ttname"><a href="rrc__utilities_8h.html#acc9949f745af42ea6b3539620e2b8d9d">getFileContent</a></div><div class="ttdeci">C_DECL_SPEC char *rrcCallConv getFileContent(const char *fName)</div><div class="ttdoc">Retrieves the the content of a file.</div></div>

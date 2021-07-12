@@ -13,6 +13,8 @@
   
   <link rel="stylesheet" href="../_static/css/theme.css" type="text/css" />
   <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
+  <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
+  <link rel="stylesheet" href="../_static/css/theme.css" type="text/css" />
   <link rel="stylesheet" href="../_static/tabs.css" type="text/css" />
 
   
@@ -30,10 +32,10 @@
   
     
       <script type="text/javascript" id="documentation_options" data-url_root="../" src="../_static/documentation_options.js"></script>
+        <script data-url_root="../" id="documentation_options" src="../_static/documentation_options.js"></script>
         <script src="../_static/jquery.js"></script>
         <script src="../_static/underscore.js"></script>
         <script src="../_static/doctools.js"></script>
-        <script src="../_static/language_data.js"></script>
     
     <script type="text/javascript" src="../_static/js/theme.js"></script>
 
@@ -147,6 +149,7 @@
 <li class="toctree-l2"><a class="reference internal" href="index.html#a-complete-example-of-creating-an-integrator">A complete example of creating an integrator</a></li>
 </ul>
 </li>
+<li class="toctree-l1"><a class="reference internal" href="../developers_docs/index.html">Developers Documentation</a></li>
 </ul>
 
             
@@ -219,21 +222,21 @@
   <div class="section" id="dictionary">
 <h1>Dictionary<a class="headerlink" href="#dictionary" title="Permalink to this headline">¶</a></h1>
 <dl class="cpp class">
-<dt id="_CPPv4N2rr10DictionaryE">
-<span id="_CPPv3N2rr10DictionaryE"></span><span id="_CPPv2N2rr10DictionaryE"></span><span id="rr::Dictionary"></span><span class="target" id="classrr_1_1Dictionary"></span><em class="property">class </em><code class="sig-prename descclassname">rr<code class="sig-prename descclassname">::</code></code><code class="sig-name descname">Dictionary</code><a class="headerlink" href="#_CPPv4N2rr10DictionaryE" title="Permalink to this definition">¶</a><br /></dt>
+<dt class="sig sig-object cpp" id="_CPPv4N2rr10DictionaryE">
+<span id="_CPPv3N2rr10DictionaryE"></span><span id="_CPPv2N2rr10DictionaryE"></span><span id="rr::Dictionary"></span><span class="target" id="classrr_1_1Dictionary"></span><span class="k"><span class="pre">class</span></span><span class="w"> </span><span class="sig-prename descclassname"><span class="n"><span class="pre">rr</span></span><span class="p"><span class="pre">::</span></span></span><span class="sig-name descname"><span class="n"><span class="pre">Dictionary</span></span></span><a class="headerlink" href="#_CPPv4N2rr10DictionaryE" title="Permalink to this definition">¶</a><br /></dt>
 <dd><p>This class is frozen, no new features A dictionary interface that objects can implement. </p>
 <p>These are automatically mapped to python dictionaries. </p>
-<p>Subclassed by rr::BasicDictionary, <a class="reference internal" href="rrSteadyStateSolver.html#classrr_1_1rrSteadyStateSolver"><span class="std std-ref">rr::rrSteadyStateSolver</span></a></p>
+<p>Subclassed by rr::BasicDictionary, <a class="reference internal" href="rrNLEQ1Interface.html#classrr_1_1NLEQ1Interface"><span class="std std-ref">rr::NLEQ1Interface</span></a>, <a class="reference internal" href="rrNLEQ2Interface.html#classrr_1_1NLEQ2Interface"><span class="std std-ref">rr::NLEQ2Interface</span></a></p>
 <div class="breathe-sectiondef docutils container">
-<p class="breathe-sectiondef-title rubric">Public Functions</p>
+<p class="breathe-sectiondef-title rubric" id="breathe-section-title-public-functions">Public Functions</p>
 <dl class="cpp function">
-<dt id="_CPPv4N2rr10Dictionary7setItemERKNSt6stringERKN2rr7VariantE">
-<span id="_CPPv3N2rr10Dictionary7setItemERKNSt6stringERKN2rr7VariantE"></span><span id="_CPPv2N2rr10Dictionary7setItemERKNSt6stringERKN2rr7VariantE"></span><span id="rr::Dictionary::setItem__ssCR.rr::VariantCR"></span><span class="target" id="classrr_1_1Dictionary_1a6bb53c3bfeee7e3ee2bfcf9da8212949"></span><em class="property">virtual</em> void <code class="sig-name descname">setItem</code><span class="sig-paren">(</span><em class="property">const</em> std::string &amp;<em>key</em>, <em class="property">const</em> rr::<a class="reference internal" href="Variant.html#_CPPv4N2rr7VariantE" title="rr::Variant">Variant</a> &amp;<em>value</em><span class="sig-paren">)</span> = 0<a class="headerlink" href="#_CPPv4N2rr10Dictionary7setItemERKNSt6stringERKN2rr7VariantE" title="Permalink to this definition">¶</a><br /></dt>
+<dt class="sig sig-object cpp" id="_CPPv4N2rr10Dictionary7setItemERKNSt6stringERKN2rr7SettingE">
+<span id="_CPPv3N2rr10Dictionary7setItemERKNSt6stringERKN2rr7SettingE"></span><span id="_CPPv2N2rr10Dictionary7setItemERKNSt6stringERKN2rr7SettingE"></span><span id="rr::Dictionary::setItem__ssCR.rr::SettingCR"></span><span class="target" id="classrr_1_1Dictionary_1a4708fee12ec4cd5e879df9bf5570c02a"></span><span class="k"><span class="pre">virtual</span></span><span class="w"> </span><span class="kt"><span class="pre">void</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">setItem</span></span></span><span class="sig-paren">(</span><span class="k"><span class="pre">const</span></span><span class="w"> </span><span class="n"><span class="pre">std</span></span><span class="p"><span class="pre">::</span></span><span class="n"><span class="pre">string</span></span><span class="w"> </span><span class="p"><span class="pre">&amp;</span></span><span class="n sig-param"><span class="pre">key</span></span>, <span class="k"><span class="pre">const</span></span><span class="w"> </span><span class="n"><span class="pre">rr</span></span><span class="p"><span class="pre">::</span></span><span class="n"><span class="pre">Setting</span></span><span class="w"> </span><span class="p"><span class="pre">&amp;</span></span><span class="n sig-param"><span class="pre">value</span></span><span class="sig-paren">)</span><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="m"><span class="pre">0</span></span><a class="headerlink" href="#_CPPv4N2rr10Dictionary7setItemERKNSt6stringERKN2rr7SettingE" title="Permalink to this definition">¶</a><br /></dt>
 <dd><p>Set the value for an arbitrary key. </p>
-<p>The <a class="reference internal" href="Variant.html#classrr_1_1Variant"><span class="std std-ref">Variant</span></a> object has a large number of creation operators so you only have to give the value as native C++ object i.e.</p>
+<p>The Setting object has a large number of creation operators so you only have to give the value as native C++ object i.e.</p>
 <p><div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">Dictionary</span><span class="o">*</span><span class="n">d</span> <span class="o">=</span> <span class="p">(</span><span class="o">...</span><span class="p">);</span>
 <span class="n">d</span><span class="o">-&gt;</span><span class="n">setItem</span><span class="p">(</span><span class="s2">&quot;someIntKey&quot;</span><span class="p">,</span> <span class="mi">1</span><span class="p">);</span>
-<span class="n">d</span><span class="o">-&gt;</span><span class="n">setItem</span><span class="p">(</span><span class="s2">&quot;someStrKey&quot;</span><span class="p">,</span> <span class="n">string</span><span class="p">(</span><span class="s2">&quot;some string&quot;</span><span class="p">));</span>
+<span class="n">d</span><span class="o">-&gt;</span><span class="n">setItem</span><span class="p">(</span><span class="s2">&quot;someStrKey&quot;</span><span class="p">,</span> <span class="n">std</span><span class="p">::</span><span class="n">string</span><span class="p">(</span><span class="s2">&quot;some std::string&quot;</span><span class="p">));</span>
 <span class="n">d</span><span class="o">-&gt;</span><span class="n">setItem</span><span class="p">(</span><span class="s2">&quot;someFloatVal, 0.123);</span>
 </pre></div>
 </div>
@@ -241,14 +244,14 @@
 </dd></dl>
 
 <dl class="cpp function">
-<dt id="_CPPv4NK2rr10Dictionary7getItemERKNSt6stringE">
-<span id="_CPPv3NK2rr10Dictionary7getItemERKNSt6stringE"></span><span id="_CPPv2NK2rr10Dictionary7getItemERKNSt6stringE"></span><span id="rr::Dictionary::getItem__ssCRC"></span><span class="target" id="classrr_1_1Dictionary_1a53cb5eee283727168630f6b1b918bdb0"></span><em class="property">virtual</em> <a class="reference internal" href="Variant.html#_CPPv4N2rr7VariantE" title="rr::Variant">Variant</a> <code class="sig-name descname">getItem</code><span class="sig-paren">(</span><em class="property">const</em> std::string &amp;<em>key</em><span class="sig-paren">)</span> <em class="property">const</em> = 0<a class="headerlink" href="#_CPPv4NK2rr10Dictionary7getItemERKNSt6stringE" title="Permalink to this definition">¶</a><br /></dt>
+<dt class="sig sig-object cpp" id="_CPPv4NK2rr10Dictionary7getItemERKNSt6stringE">
+<span id="_CPPv3NK2rr10Dictionary7getItemERKNSt6stringE"></span><span id="_CPPv2NK2rr10Dictionary7getItemERKNSt6stringE"></span><span id="rr::Dictionary::getItem__ssCRC"></span><span class="target" id="classrr_1_1Dictionary_1a0fcdd3d9089af14e49e8713c254c9b67"></span><span class="k"><span class="pre">virtual</span></span><span class="w"> </span><span class="n"><span class="pre">Setting</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">getItem</span></span></span><span class="sig-paren">(</span><span class="k"><span class="pre">const</span></span><span class="w"> </span><span class="n"><span class="pre">std</span></span><span class="p"><span class="pre">::</span></span><span class="n"><span class="pre">string</span></span><span class="w"> </span><span class="p"><span class="pre">&amp;</span></span><span class="n sig-param"><span class="pre">key</span></span><span class="sig-paren">)</span><span class="w"> </span><span class="k"><span class="pre">const</span></span><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="m"><span class="pre">0</span></span><a class="headerlink" href="#_CPPv4NK2rr10Dictionary7getItemERKNSt6stringE" title="Permalink to this definition">¶</a><br /></dt>
 <dd><p>Get a value. </p>
 <p>Variants are POD. If the key does not exist, an std::exception will be thrown.</p>
-<p>The <a class="reference internal" href="Variant.html#classrr_1_1Variant"><span class="std std-ref">Variant</span></a> object has the assigment operator overloaded so it will automatically convert to any native C++ object. If the <a class="reference internal" href="Variant.html#classrr_1_1Variant"><span class="std std-ref">Variant</span></a> can not be converted, it will raise an exception, i.e.</p>
+<p>The Setting object has the assigment operator overloaded so it will automatically convert to any native C++ object. If the Setting can not be converted, it will raise an exception, i.e.</p>
 <p><div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">Dictionary</span><span class="o">*</span> <span class="n">d</span> <span class="o">=</span> <span class="o">...</span><span class="p">;</span>
 <span class="nb">int</span> <span class="n">a</span> <span class="o">=</span> <span class="n">d</span><span class="o">-&gt;</span><span class="n">getItem</span><span class="p">(</span><span class="s2">&quot;someIntKey&quot;</span><span class="p">);</span>
-<span class="n">string</span> <span class="n">s</span> <span class="o">=</span> <span class="n">d</span><span class="o">-&gt;</span><span class="n">getItem</span><span class="p">(</span><span class="s2">&quot;someStrVal&quot;</span><span class="p">);</span>
+<span class="n">std</span><span class="p">::</span><span class="n">string</span> <span class="n">s</span> <span class="o">=</span> <span class="n">d</span><span class="o">-&gt;</span><span class="n">getItem</span><span class="p">(</span><span class="s2">&quot;someStrVal&quot;</span><span class="p">);</span>
 <span class="n">double</span> <span class="n">val</span> <span class="o">=</span> <span class="n">d</span><span class="o">-&gt;</span><span class="n">getItem</span><span class="p">(</span><span class="s2">&quot;someDoubleVal&quot;</span><span class="p">);</span>
 </pre></div>
 </div>
@@ -256,26 +259,26 @@
 </dd></dl>
 
 <dl class="cpp function">
-<dt id="_CPPv4NK2rr10Dictionary6hasKeyERKNSt6stringE">
-<span id="_CPPv3NK2rr10Dictionary6hasKeyERKNSt6stringE"></span><span id="_CPPv2NK2rr10Dictionary6hasKeyERKNSt6stringE"></span><span id="rr::Dictionary::hasKey__ssCRC"></span><span class="target" id="classrr_1_1Dictionary_1a7ec0accc7149a403ee5eeeb9457059ed"></span><em class="property">virtual</em> bool <code class="sig-name descname">hasKey</code><span class="sig-paren">(</span><em class="property">const</em> std::string &amp;<em>key</em><span class="sig-paren">)</span> <em class="property">const</em> = 0<a class="headerlink" href="#_CPPv4NK2rr10Dictionary6hasKeyERKNSt6stringE" title="Permalink to this definition">¶</a><br /></dt>
+<dt class="sig sig-object cpp" id="_CPPv4NK2rr10Dictionary6hasKeyERKNSt6stringE">
+<span id="_CPPv3NK2rr10Dictionary6hasKeyERKNSt6stringE"></span><span id="_CPPv2NK2rr10Dictionary6hasKeyERKNSt6stringE"></span><span id="rr::Dictionary::hasKey__ssCRC"></span><span class="target" id="classrr_1_1Dictionary_1a7ec0accc7149a403ee5eeeb9457059ed"></span><span class="k"><span class="pre">virtual</span></span><span class="w"> </span><span class="kt"><span class="pre">bool</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">hasKey</span></span></span><span class="sig-paren">(</span><span class="k"><span class="pre">const</span></span><span class="w"> </span><span class="n"><span class="pre">std</span></span><span class="p"><span class="pre">::</span></span><span class="n"><span class="pre">string</span></span><span class="w"> </span><span class="p"><span class="pre">&amp;</span></span><span class="n sig-param"><span class="pre">key</span></span><span class="sig-paren">)</span><span class="w"> </span><span class="k"><span class="pre">const</span></span><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="m"><span class="pre">0</span></span><a class="headerlink" href="#_CPPv4NK2rr10Dictionary6hasKeyERKNSt6stringE" title="Permalink to this definition">¶</a><br /></dt>
 <dd><p>is there a key matching this name. </p>
 </dd></dl>
 
 <dl class="cpp function">
-<dt id="_CPPv4N2rr10Dictionary10deleteItemERKNSt6stringE">
-<span id="_CPPv3N2rr10Dictionary10deleteItemERKNSt6stringE"></span><span id="_CPPv2N2rr10Dictionary10deleteItemERKNSt6stringE"></span><span id="rr::Dictionary::deleteItem__ssCR"></span><span class="target" id="classrr_1_1Dictionary_1aafd395297acc9cb73ea1e244b3f02d5c"></span><em class="property">virtual</em> size_t <code class="sig-name descname">deleteItem</code><span class="sig-paren">(</span><em class="property">const</em> std::string &amp;<em>key</em><span class="sig-paren">)</span> = 0<a class="headerlink" href="#_CPPv4N2rr10Dictionary10deleteItemERKNSt6stringE" title="Permalink to this definition">¶</a><br /></dt>
+<dt class="sig sig-object cpp" id="_CPPv4N2rr10Dictionary10deleteItemERKNSt6stringE">
+<span id="_CPPv3N2rr10Dictionary10deleteItemERKNSt6stringE"></span><span id="_CPPv2N2rr10Dictionary10deleteItemERKNSt6stringE"></span><span id="rr::Dictionary::deleteItem__ssCR"></span><span class="target" id="classrr_1_1Dictionary_1aafd395297acc9cb73ea1e244b3f02d5c"></span><span class="k"><span class="pre">virtual</span></span><span class="w"> </span><span class="n"><span class="pre">size_t</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">deleteItem</span></span></span><span class="sig-paren">(</span><span class="k"><span class="pre">const</span></span><span class="w"> </span><span class="n"><span class="pre">std</span></span><span class="p"><span class="pre">::</span></span><span class="n"><span class="pre">string</span></span><span class="w"> </span><span class="p"><span class="pre">&amp;</span></span><span class="n sig-param"><span class="pre">key</span></span><span class="sig-paren">)</span><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="m"><span class="pre">0</span></span><a class="headerlink" href="#_CPPv4N2rr10Dictionary10deleteItemERKNSt6stringE" title="Permalink to this definition">¶</a><br /></dt>
 <dd><p>remove a value </p>
 </dd></dl>
 
 <dl class="cpp function">
-<dt id="_CPPv4NK2rr10Dictionary7getKeysEv">
-<span id="_CPPv3NK2rr10Dictionary7getKeysEv"></span><span id="_CPPv2NK2rr10Dictionary7getKeysEv"></span><span id="rr::Dictionary::getKeysC"></span><span class="target" id="classrr_1_1Dictionary_1ae8e4240deda5ee2dc7d472476bd92b47"></span><em class="property">virtual</em> std::vector&lt;std::string&gt; <code class="sig-name descname">getKeys</code><span class="sig-paren">(</span><span class="sig-paren">)</span> <em class="property">const</em> = 0<a class="headerlink" href="#_CPPv4NK2rr10Dictionary7getKeysEv" title="Permalink to this definition">¶</a><br /></dt>
+<dt class="sig sig-object cpp" id="_CPPv4NK2rr10Dictionary7getKeysEv">
+<span id="_CPPv3NK2rr10Dictionary7getKeysEv"></span><span id="_CPPv2NK2rr10Dictionary7getKeysEv"></span><span id="rr::Dictionary::getKeysC"></span><span class="target" id="classrr_1_1Dictionary_1ae8e4240deda5ee2dc7d472476bd92b47"></span><span class="k"><span class="pre">virtual</span></span><span class="w"> </span><span class="n"><span class="pre">std</span></span><span class="p"><span class="pre">::</span></span><span class="n"><span class="pre">vector</span></span><span class="p"><span class="pre">&lt;</span></span><span class="n"><span class="pre">std</span></span><span class="p"><span class="pre">::</span></span><span class="n"><span class="pre">string</span></span><span class="p"><span class="pre">&gt;</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">getKeys</span></span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><span class="w"> </span><span class="k"><span class="pre">const</span></span><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="m"><span class="pre">0</span></span><a class="headerlink" href="#_CPPv4NK2rr10Dictionary7getKeysEv" title="Permalink to this definition">¶</a><br /></dt>
 <dd><p>list of keys in this object. </p>
 </dd></dl>
 
 <dl class="cpp function">
-<dt id="_CPPv4N2rr10DictionaryD0Ev">
-<span id="_CPPv3N2rr10DictionaryD0Ev"></span><span id="_CPPv2N2rr10DictionaryD0Ev"></span><span id="rr::Dictionary::~Dictionary"></span><span class="target" id="classrr_1_1Dictionary_1ada6593bddd5fd2f3f75374863191f419"></span><em class="property">inline</em> <em class="property">virtual</em> <code class="sig-name descname">~Dictionary</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#_CPPv4N2rr10DictionaryD0Ev" title="Permalink to this definition">¶</a><br /></dt>
+<dt class="sig sig-object cpp" id="_CPPv4N2rr10DictionaryD0Ev">
+<span id="_CPPv3N2rr10DictionaryD0Ev"></span><span id="_CPPv2N2rr10DictionaryD0Ev"></span><span id="rr::Dictionary::~Dictionary"></span><span class="target" id="classrr_1_1Dictionary_1ada6593bddd5fd2f3f75374863191f419"></span><span class="k"><span class="pre">inline</span></span><span class="w"> </span><span class="k"><span class="pre">virtual</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">~Dictionary</span></span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#_CPPv4N2rr10DictionaryD0Ev" title="Permalink to this definition">¶</a><br /></dt>
 <dd><p>Pure virtual interface, you should never have to delete an instance of this type directly. </p>
 </dd></dl>
 

@@ -13,6 +13,8 @@
   
   <link rel="stylesheet" href="../_static/css/theme.css" type="text/css" />
   <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
+  <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
+  <link rel="stylesheet" href="../_static/css/theme.css" type="text/css" />
   <link rel="stylesheet" href="../_static/tabs.css" type="text/css" />
 
   
@@ -30,10 +32,10 @@
   
     
       <script type="text/javascript" id="documentation_options" data-url_root="../" src="../_static/documentation_options.js"></script>
+        <script data-url_root="../" id="documentation_options" src="../_static/documentation_options.js"></script>
         <script src="../_static/jquery.js"></script>
         <script src="../_static/underscore.js"></script>
         <script src="../_static/doctools.js"></script>
-        <script src="../_static/language_data.js"></script>
     
     <script type="text/javascript" src="../_static/js/theme.js"></script>
 
@@ -147,6 +149,7 @@
 <li class="toctree-l2"><a class="reference internal" href="index.html#a-complete-example-of-creating-an-integrator">A complete example of creating an integrator</a></li>
 </ul>
 </li>
+<li class="toctree-l1"><a class="reference internal" href="../developers_docs/index.html">Developers Documentation</a></li>
 </ul>
 
             
@@ -219,53 +222,58 @@
   <div class="section" id="integrator">
 <h1>Integrator<a class="headerlink" href="#integrator" title="Permalink to this headline">¶</a></h1>
 <dl class="cpp class">
-<dt id="_CPPv4N2rr10IntegratorE">
-<span id="_CPPv3N2rr10IntegratorE"></span><span id="_CPPv2N2rr10IntegratorE"></span><span id="rr::Integrator"></span><span class="target" id="classrr_1_1Integrator"></span><em class="property">class </em><code class="sig-prename descclassname">rr<code class="sig-prename descclassname">::</code></code><code class="sig-name descname">Integrator</code> : <em class="property">public</em> rr::<a class="reference internal" href="Solver.html#_CPPv4N2rr6SolverE" title="rr::Solver">Solver</a><a class="headerlink" href="#_CPPv4N2rr10IntegratorE" title="Permalink to this definition">¶</a><br /></dt>
+<dt class="sig sig-object cpp" id="_CPPv4N2rr10IntegratorE">
+<span id="_CPPv3N2rr10IntegratorE"></span><span id="_CPPv2N2rr10IntegratorE"></span><span id="rr::Integrator"></span><span class="target" id="classrr_1_1Integrator"></span><span class="k"><span class="pre">class</span></span><span class="w"> </span><span class="sig-prename descclassname"><span class="n"><span class="pre">rr</span></span><span class="p"><span class="pre">::</span></span></span><span class="sig-name descname"><span class="n"><span class="pre">Integrator</span></span></span><span class="w"> </span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="k"><span class="pre">public</span></span><span class="w"> </span><span class="n"><span class="pre">rr</span></span><span class="p"><span class="pre">::</span></span><a class="reference internal" href="Solver.html#_CPPv4N2rr6SolverE" title="rr::Solver"><span class="n"><span class="pre">Solver</span></span></a><a class="headerlink" href="#_CPPv4N2rr10IntegratorE" title="Permalink to this definition">¶</a><br /></dt>
 <dd><p>Subclassed by <a class="reference internal" href="CVODEIntegrator.html#classrr_1_1CVODEIntegrator"><span class="std std-ref">rr::CVODEIntegrator</span></a>, <a class="reference internal" href="EulerIntegrator.html#classrr_1_1EulerIntegrator"><span class="std std-ref">rr::EulerIntegrator</span></a>, <a class="reference internal" href="GillespieIntegrator.html#classrr_1_1GillespieIntegrator"><span class="std std-ref">rr::GillespieIntegrator</span></a>, <a class="reference internal" href="RK45Integrator.html#classrr_1_1RK45Integrator"><span class="std std-ref">rr::RK45Integrator</span></a>, <a class="reference internal" href="RK4Integrator.html#classrr_1_1RK4Integrator"><span class="std std-ref">rr::RK4Integrator</span></a></p>
 <div class="breathe-sectiondef docutils container">
-<p class="breathe-sectiondef-title rubric">Public Types</p>
+<p class="breathe-sectiondef-title rubric" id="breathe-section-title-public-types">Public Types</p>
 <dl class="cpp enum">
-<dt id="_CPPv4N2rr10Integrator17IntegrationMethodE">
-<span id="_CPPv3N2rr10Integrator17IntegrationMethodE"></span><span id="_CPPv2N2rr10Integrator17IntegrationMethodE"></span><span class="target" id="classrr_1_1Integrator_1a0912499450e66cb4301263362d64a0d0"></span><em class="property">enum </em><code class="sig-name descname">IntegrationMethod</code><a class="headerlink" href="#_CPPv4N2rr10Integrator17IntegrationMethodE" title="Permalink to this definition">¶</a><br /></dt>
+<dt class="sig sig-object cpp" id="_CPPv4N2rr10Integrator17IntegrationMethodE">
+<span id="_CPPv3N2rr10Integrator17IntegrationMethodE"></span><span id="_CPPv2N2rr10Integrator17IntegrationMethodE"></span><span class="target" id="classrr_1_1Integrator_1a0912499450e66cb4301263362d64a0d0"></span><span class="k"><span class="pre">enum</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">IntegrationMethod</span></span></span><a class="headerlink" href="#_CPPv4N2rr10Integrator17IntegrationMethodE" title="Permalink to this definition">¶</a><br /></dt>
 <dd><p><em>Values:</em></p>
 <dl class="cpp enumerator">
-<dt id="_CPPv4N2rr10Integrator17IntegrationMethod13DeterministicE">
-<span id="_CPPv3N2rr10Integrator17IntegrationMethod13DeterministicE"></span><span id="_CPPv2N2rr10Integrator17IntegrationMethod13DeterministicE"></span><span class="target" id="classrr_1_1Integrator_1a0912499450e66cb4301263362d64a0d0af737370ac52f7db68da0965ff5667255"></span><em class="property">enumerator </em><code class="sig-name descname">Deterministic</code><a class="headerlink" href="#_CPPv4N2rr10Integrator17IntegrationMethod13DeterministicE" title="Permalink to this definition">¶</a><br /></dt>
+<dt class="sig sig-object cpp" id="_CPPv4N2rr10Integrator17IntegrationMethod13DeterministicE">
+<span id="_CPPv3N2rr10Integrator17IntegrationMethod13DeterministicE"></span><span id="_CPPv2N2rr10Integrator17IntegrationMethod13DeterministicE"></span><span class="target" id="classrr_1_1Integrator_1a0912499450e66cb4301263362d64a0d0af737370ac52f7db68da0965ff5667255"></span><span class="k"><span class="pre">enumerator</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">Deterministic</span></span></span><a class="headerlink" href="#_CPPv4N2rr10Integrator17IntegrationMethod13DeterministicE" title="Permalink to this definition">¶</a><br /></dt>
 <dd></dd></dl>
 
 <dl class="cpp enumerator">
-<dt id="_CPPv4N2rr10Integrator17IntegrationMethod10StochasticE">
-<span id="_CPPv3N2rr10Integrator17IntegrationMethod10StochasticE"></span><span id="_CPPv2N2rr10Integrator17IntegrationMethod10StochasticE"></span><span class="target" id="classrr_1_1Integrator_1a0912499450e66cb4301263362d64a0d0a35eaf1b6ad6c75eb82506ef35dd47c27"></span><em class="property">enumerator </em><code class="sig-name descname">Stochastic</code><a class="headerlink" href="#_CPPv4N2rr10Integrator17IntegrationMethod10StochasticE" title="Permalink to this definition">¶</a><br /></dt>
+<dt class="sig sig-object cpp" id="_CPPv4N2rr10Integrator17IntegrationMethod10StochasticE">
+<span id="_CPPv3N2rr10Integrator17IntegrationMethod10StochasticE"></span><span id="_CPPv2N2rr10Integrator17IntegrationMethod10StochasticE"></span><span class="target" id="classrr_1_1Integrator_1a0912499450e66cb4301263362d64a0d0a35eaf1b6ad6c75eb82506ef35dd47c27"></span><span class="k"><span class="pre">enumerator</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">Stochastic</span></span></span><a class="headerlink" href="#_CPPv4N2rr10Integrator17IntegrationMethod10StochasticE" title="Permalink to this definition">¶</a><br /></dt>
 <dd></dd></dl>
 
 <dl class="cpp enumerator">
-<dt id="_CPPv4N2rr10Integrator17IntegrationMethod6HybridE">
-<span id="_CPPv3N2rr10Integrator17IntegrationMethod6HybridE"></span><span id="_CPPv2N2rr10Integrator17IntegrationMethod6HybridE"></span><span class="target" id="classrr_1_1Integrator_1a0912499450e66cb4301263362d64a0d0aca69e7d9e0e8eb017d2351c375453822"></span><em class="property">enumerator </em><code class="sig-name descname">Hybrid</code><a class="headerlink" href="#_CPPv4N2rr10Integrator17IntegrationMethod6HybridE" title="Permalink to this definition">¶</a><br /></dt>
+<dt class="sig sig-object cpp" id="_CPPv4N2rr10Integrator17IntegrationMethod6HybridE">
+<span id="_CPPv3N2rr10Integrator17IntegrationMethod6HybridE"></span><span id="_CPPv2N2rr10Integrator17IntegrationMethod6HybridE"></span><span class="target" id="classrr_1_1Integrator_1a0912499450e66cb4301263362d64a0d0aca69e7d9e0e8eb017d2351c375453822"></span><span class="k"><span class="pre">enumerator</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">Hybrid</span></span></span><a class="headerlink" href="#_CPPv4N2rr10Integrator17IntegrationMethod6HybridE" title="Permalink to this definition">¶</a><br /></dt>
 <dd></dd></dl>
 
 <dl class="cpp enumerator">
-<dt id="_CPPv4N2rr10Integrator17IntegrationMethod5OtherE">
-<span id="_CPPv3N2rr10Integrator17IntegrationMethod5OtherE"></span><span id="_CPPv2N2rr10Integrator17IntegrationMethod5OtherE"></span><span class="target" id="classrr_1_1Integrator_1a0912499450e66cb4301263362d64a0d0a0f9b8ec4e01a0fcd2ce808c42c039940"></span><em class="property">enumerator </em><code class="sig-name descname">Other</code><a class="headerlink" href="#_CPPv4N2rr10Integrator17IntegrationMethod5OtherE" title="Permalink to this definition">¶</a><br /></dt>
+<dt class="sig sig-object cpp" id="_CPPv4N2rr10Integrator17IntegrationMethod5OtherE">
+<span id="_CPPv3N2rr10Integrator17IntegrationMethod5OtherE"></span><span id="_CPPv2N2rr10Integrator17IntegrationMethod5OtherE"></span><span class="target" id="classrr_1_1Integrator_1a0912499450e66cb4301263362d64a0d0a0f9b8ec4e01a0fcd2ce808c42c039940"></span><span class="k"><span class="pre">enumerator</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">Other</span></span></span><a class="headerlink" href="#_CPPv4N2rr10Integrator17IntegrationMethod5OtherE" title="Permalink to this definition">¶</a><br /></dt>
 <dd></dd></dl>
 
 </dd></dl>
 
 </div>
 <div class="breathe-sectiondef docutils container">
-<p class="breathe-sectiondef-title rubric">Public Functions</p>
+<p class="breathe-sectiondef-title rubric" id="breathe-section-title-public-functions">Public Functions</p>
 <dl class="cpp function">
-<dt id="_CPPv4N2rr10IntegratorD0Ev">
-<span id="_CPPv3N2rr10IntegratorD0Ev"></span><span id="_CPPv2N2rr10IntegratorD0Ev"></span><span id="rr::Integrator::~Integrator"></span><span class="target" id="classrr_1_1Integrator_1a35f0f55f14d225c1da02300f3f1c37b5"></span><em class="property">inline</em> <em class="property">virtual</em> <code class="sig-name descname">~Integrator</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#_CPPv4N2rr10IntegratorD0Ev" title="Permalink to this definition">¶</a><br /></dt>
+<dt class="sig sig-object cpp" id="_CPPv4N2rr10Integrator10IntegratorEP15ExecutableModel">
+<span id="_CPPv3N2rr10Integrator10IntegratorEP15ExecutableModel"></span><span id="_CPPv2N2rr10Integrator10IntegratorEP15ExecutableModel"></span><span id="rr::Integrator::Integrator__ExecutableModelP"></span><span class="target" id="classrr_1_1Integrator_1a8a79e9633a25767a1683a0334fd1d917"></span><span class="k"><span class="pre">explicit</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">Integrator</span></span></span><span class="sig-paren">(</span><a class="reference internal" href="rrExecutableModel.html#_CPPv4N2rr15ExecutableModelE" title="rr::ExecutableModel"><span class="n"><span class="pre">ExecutableModel</span></span></a><span class="w"> </span><span class="p"><span class="pre">*</span></span><span class="n sig-param"><span class="pre">model</span></span><span class="sig-paren">)</span><a class="headerlink" href="#_CPPv4N2rr10Integrator10IntegratorEP15ExecutableModel" title="Permalink to this definition">¶</a><br /></dt>
 <dd></dd></dl>
 
 <dl class="cpp function">
-<dt id="_CPPv4NK2rr10Integrator20getIntegrationMethodEv">
-<span id="_CPPv3NK2rr10Integrator20getIntegrationMethodEv"></span><span id="_CPPv2NK2rr10Integrator20getIntegrationMethodEv"></span><span id="rr::Integrator::getIntegrationMethodC"></span><span class="target" id="classrr_1_1Integrator_1a6166cbf32c54a1d95a8a830b8db1424c"></span><em class="property">virtual</em> <a class="reference internal" href="#_CPPv4N2rr10Integrator17IntegrationMethodE" title="rr::Integrator::IntegrationMethod">IntegrationMethod</a> <code class="sig-name descname">getIntegrationMethod</code><span class="sig-paren">(</span><span class="sig-paren">)</span> <em class="property">const</em> = 0<a class="headerlink" href="#_CPPv4NK2rr10Integrator20getIntegrationMethodEv" title="Permalink to this definition">¶</a><br /></dt>
+<dt class="sig sig-object cpp" id="_CPPv4N2rr10IntegratorD0Ev">
+<span id="_CPPv3N2rr10IntegratorD0Ev"></span><span id="_CPPv2N2rr10IntegratorD0Ev"></span><span id="rr::Integrator::~Integrator"></span><span class="target" id="classrr_1_1Integrator_1a35f0f55f14d225c1da02300f3f1c37b5"></span><span class="k"><span class="pre">inline</span></span><span class="w"> </span><span class="k"><span class="pre">virtual</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">~Integrator</span></span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#_CPPv4N2rr10IntegratorD0Ev" title="Permalink to this definition">¶</a><br /></dt>
 <dd></dd></dl>
 
 <dl class="cpp function">
-<dt id="_CPPv4N2rr10Integrator13syncWithModelEP15ExecutableModel">
-<span id="_CPPv3N2rr10Integrator13syncWithModelEP15ExecutableModel"></span><span id="_CPPv2N2rr10Integrator13syncWithModelEP15ExecutableModel"></span><span id="rr::Integrator::syncWithModel__ExecutableModelP"></span><span class="target" id="classrr_1_1Integrator_1a6b12118cd1b0f047f5a64cfb0546b565"></span><em class="property">virtual</em> void <code class="sig-name descname">syncWithModel</code><span class="sig-paren">(</span><a class="reference internal" href="rrExecutableModel.html#_CPPv4N2rr15ExecutableModelE" title="rr::ExecutableModel">ExecutableModel</a> *<em>m</em><span class="sig-paren">)</span><a class="headerlink" href="#_CPPv4N2rr10Integrator13syncWithModelEP15ExecutableModel" title="Permalink to this definition">¶</a><br /></dt>
+<dt class="sig sig-object cpp" id="_CPPv4NK2rr10Integrator20getIntegrationMethodEv">
+<span id="_CPPv3NK2rr10Integrator20getIntegrationMethodEv"></span><span id="_CPPv2NK2rr10Integrator20getIntegrationMethodEv"></span><span id="rr::Integrator::getIntegrationMethodC"></span><span class="target" id="classrr_1_1Integrator_1a6166cbf32c54a1d95a8a830b8db1424c"></span><span class="k"><span class="pre">virtual</span></span><span class="w"> </span><a class="reference internal" href="#_CPPv4N2rr10Integrator17IntegrationMethodE" title="rr::Integrator::IntegrationMethod"><span class="n"><span class="pre">IntegrationMethod</span></span></a><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">getIntegrationMethod</span></span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><span class="w"> </span><span class="k"><span class="pre">const</span></span><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="m"><span class="pre">0</span></span><a class="headerlink" href="#_CPPv4NK2rr10Integrator20getIntegrationMethodEv" title="Permalink to this definition">¶</a><br /></dt>
+<dd></dd></dl>
+
+<dl class="cpp function">
+<dt class="sig sig-object cpp" id="_CPPv4N2rr10Integrator13syncWithModelEP15ExecutableModel">
+<span id="_CPPv3N2rr10Integrator13syncWithModelEP15ExecutableModel"></span><span id="_CPPv2N2rr10Integrator13syncWithModelEP15ExecutableModel"></span><span id="rr::Integrator::syncWithModel__ExecutableModelP"></span><span class="target" id="classrr_1_1Integrator_1a6b12118cd1b0f047f5a64cfb0546b565"></span><span class="k"><span class="pre">virtual</span></span><span class="w"> </span><span class="kt"><span class="pre">void</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">syncWithModel</span></span></span><span class="sig-paren">(</span><a class="reference internal" href="rrExecutableModel.html#_CPPv4N2rr15ExecutableModelE" title="rr::ExecutableModel"><span class="n"><span class="pre">ExecutableModel</span></span></a><span class="w"> </span><span class="p"><span class="pre">*</span></span><span class="n sig-param"><span class="pre">m</span></span><span class="sig-paren">)</span><a class="headerlink" href="#_CPPv4N2rr10Integrator13syncWithModelEP15ExecutableModel" title="Permalink to this definition">¶</a><br /></dt>
 <dd><p>Called whenever a new model is loaded to allow integrator to reset internal state. </p>
 <p><dl class="simple">
 <dt><strong>Author</strong></dt><dd><p>JKM </p>
@@ -275,28 +283,28 @@
 </dd></dl>
 
 <dl class="cpp function">
-<dt id="_CPPv4N2rr10Integrator18loadConfigSettingsEv">
-<span id="_CPPv3N2rr10Integrator18loadConfigSettingsEv"></span><span id="_CPPv2N2rr10Integrator18loadConfigSettingsEv"></span><span id="rr::Integrator::loadConfigSettings"></span><span class="target" id="classrr_1_1Integrator_1a3753687554e7e6bcf0c14c174deb2b0f"></span><em class="property">virtual</em> void <code class="sig-name descname">loadConfigSettings</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#_CPPv4N2rr10Integrator18loadConfigSettingsEv" title="Permalink to this definition">¶</a><br /></dt>
+<dt class="sig sig-object cpp" id="_CPPv4N2rr10Integrator18loadConfigSettingsEv">
+<span id="_CPPv3N2rr10Integrator18loadConfigSettingsEv"></span><span id="_CPPv2N2rr10Integrator18loadConfigSettingsEv"></span><span id="rr::Integrator::loadConfigSettings"></span><span class="target" id="classrr_1_1Integrator_1a3753687554e7e6bcf0c14c174deb2b0f"></span><span class="k"><span class="pre">virtual</span></span><span class="w"> </span><span class="kt"><span class="pre">void</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">loadConfigSettings</span></span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#_CPPv4N2rr10Integrator18loadConfigSettingsEv" title="Permalink to this definition">¶</a><br /></dt>
 <dd></dd></dl>
 
 <dl class="cpp function">
-<dt id="_CPPv4N2rr10Integrator16loadSBMLSettingsERKNSt6stringE">
-<span id="_CPPv3N2rr10Integrator16loadSBMLSettingsERKNSt6stringE"></span><span id="_CPPv2N2rr10Integrator16loadSBMLSettingsERKNSt6stringE"></span><span id="rr::Integrator::loadSBMLSettings__ssCR"></span><span class="target" id="classrr_1_1Integrator_1abd2e6c3616d1831c028f1061d927fbcd"></span><em class="property">virtual</em> void <code class="sig-name descname">loadSBMLSettings</code><span class="sig-paren">(</span><em class="property">const</em> std::string &amp;<em>filename</em><span class="sig-paren">)</span><a class="headerlink" href="#_CPPv4N2rr10Integrator16loadSBMLSettingsERKNSt6stringE" title="Permalink to this definition">¶</a><br /></dt>
+<dt class="sig sig-object cpp" id="_CPPv4N2rr10Integrator16loadSBMLSettingsERKNSt6stringE">
+<span id="_CPPv3N2rr10Integrator16loadSBMLSettingsERKNSt6stringE"></span><span id="_CPPv2N2rr10Integrator16loadSBMLSettingsERKNSt6stringE"></span><span id="rr::Integrator::loadSBMLSettings__ssCR"></span><span class="target" id="classrr_1_1Integrator_1abd2e6c3616d1831c028f1061d927fbcd"></span><span class="k"><span class="pre">virtual</span></span><span class="w"> </span><span class="kt"><span class="pre">void</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">loadSBMLSettings</span></span></span><span class="sig-paren">(</span><span class="k"><span class="pre">const</span></span><span class="w"> </span><span class="n"><span class="pre">std</span></span><span class="p"><span class="pre">::</span></span><span class="n"><span class="pre">string</span></span><span class="w"> </span><span class="p"><span class="pre">&amp;</span></span><span class="n sig-param"><span class="pre">filename</span></span><span class="sig-paren">)</span><a class="headerlink" href="#_CPPv4N2rr10Integrator16loadSBMLSettingsERKNSt6stringE" title="Permalink to this definition">¶</a><br /></dt>
 <dd></dd></dl>
 
 <dl class="cpp function">
-<dt id="_CPPv4N2rr10Integrator9integrateEdd">
-<span id="_CPPv3N2rr10Integrator9integrateEdd"></span><span id="_CPPv2N2rr10Integrator9integrateEdd"></span><span id="rr::Integrator::integrate__double.double"></span><span class="target" id="classrr_1_1Integrator_1aa29aac9228f7834cfb92d04f823e5ddf"></span><em class="property">virtual</em> double <code class="sig-name descname">integrate</code><span class="sig-paren">(</span>double <em>t0</em>, double <em>hstep</em><span class="sig-paren">)</span> = 0<a class="headerlink" href="#_CPPv4N2rr10Integrator9integrateEdd" title="Permalink to this definition">¶</a><br /></dt>
+<dt class="sig sig-object cpp" id="_CPPv4N2rr10Integrator9integrateEdd">
+<span id="_CPPv3N2rr10Integrator9integrateEdd"></span><span id="_CPPv2N2rr10Integrator9integrateEdd"></span><span id="rr::Integrator::integrate__double.double"></span><span class="target" id="classrr_1_1Integrator_1aa29aac9228f7834cfb92d04f823e5ddf"></span><span class="k"><span class="pre">virtual</span></span><span class="w"> </span><span class="kt"><span class="pre">double</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">integrate</span></span></span><span class="sig-paren">(</span><span class="kt"><span class="pre">double</span></span><span class="w"> </span><span class="n sig-param"><span class="pre">t0</span></span>, <span class="kt"><span class="pre">double</span></span><span class="w"> </span><span class="n sig-param"><span class="pre">hstep</span></span><span class="sig-paren">)</span><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="m"><span class="pre">0</span></span><a class="headerlink" href="#_CPPv4N2rr10Integrator9integrateEdd" title="Permalink to this definition">¶</a><br /></dt>
 <dd></dd></dl>
 
 <dl class="cpp function">
-<dt id="_CPPv4N2rr10Integrator7restartEd">
-<span id="_CPPv3N2rr10Integrator7restartEd"></span><span id="_CPPv2N2rr10Integrator7restartEd"></span><span id="rr::Integrator::restart__double"></span><span class="target" id="classrr_1_1Integrator_1a5469efaa4c234b7e59d82d98930fa5b9"></span><em class="property">virtual</em> void <code class="sig-name descname">restart</code><span class="sig-paren">(</span>double <em>t0</em><span class="sig-paren">)</span> = 0<a class="headerlink" href="#_CPPv4N2rr10Integrator7restartEd" title="Permalink to this definition">¶</a><br /></dt>
+<dt class="sig sig-object cpp" id="_CPPv4N2rr10Integrator7restartEd">
+<span id="_CPPv3N2rr10Integrator7restartEd"></span><span id="_CPPv2N2rr10Integrator7restartEd"></span><span id="rr::Integrator::restart__double"></span><span class="target" id="classrr_1_1Integrator_1a5469efaa4c234b7e59d82d98930fa5b9"></span><span class="k"><span class="pre">virtual</span></span><span class="w"> </span><span class="kt"><span class="pre">void</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">restart</span></span></span><span class="sig-paren">(</span><span class="kt"><span class="pre">double</span></span><span class="w"> </span><span class="n sig-param"><span class="pre">t0</span></span><span class="sig-paren">)</span><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="m"><span class="pre">0</span></span><a class="headerlink" href="#_CPPv4N2rr10Integrator7restartEd" title="Permalink to this definition">¶</a><br /></dt>
 <dd></dd></dl>
 
 <dl class="cpp function">
-<dt id="_CPPv4N2rr10Integrator15tweakTolerancesEv">
-<span id="_CPPv3N2rr10Integrator15tweakTolerancesEv"></span><span id="_CPPv2N2rr10Integrator15tweakTolerancesEv"></span><span id="rr::Integrator::tweakTolerances"></span><span class="target" id="classrr_1_1Integrator_1a51c07785d8af1eb648878347529b2eb4"></span><em class="property">virtual</em> void <code class="sig-name descname">tweakTolerances</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#_CPPv4N2rr10Integrator15tweakTolerancesEv" title="Permalink to this definition">¶</a><br /></dt>
+<dt class="sig sig-object cpp" id="_CPPv4N2rr10Integrator15tweakTolerancesEv">
+<span id="_CPPv3N2rr10Integrator15tweakTolerancesEv"></span><span id="_CPPv2N2rr10Integrator15tweakTolerancesEv"></span><span id="rr::Integrator::tweakTolerances"></span><span class="target" id="classrr_1_1Integrator_1a51c07785d8af1eb648878347529b2eb4"></span><span class="k"><span class="pre">virtual</span></span><span class="w"> </span><span class="kt"><span class="pre">void</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">tweakTolerances</span></span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#_CPPv4N2rr10Integrator15tweakTolerancesEv" title="Permalink to this definition">¶</a><br /></dt>
 <dd><p>Fix tolerances for SBML tests. </p>
 <p><dl class="simple">
 <dt><strong>Author</strong></dt><dd><p>JKM, WBC, ETS, MTK  In order to ensure that the results of the SBML test suite remain valid, this method enforces a lower bound on tolerance values. Sets minimum absolute and relative tolerances to <a class="reference internal" href="rrConfig.html#classrr_1_1Config_1aed7c550b9e34222675cd152c9154d053a0c3075c04786354a026c56410edb47be"><span class="std std-ref">Config::CVODE_MIN_ABSOLUTE</span></a> and <a class="reference internal" href="rrConfig.html#classrr_1_1Config_1aed7c550b9e34222675cd152c9154d053a4fba6c43b4d137bab9f42ee9c4cb1e6b"><span class="std std-ref">Config::CVODE_MIN_RELATIVE</span></a> resp. </p>
@@ -306,8 +314,8 @@
 </dd></dl>
 
 <dl class="cpp function">
-<dt id="_CPPv4N2rr10Integrator22setIndividualToleranceE6stringd">
-<span id="_CPPv3N2rr10Integrator22setIndividualToleranceE6stringd"></span><span id="_CPPv2N2rr10Integrator22setIndividualToleranceE6stringd"></span><span id="rr::Integrator::setIndividualTolerance__string.double"></span><span class="target" id="classrr_1_1Integrator_1ac64b02928caaa4fe411754815c98b4f7"></span><em class="property">virtual</em> void <code class="sig-name descname">setIndividualTolerance</code><span class="sig-paren">(</span>string <em>sid</em>, double <em>value</em><span class="sig-paren">)</span><a class="headerlink" href="#_CPPv4N2rr10Integrator22setIndividualToleranceE6stringd" title="Permalink to this definition">¶</a><br /></dt>
+<dt class="sig sig-object cpp" id="_CPPv4N2rr10Integrator22setIndividualToleranceENSt6stringEd">
+<span id="_CPPv3N2rr10Integrator22setIndividualToleranceENSt6stringEd"></span><span id="_CPPv2N2rr10Integrator22setIndividualToleranceENSt6stringEd"></span><span id="rr::Integrator::setIndividualTolerance__ss.double"></span><span class="target" id="classrr_1_1Integrator_1a53099879e74aa5bea1139453db9b5732"></span><span class="k"><span class="pre">virtual</span></span><span class="w"> </span><span class="kt"><span class="pre">void</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">setIndividualTolerance</span></span></span><span class="sig-paren">(</span><span class="n"><span class="pre">std</span></span><span class="p"><span class="pre">::</span></span><span class="n"><span class="pre">string</span></span><span class="w"> </span><span class="n sig-param"><span class="pre">sid</span></span>, <span class="kt"><span class="pre">double</span></span><span class="w"> </span><span class="n sig-param"><span class="pre">value</span></span><span class="sig-paren">)</span><a class="headerlink" href="#_CPPv4N2rr10Integrator22setIndividualToleranceENSt6stringEd" title="Permalink to this definition">¶</a><br /></dt>
 <dd><p>Set tolerance for floating species or variables that have a rate rule, will only be used in <a class="reference internal" href="CVODEIntegrator.html#classrr_1_1CVODEIntegrator"><span class="std std-ref">CVODEIntegrator</span></a>. </p>
 <p><dl class="simple">
 <dt><strong>Author</strong></dt><dd><p>FY </p>
@@ -317,8 +325,8 @@
 </dd></dl>
 
 <dl class="cpp function">
-<dt id="_CPPv4N2rr10Integrator25setConcentrationToleranceERK7Variant">
-<span id="_CPPv3N2rr10Integrator25setConcentrationToleranceERK7Variant"></span><span id="_CPPv2N2rr10Integrator25setConcentrationToleranceERK7Variant"></span><span id="rr::Integrator::setConcentrationTolerance__VariantCR"></span><span class="target" id="classrr_1_1Integrator_1a1413e566ca980e08e2799777ad41a2ad"></span><em class="property">virtual</em> void <code class="sig-name descname">setConcentrationTolerance</code><span class="sig-paren">(</span><em class="property">const</em> <a class="reference internal" href="Variant.html#_CPPv4N2rr7VariantE" title="rr::Variant">Variant</a> &amp;<em>value</em><span class="sig-paren">)</span><a class="headerlink" href="#_CPPv4N2rr10Integrator25setConcentrationToleranceERK7Variant" title="Permalink to this definition">¶</a><br /></dt>
+<dt class="sig sig-object cpp" id="_CPPv4N2rr10Integrator25setConcentrationToleranceE7Setting">
+<span id="_CPPv3N2rr10Integrator25setConcentrationToleranceE7Setting"></span><span id="_CPPv2N2rr10Integrator25setConcentrationToleranceE7Setting"></span><span id="rr::Integrator::setConcentrationTolerance__Setting"></span><span class="target" id="classrr_1_1Integrator_1a21645210737f35264504c3125c4679fe"></span><span class="k"><span class="pre">virtual</span></span><span class="w"> </span><span class="kt"><span class="pre">void</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">setConcentrationTolerance</span></span></span><span class="sig-paren">(</span><span class="n"><span class="pre">Setting</span></span><span class="w"> </span><span class="n sig-param"><span class="pre">value</span></span><span class="sig-paren">)</span><a class="headerlink" href="#_CPPv4N2rr10Integrator25setConcentrationToleranceE7Setting" title="Permalink to this definition">¶</a><br /></dt>
 <dd><p>Set tolerance based on concentration of species, will only be used in <a class="reference internal" href="CVODEIntegrator.html#classrr_1_1CVODEIntegrator"><span class="std std-ref">CVODEIntegrator</span></a>. </p>
 <p><dl class="simple">
 <dt><strong>Author</strong></dt><dd><p>FY </p>
@@ -328,8 +336,8 @@
 </dd></dl>
 
 <dl class="cpp function">
-<dt id="_CPPv4N2rr10Integrator25getConcentrationToleranceEv">
-<span id="_CPPv3N2rr10Integrator25getConcentrationToleranceEv"></span><span id="_CPPv2N2rr10Integrator25getConcentrationToleranceEv"></span><span id="rr::Integrator::getConcentrationTolerance"></span><span class="target" id="classrr_1_1Integrator_1a9bb4546b27c3b0b4552ebc1b36148629"></span><em class="property">virtual</em> std::vector&lt;double&gt; <code class="sig-name descname">getConcentrationTolerance</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#_CPPv4N2rr10Integrator25getConcentrationToleranceEv" title="Permalink to this definition">¶</a><br /></dt>
+<dt class="sig sig-object cpp" id="_CPPv4N2rr10Integrator25getConcentrationToleranceEv">
+<span id="_CPPv3N2rr10Integrator25getConcentrationToleranceEv"></span><span id="_CPPv2N2rr10Integrator25getConcentrationToleranceEv"></span><span id="rr::Integrator::getConcentrationTolerance"></span><span class="target" id="classrr_1_1Integrator_1a9bb4546b27c3b0b4552ebc1b36148629"></span><span class="k"><span class="pre">virtual</span></span><span class="w"> </span><span class="n"><span class="pre">std</span></span><span class="p"><span class="pre">::</span></span><span class="n"><span class="pre">vector</span></span><span class="p"><span class="pre">&lt;</span></span><span class="kt"><span class="pre">double</span></span><span class="p"><span class="pre">&gt;</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">getConcentrationTolerance</span></span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#_CPPv4N2rr10Integrator25getConcentrationToleranceEv" title="Permalink to this definition">¶</a><br /></dt>
 <dd><p>Get tolerance based on concentration of species, will only be used in <a class="reference internal" href="CVODEIntegrator.html#classrr_1_1CVODEIntegrator"><span class="std std-ref">CVODEIntegrator</span></a>. </p>
 <p><dl class="simple">
 <dt><strong>Author</strong></dt><dd><p>FY </p>
@@ -339,19 +347,19 @@
 </dd></dl>
 
 <dl class="cpp function">
-<dt id="_CPPv4N2rr10Integrator11setListenerE21IntegratorListenerPtr">
-<span id="_CPPv3N2rr10Integrator11setListenerE21IntegratorListenerPtr"></span><span id="_CPPv2N2rr10Integrator11setListenerE21IntegratorListenerPtr"></span><span id="rr::Integrator::setListener__IntegratorListenerPtr"></span><span class="target" id="classrr_1_1Integrator_1ad4ebded6e6b2d28755a649f402962ba7"></span><em class="property">virtual</em> void <code class="sig-name descname">setListener</code><span class="sig-paren">(</span>IntegratorListenerPtr<span class="sig-paren">)</span> = 0<a class="headerlink" href="#_CPPv4N2rr10Integrator11setListenerE21IntegratorListenerPtr" title="Permalink to this definition">¶</a><br /></dt>
+<dt class="sig sig-object cpp" id="_CPPv4N2rr10Integrator11setListenerE21IntegratorListenerPtr">
+<span id="_CPPv3N2rr10Integrator11setListenerE21IntegratorListenerPtr"></span><span id="_CPPv2N2rr10Integrator11setListenerE21IntegratorListenerPtr"></span><span id="rr::Integrator::setListener__IntegratorListenerPtr"></span><span class="target" id="classrr_1_1Integrator_1ad4ebded6e6b2d28755a649f402962ba7"></span><span class="k"><span class="pre">virtual</span></span><span class="w"> </span><span class="kt"><span class="pre">void</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">setListener</span></span></span><span class="sig-paren">(</span><span class="n"><span class="pre">IntegratorListenerPtr</span></span><span class="sig-paren">)</span><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="m"><span class="pre">0</span></span><a class="headerlink" href="#_CPPv4N2rr10Integrator11setListenerE21IntegratorListenerPtr" title="Permalink to this definition">¶</a><br /></dt>
 <dd></dd></dl>
 
 <dl class="cpp function">
-<dt id="_CPPv4N2rr10Integrator11getListenerEv">
-<span id="_CPPv3N2rr10Integrator11getListenerEv"></span><span id="_CPPv2N2rr10Integrator11getListenerEv"></span><span id="rr::Integrator::getListener"></span><span class="target" id="classrr_1_1Integrator_1ae4105739ea0544fe66db1482e0aeae9d"></span><em class="property">virtual</em> IntegratorListenerPtr <code class="sig-name descname">getListener</code><span class="sig-paren">(</span><span class="sig-paren">)</span> = 0<a class="headerlink" href="#_CPPv4N2rr10Integrator11getListenerEv" title="Permalink to this definition">¶</a><br /></dt>
+<dt class="sig sig-object cpp" id="_CPPv4N2rr10Integrator11getListenerEv">
+<span id="_CPPv3N2rr10Integrator11getListenerEv"></span><span id="_CPPv2N2rr10Integrator11getListenerEv"></span><span id="rr::Integrator::getListener"></span><span class="target" id="classrr_1_1Integrator_1ae4105739ea0544fe66db1482e0aeae9d"></span><span class="k"><span class="pre">virtual</span></span><span class="w"> </span><span class="n"><span class="pre">IntegratorListenerPtr</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">getListener</span></span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="m"><span class="pre">0</span></span><a class="headerlink" href="#_CPPv4N2rr10Integrator11getListenerEv" title="Permalink to this definition">¶</a><br /></dt>
 <dd></dd></dl>
 
 <dl class="cpp function">
-<dt id="_CPPv4NK2rr10Integrator8toStringEv">
-<span id="_CPPv3NK2rr10Integrator8toStringEv"></span><span id="_CPPv2NK2rr10Integrator8toStringEv"></span><span id="rr::Integrator::toStringC"></span><span class="target" id="classrr_1_1Integrator_1adde5221e0d61f9f5398d69020e1a5a86"></span><em class="property">virtual</em> std::string <code class="sig-name descname">toString</code><span class="sig-paren">(</span><span class="sig-paren">)</span> <em class="property">const</em><a class="headerlink" href="#_CPPv4NK2rr10Integrator8toStringEv" title="Permalink to this definition">¶</a><br /></dt>
-<dd><p>Return a string representation of the solver. </p>
+<dt class="sig sig-object cpp" id="_CPPv4NK2rr10Integrator8toStringEv">
+<span id="_CPPv3NK2rr10Integrator8toStringEv"></span><span id="_CPPv2NK2rr10Integrator8toStringEv"></span><span id="rr::Integrator::toStringC"></span><span class="target" id="classrr_1_1Integrator_1adde5221e0d61f9f5398d69020e1a5a86"></span><span class="k"><span class="pre">virtual</span></span><span class="w"> </span><span class="n"><span class="pre">std</span></span><span class="p"><span class="pre">::</span></span><span class="n"><span class="pre">string</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">toString</span></span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><span class="w"> </span><span class="k"><span class="pre">const</span></span><a class="headerlink" href="#_CPPv4NK2rr10Integrator8toStringEv" title="Permalink to this definition">¶</a><br /></dt>
+<dd><p>Return a std::string representation of the solver. </p>
 <p><dl class="simple">
 <dt><strong>Author</strong></dt><dd><p>JKM </p>
 </dd>
@@ -360,14 +368,21 @@
 </dd></dl>
 
 <dl class="cpp function">
-<dt id="_CPPv4NK2rr10Integrator6toReprEv">
-<span id="_CPPv3NK2rr10Integrator6toReprEv"></span><span id="_CPPv2NK2rr10Integrator6toReprEv"></span><span id="rr::Integrator::toReprC"></span><span class="target" id="classrr_1_1Integrator_1abb3c4ae3020a5df7abe40639037615cb"></span><em class="property">virtual</em> std::string <code class="sig-name descname">toRepr</code><span class="sig-paren">(</span><span class="sig-paren">)</span> <em class="property">const</em><a class="headerlink" href="#_CPPv4NK2rr10Integrator6toReprEv" title="Permalink to this definition">¶</a><br /></dt>
-<dd><p>Return string representation a la Python <strong>repr</strong> method. </p>
+<dt class="sig sig-object cpp" id="_CPPv4NK2rr10Integrator6toReprEv">
+<span id="_CPPv3NK2rr10Integrator6toReprEv"></span><span id="_CPPv2NK2rr10Integrator6toReprEv"></span><span id="rr::Integrator::toReprC"></span><span class="target" id="classrr_1_1Integrator_1abb3c4ae3020a5df7abe40639037615cb"></span><span class="k"><span class="pre">virtual</span></span><span class="w"> </span><span class="n"><span class="pre">std</span></span><span class="p"><span class="pre">::</span></span><span class="n"><span class="pre">string</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">toRepr</span></span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><span class="w"> </span><span class="k"><span class="pre">const</span></span><a class="headerlink" href="#_CPPv4NK2rr10Integrator6toReprEv" title="Permalink to this definition">¶</a><br /></dt>
+<dd><p>Return std::string representation a la Python <strong>repr</strong> method. </p>
 <p><dl class="simple">
 <dt><strong>Author</strong></dt><dd><p>JKM </p>
 </dd>
 </dl>
 </p>
+</dd></dl>
+
+<dl class="cpp function">
+<dt class="sig sig-object cpp" id="_CPPv4N2rr10Integrator8setValueERKNSt6stringE7Setting">
+<span id="_CPPv3N2rr10Integrator8setValueERKNSt6stringE7Setting"></span><span id="_CPPv2N2rr10Integrator8setValueERKNSt6stringE7Setting"></span><span id="rr::Integrator::setValue__ssCR.Setting"></span><span class="target" id="classrr_1_1Integrator_1a18fa004a818506c15d47fa28015039c6"></span><span class="kt"><span class="pre">void</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">setValue</span></span></span><span class="sig-paren">(</span><span class="k"><span class="pre">const</span></span><span class="w"> </span><span class="n"><span class="pre">std</span></span><span class="p"><span class="pre">::</span></span><span class="n"><span class="pre">string</span></span><span class="w"> </span><span class="p"><span class="pre">&amp;</span></span><span class="n sig-param"><span class="pre">key</span></span>, <span class="n"><span class="pre">Setting</span></span><span class="w"> </span><span class="n sig-param"><span class="pre">value</span></span><span class="sig-paren">)</span><a class="headerlink" href="#_CPPv4N2rr10Integrator8setValueERKNSt6stringE7Setting" title="Permalink to this definition">¶</a><br /></dt>
+<dd><p>Pull down the setValue from superclass. </p>
+<p>We do not need to reimplement this but we make it explicit. </p>
 </dd></dl>
 
 </div>

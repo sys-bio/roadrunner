@@ -21,9 +21,9 @@ configure_file(RoadRunnerTestDirectory.cpp.in "${CMAKE_CURRENT_BINARY_DIR}/RoadR
 
 # "CMAKE_CURRENT_SOURCE_DIR" changes in the different files were
 # add_test_executable gets called. We can use this as a constant
-set(ThisSourceDirectory ${CMAKE_CURRENT_SOURCE_DIR})
-set(ThisBinaryDirectory ${CMAKE_CURRENT_BINARY_DIR})
-set(TestModelFactorySrcDir "${CMAKE_CURRENT_SOURCE_DIR}/sundials-tests")
+set(ThisSourceDirectory "${CMAKE_CURRENT_SOURCE_DIR}")
+set(ThisBinaryDirectory "${CMAKE_CURRENT_BINARY_DIR}")
+set(MOCKUPS_DIRECTORY "${CMAKE_CURRENT_SOURCE_DIR}/mockups")
 
 #todo move these to the rr_root/cmake folder
 # Adds a new executable cmake target to cmake.
@@ -34,24 +34,24 @@ set(TestModelFactorySrcDir "${CMAKE_CURRENT_SOURCE_DIR}/sundials-tests")
 #   - All further arguments are added to the binary as sources.
 function(add_test_executable TEST_TARGET OUT_VARIABLE)
     #message(STATUS "Adding test ${TEST_TARGET} as part of ${OUT_VARIABLE}. Source Files: ARGN: ${ARGN}" )
-    add_executable(${TEST_TARGET} ${ARGN})
+    add_executable(${TEST_TARGET} ${ARGN} $<TARGET_OBJECTS:rr-mockups>)
 
     target_include_directories(
             ${TEST_TARGET} PRIVATE
             "${ThisSourceDirectory}"
             "${ThisBinaryDirectory}"
-            "${TestModelFactorySrcDir}"
+            "${MOCKUPS_DIRECTORY}"
     )
 
     target_link_libraries(${TEST_TARGET} PRIVATE
-            roadrunner_c_api roadrunner-static gtest gtest_main gmock gmock_main
+            roadrunner_c_api roadrunner-static rr-mockups gtest gtest_main gmock gmock_main
             )
     # This causes a weird build error whereby it is no longer possible
     # to name a class the name as the binary filename. However, since w
     # link to roadrunner-static, the flags needed should be transitive
     #    add_compile_definitions(${TEST_TARGET} PRIVATE STATIC_RR)
 
-    add_dependencies(${TEST_TARGET} roadrunner-static gtest gtest_main gmock gmock_main)
+    add_dependencies(${TEST_TARGET} roadrunner-static gtest gtest_main gmock gmock_main rr-mockups)
     set_target_properties(${TEST_TARGET} PROPERTIES LINKER_LANGUAGE CXX)
 
     # Add to ctest.
@@ -127,6 +127,7 @@ macro(add_swig_executable SWIG_TARGET_NAME SWIG_INTERFACE_FILE)
             $<TARGET_PROPERTY:roadrunner_python,INCLUDE_DIRECTORIES>
             )
     target_link_libraries(${SWIG_TARGET_NAME} PUBLIC
+            rr-mockups
             roadrunner-static
             ${Python_LIBRARIES}
             )
@@ -151,18 +152,52 @@ macro(add_swig_executable SWIG_TARGET_NAME SWIG_INTERFACE_FILE)
 endmacro()
 
 #########################################################
+#   Build the TestModelFactory
+#
+
+if (BUILD_PYTHON AND BUILD_TESTS)
+    message(STATUS "Building TestModelFactory")
+    add_swig_executable(TestModelFactory
+            "${CMAKE_CURRENT_SOURCE_DIR}/TestModelFactory.i"
+            "${CMAKE_CURRENT_SOURCE_DIR}/TestModelFactory.h"
+            "${CMAKE_CURRENT_SOURCE_DIR}/TestModelFactory.cpp"
+            "../wrappers/Python/roadrunner/PyUtils"
+            )
+
+    configure_file(testTestModelFactory.py "${RR_PYTHON_TESTING_DIR}" COPYONLY)
+
+    # install python test files to install tree
+    install(TARGETS TestModelFactory DESTINATION site-packages/roadrunner/testing)
+    install(
+            FILES
+                "${CMAKE_CURRENT_BINARY_DIR}/TestModelFactory.py"
+                "${CMAKE_CURRENT_SOURCE_DIR}/testTestModelFactory.py"
+            DESTINATION
+            site-packages/roadrunner/testing
+    )
+
+endif ()
+
+
+#########################################################
 #   Add Tests
 #
 
+# Provide these sources to every test executable
 set(
         SharedTestFiles
         # path *must* be absolute to work in cmake functions/macros
-        "${CMAKE_CURRENT_BINARY_DIR}/RoadRunnerTestDirectory"
-        "${CMAKE_CURRENT_SOURCE_DIR}/test_util"
-        "${CMAKE_CURRENT_SOURCE_DIR}/RoadRunnerTest"
-        "${CMAKE_CURRENT_SOURCE_DIR}/sundials-tests/TestModelFactory" # todo Note, this needs to be moved up a directory
+        "${CMAKE_CURRENT_BINARY_DIR}/RoadRunnerTestDirectory.h"
+        "${CMAKE_CURRENT_BINARY_DIR}/RoadRunnerTestDirectory.cpp"
+        "${CMAKE_CURRENT_SOURCE_DIR}/test_util.h"
+        "${CMAKE_CURRENT_SOURCE_DIR}/test_util.cpp"
+        "${CMAKE_CURRENT_SOURCE_DIR}/RoadRunnerTest.h"
+        "${CMAKE_CURRENT_SOURCE_DIR}/RoadRunnerTest.cpp"
+        "${CMAKE_CURRENT_SOURCE_DIR}/TestModelFactory.h"
+        "${CMAKE_CURRENT_SOURCE_DIR}/TestModelFactory.cpp" # need explicit extensions here (for some reason)
 )
 
+add_subdirectory(mockups)
 add_subdirectory(c_api_core)
 add_subdirectory(c_api_rrtests)
 add_subdirectory(model_analysis)
@@ -174,6 +209,7 @@ add_subdirectory(python)
 add_subdirectory(cxx_api_tests)
 
 #List the semantic_STS last, since it takes much longer to run than the others.
+# (fyi, build the run-ctest-exclude-sbml-test-suite target - see below)
 add_subdirectory(semantic_STS)
 
 #########################################################

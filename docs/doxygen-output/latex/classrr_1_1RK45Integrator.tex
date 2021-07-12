@@ -35,8 +35,8 @@ std\+::string \mbox{\hyperlink{classrr_1_1RK45Integrator_a45d69589da662628a6f0f6
 \begin{DoxyCompactList}\small\item\em Get the description for this integrator. \end{DoxyCompactList}\item 
 std\+::string \mbox{\hyperlink{classrr_1_1RK45Integrator_ae5526461902e834afff94a18f679dbe3}{get\+Hint}} () const
 \begin{DoxyCompactList}\small\item\em Get the hint for this integrator. \end{DoxyCompactList}\item 
-\mbox{\Hypertarget{classrr_1_1RK45Integrator_a00de0a531065bed24f6a31e68194bb39}\label{classrr_1_1RK45Integrator_a00de0a531065bed24f6a31e68194bb39}} 
-virtual \mbox{\hyperlink{classrr_1_1Variant}{Variant}} {\bfseries get\+Value} (std\+::string key)
+\mbox{\Hypertarget{classrr_1_1RK45Integrator_a207a72af6c04b4e86d6f792ea25abddc}\label{classrr_1_1RK45Integrator_a207a72af6c04b4e86d6f792ea25abddc}} 
+virtual \mbox{\hyperlink{classrr_1_1Setting}{Setting}} {\bfseries get\+Value} (std\+::string key)
 \item 
 Integration\+Method \mbox{\hyperlink{classrr_1_1RK45Integrator_ade69fdfc91f614a6f20bc8027d5e2f0a}{get\+Integration\+Method}} () const
 \begin{DoxyCompactList}\small\item\em Always deterministic for R\+K45. \end{DoxyCompactList}\item 
@@ -226,7 +226,7 @@ implement \mbox{\hyperlink{classrr_1_1Integrator}{Integrator}} interface
 \begin{DoxyAuthor}{Author}
 CC
 \end{DoxyAuthor}
-Integrates the model from t to t + h.  Attempts to find the state vector at t + h, and returns time t + h if successful. If the integrator does not find a convergent solution, the state vector is not updated and t is returned. Also calculates a new timestep and saves it to a member variable for future use. 
+Integrates the model from t to t + h.  Attempts to find the state std\+::vector at t + h, and returns time t + h if successful. If the integrator does not find a convergent solution, the state std\+::vector is not updated and t is returned. Also calculates a new timestep and saves it to a member variable for future use. 
 
 Implements \mbox{\hyperlink{classrr_1_1Integrator}{rr\+::\+Integrator}}.
 

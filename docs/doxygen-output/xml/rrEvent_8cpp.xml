@@ -6,9 +6,11 @@
     <includes refid="rrRandom_8h" local="yes">rrRandom.h</includes>
     <includes local="no">iostream</includes>
     <incdepgraph>
-      <node id="5">
-        <label>rrExporter.h</label>
-        <link refid="rrExporter_8h_source"/>
+      <node id="4">
+        <label>mtrand.h</label>
+        <link refid="mtrand_8h_source"/>
+        <childnode refid="5" relation="include">
+        </childnode>
       </node>
       <node id="3">
         <label>rrRandom.h</label>
@@ -16,15 +18,12 @@
         <childnode refid="4" relation="include">
         </childnode>
       </node>
-      <node id="1">
-        <label>c/rrEvent.cpp</label>
-        <link refid="rrEvent_8cpp"/>
-        <childnode refid="2" relation="include">
-        </childnode>
-        <childnode refid="3" relation="include">
-        </childnode>
-        <childnode refid="7" relation="include">
-        </childnode>
+      <node id="5">
+        <label>rrExporter.h</label>
+        <link refid="rrExporter_8h_source"/>
+      </node>
+      <node id="6">
+        <label>ostream</label>
       </node>
       <node id="2">
         <label>rrEvent.h</label>
@@ -36,16 +35,17 @@
         <childnode refid="6" relation="include">
         </childnode>
       </node>
-      <node id="6">
-        <label>ostream</label>
-      </node>
       <node id="7">
         <label>iostream</label>
       </node>
-      <node id="4">
-        <label>mtrand.h</label>
-        <link refid="mtrand_8h_source"/>
-        <childnode refid="5" relation="include">
+      <node id="1">
+        <label>c/rrEvent.cpp</label>
+        <link refid="rrEvent_8cpp"/>
+        <childnode refid="2" relation="include">
+        </childnode>
+        <childnode refid="3" relation="include">
+        </childnode>
+        <childnode refid="7" relation="include">
         </childnode>
       </node>
     </incdepgraph>
@@ -127,7 +127,7 @@
 <codeline lineno="70"><highlight class="normal">std::ostream&amp;<sp/>operator&lt;&lt;(std::ostream&amp;<sp/>stream,<sp/></highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/>Event&amp;<sp/>anEvent)</highlight></codeline>
 <codeline lineno="71"><highlight class="normal">{</highlight></codeline>
 <codeline lineno="72"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="comment">//<sp/>something<sp/>bizarre<sp/>in<sp/>gcc<sp/>was<sp/>causing<sp/>this<sp/>to<sp/>fail<sp/>if<sp/>the<sp/>event<sp/>fields<sp/>are</highlight><highlight class="normal"></highlight></codeline>
-<codeline lineno="73"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="comment">//<sp/>dumped<sp/>directly<sp/>to<sp/>the<sp/>ostream.<sp/>Seems<sp/>fine<sp/>if<sp/>we<sp/>make<sp/>a<sp/>stack<sp/>based<sp/>copy</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="73"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="comment">//<sp/>dumped<sp/>directly<sp/>to<sp/>the<sp/>std::ostream.<sp/>Seems<sp/>fine<sp/>if<sp/>we<sp/>make<sp/>a<sp/>stack<sp/>based<sp/>copy</highlight><highlight class="normal"></highlight></codeline>
 <codeline lineno="74"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="comment">//<sp/>though</highlight><highlight class="normal"></highlight></codeline>
 <codeline lineno="75"><highlight class="normal"></highlight></codeline>
 <codeline lineno="76"><highlight class="normal"><sp/><sp/><sp/><sp/>stream<sp/>&lt;&lt;<sp/></highlight><highlight class="stringliteral">&quot;Event<sp/>ID:<sp/>&quot;</highlight><highlight class="normal">;</highlight></codeline>

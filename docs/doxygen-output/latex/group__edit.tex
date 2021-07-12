@@ -8,9 +8,13 @@ Add or remove species or reactions without modifying S\+B\+ML files and reloadin
 \doxysubsection*{Functions}
 \begin{DoxyCompactItemize}
 \item 
-C\+\_\+\+D\+E\+C\+L\+\_\+\+S\+P\+EC bool rrc\+Call\+Conv \mbox{\hyperlink{group__edit_ga8046c3bfa3d0c126ff1a64dc875e914e}{add\+Species}} (\mbox{\hyperlink{rrc__types_8h_a1d68f0592372208fa5a5f2799ea4b3ae}{R\+R\+Handle}} handle, const char $\ast$sid, const char $\ast$compartment, double initial\+Amount, bool has\+Only\+Substance\+Units, bool boundary\+Condition)
+C\+\_\+\+D\+E\+C\+L\+\_\+\+S\+P\+EC bool rrc\+Call\+Conv \mbox{\hyperlink{group__edit_gaef2fc31f4dbe5b5d7bd0d76ce6a296ff}{add\+Species\+Amount}} (\mbox{\hyperlink{rrc__types_8h_a1d68f0592372208fa5a5f2799ea4b3ae}{R\+R\+Handle}} handle, const char $\ast$sid, const char $\ast$compartment, double initial\+Amount, bool has\+Only\+Substance\+Units, bool boundary\+Condition)
 \begin{DoxyCompactList}\small\item\em Add a species to the current model. \end{DoxyCompactList}\item 
-C\+\_\+\+D\+E\+C\+L\+\_\+\+S\+P\+EC bool rrc\+Call\+Conv \mbox{\hyperlink{group__edit_ga32500bd1249d5d5fc380d489154e4c85}{add\+Species\+No\+Regen}} (\mbox{\hyperlink{rrc__types_8h_a1d68f0592372208fa5a5f2799ea4b3ae}{R\+R\+Handle}} handle, const char $\ast$sid, const char $\ast$compartment, double initial\+Amount, bool has\+Only\+Substance\+Units, bool boundary\+Condition)
+C\+\_\+\+D\+E\+C\+L\+\_\+\+S\+P\+EC bool rrc\+Call\+Conv \mbox{\hyperlink{group__edit_ga213287c567b88a4f3619fdf379f67ac5}{add\+Species\+Concentration}} (\mbox{\hyperlink{rrc__types_8h_a1d68f0592372208fa5a5f2799ea4b3ae}{R\+R\+Handle}} handle, const char $\ast$sid, const char $\ast$compartment, double initial\+Concentration, bool has\+Only\+Substance\+Units, bool boundary\+Condition)
+\begin{DoxyCompactList}\small\item\em Add a species to the current model. \end{DoxyCompactList}\item 
+C\+\_\+\+D\+E\+C\+L\+\_\+\+S\+P\+EC bool rrc\+Call\+Conv \mbox{\hyperlink{group__edit_ga48236ef5d127c7b685fd774d879c028a}{add\+Species\+Concentration\+No\+Regen}} (\mbox{\hyperlink{rrc__types_8h_a1d68f0592372208fa5a5f2799ea4b3ae}{R\+R\+Handle}} handle, const char $\ast$sid, const char $\ast$compartment, double initial\+Concentration, bool has\+Only\+Substance\+Units, bool boundary\+Condition)
+\begin{DoxyCompactList}\small\item\em Add a species to the current model, without regenerating it The last modification must regenerate for the modifications to take effect. \end{DoxyCompactList}\item 
+C\+\_\+\+D\+E\+C\+L\+\_\+\+S\+P\+EC bool rrc\+Call\+Conv \mbox{\hyperlink{group__edit_ga6eb04c102f6da7d25d84bd39894d5697}{add\+Species\+Amount\+No\+Regen}} (\mbox{\hyperlink{rrc__types_8h_a1d68f0592372208fa5a5f2799ea4b3ae}{R\+R\+Handle}} handle, const char $\ast$sid, const char $\ast$compartment, double initial\+Amount, bool has\+Only\+Substance\+Units, bool boundary\+Condition)
 \begin{DoxyCompactList}\small\item\em Add a species to the current model, without regenerating it The last modification must regenerate for the modifications to take effect. \end{DoxyCompactList}\item 
 C\+\_\+\+D\+E\+C\+L\+\_\+\+S\+P\+EC bool rrc\+Call\+Conv \mbox{\hyperlink{group__edit_gaf5ebfc87d97383ffb003897259a21b6b}{remove\+Species}} (\mbox{\hyperlink{rrc__types_8h_a1d68f0592372208fa5a5f2799ea4b3ae}{R\+R\+Handle}} handle, const char $\ast$sid)
 \begin{DoxyCompactList}\small\item\em Remove a species from the current model. \end{DoxyCompactList}\item 
@@ -122,6 +126,8 @@ C\+\_\+\+D\+E\+C\+L\+\_\+\+S\+P\+EC bool rrc\+Call\+Conv \mbox{\hyperlink{group_
 \begin{DoxyCompactList}\small\item\em Remove an event from the current model. \end{DoxyCompactList}\item 
 C\+\_\+\+D\+E\+C\+L\+\_\+\+S\+P\+EC bool rrc\+Call\+Conv \mbox{\hyperlink{group__edit_ga322382e2cb2e35312cd4a88ceee906a5}{remove\+Events\+No\+Regen}} (\mbox{\hyperlink{rrc__types_8h_a1d68f0592372208fa5a5f2799ea4b3ae}{R\+R\+Handle}} handle, const char $\ast$eid)
 \begin{DoxyCompactList}\small\item\em Remove an event from the current model, without regenerating it The last modification must regenerate for the modifications to take effect. \end{DoxyCompactList}\item 
+C\+\_\+\+D\+E\+C\+L\+\_\+\+S\+P\+EC bool rrc\+Call\+Conv \mbox{\hyperlink{group__edit_gae8d120bbf287b0879707510d1df86328}{regenerate}} (\mbox{\hyperlink{rrc__types_8h_a1d68f0592372208fa5a5f2799ea4b3ae}{R\+R\+Handle}} handle)
+\begin{DoxyCompactList}\small\item\em After a model has been edited, it needs to be compiled. Call regenerate to recompile a model so that it is ready for use. \end{DoxyCompactList}\item 
 C\+\_\+\+D\+E\+C\+L\+\_\+\+S\+P\+EC bool rrc\+Call\+Conv \mbox{\hyperlink{group__edit_ga63e642abda6ec0756781e159be5d3010}{validate\+Current\+S\+B\+ML}} (\mbox{\hyperlink{rrc__types_8h_a1d68f0592372208fa5a5f2799ea4b3ae}{R\+R\+Handle}} handle)
 \begin{DoxyCompactList}\small\item\em Validate the current S\+B\+ML file. \end{DoxyCompactList}\end{DoxyCompactItemize}
 
@@ -592,11 +598,11 @@ Add a reaction to the current model, without regenerating it The last modificati
 \begin{DoxyReturn}{Returns}
 Returns false if the call fails, otherwise returns a true 
 \end{DoxyReturn}
-\mbox{\Hypertarget{group__edit_ga8046c3bfa3d0c126ff1a64dc875e914e}\label{group__edit_ga8046c3bfa3d0c126ff1a64dc875e914e}} 
-\index{Edit models@{Edit models}!addSpecies@{addSpecies}}
-\index{addSpecies@{addSpecies}!Edit models@{Edit models}}
-\doxysubsubsection{\texorpdfstring{addSpecies()}{addSpecies()}}
-{\footnotesize\ttfamily C\+\_\+\+D\+E\+C\+L\+\_\+\+S\+P\+EC bool rrc\+Call\+Conv add\+Species (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{rrc__types_8h_a1d68f0592372208fa5a5f2799ea4b3ae}{R\+R\+Handle}}}]{handle,  }\item[{const char $\ast$}]{sid,  }\item[{const char $\ast$}]{compartment,  }\item[{double}]{initial\+Amount,  }\item[{bool}]{has\+Only\+Substance\+Units,  }\item[{bool}]{boundary\+Condition }\end{DoxyParamCaption})}
+\mbox{\Hypertarget{group__edit_gaef2fc31f4dbe5b5d7bd0d76ce6a296ff}\label{group__edit_gaef2fc31f4dbe5b5d7bd0d76ce6a296ff}} 
+\index{Edit models@{Edit models}!addSpeciesAmount@{addSpeciesAmount}}
+\index{addSpeciesAmount@{addSpeciesAmount}!Edit models@{Edit models}}
+\doxysubsubsection{\texorpdfstring{addSpeciesAmount()}{addSpeciesAmount()}}
+{\footnotesize\ttfamily C\+\_\+\+D\+E\+C\+L\+\_\+\+S\+P\+EC bool rrc\+Call\+Conv add\+Species\+Amount (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{rrc__types_8h_a1d68f0592372208fa5a5f2799ea4b3ae}{R\+R\+Handle}}}]{handle,  }\item[{const char $\ast$}]{sid,  }\item[{const char $\ast$}]{compartment,  }\item[{double}]{initial\+Amount,  }\item[{bool}]{has\+Only\+Substance\+Units,  }\item[{bool}]{boundary\+Condition }\end{DoxyParamCaption})}
 
 
 
@@ -618,11 +624,11 @@ Add a species to the current model.
 \begin{DoxyReturn}{Returns}
 Returns false if the call fails, otherwise returns a true 
 \end{DoxyReturn}
-\mbox{\Hypertarget{group__edit_ga32500bd1249d5d5fc380d489154e4c85}\label{group__edit_ga32500bd1249d5d5fc380d489154e4c85}} 
-\index{Edit models@{Edit models}!addSpeciesNoRegen@{addSpeciesNoRegen}}
-\index{addSpeciesNoRegen@{addSpeciesNoRegen}!Edit models@{Edit models}}
-\doxysubsubsection{\texorpdfstring{addSpeciesNoRegen()}{addSpeciesNoRegen()}}
-{\footnotesize\ttfamily C\+\_\+\+D\+E\+C\+L\+\_\+\+S\+P\+EC bool rrc\+Call\+Conv add\+Species\+No\+Regen (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{rrc__types_8h_a1d68f0592372208fa5a5f2799ea4b3ae}{R\+R\+Handle}}}]{handle,  }\item[{const char $\ast$}]{sid,  }\item[{const char $\ast$}]{compartment,  }\item[{double}]{initial\+Amount,  }\item[{bool}]{has\+Only\+Substance\+Units,  }\item[{bool}]{boundary\+Condition }\end{DoxyParamCaption})}
+\mbox{\Hypertarget{group__edit_ga6eb04c102f6da7d25d84bd39894d5697}\label{group__edit_ga6eb04c102f6da7d25d84bd39894d5697}} 
+\index{Edit models@{Edit models}!addSpeciesAmountNoRegen@{addSpeciesAmountNoRegen}}
+\index{addSpeciesAmountNoRegen@{addSpeciesAmountNoRegen}!Edit models@{Edit models}}
+\doxysubsubsection{\texorpdfstring{addSpeciesAmountNoRegen()}{addSpeciesAmountNoRegen()}}
+{\footnotesize\ttfamily C\+\_\+\+D\+E\+C\+L\+\_\+\+S\+P\+EC bool rrc\+Call\+Conv add\+Species\+Amount\+No\+Regen (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{rrc__types_8h_a1d68f0592372208fa5a5f2799ea4b3ae}{R\+R\+Handle}}}]{handle,  }\item[{const char $\ast$}]{sid,  }\item[{const char $\ast$}]{compartment,  }\item[{double}]{initial\+Amount,  }\item[{bool}]{has\+Only\+Substance\+Units,  }\item[{bool}]{boundary\+Condition }\end{DoxyParamCaption})}
 
 
 
@@ -637,6 +643,58 @@ Add a species to the current model, without regenerating it The last modificatio
 \mbox{\texttt{ in}}  & {\em compartment} & Compartment of the species to be added \\
 \hline
 \mbox{\texttt{ in}}  & {\em initial\+Amount} & Initial amount of the species to be added \\
+\hline
+\mbox{\texttt{ in}}  & {\em substance\+Unit} & Substance unit of the species to be added \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+Returns false if the call fails, otherwise returns a true 
+\end{DoxyReturn}
+\mbox{\Hypertarget{group__edit_ga213287c567b88a4f3619fdf379f67ac5}\label{group__edit_ga213287c567b88a4f3619fdf379f67ac5}} 
+\index{Edit models@{Edit models}!addSpeciesConcentration@{addSpeciesConcentration}}
+\index{addSpeciesConcentration@{addSpeciesConcentration}!Edit models@{Edit models}}
+\doxysubsubsection{\texorpdfstring{addSpeciesConcentration()}{addSpeciesConcentration()}}
+{\footnotesize\ttfamily C\+\_\+\+D\+E\+C\+L\+\_\+\+S\+P\+EC bool rrc\+Call\+Conv add\+Species\+Concentration (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{rrc__types_8h_a1d68f0592372208fa5a5f2799ea4b3ae}{R\+R\+Handle}}}]{handle,  }\item[{const char $\ast$}]{sid,  }\item[{const char $\ast$}]{compartment,  }\item[{double}]{initial\+Concentration,  }\item[{bool}]{has\+Only\+Substance\+Units,  }\item[{bool}]{boundary\+Condition }\end{DoxyParamCaption})}
+
+
+
+Add a species to the current model. 
+
+
+\begin{DoxyParams}[1]{Parameters}
+\mbox{\texttt{ in}}  & {\em handle} & Handle to a Road\+Runner instance \\
+\hline
+\mbox{\texttt{ in}}  & {\em sid} & ID of the species to be added \\
+\hline
+\mbox{\texttt{ in}}  & {\em compartment} & Compartment of the species to be added \\
+\hline
+\mbox{\texttt{ in}}  & {\em initial\+Concentration} & Initial concentration of the species to be added \\
+\hline
+\mbox{\texttt{ in}}  & {\em substance\+Unit} & Substance unit of the species to be added \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+Returns false if the call fails, otherwise returns a true 
+\end{DoxyReturn}
+\mbox{\Hypertarget{group__edit_ga48236ef5d127c7b685fd774d879c028a}\label{group__edit_ga48236ef5d127c7b685fd774d879c028a}} 
+\index{Edit models@{Edit models}!addSpeciesConcentrationNoRegen@{addSpeciesConcentrationNoRegen}}
+\index{addSpeciesConcentrationNoRegen@{addSpeciesConcentrationNoRegen}!Edit models@{Edit models}}
+\doxysubsubsection{\texorpdfstring{addSpeciesConcentrationNoRegen()}{addSpeciesConcentrationNoRegen()}}
+{\footnotesize\ttfamily C\+\_\+\+D\+E\+C\+L\+\_\+\+S\+P\+EC bool rrc\+Call\+Conv add\+Species\+Concentration\+No\+Regen (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{rrc__types_8h_a1d68f0592372208fa5a5f2799ea4b3ae}{R\+R\+Handle}}}]{handle,  }\item[{const char $\ast$}]{sid,  }\item[{const char $\ast$}]{compartment,  }\item[{double}]{initial\+Concentration,  }\item[{bool}]{has\+Only\+Substance\+Units,  }\item[{bool}]{boundary\+Condition }\end{DoxyParamCaption})}
+
+
+
+Add a species to the current model, without regenerating it The last modification must regenerate for the modifications to take effect. 
+
+
+\begin{DoxyParams}[1]{Parameters}
+\mbox{\texttt{ in}}  & {\em handle} & Handle to a Road\+Runner instance \\
+\hline
+\mbox{\texttt{ in}}  & {\em sid} & ID of the species to be added \\
+\hline
+\mbox{\texttt{ in}}  & {\em compartment} & Compartment of the species to be added \\
+\hline
+\mbox{\texttt{ in}}  & {\em initial\+Concentration} & Initial concentration of the species to be added \\
 \hline
 \mbox{\texttt{ in}}  & {\em substance\+Unit} & Substance unit of the species to be added \\
 \hline
@@ -707,6 +765,24 @@ Get the kinetic law for a existing reaction in the current model.
 \end{DoxyParams}
 \begin{DoxyReturn}{Returns}
 Returns the kinetic law. 
+\end{DoxyReturn}
+\mbox{\Hypertarget{group__edit_gae8d120bbf287b0879707510d1df86328}\label{group__edit_gae8d120bbf287b0879707510d1df86328}} 
+\index{Edit models@{Edit models}!regenerate@{regenerate}}
+\index{regenerate@{regenerate}!Edit models@{Edit models}}
+\doxysubsubsection{\texorpdfstring{regenerate()}{regenerate()}}
+{\footnotesize\ttfamily C\+\_\+\+D\+E\+C\+L\+\_\+\+S\+P\+EC bool rrc\+Call\+Conv regenerate (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{rrc__types_8h_a1d68f0592372208fa5a5f2799ea4b3ae}{R\+R\+Handle}}}]{handle }\end{DoxyParamCaption})}
+
+
+
+After a model has been edited, it needs to be compiled. Call regenerate to recompile a model so that it is ready for use. 
+
+
+\begin{DoxyParams}[1]{Parameters}
+\mbox{\texttt{ in}}  & {\em handle} & Handle to a Road\+Runner instance \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+Returns false if the call fails, otherwise returns a true 
 \end{DoxyReturn}
 \mbox{\Hypertarget{group__edit_gaf8605b6f7b39d858088ba4e19397432b}\label{group__edit_gaf8605b6f7b39d858088ba4e19397432b}} 
 \index{Edit models@{Edit models}!removeCompartment@{removeCompartment}}

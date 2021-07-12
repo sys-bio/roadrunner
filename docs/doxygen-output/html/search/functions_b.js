@@ -1,8 +1,9 @@
 var searchData=
 [
-  ['new_2040',['New',['../classrr_1_1IntegratorFactory.html#ab7298b70afb06e1200181cf3981f739c',1,'rr::IntegratorFactory::New()'],['../classrr_1_1SteadyStateSolverFactory.html#a2f6ae03a7d0ac0486bc8618b78cf7834',1,'rr::SteadyStateSolverFactory::New()']]],
-  ['nleq1interface_2041',['NLEQ1Interface',['../classrr_1_1NLEQ1Interface.html#ab674b1a3c8e36b5bb8035d9f88a8d2b5',1,'rr::NLEQ1Interface']]],
-  ['nleq1solver_2042',['NLEQ1Solver',['../classrr_1_1NLEQ1Solver.html#a793640e077ef19ff994c7b1f7cf841f6',1,'rr::NLEQ1Solver']]],
-  ['nleq2interface_2043',['NLEQ2Interface',['../classrr_1_1NLEQ2Interface.html#a8a81435af883b0dfcdc367b02ead6e60',1,'rr::NLEQ2Interface']]],
-  ['nleq2solver_2044',['NLEQ2Solver',['../classrr_1_1NLEQ2Solver.html#ab55885bb773e0645a240e28eba291625',1,'rr::NLEQ2Solver']]]
+  ['makeintegrator_2147',['makeIntegrator',['../classrr_1_1RoadRunner.html#a9733b034ce4b31a0de369aeddbd46b5e',1,'rr::RoadRunner']]],
+  ['matrixtostring_2148',['matrixToString',['../group__toString.html#ga02a9a7fee7703402fcf6e36f30d384be',1,'rrc_utilities.h']]],
+  ['max_2149',['max',['../classrrllvm_1_1Random.html#a4cb7608f39fe6bf46935025168007e71',1,'rrllvm::Random']]],
+  ['min_2150',['min',['../classrrllvm_1_1Random.html#a5bfaae233b2805b56c2b9ac9c084c12d',1,'rrllvm::Random']]],
+  ['modeldatairbuilder_2151',['ModelDataIRBuilder',['../classrrllvm_1_1ModelDataIRBuilder.html#a8bc39b1fd4a0dad7cb4b8018600218b1',1,'rrllvm::ModelDataIRBuilder']]],
+  ['modelgeneratorcontext_2152',['ModelGeneratorContext',['../classrrllvm_1_1ModelGeneratorContext.html#a919c325824a9e6bf548e9611420c1e83',1,'rrllvm::ModelGeneratorContext::ModelGeneratorContext(std::string const &amp;sbml, unsigned loadSBMLOptions)'],['../classrrllvm_1_1ModelGeneratorContext.html#aa8576e437ff1b8d0791227428bc598ac',1,'rrllvm::ModelGeneratorContext::ModelGeneratorContext(libsbml::SBMLDocument const *doc, unsigned loadSBMLOptions)'],['../classrrllvm_1_1ModelGeneratorContext.html#a619188b61652e3b93638b53fc5d015d7',1,'rrllvm::ModelGeneratorContext::ModelGeneratorContext()']]]
 ];

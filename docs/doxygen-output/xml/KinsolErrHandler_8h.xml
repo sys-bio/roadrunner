@@ -1,0 +1,112 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.20" xml:lang="en-US">
+  <compounddef id="KinsolErrHandler_8h" kind="file" language="C++">
+    <compoundname>KinsolErrHandler.h</compoundname>
+    <includes local="yes">kinsol/kinsol.h</includes>
+    <includes local="no">iostream</includes>
+    <includes local="no">sstream</includes>
+    <includedby refid="FixedPointIteration_8cpp" local="yes">FixedPointIteration.cpp</includedby>
+    <includedby refid="KinsolErrHandler_8cpp" local="yes">KinsolErrHandler.cpp</includedby>
+    <includedby refid="KinsolSteadyStateSolver_8cpp" local="yes">KinsolSteadyStateSolver.cpp</includedby>
+    <includedby refid="KinsolSteadyStateSolver_8h" local="yes">KinsolSteadyStateSolver.h</includedby>
+    <includedby refid="NewtonIteration_8cpp" local="yes">NewtonIteration.cpp</includedby>
+    <incdepgraph>
+      <node id="1">
+        <label>KinsolErrHandler.h</label>
+        <link refid="KinsolErrHandler_8h"/>
+        <childnode refid="2" relation="include">
+        </childnode>
+        <childnode refid="3" relation="include">
+        </childnode>
+        <childnode refid="4" relation="include">
+        </childnode>
+      </node>
+      <node id="4">
+        <label>sstream</label>
+      </node>
+      <node id="2">
+        <label>kinsol/kinsol.h</label>
+      </node>
+      <node id="3">
+        <label>iostream</label>
+      </node>
+    </incdepgraph>
+    <invincdepgraph>
+      <node id="7">
+        <label>LinesearchNewtonIteration.h</label>
+        <link refid="LinesearchNewtonIteration_8h_source"/>
+        <childnode refid="6" relation="include">
+        </childnode>
+      </node>
+      <node id="1">
+        <label>KinsolErrHandler.h</label>
+        <link refid="KinsolErrHandler_8h"/>
+        <childnode refid="2" relation="include">
+        </childnode>
+      </node>
+      <node id="2">
+        <label>KinsolSteadyStateSolver.h</label>
+        <link refid="KinsolSteadyStateSolver_8h_source"/>
+        <childnode refid="3" relation="include">
+        </childnode>
+        <childnode refid="4" relation="include">
+        </childnode>
+      </node>
+      <node id="6">
+        <label>SolverRegistration.cpp</label>
+        <link refid="SolverRegistration_8cpp"/>
+      </node>
+      <node id="5">
+        <label>BasicNewtonIteration.h</label>
+        <link refid="BasicNewtonIteration_8h_source"/>
+        <childnode refid="6" relation="include">
+        </childnode>
+      </node>
+      <node id="3">
+        <label>FixedPointIteration.h</label>
+        <link refid="FixedPointIteration_8h_source"/>
+      </node>
+      <node id="4">
+        <label>NewtonIteration.h</label>
+        <link refid="NewtonIteration_8h_source"/>
+        <childnode refid="5" relation="include">
+        </childnode>
+        <childnode refid="7" relation="include">
+        </childnode>
+      </node>
+    </invincdepgraph>
+    <innernamespace refid="namespacerr">rr</innernamespace>
+    <briefdescription>
+    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <programlisting>
+<codeline lineno="1"><highlight class="comment">//</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="2"><highlight class="normal"></highlight><highlight class="comment">//<sp/>Created<sp/>by<sp/>Ciaran<sp/>on<sp/>27/02/2021.</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="3"><highlight class="normal"></highlight><highlight class="comment">//</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="4"><highlight class="normal"></highlight></codeline>
+<codeline lineno="5"><highlight class="normal"></highlight><highlight class="preprocessor">#ifndef<sp/>ROADRUNNER_KINSOLERRHANDLER_H</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="6"><highlight class="normal"></highlight><highlight class="preprocessor">#define<sp/>ROADRUNNER_KINSOLERRHANDLER_H</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="7"><highlight class="normal"></highlight></codeline>
+<codeline lineno="8"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&quot;kinsol/kinsol.h&quot;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="9"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&lt;iostream&gt;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="10"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&lt;sstream&gt;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="11"><highlight class="normal"></highlight></codeline>
+<codeline lineno="12"><highlight class="normal"></highlight><highlight class="keyword">namespace<sp/></highlight><highlight class="normal">rr<sp/>{</highlight></codeline>
+<codeline lineno="13"><highlight class="normal"></highlight></codeline>
+<codeline lineno="22"><highlight class="normal"><sp/><sp/><sp/><sp/>std::string<sp/>decodeKinsolError(</highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/>cvodeError);</highlight></codeline>
+<codeline lineno="23"><highlight class="normal"></highlight></codeline>
+<codeline lineno="24"><highlight class="normal"></highlight></codeline>
+<codeline lineno="42"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/>kinsolErrHandler(</highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/>error_code,<sp/></highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/></highlight><highlight class="keywordtype">char</highlight><highlight class="normal"><sp/>*module,<sp/></highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/></highlight><highlight class="keywordtype">char</highlight><highlight class="normal"><sp/>*</highlight><highlight class="keyword">function</highlight><highlight class="normal">,<sp/></highlight><highlight class="keywordtype">char</highlight><highlight class="normal"><sp/>*msg);</highlight></codeline>
+<codeline lineno="43"><highlight class="normal"></highlight></codeline>
+<codeline lineno="47"><highlight class="comment">//#define<sp/>handleKinsolError(errCode)<sp/>\</highlight></codeline>
+<codeline lineno="48"><highlight class="comment">//<sp/><sp/><sp/><sp/>std::string<sp/>what<sp/>=<sp/>decodeKinsolError(errCode);<sp/>\</highlight></codeline>
+<codeline lineno="49"><highlight class="comment">//<sp/><sp/><sp/><sp/>throw<sp/>KinsolException(std::string(__FILE__)<sp/>+<sp/>&quot;:&quot;<sp/>+<sp/>std::to_string(__LINE__)<sp/>+<sp/>&quot;:&quot;<sp/>+<sp/>std::string(__FUNCTION__)<sp/>+<sp/>&quot;<sp/>&quot;<sp/>+<sp/>what);</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="50"><highlight class="normal"></highlight></codeline>
+<codeline lineno="51"><highlight class="normal">}</highlight></codeline>
+<codeline lineno="52"><highlight class="normal"></highlight></codeline>
+<codeline lineno="53"><highlight class="normal"></highlight><highlight class="preprocessor">#endif<sp/>//ROADRUNNER_KINSOLERRHANDLER_H</highlight></codeline>
+    </programlisting>
+    <location file="KinsolErrHandler.h"/>
+  </compounddef>
+</doxygen>

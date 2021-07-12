@@ -3,7 +3,7 @@
 Inheritance diagram for rr\+::Steady\+State\+Solver\+:\begin{figure}[H]
 \begin{center}
 \leavevmode
-\includegraphics[height=3.000000cm]{classrr_1_1SteadyStateSolver}
+\includegraphics[height=1.851852cm]{classrr_1_1SteadyStateSolver}
 \end{center}
 \end{figure}
 \doxysubsection*{Public Member Functions}
@@ -17,44 +17,23 @@ virtual double {\bfseries solve} ()=0
 \mbox{\Hypertarget{classrr_1_1SteadyStateSolver_a613605d22b7da35a526473d107ca65bd}\label{classrr_1_1SteadyStateSolver_a613605d22b7da35a526473d107ca65bd}} 
 virtual void {\bfseries load\+Config\+Settings} ()
 \item 
-std\+::string \mbox{\hyperlink{classrr_1_1SteadyStateSolver_ab07b512395ec018885548aa83a79f5ae}{get\+Settings\+Repr}} () const
-\begin{DoxyCompactList}\small\item\em Get the solver settings as a string. \end{DoxyCompactList}\item 
-std\+::string \mbox{\hyperlink{classrr_1_1SteadyStateSolver_a0dcf06495066f67d790ca41656bb6c4c}{settings\+Py\+Dict\+Repr}} () const
-\begin{DoxyCompactList}\small\item\em Python dictionary-\/style string representation of settings. \end{DoxyCompactList}\item 
-virtual std\+::string \mbox{\hyperlink{classrr_1_1SteadyStateSolver_afcc15369d04e99ad76cdb8390a94b103}{to\+String}} () const
-\begin{DoxyCompactList}\small\item\em Return a string representation of the solver. \end{DoxyCompactList}\item 
-virtual std\+::string \mbox{\hyperlink{classrr_1_1SteadyStateSolver_a1ce4941762d7605e03655432a0a38283}{to\+Repr}} () const
-\begin{DoxyCompactList}\small\item\em Return string representation a la Python {\bfseries{repr}} method. \end{DoxyCompactList}\end{DoxyCompactItemize}
+std\+::string \mbox{\hyperlink{classrr_1_1SteadyStateSolver_aaf40e2ae58d2f4fef80a00f5bb7fd413}{to\+String}} () const override
+\begin{DoxyCompactList}\small\item\em Return a std\+::string representation of the solver. \end{DoxyCompactList}\item 
+std\+::string \mbox{\hyperlink{classrr_1_1SteadyStateSolver_a4307ed20fd04adf61cc8b4ef9a88f747}{to\+Repr}} () const override
+\begin{DoxyCompactList}\small\item\em Return std\+::string representation a la Python {\bfseries{repr}} method. \end{DoxyCompactList}\item 
+\mbox{\Hypertarget{classrr_1_1SteadyStateSolver_ac9652965eb0defa7c12af91110dd68fc}\label{classrr_1_1SteadyStateSolver_ac9652965eb0defa7c12af91110dd68fc}} 
+void \mbox{\hyperlink{classrr_1_1SteadyStateSolver_ac9652965eb0defa7c12af91110dd68fc}{reset\+Settings}} () override
+\begin{DoxyCompactList}\small\item\em Implements settings shared by all steady state solvers. \end{DoxyCompactList}\item 
+\mbox{\Hypertarget{classrr_1_1SteadyStateSolver_a04bba4a342cc7197750f080d41d439e5}\label{classrr_1_1SteadyStateSolver_a04bba4a342cc7197750f080d41d439e5}} 
+{\bfseries Solver} ()=default
+\item 
+\mbox{\Hypertarget{classrr_1_1SteadyStateSolver_aa0a07553e368f0be33b9bfc429782a97}\label{classrr_1_1SteadyStateSolver_aa0a07553e368f0be33b9bfc429782a97}} 
+{\bfseries Solver} (\mbox{\hyperlink{classrr_1_1ExecutableModel}{Executable\+Model}} $\ast$model)
+\end{DoxyCompactItemize}
 \doxysubsection*{Additional Inherited Members}
 
 
 \doxysubsection{Member Function Documentation}
-\mbox{\Hypertarget{classrr_1_1SteadyStateSolver_ab07b512395ec018885548aa83a79f5ae}\label{classrr_1_1SteadyStateSolver_ab07b512395ec018885548aa83a79f5ae}} 
-\index{rr::SteadyStateSolver@{rr::SteadyStateSolver}!getSettingsRepr@{getSettingsRepr}}
-\index{getSettingsRepr@{getSettingsRepr}!rr::SteadyStateSolver@{rr::SteadyStateSolver}}
-\doxysubsubsection{\texorpdfstring{getSettingsRepr()}{getSettingsRepr()}}
-{\footnotesize\ttfamily std\+::string rr\+::\+Steady\+State\+Solver\+::get\+Settings\+Repr (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption}) const}
-
-
-
-Get the solver settings as a string. 
-
-\begin{DoxyAuthor}{Author}
-KC 
-\end{DoxyAuthor}
-\mbox{\Hypertarget{classrr_1_1SteadyStateSolver_a0dcf06495066f67d790ca41656bb6c4c}\label{classrr_1_1SteadyStateSolver_a0dcf06495066f67d790ca41656bb6c4c}} 
-\index{rr::SteadyStateSolver@{rr::SteadyStateSolver}!settingsPyDictRepr@{settingsPyDictRepr}}
-\index{settingsPyDictRepr@{settingsPyDictRepr}!rr::SteadyStateSolver@{rr::SteadyStateSolver}}
-\doxysubsubsection{\texorpdfstring{settingsPyDictRepr()}{settingsPyDictRepr()}}
-{\footnotesize\ttfamily std\+::string rr\+::\+Steady\+State\+Solver\+::settings\+Py\+Dict\+Repr (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption}) const}
-
-
-
-Python dictionary-\/style string representation of settings. 
-
-\begin{DoxyAuthor}{Author}
-KC 
-\end{DoxyAuthor}
 \mbox{\Hypertarget{classrr_1_1SteadyStateSolver_ac69478bcf73ab02178b001250293c4c9}\label{classrr_1_1SteadyStateSolver_ac69478bcf73ab02178b001250293c4c9}} 
 \index{rr::SteadyStateSolver@{rr::SteadyStateSolver}!syncWithModel@{syncWithModel}}
 \index{syncWithModel@{syncWithModel}!rr::SteadyStateSolver@{rr::SteadyStateSolver}}
@@ -70,17 +49,17 @@ J\+KM
 \end{DoxyAuthor}
 
 
-Implemented in \mbox{\hyperlink{classrr_1_1NLEQ2Solver_af9a54df7b295c801430f213699c33512}{rr\+::\+N\+L\+E\+Q2\+Solver}}, and \mbox{\hyperlink{classrr_1_1NLEQ1Solver_aedc3e56a66274ee29cc44c590366cfc4}{rr\+::\+N\+L\+E\+Q1\+Solver}}.
+Implemented in \mbox{\hyperlink{classrr_1_1SteadyStateSolverDecorator_a3d28cd898cf997dbc2243b0fc2ae3856}{rr\+::\+Steady\+State\+Solver\+Decorator}}, \mbox{\hyperlink{classrr_1_1NLEQSolver_a02142cf0c637815a33c754e8637fdb3f}{rr\+::\+N\+L\+E\+Q\+Solver}}, and \mbox{\hyperlink{classrr_1_1KinsolSteadyStateSolver_a49ceabb3db818eabcf56d77d28d60d6d}{rr\+::\+Kinsol\+Steady\+State\+Solver}}.
 
-\mbox{\Hypertarget{classrr_1_1SteadyStateSolver_a1ce4941762d7605e03655432a0a38283}\label{classrr_1_1SteadyStateSolver_a1ce4941762d7605e03655432a0a38283}} 
+\mbox{\Hypertarget{classrr_1_1SteadyStateSolver_a4307ed20fd04adf61cc8b4ef9a88f747}\label{classrr_1_1SteadyStateSolver_a4307ed20fd04adf61cc8b4ef9a88f747}} 
 \index{rr::SteadyStateSolver@{rr::SteadyStateSolver}!toRepr@{toRepr}}
 \index{toRepr@{toRepr}!rr::SteadyStateSolver@{rr::SteadyStateSolver}}
 \doxysubsubsection{\texorpdfstring{toRepr()}{toRepr()}}
-{\footnotesize\ttfamily std\+::string rr\+::\+Steady\+State\+Solver\+::to\+Repr (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption}) const\hspace{0.3cm}{\ttfamily [virtual]}}
+{\footnotesize\ttfamily std\+::string rr\+::\+Steady\+State\+Solver\+::to\+Repr (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption}) const\hspace{0.3cm}{\ttfamily [override]}, {\ttfamily [virtual]}}
 
 
 
-Return string representation a la Python {\bfseries{repr}} method. 
+Return std\+::string representation a la Python {\bfseries{repr}} method. 
 
 \begin{DoxyAuthor}{Author}
 KC 
@@ -89,15 +68,15 @@ KC
 
 Reimplemented from \mbox{\hyperlink{classrr_1_1Solver_a2f2b574b220becfebd1be2d8cc34d550}{rr\+::\+Solver}}.
 
-\mbox{\Hypertarget{classrr_1_1SteadyStateSolver_afcc15369d04e99ad76cdb8390a94b103}\label{classrr_1_1SteadyStateSolver_afcc15369d04e99ad76cdb8390a94b103}} 
+\mbox{\Hypertarget{classrr_1_1SteadyStateSolver_aaf40e2ae58d2f4fef80a00f5bb7fd413}\label{classrr_1_1SteadyStateSolver_aaf40e2ae58d2f4fef80a00f5bb7fd413}} 
 \index{rr::SteadyStateSolver@{rr::SteadyStateSolver}!toString@{toString}}
 \index{toString@{toString}!rr::SteadyStateSolver@{rr::SteadyStateSolver}}
 \doxysubsubsection{\texorpdfstring{toString()}{toString()}}
-{\footnotesize\ttfamily std\+::string rr\+::\+Steady\+State\+Solver\+::to\+String (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption}) const\hspace{0.3cm}{\ttfamily [virtual]}}
+{\footnotesize\ttfamily std\+::string rr\+::\+Steady\+State\+Solver\+::to\+String (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption}) const\hspace{0.3cm}{\ttfamily [override]}, {\ttfamily [virtual]}}
 
 
 
-Return a string representation of the solver. 
+Return a std\+::string representation of the solver. 
 
 \begin{DoxyAuthor}{Author}
 KC 

@@ -6,17 +6,17 @@ set_source_files_properties(roadrunner.i PROPERTIES
         )
 set_property(SOURCE roadrunner.i PROPERTY
         SWIG_FLAGS
-            # Enable threading
-            "-threads"
-            "-doxygen" # converts doxygen to pydoc
-#            "-debug-symtabs"
-#            "-debug-csymbols"
-#            "-debug-lsymbols"
+        # Enable threading
+        "-threads"
+        "-doxygen" # converts doxygen to pydoc
+        #            "-debug-symtabs"
+        #            "-debug-csymbols"
+        #            "-debug-lsymbols"
 
-            # turns on automatic annotation of python arg and return types
-            # BUT does so in c++ types. Therefore I'm not sure how much value this adds
-            # and we might want to just keep this off.
-             "-py3"
+        # turns on automatic annotation of python arg and return types
+        # BUT does so in c++ types. Therefore I'm not sure how much value this adds
+        # and we might want to just keep this off.
+        "-py3"
         )
 
 if (USE_TR1_CXX_NS)

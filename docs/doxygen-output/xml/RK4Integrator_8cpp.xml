@@ -8,18 +8,39 @@
     <includes local="no">clapack/f2c.h</includes>
     <includes local="no">clapack/clapack.h</includes>
     <incdepgraph>
-      <node id="23">
+      <node id="30">
         <label>list</label>
       </node>
-      <node id="22">
+      <node id="27">
+        <label>rrExecutableModel.h</label>
+        <link refid="rrExecutableModel_8h"/>
+        <childnode refid="7" relation="include">
+        </childnode>
+        <childnode refid="18" relation="include">
+        </childnode>
+        <childnode refid="28" relation="include">
+        </childnode>
+        <childnode refid="29" relation="include">
+        </childnode>
+        <childnode refid="20" relation="include">
+        </childnode>
+        <childnode refid="12" relation="include">
+        </childnode>
+        <childnode refid="30" relation="include">
+        </childnode>
+        <childnode refid="31" relation="include">
+        </childnode>
+        <childnode refid="23" relation="include">
+        </childnode>
+      </node>
+      <node id="15">
+        <label>functional</label>
+      </node>
+      <node id="13">
+        <label>limits</label>
+      </node>
+      <node id="28">
         <label>sbml/SBMLDocument.h</label>
-      </node>
-      <node id="6">
-        <label>rrExporter.h</label>
-        <link refid="rrExporter_8h_source"/>
-      </node>
-      <node id="20">
-        <label>stdint.h</label>
       </node>
       <node id="3">
         <label>Integrator.h</label>
@@ -30,40 +51,58 @@
         </childnode>
         <childnode refid="8" relation="include">
         </childnode>
-        <childnode refid="15" relation="include">
-        </childnode>
-        <childnode refid="17" relation="include">
-        </childnode>
-        <childnode refid="13" relation="include">
-        </childnode>
-        <childnode refid="14" relation="include">
-        </childnode>
         <childnode refid="18" relation="include">
+        </childnode>
+        <childnode refid="22" relation="include">
+        </childnode>
+        <childnode refid="23" relation="include">
+        </childnode>
+        <childnode refid="24" relation="include">
+        </childnode>
+        <childnode refid="25" relation="include">
+        </childnode>
+      </node>
+      <node id="29">
+        <label>stdint.h</label>
+      </node>
+      <node id="10">
+        <label>variant</label>
+      </node>
+      <node id="8">
+        <label>Dictionary.h</label>
+        <link refid="Dictionary_8h_source"/>
+        <childnode refid="9" relation="include">
+        </childnode>
+        <childnode refid="20" relation="include">
+        </childnode>
+        <childnode refid="12" relation="include">
+        </childnode>
+        <childnode refid="21" relation="include">
+        </childnode>
+        <childnode refid="6" relation="include">
+        </childnode>
+      </node>
+      <node id="32">
+        <label>cassert</label>
+      </node>
+      <node id="7">
+        <label>rrOSSpecifics.h</label>
+        <link refid="rrOSSpecifics_8h_source"/>
+        <childnode refid="6" relation="include">
         </childnode>
       </node>
       <node id="25">
-        <label>cassert</label>
-      </node>
-      <node id="18">
         <label>stdexcept</label>
       </node>
-      <node id="17">
-        <label>Solver.h</label>
-        <link refid="Solver_8h"/>
-        <childnode refid="4" relation="include">
-        </childnode>
-        <childnode refid="7" relation="include">
-        </childnode>
-        <childnode refid="8" relation="include">
-        </childnode>
-        <childnode refid="15" relation="include">
-        </childnode>
-        <childnode refid="13" relation="include">
-        </childnode>
-        <childnode refid="14" relation="include">
-        </childnode>
-        <childnode refid="18" relation="include">
-        </childnode>
+      <node id="20">
+        <label>string</label>
+      </node>
+      <node id="6">
+        <label>rrExporter.h</label>
+        <link refid="rrExporter_8h_source"/>
+      </node>
+      <node id="24">
+        <label>tr1proxy/rr_unordered_map.h</label>
       </node>
       <node id="4">
         <label>rrLogger.h</label>
@@ -73,40 +112,67 @@
         <childnode refid="6" relation="include">
         </childnode>
       </node>
-      <node id="11">
-        <label>string</label>
+      <node id="17">
+        <label>setting_t.h</label>
+        <link refid="setting__t_8h_source"/>
       </node>
-      <node id="14">
-        <label>tr1proxy/rr_unordered_map.h</label>
+      <node id="19">
+        <label>exception</label>
+      </node>
+      <node id="31">
+        <label>ostream</label>
+      </node>
+      <node id="22">
+        <label>Solver.h</label>
+        <link refid="Solver_8h"/>
+        <childnode refid="4" relation="include">
+        </childnode>
+        <childnode refid="7" relation="include">
+        </childnode>
+        <childnode refid="8" relation="include">
+        </childnode>
+        <childnode refid="18" relation="include">
+        </childnode>
+        <childnode refid="23" relation="include">
+        </childnode>
+        <childnode refid="24" relation="include">
+        </childnode>
+        <childnode refid="25" relation="include">
+        </childnode>
+      </node>
+      <node id="16">
+        <label>typeinfo</label>
+      </node>
+      <node id="12">
+        <label>vector</label>
+      </node>
+      <node id="18">
+        <label>rrException.h</label>
+        <link refid="rrException_8h_source"/>
+        <childnode refid="19" relation="include">
+        </childnode>
+        <childnode refid="20" relation="include">
+        </childnode>
+        <childnode refid="10" relation="include">
+        </childnode>
+        <childnode refid="6" relation="include">
+        </childnode>
       </node>
       <node id="2">
         <label>RK4Integrator.h</label>
         <link refid="RK4Integrator_8h_source"/>
         <childnode refid="3" relation="include">
         </childnode>
-        <childnode refid="19" relation="include">
+        <childnode refid="26" relation="include">
         </childnode>
       </node>
-      <node id="16">
-        <label>exception</label>
+      <node id="5">
+        <label>sstream</label>
       </node>
-      <node id="24">
-        <label>ostream</label>
+      <node id="34">
+        <label>clapack/clapack.h</label>
       </node>
-      <node id="15">
-        <label>rrException.h</label>
-        <link refid="rrException_8h_source"/>
-        <childnode refid="16" relation="include">
-        </childnode>
-        <childnode refid="11" relation="include">
-        </childnode>
-        <childnode refid="6" relation="include">
-        </childnode>
-      </node>
-      <node id="10">
-        <label>typeinfo</label>
-      </node>
-      <node id="19">
+      <node id="26">
         <label>rrRoadRunnerOptions.h</label>
         <link refid="rrRoadRunnerOptions_8h_source"/>
         <childnode refid="6" relation="include">
@@ -115,98 +181,62 @@
         </childnode>
         <childnode refid="3" relation="include">
         </childnode>
-        <childnode refid="11" relation="include">
+        <childnode refid="20" relation="include">
         </childnode>
         <childnode refid="12" relation="include">
         </childnode>
-        <childnode refid="13" relation="include">
-        </childnode>
-        <childnode refid="14" relation="include">
-        </childnode>
-        <childnode refid="20" relation="include">
-        </childnode>
       </node>
-      <node id="12">
-        <label>vector</label>
+      <node id="11">
+        <label>iostream</label>
       </node>
-      <node id="1">
-        <label>RK4Integrator.cpp</label>
-        <link refid="RK4Integrator_8cpp"/>
-        <childnode refid="2" relation="include">
-        </childnode>
-        <childnode refid="21" relation="include">
-        </childnode>
-        <childnode refid="25" relation="include">
-        </childnode>
-        <childnode refid="26" relation="include">
-        </childnode>
-        <childnode refid="27" relation="include">
-        </childnode>
-      </node>
-      <node id="5">
-        <label>sstream</label>
-      </node>
-      <node id="27">
-        <label>clapack/clapack.h</label>
+      <node id="21">
+        <label>unordered_map</label>
       </node>
       <node id="9">
-        <label>Variant.h</label>
-        <link refid="Variant_8h_source"/>
-        <childnode refid="6" relation="include">
-        </childnode>
+        <label>Setting.h</label>
+        <link refid="Setting_8h_source"/>
         <childnode refid="10" relation="include">
         </childnode>
         <childnode refid="11" relation="include">
         </childnode>
         <childnode refid="12" relation="include">
         </childnode>
-      </node>
-      <node id="21">
-        <label>rrExecutableModel.h</label>
-        <link refid="rrExecutableModel_8h"/>
-        <childnode refid="7" relation="include">
-        </childnode>
-        <childnode refid="15" relation="include">
-        </childnode>
-        <childnode refid="22" relation="include">
-        </childnode>
-        <childnode refid="20" relation="include">
-        </childnode>
-        <childnode refid="11" relation="include">
-        </childnode>
-        <childnode refid="12" relation="include">
-        </childnode>
-        <childnode refid="23" relation="include">
-        </childnode>
-        <childnode refid="24" relation="include">
-        </childnode>
-        <childnode refid="13" relation="include">
-        </childnode>
-      </node>
-      <node id="13">
-        <label>tr1proxy/rr_memory.h</label>
-      </node>
-      <node id="26">
-        <label>clapack/f2c.h</label>
-      </node>
-      <node id="8">
-        <label>Dictionary.h</label>
-        <link refid="Dictionary_8h_source"/>
-        <childnode refid="9" relation="include">
-        </childnode>
-        <childnode refid="11" relation="include">
-        </childnode>
-        <childnode refid="12" relation="include">
+        <childnode refid="5" relation="include">
         </childnode>
         <childnode refid="13" relation="include">
         </childnode>
         <childnode refid="14" relation="include">
         </childnode>
+        <childnode refid="15" relation="include">
+        </childnode>
+        <childnode refid="16" relation="include">
+        </childnode>
+        <childnode refid="17" relation="include">
+        </childnode>
+        <childnode refid="18" relation="include">
+        </childnode>
       </node>
-      <node id="7">
-        <label>rrOSSpecifics.h</label>
-        <link refid="rrOSSpecifics_8h_source"/>
-        <childnode refid="6" relation="include">
+      <node id="23">
+        <label>tr1proxy/rr_memory.h</label>
+      </node>
+      <node id="33">
+        <label>clapack/f2c.h</label>
+      </node>
+      <node id="14">
+        <label>type_traits</label>
+      </node>
+      <node id="1">
+        <label>RK4Integrator.cpp</label>
+        <link refid="RK4Integrator_8cpp"/>
+        <childnode refid="2" relation="include">
+        </childnode>
+        <childnode refid="27" relation="include">
+        </childnode>
+        <childnode refid="32" relation="include">
+        </childnode>
+        <childnode refid="33" relation="include">
+        </childnode>
+        <childnode refid="34" relation="include">
         </childnode>
       </node>
     </incdepgraph>
@@ -237,12 +267,12 @@
 <codeline lineno="19"><highlight class="normal">{</highlight></codeline>
 <codeline lineno="20"><highlight class="normal"></highlight></codeline>
 <codeline lineno="21"><highlight class="normal"><sp/><sp/><sp/><sp/><ref refid="classrr_1_1RK4Integrator_1ac7059cef88e3a80e415855ec5fb2d2ef" kindref="member">RK4Integrator::RK4Integrator</ref>(ExecutableModel<sp/>*m)</highlight></codeline>
-<codeline lineno="22"><highlight class="normal"><sp/><sp/><sp/><sp/>{</highlight></codeline>
-<codeline lineno="23"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Log(<ref refid="classrr_1_1Logger_1a72a52e7fe7be48e2ecad639c641ee8aaaa3e3ead40b6448c9d7893f1a33573984" kindref="member">Logger::LOG_NOTICE</ref>)<sp/>&lt;&lt;<sp/></highlight><highlight class="stringliteral">&quot;creating<sp/>runge-kutta<sp/>integrator&quot;</highlight><highlight class="normal">;</highlight></codeline>
-<codeline lineno="24"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="classrr_1_1RK4Integrator_1ae7537cb767479cd0ab19dc405ed13376" kindref="member">resetSettings</ref>();</highlight></codeline>
+<codeline lineno="22"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>:<sp/>Integrator(m){</highlight></codeline>
+<codeline lineno="23"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>rrLog(Logger::LOG_NOTICE)<sp/>&lt;&lt;<sp/></highlight><highlight class="stringliteral">&quot;creating<sp/>runge-kutta<sp/>integrator&quot;</highlight><highlight class="normal">;</highlight></codeline>
+<codeline lineno="24"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="classrr_1_1RK4Integrator_1ae7537cb767479cd0ab19dc405ed13376" kindref="member">RK4Integrator::resetSettings</ref>();</highlight></codeline>
 <codeline lineno="25"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>stateVectorSize<sp/>=<sp/>0;</highlight></codeline>
 <codeline lineno="26"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>k1<sp/>=<sp/>k2<sp/>=<sp/>k3<sp/>=<sp/>k4<sp/>=<sp/>y<sp/>=<sp/>ytmp<sp/>=<sp/>NULL;</highlight></codeline>
-<codeline lineno="27"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="classrr_1_1RK4Integrator_1a727b452ebf195fc36143ba8a2fa8c2c2" kindref="member">syncWithModel</ref>(m);</highlight></codeline>
+<codeline lineno="27"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="classrr_1_1RK4Integrator_1a727b452ebf195fc36143ba8a2fa8c2c2" kindref="member">RK4Integrator::syncWithModel</ref>(m);</highlight></codeline>
 <codeline lineno="28"><highlight class="normal"><sp/><sp/><sp/><sp/>}</highlight></codeline>
 <codeline lineno="29"><highlight class="normal"></highlight></codeline>
 <codeline lineno="30"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/><ref refid="classrr_1_1RK4Integrator_1a727b452ebf195fc36143ba8a2fa8c2c2" kindref="member">RK4Integrator::syncWithModel</ref>(ExecutableModel*<sp/>m)</highlight></codeline>
@@ -255,10 +285,10 @@
 <codeline lineno="37"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keyword">delete</highlight><highlight class="normal"><sp/>[]y;</highlight></codeline>
 <codeline lineno="38"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keyword">delete</highlight><highlight class="normal"><sp/>[]ytmp;</highlight></codeline>
 <codeline lineno="39"><highlight class="normal"></highlight></codeline>
-<codeline lineno="40"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>model<sp/>=<sp/>m;</highlight></codeline>
+<codeline lineno="40"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="classrr_1_1Solver_1ab60e7640a8c959558a144d9d7ee45515" kindref="member">mModel</ref><sp/>=<sp/>m;</highlight></codeline>
 <codeline lineno="41"><highlight class="normal"></highlight></codeline>
-<codeline lineno="42"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>(model)<sp/>{</highlight></codeline>
-<codeline lineno="43"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>stateVectorSize<sp/>=<sp/>model-&gt;<ref refid="classrr_1_1ExecutableModel_1a75b6f37ac538d2d2a0709fe4080b0570" kindref="member">getStateVector</ref>(NULL);</highlight></codeline>
+<codeline lineno="42"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>(<ref refid="classrr_1_1Solver_1ab60e7640a8c959558a144d9d7ee45515" kindref="member">mModel</ref>)<sp/>{</highlight></codeline>
+<codeline lineno="43"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>stateVectorSize<sp/>=<sp/><ref refid="classrr_1_1Solver_1ab60e7640a8c959558a144d9d7ee45515" kindref="member">mModel</ref>-&gt;<ref refid="classrr_1_1ExecutableModel_1a75b6f37ac538d2d2a0709fe4080b0570" kindref="member">getStateVector</ref>(NULL);</highlight></codeline>
 <codeline lineno="44"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>k1<sp/>=<sp/></highlight><highlight class="keyword">new</highlight><highlight class="normal"><sp/></highlight><highlight class="keywordtype">double</highlight><highlight class="normal">[stateVectorSize];</highlight></codeline>
 <codeline lineno="45"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>k2<sp/>=<sp/></highlight><highlight class="keyword">new</highlight><highlight class="normal"><sp/></highlight><highlight class="keywordtype">double</highlight><highlight class="normal">[stateVectorSize];</highlight></codeline>
 <codeline lineno="46"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>k3<sp/>=<sp/></highlight><highlight class="keyword">new</highlight><highlight class="normal"><sp/></highlight><highlight class="keywordtype">double</highlight><highlight class="normal">[stateVectorSize];</highlight></codeline>
@@ -293,11 +323,11 @@
 <codeline lineno="75"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>tf<sp/>=<sp/>t<sp/>+<sp/>h;</highlight></codeline>
 <codeline lineno="76"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>singleStep<sp/>=<sp/></highlight><highlight class="keyword">false</highlight><highlight class="normal">;</highlight></codeline>
 <codeline lineno="77"><highlight class="normal"></highlight></codeline>
-<codeline lineno="78"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>(!model)<sp/>{</highlight></codeline>
+<codeline lineno="78"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>(!<ref refid="classrr_1_1Solver_1ab60e7640a8c959558a144d9d7ee45515" kindref="member">mModel</ref>)<sp/>{</highlight></codeline>
 <codeline lineno="79"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">throw</highlight><highlight class="normal"><sp/>std::runtime_error(</highlight><highlight class="stringliteral">&quot;RK4Integrator::integrate:<sp/>No<sp/>model&quot;</highlight><highlight class="normal">);</highlight></codeline>
 <codeline lineno="80"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>}</highlight></codeline>
 <codeline lineno="81"><highlight class="normal"></highlight></codeline>
-<codeline lineno="82"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Log(<ref refid="classrr_1_1Logger_1a72a52e7fe7be48e2ecad639c641ee8aaadaf226f4b284b87851ddb9a9f7ddd0d5" kindref="member">Logger::LOG_DEBUG</ref>)<sp/>&lt;&lt;</highlight></codeline>
+<codeline lineno="82"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>rrLog(Logger::LOG_DEBUG)<sp/>&lt;&lt;</highlight></codeline>
 <codeline lineno="83"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="stringliteral">&quot;RK4Integrator::integrate(&quot;</highlight><highlight class="normal"><sp/>&lt;&lt;<sp/>t<sp/>&lt;&lt;<sp/></highlight><highlight class="stringliteral">&quot;,<sp/>&quot;</highlight><highlight class="normal"><sp/>&lt;&lt;<sp/>h<sp/>&lt;&lt;<sp/></highlight><highlight class="stringliteral">&quot;)&quot;</highlight><highlight class="normal">;</highlight></codeline>
 <codeline lineno="84"><highlight class="normal"></highlight></codeline>
 <codeline lineno="85"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">//<sp/>blas<sp/>daxpy:<sp/>y<sp/>-&gt;<sp/>y<sp/>+<sp/>\alpha<sp/>x</highlight><highlight class="normal"></highlight></codeline>
@@ -305,30 +335,30 @@
 <codeline lineno="87"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>integer<sp/>inc<sp/>=<sp/>1;</highlight></codeline>
 <codeline lineno="88"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordtype">double</highlight><highlight class="normal"><sp/>alpha<sp/>=<sp/>0;</highlight></codeline>
 <codeline lineno="89"><highlight class="normal"></highlight></codeline>
-<codeline lineno="90"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>model-&gt;setTime(t);</highlight></codeline>
+<codeline lineno="90"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="classrr_1_1Solver_1ab60e7640a8c959558a144d9d7ee45515" kindref="member">mModel</ref>-&gt;setTime(t);</highlight></codeline>
 <codeline lineno="91"><highlight class="normal"></highlight></codeline>
-<codeline lineno="92"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>model-&gt;<ref refid="classrr_1_1ExecutableModel_1a75b6f37ac538d2d2a0709fe4080b0570" kindref="member">getStateVector</ref>(y);</highlight></codeline>
+<codeline lineno="92"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="classrr_1_1Solver_1ab60e7640a8c959558a144d9d7ee45515" kindref="member">mModel</ref>-&gt;<ref refid="classrr_1_1ExecutableModel_1a75b6f37ac538d2d2a0709fe4080b0570" kindref="member">getStateVector</ref>(y);</highlight></codeline>
 <codeline lineno="93"><highlight class="normal"></highlight></codeline>
 <codeline lineno="94"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">//<sp/>k1<sp/>=<sp/>f(t_n,<sp/>y_n)</highlight><highlight class="normal"></highlight></codeline>
-<codeline lineno="95"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>model-&gt;<ref refid="classrr_1_1ExecutableModel_1a0495c2ece9edad29d61849b2443d4274" kindref="member">getStateVectorRate</ref>(t,<sp/>y,<sp/>k1);</highlight></codeline>
+<codeline lineno="95"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="classrr_1_1Solver_1ab60e7640a8c959558a144d9d7ee45515" kindref="member">mModel</ref>-&gt;<ref refid="classrr_1_1ExecutableModel_1a0495c2ece9edad29d61849b2443d4274" kindref="member">getStateVectorRate</ref>(t,<sp/>y,<sp/>k1);</highlight></codeline>
 <codeline lineno="96"><highlight class="normal"></highlight></codeline>
 <codeline lineno="97"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">//<sp/>k2<sp/>=<sp/>f(t_n<sp/>+<sp/>h/2,<sp/>y_n<sp/>+<sp/>(h/2)<sp/>*<sp/>k_1)</highlight><highlight class="normal"></highlight></codeline>
 <codeline lineno="98"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>alpha<sp/>=<sp/>h/2.;</highlight></codeline>
 <codeline lineno="99"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>dcopy_(&amp;n,<sp/>y,<sp/>&amp;inc,<sp/>ytmp,<sp/>&amp;inc);</highlight></codeline>
 <codeline lineno="100"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>daxpy_(&amp;n,<sp/>&amp;alpha,<sp/>k1,<sp/>&amp;inc,<sp/>ytmp,<sp/>&amp;inc);</highlight></codeline>
-<codeline lineno="101"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>model-&gt;<ref refid="classrr_1_1ExecutableModel_1a0495c2ece9edad29d61849b2443d4274" kindref="member">getStateVectorRate</ref>(t<sp/>+<sp/>alpha,<sp/>ytmp,<sp/>k2);</highlight></codeline>
+<codeline lineno="101"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="classrr_1_1Solver_1ab60e7640a8c959558a144d9d7ee45515" kindref="member">mModel</ref>-&gt;<ref refid="classrr_1_1ExecutableModel_1a0495c2ece9edad29d61849b2443d4274" kindref="member">getStateVectorRate</ref>(t<sp/>+<sp/>alpha,<sp/>ytmp,<sp/>k2);</highlight></codeline>
 <codeline lineno="102"><highlight class="normal"></highlight></codeline>
 <codeline lineno="103"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">//<sp/>k3<sp/>=<sp/>f(t_n<sp/>+<sp/>h/2,<sp/>y_n<sp/>+<sp/>(h/2)<sp/>*<sp/>k_2)</highlight><highlight class="normal"></highlight></codeline>
 <codeline lineno="104"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>alpha<sp/>=<sp/>h/2.;</highlight></codeline>
 <codeline lineno="105"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>dcopy_(&amp;n,<sp/>y,<sp/>&amp;inc,<sp/>ytmp,<sp/>&amp;inc);</highlight></codeline>
 <codeline lineno="106"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>daxpy_(&amp;n,<sp/>&amp;alpha,<sp/>k2,<sp/>&amp;inc,<sp/>ytmp,<sp/>&amp;inc);</highlight></codeline>
-<codeline lineno="107"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>model-&gt;<ref refid="classrr_1_1ExecutableModel_1a0495c2ece9edad29d61849b2443d4274" kindref="member">getStateVectorRate</ref>(t<sp/>+<sp/>alpha,<sp/>ytmp,<sp/>k3);</highlight></codeline>
+<codeline lineno="107"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="classrr_1_1Solver_1ab60e7640a8c959558a144d9d7ee45515" kindref="member">mModel</ref>-&gt;<ref refid="classrr_1_1ExecutableModel_1a0495c2ece9edad29d61849b2443d4274" kindref="member">getStateVectorRate</ref>(t<sp/>+<sp/>alpha,<sp/>ytmp,<sp/>k3);</highlight></codeline>
 <codeline lineno="108"><highlight class="normal"></highlight></codeline>
 <codeline lineno="109"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">//<sp/>k4<sp/>=<sp/>f(t_n<sp/>+<sp/>h,<sp/>y_n<sp/>+<sp/>(h)<sp/>*<sp/>k_3)</highlight><highlight class="normal"></highlight></codeline>
 <codeline lineno="110"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>alpha<sp/>=<sp/>h;</highlight></codeline>
 <codeline lineno="111"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>dcopy_(&amp;n,<sp/>y,<sp/>&amp;inc,<sp/>ytmp,<sp/>&amp;inc);</highlight></codeline>
 <codeline lineno="112"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>daxpy_(&amp;n,<sp/>&amp;alpha,<sp/>k3,<sp/>&amp;inc,<sp/>ytmp,<sp/>&amp;inc);</highlight></codeline>
-<codeline lineno="113"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>model-&gt;<ref refid="classrr_1_1ExecutableModel_1a0495c2ece9edad29d61849b2443d4274" kindref="member">getStateVectorRate</ref>(t<sp/>+<sp/>alpha,<sp/>ytmp,<sp/>k4);</highlight></codeline>
+<codeline lineno="113"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="classrr_1_1Solver_1ab60e7640a8c959558a144d9d7ee45515" kindref="member">mModel</ref>-&gt;<ref refid="classrr_1_1ExecutableModel_1a0495c2ece9edad29d61849b2443d4274" kindref="member">getStateVectorRate</ref>(t<sp/>+<sp/>alpha,<sp/>ytmp,<sp/>k4);</highlight></codeline>
 <codeline lineno="114"><highlight class="normal"></highlight></codeline>
 <codeline lineno="115"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">//<sp/>k_1<sp/>=<sp/>k_1<sp/>+<sp/>2<sp/>k_2</highlight><highlight class="normal"></highlight></codeline>
 <codeline lineno="116"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>alpha<sp/>=<sp/>2.;</highlight></codeline>
@@ -347,45 +377,45 @@
 <codeline lineno="129"><highlight class="normal"></highlight></codeline>
 <codeline lineno="130"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>daxpy_(&amp;n,<sp/>&amp;alpha,<sp/>k1,<sp/>&amp;inc,<sp/>y,<sp/>&amp;inc);</highlight></codeline>
 <codeline lineno="131"><highlight class="normal"></highlight></codeline>
-<codeline lineno="132"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>model-&gt;setTime(t<sp/>+<sp/>h);</highlight></codeline>
-<codeline lineno="133"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>model-&gt;<ref refid="classrr_1_1ExecutableModel_1a57a67063c957714b916d4a3d4277c3b9" kindref="member">setStateVector</ref>(y);</highlight></codeline>
+<codeline lineno="132"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="classrr_1_1Solver_1ab60e7640a8c959558a144d9d7ee45515" kindref="member">mModel</ref>-&gt;setTime(t<sp/>+<sp/>h);</highlight></codeline>
+<codeline lineno="133"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="classrr_1_1Solver_1ab60e7640a8c959558a144d9d7ee45515" kindref="member">mModel</ref>-&gt;<ref refid="classrr_1_1ExecutableModel_1a57a67063c957714b916d4a3d4277c3b9" kindref="member">setStateVector</ref>(y);</highlight></codeline>
 <codeline lineno="134"><highlight class="normal"></highlight></codeline>
 <codeline lineno="135"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal"><sp/>t<sp/>+<sp/>h;</highlight></codeline>
 <codeline lineno="136"><highlight class="normal"><sp/><sp/><sp/><sp/>}</highlight></codeline>
 <codeline lineno="137"><highlight class="normal"></highlight></codeline>
 <codeline lineno="138"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/>RK4Integrator::testRootsAtInitialTime()</highlight></codeline>
 <codeline lineno="139"><highlight class="normal"><sp/><sp/><sp/><sp/>{</highlight></codeline>
-<codeline lineno="140"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>std::vector&lt;unsigned<sp/>char&gt;<sp/>initialEventStatus(model-&gt;<ref refid="classrr_1_1ExecutableModel_1a6402d7445658e1828be487e1a63bbc89" kindref="member">getEventTriggers</ref>(0,<sp/>0,<sp/>0),<sp/></highlight><highlight class="keyword">false</highlight><highlight class="normal">);</highlight></codeline>
-<codeline lineno="141"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>model-&gt;<ref refid="classrr_1_1ExecutableModel_1a6402d7445658e1828be487e1a63bbc89" kindref="member">getEventTriggers</ref>(initialEventStatus.size(),<sp/>0,<sp/>initialEventStatus.size()<sp/>==<sp/>0<sp/>?<sp/>NULL<sp/>:<sp/>&amp;initialEventStatus[0]);</highlight></codeline>
+<codeline lineno="140"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>std::vector&lt;unsigned<sp/>char&gt;<sp/>initialEventStatus(<ref refid="classrr_1_1Solver_1ab60e7640a8c959558a144d9d7ee45515" kindref="member">mModel</ref>-&gt;<ref refid="classrr_1_1ExecutableModel_1a6402d7445658e1828be487e1a63bbc89" kindref="member">getEventTriggers</ref>(0,<sp/>0,<sp/>0),<sp/></highlight><highlight class="keyword">false</highlight><highlight class="normal">);</highlight></codeline>
+<codeline lineno="141"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="classrr_1_1Solver_1ab60e7640a8c959558a144d9d7ee45515" kindref="member">mModel</ref>-&gt;<ref refid="classrr_1_1ExecutableModel_1a6402d7445658e1828be487e1a63bbc89" kindref="member">getEventTriggers</ref>(initialEventStatus.size(),<sp/>0,<sp/>initialEventStatus.size()<sp/>==<sp/>0<sp/>?<sp/>NULL<sp/>:<sp/>&amp;initialEventStatus[0]);</highlight></codeline>
 <codeline lineno="142"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>applyEvents(0,<sp/>initialEventStatus);</highlight></codeline>
 <codeline lineno="143"><highlight class="normal"><sp/><sp/><sp/><sp/>}</highlight></codeline>
 <codeline lineno="144"><highlight class="normal"></highlight></codeline>
 <codeline lineno="145"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/>RK4Integrator::applyEvents(</highlight><highlight class="keywordtype">double</highlight><highlight class="normal"><sp/>timeEnd,<sp/>std::vector&lt;unsigned<sp/>char&gt;<sp/>&amp;previousEventStatus)</highlight></codeline>
 <codeline lineno="146"><highlight class="normal"><sp/><sp/><sp/><sp/>{</highlight></codeline>
-<codeline lineno="147"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>model-&gt;<ref refid="classrr_1_1ExecutableModel_1ae30181bdbfd3e4fedc2dedcf988ecb95" kindref="member">applyEvents</ref>(timeEnd,<sp/>previousEventStatus.size()<sp/>==<sp/>0<sp/>?<sp/>NULL<sp/>:<sp/>&amp;previousEventStatus[0],<sp/>y,<sp/>y);</highlight></codeline>
+<codeline lineno="147"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="classrr_1_1Solver_1ab60e7640a8c959558a144d9d7ee45515" kindref="member">mModel</ref>-&gt;<ref refid="classrr_1_1ExecutableModel_1ae30181bdbfd3e4fedc2dedcf988ecb95" kindref="member">applyEvents</ref>(timeEnd,<sp/>previousEventStatus.size()<sp/>==<sp/>0<sp/>?<sp/>NULL<sp/>:<sp/>&amp;previousEventStatus[0],<sp/>y,<sp/>y);</highlight></codeline>
 <codeline lineno="148"><highlight class="normal"><sp/><sp/><sp/><sp/>}</highlight></codeline>
 <codeline lineno="149"><highlight class="normal"></highlight></codeline>
 <codeline lineno="150"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/><ref refid="classrr_1_1RK4Integrator_1a75ca0574917ed21f598fb93b1837cec3" kindref="member">RK4Integrator::restart</ref>(</highlight><highlight class="keywordtype">double</highlight><highlight class="normal"><sp/>t0)</highlight></codeline>
 <codeline lineno="151"><highlight class="normal"><sp/><sp/><sp/><sp/>{</highlight></codeline>
-<codeline lineno="152"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>(!model)<sp/>{</highlight></codeline>
+<codeline lineno="152"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>(!<ref refid="classrr_1_1Solver_1ab60e7640a8c959558a144d9d7ee45515" kindref="member">mModel</ref>)<sp/>{</highlight></codeline>
 <codeline lineno="153"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal">;</highlight></codeline>
 <codeline lineno="154"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>}</highlight></codeline>
 <codeline lineno="155"><highlight class="normal"></highlight></codeline>
 <codeline lineno="156"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>(t0<sp/>&lt;=<sp/>0.0)<sp/>{</highlight></codeline>
 <codeline lineno="157"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>(y)</highlight></codeline>
 <codeline lineno="158"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>{</highlight></codeline>
-<codeline lineno="159"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>model-&gt;<ref refid="classrr_1_1ExecutableModel_1a75b6f37ac538d2d2a0709fe4080b0570" kindref="member">getStateVector</ref>(y);</highlight></codeline>
+<codeline lineno="159"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="classrr_1_1Solver_1ab60e7640a8c959558a144d9d7ee45515" kindref="member">mModel</ref>-&gt;<ref refid="classrr_1_1ExecutableModel_1a75b6f37ac538d2d2a0709fe4080b0570" kindref="member">getStateVector</ref>(y);</highlight></codeline>
 <codeline lineno="160"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>}</highlight></codeline>
 <codeline lineno="161"><highlight class="normal"></highlight></codeline>
 <codeline lineno="162"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>testRootsAtInitialTime();</highlight></codeline>
 <codeline lineno="163"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>}</highlight></codeline>
 <codeline lineno="164"><highlight class="normal"></highlight></codeline>
-<codeline lineno="165"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>model-&gt;setTime(t0);</highlight></codeline>
+<codeline lineno="165"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="classrr_1_1Solver_1ab60e7640a8c959558a144d9d7ee45515" kindref="member">mModel</ref>-&gt;setTime(t0);</highlight></codeline>
 <codeline lineno="166"><highlight class="normal"></highlight></codeline>
-<codeline lineno="167"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">//<sp/>copy<sp/>state<sp/>vector<sp/>into<sp/>memory</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="167"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">//<sp/>copy<sp/>state<sp/>std::vector<sp/>into<sp/>memory</highlight><highlight class="normal"></highlight></codeline>
 <codeline lineno="168"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>(y)</highlight></codeline>
 <codeline lineno="169"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>{</highlight></codeline>
-<codeline lineno="170"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>model-&gt;<ref refid="classrr_1_1ExecutableModel_1a75b6f37ac538d2d2a0709fe4080b0570" kindref="member">getStateVector</ref>(y);</highlight></codeline>
+<codeline lineno="170"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="classrr_1_1Solver_1ab60e7640a8c959558a144d9d7ee45515" kindref="member">mModel</ref>-&gt;<ref refid="classrr_1_1ExecutableModel_1a75b6f37ac538d2d2a0709fe4080b0570" kindref="member">getStateVector</ref>(y);</highlight></codeline>
 <codeline lineno="171"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>}</highlight></codeline>
 <codeline lineno="172"><highlight class="normal"><sp/><sp/><sp/><sp/>}</highlight></codeline>
 <codeline lineno="173"><highlight class="normal"></highlight></codeline>
@@ -438,12 +468,12 @@
 <codeline lineno="220"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal"><sp/></highlight><highlight class="stringliteral">&quot;Internal<sp/>RK4<sp/>ODE<sp/>solver&quot;</highlight><highlight class="normal">;</highlight></codeline>
 <codeline lineno="221"><highlight class="normal"><sp/><sp/><sp/><sp/>}</highlight></codeline>
 <codeline lineno="222"><highlight class="normal"></highlight></codeline>
-<codeline lineno="223"><highlight class="normal"><sp/><sp/><sp/><sp/>Variant<sp/>RK4Integrator::getValue(std::string<sp/>key)</highlight></codeline>
+<codeline lineno="223"><highlight class="normal"><sp/><sp/><sp/><sp/>Setting<sp/>RK4Integrator::getValue(std::string<sp/>key)</highlight></codeline>
 <codeline lineno="224"><highlight class="normal"><sp/><sp/><sp/><sp/>{</highlight></codeline>
 <codeline lineno="225"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>(key<sp/>==<sp/></highlight><highlight class="stringliteral">&quot;variable_step_size&quot;</highlight><highlight class="normal">)</highlight></codeline>
-<codeline lineno="226"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal"><sp/></highlight><highlight class="keyword">false</highlight><highlight class="normal">;</highlight></codeline>
+<codeline lineno="226"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal"><sp/>Setting(</highlight><highlight class="keyword">false</highlight><highlight class="normal">);</highlight></codeline>
 <codeline lineno="227"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">else</highlight><highlight class="normal"></highlight></codeline>
-<codeline lineno="228"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal"><sp/><ref refid="classrr_1_1Solver_1a773a06f0d64c9d79423efcef1b381da1" kindref="member">Integrator::getValue</ref>(key);</highlight></codeline>
+<codeline lineno="228"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal"><sp/><ref refid="classrr_1_1Solver_1a87339915a211b22ecd63078bb1cb7ca9" kindref="member">Integrator::getValue</ref>(key);</highlight></codeline>
 <codeline lineno="229"><highlight class="normal"><sp/><sp/><sp/><sp/>}</highlight></codeline>
 <codeline lineno="230"><highlight class="normal"></highlight></codeline>
 <codeline lineno="231"><highlight class="normal"><sp/><sp/><sp/><sp/>Integrator::IntegrationMethod<sp/><ref refid="classrr_1_1RK4Integrator_1a018a18ad74f168f9faaf6887593ef57c" kindref="member">RK4Integrator::getIntegrationMethod</ref>()</highlight><highlight class="keyword"><sp/>const</highlight></codeline>
@@ -457,12 +487,12 @@
 <codeline lineno="239"><highlight class="normal"><sp/><sp/><sp/><sp/>}</highlight></codeline>
 <codeline lineno="240"><highlight class="normal"></highlight></codeline>
 <codeline lineno="241"><highlight class="normal"></highlight><highlight class="comment">//<sp/><sp/><sp/><sp/><sp/>void<sp/>RK4Integrator::setItem(const<sp/>std::string&amp;<sp/>key,</highlight><highlight class="normal"></highlight></codeline>
-<codeline lineno="242"><highlight class="normal"></highlight><highlight class="comment">//<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>const<sp/>rr::Variant&amp;<sp/>value)</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="242"><highlight class="normal"></highlight><highlight class="comment">//<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>const<sp/>rr::Setting&amp;<sp/>value)</highlight><highlight class="normal"></highlight></codeline>
 <codeline lineno="243"><highlight class="normal"></highlight><highlight class="comment">//<sp/><sp/><sp/><sp/><sp/>{</highlight><highlight class="normal"></highlight></codeline>
 <codeline lineno="244"><highlight class="normal"></highlight><highlight class="comment">//<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>throw<sp/>std::invalid_argument(&quot;invalid<sp/>key&quot;);</highlight><highlight class="normal"></highlight></codeline>
 <codeline lineno="245"><highlight class="normal"></highlight><highlight class="comment">//<sp/><sp/><sp/><sp/><sp/>}</highlight><highlight class="normal"></highlight></codeline>
 <codeline lineno="246"><highlight class="normal"></highlight><highlight class="comment">//</highlight><highlight class="normal"></highlight></codeline>
-<codeline lineno="247"><highlight class="normal"></highlight><highlight class="comment">//<sp/><sp/><sp/><sp/><sp/>Variant<sp/>RK4Integrator::getItem(const<sp/>std::string&amp;<sp/>key)<sp/>const</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="247"><highlight class="normal"></highlight><highlight class="comment">//<sp/><sp/><sp/><sp/><sp/>Setting<sp/>RK4Integrator::getItem(const<sp/>std::string&amp;<sp/>key)<sp/>const</highlight><highlight class="normal"></highlight></codeline>
 <codeline lineno="248"><highlight class="normal"></highlight><highlight class="comment">//<sp/><sp/><sp/><sp/><sp/>{</highlight><highlight class="normal"></highlight></codeline>
 <codeline lineno="249"><highlight class="normal"></highlight><highlight class="comment">//<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>throw<sp/>std::invalid_argument(&quot;invalid<sp/>key&quot;);</highlight><highlight class="normal"></highlight></codeline>
 <codeline lineno="250"><highlight class="normal"></highlight><highlight class="comment">//<sp/><sp/><sp/><sp/><sp/>}</highlight><highlight class="normal"></highlight></codeline>

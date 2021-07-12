@@ -22,7 +22,7 @@
  <tr style="height: 56px;">
   <td id="projectalign" style="padding-left: 0.5em;">
    <div id="projectname">roadrunner
-   &#160;<span id="projectnumber">2.0.5</span>
+   &#160;<span id="projectnumber">2.0.8</span>
    </div>
    <div id="projectbrief">Fast simulator for SBML models</div>
   </td>
@@ -245,7 +245,7 @@ virtual int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" hre
 <tr class="memdesc:a200b81cd9a7f1f9a6b3af6a35fcc4c63"><td class="mdescLeft">&#160;</td><td class="mdescRight">returns a bit field of the ids that this class supports. <br /></td></tr>
 <tr class="separator:a200b81cd9a7f1f9a6b3af6a35fcc4c63"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:aebaced13ef2afd070d7a1c35eec8d9f2"><td class="memItemLeft" align="right" valign="top">virtual double&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classrr_1_1ExecutableModel.html#aebaced13ef2afd070d7a1c35eec8d9f2">getValue</a> (const std::string &amp;id)=0</td></tr>
-<tr class="memdesc:aebaced13ef2afd070d7a1c35eec8d9f2"><td class="mdescLeft">&#160;</td><td class="mdescRight">gets the value for the given id string.  <a href="classrr_1_1ExecutableModel.html#aebaced13ef2afd070d7a1c35eec8d9f2">More...</a><br /></td></tr>
+<tr class="memdesc:aebaced13ef2afd070d7a1c35eec8d9f2"><td class="mdescLeft">&#160;</td><td class="mdescRight">gets the value for the given id std::string.  <a href="classrr_1_1ExecutableModel.html#aebaced13ef2afd070d7a1c35eec8d9f2">More...</a><br /></td></tr>
 <tr class="separator:aebaced13ef2afd070d7a1c35eec8d9f2"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:ac98de72b8f4f43bc6b93b191852702b5"><td class="memItemLeft" align="right" valign="top"><a id="ac98de72b8f4f43bc6b93b191852702b5"></a>
 virtual void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classrr_1_1ExecutableModel.html#ac98de72b8f4f43bc6b93b191852702b5">setValue</a> (const std::string &amp;id, double value)=0</td></tr>
@@ -275,9 +275,9 @@ virtual int&#160;</td><td class="memItemRight" valign="bottom"><b>setConservedMo
 <tr class="memitem:aa6ccf1c5b3b8817c7ce291a933bcaab7"><td class="memItemLeft" align="right" valign="top"><a id="aa6ccf1c5b3b8817c7ce291a933bcaab7"></a>
 virtual int&#160;</td><td class="memItemRight" valign="bottom"><b>getNumRateRules</b> ()=0</td></tr>
 <tr class="separator:aa6ccf1c5b3b8817c7ce291a933bcaab7"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ab045cbd84ce98fb9dff8ff250fdb131c"><td class="memItemLeft" align="right" valign="top">virtual std::vector&lt; std::string &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classrr_1_1ExecutableModel.html#ab045cbd84ce98fb9dff8ff250fdb131c">getRateRuleSymbols</a> () const</td></tr>
-<tr class="memdesc:ab045cbd84ce98fb9dff8ff250fdb131c"><td class="mdescLeft">&#160;</td><td class="mdescRight">Gets the symbols defined by rate rules, i.e. returns all x such that x' = f(x) is a rule which defines parameter x.  <a href="classrr_1_1ExecutableModel.html#ab045cbd84ce98fb9dff8ff250fdb131c">More...</a><br /></td></tr>
-<tr class="separator:ab045cbd84ce98fb9dff8ff250fdb131c"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:aa1d89fd7d5690de7add613f5ce75b631"><td class="memItemLeft" align="right" valign="top">virtual std::vector&lt; std::string &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classrr_1_1ExecutableModel.html#aa1d89fd7d5690de7add613f5ce75b631">getRateRuleSymbols</a> () const =0</td></tr>
+<tr class="memdesc:aa1d89fd7d5690de7add613f5ce75b631"><td class="mdescLeft">&#160;</td><td class="mdescRight">Gets the symbols defined by rate rules, i.e. returns all x such that x' = f(x) is a rule which defines parameter x.  <a href="classrr_1_1ExecutableModel.html#aa1d89fd7d5690de7add613f5ce75b631">More...</a><br /></td></tr>
+<tr class="separator:aa1d89fd7d5690de7add613f5ce75b631"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:acb056a72125190c2abe39dba9c3600f1"><td class="memItemLeft" align="right" valign="top"><a id="acb056a72125190c2abe39dba9c3600f1"></a>
 virtual int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classrr_1_1ExecutableModel.html#acb056a72125190c2abe39dba9c3600f1">getNumReactions</a> ()=0</td></tr>
 <tr class="memdesc:acb056a72125190c2abe39dba9c3600f1"><td class="mdescLeft">&#160;</td><td class="mdescRight">get the number of reactions the model has <br /></td></tr>
@@ -290,23 +290,23 @@ virtual std::string&#160;</td><td class="memItemRight" valign="bottom"><a class=
 <tr class="memdesc:aeb911dc90408981370c78149680d9027"><td class="mdescLeft">&#160;</td><td class="mdescRight">get the name of the specified reaction <br /></td></tr>
 <tr class="separator:aeb911dc90408981370c78149680d9027"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a37c53cc370ff236657272f5596fd27ff"><td class="memItemLeft" align="right" valign="top">virtual int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classrr_1_1ExecutableModel.html#a37c53cc370ff236657272f5596fd27ff">getReactionRates</a> (size_t len, int const *indx, double *values)=0</td></tr>
-<tr class="memdesc:a37c53cc370ff236657272f5596fd27ff"><td class="mdescLeft">&#160;</td><td class="mdescRight">get the vector of reaction rates.  <a href="classrr_1_1ExecutableModel.html#a37c53cc370ff236657272f5596fd27ff">More...</a><br /></td></tr>
+<tr class="memdesc:a37c53cc370ff236657272f5596fd27ff"><td class="mdescLeft">&#160;</td><td class="mdescRight">get the std::vector of reaction rates.  <a href="classrr_1_1ExecutableModel.html#a37c53cc370ff236657272f5596fd27ff">More...</a><br /></td></tr>
 <tr class="separator:a37c53cc370ff236657272f5596fd27ff"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a8372872ec5858e91adc81080ad763c84"><td class="memItemLeft" align="right" valign="top">virtual void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classrr_1_1ExecutableModel.html#a8372872ec5858e91adc81080ad763c84">getRateRuleValues</a> (double *rateRuleValues)=0</td></tr>
 <tr class="memdesc:a8372872ec5858e91adc81080ad763c84"><td class="mdescLeft">&#160;</td><td class="mdescRight">get the 'values' i.e.  <a href="classrr_1_1ExecutableModel.html#a8372872ec5858e91adc81080ad763c84">More...</a><br /></td></tr>
 <tr class="separator:a8372872ec5858e91adc81080ad763c84"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:ac6c245edd9ecea5feea84cff15db7b26"><td class="memItemLeft" align="right" valign="top"><a id="ac6c245edd9ecea5feea84cff15db7b26"></a>
 virtual std::string&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classrr_1_1ExecutableModel.html#ac6c245edd9ecea5feea84cff15db7b26">getStateVectorId</a> (size_t index)=0</td></tr>
-<tr class="memdesc:ac6c245edd9ecea5feea84cff15db7b26"><td class="mdescLeft">&#160;</td><td class="mdescRight">get the id of an element of the state vector. <br /></td></tr>
+<tr class="memdesc:ac6c245edd9ecea5feea84cff15db7b26"><td class="mdescLeft">&#160;</td><td class="mdescRight">get the id of an element of the state std::vector. <br /></td></tr>
 <tr class="separator:ac6c245edd9ecea5feea84cff15db7b26"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a75b6f37ac538d2d2a0709fe4080b0570"><td class="memItemLeft" align="right" valign="top">virtual int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classrr_1_1ExecutableModel.html#a75b6f37ac538d2d2a0709fe4080b0570">getStateVector</a> (double *stateVector)=0</td></tr>
-<tr class="memdesc:a75b6f37ac538d2d2a0709fe4080b0570"><td class="mdescLeft">&#160;</td><td class="mdescRight">The state vector is a vector of elements that are defined by differential equations (rate rules) or independent floating species are defined by reactions.  <a href="classrr_1_1ExecutableModel.html#a75b6f37ac538d2d2a0709fe4080b0570">More...</a><br /></td></tr>
+<tr class="memdesc:a75b6f37ac538d2d2a0709fe4080b0570"><td class="mdescLeft">&#160;</td><td class="mdescRight">The state std::vector is a std::vector of elements that are defined by differential equations (rate rules) or independent floating species are defined by reactions.  <a href="classrr_1_1ExecutableModel.html#a75b6f37ac538d2d2a0709fe4080b0570">More...</a><br /></td></tr>
 <tr class="separator:a75b6f37ac538d2d2a0709fe4080b0570"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a57a67063c957714b916d4a3d4277c3b9"><td class="memItemLeft" align="right" valign="top">virtual int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classrr_1_1ExecutableModel.html#a57a67063c957714b916d4a3d4277c3b9">setStateVector</a> (const double *stateVector)=0</td></tr>
-<tr class="memdesc:a57a67063c957714b916d4a3d4277c3b9"><td class="mdescLeft">&#160;</td><td class="mdescRight">sets the internal model state to the provided packed state vector.  <a href="classrr_1_1ExecutableModel.html#a57a67063c957714b916d4a3d4277c3b9">More...</a><br /></td></tr>
+<tr class="memdesc:a57a67063c957714b916d4a3d4277c3b9"><td class="mdescLeft">&#160;</td><td class="mdescRight">sets the internal model state to the provided packed state std::vector.  <a href="classrr_1_1ExecutableModel.html#a57a67063c957714b916d4a3d4277c3b9">More...</a><br /></td></tr>
 <tr class="separator:a57a67063c957714b916d4a3d4277c3b9"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a0495c2ece9edad29d61849b2443d4274"><td class="memItemLeft" align="right" valign="top">virtual void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classrr_1_1ExecutableModel.html#a0495c2ece9edad29d61849b2443d4274">getStateVectorRate</a> (double time, const double *y, double *dydt=0)=0</td></tr>
-<tr class="memdesc:a0495c2ece9edad29d61849b2443d4274"><td class="mdescLeft">&#160;</td><td class="mdescRight">the state vector y is the rate rule values and floating species concentrations concatenated.  <a href="classrr_1_1ExecutableModel.html#a0495c2ece9edad29d61849b2443d4274">More...</a><br /></td></tr>
+<tr class="memdesc:a0495c2ece9edad29d61849b2443d4274"><td class="mdescLeft">&#160;</td><td class="mdescRight">the state std::vector y is the rate rule values and floating species concentrations concatenated.  <a href="classrr_1_1ExecutableModel.html#a0495c2ece9edad29d61849b2443d4274">More...</a><br /></td></tr>
 <tr class="separator:a0495c2ece9edad29d61849b2443d4274"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:abe4be4ec2e96aaf0a256776dff3cc9a9"><td class="memItemLeft" align="right" valign="top"><a id="abe4be4ec2e96aaf0a256776dff3cc9a9"></a>
 virtual void&#160;</td><td class="memItemRight" valign="bottom"><b>testConstraints</b> ()=0</td></tr>
@@ -357,7 +357,7 @@ virtual void&#160;</td><td class="memItemRight" valign="bottom"><b>setEventListe
 virtual <a class="el" href="rrExecutableModel_8h.html#af42654ad469e89c71909fbbff90b3c07">EventListenerPtr</a>&#160;</td><td class="memItemRight" valign="bottom"><b>getEventListener</b> (size_t index)=0</td></tr>
 <tr class="separator:a93633ae9a0f5b04c16115e291176aa9e"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a460387891972dfb029d5fdd6134c10eb"><td class="memItemLeft" align="right" valign="top">virtual double&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classrr_1_1ExecutableModel.html#a460387891972dfb029d5fdd6134c10eb">getFloatingSpeciesAmountRate</a> (size_t index, const double *reactionRates)=0</td></tr>
-<tr class="memdesc:a460387891972dfb029d5fdd6134c10eb"><td class="mdescLeft">&#160;</td><td class="mdescRight">Get the amount rate of change for the i'th floating species given a reaction rates vector.  <a href="classrr_1_1ExecutableModel.html#a460387891972dfb029d5fdd6134c10eb">More...</a><br /></td></tr>
+<tr class="memdesc:a460387891972dfb029d5fdd6134c10eb"><td class="mdescLeft">&#160;</td><td class="mdescRight">Get the amount rate of change for the i'th floating species given a reaction rates std::vector.  <a href="classrr_1_1ExecutableModel.html#a460387891972dfb029d5fdd6134c10eb">More...</a><br /></td></tr>
 <tr class="separator:a460387891972dfb029d5fdd6134c10eb"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:ac87e7f485678d07d7567398dea63c512"><td class="memItemLeft" align="right" valign="top"><a id="ac87e7f485678d07d7567398dea63c512"></a>
 virtual void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classrr_1_1ExecutableModel.html#ac87e7f485678d07d7567398dea63c512">reset</a> (int options)=0</td></tr>
@@ -406,7 +406,7 @@ class&#160;</td><td class="memItemRight" valign="bottom"><b>RoadRunner</b></td><
 <div class="textblock"><p>Base class for all code generation systems; allows compiling and evaluating the model. </p>
 <p>The <a class="el" href="classrr_1_1ExecutableModel.html" title="Base class for all code generation systems; allows compiling and evaluating the model.">ExecutableModel</a> interface provides a way to access an sbml model that was compiled, JIT'd or interpreted as executable (runnable) module.</p>
 <p>An <a class="el" href="classrr_1_1ExecutableModel.html" title="Base class for all code generation systems; allows compiling and evaluating the model.">ExecutableModel</a> holds a ModelData structure, all the simulation values are stored in the ModelData struct, i.e. the dynamic state of the model is fully contained in the ModelData structure.</p>
-<p>An <a class="el" href="classrr_1_1ExecutableModel.html" title="Base class for all code generation systems; allows compiling and evaluating the model.">ExecutableModel</a> shoud also contain all of the initial condisions, rules, functions and whatever other semantic information that was specified in the sbml model. </p>
+<p>An <a class="el" href="classrr_1_1ExecutableModel.html" title="Base class for all code generation systems; allows compiling and evaluating the model.">ExecutableModel</a> should also contain all of the initial conditions, rules, functions and whatever other semantic information that was specified in the sbml model. </p>
 </div><h2 class="groupheader">Member Enumeration Documentation</h2>
 <a id="a0503ffbf5c6c971cf545d7570ec0404c"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#a0503ffbf5c6c971cf545d7570ec0404c">&#9670;&nbsp;</a></span>ExecutableModelFlags</h2>
@@ -421,7 +421,7 @@ class&#160;</td><td class="memItemRight" valign="bottom"><b>RoadRunner</b></td><
 </div><div class="memdoc">
 <table class="fieldtable">
 <tr><th colspan="2">Enumerator</th></tr><tr><td class="fieldname"><a id="a0503ffbf5c6c971cf545d7570ec0404ca389fbe7a44e9cb64d2e16415cd08554f"></a>INTEGRATION&#160;</td><td class="fielddoc"><p>A simulation is currently running. </p>
-<p>This means that the model should not have to re-calculate the reaction rate vector as it was calculated in the previous integration step. </p>
+<p>This means that the model should not have to re-calculate the reaction rate std::vector as it was calculated in the previous integration step. </p>
 </td></tr>
 <tr><td class="fieldname"><a id="a0503ffbf5c6c971cf545d7570ec0404ca3a399e67ea485968593a0c692643e107"></a>OPTIMIZE_REACTION_RATE_SELECTION&#160;</td><td class="fielddoc"><p>optimize not-recalculating the reaction rates during selection. </p>
 </td></tr>
@@ -511,8 +511,8 @@ class&#160;</td><td class="memItemRight" valign="bottom"><b>RoadRunner</b></td><
   <table class="params">
     <tr><td class="paramname">timeEnd</td><td>model time when the event occured. </td></tr>
     <tr><td class="paramname">previousEventStatus</td><td>array of previous event triggered states. </td></tr>
-    <tr><td class="paramname">initialState</td><td>(optional): initial state vector, may be NULL, in which the current state is used. </td></tr>
-    <tr><td class="paramname">finalState</td><td>(optional): final state vector, where the final state is coppied to. May be NULL, in which case, ignored. </td></tr>
+    <tr><td class="paramname">initialState</td><td>(optional): initial state std::vector, may be NULL, in which the current state is used. </td></tr>
+    <tr><td class="paramname">finalState</td><td>(optional): final state std::vector, where the final state is coppied to. May be NULL, in which case, ignored. </td></tr>
   </table>
   </dd>
 </dl>
@@ -759,7 +759,7 @@ class&#160;</td><td class="memItemRight" valign="bottom"><b>RoadRunner</b></td><
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
     <tr><td class="paramname">time[in]</td><td>current time </td></tr>
-    <tr><td class="paramname">y[in]</td><td>the state vector </td></tr>
+    <tr><td class="paramname">y[in]</td><td>the state std::vector </td></tr>
     <tr><td class="paramname">gdot[out]</td><td>result event roots, this is of length numEvents. </td></tr>
   </table>
   </dd>
@@ -882,9 +882,9 @@ class&#160;</td><td class="memItemRight" valign="bottom"><b>RoadRunner</b></td><
 </table>
 </div><div class="memdoc">
 
-<p>Get the amount rate of change for the i'th floating species given a reaction rates vector. </p>
+<p>Get the amount rate of change for the i'th floating species given a reaction rates std::vector. </p>
 <p>TODO: This should be merged with getFloatingSpeciesAmountRates, but that will break inteface, will do in next point release.</p>
-<p>TODO: If the conversion factor changes in between getting the reaction rates vector via getReactionRates</p>
+<p>TODO: If the conversion factor changes in between getting the reaction rates std::vector via getReactionRates</p>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
     <tr><td class="paramname">index</td><td>index of the desired floating speceis rate. </td></tr>
@@ -1136,8 +1136,8 @@ class&#160;</td><td class="memItemRight" valign="bottom"><b>RoadRunner</b></td><
 
 </div>
 </div>
-<a id="ab045cbd84ce98fb9dff8ff250fdb131c"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#ab045cbd84ce98fb9dff8ff250fdb131c">&#9670;&nbsp;</a></span>getRateRuleSymbols()</h2>
+<a id="aa1d89fd7d5690de7add613f5ce75b631"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#aa1d89fd7d5690de7add613f5ce75b631">&#9670;&nbsp;</a></span>getRateRuleSymbols()</h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -1154,7 +1154,7 @@ class&#160;</td><td class="memItemRight" valign="bottom"><b>RoadRunner</b></td><
       </table>
   </td>
   <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">inline</span><span class="mlabel">virtual</span></span>  </td>
+<span class="mlabels"><span class="mlabel">pure virtual</span></span>  </td>
   </tr>
 </table>
 </div><div class="memdoc">
@@ -1163,7 +1163,7 @@ class&#160;</td><td class="memItemRight" valign="bottom"><b>RoadRunner</b></td><
 <dl class="section author"><dt>Author</dt><dd>JKM </dd></dl>
 <dl class="section date"><dt>Date</dt><dd>07/31/2015 </dd></dl>
 
-<p>Reimplemented in <a class="el" href="classrrllvm_1_1LLVMExecutableModel.html#a1b73548f88c353066c8758ac671e29f9">rrllvm::LLVMExecutableModel</a>.</p>
+<p>Implemented in <a class="el" href="classrrllvm_1_1LLVMExecutableModel.html#a1b73548f88c353066c8758ac671e29f9">rrllvm::LLVMExecutableModel</a>.</p>
 
 </div>
 </div>
@@ -1226,7 +1226,7 @@ class&#160;</td><td class="memItemRight" valign="bottom"><b>RoadRunner</b></td><
 <p>get the index of a named reaction </p>
 <dl class="section return"><dt>Returns</dt><dd>&gt;= 0 on success, &lt; 0 on failure. </dd></dl>
 
-<p>Implemented in <a class="el" href="classrr_1_1CompiledExecutableModel.html#a9a2275b0715bc7461c8f402492462b05">rr::CompiledExecutableModel</a>.</p>
+<p>Implemented in <a class="el" href="classrr_1_1CompiledExecutableModel.html#a9a2275b0715bc7461c8f402492462b05">rr::CompiledExecutableModel</a>, and <a class="el" href="classrrllvm_1_1LLVMExecutableModel.html#a979920ccd4f05575fe872a50dc4b368c">rrllvm::LLVMExecutableModel</a>.</p>
 
 </div>
 </div>
@@ -1270,7 +1270,7 @@ class&#160;</td><td class="memItemRight" valign="bottom"><b>RoadRunner</b></td><
 </table>
 </div><div class="memdoc">
 
-<p>get the vector of reaction rates. </p>
+<p>get the std::vector of reaction rates. </p>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
     <tr><td class="paramname">len</td><td>the length of the suplied buffer, must be &gt;= reaction rates size. </td></tr>
@@ -1308,16 +1308,16 @@ class&#160;</td><td class="memItemRight" valign="bottom"><b>RoadRunner</b></td><
 </table>
 </div><div class="memdoc">
 
-<p>The state vector is a vector of elements that are defined by differential equations (rate rules) or independent floating species are defined by reactions. </p>
-<p>To get the ids of the state vector elements, use getStateVectorId.</p>
-<p>copies the internal model state vector into the provided buffer.</p>
+<p>The state std::vector is a std::vector of elements that are defined by differential equations (rate rules) or independent floating species are defined by reactions. </p>
+<p>To get the ids of the state std::vector elements, use getStateVectorId.</p>
+<p>copies the internal model state std::vector into the provided buffer.</p>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
-    <tr><td class="paramdir">[out]</td><td class="paramname">stateVector</td><td>a buffer to copy the state vector into, if NULL, return the size required.</td></tr>
+    <tr><td class="paramdir">[out]</td><td class="paramname">stateVector</td><td>a buffer to copy the state std::vector into, if NULL, return the size required.</td></tr>
   </table>
   </dd>
 </dl>
-<dl class="section return"><dt>Returns</dt><dd>the number of items coppied into the provided buffer, if stateVector is NULL, returns the length of the state vector. </dd></dl>
+<dl class="section return"><dt>Returns</dt><dd>the number of items coppied into the provided buffer, if stateVector is NULL, returns the length of the state std::vector. </dd></dl>
 
 <p>Implemented in <a class="el" href="classrrllvm_1_1LLVMExecutableModel.html#a1bab14a8a11c8fe0e23521e107105447">rrllvm::LLVMExecutableModel</a>, and <a class="el" href="classrr_1_1CompiledExecutableModel.html#a6ba2d5c65fa0c94f521c22ff440a56bc">rr::CompiledExecutableModel</a>.</p>
 
@@ -1363,14 +1363,14 @@ class&#160;</td><td class="memItemRight" valign="bottom"><b>RoadRunner</b></td><
 </table>
 </div><div class="memdoc">
 
-<p>the state vector y is the rate rule values and floating species concentrations concatenated. </p>
+<p>the state std::vector y is the rate rule values and floating species concentrations concatenated. </p>
 <p>y is of length numFloatingSpecies + numRateRules.</p>
-<p>The state vector is packed such that the first n raterule elements are the values of the rate rules, and the last n floatingspecies are the floating species values.</p>
+<p>The state std::vector is packed such that the first n raterule elements are the values of the rate rules, and the last n floatingspecies are the floating species values.</p>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
     <tr><td class="paramdir">[in]</td><td class="paramname">time</td><td>current simulator time </td></tr>
-    <tr><td class="paramdir">[in]</td><td class="paramname">y</td><td>state vector, must be either null, or have a size of that speciefied by getStateVector. If y is null, then the model is evaluated using its current state. If y is not null, then the y is considered the state vector. </td></tr>
-    <tr><td class="paramdir">[out]</td><td class="paramname">dydt</td><td>calculated rate of change of the state vector, if null, it is ignored. </td></tr>
+    <tr><td class="paramdir">[in]</td><td class="paramname">y</td><td>state std::vector, must be either null, or have a size of that speciefied by getStateVector. If y is null, then the model is evaluated using its current state. If y is not null, then the y is considered the state std::vector. </td></tr>
+    <tr><td class="paramdir">[out]</td><td class="paramname">dydt</td><td>calculated rate of change of the state std::vector, if null, it is ignored. </td></tr>
   </table>
   </dd>
 </dl>
@@ -1499,8 +1499,8 @@ class&#160;</td><td class="memItemRight" valign="bottom"><b>RoadRunner</b></td><
 </table>
 </div><div class="memdoc">
 
-<p>gets the value for the given id string. </p>
-<p>The string must be a <a class="el" href="classrr_1_1SelectionRecord.html" title="a way to find sbml model elements using the RoadRunner syntax.">SelectionRecord</a> string that is accepted by this class. </p>
+<p>gets the value for the given id std::string. </p>
+<p>The std::string must be a <a class="el" href="classrr_1_1SelectionRecord.html" title="a way to find sbml model elements using the RoadRunner syntax.">SelectionRecord</a> std::string that is accepted by this class. </p>
 
 <p>Implemented in <a class="el" href="classrrllvm_1_1LLVMExecutableModel.html#ac4f4fe1667dcf4f0f848e3569e8bbe2b">rrllvm::LLVMExecutableModel</a>, and <a class="el" href="classrr_1_1CompiledExecutableModel.html#ab7bc9e9b4426d9d22080bb64bd900cab">rr::CompiledExecutableModel</a>.</p>
 
@@ -1682,7 +1682,7 @@ class&#160;</td><td class="memItemRight" valign="bottom"><b>RoadRunner</b></td><
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
     <tr><td class="paramdir">[in]</td><td class="paramname">len</td><td>the length of the indx and values arrays. </td></tr>
-    <tr><td class="paramdir">[in]</td><td class="paramname">indx</td><td>an array of length len of boundary species to return. </td></tr>
+    <tr><td class="paramdir">[in]</td><td class="paramname">indx</td><td>an array of length len of floating species to return. </td></tr>
     <tr><td class="paramdir">[in]</td><td class="paramname">values</td><td>an array of at least length len which will store the returned boundary species amounts. </td></tr>
   </table>
   </dd>
@@ -1890,14 +1890,14 @@ class&#160;</td><td class="memItemRight" valign="bottom"><b>RoadRunner</b></td><
 </table>
 </div><div class="memdoc">
 
-<p>sets the internal model state to the provided packed state vector. </p>
+<p>sets the internal model state to the provided packed state std::vector. </p>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
-    <tr><td class="paramdir">[in]</td><td class="paramname">an</td><td>array which holds the packed state vector, must be at least the size returned by getStateVector.</td></tr>
+    <tr><td class="paramdir">[in]</td><td class="paramname">an</td><td>array which holds the packed state std::vector, must be at least the size returned by getStateVector.</td></tr>
   </table>
   </dd>
 </dl>
-<dl class="section return"><dt>Returns</dt><dd>the number of items copied from the state vector, negative on failure. </dd></dl>
+<dl class="section return"><dt>Returns</dt><dd>the number of items copied from the state std::vector, negative on failure. </dd></dl>
 
 <p>Implemented in <a class="el" href="classrrllvm_1_1LLVMExecutableModel.html#a8ab1d594d85c537534ee12fa8eafee2c">rrllvm::LLVMExecutableModel</a>, and <a class="el" href="classrr_1_1CompiledExecutableModel.html#a39fc85f1dfeba7d5885f66f78f9b4704">rr::CompiledExecutableModel</a>.</p>
 

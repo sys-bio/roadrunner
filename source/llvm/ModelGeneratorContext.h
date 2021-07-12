@@ -98,8 +98,7 @@ public:
      * attach to an existing sbml document, we borrow a reference to this
      * doc and DO NOT take ownership of it.
      */
-    ModelGeneratorContext(libsbml::SBMLDocument const *doc,
-            unsigned loadSBMLOptions);
+    ModelGeneratorContext(libsbml::SBMLDocument const *doc, unsigned loadSBMLOptions);
 	
     /**
      * does not attach to any sbml doc,
@@ -255,8 +254,7 @@ private:
 };
 
 
-LLVMModelData *createModelData(const rrllvm::LLVMModelDataSymbols &symbols,
-        const Random* random);
+LLVMModelData *createModelData(const rrllvm::LLVMModelDataSymbols &symbols, const Random* random);
 
 
 } /* namespace rr */

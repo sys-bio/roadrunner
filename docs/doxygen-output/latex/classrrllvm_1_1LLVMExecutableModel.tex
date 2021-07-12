@@ -23,14 +23,14 @@ virtual std\+::string \mbox{\hyperlink{classrrllvm_1_1LLVMExecutableModel_a2fa49
 \mbox{\Hypertarget{classrrllvm_1_1LLVMExecutableModel_ad8437a480693ed8c0b2b44327264117b}\label{classrrllvm_1_1LLVMExecutableModel_ad8437a480693ed8c0b2b44327264117b}} 
 \mbox{\hyperlink{classrrllvm_1_1LLVMExecutableModel_ad8437a480693ed8c0b2b44327264117b}{L\+L\+V\+M\+Executable\+Model}} ()
 \begin{DoxyCompactList}\small\item\em the default ctor just zeros out all our private bits, then the main construction is handled by the model generator. \end{DoxyCompactList}\item 
-\mbox{\Hypertarget{classrrllvm_1_1LLVMExecutableModel_a3a11e694d916b2aae56c6c1054e3395c}\label{classrrllvm_1_1LLVMExecutableModel_a3a11e694d916b2aae56c6c1054e3395c}} 
-\mbox{\hyperlink{classrrllvm_1_1LLVMExecutableModel_a3a11e694d916b2aae56c6c1054e3395c}{L\+L\+V\+M\+Executable\+Model}} (const cxx11\+\_\+ns\+::shared\+\_\+ptr$<$ \mbox{\hyperlink{classrrllvm_1_1ModelResources}{Model\+Resources}} $>$ \&resources, \mbox{\hyperlink{structrrllvm_1_1LLVMModelData}{L\+L\+V\+M\+Model\+Data}} $\ast$model\+Data)
+\mbox{\Hypertarget{classrrllvm_1_1LLVMExecutableModel_a9ac85749972d3686bd4145552b06b974}\label{classrrllvm_1_1LLVMExecutableModel_a9ac85749972d3686bd4145552b06b974}} 
+\mbox{\hyperlink{classrrllvm_1_1LLVMExecutableModel_a9ac85749972d3686bd4145552b06b974}{L\+L\+V\+M\+Executable\+Model}} (const std\+::shared\+\_\+ptr$<$ \mbox{\hyperlink{classrrllvm_1_1ModelResources}{Model\+Resources}} $>$ \&resources, \mbox{\hyperlink{structrrllvm_1_1LLVMModelData}{L\+L\+V\+M\+Model\+Data}} $\ast$model\+Data)
 \begin{DoxyCompactList}\small\item\em takes ownership of the \mbox{\hyperlink{structrrllvm_1_1LLVMModelData}{L\+L\+V\+M\+Model\+Data}} pointer. \end{DoxyCompactList}\item 
 \mbox{\Hypertarget{classrrllvm_1_1LLVMExecutableModel_afe9d85e99b293a7e401d36a7dfc99a16}\label{classrrllvm_1_1LLVMExecutableModel_afe9d85e99b293a7e401d36a7dfc99a16}} 
 {\bfseries L\+L\+V\+M\+Executable\+Model} (std\+::istream \&in, uint model\+Generator\+Opt)
 \item 
-\mbox{\Hypertarget{classrrllvm_1_1LLVMExecutableModel_ae1a203ae31724ca175835507c43e8639}\label{classrrllvm_1_1LLVMExecutableModel_ae1a203ae31724ca175835507c43e8639}} 
-virtual string \mbox{\hyperlink{classrrllvm_1_1LLVMExecutableModel_ae1a203ae31724ca175835507c43e8639}{get\+Model\+Name}} ()
+\mbox{\Hypertarget{classrrllvm_1_1LLVMExecutableModel_a27354715e74d4d66197f17646150ff8f}\label{classrrllvm_1_1LLVMExecutableModel_a27354715e74d4d66197f17646150ff8f}} 
+virtual std\+::string \mbox{\hyperlink{classrrllvm_1_1LLVMExecutableModel_a27354715e74d4d66197f17646150ff8f}{get\+Model\+Name}} ()
 \begin{DoxyCompactList}\small\item\em get the name of the model \end{DoxyCompactList}\item 
 \mbox{\Hypertarget{classrrllvm_1_1LLVMExecutableModel_a8d719dc60df8c78388f8b854362fef2d}\label{classrrllvm_1_1LLVMExecutableModel_a8d719dc60df8c78388f8b854362fef2d}} 
 virtual void {\bfseries set\+Time} (double \+\_\+time)
@@ -76,7 +76,7 @@ virtual int {\bfseries set\+Global\+Parameter\+Values} (size\+\_\+t len, int con
 virtual int \mbox{\hyperlink{classrrllvm_1_1LLVMExecutableModel_a44eafee99d943d187bc60d9ab93a9f0c}{get\+Num\+Reactions}} ()
 \begin{DoxyCompactList}\small\item\em get the number of reactions the model has \end{DoxyCompactList}\item 
 virtual int \mbox{\hyperlink{classrrllvm_1_1LLVMExecutableModel_abdd14f103eb20ad8a4b5d5c89750f85b}{get\+Reaction\+Rates}} (size\+\_\+t len, int const $\ast$indx, double $\ast$values)
-\begin{DoxyCompactList}\small\item\em get the vector of reaction rates. \end{DoxyCompactList}\item 
+\begin{DoxyCompactList}\small\item\em get the std\+::vector of reaction rates. \end{DoxyCompactList}\item 
 virtual int \mbox{\hyperlink{classrrllvm_1_1LLVMExecutableModel_ae93515327eae8af56a12b24bd545df33}{get\+Compartment\+Volumes}} (size\+\_\+t len, int const $\ast$indx, double $\ast$values)
 \begin{DoxyCompactList}\small\item\em get the compartment volumes \end{DoxyCompactList}\item 
 \mbox{\Hypertarget{classrrllvm_1_1LLVMExecutableModel_aad1debfa3496b1c68c84cf24554fa0ff}\label{classrrllvm_1_1LLVMExecutableModel_aad1debfa3496b1c68c84cf24554fa0ff}} 
@@ -89,30 +89,30 @@ virtual void \mbox{\hyperlink{classrrllvm_1_1LLVMExecutableModel_adfe1a7598ad23c
 \begin{DoxyCompactList}\small\item\em copy (but do not evaluate) existing rate rules values into a buffer. \end{DoxyCompactList}\item 
 \mbox{\Hypertarget{classrrllvm_1_1LLVMExecutableModel_a83a31e1ae1cba11535146063f45786e6}\label{classrrllvm_1_1LLVMExecutableModel_a83a31e1ae1cba11535146063f45786e6}} 
 virtual std\+::string \mbox{\hyperlink{classrrllvm_1_1LLVMExecutableModel_a83a31e1ae1cba11535146063f45786e6}{get\+State\+Vector\+Id}} (size\+\_\+t index)
-\begin{DoxyCompactList}\small\item\em get the id of an element of the state vector. \end{DoxyCompactList}\item 
+\begin{DoxyCompactList}\small\item\em get the id of an element of the state std\+::vector. \end{DoxyCompactList}\item 
 virtual int \mbox{\hyperlink{classrrllvm_1_1LLVMExecutableModel_a1bab14a8a11c8fe0e23521e107105447}{get\+State\+Vector}} (double $\ast$state\+Vector)
-\begin{DoxyCompactList}\small\item\em copies the internal model state vector into the provided buffer. \end{DoxyCompactList}\item 
+\begin{DoxyCompactList}\small\item\em copies the internal model state std\+::vector into the provided buffer. \end{DoxyCompactList}\item 
 virtual int \mbox{\hyperlink{classrrllvm_1_1LLVMExecutableModel_a8ab1d594d85c537534ee12fa8eafee2c}{set\+State\+Vector}} (const double $\ast$state\+Vector)
-\begin{DoxyCompactList}\small\item\em sets the internal model state to the provided packed state vector. \end{DoxyCompactList}\item 
+\begin{DoxyCompactList}\small\item\em sets the internal model state to the provided packed state std\+::vector. \end{DoxyCompactList}\item 
 virtual void \mbox{\hyperlink{classrrllvm_1_1LLVMExecutableModel_abd45bf12bc33c31f5a02dd52c019783f}{get\+State\+Vector\+Rate}} (double time, const double $\ast$y, double $\ast$dydt=0)
 \begin{DoxyCompactList}\small\item\em where most of the juicy bits occur. \end{DoxyCompactList}\item 
 \mbox{\Hypertarget{classrrllvm_1_1LLVMExecutableModel_a260f6d15752fb70323e7909fd46b1dc2}\label{classrrllvm_1_1LLVMExecutableModel_a260f6d15752fb70323e7909fd46b1dc2}} 
 virtual void {\bfseries test\+Constraints} ()
 \item 
-\mbox{\Hypertarget{classrrllvm_1_1LLVMExecutableModel_a284b1d74818ce6934d7e914b2ddd0469}\label{classrrllvm_1_1LLVMExecutableModel_a284b1d74818ce6934d7e914b2ddd0469}} 
-virtual string {\bfseries get\+Info} ()
+\mbox{\Hypertarget{classrrllvm_1_1LLVMExecutableModel_afcdb25e60f4e4b9b0269055cdef0cc72}\label{classrrllvm_1_1LLVMExecutableModel_afcdb25e60f4e4b9b0269055cdef0cc72}} 
+virtual std\+::string {\bfseries get\+Info} ()
 \item 
-\mbox{\Hypertarget{classrrllvm_1_1LLVMExecutableModel_ab7d70d78762532f673973fe88c174c78}\label{classrrllvm_1_1LLVMExecutableModel_ab7d70d78762532f673973fe88c174c78}} 
-virtual int {\bfseries get\+Floating\+Species\+Index} (const string \&)
+\mbox{\Hypertarget{classrrllvm_1_1LLVMExecutableModel_a8997ffa70682319ec2c8aaff896613ad}\label{classrrllvm_1_1LLVMExecutableModel_a8997ffa70682319ec2c8aaff896613ad}} 
+virtual int {\bfseries get\+Floating\+Species\+Index} (const std\+::string \&)
 \item 
-\mbox{\Hypertarget{classrrllvm_1_1LLVMExecutableModel_aad995136f696b44f606a6a944b3fa34e}\label{classrrllvm_1_1LLVMExecutableModel_aad995136f696b44f606a6a944b3fa34e}} 
-virtual string {\bfseries get\+Floating\+Species\+Id} (size\+\_\+t index)
+\mbox{\Hypertarget{classrrllvm_1_1LLVMExecutableModel_a5e1794c61c7360555fb9c1e1162e92be}\label{classrrllvm_1_1LLVMExecutableModel_a5e1794c61c7360555fb9c1e1162e92be}} 
+virtual std\+::string {\bfseries get\+Floating\+Species\+Id} (size\+\_\+t index)
 \item 
-\mbox{\Hypertarget{classrrllvm_1_1LLVMExecutableModel_a96fa17626d355488dacc6a42e84f4b22}\label{classrrllvm_1_1LLVMExecutableModel_a96fa17626d355488dacc6a42e84f4b22}} 
-virtual int {\bfseries get\+Boundary\+Species\+Index} (const string \&)
+\mbox{\Hypertarget{classrrllvm_1_1LLVMExecutableModel_ad00e27054e7373ca61da3ec4fb95c4c7}\label{classrrllvm_1_1LLVMExecutableModel_ad00e27054e7373ca61da3ec4fb95c4c7}} 
+virtual int {\bfseries get\+Boundary\+Species\+Index} (const std\+::string \&)
 \item 
-\mbox{\Hypertarget{classrrllvm_1_1LLVMExecutableModel_abd816e2ac822a4396babbe140fa2c1ff}\label{classrrllvm_1_1LLVMExecutableModel_abd816e2ac822a4396babbe140fa2c1ff}} 
-virtual string {\bfseries get\+Boundary\+Species\+Id} (size\+\_\+t index)
+\mbox{\Hypertarget{classrrllvm_1_1LLVMExecutableModel_a83c2292d44cb72d2426c9559a0652f74}\label{classrrllvm_1_1LLVMExecutableModel_a83c2292d44cb72d2426c9559a0652f74}} 
+virtual std\+::string {\bfseries get\+Boundary\+Species\+Id} (size\+\_\+t index)
 \item 
 virtual int \mbox{\hyperlink{classrrllvm_1_1LLVMExecutableModel_ab7af45309d8f1c09fbca57365328cdc9}{get\+Floating\+Species\+Amounts}} (size\+\_\+t len, int const $\ast$indx, double $\ast$values)
 \begin{DoxyCompactList}\small\item\em get the floating species amounts \end{DoxyCompactList}\item 
@@ -137,23 +137,22 @@ virtual int \mbox{\hyperlink{classrrllvm_1_1LLVMExecutableModel_aaa538c4229baa2f
 \begin{DoxyCompactList}\small\item\em get the boundary species concentrations \end{DoxyCompactList}\item 
 virtual int \mbox{\hyperlink{classrrllvm_1_1LLVMExecutableModel_a2b9157cb5bc361364d33f70b2361800b}{set\+Boundary\+Species\+Amounts}} (size\+\_\+t len, int const $\ast$indx, double const $\ast$values)
 \begin{DoxyCompactList}\small\item\em get the boundary species amounts \end{DoxyCompactList}\item 
-\mbox{\Hypertarget{classrrllvm_1_1LLVMExecutableModel_af85c593e3b64daac1e740ea82b3ef488}\label{classrrllvm_1_1LLVMExecutableModel_af85c593e3b64daac1e740ea82b3ef488}} 
-virtual int {\bfseries get\+Global\+Parameter\+Index} (const string \&)
-\item 
-\mbox{\Hypertarget{classrrllvm_1_1LLVMExecutableModel_a1a7c7caaa08ed5046f3f99c18651b734}\label{classrrllvm_1_1LLVMExecutableModel_a1a7c7caaa08ed5046f3f99c18651b734}} 
-virtual string \mbox{\hyperlink{classrrllvm_1_1LLVMExecutableModel_a1a7c7caaa08ed5046f3f99c18651b734}{get\+Global\+Parameter\+Id}} (size\+\_\+t)
+\mbox{\Hypertarget{classrrllvm_1_1LLVMExecutableModel_a47c44c1deb69436166ebedf24130182a}\label{classrrllvm_1_1LLVMExecutableModel_a47c44c1deb69436166ebedf24130182a}} 
+virtual int \mbox{\hyperlink{classrrllvm_1_1LLVMExecutableModel_a47c44c1deb69436166ebedf24130182a}{get\+Global\+Parameter\+Index}} (const std\+::string \&)
+\begin{DoxyCompactList}\small\item\em index of the global parameter id, -\/1 if it does not exist. \end{DoxyCompactList}\item 
+\mbox{\Hypertarget{classrrllvm_1_1LLVMExecutableModel_a1e6a278aab70c122142d035d421bd7ff}\label{classrrllvm_1_1LLVMExecutableModel_a1e6a278aab70c122142d035d421bd7ff}} 
+virtual std\+::string \mbox{\hyperlink{classrrllvm_1_1LLVMExecutableModel_a1e6a278aab70c122142d035d421bd7ff}{get\+Global\+Parameter\+Id}} (size\+\_\+t)
 \begin{DoxyCompactList}\small\item\em id of the indexed global parameter. \end{DoxyCompactList}\item 
-\mbox{\Hypertarget{classrrllvm_1_1LLVMExecutableModel_a65cfb23aaaec7400802ac8cff479345b}\label{classrrllvm_1_1LLVMExecutableModel_a65cfb23aaaec7400802ac8cff479345b}} 
-virtual int {\bfseries get\+Compartment\+Index} (const string \&)
+\mbox{\Hypertarget{classrrllvm_1_1LLVMExecutableModel_a51e6cf85565ee78ac2b00fb9d85134c7}\label{classrrllvm_1_1LLVMExecutableModel_a51e6cf85565ee78ac2b00fb9d85134c7}} 
+virtual int {\bfseries get\+Compartment\+Index} (const std\+::string \&)
 \item 
-\mbox{\Hypertarget{classrrllvm_1_1LLVMExecutableModel_a351f516e625c97b17d2fed0965023536}\label{classrrllvm_1_1LLVMExecutableModel_a351f516e625c97b17d2fed0965023536}} 
-virtual string {\bfseries get\+Compartment\+Id} (size\+\_\+t)
+\mbox{\Hypertarget{classrrllvm_1_1LLVMExecutableModel_ac4b3e239e3d8f3da218793e601a1a298}\label{classrrllvm_1_1LLVMExecutableModel_ac4b3e239e3d8f3da218793e601a1a298}} 
+virtual std\+::string {\bfseries get\+Compartment\+Id} (size\+\_\+t)
 \item 
-\mbox{\Hypertarget{classrrllvm_1_1LLVMExecutableModel_a8d4e3a3d01162167cdd5fc828fba49f3}\label{classrrllvm_1_1LLVMExecutableModel_a8d4e3a3d01162167cdd5fc828fba49f3}} 
-virtual int {\bfseries get\+Reaction\+Index} (const string \&)
-\item 
-\mbox{\Hypertarget{classrrllvm_1_1LLVMExecutableModel_a3145d2fcb796185f968430b56152d7c5}\label{classrrllvm_1_1LLVMExecutableModel_a3145d2fcb796185f968430b56152d7c5}} 
-virtual string \mbox{\hyperlink{classrrllvm_1_1LLVMExecutableModel_a3145d2fcb796185f968430b56152d7c5}{get\+Reaction\+Id}} (size\+\_\+t)
+virtual int \mbox{\hyperlink{classrrllvm_1_1LLVMExecutableModel_a979920ccd4f05575fe872a50dc4b368c}{get\+Reaction\+Index}} (const std\+::string \&)
+\begin{DoxyCompactList}\small\item\em get the index of a named reaction \end{DoxyCompactList}\item 
+\mbox{\Hypertarget{classrrllvm_1_1LLVMExecutableModel_a7875eb127b74b89571e0551ab06bde7f}\label{classrrllvm_1_1LLVMExecutableModel_a7875eb127b74b89571e0551ab06bde7f}} 
+virtual std\+::string \mbox{\hyperlink{classrrllvm_1_1LLVMExecutableModel_a7875eb127b74b89571e0551ab06bde7f}{get\+Reaction\+Id}} (size\+\_\+t)
 \begin{DoxyCompactList}\small\item\em get the name of the specified reaction \end{DoxyCompactList}\item 
 \mbox{\Hypertarget{classrrllvm_1_1LLVMExecutableModel_a5b3365470c345a7c3829941de76561a7}\label{classrrllvm_1_1LLVMExecutableModel_a5b3365470c345a7c3829941de76561a7}} 
 virtual void {\bfseries print} (std\+::ostream \&stream)
@@ -161,11 +160,11 @@ virtual void {\bfseries print} (std\+::ostream \&stream)
 \mbox{\Hypertarget{classrrllvm_1_1LLVMExecutableModel_aeeeb260557b0d2f548a9eb28ecd2bb6c}\label{classrrllvm_1_1LLVMExecutableModel_aeeeb260557b0d2f548a9eb28ecd2bb6c}} 
 virtual int {\bfseries get\+Num\+Conserved\+Moieties} ()
 \item 
-\mbox{\Hypertarget{classrrllvm_1_1LLVMExecutableModel_a102723a9109c051ea94fbdab971429cb}\label{classrrllvm_1_1LLVMExecutableModel_a102723a9109c051ea94fbdab971429cb}} 
-virtual int {\bfseries get\+Conserved\+Moiety\+Index} (const string \&name)
+\mbox{\Hypertarget{classrrllvm_1_1LLVMExecutableModel_a0ea0b31412ee348cc984bcfa27192b1e}\label{classrrllvm_1_1LLVMExecutableModel_a0ea0b31412ee348cc984bcfa27192b1e}} 
+virtual int {\bfseries get\+Conserved\+Moiety\+Index} (const std\+::string \&name)
 \item 
-\mbox{\Hypertarget{classrrllvm_1_1LLVMExecutableModel_aba9f3c46e13eaa15fac413acbc0de38c}\label{classrrllvm_1_1LLVMExecutableModel_aba9f3c46e13eaa15fac413acbc0de38c}} 
-virtual string {\bfseries get\+Conserved\+Moiety\+Id} (size\+\_\+t index)
+\mbox{\Hypertarget{classrrllvm_1_1LLVMExecutableModel_a53c4cdd025c1a7a942ede4c70fbbbb08}\label{classrrllvm_1_1LLVMExecutableModel_a53c4cdd025c1a7a942ede4c70fbbbb08}} 
+virtual std\+::string {\bfseries get\+Conserved\+Moiety\+Id} (size\+\_\+t index)
 \item 
 \mbox{\Hypertarget{classrrllvm_1_1LLVMExecutableModel_aeecb0706d6ba3b157becb0a4dd96808d}\label{classrrllvm_1_1LLVMExecutableModel_aeecb0706d6ba3b157becb0a4dd96808d}} 
 virtual int {\bfseries get\+Conserved\+Moiety\+Values} (size\+\_\+t len, int const $\ast$indx, double $\ast$values)
@@ -207,7 +206,7 @@ virtual void \mbox{\hyperlink{classrrllvm_1_1LLVMExecutableModel_aeede1447cf35aa
 virtual int \mbox{\hyperlink{classrrllvm_1_1LLVMExecutableModel_afc9f70eb3c72dfb52433629f8bb4bce2}{get\+Supported\+Id\+Types}} ()
 \begin{DoxyCompactList}\small\item\em returns a bit field of the ids that this class supports. \end{DoxyCompactList}\item 
 virtual double \mbox{\hyperlink{classrrllvm_1_1LLVMExecutableModel_ac4f4fe1667dcf4f0f848e3569e8bbe2b}{get\+Value}} (const std\+::string \&id)
-\begin{DoxyCompactList}\small\item\em gets the value for the given id string. \end{DoxyCompactList}\item 
+\begin{DoxyCompactList}\small\item\em gets the value for the given id std\+::string. \end{DoxyCompactList}\item 
 \mbox{\Hypertarget{classrrllvm_1_1LLVMExecutableModel_a1cbb2107a051b91a739f0f2992928ffa}\label{classrrllvm_1_1LLVMExecutableModel_a1cbb2107a051b91a739f0f2992928ffa}} 
 virtual void \mbox{\hyperlink{classrrllvm_1_1LLVMExecutableModel_a1cbb2107a051b91a739f0f2992928ffa}{set\+Value}} (const std\+::string \&id, double value)
 \begin{DoxyCompactList}\small\item\em sets the value coresponding to the given selection stringl \end{DoxyCompactList}\item 
@@ -282,7 +281,7 @@ virtual void {\bfseries set\+Event\+Listener} (size\+\_\+t index, \mbox{\hyperli
 virtual \mbox{\hyperlink{rrExecutableModel_8h_af42654ad469e89c71909fbbff90b3c07}{rr\+::\+Event\+Listener\+Ptr}} {\bfseries get\+Event\+Listener} (size\+\_\+t index)
 \item 
 virtual double \mbox{\hyperlink{classrrllvm_1_1LLVMExecutableModel_aba4cbc143e2a9ad641e8db160837e466}{get\+Floating\+Species\+Amount\+Rate}} (size\+\_\+t index, const double $\ast$reaction\+Rates)
-\begin{DoxyCompactList}\small\item\em Get the amount rate of change for the i\textquotesingle{}th floating species given a reaction rates vector. \end{DoxyCompactList}\item 
+\begin{DoxyCompactList}\small\item\em Get the amount rate of change for the i\textquotesingle{}th floating species given a reaction rates std\+::vector. \end{DoxyCompactList}\item 
 int \mbox{\hyperlink{classrrllvm_1_1LLVMExecutableModel_a8713add3c03f6f8c95bc533d2b4bbca9}{get\+Rate\+Rue\+Rates}} (size\+\_\+t len, int const $\ast$indx, double $\ast$values)
 \begin{DoxyCompactList}\small\item\em calculate rate rule values. \end{DoxyCompactList}\item 
 \mbox{\Hypertarget{classrrllvm_1_1LLVMExecutableModel_a806e03b71cc2026bfdc23cd3d5d344ef}\label{classrrllvm_1_1LLVMExecutableModel_a806e03b71cc2026bfdc23cd3d5d344ef}} 
@@ -423,7 +422,7 @@ Simplest method is to return 1 for triggered, -\/1 for not-\/triggered, so long 
 \begin{DoxyParams}{Parameters}
 {\em time\mbox{[}in\mbox{]}} & current time \\
 \hline
-{\em y\mbox{[}in\mbox{]}} & the state vector \\
+{\em y\mbox{[}in\mbox{]}} & the state std\+::vector \\
 \hline
 {\em gdot\mbox{[}out\mbox{]}} & result event roots, this is of length num\+Events. \\
 \hline
@@ -486,11 +485,11 @@ Implements \mbox{\hyperlink{classrr_1_1ExecutableModel_a07791b0ccd6feeb665278e98
 
 
 
-Get the amount rate of change for the i\textquotesingle{}th floating species given a reaction rates vector. 
+Get the amount rate of change for the i\textquotesingle{}th floating species given a reaction rates std\+::vector. 
 
 T\+O\+DO\+: This should be merged with get\+Floating\+Species\+Amount\+Rates, but that will break inteface, will do in next point release.
 
-T\+O\+DO\+: If the conversion factor changes in between getting the reaction rates vector via get\+Reaction\+Rates
+T\+O\+DO\+: If the conversion factor changes in between getting the reaction rates std\+::vector via get\+Reaction\+Rates
 
 
 \begin{DoxyParams}{Parameters}
@@ -614,7 +613,24 @@ J\+KM
 \end{DoxyDate}
 
 
-Reimplemented from \mbox{\hyperlink{classrr_1_1ExecutableModel_ab045cbd84ce98fb9dff8ff250fdb131c}{rr\+::\+Executable\+Model}}.
+Implements \mbox{\hyperlink{classrr_1_1ExecutableModel_aa1d89fd7d5690de7add613f5ce75b631}{rr\+::\+Executable\+Model}}.
+
+\mbox{\Hypertarget{classrrllvm_1_1LLVMExecutableModel_a979920ccd4f05575fe872a50dc4b368c}\label{classrrllvm_1_1LLVMExecutableModel_a979920ccd4f05575fe872a50dc4b368c}} 
+\index{rrllvm::LLVMExecutableModel@{rrllvm::LLVMExecutableModel}!getReactionIndex@{getReactionIndex}}
+\index{getReactionIndex@{getReactionIndex}!rrllvm::LLVMExecutableModel@{rrllvm::LLVMExecutableModel}}
+\doxysubsubsection{\texorpdfstring{getReactionIndex()}{getReactionIndex()}}
+{\footnotesize\ttfamily int rrllvm\+::\+L\+L\+V\+M\+Executable\+Model\+::get\+Reaction\+Index (\begin{DoxyParamCaption}\item[{const std\+::string \&}]{eid }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [virtual]}}
+
+
+
+get the index of a named reaction 
+
+\begin{DoxyReturn}{Returns}
+$>$= 0 on success, $<$ 0 on failure. 
+\end{DoxyReturn}
+
+
+Implements \mbox{\hyperlink{classrr_1_1ExecutableModel_a86fe96598b06cee5ca9a28dfdfd9d437}{rr\+::\+Executable\+Model}}.
 
 \mbox{\Hypertarget{classrrllvm_1_1LLVMExecutableModel_abdd14f103eb20ad8a4b5d5c89750f85b}\label{classrrllvm_1_1LLVMExecutableModel_abdd14f103eb20ad8a4b5d5c89750f85b}} 
 \index{rrllvm::LLVMExecutableModel@{rrllvm::LLVMExecutableModel}!getReactionRates@{getReactionRates}}
@@ -624,7 +640,7 @@ Reimplemented from \mbox{\hyperlink{classrr_1_1ExecutableModel_ab045cbd84ce98fb9
 
 
 
-get the vector of reaction rates. 
+get the std\+::vector of reaction rates. 
 
 
 \begin{DoxyParams}{Parameters}
@@ -647,15 +663,15 @@ Implements \mbox{\hyperlink{classrr_1_1ExecutableModel_a37c53cc370ff236657272f55
 
 
 
-copies the internal model state vector into the provided buffer. 
+copies the internal model state std\+::vector into the provided buffer. 
 
 
 \begin{DoxyParams}[1]{Parameters}
-\mbox{\texttt{ out}}  & {\em state\+Vector} & a buffer to copy the state vector into, if N\+U\+LL, return the size required.\\
+\mbox{\texttt{ out}}  & {\em state\+Vector} & a buffer to copy the state std\+::vector into, if N\+U\+LL, return the size required.\\
 \hline
 \end{DoxyParams}
 \begin{DoxyReturn}{Returns}
-the number of items coppied into the provided buffer, if state\+Vector is N\+U\+LL, returns the length of the state vector. 
+the number of items coppied into the provided buffer, if state\+Vector is N\+U\+LL, returns the length of the state std\+::vector. 
 \end{DoxyReturn}
 
 
@@ -671,17 +687,17 @@ Implements \mbox{\hyperlink{classrr_1_1ExecutableModel_a75b6f37ac538d2d2a0709fe4
 
 where most of the juicy bits occur. 
 
-the state vector y is the rate rule values and floating species concentrations concatenated. y is of length num\+Floating\+Species + num\+Rate\+Rules.
+the state std\+::vector y is the rate rule values and floating species concentrations concatenated. y is of length num\+Floating\+Species + num\+Rate\+Rules.
 
-The state vector is packed such that the first n raterule elements are the values of the rate rules, and the last n floatingspecies are the floating species values.
+The state std\+::vector is packed such that the first n raterule elements are the values of the rate rules, and the last n floatingspecies are the floating species values.
 
 
 \begin{DoxyParams}[1]{Parameters}
 \mbox{\texttt{ in}}  & {\em time} & current simulator time \\
 \hline
-\mbox{\texttt{ in}}  & {\em y} & state vector, must be of size returned by get\+State\+Vector \\
+\mbox{\texttt{ in}}  & {\em y} & state std\+::vector, must be of size returned by get\+State\+Vector \\
 \hline
-\mbox{\texttt{ out}}  & {\em dydt} & calculated rate of change of the state vector, if null, it is ignored. \\
+\mbox{\texttt{ out}}  & {\em dydt} & calculated rate of change of the state std\+::vector, if null, it is ignored. \\
 \hline
 \end{DoxyParams}
 
@@ -735,9 +751,9 @@ Implements \mbox{\hyperlink{classrr_1_1ExecutableModel_a2aacbf75ac32b2b188f7850c
 
 
 
-gets the value for the given id string. 
+gets the value for the given id std\+::string. 
 
-The string must be a Selection\+Record string that is accepted by this class. 
+The std\+::string must be a Selection\+Record std\+::string that is accepted by this class. 
 
 Implements \mbox{\hyperlink{classrr_1_1ExecutableModel_aebaced13ef2afd070d7a1c35eec8d9f2}{rr\+::\+Executable\+Model}}.
 
@@ -890,15 +906,15 @@ Implements \mbox{\hyperlink{classrr_1_1ExecutableModel_aa5b4c23527fab27a54ac279d
 
 
 
-sets the internal model state to the provided packed state vector. 
+sets the internal model state to the provided packed state std\+::vector. 
 
 
 \begin{DoxyParams}[1]{Parameters}
-\mbox{\texttt{ in}}  & {\em an} & array which holds the packed state vector, must be at least the size returned by get\+State\+Vector.\\
+\mbox{\texttt{ in}}  & {\em an} & array which holds the packed state std\+::vector, must be at least the size returned by get\+State\+Vector.\\
 \hline
 \end{DoxyParams}
 \begin{DoxyReturn}{Returns}
-the number of items copied from the state vector, negative on failure. 
+the number of items copied from the state std\+::vector, negative on failure. 
 \end{DoxyReturn}
 
 

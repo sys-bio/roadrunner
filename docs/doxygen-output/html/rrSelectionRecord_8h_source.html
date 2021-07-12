@@ -22,7 +22,7 @@
  <tr style="height: 56px;">
   <td id="projectalign" style="padding-left: 0.5em;">
    <div id="projectname">roadrunner
-   &#160;<span id="projectnumber">2.0.5</span>
+   &#160;<span id="projectnumber">2.0.8</span>
    </div>
    <div id="projectbrief">Fast simulator for SBML models</div>
   </td>
@@ -73,170 +73,172 @@ $(function() {
 <div class="line"><a name="l00004"></a><span class="lineno">    4</span>&#160;<span class="preprocessor">#include &lt;ostream&gt;</span></div>
 <div class="line"><a name="l00005"></a><span class="lineno">    5</span>&#160;<span class="preprocessor">#include &lt;string&gt;</span></div>
 <div class="line"><a name="l00006"></a><span class="lineno">    6</span>&#160; </div>
-<div class="line"><a name="l00007"></a><span class="lineno">    7</span>&#160;<span class="keyword">namespace </span>rr</div>
-<div class="line"><a name="l00008"></a><span class="lineno">    8</span>&#160;{</div>
-<div class="line"><a name="l00009"></a><span class="lineno">    9</span>&#160;<span class="keyword">using</span> std::string;</div>
-<div class="line"><a name="l00010"></a><span class="lineno">   10</span>&#160;<span class="keyword">using</span> std::ostream;</div>
-<div class="line"><a name="l00011"></a><span class="lineno">   11</span>&#160; </div>
-<div class="line"><a name="l00015"></a><span class="lineno"><a class="line" href="classrr_1_1SelectionRecord.html">   15</a></span>&#160;<span class="keyword">class </span>RR_DECLSPEC <a class="code" href="classrr_1_1SelectionRecord.html">SelectionRecord</a></div>
-<div class="line"><a name="l00016"></a><span class="lineno">   16</span>&#160;{</div>
-<div class="line"><a name="l00017"></a><span class="lineno">   17</span>&#160;<span class="keyword">public</span>:</div>
-<div class="line"><a name="l00018"></a><span class="lineno"><a class="line" href="classrr_1_1SelectionRecord.html#a898963ab24a6ba614913715c981d8394">   18</a></span>&#160;    <span class="keyword">enum</span> <a class="code" href="classrr_1_1SelectionRecord.html#a898963ab24a6ba614913715c981d8394">SelectionType</a></div>
-<div class="line"><a name="l00019"></a><span class="lineno">   19</span>&#160;    {</div>
-<div class="line"><a name="l00023"></a><span class="lineno"><a class="line" href="classrr_1_1SelectionRecord.html#a898963ab24a6ba614913715c981d8394add36248cdf4b1f588dd6fdd11855b012">   23</a></span>&#160;        TIME =                              (0x1 &lt;&lt; 0),  <span class="comment">// =&gt; 0x00000001,</span></div>
-<div class="line"><a name="l00024"></a><span class="lineno">   24</span>&#160; </div>
-<div class="line"><a name="l00029"></a><span class="lineno"><a class="line" href="classrr_1_1SelectionRecord.html#a898963ab24a6ba614913715c981d8394ae72dbc661f328ef509b24a1d4b895672">   29</a></span>&#160;        CONCENTRATION =                     (0x1 &lt;&lt; 1),</div>
-<div class="line"><a name="l00030"></a><span class="lineno">   30</span>&#160; </div>
-<div class="line"><a name="l00035"></a><span class="lineno"><a class="line" href="classrr_1_1SelectionRecord.html#a898963ab24a6ba614913715c981d8394aa8e1a28e890003044b5c4d71077862fe">   35</a></span>&#160;        AMOUNT =                            (0x1 &lt;&lt; 2),</div>
-<div class="line"><a name="l00036"></a><span class="lineno">   36</span>&#160; </div>
-<div class="line"><a name="l00040"></a><span class="lineno"><a class="line" href="classrr_1_1SelectionRecord.html#a898963ab24a6ba614913715c981d8394a2235d37b12b17d658b8f33a87712c806">   40</a></span>&#160;        RATE =                              (0x1 &lt;&lt; 3),</div>
-<div class="line"><a name="l00041"></a><span class="lineno">   41</span>&#160; </div>
-<div class="line"><a name="l00046"></a><span class="lineno"><a class="line" href="classrr_1_1SelectionRecord.html#a898963ab24a6ba614913715c981d8394a97983fd26f427d96e0a318d676b4c087">   46</a></span>&#160;        BOUNDARY =                          (0x1 &lt;&lt; 4),</div>
-<div class="line"><a name="l00051"></a><span class="lineno"><a class="line" href="classrr_1_1SelectionRecord.html#a898963ab24a6ba614913715c981d8394a6782153cdd565a17aef949662aa11a4a">   51</a></span>&#160;        FLOATING =                          (0x1 &lt;&lt; 5),</div>
-<div class="line"><a name="l00052"></a><span class="lineno">   52</span>&#160; </div>
-<div class="line"><a name="l00059"></a><span class="lineno"><a class="line" href="classrr_1_1SelectionRecord.html#a898963ab24a6ba614913715c981d8394a4cfafd7db04d37e6776a5305f3919a95">   59</a></span>&#160;        _COMPARTMENT =                      (0x1 &lt;&lt; 6),</div>
-<div class="line"><a name="l00060"></a><span class="lineno">   60</span>&#160; </div>
-<div class="line"><a name="l00067"></a><span class="lineno"><a class="line" href="classrr_1_1SelectionRecord.html#a898963ab24a6ba614913715c981d8394aa5791049b0e78ca11971abb1d1f9636c">   67</a></span>&#160;        _GLOBAL_PARAMETER =                 (0x1 &lt;&lt; 7),</div>
-<div class="line"><a name="l00068"></a><span class="lineno">   68</span>&#160; </div>
-<div class="line"><a name="l00072"></a><span class="lineno"><a class="line" href="classrr_1_1SelectionRecord.html#a898963ab24a6ba614913715c981d8394ab324bc886789f735bfb63ee1906606a7">   72</a></span>&#160;        REACTION =                          (0x1 &lt;&lt; 8),</div>
-<div class="line"><a name="l00073"></a><span class="lineno">   73</span>&#160; </div>
-<div class="line"><a name="l00078"></a><span class="lineno"><a class="line" href="classrr_1_1SelectionRecord.html#a898963ab24a6ba614913715c981d8394af9b29d29725646241b8abc86f54fab83">   78</a></span>&#160;        INITIAL =                           (0x1 &lt;&lt; 9),</div>
-<div class="line"><a name="l00079"></a><span class="lineno">   79</span>&#160; </div>
-<div class="line"><a name="l00084"></a><span class="lineno"><a class="line" href="classrr_1_1SelectionRecord.html#a898963ab24a6ba614913715c981d8394a7970cc9cb4171e0e6d4bbf27dbc03dac">   84</a></span>&#160;        CURRENT =                           (0x1 &lt;&lt; 10),</div>
-<div class="line"><a name="l00085"></a><span class="lineno">   85</span>&#160; </div>
-<div class="line"><a name="l00089"></a><span class="lineno"><a class="line" href="classrr_1_1SelectionRecord.html#a898963ab24a6ba614913715c981d8394a01193eeb0025a4fb1aa45bfaf42745c4">   89</a></span>&#160;        UNSCALED =                          (0x1 &lt;&lt; 11),</div>
-<div class="line"><a name="l00090"></a><span class="lineno">   90</span>&#160; </div>
-<div class="line"><a name="l00094"></a><span class="lineno"><a class="line" href="classrr_1_1SelectionRecord.html#a898963ab24a6ba614913715c981d8394a6132e0add959431deb8a3684a4a7f8a4">   94</a></span>&#160;        ELASTICITY =                        (0x1 &lt;&lt; 12),</div>
-<div class="line"><a name="l00095"></a><span class="lineno">   95</span>&#160; </div>
-<div class="line"><a name="l00099"></a><span class="lineno"><a class="line" href="classrr_1_1SelectionRecord.html#a898963ab24a6ba614913715c981d8394a6a29116cc7216218cd1513bd029624cb">   99</a></span>&#160;        CONTROL =                           (0x1 &lt;&lt; 13),</div>
-<div class="line"><a name="l00100"></a><span class="lineno">  100</span>&#160; </div>
-<div class="line"><a name="l00104"></a><span class="lineno"><a class="line" href="classrr_1_1SelectionRecord.html#a898963ab24a6ba614913715c981d8394aef9a8e9bf3eaae38c6a4bc366a81b290">  104</a></span>&#160;        EIGENVALUE_REAL =                   (0x1 &lt;&lt; 14),</div>
-<div class="line"><a name="l00105"></a><span class="lineno">  105</span>&#160; </div>
-<div class="line"><a name="l00109"></a><span class="lineno"><a class="line" href="classrr_1_1SelectionRecord.html#a898963ab24a6ba614913715c981d8394acf9e2386b61e0601e991e6f9098b0a9e">  109</a></span>&#160;        ELEMENT =                           (0x1 &lt;&lt; 15),</div>
-<div class="line"><a name="l00110"></a><span class="lineno">  110</span>&#160; </div>
-<div class="line"><a name="l00114"></a><span class="lineno"><a class="line" href="classrr_1_1SelectionRecord.html#a898963ab24a6ba614913715c981d8394ac9c744f62b4c2a7854162775973e07bf">  114</a></span>&#160;        STOICHIOMETRY =                     (0x1 &lt;&lt; 16),</div>
-<div class="line"><a name="l00115"></a><span class="lineno">  115</span>&#160; </div>
-<div class="line"><a name="l00119"></a><span class="lineno"><a class="line" href="classrr_1_1SelectionRecord.html#a898963ab24a6ba614913715c981d8394ac49b992764e069258380f3effa097121">  119</a></span>&#160;        UNKNOWN =                           (0x1 &lt;&lt; 17),</div>
-<div class="line"><a name="l00120"></a><span class="lineno">  120</span>&#160; </div>
-<div class="line"><a name="l00124"></a><span class="lineno"><a class="line" href="classrr_1_1SelectionRecord.html#a898963ab24a6ba614913715c981d8394a17cfd7af15fff7aaac2aa9f3a0127b2a">  124</a></span>&#160;        DEPENDENT =                         (0x1 &lt;&lt; 18),</div>
-<div class="line"><a name="l00125"></a><span class="lineno">  125</span>&#160; </div>
-<div class="line"><a name="l00129"></a><span class="lineno"><a class="line" href="classrr_1_1SelectionRecord.html#a898963ab24a6ba614913715c981d8394ad2c8b91f1396688ab7945fd115ea821e">  129</a></span>&#160;        INDEPENDENT =                       (0x1 &lt;&lt; 19),</div>
-<div class="line"><a name="l00130"></a><span class="lineno">  130</span>&#160; </div>
-<div class="line"><a name="l00134"></a><span class="lineno"><a class="line" href="classrr_1_1SelectionRecord.html#a898963ab24a6ba614913715c981d8394a0ddde2cdd2b9169b7cdd51082b4b3e45">  134</a></span>&#160;        CONSERVED_MOIETY =                  (0x1 &lt;&lt; 20),</div>
-<div class="line"><a name="l00135"></a><span class="lineno">  135</span>&#160; </div>
-<div class="line"><a name="l00139"></a><span class="lineno"><a class="line" href="classrr_1_1SelectionRecord.html#a898963ab24a6ba614913715c981d8394affd2f3ff0ba9a13a69df1c6ad5d51e88">  139</a></span>&#160;        STATE_VECTOR =                      (0x1 &lt;&lt; 21),</div>
-<div class="line"><a name="l00140"></a><span class="lineno">  140</span>&#160; </div>
-<div class="line"><a name="l00144"></a><span class="lineno"><a class="line" href="classrr_1_1SelectionRecord.html#a898963ab24a6ba614913715c981d8394a66324e5a359e47a28cc148b14cbfed32">  144</a></span>&#160;        EVENT =                             (0x1 &lt;&lt; 22),</div>
-<div class="line"><a name="l00145"></a><span class="lineno">  145</span>&#160; </div>
-<div class="line"><a name="l00151"></a><span class="lineno"><a class="line" href="classrr_1_1SelectionRecord.html#a898963ab24a6ba614913715c981d8394aad1a91b29af006a8225fa97e2bc1ef72">  151</a></span>&#160;        EIGENVALUE_IMAG =                    (0x1 &lt;&lt; 23),</div>
-<div class="line"><a name="l00152"></a><span class="lineno">  152</span>&#160; </div>
-<div class="line"><a name="l00156"></a><span class="lineno"><a class="line" href="classrr_1_1SelectionRecord.html#a898963ab24a6ba614913715c981d8394a3a2fe85e292d8ed2f4f80c55b6960a14">  156</a></span>&#160;        EIGENVALUE_COMPLEX =                EIGENVALUE_REAL | EIGENVALUE_IMAG,</div>
-<div class="line"><a name="l00157"></a><span class="lineno">  157</span>&#160; </div>
-<div class="line"><a name="l00161"></a><span class="lineno"><a class="line" href="classrr_1_1SelectionRecord.html#a898963ab24a6ba614913715c981d8394a09e554a1b9dffe758c0f7104cd3acbea">  161</a></span>&#160;        UNKNOWN_CONCENTRATION =             UNKNOWN | CONCENTRATION,</div>
-<div class="line"><a name="l00162"></a><span class="lineno">  162</span>&#160; </div>
-<div class="line"><a name="l00166"></a><span class="lineno"><a class="line" href="classrr_1_1SelectionRecord.html#a898963ab24a6ba614913715c981d8394ad85e8fa280643ea91b202647dc90058d">  166</a></span>&#160;        COMPARTMENT =                       _COMPARTMENT | INDEPENDENT | DEPENDENT | CURRENT,</div>
-<div class="line"><a name="l00167"></a><span class="lineno">  167</span>&#160; </div>
-<div class="line"><a name="l00171"></a><span class="lineno"><a class="line" href="classrr_1_1SelectionRecord.html#a898963ab24a6ba614913715c981d8394a928fc146c94a09862bd41bac7707c678">  171</a></span>&#160;        GLOBAL_PARAMETER =                  _GLOBAL_PARAMETER | INDEPENDENT | DEPENDENT | CURRENT,</div>
-<div class="line"><a name="l00172"></a><span class="lineno">  172</span>&#160; </div>
-<div class="line"><a name="l00176"></a><span class="lineno"><a class="line" href="classrr_1_1SelectionRecord.html#a898963ab24a6ba614913715c981d8394a97ca399197e5fd929907a0ed4d89376a">  176</a></span>&#160;        FLOATING_AMOUNT =                   FLOATING | AMOUNT | INDEPENDENT | DEPENDENT | CURRENT,</div>
-<div class="line"><a name="l00177"></a><span class="lineno">  177</span>&#160; </div>
-<div class="line"><a name="l00181"></a><span class="lineno"><a class="line" href="classrr_1_1SelectionRecord.html#a898963ab24a6ba614913715c981d8394a6f87b59e6fc23b804b1508b190b63c6b">  181</a></span>&#160;        INDEPENDENT_FLOATING_AMOUNT =       FLOATING | AMOUNT | INDEPENDENT | CURRENT,</div>
-<div class="line"><a name="l00182"></a><span class="lineno">  182</span>&#160; </div>
-<div class="line"><a name="l00186"></a><span class="lineno"><a class="line" href="classrr_1_1SelectionRecord.html#a898963ab24a6ba614913715c981d8394aa08447b81625696af0c8f619d00652c9">  186</a></span>&#160;        DEPENDENT_FLOATING_AMOUNT =         FLOATING | AMOUNT | DEPENDENT   | CURRENT,</div>
-<div class="line"><a name="l00187"></a><span class="lineno">  187</span>&#160; </div>
-<div class="line"><a name="l00191"></a><span class="lineno"><a class="line" href="classrr_1_1SelectionRecord.html#a898963ab24a6ba614913715c981d8394aaa2ec44f8ba163da3928c57efd91a6fa">  191</a></span>&#160;        BOUNDARY_AMOUNT =                   BOUNDARY | AMOUNT | INDEPENDENT | DEPENDENT | CURRENT,</div>
-<div class="line"><a name="l00192"></a><span class="lineno">  192</span>&#160; </div>
-<div class="line"><a name="l00196"></a><span class="lineno"><a class="line" href="classrr_1_1SelectionRecord.html#a898963ab24a6ba614913715c981d8394ae02e022418ffd5b35b6f68bf46842d28">  196</a></span>&#160;        BOUNDARY_CONCENTRATION =            BOUNDARY | CONCENTRATION | INDEPENDENT | DEPENDENT | CURRENT,</div>
-<div class="line"><a name="l00197"></a><span class="lineno">  197</span>&#160; </div>
-<div class="line"><a name="l00201"></a><span class="lineno"><a class="line" href="classrr_1_1SelectionRecord.html#a898963ab24a6ba614913715c981d8394a273f59f060edd0d4085773a15bc2e936">  201</a></span>&#160;        FLOATING_CONCENTRATION =            FLOATING | CONCENTRATION | INDEPENDENT | DEPENDENT | CURRENT,</div>
-<div class="line"><a name="l00202"></a><span class="lineno">  202</span>&#160; </div>
-<div class="line"><a name="l00207"></a><span class="lineno"><a class="line" href="classrr_1_1SelectionRecord.html#a898963ab24a6ba614913715c981d8394ac8d68d5b70417c692c1a88fe9b2d16a6">  207</a></span>&#160;        FLOATING_AMOUNT_RATE =              FLOATING | RATE | DEPENDENT,</div>
-<div class="line"><a name="l00208"></a><span class="lineno">  208</span>&#160; </div>
-<div class="line"><a name="l00213"></a><span class="lineno"><a class="line" href="classrr_1_1SelectionRecord.html#a898963ab24a6ba614913715c981d8394aea618f54792dbf90539f21ef7964073f">  213</a></span>&#160;        FLOATING_CONCENTRATION_RATE =       FLOATING | CONCENTRATION | RATE | DEPENDENT,</div>
-<div class="line"><a name="l00214"></a><span class="lineno">  214</span>&#160; </div>
+<div class="line"><a name="l00007"></a><span class="lineno">    7</span>&#160; </div>
+<div class="line"><a name="l00008"></a><span class="lineno">    8</span>&#160; </div>
+<div class="line"><a name="l00009"></a><span class="lineno">    9</span>&#160;<span class="keyword">namespace </span>rr</div>
+<div class="line"><a name="l00010"></a><span class="lineno">   10</span>&#160;{</div>
+<div class="line"><a name="l00011"></a><span class="lineno">   11</span>&#160;<span class="keyword">using</span> std::string;</div>
+<div class="line"><a name="l00012"></a><span class="lineno">   12</span>&#160;<span class="keyword">using</span> std::ostream;</div>
+<div class="line"><a name="l00013"></a><span class="lineno">   13</span>&#160; </div>
+<div class="line"><a name="l00017"></a><span class="lineno"><a class="line" href="classrr_1_1SelectionRecord.html">   17</a></span>&#160;<span class="keyword">class </span>RR_DECLSPEC <a class="code" href="classrr_1_1SelectionRecord.html">SelectionRecord</a></div>
+<div class="line"><a name="l00018"></a><span class="lineno">   18</span>&#160;{</div>
+<div class="line"><a name="l00019"></a><span class="lineno">   19</span>&#160;<span class="keyword">public</span>:</div>
+<div class="line"><a name="l00020"></a><span class="lineno"><a class="line" href="classrr_1_1SelectionRecord.html#a898963ab24a6ba614913715c981d8394">   20</a></span>&#160;    <span class="keyword">enum</span> <a class="code" href="classrr_1_1SelectionRecord.html#a898963ab24a6ba614913715c981d8394">SelectionType</a></div>
+<div class="line"><a name="l00021"></a><span class="lineno">   21</span>&#160;    {</div>
+<div class="line"><a name="l00025"></a><span class="lineno"><a class="line" href="classrr_1_1SelectionRecord.html#a898963ab24a6ba614913715c981d8394add36248cdf4b1f588dd6fdd11855b012">   25</a></span>&#160;        TIME =                              (0x1 &lt;&lt; 0),  <span class="comment">// =&gt; 0x00000001,</span></div>
+<div class="line"><a name="l00026"></a><span class="lineno">   26</span>&#160; </div>
+<div class="line"><a name="l00031"></a><span class="lineno"><a class="line" href="classrr_1_1SelectionRecord.html#a898963ab24a6ba614913715c981d8394ae72dbc661f328ef509b24a1d4b895672">   31</a></span>&#160;        CONCENTRATION =                     (0x1 &lt;&lt; 1),</div>
+<div class="line"><a name="l00032"></a><span class="lineno">   32</span>&#160; </div>
+<div class="line"><a name="l00037"></a><span class="lineno"><a class="line" href="classrr_1_1SelectionRecord.html#a898963ab24a6ba614913715c981d8394aa8e1a28e890003044b5c4d71077862fe">   37</a></span>&#160;        AMOUNT =                            (0x1 &lt;&lt; 2),</div>
+<div class="line"><a name="l00038"></a><span class="lineno">   38</span>&#160; </div>
+<div class="line"><a name="l00042"></a><span class="lineno"><a class="line" href="classrr_1_1SelectionRecord.html#a898963ab24a6ba614913715c981d8394a2235d37b12b17d658b8f33a87712c806">   42</a></span>&#160;        RATE =                              (0x1 &lt;&lt; 3),</div>
+<div class="line"><a name="l00043"></a><span class="lineno">   43</span>&#160; </div>
+<div class="line"><a name="l00048"></a><span class="lineno"><a class="line" href="classrr_1_1SelectionRecord.html#a898963ab24a6ba614913715c981d8394a97983fd26f427d96e0a318d676b4c087">   48</a></span>&#160;        BOUNDARY =                          (0x1 &lt;&lt; 4),</div>
+<div class="line"><a name="l00053"></a><span class="lineno"><a class="line" href="classrr_1_1SelectionRecord.html#a898963ab24a6ba614913715c981d8394a6782153cdd565a17aef949662aa11a4a">   53</a></span>&#160;        FLOATING =                          (0x1 &lt;&lt; 5),</div>
+<div class="line"><a name="l00054"></a><span class="lineno">   54</span>&#160; </div>
+<div class="line"><a name="l00061"></a><span class="lineno"><a class="line" href="classrr_1_1SelectionRecord.html#a898963ab24a6ba614913715c981d8394a4cfafd7db04d37e6776a5305f3919a95">   61</a></span>&#160;        _COMPARTMENT =                      (0x1 &lt;&lt; 6),</div>
+<div class="line"><a name="l00062"></a><span class="lineno">   62</span>&#160; </div>
+<div class="line"><a name="l00069"></a><span class="lineno"><a class="line" href="classrr_1_1SelectionRecord.html#a898963ab24a6ba614913715c981d8394aa5791049b0e78ca11971abb1d1f9636c">   69</a></span>&#160;        _GLOBAL_PARAMETER =                 (0x1 &lt;&lt; 7),</div>
+<div class="line"><a name="l00070"></a><span class="lineno">   70</span>&#160; </div>
+<div class="line"><a name="l00074"></a><span class="lineno"><a class="line" href="classrr_1_1SelectionRecord.html#a898963ab24a6ba614913715c981d8394ab324bc886789f735bfb63ee1906606a7">   74</a></span>&#160;        REACTION =                          (0x1 &lt;&lt; 8),</div>
+<div class="line"><a name="l00075"></a><span class="lineno">   75</span>&#160; </div>
+<div class="line"><a name="l00080"></a><span class="lineno"><a class="line" href="classrr_1_1SelectionRecord.html#a898963ab24a6ba614913715c981d8394af9b29d29725646241b8abc86f54fab83">   80</a></span>&#160;        INITIAL =                           (0x1 &lt;&lt; 9),</div>
+<div class="line"><a name="l00081"></a><span class="lineno">   81</span>&#160; </div>
+<div class="line"><a name="l00086"></a><span class="lineno"><a class="line" href="classrr_1_1SelectionRecord.html#a898963ab24a6ba614913715c981d8394a7970cc9cb4171e0e6d4bbf27dbc03dac">   86</a></span>&#160;        CURRENT =                           (0x1 &lt;&lt; 10),</div>
+<div class="line"><a name="l00087"></a><span class="lineno">   87</span>&#160; </div>
+<div class="line"><a name="l00091"></a><span class="lineno"><a class="line" href="classrr_1_1SelectionRecord.html#a898963ab24a6ba614913715c981d8394a01193eeb0025a4fb1aa45bfaf42745c4">   91</a></span>&#160;        UNSCALED =                          (0x1 &lt;&lt; 11),</div>
+<div class="line"><a name="l00092"></a><span class="lineno">   92</span>&#160; </div>
+<div class="line"><a name="l00096"></a><span class="lineno"><a class="line" href="classrr_1_1SelectionRecord.html#a898963ab24a6ba614913715c981d8394a6132e0add959431deb8a3684a4a7f8a4">   96</a></span>&#160;        ELASTICITY =                        (0x1 &lt;&lt; 12),</div>
+<div class="line"><a name="l00097"></a><span class="lineno">   97</span>&#160; </div>
+<div class="line"><a name="l00101"></a><span class="lineno"><a class="line" href="classrr_1_1SelectionRecord.html#a898963ab24a6ba614913715c981d8394a6a29116cc7216218cd1513bd029624cb">  101</a></span>&#160;        CONTROL =                           (0x1 &lt;&lt; 13),</div>
+<div class="line"><a name="l00102"></a><span class="lineno">  102</span>&#160; </div>
+<div class="line"><a name="l00106"></a><span class="lineno"><a class="line" href="classrr_1_1SelectionRecord.html#a898963ab24a6ba614913715c981d8394aef9a8e9bf3eaae38c6a4bc366a81b290">  106</a></span>&#160;        EIGENVALUE_REAL =                   (0x1 &lt;&lt; 14),</div>
+<div class="line"><a name="l00107"></a><span class="lineno">  107</span>&#160; </div>
+<div class="line"><a name="l00111"></a><span class="lineno"><a class="line" href="classrr_1_1SelectionRecord.html#a898963ab24a6ba614913715c981d8394acf9e2386b61e0601e991e6f9098b0a9e">  111</a></span>&#160;        ELEMENT =                           (0x1 &lt;&lt; 15),</div>
+<div class="line"><a name="l00112"></a><span class="lineno">  112</span>&#160; </div>
+<div class="line"><a name="l00116"></a><span class="lineno"><a class="line" href="classrr_1_1SelectionRecord.html#a898963ab24a6ba614913715c981d8394ac9c744f62b4c2a7854162775973e07bf">  116</a></span>&#160;        STOICHIOMETRY =                     (0x1 &lt;&lt; 16),</div>
+<div class="line"><a name="l00117"></a><span class="lineno">  117</span>&#160; </div>
+<div class="line"><a name="l00121"></a><span class="lineno"><a class="line" href="classrr_1_1SelectionRecord.html#a898963ab24a6ba614913715c981d8394ac49b992764e069258380f3effa097121">  121</a></span>&#160;        UNKNOWN =                           (0x1 &lt;&lt; 17),</div>
+<div class="line"><a name="l00122"></a><span class="lineno">  122</span>&#160; </div>
+<div class="line"><a name="l00126"></a><span class="lineno"><a class="line" href="classrr_1_1SelectionRecord.html#a898963ab24a6ba614913715c981d8394a17cfd7af15fff7aaac2aa9f3a0127b2a">  126</a></span>&#160;        DEPENDENT =                         (0x1 &lt;&lt; 18),</div>
+<div class="line"><a name="l00127"></a><span class="lineno">  127</span>&#160; </div>
+<div class="line"><a name="l00131"></a><span class="lineno"><a class="line" href="classrr_1_1SelectionRecord.html#a898963ab24a6ba614913715c981d8394ad2c8b91f1396688ab7945fd115ea821e">  131</a></span>&#160;        INDEPENDENT =                       (0x1 &lt;&lt; 19),</div>
+<div class="line"><a name="l00132"></a><span class="lineno">  132</span>&#160; </div>
+<div class="line"><a name="l00136"></a><span class="lineno"><a class="line" href="classrr_1_1SelectionRecord.html#a898963ab24a6ba614913715c981d8394a0ddde2cdd2b9169b7cdd51082b4b3e45">  136</a></span>&#160;        CONSERVED_MOIETY =                  (0x1 &lt;&lt; 20),</div>
+<div class="line"><a name="l00137"></a><span class="lineno">  137</span>&#160; </div>
+<div class="line"><a name="l00141"></a><span class="lineno"><a class="line" href="classrr_1_1SelectionRecord.html#a898963ab24a6ba614913715c981d8394affd2f3ff0ba9a13a69df1c6ad5d51e88">  141</a></span>&#160;        STATE_VECTOR =                      (0x1 &lt;&lt; 21),</div>
+<div class="line"><a name="l00142"></a><span class="lineno">  142</span>&#160; </div>
+<div class="line"><a name="l00146"></a><span class="lineno"><a class="line" href="classrr_1_1SelectionRecord.html#a898963ab24a6ba614913715c981d8394a66324e5a359e47a28cc148b14cbfed32">  146</a></span>&#160;        EVENT =                             (0x1 &lt;&lt; 22),</div>
+<div class="line"><a name="l00147"></a><span class="lineno">  147</span>&#160; </div>
+<div class="line"><a name="l00153"></a><span class="lineno"><a class="line" href="classrr_1_1SelectionRecord.html#a898963ab24a6ba614913715c981d8394aad1a91b29af006a8225fa97e2bc1ef72">  153</a></span>&#160;        EIGENVALUE_IMAG =                    (0x1 &lt;&lt; 23),</div>
+<div class="line"><a name="l00154"></a><span class="lineno">  154</span>&#160; </div>
+<div class="line"><a name="l00158"></a><span class="lineno"><a class="line" href="classrr_1_1SelectionRecord.html#a898963ab24a6ba614913715c981d8394aa8a8dd7317ca1dcd33f7acb018dab6dc">  158</a></span>&#160;        ALL =                               (0xffffffff),</div>
+<div class="line"><a name="l00159"></a><span class="lineno">  159</span>&#160; </div>
+<div class="line"><a name="l00163"></a><span class="lineno"><a class="line" href="classrr_1_1SelectionRecord.html#a898963ab24a6ba614913715c981d8394a3a2fe85e292d8ed2f4f80c55b6960a14">  163</a></span>&#160;        EIGENVALUE_COMPLEX =                EIGENVALUE_REAL | EIGENVALUE_IMAG,</div>
+<div class="line"><a name="l00164"></a><span class="lineno">  164</span>&#160; </div>
+<div class="line"><a name="l00168"></a><span class="lineno"><a class="line" href="classrr_1_1SelectionRecord.html#a898963ab24a6ba614913715c981d8394a09e554a1b9dffe758c0f7104cd3acbea">  168</a></span>&#160;        UNKNOWN_CONCENTRATION =             UNKNOWN | CONCENTRATION,</div>
+<div class="line"><a name="l00169"></a><span class="lineno">  169</span>&#160; </div>
+<div class="line"><a name="l00173"></a><span class="lineno"><a class="line" href="classrr_1_1SelectionRecord.html#a898963ab24a6ba614913715c981d8394ad85e8fa280643ea91b202647dc90058d">  173</a></span>&#160;        COMPARTMENT =                       _COMPARTMENT | INDEPENDENT | DEPENDENT | CURRENT,</div>
+<div class="line"><a name="l00174"></a><span class="lineno">  174</span>&#160; </div>
+<div class="line"><a name="l00178"></a><span class="lineno"><a class="line" href="classrr_1_1SelectionRecord.html#a898963ab24a6ba614913715c981d8394a928fc146c94a09862bd41bac7707c678">  178</a></span>&#160;        GLOBAL_PARAMETER =                  _GLOBAL_PARAMETER | INDEPENDENT | DEPENDENT | CURRENT,</div>
+<div class="line"><a name="l00179"></a><span class="lineno">  179</span>&#160; </div>
+<div class="line"><a name="l00183"></a><span class="lineno"><a class="line" href="classrr_1_1SelectionRecord.html#a898963ab24a6ba614913715c981d8394a97ca399197e5fd929907a0ed4d89376a">  183</a></span>&#160;        FLOATING_AMOUNT =                   FLOATING | AMOUNT | INDEPENDENT | DEPENDENT | CURRENT,</div>
+<div class="line"><a name="l00184"></a><span class="lineno">  184</span>&#160; </div>
+<div class="line"><a name="l00188"></a><span class="lineno"><a class="line" href="classrr_1_1SelectionRecord.html#a898963ab24a6ba614913715c981d8394a6f87b59e6fc23b804b1508b190b63c6b">  188</a></span>&#160;        INDEPENDENT_FLOATING_AMOUNT =       FLOATING | AMOUNT | INDEPENDENT | CURRENT,</div>
+<div class="line"><a name="l00189"></a><span class="lineno">  189</span>&#160; </div>
+<div class="line"><a name="l00193"></a><span class="lineno"><a class="line" href="classrr_1_1SelectionRecord.html#a898963ab24a6ba614913715c981d8394aa08447b81625696af0c8f619d00652c9">  193</a></span>&#160;        DEPENDENT_FLOATING_AMOUNT =         FLOATING | AMOUNT | DEPENDENT   | CURRENT,</div>
+<div class="line"><a name="l00194"></a><span class="lineno">  194</span>&#160; </div>
+<div class="line"><a name="l00198"></a><span class="lineno"><a class="line" href="classrr_1_1SelectionRecord.html#a898963ab24a6ba614913715c981d8394aaa2ec44f8ba163da3928c57efd91a6fa">  198</a></span>&#160;        BOUNDARY_AMOUNT =                   BOUNDARY | AMOUNT | INDEPENDENT | DEPENDENT | CURRENT,</div>
+<div class="line"><a name="l00199"></a><span class="lineno">  199</span>&#160; </div>
+<div class="line"><a name="l00203"></a><span class="lineno"><a class="line" href="classrr_1_1SelectionRecord.html#a898963ab24a6ba614913715c981d8394ae02e022418ffd5b35b6f68bf46842d28">  203</a></span>&#160;        BOUNDARY_CONCENTRATION =            BOUNDARY | CONCENTRATION | INDEPENDENT | DEPENDENT | CURRENT,</div>
+<div class="line"><a name="l00204"></a><span class="lineno">  204</span>&#160; </div>
+<div class="line"><a name="l00208"></a><span class="lineno"><a class="line" href="classrr_1_1SelectionRecord.html#a898963ab24a6ba614913715c981d8394a273f59f060edd0d4085773a15bc2e936">  208</a></span>&#160;        FLOATING_CONCENTRATION =            FLOATING | CONCENTRATION | INDEPENDENT | DEPENDENT | CURRENT,</div>
+<div class="line"><a name="l00209"></a><span class="lineno">  209</span>&#160; </div>
+<div class="line"><a name="l00214"></a><span class="lineno"><a class="line" href="classrr_1_1SelectionRecord.html#a898963ab24a6ba614913715c981d8394ac8d68d5b70417c692c1a88fe9b2d16a6">  214</a></span>&#160;        FLOATING_AMOUNT_RATE =              FLOATING | RATE | DEPENDENT,</div>
 <div class="line"><a name="l00215"></a><span class="lineno">  215</span>&#160; </div>
-<div class="line"><a name="l00219"></a><span class="lineno"><a class="line" href="classrr_1_1SelectionRecord.html#a898963ab24a6ba614913715c981d8394a9e87d4763af9a8774b31ad1f69d66e25">  219</a></span>&#160;        GLOBAL_PARAMETER_RATE =             _GLOBAL_PARAMETER | RATE,</div>
-<div class="line"><a name="l00220"></a><span class="lineno">  220</span>&#160; </div>
-<div class="line"><a name="l00224"></a><span class="lineno"><a class="line" href="classrr_1_1SelectionRecord.html#a898963ab24a6ba614913715c981d8394a474f33e2264e1732ec7dd131f840083b">  224</a></span>&#160;        REACTION_RATE =                     REACTION | RATE | DEPENDENT,</div>
-<div class="line"><a name="l00225"></a><span class="lineno">  225</span>&#160; </div>
-<div class="line"><a name="l00229"></a><span class="lineno"><a class="line" href="classrr_1_1SelectionRecord.html#a898963ab24a6ba614913715c981d8394a75155196d55bd80b547835a668473e49">  229</a></span>&#160;        INITIAL_AMOUNT =                    INITIAL | AMOUNT | INDEPENDENT | DEPENDENT,</div>
-<div class="line"><a name="l00230"></a><span class="lineno">  230</span>&#160; </div>
-<div class="line"><a name="l00234"></a><span class="lineno"><a class="line" href="classrr_1_1SelectionRecord.html#a898963ab24a6ba614913715c981d8394a0a5b576c41331713c0cff67639e934dc">  234</a></span>&#160;        INITIAL_FLOATING_AMOUNT =           INITIAL | FLOATING | AMOUNT | INDEPENDENT | DEPENDENT,</div>
-<div class="line"><a name="l00235"></a><span class="lineno">  235</span>&#160; </div>
-<div class="line"><a name="l00239"></a><span class="lineno"><a class="line" href="classrr_1_1SelectionRecord.html#a898963ab24a6ba614913715c981d8394a9b128c51cc095f71f839fcffb3e74bb3">  239</a></span>&#160;        INITIAL_CONCENTRATION =             INITIAL | CONCENTRATION | INDEPENDENT | DEPENDENT,</div>
-<div class="line"><a name="l00240"></a><span class="lineno">  240</span>&#160; </div>
-<div class="line"><a name="l00244"></a><span class="lineno"><a class="line" href="classrr_1_1SelectionRecord.html#a898963ab24a6ba614913715c981d8394a731d1669fec8c53a6f783a0df0469002">  244</a></span>&#160;        INITIAL_FLOATING_CONCENTRATION =    INITIAL | FLOATING | CONCENTRATION | INDEPENDENT | DEPENDENT,</div>
-<div class="line"><a name="l00245"></a><span class="lineno">  245</span>&#160; </div>
-<div class="line"><a name="l00249"></a><span class="lineno"><a class="line" href="classrr_1_1SelectionRecord.html#a898963ab24a6ba614913715c981d8394a4f5a65a461692bc847e9e8c6851bb951">  249</a></span>&#160;        INITIAL_COMPARTMENT =               INITIAL | _COMPARTMENT | INDEPENDENT | DEPENDENT,</div>
-<div class="line"><a name="l00250"></a><span class="lineno">  250</span>&#160; </div>
-<div class="line"><a name="l00254"></a><span class="lineno"><a class="line" href="classrr_1_1SelectionRecord.html#a898963ab24a6ba614913715c981d8394ae4ecdedc44b9bae7bfe0cdf954e7c6fe">  254</a></span>&#160;        INITIAL_GLOBAL_PARAMETER =          INITIAL | _GLOBAL_PARAMETER | INDEPENDENT | DEPENDENT,</div>
-<div class="line"><a name="l00255"></a><span class="lineno">  255</span>&#160; </div>
-<div class="line"><a name="l00256"></a><span class="lineno">  256</span>&#160; </div>
-<div class="line"><a name="l00260"></a><span class="lineno"><a class="line" href="classrr_1_1SelectionRecord.html#a898963ab24a6ba614913715c981d8394a6035b6215bcb10361a15b6279c7e38e4">  260</a></span>&#160;        DEPENDENT_INITIAL_GLOBAL_PARAMETER =  INITIAL | _GLOBAL_PARAMETER | DEPENDENT,</div>
-<div class="line"><a name="l00261"></a><span class="lineno">  261</span>&#160; </div>
-<div class="line"><a name="l00265"></a><span class="lineno"><a class="line" href="classrr_1_1SelectionRecord.html#a898963ab24a6ba614913715c981d8394a7da913ccc0935bd57b4bd28479013d92">  265</a></span>&#160;        UNSCALED_ELASTICITY =               UNSCALED | ELASTICITY,</div>
-<div class="line"><a name="l00266"></a><span class="lineno">  266</span>&#160; </div>
-<div class="line"><a name="l00270"></a><span class="lineno"><a class="line" href="classrr_1_1SelectionRecord.html#a898963ab24a6ba614913715c981d8394a4e2a1649b976611b8a1487a429a7ca33">  270</a></span>&#160;        UNSCALED_CONTROL =                  UNSCALED | CONTROL,</div>
-<div class="line"><a name="l00271"></a><span class="lineno">  271</span>&#160; </div>
-<div class="line"><a name="l00275"></a><span class="lineno"><a class="line" href="classrr_1_1SelectionRecord.html#a898963ab24a6ba614913715c981d8394ab8a2d26885cd338bfefca1a34e9631ea">  275</a></span>&#160;        UNKNOWN_ELEMENT =                   UNKNOWN | ELEMENT,</div>
-<div class="line"><a name="l00276"></a><span class="lineno">  276</span>&#160; </div>
-<div class="line"><a name="l00280"></a><span class="lineno"><a class="line" href="classrr_1_1SelectionRecord.html#a898963ab24a6ba614913715c981d8394aa8a8dd7317ca1dcd33f7acb018dab6dc">  280</a></span>&#160;        ALL =                               (0xffffffff),</div>
-<div class="line"><a name="l00281"></a><span class="lineno">  281</span>&#160; </div>
-<div class="line"><a name="l00285"></a><span class="lineno"><a class="line" href="classrr_1_1SelectionRecord.html#a898963ab24a6ba614913715c981d8394a28cdf88cef2db8260a3617dc0d0d46fa">  285</a></span>&#160;        ALL_INDEPENDENT =                   ~DEPENDENT,</div>
-<div class="line"><a name="l00286"></a><span class="lineno">  286</span>&#160; </div>
-<div class="line"><a name="l00290"></a><span class="lineno"><a class="line" href="classrr_1_1SelectionRecord.html#a898963ab24a6ba614913715c981d8394adf157f5fec6e3935763838b96025dae4">  290</a></span>&#160;        ALL_DEPENDENT =                     ~INDEPENDENT,</div>
-<div class="line"><a name="l00291"></a><span class="lineno">  291</span>&#160; </div>
-<div class="line"><a name="l00295"></a><span class="lineno"><a class="line" href="classrr_1_1SelectionRecord.html#a898963ab24a6ba614913715c981d8394a44d0147a8879445f40232b4d0e02d405">  295</a></span>&#160;        ALL_INDEPENDENT_AMOUNT =            ~DEPENDENT &amp; ~CONCENTRATION,</div>
-<div class="line"><a name="l00296"></a><span class="lineno">  296</span>&#160; </div>
-<div class="line"><a name="l00300"></a><span class="lineno"><a class="line" href="classrr_1_1SelectionRecord.html#a898963ab24a6ba614913715c981d8394a89e49a2dee1cc2f6af232c5a6d954400">  300</a></span>&#160;        ALL_DEPENDENT_AMOUNT =              ~INDEPENDENT &amp; ~CONCENTRATION,</div>
-<div class="line"><a name="l00301"></a><span class="lineno">  301</span>&#160; </div>
-<div class="line"><a name="l00305"></a><span class="lineno"><a class="line" href="classrr_1_1SelectionRecord.html#a898963ab24a6ba614913715c981d8394acb7b2689c46383e5cfae9b456d4a03b9">  305</a></span>&#160;        ALL_INDEPENDENT_CONCENTRATION =     ~DEPENDENT &amp; ~AMOUNT,</div>
-<div class="line"><a name="l00306"></a><span class="lineno">  306</span>&#160; </div>
-<div class="line"><a name="l00310"></a><span class="lineno"><a class="line" href="classrr_1_1SelectionRecord.html#a898963ab24a6ba614913715c981d8394ac9247d6b9b8d34655df993c2b9734e66">  310</a></span>&#160;        ALL_DEPENDENT_CONCENTRATION =       ~INDEPENDENT &amp; ~AMOUNT,</div>
-<div class="line"><a name="l00311"></a><span class="lineno">  311</span>&#160; </div>
-<div class="line"><a name="l00312"></a><span class="lineno">  312</span>&#160; </div>
-<div class="line"><a name="l00322"></a><span class="lineno"><a class="line" href="classrr_1_1SelectionRecord.html#a898963ab24a6ba614913715c981d8394a042c7745287999549dfaba12fc66d110">  322</a></span>&#160;        MODEL_STATE =                       ALL_INDEPENDENT_AMOUNT &amp; ~INITIAL,</div>
-<div class="line"><a name="l00323"></a><span class="lineno">  323</span>&#160; </div>
-<div class="line"><a name="l00324"></a><span class="lineno">  324</span>&#160; </div>
-<div class="line"><a name="l00331"></a><span class="lineno">  331</span>&#160;        SBML_INITIALIZE =                   STATE_VECTOR   <span class="comment">// the STATE_VECTOR options</span></div>
-<div class="line"><a name="l00332"></a><span class="lineno">  332</span>&#160;                                                           <span class="comment">// is used here because it is</span></div>
-<div class="line"><a name="l00333"></a><span class="lineno">  333</span>&#160;                                                           <span class="comment">// not used anywhere else in</span></div>
-<div class="line"><a name="l00334"></a><span class="lineno">  334</span>&#160;                                                           <span class="comment">// the reset options, and gives</span></div>
-<div class="line"><a name="l00335"></a><span class="lineno">  335</span>&#160;                                                           <span class="comment">// the indication that everything is set,</span></div>
-<div class="line"><a name="l00336"></a><span class="lineno">  336</span>&#160;                                                           <span class="comment">// mostly it saves a not wasting a bit value.</span></div>
-<div class="line"><a name="l00337"></a><span class="lineno"><a class="line" href="classrr_1_1SelectionRecord.html#a898963ab24a6ba614913715c981d8394a8f3e6cd5beca2bc0b0c80d90d0010707">  337</a></span>&#160;    };</div>
-<div class="line"><a name="l00338"></a><span class="lineno">  338</span>&#160; </div>
-<div class="line"><a name="l00343"></a><span class="lineno"><a class="line" href="classrr_1_1SelectionRecord.html#a82a0f91850fedab552cf932a1404b41b">  343</a></span>&#160;    <span class="keywordtype">int</span> <a class="code" href="classrr_1_1SelectionRecord.html#a82a0f91850fedab552cf932a1404b41b">index</a>;</div>
-<div class="line"><a name="l00344"></a><span class="lineno">  344</span>&#160; </div>
-<div class="line"><a name="l00349"></a><span class="lineno"><a class="line" href="classrr_1_1SelectionRecord.html#ad97672baac3b6608f10a253d8594d39b">  349</a></span>&#160;    <span class="keywordtype">string</span> <a class="code" href="classrr_1_1SelectionRecord.html#ad97672baac3b6608f10a253d8594d39b">p1</a>;</div>
-<div class="line"><a name="l00350"></a><span class="lineno">  350</span>&#160; </div>
-<div class="line"><a name="l00354"></a><span class="lineno"><a class="line" href="classrr_1_1SelectionRecord.html#a541046e11c7748d5fe403cbb681629a5">  354</a></span>&#160;    <span class="keywordtype">string</span> <a class="code" href="classrr_1_1SelectionRecord.html#a541046e11c7748d5fe403cbb681629a5">p2</a>;</div>
-<div class="line"><a name="l00355"></a><span class="lineno">  355</span>&#160; </div>
-<div class="line"><a name="l00359"></a><span class="lineno"><a class="line" href="classrr_1_1SelectionRecord.html#adae706f827ce8b7c3873b2fd77fa833c">  359</a></span>&#160;    <a class="code" href="classrr_1_1SelectionRecord.html#a898963ab24a6ba614913715c981d8394">SelectionType</a> <a class="code" href="classrr_1_1SelectionRecord.html#adae706f827ce8b7c3873b2fd77fa833c">selectionType</a>;</div>
-<div class="line"><a name="l00360"></a><span class="lineno">  360</span>&#160; </div>
-<div class="line"><a name="l00367"></a><span class="lineno">  367</span>&#160;    <a class="code" href="classrr_1_1SelectionRecord.html">SelectionRecord</a>(<span class="keyword">const</span> <span class="keywordtype">int</span>&amp; index = 0,</div>
-<div class="line"><a name="l00368"></a><span class="lineno">  368</span>&#160;            <span class="keyword">const</span> <a class="code" href="classrr_1_1SelectionRecord.html#a898963ab24a6ba614913715c981d8394">SelectionType</a> type = UNKNOWN,</div>
-<div class="line"><a name="l00369"></a><span class="lineno">  369</span>&#160;            <span class="keyword">const</span> <span class="keywordtype">string</span>&amp; p1 = <span class="stringliteral">&quot;&quot;</span>, <span class="keyword">const</span> <span class="keywordtype">string</span>&amp; p2 = <span class="stringliteral">&quot;&quot;</span>);</div>
-<div class="line"><a name="l00370"></a><span class="lineno">  370</span>&#160; </div>
-<div class="line"><a name="l00374"></a><span class="lineno">  374</span>&#160;    <a class="code" href="classrr_1_1SelectionRecord.html">SelectionRecord</a>(<span class="keyword">const</span> std::string str);</div>
-<div class="line"><a name="l00375"></a><span class="lineno">  375</span>&#160; </div>
-<div class="line"><a name="l00380"></a><span class="lineno">  380</span>&#160;    std::string to_string() <span class="keyword">const</span>;</div>
-<div class="line"><a name="l00381"></a><span class="lineno">  381</span>&#160; </div>
-<div class="line"><a name="l00386"></a><span class="lineno">  386</span>&#160;    std::string to_repr() <span class="keyword">const</span>;</div>
-<div class="line"><a name="l00387"></a><span class="lineno">  387</span>&#160;};</div>
-<div class="line"><a name="l00388"></a><span class="lineno">  388</span>&#160; </div>
-<div class="line"><a name="l00389"></a><span class="lineno">  389</span>&#160;ostream&amp; operator&lt;&lt; (ostream&amp; stream, <span class="keyword">const</span> <a class="code" href="classrr_1_1SelectionRecord.html">SelectionRecord</a>&amp; rec);</div>
-<div class="line"><a name="l00390"></a><span class="lineno">  390</span>&#160;}</div>
-<div class="line"><a name="l00391"></a><span class="lineno">  391</span>&#160; </div>
-<div class="line"><a name="l00392"></a><span class="lineno">  392</span>&#160; </div>
-<div class="line"><a name="l00393"></a><span class="lineno">  393</span>&#160;<span class="preprocessor">#endif</span></div>
+<div class="line"><a name="l00220"></a><span class="lineno"><a class="line" href="classrr_1_1SelectionRecord.html#a898963ab24a6ba614913715c981d8394aea618f54792dbf90539f21ef7964073f">  220</a></span>&#160;        FLOATING_CONCENTRATION_RATE =       FLOATING | CONCENTRATION | RATE | DEPENDENT,</div>
+<div class="line"><a name="l00221"></a><span class="lineno">  221</span>&#160; </div>
+<div class="line"><a name="l00222"></a><span class="lineno">  222</span>&#160; </div>
+<div class="line"><a name="l00226"></a><span class="lineno"><a class="line" href="classrr_1_1SelectionRecord.html#a898963ab24a6ba614913715c981d8394a9e87d4763af9a8774b31ad1f69d66e25">  226</a></span>&#160;        GLOBAL_PARAMETER_RATE =             _GLOBAL_PARAMETER | RATE,</div>
+<div class="line"><a name="l00227"></a><span class="lineno">  227</span>&#160; </div>
+<div class="line"><a name="l00231"></a><span class="lineno"><a class="line" href="classrr_1_1SelectionRecord.html#a898963ab24a6ba614913715c981d8394a474f33e2264e1732ec7dd131f840083b">  231</a></span>&#160;        REACTION_RATE =                     REACTION | RATE | DEPENDENT,</div>
+<div class="line"><a name="l00232"></a><span class="lineno">  232</span>&#160; </div>
+<div class="line"><a name="l00236"></a><span class="lineno"><a class="line" href="classrr_1_1SelectionRecord.html#a898963ab24a6ba614913715c981d8394a75155196d55bd80b547835a668473e49">  236</a></span>&#160;        INITIAL_AMOUNT =                    INITIAL | AMOUNT | INDEPENDENT | DEPENDENT,</div>
+<div class="line"><a name="l00237"></a><span class="lineno">  237</span>&#160; </div>
+<div class="line"><a name="l00241"></a><span class="lineno"><a class="line" href="classrr_1_1SelectionRecord.html#a898963ab24a6ba614913715c981d8394a0a5b576c41331713c0cff67639e934dc">  241</a></span>&#160;        INITIAL_FLOATING_AMOUNT =           INITIAL | FLOATING | AMOUNT | INDEPENDENT | DEPENDENT,</div>
+<div class="line"><a name="l00242"></a><span class="lineno">  242</span>&#160; </div>
+<div class="line"><a name="l00246"></a><span class="lineno"><a class="line" href="classrr_1_1SelectionRecord.html#a898963ab24a6ba614913715c981d8394a9b128c51cc095f71f839fcffb3e74bb3">  246</a></span>&#160;        INITIAL_CONCENTRATION =             INITIAL | CONCENTRATION | INDEPENDENT | DEPENDENT,</div>
+<div class="line"><a name="l00247"></a><span class="lineno">  247</span>&#160; </div>
+<div class="line"><a name="l00251"></a><span class="lineno"><a class="line" href="classrr_1_1SelectionRecord.html#a898963ab24a6ba614913715c981d8394a731d1669fec8c53a6f783a0df0469002">  251</a></span>&#160;        INITIAL_FLOATING_CONCENTRATION =    INITIAL | FLOATING | CONCENTRATION | INDEPENDENT | DEPENDENT,</div>
+<div class="line"><a name="l00252"></a><span class="lineno">  252</span>&#160; </div>
+<div class="line"><a name="l00256"></a><span class="lineno"><a class="line" href="classrr_1_1SelectionRecord.html#a898963ab24a6ba614913715c981d8394a4f5a65a461692bc847e9e8c6851bb951">  256</a></span>&#160;        INITIAL_COMPARTMENT =               INITIAL | _COMPARTMENT | INDEPENDENT | DEPENDENT,</div>
+<div class="line"><a name="l00257"></a><span class="lineno">  257</span>&#160; </div>
+<div class="line"><a name="l00261"></a><span class="lineno"><a class="line" href="classrr_1_1SelectionRecord.html#a898963ab24a6ba614913715c981d8394ae4ecdedc44b9bae7bfe0cdf954e7c6fe">  261</a></span>&#160;        INITIAL_GLOBAL_PARAMETER =          INITIAL | _GLOBAL_PARAMETER | INDEPENDENT | DEPENDENT,</div>
+<div class="line"><a name="l00262"></a><span class="lineno">  262</span>&#160; </div>
+<div class="line"><a name="l00263"></a><span class="lineno">  263</span>&#160; </div>
+<div class="line"><a name="l00267"></a><span class="lineno"><a class="line" href="classrr_1_1SelectionRecord.html#a898963ab24a6ba614913715c981d8394a6035b6215bcb10361a15b6279c7e38e4">  267</a></span>&#160;        DEPENDENT_INITIAL_GLOBAL_PARAMETER =  INITIAL | _GLOBAL_PARAMETER | DEPENDENT,</div>
+<div class="line"><a name="l00268"></a><span class="lineno">  268</span>&#160; </div>
+<div class="line"><a name="l00272"></a><span class="lineno"><a class="line" href="classrr_1_1SelectionRecord.html#a898963ab24a6ba614913715c981d8394a7da913ccc0935bd57b4bd28479013d92">  272</a></span>&#160;        UNSCALED_ELASTICITY =               UNSCALED | ELASTICITY,</div>
+<div class="line"><a name="l00273"></a><span class="lineno">  273</span>&#160; </div>
+<div class="line"><a name="l00277"></a><span class="lineno"><a class="line" href="classrr_1_1SelectionRecord.html#a898963ab24a6ba614913715c981d8394a4e2a1649b976611b8a1487a429a7ca33">  277</a></span>&#160;        UNSCALED_CONTROL =                  UNSCALED | CONTROL,</div>
+<div class="line"><a name="l00278"></a><span class="lineno">  278</span>&#160; </div>
+<div class="line"><a name="l00282"></a><span class="lineno"><a class="line" href="classrr_1_1SelectionRecord.html#a898963ab24a6ba614913715c981d8394ab8a2d26885cd338bfefca1a34e9631ea">  282</a></span>&#160;        UNKNOWN_ELEMENT =                   UNKNOWN | ELEMENT,</div>
+<div class="line"><a name="l00283"></a><span class="lineno">  283</span>&#160; </div>
+<div class="line"><a name="l00287"></a><span class="lineno"><a class="line" href="classrr_1_1SelectionRecord.html#a898963ab24a6ba614913715c981d8394a28cdf88cef2db8260a3617dc0d0d46fa">  287</a></span>&#160;        ALL_INDEPENDENT =                   ~DEPENDENT,</div>
+<div class="line"><a name="l00288"></a><span class="lineno">  288</span>&#160; </div>
+<div class="line"><a name="l00292"></a><span class="lineno"><a class="line" href="classrr_1_1SelectionRecord.html#a898963ab24a6ba614913715c981d8394adf157f5fec6e3935763838b96025dae4">  292</a></span>&#160;        ALL_DEPENDENT =                     ~INDEPENDENT,</div>
+<div class="line"><a name="l00293"></a><span class="lineno">  293</span>&#160; </div>
+<div class="line"><a name="l00297"></a><span class="lineno"><a class="line" href="classrr_1_1SelectionRecord.html#a898963ab24a6ba614913715c981d8394a44d0147a8879445f40232b4d0e02d405">  297</a></span>&#160;        ALL_INDEPENDENT_AMOUNT =            ~DEPENDENT &amp; ~CONCENTRATION,</div>
+<div class="line"><a name="l00298"></a><span class="lineno">  298</span>&#160; </div>
+<div class="line"><a name="l00302"></a><span class="lineno"><a class="line" href="classrr_1_1SelectionRecord.html#a898963ab24a6ba614913715c981d8394a89e49a2dee1cc2f6af232c5a6d954400">  302</a></span>&#160;        ALL_DEPENDENT_AMOUNT =              ~INDEPENDENT &amp; ~CONCENTRATION,</div>
+<div class="line"><a name="l00303"></a><span class="lineno">  303</span>&#160; </div>
+<div class="line"><a name="l00307"></a><span class="lineno"><a class="line" href="classrr_1_1SelectionRecord.html#a898963ab24a6ba614913715c981d8394acb7b2689c46383e5cfae9b456d4a03b9">  307</a></span>&#160;        ALL_INDEPENDENT_CONCENTRATION =     ~DEPENDENT &amp; ~AMOUNT,</div>
+<div class="line"><a name="l00308"></a><span class="lineno">  308</span>&#160; </div>
+<div class="line"><a name="l00312"></a><span class="lineno"><a class="line" href="classrr_1_1SelectionRecord.html#a898963ab24a6ba614913715c981d8394ac9247d6b9b8d34655df993c2b9734e66">  312</a></span>&#160;        ALL_DEPENDENT_CONCENTRATION =       ~INDEPENDENT &amp; ~AMOUNT,</div>
+<div class="line"><a name="l00313"></a><span class="lineno">  313</span>&#160; </div>
+<div class="line"><a name="l00314"></a><span class="lineno">  314</span>&#160; </div>
+<div class="line"><a name="l00324"></a><span class="lineno"><a class="line" href="classrr_1_1SelectionRecord.html#a898963ab24a6ba614913715c981d8394a042c7745287999549dfaba12fc66d110">  324</a></span>&#160;        MODEL_STATE =                       ALL_INDEPENDENT_AMOUNT &amp; ~INITIAL,</div>
+<div class="line"><a name="l00325"></a><span class="lineno">  325</span>&#160; </div>
+<div class="line"><a name="l00326"></a><span class="lineno">  326</span>&#160; </div>
+<div class="line"><a name="l00333"></a><span class="lineno">  333</span>&#160;        SBML_INITIALIZE =                   STATE_VECTOR   <span class="comment">// the STATE_VECTOR options</span></div>
+<div class="line"><a name="l00334"></a><span class="lineno">  334</span>&#160;                                                           <span class="comment">// is used here because it is</span></div>
+<div class="line"><a name="l00335"></a><span class="lineno">  335</span>&#160;                                                           <span class="comment">// not used anywhere else in</span></div>
+<div class="line"><a name="l00336"></a><span class="lineno">  336</span>&#160;                                                           <span class="comment">// the reset options, and gives</span></div>
+<div class="line"><a name="l00337"></a><span class="lineno">  337</span>&#160;                                                           <span class="comment">// the indication that everything is set,</span></div>
+<div class="line"><a name="l00338"></a><span class="lineno">  338</span>&#160;                                                           <span class="comment">// mostly it saves a not wasting a bit value.</span></div>
+<div class="line"><a name="l00339"></a><span class="lineno"><a class="line" href="classrr_1_1SelectionRecord.html#a898963ab24a6ba614913715c981d8394a8f3e6cd5beca2bc0b0c80d90d0010707">  339</a></span>&#160;    };</div>
+<div class="line"><a name="l00340"></a><span class="lineno">  340</span>&#160; </div>
+<div class="line"><a name="l00345"></a><span class="lineno"><a class="line" href="classrr_1_1SelectionRecord.html#a82a0f91850fedab552cf932a1404b41b">  345</a></span>&#160;    <span class="keywordtype">int</span> <a class="code" href="classrr_1_1SelectionRecord.html#a82a0f91850fedab552cf932a1404b41b">index</a>;</div>
+<div class="line"><a name="l00346"></a><span class="lineno">  346</span>&#160; </div>
+<div class="line"><a name="l00351"></a><span class="lineno"><a class="line" href="classrr_1_1SelectionRecord.html#a273feac920f62ba42c477bb6443d086e">  351</a></span>&#160;    std::string <a class="code" href="classrr_1_1SelectionRecord.html#a273feac920f62ba42c477bb6443d086e">p1</a>;</div>
+<div class="line"><a name="l00352"></a><span class="lineno">  352</span>&#160; </div>
+<div class="line"><a name="l00356"></a><span class="lineno"><a class="line" href="classrr_1_1SelectionRecord.html#aaccdf64460b76ee09eaca7e5090ec52e">  356</a></span>&#160;    std::string <a class="code" href="classrr_1_1SelectionRecord.html#aaccdf64460b76ee09eaca7e5090ec52e">p2</a>;</div>
+<div class="line"><a name="l00357"></a><span class="lineno">  357</span>&#160; </div>
+<div class="line"><a name="l00361"></a><span class="lineno"><a class="line" href="classrr_1_1SelectionRecord.html#adae706f827ce8b7c3873b2fd77fa833c">  361</a></span>&#160;    <a class="code" href="classrr_1_1SelectionRecord.html#a898963ab24a6ba614913715c981d8394">SelectionType</a> <a class="code" href="classrr_1_1SelectionRecord.html#adae706f827ce8b7c3873b2fd77fa833c">selectionType</a>;</div>
+<div class="line"><a name="l00362"></a><span class="lineno">  362</span>&#160; </div>
+<div class="line"><a name="l00369"></a><span class="lineno">  369</span>&#160;    <a class="code" href="classrr_1_1SelectionRecord.html">SelectionRecord</a>(<span class="keyword">const</span> <span class="keywordtype">int</span>&amp; index = 0,</div>
+<div class="line"><a name="l00370"></a><span class="lineno">  370</span>&#160;            <span class="keyword">const</span> <a class="code" href="classrr_1_1SelectionRecord.html#a898963ab24a6ba614913715c981d8394">SelectionType</a> type = UNKNOWN,</div>
+<div class="line"><a name="l00371"></a><span class="lineno">  371</span>&#160;            <span class="keyword">const</span> std::string&amp; p1 = <span class="stringliteral">&quot;&quot;</span>, <span class="keyword">const</span> std::string&amp; p2 = <span class="stringliteral">&quot;&quot;</span>);</div>
+<div class="line"><a name="l00372"></a><span class="lineno">  372</span>&#160; </div>
+<div class="line"><a name="l00376"></a><span class="lineno">  376</span>&#160;    <a class="code" href="classrr_1_1SelectionRecord.html">SelectionRecord</a>(<span class="keyword">const</span> std::string str);</div>
+<div class="line"><a name="l00377"></a><span class="lineno">  377</span>&#160; </div>
+<div class="line"><a name="l00382"></a><span class="lineno">  382</span>&#160;    std::string to_string() <span class="keyword">const</span>;</div>
+<div class="line"><a name="l00383"></a><span class="lineno">  383</span>&#160; </div>
+<div class="line"><a name="l00388"></a><span class="lineno">  388</span>&#160;    std::string to_repr() <span class="keyword">const</span>;</div>
+<div class="line"><a name="l00389"></a><span class="lineno">  389</span>&#160;};</div>
+<div class="line"><a name="l00390"></a><span class="lineno">  390</span>&#160; </div>
+<div class="line"><a name="l00391"></a><span class="lineno">  391</span>&#160;std::ostream&amp; operator&lt;&lt; (std::ostream&amp; stream, <span class="keyword">const</span> <a class="code" href="classrr_1_1SelectionRecord.html">SelectionRecord</a>&amp; rec);</div>
+<div class="line"><a name="l00392"></a><span class="lineno">  392</span>&#160;}</div>
+<div class="line"><a name="l00393"></a><span class="lineno">  393</span>&#160; </div>
+<div class="line"><a name="l00394"></a><span class="lineno">  394</span>&#160; </div>
+<div class="line"><a name="l00395"></a><span class="lineno">  395</span>&#160;<span class="preprocessor">#endif</span></div>
 </div><!-- fragment --></div><!-- contents -->
-<div class="ttc" id="aclassrr_1_1SelectionRecord_html"><div class="ttname"><a href="classrr_1_1SelectionRecord.html">rr::SelectionRecord</a></div><div class="ttdoc">a way to find sbml model elements using the RoadRunner syntax.</div><div class="ttdef"><b>Definition:</b> rrSelectionRecord.h:16</div></div>
-<div class="ttc" id="aclassrr_1_1SelectionRecord_html_a82a0f91850fedab552cf932a1404b41b"><div class="ttname"><a href="classrr_1_1SelectionRecord.html#a82a0f91850fedab552cf932a1404b41b">rr::SelectionRecord::index</a></div><div class="ttdeci">int index</div><div class="ttdoc">After the selection record is created by the roadrunner object, this is an index into the variables l...</div><div class="ttdef"><b>Definition:</b> rrSelectionRecord.h:343</div></div>
-<div class="ttc" id="aclassrr_1_1SelectionRecord_html_adae706f827ce8b7c3873b2fd77fa833c"><div class="ttname"><a href="classrr_1_1SelectionRecord.html#adae706f827ce8b7c3873b2fd77fa833c">rr::SelectionRecord::selectionType</a></div><div class="ttdeci">SelectionType selectionType</div><div class="ttdoc">the type of selection.</div><div class="ttdef"><b>Definition:</b> rrSelectionRecord.h:359</div></div>
-<div class="ttc" id="aclassrr_1_1SelectionRecord_html_a541046e11c7748d5fe403cbb681629a5"><div class="ttname"><a href="classrr_1_1SelectionRecord.html#a541046e11c7748d5fe403cbb681629a5">rr::SelectionRecord::p2</a></div><div class="ttdeci">string p2</div><div class="ttdoc">the second argument of two arg selections.</div><div class="ttdef"><b>Definition:</b> rrSelectionRecord.h:354</div></div>
-<div class="ttc" id="aclassrr_1_1SelectionRecord_html_ad97672baac3b6608f10a253d8594d39b"><div class="ttname"><a href="classrr_1_1SelectionRecord.html#ad97672baac3b6608f10a253d8594d39b">rr::SelectionRecord::p1</a></div><div class="ttdeci">string p1</div><div class="ttdoc">For single argument selections, i.e.</div><div class="ttdef"><b>Definition:</b> rrSelectionRecord.h:349</div></div>
-<div class="ttc" id="aclassrr_1_1SelectionRecord_html_a898963ab24a6ba614913715c981d8394"><div class="ttname"><a href="classrr_1_1SelectionRecord.html#a898963ab24a6ba614913715c981d8394">rr::SelectionRecord::SelectionType</a></div><div class="ttdeci">SelectionType</div><div class="ttdef"><b>Definition:</b> rrSelectionRecord.h:19</div></div>
+<div class="ttc" id="aclassrr_1_1SelectionRecord_html"><div class="ttname"><a href="classrr_1_1SelectionRecord.html">rr::SelectionRecord</a></div><div class="ttdoc">a way to find sbml model elements using the RoadRunner syntax.</div><div class="ttdef"><b>Definition:</b> rrSelectionRecord.h:18</div></div>
+<div class="ttc" id="aclassrr_1_1SelectionRecord_html_a82a0f91850fedab552cf932a1404b41b"><div class="ttname"><a href="classrr_1_1SelectionRecord.html#a82a0f91850fedab552cf932a1404b41b">rr::SelectionRecord::index</a></div><div class="ttdeci">int index</div><div class="ttdoc">After the selection record is created by the roadrunner object, this is an index into the variables l...</div><div class="ttdef"><b>Definition:</b> rrSelectionRecord.h:345</div></div>
+<div class="ttc" id="aclassrr_1_1SelectionRecord_html_adae706f827ce8b7c3873b2fd77fa833c"><div class="ttname"><a href="classrr_1_1SelectionRecord.html#adae706f827ce8b7c3873b2fd77fa833c">rr::SelectionRecord::selectionType</a></div><div class="ttdeci">SelectionType selectionType</div><div class="ttdoc">the type of selection.</div><div class="ttdef"><b>Definition:</b> rrSelectionRecord.h:361</div></div>
+<div class="ttc" id="aclassrr_1_1SelectionRecord_html_aaccdf64460b76ee09eaca7e5090ec52e"><div class="ttname"><a href="classrr_1_1SelectionRecord.html#aaccdf64460b76ee09eaca7e5090ec52e">rr::SelectionRecord::p2</a></div><div class="ttdeci">std::string p2</div><div class="ttdoc">the second argument of two arg selections.</div><div class="ttdef"><b>Definition:</b> rrSelectionRecord.h:356</div></div>
+<div class="ttc" id="aclassrr_1_1SelectionRecord_html_a273feac920f62ba42c477bb6443d086e"><div class="ttname"><a href="classrr_1_1SelectionRecord.html#a273feac920f62ba42c477bb6443d086e">rr::SelectionRecord::p1</a></div><div class="ttdeci">std::string p1</div><div class="ttdoc">For single argument selections, i.e.</div><div class="ttdef"><b>Definition:</b> rrSelectionRecord.h:351</div></div>
+<div class="ttc" id="aclassrr_1_1SelectionRecord_html_a898963ab24a6ba614913715c981d8394"><div class="ttname"><a href="classrr_1_1SelectionRecord.html#a898963ab24a6ba614913715c981d8394">rr::SelectionRecord::SelectionType</a></div><div class="ttdeci">SelectionType</div><div class="ttdef"><b>Definition:</b> rrSelectionRecord.h:21</div></div>
 <!-- start footer part -->
 <hr class="footer"/><address class="footer"><small>
 Generated by&#160;<a href="http://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.8.20

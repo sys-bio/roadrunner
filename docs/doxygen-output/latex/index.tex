@@ -137,7 +137,7 @@ Finally, the Integrator\+Factory\+::get\+Integrator\+Options() method needs to b
 
 
 Once the \mbox{\hyperlink{classrr_1_1IntegratorFactory}{Integrator\+Factory}} is made aware of your new integrator, it is available for full introspection and can be used by just adding the {\ttfamily integrator=\char`\"{}my\+New\+Integrator\char`\"{}} argument whenever the \mbox{\hyperlink{classrr_1_1RoadRunner_a0843eb317d47d28a27929d326d4f1f88}{Road\+Runner.\+simulate}} method is called. The \mbox{\hyperlink{classrr_1_1EulerIntegrator}{Euler\+Integrator}} was created as an example of how to create and add a new integrator, have a look at it.\hypertarget{index_sec_euler}{}\doxysubsection{A complete example of creating an integrator.}\label{index_sec_euler}
-This section includes the complete Euler integrator implemented in \mbox{\hyperlink{EulerIntegrator_8h_source}{Euler\+Integrator.\+h}} as an example of creating a new integrator. This class has two demo paramters which may be set via the keyword arguments to \mbox{\hyperlink{classrr_1_1RoadRunner_a0843eb317d47d28a27929d326d4f1f88}{Road\+Runner.\+simulate}} in Python, or set via the \mbox{\hyperlink{classrr_1_1Dictionary_a6bb53c3bfeee7e3ee2bfcf9da8212949}{Dictionary\+::set\+Item}} method on the dictionary that is given to the \mbox{\hyperlink{classrr_1_1RoadRunner_a0843eb317d47d28a27929d326d4f1f88}{Road\+Runner\+::simulate}} method in C++. In Python, this would be\+:
+This section includes the complete Euler integrator implemented in \mbox{\hyperlink{EulerIntegrator_8h_source}{Euler\+Integrator.\+h}} as an example of creating a new integrator. This class has two demo paramters which may be set via the keyword arguments to \mbox{\hyperlink{classrr_1_1RoadRunner_a0843eb317d47d28a27929d326d4f1f88}{Road\+Runner.\+simulate}} in Python, or set via the \mbox{\hyperlink{classrr_1_1Dictionary_a4708fee12ec4cd5e879df9bf5570c02a}{Dictionary\+::set\+Item}} method on the dictionary that is given to the \mbox{\hyperlink{classrr_1_1RoadRunner_a0843eb317d47d28a27929d326d4f1f88}{Road\+Runner\+::simulate}} method in C++. In Python, this would be\+:
 
 
 \begin{DoxyCode}{0}
@@ -160,7 +160,7 @@ In Python, all the keyword arguments to the simulate method are packaged up and 
 \DoxyCodeLine{opt.setItem(\textcolor{stringliteral}{"{}exampleParameter2"{}}, \textcolor{stringliteral}{"{}some value"{}});}
 \DoxyCodeLine{r.simulate();}
 \DoxyCodeLine{}
-\DoxyCodeLine{cout << r.getIntegrator()-\/>toString() << endl;}
+\DoxyCodeLine{std::cout << r.getIntegrator()-\/>toString() << std::endl;}
 \end{DoxyCode}
 
 

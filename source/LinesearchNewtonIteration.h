@@ -13,6 +13,11 @@ namespace rr {
      * @brief Solve for steady state using Kinsol's implementation 
      * of Newton Iteration with linesearch globalization
      * @see BasicNewtonIteration
+     * @code
+     *  RoadRunner rr(sbml);
+     *  rr.setSteadyStateSolver("newton_linesearch");
+     *  rr.solve();
+     * @endcode
      */
     class LinesearchNewtonIteration : public NewtonIteration {
 

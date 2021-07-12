@@ -51,9 +51,9 @@
         </inbodydescription>
         <location file="c/rrSymbolList.h" line="17" column="34" bodyfile="c/rrSymbolList.cpp" bodystart="20" bodyend="23"/>
       </memberdef>
-      <memberdef kind="function" id="classrr_1_1SymbolList_1a40913ba6f1366f0e7d8e314cd84f352b" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
-        <type>string</type>
-        <definition>string rr::SymbolList::getName</definition>
+      <memberdef kind="function" id="classrr_1_1SymbolList_1a5d395d27c4cd66ab09794fd82ecd9017" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>std::string</type>
+        <definition>std::string rr::SymbolList::getName</definition>
         <argsstring>(const int &amp;index)</argsstring>
         <name>getName</name>
         <param>
@@ -66,11 +66,11 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="c/rrSymbolList.h" line="18" column="34" bodyfile="c/rrSymbolList.cpp" bodystart="25" bodyend="29"/>
+        <location file="c/rrSymbolList.h" line="18" column="39" bodyfile="c/rrSymbolList.cpp" bodystart="25" bodyend="29"/>
       </memberdef>
-      <memberdef kind="function" id="classrr_1_1SymbolList_1acdbfecfc3608cbdc5f9874e9c60ea146" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
-        <type>string</type>
-        <definition>string rr::SymbolList::getKeyName</definition>
+      <memberdef kind="function" id="classrr_1_1SymbolList_1af8ee8d865abdbbf5ff5fd875db338b5b" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>std::string</type>
+        <definition>std::string rr::SymbolList::getKeyName</definition>
         <argsstring>(const int &amp;index)</argsstring>
         <name>getKeyName</name>
         <param>
@@ -83,15 +83,15 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="c/rrSymbolList.h" line="19" column="34" bodyfile="c/rrSymbolList.cpp" bodystart="31" bodyend="35"/>
+        <location file="c/rrSymbolList.h" line="19" column="39" bodyfile="c/rrSymbolList.cpp" bodystart="31" bodyend="35"/>
       </memberdef>
-      <memberdef kind="function" id="classrr_1_1SymbolList_1a24d79479be83c0967c45aa7b001b7f9c" prot="public" static="no" const="yes" explicit="no" inline="no" virt="non-virtual">
+      <memberdef kind="function" id="classrr_1_1SymbolList_1a7b662c4b5eb8678bda123bfedd04af69" prot="public" static="no" const="yes" explicit="no" inline="no" virt="non-virtual">
         <type>bool</type>
         <definition>bool rr::SymbolList::find</definition>
-        <argsstring>(const string &amp;name, int &amp;index) const</argsstring>
+        <argsstring>(const std::string &amp;name, int &amp;index) const</argsstring>
         <name>find</name>
         <param>
-          <type>const string &amp;</type>
+          <type>const std::string &amp;</type>
           <declname>name</declname>
         </param>
         <param>
@@ -106,17 +106,17 @@
         </inbodydescription>
         <location file="c/rrSymbolList.h" line="20" column="34" bodyfile="c/rrSymbolList.cpp" bodystart="38" bodyend="51"/>
       </memberdef>
-      <memberdef kind="function" id="classrr_1_1SymbolList_1aa45249082e89ff5137ec514935ef5b39" prot="public" static="no" const="yes" explicit="no" inline="no" virt="non-virtual">
+      <memberdef kind="function" id="classrr_1_1SymbolList_1a8150acd30b95051c29e69aab566e98ce" prot="public" static="no" const="yes" explicit="no" inline="no" virt="non-virtual">
         <type>bool</type>
         <definition>bool rr::SymbolList::find</definition>
-        <argsstring>(const string &amp;keyName, const string &amp;name, int &amp;index) const</argsstring>
+        <argsstring>(const std::string &amp;keyName, const std::string &amp;name, int &amp;index) const</argsstring>
         <name>find</name>
         <param>
-          <type>const string &amp;</type>
+          <type>const std::string &amp;</type>
           <declname>keyName</declname>
         </param>
         <param>
-          <type>const string &amp;</type>
+          <type>const std::string &amp;</type>
           <declname>name</declname>
         </param>
         <param>
@@ -176,10 +176,10 @@
       <member refid="classrr_1_1SymbolList_1a6331a87bc1c36b3c23150dffe41ab33f" prot="public" virt="non-virtual"><scope>rr::SymbolList</scope><name>Add</name></member>
       <member refid="classrr_1_1SymbolList_1a47175151b3b81079ecd1c0036fd594b2" prot="public" virt="non-virtual"><scope>rr::SymbolList</scope><name>Clear</name></member>
       <member refid="classrr_1_1SymbolList_1a03c8e70a24d4d347f45c84121d80248e" prot="public" virt="non-virtual"><scope>rr::SymbolList</scope><name>Count</name></member>
-      <member refid="classrr_1_1SymbolList_1a24d79479be83c0967c45aa7b001b7f9c" prot="public" virt="non-virtual"><scope>rr::SymbolList</scope><name>find</name></member>
-      <member refid="classrr_1_1SymbolList_1aa45249082e89ff5137ec514935ef5b39" prot="public" virt="non-virtual"><scope>rr::SymbolList</scope><name>find</name></member>
-      <member refid="classrr_1_1SymbolList_1acdbfecfc3608cbdc5f9874e9c60ea146" prot="public" virt="non-virtual"><scope>rr::SymbolList</scope><name>getKeyName</name></member>
-      <member refid="classrr_1_1SymbolList_1a40913ba6f1366f0e7d8e314cd84f352b" prot="public" virt="non-virtual"><scope>rr::SymbolList</scope><name>getName</name></member>
+      <member refid="classrr_1_1SymbolList_1a7b662c4b5eb8678bda123bfedd04af69" prot="public" virt="non-virtual"><scope>rr::SymbolList</scope><name>find</name></member>
+      <member refid="classrr_1_1SymbolList_1a8150acd30b95051c29e69aab566e98ce" prot="public" virt="non-virtual"><scope>rr::SymbolList</scope><name>find</name></member>
+      <member refid="classrr_1_1SymbolList_1af8ee8d865abdbbf5ff5fd875db338b5b" prot="public" virt="non-virtual"><scope>rr::SymbolList</scope><name>getKeyName</name></member>
+      <member refid="classrr_1_1SymbolList_1a5d395d27c4cd66ab09794fd82ecd9017" prot="public" virt="non-virtual"><scope>rr::SymbolList</scope><name>getName</name></member>
       <member refid="classrr_1_1SymbolList_1abbd02b1b47a0fee2fea6bf401f6cd4d4" prot="public" virt="non-virtual"><scope>rr::SymbolList</scope><name>getValue</name></member>
     </listofallmembers>
   </compounddef>

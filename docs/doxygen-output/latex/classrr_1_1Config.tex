@@ -102,7 +102,7 @@ enum {\bfseries R\+O\+A\+D\+R\+U\+N\+N\+E\+R\+\_\+\+J\+A\+C\+O\+B\+I\+A\+N\+\_\+
 \item 
 \mbox{\Hypertarget{classrr_1_1Config_a0370467d1593491eac5e443ce0c03224}\label{classrr_1_1Config_a0370467d1593491eac5e443ce0c03224}} 
 static std\+::string \mbox{\hyperlink{classrr_1_1Config_a0370467d1593491eac5e443ce0c03224}{get\+String}} (\mbox{\hyperlink{classrr_1_1Config_aed7c550b9e34222675cd152c9154d053}{Keys}})
-\begin{DoxyCompactList}\small\item\em read the config value as a string. \end{DoxyCompactList}\item 
+\begin{DoxyCompactList}\small\item\em read the config value as a std\+::string. \end{DoxyCompactList}\item 
 \mbox{\Hypertarget{classrr_1_1Config_a66454fca7b7357d5b3180d8589bacebf}\label{classrr_1_1Config_a66454fca7b7357d5b3180d8589bacebf}} 
 static int \mbox{\hyperlink{classrr_1_1Config_a66454fca7b7357d5b3180d8589bacebf}{get\+Int}} (\mbox{\hyperlink{classrr_1_1Config_aed7c550b9e34222675cd152c9154d053}{Keys}})
 \begin{DoxyCompactList}\small\item\em read the config value as an integer. \end{DoxyCompactList}\item 
@@ -114,10 +114,10 @@ static double \mbox{\hyperlink{classrr_1_1Config_a6cf432148717f8bbadc861481340f3
 \begin{DoxyCompactList}\small\item\em read the config value as a double. \end{DoxyCompactList}\item 
 static std\+::string \mbox{\hyperlink{classrr_1_1Config_a4ee7359b58047946520f3f3a9c6de04c}{get\+Config\+File\+Path}} ()
 \begin{DoxyCompactList}\small\item\em If a config file was found in one of the above locations, its full path is returned here. \end{DoxyCompactList}\item 
-static void \mbox{\hyperlink{classrr_1_1Config_a3d5bdb8ee4fad8a88bac365328f510fc}{set\+Value}} (\mbox{\hyperlink{classrr_1_1Config_aed7c550b9e34222675cd152c9154d053}{Keys}}, const \mbox{\hyperlink{classrr_1_1Variant}{Variant}} \&value)
+static void \mbox{\hyperlink{classrr_1_1Config_af31cc9c1ef79cd00c6099930bd2aae9c}{set\+Value}} (\mbox{\hyperlink{classrr_1_1Config_aed7c550b9e34222675cd152c9154d053}{Keys}}, \mbox{\hyperlink{classrr_1_1Setting}{Setting}} value)
 \begin{DoxyCompactList}\small\item\em set the value of a config key. \end{DoxyCompactList}\item 
-\mbox{\Hypertarget{classrr_1_1Config_aa31df27110cab08f134c8e7570d90746}\label{classrr_1_1Config_aa31df27110cab08f134c8e7570d90746}} 
-static const \mbox{\hyperlink{classrr_1_1Variant}{Variant}} \& {\bfseries get\+Value} (\mbox{\hyperlink{classrr_1_1Config_aed7c550b9e34222675cd152c9154d053}{Keys}})
+\mbox{\Hypertarget{classrr_1_1Config_a1acfbc8a6af061e54e4c6b2890ce4a88}\label{classrr_1_1Config_a1acfbc8a6af061e54e4c6b2890ce4a88}} 
+static \mbox{\hyperlink{classrr_1_1Setting}{Setting}} {\bfseries get\+Value} (\mbox{\hyperlink{classrr_1_1Config_aed7c550b9e34222675cd152c9154d053}{Keys}})
 \item 
 \mbox{\Hypertarget{classrr_1_1Config_ab5bc77a68b26edb749fb2a14336f4fd5}\label{classrr_1_1Config_ab5bc77a68b26edb749fb2a14336f4fd5}} 
 static void \mbox{\hyperlink{classrr_1_1Config_ab5bc77a68b26edb749fb2a14336f4fd5}{read\+Config\+File}} (const std\+::string \&path)
@@ -127,7 +127,7 @@ static void \mbox{\hyperlink{classrr_1_1Config_aacae3161033c6c178aac93f7467afa3a
 \mbox{\Hypertarget{classrr_1_1Config_a947d20afae74fba1c1725c8fb2c71eba}\label{classrr_1_1Config_a947d20afae74fba1c1725c8fb2c71eba}} 
 static \mbox{\hyperlink{classrr_1_1Config_aed7c550b9e34222675cd152c9154d053}{Keys}} {\bfseries string\+To\+Key} (const std\+::string \&key)
 \item 
-\mbox{\Hypertarget{classrr_1_1Config_abc159273f423c010242f1cf07f588f78}\label{classrr_1_1Config_abc159273f423c010242f1cf07f588f78}} 
+\mbox{\Hypertarget{classrr_1_1Config_a20e11f7bdb81efbd1e84011801b4a526}\label{classrr_1_1Config_a20e11f7bdb81efbd1e84011801b4a526}} 
 static std\+::vector$<$ std\+::string $>$ {\bfseries get\+Key\+List} ()
 \end{DoxyCompactItemize}
 
@@ -135,7 +135,7 @@ static std\+::vector$<$ std\+::string $>$ {\bfseries get\+Key\+List} ()
 \doxysubsection{Detailed Description}
 read or store default values. 
 
-Many of \mbox{\hyperlink{classrr_1_1RoadRunner}{Road\+Runner}} classes use a number of configration parameters. Most of these can be set using the \mbox{\hyperlink{classrr_1_1Config}{Config}} class. The values stored in the \mbox{\hyperlink{classrr_1_1Config}{Config}} class only determine the defaut values of parameters.
+Many of \mbox{\hyperlink{classrr_1_1RoadRunner}{Road\+Runner}} classes use a number of configuration parameters. Most of these can be set using the \mbox{\hyperlink{classrr_1_1Config}{Config}} class. The values stored in the \mbox{\hyperlink{classrr_1_1Config}{Config}} class only determine the default values of parameters.
 
 The \mbox{\hyperlink{classrr_1_1Config}{Config}} class will look in the following locations for the config file, and will load the values from the first config file it finds. If it does not find a config file in one of the following locations, a default set of configuration parameters are used. The search locations of the config file are\+:
 
@@ -157,7 +157,7 @@ The \mbox{\hyperlink{classrr_1_1Config}{Config}} class will look in the followin
 
 /\+Users/andy/local/roadrunner.conf
 
-The conf file is just a plain text file of where each line may be key / value pair separated by a \+:"{}, i.\+e.
+The conf file is just a plain text file of where each line may be key / value std\+::pair separated by a \+:"{}, i.\+e.
 
 K\+E\+Y\+\_\+\+N\+A\+ME \+: Value Any line that does not match this format is ignored, and keys that are not found are also ignored. Therefore, any line that does not start w$\ast$ ith a word character is considered a comment.
 
@@ -266,7 +266,7 @@ S\+I\+M\+U\+L\+A\+T\+E\+O\+P\+T\+I\+O\+N\+S\+\_\+\+S\+T\+O\+C\+H\+A\+S\+T\+I\+C\
 \hline
 
 \raisebox{\heightof{T}}[0pt][0pt]{\index{SIMULATEOPTIONS\_INTEGRATOR@{SIMULATEOPTIONS\_INTEGRATOR}!rr::Config@{rr::Config}}\index{rr::Config@{rr::Config}!SIMULATEOPTIONS\_INTEGRATOR@{SIMULATEOPTIONS\_INTEGRATOR}}}\mbox{\Hypertarget{classrr_1_1Config_aed7c550b9e34222675cd152c9154d053af04f063962a4036311b2e11f07519c7c}\label{classrr_1_1Config_aed7c550b9e34222675cd152c9154d053af04f063962a4036311b2e11f07519c7c}} 
-S\+I\+M\+U\+L\+A\+T\+E\+O\+P\+T\+I\+O\+N\+S\+\_\+\+I\+N\+T\+E\+G\+R\+A\+T\+OR&Default integrator to use, currently supports a string of \char`\"{}\+C\+V\+O\+D\+E\char`\"{} or \char`\"{}\+Gillespie\char`\"{}, default is \char`\"{}\+C\+V\+O\+D\+E\char`\"{}. \\
+S\+I\+M\+U\+L\+A\+T\+E\+O\+P\+T\+I\+O\+N\+S\+\_\+\+I\+N\+T\+E\+G\+R\+A\+T\+OR&Default integrator to use, currently supports a std\+::string of \char`\"{}\+C\+V\+O\+D\+E\char`\"{} or \char`\"{}\+Gillespie\char`\"{}, default is \char`\"{}\+C\+V\+O\+D\+E\char`\"{}. \\
 \hline
 
 \raisebox{\heightof{T}}[0pt][0pt]{\index{SIMULATEOPTIONS\_INITIAL\_TIMESTEP@{SIMULATEOPTIONS\_INITIAL\_TIMESTEP}!rr::Config@{rr::Config}}\index{rr::Config@{rr::Config}!SIMULATEOPTIONS\_INITIAL\_TIMESTEP@{SIMULATEOPTIONS\_INITIAL\_TIMESTEP}}}\mbox{\Hypertarget{classrr_1_1Config_aed7c550b9e34222675cd152c9154d053a0d32622a3edeabd8cb3b36a310a073e7}\label{classrr_1_1Config_aed7c550b9e34222675cd152c9154d053a0d32622a3edeabd8cb3b36a310a073e7}} 
@@ -290,7 +290,7 @@ S\+I\+M\+U\+L\+A\+T\+E\+O\+P\+T\+I\+O\+N\+S\+\_\+\+M\+A\+X\+I\+M\+U\+M\+\_\+\+N\
 \raisebox{\heightof{T}}[0pt][0pt]{\index{ROADRUNNER\_DISABLE\_WARNINGS@{ROADRUNNER\_DISABLE\_WARNINGS}!rr::Config@{rr::Config}}\index{rr::Config@{rr::Config}!ROADRUNNER\_DISABLE\_WARNINGS@{ROADRUNNER\_DISABLE\_WARNINGS}}}\mbox{\Hypertarget{classrr_1_1Config_aed7c550b9e34222675cd152c9154d053a2ac32a86236319b70d5078dddd44f23b}\label{classrr_1_1Config_aed7c550b9e34222675cd152c9154d053a2ac32a86236319b70d5078dddd44f23b}} 
 R\+O\+A\+D\+R\+U\+N\+N\+E\+R\+\_\+\+D\+I\+S\+A\+B\+L\+E\+\_\+\+W\+A\+R\+N\+I\+N\+GS&Disable S\+B\+ML conserved moiety warnings. this disables warnings based on the following bitfields\+:
 
-R\+O\+A\+D\+R\+U\+N\+N\+E\+R\+\_\+\+D\+I\+S\+A\+B\+L\+E\+\_\+\+W\+A\+R\+N\+I\+N\+G\+S\+\_\+\+S\+T\+E\+A\+D\+Y\+S\+T\+A\+TE\+: disable the warning in \mbox{\hyperlink{classrr_1_1RoadRunner_a6dca346fbb6e59eb73b0a16212df8165}{Road\+Runner\+::steady\+State}} about possible singular jacobian.
+R\+O\+A\+D\+R\+U\+N\+N\+E\+R\+\_\+\+D\+I\+S\+A\+B\+L\+E\+\_\+\+W\+A\+R\+N\+I\+N\+G\+S\+\_\+\+S\+T\+E\+A\+D\+Y\+S\+T\+A\+TE\+: disable the warning in \mbox{\hyperlink{classrr_1_1RoadRunner_af310e01ec241bc2b19a46629087024d0}{Road\+Runner\+::steady\+State}} about possible singular jacobian.
 
 R\+O\+A\+D\+R\+U\+N\+N\+E\+R\+\_\+\+D\+I\+S\+A\+B\+L\+E\+\_\+\+W\+A\+R\+N\+I\+N\+G\+S\+\_\+\+C\+O\+N\+S\+E\+R\+V\+E\+D\+\_\+\+M\+O\+I\+E\+TY\+: disable the conserved moieties warning if enabled when loading a sbml document. \\
 \hline
@@ -449,11 +449,11 @@ C\+O\+N\+F\+I\+G\+\_\+\+E\+ND&Needs to be the last item in the enum, no mater ho
 
 If a config file was found in one of the above locations, its full path is returned here. 
 
-Otherwise, if no file was found, an empty string is returned. \mbox{\Hypertarget{classrr_1_1Config_a3d5bdb8ee4fad8a88bac365328f510fc}\label{classrr_1_1Config_a3d5bdb8ee4fad8a88bac365328f510fc}} 
+Otherwise, if no file was found, an empty std\+::string is returned. \mbox{\Hypertarget{classrr_1_1Config_af31cc9c1ef79cd00c6099930bd2aae9c}\label{classrr_1_1Config_af31cc9c1ef79cd00c6099930bd2aae9c}} 
 \index{rr::Config@{rr::Config}!setValue@{setValue}}
 \index{setValue@{setValue}!rr::Config@{rr::Config}}
 \doxysubsubsection{\texorpdfstring{setValue()}{setValue()}}
-{\footnotesize\ttfamily void rr\+::\+Config\+::set\+Value (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{classrr_1_1Config_aed7c550b9e34222675cd152c9154d053}{Keys}}}]{key,  }\item[{const \mbox{\hyperlink{classrr_1_1Variant}{Variant}} \&}]{value }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [static]}}
+{\footnotesize\ttfamily void rr\+::\+Config\+::set\+Value (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{classrr_1_1Config_aed7c550b9e34222675cd152c9154d053}{Keys}}}]{key,  }\item[{\mbox{\hyperlink{classrr_1_1Setting}{Setting}}}]{value }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [static]}}
 
 
 

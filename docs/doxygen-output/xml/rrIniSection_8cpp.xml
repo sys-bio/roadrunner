@@ -10,94 +10,58 @@
       <node id="13">
         <label>list</label>
       </node>
-      <node id="9">
-        <label>rrConstants.h</label>
-        <link refid="rrConstants_8h_source"/>
-        <childnode refid="10" relation="include">
-        </childnode>
-        <childnode refid="5" relation="include">
-        </childnode>
-        <childnode refid="11" relation="include">
-        </childnode>
-        <childnode refid="8" relation="include">
-        </childnode>
+      <node id="21">
+        <label>functional</label>
       </node>
       <node id="10">
         <label>limits</label>
       </node>
+      <node id="27">
+        <label>filesystem</label>
+      </node>
       <node id="3">
         <label>float.h</label>
+      </node>
+      <node id="26">
+        <label>stdint.h</label>
+      </node>
+      <node id="18">
+        <label>variant</label>
+      </node>
+      <node id="5">
+        <label>string</label>
       </node>
       <node id="8">
         <label>rrExporter.h</label>
         <link refid="rrExporter_8h_source"/>
       </node>
-      <node id="19">
-        <label>stdint.h</label>
-      </node>
-      <node id="20">
+      <node id="28">
         <label>rrLogger.h</label>
         <link refid="rrLogger_8h_source"/>
-        <childnode refid="21" relation="include">
+        <childnode refid="19" relation="include">
         </childnode>
         <childnode refid="8" relation="include">
         </childnode>
-      </node>
-      <node id="5">
-        <label>string</label>
       </node>
       <node id="15">
         <label>map</label>
       </node>
-      <node id="24">
+      <node id="23">
+        <label>setting_t.h</label>
+        <link refid="setting__t_8h_source"/>
+      </node>
+      <node id="25">
+        <label>exception</label>
+      </node>
+      <node id="31">
         <label>fstream</label>
       </node>
-      <node id="1">
-        <label>rrIniSection.cpp</label>
-        <link refid="rrIniSection_8cpp"/>
-        <childnode refid="2" relation="include">
-        </childnode>
-        <childnode refid="12" relation="include">
-        </childnode>
-        <childnode refid="20" relation="include">
-        </childnode>
-        <childnode refid="22" relation="include">
-        </childnode>
-      </node>
-      <node id="18">
-        <label>typeinfo</label>
-      </node>
-      <node id="2">
-        <label>rrUtils.h</label>
-        <link refid="rrUtils_8h_source"/>
-        <childnode refid="3" relation="include">
-        </childnode>
-        <childnode refid="4" relation="include">
-        </childnode>
-        <childnode refid="5" relation="include">
-        </childnode>
-        <childnode refid="6" relation="include">
-        </childnode>
-        <childnode refid="7" relation="include">
-        </childnode>
-        <childnode refid="8" relation="include">
-        </childnode>
-        <childnode refid="9" relation="include">
-        </childnode>
-        <childnode refid="12" relation="include">
-        </childnode>
-        <childnode refid="19" relation="include">
-        </childnode>
-      </node>
-      <node id="4">
-        <label>vector</label>
-      </node>
-      <node id="23">
+      <node id="30">
         <label>rrIniKey.h</label>
         <link refid="rrIniKey_8h_source"/>
         <childnode refid="4" relation="include">
         </childnode>
-        <childnode refid="24" relation="include">
+        <childnode refid="31" relation="include">
         </childnode>
         <childnode refid="5" relation="include">
         </childnode>
@@ -107,17 +71,20 @@
         </childnode>
         <childnode refid="12" relation="include">
         </childnode>
-        <childnode refid="22" relation="include">
+        <childnode refid="29" relation="include">
         </childnode>
       </node>
-      <node id="21">
-        <label>sstream</label>
-      </node>
-      <node id="11">
-        <label>cstdlib</label>
-      </node>
-      <node id="6">
-        <label>iostream</label>
+      <node id="29">
+        <label>rrIniSection.h</label>
+        <link refid="rrIniSection_8h_source"/>
+        <childnode refid="4" relation="include">
+        </childnode>
+        <childnode refid="5" relation="include">
+        </childnode>
+        <childnode refid="8" relation="include">
+        </childnode>
+        <childnode refid="30" relation="include">
+        </childnode>
       </node>
       <node id="12">
         <label>rrStringUtils.h</label>
@@ -143,38 +110,116 @@
         <childnode refid="17" relation="include">
         </childnode>
       </node>
-      <node id="17">
-        <label>Variant.h</label>
-        <link refid="Variant_8h_source"/>
-        <childnode refid="8" relation="include">
-        </childnode>
-        <childnode refid="18" relation="include">
+      <node id="22">
+        <label>typeinfo</label>
+      </node>
+      <node id="4">
+        <label>vector</label>
+      </node>
+      <node id="24">
+        <label>rrException.h</label>
+        <link refid="rrException_8h_source"/>
+        <childnode refid="25" relation="include">
         </childnode>
         <childnode refid="5" relation="include">
         </childnode>
-        <childnode refid="4" relation="include">
+        <childnode refid="18" relation="include">
+        </childnode>
+        <childnode refid="8" relation="include">
+        </childnode>
+      </node>
+      <node id="19">
+        <label>sstream</label>
+      </node>
+      <node id="11">
+        <label>cstdlib</label>
+      </node>
+      <node id="6">
+        <label>iostream</label>
+      </node>
+      <node id="1">
+        <label>rrIniSection.cpp</label>
+        <link refid="rrIniSection_8cpp"/>
+        <childnode refid="2" relation="include">
+        </childnode>
+        <childnode refid="12" relation="include">
+        </childnode>
+        <childnode refid="28" relation="include">
+        </childnode>
+        <childnode refid="29" relation="include">
         </childnode>
       </node>
       <node id="16">
         <label>unordered_map</label>
+      </node>
+      <node id="17">
+        <label>Setting.h</label>
+        <link refid="Setting_8h_source"/>
+        <childnode refid="18" relation="include">
+        </childnode>
+        <childnode refid="6" relation="include">
+        </childnode>
+        <childnode refid="4" relation="include">
+        </childnode>
+        <childnode refid="19" relation="include">
+        </childnode>
+        <childnode refid="10" relation="include">
+        </childnode>
+        <childnode refid="20" relation="include">
+        </childnode>
+        <childnode refid="21" relation="include">
+        </childnode>
+        <childnode refid="22" relation="include">
+        </childnode>
+        <childnode refid="23" relation="include">
+        </childnode>
+        <childnode refid="24" relation="include">
+        </childnode>
+      </node>
+      <node id="2">
+        <label>rrUtils.h</label>
+        <link refid="rrUtils_8h_source"/>
+        <childnode refid="3" relation="include">
+        </childnode>
+        <childnode refid="4" relation="include">
+        </childnode>
+        <childnode refid="5" relation="include">
+        </childnode>
+        <childnode refid="6" relation="include">
+        </childnode>
+        <childnode refid="7" relation="include">
+        </childnode>
+        <childnode refid="8" relation="include">
+        </childnode>
+        <childnode refid="9" relation="include">
+        </childnode>
+        <childnode refid="12" relation="include">
+        </childnode>
+        <childnode refid="26" relation="include">
+        </childnode>
+        <childnode refid="27" relation="include">
+        </childnode>
+      </node>
+      <node id="9">
+        <label>rrConstants.h</label>
+        <link refid="rrConstants_8h_source"/>
+        <childnode refid="10" relation="include">
+        </childnode>
+        <childnode refid="5" relation="include">
+        </childnode>
+        <childnode refid="11" relation="include">
+        </childnode>
+        <childnode refid="8" relation="include">
+        </childnode>
+      </node>
+      <node id="20">
+        <label>type_traits</label>
       </node>
       <node id="7">
         <label>set</label>
       </node>
       <node id="14">
         <label>complex</label>
-      </node>
-      <node id="22">
-        <label>rrIniSection.h</label>
-        <link refid="rrIniSection_8h_source"/>
-        <childnode refid="4" relation="include">
-        </childnode>
-        <childnode refid="5" relation="include">
-        </childnode>
-        <childnode refid="8" relation="include">
-        </childnode>
-        <childnode refid="23" relation="include">
-        </childnode>
       </node>
     </incdepgraph>
     <innernamespace refid="namespacerr">rr</innernamespace>
@@ -203,14 +248,14 @@
 <codeline lineno="18"><highlight class="normal"></highlight></codeline>
 <codeline lineno="19"><highlight class="normal">}</highlight></codeline>
 <codeline lineno="20"><highlight class="normal"></highlight></codeline>
-<codeline lineno="21"><highlight class="normal">IniSection::IniSection(</highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/></highlight><highlight class="keywordtype">string</highlight><highlight class="normal">&amp;<sp/>nameValueString,<sp/></highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/></highlight><highlight class="keywordtype">char</highlight><highlight class="normal">&amp;<sp/>sep)</highlight></codeline>
+<codeline lineno="21"><highlight class="normal">IniSection::IniSection(</highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/>std::string&amp;<sp/>nameValueString,<sp/></highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/></highlight><highlight class="keywordtype">char</highlight><highlight class="normal">&amp;<sp/>sep)</highlight></codeline>
 <codeline lineno="22"><highlight class="normal">:</highlight></codeline>
 <codeline lineno="23"><highlight class="normal">mIsDirty(true),</highlight></codeline>
 <codeline lineno="24"><highlight class="normal">mIsUsed(false),</highlight></codeline>
 <codeline lineno="25"><highlight class="normal">mName(</highlight><highlight class="stringliteral">&quot;&quot;</highlight><highlight class="normal">),</highlight></codeline>
 <codeline lineno="26"><highlight class="normal">mComment(</highlight><highlight class="stringliteral">&quot;&quot;</highlight><highlight class="normal">)</highlight></codeline>
 <codeline lineno="27"><highlight class="normal">{</highlight></codeline>
-<codeline lineno="28"><highlight class="normal"><sp/><sp/><sp/><sp/>vector&lt;string&gt;<sp/>keys<sp/>=<sp/>splitString(nameValueString,<sp/>sep);</highlight></codeline>
+<codeline lineno="28"><highlight class="normal"><sp/><sp/><sp/><sp/>std::vector&lt;std::string&gt;<sp/>keys<sp/>=<sp/>splitString(nameValueString,<sp/>sep);</highlight></codeline>
 <codeline lineno="29"><highlight class="normal"></highlight></codeline>
 <codeline lineno="30"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="comment">//Insert<sp/>each<sp/>key<sp/>in<sp/>the<sp/>section</highlight><highlight class="normal"></highlight></codeline>
 <codeline lineno="31"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">for</highlight><highlight class="normal">(</highlight><highlight class="keywordtype">unsigned</highlight><highlight class="normal"><sp/></highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/>i<sp/>=<sp/>0;<sp/>i<sp/>&lt;<sp/>keys.size();<sp/>i++)</highlight></codeline>
@@ -232,7 +277,7 @@
 <codeline lineno="47"><highlight class="normal">}</highlight></codeline>
 <codeline lineno="48"><highlight class="normal"></highlight></codeline>
 <codeline lineno="49"><highlight class="normal"></highlight><highlight class="comment">//IniKey<sp/>function</highlight><highlight class="normal"></highlight></codeline>
-<codeline lineno="50"><highlight class="normal"><ref refid="classrr_1_1IniKey" kindref="compound">IniKey</ref>*<sp/><sp/><sp/><sp/>IniSection::GetKey(</highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/></highlight><highlight class="keywordtype">string</highlight><highlight class="normal">&amp;<sp/>keyName,<sp/></highlight><highlight class="keywordtype">bool</highlight><highlight class="normal"><sp/>create)</highlight></codeline>
+<codeline lineno="50"><highlight class="normal"><ref refid="classrr_1_1IniKey" kindref="compound">IniKey</ref>*<sp/><sp/><sp/><sp/>IniSection::GetKey(</highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/>std::string&amp;<sp/>keyName,<sp/></highlight><highlight class="keywordtype">bool</highlight><highlight class="normal"><sp/>create)</highlight></codeline>
 <codeline lineno="51"><highlight class="normal">{</highlight></codeline>
 <codeline lineno="52"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="comment">//Go<sp/>trough<sp/>the<sp/>key<sp/>list<sp/>and<sp/>return<sp/>key<sp/>with<sp/>key<sp/>name</highlight><highlight class="normal"></highlight></codeline>
 <codeline lineno="53"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/>KeyItor<sp/>k_pos;</highlight></codeline>
@@ -264,9 +309,9 @@
 <codeline lineno="79"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal"><sp/>NULL;</highlight></codeline>
 <codeline lineno="80"><highlight class="normal">}</highlight></codeline>
 <codeline lineno="81"><highlight class="normal"></highlight></codeline>
-<codeline lineno="82"><highlight class="normal"></highlight><highlight class="keywordtype">string</highlight><highlight class="normal"><sp/>IniSection::GetNonKeysAsString()</highlight></codeline>
+<codeline lineno="82"><highlight class="normal">std::string<sp/>IniSection::GetNonKeysAsString()</highlight></codeline>
 <codeline lineno="83"><highlight class="normal">{</highlight></codeline>
-<codeline lineno="84"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keywordtype">string</highlight><highlight class="normal"><sp/>tmp<sp/>=<sp/></highlight><highlight class="stringliteral">&quot;&quot;</highlight><highlight class="normal">;</highlight></codeline>
+<codeline lineno="84"><highlight class="normal"><sp/><sp/><sp/><sp/>std::string<sp/>tmp<sp/>=<sp/></highlight><highlight class="stringliteral">&quot;&quot;</highlight><highlight class="normal">;</highlight></codeline>
 <codeline lineno="85"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/>NonKeyItor<sp/>listPos;</highlight></codeline>
 <codeline lineno="86"><highlight class="normal"></highlight></codeline>
 <codeline lineno="87"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal">(!mNonKeys.size())</highlight></codeline>
@@ -286,9 +331,9 @@
 <codeline lineno="101"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal"><sp/>tmp;</highlight></codeline>
 <codeline lineno="102"><highlight class="normal">}</highlight></codeline>
 <codeline lineno="103"><highlight class="normal"></highlight></codeline>
-<codeline lineno="104"><highlight class="normal"></highlight><highlight class="keywordtype">string</highlight><highlight class="normal"><sp/>IniSection::AsString()</highlight></codeline>
+<codeline lineno="104"><highlight class="normal">std::string<sp/>IniSection::AsString()</highlight></codeline>
 <codeline lineno="105"><highlight class="normal">{</highlight></codeline>
-<codeline lineno="106"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keywordtype">string</highlight><highlight class="normal"><sp/>tmp<sp/>=<sp/></highlight><highlight class="stringliteral">&quot;&quot;</highlight><highlight class="normal">;</highlight></codeline>
+<codeline lineno="106"><highlight class="normal"><sp/><sp/><sp/><sp/>std::string<sp/>tmp<sp/>=<sp/></highlight><highlight class="stringliteral">&quot;&quot;</highlight><highlight class="normal">;</highlight></codeline>
 <codeline lineno="107"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/>KeyItor<sp/>listPos;</highlight></codeline>
 <codeline lineno="108"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">for</highlight><highlight class="normal">(listPos<sp/>=<sp/>mKeys.begin();<sp/>listPos<sp/>!=<sp/>mKeys.end();<sp/>listPos++)</highlight></codeline>
 <codeline lineno="109"><highlight class="normal"><sp/><sp/><sp/><sp/>{</highlight></codeline>
@@ -302,7 +347,7 @@
 <codeline lineno="117"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal"><sp/>tmp;</highlight></codeline>
 <codeline lineno="118"><highlight class="normal">}</highlight></codeline>
 <codeline lineno="119"><highlight class="normal"></highlight></codeline>
-<codeline lineno="120"><highlight class="normal"><ref refid="classrr_1_1IniKey" kindref="compound">IniKey</ref>*<sp/>IniSection::CreateKey(</highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/></highlight><highlight class="keywordtype">string</highlight><highlight class="normal">&amp;<sp/>mKey,<sp/></highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/></highlight><highlight class="keywordtype">string</highlight><highlight class="normal">&amp;<sp/>mValue,<sp/></highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/></highlight><highlight class="keywordtype">string</highlight><highlight class="normal">&amp;<sp/>mComment)</highlight></codeline>
+<codeline lineno="120"><highlight class="normal"><ref refid="classrr_1_1IniKey" kindref="compound">IniKey</ref>*<sp/>IniSection::CreateKey(</highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/>std::string&amp;<sp/>mKey,<sp/></highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/>std::string&amp;<sp/>mValue,<sp/></highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/>std::string&amp;<sp/>mComment)</highlight></codeline>
 <codeline lineno="121"><highlight class="normal">{</highlight></codeline>
 <codeline lineno="122"><highlight class="normal"><sp/><sp/><sp/><sp/><ref refid="classrr_1_1IniKey" kindref="compound">IniKey</ref>*<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>pKey<sp/>=<sp/>GetKey(mKey);</highlight></codeline>
 <codeline lineno="123"><highlight class="normal"></highlight></codeline>

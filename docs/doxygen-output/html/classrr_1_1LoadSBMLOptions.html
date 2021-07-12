@@ -22,7 +22,7 @@
  <tr style="height: 56px;">
   <td id="projectalign" style="padding-left: 0.5em;">
    <div id="projectname">roadrunner
-   &#160;<span id="projectnumber">2.0.5</span>
+   &#160;<span id="projectnumber">2.0.8</span>
    </div>
    <div id="projectbrief">Fast simulator for SBML models</div>
   </td>
@@ -129,25 +129,25 @@ Public Member Functions</h2></td></tr>
 &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classrr_1_1LoadSBMLOptions.html#a16a0bc21e030a836579b2c1b9231b29a">LoadSBMLOptions</a> (const <a class="el" href="classrr_1_1Dictionary.html">Dictionary</a> *dict)</td></tr>
 <tr class="memdesc:a16a0bc21e030a836579b2c1b9231b29a"><td class="mdescLeft">&#160;</td><td class="mdescRight">creates an object from an existing dictionary. <br /></td></tr>
 <tr class="separator:a16a0bc21e030a836579b2c1b9231b29a"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a0ea929664c0ac7b28120ad131ae08ae9"><td class="memItemLeft" align="right" valign="top"><a id="a0ea929664c0ac7b28120ad131ae08ae9"></a>
-virtual void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classrr_1_1LoadSBMLOptions.html#a0ea929664c0ac7b28120ad131ae08ae9">setItem</a> (const std::string &amp;key, const <a class="el" href="classrr_1_1Variant.html">rr::Variant</a> &amp;value)</td></tr>
-<tr class="memdesc:a0ea929664c0ac7b28120ad131ae08ae9"><td class="mdescLeft">&#160;</td><td class="mdescRight">sets an item in the internal unordered map. <br /></td></tr>
-<tr class="separator:a0ea929664c0ac7b28120ad131ae08ae9"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a42644c69463fd75bafb1ead69b9681e6"><td class="memItemLeft" align="right" valign="top"><a id="a42644c69463fd75bafb1ead69b9681e6"></a>
-virtual <a class="el" href="classrr_1_1Variant.html">Variant</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classrr_1_1LoadSBMLOptions.html#a42644c69463fd75bafb1ead69b9681e6">getItem</a> (const std::string &amp;key) const</td></tr>
-<tr class="memdesc:a42644c69463fd75bafb1ead69b9681e6"><td class="mdescLeft">&#160;</td><td class="mdescRight">gets an item from the internal unordered map. <br /></td></tr>
-<tr class="separator:a42644c69463fd75bafb1ead69b9681e6"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a5fd757435841abdb20215d65af77bd84"><td class="memItemLeft" align="right" valign="top">virtual bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classrr_1_1LoadSBMLOptions.html#a5fd757435841abdb20215d65af77bd84">hasKey</a> (const std::string &amp;key) const</td></tr>
-<tr class="memdesc:a5fd757435841abdb20215d65af77bd84"><td class="mdescLeft">&#160;</td><td class="mdescRight">is there a key matching this name.  <a href="classrr_1_1LoadSBMLOptions.html#a5fd757435841abdb20215d65af77bd84">More...</a><br /></td></tr>
-<tr class="separator:a5fd757435841abdb20215d65af77bd84"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ab1cf127ce1f97bab98be173fd1f48e80"><td class="memItemLeft" align="right" valign="top"><a id="ab1cf127ce1f97bab98be173fd1f48e80"></a>
-virtual size_t&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classrr_1_1LoadSBMLOptions.html#ab1cf127ce1f97bab98be173fd1f48e80">deleteItem</a> (const std::string &amp;key)</td></tr>
-<tr class="memdesc:ab1cf127ce1f97bab98be173fd1f48e80"><td class="mdescLeft">&#160;</td><td class="mdescRight">remove a value <br /></td></tr>
-<tr class="separator:ab1cf127ce1f97bab98be173fd1f48e80"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ae7eb8e9235b38ece702c662b04da3734"><td class="memItemLeft" align="right" valign="top"><a id="ae7eb8e9235b38ece702c662b04da3734"></a>
-virtual std::vector&lt; std::string &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classrr_1_1LoadSBMLOptions.html#ae7eb8e9235b38ece702c662b04da3734">getKeys</a> () const</td></tr>
-<tr class="memdesc:ae7eb8e9235b38ece702c662b04da3734"><td class="mdescLeft">&#160;</td><td class="mdescRight">list of keys in this object. <br /></td></tr>
-<tr class="separator:ae7eb8e9235b38ece702c662b04da3734"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a5c681de2711ebbc2591d11a280b9db94"><td class="memItemLeft" align="right" valign="top"><a id="a5c681de2711ebbc2591d11a280b9db94"></a>
+void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classrr_1_1LoadSBMLOptions.html#a5c681de2711ebbc2591d11a280b9db94">setItem</a> (const std::string &amp;key, const <a class="el" href="classrr_1_1Setting.html">rr::Setting</a> &amp;value) override</td></tr>
+<tr class="memdesc:a5c681de2711ebbc2591d11a280b9db94"><td class="mdescLeft">&#160;</td><td class="mdescRight">sets an item in the internal unordered std::map. <br /></td></tr>
+<tr class="separator:a5c681de2711ebbc2591d11a280b9db94"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ae4dd5db25b55f9561e231c23c53ae941"><td class="memItemLeft" align="right" valign="top"><a id="ae4dd5db25b55f9561e231c23c53ae941"></a>
+<a class="el" href="classrr_1_1Setting.html">Setting</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classrr_1_1LoadSBMLOptions.html#ae4dd5db25b55f9561e231c23c53ae941">getItem</a> (const std::string &amp;key) const override</td></tr>
+<tr class="memdesc:ae4dd5db25b55f9561e231c23c53ae941"><td class="mdescLeft">&#160;</td><td class="mdescRight">gets an item from the internal unordered std::map. <br /></td></tr>
+<tr class="separator:ae4dd5db25b55f9561e231c23c53ae941"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a117c4f6440ac36541ec57ceae06d4770"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classrr_1_1LoadSBMLOptions.html#a117c4f6440ac36541ec57ceae06d4770">hasKey</a> (const std::string &amp;key) const override</td></tr>
+<tr class="memdesc:a117c4f6440ac36541ec57ceae06d4770"><td class="mdescLeft">&#160;</td><td class="mdescRight">is there a key matching this name.  <a href="classrr_1_1LoadSBMLOptions.html#a117c4f6440ac36541ec57ceae06d4770">More...</a><br /></td></tr>
+<tr class="separator:a117c4f6440ac36541ec57ceae06d4770"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a23be92b85c9e3eb38805fa63cf112085"><td class="memItemLeft" align="right" valign="top"><a id="a23be92b85c9e3eb38805fa63cf112085"></a>
+size_t&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classrr_1_1LoadSBMLOptions.html#a23be92b85c9e3eb38805fa63cf112085">deleteItem</a> (const std::string &amp;key) override</td></tr>
+<tr class="memdesc:a23be92b85c9e3eb38805fa63cf112085"><td class="mdescLeft">&#160;</td><td class="mdescRight">remove a value <br /></td></tr>
+<tr class="separator:a23be92b85c9e3eb38805fa63cf112085"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a793d753189e642242ff31e0897124c85"><td class="memItemLeft" align="right" valign="top"><a id="a793d753189e642242ff31e0897124c85"></a>
+std::vector&lt; std::string &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classrr_1_1LoadSBMLOptions.html#a793d753189e642242ff31e0897124c85">getKeys</a> () const override</td></tr>
+<tr class="memdesc:a793d753189e642242ff31e0897124c85"><td class="mdescLeft">&#160;</td><td class="mdescRight">list of keys in this object. <br /></td></tr>
+<tr class="separator:a793d753189e642242ff31e0897124c85"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a99b7bd04cd04619967e715e344fa956d"><td class="memItemLeft" align="right" valign="top"><a id="a99b7bd04cd04619967e715e344fa956d"></a>
 bool&#160;</td><td class="memItemRight" valign="bottom"><b>getConservedMoietyConversion</b> () const</td></tr>
 <tr class="separator:a99b7bd04cd04619967e715e344fa956d"><td class="memSeparator" colspan="2">&#160;</td></tr>
@@ -170,27 +170,27 @@ virtual&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="c
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pub-attribs"></a>
 Public Attributes</h2></td></tr>
-<tr class="memitem:a131407b1f65a4bba3e7a4af04af5bfe6"><td class="memItemLeft" align="right" valign="top"><a id="a131407b1f65a4bba3e7a4af04af5bfe6"></a>
-uint16_t&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classrr_1_1LoadSBMLOptions.html#a131407b1f65a4bba3e7a4af04af5bfe6">version</a></td></tr>
-<tr class="memdesc:a131407b1f65a4bba3e7a4af04af5bfe6"><td class="mdescLeft">&#160;</td><td class="mdescRight">the version this struct <br /></td></tr>
-<tr class="separator:a131407b1f65a4bba3e7a4af04af5bfe6"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:aa73e004cfce50848e0ea5a9803800d3c"><td class="memItemLeft" align="right" valign="top"><a id="aa73e004cfce50848e0ea5a9803800d3c"></a>
-uint16_t&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classrr_1_1LoadSBMLOptions.html#aa73e004cfce50848e0ea5a9803800d3c">size</a></td></tr>
-<tr class="memdesc:aa73e004cfce50848e0ea5a9803800d3c"><td class="mdescLeft">&#160;</td><td class="mdescRight">sizeof this struct <br /></td></tr>
-<tr class="separator:aa73e004cfce50848e0ea5a9803800d3c"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:afea20bb329fec8f8ab45be9b0ab78661"><td class="memItemLeft" align="right" valign="top"><a id="afea20bb329fec8f8ab45be9b0ab78661"></a>
-uint32_t&#160;</td><td class="memItemRight" valign="bottom"><b>modelGeneratorOpt</b></td></tr>
-<tr class="separator:afea20bb329fec8f8ab45be9b0ab78661"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a4db75c9edf3f0f0fba4373965a4a8c29"><td class="memItemLeft" align="right" valign="top"><a id="a4db75c9edf3f0f0fba4373965a4a8c29"></a>
-uint32_t&#160;</td><td class="memItemRight" valign="bottom"><b>loadFlags</b></td></tr>
-<tr class="separator:a4db75c9edf3f0f0fba4373965a4a8c29"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ae95402b02db628dc9b7c53b08de654c6"><td class="memItemLeft" align="right" valign="top"><a id="ae95402b02db628dc9b7c53b08de654c6"></a>
+std::uint16_t&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classrr_1_1LoadSBMLOptions.html#ae95402b02db628dc9b7c53b08de654c6">version</a></td></tr>
+<tr class="memdesc:ae95402b02db628dc9b7c53b08de654c6"><td class="mdescLeft">&#160;</td><td class="mdescRight">the version this struct <br /></td></tr>
+<tr class="separator:ae95402b02db628dc9b7c53b08de654c6"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a793ade36e4ae97eb6f8788d1470721ca"><td class="memItemLeft" align="right" valign="top"><a id="a793ade36e4ae97eb6f8788d1470721ca"></a>
+std::uint16_t&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classrr_1_1LoadSBMLOptions.html#a793ade36e4ae97eb6f8788d1470721ca">size</a></td></tr>
+<tr class="memdesc:a793ade36e4ae97eb6f8788d1470721ca"><td class="mdescLeft">&#160;</td><td class="mdescRight">sizeof this struct <br /></td></tr>
+<tr class="separator:a793ade36e4ae97eb6f8788d1470721ca"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a49f8effe2589231e5a4eca1df70852f7"><td class="memItemLeft" align="right" valign="top"><a id="a49f8effe2589231e5a4eca1df70852f7"></a>
+std::uint32_t&#160;</td><td class="memItemRight" valign="bottom"><b>modelGeneratorOpt</b></td></tr>
+<tr class="separator:a49f8effe2589231e5a4eca1df70852f7"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a0cb802e07cdda44741149925b4a9ba3d"><td class="memItemLeft" align="right" valign="top"><a id="a0cb802e07cdda44741149925b4a9ba3d"></a>
+std::uint32_t&#160;</td><td class="memItemRight" valign="bottom"><b>loadFlags</b></td></tr>
+<tr class="separator:a0cb802e07cdda44741149925b4a9ba3d"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="inherited"></a>
 Additional Inherited Members</h2></td></tr>
 <tr class="inherit_header pro_types_classrr_1_1BasicDictionary"><td colspan="2" onclick="javascript:toggleInherit('pro_types_classrr_1_1BasicDictionary')"><img src="closed.png" alt="-"/>&#160;Protected Types inherited from <a class="el" href="classrr_1_1BasicDictionary.html">rr::BasicDictionary</a></td></tr>
-<tr class="memitem:aedf8f5947090adb89828e602181a0a2f inherit pro_types_classrr_1_1BasicDictionary"><td class="memItemLeft" align="right" valign="top"><a id="aedf8f5947090adb89828e602181a0a2f"></a>
-typedef cxx11_ns::unordered_map&lt; std::string, <a class="el" href="classrr_1_1Variant.html">Variant</a> &gt;&#160;</td><td class="memItemRight" valign="bottom"><b>VariantMap</b></td></tr>
-<tr class="separator:aedf8f5947090adb89828e602181a0a2f inherit pro_types_classrr_1_1BasicDictionary"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a3903012a5ae2c390b4cb2d8fd8b775c9 inherit pro_types_classrr_1_1BasicDictionary"><td class="memItemLeft" align="right" valign="top"><a id="a3903012a5ae2c390b4cb2d8fd8b775c9"></a>
+typedef std::unordered_map&lt; std::string, <a class="el" href="classrr_1_1Setting.html">Setting</a> &gt;&#160;</td><td class="memItemRight" valign="bottom"><b>VariantMap</b></td></tr>
+<tr class="separator:a3903012a5ae2c390b4cb2d8fd8b775c9 inherit pro_types_classrr_1_1BasicDictionary"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="inherit_header pro_attribs_classrr_1_1BasicDictionary"><td colspan="2" onclick="javascript:toggleInherit('pro_attribs_classrr_1_1BasicDictionary')"><img src="closed.png" alt="-"/>&#160;Protected Attributes inherited from <a class="el" href="classrr_1_1BasicDictionary.html">rr::BasicDictionary</a></td></tr>
 <tr class="memitem:aeecca9d2b0b63711fc5e70e428e4f94d inherit pro_attribs_classrr_1_1BasicDictionary"><td class="memItemLeft" align="right" valign="top"><a id="aeecca9d2b0b63711fc5e70e428e4f94d"></a>
 VariantMap&#160;</td><td class="memItemRight" valign="bottom"><b>items</b></td></tr>
@@ -271,8 +271,8 @@ VariantMap&#160;</td><td class="memItemRight" valign="bottom"><b>items</b></td><
 </div>
 </div>
 <h2 class="groupheader">Member Function Documentation</h2>
-<a id="a5fd757435841abdb20215d65af77bd84"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a5fd757435841abdb20215d65af77bd84">&#9670;&nbsp;</a></span>hasKey()</h2>
+<a id="a117c4f6440ac36541ec57ceae06d4770"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a117c4f6440ac36541ec57ceae06d4770">&#9670;&nbsp;</a></span>hasKey()</h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -290,7 +290,7 @@ VariantMap&#160;</td><td class="memItemRight" valign="bottom"><b>items</b></td><
       </table>
   </td>
   <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">virtual</span></span>  </td>
+<span class="mlabels"><span class="mlabel">override</span><span class="mlabel">virtual</span></span>  </td>
   </tr>
 </table>
 </div><div class="memdoc">

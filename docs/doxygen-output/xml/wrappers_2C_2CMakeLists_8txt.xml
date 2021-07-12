@@ -3,10 +3,10 @@
   <compounddef id="wrappers_2C_2CMakeLists_8txt" kind="file" language="C++">
     <compoundname>CMakeLists.txt</compoundname>
       <sectiondef kind="func">
-      <memberdef kind="function" id="wrappers_2C_2CMakeLists_8txt_1adc46b9f6868b006cb8466c692f00d684" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+      <memberdef kind="function" id="wrappers_2C_2CMakeLists_8txt_1a2edad0cc9c45f17cc54d77461bb09a55" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
         <type></type>
         <definition>include</definition>
-        <argsstring>(GNUInstallDirs) set(target roadrunner_c_api) set(HEADERS rrcStringList.h rrArrayList.h rrArrayListItem.h rrArrayListItemBase.h rrc_api.h rrc_logging_api.h rrc_nom_api.h rrc_libstruct_api.h rrc_utilities.h rrc_cpp_support.h) set(SOURCES rrcStringList.cpp rrArrayList.cpp rrArrayListItem.cpp rrArrayListItemBase.cpp rrc_api.cpp rrc_logging_api.cpp rrc_nom_api.cpp rrc_libstruct_api.cpp rrc_utilities.cpp rrc_cpp_support.cpp) add_library($</argsstring>
+        <argsstring>(GNUInstallDirs) set(target roadrunner_c_api) set(HEADERS rrcStringList.h rrArrayList.h rrArrayListItem.h rrArrayListItemBase.h rrc_api.h rrc_logging_api.h rrc_nom_api.h rrc_libstruct_api.h rrc_utilities.h rrc_cpp_support.h rrc_exporter.h rrc_types.h) set(SOURCES rrcStringList.cpp rrArrayList.cpp rrArrayListItem.cpp rrArrayListItemBase.cpp rrc_api.cpp rrc_logging_api.cpp rrc_nom_api.cpp rrc_libstruct_api.cpp rrc_utilities.cpp rrc_cpp_support.cpp) add_library($</argsstring>
         <name>include</name>
         <param>
           <type>GNUInstallDirs</type>
@@ -17,7 +17,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="D:/roadrunner/roadrunner/wrappers/C/CMakeLists.txt" line="1" column="1" bodyfile="D:/roadrunner/roadrunner/wrappers/C/CMakeLists.txt" bodystart="1" bodyend="43"/>
+        <location file="/Users/ciaranwelsh/Documents/roadrunner/wrappers/C/CMakeLists.txt" line="1" column="1" bodyfile="/Users/ciaranwelsh/Documents/roadrunner/wrappers/C/CMakeLists.txt" bodystart="1" bodyend="35"/>
       </memberdef>
       </sectiondef>
     <briefdescription>
@@ -40,73 +40,66 @@
 <codeline lineno="13"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>rrc_libstruct_api.h</highlight></codeline>
 <codeline lineno="14"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>rrc_utilities.h</highlight></codeline>
 <codeline lineno="15"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>rrc_cpp_support.h</highlight></codeline>
-<codeline lineno="16"><highlight class="normal">#=======</highlight></codeline>
-<codeline lineno="17"><highlight class="normal">#set(C_API_INCLUDE_ROOT<sp/></highlight><highlight class="stringliteral">&quot;${RR_ROOT}/wrappers/C&quot;</highlight><highlight class="normal">)</highlight></codeline>
-<codeline lineno="18"><highlight class="normal"></highlight></codeline>
+<codeline lineno="16"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>rrc_exporter.h</highlight></codeline>
+<codeline lineno="17"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>rrc_types.h</highlight></codeline>
+<codeline lineno="18"><highlight class="normal">)</highlight></codeline>
 <codeline lineno="19"><highlight class="normal"></highlight></codeline>
-<codeline lineno="20"><highlight class="normal">#include_directories(</highlight></codeline>
-<codeline lineno="21"><highlight class="normal">#${RR_GENERATED_HEADER_PATH}<sp/><sp/><sp/><sp/><sp/>#we<sp/>have<sp/>to<sp/></highlight><highlight class="keywordflow">do</highlight><highlight class="normal"><sp/></highlight><highlight class="keyword">this</highlight><highlight class="normal"><sp/>to<sp/>get<sp/>the<sp/>generated<sp/>header,<sp/>NEEDED<sp/>FOR<sp/>rrVersionInfo.h<sp/>file</highlight></codeline>
-<codeline lineno="22"><highlight class="normal"></highlight><highlight class="preprocessor">#${C_API_INCLUDE_ROOT}</highlight><highlight class="normal"></highlight></codeline>
-<codeline lineno="23"><highlight class="normal"></highlight><highlight class="preprocessor">#${RR_ROOT}/source</highlight><highlight class="normal"></highlight></codeline>
-<codeline lineno="24"><highlight class="normal"></highlight><highlight class="preprocessor">#${THIRD_PARTY_INSTALL_FOLDER}/include</highlight><highlight class="normal"></highlight></codeline>
-<codeline lineno="25"><highlight class="normal"></highlight><highlight class="preprocessor">#&gt;&gt;&gt;&gt;&gt;&gt;&gt;<sp/>32624909156eb38d84edf40566b07980f7435fca</highlight><highlight class="normal"></highlight></codeline>
-<codeline lineno="26"><highlight class="normal">)</highlight></codeline>
-<codeline lineno="27"><highlight class="normal"></highlight></codeline>
-<codeline lineno="28"><highlight class="normal">set(</highlight></codeline>
-<codeline lineno="29"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>SOURCES</highlight></codeline>
-<codeline lineno="30"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>rrcStringList.cpp</highlight></codeline>
-<codeline lineno="31"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>rrArrayList.cpp</highlight></codeline>
-<codeline lineno="32"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>rrArrayListItem.cpp</highlight></codeline>
-<codeline lineno="33"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>rrArrayListItemBase.cpp</highlight></codeline>
-<codeline lineno="34"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>rrc_api.cpp</highlight></codeline>
-<codeline lineno="35"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>rrc_logging_api.cpp</highlight></codeline>
-<codeline lineno="36"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>rrc_nom_api.cpp</highlight></codeline>
-<codeline lineno="37"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>rrc_libstruct_api.cpp</highlight></codeline>
-<codeline lineno="38"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>rrc_utilities.cpp</highlight></codeline>
-<codeline lineno="39"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>rrc_cpp_support.cpp</highlight></codeline>
-<codeline lineno="40"><highlight class="normal">)</highlight></codeline>
+<codeline lineno="20"><highlight class="normal">set(</highlight></codeline>
+<codeline lineno="21"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>SOURCES</highlight></codeline>
+<codeline lineno="22"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>rrcStringList.cpp</highlight></codeline>
+<codeline lineno="23"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>rrArrayList.cpp</highlight></codeline>
+<codeline lineno="24"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>rrArrayListItem.cpp</highlight></codeline>
+<codeline lineno="25"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>rrArrayListItemBase.cpp</highlight></codeline>
+<codeline lineno="26"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>rrc_api.cpp</highlight></codeline>
+<codeline lineno="27"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>rrc_logging_api.cpp</highlight></codeline>
+<codeline lineno="28"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>rrc_nom_api.cpp</highlight></codeline>
+<codeline lineno="29"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>rrc_libstruct_api.cpp</highlight></codeline>
+<codeline lineno="30"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>rrc_utilities.cpp</highlight></codeline>
+<codeline lineno="31"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>rrc_cpp_support.cpp</highlight></codeline>
+<codeline lineno="32"><highlight class="normal">)</highlight></codeline>
+<codeline lineno="33"><highlight class="normal"></highlight></codeline>
+<codeline lineno="34"><highlight class="normal"></highlight><highlight class="preprocessor">#The<sp/>C-api<sp/>is<sp/>built<sp/>as<sp/>a<sp/>shared<sp/>library..</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="35"><highlight class="normal">add_library(${target}<sp/>SHARED<sp/>${HEADERS}<sp/>${SOURCES})</highlight></codeline>
+<codeline lineno="36"><highlight class="normal"></highlight></codeline>
+<codeline lineno="37"><highlight class="normal">target_include_directories(${target}<sp/>PUBLIC</highlight></codeline>
+<codeline lineno="38"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="stringliteral">&quot;$&lt;BUILD_INTERFACE:${CMAKE_CURRENT_SOURCE_DIR}/..&gt;&quot;</highlight><highlight class="normal"><sp/>#<sp/></highlight><highlight class="keywordflow">for</highlight><highlight class="normal"><sp/>#include<sp/></highlight><highlight class="stringliteral">&quot;C/rrc_api.h&quot;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="39"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="stringliteral">&quot;$&lt;INSTALL_INTERFACE:${CMAKE_INSTALL_INCLUDEDIR}&gt;&quot;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="40"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>)</highlight></codeline>
 <codeline lineno="41"><highlight class="normal"></highlight></codeline>
-<codeline lineno="42"><highlight class="normal">#The<sp/>C-api<sp/>is<sp/>built<sp/>as<sp/>a<sp/>shared<sp/>library..</highlight></codeline>
-<codeline lineno="43"><highlight class="normal">add_library(${target}<sp/>SHARED<sp/>${HEADERS}<sp/>${SOURCES})</highlight></codeline>
-<codeline lineno="44"><highlight class="normal"></highlight></codeline>
-<codeline lineno="45"><highlight class="normal">target_include_directories(${target}<sp/>PUBLIC</highlight></codeline>
-<codeline lineno="46"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="stringliteral">&quot;$&lt;BUILD_INTERFACE:${CMAKE_CURRENT_SOURCE_DIR}/..&gt;&quot;</highlight><highlight class="normal"><sp/>#<sp/></highlight><highlight class="keywordflow">for</highlight><highlight class="normal"><sp/>#include<sp/></highlight><highlight class="stringliteral">&quot;C/rrc_api.h&quot;</highlight><highlight class="normal"></highlight></codeline>
-<codeline lineno="47"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="stringliteral">&quot;$&lt;INSTALL_INTERFACE:${CMAKE_INSTALL_INCLUDEDIR}&gt;&quot;</highlight><highlight class="normal"></highlight></codeline>
-<codeline lineno="48"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>)</highlight></codeline>
-<codeline lineno="49"><highlight class="normal"></highlight></codeline>
-<codeline lineno="50"><highlight class="normal">#<sp/>link<sp/>statically<sp/>so<sp/>users<sp/>of<sp/>the<sp/>c<sp/>library<sp/>will<sp/>not<sp/>also<sp/>need<sp/>the<sp/>shared.</highlight></codeline>
-<codeline lineno="51"><highlight class="normal">#<sp/>Note:<sp/>properties<sp/>of<sp/>roadrunner-</highlight><highlight class="keyword">static</highlight><highlight class="normal"><sp/>are<sp/>transitive.<sp/>Link<sp/>libraries<sp/>and</highlight></codeline>
-<codeline lineno="52"><highlight class="normal">#<sp/>include_directories<sp/></highlight><highlight class="keywordflow">for</highlight><highlight class="normal"><sp/>roadrunner-</highlight><highlight class="keyword">static</highlight><highlight class="normal"><sp/>all<sp/>come<sp/>with<sp/>the</highlight></codeline>
-<codeline lineno="53"><highlight class="normal">#<sp/>roadrunner-</highlight><highlight class="keyword">static</highlight><highlight class="normal"><sp/>target<sp/>automatically.</highlight></codeline>
-<codeline lineno="54"><highlight class="normal">target_link_libraries(${target}<sp/>PUBLIC<sp/>roadrunner-</highlight><highlight class="keyword">static</highlight><highlight class="normal">)</highlight></codeline>
-<codeline lineno="55"><highlight class="normal"></highlight></codeline>
-<codeline lineno="56"><highlight class="normal">add_dependencies(${target}<sp/>roadrunner-</highlight><highlight class="keyword">static</highlight><highlight class="normal">)</highlight></codeline>
-<codeline lineno="57"><highlight class="normal"></highlight></codeline>
-<codeline lineno="58"><highlight class="normal">target_compile_definitions(${target}<sp/>PRIVATE<sp/>EXPORT_RRC<sp/>STATIC_RR)</highlight></codeline>
-<codeline lineno="59"><highlight class="normal"></highlight></codeline>
-<codeline lineno="60"><highlight class="normal">install(</highlight></codeline>
-<codeline lineno="61"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>TARGETS<sp/>${target}</highlight></codeline>
-<codeline lineno="62"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>EXPORT<sp/>${target}</highlight></codeline>
-<codeline lineno="63"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>RUNTIME<sp/>DESTINATION<sp/></highlight><highlight class="stringliteral">&quot;${CMAKE_INSTALL_BINDIR}&quot;</highlight><highlight class="normal"><sp/>COMPONENT<sp/>${target}</highlight></codeline>
-<codeline lineno="64"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>LIBRARY<sp/>DESTINATION<sp/></highlight><highlight class="stringliteral">&quot;${CMAKE_INSTALL_LIBDIR}&quot;</highlight><highlight class="normal"><sp/>COMPONENT<sp/>${target}</highlight></codeline>
-<codeline lineno="65"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>ARCHIVE<sp/>DESTINATION<sp/></highlight><highlight class="stringliteral">&quot;${CMAKE_INSTALL_LIBDIR}&quot;</highlight><highlight class="normal"><sp/>COMPONENT<sp/>${target}</highlight></codeline>
-<codeline lineno="66"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>PUBLIC_HEADER<sp/>DESTINATION<sp/></highlight><highlight class="stringliteral">&quot;${CMAKE_INSTALL_INCLUDEDIR}/rr&quot;</highlight><highlight class="normal"><sp/>COMPONENT<sp/>${target}</highlight></codeline>
-<codeline lineno="67"><highlight class="normal">)</highlight></codeline>
-<codeline lineno="68"><highlight class="normal">install(FILES<sp/>${HEADERS}<sp/>DESTINATION<sp/></highlight><highlight class="stringliteral">&quot;${CMAKE_INSTALL_INCLUDEDIR}/rr&quot;</highlight><highlight class="normal">)</highlight></codeline>
-<codeline lineno="69"><highlight class="normal"></highlight></codeline>
-<codeline lineno="70"><highlight class="normal">#<sp/>install<sp/>export<sp/>info</highlight></codeline>
-<codeline lineno="71"><highlight class="normal">install(</highlight></codeline>
-<codeline lineno="72"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>EXPORT<sp/>${target}</highlight></codeline>
-<codeline lineno="73"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>DESTINATION<sp/></highlight><highlight class="stringliteral">&quot;${CMAKE_INSTALL_LIBDIR}/cmake&quot;</highlight><highlight class="normal"></highlight></codeline>
-<codeline lineno="74"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>NAMESPACE<sp/>${target}::</highlight></codeline>
-<codeline lineno="75"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>FILE<sp/>${target}-config.cmake</highlight></codeline>
-<codeline lineno="76"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>COMPONENT<sp/>${target}</highlight></codeline>
-<codeline lineno="77"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>EXPORT_LINK_INTERFACE_LIBRARIES</highlight></codeline>
-<codeline lineno="78"><highlight class="normal">)</highlight></codeline>
-<codeline lineno="79"><highlight class="normal"></highlight></codeline>
-<codeline lineno="80"><highlight class="normal"></highlight></codeline>
-<codeline lineno="81"><highlight class="normal"></highlight></codeline>
+<codeline lineno="42"><highlight class="normal">#<sp/>link<sp/>statically<sp/>so<sp/>users<sp/>of<sp/>the<sp/>c<sp/>library<sp/>will<sp/>not<sp/>also<sp/>need<sp/>the<sp/>shared.</highlight></codeline>
+<codeline lineno="43"><highlight class="normal">#<sp/>Note:<sp/>properties<sp/>of<sp/>roadrunner-</highlight><highlight class="keyword">static</highlight><highlight class="normal"><sp/>are<sp/>transitive.<sp/>Link<sp/>libraries<sp/>and</highlight></codeline>
+<codeline lineno="44"><highlight class="normal">#<sp/>include_directories<sp/></highlight><highlight class="keywordflow">for</highlight><highlight class="normal"><sp/>roadrunner-</highlight><highlight class="keyword">static</highlight><highlight class="normal"><sp/>all<sp/>come<sp/>with<sp/>the</highlight></codeline>
+<codeline lineno="45"><highlight class="normal">#<sp/>roadrunner-</highlight><highlight class="keyword">static</highlight><highlight class="normal"><sp/>target<sp/>automatically.</highlight></codeline>
+<codeline lineno="46"><highlight class="normal">target_link_libraries(${target}<sp/>PUBLIC<sp/>roadrunner-</highlight><highlight class="keyword">static</highlight><highlight class="normal"><sp/></highlight><highlight class="stringliteral">&quot;$&lt;TARGET_PROPERTY:roadrunner-static,LINK_LIBRARIES&gt;&quot;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="47"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>)</highlight></codeline>
+<codeline lineno="48"><highlight class="normal"></highlight></codeline>
+<codeline lineno="49"><highlight class="normal">add_dependencies(${target}<sp/>roadrunner-</highlight><highlight class="keyword">static</highlight><highlight class="normal">)</highlight></codeline>
+<codeline lineno="50"><highlight class="normal"></highlight></codeline>
+<codeline lineno="51"><highlight class="normal">target_compile_definitions(${target}<sp/>PRIVATE<sp/>EXPORT_RRC<sp/>STATIC_RR)</highlight></codeline>
+<codeline lineno="52"><highlight class="normal"></highlight></codeline>
+<codeline lineno="53"><highlight class="normal">install(</highlight></codeline>
+<codeline lineno="54"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>TARGETS<sp/>${target}</highlight></codeline>
+<codeline lineno="55"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>EXPORT<sp/>${target}</highlight></codeline>
+<codeline lineno="56"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>RUNTIME<sp/>DESTINATION<sp/></highlight><highlight class="stringliteral">&quot;${CMAKE_INSTALL_BINDIR}&quot;</highlight><highlight class="normal"><sp/>COMPONENT<sp/>${target}</highlight></codeline>
+<codeline lineno="57"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>LIBRARY<sp/>DESTINATION<sp/></highlight><highlight class="stringliteral">&quot;${CMAKE_INSTALL_LIBDIR}&quot;</highlight><highlight class="normal"><sp/>COMPONENT<sp/>${target}</highlight></codeline>
+<codeline lineno="58"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>ARCHIVE<sp/>DESTINATION<sp/></highlight><highlight class="stringliteral">&quot;${CMAKE_INSTALL_LIBDIR}&quot;</highlight><highlight class="normal"><sp/>COMPONENT<sp/>${target}</highlight></codeline>
+<codeline lineno="59"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>PUBLIC_HEADER<sp/>DESTINATION<sp/></highlight><highlight class="stringliteral">&quot;${CMAKE_INSTALL_INCLUDEDIR}/rr&quot;</highlight><highlight class="normal"><sp/>COMPONENT<sp/>${target}</highlight></codeline>
+<codeline lineno="60"><highlight class="normal">)</highlight></codeline>
+<codeline lineno="61"><highlight class="normal">install(FILES<sp/>${HEADERS}<sp/>DESTINATION<sp/></highlight><highlight class="stringliteral">&quot;${CMAKE_INSTALL_INCLUDEDIR}/rr&quot;</highlight><highlight class="normal">)</highlight></codeline>
+<codeline lineno="62"><highlight class="normal"></highlight></codeline>
+<codeline lineno="63"><highlight class="normal">#<sp/>install<sp/>export<sp/>info</highlight></codeline>
+<codeline lineno="64"><highlight class="normal">install(</highlight></codeline>
+<codeline lineno="65"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>EXPORT<sp/>${target}</highlight></codeline>
+<codeline lineno="66"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>DESTINATION<sp/></highlight><highlight class="stringliteral">&quot;${CMAKE_INSTALL_LIBDIR}/cmake&quot;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="67"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>NAMESPACE<sp/>${target}::</highlight></codeline>
+<codeline lineno="68"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>FILE<sp/>${target}-config.cmake</highlight></codeline>
+<codeline lineno="69"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>COMPONENT<sp/>${target}</highlight></codeline>
+<codeline lineno="70"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>EXPORT_LINK_INTERFACE_LIBRARIES</highlight></codeline>
+<codeline lineno="71"><highlight class="normal">)</highlight></codeline>
+<codeline lineno="72"><highlight class="normal"></highlight></codeline>
+<codeline lineno="73"><highlight class="normal"></highlight></codeline>
+<codeline lineno="74"><highlight class="normal"></highlight></codeline>
     </programlisting>
-    <location file="D:/roadrunner/roadrunner/wrappers/C/CMakeLists.txt"/>
+    <location file="/Users/ciaranwelsh/Documents/roadrunner/wrappers/C/CMakeLists.txt"/>
   </compounddef>
 </doxygen>

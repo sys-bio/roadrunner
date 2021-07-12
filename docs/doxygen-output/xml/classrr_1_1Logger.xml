@@ -11,74 +11,74 @@
           <name>LOG_CURRENT</name>
           <initializer>= 0</initializer>
           <briefdescription>
+<para>LOG_CURRENT: Use the current level <ndash/> don&apos;t change the level from what it is. </para>
           </briefdescription>
           <detaileddescription>
+<para>LOG_FATAL: A fatal error. The application will most likely terminate. This is the highest priority. LOG_CRITICAL: A critical error. The application might not be able to continue running successfully. LOG_ERROR: An error. An operation did not complete successfully, but the application as a whole is not affected. LOG_WARNING: A warning. An operation completed with an unexpected result. LOG_NOTICE: A notice, which is an information with just a higher priority. LOG_INFORMATION: An informational message, usually denoting the successful completion of an operation. LOG_DEBUG: A debugging message. LOG_TRACE: A tracing message. This is the lowest priority. </para>
           </detaileddescription>
         </enumvalue>
         <enumvalue id="classrr_1_1Logger_1a72a52e7fe7be48e2ecad639c641ee8aaa11cc16555fcf30d3c251bdc0c15a7f03" prot="public">
           <name>LOG_FATAL</name>
           <initializer>= 1</initializer>
           <briefdescription>
-<para>Use the current level <ndash/> don&apos;t change the level from what it is. </para>
           </briefdescription>
           <detaileddescription>
           </detaileddescription>
         </enumvalue>
         <enumvalue id="classrr_1_1Logger_1a72a52e7fe7be48e2ecad639c641ee8aaa8296259b3d5f3188030abd9b5ee0609a" prot="public">
           <name>LOG_CRITICAL</name>
+          <initializer>= 2</initializer>
           <briefdescription>
-<para>A fatal error. The application will most likely terminate. This is the highest priority. </para>
           </briefdescription>
           <detaileddescription>
           </detaileddescription>
         </enumvalue>
         <enumvalue id="classrr_1_1Logger_1a72a52e7fe7be48e2ecad639c641ee8aaafdb1b7e45fd5de96e098cd30c552fa7b" prot="public">
           <name>LOG_ERROR</name>
+          <initializer>= 3</initializer>
           <briefdescription>
-<para>A critical error. The application might not be able to continue running successfully. </para>
           </briefdescription>
           <detaileddescription>
           </detaileddescription>
         </enumvalue>
         <enumvalue id="classrr_1_1Logger_1a72a52e7fe7be48e2ecad639c641ee8aaaa6900cf102f98dfa521d7c11dc59344c" prot="public">
           <name>LOG_WARNING</name>
+          <initializer>= 4</initializer>
           <briefdescription>
-<para>An error. An operation did not complete successfully, but the application as a whole is not affected. </para>
           </briefdescription>
           <detaileddescription>
           </detaileddescription>
         </enumvalue>
         <enumvalue id="classrr_1_1Logger_1a72a52e7fe7be48e2ecad639c641ee8aaaa3e3ead40b6448c9d7893f1a33573984" prot="public">
           <name>LOG_NOTICE</name>
+          <initializer>= 5</initializer>
           <briefdescription>
-<para>A warning. An operation completed with an unexpected result. </para>
           </briefdescription>
           <detaileddescription>
           </detaileddescription>
         </enumvalue>
         <enumvalue id="classrr_1_1Logger_1a72a52e7fe7be48e2ecad639c641ee8aaa4877e8c5192b123e2f8e71cc538df17b" prot="public">
           <name>LOG_INFORMATION</name>
+          <initializer>= 6</initializer>
           <briefdescription>
-<para>A notice, which is an information with just a higher priority. </para>
           </briefdescription>
           <detaileddescription>
           </detaileddescription>
         </enumvalue>
         <enumvalue id="classrr_1_1Logger_1a72a52e7fe7be48e2ecad639c641ee8aaadaf226f4b284b87851ddb9a9f7ddd0d5" prot="public">
           <name>LOG_DEBUG</name>
+          <initializer>= 7</initializer>
           <briefdescription>
-<para>An informational message, usually denoting the successful completion of an operation. </para>
           </briefdescription>
           <detaileddescription>
           </detaileddescription>
         </enumvalue>
         <enumvalue id="classrr_1_1Logger_1a72a52e7fe7be48e2ecad639c641ee8aaa415b215c622543781b0dab9ddb0cc5cb" prot="public">
           <name>LOG_TRACE</name>
+          <initializer>=8</initializer>
           <briefdescription>
-<para>A debugging message. </para>
           </briefdescription>
           <detaileddescription>
-<para>A tracing message. This is the lowest priority. </para>
           </detaileddescription>
         </enumvalue>
         <briefdescription>
@@ -88,7 +88,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="rrLogger.h" line="60" column="5" bodyfile="rrLogger.h" bodystart="61" bodyend="71"/>
+        <location file="rrLogger.h" line="70" column="5" bodyfile="rrLogger.h" bodystart="71" bodyend="92"/>
       </memberdef>
       </sectiondef>
       <sectiondef kind="public-static-func">
@@ -100,7 +100,7 @@
         <param>
           <type>int</type>
           <declname>level</declname>
-          <defval>LOG_CURRENT</defval>
+          <defval><ref refid="classrr_1_1Logger_1a72a52e7fe7be48e2ecad639c641ee8aaac77ca2446a47c06b0cce63108ea18c18" kindref="member">LOG_CURRENT</ref></defval>
         </param>
         <briefdescription>
 <para>sets the logging level to one a value from <ref refid="classrr_1_1Logger_1a72a52e7fe7be48e2ecad639c641ee8aa" kindref="member">Logger::Level</ref> </para>
@@ -109,7 +109,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="rrLogger.h" line="76" column="17" bodyfile="rrLogger.cpp" bodystart="203" bodyend="215"/>
+        <location file="rrLogger.h" line="97" column="17" bodyfile="rrLogger.cpp" bodystart="207" bodyend="219"/>
       </memberdef>
       <memberdef kind="function" id="classrr_1_1Logger_1ad6b48d767c766eeb3db7505a59631b6b" prot="public" static="yes" const="no" explicit="no" inline="no" virt="non-virtual">
         <type>int</type>
@@ -123,7 +123,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="rrLogger.h" line="81" column="16" bodyfile="rrLogger.cpp" bodystart="217" bodyend="224"/>
+        <location file="rrLogger.h" line="102" column="16" bodyfile="rrLogger.cpp" bodystart="221" bodyend="228"/>
       </memberdef>
       <memberdef kind="function" id="classrr_1_1Logger_1adb9e082ec2b6d896fe4f8f3158cf8dbc" prot="public" static="yes" const="no" explicit="no" inline="no" virt="non-virtual">
         <type>void</type>
@@ -137,7 +137,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="rrLogger.h" line="86" column="17" bodyfile="rrLogger.cpp" bodystart="227" bodyend="240"/>
+        <location file="rrLogger.h" line="107" column="17" bodyfile="rrLogger.cpp" bodystart="231" bodyend="244"/>
       </memberdef>
       <memberdef kind="function" id="classrr_1_1Logger_1a65631bebd188023ff23a263e8d1b2ea2" prot="public" static="yes" const="no" explicit="no" inline="no" virt="non-virtual">
         <type>void</type>
@@ -151,7 +151,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="rrLogger.h" line="91" column="17" bodyfile="rrLogger.cpp" bodystart="475" bodyend="487"/>
+        <location file="rrLogger.h" line="112" column="17" bodyfile="rrLogger.cpp" bodystart="483" bodyend="495"/>
       </memberdef>
       <memberdef kind="function" id="classrr_1_1Logger_1a859a9358480196476351e5e2a3466b71" prot="public" static="yes" const="no" explicit="no" inline="no" virt="non-virtual">
         <type>void</type>
@@ -161,7 +161,7 @@
         <param>
           <type>int</type>
           <declname>level</declname>
-          <defval>LOG_CURRENT</defval>
+          <defval><ref refid="classrr_1_1Logger_1a72a52e7fe7be48e2ecad639c641ee8aaac77ca2446a47c06b0cce63108ea18c18" kindref="member">LOG_CURRENT</ref></defval>
         </param>
         <briefdescription>
 <para>turns on console logging at the given level. </para>
@@ -170,7 +170,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="rrLogger.h" line="96" column="17" bodyfile="rrLogger.cpp" bodystart="242" bodyend="261"/>
+        <location file="rrLogger.h" line="117" column="17" bodyfile="rrLogger.cpp" bodystart="246" bodyend="265"/>
       </memberdef>
       <memberdef kind="function" id="classrr_1_1Logger_1a2353c535f4e74dead4f0f1267556a906" prot="public" static="yes" const="no" explicit="no" inline="no" virt="non-virtual">
         <type>void</type>
@@ -185,18 +185,18 @@
         <param>
           <type>int</type>
           <declname>level</declname>
-          <defval>LOG_CURRENT</defval>
+          <defval><ref refid="classrr_1_1Logger_1a72a52e7fe7be48e2ecad639c641ee8aaac77ca2446a47c06b0cce63108ea18c18" kindref="member">LOG_CURRENT</ref></defval>
         </param>
         <briefdescription>
 <para>turns on file logging to the given file as the given level. </para>
         </briefdescription>
         <detaileddescription>
-<para>If fileName is an empty string, then this will use the file specified in the <ref refid="classrr_1_1Config_1aed7c550b9e34222675cd152c9154d053aebebe893536932bb96d066c77d56ea1f" kindref="member">Config::LOGGER_LOG_FILE_PATH</ref>. If this is empty, a file called &quot;roadrunner.log&quot; will be created in the temp directory.</para>
+<para>If fileName is an empty std::string, then this will use the file specified in the <ref refid="classrr_1_1Config_1aed7c550b9e34222675cd152c9154d053aebebe893536932bb96d066c77d56ea1f" kindref="member">Config::LOGGER_LOG_FILE_PATH</ref>. If this is empty, a file called &quot;roadrunner.log&quot; will be created in the temp directory.</para>
 <para>The temp directory may be specified via <ref refid="classrr_1_1Config_1aed7c550b9e34222675cd152c9154d053aeed2c355140f97162b0a894e6c3c7710" kindref="member">Config::TEMP_DIR_PATH</ref>. If this is empty, then the system spefified temp dir is used. </para>
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="rrLogger.h" line="110" column="17" bodyfile="rrLogger.cpp" bodystart="277" bodyend="330"/>
+        <location file="rrLogger.h" line="131" column="17" bodyfile="rrLogger.cpp" bodystart="282" bodyend="338"/>
       </memberdef>
       <memberdef kind="function" id="classrr_1_1Logger_1a64d56c09af0322f3ec3164f4376fd624" prot="public" static="yes" const="no" explicit="no" inline="no" virt="non-virtual">
         <type>void</type>
@@ -210,7 +210,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="rrLogger.h" line="116" column="17" bodyfile="rrLogger.cpp" bodystart="263" bodyend="275"/>
+        <location file="rrLogger.h" line="137" column="17" bodyfile="rrLogger.cpp" bodystart="267" bodyend="280"/>
       </memberdef>
       <memberdef kind="function" id="classrr_1_1Logger_1adc95de06b2cfb00d95b327329893e767" prot="public" static="yes" const="no" explicit="no" inline="no" virt="non-virtual">
         <type>std::string</type>
@@ -224,7 +224,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="rrLogger.h" line="121" column="24" bodyfile="rrLogger.cpp" bodystart="470" bodyend="473"/>
+        <location file="rrLogger.h" line="142" column="24" bodyfile="rrLogger.cpp" bodystart="478" bodyend="481"/>
       </memberdef>
       <memberdef kind="function" id="classrr_1_1Logger_1a40f208d7bf2af73894ba3872296dbe9c" prot="public" static="yes" const="no" explicit="no" inline="no" virt="non-virtual">
         <type>std::string</type>
@@ -238,7 +238,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="rrLogger.h" line="126" column="24" bodyfile="rrLogger.cpp" bodystart="499" bodyend="502"/>
+        <location file="rrLogger.h" line="147" column="24" bodyfile="rrLogger.cpp" bodystart="507" bodyend="510"/>
       </memberdef>
       <memberdef kind="function" id="classrr_1_1Logger_1a3a660978ecbd144b2c2c3aee17b5950b" prot="public" static="yes" const="no" explicit="no" inline="no" virt="non-virtual">
         <type>void</type>
@@ -250,7 +250,7 @@
           <declname>format</declname>
         </param>
         <briefdescription>
-<para>Internally, <ref refid="classrr_1_1RoadRunner" kindref="compound">RoadRunner</ref> uses the Poco logging framework, so we can custom format logging output based on a formatting pattern string. </para>
+<para>Internally, <ref refid="classrr_1_1RoadRunner" kindref="compound">RoadRunner</ref> uses the Poco logging framework, so we can custom format logging output based on a formatting pattern std::string. </para>
         </briefdescription>
         <detaileddescription>
 <para>The format pattern is used as a template to format the message and is copied character by character except for the following special characters, which are replaced by the corresponding value.</para>
@@ -268,7 +268,7 @@
 </listitem><listitem><para>T - message thread name</para>
 </listitem><listitem><para>I - message thread identifier (numeric)</para>
 </listitem><listitem><para>N - node or host name</para>
-</listitem><listitem><para>U - message source file path (empty string if not set)</para>
+</listitem><listitem><para>U - message source file path (empty std::string if not set)</para>
 </listitem><listitem><para>u - message source line number (0 if not set)</para>
 </listitem><listitem><para>w - message date/time abbreviated weekday (Mon, Tue, ...)</para>
 </listitem><listitem><para>W - message date/time full weekday (Monday, Tuesday, ...)</para>
@@ -301,7 +301,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="rrLogger.h" line="188" column="17" bodyfile="rrLogger.cpp" bodystart="333" bodyend="342"/>
+        <location file="rrLogger.h" line="209" column="17" bodyfile="rrLogger.cpp" bodystart="341" bodyend="350"/>
       </memberdef>
       <memberdef kind="function" id="classrr_1_1Logger_1a7b4e8ed1391f383f27ff6f12d951beff" prot="public" static="yes" const="no" explicit="no" inline="no" virt="non-virtual">
         <type>std::string</type>
@@ -315,7 +315,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="rrLogger.h" line="193" column="24" bodyfile="rrLogger.cpp" bodystart="344" bodyend="350"/>
+        <location file="rrLogger.h" line="214" column="24" bodyfile="rrLogger.cpp" bodystart="352" bodyend="358"/>
       </memberdef>
       <memberdef kind="function" id="classrr_1_1Logger_1abd7799fdcd8848cabd146bedd8b7d12a" prot="public" static="yes" const="no" explicit="no" inline="no" virt="non-virtual">
         <type>std::string</type>
@@ -333,7 +333,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="rrLogger.h" line="198" column="24" bodyfile="rrLogger.cpp" bodystart="415" bodyend="447"/>
+        <location file="rrLogger.h" line="219" column="24" bodyfile="rrLogger.cpp" bodystart="423" bodyend="455"/>
       </memberdef>
       <memberdef kind="function" id="classrr_1_1Logger_1a04c2fb0c06b2d55f2405c394153cbe30" prot="public" static="yes" const="no" explicit="no" inline="no" virt="non-virtual">
         <type><ref refid="classrr_1_1Logger_1a72a52e7fe7be48e2ecad639c641ee8aa" kindref="member">Level</ref></type>
@@ -345,13 +345,13 @@
           <declname>str</declname>
         </param>
         <briefdescription>
-<para>parses a string and returns a <ref refid="classrr_1_1Logger_1a72a52e7fe7be48e2ecad639c641ee8aa" kindref="member">Logger::Level</ref> </para>
+<para>parses a std::string and returns a <ref refid="classrr_1_1Logger_1a72a52e7fe7be48e2ecad639c641ee8aa" kindref="member">Logger::Level</ref> </para>
         </briefdescription>
         <detaileddescription>
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="rrLogger.h" line="203" column="18" bodyfile="rrLogger.cpp" bodystart="372" bodyend="413"/>
+        <location file="rrLogger.h" line="224" column="18" bodyfile="rrLogger.cpp" bodystart="380" bodyend="421"/>
       </memberdef>
       <memberdef kind="function" id="classrr_1_1Logger_1a0f01c4474b91e705040db1ba59eccd07" prot="public" static="yes" const="no" explicit="no" inline="no" virt="non-virtual">
         <type>bool</type>
@@ -365,7 +365,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="rrLogger.h" line="208" column="17" bodyfile="rrLogger.cpp" bodystart="489" bodyend="492"/>
+        <location file="rrLogger.h" line="229" column="17" bodyfile="rrLogger.cpp" bodystart="497" bodyend="500"/>
       </memberdef>
       <memberdef kind="function" id="classrr_1_1Logger_1ad194c06ed29a531c8cb00c9ada412b99" prot="public" static="yes" const="no" explicit="no" inline="no" virt="non-virtual">
         <type>void</type>
@@ -383,7 +383,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="rrLogger.h" line="213" column="17" bodyfile="rrLogger.cpp" bodystart="494" bodyend="496"/>
+        <location file="rrLogger.h" line="234" column="17" bodyfile="rrLogger.cpp" bodystart="502" bodyend="504"/>
       </memberdef>
       <memberdef kind="function" id="classrr_1_1Logger_1a64831026de073177180ec72ad894ea29" prot="public" static="yes" const="no" explicit="no" inline="no" virt="non-virtual">
         <type>void</type>
@@ -409,7 +409,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="rrLogger.h" line="253" column="17" bodyfile="rrLogger.cpp" bodystart="449" bodyend="468"/>
+        <location file="rrLogger.h" line="274" column="17" bodyfile="rrLogger.cpp" bodystart="457" bodyend="476"/>
       </memberdef>
       <memberdef kind="function" id="classrr_1_1Logger_1a7d54a49c5245cf78fbcd9445d4872e41" prot="public" static="yes" const="no" explicit="no" inline="no" virt="non-virtual">
         <type>void</type>
@@ -432,7 +432,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="rrLogger.h" line="262" column="17" bodyfile="rrLogger.cpp" bodystart="509" bodyend="542"/>
+        <location file="rrLogger.h" line="283" column="17" bodyfile="rrLogger.cpp" bodystart="517" bodyend="550"/>
       </memberdef>
       <memberdef kind="function" id="classrr_1_1Logger_1aaa118623cb0a11d39321cb6ecebf704a" prot="public" static="yes" const="no" explicit="no" inline="no" virt="non-virtual">
         <type>void</type>
@@ -444,7 +444,7 @@
           <declname>os</declname>
         </param>
         <briefdescription>
-<para>Set a pointer to an ostream object where the console logger should log to. </para>
+<para>Set a pointer to an std::ostream object where the console logger should log to. </para>
         </briefdescription>
         <detaileddescription>
 <para>Normally, this points to std::clog.</para>
@@ -452,7 +452,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="rrLogger.h" line="277" column="17" bodyfile="rrLogger.cpp" bodystart="598" bodyend="607"/>
+        <location file="rrLogger.h" line="298" column="17" bodyfile="rrLogger.cpp" bodystart="606" bodyend="615"/>
       </memberdef>
       </sectiondef>
     <briefdescription>
@@ -461,7 +461,7 @@
     <detaileddescription>
 <para>A set of static method for setting the logging level. </para>
     </detaileddescription>
-    <location file="rrLogger.h" line="52" column="1" bodyfile="rrLogger.h" bodystart="53" bodyend="279"/>
+    <location file="rrLogger.h" line="62" column="1" bodyfile="rrLogger.h" bodystart="63" bodyend="300"/>
     <listofallmembers>
       <member refid="classrr_1_1Logger_1a65631bebd188023ff23a263e8d1b2ea2" prot="public" virt="non-virtual"><scope>rr::Logger</scope><name>disableConsoleLogging</name></member>
       <member refid="classrr_1_1Logger_1a64d56c09af0322f3ec3164f4376fd624" prot="public" virt="non-virtual"><scope>rr::Logger</scope><name>disableFileLogging</name></member>

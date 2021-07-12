@@ -5,9 +5,11 @@
     <includes refid="rrRandom_8h" local="yes">rrRandom.h</includes>
     <includes refid="mtrand_8h" local="yes">mtrand.h</includes>
     <incdepgraph>
-      <node id="4">
-        <label>rrExporter.h</label>
-        <link refid="rrExporter_8h_source"/>
+      <node id="3">
+        <label>mtrand.h</label>
+        <link refid="mtrand_8h_source"/>
+        <childnode refid="4" relation="include">
+        </childnode>
       </node>
       <node id="2">
         <label>rrRandom.h</label>
@@ -15,18 +17,16 @@
         <childnode refid="3" relation="include">
         </childnode>
       </node>
+      <node id="4">
+        <label>rrExporter.h</label>
+        <link refid="rrExporter_8h_source"/>
+      </node>
       <node id="1">
         <label>c/rrRandom.cpp</label>
         <link refid="rrRandom_8cpp"/>
         <childnode refid="2" relation="include">
         </childnode>
         <childnode refid="3" relation="include">
-        </childnode>
-      </node>
-      <node id="3">
-        <label>mtrand.h</label>
-        <link refid="mtrand_8h_source"/>
-        <childnode refid="4" relation="include">
         </childnode>
       </node>
     </incdepgraph>

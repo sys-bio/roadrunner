@@ -39,7 +39,6 @@ private:
     /**
      * sbml ASTNode does not contain as assigment '=' type, assigment
      * is handled by other sbml elements such as initialAssigment.
-     *
      */
     llvm::Value *binaryExprCodeGen(const libsbml::ASTNode *ast);
 

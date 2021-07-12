@@ -8,18 +8,24 @@
     <includedby refid="rrRandom_8cpp" local="yes">c/rrRandom.cpp</includedby>
     <includedby refid="rrRandom_8h" local="yes">c/rrRandom.h</includedby>
     <incdepgraph>
-      <node id="2">
-        <label>rrExporter.h</label>
-        <link refid="rrExporter_8h_source"/>
-      </node>
       <node id="1">
         <label>c/mtrand.h</label>
         <link refid="mtrand_8h"/>
         <childnode refid="2" relation="include">
         </childnode>
       </node>
+      <node id="2">
+        <label>rrExporter.h</label>
+        <link refid="rrExporter_8h_source"/>
+      </node>
     </incdepgraph>
     <invincdepgraph>
+      <node id="1">
+        <label>c/mtrand.h</label>
+        <link refid="mtrand_8h"/>
+        <childnode refid="2" relation="include">
+        </childnode>
+      </node>
       <node id="2">
         <label>c/rrRandom.h</label>
         <link refid="rrRandom_8h_source"/>
@@ -35,12 +41,6 @@
       <node id="4">
         <label>c/rrCompiledExecutableModel.h</label>
         <link refid="rrCompiledExecutableModel_8h_source"/>
-      </node>
-      <node id="1">
-        <label>c/mtrand.h</label>
-        <link refid="mtrand_8h"/>
-        <childnode refid="2" relation="include">
-        </childnode>
       </node>
     </invincdepgraph>
     <innerclass refid="classMTRand__int32" prot="public">MTRand_int32</innerclass>
@@ -124,7 +124,7 @@
 <codeline lineno="69"><highlight class="normal"><sp/><sp/></highlight><highlight class="keyword">static</highlight><highlight class="normal"><sp/></highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/></highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/>n;</highlight><highlight class="comment">//</highlight><highlight class="normal"></highlight></codeline>
 <codeline lineno="70"><highlight class="normal"><sp/><sp/></highlight><highlight class="keyword">static</highlight><highlight class="normal"><sp/></highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/></highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/>m;</highlight><highlight class="comment">//=<sp/>624,<sp/>m<sp/>=<sp/>397;<sp/>//<sp/>compile<sp/>time<sp/>constants</highlight><highlight class="normal"></highlight></codeline>
 <codeline lineno="71"><highlight class="normal"></highlight><highlight class="comment">//<sp/>the<sp/>variables<sp/>below<sp/>are<sp/>static<sp/>(no<sp/>duplicates<sp/>can<sp/>exist)</highlight><highlight class="normal"></highlight></codeline>
-<codeline lineno="72"><highlight class="normal"><sp/><sp/></highlight><highlight class="keyword">static</highlight><highlight class="normal"><sp/></highlight><highlight class="keywordtype">unsigned</highlight><highlight class="normal"><sp/></highlight><highlight class="keywordtype">long</highlight><highlight class="normal"><sp/>state[];<sp/></highlight><highlight class="comment">//<sp/>state<sp/>vector<sp/>array</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="72"><highlight class="normal"><sp/><sp/></highlight><highlight class="keyword">static</highlight><highlight class="normal"><sp/></highlight><highlight class="keywordtype">unsigned</highlight><highlight class="normal"><sp/></highlight><highlight class="keywordtype">long</highlight><highlight class="normal"><sp/>state[];<sp/></highlight><highlight class="comment">//<sp/>state<sp/>std::vector<sp/>array</highlight><highlight class="normal"></highlight></codeline>
 <codeline lineno="73"><highlight class="normal"><sp/><sp/></highlight><highlight class="keyword">static</highlight><highlight class="normal"><sp/></highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/>p;<sp/></highlight><highlight class="comment">//<sp/>position<sp/>in<sp/>state<sp/>array</highlight><highlight class="normal"></highlight></codeline>
 <codeline lineno="74"><highlight class="normal"><sp/><sp/></highlight><highlight class="keyword">static</highlight><highlight class="normal"><sp/></highlight><highlight class="keywordtype">bool</highlight><highlight class="normal"><sp/>init;<sp/></highlight><highlight class="comment">//<sp/>true<sp/>if<sp/>init<sp/>function<sp/>is<sp/>called</highlight><highlight class="normal"></highlight></codeline>
 <codeline lineno="75"><highlight class="normal"></highlight><highlight class="comment">//<sp/>private<sp/>functions<sp/>used<sp/>to<sp/>generate<sp/>the<sp/>pseudo<sp/>random<sp/>numbers</highlight><highlight class="normal"></highlight></codeline>
@@ -142,7 +142,7 @@
 <codeline lineno="87"><highlight class="normal">}</highlight></codeline>
 <codeline lineno="88"><highlight class="normal"></highlight></codeline>
 <codeline lineno="89"><highlight class="normal"></highlight><highlight class="keyword">inline</highlight><highlight class="normal"><sp/></highlight><highlight class="keywordtype">unsigned</highlight><highlight class="normal"><sp/></highlight><highlight class="keywordtype">long</highlight><highlight class="normal"><sp/>MTRand_int32::rand_int32()</highlight><highlight class="keyword"><sp/>const<sp/></highlight><highlight class="normal">{<sp/></highlight><highlight class="comment">//<sp/>generate<sp/>32<sp/>bit<sp/>random<sp/>int</highlight><highlight class="normal"></highlight></codeline>
-<codeline lineno="90"><highlight class="normal"><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>(p<sp/>==<sp/>n)<sp/>gen_state();<sp/></highlight><highlight class="comment">//<sp/>new<sp/>state<sp/>vector<sp/>needed</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="90"><highlight class="normal"><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>(p<sp/>==<sp/>n)<sp/>gen_state();<sp/></highlight><highlight class="comment">//<sp/>new<sp/>state<sp/>std::vector<sp/>needed</highlight><highlight class="normal"></highlight></codeline>
 <codeline lineno="91"><highlight class="normal"></highlight><highlight class="comment">//<sp/>gen_state()<sp/>is<sp/>split<sp/>off<sp/>to<sp/>be<sp/>non-inline,<sp/>because<sp/>it<sp/>is<sp/>only<sp/>called<sp/>once</highlight><highlight class="normal"></highlight></codeline>
 <codeline lineno="92"><highlight class="normal"></highlight><highlight class="comment">//<sp/>in<sp/>every<sp/>624<sp/>calls<sp/>and<sp/>otherwise<sp/>irand()<sp/>would<sp/>become<sp/>too<sp/>big<sp/>to<sp/>get<sp/>inlined</highlight><highlight class="normal"></highlight></codeline>
 <codeline lineno="93"><highlight class="normal"><sp/><sp/></highlight><highlight class="keywordtype">unsigned</highlight><highlight class="normal"><sp/></highlight><highlight class="keywordtype">long</highlight><highlight class="normal"><sp/>x<sp/>=<sp/>state[p++];</highlight></codeline>

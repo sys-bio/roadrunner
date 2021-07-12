@@ -13,6 +13,8 @@
   
   <link rel="stylesheet" href="../_static/css/theme.css" type="text/css" />
   <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
+  <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
+  <link rel="stylesheet" href="../_static/css/theme.css" type="text/css" />
   <link rel="stylesheet" href="../_static/tabs.css" type="text/css" />
 
   
@@ -30,10 +32,10 @@
   
     
       <script type="text/javascript" id="documentation_options" data-url_root="../" src="../_static/documentation_options.js"></script>
+        <script data-url_root="../" id="documentation_options" src="../_static/documentation_options.js"></script>
         <script src="../_static/jquery.js"></script>
         <script src="../_static/underscore.js"></script>
         <script src="../_static/doctools.js"></script>
-        <script src="../_static/language_data.js"></script>
     
     <script type="text/javascript" src="../_static/js/theme.js"></script>
 
@@ -147,6 +149,7 @@
 <li class="toctree-l2"><a class="reference internal" href="index.html#a-complete-example-of-creating-an-integrator">A complete example of creating an integrator</a></li>
 </ul>
 </li>
+<li class="toctree-l1"><a class="reference internal" href="../developers_docs/index.html">Developers Documentation</a></li>
 </ul>
 
             
@@ -219,10 +222,10 @@
   <div class="section" id="rrconfig">
 <h1>rrConfig<a class="headerlink" href="#rrconfig" title="Permalink to this headline">¶</a></h1>
 <dl class="cpp class">
-<dt id="_CPPv4N2rr6ConfigE">
-<span id="_CPPv3N2rr6ConfigE"></span><span id="_CPPv2N2rr6ConfigE"></span><span id="rr::Config"></span><span class="target" id="classrr_1_1Config"></span><em class="property">class </em><code class="sig-prename descclassname">rr<code class="sig-prename descclassname">::</code></code><code class="sig-name descname">Config</code><a class="headerlink" href="#_CPPv4N2rr6ConfigE" title="Permalink to this definition">¶</a><br /></dt>
+<dt class="sig sig-object cpp" id="_CPPv4N2rr6ConfigE">
+<span id="_CPPv3N2rr6ConfigE"></span><span id="_CPPv2N2rr6ConfigE"></span><span id="rr::Config"></span><span class="target" id="classrr_1_1Config"></span><span class="k"><span class="pre">class</span></span><span class="w"> </span><span class="sig-prename descclassname"><span class="n"><span class="pre">rr</span></span><span class="p"><span class="pre">::</span></span></span><span class="sig-name descname"><span class="n"><span class="pre">Config</span></span></span><a class="headerlink" href="#_CPPv4N2rr6ConfigE" title="Permalink to this definition">¶</a><br /></dt>
 <dd><p>read or store default values. </p>
-<p>Many of <a class="reference internal" href="rrRoadRunner.html#classrr_1_1RoadRunner"><span class="std std-ref">RoadRunner</span></a> classes use a number of configration parameters. Most of these can be set using the <a class="reference internal" href="#classrr_1_1Config"><span class="std std-ref">Config</span></a> class. The values stored in the <a class="reference internal" href="#classrr_1_1Config"><span class="std std-ref">Config</span></a> class only determine the defaut values of parameters.</p>
+<p>Many of <a class="reference internal" href="rrRoadRunner.html#classrr_1_1RoadRunner"><span class="std std-ref">RoadRunner</span></a> classes use a number of configuration parameters. Most of these can be set using the <a class="reference internal" href="#classrr_1_1Config"><span class="std std-ref">Config</span></a> class. The values stored in the <a class="reference internal" href="#classrr_1_1Config"><span class="std std-ref">Config</span></a> class only determine the default values of parameters.</p>
 <p>The <a class="reference internal" href="#classrr_1_1Config"><span class="std std-ref">Config</span></a> class will look in the following locations for the config file, and will load the values from the first config file it finds. If it does not find a config file in one of the following locations, a default set of configuration parameters are used. The search locations of the config file are:</p>
 <p>#1: the ROADRUNNER_CONFIG environment variable</p>
 <p>#2: try the user’s home directory for roadrunner.conf, i.e.:</p>
@@ -233,132 +236,132 @@
 <p>/Users/andy/local/lib/roadrunner.conf</p>
 <p>#5: try one directory up from the where the shared library or program is at, i.e.:</p>
 <p>/Users/andy/local/roadrunner.conf</p>
-<p>The conf file is just a plain text file of where each line may be key / value pair separated by a :”, i.e.</p>
+<p>The conf file is just a plain text file of where each line may be key / value std::pair separated by a :”, i.e.</p>
 <p>KEY_NAME : Value Any line that does not match this format is ignored, and keys that are not found are also ignored. Therefore, any line that does not start w* ith a word character is considered a comment.</p>
 <p>All of the configuration managment functions are static method of the <a class="reference internal" href="#classrr_1_1Config"><span class="std std-ref">Config</span></a> class, and all of the configuration keys are static attributes * of the <a class="reference internal" href="#classrr_1_1Config"><span class="std std-ref">Config</span></a> class, these are documented in the Configuration Functions section.</p>
 <p>As all of the <a class="reference internal" href="#classrr_1_1Config"><span class="std std-ref">Config</span></a> class methods are static, one never instantiates the <a class="reference internal" href="#classrr_1_1Config"><span class="std std-ref">Config</span></a> class. </p>
 <div class="breathe-sectiondef docutils container">
-<p class="breathe-sectiondef-title rubric">Public Types</p>
+<p class="breathe-sectiondef-title rubric" id="breathe-section-title-public-types">Public Types</p>
 <dl class="cpp enum">
-<dt id="_CPPv4N2rr6Config4KeysE">
-<span id="_CPPv3N2rr6Config4KeysE"></span><span id="_CPPv2N2rr6Config4KeysE"></span><span class="target" id="classrr_1_1Config_1aed7c550b9e34222675cd152c9154d053"></span><em class="property">enum </em><code class="sig-name descname">Keys</code><a class="headerlink" href="#_CPPv4N2rr6Config4KeysE" title="Permalink to this definition">¶</a><br /></dt>
+<dt class="sig sig-object cpp" id="_CPPv4N2rr6Config4KeysE">
+<span id="_CPPv3N2rr6Config4KeysE"></span><span id="_CPPv2N2rr6Config4KeysE"></span><span class="target" id="classrr_1_1Config_1aed7c550b9e34222675cd152c9154d053"></span><span class="k"><span class="pre">enum</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">Keys</span></span></span><a class="headerlink" href="#_CPPv4N2rr6Config4KeysE" title="Permalink to this definition">¶</a><br /></dt>
 <dd><p><em>Values:</em></p>
 <dl class="cpp enumerator">
-<dt id="_CPPv4N2rr6Config4Keys34LOADSBMLOPTIONS_CONSERVED_MOIETIESE">
-<span id="_CPPv3N2rr6Config4Keys34LOADSBMLOPTIONS_CONSERVED_MOIETIESE"></span><span id="_CPPv2N2rr6Config4Keys34LOADSBMLOPTIONS_CONSERVED_MOIETIESE"></span><span class="target" id="classrr_1_1Config_1aed7c550b9e34222675cd152c9154d053a008f3c1e8cf4803a4e028a109c5baa62"></span><em class="property">enumerator </em><code class="sig-name descname">LOADSBMLOPTIONS_CONSERVED_MOIETIES</code><a class="headerlink" href="#_CPPv4N2rr6Config4Keys34LOADSBMLOPTIONS_CONSERVED_MOIETIESE" title="Permalink to this definition">¶</a><br /></dt>
+<dt class="sig sig-object cpp" id="_CPPv4N2rr6Config4Keys34LOADSBMLOPTIONS_CONSERVED_MOIETIESE">
+<span id="_CPPv3N2rr6Config4Keys34LOADSBMLOPTIONS_CONSERVED_MOIETIESE"></span><span id="_CPPv2N2rr6Config4Keys34LOADSBMLOPTIONS_CONSERVED_MOIETIESE"></span><span class="target" id="classrr_1_1Config_1aed7c550b9e34222675cd152c9154d053a008f3c1e8cf4803a4e028a109c5baa62"></span><span class="k"><span class="pre">enumerator</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">LOADSBMLOPTIONS_CONSERVED_MOIETIES</span></span></span><a class="headerlink" href="#_CPPv4N2rr6Config4Keys34LOADSBMLOPTIONS_CONSERVED_MOIETIESE" title="Permalink to this definition">¶</a><br /></dt>
 <dd><p>perform conservation analysis. </p>
 <p>This causes a re-ordering of the species, so results generated with this flag enabled can not be compared index wise to results generated otherwise.</p>
 <p>currently only implemented with the C code generating model </p>
 </dd></dl>
 
 <dl class="cpp enumerator">
-<dt id="_CPPv4N2rr6Config4Keys25LOADSBMLOPTIONS_RECOMPILEE">
-<span id="_CPPv3N2rr6Config4Keys25LOADSBMLOPTIONS_RECOMPILEE"></span><span id="_CPPv2N2rr6Config4Keys25LOADSBMLOPTIONS_RECOMPILEE"></span><span class="target" id="classrr_1_1Config_1aed7c550b9e34222675cd152c9154d053aff2d0d4e16f9d40d8998a2387d45964a"></span><em class="property">enumerator </em><code class="sig-name descname">LOADSBMLOPTIONS_RECOMPILE</code><a class="headerlink" href="#_CPPv4N2rr6Config4Keys25LOADSBMLOPTIONS_RECOMPILEE" title="Permalink to this definition">¶</a><br /></dt>
+<dt class="sig sig-object cpp" id="_CPPv4N2rr6Config4Keys25LOADSBMLOPTIONS_RECOMPILEE">
+<span id="_CPPv3N2rr6Config4Keys25LOADSBMLOPTIONS_RECOMPILEE"></span><span id="_CPPv2N2rr6Config4Keys25LOADSBMLOPTIONS_RECOMPILEE"></span><span class="target" id="classrr_1_1Config_1aed7c550b9e34222675cd152c9154d053aff2d0d4e16f9d40d8998a2387d45964a"></span><span class="k"><span class="pre">enumerator</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">LOADSBMLOPTIONS_RECOMPILE</span></span></span><a class="headerlink" href="#_CPPv4N2rr6Config4Keys25LOADSBMLOPTIONS_RECOMPILEE" title="Permalink to this definition">¶</a><br /></dt>
 <dd><p>Should the model be recompiled? The LLVM ModelGenerator maintins a hash table of currently running models. </p>
 <p>If this flag is NOT set, then the generator will look to see if there is already a running instance of the given model and use the generated code from that one.</p>
 <p>If only a single instance of a model is run, there is no need to cache the models, and this can safetly be enabled, realizing some performance gains. </p>
 </dd></dl>
 
 <dl class="cpp enumerator">
-<dt id="_CPPv4N2rr6Config4Keys25LOADSBMLOPTIONS_READ_ONLYE">
-<span id="_CPPv3N2rr6Config4Keys25LOADSBMLOPTIONS_READ_ONLYE"></span><span id="_CPPv2N2rr6Config4Keys25LOADSBMLOPTIONS_READ_ONLYE"></span><span class="target" id="classrr_1_1Config_1aed7c550b9e34222675cd152c9154d053a4fbe11de557045ebc0cd573f15064aae"></span><em class="property">enumerator </em><code class="sig-name descname">LOADSBMLOPTIONS_READ_ONLY</code><a class="headerlink" href="#_CPPv4N2rr6Config4Keys25LOADSBMLOPTIONS_READ_ONLYE" title="Permalink to this definition">¶</a><br /></dt>
+<dt class="sig sig-object cpp" id="_CPPv4N2rr6Config4Keys25LOADSBMLOPTIONS_READ_ONLYE">
+<span id="_CPPv3N2rr6Config4Keys25LOADSBMLOPTIONS_READ_ONLYE"></span><span id="_CPPv2N2rr6Config4Keys25LOADSBMLOPTIONS_READ_ONLYE"></span><span class="target" id="classrr_1_1Config_1aed7c550b9e34222675cd152c9154d053a4fbe11de557045ebc0cd573f15064aae"></span><span class="k"><span class="pre">enumerator</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">LOADSBMLOPTIONS_READ_ONLY</span></span></span><a class="headerlink" href="#_CPPv4N2rr6Config4Keys25LOADSBMLOPTIONS_READ_ONLYE" title="Permalink to this definition">¶</a><br /></dt>
 <dd><p>If this is set, then a read-only model is generated. </p>
 <p>A read-only model can be simulated, but no code is generated to set model values, i.e. parameters, amounts, values, etc…</p>
 <p>It takes a finite amount of time to generate the model value setting functions, and if they are not needed, one may see some performance gains, especially in very large models. </p>
 </dd></dl>
 
 <dl class="cpp enumerator">
-<dt id="_CPPv4N2rr6Config4Keys42LOADSBMLOPTIONS_MUTABLE_INITIAL_CONDITIONSE">
-<span id="_CPPv3N2rr6Config4Keys42LOADSBMLOPTIONS_MUTABLE_INITIAL_CONDITIONSE"></span><span id="_CPPv2N2rr6Config4Keys42LOADSBMLOPTIONS_MUTABLE_INITIAL_CONDITIONSE"></span><span class="target" id="classrr_1_1Config_1aed7c550b9e34222675cd152c9154d053a949debdf732c321298b9002083532a6e"></span><em class="property">enumerator </em><code class="sig-name descname">LOADSBMLOPTIONS_MUTABLE_INITIAL_CONDITIONS</code><a class="headerlink" href="#_CPPv4N2rr6Config4Keys42LOADSBMLOPTIONS_MUTABLE_INITIAL_CONDITIONSE" title="Permalink to this definition">¶</a><br /></dt>
+<dt class="sig sig-object cpp" id="_CPPv4N2rr6Config4Keys42LOADSBMLOPTIONS_MUTABLE_INITIAL_CONDITIONSE">
+<span id="_CPPv3N2rr6Config4Keys42LOADSBMLOPTIONS_MUTABLE_INITIAL_CONDITIONSE"></span><span id="_CPPv2N2rr6Config4Keys42LOADSBMLOPTIONS_MUTABLE_INITIAL_CONDITIONSE"></span><span class="target" id="classrr_1_1Config_1aed7c550b9e34222675cd152c9154d053a949debdf732c321298b9002083532a6e"></span><span class="k"><span class="pre">enumerator</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">LOADSBMLOPTIONS_MUTABLE_INITIAL_CONDITIONS</span></span></span><a class="headerlink" href="#_CPPv4N2rr6Config4Keys42LOADSBMLOPTIONS_MUTABLE_INITIAL_CONDITIONSE" title="Permalink to this definition">¶</a><br /></dt>
 <dd><p>Generate accessor functions to allow changing of initial conditions. </p>
 </dd></dl>
 
 <dl class="cpp enumerator">
-<dt id="_CPPv4N2rr6Config4Keys28LOADSBMLOPTIONS_OPTIMIZE_GVNE">
-<span id="_CPPv3N2rr6Config4Keys28LOADSBMLOPTIONS_OPTIMIZE_GVNE"></span><span id="_CPPv2N2rr6Config4Keys28LOADSBMLOPTIONS_OPTIMIZE_GVNE"></span><span class="target" id="classrr_1_1Config_1aed7c550b9e34222675cd152c9154d053a413677ed7cc8b08008c9e2d5e453490d"></span><em class="property">enumerator </em><code class="sig-name descname">LOADSBMLOPTIONS_OPTIMIZE_GVN</code><a class="headerlink" href="#_CPPv4N2rr6Config4Keys28LOADSBMLOPTIONS_OPTIMIZE_GVNE" title="Permalink to this definition">¶</a><br /></dt>
+<dt class="sig sig-object cpp" id="_CPPv4N2rr6Config4Keys28LOADSBMLOPTIONS_OPTIMIZE_GVNE">
+<span id="_CPPv3N2rr6Config4Keys28LOADSBMLOPTIONS_OPTIMIZE_GVNE"></span><span id="_CPPv2N2rr6Config4Keys28LOADSBMLOPTIONS_OPTIMIZE_GVNE"></span><span class="target" id="classrr_1_1Config_1aed7c550b9e34222675cd152c9154d053a413677ed7cc8b08008c9e2d5e453490d"></span><span class="k"><span class="pre">enumerator</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">LOADSBMLOPTIONS_OPTIMIZE_GVN</span></span></span><a class="headerlink" href="#_CPPv4N2rr6Config4Keys28LOADSBMLOPTIONS_OPTIMIZE_GVNE" title="Permalink to this definition">¶</a><br /></dt>
 <dd><p>GVN - This pass performs global value numbering and redundant load elimination cotemporaneously. </p>
 </dd></dl>
 
 <dl class="cpp enumerator">
-<dt id="_CPPv4N2rr6Config4Keys43LOADSBMLOPTIONS_OPTIMIZE_CFG_SIMPLIFICATIONE">
-<span id="_CPPv3N2rr6Config4Keys43LOADSBMLOPTIONS_OPTIMIZE_CFG_SIMPLIFICATIONE"></span><span id="_CPPv2N2rr6Config4Keys43LOADSBMLOPTIONS_OPTIMIZE_CFG_SIMPLIFICATIONE"></span><span class="target" id="classrr_1_1Config_1aed7c550b9e34222675cd152c9154d053a7a2a7f8bfeeb111d7210b54a62a00791"></span><em class="property">enumerator </em><code class="sig-name descname">LOADSBMLOPTIONS_OPTIMIZE_CFG_SIMPLIFICATION</code><a class="headerlink" href="#_CPPv4N2rr6Config4Keys43LOADSBMLOPTIONS_OPTIMIZE_CFG_SIMPLIFICATIONE" title="Permalink to this definition">¶</a><br /></dt>
+<dt class="sig sig-object cpp" id="_CPPv4N2rr6Config4Keys43LOADSBMLOPTIONS_OPTIMIZE_CFG_SIMPLIFICATIONE">
+<span id="_CPPv3N2rr6Config4Keys43LOADSBMLOPTIONS_OPTIMIZE_CFG_SIMPLIFICATIONE"></span><span id="_CPPv2N2rr6Config4Keys43LOADSBMLOPTIONS_OPTIMIZE_CFG_SIMPLIFICATIONE"></span><span class="target" id="classrr_1_1Config_1aed7c550b9e34222675cd152c9154d053a7a2a7f8bfeeb111d7210b54a62a00791"></span><span class="k"><span class="pre">enumerator</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">LOADSBMLOPTIONS_OPTIMIZE_CFG_SIMPLIFICATION</span></span></span><a class="headerlink" href="#_CPPv4N2rr6Config4Keys43LOADSBMLOPTIONS_OPTIMIZE_CFG_SIMPLIFICATIONE" title="Permalink to this definition">¶</a><br /></dt>
 <dd><p>CFGSimplification - Merge basic blocks, eliminate unreachable blocks, simplify terminator instructions, etc… </p>
 </dd></dl>
 
 <dl class="cpp enumerator">
-<dt id="_CPPv4N2rr6Config4Keys46LOADSBMLOPTIONS_OPTIMIZE_INSTRUCTION_COMBININGE">
-<span id="_CPPv3N2rr6Config4Keys46LOADSBMLOPTIONS_OPTIMIZE_INSTRUCTION_COMBININGE"></span><span id="_CPPv2N2rr6Config4Keys46LOADSBMLOPTIONS_OPTIMIZE_INSTRUCTION_COMBININGE"></span><span class="target" id="classrr_1_1Config_1aed7c550b9e34222675cd152c9154d053a1e2ad37c11aae10f88ed1d1b2aa27266"></span><em class="property">enumerator </em><code class="sig-name descname">LOADSBMLOPTIONS_OPTIMIZE_INSTRUCTION_COMBINING</code><a class="headerlink" href="#_CPPv4N2rr6Config4Keys46LOADSBMLOPTIONS_OPTIMIZE_INSTRUCTION_COMBININGE" title="Permalink to this definition">¶</a><br /></dt>
+<dt class="sig sig-object cpp" id="_CPPv4N2rr6Config4Keys46LOADSBMLOPTIONS_OPTIMIZE_INSTRUCTION_COMBININGE">
+<span id="_CPPv3N2rr6Config4Keys46LOADSBMLOPTIONS_OPTIMIZE_INSTRUCTION_COMBININGE"></span><span id="_CPPv2N2rr6Config4Keys46LOADSBMLOPTIONS_OPTIMIZE_INSTRUCTION_COMBININGE"></span><span class="target" id="classrr_1_1Config_1aed7c550b9e34222675cd152c9154d053a1e2ad37c11aae10f88ed1d1b2aa27266"></span><span class="k"><span class="pre">enumerator</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">LOADSBMLOPTIONS_OPTIMIZE_INSTRUCTION_COMBINING</span></span></span><a class="headerlink" href="#_CPPv4N2rr6Config4Keys46LOADSBMLOPTIONS_OPTIMIZE_INSTRUCTION_COMBININGE" title="Permalink to this definition">¶</a><br /></dt>
 <dd><p>InstructionCombining - Combine instructions to form fewer, simple instructions. </p>
 <p>This pass does not modify the CFG, and has a tendency to make instructions dead, so a subsequent DCE pass is useful. </p>
 </dd></dl>
 
 <dl class="cpp enumerator">
-<dt id="_CPPv4N2rr6Config4Keys46LOADSBMLOPTIONS_OPTIMIZE_DEAD_INST_ELIMINATIONE">
-<span id="_CPPv3N2rr6Config4Keys46LOADSBMLOPTIONS_OPTIMIZE_DEAD_INST_ELIMINATIONE"></span><span id="_CPPv2N2rr6Config4Keys46LOADSBMLOPTIONS_OPTIMIZE_DEAD_INST_ELIMINATIONE"></span><span class="target" id="classrr_1_1Config_1aed7c550b9e34222675cd152c9154d053a43e324984558dd0f7074ea895b6b53c5"></span><em class="property">enumerator </em><code class="sig-name descname">LOADSBMLOPTIONS_OPTIMIZE_DEAD_INST_ELIMINATION</code><a class="headerlink" href="#_CPPv4N2rr6Config4Keys46LOADSBMLOPTIONS_OPTIMIZE_DEAD_INST_ELIMINATIONE" title="Permalink to this definition">¶</a><br /></dt>
+<dt class="sig sig-object cpp" id="_CPPv4N2rr6Config4Keys46LOADSBMLOPTIONS_OPTIMIZE_DEAD_INST_ELIMINATIONE">
+<span id="_CPPv3N2rr6Config4Keys46LOADSBMLOPTIONS_OPTIMIZE_DEAD_INST_ELIMINATIONE"></span><span id="_CPPv2N2rr6Config4Keys46LOADSBMLOPTIONS_OPTIMIZE_DEAD_INST_ELIMINATIONE"></span><span class="target" id="classrr_1_1Config_1aed7c550b9e34222675cd152c9154d053a43e324984558dd0f7074ea895b6b53c5"></span><span class="k"><span class="pre">enumerator</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">LOADSBMLOPTIONS_OPTIMIZE_DEAD_INST_ELIMINATION</span></span></span><a class="headerlink" href="#_CPPv4N2rr6Config4Keys46LOADSBMLOPTIONS_OPTIMIZE_DEAD_INST_ELIMINATIONE" title="Permalink to this definition">¶</a><br /></dt>
 <dd><p>DeadInstElimination - This pass quickly removes trivially dead instructions without modifying the CFG of the function. </p>
 <p>It is a BasicBlockPass, so it runs efficiently when queued next to other BasicBlockPass’s. </p>
 </dd></dl>
 
 <dl class="cpp enumerator">
-<dt id="_CPPv4N2rr6Config4Keys46LOADSBMLOPTIONS_OPTIMIZE_DEAD_CODE_ELIMINATIONE">
-<span id="_CPPv3N2rr6Config4Keys46LOADSBMLOPTIONS_OPTIMIZE_DEAD_CODE_ELIMINATIONE"></span><span id="_CPPv2N2rr6Config4Keys46LOADSBMLOPTIONS_OPTIMIZE_DEAD_CODE_ELIMINATIONE"></span><span class="target" id="classrr_1_1Config_1aed7c550b9e34222675cd152c9154d053a575c208952a322880e85c5bdad991bbd"></span><em class="property">enumerator </em><code class="sig-name descname">LOADSBMLOPTIONS_OPTIMIZE_DEAD_CODE_ELIMINATION</code><a class="headerlink" href="#_CPPv4N2rr6Config4Keys46LOADSBMLOPTIONS_OPTIMIZE_DEAD_CODE_ELIMINATIONE" title="Permalink to this definition">¶</a><br /></dt>
+<dt class="sig sig-object cpp" id="_CPPv4N2rr6Config4Keys46LOADSBMLOPTIONS_OPTIMIZE_DEAD_CODE_ELIMINATIONE">
+<span id="_CPPv3N2rr6Config4Keys46LOADSBMLOPTIONS_OPTIMIZE_DEAD_CODE_ELIMINATIONE"></span><span id="_CPPv2N2rr6Config4Keys46LOADSBMLOPTIONS_OPTIMIZE_DEAD_CODE_ELIMINATIONE"></span><span class="target" id="classrr_1_1Config_1aed7c550b9e34222675cd152c9154d053a575c208952a322880e85c5bdad991bbd"></span><span class="k"><span class="pre">enumerator</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">LOADSBMLOPTIONS_OPTIMIZE_DEAD_CODE_ELIMINATION</span></span></span><a class="headerlink" href="#_CPPv4N2rr6Config4Keys46LOADSBMLOPTIONS_OPTIMIZE_DEAD_CODE_ELIMINATIONE" title="Permalink to this definition">¶</a><br /></dt>
 <dd><p>DeadCodeElimination - This pass is more powerful than DeadInstElimination, because it is worklist driven that can potentially revisit instructions when their other instructions become dead, to eliminate chains of dead computations. </p>
 </dd></dl>
 
 <dl class="cpp enumerator">
-<dt id="_CPPv4N2rr6Config4Keys47LOADSBMLOPTIONS_OPTIMIZE_INSTRUCTION_SIMPLIFIERE">
-<span id="_CPPv3N2rr6Config4Keys47LOADSBMLOPTIONS_OPTIMIZE_INSTRUCTION_SIMPLIFIERE"></span><span id="_CPPv2N2rr6Config4Keys47LOADSBMLOPTIONS_OPTIMIZE_INSTRUCTION_SIMPLIFIERE"></span><span class="target" id="classrr_1_1Config_1aed7c550b9e34222675cd152c9154d053adcb86a4f8afac5df2bc241d336fd1862"></span><em class="property">enumerator </em><code class="sig-name descname">LOADSBMLOPTIONS_OPTIMIZE_INSTRUCTION_SIMPLIFIER</code><a class="headerlink" href="#_CPPv4N2rr6Config4Keys47LOADSBMLOPTIONS_OPTIMIZE_INSTRUCTION_SIMPLIFIERE" title="Permalink to this definition">¶</a><br /></dt>
+<dt class="sig sig-object cpp" id="_CPPv4N2rr6Config4Keys47LOADSBMLOPTIONS_OPTIMIZE_INSTRUCTION_SIMPLIFIERE">
+<span id="_CPPv3N2rr6Config4Keys47LOADSBMLOPTIONS_OPTIMIZE_INSTRUCTION_SIMPLIFIERE"></span><span id="_CPPv2N2rr6Config4Keys47LOADSBMLOPTIONS_OPTIMIZE_INSTRUCTION_SIMPLIFIERE"></span><span class="target" id="classrr_1_1Config_1aed7c550b9e34222675cd152c9154d053adcb86a4f8afac5df2bc241d336fd1862"></span><span class="k"><span class="pre">enumerator</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">LOADSBMLOPTIONS_OPTIMIZE_INSTRUCTION_SIMPLIFIER</span></span></span><a class="headerlink" href="#_CPPv4N2rr6Config4Keys47LOADSBMLOPTIONS_OPTIMIZE_INSTRUCTION_SIMPLIFIERE" title="Permalink to this definition">¶</a><br /></dt>
 <dd><p>InstructionSimplifier - Remove redundant instructions. </p>
 </dd></dl>
 
 <dl class="cpp enumerator">
-<dt id="_CPPv4N2rr6Config4Keys25LOADSBMLOPTIONS_USE_MCJITE">
-<span id="_CPPv3N2rr6Config4Keys25LOADSBMLOPTIONS_USE_MCJITE"></span><span id="_CPPv2N2rr6Config4Keys25LOADSBMLOPTIONS_USE_MCJITE"></span><span class="target" id="classrr_1_1Config_1aed7c550b9e34222675cd152c9154d053afdd1febe10f963a5260a5baead2c94f9"></span><em class="property">enumerator </em><code class="sig-name descname">LOADSBMLOPTIONS_USE_MCJIT</code><a class="headerlink" href="#_CPPv4N2rr6Config4Keys25LOADSBMLOPTIONS_USE_MCJITE" title="Permalink to this definition">¶</a><br /></dt>
+<dt class="sig sig-object cpp" id="_CPPv4N2rr6Config4Keys25LOADSBMLOPTIONS_USE_MCJITE">
+<span id="_CPPv3N2rr6Config4Keys25LOADSBMLOPTIONS_USE_MCJITE"></span><span id="_CPPv2N2rr6Config4Keys25LOADSBMLOPTIONS_USE_MCJITE"></span><span class="target" id="classrr_1_1Config_1aed7c550b9e34222675cd152c9154d053afdd1febe10f963a5260a5baead2c94f9"></span><span class="k"><span class="pre">enumerator</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">LOADSBMLOPTIONS_USE_MCJIT</span></span></span><a class="headerlink" href="#_CPPv4N2rr6Config4Keys25LOADSBMLOPTIONS_USE_MCJITE" title="Permalink to this definition">¶</a><br /></dt>
 <dd><p>Use the LLVM MCJIT JIT engine. </p>
 <p>Defaults to false.</p>
 <p>The MCJIT is the new LLVM JIT engine, it is not as well tested as the original JIT engine. Does NOT work on LLVM 3.1 </p>
 </dd></dl>
 
 <dl class="cpp enumerator">
-<dt id="_CPPv4N2rr6Config4Keys21SIMULATEOPTIONS_STEPSE">
-<span id="_CPPv3N2rr6Config4Keys21SIMULATEOPTIONS_STEPSE"></span><span id="_CPPv2N2rr6Config4Keys21SIMULATEOPTIONS_STEPSE"></span><span class="target" id="classrr_1_1Config_1aed7c550b9e34222675cd152c9154d053ae5bc2b4a1d1183c5a941d65368f81ff5"></span><em class="property">enumerator </em><code class="sig-name descname">SIMULATEOPTIONS_STEPS</code><a class="headerlink" href="#_CPPv4N2rr6Config4Keys21SIMULATEOPTIONS_STEPSE" title="Permalink to this definition">¶</a><br /></dt>
+<dt class="sig sig-object cpp" id="_CPPv4N2rr6Config4Keys21SIMULATEOPTIONS_STEPSE">
+<span id="_CPPv3N2rr6Config4Keys21SIMULATEOPTIONS_STEPSE"></span><span id="_CPPv2N2rr6Config4Keys21SIMULATEOPTIONS_STEPSE"></span><span class="target" id="classrr_1_1Config_1aed7c550b9e34222675cd152c9154d053ae5bc2b4a1d1183c5a941d65368f81ff5"></span><span class="k"><span class="pre">enumerator</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">SIMULATEOPTIONS_STEPS</span></span></span><a class="headerlink" href="#_CPPv4N2rr6Config4Keys21SIMULATEOPTIONS_STEPSE" title="Permalink to this definition">¶</a><br /></dt>
 <dd><p>The number of steps at which the output is sampled. </p>
 <p>The samples are evenly spaced. When a simulation system calculates the data points to record, it will typically divide the duration by the number of time steps. Thus, for X steps, the output will have X+1 data rows. see SimulateOptions::steps </p>
 </dd></dl>
 
 <dl class="cpp enumerator">
-<dt id="_CPPv4N2rr6Config4Keys24SIMULATEOPTIONS_DURATIONE">
-<span id="_CPPv3N2rr6Config4Keys24SIMULATEOPTIONS_DURATIONE"></span><span id="_CPPv2N2rr6Config4Keys24SIMULATEOPTIONS_DURATIONE"></span><span class="target" id="classrr_1_1Config_1aed7c550b9e34222675cd152c9154d053aac781f4e67d50493b57896166839aabf"></span><em class="property">enumerator </em><code class="sig-name descname">SIMULATEOPTIONS_DURATION</code><a class="headerlink" href="#_CPPv4N2rr6Config4Keys24SIMULATEOPTIONS_DURATIONE" title="Permalink to this definition">¶</a><br /></dt>
+<dt class="sig sig-object cpp" id="_CPPv4N2rr6Config4Keys24SIMULATEOPTIONS_DURATIONE">
+<span id="_CPPv3N2rr6Config4Keys24SIMULATEOPTIONS_DURATIONE"></span><span id="_CPPv2N2rr6Config4Keys24SIMULATEOPTIONS_DURATIONE"></span><span class="target" id="classrr_1_1Config_1aed7c550b9e34222675cd152c9154d053aac781f4e67d50493b57896166839aabf"></span><span class="k"><span class="pre">enumerator</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">SIMULATEOPTIONS_DURATION</span></span></span><a class="headerlink" href="#_CPPv4N2rr6Config4Keys24SIMULATEOPTIONS_DURATIONE" title="Permalink to this definition">¶</a><br /></dt>
 <dd><p>see SimulateOptions::duration </p>
 </dd></dl>
 
 <dl class="cpp enumerator">
-<dt id="_CPPv4N2rr6Config4Keys24SIMULATEOPTIONS_ABSOLUTEE">
-<span id="_CPPv3N2rr6Config4Keys24SIMULATEOPTIONS_ABSOLUTEE"></span><span id="_CPPv2N2rr6Config4Keys24SIMULATEOPTIONS_ABSOLUTEE"></span><span class="target" id="classrr_1_1Config_1aed7c550b9e34222675cd152c9154d053a7c765d39c39d0550c170fce10099664f"></span><em class="property">enumerator </em><code class="sig-name descname">SIMULATEOPTIONS_ABSOLUTE</code><a class="headerlink" href="#_CPPv4N2rr6Config4Keys24SIMULATEOPTIONS_ABSOLUTEE" title="Permalink to this definition">¶</a><br /></dt>
+<dt class="sig sig-object cpp" id="_CPPv4N2rr6Config4Keys24SIMULATEOPTIONS_ABSOLUTEE">
+<span id="_CPPv3N2rr6Config4Keys24SIMULATEOPTIONS_ABSOLUTEE"></span><span id="_CPPv2N2rr6Config4Keys24SIMULATEOPTIONS_ABSOLUTEE"></span><span class="target" id="classrr_1_1Config_1aed7c550b9e34222675cd152c9154d053a7c765d39c39d0550c170fce10099664f"></span><span class="k"><span class="pre">enumerator</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">SIMULATEOPTIONS_ABSOLUTE</span></span></span><a class="headerlink" href="#_CPPv4N2rr6Config4Keys24SIMULATEOPTIONS_ABSOLUTEE" title="Permalink to this definition">¶</a><br /></dt>
 <dd><p>see SimulateOptions::absolute </p>
 </dd></dl>
 
 <dl class="cpp enumerator">
-<dt id="_CPPv4N2rr6Config4Keys24SIMULATEOPTIONS_RELATIVEE">
-<span id="_CPPv3N2rr6Config4Keys24SIMULATEOPTIONS_RELATIVEE"></span><span id="_CPPv2N2rr6Config4Keys24SIMULATEOPTIONS_RELATIVEE"></span><span class="target" id="classrr_1_1Config_1aed7c550b9e34222675cd152c9154d053a048be3a9dac65ffeb9a85e89abd26229"></span><em class="property">enumerator </em><code class="sig-name descname">SIMULATEOPTIONS_RELATIVE</code><a class="headerlink" href="#_CPPv4N2rr6Config4Keys24SIMULATEOPTIONS_RELATIVEE" title="Permalink to this definition">¶</a><br /></dt>
+<dt class="sig sig-object cpp" id="_CPPv4N2rr6Config4Keys24SIMULATEOPTIONS_RELATIVEE">
+<span id="_CPPv3N2rr6Config4Keys24SIMULATEOPTIONS_RELATIVEE"></span><span id="_CPPv2N2rr6Config4Keys24SIMULATEOPTIONS_RELATIVEE"></span><span class="target" id="classrr_1_1Config_1aed7c550b9e34222675cd152c9154d053a048be3a9dac65ffeb9a85e89abd26229"></span><span class="k"><span class="pre">enumerator</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">SIMULATEOPTIONS_RELATIVE</span></span></span><a class="headerlink" href="#_CPPv4N2rr6Config4Keys24SIMULATEOPTIONS_RELATIVEE" title="Permalink to this definition">¶</a><br /></dt>
 <dd><p>see SimulateOptions::relative </p>
 </dd></dl>
 
 <dl class="cpp enumerator">
-<dt id="_CPPv4N2rr6Config4Keys33SIMULATEOPTIONS_STRUCTURED_RESULTE">
-<span id="_CPPv3N2rr6Config4Keys33SIMULATEOPTIONS_STRUCTURED_RESULTE"></span><span id="_CPPv2N2rr6Config4Keys33SIMULATEOPTIONS_STRUCTURED_RESULTE"></span><span class="target" id="classrr_1_1Config_1aed7c550b9e34222675cd152c9154d053a38f882c1ea3fc2c5844d1c80bfdbbbd4"></span><em class="property">enumerator </em><code class="sig-name descname">SIMULATEOPTIONS_STRUCTURED_RESULT</code><a class="headerlink" href="#_CPPv4N2rr6Config4Keys33SIMULATEOPTIONS_STRUCTURED_RESULTE" title="Permalink to this definition">¶</a><br /></dt>
+<dt class="sig sig-object cpp" id="_CPPv4N2rr6Config4Keys33SIMULATEOPTIONS_STRUCTURED_RESULTE">
+<span id="_CPPv3N2rr6Config4Keys33SIMULATEOPTIONS_STRUCTURED_RESULTE"></span><span id="_CPPv2N2rr6Config4Keys33SIMULATEOPTIONS_STRUCTURED_RESULTE"></span><span class="target" id="classrr_1_1Config_1aed7c550b9e34222675cd152c9154d053a38f882c1ea3fc2c5844d1c80bfdbbbd4"></span><span class="k"><span class="pre">enumerator</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">SIMULATEOPTIONS_STRUCTURED_RESULT</span></span></span><a class="headerlink" href="#_CPPv4N2rr6Config4Keys33SIMULATEOPTIONS_STRUCTURED_RESULTE" title="Permalink to this definition">¶</a><br /></dt>
 <dd><p>see SimulateOptions::STRUCTURED_RESULT </p>
 </dd></dl>
 
 <dl class="cpp enumerator">
-<dt id="_CPPv4N2rr6Config4Keys21SIMULATEOPTIONS_STIFFE">
-<span id="_CPPv3N2rr6Config4Keys21SIMULATEOPTIONS_STIFFE"></span><span id="_CPPv2N2rr6Config4Keys21SIMULATEOPTIONS_STIFFE"></span><span class="target" id="classrr_1_1Config_1aed7c550b9e34222675cd152c9154d053a27968dd97e68c82d7773b4ac5b695823"></span><em class="property">enumerator </em><code class="sig-name descname">SIMULATEOPTIONS_STIFF</code><a class="headerlink" href="#_CPPv4N2rr6Config4Keys21SIMULATEOPTIONS_STIFFE" title="Permalink to this definition">¶</a><br /></dt>
+<dt class="sig sig-object cpp" id="_CPPv4N2rr6Config4Keys21SIMULATEOPTIONS_STIFFE">
+<span id="_CPPv3N2rr6Config4Keys21SIMULATEOPTIONS_STIFFE"></span><span id="_CPPv2N2rr6Config4Keys21SIMULATEOPTIONS_STIFFE"></span><span class="target" id="classrr_1_1Config_1aed7c550b9e34222675cd152c9154d053a27968dd97e68c82d7773b4ac5b695823"></span><span class="k"><span class="pre">enumerator</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">SIMULATEOPTIONS_STIFF</span></span></span><a class="headerlink" href="#_CPPv4N2rr6Config4Keys21SIMULATEOPTIONS_STIFFE" title="Permalink to this definition">¶</a><br /></dt>
 <dd><p>Is the model a stiff system? setting this to stiff causes <a class="reference internal" href="rrRoadRunner.html#classrr_1_1RoadRunner"><span class="std std-ref">RoadRunner</span></a> to load a stiff solver which could potentially be extremly slow see SimulateOptions::STIFF. </p>
 </dd></dl>
 
 <dl class="cpp enumerator">
-<dt id="_CPPv4N2rr6Config4Keys26SIMULATEOPTIONS_MULTI_STEPE">
-<span id="_CPPv3N2rr6Config4Keys26SIMULATEOPTIONS_MULTI_STEPE"></span><span id="_CPPv2N2rr6Config4Keys26SIMULATEOPTIONS_MULTI_STEPE"></span><span class="target" id="classrr_1_1Config_1aed7c550b9e34222675cd152c9154d053a65faed9584635abaaf631baa90ff342f"></span><em class="property">enumerator </em><code class="sig-name descname">SIMULATEOPTIONS_MULTI_STEP</code><a class="headerlink" href="#_CPPv4N2rr6Config4Keys26SIMULATEOPTIONS_MULTI_STEPE" title="Permalink to this definition">¶</a><br /></dt>
+<dt class="sig sig-object cpp" id="_CPPv4N2rr6Config4Keys26SIMULATEOPTIONS_MULTI_STEPE">
+<span id="_CPPv3N2rr6Config4Keys26SIMULATEOPTIONS_MULTI_STEPE"></span><span id="_CPPv2N2rr6Config4Keys26SIMULATEOPTIONS_MULTI_STEPE"></span><span class="target" id="classrr_1_1Config_1aed7c550b9e34222675cd152c9154d053a65faed9584635abaaf631baa90ff342f"></span><span class="k"><span class="pre">enumerator</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">SIMULATEOPTIONS_MULTI_STEP</span></span></span><a class="headerlink" href="#_CPPv4N2rr6Config4Keys26SIMULATEOPTIONS_MULTI_STEPE" title="Permalink to this definition">¶</a><br /></dt>
 <dd><p>The MULTI_STEP option tells the solver to take a series of internal steps and then return the solution at the point reached by that step. </p>
 <p>In simulate, this option will likely be slower than normal mode, but may be useful to monitor solutions as they are integrated.</p>
 <p>This is intended to be used in combination with the IntegratorListener. It this option is set, and there is a IntegratorListener set, RoadRunner::integrate will run the integrator in a series of internal steps, and the listner will by notified at each step.</p>
@@ -366,85 +369,85 @@
 </dd></dl>
 
 <dl class="cpp enumerator">
-<dt id="_CPPv4N2rr6Config4Keys43SIMULATEOPTIONS_DETERMINISTIC_VARIABLE_STEPE">
-<span id="_CPPv3N2rr6Config4Keys43SIMULATEOPTIONS_DETERMINISTIC_VARIABLE_STEPE"></span><span id="_CPPv2N2rr6Config4Keys43SIMULATEOPTIONS_DETERMINISTIC_VARIABLE_STEPE"></span><span class="target" id="classrr_1_1Config_1aed7c550b9e34222675cd152c9154d053a68f2e9ea81eb79e0d138a3834ab2b33b"></span><em class="property">enumerator </em><code class="sig-name descname">SIMULATEOPTIONS_DETERMINISTIC_VARIABLE_STEP</code><a class="headerlink" href="#_CPPv4N2rr6Config4Keys43SIMULATEOPTIONS_DETERMINISTIC_VARIABLE_STEPE" title="Permalink to this definition">¶</a><br /></dt>
+<dt class="sig sig-object cpp" id="_CPPv4N2rr6Config4Keys43SIMULATEOPTIONS_DETERMINISTIC_VARIABLE_STEPE">
+<span id="_CPPv3N2rr6Config4Keys43SIMULATEOPTIONS_DETERMINISTIC_VARIABLE_STEPE"></span><span id="_CPPv2N2rr6Config4Keys43SIMULATEOPTIONS_DETERMINISTIC_VARIABLE_STEPE"></span><span class="target" id="classrr_1_1Config_1aed7c550b9e34222675cd152c9154d053a68f2e9ea81eb79e0d138a3834ab2b33b"></span><span class="k"><span class="pre">enumerator</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">SIMULATEOPTIONS_DETERMINISTIC_VARIABLE_STEP</span></span></span><a class="headerlink" href="#_CPPv4N2rr6Config4Keys43SIMULATEOPTIONS_DETERMINISTIC_VARIABLE_STEPE" title="Permalink to this definition">¶</a><br /></dt>
 <dd><p>Do variable time step integration when using a deterministic integrator. </p>
 </dd></dl>
 
 <dl class="cpp enumerator">
-<dt id="_CPPv4N2rr6Config4Keys40SIMULATEOPTIONS_STOCHASTIC_VARIABLE_STEPE">
-<span id="_CPPv3N2rr6Config4Keys40SIMULATEOPTIONS_STOCHASTIC_VARIABLE_STEPE"></span><span id="_CPPv2N2rr6Config4Keys40SIMULATEOPTIONS_STOCHASTIC_VARIABLE_STEPE"></span><span class="target" id="classrr_1_1Config_1aed7c550b9e34222675cd152c9154d053a50309d6c373f32953b6956760f800e23"></span><em class="property">enumerator </em><code class="sig-name descname">SIMULATEOPTIONS_STOCHASTIC_VARIABLE_STEP</code><a class="headerlink" href="#_CPPv4N2rr6Config4Keys40SIMULATEOPTIONS_STOCHASTIC_VARIABLE_STEPE" title="Permalink to this definition">¶</a><br /></dt>
+<dt class="sig sig-object cpp" id="_CPPv4N2rr6Config4Keys40SIMULATEOPTIONS_STOCHASTIC_VARIABLE_STEPE">
+<span id="_CPPv3N2rr6Config4Keys40SIMULATEOPTIONS_STOCHASTIC_VARIABLE_STEPE"></span><span id="_CPPv2N2rr6Config4Keys40SIMULATEOPTIONS_STOCHASTIC_VARIABLE_STEPE"></span><span class="target" id="classrr_1_1Config_1aed7c550b9e34222675cd152c9154d053a50309d6c373f32953b6956760f800e23"></span><span class="k"><span class="pre">enumerator</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">SIMULATEOPTIONS_STOCHASTIC_VARIABLE_STEP</span></span></span><a class="headerlink" href="#_CPPv4N2rr6Config4Keys40SIMULATEOPTIONS_STOCHASTIC_VARIABLE_STEPE" title="Permalink to this definition">¶</a><br /></dt>
 <dd><p>Do variable time step integration when using stochastic integrators. </p>
 </dd></dl>
 
 <dl class="cpp enumerator">
-<dt id="_CPPv4N2rr6Config4Keys26SIMULATEOPTIONS_INTEGRATORE">
-<span id="_CPPv3N2rr6Config4Keys26SIMULATEOPTIONS_INTEGRATORE"></span><span id="_CPPv2N2rr6Config4Keys26SIMULATEOPTIONS_INTEGRATORE"></span><span class="target" id="classrr_1_1Config_1aed7c550b9e34222675cd152c9154d053af04f063962a4036311b2e11f07519c7c"></span><em class="property">enumerator </em><code class="sig-name descname">SIMULATEOPTIONS_INTEGRATOR</code><a class="headerlink" href="#_CPPv4N2rr6Config4Keys26SIMULATEOPTIONS_INTEGRATORE" title="Permalink to this definition">¶</a><br /></dt>
-<dd><p>Default integrator to use, currently supports a string of “CVODE” or “Gillespie”, default is “CVODE”. </p>
+<dt class="sig sig-object cpp" id="_CPPv4N2rr6Config4Keys26SIMULATEOPTIONS_INTEGRATORE">
+<span id="_CPPv3N2rr6Config4Keys26SIMULATEOPTIONS_INTEGRATORE"></span><span id="_CPPv2N2rr6Config4Keys26SIMULATEOPTIONS_INTEGRATORE"></span><span class="target" id="classrr_1_1Config_1aed7c550b9e34222675cd152c9154d053af04f063962a4036311b2e11f07519c7c"></span><span class="k"><span class="pre">enumerator</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">SIMULATEOPTIONS_INTEGRATOR</span></span></span><a class="headerlink" href="#_CPPv4N2rr6Config4Keys26SIMULATEOPTIONS_INTEGRATORE" title="Permalink to this definition">¶</a><br /></dt>
+<dd><p>Default integrator to use, currently supports a std::string of “CVODE” or “Gillespie”, default is “CVODE”. </p>
 </dd></dl>
 
 <dl class="cpp enumerator">
-<dt id="_CPPv4N2rr6Config4Keys32SIMULATEOPTIONS_INITIAL_TIMESTEPE">
-<span id="_CPPv3N2rr6Config4Keys32SIMULATEOPTIONS_INITIAL_TIMESTEPE"></span><span id="_CPPv2N2rr6Config4Keys32SIMULATEOPTIONS_INITIAL_TIMESTEPE"></span><span class="target" id="classrr_1_1Config_1aed7c550b9e34222675cd152c9154d053a0d32622a3edeabd8cb3b36a310a073e7"></span><em class="property">enumerator </em><code class="sig-name descname">SIMULATEOPTIONS_INITIAL_TIMESTEP</code><a class="headerlink" href="#_CPPv4N2rr6Config4Keys32SIMULATEOPTIONS_INITIAL_TIMESTEPE" title="Permalink to this definition">¶</a><br /></dt>
+<dt class="sig sig-object cpp" id="_CPPv4N2rr6Config4Keys32SIMULATEOPTIONS_INITIAL_TIMESTEPE">
+<span id="_CPPv3N2rr6Config4Keys32SIMULATEOPTIONS_INITIAL_TIMESTEPE"></span><span id="_CPPv2N2rr6Config4Keys32SIMULATEOPTIONS_INITIAL_TIMESTEPE"></span><span class="target" id="classrr_1_1Config_1aed7c550b9e34222675cd152c9154d053a0d32622a3edeabd8cb3b36a310a073e7"></span><span class="k"><span class="pre">enumerator</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">SIMULATEOPTIONS_INITIAL_TIMESTEP</span></span></span><a class="headerlink" href="#_CPPv4N2rr6Config4Keys32SIMULATEOPTIONS_INITIAL_TIMESTEPE" title="Permalink to this definition">¶</a><br /></dt>
 <dd><p>A user specified initial time step. </p>
 <p>If this is &lt;= 0, the integrator will attempt to determine a safe initial time stpe.</p>
 <p>Note, for each number of steps given to <a class="reference internal" href="rrRoadRunner.html#classrr_1_1RoadRunner_1a0843eb317d47d28a27929d326d4f1f88"><span class="std std-ref">RoadRunner::simulate</span></a> or <a class="reference internal" href="rrRoadRunner.html#classrr_1_1RoadRunner_1a27aedd28b2a2d5453200ca4a4a2bf4c0"><span class="std std-ref">RoadRunner::oneStep</span></a>, the internal integrator may take many many steps to reach one of the external time steps. This value specifies an initial value for the internal integrator time step. see SimulateOptions::initialTimeStep </p>
 </dd></dl>
 
 <dl class="cpp enumerator">
-<dt id="_CPPv4N2rr6Config4Keys32SIMULATEOPTIONS_MINIMUM_TIMESTEPE">
-<span id="_CPPv3N2rr6Config4Keys32SIMULATEOPTIONS_MINIMUM_TIMESTEPE"></span><span id="_CPPv2N2rr6Config4Keys32SIMULATEOPTIONS_MINIMUM_TIMESTEPE"></span><span class="target" id="classrr_1_1Config_1aed7c550b9e34222675cd152c9154d053aa4e33c84e600b5f29620af10fa601425"></span><em class="property">enumerator </em><code class="sig-name descname">SIMULATEOPTIONS_MINIMUM_TIMESTEP</code><a class="headerlink" href="#_CPPv4N2rr6Config4Keys32SIMULATEOPTIONS_MINIMUM_TIMESTEPE" title="Permalink to this definition">¶</a><br /></dt>
+<dt class="sig sig-object cpp" id="_CPPv4N2rr6Config4Keys32SIMULATEOPTIONS_MINIMUM_TIMESTEPE">
+<span id="_CPPv3N2rr6Config4Keys32SIMULATEOPTIONS_MINIMUM_TIMESTEPE"></span><span id="_CPPv2N2rr6Config4Keys32SIMULATEOPTIONS_MINIMUM_TIMESTEPE"></span><span class="target" id="classrr_1_1Config_1aed7c550b9e34222675cd152c9154d053aa4e33c84e600b5f29620af10fa601425"></span><span class="k"><span class="pre">enumerator</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">SIMULATEOPTIONS_MINIMUM_TIMESTEP</span></span></span><a class="headerlink" href="#_CPPv4N2rr6Config4Keys32SIMULATEOPTIONS_MINIMUM_TIMESTEPE" title="Permalink to this definition">¶</a><br /></dt>
 <dd><p>Specfify The Minimum Time Step That The Internal <a class="reference internal" href="Integrator.html#classrr_1_1Integrator"><span class="std std-ref">Integrator</span></a> Will Use. </p>
 <p>Uses <a class="reference internal" href="Integrator.html#classrr_1_1Integrator"><span class="std std-ref">Integrator</span></a> Estimated Value If &lt;= 0. see SimulateOptions::minumumTimeStep </p>
 </dd></dl>
 
 <dl class="cpp enumerator">
-<dt id="_CPPv4N2rr6Config4Keys32SIMULATEOPTIONS_MAXIMUM_TIMESTEPE">
-<span id="_CPPv3N2rr6Config4Keys32SIMULATEOPTIONS_MAXIMUM_TIMESTEPE"></span><span id="_CPPv2N2rr6Config4Keys32SIMULATEOPTIONS_MAXIMUM_TIMESTEPE"></span><span class="target" id="classrr_1_1Config_1aed7c550b9e34222675cd152c9154d053a571e2ca6736089faed9659cc2301968d"></span><em class="property">enumerator </em><code class="sig-name descname">SIMULATEOPTIONS_MAXIMUM_TIMESTEP</code><a class="headerlink" href="#_CPPv4N2rr6Config4Keys32SIMULATEOPTIONS_MAXIMUM_TIMESTEPE" title="Permalink to this definition">¶</a><br /></dt>
+<dt class="sig sig-object cpp" id="_CPPv4N2rr6Config4Keys32SIMULATEOPTIONS_MAXIMUM_TIMESTEPE">
+<span id="_CPPv3N2rr6Config4Keys32SIMULATEOPTIONS_MAXIMUM_TIMESTEPE"></span><span id="_CPPv2N2rr6Config4Keys32SIMULATEOPTIONS_MAXIMUM_TIMESTEPE"></span><span class="target" id="classrr_1_1Config_1aed7c550b9e34222675cd152c9154d053a571e2ca6736089faed9659cc2301968d"></span><span class="k"><span class="pre">enumerator</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">SIMULATEOPTIONS_MAXIMUM_TIMESTEP</span></span></span><a class="headerlink" href="#_CPPv4N2rr6Config4Keys32SIMULATEOPTIONS_MAXIMUM_TIMESTEPE" title="Permalink to this definition">¶</a><br /></dt>
 <dd><p>Specify The Maximum Time Step Size That The Internaal <a class="reference internal" href="Integrator.html#classrr_1_1Integrator"><span class="std std-ref">Integrator</span></a> Will Use. </p>
 <p>Uses <a class="reference internal" href="Integrator.html#classrr_1_1Integrator"><span class="std std-ref">Integrator</span></a> Estimated Value If &lt;= 0. see SimulateOptions::maximumTimeStep </p>
 </dd></dl>
 
 <dl class="cpp enumerator">
-<dt id="_CPPv4N2rr6Config4Keys33SIMULATEOPTIONS_MAXIMUM_NUM_STEPSE">
-<span id="_CPPv3N2rr6Config4Keys33SIMULATEOPTIONS_MAXIMUM_NUM_STEPSE"></span><span id="_CPPv2N2rr6Config4Keys33SIMULATEOPTIONS_MAXIMUM_NUM_STEPSE"></span><span class="target" id="classrr_1_1Config_1aed7c550b9e34222675cd152c9154d053a195516f962434b4aeb314ae39d2a2814"></span><em class="property">enumerator </em><code class="sig-name descname">SIMULATEOPTIONS_MAXIMUM_NUM_STEPS</code><a class="headerlink" href="#_CPPv4N2rr6Config4Keys33SIMULATEOPTIONS_MAXIMUM_NUM_STEPSE" title="Permalink to this definition">¶</a><br /></dt>
+<dt class="sig sig-object cpp" id="_CPPv4N2rr6Config4Keys33SIMULATEOPTIONS_MAXIMUM_NUM_STEPSE">
+<span id="_CPPv3N2rr6Config4Keys33SIMULATEOPTIONS_MAXIMUM_NUM_STEPSE"></span><span id="_CPPv2N2rr6Config4Keys33SIMULATEOPTIONS_MAXIMUM_NUM_STEPSE"></span><span class="target" id="classrr_1_1Config_1aed7c550b9e34222675cd152c9154d053a195516f962434b4aeb314ae39d2a2814"></span><span class="k"><span class="pre">enumerator</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">SIMULATEOPTIONS_MAXIMUM_NUM_STEPS</span></span></span><a class="headerlink" href="#_CPPv4N2rr6Config4Keys33SIMULATEOPTIONS_MAXIMUM_NUM_STEPSE" title="Permalink to this definition">¶</a><br /></dt>
 <dd><p>Specify The Maximum Number Of Steps The Internal <a class="reference internal" href="Integrator.html#classrr_1_1Integrator"><span class="std std-ref">Integrator</span></a> Will Use Before Reaching The User Specified Time Span. </p>
 <p>Uses The <a class="reference internal" href="Integrator.html#classrr_1_1Integrator"><span class="std std-ref">Integrator</span></a> Default Value If &lt;= 0. see SimulateOptions::maximumNumSteps </p>
 </dd></dl>
 
 <dl class="cpp enumerator">
-<dt id="_CPPv4N2rr6Config4Keys27ROADRUNNER_DISABLE_WARNINGSE">
-<span id="_CPPv3N2rr6Config4Keys27ROADRUNNER_DISABLE_WARNINGSE"></span><span id="_CPPv2N2rr6Config4Keys27ROADRUNNER_DISABLE_WARNINGSE"></span><span class="target" id="classrr_1_1Config_1aed7c550b9e34222675cd152c9154d053a2ac32a86236319b70d5078dddd44f23b"></span><em class="property">enumerator </em><code class="sig-name descname">ROADRUNNER_DISABLE_WARNINGS</code><a class="headerlink" href="#_CPPv4N2rr6Config4Keys27ROADRUNNER_DISABLE_WARNINGSE" title="Permalink to this definition">¶</a><br /></dt>
+<dt class="sig sig-object cpp" id="_CPPv4N2rr6Config4Keys27ROADRUNNER_DISABLE_WARNINGSE">
+<span id="_CPPv3N2rr6Config4Keys27ROADRUNNER_DISABLE_WARNINGSE"></span><span id="_CPPv2N2rr6Config4Keys27ROADRUNNER_DISABLE_WARNINGSE"></span><span class="target" id="classrr_1_1Config_1aed7c550b9e34222675cd152c9154d053a2ac32a86236319b70d5078dddd44f23b"></span><span class="k"><span class="pre">enumerator</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">ROADRUNNER_DISABLE_WARNINGS</span></span></span><a class="headerlink" href="#_CPPv4N2rr6Config4Keys27ROADRUNNER_DISABLE_WARNINGSE" title="Permalink to this definition">¶</a><br /></dt>
 <dd><p>Disable SBML conserved moiety warnings. </p>
 <p>this disables warnings based on the following bitfields:</p>
-<p>ROADRUNNER_DISABLE_WARNINGS_STEADYSTATE: disable the warning in <a class="reference internal" href="rrRoadRunner.html#classrr_1_1RoadRunner_1a6dca346fbb6e59eb73b0a16212df8165"><span class="std std-ref">RoadRunner::steadyState</span></a> about possible singular jacobian.</p>
+<p>ROADRUNNER_DISABLE_WARNINGS_STEADYSTATE: disable the warning in <a class="reference internal" href="rrRoadRunner.html#classrr_1_1RoadRunner_1af310e01ec241bc2b19a46629087024d0"><span class="std std-ref">RoadRunner::steadyState</span></a> about possible singular jacobian.</p>
 <p>ROADRUNNER_DISABLE_WARNINGS_CONSERVED_MOIETY: disable the conserved moieties warning if enabled when loading a sbml document. </p>
 </dd></dl>
 
 <dl class="cpp enumerator">
-<dt id="_CPPv4N2rr6Config4Keys44ROADRUNNER_DISABLE_PYTHON_DYNAMIC_PROPERTIESE">
-<span id="_CPPv3N2rr6Config4Keys44ROADRUNNER_DISABLE_PYTHON_DYNAMIC_PROPERTIESE"></span><span id="_CPPv2N2rr6Config4Keys44ROADRUNNER_DISABLE_PYTHON_DYNAMIC_PROPERTIESE"></span><span class="target" id="classrr_1_1Config_1aed7c550b9e34222675cd152c9154d053ae4eee9ff55c8ff33111fd63dd4427d18"></span><em class="property">enumerator </em><code class="sig-name descname">ROADRUNNER_DISABLE_PYTHON_DYNAMIC_PROPERTIES</code><a class="headerlink" href="#_CPPv4N2rr6Config4Keys44ROADRUNNER_DISABLE_PYTHON_DYNAMIC_PROPERTIESE" title="Permalink to this definition">¶</a><br /></dt>
+<dt class="sig sig-object cpp" id="_CPPv4N2rr6Config4Keys44ROADRUNNER_DISABLE_PYTHON_DYNAMIC_PROPERTIESE">
+<span id="_CPPv3N2rr6Config4Keys44ROADRUNNER_DISABLE_PYTHON_DYNAMIC_PROPERTIESE"></span><span id="_CPPv2N2rr6Config4Keys44ROADRUNNER_DISABLE_PYTHON_DYNAMIC_PROPERTIESE"></span><span class="target" id="classrr_1_1Config_1aed7c550b9e34222675cd152c9154d053ae4eee9ff55c8ff33111fd63dd4427d18"></span><span class="k"><span class="pre">enumerator</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">ROADRUNNER_DISABLE_PYTHON_DYNAMIC_PROPERTIES</span></span></span><a class="headerlink" href="#_CPPv4N2rr6Config4Keys44ROADRUNNER_DISABLE_PYTHON_DYNAMIC_PROPERTIESE" title="Permalink to this definition">¶</a><br /></dt>
 <dd><p><a class="reference internal" href="rrRoadRunner.html#classrr_1_1RoadRunner"><span class="std std-ref">RoadRunner</span></a> by default dynamically generates accessor properties for all sbml symbol names on the model object when it is retrieved in Python. </p>
 <p>This feature is very nice for interactive use, but can slow things down. If this feature is not needed, it can be disabled here. </p>
 </dd></dl>
 
 <dl class="cpp enumerator">
-<dt id="_CPPv4N2rr6Config4Keys25SBML_APPLICABLEVALIDATORSE">
-<span id="_CPPv3N2rr6Config4Keys25SBML_APPLICABLEVALIDATORSE"></span><span id="_CPPv2N2rr6Config4Keys25SBML_APPLICABLEVALIDATORSE"></span><span class="target" id="classrr_1_1Config_1aed7c550b9e34222675cd152c9154d053a043cd743124d745fe19797e0992d4078"></span><em class="property">enumerator </em><code class="sig-name descname">SBML_APPLICABLEVALIDATORS</code><a class="headerlink" href="#_CPPv4N2rr6Config4Keys25SBML_APPLICABLEVALIDATORSE" title="Permalink to this definition">¶</a><br /></dt>
+<dt class="sig sig-object cpp" id="_CPPv4N2rr6Config4Keys25SBML_APPLICABLEVALIDATORSE">
+<span id="_CPPv3N2rr6Config4Keys25SBML_APPLICABLEVALIDATORSE"></span><span id="_CPPv2N2rr6Config4Keys25SBML_APPLICABLEVALIDATORSE"></span><span class="target" id="classrr_1_1Config_1aed7c550b9e34222675cd152c9154d053a043cd743124d745fe19797e0992d4078"></span><span class="k"><span class="pre">enumerator</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">SBML_APPLICABLEVALIDATORS</span></span></span><a class="headerlink" href="#_CPPv4N2rr6Config4Keys25SBML_APPLICABLEVALIDATORSE" title="Permalink to this definition">¶</a><br /></dt>
 <dd><p>a hex value consisting of a combination of the following values: </p>
 <p>IdCheckON 0x01 IdCheckOFF 0xfe SBMLCheckON 0x02 SBMLCheckOFF 0xfd SBOCheckON 0x04 SBOCheckOFF 0xfb MathCheckON 0x08 MathCheckOFF 0xf7 UnitsCheckON 0x10 UnitsCheckOFF 0xef OverdeterCheckON 0x20 OverdeterCheckOFF 0xdf PracticeCheckON 0x40 PracticeCheckOFF 0xbf AllChecksON 0x7f</p>
 <p>The default value is AllChecksON &amp; UnitsCheckOFF </p>
 </dd></dl>
 
 <dl class="cpp enumerator">
-<dt id="_CPPv4N2rr6Config4Keys29ROADRUNNER_JACOBIAN_STEP_SIZEE">
-<span id="_CPPv3N2rr6Config4Keys29ROADRUNNER_JACOBIAN_STEP_SIZEE"></span><span id="_CPPv2N2rr6Config4Keys29ROADRUNNER_JACOBIAN_STEP_SIZEE"></span><span class="target" id="classrr_1_1Config_1aed7c550b9e34222675cd152c9154d053ae778bfdbfb15c7391f52a3363c01c41c"></span><em class="property">enumerator </em><code class="sig-name descname">ROADRUNNER_JACOBIAN_STEP_SIZE</code><a class="headerlink" href="#_CPPv4N2rr6Config4Keys29ROADRUNNER_JACOBIAN_STEP_SIZEE" title="Permalink to this definition">¶</a><br /></dt>
+<dt class="sig sig-object cpp" id="_CPPv4N2rr6Config4Keys29ROADRUNNER_JACOBIAN_STEP_SIZEE">
+<span id="_CPPv3N2rr6Config4Keys29ROADRUNNER_JACOBIAN_STEP_SIZEE"></span><span id="_CPPv2N2rr6Config4Keys29ROADRUNNER_JACOBIAN_STEP_SIZEE"></span><span class="target" id="classrr_1_1Config_1aed7c550b9e34222675cd152c9154d053ae778bfdbfb15c7391f52a3363c01c41c"></span><span class="k"><span class="pre">enumerator</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">ROADRUNNER_JACOBIAN_STEP_SIZE</span></span></span><a class="headerlink" href="#_CPPv4N2rr6Config4Keys29ROADRUNNER_JACOBIAN_STEP_SIZEE" title="Permalink to this definition">¶</a><br /></dt>
 <dd><p>default step size for Jabobian finite differece calculations </p>
 </dd></dl>
 
 <dl class="cpp enumerator">
-<dt id="_CPPv4N2rr6Config4Keys11MODEL_RESETE">
-<span id="_CPPv3N2rr6Config4Keys11MODEL_RESETE"></span><span id="_CPPv2N2rr6Config4Keys11MODEL_RESETE"></span><span class="target" id="classrr_1_1Config_1aed7c550b9e34222675cd152c9154d053aae6c195ec9c3e6568341c4f226fe391f"></span><em class="property">enumerator </em><code class="sig-name descname">MODEL_RESET</code><a class="headerlink" href="#_CPPv4N2rr6Config4Keys11MODEL_RESETE" title="Permalink to this definition">¶</a><br /></dt>
+<dt class="sig sig-object cpp" id="_CPPv4N2rr6Config4Keys11MODEL_RESETE">
+<span id="_CPPv3N2rr6Config4Keys11MODEL_RESETE"></span><span id="_CPPv2N2rr6Config4Keys11MODEL_RESETE"></span><span class="target" id="classrr_1_1Config_1aed7c550b9e34222675cd152c9154d053aae6c195ec9c3e6568341c4f226fe391f"></span><span class="k"><span class="pre">enumerator</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">MODEL_RESET</span></span></span><a class="headerlink" href="#_CPPv4N2rr6Config4Keys11MODEL_RESETE" title="Permalink to this definition">¶</a><br /></dt>
 <dd><p>A bitfield (unsigned integer) consisting of the values in <a class="reference internal" href="rrSelectionRecord.html#classrr_1_1SelectionRecord_1a898963ab24a6ba614913715c981d8394"><span class="std std-ref">SelectionRecord::SelectionType</span></a>. </p>
 <p>This value determines which values of the model are reset to their origin SBML specified values.</p>
 <p>Current valid values can be a combination of:</p>
@@ -454,285 +457,285 @@
 </dd></dl>
 
 <dl class="cpp enumerator">
-<dt id="_CPPv4N2rr6Config4Keys18CVODE_MIN_ABSOLUTEE">
-<span id="_CPPv3N2rr6Config4Keys18CVODE_MIN_ABSOLUTEE"></span><span id="_CPPv2N2rr6Config4Keys18CVODE_MIN_ABSOLUTEE"></span><span class="target" id="classrr_1_1Config_1aed7c550b9e34222675cd152c9154d053a0c3075c04786354a026c56410edb47be"></span><em class="property">enumerator </em><code class="sig-name descname">CVODE_MIN_ABSOLUTE</code><a class="headerlink" href="#_CPPv4N2rr6Config4Keys18CVODE_MIN_ABSOLUTEE" title="Permalink to this definition">¶</a><br /></dt>
+<dt class="sig sig-object cpp" id="_CPPv4N2rr6Config4Keys18CVODE_MIN_ABSOLUTEE">
+<span id="_CPPv3N2rr6Config4Keys18CVODE_MIN_ABSOLUTEE"></span><span id="_CPPv2N2rr6Config4Keys18CVODE_MIN_ABSOLUTEE"></span><span class="target" id="classrr_1_1Config_1aed7c550b9e34222675cd152c9154d053a0c3075c04786354a026c56410edb47be"></span><span class="k"><span class="pre">enumerator</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">CVODE_MIN_ABSOLUTE</span></span></span><a class="headerlink" href="#_CPPv4N2rr6Config4Keys18CVODE_MIN_ABSOLUTEE" title="Permalink to this definition">¶</a><br /></dt>
 <dd><p>The minumum absolute error that the CVODE integrator supports in order to to pass the sbml test suite using the default integtator. </p>
 <p>If a test suite config file is loaded, and the relative error is higher than CVODE_MIN_ABSOLUTE, it should be lowered to CVODE_MIN_ABSOLUTE. </p>
 </dd></dl>
 
 <dl class="cpp enumerator">
-<dt id="_CPPv4N2rr6Config4Keys18CVODE_MIN_RELATIVEE">
-<span id="_CPPv3N2rr6Config4Keys18CVODE_MIN_RELATIVEE"></span><span id="_CPPv2N2rr6Config4Keys18CVODE_MIN_RELATIVEE"></span><span class="target" id="classrr_1_1Config_1aed7c550b9e34222675cd152c9154d053a4fba6c43b4d137bab9f42ee9c4cb1e6b"></span><em class="property">enumerator </em><code class="sig-name descname">CVODE_MIN_RELATIVE</code><a class="headerlink" href="#_CPPv4N2rr6Config4Keys18CVODE_MIN_RELATIVEE" title="Permalink to this definition">¶</a><br /></dt>
+<dt class="sig sig-object cpp" id="_CPPv4N2rr6Config4Keys18CVODE_MIN_RELATIVEE">
+<span id="_CPPv3N2rr6Config4Keys18CVODE_MIN_RELATIVEE"></span><span id="_CPPv2N2rr6Config4Keys18CVODE_MIN_RELATIVEE"></span><span class="target" id="classrr_1_1Config_1aed7c550b9e34222675cd152c9154d053a4fba6c43b4d137bab9f42ee9c4cb1e6b"></span><span class="k"><span class="pre">enumerator</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">CVODE_MIN_RELATIVE</span></span></span><a class="headerlink" href="#_CPPv4N2rr6Config4Keys18CVODE_MIN_RELATIVEE" title="Permalink to this definition">¶</a><br /></dt>
 <dd><p>The minumum relative error that the CVODE integrator supports in order to to pass the sbml test suite using the default integtator. </p>
 <p>If a test suite config file is loaded, and the relative error is higher than CVODE_MIN_RELATIVE, it should be lowered to CVODE_MIN_RELATIVE. </p>
 </dd></dl>
 
 <dl class="cpp enumerator">
-<dt id="_CPPv4N2rr6Config4Keys27SIMULATEOPTIONS_COPY_RESULTE">
-<span id="_CPPv3N2rr6Config4Keys27SIMULATEOPTIONS_COPY_RESULTE"></span><span id="_CPPv2N2rr6Config4Keys27SIMULATEOPTIONS_COPY_RESULTE"></span><span class="target" id="classrr_1_1Config_1aed7c550b9e34222675cd152c9154d053a2380bee401835d67027fcf0b6fca3c20"></span><em class="property">enumerator </em><code class="sig-name descname">SIMULATEOPTIONS_COPY_RESULT</code><a class="headerlink" href="#_CPPv4N2rr6Config4Keys27SIMULATEOPTIONS_COPY_RESULTE" title="Permalink to this definition">¶</a><br /></dt>
+<dt class="sig sig-object cpp" id="_CPPv4N2rr6Config4Keys27SIMULATEOPTIONS_COPY_RESULTE">
+<span id="_CPPv3N2rr6Config4Keys27SIMULATEOPTIONS_COPY_RESULTE"></span><span id="_CPPv2N2rr6Config4Keys27SIMULATEOPTIONS_COPY_RESULTE"></span><span class="target" id="classrr_1_1Config_1aed7c550b9e34222675cd152c9154d053a2380bee401835d67027fcf0b6fca3c20"></span><span class="k"><span class="pre">enumerator</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">SIMULATEOPTIONS_COPY_RESULT</span></span></span><a class="headerlink" href="#_CPPv4N2rr6Config4Keys27SIMULATEOPTIONS_COPY_RESULTE" title="Permalink to this definition">¶</a><br /></dt>
 <dd><p>make a copy of the simulation result in Python. </p>
 </dd></dl>
 
 <dl class="cpp enumerator">
-<dt id="_CPPv4N2rr6Config4Keys25STEADYSTATE_PRESIMULATIONE">
-<span id="_CPPv3N2rr6Config4Keys25STEADYSTATE_PRESIMULATIONE"></span><span id="_CPPv2N2rr6Config4Keys25STEADYSTATE_PRESIMULATIONE"></span><span class="target" id="classrr_1_1Config_1aed7c550b9e34222675cd152c9154d053a4686986010864b67984769a014f60676"></span><em class="property">enumerator </em><code class="sig-name descname">STEADYSTATE_PRESIMULATION</code><a class="headerlink" href="#_CPPv4N2rr6Config4Keys25STEADYSTATE_PRESIMULATIONE" title="Permalink to this definition">¶</a><br /></dt>
+<dt class="sig sig-object cpp" id="_CPPv4N2rr6Config4Keys25STEADYSTATE_PRESIMULATIONE">
+<span id="_CPPv3N2rr6Config4Keys25STEADYSTATE_PRESIMULATIONE"></span><span id="_CPPv2N2rr6Config4Keys25STEADYSTATE_PRESIMULATIONE"></span><span class="target" id="classrr_1_1Config_1aed7c550b9e34222675cd152c9154d053a4686986010864b67984769a014f60676"></span><span class="k"><span class="pre">enumerator</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">STEADYSTATE_PRESIMULATION</span></span></span><a class="headerlink" href="#_CPPv4N2rr6Config4Keys25STEADYSTATE_PRESIMULATIONE" title="Permalink to this definition">¶</a><br /></dt>
 <dd><p>Flag for starting steady state analysis with simulation. </p>
 </dd></dl>
 
 <dl class="cpp enumerator">
-<dt id="_CPPv4N2rr6Config4Keys35STEADYSTATE_PRESIMULATION_MAX_STEPSE">
-<span id="_CPPv3N2rr6Config4Keys35STEADYSTATE_PRESIMULATION_MAX_STEPSE"></span><span id="_CPPv2N2rr6Config4Keys35STEADYSTATE_PRESIMULATION_MAX_STEPSE"></span><span class="target" id="classrr_1_1Config_1aed7c550b9e34222675cd152c9154d053ae1c4eb4d8956fd74282f7244b699b22d"></span><em class="property">enumerator </em><code class="sig-name descname">STEADYSTATE_PRESIMULATION_MAX_STEPS</code><a class="headerlink" href="#_CPPv4N2rr6Config4Keys35STEADYSTATE_PRESIMULATION_MAX_STEPSE" title="Permalink to this definition">¶</a><br /></dt>
+<dt class="sig sig-object cpp" id="_CPPv4N2rr6Config4Keys35STEADYSTATE_PRESIMULATION_MAX_STEPSE">
+<span id="_CPPv3N2rr6Config4Keys35STEADYSTATE_PRESIMULATION_MAX_STEPSE"></span><span id="_CPPv2N2rr6Config4Keys35STEADYSTATE_PRESIMULATION_MAX_STEPSE"></span><span class="target" id="classrr_1_1Config_1aed7c550b9e34222675cd152c9154d053ae1c4eb4d8956fd74282f7244b699b22d"></span><span class="k"><span class="pre">enumerator</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">STEADYSTATE_PRESIMULATION_MAX_STEPS</span></span></span><a class="headerlink" href="#_CPPv4N2rr6Config4Keys35STEADYSTATE_PRESIMULATION_MAX_STEPSE" title="Permalink to this definition">¶</a><br /></dt>
 <dd><p>Maximum number of steps that can be taken for presimulation before steady state analysis. </p>
 </dd></dl>
 
 <dl class="cpp enumerator">
-<dt id="_CPPv4N2rr6Config4Keys30STEADYSTATE_PRESIMULATION_TIMEE">
-<span id="_CPPv3N2rr6Config4Keys30STEADYSTATE_PRESIMULATION_TIMEE"></span><span id="_CPPv2N2rr6Config4Keys30STEADYSTATE_PRESIMULATION_TIMEE"></span><span class="target" id="classrr_1_1Config_1aed7c550b9e34222675cd152c9154d053a211de9124bd3db79a3752c58f14f7b51"></span><em class="property">enumerator </em><code class="sig-name descname">STEADYSTATE_PRESIMULATION_TIME</code><a class="headerlink" href="#_CPPv4N2rr6Config4Keys30STEADYSTATE_PRESIMULATION_TIMEE" title="Permalink to this definition">¶</a><br /></dt>
+<dt class="sig sig-object cpp" id="_CPPv4N2rr6Config4Keys30STEADYSTATE_PRESIMULATION_TIMEE">
+<span id="_CPPv3N2rr6Config4Keys30STEADYSTATE_PRESIMULATION_TIMEE"></span><span id="_CPPv2N2rr6Config4Keys30STEADYSTATE_PRESIMULATION_TIMEE"></span><span class="target" id="classrr_1_1Config_1aed7c550b9e34222675cd152c9154d053a211de9124bd3db79a3752c58f14f7b51"></span><span class="k"><span class="pre">enumerator</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">STEADYSTATE_PRESIMULATION_TIME</span></span></span><a class="headerlink" href="#_CPPv4N2rr6Config4Keys30STEADYSTATE_PRESIMULATION_TIMEE" title="Permalink to this definition">¶</a><br /></dt>
 <dd><p>End time for presimulation steady state analysis. </p>
 </dd></dl>
 
 <dl class="cpp enumerator">
-<dt id="_CPPv4N2rr6Config4Keys18STEADYSTATE_APPROXE">
-<span id="_CPPv3N2rr6Config4Keys18STEADYSTATE_APPROXE"></span><span id="_CPPv2N2rr6Config4Keys18STEADYSTATE_APPROXE"></span><span class="target" id="classrr_1_1Config_1aed7c550b9e34222675cd152c9154d053adf2850a7abf4024849642d512f2d175e"></span><em class="property">enumerator </em><code class="sig-name descname">STEADYSTATE_APPROX</code><a class="headerlink" href="#_CPPv4N2rr6Config4Keys18STEADYSTATE_APPROXE" title="Permalink to this definition">¶</a><br /></dt>
+<dt class="sig sig-object cpp" id="_CPPv4N2rr6Config4Keys18STEADYSTATE_APPROXE">
+<span id="_CPPv3N2rr6Config4Keys18STEADYSTATE_APPROXE"></span><span id="_CPPv2N2rr6Config4Keys18STEADYSTATE_APPROXE"></span><span class="target" id="classrr_1_1Config_1aed7c550b9e34222675cd152c9154d053adf2850a7abf4024849642d512f2d175e"></span><span class="k"><span class="pre">enumerator</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">STEADYSTATE_APPROX</span></span></span><a class="headerlink" href="#_CPPv4N2rr6Config4Keys18STEADYSTATE_APPROXE" title="Permalink to this definition">¶</a><br /></dt>
 <dd><p>Flag for using steady state approximation routine when steady state solver fails. </p>
 </dd></dl>
 
 <dl class="cpp enumerator">
-<dt id="_CPPv4N2rr6Config4Keys22STEADYSTATE_APPROX_TOLE">
-<span id="_CPPv3N2rr6Config4Keys22STEADYSTATE_APPROX_TOLE"></span><span id="_CPPv2N2rr6Config4Keys22STEADYSTATE_APPROX_TOLE"></span><span class="target" id="classrr_1_1Config_1aed7c550b9e34222675cd152c9154d053a0f93ab971ed7c5d9dfdd092e96244052"></span><em class="property">enumerator </em><code class="sig-name descname">STEADYSTATE_APPROX_TOL</code><a class="headerlink" href="#_CPPv4N2rr6Config4Keys22STEADYSTATE_APPROX_TOLE" title="Permalink to this definition">¶</a><br /></dt>
+<dt class="sig sig-object cpp" id="_CPPv4N2rr6Config4Keys22STEADYSTATE_APPROX_TOLE">
+<span id="_CPPv3N2rr6Config4Keys22STEADYSTATE_APPROX_TOLE"></span><span id="_CPPv2N2rr6Config4Keys22STEADYSTATE_APPROX_TOLE"></span><span class="target" id="classrr_1_1Config_1aed7c550b9e34222675cd152c9154d053a0f93ab971ed7c5d9dfdd092e96244052"></span><span class="k"><span class="pre">enumerator</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">STEADYSTATE_APPROX_TOL</span></span></span><a class="headerlink" href="#_CPPv4N2rr6Config4Keys22STEADYSTATE_APPROX_TOLE" title="Permalink to this definition">¶</a><br /></dt>
 <dd><p>Tolerance for steady state approximation routine. </p>
 </dd></dl>
 
 <dl class="cpp enumerator">
-<dt id="_CPPv4N2rr6Config4Keys28STEADYSTATE_APPROX_MAX_STEPSE">
-<span id="_CPPv3N2rr6Config4Keys28STEADYSTATE_APPROX_MAX_STEPSE"></span><span id="_CPPv2N2rr6Config4Keys28STEADYSTATE_APPROX_MAX_STEPSE"></span><span class="target" id="classrr_1_1Config_1aed7c550b9e34222675cd152c9154d053a918423c8152c2de247f32b9634e63a27"></span><em class="property">enumerator </em><code class="sig-name descname">STEADYSTATE_APPROX_MAX_STEPS</code><a class="headerlink" href="#_CPPv4N2rr6Config4Keys28STEADYSTATE_APPROX_MAX_STEPSE" title="Permalink to this definition">¶</a><br /></dt>
+<dt class="sig sig-object cpp" id="_CPPv4N2rr6Config4Keys28STEADYSTATE_APPROX_MAX_STEPSE">
+<span id="_CPPv3N2rr6Config4Keys28STEADYSTATE_APPROX_MAX_STEPSE"></span><span id="_CPPv2N2rr6Config4Keys28STEADYSTATE_APPROX_MAX_STEPSE"></span><span class="target" id="classrr_1_1Config_1aed7c550b9e34222675cd152c9154d053a918423c8152c2de247f32b9634e63a27"></span><span class="k"><span class="pre">enumerator</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">STEADYSTATE_APPROX_MAX_STEPS</span></span></span><a class="headerlink" href="#_CPPv4N2rr6Config4Keys28STEADYSTATE_APPROX_MAX_STEPSE" title="Permalink to this definition">¶</a><br /></dt>
 <dd><p>Maximum number of steps that can be taken for steady state approximation routine. </p>
 </dd></dl>
 
 <dl class="cpp enumerator">
-<dt id="_CPPv4N2rr6Config4Keys23STEADYSTATE_APPROX_TIMEE">
-<span id="_CPPv3N2rr6Config4Keys23STEADYSTATE_APPROX_TIMEE"></span><span id="_CPPv2N2rr6Config4Keys23STEADYSTATE_APPROX_TIMEE"></span><span class="target" id="classrr_1_1Config_1aed7c550b9e34222675cd152c9154d053a9e7868b91c7f6f94da14d1b8797b7829"></span><em class="property">enumerator </em><code class="sig-name descname">STEADYSTATE_APPROX_TIME</code><a class="headerlink" href="#_CPPv4N2rr6Config4Keys23STEADYSTATE_APPROX_TIMEE" title="Permalink to this definition">¶</a><br /></dt>
+<dt class="sig sig-object cpp" id="_CPPv4N2rr6Config4Keys23STEADYSTATE_APPROX_TIMEE">
+<span id="_CPPv3N2rr6Config4Keys23STEADYSTATE_APPROX_TIMEE"></span><span id="_CPPv2N2rr6Config4Keys23STEADYSTATE_APPROX_TIMEE"></span><span class="target" id="classrr_1_1Config_1aed7c550b9e34222675cd152c9154d053a9e7868b91c7f6f94da14d1b8797b7829"></span><span class="k"><span class="pre">enumerator</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">STEADYSTATE_APPROX_TIME</span></span></span><a class="headerlink" href="#_CPPv4N2rr6Config4Keys23STEADYSTATE_APPROX_TIMEE" title="Permalink to this definition">¶</a><br /></dt>
 <dd><p>End time for steady state approximation routine. </p>
 </dd></dl>
 
 <dl class="cpp enumerator">
-<dt id="_CPPv4N2rr6Config4Keys20STEADYSTATE_RELATIVEE">
-<span id="_CPPv3N2rr6Config4Keys20STEADYSTATE_RELATIVEE"></span><span id="_CPPv2N2rr6Config4Keys20STEADYSTATE_RELATIVEE"></span><span class="target" id="classrr_1_1Config_1aed7c550b9e34222675cd152c9154d053ab00d49173c79792fd08c3fb5731f018d"></span><em class="property">enumerator </em><code class="sig-name descname">STEADYSTATE_RELATIVE</code><a class="headerlink" href="#_CPPv4N2rr6Config4Keys20STEADYSTATE_RELATIVEE" title="Permalink to this definition">¶</a><br /></dt>
+<dt class="sig sig-object cpp" id="_CPPv4N2rr6Config4Keys20STEADYSTATE_RELATIVEE">
+<span id="_CPPv3N2rr6Config4Keys20STEADYSTATE_RELATIVEE"></span><span id="_CPPv2N2rr6Config4Keys20STEADYSTATE_RELATIVEE"></span><span class="target" id="classrr_1_1Config_1aed7c550b9e34222675cd152c9154d053ab00d49173c79792fd08c3fb5731f018d"></span><span class="k"><span class="pre">enumerator</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">STEADYSTATE_RELATIVE</span></span></span><a class="headerlink" href="#_CPPv4N2rr6Config4Keys20STEADYSTATE_RELATIVEE" title="Permalink to this definition">¶</a><br /></dt>
 <dd><p>Specifies the relative tolerance. </p>
 </dd></dl>
 
 <dl class="cpp enumerator">
-<dt id="_CPPv4N2rr6Config4Keys29STEADYSTATE_MAXIMUM_NUM_STEPSE">
-<span id="_CPPv3N2rr6Config4Keys29STEADYSTATE_MAXIMUM_NUM_STEPSE"></span><span id="_CPPv2N2rr6Config4Keys29STEADYSTATE_MAXIMUM_NUM_STEPSE"></span><span class="target" id="classrr_1_1Config_1aed7c550b9e34222675cd152c9154d053a2d28b310561d790f8814ae1ae871bb64"></span><em class="property">enumerator </em><code class="sig-name descname">STEADYSTATE_MAXIMUM_NUM_STEPS</code><a class="headerlink" href="#_CPPv4N2rr6Config4Keys29STEADYSTATE_MAXIMUM_NUM_STEPSE" title="Permalink to this definition">¶</a><br /></dt>
+<dt class="sig sig-object cpp" id="_CPPv4N2rr6Config4Keys29STEADYSTATE_MAXIMUM_NUM_STEPSE">
+<span id="_CPPv3N2rr6Config4Keys29STEADYSTATE_MAXIMUM_NUM_STEPSE"></span><span id="_CPPv2N2rr6Config4Keys29STEADYSTATE_MAXIMUM_NUM_STEPSE"></span><span class="target" id="classrr_1_1Config_1aed7c550b9e34222675cd152c9154d053a2d28b310561d790f8814ae1ae871bb64"></span><span class="k"><span class="pre">enumerator</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">STEADYSTATE_MAXIMUM_NUM_STEPS</span></span></span><a class="headerlink" href="#_CPPv4N2rr6Config4Keys29STEADYSTATE_MAXIMUM_NUM_STEPSE" title="Permalink to this definition">¶</a><br /></dt>
 <dd><p>Maximum number of steps for steady state solvers. </p>
 </dd></dl>
 
 <dl class="cpp enumerator">
-<dt id="_CPPv4N2rr6Config4Keys27STEADYSTATE_MINIMUM_DAMPINGE">
-<span id="_CPPv3N2rr6Config4Keys27STEADYSTATE_MINIMUM_DAMPINGE"></span><span id="_CPPv2N2rr6Config4Keys27STEADYSTATE_MINIMUM_DAMPINGE"></span><span class="target" id="classrr_1_1Config_1aed7c550b9e34222675cd152c9154d053ae91fd0851ea18a519556f71376c57164"></span><em class="property">enumerator </em><code class="sig-name descname">STEADYSTATE_MINIMUM_DAMPING</code><a class="headerlink" href="#_CPPv4N2rr6Config4Keys27STEADYSTATE_MINIMUM_DAMPINGE" title="Permalink to this definition">¶</a><br /></dt>
+<dt class="sig sig-object cpp" id="_CPPv4N2rr6Config4Keys27STEADYSTATE_MINIMUM_DAMPINGE">
+<span id="_CPPv3N2rr6Config4Keys27STEADYSTATE_MINIMUM_DAMPINGE"></span><span id="_CPPv2N2rr6Config4Keys27STEADYSTATE_MINIMUM_DAMPINGE"></span><span class="target" id="classrr_1_1Config_1aed7c550b9e34222675cd152c9154d053ae91fd0851ea18a519556f71376c57164"></span><span class="k"><span class="pre">enumerator</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">STEADYSTATE_MINIMUM_DAMPING</span></span></span><a class="headerlink" href="#_CPPv4N2rr6Config4Keys27STEADYSTATE_MINIMUM_DAMPINGE" title="Permalink to this definition">¶</a><br /></dt>
 <dd><p>Minimum damping factor for steady state solvers. </p>
 </dd></dl>
 
 <dl class="cpp enumerator">
-<dt id="_CPPv4N2rr6Config4Keys19STEADYSTATE_BROYDENE">
-<span id="_CPPv3N2rr6Config4Keys19STEADYSTATE_BROYDENE"></span><span id="_CPPv2N2rr6Config4Keys19STEADYSTATE_BROYDENE"></span><span class="target" id="classrr_1_1Config_1aed7c550b9e34222675cd152c9154d053a568a6ea36735903f07f255e965205b50"></span><em class="property">enumerator </em><code class="sig-name descname">STEADYSTATE_BROYDEN</code><a class="headerlink" href="#_CPPv4N2rr6Config4Keys19STEADYSTATE_BROYDENE" title="Permalink to this definition">¶</a><br /></dt>
+<dt class="sig sig-object cpp" id="_CPPv4N2rr6Config4Keys19STEADYSTATE_BROYDENE">
+<span id="_CPPv3N2rr6Config4Keys19STEADYSTATE_BROYDENE"></span><span id="_CPPv2N2rr6Config4Keys19STEADYSTATE_BROYDENE"></span><span class="target" id="classrr_1_1Config_1aed7c550b9e34222675cd152c9154d053a568a6ea36735903f07f255e965205b50"></span><span class="k"><span class="pre">enumerator</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">STEADYSTATE_BROYDEN</span></span></span><a class="headerlink" href="#_CPPv4N2rr6Config4Keys19STEADYSTATE_BROYDENE" title="Permalink to this definition">¶</a><br /></dt>
 <dd><p>Switches on Broyden method. </p>
 </dd></dl>
 
 <dl class="cpp enumerator">
-<dt id="_CPPv4N2rr6Config4Keys21STEADYSTATE_LINEARITYE">
-<span id="_CPPv3N2rr6Config4Keys21STEADYSTATE_LINEARITYE"></span><span id="_CPPv2N2rr6Config4Keys21STEADYSTATE_LINEARITYE"></span><span class="target" id="classrr_1_1Config_1aed7c550b9e34222675cd152c9154d053ad2d3f863115b60f11279d413b4bc2baa"></span><em class="property">enumerator </em><code class="sig-name descname">STEADYSTATE_LINEARITY</code><a class="headerlink" href="#_CPPv4N2rr6Config4Keys21STEADYSTATE_LINEARITYE" title="Permalink to this definition">¶</a><br /></dt>
+<dt class="sig sig-object cpp" id="_CPPv4N2rr6Config4Keys21STEADYSTATE_LINEARITYE">
+<span id="_CPPv3N2rr6Config4Keys21STEADYSTATE_LINEARITYE"></span><span id="_CPPv2N2rr6Config4Keys21STEADYSTATE_LINEARITYE"></span><span class="target" id="classrr_1_1Config_1aed7c550b9e34222675cd152c9154d053ad2d3f863115b60f11279d413b4bc2baa"></span><span class="k"><span class="pre">enumerator</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">STEADYSTATE_LINEARITY</span></span></span><a class="headerlink" href="#_CPPv4N2rr6Config4Keys21STEADYSTATE_LINEARITYE" title="Permalink to this definition">¶</a><br /></dt>
 <dd><p>Specifies linearity of the problem. </p>
 </dd></dl>
 
 <dl class="cpp enumerator">
-<dt id="_CPPv4N2rr6Config4Keys24ROADRUNNER_JACOBIAN_MODEE">
-<span id="_CPPv3N2rr6Config4Keys24ROADRUNNER_JACOBIAN_MODEE"></span><span id="_CPPv2N2rr6Config4Keys24ROADRUNNER_JACOBIAN_MODEE"></span><span class="target" id="classrr_1_1Config_1aed7c550b9e34222675cd152c9154d053a3d5469371f6dc9aa2402d5e075b64f92"></span><em class="property">enumerator </em><code class="sig-name descname">ROADRUNNER_JACOBIAN_MODE</code><a class="headerlink" href="#_CPPv4N2rr6Config4Keys24ROADRUNNER_JACOBIAN_MODEE" title="Permalink to this definition">¶</a><br /></dt>
+<dt class="sig sig-object cpp" id="_CPPv4N2rr6Config4Keys24ROADRUNNER_JACOBIAN_MODEE">
+<span id="_CPPv3N2rr6Config4Keys24ROADRUNNER_JACOBIAN_MODEE"></span><span id="_CPPv2N2rr6Config4Keys24ROADRUNNER_JACOBIAN_MODEE"></span><span class="target" id="classrr_1_1Config_1aed7c550b9e34222675cd152c9154d053a3d5469371f6dc9aa2402d5e075b64f92"></span><span class="k"><span class="pre">enumerator</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">ROADRUNNER_JACOBIAN_MODE</span></span></span><a class="headerlink" href="#_CPPv4N2rr6Config4Keys24ROADRUNNER_JACOBIAN_MODEE" title="Permalink to this definition">¶</a><br /></dt>
 <dd><p>Determines the mode that the <a class="reference internal" href="rrRoadRunner.html#classrr_1_1RoadRunner"><span class="std std-ref">RoadRunner</span></a> Jacobian calculations will be be performed in. </p>
 <p>The Jacobian can be calculated either with respect to amounts or concentrations. Default is concentrations.</p>
 <p>This can be either ROADRUNNER_JACOBIAN_MODE_AMOUNTS or ROADRUNNER_JACOBIAN_MODE_CONCENTRATIONS. </p>
 </dd></dl>
 
 <dl class="cpp enumerator">
-<dt id="_CPPv4N2rr6Config4Keys13TEMP_DIR_PATHE">
-<span id="_CPPv3N2rr6Config4Keys13TEMP_DIR_PATHE"></span><span id="_CPPv2N2rr6Config4Keys13TEMP_DIR_PATHE"></span><span class="target" id="classrr_1_1Config_1aed7c550b9e34222675cd152c9154d053aeed2c355140f97162b0a894e6c3c7710"></span><em class="property">enumerator </em><code class="sig-name descname">TEMP_DIR_PATH</code><a class="headerlink" href="#_CPPv4N2rr6Config4Keys13TEMP_DIR_PATHE" title="Permalink to this definition">¶</a><br /></dt>
+<dt class="sig sig-object cpp" id="_CPPv4N2rr6Config4Keys13TEMP_DIR_PATHE">
+<span id="_CPPv3N2rr6Config4Keys13TEMP_DIR_PATHE"></span><span id="_CPPv2N2rr6Config4Keys13TEMP_DIR_PATHE"></span><span class="target" id="classrr_1_1Config_1aed7c550b9e34222675cd152c9154d053aeed2c355140f97162b0a894e6c3c7710"></span><span class="k"><span class="pre">enumerator</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">TEMP_DIR_PATH</span></span></span><a class="headerlink" href="#_CPPv4N2rr6Config4Keys13TEMP_DIR_PATHE" title="Permalink to this definition">¶</a><br /></dt>
 <dd><p>Directory path where roadrunner should store temp files. </p>
 <p>If empty, the system specified temp dir is used. Paths may have enviormnent variables, i.e. ${HOME}/tmp</p>
 <p>May have environment variables contained in the path. On Unix, a tilde as first character in the path is replaced with the path to user’s home directory. </p>
 </dd></dl>
 
 <dl class="cpp enumerator">
-<dt id="_CPPv4N2rr6Config4Keys20LOGGER_LOG_FILE_PATHE">
-<span id="_CPPv3N2rr6Config4Keys20LOGGER_LOG_FILE_PATHE"></span><span id="_CPPv2N2rr6Config4Keys20LOGGER_LOG_FILE_PATHE"></span><span class="target" id="classrr_1_1Config_1aed7c550b9e34222675cd152c9154d053aebebe893536932bb96d066c77d56ea1f"></span><em class="property">enumerator </em><code class="sig-name descname">LOGGER_LOG_FILE_PATH</code><a class="headerlink" href="#_CPPv4N2rr6Config4Keys20LOGGER_LOG_FILE_PATHE" title="Permalink to this definition">¶</a><br /></dt>
+<dt class="sig sig-object cpp" id="_CPPv4N2rr6Config4Keys20LOGGER_LOG_FILE_PATHE">
+<span id="_CPPv3N2rr6Config4Keys20LOGGER_LOG_FILE_PATHE"></span><span id="_CPPv2N2rr6Config4Keys20LOGGER_LOG_FILE_PATHE"></span><span class="target" id="classrr_1_1Config_1aed7c550b9e34222675cd152c9154d053aebebe893536932bb96d066c77d56ea1f"></span><span class="k"><span class="pre">enumerator</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">LOGGER_LOG_FILE_PATH</span></span></span><a class="headerlink" href="#_CPPv4N2rr6Config4Keys20LOGGER_LOG_FILE_PATHE" title="Permalink to this definition">¶</a><br /></dt>
 <dd><p>Path to where the logger should write a roadrunner log file. </p>
 <p>If no path is specified, the log file will be written as a “roadrunner.log” in the temp dir.</p>
 <p>May have environment variables contained in the path. On Unix, a tilde as first character in the path is replaced with the path to user’s home directory. </p>
 </dd></dl>
 
 <dl class="cpp enumerator">
-<dt id="_CPPv4N2rr6Config4Keys11RANDOM_SEEDE">
-<span id="_CPPv3N2rr6Config4Keys11RANDOM_SEEDE"></span><span id="_CPPv2N2rr6Config4Keys11RANDOM_SEEDE"></span><span class="target" id="classrr_1_1Config_1aed7c550b9e34222675cd152c9154d053a0777390cc6ead1e5864aa0e319fc4159"></span><em class="property">enumerator </em><code class="sig-name descname">RANDOM_SEED</code><a class="headerlink" href="#_CPPv4N2rr6Config4Keys11RANDOM_SEEDE" title="Permalink to this definition">¶</a><br /></dt>
+<dt class="sig sig-object cpp" id="_CPPv4N2rr6Config4Keys11RANDOM_SEEDE">
+<span id="_CPPv3N2rr6Config4Keys11RANDOM_SEEDE"></span><span id="_CPPv2N2rr6Config4Keys11RANDOM_SEEDE"></span><span class="target" id="classrr_1_1Config_1aed7c550b9e34222675cd152c9154d053a0777390cc6ead1e5864aa0e319fc4159"></span><span class="k"><span class="pre">enumerator</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">RANDOM_SEED</span></span></span><a class="headerlink" href="#_CPPv4N2rr6Config4Keys11RANDOM_SEEDE" title="Permalink to this definition">¶</a><br /></dt>
 <dd><p>Seed for random numbers, should be a integer. </p>
 <p>If this value is negative, then the system time is used for the random seed. </p>
 </dd></dl>
 
 <dl class="cpp enumerator">
-<dt id="_CPPv4N2rr6Config4Keys26PYTHON_ENABLE_NAMED_MATRIXE">
-<span id="_CPPv3N2rr6Config4Keys26PYTHON_ENABLE_NAMED_MATRIXE"></span><span id="_CPPv2N2rr6Config4Keys26PYTHON_ENABLE_NAMED_MATRIXE"></span><span class="target" id="classrr_1_1Config_1aed7c550b9e34222675cd152c9154d053a249947900871dcfadcd924323f12d70e"></span><em class="property">enumerator </em><code class="sig-name descname">PYTHON_ENABLE_NAMED_MATRIX</code><a class="headerlink" href="#_CPPv4N2rr6Config4Keys26PYTHON_ENABLE_NAMED_MATRIXE" title="Permalink to this definition">¶</a><br /></dt>
+<dt class="sig sig-object cpp" id="_CPPv4N2rr6Config4Keys26PYTHON_ENABLE_NAMED_MATRIXE">
+<span id="_CPPv3N2rr6Config4Keys26PYTHON_ENABLE_NAMED_MATRIXE"></span><span id="_CPPv2N2rr6Config4Keys26PYTHON_ENABLE_NAMED_MATRIXE"></span><span class="target" id="classrr_1_1Config_1aed7c550b9e34222675cd152c9154d053a249947900871dcfadcd924323f12d70e"></span><span class="k"><span class="pre">enumerator</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">PYTHON_ENABLE_NAMED_MATRIX</span></span></span><a class="headerlink" href="#_CPPv4N2rr6Config4Keys26PYTHON_ENABLE_NAMED_MATRIXE" title="Permalink to this definition">¶</a><br /></dt>
 <dd><p>use new numpy arrays with row/column names experimental </p>
 </dd></dl>
 
 <dl class="cpp enumerator">
-<dt id="_CPPv4N2rr6Config4Keys17LLVM_SYMBOL_CACHEE">
-<span id="_CPPv3N2rr6Config4Keys17LLVM_SYMBOL_CACHEE"></span><span id="_CPPv2N2rr6Config4Keys17LLVM_SYMBOL_CACHEE"></span><span class="target" id="classrr_1_1Config_1aed7c550b9e34222675cd152c9154d053a0f7d62516a750c56eddc353e14c5e421"></span><em class="property">enumerator </em><code class="sig-name descname">LLVM_SYMBOL_CACHE</code><a class="headerlink" href="#_CPPv4N2rr6Config4Keys17LLVM_SYMBOL_CACHEE" title="Permalink to this definition">¶</a><br /></dt>
+<dt class="sig sig-object cpp" id="_CPPv4N2rr6Config4Keys17LLVM_SYMBOL_CACHEE">
+<span id="_CPPv3N2rr6Config4Keys17LLVM_SYMBOL_CACHEE"></span><span id="_CPPv2N2rr6Config4Keys17LLVM_SYMBOL_CACHEE"></span><span class="target" id="classrr_1_1Config_1aed7c550b9e34222675cd152c9154d053a0f7d62516a750c56eddc353e14c5e421"></span><span class="k"><span class="pre">enumerator</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">LLVM_SYMBOL_CACHE</span></span></span><a class="headerlink" href="#_CPPv4N2rr6Config4Keys17LLVM_SYMBOL_CACHEE" title="Permalink to this definition">¶</a><br /></dt>
 <dd><p>cache llvm symbols durring sbml compilation. </p>
 </dd></dl>
 
 <dl class="cpp enumerator">
-<dt id="_CPPv4N2rr6Config4Keys32OPTIMIZE_REACTION_RATE_SELECTIONE">
-<span id="_CPPv3N2rr6Config4Keys32OPTIMIZE_REACTION_RATE_SELECTIONE"></span><span id="_CPPv2N2rr6Config4Keys32OPTIMIZE_REACTION_RATE_SELECTIONE"></span><span class="target" id="classrr_1_1Config_1aed7c550b9e34222675cd152c9154d053a5c55905b3039d205c2675cd8a5a3682c"></span><em class="property">enumerator </em><code class="sig-name descname">OPTIMIZE_REACTION_RATE_SELECTION</code><a class="headerlink" href="#_CPPv4N2rr6Config4Keys32OPTIMIZE_REACTION_RATE_SELECTIONE" title="Permalink to this definition">¶</a><br /></dt>
+<dt class="sig sig-object cpp" id="_CPPv4N2rr6Config4Keys32OPTIMIZE_REACTION_RATE_SELECTIONE">
+<span id="_CPPv3N2rr6Config4Keys32OPTIMIZE_REACTION_RATE_SELECTIONE"></span><span id="_CPPv2N2rr6Config4Keys32OPTIMIZE_REACTION_RATE_SELECTIONE"></span><span class="target" id="classrr_1_1Config_1aed7c550b9e34222675cd152c9154d053a5c55905b3039d205c2675cd8a5a3682c"></span><span class="k"><span class="pre">enumerator</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">OPTIMIZE_REACTION_RATE_SELECTION</span></span></span><a class="headerlink" href="#_CPPv4N2rr6Config4Keys32OPTIMIZE_REACTION_RATE_SELECTIONE" title="Permalink to this definition">¶</a><br /></dt>
 <dd><p>optimize reaction rate selection durring integration. </p>
 </dd></dl>
 
 <dl class="cpp enumerator">
-<dt id="_CPPv4N2rr6Config4Keys26LOADSBMLOPTIONS_PERMISSIVEE">
-<span id="_CPPv3N2rr6Config4Keys26LOADSBMLOPTIONS_PERMISSIVEE"></span><span id="_CPPv2N2rr6Config4Keys26LOADSBMLOPTIONS_PERMISSIVEE"></span><span class="target" id="classrr_1_1Config_1aed7c550b9e34222675cd152c9154d053a44487cb13e7c8fc0c850a064c88b22da"></span><em class="property">enumerator </em><code class="sig-name descname">LOADSBMLOPTIONS_PERMISSIVE</code><a class="headerlink" href="#_CPPv4N2rr6Config4Keys26LOADSBMLOPTIONS_PERMISSIVEE" title="Permalink to this definition">¶</a><br /></dt>
+<dt class="sig sig-object cpp" id="_CPPv4N2rr6Config4Keys26LOADSBMLOPTIONS_PERMISSIVEE">
+<span id="_CPPv3N2rr6Config4Keys26LOADSBMLOPTIONS_PERMISSIVEE"></span><span id="_CPPv2N2rr6Config4Keys26LOADSBMLOPTIONS_PERMISSIVEE"></span><span class="target" id="classrr_1_1Config_1aed7c550b9e34222675cd152c9154d053a44487cb13e7c8fc0c850a064c88b22da"></span><span class="k"><span class="pre">enumerator</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">LOADSBMLOPTIONS_PERMISSIVE</span></span></span><a class="headerlink" href="#_CPPv4N2rr6Config4Keys26LOADSBMLOPTIONS_PERMISSIVEE" title="Permalink to this definition">¶</a><br /></dt>
 <dd><p>Relax SBML resrictions. </p>
 <p>Allows some idiosyncrasies of e.g. JDesigner that libSBML does not officially support. See: <a class="reference external" href="https://groups.google.com/forum/#!topic/sbml-discuss/u3NK14RUHvE">https://groups.google.com/forum/#!topic/sbml-discuss/u3NK14RUHvE</a></p>
 <p>Specifics: allows use time in user-defined functions, allows use of booleans in scalars </p>
 </dd></dl>
 
 <dl class="cpp enumerator">
-<dt id="_CPPv4N2rr6Config4Keys15MAX_OUTPUT_ROWSE">
-<span id="_CPPv3N2rr6Config4Keys15MAX_OUTPUT_ROWSE"></span><span id="_CPPv2N2rr6Config4Keys15MAX_OUTPUT_ROWSE"></span><span class="target" id="classrr_1_1Config_1aed7c550b9e34222675cd152c9154d053a132d11f5ad8d479acc917f91916a2060"></span><em class="property">enumerator </em><code class="sig-name descname">MAX_OUTPUT_ROWS</code><a class="headerlink" href="#_CPPv4N2rr6Config4Keys15MAX_OUTPUT_ROWSE" title="Permalink to this definition">¶</a><br /></dt>
+<dt class="sig sig-object cpp" id="_CPPv4N2rr6Config4Keys15MAX_OUTPUT_ROWSE">
+<span id="_CPPv3N2rr6Config4Keys15MAX_OUTPUT_ROWSE"></span><span id="_CPPv2N2rr6Config4Keys15MAX_OUTPUT_ROWSE"></span><span class="target" id="classrr_1_1Config_1aed7c550b9e34222675cd152c9154d053a132d11f5ad8d479acc917f91916a2060"></span><span class="k"><span class="pre">enumerator</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">MAX_OUTPUT_ROWS</span></span></span><a class="headerlink" href="#_CPPv4N2rr6Config4Keys15MAX_OUTPUT_ROWSE" title="Permalink to this definition">¶</a><br /></dt>
 <dd><p>Set the maximum number of rows in the output matrix. </p>
 <p>When simulate is called with variable stepping and tight tolerances the resulting output matrix will be very large. This setting cuts off the computation after a certain number of rows are reached. </p>
 </dd></dl>
 
 <dl class="cpp enumerator">
-<dt id="_CPPv4N2rr6Config4Keys41ALLOW_EVENTS_IN_STEADY_STATE_CALCULATIONSE">
-<span id="_CPPv3N2rr6Config4Keys41ALLOW_EVENTS_IN_STEADY_STATE_CALCULATIONSE"></span><span id="_CPPv2N2rr6Config4Keys41ALLOW_EVENTS_IN_STEADY_STATE_CALCULATIONSE"></span><span class="target" id="classrr_1_1Config_1aed7c550b9e34222675cd152c9154d053ae344943000e085c6891d49ccd8286fa4"></span><em class="property">enumerator </em><code class="sig-name descname">ALLOW_EVENTS_IN_STEADY_STATE_CALCULATIONS</code><a class="headerlink" href="#_CPPv4N2rr6Config4Keys41ALLOW_EVENTS_IN_STEADY_STATE_CALCULATIONSE" title="Permalink to this definition">¶</a><br /></dt>
+<dt class="sig sig-object cpp" id="_CPPv4N2rr6Config4Keys41ALLOW_EVENTS_IN_STEADY_STATE_CALCULATIONSE">
+<span id="_CPPv3N2rr6Config4Keys41ALLOW_EVENTS_IN_STEADY_STATE_CALCULATIONSE"></span><span id="_CPPv2N2rr6Config4Keys41ALLOW_EVENTS_IN_STEADY_STATE_CALCULATIONSE"></span><span class="target" id="classrr_1_1Config_1aed7c550b9e34222675cd152c9154d053ae344943000e085c6891d49ccd8286fa4"></span><span class="k"><span class="pre">enumerator</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">ALLOW_EVENTS_IN_STEADY_STATE_CALCULATIONS</span></span></span><a class="headerlink" href="#_CPPv4N2rr6Config4Keys41ALLOW_EVENTS_IN_STEADY_STATE_CALCULATIONSE" title="Permalink to this definition">¶</a><br /></dt>
 <dd><p>Enable or disable steady state calculations when a model contains events. </p>
 <p>If true, steady state calculations will be carried out irrespective of whether events are present or not.</p>
 <p>If false, steady state calculations will not be carried out in the presence of events. </p>
 </dd></dl>
 
 <dl class="cpp enumerator">
-<dt id="_CPPv4N2rr6Config4Keys26VALIDATION_IN_REGENERATIONE">
-<span id="_CPPv3N2rr6Config4Keys26VALIDATION_IN_REGENERATIONE"></span><span id="_CPPv2N2rr6Config4Keys26VALIDATION_IN_REGENERATIONE"></span><span class="target" id="classrr_1_1Config_1aed7c550b9e34222675cd152c9154d053a5545245bf87ab5231571a43a2ae6260d"></span><em class="property">enumerator </em><code class="sig-name descname">VALIDATION_IN_REGENERATION</code><a class="headerlink" href="#_CPPv4N2rr6Config4Keys26VALIDATION_IN_REGENERATIONE" title="Permalink to this definition">¶</a><br /></dt>
+<dt class="sig sig-object cpp" id="_CPPv4N2rr6Config4Keys26VALIDATION_IN_REGENERATIONE">
+<span id="_CPPv3N2rr6Config4Keys26VALIDATION_IN_REGENERATIONE"></span><span id="_CPPv2N2rr6Config4Keys26VALIDATION_IN_REGENERATIONE"></span><span class="target" id="classrr_1_1Config_1aed7c550b9e34222675cd152c9154d053a5545245bf87ab5231571a43a2ae6260d"></span><span class="k"><span class="pre">enumerator</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">VALIDATION_IN_REGENERATION</span></span></span><a class="headerlink" href="#_CPPv4N2rr6Config4Keys26VALIDATION_IN_REGENERATIONE" title="Permalink to this definition">¶</a><br /></dt>
 <dd></dd></dl>
 
 <dl class="cpp enumerator">
-<dt id="_CPPv4N2rr6Config4Keys16K_ROWS_PER_WRITEE">
-<span id="_CPPv3N2rr6Config4Keys16K_ROWS_PER_WRITEE"></span><span id="_CPPv2N2rr6Config4Keys16K_ROWS_PER_WRITEE"></span><span class="target" id="classrr_1_1Config_1aed7c550b9e34222675cd152c9154d053ada4ec1b0d4d8d54e580eddccc1f33efb"></span><em class="property">enumerator </em><code class="sig-name descname">K_ROWS_PER_WRITE</code><a class="headerlink" href="#_CPPv4N2rr6Config4Keys16K_ROWS_PER_WRITEE" title="Permalink to this definition">¶</a><br /></dt>
+<dt class="sig sig-object cpp" id="_CPPv4N2rr6Config4Keys16K_ROWS_PER_WRITEE">
+<span id="_CPPv3N2rr6Config4Keys16K_ROWS_PER_WRITEE"></span><span id="_CPPv2N2rr6Config4Keys16K_ROWS_PER_WRITEE"></span><span class="target" id="classrr_1_1Config_1aed7c550b9e34222675cd152c9154d053ada4ec1b0d4d8d54e580eddccc1f33efb"></span><span class="k"><span class="pre">enumerator</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">K_ROWS_PER_WRITE</span></span></span><a class="headerlink" href="#_CPPv4N2rr6Config4Keys16K_ROWS_PER_WRITEE" title="Permalink to this definition">¶</a><br /></dt>
 <dd></dd></dl>
 
 <dl class="cpp enumerator">
-<dt id="_CPPv4N2rr6Config4Keys10CONFIG_ENDE">
-<span id="_CPPv3N2rr6Config4Keys10CONFIG_ENDE"></span><span id="_CPPv2N2rr6Config4Keys10CONFIG_ENDE"></span><span class="target" id="classrr_1_1Config_1aed7c550b9e34222675cd152c9154d053ae173224855af72a1643cb740c724f377"></span><em class="property">enumerator </em><code class="sig-name descname">CONFIG_END</code><a class="headerlink" href="#_CPPv4N2rr6Config4Keys10CONFIG_ENDE" title="Permalink to this definition">¶</a><br /></dt>
+<dt class="sig sig-object cpp" id="_CPPv4N2rr6Config4Keys10CONFIG_ENDE">
+<span id="_CPPv3N2rr6Config4Keys10CONFIG_ENDE"></span><span id="_CPPv2N2rr6Config4Keys10CONFIG_ENDE"></span><span class="target" id="classrr_1_1Config_1aed7c550b9e34222675cd152c9154d053ae173224855af72a1643cb740c724f377"></span><span class="k"><span class="pre">enumerator</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">CONFIG_END</span></span></span><a class="headerlink" href="#_CPPv4N2rr6Config4Keys10CONFIG_ENDE" title="Permalink to this definition">¶</a><br /></dt>
 <dd><p>Needs to be the last item in the enum, no mater how many other items are added, this is used internally to create a static array. </p>
 </dd></dl>
 
 </dd></dl>
 
 <dl class="cpp enum">
-<dt id="_CPPv4N2rr6Config34ROADRUNNER_DISABLE_WARNINGS_VALUESE">
-<span id="_CPPv3N2rr6Config34ROADRUNNER_DISABLE_WARNINGS_VALUESE"></span><span id="_CPPv2N2rr6Config34ROADRUNNER_DISABLE_WARNINGS_VALUESE"></span><span class="target" id="classrr_1_1Config_1a0e5ea8f108b8737a8d202e5fb4cb71ae"></span><em class="property">enum </em><code class="sig-name descname">ROADRUNNER_DISABLE_WARNINGS_VALUES</code><a class="headerlink" href="#_CPPv4N2rr6Config34ROADRUNNER_DISABLE_WARNINGS_VALUESE" title="Permalink to this definition">¶</a><br /></dt>
+<dt class="sig sig-object cpp" id="_CPPv4N2rr6Config34ROADRUNNER_DISABLE_WARNINGS_VALUESE">
+<span id="_CPPv3N2rr6Config34ROADRUNNER_DISABLE_WARNINGS_VALUESE"></span><span id="_CPPv2N2rr6Config34ROADRUNNER_DISABLE_WARNINGS_VALUESE"></span><span class="target" id="classrr_1_1Config_1a0e5ea8f108b8737a8d202e5fb4cb71ae"></span><span class="k"><span class="pre">enum</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">ROADRUNNER_DISABLE_WARNINGS_VALUES</span></span></span><a class="headerlink" href="#_CPPv4N2rr6Config34ROADRUNNER_DISABLE_WARNINGS_VALUESE" title="Permalink to this definition">¶</a><br /></dt>
 <dd><p><em>Values:</em></p>
 <dl class="cpp enumerator">
-<dt id="_CPPv4N2rr6Config34ROADRUNNER_DISABLE_WARNINGS_VALUES39ROADRUNNER_DISABLE_WARNINGS_STEADYSTATEE">
-<span id="_CPPv3N2rr6Config34ROADRUNNER_DISABLE_WARNINGS_VALUES39ROADRUNNER_DISABLE_WARNINGS_STEADYSTATEE"></span><span id="_CPPv2N2rr6Config34ROADRUNNER_DISABLE_WARNINGS_VALUES39ROADRUNNER_DISABLE_WARNINGS_STEADYSTATEE"></span><span class="target" id="classrr_1_1Config_1a0e5ea8f108b8737a8d202e5fb4cb71aead0c00bc63505c9f9497e634e1383c7fd"></span><em class="property">enumerator </em><code class="sig-name descname">ROADRUNNER_DISABLE_WARNINGS_STEADYSTATE</code><a class="headerlink" href="#_CPPv4N2rr6Config34ROADRUNNER_DISABLE_WARNINGS_VALUES39ROADRUNNER_DISABLE_WARNINGS_STEADYSTATEE" title="Permalink to this definition">¶</a><br /></dt>
+<dt class="sig sig-object cpp" id="_CPPv4N2rr6Config34ROADRUNNER_DISABLE_WARNINGS_VALUES39ROADRUNNER_DISABLE_WARNINGS_STEADYSTATEE">
+<span id="_CPPv3N2rr6Config34ROADRUNNER_DISABLE_WARNINGS_VALUES39ROADRUNNER_DISABLE_WARNINGS_STEADYSTATEE"></span><span id="_CPPv2N2rr6Config34ROADRUNNER_DISABLE_WARNINGS_VALUES39ROADRUNNER_DISABLE_WARNINGS_STEADYSTATEE"></span><span class="target" id="classrr_1_1Config_1a0e5ea8f108b8737a8d202e5fb4cb71aead0c00bc63505c9f9497e634e1383c7fd"></span><span class="k"><span class="pre">enumerator</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">ROADRUNNER_DISABLE_WARNINGS_STEADYSTATE</span></span></span><a class="headerlink" href="#_CPPv4N2rr6Config34ROADRUNNER_DISABLE_WARNINGS_VALUES39ROADRUNNER_DISABLE_WARNINGS_STEADYSTATEE" title="Permalink to this definition">¶</a><br /></dt>
 <dd></dd></dl>
 
 <dl class="cpp enumerator">
-<dt id="_CPPv4N2rr6Config34ROADRUNNER_DISABLE_WARNINGS_VALUES44ROADRUNNER_DISABLE_WARNINGS_CONSERVED_MOIETYE">
-<span id="_CPPv3N2rr6Config34ROADRUNNER_DISABLE_WARNINGS_VALUES44ROADRUNNER_DISABLE_WARNINGS_CONSERVED_MOIETYE"></span><span id="_CPPv2N2rr6Config34ROADRUNNER_DISABLE_WARNINGS_VALUES44ROADRUNNER_DISABLE_WARNINGS_CONSERVED_MOIETYE"></span><span class="target" id="classrr_1_1Config_1a0e5ea8f108b8737a8d202e5fb4cb71aead09bff7058b7510c61e92573f9c7c799"></span><em class="property">enumerator </em><code class="sig-name descname">ROADRUNNER_DISABLE_WARNINGS_CONSERVED_MOIETY</code><a class="headerlink" href="#_CPPv4N2rr6Config34ROADRUNNER_DISABLE_WARNINGS_VALUES44ROADRUNNER_DISABLE_WARNINGS_CONSERVED_MOIETYE" title="Permalink to this definition">¶</a><br /></dt>
+<dt class="sig sig-object cpp" id="_CPPv4N2rr6Config34ROADRUNNER_DISABLE_WARNINGS_VALUES44ROADRUNNER_DISABLE_WARNINGS_CONSERVED_MOIETYE">
+<span id="_CPPv3N2rr6Config34ROADRUNNER_DISABLE_WARNINGS_VALUES44ROADRUNNER_DISABLE_WARNINGS_CONSERVED_MOIETYE"></span><span id="_CPPv2N2rr6Config34ROADRUNNER_DISABLE_WARNINGS_VALUES44ROADRUNNER_DISABLE_WARNINGS_CONSERVED_MOIETYE"></span><span class="target" id="classrr_1_1Config_1a0e5ea8f108b8737a8d202e5fb4cb71aead09bff7058b7510c61e92573f9c7c799"></span><span class="k"><span class="pre">enumerator</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">ROADRUNNER_DISABLE_WARNINGS_CONSERVED_MOIETY</span></span></span><a class="headerlink" href="#_CPPv4N2rr6Config34ROADRUNNER_DISABLE_WARNINGS_VALUES44ROADRUNNER_DISABLE_WARNINGS_CONSERVED_MOIETYE" title="Permalink to this definition">¶</a><br /></dt>
 <dd></dd></dl>
 
 </dd></dl>
 
 <dl class="cpp enum">
-<dt id="_CPPv4N2rr6Config31ROADRUNNER_JACOBIAN_MODE_VALUESE">
-<span id="_CPPv3N2rr6Config31ROADRUNNER_JACOBIAN_MODE_VALUESE"></span><span id="_CPPv2N2rr6Config31ROADRUNNER_JACOBIAN_MODE_VALUESE"></span><span class="target" id="classrr_1_1Config_1a4809c71e5ad3b128af6dbb0a4093c938"></span><em class="property">enum </em><code class="sig-name descname">ROADRUNNER_JACOBIAN_MODE_VALUES</code><a class="headerlink" href="#_CPPv4N2rr6Config31ROADRUNNER_JACOBIAN_MODE_VALUESE" title="Permalink to this definition">¶</a><br /></dt>
+<dt class="sig sig-object cpp" id="_CPPv4N2rr6Config31ROADRUNNER_JACOBIAN_MODE_VALUESE">
+<span id="_CPPv3N2rr6Config31ROADRUNNER_JACOBIAN_MODE_VALUESE"></span><span id="_CPPv2N2rr6Config31ROADRUNNER_JACOBIAN_MODE_VALUESE"></span><span class="target" id="classrr_1_1Config_1a4809c71e5ad3b128af6dbb0a4093c938"></span><span class="k"><span class="pre">enum</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">ROADRUNNER_JACOBIAN_MODE_VALUES</span></span></span><a class="headerlink" href="#_CPPv4N2rr6Config31ROADRUNNER_JACOBIAN_MODE_VALUESE" title="Permalink to this definition">¶</a><br /></dt>
 <dd><p><em>Values:</em></p>
 <dl class="cpp enumerator">
-<dt id="_CPPv4N2rr6Config31ROADRUNNER_JACOBIAN_MODE_VALUES32ROADRUNNER_JACOBIAN_MODE_AMOUNTSE">
-<span id="_CPPv3N2rr6Config31ROADRUNNER_JACOBIAN_MODE_VALUES32ROADRUNNER_JACOBIAN_MODE_AMOUNTSE"></span><span id="_CPPv2N2rr6Config31ROADRUNNER_JACOBIAN_MODE_VALUES32ROADRUNNER_JACOBIAN_MODE_AMOUNTSE"></span><span class="target" id="classrr_1_1Config_1a4809c71e5ad3b128af6dbb0a4093c938ade157842f89bea5f519dab49470b1b69"></span><em class="property">enumerator </em><code class="sig-name descname">ROADRUNNER_JACOBIAN_MODE_AMOUNTS</code><a class="headerlink" href="#_CPPv4N2rr6Config31ROADRUNNER_JACOBIAN_MODE_VALUES32ROADRUNNER_JACOBIAN_MODE_AMOUNTSE" title="Permalink to this definition">¶</a><br /></dt>
+<dt class="sig sig-object cpp" id="_CPPv4N2rr6Config31ROADRUNNER_JACOBIAN_MODE_VALUES32ROADRUNNER_JACOBIAN_MODE_AMOUNTSE">
+<span id="_CPPv3N2rr6Config31ROADRUNNER_JACOBIAN_MODE_VALUES32ROADRUNNER_JACOBIAN_MODE_AMOUNTSE"></span><span id="_CPPv2N2rr6Config31ROADRUNNER_JACOBIAN_MODE_VALUES32ROADRUNNER_JACOBIAN_MODE_AMOUNTSE"></span><span class="target" id="classrr_1_1Config_1a4809c71e5ad3b128af6dbb0a4093c938ade157842f89bea5f519dab49470b1b69"></span><span class="k"><span class="pre">enumerator</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">ROADRUNNER_JACOBIAN_MODE_AMOUNTS</span></span></span><a class="headerlink" href="#_CPPv4N2rr6Config31ROADRUNNER_JACOBIAN_MODE_VALUES32ROADRUNNER_JACOBIAN_MODE_AMOUNTSE" title="Permalink to this definition">¶</a><br /></dt>
 <dd></dd></dl>
 
 <dl class="cpp enumerator">
-<dt id="_CPPv4N2rr6Config31ROADRUNNER_JACOBIAN_MODE_VALUES39ROADRUNNER_JACOBIAN_MODE_CONCENTRATIONSE">
-<span id="_CPPv3N2rr6Config31ROADRUNNER_JACOBIAN_MODE_VALUES39ROADRUNNER_JACOBIAN_MODE_CONCENTRATIONSE"></span><span id="_CPPv2N2rr6Config31ROADRUNNER_JACOBIAN_MODE_VALUES39ROADRUNNER_JACOBIAN_MODE_CONCENTRATIONSE"></span><span class="target" id="classrr_1_1Config_1a4809c71e5ad3b128af6dbb0a4093c938a6c47b9be8ff264e00c8a397e73ce7d97"></span><em class="property">enumerator </em><code class="sig-name descname">ROADRUNNER_JACOBIAN_MODE_CONCENTRATIONS</code><a class="headerlink" href="#_CPPv4N2rr6Config31ROADRUNNER_JACOBIAN_MODE_VALUES39ROADRUNNER_JACOBIAN_MODE_CONCENTRATIONSE" title="Permalink to this definition">¶</a><br /></dt>
+<dt class="sig sig-object cpp" id="_CPPv4N2rr6Config31ROADRUNNER_JACOBIAN_MODE_VALUES39ROADRUNNER_JACOBIAN_MODE_CONCENTRATIONSE">
+<span id="_CPPv3N2rr6Config31ROADRUNNER_JACOBIAN_MODE_VALUES39ROADRUNNER_JACOBIAN_MODE_CONCENTRATIONSE"></span><span id="_CPPv2N2rr6Config31ROADRUNNER_JACOBIAN_MODE_VALUES39ROADRUNNER_JACOBIAN_MODE_CONCENTRATIONSE"></span><span class="target" id="classrr_1_1Config_1a4809c71e5ad3b128af6dbb0a4093c938a6c47b9be8ff264e00c8a397e73ce7d97"></span><span class="k"><span class="pre">enumerator</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">ROADRUNNER_JACOBIAN_MODE_CONCENTRATIONS</span></span></span><a class="headerlink" href="#_CPPv4N2rr6Config31ROADRUNNER_JACOBIAN_MODE_VALUES39ROADRUNNER_JACOBIAN_MODE_CONCENTRATIONSE" title="Permalink to this definition">¶</a><br /></dt>
 <dd></dd></dl>
 
 </dd></dl>
 
 </div>
 <div class="breathe-sectiondef docutils container">
-<p class="breathe-sectiondef-title rubric">Public Static Functions</p>
+<p class="breathe-sectiondef-title rubric" id="breathe-section-title-public-static-functions">Public Static Functions</p>
 <dl class="cpp function">
-<dt id="_CPPv4N2rr6Config9getStringE4Keys">
-<span id="_CPPv3N2rr6Config9getStringE4Keys"></span><span id="_CPPv2N2rr6Config9getStringE4Keys"></span><span id="rr::Config::getString__Keys"></span><span class="target" id="classrr_1_1Config_1a0370467d1593491eac5e443ce0c03224"></span><em class="property">static</em> std::string <code class="sig-name descname">getString</code><span class="sig-paren">(</span><a class="reference internal" href="#_CPPv4N2rr6Config4KeysE" title="rr::Config::Keys">Keys</a><span class="sig-paren">)</span><a class="headerlink" href="#_CPPv4N2rr6Config9getStringE4Keys" title="Permalink to this definition">¶</a><br /></dt>
-<dd><p>read the config value as a string. </p>
+<dt class="sig sig-object cpp" id="_CPPv4N2rr6Config9getStringE4Keys">
+<span id="_CPPv3N2rr6Config9getStringE4Keys"></span><span id="_CPPv2N2rr6Config9getStringE4Keys"></span><span id="rr::Config::getString__Keys"></span><span class="target" id="classrr_1_1Config_1a0370467d1593491eac5e443ce0c03224"></span><span class="k"><span class="pre">static</span></span><span class="w"> </span><span class="n"><span class="pre">std</span></span><span class="p"><span class="pre">::</span></span><span class="n"><span class="pre">string</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">getString</span></span></span><span class="sig-paren">(</span><a class="reference internal" href="#_CPPv4N2rr6Config4KeysE" title="rr::Config::Keys"><span class="n"><span class="pre">Keys</span></span></a><span class="sig-paren">)</span><a class="headerlink" href="#_CPPv4N2rr6Config9getStringE4Keys" title="Permalink to this definition">¶</a><br /></dt>
+<dd><p>read the config value as a std::string. </p>
 </dd></dl>
 
 <dl class="cpp function">
-<dt id="_CPPv4N2rr6Config6getIntE4Keys">
-<span id="_CPPv3N2rr6Config6getIntE4Keys"></span><span id="_CPPv2N2rr6Config6getIntE4Keys"></span><span id="rr::Config::getInt__Keys"></span><span class="target" id="classrr_1_1Config_1a66454fca7b7357d5b3180d8589bacebf"></span><em class="property">static</em> int <code class="sig-name descname">getInt</code><span class="sig-paren">(</span><a class="reference internal" href="#_CPPv4N2rr6Config4KeysE" title="rr::Config::Keys">Keys</a><span class="sig-paren">)</span><a class="headerlink" href="#_CPPv4N2rr6Config6getIntE4Keys" title="Permalink to this definition">¶</a><br /></dt>
+<dt class="sig sig-object cpp" id="_CPPv4N2rr6Config6getIntE4Keys">
+<span id="_CPPv3N2rr6Config6getIntE4Keys"></span><span id="_CPPv2N2rr6Config6getIntE4Keys"></span><span id="rr::Config::getInt__Keys"></span><span class="target" id="classrr_1_1Config_1a66454fca7b7357d5b3180d8589bacebf"></span><span class="k"><span class="pre">static</span></span><span class="w"> </span><span class="kt"><span class="pre">int</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">getInt</span></span></span><span class="sig-paren">(</span><a class="reference internal" href="#_CPPv4N2rr6Config4KeysE" title="rr::Config::Keys"><span class="n"><span class="pre">Keys</span></span></a><span class="sig-paren">)</span><a class="headerlink" href="#_CPPv4N2rr6Config6getIntE4Keys" title="Permalink to this definition">¶</a><br /></dt>
 <dd><p>read the config value as an integer. </p>
 </dd></dl>
 
 <dl class="cpp function">
-<dt id="_CPPv4N2rr6Config7getBoolE4Keys">
-<span id="_CPPv3N2rr6Config7getBoolE4Keys"></span><span id="_CPPv2N2rr6Config7getBoolE4Keys"></span><span id="rr::Config::getBool__Keys"></span><span class="target" id="classrr_1_1Config_1afab929414e069aada94a305c3ca425ce"></span><em class="property">static</em> bool <code class="sig-name descname">getBool</code><span class="sig-paren">(</span><a class="reference internal" href="#_CPPv4N2rr6Config4KeysE" title="rr::Config::Keys">Keys</a><span class="sig-paren">)</span><a class="headerlink" href="#_CPPv4N2rr6Config7getBoolE4Keys" title="Permalink to this definition">¶</a><br /></dt>
+<dt class="sig sig-object cpp" id="_CPPv4N2rr6Config7getBoolE4Keys">
+<span id="_CPPv3N2rr6Config7getBoolE4Keys"></span><span id="_CPPv2N2rr6Config7getBoolE4Keys"></span><span id="rr::Config::getBool__Keys"></span><span class="target" id="classrr_1_1Config_1afab929414e069aada94a305c3ca425ce"></span><span class="k"><span class="pre">static</span></span><span class="w"> </span><span class="kt"><span class="pre">bool</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">getBool</span></span></span><span class="sig-paren">(</span><a class="reference internal" href="#_CPPv4N2rr6Config4KeysE" title="rr::Config::Keys"><span class="n"><span class="pre">Keys</span></span></a><span class="sig-paren">)</span><a class="headerlink" href="#_CPPv4N2rr6Config7getBoolE4Keys" title="Permalink to this definition">¶</a><br /></dt>
 <dd></dd></dl>
 
 <dl class="cpp function">
-<dt id="_CPPv4N2rr6Config9getDoubleE4Keys">
-<span id="_CPPv3N2rr6Config9getDoubleE4Keys"></span><span id="_CPPv2N2rr6Config9getDoubleE4Keys"></span><span id="rr::Config::getDouble__Keys"></span><span class="target" id="classrr_1_1Config_1a6cf432148717f8bbadc861481340f3bd"></span><em class="property">static</em> double <code class="sig-name descname">getDouble</code><span class="sig-paren">(</span><a class="reference internal" href="#_CPPv4N2rr6Config4KeysE" title="rr::Config::Keys">Keys</a><span class="sig-paren">)</span><a class="headerlink" href="#_CPPv4N2rr6Config9getDoubleE4Keys" title="Permalink to this definition">¶</a><br /></dt>
+<dt class="sig sig-object cpp" id="_CPPv4N2rr6Config9getDoubleE4Keys">
+<span id="_CPPv3N2rr6Config9getDoubleE4Keys"></span><span id="_CPPv2N2rr6Config9getDoubleE4Keys"></span><span id="rr::Config::getDouble__Keys"></span><span class="target" id="classrr_1_1Config_1a6cf432148717f8bbadc861481340f3bd"></span><span class="k"><span class="pre">static</span></span><span class="w"> </span><span class="kt"><span class="pre">double</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">getDouble</span></span></span><span class="sig-paren">(</span><a class="reference internal" href="#_CPPv4N2rr6Config4KeysE" title="rr::Config::Keys"><span class="n"><span class="pre">Keys</span></span></a><span class="sig-paren">)</span><a class="headerlink" href="#_CPPv4N2rr6Config9getDoubleE4Keys" title="Permalink to this definition">¶</a><br /></dt>
 <dd><p>read the config value as a double. </p>
 </dd></dl>
 
 <dl class="cpp function">
-<dt id="_CPPv4N2rr6Config17getConfigFilePathEv">
-<span id="_CPPv3N2rr6Config17getConfigFilePathEv"></span><span id="_CPPv2N2rr6Config17getConfigFilePathEv"></span><span id="rr::Config::getConfigFilePath"></span><span class="target" id="classrr_1_1Config_1a4ee7359b58047946520f3f3a9c6de04c"></span><em class="property">static</em> std::string <code class="sig-name descname">getConfigFilePath</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#_CPPv4N2rr6Config17getConfigFilePathEv" title="Permalink to this definition">¶</a><br /></dt>
+<dt class="sig sig-object cpp" id="_CPPv4N2rr6Config17getConfigFilePathEv">
+<span id="_CPPv3N2rr6Config17getConfigFilePathEv"></span><span id="_CPPv2N2rr6Config17getConfigFilePathEv"></span><span id="rr::Config::getConfigFilePath"></span><span class="target" id="classrr_1_1Config_1a4ee7359b58047946520f3f3a9c6de04c"></span><span class="k"><span class="pre">static</span></span><span class="w"> </span><span class="n"><span class="pre">std</span></span><span class="p"><span class="pre">::</span></span><span class="n"><span class="pre">string</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">getConfigFilePath</span></span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#_CPPv4N2rr6Config17getConfigFilePathEv" title="Permalink to this definition">¶</a><br /></dt>
 <dd><p>If a config file was found in one of the above locations, its full path is returned here. </p>
-<p>Otherwise, if no file was found, an empty string is returned. </p>
+<p>Otherwise, if no file was found, an empty std::string is returned. </p>
 </dd></dl>
 
 <dl class="cpp function">
-<dt id="_CPPv4N2rr6Config8setValueE4KeysRK7Variant">
-<span id="_CPPv3N2rr6Config8setValueE4KeysRK7Variant"></span><span id="_CPPv2N2rr6Config8setValueE4KeysRK7Variant"></span><span id="rr::Config::setValue__Keys.VariantCR"></span><span class="target" id="classrr_1_1Config_1a3d5bdb8ee4fad8a88bac365328f510fc"></span><em class="property">static</em> void <code class="sig-name descname">setValue</code><span class="sig-paren">(</span><a class="reference internal" href="#_CPPv4N2rr6Config4KeysE" title="rr::Config::Keys">Keys</a>, <em class="property">const</em> <a class="reference internal" href="Variant.html#_CPPv4N2rr7VariantE" title="rr::Variant">Variant</a> &amp;<em>value</em><span class="sig-paren">)</span><a class="headerlink" href="#_CPPv4N2rr6Config8setValueE4KeysRK7Variant" title="Permalink to this definition">¶</a><br /></dt>
+<dt class="sig sig-object cpp" id="_CPPv4N2rr6Config8setValueE4Keys7Setting">
+<span id="_CPPv3N2rr6Config8setValueE4Keys7Setting"></span><span id="_CPPv2N2rr6Config8setValueE4Keys7Setting"></span><span id="rr::Config::setValue__Keys.Setting"></span><span class="target" id="classrr_1_1Config_1af31cc9c1ef79cd00c6099930bd2aae9c"></span><span class="k"><span class="pre">static</span></span><span class="w"> </span><span class="kt"><span class="pre">void</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">setValue</span></span></span><span class="sig-paren">(</span><a class="reference internal" href="#_CPPv4N2rr6Config4KeysE" title="rr::Config::Keys"><span class="n"><span class="pre">Keys</span></span></a>, <span class="n"><span class="pre">Setting</span></span><span class="w"> </span><span class="n sig-param"><span class="pre">value</span></span><span class="sig-paren">)</span><a class="headerlink" href="#_CPPv4N2rr6Config8setValueE4Keys7Setting" title="Permalink to this definition">¶</a><br /></dt>
 <dd><p>set the value of a config key. </p>
 <p>note, this value is only used in any new objects created after it has been set. </p>
 </dd></dl>
 
 <dl class="cpp function">
-<dt id="_CPPv4N2rr6Config8getValueE4Keys">
-<span id="_CPPv3N2rr6Config8getValueE4Keys"></span><span id="_CPPv2N2rr6Config8getValueE4Keys"></span><span id="rr::Config::getValue__Keys"></span><span class="target" id="classrr_1_1Config_1aa31df27110cab08f134c8e7570d90746"></span><em class="property">static</em> <em class="property">const</em> <a class="reference internal" href="Variant.html#_CPPv4N2rr7VariantE" title="rr::Variant">Variant</a> &amp;<code class="sig-name descname">getValue</code><span class="sig-paren">(</span><a class="reference internal" href="#_CPPv4N2rr6Config4KeysE" title="rr::Config::Keys">Keys</a><span class="sig-paren">)</span><a class="headerlink" href="#_CPPv4N2rr6Config8getValueE4Keys" title="Permalink to this definition">¶</a><br /></dt>
+<dt class="sig sig-object cpp" id="_CPPv4N2rr6Config8getValueE4Keys">
+<span id="_CPPv3N2rr6Config8getValueE4Keys"></span><span id="_CPPv2N2rr6Config8getValueE4Keys"></span><span id="rr::Config::getValue__Keys"></span><span class="target" id="classrr_1_1Config_1a1acfbc8a6af061e54e4c6b2890ce4a88"></span><span class="k"><span class="pre">static</span></span><span class="w"> </span><span class="n"><span class="pre">Setting</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">getValue</span></span></span><span class="sig-paren">(</span><a class="reference internal" href="#_CPPv4N2rr6Config4KeysE" title="rr::Config::Keys"><span class="n"><span class="pre">Keys</span></span></a><span class="sig-paren">)</span><a class="headerlink" href="#_CPPv4N2rr6Config8getValueE4Keys" title="Permalink to this definition">¶</a><br /></dt>
 <dd></dd></dl>
 
 <dl class="cpp function">
-<dt id="_CPPv4N2rr6Config14readConfigFileERKNSt6stringE">
-<span id="_CPPv3N2rr6Config14readConfigFileERKNSt6stringE"></span><span id="_CPPv2N2rr6Config14readConfigFileERKNSt6stringE"></span><span id="rr::Config::readConfigFile__ssCR"></span><span class="target" id="classrr_1_1Config_1ab5bc77a68b26edb749fb2a14336f4fd5"></span><em class="property">static</em> void <code class="sig-name descname">readConfigFile</code><span class="sig-paren">(</span><em class="property">const</em> std::string &amp;<em>path</em><span class="sig-paren">)</span><a class="headerlink" href="#_CPPv4N2rr6Config14readConfigFileERKNSt6stringE" title="Permalink to this definition">¶</a><br /></dt>
+<dt class="sig sig-object cpp" id="_CPPv4N2rr6Config14readConfigFileERKNSt6stringE">
+<span id="_CPPv3N2rr6Config14readConfigFileERKNSt6stringE"></span><span id="_CPPv2N2rr6Config14readConfigFileERKNSt6stringE"></span><span id="rr::Config::readConfigFile__ssCR"></span><span class="target" id="classrr_1_1Config_1ab5bc77a68b26edb749fb2a14336f4fd5"></span><span class="k"><span class="pre">static</span></span><span class="w"> </span><span class="kt"><span class="pre">void</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">readConfigFile</span></span></span><span class="sig-paren">(</span><span class="k"><span class="pre">const</span></span><span class="w"> </span><span class="n"><span class="pre">std</span></span><span class="p"><span class="pre">::</span></span><span class="n"><span class="pre">string</span></span><span class="w"> </span><span class="p"><span class="pre">&amp;</span></span><span class="n sig-param"><span class="pre">path</span></span><span class="sig-paren">)</span><a class="headerlink" href="#_CPPv4N2rr6Config14readConfigFileERKNSt6stringE" title="Permalink to this definition">¶</a><br /></dt>
 <dd><p>Read all of the values stored in a configuration file and set all the keys to these values. </p>
 </dd></dl>
 
 <dl class="cpp function">
-<dt id="_CPPv4N2rr6Config15writeConfigFileERKNSt6stringE">
-<span id="_CPPv3N2rr6Config15writeConfigFileERKNSt6stringE"></span><span id="_CPPv2N2rr6Config15writeConfigFileERKNSt6stringE"></span><span id="rr::Config::writeConfigFile__ssCR"></span><span class="target" id="classrr_1_1Config_1aacae3161033c6c178aac93f7467afa3a"></span><em class="property">static</em> void <code class="sig-name descname">writeConfigFile</code><span class="sig-paren">(</span><em class="property">const</em> std::string &amp;<em>path</em><span class="sig-paren">)</span><a class="headerlink" href="#_CPPv4N2rr6Config15writeConfigFileERKNSt6stringE" title="Permalink to this definition">¶</a><br /></dt>
+<dt class="sig sig-object cpp" id="_CPPv4N2rr6Config15writeConfigFileERKNSt6stringE">
+<span id="_CPPv3N2rr6Config15writeConfigFileERKNSt6stringE"></span><span id="_CPPv2N2rr6Config15writeConfigFileERKNSt6stringE"></span><span id="rr::Config::writeConfigFile__ssCR"></span><span class="target" id="classrr_1_1Config_1aacae3161033c6c178aac93f7467afa3a"></span><span class="k"><span class="pre">static</span></span><span class="w"> </span><span class="kt"><span class="pre">void</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">writeConfigFile</span></span></span><span class="sig-paren">(</span><span class="k"><span class="pre">const</span></span><span class="w"> </span><span class="n"><span class="pre">std</span></span><span class="p"><span class="pre">::</span></span><span class="n"><span class="pre">string</span></span><span class="w"> </span><span class="p"><span class="pre">&amp;</span></span><span class="n sig-param"><span class="pre">path</span></span><span class="sig-paren">)</span><a class="headerlink" href="#_CPPv4N2rr6Config15writeConfigFileERKNSt6stringE" title="Permalink to this definition">¶</a><br /></dt>
 <dd><p>write the currently set configuration values to a config file. </p>
 <p>The contents of the file are cleared and the new values written. </p>
 </dd></dl>
 
 <dl class="cpp function">
-<dt id="_CPPv4N2rr6Config11stringToKeyERKNSt6stringE">
-<span id="_CPPv3N2rr6Config11stringToKeyERKNSt6stringE"></span><span id="_CPPv2N2rr6Config11stringToKeyERKNSt6stringE"></span><span id="rr::Config::stringToKey__ssCR"></span><span class="target" id="classrr_1_1Config_1a947d20afae74fba1c1725c8fb2c71eba"></span><em class="property">static</em> <a class="reference internal" href="#_CPPv4N2rr6Config4KeysE" title="rr::Config::Keys">Keys</a> <code class="sig-name descname">stringToKey</code><span class="sig-paren">(</span><em class="property">const</em> std::string &amp;<em>key</em><span class="sig-paren">)</span><a class="headerlink" href="#_CPPv4N2rr6Config11stringToKeyERKNSt6stringE" title="Permalink to this definition">¶</a><br /></dt>
+<dt class="sig sig-object cpp" id="_CPPv4N2rr6Config11stringToKeyERKNSt6stringE">
+<span id="_CPPv3N2rr6Config11stringToKeyERKNSt6stringE"></span><span id="_CPPv2N2rr6Config11stringToKeyERKNSt6stringE"></span><span id="rr::Config::stringToKey__ssCR"></span><span class="target" id="classrr_1_1Config_1a947d20afae74fba1c1725c8fb2c71eba"></span><span class="k"><span class="pre">static</span></span><span class="w"> </span><a class="reference internal" href="#_CPPv4N2rr6Config4KeysE" title="rr::Config::Keys"><span class="n"><span class="pre">Keys</span></span></a><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">stringToKey</span></span></span><span class="sig-paren">(</span><span class="k"><span class="pre">const</span></span><span class="w"> </span><span class="n"><span class="pre">std</span></span><span class="p"><span class="pre">::</span></span><span class="n"><span class="pre">string</span></span><span class="w"> </span><span class="p"><span class="pre">&amp;</span></span><span class="n sig-param"><span class="pre">key</span></span><span class="sig-paren">)</span><a class="headerlink" href="#_CPPv4N2rr6Config11stringToKeyERKNSt6stringE" title="Permalink to this definition">¶</a><br /></dt>
 <dd></dd></dl>
 
 <dl class="cpp function">
-<dt id="_CPPv4N2rr6Config10getKeyListEv">
-<span id="_CPPv3N2rr6Config10getKeyListEv"></span><span id="_CPPv2N2rr6Config10getKeyListEv"></span><span id="rr::Config::getKeyList"></span><span class="target" id="classrr_1_1Config_1abc159273f423c010242f1cf07f588f78"></span><em class="property">static</em> std::vector&lt;std::string&gt; <code class="sig-name descname">getKeyList</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#_CPPv4N2rr6Config10getKeyListEv" title="Permalink to this definition">¶</a><br /></dt>
+<dt class="sig sig-object cpp" id="_CPPv4N2rr6Config10getKeyListEv">
+<span id="_CPPv3N2rr6Config10getKeyListEv"></span><span id="_CPPv2N2rr6Config10getKeyListEv"></span><span id="rr::Config::getKeyList"></span><span class="target" id="classrr_1_1Config_1a20e11f7bdb81efbd1e84011801b4a526"></span><span class="k"><span class="pre">static</span></span><span class="w"> </span><span class="n"><span class="pre">std</span></span><span class="p"><span class="pre">::</span></span><span class="n"><span class="pre">vector</span></span><span class="p"><span class="pre">&lt;</span></span><span class="n"><span class="pre">std</span></span><span class="p"><span class="pre">::</span></span><span class="n"><span class="pre">string</span></span><span class="p"><span class="pre">&gt;</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">getKeyList</span></span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#_CPPv4N2rr6Config10getKeyListEv" title="Permalink to this definition">¶</a><br /></dt>
 <dd></dd></dl>
 
 </div>

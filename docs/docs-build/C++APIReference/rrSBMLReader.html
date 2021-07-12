@@ -13,6 +13,8 @@
   
   <link rel="stylesheet" href="../_static/css/theme.css" type="text/css" />
   <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
+  <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
+  <link rel="stylesheet" href="../_static/css/theme.css" type="text/css" />
   <link rel="stylesheet" href="../_static/tabs.css" type="text/css" />
 
   
@@ -30,10 +32,10 @@
   
     
       <script type="text/javascript" id="documentation_options" data-url_root="../" src="../_static/documentation_options.js"></script>
+        <script data-url_root="../" id="documentation_options" src="../_static/documentation_options.js"></script>
         <script src="../_static/jquery.js"></script>
         <script src="../_static/underscore.js"></script>
         <script src="../_static/doctools.js"></script>
-        <script src="../_static/language_data.js"></script>
     
     <script type="text/javascript" src="../_static/js/theme.js"></script>
 
@@ -147,6 +149,7 @@
 <li class="toctree-l2"><a class="reference internal" href="index.html#a-complete-example-of-creating-an-integrator">A complete example of creating an integrator</a></li>
 </ul>
 </li>
+<li class="toctree-l1"><a class="reference internal" href="../developers_docs/index.html">Developers Documentation</a></li>
 </ul>
 
             
@@ -219,27 +222,27 @@
   <div class="section" id="rrsbmlreader">
 <h1>rrSBMLReader<a class="headerlink" href="#rrsbmlreader" title="Permalink to this headline">¶</a></h1>
 <dl class="cpp class">
-<dt id="_CPPv4N2rr10SBMLReaderE">
-<span id="_CPPv3N2rr10SBMLReaderE"></span><span id="_CPPv2N2rr10SBMLReaderE"></span><span id="rr::SBMLReader"></span><span class="target" id="classrr_1_1SBMLReader"></span><em class="property">class </em><code class="sig-prename descclassname">rr<code class="sig-prename descclassname">::</code></code><code class="sig-name descname">SBMLReader</code><a class="headerlink" href="#_CPPv4N2rr10SBMLReaderE" title="Permalink to this definition">¶</a><br /></dt>
-<dd><p>Read an sbml document from either disk, a remote url, or as a string. </p>
-<p>This function will first try to iterperet the string as uri, if that fails, it will try as a local file path, and finally if that fails, it will treat the string as whole sbml document and return the string.</p>
+<dt class="sig sig-object cpp" id="_CPPv4N2rr10SBMLReaderE">
+<span id="_CPPv3N2rr10SBMLReaderE"></span><span id="_CPPv2N2rr10SBMLReaderE"></span><span id="rr::SBMLReader"></span><span class="target" id="classrr_1_1SBMLReader"></span><span class="k"><span class="pre">class</span></span><span class="w"> </span><span class="sig-prename descclassname"><span class="n"><span class="pre">rr</span></span><span class="p"><span class="pre">::</span></span></span><span class="sig-name descname"><span class="n"><span class="pre">SBMLReader</span></span></span><a class="headerlink" href="#_CPPv4N2rr10SBMLReaderE" title="Permalink to this definition">¶</a><br /></dt>
+<dd><p>Read an sbml document from either disk, a remote url, or as a std::string. </p>
+<p>This function will first try to iterperet the std::string as uri, if that fails, it will try as a local file path, and finally if that fails, it will treat the std::string as whole sbml document and return the std::string.</p>
 <p>This is simple enough that it should belong in <a class="reference internal" href="rrRoadRunner.html#classrr_1_1RoadRunner"><span class="std std-ref">RoadRunner</span></a> proper, however we currently use Poco for reading http streams, and it seems to compilation issues if “windows.h” is included before, an evidently some other roadrunner file includes windows.h, so we put all of this here by itself we we can make sure that there is no nasty windows files included.</p>
 <p>also, we put it as a static class method because libSBML already uses ‘readSBML’ and we want to avoid namespace collisions. </p>
 <div class="breathe-sectiondef docutils container">
-<p class="breathe-sectiondef-title rubric">Public Static Functions</p>
+<p class="breathe-sectiondef-title rubric" id="breathe-section-title-public-static-functions">Public Static Functions</p>
 <dl class="cpp function">
-<dt id="_CPPv4N2rr10SBMLReader4readERKNSt6stringE">
-<span id="_CPPv3N2rr10SBMLReader4readERKNSt6stringE"></span><span id="_CPPv2N2rr10SBMLReader4readERKNSt6stringE"></span><span id="rr::SBMLReader::read__ssCR"></span><span class="target" id="classrr_1_1SBMLReader_1a44068da2706c5ee19f091b5c81def54c"></span><em class="property">static</em> std::string <code class="sig-name descname">read</code><span class="sig-paren">(</span><em class="property">const</em> std::string &amp;<em>sbml_or_uri</em><span class="sig-paren">)</span><a class="headerlink" href="#_CPPv4N2rr10SBMLReader4readERKNSt6stringE" title="Permalink to this definition">¶</a><br /></dt>
-<dd><p>read an SBML document from a local file path, a remote URI, or directlly from a sbml string. </p>
+<dt class="sig sig-object cpp" id="_CPPv4N2rr10SBMLReader4readERKNSt6stringE">
+<span id="_CPPv3N2rr10SBMLReader4readERKNSt6stringE"></span><span id="_CPPv2N2rr10SBMLReader4readERKNSt6stringE"></span><span id="rr::SBMLReader::read__ssCR"></span><span class="target" id="classrr_1_1SBMLReader_1a44068da2706c5ee19f091b5c81def54c"></span><span class="k"><span class="pre">static</span></span><span class="w"> </span><span class="n"><span class="pre">std</span></span><span class="p"><span class="pre">::</span></span><span class="n"><span class="pre">string</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">read</span></span></span><span class="sig-paren">(</span><span class="k"><span class="pre">const</span></span><span class="w"> </span><span class="n"><span class="pre">std</span></span><span class="p"><span class="pre">::</span></span><span class="n"><span class="pre">string</span></span><span class="w"> </span><span class="p"><span class="pre">&amp;</span></span><span class="n sig-param"><span class="pre">sbml_or_uri</span></span><span class="sig-paren">)</span><a class="headerlink" href="#_CPPv4N2rr10SBMLReader4readERKNSt6stringE" title="Permalink to this definition">¶</a><br /></dt>
+<dd><p>read an SBML document from a local file path, a remote URI, or directlly from a sbml std::string. </p>
 <p>If the document is a local file, and has the comp extension, it is automatically flattened before begin returned.</p>
-<p>If the string is already a SBML string, it is passed through. If the string is a local file or URI, the document is read from the source and the contents returned (and flattened if comp). </p>
+<p>If the std::string is already a SBML std::string, it is passed through. If the std::string is a local file or URI, the document is read from the source and the contents returned (and flattened if comp). </p>
 </dd></dl>
 
 <dl class="cpp function">
-<dt id="_CPPv4N2rr10SBMLReader7is_sbmlERKNSt6stringE">
-<span id="_CPPv3N2rr10SBMLReader7is_sbmlERKNSt6stringE"></span><span id="_CPPv2N2rr10SBMLReader7is_sbmlERKNSt6stringE"></span><span id="rr::SBMLReader::is_sbml__ssCR"></span><span class="target" id="classrr_1_1SBMLReader_1a54b61d2e7ddf0da6646c3936ad548df3"></span><em class="property">static</em> bool <code class="sig-name descname">is_sbml</code><span class="sig-paren">(</span><em class="property">const</em> std::string &amp;<em>str</em><span class="sig-paren">)</span><a class="headerlink" href="#_CPPv4N2rr10SBMLReader7is_sbmlERKNSt6stringE" title="Permalink to this definition">¶</a><br /></dt>
-<dd><p>performs some basic checks to see if the string is an sbml string. </p>
-<p>This just checks the basic format and checks on characters that are not valid file path characters. So if this string matches this function, there should basically be no way that this is a valid path or uri. </p>
+<dt class="sig sig-object cpp" id="_CPPv4N2rr10SBMLReader7is_sbmlERKNSt6stringE">
+<span id="_CPPv3N2rr10SBMLReader7is_sbmlERKNSt6stringE"></span><span id="_CPPv2N2rr10SBMLReader7is_sbmlERKNSt6stringE"></span><span id="rr::SBMLReader::is_sbml__ssCR"></span><span class="target" id="classrr_1_1SBMLReader_1a54b61d2e7ddf0da6646c3936ad548df3"></span><span class="k"><span class="pre">static</span></span><span class="w"> </span><span class="kt"><span class="pre">bool</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">is_sbml</span></span></span><span class="sig-paren">(</span><span class="k"><span class="pre">const</span></span><span class="w"> </span><span class="n"><span class="pre">std</span></span><span class="p"><span class="pre">::</span></span><span class="n"><span class="pre">string</span></span><span class="w"> </span><span class="p"><span class="pre">&amp;</span></span><span class="n sig-param"><span class="pre">str</span></span><span class="sig-paren">)</span><a class="headerlink" href="#_CPPv4N2rr10SBMLReader7is_sbmlERKNSt6stringE" title="Permalink to this definition">¶</a><br /></dt>
+<dd><p>performs some basic checks to see if the std::string is an sbml std::string. </p>
+<p>This just checks the basic format and checks on characters that are not valid file path characters. So if this std::string matches this function, there should basically be no way that this is a valid path or uri. </p>
 </dd></dl>
 
 </div>

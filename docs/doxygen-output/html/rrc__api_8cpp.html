@@ -5,7 +5,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=9"/>
 <meta name="generator" content="Doxygen 1.8.20"/>
 <meta name="viewport" content="width=device-width, initial-scale=1"/>
-<title>roadrunner: D:/roadrunner/roadrunner/wrappers/C/rrc_api.cpp File Reference</title>
+<title>roadrunner: /Users/ciaranwelsh/Documents/roadrunner/wrappers/C/rrc_api.cpp File Reference</title>
 <link href="tabs.css" rel="stylesheet" type="text/css"/>
 <script type="text/javascript" src="jquery.js"></script>
 <script type="text/javascript" src="dynsections.js"></script>
@@ -22,7 +22,7 @@
  <tr style="height: 56px;">
   <td id="projectalign" style="padding-left: 0.5em;">
    <div id="projectname">roadrunner
-   &#160;<span id="projectnumber">2.0.5</span>
+   &#160;<span id="projectnumber">2.0.8</span>
    </div>
    <div id="projectbrief">Fast simulator for SBML models</div>
   </td>
@@ -100,6 +100,7 @@ $(function() {
 <code>#include &lt;ctime&gt;</code><br />
 <code>#include &lt;unistd.h&gt;</code><br />
 <code>#include &lt;limits.h&gt;</code><br />
+<code>#include &lt;filesystem&gt;</code><br />
 </div><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="define-members"></a>
 Macros</h2></td></tr>
@@ -527,12 +528,18 @@ char *rrcCallConv&#160;</td><td class="memItemRight" valign="bottom"><b>rrc::get
 <tr class="memitem:a5d6a8f4782b09a0f5785024d92997dcd"><td class="memItemLeft" align="right" valign="top"><a id="a5d6a8f4782b09a0f5785024d92997dcd"></a>
 int rrcCallConv&#160;</td><td class="memItemRight" valign="bottom"><b>rrc::getCurrentIntegratorParameterType</b> (<a class="el" href="rrc__types_8h.html#a1d68f0592372208fa5a5f2799ea4b3ae">RRHandle</a> handle, char *parameterName)</td></tr>
 <tr class="separator:a5d6a8f4782b09a0f5785024d92997dcd"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:aeff99b44688e00cfc0a021619376e739"><td class="memItemLeft" align="right" valign="top"><a id="aeff99b44688e00cfc0a021619376e739"></a>
-bool rrcCallConv&#160;</td><td class="memItemRight" valign="bottom"><b>rrc::addSpecies</b> (<a class="el" href="rrc__types_8h.html#a1d68f0592372208fa5a5f2799ea4b3ae">RRHandle</a> handle, const char *sid, const char *compartment, double initialAmount, bool hasOnlySubstanceUnits, bool boundaryCondition)</td></tr>
-<tr class="separator:aeff99b44688e00cfc0a021619376e739"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ab47f032865e2453f98b1ead510dd85e5"><td class="memItemLeft" align="right" valign="top"><a id="ab47f032865e2453f98b1ead510dd85e5"></a>
-bool rrcCallConv&#160;</td><td class="memItemRight" valign="bottom"><b>rrc::addSpeciesNoRegen</b> (<a class="el" href="rrc__types_8h.html#a1d68f0592372208fa5a5f2799ea4b3ae">RRHandle</a> handle, const char *sid, const char *compartment, double initialAmount, bool hasOnlySubstanceUnits, bool boundaryCondition)</td></tr>
-<tr class="separator:ab47f032865e2453f98b1ead510dd85e5"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a6270295eb07b4088ca55fbe99a0648a2"><td class="memItemLeft" align="right" valign="top"><a id="a6270295eb07b4088ca55fbe99a0648a2"></a>
+bool rrcCallConv&#160;</td><td class="memItemRight" valign="bottom"><b>rrc::addSpeciesConcentration</b> (<a class="el" href="rrc__types_8h.html#a1d68f0592372208fa5a5f2799ea4b3ae">RRHandle</a> handle, const char *sid, const char *compartment, double initialConcentration, bool hasOnlySubstanceUnits, bool boundaryCondition)</td></tr>
+<tr class="separator:a6270295eb07b4088ca55fbe99a0648a2"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a348e357c4aea3bca42f8166479b4b536"><td class="memItemLeft" align="right" valign="top"><a id="a348e357c4aea3bca42f8166479b4b536"></a>
+bool rrcCallConv&#160;</td><td class="memItemRight" valign="bottom"><b>rrc::addSpeciesAmount</b> (<a class="el" href="rrc__types_8h.html#a1d68f0592372208fa5a5f2799ea4b3ae">RRHandle</a> handle, const char *sid, const char *compartment, double initialAmount, bool hasOnlySubstanceUnits, bool boundaryCondition)</td></tr>
+<tr class="separator:a348e357c4aea3bca42f8166479b4b536"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a888bcdbd915e772fa5bc91fb6f75f013"><td class="memItemLeft" align="right" valign="top"><a id="a888bcdbd915e772fa5bc91fb6f75f013"></a>
+bool rrcCallConv&#160;</td><td class="memItemRight" valign="bottom"><b>rrc::addSpeciesConcentrationNoRegen</b> (<a class="el" href="rrc__types_8h.html#a1d68f0592372208fa5a5f2799ea4b3ae">RRHandle</a> handle, const char *sid, const char *compartment, double initialConcentration, bool hasOnlySubstanceUnits, bool boundaryCondition)</td></tr>
+<tr class="separator:a888bcdbd915e772fa5bc91fb6f75f013"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a8131657015d8355b71fe37583cc484c7"><td class="memItemLeft" align="right" valign="top"><a id="a8131657015d8355b71fe37583cc484c7"></a>
+bool rrcCallConv&#160;</td><td class="memItemRight" valign="bottom"><b>rrc::addSpeciesAmountNoRegen</b> (<a class="el" href="rrc__types_8h.html#a1d68f0592372208fa5a5f2799ea4b3ae">RRHandle</a> handle, const char *sid, const char *compartment, double initialAmount, bool hasOnlySubstanceUnits, bool boundaryCondition)</td></tr>
+<tr class="separator:a8131657015d8355b71fe37583cc484c7"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a2ca2cf1a7e9b686cb9d808149696c494"><td class="memItemLeft" align="right" valign="top"><a id="a2ca2cf1a7e9b686cb9d808149696c494"></a>
 bool rrcCallConv&#160;</td><td class="memItemRight" valign="bottom"><b>rrc::removeSpecies</b> (<a class="el" href="rrc__types_8h.html#a1d68f0592372208fa5a5f2799ea4b3ae">RRHandle</a> handle, const char *sid)</td></tr>
 <tr class="separator:a2ca2cf1a7e9b686cb9d808149696c494"><td class="memSeparator" colspan="2">&#160;</td></tr>
@@ -626,6 +633,9 @@ bool rrcCallConv&#160;</td><td class="memItemRight" valign="bottom"><b>rrc::remo
 <tr class="memitem:a5e934fd6954de2fff4b2dd629c657679"><td class="memItemLeft" align="right" valign="top"><a id="a5e934fd6954de2fff4b2dd629c657679"></a>
 bool rrcCallConv&#160;</td><td class="memItemRight" valign="bottom"><b>rrc::removeCompartmentNoRegen</b> (<a class="el" href="rrc__types_8h.html#a1d68f0592372208fa5a5f2799ea4b3ae">RRHandle</a> handle, const char *cid)</td></tr>
 <tr class="separator:a5e934fd6954de2fff4b2dd629c657679"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:afe5a19864a5d3d3b5d247e93a7252d05"><td class="memItemLeft" align="right" valign="top"><a id="afe5a19864a5d3d3b5d247e93a7252d05"></a>
+bool rrcCallConv&#160;</td><td class="memItemRight" valign="bottom"><b>rrc::addInitialAssignment</b> (<a class="el" href="rrc__types_8h.html#a1d68f0592372208fa5a5f2799ea4b3ae">RRHandle</a> handle, char *vid, char *formula, bool forceRegenerate)</td></tr>
+<tr class="separator:afe5a19864a5d3d3b5d247e93a7252d05"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a616d37bfc017fefabb409a5cf72de581"><td class="memItemLeft" align="right" valign="top"><a id="a616d37bfc017fefabb409a5cf72de581"></a>
 bool rrcCallConv&#160;</td><td class="memItemRight" valign="bottom"><b>rrc::addAssignmentRule</b> (<a class="el" href="rrc__types_8h.html#a1d68f0592372208fa5a5f2799ea4b3ae">RRHandle</a> handle, const char *vid, const char *formula)</td></tr>
 <tr class="separator:a616d37bfc017fefabb409a5cf72de581"><td class="memSeparator" colspan="2">&#160;</td></tr>
@@ -698,6 +708,9 @@ bool rrcCallConv&#160;</td><td class="memItemRight" valign="bottom"><b>rrc::remo
 <tr class="memitem:ac7ecabe9d11b79c4158ea518fee55539"><td class="memItemLeft" align="right" valign="top"><a id="ac7ecabe9d11b79c4158ea518fee55539"></a>
 bool rrcCallConv&#160;</td><td class="memItemRight" valign="bottom"><b>rrc::removeEventsNoRegen</b> (<a class="el" href="rrc__types_8h.html#a1d68f0592372208fa5a5f2799ea4b3ae">RRHandle</a> handle, const char *eid)</td></tr>
 <tr class="separator:ac7ecabe9d11b79c4158ea518fee55539"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ad20b7bbbd76dd666a057a6270775df87"><td class="memItemLeft" align="right" valign="top"><a id="ad20b7bbbd76dd666a057a6270775df87"></a>
+bool rrcCallConv&#160;</td><td class="memItemRight" valign="bottom"><b>rrc::regenerate</b> (<a class="el" href="rrc__types_8h.html#a1d68f0592372208fa5a5f2799ea4b3ae">RRHandle</a> handle)</td></tr>
+<tr class="separator:ad20b7bbbd76dd666a057a6270775df87"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a53423a5720ed7b47d1dbec6b1274ac9a"><td class="memItemLeft" align="right" valign="top"><a id="a53423a5720ed7b47d1dbec6b1274ac9a"></a>
 bool rrcCallConv&#160;</td><td class="memItemRight" valign="bottom"><b>rrc::validateCurrentSBML</b> (<a class="el" href="rrc__types_8h.html#a1d68f0592372208fa5a5f2799ea4b3ae">RRHandle</a> handle)</td></tr>
 <tr class="separator:a53423a5720ed7b47d1dbec6b1274ac9a"><td class="memSeparator" colspan="2">&#160;</td></tr>

@@ -235,6 +235,15 @@
 <para>Only used with EIGENVALUE currently. </para>
           </detaileddescription>
         </enumvalue>
+        <enumvalue id="classrr_1_1SelectionRecord_1a898963ab24a6ba614913715c981d8394aa8a8dd7317ca1dcd33f7acb018dab6dc" prot="public">
+          <name>ALL</name>
+          <initializer>=                               (0xffffffff)</initializer>
+          <briefdescription>
+<para>SelectionType for everything. </para>
+          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
         <enumvalue id="classrr_1_1SelectionRecord_1a898963ab24a6ba614913715c981d8394a3a2fe85e292d8ed2f4f80c55b6960a14" prot="public">
           <name>EIGENVALUE_COMPLEX</name>
           <initializer>=                EIGENVALUE_REAL | EIGENVALUE_IMAG</initializer>
@@ -453,15 +462,6 @@
           <detaileddescription>
           </detaileddescription>
         </enumvalue>
-        <enumvalue id="classrr_1_1SelectionRecord_1a898963ab24a6ba614913715c981d8394aa8a8dd7317ca1dcd33f7acb018dab6dc" prot="public">
-          <name>ALL</name>
-          <initializer>=                               (0xffffffff)</initializer>
-          <briefdescription>
-<para>SelectionType for everything. </para>
-          </briefdescription>
-          <detaileddescription>
-          </detaileddescription>
-        </enumvalue>
         <enumvalue id="classrr_1_1SelectionRecord_1a898963ab24a6ba614913715c981d8394a28cdf88cef2db8260a3617dc0d0d46fa" prot="public">
           <name>ALL_INDEPENDENT</name>
           <initializer>=                   ~DEPENDENT</initializer>
@@ -548,7 +548,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="rrSelectionRecord.h" line="18" column="5" bodyfile="rrSelectionRecord.h" bodystart="19" bodyend="337"/>
+        <location file="rrSelectionRecord.h" line="20" column="5" bodyfile="rrSelectionRecord.h" bodystart="21" bodyend="339"/>
       </memberdef>
       </sectiondef>
       <sectiondef kind="public-attrib">
@@ -564,11 +564,11 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="rrSelectionRecord.h" line="343" column="9" bodyfile="rrSelectionRecord.h" bodystart="343" bodyend="-1"/>
+        <location file="rrSelectionRecord.h" line="345" column="9" bodyfile="rrSelectionRecord.h" bodystart="345" bodyend="-1"/>
       </memberdef>
-      <memberdef kind="variable" id="classrr_1_1SelectionRecord_1ad97672baac3b6608f10a253d8594d39b" prot="public" static="no" mutable="no">
-        <type>string</type>
-        <definition>string rr::SelectionRecord::p1</definition>
+      <memberdef kind="variable" id="classrr_1_1SelectionRecord_1a273feac920f62ba42c477bb6443d086e" prot="public" static="no" mutable="no">
+        <type>std::string</type>
+        <definition>std::string rr::SelectionRecord::p1</definition>
         <argsstring></argsstring>
         <name>p1</name>
         <briefdescription>
@@ -579,11 +579,11 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="rrSelectionRecord.h" line="349" column="12" bodyfile="rrSelectionRecord.h" bodystart="349" bodyend="-1"/>
+        <location file="rrSelectionRecord.h" line="351" column="17" bodyfile="rrSelectionRecord.h" bodystart="351" bodyend="-1"/>
       </memberdef>
-      <memberdef kind="variable" id="classrr_1_1SelectionRecord_1a541046e11c7748d5fe403cbb681629a5" prot="public" static="no" mutable="no">
-        <type>string</type>
-        <definition>string rr::SelectionRecord::p2</definition>
+      <memberdef kind="variable" id="classrr_1_1SelectionRecord_1aaccdf64460b76ee09eaca7e5090ec52e" prot="public" static="no" mutable="no">
+        <type>std::string</type>
+        <definition>std::string rr::SelectionRecord::p2</definition>
         <argsstring></argsstring>
         <name>p2</name>
         <briefdescription>
@@ -593,7 +593,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="rrSelectionRecord.h" line="354" column="12" bodyfile="rrSelectionRecord.h" bodystart="354" bodyend="-1"/>
+        <location file="rrSelectionRecord.h" line="356" column="17" bodyfile="rrSelectionRecord.h" bodystart="356" bodyend="-1"/>
       </memberdef>
       <memberdef kind="variable" id="classrr_1_1SelectionRecord_1adae706f827ce8b7c3873b2fd77fa833c" prot="public" static="no" mutable="no">
         <type><ref refid="classrr_1_1SelectionRecord_1a898963ab24a6ba614913715c981d8394" kindref="member">SelectionType</ref></type>
@@ -607,14 +607,14 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="rrSelectionRecord.h" line="359" column="19" bodyfile="rrSelectionRecord.h" bodystart="359" bodyend="-1"/>
+        <location file="rrSelectionRecord.h" line="361" column="19" bodyfile="rrSelectionRecord.h" bodystart="361" bodyend="-1"/>
       </memberdef>
       </sectiondef>
       <sectiondef kind="public-func">
-      <memberdef kind="function" id="classrr_1_1SelectionRecord_1a391032a40def4753695ab6325446e67a" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+      <memberdef kind="function" id="classrr_1_1SelectionRecord_1a3bc76f94c41c483adfe98a15dc089ad2" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
         <type></type>
         <definition>rr::SelectionRecord::SelectionRecord</definition>
-        <argsstring>(const int &amp;index=0, const SelectionType type=UNKNOWN, const string &amp;p1=&quot;&quot;, const string &amp;p2=&quot;&quot;)</argsstring>
+        <argsstring>(const int &amp;index=0, const SelectionType type=UNKNOWN, const std::string &amp;p1=&quot;&quot;, const std::string &amp;p2=&quot;&quot;)</argsstring>
         <name>SelectionRecord</name>
         <param>
           <type>const int &amp;</type>
@@ -627,12 +627,12 @@
           <defval><ref refid="classrr_1_1SelectionRecord_1a898963ab24a6ba614913715c981d8394ac49b992764e069258380f3effa097121" kindref="member">UNKNOWN</ref></defval>
         </param>
         <param>
-          <type>const string &amp;</type>
+          <type>const std::string &amp;</type>
           <declname>p1</declname>
           <defval>&quot;&quot;</defval>
         </param>
         <param>
-          <type>const string &amp;</type>
+          <type>const std::string &amp;</type>
           <declname>p2</declname>
           <defval>&quot;&quot;</defval>
         </param>
@@ -644,7 +644,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="rrSelectionRecord.h" line="367" column="5" bodyfile="rrSelectionRecord.cpp" bodystart="252" bodyend="257"/>
+        <location file="rrSelectionRecord.h" line="369" column="5" bodyfile="rrSelectionRecord.cpp" bodystart="252" bodyend="257"/>
       </memberdef>
       <memberdef kind="function" id="classrr_1_1SelectionRecord_1a4482905716a2b6b5c031c629484bc944" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
         <type></type>
@@ -662,7 +662,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="rrSelectionRecord.h" line="374" column="5" bodyfile="rrSelectionRecord.cpp" bodystart="306" bodyend="370"/>
+        <location file="rrSelectionRecord.h" line="376" column="5" bodyfile="rrSelectionRecord.cpp" bodystart="306" bodyend="370"/>
       </memberdef>
       <memberdef kind="function" id="classrr_1_1SelectionRecord_1a0ddd6b4af382e08f848d4e85c2010e19" prot="public" static="no" const="yes" explicit="no" inline="no" virt="non-virtual">
         <type>std::string</type>
@@ -670,13 +670,13 @@
         <argsstring>() const</argsstring>
         <name>to_string</name>
         <briefdescription>
-<para>get a short description of this selection, this returns a string compatable with <ref refid="classrr_1_1RoadRunner_1a422a0c1c50dfe1b6ae343e9313a005ee" kindref="member">RoadRunner::createSelection</ref>. </para>
+<para>get a short description of this selection, this returns a std::string compatable with <ref refid="classrr_1_1RoadRunner_1a422a0c1c50dfe1b6ae343e9313a005ee" kindref="member">RoadRunner::createSelection</ref>. </para>
         </briefdescription>
         <detaileddescription>
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="rrSelectionRecord.h" line="380" column="17" bodyfile="rrSelectionRecord.cpp" bodystart="372" bodyend="438"/>
+        <location file="rrSelectionRecord.h" line="382" column="17" bodyfile="rrSelectionRecord.cpp" bodystart="372" bodyend="438"/>
       </memberdef>
       <memberdef kind="function" id="classrr_1_1SelectionRecord_1a8a43de991cecad05200332229c45e586" prot="public" static="no" const="yes" explicit="no" inline="no" virt="non-virtual">
         <type>std::string</type>
@@ -690,7 +690,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="rrSelectionRecord.h" line="386" column="17" bodyfile="rrSelectionRecord.cpp" bodystart="269" bodyend="304"/>
+        <location file="rrSelectionRecord.h" line="388" column="17" bodyfile="rrSelectionRecord.cpp" bodystart="269" bodyend="304"/>
       </memberdef>
       </sectiondef>
     <briefdescription>
@@ -711,7 +711,7 @@
         </childnode>
       </node>
     </collaborationgraph>
-    <location file="rrSelectionRecord.h" line="15" column="1" bodyfile="rrSelectionRecord.h" bodystart="16" bodyend="387"/>
+    <location file="rrSelectionRecord.h" line="17" column="1" bodyfile="rrSelectionRecord.h" bodystart="18" bodyend="389"/>
     <listofallmembers>
       <member refid="classrr_1_1SelectionRecord_1a898963ab24a6ba614913715c981d8394a4cfafd7db04d37e6776a5305f3919a95" prot="public" virt="non-virtual"><scope>rr::SelectionRecord</scope><name>_COMPARTMENT</name></member>
       <member refid="classrr_1_1SelectionRecord_1a898963ab24a6ba614913715c981d8394aa5791049b0e78ca11971abb1d1f9636c" prot="public" virt="non-virtual"><scope>rr::SelectionRecord</scope><name>_GLOBAL_PARAMETER</name></member>
@@ -758,16 +758,16 @@
       <member refid="classrr_1_1SelectionRecord_1a898963ab24a6ba614913715c981d8394a731d1669fec8c53a6f783a0df0469002" prot="public" virt="non-virtual"><scope>rr::SelectionRecord</scope><name>INITIAL_FLOATING_CONCENTRATION</name></member>
       <member refid="classrr_1_1SelectionRecord_1a898963ab24a6ba614913715c981d8394ae4ecdedc44b9bae7bfe0cdf954e7c6fe" prot="public" virt="non-virtual"><scope>rr::SelectionRecord</scope><name>INITIAL_GLOBAL_PARAMETER</name></member>
       <member refid="classrr_1_1SelectionRecord_1a898963ab24a6ba614913715c981d8394a042c7745287999549dfaba12fc66d110" prot="public" virt="non-virtual"><scope>rr::SelectionRecord</scope><name>MODEL_STATE</name></member>
-      <member refid="classrr_1_1SelectionRecord_1ad97672baac3b6608f10a253d8594d39b" prot="public" virt="non-virtual"><scope>rr::SelectionRecord</scope><name>p1</name></member>
-      <member refid="classrr_1_1SelectionRecord_1a541046e11c7748d5fe403cbb681629a5" prot="public" virt="non-virtual"><scope>rr::SelectionRecord</scope><name>p2</name></member>
+      <member refid="classrr_1_1SelectionRecord_1a273feac920f62ba42c477bb6443d086e" prot="public" virt="non-virtual"><scope>rr::SelectionRecord</scope><name>p1</name></member>
+      <member refid="classrr_1_1SelectionRecord_1aaccdf64460b76ee09eaca7e5090ec52e" prot="public" virt="non-virtual"><scope>rr::SelectionRecord</scope><name>p2</name></member>
       <member refid="classrr_1_1SelectionRecord_1a898963ab24a6ba614913715c981d8394a2235d37b12b17d658b8f33a87712c806" prot="public" virt="non-virtual"><scope>rr::SelectionRecord</scope><name>RATE</name></member>
       <member refid="classrr_1_1SelectionRecord_1a898963ab24a6ba614913715c981d8394ab324bc886789f735bfb63ee1906606a7" prot="public" virt="non-virtual"><scope>rr::SelectionRecord</scope><name>REACTION</name></member>
       <member refid="classrr_1_1SelectionRecord_1a898963ab24a6ba614913715c981d8394a474f33e2264e1732ec7dd131f840083b" prot="public" virt="non-virtual"><scope>rr::SelectionRecord</scope><name>REACTION_RATE</name></member>
       <member refid="classrr_1_1SelectionRecord_1a898963ab24a6ba614913715c981d8394a8f3e6cd5beca2bc0b0c80d90d0010707" prot="public" virt="non-virtual"><scope>rr::SelectionRecord</scope><name>SBML_INITIALIZE</name></member>
-      <member refid="classrr_1_1SelectionRecord_1a391032a40def4753695ab6325446e67a" prot="public" virt="non-virtual"><scope>rr::SelectionRecord</scope><name>SelectionRecord</name></member>
+      <member refid="classrr_1_1SelectionRecord_1a3bc76f94c41c483adfe98a15dc089ad2" prot="public" virt="non-virtual"><scope>rr::SelectionRecord</scope><name>SelectionRecord</name></member>
       <member refid="classrr_1_1SelectionRecord_1a4482905716a2b6b5c031c629484bc944" prot="public" virt="non-virtual"><scope>rr::SelectionRecord</scope><name>SelectionRecord</name></member>
-      <member refid="classrr_1_1SelectionRecord_1adae706f827ce8b7c3873b2fd77fa833c" prot="public" virt="non-virtual"><scope>rr::SelectionRecord</scope><name>selectionType</name></member>
       <member refid="classrr_1_1SelectionRecord_1a898963ab24a6ba614913715c981d8394" prot="public" virt="non-virtual"><scope>rr::SelectionRecord</scope><name>SelectionType</name></member>
+      <member refid="classrr_1_1SelectionRecord_1adae706f827ce8b7c3873b2fd77fa833c" prot="public" virt="non-virtual"><scope>rr::SelectionRecord</scope><name>selectionType</name></member>
       <member refid="classrr_1_1SelectionRecord_1a898963ab24a6ba614913715c981d8394affd2f3ff0ba9a13a69df1c6ad5d51e88" prot="public" virt="non-virtual"><scope>rr::SelectionRecord</scope><name>STATE_VECTOR</name></member>
       <member refid="classrr_1_1SelectionRecord_1a898963ab24a6ba614913715c981d8394ac9c744f62b4c2a7854162775973e07bf" prot="public" virt="non-virtual"><scope>rr::SelectionRecord</scope><name>STOICHIOMETRY</name></member>
       <member refid="classrr_1_1SelectionRecord_1a898963ab24a6ba614913715c981d8394add36248cdf4b1f588dd6fdd11855b012" prot="public" virt="non-virtual"><scope>rr::SelectionRecord</scope><name>TIME</name></member>

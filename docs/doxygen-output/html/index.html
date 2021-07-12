@@ -22,7 +22,7 @@
  <tr style="height: 56px;">
   <td id="projectalign" style="padding-left: 0.5em;">
    <div id="projectname">roadrunner
-   &#160;<span id="projectnumber">2.0.5</span>
+   &#160;<span id="projectnumber">2.0.8</span>
    </div>
    <div id="projectbrief">Fast simulator for SBML models</div>
   </td>
@@ -172,7 +172,7 @@ Telling RoadRunner about the new Integrator</h2>
 </div><!-- fragment --><p>Once the <a class="el" href="classrr_1_1IntegratorFactory.html" title="Constructs new integrators.">IntegratorFactory</a> is made aware of your new integrator, it is available for full introspection and can be used by just adding the <code>integrator="myNewIntegrator"</code> argument whenever the <a class="el" href="classrr_1_1RoadRunner.html#a0843eb317d47d28a27929d326d4f1f88" title="Simulate the current SBML model.">RoadRunner.simulate</a> method is called. The <a class="el" href="classrr_1_1EulerIntegrator.html" title="An example class intended to show how to create an Integrator.">EulerIntegrator</a> was created as an example of how to create and add a new integrator, have a look at it.</p>
 <h2><a class="anchor" id="sec_euler"></a>
 A complete example of creating an integrator.</h2>
-<p>This section includes the complete Euler integrator implemented in <a class="el" href="EulerIntegrator_8h_source.html">EulerIntegrator.h</a> as an example of creating a new integrator. This class has two demo paramters which may be set via the keyword arguments to <a class="el" href="classrr_1_1RoadRunner.html#a0843eb317d47d28a27929d326d4f1f88" title="Simulate the current SBML model.">RoadRunner.simulate</a> in Python, or set via the <a class="el" href="classrr_1_1Dictionary.html#a6bb53c3bfeee7e3ee2bfcf9da8212949" title="Set the value for an arbitrary key.">Dictionary::setItem</a> method on the dictionary that is given to the <a class="el" href="classrr_1_1RoadRunner.html#a0843eb317d47d28a27929d326d4f1f88" title="Simulate the current SBML model.">RoadRunner::simulate</a> method in C++. In Python, this would be:</p>
+<p>This section includes the complete Euler integrator implemented in <a class="el" href="EulerIntegrator_8h_source.html">EulerIntegrator.h</a> as an example of creating a new integrator. This class has two demo paramters which may be set via the keyword arguments to <a class="el" href="classrr_1_1RoadRunner.html#a0843eb317d47d28a27929d326d4f1f88" title="Simulate the current SBML model.">RoadRunner.simulate</a> in Python, or set via the <a class="el" href="classrr_1_1Dictionary.html#a4708fee12ec4cd5e879df9bf5570c02a" title="Set the value for an arbitrary key.">Dictionary::setItem</a> method on the dictionary that is given to the <a class="el" href="classrr_1_1RoadRunner.html#a0843eb317d47d28a27929d326d4f1f88" title="Simulate the current SBML model.">RoadRunner::simulate</a> method in C++. In Python, this would be:</p>
 <div class="fragment"><div class="line">r.simulate(integrator=<span class="stringliteral">&#39;euler&#39;</span>, exampleParameter1=123456, exampleParameter2=<span class="stringliteral">&#39;some value&#39;</span>);</div>
 <div class="line">print(r.integrator)</div>
 <div class="line"> </div>
@@ -187,7 +187,7 @@ A complete example of creating an integrator.</h2>
 <div class="line">opt.setItem(<span class="stringliteral">&quot;exampleParameter2&quot;</span>, <span class="stringliteral">&quot;some value&quot;</span>);</div>
 <div class="line">r.simulate();</div>
 <div class="line"> </div>
-<div class="line">cout &lt;&lt; r.getIntegrator()-&gt;toString() &lt;&lt; endl;</div>
+<div class="line">std::cout &lt;&lt; r.getIntegrator()-&gt;toString() &lt;&lt; std::endl;</div>
 </div><!-- fragment --><p>The <a class="el" href="EulerIntegrator_8h_source.html">EulerIntegrator.h</a> file serves as a complete example of creating an new integrator. This example was written entierly in the header file for clarity, but a real integrator should separate the code and header files. </p>
 </div></div><!-- PageDoc -->
 </div><!-- contents -->

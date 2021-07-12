@@ -290,8 +290,7 @@ llvm::Value* ASTNodeCodeGen::distribCodeGen(const libsbml::ASTNode *ast)
     //    throw_llvm_exception("invalid number of args");
     //}
 
-    ModelDataIRBuilder mdbuilder(modelData, ctx.getModelDataSymbols(),
-        builder);
+    ModelDataIRBuilder mdbuilder(modelData, ctx.getModelDataSymbols(),builder);
 
     llvm::Value *randomPtr = mdbuilder.createRandomLoad();
     

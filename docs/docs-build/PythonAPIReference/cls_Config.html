@@ -13,6 +13,8 @@
   
   <link rel="stylesheet" href="../_static/css/theme.css" type="text/css" />
   <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
+  <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
+  <link rel="stylesheet" href="../_static/css/theme.css" type="text/css" />
   <link rel="stylesheet" href="../_static/tabs.css" type="text/css" />
 
   
@@ -30,10 +32,10 @@
   
     
       <script type="text/javascript" id="documentation_options" data-url_root="../" src="../_static/documentation_options.js"></script>
+        <script data-url_root="../" id="documentation_options" src="../_static/documentation_options.js"></script>
         <script src="../_static/jquery.js"></script>
         <script src="../_static/underscore.js"></script>
         <script src="../_static/doctools.js"></script>
-        <script src="../_static/language_data.js"></script>
     
     <script type="text/javascript" src="../_static/js/theme.js"></script>
 
@@ -122,6 +124,7 @@
 </ul>
 </li>
 <li class="toctree-l1"><a class="reference internal" href="../C%2B%2BAPIReference/index.html">The LibRoadRunner C++ Library</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../developers_docs/index.html">Developers Documentation</a></li>
 </ul>
 
             
@@ -238,8 +241,8 @@ Configuration Functions section.</p>
 <div class="section" id="configuration-functions">
 <h2>Configuration Functions<a class="headerlink" href="#configuration-functions" title="Permalink to this headline">¶</a></h2>
 <dl class="py method">
-<dt id="RoadRunner.Config.setValue">
-<em class="property">static </em><code class="sig-prename descclassname">Config.</code><code class="sig-name descname">setValue</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">key</span></em>, <em class="sig-param"><span class="n">value</span></em><span class="sig-paren">)</span><a class="headerlink" href="#RoadRunner.Config.setValue" title="Permalink to this definition">¶</a></dt>
+<dt class="sig sig-object py" id="RoadRunner.Config.setValue">
+<em class="property"><span class="pre">static</span> </em><span class="sig-prename descclassname"><span class="pre">Config.</span></span><span class="sig-name descname"><span class="pre">setValue</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">key</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">value</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#RoadRunner.Config.setValue" title="Permalink to this definition">¶</a></dt>
 <dd><p>Set the value of a configuration key. The value must be either a string, integer, double or
 boolean. If one wanted to turn off moiety conservation (this will not have an effect on
 already loaded models):</p>
@@ -254,15 +257,15 @@ already loaded models):</p>
 </dd></dl>
 
 <dl class="py method">
-<dt id="RoadRunner.Config.getConfigFilePath">
-<em class="property">static </em><code class="sig-prename descclassname">Config.</code><code class="sig-name descname">getConfigFilePath</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#RoadRunner.Config.getConfigFilePath" title="Permalink to this definition">¶</a></dt>
+<dt class="sig sig-object py" id="RoadRunner.Config.getConfigFilePath">
+<em class="property"><span class="pre">static</span> </em><span class="sig-prename descclassname"><span class="pre">Config.</span></span><span class="sig-name descname"><span class="pre">getConfigFilePath</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#RoadRunner.Config.getConfigFilePath" title="Permalink to this definition">¶</a></dt>
 <dd><p>If roadrunner was able to find a configuration file on the file system, its full path is returned
 here. If no file was found, this returns a empty string.</p>
 </dd></dl>
 
 <dl class="py method">
-<dt id="RoadRunner.Config.readConfigFile">
-<em class="property">static </em><code class="sig-prename descclassname">Config.</code><code class="sig-name descname">readConfigFile</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">path</span></em><span class="sig-paren">)</span><a class="headerlink" href="#RoadRunner.Config.readConfigFile" title="Permalink to this definition">¶</a></dt>
+<dt class="sig sig-object py" id="RoadRunner.Config.readConfigFile">
+<em class="property"><span class="pre">static</span> </em><span class="sig-prename descclassname"><span class="pre">Config.</span></span><span class="sig-name descname"><span class="pre">readConfigFile</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">path</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#RoadRunner.Config.readConfigFile" title="Permalink to this definition">¶</a></dt>
 <dd><p>Read all of the values from a configuration file at the given path. This overrides any previously
 stored configuration. This allows users to have any number of configuration files and load them
 at any time. Say someone had to use Windows, and they had a file in their C: drive, this would be
@@ -275,8 +278,8 @@ need to use a double back slash, “\\”.</p>
 </dd></dl>
 
 <dl class="py method">
-<dt id="RoadRunner.Config.writeConfigFile">
-<em class="property">static </em><code class="sig-prename descclassname">Config.</code><code class="sig-name descname">writeConfigFile</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">path</span></em><span class="sig-paren">)</span><a class="headerlink" href="#RoadRunner.Config.writeConfigFile" title="Permalink to this definition">¶</a></dt>
+<dt class="sig sig-object py" id="RoadRunner.Config.writeConfigFile">
+<em class="property"><span class="pre">static</span> </em><span class="sig-prename descclassname"><span class="pre">Config.</span></span><span class="sig-name descname"><span class="pre">writeConfigFile</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">path</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#RoadRunner.Config.writeConfigFile" title="Permalink to this definition">¶</a></dt>
 <dd><p>Write all of the current configuration values to a file. This could be written to one of the
 default locations, or to any other location, and re-loaded at a later time.</p>
 </dd></dl>
@@ -287,8 +290,8 @@ default locations, or to any other location, and re-loaded at a later time.</p>
 <p>All of the configuration parameter keys are static attributes of the Config class and are listed
 here. The variable type of the parameter is listed after the key name.</p>
 <dl class="py attribute">
-<dt id="RoadRunner.Config.LOADSBMLOPTIONS_CONSERVED_MOIETIES">
-<code class="sig-prename descclassname">Config.</code><code class="sig-name descname">LOADSBMLOPTIONS_CONSERVED_MOIETIES</code><em class="property"> bool</em><a class="headerlink" href="#RoadRunner.Config.LOADSBMLOPTIONS_CONSERVED_MOIETIES" title="Permalink to this definition">¶</a></dt>
+<dt class="sig sig-object py" id="RoadRunner.Config.LOADSBMLOPTIONS_CONSERVED_MOIETIES">
+<span class="sig-prename descclassname"><span class="pre">Config.</span></span><span class="sig-name descname"><span class="pre">LOADSBMLOPTIONS_CONSERVED_MOIETIES</span></span><em class="property"> <span class="pre">bool</span></em><a class="headerlink" href="#RoadRunner.Config.LOADSBMLOPTIONS_CONSERVED_MOIETIES" title="Permalink to this definition">¶</a></dt>
 <dd><p>Perform conservation analysis. By default, this attribute is set as False.</p>
 <p>This causes a re-ordering of the species, so results generated
 with this flag enabled can not be compared index wise to results
@@ -304,8 +307,8 @@ which define or alter any floating species, and which have simple constant stoic
 </dd></dl>
 
 <dl class="py attribute">
-<dt id="RoadRunner.Config.LOADSBMLOPTIONS_RECOMPILE">
-<code class="sig-prename descclassname">Config.</code><code class="sig-name descname">LOADSBMLOPTIONS_RECOMPILE</code><em class="property"> bool</em><a class="headerlink" href="#RoadRunner.Config.LOADSBMLOPTIONS_RECOMPILE" title="Permalink to this definition">¶</a></dt>
+<dt class="sig sig-object py" id="RoadRunner.Config.LOADSBMLOPTIONS_RECOMPILE">
+<span class="sig-prename descclassname"><span class="pre">Config.</span></span><span class="sig-name descname"><span class="pre">LOADSBMLOPTIONS_RECOMPILE</span></span><em class="property"> <span class="pre">bool</span></em><a class="headerlink" href="#RoadRunner.Config.LOADSBMLOPTIONS_RECOMPILE" title="Permalink to this definition">¶</a></dt>
 <dd><p>Should the model be recompiled?
 The LLVM ModelGenerator maintains a hash table of currently running
 models. If this flag is NOT set, then the generator will look to see
@@ -317,8 +320,8 @@ realizing some performance gains.</p>
 </dd></dl>
 
 <dl class="py attribute">
-<dt id="RoadRunner.Config.LOADSBMLOPTIONS_READ_ONLY">
-<code class="sig-prename descclassname">Config.</code><code class="sig-name descname">LOADSBMLOPTIONS_READ_ONLY</code><em class="property"> bool</em><a class="headerlink" href="#RoadRunner.Config.LOADSBMLOPTIONS_READ_ONLY" title="Permalink to this definition">¶</a></dt>
+<dt class="sig sig-object py" id="RoadRunner.Config.LOADSBMLOPTIONS_READ_ONLY">
+<span class="sig-prename descclassname"><span class="pre">Config.</span></span><span class="sig-name descname"><span class="pre">LOADSBMLOPTIONS_READ_ONLY</span></span><em class="property"> <span class="pre">bool</span></em><a class="headerlink" href="#RoadRunner.Config.LOADSBMLOPTIONS_READ_ONLY" title="Permalink to this definition">¶</a></dt>
 <dd><p>If this is set, then a read-only model is generated. A read-only
 model can be simulated, but no code is generated to set model
 values, i.e. parameters, amounts, values, etc…</p>
@@ -328,45 +331,45 @@ gains, especially in very large models.</p>
 </dd></dl>
 
 <dl class="py attribute">
-<dt id="RoadRunner.Config.LOADSBMLOPTIONS_MUTABLE_INITIAL_CONDITIONS">
-<code class="sig-prename descclassname">Config.</code><code class="sig-name descname">LOADSBMLOPTIONS_MUTABLE_INITIAL_CONDITIONS</code><em class="property"> bool</em><a class="headerlink" href="#RoadRunner.Config.LOADSBMLOPTIONS_MUTABLE_INITIAL_CONDITIONS" title="Permalink to this definition">¶</a></dt>
+<dt class="sig sig-object py" id="RoadRunner.Config.LOADSBMLOPTIONS_MUTABLE_INITIAL_CONDITIONS">
+<span class="sig-prename descclassname"><span class="pre">Config.</span></span><span class="sig-name descname"><span class="pre">LOADSBMLOPTIONS_MUTABLE_INITIAL_CONDITIONS</span></span><em class="property"> <span class="pre">bool</span></em><a class="headerlink" href="#RoadRunner.Config.LOADSBMLOPTIONS_MUTABLE_INITIAL_CONDITIONS" title="Permalink to this definition">¶</a></dt>
 <dd><p>Generate accessors functions to allow changing of initial
 conditions.</p>
 </dd></dl>
 
 <dl class="py attribute">
-<dt id="RoadRunner.Config.LOADSBMLOPTIONS_OPTIMIZE_GVN">
-<code class="sig-prename descclassname">Config.</code><code class="sig-name descname">LOADSBMLOPTIONS_OPTIMIZE_GVN</code><em class="property"> bool</em><a class="headerlink" href="#RoadRunner.Config.LOADSBMLOPTIONS_OPTIMIZE_GVN" title="Permalink to this definition">¶</a></dt>
+<dt class="sig sig-object py" id="RoadRunner.Config.LOADSBMLOPTIONS_OPTIMIZE_GVN">
+<span class="sig-prename descclassname"><span class="pre">Config.</span></span><span class="sig-name descname"><span class="pre">LOADSBMLOPTIONS_OPTIMIZE_GVN</span></span><em class="property"> <span class="pre">bool</span></em><a class="headerlink" href="#RoadRunner.Config.LOADSBMLOPTIONS_OPTIMIZE_GVN" title="Permalink to this definition">¶</a></dt>
 <dd><p>GVN - This pass performs global value numbering and redundant load
 elimination contemporaneously.</p>
 </dd></dl>
 
 <dl class="py attribute">
-<dt id="RoadRunner.Config.LOADSBMLOPTIONS_OPTIMIZE_CFG_SIMPLIFICATION">
-<code class="sig-prename descclassname">Config.</code><code class="sig-name descname">LOADSBMLOPTIONS_OPTIMIZE_CFG_SIMPLIFICATION</code><em class="property"> bool</em><a class="headerlink" href="#RoadRunner.Config.LOADSBMLOPTIONS_OPTIMIZE_CFG_SIMPLIFICATION" title="Permalink to this definition">¶</a></dt>
+<dt class="sig sig-object py" id="RoadRunner.Config.LOADSBMLOPTIONS_OPTIMIZE_CFG_SIMPLIFICATION">
+<span class="sig-prename descclassname"><span class="pre">Config.</span></span><span class="sig-name descname"><span class="pre">LOADSBMLOPTIONS_OPTIMIZE_CFG_SIMPLIFICATION</span></span><em class="property"> <span class="pre">bool</span></em><a class="headerlink" href="#RoadRunner.Config.LOADSBMLOPTIONS_OPTIMIZE_CFG_SIMPLIFICATION" title="Permalink to this definition">¶</a></dt>
 <dd><p>CFGSimplification - Merge basic blocks, eliminate unreachable blocks,
 simplify terminator instructions, etc…</p>
 </dd></dl>
 
 <dl class="py attribute">
-<dt id="RoadRunner.Config.LOADSBMLOPTIONS_OPTIMIZE_INSTRUCTION_COMBINING">
-<code class="sig-prename descclassname">Config.</code><code class="sig-name descname">LOADSBMLOPTIONS_OPTIMIZE_INSTRUCTION_COMBINING</code><em class="property"> bool</em><a class="headerlink" href="#RoadRunner.Config.LOADSBMLOPTIONS_OPTIMIZE_INSTRUCTION_COMBINING" title="Permalink to this definition">¶</a></dt>
+<dt class="sig sig-object py" id="RoadRunner.Config.LOADSBMLOPTIONS_OPTIMIZE_INSTRUCTION_COMBINING">
+<span class="sig-prename descclassname"><span class="pre">Config.</span></span><span class="sig-name descname"><span class="pre">LOADSBMLOPTIONS_OPTIMIZE_INSTRUCTION_COMBINING</span></span><em class="property"> <span class="pre">bool</span></em><a class="headerlink" href="#RoadRunner.Config.LOADSBMLOPTIONS_OPTIMIZE_INSTRUCTION_COMBINING" title="Permalink to this definition">¶</a></dt>
 <dd><p>InstructionCombining - Combine instructions to form fewer, simple
 instructions. This pass does not modify the CFG, and has a tendency to make
 instructions dead, so a subsequent DCE pass is useful.</p>
 </dd></dl>
 
 <dl class="py attribute">
-<dt id="RoadRunner.Config.LOADSBMLOPTIONS_OPTIMIZE_DEAD_INST_ELIMINATION">
-<code class="sig-prename descclassname">Config.</code><code class="sig-name descname">LOADSBMLOPTIONS_OPTIMIZE_DEAD_INST_ELIMINATION</code><em class="property"> bool</em><a class="headerlink" href="#RoadRunner.Config.LOADSBMLOPTIONS_OPTIMIZE_DEAD_INST_ELIMINATION" title="Permalink to this definition">¶</a></dt>
+<dt class="sig sig-object py" id="RoadRunner.Config.LOADSBMLOPTIONS_OPTIMIZE_DEAD_INST_ELIMINATION">
+<span class="sig-prename descclassname"><span class="pre">Config.</span></span><span class="sig-name descname"><span class="pre">LOADSBMLOPTIONS_OPTIMIZE_DEAD_INST_ELIMINATION</span></span><em class="property"> <span class="pre">bool</span></em><a class="headerlink" href="#RoadRunner.Config.LOADSBMLOPTIONS_OPTIMIZE_DEAD_INST_ELIMINATION" title="Permalink to this definition">¶</a></dt>
 <dd><p>DeadInstElimination - This pass quickly removes trivially dead instructions
 without modifying the CFG of the function.  It is a BasicBlockPass, so it
 runs efficiently when queued next to other BasicBlockPass’s.</p>
 </dd></dl>
 
 <dl class="py attribute">
-<dt id="RoadRunner.Config.LOADSBMLOPTIONS_OPTIMIZE_DEAD_CODE_ELIMINATION">
-<code class="sig-prename descclassname">Config.</code><code class="sig-name descname">LOADSBMLOPTIONS_OPTIMIZE_DEAD_CODE_ELIMINATION</code><em class="property"> bool</em><a class="headerlink" href="#RoadRunner.Config.LOADSBMLOPTIONS_OPTIMIZE_DEAD_CODE_ELIMINATION" title="Permalink to this definition">¶</a></dt>
+<dt class="sig sig-object py" id="RoadRunner.Config.LOADSBMLOPTIONS_OPTIMIZE_DEAD_CODE_ELIMINATION">
+<span class="sig-prename descclassname"><span class="pre">Config.</span></span><span class="sig-name descname"><span class="pre">LOADSBMLOPTIONS_OPTIMIZE_DEAD_CODE_ELIMINATION</span></span><em class="property"> <span class="pre">bool</span></em><a class="headerlink" href="#RoadRunner.Config.LOADSBMLOPTIONS_OPTIMIZE_DEAD_CODE_ELIMINATION" title="Permalink to this definition">¶</a></dt>
 <dd><p>DeadCodeElimination - This pass is more powerful than DeadInstElimination,
 because it is worklist driven that can potentially revisit instructions when
 their other instructions become dead, to eliminate chains of dead
@@ -374,14 +377,14 @@ computations.</p>
 </dd></dl>
 
 <dl class="py attribute">
-<dt id="RoadRunner.Config.LOADSBMLOPTIONS_OPTIMIZE_INSTRUCTION_SIMPLIFIER">
-<code class="sig-prename descclassname">Config.</code><code class="sig-name descname">LOADSBMLOPTIONS_OPTIMIZE_INSTRUCTION_SIMPLIFIER</code><em class="property"> bool</em><a class="headerlink" href="#RoadRunner.Config.LOADSBMLOPTIONS_OPTIMIZE_INSTRUCTION_SIMPLIFIER" title="Permalink to this definition">¶</a></dt>
+<dt class="sig sig-object py" id="RoadRunner.Config.LOADSBMLOPTIONS_OPTIMIZE_INSTRUCTION_SIMPLIFIER">
+<span class="sig-prename descclassname"><span class="pre">Config.</span></span><span class="sig-name descname"><span class="pre">LOADSBMLOPTIONS_OPTIMIZE_INSTRUCTION_SIMPLIFIER</span></span><em class="property"> <span class="pre">bool</span></em><a class="headerlink" href="#RoadRunner.Config.LOADSBMLOPTIONS_OPTIMIZE_INSTRUCTION_SIMPLIFIER" title="Permalink to this definition">¶</a></dt>
 <dd><p>InstructionSimplifier - Remove redundant instructions.</p>
 </dd></dl>
 
 <dl class="py attribute">
-<dt id="RoadRunner.Config.LOADSBMLOPTIONS_USE_MCJIT">
-<code class="sig-prename descclassname">Config.</code><code class="sig-name descname">LOADSBMLOPTIONS_USE_MCJIT</code><em class="property"> bool</em><a class="headerlink" href="#RoadRunner.Config.LOADSBMLOPTIONS_USE_MCJIT" title="Permalink to this definition">¶</a></dt>
+<dt class="sig sig-object py" id="RoadRunner.Config.LOADSBMLOPTIONS_USE_MCJIT">
+<span class="sig-prename descclassname"><span class="pre">Config.</span></span><span class="sig-name descname"><span class="pre">LOADSBMLOPTIONS_USE_MCJIT</span></span><em class="property"> <span class="pre">bool</span></em><a class="headerlink" href="#RoadRunner.Config.LOADSBMLOPTIONS_USE_MCJIT" title="Permalink to this definition">¶</a></dt>
 <dd><p>Currently disabled.</p>
 <p>Use the LLVM MCJIT JIT engine.</p>
 <p>Defaults to false.</p>
@@ -390,8 +393,8 @@ original JIT engine. Does NOT work on LLVM 3.1</p>
 </dd></dl>
 
 <dl class="py attribute">
-<dt id="RoadRunner.Config.ROADRUNNER_DISABLE_PYTHON_DYNAMIC_PROPERTIES">
-<code class="sig-prename descclassname">Config.</code><code class="sig-name descname">ROADRUNNER_DISABLE_PYTHON_DYNAMIC_PROPERTIES</code><em class="property"> int</em><a class="headerlink" href="#RoadRunner.Config.ROADRUNNER_DISABLE_PYTHON_DYNAMIC_PROPERTIES" title="Permalink to this definition">¶</a></dt>
+<dt class="sig sig-object py" id="RoadRunner.Config.ROADRUNNER_DISABLE_PYTHON_DYNAMIC_PROPERTIES">
+<span class="sig-prename descclassname"><span class="pre">Config.</span></span><span class="sig-name descname"><span class="pre">ROADRUNNER_DISABLE_PYTHON_DYNAMIC_PROPERTIES</span></span><em class="property"> <span class="pre">int</span></em><a class="headerlink" href="#RoadRunner.Config.ROADRUNNER_DISABLE_PYTHON_DYNAMIC_PROPERTIES" title="Permalink to this definition">¶</a></dt>
 <dd><p>RoadRunner by default dynamically generates accessors properties
 for all SBML symbol names on the model object when it is retrieved
 in Python. This feature is very nice for interactive use, but
@@ -400,8 +403,8 @@ can be disabled here.</p>
 </dd></dl>
 
 <dl class="py attribute">
-<dt id="RoadRunner.Config.ROADRUNNER_DISABLE_WARNINGS">
-<code class="sig-prename descclassname">Config.</code><code class="sig-name descname">ROADRUNNER_DISABLE_WARNINGS</code><em class="property"> int</em><a class="headerlink" href="#RoadRunner.Config.ROADRUNNER_DISABLE_WARNINGS" title="Permalink to this definition">¶</a></dt>
+<dt class="sig sig-object py" id="RoadRunner.Config.ROADRUNNER_DISABLE_WARNINGS">
+<span class="sig-prename descclassname"><span class="pre">Config.</span></span><span class="sig-name descname"><span class="pre">ROADRUNNER_DISABLE_WARNINGS</span></span><em class="property"> <span class="pre">int</span></em><a class="headerlink" href="#RoadRunner.Config.ROADRUNNER_DISABLE_WARNINGS" title="Permalink to this definition">¶</a></dt>
 <dd><p>Disable SBML conserved moiety warnings.</p>
 <p>Conserved Moiety Conversion may cause unexpected behavior, be aware of what it
 is before enabling.</p>
@@ -417,15 +420,15 @@ which is 2 and 0b01 &amp; 0b10 is 0b11 which is 3 in decimal.</p>
 </dd></dl>
 
 <dl class="py attribute">
-<dt id="RoadRunner.Config.LOADSBMLOPTIONS_PERMISSIVE">
-<code class="sig-prename descclassname">Config.</code><code class="sig-name descname">LOADSBMLOPTIONS_PERMISSIVE</code><em class="property"> int</em><a class="headerlink" href="#RoadRunner.Config.LOADSBMLOPTIONS_PERMISSIVE" title="Permalink to this definition">¶</a></dt>
+<dt class="sig sig-object py" id="RoadRunner.Config.LOADSBMLOPTIONS_PERMISSIVE">
+<span class="sig-prename descclassname"><span class="pre">Config.</span></span><span class="sig-name descname"><span class="pre">LOADSBMLOPTIONS_PERMISSIVE</span></span><em class="property"> <span class="pre">int</span></em><a class="headerlink" href="#RoadRunner.Config.LOADSBMLOPTIONS_PERMISSIVE" title="Permalink to this definition">¶</a></dt>
 <dd><p>Accept some non-valid SBML (such as Booleans in numberic expressions).</p>
 <p>For legacy code only. Do not use.</p>
 </dd></dl>
 
 <dl class="py attribute">
-<dt id="RoadRunner.Config.MAX_OUTPUT_ROWS">
-<code class="sig-prename descclassname">Config.</code><code class="sig-name descname">MAX_OUTPUT_ROWS</code><em class="property"> int</em><a class="headerlink" href="#RoadRunner.Config.MAX_OUTPUT_ROWS" title="Permalink to this definition">¶</a></dt>
+<dt class="sig sig-object py" id="RoadRunner.Config.MAX_OUTPUT_ROWS">
+<span class="sig-prename descclassname"><span class="pre">Config.</span></span><span class="sig-name descname"><span class="pre">MAX_OUTPUT_ROWS</span></span><em class="property"> <span class="pre">int</span></em><a class="headerlink" href="#RoadRunner.Config.MAX_OUTPUT_ROWS" title="Permalink to this definition">¶</a></dt>
 <dd><p>Set the maximum number of rows in the output matrix.</p>
 <p>For models with very fine time stepping, the output of simulate can
 use up all available memory and crash the system. This option provides
@@ -434,8 +437,8 @@ The simulation will be aborted and the output truncated if this value is exceede
 </dd></dl>
 
 <dl class="py attribute">
-<dt id="RoadRunner.Config.ALLOW_EVENTS_IN_STEADY_STATE_CALCULATIONS">
-<code class="sig-prename descclassname">Config.</code><code class="sig-name descname">ALLOW_EVENTS_IN_STEADY_STATE_CALCULATIONS</code><em class="property"> bool</em><a class="headerlink" href="#RoadRunner.Config.ALLOW_EVENTS_IN_STEADY_STATE_CALCULATIONS" title="Permalink to this definition">¶</a></dt>
+<dt class="sig sig-object py" id="RoadRunner.Config.ALLOW_EVENTS_IN_STEADY_STATE_CALCULATIONS">
+<span class="sig-prename descclassname"><span class="pre">Config.</span></span><span class="sig-name descname"><span class="pre">ALLOW_EVENTS_IN_STEADY_STATE_CALCULATIONS</span></span><em class="property"> <span class="pre">bool</span></em><a class="headerlink" href="#RoadRunner.Config.ALLOW_EVENTS_IN_STEADY_STATE_CALCULATIONS" title="Permalink to this definition">¶</a></dt>
 <dd><p>Enable or disable steady state calculations when a model contains events</p>
 <p>If true, steady state calculations will be carried out irrespective
 of whether events are present or not.

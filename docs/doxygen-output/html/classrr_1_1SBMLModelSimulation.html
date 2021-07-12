@@ -22,7 +22,7 @@
  <tr style="height: 56px;">
   <td id="projectalign" style="padding-left: 0.5em;">
    <div id="projectname">roadrunner
-   &#160;<span id="projectnumber">2.0.5</span>
+   &#160;<span id="projectnumber">2.0.8</span>
    </div>
    <div id="projectbrief">Fast simulator for SBML models</div>
   </td>
@@ -88,33 +88,33 @@ Inheritance diagram for rr::SBMLModelSimulation:</div>
 <table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pub-methods"></a>
 Public Member Functions</h2></td></tr>
-<tr class="memitem:ae836bdd0b9ba32e716bb936f23c394d0"><td class="memItemLeft" align="right" valign="top"><a id="ae836bdd0b9ba32e716bb936f23c394d0"></a>
-&#160;</td><td class="memItemRight" valign="bottom"><b>SBMLModelSimulation</b> (const string &amp;dataOutputFolder=&quot;&quot;, const string &amp;tempDataFilePath=&quot;&quot;)</td></tr>
-<tr class="separator:ae836bdd0b9ba32e716bb936f23c394d0"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a3e1f9dbf8939eafeed739a84d9e02ddb"><td class="memItemLeft" align="right" valign="top"><a id="a3e1f9dbf8939eafeed739a84d9e02ddb"></a>
-bool&#160;</td><td class="memItemRight" valign="bottom"><b>SetModelFilePath</b> (const string &amp;path)</td></tr>
-<tr class="separator:a3e1f9dbf8939eafeed739a84d9e02ddb"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a29a0e1955d7f5b1ae1fea6fbd19ad85d"><td class="memItemLeft" align="right" valign="top"><a id="a29a0e1955d7f5b1ae1fea6fbd19ad85d"></a>
-bool&#160;</td><td class="memItemRight" valign="bottom"><b>SetModelFileName</b> (const string &amp;name)</td></tr>
-<tr class="separator:a29a0e1955d7f5b1ae1fea6fbd19ad85d"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a92fb11cb280df97eff51973a17be8d88"><td class="memItemLeft" align="right" valign="top"><a id="a92fb11cb280df97eff51973a17be8d88"></a>
-bool&#160;</td><td class="memItemRight" valign="bottom"><b>SetDataOutputFolder</b> (const string &amp;name)</td></tr>
-<tr class="separator:a92fb11cb280df97eff51973a17be8d88"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a3a884571a8337da75f89aac9fb9c5cc0"><td class="memItemLeft" align="right" valign="top"><a id="a3a884571a8337da75f89aac9fb9c5cc0"></a>
-string&#160;</td><td class="memItemRight" valign="bottom"><b>GetModelsFullFilePath</b> ()</td></tr>
-<tr class="separator:a3a884571a8337da75f89aac9fb9c5cc0"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a8160a3bf345b2333c70f5b2b2120dea9"><td class="memItemLeft" align="right" valign="top"><a id="a8160a3bf345b2333c70f5b2b2120dea9"></a>
-string&#160;</td><td class="memItemRight" valign="bottom"><b>GetDataOutputFolder</b> ()</td></tr>
-<tr class="separator:a8160a3bf345b2333c70f5b2b2120dea9"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a80114ca7df9fdb41534238eced1404e5"><td class="memItemLeft" align="right" valign="top"><a id="a80114ca7df9fdb41534238eced1404e5"></a>
-string&#160;</td><td class="memItemRight" valign="bottom"><b>GetTempDataFolder</b> ()</td></tr>
-<tr class="separator:a80114ca7df9fdb41534238eced1404e5"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a771083c45fd579a331024df694004f14"><td class="memItemLeft" align="right" valign="top"><a id="a771083c45fd579a331024df694004f14"></a>
+&#160;</td><td class="memItemRight" valign="bottom"><b>SBMLModelSimulation</b> (std::filesystem::path dataOutputFolder=&quot;&quot;, std::filesystem::path tempDataFilePath=&quot;&quot;)</td></tr>
+<tr class="separator:a771083c45fd579a331024df694004f14"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ae7b20887b28c4cedee3eee861b62402c"><td class="memItemLeft" align="right" valign="top"><a id="ae7b20887b28c4cedee3eee861b62402c"></a>
+bool&#160;</td><td class="memItemRight" valign="bottom"><b>SetModelFilePath</b> (const std::filesystem::path &amp;path)</td></tr>
+<tr class="separator:ae7b20887b28c4cedee3eee861b62402c"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a60fdb17462b8665f15b27292bdad943e"><td class="memItemLeft" align="right" valign="top"><a id="a60fdb17462b8665f15b27292bdad943e"></a>
+bool&#160;</td><td class="memItemRight" valign="bottom"><b>SetModelFileName</b> (const std::string &amp;name)</td></tr>
+<tr class="separator:a60fdb17462b8665f15b27292bdad943e"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a530d177d96459de5ee95cb675f7b80bc"><td class="memItemLeft" align="right" valign="top"><a id="a530d177d96459de5ee95cb675f7b80bc"></a>
+bool&#160;</td><td class="memItemRight" valign="bottom"><b>SetDataOutputFolder</b> (const std::filesystem::path &amp;name)</td></tr>
+<tr class="separator:a530d177d96459de5ee95cb675f7b80bc"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a9170b67d3bad8e0f9eb2afd91be38b4c"><td class="memItemLeft" align="right" valign="top"><a id="a9170b67d3bad8e0f9eb2afd91be38b4c"></a>
+std::filesystem::path&#160;</td><td class="memItemRight" valign="bottom"><b>GetModelsFullFilePath</b> ()</td></tr>
+<tr class="separator:a9170b67d3bad8e0f9eb2afd91be38b4c"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a17cc8db366fe9141013c1345bba9933d"><td class="memItemLeft" align="right" valign="top"><a id="a17cc8db366fe9141013c1345bba9933d"></a>
+std::filesystem::path&#160;</td><td class="memItemRight" valign="bottom"><b>GetDataOutputFolder</b> ()</td></tr>
+<tr class="separator:a17cc8db366fe9141013c1345bba9933d"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a9bff6e9727058faa27a38740364487c4"><td class="memItemLeft" align="right" valign="top"><a id="a9bff6e9727058faa27a38740364487c4"></a>
+std::filesystem::path&#160;</td><td class="memItemRight" valign="bottom"><b>GetTempDataFolder</b> ()</td></tr>
+<tr class="separator:a9bff6e9727058faa27a38740364487c4"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:ad14d2dc5321366ac8f0453e557514189"><td class="memItemLeft" align="right" valign="top"><a id="ad14d2dc5321366ac8f0453e557514189"></a>
 bool&#160;</td><td class="memItemRight" valign="bottom"><b>UseEngine</b> (<a class="el" href="classrr_1_1RoadRunner.html">RoadRunner</a> *engine)</td></tr>
 <tr class="separator:ad14d2dc5321366ac8f0453e557514189"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a9f0b4ac1670fcf542f4ee1630b1d2adb"><td class="memItemLeft" align="right" valign="top"><a id="a9f0b4ac1670fcf542f4ee1630b1d2adb"></a>
-bool&#160;</td><td class="memItemRight" valign="bottom"><b>SaveModelAsXML</b> (const string &amp;folder)</td></tr>
-<tr class="separator:a9f0b4ac1670fcf542f4ee1630b1d2adb"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a1db4f7776546d6d169a784d1ce4ae67f"><td class="memItemLeft" align="right" valign="top"><a id="a1db4f7776546d6d169a784d1ce4ae67f"></a>
+bool&#160;</td><td class="memItemRight" valign="bottom"><b>SaveModelAsXML</b> (std::filesystem::path &amp;folder)</td></tr>
+<tr class="separator:a1db4f7776546d6d169a784d1ce4ae67f"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:adec0da24ef269f439d884145fa3f445f"><td class="memItemLeft" align="right" valign="top"><a id="adec0da24ef269f439d884145fa3f445f"></a>
 bool&#160;</td><td class="memItemRight" valign="bottom"><b>SetTimeStart</b> (const double &amp;tStart)</td></tr>
 <tr class="separator:adec0da24ef269f439d884145fa3f445f"><td class="memSeparator" colspan="2">&#160;</td></tr>
@@ -124,9 +124,9 @@ bool&#160;</td><td class="memItemRight" valign="bottom"><b>SetTimeEnd</b> (const
 <tr class="memitem:a80106e5d163765ea77126724208ab050"><td class="memItemLeft" align="right" valign="top"><a id="a80106e5d163765ea77126724208ab050"></a>
 bool&#160;</td><td class="memItemRight" valign="bottom"><b>SetNumberOfPoints</b> (const int &amp;pts)</td></tr>
 <tr class="separator:a80106e5d163765ea77126724208ab050"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:af40d37dceedf482ae65658561a1de402"><td class="memItemLeft" align="right" valign="top"><a id="af40d37dceedf482ae65658561a1de402"></a>
-bool&#160;</td><td class="memItemRight" valign="bottom"><b>SetSelectionList</b> (const string &amp;list)</td></tr>
-<tr class="separator:af40d37dceedf482ae65658561a1de402"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a28b61bbeb0991f94b015a0f409c92a98"><td class="memItemLeft" align="right" valign="top"><a id="a28b61bbeb0991f94b015a0f409c92a98"></a>
+bool&#160;</td><td class="memItemRight" valign="bottom"><b>SetSelectionList</b> (const std::string &amp;list)</td></tr>
+<tr class="separator:a28b61bbeb0991f94b015a0f409c92a98"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:acd01ef98f39da61f98470cd2e7bf80f7"><td class="memItemLeft" align="right" valign="top"><a id="acd01ef98f39da61f98470cd2e7bf80f7"></a>
 virtual bool&#160;</td><td class="memItemRight" valign="bottom"><b>LoadSBMLFromFile</b> ()</td></tr>
 <tr class="separator:acd01ef98f39da61f98470cd2e7bf80f7"><td class="memSeparator" colspan="2">&#160;</td></tr>
@@ -136,12 +136,12 @@ virtual bool&#160;</td><td class="memItemRight" valign="bottom"><b>Simulate</b> 
 <tr class="memitem:a0136b688f12b277e005053784eddc570"><td class="memItemLeft" align="right" valign="top"><a id="a0136b688f12b277e005053784eddc570"></a>
 virtual bool&#160;</td><td class="memItemRight" valign="bottom"><b>SaveResult</b> ()</td></tr>
 <tr class="separator:a0136b688f12b277e005053784eddc570"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a7ac7fc2c2464bbc1a6f02aeed6293edd"><td class="memItemLeft" align="right" valign="top"><a id="a7ac7fc2c2464bbc1a6f02aeed6293edd"></a>
-void&#160;</td><td class="memItemRight" valign="bottom"><b>loadSBMLTolerances</b> (std::string const &amp;filename)</td></tr>
-<tr class="separator:a7ac7fc2c2464bbc1a6f02aeed6293edd"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a664500e9203e54058c06cfb977586e2c"><td class="memItemLeft" align="right" valign="top"><a id="a664500e9203e54058c06cfb977586e2c"></a>
-virtual bool&#160;</td><td class="memItemRight" valign="bottom"><b>LoadSettings</b> (const string &amp;fName=&quot;&quot;)</td></tr>
-<tr class="separator:a664500e9203e54058c06cfb977586e2c"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ac796174e2c537aad837bdcdc97aff67a"><td class="memItemLeft" align="right" valign="top"><a id="ac796174e2c537aad837bdcdc97aff67a"></a>
+void&#160;</td><td class="memItemRight" valign="bottom"><b>loadSBMLTolerances</b> (std::filesystem::path const &amp;filename)</td></tr>
+<tr class="separator:ac796174e2c537aad837bdcdc97aff67a"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a81ad8a556c6a524942eafd107f9677cd"><td class="memItemLeft" align="right" valign="top"><a id="a81ad8a556c6a524942eafd107f9677cd"></a>
+virtual bool&#160;</td><td class="memItemRight" valign="bottom"><b>LoadSettings</b> (const std::filesystem::path &amp;fName=&quot;&quot;)</td></tr>
+<tr class="separator:a81ad8a556c6a524942eafd107f9677cd"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a6958421f1a2e4790b281f1c41a97c9a7"><td class="memItemLeft" align="right" valign="top"><a id="a6958421f1a2e4790b281f1c41a97c9a7"></a>
 virtual <a class="el" href="classrr_1_1RoadRunnerData.html">RoadRunnerData</a>&#160;</td><td class="memItemRight" valign="bottom"><b>GetResult</b> ()</td></tr>
 <tr class="separator:a6958421f1a2e4790b281f1c41a97c9a7"><td class="memSeparator" colspan="2">&#160;</td></tr>
@@ -177,24 +177,24 @@ double&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="cl
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pro-attribs"></a>
 Protected Attributes</h2></td></tr>
-<tr class="memitem:a1b9524e46c6763794ea8cdfe6c57b172"><td class="memItemLeft" align="right" valign="top"><a id="a1b9524e46c6763794ea8cdfe6c57b172"></a>
-string&#160;</td><td class="memItemRight" valign="bottom"><b>mModelFileName</b></td></tr>
-<tr class="separator:a1b9524e46c6763794ea8cdfe6c57b172"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:abe193c4217ff4fd5d97d037b688b8739"><td class="memItemLeft" align="right" valign="top"><a id="abe193c4217ff4fd5d97d037b688b8739"></a>
-string&#160;</td><td class="memItemRight" valign="bottom"><b>mModelFilePath</b></td></tr>
-<tr class="separator:abe193c4217ff4fd5d97d037b688b8739"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ac1f08e8a2bd59043bd1ecf421d3ad2d6"><td class="memItemLeft" align="right" valign="top"><a id="ac1f08e8a2bd59043bd1ecf421d3ad2d6"></a>
-string&#160;</td><td class="memItemRight" valign="bottom"><b>mModelSettingsFileName</b></td></tr>
-<tr class="separator:ac1f08e8a2bd59043bd1ecf421d3ad2d6"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a6a6c8fc3c3f4576420f036e01c76d1a1"><td class="memItemLeft" align="right" valign="top"><a id="a6a6c8fc3c3f4576420f036e01c76d1a1"></a>
-string&#160;</td><td class="memItemRight" valign="bottom"><b>mSimulationLogFile</b></td></tr>
-<tr class="separator:a6a6c8fc3c3f4576420f036e01c76d1a1"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:accdc5c822520b2b01f3313c3f512f585"><td class="memItemLeft" align="right" valign="top"><a id="accdc5c822520b2b01f3313c3f512f585"></a>
-string&#160;</td><td class="memItemRight" valign="bottom"><b>mDataOutputFolder</b></td></tr>
-<tr class="separator:accdc5c822520b2b01f3313c3f512f585"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a829d4b8bdf2ca2682d0cc2f131ba0fdf"><td class="memItemLeft" align="right" valign="top"><a id="a829d4b8bdf2ca2682d0cc2f131ba0fdf"></a>
-string&#160;</td><td class="memItemRight" valign="bottom"><b>mTempDataFolder</b></td></tr>
-<tr class="separator:a829d4b8bdf2ca2682d0cc2f131ba0fdf"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ada1bcca37d76d585962a8f096497c17a"><td class="memItemLeft" align="right" valign="top"><a id="ada1bcca37d76d585962a8f096497c17a"></a>
+std::string&#160;</td><td class="memItemRight" valign="bottom"><b>mModelFileName</b></td></tr>
+<tr class="separator:ada1bcca37d76d585962a8f096497c17a"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a75266f7f4e354a6340c79a472a2c457f"><td class="memItemLeft" align="right" valign="top"><a id="a75266f7f4e354a6340c79a472a2c457f"></a>
+std::filesystem::path&#160;</td><td class="memItemRight" valign="bottom"><b>mModelFilePath</b></td></tr>
+<tr class="separator:a75266f7f4e354a6340c79a472a2c457f"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ae38ff6deb489747ed40ec0c95c0e2085"><td class="memItemLeft" align="right" valign="top"><a id="ae38ff6deb489747ed40ec0c95c0e2085"></a>
+std::filesystem::path&#160;</td><td class="memItemRight" valign="bottom"><b>mModelSettingsFileName</b></td></tr>
+<tr class="separator:ae38ff6deb489747ed40ec0c95c0e2085"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a2829ee6a48df673cb5548f34a15372df"><td class="memItemLeft" align="right" valign="top"><a id="a2829ee6a48df673cb5548f34a15372df"></a>
+std::filesystem::path&#160;</td><td class="memItemRight" valign="bottom"><b>mSimulationLogFile</b></td></tr>
+<tr class="separator:a2829ee6a48df673cb5548f34a15372df"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a8954cfa1bc56e4199eab00dae5706302"><td class="memItemLeft" align="right" valign="top"><a id="a8954cfa1bc56e4199eab00dae5706302"></a>
+std::filesystem::path&#160;</td><td class="memItemRight" valign="bottom"><b>mDataOutputFolder</b></td></tr>
+<tr class="separator:a8954cfa1bc56e4199eab00dae5706302"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a2cf5ab05a20b5aec6d6506ff30327589"><td class="memItemLeft" align="right" valign="top"><a id="a2cf5ab05a20b5aec6d6506ff30327589"></a>
+std::filesystem::path&#160;</td><td class="memItemRight" valign="bottom"><b>mTempDataFolder</b></td></tr>
+<tr class="separator:a2cf5ab05a20b5aec6d6506ff30327589"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a60f7673c75dc2d7ab3e907dc2ec53c39"><td class="memItemLeft" align="right" valign="top"><a id="a60f7673c75dc2d7ab3e907dc2ec53c39"></a>
 <a class="el" href="classrr_1_1RoadRunner.html">RoadRunner</a> *&#160;</td><td class="memItemRight" valign="bottom"><b>mEngine</b></td></tr>
 <tr class="separator:a60f7673c75dc2d7ab3e907dc2ec53c39"><td class="memSeparator" colspan="2">&#160;</td></tr>

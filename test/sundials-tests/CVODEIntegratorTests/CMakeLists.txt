@@ -1,17 +1,15 @@
 
 
-set(SHARED_TEST_FILES ../TestModelFactory )
-
 add_test_executable(
         test_cvode_integration test_targets
         CVODEIntegratorIntegrationTest.cpp
-        ${SHARED_TEST_FILES}
+        ${SharedTestFiles}
 )
 
 add_test_executable(
         test_cvode_unit test_targets
         CVODEIntegratorUnitTests.cpp
-        ${SHARED_TEST_FILES}
+        ${SharedTestFiles}
 )
 
 # make test_targets list global to all tests

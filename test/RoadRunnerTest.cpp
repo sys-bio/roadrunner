@@ -52,7 +52,7 @@ void RoadRunnerTest::validateRoadRunnerTestDir() {
     }
 }
 
-void RoadRunnerTest::checkMatrixEqual(ls::DoubleMatrix expectedMatrix, ls::DoubleMatrix actualMatrix) {
+void RoadRunnerTest::checkMatrixEqual(ls::DoubleMatrix expectedMatrix, ls::DoubleMatrix actualMatrix, double absError) {
     if (expectedMatrix.numRows() != actualMatrix.numRows()) {
         std::cerr << "number of rows in expected Vs actual are not equal" << std::endl;
         ASSERT_EQ(expectedMatrix.numRows(), actualMatrix.numRows());
@@ -67,7 +67,7 @@ void RoadRunnerTest::checkMatrixEqual(ls::DoubleMatrix expectedMatrix, ls::Doubl
         for (int j = 0; j < expectedMatrix.numCols(); j++) {
             std::cout << "Comparing expected result: " << expectedMatrix[i][j]
                       << " with actual result: " << actualMatrix[i][j] << std::endl;
-            EXPECT_NEAR(expectedMatrix[i][j], actualMatrix[i][j], 0.001);
+            EXPECT_NEAR(expectedMatrix[i][j], actualMatrix[i][j], absError);
         }
     }
 }

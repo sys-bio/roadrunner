@@ -57,7 +57,25 @@ namespace rr {
 
     RR_DECLSPEC int compareNoCase(const std::string &str1, const std::string &str2);
 
-    RR_DECLSPEC std::string trim(const std::string &str, const char &toTrim = ' ');
+    RR_DECLSPEC std::string trim(const std::string &str, const char &toTrim);
+
+    /**
+     * @brief removes both leading and trailing white
+     * space characters from input string @param str
+     */
+    RR_DECLSPEC std::string& trim(std::string &str);
+
+    /**
+     * @brief left trim. Removes leading white space characters
+     * from string @param str
+     */
+    RR_DECLSPEC std::string & ltrim(std::string & str);
+
+    /**
+     * @brief right trim. Removes trailing white space characters
+     * from string @param str
+     */
+    RR_DECLSPEC std::string & rtrim(std::string & str);
 
     RR_DECLSPEC bool startsWith(const std::string &src, const std::string &sub);
 

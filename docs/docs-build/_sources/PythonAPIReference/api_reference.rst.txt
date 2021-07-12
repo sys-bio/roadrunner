@@ -4,7 +4,6 @@ Python RoadRunner API Reference
 
 .. toctree::
     :maxdepth: 1
-    :hidden:
 
     cls_Config.rst
     cls_RoadRunner.rst
@@ -32,5 +31,3 @@ The RoadRunner SBML Simulation Engine Python API,
 
 .. py:currentmodule:: RoadRunner
 
-This is the Python API Reference page for the module: :mod:`roadrunner`. Please
-use the links left to navigate.

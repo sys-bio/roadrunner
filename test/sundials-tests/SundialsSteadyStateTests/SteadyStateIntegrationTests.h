@@ -19,10 +19,15 @@ class SteadyStateIntegrationTest : public ::testing::Test {
 public:
     SteadyStateIntegrationTest() = default;
 
+    /**
+     * deprecated. Use SteadyStateResult::checkSteadyState instead
+     */
     template<class TestModelType>
     void testSteadyState(
             const std::string &modelName,
             const std::string &solverName) {
+        // todo much of this method has been abstracted further. See "SteadyStateResult::checkSteadyState".
+        //  Do refactoring to use the new interface.
         // get the model
         TestModel *testModel_ = TestModelFactory(modelName);
         TestModelType *testModel = dynamic_cast<TestModelType *>(testModel_);

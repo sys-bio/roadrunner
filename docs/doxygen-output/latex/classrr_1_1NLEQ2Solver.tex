@@ -3,31 +3,24 @@
 Inheritance diagram for rr\+::N\+L\+E\+Q2\+Solver\+:\begin{figure}[H]
 \begin{center}
 \leavevmode
-\includegraphics[height=3.000000cm]{classrr_1_1NLEQ2Solver}
+\includegraphics[height=4.000000cm]{classrr_1_1NLEQ2Solver}
 \end{center}
 \end{figure}
 \doxysubsection*{Public Member Functions}
 \begin{DoxyCompactItemize}
 \item 
-\mbox{\Hypertarget{classrr_1_1NLEQ2Solver_ab55885bb773e0645a240e28eba291625}\label{classrr_1_1NLEQ2Solver_ab55885bb773e0645a240e28eba291625}} 
-\mbox{\hyperlink{classrr_1_1NLEQ2Solver_ab55885bb773e0645a240e28eba291625}{N\+L\+E\+Q2\+Solver}} (\mbox{\hyperlink{classrr_1_1ExecutableModel}{Executable\+Model}} $\ast$\+\_\+model=N\+U\+LL)
-\begin{DoxyCompactList}\small\item\em Creates a new Instance of N\+L\+EQ for the given Model. \end{DoxyCompactList}\item 
-virtual void \mbox{\hyperlink{classrr_1_1NLEQ2Solver_af9a54df7b295c801430f213699c33512}{sync\+With\+Model}} (\mbox{\hyperlink{classrr_1_1ExecutableModel}{Executable\+Model}} $\ast$m)
-\begin{DoxyCompactList}\small\item\em Called whenever a new model is loaded to allow integrator to reset internal state. \end{DoxyCompactList}\item 
-\mbox{\Hypertarget{classrr_1_1NLEQ2Solver_afad697f8ba18773dcdb229a0cf44f130}\label{classrr_1_1NLEQ2Solver_afad697f8ba18773dcdb229a0cf44f130}} 
-void {\bfseries load\+Config\+Settings} ()
-\item 
-void \mbox{\hyperlink{classrr_1_1NLEQ2Solver_a53f872e0ee1a0afeb4a81b433c5cb7fc}{reset\+Settings}} ()
-\begin{DoxyCompactList}\small\item\em Reset all integrator settings to their respective default values. \end{DoxyCompactList}\item 
-std\+::string \mbox{\hyperlink{classrr_1_1NLEQ2Solver_a23b111e063e51f20ecb44c8b81eee98c}{get\+Name}} () const
+std\+::string \mbox{\hyperlink{classrr_1_1NLEQ2Solver_acab401cc8acf3cf2049557b10342efe1}{get\+Name}} () const override
 \begin{DoxyCompactList}\small\item\em Get the name for this \mbox{\hyperlink{classrr_1_1Solver}{Solver}}. \end{DoxyCompactList}\item 
-std\+::string \mbox{\hyperlink{classrr_1_1NLEQ2Solver_ab5005ced545fa4b22178b2047b12557c}{get\+Description}} () const
+std\+::string \mbox{\hyperlink{classrr_1_1NLEQ2Solver_aa262aaf5e1361ac34802a3e4c28772af}{get\+Description}} () const override
 \begin{DoxyCompactList}\small\item\em Get the description for this \mbox{\hyperlink{classrr_1_1Solver}{Solver}}. \end{DoxyCompactList}\item 
-std\+::string \mbox{\hyperlink{classrr_1_1NLEQ2Solver_a310f481e87ff32cc51fa62345afe6e83}{get\+Hint}} () const
+std\+::string \mbox{\hyperlink{classrr_1_1NLEQ2Solver_acb4cad3d5920adff567ee9a70d3646bc}{get\+Hint}} () const override
 \begin{DoxyCompactList}\small\item\em Get the hint for this \mbox{\hyperlink{classrr_1_1Solver}{Solver}}. \end{DoxyCompactList}\item 
-\mbox{\Hypertarget{classrr_1_1NLEQ2Solver_ad729943f552f731f9dc7adea75626453}\label{classrr_1_1NLEQ2Solver_ad729943f552f731f9dc7adea75626453}} 
-double {\bfseries solve} ()
-\end{DoxyCompactItemize}
+\mbox{\Hypertarget{classrr_1_1NLEQ2Solver_ad4f39478cb347dc156023de3578dfb3c}\label{classrr_1_1NLEQ2Solver_ad4f39478cb347dc156023de3578dfb3c}} 
+double {\bfseries solve} () override
+\item 
+\mbox{\Hypertarget{classrr_1_1NLEQ2Solver_a285280e71f68f3bebf39eca43e4b16c5}\label{classrr_1_1NLEQ2Solver_a285280e71f68f3bebf39eca43e4b16c5}} 
+\mbox{\hyperlink{classrr_1_1NLEQ2Solver_a285280e71f68f3bebf39eca43e4b16c5}{N\+L\+E\+Q\+Solver}} (\mbox{\hyperlink{classrr_1_1ExecutableModel}{Executable\+Model}} $\ast$model)
+\begin{DoxyCompactList}\small\item\em Creates a new Instance of N\+L\+EQ for the given Model. \end{DoxyCompactList}\end{DoxyCompactItemize}
 \doxysubsection*{Static Public Member Functions}
 \begin{DoxyCompactItemize}
 \item 
@@ -41,11 +34,11 @@ static std\+::string \mbox{\hyperlink{classrr_1_1NLEQ2Solver_a37aaaaf224d6372d2d
 
 
 \doxysubsection{Member Function Documentation}
-\mbox{\Hypertarget{classrr_1_1NLEQ2Solver_ab5005ced545fa4b22178b2047b12557c}\label{classrr_1_1NLEQ2Solver_ab5005ced545fa4b22178b2047b12557c}} 
+\mbox{\Hypertarget{classrr_1_1NLEQ2Solver_aa262aaf5e1361ac34802a3e4c28772af}\label{classrr_1_1NLEQ2Solver_aa262aaf5e1361ac34802a3e4c28772af}} 
 \index{rr::NLEQ2Solver@{rr::NLEQ2Solver}!getDescription@{getDescription}}
 \index{getDescription@{getDescription}!rr::NLEQ2Solver@{rr::NLEQ2Solver}}
 \doxysubsubsection{\texorpdfstring{getDescription()}{getDescription()}}
-{\footnotesize\ttfamily std\+::string rr\+::\+N\+L\+E\+Q2\+Solver\+::get\+Description (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption}) const\hspace{0.3cm}{\ttfamily [virtual]}}
+{\footnotesize\ttfamily std\+::string rr\+::\+N\+L\+E\+Q2\+Solver\+::get\+Description (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption}) const\hspace{0.3cm}{\ttfamily [override]}, {\ttfamily [virtual]}}
 
 
 
@@ -55,17 +48,17 @@ Get the description for this \mbox{\hyperlink{classrr_1_1Solver}{Solver}}.
 W\+BC 
 \end{DoxyAuthor}
 \begin{DoxyNote}{Note}
-Delegates to \mbox{\hyperlink{classrr_1_1NLEQ2Solver_ab5005ced545fa4b22178b2047b12557c}{get\+Description}} 
+Delegates to \mbox{\hyperlink{classrr_1_1NLEQ2Solver_aa262aaf5e1361ac34802a3e4c28772af}{get\+Description}} 
 \end{DoxyNote}
 
 
 Implements \mbox{\hyperlink{classrr_1_1Solver_a86067147c7631ca80d51667322f1a8f5}{rr\+::\+Solver}}.
 
-\mbox{\Hypertarget{classrr_1_1NLEQ2Solver_a310f481e87ff32cc51fa62345afe6e83}\label{classrr_1_1NLEQ2Solver_a310f481e87ff32cc51fa62345afe6e83}} 
+\mbox{\Hypertarget{classrr_1_1NLEQ2Solver_acb4cad3d5920adff567ee9a70d3646bc}\label{classrr_1_1NLEQ2Solver_acb4cad3d5920adff567ee9a70d3646bc}} 
 \index{rr::NLEQ2Solver@{rr::NLEQ2Solver}!getHint@{getHint}}
 \index{getHint@{getHint}!rr::NLEQ2Solver@{rr::NLEQ2Solver}}
 \doxysubsubsection{\texorpdfstring{getHint()}{getHint()}}
-{\footnotesize\ttfamily std\+::string rr\+::\+N\+L\+E\+Q2\+Solver\+::get\+Hint (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption}) const\hspace{0.3cm}{\ttfamily [virtual]}}
+{\footnotesize\ttfamily std\+::string rr\+::\+N\+L\+E\+Q2\+Solver\+::get\+Hint (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption}) const\hspace{0.3cm}{\ttfamily [override]}, {\ttfamily [virtual]}}
 
 
 
@@ -75,17 +68,17 @@ Get the hint for this \mbox{\hyperlink{classrr_1_1Solver}{Solver}}.
 W\+BC 
 \end{DoxyAuthor}
 \begin{DoxyNote}{Note}
-Delegates to \mbox{\hyperlink{classrr_1_1NLEQ2Solver_a310f481e87ff32cc51fa62345afe6e83}{get\+Hint}} 
+Delegates to \mbox{\hyperlink{classrr_1_1NLEQ2Solver_acb4cad3d5920adff567ee9a70d3646bc}{get\+Hint}} 
 \end{DoxyNote}
 
 
 Implements \mbox{\hyperlink{classrr_1_1Solver_aff005f7e71bc73123ecbd511a77f71b6}{rr\+::\+Solver}}.
 
-\mbox{\Hypertarget{classrr_1_1NLEQ2Solver_a23b111e063e51f20ecb44c8b81eee98c}\label{classrr_1_1NLEQ2Solver_a23b111e063e51f20ecb44c8b81eee98c}} 
+\mbox{\Hypertarget{classrr_1_1NLEQ2Solver_acab401cc8acf3cf2049557b10342efe1}\label{classrr_1_1NLEQ2Solver_acab401cc8acf3cf2049557b10342efe1}} 
 \index{rr::NLEQ2Solver@{rr::NLEQ2Solver}!getName@{getName}}
 \index{getName@{getName}!rr::NLEQ2Solver@{rr::NLEQ2Solver}}
 \doxysubsubsection{\texorpdfstring{getName()}{getName()}}
-{\footnotesize\ttfamily std\+::string rr\+::\+N\+L\+E\+Q2\+Solver\+::get\+Name (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption}) const\hspace{0.3cm}{\ttfamily [virtual]}}
+{\footnotesize\ttfamily std\+::string rr\+::\+N\+L\+E\+Q2\+Solver\+::get\+Name (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption}) const\hspace{0.3cm}{\ttfamily [override]}, {\ttfamily [virtual]}}
 
 
 
@@ -95,7 +88,7 @@ Get the name for this \mbox{\hyperlink{classrr_1_1Solver}{Solver}}.
 W\+BC, J\+KM 
 \end{DoxyAuthor}
 \begin{DoxyNote}{Note}
-Delegates to \mbox{\hyperlink{classrr_1_1NLEQ2Solver_a23b111e063e51f20ecb44c8b81eee98c}{get\+Name}} 
+Delegates to \mbox{\hyperlink{classrr_1_1NLEQ2Solver_acab401cc8acf3cf2049557b10342efe1}{get\+Name}} 
 \end{DoxyNote}
 
 
@@ -140,40 +133,6 @@ Get the name for this \mbox{\hyperlink{classrr_1_1Solver}{Solver}}.
 \begin{DoxyAuthor}{Author}
 J\+KM 
 \end{DoxyAuthor}
-\mbox{\Hypertarget{classrr_1_1NLEQ2Solver_a53f872e0ee1a0afeb4a81b433c5cb7fc}\label{classrr_1_1NLEQ2Solver_a53f872e0ee1a0afeb4a81b433c5cb7fc}} 
-\index{rr::NLEQ2Solver@{rr::NLEQ2Solver}!resetSettings@{resetSettings}}
-\index{resetSettings@{resetSettings}!rr::NLEQ2Solver@{rr::NLEQ2Solver}}
-\doxysubsubsection{\texorpdfstring{resetSettings()}{resetSettings()}}
-{\footnotesize\ttfamily void rr\+::\+N\+L\+E\+Q2\+Solver\+::reset\+Settings (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [virtual]}}
-
-
-
-Reset all integrator settings to their respective default values. 
-
-\begin{DoxyAuthor}{Author}
-J\+KM 
-\end{DoxyAuthor}
-
-
-Reimplemented from \mbox{\hyperlink{classrr_1_1Solver_a71c8b404a40447f879b2253e7dcc3b85}{rr\+::\+Solver}}.
-
-\mbox{\Hypertarget{classrr_1_1NLEQ2Solver_af9a54df7b295c801430f213699c33512}\label{classrr_1_1NLEQ2Solver_af9a54df7b295c801430f213699c33512}} 
-\index{rr::NLEQ2Solver@{rr::NLEQ2Solver}!syncWithModel@{syncWithModel}}
-\index{syncWithModel@{syncWithModel}!rr::NLEQ2Solver@{rr::NLEQ2Solver}}
-\doxysubsubsection{\texorpdfstring{syncWithModel()}{syncWithModel()}}
-{\footnotesize\ttfamily void rr\+::\+N\+L\+E\+Q2\+Solver\+::sync\+With\+Model (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{classrr_1_1ExecutableModel}{Executable\+Model}} $\ast$}]{m }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [virtual]}}
-
-
-
-Called whenever a new model is loaded to allow integrator to reset internal state. 
-
-\begin{DoxyAuthor}{Author}
-J\+KM 
-\end{DoxyAuthor}
-
-
-Implements \mbox{\hyperlink{classrr_1_1SteadyStateSolver_ac69478bcf73ab02178b001250293c4c9}{rr\+::\+Steady\+State\+Solver}}.
-
 
 
 The documentation for this class was generated from the following files\+:\begin{DoxyCompactItemize}

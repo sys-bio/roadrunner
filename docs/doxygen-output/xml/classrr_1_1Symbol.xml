@@ -47,9 +47,9 @@
         </inbodydescription>
         <location file="c/rrSymbol.h" line="33" column="25" bodyfile="c/rrSymbol.h" bodystart="33" bodyend="-1"/>
       </memberdef>
-      <memberdef kind="variable" id="classrr_1_1Symbol_1a473a1eeae3075d253cbf831976f90e11" prot="public" static="no" mutable="no">
-        <type>string</type>
-        <definition>string rr::Symbol::compartmentName</definition>
+      <memberdef kind="variable" id="classrr_1_1Symbol_1aa7c4ca162218cc6c0babcc0423c8a42a" prot="public" static="no" mutable="no">
+        <type>std::string</type>
+        <definition>std::string rr::Symbol::compartmentName</definition>
         <argsstring></argsstring>
         <name>compartmentName</name>
         <briefdescription>
@@ -59,7 +59,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="c/rrSymbol.h" line="39" column="25" bodyfile="c/rrSymbol.h" bodystart="39" bodyend="-1"/>
+        <location file="c/rrSymbol.h" line="39" column="30" bodyfile="c/rrSymbol.h" bodystart="39" bodyend="-1"/>
       </memberdef>
       <memberdef kind="variable" id="classrr_1_1Symbol_1aa7cce3c13a89ffa8e3fcd49aca796138" prot="public" static="no" mutable="no">
         <type>bool</type>
@@ -75,13 +75,13 @@
         </inbodydescription>
         <location file="c/rrSymbol.h" line="44" column="25" bodyfile="c/rrSymbol.h" bodystart="44" bodyend="-1"/>
       </memberdef>
-      <memberdef kind="variable" id="classrr_1_1Symbol_1af566d56893099e936a83fd3bd645a8fe" prot="public" static="no" mutable="no">
-        <type>string</type>
-        <definition>string rr::Symbol::formula</definition>
+      <memberdef kind="variable" id="classrr_1_1Symbol_1a5dc5b3521e79140743854d80f85e44be" prot="public" static="no" mutable="no">
+        <type>std::string</type>
+        <definition>std::string rr::Symbol::formula</definition>
         <argsstring></argsstring>
         <name>formula</name>
         <briefdescription>
-<para>There are only two places where formula was created, in rrModelSymbols.cpp, readBoundarySpecies and readFloatingSpeciesConcentrationList In both cases, formula was formated as the exact same C language string of formula &lt; &lt;toString(dValue, ModelSymbols::mDoubleFormat)&lt;&lt; &quot;/ md-&gt;c[&quot; &lt;&lt; nCompartmentIndex &lt;&lt; &quot;]&quot;;,. </para>
+<para>There are only two places where formula was created, in rrModelSymbols.cpp, readBoundarySpecies and readFloatingSpeciesConcentrationList In both cases, formula was formated as the exact same C language std::string of formula &lt; &lt;toString(dValue, ModelSymbols::mDoubleFormat)&lt;&lt; &quot;/ md-&gt;c[&quot; &lt;&lt; nCompartmentIndex &lt;&lt; &quot;]&quot;;,. </para>
         </briefdescription>
         <detaileddescription>
 <para>where dValue was always the initialAmmount. So, ammount / volume = concentration.</para>
@@ -90,11 +90,11 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="c/rrSymbol.h" line="63" column="25" bodyfile="c/rrSymbol.h" bodystart="63" bodyend="-1"/>
+        <location file="c/rrSymbol.h" line="63" column="30" bodyfile="c/rrSymbol.h" bodystart="63" bodyend="-1"/>
       </memberdef>
-      <memberdef kind="variable" id="classrr_1_1Symbol_1a0339929a2864775ddcff335aa5f76fa1" prot="public" static="no" mutable="no">
-        <type>string</type>
-        <definition>string rr::Symbol::keyName</definition>
+      <memberdef kind="variable" id="classrr_1_1Symbol_1afdc5578a850e3cecf38341c296aa33e8" prot="public" static="no" mutable="no">
+        <type>std::string</type>
+        <definition>std::string rr::Symbol::keyName</definition>
         <argsstring></argsstring>
         <name>keyName</name>
         <briefdescription>
@@ -104,11 +104,11 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="c/rrSymbol.h" line="68" column="25" bodyfile="c/rrSymbol.h" bodystart="68" bodyend="-1"/>
+        <location file="c/rrSymbol.h" line="68" column="30" bodyfile="c/rrSymbol.h" bodystart="68" bodyend="-1"/>
       </memberdef>
-      <memberdef kind="variable" id="classrr_1_1Symbol_1a5f7de6b7c858536fbbf7aed3b6ade86f" prot="public" static="no" mutable="no">
-        <type>string</type>
-        <definition>string rr::Symbol::name</definition>
+      <memberdef kind="variable" id="classrr_1_1Symbol_1a3b988646291193166719831de44927f0" prot="public" static="no" mutable="no">
+        <type>std::string</type>
+        <definition>std::string rr::Symbol::name</definition>
         <argsstring></argsstring>
         <name>name</name>
         <briefdescription>
@@ -117,17 +117,17 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="c/rrSymbol.h" line="69" column="25" bodyfile="c/rrSymbol.h" bodystart="69" bodyend="-1"/>
+        <location file="c/rrSymbol.h" line="69" column="30" bodyfile="c/rrSymbol.h" bodystart="69" bodyend="-1"/>
       </memberdef>
       </sectiondef>
       <sectiondef kind="public-func">
-      <memberdef kind="function" id="classrr_1_1Symbol_1acc89566047d357736e2262591c41e7d4" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+      <memberdef kind="function" id="classrr_1_1Symbol_1aff1ff4bb5de2978abe5d6e7a708b0d37" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
         <type></type>
         <definition>rr::Symbol::Symbol</definition>
-        <argsstring>(const string &amp;_name=&quot;&quot;, const double &amp;_value=std::numeric_limits&lt; double &gt;::quiet_NaN())</argsstring>
+        <argsstring>(const std::string &amp;_name=&quot;&quot;, const double &amp;_value=std::numeric_limits&lt; double &gt;::quiet_NaN())</argsstring>
         <name>Symbol</name>
         <param>
-          <type>const string &amp;</type>
+          <type>const std::string &amp;</type>
           <declname>_name</declname>
           <defval>&quot;&quot;</defval>
         </param>
@@ -144,17 +144,17 @@
         </inbodydescription>
         <location file="c/rrSymbol.h" line="72" column="5" bodyfile="c/rrSymbol.cpp" bodystart="7" bodyend="13"/>
       </memberdef>
-      <memberdef kind="function" id="classrr_1_1Symbol_1a74c8e02611494b3d865d5e6e30e73294" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+      <memberdef kind="function" id="classrr_1_1Symbol_1abcef683b47735ca564b54c015ea99140" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
         <type></type>
         <definition>rr::Symbol::Symbol</definition>
-        <argsstring>(const string &amp;_keyName, const string &amp;_name, const double &amp;_value=std::numeric_limits&lt; double &gt;::quiet_NaN())</argsstring>
+        <argsstring>(const std::string &amp;_keyName, const std::string &amp;_name, const double &amp;_value=std::numeric_limits&lt; double &gt;::quiet_NaN())</argsstring>
         <name>Symbol</name>
         <param>
-          <type>const string &amp;</type>
+          <type>const std::string &amp;</type>
           <declname>_keyName</declname>
         </param>
         <param>
-          <type>const string &amp;</type>
+          <type>const std::string &amp;</type>
           <declname>_name</declname>
         </param>
         <param>
@@ -170,13 +170,13 @@
         </inbodydescription>
         <location file="c/rrSymbol.h" line="73" column="5" bodyfile="c/rrSymbol.cpp" bodystart="15" bodyend="22"/>
       </memberdef>
-      <memberdef kind="function" id="classrr_1_1Symbol_1afe98ed2041f54ad01f65ac1ac871240d" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+      <memberdef kind="function" id="classrr_1_1Symbol_1a457bba50cbbbe9f6ccc0dcc7e6498f4f" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
         <type></type>
         <definition>rr::Symbol::Symbol</definition>
-        <argsstring>(const string &amp;_name, const double &amp;_value, const string &amp;_compartmentName)</argsstring>
+        <argsstring>(const std::string &amp;_name, const double &amp;_value, const std::string &amp;_compartmentName)</argsstring>
         <name>Symbol</name>
         <param>
-          <type>const string &amp;</type>
+          <type>const std::string &amp;</type>
           <declname>_name</declname>
         </param>
         <param>
@@ -184,7 +184,7 @@
           <declname>_value</declname>
         </param>
         <param>
-          <type>const string &amp;</type>
+          <type>const std::string &amp;</type>
           <declname>_compartmentName</declname>
         </param>
         <briefdescription>
@@ -195,13 +195,13 @@
         </inbodydescription>
         <location file="c/rrSymbol.h" line="74" column="5" bodyfile="c/rrSymbol.cpp" bodystart="24" bodyend="31"/>
       </memberdef>
-      <memberdef kind="function" id="classrr_1_1Symbol_1a2ec9721a31e83f2ed26a35095d189fa4" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+      <memberdef kind="function" id="classrr_1_1Symbol_1aba98ee15959c79524e2d31bf2d1a97d0" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
         <type></type>
         <definition>rr::Symbol::Symbol</definition>
-        <argsstring>(const string &amp;_name, const double &amp;_value, const string &amp;_compartmentName, const string &amp;_formula)</argsstring>
+        <argsstring>(const std::string &amp;_name, const double &amp;_value, const std::string &amp;_compartmentName, const std::string &amp;_formula)</argsstring>
         <name>Symbol</name>
         <param>
-          <type>const string &amp;</type>
+          <type>const std::string &amp;</type>
           <declname>_name</declname>
         </param>
         <param>
@@ -209,11 +209,11 @@
           <declname>_value</declname>
         </param>
         <param>
-          <type>const string &amp;</type>
+          <type>const std::string &amp;</type>
           <declname>_compartmentName</declname>
         </param>
         <param>
-          <type>const string &amp;</type>
+          <type>const std::string &amp;</type>
           <declname>_formula</declname>
         </param>
         <briefdescription>
@@ -248,17 +248,17 @@
     </collaborationgraph>
     <location file="c/rrSymbol.h" line="17" column="1" bodyfile="c/rrSymbol.h" bodystart="18" bodyend="77"/>
     <listofallmembers>
-      <member refid="classrr_1_1Symbol_1a473a1eeae3075d253cbf831976f90e11" prot="public" virt="non-virtual"><scope>rr::Symbol</scope><name>compartmentName</name></member>
+      <member refid="classrr_1_1Symbol_1aa7c4ca162218cc6c0babcc0423c8a42a" prot="public" virt="non-virtual"><scope>rr::Symbol</scope><name>compartmentName</name></member>
       <member refid="classrr_1_1Symbol_1a3eea02180a917e9edec0a5db22422d78" prot="public" virt="non-virtual"><scope>rr::Symbol</scope><name>constant</name></member>
-      <member refid="classrr_1_1Symbol_1af566d56893099e936a83fd3bd645a8fe" prot="public" virt="non-virtual"><scope>rr::Symbol</scope><name>formula</name></member>
+      <member refid="classrr_1_1Symbol_1a5dc5b3521e79140743854d80f85e44be" prot="public" virt="non-virtual"><scope>rr::Symbol</scope><name>formula</name></member>
       <member refid="classrr_1_1Symbol_1aa7cce3c13a89ffa8e3fcd49aca796138" prot="public" virt="non-virtual"><scope>rr::Symbol</scope><name>hasOnlySubstance</name></member>
-      <member refid="classrr_1_1Symbol_1a0339929a2864775ddcff335aa5f76fa1" prot="public" virt="non-virtual"><scope>rr::Symbol</scope><name>keyName</name></member>
-      <member refid="classrr_1_1Symbol_1a5f7de6b7c858536fbbf7aed3b6ade86f" prot="public" virt="non-virtual"><scope>rr::Symbol</scope><name>name</name></member>
+      <member refid="classrr_1_1Symbol_1afdc5578a850e3cecf38341c296aa33e8" prot="public" virt="non-virtual"><scope>rr::Symbol</scope><name>keyName</name></member>
+      <member refid="classrr_1_1Symbol_1a3b988646291193166719831de44927f0" prot="public" virt="non-virtual"><scope>rr::Symbol</scope><name>name</name></member>
       <member refid="classrr_1_1Symbol_1a16e22ed776b62e27b1f01cf56d53646c" prot="public" virt="non-virtual"><scope>rr::Symbol</scope><name>rateRule</name></member>
-      <member refid="classrr_1_1Symbol_1acc89566047d357736e2262591c41e7d4" prot="public" virt="non-virtual"><scope>rr::Symbol</scope><name>Symbol</name></member>
-      <member refid="classrr_1_1Symbol_1a74c8e02611494b3d865d5e6e30e73294" prot="public" virt="non-virtual"><scope>rr::Symbol</scope><name>Symbol</name></member>
-      <member refid="classrr_1_1Symbol_1afe98ed2041f54ad01f65ac1ac871240d" prot="public" virt="non-virtual"><scope>rr::Symbol</scope><name>Symbol</name></member>
-      <member refid="classrr_1_1Symbol_1a2ec9721a31e83f2ed26a35095d189fa4" prot="public" virt="non-virtual"><scope>rr::Symbol</scope><name>Symbol</name></member>
+      <member refid="classrr_1_1Symbol_1aff1ff4bb5de2978abe5d6e7a708b0d37" prot="public" virt="non-virtual"><scope>rr::Symbol</scope><name>Symbol</name></member>
+      <member refid="classrr_1_1Symbol_1abcef683b47735ca564b54c015ea99140" prot="public" virt="non-virtual"><scope>rr::Symbol</scope><name>Symbol</name></member>
+      <member refid="classrr_1_1Symbol_1a457bba50cbbbe9f6ccc0dcc7e6498f4f" prot="public" virt="non-virtual"><scope>rr::Symbol</scope><name>Symbol</name></member>
+      <member refid="classrr_1_1Symbol_1aba98ee15959c79524e2d31bf2d1a97d0" prot="public" virt="non-virtual"><scope>rr::Symbol</scope><name>Symbol</name></member>
       <member refid="classrr_1_1Symbol_1a26a8cefd0db2d6038bde4a10ece1377c" prot="public" virt="non-virtual"><scope>rr::Symbol</scope><name>value</name></member>
     </listofallmembers>
   </compounddef>

@@ -9,14 +9,14 @@ Inheritance diagram for rr\+::Test\+Suite\+Model\+Simulation\+:\begin{figure}[H]
 \doxysubsection*{Public Member Functions}
 \begin{DoxyCompactItemize}
 \item 
-\mbox{\Hypertarget{classrr_1_1TestSuiteModelSimulation_a56a48df0a7972f381ad9776741e2bc0a}\label{classrr_1_1TestSuiteModelSimulation_a56a48df0a7972f381ad9776741e2bc0a}} 
-{\bfseries Test\+Suite\+Model\+Simulation} (const string \&data\+Output\+Folder=\char`\"{}\char`\"{}, const string \&model\+File\+Path=\char`\"{}\char`\"{}, const string \&model\+File\+Name=\char`\"{}\char`\"{})
+\mbox{\Hypertarget{classrr_1_1TestSuiteModelSimulation_a48c4d3a1caa5fe0793feaecf5291a120}\label{classrr_1_1TestSuiteModelSimulation_a48c4d3a1caa5fe0793feaecf5291a120}} 
+{\bfseries Test\+Suite\+Model\+Simulation} (const std\+::filesystem\+::path \&data\+Output\+Folder=\char`\"{}\char`\"{}, const std\+::filesystem\+::path \&model\+File\+Path=\char`\"{}\char`\"{}, const std\+::filesystem\+::path \&model\+File\+Name=\char`\"{}\char`\"{})
 \item 
 \mbox{\Hypertarget{classrr_1_1TestSuiteModelSimulation_a19df03ff6ffe762381ffe84d5365cc90}\label{classrr_1_1TestSuiteModelSimulation_a19df03ff6ffe762381ffe84d5365cc90}} 
 void {\bfseries Set\+Case\+Number} (int c\+Nr)
 \item 
-\mbox{\Hypertarget{classrr_1_1TestSuiteModelSimulation_ab7f9c8e99098b09b071b2a524695c4aa}\label{classrr_1_1TestSuiteModelSimulation_ab7f9c8e99098b09b071b2a524695c4aa}} 
-bool {\bfseries Load\+Reference\+Data} (string ref\+Data\+File\+Name=\char`\"{}\char`\"{})
+\mbox{\Hypertarget{classrr_1_1TestSuiteModelSimulation_a1d5e17b5417d284d4c043f764bcbdcc3}\label{classrr_1_1TestSuiteModelSimulation_a1d5e17b5417d284d4c043f764bcbdcc3}} 
+bool {\bfseries Load\+Reference\+Data} (std\+::filesystem\+::path ref\+Data\+File\+Name=\char`\"{}\char`\"{})
 \item 
 \mbox{\Hypertarget{classrr_1_1TestSuiteModelSimulation_ab84ebb55fa44c62b0318c64f00e9c99c}\label{classrr_1_1TestSuiteModelSimulation_ab84ebb55fa44c62b0318c64f00e9c99c}} 
 bool {\bfseries Create\+Error\+Data} ()
@@ -36,20 +36,20 @@ bool {\bfseries Pass} ()
 \mbox{\Hypertarget{classrr_1_1TestSuiteModelSimulation_af91c62936cdedf4a3c13efc847703206}\label{classrr_1_1TestSuiteModelSimulation_af91c62936cdedf4a3c13efc847703206}} 
 int {\bfseries Nr\+Of\+Failing\+Points} ()
 \item 
-\mbox{\Hypertarget{classrr_1_1TestSuiteModelSimulation_a7b7b403bef96bd72203f04c56a431c22}\label{classrr_1_1TestSuiteModelSimulation_a7b7b403bef96bd72203f04c56a431c22}} 
-virtual bool {\bfseries Load\+Settings} (const string \&f\+Name=\char`\"{}\char`\"{})
+\mbox{\Hypertarget{classrr_1_1TestSuiteModelSimulation_af9640861d28a25c87af10888ba3d85c8}\label{classrr_1_1TestSuiteModelSimulation_af9640861d28a25c87af10888ba3d85c8}} 
+virtual bool {\bfseries Load\+Settings} (const std\+::filesystem\+::path \&f\+Name=\char`\"{}\char`\"{})
 \item 
-\mbox{\Hypertarget{classrr_1_1TestSuiteModelSimulation_a9017d8cc80bd95b254a0137d65d26e08}\label{classrr_1_1TestSuiteModelSimulation_a9017d8cc80bd95b254a0137d65d26e08}} 
-virtual bool {\bfseries Load\+Settings\+Ex} (const string \&settings\+F\+Name)
+\mbox{\Hypertarget{classrr_1_1TestSuiteModelSimulation_adeb2a4766188a8024e51b0e1b9abdc43}\label{classrr_1_1TestSuiteModelSimulation_adeb2a4766188a8024e51b0e1b9abdc43}} 
+virtual bool {\bfseries Load\+Settings\+Ex} (const std\+::filesystem\+::path \&settings\+F\+Name)
 \end{DoxyCompactItemize}
 \doxysubsection*{Protected Member Functions}
 \begin{DoxyCompactItemize}
 \item 
-\mbox{\Hypertarget{classrr_1_1TestSuiteModelSimulation_ab043cb27a75925c6ae1fb9e975549265}\label{classrr_1_1TestSuiteModelSimulation_ab043cb27a75925c6ae1fb9e975549265}} 
-string {\bfseries Get\+Settings\+File\+Name\+For\+Case} (int sim\+\_\+case)
+\mbox{\Hypertarget{classrr_1_1TestSuiteModelSimulation_a32b9dea1da50de579ec3bfeca2c5f64e}\label{classrr_1_1TestSuiteModelSimulation_a32b9dea1da50de579ec3bfeca2c5f64e}} 
+std\+::filesystem\+::path {\bfseries Get\+Settings\+File\+Name\+For\+Case} (int sim\+\_\+case)
 \item 
-\mbox{\Hypertarget{classrr_1_1TestSuiteModelSimulation_ac1458a90bafac9f8dc4c9f3b89d310cf}\label{classrr_1_1TestSuiteModelSimulation_ac1458a90bafac9f8dc4c9f3b89d310cf}} 
-string {\bfseries Get\+Reference\+Data\+File\+Name\+For\+Case} (int case\+Nr)
+\mbox{\Hypertarget{classrr_1_1TestSuiteModelSimulation_a102aee442bb96d36dd46fbea48440f17}\label{classrr_1_1TestSuiteModelSimulation_a102aee442bb96d36dd46fbea48440f17}} 
+std\+::filesystem\+::path {\bfseries Get\+Reference\+Data\+File\+Name\+For\+Case} (int case\+Nr)
 \end{DoxyCompactItemize}
 \doxysubsection*{Protected Attributes}
 \begin{DoxyCompactItemize}
@@ -57,8 +57,8 @@ string {\bfseries Get\+Reference\+Data\+File\+Name\+For\+Case} (int case\+Nr)
 \mbox{\Hypertarget{classrr_1_1TestSuiteModelSimulation_abd1ea039542d15f2f0acdc7a76ec3ac4}\label{classrr_1_1TestSuiteModelSimulation_abd1ea039542d15f2f0acdc7a76ec3ac4}} 
 int {\bfseries m\+Current\+Case\+Number}
 \item 
-\mbox{\Hypertarget{classrr_1_1TestSuiteModelSimulation_a123607f10a4785304b6797a42d676451}\label{classrr_1_1TestSuiteModelSimulation_a123607f10a4785304b6797a42d676451}} 
-string {\bfseries m\+Model\+Settings\+File\+Name}
+\mbox{\Hypertarget{classrr_1_1TestSuiteModelSimulation_ae3700553b5ff277775b87f3eccacec36}\label{classrr_1_1TestSuiteModelSimulation_ae3700553b5ff277775b87f3eccacec36}} 
+std\+::filesystem\+::path {\bfseries m\+Model\+Settings\+File\+Name}
 \item 
 \mbox{\Hypertarget{classrr_1_1TestSuiteModelSimulation_a701149b4c7cac375879822be5ad923e3}\label{classrr_1_1TestSuiteModelSimulation_a701149b4c7cac375879822be5ad923e3}} 
 \mbox{\hyperlink{classrr_1_1RoadRunnerData}{Road\+Runner\+Data}} {\bfseries m\+Result\+Data}

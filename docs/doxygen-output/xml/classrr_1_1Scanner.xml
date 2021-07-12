@@ -42,9 +42,9 @@
         </inbodydescription>
         <location file="c/rrScanner.h" line="40" column="51" bodyfile="c/rrScanner.h" bodystart="40" bodyend="-1"/>
       </memberdef>
-      <memberdef kind="variable" id="classrr_1_1Scanner_1ab0074b225961ad7d1e172a54c2a93087" prot="protected" static="no" mutable="no">
-        <type>vector&lt; TCharCode::TCharCode &gt;</type>
-        <definition>vector&lt;TCharCode::TCharCode&gt; rr::Scanner::FCharTable</definition>
+      <memberdef kind="variable" id="classrr_1_1Scanner_1ab54b530aba67f02223c16e494c3cece7" prot="protected" static="no" mutable="no">
+        <type>std::vector&lt; TCharCode::TCharCode &gt;</type>
+        <definition>std::vector&lt;TCharCode::TCharCode&gt; rr::Scanner::FCharTable</definition>
         <argsstring></argsstring>
         <name>FCharTable</name>
         <briefdescription>
@@ -53,11 +53,11 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="c/rrScanner.h" line="41" column="29" bodyfile="c/rrScanner.h" bodystart="41" bodyend="-1"/>
+        <location file="c/rrScanner.h" line="41" column="34" bodyfile="c/rrScanner.h" bodystart="41" bodyend="-1"/>
       </memberdef>
-      <memberdef kind="variable" id="classrr_1_1Scanner_1a9c51d02dae3ae1a3f126f4dacc5770bf" prot="protected" static="no" mutable="no">
-        <type>vector&lt; char &gt;</type>
-        <definition>vector&lt;char&gt; rr::Scanner::buffer</definition>
+      <memberdef kind="variable" id="classrr_1_1Scanner_1a589d8b603451b47350fa95fe4e2d5c64" prot="protected" static="no" mutable="no">
+        <type>std::vector&lt; char &gt;</type>
+        <definition>std::vector&lt;char&gt; rr::Scanner::buffer</definition>
         <argsstring></argsstring>
         <name>buffer</name>
         <briefdescription>
@@ -66,7 +66,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="c/rrScanner.h" line="42" column="45" bodyfile="c/rrScanner.h" bodystart="42" bodyend="-1"/>
+        <location file="c/rrScanner.h" line="42" column="50" bodyfile="c/rrScanner.h" bodystart="42" bodyend="-1"/>
       </memberdef>
       <memberdef kind="variable" id="classrr_1_1Scanner_1ad2463b5006a0f6086beb0c5938a5f29b" prot="protected" static="no" mutable="no">
         <type>queue&lt; <ref refid="classrr_1_1Token" kindref="compound">Token</ref> &gt;</type>
@@ -81,9 +81,9 @@
         </inbodydescription>
         <location file="c/rrScanner.h" line="43" column="44" bodyfile="c/rrScanner.h" bodystart="43" bodyend="-1"/>
       </memberdef>
-      <memberdef kind="variable" id="classrr_1_1Scanner_1a8fc76fbdac3c94038a5d63b149de305e" prot="protected" static="no" mutable="no">
-        <type>map&lt; string, CodeTypes::CodeTypes &gt;</type>
-        <definition>map&lt;string, CodeTypes::CodeTypes&gt; rr::Scanner::wordTable</definition>
+      <memberdef kind="variable" id="classrr_1_1Scanner_1a27a2c7beb3c614938864e6d470981905" prot="protected" static="no" mutable="no">
+        <type>std::map&lt; std::string, CodeTypes::CodeTypes &gt;</type>
+        <definition>std::map&lt;std::string, CodeTypes::CodeTypes&gt; rr::Scanner::wordTable</definition>
         <argsstring></argsstring>
         <name>wordTable</name>
         <briefdescription>
@@ -92,11 +92,11 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="c/rrScanner.h" line="44" column="21" bodyfile="c/rrScanner.h" bodystart="44" bodyend="-1"/>
+        <location file="c/rrScanner.h" line="44" column="26" bodyfile="c/rrScanner.h" bodystart="44" bodyend="-1"/>
       </memberdef>
-      <memberdef kind="variable" id="classrr_1_1Scanner_1a094836ca31b854aedab20a33a4e05292" prot="protected" static="no" mutable="no">
-        <type>stringstream *</type>
-        <definition>stringstream* rr::Scanner::pStream</definition>
+      <memberdef kind="variable" id="classrr_1_1Scanner_1a667e067cdbec247ddcf0bbbcdfafea1d" prot="protected" static="no" mutable="no">
+        <type>std::stringstream *</type>
+        <definition>std::stringstream* rr::Scanner::pStream</definition>
         <argsstring></argsstring>
         <name>pStream</name>
         <briefdescription>
@@ -105,7 +105,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="c/rrScanner.h" line="45" column="51" bodyfile="c/rrScanner.h" bodystart="45" bodyend="-1"/>
+        <location file="c/rrScanner.h" line="45" column="56" bodyfile="c/rrScanner.h" bodystart="45" bodyend="-1"/>
       </memberdef>
       <memberdef kind="variable" id="classrr_1_1Scanner_1a42d66399d07d8bd03e315536bdfa8fa4" prot="protected" static="no" mutable="no">
         <type>std::streamsize</type>
@@ -161,9 +161,9 @@
       </memberdef>
       </sectiondef>
       <sectiondef kind="public-attrib">
-      <memberdef kind="variable" id="classrr_1_1Scanner_1ab77dc221cc4546e243156e2ca4d25e23" prot="public" static="no" mutable="no">
-        <type>string</type>
-        <definition>string rr::Scanner::timeWord1</definition>
+      <memberdef kind="variable" id="classrr_1_1Scanner_1ad0bc17f469319c8c29a5bef6c0f3dba5" prot="public" static="no" mutable="no">
+        <type>std::string</type>
+        <definition>std::string rr::Scanner::timeWord1</definition>
         <argsstring></argsstring>
         <name>timeWord1</name>
         <briefdescription>
@@ -172,11 +172,11 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="c/rrScanner.h" line="61" column="51" bodyfile="c/rrScanner.h" bodystart="61" bodyend="-1"/>
+        <location file="c/rrScanner.h" line="61" column="56" bodyfile="c/rrScanner.h" bodystart="61" bodyend="-1"/>
       </memberdef>
-      <memberdef kind="variable" id="classrr_1_1Scanner_1a6ea34fa61037c8b1b0d3f922d445911c" prot="public" static="no" mutable="no">
-        <type>string</type>
-        <definition>string rr::Scanner::timeWord2</definition>
+      <memberdef kind="variable" id="classrr_1_1Scanner_1a89ebd0be459d673a007052228e1e5b3b" prot="public" static="no" mutable="no">
+        <type>std::string</type>
+        <definition>std::string rr::Scanner::timeWord2</definition>
         <argsstring></argsstring>
         <name>timeWord2</name>
         <briefdescription>
@@ -185,11 +185,11 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="c/rrScanner.h" line="62" column="51" bodyfile="c/rrScanner.h" bodystart="62" bodyend="-1"/>
+        <location file="c/rrScanner.h" line="62" column="56" bodyfile="c/rrScanner.h" bodystart="62" bodyend="-1"/>
       </memberdef>
-      <memberdef kind="variable" id="classrr_1_1Scanner_1a94584ed152c97361367b399185f6c307" prot="public" static="no" mutable="no">
-        <type>string</type>
-        <definition>string rr::Scanner::timeWord3</definition>
+      <memberdef kind="variable" id="classrr_1_1Scanner_1a0045df85b3e968e1daced63c4d56fd53" prot="public" static="no" mutable="no">
+        <type>std::string</type>
+        <definition>std::string rr::Scanner::timeWord3</definition>
         <argsstring></argsstring>
         <name>timeWord3</name>
         <briefdescription>
@@ -198,7 +198,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="c/rrScanner.h" line="63" column="51" bodyfile="c/rrScanner.h" bodystart="63" bodyend="-1"/>
+        <location file="c/rrScanner.h" line="63" column="56" bodyfile="c/rrScanner.h" bodystart="63" bodyend="-1"/>
       </memberdef>
       <memberdef kind="variable" id="classrr_1_1Scanner_1aa71131cf1e058b46783dc53fe6812167" prot="public" static="no" mutable="no">
         <type>bool</type>
@@ -304,9 +304,9 @@
         </inbodydescription>
         <location file="c/rrScanner.h" line="71" column="51" bodyfile="c/rrScanner.h" bodystart="71" bodyend="-1"/>
       </memberdef>
-      <memberdef kind="variable" id="classrr_1_1Scanner_1a804031495cc55309c1e0d966926dc137" prot="public" static="no" mutable="no">
-        <type>string</type>
-        <definition>string rr::Scanner::tokenString</definition>
+      <memberdef kind="variable" id="classrr_1_1Scanner_1a5a1f60963c54af2186ae1bfd01e98292" prot="public" static="no" mutable="no">
+        <type>std::string</type>
+        <definition>std::string rr::Scanner::tokenString</definition>
         <argsstring></argsstring>
         <name>tokenString</name>
         <briefdescription>
@@ -315,7 +315,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="c/rrScanner.h" line="72" column="51" bodyfile="c/rrScanner.h" bodystart="72" bodyend="-1"/>
+        <location file="c/rrScanner.h" line="72" column="56" bodyfile="c/rrScanner.h" bodystart="72" bodyend="-1"/>
       </memberdef>
       </sectiondef>
       <sectiondef kind="protected-func">
@@ -520,9 +520,9 @@
         </inbodydescription>
         <location file="c/rrScanner.h" line="81" column="51" bodyfile="c/rrScanner.cpp" bodystart="156" bodyend="179"/>
       </memberdef>
-      <memberdef kind="function" id="classrr_1_1Scanner_1a71add00ce4bb3dcd6b4fce4f7786f2ce" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
-        <type>string</type>
-        <definition>string rr::Scanner::tokenToString</definition>
+      <memberdef kind="function" id="classrr_1_1Scanner_1a2d437d7c8d2ebdc7b9ce04bf015e8eed" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>std::string</type>
+        <definition>std::string rr::Scanner::tokenToString</definition>
         <argsstring>(const CodeTypes::CodeTypes &amp;code)</argsstring>
         <name>tokenToString</name>
         <param>
@@ -535,7 +535,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="c/rrScanner.h" line="82" column="51" bodyfile="c/rrScanner.cpp" bodystart="737" bodyend="833"/>
+        <location file="c/rrScanner.h" line="82" column="56" bodyfile="c/rrScanner.cpp" bodystart="737" bodyend="833"/>
       </memberdef>
       <memberdef kind="function" id="classrr_1_1Scanner_1a690d62eac64a15baf3be1159d1c3f8d7" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
         <type>void</type>
@@ -589,13 +589,13 @@
         </inbodydescription>
         <location file="c/rrScanner.h" line="86" column="51" bodyfile="c/rrScanner.cpp" bodystart="726" bodyend="732"/>
       </memberdef>
-      <memberdef kind="function" id="classrr_1_1Scanner_1a2d1411f472fd2a8b0659534157d8cdee" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+      <memberdef kind="function" id="classrr_1_1Scanner_1a13acb56d8390830713dc5ed47f531dd2" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
         <type>void</type>
         <definition>void rr::Scanner::AssignStream</definition>
-        <argsstring>(stringstream &amp;str)</argsstring>
+        <argsstring>(std::stringstream &amp;str)</argsstring>
         <name>AssignStream</name>
         <param>
-          <type>stringstream &amp;</type>
+          <type>std::stringstream &amp;</type>
           <declname>str</declname>
         </param>
         <briefdescription>
@@ -612,56 +612,32 @@
     <detaileddescription>
     </detaileddescription>
     <collaborationgraph>
-      <node id="7">
-        <label>stringstream</label>
-      </node>
       <node id="3">
-        <label>vector&lt; char &gt;</label>
-      </node>
-      <node id="6">
         <label>string</label>
       </node>
-      <node id="5">
+      <node id="2">
         <label>queue&lt; rr::Token &gt;</label>
       </node>
-      <node id="2">
-        <label>map&lt; string, CodeTypes::CodeTypes &gt;</label>
-      </node>
-      <node id="8">
+      <node id="4">
         <label>rr::Token</label>
         <link refid="classrr_1_1Token"/>
-        <childnode refid="6" relation="usage">
+        <childnode refid="3" relation="usage">
           <edgelabel>tokenString</edgelabel>
         </childnode>
-      </node>
-      <node id="4">
-        <label>vector&lt; TCharCode::TCharCode &gt;</label>
       </node>
       <node id="1">
         <label>rr::Scanner</label>
         <link refid="classrr_1_1Scanner"/>
         <childnode refid="2" relation="usage">
-          <edgelabel>wordTable</edgelabel>
-        </childnode>
-        <childnode refid="3" relation="usage">
-          <edgelabel>buffer</edgelabel>
-        </childnode>
-        <childnode refid="4" relation="usage">
-          <edgelabel>FCharTable</edgelabel>
-        </childnode>
-        <childnode refid="5" relation="usage">
           <edgelabel>tokenQueue</edgelabel>
         </childnode>
-        <childnode refid="6" relation="usage">
+        <childnode refid="3" relation="usage">
           <edgelabel>timeWord1</edgelabel>
           <edgelabel>timeWord2</edgelabel>
           <edgelabel>timeWord3</edgelabel>
           <edgelabel>tokenString</edgelabel>
         </childnode>
-        <childnode refid="7" relation="usage">
-          <edgelabel>pStream</edgelabel>
-        </childnode>
-        <childnode refid="8" relation="usage">
+        <childnode refid="4" relation="usage">
           <edgelabel>currentToken</edgelabel>
           <edgelabel>previousToken</edgelabel>
         </childnode>
@@ -670,15 +646,15 @@
     <location file="c/rrScanner.h" line="35" column="1" bodyfile="c/rrScanner.h" bodystart="36" bodyend="88"/>
     <listofallmembers>
       <member refid="classrr_1_1Scanner_1a690d62eac64a15baf3be1159d1c3f8d7" prot="public" virt="non-virtual"><scope>rr::Scanner</scope><name>AddTokenToQueue</name></member>
-      <member refid="classrr_1_1Scanner_1a2d1411f472fd2a8b0659534157d8cdee" prot="public" virt="non-virtual"><scope>rr::Scanner</scope><name>AssignStream</name></member>
-      <member refid="classrr_1_1Scanner_1a9c51d02dae3ae1a3f126f4dacc5770bf" prot="protected" virt="non-virtual"><scope>rr::Scanner</scope><name>buffer</name></member>
+      <member refid="classrr_1_1Scanner_1a13acb56d8390830713dc5ed47f531dd2" prot="public" virt="non-virtual"><scope>rr::Scanner</scope><name>AssignStream</name></member>
+      <member refid="classrr_1_1Scanner_1a589d8b603451b47350fa95fe4e2d5c64" prot="protected" virt="non-virtual"><scope>rr::Scanner</scope><name>buffer</name></member>
       <member refid="classrr_1_1Scanner_1a42d66399d07d8bd03e315536bdfa8fa4" prot="protected" virt="non-virtual"><scope>rr::Scanner</scope><name>bufferLength</name></member>
       <member refid="classrr_1_1Scanner_1a2f59b5c5c4ec1e8dca404f14e2b7f15f" prot="protected" virt="non-virtual"><scope>rr::Scanner</scope><name>bufferPtr</name></member>
       <member refid="classrr_1_1Scanner_1af9de4a940d6adbad6dfa11026fc09378" prot="protected" virt="non-virtual"><scope>rr::Scanner</scope><name>CR</name></member>
       <member refid="classrr_1_1Scanner_1a4f25000e2deb0d0bcbc8e57298855796" prot="public" virt="non-virtual"><scope>rr::Scanner</scope><name>currentToken</name></member>
       <member refid="classrr_1_1Scanner_1afb7ddd2b05f5514df61fc94727ccfcdf" prot="protected" virt="non-virtual"><scope>rr::Scanner</scope><name>EOFCHAR</name></member>
       <member refid="classrr_1_1Scanner_1a93a82e7b4ecff024a60033d23a863bb1" prot="public" virt="non-virtual"><scope>rr::Scanner</scope><name>fch</name></member>
-      <member refid="classrr_1_1Scanner_1ab0074b225961ad7d1e172a54c2a93087" prot="protected" virt="non-virtual"><scope>rr::Scanner</scope><name>FCharTable</name></member>
+      <member refid="classrr_1_1Scanner_1ab54b530aba67f02223c16e494c3cece7" prot="protected" virt="non-virtual"><scope>rr::Scanner</scope><name>FCharTable</name></member>
       <member refid="classrr_1_1Scanner_1aa71131cf1e058b46783dc53fe6812167" prot="public" virt="non-virtual"><scope>rr::Scanner</scope><name>FromQueue</name></member>
       <member refid="classrr_1_1Scanner_1a563c2930bc695e6f0c232617d5233cdd" prot="protected" virt="non-virtual"><scope>rr::Scanner</scope><name>ftoken</name></member>
       <member refid="classrr_1_1Scanner_1aa09d7c687558a25b2867dbfa1c14ba4d" prot="protected" virt="non-virtual"><scope>rr::Scanner</scope><name>getCharFromBuffer</name></member>
@@ -697,22 +673,22 @@
       <member refid="classrr_1_1Scanner_1ad220853962ed958e00d0f958ec0b0856" prot="public" virt="non-virtual"><scope>rr::Scanner</scope><name>nextToken</name></member>
       <member refid="classrr_1_1Scanner_1a38e8972a1772f8f2670e75f59a445ebf" prot="protected" virt="non-virtual"><scope>rr::Scanner</scope><name>nextTokenInternal</name></member>
       <member refid="classrr_1_1Scanner_1a5042ca195491a61935e148631483ff1f" prot="public" virt="non-virtual"><scope>rr::Scanner</scope><name>previousToken</name></member>
-      <member refid="classrr_1_1Scanner_1a094836ca31b854aedab20a33a4e05292" prot="protected" virt="non-virtual"><scope>rr::Scanner</scope><name>pStream</name></member>
+      <member refid="classrr_1_1Scanner_1a667e067cdbec247ddcf0bbbcdfafea1d" prot="protected" virt="non-virtual"><scope>rr::Scanner</scope><name>pStream</name></member>
       <member refid="classrr_1_1Scanner_1a5ab9c23a0fb5c0d461a9d365c430dbe6" prot="public" virt="non-virtual"><scope>rr::Scanner</scope><name>Scanner</name></member>
       <member refid="classrr_1_1Scanner_1a642ffe7b9f3882904b1517b990f729b5" prot="public" virt="non-virtual"><scope>rr::Scanner</scope><name>skipBlanks</name></member>
       <member refid="classrr_1_1Scanner_1a7beb13b7439a0ceca3a1a60b54330218" prot="public" virt="non-virtual"><scope>rr::Scanner</scope><name>startScanner</name></member>
-      <member refid="classrr_1_1Scanner_1ab77dc221cc4546e243156e2ca4d25e23" prot="public" virt="non-virtual"><scope>rr::Scanner</scope><name>timeWord1</name></member>
-      <member refid="classrr_1_1Scanner_1a6ea34fa61037c8b1b0d3f922d445911c" prot="public" virt="non-virtual"><scope>rr::Scanner</scope><name>timeWord2</name></member>
-      <member refid="classrr_1_1Scanner_1a94584ed152c97361367b399185f6c307" prot="public" virt="non-virtual"><scope>rr::Scanner</scope><name>timeWord3</name></member>
+      <member refid="classrr_1_1Scanner_1ad0bc17f469319c8c29a5bef6c0f3dba5" prot="public" virt="non-virtual"><scope>rr::Scanner</scope><name>timeWord1</name></member>
+      <member refid="classrr_1_1Scanner_1a89ebd0be459d673a007052228e1e5b3b" prot="public" virt="non-virtual"><scope>rr::Scanner</scope><name>timeWord2</name></member>
+      <member refid="classrr_1_1Scanner_1a0045df85b3e968e1daced63c4d56fd53" prot="public" virt="non-virtual"><scope>rr::Scanner</scope><name>timeWord3</name></member>
       <member refid="classrr_1_1Scanner_1aeb3b54bd471574e2836311fc64dcf518" prot="public" virt="non-virtual"><scope>rr::Scanner</scope><name>token</name></member>
       <member refid="classrr_1_1Scanner_1af840f51a27ecf12d7ffcaedad99df109" prot="public" virt="non-virtual"><scope>rr::Scanner</scope><name>tokenDouble</name></member>
       <member refid="classrr_1_1Scanner_1a09c81eac0430455c6df03e102e09d0f2" prot="public" virt="non-virtual"><scope>rr::Scanner</scope><name>tokenInteger</name></member>
       <member refid="classrr_1_1Scanner_1ad2463b5006a0f6086beb0c5938a5f29b" prot="protected" virt="non-virtual"><scope>rr::Scanner</scope><name>tokenQueue</name></member>
       <member refid="classrr_1_1Scanner_1a9aa0611c2ef1ece43a176385f6293fc2" prot="public" virt="non-virtual"><scope>rr::Scanner</scope><name>tokenScalar</name></member>
-      <member refid="classrr_1_1Scanner_1a804031495cc55309c1e0d966926dc137" prot="public" virt="non-virtual"><scope>rr::Scanner</scope><name>tokenString</name></member>
-      <member refid="classrr_1_1Scanner_1a71add00ce4bb3dcd6b4fce4f7786f2ce" prot="public" virt="non-virtual"><scope>rr::Scanner</scope><name>tokenToString</name></member>
+      <member refid="classrr_1_1Scanner_1a5a1f60963c54af2186ae1bfd01e98292" prot="public" virt="non-virtual"><scope>rr::Scanner</scope><name>tokenString</name></member>
+      <member refid="classrr_1_1Scanner_1a2d437d7c8d2ebdc7b9ce04bf015e8eed" prot="public" virt="non-virtual"><scope>rr::Scanner</scope><name>tokenToString</name></member>
       <member refid="classrr_1_1Scanner_1a7c13a7be2e0c1fa03c0bf814c435a063" prot="public" virt="non-virtual"><scope>rr::Scanner</scope><name>UnGetToken</name></member>
-      <member refid="classrr_1_1Scanner_1a8fc76fbdac3c94038a5d63b149de305e" prot="protected" virt="non-virtual"><scope>rr::Scanner</scope><name>wordTable</name></member>
+      <member refid="classrr_1_1Scanner_1a27a2c7beb3c614938864e6d470981905" prot="protected" virt="non-virtual"><scope>rr::Scanner</scope><name>wordTable</name></member>
       <member refid="classrr_1_1Scanner_1a0ec68351cfe9a74c98713f327beaec28" prot="protected" virt="non-virtual"><scope>rr::Scanner</scope><name>yylineno</name></member>
     </listofallmembers>
   </compounddef>

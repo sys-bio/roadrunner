@@ -22,7 +22,7 @@
  <tr style="height: 56px;">
   <td id="projectalign" style="padding-left: 0.5em;">
    <div id="projectname">roadrunner
-   &#160;<span id="projectnumber">2.0.5</span>
+   &#160;<span id="projectnumber">2.0.8</span>
    </div>
    <div id="projectbrief">Fast simulator for SBML models</div>
   </td>
@@ -80,127 +80,120 @@ $(function() {
 <div class="line"><a name="l00011"></a><span class="lineno">   11</span>&#160;<span class="keyword">namespace </span>rr</div>
 <div class="line"><a name="l00012"></a><span class="lineno">   12</span>&#160;{</div>
 <div class="line"><a name="l00013"></a><span class="lineno">   13</span>&#160; </div>
-<div class="line"><a name="l00025"></a><span class="lineno"><a class="line" href="classrr_1_1LoggingBuffer.html">   25</a></span>&#160;<span class="keyword">class </span>RR_DECLSPEC <a class="code" href="classrr_1_1LoggingBuffer.html">LoggingBuffer</a></div>
-<div class="line"><a name="l00026"></a><span class="lineno">   26</span>&#160;{</div>
-<div class="line"><a name="l00027"></a><span class="lineno">   27</span>&#160;<span class="keyword">public</span>:</div>
-<div class="line"><a name="l00028"></a><span class="lineno">   28</span>&#160;    <a class="code" href="classrr_1_1LoggingBuffer.html">LoggingBuffer</a>(<span class="keywordtype">int</span> level, <span class="keyword">const</span> <span class="keywordtype">char</span>* file, <span class="keywordtype">int</span> line);</div>
-<div class="line"><a name="l00029"></a><span class="lineno">   29</span>&#160; </div>
-<div class="line"><a name="l00033"></a><span class="lineno">   33</span>&#160;    ~<a class="code" href="classrr_1_1LoggingBuffer.html">LoggingBuffer</a>();</div>
-<div class="line"><a name="l00034"></a><span class="lineno">   34</span>&#160; </div>
-<div class="line"><a name="l00038"></a><span class="lineno">   38</span>&#160;    std::ostream &amp;stream();</div>
+<div class="line"><a name="l00035"></a><span class="lineno"><a class="line" href="classrr_1_1LoggingBuffer.html">   35</a></span>&#160;<span class="keyword">class </span>RR_DECLSPEC <a class="code" href="classrr_1_1LoggingBuffer.html">LoggingBuffer</a></div>
+<div class="line"><a name="l00036"></a><span class="lineno">   36</span>&#160;{</div>
+<div class="line"><a name="l00037"></a><span class="lineno">   37</span>&#160;<span class="keyword">public</span>:</div>
+<div class="line"><a name="l00038"></a><span class="lineno">   38</span>&#160;    <a class="code" href="classrr_1_1LoggingBuffer.html">LoggingBuffer</a>(<span class="keywordtype">int</span> level, <span class="keyword">const</span> <span class="keywordtype">char</span>* file, <span class="keywordtype">int</span> line);</div>
 <div class="line"><a name="l00039"></a><span class="lineno">   39</span>&#160; </div>
-<div class="line"><a name="l00040"></a><span class="lineno">   40</span>&#160;<span class="keyword">private</span>:</div>
-<div class="line"><a name="l00041"></a><span class="lineno">   41</span>&#160;    std::stringstream buffer;</div>
-<div class="line"><a name="l00042"></a><span class="lineno">   42</span>&#160;    <span class="keywordtype">int</span> level;</div>
-<div class="line"><a name="l00043"></a><span class="lineno">   43</span>&#160;    <span class="keyword">const</span> <span class="keywordtype">char</span>* file;</div>
-<div class="line"><a name="l00044"></a><span class="lineno">   44</span>&#160;    <span class="keywordtype">int</span> line;</div>
-<div class="line"><a name="l00045"></a><span class="lineno">   45</span>&#160;};</div>
-<div class="line"><a name="l00046"></a><span class="lineno">   46</span>&#160; </div>
-<div class="line"><a name="l00052"></a><span class="lineno"><a class="line" href="classrr_1_1Logger.html">   52</a></span>&#160;<span class="keyword">class </span>RR_DECLSPEC <a class="code" href="classrr_1_1Logger.html">Logger</a></div>
-<div class="line"><a name="l00053"></a><span class="lineno">   53</span>&#160;{</div>
-<div class="line"><a name="l00054"></a><span class="lineno">   54</span>&#160;<span class="keyword">public</span>:</div>
-<div class="line"><a name="l00060"></a><span class="lineno"><a class="line" href="classrr_1_1Logger.html#a72a52e7fe7be48e2ecad639c641ee8aa">   60</a></span>&#160;    <span class="keyword">enum</span> <a class="code" href="classrr_1_1Logger.html#a72a52e7fe7be48e2ecad639c641ee8aa">Level</a></div>
-<div class="line"><a name="l00061"></a><span class="lineno">   61</span>&#160;    {</div>
-<div class="line"><a name="l00062"></a><span class="lineno">   62</span>&#160;        LOG_CURRENT = 0, </div>
-<div class="line"><a name="l00063"></a><span class="lineno"><a class="line" href="classrr_1_1Logger.html#a72a52e7fe7be48e2ecad639c641ee8aaa11cc16555fcf30d3c251bdc0c15a7f03">   63</a></span>&#160;        LOG_FATAL = 1,   </div>
-<div class="line"><a name="l00064"></a><span class="lineno"><a class="line" href="classrr_1_1Logger.html#a72a52e7fe7be48e2ecad639c641ee8aaa8296259b3d5f3188030abd9b5ee0609a">   64</a></span>&#160;        <a class="code" href="classrr_1_1Logger.html#a72a52e7fe7be48e2ecad639c641ee8aaa8296259b3d5f3188030abd9b5ee0609a">LOG_CRITICAL</a>,    </div>
-<div class="line"><a name="l00065"></a><span class="lineno"><a class="line" href="classrr_1_1Logger.html#a72a52e7fe7be48e2ecad639c641ee8aaafdb1b7e45fd5de96e098cd30c552fa7b">   65</a></span>&#160;        <a class="code" href="classrr_1_1Logger.html#a72a52e7fe7be48e2ecad639c641ee8aaafdb1b7e45fd5de96e098cd30c552fa7b">LOG_ERROR</a>,       </div>
-<div class="line"><a name="l00066"></a><span class="lineno"><a class="line" href="classrr_1_1Logger.html#a72a52e7fe7be48e2ecad639c641ee8aaaa6900cf102f98dfa521d7c11dc59344c">   66</a></span>&#160;        <a class="code" href="classrr_1_1Logger.html#a72a52e7fe7be48e2ecad639c641ee8aaaa6900cf102f98dfa521d7c11dc59344c">LOG_WARNING</a>,     </div>
-<div class="line"><a name="l00067"></a><span class="lineno"><a class="line" href="classrr_1_1Logger.html#a72a52e7fe7be48e2ecad639c641ee8aaaa3e3ead40b6448c9d7893f1a33573984">   67</a></span>&#160;        <a class="code" href="classrr_1_1Logger.html#a72a52e7fe7be48e2ecad639c641ee8aaaa3e3ead40b6448c9d7893f1a33573984">LOG_NOTICE</a>,      </div>
-<div class="line"><a name="l00068"></a><span class="lineno"><a class="line" href="classrr_1_1Logger.html#a72a52e7fe7be48e2ecad639c641ee8aaa4877e8c5192b123e2f8e71cc538df17b">   68</a></span>&#160;        <a class="code" href="classrr_1_1Logger.html#a72a52e7fe7be48e2ecad639c641ee8aaa4877e8c5192b123e2f8e71cc538df17b">LOG_INFORMATION</a>, </div>
-<div class="line"><a name="l00069"></a><span class="lineno"><a class="line" href="classrr_1_1Logger.html#a72a52e7fe7be48e2ecad639c641ee8aaadaf226f4b284b87851ddb9a9f7ddd0d5">   69</a></span>&#160;        <a class="code" href="classrr_1_1Logger.html#a72a52e7fe7be48e2ecad639c641ee8aaadaf226f4b284b87851ddb9a9f7ddd0d5">LOG_DEBUG</a>,       </div>
-<div class="line"><a name="l00070"></a><span class="lineno">   70</span>&#160;        LOG_TRACE        </div>
-<div class="line"><a name="l00071"></a><span class="lineno"><a class="line" href="classrr_1_1Logger.html#a72a52e7fe7be48e2ecad639c641ee8aaa415b215c622543781b0dab9ddb0cc5cb">   71</a></span>&#160;    };</div>
-<div class="line"><a name="l00072"></a><span class="lineno">   72</span>&#160; </div>
-<div class="line"><a name="l00076"></a><span class="lineno">   76</span>&#160;    <span class="keyword">static</span> <span class="keywordtype">void</span> setLevel(<span class="keywordtype">int</span> level = LOG_CURRENT);</div>
-<div class="line"><a name="l00077"></a><span class="lineno">   77</span>&#160; </div>
-<div class="line"><a name="l00081"></a><span class="lineno">   81</span>&#160;    <span class="keyword">static</span> <span class="keywordtype">int</span> getLevel();</div>
-<div class="line"><a name="l00082"></a><span class="lineno">   82</span>&#160; </div>
-<div class="line"><a name="l00086"></a><span class="lineno">   86</span>&#160;    <span class="keyword">static</span> <span class="keywordtype">void</span> disableLogging();</div>
-<div class="line"><a name="l00087"></a><span class="lineno">   87</span>&#160; </div>
-<div class="line"><a name="l00091"></a><span class="lineno">   91</span>&#160;    <span class="keyword">static</span> <span class="keywordtype">void</span> disableConsoleLogging();</div>
-<div class="line"><a name="l00092"></a><span class="lineno">   92</span>&#160; </div>
-<div class="line"><a name="l00096"></a><span class="lineno">   96</span>&#160;    <span class="keyword">static</span> <span class="keywordtype">void</span> enableConsoleLogging(<span class="keywordtype">int</span> level = LOG_CURRENT);</div>
-<div class="line"><a name="l00097"></a><span class="lineno">   97</span>&#160; </div>
-<div class="line"><a name="l00110"></a><span class="lineno">  110</span>&#160;    <span class="keyword">static</span> <span class="keywordtype">void</span> enableFileLogging(<span class="keyword">const</span> std::string&amp; fileName = <span class="stringliteral">&quot;&quot;</span>,</div>
-<div class="line"><a name="l00111"></a><span class="lineno">  111</span>&#160;            <span class="keywordtype">int</span> level = LOG_CURRENT);</div>
-<div class="line"><a name="l00112"></a><span class="lineno">  112</span>&#160; </div>
-<div class="line"><a name="l00116"></a><span class="lineno">  116</span>&#160;    <span class="keyword">static</span> <span class="keywordtype">void</span> disableFileLogging();</div>
-<div class="line"><a name="l00117"></a><span class="lineno">  117</span>&#160; </div>
-<div class="line"><a name="l00121"></a><span class="lineno">  121</span>&#160;    <span class="keyword">static</span> std::string getCurrentLevelAsString();</div>
-<div class="line"><a name="l00122"></a><span class="lineno">  122</span>&#160; </div>
-<div class="line"><a name="l00126"></a><span class="lineno">  126</span>&#160;    <span class="keyword">static</span> std::string getFileName();</div>
-<div class="line"><a name="l00127"></a><span class="lineno">  127</span>&#160; </div>
-<div class="line"><a name="l00188"></a><span class="lineno">  188</span>&#160;    <span class="keyword">static</span> <span class="keywordtype">void</span> setFormattingPattern(<span class="keyword">const</span> std::string &amp;format);</div>
-<div class="line"><a name="l00189"></a><span class="lineno">  189</span>&#160; </div>
-<div class="line"><a name="l00193"></a><span class="lineno">  193</span>&#160;    <span class="keyword">static</span> std::string getFormattingPattern();</div>
-<div class="line"><a name="l00194"></a><span class="lineno">  194</span>&#160; </div>
-<div class="line"><a name="l00198"></a><span class="lineno">  198</span>&#160;    <span class="keyword">static</span> std::string levelToString(<span class="keywordtype">int</span> level);</div>
-<div class="line"><a name="l00199"></a><span class="lineno">  199</span>&#160; </div>
-<div class="line"><a name="l00203"></a><span class="lineno">  203</span>&#160;    <span class="keyword">static</span> Level stringToLevel(<span class="keyword">const</span> std::string&amp; str);</div>
-<div class="line"><a name="l00204"></a><span class="lineno">  204</span>&#160; </div>
-<div class="line"><a name="l00208"></a><span class="lineno">  208</span>&#160;    <span class="keyword">static</span> <span class="keywordtype">bool</span> getColoredOutput();</div>
-<div class="line"><a name="l00209"></a><span class="lineno">  209</span>&#160; </div>
-<div class="line"><a name="l00213"></a><span class="lineno">  213</span>&#160;    <span class="keyword">static</span> <span class="keywordtype">void</span> setColoredOutput(<span class="keywordtype">bool</span>);</div>
-<div class="line"><a name="l00214"></a><span class="lineno">  214</span>&#160; </div>
+<div class="line"><a name="l00043"></a><span class="lineno">   43</span>&#160;    ~<a class="code" href="classrr_1_1LoggingBuffer.html">LoggingBuffer</a>();</div>
+<div class="line"><a name="l00044"></a><span class="lineno">   44</span>&#160; </div>
+<div class="line"><a name="l00048"></a><span class="lineno">   48</span>&#160;    std::ostream &amp;stream();</div>
+<div class="line"><a name="l00049"></a><span class="lineno">   49</span>&#160; </div>
+<div class="line"><a name="l00050"></a><span class="lineno">   50</span>&#160;<span class="keyword">private</span>:</div>
+<div class="line"><a name="l00051"></a><span class="lineno">   51</span>&#160;    std::stringstream buffer;</div>
+<div class="line"><a name="l00052"></a><span class="lineno">   52</span>&#160;    <span class="keywordtype">int</span> level;</div>
+<div class="line"><a name="l00053"></a><span class="lineno">   53</span>&#160;    <span class="keyword">const</span> <span class="keywordtype">char</span>* file;</div>
+<div class="line"><a name="l00054"></a><span class="lineno">   54</span>&#160;    <span class="keywordtype">int</span> line;</div>
+<div class="line"><a name="l00055"></a><span class="lineno">   55</span>&#160;};</div>
+<div class="line"><a name="l00056"></a><span class="lineno">   56</span>&#160; </div>
+<div class="line"><a name="l00062"></a><span class="lineno"><a class="line" href="classrr_1_1Logger.html">   62</a></span>&#160;<span class="keyword">class </span>RR_DECLSPEC <a class="code" href="classrr_1_1Logger.html">Logger</a></div>
+<div class="line"><a name="l00063"></a><span class="lineno">   63</span>&#160;{</div>
+<div class="line"><a name="l00064"></a><span class="lineno">   64</span>&#160;<span class="keyword">public</span>:</div>
+<div class="line"><a name="l00070"></a><span class="lineno"><a class="line" href="classrr_1_1Logger.html#a72a52e7fe7be48e2ecad639c641ee8aa">   70</a></span>&#160;    <span class="keyword">enum</span> <a class="code" href="classrr_1_1Logger.html#a72a52e7fe7be48e2ecad639c641ee8aa">Level</a></div>
+<div class="line"><a name="l00071"></a><span class="lineno">   71</span>&#160;    {</div>
+<div class="line"><a name="l00083"></a><span class="lineno"><a class="line" href="classrr_1_1Logger.html#a72a52e7fe7be48e2ecad639c641ee8aaac77ca2446a47c06b0cce63108ea18c18">   83</a></span>&#160;        LOG_CURRENT = 0,</div>
+<div class="line"><a name="l00084"></a><span class="lineno">   84</span>&#160;        LOG_FATAL = 1,</div>
+<div class="line"><a name="l00085"></a><span class="lineno">   85</span>&#160;        LOG_CRITICAL = 2,</div>
+<div class="line"><a name="l00086"></a><span class="lineno">   86</span>&#160;        LOG_ERROR = 3,</div>
+<div class="line"><a name="l00087"></a><span class="lineno">   87</span>&#160;        LOG_WARNING = 4,</div>
+<div class="line"><a name="l00088"></a><span class="lineno">   88</span>&#160;        LOG_NOTICE = 5,</div>
+<div class="line"><a name="l00089"></a><span class="lineno">   89</span>&#160;        LOG_INFORMATION = 6,</div>
+<div class="line"><a name="l00090"></a><span class="lineno">   90</span>&#160;        LOG_DEBUG = 7,</div>
+<div class="line"><a name="l00091"></a><span class="lineno">   91</span>&#160;        LOG_TRACE =8</div>
+<div class="line"><a name="l00092"></a><span class="lineno">   92</span>&#160;    };</div>
+<div class="line"><a name="l00093"></a><span class="lineno">   93</span>&#160; </div>
+<div class="line"><a name="l00097"></a><span class="lineno">   97</span>&#160;    <span class="keyword">static</span> <span class="keywordtype">void</span> setLevel(<span class="keywordtype">int</span> level = LOG_CURRENT);</div>
+<div class="line"><a name="l00098"></a><span class="lineno">   98</span>&#160; </div>
+<div class="line"><a name="l00102"></a><span class="lineno">  102</span>&#160;    <span class="keyword">static</span> <span class="keywordtype">int</span> getLevel();</div>
+<div class="line"><a name="l00103"></a><span class="lineno">  103</span>&#160; </div>
+<div class="line"><a name="l00107"></a><span class="lineno">  107</span>&#160;    <span class="keyword">static</span> <span class="keywordtype">void</span> disableLogging();</div>
+<div class="line"><a name="l00108"></a><span class="lineno">  108</span>&#160; </div>
+<div class="line"><a name="l00112"></a><span class="lineno">  112</span>&#160;    <span class="keyword">static</span> <span class="keywordtype">void</span> disableConsoleLogging();</div>
+<div class="line"><a name="l00113"></a><span class="lineno">  113</span>&#160; </div>
+<div class="line"><a name="l00117"></a><span class="lineno">  117</span>&#160;    <span class="keyword">static</span> <span class="keywordtype">void</span> enableConsoleLogging(<span class="keywordtype">int</span> level = LOG_CURRENT);</div>
+<div class="line"><a name="l00118"></a><span class="lineno">  118</span>&#160; </div>
+<div class="line"><a name="l00131"></a><span class="lineno">  131</span>&#160;    <span class="keyword">static</span> <span class="keywordtype">void</span> enableFileLogging(<span class="keyword">const</span> std::string&amp; fileName = <span class="stringliteral">&quot;&quot;</span>,</div>
+<div class="line"><a name="l00132"></a><span class="lineno">  132</span>&#160;            <span class="keywordtype">int</span> level = LOG_CURRENT);</div>
+<div class="line"><a name="l00133"></a><span class="lineno">  133</span>&#160; </div>
+<div class="line"><a name="l00137"></a><span class="lineno">  137</span>&#160;    <span class="keyword">static</span> <span class="keywordtype">void</span> disableFileLogging();</div>
+<div class="line"><a name="l00138"></a><span class="lineno">  138</span>&#160; </div>
+<div class="line"><a name="l00142"></a><span class="lineno">  142</span>&#160;    <span class="keyword">static</span> std::string getCurrentLevelAsString();</div>
+<div class="line"><a name="l00143"></a><span class="lineno">  143</span>&#160; </div>
+<div class="line"><a name="l00147"></a><span class="lineno">  147</span>&#160;    <span class="keyword">static</span> std::string getFileName();</div>
+<div class="line"><a name="l00148"></a><span class="lineno">  148</span>&#160; </div>
+<div class="line"><a name="l00209"></a><span class="lineno">  209</span>&#160;    <span class="keyword">static</span> <span class="keywordtype">void</span> setFormattingPattern(<span class="keyword">const</span> std::string &amp;format);</div>
+<div class="line"><a name="l00210"></a><span class="lineno">  210</span>&#160; </div>
+<div class="line"><a name="l00214"></a><span class="lineno">  214</span>&#160;    <span class="keyword">static</span> std::string getFormattingPattern();</div>
 <div class="line"><a name="l00215"></a><span class="lineno">  215</span>&#160; </div>
-<div class="line"><a name="l00253"></a><span class="lineno">  253</span>&#160;    <span class="keyword">static</span> <span class="keywordtype">void</span> setProperty(<span class="keyword">const</span> std::string&amp; name, <span class="keyword">const</span> std::string&amp; value);</div>
-<div class="line"><a name="l00254"></a><span class="lineno">  254</span>&#160; </div>
-<div class="line"><a name="l00255"></a><span class="lineno">  255</span>&#160; </div>
-<div class="line"><a name="l00262"></a><span class="lineno">  262</span>&#160;    <span class="keyword">static</span> <span class="keywordtype">void</span> log(Level level, <span class="keyword">const</span> std::string&amp; msg);</div>
-<div class="line"><a name="l00263"></a><span class="lineno">  263</span>&#160; </div>
-<div class="line"><a name="l00264"></a><span class="lineno">  264</span>&#160;<span class="preprocessor">#ifndef SWIG // don&#39;t expose this to SWIG</span></div>
-<div class="line"><a name="l00265"></a><span class="lineno">  265</span>&#160; </div>
-<div class="line"><a name="l00277"></a><span class="lineno">  277</span>&#160;    <span class="keyword">static</span> <span class="keywordtype">void</span> setConsoleStream(std::ostream *os);</div>
-<div class="line"><a name="l00278"></a><span class="lineno">  278</span>&#160;<span class="preprocessor">#endif</span></div>
-<div class="line"><a name="l00279"></a><span class="lineno">  279</span>&#160;};</div>
-<div class="line"><a name="l00280"></a><span class="lineno">  280</span>&#160; </div>
-<div class="line"><a name="l00284"></a><span class="lineno">  284</span>&#160;<span class="keyword">enum</span> LogLevel</div>
-<div class="line"><a name="l00285"></a><span class="lineno">  285</span>&#160;{</div>
-<div class="line"><a name="l00286"></a><span class="lineno">  286</span>&#160;    lAny        = <a class="code" href="classrr_1_1Logger.html#a72a52e7fe7be48e2ecad639c641ee8aaafdb1b7e45fd5de96e098cd30c552fa7b">Logger::LOG_ERROR</a>,</div>
-<div class="line"><a name="l00287"></a><span class="lineno">  287</span>&#160;    lError      = <a class="code" href="classrr_1_1Logger.html#a72a52e7fe7be48e2ecad639c641ee8aaafdb1b7e45fd5de96e098cd30c552fa7b">Logger::LOG_ERROR</a>,</div>
-<div class="line"><a name="l00288"></a><span class="lineno">  288</span>&#160;    lWarning    = <a class="code" href="classrr_1_1Logger.html#a72a52e7fe7be48e2ecad639c641ee8aaaa6900cf102f98dfa521d7c11dc59344c">Logger::LOG_WARNING</a>,</div>
-<div class="line"><a name="l00289"></a><span class="lineno">  289</span>&#160;    lInfo       = <a class="code" href="classrr_1_1Logger.html#a72a52e7fe7be48e2ecad639c641ee8aaa4877e8c5192b123e2f8e71cc538df17b">Logger::LOG_INFORMATION</a>,</div>
-<div class="line"><a name="l00290"></a><span class="lineno">  290</span>&#160;    lDebug      = <a class="code" href="classrr_1_1Logger.html#a72a52e7fe7be48e2ecad639c641ee8aaadaf226f4b284b87851ddb9a9f7ddd0d5">Logger::LOG_DEBUG</a>,</div>
-<div class="line"><a name="l00291"></a><span class="lineno">  291</span>&#160;    lDebug1     = <a class="code" href="classrr_1_1Logger.html#a72a52e7fe7be48e2ecad639c641ee8aaa415b215c622543781b0dab9ddb0cc5cb">Logger::LOG_TRACE</a>,</div>
-<div class="line"><a name="l00292"></a><span class="lineno">  292</span>&#160;    lDebug2     = <a class="code" href="classrr_1_1Logger.html#a72a52e7fe7be48e2ecad639c641ee8aaa415b215c622543781b0dab9ddb0cc5cb">Logger::LOG_TRACE</a>,</div>
-<div class="line"><a name="l00293"></a><span class="lineno">  293</span>&#160;    lDebug3     = <a class="code" href="classrr_1_1Logger.html#a72a52e7fe7be48e2ecad639c641ee8aaa415b215c622543781b0dab9ddb0cc5cb">Logger::LOG_TRACE</a>,</div>
-<div class="line"><a name="l00294"></a><span class="lineno">  294</span>&#160;    lDebug4     = <a class="code" href="classrr_1_1Logger.html#a72a52e7fe7be48e2ecad639c641ee8aaa415b215c622543781b0dab9ddb0cc5cb">Logger::LOG_TRACE</a>,</div>
-<div class="line"><a name="l00295"></a><span class="lineno">  295</span>&#160;    lDebug5     = <a class="code" href="classrr_1_1Logger.html#a72a52e7fe7be48e2ecad639c641ee8aaa415b215c622543781b0dab9ddb0cc5cb">Logger::LOG_TRACE</a>,</div>
-<div class="line"><a name="l00296"></a><span class="lineno">  296</span>&#160;    lUser       = <a class="code" href="classrr_1_1Logger.html#a72a52e7fe7be48e2ecad639c641ee8aaa415b215c622543781b0dab9ddb0cc5cb">Logger::LOG_TRACE</a></div>
-<div class="line"><a name="l00297"></a><span class="lineno">  297</span>&#160;};</div>
-<div class="line"><a name="l00298"></a><span class="lineno">  298</span>&#160; </div>
-<div class="line"><a name="l00305"></a><span class="lineno">  305</span>&#160;RR_DECLSPEC Poco::Logger &amp;getLogger();</div>
-<div class="line"><a name="l00306"></a><span class="lineno">  306</span>&#160; </div>
-<div class="line"><a name="l00310"></a><span class="lineno">  310</span>&#160;<span class="preprocessor">#define gLog Logger()</span></div>
-<div class="line"><a name="l00311"></a><span class="lineno">  311</span>&#160; </div>
-<div class="line"><a name="l00312"></a><span class="lineno">  312</span>&#160;<span class="preprocessor">#ifndef NO_LOGGER</span></div>
-<div class="line"><a name="l00313"></a><span class="lineno">  313</span>&#160;<span class="preprocessor">#define Log(level) \</span></div>
-<div class="line"><a name="l00314"></a><span class="lineno">  314</span>&#160;<span class="preprocessor">    if (level &gt; rr::Logger::getLevel()) { ; } \</span></div>
-<div class="line"><a name="l00315"></a><span class="lineno">  315</span>&#160;<span class="preprocessor">    else rr::LoggingBuffer(level, __FILE__, __LINE__).stream()</span></div>
-<div class="line"><a name="l00316"></a><span class="lineno">  316</span>&#160;<span class="preprocessor">#else</span></div>
-<div class="line"><a name="l00317"></a><span class="lineno">  317</span>&#160;<span class="preprocessor">#define Log(level) \</span></div>
-<div class="line"><a name="l00318"></a><span class="lineno">  318</span>&#160;<span class="preprocessor">    if (true) {  }\</span></div>
-<div class="line"><a name="l00319"></a><span class="lineno">  319</span>&#160;<span class="preprocessor">    else \</span></div>
-<div class="line"><a name="l00320"></a><span class="lineno">  320</span>&#160;<span class="preprocessor">    LoggingBuffer(level, __FILE__, __LINE__)</span></div>
-<div class="line"><a name="l00321"></a><span class="lineno">  321</span>&#160;<span class="preprocessor">#endif</span></div>
-<div class="line"><a name="l00322"></a><span class="lineno">  322</span>&#160; </div>
-<div class="line"><a name="l00323"></a><span class="lineno">  323</span>&#160; </div>
-<div class="line"><a name="l00324"></a><span class="lineno">  324</span>&#160;} <span class="comment">/* namespace rr */</span></div>
-<div class="line"><a name="l00325"></a><span class="lineno">  325</span>&#160; </div>
-<div class="line"><a name="l00326"></a><span class="lineno">  326</span>&#160; </div>
-<div class="line"><a name="l00327"></a><span class="lineno">  327</span>&#160;<span class="preprocessor">#endif </span><span class="comment">/* rrLoggerH */</span><span class="preprocessor"></span></div>
+<div class="line"><a name="l00219"></a><span class="lineno">  219</span>&#160;    <span class="keyword">static</span> std::string levelToString(<span class="keywordtype">int</span> level);</div>
+<div class="line"><a name="l00220"></a><span class="lineno">  220</span>&#160; </div>
+<div class="line"><a name="l00224"></a><span class="lineno">  224</span>&#160;    <span class="keyword">static</span> Level stringToLevel(<span class="keyword">const</span> std::string&amp; str);</div>
+<div class="line"><a name="l00225"></a><span class="lineno">  225</span>&#160; </div>
+<div class="line"><a name="l00229"></a><span class="lineno">  229</span>&#160;    <span class="keyword">static</span> <span class="keywordtype">bool</span> getColoredOutput();</div>
+<div class="line"><a name="l00230"></a><span class="lineno">  230</span>&#160; </div>
+<div class="line"><a name="l00234"></a><span class="lineno">  234</span>&#160;    <span class="keyword">static</span> <span class="keywordtype">void</span> setColoredOutput(<span class="keywordtype">bool</span>);</div>
+<div class="line"><a name="l00235"></a><span class="lineno">  235</span>&#160; </div>
+<div class="line"><a name="l00236"></a><span class="lineno">  236</span>&#160; </div>
+<div class="line"><a name="l00274"></a><span class="lineno">  274</span>&#160;    <span class="keyword">static</span> <span class="keywordtype">void</span> setProperty(<span class="keyword">const</span> std::string&amp; name, <span class="keyword">const</span> std::string&amp; value);</div>
+<div class="line"><a name="l00275"></a><span class="lineno">  275</span>&#160; </div>
+<div class="line"><a name="l00276"></a><span class="lineno">  276</span>&#160; </div>
+<div class="line"><a name="l00283"></a><span class="lineno">  283</span>&#160;    <span class="keyword">static</span> <span class="keywordtype">void</span> log(Level level, <span class="keyword">const</span> std::string&amp; msg);</div>
+<div class="line"><a name="l00284"></a><span class="lineno">  284</span>&#160; </div>
+<div class="line"><a name="l00285"></a><span class="lineno">  285</span>&#160;<span class="preprocessor">#ifndef SWIG // don&#39;t expose this to SWIG</span></div>
+<div class="line"><a name="l00286"></a><span class="lineno">  286</span>&#160; </div>
+<div class="line"><a name="l00298"></a><span class="lineno">  298</span>&#160;    <span class="keyword">static</span> <span class="keywordtype">void</span> setConsoleStream(std::ostream *os);</div>
+<div class="line"><a name="l00299"></a><span class="lineno">  299</span>&#160;<span class="preprocessor">#endif</span></div>
+<div class="line"><a name="l00300"></a><span class="lineno">  300</span>&#160;};</div>
+<div class="line"><a name="l00301"></a><span class="lineno">  301</span>&#160; </div>
+<div class="line"><a name="l00305"></a><span class="lineno">  305</span>&#160;<span class="keyword">enum</span> LogLevel</div>
+<div class="line"><a name="l00306"></a><span class="lineno">  306</span>&#160;{</div>
+<div class="line"><a name="l00307"></a><span class="lineno">  307</span>&#160;    lAny        = Logger::LOG_ERROR,</div>
+<div class="line"><a name="l00308"></a><span class="lineno">  308</span>&#160;    lError      = Logger::LOG_ERROR,</div>
+<div class="line"><a name="l00309"></a><span class="lineno">  309</span>&#160;    lWarning    = Logger::LOG_WARNING,</div>
+<div class="line"><a name="l00310"></a><span class="lineno">  310</span>&#160;    lInfo       = Logger::LOG_INFORMATION,</div>
+<div class="line"><a name="l00311"></a><span class="lineno">  311</span>&#160;    lDebug      = Logger::LOG_DEBUG,</div>
+<div class="line"><a name="l00312"></a><span class="lineno">  312</span>&#160;    lDebug1     = Logger::LOG_TRACE,</div>
+<div class="line"><a name="l00313"></a><span class="lineno">  313</span>&#160;    lDebug2     = Logger::LOG_TRACE,</div>
+<div class="line"><a name="l00314"></a><span class="lineno">  314</span>&#160;    lDebug3     = Logger::LOG_TRACE,</div>
+<div class="line"><a name="l00315"></a><span class="lineno">  315</span>&#160;    lDebug4     = Logger::LOG_TRACE,</div>
+<div class="line"><a name="l00316"></a><span class="lineno">  316</span>&#160;    lDebug5     = Logger::LOG_TRACE,</div>
+<div class="line"><a name="l00317"></a><span class="lineno">  317</span>&#160;    lUser       = Logger::LOG_TRACE</div>
+<div class="line"><a name="l00318"></a><span class="lineno">  318</span>&#160;};</div>
+<div class="line"><a name="l00319"></a><span class="lineno">  319</span>&#160; </div>
+<div class="line"><a name="l00326"></a><span class="lineno">  326</span>&#160;RR_DECLSPEC Poco::Logger &amp;getLogger();</div>
+<div class="line"><a name="l00327"></a><span class="lineno">  327</span>&#160; </div>
+<div class="line"><a name="l00331"></a><span class="lineno">  331</span>&#160;<span class="preprocessor">#define gLog Logger()</span></div>
+<div class="line"><a name="l00332"></a><span class="lineno">  332</span>&#160; </div>
+<div class="line"><a name="l00333"></a><span class="lineno">  333</span>&#160;<span class="preprocessor">#ifndef NO_LOGGER</span></div>
+<div class="line"><a name="l00334"></a><span class="lineno">  334</span>&#160;<span class="preprocessor">#define rrLog(level) \</span></div>
+<div class="line"><a name="l00335"></a><span class="lineno">  335</span>&#160;<span class="preprocessor">    if (level &gt; rr::Logger::getLevel()) { ; } \</span></div>
+<div class="line"><a name="l00336"></a><span class="lineno">  336</span>&#160;<span class="preprocessor">    else rr::LoggingBuffer(level, __FILE__, __LINE__).stream()</span></div>
+<div class="line"><a name="l00337"></a><span class="lineno">  337</span>&#160;<span class="preprocessor">#else</span></div>
+<div class="line"><a name="l00338"></a><span class="lineno">  338</span>&#160;<span class="preprocessor">#define rrLog(level) \</span></div>
+<div class="line"><a name="l00339"></a><span class="lineno">  339</span>&#160;<span class="preprocessor">    if (true) {  }\</span></div>
+<div class="line"><a name="l00340"></a><span class="lineno">  340</span>&#160;<span class="preprocessor">    else \</span></div>
+<div class="line"><a name="l00341"></a><span class="lineno">  341</span>&#160;<span class="preprocessor">    LoggingBuffer(level, __FILE__, __LINE__)</span></div>
+<div class="line"><a name="l00342"></a><span class="lineno">  342</span>&#160;<span class="preprocessor">#endif</span></div>
+<div class="line"><a name="l00343"></a><span class="lineno">  343</span>&#160; </div>
+<div class="line"><a name="l00344"></a><span class="lineno">  344</span>&#160; </div>
+<div class="line"><a name="l00345"></a><span class="lineno">  345</span>&#160;} <span class="comment">/* namespace rr */</span></div>
+<div class="line"><a name="l00346"></a><span class="lineno">  346</span>&#160; </div>
+<div class="line"><a name="l00347"></a><span class="lineno">  347</span>&#160; </div>
+<div class="line"><a name="l00348"></a><span class="lineno">  348</span>&#160;<span class="preprocessor">#endif </span><span class="comment">/* rrLoggerH */</span><span class="preprocessor"></span></div>
 </div><!-- fragment --></div><!-- contents -->
-<div class="ttc" id="aclassrr_1_1Logger_html_a72a52e7fe7be48e2ecad639c641ee8aaaa3e3ead40b6448c9d7893f1a33573984"><div class="ttname"><a href="classrr_1_1Logger.html#a72a52e7fe7be48e2ecad639c641ee8aaaa3e3ead40b6448c9d7893f1a33573984">rr::Logger::LOG_NOTICE</a></div><div class="ttdeci">@ LOG_NOTICE</div><div class="ttdoc">A warning. An operation completed with an unexpected result.</div><div class="ttdef"><b>Definition:</b> rrLogger.h:67</div></div>
-<div class="ttc" id="aclassrr_1_1Logger_html_a72a52e7fe7be48e2ecad639c641ee8aaafdb1b7e45fd5de96e098cd30c552fa7b"><div class="ttname"><a href="classrr_1_1Logger.html#a72a52e7fe7be48e2ecad639c641ee8aaafdb1b7e45fd5de96e098cd30c552fa7b">rr::Logger::LOG_ERROR</a></div><div class="ttdeci">@ LOG_ERROR</div><div class="ttdoc">A critical error. The application might not be able to continue running successfully.</div><div class="ttdef"><b>Definition:</b> rrLogger.h:65</div></div>
-<div class="ttc" id="aclassrr_1_1Logger_html_a72a52e7fe7be48e2ecad639c641ee8aaa8296259b3d5f3188030abd9b5ee0609a"><div class="ttname"><a href="classrr_1_1Logger.html#a72a52e7fe7be48e2ecad639c641ee8aaa8296259b3d5f3188030abd9b5ee0609a">rr::Logger::LOG_CRITICAL</a></div><div class="ttdeci">@ LOG_CRITICAL</div><div class="ttdoc">A fatal error. The application will most likely terminate. This is the highest priority.</div><div class="ttdef"><b>Definition:</b> rrLogger.h:64</div></div>
-<div class="ttc" id="aclassrr_1_1Logger_html_a72a52e7fe7be48e2ecad639c641ee8aaadaf226f4b284b87851ddb9a9f7ddd0d5"><div class="ttname"><a href="classrr_1_1Logger.html#a72a52e7fe7be48e2ecad639c641ee8aaadaf226f4b284b87851ddb9a9f7ddd0d5">rr::Logger::LOG_DEBUG</a></div><div class="ttdeci">@ LOG_DEBUG</div><div class="ttdoc">An informational message, usually denoting the successful completion of an operation.</div><div class="ttdef"><b>Definition:</b> rrLogger.h:69</div></div>
-<div class="ttc" id="aclassrr_1_1LoggingBuffer_html"><div class="ttname"><a href="classrr_1_1LoggingBuffer.html">rr::LoggingBuffer</a></div><div class="ttdoc">Poco LogStream dumps to the log when a newline i.e.</div><div class="ttdef"><b>Definition:</b> rrLogger.h:26</div></div>
-<div class="ttc" id="aclassrr_1_1Logger_html"><div class="ttname"><a href="classrr_1_1Logger.html">rr::Logger</a></div><div class="ttdoc">The roadrunner logger.</div><div class="ttdef"><b>Definition:</b> rrLogger.h:53</div></div>
-<div class="ttc" id="aclassrr_1_1Logger_html_a72a52e7fe7be48e2ecad639c641ee8aaa4877e8c5192b123e2f8e71cc538df17b"><div class="ttname"><a href="classrr_1_1Logger.html#a72a52e7fe7be48e2ecad639c641ee8aaa4877e8c5192b123e2f8e71cc538df17b">rr::Logger::LOG_INFORMATION</a></div><div class="ttdeci">@ LOG_INFORMATION</div><div class="ttdoc">A notice, which is an information with just a higher priority.</div><div class="ttdef"><b>Definition:</b> rrLogger.h:68</div></div>
-<div class="ttc" id="aclassrr_1_1Logger_html_a72a52e7fe7be48e2ecad639c641ee8aaa415b215c622543781b0dab9ddb0cc5cb"><div class="ttname"><a href="classrr_1_1Logger.html#a72a52e7fe7be48e2ecad639c641ee8aaa415b215c622543781b0dab9ddb0cc5cb">rr::Logger::LOG_TRACE</a></div><div class="ttdeci">@ LOG_TRACE</div><div class="ttdoc">A debugging message.</div><div class="ttdef"><b>Definition:</b> rrLogger.h:70</div></div>
-<div class="ttc" id="aclassrr_1_1Logger_html_a72a52e7fe7be48e2ecad639c641ee8aa"><div class="ttname"><a href="classrr_1_1Logger.html#a72a52e7fe7be48e2ecad639c641ee8aa">rr::Logger::Level</a></div><div class="ttdeci">Level</div><div class="ttdoc">same as Poco level, repeat here to avoid including any Poco files as Poco is usually linked staticall...</div><div class="ttdef"><b>Definition:</b> rrLogger.h:61</div></div>
-<div class="ttc" id="aclassrr_1_1Logger_html_a72a52e7fe7be48e2ecad639c641ee8aaaa6900cf102f98dfa521d7c11dc59344c"><div class="ttname"><a href="classrr_1_1Logger.html#a72a52e7fe7be48e2ecad639c641ee8aaaa6900cf102f98dfa521d7c11dc59344c">rr::Logger::LOG_WARNING</a></div><div class="ttdeci">@ LOG_WARNING</div><div class="ttdoc">An error. An operation did not complete successfully, but the application as a whole is not affected.</div><div class="ttdef"><b>Definition:</b> rrLogger.h:66</div></div>
+<div class="ttc" id="aclassrr_1_1LoggingBuffer_html"><div class="ttname"><a href="classrr_1_1LoggingBuffer.html">rr::LoggingBuffer</a></div><div class="ttdoc">Poco LogStream dumps to the log when a newline i.e.</div><div class="ttdef"><b>Definition:</b> rrLogger.h:36</div></div>
+<div class="ttc" id="aclassrr_1_1Logger_html"><div class="ttname"><a href="classrr_1_1Logger.html">rr::Logger</a></div><div class="ttdoc">The roadrunner logger.</div><div class="ttdef"><b>Definition:</b> rrLogger.h:63</div></div>
+<div class="ttc" id="aclassrr_1_1Logger_html_a72a52e7fe7be48e2ecad639c641ee8aa"><div class="ttname"><a href="classrr_1_1Logger.html#a72a52e7fe7be48e2ecad639c641ee8aa">rr::Logger::Level</a></div><div class="ttdeci">Level</div><div class="ttdoc">same as Poco level, repeat here to avoid including any Poco files as Poco is usually linked staticall...</div><div class="ttdef"><b>Definition:</b> rrLogger.h:71</div></div>
 <!-- start footer part -->
 <hr class="footer"/><address class="footer"><small>
 Generated by&#160;<a href="http://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.8.20

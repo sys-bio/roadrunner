@@ -106,13 +106,13 @@ enum EventAtributes
  * There can exist rules (assigment, rate, and eventually algebraic) rules
  * that determine the value of a symbol.
  *
- * All items for which a rate rule exists are stored in the
+ * * All items for which a rate rule exists are stored in the
  * modelData::rateRules array.
  *
- * No space is allocated for items determined by rate rules.
+ * * No space is allocated for items determined by rate rules.
  *
  * * All elements get an index value, even the dependent ones, this allows
- * us uniquely indentify them in the generated accessor functions.
+ * us uniquely identify them in the generated accessor functions.
  *
  * * Most of the indexes used in this class are indexes into ModelData
  * arrays, therefore we use unsigned integers -- these are less error
@@ -130,7 +130,7 @@ public:
     typedef std::map<std::string, uint> StringUIntMap;
     typedef std::map<std::string, std::vector<uint> > StringUIntVectorMap;
     typedef std::pair<std::string, uint> StringUIntPair;
-    typedef cxx11_ns::unordered_map<uint, uint> UIntUIntMap;
+    typedef std::unordered_map<uint, uint> UIntUIntMap;
 
     enum SpeciesReferenceType
     {
@@ -145,7 +145,13 @@ public:
      */
     enum SymbolIndexType
     {
-        FLOATING_SPECIES, BOUNDARY_SPECIES, COMPARTMENT, GLOBAL_PARAMETER, REACTION, EVENT, INVALID_SYMBOL
+        FLOATING_SPECIES,
+        BOUNDARY_SPECIES,
+        COMPARTMENT,
+        GLOBAL_PARAMETER,
+        REACTION,
+        EVENT,
+        INVALID_SYMBOL
     };
 
     /**
@@ -330,17 +336,13 @@ public:
             const std::string& id) const;
 
 
-/******* Conserved Moiety Section ********************************************/
-#if (1) /*********************************************************************/
-/*****************************************************************************/
-
-
-
+    /******* Conserved Moiety Section ********************************************/
 
     /**
      * checks if the given symbol is a init value for a conserved species.
      *
      * Global parameters or floating species can be conservied moieties,
+     *
      * a global parameter is a CM if it is defined by a inital assignment rules
      * as a linear of one CM species and a set of indepdent
      * floating species.
@@ -439,9 +441,7 @@ private:
     StringUIntVectorMap conservedMoietyIndSpecies;
 
 
-/*****************************************************************************/
-#endif /* Conserved Moiety Section ******************************************/
-/*****************************************************************************/
+    /* End Conserved Moiety Section ******************************************/
 public:
 
     const std::vector<unsigned char>& getEventAttributes() const;
@@ -469,8 +469,6 @@ public:
 
 
 /************************ Initial Conditions Section *************************/
-#if (1) /*********************************************************************/
-/*****************************************************************************/
 
     /**
      * checks if the given symbol is an init value for an independent
@@ -606,8 +604,6 @@ private:
     std::vector<uint> floatingSpeciesCompartmentIndices;
 
 /************************ End Initial Conditions Section *********************/
-#endif /**********************************************************************/
-/*****************************************************************************/
 
 
 private:

@@ -37,7 +37,7 @@ public:
 	/**
 	 * Create an executable model from an sbml std::string
 	 */
-    static rr::ExecutableModel *createModel(const std::string& sbml, uint options);
+    static rr::ExecutableModel *createModel(const std::string& sbml, std::uint32_t options);
 
 	/**
 	 * Regenerate an executable model from an existing sbml document i.e. generate the model normally from the SBML document,

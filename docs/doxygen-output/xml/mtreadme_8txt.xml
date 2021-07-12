@@ -125,24 +125,24 @@
       </memberdef>
       </sectiondef>
       <sectiondef kind="func">
-      <memberdef kind="function" id="mtreadme_8txt_1aeb336300cc88134931c9d7ae0ea4b789" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+      <memberdef kind="function" id="mtreadme_8txt_1a340696d2beaf1a4d01eb56e3e27057e0" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
         <type>This is a Mersenne Twister pseudo random number generator with period with improved initialization modified on by Takuji Nishimura and Makoto Matsumoto This version is a port from the original C code to C by Jasper</type>
         <definition>This is a Mersenne Twister pseudo random number generator with period with improved initialization modified on by Takuji Nishimura and Makoto Matsumoto This version is a port from the original C code to C by Jasper Bedaux</definition>
-        <argsstring>(http:Contents of this tar ball:mtreadme.txt this file mtrand.h the include file containing class declarations mtrand.cpp the library file containing non-inline members mttest.cpp small program to test the random number generators mttest.out output of the test program to compare to if modified 1. Initialization The initialization scheme for the previous versions of MT(e.g. 1999/10/28 version or earlier) has a tiny problem, that the most significant bits of the seed is not well reflected to the state vector of MT. This version(2002/1/26) has two initialization schemes:seed(s) and seed(array, length). seed(s) initializes the state vector by using one unsigned 32-bit integer &apos;s&apos;, which may be zero. seed(array, length) initializes the state vector by using an array &apos;array&apos; of unsigned 32-bit integers of length &apos;length&apos;. If &apos;length&apos; is smaller than 624, then each array of 32-bit integers gives a distinct initial state vector. This is useful if you want a larger seed space than a 32-bit word. 2. Generators Below is an overview of the generators(functor classes) available. The last four are derived from the first one and all instances of every generator use the same static state vector in computer memory, so initialization must only be done once, when the first generator instance is created. MTRand_int32 generates unsigned 32-bit integers. MTRand generates uniform double precision floating point numbers in the halfopen interval[0, 1)(32-bit resolution). MTRand_open generates uniform double precision floating point numbers in the open interval(0</argsstring>
+        <argsstring>(http:Contents of this tar ball:mtreadme.txt this file mtrand.h the include file containing class declarations mtrand.cpp the library file containing non-inline members mttest.cpp small program to test the random number generators mttest.out output of the test program to compare to if modified 1. Initialization The initialization scheme for the previous versions of MT(e.g. 1999/10/28 version or earlier) has a tiny problem, that the most significant bits of the seed is not well reflected to the state std::vector of MT. This version(2002/1/26) has two initialization schemes:seed(s) and seed(array, length). seed(s) initializes the state std::vector by using one unsigned 32-bit integer &apos;s&apos;, which may be zero. seed(array, length) initializes the state std::vector by using an array &apos;array&apos; of unsigned 32-bit integers of length &apos;length&apos;. If &apos;length&apos; is smaller than 624, then each array of 32-bit integers gives a distinct initial state std::vector. This is useful if you want a larger seed space than a 32-bit word. 2. Generators Below is an overview of the generators(functor classes) available. The last four are derived from the first one and all instances of every generator use the same static state std::vector in computer memory, so initialization must only be done once, when the first generator instance is created. MTRand_int32 generates unsigned 32-bit integers. MTRand generates uniform double precision floating point numbers in the halfopen interval[0, 1)(32-bit resolution). MTRand_open generates uniform double precision floating point numbers in the open interval(0</argsstring>
         <name>Bedaux</name>
         <param>
           <type>http:Contents of this tar ball:mtreadme.txt this file mtrand.h the include file containing class declarations mtrand.cpp the library file containing non-inline members mttest.cpp small program to test the random number generators mttest.out output of the test program to compare to if modified 1. Initialization The initialization scheme for the previous versions of MT(e.g. 1999/10/28 version or earlier) has a tiny</type>
           <declname>problem</declname>
         </param>
         <param>
-          <type>that the most significant bits of the seed is not well reflected to the state vector of MT. This version(2002/1/26) has two initialization schemes:seed(s) and seed(array, length). seed(s) initializes the state vector by using one unsigned 32-bit integer &apos;s&apos;</type>
+          <type>that the most significant bits of the seed is not well reflected to the state std::vector of MT. This version(2002/1/26) has two initialization schemes:seed(s) and seed(array, length). seed(s) initializes the state std::vector by using one unsigned 32-bit integer &apos;s&apos;</type>
         </param>
         <param>
-          <type>which may be zero. seed(array, length) initializes the state vector by using an array &apos;array&apos; of unsigned 32-bit integers of length &apos;length&apos;. If &apos;length&apos; is smaller than</type>
+          <type>which may be zero. seed(array, length) initializes the state std::vector by using an array &apos;array&apos; of unsigned 32-bit integers of length &apos;length&apos;. If &apos;length&apos; is smaller than</type>
           <declname>624</declname>
         </param>
         <param>
-          <type>then each array of 32-bit integers gives a distinct initial state vector. This is useful if you want a larger seed space than a 32-bit word. 2. Generators Below is an overview of the generators(functor classes) available. The last four are derived from the first one and all instances of every generator use the same static state vector in computer</type>
+          <type>then each array of 32-bit integers gives a distinct initial state std::vector. This is useful if you want a larger seed space than a 32-bit word. 2. Generators Below is an overview of the generators(functor classes) available. The last four are derived from the first one and all instances of every generator use the same static state std::vector in computer</type>
           <declname>memory</declname>
         </param>
         <param>
@@ -275,25 +275,25 @@
 <codeline lineno="16"><highlight class="normal">The<sp/>initialization<sp/>scheme<sp/></highlight><highlight class="keywordflow">for</highlight><highlight class="normal"><sp/>the<sp/>previous<sp/>versions<sp/>of<sp/>MT</highlight></codeline>
 <codeline lineno="17"><highlight class="normal">(e.g.<sp/>1999/10/28<sp/>version<sp/>or<sp/>earlier)<sp/>has<sp/>a<sp/>tiny<sp/>problem,<sp/>that</highlight></codeline>
 <codeline lineno="18"><highlight class="normal">the<sp/>most<sp/>significant<sp/>bits<sp/>of<sp/>the<sp/>seed<sp/>is<sp/>not<sp/>well<sp/>reflected</highlight></codeline>
-<codeline lineno="19"><highlight class="normal">to<sp/>the<sp/>state<sp/>vector<sp/>of<sp/>MT.</highlight></codeline>
+<codeline lineno="19"><highlight class="normal">to<sp/>the<sp/>state<sp/>std::vector<sp/>of<sp/>MT.</highlight></codeline>
 <codeline lineno="20"><highlight class="normal"></highlight></codeline>
 <codeline lineno="21"><highlight class="normal">This<sp/>version<sp/>(2002/1/26)<sp/>has<sp/>two<sp/>initialization<sp/>schemes:</highlight></codeline>
 <codeline lineno="22"><highlight class="normal">seed(s)<sp/>and<sp/>seed(array,<sp/>length).</highlight></codeline>
 <codeline lineno="23"><highlight class="normal"></highlight></codeline>
-<codeline lineno="24"><highlight class="normal">seed(s)<sp/>initializes<sp/>the<sp/>state<sp/>vector<sp/>by<sp/></highlight><highlight class="keyword">using</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="24"><highlight class="normal">seed(s)<sp/>initializes<sp/>the<sp/>state<sp/>std::vector<sp/>by<sp/></highlight><highlight class="keyword">using</highlight><highlight class="normal"></highlight></codeline>
 <codeline lineno="25"><highlight class="normal">one<sp/></highlight><highlight class="keywordtype">unsigned</highlight><highlight class="normal"><sp/>32-bit<sp/>integer<sp/></highlight><highlight class="charliteral">&apos;s&apos;</highlight><highlight class="normal">,<sp/>which<sp/>may<sp/>be<sp/>zero.</highlight></codeline>
 <codeline lineno="26"><highlight class="normal"></highlight></codeline>
-<codeline lineno="27"><highlight class="normal">seed(array,<sp/>length)<sp/>initializes<sp/>the<sp/>state<sp/>vector<sp/></highlight></codeline>
+<codeline lineno="27"><highlight class="normal">seed(array,<sp/>length)<sp/>initializes<sp/>the<sp/>state<sp/>std::vector</highlight></codeline>
 <codeline lineno="28"><highlight class="normal">by<sp/></highlight><highlight class="keyword">using</highlight><highlight class="normal"><sp/>an<sp/>array<sp/></highlight><highlight class="stringliteral">&apos;array&apos;</highlight><highlight class="normal"><sp/>of<sp/></highlight><highlight class="keywordtype">unsigned</highlight><highlight class="normal"><sp/>32-bit<sp/>integers</highlight></codeline>
 <codeline lineno="29"><highlight class="normal">of<sp/>length<sp/></highlight><highlight class="stringliteral">&apos;length&apos;</highlight><highlight class="normal">.<sp/>If<sp/></highlight><highlight class="stringliteral">&apos;length&apos;</highlight><highlight class="normal"><sp/>is<sp/>smaller<sp/>than<sp/>624,</highlight></codeline>
 <codeline lineno="30"><highlight class="normal">then<sp/>each<sp/>array<sp/>of<sp/>32-bit<sp/>integers<sp/>gives<sp/>a<sp/>distinct<sp/>initial</highlight></codeline>
-<codeline lineno="31"><highlight class="normal">state<sp/>vector.<sp/>This<sp/>is<sp/>useful<sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>you<sp/>want<sp/>a<sp/>larger<sp/>seed<sp/>space</highlight></codeline>
+<codeline lineno="31"><highlight class="normal">state<sp/>std::vector.<sp/>This<sp/>is<sp/>useful<sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>you<sp/>want<sp/>a<sp/>larger<sp/>seed<sp/>space</highlight></codeline>
 <codeline lineno="32"><highlight class="normal">than<sp/>a<sp/>32-bit<sp/>word.</highlight></codeline>
 <codeline lineno="33"><highlight class="normal"></highlight></codeline>
 <codeline lineno="34"><highlight class="normal">2.<sp/>Generators</highlight></codeline>
 <codeline lineno="35"><highlight class="normal">Below<sp/>is<sp/>an<sp/>overview<sp/>of<sp/>the<sp/>generators<sp/>(functor<sp/>classes)<sp/>available.</highlight></codeline>
 <codeline lineno="36"><highlight class="normal">The<sp/>last<sp/>four<sp/>are<sp/>derived<sp/>from<sp/>the<sp/>first<sp/>one<sp/>and<sp/>all<sp/>instances<sp/>of<sp/>every</highlight></codeline>
-<codeline lineno="37"><highlight class="normal">generator<sp/>use<sp/>the<sp/>same<sp/></highlight><highlight class="keyword">static</highlight><highlight class="normal"><sp/>state<sp/>vector<sp/>in<sp/>computer<sp/>memory,<sp/>so</highlight></codeline>
+<codeline lineno="37"><highlight class="normal">generator<sp/>use<sp/>the<sp/>same<sp/></highlight><highlight class="keyword">static</highlight><highlight class="normal"><sp/>state<sp/>std::vector<sp/>in<sp/>computer<sp/>memory,<sp/>so</highlight></codeline>
 <codeline lineno="38"><highlight class="normal">initialization<sp/>must<sp/>only<sp/>be<sp/>done<sp/>once,<sp/>when<sp/>the<sp/>first<sp/>generator<sp/>instance</highlight></codeline>
 <codeline lineno="39"><highlight class="normal">is<sp/>created.</highlight></codeline>
 <codeline lineno="40"><highlight class="normal"></highlight></codeline>

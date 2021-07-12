@@ -22,7 +22,7 @@
  <tr style="height: 56px;">
   <td id="projectalign" style="padding-left: 0.5em;">
    <div id="projectname">roadrunner
-   &#160;<span id="projectnumber">2.0.5</span>
+   &#160;<span id="projectnumber">2.0.8</span>
    </div>
    <div id="projectbrief">Fast simulator for SBML models</div>
   </td>
@@ -66,8 +66,26 @@ $(function() {
 &#160;
 
 <h3><a id="index_g"></a>- g -</h3><ul>
+<li>get()
+: <a class="el" href="classrr_1_1Setting.html#a7b66c72a2cf9b9215733f554b6cd466e">rr::Setting</a>
+</li>
+<li>get_if()
+: <a class="el" href="classrr_1_1Setting.html#a44ebea12f30b1b3e84bf2ebd35c18d06">rr::Setting</a>
+</li>
+<li>getAs()
+: <a class="el" href="classrr_1_1Setting.html#ab029a70cdac39e82fba2a7857de00679">rr::Setting</a>
+</li>
 <li>getAssigmentRules()
 : <a class="el" href="classrrllvm_1_1LLVMModelSymbols.html#afaf501a34dd03317a49d5f3ba70839dd">rrllvm::LLVMModelSymbols</a>
+</li>
+<li>getBasicNewtonIterationDescription()
+: <a class="el" href="classrr_1_1BasicNewtonIteration.html#ab87d7b8d293d5fc4590e8393b96e0a7d">rr::BasicNewtonIteration</a>
+</li>
+<li>getBasicNewtonIterationHint()
+: <a class="el" href="classrr_1_1BasicNewtonIteration.html#aef5933dd094734718adbb65ccc0bfac3">rr::BasicNewtonIteration</a>
+</li>
+<li>getBasicNewtonIterationName()
+: <a class="el" href="classrr_1_1BasicNewtonIteration.html#a6fc85594b4d3a828b998f8fccbed0892">rr::BasicNewtonIteration</a>
 </li>
 <li>getBoundarySpeciesAmounts()
 : <a class="el" href="classrr_1_1CompiledExecutableModel.html#a09681dd060af48372696dee3427a509b">rr::CompiledExecutableModel</a>
@@ -78,7 +96,7 @@ $(function() {
 : <a class="el" href="classrr_1_1RoadRunner.html#ae7644ffca7f25ccf0c8e2289f8a8280e">rr::RoadRunner</a>
 </li>
 <li>getBoundarySpeciesConcentrationIds()
-: <a class="el" href="classrr_1_1RoadRunner.html#a5acce894eb75998ed93daf3c71c2d4dc">rr::RoadRunner</a>
+: <a class="el" href="classrr_1_1RoadRunner.html#a6d3c6c4f7d7e1a318ccda22b8c4dc540">rr::RoadRunner</a>
 </li>
 <li>getBoundarySpeciesConcentrations()
 : <a class="el" href="classrr_1_1CompiledExecutableModel.html#a050290614fc5e788ec8d839909cb362e">rr::CompiledExecutableModel</a>
@@ -114,7 +132,7 @@ $(function() {
 , <a class="el" href="classrr_1_1RoadRunner.html#a329f2009c2688bbedc906c21c4b8b3ef">rr::RoadRunner</a>
 </li>
 <li>getConcentrationTolerance()
-: <a class="el" href="classrr_1_1CVODEIntegrator.html#ab4c042d6db38872117a3c0196c3af9cf">rr::CVODEIntegrator</a>
+: <a class="el" href="classrr_1_1CVODEIntegrator.html#a7f68228148cf04688881f636a34deb48">rr::CVODEIntegrator</a>
 , <a class="el" href="classrr_1_1Integrator.html#a9bb4546b27c3b0b4552ebc1b36148629">rr::Integrator</a>
 </li>
 <li>getConfigFilePath()
@@ -136,7 +154,7 @@ $(function() {
 : <a class="el" href="classrrllvm_1_1LLVMModelDataSymbols.html#a9270500be0ded95f93647ae6ef84f16e">rrllvm::LLVMModelDataSymbols</a>
 </li>
 <li>getConservedMoietyValues()
-: <a class="el" href="classrr_1_1RoadRunner.html#a5df415a59e1d2ee85d252d3ed1dea700">rr::RoadRunner</a>
+: <a class="el" href="classrr_1_1RoadRunner.html#abdb0de6271ba9e054316d739cb9da1e9">rr::RoadRunner</a>
 </li>
 <li>getCSRMatrixGetNZDecl()
 : <a class="el" href="classrrllvm_1_1ModelDataIRBuilder.html#a43814b580c9cb37b7f19bd3835ff2852">rrllvm::ModelDataIRBuilder</a>
@@ -151,7 +169,7 @@ $(function() {
 : <a class="el" href="classrr_1_1Logger.html#adc95de06b2cfb00d95b327329893e767">rr::Logger</a>
 </li>
 <li>getCurrentSBML()
-: <a class="el" href="classrr_1_1RoadRunner.html#aee591c512811f899a6d41799728173c5">rr::RoadRunner</a>
+: <a class="el" href="classrr_1_1RoadRunner.html#abd7ed519514ee77cfe64c5d4cab6fc3f">rr::RoadRunner</a>
 </li>
 <li>getCVODEIntegratorDescription()
 : <a class="el" href="classrr_1_1CVODEIntegrator.html#a1bc1ab3721ec1a0c751ae613e4b0978d">rr::CVODEIntegrator</a>
@@ -162,6 +180,9 @@ $(function() {
 <li>getCVODEIntegratorName()
 : <a class="el" href="classrr_1_1CVODEIntegrator.html#a7cc34d2b66fa0e8dbf84ee04083884ee">rr::CVODEIntegrator</a>
 </li>
+<li>getCvodeMemory()
+: <a class="el" href="classrr_1_1CVODEIntegrator.html#ad3ad4d2d9d49bce33f8d34d177ff703a">rr::CVODEIntegrator</a>
+</li>
 <li>getDefaultCompiler()
 : <a class="el" href="classrr_1_1Compiler.html#a5144b370c3c98e8d4d3ae93a2e4bb57b">rr::Compiler</a>
 </li>
@@ -171,7 +192,7 @@ $(function() {
 , <a class="el" href="classrrllvm_1_1LLVMCompiler.html#af43a6b3d973fee5348bd9d2cea192752">rrllvm::LLVMCompiler</a>
 </li>
 <li>getDependentFloatingSpeciesIds()
-: <a class="el" href="classrr_1_1RoadRunner.html#a0b2d1c7cbaa21d37347dbdca33f4d479">rr::RoadRunner</a>
+: <a class="el" href="classrr_1_1RoadRunner.html#ae1510bf8ed8a09c375605346c21eaefc">rr::RoadRunner</a>
 </li>
 <li>getDependentRatesOfChange()
 : <a class="el" href="classrr_1_1RoadRunner.html#a8ab4bc9fd188058f67e84ac291d7eacd">rr::RoadRunner</a>
@@ -183,29 +204,36 @@ $(function() {
 : <a class="el" href="classrrllvm_1_1LLVMModelDataSymbols.html#ad61a2037d76721bade273a24383870d2">rrllvm::LLVMModelDataSymbols</a>
 </li>
 <li>getDescription()
-: <a class="el" href="classrr_1_1CVODEIntegrator.html#a41af2579ae0fbca95fdf2eb36990e3ae">rr::CVODEIntegrator</a>
-, <a class="el" href="classrr_1_1CVODEIntegratorRegistrar.html#a60c512a7f4d85a1416c8be05e024fccc">rr::CVODEIntegratorRegistrar</a>
+: <a class="el" href="classrr_1_1BasicNewtonIteration.html#a52d645f2934c5230411d7ddfbe56bc78">rr::BasicNewtonIteration</a>
+, <a class="el" href="classrr_1_1BasicNewtonIterationRegistrar.html#a1465c3c40c527e97a612fd4f8eb51934">rr::BasicNewtonIterationRegistrar</a>
+, <a class="el" href="classrr_1_1CVODEIntegrator.html#a1c6a393504cc85f2dc236abd0cb5577a">rr::CVODEIntegrator</a>
+, <a class="el" href="classrr_1_1CVODEIntegratorRegistrar.html#af3dd7e4f8ffe4bbb702f9cd3d96a2bed">rr::CVODEIntegratorRegistrar</a>
 , <a class="el" href="classrr_1_1EulerIntegrator.html#ae8553876982ae833839b7e33c08abdec">rr::EulerIntegrator</a>
 , <a class="el" href="classrr_1_1EulerIntegratorRegistrar.html#a892b4d3b8b108f637620a148b4c6f4a8">rr::EulerIntegratorRegistrar</a>
+, <a class="el" href="classrr_1_1FixedPointIteration.html#a4f8a179c87378739262b858a4e279642">rr::FixedPointIteration</a>
 , <a class="el" href="classrr_1_1GillespieIntegrator.html#adc46266d77d8c9d54bca86ca3d402f8f">rr::GillespieIntegrator</a>
 , <a class="el" href="classrr_1_1GillespieIntegratorRegistrar.html#a27d06f098bfbac81174576a70f036c12">rr::GillespieIntegratorRegistrar</a>
 , <a class="el" href="classrr_1_1IntegratorRegistrar.html#a968cb1248f56b35e0a038f7b2aca140d">rr::IntegratorRegistrar</a>
-, <a class="el" href="classrr_1_1NLEQ1Solver.html#a563c9b0d67f800a54e587134c6ab40f4">rr::NLEQ1Solver</a>
+, <a class="el" href="classrr_1_1LinesearchNewtonIteration.html#a31c7aeb461a19411e3b48336d16401f6">rr::LinesearchNewtonIteration</a>
+, <a class="el" href="classrr_1_1LinesearchNewtonIterationRegistrar.html#a4c4c80341b9d99013eab79029eeaae81">rr::LinesearchNewtonIterationRegistrar</a>
+, <a class="el" href="classrr_1_1NewtonIteration.html#ae1119d11821a6b1fb52fc84186d91b1e">rr::NewtonIteration</a>
+, <a class="el" href="classrr_1_1NLEQ1Solver.html#a3305ca56332184b9747f95a86c46c6ca">rr::NLEQ1Solver</a>
 , <a class="el" href="classrr_1_1NLEQ1SolverRegistrar.html#a20685e66dfe3a028e4c493d8af53e743">rr::NLEQ1SolverRegistrar</a>
-, <a class="el" href="classrr_1_1NLEQ2Solver.html#ab5005ced545fa4b22178b2047b12557c">rr::NLEQ2Solver</a>
+, <a class="el" href="classrr_1_1NLEQ2Solver.html#aa262aaf5e1361ac34802a3e4c28772af">rr::NLEQ2Solver</a>
 , <a class="el" href="classrr_1_1NLEQ2SolverRegistrar.html#adcba98550142a6495f3e65ad14e3e349">rr::NLEQ2SolverRegistrar</a>
 , <a class="el" href="classrr_1_1RK45Integrator.html#a45d69589da662628a6f0f66c200614e3">rr::RK45Integrator</a>
 , <a class="el" href="classrr_1_1RK45IntegratorRegistrar.html#a3cbc5e6b569b141bc36646ff5ab9dc10">rr::RK45IntegratorRegistrar</a>
 , <a class="el" href="classrr_1_1RK4Integrator.html#ad4638630bbbfc3bc62adfdfdebc9bde9">rr::RK4Integrator</a>
 , <a class="el" href="classrr_1_1RK4IntegratorRegistrar.html#a71a414197a51e719e283fa06fb9fdf5b">rr::RK4IntegratorRegistrar</a>
 , <a class="el" href="classrr_1_1Solver.html#a86067147c7631ca80d51667322f1a8f5">rr::Solver</a>
+, <a class="el" href="classrr_1_1SteadyStateSolverDecorator.html#aeee54937d2c9bc9959e7be1ed217831c">rr::SteadyStateSolverDecorator</a>
 , <a class="el" href="classrr_1_1SteadyStateSolverRegistrar.html#a0b2f22b7a1c4989e97ac3fdb64ac983c">rr::SteadyStateSolverRegistrar</a>
 </li>
 <li>getDiffStepSize()
 : <a class="el" href="classrr_1_1RoadRunner.html#add8f2cfb1a37ad4e352f43a9529a3035">rr::RoadRunner</a>
 </li>
 <li>getDisplayName()
-: <a class="el" href="classrr_1_1Solver.html#a1242e881aa76493f73c4e32784c1cec6">rr::Solver</a>
+: <a class="el" href="classrr_1_1Solver.html#a1fce02df70c95855d9d3cd7e3d352c08">rr::Solver</a>
 </li>
 <li>getDouble()
 : <a class="el" href="classrr_1_1Config.html#a6cf432148717f8bbadc861481340f3bd">rr::Config</a>
@@ -214,7 +242,7 @@ $(function() {
 : <a class="el" href="classrr_1_1RoadRunner.html#a4faad67b12aaf15212f7c57697556d61">rr::RoadRunner</a>
 </li>
 <li>getEigenValueIds()
-: <a class="el" href="classrr_1_1RoadRunner.html#ab0dde69c8f297c32c1ac8e622ece4781">rr::RoadRunner</a>
+: <a class="el" href="classrr_1_1RoadRunner.html#aea6a2de3cb5502f2924f6c874b848758">rr::RoadRunner</a>
 </li>
 <li>getEulerDescription()
 : <a class="el" href="classrr_1_1EulerIntegrator.html#a8aedb3236672bb9a15c74cff0260fb1c">rr::EulerIntegrator</a>
@@ -248,13 +276,22 @@ $(function() {
 , <a class="el" href="classrrllvm_1_1LLVMExecutableModel.html#a2fa49b7f906b27eb2848a308eda2cdaa">rrllvm::LLVMExecutableModel</a>
 </li>
 <li>getExtendedVersionInfo()
-: <a class="el" href="classrr_1_1RoadRunner.html#afdb1fa322ff0f3d53e33e30558bbe478">rr::RoadRunner</a>
+: <a class="el" href="classrr_1_1RoadRunner.html#a99dbe4b81831a8b7d5b53077027f465a">rr::RoadRunner</a>
 </li>
 <li>getFieldName()
 : <a class="el" href="classrrllvm_1_1LLVMModelDataSymbols.html#a32e6b447a358eb4a0aa22723cc7ea2e6">rrllvm::LLVMModelDataSymbols</a>
 </li>
 <li>getFileName()
 : <a class="el" href="classrr_1_1Logger.html#a40f208d7bf2af73894ba3872296dbe9c">rr::Logger</a>
+</li>
+<li>getFixedPointIterationDescription()
+: <a class="el" href="classrr_1_1FixedPointIteration.html#a11ecacc24bf9bd8b0b69679d0b24c27f">rr::FixedPointIteration</a>
+</li>
+<li>getFixedPointIterationHint()
+: <a class="el" href="classrr_1_1FixedPointIteration.html#a1b88932ba3d500e9050c66007c4ad02f">rr::FixedPointIteration</a>
+</li>
+<li>getFixedPointIterationName()
+: <a class="el" href="classrr_1_1FixedPointIteration.html#a090b8629877800d96cd3c86c352823d8">rr::FixedPointIteration</a>
 </li>
 <li>getFlags()
 : <a class="el" href="classrr_1_1CompiledExecutableModel.html#a1db2b94da9271085a088c16acba2462e">rr::CompiledExecutableModel</a>
@@ -274,7 +311,7 @@ $(function() {
 : <a class="el" href="classrr_1_1RoadRunner.html#a8ce13b054d539a8d086d03bd7d16b1df">rr::RoadRunner</a>
 </li>
 <li>getFloatingSpeciesConcentrationIds()
-: <a class="el" href="classrr_1_1RoadRunner.html#a13abd6f7d1bf72686f8637c154a73a58">rr::RoadRunner</a>
+: <a class="el" href="classrr_1_1RoadRunner.html#a2282dace1e13af6f074819684536c2d9">rr::RoadRunner</a>
 </li>
 <li>getFloatingSpeciesConcentrations()
 : <a class="el" href="classrr_1_1CompiledExecutableModel.html#aadcc3bd8f08ff2e62efe7c7a0c484f79">rr::CompiledExecutableModel</a>
@@ -302,7 +339,7 @@ $(function() {
 , <a class="el" href="classrrllvm_1_1LLVMExecutableModel.html#a0b370d57c274830d88084d2c232377ef">rrllvm::LLVMExecutableModel</a>
 </li>
 <li>getFloatingSpeciesInitialConcentrationIds()
-: <a class="el" href="classrr_1_1RoadRunner.html#a22758ccedea064c87ccc5fd0c533b32f">rr::RoadRunner</a>
+: <a class="el" href="classrr_1_1RoadRunner.html#a0bf792116912df16a5bffd637eb241c1">rr::RoadRunner</a>
 </li>
 <li>getFloatingSpeciesInitIndex()
 : <a class="el" href="classrrllvm_1_1LLVMModelDataSymbols.html#ac7d78cdbadcc805571ab7ce9ff8870be">rrllvm::LLVMModelDataSymbols</a>
@@ -339,12 +376,13 @@ $(function() {
 </li>
 <li>getGlobalParameterId()
 : <a class="el" href="classrr_1_1ExecutableModel.html#a741aa1e4a24bca93c8eb12019a33cd81">rr::ExecutableModel</a>
-, <a class="el" href="classrrllvm_1_1LLVMExecutableModel.html#a1a7c7caaa08ed5046f3f99c18651b734">rrllvm::LLVMExecutableModel</a>
+, <a class="el" href="classrrllvm_1_1LLVMExecutableModel.html#a1e6a278aab70c122142d035d421bd7ff">rrllvm::LLVMExecutableModel</a>
 , <a class="el" href="classrrllvm_1_1LLVMModelDataSymbols.html#af4ff843ba9adeebe28e935a7a20e4c1c">rrllvm::LLVMModelDataSymbols</a>
 </li>
 <li>getGlobalParameterIndex()
 : <a class="el" href="classrr_1_1CompiledExecutableModel.html#a8b0dec616b4154c8a56c68cc3265d502">rr::CompiledExecutableModel</a>
 , <a class="el" href="classrr_1_1ExecutableModel.html#abcdcc03c4563dfbe6b64f932812906ee">rr::ExecutableModel</a>
+, <a class="el" href="classrrllvm_1_1LLVMExecutableModel.html#a47c44c1deb69436166ebedf24130182a">rrllvm::LLVMExecutableModel</a>
 , <a class="el" href="classrrllvm_1_1LLVMModelDataSymbols.html#a76465828770aec3ce22b2de0e7e569f2">rrllvm::LLVMModelDataSymbols</a>
 </li>
 <li>getGlobalParameterInitIndex()
@@ -360,25 +398,32 @@ $(function() {
 , <a class="el" href="classrrllvm_1_1LLVMExecutableModel.html#a7326ff8b52c44cc6ebe88bad8495f175">rrllvm::LLVMExecutableModel</a>
 </li>
 <li>getHeaderCode()
-: <a class="el" href="classrr_1_1CModelGenerator.html#acb11493b8869f548a39d23f6f3b54073">rr::CModelGenerator</a>
+: <a class="el" href="classrr_1_1CModelGenerator.html#a27767f695af07d42f448c22d1b0875f3">rr::CModelGenerator</a>
 </li>
 <li>getHint()
-: <a class="el" href="classrr_1_1CVODEIntegrator.html#a89b7e1161329480ae2fe84e7f2a8ca1e">rr::CVODEIntegrator</a>
-, <a class="el" href="classrr_1_1CVODEIntegratorRegistrar.html#a1203a6651a94c44286196b899a311fe1">rr::CVODEIntegratorRegistrar</a>
+: <a class="el" href="classrr_1_1BasicNewtonIteration.html#a4ed6c97258f57dfe0f4653284f6bb9ac">rr::BasicNewtonIteration</a>
+, <a class="el" href="classrr_1_1BasicNewtonIterationRegistrar.html#a5b6b927625353628bc52e2fdae78f3e3">rr::BasicNewtonIterationRegistrar</a>
+, <a class="el" href="classrr_1_1CVODEIntegrator.html#addde67b3639fe1347efc2a37bbfdd60e">rr::CVODEIntegrator</a>
+, <a class="el" href="classrr_1_1CVODEIntegratorRegistrar.html#a3f7a4bd2791d775b50098994f8d67988">rr::CVODEIntegratorRegistrar</a>
 , <a class="el" href="classrr_1_1EulerIntegrator.html#a2acf8abc8c584f487b5a394bcd3a1bdb">rr::EulerIntegrator</a>
 , <a class="el" href="classrr_1_1EulerIntegratorRegistrar.html#ab125bc7d1441549cb3968bbe4aa5e2af">rr::EulerIntegratorRegistrar</a>
+, <a class="el" href="classrr_1_1FixedPointIteration.html#a694db68c3021fcbceec701335dffd2ee">rr::FixedPointIteration</a>
 , <a class="el" href="classrr_1_1GillespieIntegrator.html#a9903b945ac591f39cb3e93167fe45514">rr::GillespieIntegrator</a>
 , <a class="el" href="classrr_1_1GillespieIntegratorRegistrar.html#ada70586eae53b56a39f5b9b278aca082">rr::GillespieIntegratorRegistrar</a>
 , <a class="el" href="classrr_1_1IntegratorRegistrar.html#a5ac1fb7c359fe983c3ba162c8b67682e">rr::IntegratorRegistrar</a>
-, <a class="el" href="classrr_1_1NLEQ1Solver.html#af2dc9efdd38fc60056dbdd055a6f11f1">rr::NLEQ1Solver</a>
+, <a class="el" href="classrr_1_1LinesearchNewtonIteration.html#a39c0f6a3a82a515f4d71fdfdb4b25fc3">rr::LinesearchNewtonIteration</a>
+, <a class="el" href="classrr_1_1LinesearchNewtonIterationRegistrar.html#a0d67c0d43e05dc497ca33a3f9fde2ce2">rr::LinesearchNewtonIterationRegistrar</a>
+, <a class="el" href="classrr_1_1NewtonIteration.html#ac346fbad167b7d4f1bcadb6ad9049ac2">rr::NewtonIteration</a>
+, <a class="el" href="classrr_1_1NLEQ1Solver.html#ad0b6aa0960821af4c9b4fcf6d2268790">rr::NLEQ1Solver</a>
 , <a class="el" href="classrr_1_1NLEQ1SolverRegistrar.html#ab2ee3d7f162ccee398badecf0f390d6a">rr::NLEQ1SolverRegistrar</a>
-, <a class="el" href="classrr_1_1NLEQ2Solver.html#a310f481e87ff32cc51fa62345afe6e83">rr::NLEQ2Solver</a>
+, <a class="el" href="classrr_1_1NLEQ2Solver.html#acb4cad3d5920adff567ee9a70d3646bc">rr::NLEQ2Solver</a>
 , <a class="el" href="classrr_1_1NLEQ2SolverRegistrar.html#a856af2879611da2eada0874dd8252b29">rr::NLEQ2SolverRegistrar</a>
 , <a class="el" href="classrr_1_1RK45Integrator.html#ae5526461902e834afff94a18f679dbe3">rr::RK45Integrator</a>
 , <a class="el" href="classrr_1_1RK45IntegratorRegistrar.html#aae13ea771e8fbcd349e9e4f8592baff4">rr::RK45IntegratorRegistrar</a>
 , <a class="el" href="classrr_1_1RK4Integrator.html#a2f98503350687e02bea28077f3538b07">rr::RK4Integrator</a>
 , <a class="el" href="classrr_1_1RK4IntegratorRegistrar.html#a825304f63a662161a6ae42f78e21d396">rr::RK4IntegratorRegistrar</a>
 , <a class="el" href="classrr_1_1Solver.html#aff005f7e71bc73123ecbd511a77f71b6">rr::Solver</a>
+, <a class="el" href="classrr_1_1SteadyStateSolverDecorator.html#a010d1f84529bbcc1177f35ee646e8b6c">rr::SteadyStateSolverDecorator</a>
 , <a class="el" href="classrr_1_1SteadyStateSolverRegistrar.html#a00f5ff21ffc7322a244ed27d8cff4d64">rr::SteadyStateSolverRegistrar</a>
 </li>
 <li>getHostCPUName()
@@ -399,7 +444,7 @@ $(function() {
 : <a class="el" href="classrrllvm_1_1LLVMModelDataSymbols.html#af15296d2d5be06122ee753e6d13f61e1">rrllvm::LLVMModelDataSymbols</a>
 </li>
 <li>getIndependentFloatingSpeciesIds()
-: <a class="el" href="classrr_1_1RoadRunner.html#ac713974ee639f493d9d8cdb1577233fe">rr::RoadRunner</a>
+: <a class="el" href="classrr_1_1RoadRunner.html#a5008edbb3df7cd74abb87414638dea55">rr::RoadRunner</a>
 </li>
 <li>getIndependentFloatingSpeciesSize()
 : <a class="el" href="classrrllvm_1_1LLVMModelDataSymbols.html#a262c5cc26d6bd5fc7c3b4efdf49a76b9">rrllvm::LLVMModelDataSymbols</a>
@@ -417,8 +462,8 @@ $(function() {
 : <a class="el" href="classrrllvm_1_1LLVMModelDataSymbols.html#a60afb2eed41a8fed24efdc44306bb23f">rrllvm::LLVMModelDataSymbols</a>
 </li>
 <li>getInfo()
-: <a class="el" href="classrr_1_1CompiledModelGenerator.html#a881aba4028f09e3bf59be8c355cba632">rr::CompiledModelGenerator</a>
-, <a class="el" href="classrr_1_1RoadRunner.html#a2b7022cadd857fa4fb3cb24703da608a">rr::RoadRunner</a>
+: <a class="el" href="classrr_1_1CompiledModelGenerator.html#af0ad2a8f4f40c26f9dc27eebecf04cc6">rr::CompiledModelGenerator</a>
+, <a class="el" href="classrr_1_1RoadRunner.html#a3280d3b45ff394b0f507fb0a5983d582">rr::RoadRunner</a>
 </li>
 <li>getInitialAssignmentRules()
 : <a class="el" href="classrrllvm_1_1LLVMModelSymbols.html#ad7d0e9e5abc92d6295a5f520436f54e6">rrllvm::LLVMModelSymbols</a>
@@ -440,7 +485,7 @@ $(function() {
 : <a class="el" href="classrr_1_1Config.html#a66454fca7b7357d5b3180d8589bacebf">rr::Config</a>
 </li>
 <li>getIntegrationMethod()
-: <a class="el" href="classrr_1_1CVODEIntegrator.html#a0f96e9ef8da207e68b4389631ce2eb26">rr::CVODEIntegrator</a>
+: <a class="el" href="classrr_1_1CVODEIntegrator.html#a7cc1f774e58f179fb2e69c515c9f2a1f">rr::CVODEIntegrator</a>
 , <a class="el" href="classrr_1_1EulerIntegrator.html#a9bf013a3a23007eac2d5b71533dc4c9b">rr::EulerIntegrator</a>
 , <a class="el" href="classrr_1_1GillespieIntegrator.html#a01237f3e6d841e05479dcd914d9f11dc">rr::GillespieIntegrator</a>
 , <a class="el" href="classrr_1_1RK45Integrator.html#ade69fdfc91f614a6f20bc8027d5e2f0a">rr::RK45Integrator</a>
@@ -453,74 +498,106 @@ $(function() {
 : <a class="el" href="classrr_1_1RoadRunner.html#a8acc349df7a67c32d696bb56952a069e">rr::RoadRunner</a>
 </li>
 <li>getItem()
-: <a class="el" href="classrr_1_1BasicDictionary.html#a3357b3d49d8353f19ec9aa83884f6ef1">rr::BasicDictionary</a>
-, <a class="el" href="classrr_1_1Dictionary.html#a53cb5eee283727168630f6b1b918bdb0">rr::Dictionary</a>
-, <a class="el" href="classrr_1_1EulerIntegrator.html#af0e49dbee9ed3fc80af2501dd958705c">rr::EulerIntegrator</a>
-, <a class="el" href="classrr_1_1LoadSBMLOptions.html#a42644c69463fd75bafb1ead69b9681e6">rr::LoadSBMLOptions</a>
-, <a class="el" href="classrr_1_1NLEQ1Interface.html#af2c0bfc32e56ad8c71300b5f6ed7a0b7">rr::NLEQ1Interface</a>
-, <a class="el" href="classrr_1_1NLEQ2Interface.html#a4ef5104c0c2bb69c42add51d3c6cb0d4">rr::NLEQ2Interface</a>
+: <a class="el" href="classrr_1_1BasicDictionary.html#afb43f812d4aaf7809c79d1300bc9fe8c">rr::BasicDictionary</a>
+, <a class="el" href="classrr_1_1Dictionary.html#a0fcdd3d9089af14e49e8713c254c9b67">rr::Dictionary</a>
+, <a class="el" href="classrr_1_1EulerIntegrator.html#a243b2296bfee9540f967a73968cc66f6">rr::EulerIntegrator</a>
+, <a class="el" href="classrr_1_1LoadSBMLOptions.html#ae4dd5db25b55f9561e231c23c53ae941">rr::LoadSBMLOptions</a>
+, <a class="el" href="classrr_1_1NLEQ1Interface.html#a1a8928cba0c954524c5361a79ee3d0b4">rr::NLEQ1Interface</a>
+, <a class="el" href="classrr_1_1NLEQ2Interface.html#abb1a5d9b9039568fbf6f7c34ab91f670">rr::NLEQ2Interface</a>
 </li>
 <li>getKeys()
 : <a class="el" href="classrr_1_1BasicDictionary.html#a4e87ed4bed586a041a2c51249448d2fa">rr::BasicDictionary</a>
 , <a class="el" href="classrr_1_1Dictionary.html#ae8e4240deda5ee2dc7d472476bd92b47">rr::Dictionary</a>
 , <a class="el" href="classrr_1_1EulerIntegrator.html#a5fcbf9856452f3b22dbe87a52873b994">rr::EulerIntegrator</a>
-, <a class="el" href="classrr_1_1LoadSBMLOptions.html#ae7eb8e9235b38ece702c662b04da3734">rr::LoadSBMLOptions</a>
+, <a class="el" href="classrr_1_1LoadSBMLOptions.html#a793d753189e642242ff31e0897124c85">rr::LoadSBMLOptions</a>
 , <a class="el" href="classrr_1_1NLEQ1Interface.html#a72c681cfe17374a786130a3740841238">rr::NLEQ1Interface</a>
 , <a class="el" href="classrr_1_1NLEQ2Interface.html#afad85315aa2373f52cbfb12262df8c3f">rr::NLEQ2Interface</a>
 </li>
 <li>getKineticLaw()
-: <a class="el" href="classrr_1_1NOMSupport.html#a9397f260f931befe29ed252770f18195">rr::NOMSupport</a>
+: <a class="el" href="classrr_1_1NOMSupport.html#a16d422f74f452590dda119bb215d01ce">rr::NOMSupport</a>
 , <a class="el" href="classrr_1_1RoadRunner.html#a3e0b8f15b7ab0042dcfd85c14fa207ca">rr::RoadRunner</a>
+</li>
+<li>getKinsolMemory()
+: <a class="el" href="classrr_1_1KinsolSteadyStateSolver.html#a5ebba0ecca346216d982d9533d32d811">rr::KinsolSteadyStateSolver</a>
 </li>
 <li>getKMatrix()
 : <a class="el" href="classrr_1_1RoadRunner.html#a17f97e936006a4892b963892c2fdb424">rr::RoadRunner</a>
 </li>
+<li>getLeftSingularVectors()
+: <a class="el" href="classrr_1_1SVD.html#aaa62288e25ab68c503461e69d321e317">rr::SVD</a>
+</li>
 <li>getLevel()
 : <a class="el" href="classrr_1_1Logger.html#ad6b48d767c766eeb3db7505a59631b6b">rr::Logger</a>
 </li>
+<li>getLinesearchNewtonIterationDescription()
+: <a class="el" href="classrr_1_1LinesearchNewtonIteration.html#affe185cbf7f83358e21290934f377823">rr::LinesearchNewtonIteration</a>
+</li>
+<li>getLinesearchNewtonIterationHint()
+: <a class="el" href="classrr_1_1LinesearchNewtonIteration.html#a905e1245d1e73a790f2006aed72a8a27">rr::LinesearchNewtonIteration</a>
+</li>
+<li>getLinesearchNewtonIterationName()
+: <a class="el" href="classrr_1_1LinesearchNewtonIteration.html#ac9142d083012819a968220c894734a8f">rr::LinesearchNewtonIteration</a>
+</li>
 <li>getListener()
-: <a class="el" href="classrr_1_1CVODEIntegrator.html#ad1c04bdb1c00267d1a0f6b2cc5143b73">rr::CVODEIntegrator</a>
+: <a class="el" href="classrr_1_1CVODEIntegrator.html#a480b8dad2e4dabcdb8fec1439ab7c5f7">rr::CVODEIntegrator</a>
 , <a class="el" href="classrr_1_1EulerIntegrator.html#a9ec7df905cdffbeb14e4f764ae0c2ac0">rr::EulerIntegrator</a>
 , <a class="el" href="classrr_1_1GillespieIntegrator.html#a722d13b4535fbdbee5e5f2845503cbba">rr::GillespieIntegrator</a>
 , <a class="el" href="classrr_1_1RK45Integrator.html#af31a4d9eaff51261d8589f6020f2d612">rr::RK45Integrator</a>
 , <a class="el" href="classrr_1_1RK4Integrator.html#a11d4c8c5a4f0b807af86254d9005577d">rr::RK4Integrator</a>
 </li>
 <li>getMatchForSymbol()
-: <a class="el" href="classrr_1_1NOMSupport.html#a5c2d33909c7b791a421cccc393c0e6be">rr::NOMSupport</a>
+: <a class="el" href="classrr_1_1NOMSupport.html#ac2c0def46c9097eb80982c3b15517f1e">rr::NOMSupport</a>
 </li>
 <li>getMaxTries()
 : <a class="el" href="classrrllvm_1_1Random.html#ad009ff45cd685be754370b668e99f6f2">rrllvm::Random</a>
 </li>
 <li>getModel()
 : <a class="el" href="classrr_1_1RoadRunner.html#afa827d569de3c83dd286ac2aa25d1cf4">rr::RoadRunner</a>
+, <a class="el" href="classrr_1_1Solver.html#ac89194d54aaad3ecc71e1cfbbef83d15">rr::Solver</a>
 </li>
 <li>getModelName()
-: <a class="el" href="classrr_1_1CompiledExecutableModel.html#a4fa5acc0a12a75fe89579acdd6c1e62a">rr::CompiledExecutableModel</a>
+: <a class="el" href="classrr_1_1CompiledExecutableModel.html#a7a35baccccf36442c3e38770587db25c">rr::CompiledExecutableModel</a>
 , <a class="el" href="classrr_1_1ExecutableModel.html#a6ad7fd317a2335c337d7c8a3aeb8e044">rr::ExecutableModel</a>
-, <a class="el" href="classrr_1_1RoadRunner.html#a9519f489ada956e35bd0b65e44e96cdd">rr::RoadRunner</a>
-, <a class="el" href="classrrllvm_1_1LLVMExecutableModel.html#ae1a203ae31724ca175835507c43e8639">rrllvm::LLVMExecutableModel</a>
+, <a class="el" href="classrr_1_1RoadRunner.html#ac03b62cc39f62a61a556fe393e859e36">rr::RoadRunner</a>
+, <a class="el" href="classrrllvm_1_1LLVMExecutableModel.html#a27354715e74d4d66197f17646150ff8f">rrllvm::LLVMExecutableModel</a>
 </li>
 <li>getModule()
 : <a class="el" href="classrrllvm_1_1ModelGeneratorContext.html#ac05b77257df7b20fd7a4875729f9ec56">rrllvm::ModelGeneratorContext</a>
 </li>
 <li>getName()
-: <a class="el" href="classrr_1_1CVODEIntegrator.html#a8cf0e265974ca6cfba2b22d98c77801a">rr::CVODEIntegrator</a>
-, <a class="el" href="classrr_1_1CVODEIntegratorRegistrar.html#aae43ee9d70bb6853eb38bd13c204643f">rr::CVODEIntegratorRegistrar</a>
+: <a class="el" href="classrr_1_1BasicNewtonIteration.html#abba6c099dc88a3b80d3a2d65c9c43e03">rr::BasicNewtonIteration</a>
+, <a class="el" href="classrr_1_1BasicNewtonIterationRegistrar.html#a54f5dcc411a31b890cdf45b7441e87a2">rr::BasicNewtonIterationRegistrar</a>
+, <a class="el" href="classrr_1_1CVODEIntegrator.html#aa889b08549036792918c41e88e2097f4">rr::CVODEIntegrator</a>
+, <a class="el" href="classrr_1_1CVODEIntegratorRegistrar.html#a1d546eb66882fb25d9a4e103f88f86f6">rr::CVODEIntegratorRegistrar</a>
 , <a class="el" href="classrr_1_1EulerIntegrator.html#a44c17c0740b6d7855f10849bae3b1223">rr::EulerIntegrator</a>
 , <a class="el" href="classrr_1_1EulerIntegratorRegistrar.html#a42f3b3ae652633c64de6c28034b14f05">rr::EulerIntegratorRegistrar</a>
+, <a class="el" href="classrr_1_1FixedPointIteration.html#a9e1334eebd535c642abb8593d4e46824">rr::FixedPointIteration</a>
 , <a class="el" href="classrr_1_1GillespieIntegrator.html#a290f7167ef2a6da01ff1543c496e1215">rr::GillespieIntegrator</a>
 , <a class="el" href="classrr_1_1GillespieIntegratorRegistrar.html#a585d7c3adc1e8a2410210c0c1801ae1d">rr::GillespieIntegratorRegistrar</a>
 , <a class="el" href="classrr_1_1IntegratorRegistrar.html#a5d265f5314ede9037c5c6ca2131455af">rr::IntegratorRegistrar</a>
-, <a class="el" href="classrr_1_1NLEQ1Solver.html#ad0d9601d9d272cb97fde279e89e50203">rr::NLEQ1Solver</a>
+, <a class="el" href="classrr_1_1LinesearchNewtonIteration.html#a62113dcfc8a9d93fd419f025bc202563">rr::LinesearchNewtonIteration</a>
+, <a class="el" href="classrr_1_1LinesearchNewtonIterationRegistrar.html#ac95f3e2b3539c23b50a701b59e914e2f">rr::LinesearchNewtonIterationRegistrar</a>
+, <a class="el" href="classrr_1_1NewtonIteration.html#a5a77fd21be6a9af126872232998bfeb2">rr::NewtonIteration</a>
+, <a class="el" href="classrr_1_1NLEQ1Solver.html#aa0a09770b4595f7cc7b698055d2c4d1a">rr::NLEQ1Solver</a>
 , <a class="el" href="classrr_1_1NLEQ1SolverRegistrar.html#a7f83e11e81d93d165534351e10aa02ed">rr::NLEQ1SolverRegistrar</a>
-, <a class="el" href="classrr_1_1NLEQ2Solver.html#a23b111e063e51f20ecb44c8b81eee98c">rr::NLEQ2Solver</a>
+, <a class="el" href="classrr_1_1NLEQ2Solver.html#acab401cc8acf3cf2049557b10342efe1">rr::NLEQ2Solver</a>
 , <a class="el" href="classrr_1_1NLEQ2SolverRegistrar.html#a6d9c3dc02579c94f76900fffe550ff3b">rr::NLEQ2SolverRegistrar</a>
 , <a class="el" href="classrr_1_1RK45Integrator.html#aebee4c612006c929ba1d194b4258fa55">rr::RK45Integrator</a>
 , <a class="el" href="classrr_1_1RK45IntegratorRegistrar.html#a524d2aa391799c1df6620b1cbb8c70c2">rr::RK45IntegratorRegistrar</a>
 , <a class="el" href="classrr_1_1RK4Integrator.html#ae65f8c20d95f0bc6018992d3803c3287">rr::RK4Integrator</a>
 , <a class="el" href="classrr_1_1RK4IntegratorRegistrar.html#adb5ec63acd55cdec8577a88d1fbb8f5e">rr::RK4IntegratorRegistrar</a>
 , <a class="el" href="classrr_1_1Solver.html#a417cca64a18c63535f2091584f8fed91">rr::Solver</a>
+, <a class="el" href="classrr_1_1SteadyStateSolverDecorator.html#ab40943abac1972772212fb7fad42afa3">rr::SteadyStateSolverDecorator</a>
 , <a class="el" href="classrr_1_1SteadyStateSolverRegistrar.html#adf5cbf8f2c5df0d1a25807c80fbc3549">rr::SteadyStateSolverRegistrar</a>
+</li>
+<li>getNewtonIterationDescription()
+: <a class="el" href="classrr_1_1NewtonIteration.html#acfa3b9dcb97628591e853629c2e40b4b">rr::NewtonIteration</a>
+</li>
+<li>getNewtonIterationHint()
+: <a class="el" href="classrr_1_1NewtonIteration.html#a107c604fb367c5ca927fc02e31cf5016">rr::NewtonIteration</a>
+</li>
+<li>getNewtonIterationName()
+: <a class="el" href="classrr_1_1NewtonIteration.html#a8f887dc497c97796c527f78c9c8edc02">rr::NewtonIteration</a>
 </li>
 <li>getNextPendingEventTime()
 : <a class="el" href="classrrllvm_1_1EventQueue.html#ae48e013f7f46e5affcb6d23ab5e9b261">rrllvm::EventQueue</a>
@@ -541,7 +618,27 @@ $(function() {
 : <a class="el" href="classrr_1_1RoadRunner.html#a764d53843d94cc402479515ebce056ac">rr::RoadRunner</a>
 </li>
 <li>getNthFloatingSpeciesCompartmentName()
-: <a class="el" href="classrr_1_1NOMSupport.html#a82d3449a09bcbbc2992c6ca048d2ce7b">rr::NOMSupport</a>
+: <a class="el" href="classrr_1_1NOMSupport.html#af4a3ab21cb823459ea86eb96b00c8499">rr::NOMSupport</a>
+</li>
+<li>getNumberOfCorrectorSteps()
+: <a class="el" href="classrr_1_1NLEQ1Interface.html#ac6fb6374db032cc5b06bfe0bfc33f551">rr::NLEQ1Interface</a>
+, <a class="el" href="classrr_1_1NLEQ2Interface.html#ada93b787ae85fb08b27a06845ac2dcb9">rr::NLEQ2Interface</a>
+</li>
+<li>getNumberOfJacobianEvaluations()
+: <a class="el" href="classrr_1_1NLEQ1Interface.html#aad29ad39e0481e1177dd07b814a4f9fd">rr::NLEQ1Interface</a>
+, <a class="el" href="classrr_1_1NLEQ2Interface.html#aa772170399ac79ec2d99ec075f340392">rr::NLEQ2Interface</a>
+</li>
+<li>getNumberOfModelEvaluations()
+: <a class="el" href="classrr_1_1NLEQ1Interface.html#a7f7309498c590d112fedd26645aa500e">rr::NLEQ1Interface</a>
+, <a class="el" href="classrr_1_1NLEQ2Interface.html#a0e4c3f11cec0169916977d58f50bf7e7">rr::NLEQ2Interface</a>
+</li>
+<li>getNumberOfModelEvaluationsForJacobian()
+: <a class="el" href="classrr_1_1NLEQ1Interface.html#aa0e5e3b2861abc91fcc2577d34da25ee">rr::NLEQ1Interface</a>
+, <a class="el" href="classrr_1_1NLEQ2Interface.html#aa17e3a331d3c7179b099bcabf30d09ce">rr::NLEQ2Interface</a>
+</li>
+<li>getNumberOfNewtonIterations()
+: <a class="el" href="classrr_1_1NLEQ1Interface.html#a99d2a6e98e3803b7f8712315a57ef816">rr::NLEQ1Interface</a>
+, <a class="el" href="classrr_1_1NLEQ2Interface.html#acf39786fb327066323f7595b9322ebb2">rr::NLEQ2Interface</a>
 </li>
 <li>getNumBoundarySpecies()
 : <a class="el" href="classrr_1_1CompiledExecutableModel.html#a1c5cb4c75584906946d426d1193da39e">rr::CompiledExecutableModel</a>
@@ -596,7 +693,7 @@ $(function() {
 : <a class="el" href="classrr_1_1Solver.html#ae2bb88ffce40a0136c86a020b4c39037">rr::Solver</a>
 </li>
 <li>getParamPromotedSBML()
-: <a class="el" href="classrr_1_1RoadRunner.html#ab04e0b440a74f7d49f55751b346f4212">rr::RoadRunner</a>
+: <a class="el" href="classrr_1_1RoadRunner.html#a22136f7f0ea6f72e6c8fce6de2dc93e2">rr::RoadRunner</a>
 </li>
 <li>getProcessTriple()
 : <a class="el" href="classrr_1_1CCompiler.html#aba426f3074705b9b76bed36be8646627">rr::CCompiler</a>
@@ -622,7 +719,7 @@ $(function() {
 : <a class="el" href="classrrllvm_1_1LLVMModelDataSymbols.html#ae1b9fb86d935f840f8ad9e60585ac8a4">rrllvm::LLVMModelDataSymbols</a>
 </li>
 <li>getRateRuleSymbols()
-: <a class="el" href="classrr_1_1ExecutableModel.html#ab045cbd84ce98fb9dff8ff250fdb131c">rr::ExecutableModel</a>
+: <a class="el" href="classrr_1_1ExecutableModel.html#aa1d89fd7d5690de7add613f5ce75b631">rr::ExecutableModel</a>
 , <a class="el" href="classrrllvm_1_1LLVMExecutableModel.html#a1b73548f88c353066c8758ac671e29f9">rrllvm::LLVMExecutableModel</a>
 </li>
 <li>getRateRuleValues()
@@ -639,11 +736,12 @@ $(function() {
 <li>getReactionId()
 : <a class="el" href="classrr_1_1CompiledExecutableModel.html#a448c9bcff065fbb2e0c12015beea16c2">rr::CompiledExecutableModel</a>
 , <a class="el" href="classrr_1_1ExecutableModel.html#aeb911dc90408981370c78149680d9027">rr::ExecutableModel</a>
-, <a class="el" href="classrrllvm_1_1LLVMExecutableModel.html#a3145d2fcb796185f968430b56152d7c5">rrllvm::LLVMExecutableModel</a>
+, <a class="el" href="classrrllvm_1_1LLVMExecutableModel.html#a7875eb127b74b89571e0551ab06bde7f">rrllvm::LLVMExecutableModel</a>
 </li>
 <li>getReactionIndex()
 : <a class="el" href="classrr_1_1CompiledExecutableModel.html#a9a2275b0715bc7461c8f402492462b05">rr::CompiledExecutableModel</a>
 , <a class="el" href="classrr_1_1ExecutableModel.html#a86fe96598b06cee5ca9a28dfdfd9d437">rr::ExecutableModel</a>
+, <a class="el" href="classrrllvm_1_1LLVMExecutableModel.html#a979920ccd4f05575fe872a50dc4b368c">rrllvm::LLVMExecutableModel</a>
 </li>
 <li>getReactionRates()
 : <a class="el" href="classrr_1_1ExecutableModel.html#a37c53cc370ff236657272f5596fd27ff">rr::ExecutableModel</a>
@@ -667,6 +765,9 @@ $(function() {
 <li>getRetType()
 : <a class="el" href="classrrllvm_1_1GetEventValueCodeGenBase.html#a72911128b80b0ab3b23257750de4497d">rrllvm::GetEventValueCodeGenBase&lt; Derived, FunctionPtrType &gt;</a>
 </li>
+<li>getRightSingularVectors()
+: <a class="el" href="classrr_1_1SVD.html#abd19a9873fc9b890f8c5ff01ead7166d">rr::SVD</a>
+</li>
 <li>getRK45Description()
 : <a class="el" href="classrr_1_1RK45Integrator.html#a4540762ed7dca923baa3849f25c4a88f">rr::RK45Integrator</a>
 </li>
@@ -686,7 +787,7 @@ $(function() {
 : <a class="el" href="classrr_1_1RK4Integrator.html#a81c46e8931486fb935a21dbe8d825e7f">rr::RK4Integrator</a>
 </li>
 <li>getSBML()
-: <a class="el" href="classrr_1_1RoadRunner.html#ae422b8ad65ca1cabcb7bd88b8c1f7264">rr::RoadRunner</a>
+: <a class="el" href="classrr_1_1RoadRunner.html#ae154e3cc9560f4a5725f03cbe9bb3aa5">rr::RoadRunner</a>
 </li>
 <li>getScaledElasticityMatrix()
 : <a class="el" href="classrr_1_1RoadRunner.html#a43e88b9c81a97a115451b5331b84e603">rr::RoadRunner</a>
@@ -695,17 +796,19 @@ $(function() {
 : <a class="el" href="classrr_1_1RoadRunner.html#a6a388eb7c0f64e215490fa606f458770">rr::RoadRunner</a>
 </li>
 <li>getSelectedValues()
-: <a class="el" href="classrr_1_1RoadRunner.html#a9c98b4f3d57c4935b744d8cd831d4a61">rr::RoadRunner</a>
+: <a class="el" href="classrr_1_1RoadRunner.html#ab5c1eda6c4babfbe69d46eaaa00e4b55">rr::RoadRunner</a>
 </li>
 <li>getSelections()
 : <a class="el" href="classrr_1_1RoadRunner.html#a093f8d8cfe6959e2607eddccfd4a4989">rr::RoadRunner</a>
 </li>
 <li>getSettings()
-: <a class="el" href="classrr_1_1Solver.html#ac12d82cf9d7f03ba39f82ae81ee0e168">rr::Solver</a>
+: <a class="el" href="classrr_1_1Solver.html#ae2b13c6ae06980b14a80e8a32766dcfa">rr::Solver</a>
+</li>
+<li>getSettingsMap()
+: <a class="el" href="classrr_1_1Solver.html#a925e4dae5c4e3e71a2983dc58af9e550">rr::Solver</a>
 </li>
 <li>getSettingsRepr()
 : <a class="el" href="classrr_1_1Solver.html#a3f7a3671a4f2ee508fa015ed4b164213">rr::Solver</a>
-, <a class="el" href="classrr_1_1SteadyStateSolver.html#ab07b512395ec018885548aa83a79f5ae">rr::SteadyStateSolver</a>
 </li>
 <li>getSimulateOptions()
 : <a class="el" href="classrr_1_1RoadRunner.html#a1200e15aa2a3c0b8662e26f74f8320ae">rr::RoadRunner</a>
@@ -713,11 +816,25 @@ $(function() {
 <li>getSimulationData()
 : <a class="el" href="classrr_1_1RoadRunner.html#a899aaac624f8b7c6aadee6beeb12bbdb">rr::RoadRunner</a>
 </li>
+<li>getSingularValues()
+: <a class="el" href="classrr_1_1SVD.html#a0b4a95bc088a26d8b39270c2bb78ecff">rr::SVD</a>
+</li>
+<li>getSolver()
+: <a class="el" href="classrr_1_1CVODEIntegrator.html#a72452ef342616919777874ba32dcd1c3">rr::CVODEIntegrator</a>
+</li>
+<li>getSolverStats()
+: <a class="el" href="classrr_1_1KinsolSteadyStateSolver.html#a953b279ea00b86a0fbd2a1e82d52d331">rr::KinsolSteadyStateSolver</a>
+</li>
+<li>getSolverStatsFromKinsol()
+: <a class="el" href="classrr_1_1KinsolSteadyStateSolver.html#a6e2deeb6268b4dcf40893529abd6c192">rr::KinsolSteadyStateSolver</a>
+, <a class="el" href="classrr_1_1NewtonIteration.html#a46d2940bc5e23fa377be239f5cc21e4a">rr::NewtonIteration</a>
+</li>
 <li>getSpeciesReferenceStoichMath()
 : <a class="el" href="classrrllvm_1_1LLVMModelSymbols.html#add3232506b1afb34e63e18ee4bf56466">rrllvm::LLVMModelSymbols</a>
 </li>
 <li>getStateVector()
 : <a class="el" href="classrr_1_1CompiledExecutableModel.html#a6ba2d5c65fa0c94f521c22ff440a56bc">rr::CompiledExecutableModel</a>
+, <a class="el" href="classrr_1_1CVODEIntegrator.html#a20f0ef30d096122a556f8690b81d7ef0">rr::CVODEIntegrator</a>
 , <a class="el" href="classrr_1_1ExecutableModel.html#a75b6f37ac538d2d2a0709fe4080b0570">rr::ExecutableModel</a>
 , <a class="el" href="classrrllvm_1_1LLVMExecutableModel.html#a1bab14a8a11c8fe0e23521e107105447">rrllvm::LLVMExecutableModel</a>
 </li>
@@ -735,7 +852,7 @@ $(function() {
 , <a class="el" href="classrr_1_1NLEQ2Interface.html#a80d203c777e3d3f6cc3959a4a1dc2de5">rr::NLEQ2Interface</a>
 </li>
 <li>getSteadyStateSelections()
-: <a class="el" href="classrr_1_1RoadRunner.html#adcebd8c406eaaf6ea065828830afd454">rr::RoadRunner</a>
+: <a class="el" href="classrr_1_1RoadRunner.html#af51f2c52092490f993e790ae4ece8fff">rr::RoadRunner</a>
 </li>
 <li>getSteadyStateSelectionStrings()
 : <a class="el" href="classrr_1_1RoadRunner.html#a1062bc78d3b41301fa97dc5f2167baa2">rr::RoadRunner</a>
@@ -747,7 +864,7 @@ $(function() {
 : <a class="el" href="classrr_1_1RoadRunner.html#acae600eb92e9bd2a7739040e7148c0ae">rr::RoadRunner</a>
 </li>
 <li>getSteadyStateValues()
-: <a class="el" href="classrr_1_1RoadRunner.html#aeffa5361c54d45cf24ce21b2cb0e2f29">rr::RoadRunner</a>
+: <a class="el" href="classrr_1_1RoadRunner.html#ab365ab17ad44a2e96e215e76d440f779">rr::RoadRunner</a>
 </li>
 <li>getSteadyStateValuesNamedArray()
 : <a class="el" href="classrr_1_1RoadRunner.html#a57d1eee2df9f8b9542a0c450be6097a4">rr::RoadRunner</a>
@@ -790,10 +907,10 @@ $(function() {
 : <a class="el" href="classrr_1_1NOMSupport.html#a88fb6cac272bc681f168299168df9721">rr::NOMSupport</a>
 </li>
 <li>getTemporaryDirectory()
-: <a class="el" href="classrr_1_1CModelGenerator.html#ada76f183cbdffdc0936a8f97f268463b">rr::CModelGenerator</a>
+: <a class="el" href="classrr_1_1CModelGenerator.html#ad9890c9d1bc9eab66ca9f23f1120bb90">rr::CModelGenerator</a>
 </li>
 <li>getType()
-: <a class="el" href="classrr_1_1Solver.html#a20add37bbd73f50d14047171f5f8e921">rr::Solver</a>
+: <a class="el" href="classrr_1_1Solver.html#a0bd064d494a0701edffca5eb67b64b2a">rr::Solver</a>
 </li>
 <li>getuCC()
 : <a class="el" href="classrr_1_1RoadRunner.html#a7df50d5a0fa7265b62af24a2e996b6e0">rr::RoadRunner</a>
@@ -805,7 +922,7 @@ $(function() {
 : <a class="el" href="classrr_1_1RoadRunner.html#a60d096cd0738a337899ae6c6109c178e">rr::RoadRunner</a>
 </li>
 <li>getUnscaledParameterElasticity()
-: <a class="el" href="classrr_1_1RoadRunner.html#ac755535bf3a1aedfbe9714bcacccc2e3">rr::RoadRunner</a>
+: <a class="el" href="classrr_1_1RoadRunner.html#a5fb2c2cc40a2badce7c4803917cba029">rr::RoadRunner</a>
 </li>
 <li>getUnscaledSpeciesElasticity()
 : <a class="el" href="classrr_1_1RoadRunner.html#a5856b94d04fadfb190b407b126382503">rr::RoadRunner</a>
@@ -814,41 +931,12 @@ $(function() {
 : <a class="el" href="classrr_1_1CompiledExecutableModel.html#ab7bc9e9b4426d9d22080bb64bd900cab">rr::CompiledExecutableModel</a>
 , <a class="el" href="classrr_1_1ExecutableModel.html#aebaced13ef2afd070d7a1c35eec8d9f2">rr::ExecutableModel</a>
 , <a class="el" href="classrr_1_1RoadRunner.html#aa030bd78fd18af9737b6798e246dd4cb">rr::RoadRunner</a>
-, <a class="el" href="classrr_1_1Solver.html#a773a06f0d64c9d79423efcef1b381da1">rr::Solver</a>
+, <a class="el" href="classrr_1_1Setting.html#a861cc76edbf64525ccf1c1f5c6e7a553">rr::Setting</a>
+, <a class="el" href="classrr_1_1Solver.html#a87339915a211b22ecd63078bb1cb7ca9">rr::Solver</a>
 , <a class="el" href="classrrllvm_1_1LLVMExecutableModel.html#ac4f4fe1667dcf4f0f848e3569e8bbe2b">rrllvm::LLVMExecutableModel</a>
 </li>
-<li>getValueAsBool()
-: <a class="el" href="classrr_1_1Solver.html#a9f6e5069f1606a5f5e3d517ee01cfede">rr::Solver</a>
-</li>
-<li>getValueAsChar()
-: <a class="el" href="classrr_1_1Solver.html#a9bc55d0247a3aa629b0ab8f247ee009c">rr::Solver</a>
-</li>
-<li>getValueAsDouble()
-: <a class="el" href="classrr_1_1Solver.html#a46987712b9dee2da90c7124761186eb1">rr::Solver</a>
-</li>
-<li>getValueAsDoubleVector()
-: <a class="el" href="classrr_1_1Solver.html#a449a23882706072f4cfaa416887e42d3">rr::Solver</a>
-</li>
-<li>getValueAsFloat()
-: <a class="el" href="classrr_1_1Solver.html#ad30b0e354acd5025b3162db55f1baa93">rr::Solver</a>
-</li>
-<li>getValueAsInt()
-: <a class="el" href="classrr_1_1Solver.html#a415242398d22d3145ff68afbb73d6b07">rr::Solver</a>
-</li>
-<li>getValueAsLong()
-: <a class="el" href="classrr_1_1Solver.html#a858ce4395c8005ddec5a3ee811eda33a">rr::Solver</a>
-</li>
 <li>getValueAsString()
-: <a class="el" href="classrr_1_1Solver.html#a6960c38714621daab7e92eadede5f83c">rr::Solver</a>
-</li>
-<li>getValueAsUChar()
-: <a class="el" href="classrr_1_1Solver.html#ae21e55aeea202e9151112fa00a4c0f82">rr::Solver</a>
-</li>
-<li>getValueAsUInt()
-: <a class="el" href="classrr_1_1Solver.html#a293296661e45b8cb3a092cf8ed5a196b">rr::Solver</a>
-</li>
-<li>getValueAsULong()
-: <a class="el" href="classrr_1_1Solver.html#aafabb2cc0b41558dc3edae324977372c">rr::Solver</a>
+: <a class="el" href="classrr_1_1Solver.html#a83b99af970b895d62998bf90ec619168">rr::Solver</a>
 </li>
 <li>getVersion()
 : <a class="el" href="classrr_1_1CCompiler.html#a1a5ee3dac691018a04f9fb166fd19246">rr::CCompiler</a>

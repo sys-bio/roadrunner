@@ -16,15 +16,15 @@
       <node id="5">
         <label>queue</label>
       </node>
+      <node id="2">
+        <label>rrOSSpecifics.h</label>
+        <link refid="rrOSSpecifics_8h_source"/>
+        <childnode refid="3" relation="include">
+        </childnode>
+      </node>
       <node id="3">
         <label>rrExporter.h</label>
         <link refid="rrExporter_8h_source"/>
-      </node>
-      <node id="7">
-        <label>ostream</label>
-      </node>
-      <node id="4">
-        <label>deque</label>
       </node>
       <node id="1">
         <label>llvm/EventQueue.h</label>
@@ -40,17 +40,19 @@
         <childnode refid="7" relation="include">
         </childnode>
       </node>
-      <node id="2">
-        <label>rrOSSpecifics.h</label>
-        <link refid="rrOSSpecifics_8h_source"/>
-        <childnode refid="3" relation="include">
-        </childnode>
+      <node id="7">
+        <label>ostream</label>
+      </node>
+      <node id="4">
+        <label>deque</label>
       </node>
     </incdepgraph>
     <invincdepgraph>
-      <node id="4">
-        <label>llvm/ModelResources.h</label>
-        <link refid="ModelResources_8h_source"/>
+      <node id="1">
+        <label>llvm/EventQueue.h</label>
+        <link refid="EventQueue_8h"/>
+        <childnode refid="2" relation="include">
+        </childnode>
       </node>
       <node id="2">
         <label>llvm/LLVMExecutableModel.h</label>
@@ -64,11 +66,9 @@
         <label>llvm/LLVMModelGenerator.h</label>
         <link refid="LLVMModelGenerator_8h_source"/>
       </node>
-      <node id="1">
-        <label>llvm/EventQueue.h</label>
-        <link refid="EventQueue_8h"/>
-        <childnode refid="2" relation="include">
-        </childnode>
+      <node id="4">
+        <label>llvm/ModelResources.h</label>
+        <link refid="ModelResources_8h_source"/>
       </node>
     </invincdepgraph>
     <innerclass refid="classrrllvm_1_1Event" prot="public">rrllvm::Event</innerclass>

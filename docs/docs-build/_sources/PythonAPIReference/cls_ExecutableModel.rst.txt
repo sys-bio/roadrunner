@@ -136,20 +136,17 @@ Floating Species
      array([ 0.97390578,  1.56331018])
 
 
-.. method:: ExecutableModel.setFloatingSpeciesAmounts([index], values)
+.. method:: ExecutableModel.setFloatingSpeciesAmounts(values)
    :module: RoadRunner
 
    Use this to set the entire set of floating species amounts in one call.
    The order of species is given by the order of Ids returned by getFloatingSpeciesIds()
 
-   :param numpy.ndarray index: (optional) an index array indicating which items to set,
-                               or if no index array is given, the first param should be
-                               an array of all the values to set.
    :param numpy.ndarray values: the values to set.
 
    >>> r.model.getFloatingSpeciesAmounts([0,1])
    array([ 0.97390578,  1.56331018])
-   >>> r.model.setFloatingSpeciesAmounts([0,1], [1.0, 1.5])
+   >>> r.model.setFloatingSpeciesAmounts([1.0, 1.5])
    >>> r.model.getFloatingSpeciesAmounts([0,1])
    array([ 1. ,  1.5])
 

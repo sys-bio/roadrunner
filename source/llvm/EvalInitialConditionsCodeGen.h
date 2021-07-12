@@ -32,8 +32,7 @@ typedef void (*EvalInitialConditions_FunctionPtr)(LLVMModelData*, size_t);
  * generated function signature:
  * void modeldata_initialvalues_set(ModelData *);
  */
-class EvalInitialConditionsCodeGen:
-    public  CodeGenBase<EvalInitialConditions_FunctionPtr>
+class EvalInitialConditionsCodeGen: public  CodeGenBase<EvalInitialConditions_FunctionPtr>
 {
 public:
     EvalInitialConditionsCodeGen(const ModelGeneratorContext &mgc);

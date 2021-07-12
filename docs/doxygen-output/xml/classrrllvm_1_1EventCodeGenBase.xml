@@ -132,16 +132,13 @@
           <edgelabel>rateRules</edgelabel>
         </childnode>
       </node>
-      <node id="9">
+      <node id="8">
         <label>rrllvm::ModelGeneratorContext</label>
         <link refid="classrrllvm_1_1ModelGeneratorContext"/>
       </node>
-      <node id="8">
+      <node id="7">
         <label>rrllvm::LLVMModelDataSymbols</label>
         <link refid="classrrllvm_1_1LLVMModelDataSymbols"/>
-      </node>
-      <node id="4">
-        <label>SBMLVisitor</label>
       </node>
       <node id="2">
         <label>rrllvm::CodeGenBase&lt; EventCodeGenBase_FunctionPtr &gt;</label>
@@ -149,10 +146,10 @@
         <childnode refid="3" relation="usage">
           <edgelabel>modelSymbols</edgelabel>
         </childnode>
-        <childnode refid="8" relation="usage">
+        <childnode refid="7" relation="usage">
           <edgelabel>dataSymbols</edgelabel>
         </childnode>
-        <childnode refid="9" relation="usage">
+        <childnode refid="8" relation="usage">
           <edgelabel>modelGenContext</edgelabel>
         </childnode>
       </node>
@@ -165,16 +162,9 @@
       <node id="6">
         <label>rrllvm::SymbolForest</label>
         <link refid="classrrllvm_1_1SymbolForest"/>
-        <childnode refid="7" relation="usage">
-          <edgelabel>boundarySpecies</edgelabel>
-          <edgelabel>compartments</edgelabel>
-          <edgelabel>floatingSpecies</edgelabel>
-          <edgelabel>globalParameters</edgelabel>
-          <edgelabel>speciesReferences</edgelabel>
-        </childnode>
       </node>
-      <node id="7">
-        <label>map&lt; string, const libsbml::ASTNode * &gt;</label>
+      <node id="4">
+        <label>libsbml::SBMLVisitor</label>
       </node>
     </collaborationgraph>
     <location file="llvm/EventCodeGenBase.h" line="31" column="1" bodyfile="llvm/EventCodeGenBase.h" bodystart="33" bodyend="61"/>

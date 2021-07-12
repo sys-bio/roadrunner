@@ -22,7 +22,7 @@
  <tr style="height: 56px;">
   <td id="projectalign" style="padding-left: 0.5em;">
    <div id="projectname">roadrunner
-   &#160;<span id="projectnumber">2.0.5</span>
+   &#160;<span id="projectnumber">2.0.8</span>
    </div>
    <div id="projectbrief">Fast simulator for SBML models</div>
   </td>
@@ -84,15 +84,15 @@ $(function() {
 <div class="line"><a name="l00011"></a><span class="lineno">   11</span>&#160;        <span class="keywordtype">int</span>                     mSizeOfVarField1;</div>
 <div class="line"><a name="l00012"></a><span class="lineno">   12</span>&#160;        <span class="keywordtype">int</span>                     mSizeOfVarField2;</div>
 <div class="line"><a name="l00013"></a><span class="lineno">   13</span>&#160;        <span class="keywordtype">int</span>                     mSizeOfVarField3;</div>
-<div class="line"><a name="l00014"></a><span class="lineno">   14</span>&#160;        <span class="keywordtype">string</span>                  mDeclSpec;</div>
-<div class="line"><a name="l00015"></a><span class="lineno">   15</span>&#160;        <span class="keywordtype">string</span>                  mCallingConvention;</div>
+<div class="line"><a name="l00014"></a><span class="lineno">   14</span>&#160;        std::string                  mDeclSpec;</div>
+<div class="line"><a name="l00015"></a><span class="lineno">   15</span>&#160;        std::string                  mCallingConvention;</div>
 <div class="line"><a name="l00016"></a><span class="lineno">   16</span>&#160; </div>
 <div class="line"><a name="l00017"></a><span class="lineno">   17</span>&#160;    <span class="keyword">public</span>:</div>
-<div class="line"><a name="l00018"></a><span class="lineno">   18</span>&#160;                                <a class="code" href="classrr_1_1CodeBuilder.html">CodeBuilder</a>(<span class="keyword">const</span> <span class="keywordtype">string</span>&amp; aStr = <span class="stringliteral">&quot;&quot;</span>, <span class="keyword">const</span> <span class="keywordtype">string</span>&amp; decl_spec = <span class="stringliteral">&quot;D_S&quot;</span>, <span class="keyword">const</span> <span class="keywordtype">string</span>&amp; call_conv = <span class="stringliteral">&quot;__cdecl&quot;</span>);</div>
-<div class="line"><a name="l00019"></a><span class="lineno">   19</span>&#160;        <span class="keywordtype">void</span>                    FormatVariable(<span class="keyword">const</span> <span class="keywordtype">string</span>&amp; type, <span class="keyword">const</span> <span class="keywordtype">string</span>&amp; varName, <span class="keyword">const</span> <span class="keywordtype">string</span>&amp; comment = <span class="stringliteral">&quot;&quot;</span>);</div>
-<div class="line"><a name="l00020"></a><span class="lineno">   20</span>&#160;        <span class="keywordtype">void</span>                    AddFunctionExport(<span class="keyword">const</span> <span class="keywordtype">string</span>&amp; retValue, <span class="keyword">const</span> <span class="keywordtype">string</span>&amp; funcProto);</div>
-<div class="line"><a name="l00021"></a><span class="lineno">   21</span>&#160;        <span class="keywordtype">void</span>                    AddFunctionProto(<span class="keyword">const</span> <span class="keywordtype">string</span>&amp; retValue, <span class="keyword">const</span> <span class="keywordtype">string</span>&amp; funcProto);</div>
-<div class="line"><a name="l00022"></a><span class="lineno">   22</span>&#160;        <span class="keywordtype">void</span>                    FormatArray(<span class="keyword">const</span> <span class="keywordtype">string</span>&amp; type, <span class="keyword">const</span> <span class="keywordtype">string</span>&amp; varName, <span class="keyword">const</span> <span class="keywordtype">int</span>&amp; arraySize, <span class="keyword">const</span> <span class="keywordtype">string</span>&amp; comment = <span class="stringliteral">&quot;&quot;</span>);</div>
+<div class="line"><a name="l00018"></a><span class="lineno">   18</span>&#160;                                <a class="code" href="classrr_1_1CodeBuilder.html">CodeBuilder</a>(<span class="keyword">const</span> std::string&amp; aStr = <span class="stringliteral">&quot;&quot;</span>, <span class="keyword">const</span> std::string&amp; decl_spec = <span class="stringliteral">&quot;D_S&quot;</span>, <span class="keyword">const</span> std::string&amp; call_conv = <span class="stringliteral">&quot;__cdecl&quot;</span>);</div>
+<div class="line"><a name="l00019"></a><span class="lineno">   19</span>&#160;        <span class="keywordtype">void</span>                    FormatVariable(<span class="keyword">const</span> std::string&amp; type, <span class="keyword">const</span> std::string&amp; varName, <span class="keyword">const</span> std::string&amp; comment = <span class="stringliteral">&quot;&quot;</span>);</div>
+<div class="line"><a name="l00020"></a><span class="lineno">   20</span>&#160;        <span class="keywordtype">void</span>                    AddFunctionExport(<span class="keyword">const</span> std::string&amp; retValue, <span class="keyword">const</span> std::string&amp; funcProto);</div>
+<div class="line"><a name="l00021"></a><span class="lineno">   21</span>&#160;        <span class="keywordtype">void</span>                    AddFunctionProto(<span class="keyword">const</span> std::string&amp; retValue, <span class="keyword">const</span> std::string&amp; funcProto);</div>
+<div class="line"><a name="l00022"></a><span class="lineno">   22</span>&#160;        <span class="keywordtype">void</span>                    FormatArray(<span class="keyword">const</span> std::string&amp; type, <span class="keyword">const</span> std::string&amp; varName, <span class="keyword">const</span> <span class="keywordtype">int</span>&amp; arraySize, <span class="keyword">const</span> std::string&amp; comment = <span class="stringliteral">&quot;&quot;</span>);</div>
 <div class="line"><a name="l00023"></a><span class="lineno">   23</span>&#160;};</div>
 <div class="line"><a name="l00024"></a><span class="lineno">   24</span>&#160; </div>
 <div class="line"><a name="l00025"></a><span class="lineno">   25</span>&#160;}</div>

@@ -1,0 +1,62 @@
+\hypertarget{classrr_1_1BasicNewtonIteration}{}\doxysection{rr\+::Basic\+Newton\+Iteration Class Reference}
+\label{classrr_1_1BasicNewtonIteration}\index{rr::BasicNewtonIteration@{rr::BasicNewtonIteration}}
+
+
+Solve for steady state using Kinsol\textquotesingle{}s implementation of Newton Iteration.  
+
+
+
+
+{\ttfamily \#include $<$Basic\+Newton\+Iteration.\+h$>$}
+
+Inheritance diagram for rr\+::Basic\+Newton\+Iteration\+:\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[height=5.000000cm]{classrr_1_1BasicNewtonIteration}
+\end{center}
+\end{figure}
+\doxysubsection*{Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\Hypertarget{classrr_1_1BasicNewtonIteration_a311a152d727b2dcd865cbb882408b7f3}\label{classrr_1_1BasicNewtonIteration_a311a152d727b2dcd865cbb882408b7f3}} 
+{\bfseries Basic\+Newton\+Iteration} (\mbox{\hyperlink{classrr_1_1ExecutableModel}{Executable\+Model}} $\ast$executable\+Model)
+\item 
+\mbox{\Hypertarget{classrr_1_1BasicNewtonIteration_abba6c099dc88a3b80d3a2d65c9c43e03}\label{classrr_1_1BasicNewtonIteration_abba6c099dc88a3b80d3a2d65c9c43e03}} 
+std\+::string \mbox{\hyperlink{classrr_1_1BasicNewtonIteration_abba6c099dc88a3b80d3a2d65c9c43e03}{get\+Name}} () const override
+\begin{DoxyCompactList}\small\item\em Get the name of this solver. \end{DoxyCompactList}\item 
+\mbox{\Hypertarget{classrr_1_1BasicNewtonIteration_a52d645f2934c5230411d7ddfbe56bc78}\label{classrr_1_1BasicNewtonIteration_a52d645f2934c5230411d7ddfbe56bc78}} 
+std\+::string \mbox{\hyperlink{classrr_1_1BasicNewtonIteration_a52d645f2934c5230411d7ddfbe56bc78}{get\+Description}} () const override
+\begin{DoxyCompactList}\small\item\em Get the description of this solver. \end{DoxyCompactList}\item 
+\mbox{\Hypertarget{classrr_1_1BasicNewtonIteration_a4ed6c97258f57dfe0f4653284f6bb9ac}\label{classrr_1_1BasicNewtonIteration_a4ed6c97258f57dfe0f4653284f6bb9ac}} 
+std\+::string \mbox{\hyperlink{classrr_1_1BasicNewtonIteration_a4ed6c97258f57dfe0f4653284f6bb9ac}{get\+Hint}} () const override
+\begin{DoxyCompactList}\small\item\em Get a (user-\/readable) hint for this solver. \end{DoxyCompactList}\item 
+\mbox{\Hypertarget{classrr_1_1BasicNewtonIteration_a4e322271d2eac9740271623abdcb4051}\label{classrr_1_1BasicNewtonIteration_a4e322271d2eac9740271623abdcb4051}} 
+double \mbox{\hyperlink{classrr_1_1BasicNewtonIteration_a4e322271d2eac9740271623abdcb4051}{solve}} () override
+\begin{DoxyCompactList}\small\item\em solve the currently defined problem \end{DoxyCompactList}\end{DoxyCompactItemize}
+\doxysubsection*{Static Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\Hypertarget{classrr_1_1BasicNewtonIteration_a6fc85594b4d3a828b998f8fccbed0892}\label{classrr_1_1BasicNewtonIteration_a6fc85594b4d3a828b998f8fccbed0892}} 
+static std\+::string \mbox{\hyperlink{classrr_1_1BasicNewtonIteration_a6fc85594b4d3a828b998f8fccbed0892}{get\+Basic\+Newton\+Iteration\+Name}} ()
+\begin{DoxyCompactList}\small\item\em static version of get\+Name \end{DoxyCompactList}\item 
+\mbox{\Hypertarget{classrr_1_1BasicNewtonIteration_ab87d7b8d293d5fc4590e8393b96e0a7d}\label{classrr_1_1BasicNewtonIteration_ab87d7b8d293d5fc4590e8393b96e0a7d}} 
+static std\+::string \mbox{\hyperlink{classrr_1_1BasicNewtonIteration_ab87d7b8d293d5fc4590e8393b96e0a7d}{get\+Basic\+Newton\+Iteration\+Description}} ()
+\begin{DoxyCompactList}\small\item\em static version of get\+Description \end{DoxyCompactList}\item 
+\mbox{\Hypertarget{classrr_1_1BasicNewtonIteration_aef5933dd094734718adbb65ccc0bfac3}\label{classrr_1_1BasicNewtonIteration_aef5933dd094734718adbb65ccc0bfac3}} 
+static std\+::string \mbox{\hyperlink{classrr_1_1BasicNewtonIteration_aef5933dd094734718adbb65ccc0bfac3}{get\+Basic\+Newton\+Iteration\+Hint}} ()
+\begin{DoxyCompactList}\small\item\em static version of get\+Hint \end{DoxyCompactList}\end{DoxyCompactItemize}
+\doxysubsection*{Additional Inherited Members}
+
+
+\doxysubsection{Detailed Description}
+Solve for steady state using Kinsol\textquotesingle{}s implementation of Newton Iteration. 
+
+The kinsol docs refer to this algorithm as the \char`\"{}basic\char`\"{} newton iteration to differentiate it from the \char`\"{}linesearch\char`\"{} strategy which is a variant of the \char`\"{}basic\char`\"{} newton iteration. \begin{DoxySeeAlso}{See also}
+\mbox{\hyperlink{classrr_1_1LinesearchNewtonIteration}{Linesearch\+Newton\+Iteration}} 
+\end{DoxySeeAlso}
+
+
+The documentation for this class was generated from the following files\+:\begin{DoxyCompactItemize}
+\item 
+Basic\+Newton\+Iteration.\+h\item 
+Basic\+Newton\+Iteration.\+cpp\end{DoxyCompactItemize}

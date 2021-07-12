@@ -13,6 +13,8 @@
   
   <link rel="stylesheet" href="../_static/css/theme.css" type="text/css" />
   <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
+  <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
+  <link rel="stylesheet" href="../_static/css/theme.css" type="text/css" />
   <link rel="stylesheet" href="../_static/tabs.css" type="text/css" />
 
   
@@ -30,10 +32,10 @@
   
     
       <script type="text/javascript" id="documentation_options" data-url_root="../" src="../_static/documentation_options.js"></script>
+        <script data-url_root="../" id="documentation_options" src="../_static/documentation_options.js"></script>
         <script src="../_static/jquery.js"></script>
         <script src="../_static/underscore.js"></script>
         <script src="../_static/doctools.js"></script>
-        <script src="../_static/language_data.js"></script>
     
     <script type="text/javascript" src="../_static/js/theme.js"></script>
 
@@ -125,6 +127,7 @@
 </ul>
 </li>
 <li class="toctree-l1"><a class="reference internal" href="../C%2B%2BAPIReference/index.html">The LibRoadRunner C++ Library</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../developers_docs/index.html">Developers Documentation</a></li>
 </ul>
 
             
@@ -197,26 +200,26 @@
   <div class="section" id="integrator-class">
 <h1>Integrator Class<a class="headerlink" href="#integrator-class" title="Permalink to this headline">¶</a></h1>
 <dl class="py class">
-<dt id="roadrunner.Integrator">
-<em class="property">class </em><code class="sig-prename descclassname">roadrunner.</code><code class="sig-name descname">Integrator</code><a class="headerlink" href="#roadrunner.Integrator" title="Permalink to this definition">¶</a></dt>
+<dt class="sig sig-object py" id="roadrunner.Integrator">
+<em class="property"><span class="pre">class</span> </em><span class="sig-prename descclassname"><span class="pre">roadrunner.</span></span><span class="sig-name descname"><span class="pre">Integrator</span></span><a class="headerlink" href="#roadrunner.Integrator" title="Permalink to this definition">¶</a></dt>
 <dd><p>An integrator is used to describe the method of carrying out a mathematical integration. Currently, libRoadRunner supports cvode, gillespie, rk4 and rk45 solvers. For solver related methods, refer to <a class="reference external" href="http://sys-bio.github.io/roadrunner/python_docs/api_reference.html#solver-class">http://sys-bio.github.io/roadrunner/python_docs/api_reference.html#solver-class</a>. The following methods are supported by all the Integrators.</p>
 </dd></dl>
 
 <dl class="py method">
-<dt id="Integrator.getIntegrationMethod">
-<code class="sig-prename descclassname">Integrator.</code><code class="sig-name descname">getIntegrationMethod</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#Integrator.getIntegrationMethod" title="Permalink to this definition">¶</a></dt>
+<dt class="sig sig-object py" id="Integrator.getIntegrationMethod">
+<span class="sig-prename descclassname"><span class="pre">Integrator.</span></span><span class="sig-name descname"><span class="pre">getIntegrationMethod</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#Integrator.getIntegrationMethod" title="Permalink to this definition">¶</a></dt>
 <dd><p>Gets the method of integration as an integer. (0-Deterministic, 1-Stochastic, 2-Hybrid, 3-Other).</p>
 </dd></dl>
 
 <dl class="py method">
-<dt id="Integrator.getListener">
-<code class="sig-prename descclassname">Integrator.</code><code class="sig-name descname">getListener</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#Integrator.getListener" title="Permalink to this definition">¶</a></dt>
+<dt class="sig sig-object py" id="Integrator.getListener">
+<span class="sig-prename descclassname"><span class="pre">Integrator.</span></span><span class="sig-name descname"><span class="pre">getListener</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#Integrator.getListener" title="Permalink to this definition">¶</a></dt>
 <dd><p>Gets the integrator listener.</p>
 </dd></dl>
 
 <dl class="py method">
-<dt id="Integrator.integrate">
-<code class="sig-prename descclassname">Integrator.</code><code class="sig-name descname">integrate</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">t0</span></em>, <em class="sig-param"><span class="n">hstep</span></em><span class="sig-paren">)</span><a class="headerlink" href="#Integrator.integrate" title="Permalink to this definition">¶</a></dt>
+<dt class="sig sig-object py" id="Integrator.integrate">
+<span class="sig-prename descclassname"><span class="pre">Integrator.</span></span><span class="sig-name descname"><span class="pre">integrate</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">t0</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">hstep</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#Integrator.integrate" title="Permalink to this definition">¶</a></dt>
 <dd><p>Main integration routine.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
@@ -229,8 +232,8 @@
 </dd></dl>
 
 <dl class="py method">
-<dt id="Integrator.loadSBMLSettings">
-<code class="sig-prename descclassname">Integrator.</code><code class="sig-name descname">loadSBMLSettings</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">filename</span></em><span class="sig-paren">)</span><a class="headerlink" href="#Integrator.loadSBMLSettings" title="Permalink to this definition">¶</a></dt>
+<dt class="sig sig-object py" id="Integrator.loadSBMLSettings">
+<span class="sig-prename descclassname"><span class="pre">Integrator.</span></span><span class="sig-name descname"><span class="pre">loadSBMLSettings</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">filename</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#Integrator.loadSBMLSettings" title="Permalink to this definition">¶</a></dt>
 <dd><p>Load an SBML settings file and apply the configuration options.
 Note: Can assign relative and absolute tolerances.</p>
 <dl class="field-list simple">
@@ -241,8 +244,8 @@ Note: Can assign relative and absolute tolerances.</p>
 </dd></dl>
 
 <dl class="py method">
-<dt id="Integrator.restart">
-<code class="sig-prename descclassname">Integrator.</code><code class="sig-name descname">restart</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">t0</span></em><span class="sig-paren">)</span><a class="headerlink" href="#Integrator.restart" title="Permalink to this definition">¶</a></dt>
+<dt class="sig sig-object py" id="Integrator.restart">
+<span class="sig-prename descclassname"><span class="pre">Integrator.</span></span><span class="sig-name descname"><span class="pre">restart</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">t0</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#Integrator.restart" title="Permalink to this definition">¶</a></dt>
 <dd><p>Reset time to zero and reinitialize model. Applies events which occur before time zero. Reinitializes CVODE and the executable model.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
@@ -252,8 +255,8 @@ Note: Can assign relative and absolute tolerances.</p>
 </dd></dl>
 
 <dl class="py method">
-<dt id="Integrator.setListener">
-<code class="sig-prename descclassname">Integrator.</code><code class="sig-name descname">setListener</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">listener</span></em><span class="sig-paren">)</span><a class="headerlink" href="#Integrator.setListener" title="Permalink to this definition">¶</a></dt>
+<dt class="sig sig-object py" id="Integrator.setListener">
+<span class="sig-prename descclassname"><span class="pre">Integrator.</span></span><span class="sig-name descname"><span class="pre">setListener</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">listener</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#Integrator.setListener" title="Permalink to this definition">¶</a></dt>
 <dd><p>Sets the integrator listener.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
@@ -263,14 +266,14 @@ Note: Can assign relative and absolute tolerances.</p>
 </dd></dl>
 
 <dl class="py method">
-<dt id="Integrator.tweakTolerances">
-<code class="sig-prename descclassname">Integrator.</code><code class="sig-name descname">tweakTolerances</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#Integrator.tweakTolerances" title="Permalink to this definition">¶</a></dt>
+<dt class="sig sig-object py" id="Integrator.tweakTolerances">
+<span class="sig-prename descclassname"><span class="pre">Integrator.</span></span><span class="sig-name descname"><span class="pre">tweakTolerances</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#Integrator.tweakTolerances" title="Permalink to this definition">¶</a></dt>
 <dd><p>Fix tolerances for SBML tests. In order to ensure that the results of the SBML test suite remain valid, this method enforces a lower bound on tolerance values. Sets minimum absolute and relative tolerances to Config::CVODE_MIN_ABSOLUTE and Config::CVODE_MIN_RELATIVE respectively.</p>
 </dd></dl>
 
 <dl class="py method">
-<dt id="Integrator.setIndividualTolerance">
-<code class="sig-prename descclassname">Integrator.</code><code class="sig-name descname">setIndividualTolerance</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">sid</span></em>, <em class="sig-param"><span class="n">value</span></em><span class="sig-paren">)</span><a class="headerlink" href="#Integrator.setIndividualTolerance" title="Permalink to this definition">¶</a></dt>
+<dt class="sig sig-object py" id="Integrator.setIndividualTolerance">
+<span class="sig-prename descclassname"><span class="pre">Integrator.</span></span><span class="sig-name descname"><span class="pre">setIndividualTolerance</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">sid</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">value</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#Integrator.setIndividualTolerance" title="Permalink to this definition">¶</a></dt>
 <dd><p>Sets absolute tolerance for individual floating species or variable that has a rate rule. Only used for CVODE Integrator.
 Note that this tolerance is based on the amount of species, and will be stored in absolute_tolerance.</p>
 <dl class="field-list simple">
@@ -284,8 +287,8 @@ Note that this tolerance is based on the amount of species, and will be stored i
 </dd></dl>
 
 <dl class="py method">
-<dt id="Integrator.setConcentrationTolerance">
-<code class="sig-prename descclassname">Integrator.</code><code class="sig-name descname">setConcentrationTolerance</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">value</span></em><span class="sig-paren">)</span><a class="headerlink" href="#Integrator.setConcentrationTolerance" title="Permalink to this definition">¶</a></dt>
+<dt class="sig sig-object py" id="Integrator.setConcentrationTolerance">
+<span class="sig-prename descclassname"><span class="pre">Integrator.</span></span><span class="sig-name descname"><span class="pre">setConcentrationTolerance</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">value</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#Integrator.setConcentrationTolerance" title="Permalink to this definition">¶</a></dt>
 <dd><p>Sets the tolerance based on concentration of species. Only used for CVODE Integrator.
 First converts the concentration tolerances to amount tolerances by multiplying the compartment volume of species. Whichever is smaller will be stored in absolute_tolerance and used in the integration process.
 Note that if a double list is given, the size of list must be equal to numIndFloatingSpecies+numRateRule, including tolerances for each independent floating species that doesn’t have a rate rule followed by tolerances for each variable(including dependent floating species) that has a rate rule. The order of independent floating species and variables is the same as the order how they were defined in species list and rate rule list.</p>
@@ -297,8 +300,8 @@ Note that if a double list is given, the size of list must be equal to numIndFlo
 </dd></dl>
 
 <dl class="py method">
-<dt id="Integrator.getConcentrationTolerance">
-<code class="sig-prename descclassname">Integrator.</code><code class="sig-name descname">getConcentrationTolerance</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#Integrator.getConcentrationTolerance" title="Permalink to this definition">¶</a></dt>
+<dt class="sig sig-object py" id="Integrator.getConcentrationTolerance">
+<span class="sig-prename descclassname"><span class="pre">Integrator.</span></span><span class="sig-name descname"><span class="pre">getConcentrationTolerance</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#Integrator.getConcentrationTolerance" title="Permalink to this definition">¶</a></dt>
 <dd><p>Gets the tolerance vector based on concentration of species. Only used for CVODE Integrator.
 The vector includes tolerances for each independent floating species that doesn’t have a rate rule followed by tolerances for each variable(including dependent floating species) that has a rate rule. The order of independent floating species and variables is the same as the order how they were defined in species list and rate rule list.</p>
 </dd></dl>
@@ -309,8 +312,8 @@ The vector includes tolerances for each independent floating species that doesn�
 <div><p>CVODE is a deterministic ODE solver from the SUNDIALS suite of timecourse integrators. It implements an Adams-Moulton solver for non-stiff problems and a backward differentiation formula (BDF) solver for stiff problems.</p>
 </div></blockquote>
 <dl class="py attribute">
-<dt id="Integrator.absolute_tolerance">
-<code class="sig-prename descclassname">Integrator.</code><code class="sig-name descname">absolute_tolerance</code><a class="headerlink" href="#Integrator.absolute_tolerance" title="Permalink to this definition">¶</a></dt>
+<dt class="sig sig-object py" id="Integrator.absolute_tolerance">
+<span class="sig-prename descclassname"><span class="pre">Integrator.</span></span><span class="sig-name descname"><span class="pre">absolute_tolerance</span></span><a class="headerlink" href="#Integrator.absolute_tolerance" title="Permalink to this definition">¶</a></dt>
 <dd><p>Specifies the scalar or vector absolute tolerance based on amount of species. A potentially different absolute tolerance for each vector component could be set using a double vector. CVODE then calculates a vector of error weights which is used in all error and convergence tests. The weighted RMS norm for the absolute tolerance should not become smaller than this value. Default value is Config::CVODE_MIN_ABSOLUTE.</p>
 <div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">r</span><span class="o">.</span><span class="n">integrator</span><span class="o">.</span><span class="n">absolute_tolerance</span> <span class="o">=</span> <span class="mi">1</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="n">r</span><span class="o">.</span><span class="n">integrator</span><span class="o">.</span><span class="n">absolute_tolerance</span> <span class="o">=</span> <span class="p">[</span><span class="mi">1</span><span class="p">,</span> <span class="mf">0.1</span><span class="p">,</span> <span class="mf">0.01</span><span class="p">,</span> <span class="mf">0.001</span><span class="p">]</span> <span class="o">//</span> <span class="n">setting</span> <span class="n">vairous</span> <span class="n">tolerance</span> <span class="k">for</span> <span class="n">each</span> <span class="n">species</span>
@@ -319,8 +322,8 @@ The vector includes tolerances for each independent floating species that doesn�
 </dd></dl>
 
 <dl class="py attribute">
-<dt id="Integrator.initial_time_step">
-<code class="sig-prename descclassname">Integrator.</code><code class="sig-name descname">initial_time_step</code><a class="headerlink" href="#Integrator.initial_time_step" title="Permalink to this definition">¶</a></dt>
+<dt class="sig sig-object py" id="Integrator.initial_time_step">
+<span class="sig-prename descclassname"><span class="pre">Integrator.</span></span><span class="sig-name descname"><span class="pre">initial_time_step</span></span><a class="headerlink" href="#Integrator.initial_time_step" title="Permalink to this definition">¶</a></dt>
 <dd><p>Specifies the initial time step size. If inappropriate, CVODE will attempt to estimate a better initial time step. Default value is 0.0</p>
 <div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">r</span><span class="o">.</span><span class="n">integrator</span><span class="o">.</span><span class="n">initial_time_step</span> <span class="o">=</span> <span class="mi">1</span>
 </pre></div>
@@ -328,8 +331,8 @@ The vector includes tolerances for each independent floating species that doesn�
 </dd></dl>
 
 <dl class="py attribute">
-<dt id="Integrator.maximum_adams_order">
-<code class="sig-prename descclassname">Integrator.</code><code class="sig-name descname">maximum_adams_order</code><a class="headerlink" href="#Integrator.maximum_adams_order" title="Permalink to this definition">¶</a></dt>
+<dt class="sig sig-object py" id="Integrator.maximum_adams_order">
+<span class="sig-prename descclassname"><span class="pre">Integrator.</span></span><span class="sig-name descname"><span class="pre">maximum_adams_order</span></span><a class="headerlink" href="#Integrator.maximum_adams_order" title="Permalink to this definition">¶</a></dt>
 <dd><p>Specifies the maximum order for Adams-Moulton intergration. This integration method is used for non-stiff problems. Default value is 12.</p>
 <div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">r</span><span class="o">.</span><span class="n">integrator</span><span class="o">.</span><span class="n">maximum_adams_order</span> <span class="o">=</span> <span class="mi">20</span>
 </pre></div>
@@ -337,32 +340,32 @@ The vector includes tolerances for each independent floating species that doesn�
 </dd></dl>
 
 <dl class="py attribute">
-<dt id="Integrator.maximum_bdf_order">
-<code class="sig-prename descclassname">Integrator.</code><code class="sig-name descname">maximum_bdf_order</code><a class="headerlink" href="#Integrator.maximum_bdf_order" title="Permalink to this definition">¶</a></dt>
+<dt class="sig sig-object py" id="Integrator.maximum_bdf_order">
+<span class="sig-prename descclassname"><span class="pre">Integrator.</span></span><span class="sig-name descname"><span class="pre">maximum_bdf_order</span></span><a class="headerlink" href="#Integrator.maximum_bdf_order" title="Permalink to this definition">¶</a></dt>
 <dd><p>Specifies the maximum order for Backward Differentiation Formula integration. This integration method is used for stiff problems. Default value is 5.</p>
 </dd></dl>
 
 <dl class="py attribute">
-<dt id="Integrator.maximum_num_steps">
-<code class="sig-prename descclassname">Integrator.</code><code class="sig-name descname">maximum_num_steps</code><a class="headerlink" href="#Integrator.maximum_num_steps" title="Permalink to this definition">¶</a></dt>
+<dt class="sig sig-object py" id="Integrator.maximum_num_steps">
+<span class="sig-prename descclassname"><span class="pre">Integrator.</span></span><span class="sig-name descname"><span class="pre">maximum_num_steps</span></span><a class="headerlink" href="#Integrator.maximum_num_steps" title="Permalink to this definition">¶</a></dt>
 <dd><p>Specifies the maximum number of steps to be taken by the CVODE solver in its attempt to reach tout. Default value is 20000.</p>
 </dd></dl>
 
 <dl class="py attribute">
-<dt id="Integrator.maximum_time_step">
-<code class="sig-prename descclassname">Integrator.</code><code class="sig-name descname">maximum_time_step</code><a class="headerlink" href="#Integrator.maximum_time_step" title="Permalink to this definition">¶</a></dt>
+<dt class="sig sig-object py" id="Integrator.maximum_time_step">
+<span class="sig-prename descclassname"><span class="pre">Integrator.</span></span><span class="sig-name descname"><span class="pre">maximum_time_step</span></span><a class="headerlink" href="#Integrator.maximum_time_step" title="Permalink to this definition">¶</a></dt>
 <dd><p>Specifies the maximum absolute value of step size allowed. If inappropriate, CVODE will attempt to estimate a better maximum time step. Default value is 0.0.</p>
 </dd></dl>
 
 <dl class="py attribute">
-<dt id="Integrator.minimum_time_step">
-<code class="sig-prename descclassname">Integrator.</code><code class="sig-name descname">minimum_time_step</code><a class="headerlink" href="#Integrator.minimum_time_step" title="Permalink to this definition">¶</a></dt>
+<dt class="sig sig-object py" id="Integrator.minimum_time_step">
+<span class="sig-prename descclassname"><span class="pre">Integrator.</span></span><span class="sig-name descname"><span class="pre">minimum_time_step</span></span><a class="headerlink" href="#Integrator.minimum_time_step" title="Permalink to this definition">¶</a></dt>
 <dd><p>Specifies the minimum absolute value of step size allowed. If inappropriate, CVODE will attempt to estimate a better maximum time step. Default value is 0.0.</p>
 </dd></dl>
 
 <dl class="py attribute">
-<dt id="Integrator.multiple_steps">
-<code class="sig-prename descclassname">Integrator.</code><code class="sig-name descname">multiple_steps</code><a class="headerlink" href="#Integrator.multiple_steps" title="Permalink to this definition">¶</a></dt>
+<dt class="sig sig-object py" id="Integrator.multiple_steps">
+<span class="sig-prename descclassname"><span class="pre">Integrator.</span></span><span class="sig-name descname"><span class="pre">multiple_steps</span></span><a class="headerlink" href="#Integrator.multiple_steps" title="Permalink to this definition">¶</a></dt>
 <dd><p>Perform a multiple time step simulation. Default value is false.</p>
 <div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">r</span><span class="o">.</span><span class="n">integrator</span><span class="o">.</span><span class="n">multiple_steps</span> <span class="o">=</span> <span class="kc">True</span>
 </pre></div>
@@ -370,20 +373,20 @@ The vector includes tolerances for each independent floating species that doesn�
 </dd></dl>
 
 <dl class="py attribute">
-<dt id="Integrator.relative_tolerance">
-<code class="sig-prename descclassname">Integrator.</code><code class="sig-name descname">relative_tolerance</code><a class="headerlink" href="#Integrator.relative_tolerance" title="Permalink to this definition">¶</a></dt>
+<dt class="sig sig-object py" id="Integrator.relative_tolerance">
+<span class="sig-prename descclassname"><span class="pre">Integrator.</span></span><span class="sig-name descname"><span class="pre">relative_tolerance</span></span><a class="headerlink" href="#Integrator.relative_tolerance" title="Permalink to this definition">¶</a></dt>
 <dd><p>Specifies the scalar relative tolerance. CVODE calculates a vector of error weights which is used in all error and convergence tests. The weighted RMS norm for the relative tolerance should not become smaller than this value. Default value is Config::CVODE_MIN_RELATIVE.</p>
 </dd></dl>
 
 <dl class="py attribute">
-<dt id="Integrator.stiff">
-<code class="sig-prename descclassname">Integrator.</code><code class="sig-name descname">stiff</code><a class="headerlink" href="#Integrator.stiff" title="Permalink to this definition">¶</a></dt>
+<dt class="sig sig-object py" id="Integrator.stiff">
+<span class="sig-prename descclassname"><span class="pre">Integrator.</span></span><span class="sig-name descname"><span class="pre">stiff</span></span><a class="headerlink" href="#Integrator.stiff" title="Permalink to this definition">¶</a></dt>
 <dd><p>Specifies whether the integrator attempts to solve stiff equations. Ensure the integrator can solver stiff differential equations by setting this value to true. Default value is true.</p>
 </dd></dl>
 
 <dl class="py attribute">
-<dt id="Integrator.variable_step_size">
-<code class="sig-prename descclassname">Integrator.</code><code class="sig-name descname">variable_step_size</code><a class="headerlink" href="#Integrator.variable_step_size" title="Permalink to this definition">¶</a></dt>
+<dt class="sig sig-object py" id="Integrator.variable_step_size">
+<span class="sig-prename descclassname"><span class="pre">Integrator.</span></span><span class="sig-name descname"><span class="pre">variable_step_size</span></span><a class="headerlink" href="#Integrator.variable_step_size" title="Permalink to this definition">¶</a></dt>
 <dd><p>Perform a variable time step simulation. Enabling this setting will allow the integrator to adapt the size of each time step. This will result in a non-uniform time column. Default value is false.</p>
 </dd></dl>
 
@@ -395,8 +398,8 @@ The vector includes tolerances for each independent floating species that doesn�
 <p>Can be used with the <a class="reference external" href="https://libroadrunner.readthedocs.io/en/latest/api_reference.html?highlight=r%20gillespie#RoadRunner.RoadRunner.gillespie/">r.gillespie function</a> or by setting integrator to gillespie (see below)</p>
 </div></blockquote>
 <dl class="py attribute">
-<dt id="id0">
-<code class="sig-prename descclassname">Integrator.</code><code class="sig-name descname">initial_time_step</code><a class="headerlink" href="#id0" title="Permalink to this definition">¶</a></dt>
+<dt class="sig sig-object py" id="id0">
+<span class="sig-prename descclassname"><span class="pre">Integrator.</span></span><span class="sig-name descname"><span class="pre">initial_time_step</span></span><a class="headerlink" href="#id0" title="Permalink to this definition">¶</a></dt>
 <dd><p>Specifies the initial time step size. If inappropriate, CVODE will attempt to estimate a better initial time step. Default value is 0.0</p>
 <div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">r</span><span class="o">.</span><span class="n">setIntegrator</span><span class="p">(</span><span class="s1">&#39;gillespie&#39;</span><span class="p">)</span> <span class="c1"># set integrator first</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="n">r</span><span class="o">.</span><span class="n">integrator</span><span class="o">.</span><span class="n">initial_time_step</span> <span class="o">=</span> <span class="mi">2</span>
@@ -405,38 +408,38 @@ The vector includes tolerances for each independent floating species that doesn�
 </dd></dl>
 
 <dl class="py attribute">
-<dt id="id3">
-<code class="sig-prename descclassname">Integrator.</code><code class="sig-name descname">maximum_time_step</code><a class="headerlink" href="#id3" title="Permalink to this definition">¶</a></dt>
+<dt class="sig sig-object py" id="id3">
+<span class="sig-prename descclassname"><span class="pre">Integrator.</span></span><span class="sig-name descname"><span class="pre">maximum_time_step</span></span><a class="headerlink" href="#id3" title="Permalink to this definition">¶</a></dt>
 <dd><p>Specifies the maximum absolute value of step size allowed. If inappropriate, CVODE will attempt to estimate a better maximum time step. Default value is 0.0.</p>
 </dd></dl>
 
 <dl class="py attribute">
-<dt id="id4">
-<code class="sig-prename descclassname">Integrator.</code><code class="sig-name descname">minimum_time_step</code><a class="headerlink" href="#id4" title="Permalink to this definition">¶</a></dt>
+<dt class="sig sig-object py" id="id4">
+<span class="sig-prename descclassname"><span class="pre">Integrator.</span></span><span class="sig-name descname"><span class="pre">minimum_time_step</span></span><a class="headerlink" href="#id4" title="Permalink to this definition">¶</a></dt>
 <dd><p>Specifies the minimum absolute value of step size allowed. If inappropriate, CVODE will attempt to estimate a better maximum time step. Default value is 0.0.</p>
 </dd></dl>
 
 <dl class="py attribute">
-<dt id="Integrator.nonnegative">
-<code class="sig-prename descclassname">Integrator.</code><code class="sig-name descname">nonnegative</code><a class="headerlink" href="#Integrator.nonnegative" title="Permalink to this definition">¶</a></dt>
+<dt class="sig sig-object py" id="Integrator.nonnegative">
+<span class="sig-prename descclassname"><span class="pre">Integrator.</span></span><span class="sig-name descname"><span class="pre">nonnegative</span></span><a class="headerlink" href="#Integrator.nonnegative" title="Permalink to this definition">¶</a></dt>
 <dd><p>Prevents species amounts from going negative during a simulation. Default value is false.</p>
 </dd></dl>
 
 <dl class="py attribute">
-<dt id="Integrator.seed">
-<code class="sig-prename descclassname">Integrator.</code><code class="sig-name descname">seed</code><a class="headerlink" href="#Integrator.seed" title="Permalink to this definition">¶</a></dt>
+<dt class="sig sig-object py" id="Integrator.seed">
+<span class="sig-prename descclassname"><span class="pre">Integrator.</span></span><span class="sig-name descname"><span class="pre">seed</span></span><a class="headerlink" href="#Integrator.seed" title="Permalink to this definition">¶</a></dt>
 <dd><p>Set the seed into the random engine.  By default, this value is set by the system clock in microseconds.</p>
 </dd></dl>
 
 <dl class="py attribute">
-<dt id="id5">
-<code class="sig-prename descclassname">Integrator.</code><code class="sig-name descname">variable_step_size</code><a class="headerlink" href="#id5" title="Permalink to this definition">¶</a></dt>
+<dt class="sig sig-object py" id="id5">
+<span class="sig-prename descclassname"><span class="pre">Integrator.</span></span><span class="sig-name descname"><span class="pre">variable_step_size</span></span><a class="headerlink" href="#id5" title="Permalink to this definition">¶</a></dt>
 <dd><p>Perform a variable time step simulation. Enabling this setting will allow the integrator to adapt the size of each time step. This will result in a non-uniform time column. Default value is true.</p>
 </dd></dl>
 
 <dl class="py attribute">
-<dt id="Integrator.max_output_rows">
-<code class="sig-prename descclassname">Integrator.</code><code class="sig-name descname">max_output_rows</code><a class="headerlink" href="#Integrator.max_output_rows" title="Permalink to this definition">¶</a></dt>
+<dt class="sig sig-object py" id="Integrator.max_output_rows">
+<span class="sig-prename descclassname"><span class="pre">Integrator.</span></span><span class="sig-name descname"><span class="pre">max_output_rows</span></span><a class="headerlink" href="#Integrator.max_output_rows" title="Permalink to this definition">¶</a></dt>
 <dd><p>Sets the maximum number of output rows for variable step size integration.  This may truncate some simulations that may not reach the desired end time, but prevents massive output for simulations where the variable step size ends up decreasing too much.  This setting is ignored when the variable_step_size is false, and is also ignored when the output is being written directly to a file.  Default value is 100,000.</p>
 </dd></dl>
 
@@ -465,8 +468,8 @@ The vector includes tolerances for each independent floating species that doesn�
 <div><p>RoadRunner’s implementation of the standard Gillespie Direct Method SSA. The granularity of this simulator is individual molecules and kinetic processes are stochastic. Results will, in general, be different in each run, but a sufficiently large ensemble of runs should be statistically correct.</p>
 </div></blockquote>
 <dl class="py attribute">
-<dt id="Integrator.epsilon">
-<code class="sig-prename descclassname">Integrator.</code><code class="sig-name descname">epsilon</code><a class="headerlink" href="#Integrator.epsilon" title="Permalink to this definition">¶</a></dt>
+<dt class="sig sig-object py" id="Integrator.epsilon">
+<span class="sig-prename descclassname"><span class="pre">Integrator.</span></span><span class="sig-name descname"><span class="pre">epsilon</span></span><a class="headerlink" href="#Integrator.epsilon" title="Permalink to this definition">¶</a></dt>
 <dd><p>Specifies the maximum error tolerance allowed. Default value is 1e-12.</p>
 <div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">r</span><span class="o">.</span><span class="n">setIntegrator</span><span class="p">(</span><span class="s1">&#39;rk45&#39;</span><span class="p">)</span> <span class="c1"># set integrator first</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="n">r</span><span class="o">.</span><span class="n">integrator</span><span class="o">.</span><span class="n">epsilon</span> <span class="o">=</span> <span class="mf">1e-10</span>
@@ -475,20 +478,20 @@ The vector includes tolerances for each independent floating species that doesn�
 </dd></dl>
 
 <dl class="py attribute">
-<dt id="id6">
-<code class="sig-prename descclassname">Integrator.</code><code class="sig-name descname">maximum_time_step</code><a class="headerlink" href="#id6" title="Permalink to this definition">¶</a></dt>
+<dt class="sig sig-object py" id="id6">
+<span class="sig-prename descclassname"><span class="pre">Integrator.</span></span><span class="sig-name descname"><span class="pre">maximum_time_step</span></span><a class="headerlink" href="#id6" title="Permalink to this definition">¶</a></dt>
 <dd><p>Specifies the maximum absolute value of step size allowed. If inappropriate, CVODE will attempt to estimate a better maximum time step. Default value is 0.0.</p>
 </dd></dl>
 
 <dl class="py attribute">
-<dt id="id7">
-<code class="sig-prename descclassname">Integrator.</code><code class="sig-name descname">minimum_time_step</code><a class="headerlink" href="#id7" title="Permalink to this definition">¶</a></dt>
+<dt class="sig sig-object py" id="id7">
+<span class="sig-prename descclassname"><span class="pre">Integrator.</span></span><span class="sig-name descname"><span class="pre">minimum_time_step</span></span><a class="headerlink" href="#id7" title="Permalink to this definition">¶</a></dt>
 <dd><p>Specifies the minimum absolute value of step size allowed. If inappropriate, CVODE will attempt to estimate a better maximum time step. Default value is 0.0.</p>
 </dd></dl>
 
 <dl class="py attribute">
-<dt id="id8">
-<code class="sig-prename descclassname">Integrator.</code><code class="sig-name descname">variable_step_size</code><a class="headerlink" href="#id8" title="Permalink to this definition">¶</a></dt>
+<dt class="sig sig-object py" id="id8">
+<span class="sig-prename descclassname"><span class="pre">Integrator.</span></span><span class="sig-name descname"><span class="pre">variable_step_size</span></span><a class="headerlink" href="#id8" title="Permalink to this definition">¶</a></dt>
 <dd><p>Perform a variable time step simulation. Enabling this setting will allow the integrator to adapt the size of each time step. This will result in a non-uniform time column. Default value is false.</p>
 </dd></dl>
 

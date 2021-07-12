@@ -31,8 +31,7 @@ public:
     /**
      * these only make sense attached to a modelData pointer.
      */
-    ModelDataIRBuilder(llvm::Value *modelData, LLVMModelDataSymbols const&,
-            llvm::IRBuilder<> &);
+    ModelDataIRBuilder(llvm::Value *modelData, LLVMModelDataSymbols const&,llvm::IRBuilder<> &);
 
     llvm::Value *createFloatSpeciesAmtGEP(const std::string &id,
             const llvm::Twine &name = "");

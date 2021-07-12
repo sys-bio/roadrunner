@@ -13,6 +13,8 @@
   
   <link rel="stylesheet" href="../_static/css/theme.css" type="text/css" />
   <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
+  <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
+  <link rel="stylesheet" href="../_static/css/theme.css" type="text/css" />
   <link rel="stylesheet" href="../_static/tabs.css" type="text/css" />
 
   
@@ -30,10 +32,10 @@
   
     
       <script type="text/javascript" id="documentation_options" data-url_root="../" src="../_static/documentation_options.js"></script>
+        <script data-url_root="../" id="documentation_options" src="../_static/documentation_options.js"></script>
         <script src="../_static/jquery.js"></script>
         <script src="../_static/underscore.js"></script>
         <script src="../_static/doctools.js"></script>
-        <script src="../_static/language_data.js"></script>
     
     <script type="text/javascript" src="../_static/js/theme.js"></script>
 
@@ -128,6 +130,7 @@
 </ul>
 </li>
 <li class="toctree-l1"><a class="reference internal" href="../C%2B%2BAPIReference/index.html">The LibRoadRunner C++ Library</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../developers_docs/index.html">Developers Documentation</a></li>
 </ul>
 
             
@@ -200,15 +203,15 @@
   <div class="section" id="the-main-roadrunner-class">
 <h1>The Main RoadRunner Class<a class="headerlink" href="#the-main-roadrunner-class" title="Permalink to this headline">¶</a></h1>
 <dl class="py class">
-<dt id="RoadRunner">
-<em class="property">class </em><code class="sig-name descname">RoadRunner</code><a class="headerlink" href="#RoadRunner" title="Permalink to this definition">¶</a></dt>
+<dt class="sig sig-object py" id="RoadRunner">
+<em class="property"><span class="pre">class</span> </em><span class="sig-name descname"><span class="pre">RoadRunner</span></span><a class="headerlink" href="#RoadRunner" title="Permalink to this definition">¶</a></dt>
 <dd><p>The main RoadRunner class. Its objects, i.e. <code class="docutils literal notranslate"><span class="pre">rr</span> <span class="pre">=</span> <span class="pre">RoadRunner()</span></code> perform
 the libRoaRunner functions, i.e. <code class="docutils literal notranslate"><span class="pre">rr.simulate()</span></code>.</p>
 </dd></dl>
 
 <dl class="py method">
-<dt id="RoadRunner.__init__">
-<code class="sig-prename descclassname">RoadRunner.</code><code class="sig-name descname">__init__</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">uriOrSBML</span><span class="o">=</span><span class="default_value">''</span></em>, <em class="sig-param"><span class="n">options</span><span class="o">=</span><span class="default_value">None</span></em><span class="sig-paren">)</span><a class="headerlink" href="#RoadRunner.__init__" title="Permalink to this definition">¶</a></dt>
+<dt class="sig sig-object py" id="RoadRunner.__init__">
+<span class="sig-prename descclassname"><span class="pre">RoadRunner.</span></span><span class="sig-name descname"><span class="pre">__init__</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">uriOrSBML</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">''</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">options</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#RoadRunner.__init__" title="Permalink to this definition">¶</a></dt>
 <dd><p>Creates a new RoadRunner object. If the first argument is specified,
 it should be a string containing either the contents of an SBML document,
 or a formatted URI specifying the path or location of a SBML document.</p>
@@ -227,8 +230,8 @@ SBML document should be loaded</p></li>
 </dd></dl>
 
 <dl class="py method">
-<dt id="RoadRunner.RoadRunner.load">
-<code class="sig-prename descclassname">RoadRunner.</code><code class="sig-name descname">load</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">uriOrDocument</span></em><span class="sig-paren">)</span><a class="headerlink" href="#RoadRunner.RoadRunner.load" title="Permalink to this definition">¶</a></dt>
+<dt class="sig sig-object py" id="RoadRunner.RoadRunner.load">
+<span class="sig-prename descclassname"><span class="pre">RoadRunner.</span></span><span class="sig-name descname"><span class="pre">load</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">uriOrDocument</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#RoadRunner.RoadRunner.load" title="Permalink to this definition">¶</a></dt>
 <dd><p>Loads an SBML document, given a string for file path, URI, or contents.</p>
 <p>This method also accepts HTTP URI for remote files, however this feature is currently limited
 to the Mac version, plan on enabling HTTP loading of SBML documents on Windows and Linux
@@ -264,8 +267,8 @@ shortly.</p>
 </dd></dl>
 
 <dl class="py method">
-<dt id="RoadRunner.RoadRunner.saveState">
-<code class="sig-prename descclassname">RoadRunner.</code><code class="sig-name descname">saveState</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">document</span></em>, <em class="sig-param"><span class="n">option</span><span class="o">=</span><span class="default_value">'b'</span></em><span class="sig-paren">)</span><a class="headerlink" href="#RoadRunner.RoadRunner.saveState" title="Permalink to this definition">¶</a></dt>
+<dt class="sig sig-object py" id="RoadRunner.RoadRunner.saveState">
+<span class="sig-prename descclassname"><span class="pre">RoadRunner.</span></span><span class="sig-name descname"><span class="pre">saveState</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">document</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">option</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'b'</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#RoadRunner.RoadRunner.saveState" title="Permalink to this definition">¶</a></dt>
 <dd><p>Saves the current state of the RoadRunner instance, e.g. integrator, steady state solver, simulation results,
 given a string for file path.
 If no option is given or the option is ‘b’, the state will be stored in a binary format which
@@ -299,8 +302,8 @@ for debugging, but cannot be reloaded later.</p>
 </dd></dl>
 
 <dl class="py method">
-<dt id="RoadRunner.RoadRunner.loadState">
-<code class="sig-prename descclassname">RoadRunner.</code><code class="sig-name descname">loadState</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">document</span></em><span class="sig-paren">)</span><a class="headerlink" href="#RoadRunner.RoadRunner.loadState" title="Permalink to this definition">¶</a></dt>
+<dt class="sig sig-object py" id="RoadRunner.RoadRunner.loadState">
+<span class="sig-prename descclassname"><span class="pre">RoadRunner.</span></span><span class="sig-name descname"><span class="pre">loadState</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">document</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#RoadRunner.RoadRunner.loadState" title="Permalink to this definition">¶</a></dt>
 <dd><p>Loads the saved state of a RoadRunner instance, e.g. integrator, steady state solver, simulation results,
 given a string for file path.
 All simulation calls after this function will start from the resumed state.</p>
@@ -322,15 +325,15 @@ All simulation calls after this function will start from the resumed state.</p>
 </dd></dl>
 
 <dl class="py method">
-<dt id="RoadRunner.getCompiler">
-<code class="sig-prename descclassname">RoadRunner.</code><code class="sig-name descname">getCompiler</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#RoadRunner.getCompiler" title="Permalink to this definition">¶</a></dt>
+<dt class="sig sig-object py" id="RoadRunner.getCompiler">
+<span class="sig-prename descclassname"><span class="pre">RoadRunner.</span></span><span class="sig-name descname"><span class="pre">getCompiler</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#RoadRunner.getCompiler" title="Permalink to this definition">¶</a></dt>
 <dd><p>Returns the JIT <a class="reference internal" href="cls_Compiler.html#RoadRunner.Compiler" title="RoadRunner.Compiler"><code class="xref py py-class docutils literal notranslate"><span class="pre">Compiler</span></code></a> object currently being used.
 This object provides various information about the current processor and system.</p>
 </dd></dl>
 
 <dl class="py method">
-<dt id="RoadRunner.RoadRunner.getConfigurationXML">
-<code class="sig-prename descclassname">RoadRunner.</code><code class="sig-name descname">getConfigurationXML</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#RoadRunner.RoadRunner.getConfigurationXML" title="Permalink to this definition">¶</a></dt>
+<dt class="sig sig-object py" id="RoadRunner.RoadRunner.getConfigurationXML">
+<span class="sig-prename descclassname"><span class="pre">RoadRunner.</span></span><span class="sig-name descname"><span class="pre">getConfigurationXML</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#RoadRunner.RoadRunner.getConfigurationXML" title="Permalink to this definition">¶</a></dt>
 <dd><p>Recurse through all of the child configurable objects that this
 class ones and build an assemble all of their configuration parameters
 into a single xml document which is returned as a string.</p>
@@ -338,14 +341,14 @@ into a single xml document which is returned as a string.</p>
 </dd></dl>
 
 <dl class="py method">
-<dt id="RoadRunner.RoadRunner.getExtendedVersionInfo">
-<code class="sig-prename descclassname">RoadRunner.</code><code class="sig-name descname">getExtendedVersionInfo</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#RoadRunner.RoadRunner.getExtendedVersionInfo" title="Permalink to this definition">¶</a></dt>
+<dt class="sig sig-object py" id="RoadRunner.RoadRunner.getExtendedVersionInfo">
+<span class="sig-prename descclassname"><span class="pre">RoadRunner.</span></span><span class="sig-name descname"><span class="pre">getExtendedVersionInfo</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#RoadRunner.RoadRunner.getExtendedVersionInfo" title="Permalink to this definition">¶</a></dt>
 <dd><p>Returns <code class="xref py py-meth docutils literal notranslate"><span class="pre">getVersionStr()</span></code> as well as info about dependent libs versions.</p>
 </dd></dl>
 
 <dl class="py method">
-<dt id="RoadRunner.RoadRunner.getInfo">
-<code class="sig-prename descclassname">RoadRunner.</code><code class="sig-name descname">getInfo</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#RoadRunner.RoadRunner.getInfo" title="Permalink to this definition">¶</a></dt>
+<dt class="sig sig-object py" id="RoadRunner.RoadRunner.getInfo">
+<span class="sig-prename descclassname"><span class="pre">RoadRunner.</span></span><span class="sig-name descname"><span class="pre">getInfo</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#RoadRunner.RoadRunner.getInfo" title="Permalink to this definition">¶</a></dt>
 <dd><p>Returns info about the current state of the object.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Return type</dt>
@@ -355,27 +358,27 @@ into a single xml document which is returned as a string.</p>
 </dd></dl>
 
 <dl class="py method">
-<dt id="RoadRunner.RoadRunner.getInstanceCount">
-<code class="sig-prename descclassname">RoadRunner.</code><code class="sig-name descname">getInstanceCount</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#RoadRunner.RoadRunner.getInstanceCount" title="Permalink to this definition">¶</a></dt>
+<dt class="sig sig-object py" id="RoadRunner.RoadRunner.getInstanceCount">
+<span class="sig-prename descclassname"><span class="pre">RoadRunner.</span></span><span class="sig-name descname"><span class="pre">getInstanceCount</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#RoadRunner.RoadRunner.getInstanceCount" title="Permalink to this definition">¶</a></dt>
 <dd><p>Returns number of currently running RoadRunner instances.</p>
 </dd></dl>
 
 <dl class="py method">
-<dt id="RoadRunner.RoadRunner.getInstanceID">
-<code class="sig-prename descclassname">RoadRunner.</code><code class="sig-name descname">getInstanceID</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#RoadRunner.RoadRunner.getInstanceID" title="Permalink to this definition">¶</a></dt>
+<dt class="sig sig-object py" id="RoadRunner.RoadRunner.getInstanceID">
+<span class="sig-prename descclassname"><span class="pre">RoadRunner.</span></span><span class="sig-name descname"><span class="pre">getInstanceID</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#RoadRunner.RoadRunner.getInstanceID" title="Permalink to this definition">¶</a></dt>
 <dd><p>Returns the instance id when there are multiple instances of RoadRunner.</p>
 </dd></dl>
 
 <dl class="py method">
-<dt id="RoadRunner.RoadRunner.getIntegrator">
-<code class="sig-prename descclassname">RoadRunner.</code><code class="sig-name descname">getIntegrator</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#RoadRunner.RoadRunner.getIntegrator" title="Permalink to this definition">¶</a></dt>
+<dt class="sig sig-object py" id="RoadRunner.RoadRunner.getIntegrator">
+<span class="sig-prename descclassname"><span class="pre">RoadRunner.</span></span><span class="sig-name descname"><span class="pre">getIntegrator</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#RoadRunner.RoadRunner.getIntegrator" title="Permalink to this definition">¶</a></dt>
 <dd><p>Returns the solver instance. See :cpp:class:<code class="xref cpp cpp-class docutils literal notranslate"><span class="pre">rr::roadrunner::Solver</span></code>.
 For more information on the possible settings, see <a class="reference internal" href="cls_Solver.html#solver-class"><span class="std std-ref">Solver Class</span></a>.</p>
 </dd></dl>
 
 <dl class="py method">
-<dt id="RoadRunner.RoadRunner.getIntegratorByName">
-<code class="sig-prename descclassname">RoadRunner.</code><code class="sig-name descname">getIntegratorByName</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">name</span></em><span class="sig-paren">)</span><a class="headerlink" href="#RoadRunner.RoadRunner.getIntegratorByName" title="Permalink to this definition">¶</a></dt>
+<dt class="sig sig-object py" id="RoadRunner.RoadRunner.getIntegratorByName">
+<span class="sig-prename descclassname"><span class="pre">RoadRunner.</span></span><span class="sig-name descname"><span class="pre">getIntegratorByName</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">name</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#RoadRunner.RoadRunner.getIntegratorByName" title="Permalink to this definition">¶</a></dt>
 <dd><p>Returns the solver instance by given name. See <code class="xref cpp cpp-class docutils literal notranslate"><span class="pre">rr::roadrunner::Solver</span></code>.
 For more information on the possible settings, see <a class="reference internal" href="cls_Solver.html#solver-class"><span class="std std-ref">Solver Class</span></a>.</p>
 <dl class="field-list simple">
@@ -386,20 +389,20 @@ For more information on the possible settings, see <a class="reference internal"
 </dd></dl>
 
 <dl class="py method">
-<dt id="RoadRunner.RoadRunner.getAvailableIntegrators">
-<code class="sig-prename descclassname">RoadRunner.</code><code class="sig-name descname">getAvailableIntegrators</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#RoadRunner.RoadRunner.getAvailableIntegrators" title="Permalink to this definition">¶</a></dt>
+<dt class="sig sig-object py" id="RoadRunner.RoadRunner.getAvailableIntegrators">
+<span class="sig-prename descclassname"><span class="pre">RoadRunner.</span></span><span class="sig-name descname"><span class="pre">getAvailableIntegrators</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#RoadRunner.RoadRunner.getAvailableIntegrators" title="Permalink to this definition">¶</a></dt>
 <dd><p>Returns a list of names of available integrators.</p>
 </dd></dl>
 
 <dl class="py method">
-<dt id="RoadRunner.RoadRunner.getExistingIntegratorNames">
-<code class="sig-prename descclassname">RoadRunner.</code><code class="sig-name descname">getExistingIntegratorNames</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#RoadRunner.RoadRunner.getExistingIntegratorNames" title="Permalink to this definition">¶</a></dt>
+<dt class="sig sig-object py" id="RoadRunner.RoadRunner.getExistingIntegratorNames">
+<span class="sig-prename descclassname"><span class="pre">RoadRunner.</span></span><span class="sig-name descname"><span class="pre">getExistingIntegratorNames</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#RoadRunner.RoadRunner.getExistingIntegratorNames" title="Permalink to this definition">¶</a></dt>
 <dd><p>Returns a list of names of all integrators.</p>
 </dd></dl>
 
 <dl class="py method">
-<dt id="RoadRunner.RoadRunner.getParamPromotedSBML">
-<code class="sig-prename descclassname">RoadRunner.</code><code class="sig-name descname">getParamPromotedSBML</code><span class="sig-paren">(</span><em class="sig-param"><span class="o">*</span><span class="n">args</span></em><span class="sig-paren">)</span><a class="headerlink" href="#RoadRunner.RoadRunner.getParamPromotedSBML" title="Permalink to this definition">¶</a></dt>
+<dt class="sig sig-object py" id="RoadRunner.RoadRunner.getParamPromotedSBML">
+<span class="sig-prename descclassname"><span class="pre">RoadRunner.</span></span><span class="sig-name descname"><span class="pre">getParamPromotedSBML</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">*</span></span><span class="n"><span class="pre">args</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#RoadRunner.RoadRunner.getParamPromotedSBML" title="Permalink to this definition">¶</a></dt>
 <dd><p>Takes an SBML document (in textual form) and changes all of the local parameters
 to be global parameters.</p>
 <dl class="field-list simple">
@@ -413,8 +416,8 @@ to be global parameters.</p>
 </dd></dl>
 
 <dl class="py method">
-<dt id="RoadRunner.RoadRunner.getCurrentSBML">
-<code class="sig-prename descclassname">RoadRunner.</code><code class="sig-name descname">getCurrentSBML</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#RoadRunner.RoadRunner.getCurrentSBML" title="Permalink to this definition">¶</a></dt>
+<dt class="sig sig-object py" id="RoadRunner.RoadRunner.getCurrentSBML">
+<span class="sig-prename descclassname"><span class="pre">RoadRunner.</span></span><span class="sig-name descname"><span class="pre">getCurrentSBML</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#RoadRunner.RoadRunner.getCurrentSBML" title="Permalink to this definition">¶</a></dt>
 <dd><p>Returns the SBML with the current model parameters.
 This is different than <a class="reference internal" href="#RoadRunner.RoadRunner.getSBML" title="RoadRunner.RoadRunner.getSBML"><code class="xref py py-meth docutils literal notranslate"><span class="pre">getSBML()</span></code></a> which returns the original SBML.
 This may optionally up or down-convert the document to a different version, if the level and version arguments are non-zero.
@@ -427,8 +430,8 @@ If both arguments are zero, then the document is left alone and the original ver
 </dd></dl>
 
 <dl class="py method">
-<dt id="RoadRunner.RoadRunner.getSBML">
-<code class="sig-prename descclassname">RoadRunner.</code><code class="sig-name descname">getSBML</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#RoadRunner.RoadRunner.getSBML" title="Permalink to this definition">¶</a></dt>
+<dt class="sig sig-object py" id="RoadRunner.RoadRunner.getSBML">
+<span class="sig-prename descclassname"><span class="pre">RoadRunner.</span></span><span class="sig-name descname"><span class="pre">getSBML</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#RoadRunner.RoadRunner.getSBML" title="Permalink to this definition">¶</a></dt>
 <dd><p>Returns the original SBML model that was loaded into roadrunner.
 If the model is edited by methods in editing section, it will return the most updated model with
 the initial model parameters.</p>
@@ -440,8 +443,8 @@ the initial model parameters.</p>
 </dd></dl>
 
 <dl class="py method">
-<dt id="RoadRunner.RoadRunner.setIntegrator">
-<code class="sig-prename descclassname">RoadRunner.</code><code class="sig-name descname">setIntegrator</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">name</span></em><span class="sig-paren">)</span><a class="headerlink" href="#RoadRunner.RoadRunner.setIntegrator" title="Permalink to this definition">¶</a></dt>
+<dt class="sig sig-object py" id="RoadRunner.RoadRunner.setIntegrator">
+<span class="sig-prename descclassname"><span class="pre">RoadRunner.</span></span><span class="sig-name descname"><span class="pre">setIntegrator</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">name</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#RoadRunner.RoadRunner.setIntegrator" title="Permalink to this definition">¶</a></dt>
 <dd><p>Sets specific integrator. For more information on the possible settings, see <a class="reference internal" href="cls_Solver.html#solver-class"><span class="std std-ref">Solver Class</span></a>.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
@@ -451,8 +454,8 @@ the initial model parameters.</p>
 </dd></dl>
 
 <dl class="py method">
-<dt id="RoadRunner.RoadRunner.setIntegratorSetting">
-<code class="sig-prename descclassname">RoadRunner.</code><code class="sig-name descname">setIntegratorSetting</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">name</span></em>, <em class="sig-param"><span class="n">key</span></em>, <em class="sig-param"><span class="n">value</span></em><span class="sig-paren">)</span><a class="headerlink" href="#RoadRunner.RoadRunner.setIntegratorSetting" title="Permalink to this definition">¶</a></dt>
+<dt class="sig sig-object py" id="RoadRunner.RoadRunner.setIntegratorSetting">
+<span class="sig-prename descclassname"><span class="pre">RoadRunner.</span></span><span class="sig-name descname"><span class="pre">setIntegratorSetting</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">name</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">key</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">value</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#RoadRunner.RoadRunner.setIntegratorSetting" title="Permalink to this definition">¶</a></dt>
 <dd><p>Sets settings for a specific integrator. See <code class="xref cpp cpp-class docutils literal notranslate"><span class="pre">roadrunner::Solver</span></code>.
 For more information on the possible settings, see <a class="reference internal" href="cls_Solver.html#solver-class"><span class="std std-ref">Solver Class</span></a>.</p>
 <dl class="field-list simple">
@@ -469,8 +472,8 @@ For more information on the possible settings, see <a class="reference internal"
 <div class="section" id="selections">
 <h2>Selections<a class="headerlink" href="#selections" title="Permalink to this headline">¶</a></h2>
 <dl class="py method">
-<dt id="RoadRunner.getIds">
-<code class="sig-prename descclassname">RoadRunner.</code><code class="sig-name descname">getIds</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#RoadRunner.getIds" title="Permalink to this definition">¶</a></dt>
+<dt class="sig sig-object py" id="RoadRunner.getIds">
+<span class="sig-prename descclassname"><span class="pre">RoadRunner.</span></span><span class="sig-name descname"><span class="pre">getIds</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#RoadRunner.getIds" title="Permalink to this definition">¶</a></dt>
 <dd><p>Return a list of selection ids that this object can select on.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Return type</dt>
@@ -480,8 +483,8 @@ For more information on the possible settings, see <a class="reference internal"
 </dd></dl>
 
 <dl class="py method">
-<dt id="RoadRunner.getValue">
-<code class="sig-prename descclassname">RoadRunner.</code><code class="sig-name descname">getValue</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">sel</span></em><span class="sig-paren">)</span><a class="headerlink" href="#RoadRunner.getValue" title="Permalink to this definition">¶</a></dt>
+<dt class="sig sig-object py" id="RoadRunner.getValue">
+<span class="sig-prename descclassname"><span class="pre">RoadRunner.</span></span><span class="sig-name descname"><span class="pre">getValue</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">sel</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#RoadRunner.getValue" title="Permalink to this definition">¶</a></dt>
 <dd><p>Returns the value for a given selection. For more information on accepted selection types
 see <a class="reference internal" href="../selecting_values.html#selecting-values"><span class="std std-ref">Selecting Values</span></a>.</p>
 <dl class="field-list simple">
@@ -493,8 +496,8 @@ obtained from createSelection</p>
 </dd></dl>
 
 <dl class="py method">
-<dt id="RoadRunner.RoadRunner.getSelectedValues">
-<code class="sig-prename descclassname">RoadRunner.</code><code class="sig-name descname">getSelectedValues</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#RoadRunner.RoadRunner.getSelectedValues" title="Permalink to this definition">¶</a></dt>
+<dt class="sig sig-object py" id="RoadRunner.RoadRunner.getSelectedValues">
+<span class="sig-prename descclassname"><span class="pre">RoadRunner.</span></span><span class="sig-name descname"><span class="pre">getSelectedValues</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#RoadRunner.RoadRunner.getSelectedValues" title="Permalink to this definition">¶</a></dt>
 <dd><p>returns the values of the current timecourse selections for the current state of the model</p>
 <dl class="field-list simple">
 <dt class="field-odd">Return type</dt>
@@ -504,8 +507,8 @@ obtained from createSelection</p>
 </dd></dl>
 
 <dl class="py attribute">
-<dt id="RoadRunner.RoadRunner.timeCourseSelections">
-<code class="sig-prename descclassname">RoadRunner.</code><code class="sig-name descname">timeCourseSelections</code><a class="headerlink" href="#RoadRunner.RoadRunner.timeCourseSelections" title="Permalink to this definition">¶</a></dt>
+<dt class="sig sig-object py" id="RoadRunner.RoadRunner.timeCourseSelections">
+<span class="sig-prename descclassname"><span class="pre">RoadRunner.</span></span><span class="sig-name descname"><span class="pre">timeCourseSelections</span></span><a class="headerlink" href="#RoadRunner.RoadRunner.timeCourseSelections" title="Permalink to this definition">¶</a></dt>
 <dd><p>Get or set the list of current selections used for the time course simulation result columns.
 For more information on accepted selection types, see <a class="reference internal" href="../selecting_values.html#selecting-values"><span class="std std-ref">Selecting Values</span></a>.</p>
 <div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">rr</span><span class="o">.</span><span class="n">timeCourseSelections</span> <span class="o">=</span> <span class="p">[</span><span class="s1">&#39;time&#39;</span><span class="p">,</span> <span class="s1">&#39;S1&#39;</span><span class="p">,</span> <span class="s1">&#39;S2&#39;</span><span class="p">]</span>
@@ -516,8 +519,8 @@ For more information on accepted selection types, see <a class="reference intern
 </dd></dl>
 
 <dl class="py method">
-<dt id="RoadRunner.createSelection">
-<code class="sig-prename descclassname">RoadRunner.</code><code class="sig-name descname">createSelection</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">sel</span></em><span class="sig-paren">)</span><a class="headerlink" href="#RoadRunner.createSelection" title="Permalink to this definition">¶</a></dt>
+<dt class="sig sig-object py" id="RoadRunner.createSelection">
+<span class="sig-prename descclassname"><span class="pre">RoadRunner.</span></span><span class="sig-name descname"><span class="pre">createSelection</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">sel</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#RoadRunner.createSelection" title="Permalink to this definition">¶</a></dt>
 <dd><p>Create a new selection based on a selection string</p>
 <dl class="field-list simple">
 <dt class="field-odd">Return type</dt>
@@ -527,8 +530,8 @@ For more information on accepted selection types, see <a class="reference intern
 </dd></dl>
 
 <dl class="py method">
-<dt id="RoadRunner.resetSelectionLists">
-<code class="sig-prename descclassname">RoadRunner.</code><code class="sig-name descname">resetSelectionLists</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#RoadRunner.resetSelectionLists" title="Permalink to this definition">¶</a></dt>
+<dt class="sig sig-object py" id="RoadRunner.resetSelectionLists">
+<span class="sig-prename descclassname"><span class="pre">RoadRunner.</span></span><span class="sig-name descname"><span class="pre">resetSelectionLists</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#RoadRunner.resetSelectionLists" title="Permalink to this definition">¶</a></dt>
 <dd><p>Resets time course and steady state selection lists to defaults</p>
 </dd></dl>
 
@@ -536,26 +539,26 @@ For more information on accepted selection types, see <a class="reference intern
 <div class="section" id="model-access">
 <h2>Model Access<a class="headerlink" href="#model-access" title="Permalink to this headline">¶</a></h2>
 <dl class="py method">
-<dt id="RoadRunner.RoadRunner.isModelLoaded">
-<code class="sig-prename descclassname">RoadRunner.</code><code class="sig-name descname">isModelLoaded</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#RoadRunner.RoadRunner.isModelLoaded" title="Permalink to this definition">¶</a></dt>
+<dt class="sig sig-object py" id="RoadRunner.RoadRunner.isModelLoaded">
+<span class="sig-prename descclassname"><span class="pre">RoadRunner.</span></span><span class="sig-name descname"><span class="pre">isModelLoaded</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#RoadRunner.RoadRunner.isModelLoaded" title="Permalink to this definition">¶</a></dt>
 <dd><p>Return True if model was loaded; False otherwise</p>
 </dd></dl>
 
 <dl class="py attribute">
-<dt id="RoadRunner.RoadRunner.model">
-<code class="sig-prename descclassname">RoadRunner.</code><code class="sig-name descname">model</code><em class="property"> None</em><a class="headerlink" href="#RoadRunner.RoadRunner.model" title="Permalink to this definition">¶</a></dt>
+<dt class="sig sig-object py" id="RoadRunner.RoadRunner.model">
+<span class="sig-prename descclassname"><span class="pre">RoadRunner.</span></span><span class="sig-name descname"><span class="pre">model</span></span><em class="property"> <span class="pre">None</span></em><a class="headerlink" href="#RoadRunner.RoadRunner.model" title="Permalink to this definition">¶</a></dt>
 <dd><p>Get the currently loaded model. The model object contains the entire state of the SBML model.</p>
 </dd></dl>
 
 <dl class="py method">
-<dt id="RoadRunner.RoadRunner.getModel">
-<code class="sig-prename descclassname">RoadRunner.</code><code class="sig-name descname">getModel</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#RoadRunner.RoadRunner.getModel" title="Permalink to this definition">¶</a></dt>
+<dt class="sig sig-object py" id="RoadRunner.RoadRunner.getModel">
+<span class="sig-prename descclassname"><span class="pre">RoadRunner.</span></span><span class="sig-name descname"><span class="pre">getModel</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#RoadRunner.RoadRunner.getModel" title="Permalink to this definition">¶</a></dt>
 <dd><p>Function form of the RoadRunner.model property, identical to model.</p>
 </dd></dl>
 
 <dl class="py method">
-<dt id="RoadRunner.RoadRunner.clearModel">
-<code class="sig-prename descclassname">RoadRunner.</code><code class="sig-name descname">clearModel</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#RoadRunner.RoadRunner.clearModel" title="Permalink to this definition">¶</a></dt>
+<dt class="sig sig-object py" id="RoadRunner.RoadRunner.clearModel">
+<span class="sig-prename descclassname"><span class="pre">RoadRunner.</span></span><span class="sig-name descname"><span class="pre">clearModel</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#RoadRunner.RoadRunner.clearModel" title="Permalink to this definition">¶</a></dt>
 <dd><p>Clears the currently loaded model and all associated memory.
 Returns True if memory was freed, False if no model was loaded in the first place.</p>
 <div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">r</span><span class="o">.</span><span class="n">isModelLoaded</span><span class="p">()</span>
@@ -568,8 +571,8 @@ Returns True if memory was freed, False if no model was loaded in the first plac
 </dd></dl>
 
 <dl class="py method">
-<dt id="RoadRunner.RoadRunner.oneStep">
-<code class="sig-prename descclassname">RoadRunner.</code><code class="sig-name descname">oneStep</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">startTime</span></em>, <em class="sig-param"><span class="n">stepSize</span></em><span class="sig-paren">)</span><a class="headerlink" href="#RoadRunner.RoadRunner.oneStep" title="Permalink to this definition">¶</a></dt>
+<dt class="sig sig-object py" id="RoadRunner.RoadRunner.oneStep">
+<span class="sig-prename descclassname"><span class="pre">RoadRunner.</span></span><span class="sig-name descname"><span class="pre">oneStep</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">startTime</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">stepSize</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#RoadRunner.RoadRunner.oneStep" title="Permalink to this definition">¶</a></dt>
 <dd><p>Carry out a one step integration of the model. The method takes two arguments,
 the current time and the step size to use in the integration.
 Returs the new time which will be currentTime + StepSize:</p>
@@ -579,22 +582,22 @@ Returs the new time which will be currentTime + StepSize:</p>
 </dd></dl>
 
 <dl class="py method">
-<dt id="RoadRunner.RoadRunner.internalOneStep">
-<code class="sig-prename descclassname">RoadRunner.</code><code class="sig-name descname">internalOneStep</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">startTime</span></em>, <em class="sig-param"><span class="n">stepSize</span></em>, <em class="sig-param"><span class="n">reset</span></em><span class="sig-paren">)</span><a class="headerlink" href="#RoadRunner.RoadRunner.internalOneStep" title="Permalink to this definition">¶</a></dt>
+<dt class="sig sig-object py" id="RoadRunner.RoadRunner.internalOneStep">
+<span class="sig-prename descclassname"><span class="pre">RoadRunner.</span></span><span class="sig-name descname"><span class="pre">internalOneStep</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">startTime</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">stepSize</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">reset</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#RoadRunner.RoadRunner.internalOneStep" title="Permalink to this definition">¶</a></dt>
 <dd><p>Carry out a single internal solver integration step. The method takes three arguments,
 the current time and the step size to use in the integration and reset. Reset defaults to true, set to false to stop integrator instance from restarting. Returns the end time.</p>
 </dd></dl>
 
 <dl class="py method">
-<dt id="RoadRunner.RoadRunner.reset">
-<code class="sig-prename descclassname">RoadRunner.</code><code class="sig-name descname">reset</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#RoadRunner.RoadRunner.reset" title="Permalink to this definition">¶</a></dt>
+<dt class="sig sig-object py" id="RoadRunner.RoadRunner.reset">
+<span class="sig-prename descclassname"><span class="pre">RoadRunner.</span></span><span class="sig-name descname"><span class="pre">reset</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#RoadRunner.RoadRunner.reset" title="Permalink to this definition">¶</a></dt>
 <dd><p>Resets time, all floating species, and rates to their initial values.
 Does NOT reset changed global parameters.</p>
 </dd></dl>
 
 <dl class="py method">
-<dt id="RoadRunner.RoadRunner.resetAll">
-<code class="sig-prename descclassname">RoadRunner.</code><code class="sig-name descname">resetAll</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#RoadRunner.RoadRunner.resetAll" title="Permalink to this definition">¶</a></dt>
+<dt class="sig sig-object py" id="RoadRunner.RoadRunner.resetAll">
+<span class="sig-prename descclassname"><span class="pre">RoadRunner.</span></span><span class="sig-name descname"><span class="pre">resetAll</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#RoadRunner.RoadRunner.resetAll" title="Permalink to this definition">¶</a></dt>
 <dd><p>Resets time, all floating species, and rates to their CURRENT initial values.
 Also resets all global parameters back to the values they had when the model was first loaded.
 “Current” initial values are set by using <code class="docutils literal notranslate"><span class="pre">r.setValue('init(S1)',</span> <span class="pre">5)</span></code> which sets a species
@@ -602,21 +605,21 @@ named S1 to have current initial value of 5. Note it is NOT the initial values o
 </dd></dl>
 
 <dl class="py method">
-<dt id="RoadRunner.RoadRunner.resetParameter">
-<code class="sig-prename descclassname">RoadRunner.</code><code class="sig-name descname">resetParameter</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#RoadRunner.RoadRunner.resetParameter" title="Permalink to this definition">¶</a></dt>
+<dt class="sig sig-object py" id="RoadRunner.RoadRunner.resetParameter">
+<span class="sig-prename descclassname"><span class="pre">RoadRunner.</span></span><span class="sig-name descname"><span class="pre">resetParameter</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#RoadRunner.RoadRunner.resetParameter" title="Permalink to this definition">¶</a></dt>
 <dd><p>Resets only global parameters to their CURRENT initial values.</p>
 </dd></dl>
 
 <dl class="py method">
-<dt id="RoadRunner.RoadRunner.resetToOrigin">
-<code class="sig-prename descclassname">RoadRunner.</code><code class="sig-name descname">resetToOrigin</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#RoadRunner.RoadRunner.resetToOrigin" title="Permalink to this definition">¶</a></dt>
+<dt class="sig sig-object py" id="RoadRunner.RoadRunner.resetToOrigin">
+<span class="sig-prename descclassname"><span class="pre">RoadRunner.</span></span><span class="sig-name descname"><span class="pre">resetToOrigin</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#RoadRunner.RoadRunner.resetToOrigin" title="Permalink to this definition">¶</a></dt>
 <dd><p>Resets the model back to the state it was when FIRST loaded.
 The scope of this reset includes all initial values and parameters (everything).</p>
 </dd></dl>
 
 <dl class="py method">
-<dt id="RoadRunner.RoadRunner.setConfigurationXML">
-<code class="sig-prename descclassname">RoadRunner.</code><code class="sig-name descname">setConfigurationXML</code><span class="sig-paren">(</span><em class="sig-param"><span class="o">*</span><span class="n">args</span></em><span class="sig-paren">)</span><a class="headerlink" href="#RoadRunner.RoadRunner.setConfigurationXML" title="Permalink to this definition">¶</a></dt>
+<dt class="sig sig-object py" id="RoadRunner.RoadRunner.setConfigurationXML">
+<span class="sig-prename descclassname"><span class="pre">RoadRunner.</span></span><span class="sig-name descname"><span class="pre">setConfigurationXML</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">*</span></span><span class="n"><span class="pre">args</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#RoadRunner.RoadRunner.setConfigurationXML" title="Permalink to this definition">¶</a></dt>
 <dd><p>Given a xml document, which should have been returned from getConfigurationXML,
 this method recurses though all the child configurable elements and sets their
 configuration to the values specified in the document.</p>
@@ -628,8 +631,8 @@ configuration to the values specified in the document.</p>
 </dd></dl>
 
 <dl class="py attribute">
-<dt id="RoadRunner.RoadRunner.conservedMoietyAnalysis">
-<code class="sig-prename descclassname">RoadRunner.</code><code class="sig-name descname">conservedMoietyAnalysis</code><a class="headerlink" href="#RoadRunner.RoadRunner.conservedMoietyAnalysis" title="Permalink to this definition">¶</a></dt>
+<dt class="sig sig-object py" id="RoadRunner.RoadRunner.conservedMoietyAnalysis">
+<span class="sig-prename descclassname"><span class="pre">RoadRunner.</span></span><span class="sig-name descname"><span class="pre">conservedMoietyAnalysis</span></span><a class="headerlink" href="#RoadRunner.RoadRunner.conservedMoietyAnalysis" title="Permalink to this definition">¶</a></dt>
 <dd><p>Enables / Disables conserved moiety analysis (boolean).</p>
 <p>If this is enabled, the SBML document (either current, or one about to be loaded)
 is converted using the ConservedMoietyConverter. All of the linearly dependent
@@ -646,8 +649,8 @@ parameters are introduced.</p>
 <h2>Model Editing<a class="headerlink" href="#model-editing" title="Permalink to this headline">¶</a></h2>
 <p>Easy edit to the model without modifying and reloading sbml files.</p>
 <dl class="py method">
-<dt id="RoadRunner.RoadRunner.addSpecies">
-<code class="sig-prename descclassname">RoadRunner.</code><code class="sig-name descname">addSpecies</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">sid</span></em>, <em class="sig-param"><span class="n">compartment</span></em>, <em class="sig-param"><span class="n">initValue</span></em>, <em class="sig-param"><span class="n">substanceUnits</span></em>, <em class="sig-param"><span class="n">forceRegenerate</span></em><span class="sig-paren">)</span><a class="headerlink" href="#RoadRunner.RoadRunner.addSpecies" title="Permalink to this definition">¶</a></dt>
+<dt class="sig sig-object py" id="RoadRunner.RoadRunner.addSpeciesConcentration">
+<span class="sig-prename descclassname"><span class="pre">RoadRunner.</span></span><span class="sig-name descname"><span class="pre">addSpeciesConcentration</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">sid</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">compartment</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">initValue</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">substanceUnits</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">forceRegenerate</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#RoadRunner.RoadRunner.addSpeciesConcentration" title="Permalink to this definition">¶</a></dt>
 <dd><p>Add a species to the current model. Note that the species to be added must have an ID
 that did not existed in the model. The given compartment must also exist in the model.</p>
 <p>Default substanceUnits is “concentration”, which will set initValue as initial concentration
@@ -655,11 +658,10 @@ of the new species. Other substanceUnits will set initValue as initial amount of
 <p>forceRegenerate is a boolean value that indicates whether the new model will be regenerated. Its
 default value is true, which means to regenerate model every time after this function is called.
 Note that regenerating model is time-consuming. To save time for editing model for multiple times,
-one could set this flag to false excepting for the last call, so that Roadrunner will only regenerate
-the model once after all editings are completed.</p>
+one could set this flag to false excepting for the last call, so that Roadrunner will only regenerate the model once after all editings are completed.</p>
 <p>For example,</p>
-<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">r</span><span class="o">.</span><span class="n">addSpecies</span><span class="p">(</span><span class="s2">&quot;s1&quot;</span><span class="p">,</span> <span class="s2">&quot;compartment&quot;</span><span class="p">,</span> <span class="mf">0.1</span><span class="p">,</span> <span class="s2">&quot;concentration&quot;</span><span class="p">,</span> <span class="kc">False</span><span class="p">)</span> <span class="c1"># it will not regenerate the model, nothing actually happened</span>
-<span class="gp">&gt;&gt;&gt; </span><span class="n">r</span><span class="o">.</span><span class="n">addSpecies</span><span class="p">(</span><span class="s2">&quot;s2&quot;</span><span class="p">,</span> <span class="s2">&quot;compartment&quot;</span><span class="p">,</span> <span class="mf">0.1</span><span class="p">,</span> <span class="s2">&quot;concentration&quot;</span><span class="p">,</span> <span class="kc">True</span><span class="p">)</span>  <span class="c1"># new model is generated and saved</span>
+<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">r</span><span class="o">.</span><span class="n">addSpeciesConcentration</span><span class="p">(</span><span class="s2">&quot;s1&quot;</span><span class="p">,</span> <span class="s2">&quot;compartment&quot;</span><span class="p">,</span> <span class="mf">0.1</span><span class="p">,</span> <span class="kc">False</span><span class="p">)</span> <span class="c1"># it will not regenerate the model, nothing actually happened</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">r</span><span class="o">.</span><span class="n">addSpeciesConcentration</span><span class="p">(</span><span class="s2">&quot;s2&quot;</span><span class="p">,</span> <span class="s2">&quot;compartment&quot;</span><span class="p">,</span> <span class="mf">0.1</span><span class="p">,</span> <span class="kc">True</span><span class="p">)</span>  <span class="c1"># new model is generated and saved</span>
 </pre></div>
 </div>
 <dl class="field-list simple">
@@ -676,8 +678,8 @@ the model once after all editings are completed.</p>
 </dd></dl>
 
 <dl class="py method">
-<dt id="RoadRunner.RoadRunner.removeSpecies">
-<code class="sig-prename descclassname">RoadRunner.</code><code class="sig-name descname">removeSpecies</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">sid</span></em>, <em class="sig-param"><span class="n">forceRegenerate</span></em><span class="sig-paren">)</span><a class="headerlink" href="#RoadRunner.RoadRunner.removeSpecies" title="Permalink to this definition">¶</a></dt>
+<dt class="sig sig-object py" id="RoadRunner.RoadRunner.removeSpecies">
+<span class="sig-prename descclassname"><span class="pre">RoadRunner.</span></span><span class="sig-name descname"><span class="pre">removeSpecies</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">sid</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">forceRegenerate</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#RoadRunner.RoadRunner.removeSpecies" title="Permalink to this definition">¶</a></dt>
 <dd><p>Remove a species from the current model. Note that the given species must exist in the
 current model.</p>
 <p>All reactions related to this species(as reactants, products or modifiers or used in
@@ -711,8 +713,8 @@ the model once after all editings are completed.</p>
 </dd></dl>
 
 <dl class="py method">
-<dt id="RoadRunner.RoadRunner.addReaction">
-<code class="sig-prename descclassname">RoadRunner.</code><code class="sig-name descname">addReaction</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">rid</span></em>, <em class="sig-param"><span class="n">reactants</span></em>, <em class="sig-param"><span class="n">products</span></em>, <em class="sig-param"><span class="n">kineticLaw</span></em>, <em class="sig-param"><span class="n">forceRegenerate</span></em><span class="sig-paren">)</span><a class="headerlink" href="#RoadRunner.RoadRunner.addReaction" title="Permalink to this definition">¶</a></dt>
+<dt class="sig sig-object py" id="RoadRunner.RoadRunner.addReaction">
+<span class="sig-prename descclassname"><span class="pre">RoadRunner.</span></span><span class="sig-name descname"><span class="pre">addReaction</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">rid</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">reactants</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">products</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">kineticLaw</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">forceRegenerate</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#RoadRunner.RoadRunner.addReaction" title="Permalink to this definition">¶</a></dt>
 <dd><p>Add a reaction to the current model by passing its info as parameters.
 Note that the reaction to be added must have an ID that did not existed in the model.</p>
 <p>forceRegenerate is a boolean value that indicates whether the new model will be regenerated. Its
@@ -739,8 +741,8 @@ the model once after all editings are completed.</p>
 </dd></dl>
 
 <dl class="py method">
-<dt id="id0">
-<code class="sig-prename descclassname">RoadRunner.</code><code class="sig-name descname">addReaction</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">sbmlRep</span></em>, <em class="sig-param"><span class="n">forceRegenerate</span></em><span class="sig-paren">)</span><a class="headerlink" href="#id0" title="Permalink to this definition">¶</a></dt>
+<dt class="sig sig-object py" id="id0">
+<span class="sig-prename descclassname"><span class="pre">RoadRunner.</span></span><span class="sig-name descname"><span class="pre">addReaction</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">sbmlRep</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">forceRegenerate</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#id0" title="Permalink to this definition">¶</a></dt>
 <dd><p>Add a reaction to the current model by passing a sbml repesentation as parameter.
 Note that the reaction to be added must have an ID that did not existed in the model.</p>
 <p>forceRegenerate is a boolean value that indicates whether the new model will be regenerated. Its
@@ -759,8 +761,8 @@ the model once after all editings are completed.</p>
 </dd></dl>
 
 <dl class="py method">
-<dt id="RoadRunner.RoadRunner.removeReaction">
-<code class="sig-prename descclassname">RoadRunner.</code><code class="sig-name descname">removeReaction</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">rid</span></em>, <em class="sig-param"><span class="n">forceRegenerate</span></em><span class="sig-paren">)</span><a class="headerlink" href="#RoadRunner.RoadRunner.removeReaction" title="Permalink to this definition">¶</a></dt>
+<dt class="sig sig-object py" id="RoadRunner.RoadRunner.removeReaction">
+<span class="sig-prename descclassname"><span class="pre">RoadRunner.</span></span><span class="sig-name descname"><span class="pre">removeReaction</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">rid</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">forceRegenerate</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#RoadRunner.RoadRunner.removeReaction" title="Permalink to this definition">¶</a></dt>
 <dd><p>Remove a reaction from the current model. Note that the given reaction must exist in the
 current model.</p>
 <p>forceRegenerate is a boolean value that indicates whether the new model will be regenerated. Its
@@ -784,8 +786,8 @@ the model once after all editings are completed.</p>
 </dd></dl>
 
 <dl class="py method">
-<dt id="RoadRunner.RoadRunner.addParameter">
-<code class="sig-prename descclassname">RoadRunner.</code><code class="sig-name descname">addParameter</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">pid</span></em>, <em class="sig-param"><span class="n">value</span></em>, <em class="sig-param"><span class="n">forceRegenerate</span></em><span class="sig-paren">)</span><a class="headerlink" href="#RoadRunner.RoadRunner.addParameter" title="Permalink to this definition">¶</a></dt>
+<dt class="sig sig-object py" id="RoadRunner.RoadRunner.addParameter">
+<span class="sig-prename descclassname"><span class="pre">RoadRunner.</span></span><span class="sig-name descname"><span class="pre">addParameter</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">pid</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">value</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">forceRegenerate</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#RoadRunner.RoadRunner.addParameter" title="Permalink to this definition">¶</a></dt>
 <dd><p>Add a parameter to the current model. Note that the parameter to be added must have an ID
 that did not existed in the model.</p>
 <p>forceRegenerate is a boolean value that indicates whether the new model will be regenerated. Its
@@ -810,8 +812,8 @@ the model once after all editings are completed.</p>
 </dd></dl>
 
 <dl class="py method">
-<dt id="RoadRunner.RoadRunner.removeParameter">
-<code class="sig-prename descclassname">RoadRunner.</code><code class="sig-name descname">removeParameter</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">pid</span></em>, <em class="sig-param"><span class="n">forceRegenerate</span></em><span class="sig-paren">)</span><a class="headerlink" href="#RoadRunner.RoadRunner.removeParameter" title="Permalink to this definition">¶</a></dt>
+<dt class="sig sig-object py" id="RoadRunner.RoadRunner.removeParameter">
+<span class="sig-prename descclassname"><span class="pre">RoadRunner.</span></span><span class="sig-name descname"><span class="pre">removeParameter</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">pid</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">forceRegenerate</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#RoadRunner.RoadRunner.removeParameter" title="Permalink to this definition">¶</a></dt>
 <dd><p>Remove a parameter from the current model. Note that the given parameter must exist in the
 current model.</p>
 <p>All reactions related to this parameter(used in stoichiometry) will be removed.
@@ -844,8 +846,8 @@ the model once after all editings are completed.</p>
 </dd></dl>
 
 <dl class="py method">
-<dt id="RoadRunner.RoadRunner.addCompartment">
-<code class="sig-prename descclassname">RoadRunner.</code><code class="sig-name descname">addCompartment</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">cid</span></em>, <em class="sig-param"><span class="n">initVolume</span></em>, <em class="sig-param"><span class="n">forceRegenerate</span></em><span class="sig-paren">)</span><a class="headerlink" href="#RoadRunner.RoadRunner.addCompartment" title="Permalink to this definition">¶</a></dt>
+<dt class="sig sig-object py" id="RoadRunner.RoadRunner.addCompartment">
+<span class="sig-prename descclassname"><span class="pre">RoadRunner.</span></span><span class="sig-name descname"><span class="pre">addCompartment</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">cid</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">initVolume</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">forceRegenerate</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#RoadRunner.RoadRunner.addCompartment" title="Permalink to this definition">¶</a></dt>
 <dd><p>Add a compartment to the current model. Note that the compartment to be added must have an ID
 that did not existed in the model.</p>
 <p>forceRegenerate is a boolean value that indicates whether the new model will be regenerated. Its
@@ -870,8 +872,8 @@ the model once after all editings are completed.</p>
 </dd></dl>
 
 <dl class="py method">
-<dt id="RoadRunner.RoadRunner.removeCompartment">
-<code class="sig-prename descclassname">RoadRunner.</code><code class="sig-name descname">removeCompartment</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">cid</span></em>, <em class="sig-param"><span class="n">forceRegenerate</span></em><span class="sig-paren">)</span><a class="headerlink" href="#RoadRunner.RoadRunner.removeCompartment" title="Permalink to this definition">¶</a></dt>
+<dt class="sig sig-object py" id="RoadRunner.RoadRunner.removeCompartment">
+<span class="sig-prename descclassname"><span class="pre">RoadRunner.</span></span><span class="sig-name descname"><span class="pre">removeCompartment</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">cid</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">forceRegenerate</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#RoadRunner.RoadRunner.removeCompartment" title="Permalink to this definition">¶</a></dt>
 <dd><p>Remove a compartment from the current model. Note that the given compartment must exist in the
 current model.</p>
 <p>All reactions related to this compartment(used in stoichiometry) will be removed.
@@ -904,8 +906,8 @@ the model once after all editings are completed.</p>
 </dd></dl>
 
 <dl class="py method">
-<dt id="RoadRunner.RoadRunner.setKineticLaw">
-<code class="sig-prename descclassname">RoadRunner.</code><code class="sig-name descname">setKineticLaw</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">rid</span></em>, <em class="sig-param"><span class="n">kineticLaw</span></em>, <em class="sig-param"><span class="n">forceRegenerate</span></em><span class="sig-paren">)</span><a class="headerlink" href="#RoadRunner.RoadRunner.setKineticLaw" title="Permalink to this definition">¶</a></dt>
+<dt class="sig sig-object py" id="RoadRunner.RoadRunner.setKineticLaw">
+<span class="sig-prename descclassname"><span class="pre">RoadRunner.</span></span><span class="sig-name descname"><span class="pre">setKineticLaw</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">rid</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">kineticLaw</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">forceRegenerate</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#RoadRunner.RoadRunner.setKineticLaw" title="Permalink to this definition">¶</a></dt>
 <dd><p>Set hte kinetic law for an existing reaction in the current model.
 Note that given reaction must exist in the model.</p>
 <p>forceRegenerate is a boolean value that indicates whether the new model will be regenerated. Its
@@ -930,8 +932,8 @@ the model once after all editings are completed.</p>
 </dd></dl>
 
 <dl class="py method">
-<dt id="RoadRunner.RoadRunner.addAssignmentRule">
-<code class="sig-prename descclassname">RoadRunner.</code><code class="sig-name descname">addAssignmentRule</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">vid</span></em>, <em class="sig-param"><span class="n">formula</span></em>, <em class="sig-param"><span class="n">forceRegenerate</span></em><span class="sig-paren">)</span><a class="headerlink" href="#RoadRunner.RoadRunner.addAssignmentRule" title="Permalink to this definition">¶</a></dt>
+<dt class="sig sig-object py" id="RoadRunner.RoadRunner.addAssignmentRule">
+<span class="sig-prename descclassname"><span class="pre">RoadRunner.</span></span><span class="sig-name descname"><span class="pre">addAssignmentRule</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">vid</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">formula</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">forceRegenerate</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#RoadRunner.RoadRunner.addAssignmentRule" title="Permalink to this definition">¶</a></dt>
 <dd><p>Add an assignment rule for a variable to the current model.</p>
 <p>forceRegenerate is a boolean value that indicates whether the new model will be regenerated. Its
 default value is true, which means to regenerate model every time after this function is called.
@@ -955,8 +957,8 @@ the model once after all editings are completed.</p>
 </dd></dl>
 
 <dl class="py method">
-<dt id="RoadRunner.RoadRunner.addRateRule">
-<code class="sig-prename descclassname">RoadRunner.</code><code class="sig-name descname">addRateRule</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">vid</span></em>, <em class="sig-param"><span class="n">formula</span></em>, <em class="sig-param"><span class="n">forceRegenerate</span></em><span class="sig-paren">)</span><a class="headerlink" href="#RoadRunner.RoadRunner.addRateRule" title="Permalink to this definition">¶</a></dt>
+<dt class="sig sig-object py" id="RoadRunner.RoadRunner.addRateRule">
+<span class="sig-prename descclassname"><span class="pre">RoadRunner.</span></span><span class="sig-name descname"><span class="pre">addRateRule</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">vid</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">formula</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">forceRegenerate</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#RoadRunner.RoadRunner.addRateRule" title="Permalink to this definition">¶</a></dt>
 <dd><p>Add a rate rule for a variable to the current model.</p>
 <p>forceRegenerate is a boolean value that indicates whether the new model will be regenerated. Its
 default value is true, which means to regenerate model every time after this function is called.
@@ -980,8 +982,8 @@ the model once after all editings are completed.</p>
 </dd></dl>
 
 <dl class="py method">
-<dt id="RoadRunner.RoadRunner.removeRules">
-<code class="sig-prename descclassname">RoadRunner.</code><code class="sig-name descname">removeRules</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">vid</span></em>, <em class="sig-param"><span class="n">forceRegenerate</span></em><span class="sig-paren">)</span><a class="headerlink" href="#RoadRunner.RoadRunner.removeRules" title="Permalink to this definition">¶</a></dt>
+<dt class="sig sig-object py" id="RoadRunner.RoadRunner.removeRules">
+<span class="sig-prename descclassname"><span class="pre">RoadRunner.</span></span><span class="sig-name descname"><span class="pre">removeRules</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">vid</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">forceRegenerate</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#RoadRunner.RoadRunner.removeRules" title="Permalink to this definition">¶</a></dt>
 <dd><p>Remove all rules for a variable from the current model, including assignment and rate rules.
 Note that the given variable must have at least one rule in the current model.</p>
 <p>If any global parameters become uninitialized during this process, i.e, has no initial assignment or
@@ -1007,8 +1009,8 @@ the model once after all editings are completed.</p>
 </dd></dl>
 
 <dl class="py method">
-<dt id="RoadRunner.RoadRunner.addEvent">
-<code class="sig-prename descclassname">RoadRunner.</code><code class="sig-name descname">addEvent</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">eid</span></em>, <em class="sig-param"><span class="n">useValuesFromTriggerTime</span></em>, <em class="sig-param"><span class="n">trigger</span></em>, <em class="sig-param"><span class="n">forceRegenerate</span></em><span class="sig-paren">)</span><a class="headerlink" href="#RoadRunner.RoadRunner.addEvent" title="Permalink to this definition">¶</a></dt>
+<dt class="sig sig-object py" id="RoadRunner.RoadRunner.addEvent">
+<span class="sig-prename descclassname"><span class="pre">RoadRunner.</span></span><span class="sig-name descname"><span class="pre">addEvent</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">eid</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">useValuesFromTriggerTime</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">trigger</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">forceRegenerate</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#RoadRunner.RoadRunner.addEvent" title="Permalink to this definition">¶</a></dt>
 <dd><p>Add an event to the current model. Note that the event to be added must have an ID that
 did not existed in the model.</p>
 <p>forceRegenerate is a boolean value that indicates whether the new model will be regenerated. Its
@@ -1034,8 +1036,8 @@ the model once after all editings are completed.</p>
 </dd></dl>
 
 <dl class="py method">
-<dt id="RoadRunner.RoadRunner.addTrigger">
-<code class="sig-prename descclassname">RoadRunner.</code><code class="sig-name descname">addTrigger</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">eid</span></em>, <em class="sig-param"><span class="n">trigger</span></em>, <em class="sig-param"><span class="n">forceRegenerate</span></em><span class="sig-paren">)</span><a class="headerlink" href="#RoadRunner.RoadRunner.addTrigger" title="Permalink to this definition">¶</a></dt>
+<dt class="sig sig-object py" id="RoadRunner.RoadRunner.addTrigger">
+<span class="sig-prename descclassname"><span class="pre">RoadRunner.</span></span><span class="sig-name descname"><span class="pre">addTrigger</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">eid</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">trigger</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">forceRegenerate</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#RoadRunner.RoadRunner.addTrigger" title="Permalink to this definition">¶</a></dt>
 <dd><p>Add trigger to an existing event in the model. Note that the given event must exist in the
 current model. If the given event already has a trigger object, the given trigger will replace the
 old trigger of the event.</p>
@@ -1061,8 +1063,8 @@ the model once after all editings are completed.</p>
 </dd></dl>
 
 <dl class="py method">
-<dt id="RoadRunner.RoadRunner.addPriority">
-<code class="sig-prename descclassname">RoadRunner.</code><code class="sig-name descname">addPriority</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">eid</span></em>, <em class="sig-param"><span class="n">priority</span></em>, <em class="sig-param"><span class="n">forceRegenerate</span></em><span class="sig-paren">)</span><a class="headerlink" href="#RoadRunner.RoadRunner.addPriority" title="Permalink to this definition">¶</a></dt>
+<dt class="sig sig-object py" id="RoadRunner.RoadRunner.addPriority">
+<span class="sig-prename descclassname"><span class="pre">RoadRunner.</span></span><span class="sig-name descname"><span class="pre">addPriority</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">eid</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">priority</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">forceRegenerate</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#RoadRunner.RoadRunner.addPriority" title="Permalink to this definition">¶</a></dt>
 <dd><p>Add priority to an existing event in the model. Note that the given event must exist in the
 current model. If the given event already has a priority object, the given priority will replace the
 old priority of the event.</p>
@@ -1083,8 +1085,8 @@ the model once after all editings are completed.</p>
 </dd></dl>
 
 <dl class="py method">
-<dt id="RoadRunner.RoadRunner.addDelay">
-<code class="sig-prename descclassname">RoadRunner.</code><code class="sig-name descname">addDelay</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">eid</span></em>, <em class="sig-param"><span class="n">delay</span></em>, <em class="sig-param"><span class="n">forceRegenerate</span></em><span class="sig-paren">)</span><a class="headerlink" href="#RoadRunner.RoadRunner.addDelay" title="Permalink to this definition">¶</a></dt>
+<dt class="sig sig-object py" id="RoadRunner.RoadRunner.addDelay">
+<span class="sig-prename descclassname"><span class="pre">RoadRunner.</span></span><span class="sig-name descname"><span class="pre">addDelay</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">eid</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">delay</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">forceRegenerate</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#RoadRunner.RoadRunner.addDelay" title="Permalink to this definition">¶</a></dt>
 <dd><p>Add delay to an existing event in the model. Note that the given event must exist in the
 current model. If the given event already has a delay object, the given delay will replace the
 old delay of the event.</p>
@@ -1105,8 +1107,8 @@ the model once after all editings are completed.</p>
 </dd></dl>
 
 <dl class="py method">
-<dt id="RoadRunner.RoadRunner.addEventAssignment">
-<code class="sig-prename descclassname">RoadRunner.</code><code class="sig-name descname">addEventAssignment</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">eid</span></em>, <em class="sig-param"><span class="n">vid</span></em>, <em class="sig-param"><span class="n">formula</span></em>, <em class="sig-param"><span class="n">forceRegenerate</span></em><span class="sig-paren">)</span><a class="headerlink" href="#RoadRunner.RoadRunner.addEventAssignment" title="Permalink to this definition">¶</a></dt>
+<dt class="sig sig-object py" id="RoadRunner.RoadRunner.addEventAssignment">
+<span class="sig-prename descclassname"><span class="pre">RoadRunner.</span></span><span class="sig-name descname"><span class="pre">addEventAssignment</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">eid</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">vid</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">formula</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">forceRegenerate</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#RoadRunner.RoadRunner.addEventAssignment" title="Permalink to this definition">¶</a></dt>
 <dd><p>Add an event assignment to an existing event in the model. Note that the given event must exist in the
 current model.</p>
 <p>forceRegenerate is a boolean value that indicates whether the new model will be regenerated. Its
@@ -1134,8 +1136,8 @@ the model once after all editings are completed.</p>
 </dd></dl>
 
 <dl class="py method">
-<dt id="RoadRunner.RoadRunner.removeEventAssignment">
-<code class="sig-prename descclassname">RoadRunner.</code><code class="sig-name descname">removeEventAssignment</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">eid</span></em>, <em class="sig-param"><span class="n">vid</span></em>, <em class="sig-param"><span class="n">forceRegenerate</span></em><span class="sig-paren">)</span><a class="headerlink" href="#RoadRunner.RoadRunner.removeEventAssignment" title="Permalink to this definition">¶</a></dt>
+<dt class="sig sig-object py" id="RoadRunner.RoadRunner.removeEventAssignment">
+<span class="sig-prename descclassname"><span class="pre">RoadRunner.</span></span><span class="sig-name descname"><span class="pre">removeEventAssignment</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">eid</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">vid</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">forceRegenerate</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#RoadRunner.RoadRunner.removeEventAssignment" title="Permalink to this definition">¶</a></dt>
 <dd><p>Add all event assignments for a variable from an existing event in the model.
 Note that the given event must exist in the current model and given variable must have an event
 assignment in the given event.</p>
@@ -1163,9 +1165,12 @@ the model once after all editings are completed.</p>
 </dd></dl>
 
 <dl class="py method">
-<dt id="RoadRunner.RoadRunner.removeEvent">
-<code class="sig-prename descclassname">RoadRunner.</code><code class="sig-name descname">removeEvent</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">eid</span></em>, <em class="sig-param"><span class="n">forceRegenerate</span></em><span class="sig-paren">)</span><a class="headerlink" href="#RoadRunner.RoadRunner.removeEvent" title="Permalink to this definition">¶</a></dt>
-<dd><p>Add an event from the current model. Note that the given event must exist in the current model.</p>
+<dt class="sig sig-object py" id="RoadRunner.removeEvent">
+<span class="sig-prename descclassname"><span class="pre">RoadRunner.</span></span><span class="sig-name descname"><span class="pre">removeEvent</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">eid</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">forceRegenerate</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#RoadRunner.removeEvent" title="Permalink to this definition">¶</a></dt>
+<dt class="sig sig-object py">
+<span class="sig-name descname"><span class="pre">:module:</span> <span class="pre">RoadRunner</span></span></dt>
+<dd><blockquote>
+<div><p>Add an event from the current model. Note that the given event must exist in the current model.</p>
 <p>If any global parameters become uninitialized during this process, i.e, has no initial assignment or
 assignment rule, they will be removed recursively following the rules in removeParameter().</p>
 <p>forceRegenerate is a boolean value that indicates whether the new model will be regenerated. Its
@@ -1181,13 +1186,30 @@ the model once after all editings are completed.</p>
 </pre></div>
 </div>
 <dl class="field-list simple">
-<dt class="field-odd">Parameters</dt>
-<dd class="field-odd"><ul class="simple">
-<li><p><strong>eid</strong> (<em>str</em>) – the ID of the event to be removed</p></li>
-<li><p><strong>forceRegenerate</strong> (<em>bool</em>) – indicate whether the new model is regenerated after this function call</p></li>
-</ul>
+<dt class="field-odd">param str eid</dt>
+<dd class="field-odd"><p>the ID of the event to be removed</p>
+</dd>
+<dt class="field-even">param bool forceRegenerate</dt>
+<dd class="field-even"><p>indicate whether the new model is regenerated after this function call</p>
 </dd>
 </dl>
+</div></blockquote>
+<dl class="py method">
+<dt class="sig sig-object py" id="RoadRunner.RoadrUNNER.regenerateModel">
+<span class="sig-prename descclassname"><span class="pre">RoadrUNNER.</span></span><span class="sig-name descname"><span class="pre">regenerateModel</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#RoadRunner.RoadrUNNER.regenerateModel" title="Permalink to this definition">¶</a></dt>
+<dt class="sig sig-object py">
+<span class="sig-name descname"><span class="pre">:module</span> <span class="pre">RoadRunner</span></span></dt>
+<dd><p>Call this method to jit compile any model you’ve constructed using the modeling editing API. This will make the model ready for simulation.</p>
+<p>For example:</p>
+<p>&gt;&gt;&gt;&gt; r.addCompartment (‘c1’, 0.1)
+&gt;&gt;&gt;&gt; r.addSpeciesConcentration (‘s1’, ‘c1’, 1.5, False, False)
+&gt;&gt;&gt;&gt; r.addSpeciesConcentration (‘s2’, ‘c1’, 0.0, False, False)
+&gt;&gt;&gt;&gt; r.addParameter(‘k1’, 0.2)
+&gt;&gt;&gt;&gt; r.addReaction (‘r1’, [‘s1’], [‘s2’], ‘s1*k1’)
+&gt;&gt;&gt;&gt; r.regenerateModel()
+&gt;&gt;&gt;&gt; r.simulate()</p>
+</dd></dl>
+
 </dd></dl>
 
 </div>
@@ -1196,8 +1218,8 @@ the model once after all editings are completed.</p>
 <p>Fast and easy time series simulations is one of the main objectives of the RoadRunner project.</p>
 <p>All simulation related tasks can be accomplished with the single <code class="docutils literal notranslate"><span class="pre">simulate</span></code> method.</p>
 <dl class="py method">
-<dt id="RoadRunner.RoadRunner.simulate">
-<code class="sig-prename descclassname">RoadRunner.</code><code class="sig-name descname">simulate</code><span class="sig-paren">(</span><em class="sig-param"><span class="o">*</span><span class="n">args</span></em>, <em class="sig-param"><span class="o">**</span><span class="n">kwargs</span></em><span class="sig-paren">)</span><a class="headerlink" href="#RoadRunner.RoadRunner.simulate" title="Permalink to this definition">¶</a></dt>
+<dt class="sig sig-object py" id="RoadRunner.RoadRunner.simulate">
+<span class="sig-prename descclassname"><span class="pre">RoadRunner.</span></span><span class="sig-name descname"><span class="pre">simulate</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">*</span></span><span class="n"><span class="pre">args</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#RoadRunner.RoadRunner.simulate" title="Permalink to this definition">¶</a></dt>
 <dd><blockquote>
 <div><p>Simulate current SBML model.</p>
 <p>simulate accepts up to five positional arguments.</p>
@@ -1241,8 +1263,8 @@ if output_file is specified and nonempty, a message string</p>
 </dd></dl>
 
 <dl class="py method">
-<dt id="RoadRunner.RoadRunner.gillespie">
-<code class="sig-prename descclassname">RoadRunner.</code><code class="sig-name descname">gillespie</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">start</span></em>, <em class="sig-param"><span class="n">end</span></em>, <em class="sig-param"><span class="n">steps</span></em><span class="sig-paren">)</span><a class="headerlink" href="#RoadRunner.RoadRunner.gillespie" title="Permalink to this definition">¶</a></dt>
+<dt class="sig sig-object py" id="RoadRunner.RoadRunner.gillespie">
+<span class="sig-prename descclassname"><span class="pre">RoadRunner.</span></span><span class="sig-name descname"><span class="pre">gillespie</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">start</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">end</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">steps</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#RoadRunner.RoadRunner.gillespie" title="Permalink to this definition">¶</a></dt>
 <dd><p>Run a Gillespie stochastic simulation.</p>
 <p>Use <a class="reference internal" href="#RoadRunner.RoadRunner.reset" title="RoadRunner.RoadRunner.reset"><code class="xref py py-meth docutils literal notranslate"><span class="pre">RoadRunner.reset()</span></code></a> to reset the model each time.</p>
 <dl class="field-list simple">
@@ -1281,8 +1303,8 @@ column vector, and the 0’th column is the simulation time.</p>
 </dd></dl>
 
 <dl class="py function">
-<dt id="RoadRunner.RoadRunner.plot">
-<code class="sig-prename descclassname">RoadRunner.</code><code class="sig-name descname">plot</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">result</span><span class="o">=</span><span class="default_value">None</span></em>, <em class="sig-param"><span class="n">loc</span><span class="o">=</span><span class="default_value">'upper left'</span></em>, <em class="sig-param"><span class="n">show</span><span class="o">=</span><span class="default_value">True</span></em><span class="sig-paren">)</span><a class="headerlink" href="#RoadRunner.RoadRunner.plot" title="Permalink to this definition">¶</a></dt>
+<dt class="sig sig-object py" id="RoadRunner.RoadRunner.plot">
+<span class="sig-prename descclassname"><span class="pre">RoadRunner.</span></span><span class="sig-name descname"><span class="pre">plot</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">result</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">loc</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'upper</span> <span class="pre">left'</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">show</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">True</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#RoadRunner.RoadRunner.plot" title="Permalink to this definition">¶</a></dt>
 <dd><p>Plot results from a simulation carried out by the simulate or gillespie functions.</p>
 <p>To plot data currently held by roadrunner that was generated in the last simulation, use:</p>
 <div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">r</span><span class="o">.</span><span class="n">plot</span><span class="p">()</span>
@@ -1300,8 +1322,8 @@ column vector, and the 0’th column is the simulation time.</p>
 </dd></dl>
 
 <dl class="py function">
-<dt id="RoadRunner.Roadrunner.getSimulationData">
-<code class="sig-prename descclassname">Roadrunner.</code><code class="sig-name descname">getSimulationData</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#RoadRunner.Roadrunner.getSimulationData" title="Permalink to this definition">¶</a></dt>
+<dt class="sig sig-object py" id="RoadRunner.Roadrunner.getSimulationData">
+<span class="sig-prename descclassname"><span class="pre">Roadrunner.</span></span><span class="sig-name descname"><span class="pre">getSimulationData</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#RoadRunner.Roadrunner.getSimulationData" title="Permalink to this definition">¶</a></dt>
 <dd><p>Returns the array of simulated data. When simulation has not been run,
 the function will return an empty array.</p>
 </dd></dl>
@@ -1310,14 +1332,14 @@ the function will return an empty array.</p>
 <div class="section" id="steady-state">
 <h2>Steady State<a class="headerlink" href="#steady-state" title="Permalink to this headline">¶</a></h2>
 <dl class="py class">
-<dt id="RoadRunner.RoadRunner.SteadyStateSolver">
-<em class="property">class </em><code class="sig-prename descclassname">RoadRunner.</code><code class="sig-name descname">SteadyStateSolver</code><a class="headerlink" href="#RoadRunner.RoadRunner.SteadyStateSolver" title="Permalink to this definition">¶</a></dt>
+<dt class="sig sig-object py" id="RoadRunner.RoadRunner.SteadyStateSolver">
+<em class="property"><span class="pre">class</span> </em><span class="sig-prename descclassname"><span class="pre">RoadRunner.</span></span><span class="sig-name descname"><span class="pre">SteadyStateSolver</span></span><a class="headerlink" href="#RoadRunner.RoadRunner.SteadyStateSolver" title="Permalink to this definition">¶</a></dt>
 <dd><p>RoadRunner.SteadyStateSolver class.</p>
 </dd></dl>
 
 <dl class="py attribute">
-<dt id="RoadRunner.RoadRunner.steadyStateSelections">
-<code class="sig-prename descclassname">RoadRunner.</code><code class="sig-name descname">steadyStateSelections</code><a class="headerlink" href="#RoadRunner.RoadRunner.steadyStateSelections" title="Permalink to this definition">¶</a></dt>
+<dt class="sig sig-object py" id="RoadRunner.RoadRunner.steadyStateSelections">
+<span class="sig-prename descclassname"><span class="pre">RoadRunner.</span></span><span class="sig-name descname"><span class="pre">steadyStateSelections</span></span><a class="headerlink" href="#RoadRunner.RoadRunner.steadyStateSelections" title="Permalink to this definition">¶</a></dt>
 <dd><p>A list of SelectionRecords which determine what values are used for
 a steady state calculation. This list may be set by assigning a list
 of valid selection symbols:</p>
@@ -1329,8 +1351,8 @@ of valid selection symbols:</p>
 </dd></dl>
 
 <dl class="py method">
-<dt id="RoadRunner.RoadRunner.steadyState">
-<code class="sig-prename descclassname">RoadRunner.</code><code class="sig-name descname">steadyState</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#RoadRunner.RoadRunner.steadyState" title="Permalink to this definition">¶</a></dt>
+<dt class="sig sig-object py" id="RoadRunner.RoadRunner.steadyState">
+<span class="sig-prename descclassname"><span class="pre">RoadRunner.</span></span><span class="sig-name descname"><span class="pre">steadyState</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#RoadRunner.RoadRunner.steadyState" title="Permalink to this definition">¶</a></dt>
 <dd><p>Attempts to evaluate the steady state for the model. The method returns
 a value that indicates how close the solution is to the steady state.
 The smaller the value the better. Values less than 1E-6 usually indicate a
@@ -1347,8 +1369,8 @@ second time to improve the solution.</p>
 </dd></dl>
 
 <dl class="py method">
-<dt id="RoadRunner.RoadRunner.getSteadyStateValues">
-<code class="sig-prename descclassname">RoadRunner.</code><code class="sig-name descname">getSteadyStateValues</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#RoadRunner.RoadRunner.getSteadyStateValues" title="Permalink to this definition">¶</a></dt>
+<dt class="sig sig-object py" id="RoadRunner.RoadRunner.getSteadyStateValues">
+<span class="sig-prename descclassname"><span class="pre">RoadRunner.</span></span><span class="sig-name descname"><span class="pre">getSteadyStateValues</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#RoadRunner.RoadRunner.getSteadyStateValues" title="Permalink to this definition">¶</a></dt>
 <dd><p>Performs a steady state calculation (evolves the system to a steady
 state), then calculates and returns the set of values specified by
 the steady state selections.</p>
@@ -1363,8 +1385,8 @@ the steady state selections.</p>
 </dd></dl>
 
 <dl class="py method">
-<dt id="RoadRunner.RoadRunner.getSteadyStateValuesNamedArray">
-<code class="sig-prename descclassname">RoadRunner.</code><code class="sig-name descname">getSteadyStateValuesNamedArray</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#RoadRunner.RoadRunner.getSteadyStateValuesNamedArray" title="Permalink to this definition">¶</a></dt>
+<dt class="sig sig-object py" id="RoadRunner.RoadRunner.getSteadyStateValuesNamedArray">
+<span class="sig-prename descclassname"><span class="pre">RoadRunner.</span></span><span class="sig-name descname"><span class="pre">getSteadyStateValuesNamedArray</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#RoadRunner.RoadRunner.getSteadyStateValuesNamedArray" title="Permalink to this definition">¶</a></dt>
 <dd><p>Performs a steady state calculation (evolves the system to a steady
 state), then calculates and returns the set of values specified by
 the steady state selections with all necessary labels.</p>
@@ -1379,14 +1401,14 @@ the steady state selections with all necessary labels.</p>
 </dd></dl>
 
 <dl class="py method">
-<dt id="RoadRunner.RoadRunner.getSteadyStateSolver">
-<code class="sig-prename descclassname">RoadRunner.</code><code class="sig-name descname">getSteadyStateSolver</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#RoadRunner.RoadRunner.getSteadyStateSolver" title="Permalink to this definition">¶</a></dt>
+<dt class="sig sig-object py" id="RoadRunner.RoadRunner.getSteadyStateSolver">
+<span class="sig-prename descclassname"><span class="pre">RoadRunner.</span></span><span class="sig-name descname"><span class="pre">getSteadyStateSolver</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#RoadRunner.RoadRunner.getSteadyStateSolver" title="Permalink to this definition">¶</a></dt>
 <dd><p>Returns the steady state solver which is currently being used.</p>
 </dd></dl>
 
 <dl class="py method">
-<dt id="RoadRunner.RoadRunner.steadyStateSolverExists">
-<code class="sig-prename descclassname">RoadRunner.</code><code class="sig-name descname">steadyStateSolverExists</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">name</span></em><span class="sig-paren">)</span><a class="headerlink" href="#RoadRunner.RoadRunner.steadyStateSolverExists" title="Permalink to this definition">¶</a></dt>
+<dt class="sig sig-object py" id="RoadRunner.RoadRunner.steadyStateSolverExists">
+<span class="sig-prename descclassname"><span class="pre">RoadRunner.</span></span><span class="sig-name descname"><span class="pre">steadyStateSolverExists</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">name</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#RoadRunner.RoadRunner.steadyStateSolverExists" title="Permalink to this definition">¶</a></dt>
 <dd><p>Checks whether a steady state solver exists.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
@@ -1402,8 +1424,8 @@ the steady state selections with all necessary labels.</p>
 assignment rules for chemical species, and time invariant stoichiometry, specialized analysis methods
 related to metabolic control analysis are applicable. These methods are described in this section.</p>
 <dl class="py method">
-<dt id="RoadRunner.RoadRunner.getCC">
-<code class="sig-prename descclassname">RoadRunner.</code><code class="sig-name descname">getCC</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">variable</span></em>, <em class="sig-param"><span class="n">parameter</span></em><span class="sig-paren">)</span><a class="headerlink" href="#RoadRunner.RoadRunner.getCC" title="Permalink to this definition">¶</a></dt>
+<dt class="sig sig-object py" id="RoadRunner.RoadRunner.getCC">
+<span class="sig-prename descclassname"><span class="pre">RoadRunner.</span></span><span class="sig-name descname"><span class="pre">getCC</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">variable</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">parameter</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#RoadRunner.RoadRunner.getCC" title="Permalink to this definition">¶</a></dt>
 <dd><p>Returns a scaled control coefficient with respect to a global parameter.</p>
 <p>For example:</p>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">rr</span><span class="o">.</span><span class="n">getCC</span> <span class="p">(</span><span class="s1">&#39;J1&#39;</span><span class="p">,</span> <span class="s1">&#39;Vmax&#39;</span><span class="p">)</span>
@@ -1432,8 +1454,8 @@ or boundary species</p></li>
 </dd></dl>
 
 <dl class="py method">
-<dt id="RoadRunner.RoadRunner.getuCC">
-<code class="sig-prename descclassname">RoadRunner.</code><code class="sig-name descname">getuCC</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">variableId</span></em>, <em class="sig-param"><span class="n">parameterId</span></em><span class="sig-paren">)</span><a class="headerlink" href="#RoadRunner.RoadRunner.getuCC" title="Permalink to this definition">¶</a></dt>
+<dt class="sig sig-object py" id="RoadRunner.RoadRunner.getuCC">
+<span class="sig-prename descclassname"><span class="pre">RoadRunner.</span></span><span class="sig-name descname"><span class="pre">getuCC</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">variableId</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">parameterId</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#RoadRunner.RoadRunner.getuCC" title="Permalink to this definition">¶</a></dt>
 <dd><p>Get unscaled control coefficient with respect to a global parameter.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
@@ -1454,8 +1476,8 @@ or boundary species</p></li>
 </dd></dl>
 
 <dl class="py method">
-<dt id="RoadRunner.RoadRunner.getEE">
-<code class="sig-prename descclassname">RoadRunner.</code><code class="sig-name descname">getEE</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">reactionId</span></em>, <em class="sig-param"><span class="n">parameterId</span></em>, <em class="sig-param"><span class="n">steadyState</span><span class="o">=</span><span class="default_value">True</span></em><span class="sig-paren">)</span><a class="headerlink" href="#RoadRunner.RoadRunner.getEE" title="Permalink to this definition">¶</a></dt>
+<dt class="sig sig-object py" id="RoadRunner.RoadRunner.getEE">
+<span class="sig-prename descclassname"><span class="pre">RoadRunner.</span></span><span class="sig-name descname"><span class="pre">getEE</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">reactionId</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">parameterId</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">steadyState</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">True</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#RoadRunner.RoadRunner.getEE" title="Permalink to this definition">¶</a></dt>
 <dd><p>Retrieve a single elasticity coefficient with respect to a global parameter.</p>
 <p>For example:</p>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">x</span> <span class="o">=</span> <span class="n">rr</span><span class="o">.</span><span class="n">getEE</span> <span class="p">(</span><span class="s1">&#39;J1&#39;</span><span class="p">,</span> <span class="s1">&#39;Vmax&#39;</span><span class="p">)</span>
@@ -1474,21 +1496,21 @@ or boundary species</p></li>
 </dd></dl>
 
 <dl class="py method">
-<dt id="RoadRunner.RoadRunner.getuEE">
-<code class="sig-prename descclassname">RoadRunner.</code><code class="sig-name descname">getuEE</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">reactionId</span></em>, <em class="sig-param"><span class="n">parameterId</span></em><span class="sig-paren">)</span><a class="headerlink" href="#RoadRunner.RoadRunner.getuEE" title="Permalink to this definition">¶</a></dt>
+<dt class="sig sig-object py" id="RoadRunner.RoadRunner.getuEE">
+<span class="sig-prename descclassname"><span class="pre">RoadRunner.</span></span><span class="sig-name descname"><span class="pre">getuEE</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">reactionId</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">parameterId</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#RoadRunner.RoadRunner.getuEE" title="Permalink to this definition">¶</a></dt>
 <dd><p>Get unscaled elasticity coefficient with respect to a global parameter or species.</p>
 </dd></dl>
 
 <dl class="py method">
-<dt id="RoadRunner.RoadRunner.getEigenValueIds">
-<code class="sig-prename descclassname">RoadRunner.</code><code class="sig-name descname">getEigenValueIds</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#RoadRunner.RoadRunner.getEigenValueIds" title="Permalink to this definition">¶</a></dt>
+<dt class="sig sig-object py" id="RoadRunner.RoadRunner.getEigenValueIds">
+<span class="sig-prename descclassname"><span class="pre">RoadRunner.</span></span><span class="sig-name descname"><span class="pre">getEigenValueIds</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#RoadRunner.RoadRunner.getEigenValueIds" title="Permalink to this definition">¶</a></dt>
 <dd><p>Returns a list of selection symbols for the eigenvalues of the floating species. The eigen value
 selection symbol is <code class="docutils literal notranslate"><span class="pre">eigen(XX)</span></code>, where <code class="docutils literal notranslate"><span class="pre">XX</span></code> is the floating species name.</p>
 </dd></dl>
 
 <dl class="py method">
-<dt id="RoadRunner.RoadRunner.getFullEigenValues">
-<code class="sig-prename descclassname">RoadRunner.</code><code class="sig-name descname">getFullEigenValues</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#RoadRunner.RoadRunner.getFullEigenValues" title="Permalink to this definition">¶</a></dt>
+<dt class="sig sig-object py" id="RoadRunner.RoadRunner.getFullEigenValues">
+<span class="sig-prename descclassname"><span class="pre">RoadRunner.</span></span><span class="sig-name descname"><span class="pre">getFullEigenValues</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#RoadRunner.RoadRunner.getFullEigenValues" title="Permalink to this definition">¶</a></dt>
 <dd><p>Calculates the eigen values of the Full Jacobian as a real matrix, first column real part, second
 column imaginary part.</p>
 <p>Note, only valid for pure reaction kinetics models (no rate rules, no floating species rules and
@@ -1501,8 +1523,8 @@ time invariant stoichiometry).</p>
 </dd></dl>
 
 <dl class="py method">
-<dt id="RoadRunner.RoadRunner.getReducedEigenValues">
-<code class="sig-prename descclassname">RoadRunner.</code><code class="sig-name descname">getReducedEigenValues</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#RoadRunner.RoadRunner.getReducedEigenValues" title="Permalink to this definition">¶</a></dt>
+<dt class="sig sig-object py" id="RoadRunner.RoadRunner.getReducedEigenValues">
+<span class="sig-prename descclassname"><span class="pre">RoadRunner.</span></span><span class="sig-name descname"><span class="pre">getReducedEigenValues</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#RoadRunner.RoadRunner.getReducedEigenValues" title="Permalink to this definition">¶</a></dt>
 <dd><p>Calculates the eigen values of the Reduced Jacobian as a real matrix, first column real part, second
 column imaginary part.</p>
 <p>Only valid if moiety conversion is enabled.</p>
@@ -1516,15 +1538,15 @@ time invariant stoichiometry).</p>
 </dd></dl>
 
 <dl class="py method">
-<dt id="RoadRunner.RoadRunner.getFullJacobian">
-<code class="sig-prename descclassname">RoadRunner.</code><code class="sig-name descname">getFullJacobian</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#RoadRunner.RoadRunner.getFullJacobian" title="Permalink to this definition">¶</a></dt>
+<dt class="sig sig-object py" id="RoadRunner.RoadRunner.getFullJacobian">
+<span class="sig-prename descclassname"><span class="pre">RoadRunner.</span></span><span class="sig-name descname"><span class="pre">getFullJacobian</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#RoadRunner.RoadRunner.getFullJacobian" title="Permalink to this definition">¶</a></dt>
 <dd><p>Compute the full Jacobian at the current operating point.</p>
 <p>This is the Jacobian of ONLY the floating species.</p>
 </dd></dl>
 
 <dl class="py method">
-<dt id="RoadRunner.RoadRunner.getReducedJacobian">
-<code class="sig-prename descclassname">RoadRunner.</code><code class="sig-name descname">getReducedJacobian</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#RoadRunner.RoadRunner.getReducedJacobian" title="Permalink to this definition">¶</a></dt>
+<dt class="sig sig-object py" id="RoadRunner.RoadRunner.getReducedJacobian">
+<span class="sig-prename descclassname"><span class="pre">RoadRunner.</span></span><span class="sig-name descname"><span class="pre">getReducedJacobian</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#RoadRunner.RoadRunner.getReducedJacobian" title="Permalink to this definition">¶</a></dt>
 <dd><p>Returns the <em>reduced</em> Jacobian for the independent species. This matrix will be non-singular
 for models that include moiety-conserved cycles.</p>
 <dl class="field-list simple">
@@ -1535,8 +1557,8 @@ for models that include moiety-conserved cycles.</p>
 </dd></dl>
 
 <dl class="py method">
-<dt id="RoadRunner.RoadRunner.getScaledConcentrationControlCoefficientMatrix">
-<code class="sig-prename descclassname">RoadRunner.</code><code class="sig-name descname">getScaledConcentrationControlCoefficientMatrix</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#RoadRunner.RoadRunner.getScaledConcentrationControlCoefficientMatrix" title="Permalink to this definition">¶</a></dt>
+<dt class="sig sig-object py" id="RoadRunner.RoadRunner.getScaledConcentrationControlCoefficientMatrix">
+<span class="sig-prename descclassname"><span class="pre">RoadRunner.</span></span><span class="sig-name descname"><span class="pre">getScaledConcentrationControlCoefficientMatrix</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#RoadRunner.RoadRunner.getScaledConcentrationControlCoefficientMatrix" title="Permalink to this definition">¶</a></dt>
 <dd><p>Returns the m by n matrix of scaled concentration control coefficients where m is the number
 of floating species and n the number of reactions.</p>
 <dl class="field-list simple">
@@ -1547,8 +1569,8 @@ of floating species and n the number of reactions.</p>
 </dd></dl>
 
 <dl class="py method">
-<dt id="RoadRunner.RoadRunner.getScaledFloatingSpeciesElasticity">
-<code class="sig-prename descclassname">RoadRunner.</code><code class="sig-name descname">getScaledFloatingSpeciesElasticity</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">reactionId</span></em>, <em class="sig-param"><span class="n">speciesId</span></em><span class="sig-paren">)</span><a class="headerlink" href="#RoadRunner.RoadRunner.getScaledFloatingSpeciesElasticity" title="Permalink to this definition">¶</a></dt>
+<dt class="sig sig-object py" id="RoadRunner.RoadRunner.getScaledFloatingSpeciesElasticity">
+<span class="sig-prename descclassname"><span class="pre">RoadRunner.</span></span><span class="sig-name descname"><span class="pre">getScaledFloatingSpeciesElasticity</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">reactionId</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">speciesId</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#RoadRunner.RoadRunner.getScaledFloatingSpeciesElasticity" title="Permalink to this definition">¶</a></dt>
 <dd><p>Returns the scaled elasticity for a given reaction and given species.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
@@ -1564,8 +1586,8 @@ of floating species and n the number of reactions.</p>
 </dd></dl>
 
 <dl class="py method">
-<dt id="RoadRunner.RoadRunner.getUnscaledParameterElasticity">
-<code class="sig-prename descclassname">RoadRunner.</code><code class="sig-name descname">getUnscaledParameterElasticity</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">reactionId</span></em>, <em class="sig-param"><span class="n">parameterId</span></em><span class="sig-paren">)</span><a class="headerlink" href="#RoadRunner.RoadRunner.getUnscaledParameterElasticity" title="Permalink to this definition">¶</a></dt>
+<dt class="sig sig-object py" id="RoadRunner.RoadRunner.getUnscaledParameterElasticity">
+<span class="sig-prename descclassname"><span class="pre">RoadRunner.</span></span><span class="sig-name descname"><span class="pre">getUnscaledParameterElasticity</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">reactionId</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">parameterId</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#RoadRunner.RoadRunner.getUnscaledParameterElasticity" title="Permalink to this definition">¶</a></dt>
 <dd><p>Returns the unscaled elasticity for a named reaction with respect to a
 named parameter</p>
 <dl class="field-list simple">
@@ -1582,26 +1604,26 @@ named parameter</p>
 </dd></dl>
 
 <dl class="py method">
-<dt id="RoadRunner.RoadRunner.getUnscaledConcentrationControlCoefficientMatrix">
-<code class="sig-prename descclassname">RoadRunner.</code><code class="sig-name descname">getUnscaledConcentrationControlCoefficientMatrix</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#RoadRunner.RoadRunner.getUnscaledConcentrationControlCoefficientMatrix" title="Permalink to this definition">¶</a></dt>
+<dt class="sig sig-object py" id="RoadRunner.RoadRunner.getUnscaledConcentrationControlCoefficientMatrix">
+<span class="sig-prename descclassname"><span class="pre">RoadRunner.</span></span><span class="sig-name descname"><span class="pre">getUnscaledConcentrationControlCoefficientMatrix</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#RoadRunner.RoadRunner.getUnscaledConcentrationControlCoefficientMatrix" title="Permalink to this definition">¶</a></dt>
 <dd><p>Returns the unscaled concentration control coefficient matrix.</p>
 </dd></dl>
 
 <dl class="py method">
-<dt id="RoadRunner.RoadRunner.getUnscaledElasticityMatrix">
-<code class="sig-prename descclassname">RoadRunner.</code><code class="sig-name descname">getUnscaledElasticityMatrix</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#RoadRunner.RoadRunner.getUnscaledElasticityMatrix" title="Permalink to this definition">¶</a></dt>
+<dt class="sig sig-object py" id="RoadRunner.RoadRunner.getUnscaledElasticityMatrix">
+<span class="sig-prename descclassname"><span class="pre">RoadRunner.</span></span><span class="sig-name descname"><span class="pre">getUnscaledElasticityMatrix</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#RoadRunner.RoadRunner.getUnscaledElasticityMatrix" title="Permalink to this definition">¶</a></dt>
 <dd><p>Returns the unscaled species elasticity matrix at the current operating point.</p>
 </dd></dl>
 
 <dl class="py method">
-<dt id="RoadRunner.RoadRunner.getUnscaledFluxControlCoefficientMatrix">
-<code class="sig-prename descclassname">RoadRunner.</code><code class="sig-name descname">getUnscaledFluxControlCoefficientMatrix</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#RoadRunner.RoadRunner.getUnscaledFluxControlCoefficientMatrix" title="Permalink to this definition">¶</a></dt>
+<dt class="sig sig-object py" id="RoadRunner.RoadRunner.getUnscaledFluxControlCoefficientMatrix">
+<span class="sig-prename descclassname"><span class="pre">RoadRunner.</span></span><span class="sig-name descname"><span class="pre">getUnscaledFluxControlCoefficientMatrix</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#RoadRunner.RoadRunner.getUnscaledFluxControlCoefficientMatrix" title="Permalink to this definition">¶</a></dt>
 <dd><p>Returns the unscaled flux control coefficient matrix.</p>
 </dd></dl>
 
 <dl class="py method">
-<dt id="RoadRunner.RoadRunner.getUnscaledSpeciesElasticity">
-<code class="sig-prename descclassname">RoadRunner.</code><code class="sig-name descname">getUnscaledSpeciesElasticity</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">reactionIndx</span></em>, <em class="sig-param"><span class="n">speciesIndx</span></em><span class="sig-paren">)</span><a class="headerlink" href="#RoadRunner.RoadRunner.getUnscaledSpeciesElasticity" title="Permalink to this definition">¶</a></dt>
+<dt class="sig sig-object py" id="RoadRunner.RoadRunner.getUnscaledSpeciesElasticity">
+<span class="sig-prename descclassname"><span class="pre">RoadRunner.</span></span><span class="sig-name descname"><span class="pre">getUnscaledSpeciesElasticity</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">reactionIndx</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">speciesIndx</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#RoadRunner.RoadRunner.getUnscaledSpeciesElasticity" title="Permalink to this definition">¶</a></dt>
 <dd><p>Get a single species elasticity value.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
@@ -1614,8 +1636,8 @@ named parameter</p>
 </dd></dl>
 
 <dl class="py method">
-<dt id="RoadRunner.RoadRunner.getScaledFluxControlCoefficientMatrix">
-<code class="sig-prename descclassname">RoadRunner.</code><code class="sig-name descname">getScaledFluxControlCoefficientMatrix</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#RoadRunner.RoadRunner.getScaledFluxControlCoefficientMatrix" title="Permalink to this definition">¶</a></dt>
+<dt class="sig sig-object py" id="RoadRunner.RoadRunner.getScaledFluxControlCoefficientMatrix">
+<span class="sig-prename descclassname"><span class="pre">RoadRunner.</span></span><span class="sig-name descname"><span class="pre">getScaledFluxControlCoefficientMatrix</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#RoadRunner.RoadRunner.getScaledFluxControlCoefficientMatrix" title="Permalink to this definition">¶</a></dt>
 <dd><p>Returns the n by n matrix of scaled flux control coefficients where n is the number of reactions.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Return type</dt>
@@ -1625,8 +1647,8 @@ named parameter</p>
 </dd></dl>
 
 <dl class="py method">
-<dt id="RoadRunner.RoadRunner.getScaledElasticityMatrix">
-<code class="sig-prename descclassname">RoadRunner.</code><code class="sig-name descname">getScaledElasticityMatrix</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#RoadRunner.RoadRunner.getScaledElasticityMatrix" title="Permalink to this definition">¶</a></dt>
+<dt class="sig sig-object py" id="RoadRunner.RoadRunner.getScaledElasticityMatrix">
+<span class="sig-prename descclassname"><span class="pre">RoadRunner.</span></span><span class="sig-name descname"><span class="pre">getScaledElasticityMatrix</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#RoadRunner.RoadRunner.getScaledElasticityMatrix" title="Permalink to this definition">¶</a></dt>
 <dd><p>Returns the scaled elasticity matrix at the current operating point.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Return type</dt>
@@ -1636,14 +1658,14 @@ named parameter</p>
 </dd></dl>
 
 <dl class="py method">
-<dt id="RoadRunner.RoadRunner.getDiffStepSize">
-<code class="sig-prename descclassname">RoadRunner.</code><code class="sig-name descname">getDiffStepSize</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#RoadRunner.RoadRunner.getDiffStepSize" title="Permalink to this definition">¶</a></dt>
+<dt class="sig sig-object py" id="RoadRunner.RoadRunner.getDiffStepSize">
+<span class="sig-prename descclassname"><span class="pre">RoadRunner.</span></span><span class="sig-name descname"><span class="pre">getDiffStepSize</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#RoadRunner.RoadRunner.getDiffStepSize" title="Permalink to this definition">¶</a></dt>
 <dd><p>Returns the differential step size used in routines such as <a class="reference internal" href="#RoadRunner.RoadRunner.getCC" title="RoadRunner.RoadRunner.getCC"><code class="xref py py-meth docutils literal notranslate"><span class="pre">getCC()</span></code></a>.</p>
 </dd></dl>
 
 <dl class="py method">
-<dt id="RoadRunner.RoadRunner.setDiffStepSize">
-<code class="sig-prename descclassname">RoadRunner.</code><code class="sig-name descname">setDiffStepSize</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">val</span></em><span class="sig-paren">)</span><a class="headerlink" href="#RoadRunner.RoadRunner.setDiffStepSize" title="Permalink to this definition">¶</a></dt>
+<dt class="sig sig-object py" id="RoadRunner.RoadRunner.setDiffStepSize">
+<span class="sig-prename descclassname"><span class="pre">RoadRunner.</span></span><span class="sig-name descname"><span class="pre">setDiffStepSize</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">val</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#RoadRunner.RoadRunner.setDiffStepSize" title="Permalink to this definition">¶</a></dt>
 <dd><p>Sets the differential step size used in routines such as <a class="reference internal" href="#RoadRunner.RoadRunner.getCC" title="RoadRunner.RoadRunner.getCC"><code class="xref py py-meth docutils literal notranslate"><span class="pre">getCC()</span></code></a>.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
@@ -1653,14 +1675,14 @@ named parameter</p>
 </dd></dl>
 
 <dl class="py method">
-<dt id="RoadRunner.RoadRunner.getSteadyStateThreshold">
-<code class="sig-prename descclassname">RoadRunner.</code><code class="sig-name descname">getSteadyStateThreshold</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#RoadRunner.RoadRunner.getSteadyStateThreshold" title="Permalink to this definition">¶</a></dt>
+<dt class="sig sig-object py" id="RoadRunner.RoadRunner.getSteadyStateThreshold">
+<span class="sig-prename descclassname"><span class="pre">RoadRunner.</span></span><span class="sig-name descname"><span class="pre">getSteadyStateThreshold</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#RoadRunner.RoadRunner.getSteadyStateThreshold" title="Permalink to this definition">¶</a></dt>
 <dd><p>Returns the threshold used in steady state solver in routines such as <a class="reference internal" href="#RoadRunner.RoadRunner.getCC" title="RoadRunner.RoadRunner.getCC"><code class="xref py py-meth docutils literal notranslate"><span class="pre">getCC()</span></code></a>.</p>
 </dd></dl>
 
 <dl class="py method">
-<dt id="RoadRunner.RoadRunner.setSteadyStateThreshold">
-<code class="sig-prename descclassname">RoadRunner.</code><code class="sig-name descname">setSteadyStateThreshold</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">val</span></em><span class="sig-paren">)</span><a class="headerlink" href="#RoadRunner.RoadRunner.setSteadyStateThreshold" title="Permalink to this definition">¶</a></dt>
+<dt class="sig sig-object py" id="RoadRunner.RoadRunner.setSteadyStateThreshold">
+<span class="sig-prename descclassname"><span class="pre">RoadRunner.</span></span><span class="sig-name descname"><span class="pre">setSteadyStateThreshold</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">val</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#RoadRunner.RoadRunner.setSteadyStateThreshold" title="Permalink to this definition">¶</a></dt>
 <dd><p>Sets the threshold used in steady state solver in routines such as <a class="reference internal" href="#RoadRunner.RoadRunner.getCC" title="RoadRunner.RoadRunner.getCC"><code class="xref py py-meth docutils literal notranslate"><span class="pre">getCC()</span></code></a>.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
@@ -1673,30 +1695,30 @@ named parameter</p>
 <div class="section" id="stoichiometric-analysis">
 <h2>Stoichiometric Analysis<a class="headerlink" href="#stoichiometric-analysis" title="Permalink to this headline">¶</a></h2>
 <dl class="py method">
-<dt id="RoadRunner.RoadRunner.getFullStoichiometryMatrix">
-<code class="sig-prename descclassname">RoadRunner.</code><code class="sig-name descname">getFullStoichiometryMatrix</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#RoadRunner.RoadRunner.getFullStoichiometryMatrix" title="Permalink to this definition">¶</a></dt>
+<dt class="sig sig-object py" id="RoadRunner.RoadRunner.getFullStoichiometryMatrix">
+<span class="sig-prename descclassname"><span class="pre">RoadRunner.</span></span><span class="sig-name descname"><span class="pre">getFullStoichiometryMatrix</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#RoadRunner.RoadRunner.getFullStoichiometryMatrix" title="Permalink to this definition">¶</a></dt>
 <dd><p>Get the stoichiometry matrix that coresponds to the full model, even it
 it was converted via conservation conversion.</p>
 </dd></dl>
 
 <dl class="py method">
-<dt id="RoadRunner.RoadRunner.getReducedStoichiometryMatrix">
-<code class="sig-prename descclassname">RoadRunner.</code><code class="sig-name descname">getReducedStoichiometryMatrix</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#RoadRunner.RoadRunner.getReducedStoichiometryMatrix" title="Permalink to this definition">¶</a></dt>
+<dt class="sig sig-object py" id="RoadRunner.RoadRunner.getReducedStoichiometryMatrix">
+<span class="sig-prename descclassname"><span class="pre">RoadRunner.</span></span><span class="sig-name descname"><span class="pre">getReducedStoichiometryMatrix</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#RoadRunner.RoadRunner.getReducedStoichiometryMatrix" title="Permalink to this definition">¶</a></dt>
 <dd><p>Get the reduced stochiometry matrix. If conservation conversion is enabled,
 this is the matrix that coresponds to the independent species.</p>
 <p>A synonym for getNrMatrix().</p>
 </dd></dl>
 
 <dl class="py method">
-<dt id="RoadRunner.RoadRunner.getConservationMatrix">
-<code class="sig-prename descclassname">RoadRunner.</code><code class="sig-name descname">getConservationMatrix</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#RoadRunner.RoadRunner.getConservationMatrix" title="Permalink to this definition">¶</a></dt>
+<dt class="sig sig-object py" id="RoadRunner.RoadRunner.getConservationMatrix">
+<span class="sig-prename descclassname"><span class="pre">RoadRunner.</span></span><span class="sig-name descname"><span class="pre">getConservationMatrix</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#RoadRunner.RoadRunner.getConservationMatrix" title="Permalink to this definition">¶</a></dt>
 <dd><p>Returns a conservation matrix <img class="math" src="../_images/math/e7003fd3463f843ee1e53385878369f078d362ad.png" alt="\Gamma"/> which is a <img class="math" src="../_images/math/0bcf53c61f33b169107655d4c7a4243e94a4227f.png" alt="c \times m"/> matrix
 where <img class="math" src="../_images/math/d520a12f1579170834c32ad5f656de081bbb36fe.png" alt="c"/> is the number of conservation laws and <img class="math" src="../_images/math/e9bc7da808d33a16a8347f27a519bd067186aa66.png" alt="m"/> the number of species.</p>
 </dd></dl>
 
 <dl class="py method">
-<dt id="RoadRunner.RoadRunner.getL0Matrix">
-<code class="sig-prename descclassname">RoadRunner.</code><code class="sig-name descname">getL0Matrix</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#RoadRunner.RoadRunner.getL0Matrix" title="Permalink to this definition">¶</a></dt>
+<dt class="sig sig-object py" id="RoadRunner.RoadRunner.getL0Matrix">
+<span class="sig-prename descclassname"><span class="pre">RoadRunner.</span></span><span class="sig-name descname"><span class="pre">getL0Matrix</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#RoadRunner.RoadRunner.getL0Matrix" title="Permalink to this definition">¶</a></dt>
 <dd><p>Returns the L0 matrix for the current model. The L0 matrix is an (m-r) by r matrix that expresses
 the dependent reaction rates in terms of the independent rates. m is the number of floating species
 and r is the rank of the stoichiometry matrix.</p>
@@ -1708,8 +1730,8 @@ and r is the rank of the stoichiometry matrix.</p>
 </dd></dl>
 
 <dl class="py method">
-<dt id="RoadRunner.RoadRunner.getLinkMatrix">
-<code class="sig-prename descclassname">RoadRunner.</code><code class="sig-name descname">getLinkMatrix</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#RoadRunner.RoadRunner.getLinkMatrix" title="Permalink to this definition">¶</a></dt>
+<dt class="sig sig-object py" id="RoadRunner.RoadRunner.getLinkMatrix">
+<span class="sig-prename descclassname"><span class="pre">RoadRunner.</span></span><span class="sig-name descname"><span class="pre">getLinkMatrix</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#RoadRunner.RoadRunner.getLinkMatrix" title="Permalink to this definition">¶</a></dt>
 <dd><p>Returns the full link matrix, L for the current model. The Link matrix is an m by r matrix where m
 is the number of floating species and r the rank of the stoichiometric matrix, N.</p>
 <dl class="field-list simple">
@@ -1720,8 +1742,8 @@ is the number of floating species and r the rank of the stoichiometric matrix, N
 </dd></dl>
 
 <dl class="py method">
-<dt id="RoadRunner.RoadRunner.getNrMatrix">
-<code class="sig-prename descclassname">RoadRunner.</code><code class="sig-name descname">getNrMatrix</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#RoadRunner.RoadRunner.getNrMatrix" title="Permalink to this definition">¶</a></dt>
+<dt class="sig sig-object py" id="RoadRunner.RoadRunner.getNrMatrix">
+<span class="sig-prename descclassname"><span class="pre">RoadRunner.</span></span><span class="sig-name descname"><span class="pre">getNrMatrix</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#RoadRunner.RoadRunner.getNrMatrix" title="Permalink to this definition">¶</a></dt>
 <dd><p>Returns the reduced stoichiometry matrix, <img class="math" src="../_images/math/0e9e98fcfc2cd5b0587d8d9571609869a7f8bbb2.png" alt="N_R"/>, which will have only r rows where r is the rank of
 the full stoichiometry matrix. The matrix will be reordered such that the rows of <img class="math" src="../_images/math/0e9e98fcfc2cd5b0587d8d9571609869a7f8bbb2.png" alt="N_R"/> are independent.</p>
 <dl class="field-list simple">
@@ -1732,8 +1754,8 @@ the full stoichiometry matrix. The matrix will be reordered such that the rows o
 </dd></dl>
 
 <dl class="py method">
-<dt id="RoadRunner.RoadRunner.getKMatrix">
-<code class="sig-prename descclassname">RoadRunner.</code><code class="sig-name descname">getKMatrix</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#RoadRunner.RoadRunner.getKMatrix" title="Permalink to this definition">¶</a></dt>
+<dt class="sig sig-object py" id="RoadRunner.RoadRunner.getKMatrix">
+<span class="sig-prename descclassname"><span class="pre">RoadRunner.</span></span><span class="sig-name descname"><span class="pre">getKMatrix</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#RoadRunner.RoadRunner.getKMatrix" title="Permalink to this definition">¶</a></dt>
 <dd><p>Returns the K matrix, <img class="math" src="../_images/math/2f2d393903a4dca6ea8baac0db8535dc80345434.png" alt="ker(N_R)"/>, (right nullspace of Nr)
 The K matrix has the structure, <img class="math" src="../_images/math/adc2c97900ab88829eb36ff8437d7283b0f8a30c.png" alt="[I K0]'"/></p>
 <dl class="field-list simple">
@@ -1747,8 +1769,8 @@ The K matrix has the structure, <img class="math" src="../_images/math/adc2c9790
 <div class="section" id="analysis">
 <h2>Analysis<a class="headerlink" href="#analysis" title="Permalink to this headline">¶</a></h2>
 <dl class="py method">
-<dt id="RoadRunner.RoadRunner.getFrequencyResponse">
-<code class="sig-prename descclassname">RoadRunner.</code><code class="sig-name descname">getFrequencyResponse</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">startFrequency</span></em>, <em class="sig-param"><span class="n">numberOfDecades</span></em>, <em class="sig-param"><span class="n">numberOfPoints</span></em>, <em class="sig-param"><span class="n">parameterName</span></em>, <em class="sig-param"><span class="n">variableName</span></em>, <em class="sig-param"><span class="n">useDB</span></em>, <em class="sig-param"><span class="n">useHz</span></em><span class="sig-paren">)</span><a class="headerlink" href="#RoadRunner.RoadRunner.getFrequencyResponse" title="Permalink to this definition">¶</a></dt>
+<dt class="sig sig-object py" id="RoadRunner.RoadRunner.getFrequencyResponse">
+<span class="sig-prename descclassname"><span class="pre">RoadRunner.</span></span><span class="sig-name descname"><span class="pre">getFrequencyResponse</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">startFrequency</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">numberOfDecades</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">numberOfPoints</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">parameterName</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">variableName</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">useDB</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">useHz</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#RoadRunner.RoadRunner.getFrequencyResponse" title="Permalink to this definition">¶</a></dt>
 <dd><p>Computes the frequency response.
 Returns a numpy array with three columns. First column is the frequency,
 second column the amplitude, and the third column the phase.</p>
@@ -1799,8 +1821,8 @@ second column the amplitude, and the third column the phase.</p>
 </dd></dl>
 
 <dl class="py method">
-<dt id="RoadRunner.RoadRunner.getRatesOfChange">
-<code class="sig-prename descclassname">RoadRunner.</code><code class="sig-name descname">getRatesOfChange</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#RoadRunner.RoadRunner.getRatesOfChange" title="Permalink to this definition">¶</a></dt>
+<dt class="sig sig-object py" id="RoadRunner.RoadRunner.getRatesOfChange">
+<span class="sig-prename descclassname"><span class="pre">RoadRunner.</span></span><span class="sig-name descname"><span class="pre">getRatesOfChange</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#RoadRunner.RoadRunner.getRatesOfChange" title="Permalink to this definition">¶</a></dt>
 <dd><p>Returns the rates of change of all floating species. The order of species is
 given by the order of Ids returned by getFloatingSpeciesIds()</p>
 <dl class="field-list simple">
@@ -1819,8 +1841,8 @@ given by the order of Ids returned by getFloatingSpeciesIds()</p>
 </dd></dl>
 
 <dl class="py method">
-<dt id="RoadRunner.RoadRunner.getIndependentRatesOfChange">
-<code class="sig-prename descclassname">RoadRunner.</code><code class="sig-name descname">getIndependentRatesOfChange</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#RoadRunner.RoadRunner.getIndependentRatesOfChange" title="Permalink to this definition">¶</a></dt>
+<dt class="sig sig-object py" id="RoadRunner.RoadRunner.getIndependentRatesOfChange">
+<span class="sig-prename descclassname"><span class="pre">RoadRunner.</span></span><span class="sig-name descname"><span class="pre">getIndependentRatesOfChange</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#RoadRunner.RoadRunner.getIndependentRatesOfChange" title="Permalink to this definition">¶</a></dt>
 <dd><p>Returns the rates of change of all independent floating species. The order of species is
 given by the order of Ids returned by getIndependentFloatingSpeciesIds()</p>
 <dl class="field-list simple">
@@ -1839,8 +1861,8 @@ given by the order of Ids returned by getIndependentFloatingSpeciesIds()</p>
 </dd></dl>
 
 <dl class="py method">
-<dt id="RoadRunner.RoadRunner.getDependentRatesOfChange">
-<code class="sig-prename descclassname">RoadRunner.</code><code class="sig-name descname">getDependentRatesOfChange</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#RoadRunner.RoadRunner.getDependentRatesOfChange" title="Permalink to this definition">¶</a></dt>
+<dt class="sig sig-object py" id="RoadRunner.RoadRunner.getDependentRatesOfChange">
+<span class="sig-prename descclassname"><span class="pre">RoadRunner.</span></span><span class="sig-name descname"><span class="pre">getDependentRatesOfChange</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#RoadRunner.RoadRunner.getDependentRatesOfChange" title="Permalink to this definition">¶</a></dt>
 <dd><p>Returns the rates of change of all dependent floating species. The order of species is
 given by the order of Ids returned by getDependentFloatingSpeciesIds()</p>
 <dl class="field-list simple">

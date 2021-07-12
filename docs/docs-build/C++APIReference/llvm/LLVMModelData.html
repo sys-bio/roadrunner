@@ -13,6 +13,8 @@
   
   <link rel="stylesheet" href="../../_static/css/theme.css" type="text/css" />
   <link rel="stylesheet" href="../../_static/pygments.css" type="text/css" />
+  <link rel="stylesheet" href="../../_static/pygments.css" type="text/css" />
+  <link rel="stylesheet" href="../../_static/css/theme.css" type="text/css" />
   <link rel="stylesheet" href="../../_static/tabs.css" type="text/css" />
 
   
@@ -30,10 +32,10 @@
   
     
       <script type="text/javascript" id="documentation_options" data-url_root="../../" src="../../_static/documentation_options.js"></script>
+        <script data-url_root="../../" id="documentation_options" src="../../_static/documentation_options.js"></script>
         <script src="../../_static/jquery.js"></script>
         <script src="../../_static/underscore.js"></script>
         <script src="../../_static/doctools.js"></script>
-        <script src="../../_static/language_data.js"></script>
     
     <script type="text/javascript" src="../../_static/js/theme.js"></script>
 
@@ -185,6 +187,7 @@
 <li class="toctree-l2"><a class="reference internal" href="../index.html#a-complete-example-of-creating-an-integrator">A complete example of creating an integrator</a></li>
 </ul>
 </li>
+<li class="toctree-l1"><a class="reference internal" href="../../developers_docs/index.html">Developers Documentation</a></li>
 </ul>
 
             
@@ -259,8 +262,8 @@
   <div class="section" id="llvmmodeldata">
 <h1>LLVMModelData<a class="headerlink" href="#llvmmodeldata" title="Permalink to this headline">¶</a></h1>
 <dl class="cpp struct">
-<dt id="_CPPv4N6rrllvm13LLVMModelDataE">
-<span id="_CPPv3N6rrllvm13LLVMModelDataE"></span><span id="_CPPv2N6rrllvm13LLVMModelDataE"></span><span id="rrllvm::LLVMModelData"></span><span class="target" id="structrrllvm_1_1LLVMModelData"></span><em class="property">struct </em><code class="sig-name descname">LLVMModelData</code><a class="headerlink" href="#_CPPv4N6rrllvm13LLVMModelDataE" title="Permalink to this definition">¶</a><br /></dt>
+<dt class="sig sig-object cpp" id="_CPPv4N6rrllvm13LLVMModelDataE">
+<span id="_CPPv3N6rrllvm13LLVMModelDataE"></span><span id="_CPPv2N6rrllvm13LLVMModelDataE"></span><span id="rrllvm::LLVMModelData"></span><span class="target" id="structrrllvm_1_1LLVMModelData"></span><span class="k"><span class="pre">struct</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">LLVMModelData</span></span></span><a class="headerlink" href="#_CPPv4N6rrllvm13LLVMModelDataE" title="Permalink to this definition">¶</a><br /></dt>
 <dd><p>A data structure that is that allows data to be exchanged with running SBML models. </p>
 <p>In the case of CExecutableModels, A pointer to this struct is given to the compiled shared library, and the C code there modifies the buffers of this structure.</p>
 <p>There are some functions in ExecutableModel.h that manage ModelData memory. These would have made more sense here, but in order to prevent any issues with generated code interacting with them, they were placed there.</p>

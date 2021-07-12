@@ -22,7 +22,7 @@
  <tr style="height: 56px;">
   <td id="projectalign" style="padding-left: 0.5em;">
    <div id="projectname">roadrunner
-   &#160;<span id="projectnumber">2.0.5</span>
+   &#160;<span id="projectnumber">2.0.8</span>
    </div>
    <div id="projectbrief">Fast simulator for SBML models</div>
   </td>
@@ -99,17 +99,17 @@ Public Member Functions</h2></td></tr>
 &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classrrllvm_1_1LLVMExecutableModel.html#ad8437a480693ed8c0b2b44327264117b">LLVMExecutableModel</a> ()</td></tr>
 <tr class="memdesc:ad8437a480693ed8c0b2b44327264117b"><td class="mdescLeft">&#160;</td><td class="mdescRight">the default ctor just zeros out all our private bits, then the main construction is handled by the model generator. <br /></td></tr>
 <tr class="separator:ad8437a480693ed8c0b2b44327264117b"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a3a11e694d916b2aae56c6c1054e3395c"><td class="memItemLeft" align="right" valign="top"><a id="a3a11e694d916b2aae56c6c1054e3395c"></a>
-&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classrrllvm_1_1LLVMExecutableModel.html#a3a11e694d916b2aae56c6c1054e3395c">LLVMExecutableModel</a> (const cxx11_ns::shared_ptr&lt; <a class="el" href="classrrllvm_1_1ModelResources.html">ModelResources</a> &gt; &amp;resources, <a class="el" href="structrrllvm_1_1LLVMModelData.html">LLVMModelData</a> *modelData)</td></tr>
-<tr class="memdesc:a3a11e694d916b2aae56c6c1054e3395c"><td class="mdescLeft">&#160;</td><td class="mdescRight">takes ownership of the <a class="el" href="structrrllvm_1_1LLVMModelData.html" title="A data structure that is that allows data to be exchanged with running SBML models.">LLVMModelData</a> pointer. <br /></td></tr>
-<tr class="separator:a3a11e694d916b2aae56c6c1054e3395c"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a9ac85749972d3686bd4145552b06b974"><td class="memItemLeft" align="right" valign="top"><a id="a9ac85749972d3686bd4145552b06b974"></a>
+&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classrrllvm_1_1LLVMExecutableModel.html#a9ac85749972d3686bd4145552b06b974">LLVMExecutableModel</a> (const std::shared_ptr&lt; <a class="el" href="classrrllvm_1_1ModelResources.html">ModelResources</a> &gt; &amp;resources, <a class="el" href="structrrllvm_1_1LLVMModelData.html">LLVMModelData</a> *modelData)</td></tr>
+<tr class="memdesc:a9ac85749972d3686bd4145552b06b974"><td class="mdescLeft">&#160;</td><td class="mdescRight">takes ownership of the <a class="el" href="structrrllvm_1_1LLVMModelData.html" title="A data structure that is that allows data to be exchanged with running SBML models.">LLVMModelData</a> pointer. <br /></td></tr>
+<tr class="separator:a9ac85749972d3686bd4145552b06b974"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:afe9d85e99b293a7e401d36a7dfc99a16"><td class="memItemLeft" align="right" valign="top"><a id="afe9d85e99b293a7e401d36a7dfc99a16"></a>
 &#160;</td><td class="memItemRight" valign="bottom"><b>LLVMExecutableModel</b> (std::istream &amp;in, uint modelGeneratorOpt)</td></tr>
 <tr class="separator:afe9d85e99b293a7e401d36a7dfc99a16"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ae1a203ae31724ca175835507c43e8639"><td class="memItemLeft" align="right" valign="top"><a id="ae1a203ae31724ca175835507c43e8639"></a>
-virtual string&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classrrllvm_1_1LLVMExecutableModel.html#ae1a203ae31724ca175835507c43e8639">getModelName</a> ()</td></tr>
-<tr class="memdesc:ae1a203ae31724ca175835507c43e8639"><td class="mdescLeft">&#160;</td><td class="mdescRight">get the name of the model <br /></td></tr>
-<tr class="separator:ae1a203ae31724ca175835507c43e8639"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a27354715e74d4d66197f17646150ff8f"><td class="memItemLeft" align="right" valign="top"><a id="a27354715e74d4d66197f17646150ff8f"></a>
+virtual std::string&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classrrllvm_1_1LLVMExecutableModel.html#a27354715e74d4d66197f17646150ff8f">getModelName</a> ()</td></tr>
+<tr class="memdesc:a27354715e74d4d66197f17646150ff8f"><td class="mdescLeft">&#160;</td><td class="mdescRight">get the name of the model <br /></td></tr>
+<tr class="separator:a27354715e74d4d66197f17646150ff8f"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a8d719dc60df8c78388f8b854362fef2d"><td class="memItemLeft" align="right" valign="top"><a id="a8d719dc60df8c78388f8b854362fef2d"></a>
 virtual void&#160;</td><td class="memItemRight" valign="bottom"><b>setTime</b> (double _time)</td></tr>
 <tr class="separator:a8d719dc60df8c78388f8b854362fef2d"><td class="memSeparator" colspan="2">&#160;</td></tr>
@@ -164,7 +164,7 @@ virtual int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" hre
 <tr class="memdesc:a44eafee99d943d187bc60d9ab93a9f0c"><td class="mdescLeft">&#160;</td><td class="mdescRight">get the number of reactions the model has <br /></td></tr>
 <tr class="separator:a44eafee99d943d187bc60d9ab93a9f0c"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:abdd14f103eb20ad8a4b5d5c89750f85b"><td class="memItemLeft" align="right" valign="top">virtual int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classrrllvm_1_1LLVMExecutableModel.html#abdd14f103eb20ad8a4b5d5c89750f85b">getReactionRates</a> (size_t len, int const *indx, double *values)</td></tr>
-<tr class="memdesc:abdd14f103eb20ad8a4b5d5c89750f85b"><td class="mdescLeft">&#160;</td><td class="mdescRight">get the vector of reaction rates.  <a href="classrrllvm_1_1LLVMExecutableModel.html#abdd14f103eb20ad8a4b5d5c89750f85b">More...</a><br /></td></tr>
+<tr class="memdesc:abdd14f103eb20ad8a4b5d5c89750f85b"><td class="mdescLeft">&#160;</td><td class="mdescRight">get the std::vector of reaction rates.  <a href="classrrllvm_1_1LLVMExecutableModel.html#abdd14f103eb20ad8a4b5d5c89750f85b">More...</a><br /></td></tr>
 <tr class="separator:abdd14f103eb20ad8a4b5d5c89750f85b"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:ae93515327eae8af56a12b24bd545df33"><td class="memItemLeft" align="right" valign="top">virtual int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classrrllvm_1_1LLVMExecutableModel.html#ae93515327eae8af56a12b24bd545df33">getCompartmentVolumes</a> (size_t len, int const *indx, double *values)</td></tr>
 <tr class="memdesc:ae93515327eae8af56a12b24bd545df33"><td class="mdescLeft">&#160;</td><td class="mdescRight">get the compartment volumes  <a href="classrrllvm_1_1LLVMExecutableModel.html#ae93515327eae8af56a12b24bd545df33">More...</a><br /></td></tr>
@@ -181,13 +181,13 @@ virtual void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" hr
 <tr class="separator:adfe1a7598ad23c18db90c3fcfe708d5e"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a83a31e1ae1cba11535146063f45786e6"><td class="memItemLeft" align="right" valign="top"><a id="a83a31e1ae1cba11535146063f45786e6"></a>
 virtual std::string&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classrrllvm_1_1LLVMExecutableModel.html#a83a31e1ae1cba11535146063f45786e6">getStateVectorId</a> (size_t index)</td></tr>
-<tr class="memdesc:a83a31e1ae1cba11535146063f45786e6"><td class="mdescLeft">&#160;</td><td class="mdescRight">get the id of an element of the state vector. <br /></td></tr>
+<tr class="memdesc:a83a31e1ae1cba11535146063f45786e6"><td class="mdescLeft">&#160;</td><td class="mdescRight">get the id of an element of the state std::vector. <br /></td></tr>
 <tr class="separator:a83a31e1ae1cba11535146063f45786e6"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a1bab14a8a11c8fe0e23521e107105447"><td class="memItemLeft" align="right" valign="top">virtual int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classrrllvm_1_1LLVMExecutableModel.html#a1bab14a8a11c8fe0e23521e107105447">getStateVector</a> (double *stateVector)</td></tr>
-<tr class="memdesc:a1bab14a8a11c8fe0e23521e107105447"><td class="mdescLeft">&#160;</td><td class="mdescRight">copies the internal model state vector into the provided buffer.  <a href="classrrllvm_1_1LLVMExecutableModel.html#a1bab14a8a11c8fe0e23521e107105447">More...</a><br /></td></tr>
+<tr class="memdesc:a1bab14a8a11c8fe0e23521e107105447"><td class="mdescLeft">&#160;</td><td class="mdescRight">copies the internal model state std::vector into the provided buffer.  <a href="classrrllvm_1_1LLVMExecutableModel.html#a1bab14a8a11c8fe0e23521e107105447">More...</a><br /></td></tr>
 <tr class="separator:a1bab14a8a11c8fe0e23521e107105447"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a8ab1d594d85c537534ee12fa8eafee2c"><td class="memItemLeft" align="right" valign="top">virtual int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classrrllvm_1_1LLVMExecutableModel.html#a8ab1d594d85c537534ee12fa8eafee2c">setStateVector</a> (const double *stateVector)</td></tr>
-<tr class="memdesc:a8ab1d594d85c537534ee12fa8eafee2c"><td class="mdescLeft">&#160;</td><td class="mdescRight">sets the internal model state to the provided packed state vector.  <a href="classrrllvm_1_1LLVMExecutableModel.html#a8ab1d594d85c537534ee12fa8eafee2c">More...</a><br /></td></tr>
+<tr class="memdesc:a8ab1d594d85c537534ee12fa8eafee2c"><td class="mdescLeft">&#160;</td><td class="mdescRight">sets the internal model state to the provided packed state std::vector.  <a href="classrrllvm_1_1LLVMExecutableModel.html#a8ab1d594d85c537534ee12fa8eafee2c">More...</a><br /></td></tr>
 <tr class="separator:a8ab1d594d85c537534ee12fa8eafee2c"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:abd45bf12bc33c31f5a02dd52c019783f"><td class="memItemLeft" align="right" valign="top">virtual void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classrrllvm_1_1LLVMExecutableModel.html#abd45bf12bc33c31f5a02dd52c019783f">getStateVectorRate</a> (double time, const double *y, double *dydt=0)</td></tr>
 <tr class="memdesc:abd45bf12bc33c31f5a02dd52c019783f"><td class="mdescLeft">&#160;</td><td class="mdescRight">where most of the juicy bits occur.  <a href="classrrllvm_1_1LLVMExecutableModel.html#abd45bf12bc33c31f5a02dd52c019783f">More...</a><br /></td></tr>
@@ -195,21 +195,21 @@ virtual std::string&#160;</td><td class="memItemRight" valign="bottom"><a class=
 <tr class="memitem:a260f6d15752fb70323e7909fd46b1dc2"><td class="memItemLeft" align="right" valign="top"><a id="a260f6d15752fb70323e7909fd46b1dc2"></a>
 virtual void&#160;</td><td class="memItemRight" valign="bottom"><b>testConstraints</b> ()</td></tr>
 <tr class="separator:a260f6d15752fb70323e7909fd46b1dc2"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a284b1d74818ce6934d7e914b2ddd0469"><td class="memItemLeft" align="right" valign="top"><a id="a284b1d74818ce6934d7e914b2ddd0469"></a>
-virtual string&#160;</td><td class="memItemRight" valign="bottom"><b>getInfo</b> ()</td></tr>
-<tr class="separator:a284b1d74818ce6934d7e914b2ddd0469"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ab7d70d78762532f673973fe88c174c78"><td class="memItemLeft" align="right" valign="top"><a id="ab7d70d78762532f673973fe88c174c78"></a>
-virtual int&#160;</td><td class="memItemRight" valign="bottom"><b>getFloatingSpeciesIndex</b> (const string &amp;)</td></tr>
-<tr class="separator:ab7d70d78762532f673973fe88c174c78"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:aad995136f696b44f606a6a944b3fa34e"><td class="memItemLeft" align="right" valign="top"><a id="aad995136f696b44f606a6a944b3fa34e"></a>
-virtual string&#160;</td><td class="memItemRight" valign="bottom"><b>getFloatingSpeciesId</b> (size_t index)</td></tr>
-<tr class="separator:aad995136f696b44f606a6a944b3fa34e"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a96fa17626d355488dacc6a42e84f4b22"><td class="memItemLeft" align="right" valign="top"><a id="a96fa17626d355488dacc6a42e84f4b22"></a>
-virtual int&#160;</td><td class="memItemRight" valign="bottom"><b>getBoundarySpeciesIndex</b> (const string &amp;)</td></tr>
-<tr class="separator:a96fa17626d355488dacc6a42e84f4b22"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:abd816e2ac822a4396babbe140fa2c1ff"><td class="memItemLeft" align="right" valign="top"><a id="abd816e2ac822a4396babbe140fa2c1ff"></a>
-virtual string&#160;</td><td class="memItemRight" valign="bottom"><b>getBoundarySpeciesId</b> (size_t index)</td></tr>
-<tr class="separator:abd816e2ac822a4396babbe140fa2c1ff"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:afcdb25e60f4e4b9b0269055cdef0cc72"><td class="memItemLeft" align="right" valign="top"><a id="afcdb25e60f4e4b9b0269055cdef0cc72"></a>
+virtual std::string&#160;</td><td class="memItemRight" valign="bottom"><b>getInfo</b> ()</td></tr>
+<tr class="separator:afcdb25e60f4e4b9b0269055cdef0cc72"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a8997ffa70682319ec2c8aaff896613ad"><td class="memItemLeft" align="right" valign="top"><a id="a8997ffa70682319ec2c8aaff896613ad"></a>
+virtual int&#160;</td><td class="memItemRight" valign="bottom"><b>getFloatingSpeciesIndex</b> (const std::string &amp;)</td></tr>
+<tr class="separator:a8997ffa70682319ec2c8aaff896613ad"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a5e1794c61c7360555fb9c1e1162e92be"><td class="memItemLeft" align="right" valign="top"><a id="a5e1794c61c7360555fb9c1e1162e92be"></a>
+virtual std::string&#160;</td><td class="memItemRight" valign="bottom"><b>getFloatingSpeciesId</b> (size_t index)</td></tr>
+<tr class="separator:a5e1794c61c7360555fb9c1e1162e92be"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ad00e27054e7373ca61da3ec4fb95c4c7"><td class="memItemLeft" align="right" valign="top"><a id="ad00e27054e7373ca61da3ec4fb95c4c7"></a>
+virtual int&#160;</td><td class="memItemRight" valign="bottom"><b>getBoundarySpeciesIndex</b> (const std::string &amp;)</td></tr>
+<tr class="separator:ad00e27054e7373ca61da3ec4fb95c4c7"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a83c2292d44cb72d2426c9559a0652f74"><td class="memItemLeft" align="right" valign="top"><a id="a83c2292d44cb72d2426c9559a0652f74"></a>
+virtual std::string&#160;</td><td class="memItemRight" valign="bottom"><b>getBoundarySpeciesId</b> (size_t index)</td></tr>
+<tr class="separator:a83c2292d44cb72d2426c9559a0652f74"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:ab7af45309d8f1c09fbca57365328cdc9"><td class="memItemLeft" align="right" valign="top">virtual int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classrrllvm_1_1LLVMExecutableModel.html#ab7af45309d8f1c09fbca57365328cdc9">getFloatingSpeciesAmounts</a> (size_t len, int const *indx, double *values)</td></tr>
 <tr class="memdesc:ab7af45309d8f1c09fbca57365328cdc9"><td class="mdescLeft">&#160;</td><td class="mdescRight">get the floating species amounts  <a href="classrrllvm_1_1LLVMExecutableModel.html#ab7af45309d8f1c09fbca57365328cdc9">More...</a><br /></td></tr>
 <tr class="separator:ab7af45309d8f1c09fbca57365328cdc9"><td class="memSeparator" colspan="2">&#160;</td></tr>
@@ -240,38 +240,39 @@ virtual int&#160;</td><td class="memItemRight" valign="bottom"><b>setFloatingSpe
 <tr class="memitem:a2b9157cb5bc361364d33f70b2361800b"><td class="memItemLeft" align="right" valign="top">virtual int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classrrllvm_1_1LLVMExecutableModel.html#a2b9157cb5bc361364d33f70b2361800b">setBoundarySpeciesAmounts</a> (size_t len, int const *indx, double const *values)</td></tr>
 <tr class="memdesc:a2b9157cb5bc361364d33f70b2361800b"><td class="mdescLeft">&#160;</td><td class="mdescRight">get the boundary species amounts  <a href="classrrllvm_1_1LLVMExecutableModel.html#a2b9157cb5bc361364d33f70b2361800b">More...</a><br /></td></tr>
 <tr class="separator:a2b9157cb5bc361364d33f70b2361800b"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:af85c593e3b64daac1e740ea82b3ef488"><td class="memItemLeft" align="right" valign="top"><a id="af85c593e3b64daac1e740ea82b3ef488"></a>
-virtual int&#160;</td><td class="memItemRight" valign="bottom"><b>getGlobalParameterIndex</b> (const string &amp;)</td></tr>
-<tr class="separator:af85c593e3b64daac1e740ea82b3ef488"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a1a7c7caaa08ed5046f3f99c18651b734"><td class="memItemLeft" align="right" valign="top"><a id="a1a7c7caaa08ed5046f3f99c18651b734"></a>
-virtual string&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classrrllvm_1_1LLVMExecutableModel.html#a1a7c7caaa08ed5046f3f99c18651b734">getGlobalParameterId</a> (size_t)</td></tr>
-<tr class="memdesc:a1a7c7caaa08ed5046f3f99c18651b734"><td class="mdescLeft">&#160;</td><td class="mdescRight">id of the indexed global parameter. <br /></td></tr>
-<tr class="separator:a1a7c7caaa08ed5046f3f99c18651b734"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a65cfb23aaaec7400802ac8cff479345b"><td class="memItemLeft" align="right" valign="top"><a id="a65cfb23aaaec7400802ac8cff479345b"></a>
-virtual int&#160;</td><td class="memItemRight" valign="bottom"><b>getCompartmentIndex</b> (const string &amp;)</td></tr>
-<tr class="separator:a65cfb23aaaec7400802ac8cff479345b"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a351f516e625c97b17d2fed0965023536"><td class="memItemLeft" align="right" valign="top"><a id="a351f516e625c97b17d2fed0965023536"></a>
-virtual string&#160;</td><td class="memItemRight" valign="bottom"><b>getCompartmentId</b> (size_t)</td></tr>
-<tr class="separator:a351f516e625c97b17d2fed0965023536"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a8d4e3a3d01162167cdd5fc828fba49f3"><td class="memItemLeft" align="right" valign="top"><a id="a8d4e3a3d01162167cdd5fc828fba49f3"></a>
-virtual int&#160;</td><td class="memItemRight" valign="bottom"><b>getReactionIndex</b> (const string &amp;)</td></tr>
-<tr class="separator:a8d4e3a3d01162167cdd5fc828fba49f3"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a3145d2fcb796185f968430b56152d7c5"><td class="memItemLeft" align="right" valign="top"><a id="a3145d2fcb796185f968430b56152d7c5"></a>
-virtual string&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classrrllvm_1_1LLVMExecutableModel.html#a3145d2fcb796185f968430b56152d7c5">getReactionId</a> (size_t)</td></tr>
-<tr class="memdesc:a3145d2fcb796185f968430b56152d7c5"><td class="mdescLeft">&#160;</td><td class="mdescRight">get the name of the specified reaction <br /></td></tr>
-<tr class="separator:a3145d2fcb796185f968430b56152d7c5"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a47c44c1deb69436166ebedf24130182a"><td class="memItemLeft" align="right" valign="top"><a id="a47c44c1deb69436166ebedf24130182a"></a>
+virtual int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classrrllvm_1_1LLVMExecutableModel.html#a47c44c1deb69436166ebedf24130182a">getGlobalParameterIndex</a> (const std::string &amp;)</td></tr>
+<tr class="memdesc:a47c44c1deb69436166ebedf24130182a"><td class="mdescLeft">&#160;</td><td class="mdescRight">index of the global parameter id, -1 if it does not exist. <br /></td></tr>
+<tr class="separator:a47c44c1deb69436166ebedf24130182a"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a1e6a278aab70c122142d035d421bd7ff"><td class="memItemLeft" align="right" valign="top"><a id="a1e6a278aab70c122142d035d421bd7ff"></a>
+virtual std::string&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classrrllvm_1_1LLVMExecutableModel.html#a1e6a278aab70c122142d035d421bd7ff">getGlobalParameterId</a> (size_t)</td></tr>
+<tr class="memdesc:a1e6a278aab70c122142d035d421bd7ff"><td class="mdescLeft">&#160;</td><td class="mdescRight">id of the indexed global parameter. <br /></td></tr>
+<tr class="separator:a1e6a278aab70c122142d035d421bd7ff"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a51e6cf85565ee78ac2b00fb9d85134c7"><td class="memItemLeft" align="right" valign="top"><a id="a51e6cf85565ee78ac2b00fb9d85134c7"></a>
+virtual int&#160;</td><td class="memItemRight" valign="bottom"><b>getCompartmentIndex</b> (const std::string &amp;)</td></tr>
+<tr class="separator:a51e6cf85565ee78ac2b00fb9d85134c7"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ac4b3e239e3d8f3da218793e601a1a298"><td class="memItemLeft" align="right" valign="top"><a id="ac4b3e239e3d8f3da218793e601a1a298"></a>
+virtual std::string&#160;</td><td class="memItemRight" valign="bottom"><b>getCompartmentId</b> (size_t)</td></tr>
+<tr class="separator:ac4b3e239e3d8f3da218793e601a1a298"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a979920ccd4f05575fe872a50dc4b368c"><td class="memItemLeft" align="right" valign="top">virtual int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classrrllvm_1_1LLVMExecutableModel.html#a979920ccd4f05575fe872a50dc4b368c">getReactionIndex</a> (const std::string &amp;)</td></tr>
+<tr class="memdesc:a979920ccd4f05575fe872a50dc4b368c"><td class="mdescLeft">&#160;</td><td class="mdescRight">get the index of a named reaction  <a href="classrrllvm_1_1LLVMExecutableModel.html#a979920ccd4f05575fe872a50dc4b368c">More...</a><br /></td></tr>
+<tr class="separator:a979920ccd4f05575fe872a50dc4b368c"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a7875eb127b74b89571e0551ab06bde7f"><td class="memItemLeft" align="right" valign="top"><a id="a7875eb127b74b89571e0551ab06bde7f"></a>
+virtual std::string&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classrrllvm_1_1LLVMExecutableModel.html#a7875eb127b74b89571e0551ab06bde7f">getReactionId</a> (size_t)</td></tr>
+<tr class="memdesc:a7875eb127b74b89571e0551ab06bde7f"><td class="mdescLeft">&#160;</td><td class="mdescRight">get the name of the specified reaction <br /></td></tr>
+<tr class="separator:a7875eb127b74b89571e0551ab06bde7f"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a5b3365470c345a7c3829941de76561a7"><td class="memItemLeft" align="right" valign="top"><a id="a5b3365470c345a7c3829941de76561a7"></a>
 virtual void&#160;</td><td class="memItemRight" valign="bottom"><b>print</b> (std::ostream &amp;stream)</td></tr>
 <tr class="separator:a5b3365470c345a7c3829941de76561a7"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:aeeeb260557b0d2f548a9eb28ecd2bb6c"><td class="memItemLeft" align="right" valign="top"><a id="aeeeb260557b0d2f548a9eb28ecd2bb6c"></a>
 virtual int&#160;</td><td class="memItemRight" valign="bottom"><b>getNumConservedMoieties</b> ()</td></tr>
 <tr class="separator:aeeeb260557b0d2f548a9eb28ecd2bb6c"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a102723a9109c051ea94fbdab971429cb"><td class="memItemLeft" align="right" valign="top"><a id="a102723a9109c051ea94fbdab971429cb"></a>
-virtual int&#160;</td><td class="memItemRight" valign="bottom"><b>getConservedMoietyIndex</b> (const string &amp;name)</td></tr>
-<tr class="separator:a102723a9109c051ea94fbdab971429cb"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:aba9f3c46e13eaa15fac413acbc0de38c"><td class="memItemLeft" align="right" valign="top"><a id="aba9f3c46e13eaa15fac413acbc0de38c"></a>
-virtual string&#160;</td><td class="memItemRight" valign="bottom"><b>getConservedMoietyId</b> (size_t index)</td></tr>
-<tr class="separator:aba9f3c46e13eaa15fac413acbc0de38c"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a0ea0b31412ee348cc984bcfa27192b1e"><td class="memItemLeft" align="right" valign="top"><a id="a0ea0b31412ee348cc984bcfa27192b1e"></a>
+virtual int&#160;</td><td class="memItemRight" valign="bottom"><b>getConservedMoietyIndex</b> (const std::string &amp;name)</td></tr>
+<tr class="separator:a0ea0b31412ee348cc984bcfa27192b1e"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a53c4cdd025c1a7a942ede4c70fbbbb08"><td class="memItemLeft" align="right" valign="top"><a id="a53c4cdd025c1a7a942ede4c70fbbbb08"></a>
+virtual std::string&#160;</td><td class="memItemRight" valign="bottom"><b>getConservedMoietyId</b> (size_t index)</td></tr>
+<tr class="separator:a53c4cdd025c1a7a942ede4c70fbbbb08"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:aeecb0706d6ba3b157becb0a4dd96808d"><td class="memItemLeft" align="right" valign="top"><a id="aeecb0706d6ba3b157becb0a4dd96808d"></a>
 virtual int&#160;</td><td class="memItemRight" valign="bottom"><b>getConservedMoietyValues</b> (size_t len, int const *indx, double *values)</td></tr>
 <tr class="separator:aeecb0706d6ba3b157becb0a4dd96808d"><td class="memSeparator" colspan="2">&#160;</td></tr>
@@ -324,7 +325,7 @@ virtual int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" hre
 <tr class="memdesc:afc9f70eb3c72dfb52433629f8bb4bce2"><td class="mdescLeft">&#160;</td><td class="mdescRight">returns a bit field of the ids that this class supports. <br /></td></tr>
 <tr class="separator:afc9f70eb3c72dfb52433629f8bb4bce2"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:ac4f4fe1667dcf4f0f848e3569e8bbe2b"><td class="memItemLeft" align="right" valign="top">virtual double&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classrrllvm_1_1LLVMExecutableModel.html#ac4f4fe1667dcf4f0f848e3569e8bbe2b">getValue</a> (const std::string &amp;id)</td></tr>
-<tr class="memdesc:ac4f4fe1667dcf4f0f848e3569e8bbe2b"><td class="mdescLeft">&#160;</td><td class="mdescRight">gets the value for the given id string.  <a href="classrrllvm_1_1LLVMExecutableModel.html#ac4f4fe1667dcf4f0f848e3569e8bbe2b">More...</a><br /></td></tr>
+<tr class="memdesc:ac4f4fe1667dcf4f0f848e3569e8bbe2b"><td class="mdescLeft">&#160;</td><td class="mdescRight">gets the value for the given id std::string.  <a href="classrrllvm_1_1LLVMExecutableModel.html#ac4f4fe1667dcf4f0f848e3569e8bbe2b">More...</a><br /></td></tr>
 <tr class="separator:ac4f4fe1667dcf4f0f848e3569e8bbe2b"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a1cbb2107a051b91a739f0f2992928ffa"><td class="memItemLeft" align="right" valign="top"><a id="a1cbb2107a051b91a739f0f2992928ffa"></a>
 virtual void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classrrllvm_1_1LLVMExecutableModel.html#a1cbb2107a051b91a739f0f2992928ffa">setValue</a> (const std::string &amp;id, double value)</td></tr>
@@ -409,7 +410,7 @@ virtual void&#160;</td><td class="memItemRight" valign="bottom"><b>setEventListe
 virtual <a class="el" href="rrExecutableModel_8h.html#af42654ad469e89c71909fbbff90b3c07">rr::EventListenerPtr</a>&#160;</td><td class="memItemRight" valign="bottom"><b>getEventListener</b> (size_t index)</td></tr>
 <tr class="separator:a907f9153b53c47cacedbe96a73aa1f0d"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:aba4cbc143e2a9ad641e8db160837e466"><td class="memItemLeft" align="right" valign="top">virtual double&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classrrllvm_1_1LLVMExecutableModel.html#aba4cbc143e2a9ad641e8db160837e466">getFloatingSpeciesAmountRate</a> (size_t index, const double *reactionRates)</td></tr>
-<tr class="memdesc:aba4cbc143e2a9ad641e8db160837e466"><td class="mdescLeft">&#160;</td><td class="mdescRight">Get the amount rate of change for the i'th floating species given a reaction rates vector.  <a href="classrrllvm_1_1LLVMExecutableModel.html#aba4cbc143e2a9ad641e8db160837e466">More...</a><br /></td></tr>
+<tr class="memdesc:aba4cbc143e2a9ad641e8db160837e466"><td class="mdescLeft">&#160;</td><td class="mdescRight">Get the amount rate of change for the i'th floating species given a reaction rates std::vector.  <a href="classrrllvm_1_1LLVMExecutableModel.html#aba4cbc143e2a9ad641e8db160837e466">More...</a><br /></td></tr>
 <tr class="separator:aba4cbc143e2a9ad641e8db160837e466"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a8713add3c03f6f8c95bc533d2b4bbca9"><td class="memItemLeft" align="right" valign="top">int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classrrllvm_1_1LLVMExecutableModel.html#a8713add3c03f6f8c95bc533d2b4bbca9">getRateRueRates</a> (size_t len, int const *indx, double *values)</td></tr>
 <tr class="memdesc:a8713add3c03f6f8c95bc533d2b4bbca9"><td class="mdescLeft">&#160;</td><td class="mdescRight">calculate rate rule values.  <a href="classrrllvm_1_1LLVMExecutableModel.html#a8713add3c03f6f8c95bc533d2b4bbca9">More...</a><br /></td></tr>
@@ -426,25 +427,6 @@ virtual void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" hr
 void&#160;</td><td class="memItemRight" valign="bottom"><b>saveState</b> (std::ostream &amp;out)</td></tr>
 <tr class="separator:a4b6f97fc9e431fcd768a5c40fee5a998"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="inherit_header pub_methods_classrr_1_1ExecutableModel"><td colspan="2" onclick="javascript:toggleInherit('pub_methods_classrr_1_1ExecutableModel')"><img src="closed.png" alt="-"/>&#160;Public Member Functions inherited from <a class="el" href="classrr_1_1ExecutableModel.html">rr::ExecutableModel</a></td></tr>
-<tr class="memitem:a390a1905aabac6056f6dceff11833c43 inherit pub_methods_classrr_1_1ExecutableModel"><td class="memItemLeft" align="right" valign="top"><a id="a390a1905aabac6056f6dceff11833c43"></a>
-virtual int&#160;</td><td class="memItemRight" valign="bottom"><b>getFloatingSpeciesIndex</b> (const std::string &amp;eid)=0</td></tr>
-<tr class="separator:a390a1905aabac6056f6dceff11833c43 inherit pub_methods_classrr_1_1ExecutableModel"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a28488139fa975776eded9e8c899c307d inherit pub_methods_classrr_1_1ExecutableModel"><td class="memItemLeft" align="right" valign="top"><a id="a28488139fa975776eded9e8c899c307d"></a>
-virtual int&#160;</td><td class="memItemRight" valign="bottom"><b>getBoundarySpeciesIndex</b> (const std::string &amp;eid)=0</td></tr>
-<tr class="separator:a28488139fa975776eded9e8c899c307d inherit pub_methods_classrr_1_1ExecutableModel"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:abcdcc03c4563dfbe6b64f932812906ee inherit pub_methods_classrr_1_1ExecutableModel"><td class="memItemLeft" align="right" valign="top"><a id="abcdcc03c4563dfbe6b64f932812906ee"></a>
-virtual int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classrr_1_1ExecutableModel.html#abcdcc03c4563dfbe6b64f932812906ee">getGlobalParameterIndex</a> (const std::string &amp;eid)=0</td></tr>
-<tr class="memdesc:abcdcc03c4563dfbe6b64f932812906ee inherit pub_methods_classrr_1_1ExecutableModel"><td class="mdescLeft">&#160;</td><td class="mdescRight">index of the global parameter id, -1 if it does not exist. <br /></td></tr>
-<tr class="separator:abcdcc03c4563dfbe6b64f932812906ee inherit pub_methods_classrr_1_1ExecutableModel"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a366727be244766db2ff917b64949858c inherit pub_methods_classrr_1_1ExecutableModel"><td class="memItemLeft" align="right" valign="top"><a id="a366727be244766db2ff917b64949858c"></a>
-virtual int&#160;</td><td class="memItemRight" valign="bottom"><b>getCompartmentIndex</b> (const std::string &amp;eid)=0</td></tr>
-<tr class="separator:a366727be244766db2ff917b64949858c inherit pub_methods_classrr_1_1ExecutableModel"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:afb584e140ba5ef19865d0256d275e538 inherit pub_methods_classrr_1_1ExecutableModel"><td class="memItemLeft" align="right" valign="top"><a id="afb584e140ba5ef19865d0256d275e538"></a>
-virtual int&#160;</td><td class="memItemRight" valign="bottom"><b>getConservedMoietyIndex</b> (const std::string &amp;eid)=0</td></tr>
-<tr class="separator:afb584e140ba5ef19865d0256d275e538 inherit pub_methods_classrr_1_1ExecutableModel"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a86fe96598b06cee5ca9a28dfdfd9d437 inherit pub_methods_classrr_1_1ExecutableModel"><td class="memItemLeft" align="right" valign="top">virtual int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classrr_1_1ExecutableModel.html#a86fe96598b06cee5ca9a28dfdfd9d437">getReactionIndex</a> (const std::string &amp;eid)=0</td></tr>
-<tr class="memdesc:a86fe96598b06cee5ca9a28dfdfd9d437 inherit pub_methods_classrr_1_1ExecutableModel"><td class="mdescLeft">&#160;</td><td class="mdescRight">get the index of a named reaction  <a href="classrr_1_1ExecutableModel.html#a86fe96598b06cee5ca9a28dfdfd9d437">More...</a><br /></td></tr>
-<tr class="separator:a86fe96598b06cee5ca9a28dfdfd9d437 inherit pub_methods_classrr_1_1ExecutableModel"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a7d670c92b720d7dcf3ab70fa9d1b14d0 inherit pub_methods_classrr_1_1ExecutableModel"><td class="memItemLeft" align="right" valign="top">virtual&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classrr_1_1ExecutableModel.html#a7d670c92b720d7dcf3ab70fa9d1b14d0">~ExecutableModel</a> ()</td></tr>
 <tr class="memdesc:a7d670c92b720d7dcf3ab70fa9d1b14d0 inherit pub_methods_classrr_1_1ExecutableModel"><td class="mdescLeft">&#160;</td><td class="mdescRight">need a virtual destructor as object implementing this interface can be deleted directly, i.e.  <a href="classrr_1_1ExecutableModel.html#a7d670c92b720d7dcf3ab70fa9d1b14d0">More...</a><br /></td></tr>
 <tr class="separator:a7d670c92b720d7dcf3ab70fa9d1b14d0 inherit pub_methods_classrr_1_1ExecutableModel"><td class="memSeparator" colspan="2">&#160;</td></tr>
@@ -739,7 +721,7 @@ void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="clas
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
     <tr><td class="paramname">time[in]</td><td>current time </td></tr>
-    <tr><td class="paramname">y[in]</td><td>the state vector </td></tr>
+    <tr><td class="paramname">y[in]</td><td>the state std::vector </td></tr>
     <tr><td class="paramname">gdot[out]</td><td>result event roots, this is of length numEvents. </td></tr>
   </table>
   </dd>
@@ -869,9 +851,9 @@ void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="clas
 </table>
 </div><div class="memdoc">
 
-<p>Get the amount rate of change for the i'th floating species given a reaction rates vector. </p>
+<p>Get the amount rate of change for the i'th floating species given a reaction rates std::vector. </p>
 <p>TODO: This should be merged with getFloatingSpeciesAmountRates, but that will break inteface, will do in next point release.</p>
-<p>TODO: If the conversion factor changes in between getting the reaction rates vector via getReactionRates</p>
+<p>TODO: If the conversion factor changes in between getting the reaction rates std::vector via getReactionRates</p>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
     <tr><td class="paramname">index</td><td>index of the desired floating speceis rate. </td></tr>
@@ -1140,7 +1122,38 @@ void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="clas
 <dl class="section author"><dt>Author</dt><dd>JKM </dd></dl>
 <dl class="section date"><dt>Date</dt><dd>07/31/2015 </dd></dl>
 
-<p>Reimplemented from <a class="el" href="classrr_1_1ExecutableModel.html#ab045cbd84ce98fb9dff8ff250fdb131c">rr::ExecutableModel</a>.</p>
+<p>Implements <a class="el" href="classrr_1_1ExecutableModel.html#aa1d89fd7d5690de7add613f5ce75b631">rr::ExecutableModel</a>.</p>
+
+</div>
+</div>
+<a id="a979920ccd4f05575fe872a50dc4b368c"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a979920ccd4f05575fe872a50dc4b368c">&#9670;&nbsp;</a></span>getReactionIndex()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">int rrllvm::LLVMExecutableModel::getReactionIndex </td>
+          <td>(</td>
+          <td class="paramtype">const std::string &amp;&#160;</td>
+          <td class="paramname"><em>eid</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">virtual</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>get the index of a named reaction </p>
+<dl class="section return"><dt>Returns</dt><dd>&gt;= 0 on success, &lt; 0 on failure. </dd></dl>
+
+<p>Implements <a class="el" href="classrr_1_1ExecutableModel.html#a86fe96598b06cee5ca9a28dfdfd9d437">rr::ExecutableModel</a>.</p>
 
 </div>
 </div>
@@ -1184,7 +1197,7 @@ void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="clas
 </table>
 </div><div class="memdoc">
 
-<p>get the vector of reaction rates. </p>
+<p>get the std::vector of reaction rates. </p>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
     <tr><td class="paramname">len</td><td>the length of the suplied buffer, must be &gt;= reaction rates size. </td></tr>
@@ -1222,14 +1235,14 @@ void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="clas
 </table>
 </div><div class="memdoc">
 
-<p>copies the internal model state vector into the provided buffer. </p>
+<p>copies the internal model state std::vector into the provided buffer. </p>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
-    <tr><td class="paramdir">[out]</td><td class="paramname">stateVector</td><td>a buffer to copy the state vector into, if NULL, return the size required.</td></tr>
+    <tr><td class="paramdir">[out]</td><td class="paramname">stateVector</td><td>a buffer to copy the state std::vector into, if NULL, return the size required.</td></tr>
   </table>
   </dd>
 </dl>
-<dl class="section return"><dt>Returns</dt><dd>the number of items coppied into the provided buffer, if stateVector is NULL, returns the length of the state vector. </dd></dl>
+<dl class="section return"><dt>Returns</dt><dd>the number of items coppied into the provided buffer, if stateVector is NULL, returns the length of the state std::vector. </dd></dl>
 
 <p>Implements <a class="el" href="classrr_1_1ExecutableModel.html#a75b6f37ac538d2d2a0709fe4080b0570">rr::ExecutableModel</a>.</p>
 
@@ -1276,13 +1289,13 @@ void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="clas
 </div><div class="memdoc">
 
 <p>where most of the juicy bits occur. </p>
-<p>the state vector y is the rate rule values and floating species concentrations concatenated. y is of length numFloatingSpecies + numRateRules.</p>
-<p>The state vector is packed such that the first n raterule elements are the values of the rate rules, and the last n floatingspecies are the floating species values.</p>
+<p>the state std::vector y is the rate rule values and floating species concentrations concatenated. y is of length numFloatingSpecies + numRateRules.</p>
+<p>The state std::vector is packed such that the first n raterule elements are the values of the rate rules, and the last n floatingspecies are the floating species values.</p>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
     <tr><td class="paramdir">[in]</td><td class="paramname">time</td><td>current simulator time </td></tr>
-    <tr><td class="paramdir">[in]</td><td class="paramname">y</td><td>state vector, must be of size returned by getStateVector </td></tr>
-    <tr><td class="paramdir">[out]</td><td class="paramname">dydt</td><td>calculated rate of change of the state vector, if null, it is ignored. </td></tr>
+    <tr><td class="paramdir">[in]</td><td class="paramname">y</td><td>state std::vector, must be of size returned by getStateVector </td></tr>
+    <tr><td class="paramdir">[out]</td><td class="paramname">dydt</td><td>calculated rate of change of the state std::vector, if null, it is ignored. </td></tr>
   </table>
   </dd>
 </dl>
@@ -1411,8 +1424,8 @@ void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="clas
 </table>
 </div><div class="memdoc">
 
-<p>gets the value for the given id string. </p>
-<p>The string must be a SelectionRecord string that is accepted by this class. </p>
+<p>gets the value for the given id std::string. </p>
+<p>The std::string must be a SelectionRecord std::string that is accepted by this class. </p>
 
 <p>Implements <a class="el" href="classrr_1_1ExecutableModel.html#aebaced13ef2afd070d7a1c35eec8d9f2">rr::ExecutableModel</a>.</p>
 
@@ -1824,14 +1837,14 @@ void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="clas
 </table>
 </div><div class="memdoc">
 
-<p>sets the internal model state to the provided packed state vector. </p>
+<p>sets the internal model state to the provided packed state std::vector. </p>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
-    <tr><td class="paramdir">[in]</td><td class="paramname">an</td><td>array which holds the packed state vector, must be at least the size returned by getStateVector.</td></tr>
+    <tr><td class="paramdir">[in]</td><td class="paramname">an</td><td>array which holds the packed state std::vector, must be at least the size returned by getStateVector.</td></tr>
   </table>
   </dd>
 </dl>
-<dl class="section return"><dt>Returns</dt><dd>the number of items copied from the state vector, negative on failure. </dd></dl>
+<dl class="section return"><dt>Returns</dt><dd>the number of items copied from the state std::vector, negative on failure. </dd></dl>
 
 <p>Implements <a class="el" href="classrr_1_1ExecutableModel.html#a57a67063c957714b916d4a3d4277c3b9">rr::ExecutableModel</a>.</p>
 

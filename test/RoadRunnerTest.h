@@ -31,7 +31,7 @@ public:
 
     ~RoadRunnerTest()  override = default;
 
-    static void checkMatrixEqual(ls::DoubleMatrix expectedMatrix, ls::DoubleMatrix actualMatrix) ;
+    static void checkMatrixEqual(ls::DoubleMatrix expectedMatrix, ls::DoubleMatrix actualMatrix, double absError = 1e-3) ;
 
 protected:
     /**

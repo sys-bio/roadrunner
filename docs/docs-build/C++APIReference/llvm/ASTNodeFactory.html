@@ -13,6 +13,8 @@
   
   <link rel="stylesheet" href="../../_static/css/theme.css" type="text/css" />
   <link rel="stylesheet" href="../../_static/pygments.css" type="text/css" />
+  <link rel="stylesheet" href="../../_static/pygments.css" type="text/css" />
+  <link rel="stylesheet" href="../../_static/css/theme.css" type="text/css" />
   <link rel="stylesheet" href="../../_static/tabs.css" type="text/css" />
 
   
@@ -30,10 +32,10 @@
   
     
       <script type="text/javascript" id="documentation_options" data-url_root="../../" src="../../_static/documentation_options.js"></script>
+        <script data-url_root="../../" id="documentation_options" src="../../_static/documentation_options.js"></script>
         <script src="../../_static/jquery.js"></script>
         <script src="../../_static/underscore.js"></script>
         <script src="../../_static/doctools.js"></script>
-        <script src="../../_static/language_data.js"></script>
     
     <script type="text/javascript" src="../../_static/js/theme.js"></script>
 
@@ -185,6 +187,7 @@
 <li class="toctree-l2"><a class="reference internal" href="../index.html#a-complete-example-of-creating-an-integrator">A complete example of creating an integrator</a></li>
 </ul>
 </li>
+<li class="toctree-l1"><a class="reference internal" href="../../developers_docs/index.html">Developers Documentation</a></li>
 </ul>
 
             
@@ -259,84 +262,78 @@
   <div class="section" id="astnodefactory">
 <h1>ASTNodeFactory<a class="headerlink" href="#astnodefactory" title="Permalink to this headline">¶</a></h1>
 <dl class="cpp class">
-<dt id="_CPPv4N6rrllvm14ASTNodeFactoryE">
-<span id="_CPPv3N6rrllvm14ASTNodeFactoryE"></span><span id="_CPPv2N6rrllvm14ASTNodeFactoryE"></span><span id="rrllvm::ASTNodeFactory"></span><span class="target" id="classrrllvm_1_1ASTNodeFactory"></span><em class="property">class </em><code class="sig-prename descclassname">rrllvm<code class="sig-prename descclassname">::</code></code><code class="sig-name descname">ASTNodeFactory</code><a class="headerlink" href="#_CPPv4N6rrllvm14ASTNodeFactoryE" title="Permalink to this definition">¶</a><br /></dt>
+<dt class="sig sig-object cpp" id="_CPPv4N6rrllvm14ASTNodeFactoryE">
+<span id="_CPPv3N6rrllvm14ASTNodeFactoryE"></span><span id="_CPPv2N6rrllvm14ASTNodeFactoryE"></span><span id="rrllvm::ASTNodeFactory"></span><span class="target" id="classrrllvm_1_1ASTNodeFactory"></span><span class="k"><span class="pre">class</span></span><span class="w"> </span><span class="sig-prename descclassname"><span class="n"><span class="pre">rrllvm</span></span><span class="p"><span class="pre">::</span></span></span><span class="sig-name descname"><span class="n"><span class="pre">ASTNodeFactory</span></span></span><a class="headerlink" href="#_CPPv4N6rrllvm14ASTNodeFactoryE" title="Permalink to this definition">¶</a><br /></dt>
 <dd><p>Manages a set of ASTNodes. </p>
 <p>This class provides a createASTNode which creates a new ASTNode, but it retains a reference to it. When this class is destroyed, all the nodes that it created are destroyed as well.</p>
 <p>TODO: There might be a standard way of doing this, look it up and replace if there exists such a thing. </p>
 <div class="breathe-sectiondef docutils container">
-<p class="breathe-sectiondef-title rubric">Public Functions</p>
+<p class="breathe-sectiondef-title rubric" id="breathe-section-title-public-functions">Public Functions</p>
 <dl class="cpp function">
-<dt id="_CPPv4N6rrllvm14ASTNodeFactory14ASTNodeFactoryEv">
-<span id="_CPPv3N6rrllvm14ASTNodeFactory14ASTNodeFactoryEv"></span><span id="_CPPv2N6rrllvm14ASTNodeFactory14ASTNodeFactoryEv"></span><span id="rrllvm::ASTNodeFactory::ASTNodeFactory"></span><span class="target" id="classrrllvm_1_1ASTNodeFactory_1a8e27ae2726e527cc1733bfb7712c7087"></span><code class="sig-name descname">ASTNodeFactory</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#_CPPv4N6rrllvm14ASTNodeFactory14ASTNodeFactoryEv" title="Permalink to this definition">¶</a><br /></dt>
+<dt class="sig sig-object cpp" id="_CPPv4N6rrllvm14ASTNodeFactory14ASTNodeFactoryEv">
+<span id="_CPPv3N6rrllvm14ASTNodeFactory14ASTNodeFactoryEv"></span><span id="_CPPv2N6rrllvm14ASTNodeFactory14ASTNodeFactoryEv"></span><span id="rrllvm::ASTNodeFactory::ASTNodeFactory"></span><span class="target" id="classrrllvm_1_1ASTNodeFactory_1a8e27ae2726e527cc1733bfb7712c7087"></span><span class="sig-name descname"><span class="n"><span class="pre">ASTNodeFactory</span></span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#_CPPv4N6rrllvm14ASTNodeFactory14ASTNodeFactoryEv" title="Permalink to this definition">¶</a><br /></dt>
 <dd></dd></dl>
 
 <dl class="cpp function">
-<dt id="_CPPv4N6rrllvm14ASTNodeFactoryD0Ev">
-<span id="_CPPv3N6rrllvm14ASTNodeFactoryD0Ev"></span><span id="_CPPv2N6rrllvm14ASTNodeFactoryD0Ev"></span><span id="rrllvm::ASTNodeFactory::~ASTNodeFactory"></span><span class="target" id="classrrllvm_1_1ASTNodeFactory_1a3ab9cad06b39c9b26fc804263c475f60"></span><code class="sig-name descname">~ASTNodeFactory</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#_CPPv4N6rrllvm14ASTNodeFactoryD0Ev" title="Permalink to this definition">¶</a><br /></dt>
+<dt class="sig sig-object cpp" id="_CPPv4N6rrllvm14ASTNodeFactoryD0Ev">
+<span id="_CPPv3N6rrllvm14ASTNodeFactoryD0Ev"></span><span id="_CPPv2N6rrllvm14ASTNodeFactoryD0Ev"></span><span id="rrllvm::ASTNodeFactory::~ASTNodeFactory"></span><span class="target" id="classrrllvm_1_1ASTNodeFactory_1a3ab9cad06b39c9b26fc804263c475f60"></span><span class="sig-name descname"><span class="n"><span class="pre">~ASTNodeFactory</span></span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#_CPPv4N6rrllvm14ASTNodeFactoryD0Ev" title="Permalink to this definition">¶</a><br /></dt>
 <dd></dd></dl>
 
 <dl class="cpp function">
-<dt id="_CPPv4N6rrllvm14ASTNodeFactory6createEN7libsbml13ASTNodeType_tE">
-<span id="_CPPv3N6rrllvm14ASTNodeFactory6createEN7libsbml13ASTNodeType_tE"></span><span id="_CPPv2N6rrllvm14ASTNodeFactory6createEN7libsbml13ASTNodeType_tE"></span><span id="rrllvm::ASTNodeFactory::create__libsbml::ASTNodeType_t"></span><span class="target" id="classrrllvm_1_1ASTNodeFactory_1aa492e96aa042c33f1cf3480dc1b65e3c"></span>libsbml::ASTNode *<code class="sig-name descname">create</code><span class="sig-paren">(</span>libsbml::ASTNodeType_t <em>type</em> = libsbml::AST_UNKNOWN<span class="sig-paren">)</span><a class="headerlink" href="#_CPPv4N6rrllvm14ASTNodeFactory6createEN7libsbml13ASTNodeType_tE" title="Permalink to this definition">¶</a><br /></dt>
+<dt class="sig sig-object cpp" id="_CPPv4N6rrllvm14ASTNodeFactory6createEN7libsbml13ASTNodeType_tE">
+<span id="_CPPv3N6rrllvm14ASTNodeFactory6createEN7libsbml13ASTNodeType_tE"></span><span id="_CPPv2N6rrllvm14ASTNodeFactory6createEN7libsbml13ASTNodeType_tE"></span><span id="rrllvm::ASTNodeFactory::create__libsbml::ASTNodeType_t"></span><span class="target" id="classrrllvm_1_1ASTNodeFactory_1aa492e96aa042c33f1cf3480dc1b65e3c"></span><span class="n"><span class="pre">libsbml</span></span><span class="p"><span class="pre">::</span></span><span class="n"><span class="pre">ASTNode</span></span><span class="w"> </span><span class="p"><span class="pre">*</span></span><span class="sig-name descname"><span class="n"><span class="pre">create</span></span></span><span class="sig-paren">(</span><span class="n"><span class="pre">libsbml</span></span><span class="p"><span class="pre">::</span></span><span class="n"><span class="pre">ASTNodeType_t</span></span><span class="w"> </span><span class="n sig-param"><span class="pre">type</span></span><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="n"><span class="pre">libsbml</span></span><span class="p"><span class="pre">::</span></span><span class="n"><span class="pre">AST_UNKNOWN</span></span><span class="sig-paren">)</span><a class="headerlink" href="#_CPPv4N6rrllvm14ASTNodeFactory6createEN7libsbml13ASTNodeType_tE" title="Permalink to this definition">¶</a><br /></dt>
 <dd><p>Creates and returns a new ASTNode. </p>
 <p>Unless the argument <code class="docutils literal notranslate"><span class="pre">type</span></code> is given, the returned node will by default have a type of AST_UNKNOWN. If the type isn’t supplied when caling this constructor, the caller should set the node type to something else as soon as possible using ASTNode::setType(int).</p>
-<p><dl class="simple">
-<dt><strong>Parameters</strong></dt><dd><ul class="breatheparameterlist simple">
-<li><p><code class="docutils literal notranslate"><span class="pre">type</span></code>: an optional type code indicating the type of node to create. </p></li>
-</ul>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>type</strong> – an optional type code indicating the type of node to create. </p>
 </dd>
 </dl>
-</p>
 </dd></dl>
 
 <dl class="cpp function">
-<dt id="_CPPv4N6rrllvm14ASTNodeFactory6createEPN7libsbml7Token_tE">
-<span id="_CPPv3N6rrllvm14ASTNodeFactory6createEPN7libsbml7Token_tE"></span><span id="_CPPv2N6rrllvm14ASTNodeFactory6createEPN7libsbml7Token_tE"></span><span id="rrllvm::ASTNodeFactory::create__libsbml::Token_tP"></span><span class="target" id="classrrllvm_1_1ASTNodeFactory_1a3ee8bfff471bd962ecb440b62f78c983"></span>libsbml::ASTNode *<code class="sig-name descname">create</code><span class="sig-paren">(</span>libsbml::Token_t *<em>token</em><span class="sig-paren">)</span><a class="headerlink" href="#_CPPv4N6rrllvm14ASTNodeFactory6createEPN7libsbml7Token_tE" title="Permalink to this definition">¶</a><br /></dt>
+<dt class="sig sig-object cpp" id="_CPPv4N6rrllvm14ASTNodeFactory6createEPN7libsbml7Token_tE">
+<span id="_CPPv3N6rrllvm14ASTNodeFactory6createEPN7libsbml7Token_tE"></span><span id="_CPPv2N6rrllvm14ASTNodeFactory6createEPN7libsbml7Token_tE"></span><span id="rrllvm::ASTNodeFactory::create__libsbml::Token_tP"></span><span class="target" id="classrrllvm_1_1ASTNodeFactory_1a3ee8bfff471bd962ecb440b62f78c983"></span><span class="n"><span class="pre">libsbml</span></span><span class="p"><span class="pre">::</span></span><span class="n"><span class="pre">ASTNode</span></span><span class="w"> </span><span class="p"><span class="pre">*</span></span><span class="sig-name descname"><span class="n"><span class="pre">create</span></span></span><span class="sig-paren">(</span><span class="n"><span class="pre">libsbml</span></span><span class="p"><span class="pre">::</span></span><span class="n"><span class="pre">Token_t</span></span><span class="w"> </span><span class="p"><span class="pre">*</span></span><span class="n sig-param"><span class="pre">token</span></span><span class="sig-paren">)</span><a class="headerlink" href="#_CPPv4N6rrllvm14ASTNodeFactory6createEPN7libsbml7Token_tE" title="Permalink to this definition">¶</a><br /></dt>
 <dd><p>Creates a new ASTNode from the given Token. </p>
 <p>The resulting ASTNode will contain the same data as the Token.</p>
-<p><dl class="simple">
-<dt><strong>Parameters</strong></dt><dd><ul class="breatheparameterlist simple">
-<li><p><code class="docutils literal notranslate"><span class="pre">token</span></code>: the Token to add. </p></li>
-</ul>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>token</strong> – the Token to add. </p>
 </dd>
 </dl>
-</p>
 </dd></dl>
 
 <dl class="cpp function">
-<dt id="_CPPv4N6rrllvm14ASTNodeFactory6createERKN7libsbml7ASTNodeE">
-<span id="_CPPv3N6rrllvm14ASTNodeFactory6createERKN7libsbml7ASTNodeE"></span><span id="_CPPv2N6rrllvm14ASTNodeFactory6createERKN7libsbml7ASTNodeE"></span><span id="rrllvm::ASTNodeFactory::create__libsbml::ASTNodeCR"></span><span class="target" id="classrrllvm_1_1ASTNodeFactory_1a7f53b8f6cd706bbebf98848870e1ca1a"></span>libsbml::ASTNode *<code class="sig-name descname">create</code><span class="sig-paren">(</span><em class="property">const</em> libsbml::ASTNode &amp;<em>orig</em><span class="sig-paren">)</span><a class="headerlink" href="#_CPPv4N6rrllvm14ASTNodeFactory6createERKN7libsbml7ASTNodeE" title="Permalink to this definition">¶</a><br /></dt>
+<dt class="sig sig-object cpp" id="_CPPv4N6rrllvm14ASTNodeFactory6createERKN7libsbml7ASTNodeE">
+<span id="_CPPv3N6rrllvm14ASTNodeFactory6createERKN7libsbml7ASTNodeE"></span><span id="_CPPv2N6rrllvm14ASTNodeFactory6createERKN7libsbml7ASTNodeE"></span><span id="rrllvm::ASTNodeFactory::create__libsbml::ASTNodeCR"></span><span class="target" id="classrrllvm_1_1ASTNodeFactory_1a7f53b8f6cd706bbebf98848870e1ca1a"></span><span class="n"><span class="pre">libsbml</span></span><span class="p"><span class="pre">::</span></span><span class="n"><span class="pre">ASTNode</span></span><span class="w"> </span><span class="p"><span class="pre">*</span></span><span class="sig-name descname"><span class="n"><span class="pre">create</span></span></span><span class="sig-paren">(</span><span class="k"><span class="pre">const</span></span><span class="w"> </span><span class="n"><span class="pre">libsbml</span></span><span class="p"><span class="pre">::</span></span><span class="n"><span class="pre">ASTNode</span></span><span class="w"> </span><span class="p"><span class="pre">&amp;</span></span><span class="n sig-param"><span class="pre">orig</span></span><span class="sig-paren">)</span><a class="headerlink" href="#_CPPv4N6rrllvm14ASTNodeFactory6createERKN7libsbml7ASTNodeE" title="Permalink to this definition">¶</a><br /></dt>
 <dd><p>Copy constructor; creates a deep copy of the given ASTNode. </p>
-<p><dl class="simple">
-<dt><strong>Parameters</strong></dt><dd><ul class="breatheparameterlist simple">
-<li><p><code class="docutils literal notranslate"><span class="pre">orig</span></code>: the ASTNode to be copied. </p></li>
-</ul>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>orig</strong> – the ASTNode to be copied. </p>
 </dd>
 </dl>
-</p>
 </dd></dl>
 
 </div>
 <div class="breathe-sectiondef docutils container">
-<p class="breathe-sectiondef-title rubric">Private Functions</p>
+<p class="breathe-sectiondef-title rubric" id="breathe-section-title-private-functions">Private Functions</p>
 <dl class="cpp function">
-<dt id="_CPPv4N6rrllvm14ASTNodeFactory14ASTNodeFactoryERK14ASTNodeFactory">
-<span id="_CPPv3N6rrllvm14ASTNodeFactory14ASTNodeFactoryERK14ASTNodeFactory"></span><span id="_CPPv2N6rrllvm14ASTNodeFactory14ASTNodeFactoryERK14ASTNodeFactory"></span><span id="rrllvm::ASTNodeFactory::ASTNodeFactory__ASTNodeFactoryCR"></span><span class="target" id="classrrllvm_1_1ASTNodeFactory_1a3340b271f58affd60018d729ebb50516"></span><em class="property">inline</em> <code class="sig-name descname">ASTNodeFactory</code><span class="sig-paren">(</span><em class="property">const</em> <a class="reference internal" href="#_CPPv4N6rrllvm14ASTNodeFactory14ASTNodeFactoryERK14ASTNodeFactory" title="rrllvm::ASTNodeFactory::ASTNodeFactory">ASTNodeFactory</a>&amp;<span class="sig-paren">)</span><a class="headerlink" href="#_CPPv4N6rrllvm14ASTNodeFactory14ASTNodeFactoryERK14ASTNodeFactory" title="Permalink to this definition">¶</a><br /></dt>
+<dt class="sig sig-object cpp" id="_CPPv4N6rrllvm14ASTNodeFactory14ASTNodeFactoryERK14ASTNodeFactory">
+<span id="_CPPv3N6rrllvm14ASTNodeFactory14ASTNodeFactoryERK14ASTNodeFactory"></span><span id="_CPPv2N6rrllvm14ASTNodeFactory14ASTNodeFactoryERK14ASTNodeFactory"></span><span id="rrllvm::ASTNodeFactory::ASTNodeFactory__ASTNodeFactoryCR"></span><span class="target" id="classrrllvm_1_1ASTNodeFactory_1a3340b271f58affd60018d729ebb50516"></span><span class="k"><span class="pre">inline</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">ASTNodeFactory</span></span></span><span class="sig-paren">(</span><span class="k"><span class="pre">const</span></span><span class="w"> </span><a class="reference internal" href="#_CPPv4N6rrllvm14ASTNodeFactory14ASTNodeFactoryERK14ASTNodeFactory" title="rrllvm::ASTNodeFactory::ASTNodeFactory"><span class="n"><span class="pre">ASTNodeFactory</span></span></a><span class="p"><span class="pre">&amp;</span></span><span class="sig-paren">)</span><a class="headerlink" href="#_CPPv4N6rrllvm14ASTNodeFactory14ASTNodeFactoryERK14ASTNodeFactory" title="Permalink to this definition">¶</a><br /></dt>
 <dd><p>no copy or asigment </p>
 </dd></dl>
 
 <dl class="cpp function">
-<dt id="_CPPv4N6rrllvm14ASTNodeFactoryaSERK14ASTNodeFactory">
-<span id="_CPPv3N6rrllvm14ASTNodeFactoryaSERK14ASTNodeFactory"></span><span id="_CPPv2N6rrllvm14ASTNodeFactoryaSERK14ASTNodeFactory"></span><span id="rrllvm::ASTNodeFactory::assign-operator__ASTNodeFactoryCR"></span><span class="target" id="classrrllvm_1_1ASTNodeFactory_1a64f4523e99e0fa6413bf9b10e480daf6"></span><em class="property">inline</em> <a class="reference internal" href="#_CPPv4N6rrllvm14ASTNodeFactoryE" title="rrllvm::ASTNodeFactory">ASTNodeFactory</a> &amp;<code class="sig-name descname">operator=</code><span class="sig-paren">(</span><em class="property">const</em> <a class="reference internal" href="#_CPPv4N6rrllvm14ASTNodeFactoryE" title="rrllvm::ASTNodeFactory">ASTNodeFactory</a> &amp;<em>rhs</em><span class="sig-paren">)</span><a class="headerlink" href="#_CPPv4N6rrllvm14ASTNodeFactoryaSERK14ASTNodeFactory" title="Permalink to this definition">¶</a><br /></dt>
+<dt class="sig sig-object cpp" id="_CPPv4N6rrllvm14ASTNodeFactoryaSERK14ASTNodeFactory">
+<span id="_CPPv3N6rrllvm14ASTNodeFactoryaSERK14ASTNodeFactory"></span><span id="_CPPv2N6rrllvm14ASTNodeFactoryaSERK14ASTNodeFactory"></span><span id="rrllvm::ASTNodeFactory::assign-operator__ASTNodeFactoryCR"></span><span class="target" id="classrrllvm_1_1ASTNodeFactory_1a64f4523e99e0fa6413bf9b10e480daf6"></span><span class="k"><span class="pre">inline</span></span><span class="w"> </span><a class="reference internal" href="#_CPPv4N6rrllvm14ASTNodeFactoryE" title="rrllvm::ASTNodeFactory"><span class="n"><span class="pre">ASTNodeFactory</span></span></a><span class="w"> </span><span class="p"><span class="pre">&amp;</span></span><span class="sig-name descname"><span class="k"><span class="pre">operator</span></span><span class="o"><span class="pre">=</span></span></span><span class="sig-paren">(</span><span class="k"><span class="pre">const</span></span><span class="w"> </span><a class="reference internal" href="#_CPPv4N6rrllvm14ASTNodeFactoryE" title="rrllvm::ASTNodeFactory"><span class="n"><span class="pre">ASTNodeFactory</span></span></a><span class="w"> </span><span class="p"><span class="pre">&amp;</span></span><span class="n sig-param"><span class="pre">rhs</span></span><span class="sig-paren">)</span><a class="headerlink" href="#_CPPv4N6rrllvm14ASTNodeFactoryaSERK14ASTNodeFactory" title="Permalink to this definition">¶</a><br /></dt>
 <dd></dd></dl>
 
 </div>
 <div class="breathe-sectiondef docutils container">
-<p class="breathe-sectiondef-title rubric">Private Members</p>
+<p class="breathe-sectiondef-title rubric" id="breathe-section-title-private-members">Private Members</p>
 <dl class="cpp var">
-<dt id="_CPPv4N6rrllvm14ASTNodeFactory5nodesE">
-<span id="_CPPv3N6rrllvm14ASTNodeFactory5nodesE"></span><span id="_CPPv2N6rrllvm14ASTNodeFactory5nodesE"></span><span id="rrllvm::ASTNodeFactory::nodes__std::list:libsbml::ASTNodeP:"></span><span class="target" id="classrrllvm_1_1ASTNodeFactory_1ae697b39449b494f2c8dd96f2f68a4438"></span>std::list&lt;libsbml::ASTNode*&gt; <code class="sig-name descname">nodes</code><a class="headerlink" href="#_CPPv4N6rrllvm14ASTNodeFactory5nodesE" title="Permalink to this definition">¶</a><br /></dt>
+<dt class="sig sig-object cpp" id="_CPPv4N6rrllvm14ASTNodeFactory5nodesE">
+<span id="_CPPv3N6rrllvm14ASTNodeFactory5nodesE"></span><span id="_CPPv2N6rrllvm14ASTNodeFactory5nodesE"></span><span id="rrllvm::ASTNodeFactory::nodes__std::list:libsbml::ASTNodeP:"></span><span class="target" id="classrrllvm_1_1ASTNodeFactory_1ae697b39449b494f2c8dd96f2f68a4438"></span><span class="n"><span class="pre">std</span></span><span class="p"><span class="pre">::</span></span><span class="n"><span class="pre">list</span></span><span class="p"><span class="pre">&lt;</span></span><span class="n"><span class="pre">libsbml</span></span><span class="p"><span class="pre">::</span></span><span class="n"><span class="pre">ASTNode</span></span><span class="p"><span class="pre">*</span></span><span class="p"><span class="pre">&gt;</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">nodes</span></span></span><a class="headerlink" href="#_CPPv4N6rrllvm14ASTNodeFactory5nodesE" title="Permalink to this definition">¶</a><br /></dt>
 <dd><p>the list of nodes this factory created. </p>
 </dd></dl>
 

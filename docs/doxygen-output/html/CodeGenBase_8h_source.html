@@ -22,7 +22,7 @@
  <tr style="height: 56px;">
   <td id="projectalign" style="padding-left: 0.5em;">
    <div id="projectname">roadrunner
-   &#160;<span id="projectnumber">2.0.5</span>
+   &#160;<span id="projectnumber">2.0.8</span>
    </div>
    <div id="projectbrief">Fast simulator for SBML models</div>
   </td>
@@ -159,96 +159,93 @@ $(function() {
 <div class="line"><a name="l00101"></a><span class="lineno">  101</span>&#160;    {</div>
 <div class="line"><a name="l00102"></a><span class="lineno">  102</span>&#160;        <span class="comment">// make the set init value function</span></div>
 <div class="line"><a name="l00103"></a><span class="lineno">  103</span>&#160; </div>
-<div class="line"><a name="l00104"></a><span class="lineno">  104</span>&#160;        llvm::FunctionType *funcType = llvm::FunctionType::get(retType,</div>
-<div class="line"><a name="l00105"></a><span class="lineno">  105</span>&#160;                argTypes, <span class="keyword">false</span>);</div>
-<div class="line"><a name="l00106"></a><span class="lineno">  106</span>&#160;        <span class="keyword">function</span> = llvm::Function::Create(funcType,</div>
-<div class="line"><a name="l00107"></a><span class="lineno">  107</span>&#160;                llvm::Function::InternalLinkage,</div>
-<div class="line"><a name="l00108"></a><span class="lineno">  108</span>&#160;                functionName, module);</div>
-<div class="line"><a name="l00109"></a><span class="lineno">  109</span>&#160; </div>
-<div class="line"><a name="l00110"></a><span class="lineno">  110</span>&#160;        <span class="comment">// Create a new basic block to start insertion into.</span></div>
-<div class="line"><a name="l00111"></a><span class="lineno">  111</span>&#160;        llvm::BasicBlock *basicBlock = llvm::BasicBlock::Create(context,</div>
-<div class="line"><a name="l00112"></a><span class="lineno">  112</span>&#160;                <span class="stringliteral">&quot;entry&quot;</span>, <span class="keyword">function</span>);</div>
-<div class="line"><a name="l00113"></a><span class="lineno">  113</span>&#160;        builder.SetInsertPoint(basicBlock);</div>
+<div class="line"><a name="l00104"></a><span class="lineno">  104</span>&#160;        llvm::FunctionType *funcType = llvm::FunctionType::get(retType, argTypes, <span class="keyword">false</span>);</div>
+<div class="line"><a name="l00105"></a><span class="lineno">  105</span>&#160;        <span class="keyword">function</span> = llvm::Function::Create(funcType,</div>
+<div class="line"><a name="l00106"></a><span class="lineno">  106</span>&#160;                llvm::Function::InternalLinkage,</div>
+<div class="line"><a name="l00107"></a><span class="lineno">  107</span>&#160;                functionName, module);</div>
+<div class="line"><a name="l00108"></a><span class="lineno">  108</span>&#160; </div>
+<div class="line"><a name="l00109"></a><span class="lineno">  109</span>&#160;        <span class="comment">// Create a new basic block to start insertion into.</span></div>
+<div class="line"><a name="l00110"></a><span class="lineno">  110</span>&#160;        llvm::BasicBlock *basicBlock = llvm::BasicBlock::Create(context,<span class="stringliteral">&quot;entry&quot;</span>, <span class="keyword">function</span>);</div>
+<div class="line"><a name="l00111"></a><span class="lineno">  111</span>&#160;        builder.SetInsertPoint(basicBlock);</div>
+<div class="line"><a name="l00112"></a><span class="lineno">  112</span>&#160; </div>
+<div class="line"><a name="l00113"></a><span class="lineno">  113</span>&#160;        assert(function-&gt;arg_size() == N);</div>
 <div class="line"><a name="l00114"></a><span class="lineno">  114</span>&#160; </div>
-<div class="line"><a name="l00115"></a><span class="lineno">  115</span>&#160;        assert(function-&gt;arg_size() == N);</div>
-<div class="line"><a name="l00116"></a><span class="lineno">  116</span>&#160; </div>
-<div class="line"><a name="l00117"></a><span class="lineno">  117</span>&#160;        <span class="keywordtype">int</span> i = 0;</div>
-<div class="line"><a name="l00118"></a><span class="lineno">  118</span>&#160;        <span class="keywordflow">for</span> (llvm::Function::arg_iterator ai = function-&gt;arg_begin();</div>
-<div class="line"><a name="l00119"></a><span class="lineno">  119</span>&#160;                ai != function-&gt;arg_end(); ++ai, ++i)</div>
-<div class="line"><a name="l00120"></a><span class="lineno">  120</span>&#160;        {</div>
-<div class="line"><a name="l00121"></a><span class="lineno">  121</span>&#160;            llvm::Value *arg = ai;</div>
-<div class="line"><a name="l00122"></a><span class="lineno">  122</span>&#160;            arg-&gt;setName(argNames[i]);</div>
-<div class="line"><a name="l00123"></a><span class="lineno">  123</span>&#160;            args[i] = arg;</div>
-<div class="line"><a name="l00124"></a><span class="lineno">  124</span>&#160;        }</div>
-<div class="line"><a name="l00125"></a><span class="lineno">  125</span>&#160; </div>
-<div class="line"><a name="l00126"></a><span class="lineno">  126</span>&#160;        <span class="keywordflow">return</span> basicBlock;</div>
-<div class="line"><a name="l00127"></a><span class="lineno">  127</span>&#160;    }</div>
-<div class="line"><a name="l00128"></a><span class="lineno">  128</span>&#160; </div>
-<div class="line"><a name="l00133"></a><span class="lineno"><a class="line" href="classrrllvm_1_1CodeGenBase.html#a3fcef26eb9a2eecf5f7cf332f2b41d8b">  133</a></span>&#160;    llvm::BasicBlock *<a class="code" href="classrrllvm_1_1CodeGenBase.html#a3fcef26eb9a2eecf5f7cf332f2b41d8b">codeGenVoidModelDataHeader</a>(<span class="keyword">const</span> <span class="keywordtype">char</span>* functionName,</div>
-<div class="line"><a name="l00134"></a><span class="lineno">  134</span>&#160;            llvm::Value* &amp;modelData)</div>
-<div class="line"><a name="l00135"></a><span class="lineno">  135</span>&#160;    {</div>
-<div class="line"><a name="l00136"></a><span class="lineno">  136</span>&#160;        llvm::Type *argTypes[] = {</div>
-<div class="line"><a name="l00137"></a><span class="lineno">  137</span>&#160;            llvm::PointerType::get(</div>
-<div class="line"><a name="l00138"></a><span class="lineno">  138</span>&#160;                <a class="code" href="classrrllvm_1_1ModelDataIRBuilder.html#a0ef021e16b99691a0cde663060898c4c">ModelDataIRBuilder::getStructType</a>(module), 0)</div>
-<div class="line"><a name="l00139"></a><span class="lineno">  139</span>&#160;        };</div>
-<div class="line"><a name="l00140"></a><span class="lineno">  140</span>&#160; </div>
-<div class="line"><a name="l00141"></a><span class="lineno">  141</span>&#160;        <span class="keyword">const</span> <span class="keywordtype">char</span> *argNames[] = { <span class="stringliteral">&quot;modelData&quot;</span> };</div>
-<div class="line"><a name="l00142"></a><span class="lineno">  142</span>&#160; </div>
-<div class="line"><a name="l00143"></a><span class="lineno">  143</span>&#160;        llvm::Value *args[] = { 0 };</div>
-<div class="line"><a name="l00144"></a><span class="lineno">  144</span>&#160; </div>
-<div class="line"><a name="l00145"></a><span class="lineno">  145</span>&#160;        llvm::BasicBlock *basicBlock = codeGenHeader(functionName,</div>
-<div class="line"><a name="l00146"></a><span class="lineno">  146</span>&#160;                llvm::Type::getVoidTy(context),</div>
-<div class="line"><a name="l00147"></a><span class="lineno">  147</span>&#160;                    argTypes, argNames, args);</div>
-<div class="line"><a name="l00148"></a><span class="lineno">  148</span>&#160; </div>
-<div class="line"><a name="l00149"></a><span class="lineno">  149</span>&#160;        modelData = args[0];</div>
-<div class="line"><a name="l00150"></a><span class="lineno">  150</span>&#160;        <span class="keywordflow">return</span> basicBlock;</div>
-<div class="line"><a name="l00151"></a><span class="lineno">  151</span>&#160;    }</div>
-<div class="line"><a name="l00152"></a><span class="lineno">  152</span>&#160; </div>
-<div class="line"><a name="l00153"></a><span class="lineno"><a class="line" href="classrrllvm_1_1CodeGenBase.html#ae2c5677c9b195984feb6c3a06aa801bd">  153</a></span>&#160;    llvm::Function *<a class="code" href="classrrllvm_1_1CodeGenBase.html#ae2c5677c9b195984feb6c3a06aa801bd">verifyFunction</a>()</div>
-<div class="line"><a name="l00154"></a><span class="lineno">  154</span>&#160;    {</div>
-<div class="line"><a name="l00155"></a><span class="lineno">  155</span>&#160;        poco_information(getLogger(),</div>
-<div class="line"><a name="l00156"></a><span class="lineno">  156</span>&#160;            <span class="keywordtype">string</span>(<span class="stringliteral">&quot;function: &quot;</span>) + to_string(<span class="keyword">function</span>));</div>
-<div class="line"><a name="l00157"></a><span class="lineno">  157</span>&#160; </div>
-<div class="line"><a name="l00160"></a><span class="lineno">  160</span>&#160;<span class="comment">//#if (LLVM_VERSION_MAJOR == 3) &amp;&amp; (LLVM_VERSION_MINOR &gt;= 5)</span></div>
-<div class="line"><a name="l00161"></a><span class="lineno">  161</span>&#160;<span class="preprocessor">#if (LLVM_VERSION_MAJOR &gt;= 6)</span></div>
-<div class="line"><a name="l00162"></a><span class="lineno">  162</span>&#160;        <span class="keywordflow">if</span> (llvm::verifyFunction(*<span class="keyword">function</span>))</div>
-<div class="line"><a name="l00163"></a><span class="lineno">  163</span>&#160;<span class="preprocessor">#else</span></div>
-<div class="line"><a name="l00164"></a><span class="lineno">  164</span>&#160;        <span class="keywordflow">if</span> (llvm::verifyFunction(*<span class="keyword">function</span>, llvm::AbortProcessAction))</div>
-<div class="line"><a name="l00165"></a><span class="lineno">  165</span>&#160;<span class="preprocessor">#endif</span></div>
-<div class="line"><a name="l00166"></a><span class="lineno">  166</span>&#160;        {</div>
-<div class="line"><a name="l00167"></a><span class="lineno">  167</span>&#160;            poco_error(getLogger(),</div>
-<div class="line"><a name="l00168"></a><span class="lineno">  168</span>&#160;                    <span class="stringliteral">&quot;Corrupt Generated Function, &quot;</span>  + to_string(<span class="keyword">function</span>));</div>
-<div class="line"><a name="l00169"></a><span class="lineno">  169</span>&#160; </div>
-<div class="line"><a name="l00170"></a><span class="lineno">  170</span>&#160;            <span class="keywordflow">throw</span> <a class="code" href="classrrllvm_1_1LLVMException.html">LLVMException</a>(<span class="stringliteral">&quot;Generated function is corrupt, see stderr&quot;</span>,</div>
-<div class="line"><a name="l00171"></a><span class="lineno">  171</span>&#160;                    __FUNC__);</div>
-<div class="line"><a name="l00172"></a><span class="lineno">  172</span>&#160;        }</div>
+<div class="line"><a name="l00115"></a><span class="lineno">  115</span>&#160;        <span class="keywordtype">int</span> i = 0;</div>
+<div class="line"><a name="l00116"></a><span class="lineno">  116</span>&#160;        <span class="keywordflow">for</span> (llvm::Function::arg_iterator ai = function-&gt;arg_begin();</div>
+<div class="line"><a name="l00117"></a><span class="lineno">  117</span>&#160;                ai != function-&gt;arg_end(); ++ai, ++i)</div>
+<div class="line"><a name="l00118"></a><span class="lineno">  118</span>&#160;        {</div>
+<div class="line"><a name="l00119"></a><span class="lineno">  119</span>&#160;            llvm::Value *arg = ai;</div>
+<div class="line"><a name="l00120"></a><span class="lineno">  120</span>&#160;            arg-&gt;setName(argNames[i]);</div>
+<div class="line"><a name="l00121"></a><span class="lineno">  121</span>&#160;            args[i] = arg;</div>
+<div class="line"><a name="l00122"></a><span class="lineno">  122</span>&#160;        }</div>
+<div class="line"><a name="l00123"></a><span class="lineno">  123</span>&#160; </div>
+<div class="line"><a name="l00124"></a><span class="lineno">  124</span>&#160;        <span class="keywordflow">return</span> basicBlock;</div>
+<div class="line"><a name="l00125"></a><span class="lineno">  125</span>&#160;    }</div>
+<div class="line"><a name="l00126"></a><span class="lineno">  126</span>&#160; </div>
+<div class="line"><a name="l00131"></a><span class="lineno"><a class="line" href="classrrllvm_1_1CodeGenBase.html#a3fcef26eb9a2eecf5f7cf332f2b41d8b">  131</a></span>&#160;    llvm::BasicBlock *<a class="code" href="classrrllvm_1_1CodeGenBase.html#a3fcef26eb9a2eecf5f7cf332f2b41d8b">codeGenVoidModelDataHeader</a>(<span class="keyword">const</span> <span class="keywordtype">char</span>* functionName,llvm::Value* &amp;modelData)</div>
+<div class="line"><a name="l00132"></a><span class="lineno">  132</span>&#160;    {</div>
+<div class="line"><a name="l00133"></a><span class="lineno">  133</span>&#160;        llvm::Type *argTypes[] = {</div>
+<div class="line"><a name="l00134"></a><span class="lineno">  134</span>&#160;            llvm::PointerType::get(</div>
+<div class="line"><a name="l00135"></a><span class="lineno">  135</span>&#160;                <a class="code" href="classrrllvm_1_1ModelDataIRBuilder.html#a0ef021e16b99691a0cde663060898c4c">ModelDataIRBuilder::getStructType</a>(module), 0)</div>
+<div class="line"><a name="l00136"></a><span class="lineno">  136</span>&#160;        };</div>
+<div class="line"><a name="l00137"></a><span class="lineno">  137</span>&#160; </div>
+<div class="line"><a name="l00138"></a><span class="lineno">  138</span>&#160;        <span class="keyword">const</span> <span class="keywordtype">char</span> *argNames[] = { <span class="stringliteral">&quot;modelData&quot;</span> };</div>
+<div class="line"><a name="l00139"></a><span class="lineno">  139</span>&#160; </div>
+<div class="line"><a name="l00140"></a><span class="lineno">  140</span>&#160;        llvm::Value *args[] = { 0 };</div>
+<div class="line"><a name="l00141"></a><span class="lineno">  141</span>&#160; </div>
+<div class="line"><a name="l00142"></a><span class="lineno">  142</span>&#160;        llvm::BasicBlock *basicBlock = codeGenHeader(functionName,</div>
+<div class="line"><a name="l00143"></a><span class="lineno">  143</span>&#160;                llvm::Type::getVoidTy(context),</div>
+<div class="line"><a name="l00144"></a><span class="lineno">  144</span>&#160;                    argTypes, argNames, args);</div>
+<div class="line"><a name="l00145"></a><span class="lineno">  145</span>&#160; </div>
+<div class="line"><a name="l00146"></a><span class="lineno">  146</span>&#160;        modelData = args[0];</div>
+<div class="line"><a name="l00147"></a><span class="lineno">  147</span>&#160;        <span class="keywordflow">return</span> basicBlock;</div>
+<div class="line"><a name="l00148"></a><span class="lineno">  148</span>&#160;    }</div>
+<div class="line"><a name="l00149"></a><span class="lineno">  149</span>&#160; </div>
+<div class="line"><a name="l00150"></a><span class="lineno"><a class="line" href="classrrllvm_1_1CodeGenBase.html#ae2c5677c9b195984feb6c3a06aa801bd">  150</a></span>&#160;    llvm::Function *<a class="code" href="classrrllvm_1_1CodeGenBase.html#ae2c5677c9b195984feb6c3a06aa801bd">verifyFunction</a>()</div>
+<div class="line"><a name="l00151"></a><span class="lineno">  151</span>&#160;    {</div>
+<div class="line"><a name="l00152"></a><span class="lineno">  152</span>&#160;        poco_information(getLogger(),</div>
+<div class="line"><a name="l00153"></a><span class="lineno">  153</span>&#160;            std::string(<span class="stringliteral">&quot;function: &quot;</span>) + to_string(<span class="keyword">function</span>));</div>
+<div class="line"><a name="l00154"></a><span class="lineno">  154</span>&#160; </div>
+<div class="line"><a name="l00157"></a><span class="lineno">  157</span>&#160;<span class="comment">//#if (LLVM_VERSION_MAJOR == 3) &amp;&amp; (LLVM_VERSION_MINOR &gt;= 5)</span></div>
+<div class="line"><a name="l00158"></a><span class="lineno">  158</span>&#160;<span class="preprocessor">#if (LLVM_VERSION_MAJOR &gt;= 6)</span></div>
+<div class="line"><a name="l00159"></a><span class="lineno">  159</span>&#160;        <span class="keywordflow">if</span> (llvm::verifyFunction(*<span class="keyword">function</span>))</div>
+<div class="line"><a name="l00160"></a><span class="lineno">  160</span>&#160;<span class="preprocessor">#else</span></div>
+<div class="line"><a name="l00161"></a><span class="lineno">  161</span>&#160;        <span class="keywordflow">if</span> (llvm::verifyFunction(*<span class="keyword">function</span>, llvm::AbortProcessAction))</div>
+<div class="line"><a name="l00162"></a><span class="lineno">  162</span>&#160;<span class="preprocessor">#endif</span></div>
+<div class="line"><a name="l00163"></a><span class="lineno">  163</span>&#160;        {</div>
+<div class="line"><a name="l00164"></a><span class="lineno">  164</span>&#160;            poco_error(getLogger(),</div>
+<div class="line"><a name="l00165"></a><span class="lineno">  165</span>&#160;                    <span class="stringliteral">&quot;Corrupt Generated Function, &quot;</span>  + to_string(<span class="keyword">function</span>));</div>
+<div class="line"><a name="l00166"></a><span class="lineno">  166</span>&#160; </div>
+<div class="line"><a name="l00167"></a><span class="lineno">  167</span>&#160;            <span class="keywordflow">throw</span> <a class="code" href="classrrllvm_1_1LLVMException.html">LLVMException</a>(<span class="stringliteral">&quot;Generated function is corrupt, see stderr&quot;</span>,</div>
+<div class="line"><a name="l00168"></a><span class="lineno">  168</span>&#160;                    __FUNC__);</div>
+<div class="line"><a name="l00169"></a><span class="lineno">  169</span>&#160;        }</div>
+<div class="line"><a name="l00170"></a><span class="lineno">  170</span>&#160; </div>
+<div class="line"><a name="l00171"></a><span class="lineno">  171</span>&#160;        <span class="keywordflow">return</span> <span class="keyword">function</span>;</div>
+<div class="line"><a name="l00172"></a><span class="lineno">  172</span>&#160;    }</div>
 <div class="line"><a name="l00173"></a><span class="lineno">  173</span>&#160; </div>
-<div class="line"><a name="l00174"></a><span class="lineno">  174</span>&#160;        <span class="keywordflow">return</span> <span class="keyword">function</span>;</div>
-<div class="line"><a name="l00175"></a><span class="lineno">  175</span>&#160;    }</div>
+<div class="line"><a name="l00174"></a><span class="lineno">  174</span>&#160; </div>
+<div class="line"><a name="l00175"></a><span class="lineno">  175</span>&#160;    <span class="keyword">virtual</span> ~<a class="code" href="classrrllvm_1_1CodeGenBase.html">CodeGenBase</a>() {};</div>
 <div class="line"><a name="l00176"></a><span class="lineno">  176</span>&#160; </div>
 <div class="line"><a name="l00177"></a><span class="lineno">  177</span>&#160; </div>
-<div class="line"><a name="l00178"></a><span class="lineno">  178</span>&#160;    <span class="keyword">virtual</span> ~<a class="code" href="classrrllvm_1_1CodeGenBase.html">CodeGenBase</a>() {};</div>
+<div class="line"><a name="l00178"></a><span class="lineno">  178</span>&#160;};</div>
 <div class="line"><a name="l00179"></a><span class="lineno">  179</span>&#160; </div>
-<div class="line"><a name="l00180"></a><span class="lineno">  180</span>&#160; </div>
-<div class="line"><a name="l00181"></a><span class="lineno">  181</span>&#160;};</div>
-<div class="line"><a name="l00182"></a><span class="lineno">  182</span>&#160; </div>
-<div class="line"><a name="l00183"></a><span class="lineno">  183</span>&#160;} <span class="comment">/* namespace rr */</span></div>
-<div class="line"><a name="l00184"></a><span class="lineno">  184</span>&#160;<span class="preprocessor">#endif </span><span class="comment">/* LLVMCodeGenBaseH */</span><span class="preprocessor"></span></div>
+<div class="line"><a name="l00180"></a><span class="lineno">  180</span>&#160;} <span class="comment">/* namespace rr */</span></div>
+<div class="line"><a name="l00181"></a><span class="lineno">  181</span>&#160;<span class="preprocessor">#endif </span><span class="comment">/* LLVMCodeGenBaseH */</span><span class="preprocessor"></span></div>
 </div><!-- fragment --></div><!-- contents -->
 <div class="ttc" id="aclassrrllvm_1_1ModelGeneratorContext_html"><div class="ttname"><a href="classrrllvm_1_1ModelGeneratorContext.html">rrllvm::ModelGeneratorContext</a></div><div class="ttdoc">All LLVM code generating objects basically need at a minimum three things to operate:</div><div class="ttdef"><b>Definition:</b> ModelGeneratorContext.h:90</div></div>
-<div class="ttc" id="aclassrrllvm_1_1CodeGenBase_html_a3fcef26eb9a2eecf5f7cf332f2b41d8b"><div class="ttname"><a href="classrrllvm_1_1CodeGenBase.html#a3fcef26eb9a2eecf5f7cf332f2b41d8b">rrllvm::CodeGenBase::codeGenVoidModelDataHeader</a></div><div class="ttdeci">llvm::BasicBlock * codeGenVoidModelDataHeader(const char *functionName, llvm::Value *&amp;modelData)</div><div class="ttdoc">the most common type of generated function takes a ModelData*, and returns void.</div><div class="ttdef"><b>Definition:</b> CodeGenBase.h:133</div></div>
+<div class="ttc" id="aclassrrllvm_1_1CodeGenBase_html_a3fcef26eb9a2eecf5f7cf332f2b41d8b"><div class="ttname"><a href="classrrllvm_1_1CodeGenBase.html#a3fcef26eb9a2eecf5f7cf332f2b41d8b">rrllvm::CodeGenBase::codeGenVoidModelDataHeader</a></div><div class="ttdeci">llvm::BasicBlock * codeGenVoidModelDataHeader(const char *functionName, llvm::Value *&amp;modelData)</div><div class="ttdoc">the most common type of generated function takes a ModelData*, and returns void.</div><div class="ttdef"><b>Definition:</b> CodeGenBase.h:131</div></div>
 <div class="ttc" id="aclassrrllvm_1_1LLVMException_html"><div class="ttname"><a href="classrrllvm_1_1LLVMException.html">rrllvm::LLVMException</a></div><div class="ttdef"><b>Definition:</b> LLVMException.h:19</div></div>
 <div class="ttc" id="aclassrrllvm_1_1LLVMModelDataSymbols_html"><div class="ttname"><a href="classrrllvm_1_1LLVMModelDataSymbols.html">rrllvm::LLVMModelDataSymbols</a></div><div class="ttdoc">stores the names of all the symbols in the sbml model and thier indexes in the ModelData arrays.</div><div class="ttdef"><b>Definition:</b> LLVMModelDataSymbols.h:127</div></div>
 <div class="ttc" id="aclassrrllvm_1_1LLVMModelSymbols_html"><div class="ttname"><a href="classrrllvm_1_1LLVMModelSymbols.html">rrllvm::LLVMModelSymbols</a></div><div class="ttdoc">Hold all the un-evaluated symbolic inforamtion in the model.</div><div class="ttdef"><b>Definition:</b> LLVMModelSymbols.h:26</div></div>
-<div class="ttc" id="aclassrrllvm_1_1ModelGeneratorContext_html_aaa8b5072ebd323f0640b6d90cbda6f11"><div class="ttname"><a href="classrrllvm_1_1ModelGeneratorContext.html#aaa8b5072ebd323f0640b6d90cbda6f11">rrllvm::ModelGeneratorContext::getFunctionPassManager</a></div><div class="ttdeci">llvm::legacy::FunctionPassManager * getFunctionPassManager() const</div><div class="ttdoc">if optimization is enabled, this gets the function pass manager loaded with all the requested optimiz...</div><div class="ttdef"><b>Definition:</b> ModelGeneratorContext.cpp:465</div></div>
-<div class="ttc" id="aclassrr_1_1Logger_html"><div class="ttname"><a href="classrr_1_1Logger.html">rr::Logger</a></div><div class="ttdoc">The roadrunner logger.</div><div class="ttdef"><b>Definition:</b> rrLogger.h:53</div></div>
+<div class="ttc" id="aclassrrllvm_1_1ModelGeneratorContext_html_aaa8b5072ebd323f0640b6d90cbda6f11"><div class="ttname"><a href="classrrllvm_1_1ModelGeneratorContext.html#aaa8b5072ebd323f0640b6d90cbda6f11">rrllvm::ModelGeneratorContext::getFunctionPassManager</a></div><div class="ttdeci">llvm::legacy::FunctionPassManager * getFunctionPassManager() const</div><div class="ttdoc">if optimization is enabled, this gets the function pass manager loaded with all the requested optimiz...</div><div class="ttdef"><b>Definition:</b> ModelGeneratorContext.cpp:466</div></div>
+<div class="ttc" id="aclassrr_1_1Logger_html"><div class="ttname"><a href="classrr_1_1Logger.html">rr::Logger</a></div><div class="ttdoc">The roadrunner logger.</div><div class="ttdef"><b>Definition:</b> rrLogger.h:63</div></div>
 <div class="ttc" id="aclassrrllvm_1_1CodeGenBase_html_afb6ef03ee896534cde79895141a8a666"><div class="ttname"><a href="classrrllvm_1_1CodeGenBase.html#afb6ef03ee896534cde79895141a8a666">rrllvm::CodeGenBase::model</a></div><div class="ttdeci">const libsbml::Model * model</div><div class="ttdoc">could potentially be null, everything else is guaranteed to be valid</div><div class="ttdef"><b>Definition:</b> CodeGenBase.h:72</div></div>
 <div class="ttc" id="aclassrrllvm_1_1CodeGenBase_html_addedde72248fde005bff3060843de531"><div class="ttname"><a href="classrrllvm_1_1CodeGenBase.html#addedde72248fde005bff3060843de531">rrllvm::CodeGenBase::functionPassManager</a></div><div class="ttdeci">llvm::legacy::FunctionPassManager * functionPassManager</div><div class="ttdoc">function pass manager.</div><div class="ttdef"><b>Definition:</b> CodeGenBase.h:86</div></div>
-<div class="ttc" id="aclassrrllvm_1_1ModelDataIRBuilder_html_a0ef021e16b99691a0cde663060898c4c"><div class="ttname"><a href="classrrllvm_1_1ModelDataIRBuilder.html#a0ef021e16b99691a0cde663060898c4c">rrllvm::ModelDataIRBuilder::getStructType</a></div><div class="ttdeci">static llvm::StructType * getStructType(llvm::Module *module)</div><div class="ttdoc">get the ModelData struct type.</div><div class="ttdef"><b>Definition:</b> ModelDataIRBuilder.cpp:696</div></div>
+<div class="ttc" id="aclassrrllvm_1_1ModelDataIRBuilder_html_a0ef021e16b99691a0cde663060898c4c"><div class="ttname"><a href="classrrllvm_1_1ModelDataIRBuilder.html#a0ef021e16b99691a0cde663060898c4c">rrllvm::ModelDataIRBuilder::getStructType</a></div><div class="ttdeci">static llvm::StructType * getStructType(llvm::Module *module)</div><div class="ttdoc">get the ModelData struct type.</div><div class="ttdef"><b>Definition:</b> ModelDataIRBuilder.cpp:695</div></div>
 <div class="ttc" id="aclassrrllvm_1_1CodeGenBase_html_a747be8f3c35284547ad6f31b36736471"><div class="ttname"><a href="classrrllvm_1_1CodeGenBase.html#a747be8f3c35284547ad6f31b36736471">rrllvm::CodeGenBase::options</a></div><div class="ttdeci">const unsigned options</div><div class="ttdoc">the options bit field that was passed into the top level load method.</div><div class="ttdef"><b>Definition:</b> CodeGenBase.h:91</div></div>
 <div class="ttc" id="aclassrrllvm_1_1CodeGenBase_html"><div class="ttname"><a href="classrrllvm_1_1CodeGenBase.html">rrllvm::CodeGenBase</a></div><div class="ttdoc">a convenience class to pull the vars out of a context, and store them as ivars.</div><div class="ttdef"><b>Definition:</b> CodeGenBase.h:35</div></div>
-<div class="ttc" id="aclassrrllvm_1_1CodeGenBase_html_ae2c5677c9b195984feb6c3a06aa801bd"><div class="ttname"><a href="classrrllvm_1_1CodeGenBase.html#ae2c5677c9b195984feb6c3a06aa801bd">rrllvm::CodeGenBase::verifyFunction</a></div><div class="ttdeci">llvm::Function * verifyFunction()</div><div class="ttdef"><b>Definition:</b> CodeGenBase.h:153</div></div>
-<div class="ttc" id="aclassrrllvm_1_1ModelGeneratorContext_html_ac05b77257df7b20fd7a4875729f9ec56"><div class="ttname"><a href="classrrllvm_1_1ModelGeneratorContext.html#ac05b77257df7b20fd7a4875729f9ec56">rrllvm::ModelGeneratorContext::getModule</a></div><div class="ttdeci">llvm::Module * getModule() const</div><div class="ttdoc">nearly all llvm functions expect a pointer to module, so we define this as a pointer type instead of ...</div><div class="ttdef"><b>Definition:</b> ModelGeneratorContext.cpp:425</div></div>
+<div class="ttc" id="aclassrrllvm_1_1CodeGenBase_html_ae2c5677c9b195984feb6c3a06aa801bd"><div class="ttname"><a href="classrrllvm_1_1CodeGenBase.html#ae2c5677c9b195984feb6c3a06aa801bd">rrllvm::CodeGenBase::verifyFunction</a></div><div class="ttdeci">llvm::Function * verifyFunction()</div><div class="ttdef"><b>Definition:</b> CodeGenBase.h:150</div></div>
+<div class="ttc" id="aclassrrllvm_1_1ModelGeneratorContext_html_ac05b77257df7b20fd7a4875729f9ec56"><div class="ttname"><a href="classrrllvm_1_1ModelGeneratorContext.html#ac05b77257df7b20fd7a4875729f9ec56">rrllvm::ModelGeneratorContext::getModule</a></div><div class="ttdeci">llvm::Module * getModule() const</div><div class="ttdoc">nearly all llvm functions expect a pointer to module, so we define this as a pointer type instead of ...</div><div class="ttdef"><b>Definition:</b> ModelGeneratorContext.cpp:426</div></div>
 <!-- start footer part -->
 <hr class="footer"/><address class="footer"><small>
 Generated by&#160;<a href="http://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.8.20

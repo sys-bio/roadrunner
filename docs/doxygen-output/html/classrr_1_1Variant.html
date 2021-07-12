@@ -22,7 +22,7 @@
  <tr style="height: 56px;">
   <td id="projectalign" style="padding-left: 0.5em;">
    <div id="projectname">roadrunner
-   &#160;<span id="projectnumber">2.0.5</span>
+   &#160;<span id="projectnumber">2.0.8</span>
    </div>
    <div id="projectbrief">Fast simulator for SBML models</div>
   </td>
@@ -80,7 +80,7 @@ $(function() {
 <p>A basic type to hold a variety of data types.  
  <a href="classrr_1_1Variant.html#details">More...</a></p>
 
-<p><code>#include &lt;<a class="el" href="Variant_8h_source.html">Variant.h</a>&gt;</code></p>
+<p><code>#include &lt;<a class="el" href="__Variant_8h_source.html">_Variant.h</a>&gt;</code></p>
 <table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pub-types"></a>
 Public Types</h2></td></tr>
@@ -179,14 +179,14 @@ virtual&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="c
 <tr class="separator:a6cee1990f0e04b644c0cac5af847a67c"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:ab1e6879f232971ab8fa285cf50139f8a"><td class="memItemLeft" align="right" valign="top"><a id="ab1e6879f232971ab8fa285cf50139f8a"></a>
 std::string&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classrr_1_1Variant.html#ab1e6879f232971ab8fa285cf50139f8a">toString</a> () const</td></tr>
-<tr class="memdesc:ab1e6879f232971ab8fa285cf50139f8a"><td class="mdescLeft">&#160;</td><td class="mdescRight">Converts the <a class="el" href="classrr_1_1Variant.html" title="A basic type to hold a variety of data types.">Variant</a> to a string in JSON format. <br /></td></tr>
+<tr class="memdesc:ab1e6879f232971ab8fa285cf50139f8a"><td class="mdescLeft">&#160;</td><td class="mdescRight">Converts the <a class="el" href="classrr_1_1Variant.html" title="A basic type to hold a variety of data types.">Variant</a> to a std::string in JSON format. <br /></td></tr>
 <tr class="separator:ab1e6879f232971ab8fa285cf50139f8a"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:aae71df98365e03148ca33a3d3f354115"><td class="memItemLeft" align="right" valign="top">std::string&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classrr_1_1Variant.html#aae71df98365e03148ca33a3d3f354115">pythonRepr</a> () const</td></tr>
 <tr class="memdesc:aae71df98365e03148ca33a3d3f354115"><td class="mdescLeft">&#160;</td><td class="mdescRight">Convert to Python-compatible representation.  <a href="classrr_1_1Variant.html#aae71df98365e03148ca33a3d3f354115">More...</a><br /></td></tr>
 <tr class="separator:aae71df98365e03148ca33a3d3f354115"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a287a173e395dafe75f1631c69f00551a"><td class="memItemLeft" align="right" valign="top"><a id="a287a173e395dafe75f1631c69f00551a"></a>
 bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classrr_1_1Variant.html#a287a173e395dafe75f1631c69f00551a">isString</a> () const</td></tr>
-<tr class="memdesc:a287a173e395dafe75f1631c69f00551a"><td class="mdescLeft">&#160;</td><td class="mdescRight">is this variant a string. <br /></td></tr>
+<tr class="memdesc:a287a173e395dafe75f1631c69f00551a"><td class="mdescLeft">&#160;</td><td class="mdescRight">is this variant a std::string. <br /></td></tr>
 <tr class="separator:a287a173e395dafe75f1631c69f00551a"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:ac6e06d899cd97644275c585e22673163"><td class="memItemLeft" align="right" valign="top"><a id="ac6e06d899cd97644275c585e22673163"></a>
 bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classrr_1_1Variant.html#ac6e06d899cd97644275c585e22673163">isInteger</a> () const</td></tr>
@@ -215,13 +215,13 @@ bool&#160;</td><td class="memItemRight" valign="bottom"><b>isDoubleVector</b> ()
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pub-static-methods"></a>
 Static Public Member Functions</h2></td></tr>
 <tr class="memitem:abe42f3be24595157e92e255ddf5ef082"><td class="memItemLeft" align="right" valign="top">static <a class="el" href="classrr_1_1Variant.html">Variant</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classrr_1_1Variant.html#abe42f3be24595157e92e255ddf5ef082">parse</a> (const std::string &amp;val)</td></tr>
-<tr class="memdesc:abe42f3be24595157e92e255ddf5ef082"><td class="mdescLeft">&#160;</td><td class="mdescRight">Parses the string which must be in JSON format.  <a href="classrr_1_1Variant.html#abe42f3be24595157e92e255ddf5ef082">More...</a><br /></td></tr>
+<tr class="memdesc:abe42f3be24595157e92e255ddf5ef082"><td class="mdescLeft">&#160;</td><td class="mdescRight">Parses the std::string which must be in JSON format.  <a href="classrr_1_1Variant.html#abe42f3be24595157e92e255ddf5ef082">More...</a><br /></td></tr>
 <tr class="separator:abe42f3be24595157e92e255ddf5ef082"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
 <div class="textblock"><p>A basic type to hold a variety of data types. </p>
 <p>Unfourtunatly C++ does not have a standard variant type so we have to create one here.</p>
-<p>This is a fairly low performance class and is intended soley for infrequent operations such as setting configuration parameters.</p>
+<p>This is a fairly low performance class and is intended soley for infrequent operations such as <a class="el" href="classrr_1_1Variant.html" title="A basic type to hold a variety of data types.">Variant</a> configuration parameters.</p>
 <p>If Python support is enabled, this class can convert to and from a Python object.</p>
 <p>Usage: This class can convert to and from any primitive data type, and some collections types. More type conversions will be added as needed.</p>
 <p>To store a value, just assign it, the assignment operator automatically takes care of everything for you: </p><div class="fragment"><div class="line"><span class="comment">// store an int:</span></div>
@@ -236,7 +236,7 @@ Static Public Member Functions</h2></td></tr>
 <div class="line"><span class="comment">// to convert to integer:</span></div>
 <div class="line"><span class="keywordtype">int</span> i = v.convert&lt;<span class="keywordtype">int</span>&gt;();</div>
 <div class="line"> </div>
-<div class="line"><span class="comment">// to convert to string:</span></div>
+<div class="line"><span class="comment">// to convert to std::string:</span></div>
 <div class="line">std::string s = v.convert&lt;std::string&gt;();</div>
 </div><!-- fragment --><p>Rationale: C++ does not have a built in variant type. Other variant types exist such as boost::any and Poco dynamic var. However including the one of these as part of our public wrappers would forever tie us to that particular library, and would impose yet another dependency.</p>
 <p>Only very basic variant type support is needed and this class exposes the absolute minimum possible wrappers to support such features, and provides just two methods of getting and storing native C++ types in it.</p>
@@ -270,7 +270,7 @@ template&lt;typename T &gt; </div>
 
 <p>create a new variant from an existing supported data type. </p>
 <p>This templated constructor can assign any primitive type: </p><div class="fragment"><div class="line"><a class="code" href="classrr_1_1Variant.html#a48f0736e18b6463303047b46cccca550">Variant</a> v = (int)1;</div>
-<div class="line"><a class="code" href="classrr_1_1Variant.html#a48f0736e18b6463303047b46cccca550">Variant</a> v = std::string(<span class="stringliteral">&quot;a string&quot;</span>);</div>
+<div class="line"><a class="code" href="classrr_1_1Variant.html#a48f0736e18b6463303047b46cccca550">Variant</a> v = std::string(<span class="stringliteral">&quot;a std::string&quot;</span>);</div>
 </div><!-- fragment --> 
 </div>
 </div>
@@ -301,7 +301,7 @@ template&lt;typename T &gt; </div>
 </div><div class="memdoc">
 
 <p>Convert this variant to a supported data type. </p>
-<p>This method will try to perform type coercion, i.e. if this variant contains a string, and it is asked to convert to a int, the string will be parsed as an int. Similary, doubles will be rounded to int, so forth.</p>
+<p>This method will try to perform type coercion, i.e. if this variant contains a std::string, and it is asked to convert to a int, the std::string will be parsed as an int. Similary, doubles will be rounded to int, so forth.</p>
 <div class="fragment"><div class="line"><span class="comment">// convert to int:</span></div>
 <div class="line"><span class="keywordtype">int</span> i = v.convert&lt;<span class="keywordtype">int</span>&gt;();</div>
 </div><!-- fragment --> 
@@ -352,8 +352,8 @@ template&lt;typename T &gt; </div>
 </table>
 </div><div class="memdoc">
 
-<p>Parses the string which must be in JSON format. </p>
-<p>This is a common way to read a <a class="el" href="classrr_1_1Variant.html" title="A basic type to hold a variety of data types.">Variant</a> from a file or create a new one from a string: </p><div class="fragment"><div class="line"><a class="code" href="classrr_1_1Variant.html#a48f0736e18b6463303047b46cccca550">Variant</a> v = <a class="code" href="classrr_1_1Variant.html#abe42f3be24595157e92e255ddf5ef082">Variant::parse</a>(<span class="stringliteral">&quot;0.123&quot;</span>);</div>
+<p>Parses the std::string which must be in JSON format. </p>
+<p>This is a common way to read a <a class="el" href="classrr_1_1Variant.html" title="A basic type to hold a variety of data types.">Variant</a> from a file or create a new one from a std::string: </p><div class="fragment"><div class="line"><a class="code" href="classrr_1_1Variant.html#a48f0736e18b6463303047b46cccca550">Variant</a> v = <a class="code" href="classrr_1_1Variant.html#abe42f3be24595157e92e255ddf5ef082">Variant::parse</a>(<span class="stringliteral">&quot;0.123&quot;</span>);</div>
 </div><!-- fragment --> 
 </div>
 </div>
@@ -397,21 +397,21 @@ template&lt;typename T &gt; </div>
 <div class="fragment"><div class="line"><span class="comment">// to check if this is an integer:</span></div>
 <div class="line"><a class="code" href="classrr_1_1Variant.html#a48f0736e18b6463303047b46cccca550">Variant</a> v = ...</div>
 <div class="line">if (v.type() == <span class="keyword">typeid</span>(<span class="keywordtype">int</span>))</div>
-<div class="line">    cout &lt;&lt; <span class="stringliteral">&quot;its an int&quot;</span>;</div>
+<div class="line">    std::cout &lt;&lt; <span class="stringliteral">&quot;its an int&quot;</span>;</div>
 <div class="line"> </div>
-<div class="line"><span class="comment">// to check if its a string:</span></div>
+<div class="line"><span class="comment">// to check if its a std::string:</span></div>
 <div class="line"><span class="keywordflow">if</span> (v.type() == <span class="keyword">typeid</span>(std::string))</div>
-<div class="line">    cout &lt;&lt; <span class="stringliteral">&quot;ints a string&quot;</span>;</div>
+<div class="line">    std::cout &lt;&lt; <span class="stringliteral">&quot;ints a std::string&quot;</span>;</div>
 </div><!-- fragment --> 
 </div>
 </div>
 <hr/>The documentation for this class was generated from the following files:<ul>
-<li><a class="el" href="Variant_8h_source.html">Variant.h</a></li>
-<li>Variant.cpp</li>
+<li><a class="el" href="__Variant_8h_source.html">_Variant.h</a></li>
+<li>_Variant.cpp</li>
 </ul>
 </div><!-- contents -->
-<div class="ttc" id="aclassrr_1_1Variant_html_abe42f3be24595157e92e255ddf5ef082"><div class="ttname"><a href="classrr_1_1Variant.html#abe42f3be24595157e92e255ddf5ef082">rr::Variant::parse</a></div><div class="ttdeci">static Variant parse(const std::string &amp;val)</div><div class="ttdoc">Parses the string which must be in JSON format.</div><div class="ttdef"><b>Definition:</b> Variant.cpp:140</div></div>
-<div class="ttc" id="aclassrr_1_1Variant_html_a48f0736e18b6463303047b46cccca550"><div class="ttname"><a href="classrr_1_1Variant.html#a48f0736e18b6463303047b46cccca550">rr::Variant::Variant</a></div><div class="ttdeci">Variant()</div><div class="ttdoc">creates an emtpy variant</div><div class="ttdef"><b>Definition:</b> Variant.cpp:34</div></div>
+<div class="ttc" id="aclassrr_1_1Variant_html_abe42f3be24595157e92e255ddf5ef082"><div class="ttname"><a href="classrr_1_1Variant.html#abe42f3be24595157e92e255ddf5ef082">rr::Variant::parse</a></div><div class="ttdeci">static Variant parse(const std::string &amp;val)</div><div class="ttdoc">Parses the std::string which must be in JSON format.</div><div class="ttdef"><b>Definition:</b> _Variant.cpp:140</div></div>
+<div class="ttc" id="aclassrr_1_1Variant_html_a48f0736e18b6463303047b46cccca550"><div class="ttname"><a href="classrr_1_1Variant.html#a48f0736e18b6463303047b46cccca550">rr::Variant::Variant</a></div><div class="ttdeci">Variant()</div><div class="ttdoc">creates an emtpy variant</div><div class="ttdef"><b>Definition:</b> _Variant.cpp:34</div></div>
 <!-- start footer part -->
 <hr class="footer"/><address class="footer"><small>
 Generated by&#160;<a href="http://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.8.20

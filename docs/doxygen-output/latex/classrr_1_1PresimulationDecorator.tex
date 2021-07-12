@@ -1,0 +1,55 @@
+\hypertarget{classrr_1_1PresimulationDecorator}{}\doxysection{rr\+::Presimulation\+Decorator Class Reference}
+\label{classrr_1_1PresimulationDecorator}\index{rr::PresimulationDecorator@{rr::PresimulationDecorator}}
+
+
+wrapper class to change the solve() method of \mbox{\hyperlink{classrr_1_1SteadyStateSolver}{Steady\+State\+Solver}} types.  
+
+
+
+
+{\ttfamily \#include $<$Presimulation\+Decorator.\+h$>$}
+
+Inheritance diagram for rr\+::Presimulation\+Decorator\+:\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[height=4.000000cm]{classrr_1_1PresimulationDecorator}
+\end{center}
+\end{figure}
+\doxysubsection*{Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\hyperlink{classrr_1_1PresimulationDecorator_ad88550867b8a8aa9fe4203f90cdb509b}{Presimulation\+Decorator}} (\mbox{\hyperlink{classrr_1_1SteadyStateSolver}{Steady\+State\+Solver}} $\ast$solver)
+\begin{DoxyCompactList}\small\item\em construct a \mbox{\hyperlink{classrr_1_1PresimulationDecorator}{Presimulation\+Decorator}} from a solver. \end{DoxyCompactList}\item 
+\mbox{\Hypertarget{classrr_1_1PresimulationDecorator_a9ff127bab409a5b3285b1995a77ec44d}\label{classrr_1_1PresimulationDecorator_a9ff127bab409a5b3285b1995a77ec44d}} 
+double {\bfseries solve} () override
+\end{DoxyCompactItemize}
+\doxysubsection*{Additional Inherited Members}
+
+
+\doxysubsection{Detailed Description}
+wrapper class to change the solve() method of \mbox{\hyperlink{classrr_1_1SteadyStateSolver}{Steady\+State\+Solver}} types. 
+
+Pass a solver to the \mbox{\hyperlink{classrr_1_1PresimulationDecorator}{Presimulation\+Decorator}}. The resulting object can be used as a \mbox{\hyperlink{classrr_1_1SteadyStateSolver}{Steady\+State\+Solver}}; the solve() method of which will apply presimulation to a steady\+State calculation. 
+
+\doxysubsection{Constructor \& Destructor Documentation}
+\mbox{\Hypertarget{classrr_1_1PresimulationDecorator_ad88550867b8a8aa9fe4203f90cdb509b}\label{classrr_1_1PresimulationDecorator_ad88550867b8a8aa9fe4203f90cdb509b}} 
+\index{rr::PresimulationDecorator@{rr::PresimulationDecorator}!PresimulationDecorator@{PresimulationDecorator}}
+\index{PresimulationDecorator@{PresimulationDecorator}!rr::PresimulationDecorator@{rr::PresimulationDecorator}}
+\doxysubsubsection{\texorpdfstring{PresimulationDecorator()}{PresimulationDecorator()}}
+{\footnotesize\ttfamily rr\+::\+Presimulation\+Decorator\+::\+Presimulation\+Decorator (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{classrr_1_1SteadyStateSolver}{Steady\+State\+Solver}} $\ast$}]{solver }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [explicit]}}
+
+
+
+construct a \mbox{\hyperlink{classrr_1_1PresimulationDecorator}{Presimulation\+Decorator}} from a solver. 
+
+Use the presimulation\+\_\+time solver option to set the time point to integrate to before computing steady state. 
+\begin{DoxyParams}{Parameters}
+{\em solver} & pointer to instantiated \mbox{\hyperlink{classrr_1_1SteadyStateSolver}{Steady\+State\+Solver}} type.  options already present in the solver or the model associated with the solver are respected. \\
+\hline
+\end{DoxyParams}
+
+
+The documentation for this class was generated from the following files\+:\begin{DoxyCompactItemize}
+\item 
+Presimulation\+Decorator.\+h\item 
+Presimulation\+Decorator.\+cpp\end{DoxyCompactItemize}

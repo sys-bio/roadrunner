@@ -1,0 +1,68 @@
+\hypertarget{classrr_1_1LinesearchNewtonIteration}{}\doxysection{rr\+::Linesearch\+Newton\+Iteration Class Reference}
+\label{classrr_1_1LinesearchNewtonIteration}\index{rr::LinesearchNewtonIteration@{rr::LinesearchNewtonIteration}}
+
+
+Solve for steady state using Kinsol\textquotesingle{}s implementation of Newton Iteration with linesearch globalization.  
+
+
+
+
+{\ttfamily \#include $<$Linesearch\+Newton\+Iteration.\+h$>$}
+
+Inheritance diagram for rr\+::Linesearch\+Newton\+Iteration\+:\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[height=5.000000cm]{classrr_1_1LinesearchNewtonIteration}
+\end{center}
+\end{figure}
+\doxysubsection*{Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\Hypertarget{classrr_1_1LinesearchNewtonIteration_ae0b74f23771dac1de3aa9decb03dfd14}\label{classrr_1_1LinesearchNewtonIteration_ae0b74f23771dac1de3aa9decb03dfd14}} 
+{\bfseries Linesearch\+Newton\+Iteration} (\mbox{\hyperlink{classrr_1_1ExecutableModel}{Executable\+Model}} $\ast$executable\+Model)
+\item 
+\mbox{\Hypertarget{classrr_1_1LinesearchNewtonIteration_a62113dcfc8a9d93fd419f025bc202563}\label{classrr_1_1LinesearchNewtonIteration_a62113dcfc8a9d93fd419f025bc202563}} 
+std\+::string \mbox{\hyperlink{classrr_1_1LinesearchNewtonIteration_a62113dcfc8a9d93fd419f025bc202563}{get\+Name}} () const override
+\begin{DoxyCompactList}\small\item\em Get the name of this solver. \end{DoxyCompactList}\item 
+\mbox{\Hypertarget{classrr_1_1LinesearchNewtonIteration_a31c7aeb461a19411e3b48336d16401f6}\label{classrr_1_1LinesearchNewtonIteration_a31c7aeb461a19411e3b48336d16401f6}} 
+std\+::string \mbox{\hyperlink{classrr_1_1LinesearchNewtonIteration_a31c7aeb461a19411e3b48336d16401f6}{get\+Description}} () const override
+\begin{DoxyCompactList}\small\item\em Get the description of this solver. \end{DoxyCompactList}\item 
+\mbox{\Hypertarget{classrr_1_1LinesearchNewtonIteration_a39c0f6a3a82a515f4d71fdfdb4b25fc3}\label{classrr_1_1LinesearchNewtonIteration_a39c0f6a3a82a515f4d71fdfdb4b25fc3}} 
+std\+::string \mbox{\hyperlink{classrr_1_1LinesearchNewtonIteration_a39c0f6a3a82a515f4d71fdfdb4b25fc3}{get\+Hint}} () const override
+\begin{DoxyCompactList}\small\item\em Get a (user-\/readable) hint for this solver. \end{DoxyCompactList}\item 
+\mbox{\Hypertarget{classrr_1_1LinesearchNewtonIteration_a52557518fc8043c5fe7847019a05c604}\label{classrr_1_1LinesearchNewtonIteration_a52557518fc8043c5fe7847019a05c604}} 
+double \mbox{\hyperlink{classrr_1_1LinesearchNewtonIteration_a52557518fc8043c5fe7847019a05c604}{solve}} () override
+\begin{DoxyCompactList}\small\item\em solve the currently defined problem \end{DoxyCompactList}\end{DoxyCompactItemize}
+\doxysubsection*{Static Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\Hypertarget{classrr_1_1LinesearchNewtonIteration_ac9142d083012819a968220c894734a8f}\label{classrr_1_1LinesearchNewtonIteration_ac9142d083012819a968220c894734a8f}} 
+static std\+::string \mbox{\hyperlink{classrr_1_1LinesearchNewtonIteration_ac9142d083012819a968220c894734a8f}{get\+Linesearch\+Newton\+Iteration\+Name}} ()
+\begin{DoxyCompactList}\small\item\em static version of get\+Name \end{DoxyCompactList}\item 
+\mbox{\Hypertarget{classrr_1_1LinesearchNewtonIteration_affe185cbf7f83358e21290934f377823}\label{classrr_1_1LinesearchNewtonIteration_affe185cbf7f83358e21290934f377823}} 
+static std\+::string \mbox{\hyperlink{classrr_1_1LinesearchNewtonIteration_affe185cbf7f83358e21290934f377823}{get\+Linesearch\+Newton\+Iteration\+Description}} ()
+\begin{DoxyCompactList}\small\item\em static version of get\+Description \end{DoxyCompactList}\item 
+\mbox{\Hypertarget{classrr_1_1LinesearchNewtonIteration_a905e1245d1e73a790f2006aed72a8a27}\label{classrr_1_1LinesearchNewtonIteration_a905e1245d1e73a790f2006aed72a8a27}} 
+static std\+::string \mbox{\hyperlink{classrr_1_1LinesearchNewtonIteration_a905e1245d1e73a790f2006aed72a8a27}{get\+Linesearch\+Newton\+Iteration\+Hint}} ()
+\begin{DoxyCompactList}\small\item\em static version of get\+Hint \end{DoxyCompactList}\end{DoxyCompactItemize}
+\doxysubsection*{Additional Inherited Members}
+
+
+\doxysubsection{Detailed Description}
+Solve for steady state using Kinsol\textquotesingle{}s implementation of Newton Iteration with linesearch globalization. 
+
+\begin{DoxySeeAlso}{See also}
+\mbox{\hyperlink{classrr_1_1BasicNewtonIteration}{Basic\+Newton\+Iteration}} 
+\begin{DoxyCode}{0}
+\DoxyCodeLine{RoadRunner rr(sbml);}
+\DoxyCodeLine{rr.setSteadyStateSolver(\textcolor{stringliteral}{"{}newton\_linesearch"{}});}
+\DoxyCodeLine{rr.solve();}
+\end{DoxyCode}
+ 
+\end{DoxySeeAlso}
+
+
+The documentation for this class was generated from the following files\+:\begin{DoxyCompactItemize}
+\item 
+Linesearch\+Newton\+Iteration.\+h\item 
+Linesearch\+Newton\+Iteration.\+cpp\end{DoxyCompactItemize}

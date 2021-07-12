@@ -1,0 +1,308 @@
+
+
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" >
+<head>
+  <meta charset="utf-8" />
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  
+  <title>Building the Documentation &mdash; libRoadRunner 1.1.16 documentation</title>
+  
+
+  
+  <link rel="stylesheet" href="../_static/css/theme.css" type="text/css" />
+  <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
+  <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
+  <link rel="stylesheet" href="../_static/css/theme.css" type="text/css" />
+  <link rel="stylesheet" href="../_static/tabs.css" type="text/css" />
+
+  
+  
+
+  
+  
+
+  
+
+  
+  <!--[if lt IE 9]>
+    <script src="../_static/js/html5shiv.min.js"></script>
+  <![endif]-->
+  
+    
+      <script type="text/javascript" id="documentation_options" data-url_root="../" src="../_static/documentation_options.js"></script>
+        <script data-url_root="../" id="documentation_options" src="../_static/documentation_options.js"></script>
+        <script src="../_static/jquery.js"></script>
+        <script src="../_static/underscore.js"></script>
+        <script src="../_static/doctools.js"></script>
+    
+    <script type="text/javascript" src="../_static/js/theme.js"></script>
+
+    
+    <link rel="index" title="Index" href="../genindex.html" />
+    <link rel="search" title="Search" href="../search.html" />
+    <link rel="prev" title="Git Workflow" href="git_workflow.html" /> 
+</head>
+
+<body class="wy-body-for-nav">
+
+   
+  <div class="wy-grid-for-nav">
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+          
+
+          
+            <a href="../index.html" class="icon icon-home"> libRoadRunner
+          
+
+          
+          </a>
+
+          
+            
+            
+          
+
+          
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+
+          
+        </div>
+
+        
+        <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+          
+            
+            
+              
+            
+            
+              <ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="../index.html">RoadRunner Documentation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../Installation/installation.html">Installing RoadRunner</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../tutorial/tutorial.html">Tutorial</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../read_write_functions.html">SBML Read/Write Functions</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../selecting_values.html">Selecting Values</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../steady_state.html">Steady State Analysis</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../stochastic.html">Stochastic Simulation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../metabolic.html">Metabolic Control Analysis</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../stability.html">Stability Analysis</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../stoichiometric.html">Stoichiometric Analysis</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../bifurcation.html">Bifurcation Analysis</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../simulation_and_integration.html">Simulation and Integration</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../utility_functions.html">Utility Functions</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../accessing_model.html">Accessing the SBML Model Variables</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../rrplugins/rrplugins_documentation.html">rrPlugins Documentation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../PythonAPIReference/api_reference.html">Python RoadRunner API Reference</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../C%2B%2BAPIReference/index.html">The LibRoadRunner C++ Library</a></li>
+<li class="toctree-l1 current"><a class="reference internal" href="index.html">Developers Documentation</a><ul class="current">
+<li class="toctree-l2"><a class="reference internal" href="git_workflow.html">Git Workflow</a></li>
+<li class="toctree-l2 current"><a class="current reference internal" href="#">Building the Documentation</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#quick-instructions">Quick instructions</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#details">Details</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#dependencies">Dependencies</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#troubleshooting">Troubleshooting</a></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+
+            
+          
+        </div>
+        
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" aria-label="top navigation">
+        
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../index.html">libRoadRunner</a>
+        
+      </nav>
+
+
+      <div class="wy-nav-content">
+        
+        <div class="rst-content">
+        
+          
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div role="navigation" aria-label="breadcrumbs navigation">
+
+  <ul class="wy-breadcrumbs">
+    
+      <li><a href="../index.html" class="icon icon-home"></a> &raquo;</li>
+        
+          <li><a href="index.html">Developers Documentation</a> &raquo;</li>
+        
+      <li>Building the Documentation</li>
+    
+    
+      <li class="wy-breadcrumbs-aside">
+        
+          
+            <a href="../_sources/developers_docs/building_documentation.rst.txt" rel="nofollow"> View page source</a>
+          
+        
+      </li>
+    
+  </ul>
+
+  
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+            
+  <div class="section" id="building-the-documentation">
+<h1>Building the Documentation<a class="headerlink" href="#building-the-documentation" title="Permalink to this headline">¶</a></h1>
+<div class="section" id="quick-instructions">
+<h2>Quick instructions<a class="headerlink" href="#quick-instructions" title="Permalink to this headline">¶</a></h2>
+<p>Configure the roadrunner cmake system using the <code class="docutils literal notranslate"><span class="pre">-DBUILD_DOCS=ON</span></code> flag and build the <code class="docutils literal notranslate"><span class="pre">roadrunner-docs-sphinx</span></code> target.
+This basically will run the commands for running doxygen and sphinx.</p>
+<p>For example:</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>cmake -DCMAKE_INSTALL_PREFIX<span class="o">=</span>../install-mac-rel <span class="se">\</span>
+    -DRR_DEPENDENCIES_INSTALL_PREFIX<span class="o">=</span>/Users/ciaranwelsh/Documents/libroadrunner-deps/install-clang13-rel <span class="se">\</span>
+    -DLLVM_INSTALL_PREFIX<span class="o">=</span>/Users/ciaranwelsh/Documents/llvm-6.x/llvm-6.x-clang11.0.3-x64-release <span class="se">\</span>
+    -DBUILD_TESTS<span class="o">=</span>ON <span class="se">\</span>
+    -DPython_ROOT_DIR<span class="o">=</span>/Users/ciaranwelsh/miniconda3/envs/py39 <span class="se">\</span>
+    -DBUILD_PYTHON<span class="o">=</span>ON <span class="se">\</span>
+    -DSWIG_EXECUTABLE<span class="o">=</span>/Users/ciaranwelsh/Documents/swig-4.0.2/swig <span class="se">\</span>
+    -DBUILD_DOCS<span class="o">=</span>ON <span class="se">\</span>
+    -DSPHINX_EXECUTABLE<span class="o">=</span>/Users/ciaranwelsh/miniconda3/envs/py39/bin/sphinx-build
+cmake --build . --target roadrunner-docs-sphinx --config Release
+</pre></div>
+</div>
+</div>
+<div class="section" id="details">
+<h2>Details<a class="headerlink" href="#details" title="Permalink to this headline">¶</a></h2>
+<p>Roadrunner is a C++ library with a C and Python front end. The C and C++ code is documented using the standard
+<code class="docutils literal notranslate"><span class="pre">doxygen</span></code> tool, whilst the Python front end is documented using Sphinx. Furthermore, we make use of a
+Python package called <a class="reference external" href="https://breathe.readthedocs.io/en/latest/">Breathe</a> for bridging the gap between
+<code class="docutils literal notranslate"><span class="pre">Doxygen</span></code> and <code class="docutils literal notranslate"><span class="pre">Sphinx</span></code> which are the two standard documentation systems for C/C++ and Python respectively.</p>
+<p>In short, <code class="docutils literal notranslate"><span class="pre">doxygen</span></code> reads the docstrings from C/C++ code and saves them to XML which is pulled into documentation
+that can be rendered by <code class="docutils literal notranslate"><span class="pre">Sphinx</span></code> using directives from <code class="docutils literal notranslate"><span class="pre">Breathe</span></code>. Whilst rendering the documentation
+into html is handled by sphinx, we still maintain and provide access to the doxygen generated documentation.</p>
+<dl class="simple">
+<dt>When roadrunner is built with the <code class="docutils literal notranslate"><span class="pre">-DBUILD_DOCS=ON</span></code> flag, two new cmake targets are presented to the developer:</dt><dd><ul class="simple">
+<li><p>roadrunner-docs-doxygen</p></li>
+<li><p>roadrunner-docs-sphinx.</p></li>
+</ul>
+</dd>
+</dl>
+<p>Since the <code class="docutils literal notranslate"><span class="pre">roadrunner-docs-sphinx</span></code> target depends on the <code class="docutils literal notranslate"><span class="pre">roadrunner-docs-doxygen</span></code> target, cmake will always
+make sure to build the <code class="docutils literal notranslate"><span class="pre">roadrunner-docs-doxygen</span></code> target before it builds the <code class="docutils literal notranslate"><span class="pre">roadrunner-docs-doxygen</span></code> target.</p>
+</div>
+<div class="section" id="dependencies">
+<h2>Dependencies<a class="headerlink" href="#dependencies" title="Permalink to this headline">¶</a></h2>
+<dl class="simple">
+<dt>You will need Sphinx, <a class="reference external" href="https://www.doxygen.nl/download.html">Doxygen</a> and some python packages</dt><dd><ul class="simple">
+<li><p>pip install sphinx breathe sphinxcontrib-bibtex sphinx-tabs sphinx_rtd_theme</p></li>
+</ul>
+</dd>
+</dl>
+<div class="admonition warning">
+<p class="admonition-title">Warning</p>
+<p>Make sure you either install doxygen in a default location (i.e. already on the PATH)  or that you add the path to the
+doxygen executable to the PATH environment variable so cmake can find it.</p>
+</div>
+</div>
+<div class="section" id="troubleshooting">
+<h2>Troubleshooting<a class="headerlink" href="#troubleshooting" title="Permalink to this headline">¶</a></h2>
+<p>Sometimes cmake finds a different version of Python installed on your system
+compared to what you were expecting. Therefore, if cmake complains that it cannot
+locate “sphinx-build” you can provide this manually with:</p>
+<p>Make sure that this <cite>sphinx-build</cite> is from the same python version you are using to build roadrunner.
+This is particularly important when building with conda. You can control which version
+of Python is found by using <code class="docutils literal notranslate"><span class="pre">-DPython_ROOT_DIR=/full/path/to/python/root</span></code>. For example, if you want
+to use the python inside the conda environment here at <code class="docutils literal notranslate"><span class="pre">/Users/ciaranwelsh/miniconda/envs/py38/bin/python</span></code>
+then the Python executable is located at</p>
+<blockquote>
+<div><p><code class="docutils literal notranslate"><span class="pre">/Users/ciaranwelsh/miniconda/envs/py38/bin/python</span></code></p>
+</div></blockquote>
+<dl class="simple">
+<dt>and its root is</dt><dd><p><code class="docutils literal notranslate"><span class="pre">/Users/ciaranwelsh/miniconda/envs/py38</span></code></p>
+</dd>
+</dl>
+</div>
+</div>
+
+
+           </div>
+           
+          </div>
+          <footer>
+    <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
+        <a href="git_workflow.html" class="btn btn-neutral float-left" title="Git Workflow" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
+    </div>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>
+        &#169; Copyright 2013-2018, Andy Somogyi, J Kyle Medley, Kiri Choi, Herbert Suaro.
+
+    </p>
+  </div>
+    
+    
+    
+    Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
+    
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
+    
+    provided by <a href="https://readthedocs.org">Read the Docs</a>. 
+
+</footer>
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+  
+
+  <script type="text/javascript">
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script>
+
+  
+  
+    
+   
+
+</body>
+</html>

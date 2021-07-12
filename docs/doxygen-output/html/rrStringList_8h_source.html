@@ -22,7 +22,7 @@
  <tr style="height: 56px;">
   <td id="projectalign" style="padding-left: 0.5em;">
    <div id="projectname">roadrunner
-   &#160;<span id="projectnumber">2.0.5</span>
+   &#160;<span id="projectnumber">2.0.8</span>
    </div>
    <div id="projectbrief">Fast simulator for SBML models</div>
   </td>
@@ -87,21 +87,21 @@ $(function() {
 <div class="line"><a name="l00018"></a><span class="lineno"><a class="line" href="classrr_1_1StringList.html">   18</a></span>&#160;<span class="keyword">class </span>RR_DECLSPEC <a class="code" href="classrr_1_1StringList.html">StringList</a></div>
 <div class="line"><a name="l00019"></a><span class="lineno">   19</span>&#160;{</div>
 <div class="line"><a name="l00020"></a><span class="lineno">   20</span>&#160;    <span class="keyword">protected</span>:</div>
-<div class="line"><a name="l00021"></a><span class="lineno">   21</span>&#160;        vector&lt;string&gt;              mStrings;</div>
-<div class="line"><a name="l00022"></a><span class="lineno">   22</span>&#160;        vector&lt;string&gt;::iterator    mLI;</div>
+<div class="line"><a name="l00021"></a><span class="lineno">   21</span>&#160;        std::vector&lt;std::string&gt;              mStrings;</div>
+<div class="line"><a name="l00022"></a><span class="lineno">   22</span>&#160;        std::vector&lt;std::string&gt;::iterator    mLI;</div>
 <div class="line"><a name="l00023"></a><span class="lineno">   23</span>&#160; </div>
 <div class="line"><a name="l00024"></a><span class="lineno">   24</span>&#160;    <span class="keyword">public</span>:</div>
 <div class="line"><a name="l00025"></a><span class="lineno">   25</span>&#160;                                    <a class="code" href="classrr_1_1StringList.html">StringList</a>();</div>
 <div class="line"><a name="l00026"></a><span class="lineno">   26</span>&#160;                                    <a class="code" href="classrr_1_1StringList.html">StringList</a>(<span class="keywordtype">char</span>** stringList, <span class="keyword">const</span> <span class="keywordtype">int</span>&amp; count);</div>
-<div class="line"><a name="l00027"></a><span class="lineno">   27</span>&#160;                                    <a class="code" href="classrr_1_1StringList.html">StringList</a>(<span class="keyword">const</span> <span class="keywordtype">string</span>&amp; str, <span class="keyword">const</span> <span class="keywordtype">string</span>&amp; delimiters = <span class="stringliteral">&quot;, &quot;</span>);</div>
-<div class="line"><a name="l00028"></a><span class="lineno">   28</span>&#160;                                    <a class="code" href="classrr_1_1StringList.html">StringList</a>(<span class="keyword">const</span> vector&lt;string&gt;&amp; strings);</div>
+<div class="line"><a name="l00027"></a><span class="lineno">   27</span>&#160;                                    <a class="code" href="classrr_1_1StringList.html">StringList</a>(<span class="keyword">const</span> std::string&amp; str, <span class="keyword">const</span> std::string&amp; delimiters = <span class="stringliteral">&quot;, &quot;</span>);</div>
+<div class="line"><a name="l00028"></a><span class="lineno">   28</span>&#160;                                    <a class="code" href="classrr_1_1StringList.html">StringList</a>(<span class="keyword">const</span> std::vector&lt;std::string&gt;&amp; strings);</div>
 <div class="line"><a name="l00029"></a><span class="lineno">   29</span>&#160;                                    <a class="code" href="classrr_1_1StringList.html">StringList</a>(<span class="keyword">const</span> <a class="code" href="classrr_1_1StringList.html">StringList</a>&amp; cp);</div>
 <div class="line"><a name="l00030"></a><span class="lineno">   30</span>&#160;                                    <a class="code" href="classrr_1_1StringList.html">StringList</a>(<a class="code" href="rrc__types_8h.html#a7c9475df6c7337d99482b13a365e7596">rrc::RRStringArrayPtr</a> cp);</div>
 <div class="line"><a name="l00031"></a><span class="lineno">   31</span>&#160;                                   ~<a class="code" href="classrr_1_1StringList.html">StringList</a>();</div>
 <div class="line"><a name="l00032"></a><span class="lineno">   32</span>&#160; </div>
-<div class="line"><a name="l00033"></a><span class="lineno">   33</span>&#160;        <span class="keywordtype">void</span>                        InsertAt(<span class="keyword">const</span> <span class="keywordtype">int</span>&amp; index, <span class="keyword">const</span> <span class="keywordtype">string</span>&amp; item);</div>
+<div class="line"><a name="l00033"></a><span class="lineno">   33</span>&#160;        <span class="keywordtype">void</span>                        InsertAt(<span class="keyword">const</span> <span class="keywordtype">int</span>&amp; index, <span class="keyword">const</span> std::string&amp; item);</div>
 <div class="line"><a name="l00034"></a><span class="lineno">   34</span>&#160;        <span class="keywordtype">void</span>                        Append(<span class="keyword">const</span> <a class="code" href="classrr_1_1StringList.html">StringList</a>&amp; list);</div>
-<div class="line"><a name="l00035"></a><span class="lineno">   35</span>&#160;        <span class="keywordtype">string</span>                      AsString(<span class="keyword">const</span> <span class="keywordtype">string</span>&amp; delimiter = gComma) <span class="keyword">const</span>;</div>
+<div class="line"><a name="l00035"></a><span class="lineno">   35</span>&#160;        std::string                      AsString(<span class="keyword">const</span> std::string&amp; delimiter = gComma) <span class="keyword">const</span>;</div>
 <div class="line"><a name="l00036"></a><span class="lineno">   36</span>&#160; </div>
 <div class="line"><a name="l00040"></a><span class="lineno">   40</span>&#160;        <span class="keywordtype">unsigned</span> <span class="keywordtype">int</span> size() <span class="keyword">const</span>;</div>
 <div class="line"><a name="l00041"></a><span class="lineno">   41</span>&#160; </div>
@@ -110,28 +110,28 @@ $(function() {
 <div class="line"><a name="l00044"></a><span class="lineno">   44</span>&#160; </div>
 <div class="line"><a name="l00045"></a><span class="lineno">   45</span>&#160; </div>
 <div class="line"><a name="l00046"></a><span class="lineno">   46</span>&#160;        <a class="code" href="classrr_1_1StringList.html">StringList</a>&amp;                 operator=(<span class="keyword">const</span> <a class="code" href="classrr_1_1StringList.html">StringList</a>&amp; rhs);</div>
-<div class="line"><a name="l00047"></a><span class="lineno">   47</span>&#160;        <a class="code" href="classrr_1_1StringList.html">StringList</a>&amp;                 operator=(<span class="keyword">const</span> vector&lt;string&gt;&amp; rhs);</div>
+<div class="line"><a name="l00047"></a><span class="lineno">   47</span>&#160;        <a class="code" href="classrr_1_1StringList.html">StringList</a>&amp;                 operator=(<span class="keyword">const</span> std::vector&lt;std::string&gt;&amp; rhs);</div>
 <div class="line"><a name="l00048"></a><span class="lineno">   48</span>&#160; </div>
-<div class="line"><a name="l00049"></a><span class="lineno">   49</span>&#160;        <span class="keywordtype">string</span>&amp;                     operator[](<span class="keyword">const</span> <span class="keywordtype">int</span>&amp; index);</div>
-<div class="line"><a name="l00050"></a><span class="lineno">   50</span>&#160;        <span class="keyword">const</span> <span class="keywordtype">string</span>&amp;               operator[](<span class="keyword">const</span> <span class="keywordtype">int</span>&amp; index) <span class="keyword">const</span>;</div>
+<div class="line"><a name="l00049"></a><span class="lineno">   49</span>&#160;        std::string&amp;                     operator[](<span class="keyword">const</span> <span class="keywordtype">int</span>&amp; index);</div>
+<div class="line"><a name="l00050"></a><span class="lineno">   50</span>&#160;        <span class="keyword">const</span> std::string&amp;               operator[](<span class="keyword">const</span> <span class="keywordtype">int</span>&amp; index) <span class="keyword">const</span>;</div>
 <div class="line"><a name="l00051"></a><span class="lineno">   51</span>&#160;        <a class="code" href="classrr_1_1StringList.html">StringList</a>                  operator-(<span class="keyword">const</span> <a class="code" href="classrr_1_1StringList.html">StringList</a>&amp; rhs);</div>
 <div class="line"><a name="l00052"></a><span class="lineno">   52</span>&#160;        <span class="keywordtype">void</span>                        removeAt(<span class="keyword">const</span> <span class="keywordtype">int</span>&amp; index);</div>
-<div class="line"><a name="l00053"></a><span class="lineno">   53</span>&#160;        <span class="keywordtype">int</span>                         find(<span class="keyword">const</span> <span class="keywordtype">string</span>&amp; item);</div>
-<div class="line"><a name="l00054"></a><span class="lineno">   54</span>&#160;        <span class="keywordtype">int</span>                         indexOf(<span class="keyword">const</span> <span class="keywordtype">string</span>&amp; item);</div>
+<div class="line"><a name="l00053"></a><span class="lineno">   53</span>&#160;        <span class="keywordtype">int</span>                         find(<span class="keyword">const</span> std::string&amp; item);</div>
+<div class="line"><a name="l00054"></a><span class="lineno">   54</span>&#160;        <span class="keywordtype">int</span>                         indexOf(<span class="keyword">const</span> std::string&amp; item);</div>
 <div class="line"><a name="l00055"></a><span class="lineno">   55</span>&#160;        <span class="keywordtype">void</span>                        clear();</div>
 <div class="line"><a name="l00056"></a><span class="lineno">   56</span>&#160;        <span class="keywordtype">void</span>                        empty();</div>
-<div class="line"><a name="l00057"></a><span class="lineno">   57</span>&#160;        <span class="keywordtype">bool</span>                        Contains(<span class="keyword">const</span> <span class="keywordtype">string</span>&amp; item) <span class="keyword">const</span>;</div>
-<div class="line"><a name="l00058"></a><span class="lineno">   58</span>&#160;        <span class="keywordtype">bool</span>                        DontContain(<span class="keyword">const</span> <span class="keywordtype">string</span>&amp; item) <span class="keyword">const</span>;</div>
-<div class="line"><a name="l00059"></a><span class="lineno">   59</span>&#160;        <span class="keywordtype">void</span>                        add(<span class="keyword">const</span> <span class="keywordtype">string</span>&amp; item);</div>
-<div class="line"><a name="l00060"></a><span class="lineno">   60</span>&#160;        vector&lt;string&gt;::iterator    begin();</div>
-<div class="line"><a name="l00061"></a><span class="lineno">   61</span>&#160;        vector&lt;string&gt;::iterator    end();</div>
-<div class="line"><a name="l00062"></a><span class="lineno">   62</span>&#160;        <span class="keywordtype">void</span>                        PreFix(<span class="keyword">const</span> <span class="keywordtype">string</span>&amp; fix);</div>
-<div class="line"><a name="l00063"></a><span class="lineno">   63</span>&#160;        <span class="keywordtype">void</span>                        PostFix(<span class="keyword">const</span> <span class="keywordtype">string</span>&amp; fix);</div>
+<div class="line"><a name="l00057"></a><span class="lineno">   57</span>&#160;        <span class="keywordtype">bool</span>                        Contains(<span class="keyword">const</span> std::string&amp; item) <span class="keyword">const</span>;</div>
+<div class="line"><a name="l00058"></a><span class="lineno">   58</span>&#160;        <span class="keywordtype">bool</span>                        DontContain(<span class="keyword">const</span> std::string&amp; item) <span class="keyword">const</span>;</div>
+<div class="line"><a name="l00059"></a><span class="lineno">   59</span>&#160;        <span class="keywordtype">void</span>                        add(<span class="keyword">const</span> std::string&amp; item);</div>
+<div class="line"><a name="l00060"></a><span class="lineno">   60</span>&#160;        std::vector&lt;std::string&gt;::iterator    begin();</div>
+<div class="line"><a name="l00061"></a><span class="lineno">   61</span>&#160;        std::vector&lt;std::string&gt;::iterator    end();</div>
+<div class="line"><a name="l00062"></a><span class="lineno">   62</span>&#160;        <span class="keywordtype">void</span>                        PreFix(<span class="keyword">const</span> std::string&amp; fix);</div>
+<div class="line"><a name="l00063"></a><span class="lineno">   63</span>&#160;        <span class="keywordtype">void</span>                        PostFix(<span class="keyword">const</span> std::string&amp; fix);</div>
 <div class="line"><a name="l00064"></a><span class="lineno">   64</span>&#160;        RR_DECLSPEC</div>
-<div class="line"><a name="l00065"></a><span class="lineno">   65</span>&#160;        <span class="keyword">friend</span> ostream&amp;             operator&lt;&lt;(ostream&amp; stream, <span class="keyword">const</span> <a class="code" href="classrr_1_1StringList.html">StringList</a>&amp; list);</div>
+<div class="line"><a name="l00065"></a><span class="lineno">   65</span>&#160;        <span class="keyword">friend</span> std::ostream&amp;             operator&lt;&lt;(std::ostream&amp; stream, <span class="keyword">const</span> <a class="code" href="classrr_1_1StringList.html">StringList</a>&amp; list);</div>
 <div class="line"><a name="l00066"></a><span class="lineno">   66</span>&#160; </div>
-<div class="line"><a name="l00071"></a><span class="lineno">   71</span>&#160;        <span class="comment">//operator vector&lt;string&gt;() const { return mStrings; }</span></div>
-<div class="line"><a name="l00072"></a><span class="lineno"><a class="line" href="classrr_1_1StringList.html#a7aaee2352ec87ec8967f4033ce45ddcb">   72</a></span>&#160;        <span class="keyword">operator</span> <span class="keyword">const</span> vector&lt;string&gt;&amp;() <span class="keyword">const</span> { <span class="keywordflow">return</span> mStrings;}</div>
+<div class="line"><a name="l00071"></a><span class="lineno">   71</span>&#160;        <span class="comment">//operator std::vector&lt;std::string&gt;() const { return mStrings; }</span></div>
+<div class="line"><a name="l00072"></a><span class="lineno"><a class="line" href="classrr_1_1StringList.html#ab9df1f41a8963154433c26e71b892056">   72</a></span>&#160;        <span class="keyword">operator</span> <span class="keyword">const</span> std::vector&lt;std::string&gt;&amp;() <span class="keyword">const</span> { <span class="keywordflow">return</span> mStrings;}</div>
 <div class="line"><a name="l00073"></a><span class="lineno">   73</span>&#160;};</div>
 <div class="line"><a name="l00074"></a><span class="lineno">   74</span>&#160; </div>
 <div class="line"><a name="l00075"></a><span class="lineno">   75</span>&#160; </div>

@@ -22,7 +22,7 @@
  <tr style="height: 56px;">
   <td id="projectalign" style="padding-left: 0.5em;">
    <div id="projectname">roadrunner
-   &#160;<span id="projectnumber">2.0.5</span>
+   &#160;<span id="projectnumber">2.0.8</span>
    </div>
    <div id="projectbrief">Fast simulator for SBML models</div>
   </td>
@@ -93,8 +93,8 @@ $(function() {
 <div class="line"><a name="l00036"></a><span class="lineno"><a class="line" href="classrrllvm_1_1SymbolForest.html">   36</a></span>&#160;<span class="keyword">class </span><a class="code" href="classrrllvm_1_1SymbolForest.html">SymbolForest</a></div>
 <div class="line"><a name="l00037"></a><span class="lineno">   37</span>&#160;{</div>
 <div class="line"><a name="l00038"></a><span class="lineno">   38</span>&#160;<span class="keyword">public</span>:</div>
-<div class="line"><a name="l00039"></a><span class="lineno">   39</span>&#160;    <span class="keyword">typedef</span> map&lt;string, const libsbml::ASTNode*&gt; Map;</div>
-<div class="line"><a name="l00040"></a><span class="lineno">   40</span>&#160;    <span class="keyword">typedef</span> map&lt;string, const libsbml::ASTNode*&gt;::const_iterator _const_iterator;</div>
+<div class="line"><a name="l00039"></a><span class="lineno">   39</span>&#160;    <span class="keyword">typedef</span> std::map&lt;std::string, const libsbml::ASTNode*&gt; Map;</div>
+<div class="line"><a name="l00040"></a><span class="lineno">   40</span>&#160;    <span class="keyword">typedef</span> std::map&lt;std::string, const libsbml::ASTNode*&gt;::const_iterator _const_iterator;</div>
 <div class="line"><a name="l00041"></a><span class="lineno">   41</span>&#160; </div>
 <div class="line"><a name="l00047"></a><span class="lineno"><a class="line" href="classrrllvm_1_1SymbolForest_1_1ConstIterator.html">   47</a></span>&#160;    <span class="keyword">class </span><a class="code" href="classrrllvm_1_1SymbolForest_1_1ConstIterator.html">ConstIterator</a></div>
 <div class="line"><a name="l00048"></a><span class="lineno">   48</span>&#160;    {</div>
@@ -142,13 +142,13 @@ $(function() {
 <div class="line"><a name="l00099"></a><span class="lineno">   99</span>&#160;        <span class="keywordtype">bool</span> end;</div>
 <div class="line"><a name="l00100"></a><span class="lineno">  100</span>&#160;    };</div>
 <div class="line"><a name="l00101"></a><span class="lineno">  101</span>&#160; </div>
-<div class="line"><a name="l00102"></a><span class="lineno">  102</span>&#160;    map&lt;string, const libsbml::ASTNode*&gt; floatingSpecies;</div>
-<div class="line"><a name="l00103"></a><span class="lineno">  103</span>&#160;    map&lt;string, const libsbml::ASTNode*&gt; boundarySpecies;</div>
-<div class="line"><a name="l00104"></a><span class="lineno">  104</span>&#160;    map&lt;string, const libsbml::ASTNode*&gt; compartments;</div>
-<div class="line"><a name="l00105"></a><span class="lineno">  105</span>&#160;    map&lt;string, const libsbml::ASTNode*&gt; globalParameters;</div>
-<div class="line"><a name="l00106"></a><span class="lineno">  106</span>&#160;    map&lt;string, const libsbml::ASTNode*&gt; speciesReferences;</div>
+<div class="line"><a name="l00102"></a><span class="lineno">  102</span>&#160;    std::map&lt;std::string, const libsbml::ASTNode*&gt; floatingSpecies;</div>
+<div class="line"><a name="l00103"></a><span class="lineno">  103</span>&#160;    std::map&lt;std::string, const libsbml::ASTNode*&gt; boundarySpecies;</div>
+<div class="line"><a name="l00104"></a><span class="lineno">  104</span>&#160;    std::map&lt;std::string, const libsbml::ASTNode*&gt; compartments;</div>
+<div class="line"><a name="l00105"></a><span class="lineno">  105</span>&#160;    std::map&lt;std::string, const libsbml::ASTNode*&gt; globalParameters;</div>
+<div class="line"><a name="l00106"></a><span class="lineno">  106</span>&#160;    std::map&lt;std::string, const libsbml::ASTNode*&gt; speciesReferences;</div>
 <div class="line"><a name="l00107"></a><span class="lineno">  107</span>&#160; </div>
-<div class="line"><a name="l00114"></a><span class="lineno"><a class="line" href="classrrllvm_1_1SymbolForest.html#a161758d6dca0d3f1a9ec96b8ffa3a139">  114</a></span>&#160;    <span class="keyword">const</span> <a class="code" href="classrrllvm_1_1SymbolForest_1_1ConstIterator.html">ConstIterator</a> <a class="code" href="classrrllvm_1_1SymbolForest.html#a161758d6dca0d3f1a9ec96b8ffa3a139">find</a>(<span class="keyword">const</span> map&lt;string, const libsbml::ASTNode*&gt;::key_type&amp; x)<span class="keyword"> const</span></div>
+<div class="line"><a name="l00114"></a><span class="lineno"><a class="line" href="classrrllvm_1_1SymbolForest.html#a4b99a270969d9dfc5051ab0291e5724b">  114</a></span>&#160;    <span class="keyword">const</span> <a class="code" href="classrrllvm_1_1SymbolForest_1_1ConstIterator.html">ConstIterator</a> <a class="code" href="classrrllvm_1_1SymbolForest.html#a4b99a270969d9dfc5051ab0291e5724b">find</a>(<span class="keyword">const</span> std::map&lt;std::string, const libsbml::ASTNode*&gt;::key_type&amp; x)<span class="keyword"> const</span></div>
 <div class="line"><a name="l00115"></a><span class="lineno">  115</span>&#160;<span class="keyword">    </span>{</div>
 <div class="line"><a name="l00116"></a><span class="lineno">  116</span>&#160;        _const_iterator result;</div>
 <div class="line"><a name="l00117"></a><span class="lineno">  117</span>&#160; </div>
@@ -192,9 +192,9 @@ $(function() {
 <div class="line"><a name="l00155"></a><span class="lineno">  155</span>&#160;} <span class="comment">/* namespace rr */</span></div>
 <div class="line"><a name="l00156"></a><span class="lineno">  156</span>&#160;<span class="preprocessor">#endif </span><span class="comment">/* LLVMSymbolForestH */</span><span class="preprocessor"></span></div>
 </div><!-- fragment --></div><!-- contents -->
-<div class="ttc" id="aclassrrllvm_1_1SymbolForest_html_a161758d6dca0d3f1a9ec96b8ffa3a139"><div class="ttname"><a href="classrrllvm_1_1SymbolForest.html#a161758d6dca0d3f1a9ec96b8ffa3a139">rrllvm::SymbolForest::find</a></div><div class="ttdeci">const ConstIterator find(const map&lt; string, const libsbml::ASTNode * &gt;::key_type &amp;x) const</div><div class="ttdoc">find and end are designed to work identically to the map::find.</div><div class="ttdef"><b>Definition:</b> SymbolForest.h:114</div></div>
 <div class="ttc" id="aclassrrllvm_1_1SymbolForest_html"><div class="ttname"><a href="classrrllvm_1_1SymbolForest.html">rrllvm::SymbolForest</a></div><div class="ttdoc">Similar to a symbol table, except instead of a name / value, we have a name / tree,...</div><div class="ttdef"><b>Definition:</b> SymbolForest.h:37</div></div>
-<div class="ttc" id="aclassrrllvm_1_1SymbolForest_1_1ConstIterator_html"><div class="ttname"><a href="classrrllvm_1_1SymbolForest_1_1ConstIterator.html">rrllvm::SymbolForest::ConstIterator</a></div><div class="ttdoc">syntatically the same as a map&lt;string, const libsbml::ASTNode*&gt;::const_iterator</div><div class="ttdef"><b>Definition:</b> SymbolForest.h:48</div></div>
+<div class="ttc" id="aclassrrllvm_1_1SymbolForest_1_1ConstIterator_html"><div class="ttname"><a href="classrrllvm_1_1SymbolForest_1_1ConstIterator.html">rrllvm::SymbolForest::ConstIterator</a></div><div class="ttdoc">syntatically the same as a std::map&lt;std::string, const libsbml::ASTNode*&gt;::const_iterator</div><div class="ttdef"><b>Definition:</b> SymbolForest.h:48</div></div>
+<div class="ttc" id="aclassrrllvm_1_1SymbolForest_html_a4b99a270969d9dfc5051ab0291e5724b"><div class="ttname"><a href="classrrllvm_1_1SymbolForest.html#a4b99a270969d9dfc5051ab0291e5724b">rrllvm::SymbolForest::find</a></div><div class="ttdeci">const ConstIterator find(const std::map&lt; std::string, const libsbml::ASTNode * &gt;::key_type &amp;x) const</div><div class="ttdoc">find and end are designed to work identically to the std::map::find.</div><div class="ttdef"><b>Definition:</b> SymbolForest.h:114</div></div>
 <!-- start footer part -->
 <hr class="footer"/><address class="footer"><small>
 Generated by&#160;<a href="http://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.8.20

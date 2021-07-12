@@ -15,7 +15,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="rrLogger.h" line="41" column="23" bodyfile="rrLogger.h" bodystart="41" bodyend="-1"/>
+        <location file="rrLogger.h" line="51" column="23" bodyfile="rrLogger.h" bodystart="51" bodyend="-1"/>
       </memberdef>
       <memberdef kind="variable" id="classrr_1_1LoggingBuffer_1aac93dd6e75e99df1b4841388f42db9f2" prot="private" static="no" mutable="no">
         <type>int</type>
@@ -28,7 +28,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="rrLogger.h" line="42" column="9" bodyfile="rrLogger.h" bodystart="42" bodyend="-1"/>
+        <location file="rrLogger.h" line="52" column="9" bodyfile="rrLogger.h" bodystart="52" bodyend="-1"/>
       </memberdef>
       <memberdef kind="variable" id="classrr_1_1LoggingBuffer_1adb7e4ff29400e8b874602167ae3c4108" prot="private" static="no" mutable="no">
         <type>const char *</type>
@@ -41,7 +41,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="rrLogger.h" line="43" column="16" bodyfile="rrLogger.h" bodystart="43" bodyend="-1"/>
+        <location file="rrLogger.h" line="53" column="16" bodyfile="rrLogger.h" bodystart="53" bodyend="-1"/>
       </memberdef>
       <memberdef kind="variable" id="classrr_1_1LoggingBuffer_1a37b76a863e73200728cf4eba6bcdf056" prot="private" static="no" mutable="no">
         <type>int</type>
@@ -54,7 +54,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="rrLogger.h" line="44" column="9" bodyfile="rrLogger.h" bodystart="44" bodyend="-1"/>
+        <location file="rrLogger.h" line="54" column="9" bodyfile="rrLogger.h" bodystart="54" bodyend="-1"/>
       </memberdef>
       </sectiondef>
       <sectiondef kind="public-func">
@@ -81,7 +81,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="rrLogger.h" line="28" column="5" bodyfile="rrLogger.cpp" bodystart="544" bodyend="556"/>
+        <location file="rrLogger.h" line="38" column="5" bodyfile="rrLogger.cpp" bodystart="552" bodyend="564"/>
       </memberdef>
       <memberdef kind="function" id="classrr_1_1LoggingBuffer_1a604487b60a968da939c335195a9fba19" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
         <type></type>
@@ -89,13 +89,13 @@
         <argsstring>()</argsstring>
         <name>~LoggingBuffer</name>
         <briefdescription>
-<para>dump the contents of the stringstream to the log. </para>
+<para>dump the contents of the std::stringstream to the log. </para>
         </briefdescription>
         <detaileddescription>
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="rrLogger.h" line="33" column="5" bodyfile="rrLogger.cpp" bodystart="558" bodyend="591"/>
+        <location file="rrLogger.h" line="43" column="5" bodyfile="rrLogger.cpp" bodystart="566" bodyend="599"/>
       </memberdef>
       <memberdef kind="function" id="classrr_1_1LoggingBuffer_1a23c72224ad52f14bc2d52d1eb361d479" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
         <type>std::ostream &amp;</type>
@@ -109,7 +109,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="rrLogger.h" line="38" column="18" bodyfile="rrLogger.cpp" bodystart="593" bodyend="596"/>
+        <location file="rrLogger.h" line="48" column="18" bodyfile="rrLogger.cpp" bodystart="601" bodyend="604"/>
       </memberdef>
       </sectiondef>
     <briefdescription>
@@ -118,9 +118,20 @@
     <detaileddescription>
 <para>std::endl is encountered, howeve the old proprietary logging system dumps basically when the stream object goes out of scope.</para>
 <para>This object allows us to to use the new Poco logging system and maintain compatability with all existing code.</para>
-<para>This object is returne from the <ref refid="classrr_1_1Logger" kindref="compound">rr::Logger</ref>, exposes a ostream interface, and and dumps to the log when it goes out of scope. </para>
+<para>This object is returne from the <ref refid="classrr_1_1Logger" kindref="compound">rr::Logger</ref>, exposes a std::ostream interface, and and dumps to the log when it goes out of scope.</para>
+<para>Levels are determined by Poco::Message::Priority:<itemizedlist>
+<listitem><para>Poco::Message::Priority::PRIO_FATAL = 1</para>
+</listitem><listitem><para>Poco::Message::Priority::PRIO_CRITICAL = 2</para>
+</listitem><listitem><para>Poco::Message::Priority::PRIO_ERROR = 3</para>
+</listitem><listitem><para>Poco::Message::Priority::PRIO_WARNING = 4</para>
+</listitem><listitem><para>Poco::Message::Priority::PRIO_NOTICE = 5</para>
+</listitem><listitem><para>Poco::Message::Priority::PRIO_INFORMATION = 6</para>
+</listitem><listitem><para>Poco::Message::Priority::PRIO_DEBUG = 7</para>
+</listitem><listitem><para>Poco::Message::Priority::PRIO_TRACE = 8 </para>
+</listitem></itemizedlist>
+</para>
     </detaileddescription>
-    <location file="rrLogger.h" line="25" column="1" bodyfile="rrLogger.h" bodystart="26" bodyend="45"/>
+    <location file="rrLogger.h" line="35" column="1" bodyfile="rrLogger.h" bodystart="36" bodyend="55"/>
     <listofallmembers>
       <member refid="classrr_1_1LoggingBuffer_1a290b76b0e6cb89c58703971a6a474fec" prot="private" virt="non-virtual"><scope>rr::LoggingBuffer</scope><name>buffer</name></member>
       <member refid="classrr_1_1LoggingBuffer_1adb7e4ff29400e8b874602167ae3c4108" prot="private" virt="non-virtual"><scope>rr::LoggingBuffer</scope><name>file</name></member>

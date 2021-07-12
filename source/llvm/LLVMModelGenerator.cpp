@@ -43,12 +43,12 @@ using llvm::Function;
 namespace rrllvm
 {
 
-typedef cxx11_ns::weak_ptr<ModelResources> WeakModelPtr;
-typedef cxx11_ns::shared_ptr<ModelResources> SharedModelPtr;
-typedef cxx11_ns::unordered_map<std::string, WeakModelPtr> ModelPtrMap;
+typedef std::weak_ptr<ModelResources> WeakModelResourcesPtr;
+typedef std::shared_ptr<ModelResources> SharedModelResourcesPtr;
+typedef std::unordered_map<std::string, WeakModelResourcesPtr> ModelResourcesPtrMap;
 
 static Poco::Mutex cachedModelsMutex;
-static ModelPtrMap cachedModels;
+static ModelResourcesPtrMap cachedModelResources;
 
 
 /**
@@ -88,7 +88,7 @@ void copyCachedModel(a_type* src, b_type* dst)
 
 ExecutableModel* LLVMModelGenerator::regenerateModel(ExecutableModel* oldModel, libsbml::SBMLDocument* doc, uint options)
 {
-	SharedModelPtr rc(new ModelResources());
+	SharedModelResourcesPtr rc = std::make_shared<ModelResources>();
 
 	char* docSBML = doc->toSBML();
 
@@ -194,7 +194,7 @@ ExecutableModel* LLVMModelGenerator::regenerateModel(ExecutableModel* oldModel, 
 		setGlobalParameterInitValueIR = 0;
 	}
 
-	//Currently we save jitted functions in object file format 
+	//Currently we save jitted functions in object file format
 	//in save state. Compiling the functions into this format in the first place
 	//makes saveState significantly faster than creating the object file when it is called
 	//We then load the object file into the jit engine to avoid compiling the functions twice
@@ -216,7 +216,7 @@ ExecutableModel* LLVMModelGenerator::regenerateModel(ExecutableModel* oldModel, 
 	}
 
 	pass.run(*context.getModule());
-	
+
 	//Read from modBuffer into our execution engine
 	std::string moduleStr(modBuffer.begin(), modBuffer.end());
 
@@ -224,7 +224,7 @@ ExecutableModel* LLVMModelGenerator::regenerateModel(ExecutableModel* oldModel, 
 
 	llvm::Expected<std::unique_ptr<llvm::object::ObjectFile> > objectFileExpected =
 		llvm::object::ObjectFile::createObjectFile(llvm::MemoryBufferRef(moduleStr, "id"));
-    
+
 	if (!objectFileExpected) {
 		//LS DEBUG:  find a way to get the text out of the error.
 		auto err = objectFileExpected.takeError();
@@ -234,7 +234,7 @@ ExecutableModel* LLVMModelGenerator::regenerateModel(ExecutableModel* oldModel, 
 	}
 
 	std::unique_ptr<llvm::object::ObjectFile> objectFile(std::move(objectFileExpected.get()));
-	
+
 	llvm::object::OwningBinary<llvm::object::ObjectFile> owningObject(std::move(objectFile), std::move(memBuffer));
 
 	context.getExecutionEngine().addObjectFile(std::move(owningObject));
@@ -357,10 +357,10 @@ context.getExecutionEngine().getFunctionAddress("setGlobalParameter");
 
 
 
-	// if anything up to this point throws an exception, thats OK, because	
-	// we have not allocated any memory yet that is not taken care of by	
-	// something else.	
-	// Now that everything that could have thrown would have thrown, we	
+	// if anything up to this point throws an exception, thats OK, because
+	// we have not allocated any memory yet that is not taken care of by
+	// something else.
+	// Now that everything that could have thrown would have thrown, we
 	// can now create the model and set its fields.
 
 	LLVMModelData* modelData = createModelData(context.getModelDataSymbols(),
@@ -487,7 +487,7 @@ context.getExecutionEngine().getFunctionAddress("setGlobalParameter");
 					}
 				}
 			}
-			
+
 		}
 
 
@@ -513,7 +513,7 @@ context.getExecutionEngine().getFunctionAddress("setGlobalParameter");
 				}
 
 			}
-			
+
 		}
 
 
@@ -595,7 +595,7 @@ context.getExecutionEngine().getFunctionAddress("setGlobalParameter");
 					newModel->modelData->globalParametersAlias[index] = value;
 					//newModel->setGlobalParameterValues(1, &index, &value);
 				}
-		
+
 				else if (newModel->symbols->hasRateRule(id))
 				{
 					// copy to rate rule value data block
@@ -614,20 +614,21 @@ context.getExecutionEngine().getFunctionAddress("setGlobalParameter");
 		}
 
 		newModel->setTime(oldModel->getTime());
-	
+
 	}
 
 	return newModel;
 }
 
 
-ExecutableModel* LLVMModelGenerator::createModel(const std::string& sbml,
-        uint options)
+ExecutableModel* LLVMModelGenerator::createModel(const std::string& sbml, std::uint32_t options)
 {
     bool forceReCompile = options & LoadSBMLOptions::RECOMPILE;
 
     std::string md5;
 
+    // if we force recompile, then we don't need to think
+    // about locating a previously compiled model
     if (!forceReCompile)
     {
         // check for a cached copy
@@ -638,15 +639,14 @@ ExecutableModel* LLVMModelGenerator::createModel(const std::string& sbml,
             md5 += "_conserved";
         }
 
-        ModelPtrMap::const_iterator i;
-
-        SharedModelPtr sp;
+        SharedModelResourcesPtr sp;
 
         cachedModelsMutex.lock();
 
-        if ((i = cachedModels.find(md5)) != cachedModels.end())
-        {
-            sp = i->second.lock();
+        // if count == 1, key is in map. Keys are unique so can only be 1 or 0.
+        if (cachedModelResources.count(md5) == 1){
+            // if key found, lock the weak pointer into shared pointer
+            sp = cachedModelResources.at(md5).lock();
         }
 
         cachedModelsMutex.unlock();
@@ -656,7 +656,7 @@ ExecutableModel* LLVMModelGenerator::createModel(const std::string& sbml,
 
         if (sp)
         {
-            rrLog(Logger::LOG_DEBUG) << "found a cached model for " << md5;
+            rrLog(Logger::LOG_DEBUG) << "found a cached model for \"" << md5 << "\"";
             return new LLVMExecutableModel(sp, createModelData(*sp->symbols, sp->random));
         }
         else
@@ -666,7 +666,7 @@ ExecutableModel* LLVMModelGenerator::createModel(const std::string& sbml,
         }
     }
 
-    SharedModelPtr rc(new ModelResources());
+    SharedModelResourcesPtr rc(new ModelResources());
 
     ModelGeneratorContext context(sbml, options);
 
@@ -713,7 +713,7 @@ ExecutableModel* LLVMModelGenerator::createModel(const std::string& sbml,
 	}
 	else
 	{
-		setBoundarySpeciesAmountIR = 
+		setBoundarySpeciesAmountIR =
 			SetBoundarySpeciesAmountCodeGen(context).createFunction();
 
 		setBoundarySpeciesConcentrationIR =
@@ -725,7 +725,7 @@ ExecutableModel* LLVMModelGenerator::createModel(const std::string& sbml,
 		setCompartmentVolumeIR =
 			SetCompartmentVolumeCodeGen(context).createFunction();
 
-		setFloatingSpeciesAmountIR = 
+		setFloatingSpeciesAmountIR =
 			SetFloatingSpeciesAmountCodeGen(context).createFunction();
 
 		setGlobalParameterIR =
@@ -766,13 +766,13 @@ ExecutableModel* LLVMModelGenerator::createModel(const std::string& sbml,
 		setGlobalParameterInitValueIR			= 0;
 	}
 
-	//Currently we save jitted functions in object file format 
+	//Currently we save jitted functions in object file format
 	//in save state. Compiling the functions into this format in the first place
 	//makes saveState significantly faster than creating the object file when it is called
 	//We then load the object file into the jit engine to avoid compiling the functions twice
 	auto TargetMachine = context.getExecutionEngine().getTargetMachine();
 
-	llvm::InitializeNativeTarget();
+	llvm::InitializeNativeTarget(); // todo may have already been called in RoadRunner constructor
 
 	//Write the object file to modBuffer
 	std::error_code EC;
@@ -784,11 +784,11 @@ ExecutableModel* LLVMModelGenerator::createModel(const std::string& sbml,
 
 	if (TargetMachine->addPassesToEmitFile(pass, mStrStream, FileType))
 	{
-		throw "TargetMachine can't emit a file of type CGFT_ObjectFile";
+		throw std::logic_error("TargetMachine can't emit a file of type CGFT_ObjectFile");
 	}
 
 	pass.run(*context.getModule());
-	
+
 	//Read from modBuffer into our execution engine
 	std::string moduleStr(modBuffer.begin(), modBuffer.end());
 
@@ -796,7 +796,7 @@ ExecutableModel* LLVMModelGenerator::createModel(const std::string& sbml,
 
 	llvm::Expected<std::unique_ptr<llvm::object::ObjectFile> > objectFileExpected =
 		llvm::object::ObjectFile::createObjectFile(llvm::MemoryBufferRef(moduleStr, "id"));
-    
+
 	if (!objectFileExpected) {
 		//LS DEBUG:  find a way to get the text out of the error.
 		auto err = objectFileExpected.takeError();
@@ -928,19 +928,15 @@ ExecutableModel* LLVMModelGenerator::createModel(const std::string& sbml,
 	}
 
 
-
-
-
-
-	// if anything up to this point throws an exception, thats OK, because	
-	// we have not allocated any memory yet that is not taken care of by	
-	// something else.	
-	// Now that everything that could have thrown would have thrown, we	
+	// if anything up to this point throws an exception, thats OK, because
+	// we have not allocated any memory yet that is not taken care of by
+	// something else.
+	// Now that everything that could have thrown would have thrown, we
 	// can now create the model and set its fields.
 
     LLVMModelData *modelData = createModelData(context.getModelDataSymbols(),
             context.getRandom());
-   
+
     uint llvmsize = ModelDataIRBuilder::getModelDataSize(context.getModule(),
             &context.getExecutionEngine());
 
@@ -969,22 +965,22 @@ ExecutableModel* LLVMModelGenerator::createModel(const std::string& sbml,
         // check for a chached copy, another thread could have
         // created one while we were making ours...
 
-        ModelPtrMap::const_iterator i;
+        ModelResourcesPtrMap::const_iterator i;
 
-        SharedModelPtr sp;
+        SharedModelResourcesPtr sp;
 
         cachedModelsMutex.lock();
 
         // whilst we have it locked, clear any expired ptrs
-        for (ModelPtrMap::const_iterator j = cachedModels.begin();
-                j != cachedModels.end();)
+        for (ModelResourcesPtrMap::const_iterator j = cachedModelResources.begin();
+             j != cachedModelResources.end();)
         {
             if (j->second.expired())
             {
                 rrLog(Logger::LOG_DEBUG) <<
                         "removing expired model resource for hash " << md5;
 
-                j = cachedModels.erase(j);
+                j = cachedModelResources.erase(j);
             }
             else
             {
@@ -992,13 +988,13 @@ ExecutableModel* LLVMModelGenerator::createModel(const std::string& sbml,
             }
         }
 
-        if ((i = cachedModels.find(md5)) == cachedModels.end())
+        if ((i = cachedModelResources.find(md5)) == cachedModelResources.end())
         {
             rrLog(Logger::LOG_DEBUG) << "could not find existing cached resource "
                     "resources, for hash " << md5 <<
                     ", inserting new resources into cache";
 
-            cachedModels[md5] = rc;
+            cachedModelResources[md5] = rc;
         }
 
         cachedModelsMutex.unlock();

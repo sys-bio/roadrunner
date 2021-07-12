@@ -22,7 +22,7 @@
  <tr style="height: 56px;">
   <td id="projectalign" style="padding-left: 0.5em;">
    <div id="projectname">roadrunner
-   &#160;<span id="projectnumber">2.0.5</span>
+   &#160;<span id="projectnumber">2.0.8</span>
    </div>
    <div id="projectbrief">Fast simulator for SBML models</div>
   </td>
@@ -75,12 +75,18 @@ $(function() {
 <table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="func-members"></a>
 Functions</h2></td></tr>
-<tr class="memitem:ga8046c3bfa3d0c126ff1a64dc875e914e"><td class="memItemLeft" align="right" valign="top">C_DECL_SPEC bool rrcCallConv&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__edit.html#ga8046c3bfa3d0c126ff1a64dc875e914e">addSpecies</a> (<a class="el" href="rrc__types_8h.html#a1d68f0592372208fa5a5f2799ea4b3ae">RRHandle</a> handle, const char *sid, const char *compartment, double initialAmount, bool hasOnlySubstanceUnits, bool boundaryCondition)</td></tr>
-<tr class="memdesc:ga8046c3bfa3d0c126ff1a64dc875e914e"><td class="mdescLeft">&#160;</td><td class="mdescRight">Add a species to the current model.  <a href="group__edit.html#ga8046c3bfa3d0c126ff1a64dc875e914e">More...</a><br /></td></tr>
-<tr class="separator:ga8046c3bfa3d0c126ff1a64dc875e914e"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ga32500bd1249d5d5fc380d489154e4c85"><td class="memItemLeft" align="right" valign="top">C_DECL_SPEC bool rrcCallConv&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__edit.html#ga32500bd1249d5d5fc380d489154e4c85">addSpeciesNoRegen</a> (<a class="el" href="rrc__types_8h.html#a1d68f0592372208fa5a5f2799ea4b3ae">RRHandle</a> handle, const char *sid, const char *compartment, double initialAmount, bool hasOnlySubstanceUnits, bool boundaryCondition)</td></tr>
-<tr class="memdesc:ga32500bd1249d5d5fc380d489154e4c85"><td class="mdescLeft">&#160;</td><td class="mdescRight">Add a species to the current model, without regenerating it The last modification must regenerate for the modifications to take effect.  <a href="group__edit.html#ga32500bd1249d5d5fc380d489154e4c85">More...</a><br /></td></tr>
-<tr class="separator:ga32500bd1249d5d5fc380d489154e4c85"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:gaef2fc31f4dbe5b5d7bd0d76ce6a296ff"><td class="memItemLeft" align="right" valign="top">C_DECL_SPEC bool rrcCallConv&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__edit.html#gaef2fc31f4dbe5b5d7bd0d76ce6a296ff">addSpeciesAmount</a> (<a class="el" href="rrc__types_8h.html#a1d68f0592372208fa5a5f2799ea4b3ae">RRHandle</a> handle, const char *sid, const char *compartment, double initialAmount, bool hasOnlySubstanceUnits, bool boundaryCondition)</td></tr>
+<tr class="memdesc:gaef2fc31f4dbe5b5d7bd0d76ce6a296ff"><td class="mdescLeft">&#160;</td><td class="mdescRight">Add a species to the current model.  <a href="group__edit.html#gaef2fc31f4dbe5b5d7bd0d76ce6a296ff">More...</a><br /></td></tr>
+<tr class="separator:gaef2fc31f4dbe5b5d7bd0d76ce6a296ff"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ga213287c567b88a4f3619fdf379f67ac5"><td class="memItemLeft" align="right" valign="top">C_DECL_SPEC bool rrcCallConv&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__edit.html#ga213287c567b88a4f3619fdf379f67ac5">addSpeciesConcentration</a> (<a class="el" href="rrc__types_8h.html#a1d68f0592372208fa5a5f2799ea4b3ae">RRHandle</a> handle, const char *sid, const char *compartment, double initialConcentration, bool hasOnlySubstanceUnits, bool boundaryCondition)</td></tr>
+<tr class="memdesc:ga213287c567b88a4f3619fdf379f67ac5"><td class="mdescLeft">&#160;</td><td class="mdescRight">Add a species to the current model.  <a href="group__edit.html#ga213287c567b88a4f3619fdf379f67ac5">More...</a><br /></td></tr>
+<tr class="separator:ga213287c567b88a4f3619fdf379f67ac5"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ga48236ef5d127c7b685fd774d879c028a"><td class="memItemLeft" align="right" valign="top">C_DECL_SPEC bool rrcCallConv&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__edit.html#ga48236ef5d127c7b685fd774d879c028a">addSpeciesConcentrationNoRegen</a> (<a class="el" href="rrc__types_8h.html#a1d68f0592372208fa5a5f2799ea4b3ae">RRHandle</a> handle, const char *sid, const char *compartment, double initialConcentration, bool hasOnlySubstanceUnits, bool boundaryCondition)</td></tr>
+<tr class="memdesc:ga48236ef5d127c7b685fd774d879c028a"><td class="mdescLeft">&#160;</td><td class="mdescRight">Add a species to the current model, without regenerating it The last modification must regenerate for the modifications to take effect.  <a href="group__edit.html#ga48236ef5d127c7b685fd774d879c028a">More...</a><br /></td></tr>
+<tr class="separator:ga48236ef5d127c7b685fd774d879c028a"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ga6eb04c102f6da7d25d84bd39894d5697"><td class="memItemLeft" align="right" valign="top">C_DECL_SPEC bool rrcCallConv&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__edit.html#ga6eb04c102f6da7d25d84bd39894d5697">addSpeciesAmountNoRegen</a> (<a class="el" href="rrc__types_8h.html#a1d68f0592372208fa5a5f2799ea4b3ae">RRHandle</a> handle, const char *sid, const char *compartment, double initialAmount, bool hasOnlySubstanceUnits, bool boundaryCondition)</td></tr>
+<tr class="memdesc:ga6eb04c102f6da7d25d84bd39894d5697"><td class="mdescLeft">&#160;</td><td class="mdescRight">Add a species to the current model, without regenerating it The last modification must regenerate for the modifications to take effect.  <a href="group__edit.html#ga6eb04c102f6da7d25d84bd39894d5697">More...</a><br /></td></tr>
+<tr class="separator:ga6eb04c102f6da7d25d84bd39894d5697"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:gaf5ebfc87d97383ffb003897259a21b6b"><td class="memItemLeft" align="right" valign="top">C_DECL_SPEC bool rrcCallConv&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__edit.html#gaf5ebfc87d97383ffb003897259a21b6b">removeSpecies</a> (<a class="el" href="rrc__types_8h.html#a1d68f0592372208fa5a5f2799ea4b3ae">RRHandle</a> handle, const char *sid)</td></tr>
 <tr class="memdesc:gaf5ebfc87d97383ffb003897259a21b6b"><td class="mdescLeft">&#160;</td><td class="mdescRight">Remove a species from the current model.  <a href="group__edit.html#gaf5ebfc87d97383ffb003897259a21b6b">More...</a><br /></td></tr>
 <tr class="separator:gaf5ebfc87d97383ffb003897259a21b6b"><td class="memSeparator" colspan="2">&#160;</td></tr>
@@ -246,6 +252,9 @@ Functions</h2></td></tr>
 <tr class="memitem:ga322382e2cb2e35312cd4a88ceee906a5"><td class="memItemLeft" align="right" valign="top">C_DECL_SPEC bool rrcCallConv&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__edit.html#ga322382e2cb2e35312cd4a88ceee906a5">removeEventsNoRegen</a> (<a class="el" href="rrc__types_8h.html#a1d68f0592372208fa5a5f2799ea4b3ae">RRHandle</a> handle, const char *eid)</td></tr>
 <tr class="memdesc:ga322382e2cb2e35312cd4a88ceee906a5"><td class="mdescLeft">&#160;</td><td class="mdescRight">Remove an event from the current model, without regenerating it The last modification must regenerate for the modifications to take effect.  <a href="group__edit.html#ga322382e2cb2e35312cd4a88ceee906a5">More...</a><br /></td></tr>
 <tr class="separator:ga322382e2cb2e35312cd4a88ceee906a5"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:gae8d120bbf287b0879707510d1df86328"><td class="memItemLeft" align="right" valign="top">C_DECL_SPEC bool rrcCallConv&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__edit.html#gae8d120bbf287b0879707510d1df86328">regenerate</a> (<a class="el" href="rrc__types_8h.html#a1d68f0592372208fa5a5f2799ea4b3ae">RRHandle</a> handle)</td></tr>
+<tr class="memdesc:gae8d120bbf287b0879707510d1df86328"><td class="mdescLeft">&#160;</td><td class="mdescRight">After a model has been edited, it needs to be compiled. Call regenerate to recompile a model so that it is ready for use.  <a href="group__edit.html#gae8d120bbf287b0879707510d1df86328">More...</a><br /></td></tr>
+<tr class="separator:gae8d120bbf287b0879707510d1df86328"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:ga63e642abda6ec0756781e159be5d3010"><td class="memItemLeft" align="right" valign="top">C_DECL_SPEC bool rrcCallConv&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__edit.html#ga63e642abda6ec0756781e159be5d3010">validateCurrentSBML</a> (<a class="el" href="rrc__types_8h.html#a1d68f0592372208fa5a5f2799ea4b3ae">RRHandle</a> handle)</td></tr>
 <tr class="memdesc:ga63e642abda6ec0756781e159be5d3010"><td class="mdescLeft">&#160;</td><td class="mdescRight">Validate the current SBML file.  <a href="group__edit.html#ga63e642abda6ec0756781e159be5d3010">More...</a><br /></td></tr>
 <tr class="separator:ga63e642abda6ec0756781e159be5d3010"><td class="memSeparator" colspan="2">&#160;</td></tr>
@@ -1223,14 +1232,14 @@ Functions</h2></td></tr>
 
 </div>
 </div>
-<a id="ga8046c3bfa3d0c126ff1a64dc875e914e"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#ga8046c3bfa3d0c126ff1a64dc875e914e">&#9670;&nbsp;</a></span>addSpecies()</h2>
+<a id="gaef2fc31f4dbe5b5d7bd0d76ce6a296ff"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#gaef2fc31f4dbe5b5d7bd0d76ce6a296ff">&#9670;&nbsp;</a></span>addSpeciesAmount()</h2>
 
 <div class="memitem">
 <div class="memproto">
       <table class="memname">
         <tr>
-          <td class="memname">C_DECL_SPEC bool rrcCallConv addSpecies </td>
+          <td class="memname">C_DECL_SPEC bool rrcCallConv addSpeciesAmount </td>
           <td>(</td>
           <td class="paramtype"><a class="el" href="rrc__types_8h.html#a1d68f0592372208fa5a5f2799ea4b3ae">RRHandle</a>&#160;</td>
           <td class="paramname"><em>handle</em>, </td>
@@ -1288,14 +1297,14 @@ Functions</h2></td></tr>
 
 </div>
 </div>
-<a id="ga32500bd1249d5d5fc380d489154e4c85"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#ga32500bd1249d5d5fc380d489154e4c85">&#9670;&nbsp;</a></span>addSpeciesNoRegen()</h2>
+<a id="ga6eb04c102f6da7d25d84bd39894d5697"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ga6eb04c102f6da7d25d84bd39894d5697">&#9670;&nbsp;</a></span>addSpeciesAmountNoRegen()</h2>
 
 <div class="memitem">
 <div class="memproto">
       <table class="memname">
         <tr>
-          <td class="memname">C_DECL_SPEC bool rrcCallConv addSpeciesNoRegen </td>
+          <td class="memname">C_DECL_SPEC bool rrcCallConv addSpeciesAmountNoRegen </td>
           <td>(</td>
           <td class="paramtype"><a class="el" href="rrc__types_8h.html#a1d68f0592372208fa5a5f2799ea4b3ae">RRHandle</a>&#160;</td>
           <td class="paramname"><em>handle</em>, </td>
@@ -1345,6 +1354,136 @@ Functions</h2></td></tr>
     <tr><td class="paramdir">[in]</td><td class="paramname">sid</td><td>ID of the species to be added </td></tr>
     <tr><td class="paramdir">[in]</td><td class="paramname">compartment</td><td>Compartment of the species to be added </td></tr>
     <tr><td class="paramdir">[in]</td><td class="paramname">initialAmount</td><td>Initial amount of the species to be added </td></tr>
+    <tr><td class="paramdir">[in]</td><td class="paramname">substanceUnit</td><td>Substance unit of the species to be added </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd>Returns false if the call fails, otherwise returns a true </dd></dl>
+
+</div>
+</div>
+<a id="ga213287c567b88a4f3619fdf379f67ac5"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ga213287c567b88a4f3619fdf379f67ac5">&#9670;&nbsp;</a></span>addSpeciesConcentration()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">C_DECL_SPEC bool rrcCallConv addSpeciesConcentration </td>
+          <td>(</td>
+          <td class="paramtype"><a class="el" href="rrc__types_8h.html#a1d68f0592372208fa5a5f2799ea4b3ae">RRHandle</a>&#160;</td>
+          <td class="paramname"><em>handle</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const char *&#160;</td>
+          <td class="paramname"><em>sid</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const char *&#160;</td>
+          <td class="paramname"><em>compartment</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">double&#160;</td>
+          <td class="paramname"><em>initialConcentration</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">bool&#160;</td>
+          <td class="paramname"><em>hasOnlySubstanceUnits</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">bool&#160;</td>
+          <td class="paramname"><em>boundaryCondition</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Add a species to the current model. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramdir">[in]</td><td class="paramname">handle</td><td>Handle to a RoadRunner instance </td></tr>
+    <tr><td class="paramdir">[in]</td><td class="paramname">sid</td><td>ID of the species to be added </td></tr>
+    <tr><td class="paramdir">[in]</td><td class="paramname">compartment</td><td>Compartment of the species to be added </td></tr>
+    <tr><td class="paramdir">[in]</td><td class="paramname">initialConcentration</td><td>Initial concentration of the species to be added </td></tr>
+    <tr><td class="paramdir">[in]</td><td class="paramname">substanceUnit</td><td>Substance unit of the species to be added </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd>Returns false if the call fails, otherwise returns a true </dd></dl>
+
+</div>
+</div>
+<a id="ga48236ef5d127c7b685fd774d879c028a"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ga48236ef5d127c7b685fd774d879c028a">&#9670;&nbsp;</a></span>addSpeciesConcentrationNoRegen()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">C_DECL_SPEC bool rrcCallConv addSpeciesConcentrationNoRegen </td>
+          <td>(</td>
+          <td class="paramtype"><a class="el" href="rrc__types_8h.html#a1d68f0592372208fa5a5f2799ea4b3ae">RRHandle</a>&#160;</td>
+          <td class="paramname"><em>handle</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const char *&#160;</td>
+          <td class="paramname"><em>sid</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const char *&#160;</td>
+          <td class="paramname"><em>compartment</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">double&#160;</td>
+          <td class="paramname"><em>initialConcentration</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">bool&#160;</td>
+          <td class="paramname"><em>hasOnlySubstanceUnits</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">bool&#160;</td>
+          <td class="paramname"><em>boundaryCondition</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Add a species to the current model, without regenerating it The last modification must regenerate for the modifications to take effect. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramdir">[in]</td><td class="paramname">handle</td><td>Handle to a RoadRunner instance </td></tr>
+    <tr><td class="paramdir">[in]</td><td class="paramname">sid</td><td>ID of the species to be added </td></tr>
+    <tr><td class="paramdir">[in]</td><td class="paramname">compartment</td><td>Compartment of the species to be added </td></tr>
+    <tr><td class="paramdir">[in]</td><td class="paramname">initialConcentration</td><td>Initial concentration of the species to be added </td></tr>
     <tr><td class="paramdir">[in]</td><td class="paramname">substanceUnit</td><td>Substance unit of the species to be added </td></tr>
   </table>
   </dd>
@@ -1478,6 +1617,33 @@ Functions</h2></td></tr>
   </dd>
 </dl>
 <dl class="section return"><dt>Returns</dt><dd>Returns the kinetic law. </dd></dl>
+
+</div>
+</div>
+<a id="gae8d120bbf287b0879707510d1df86328"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#gae8d120bbf287b0879707510d1df86328">&#9670;&nbsp;</a></span>regenerate()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">C_DECL_SPEC bool rrcCallConv regenerate </td>
+          <td>(</td>
+          <td class="paramtype"><a class="el" href="rrc__types_8h.html#a1d68f0592372208fa5a5f2799ea4b3ae">RRHandle</a>&#160;</td>
+          <td class="paramname"><em>handle</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>After a model has been edited, it needs to be compiled. Call regenerate to recompile a model so that it is ready for use. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramdir">[in]</td><td class="paramname">handle</td><td>Handle to a RoadRunner instance </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd>Returns false if the call fails, otherwise returns a true </dd></dl>
 
 </div>
 </div>

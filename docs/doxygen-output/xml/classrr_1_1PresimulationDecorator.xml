@@ -1,0 +1,202 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.20" xml:lang="en-US">
+  <compounddef id="classrr_1_1PresimulationDecorator" kind="class" language="C++" prot="public">
+    <compoundname>rr::PresimulationDecorator</compoundname>
+    <basecompoundref refid="classrr_1_1SteadyStateSolverDecorator" prot="public" virt="non-virtual">rr::SteadyStateSolverDecorator</basecompoundref>
+    <includes refid="PresimulationDecorator_8h" local="no">PresimulationDecorator.h</includes>
+      <sectiondef kind="public-func">
+      <memberdef kind="function" id="classrr_1_1PresimulationDecorator_1ad0437401c72f6bc5bfa52620387af334" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type></type>
+        <definition>rr::PresimulationDecorator::~PresimulationDecorator</definition>
+        <argsstring>() override=default</argsstring>
+        <name>~PresimulationDecorator</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="PresimulationDecorator.h" line="20" column="9"/>
+      </memberdef>
+      <memberdef kind="function" id="classrr_1_1PresimulationDecorator_1ad88550867b8a8aa9fe4203f90cdb509b" prot="public" static="no" const="no" explicit="yes" inline="no" virt="non-virtual">
+        <type></type>
+        <definition>rr::PresimulationDecorator::PresimulationDecorator</definition>
+        <argsstring>(SteadyStateSolver *solver)</argsstring>
+        <name>PresimulationDecorator</name>
+        <param>
+          <type><ref refid="classrr_1_1SteadyStateSolver" kindref="compound">SteadyStateSolver</ref> *</type>
+          <declname>solver</declname>
+        </param>
+        <briefdescription>
+<para>construct a <ref refid="classrr_1_1PresimulationDecorator" kindref="compound">PresimulationDecorator</ref> from a solver. </para>
+        </briefdescription>
+        <detaileddescription>
+<para>Use the presimulation_time solver option to set the time point to integrate to before computing steady state. <parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>solver</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>pointer to instantiated <ref refid="classrr_1_1SteadyStateSolver" kindref="compound">SteadyStateSolver</ref> type.  options already present in the solver or the model associated with the solver are respected. </para>
+</parameterdescription>
+</parameteritem>
+</parameterlist>
+</para>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="PresimulationDecorator.h" line="30" column="18" bodyfile="PresimulationDecorator.cpp" bodystart="14" bodyend="15"/>
+      </memberdef>
+      <memberdef kind="function" id="classrr_1_1PresimulationDecorator_1a9ff127bab409a5b3285b1995a77ec44d" prot="public" static="no" const="no" explicit="no" inline="no" virt="virtual">
+        <type>double</type>
+        <definition>double rr::PresimulationDecorator::solve</definition>
+        <argsstring>() override</argsstring>
+        <name>solve</name>
+        <reimplements refid="classrr_1_1SteadyStateSolver_1ae7ef6c028ac70664cb37c2cb69e546a2">solve</reimplements>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="PresimulationDecorator.h" line="32" column="16" bodyfile="PresimulationDecorator.cpp" bodystart="17" bodyend="34"/>
+      </memberdef>
+      </sectiondef>
+      <sectiondef kind="private-func">
+      <memberdef kind="function" id="classrr_1_1PresimulationDecorator_1ac72c5ef5c3e84174337f1be9894193eb" prot="private" static="no" const="yes" explicit="no" inline="no" virt="virtual">
+        <type>std::string</type>
+        <definition>std::string rr::PresimulationDecorator::decoratorName</definition>
+        <argsstring>() const override</argsstring>
+        <name>decoratorName</name>
+        <reimplements refid="classrr_1_1SteadyStateSolverDecorator_1a665732d0647ee9d077fad0fef5f10b55">decoratorName</reimplements>
+        <briefdescription>
+<para>get the name of this decorator. </para>
+        </briefdescription>
+        <detaileddescription>
+<para>used for modifying the name, description and hint for solver </para>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="PresimulationDecorator.h" line="35" column="21" bodyfile="PresimulationDecorator.cpp" bodystart="36" bodyend="38"/>
+      </memberdef>
+      </sectiondef>
+    <briefdescription>
+<para>wrapper class to change the solve() method of <ref refid="classrr_1_1SteadyStateSolver" kindref="compound">SteadyStateSolver</ref> types. </para>
+    </briefdescription>
+    <detaileddescription>
+<para>Pass a solver to the <ref refid="classrr_1_1PresimulationDecorator" kindref="compound">PresimulationDecorator</ref>. The resulting object can be used as a <ref refid="classrr_1_1SteadyStateSolver" kindref="compound">SteadyStateSolver</ref>; the solve() method of which will apply presimulation to a steadyState calculation. </para>
+    </detaileddescription>
+    <inheritancegraph>
+      <node id="1">
+        <label>rr::PresimulationDecorator</label>
+        <link refid="classrr_1_1PresimulationDecorator"/>
+        <childnode refid="2" relation="public-inheritance">
+        </childnode>
+      </node>
+      <node id="2">
+        <label>rr::SteadyStateSolverDecorator</label>
+        <link refid="classrr_1_1SteadyStateSolverDecorator"/>
+        <childnode refid="3" relation="public-inheritance">
+        </childnode>
+      </node>
+      <node id="3">
+        <label>rr::SteadyStateSolver</label>
+        <link refid="classrr_1_1SteadyStateSolver"/>
+        <childnode refid="4" relation="public-inheritance">
+        </childnode>
+      </node>
+      <node id="4">
+        <label>rr::Solver</label>
+        <link refid="classrr_1_1Solver"/>
+      </node>
+    </inheritancegraph>
+    <collaborationgraph>
+      <node id="1">
+        <label>rr::PresimulationDecorator</label>
+        <link refid="classrr_1_1PresimulationDecorator"/>
+        <childnode refid="2" relation="public-inheritance">
+        </childnode>
+      </node>
+      <node id="2">
+        <label>rr::SteadyStateSolverDecorator</label>
+        <link refid="classrr_1_1SteadyStateSolverDecorator"/>
+        <childnode refid="3" relation="public-inheritance">
+        </childnode>
+        <childnode refid="3" relation="usage">
+          <edgelabel>solver_</edgelabel>
+        </childnode>
+      </node>
+      <node id="3">
+        <label>rr::SteadyStateSolver</label>
+        <link refid="classrr_1_1SteadyStateSolver"/>
+        <childnode refid="4" relation="public-inheritance">
+        </childnode>
+      </node>
+      <node id="4">
+        <label>rr::Solver</label>
+        <link refid="classrr_1_1Solver"/>
+        <childnode refid="5" relation="usage">
+          <edgelabel>mModel</edgelabel>
+        </childnode>
+      </node>
+      <node id="5">
+        <label>rr::ExecutableModel</label>
+        <link refid="classrr_1_1ExecutableModel"/>
+      </node>
+    </collaborationgraph>
+    <location file="PresimulationDecorator.h" line="18" column="5" bodyfile="PresimulationDecorator.h" bodystart="18" bodyend="36"/>
+    <listofallmembers>
+      <member refid="classrr_1_1Solver_1ad5b8ac1ef687d1a3c9f1f305cb73804d" prot="protected" virt="non-virtual"><scope>rr::PresimulationDecorator</scope><name>addSetting</name></member>
+      <member refid="classrr_1_1PresimulationDecorator_1ac72c5ef5c3e84174337f1be9894193eb" prot="private" virt="virtual"><scope>rr::PresimulationDecorator</scope><name>decoratorName</name></member>
+      <member refid="classrr_1_1Solver_1a7d58e224664ab44e56f90802d9601f01" prot="protected" virt="non-virtual"><scope>rr::PresimulationDecorator</scope><name>DescriptionMap</name></member>
+      <member refid="classrr_1_1Solver_1a7e07121f652db358045d6f7b95889ea3" prot="protected" virt="non-virtual"><scope>rr::PresimulationDecorator</scope><name>descriptions</name></member>
+      <member refid="classrr_1_1Solver_1a199de66231b25fef30d8ef2bdff80db7" prot="protected" virt="non-virtual"><scope>rr::PresimulationDecorator</scope><name>display_names_</name></member>
+      <member refid="classrr_1_1Solver_1a76b76c8ba3a31a2c6a600322c90a0452" prot="protected" virt="non-virtual"><scope>rr::PresimulationDecorator</scope><name>DisplayNameMap</name></member>
+      <member refid="classrr_1_1SteadyStateSolverDecorator_1aeee54937d2c9bc9959e7be1ed217831c" prot="public" virt="virtual"><scope>rr::PresimulationDecorator</scope><name>getDescription</name></member>
+      <member refid="classrr_1_1Solver_1a522a881e88165986944db55a8f2da845" prot="public" virt="non-virtual" ambiguityscope="rr::SteadyStateSolver::"><scope>rr::PresimulationDecorator</scope><name>getDescription</name></member>
+      <member refid="classrr_1_1Solver_1a1fce02df70c95855d9d3cd7e3d352c08" prot="public" virt="non-virtual"><scope>rr::PresimulationDecorator</scope><name>getDisplayName</name></member>
+      <member refid="classrr_1_1SteadyStateSolverDecorator_1a010d1f84529bbcc1177f35ee646e8b6c" prot="public" virt="virtual"><scope>rr::PresimulationDecorator</scope><name>getHint</name></member>
+      <member refid="classrr_1_1Solver_1a4915611d49d03f0fe499bed99a05aae1" prot="public" virt="non-virtual" ambiguityscope="rr::SteadyStateSolver::"><scope>rr::PresimulationDecorator</scope><name>getHint</name></member>
+      <member refid="classrr_1_1Solver_1ac89194d54aaad3ecc71e1cfbbef83d15" prot="public" virt="virtual"><scope>rr::PresimulationDecorator</scope><name>getModel</name></member>
+      <member refid="classrr_1_1SteadyStateSolverDecorator_1ab40943abac1972772212fb7fad42afa3" prot="public" virt="virtual"><scope>rr::PresimulationDecorator</scope><name>getName</name></member>
+      <member refid="classrr_1_1Solver_1abbefd0f38dfa2651c74f8abbd6d7b143" prot="public" virt="virtual"><scope>rr::PresimulationDecorator</scope><name>getNumParams</name></member>
+      <member refid="classrr_1_1Solver_1aa13e13a92531fde27fe5711790eee0f7" prot="public" virt="virtual"><scope>rr::PresimulationDecorator</scope><name>getParamDesc</name></member>
+      <member refid="classrr_1_1Solver_1afc0a667f204105aa133376144ce14c75" prot="public" virt="virtual"><scope>rr::PresimulationDecorator</scope><name>getParamDisplayName</name></member>
+      <member refid="classrr_1_1Solver_1aa604b810ab3f1a2c8bc6dfa6fc731dc2" prot="public" virt="virtual"><scope>rr::PresimulationDecorator</scope><name>getParamHint</name></member>
+      <member refid="classrr_1_1Solver_1ae2bb88ffce40a0136c86a020b4c39037" prot="public" virt="virtual"><scope>rr::PresimulationDecorator</scope><name>getParamName</name></member>
+      <member refid="classrr_1_1Solver_1ae2b13c6ae06980b14a80e8a32766dcfa" prot="public" virt="non-virtual"><scope>rr::PresimulationDecorator</scope><name>getSettings</name></member>
+      <member refid="classrr_1_1Solver_1a925e4dae5c4e3e71a2983dc58af9e550" prot="public" virt="non-virtual"><scope>rr::PresimulationDecorator</scope><name>getSettingsMap</name></member>
+      <member refid="classrr_1_1Solver_1a3f7a3671a4f2ee508fa015ed4b164213" prot="public" virt="virtual"><scope>rr::PresimulationDecorator</scope><name>getSettingsRepr</name></member>
+      <member refid="classrr_1_1Solver_1a0bd064d494a0701edffca5eb67b64b2a" prot="public" virt="non-virtual"><scope>rr::PresimulationDecorator</scope><name>getType</name></member>
+      <member refid="classrr_1_1Solver_1a87339915a211b22ecd63078bb1cb7ca9" prot="public" virt="virtual"><scope>rr::PresimulationDecorator</scope><name>getValue</name></member>
+      <member refid="classrr_1_1Solver_1a83b99af970b895d62998bf90ec619168" prot="public" virt="virtual"><scope>rr::PresimulationDecorator</scope><name>getValueAsString</name></member>
+      <member refid="classrr_1_1Solver_1afc1e25855220cbe469433c70f8c44ea5" prot="public" virt="virtual"><scope>rr::PresimulationDecorator</scope><name>hasValue</name></member>
+      <member refid="classrr_1_1Solver_1ac39f2073d482cdf591d93415557c6751" prot="protected" virt="non-virtual"><scope>rr::PresimulationDecorator</scope><name>HintMap</name></member>
+      <member refid="classrr_1_1Solver_1a39049af7a03fd00b1021c1ce9a9691fc" prot="protected" virt="non-virtual"><scope>rr::PresimulationDecorator</scope><name>hints</name></member>
+      <member refid="classrr_1_1SteadyStateSolver_1a613605d22b7da35a526473d107ca65bd" prot="public" virt="virtual"><scope>rr::PresimulationDecorator</scope><name>loadConfigSettings</name></member>
+      <member refid="classrr_1_1Solver_1ab60e7640a8c959558a144d9d7ee45515" prot="protected" virt="non-virtual"><scope>rr::PresimulationDecorator</scope><name>mModel</name></member>
+      <member refid="classrr_1_1PresimulationDecorator_1ad88550867b8a8aa9fe4203f90cdb509b" prot="public" virt="non-virtual"><scope>rr::PresimulationDecorator</scope><name>PresimulationDecorator</name></member>
+      <member refid="classrr_1_1SteadyStateSolverDecorator_1a6978cebc1cf1ac984be2051491170443" prot="public" virt="virtual"><scope>rr::PresimulationDecorator</scope><name>resetSettings</name></member>
+      <member refid="classrr_1_1Solver_1a44a22cf0edead17a9cc923d87dcc063e" prot="protected" virt="non-virtual"><scope>rr::PresimulationDecorator</scope><name>settings</name></member>
+      <member refid="classrr_1_1Solver_1adcbacd57e2871a83bb9c4d7a4038a069" prot="protected" virt="non-virtual"><scope>rr::PresimulationDecorator</scope><name>SettingsList</name></member>
+      <member refid="classrr_1_1Solver_1a61c0fd04ad69fc173c51dac3bdde2431" prot="protected" virt="non-virtual"><scope>rr::PresimulationDecorator</scope><name>SettingsMap</name></member>
+      <member refid="classrr_1_1Solver_1a37b032d8755eaccd3480531bdc2a4596" prot="public" virt="virtual"><scope>rr::PresimulationDecorator</scope><name>settingsPyDictRepr</name></member>
+      <member refid="classrr_1_1Solver_1a18fa004a818506c15d47fa28015039c6" prot="public" virt="virtual"><scope>rr::PresimulationDecorator</scope><name>setValue</name></member>
+      <member refid="classrr_1_1PresimulationDecorator_1a9ff127bab409a5b3285b1995a77ec44d" prot="public" virt="virtual"><scope>rr::PresimulationDecorator</scope><name>solve</name></member>
+      <member refid="classrr_1_1SteadyStateSolver_1a04bba4a342cc7197750f080d41d439e5" prot="public" virt="non-virtual"><scope>rr::PresimulationDecorator</scope><name>Solver</name></member>
+      <member refid="classrr_1_1SteadyStateSolver_1aa0a07553e368f0be33b9bfc429782a97" prot="public" virt="non-virtual"><scope>rr::PresimulationDecorator</scope><name>Solver</name></member>
+      <member refid="classrr_1_1Solver_1aa0a07553e368f0be33b9bfc429782a97" prot="public" virt="non-virtual" ambiguityscope="rr::Solver::"><scope>rr::PresimulationDecorator</scope><name>Solver</name></member>
+      <member refid="classrr_1_1SteadyStateSolverDecorator_1a03e7c058ba9134cb97366f34bade46f8" prot="protected" virt="non-virtual"><scope>rr::PresimulationDecorator</scope><name>solver_</name></member>
+      <member refid="classrr_1_1Solver_1a99f48947491d7cd36c68cebba53915fe" prot="protected" virt="non-virtual"><scope>rr::PresimulationDecorator</scope><name>sorted_settings</name></member>
+      <member refid="classrr_1_1SteadyStateSolverDecorator_1a3458067f3ee8c6d02989298d63e1d4b0" prot="public" virt="non-virtual"><scope>rr::PresimulationDecorator</scope><name>SteadyStateSolverDecorator</name></member>
+      <member refid="classrr_1_1SteadyStateSolverDecorator_1ae9a490c475a289808fe2caebea3fe55e" prot="public" virt="non-virtual"><scope>rr::PresimulationDecorator</scope><name>SteadyStateSolverDecorator</name></member>
+      <member refid="classrr_1_1SteadyStateSolverDecorator_1a3d28cd898cf997dbc2243b0fc2ae3856" prot="public" virt="virtual"><scope>rr::PresimulationDecorator</scope><name>syncWithModel</name></member>
+      <member refid="classrr_1_1SteadyStateSolver_1a4307ed20fd04adf61cc8b4ef9a88f747" prot="public" virt="virtual"><scope>rr::PresimulationDecorator</scope><name>toRepr</name></member>
+      <member refid="classrr_1_1SteadyStateSolver_1aaf40e2ae58d2f4fef80a00f5bb7fd413" prot="public" virt="virtual"><scope>rr::PresimulationDecorator</scope><name>toString</name></member>
+      <member refid="classrr_1_1Solver_1a19315632eeab070bdbfe2fa4ae66ca6c" prot="public" virt="non-virtual"><scope>rr::PresimulationDecorator</scope><name>updateSettings</name></member>
+      <member refid="classrr_1_1PresimulationDecorator_1ad0437401c72f6bc5bfa52620387af334" prot="public" virt="non-virtual"><scope>rr::PresimulationDecorator</scope><name>~PresimulationDecorator</name></member>
+      <member refid="classrr_1_1Solver_1a0e6558e376aee7e4d3a9b69b8c3ae08b" prot="public" virt="virtual"><scope>rr::PresimulationDecorator</scope><name>~Solver</name></member>
+      <member refid="classrr_1_1SteadyStateSolver_1aaa617ea8e7cbbd464dd9ff44220c65d7" prot="public" virt="non-virtual"><scope>rr::PresimulationDecorator</scope><name>~SteadyStateSolver</name></member>
+      <member refid="classrr_1_1SteadyStateSolverDecorator_1a537c2d62d4a77bcaf9d7ae50c111a450" prot="public" virt="non-virtual"><scope>rr::PresimulationDecorator</scope><name>~SteadyStateSolverDecorator</name></member>
+    </listofallmembers>
+  </compounddef>
+</doxygen>

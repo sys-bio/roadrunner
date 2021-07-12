@@ -146,16 +146,13 @@
         <childnode refid="2" relation="public-inheritance">
         </childnode>
       </node>
-      <node id="10">
+      <node id="9">
         <label>rrllvm::ModelGeneratorContext</label>
         <link refid="classrrllvm_1_1ModelGeneratorContext"/>
       </node>
-      <node id="9">
+      <node id="8">
         <label>rrllvm::LLVMModelDataSymbols</label>
         <link refid="classrrllvm_1_1LLVMModelDataSymbols"/>
-      </node>
-      <node id="5">
-        <label>SBMLVisitor</label>
       </node>
       <node id="3">
         <label>rrllvm::LoadSymbolResolver</label>
@@ -169,32 +166,25 @@
         <childnode refid="4" relation="usage">
           <edgelabel>modelSymbols</edgelabel>
         </childnode>
-        <childnode refid="9" relation="usage">
+        <childnode refid="8" relation="usage">
           <edgelabel>modelDataSymbols</edgelabel>
         </childnode>
-        <childnode refid="10" relation="usage">
+        <childnode refid="9" relation="usage">
           <edgelabel>modelGenContext</edgelabel>
         </childnode>
       </node>
       <node id="7">
         <label>rrllvm::SymbolForest</label>
         <link refid="classrrllvm_1_1SymbolForest"/>
-        <childnode refid="8" relation="usage">
-          <edgelabel>boundarySpecies</edgelabel>
-          <edgelabel>compartments</edgelabel>
-          <edgelabel>floatingSpecies</edgelabel>
-          <edgelabel>globalParameters</edgelabel>
-          <edgelabel>speciesReferences</edgelabel>
-        </childnode>
       </node>
-      <node id="8">
-        <label>map&lt; string, const libsbml::ASTNode * &gt;</label>
+      <node id="5">
+        <label>libsbml::SBMLVisitor</label>
       </node>
     </collaborationgraph>
     <location file="llvm/ModelInitialValueSymbolResolver.h" line="27" column="1" bodyfile="llvm/ModelInitialValueSymbolResolver.h" bodystart="28" bodyend="42"/>
     <listofallmembers>
       <member refid="classrrllvm_1_1LoadSymbolResolverBase_1aa108e3576012f1012ebacd4fe30cf747" prot="protected" virt="non-virtual"><scope>rrllvm::ModelInitialValueSymbolResolver</scope><name>builder</name></member>
-      <member refid="classrrllvm_1_1LoadSymbolResolverBase_1afbdc447a23b2902815eb8e9afb497658" prot="protected" virt="non-virtual"><scope>rrllvm::ModelInitialValueSymbolResolver</scope><name>cacheValue</name></member>
+      <member refid="classrrllvm_1_1LoadSymbolResolverBase_1a12fc46aecb84cdf679fbeeac7da5e3f5" prot="protected" virt="non-virtual"><scope>rrllvm::ModelInitialValueSymbolResolver</scope><name>cacheValue</name></member>
       <member refid="classrrllvm_1_1LoadSymbolResolverBase_1ae380d0e0ba65b430e3ce7c23be4b7829" prot="public" virt="non-virtual"><scope>rrllvm::ModelInitialValueSymbolResolver</scope><name>flushCache</name></member>
       <member refid="classrrllvm_1_1LoadSymbolResolverBase_1af30e82d88abca4047e01c3cb032b16a3" prot="public" virt="non-virtual"><scope>rrllvm::ModelInitialValueSymbolResolver</scope><name>loadReactionRate</name></member>
       <member refid="classrrllvm_1_1LoadSymbolResolverBase_1a74b4695465d18b3f22597055b8a55ad0" prot="protected" virt="non-virtual"><scope>rrllvm::ModelInitialValueSymbolResolver</scope><name>LoadSymbolResolverBase</name></member>
@@ -205,14 +195,14 @@
       <member refid="classrrllvm_1_1LoadSymbolResolverBase_1ae13b023d912ca6f0d282a89a10ce3f44" prot="protected" virt="non-virtual"><scope>rrllvm::ModelInitialValueSymbolResolver</scope><name>modelGenContext</name></member>
       <member refid="classrrllvm_1_1ModelInitialValueSymbolResolver_1af43acb900b09103d069e7b1de3bc5eda" prot="public" virt="non-virtual"><scope>rrllvm::ModelInitialValueSymbolResolver</scope><name>ModelInitialValueSymbolResolver</name></member>
       <member refid="classrrllvm_1_1LoadSymbolResolverBase_1a21d2fbcaa66d3de99fb9dc7f8288582c" prot="protected" virt="non-virtual"><scope>rrllvm::ModelInitialValueSymbolResolver</scope><name>modelSymbols</name></member>
-      <member refid="classrrllvm_1_1LoadSymbolResolverBase_1ada819479484b73cc11daa4a22beb0406" prot="public" virt="virtual"><scope>rrllvm::ModelInitialValueSymbolResolver</scope><name>popCacheBlock</name></member>
-      <member refid="classrrllvm_1_1LoadSymbolResolverBase_1a1c2f43e60c68b47222758a9ed2dc0bb1" prot="public" virt="virtual"><scope>rrllvm::ModelInitialValueSymbolResolver</scope><name>pushCacheBlock</name></member>
-      <member refid="classrrllvm_1_1LoadSymbolResolverBase_1ade0623a0a82d7594aaa50d28e95eec6b" prot="public" virt="virtual"><scope>rrllvm::ModelInitialValueSymbolResolver</scope><name>recursiveSymbolPop</name></member>
-      <member refid="classrrllvm_1_1LoadSymbolResolverBase_1a774ff517a485e464ad00de533461f2b1" prot="public" virt="virtual"><scope>rrllvm::ModelInitialValueSymbolResolver</scope><name>recursiveSymbolPush</name></member>
+      <member refid="classrrllvm_1_1LoadSymbolResolverBase_1af789e2e8265aa79b6452f521df9f234e" prot="public" virt="virtual"><scope>rrllvm::ModelInitialValueSymbolResolver</scope><name>popCacheBlock</name></member>
+      <member refid="classrrllvm_1_1LoadSymbolResolverBase_1a7e60c19319e7c69ce40893709590c5b6" prot="public" virt="virtual"><scope>rrllvm::ModelInitialValueSymbolResolver</scope><name>pushCacheBlock</name></member>
+      <member refid="classrrllvm_1_1LoadSymbolResolverBase_1aa0fc1373dd80036307a6da734c44639a" prot="public" virt="virtual"><scope>rrllvm::ModelInitialValueSymbolResolver</scope><name>recursiveSymbolPop</name></member>
+      <member refid="classrrllvm_1_1LoadSymbolResolverBase_1ac57b0b51ada7500192177fe56f783c66" prot="public" virt="virtual"><scope>rrllvm::ModelInitialValueSymbolResolver</scope><name>recursiveSymbolPush</name></member>
       <member refid="classrrllvm_1_1LoadSymbolResolverBase_1ab53501070e5a3b0e35a00f3ab7a63f28" prot="protected" virt="non-virtual"><scope>rrllvm::ModelInitialValueSymbolResolver</scope><name>StringStack</name></member>
       <member refid="classrrllvm_1_1LoadSymbolResolverBase_1a74899bb1f28fb3a75d1447d809e615ec" prot="protected" virt="non-virtual"><scope>rrllvm::ModelInitialValueSymbolResolver</scope><name>symbolCache</name></member>
       <member refid="classrrllvm_1_1LoadSymbolResolverBase_1ab6c8b692f1b8ed108e50ce35a268a57f" prot="protected" virt="non-virtual"><scope>rrllvm::ModelInitialValueSymbolResolver</scope><name>symbolStack</name></member>
-      <member refid="classrrllvm_1_1LoadSymbolResolverBase_1a52e2ad673c48da0d98cc5e9715d62161" prot="protected" virt="non-virtual"><scope>rrllvm::ModelInitialValueSymbolResolver</scope><name>ValueMap</name></member>
+      <member refid="classrrllvm_1_1LoadSymbolResolverBase_1a169ccff7cb957415eac9221690bc026f" prot="protected" virt="non-virtual"><scope>rrllvm::ModelInitialValueSymbolResolver</scope><name>ValueMap</name></member>
       <member refid="classrrllvm_1_1LoadSymbolResolverBase_1aefd7a10503a570504ee99aba37875b36" prot="protected" virt="non-virtual"><scope>rrllvm::ModelInitialValueSymbolResolver</scope><name>ValueMapStack</name></member>
       <member refid="classrrllvm_1_1LoadSymbolResolver_1a7bbd958412d6caf1da624de9e382dc07" prot="protected" virt="virtual"><scope>rrllvm::ModelInitialValueSymbolResolver</scope><name>~LoadSymbolResolver</name></member>
       <member refid="classrrllvm_1_1ModelInitialValueSymbolResolver_1ac6ab8658102903cb3c1e2421db09b2a6" prot="public" virt="virtual"><scope>rrllvm::ModelInitialValueSymbolResolver</scope><name>~ModelInitialValueSymbolResolver</name></member>

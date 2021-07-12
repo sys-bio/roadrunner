@@ -13,6 +13,8 @@
   
   <link rel="stylesheet" href="../_static/css/theme.css" type="text/css" />
   <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
+  <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
+  <link rel="stylesheet" href="../_static/css/theme.css" type="text/css" />
   <link rel="stylesheet" href="../_static/tabs.css" type="text/css" />
 
   
@@ -30,10 +32,10 @@
   
     
       <script type="text/javascript" id="documentation_options" data-url_root="../" src="../_static/documentation_options.js"></script>
+        <script data-url_root="../" id="documentation_options" src="../_static/documentation_options.js"></script>
         <script src="../_static/jquery.js"></script>
         <script src="../_static/underscore.js"></script>
         <script src="../_static/doctools.js"></script>
-        <script src="../_static/language_data.js"></script>
     
     <script type="text/javascript" src="../_static/js/theme.js"></script>
 
@@ -147,6 +149,7 @@
 <li class="toctree-l2"><a class="reference internal" href="index.html#a-complete-example-of-creating-an-integrator">A complete example of creating an integrator</a></li>
 </ul>
 </li>
+<li class="toctree-l1"><a class="reference internal" href="../developers_docs/index.html">Developers Documentation</a></li>
 </ul>
 
             
@@ -219,98 +222,72 @@
   <div class="section" id="nleq2solver">
 <h1>NLEQ2Solver<a class="headerlink" href="#nleq2solver" title="Permalink to this headline">¶</a></h1>
 <dl class="cpp class">
-<dt id="_CPPv4N2rr11NLEQ2SolverE">
-<span id="_CPPv3N2rr11NLEQ2SolverE"></span><span id="_CPPv2N2rr11NLEQ2SolverE"></span><span id="rr::NLEQ2Solver"></span><span class="target" id="classrr_1_1NLEQ2Solver"></span><em class="property">class </em><code class="sig-prename descclassname">rr<code class="sig-prename descclassname">::</code></code><code class="sig-name descname">NLEQ2Solver</code> : <em class="property">public</em> rr::<a class="reference internal" href="SteadyStateSolver.html#_CPPv4N2rr17SteadyStateSolverE" title="rr::SteadyStateSolver">SteadyStateSolver</a><a class="headerlink" href="#_CPPv4N2rr11NLEQ2SolverE" title="Permalink to this definition">¶</a><br /></dt>
+<dt class="sig sig-object cpp" id="_CPPv4N2rr11NLEQ2SolverE">
+<span id="_CPPv3N2rr11NLEQ2SolverE"></span><span id="_CPPv2N2rr11NLEQ2SolverE"></span><span id="rr::NLEQ2Solver"></span><span class="target" id="classrr_1_1NLEQ2Solver"></span><span class="k"><span class="pre">class</span></span><span class="w"> </span><span class="sig-prename descclassname"><span class="n"><span class="pre">rr</span></span><span class="p"><span class="pre">::</span></span></span><span class="sig-name descname"><span class="n"><span class="pre">NLEQ2Solver</span></span></span><span class="w"> </span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="k"><span class="pre">public</span></span><span class="w"> </span><span class="n"><span class="pre">rr</span></span><span class="p"><span class="pre">::</span></span><span class="n"><span class="pre">NLEQSolver</span></span><a class="headerlink" href="#_CPPv4N2rr11NLEQ2SolverE" title="Permalink to this definition">¶</a><br /></dt>
 <dd><div class="breathe-sectiondef docutils container">
-<p class="breathe-sectiondef-title rubric">Public Functions</p>
+<p class="breathe-sectiondef-title rubric" id="breathe-section-title-public-functions">Public Functions</p>
 <dl class="cpp function">
-<dt id="_CPPv4N2rr11NLEQ2Solver11NLEQ2SolverEP15ExecutableModel">
-<span id="_CPPv3N2rr11NLEQ2Solver11NLEQ2SolverEP15ExecutableModel"></span><span id="_CPPv2N2rr11NLEQ2Solver11NLEQ2SolverEP15ExecutableModel"></span><span id="rr::NLEQ2Solver::NLEQ2Solver__ExecutableModelP"></span><span class="target" id="classrr_1_1NLEQ2Solver_1ab55885bb773e0645a240e28eba291625"></span><code class="sig-name descname">NLEQ2Solver</code><span class="sig-paren">(</span><a class="reference internal" href="rrExecutableModel.html#_CPPv4N2rr15ExecutableModelE" title="rr::ExecutableModel">ExecutableModel</a> *<em>_model</em> = NULL<span class="sig-paren">)</span><a class="headerlink" href="#_CPPv4N2rr11NLEQ2Solver11NLEQ2SolverEP15ExecutableModel" title="Permalink to this definition">¶</a><br /></dt>
-<dd><p>Creates a new Instance of NLEQ for the given Model. </p>
-</dd></dl>
-
-<dl class="cpp function">
-<dt id="_CPPv4N2rr11NLEQ2SolverD0Ev">
-<span id="_CPPv3N2rr11NLEQ2SolverD0Ev"></span><span id="_CPPv2N2rr11NLEQ2SolverD0Ev"></span><span id="rr::NLEQ2Solver::~NLEQ2Solver"></span><span class="target" id="classrr_1_1NLEQ2Solver_1a13f89840274d364adeb8d0f295c2487b"></span><code class="sig-name descname">~NLEQ2Solver</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#_CPPv4N2rr11NLEQ2SolverD0Ev" title="Permalink to this definition">¶</a><br /></dt>
-<dd></dd></dl>
-
-<dl class="cpp function">
-<dt id="_CPPv4N2rr11NLEQ2Solver13syncWithModelEP15ExecutableModel">
-<span id="_CPPv3N2rr11NLEQ2Solver13syncWithModelEP15ExecutableModel"></span><span id="_CPPv2N2rr11NLEQ2Solver13syncWithModelEP15ExecutableModel"></span><span id="rr::NLEQ2Solver::syncWithModel__ExecutableModelP"></span><span class="target" id="classrr_1_1NLEQ2Solver_1af9a54df7b295c801430f213699c33512"></span><em class="property">virtual</em> void <code class="sig-name descname">syncWithModel</code><span class="sig-paren">(</span><a class="reference internal" href="rrExecutableModel.html#_CPPv4N2rr15ExecutableModelE" title="rr::ExecutableModel">ExecutableModel</a> *<em>m</em><span class="sig-paren">)</span><a class="headerlink" href="#_CPPv4N2rr11NLEQ2Solver13syncWithModelEP15ExecutableModel" title="Permalink to this definition">¶</a><br /></dt>
-<dd><p>Called whenever a new model is loaded to allow integrator to reset internal state. </p>
-<p><dl class="simple">
-<dt><strong>Author</strong></dt><dd><p>JKM </p>
-</dd>
-</dl>
-</p>
-</dd></dl>
-
-<dl class="cpp function">
-<dt id="_CPPv4N2rr11NLEQ2Solver18loadConfigSettingsEv">
-<span id="_CPPv3N2rr11NLEQ2Solver18loadConfigSettingsEv"></span><span id="_CPPv2N2rr11NLEQ2Solver18loadConfigSettingsEv"></span><span id="rr::NLEQ2Solver::loadConfigSettings"></span><span class="target" id="classrr_1_1NLEQ2Solver_1afad697f8ba18773dcdb229a0cf44f130"></span><em class="property">virtual</em> void <code class="sig-name descname">loadConfigSettings</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#_CPPv4N2rr11NLEQ2Solver18loadConfigSettingsEv" title="Permalink to this definition">¶</a><br /></dt>
-<dd></dd></dl>
-
-<dl class="cpp function">
-<dt id="_CPPv4N2rr11NLEQ2Solver13resetSettingsEv">
-<span id="_CPPv3N2rr11NLEQ2Solver13resetSettingsEv"></span><span id="_CPPv2N2rr11NLEQ2Solver13resetSettingsEv"></span><span id="rr::NLEQ2Solver::resetSettings"></span><span class="target" id="classrr_1_1NLEQ2Solver_1a53f872e0ee1a0afeb4a81b433c5cb7fc"></span><em class="property">virtual</em> void <code class="sig-name descname">resetSettings</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#_CPPv4N2rr11NLEQ2Solver13resetSettingsEv" title="Permalink to this definition">¶</a><br /></dt>
-<dd><p>Reset all integrator settings to their respective default values. </p>
-<p><dl class="simple">
-<dt><strong>Author</strong></dt><dd><p>JKM </p>
-</dd>
-</dl>
-</p>
-</dd></dl>
-
-<dl class="cpp function">
-<dt id="_CPPv4NK2rr11NLEQ2Solver7getNameEv">
-<span id="_CPPv3NK2rr11NLEQ2Solver7getNameEv"></span><span id="_CPPv2NK2rr11NLEQ2Solver7getNameEv"></span><span id="rr::NLEQ2Solver::getNameC"></span><span class="target" id="classrr_1_1NLEQ2Solver_1a23b111e063e51f20ecb44c8b81eee98c"></span><em class="property">virtual</em> std::string <code class="sig-name descname">getName</code><span class="sig-paren">(</span><span class="sig-paren">)</span> <em class="property">const</em><a class="headerlink" href="#_CPPv4NK2rr11NLEQ2Solver7getNameEv" title="Permalink to this definition">¶</a><br /></dt>
+<dt class="sig sig-object cpp" id="_CPPv4NK2rr11NLEQ2Solver7getNameEv">
+<span id="_CPPv3NK2rr11NLEQ2Solver7getNameEv"></span><span id="_CPPv2NK2rr11NLEQ2Solver7getNameEv"></span><span id="rr::NLEQ2Solver::getNameC"></span><span class="target" id="classrr_1_1NLEQ2Solver_1acab401cc8acf3cf2049557b10342efe1"></span><span class="k"><span class="pre">virtual</span></span><span class="w"> </span><span class="n"><span class="pre">std</span></span><span class="p"><span class="pre">::</span></span><span class="n"><span class="pre">string</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">getName</span></span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><span class="w"> </span><span class="k"><span class="pre">const</span></span><span class="w"> </span><span class="k"><span class="pre">override</span></span><a class="headerlink" href="#_CPPv4NK2rr11NLEQ2Solver7getNameEv" title="Permalink to this definition">¶</a><br /></dt>
 <dd><p>Get the name for this <a class="reference internal" href="Solver.html#classrr_1_1Solver"><span class="std std-ref">Solver</span></a>. </p>
 <p><dl class="simple">
 <dt><strong>Author</strong></dt><dd><p>WBC, JKM </p>
 </dd>
-<dt><strong>Note</strong></dt><dd><p>Delegates to <a class="reference internal" href="#classrr_1_1NLEQ2Solver_1a23b111e063e51f20ecb44c8b81eee98c"><span class="std std-ref">getName</span></a> </p>
-</dd>
 </dl>
 </p>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>Delegates to <a class="reference internal" href="#classrr_1_1NLEQ2Solver_1acab401cc8acf3cf2049557b10342efe1"><span class="std std-ref">getName</span></a> </p>
+</div>
 </dd></dl>
 
 <dl class="cpp function">
-<dt id="_CPPv4NK2rr11NLEQ2Solver14getDescriptionEv">
-<span id="_CPPv3NK2rr11NLEQ2Solver14getDescriptionEv"></span><span id="_CPPv2NK2rr11NLEQ2Solver14getDescriptionEv"></span><span id="rr::NLEQ2Solver::getDescriptionC"></span><span class="target" id="classrr_1_1NLEQ2Solver_1ab5005ced545fa4b22178b2047b12557c"></span><em class="property">virtual</em> std::string <code class="sig-name descname">getDescription</code><span class="sig-paren">(</span><span class="sig-paren">)</span> <em class="property">const</em><a class="headerlink" href="#_CPPv4NK2rr11NLEQ2Solver14getDescriptionEv" title="Permalink to this definition">¶</a><br /></dt>
+<dt class="sig sig-object cpp" id="_CPPv4NK2rr11NLEQ2Solver14getDescriptionEv">
+<span id="_CPPv3NK2rr11NLEQ2Solver14getDescriptionEv"></span><span id="_CPPv2NK2rr11NLEQ2Solver14getDescriptionEv"></span><span id="rr::NLEQ2Solver::getDescriptionC"></span><span class="target" id="classrr_1_1NLEQ2Solver_1aa262aaf5e1361ac34802a3e4c28772af"></span><span class="k"><span class="pre">virtual</span></span><span class="w"> </span><span class="n"><span class="pre">std</span></span><span class="p"><span class="pre">::</span></span><span class="n"><span class="pre">string</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">getDescription</span></span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><span class="w"> </span><span class="k"><span class="pre">const</span></span><span class="w"> </span><span class="k"><span class="pre">override</span></span><a class="headerlink" href="#_CPPv4NK2rr11NLEQ2Solver14getDescriptionEv" title="Permalink to this definition">¶</a><br /></dt>
 <dd><p>Get the description for this <a class="reference internal" href="Solver.html#classrr_1_1Solver"><span class="std std-ref">Solver</span></a>. </p>
 <p><dl class="simple">
 <dt><strong>Author</strong></dt><dd><p>WBC </p>
 </dd>
-<dt><strong>Note</strong></dt><dd><p>Delegates to <a class="reference internal" href="#classrr_1_1NLEQ2Solver_1ab5005ced545fa4b22178b2047b12557c"><span class="std std-ref">getDescription</span></a> </p>
-</dd>
 </dl>
 </p>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>Delegates to <a class="reference internal" href="#classrr_1_1NLEQ2Solver_1aa262aaf5e1361ac34802a3e4c28772af"><span class="std std-ref">getDescription</span></a> </p>
+</div>
 </dd></dl>
 
 <dl class="cpp function">
-<dt id="_CPPv4NK2rr11NLEQ2Solver7getHintEv">
-<span id="_CPPv3NK2rr11NLEQ2Solver7getHintEv"></span><span id="_CPPv2NK2rr11NLEQ2Solver7getHintEv"></span><span id="rr::NLEQ2Solver::getHintC"></span><span class="target" id="classrr_1_1NLEQ2Solver_1a310f481e87ff32cc51fa62345afe6e83"></span><em class="property">virtual</em> std::string <code class="sig-name descname">getHint</code><span class="sig-paren">(</span><span class="sig-paren">)</span> <em class="property">const</em><a class="headerlink" href="#_CPPv4NK2rr11NLEQ2Solver7getHintEv" title="Permalink to this definition">¶</a><br /></dt>
+<dt class="sig sig-object cpp" id="_CPPv4NK2rr11NLEQ2Solver7getHintEv">
+<span id="_CPPv3NK2rr11NLEQ2Solver7getHintEv"></span><span id="_CPPv2NK2rr11NLEQ2Solver7getHintEv"></span><span id="rr::NLEQ2Solver::getHintC"></span><span class="target" id="classrr_1_1NLEQ2Solver_1acb4cad3d5920adff567ee9a70d3646bc"></span><span class="k"><span class="pre">virtual</span></span><span class="w"> </span><span class="n"><span class="pre">std</span></span><span class="p"><span class="pre">::</span></span><span class="n"><span class="pre">string</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">getHint</span></span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><span class="w"> </span><span class="k"><span class="pre">const</span></span><span class="w"> </span><span class="k"><span class="pre">override</span></span><a class="headerlink" href="#_CPPv4NK2rr11NLEQ2Solver7getHintEv" title="Permalink to this definition">¶</a><br /></dt>
 <dd><p>Get the hint for this <a class="reference internal" href="Solver.html#classrr_1_1Solver"><span class="std std-ref">Solver</span></a>. </p>
 <p><dl class="simple">
 <dt><strong>Author</strong></dt><dd><p>WBC </p>
 </dd>
-<dt><strong>Note</strong></dt><dd><p>Delegates to <a class="reference internal" href="#classrr_1_1NLEQ2Solver_1a310f481e87ff32cc51fa62345afe6e83"><span class="std std-ref">getHint</span></a> </p>
-</dd>
 </dl>
 </p>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>Delegates to <a class="reference internal" href="#classrr_1_1NLEQ2Solver_1acb4cad3d5920adff567ee9a70d3646bc"><span class="std std-ref">getHint</span></a> </p>
+</div>
 </dd></dl>
 
 <dl class="cpp function">
-<dt id="_CPPv4N2rr11NLEQ2Solver5solveEv">
-<span id="_CPPv3N2rr11NLEQ2Solver5solveEv"></span><span id="_CPPv2N2rr11NLEQ2Solver5solveEv"></span><span id="rr::NLEQ2Solver::solve"></span><span class="target" id="classrr_1_1NLEQ2Solver_1ad729943f552f731f9dc7adea75626453"></span><em class="property">virtual</em> double <code class="sig-name descname">solve</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#_CPPv4N2rr11NLEQ2Solver5solveEv" title="Permalink to this definition">¶</a><br /></dt>
+<dt class="sig sig-object cpp" id="_CPPv4N2rr11NLEQ2Solver5solveEv">
+<span id="_CPPv3N2rr11NLEQ2Solver5solveEv"></span><span id="_CPPv2N2rr11NLEQ2Solver5solveEv"></span><span id="rr::NLEQ2Solver::solve"></span><span class="target" id="classrr_1_1NLEQ2Solver_1ad4f39478cb347dc156023de3578dfb3c"></span><span class="k"><span class="pre">virtual</span></span><span class="w"> </span><span class="kt"><span class="pre">double</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">solve</span></span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><span class="w"> </span><span class="k"><span class="pre">override</span></span><a class="headerlink" href="#_CPPv4N2rr11NLEQ2Solver5solveEv" title="Permalink to this definition">¶</a><br /></dt>
 <dd></dd></dl>
+
+<dl class="cpp function">
+<dt class="sig sig-object cpp" id="_CPPv4N2rr11NLEQ2Solver10NLEQSolverEP15ExecutableModel">
+<span id="_CPPv3N2rr11NLEQ2Solver10NLEQSolverEP15ExecutableModel"></span><span id="_CPPv2N2rr11NLEQ2Solver10NLEQSolverEP15ExecutableModel"></span><span id="rr::NLEQ2Solver::NLEQSolver__ExecutableModelP"></span><span class="target" id="classrr_1_1NLEQ2Solver_1a285280e71f68f3bebf39eca43e4b16c5"></span><span class="k"><span class="pre">explicit</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">NLEQSolver</span></span></span><span class="sig-paren">(</span><a class="reference internal" href="rrExecutableModel.html#_CPPv4N2rr15ExecutableModelE" title="rr::ExecutableModel"><span class="n"><span class="pre">ExecutableModel</span></span></a><span class="w"> </span><span class="p"><span class="pre">*</span></span><span class="n sig-param"><span class="pre">model</span></span><span class="sig-paren">)</span><a class="headerlink" href="#_CPPv4N2rr11NLEQ2Solver10NLEQSolverEP15ExecutableModel" title="Permalink to this definition">¶</a><br /></dt>
+<dd><p>Creates a new Instance of NLEQ for the given Model. </p>
+</dd></dl>
 
 </div>
 <div class="breathe-sectiondef docutils container">
-<p class="breathe-sectiondef-title rubric">Public Static Functions</p>
+<p class="breathe-sectiondef-title rubric" id="breathe-section-title-public-static-functions">Public Static Functions</p>
 <dl class="cpp function">
-<dt id="_CPPv4N2rr11NLEQ2Solver11getNLEQNameEv">
-<span id="_CPPv3N2rr11NLEQ2Solver11getNLEQNameEv"></span><span id="_CPPv2N2rr11NLEQ2Solver11getNLEQNameEv"></span><span id="rr::NLEQ2Solver::getNLEQName"></span><span class="target" id="classrr_1_1NLEQ2Solver_1a80e735300edec38f57f1ff8a0d989237"></span><em class="property">static</em> std::string <code class="sig-name descname">getNLEQName</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#_CPPv4N2rr11NLEQ2Solver11getNLEQNameEv" title="Permalink to this definition">¶</a><br /></dt>
+<dt class="sig sig-object cpp" id="_CPPv4N2rr11NLEQ2Solver11getNLEQNameEv">
+<span id="_CPPv3N2rr11NLEQ2Solver11getNLEQNameEv"></span><span id="_CPPv2N2rr11NLEQ2Solver11getNLEQNameEv"></span><span id="rr::NLEQ2Solver::getNLEQName"></span><span class="target" id="classrr_1_1NLEQ2Solver_1a80e735300edec38f57f1ff8a0d989237"></span><span class="k"><span class="pre">static</span></span><span class="w"> </span><span class="n"><span class="pre">std</span></span><span class="p"><span class="pre">::</span></span><span class="n"><span class="pre">string</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">getNLEQName</span></span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#_CPPv4N2rr11NLEQ2Solver11getNLEQNameEv" title="Permalink to this definition">¶</a><br /></dt>
 <dd><p>Get the name for this <a class="reference internal" href="Solver.html#classrr_1_1Solver"><span class="std std-ref">Solver</span></a>. </p>
 <p><dl class="simple">
 <dt><strong>Author</strong></dt><dd><p>JKM </p>
@@ -320,8 +297,8 @@
 </dd></dl>
 
 <dl class="cpp function">
-<dt id="_CPPv4N2rr11NLEQ2Solver18getNLEQDescriptionEv">
-<span id="_CPPv3N2rr11NLEQ2Solver18getNLEQDescriptionEv"></span><span id="_CPPv2N2rr11NLEQ2Solver18getNLEQDescriptionEv"></span><span id="rr::NLEQ2Solver::getNLEQDescription"></span><span class="target" id="classrr_1_1NLEQ2Solver_1a2dce04a263ddd71cef9b5b96e57650dc"></span><em class="property">static</em> std::string <code class="sig-name descname">getNLEQDescription</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#_CPPv4N2rr11NLEQ2Solver18getNLEQDescriptionEv" title="Permalink to this definition">¶</a><br /></dt>
+<dt class="sig sig-object cpp" id="_CPPv4N2rr11NLEQ2Solver18getNLEQDescriptionEv">
+<span id="_CPPv3N2rr11NLEQ2Solver18getNLEQDescriptionEv"></span><span id="_CPPv2N2rr11NLEQ2Solver18getNLEQDescriptionEv"></span><span id="rr::NLEQ2Solver::getNLEQDescription"></span><span class="target" id="classrr_1_1NLEQ2Solver_1a2dce04a263ddd71cef9b5b96e57650dc"></span><span class="k"><span class="pre">static</span></span><span class="w"> </span><span class="n"><span class="pre">std</span></span><span class="p"><span class="pre">::</span></span><span class="n"><span class="pre">string</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">getNLEQDescription</span></span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#_CPPv4N2rr11NLEQ2Solver18getNLEQDescriptionEv" title="Permalink to this definition">¶</a><br /></dt>
 <dd><p>Get the description for this <a class="reference internal" href="Solver.html#classrr_1_1Solver"><span class="std std-ref">Solver</span></a>. </p>
 <p><dl class="simple">
 <dt><strong>Author</strong></dt><dd><p>JKM </p>
@@ -331,8 +308,8 @@
 </dd></dl>
 
 <dl class="cpp function">
-<dt id="_CPPv4N2rr11NLEQ2Solver11getNLEQHintEv">
-<span id="_CPPv3N2rr11NLEQ2Solver11getNLEQHintEv"></span><span id="_CPPv2N2rr11NLEQ2Solver11getNLEQHintEv"></span><span id="rr::NLEQ2Solver::getNLEQHint"></span><span class="target" id="classrr_1_1NLEQ2Solver_1a37aaaaf224d6372d2db261d19f078a50"></span><em class="property">static</em> std::string <code class="sig-name descname">getNLEQHint</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#_CPPv4N2rr11NLEQ2Solver11getNLEQHintEv" title="Permalink to this definition">¶</a><br /></dt>
+<dt class="sig sig-object cpp" id="_CPPv4N2rr11NLEQ2Solver11getNLEQHintEv">
+<span id="_CPPv3N2rr11NLEQ2Solver11getNLEQHintEv"></span><span id="_CPPv2N2rr11NLEQ2Solver11getNLEQHintEv"></span><span id="rr::NLEQ2Solver::getNLEQHint"></span><span class="target" id="classrr_1_1NLEQ2Solver_1a37aaaaf224d6372d2db261d19f078a50"></span><span class="k"><span class="pre">static</span></span><span class="w"> </span><span class="n"><span class="pre">std</span></span><span class="p"><span class="pre">::</span></span><span class="n"><span class="pre">string</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">getNLEQHint</span></span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#_CPPv4N2rr11NLEQ2Solver11getNLEQHintEv" title="Permalink to this definition">¶</a><br /></dt>
 <dd><p>Get the hint for this <a class="reference internal" href="Solver.html#classrr_1_1Solver"><span class="std std-ref">Solver</span></a>. </p>
 <p><dl class="simple">
 <dt><strong>Author</strong></dt><dd><p>JKM </p>
@@ -340,14 +317,6 @@
 </dl>
 </p>
 </dd></dl>
-
-</div>
-<div class="breathe-sectiondef docutils container">
-<p class="breathe-sectiondef-title rubric">Private Members</p>
-<dl class="cpp var">
-<dt id="_CPPv4N2rr11NLEQ2Solver5modelE">
-<span id="_CPPv3N2rr11NLEQ2Solver5modelE"></span><span id="_CPPv2N2rr11NLEQ2Solver5modelE"></span><span id="rr::NLEQ2Solver::model__ExecutableModelP"></span><span class="target" id="classrr_1_1NLEQ2Solver_1aee90c52d549f1ed714fa1c9ce1670317"></span><a class="reference internal" href="rrExecutableModel.html#_CPPv4N2rr15ExecutableModelE" title="rr::ExecutableModel">ExecutableModel</a> *<code class="sig-name descname">model</code><a class="headerlink" href="#_CPPv4N2rr11NLEQ2Solver5modelE" title="Permalink to this definition">¶</a><br /></dt>
-<dd></dd></dl>
 
 </div>
 </dd></dl>

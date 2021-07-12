@@ -4,6 +4,12 @@
     <compoundname>mtrand.cpp</compoundname>
     <includes refid="mtrand_8h" local="yes">mtrand.h</includes>
     <incdepgraph>
+      <node id="2">
+        <label>mtrand.h</label>
+        <link refid="mtrand_8h_source"/>
+        <childnode refid="3" relation="include">
+        </childnode>
+      </node>
       <node id="3">
         <label>rrExporter.h</label>
         <link refid="rrExporter_8h_source"/>
@@ -12,12 +18,6 @@
         <label>c/mtrand.cpp</label>
         <link refid="mtrand_8cpp"/>
         <childnode refid="2" relation="include">
-        </childnode>
-      </node>
-      <node id="2">
-        <label>mtrand.h</label>
-        <link refid="mtrand_8h_source"/>
-        <childnode refid="3" relation="include">
         </childnode>
       </node>
     </incdepgraph>
@@ -43,7 +43,7 @@
 <codeline lineno="15"><highlight class="normal"></highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/>MTRand_int32::p<sp/>=<sp/>0;</highlight></codeline>
 <codeline lineno="16"><highlight class="normal"></highlight><highlight class="keywordtype">bool</highlight><highlight class="normal"><sp/>MTRand_int32::init<sp/>=<sp/></highlight><highlight class="keyword">false</highlight><highlight class="normal">;</highlight></codeline>
 <codeline lineno="17"><highlight class="normal"></highlight></codeline>
-<codeline lineno="18"><highlight class="normal"></highlight><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/>MTRand_int32::gen_state()</highlight><highlight class="keyword"><sp/>const<sp/></highlight><highlight class="normal">{<sp/></highlight><highlight class="comment">//<sp/>generate<sp/>new<sp/>state<sp/>vector</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="18"><highlight class="normal"></highlight><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/>MTRand_int32::gen_state()</highlight><highlight class="keyword"><sp/>const<sp/></highlight><highlight class="normal">{<sp/></highlight><highlight class="comment">//<sp/>generate<sp/>new<sp/>state<sp/>std::vector</highlight><highlight class="normal"></highlight></codeline>
 <codeline lineno="19"><highlight class="normal"><sp/><sp/></highlight><highlight class="keywordflow">for</highlight><highlight class="normal"><sp/>(</highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/>i<sp/>=<sp/>0;<sp/>i<sp/>&lt;<sp/>(n<sp/>-<sp/>m);<sp/>++i)</highlight></codeline>
 <codeline lineno="20"><highlight class="normal"><sp/><sp/><sp/><sp/>state[i]<sp/>=<sp/>state[i<sp/>+<sp/>m]<sp/>^<sp/>twiddle(state[i],<sp/>state[i<sp/>+<sp/>1]);</highlight></codeline>
 <codeline lineno="21"><highlight class="normal"><sp/><sp/></highlight><highlight class="keywordflow">for</highlight><highlight class="normal"><sp/>(</highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/>i<sp/>=<sp/>n<sp/>-<sp/>m;<sp/>i<sp/>&lt;<sp/>(n<sp/>-<sp/>1);<sp/>++i)</highlight></codeline>

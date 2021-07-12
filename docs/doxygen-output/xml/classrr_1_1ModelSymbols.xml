@@ -3,9 +3,9 @@
   <compounddef id="classrr_1_1ModelSymbols" kind="class" language="C++" prot="public">
     <compoundname>rr::ModelSymbols</compoundname>
       <sectiondef kind="public-attrib">
-      <memberdef kind="variable" id="classrr_1_1ModelSymbols_1a868750824ff39027f62a56d0e5ef1bd2" prot="public" static="no" mutable="no">
-        <type>const string</type>
-        <definition>const string rr::ModelSymbols::mModelName</definition>
+      <memberdef kind="variable" id="classrr_1_1ModelSymbols_1a564366e8536f82ce79d7a8c518247b7b" prot="public" static="no" mutable="no">
+        <type>const std::string</type>
+        <definition>const std::string rr::ModelSymbols::mModelName</definition>
         <argsstring></argsstring>
         <name>mModelName</name>
         <briefdescription>
@@ -16,7 +16,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="c/rrModelSymbols.h" line="47" column="18" bodyfile="c/rrModelSymbols.h" bodystart="47" bodyend="-1"/>
+        <location file="c/rrModelSymbols.h" line="47" column="23" bodyfile="c/rrModelSymbols.h" bodystart="47" bodyend="-1"/>
       </memberdef>
       <memberdef kind="variable" id="classrr_1_1ModelSymbols_1a7910e9cae91a8477f752fa79781302f2" prot="public" static="no" mutable="no">
         <type>const int</type>
@@ -242,9 +242,9 @@
         </inbodydescription>
         <location file="c/rrModelSymbols.h" line="85" column="22" bodyfile="c/rrModelSymbols.h" bodystart="85" bodyend="-1"/>
       </memberdef>
-      <memberdef kind="variable" id="classrr_1_1ModelSymbols_1a10236db4d09765076df69ac748a34e91" prot="public" static="no" mutable="no">
-        <type>const vector&lt; int &gt;</type>
-        <definition>const vector&lt;int&gt; rr::ModelSymbols::mLocalParameterDimensions</definition>
+      <memberdef kind="variable" id="classrr_1_1ModelSymbols_1afabdccc50dcd3e267b0ffb3f6497af0a" prot="public" static="no" mutable="no">
+        <type>const std::vector&lt; int &gt;</type>
+        <definition>const std::vector&lt;int&gt; rr::ModelSymbols::mLocalParameterDimensions</definition>
         <argsstring></argsstring>
         <name>mLocalParameterDimensions</name>
         <briefdescription>
@@ -253,11 +253,11 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="c/rrModelSymbols.h" line="87" column="18" bodyfile="c/rrModelSymbols.h" bodystart="87" bodyend="-1"/>
+        <location file="c/rrModelSymbols.h" line="87" column="23" bodyfile="c/rrModelSymbols.h" bodystart="87" bodyend="-1"/>
       </memberdef>
-      <memberdef kind="variable" id="classrr_1_1ModelSymbols_1a691f15e4bbc32f025db4a2a68d821f94" prot="public" static="no" mutable="no">
-        <type>const vector&lt; <ref refid="classrr_1_1SymbolList" kindref="compound">SymbolList</ref> &gt;</type>
-        <definition>const vector&lt;SymbolList&gt; rr::ModelSymbols::mLocalParameterList</definition>
+      <memberdef kind="variable" id="classrr_1_1ModelSymbols_1a60e07341c933df81116ab891d3e82626" prot="public" static="no" mutable="no">
+        <type>const std::vector&lt; <ref refid="classrr_1_1SymbolList" kindref="compound">SymbolList</ref> &gt;</type>
+        <definition>const std::vector&lt;SymbolList&gt; rr::ModelSymbols::mLocalParameterList</definition>
         <argsstring></argsstring>
         <name>mLocalParameterList</name>
         <briefdescription>
@@ -266,7 +266,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="c/rrModelSymbols.h" line="88" column="18" bodyfile="c/rrModelSymbols.h" bodystart="88" bodyend="-1"/>
+        <location file="c/rrModelSymbols.h" line="88" column="23" bodyfile="c/rrModelSymbols.h" bodystart="88" bodyend="-1"/>
       </memberdef>
       <memberdef kind="variable" id="classrr_1_1ModelSymbols_1a195537068ba5b71e7b29a959877bf477" prot="public" static="no" mutable="no">
         <type>const <ref refid="classrr_1_1SymbolList" kindref="compound">SymbolList</ref></type>
@@ -361,9 +361,9 @@
       </memberdef>
       </sectiondef>
       <sectiondef kind="public-static-attrib">
-      <memberdef kind="variable" id="classrr_1_1ModelSymbols_1a35bcd9f3e5abff46921aca4c3b651671" prot="public" static="yes" mutable="no">
-        <type>const string</type>
-        <definition>const string rr::ModelSymbols::mDoubleFormat</definition>
+      <memberdef kind="variable" id="classrr_1_1ModelSymbols_1a81e8d9df454546e93d9ed1f7d71bb0ce" prot="public" static="yes" mutable="no">
+        <type>const std::string</type>
+        <definition>const std::string rr::ModelSymbols::mDoubleFormat</definition>
         <argsstring></argsstring>
         <name>mDoubleFormat</name>
         <briefdescription>
@@ -372,7 +372,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="c/rrModelSymbols.h" line="100" column="25" bodyfile="c/rrModelSymbols.h" bodystart="100" bodyend="-1"/>
+        <location file="c/rrModelSymbols.h" line="100" column="30" bodyfile="c/rrModelSymbols.h" bodystart="100" bodyend="-1"/>
       </memberdef>
       </sectiondef>
       <sectiondef kind="public-func">
@@ -451,31 +451,25 @@
     <detaileddescription>
     </detaileddescription>
     <collaborationgraph>
-      <node id="7">
+      <node id="5">
         <label>rr::SymbolList</label>
         <link refid="classrr_1_1SymbolList"/>
-        <childnode refid="8" relation="public-inheritance">
+        <childnode refid="6" relation="public-inheritance">
         </childnode>
-      </node>
-      <node id="4">
-        <label>vector&lt; string &gt;</label>
       </node>
       <node id="1">
         <label>rr::ModelSymbols</label>
         <link refid="classrr_1_1ModelSymbols"/>
         <childnode refid="2" relation="usage">
-          <edgelabel>mLocalParameterList</edgelabel>
-        </childnode>
-        <childnode refid="3" relation="usage">
           <edgelabel>mDependentSpeciesList</edgelabel>
           <edgelabel>mFunctionNames</edgelabel>
           <edgelabel>mFunctionParameters</edgelabel>
           <edgelabel>mIndependentSpeciesList</edgelabel>
         </childnode>
-        <childnode refid="5" relation="usage">
+        <childnode refid="3" relation="usage">
           <edgelabel>mRateRules</edgelabel>
         </childnode>
-        <childnode refid="7" relation="usage">
+        <childnode refid="5" relation="usage">
           <edgelabel>mBoundarySpeciesList</edgelabel>
           <edgelabel>mCompartmentList</edgelabel>
           <edgelabel>mConservationList</edgelabel>
@@ -484,42 +478,22 @@
           <edgelabel>mModifiableSpeciesReferenceList</edgelabel>
           <edgelabel>mReactionList</edgelabel>
         </childnode>
-        <childnode refid="9" relation="usage">
-          <edgelabel>mDoubleFormat</edgelabel>
-          <edgelabel>mModelName</edgelabel>
-        </childnode>
-        <childnode refid="10" relation="usage">
-          <edgelabel>mLocalParameterDimensions</edgelabel>
-        </childnode>
       </node>
-      <node id="2">
-        <label>vector&lt; rr::SymbolList &gt;</label>
-      </node>
-      <node id="9">
-        <label>string</label>
-      </node>
-      <node id="5">
-        <label>rr::IntStringHashTable</label>
-        <link refid="classrr_1_1IntStringHashTable"/>
-        <childnode refid="6" relation="public-inheritance">
-        </childnode>
-      </node>
-      <node id="10">
-        <label>vector&lt; int &gt;</label>
-      </node>
-      <node id="8">
-        <label>std::vector&lt; Symbol &gt;</label>
-      </node>
-      <node id="6">
-        <label>std::map&lt; int, string &gt;</label>
+      <node id="4">
+        <label>std::map&lt; int, std::string &gt;</label>
       </node>
       <node id="3">
+        <label>rr::IntStringHashTable</label>
+        <link refid="classrr_1_1IntStringHashTable"/>
+        <childnode refid="4" relation="public-inheritance">
+        </childnode>
+      </node>
+      <node id="6">
+        <label>std::vector&lt; Symbol &gt;</label>
+      </node>
+      <node id="2">
         <label>rr::StringList</label>
         <link refid="classrr_1_1StringList"/>
-        <childnode refid="4" relation="usage">
-          <edgelabel>mLI</edgelabel>
-          <edgelabel>mStrings</edgelabel>
-        </childnode>
       </node>
     </collaborationgraph>
     <location file="c/rrModelSymbols.h" line="19" column="1" bodyfile="c/rrModelSymbols.h" bodystart="20" bodyend="103"/>
@@ -529,15 +503,15 @@
       <member refid="classrr_1_1ModelSymbols_1a9db5764f0691047281cf0d2f2e5e78d8" prot="public" virt="non-virtual"><scope>rr::ModelSymbols</scope><name>mComputeAndAssignConsevationLaws</name></member>
       <member refid="classrr_1_1ModelSymbols_1a195537068ba5b71e7b29a959877bf477" prot="public" virt="non-virtual"><scope>rr::ModelSymbols</scope><name>mConservationList</name></member>
       <member refid="classrr_1_1ModelSymbols_1a3f353e7e5cd69f066fed17cef5cbc944" prot="public" virt="non-virtual"><scope>rr::ModelSymbols</scope><name>mDependentSpeciesList</name></member>
-      <member refid="classrr_1_1ModelSymbols_1a35bcd9f3e5abff46921aca4c3b651671" prot="public" virt="non-virtual"><scope>rr::ModelSymbols</scope><name>mDoubleFormat</name></member>
+      <member refid="classrr_1_1ModelSymbols_1a81e8d9df454546e93d9ed1f7d71bb0ce" prot="public" virt="non-virtual"><scope>rr::ModelSymbols</scope><name>mDoubleFormat</name></member>
       <member refid="classrr_1_1ModelSymbols_1a0631a1e120636ff822482eb9ea0d253c" prot="public" virt="non-virtual"><scope>rr::ModelSymbols</scope><name>mFloatingSpeciesConcentrationList</name></member>
       <member refid="classrr_1_1ModelSymbols_1abc14e1ee4b217df81e46c29fe2981602" prot="public" virt="non-virtual"><scope>rr::ModelSymbols</scope><name>mFunctionNames</name></member>
       <member refid="classrr_1_1ModelSymbols_1a86a69e6eda74274aff2706946381b19a" prot="public" virt="non-virtual"><scope>rr::ModelSymbols</scope><name>mFunctionParameters</name></member>
       <member refid="classrr_1_1ModelSymbols_1af16838c10e0c77beded765088b739e2d" prot="public" virt="non-virtual"><scope>rr::ModelSymbols</scope><name>mGlobalParameterList</name></member>
       <member refid="classrr_1_1ModelSymbols_1a215ce854979c423a02495fe856949e2b" prot="public" virt="non-virtual"><scope>rr::ModelSymbols</scope><name>mIndependentSpeciesList</name></member>
-      <member refid="classrr_1_1ModelSymbols_1a10236db4d09765076df69ac748a34e91" prot="public" virt="non-virtual"><scope>rr::ModelSymbols</scope><name>mLocalParameterDimensions</name></member>
-      <member refid="classrr_1_1ModelSymbols_1a691f15e4bbc32f025db4a2a68d821f94" prot="public" virt="non-virtual"><scope>rr::ModelSymbols</scope><name>mLocalParameterList</name></member>
-      <member refid="classrr_1_1ModelSymbols_1a868750824ff39027f62a56d0e5ef1bd2" prot="public" virt="non-virtual"><scope>rr::ModelSymbols</scope><name>mModelName</name></member>
+      <member refid="classrr_1_1ModelSymbols_1afabdccc50dcd3e267b0ffb3f6497af0a" prot="public" virt="non-virtual"><scope>rr::ModelSymbols</scope><name>mLocalParameterDimensions</name></member>
+      <member refid="classrr_1_1ModelSymbols_1a60e07341c933df81116ab891d3e82626" prot="public" virt="non-virtual"><scope>rr::ModelSymbols</scope><name>mLocalParameterList</name></member>
+      <member refid="classrr_1_1ModelSymbols_1a564366e8536f82ce79d7a8c518247b7b" prot="public" virt="non-virtual"><scope>rr::ModelSymbols</scope><name>mModelName</name></member>
       <member refid="classrr_1_1ModelSymbols_1a3a5ee5efcbb2aac36b3ca07ec749e97c" prot="public" virt="non-virtual"><scope>rr::ModelSymbols</scope><name>mModifiableSpeciesReferenceList</name></member>
       <member refid="classrr_1_1ModelSymbols_1a370adfc201ee4b83abc3cef994d04cae" prot="public" virt="non-virtual"><scope>rr::ModelSymbols</scope><name>mNumBoundarySpecies</name></member>
       <member refid="classrr_1_1ModelSymbols_1a41239c46f00d462719946980b6758794" prot="public" virt="non-virtual"><scope>rr::ModelSymbols</scope><name>mNumCompartments</name></member>

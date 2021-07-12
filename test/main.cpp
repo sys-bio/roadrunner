@@ -1,3 +1,7 @@
+/**
+ * Deprecated in favour of RoadRunnerTest
+ */
+
 #include "gtest/gtest.h"
 #include "C/rrc_api.h"
 #include "rrIniFile.h"

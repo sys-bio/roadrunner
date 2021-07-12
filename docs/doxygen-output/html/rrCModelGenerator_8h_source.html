@@ -22,7 +22,7 @@
  <tr style="height: 56px;">
   <td id="projectalign" style="padding-left: 0.5em;">
    <div id="projectname">roadrunner
-   &#160;<span id="projectnumber">2.0.5</span>
+   &#160;<span id="projectnumber">2.0.8</span>
    </div>
    <div id="projectbrief">Fast simulator for SBML models</div>
   </td>
@@ -89,34 +89,34 @@ $(function() {
 <div class="line"><a name="l00020"></a><span class="lineno">   20</span>&#160;{</div>
 <div class="line"><a name="l00021"></a><span class="lineno">   21</span>&#160; </div>
 <div class="line"><a name="l00022"></a><span class="lineno">   22</span>&#160;<span class="keyword">public</span>:</div>
-<div class="line"><a name="l00023"></a><span class="lineno">   23</span>&#160;    <a class="code" href="classrr_1_1CModelGenerator.html">CModelGenerator</a>(<span class="keyword">const</span> <span class="keywordtype">string</span>&amp; tempFolder, <span class="keyword">const</span> <span class="keywordtype">string</span>&amp; supportCodeFolder, <span class="keyword">const</span> <span class="keywordtype">string</span>&amp; compiler);</div>
+<div class="line"><a name="l00023"></a><span class="lineno">   23</span>&#160;    <a class="code" href="classrr_1_1CModelGenerator.html">CModelGenerator</a>(<span class="keyword">const</span> std::string&amp; tempFolder, <span class="keyword">const</span> std::string&amp; supportCodeFolder, <span class="keyword">const</span> std::string&amp; compiler);</div>
 <div class="line"><a name="l00024"></a><span class="lineno">   24</span>&#160;    <span class="keyword">virtual</span>                            ~<a class="code" href="classrr_1_1CModelGenerator.html">CModelGenerator</a>();</div>
 <div class="line"><a name="l00025"></a><span class="lineno">   25</span>&#160; </div>
-<div class="line"><a name="l00026"></a><span class="lineno">   26</span>&#160;    <span class="keyword">virtual</span>  <a class="code" href="classrr_1_1ExecutableModel.html">ExecutableModel</a>            *createModel(<span class="keyword">const</span> <span class="keywordtype">string</span>&amp; sbml, uint options);</div>
+<div class="line"><a name="l00026"></a><span class="lineno">   26</span>&#160;    <span class="keyword">virtual</span>  <a class="code" href="classrr_1_1ExecutableModel.html">ExecutableModel</a>            *createModel(<span class="keyword">const</span> std::string&amp; sbml, uint options);</div>
 <div class="line"><a name="l00027"></a><span class="lineno">   27</span>&#160; </div>
-<div class="line"><a name="l00028"></a><span class="lineno">   28</span>&#160;    <span class="keyword">virtual</span> <span class="keywordtype">bool</span>                        setTemporaryDirectory(<span class="keyword">const</span> <span class="keywordtype">string</span>&amp; path);</div>
+<div class="line"><a name="l00028"></a><span class="lineno">   28</span>&#160;    <span class="keyword">virtual</span> <span class="keywordtype">bool</span>                        setTemporaryDirectory(<span class="keyword">const</span> std::string&amp; path);</div>
 <div class="line"><a name="l00029"></a><span class="lineno">   29</span>&#160; </div>
-<div class="line"><a name="l00033"></a><span class="lineno">   33</span>&#160;    <span class="keyword">virtual</span> <span class="keywordtype">string</span>                      getTemporaryDirectory();</div>
+<div class="line"><a name="l00033"></a><span class="lineno">   33</span>&#160;    <span class="keyword">virtual</span> std::string                      getTemporaryDirectory();</div>
 <div class="line"><a name="l00034"></a><span class="lineno">   34</span>&#160; </div>
 <div class="line"><a name="l00039"></a><span class="lineno">   39</span>&#160;    <span class="keyword">virtual</span>                             <a class="code" href="classrr_1_1Compiler.html">Compiler</a>* <a class="code" href="group__utility.html#gae7a9642fcd8b299d57007bb45238fc82">getCompiler</a>();</div>
 <div class="line"><a name="l00040"></a><span class="lineno">   40</span>&#160; </div>
-<div class="line"><a name="l00045"></a><span class="lineno">   45</span>&#160;    <span class="keyword">virtual</span>                             <span class="keywordtype">bool</span> <a class="code" href="group__utility.html#ga452d753989b5142b29528ae5865224ae">setCompiler</a>(<span class="keyword">const</span> <span class="keywordtype">string</span>&amp; compiler);</div>
+<div class="line"><a name="l00045"></a><span class="lineno">   45</span>&#160;    <span class="keyword">virtual</span>                             <span class="keywordtype">bool</span> <a class="code" href="group__utility.html#ga452d753989b5142b29528ae5865224ae">setCompiler</a>(<span class="keyword">const</span> std::string&amp; compiler);</div>
 <div class="line"><a name="l00046"></a><span class="lineno">   46</span>&#160; </div>
-<div class="line"><a name="l00050"></a><span class="lineno">   50</span>&#160;    <span class="keywordtype">string</span>                              getHeaderCode();</div>
-<div class="line"><a name="l00051"></a><span class="lineno">   51</span>&#160;    <span class="keywordtype">string</span>                              getSourceCode();</div>
-<div class="line"><a name="l00052"></a><span class="lineno">   52</span>&#160;    <span class="keywordtype">string</span>                              getSourceCodeFileName();</div>
+<div class="line"><a name="l00050"></a><span class="lineno">   50</span>&#160;    std::string                              getHeaderCode();</div>
+<div class="line"><a name="l00051"></a><span class="lineno">   51</span>&#160;    std::string                              getSourceCode();</div>
+<div class="line"><a name="l00052"></a><span class="lineno">   52</span>&#160;    std::string                              getSourceCodeFileName();</div>
 <div class="line"><a name="l00053"></a><span class="lineno">   53</span>&#160; </div>
 <div class="line"><a name="l00054"></a><span class="lineno">   54</span>&#160;<span class="keyword">private</span>:</div>
-<div class="line"><a name="l00060"></a><span class="lineno">   60</span>&#160;    <a class="code" href="classrr_1_1ExecutableModel.html">ExecutableModel</a>                     *createModel(<span class="keyword">const</span> <span class="keywordtype">string</span>&amp; sbml, ls::LibStructural *ls,</div>
+<div class="line"><a name="l00060"></a><span class="lineno">   60</span>&#160;    <a class="code" href="classrr_1_1ExecutableModel.html">ExecutableModel</a>                     *createModel(<span class="keyword">const</span> std::string&amp; sbml, ls::LibStructural *ls,</div>
 <div class="line"><a name="l00061"></a><span class="lineno">   61</span>&#160;                                                     <span class="keywordtype">bool</span> forceReCompile, <span class="keywordtype">bool</span> computeAndAssignConsevationLaws);</div>
 <div class="line"><a name="l00062"></a><span class="lineno">   62</span>&#160; </div>
 <div class="line"><a name="l00063"></a><span class="lineno">   63</span>&#160;    <a class="code" href="classrr_1_1CodeBuilder.html">CodeBuilder</a>                         mHeader;</div>
 <div class="line"><a name="l00064"></a><span class="lineno">   64</span>&#160;    <a class="code" href="classrr_1_1CodeBuilder.html">CodeBuilder</a>                         mSource;</div>
 <div class="line"><a name="l00065"></a><span class="lineno">   65</span>&#160; </div>
-<div class="line"><a name="l00066"></a><span class="lineno">   66</span>&#160;    <span class="keywordtype">string</span>                              mHeaderCodeFileName;</div>
-<div class="line"><a name="l00067"></a><span class="lineno">   67</span>&#160;    <span class="keywordtype">string</span>                              mSourceCodeFileName;</div>
+<div class="line"><a name="l00066"></a><span class="lineno">   66</span>&#160;    std::string                              mHeaderCodeFileName;</div>
+<div class="line"><a name="l00067"></a><span class="lineno">   67</span>&#160;    std::string                              mSourceCodeFileName;</div>
 <div class="line"><a name="l00068"></a><span class="lineno">   68</span>&#160; </div>
-<div class="line"><a name="l00069"></a><span class="lineno">   69</span>&#160;    <span class="keywordtype">string</span>                              mCurrentSBML;</div>
+<div class="line"><a name="l00069"></a><span class="lineno">   69</span>&#160;    std::string                              mCurrentSBML;</div>
 <div class="line"><a name="l00070"></a><span class="lineno">   70</span>&#160; </div>
 <div class="line"><a name="l00071"></a><span class="lineno">   71</span>&#160;    <span class="comment">// the shared lib thats created.</span></div>
 <div class="line"><a name="l00072"></a><span class="lineno">   72</span>&#160;    <span class="comment">// this needs to belong to the model</span></div>
@@ -125,9 +125,9 @@ $(function() {
 <div class="line"><a name="l00075"></a><span class="lineno">   75</span>&#160; </div>
 <div class="line"><a name="l00076"></a><span class="lineno">   76</span>&#160;    <a class="code" href="classrr_1_1CCompiler.html">CCompiler</a>                           mCompiler;</div>
 <div class="line"><a name="l00077"></a><span class="lineno">   77</span>&#160; </div>
-<div class="line"><a name="l00078"></a><span class="lineno">   78</span>&#160;    <span class="keywordtype">string</span>                              mTempFileFolder;</div>
+<div class="line"><a name="l00078"></a><span class="lineno">   78</span>&#160;    std::string                              mTempFileFolder;</div>
 <div class="line"><a name="l00079"></a><span class="lineno">   79</span>&#160; </div>
-<div class="line"><a name="l00080"></a><span class="lineno">   80</span>&#160;    <span class="keywordtype">bool</span> generateModelCode(<span class="keyword">const</span> <span class="keywordtype">string</span>&amp; sbml, <span class="keyword">const</span> <span class="keywordtype">string</span>&amp; modelName, <span class="keywordtype">bool</span> computeAndAssignConsevationLaws);</div>
+<div class="line"><a name="l00080"></a><span class="lineno">   80</span>&#160;    <span class="keywordtype">bool</span> generateModelCode(<span class="keyword">const</span> std::string&amp; sbml, <span class="keyword">const</span> std::string&amp; modelName, <span class="keywordtype">bool</span> computeAndAssignConsevationLaws);</div>
 <div class="line"><a name="l00081"></a><span class="lineno">   81</span>&#160; </div>
 <div class="line"><a name="l00082"></a><span class="lineno">   82</span>&#160;    <span class="keyword">static</span> Mutex                        mCompileMutex;</div>
 <div class="line"><a name="l00083"></a><span class="lineno">   83</span>&#160; </div>
@@ -139,23 +139,23 @@ $(function() {
 <div class="line"><a name="l00089"></a><span class="lineno">   89</span>&#160; </div>
 <div class="line"><a name="l00090"></a><span class="lineno">   90</span>&#160;    <span class="comment">//C Specifics..</span></div>
 <div class="line"><a name="l00091"></a><span class="lineno">   91</span>&#160; </div>
-<div class="line"><a name="l00092"></a><span class="lineno">   92</span>&#160;    <span class="keywordtype">string</span>                              getHeaderCodeFileName();</div>
-<div class="line"><a name="l00093"></a><span class="lineno">   93</span>&#160;    <span class="keywordtype">bool</span>                                saveSourceCodeToFolder(<span class="keyword">const</span> <span class="keywordtype">string</span>&amp; folder, <span class="keyword">const</span> <span class="keywordtype">string</span>&amp; baseName);</div>
+<div class="line"><a name="l00092"></a><span class="lineno">   92</span>&#160;    std::string                              getHeaderCodeFileName();</div>
+<div class="line"><a name="l00093"></a><span class="lineno">   93</span>&#160;    <span class="keywordtype">bool</span>                                saveSourceCodeToFolder(<span class="keyword">const</span> std::string&amp; folder, <span class="keyword">const</span> std::string&amp; baseName);</div>
 <div class="line"><a name="l00094"></a><span class="lineno">   94</span>&#160;    <span class="keywordtype">int</span>                                 <a class="code" href="group__floating.html#gab520e3bf495d490a96c5ee19870e7691">getNumberOfFloatingSpecies</a>();</div>
 <div class="line"><a name="l00095"></a><span class="lineno">   95</span>&#160; </div>
 <div class="line"><a name="l00096"></a><span class="lineno">   96</span>&#160; </div>
-<div class="line"><a name="l00097"></a><span class="lineno">   97</span>&#160;    <span class="keywordtype">string</span>                              convertUserFunctionExpression(<span class="keyword">const</span> <span class="keywordtype">string</span>&amp; equation);</div>
-<div class="line"><a name="l00098"></a><span class="lineno">   98</span>&#160;    <span class="keywordtype">string</span>                              convertCompartmentToC(<span class="keyword">const</span> <span class="keywordtype">string</span>&amp; compartmentName);</div>
-<div class="line"><a name="l00099"></a><span class="lineno">   99</span>&#160;    <span class="keywordtype">string</span>                              convertSpeciesToBc(<span class="keyword">const</span> <span class="keywordtype">string</span>&amp; speciesName);</div>
-<div class="line"><a name="l00100"></a><span class="lineno">  100</span>&#160;    <span class="keywordtype">string</span>                              convertSpeciesToY(<span class="keyword">const</span> <span class="keywordtype">string</span>&amp; speciesName);</div>
+<div class="line"><a name="l00097"></a><span class="lineno">   97</span>&#160;    std::string                              convertUserFunctionExpression(<span class="keyword">const</span> std::string&amp; equation);</div>
+<div class="line"><a name="l00098"></a><span class="lineno">   98</span>&#160;    std::string                              convertCompartmentToC(<span class="keyword">const</span> std::string&amp; compartmentName);</div>
+<div class="line"><a name="l00099"></a><span class="lineno">   99</span>&#160;    std::string                              convertSpeciesToBc(<span class="keyword">const</span> std::string&amp; speciesName);</div>
+<div class="line"><a name="l00100"></a><span class="lineno">  100</span>&#160;    std::string                              convertSpeciesToY(<span class="keyword">const</span> std::string&amp; speciesName);</div>
 <div class="line"><a name="l00101"></a><span class="lineno">  101</span>&#160; </div>
-<div class="line"><a name="l00106"></a><span class="lineno">  106</span>&#160;    <span class="keywordtype">string</span>                              convertSymbolToC(<span class="keyword">const</span> <span class="keywordtype">string</span>&amp; compartmentName);</div>
-<div class="line"><a name="l00107"></a><span class="lineno">  107</span>&#160;    <span class="keywordtype">string</span>                              convertSymbolToGP(<span class="keyword">const</span> <span class="keywordtype">string</span>&amp; parameterName);</div>
+<div class="line"><a name="l00106"></a><span class="lineno">  106</span>&#160;    std::string                              convertSymbolToC(<span class="keyword">const</span> std::string&amp; compartmentName);</div>
+<div class="line"><a name="l00107"></a><span class="lineno">  107</span>&#160;    std::string                              convertSymbolToGP(<span class="keyword">const</span> std::string&amp; parameterName);</div>
 <div class="line"><a name="l00108"></a><span class="lineno">  108</span>&#160; </div>
-<div class="line"><a name="l00109"></a><span class="lineno">  109</span>&#160;    <span class="keywordtype">void</span>                                substituteEquation(<span class="keyword">const</span> <span class="keywordtype">string</span>&amp; reactionName, <a class="code" href="classrr_1_1Scanner.html">Scanner</a>&amp; s, <a class="code" href="classrr_1_1CodeBuilder.html">CodeBuilder</a>&amp; sb);</div>
-<div class="line"><a name="l00110"></a><span class="lineno">  110</span>&#160;    <span class="keywordtype">void</span>                                substituteWords(<span class="keyword">const</span> <span class="keywordtype">string</span>&amp; reactionName, <span class="keywordtype">bool</span> bFixAmounts, <a class="code" href="classrr_1_1Scanner.html">Scanner</a>&amp; s, <a class="code" href="classrr_1_1CodeBuilder.html">CodeBuilder</a>&amp; sb);</div>
-<div class="line"><a name="l00111"></a><span class="lineno">  111</span>&#160;    <span class="keywordtype">void</span>                                substituteToken(<span class="keyword">const</span> <span class="keywordtype">string</span>&amp; reactionName, <span class="keywordtype">bool</span> bFixAmounts, <a class="code" href="classrr_1_1Scanner.html">Scanner</a>&amp; s, <a class="code" href="classrr_1_1CodeBuilder.html">CodeBuilder</a>&amp; sb);</div>
-<div class="line"><a name="l00112"></a><span class="lineno">  112</span>&#160;    <span class="keywordtype">string</span>                              findSymbol(<span class="keyword">const</span> <span class="keywordtype">string</span>&amp; varName);</div>
+<div class="line"><a name="l00109"></a><span class="lineno">  109</span>&#160;    <span class="keywordtype">void</span>                                substituteEquation(<span class="keyword">const</span> std::string&amp; reactionName, <a class="code" href="classrr_1_1Scanner.html">Scanner</a>&amp; s, <a class="code" href="classrr_1_1CodeBuilder.html">CodeBuilder</a>&amp; sb);</div>
+<div class="line"><a name="l00110"></a><span class="lineno">  110</span>&#160;    <span class="keywordtype">void</span>                                substituteWords(<span class="keyword">const</span> std::string&amp; reactionName, <span class="keywordtype">bool</span> bFixAmounts, <a class="code" href="classrr_1_1Scanner.html">Scanner</a>&amp; s, <a class="code" href="classrr_1_1CodeBuilder.html">CodeBuilder</a>&amp; sb);</div>
+<div class="line"><a name="l00111"></a><span class="lineno">  111</span>&#160;    <span class="keywordtype">void</span>                                substituteToken(<span class="keyword">const</span> std::string&amp; reactionName, <span class="keywordtype">bool</span> bFixAmounts, <a class="code" href="classrr_1_1Scanner.html">Scanner</a>&amp; s, <a class="code" href="classrr_1_1CodeBuilder.html">CodeBuilder</a>&amp; sb);</div>
+<div class="line"><a name="l00112"></a><span class="lineno">  112</span>&#160;    std::string                              findSymbol(<span class="keyword">const</span> std::string&amp; varName);</div>
 <div class="line"><a name="l00113"></a><span class="lineno">  113</span>&#160;    <span class="keywordtype">void</span>                                write_getModelNameFunction(<a class="code" href="classrr_1_1CodeBuilder.html">CodeBuilder</a>&amp; ignore, <a class="code" href="classrr_1_1CodeBuilder.html">CodeBuilder</a>&amp; source);</div>
 <div class="line"><a name="l00114"></a><span class="lineno">  114</span>&#160;    <span class="keywordtype">void</span>                                writeComputeAllRatesOfChange(<a class="code" href="classrr_1_1CodeBuilder.html">CodeBuilder</a>&amp; sb, <span class="keyword">const</span> <span class="keywordtype">int</span>&amp; numIndependentSpecies, <span class="keyword">const</span> <span class="keywordtype">int</span>&amp; numDependentSpecies, DoubleMatrix&amp; L0);</div>
 <div class="line"><a name="l00115"></a><span class="lineno">  115</span>&#160;    <span class="keywordtype">void</span>                                writeComputeConservedTotals(<a class="code" href="classrr_1_1CodeBuilder.html">CodeBuilder</a>&amp; sb, <span class="keyword">const</span> <span class="keywordtype">int</span>&amp; numFloatingSpecies, <span class="keyword">const</span> <span class="keywordtype">int</span>&amp; numDependentSpecies);</div>
@@ -187,16 +187,16 @@ $(function() {
 <div class="line"><a name="l00141"></a><span class="lineno">  141</span>&#160;    <span class="keywordtype">int</span>                                 readFloatingSpecies();</div>
 <div class="line"><a name="l00142"></a><span class="lineno">  142</span>&#160;    <span class="comment">// int                                 readBoundarySpecies();</span></div>
 <div class="line"><a name="l00143"></a><span class="lineno">  143</span>&#160; </div>
-<div class="line"><a name="l00144"></a><span class="lineno">  144</span>&#160;    <span class="comment">// Generates the Model Code from the SBML string</span></div>
+<div class="line"><a name="l00144"></a><span class="lineno">  144</span>&#160;    <span class="comment">// Generates the Model Code from the SBML std::string</span></div>
 <div class="line"><a name="l00145"></a><span class="lineno">  145</span>&#160;    <span class="comment">// TODO major clean up</span></div>
-<div class="line"><a name="l00146"></a><span class="lineno">  146</span>&#160;    <span class="keywordtype">string</span>                              generateModelCode(<span class="keyword">const</span> <span class="keywordtype">string</span>&amp; sbmlStr, <span class="keyword">const</span> <span class="keywordtype">bool</span>&amp; _computeAndAssignConsevationLaws);</div>
+<div class="line"><a name="l00146"></a><span class="lineno">  146</span>&#160;    std::string                              generateModelCode(<span class="keyword">const</span> std::string&amp; sbmlStr, <span class="keyword">const</span> <span class="keywordtype">bool</span>&amp; _computeAndAssignConsevationLaws);</div>
 <div class="line"><a name="l00147"></a><span class="lineno">  147</span>&#160; </div>
-<div class="line"><a name="l00148"></a><span class="lineno">  148</span>&#160;    <span class="comment">// Generates the Model Code from th e SBML string</span></div>
+<div class="line"><a name="l00148"></a><span class="lineno">  148</span>&#160;    <span class="comment">// Generates the Model Code from th e SBML std::string</span></div>
 <div class="line"><a name="l00149"></a><span class="lineno">  149</span>&#160;    <span class="comment">// TODO major clean up also</span></div>
-<div class="line"><a name="l00150"></a><span class="lineno">  150</span>&#160;    <span class="keywordtype">string</span>                              generateModelCode(<span class="keyword">const</span> <span class="keywordtype">string</span>&amp; sbmlStr, LibStructural *ls, <a class="code" href="classrr_1_1NOMSupport.html">NOMSupport</a> *nom,</div>
+<div class="line"><a name="l00150"></a><span class="lineno">  150</span>&#160;    std::string                              generateModelCode(<span class="keyword">const</span> std::string&amp; sbmlStr, LibStructural *ls, <a class="code" href="classrr_1_1NOMSupport.html">NOMSupport</a> *nom,</div>
 <div class="line"><a name="l00151"></a><span class="lineno">  151</span>&#160;                                                          <span class="keyword">const</span> <span class="keywordtype">bool</span>&amp; _computeAndAssignConsevationLaws = <span class="keyword">false</span>);</div>
 <div class="line"><a name="l00152"></a><span class="lineno">  152</span>&#160; </div>
-<div class="line"><a name="l00153"></a><span class="lineno">  153</span>&#160;    <span class="keyword">static</span> <span class="keywordtype">bool</span>                         loadSBMLIntoNOM(<a class="code" href="classrr_1_1NOMSupport.html">NOMSupport</a> &amp;nom, <span class="keyword">const</span> <span class="keywordtype">string</span>&amp; sbml);</div>
+<div class="line"><a name="l00153"></a><span class="lineno">  153</span>&#160;    <span class="keyword">static</span> <span class="keywordtype">bool</span>                         loadSBMLIntoNOM(<a class="code" href="classrr_1_1NOMSupport.html">NOMSupport</a> &amp;nom, <span class="keyword">const</span> std::string&amp; sbml);</div>
 <div class="line"><a name="l00154"></a><span class="lineno">  154</span>&#160; </div>
 <div class="line"><a name="l00155"></a><span class="lineno">  155</span>&#160;};</div>
 <div class="line"><a name="l00156"></a><span class="lineno">  156</span>&#160; </div>

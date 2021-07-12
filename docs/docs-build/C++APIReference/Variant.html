@@ -13,6 +13,8 @@
   
   <link rel="stylesheet" href="../_static/css/theme.css" type="text/css" />
   <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
+  <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
+  <link rel="stylesheet" href="../_static/css/theme.css" type="text/css" />
   <link rel="stylesheet" href="../_static/tabs.css" type="text/css" />
 
   
@@ -30,10 +32,10 @@
   
     
       <script type="text/javascript" id="documentation_options" data-url_root="../" src="../_static/documentation_options.js"></script>
+        <script data-url_root="../" id="documentation_options" src="../_static/documentation_options.js"></script>
         <script src="../_static/jquery.js"></script>
         <script src="../_static/underscore.js"></script>
         <script src="../_static/doctools.js"></script>
-        <script src="../_static/language_data.js"></script>
     
     <script type="text/javascript" src="../_static/js/theme.js"></script>
 
@@ -147,6 +149,7 @@
 <li class="toctree-l2"><a class="reference internal" href="index.html#a-complete-example-of-creating-an-integrator">A complete example of creating an integrator</a></li>
 </ul>
 </li>
+<li class="toctree-l1"><a class="reference internal" href="../developers_docs/index.html">Developers Documentation</a></li>
 </ul>
 
             
@@ -219,11 +222,11 @@
   <div class="section" id="variant">
 <h1>Variant<a class="headerlink" href="#variant" title="Permalink to this headline">¶</a></h1>
 <dl class="cpp class">
-<dt id="_CPPv4N2rr7VariantE">
-<span id="_CPPv3N2rr7VariantE"></span><span id="_CPPv2N2rr7VariantE"></span><span id="rr::Variant"></span><span class="target" id="classrr_1_1Variant"></span><em class="property">class </em><code class="sig-prename descclassname">rr<code class="sig-prename descclassname">::</code></code><code class="sig-name descname">Variant</code><a class="headerlink" href="#_CPPv4N2rr7VariantE" title="Permalink to this definition">¶</a><br /></dt>
+<dt class="sig sig-object cpp" id="_CPPv4N2rr7VariantE">
+<span id="_CPPv3N2rr7VariantE"></span><span id="_CPPv2N2rr7VariantE"></span><span id="rr::Variant"></span><span class="target" id="classrr_1_1Variant"></span><span class="k"><span class="pre">class</span></span><span class="w"> </span><span class="sig-prename descclassname"><span class="n"><span class="pre">rr</span></span><span class="p"><span class="pre">::</span></span></span><span class="sig-name descname"><span class="n"><span class="pre">Variant</span></span></span><a class="headerlink" href="#_CPPv4N2rr7VariantE" title="Permalink to this definition">¶</a><br /></dt>
 <dd><p>A basic type to hold a variety of data types. </p>
 <p>Unfourtunatly C++ does not have a standard variant type so we have to create one here.</p>
-<p>This is a fairly low performance class and is intended soley for infrequent operations such as setting configuration parameters.</p>
+<p>This is a fairly low performance class and is intended soley for infrequent operations such as <a class="reference internal" href="#classrr_1_1Variant"><span class="std std-ref">Variant</span></a> configuration parameters.</p>
 <p>If Python support is enabled, this class can convert to and from a Python object.</p>
 <p>Usage: This class can convert to and from any primitive data type, and some collections types. More type conversions will be added as needed.</p>
 <p>To store a value, just assign it, the assignment operator automatically takes care of everything for you: <div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="o">//</span> <span class="n">store</span> <span class="n">an</span> <span class="nb">int</span><span class="p">:</span>
@@ -241,7 +244,7 @@
 <span class="o">//</span> <span class="n">to</span> <span class="n">convert</span> <span class="n">to</span> <span class="n">integer</span><span class="p">:</span>
 <span class="nb">int</span> <span class="n">i</span> <span class="o">=</span> <span class="n">v</span><span class="o">.</span><span class="n">convert</span><span class="o">&lt;</span><span class="nb">int</span><span class="o">&gt;</span><span class="p">();</span>
 
-<span class="o">//</span> <span class="n">to</span> <span class="n">convert</span> <span class="n">to</span> <span class="n">string</span><span class="p">:</span>
+<span class="o">//</span> <span class="n">to</span> <span class="n">convert</span> <span class="n">to</span> <span class="n">std</span><span class="p">::</span><span class="n">string</span><span class="p">:</span>
 <span class="n">std</span><span class="p">::</span><span class="n">string</span> <span class="n">s</span> <span class="o">=</span> <span class="n">v</span><span class="o">.</span><span class="n">convert</span><span class="o">&lt;</span><span class="n">std</span><span class="p">::</span><span class="n">string</span><span class="o">&gt;</span><span class="p">();</span>
 </pre></div>
 </div>
@@ -250,153 +253,153 @@
 <p>Only very basic variant type support is needed and this class exposes the absolute minimum possible wrappers to support such features, and provides just two methods of getting and storing native C++ types in it.</p>
 <p>This is <em>currently</em> implemented by Poco but the implementation is fully opaque and may change in the future. </p>
 <div class="breathe-sectiondef docutils container">
-<p class="breathe-sectiondef-title rubric">Public Types</p>
+<p class="breathe-sectiondef-title rubric" id="breathe-section-title-public-types">Public Types</p>
 <dl class="cpp enum">
-<dt id="_CPPv4N2rr7Variant6TypeIdE">
-<span id="_CPPv3N2rr7Variant6TypeIdE"></span><span id="_CPPv2N2rr7Variant6TypeIdE"></span><span class="target" id="classrr_1_1Variant_1a64c7b2189f8d391527919e46a72402a8"></span><em class="property">enum </em><code class="sig-name descname">TypeId</code><a class="headerlink" href="#_CPPv4N2rr7Variant6TypeIdE" title="Permalink to this definition">¶</a><br /></dt>
+<dt class="sig sig-object cpp" id="_CPPv4N2rr7Variant6TypeIdE">
+<span id="_CPPv3N2rr7Variant6TypeIdE"></span><span id="_CPPv2N2rr7Variant6TypeIdE"></span><span class="target" id="classrr_1_1Variant_1a64c7b2189f8d391527919e46a72402a8"></span><span class="k"><span class="pre">enum</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">TypeId</span></span></span><a class="headerlink" href="#_CPPv4N2rr7Variant6TypeIdE" title="Permalink to this definition">¶</a><br /></dt>
 <dd><p>list of currently supported types that a <a class="reference internal" href="#classrr_1_1Variant"><span class="std std-ref">Variant</span></a> can hold. </p>
 <p><em>Values:</em></p>
 <dl class="cpp enumerator">
-<dt id="_CPPv4N2rr7Variant6TypeId6STRINGE">
-<span id="_CPPv3N2rr7Variant6TypeId6STRINGE"></span><span id="_CPPv2N2rr7Variant6TypeId6STRINGE"></span><span class="target" id="classrr_1_1Variant_1a64c7b2189f8d391527919e46a72402a8ab7bc9a0e4b0d7a0d2f3a9ab926745e2a"></span><em class="property">enumerator </em><code class="sig-name descname">STRING</code><a class="headerlink" href="#_CPPv4N2rr7Variant6TypeId6STRINGE" title="Permalink to this definition">¶</a><br /></dt>
+<dt class="sig sig-object cpp" id="_CPPv4N2rr7Variant6TypeId6STRINGE">
+<span id="_CPPv3N2rr7Variant6TypeId6STRINGE"></span><span id="_CPPv2N2rr7Variant6TypeId6STRINGE"></span><span class="target" id="classrr_1_1Variant_1a64c7b2189f8d391527919e46a72402a8ab7bc9a0e4b0d7a0d2f3a9ab926745e2a"></span><span class="k"><span class="pre">enumerator</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">STRING</span></span></span><a class="headerlink" href="#_CPPv4N2rr7Variant6TypeId6STRINGE" title="Permalink to this definition">¶</a><br /></dt>
 <dd></dd></dl>
 
 <dl class="cpp enumerator">
-<dt id="_CPPv4N2rr7Variant6TypeId4BOOLE">
-<span id="_CPPv3N2rr7Variant6TypeId4BOOLE"></span><span id="_CPPv2N2rr7Variant6TypeId4BOOLE"></span><span class="target" id="classrr_1_1Variant_1a64c7b2189f8d391527919e46a72402a8a9020c2880cbd80c9aa7bcf68f4dc09b3"></span><em class="property">enumerator </em><code class="sig-name descname">BOOL</code><a class="headerlink" href="#_CPPv4N2rr7Variant6TypeId4BOOLE" title="Permalink to this definition">¶</a><br /></dt>
+<dt class="sig sig-object cpp" id="_CPPv4N2rr7Variant6TypeId4BOOLE">
+<span id="_CPPv3N2rr7Variant6TypeId4BOOLE"></span><span id="_CPPv2N2rr7Variant6TypeId4BOOLE"></span><span class="target" id="classrr_1_1Variant_1a64c7b2189f8d391527919e46a72402a8a9020c2880cbd80c9aa7bcf68f4dc09b3"></span><span class="k"><span class="pre">enumerator</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">BOOL</span></span></span><a class="headerlink" href="#_CPPv4N2rr7Variant6TypeId4BOOLE" title="Permalink to this definition">¶</a><br /></dt>
 <dd></dd></dl>
 
 <dl class="cpp enumerator">
-<dt id="_CPPv4N2rr7Variant6TypeId5INT32E">
-<span id="_CPPv3N2rr7Variant6TypeId5INT32E"></span><span id="_CPPv2N2rr7Variant6TypeId5INT32E"></span><span class="target" id="classrr_1_1Variant_1a64c7b2189f8d391527919e46a72402a8a5156f21fda3e9d666e657a00f76b3892"></span><em class="property">enumerator </em><code class="sig-name descname">INT32</code><a class="headerlink" href="#_CPPv4N2rr7Variant6TypeId5INT32E" title="Permalink to this definition">¶</a><br /></dt>
+<dt class="sig sig-object cpp" id="_CPPv4N2rr7Variant6TypeId5INT32E">
+<span id="_CPPv3N2rr7Variant6TypeId5INT32E"></span><span id="_CPPv2N2rr7Variant6TypeId5INT32E"></span><span class="target" id="classrr_1_1Variant_1a64c7b2189f8d391527919e46a72402a8a5156f21fda3e9d666e657a00f76b3892"></span><span class="k"><span class="pre">enumerator</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">INT32</span></span></span><a class="headerlink" href="#_CPPv4N2rr7Variant6TypeId5INT32E" title="Permalink to this definition">¶</a><br /></dt>
 <dd></dd></dl>
 
 <dl class="cpp enumerator">
-<dt id="_CPPv4N2rr7Variant6TypeId6UINT32E">
-<span id="_CPPv3N2rr7Variant6TypeId6UINT32E"></span><span id="_CPPv2N2rr7Variant6TypeId6UINT32E"></span><span class="target" id="classrr_1_1Variant_1a64c7b2189f8d391527919e46a72402a8a285d6aabfc97d5cf9b22613adb75aefa"></span><em class="property">enumerator </em><code class="sig-name descname">UINT32</code><a class="headerlink" href="#_CPPv4N2rr7Variant6TypeId6UINT32E" title="Permalink to this definition">¶</a><br /></dt>
+<dt class="sig sig-object cpp" id="_CPPv4N2rr7Variant6TypeId6UINT32E">
+<span id="_CPPv3N2rr7Variant6TypeId6UINT32E"></span><span id="_CPPv2N2rr7Variant6TypeId6UINT32E"></span><span class="target" id="classrr_1_1Variant_1a64c7b2189f8d391527919e46a72402a8a285d6aabfc97d5cf9b22613adb75aefa"></span><span class="k"><span class="pre">enumerator</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">UINT32</span></span></span><a class="headerlink" href="#_CPPv4N2rr7Variant6TypeId6UINT32E" title="Permalink to this definition">¶</a><br /></dt>
 <dd></dd></dl>
 
 <dl class="cpp enumerator">
-<dt id="_CPPv4N2rr7Variant6TypeId5INT64E">
-<span id="_CPPv3N2rr7Variant6TypeId5INT64E"></span><span id="_CPPv2N2rr7Variant6TypeId5INT64E"></span><span class="target" id="classrr_1_1Variant_1a64c7b2189f8d391527919e46a72402a8a0dfb27dbc2818087428f17b03915fda5"></span><em class="property">enumerator </em><code class="sig-name descname">INT64</code><a class="headerlink" href="#_CPPv4N2rr7Variant6TypeId5INT64E" title="Permalink to this definition">¶</a><br /></dt>
+<dt class="sig sig-object cpp" id="_CPPv4N2rr7Variant6TypeId5INT64E">
+<span id="_CPPv3N2rr7Variant6TypeId5INT64E"></span><span id="_CPPv2N2rr7Variant6TypeId5INT64E"></span><span class="target" id="classrr_1_1Variant_1a64c7b2189f8d391527919e46a72402a8a0dfb27dbc2818087428f17b03915fda5"></span><span class="k"><span class="pre">enumerator</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">INT64</span></span></span><a class="headerlink" href="#_CPPv4N2rr7Variant6TypeId5INT64E" title="Permalink to this definition">¶</a><br /></dt>
 <dd></dd></dl>
 
 <dl class="cpp enumerator">
-<dt id="_CPPv4N2rr7Variant6TypeId6UINT64E">
-<span id="_CPPv3N2rr7Variant6TypeId6UINT64E"></span><span id="_CPPv2N2rr7Variant6TypeId6UINT64E"></span><span class="target" id="classrr_1_1Variant_1a64c7b2189f8d391527919e46a72402a8aae5648b7b8f5da033be4fdcfe29e76dd"></span><em class="property">enumerator </em><code class="sig-name descname">UINT64</code><a class="headerlink" href="#_CPPv4N2rr7Variant6TypeId6UINT64E" title="Permalink to this definition">¶</a><br /></dt>
+<dt class="sig sig-object cpp" id="_CPPv4N2rr7Variant6TypeId6UINT64E">
+<span id="_CPPv3N2rr7Variant6TypeId6UINT64E"></span><span id="_CPPv2N2rr7Variant6TypeId6UINT64E"></span><span class="target" id="classrr_1_1Variant_1a64c7b2189f8d391527919e46a72402a8aae5648b7b8f5da033be4fdcfe29e76dd"></span><span class="k"><span class="pre">enumerator</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">UINT64</span></span></span><a class="headerlink" href="#_CPPv4N2rr7Variant6TypeId6UINT64E" title="Permalink to this definition">¶</a><br /></dt>
 <dd></dd></dl>
 
 <dl class="cpp enumerator">
-<dt id="_CPPv4N2rr7Variant6TypeId5FLOATE">
-<span id="_CPPv3N2rr7Variant6TypeId5FLOATE"></span><span id="_CPPv2N2rr7Variant6TypeId5FLOATE"></span><span class="target" id="classrr_1_1Variant_1a64c7b2189f8d391527919e46a72402a8a5133925a530bf64be7b5a6249603ec65"></span><em class="property">enumerator </em><code class="sig-name descname">FLOAT</code><a class="headerlink" href="#_CPPv4N2rr7Variant6TypeId5FLOATE" title="Permalink to this definition">¶</a><br /></dt>
+<dt class="sig sig-object cpp" id="_CPPv4N2rr7Variant6TypeId5FLOATE">
+<span id="_CPPv3N2rr7Variant6TypeId5FLOATE"></span><span id="_CPPv2N2rr7Variant6TypeId5FLOATE"></span><span class="target" id="classrr_1_1Variant_1a64c7b2189f8d391527919e46a72402a8a5133925a530bf64be7b5a6249603ec65"></span><span class="k"><span class="pre">enumerator</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">FLOAT</span></span></span><a class="headerlink" href="#_CPPv4N2rr7Variant6TypeId5FLOATE" title="Permalink to this definition">¶</a><br /></dt>
 <dd></dd></dl>
 
 <dl class="cpp enumerator">
-<dt id="_CPPv4N2rr7Variant6TypeId6DOUBLEE">
-<span id="_CPPv3N2rr7Variant6TypeId6DOUBLEE"></span><span id="_CPPv2N2rr7Variant6TypeId6DOUBLEE"></span><span class="target" id="classrr_1_1Variant_1a64c7b2189f8d391527919e46a72402a8a47b78ea8f5662103e784f9d228d80de1"></span><em class="property">enumerator </em><code class="sig-name descname">DOUBLE</code><a class="headerlink" href="#_CPPv4N2rr7Variant6TypeId6DOUBLEE" title="Permalink to this definition">¶</a><br /></dt>
+<dt class="sig sig-object cpp" id="_CPPv4N2rr7Variant6TypeId6DOUBLEE">
+<span id="_CPPv3N2rr7Variant6TypeId6DOUBLEE"></span><span id="_CPPv2N2rr7Variant6TypeId6DOUBLEE"></span><span class="target" id="classrr_1_1Variant_1a64c7b2189f8d391527919e46a72402a8a47b78ea8f5662103e784f9d228d80de1"></span><span class="k"><span class="pre">enumerator</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">DOUBLE</span></span></span><a class="headerlink" href="#_CPPv4N2rr7Variant6TypeId6DOUBLEE" title="Permalink to this definition">¶</a><br /></dt>
 <dd></dd></dl>
 
 <dl class="cpp enumerator">
-<dt id="_CPPv4N2rr7Variant6TypeId4CHARE">
-<span id="_CPPv3N2rr7Variant6TypeId4CHARE"></span><span id="_CPPv2N2rr7Variant6TypeId4CHARE"></span><span class="target" id="classrr_1_1Variant_1a64c7b2189f8d391527919e46a72402a8a5ae341fd6e898cfb64ba6d328e85b145"></span><em class="property">enumerator </em><code class="sig-name descname">CHAR</code><a class="headerlink" href="#_CPPv4N2rr7Variant6TypeId4CHARE" title="Permalink to this definition">¶</a><br /></dt>
+<dt class="sig sig-object cpp" id="_CPPv4N2rr7Variant6TypeId4CHARE">
+<span id="_CPPv3N2rr7Variant6TypeId4CHARE"></span><span id="_CPPv2N2rr7Variant6TypeId4CHARE"></span><span class="target" id="classrr_1_1Variant_1a64c7b2189f8d391527919e46a72402a8a5ae341fd6e898cfb64ba6d328e85b145"></span><span class="k"><span class="pre">enumerator</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">CHAR</span></span></span><a class="headerlink" href="#_CPPv4N2rr7Variant6TypeId4CHARE" title="Permalink to this definition">¶</a><br /></dt>
 <dd></dd></dl>
 
 <dl class="cpp enumerator">
-<dt id="_CPPv4N2rr7Variant6TypeId5UCHARE">
-<span id="_CPPv3N2rr7Variant6TypeId5UCHARE"></span><span id="_CPPv2N2rr7Variant6TypeId5UCHARE"></span><span class="target" id="classrr_1_1Variant_1a64c7b2189f8d391527919e46a72402a8ac330aee0f3ea041b0e25f238ddac2533"></span><em class="property">enumerator </em><code class="sig-name descname">UCHAR</code><a class="headerlink" href="#_CPPv4N2rr7Variant6TypeId5UCHARE" title="Permalink to this definition">¶</a><br /></dt>
+<dt class="sig sig-object cpp" id="_CPPv4N2rr7Variant6TypeId5UCHARE">
+<span id="_CPPv3N2rr7Variant6TypeId5UCHARE"></span><span id="_CPPv2N2rr7Variant6TypeId5UCHARE"></span><span class="target" id="classrr_1_1Variant_1a64c7b2189f8d391527919e46a72402a8ac330aee0f3ea041b0e25f238ddac2533"></span><span class="k"><span class="pre">enumerator</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">UCHAR</span></span></span><a class="headerlink" href="#_CPPv4N2rr7Variant6TypeId5UCHARE" title="Permalink to this definition">¶</a><br /></dt>
 <dd></dd></dl>
 
 <dl class="cpp enumerator">
-<dt id="_CPPv4N2rr7Variant6TypeId5EMPTYE">
-<span id="_CPPv3N2rr7Variant6TypeId5EMPTYE"></span><span id="_CPPv2N2rr7Variant6TypeId5EMPTYE"></span><span class="target" id="classrr_1_1Variant_1a64c7b2189f8d391527919e46a72402a8a1014e10a53eb5d7d91452ea43c68afd2"></span><em class="property">enumerator </em><code class="sig-name descname">EMPTY</code><a class="headerlink" href="#_CPPv4N2rr7Variant6TypeId5EMPTYE" title="Permalink to this definition">¶</a><br /></dt>
+<dt class="sig sig-object cpp" id="_CPPv4N2rr7Variant6TypeId5EMPTYE">
+<span id="_CPPv3N2rr7Variant6TypeId5EMPTYE"></span><span id="_CPPv2N2rr7Variant6TypeId5EMPTYE"></span><span class="target" id="classrr_1_1Variant_1a64c7b2189f8d391527919e46a72402a8a1014e10a53eb5d7d91452ea43c68afd2"></span><span class="k"><span class="pre">enumerator</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">EMPTY</span></span></span><a class="headerlink" href="#_CPPv4N2rr7Variant6TypeId5EMPTYE" title="Permalink to this definition">¶</a><br /></dt>
 <dd></dd></dl>
 
 <dl class="cpp enumerator">
-<dt id="_CPPv4N2rr7Variant6TypeId12DOUBLEVECTORE">
-<span id="_CPPv3N2rr7Variant6TypeId12DOUBLEVECTORE"></span><span id="_CPPv2N2rr7Variant6TypeId12DOUBLEVECTORE"></span><span class="target" id="classrr_1_1Variant_1a64c7b2189f8d391527919e46a72402a8a0f165f07ea0fd724994ccbe5c3405764"></span><em class="property">enumerator </em><code class="sig-name descname">DOUBLEVECTOR</code><a class="headerlink" href="#_CPPv4N2rr7Variant6TypeId12DOUBLEVECTORE" title="Permalink to this definition">¶</a><br /></dt>
+<dt class="sig sig-object cpp" id="_CPPv4N2rr7Variant6TypeId12DOUBLEVECTORE">
+<span id="_CPPv3N2rr7Variant6TypeId12DOUBLEVECTORE"></span><span id="_CPPv2N2rr7Variant6TypeId12DOUBLEVECTORE"></span><span class="target" id="classrr_1_1Variant_1a64c7b2189f8d391527919e46a72402a8a0f165f07ea0fd724994ccbe5c3405764"></span><span class="k"><span class="pre">enumerator</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">DOUBLEVECTOR</span></span></span><a class="headerlink" href="#_CPPv4N2rr7Variant6TypeId12DOUBLEVECTORE" title="Permalink to this definition">¶</a><br /></dt>
 <dd></dd></dl>
 
 </dd></dl>
 
 </div>
 <div class="breathe-sectiondef docutils container">
-<p class="breathe-sectiondef-title rubric">Public Functions</p>
+<p class="breathe-sectiondef-title rubric" id="breathe-section-title-public-functions">Public Functions</p>
 <dl class="cpp function">
-<dt id="_CPPv4NK2rr7Variant4typeEv">
-<span id="_CPPv3NK2rr7Variant4typeEv"></span><span id="_CPPv2NK2rr7Variant4typeEv"></span><span id="rr::Variant::typeC"></span><span class="target" id="classrr_1_1Variant_1a551b6ad03e790d2fca61f95c62b283b7"></span><a class="reference internal" href="#_CPPv4N2rr7Variant6TypeIdE" title="rr::Variant::TypeId">TypeId</a> <code class="sig-name descname">type</code><span class="sig-paren">(</span><span class="sig-paren">)</span> <em class="property">const</em><a class="headerlink" href="#_CPPv4NK2rr7Variant4typeEv" title="Permalink to this definition">¶</a><br /></dt>
+<dt class="sig sig-object cpp" id="_CPPv4NK2rr7Variant4typeEv">
+<span id="_CPPv3NK2rr7Variant4typeEv"></span><span id="_CPPv2NK2rr7Variant4typeEv"></span><span id="rr::Variant::typeC"></span><span class="target" id="classrr_1_1Variant_1a551b6ad03e790d2fca61f95c62b283b7"></span><a class="reference internal" href="#_CPPv4N2rr7Variant6TypeIdE" title="rr::Variant::TypeId"><span class="n"><span class="pre">TypeId</span></span></a><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">type</span></span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><span class="w"> </span><span class="k"><span class="pre">const</span></span><a class="headerlink" href="#_CPPv4NK2rr7Variant4typeEv" title="Permalink to this definition">¶</a><br /></dt>
 <dd><p>the current type that this <a class="reference internal" href="#classrr_1_1Variant"><span class="std std-ref">Variant</span></a> is. </p>
 </dd></dl>
 
 <dl class="cpp function">
-<dt id="_CPPv4N2rr7Variant7VariantEv">
-<span id="_CPPv3N2rr7Variant7VariantEv"></span><span id="_CPPv2N2rr7Variant7VariantEv"></span><span id="rr::Variant::Variant"></span><span class="target" id="classrr_1_1Variant_1a48f0736e18b6463303047b46cccca550"></span><code class="sig-name descname">Variant</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#_CPPv4N2rr7Variant7VariantEv" title="Permalink to this definition">¶</a><br /></dt>
+<dt class="sig sig-object cpp" id="_CPPv4N2rr7Variant7VariantEv">
+<span id="_CPPv3N2rr7Variant7VariantEv"></span><span id="_CPPv2N2rr7Variant7VariantEv"></span><span id="rr::Variant::Variant"></span><span class="target" id="classrr_1_1Variant_1a48f0736e18b6463303047b46cccca550"></span><span class="sig-name descname"><span class="n"><span class="pre">Variant</span></span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#_CPPv4N2rr7Variant7VariantEv" title="Permalink to this definition">¶</a><br /></dt>
 <dd><p>creates an emtpy variant </p>
 </dd></dl>
 
 <dl class="cpp function">
-<dt id="_CPPv4I0EN2rr7Variant7VariantERK1T">
-<span id="_CPPv3I0EN2rr7Variant7VariantERK1T"></span><span id="_CPPv2I0EN2rr7Variant7VariantERK1T"></span>template&lt;typename <code class="sig-name descname">T</code>&gt;<br /><span class="target" id="classrr_1_1Variant_1a81b0ca7e57d1985f2e05ef7f0805b1cf"></span><em class="property">inline</em> <code class="sig-name descname">Variant</code><span class="sig-paren">(</span><em class="property">const</em> <a class="reference internal" href="#_CPPv4I0EN2rr7Variant7VariantERK1T" title="rr::Variant::Variant::T">T</a> &amp;<em>val</em><span class="sig-paren">)</span><a class="headerlink" href="#_CPPv4I0EN2rr7Variant7VariantERK1T" title="Permalink to this definition">¶</a><br /></dt>
+<dt class="sig sig-object cpp" id="_CPPv4I0EN2rr7Variant7VariantERK1T">
+<span id="_CPPv3I0EN2rr7Variant7VariantERK1T"></span><span id="_CPPv2I0EN2rr7Variant7VariantERK1T"></span><span class="k"><span class="pre">template</span></span><span class="p"><span class="pre">&lt;</span></span><span class="k"><span class="pre">typename</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">T</span></span></span><span class="p"><span class="pre">&gt;</span></span><br /><span class="target" id="classrr_1_1Variant_1a81b0ca7e57d1985f2e05ef7f0805b1cf"></span><span class="k"><span class="pre">inline</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">Variant</span></span></span><span class="sig-paren">(</span><span class="k"><span class="pre">const</span></span><span class="w"> </span><a class="reference internal" href="#_CPPv4I0EN2rr7Variant7VariantERK1T" title="rr::Variant::Variant::T"><span class="n"><span class="pre">T</span></span></a><span class="w"> </span><span class="p"><span class="pre">&amp;</span></span><span class="n sig-param"><span class="pre">val</span></span><span class="sig-paren">)</span><a class="headerlink" href="#_CPPv4I0EN2rr7Variant7VariantERK1T" title="Permalink to this definition">¶</a><br /></dt>
 <dd><p>create a new variant from an existing supported data type. </p>
 <p>This templated constructor can assign any primitive type: <div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">Variant</span> <span class="n">v</span> <span class="o">=</span> <span class="p">(</span><span class="nb">int</span><span class="p">)</span><span class="mi">1</span><span class="p">;</span>
-<span class="n">Variant</span> <span class="n">v</span> <span class="o">=</span> <span class="n">std</span><span class="p">::</span><span class="n">string</span><span class="p">(</span><span class="s2">&quot;a string&quot;</span><span class="p">);</span>
+<span class="n">Variant</span> <span class="n">v</span> <span class="o">=</span> <span class="n">std</span><span class="p">::</span><span class="n">string</span><span class="p">(</span><span class="s2">&quot;a std::string&quot;</span><span class="p">);</span>
 </pre></div>
 </div>
  </p>
 </dd></dl>
 
 <dl class="cpp function">
-<dt id="_CPPv4N2rr7Variant7VariantEPKc">
-<span id="_CPPv3N2rr7Variant7VariantEPKc"></span><span id="_CPPv2N2rr7Variant7VariantEPKc"></span><span id="rr::Variant::Variant__cCP"></span><span class="target" id="classrr_1_1Variant_1adeeea17e7e9aa35fd079c3eee2794b4b"></span><em class="property">inline</em> <code class="sig-name descname">Variant</code><span class="sig-paren">(</span><em class="property">const</em> char *<em>str</em><span class="sig-paren">)</span><a class="headerlink" href="#_CPPv4N2rr7Variant7VariantEPKc" title="Permalink to this definition">¶</a><br /></dt>
+<dt class="sig sig-object cpp" id="_CPPv4N2rr7Variant7VariantEPKc">
+<span id="_CPPv3N2rr7Variant7VariantEPKc"></span><span id="_CPPv2N2rr7Variant7VariantEPKc"></span><span id="rr::Variant::Variant__cCP"></span><span class="target" id="classrr_1_1Variant_1adeeea17e7e9aa35fd079c3eee2794b4b"></span><span class="k"><span class="pre">inline</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">Variant</span></span></span><span class="sig-paren">(</span><span class="k"><span class="pre">const</span></span><span class="w"> </span><span class="kt"><span class="pre">char</span></span><span class="w"> </span><span class="p"><span class="pre">*</span></span><span class="n sig-param"><span class="pre">str</span></span><span class="sig-paren">)</span><a class="headerlink" href="#_CPPv4N2rr7Variant7VariantEPKc" title="Permalink to this definition">¶</a><br /></dt>
 <dd></dd></dl>
 
 <dl class="cpp function">
-<dt id="_CPPv4N2rr7Variant7VariantERK7Variant">
-<span id="_CPPv3N2rr7Variant7VariantERK7Variant"></span><span id="_CPPv2N2rr7Variant7VariantERK7Variant"></span><span id="rr::Variant::Variant__VariantCR"></span><span class="target" id="classrr_1_1Variant_1a950ad51abe6f9e7ed4bbe865bac93e99"></span><code class="sig-name descname">Variant</code><span class="sig-paren">(</span><em class="property">const</em> <a class="reference internal" href="#_CPPv4N2rr7Variant7VariantERK7Variant" title="rr::Variant::Variant">Variant</a> &amp;<em>other</em><span class="sig-paren">)</span><a class="headerlink" href="#_CPPv4N2rr7Variant7VariantERK7Variant" title="Permalink to this definition">¶</a><br /></dt>
+<dt class="sig sig-object cpp" id="_CPPv4N2rr7Variant7VariantERK7Variant">
+<span id="_CPPv3N2rr7Variant7VariantERK7Variant"></span><span id="_CPPv2N2rr7Variant7VariantERK7Variant"></span><span id="rr::Variant::Variant__VariantCR"></span><span class="target" id="classrr_1_1Variant_1a950ad51abe6f9e7ed4bbe865bac93e99"></span><span class="sig-name descname"><span class="n"><span class="pre">Variant</span></span></span><span class="sig-paren">(</span><span class="k"><span class="pre">const</span></span><span class="w"> </span><a class="reference internal" href="#_CPPv4N2rr7Variant7VariantERK7Variant" title="rr::Variant::Variant"><span class="n"><span class="pre">Variant</span></span></a><span class="w"> </span><span class="p"><span class="pre">&amp;</span></span><span class="n sig-param"><span class="pre">other</span></span><span class="sig-paren">)</span><a class="headerlink" href="#_CPPv4N2rr7Variant7VariantERK7Variant" title="Permalink to this definition">¶</a><br /></dt>
 <dd><p>Copy constructor. </p>
 </dd></dl>
 
 <dl class="cpp function">
-<dt id="_CPPv4I0EN2rr7VariantaSER7VariantRK1T">
-<span id="_CPPv3I0EN2rr7VariantaSERK1T"></span><span id="_CPPv2I0EN2rr7VariantaSERK1T"></span>template&lt;typename <code class="sig-name descname">T</code>&gt;<br /><span class="target" id="classrr_1_1Variant_1a22c85776d05ff8009e6f6686db25f949"></span><em class="property">inline</em> <a class="reference internal" href="#_CPPv4N2rr7VariantE" title="rr::Variant">Variant</a> &amp;<code class="sig-name descname">operator=</code><span class="sig-paren">(</span><em class="property">const</em> <a class="reference internal" href="#_CPPv4I0EN2rr7VariantaSER7VariantRK1T" title="rr::Variant::operator=::T">T</a> &amp;<em>value</em><span class="sig-paren">)</span><a class="headerlink" href="#_CPPv4I0EN2rr7VariantaSER7VariantRK1T" title="Permalink to this definition">¶</a><br /></dt>
+<dt class="sig sig-object cpp" id="_CPPv4I0EN2rr7VariantaSER7VariantRK1T">
+<span id="_CPPv3I0EN2rr7VariantaSERK1T"></span><span id="_CPPv2I0EN2rr7VariantaSERK1T"></span><span class="k"><span class="pre">template</span></span><span class="p"><span class="pre">&lt;</span></span><span class="k"><span class="pre">typename</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">T</span></span></span><span class="p"><span class="pre">&gt;</span></span><br /><span class="target" id="classrr_1_1Variant_1a22c85776d05ff8009e6f6686db25f949"></span><span class="k"><span class="pre">inline</span></span><span class="w"> </span><a class="reference internal" href="#_CPPv4N2rr7VariantE" title="rr::Variant"><span class="n"><span class="pre">Variant</span></span></a><span class="w"> </span><span class="p"><span class="pre">&amp;</span></span><span class="sig-name descname"><span class="k"><span class="pre">operator</span></span><span class="o"><span class="pre">=</span></span></span><span class="sig-paren">(</span><span class="k"><span class="pre">const</span></span><span class="w"> </span><a class="reference internal" href="#_CPPv4I0EN2rr7VariantaSER7VariantRK1T" title="rr::Variant::operator=::T"><span class="n"><span class="pre">T</span></span></a><span class="w"> </span><span class="p"><span class="pre">&amp;</span></span><span class="n sig-param"><span class="pre">value</span></span><span class="sig-paren">)</span><a class="headerlink" href="#_CPPv4I0EN2rr7VariantaSER7VariantRK1T" title="Permalink to this definition">¶</a><br /></dt>
 <dd><p>Assignment operator for assigning POD to Var same as the constructor, this assigns a value to an existing <a class="reference internal" href="#classrr_1_1Variant"><span class="std std-ref">Variant</span></a>. </p>
 </dd></dl>
 
 <dl class="cpp function">
-<dt id="_CPPv4N2rr7VariantaSERK7Variant">
-<span id="_CPPv3N2rr7VariantaSERK7Variant"></span><span id="_CPPv2N2rr7VariantaSERK7Variant"></span><span id="rr::Variant::assign-operator__VariantCR"></span><span class="target" id="classrr_1_1Variant_1ac04cac2d0b4d939f789658bebbb05f21"></span><a class="reference internal" href="#_CPPv4N2rr7VariantE" title="rr::Variant">Variant</a> &amp;<code class="sig-name descname">operator=</code><span class="sig-paren">(</span><em class="property">const</em> <a class="reference internal" href="#_CPPv4N2rr7VariantE" title="rr::Variant">Variant</a> &amp;<em>other</em><span class="sig-paren">)</span><a class="headerlink" href="#_CPPv4N2rr7VariantaSERK7Variant" title="Permalink to this definition">¶</a><br /></dt>
+<dt class="sig sig-object cpp" id="_CPPv4N2rr7VariantaSERK7Variant">
+<span id="_CPPv3N2rr7VariantaSERK7Variant"></span><span id="_CPPv2N2rr7VariantaSERK7Variant"></span><span id="rr::Variant::assign-operator__VariantCR"></span><span class="target" id="classrr_1_1Variant_1ac04cac2d0b4d939f789658bebbb05f21"></span><a class="reference internal" href="#_CPPv4N2rr7VariantE" title="rr::Variant"><span class="n"><span class="pre">Variant</span></span></a><span class="w"> </span><span class="p"><span class="pre">&amp;</span></span><span class="sig-name descname"><span class="k"><span class="pre">operator</span></span><span class="o"><span class="pre">=</span></span></span><span class="sig-paren">(</span><span class="k"><span class="pre">const</span></span><span class="w"> </span><a class="reference internal" href="#_CPPv4N2rr7VariantE" title="rr::Variant"><span class="n"><span class="pre">Variant</span></span></a><span class="w"> </span><span class="p"><span class="pre">&amp;</span></span><span class="n sig-param"><span class="pre">other</span></span><span class="sig-paren">)</span><a class="headerlink" href="#_CPPv4N2rr7VariantaSERK7Variant" title="Permalink to this definition">¶</a><br /></dt>
 <dd><p>Assignment operator. </p>
 <p>Assign one variant to another. </p>
 </dd></dl>
 
 <dl class="cpp function">
-<dt id="_CPPv4N2rr7VariantD0Ev">
-<span id="_CPPv3N2rr7VariantD0Ev"></span><span id="_CPPv2N2rr7VariantD0Ev"></span><span id="rr::Variant::~Variant"></span><span class="target" id="classrr_1_1Variant_1a5bfdfef2698dc62678ed6e5b9f807c2a"></span><em class="property">virtual</em> <code class="sig-name descname">~Variant</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#_CPPv4N2rr7VariantD0Ev" title="Permalink to this definition">¶</a><br /></dt>
+<dt class="sig sig-object cpp" id="_CPPv4N2rr7VariantD0Ev">
+<span id="_CPPv3N2rr7VariantD0Ev"></span><span id="_CPPv2N2rr7VariantD0Ev"></span><span id="rr::Variant::~Variant"></span><span class="target" id="classrr_1_1Variant_1a5bfdfef2698dc62678ed6e5b9f807c2a"></span><span class="k"><span class="pre">virtual</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">~Variant</span></span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#_CPPv4N2rr7VariantD0Ev" title="Permalink to this definition">¶</a><br /></dt>
 <dd><p>clean up any data owned by this object. </p>
 </dd></dl>
 
 <dl class="cpp function">
-<dt id="_CPPv4NK2rr7Variant8typeInfoEv">
-<span id="_CPPv3NK2rr7Variant8typeInfoEv"></span><span id="_CPPv2NK2rr7Variant8typeInfoEv"></span><span id="rr::Variant::typeInfoC"></span><span class="target" id="classrr_1_1Variant_1ab221d80ddd0d06174c61d90e25ebb0d2"></span><em class="property">const</em> std::type_info &amp;<code class="sig-name descname">typeInfo</code><span class="sig-paren">(</span><span class="sig-paren">)</span> <em class="property">const</em><a class="headerlink" href="#_CPPv4NK2rr7Variant8typeInfoEv" title="Permalink to this definition">¶</a><br /></dt>
+<dt class="sig sig-object cpp" id="_CPPv4NK2rr7Variant8typeInfoEv">
+<span id="_CPPv3NK2rr7Variant8typeInfoEv"></span><span id="_CPPv2NK2rr7Variant8typeInfoEv"></span><span id="rr::Variant::typeInfoC"></span><span class="target" id="classrr_1_1Variant_1ab221d80ddd0d06174c61d90e25ebb0d2"></span><span class="k"><span class="pre">const</span></span><span class="w"> </span><span class="n"><span class="pre">std</span></span><span class="p"><span class="pre">::</span></span><span class="n"><span class="pre">type_info</span></span><span class="w"> </span><span class="p"><span class="pre">&amp;</span></span><span class="sig-name descname"><span class="n"><span class="pre">typeInfo</span></span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><span class="w"> </span><span class="k"><span class="pre">const</span></span><a class="headerlink" href="#_CPPv4NK2rr7Variant8typeInfoEv" title="Permalink to this definition">¶</a><br /></dt>
 <dd><p>get the type id of the stored data type. </p>
 <p>This will let you check what kind of data is strored in this variant.</p>
 <p><div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="o">//</span> <span class="n">to</span> <span class="n">check</span> <span class="k">if</span> <span class="n">this</span> <span class="ow">is</span> <span class="n">an</span> <span class="n">integer</span><span class="p">:</span>
 <span class="n">Variant</span> <span class="n">v</span> <span class="o">=</span> <span class="o">...</span>
 <span class="k">if</span> <span class="p">(</span><span class="n">v</span><span class="o">.</span><span class="n">type</span><span class="p">()</span> <span class="o">==</span> <span class="n">typeid</span><span class="p">(</span><span class="nb">int</span><span class="p">))</span>
-    <span class="n">cout</span> <span class="o">&lt;&lt;</span> <span class="s2">&quot;its an int&quot;</span><span class="p">;</span>
+    <span class="n">std</span><span class="p">::</span><span class="n">cout</span> <span class="o">&lt;&lt;</span> <span class="s2">&quot;its an int&quot;</span><span class="p">;</span>
 
-<span class="o">//</span> <span class="n">to</span> <span class="n">check</span> <span class="k">if</span> <span class="n">its</span> <span class="n">a</span> <span class="n">string</span><span class="p">:</span>
+<span class="o">//</span> <span class="n">to</span> <span class="n">check</span> <span class="k">if</span> <span class="n">its</span> <span class="n">a</span> <span class="n">std</span><span class="p">::</span><span class="n">string</span><span class="p">:</span>
 <span class="k">if</span> <span class="p">(</span><span class="n">v</span><span class="o">.</span><span class="n">type</span><span class="p">()</span> <span class="o">==</span> <span class="n">typeid</span><span class="p">(</span><span class="n">std</span><span class="p">::</span><span class="n">string</span><span class="p">))</span>
-    <span class="n">cout</span> <span class="o">&lt;&lt;</span> <span class="s2">&quot;ints a string&quot;</span><span class="p">;</span>
+    <span class="n">std</span><span class="p">::</span><span class="n">cout</span> <span class="o">&lt;&lt;</span> <span class="s2">&quot;ints a std::string&quot;</span><span class="p">;</span>
 </pre></div>
 </div>
  </p>
 </dd></dl>
 
 <dl class="cpp function">
-<dt id="_CPPv4I0ENK2rr7Variant7convertE1Tv">
-<span id="_CPPv3I0ENK2rr7Variant7convertEv"></span><span id="_CPPv2I0ENK2rr7Variant7convertEv"></span>template&lt;typename <code class="sig-name descname">T</code>&gt;<br /><span class="target" id="classrr_1_1Variant_1a7bb371be936601754f61d5285f834352"></span><em class="property">inline</em> <a class="reference internal" href="#_CPPv4I0ENK2rr7Variant7convertE1Tv" title="rr::Variant::convert::T">T</a> <code class="sig-name descname">convert</code><span class="sig-paren">(</span><span class="sig-paren">)</span> <em class="property">const</em><a class="headerlink" href="#_CPPv4I0ENK2rr7Variant7convertE1Tv" title="Permalink to this definition">¶</a><br /></dt>
+<dt class="sig sig-object cpp" id="_CPPv4I0ENK2rr7Variant7convertE1Tv">
+<span id="_CPPv3I0ENK2rr7Variant7convertEv"></span><span id="_CPPv2I0ENK2rr7Variant7convertEv"></span><span class="k"><span class="pre">template</span></span><span class="p"><span class="pre">&lt;</span></span><span class="k"><span class="pre">typename</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">T</span></span></span><span class="p"><span class="pre">&gt;</span></span><br /><span class="target" id="classrr_1_1Variant_1a7bb371be936601754f61d5285f834352"></span><span class="k"><span class="pre">inline</span></span><span class="w"> </span><a class="reference internal" href="#_CPPv4I0ENK2rr7Variant7convertE1Tv" title="rr::Variant::convert::T"><span class="n"><span class="pre">T</span></span></a><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">convert</span></span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><span class="w"> </span><span class="k"><span class="pre">const</span></span><a class="headerlink" href="#_CPPv4I0ENK2rr7Variant7convertE1Tv" title="Permalink to this definition">¶</a><br /></dt>
 <dd><p>Convert this variant to a supported data type. </p>
-<p>This method will try to perform type coercion, i.e. if this variant contains a string, and it is asked to convert to a int, the string will be parsed as an int. Similary, doubles will be rounded to int, so forth.</p>
+<p>This method will try to perform type coercion, i.e. if this variant contains a std::string, and it is asked to convert to a int, the std::string will be parsed as an int. Similary, doubles will be rounded to int, so forth.</p>
 <p><div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="o">//</span> <span class="n">convert</span> <span class="n">to</span> <span class="nb">int</span><span class="p">:</span>
 <span class="nb">int</span> <span class="n">i</span> <span class="o">=</span> <span class="n">v</span><span class="o">.</span><span class="n">convert</span><span class="o">&lt;</span><span class="nb">int</span><span class="o">&gt;</span><span class="p">();</span>
 </pre></div>
@@ -405,69 +408,69 @@
 </dd></dl>
 
 <dl class="cpp function">
-<dt id="_CPPv4N2rr7Variant24VARIANT_IMPLICIT_CONVERTENSt6stringE">
-<span id="_CPPv3N2rr7Variant24VARIANT_IMPLICIT_CONVERTENSt6stringE"></span><span id="_CPPv2N2rr7Variant24VARIANT_IMPLICIT_CONVERTENSt6stringE"></span><span id="rr::Variant::VARIANT_IMPLICIT_CONVERT__ss"></span><span class="target" id="classrr_1_1Variant_1a1e671df21f20cf4cea3cd97b91d74bad"></span><code class="sig-name descname">VARIANT_IMPLICIT_CONVERT</code><span class="sig-paren">(</span>std::string<span class="sig-paren">)</span><a class="headerlink" href="#_CPPv4N2rr7Variant24VARIANT_IMPLICIT_CONVERTENSt6stringE" title="Permalink to this definition">¶</a><br /></dt>
+<dt class="sig sig-object cpp" id="_CPPv4N2rr7Variant24VARIANT_IMPLICIT_CONVERTENSt6stringE">
+<span id="_CPPv3N2rr7Variant24VARIANT_IMPLICIT_CONVERTENSt6stringE"></span><span id="_CPPv2N2rr7Variant24VARIANT_IMPLICIT_CONVERTENSt6stringE"></span><span id="rr::Variant::VARIANT_IMPLICIT_CONVERT__ss"></span><span class="target" id="classrr_1_1Variant_1a1e671df21f20cf4cea3cd97b91d74bad"></span><span class="sig-name descname"><span class="n"><span class="pre">VARIANT_IMPLICIT_CONVERT</span></span></span><span class="sig-paren">(</span><span class="n"><span class="pre">std</span></span><span class="p"><span class="pre">::</span></span><span class="n"><span class="pre">string</span></span><span class="sig-paren">)</span><a class="headerlink" href="#_CPPv4N2rr7Variant24VARIANT_IMPLICIT_CONVERTENSt6stringE" title="Permalink to this definition">¶</a><br /></dt>
 <dd></dd></dl>
 
 <dl class="cpp function">
-<dt id="_CPPv4N2rr7Variant24VARIANT_IMPLICIT_CONVERTEl">
-<span id="_CPPv3N2rr7Variant24VARIANT_IMPLICIT_CONVERTEl"></span><span id="_CPPv2N2rr7Variant24VARIANT_IMPLICIT_CONVERTEl"></span><span id="rr::Variant::VARIANT_IMPLICIT_CONVERT__l"></span><span class="target" id="classrr_1_1Variant_1a80fb1e965dafc1d64a72baaf4dfb74a7"></span><code class="sig-name descname">VARIANT_IMPLICIT_CONVERT</code><span class="sig-paren">(</span>long<span class="sig-paren">)</span><a class="headerlink" href="#_CPPv4N2rr7Variant24VARIANT_IMPLICIT_CONVERTEl" title="Permalink to this definition">¶</a><br /></dt>
+<dt class="sig sig-object cpp" id="_CPPv4N2rr7Variant24VARIANT_IMPLICIT_CONVERTEl">
+<span id="_CPPv3N2rr7Variant24VARIANT_IMPLICIT_CONVERTEl"></span><span id="_CPPv2N2rr7Variant24VARIANT_IMPLICIT_CONVERTEl"></span><span id="rr::Variant::VARIANT_IMPLICIT_CONVERT__l"></span><span class="target" id="classrr_1_1Variant_1a80fb1e965dafc1d64a72baaf4dfb74a7"></span><span class="sig-name descname"><span class="n"><span class="pre">VARIANT_IMPLICIT_CONVERT</span></span></span><span class="sig-paren">(</span><span class="kt"><span class="pre">long</span></span><span class="sig-paren">)</span><a class="headerlink" href="#_CPPv4N2rr7Variant24VARIANT_IMPLICIT_CONVERTEl" title="Permalink to this definition">¶</a><br /></dt>
 <dd></dd></dl>
 
 <dl class="cpp function">
-<dt id="_CPPv4N2rr7Variant24VARIANT_IMPLICIT_CONVERTEb">
-<span id="_CPPv3N2rr7Variant24VARIANT_IMPLICIT_CONVERTEb"></span><span id="_CPPv2N2rr7Variant24VARIANT_IMPLICIT_CONVERTEb"></span><span id="rr::Variant::VARIANT_IMPLICIT_CONVERT__b"></span><span class="target" id="classrr_1_1Variant_1affffce16e5c854be89c5ad19565b662e"></span><code class="sig-name descname">VARIANT_IMPLICIT_CONVERT</code><span class="sig-paren">(</span>bool<span class="sig-paren">)</span><a class="headerlink" href="#_CPPv4N2rr7Variant24VARIANT_IMPLICIT_CONVERTEb" title="Permalink to this definition">¶</a><br /></dt>
+<dt class="sig sig-object cpp" id="_CPPv4N2rr7Variant24VARIANT_IMPLICIT_CONVERTEb">
+<span id="_CPPv3N2rr7Variant24VARIANT_IMPLICIT_CONVERTEb"></span><span id="_CPPv2N2rr7Variant24VARIANT_IMPLICIT_CONVERTEb"></span><span id="rr::Variant::VARIANT_IMPLICIT_CONVERT__b"></span><span class="target" id="classrr_1_1Variant_1affffce16e5c854be89c5ad19565b662e"></span><span class="sig-name descname"><span class="n"><span class="pre">VARIANT_IMPLICIT_CONVERT</span></span></span><span class="sig-paren">(</span><span class="kt"><span class="pre">bool</span></span><span class="sig-paren">)</span><a class="headerlink" href="#_CPPv4N2rr7Variant24VARIANT_IMPLICIT_CONVERTEb" title="Permalink to this definition">¶</a><br /></dt>
 <dd></dd></dl>
 
 <dl class="cpp function">
-<dt id="_CPPv4N2rr7Variant24VARIANT_IMPLICIT_CONVERTEf">
-<span id="_CPPv3N2rr7Variant24VARIANT_IMPLICIT_CONVERTEf"></span><span id="_CPPv2N2rr7Variant24VARIANT_IMPLICIT_CONVERTEf"></span><span id="rr::Variant::VARIANT_IMPLICIT_CONVERT__float"></span><span class="target" id="classrr_1_1Variant_1a0c5b814015afebf10133a5040a4ba5dd"></span><code class="sig-name descname">VARIANT_IMPLICIT_CONVERT</code><span class="sig-paren">(</span>float<span class="sig-paren">)</span><a class="headerlink" href="#_CPPv4N2rr7Variant24VARIANT_IMPLICIT_CONVERTEf" title="Permalink to this definition">¶</a><br /></dt>
+<dt class="sig sig-object cpp" id="_CPPv4N2rr7Variant24VARIANT_IMPLICIT_CONVERTEf">
+<span id="_CPPv3N2rr7Variant24VARIANT_IMPLICIT_CONVERTEf"></span><span id="_CPPv2N2rr7Variant24VARIANT_IMPLICIT_CONVERTEf"></span><span id="rr::Variant::VARIANT_IMPLICIT_CONVERT__float"></span><span class="target" id="classrr_1_1Variant_1a0c5b814015afebf10133a5040a4ba5dd"></span><span class="sig-name descname"><span class="n"><span class="pre">VARIANT_IMPLICIT_CONVERT</span></span></span><span class="sig-paren">(</span><span class="kt"><span class="pre">float</span></span><span class="sig-paren">)</span><a class="headerlink" href="#_CPPv4N2rr7Variant24VARIANT_IMPLICIT_CONVERTEf" title="Permalink to this definition">¶</a><br /></dt>
 <dd></dd></dl>
 
 <dl class="cpp function">
-<dt id="_CPPv4N2rr7Variant24VARIANT_IMPLICIT_CONVERTEd">
-<span id="_CPPv3N2rr7Variant24VARIANT_IMPLICIT_CONVERTEd"></span><span id="_CPPv2N2rr7Variant24VARIANT_IMPLICIT_CONVERTEd"></span><span id="rr::Variant::VARIANT_IMPLICIT_CONVERT__double"></span><span class="target" id="classrr_1_1Variant_1a4b997ca2b06a76b4ce2eee7b71a32f02"></span><code class="sig-name descname">VARIANT_IMPLICIT_CONVERT</code><span class="sig-paren">(</span>double<span class="sig-paren">)</span><a class="headerlink" href="#_CPPv4N2rr7Variant24VARIANT_IMPLICIT_CONVERTEd" title="Permalink to this definition">¶</a><br /></dt>
+<dt class="sig sig-object cpp" id="_CPPv4N2rr7Variant24VARIANT_IMPLICIT_CONVERTEd">
+<span id="_CPPv3N2rr7Variant24VARIANT_IMPLICIT_CONVERTEd"></span><span id="_CPPv2N2rr7Variant24VARIANT_IMPLICIT_CONVERTEd"></span><span id="rr::Variant::VARIANT_IMPLICIT_CONVERT__double"></span><span class="target" id="classrr_1_1Variant_1a4b997ca2b06a76b4ce2eee7b71a32f02"></span><span class="sig-name descname"><span class="n"><span class="pre">VARIANT_IMPLICIT_CONVERT</span></span></span><span class="sig-paren">(</span><span class="kt"><span class="pre">double</span></span><span class="sig-paren">)</span><a class="headerlink" href="#_CPPv4N2rr7Variant24VARIANT_IMPLICIT_CONVERTEd" title="Permalink to this definition">¶</a><br /></dt>
 <dd></dd></dl>
 
 <dl class="cpp function">
-<dt id="_CPPv4N2rr7Variant24VARIANT_IMPLICIT_CONVERTEm">
-<span id="_CPPv3N2rr7Variant24VARIANT_IMPLICIT_CONVERTEm"></span><span id="_CPPv2N2rr7Variant24VARIANT_IMPLICIT_CONVERTEm"></span><span id="rr::Variant::VARIANT_IMPLICIT_CONVERT__unsigned-l"></span><span class="target" id="classrr_1_1Variant_1a7a91de1a107d4c7e2e9fd36955051758"></span><code class="sig-name descname">VARIANT_IMPLICIT_CONVERT</code><span class="sig-paren">(</span>unsigned long<span class="sig-paren">)</span><a class="headerlink" href="#_CPPv4N2rr7Variant24VARIANT_IMPLICIT_CONVERTEm" title="Permalink to this definition">¶</a><br /></dt>
+<dt class="sig sig-object cpp" id="_CPPv4N2rr7Variant24VARIANT_IMPLICIT_CONVERTEm">
+<span id="_CPPv3N2rr7Variant24VARIANT_IMPLICIT_CONVERTEm"></span><span id="_CPPv2N2rr7Variant24VARIANT_IMPLICIT_CONVERTEm"></span><span id="rr::Variant::VARIANT_IMPLICIT_CONVERT__unsigned-l"></span><span class="target" id="classrr_1_1Variant_1a7a91de1a107d4c7e2e9fd36955051758"></span><span class="sig-name descname"><span class="n"><span class="pre">VARIANT_IMPLICIT_CONVERT</span></span></span><span class="sig-paren">(</span><span class="kt"><span class="pre">unsigned</span> <span class="pre">long</span></span><span class="sig-paren">)</span><a class="headerlink" href="#_CPPv4N2rr7Variant24VARIANT_IMPLICIT_CONVERTEm" title="Permalink to this definition">¶</a><br /></dt>
 <dd></dd></dl>
 
 <dl class="cpp function">
-<dt id="_CPPv4N2rr7Variant24VARIANT_IMPLICIT_CONVERTEi">
-<span id="_CPPv3N2rr7Variant24VARIANT_IMPLICIT_CONVERTEi"></span><span id="_CPPv2N2rr7Variant24VARIANT_IMPLICIT_CONVERTEi"></span><span id="rr::Variant::VARIANT_IMPLICIT_CONVERT__i"></span><span class="target" id="classrr_1_1Variant_1ad3c33516ac06d47ad80ce1838a41503d"></span><code class="sig-name descname">VARIANT_IMPLICIT_CONVERT</code><span class="sig-paren">(</span>int<span class="sig-paren">)</span><a class="headerlink" href="#_CPPv4N2rr7Variant24VARIANT_IMPLICIT_CONVERTEi" title="Permalink to this definition">¶</a><br /></dt>
+<dt class="sig sig-object cpp" id="_CPPv4N2rr7Variant24VARIANT_IMPLICIT_CONVERTEi">
+<span id="_CPPv3N2rr7Variant24VARIANT_IMPLICIT_CONVERTEi"></span><span id="_CPPv2N2rr7Variant24VARIANT_IMPLICIT_CONVERTEi"></span><span id="rr::Variant::VARIANT_IMPLICIT_CONVERT__i"></span><span class="target" id="classrr_1_1Variant_1ad3c33516ac06d47ad80ce1838a41503d"></span><span class="sig-name descname"><span class="n"><span class="pre">VARIANT_IMPLICIT_CONVERT</span></span></span><span class="sig-paren">(</span><span class="kt"><span class="pre">int</span></span><span class="sig-paren">)</span><a class="headerlink" href="#_CPPv4N2rr7Variant24VARIANT_IMPLICIT_CONVERTEi" title="Permalink to this definition">¶</a><br /></dt>
 <dd></dd></dl>
 
 <dl class="cpp function">
-<dt id="_CPPv4N2rr7Variant24VARIANT_IMPLICIT_CONVERTEj">
-<span id="_CPPv3N2rr7Variant24VARIANT_IMPLICIT_CONVERTEj"></span><span id="_CPPv2N2rr7Variant24VARIANT_IMPLICIT_CONVERTEj"></span><span id="rr::Variant::VARIANT_IMPLICIT_CONVERT__unsigned-i"></span><span class="target" id="classrr_1_1Variant_1aeaecee8f6ff49545b3feb060f4a2fc6b"></span><code class="sig-name descname">VARIANT_IMPLICIT_CONVERT</code><span class="sig-paren">(</span>unsigned int<span class="sig-paren">)</span><a class="headerlink" href="#_CPPv4N2rr7Variant24VARIANT_IMPLICIT_CONVERTEj" title="Permalink to this definition">¶</a><br /></dt>
+<dt class="sig sig-object cpp" id="_CPPv4N2rr7Variant24VARIANT_IMPLICIT_CONVERTEj">
+<span id="_CPPv3N2rr7Variant24VARIANT_IMPLICIT_CONVERTEj"></span><span id="_CPPv2N2rr7Variant24VARIANT_IMPLICIT_CONVERTEj"></span><span id="rr::Variant::VARIANT_IMPLICIT_CONVERT__unsigned-i"></span><span class="target" id="classrr_1_1Variant_1aeaecee8f6ff49545b3feb060f4a2fc6b"></span><span class="sig-name descname"><span class="n"><span class="pre">VARIANT_IMPLICIT_CONVERT</span></span></span><span class="sig-paren">(</span><span class="kt"><span class="pre">unsigned</span> <span class="pre">int</span></span><span class="sig-paren">)</span><a class="headerlink" href="#_CPPv4N2rr7Variant24VARIANT_IMPLICIT_CONVERTEj" title="Permalink to this definition">¶</a><br /></dt>
 <dd></dd></dl>
 
 <dl class="cpp function">
-<dt id="_CPPv4N2rr7Variant24VARIANT_IMPLICIT_CONVERTEc">
-<span id="_CPPv3N2rr7Variant24VARIANT_IMPLICIT_CONVERTEc"></span><span id="_CPPv2N2rr7Variant24VARIANT_IMPLICIT_CONVERTEc"></span><span id="rr::Variant::VARIANT_IMPLICIT_CONVERT__c"></span><span class="target" id="classrr_1_1Variant_1a4455d0058d6627a8291c5b7ede89cf1b"></span><code class="sig-name descname">VARIANT_IMPLICIT_CONVERT</code><span class="sig-paren">(</span>char<span class="sig-paren">)</span><a class="headerlink" href="#_CPPv4N2rr7Variant24VARIANT_IMPLICIT_CONVERTEc" title="Permalink to this definition">¶</a><br /></dt>
+<dt class="sig sig-object cpp" id="_CPPv4N2rr7Variant24VARIANT_IMPLICIT_CONVERTEc">
+<span id="_CPPv3N2rr7Variant24VARIANT_IMPLICIT_CONVERTEc"></span><span id="_CPPv2N2rr7Variant24VARIANT_IMPLICIT_CONVERTEc"></span><span id="rr::Variant::VARIANT_IMPLICIT_CONVERT__c"></span><span class="target" id="classrr_1_1Variant_1a4455d0058d6627a8291c5b7ede89cf1b"></span><span class="sig-name descname"><span class="n"><span class="pre">VARIANT_IMPLICIT_CONVERT</span></span></span><span class="sig-paren">(</span><span class="kt"><span class="pre">char</span></span><span class="sig-paren">)</span><a class="headerlink" href="#_CPPv4N2rr7Variant24VARIANT_IMPLICIT_CONVERTEc" title="Permalink to this definition">¶</a><br /></dt>
 <dd></dd></dl>
 
 <dl class="cpp function">
-<dt id="_CPPv4N2rr7Variant24VARIANT_IMPLICIT_CONVERTEh">
-<span id="_CPPv3N2rr7Variant24VARIANT_IMPLICIT_CONVERTEh"></span><span id="_CPPv2N2rr7Variant24VARIANT_IMPLICIT_CONVERTEh"></span><span id="rr::Variant::VARIANT_IMPLICIT_CONVERT__unsigned-c"></span><span class="target" id="classrr_1_1Variant_1aaec35f10a7667638c62206c83f090352"></span><code class="sig-name descname">VARIANT_IMPLICIT_CONVERT</code><span class="sig-paren">(</span>unsigned char<span class="sig-paren">)</span><a class="headerlink" href="#_CPPv4N2rr7Variant24VARIANT_IMPLICIT_CONVERTEh" title="Permalink to this definition">¶</a><br /></dt>
+<dt class="sig sig-object cpp" id="_CPPv4N2rr7Variant24VARIANT_IMPLICIT_CONVERTEh">
+<span id="_CPPv3N2rr7Variant24VARIANT_IMPLICIT_CONVERTEh"></span><span id="_CPPv2N2rr7Variant24VARIANT_IMPLICIT_CONVERTEh"></span><span id="rr::Variant::VARIANT_IMPLICIT_CONVERT__unsigned-c"></span><span class="target" id="classrr_1_1Variant_1aaec35f10a7667638c62206c83f090352"></span><span class="sig-name descname"><span class="n"><span class="pre">VARIANT_IMPLICIT_CONVERT</span></span></span><span class="sig-paren">(</span><span class="kt"><span class="pre">unsigned</span> <span class="pre">char</span></span><span class="sig-paren">)</span><a class="headerlink" href="#_CPPv4N2rr7Variant24VARIANT_IMPLICIT_CONVERTEh" title="Permalink to this definition">¶</a><br /></dt>
 <dd></dd></dl>
 
 <dl class="cpp function">
-<dt id="_CPPv4N2rr7Variant24VARIANT_IMPLICIT_CONVERTENSt6vectorIdEE">
-<span id="_CPPv3N2rr7Variant24VARIANT_IMPLICIT_CONVERTENSt6vectorIdEE"></span><span id="_CPPv2N2rr7Variant24VARIANT_IMPLICIT_CONVERTENSt6vectorIdEE"></span><span id="rr::Variant::VARIANT_IMPLICIT_CONVERT__std::vector:double:"></span><span class="target" id="classrr_1_1Variant_1a6cee1990f0e04b644c0cac5af847a67c"></span><code class="sig-name descname">VARIANT_IMPLICIT_CONVERT</code><span class="sig-paren">(</span>std::vector&lt;double&gt;<span class="sig-paren">)</span><a class="headerlink" href="#_CPPv4N2rr7Variant24VARIANT_IMPLICIT_CONVERTENSt6vectorIdEE" title="Permalink to this definition">¶</a><br /></dt>
+<dt class="sig sig-object cpp" id="_CPPv4N2rr7Variant24VARIANT_IMPLICIT_CONVERTENSt6vectorIdEE">
+<span id="_CPPv3N2rr7Variant24VARIANT_IMPLICIT_CONVERTENSt6vectorIdEE"></span><span id="_CPPv2N2rr7Variant24VARIANT_IMPLICIT_CONVERTENSt6vectorIdEE"></span><span id="rr::Variant::VARIANT_IMPLICIT_CONVERT__std::vector:double:"></span><span class="target" id="classrr_1_1Variant_1a6cee1990f0e04b644c0cac5af847a67c"></span><span class="sig-name descname"><span class="n"><span class="pre">VARIANT_IMPLICIT_CONVERT</span></span></span><span class="sig-paren">(</span><span class="n"><span class="pre">std</span></span><span class="p"><span class="pre">::</span></span><span class="n"><span class="pre">vector</span></span><span class="p"><span class="pre">&lt;</span></span><span class="kt"><span class="pre">double</span></span><span class="p"><span class="pre">&gt;</span></span><span class="sig-paren">)</span><a class="headerlink" href="#_CPPv4N2rr7Variant24VARIANT_IMPLICIT_CONVERTENSt6vectorIdEE" title="Permalink to this definition">¶</a><br /></dt>
 <dd></dd></dl>
 
 <dl class="cpp function">
-<dt id="_CPPv4NK2rr7Variant8toStringEv">
-<span id="_CPPv3NK2rr7Variant8toStringEv"></span><span id="_CPPv2NK2rr7Variant8toStringEv"></span><span id="rr::Variant::toStringC"></span><span class="target" id="classrr_1_1Variant_1ab1e6879f232971ab8fa285cf50139f8a"></span>std::string <code class="sig-name descname">toString</code><span class="sig-paren">(</span><span class="sig-paren">)</span> <em class="property">const</em><a class="headerlink" href="#_CPPv4NK2rr7Variant8toStringEv" title="Permalink to this definition">¶</a><br /></dt>
-<dd><p>Converts the <a class="reference internal" href="#classrr_1_1Variant"><span class="std std-ref">Variant</span></a> to a string in JSON format. </p>
+<dt class="sig sig-object cpp" id="_CPPv4NK2rr7Variant8toStringEv">
+<span id="_CPPv3NK2rr7Variant8toStringEv"></span><span id="_CPPv2NK2rr7Variant8toStringEv"></span><span id="rr::Variant::toStringC"></span><span class="target" id="classrr_1_1Variant_1ab1e6879f232971ab8fa285cf50139f8a"></span><span class="n"><span class="pre">std</span></span><span class="p"><span class="pre">::</span></span><span class="n"><span class="pre">string</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">toString</span></span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><span class="w"> </span><span class="k"><span class="pre">const</span></span><a class="headerlink" href="#_CPPv4NK2rr7Variant8toStringEv" title="Permalink to this definition">¶</a><br /></dt>
+<dd><p>Converts the <a class="reference internal" href="#classrr_1_1Variant"><span class="std std-ref">Variant</span></a> to a std::string in JSON format. </p>
 </dd></dl>
 
 <dl class="cpp function">
-<dt id="_CPPv4NK2rr7Variant10pythonReprEv">
-<span id="_CPPv3NK2rr7Variant10pythonReprEv"></span><span id="_CPPv2NK2rr7Variant10pythonReprEv"></span><span id="rr::Variant::pythonReprC"></span><span class="target" id="classrr_1_1Variant_1aae71df98365e03148ca33a3d3f354115"></span>std::string <code class="sig-name descname">pythonRepr</code><span class="sig-paren">(</span><span class="sig-paren">)</span> <em class="property">const</em><a class="headerlink" href="#_CPPv4NK2rr7Variant10pythonReprEv" title="Permalink to this definition">¶</a><br /></dt>
+<dt class="sig sig-object cpp" id="_CPPv4NK2rr7Variant10pythonReprEv">
+<span id="_CPPv3NK2rr7Variant10pythonReprEv"></span><span id="_CPPv2NK2rr7Variant10pythonReprEv"></span><span id="rr::Variant::pythonReprC"></span><span class="target" id="classrr_1_1Variant_1aae71df98365e03148ca33a3d3f354115"></span><span class="n"><span class="pre">std</span></span><span class="p"><span class="pre">::</span></span><span class="n"><span class="pre">string</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">pythonRepr</span></span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><span class="w"> </span><span class="k"><span class="pre">const</span></span><a class="headerlink" href="#_CPPv4NK2rr7Variant10pythonReprEv" title="Permalink to this definition">¶</a><br /></dt>
 <dd><p>Convert to Python-compatible representation. </p>
 <p><dl class="simple">
 <dt><strong>Author</strong></dt><dd><p>JKM </p>
@@ -477,54 +480,54 @@
 </dd></dl>
 
 <dl class="cpp function">
-<dt id="_CPPv4NK2rr7Variant8isStringEv">
-<span id="_CPPv3NK2rr7Variant8isStringEv"></span><span id="_CPPv2NK2rr7Variant8isStringEv"></span><span id="rr::Variant::isStringC"></span><span class="target" id="classrr_1_1Variant_1a287a173e395dafe75f1631c69f00551a"></span>bool <code class="sig-name descname">isString</code><span class="sig-paren">(</span><span class="sig-paren">)</span> <em class="property">const</em><a class="headerlink" href="#_CPPv4NK2rr7Variant8isStringEv" title="Permalink to this definition">¶</a><br /></dt>
-<dd><p>is this variant a string. </p>
+<dt class="sig sig-object cpp" id="_CPPv4NK2rr7Variant8isStringEv">
+<span id="_CPPv3NK2rr7Variant8isStringEv"></span><span id="_CPPv2NK2rr7Variant8isStringEv"></span><span id="rr::Variant::isStringC"></span><span class="target" id="classrr_1_1Variant_1a287a173e395dafe75f1631c69f00551a"></span><span class="kt"><span class="pre">bool</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">isString</span></span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><span class="w"> </span><span class="k"><span class="pre">const</span></span><a class="headerlink" href="#_CPPv4NK2rr7Variant8isStringEv" title="Permalink to this definition">¶</a><br /></dt>
+<dd><p>is this variant a std::string. </p>
 </dd></dl>
 
 <dl class="cpp function">
-<dt id="_CPPv4NK2rr7Variant9isIntegerEv">
-<span id="_CPPv3NK2rr7Variant9isIntegerEv"></span><span id="_CPPv2NK2rr7Variant9isIntegerEv"></span><span id="rr::Variant::isIntegerC"></span><span class="target" id="classrr_1_1Variant_1ac6e06d899cd97644275c585e22673163"></span>bool <code class="sig-name descname">isInteger</code><span class="sig-paren">(</span><span class="sig-paren">)</span> <em class="property">const</em><a class="headerlink" href="#_CPPv4NK2rr7Variant9isIntegerEv" title="Permalink to this definition">¶</a><br /></dt>
+<dt class="sig sig-object cpp" id="_CPPv4NK2rr7Variant9isIntegerEv">
+<span id="_CPPv3NK2rr7Variant9isIntegerEv"></span><span id="_CPPv2NK2rr7Variant9isIntegerEv"></span><span id="rr::Variant::isIntegerC"></span><span class="target" id="classrr_1_1Variant_1ac6e06d899cd97644275c585e22673163"></span><span class="kt"><span class="pre">bool</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">isInteger</span></span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><span class="w"> </span><span class="k"><span class="pre">const</span></span><a class="headerlink" href="#_CPPv4NK2rr7Variant9isIntegerEv" title="Permalink to this definition">¶</a><br /></dt>
 <dd><p>was an integer stored here. </p>
 </dd></dl>
 
 <dl class="cpp function">
-<dt id="_CPPv4NK2rr7Variant9isNumericEv">
-<span id="_CPPv3NK2rr7Variant9isNumericEv"></span><span id="_CPPv2NK2rr7Variant9isNumericEv"></span><span id="rr::Variant::isNumericC"></span><span class="target" id="classrr_1_1Variant_1ae92df0ebd531b0d0103202676beabfe3"></span>bool <code class="sig-name descname">isNumeric</code><span class="sig-paren">(</span><span class="sig-paren">)</span> <em class="property">const</em><a class="headerlink" href="#_CPPv4NK2rr7Variant9isNumericEv" title="Permalink to this definition">¶</a><br /></dt>
+<dt class="sig sig-object cpp" id="_CPPv4NK2rr7Variant9isNumericEv">
+<span id="_CPPv3NK2rr7Variant9isNumericEv"></span><span id="_CPPv2NK2rr7Variant9isNumericEv"></span><span id="rr::Variant::isNumericC"></span><span class="target" id="classrr_1_1Variant_1ae92df0ebd531b0d0103202676beabfe3"></span><span class="kt"><span class="pre">bool</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">isNumeric</span></span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><span class="w"> </span><span class="k"><span class="pre">const</span></span><a class="headerlink" href="#_CPPv4NK2rr7Variant9isNumericEv" title="Permalink to this definition">¶</a><br /></dt>
 <dd><p>is this a numeric type. </p>
 </dd></dl>
 
 <dl class="cpp function">
-<dt id="_CPPv4NK2rr7Variant6isBoolEv">
-<span id="_CPPv3NK2rr7Variant6isBoolEv"></span><span id="_CPPv2NK2rr7Variant6isBoolEv"></span><span id="rr::Variant::isBoolC"></span><span class="target" id="classrr_1_1Variant_1abbaafbb2c10aa25b6879f4a2cd5f85ca"></span>bool <code class="sig-name descname">isBool</code><span class="sig-paren">(</span><span class="sig-paren">)</span> <em class="property">const</em><a class="headerlink" href="#_CPPv4NK2rr7Variant6isBoolEv" title="Permalink to this definition">¶</a><br /></dt>
+<dt class="sig sig-object cpp" id="_CPPv4NK2rr7Variant6isBoolEv">
+<span id="_CPPv3NK2rr7Variant6isBoolEv"></span><span id="_CPPv2NK2rr7Variant6isBoolEv"></span><span id="rr::Variant::isBoolC"></span><span class="target" id="classrr_1_1Variant_1abbaafbb2c10aa25b6879f4a2cd5f85ca"></span><span class="kt"><span class="pre">bool</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">isBool</span></span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><span class="w"> </span><span class="k"><span class="pre">const</span></span><a class="headerlink" href="#_CPPv4NK2rr7Variant6isBoolEv" title="Permalink to this definition">¶</a><br /></dt>
 <dd><p>is this a boolean type. </p>
 </dd></dl>
 
 <dl class="cpp function">
-<dt id="_CPPv4NK2rr7Variant7isEmptyEv">
-<span id="_CPPv3NK2rr7Variant7isEmptyEv"></span><span id="_CPPv2NK2rr7Variant7isEmptyEv"></span><span id="rr::Variant::isEmptyC"></span><span class="target" id="classrr_1_1Variant_1ad98e0f4d0491e78d4ab7c13d74e2b976"></span>bool <code class="sig-name descname">isEmpty</code><span class="sig-paren">(</span><span class="sig-paren">)</span> <em class="property">const</em><a class="headerlink" href="#_CPPv4NK2rr7Variant7isEmptyEv" title="Permalink to this definition">¶</a><br /></dt>
+<dt class="sig sig-object cpp" id="_CPPv4NK2rr7Variant7isEmptyEv">
+<span id="_CPPv3NK2rr7Variant7isEmptyEv"></span><span id="_CPPv2NK2rr7Variant7isEmptyEv"></span><span id="rr::Variant::isEmptyC"></span><span class="target" id="classrr_1_1Variant_1ad98e0f4d0491e78d4ab7c13d74e2b976"></span><span class="kt"><span class="pre">bool</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">isEmpty</span></span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><span class="w"> </span><span class="k"><span class="pre">const</span></span><a class="headerlink" href="#_CPPv4NK2rr7Variant7isEmptyEv" title="Permalink to this definition">¶</a><br /></dt>
 <dd><p>true if empty. </p>
 </dd></dl>
 
 <dl class="cpp function">
-<dt id="_CPPv4NK2rr7Variant8isSignedEv">
-<span id="_CPPv3NK2rr7Variant8isSignedEv"></span><span id="_CPPv2NK2rr7Variant8isSignedEv"></span><span id="rr::Variant::isSignedC"></span><span class="target" id="classrr_1_1Variant_1a6b61a4ca6b375886c7cb145ffd910b20"></span>bool <code class="sig-name descname">isSigned</code><span class="sig-paren">(</span><span class="sig-paren">)</span> <em class="property">const</em><a class="headerlink" href="#_CPPv4NK2rr7Variant8isSignedEv" title="Permalink to this definition">¶</a><br /></dt>
+<dt class="sig sig-object cpp" id="_CPPv4NK2rr7Variant8isSignedEv">
+<span id="_CPPv3NK2rr7Variant8isSignedEv"></span><span id="_CPPv2NK2rr7Variant8isSignedEv"></span><span id="rr::Variant::isSignedC"></span><span class="target" id="classrr_1_1Variant_1a6b61a4ca6b375886c7cb145ffd910b20"></span><span class="kt"><span class="pre">bool</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">isSigned</span></span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><span class="w"> </span><span class="k"><span class="pre">const</span></span><a class="headerlink" href="#_CPPv4NK2rr7Variant8isSignedEv" title="Permalink to this definition">¶</a><br /></dt>
 <dd><p>true if this is a signed number. </p>
 </dd></dl>
 
 <dl class="cpp function">
-<dt id="_CPPv4NK2rr7Variant14isDoubleVectorEv">
-<span id="_CPPv3NK2rr7Variant14isDoubleVectorEv"></span><span id="_CPPv2NK2rr7Variant14isDoubleVectorEv"></span><span id="rr::Variant::isDoubleVectorC"></span><span class="target" id="classrr_1_1Variant_1ab45d42c136c47493a285d6fc38ba9057"></span>bool <code class="sig-name descname">isDoubleVector</code><span class="sig-paren">(</span><span class="sig-paren">)</span> <em class="property">const</em><a class="headerlink" href="#_CPPv4NK2rr7Variant14isDoubleVectorEv" title="Permalink to this definition">¶</a><br /></dt>
+<dt class="sig sig-object cpp" id="_CPPv4NK2rr7Variant14isDoubleVectorEv">
+<span id="_CPPv3NK2rr7Variant14isDoubleVectorEv"></span><span id="_CPPv2NK2rr7Variant14isDoubleVectorEv"></span><span id="rr::Variant::isDoubleVectorC"></span><span class="target" id="classrr_1_1Variant_1ab45d42c136c47493a285d6fc38ba9057"></span><span class="kt"><span class="pre">bool</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">isDoubleVector</span></span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><span class="w"> </span><span class="k"><span class="pre">const</span></span><a class="headerlink" href="#_CPPv4NK2rr7Variant14isDoubleVectorEv" title="Permalink to this definition">¶</a><br /></dt>
 <dd></dd></dl>
 
 </div>
 <div class="breathe-sectiondef docutils container">
-<p class="breathe-sectiondef-title rubric">Public Static Functions</p>
+<p class="breathe-sectiondef-title rubric" id="breathe-section-title-public-static-functions">Public Static Functions</p>
 <dl class="cpp function">
-<dt id="_CPPv4N2rr7Variant5parseERKNSt6stringE">
-<span id="_CPPv3N2rr7Variant5parseERKNSt6stringE"></span><span id="_CPPv2N2rr7Variant5parseERKNSt6stringE"></span><span id="rr::Variant::parse__ssCR"></span><span class="target" id="classrr_1_1Variant_1abe42f3be24595157e92e255ddf5ef082"></span><em class="property">static</em> <a class="reference internal" href="#_CPPv4N2rr7VariantE" title="rr::Variant">Variant</a> <code class="sig-name descname">parse</code><span class="sig-paren">(</span><em class="property">const</em> std::string &amp;<em>val</em><span class="sig-paren">)</span><a class="headerlink" href="#_CPPv4N2rr7Variant5parseERKNSt6stringE" title="Permalink to this definition">¶</a><br /></dt>
-<dd><p>Parses the string which must be in JSON format. </p>
-<p>This is a common way to read a <a class="reference internal" href="#classrr_1_1Variant"><span class="std std-ref">Variant</span></a> from a file or create a new one from a string: <div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">Variant</span> <span class="n">v</span> <span class="o">=</span> <span class="n">Variant</span><span class="p">::</span><span class="n">parse</span><span class="p">(</span><span class="s2">&quot;0.123&quot;</span><span class="p">);</span>
+<dt class="sig sig-object cpp" id="_CPPv4N2rr7Variant5parseERKNSt6stringE">
+<span id="_CPPv3N2rr7Variant5parseERKNSt6stringE"></span><span id="_CPPv2N2rr7Variant5parseERKNSt6stringE"></span><span id="rr::Variant::parse__ssCR"></span><span class="target" id="classrr_1_1Variant_1abe42f3be24595157e92e255ddf5ef082"></span><span class="k"><span class="pre">static</span></span><span class="w"> </span><a class="reference internal" href="#_CPPv4N2rr7VariantE" title="rr::Variant"><span class="n"><span class="pre">Variant</span></span></a><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">parse</span></span></span><span class="sig-paren">(</span><span class="k"><span class="pre">const</span></span><span class="w"> </span><span class="n"><span class="pre">std</span></span><span class="p"><span class="pre">::</span></span><span class="n"><span class="pre">string</span></span><span class="w"> </span><span class="p"><span class="pre">&amp;</span></span><span class="n sig-param"><span class="pre">val</span></span><span class="sig-paren">)</span><a class="headerlink" href="#_CPPv4N2rr7Variant5parseERKNSt6stringE" title="Permalink to this definition">¶</a><br /></dt>
+<dd><p>Parses the std::string which must be in JSON format. </p>
+<p>This is a common way to read a <a class="reference internal" href="#classrr_1_1Variant"><span class="std std-ref">Variant</span></a> from a file or create a new one from a std::string: <div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">Variant</span> <span class="n">v</span> <span class="o">=</span> <span class="n">Variant</span><span class="p">::</span><span class="n">parse</span><span class="p">(</span><span class="s2">&quot;0.123&quot;</span><span class="p">);</span>
 </pre></div>
 </div>
  </p>
@@ -532,28 +535,28 @@
 
 </div>
 <div class="breathe-sectiondef docutils container">
-<p class="breathe-sectiondef-title rubric">Private Functions</p>
+<p class="breathe-sectiondef-title rubric" id="breathe-section-title-private-functions">Private Functions</p>
 <dl class="cpp function">
-<dt id="_CPPv4N2rr7Variant5allocEv">
-<span id="_CPPv3N2rr7Variant5allocEv"></span><span id="_CPPv2N2rr7Variant5allocEv"></span><span id="rr::Variant::alloc"></span><span class="target" id="classrr_1_1Variant_1a3a86aef3e40907e3759b8e0ed1658cdd"></span>void <code class="sig-name descname">alloc</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#_CPPv4N2rr7Variant5allocEv" title="Permalink to this definition">¶</a><br /></dt>
+<dt class="sig sig-object cpp" id="_CPPv4N2rr7Variant5allocEv">
+<span id="_CPPv3N2rr7Variant5allocEv"></span><span id="_CPPv2N2rr7Variant5allocEv"></span><span id="rr::Variant::alloc"></span><span class="target" id="classrr_1_1Variant_1a3a86aef3e40907e3759b8e0ed1658cdd"></span><span class="kt"><span class="pre">void</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">alloc</span></span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#_CPPv4N2rr7Variant5allocEv" title="Permalink to this definition">¶</a><br /></dt>
 <dd></dd></dl>
 
 <dl class="cpp function">
-<dt id="_CPPv4N2rr7Variant6assignERKNSt9type_infoEPKv">
-<span id="_CPPv3N2rr7Variant6assignERKNSt9type_infoEPKv"></span><span id="_CPPv2N2rr7Variant6assignERKNSt9type_infoEPKv"></span><span id="rr::Variant::assign__std::type_infoCR.voidCP"></span><span class="target" id="classrr_1_1Variant_1af22522667e6ac08a37038fd07586dd90"></span>void <code class="sig-name descname">assign</code><span class="sig-paren">(</span><em class="property">const</em> std::type_info &amp;<em>info</em>, <em class="property">const</em> void *<em>value</em><span class="sig-paren">)</span><a class="headerlink" href="#_CPPv4N2rr7Variant6assignERKNSt9type_infoEPKv" title="Permalink to this definition">¶</a><br /></dt>
+<dt class="sig sig-object cpp" id="_CPPv4N2rr7Variant6assignERKNSt9type_infoEPKv">
+<span id="_CPPv3N2rr7Variant6assignERKNSt9type_infoEPKv"></span><span id="_CPPv2N2rr7Variant6assignERKNSt9type_infoEPKv"></span><span id="rr::Variant::assign__std::type_infoCR.voidCP"></span><span class="target" id="classrr_1_1Variant_1af22522667e6ac08a37038fd07586dd90"></span><span class="kt"><span class="pre">void</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">assign</span></span></span><span class="sig-paren">(</span><span class="k"><span class="pre">const</span></span><span class="w"> </span><span class="n"><span class="pre">std</span></span><span class="p"><span class="pre">::</span></span><span class="n"><span class="pre">type_info</span></span><span class="w"> </span><span class="p"><span class="pre">&amp;</span></span><span class="n sig-param"><span class="pre">info</span></span>, <span class="k"><span class="pre">const</span></span><span class="w"> </span><span class="kt"><span class="pre">void</span></span><span class="w"> </span><span class="p"><span class="pre">*</span></span><span class="n sig-param"><span class="pre">value</span></span><span class="sig-paren">)</span><a class="headerlink" href="#_CPPv4N2rr7Variant6assignERKNSt9type_infoEPKv" title="Permalink to this definition">¶</a><br /></dt>
 <dd></dd></dl>
 
 <dl class="cpp function">
-<dt id="_CPPv4NK2rr7Variant10convert_toERKNSt9type_infoEPv">
-<span id="_CPPv3NK2rr7Variant10convert_toERKNSt9type_infoEPv"></span><span id="_CPPv2NK2rr7Variant10convert_toERKNSt9type_infoEPv"></span><span id="rr::Variant::convert_to__std::type_infoCR.voidPC"></span><span class="target" id="classrr_1_1Variant_1ac7cd517b96241e449427245b2a5dea12"></span>void <code class="sig-name descname">convert_to</code><span class="sig-paren">(</span><em class="property">const</em> std::type_info &amp;<em>info</em>, void *<em>value</em><span class="sig-paren">)</span> <em class="property">const</em><a class="headerlink" href="#_CPPv4NK2rr7Variant10convert_toERKNSt9type_infoEPv" title="Permalink to this definition">¶</a><br /></dt>
+<dt class="sig sig-object cpp" id="_CPPv4NK2rr7Variant10convert_toERKNSt9type_infoEPv">
+<span id="_CPPv3NK2rr7Variant10convert_toERKNSt9type_infoEPv"></span><span id="_CPPv2NK2rr7Variant10convert_toERKNSt9type_infoEPv"></span><span id="rr::Variant::convert_to__std::type_infoCR.voidPC"></span><span class="target" id="classrr_1_1Variant_1ac7cd517b96241e449427245b2a5dea12"></span><span class="kt"><span class="pre">void</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">convert_to</span></span></span><span class="sig-paren">(</span><span class="k"><span class="pre">const</span></span><span class="w"> </span><span class="n"><span class="pre">std</span></span><span class="p"><span class="pre">::</span></span><span class="n"><span class="pre">type_info</span></span><span class="w"> </span><span class="p"><span class="pre">&amp;</span></span><span class="n sig-param"><span class="pre">info</span></span>, <span class="kt"><span class="pre">void</span></span><span class="w"> </span><span class="p"><span class="pre">*</span></span><span class="n sig-param"><span class="pre">value</span></span><span class="sig-paren">)</span><span class="w"> </span><span class="k"><span class="pre">const</span></span><a class="headerlink" href="#_CPPv4NK2rr7Variant10convert_toERKNSt9type_infoEPv" title="Permalink to this definition">¶</a><br /></dt>
 <dd></dd></dl>
 
 </div>
 <div class="breathe-sectiondef docutils container">
-<p class="breathe-sectiondef-title rubric">Private Members</p>
+<p class="breathe-sectiondef-title rubric" id="breathe-section-title-private-members">Private Members</p>
 <dl class="cpp var">
-<dt id="_CPPv4N2rr7Variant4selfE">
-<span id="_CPPv3N2rr7Variant4selfE"></span><span id="_CPPv2N2rr7Variant4selfE"></span><span id="rr::Variant::self__VariantImplP"></span><span class="target" id="classrr_1_1Variant_1a1fc8fb51d9ac7bdf4cc4a87d68685873"></span><em class="property">struct</em> VariantImpl *<code class="sig-name descname">self</code><a class="headerlink" href="#_CPPv4N2rr7Variant4selfE" title="Permalink to this definition">¶</a><br /></dt>
+<dt class="sig sig-object cpp" id="_CPPv4N2rr7Variant4selfE">
+<span id="_CPPv3N2rr7Variant4selfE"></span><span id="_CPPv2N2rr7Variant4selfE"></span><span id="rr::Variant::self__VariantImplP"></span><span class="target" id="classrr_1_1Variant_1a1fc8fb51d9ac7bdf4cc4a87d68685873"></span><span class="k"><span class="pre">struct</span></span><span class="w"> </span><span class="n"><span class="pre">VariantImpl</span></span><span class="w"> </span><span class="p"><span class="pre">*</span></span><span class="sig-name descname"><span class="n"><span class="pre">self</span></span></span><a class="headerlink" href="#_CPPv4N2rr7Variant4selfE" title="Permalink to this definition">¶</a><br /></dt>
 <dd><p>private implementation, this gives us the flexibility to use different implementations in the future and maintain binary compatability. </p>
 </dd></dl>
 

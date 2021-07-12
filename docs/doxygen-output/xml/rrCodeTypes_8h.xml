@@ -5,21 +5,11 @@
     <includedby refid="rrScanner_8h" local="yes">c/rrScanner.h</includedby>
     <includedby refid="rrToken_8h" local="yes">c/rrToken.h</includedby>
     <invincdepgraph>
-      <node id="2">
-        <label>c/rrScanner.h</label>
-        <link refid="rrScanner_8h_source"/>
-        <childnode refid="3" relation="include">
-        </childnode>
-      </node>
       <node id="3">
         <label>c/rrCompiledModelGenerator.h</label>
         <link refid="rrCompiledModelGenerator_8h_source"/>
         <childnode refid="4" relation="include">
         </childnode>
-      </node>
-      <node id="5">
-        <label>c/rrCompiledExecutableModel.h</label>
-        <link refid="rrCompiledExecutableModel_8h_source"/>
       </node>
       <node id="1">
         <label>c/rrCodeTypes.h</label>
@@ -29,17 +19,27 @@
         <childnode refid="6" relation="include">
         </childnode>
       </node>
+      <node id="4">
+        <label>c/rrCModelGenerator.h</label>
+        <link refid="rrCModelGenerator_8h_source"/>
+        <childnode refid="5" relation="include">
+        </childnode>
+      </node>
       <node id="6">
         <label>c/rrToken.h</label>
         <link refid="rrToken_8h_source"/>
         <childnode refid="2" relation="include">
         </childnode>
       </node>
-      <node id="4">
-        <label>c/rrCModelGenerator.h</label>
-        <link refid="rrCModelGenerator_8h_source"/>
-        <childnode refid="5" relation="include">
+      <node id="2">
+        <label>c/rrScanner.h</label>
+        <link refid="rrScanner_8h_source"/>
+        <childnode refid="3" relation="include">
         </childnode>
+      </node>
+      <node id="5">
+        <label>c/rrCompiledExecutableModel.h</label>
+        <link refid="rrCompiledExecutableModel_8h_source"/>
       </node>
     </invincdepgraph>
     <innernamespace refid="namespacerr">rr</innernamespace>

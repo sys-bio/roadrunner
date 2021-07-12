@@ -1,0 +1,308 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.20" xml:lang="en-US">
+  <compounddef id="classrr_1_1SVD" kind="class" language="C++" prot="public">
+    <compoundname>rr::SVD</compoundname>
+    <includes refid="SVD_8h" local="no">SVD.h</includes>
+      <sectiondef kind="private-attrib">
+      <memberdef kind="variable" id="classrr_1_1SVD_1a850a70d4a5c617598aa6aa98fef2c3c3" prot="private" static="no" mutable="no">
+        <type>ls::DoubleMatrix</type>
+        <definition>ls::DoubleMatrix rr::SVD::inputMatrix_</definition>
+        <argsstring></argsstring>
+        <name>inputMatrix_</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="SVD.h" line="86" column="26" bodyfile="SVD.h" bodystart="86" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="classrr_1_1SVD_1acb24f9d959ff1d52e126298d791ed966" prot="private" static="no" mutable="no">
+        <type>std::unique_ptr&lt; ls::DoubleMatrix &gt;</type>
+        <definition>std::unique_ptr&lt;ls::DoubleMatrix&gt; rr::SVD::inputMatrixTranspose_</definition>
+        <argsstring></argsstring>
+        <name>inputMatrixTranspose_</name>
+        <initializer>= nullptr</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="SVD.h" line="87" column="25" bodyfile="SVD.h" bodystart="87" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="classrr_1_1SVD_1a7f8c39ee700207baf2ab6d71062eceae" prot="private" static="no" mutable="no">
+        <type>integer</type>
+        <definition>integer rr::SVD::nRows_</definition>
+        <argsstring></argsstring>
+        <name>nRows_</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="SVD.h" line="88" column="17" bodyfile="SVD.h" bodystart="88" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="classrr_1_1SVD_1a67e9f2e22f93c7fea65efa0d4c38067d" prot="private" static="no" mutable="no">
+        <type>integer</type>
+        <definition>integer rr::SVD::nCols_</definition>
+        <argsstring></argsstring>
+        <name>nCols_</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="SVD.h" line="89" column="17" bodyfile="SVD.h" bodystart="89" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="classrr_1_1SVD_1ab93d4e206f96f6d027485e71fed47819" prot="private" static="no" mutable="no">
+        <type>integer</type>
+        <definition>integer rr::SVD::lda_</definition>
+        <argsstring></argsstring>
+        <name>lda_</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="SVD.h" line="90" column="17" bodyfile="SVD.h" bodystart="90" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="classrr_1_1SVD_1aa9531fd82a3e278e5432156361ae773a" prot="private" static="no" mutable="no">
+        <type>integer</type>
+        <definition>integer rr::SVD::ldu_</definition>
+        <argsstring></argsstring>
+        <name>ldu_</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="SVD.h" line="91" column="17" bodyfile="SVD.h" bodystart="91" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="classrr_1_1SVD_1aef0de864dc99d91b6bdc63d19a56715c" prot="private" static="no" mutable="no">
+        <type>integer</type>
+        <definition>integer rr::SVD::ldvt_</definition>
+        <argsstring></argsstring>
+        <name>ldvt_</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="SVD.h" line="92" column="17" bodyfile="SVD.h" bodystart="92" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="classrr_1_1SVD_1a2df3e5af9dec311424868a1dfa74eb7d" prot="private" static="no" mutable="no">
+        <type>ls::DoubleMatrix</type>
+        <definition>ls::DoubleMatrix rr::SVD::singularValues_</definition>
+        <argsstring></argsstring>
+        <name>singularValues_</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="SVD.h" line="94" column="26" bodyfile="SVD.h" bodystart="94" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="classrr_1_1SVD_1a912259e183485c72cae96cf951a2e943" prot="private" static="no" mutable="no">
+        <type>ls::DoubleMatrix</type>
+        <definition>ls::DoubleMatrix rr::SVD::leftSingularVectors_</definition>
+        <argsstring></argsstring>
+        <name>leftSingularVectors_</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="SVD.h" line="95" column="26" bodyfile="SVD.h" bodystart="95" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="classrr_1_1SVD_1a39b5821b4106698e475d167028ec62d4" prot="private" static="no" mutable="no">
+        <type>ls::DoubleMatrix</type>
+        <definition>ls::DoubleMatrix rr::SVD::rightSingularVectors_</definition>
+        <argsstring></argsstring>
+        <name>rightSingularVectors_</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="SVD.h" line="96" column="26" bodyfile="SVD.h" bodystart="96" bodyend="-1"/>
+      </memberdef>
+      </sectiondef>
+      <sectiondef kind="public-func">
+      <memberdef kind="function" id="classrr_1_1SVD_1a0569c342c50ef3ee3d28b7b6160f9760" prot="public" static="no" const="no" explicit="yes" inline="no" virt="non-virtual">
+        <type></type>
+        <definition>rr::SVD::SVD</definition>
+        <argsstring>(ls::DoubleMatrix &amp;matrix)</argsstring>
+        <name>SVD</name>
+        <param>
+          <type>ls::DoubleMatrix &amp;</type>
+          <declname>matrix</declname>
+        </param>
+        <briefdescription>
+<para>constructor for <ref refid="classrr_1_1SVD" kindref="compound">SVD</ref> </para>
+        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>matrix</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>a ls::Matrix&lt;double&gt;  SVG is conducted on instantiation </para>
+</parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="see"><para><ref refid="classrr_1_1SVD_1a0b4a95bc088a26d8b39270c2bb78ecff" kindref="member">SVD::getSingularValues</ref> </para>
+</simplesect>
+<simplesect kind="see"><para><ref refid="classrr_1_1SVD_1aaa62288e25ab68c503461e69d321e317" kindref="member">SVD::getLeftSingularVectors</ref> </para>
+</simplesect>
+<simplesect kind="see"><para><ref refid="classrr_1_1SVD_1abd19a9873fc9b890f8c5ff01ead7166d" kindref="member">SVD::getRightSingularVectors</ref> </para>
+</simplesect>
+</para>
+        </detaileddescription>
+        <inbodydescription>
+<para>The lapack rountine at the core of this class seems to expect the transpose of our input matrix so we do that here in the constructor. transpose should be done <emphasis>after</emphasis> collecting the initial dimensions Moreover, the output matrices left and right require transposing back before we give them to user</para>
+        </inbodydescription>
+        <location file="SVD.h" line="42" column="18" bodyfile="SVD.cpp" bodystart="13" bodyend="36"/>
+      </memberdef>
+      <memberdef kind="function" id="classrr_1_1SVD_1a0b4a95bc088a26d8b39270c2bb78ecff" prot="public" static="no" const="yes" explicit="no" inline="no" virt="non-virtual">
+        <type>const ls::DoubleMatrix &amp;</type>
+        <definition>const ls::DoubleMatrix &amp; rr::SVD::getSingularValues</definition>
+        <argsstring>() const</argsstring>
+        <name>getSingularValues</name>
+        <briefdescription>
+<para>returns the singular values computed for input matrix </para>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="SVD.h" line="48" column="32" bodyfile="SVD.cpp" bodystart="76" bodyend="78"/>
+      </memberdef>
+      <memberdef kind="function" id="classrr_1_1SVD_1aaa62288e25ab68c503461e69d321e317" prot="public" static="no" const="yes" explicit="no" inline="no" virt="non-virtual">
+        <type>const ls::DoubleMatrix &amp;</type>
+        <definition>const ls::DoubleMatrix &amp; rr::SVD::getLeftSingularVectors</definition>
+        <argsstring>() const</argsstring>
+        <name>getLeftSingularVectors</name>
+        <briefdescription>
+<para>returns left singular vectors where columns are the left vectors </para>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="SVD.h" line="54" column="32" bodyfile="SVD.cpp" bodystart="80" bodyend="82"/>
+      </memberdef>
+      <memberdef kind="function" id="classrr_1_1SVD_1abd19a9873fc9b890f8c5ff01ead7166d" prot="public" static="no" const="yes" explicit="no" inline="no" virt="non-virtual">
+        <type>const ls::DoubleMatrix &amp;</type>
+        <definition>const ls::DoubleMatrix &amp; rr::SVD::getRightSingularVectors</definition>
+        <argsstring>() const</argsstring>
+        <name>getRightSingularVectors</name>
+        <briefdescription>
+<para>returns right singular vectors where rows are the right vectors </para>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="SVD.h" line="60" column="32" bodyfile="SVD.cpp" bodystart="84" bodyend="86"/>
+      </memberdef>
+      <memberdef kind="function" id="classrr_1_1SVD_1af8f8852be210b950e1d0c4d5f5c1254f" prot="public" static="no" const="yes" explicit="no" inline="no" virt="non-virtual">
+        <type>int</type>
+        <definition>int rr::SVD::rank</definition>
+        <argsstring>(double tol=1e-15) const</argsstring>
+        <name>rank</name>
+        <param>
+          <type>double</type>
+          <declname>tol</declname>
+          <defval>1e-15</defval>
+        </param>
+        <briefdescription>
+<para>estimates the rank of the matrix by counting non 0 singular values. </para>
+        </briefdescription>
+        <detaileddescription>
+<para>the rank of a matrix is equal to the number of non-zero singular values! <parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>tol</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>tolerance by which we consider close enough to zero to be called zero </para>
+</parameterdescription>
+</parameteritem>
+</parameterlist>
+</para>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="SVD.h" line="70" column="13" bodyfile="SVD.cpp" bodystart="88" bodyend="99"/>
+      </memberdef>
+      <memberdef kind="function" id="classrr_1_1SVD_1abe52c6f991c060f50be7c366b744c8db" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>bool</type>
+        <definition>bool rr::SVD::isSingular</definition>
+        <argsstring>()</argsstring>
+        <name>isSingular</name>
+        <briefdescription>
+<para>return true when the input matrix is singular. </para>
+        </briefdescription>
+        <detaileddescription>
+<para>this is determined by testing whether than rank of the matrix is less than the smaller of the number of rows or number of columns. </para>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="SVD.h" line="80" column="14" bodyfile="SVD.cpp" bodystart="101" bodyend="103"/>
+      </memberdef>
+      </sectiondef>
+      <sectiondef kind="private-func">
+      <memberdef kind="function" id="classrr_1_1SVD_1a460ff790305893ce2dc4ecfc299ae67c" prot="private" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>void rr::SVD::compute</definition>
+        <argsstring>()</argsstring>
+        <name>compute</name>
+        <briefdescription>
+<para>Example program: <ulink url="https://software.intel.com/sites/products/documentation/doclib/mkl_sa/11/mkl_lapack_examples/dgesvd_ex.c.html">https://software.intel.com/sites/products/documentation/doclib/mkl_sa/11/mkl_lapack_examples/dgesvd_ex.c.html</ulink>. </para>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="SVD.h" line="84" column="14" bodyfile="SVD.cpp" bodystart="42" bodyend="74"/>
+      </memberdef>
+      </sectiondef>
+    <briefdescription>
+<para>The routine computes the singular value decomposition (<ref refid="classrr_1_1SVD" kindref="compound">SVD</ref>) of a real m-by-n matrix. </para>
+    </briefdescription>
+    <detaileddescription>
+<para>Often when computing the steady state of a system the jacobian matrix is singular. <ref refid="classrr_1_1SVD" kindref="compound">SVD</ref> is a way of computing the rank of a matrix, which in turn can be used to determine whether a rank is singular:<itemizedlist>
+<listitem><para>if rank &lt; min(N, M) of an NxM matrix then it is singular. </para>
+</listitem></itemizedlist>
+</para>
+    </detaileddescription>
+    <location file="SVD.h" line="30" column="5" bodyfile="SVD.h" bodystart="30" bodyend="98"/>
+    <listofallmembers>
+      <member refid="classrr_1_1SVD_1a460ff790305893ce2dc4ecfc299ae67c" prot="private" virt="non-virtual"><scope>rr::SVD</scope><name>compute</name></member>
+      <member refid="classrr_1_1SVD_1aaa62288e25ab68c503461e69d321e317" prot="public" virt="non-virtual"><scope>rr::SVD</scope><name>getLeftSingularVectors</name></member>
+      <member refid="classrr_1_1SVD_1abd19a9873fc9b890f8c5ff01ead7166d" prot="public" virt="non-virtual"><scope>rr::SVD</scope><name>getRightSingularVectors</name></member>
+      <member refid="classrr_1_1SVD_1a0b4a95bc088a26d8b39270c2bb78ecff" prot="public" virt="non-virtual"><scope>rr::SVD</scope><name>getSingularValues</name></member>
+      <member refid="classrr_1_1SVD_1a850a70d4a5c617598aa6aa98fef2c3c3" prot="private" virt="non-virtual"><scope>rr::SVD</scope><name>inputMatrix_</name></member>
+      <member refid="classrr_1_1SVD_1acb24f9d959ff1d52e126298d791ed966" prot="private" virt="non-virtual"><scope>rr::SVD</scope><name>inputMatrixTranspose_</name></member>
+      <member refid="classrr_1_1SVD_1abe52c6f991c060f50be7c366b744c8db" prot="public" virt="non-virtual"><scope>rr::SVD</scope><name>isSingular</name></member>
+      <member refid="classrr_1_1SVD_1ab93d4e206f96f6d027485e71fed47819" prot="private" virt="non-virtual"><scope>rr::SVD</scope><name>lda_</name></member>
+      <member refid="classrr_1_1SVD_1aa9531fd82a3e278e5432156361ae773a" prot="private" virt="non-virtual"><scope>rr::SVD</scope><name>ldu_</name></member>
+      <member refid="classrr_1_1SVD_1aef0de864dc99d91b6bdc63d19a56715c" prot="private" virt="non-virtual"><scope>rr::SVD</scope><name>ldvt_</name></member>
+      <member refid="classrr_1_1SVD_1a912259e183485c72cae96cf951a2e943" prot="private" virt="non-virtual"><scope>rr::SVD</scope><name>leftSingularVectors_</name></member>
+      <member refid="classrr_1_1SVD_1a67e9f2e22f93c7fea65efa0d4c38067d" prot="private" virt="non-virtual"><scope>rr::SVD</scope><name>nCols_</name></member>
+      <member refid="classrr_1_1SVD_1a7f8c39ee700207baf2ab6d71062eceae" prot="private" virt="non-virtual"><scope>rr::SVD</scope><name>nRows_</name></member>
+      <member refid="classrr_1_1SVD_1af8f8852be210b950e1d0c4d5f5c1254f" prot="public" virt="non-virtual"><scope>rr::SVD</scope><name>rank</name></member>
+      <member refid="classrr_1_1SVD_1a39b5821b4106698e475d167028ec62d4" prot="private" virt="non-virtual"><scope>rr::SVD</scope><name>rightSingularVectors_</name></member>
+      <member refid="classrr_1_1SVD_1a2df3e5af9dec311424868a1dfa74eb7d" prot="private" virt="non-virtual"><scope>rr::SVD</scope><name>singularValues_</name></member>
+      <member refid="classrr_1_1SVD_1a0569c342c50ef3ee3d28b7b6160f9760" prot="public" virt="non-virtual"><scope>rr::SVD</scope><name>SVD</name></member>
+    </listofallmembers>
+  </compounddef>
+</doxygen>

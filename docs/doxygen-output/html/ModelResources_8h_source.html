@@ -22,7 +22,7 @@
  <tr style="height: 56px;">
   <td id="projectalign" style="padding-left: 0.5em;">
    <div id="projectname">roadrunner
-   &#160;<span id="projectnumber">2.0.5</span>
+   &#160;<span id="projectnumber">2.0.8</span>
    </div>
    <div id="projectbrief">Fast simulator for SBML models</div>
   </td>
@@ -90,67 +90,72 @@ $(function() {
 <div class="line"><a name="l00017"></a><span class="lineno"><a class="line" href="classrrllvm_1_1ModelResources.html">   17</a></span>&#160;<span class="keyword">class </span><a class="code" href="classrrllvm_1_1ModelResources.html">ModelResources</a></div>
 <div class="line"><a name="l00018"></a><span class="lineno">   18</span>&#160;{</div>
 <div class="line"><a name="l00019"></a><span class="lineno">   19</span>&#160;<span class="keyword">public</span>:</div>
-<div class="line"><a name="l00020"></a><span class="lineno">   20</span>&#160;    <a class="code" href="classrrllvm_1_1ModelResources.html">ModelResources</a>();</div>
-<div class="line"><a name="l00021"></a><span class="lineno">   21</span>&#160;    ~<a class="code" href="classrrllvm_1_1ModelResources.html">ModelResources</a>();</div>
-<div class="line"><a name="l00022"></a><span class="lineno">   22</span>&#160; </div>
-<div class="line"><a name="l00023"></a><span class="lineno">   23</span>&#160;    <span class="keywordtype">void</span> saveState(std::ostream&amp; out) <span class="keyword">const</span>;</div>
-<div class="line"><a name="l00024"></a><span class="lineno">   24</span>&#160;    <span class="keywordtype">void</span> loadState(std::istream&amp; in, uint loadOpt);</div>
-<div class="line"><a name="l00025"></a><span class="lineno">   25</span>&#160; </div>
-<div class="line"><a name="l00026"></a><span class="lineno">   26</span>&#160;    <span class="keyword">const</span> <a class="code" href="classrrllvm_1_1LLVMModelDataSymbols.html">LLVMModelDataSymbols</a> *symbols;</div>
-<div class="line"><a name="l00027"></a><span class="lineno">   27</span>&#160;    llvm::LLVMContext *context;</div>
-<div class="line"><a name="l00028"></a><span class="lineno">   28</span>&#160;    llvm::ExecutionEngine *executionEngine;</div>
-<div class="line"><a name="l00029"></a><span class="lineno">   29</span>&#160; </div>
-<div class="line"><a name="l00030"></a><span class="lineno">   30</span>&#160;    llvm::Module *module = 0;</div>
-<div class="line"><a name="l00031"></a><span class="lineno">   31</span>&#160;    std::string moduleStr;</div>
-<div class="line"><a name="l00032"></a><span class="lineno">   32</span>&#160;    <span class="keyword">const</span> <span class="keyword">class </span><a class="code" href="classrr_1_1Random.html">Random</a> *random;</div>
-<div class="line"><a name="l00033"></a><span class="lineno">   33</span>&#160;    <span class="keyword">const</span> std::string *errStr;</div>
-<div class="line"><a name="l00034"></a><span class="lineno">   34</span>&#160; </div>
-<div class="line"><a name="l00035"></a><span class="lineno">   35</span>&#160;    EvalInitialConditionsCodeGen::FunctionPtr evalInitialConditionsPtr;</div>
-<div class="line"><a name="l00036"></a><span class="lineno">   36</span>&#160;    EvalReactionRatesCodeGen::FunctionPtr evalReactionRatesPtr;</div>
-<div class="line"><a name="l00037"></a><span class="lineno">   37</span>&#160;    GetBoundarySpeciesAmountCodeGen::FunctionPtr getBoundarySpeciesAmountPtr;</div>
-<div class="line"><a name="l00038"></a><span class="lineno">   38</span>&#160;    GetFloatingSpeciesAmountCodeGen::FunctionPtr getFloatingSpeciesAmountPtr;</div>
-<div class="line"><a name="l00039"></a><span class="lineno">   39</span>&#160;    GetBoundarySpeciesConcentrationCodeGen::FunctionPtr getBoundarySpeciesConcentrationPtr;</div>
-<div class="line"><a name="l00040"></a><span class="lineno">   40</span>&#160;    GetFloatingSpeciesConcentrationCodeGen::FunctionPtr getFloatingSpeciesConcentrationPtr;</div>
-<div class="line"><a name="l00041"></a><span class="lineno">   41</span>&#160;    GetCompartmentVolumeCodeGen::FunctionPtr getCompartmentVolumePtr;</div>
-<div class="line"><a name="l00042"></a><span class="lineno">   42</span>&#160;    GetGlobalParameterCodeGen::FunctionPtr getGlobalParameterPtr;</div>
-<div class="line"><a name="l00043"></a><span class="lineno">   43</span>&#160;    EvalRateRuleRatesCodeGen::FunctionPtr evalRateRuleRatesPtr;</div>
-<div class="line"><a name="l00044"></a><span class="lineno">   44</span>&#160;    GetEventTriggerCodeGen::FunctionPtr getEventTriggerPtr;</div>
-<div class="line"><a name="l00045"></a><span class="lineno">   45</span>&#160;    GetEventPriorityCodeGen::FunctionPtr getEventPriorityPtr;</div>
-<div class="line"><a name="l00046"></a><span class="lineno">   46</span>&#160;    GetEventDelayCodeGen::FunctionPtr getEventDelayPtr;</div>
-<div class="line"><a name="l00047"></a><span class="lineno">   47</span>&#160;    EventTriggerCodeGen::FunctionPtr eventTriggerPtr;</div>
-<div class="line"><a name="l00048"></a><span class="lineno">   48</span>&#160;    EventAssignCodeGen::FunctionPtr eventAssignPtr;</div>
-<div class="line"><a name="l00049"></a><span class="lineno">   49</span>&#160;    EvalVolatileStoichCodeGen::FunctionPtr evalVolatileStoichPtr;</div>
-<div class="line"><a name="l00050"></a><span class="lineno">   50</span>&#160;    EvalConversionFactorCodeGen::FunctionPtr evalConversionFactorPtr;</div>
-<div class="line"><a name="l00051"></a><span class="lineno">   51</span>&#160;    SetBoundarySpeciesAmountCodeGen::FunctionPtr setBoundarySpeciesAmountPtr;</div>
-<div class="line"><a name="l00052"></a><span class="lineno">   52</span>&#160;    SetFloatingSpeciesAmountCodeGen::FunctionPtr setFloatingSpeciesAmountPtr;</div>
-<div class="line"><a name="l00053"></a><span class="lineno">   53</span>&#160;    SetBoundarySpeciesConcentrationCodeGen::FunctionPtr setBoundarySpeciesConcentrationPtr;</div>
-<div class="line"><a name="l00054"></a><span class="lineno">   54</span>&#160;    SetFloatingSpeciesConcentrationCodeGen::FunctionPtr setFloatingSpeciesConcentrationPtr;</div>
-<div class="line"><a name="l00055"></a><span class="lineno">   55</span>&#160;    SetCompartmentVolumeCodeGen::FunctionPtr setCompartmentVolumePtr;</div>
-<div class="line"><a name="l00056"></a><span class="lineno">   56</span>&#160;    SetGlobalParameterCodeGen::FunctionPtr setGlobalParameterPtr;</div>
+<div class="line"><a name="l00020"></a><span class="lineno">   20</span>&#160; </div>
+<div class="line"><a name="l00021"></a><span class="lineno">   21</span>&#160;    <a class="code" href="classrrllvm_1_1ModelResources.html">ModelResources</a>();</div>
+<div class="line"><a name="l00022"></a><span class="lineno">   22</span>&#160;    ~<a class="code" href="classrrllvm_1_1ModelResources.html">ModelResources</a>();</div>
+<div class="line"><a name="l00023"></a><span class="lineno">   23</span>&#160; </div>
+<div class="line"><a name="l00024"></a><span class="lineno">   24</span>&#160;    <span class="keywordtype">void</span> saveState(std::ostream&amp; out) <span class="keyword">const</span>;</div>
+<div class="line"><a name="l00025"></a><span class="lineno">   25</span>&#160;    <span class="keywordtype">void</span> loadState(std::istream&amp; in, uint loadOpt);</div>
+<div class="line"><a name="l00026"></a><span class="lineno">   26</span>&#160; </div>
+<div class="line"><a name="l00027"></a><span class="lineno">   27</span>&#160; </div>
+<div class="line"><a name="l00028"></a><span class="lineno">   28</span>&#160;    EvalInitialConditionsCodeGen::FunctionPtr evalInitialConditionsPtr;</div>
+<div class="line"><a name="l00029"></a><span class="lineno">   29</span>&#160;    EvalReactionRatesCodeGen::FunctionPtr evalReactionRatesPtr;</div>
+<div class="line"><a name="l00030"></a><span class="lineno">   30</span>&#160;    GetBoundarySpeciesAmountCodeGen::FunctionPtr getBoundarySpeciesAmountPtr;</div>
+<div class="line"><a name="l00031"></a><span class="lineno">   31</span>&#160;    GetFloatingSpeciesAmountCodeGen::FunctionPtr getFloatingSpeciesAmountPtr;</div>
+<div class="line"><a name="l00032"></a><span class="lineno">   32</span>&#160;    GetBoundarySpeciesConcentrationCodeGen::FunctionPtr getBoundarySpeciesConcentrationPtr;</div>
+<div class="line"><a name="l00033"></a><span class="lineno">   33</span>&#160;    GetFloatingSpeciesConcentrationCodeGen::FunctionPtr getFloatingSpeciesConcentrationPtr;</div>
+<div class="line"><a name="l00034"></a><span class="lineno">   34</span>&#160;    GetCompartmentVolumeCodeGen::FunctionPtr getCompartmentVolumePtr;</div>
+<div class="line"><a name="l00035"></a><span class="lineno">   35</span>&#160;    GetGlobalParameterCodeGen::FunctionPtr getGlobalParameterPtr;</div>
+<div class="line"><a name="l00036"></a><span class="lineno">   36</span>&#160;    EvalRateRuleRatesCodeGen::FunctionPtr evalRateRuleRatesPtr;</div>
+<div class="line"><a name="l00037"></a><span class="lineno">   37</span>&#160;    GetEventTriggerCodeGen::FunctionPtr getEventTriggerPtr;</div>
+<div class="line"><a name="l00038"></a><span class="lineno">   38</span>&#160;    GetEventPriorityCodeGen::FunctionPtr getEventPriorityPtr;</div>
+<div class="line"><a name="l00039"></a><span class="lineno">   39</span>&#160;    GetEventDelayCodeGen::FunctionPtr getEventDelayPtr;</div>
+<div class="line"><a name="l00040"></a><span class="lineno">   40</span>&#160;    EventTriggerCodeGen::FunctionPtr eventTriggerPtr;</div>
+<div class="line"><a name="l00041"></a><span class="lineno">   41</span>&#160;    EventAssignCodeGen::FunctionPtr eventAssignPtr;</div>
+<div class="line"><a name="l00042"></a><span class="lineno">   42</span>&#160;    EvalVolatileStoichCodeGen::FunctionPtr evalVolatileStoichPtr;</div>
+<div class="line"><a name="l00043"></a><span class="lineno">   43</span>&#160;    EvalConversionFactorCodeGen::FunctionPtr evalConversionFactorPtr;</div>
+<div class="line"><a name="l00044"></a><span class="lineno">   44</span>&#160;    SetBoundarySpeciesAmountCodeGen::FunctionPtr setBoundarySpeciesAmountPtr;</div>
+<div class="line"><a name="l00045"></a><span class="lineno">   45</span>&#160;    SetFloatingSpeciesAmountCodeGen::FunctionPtr setFloatingSpeciesAmountPtr;</div>
+<div class="line"><a name="l00046"></a><span class="lineno">   46</span>&#160;    SetBoundarySpeciesConcentrationCodeGen::FunctionPtr setBoundarySpeciesConcentrationPtr;</div>
+<div class="line"><a name="l00047"></a><span class="lineno">   47</span>&#160;    SetFloatingSpeciesConcentrationCodeGen::FunctionPtr setFloatingSpeciesConcentrationPtr;</div>
+<div class="line"><a name="l00048"></a><span class="lineno">   48</span>&#160;    SetCompartmentVolumeCodeGen::FunctionPtr setCompartmentVolumePtr;</div>
+<div class="line"><a name="l00049"></a><span class="lineno">   49</span>&#160;    SetGlobalParameterCodeGen::FunctionPtr setGlobalParameterPtr;</div>
+<div class="line"><a name="l00050"></a><span class="lineno">   50</span>&#160; </div>
+<div class="line"><a name="l00051"></a><span class="lineno">   51</span>&#160;    <span class="comment">// init value accessors</span></div>
+<div class="line"><a name="l00052"></a><span class="lineno">   52</span>&#160;    SetFloatingSpeciesInitConcentrationCodeGen::FunctionPtr setFloatingSpeciesInitConcentrationsPtr;</div>
+<div class="line"><a name="l00053"></a><span class="lineno">   53</span>&#160;    GetFloatingSpeciesInitConcentrationCodeGen::FunctionPtr getFloatingSpeciesInitConcentrationsPtr;</div>
+<div class="line"><a name="l00054"></a><span class="lineno">   54</span>&#160; </div>
+<div class="line"><a name="l00055"></a><span class="lineno">   55</span>&#160;    SetFloatingSpeciesInitAmountCodeGen::FunctionPtr setFloatingSpeciesInitAmountsPtr;</div>
+<div class="line"><a name="l00056"></a><span class="lineno">   56</span>&#160;    GetFloatingSpeciesInitAmountCodeGen::FunctionPtr getFloatingSpeciesInitAmountsPtr;</div>
 <div class="line"><a name="l00057"></a><span class="lineno">   57</span>&#160; </div>
-<div class="line"><a name="l00058"></a><span class="lineno">   58</span>&#160;    <span class="comment">// init value accessors</span></div>
-<div class="line"><a name="l00059"></a><span class="lineno">   59</span>&#160;    SetFloatingSpeciesInitConcentrationCodeGen::FunctionPtr setFloatingSpeciesInitConcentrationsPtr;</div>
-<div class="line"><a name="l00060"></a><span class="lineno">   60</span>&#160;    GetFloatingSpeciesInitConcentrationCodeGen::FunctionPtr getFloatingSpeciesInitConcentrationsPtr;</div>
-<div class="line"><a name="l00061"></a><span class="lineno">   61</span>&#160; </div>
-<div class="line"><a name="l00062"></a><span class="lineno">   62</span>&#160;    SetFloatingSpeciesInitAmountCodeGen::FunctionPtr setFloatingSpeciesInitAmountsPtr;</div>
-<div class="line"><a name="l00063"></a><span class="lineno">   63</span>&#160;    GetFloatingSpeciesInitAmountCodeGen::FunctionPtr getFloatingSpeciesInitAmountsPtr;</div>
-<div class="line"><a name="l00064"></a><span class="lineno">   64</span>&#160; </div>
-<div class="line"><a name="l00065"></a><span class="lineno">   65</span>&#160;    GetCompartmentInitVolumeCodeGen::FunctionPtr getCompartmentInitVolumesPtr;</div>
-<div class="line"><a name="l00066"></a><span class="lineno">   66</span>&#160;    SetCompartmentInitVolumeCodeGen::FunctionPtr setCompartmentInitVolumesPtr;</div>
-<div class="line"><a name="l00067"></a><span class="lineno">   67</span>&#160; </div>
-<div class="line"><a name="l00068"></a><span class="lineno">   68</span>&#160;    GetGlobalParameterInitValueCodeGen::FunctionPtr getGlobalParameterInitValuePtr;</div>
-<div class="line"><a name="l00069"></a><span class="lineno">   69</span>&#160;    SetGlobalParameterInitValueCodeGen::FunctionPtr setGlobalParameterInitValuePtr;</div>
-<div class="line"><a name="l00070"></a><span class="lineno">   70</span>&#160;<span class="keyword">private</span>:</div>
-<div class="line"><a name="l00071"></a><span class="lineno">   71</span>&#160;    <span class="keywordtype">void</span> addGlobalMapping(std::string name, <span class="keywordtype">void</span>*);</div>
-<div class="line"><a name="l00072"></a><span class="lineno">   72</span>&#160;    <span class="keywordtype">void</span> addGlobalMappings();</div>
-<div class="line"><a name="l00073"></a><span class="lineno">   73</span>&#160;    <span class="keyword">static</span> llvm::Function* createGlobalMappingFunction(<span class="keyword">const</span> <span class="keywordtype">char</span>* funcName, llvm::FunctionType *funcType, llvm::Module*);</div>
-<div class="line"><a name="l00074"></a><span class="lineno">   74</span>&#160;};</div>
-<div class="line"><a name="l00075"></a><span class="lineno">   75</span>&#160; </div>
-<div class="line"><a name="l00076"></a><span class="lineno">   76</span>&#160;} <span class="comment">/* namespace rrllvm */</span></div>
-<div class="line"><a name="l00077"></a><span class="lineno">   77</span>&#160;<span class="preprocessor">#endif </span><span class="comment">/* CACHEDMODEL_H_ */</span><span class="preprocessor"></span></div>
+<div class="line"><a name="l00058"></a><span class="lineno">   58</span>&#160;    GetCompartmentInitVolumeCodeGen::FunctionPtr getCompartmentInitVolumesPtr;</div>
+<div class="line"><a name="l00059"></a><span class="lineno">   59</span>&#160;    SetCompartmentInitVolumeCodeGen::FunctionPtr setCompartmentInitVolumesPtr;</div>
+<div class="line"><a name="l00060"></a><span class="lineno">   60</span>&#160; </div>
+<div class="line"><a name="l00061"></a><span class="lineno">   61</span>&#160;    GetGlobalParameterInitValueCodeGen::FunctionPtr getGlobalParameterInitValuePtr;</div>
+<div class="line"><a name="l00062"></a><span class="lineno">   62</span>&#160;    SetGlobalParameterInitValueCodeGen::FunctionPtr setGlobalParameterInitValuePtr;</div>
+<div class="line"><a name="l00063"></a><span class="lineno">   63</span>&#160; </div>
+<div class="line"><a name="l00068"></a><span class="lineno"><a class="line" href="classrrllvm_1_1ModelResources.html#a9c6561f8bb57a983542c8dd36947c4e2">   68</a></span>&#160;    <span class="keyword">const</span> <a class="code" href="classrrllvm_1_1LLVMModelDataSymbols.html">LLVMModelDataSymbols</a> *<a class="code" href="classrrllvm_1_1ModelResources.html#a9c6561f8bb57a983542c8dd36947c4e2">symbols</a>;</div>
+<div class="line"><a name="l00069"></a><span class="lineno">   69</span>&#160;    llvm::LLVMContext *context;</div>
+<div class="line"><a name="l00070"></a><span class="lineno">   70</span>&#160;    llvm::ExecutionEngine *executionEngine;</div>
+<div class="line"><a name="l00071"></a><span class="lineno">   71</span>&#160; </div>
+<div class="line"><a name="l00072"></a><span class="lineno">   72</span>&#160;    llvm::Module *module = <span class="keyword">nullptr</span>;</div>
+<div class="line"><a name="l00073"></a><span class="lineno">   73</span>&#160; </div>
+<div class="line"><a name="l00074"></a><span class="lineno">   74</span>&#160;    std::string moduleStr;</div>
+<div class="line"><a name="l00075"></a><span class="lineno">   75</span>&#160;    <span class="keyword">const</span> <span class="keyword">class </span><a class="code" href="classrr_1_1Random.html">Random</a> *random;</div>
+<div class="line"><a name="l00076"></a><span class="lineno">   76</span>&#160;    <span class="keyword">const</span> std::string *errStr;</div>
+<div class="line"><a name="l00077"></a><span class="lineno">   77</span>&#160; </div>
+<div class="line"><a name="l00078"></a><span class="lineno">   78</span>&#160;<span class="keyword">private</span>:</div>
+<div class="line"><a name="l00079"></a><span class="lineno">   79</span>&#160;    <span class="keywordtype">void</span> addGlobalMapping(std::string name, <span class="keywordtype">void</span>*);</div>
+<div class="line"><a name="l00080"></a><span class="lineno">   80</span>&#160;    <span class="keywordtype">void</span> addGlobalMappings();</div>
+<div class="line"><a name="l00081"></a><span class="lineno">   81</span>&#160;    <span class="keyword">static</span> llvm::Function* createGlobalMappingFunction(<span class="keyword">const</span> <span class="keywordtype">char</span>* funcName, llvm::FunctionType *funcType, llvm::Module*);</div>
+<div class="line"><a name="l00082"></a><span class="lineno">   82</span>&#160;};</div>
+<div class="line"><a name="l00083"></a><span class="lineno">   83</span>&#160; </div>
+<div class="line"><a name="l00084"></a><span class="lineno">   84</span>&#160;} <span class="comment">/* namespace rrllvm */</span></div>
+<div class="line"><a name="l00085"></a><span class="lineno">   85</span>&#160;<span class="preprocessor">#endif </span><span class="comment">/* CACHEDMODEL_H_ */</span><span class="preprocessor"></span></div>
 </div><!-- fragment --></div><!-- contents -->
 <div class="ttc" id="aclassrrllvm_1_1ModelResources_html"><div class="ttname"><a href="classrrllvm_1_1ModelResources.html">rrllvm::ModelResources</a></div><div class="ttdef"><b>Definition:</b> ModelResources.h:18</div></div>
 <div class="ttc" id="aclassrrllvm_1_1LLVMModelDataSymbols_html"><div class="ttname"><a href="classrrllvm_1_1LLVMModelDataSymbols.html">rrllvm::LLVMModelDataSymbols</a></div><div class="ttdoc">stores the names of all the symbols in the sbml model and thier indexes in the ModelData arrays.</div><div class="ttdef"><b>Definition:</b> LLVMModelDataSymbols.h:127</div></div>
+<div class="ttc" id="aclassrrllvm_1_1ModelResources_html_a9c6561f8bb57a983542c8dd36947c4e2"><div class="ttname"><a href="classrrllvm_1_1ModelResources.html#a9c6561f8bb57a983542c8dd36947c4e2">rrllvm::ModelResources::symbols</a></div><div class="ttdeci">const LLVMModelDataSymbols * symbols</div><div class="ttdoc">Public Member variables.</div><div class="ttdef"><b>Definition:</b> ModelResources.h:68</div></div>
 <div class="ttc" id="aclassrr_1_1Random_html"><div class="ttname"><a href="classrr_1_1Random.html">rr::Random</a></div><div class="ttdef"><b>Definition:</b> rrRandom.h:14</div></div>
 <div class="ttc" id="aLLVMExecutableModel_8h_html"><div class="ttname"><a href="LLVMExecutableModel_8h.html">LLVMExecutableModel.h</a></div><div class="ttdoc">LLVM executable model interface.</div></div>
 <!-- start footer part -->

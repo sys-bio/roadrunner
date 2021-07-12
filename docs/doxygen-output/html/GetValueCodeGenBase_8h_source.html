@@ -22,7 +22,7 @@
  <tr style="height: 56px;">
   <td id="projectalign" style="padding-left: 0.5em;">
    <div id="projectname">roadrunner
-   &#160;<span id="projectnumber">2.0.5</span>
+   &#160;<span id="projectnumber">2.0.8</span>
    </div>
    <div id="projectbrief">Fast simulator for SBML models</div>
   </td>
@@ -141,7 +141,7 @@ $(function() {
 <div class="line"><a name="l00068"></a><span class="lineno">   68</span>&#160;    llvm::BasicBlock *entry = this-&gt;codeGenHeader(Derived::FunctionName, llvm::Type::getDoubleTy(this-&gt;context),</div>
 <div class="line"><a name="l00069"></a><span class="lineno">   69</span>&#160;            argTypes, argNames, args);</div>
 <div class="line"><a name="l00070"></a><span class="lineno">   70</span>&#160; </div>
-<div class="line"><a name="l00071"></a><span class="lineno">   71</span>&#160;    std::vector&lt;string&gt; ids = <span class="keyword">static_cast&lt;</span>Derived*<span class="keyword">&gt;</span>(<span class="keyword">this</span>)-&gt;getIds();</div>
+<div class="line"><a name="l00071"></a><span class="lineno">   71</span>&#160;    std::vector&lt;std::string&gt; ids = <span class="keyword">static_cast&lt;</span>Derived*<span class="keyword">&gt;</span>(<span class="keyword">this</span>)-&gt;getIds();</div>
 <div class="line"><a name="l00072"></a><span class="lineno">   72</span>&#160; </div>
 <div class="line"><a name="l00073"></a><span class="lineno">   73</span>&#160;    ModelDataLoadSymbolResolver resolver(args[0], this-&gt;modelGenContext);</div>
 <div class="line"><a name="l00074"></a><span class="lineno">   74</span>&#160;    <span class="comment">// default, return NaN</span></div>
@@ -215,7 +215,7 @@ $(function() {
 <div class="line"><a name="l00142"></a><span class="lineno">  142</span>&#160;<span class="preprocessor">#endif </span><span class="comment">/* RRLLVMGETVALUECODEGENBASE_H_ */</span><span class="preprocessor"></span></div>
 </div><!-- fragment --></div><!-- contents -->
 <div class="ttc" id="aclassrrllvm_1_1ModelGeneratorContext_html"><div class="ttname"><a href="classrrllvm_1_1ModelGeneratorContext.html">rrllvm::ModelGeneratorContext</a></div><div class="ttdoc">All LLVM code generating objects basically need at a minimum three things to operate:</div><div class="ttdef"><b>Definition:</b> ModelGeneratorContext.h:90</div></div>
-<div class="ttc" id="aclassrrllvm_1_1ModelDataIRBuilder_html_a0ef021e16b99691a0cde663060898c4c"><div class="ttname"><a href="classrrllvm_1_1ModelDataIRBuilder.html#a0ef021e16b99691a0cde663060898c4c">rrllvm::ModelDataIRBuilder::getStructType</a></div><div class="ttdeci">static llvm::StructType * getStructType(llvm::Module *module)</div><div class="ttdoc">get the ModelData struct type.</div><div class="ttdef"><b>Definition:</b> ModelDataIRBuilder.cpp:696</div></div>
+<div class="ttc" id="aclassrrllvm_1_1ModelDataIRBuilder_html_a0ef021e16b99691a0cde663060898c4c"><div class="ttname"><a href="classrrllvm_1_1ModelDataIRBuilder.html#a0ef021e16b99691a0cde663060898c4c">rrllvm::ModelDataIRBuilder::getStructType</a></div><div class="ttdeci">static llvm::StructType * getStructType(llvm::Module *module)</div><div class="ttdoc">get the ModelData struct type.</div><div class="ttdef"><b>Definition:</b> ModelDataIRBuilder.cpp:695</div></div>
 <div class="ttc" id="aclassrrllvm_1_1GetValueCodeGenBase_html"><div class="ttname"><a href="classrrllvm_1_1GetValueCodeGenBase.html">rrllvm::GetValueCodeGenBase</a></div><div class="ttdef"><b>Definition:</b> GetValueCodeGenBase.h:30</div></div>
 <div class="ttc" id="aclassrrllvm_1_1CodeGenBase_html"><div class="ttname"><a href="classrrllvm_1_1CodeGenBase.html">rrllvm::CodeGenBase</a></div><div class="ttdoc">a convenience class to pull the vars out of a context, and store them as ivars.</div><div class="ttdef"><b>Definition:</b> CodeGenBase.h:35</div></div>
 <!-- start footer part -->

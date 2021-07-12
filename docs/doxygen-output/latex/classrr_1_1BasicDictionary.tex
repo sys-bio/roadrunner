@@ -2,7 +2,7 @@
 \label{classrr_1_1BasicDictionary}\index{rr::BasicDictionary@{rr::BasicDictionary}}
 
 
-This class is frozen, no new features Basic implementation of the \mbox{\hyperlink{classrr_1_1Dictionary}{Dictionary}} interface which uses a std unordered map to store the values.  
+This class is frozen, no new features Basic implementation of the \mbox{\hyperlink{classrr_1_1Dictionary}{Dictionary}} interface which uses a std unordered std\+::map to store the values.  
 
 
 
@@ -18,12 +18,12 @@ Inheritance diagram for rr\+::Basic\+Dictionary\+:\begin{figure}[H]
 \doxysubsection*{Public Member Functions}
 \begin{DoxyCompactItemize}
 \item 
-\mbox{\Hypertarget{classrr_1_1BasicDictionary_ae7b6b6c90561295e2e07c45fe50358ce}\label{classrr_1_1BasicDictionary_ae7b6b6c90561295e2e07c45fe50358ce}} 
-void \mbox{\hyperlink{classrr_1_1BasicDictionary_ae7b6b6c90561295e2e07c45fe50358ce}{set\+Item}} (const std\+::string \&key, const \mbox{\hyperlink{classrr_1_1Variant}{rr\+::\+Variant}} \&value) override
-\begin{DoxyCompactList}\small\item\em sets an item in the internal unordered map. \end{DoxyCompactList}\item 
-\mbox{\Hypertarget{classrr_1_1BasicDictionary_a3357b3d49d8353f19ec9aa83884f6ef1}\label{classrr_1_1BasicDictionary_a3357b3d49d8353f19ec9aa83884f6ef1}} 
-\mbox{\hyperlink{classrr_1_1Variant}{Variant}} \mbox{\hyperlink{classrr_1_1BasicDictionary_a3357b3d49d8353f19ec9aa83884f6ef1}{get\+Item}} (const std\+::string \&key) const override
-\begin{DoxyCompactList}\small\item\em gets an item from the internal unordered map. \end{DoxyCompactList}\item 
+\mbox{\Hypertarget{classrr_1_1BasicDictionary_ae3e2fc27e776cf5c791b4194534d3082}\label{classrr_1_1BasicDictionary_ae3e2fc27e776cf5c791b4194534d3082}} 
+void \mbox{\hyperlink{classrr_1_1BasicDictionary_ae3e2fc27e776cf5c791b4194534d3082}{set\+Item}} (const std\+::string \&key, const \mbox{\hyperlink{classrr_1_1Setting}{rr\+::\+Setting}} \&value) override
+\begin{DoxyCompactList}\small\item\em sets an item in the internal unordered std\+::map. \end{DoxyCompactList}\item 
+\mbox{\Hypertarget{classrr_1_1BasicDictionary_afb43f812d4aaf7809c79d1300bc9fe8c}\label{classrr_1_1BasicDictionary_afb43f812d4aaf7809c79d1300bc9fe8c}} 
+\mbox{\hyperlink{classrr_1_1Setting}{Setting}} \mbox{\hyperlink{classrr_1_1BasicDictionary_afb43f812d4aaf7809c79d1300bc9fe8c}{get\+Item}} (const std\+::string \&key) const override
+\begin{DoxyCompactList}\small\item\em gets an item from the internal unordered std\+::map. \end{DoxyCompactList}\item 
 bool \mbox{\hyperlink{classrr_1_1BasicDictionary_ab78190d645a8eb84bb3494453a6f6ea8}{has\+Key}} (const std\+::string \&key) const override
 \begin{DoxyCompactList}\small\item\em is there a key matching this name. \end{DoxyCompactList}\item 
 \mbox{\Hypertarget{classrr_1_1BasicDictionary_af80331f200f57eaa1d22c85104731dda}\label{classrr_1_1BasicDictionary_af80331f200f57eaa1d22c85104731dda}} 
@@ -38,8 +38,8 @@ std\+::vector$<$ std\+::string $>$ \mbox{\hyperlink{classrr_1_1BasicDictionary_a
 \doxysubsection*{Protected Types}
 \begin{DoxyCompactItemize}
 \item 
-\mbox{\Hypertarget{classrr_1_1BasicDictionary_aedf8f5947090adb89828e602181a0a2f}\label{classrr_1_1BasicDictionary_aedf8f5947090adb89828e602181a0a2f}} 
-typedef cxx11\+\_\+ns\+::unordered\+\_\+map$<$ std\+::string, \mbox{\hyperlink{classrr_1_1Variant}{Variant}} $>$ {\bfseries Variant\+Map}
+\mbox{\Hypertarget{classrr_1_1BasicDictionary_a3903012a5ae2c390b4cb2d8fd8b775c9}\label{classrr_1_1BasicDictionary_a3903012a5ae2c390b4cb2d8fd8b775c9}} 
+typedef std\+::unordered\+\_\+map$<$ std\+::string, \mbox{\hyperlink{classrr_1_1Setting}{Setting}} $>$ {\bfseries Variant\+Map}
 \end{DoxyCompactItemize}
 \doxysubsection*{Protected Attributes}
 \begin{DoxyCompactItemize}
@@ -50,7 +50,7 @@ Variant\+Map {\bfseries items}
 
 
 \doxysubsection{Detailed Description}
-This class is frozen, no new features Basic implementation of the \mbox{\hyperlink{classrr_1_1Dictionary}{Dictionary}} interface which uses a std unordered map to store the values. 
+This class is frozen, no new features Basic implementation of the \mbox{\hyperlink{classrr_1_1Dictionary}{Dictionary}} interface which uses a std unordered std\+::map to store the values. 
 
 \doxysubsection{Member Function Documentation}
 \mbox{\Hypertarget{classrr_1_1BasicDictionary_ab78190d645a8eb84bb3494453a6f6ea8}\label{classrr_1_1BasicDictionary_ab78190d645a8eb84bb3494453a6f6ea8}} 
@@ -69,7 +69,7 @@ Implements \mbox{\hyperlink{classrr_1_1Dictionary_a7ec0accc7149a403ee5eeeb945705
 
 
 
-Reimplemented in \mbox{\hyperlink{classrr_1_1LoadSBMLOptions_a5fd757435841abdb20215d65af77bd84}{rr\+::\+Load\+S\+B\+M\+L\+Options}}.
+Reimplemented in \mbox{\hyperlink{classrr_1_1LoadSBMLOptions_a117c4f6440ac36541ec57ceae06d4770}{rr\+::\+Load\+S\+B\+M\+L\+Options}}.
 
 
 

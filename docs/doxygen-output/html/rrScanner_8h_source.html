@@ -22,7 +22,7 @@
  <tr style="height: 56px;">
   <td id="projectalign" style="padding-left: 0.5em;">
    <div id="projectname">roadrunner
-   &#160;<span id="projectnumber">2.0.5</span>
+   &#160;<span id="projectnumber">2.0.8</span>
    </div>
    <div id="projectbrief">Fast simulator for SBML models</div>
   </td>
@@ -108,14 +108,14 @@ $(function() {
 <div class="line"><a name="l00035"></a><span class="lineno"><a class="line" href="classrr_1_1Scanner.html">   35</a></span>&#160;<span class="keyword">class </span>RR_DECLSPEC <a class="code" href="classrr_1_1Scanner.html">Scanner</a></div>
 <div class="line"><a name="l00036"></a><span class="lineno">   36</span>&#160;{</div>
 <div class="line"><a name="l00037"></a><span class="lineno">   37</span>&#160;    <span class="keyword">protected</span>:</div>
-<div class="line"><a name="l00038"></a><span class="lineno">   38</span>&#160;        <span class="keyword">const</span> <span class="keywordtype">char</span>                                EOFCHAR; <span class="comment">// Deemed end of string marker, used internally</span></div>
+<div class="line"><a name="l00038"></a><span class="lineno">   38</span>&#160;        <span class="keyword">const</span> <span class="keywordtype">char</span>                                EOFCHAR; <span class="comment">// Deemed end of std::string marker, used internally</span></div>
 <div class="line"><a name="l00039"></a><span class="lineno">   39</span>&#160;        <span class="keyword">const</span> <span class="keywordtype">char</span>                                CR;</div>
 <div class="line"><a name="l00040"></a><span class="lineno">   40</span>&#160;        <span class="keyword">const</span> <span class="keywordtype">char</span>                                LF;</div>
-<div class="line"><a name="l00041"></a><span class="lineno">   41</span>&#160;        vector&lt;TCharCode::TCharCode&gt;              FCharTable;</div>
-<div class="line"><a name="l00042"></a><span class="lineno">   42</span>&#160;        vector&lt;char&gt;                              buffer;</div>
+<div class="line"><a name="l00041"></a><span class="lineno">   41</span>&#160;        std::vector&lt;TCharCode::TCharCode&gt;              FCharTable;</div>
+<div class="line"><a name="l00042"></a><span class="lineno">   42</span>&#160;        std::vector&lt;char&gt;                              buffer;</div>
 <div class="line"><a name="l00043"></a><span class="lineno">   43</span>&#160;        queue&lt;Token&gt;                              tokenQueue;</div>
-<div class="line"><a name="l00044"></a><span class="lineno">   44</span>&#160;        map&lt;string, CodeTypes::CodeTypes&gt;         wordTable;</div>
-<div class="line"><a name="l00045"></a><span class="lineno">   45</span>&#160;        stringstream                              *pStream;</div>
+<div class="line"><a name="l00044"></a><span class="lineno">   44</span>&#160;        std::map&lt;std::string, CodeTypes::CodeTypes&gt;         wordTable;</div>
+<div class="line"><a name="l00045"></a><span class="lineno">   45</span>&#160;        std::stringstream                              *pStream;</div>
 <div class="line"><a name="l00046"></a><span class="lineno">   46</span>&#160;        std::streamsize                           bufferLength;</div>
 <div class="line"><a name="l00047"></a><span class="lineno">   47</span>&#160;        <span class="keywordtype">int</span>                                       bufferPtr; <span class="comment">// Index of position in buffer containing current char</span></div>
 <div class="line"><a name="l00048"></a><span class="lineno">   48</span>&#160;        CodeTypes::CodeTypes                      ftoken;</div>
@@ -131,9 +131,9 @@ $(function() {
 <div class="line"><a name="l00058"></a><span class="lineno">   58</span>&#160;        <span class="keywordtype">void</span>                                      nextTokenInternal();</div>
 <div class="line"><a name="l00059"></a><span class="lineno">   59</span>&#160; </div>
 <div class="line"><a name="l00060"></a><span class="lineno">   60</span>&#160;    <span class="keyword">public</span>:</div>
-<div class="line"><a name="l00061"></a><span class="lineno">   61</span>&#160;        <span class="keywordtype">string</span>                                    timeWord1;</div>
-<div class="line"><a name="l00062"></a><span class="lineno">   62</span>&#160;        <span class="keywordtype">string</span>                                    timeWord2;</div>
-<div class="line"><a name="l00063"></a><span class="lineno">   63</span>&#160;        <span class="keywordtype">string</span>                                    timeWord3;</div>
+<div class="line"><a name="l00061"></a><span class="lineno">   61</span>&#160;        std::string                                    timeWord1;</div>
+<div class="line"><a name="l00062"></a><span class="lineno">   62</span>&#160;        std::string                                    timeWord2;</div>
+<div class="line"><a name="l00063"></a><span class="lineno">   63</span>&#160;        std::string                                    timeWord3;</div>
 <div class="line"><a name="l00064"></a><span class="lineno">   64</span>&#160;        <span class="keywordtype">bool</span>                                      FromQueue;</div>
 <div class="line"><a name="l00065"></a><span class="lineno">   65</span>&#160;        <span class="keywordtype">bool</span>                                      IgnoreNewLines;</div>
 <div class="line"><a name="l00066"></a><span class="lineno">   66</span>&#160;        <a class="code" href="classrr_1_1Token.html">Token</a>                                     currentToken;</div>
@@ -142,7 +142,7 @@ $(function() {
 <div class="line"><a name="l00069"></a><span class="lineno">   69</span>&#160;        <span class="keywordtype">double</span>                                    tokenDouble;</div>
 <div class="line"><a name="l00070"></a><span class="lineno">   70</span>&#160;        <span class="keywordtype">int</span>                                       tokenInteger;</div>
 <div class="line"><a name="l00071"></a><span class="lineno">   71</span>&#160;        <span class="keywordtype">double</span>                                    tokenScalar; <span class="comment">// Used to retrieve int or double</span></div>
-<div class="line"><a name="l00072"></a><span class="lineno">   72</span>&#160;        <span class="keywordtype">string</span>                                    tokenString;</div>
+<div class="line"><a name="l00072"></a><span class="lineno">   72</span>&#160;        std::string                                    tokenString;</div>
 <div class="line"><a name="l00073"></a><span class="lineno">   73</span>&#160;        <span class="keywordtype">int</span>                                       lineNumber();</div>
 <div class="line"><a name="l00074"></a><span class="lineno">   74</span>&#160; </div>
 <div class="line"><a name="l00075"></a><span class="lineno">   75</span>&#160;        CodeTypes::CodeTypes                      token();</div>
@@ -152,12 +152,12 @@ $(function() {
 <div class="line"><a name="l00079"></a><span class="lineno">   79</span>&#160;        <span class="keywordtype">void</span>                                      startScanner();</div>
 <div class="line"><a name="l00080"></a><span class="lineno">   80</span>&#160;        <span class="keywordtype">bool</span>                                      IsQueueEmpty();</div>
 <div class="line"><a name="l00081"></a><span class="lineno">   81</span>&#160;        <span class="keywordtype">char</span>                                      nextChar();</div>
-<div class="line"><a name="l00082"></a><span class="lineno">   82</span>&#160;        <span class="keywordtype">string</span>                                    tokenToString(<span class="keyword">const</span> CodeTypes::CodeTypes&amp; code);</div>
+<div class="line"><a name="l00082"></a><span class="lineno">   82</span>&#160;        std::string                                    tokenToString(<span class="keyword">const</span> CodeTypes::CodeTypes&amp; code);</div>
 <div class="line"><a name="l00083"></a><span class="lineno">   83</span>&#160;        <span class="keywordtype">void</span>                                      AddTokenToQueue();</div>
 <div class="line"><a name="l00084"></a><span class="lineno">   84</span>&#160;        <span class="keywordtype">void</span>                                      nextToken();</div>
 <div class="line"><a name="l00085"></a><span class="lineno">   85</span>&#160;        <span class="keywordtype">void</span>                                      skipBlanks();</div>
 <div class="line"><a name="l00086"></a><span class="lineno">   86</span>&#160;        <span class="keywordtype">void</span>                                      UnGetToken();</div>
-<div class="line"><a name="l00087"></a><span class="lineno">   87</span>&#160;        <span class="keywordtype">void</span>                                      AssignStream(stringstream&amp; str);</div>
+<div class="line"><a name="l00087"></a><span class="lineno">   87</span>&#160;        <span class="keywordtype">void</span>                                      AssignStream(std::stringstream&amp; str);</div>
 <div class="line"><a name="l00088"></a><span class="lineno">   88</span>&#160;}; <span class="comment">//class scanner</span></div>
 <div class="line"><a name="l00089"></a><span class="lineno">   89</span>&#160; </div>
 <div class="line"><a name="l00090"></a><span class="lineno">   90</span>&#160;} <span class="comment">//rr</span></div>

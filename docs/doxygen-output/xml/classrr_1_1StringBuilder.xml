@@ -4,9 +4,9 @@
     <compoundname>rr::StringBuilder</compoundname>
     <derivedcompoundref refid="classrr_1_1CodeBuilder" prot="public" virt="non-virtual">rr::CodeBuilder</derivedcompoundref>
       <sectiondef kind="protected-attrib">
-      <memberdef kind="variable" id="classrr_1_1StringBuilder_1a2e6e3fc9b0cd309a83bea1b29797491e" prot="protected" static="no" mutable="no">
-        <type>stringstream</type>
-        <definition>stringstream rr::StringBuilder::mStringing</definition>
+      <memberdef kind="variable" id="classrr_1_1StringBuilder_1adf338b1c1d81ee81366dc02c7071789e" prot="protected" static="no" mutable="no">
+        <type>std::stringstream</type>
+        <definition>std::stringstream rr::StringBuilder::mStringing</definition>
         <argsstring></argsstring>
         <name>mStringing</name>
         <briefdescription>
@@ -15,17 +15,17 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="c/rrStringBuilder.h" line="20" column="38" bodyfile="c/rrStringBuilder.h" bodystart="20" bodyend="-1"/>
+        <location file="c/rrStringBuilder.h" line="20" column="43" bodyfile="c/rrStringBuilder.h" bodystart="20" bodyend="-1"/>
       </memberdef>
       </sectiondef>
       <sectiondef kind="public-func">
-      <memberdef kind="function" id="classrr_1_1StringBuilder_1a9865e870221e232becaf532ffcc918fa" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+      <memberdef kind="function" id="classrr_1_1StringBuilder_1aeddd1b87b9c0a92361e7927787d2e5bc" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
         <type></type>
         <definition>rr::StringBuilder::StringBuilder</definition>
-        <argsstring>(const string &amp;aStr=&quot;&quot;)</argsstring>
+        <argsstring>(const std::string &amp;aStr=&quot;&quot;)</argsstring>
         <name>StringBuilder</name>
         <param>
-          <type>const string &amp;</type>
+          <type>const std::string &amp;</type>
           <declname>aStr</declname>
           <defval>&quot;&quot;</defval>
         </param>
@@ -37,13 +37,13 @@
         </inbodydescription>
         <location file="c/rrStringBuilder.h" line="23" column="37" bodyfile="c/rrStringBuilder.cpp" bodystart="12" bodyend="15"/>
       </memberdef>
-      <memberdef kind="function" id="classrr_1_1StringBuilder_1a70119feb4beaa821983a7f3ffee33075" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
-        <type>stringstream &amp;</type>
-        <definition>stringstream &amp; rr::StringBuilder::operator&lt;&lt;</definition>
-        <argsstring>(const string &amp;str)</argsstring>
+      <memberdef kind="function" id="classrr_1_1StringBuilder_1a97c86b97558c79342460d97c5e73bc77" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>std::stringstream &amp;</type>
+        <definition>std::stringstream &amp; rr::StringBuilder::operator&lt;&lt;</definition>
+        <argsstring>(const std::string &amp;str)</argsstring>
         <name>operator&lt;&lt;</name>
         <param>
-          <type>const string &amp;</type>
+          <type>const std::string &amp;</type>
           <declname>str</declname>
         </param>
         <briefdescription>
@@ -54,9 +54,9 @@
         </inbodydescription>
         <location file="c/rrStringBuilder.h" line="24" column="9" bodyfile="c/rrStringBuilder.cpp" bodystart="27" bodyend="32"/>
       </memberdef>
-      <memberdef kind="function" id="classrr_1_1StringBuilder_1a225e4af9726b19c0466f275702d6bdb5" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
-        <type>stringstream &amp;</type>
-        <definition>stringstream &amp; rr::StringBuilder::operator&lt;&lt;</definition>
+      <memberdef kind="function" id="classrr_1_1StringBuilder_1aa8e8bc64240d04ac1452e1a4f7aef79b" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>std::stringstream &amp;</type>
+        <definition>std::stringstream &amp; rr::StringBuilder::operator&lt;&lt;</definition>
         <argsstring>(const char &amp;ch)</argsstring>
         <name>operator&lt;&lt;</name>
         <param>
@@ -71,9 +71,9 @@
         </inbodydescription>
         <location file="c/rrStringBuilder.h" line="25" column="9" bodyfile="c/rrStringBuilder.cpp" bodystart="34" bodyend="39"/>
       </memberdef>
-      <memberdef kind="function" id="classrr_1_1StringBuilder_1a22c778a02f315058633da32250c25bfd" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
-        <type>string</type>
-        <definition>string rr::StringBuilder::ToString</definition>
+      <memberdef kind="function" id="classrr_1_1StringBuilder_1a97c1a13695e00a115209509a5ed5c19e" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>std::string</type>
+        <definition>std::string rr::StringBuilder::ToString</definition>
         <argsstring>()</argsstring>
         <name>ToString</name>
         <briefdescription>
@@ -82,15 +82,15 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="c/rrStringBuilder.h" line="26" column="37" bodyfile="c/rrStringBuilder.cpp" bodystart="17" bodyend="20"/>
+        <location file="c/rrStringBuilder.h" line="26" column="42" bodyfile="c/rrStringBuilder.cpp" bodystart="17" bodyend="20"/>
       </memberdef>
-      <memberdef kind="function" id="classrr_1_1StringBuilder_1a66247413c4f61c7e56103c63af32f6f7" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+      <memberdef kind="function" id="classrr_1_1StringBuilder_1a03c48321820c8fbd35e1cb7bd6bb3e40" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
         <type>void</type>
         <definition>void rr::StringBuilder::NewLine</definition>
-        <argsstring>(const string &amp;line=&quot;&quot;)</argsstring>
+        <argsstring>(const std::string &amp;line=&quot;&quot;)</argsstring>
         <name>NewLine</name>
         <param>
-          <type>const string &amp;</type>
+          <type>const std::string &amp;</type>
           <declname>line</declname>
           <defval>&quot;&quot;</defval>
         </param>
@@ -102,13 +102,13 @@
         </inbodydescription>
         <location file="c/rrStringBuilder.h" line="28" column="37" bodyfile="c/rrStringBuilder.cpp" bodystart="41" bodyend="44"/>
       </memberdef>
-      <memberdef kind="function" id="classrr_1_1StringBuilder_1a9b9af43f8958012b55538082ab667301" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+      <memberdef kind="function" id="classrr_1_1StringBuilder_1a28f654fa1abac5d97077ca70068230fe" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
         <type>void</type>
         <definition>void rr::StringBuilder::Line</definition>
-        <argsstring>(const string &amp;line)</argsstring>
+        <argsstring>(const std::string &amp;line)</argsstring>
         <name>Line</name>
         <param>
-          <type>const string &amp;</type>
+          <type>const std::string &amp;</type>
           <declname>line</declname>
         </param>
         <briefdescription>
@@ -119,13 +119,13 @@
         </inbodydescription>
         <location file="c/rrStringBuilder.h" line="29" column="37" bodyfile="c/rrStringBuilder.cpp" bodystart="46" bodyend="49"/>
       </memberdef>
-      <memberdef kind="function" id="classrr_1_1StringBuilder_1abde5739b8994e6eb1bb53bdea217ac3c" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+      <memberdef kind="function" id="classrr_1_1StringBuilder_1aadcbfc333331bf56522890f50dc654f0" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
         <type>void</type>
         <definition>void rr::StringBuilder::TLine</definition>
-        <argsstring>(const string &amp;line, const int &amp;tabs=1)</argsstring>
+        <argsstring>(const std::string &amp;line, const int &amp;tabs=1)</argsstring>
         <name>TLine</name>
         <param>
-          <type>const string &amp;</type>
+          <type>const std::string &amp;</type>
           <declname>line</declname>
         </param>
         <param>
@@ -186,14 +186,14 @@
     <location file="c/rrStringBuilder.h" line="17" column="1" bodyfile="c/rrStringBuilder.h" bodystart="18" bodyend="32"/>
     <listofallmembers>
       <member refid="classrr_1_1StringBuilder_1a3a466c3f18ad159fa14d41e7c842c59d" prot="public" virt="non-virtual"><scope>rr::StringBuilder</scope><name>Clear</name></member>
-      <member refid="classrr_1_1StringBuilder_1a9b9af43f8958012b55538082ab667301" prot="public" virt="non-virtual"><scope>rr::StringBuilder</scope><name>Line</name></member>
-      <member refid="classrr_1_1StringBuilder_1a2e6e3fc9b0cd309a83bea1b29797491e" prot="protected" virt="non-virtual"><scope>rr::StringBuilder</scope><name>mStringing</name></member>
-      <member refid="classrr_1_1StringBuilder_1a66247413c4f61c7e56103c63af32f6f7" prot="public" virt="non-virtual"><scope>rr::StringBuilder</scope><name>NewLine</name></member>
-      <member refid="classrr_1_1StringBuilder_1a70119feb4beaa821983a7f3ffee33075" prot="public" virt="non-virtual"><scope>rr::StringBuilder</scope><name>operator&lt;&lt;</name></member>
-      <member refid="classrr_1_1StringBuilder_1a225e4af9726b19c0466f275702d6bdb5" prot="public" virt="non-virtual"><scope>rr::StringBuilder</scope><name>operator&lt;&lt;</name></member>
-      <member refid="classrr_1_1StringBuilder_1a9865e870221e232becaf532ffcc918fa" prot="public" virt="non-virtual"><scope>rr::StringBuilder</scope><name>StringBuilder</name></member>
-      <member refid="classrr_1_1StringBuilder_1abde5739b8994e6eb1bb53bdea217ac3c" prot="public" virt="non-virtual"><scope>rr::StringBuilder</scope><name>TLine</name></member>
-      <member refid="classrr_1_1StringBuilder_1a22c778a02f315058633da32250c25bfd" prot="public" virt="non-virtual"><scope>rr::StringBuilder</scope><name>ToString</name></member>
+      <member refid="classrr_1_1StringBuilder_1a28f654fa1abac5d97077ca70068230fe" prot="public" virt="non-virtual"><scope>rr::StringBuilder</scope><name>Line</name></member>
+      <member refid="classrr_1_1StringBuilder_1adf338b1c1d81ee81366dc02c7071789e" prot="protected" virt="non-virtual"><scope>rr::StringBuilder</scope><name>mStringing</name></member>
+      <member refid="classrr_1_1StringBuilder_1a03c48321820c8fbd35e1cb7bd6bb3e40" prot="public" virt="non-virtual"><scope>rr::StringBuilder</scope><name>NewLine</name></member>
+      <member refid="classrr_1_1StringBuilder_1a97c86b97558c79342460d97c5e73bc77" prot="public" virt="non-virtual"><scope>rr::StringBuilder</scope><name>operator&lt;&lt;</name></member>
+      <member refid="classrr_1_1StringBuilder_1aa8e8bc64240d04ac1452e1a4f7aef79b" prot="public" virt="non-virtual"><scope>rr::StringBuilder</scope><name>operator&lt;&lt;</name></member>
+      <member refid="classrr_1_1StringBuilder_1aeddd1b87b9c0a92361e7927787d2e5bc" prot="public" virt="non-virtual"><scope>rr::StringBuilder</scope><name>StringBuilder</name></member>
+      <member refid="classrr_1_1StringBuilder_1aadcbfc333331bf56522890f50dc654f0" prot="public" virt="non-virtual"><scope>rr::StringBuilder</scope><name>TLine</name></member>
+      <member refid="classrr_1_1StringBuilder_1a97c1a13695e00a115209509a5ed5c19e" prot="public" virt="non-virtual"><scope>rr::StringBuilder</scope><name>ToString</name></member>
     </listofallmembers>
   </compounddef>
 </doxygen>

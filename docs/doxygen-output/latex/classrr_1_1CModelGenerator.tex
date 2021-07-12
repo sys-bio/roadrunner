@@ -18,31 +18,31 @@ Inheritance diagram for rr\+::C\+Model\+Generator\+:\begin{figure}[H]
 \doxysubsection*{Public Member Functions}
 \begin{DoxyCompactItemize}
 \item 
-\mbox{\Hypertarget{classrr_1_1CModelGenerator_af7252fa390b6ceb9ae700f0b10f7a9c9}\label{classrr_1_1CModelGenerator_af7252fa390b6ceb9ae700f0b10f7a9c9}} 
-{\bfseries C\+Model\+Generator} (const string \&temp\+Folder, const string \&support\+Code\+Folder, const string \&compiler)
+\mbox{\Hypertarget{classrr_1_1CModelGenerator_a5c4429fa28c8ba87f0ab9ac5bbcb3dd4}\label{classrr_1_1CModelGenerator_a5c4429fa28c8ba87f0ab9ac5bbcb3dd4}} 
+{\bfseries C\+Model\+Generator} (const std\+::string \&temp\+Folder, const std\+::string \&support\+Code\+Folder, const std\+::string \&compiler)
 \item 
-\mbox{\Hypertarget{classrr_1_1CModelGenerator_aded887cf55c58e82a5f761da95d2efb0}\label{classrr_1_1CModelGenerator_aded887cf55c58e82a5f761da95d2efb0}} 
-virtual \mbox{\hyperlink{classrr_1_1ExecutableModel}{Executable\+Model}} $\ast$ {\bfseries create\+Model} (const string \&sbml, uint options)
+\mbox{\Hypertarget{classrr_1_1CModelGenerator_a93dae9d3cc4684319eb7226894355d92}\label{classrr_1_1CModelGenerator_a93dae9d3cc4684319eb7226894355d92}} 
+virtual \mbox{\hyperlink{classrr_1_1ExecutableModel}{Executable\+Model}} $\ast$ {\bfseries create\+Model} (const std\+::string \&sbml, uint options)
 \item 
-\mbox{\Hypertarget{classrr_1_1CModelGenerator_a23b8508d8aaa8898eec4e5522ae8562d}\label{classrr_1_1CModelGenerator_a23b8508d8aaa8898eec4e5522ae8562d}} 
-virtual bool {\bfseries set\+Temporary\+Directory} (const string \&path)
+\mbox{\Hypertarget{classrr_1_1CModelGenerator_aa64d0abcdd4bb0431d1537d4a0f953f6}\label{classrr_1_1CModelGenerator_aa64d0abcdd4bb0431d1537d4a0f953f6}} 
+virtual bool {\bfseries set\+Temporary\+Directory} (const std\+::string \&path)
 \item 
-\mbox{\Hypertarget{classrr_1_1CModelGenerator_ada76f183cbdffdc0936a8f97f268463b}\label{classrr_1_1CModelGenerator_ada76f183cbdffdc0936a8f97f268463b}} 
-virtual string \mbox{\hyperlink{classrr_1_1CModelGenerator_ada76f183cbdffdc0936a8f97f268463b}{get\+Temporary\+Directory}} ()
+\mbox{\Hypertarget{classrr_1_1CModelGenerator_ad9890c9d1bc9eab66ca9f23f1120bb90}\label{classrr_1_1CModelGenerator_ad9890c9d1bc9eab66ca9f23f1120bb90}} 
+virtual std\+::string \mbox{\hyperlink{classrr_1_1CModelGenerator_ad9890c9d1bc9eab66ca9f23f1120bb90}{get\+Temporary\+Directory}} ()
 \begin{DoxyCompactList}\small\item\em Get the location where this model generator creates source file and shared libraries. \end{DoxyCompactList}\item 
 \mbox{\Hypertarget{classrr_1_1CModelGenerator_a6a647572e44637d5704049b402d7f26b}\label{classrr_1_1CModelGenerator_a6a647572e44637d5704049b402d7f26b}} 
 virtual \mbox{\hyperlink{classrr_1_1Compiler}{Compiler}} $\ast$ \mbox{\hyperlink{classrr_1_1CModelGenerator_a6a647572e44637d5704049b402d7f26b}{get\+Compiler}} ()
 \begin{DoxyCompactList}\small\item\em Get the compiler object that the model generator is using to \textquotesingle{}compile\textquotesingle{} sbml. \end{DoxyCompactList}\item 
-virtual bool \mbox{\hyperlink{classrr_1_1CModelGenerator_a03a8d0275e6b0ff54064914f88629288}{set\+Compiler}} (const string \&compiler)
+virtual bool \mbox{\hyperlink{classrr_1_1CModelGenerator_a748ccfdd14d8c3eaee87149a07b8351f}{set\+Compiler}} (const std\+::string \&compiler)
 \begin{DoxyCompactList}\small\item\em Set the name of the compiler to use. \end{DoxyCompactList}\item 
-\mbox{\Hypertarget{classrr_1_1CModelGenerator_acb11493b8869f548a39d23f6f3b54073}\label{classrr_1_1CModelGenerator_acb11493b8869f548a39d23f6f3b54073}} 
-string \mbox{\hyperlink{classrr_1_1CModelGenerator_acb11493b8869f548a39d23f6f3b54073}{get\+Header\+Code}} ()
+\mbox{\Hypertarget{classrr_1_1CModelGenerator_a27767f695af07d42f448c22d1b0875f3}\label{classrr_1_1CModelGenerator_a27767f695af07d42f448c22d1b0875f3}} 
+std\+::string \mbox{\hyperlink{classrr_1_1CModelGenerator_a27767f695af07d42f448c22d1b0875f3}{get\+Header\+Code}} ()
 \begin{DoxyCompactList}\small\item\em These are access in the c\+\_\+api, should they be??? T\+O\+DO\+: fix this. \end{DoxyCompactList}\item 
-\mbox{\Hypertarget{classrr_1_1CModelGenerator_ac3462f3d3ad4be633c5fd858578958d4}\label{classrr_1_1CModelGenerator_ac3462f3d3ad4be633c5fd858578958d4}} 
-string {\bfseries get\+Source\+Code} ()
+\mbox{\Hypertarget{classrr_1_1CModelGenerator_ada19fa6598c395dbbea8572802eb6846}\label{classrr_1_1CModelGenerator_ada19fa6598c395dbbea8572802eb6846}} 
+std\+::string {\bfseries get\+Source\+Code} ()
 \item 
-\mbox{\Hypertarget{classrr_1_1CModelGenerator_ac90dea4aa0d199296df3e83944f1290a}\label{classrr_1_1CModelGenerator_ac90dea4aa0d199296df3e83944f1290a}} 
-string {\bfseries get\+Source\+Code\+File\+Name} ()
+\mbox{\Hypertarget{classrr_1_1CModelGenerator_a71b56e7b4d0032b1493221c167148c3c}\label{classrr_1_1CModelGenerator_a71b56e7b4d0032b1493221c167148c3c}} 
+std\+::string {\bfseries get\+Source\+Code\+File\+Name} ()
 \end{DoxyCompactItemize}
 \doxysubsection*{Additional Inherited Members}
 
@@ -51,11 +51,11 @@ string {\bfseries get\+Source\+Code\+File\+Name} ()
 Generate executable S\+B\+ML models by generating and compiling C source code into shared libraries with an external C compiler. 
 
 \doxysubsection{Member Function Documentation}
-\mbox{\Hypertarget{classrr_1_1CModelGenerator_a03a8d0275e6b0ff54064914f88629288}\label{classrr_1_1CModelGenerator_a03a8d0275e6b0ff54064914f88629288}} 
+\mbox{\Hypertarget{classrr_1_1CModelGenerator_a748ccfdd14d8c3eaee87149a07b8351f}\label{classrr_1_1CModelGenerator_a748ccfdd14d8c3eaee87149a07b8351f}} 
 \index{rr::CModelGenerator@{rr::CModelGenerator}!setCompiler@{setCompiler}}
 \index{setCompiler@{setCompiler}!rr::CModelGenerator@{rr::CModelGenerator}}
 \doxysubsubsection{\texorpdfstring{setCompiler()}{setCompiler()}}
-{\footnotesize\ttfamily bool rr\+::\+C\+Model\+Generator\+::set\+Compiler (\begin{DoxyParamCaption}\item[{const string \&}]{compiler }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [virtual]}}
+{\footnotesize\ttfamily bool rr\+::\+C\+Model\+Generator\+::set\+Compiler (\begin{DoxyParamCaption}\item[{const std\+::string \&}]{compiler }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [virtual]}}
 
 
 

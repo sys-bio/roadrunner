@@ -66,9 +66,9 @@
         </inbodydescription>
         <location file="llvm/LLVMExecutableModel.h" line="610" column="22" bodyfile="llvm/LLVMExecutableModel.h" bodystart="610" bodyend="-1"/>
       </memberdef>
-      <memberdef kind="typedef" id="classrrllvm_1_1LLVMExecutableModel_1a09e0c1280a4b8f980edbd6bf9ca2e24c" prot="private" static="no">
-        <type>string(LLVMExecutableModel::*</type>
-        <definition>typedef string(LLVMExecutableModel::* rrllvm::LLVMExecutableModel::GetNameFuncPtr) (size_t)</definition>
+      <memberdef kind="typedef" id="classrrllvm_1_1LLVMExecutableModel_1a64525988662595be2994dbe522b53f14" prot="private" static="no">
+        <type>std::string(LLVMExecutableModel::*</type>
+        <definition>typedef std::string(LLVMExecutableModel::* rrllvm::LLVMExecutableModel::GetNameFuncPtr) (size_t)</definition>
         <argsstring>)(size_t)</argsstring>
         <name>GetNameFuncPtr</name>
         <briefdescription>
@@ -715,15 +715,15 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="llvm/LLVMExecutableModel.h" line="74" column="5" bodyfile="llvm/LLVMExecutableModel.cpp" bodystart="170" bodyend="208"/>
+        <location file="llvm/LLVMExecutableModel.h" line="74" column="5" bodyfile="llvm/LLVMExecutableModel.cpp" bodystart="172" bodyend="210"/>
       </memberdef>
-      <memberdef kind="function" id="classrrllvm_1_1LLVMExecutableModel_1a3a11e694d916b2aae56c6c1054e3395c" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+      <memberdef kind="function" id="classrrllvm_1_1LLVMExecutableModel_1a9ac85749972d3686bd4145552b06b974" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
         <type></type>
         <definition>rrllvm::LLVMExecutableModel::LLVMExecutableModel</definition>
-        <argsstring>(const cxx11_ns::shared_ptr&lt; ModelResources &gt; &amp;resources, LLVMModelData *modelData)</argsstring>
+        <argsstring>(const std::shared_ptr&lt; ModelResources &gt; &amp;resources, LLVMModelData *modelData)</argsstring>
         <name>LLVMExecutableModel</name>
         <param>
-          <type>const cxx11_ns::shared_ptr&lt; <ref refid="classrrllvm_1_1ModelResources" kindref="compound">ModelResources</ref> &gt; &amp;</type>
+          <type>const std::shared_ptr&lt; <ref refid="classrrllvm_1_1ModelResources" kindref="compound">ModelResources</ref> &gt; &amp;</type>
           <declname>resources</declname>
         </param>
         <param>
@@ -737,7 +737,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="llvm/LLVMExecutableModel.h" line="79" column="5" bodyfile="llvm/LLVMExecutableModel.cpp" bodystart="210" bodyend="258"/>
+        <location file="llvm/LLVMExecutableModel.h" line="79" column="5" bodyfile="llvm/LLVMExecutableModel.cpp" bodystart="212" bodyend="260"/>
       </memberdef>
       <memberdef kind="function" id="classrrllvm_1_1LLVMExecutableModel_1afe9d85e99b293a7e401d36a7dfc99a16" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
         <type></type>
@@ -758,7 +758,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="llvm/LLVMExecutableModel.h" line="85" column="1" bodyfile="llvm/LLVMExecutableModel.cpp" bodystart="260" bodyend="307"/>
+        <location file="llvm/LLVMExecutableModel.h" line="85" column="1" bodyfile="llvm/LLVMExecutableModel.cpp" bodystart="262" bodyend="309"/>
       </memberdef>
       <memberdef kind="function" id="classrrllvm_1_1LLVMExecutableModel_1aafd2f2396d700b90e40ff4a6ccbf9184" prot="public" static="no" const="no" explicit="no" inline="no" virt="virtual">
         <type></type>
@@ -771,11 +771,11 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="llvm/LLVMExecutableModel.h" line="87" column="13" bodyfile="llvm/LLVMExecutableModel.cpp" bodystart="309" bodyend="316"/>
+        <location file="llvm/LLVMExecutableModel.h" line="87" column="13" bodyfile="llvm/LLVMExecutableModel.cpp" bodystart="311" bodyend="318"/>
       </memberdef>
-      <memberdef kind="function" id="classrrllvm_1_1LLVMExecutableModel_1ae1a203ae31724ca175835507c43e8639" prot="public" static="no" const="no" explicit="no" inline="no" virt="virtual">
-        <type>string</type>
-        <definition>string rrllvm::LLVMExecutableModel::getModelName</definition>
+      <memberdef kind="function" id="classrrllvm_1_1LLVMExecutableModel_1a27354715e74d4d66197f17646150ff8f" prot="public" static="no" const="no" explicit="no" inline="no" virt="virtual">
+        <type>std::string</type>
+        <definition>std::string rrllvm::LLVMExecutableModel::getModelName</definition>
         <argsstring>()</argsstring>
         <name>getModelName</name>
         <reimplements refid="classrr_1_1ExecutableModel_1a6ad7fd317a2335c337d7c8a3aeb8e044">getModelName</reimplements>
@@ -786,7 +786,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="llvm/LLVMExecutableModel.h" line="92" column="20" bodyfile="llvm/LLVMExecutableModel.cpp" bodystart="318" bodyend="321"/>
+        <location file="llvm/LLVMExecutableModel.h" line="92" column="25" bodyfile="llvm/LLVMExecutableModel.cpp" bodystart="320" bodyend="323"/>
       </memberdef>
       <memberdef kind="function" id="classrrllvm_1_1LLVMExecutableModel_1a8d719dc60df8c78388f8b854362fef2d" prot="public" static="no" const="no" explicit="no" inline="no" virt="virtual">
         <type>void</type>
@@ -804,7 +804,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="llvm/LLVMExecutableModel.h" line="93" column="18" bodyfile="llvm/LLVMExecutableModel.cpp" bodystart="323" bodyend="326"/>
+        <location file="llvm/LLVMExecutableModel.h" line="93" column="18" bodyfile="llvm/LLVMExecutableModel.cpp" bodystart="325" bodyend="328"/>
       </memberdef>
       <memberdef kind="function" id="classrrllvm_1_1LLVMExecutableModel_1a8eef6c323fdf2818b67d64ff72fea858" prot="public" static="no" const="no" explicit="no" inline="no" virt="virtual">
         <type>double</type>
@@ -818,7 +818,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="llvm/LLVMExecutableModel.h" line="94" column="20" bodyfile="llvm/LLVMExecutableModel.cpp" bodystart="328" bodyend="331"/>
+        <location file="llvm/LLVMExecutableModel.h" line="94" column="20" bodyfile="llvm/LLVMExecutableModel.cpp" bodystart="330" bodyend="333"/>
       </memberdef>
       <memberdef kind="function" id="classrrllvm_1_1LLVMExecutableModel_1aa0e78adf76883e1eadcf4cdd1f0179ff" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
         <type>void</type>
@@ -838,7 +838,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="llvm/LLVMExecutableModel.h" line="102" column="10" bodyfile="llvm/LLVMExecutableModel.cpp" bodystart="647" bodyend="650"/>
+        <location file="llvm/LLVMExecutableModel.h" line="102" column="10" bodyfile="llvm/LLVMExecutableModel.cpp" bodystart="649" bodyend="652"/>
       </memberdef>
       <memberdef kind="function" id="classrrllvm_1_1LLVMExecutableModel_1a787d4c097ccccc10519eae389c1a78e3" prot="public" static="no" const="no" explicit="no" inline="no" virt="virtual">
         <type>void</type>
@@ -853,7 +853,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="llvm/LLVMExecutableModel.h" line="107" column="18" bodyfile="llvm/LLVMExecutableModel.cpp" bodystart="652" bodyend="657"/>
+        <location file="llvm/LLVMExecutableModel.h" line="107" column="18" bodyfile="llvm/LLVMExecutableModel.cpp" bodystart="654" bodyend="659"/>
       </memberdef>
       <memberdef kind="function" id="classrrllvm_1_1LLVMExecutableModel_1a23941454e565dbe7ce7902ab8b72e745" prot="public" static="no" const="no" explicit="no" inline="no" virt="virtual">
         <type>void</type>
@@ -872,7 +872,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="llvm/LLVMExecutableModel.h" line="113" column="18" bodyfile="llvm/LLVMExecutableModel.cpp" bodystart="659" bodyend="796"/>
+        <location file="llvm/LLVMExecutableModel.h" line="113" column="18" bodyfile="llvm/LLVMExecutableModel.cpp" bodystart="661" bodyend="800"/>
       </memberdef>
       <memberdef kind="function" id="classrrllvm_1_1LLVMExecutableModel_1a8517e8900c832aeef3a5c17224664abf" prot="public" static="no" const="no" explicit="no" inline="no" virt="virtual">
         <type>int</type>
@@ -887,7 +887,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="llvm/LLVMExecutableModel.h" line="117" column="17" bodyfile="llvm/LLVMExecutableModel.cpp" bodystart="333" bodyend="336"/>
+        <location file="llvm/LLVMExecutableModel.h" line="117" column="17" bodyfile="llvm/LLVMExecutableModel.cpp" bodystart="335" bodyend="338"/>
       </memberdef>
       <memberdef kind="function" id="classrrllvm_1_1LLVMExecutableModel_1a8a7a29a431e37d256f86838595b0eec6" prot="public" static="no" const="no" explicit="no" inline="no" virt="virtual">
         <type>int</type>
@@ -902,7 +902,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="llvm/LLVMExecutableModel.h" line="118" column="17" bodyfile="llvm/LLVMExecutableModel.cpp" bodystart="338" bodyend="341"/>
+        <location file="llvm/LLVMExecutableModel.h" line="118" column="17" bodyfile="llvm/LLVMExecutableModel.cpp" bodystart="340" bodyend="343"/>
       </memberdef>
       <memberdef kind="function" id="classrrllvm_1_1LLVMExecutableModel_1ac614862f06602cd7b7df02a81d4fecb2" prot="public" static="no" const="no" explicit="no" inline="no" virt="virtual">
         <type>int</type>
@@ -917,7 +917,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="llvm/LLVMExecutableModel.h" line="120" column="17" bodyfile="llvm/LLVMExecutableModel.cpp" bodystart="343" bodyend="346"/>
+        <location file="llvm/LLVMExecutableModel.h" line="120" column="17" bodyfile="llvm/LLVMExecutableModel.cpp" bodystart="345" bodyend="348"/>
       </memberdef>
       <memberdef kind="function" id="classrrllvm_1_1LLVMExecutableModel_1ace107b09d4c39196136a7827a9a267c1" prot="public" static="no" const="no" explicit="no" inline="no" virt="virtual">
         <type>int</type>
@@ -932,7 +932,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="llvm/LLVMExecutableModel.h" line="121" column="17" bodyfile="llvm/LLVMExecutableModel.cpp" bodystart="348" bodyend="351"/>
+        <location file="llvm/LLVMExecutableModel.h" line="121" column="17" bodyfile="llvm/LLVMExecutableModel.cpp" bodystart="350" bodyend="353"/>
       </memberdef>
       <memberdef kind="function" id="classrrllvm_1_1LLVMExecutableModel_1ad5e1d402a4fac02f00da526bcd1cdb73" prot="public" static="no" const="no" explicit="no" inline="no" virt="virtual">
         <type>int</type>
@@ -947,7 +947,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="llvm/LLVMExecutableModel.h" line="122" column="17" bodyfile="llvm/LLVMExecutableModel.cpp" bodystart="353" bodyend="356"/>
+        <location file="llvm/LLVMExecutableModel.h" line="122" column="17" bodyfile="llvm/LLVMExecutableModel.cpp" bodystart="355" bodyend="358"/>
       </memberdef>
       <memberdef kind="function" id="classrrllvm_1_1LLVMExecutableModel_1a04c95301ef203d73dd3fb3717db10df1" prot="public" static="no" const="no" explicit="no" inline="no" virt="virtual">
         <type>int</type>
@@ -961,7 +961,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="llvm/LLVMExecutableModel.h" line="124" column="17" bodyfile="llvm/LLVMExecutableModel.cpp" bodystart="358" bodyend="361"/>
+        <location file="llvm/LLVMExecutableModel.h" line="124" column="17" bodyfile="llvm/LLVMExecutableModel.cpp" bodystart="360" bodyend="363"/>
       </memberdef>
       <memberdef kind="function" id="classrrllvm_1_1LLVMExecutableModel_1a6c1a4a19798ce72f37848360cf3af692" prot="public" static="no" const="no" explicit="no" inline="no" virt="virtual">
         <type>int</type>
@@ -979,7 +979,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="llvm/LLVMExecutableModel.h" line="125" column="13" bodyfile="llvm/LLVMExecutableModel.cpp" bodystart="363" bodyend="366"/>
+        <location file="llvm/LLVMExecutableModel.h" line="125" column="13" bodyfile="llvm/LLVMExecutableModel.cpp" bodystart="365" bodyend="368"/>
       </memberdef>
       <memberdef kind="function" id="classrrllvm_1_1LLVMExecutableModel_1a7326ff8b52c44cc6ebe88bad8495f175" prot="public" static="no" const="no" explicit="no" inline="no" virt="virtual">
         <type>int</type>
@@ -1032,7 +1032,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="llvm/LLVMExecutableModel.h" line="135" column="17" bodyfile="llvm/LLVMExecutableModel.cpp" bodystart="1652" bodyend="1656"/>
+        <location file="llvm/LLVMExecutableModel.h" line="135" column="17" bodyfile="llvm/LLVMExecutableModel.cpp" bodystart="1656" bodyend="1660"/>
       </memberdef>
       <memberdef kind="function" id="classrrllvm_1_1LLVMExecutableModel_1a31abe40266c7c5a1da0fa6b07fd16e9d" prot="public" static="no" const="no" explicit="no" inline="no" virt="virtual">
         <type>int</type>
@@ -1058,7 +1058,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="llvm/LLVMExecutableModel.h" line="138" column="17" bodyfile="llvm/LLVMExecutableModel.cpp" bodystart="1658" bodyend="1681"/>
+        <location file="llvm/LLVMExecutableModel.h" line="138" column="17" bodyfile="llvm/LLVMExecutableModel.cpp" bodystart="1662" bodyend="1685"/>
       </memberdef>
       <memberdef kind="function" id="classrrllvm_1_1LLVMExecutableModel_1a44eafee99d943d187bc60d9ab93a9f0c" prot="public" static="no" const="no" explicit="no" inline="no" virt="virtual">
         <type>int</type>
@@ -1073,7 +1073,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="llvm/LLVMExecutableModel.h" line="141" column="17" bodyfile="llvm/LLVMExecutableModel.cpp" bodystart="368" bodyend="371"/>
+        <location file="llvm/LLVMExecutableModel.h" line="141" column="17" bodyfile="llvm/LLVMExecutableModel.cpp" bodystart="370" bodyend="373"/>
       </memberdef>
       <memberdef kind="function" id="classrrllvm_1_1LLVMExecutableModel_1abdd14f103eb20ad8a4b5d5c89750f85b" prot="public" static="no" const="no" explicit="no" inline="no" virt="virtual">
         <type>int</type>
@@ -1094,7 +1094,7 @@
           <declname>values</declname>
         </param>
         <briefdescription>
-<para>get the vector of reaction rates. </para>
+<para>get the std::vector of reaction rates. </para>
         </briefdescription>
         <detaileddescription>
 <para><parameterlist kind="param"><parameteritem>
@@ -1126,7 +1126,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="llvm/LLVMExecutableModel.h" line="143" column="17" bodyfile="llvm/LLVMExecutableModel.cpp" bodystart="1689" bodyend="1738"/>
+        <location file="llvm/LLVMExecutableModel.h" line="143" column="17" bodyfile="llvm/LLVMExecutableModel.cpp" bodystart="1693" bodyend="1742"/>
       </memberdef>
       <memberdef kind="function" id="classrrllvm_1_1LLVMExecutableModel_1ae93515327eae8af56a12b24bd545df33" prot="public" static="no" const="no" explicit="no" inline="no" virt="virtual">
         <type>int</type>
@@ -1179,7 +1179,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="llvm/LLVMExecutableModel.h" line="154" column="17" bodyfile="llvm/LLVMExecutableModel.cpp" bodystart="1683" bodyend="1687"/>
+        <location file="llvm/LLVMExecutableModel.h" line="154" column="17" bodyfile="llvm/LLVMExecutableModel.cpp" bodystart="1687" bodyend="1691"/>
       </memberdef>
       <memberdef kind="function" id="classrrllvm_1_1LLVMExecutableModel_1aad1debfa3496b1c68c84cf24554fa0ff" prot="public" static="no" const="no" explicit="no" inline="no" virt="virtual">
         <type>int</type>
@@ -1193,14 +1193,14 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="llvm/LLVMExecutableModel.h" line="157" column="17" bodyfile="llvm/LLVMExecutableModel.cpp" bodystart="1491" bodyend="1494"/>
+        <location file="llvm/LLVMExecutableModel.h" line="157" column="17" bodyfile="llvm/LLVMExecutableModel.cpp" bodystart="1495" bodyend="1498"/>
       </memberdef>
       <memberdef kind="function" id="classrrllvm_1_1LLVMExecutableModel_1a1b73548f88c353066c8758ac671e29f9" prot="public" static="no" const="yes" explicit="no" inline="no" virt="virtual">
         <type>std::vector&lt; std::string &gt;</type>
         <definition>std::vector&lt; std::string &gt; rrllvm::LLVMExecutableModel::getRateRuleSymbols</definition>
         <argsstring>() const</argsstring>
         <name>getRateRuleSymbols</name>
-        <reimplements refid="classrr_1_1ExecutableModel_1ab045cbd84ce98fb9dff8ff250fdb131c">getRateRuleSymbols</reimplements>
+        <reimplements refid="classrr_1_1ExecutableModel_1aa1d89fd7d5690de7add613f5ce75b631">getRateRuleSymbols</reimplements>
         <briefdescription>
 <para>Gets the symbols defined by rate rules, i.e. returns all x such that x&apos; = f(x) is a rule which defines parameter x. </para>
         </briefdescription>
@@ -1213,7 +1213,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="llvm/LLVMExecutableModel.h" line="165" column="25" bodyfile="llvm/LLVMExecutableModel.cpp" bodystart="1496" bodyend="1503"/>
+        <location file="llvm/LLVMExecutableModel.h" line="165" column="25" bodyfile="llvm/LLVMExecutableModel.cpp" bodystart="1500" bodyend="1507"/>
       </memberdef>
       <memberdef kind="function" id="classrrllvm_1_1LLVMExecutableModel_1adfe1a7598ad23c18db90c3fcfe708d5e" prot="public" static="no" const="no" explicit="no" inline="no" virt="virtual">
         <type>void</type>
@@ -1232,7 +1232,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="llvm/LLVMExecutableModel.h" line="171" column="18" bodyfile="llvm/LLVMExecutableModel.cpp" bodystart="379" bodyend="382"/>
+        <location file="llvm/LLVMExecutableModel.h" line="171" column="18" bodyfile="llvm/LLVMExecutableModel.cpp" bodystart="381" bodyend="384"/>
       </memberdef>
       <memberdef kind="function" id="classrrllvm_1_1LLVMExecutableModel_1a83a31e1ae1cba11535146063f45786e6" prot="public" static="no" const="no" explicit="no" inline="no" virt="virtual">
         <type>std::string</type>
@@ -1245,13 +1245,13 @@
           <declname>index</declname>
         </param>
         <briefdescription>
-<para>get the id of an element of the state vector. </para>
+<para>get the id of an element of the state std::vector. </para>
         </briefdescription>
         <detaileddescription>
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="llvm/LLVMExecutableModel.h" line="174" column="25" bodyfile="llvm/LLVMExecutableModel.cpp" bodystart="1422" bodyend="1432"/>
+        <location file="llvm/LLVMExecutableModel.h" line="174" column="25" bodyfile="llvm/LLVMExecutableModel.cpp" bodystart="1426" bodyend="1436"/>
       </memberdef>
       <memberdef kind="function" id="classrrllvm_1_1LLVMExecutableModel_1a1bab14a8a11c8fe0e23521e107105447" prot="public" static="no" const="no" explicit="no" inline="no" virt="virtual">
         <type>int</type>
@@ -1264,7 +1264,7 @@
           <declname>stateVector</declname>
         </param>
         <briefdescription>
-<para>copies the internal model state vector into the provided buffer. </para>
+<para>copies the internal model state std::vector into the provided buffer. </para>
         </briefdescription>
         <detaileddescription>
 <para><parameterlist kind="param"><parameteritem>
@@ -1272,17 +1272,17 @@
 <parametername direction="out">stateVector</parametername>
 </parameternamelist>
 <parameterdescription>
-<para>a buffer to copy the state vector into, if NULL, return the size required.</para>
+<para>a buffer to copy the state std::vector into, if NULL, return the size required.</para>
 </parameterdescription>
 </parameteritem>
 </parameterlist>
-<simplesect kind="return"><para>the number of items coppied into the provided buffer, if stateVector is NULL, returns the length of the state vector. </para>
+<simplesect kind="return"><para>the number of items coppied into the provided buffer, if stateVector is NULL, returns the length of the state std::vector. </para>
 </simplesect>
 </para>
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="llvm/LLVMExecutableModel.h" line="186" column="17" bodyfile="llvm/LLVMExecutableModel.cpp" bodystart="798" bodyend="829"/>
+        <location file="llvm/LLVMExecutableModel.h" line="186" column="17" bodyfile="llvm/LLVMExecutableModel.cpp" bodystart="802" bodyend="833"/>
       </memberdef>
       <memberdef kind="function" id="classrrllvm_1_1LLVMExecutableModel_1a8ab1d594d85c537534ee12fa8eafee2c" prot="public" static="no" const="no" explicit="no" inline="no" virt="virtual">
         <type>int</type>
@@ -1295,7 +1295,7 @@
           <declname>stateVector</declname>
         </param>
         <briefdescription>
-<para>sets the internal model state to the provided packed state vector. </para>
+<para>sets the internal model state to the provided packed state std::vector. </para>
         </briefdescription>
         <detaileddescription>
 <para><parameterlist kind="param"><parameteritem>
@@ -1303,17 +1303,17 @@
 <parametername direction="in">an</parametername>
 </parameternamelist>
 <parameterdescription>
-<para>array which holds the packed state vector, must be at least the size returned by getStateVector.</para>
+<para>array which holds the packed state std::vector, must be at least the size returned by getStateVector.</para>
 </parameterdescription>
 </parameteritem>
 </parameterlist>
-<simplesect kind="return"><para>the number of items copied from the state vector, negative on failure. </para>
+<simplesect kind="return"><para>the number of items copied from the state std::vector, negative on failure. </para>
 </simplesect>
 </para>
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="llvm/LLVMExecutableModel.h" line="197" column="17" bodyfile="llvm/LLVMExecutableModel.cpp" bodystart="831" bodyend="849"/>
+        <location file="llvm/LLVMExecutableModel.h" line="197" column="17" bodyfile="llvm/LLVMExecutableModel.cpp" bodystart="835" bodyend="853"/>
       </memberdef>
       <memberdef kind="function" id="classrrllvm_1_1LLVMExecutableModel_1abd45bf12bc33c31f5a02dd52c019783f" prot="public" static="no" const="no" explicit="no" inline="no" virt="virtual">
         <type>void</type>
@@ -1338,8 +1338,8 @@
 <para>where most of the juicy bits occur. </para>
         </briefdescription>
         <detaileddescription>
-<para>the state vector y is the rate rule values and floating species concentrations concatenated. y is of length numFloatingSpecies + numRateRules.</para>
-<para>The state vector is packed such that the first n raterule elements are the values of the rate rules, and the last n floatingspecies are the floating species values.</para>
+<para>the state std::vector y is the rate rule values and floating species concentrations concatenated. y is of length numFloatingSpecies + numRateRules.</para>
+<para>The state std::vector is packed such that the first n raterule elements are the values of the rate rules, and the last n floatingspecies are the floating species values.</para>
 <para><parameterlist kind="param"><parameteritem>
 <parameternamelist>
 <parametername direction="in">time</parametername>
@@ -1353,7 +1353,7 @@
 <parametername direction="in">y</parametername>
 </parameternamelist>
 <parameterdescription>
-<para>state vector, must be of size returned by getStateVector </para>
+<para>state std::vector, must be of size returned by getStateVector </para>
 </parameterdescription>
 </parameteritem>
 <parameteritem>
@@ -1361,7 +1361,7 @@
 <parametername direction="out">dydt</parametername>
 </parameternamelist>
 <parameterdescription>
-<para>calculated rate of change of the state vector, if null, it is ignored. </para>
+<para>calculated rate of change of the state std::vector, if null, it is ignored. </para>
 </parameterdescription>
 </parameteritem>
 </parameterlist>
@@ -1369,7 +1369,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="llvm/LLVMExecutableModel.h" line="214" column="18" bodyfile="llvm/LLVMExecutableModel.cpp" bodystart="384" bodyend="475"/>
+        <location file="llvm/LLVMExecutableModel.h" line="214" column="18" bodyfile="llvm/LLVMExecutableModel.cpp" bodystart="386" bodyend="477"/>
       </memberdef>
       <memberdef kind="function" id="classrrllvm_1_1LLVMExecutableModel_1a260f6d15752fb70323e7909fd46b1dc2" prot="public" static="no" const="no" explicit="no" inline="no" virt="virtual">
         <type>void</type>
@@ -1383,11 +1383,11 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="llvm/LLVMExecutableModel.h" line="217" column="18" bodyfile="llvm/LLVMExecutableModel.cpp" bodystart="488" bodyend="490"/>
+        <location file="llvm/LLVMExecutableModel.h" line="217" column="18" bodyfile="llvm/LLVMExecutableModel.cpp" bodystart="490" bodyend="492"/>
       </memberdef>
-      <memberdef kind="function" id="classrrllvm_1_1LLVMExecutableModel_1a284b1d74818ce6934d7e914b2ddd0469" prot="public" static="no" const="no" explicit="no" inline="no" virt="virtual">
-        <type>string</type>
-        <definition>string rrllvm::LLVMExecutableModel::getInfo</definition>
+      <memberdef kind="function" id="classrrllvm_1_1LLVMExecutableModel_1afcdb25e60f4e4b9b0269055cdef0cc72" prot="public" static="no" const="no" explicit="no" inline="no" virt="virtual">
+        <type>std::string</type>
+        <definition>std::string rrllvm::LLVMExecutableModel::getInfo</definition>
         <argsstring>()</argsstring>
         <name>getInfo</name>
         <reimplements refid="classrr_1_1ExecutableModel_1ab8073e0f3e57cb6f0d807bdf60d1d2a1">getInfo</reimplements>
@@ -1397,15 +1397,16 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="llvm/LLVMExecutableModel.h" line="219" column="20" bodyfile="llvm/LLVMExecutableModel.cpp" bodystart="492" bodyend="568"/>
+        <location file="llvm/LLVMExecutableModel.h" line="219" column="25" bodyfile="llvm/LLVMExecutableModel.cpp" bodystart="494" bodyend="570"/>
       </memberdef>
-      <memberdef kind="function" id="classrrllvm_1_1LLVMExecutableModel_1ab7d70d78762532f673973fe88c174c78" prot="public" static="no" const="no" explicit="no" inline="no" virt="virtual">
+      <memberdef kind="function" id="classrrllvm_1_1LLVMExecutableModel_1a8997ffa70682319ec2c8aaff896613ad" prot="public" static="no" const="no" explicit="no" inline="no" virt="virtual">
         <type>int</type>
         <definition>int rrllvm::LLVMExecutableModel::getFloatingSpeciesIndex</definition>
-        <argsstring>(const string &amp;)</argsstring>
+        <argsstring>(const std::string &amp;)</argsstring>
         <name>getFloatingSpeciesIndex</name>
+        <reimplements refid="classrr_1_1ExecutableModel_1a390a1905aabac6056f6dceff11833c43">getFloatingSpeciesIndex</reimplements>
         <param>
-          <type>const string &amp;</type>
+          <type>const std::string &amp;</type>
           <defname>id</defname>
         </param>
         <briefdescription>
@@ -1414,11 +1415,11 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="llvm/LLVMExecutableModel.h" line="221" column="17" bodyfile="llvm/LLVMExecutableModel.cpp" bodystart="570" bodyend="573"/>
+        <location file="llvm/LLVMExecutableModel.h" line="221" column="17" bodyfile="llvm/LLVMExecutableModel.cpp" bodystart="572" bodyend="575"/>
       </memberdef>
-      <memberdef kind="function" id="classrrllvm_1_1LLVMExecutableModel_1aad995136f696b44f606a6a944b3fa34e" prot="public" static="no" const="no" explicit="no" inline="no" virt="virtual">
-        <type>string</type>
-        <definition>string rrllvm::LLVMExecutableModel::getFloatingSpeciesId</definition>
+      <memberdef kind="function" id="classrrllvm_1_1LLVMExecutableModel_1a5e1794c61c7360555fb9c1e1162e92be" prot="public" static="no" const="no" explicit="no" inline="no" virt="virtual">
+        <type>std::string</type>
+        <definition>std::string rrllvm::LLVMExecutableModel::getFloatingSpeciesId</definition>
         <argsstring>(size_t index)</argsstring>
         <name>getFloatingSpeciesId</name>
         <reimplements refid="classrr_1_1ExecutableModel_1a50dfa7535bec552fbc8396bd1ce99155">getFloatingSpeciesId</reimplements>
@@ -1432,15 +1433,16 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="llvm/LLVMExecutableModel.h" line="222" column="20" bodyfile="llvm/LLVMExecutableModel.cpp" bodystart="575" bodyend="578"/>
+        <location file="llvm/LLVMExecutableModel.h" line="222" column="25" bodyfile="llvm/LLVMExecutableModel.cpp" bodystart="577" bodyend="580"/>
       </memberdef>
-      <memberdef kind="function" id="classrrllvm_1_1LLVMExecutableModel_1a96fa17626d355488dacc6a42e84f4b22" prot="public" static="no" const="no" explicit="no" inline="no" virt="virtual">
+      <memberdef kind="function" id="classrrllvm_1_1LLVMExecutableModel_1ad00e27054e7373ca61da3ec4fb95c4c7" prot="public" static="no" const="no" explicit="no" inline="no" virt="virtual">
         <type>int</type>
         <definition>int rrllvm::LLVMExecutableModel::getBoundarySpeciesIndex</definition>
-        <argsstring>(const string &amp;)</argsstring>
+        <argsstring>(const std::string &amp;)</argsstring>
         <name>getBoundarySpeciesIndex</name>
+        <reimplements refid="classrr_1_1ExecutableModel_1a28488139fa975776eded9e8c899c307d">getBoundarySpeciesIndex</reimplements>
         <param>
-          <type>const string &amp;</type>
+          <type>const std::string &amp;</type>
           <defname>id</defname>
         </param>
         <briefdescription>
@@ -1449,11 +1451,11 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="llvm/LLVMExecutableModel.h" line="223" column="17" bodyfile="llvm/LLVMExecutableModel.cpp" bodystart="580" bodyend="583"/>
+        <location file="llvm/LLVMExecutableModel.h" line="223" column="17" bodyfile="llvm/LLVMExecutableModel.cpp" bodystart="582" bodyend="585"/>
       </memberdef>
-      <memberdef kind="function" id="classrrllvm_1_1LLVMExecutableModel_1abd816e2ac822a4396babbe140fa2c1ff" prot="public" static="no" const="no" explicit="no" inline="no" virt="virtual">
-        <type>string</type>
-        <definition>string rrllvm::LLVMExecutableModel::getBoundarySpeciesId</definition>
+      <memberdef kind="function" id="classrrllvm_1_1LLVMExecutableModel_1a83c2292d44cb72d2426c9559a0652f74" prot="public" static="no" const="no" explicit="no" inline="no" virt="virtual">
+        <type>std::string</type>
+        <definition>std::string rrllvm::LLVMExecutableModel::getBoundarySpeciesId</definition>
         <argsstring>(size_t index)</argsstring>
         <name>getBoundarySpeciesId</name>
         <reimplements refid="classrr_1_1ExecutableModel_1a1eda6c6d5e9db5d9057510dbd9bbbef5">getBoundarySpeciesId</reimplements>
@@ -1467,7 +1469,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="llvm/LLVMExecutableModel.h" line="224" column="20" bodyfile="llvm/LLVMExecutableModel.cpp" bodystart="585" bodyend="597"/>
+        <location file="llvm/LLVMExecutableModel.h" line="224" column="25" bodyfile="llvm/LLVMExecutableModel.cpp" bodystart="587" bodyend="599"/>
       </memberdef>
       <memberdef kind="function" id="classrrllvm_1_1LLVMExecutableModel_1ab7af45309d8f1c09fbca57365328cdc9" prot="public" static="no" const="no" explicit="no" inline="no" virt="virtual">
         <type>int</type>
@@ -1520,7 +1522,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="llvm/LLVMExecutableModel.h" line="234" column="17" bodyfile="llvm/LLVMExecutableModel.cpp" bodystart="1505" bodyend="1509"/>
+        <location file="llvm/LLVMExecutableModel.h" line="234" column="17" bodyfile="llvm/LLVMExecutableModel.cpp" bodystart="1509" bodyend="1513"/>
       </memberdef>
       <memberdef kind="function" id="classrrllvm_1_1LLVMExecutableModel_1a09efca344b22a007529763ce30074d09" prot="public" static="no" const="no" explicit="no" inline="no" virt="virtual">
         <type>int</type>
@@ -1546,7 +1548,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="llvm/LLVMExecutableModel.h" line="237" column="17" bodyfile="llvm/LLVMExecutableModel.cpp" bodystart="1786" bodyend="1812"/>
+        <location file="llvm/LLVMExecutableModel.h" line="237" column="17" bodyfile="llvm/LLVMExecutableModel.cpp" bodystart="1790" bodyend="1816"/>
       </memberdef>
       <memberdef kind="function" id="classrrllvm_1_1LLVMExecutableModel_1a4baa1758d5d3e84b8c431794704f4eca" prot="public" static="no" const="no" explicit="no" inline="no" virt="virtual">
         <type>int</type>
@@ -1572,7 +1574,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="llvm/LLVMExecutableModel.h" line="240" column="17" bodyfile="llvm/LLVMExecutableModel.cpp" bodystart="1356" bodyend="1408"/>
+        <location file="llvm/LLVMExecutableModel.h" line="240" column="17" bodyfile="llvm/LLVMExecutableModel.cpp" bodystart="1360" bodyend="1412"/>
       </memberdef>
       <memberdef kind="function" id="classrrllvm_1_1LLVMExecutableModel_1a8c5aff102586a6b652ac912d7a674a32" prot="public" static="no" const="no" explicit="no" inline="no" virt="virtual">
         <type>int</type>
@@ -1625,7 +1627,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="llvm/LLVMExecutableModel.h" line="251" column="17" bodyfile="llvm/LLVMExecutableModel.cpp" bodystart="373" bodyend="377"/>
+        <location file="llvm/LLVMExecutableModel.h" line="251" column="17" bodyfile="llvm/LLVMExecutableModel.cpp" bodystart="375" bodyend="379"/>
       </memberdef>
       <memberdef kind="function" id="classrrllvm_1_1LLVMExecutableModel_1a7056709cd89a33fba3d78ebe24463522" prot="public" static="no" const="no" explicit="no" inline="no" virt="virtual">
         <type>int</type>
@@ -1678,7 +1680,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="llvm/LLVMExecutableModel.h" line="263" column="17" bodyfile="llvm/LLVMExecutableModel.cpp" bodystart="1567" bodyend="1626"/>
+        <location file="llvm/LLVMExecutableModel.h" line="263" column="17" bodyfile="llvm/LLVMExecutableModel.cpp" bodystart="1571" bodyend="1630"/>
       </memberdef>
       <memberdef kind="function" id="classrrllvm_1_1LLVMExecutableModel_1acdae31246f483522c4c210f513f0035c" prot="public" static="no" const="no" explicit="no" inline="no" virt="virtual">
         <type>int</type>
@@ -1704,7 +1706,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="llvm/LLVMExecutableModel.h" line="266" column="17" bodyfile="llvm/LLVMExecutableModel.cpp" bodystart="1511" bodyend="1565"/>
+        <location file="llvm/LLVMExecutableModel.h" line="266" column="17" bodyfile="llvm/LLVMExecutableModel.cpp" bodystart="1515" bodyend="1569"/>
       </memberdef>
       <memberdef kind="function" id="classrrllvm_1_1LLVMExecutableModel_1ac7547346f83f0407259f9aa83fba2f2a" prot="public" static="no" const="no" explicit="no" inline="no" virt="virtual">
         <type>int</type>
@@ -1757,7 +1759,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="llvm/LLVMExecutableModel.h" line="277" column="17" bodyfile="llvm/LLVMExecutableModel.cpp" bodystart="1628" bodyend="1632"/>
+        <location file="llvm/LLVMExecutableModel.h" line="277" column="17" bodyfile="llvm/LLVMExecutableModel.cpp" bodystart="1632" bodyend="1636"/>
       </memberdef>
       <memberdef kind="function" id="classrrllvm_1_1LLVMExecutableModel_1af242105f0b29c521b8bc7a438d09b43b" prot="public" static="no" const="no" explicit="no" inline="no" virt="virtual">
         <type>int</type>
@@ -1810,7 +1812,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="llvm/LLVMExecutableModel.h" line="288" column="17" bodyfile="llvm/LLVMExecutableModel.cpp" bodystart="1634" bodyend="1638"/>
+        <location file="llvm/LLVMExecutableModel.h" line="288" column="17" bodyfile="llvm/LLVMExecutableModel.cpp" bodystart="1638" bodyend="1642"/>
       </memberdef>
       <memberdef kind="function" id="classrrllvm_1_1LLVMExecutableModel_1aaa538c4229baa2ffb0173c43c58674b2" prot="public" static="no" const="no" explicit="no" inline="no" virt="virtual">
         <type>int</type>
@@ -1863,7 +1865,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="llvm/LLVMExecutableModel.h" line="299" column="17" bodyfile="llvm/LLVMExecutableModel.cpp" bodystart="1640" bodyend="1650"/>
+        <location file="llvm/LLVMExecutableModel.h" line="299" column="17" bodyfile="llvm/LLVMExecutableModel.cpp" bodystart="1644" bodyend="1654"/>
       </memberdef>
       <memberdef kind="function" id="classrrllvm_1_1LLVMExecutableModel_1a2b9157cb5bc361364d33f70b2361800b" prot="public" static="no" const="no" explicit="no" inline="no" virt="virtual">
         <type>int</type>
@@ -1915,28 +1917,30 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="llvm/LLVMExecutableModel.h" line="311" column="18" bodyfile="llvm/LLVMExecutableModel.cpp" bodystart="1410" bodyend="1420"/>
+        <location file="llvm/LLVMExecutableModel.h" line="311" column="18" bodyfile="llvm/LLVMExecutableModel.cpp" bodystart="1414" bodyend="1424"/>
       </memberdef>
-      <memberdef kind="function" id="classrrllvm_1_1LLVMExecutableModel_1af85c593e3b64daac1e740ea82b3ef488" prot="public" static="no" const="no" explicit="no" inline="no" virt="virtual">
+      <memberdef kind="function" id="classrrllvm_1_1LLVMExecutableModel_1a47c44c1deb69436166ebedf24130182a" prot="public" static="no" const="no" explicit="no" inline="no" virt="virtual">
         <type>int</type>
         <definition>int rrllvm::LLVMExecutableModel::getGlobalParameterIndex</definition>
-        <argsstring>(const string &amp;)</argsstring>
+        <argsstring>(const std::string &amp;)</argsstring>
         <name>getGlobalParameterIndex</name>
+        <reimplements refid="classrr_1_1ExecutableModel_1abcdcc03c4563dfbe6b64f932812906ee">getGlobalParameterIndex</reimplements>
         <param>
-          <type>const string &amp;</type>
-          <defname>id</defname>
+          <type>const std::string &amp;</type>
+          <declname>eid</declname>
         </param>
         <briefdescription>
+<para>index of the global parameter id, -1 if it does not exist. </para>
         </briefdescription>
         <detaileddescription>
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="llvm/LLVMExecutableModel.h" line="315" column="17" bodyfile="llvm/LLVMExecutableModel.cpp" bodystart="599" bodyend="602"/>
+        <location file="llvm/LLVMExecutableModel.h" line="315" column="17" bodyfile="llvm/LLVMExecutableModel.cpp" bodystart="601" bodyend="604"/>
       </memberdef>
-      <memberdef kind="function" id="classrrllvm_1_1LLVMExecutableModel_1a1a7c7caaa08ed5046f3f99c18651b734" prot="public" static="no" const="no" explicit="no" inline="no" virt="virtual">
-        <type>string</type>
-        <definition>string rrllvm::LLVMExecutableModel::getGlobalParameterId</definition>
+      <memberdef kind="function" id="classrrllvm_1_1LLVMExecutableModel_1a1e6a278aab70c122142d035d421bd7ff" prot="public" static="no" const="no" explicit="no" inline="no" virt="virtual">
+        <type>std::string</type>
+        <definition>std::string rrllvm::LLVMExecutableModel::getGlobalParameterId</definition>
         <argsstring>(size_t)</argsstring>
         <name>getGlobalParameterId</name>
         <reimplements refid="classrr_1_1ExecutableModel_1a741aa1e4a24bca93c8eb12019a33cd81">getGlobalParameterId</reimplements>
@@ -1951,15 +1955,16 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="llvm/LLVMExecutableModel.h" line="316" column="20" bodyfile="llvm/LLVMExecutableModel.cpp" bodystart="604" bodyend="607"/>
+        <location file="llvm/LLVMExecutableModel.h" line="316" column="25" bodyfile="llvm/LLVMExecutableModel.cpp" bodystart="606" bodyend="609"/>
       </memberdef>
-      <memberdef kind="function" id="classrrllvm_1_1LLVMExecutableModel_1a65cfb23aaaec7400802ac8cff479345b" prot="public" static="no" const="no" explicit="no" inline="no" virt="virtual">
+      <memberdef kind="function" id="classrrllvm_1_1LLVMExecutableModel_1a51e6cf85565ee78ac2b00fb9d85134c7" prot="public" static="no" const="no" explicit="no" inline="no" virt="virtual">
         <type>int</type>
         <definition>int rrllvm::LLVMExecutableModel::getCompartmentIndex</definition>
-        <argsstring>(const string &amp;)</argsstring>
+        <argsstring>(const std::string &amp;)</argsstring>
         <name>getCompartmentIndex</name>
+        <reimplements refid="classrr_1_1ExecutableModel_1a366727be244766db2ff917b64949858c">getCompartmentIndex</reimplements>
         <param>
-          <type>const string &amp;</type>
+          <type>const std::string &amp;</type>
           <defname>id</defname>
         </param>
         <briefdescription>
@@ -1968,11 +1973,11 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="llvm/LLVMExecutableModel.h" line="317" column="17" bodyfile="llvm/LLVMExecutableModel.cpp" bodystart="609" bodyend="612"/>
+        <location file="llvm/LLVMExecutableModel.h" line="317" column="17" bodyfile="llvm/LLVMExecutableModel.cpp" bodystart="611" bodyend="614"/>
       </memberdef>
-      <memberdef kind="function" id="classrrllvm_1_1LLVMExecutableModel_1a351f516e625c97b17d2fed0965023536" prot="public" static="no" const="no" explicit="no" inline="no" virt="virtual">
-        <type>string</type>
-        <definition>string rrllvm::LLVMExecutableModel::getCompartmentId</definition>
+      <memberdef kind="function" id="classrrllvm_1_1LLVMExecutableModel_1ac4b3e239e3d8f3da218793e601a1a298" prot="public" static="no" const="no" explicit="no" inline="no" virt="virtual">
+        <type>std::string</type>
+        <definition>std::string rrllvm::LLVMExecutableModel::getCompartmentId</definition>
         <argsstring>(size_t)</argsstring>
         <name>getCompartmentId</name>
         <reimplements refid="classrr_1_1ExecutableModel_1a8edf24e2351bc5796ddfa0901dcbaee5">getCompartmentId</reimplements>
@@ -1986,28 +1991,33 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="llvm/LLVMExecutableModel.h" line="318" column="20" bodyfile="llvm/LLVMExecutableModel.cpp" bodystart="614" bodyend="626"/>
+        <location file="llvm/LLVMExecutableModel.h" line="318" column="25" bodyfile="llvm/LLVMExecutableModel.cpp" bodystart="616" bodyend="628"/>
       </memberdef>
-      <memberdef kind="function" id="classrrllvm_1_1LLVMExecutableModel_1a8d4e3a3d01162167cdd5fc828fba49f3" prot="public" static="no" const="no" explicit="no" inline="no" virt="virtual">
+      <memberdef kind="function" id="classrrllvm_1_1LLVMExecutableModel_1a979920ccd4f05575fe872a50dc4b368c" prot="public" static="no" const="no" explicit="no" inline="no" virt="virtual">
         <type>int</type>
         <definition>int rrllvm::LLVMExecutableModel::getReactionIndex</definition>
-        <argsstring>(const string &amp;)</argsstring>
+        <argsstring>(const std::string &amp;)</argsstring>
         <name>getReactionIndex</name>
+        <reimplements refid="classrr_1_1ExecutableModel_1a86fe96598b06cee5ca9a28dfdfd9d437">getReactionIndex</reimplements>
         <param>
-          <type>const string &amp;</type>
-          <defname>id</defname>
+          <type>const std::string &amp;</type>
+          <declname>eid</declname>
         </param>
         <briefdescription>
+<para>get the index of a named reaction </para>
         </briefdescription>
         <detaileddescription>
+<para><simplesect kind="return"><para>&gt;= 0 on success, &lt; 0 on failure. </para>
+</simplesect>
+</para>
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="llvm/LLVMExecutableModel.h" line="319" column="17" bodyfile="llvm/LLVMExecutableModel.cpp" bodystart="628" bodyend="631"/>
+        <location file="llvm/LLVMExecutableModel.h" line="319" column="17" bodyfile="llvm/LLVMExecutableModel.cpp" bodystart="630" bodyend="633"/>
       </memberdef>
-      <memberdef kind="function" id="classrrllvm_1_1LLVMExecutableModel_1a3145d2fcb796185f968430b56152d7c5" prot="public" static="no" const="no" explicit="no" inline="no" virt="virtual">
-        <type>string</type>
-        <definition>string rrllvm::LLVMExecutableModel::getReactionId</definition>
+      <memberdef kind="function" id="classrrllvm_1_1LLVMExecutableModel_1a7875eb127b74b89571e0551ab06bde7f" prot="public" static="no" const="no" explicit="no" inline="no" virt="virtual">
+        <type>std::string</type>
+        <definition>std::string rrllvm::LLVMExecutableModel::getReactionId</definition>
         <argsstring>(size_t)</argsstring>
         <name>getReactionId</name>
         <reimplements refid="classrr_1_1ExecutableModel_1aeb911dc90408981370c78149680d9027">getReactionId</reimplements>
@@ -2022,7 +2032,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="llvm/LLVMExecutableModel.h" line="320" column="20" bodyfile="llvm/LLVMExecutableModel.cpp" bodystart="633" bodyend="645"/>
+        <location file="llvm/LLVMExecutableModel.h" line="320" column="25" bodyfile="llvm/LLVMExecutableModel.cpp" bodystart="635" bodyend="647"/>
       </memberdef>
       <memberdef kind="function" id="classrrllvm_1_1LLVMExecutableModel_1a5b3365470c345a7c3829941de76561a7" prot="public" static="no" const="no" explicit="no" inline="no" virt="virtual">
         <type>void</type>
@@ -2040,7 +2050,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="llvm/LLVMExecutableModel.h" line="322" column="18" bodyfile="llvm/LLVMExecutableModel.cpp" bodystart="851" bodyend="855"/>
+        <location file="llvm/LLVMExecutableModel.h" line="322" column="18" bodyfile="llvm/LLVMExecutableModel.cpp" bodystart="855" bodyend="859"/>
       </memberdef>
       <memberdef kind="function" id="classrrllvm_1_1LLVMExecutableModel_1aeeeb260557b0d2f548a9eb28ecd2bb6c" prot="public" static="no" const="no" explicit="no" inline="no" virt="virtual">
         <type>int</type>
@@ -2054,15 +2064,16 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="llvm/LLVMExecutableModel.h" line="324" column="17" bodyfile="llvm/LLVMExecutableModel.cpp" bodystart="1740" bodyend="1743"/>
+        <location file="llvm/LLVMExecutableModel.h" line="324" column="17" bodyfile="llvm/LLVMExecutableModel.cpp" bodystart="1744" bodyend="1747"/>
       </memberdef>
-      <memberdef kind="function" id="classrrllvm_1_1LLVMExecutableModel_1a102723a9109c051ea94fbdab971429cb" prot="public" static="no" const="no" explicit="no" inline="no" virt="virtual">
+      <memberdef kind="function" id="classrrllvm_1_1LLVMExecutableModel_1a0ea0b31412ee348cc984bcfa27192b1e" prot="public" static="no" const="no" explicit="no" inline="no" virt="virtual">
         <type>int</type>
         <definition>int rrllvm::LLVMExecutableModel::getConservedMoietyIndex</definition>
-        <argsstring>(const string &amp;name)</argsstring>
+        <argsstring>(const std::string &amp;name)</argsstring>
         <name>getConservedMoietyIndex</name>
+        <reimplements refid="classrr_1_1ExecutableModel_1afb584e140ba5ef19865d0256d275e538">getConservedMoietyIndex</reimplements>
         <param>
-          <type>const string &amp;</type>
+          <type>const std::string &amp;</type>
           <declname>name</declname>
         </param>
         <briefdescription>
@@ -2071,11 +2082,11 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="llvm/LLVMExecutableModel.h" line="325" column="17" bodyfile="llvm/LLVMExecutableModel.cpp" bodystart="1745" bodyend="1753"/>
+        <location file="llvm/LLVMExecutableModel.h" line="325" column="17" bodyfile="llvm/LLVMExecutableModel.cpp" bodystart="1749" bodyend="1757"/>
       </memberdef>
-      <memberdef kind="function" id="classrrllvm_1_1LLVMExecutableModel_1aba9f3c46e13eaa15fac413acbc0de38c" prot="public" static="no" const="no" explicit="no" inline="no" virt="virtual">
-        <type>string</type>
-        <definition>string rrllvm::LLVMExecutableModel::getConservedMoietyId</definition>
+      <memberdef kind="function" id="classrrllvm_1_1LLVMExecutableModel_1a53c4cdd025c1a7a942ede4c70fbbbb08" prot="public" static="no" const="no" explicit="no" inline="no" virt="virtual">
+        <type>std::string</type>
+        <definition>std::string rrllvm::LLVMExecutableModel::getConservedMoietyId</definition>
         <argsstring>(size_t index)</argsstring>
         <name>getConservedMoietyId</name>
         <reimplements refid="classrr_1_1ExecutableModel_1a0fac30c0c3cab7e52e7f305be6a453fb">getConservedMoietyId</reimplements>
@@ -2089,7 +2100,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="llvm/LLVMExecutableModel.h" line="326" column="20" bodyfile="llvm/LLVMExecutableModel.cpp" bodystart="1755" bodyend="1758"/>
+        <location file="llvm/LLVMExecutableModel.h" line="326" column="25" bodyfile="llvm/LLVMExecutableModel.cpp" bodystart="1759" bodyend="1762"/>
       </memberdef>
       <memberdef kind="function" id="classrrllvm_1_1LLVMExecutableModel_1aeecb0706d6ba3b157becb0a4dd96808d" prot="public" static="no" const="no" explicit="no" inline="no" virt="virtual">
         <type>int</type>
@@ -2115,7 +2126,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="llvm/LLVMExecutableModel.h" line="327" column="17" bodyfile="llvm/LLVMExecutableModel.cpp" bodystart="1760" bodyend="1771"/>
+        <location file="llvm/LLVMExecutableModel.h" line="327" column="17" bodyfile="llvm/LLVMExecutableModel.cpp" bodystart="1764" bodyend="1775"/>
       </memberdef>
       <memberdef kind="function" id="classrrllvm_1_1LLVMExecutableModel_1aab6c5b1ecd6aa855e3a1ef05c8b6674f" prot="public" static="no" const="no" explicit="no" inline="no" virt="virtual">
         <type>int</type>
@@ -2141,7 +2152,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="llvm/LLVMExecutableModel.h" line="328" column="17" bodyfile="llvm/LLVMExecutableModel.cpp" bodystart="1773" bodyend="1784"/>
+        <location file="llvm/LLVMExecutableModel.h" line="328" column="17" bodyfile="llvm/LLVMExecutableModel.cpp" bodystart="1777" bodyend="1788"/>
       </memberdef>
       <memberdef kind="function" id="classrrllvm_1_1LLVMExecutableModel_1ad5f402884647ba8e9bfe220629928ad8" prot="public" static="no" const="no" explicit="no" inline="no" virt="virtual">
         <type>int</type>
@@ -2167,7 +2178,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="llvm/LLVMExecutableModel.h" line="332" column="17" bodyfile="llvm/LLVMExecutableModel.cpp" bodystart="1844" bodyend="1854"/>
+        <location file="llvm/LLVMExecutableModel.h" line="332" column="17" bodyfile="llvm/LLVMExecutableModel.cpp" bodystart="1848" bodyend="1858"/>
       </memberdef>
       <memberdef kind="function" id="classrrllvm_1_1LLVMExecutableModel_1a5de8a96030e376804d05413cf10f0338" prot="public" static="no" const="no" explicit="no" inline="no" virt="virtual">
         <type>double</type>
@@ -2191,7 +2202,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="llvm/LLVMExecutableModel.h" line="336" column="20" bodyfile="llvm/LLVMExecutableModel.cpp" bodystart="1858" bodyend="1862"/>
+        <location file="llvm/LLVMExecutableModel.h" line="336" column="20" bodyfile="llvm/LLVMExecutableModel.cpp" bodystart="1862" bodyend="1866"/>
       </memberdef>
       <memberdef kind="function" id="classrrllvm_1_1LLVMExecutableModel_1a1475e0cd372f9bea14493c595fe024fa" prot="public" static="no" const="no" explicit="no" inline="no" virt="virtual">
         <type>int</type>
@@ -2245,7 +2256,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="llvm/LLVMExecutableModel.h" line="348" column="17" bodyfile="llvm/LLVMExecutableModel.cpp" bodystart="1864" bodyend="1900"/>
+        <location file="llvm/LLVMExecutableModel.h" line="348" column="17" bodyfile="llvm/LLVMExecutableModel.cpp" bodystart="1868" bodyend="1904"/>
       </memberdef>
       <memberdef kind="function" id="classrrllvm_1_1LLVMExecutableModel_1ae18e2e04bafd5613f832d0723c6831d5" prot="public" static="no" const="no" explicit="no" inline="no" virt="virtual">
         <type>int</type>
@@ -2274,7 +2285,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="llvm/LLVMExecutableModel.h" line="355" column="17" bodyfile="llvm/LLVMExecutableModel.cpp" bodystart="2102" bodyend="2119"/>
+        <location file="llvm/LLVMExecutableModel.h" line="355" column="17" bodyfile="llvm/LLVMExecutableModel.cpp" bodystart="2106" bodyend="2123"/>
       </memberdef>
       <memberdef kind="function" id="classrrllvm_1_1LLVMExecutableModel_1a0b370d57c274830d88084d2c232377ef" prot="public" static="no" const="no" explicit="no" inline="no" virt="virtual">
         <type>int</type>
@@ -2301,7 +2312,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="llvm/LLVMExecutableModel.h" line="358" column="17" bodyfile="llvm/LLVMExecutableModel.cpp" bodystart="2121" bodyend="2130"/>
+        <location file="llvm/LLVMExecutableModel.h" line="358" column="17" bodyfile="llvm/LLVMExecutableModel.cpp" bodystart="2125" bodyend="2134"/>
       </memberdef>
       <memberdef kind="function" id="classrrllvm_1_1LLVMExecutableModel_1a2917252bcf019a085d8cef01d7752f4b" prot="public" static="no" const="no" explicit="no" inline="no" virt="virtual">
         <type>int</type>
@@ -2330,7 +2341,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="llvm/LLVMExecutableModel.h" line="361" column="17" bodyfile="llvm/LLVMExecutableModel.cpp" bodystart="2132" bodyend="2148"/>
+        <location file="llvm/LLVMExecutableModel.h" line="361" column="17" bodyfile="llvm/LLVMExecutableModel.cpp" bodystart="2136" bodyend="2152"/>
       </memberdef>
       <memberdef kind="function" id="classrrllvm_1_1LLVMExecutableModel_1a296f9db380418db1d6320fb50d839b40" prot="public" static="no" const="no" explicit="no" inline="no" virt="virtual">
         <type>int</type>
@@ -2357,7 +2368,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="llvm/LLVMExecutableModel.h" line="364" column="17" bodyfile="llvm/LLVMExecutableModel.cpp" bodystart="2150" bodyend="2159"/>
+        <location file="llvm/LLVMExecutableModel.h" line="364" column="17" bodyfile="llvm/LLVMExecutableModel.cpp" bodystart="2154" bodyend="2163"/>
       </memberdef>
       <memberdef kind="function" id="classrrllvm_1_1LLVMExecutableModel_1ac4868fa0f700923e1d26f59db2439be2" prot="public" static="no" const="no" explicit="no" inline="no" virt="virtual">
         <type>int</type>
@@ -2386,7 +2397,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="llvm/LLVMExecutableModel.h" line="367" column="17" bodyfile="llvm/LLVMExecutableModel.cpp" bodystart="2161" bodyend="2171"/>
+        <location file="llvm/LLVMExecutableModel.h" line="367" column="17" bodyfile="llvm/LLVMExecutableModel.cpp" bodystart="2165" bodyend="2175"/>
       </memberdef>
       <memberdef kind="function" id="classrrllvm_1_1LLVMExecutableModel_1a959d502139b048414115f71be9f06603" prot="public" static="no" const="no" explicit="no" inline="no" virt="virtual">
         <type>int</type>
@@ -2413,7 +2424,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="llvm/LLVMExecutableModel.h" line="370" column="17" bodyfile="llvm/LLVMExecutableModel.cpp" bodystart="2173" bodyend="2182"/>
+        <location file="llvm/LLVMExecutableModel.h" line="370" column="17" bodyfile="llvm/LLVMExecutableModel.cpp" bodystart="2177" bodyend="2186"/>
       </memberdef>
       <memberdef kind="function" id="classrrllvm_1_1LLVMExecutableModel_1a3f6882867b8da2742473c2647bf10af5" prot="public" static="no" const="no" explicit="no" inline="no" virt="virtual">
         <type>int</type>
@@ -2441,7 +2452,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="llvm/LLVMExecutableModel.h" line="373" column="17" bodyfile="llvm/LLVMExecutableModel.cpp" bodystart="2184" bodyend="2194"/>
+        <location file="llvm/LLVMExecutableModel.h" line="373" column="17" bodyfile="llvm/LLVMExecutableModel.cpp" bodystart="2188" bodyend="2198"/>
       </memberdef>
       <memberdef kind="function" id="classrrllvm_1_1LLVMExecutableModel_1a22fb361bb1ca724923fc67b160e73c2f" prot="public" static="no" const="no" explicit="no" inline="no" virt="virtual">
         <type>int</type>
@@ -2468,7 +2479,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="llvm/LLVMExecutableModel.h" line="376" column="17" bodyfile="llvm/LLVMExecutableModel.cpp" bodystart="2196" bodyend="2205"/>
+        <location file="llvm/LLVMExecutableModel.h" line="376" column="17" bodyfile="llvm/LLVMExecutableModel.cpp" bodystart="2200" bodyend="2209"/>
       </memberdef>
       <memberdef kind="function" id="classrrllvm_1_1LLVMExecutableModel_1aeede1447cf35aa59a2efc4ae8973924b" prot="public" static="no" const="no" explicit="no" inline="no" virt="virtual">
         <type>void</type>
@@ -2491,7 +2502,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="llvm/LLVMExecutableModel.h" line="391" column="18" bodyfile="llvm/LLVMExecutableModel.cpp" bodystart="857" bodyend="1043"/>
+        <location file="llvm/LLVMExecutableModel.h" line="391" column="18" bodyfile="llvm/LLVMExecutableModel.cpp" bodystart="861" bodyend="1047"/>
       </memberdef>
       <memberdef kind="function" id="classrrllvm_1_1LLVMExecutableModel_1afc9f70eb3c72dfb52433629f8bb4bce2" prot="public" static="no" const="no" explicit="no" inline="no" virt="virtual">
         <type>int</type>
@@ -2506,7 +2517,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="llvm/LLVMExecutableModel.h" line="396" column="17" bodyfile="llvm/LLVMExecutableModel.cpp" bodystart="1045" bodyend="1060"/>
+        <location file="llvm/LLVMExecutableModel.h" line="396" column="17" bodyfile="llvm/LLVMExecutableModel.cpp" bodystart="1049" bodyend="1064"/>
       </memberdef>
       <memberdef kind="function" id="classrrllvm_1_1LLVMExecutableModel_1ac4f4fe1667dcf4f0f848e3569e8bbe2b" prot="public" static="no" const="no" explicit="no" inline="no" virt="virtual">
         <type>double</type>
@@ -2519,14 +2530,14 @@
           <declname>id</declname>
         </param>
         <briefdescription>
-<para>gets the value for the given id string. </para>
+<para>gets the value for the given id std::string. </para>
         </briefdescription>
         <detaileddescription>
-<para>The string must be a SelectionRecord string that is accepted by this class. </para>
+<para>The std::string must be a SelectionRecord std::string that is accepted by this class. </para>
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="llvm/LLVMExecutableModel.h" line="402" column="20" bodyfile="llvm/LLVMExecutableModel.cpp" bodystart="1062" bodyend="1127"/>
+        <location file="llvm/LLVMExecutableModel.h" line="402" column="20" bodyfile="llvm/LLVMExecutableModel.cpp" bodystart="1066" bodyend="1131"/>
       </memberdef>
       <memberdef kind="function" id="classrrllvm_1_1LLVMExecutableModel_1a1cbb2107a051b91a739f0f2992928ffa" prot="public" static="no" const="no" explicit="no" inline="no" virt="virtual">
         <type>void</type>
@@ -2549,7 +2560,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="llvm/LLVMExecutableModel.h" line="407" column="18" bodyfile="llvm/LLVMExecutableModel.cpp" bodystart="1270" bodyend="1354"/>
+        <location file="llvm/LLVMExecutableModel.h" line="407" column="18" bodyfile="llvm/LLVMExecutableModel.cpp" bodystart="1274" bodyend="1358"/>
       </memberdef>
       <memberdef kind="function" id="classrrllvm_1_1LLVMExecutableModel_1a458c2d66964745c99226f60be9a8b0fe" prot="public" static="no" const="no" explicit="no" inline="no" virt="virtual">
         <type>void</type>
@@ -2569,7 +2580,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="llvm/LLVMExecutableModel.h" line="421" column="18" bodyfile="llvm/LLVMExecutableModel.cpp" bodystart="2221" bodyend="2231"/>
+        <location file="llvm/LLVMExecutableModel.h" line="421" column="18" bodyfile="llvm/LLVMExecutableModel.cpp" bodystart="2225" bodyend="2235"/>
       </memberdef>
       <memberdef kind="function" id="classrrllvm_1_1LLVMExecutableModel_1a4e903b2a5bbd26d442a87850a8a2b435" prot="public" static="no" const="no" explicit="no" inline="no" virt="virtual">
         <type>int64_t</type>
@@ -2584,7 +2595,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="llvm/LLVMExecutableModel.h" line="426" column="21" bodyfile="llvm/LLVMExecutableModel.cpp" bodystart="2236" bodyend="2245"/>
+        <location file="llvm/LLVMExecutableModel.h" line="426" column="21" bodyfile="llvm/LLVMExecutableModel.cpp" bodystart="2240" bodyend="2249"/>
       </memberdef>
       <memberdef kind="function" id="classrrllvm_1_1LLVMExecutableModel_1a99ee742fbcd0a2fab7957f319991a234" prot="public" static="no" const="no" explicit="no" inline="no" virt="virtual">
         <type>double</type>
@@ -2600,7 +2611,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="llvm/LLVMExecutableModel.h" line="434" column="20" bodyfile="llvm/LLVMExecutableModel.cpp" bodystart="2253" bodyend="2262"/>
+        <location file="llvm/LLVMExecutableModel.h" line="434" column="20" bodyfile="llvm/LLVMExecutableModel.cpp" bodystart="2257" bodyend="2266"/>
       </memberdef>
       <memberdef kind="function" id="classrrllvm_1_1LLVMExecutableModel_1a4f06c08e3ab3add42160b7f9fbb6e6d1" prot="public" static="no" const="no" explicit="no" inline="no" virt="virtual">
         <type>int</type>
@@ -2614,7 +2625,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="llvm/LLVMExecutableModel.h" line="445" column="17" bodyfile="llvm/LLVMExecutableModel.cpp" bodystart="1908" bodyend="1911"/>
+        <location file="llvm/LLVMExecutableModel.h" line="445" column="17" bodyfile="llvm/LLVMExecutableModel.cpp" bodystart="1912" bodyend="1915"/>
       </memberdef>
       <memberdef kind="function" id="classrrllvm_1_1LLVMExecutableModel_1a6720985571bb7836a43f054dc8b60a60" prot="public" static="no" const="no" explicit="no" inline="no" virt="virtual">
         <type>int</type>
@@ -2669,7 +2680,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="llvm/LLVMExecutableModel.h" line="456" column="17" bodyfile="llvm/LLVMExecutableModel.cpp" bodystart="1913" bodyend="1935"/>
+        <location file="llvm/LLVMExecutableModel.h" line="456" column="17" bodyfile="llvm/LLVMExecutableModel.cpp" bodystart="1917" bodyend="1939"/>
       </memberdef>
       <memberdef kind="function" id="classrrllvm_1_1LLVMExecutableModel_1abf91b16221e311777c120258a1e8ef39" prot="public" static="no" const="no" explicit="no" inline="no" virt="virtual">
         <type>int</type>
@@ -2700,7 +2711,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="llvm/LLVMExecutableModel.h" line="462" column="17" bodyfile="llvm/LLVMExecutableModel.cpp" bodystart="1937" bodyend="1975"/>
+        <location file="llvm/LLVMExecutableModel.h" line="462" column="17" bodyfile="llvm/LLVMExecutableModel.cpp" bodystart="1941" bodyend="1979"/>
       </memberdef>
       <memberdef kind="function" id="classrrllvm_1_1LLVMExecutableModel_1aee3874c5ef6f6eaf4997b0a22abedbbb" prot="public" static="no" const="no" explicit="no" inline="no" virt="virtual">
         <type>void</type>
@@ -2738,7 +2749,7 @@
 <parametername>y[in]</parametername>
 </parameternamelist>
 <parameterdescription>
-<para>the state vector </para>
+<para>the state std::vector </para>
 </parameterdescription>
 </parameteritem>
 <parameteritem>
@@ -2754,7 +2765,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="llvm/LLVMExecutableModel.h" line="465" column="18" bodyfile="llvm/LLVMExecutableModel.cpp" bodystart="1978" bodyend="2010"/>
+        <location file="llvm/LLVMExecutableModel.h" line="465" column="18" bodyfile="llvm/LLVMExecutableModel.cpp" bodystart="1982" bodyend="2014"/>
       </memberdef>
       <memberdef kind="function" id="classrrllvm_1_1LLVMExecutableModel_1ad075c63302eeb30e11c138184c0d0e3a" prot="public" static="no" const="no" explicit="no" inline="no" virt="virtual">
         <type>double</type>
@@ -2772,7 +2783,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="llvm/LLVMExecutableModel.h" line="467" column="20" bodyfile="llvm/LLVMExecutableModel.cpp" bodystart="2012" bodyend="2015"/>
+        <location file="llvm/LLVMExecutableModel.h" line="467" column="20" bodyfile="llvm/LLVMExecutableModel.cpp" bodystart="2016" bodyend="2019"/>
       </memberdef>
       <memberdef kind="function" id="classrrllvm_1_1LLVMExecutableModel_1a1bde1c9365cdf19fdcf344352bb2fd4b" prot="public" static="no" const="no" explicit="no" inline="no" virt="virtual">
         <type>int</type>
@@ -2786,7 +2797,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="llvm/LLVMExecutableModel.h" line="469" column="17" bodyfile="llvm/LLVMExecutableModel.cpp" bodystart="2017" bodyend="2020"/>
+        <location file="llvm/LLVMExecutableModel.h" line="469" column="17" bodyfile="llvm/LLVMExecutableModel.cpp" bodystart="2021" bodyend="2024"/>
       </memberdef>
       <memberdef kind="function" id="classrrllvm_1_1LLVMExecutableModel_1a1c61758460b1daf81b02127ba29e9975" prot="public" static="no" const="no" explicit="no" inline="no" virt="virtual">
         <type>void</type>
@@ -2800,7 +2811,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="llvm/LLVMExecutableModel.h" line="471" column="18" bodyfile="llvm/LLVMExecutableModel.cpp" bodystart="2022" bodyend="2024"/>
+        <location file="llvm/LLVMExecutableModel.h" line="471" column="18" bodyfile="llvm/LLVMExecutableModel.cpp" bodystart="2026" bodyend="2028"/>
       </memberdef>
       <memberdef kind="function" id="classrrllvm_1_1LLVMExecutableModel_1af41224e44c0a3cd9f951ec8d4ba69779" prot="public" static="no" const="no" explicit="no" inline="yes" virt="non-virtual">
         <type>double</type>
@@ -2983,7 +2994,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="llvm/LLVMExecutableModel.h" line="549" column="10" bodyfile="llvm/LLVMExecutableModel.cpp" bodystart="2060" bodyend="2090"/>
+        <location file="llvm/LLVMExecutableModel.h" line="549" column="10" bodyfile="llvm/LLVMExecutableModel.cpp" bodystart="2064" bodyend="2094"/>
       </memberdef>
       <memberdef kind="function" id="classrrllvm_1_1LLVMExecutableModel_1a2e869485a6748bd33b3320dc955422a4" prot="public" static="no" const="no" explicit="no" inline="no" virt="virtual">
         <type>int</type>
@@ -3003,7 +3014,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="llvm/LLVMExecutableModel.h" line="551" column="17" bodyfile="llvm/LLVMExecutableModel.cpp" bodystart="1434" bodyend="1437"/>
+        <location file="llvm/LLVMExecutableModel.h" line="551" column="17" bodyfile="llvm/LLVMExecutableModel.cpp" bodystart="1438" bodyend="1441"/>
       </memberdef>
       <memberdef kind="function" id="classrrllvm_1_1LLVMExecutableModel_1aa0176a01e2eb098c2b91cfb3f69e11ec" prot="public" static="no" const="no" explicit="no" inline="no" virt="virtual">
         <type>std::string</type>
@@ -3021,7 +3032,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="llvm/LLVMExecutableModel.h" line="552" column="25" bodyfile="llvm/LLVMExecutableModel.cpp" bodystart="1439" bodyend="1451"/>
+        <location file="llvm/LLVMExecutableModel.h" line="552" column="25" bodyfile="llvm/LLVMExecutableModel.cpp" bodystart="1443" bodyend="1455"/>
       </memberdef>
       <memberdef kind="function" id="classrrllvm_1_1LLVMExecutableModel_1aace8aab3fcc35b3095e593df45b91a29" prot="public" static="no" const="no" explicit="no" inline="no" virt="virtual">
         <type>void</type>
@@ -3039,7 +3050,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="llvm/LLVMExecutableModel.h" line="553" column="18" bodyfile="llvm/LLVMExecutableModel.cpp" bodystart="1453" bodyend="1457"/>
+        <location file="llvm/LLVMExecutableModel.h" line="553" column="18" bodyfile="llvm/LLVMExecutableModel.cpp" bodystart="1457" bodyend="1461"/>
       </memberdef>
       <memberdef kind="function" id="classrrllvm_1_1LLVMExecutableModel_1a08dba869293bde84f1cfa899604136d0" prot="public" static="no" const="no" explicit="no" inline="no" virt="virtual">
         <type>void</type>
@@ -3061,7 +3072,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="llvm/LLVMExecutableModel.h" line="554" column="18" bodyfile="llvm/LLVMExecutableModel.cpp" bodystart="1459" bodyend="1471"/>
+        <location file="llvm/LLVMExecutableModel.h" line="554" column="18" bodyfile="llvm/LLVMExecutableModel.cpp" bodystart="1463" bodyend="1475"/>
       </memberdef>
       <memberdef kind="function" id="classrrllvm_1_1LLVMExecutableModel_1a907f9153b53c47cacedbe96a73aa1f0d" prot="public" static="no" const="no" explicit="no" inline="no" virt="virtual">
         <type><ref refid="rrExecutableModel_8h_1af42654ad469e89c71909fbbff90b3c07" kindref="member">rr::EventListenerPtr</ref></type>
@@ -3079,7 +3090,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="llvm/LLVMExecutableModel.h" line="555" column="34" bodyfile="llvm/LLVMExecutableModel.cpp" bodystart="1473" bodyend="1484"/>
+        <location file="llvm/LLVMExecutableModel.h" line="555" column="34" bodyfile="llvm/LLVMExecutableModel.cpp" bodystart="1477" bodyend="1488"/>
       </memberdef>
       <memberdef kind="function" id="classrrllvm_1_1LLVMExecutableModel_1aba4cbc143e2a9ad641e8db160837e466" prot="public" static="no" const="no" explicit="no" inline="no" virt="virtual">
         <type>double</type>
@@ -3096,11 +3107,11 @@
           <declname>reactionRates</declname>
         </param>
         <briefdescription>
-<para>Get the amount rate of change for the i&apos;th floating species given a reaction rates vector. </para>
+<para>Get the amount rate of change for the i&apos;th floating species given a reaction rates std::vector. </para>
         </briefdescription>
         <detaileddescription>
 <para>TODO: This should be merged with getFloatingSpeciesAmountRates, but that will break inteface, will do in next point release.</para>
-<para>TODO: If the conversion factor changes in between getting the reaction rates vector via getReactionRates</para>
+<para>TODO: If the conversion factor changes in between getting the reaction rates std::vector via getReactionRates</para>
 <para><parameterlist kind="param"><parameteritem>
 <parameternamelist>
 <parametername>index</parametername>
@@ -3122,7 +3133,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="llvm/LLVMExecutableModel.h" line="558" column="20" bodyfile="llvm/LLVMExecutableModel.cpp" bodystart="477" bodyend="486"/>
+        <location file="llvm/LLVMExecutableModel.h" line="558" column="20" bodyfile="llvm/LLVMExecutableModel.cpp" bodystart="479" bodyend="488"/>
       </memberdef>
       <memberdef kind="function" id="classrrllvm_1_1LLVMExecutableModel_1a8713add3c03f6f8c95bc533d2b4bbca9" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
         <type>int</type>
@@ -3149,7 +3160,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="llvm/LLVMExecutableModel.h" line="565" column="9" bodyfile="llvm/LLVMExecutableModel.cpp" bodystart="1815" bodyend="1841"/>
+        <location file="llvm/LLVMExecutableModel.h" line="565" column="9" bodyfile="llvm/LLVMExecutableModel.cpp" bodystart="1819" bodyend="1845"/>
       </memberdef>
       <memberdef kind="function" id="classrrllvm_1_1LLVMExecutableModel_1a806e03b71cc2026bfdc23cd3d5d344ef" prot="public" static="no" const="yes" explicit="no" inline="yes" virt="virtual">
         <type>uint32_t</type>
@@ -3201,7 +3212,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="llvm/LLVMExecutableModel.h" line="579" column="6" bodyfile="llvm/LLVMExecutableModel.cpp" bodystart="2264" bodyend="2272"/>
+        <location file="llvm/LLVMExecutableModel.h" line="579" column="6" bodyfile="llvm/LLVMExecutableModel.cpp" bodystart="2268" bodyend="2276"/>
       </memberdef>
       </sectiondef>
       <sectiondef kind="private-func">
@@ -3218,12 +3229,12 @@
 <para>get a selection record for a given stirng. </para>
         </briefdescription>
         <detaileddescription>
-<para>if the string is valid, the SelectionRecord is created and cached.</para>
-<para>if the string is invalid, and exception is thrown. </para>
+<para>if the std::string is valid, the SelectionRecord is created and cached.</para>
+<para>if the std::string is invalid, and exception is thrown. </para>
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="llvm/LLVMExecutableModel.h" line="590" column="31" bodyfile="llvm/LLVMExecutableModel.cpp" bodystart="1130" bodyend="1268"/>
+        <location file="llvm/LLVMExecutableModel.h" line="590" column="31" bodyfile="llvm/LLVMExecutableModel.cpp" bodystart="1134" bodyend="1272"/>
       </memberdef>
       <memberdef kind="function" id="classrrllvm_1_1LLVMExecutableModel_1af3b6fbe559cf900ee50641b667ec5b50" prot="private" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
         <type>bool</type>
@@ -3245,7 +3256,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="llvm/LLVMExecutableModel.h" line="598" column="10" bodyfile="llvm/LLVMExecutableModel.cpp" bodystart="2026" bodyend="2058"/>
+        <location file="llvm/LLVMExecutableModel.h" line="598" column="10" bodyfile="llvm/LLVMExecutableModel.cpp" bodystart="2030" bodyend="2062"/>
       </memberdef>
       <memberdef kind="function" id="classrrllvm_1_1LLVMExecutableModel_1ad7fb31b5ee198e288b854824e3b2fb2c" prot="private" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
         <type>int</type>
@@ -3275,7 +3286,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="llvm/LLVMExecutableModel.h" line="681" column="9" bodyfile="llvm/LLVMExecutableModel.cpp" bodystart="117" bodyend="135"/>
+        <location file="llvm/LLVMExecutableModel.h" line="681" column="9" bodyfile="llvm/LLVMExecutableModel.cpp" bodystart="119" bodyend="137"/>
       </memberdef>
       <memberdef kind="function" id="classrrllvm_1_1LLVMExecutableModel_1a6a2a75755a28c9b385dd1d4c9706a7b2" prot="private" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
         <type>int</type>
@@ -3309,7 +3320,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="llvm/LLVMExecutableModel.h" line="687" column="9" bodyfile="llvm/LLVMExecutableModel.cpp" bodystart="137" bodyend="168"/>
+        <location file="llvm/LLVMExecutableModel.h" line="687" column="9" bodyfile="llvm/LLVMExecutableModel.cpp" bodystart="139" bodyend="170"/>
       </memberdef>
       </sectiondef>
       <sectiondef kind="private-static-func">
@@ -3324,7 +3335,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="llvm/LLVMExecutableModel.h" line="690" column="32" bodyfile="llvm/LLVMExecutableModel.cpp" bodystart="1486" bodyend="1489"/>
+        <location file="llvm/LLVMExecutableModel.h" line="690" column="32" bodyfile="llvm/LLVMExecutableModel.cpp" bodystart="1490" bodyend="1493"/>
       </memberdef>
       </sectiondef>
     <briefdescription>
@@ -3388,20 +3399,17 @@
       <member refid="classrrllvm_1_1LLVMExecutableModel_1ac7547346f83f0407259f9aa83fba2f2a" prot="public" virt="virtual"><scope>rrllvm::LLVMExecutableModel</scope><name>getBoundarySpeciesAmounts</name></member>
       <member refid="classrrllvm_1_1LLVMExecutableModel_1a630bb3ef619dc0dbe501aac2701601d2" prot="private" virt="non-virtual"><scope>rrllvm::LLVMExecutableModel</scope><name>getBoundarySpeciesConcentrationPtr</name></member>
       <member refid="classrrllvm_1_1LLVMExecutableModel_1af242105f0b29c521b8bc7a438d09b43b" prot="public" virt="virtual"><scope>rrllvm::LLVMExecutableModel</scope><name>getBoundarySpeciesConcentrations</name></member>
-      <member refid="classrrllvm_1_1LLVMExecutableModel_1abd816e2ac822a4396babbe140fa2c1ff" prot="public" virt="virtual"><scope>rrllvm::LLVMExecutableModel</scope><name>getBoundarySpeciesId</name></member>
-      <member refid="classrrllvm_1_1LLVMExecutableModel_1a96fa17626d355488dacc6a42e84f4b22" prot="public" virt="virtual"><scope>rrllvm::LLVMExecutableModel</scope><name>getBoundarySpeciesIndex</name></member>
-      <member refid="classrr_1_1ExecutableModel_1a28488139fa975776eded9e8c899c307d" prot="public" virt="pure-virtual" ambiguityscope="rr::ExecutableModel::"><scope>rrllvm::LLVMExecutableModel</scope><name>getBoundarySpeciesIndex</name></member>
-      <member refid="classrrllvm_1_1LLVMExecutableModel_1a351f516e625c97b17d2fed0965023536" prot="public" virt="virtual"><scope>rrllvm::LLVMExecutableModel</scope><name>getCompartmentId</name></member>
-      <member refid="classrrllvm_1_1LLVMExecutableModel_1a65cfb23aaaec7400802ac8cff479345b" prot="public" virt="virtual"><scope>rrllvm::LLVMExecutableModel</scope><name>getCompartmentIndex</name></member>
-      <member refid="classrr_1_1ExecutableModel_1a366727be244766db2ff917b64949858c" prot="public" virt="pure-virtual" ambiguityscope="rr::ExecutableModel::"><scope>rrllvm::LLVMExecutableModel</scope><name>getCompartmentIndex</name></member>
+      <member refid="classrrllvm_1_1LLVMExecutableModel_1a83c2292d44cb72d2426c9559a0652f74" prot="public" virt="virtual"><scope>rrllvm::LLVMExecutableModel</scope><name>getBoundarySpeciesId</name></member>
+      <member refid="classrrllvm_1_1LLVMExecutableModel_1ad00e27054e7373ca61da3ec4fb95c4c7" prot="public" virt="virtual"><scope>rrllvm::LLVMExecutableModel</scope><name>getBoundarySpeciesIndex</name></member>
+      <member refid="classrrllvm_1_1LLVMExecutableModel_1ac4b3e239e3d8f3da218793e601a1a298" prot="public" virt="virtual"><scope>rrllvm::LLVMExecutableModel</scope><name>getCompartmentId</name></member>
+      <member refid="classrrllvm_1_1LLVMExecutableModel_1a51e6cf85565ee78ac2b00fb9d85134c7" prot="public" virt="virtual"><scope>rrllvm::LLVMExecutableModel</scope><name>getCompartmentIndex</name></member>
       <member refid="classrrllvm_1_1LLVMExecutableModel_1a6c1a4a19798ce72f37848360cf3af692" prot="public" virt="virtual"><scope>rrllvm::LLVMExecutableModel</scope><name>getCompartmentIndexForFloatingSpecies</name></member>
       <member refid="classrrllvm_1_1LLVMExecutableModel_1a959d502139b048414115f71be9f06603" prot="public" virt="virtual"><scope>rrllvm::LLVMExecutableModel</scope><name>getCompartmentInitVolumes</name></member>
       <member refid="classrrllvm_1_1LLVMExecutableModel_1a2098cd40e8903f6a765dd8ba04c1b8d8" prot="private" virt="non-virtual"><scope>rrllvm::LLVMExecutableModel</scope><name>getCompartmentInitVolumesPtr</name></member>
       <member refid="classrrllvm_1_1LLVMExecutableModel_1a85e912e95057abd8b3c32bc3abe77285" prot="private" virt="non-virtual"><scope>rrllvm::LLVMExecutableModel</scope><name>getCompartmentVolumePtr</name></member>
       <member refid="classrrllvm_1_1LLVMExecutableModel_1ae93515327eae8af56a12b24bd545df33" prot="public" virt="virtual"><scope>rrllvm::LLVMExecutableModel</scope><name>getCompartmentVolumes</name></member>
-      <member refid="classrrllvm_1_1LLVMExecutableModel_1aba9f3c46e13eaa15fac413acbc0de38c" prot="public" virt="virtual"><scope>rrllvm::LLVMExecutableModel</scope><name>getConservedMoietyId</name></member>
-      <member refid="classrrllvm_1_1LLVMExecutableModel_1a102723a9109c051ea94fbdab971429cb" prot="public" virt="virtual"><scope>rrllvm::LLVMExecutableModel</scope><name>getConservedMoietyIndex</name></member>
-      <member refid="classrr_1_1ExecutableModel_1afb584e140ba5ef19865d0256d275e538" prot="public" virt="pure-virtual" ambiguityscope="rr::ExecutableModel::"><scope>rrllvm::LLVMExecutableModel</scope><name>getConservedMoietyIndex</name></member>
+      <member refid="classrrllvm_1_1LLVMExecutableModel_1a53c4cdd025c1a7a942ede4c70fbbbb08" prot="public" virt="virtual"><scope>rrllvm::LLVMExecutableModel</scope><name>getConservedMoietyId</name></member>
+      <member refid="classrrllvm_1_1LLVMExecutableModel_1a0ea0b31412ee348cc984bcfa27192b1e" prot="public" virt="virtual"><scope>rrllvm::LLVMExecutableModel</scope><name>getConservedMoietyIndex</name></member>
       <member refid="classrrllvm_1_1LLVMExecutableModel_1aeecb0706d6ba3b157becb0a4dd96808d" prot="public" virt="virtual"><scope>rrllvm::LLVMExecutableModel</scope><name>getConservedMoietyValues</name></member>
       <member refid="classrrllvm_1_1LLVMExecutableModel_1a2734b6a5d224d042763ed46b66f63584" prot="public" virt="non-virtual"><scope>rrllvm::LLVMExecutableModel</scope><name>getEventBufferSize</name></member>
       <member refid="classrrllvm_1_1LLVMExecutableModel_1a4d0676df8ffcd1f22d1a11077aa958ca" prot="public" virt="non-virtual"><scope>rrllvm::LLVMExecutableModel</scope><name>getEventData</name></member>
@@ -3430,24 +3438,22 @@
       <member refid="classrrllvm_1_1LLVMExecutableModel_1a5b364feabba6bb58f7434278ca65e652" prot="private" virt="non-virtual"><scope>rrllvm::LLVMExecutableModel</scope><name>getFloatingSpeciesConcentrationPtr</name></member>
       <member refid="classrrllvm_1_1LLVMExecutableModel_1a4baa1758d5d3e84b8c431794704f4eca" prot="public" virt="virtual"><scope>rrllvm::LLVMExecutableModel</scope><name>getFloatingSpeciesConcentrationRates</name></member>
       <member refid="classrrllvm_1_1LLVMExecutableModel_1a8c5aff102586a6b652ac912d7a674a32" prot="public" virt="virtual"><scope>rrllvm::LLVMExecutableModel</scope><name>getFloatingSpeciesConcentrations</name></member>
-      <member refid="classrrllvm_1_1LLVMExecutableModel_1aad995136f696b44f606a6a944b3fa34e" prot="public" virt="virtual"><scope>rrllvm::LLVMExecutableModel</scope><name>getFloatingSpeciesId</name></member>
-      <member refid="classrrllvm_1_1LLVMExecutableModel_1ab7d70d78762532f673973fe88c174c78" prot="public" virt="virtual"><scope>rrllvm::LLVMExecutableModel</scope><name>getFloatingSpeciesIndex</name></member>
-      <member refid="classrr_1_1ExecutableModel_1a390a1905aabac6056f6dceff11833c43" prot="public" virt="pure-virtual" ambiguityscope="rr::ExecutableModel::"><scope>rrllvm::LLVMExecutableModel</scope><name>getFloatingSpeciesIndex</name></member>
+      <member refid="classrrllvm_1_1LLVMExecutableModel_1a5e1794c61c7360555fb9c1e1162e92be" prot="public" virt="virtual"><scope>rrllvm::LLVMExecutableModel</scope><name>getFloatingSpeciesId</name></member>
+      <member refid="classrrllvm_1_1LLVMExecutableModel_1a8997ffa70682319ec2c8aaff896613ad" prot="public" virt="virtual"><scope>rrllvm::LLVMExecutableModel</scope><name>getFloatingSpeciesIndex</name></member>
       <member refid="classrrllvm_1_1LLVMExecutableModel_1a296f9db380418db1d6320fb50d839b40" prot="public" virt="virtual"><scope>rrllvm::LLVMExecutableModel</scope><name>getFloatingSpeciesInitAmounts</name></member>
       <member refid="classrrllvm_1_1LLVMExecutableModel_1a5d0cc0929091cb34ec1e19f5debcc532" prot="private" virt="non-virtual"><scope>rrllvm::LLVMExecutableModel</scope><name>getFloatingSpeciesInitAmountsPtr</name></member>
       <member refid="classrrllvm_1_1LLVMExecutableModel_1a0b370d57c274830d88084d2c232377ef" prot="public" virt="virtual"><scope>rrllvm::LLVMExecutableModel</scope><name>getFloatingSpeciesInitConcentrations</name></member>
       <member refid="classrrllvm_1_1LLVMExecutableModel_1ae0f9b560b3bff0c347717f690b34a01a" prot="private" virt="non-virtual"><scope>rrllvm::LLVMExecutableModel</scope><name>getFloatingSpeciesInitConcentrationsPtr</name></member>
-      <member refid="classrrllvm_1_1LLVMExecutableModel_1a1a7c7caaa08ed5046f3f99c18651b734" prot="public" virt="virtual"><scope>rrllvm::LLVMExecutableModel</scope><name>getGlobalParameterId</name></member>
-      <member refid="classrrllvm_1_1LLVMExecutableModel_1af85c593e3b64daac1e740ea82b3ef488" prot="public" virt="virtual"><scope>rrllvm::LLVMExecutableModel</scope><name>getGlobalParameterIndex</name></member>
-      <member refid="classrr_1_1ExecutableModel_1abcdcc03c4563dfbe6b64f932812906ee" prot="public" virt="pure-virtual" ambiguityscope="rr::ExecutableModel::"><scope>rrllvm::LLVMExecutableModel</scope><name>getGlobalParameterIndex</name></member>
+      <member refid="classrrllvm_1_1LLVMExecutableModel_1a1e6a278aab70c122142d035d421bd7ff" prot="public" virt="virtual"><scope>rrllvm::LLVMExecutableModel</scope><name>getGlobalParameterId</name></member>
+      <member refid="classrrllvm_1_1LLVMExecutableModel_1a47c44c1deb69436166ebedf24130182a" prot="public" virt="virtual"><scope>rrllvm::LLVMExecutableModel</scope><name>getGlobalParameterIndex</name></member>
       <member refid="classrrllvm_1_1LLVMExecutableModel_1a6da2e16382e490ca7d7858d07e24fd54" prot="private" virt="non-virtual"><scope>rrllvm::LLVMExecutableModel</scope><name>getGlobalParameterInitValuePtr</name></member>
       <member refid="classrrllvm_1_1LLVMExecutableModel_1a22fb361bb1ca724923fc67b160e73c2f" prot="public" virt="virtual"><scope>rrllvm::LLVMExecutableModel</scope><name>getGlobalParameterInitValues</name></member>
       <member refid="classrrllvm_1_1LLVMExecutableModel_1a5ad98a2e0c07851cbd7b1d3adb3b747d" prot="private" virt="non-virtual"><scope>rrllvm::LLVMExecutableModel</scope><name>getGlobalParameterPtr</name></member>
       <member refid="classrrllvm_1_1LLVMExecutableModel_1a7326ff8b52c44cc6ebe88bad8495f175" prot="public" virt="virtual"><scope>rrllvm::LLVMExecutableModel</scope><name>getGlobalParameterValues</name></member>
       <member refid="classrrllvm_1_1LLVMExecutableModel_1aeede1447cf35aa59a2efc4ae8973924b" prot="public" virt="virtual"><scope>rrllvm::LLVMExecutableModel</scope><name>getIds</name></member>
-      <member refid="classrrllvm_1_1LLVMExecutableModel_1a284b1d74818ce6934d7e914b2ddd0469" prot="public" virt="virtual"><scope>rrllvm::LLVMExecutableModel</scope><name>getInfo</name></member>
-      <member refid="classrrllvm_1_1LLVMExecutableModel_1ae1a203ae31724ca175835507c43e8639" prot="public" virt="virtual"><scope>rrllvm::LLVMExecutableModel</scope><name>getModelName</name></member>
-      <member refid="classrrllvm_1_1LLVMExecutableModel_1a09e0c1280a4b8f980edbd6bf9ca2e24c" prot="private" virt="non-virtual"><scope>rrllvm::LLVMExecutableModel</scope><name>GetNameFuncPtr</name></member>
+      <member refid="classrrllvm_1_1LLVMExecutableModel_1afcdb25e60f4e4b9b0269055cdef0cc72" prot="public" virt="virtual"><scope>rrllvm::LLVMExecutableModel</scope><name>getInfo</name></member>
+      <member refid="classrrllvm_1_1LLVMExecutableModel_1a27354715e74d4d66197f17646150ff8f" prot="public" virt="virtual"><scope>rrllvm::LLVMExecutableModel</scope><name>getModelName</name></member>
+      <member refid="classrrllvm_1_1LLVMExecutableModel_1a64525988662595be2994dbe522b53f14" prot="private" virt="non-virtual"><scope>rrllvm::LLVMExecutableModel</scope><name>GetNameFuncPtr</name></member>
       <member refid="classrrllvm_1_1LLVMExecutableModel_1ad075c63302eeb30e11c138184c0d0e3a" prot="public" virt="virtual"><scope>rrllvm::LLVMExecutableModel</scope><name>getNextPendingEventTime</name></member>
       <member refid="classrrllvm_1_1LLVMExecutableModel_1ace107b09d4c39196136a7827a9a267c1" prot="public" virt="virtual"><scope>rrllvm::LLVMExecutableModel</scope><name>getNumBoundarySpecies</name></member>
       <member refid="classrrllvm_1_1LLVMExecutableModel_1a04c95301ef203d73dd3fb3717db10df1" prot="public" virt="virtual"><scope>rrllvm::LLVMExecutableModel</scope><name>getNumCompartments</name></member>
@@ -3465,9 +3471,8 @@
       <member refid="classrrllvm_1_1LLVMExecutableModel_1a8713add3c03f6f8c95bc533d2b4bbca9" prot="public" virt="non-virtual"><scope>rrllvm::LLVMExecutableModel</scope><name>getRateRueRates</name></member>
       <member refid="classrrllvm_1_1LLVMExecutableModel_1a1b73548f88c353066c8758ac671e29f9" prot="public" virt="virtual"><scope>rrllvm::LLVMExecutableModel</scope><name>getRateRuleSymbols</name></member>
       <member refid="classrrllvm_1_1LLVMExecutableModel_1adfe1a7598ad23c18db90c3fcfe708d5e" prot="public" virt="virtual"><scope>rrllvm::LLVMExecutableModel</scope><name>getRateRuleValues</name></member>
-      <member refid="classrrllvm_1_1LLVMExecutableModel_1a3145d2fcb796185f968430b56152d7c5" prot="public" virt="virtual"><scope>rrllvm::LLVMExecutableModel</scope><name>getReactionId</name></member>
-      <member refid="classrrllvm_1_1LLVMExecutableModel_1a8d4e3a3d01162167cdd5fc828fba49f3" prot="public" virt="virtual"><scope>rrllvm::LLVMExecutableModel</scope><name>getReactionIndex</name></member>
-      <member refid="classrr_1_1ExecutableModel_1a86fe96598b06cee5ca9a28dfdfd9d437" prot="public" virt="pure-virtual" ambiguityscope="rr::ExecutableModel::"><scope>rrllvm::LLVMExecutableModel</scope><name>getReactionIndex</name></member>
+      <member refid="classrrllvm_1_1LLVMExecutableModel_1a7875eb127b74b89571e0551ab06bde7f" prot="public" virt="virtual"><scope>rrllvm::LLVMExecutableModel</scope><name>getReactionId</name></member>
+      <member refid="classrrllvm_1_1LLVMExecutableModel_1a979920ccd4f05575fe872a50dc4b368c" prot="public" virt="virtual"><scope>rrllvm::LLVMExecutableModel</scope><name>getReactionIndex</name></member>
       <member refid="classrrllvm_1_1LLVMExecutableModel_1abdd14f103eb20ad8a4b5d5c89750f85b" prot="public" virt="virtual"><scope>rrllvm::LLVMExecutableModel</scope><name>getReactionRates</name></member>
       <member refid="classrrllvm_1_1LLVMExecutableModel_1ace4d93f759c326c498bef3cdf2cf2b4b" prot="private" virt="non-virtual"><scope>rrllvm::LLVMExecutableModel</scope><name>getSelection</name></member>
       <member refid="classrrllvm_1_1LLVMExecutableModel_1a1bab14a8a11c8fe0e23521e107105447" prot="public" virt="virtual"><scope>rrllvm::LLVMExecutableModel</scope><name>getStateVector</name></member>
@@ -3481,7 +3486,7 @@
       <member refid="classrrllvm_1_1LLVMExecutableModel_1ad7fb31b5ee198e288b854824e3b2fb2c" prot="private" virt="non-virtual"><scope>rrllvm::LLVMExecutableModel</scope><name>getValues</name></member>
       <member refid="classrr_1_1ExecutableModel_1a0503ffbf5c6c971cf545d7570ec0404ca389fbe7a44e9cb64d2e16415cd08554f" prot="public" virt="non-virtual"><scope>rrllvm::LLVMExecutableModel</scope><name>INTEGRATION</name></member>
       <member refid="classrrllvm_1_1LLVMExecutableModel_1ad8437a480693ed8c0b2b44327264117b" prot="public" virt="non-virtual"><scope>rrllvm::LLVMExecutableModel</scope><name>LLVMExecutableModel</name></member>
-      <member refid="classrrllvm_1_1LLVMExecutableModel_1a3a11e694d916b2aae56c6c1054e3395c" prot="public" virt="non-virtual"><scope>rrllvm::LLVMExecutableModel</scope><name>LLVMExecutableModel</name></member>
+      <member refid="classrrllvm_1_1LLVMExecutableModel_1a9ac85749972d3686bd4145552b06b974" prot="public" virt="non-virtual"><scope>rrllvm::LLVMExecutableModel</scope><name>LLVMExecutableModel</name></member>
       <member refid="classrrllvm_1_1LLVMExecutableModel_1afe9d85e99b293a7e401d36a7dfc99a16" prot="public" virt="non-virtual"><scope>rrllvm::LLVMExecutableModel</scope><name>LLVMExecutableModel</name></member>
       <member refid="classrrllvm_1_1LLVMExecutableModel_1a91399f39aa048e8c3aa1ced8feead859" prot="private" virt="non-virtual"><scope>rrllvm::LLVMExecutableModel</scope><name>LLVMModelGenerator</name></member>
       <member refid="classrrllvm_1_1LLVMExecutableModel_1a1078c3029d7dcf938835c14cb3416a43" prot="private" virt="non-virtual"><scope>rrllvm::LLVMExecutableModel</scope><name>modelData</name></member>

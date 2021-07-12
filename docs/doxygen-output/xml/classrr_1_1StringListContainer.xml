@@ -3,9 +3,9 @@
   <compounddef id="classrr_1_1StringListContainer" kind="class" language="C++" prot="public">
     <compoundname>rr::StringListContainer</compoundname>
       <sectiondef kind="protected-attrib">
-      <memberdef kind="variable" id="classrr_1_1StringListContainer_1a2ef3db4260313525c3ffef3dc8b3d6ce" prot="protected" static="no" mutable="no">
-        <type>vector&lt; <ref refid="classrr_1_1StringList" kindref="compound">StringList</ref> &gt;</type>
-        <definition>vector&lt;StringList&gt; rr::StringListContainer::mContainer</definition>
+      <memberdef kind="variable" id="classrr_1_1StringListContainer_1a595210e8a891bf29e16c04f070ab724c" prot="protected" static="no" mutable="no">
+        <type>std::vector&lt; <ref refid="classrr_1_1StringList" kindref="compound">StringList</ref> &gt;</type>
+        <definition>std::vector&lt;StringList&gt; rr::StringListContainer::mContainer</definition>
         <argsstring></argsstring>
         <name>mContainer</name>
         <briefdescription>
@@ -14,7 +14,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="c/rrStringListContainer.h" line="20" column="29" bodyfile="c/rrStringListContainer.h" bodystart="20" bodyend="-1"/>
+        <location file="c/rrStringListContainer.h" line="20" column="34" bodyfile="c/rrStringListContainer.h" bodystart="20" bodyend="-1"/>
       </memberdef>
       </sectiondef>
       <sectiondef kind="public-func">
@@ -31,13 +31,13 @@
         </inbodydescription>
         <location file="c/rrStringListContainer.h" line="23" column="41" bodyfile="c/rrStringListContainer.cpp" bodystart="10" bodyend="12"/>
       </memberdef>
-      <memberdef kind="function" id="classrr_1_1StringListContainer_1ace1c66380039e931b35d65fa8b21b9f0" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+      <memberdef kind="function" id="classrr_1_1StringListContainer_1a944208260c9eaa119f4484b1bea32b12" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
         <type></type>
         <definition>rr::StringListContainer::StringListContainer</definition>
-        <argsstring>(const string &amp;lbl, const StringListContainer &amp;cp)</argsstring>
+        <argsstring>(const std::string &amp;lbl, const StringListContainer &amp;cp)</argsstring>
         <name>StringListContainer</name>
         <param>
-          <type>const string &amp;</type>
+          <type>const std::string &amp;</type>
           <declname>lbl</declname>
         </param>
         <param>
@@ -120,13 +120,13 @@
         </inbodydescription>
         <location file="c/rrStringListContainer.h" line="28" column="41" bodyfile="c/rrStringListContainer.cpp" bodystart="77" bodyend="85"/>
       </memberdef>
-      <memberdef kind="function" id="classrr_1_1StringListContainer_1a3c85610f5edf18cd4b7374dde7c3d23d" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+      <memberdef kind="function" id="classrr_1_1StringListContainer_1a0f65d3f1568d4f666988ffd7a3eb2d30" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
         <type>void</type>
         <definition>void rr::StringListContainer::Add</definition>
-        <argsstring>(const string &amp;listName, const StringList &amp;coll)</argsstring>
+        <argsstring>(const std::string &amp;listName, const StringList &amp;coll)</argsstring>
         <name>Add</name>
         <param>
-          <type>const string &amp;</type>
+          <type>const std::string &amp;</type>
           <declname>listName</declname>
         </param>
         <param>
@@ -158,13 +158,13 @@
         </inbodydescription>
         <location file="c/rrStringListContainer.h" line="30" column="41" bodyfile="c/rrStringListContainer.cpp" bodystart="87" bodyend="90"/>
       </memberdef>
-      <memberdef kind="function" id="classrr_1_1StringListContainer_1a8d577a9d7eeabe3dd893948e525dd363" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+      <memberdef kind="function" id="classrr_1_1StringListContainer_1a2be252167360dd62024dc19dbf5c56dc" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
         <type>void</type>
         <definition>void rr::StringListContainer::Add</definition>
-        <argsstring>(const string &amp;coll)</argsstring>
+        <argsstring>(const std::string &amp;coll)</argsstring>
         <name>Add</name>
         <param>
-          <type>const string &amp;</type>
+          <type>const std::string &amp;</type>
           <declname>coll</declname>
         </param>
         <briefdescription>
@@ -265,9 +265,9 @@
         </inbodydescription>
         <location file="c/rrStringListContainer.h" line="37" column="40" bodyfile="c/rrStringListContainer.cpp" bodystart="56" bodyend="59"/>
       </memberdef>
-      <memberdef kind="function" id="classrr_1_1StringListContainer_1aea2d1b681381efc71b21eeb425ac1279" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
-        <type>vector&lt; <ref refid="classrr_1_1StringList" kindref="compound">StringList</ref> &gt;::iterator</type>
-        <definition>vector&lt; StringList &gt;::iterator rr::StringListContainer::begin</definition>
+      <memberdef kind="function" id="classrr_1_1StringListContainer_1ae14f081f5c0f54771b45e7e7d47462a3" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>std::vector&lt; <ref refid="classrr_1_1StringList" kindref="compound">StringList</ref> &gt;::iterator</type>
+        <definition>std::vector&lt; StringList &gt;::iterator rr::StringListContainer::begin</definition>
         <argsstring>()</argsstring>
         <name>begin</name>
         <briefdescription>
@@ -276,11 +276,11 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="c/rrStringListContainer.h" line="38" column="30" bodyfile="c/rrStringListContainer.cpp" bodystart="61" bodyend="64"/>
+        <location file="c/rrStringListContainer.h" line="38" column="35" bodyfile="c/rrStringListContainer.cpp" bodystart="61" bodyend="64"/>
       </memberdef>
-      <memberdef kind="function" id="classrr_1_1StringListContainer_1a4b127b80234153b06e6a583d1109b185" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
-        <type>vector&lt; <ref refid="classrr_1_1StringList" kindref="compound">StringList</ref> &gt;::iterator</type>
-        <definition>vector&lt; StringList &gt;::iterator rr::StringListContainer::end</definition>
+      <memberdef kind="function" id="classrr_1_1StringListContainer_1a43e2d0a8c66273b02b2314cf80a3f521" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>std::vector&lt; <ref refid="classrr_1_1StringList" kindref="compound">StringList</ref> &gt;::iterator</type>
+        <definition>std::vector&lt; StringList &gt;::iterator rr::StringListContainer::end</definition>
         <argsstring>()</argsstring>
         <name>end</name>
         <briefdescription>
@@ -289,42 +289,30 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="c/rrStringListContainer.h" line="39" column="30" bodyfile="c/rrStringListContainer.cpp" bodystart="66" bodyend="69"/>
+        <location file="c/rrStringListContainer.h" line="39" column="35" bodyfile="c/rrStringListContainer.cpp" bodystart="66" bodyend="69"/>
       </memberdef>
       </sectiondef>
     <briefdescription>
     </briefdescription>
     <detaileddescription>
     </detaileddescription>
-    <collaborationgraph>
-      <node id="2">
-        <label>vector&lt; rr::StringList &gt;</label>
-      </node>
-      <node id="1">
-        <label>rr::StringListContainer</label>
-        <link refid="classrr_1_1StringListContainer"/>
-        <childnode refid="2" relation="usage">
-          <edgelabel>mContainer</edgelabel>
-        </childnode>
-      </node>
-    </collaborationgraph>
     <location file="c/rrStringListContainer.h" line="17" column="1" bodyfile="c/rrStringListContainer.h" bodystart="18" bodyend="40"/>
     <listofallmembers>
       <member refid="classrr_1_1StringListContainer_1a9dc950c03d0651773239a946a1b9b56d" prot="public" virt="non-virtual"><scope>rr::StringListContainer</scope><name>Add</name></member>
-      <member refid="classrr_1_1StringListContainer_1a3c85610f5edf18cd4b7374dde7c3d23d" prot="public" virt="non-virtual"><scope>rr::StringListContainer</scope><name>Add</name></member>
+      <member refid="classrr_1_1StringListContainer_1a0f65d3f1568d4f666988ffd7a3eb2d30" prot="public" virt="non-virtual"><scope>rr::StringListContainer</scope><name>Add</name></member>
       <member refid="classrr_1_1StringListContainer_1a56f973d2d901409d27b88185cff068f0" prot="public" virt="non-virtual"><scope>rr::StringListContainer</scope><name>Add</name></member>
-      <member refid="classrr_1_1StringListContainer_1a8d577a9d7eeabe3dd893948e525dd363" prot="public" virt="non-virtual"><scope>rr::StringListContainer</scope><name>Add</name></member>
+      <member refid="classrr_1_1StringListContainer_1a2be252167360dd62024dc19dbf5c56dc" prot="public" virt="non-virtual"><scope>rr::StringListContainer</scope><name>Add</name></member>
       <member refid="classrr_1_1StringListContainer_1a1a6199853a60571a6636a35eae8c83fd" prot="public" virt="non-virtual"><scope>rr::StringListContainer</scope><name>Add</name></member>
-      <member refid="classrr_1_1StringListContainer_1aea2d1b681381efc71b21eeb425ac1279" prot="public" virt="non-virtual"><scope>rr::StringListContainer</scope><name>begin</name></member>
+      <member refid="classrr_1_1StringListContainer_1ae14f081f5c0f54771b45e7e7d47462a3" prot="public" virt="non-virtual"><scope>rr::StringListContainer</scope><name>begin</name></member>
       <member refid="classrr_1_1StringListContainer_1a9fbfcceda151e6129dd79ca5899151ec" prot="public" virt="non-virtual"><scope>rr::StringListContainer</scope><name>Count</name></member>
-      <member refid="classrr_1_1StringListContainer_1a4b127b80234153b06e6a583d1109b185" prot="public" virt="non-virtual"><scope>rr::StringListContainer</scope><name>end</name></member>
+      <member refid="classrr_1_1StringListContainer_1a43e2d0a8c66273b02b2314cf80a3f521" prot="public" virt="non-virtual"><scope>rr::StringListContainer</scope><name>end</name></member>
       <member refid="classrr_1_1StringListContainer_1ae0a4861918f40c5ee6cbf9275e60d7c8" prot="public" virt="non-virtual"><scope>rr::StringListContainer</scope><name>ListCount</name></member>
-      <member refid="classrr_1_1StringListContainer_1a2ef3db4260313525c3ffef3dc8b3d6ce" prot="protected" virt="non-virtual"><scope>rr::StringListContainer</scope><name>mContainer</name></member>
+      <member refid="classrr_1_1StringListContainer_1a595210e8a891bf29e16c04f070ab724c" prot="protected" virt="non-virtual"><scope>rr::StringListContainer</scope><name>mContainer</name></member>
       <member refid="classrr_1_1StringListContainer_1a37fb9e1bd6498fdce821b6641d111293" prot="public" virt="non-virtual"><scope>rr::StringListContainer</scope><name>operator=</name></member>
       <member refid="classrr_1_1StringListContainer_1ae6b288dbbde7b6a71db453fabdd13e3a" prot="public" virt="non-virtual"><scope>rr::StringListContainer</scope><name>operator[]</name></member>
       <member refid="classrr_1_1StringListContainer_1ae0663dbfdcebf2083e5e6217fdd3884d" prot="public" virt="non-virtual"><scope>rr::StringListContainer</scope><name>operator[]</name></member>
       <member refid="classrr_1_1StringListContainer_1a5434b614bd11d6f97ce8c850aff121f8" prot="public" virt="non-virtual"><scope>rr::StringListContainer</scope><name>StringListContainer</name></member>
-      <member refid="classrr_1_1StringListContainer_1ace1c66380039e931b35d65fa8b21b9f0" prot="public" virt="non-virtual"><scope>rr::StringListContainer</scope><name>StringListContainer</name></member>
+      <member refid="classrr_1_1StringListContainer_1a944208260c9eaa119f4484b1bea32b12" prot="public" virt="non-virtual"><scope>rr::StringListContainer</scope><name>StringListContainer</name></member>
       <member refid="classrr_1_1StringListContainer_1a10145cd42d7bbdb1fd272bde47eaaa92" prot="public" virt="non-virtual"><scope>rr::StringListContainer</scope><name>StringListContainer</name></member>
       <member refid="classrr_1_1StringListContainer_1a85c0c5019bb6e2fad4cb6ea2e1086b3c" prot="public" virt="non-virtual"><scope>rr::StringListContainer</scope><name>StringListContainer</name></member>
       <member refid="classrr_1_1StringListContainer_1a7017ff52273bc5e0fa23b621b6235080" prot="public" virt="non-virtual"><scope>rr::StringListContainer</scope><name>TotalCount</name></member>

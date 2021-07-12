@@ -22,7 +22,7 @@
  <tr style="height: 56px;">
   <td id="projectalign" style="padding-left: 0.5em;">
    <div id="projectname">roadrunner
-   &#160;<span id="projectnumber">2.0.5</span>
+   &#160;<span id="projectnumber">2.0.8</span>
    </div>
    <div id="projectbrief">Fast simulator for SBML models</div>
   </td>
@@ -75,7 +75,7 @@ $(function() {
 </div><!--header-->
 <div class="contents">
 
-<p>Read an sbml document from either disk, a remote url, or as a string.  
+<p>Read an sbml document from either disk, a remote url, or as a std::string.  
  <a href="classrr_1_1SBMLReader.html#details">More...</a></p>
 
 <p><code>#include &lt;<a class="el" href="rrSBMLReader_8h_source.html">rrSBMLReader.h</a>&gt;</code></p>
@@ -83,15 +83,15 @@ $(function() {
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pub-static-methods"></a>
 Static Public Member Functions</h2></td></tr>
 <tr class="memitem:a44068da2706c5ee19f091b5c81def54c"><td class="memItemLeft" align="right" valign="top">static std::string&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classrr_1_1SBMLReader.html#a44068da2706c5ee19f091b5c81def54c">read</a> (const std::string &amp;sbml_or_uri)</td></tr>
-<tr class="memdesc:a44068da2706c5ee19f091b5c81def54c"><td class="mdescLeft">&#160;</td><td class="mdescRight">read an SBML document from a local file path, a remote URI, or directlly from a sbml string.  <a href="classrr_1_1SBMLReader.html#a44068da2706c5ee19f091b5c81def54c">More...</a><br /></td></tr>
+<tr class="memdesc:a44068da2706c5ee19f091b5c81def54c"><td class="mdescLeft">&#160;</td><td class="mdescRight">read an SBML document from a local file path, a remote URI, or directlly from a sbml std::string.  <a href="classrr_1_1SBMLReader.html#a44068da2706c5ee19f091b5c81def54c">More...</a><br /></td></tr>
 <tr class="separator:a44068da2706c5ee19f091b5c81def54c"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a54b61d2e7ddf0da6646c3936ad548df3"><td class="memItemLeft" align="right" valign="top">static bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classrr_1_1SBMLReader.html#a54b61d2e7ddf0da6646c3936ad548df3">is_sbml</a> (const std::string &amp;str)</td></tr>
-<tr class="memdesc:a54b61d2e7ddf0da6646c3936ad548df3"><td class="mdescLeft">&#160;</td><td class="mdescRight">performs some basic checks to see if the string is an sbml string.  <a href="classrr_1_1SBMLReader.html#a54b61d2e7ddf0da6646c3936ad548df3">More...</a><br /></td></tr>
+<tr class="memdesc:a54b61d2e7ddf0da6646c3936ad548df3"><td class="mdescLeft">&#160;</td><td class="mdescRight">performs some basic checks to see if the std::string is an sbml std::string.  <a href="classrr_1_1SBMLReader.html#a54b61d2e7ddf0da6646c3936ad548df3">More...</a><br /></td></tr>
 <tr class="separator:a54b61d2e7ddf0da6646c3936ad548df3"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
-<div class="textblock"><p>Read an sbml document from either disk, a remote url, or as a string. </p>
-<p>This function will first try to iterperet the string as uri, if that fails, it will try as a local file path, and finally if that fails, it will treat the string as whole sbml document and return the string.</p>
+<div class="textblock"><p>Read an sbml document from either disk, a remote url, or as a std::string. </p>
+<p>This function will first try to iterperet the std::string as uri, if that fails, it will try as a local file path, and finally if that fails, it will treat the std::string as whole sbml document and return the std::string.</p>
 <p>This is simple enough that it should belong in <a class="el" href="classrr_1_1RoadRunner.html" title="The main RoadRunner class.">RoadRunner</a> proper, however we currently use Poco for reading http streams, and it seems to compilation issues if "windows.h" is included before, an evidently some other roadrunner file includes windows.h, so we put all of this here by itself we we can make sure that there is no nasty windows files included.</p>
 <p>also, we put it as a static class method because libSBML already uses 'readSBML' and we want to avoid namespace collisions. </p>
 </div><h2 class="groupheader">Member Function Documentation</h2>
@@ -119,8 +119,8 @@ Static Public Member Functions</h2></td></tr>
 </table>
 </div><div class="memdoc">
 
-<p>performs some basic checks to see if the string is an sbml string. </p>
-<p>This just checks the basic format and checks on characters that are not valid file path characters. So if this string matches this function, there should basically be no way that this is a valid path or uri. </p>
+<p>performs some basic checks to see if the std::string is an sbml std::string. </p>
+<p>This just checks the basic format and checks on characters that are not valid file path characters. So if this std::string matches this function, there should basically be no way that this is a valid path or uri. </p>
 
 </div>
 </div>
@@ -148,9 +148,9 @@ Static Public Member Functions</h2></td></tr>
 </table>
 </div><div class="memdoc">
 
-<p>read an SBML document from a local file path, a remote URI, or directlly from a sbml string. </p>
+<p>read an SBML document from a local file path, a remote URI, or directlly from a sbml std::string. </p>
 <p>If the document is a local file, and has the comp extension, it is automatically flattened before begin returned.</p>
-<p>If the string is already a SBML string, it is passed through. If the string is a local file or URI, the document is read from the source and the contents returned (and flattened if comp). </p>
+<p>If the std::string is already a SBML std::string, it is passed through. If the std::string is a local file or URI, the document is read from the source and the contents returned (and flattened if comp). </p>
 
 </div>
 </div>

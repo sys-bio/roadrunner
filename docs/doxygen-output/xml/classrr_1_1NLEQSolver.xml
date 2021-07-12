@@ -1,0 +1,231 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.20" xml:lang="en-US">
+  <compounddef id="classrr_1_1NLEQSolver" kind="class" language="C++" prot="public">
+    <compoundname>rr::NLEQSolver</compoundname>
+    <basecompoundref refid="classrr_1_1SteadyStateSolver" prot="public" virt="non-virtual">rr::SteadyStateSolver</basecompoundref>
+    <derivedcompoundref refid="classrr_1_1NLEQ1Solver" prot="public" virt="non-virtual">rr::NLEQ1Solver</derivedcompoundref>
+    <derivedcompoundref refid="classrr_1_1NLEQ2Solver" prot="public" virt="non-virtual">rr::NLEQ2Solver</derivedcompoundref>
+    <includes refid="NLEQSolver_8h" local="no">NLEQSolver.h</includes>
+      <sectiondef kind="public-func">
+      <memberdef kind="function" id="classrr_1_1NLEQSolver_1a285280e71f68f3bebf39eca43e4b16c5" prot="public" static="no" const="no" explicit="yes" inline="no" virt="non-virtual">
+        <type></type>
+        <definition>rr::NLEQSolver::NLEQSolver</definition>
+        <argsstring>(ExecutableModel *model)</argsstring>
+        <name>NLEQSolver</name>
+        <param>
+          <type><ref refid="classrr_1_1ExecutableModel" kindref="compound">ExecutableModel</ref> *</type>
+          <declname>model</declname>
+        </param>
+        <briefdescription>
+<para>Creates a new Instance of NLEQ for the given Model. </para>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="NLEQSolver.h" line="21" column="18" bodyfile="NLEQSolver.cpp" bodystart="11" bodyend="14"/>
+      </memberdef>
+      <memberdef kind="function" id="classrr_1_1NLEQSolver_1ad9e561a2e6127a33616a3dc4fb13b0e3" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type></type>
+        <definition>rr::NLEQSolver::~NLEQSolver</definition>
+        <argsstring>() override</argsstring>
+        <name>~NLEQSolver</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="NLEQSolver.h" line="23" column="9"/>
+      </memberdef>
+      <memberdef kind="function" id="classrr_1_1NLEQSolver_1a02142cf0c637815a33c754e8637fdb3f" prot="public" static="no" const="no" explicit="no" inline="no" virt="virtual">
+        <type>void</type>
+        <definition>void rr::NLEQSolver::syncWithModel</definition>
+        <argsstring>(ExecutableModel *m) override</argsstring>
+        <name>syncWithModel</name>
+        <reimplements refid="classrr_1_1SteadyStateSolver_1ac69478bcf73ab02178b001250293c4c9">syncWithModel</reimplements>
+        <param>
+          <type><ref refid="classrr_1_1ExecutableModel" kindref="compound">ExecutableModel</ref> *</type>
+          <declname>m</declname>
+        </param>
+        <briefdescription>
+<para>Called whenever a new model is loaded to allow integrator to reset internal state. </para>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="NLEQSolver.h" line="29" column="14" bodyfile="NLEQSolver.cpp" bodystart="18" bodyend="20"/>
+      </memberdef>
+      <memberdef kind="function" id="classrr_1_1NLEQSolver_1af791dc24c5517ddd9c0684dbc17c43d2" prot="public" static="no" const="no" explicit="no" inline="no" virt="virtual">
+        <type>void</type>
+        <definition>void rr::NLEQSolver::loadConfigSettings</definition>
+        <argsstring>() override</argsstring>
+        <name>loadConfigSettings</name>
+        <reimplements refid="classrr_1_1SteadyStateSolver_1a613605d22b7da35a526473d107ca65bd">loadConfigSettings</reimplements>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="NLEQSolver.h" line="31" column="14" bodyfile="NLEQSolver.cpp" bodystart="22" bodyend="29"/>
+      </memberdef>
+      <memberdef kind="function" id="classrr_1_1NLEQSolver_1a73142505757b0b6363da15e2b937dd78" prot="public" static="no" const="no" explicit="no" inline="no" virt="virtual">
+        <type>void</type>
+        <definition>void rr::NLEQSolver::resetSettings</definition>
+        <argsstring>() override</argsstring>
+        <name>resetSettings</name>
+        <reimplements refid="classrr_1_1Solver_1a71c8b404a40447f879b2253e7dcc3b85">resetSettings</reimplements>
+        <briefdescription>
+<para>Reset all integrator settings to their respective default values. </para>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="NLEQSolver.h" line="36" column="14" bodyfile="NLEQSolver.cpp" bodystart="31" bodyend="52"/>
+      </memberdef>
+      <memberdef kind="function" id="classrr_1_1NLEQSolver_1ae8deaaf0ce433690e1facc32d00b6e91" prot="public" static="no" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <templateparamlist>
+          <param>
+            <type>class NLEQSolverType</type>
+          </param>
+        </templateparamlist>
+        <type>double</type>
+        <definition>double rr::NLEQSolver::solveNLEQ</definition>
+        <argsstring>()</argsstring>
+        <name>solveNLEQ</name>
+        <briefdescription>
+<para>main solver method. </para>
+        </briefdescription>
+        <detaileddescription>
+<para>NLEQ1 and NLEQ2 have the same interface, which means we only need 1 method for both. <parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>which</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>either &quot;nleq1&quot; or &quot;nleq2&quot; </para>
+</parameterdescription>
+</parameteritem>
+</parameterlist>
+</para>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="NLEQSolver.h" line="45" column="16" bodyfile="NLEQSolver.h" bodystart="45" bodyend="65"/>
+      </memberdef>
+      </sectiondef>
+    <briefdescription>
+<para>Base class for NLEQ type steady state solvers. </para>
+    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <inheritancegraph>
+      <node id="5">
+        <label>rr::NLEQ2Solver</label>
+        <link refid="classrr_1_1NLEQ2Solver"/>
+        <childnode refid="1" relation="public-inheritance">
+        </childnode>
+      </node>
+      <node id="1">
+        <label>rr::NLEQSolver</label>
+        <link refid="classrr_1_1NLEQSolver"/>
+        <childnode refid="2" relation="public-inheritance">
+        </childnode>
+      </node>
+      <node id="2">
+        <label>rr::SteadyStateSolver</label>
+        <link refid="classrr_1_1SteadyStateSolver"/>
+        <childnode refid="3" relation="public-inheritance">
+        </childnode>
+      </node>
+      <node id="3">
+        <label>rr::Solver</label>
+        <link refid="classrr_1_1Solver"/>
+      </node>
+      <node id="4">
+        <label>rr::NLEQ1Solver</label>
+        <link refid="classrr_1_1NLEQ1Solver"/>
+        <childnode refid="1" relation="public-inheritance">
+        </childnode>
+      </node>
+    </inheritancegraph>
+    <collaborationgraph>
+      <node id="1">
+        <label>rr::NLEQSolver</label>
+        <link refid="classrr_1_1NLEQSolver"/>
+        <childnode refid="2" relation="public-inheritance">
+        </childnode>
+      </node>
+      <node id="2">
+        <label>rr::SteadyStateSolver</label>
+        <link refid="classrr_1_1SteadyStateSolver"/>
+        <childnode refid="3" relation="public-inheritance">
+        </childnode>
+      </node>
+      <node id="3">
+        <label>rr::Solver</label>
+        <link refid="classrr_1_1Solver"/>
+        <childnode refid="4" relation="usage">
+          <edgelabel>mModel</edgelabel>
+        </childnode>
+      </node>
+      <node id="4">
+        <label>rr::ExecutableModel</label>
+        <link refid="classrr_1_1ExecutableModel"/>
+      </node>
+    </collaborationgraph>
+    <location file="NLEQSolver.h" line="16" column="5" bodyfile="NLEQSolver.h" bodystart="16" bodyend="67"/>
+    <listofallmembers>
+      <member refid="classrr_1_1Solver_1ad5b8ac1ef687d1a3c9f1f305cb73804d" prot="protected" virt="non-virtual"><scope>rr::NLEQSolver</scope><name>addSetting</name></member>
+      <member refid="classrr_1_1Solver_1a7d58e224664ab44e56f90802d9601f01" prot="protected" virt="non-virtual"><scope>rr::NLEQSolver</scope><name>DescriptionMap</name></member>
+      <member refid="classrr_1_1Solver_1a7e07121f652db358045d6f7b95889ea3" prot="protected" virt="non-virtual"><scope>rr::NLEQSolver</scope><name>descriptions</name></member>
+      <member refid="classrr_1_1Solver_1a199de66231b25fef30d8ef2bdff80db7" prot="protected" virt="non-virtual"><scope>rr::NLEQSolver</scope><name>display_names_</name></member>
+      <member refid="classrr_1_1Solver_1a76b76c8ba3a31a2c6a600322c90a0452" prot="protected" virt="non-virtual"><scope>rr::NLEQSolver</scope><name>DisplayNameMap</name></member>
+      <member refid="classrr_1_1Solver_1a86067147c7631ca80d51667322f1a8f5" prot="public" virt="pure-virtual"><scope>rr::NLEQSolver</scope><name>getDescription</name></member>
+      <member refid="classrr_1_1Solver_1a522a881e88165986944db55a8f2da845" prot="public" virt="non-virtual"><scope>rr::NLEQSolver</scope><name>getDescription</name></member>
+      <member refid="classrr_1_1Solver_1a1fce02df70c95855d9d3cd7e3d352c08" prot="public" virt="non-virtual"><scope>rr::NLEQSolver</scope><name>getDisplayName</name></member>
+      <member refid="classrr_1_1Solver_1aff005f7e71bc73123ecbd511a77f71b6" prot="public" virt="pure-virtual"><scope>rr::NLEQSolver</scope><name>getHint</name></member>
+      <member refid="classrr_1_1Solver_1a4915611d49d03f0fe499bed99a05aae1" prot="public" virt="non-virtual"><scope>rr::NLEQSolver</scope><name>getHint</name></member>
+      <member refid="classrr_1_1Solver_1ac89194d54aaad3ecc71e1cfbbef83d15" prot="public" virt="virtual"><scope>rr::NLEQSolver</scope><name>getModel</name></member>
+      <member refid="classrr_1_1Solver_1a417cca64a18c63535f2091584f8fed91" prot="public" virt="pure-virtual"><scope>rr::NLEQSolver</scope><name>getName</name></member>
+      <member refid="classrr_1_1Solver_1abbefd0f38dfa2651c74f8abbd6d7b143" prot="public" virt="virtual"><scope>rr::NLEQSolver</scope><name>getNumParams</name></member>
+      <member refid="classrr_1_1Solver_1aa13e13a92531fde27fe5711790eee0f7" prot="public" virt="virtual"><scope>rr::NLEQSolver</scope><name>getParamDesc</name></member>
+      <member refid="classrr_1_1Solver_1afc0a667f204105aa133376144ce14c75" prot="public" virt="virtual"><scope>rr::NLEQSolver</scope><name>getParamDisplayName</name></member>
+      <member refid="classrr_1_1Solver_1aa604b810ab3f1a2c8bc6dfa6fc731dc2" prot="public" virt="virtual"><scope>rr::NLEQSolver</scope><name>getParamHint</name></member>
+      <member refid="classrr_1_1Solver_1ae2bb88ffce40a0136c86a020b4c39037" prot="public" virt="virtual"><scope>rr::NLEQSolver</scope><name>getParamName</name></member>
+      <member refid="classrr_1_1Solver_1ae2b13c6ae06980b14a80e8a32766dcfa" prot="public" virt="non-virtual"><scope>rr::NLEQSolver</scope><name>getSettings</name></member>
+      <member refid="classrr_1_1Solver_1a925e4dae5c4e3e71a2983dc58af9e550" prot="public" virt="non-virtual"><scope>rr::NLEQSolver</scope><name>getSettingsMap</name></member>
+      <member refid="classrr_1_1Solver_1a3f7a3671a4f2ee508fa015ed4b164213" prot="public" virt="virtual"><scope>rr::NLEQSolver</scope><name>getSettingsRepr</name></member>
+      <member refid="classrr_1_1Solver_1a0bd064d494a0701edffca5eb67b64b2a" prot="public" virt="non-virtual"><scope>rr::NLEQSolver</scope><name>getType</name></member>
+      <member refid="classrr_1_1Solver_1a87339915a211b22ecd63078bb1cb7ca9" prot="public" virt="virtual"><scope>rr::NLEQSolver</scope><name>getValue</name></member>
+      <member refid="classrr_1_1Solver_1a83b99af970b895d62998bf90ec619168" prot="public" virt="virtual"><scope>rr::NLEQSolver</scope><name>getValueAsString</name></member>
+      <member refid="classrr_1_1Solver_1afc1e25855220cbe469433c70f8c44ea5" prot="public" virt="virtual"><scope>rr::NLEQSolver</scope><name>hasValue</name></member>
+      <member refid="classrr_1_1Solver_1ac39f2073d482cdf591d93415557c6751" prot="protected" virt="non-virtual"><scope>rr::NLEQSolver</scope><name>HintMap</name></member>
+      <member refid="classrr_1_1Solver_1a39049af7a03fd00b1021c1ce9a9691fc" prot="protected" virt="non-virtual"><scope>rr::NLEQSolver</scope><name>hints</name></member>
+      <member refid="classrr_1_1NLEQSolver_1af791dc24c5517ddd9c0684dbc17c43d2" prot="public" virt="virtual"><scope>rr::NLEQSolver</scope><name>loadConfigSettings</name></member>
+      <member refid="classrr_1_1Solver_1ab60e7640a8c959558a144d9d7ee45515" prot="protected" virt="non-virtual"><scope>rr::NLEQSolver</scope><name>mModel</name></member>
+      <member refid="classrr_1_1NLEQSolver_1a285280e71f68f3bebf39eca43e4b16c5" prot="public" virt="non-virtual"><scope>rr::NLEQSolver</scope><name>NLEQSolver</name></member>
+      <member refid="classrr_1_1NLEQSolver_1a73142505757b0b6363da15e2b937dd78" prot="public" virt="virtual"><scope>rr::NLEQSolver</scope><name>resetSettings</name></member>
+      <member refid="classrr_1_1Solver_1a44a22cf0edead17a9cc923d87dcc063e" prot="protected" virt="non-virtual"><scope>rr::NLEQSolver</scope><name>settings</name></member>
+      <member refid="classrr_1_1Solver_1adcbacd57e2871a83bb9c4d7a4038a069" prot="protected" virt="non-virtual"><scope>rr::NLEQSolver</scope><name>SettingsList</name></member>
+      <member refid="classrr_1_1Solver_1a61c0fd04ad69fc173c51dac3bdde2431" prot="protected" virt="non-virtual"><scope>rr::NLEQSolver</scope><name>SettingsMap</name></member>
+      <member refid="classrr_1_1Solver_1a37b032d8755eaccd3480531bdc2a4596" prot="public" virt="virtual"><scope>rr::NLEQSolver</scope><name>settingsPyDictRepr</name></member>
+      <member refid="classrr_1_1Solver_1a18fa004a818506c15d47fa28015039c6" prot="public" virt="virtual"><scope>rr::NLEQSolver</scope><name>setValue</name></member>
+      <member refid="classrr_1_1SteadyStateSolver_1ae7ef6c028ac70664cb37c2cb69e546a2" prot="public" virt="pure-virtual"><scope>rr::NLEQSolver</scope><name>solve</name></member>
+      <member refid="classrr_1_1NLEQSolver_1ae8deaaf0ce433690e1facc32d00b6e91" prot="public" virt="non-virtual"><scope>rr::NLEQSolver</scope><name>solveNLEQ</name></member>
+      <member refid="classrr_1_1SteadyStateSolver_1a04bba4a342cc7197750f080d41d439e5" prot="public" virt="non-virtual"><scope>rr::NLEQSolver</scope><name>Solver</name></member>
+      <member refid="classrr_1_1SteadyStateSolver_1aa0a07553e368f0be33b9bfc429782a97" prot="public" virt="non-virtual"><scope>rr::NLEQSolver</scope><name>Solver</name></member>
+      <member refid="classrr_1_1Solver_1aa0a07553e368f0be33b9bfc429782a97" prot="public" virt="non-virtual" ambiguityscope="rr::Solver::"><scope>rr::NLEQSolver</scope><name>Solver</name></member>
+      <member refid="classrr_1_1Solver_1a99f48947491d7cd36c68cebba53915fe" prot="protected" virt="non-virtual"><scope>rr::NLEQSolver</scope><name>sorted_settings</name></member>
+      <member refid="classrr_1_1NLEQSolver_1a02142cf0c637815a33c754e8637fdb3f" prot="public" virt="virtual"><scope>rr::NLEQSolver</scope><name>syncWithModel</name></member>
+      <member refid="classrr_1_1SteadyStateSolver_1a4307ed20fd04adf61cc8b4ef9a88f747" prot="public" virt="virtual"><scope>rr::NLEQSolver</scope><name>toRepr</name></member>
+      <member refid="classrr_1_1SteadyStateSolver_1aaf40e2ae58d2f4fef80a00f5bb7fd413" prot="public" virt="virtual"><scope>rr::NLEQSolver</scope><name>toString</name></member>
+      <member refid="classrr_1_1Solver_1a19315632eeab070bdbfe2fa4ae66ca6c" prot="public" virt="non-virtual"><scope>rr::NLEQSolver</scope><name>updateSettings</name></member>
+      <member refid="classrr_1_1NLEQSolver_1ad9e561a2e6127a33616a3dc4fb13b0e3" prot="public" virt="non-virtual"><scope>rr::NLEQSolver</scope><name>~NLEQSolver</name></member>
+      <member refid="classrr_1_1Solver_1a0e6558e376aee7e4d3a9b69b8c3ae08b" prot="public" virt="virtual"><scope>rr::NLEQSolver</scope><name>~Solver</name></member>
+      <member refid="classrr_1_1SteadyStateSolver_1aaa617ea8e7cbbd464dd9ff44220c65d7" prot="public" virt="non-virtual"><scope>rr::NLEQSolver</scope><name>~SteadyStateSolver</name></member>
+    </listofallmembers>
+  </compounddef>
+</doxygen>

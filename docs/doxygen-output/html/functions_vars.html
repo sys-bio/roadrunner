@@ -22,7 +22,7 @@
  <tr style="height: 56px;">
   <td id="projectalign" style="padding-left: 0.5em;">
    <div id="projectname">roadrunner
-   &#160;<span id="projectnumber">2.0.5</span>
+   &#160;<span id="projectnumber">2.0.8</span>
    </div>
    <div id="projectbrief">Fast simulator for SBML models</div>
   </td>
@@ -87,7 +87,7 @@ $(function() {
 : <a class="el" href="structRRCData.html#a54acd2748775883500033984275be173">RRCData</a>
 </li>
 <li>compartmentName
-: <a class="el" href="classrr_1_1Symbol.html#a473a1eeae3075d253cbf831976f90e11">rr::Symbol</a>
+: <a class="el" href="classrr_1_1Symbol.html#aa7c4ca162218cc6c0babcc0423c8a42a">rr::Symbol</a>
 </li>
 <li>compartmentVolumesAlias
 : <a class="el" href="structrrllvm_1_1LLVMModelData.html#a82b40561feb7109b0d8cfa034f014e0c">rrllvm::LLVMModelData</a>
@@ -100,6 +100,9 @@ $(function() {
 </li>
 <li>configurationXML
 : <a class="el" href="classrr_1_1RoadRunnerImpl.html#ae22f2a7f705354d374d27a7fb51ff275">rr::RoadRunnerImpl</a>
+</li>
+<li>constraints
+: <a class="el" href="classrr_1_1KinsolSteadyStateSolver.html#a80807be1f440f524769e55568a3abcf2">rr::KinsolSteadyStateSolver</a>
 </li>
 <li>copy_result
 : <a class="el" href="classrr_1_1SimulateOptions.html#a93e8b08b6e526f96226333f83a1ac049">rr::SimulateOptions</a>
@@ -151,7 +154,7 @@ $(function() {
 
 <h3><a id="index_f"></a>- f -</h3><ul>
 <li>flags
-: <a class="el" href="structrr_1_1RoadRunnerOptions.html#a8ee2e8f6c5c3214f59de5cf773163702">rr::RoadRunnerOptions</a>
+: <a class="el" href="structrr_1_1RoadRunnerOptions.html#ab94c4174ca069bee6014b6bd909928d5">rr::RoadRunnerOptions</a>
 </li>
 <li>floatingSpeciesAmountRates
 : <a class="el" href="structrrllvm_1_1LLVMModelData.html#a466783f9f4d8c673d400024969195874">rrllvm::LLVMModelData</a>
@@ -173,7 +176,10 @@ $(function() {
 : <a class="el" href="structSModelData.html#ae4e81afd1488e40134882997b5229bff">SModelData</a>
 </li>
 <li>formula
-: <a class="el" href="classrr_1_1Symbol.html#af566d56893099e936a83fd3bd645a8fe">rr::Symbol</a>
+: <a class="el" href="classrr_1_1Symbol.html#a5dc5b3521e79140743854d80f85e44be">rr::Symbol</a>
+</li>
+<li>fscale
+: <a class="el" href="classrr_1_1KinsolSteadyStateSolver.html#ad3bc465ff768913724631e8d4daf62c1">rr::KinsolSteadyStateSolver</a>
 </li>
 <li>functionPassManager
 : <a class="el" href="classrrllvm_1_1CodeGenBase.html#addedde72248fde005bff3060843de531">rrllvm::CodeGenBase&lt; FunctionPtrType &gt;</a>
@@ -214,6 +220,9 @@ $(function() {
 
 
 <h3><a id="index_j"></a>- j -</h3><ul>
+<li>jac
+: <a class="el" href="classrr_1_1NewtonIteration.html#ad891d4df2058bfc69c879ba46d84e71b">rr::NewtonIteration</a>
+</li>
 <li>jacobianStepSize
 : <a class="el" href="structrr_1_1RoadRunnerOptions.html#a2d2fb9efd9f69c0ab754bba73e3f8a1c">rr::RoadRunnerOptions</a>
 </li>
@@ -222,12 +231,15 @@ $(function() {
 
 <h3><a id="index_k"></a>- k -</h3><ul>
 <li>keyName
-: <a class="el" href="classrr_1_1Symbol.html#a0339929a2864775ddcff335aa5f76fa1">rr::Symbol</a>
+: <a class="el" href="classrr_1_1Symbol.html#afdc5578a850e3cecf38341c296aa33e8">rr::Symbol</a>
 </li>
 </ul>
 
 
 <h3><a id="index_l"></a>- l -</h3><ul>
+<li>linearSolver
+: <a class="el" href="classrr_1_1NewtonIteration.html#afbdfd60977ad079dc27cdd282fdfc201">rr::NewtonIteration</a>
+</li>
 <li>loadOpt
 : <a class="el" href="classrr_1_1RoadRunnerImpl.html#a332b1440ab1affec5ffec18a290fca9d">rr::RoadRunnerImpl</a>
 </li>
@@ -271,14 +283,20 @@ $(function() {
 <li>mIsInitialized
 : <a class="el" href="classrr_1_1CompiledExecutableModel.html#a8a1e046aa716f81c30ebb4a8ffbd4a42">rr::CompiledExecutableModel</a>
 </li>
+<li>mKinsol_Memory
+: <a class="el" href="classrr_1_1KinsolSteadyStateSolver.html#a64033039dc53f114855985463ad108f6">rr::KinsolSteadyStateSolver</a>
+</li>
 <li>mLibStruct
 : <a class="el" href="classrr_1_1CompiledModelGenerator.html#af346298187993ac6d970c58f32a7af4f">rr::CompiledModelGenerator</a>
 </li>
 <li>mLS
 : <a class="el" href="classrr_1_1RoadRunnerImpl.html#ab6af7c33cd8ad65332a28acb6e221a18">rr::RoadRunnerImpl</a>
 </li>
+<li>mModel
+: <a class="el" href="classrr_1_1Solver.html#ab60e7640a8c959558a144d9d7ee45515">rr::Solver</a>
+</li>
 <li>mModelName
-: <a class="el" href="classrr_1_1ModelSymbols.html#a868750824ff39027f62a56d0e5ef1bd2">rr::ModelSymbols</a>
+: <a class="el" href="classrr_1_1ModelSymbols.html#a564366e8536f82ce79d7a8c518247b7b">rr::ModelSymbols</a>
 </li>
 <li>mName
 : <a class="el" href="classrr_1_1RoadRunnerData.html#a7381cafbd851a5646d8fd4985eeb5bd6">rr::RoadRunnerData</a>
@@ -298,6 +316,9 @@ $(function() {
 </li>
 <li>ms
 : <a class="el" href="classrr_1_1CompiledModelGenerator.html#aae0da14da795acd4122229c1b306c262">rr::CompiledModelGenerator</a>
+</li>
+<li>mStateVector
+: <a class="el" href="classrr_1_1KinsolSteadyStateSolver.html#a5f5802fe0c668fe5569bfb163748a621">rr::KinsolSteadyStateSolver</a>
 </li>
 <li>mTheData
 : <a class="el" href="classrr_1_1RoadRunnerData.html#a881dfd840f8cfaf304f5a8134a82fc08">rr::RoadRunnerData</a>
@@ -321,6 +342,9 @@ $(function() {
 <li>nodes
 : <a class="el" href="classrrllvm_1_1LLVMModelSymbols.html#af6ee8336c24f1b548a08cb62465faf21">rrllvm::LLVMModelSymbols</a>
 </li>
+<li>nSolverIterations
+: <a class="el" href="classrr_1_1KinsolSteadyStateSolver.html#a5587c29038218f7e3d8f83b32a3eaf80">rr::KinsolSteadyStateSolver</a>
+</li>
 <li>numBoundarySpecies
 : <a class="el" href="structSModelData.html#a7908ee0a7657cbf8db1cf46fa7d9f3a3">SModelData</a>
 </li>
@@ -332,6 +356,9 @@ $(function() {
 </li>
 <li>numFloatingSpecies
 : <a class="el" href="structSModelData.html#adff1d6541495b59dcc98fdffcbd4e9ea">SModelData</a>
+</li>
+<li>numFuncEvals
+: <a class="el" href="classrr_1_1KinsolSteadyStateSolver.html#a94eae6c3534054b7fff476be111133ca">rr::KinsolSteadyStateSolver</a>
 </li>
 <li>numGlobalParameters
 : <a class="el" href="structSModelData.html#a04711e9b8a95bcfd2a52810bed6d50cf">SModelData</a>
@@ -370,10 +397,10 @@ $(function() {
 
 <h3><a id="index_p"></a>- p -</h3><ul>
 <li>p1
-: <a class="el" href="classrr_1_1SelectionRecord.html#ad97672baac3b6608f10a253d8594d39b">rr::SelectionRecord</a>
+: <a class="el" href="classrr_1_1SelectionRecord.html#a273feac920f62ba42c477bb6443d086e">rr::SelectionRecord</a>
 </li>
 <li>p2
-: <a class="el" href="classrr_1_1SelectionRecord.html#a541046e11c7748d5fe403cbb681629a5">rr::SelectionRecord</a>
+: <a class="el" href="classrr_1_1SelectionRecord.html#aaccdf64460b76ee09eaca7e5090ec52e">rr::SelectionRecord</a>
 </li>
 </ul>
 
@@ -426,7 +453,7 @@ $(function() {
 : <a class="el" href="classrr_1_1RoadRunnerImpl.html#a4097a1eb7855c1ddc66c9a18db9f3bfc">rr::RoadRunnerImpl</a>
 </li>
 <li>size
-: <a class="el" href="classrr_1_1LoadSBMLOptions.html#aa73e004cfce50848e0ea5a9803800d3c">rr::LoadSBMLOptions</a>
+: <a class="el" href="classrr_1_1LoadSBMLOptions.html#a793ade36e4ae97eb6f8788d1470721ca">rr::LoadSBMLOptions</a>
 , <a class="el" href="structrrllvm_1_1LLVMModelData.html#a14eb8ba27b1fcee72817ab9a05638afe">rrllvm::LLVMModelData</a>
 </li>
 <li>srSize
@@ -462,6 +489,9 @@ $(function() {
 <li>sValue
 : <a class="el" href="structRRListItem.html#acfcabe3d9036821e5631222561c69951">RRListItem</a>
 </li>
+<li>symbols
+: <a class="el" href="classrrllvm_1_1ModelResources.html#a9c6561f8bb57a983542c8dd36947c4e2">rrllvm::ModelResources</a>
+</li>
 </ul>
 
 
@@ -469,6 +499,13 @@ $(function() {
 <li>time
 : <a class="el" href="structrrllvm_1_1LLVMModelData.html#a7659d7d4f6ba53d3456f2b29b8631c28">rrllvm::LLVMModelData</a>
 , <a class="el" href="structSModelData.html#a0423ae4f18c2dd6c1faf27332e3f0b66">SModelData</a>
+</li>
+</ul>
+
+
+<h3><a id="index_u"></a>- u -</h3><ul>
+<li>uscale
+: <a class="el" href="classrr_1_1KinsolSteadyStateSolver.html#ab0bf299b6530378feb374d92a58a959e">rr::KinsolSteadyStateSolver</a>
 </li>
 </ul>
 
@@ -484,7 +521,7 @@ $(function() {
 : <a class="el" href="classrr_1_1SimulateOptions.html#a0953c07a719d03a4d558a9bf2ce16f83">rr::SimulateOptions</a>
 </li>
 <li>version
-: <a class="el" href="classrr_1_1LoadSBMLOptions.html#a131407b1f65a4bba3e7a4af04af5bfe6">rr::LoadSBMLOptions</a>
+: <a class="el" href="classrr_1_1LoadSBMLOptions.html#ae95402b02db628dc9b7c53b08de654c6">rr::LoadSBMLOptions</a>
 </li>
 </ul>
 

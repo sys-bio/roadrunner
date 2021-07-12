@@ -22,7 +22,7 @@
  <tr style="height: 56px;">
   <td id="projectalign" style="padding-left: 0.5em;">
    <div id="projectname">roadrunner
-   &#160;<span id="projectnumber">2.0.5</span>
+   &#160;<span id="projectnumber">2.0.8</span>
    </div>
    <div id="projectbrief">Fast simulator for SBML models</div>
   </td>
@@ -124,7 +124,7 @@ $(function() {
 <div class="line"><a name="l00069"></a><span class="lineno">   69</span>&#160; </div>
 <div class="line"><a name="l00074"></a><span class="lineno">   74</span>&#160;    <a class="code" href="classrrllvm_1_1LLVMExecutableModel.html">LLVMExecutableModel</a>();</div>
 <div class="line"><a name="l00075"></a><span class="lineno">   75</span>&#160; </div>
-<div class="line"><a name="l00079"></a><span class="lineno">   79</span>&#160;    <a class="code" href="classrrllvm_1_1LLVMExecutableModel.html">LLVMExecutableModel</a>(<span class="keyword">const</span> cxx11_ns::shared_ptr&lt;ModelResources&gt; &amp;resources,</div>
+<div class="line"><a name="l00079"></a><span class="lineno">   79</span>&#160;    <a class="code" href="classrrllvm_1_1LLVMExecutableModel.html">LLVMExecutableModel</a>(<span class="keyword">const</span> std::shared_ptr&lt;ModelResources&gt; &amp;resources,</div>
 <div class="line"><a name="l00080"></a><span class="lineno">   80</span>&#160;            <a class="code" href="structrrllvm_1_1LLVMModelData.html">LLVMModelData</a>* modelData);</div>
 <div class="line"><a name="l00081"></a><span class="lineno">   81</span>&#160; </div>
 <div class="line"><a name="l00082"></a><span class="lineno">   82</span>&#160;    <span class="comment">/*</span></div>
@@ -134,7 +134,7 @@ $(function() {
 <div class="line"><a name="l00086"></a><span class="lineno">   86</span>&#160; </div>
 <div class="line"><a name="l00087"></a><span class="lineno">   87</span>&#160;    <span class="keyword">virtual</span> ~<a class="code" href="classrrllvm_1_1LLVMExecutableModel.html">LLVMExecutableModel</a>();</div>
 <div class="line"><a name="l00088"></a><span class="lineno">   88</span>&#160; </div>
-<div class="line"><a name="l00092"></a><span class="lineno">   92</span>&#160;    <span class="keyword">virtual</span> <span class="keywordtype">string</span> <a class="code" href="group__NOM.html#gadd064802065aece47c2e966f9fff5958">getModelName</a>();</div>
+<div class="line"><a name="l00092"></a><span class="lineno">   92</span>&#160;    <span class="keyword">virtual</span> std::string <a class="code" href="group__NOM.html#gadd064802065aece47c2e966f9fff5958">getModelName</a>();</div>
 <div class="line"><a name="l00093"></a><span class="lineno">   93</span>&#160;    <span class="keyword">virtual</span> <span class="keywordtype">void</span> setTime(<span class="keywordtype">double</span> _time);</div>
 <div class="line"><a name="l00094"></a><span class="lineno">   94</span>&#160;    <span class="keyword">virtual</span> <span class="keywordtype">double</span> getTime();</div>
 <div class="line"><a name="l00095"></a><span class="lineno">   95</span>&#160; </div>
@@ -188,12 +188,12 @@ $(function() {
 <div class="line"><a name="l00216"></a><span class="lineno">  216</span>&#160; </div>
 <div class="line"><a name="l00217"></a><span class="lineno">  217</span>&#160;    <span class="keyword">virtual</span> <span class="keywordtype">void</span> testConstraints();</div>
 <div class="line"><a name="l00218"></a><span class="lineno">  218</span>&#160; </div>
-<div class="line"><a name="l00219"></a><span class="lineno">  219</span>&#160;    <span class="keyword">virtual</span> <span class="keywordtype">string</span> <a class="code" href="group__utility.html#ga84805d87e0b75fcaff3b7ad3d1179002">getInfo</a>();</div>
+<div class="line"><a name="l00219"></a><span class="lineno">  219</span>&#160;    <span class="keyword">virtual</span> std::string <a class="code" href="group__utility.html#ga84805d87e0b75fcaff3b7ad3d1179002">getInfo</a>();</div>
 <div class="line"><a name="l00220"></a><span class="lineno">  220</span>&#160; </div>
-<div class="line"><a name="l00221"></a><span class="lineno">  221</span>&#160;    <span class="keyword">virtual</span> <span class="keywordtype">int</span> getFloatingSpeciesIndex(<span class="keyword">const</span> <span class="keywordtype">string</span>&amp;);</div>
-<div class="line"><a name="l00222"></a><span class="lineno">  222</span>&#160;    <span class="keyword">virtual</span> <span class="keywordtype">string</span> getFloatingSpeciesId(<span class="keywordtype">size_t</span> index);</div>
-<div class="line"><a name="l00223"></a><span class="lineno">  223</span>&#160;    <span class="keyword">virtual</span> <span class="keywordtype">int</span> getBoundarySpeciesIndex(<span class="keyword">const</span> <span class="keywordtype">string</span>&amp;);</div>
-<div class="line"><a name="l00224"></a><span class="lineno">  224</span>&#160;    <span class="keyword">virtual</span> <span class="keywordtype">string</span> getBoundarySpeciesId(<span class="keywordtype">size_t</span> index);</div>
+<div class="line"><a name="l00221"></a><span class="lineno">  221</span>&#160;    <span class="keyword">virtual</span> <span class="keywordtype">int</span> getFloatingSpeciesIndex(<span class="keyword">const</span> std::string&amp;);</div>
+<div class="line"><a name="l00222"></a><span class="lineno">  222</span>&#160;    <span class="keyword">virtual</span> std::string getFloatingSpeciesId(<span class="keywordtype">size_t</span> index);</div>
+<div class="line"><a name="l00223"></a><span class="lineno">  223</span>&#160;    <span class="keyword">virtual</span> <span class="keywordtype">int</span> getBoundarySpeciesIndex(<span class="keyword">const</span> std::string&amp;);</div>
+<div class="line"><a name="l00224"></a><span class="lineno">  224</span>&#160;    <span class="keyword">virtual</span> std::string getBoundarySpeciesId(<span class="keywordtype">size_t</span> index);</div>
 <div class="line"><a name="l00225"></a><span class="lineno">  225</span>&#160; </div>
 <div class="line"><a name="l00234"></a><span class="lineno">  234</span>&#160;    <span class="keyword">virtual</span> <span class="keywordtype">int</span> getFloatingSpeciesAmounts(<span class="keywordtype">size_t</span> len, <span class="keywordtype">int</span> <span class="keyword">const</span> *indx,</div>
 <div class="line"><a name="l00235"></a><span class="lineno">  235</span>&#160;            <span class="keywordtype">double</span> *values);</div>
@@ -228,18 +228,18 @@ $(function() {
 <div class="line"><a name="l00312"></a><span class="lineno">  312</span>&#160;             <span class="keywordtype">double</span> <span class="keyword">const</span> *values);</div>
 <div class="line"><a name="l00313"></a><span class="lineno">  313</span>&#160; </div>
 <div class="line"><a name="l00314"></a><span class="lineno">  314</span>&#160; </div>
-<div class="line"><a name="l00315"></a><span class="lineno">  315</span>&#160;    <span class="keyword">virtual</span> <span class="keywordtype">int</span> getGlobalParameterIndex(<span class="keyword">const</span> <span class="keywordtype">string</span>&amp;);</div>
-<div class="line"><a name="l00316"></a><span class="lineno">  316</span>&#160;    <span class="keyword">virtual</span> <span class="keywordtype">string</span> getGlobalParameterId(<span class="keywordtype">size_t</span>);</div>
-<div class="line"><a name="l00317"></a><span class="lineno">  317</span>&#160;    <span class="keyword">virtual</span> <span class="keywordtype">int</span> getCompartmentIndex(<span class="keyword">const</span> <span class="keywordtype">string</span>&amp;);</div>
-<div class="line"><a name="l00318"></a><span class="lineno">  318</span>&#160;    <span class="keyword">virtual</span> <span class="keywordtype">string</span> getCompartmentId(<span class="keywordtype">size_t</span>);</div>
-<div class="line"><a name="l00319"></a><span class="lineno">  319</span>&#160;    <span class="keyword">virtual</span> <span class="keywordtype">int</span> getReactionIndex(<span class="keyword">const</span> <span class="keywordtype">string</span>&amp;);</div>
-<div class="line"><a name="l00320"></a><span class="lineno">  320</span>&#160;    <span class="keyword">virtual</span> <span class="keywordtype">string</span> getReactionId(<span class="keywordtype">size_t</span>);</div>
+<div class="line"><a name="l00315"></a><span class="lineno">  315</span>&#160;    <span class="keyword">virtual</span> <span class="keywordtype">int</span> getGlobalParameterIndex(<span class="keyword">const</span> std::string&amp;);</div>
+<div class="line"><a name="l00316"></a><span class="lineno">  316</span>&#160;    <span class="keyword">virtual</span> std::string getGlobalParameterId(<span class="keywordtype">size_t</span>);</div>
+<div class="line"><a name="l00317"></a><span class="lineno">  317</span>&#160;    <span class="keyword">virtual</span> <span class="keywordtype">int</span> getCompartmentIndex(<span class="keyword">const</span> std::string&amp;);</div>
+<div class="line"><a name="l00318"></a><span class="lineno">  318</span>&#160;    <span class="keyword">virtual</span> std::string getCompartmentId(<span class="keywordtype">size_t</span>);</div>
+<div class="line"><a name="l00319"></a><span class="lineno">  319</span>&#160;    <span class="keyword">virtual</span> <span class="keywordtype">int</span> getReactionIndex(<span class="keyword">const</span> std::string&amp;);</div>
+<div class="line"><a name="l00320"></a><span class="lineno">  320</span>&#160;    <span class="keyword">virtual</span> std::string getReactionId(<span class="keywordtype">size_t</span>);</div>
 <div class="line"><a name="l00321"></a><span class="lineno">  321</span>&#160; </div>
 <div class="line"><a name="l00322"></a><span class="lineno">  322</span>&#160;    <span class="keyword">virtual</span> <span class="keywordtype">void</span> print(std::ostream &amp;stream);</div>
 <div class="line"><a name="l00323"></a><span class="lineno">  323</span>&#160; </div>
 <div class="line"><a name="l00324"></a><span class="lineno">  324</span>&#160;    <span class="keyword">virtual</span> <span class="keywordtype">int</span> getNumConservedMoieties();</div>
-<div class="line"><a name="l00325"></a><span class="lineno">  325</span>&#160;    <span class="keyword">virtual</span> <span class="keywordtype">int</span> getConservedMoietyIndex(<span class="keyword">const</span> <span class="keywordtype">string</span>&amp; name);</div>
-<div class="line"><a name="l00326"></a><span class="lineno">  326</span>&#160;    <span class="keyword">virtual</span> <span class="keywordtype">string</span> getConservedMoietyId(<span class="keywordtype">size_t</span> index);</div>
+<div class="line"><a name="l00325"></a><span class="lineno">  325</span>&#160;    <span class="keyword">virtual</span> <span class="keywordtype">int</span> getConservedMoietyIndex(<span class="keyword">const</span> std::string&amp; name);</div>
+<div class="line"><a name="l00326"></a><span class="lineno">  326</span>&#160;    <span class="keyword">virtual</span> std::string getConservedMoietyId(<span class="keywordtype">size_t</span> index);</div>
 <div class="line"><a name="l00327"></a><span class="lineno">  327</span>&#160;    <span class="keyword">virtual</span> <span class="keywordtype">int</span> getConservedMoietyValues(<span class="keywordtype">size_t</span> len, <span class="keywordtype">int</span> <span class="keyword">const</span> *indx, <span class="keywordtype">double</span> *values);</div>
 <div class="line"><a name="l00328"></a><span class="lineno">  328</span>&#160;    <span class="keyword">virtual</span> <span class="keywordtype">int</span> setConservedMoietyValues(<span class="keywordtype">size_t</span> len, <span class="keywordtype">int</span> <span class="keyword">const</span> *indx,</div>
 <div class="line"><a name="l00329"></a><span class="lineno">  329</span>&#160;            <span class="keyword">const</span> <span class="keywordtype">double</span> *values);</div>
@@ -486,7 +486,7 @@ $(function() {
 <div class="line"><a name="l00660"></a><span class="lineno">  660</span>&#160;    SetGlobalParameterInitValueCodeGen::FunctionPtr setGlobalParameterInitValuePtr;</div>
 <div class="line"><a name="l00661"></a><span class="lineno">  661</span>&#160; </div>
 <div class="line"><a name="l00662"></a><span class="lineno">  662</span>&#160; </div>
-<div class="line"><a name="l00663"></a><span class="lineno">  663</span>&#160;    <span class="keyword">typedef</span> string (<a class="code" href="classrrllvm_1_1LLVMExecutableModel.html">LLVMExecutableModel</a>::*GetNameFuncPtr)(size_t);</div>
+<div class="line"><a name="l00663"></a><span class="lineno">  663</span>&#160;    <span class="keyword">typedef</span> std::string (<a class="code" href="classrrllvm_1_1LLVMExecutableModel.html">LLVMExecutableModel</a>::*GetNameFuncPtr)(size_t);</div>
 <div class="line"><a name="l00664"></a><span class="lineno">  664</span>&#160; </div>
 <div class="line"><a name="l00668"></a><span class="lineno">  668</span>&#160;    <span class="keyword">typedef</span> cxx11_ns::unordered_map&lt;std::string, rr::SelectionRecord&gt; SelectionMap;</div>
 <div class="line"><a name="l00669"></a><span class="lineno">  669</span>&#160;    SelectionMap selectionRecordCache;</div>
@@ -531,7 +531,7 @@ $(function() {
 <div class="line"><a name="l00729"></a><span class="lineno">  729</span>&#160;<span class="preprocessor">#endif </span><span class="comment">/* LLVMExecutableModelH */</span><span class="preprocessor"></span></div>
 </div><!-- fragment --></div><!-- contents -->
 <div class="ttc" id="arrExecutableModel_8h_html"><div class="ttname"><a href="rrExecutableModel_8h.html">rrExecutableModel.h</a></div><div class="ttdoc">Base class for all code generators in RoadRunner.</div></div>
-<div class="ttc" id="aclassrr_1_1SelectionRecord_html"><div class="ttname"><a href="classrr_1_1SelectionRecord.html">rr::SelectionRecord</a></div><div class="ttdoc">a way to find sbml model elements using the RoadRunner syntax.</div><div class="ttdef"><b>Definition:</b> rrSelectionRecord.h:16</div></div>
+<div class="ttc" id="aclassrr_1_1SelectionRecord_html"><div class="ttname"><a href="classrr_1_1SelectionRecord.html">rr::SelectionRecord</a></div><div class="ttdoc">a way to find sbml model elements using the RoadRunner syntax.</div><div class="ttdef"><b>Definition:</b> rrSelectionRecord.h:18</div></div>
 <div class="ttc" id="agroup__NOM_html_gadd064802065aece47c2e966f9fff5958"><div class="ttname"><a href="group__NOM.html#gadd064802065aece47c2e966f9fff5958">getModelName</a></div><div class="ttdeci">C_DECL_SPEC char *rrcCallConv getModelName(RRHandle handle)</div><div class="ttdoc">Returns the name of currently loaded SBML model.</div></div>
 <div class="ttc" id="agroup__loadsave_html_gae6b66c032a09e36e6372fb822b8cef24"><div class="ttname"><a href="group__loadsave.html#gae6b66c032a09e36e6372fb822b8cef24">saveState</a></div><div class="ttdeci">C_DECL_SPEC bool rrcCallConv saveState(RRHandle handle, const char *filename)</div><div class="ttdoc">Save a road runner instance's state to a platform-specific binary file.</div></div>
 <div class="ttc" id="arrExecutableModel_8h_html_af42654ad469e89c71909fbbff90b3c07"><div class="ttname"><a href="rrExecutableModel_8h.html#af42654ad469e89c71909fbbff90b3c07">rr::EventListenerPtr</a></div><div class="ttdeci">cxx11_ns::shared_ptr&lt; EventListener &gt; EventListenerPtr</div><div class="ttdoc">listeners are shared objects, so use std smart pointers to manage them.</div><div class="ttdef"><b>Definition:</b> rrExecutableModel.h:71</div></div>

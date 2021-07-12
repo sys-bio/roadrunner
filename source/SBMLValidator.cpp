@@ -133,6 +133,7 @@ void setSpeciesRefId(SpeciesReference* sr, const std::string& idbase)
 }
 
 std::string fixMissingStoich(const std::string sbml) {
+
     SBMLDocument *doc = NULL;
 
     bool sbml_decl_okay = false;
@@ -158,7 +159,6 @@ std::string fixMissingStoich(const std::string sbml) {
 
     if (!sbml_decl_okay)
       throw std::runtime_error("SBML document must begin with an XML declaration or an SBML declaration");
-
 
     try {
         doc =  readSBMLFromString (sbml.c_str());

@@ -101,15 +101,13 @@ protected:
     {
         // make the set init value function
 
-        llvm::FunctionType *funcType = llvm::FunctionType::get(retType,
-                argTypes, false);
+        llvm::FunctionType *funcType = llvm::FunctionType::get(retType, argTypes, false);
         function = llvm::Function::Create(funcType,
                 llvm::Function::InternalLinkage,
                 functionName, module);
 
         // Create a new basic block to start insertion into.
-        llvm::BasicBlock *basicBlock = llvm::BasicBlock::Create(context,
-                "entry", function);
+        llvm::BasicBlock *basicBlock = llvm::BasicBlock::Create(context,"entry", function);
         builder.SetInsertPoint(basicBlock);
 
         assert(function->arg_size() == N);
@@ -130,8 +128,7 @@ protected:
      * the most common type of generated function takes a ModelData*,
      * and returns void.
      */
-    llvm::BasicBlock *codeGenVoidModelDataHeader(const char* functionName,
-            llvm::Value* &modelData)
+    llvm::BasicBlock *codeGenVoidModelDataHeader(const char* functionName,llvm::Value* &modelData)
     {
         llvm::Type *argTypes[] = {
             llvm::PointerType::get(

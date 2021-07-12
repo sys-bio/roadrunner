@@ -1,0 +1,110 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.20" xml:lang="en-US">
+  <compounddef id="classrr_1_1LinesearchNewtonIterationRegistrar" kind="class" language="C++" prot="public">
+    <compoundname>rr::LinesearchNewtonIterationRegistrar</compoundname>
+    <basecompoundref refid="classrr_1_1SteadyStateSolverRegistrar" prot="public" virt="non-virtual">rr::SteadyStateSolverRegistrar</basecompoundref>
+      <sectiondef kind="public-func">
+      <memberdef kind="function" id="classrr_1_1LinesearchNewtonIterationRegistrar_1ac95f3e2b3539c23b50a701b59e914e2f" prot="public" static="no" const="yes" explicit="no" inline="yes" virt="virtual">
+        <type>std::string</type>
+        <definition>std::string rr::LinesearchNewtonIterationRegistrar::getName</definition>
+        <argsstring>() const override</argsstring>
+        <name>getName</name>
+        <reimplements refid="classrr_1_1SteadyStateSolverRegistrar_1adf5cbf8f2c5df0d1a25807c80fbc3549">getName</reimplements>
+        <briefdescription>
+<para>Gets the name associated with this integrator type. </para>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="LinesearchNewtonIteration.h" line="73" column="21" bodyfile="LinesearchNewtonIteration.h" bodystart="73" bodyend="75"/>
+      </memberdef>
+      <memberdef kind="function" id="classrr_1_1LinesearchNewtonIterationRegistrar_1a4c4c80341b9d99013eab79029eeaae81" prot="public" static="no" const="yes" explicit="no" inline="yes" virt="virtual">
+        <type>std::string</type>
+        <definition>std::string rr::LinesearchNewtonIterationRegistrar::getDescription</definition>
+        <argsstring>() const override</argsstring>
+        <name>getDescription</name>
+        <reimplements refid="classrr_1_1SteadyStateSolverRegistrar_1a0b2f22b7a1c4989e97ac3fdb64ac983c">getDescription</reimplements>
+        <briefdescription>
+<para>Gets the description associated with this integrator type. </para>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="LinesearchNewtonIteration.h" line="80" column="21" bodyfile="LinesearchNewtonIteration.h" bodystart="80" bodyend="82"/>
+      </memberdef>
+      <memberdef kind="function" id="classrr_1_1LinesearchNewtonIterationRegistrar_1a0d67c0d43e05dc497ca33a3f9fde2ce2" prot="public" static="no" const="yes" explicit="no" inline="yes" virt="virtual">
+        <type>std::string</type>
+        <definition>std::string rr::LinesearchNewtonIterationRegistrar::getHint</definition>
+        <argsstring>() const override</argsstring>
+        <name>getHint</name>
+        <reimplements refid="classrr_1_1SteadyStateSolverRegistrar_1a00f5ff21ffc7322a244ed27d8cff4d64">getHint</reimplements>
+        <briefdescription>
+<para>Gets the hint associated with this integrator type. </para>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="LinesearchNewtonIteration.h" line="87" column="21" bodyfile="LinesearchNewtonIteration.h" bodystart="87" bodyend="89"/>
+      </memberdef>
+      <memberdef kind="function" id="classrr_1_1LinesearchNewtonIterationRegistrar_1a96a19fb79c31c7126aaae32ef5ad8ad2" prot="public" static="no" const="yes" explicit="no" inline="yes" virt="virtual">
+        <type><ref refid="classrr_1_1SteadyStateSolver" kindref="compound">SteadyStateSolver</ref> *</type>
+        <definition>SteadyStateSolver* rr::LinesearchNewtonIterationRegistrar::construct</definition>
+        <argsstring>(ExecutableModel *model) const override</argsstring>
+        <name>construct</name>
+        <reimplements refid="classrr_1_1SteadyStateSolverRegistrar_1a48fba27b1da7285714fabbfc9383ba6c">construct</reimplements>
+        <param>
+          <type><ref refid="classrr_1_1ExecutableModel" kindref="compound">ExecutableModel</ref> *</type>
+          <declname>model</declname>
+        </param>
+        <briefdescription>
+<para>Constructs a new integrator of a given type. </para>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="LinesearchNewtonIteration.h" line="94" column="27" bodyfile="LinesearchNewtonIteration.h" bodystart="94" bodyend="96"/>
+      </memberdef>
+      </sectiondef>
+    <briefdescription>
+    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <inheritancegraph>
+      <node id="2">
+        <label>rr::SteadyStateSolverRegistrar</label>
+        <link refid="classrr_1_1SteadyStateSolverRegistrar"/>
+      </node>
+      <node id="1">
+        <label>rr::LinesearchNewtonIterationRegistrar</label>
+        <link refid="classrr_1_1LinesearchNewtonIterationRegistrar"/>
+        <childnode refid="2" relation="public-inheritance">
+        </childnode>
+      </node>
+    </inheritancegraph>
+    <collaborationgraph>
+      <node id="2">
+        <label>rr::SteadyStateSolverRegistrar</label>
+        <link refid="classrr_1_1SteadyStateSolverRegistrar"/>
+      </node>
+      <node id="1">
+        <label>rr::LinesearchNewtonIterationRegistrar</label>
+        <link refid="classrr_1_1LinesearchNewtonIterationRegistrar"/>
+        <childnode refid="2" relation="public-inheritance">
+        </childnode>
+      </node>
+    </collaborationgraph>
+    <location file="LinesearchNewtonIteration.h" line="68" column="5" bodyfile="LinesearchNewtonIteration.h" bodystart="68" bodyend="97"/>
+    <listofallmembers>
+      <member refid="classrr_1_1LinesearchNewtonIterationRegistrar_1a96a19fb79c31c7126aaae32ef5ad8ad2" prot="public" virt="virtual"><scope>rr::LinesearchNewtonIterationRegistrar</scope><name>construct</name></member>
+      <member refid="classrr_1_1LinesearchNewtonIterationRegistrar_1a4c4c80341b9d99013eab79029eeaae81" prot="public" virt="virtual"><scope>rr::LinesearchNewtonIterationRegistrar</scope><name>getDescription</name></member>
+      <member refid="classrr_1_1LinesearchNewtonIterationRegistrar_1a0d67c0d43e05dc497ca33a3f9fde2ce2" prot="public" virt="virtual"><scope>rr::LinesearchNewtonIterationRegistrar</scope><name>getHint</name></member>
+      <member refid="classrr_1_1LinesearchNewtonIterationRegistrar_1ac95f3e2b3539c23b50a701b59e914e2f" prot="public" virt="virtual"><scope>rr::LinesearchNewtonIterationRegistrar</scope><name>getName</name></member>
+      <member refid="classrr_1_1SteadyStateSolverRegistrar_1a88a6f7ded8eddf850ef18d7cc6d88d2e" prot="protected" virt="non-virtual"><scope>rr::LinesearchNewtonIterationRegistrar</scope><name>SteadyStateSolverCtor</name></member>
+      <member refid="classrr_1_1SteadyStateSolverRegistrar_1a746bc5daf544d135f351e8bbc9e1d92d" prot="public" virt="virtual"><scope>rr::LinesearchNewtonIterationRegistrar</scope><name>~SteadyStateSolverRegistrar</name></member>
+    </listofallmembers>
+  </compounddef>
+</doxygen>

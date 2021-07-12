@@ -6,9 +6,9 @@
     <derivedcompoundref refid="classrr_1_1SteadyStateSolver" prot="public" virt="non-virtual">rr::SteadyStateSolver</derivedcompoundref>
     <includes refid="Solver_8h" local="no">Solver.h</includes>
       <sectiondef kind="protected-type">
-      <memberdef kind="typedef" id="classrr_1_1Solver_1a970d11482faab2f17428c760f3ec8240" prot="protected" static="no">
+      <memberdef kind="typedef" id="classrr_1_1Solver_1adcbacd57e2871a83bb9c4d7a4038a069" prot="protected" static="no">
         <type>std::vector&lt; std::string &gt;</type>
-        <definition>typedef std::vector&lt;std::string&gt; rr::Solver::SettingsList</definition>
+        <definition>using rr::Solver::SettingsList =  std::vector&lt;std::string&gt;</definition>
         <argsstring></argsstring>
         <name>SettingsList</name>
         <briefdescription>
@@ -17,11 +17,11 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="Solver.h" line="236" column="29" bodyfile="Solver.h" bodystart="236" bodyend="-1"/>
+        <location file="Solver.h" line="200" column="9" bodyfile="Solver.h" bodystart="200" bodyend="-1"/>
       </memberdef>
-      <memberdef kind="typedef" id="classrr_1_1Solver_1a84e22bdecb76b77ddfbc8efda8219401" prot="protected" static="no">
-        <type>RR_UNORDERED_MAP&lt; std::string, <ref refid="classrr_1_1Variant" kindref="compound">Variant</ref> &gt;</type>
-        <definition>typedef RR_UNORDERED_MAP&lt;std::string, Variant&gt; rr::Solver::SettingsMap</definition>
+      <memberdef kind="typedef" id="classrr_1_1Solver_1a61c0fd04ad69fc173c51dac3bdde2431" prot="protected" static="no">
+        <type>std::unordered_map&lt; std::string, <ref refid="classrr_1_1Setting" kindref="compound">Setting</ref> &gt;</type>
+        <definition>using rr::Solver::SettingsMap =  std::unordered_map&lt;std::string, Setting&gt;</definition>
         <argsstring></argsstring>
         <name>SettingsMap</name>
         <briefdescription>
@@ -30,11 +30,11 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="Solver.h" line="237" column="35" bodyfile="Solver.h" bodystart="237" bodyend="-1"/>
+        <location file="Solver.h" line="201" column="9" bodyfile="Solver.h" bodystart="201" bodyend="-1"/>
       </memberdef>
-      <memberdef kind="typedef" id="classrr_1_1Solver_1afa810f2707ef6160e05c92e5812a8c6a" prot="protected" static="no">
-        <type>RR_UNORDERED_MAP&lt; std::string, std::string &gt;</type>
-        <definition>typedef RR_UNORDERED_MAP&lt;std::string, std::string&gt; rr::Solver::DisplayNameMap</definition>
+      <memberdef kind="typedef" id="classrr_1_1Solver_1a76b76c8ba3a31a2c6a600322c90a0452" prot="protected" static="no">
+        <type>std::unordered_map&lt; std::string, std::string &gt;</type>
+        <definition>using rr::Solver::DisplayNameMap =  std::unordered_map&lt;std::string, std::string&gt;</definition>
         <argsstring></argsstring>
         <name>DisplayNameMap</name>
         <briefdescription>
@@ -43,11 +43,11 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="Solver.h" line="238" column="35" bodyfile="Solver.h" bodystart="238" bodyend="-1"/>
+        <location file="Solver.h" line="202" column="9" bodyfile="Solver.h" bodystart="202" bodyend="-1"/>
       </memberdef>
-      <memberdef kind="typedef" id="classrr_1_1Solver_1ab7675259f65ff348aa430747e48f0f90" prot="protected" static="no">
-        <type>RR_UNORDERED_MAP&lt; std::string, std::string &gt;</type>
-        <definition>typedef RR_UNORDERED_MAP&lt;std::string, std::string&gt; rr::Solver::HintMap</definition>
+      <memberdef kind="typedef" id="classrr_1_1Solver_1ac39f2073d482cdf591d93415557c6751" prot="protected" static="no">
+        <type>std::unordered_map&lt; std::string, std::string &gt;</type>
+        <definition>using rr::Solver::HintMap =  std::unordered_map&lt;std::string, std::string&gt;</definition>
         <argsstring></argsstring>
         <name>HintMap</name>
         <briefdescription>
@@ -56,11 +56,11 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="Solver.h" line="239" column="35" bodyfile="Solver.h" bodystart="239" bodyend="-1"/>
+        <location file="Solver.h" line="203" column="9" bodyfile="Solver.h" bodystart="203" bodyend="-1"/>
       </memberdef>
-      <memberdef kind="typedef" id="classrr_1_1Solver_1a897a8b06197a02d72931de637bc9ac89" prot="protected" static="no">
-        <type>RR_UNORDERED_MAP&lt; std::string, std::string &gt;</type>
-        <definition>typedef RR_UNORDERED_MAP&lt;std::string, std::string&gt; rr::Solver::DescriptionMap</definition>
+      <memberdef kind="typedef" id="classrr_1_1Solver_1a7d58e224664ab44e56f90802d9601f01" prot="protected" static="no">
+        <type>std::unordered_map&lt; std::string, std::string &gt;</type>
+        <definition>using rr::Solver::DescriptionMap =  std::unordered_map&lt;std::string, std::string&gt;</definition>
         <argsstring></argsstring>
         <name>DescriptionMap</name>
         <briefdescription>
@@ -69,7 +69,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="Solver.h" line="240" column="35" bodyfile="Solver.h" bodystart="240" bodyend="-1"/>
+        <location file="Solver.h" line="204" column="9" bodyfile="Solver.h" bodystart="204" bodyend="-1"/>
       </memberdef>
       </sectiondef>
       <sectiondef kind="protected-attrib">
@@ -84,7 +84,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="Solver.h" line="242" column="22" bodyfile="Solver.h" bodystart="242" bodyend="-1"/>
+        <location file="Solver.h" line="206" column="22" bodyfile="Solver.h" bodystart="206" bodyend="-1"/>
       </memberdef>
       <memberdef kind="variable" id="classrr_1_1Solver_1a44a22cf0edead17a9cc923d87dcc063e" prot="protected" static="no" mutable="no">
         <type>SettingsMap</type>
@@ -97,7 +97,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="Solver.h" line="243" column="21" bodyfile="Solver.h" bodystart="243" bodyend="-1"/>
+        <location file="Solver.h" line="207" column="21" bodyfile="Solver.h" bodystart="207" bodyend="-1"/>
       </memberdef>
       <memberdef kind="variable" id="classrr_1_1Solver_1a199de66231b25fef30d8ef2bdff80db7" prot="protected" static="no" mutable="no">
         <type>DisplayNameMap</type>
@@ -110,7 +110,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="Solver.h" line="244" column="24" bodyfile="Solver.h" bodystart="244" bodyend="-1"/>
+        <location file="Solver.h" line="208" column="24" bodyfile="Solver.h" bodystart="208" bodyend="-1"/>
       </memberdef>
       <memberdef kind="variable" id="classrr_1_1Solver_1a39049af7a03fd00b1021c1ce9a9691fc" prot="protected" static="no" mutable="no">
         <type>HintMap</type>
@@ -123,7 +123,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="Solver.h" line="245" column="17" bodyfile="Solver.h" bodystart="245" bodyend="-1"/>
+        <location file="Solver.h" line="209" column="17" bodyfile="Solver.h" bodystart="209" bodyend="-1"/>
       </memberdef>
       <memberdef kind="variable" id="classrr_1_1Solver_1a7e07121f652db358045d6f7b95889ea3" prot="protected" static="no" mutable="no">
         <type>DescriptionMap</type>
@@ -136,14 +136,59 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="Solver.h" line="246" column="24" bodyfile="Solver.h" bodystart="246" bodyend="-1"/>
+        <location file="Solver.h" line="210" column="24" bodyfile="Solver.h" bodystart="210" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="classrr_1_1Solver_1ab60e7640a8c959558a144d9d7ee45515" prot="protected" static="no" mutable="no">
+        <type><ref refid="classrr_1_1ExecutableModel" kindref="compound">ExecutableModel</ref> *</type>
+        <definition>ExecutableModel* rr::Solver::mModel</definition>
+        <argsstring></argsstring>
+        <name>mModel</name>
+        <initializer>= nullptr</initializer>
+        <briefdescription>
+<para>non-owning pointer to model </para>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="Solver.h" line="215" column="25" bodyfile="Solver.h" bodystart="215" bodyend="-1"/>
       </memberdef>
       </sectiondef>
       <sectiondef kind="public-func">
-      <memberdef kind="function" id="classrr_1_1Solver_1a921e53563c59252d5180c2160e46986f" prot="public" static="no" const="no" explicit="no" inline="yes" virt="virtual">
+      <memberdef kind="function" id="classrr_1_1Solver_1a04bba4a342cc7197750f080d41d439e5" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type></type>
+        <definition>rr::Solver::Solver</definition>
+        <argsstring>()=default</argsstring>
+        <name>Solver</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="Solver.h" line="43" column="9"/>
+      </memberdef>
+      <memberdef kind="function" id="classrr_1_1Solver_1aa0a07553e368f0be33b9bfc429782a97" prot="public" static="no" const="no" explicit="yes" inline="no" virt="non-virtual">
+        <type></type>
+        <definition>rr::Solver::Solver</definition>
+        <argsstring>(ExecutableModel *model)</argsstring>
+        <name>Solver</name>
+        <param>
+          <type><ref refid="classrr_1_1ExecutableModel" kindref="compound">ExecutableModel</ref> *</type>
+          <declname>model</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="Solver.h" line="45" column="18" bodyfile="Solver.cpp" bodystart="26" bodyend="27"/>
+      </memberdef>
+      <memberdef kind="function" id="classrr_1_1Solver_1a0e6558e376aee7e4d3a9b69b8c3ae08b" prot="public" static="no" const="no" explicit="no" inline="no" virt="virtual">
         <type></type>
         <definition>virtual rr::Solver::~Solver</definition>
-        <argsstring>()</argsstring>
+        <argsstring>()=default</argsstring>
         <name>~Solver</name>
         <briefdescription>
         </briefdescription>
@@ -151,20 +196,25 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="Solver.h" line="40" column="17" bodyfile="Solver.h" bodystart="40" bodyend="40"/>
+        <location file="Solver.h" line="47" column="17"/>
       </memberdef>
       <memberdef kind="function" id="classrr_1_1Solver_1a417cca64a18c63535f2091584f8fed91" prot="public" static="no" const="yes" explicit="no" inline="no" virt="pure-virtual">
         <type>std::string</type>
         <definition>virtual std::string rr::Solver::getName</definition>
         <argsstring>() const =0</argsstring>
         <name>getName</name>
-        <reimplementedby refid="classrr_1_1CVODEIntegrator_1a8cf0e265974ca6cfba2b22d98c77801a">getName</reimplementedby>
         <reimplementedby refid="classrr_1_1EulerIntegrator_1a44c17c0740b6d7855f10849bae3b1223">getName</reimplementedby>
         <reimplementedby refid="classrr_1_1GillespieIntegrator_1a290f7167ef2a6da01ff1543c496e1215">getName</reimplementedby>
-        <reimplementedby refid="classrr_1_1NLEQ1Solver_1ad0d9601d9d272cb97fde279e89e50203">getName</reimplementedby>
-        <reimplementedby refid="classrr_1_1NLEQ2Solver_1a23b111e063e51f20ecb44c8b81eee98c">getName</reimplementedby>
         <reimplementedby refid="classrr_1_1RK45Integrator_1aebee4c612006c929ba1d194b4258fa55">getName</reimplementedby>
         <reimplementedby refid="classrr_1_1RK4Integrator_1ae65f8c20d95f0bc6018992d3803c3287">getName</reimplementedby>
+        <reimplementedby refid="classrr_1_1BasicNewtonIteration_1abba6c099dc88a3b80d3a2d65c9c43e03">getName</reimplementedby>
+        <reimplementedby refid="classrr_1_1CVODEIntegrator_1aa889b08549036792918c41e88e2097f4">getName</reimplementedby>
+        <reimplementedby refid="classrr_1_1FixedPointIteration_1a9e1334eebd535c642abb8593d4e46824">getName</reimplementedby>
+        <reimplementedby refid="classrr_1_1LinesearchNewtonIteration_1a62113dcfc8a9d93fd419f025bc202563">getName</reimplementedby>
+        <reimplementedby refid="classrr_1_1NewtonIteration_1a5a77fd21be6a9af126872232998bfeb2">getName</reimplementedby>
+        <reimplementedby refid="classrr_1_1NLEQ1Solver_1aa0a09770b4595f7cc7b698055d2c4d1a">getName</reimplementedby>
+        <reimplementedby refid="classrr_1_1NLEQ2Solver_1acab401cc8acf3cf2049557b10342efe1">getName</reimplementedby>
+        <reimplementedby refid="classrr_1_1SteadyStateSolverDecorator_1ab40943abac1972772212fb7fad42afa3">getName</reimplementedby>
         <briefdescription>
 <para>Get the name of this solver. </para>
         </briefdescription>
@@ -175,20 +225,25 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="Solver.h" line="46" column="29"/>
+        <location file="Solver.h" line="53" column="29"/>
       </memberdef>
       <memberdef kind="function" id="classrr_1_1Solver_1a86067147c7631ca80d51667322f1a8f5" prot="public" static="no" const="yes" explicit="no" inline="no" virt="pure-virtual">
         <type>std::string</type>
         <definition>virtual std::string rr::Solver::getDescription</definition>
         <argsstring>() const =0</argsstring>
         <name>getDescription</name>
-        <reimplementedby refid="classrr_1_1CVODEIntegrator_1a41af2579ae0fbca95fdf2eb36990e3ae">getDescription</reimplementedby>
         <reimplementedby refid="classrr_1_1EulerIntegrator_1ae8553876982ae833839b7e33c08abdec">getDescription</reimplementedby>
         <reimplementedby refid="classrr_1_1GillespieIntegrator_1adc46266d77d8c9d54bca86ca3d402f8f">getDescription</reimplementedby>
-        <reimplementedby refid="classrr_1_1NLEQ1Solver_1a563c9b0d67f800a54e587134c6ab40f4">getDescription</reimplementedby>
-        <reimplementedby refid="classrr_1_1NLEQ2Solver_1ab5005ced545fa4b22178b2047b12557c">getDescription</reimplementedby>
         <reimplementedby refid="classrr_1_1RK45Integrator_1a45d69589da662628a6f0f66c200614e3">getDescription</reimplementedby>
         <reimplementedby refid="classrr_1_1RK4Integrator_1ad4638630bbbfc3bc62adfdfdebc9bde9">getDescription</reimplementedby>
+        <reimplementedby refid="classrr_1_1BasicNewtonIteration_1a52d645f2934c5230411d7ddfbe56bc78">getDescription</reimplementedby>
+        <reimplementedby refid="classrr_1_1CVODEIntegrator_1a1c6a393504cc85f2dc236abd0cb5577a">getDescription</reimplementedby>
+        <reimplementedby refid="classrr_1_1FixedPointIteration_1a4f8a179c87378739262b858a4e279642">getDescription</reimplementedby>
+        <reimplementedby refid="classrr_1_1LinesearchNewtonIteration_1a31c7aeb461a19411e3b48336d16401f6">getDescription</reimplementedby>
+        <reimplementedby refid="classrr_1_1NewtonIteration_1ae1119d11821a6b1fb52fc84186d91b1e">getDescription</reimplementedby>
+        <reimplementedby refid="classrr_1_1NLEQ1Solver_1a3305ca56332184b9747f95a86c46c6ca">getDescription</reimplementedby>
+        <reimplementedby refid="classrr_1_1NLEQ2Solver_1aa262aaf5e1361ac34802a3e4c28772af">getDescription</reimplementedby>
+        <reimplementedby refid="classrr_1_1SteadyStateSolverDecorator_1aeee54937d2c9bc9959e7be1ed217831c">getDescription</reimplementedby>
         <briefdescription>
 <para>Get the description of this solver. </para>
         </briefdescription>
@@ -199,20 +254,25 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="Solver.h" line="52" column="29"/>
+        <location file="Solver.h" line="59" column="29"/>
       </memberdef>
       <memberdef kind="function" id="classrr_1_1Solver_1aff005f7e71bc73123ecbd511a77f71b6" prot="public" static="no" const="yes" explicit="no" inline="no" virt="pure-virtual">
         <type>std::string</type>
         <definition>virtual std::string rr::Solver::getHint</definition>
         <argsstring>() const =0</argsstring>
         <name>getHint</name>
-        <reimplementedby refid="classrr_1_1CVODEIntegrator_1a89b7e1161329480ae2fe84e7f2a8ca1e">getHint</reimplementedby>
         <reimplementedby refid="classrr_1_1EulerIntegrator_1a2acf8abc8c584f487b5a394bcd3a1bdb">getHint</reimplementedby>
         <reimplementedby refid="classrr_1_1GillespieIntegrator_1a9903b945ac591f39cb3e93167fe45514">getHint</reimplementedby>
-        <reimplementedby refid="classrr_1_1NLEQ1Solver_1af2dc9efdd38fc60056dbdd055a6f11f1">getHint</reimplementedby>
-        <reimplementedby refid="classrr_1_1NLEQ2Solver_1a310f481e87ff32cc51fa62345afe6e83">getHint</reimplementedby>
         <reimplementedby refid="classrr_1_1RK45Integrator_1ae5526461902e834afff94a18f679dbe3">getHint</reimplementedby>
         <reimplementedby refid="classrr_1_1RK4Integrator_1a2f98503350687e02bea28077f3538b07">getHint</reimplementedby>
+        <reimplementedby refid="classrr_1_1BasicNewtonIteration_1a4ed6c97258f57dfe0f4653284f6bb9ac">getHint</reimplementedby>
+        <reimplementedby refid="classrr_1_1CVODEIntegrator_1addde67b3639fe1347efc2a37bbfdd60e">getHint</reimplementedby>
+        <reimplementedby refid="classrr_1_1FixedPointIteration_1a694db68c3021fcbceec701335dffd2ee">getHint</reimplementedby>
+        <reimplementedby refid="classrr_1_1LinesearchNewtonIteration_1a39c0f6a3a82a515f4d71fdfdb4b25fc3">getHint</reimplementedby>
+        <reimplementedby refid="classrr_1_1NewtonIteration_1ac346fbad167b7d4f1bcadb6ad9049ac2">getHint</reimplementedby>
+        <reimplementedby refid="classrr_1_1NLEQ1Solver_1ad0b6aa0960821af4c9b4fcf6d2268790">getHint</reimplementedby>
+        <reimplementedby refid="classrr_1_1NLEQ2Solver_1acb4cad3d5920adff567ee9a70d3646bc">getHint</reimplementedby>
+        <reimplementedby refid="classrr_1_1SteadyStateSolverDecorator_1a010d1f84529bbcc1177f35ee646e8b6c">getHint</reimplementedby>
         <briefdescription>
 <para>Get a (user-readable) hint for this solver. </para>
         </briefdescription>
@@ -223,11 +283,39 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="Solver.h" line="58" column="29"/>
+        <location file="Solver.h" line="65" column="29"/>
       </memberdef>
-      <memberdef kind="function" id="classrr_1_1Solver_1ac12d82cf9d7f03ba39f82ae81ee0e168" prot="public" static="no" const="yes" explicit="no" inline="no" virt="non-virtual">
+      <memberdef kind="function" id="classrr_1_1Solver_1a19315632eeab070bdbfe2fa4ae66ca6c" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>void rr::Solver::updateSettings</definition>
+        <argsstring>(Dictionary *inputSettings)</argsstring>
+        <name>updateSettings</name>
+        <param>
+          <type><ref refid="classrr_1_1Dictionary" kindref="compound">Dictionary</ref> *</type>
+          <declname>inputSettings</declname>
+        </param>
+        <briefdescription>
+<para>Update settings values. </para>
+        </briefdescription>
+        <detaileddescription>
+<para>update the values of keys in<parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>inputSettings</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>with the values. Keys that are not in <ref refid="classrr_1_1Solver" kindref="compound">Solver</ref> are ignored </para>
+</parameterdescription>
+</parameteritem>
+</parameterlist>
+</para>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="Solver.h" line="72" column="15" bodyfile="Solver.cpp" bodystart="38" bodyend="48"/>
+      </memberdef>
+      <memberdef kind="function" id="classrr_1_1Solver_1ae2b13c6ae06980b14a80e8a32766dcfa" prot="public" static="no" const="yes" explicit="no" inline="no" virt="non-virtual">
         <type>std::vector&lt; std::string &gt;</type>
-        <definition>std::vector&lt; string &gt; rr::Solver::getSettings</definition>
+        <definition>std::vector&lt; std::string &gt; rr::Solver::getSettings</definition>
         <argsstring>() const</argsstring>
         <name>getSettings</name>
         <briefdescription>
@@ -240,39 +328,59 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="Solver.h" line="64" column="21" bodyfile="Solver.cpp" bodystart="36" bodyend="44"/>
+        <location file="Solver.h" line="78" column="21" bodyfile="Solver.cpp" bodystart="55" bodyend="63"/>
+      </memberdef>
+      <memberdef kind="function" id="classrr_1_1Solver_1a925e4dae5c4e3e71a2983dc58af9e550" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>std::unordered_map&lt; std::string, <ref refid="classrr_1_1Setting" kindref="compound">Setting</ref> &gt; &amp;</type>
+        <definition>std::unordered_map&lt; std::string, Setting &gt; &amp; rr::Solver::getSettingsMap</definition>
+        <argsstring>()</argsstring>
+        <name>getSettingsMap</name>
+        <briefdescription>
+<para>get settings for this solver </para>
+        </briefdescription>
+        <detaileddescription>
+<para><simplesect kind="return"><para>mapping of keys which are setting names to values stored as Variants. </para>
+</simplesect>
+<simplesect kind="see"><para><ref refid="classrr_1_1Solver_1ae2b13c6ae06980b14a80e8a32766dcfa" kindref="member">getSettings</ref> </para>
+</simplesect>
+</para>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="Solver.h" line="86" column="28" bodyfile="Solver.cpp" bodystart="50" bodyend="53"/>
       </memberdef>
       <memberdef kind="function" id="classrr_1_1Solver_1a71c8b404a40447f879b2253e7dcc3b85" prot="public" static="no" const="no" explicit="no" inline="no" virt="virtual">
         <type>void</type>
         <definition>void rr::Solver::resetSettings</definition>
         <argsstring>()</argsstring>
         <name>resetSettings</name>
-        <reimplementedby refid="classrr_1_1CVODEIntegrator_1a455f08dc01b03a527482edc3d2db95b1">resetSettings</reimplementedby>
         <reimplementedby refid="classrr_1_1EulerIntegrator_1ade4200288b7b99ec7eee7cde2d9729b6">resetSettings</reimplementedby>
         <reimplementedby refid="classrr_1_1GillespieIntegrator_1a2dcbd5a36b094a9b14d1e8e423204c7b">resetSettings</reimplementedby>
-        <reimplementedby refid="classrr_1_1NLEQ1Solver_1acff80edbc665b7489be400e174a0dc6c">resetSettings</reimplementedby>
-        <reimplementedby refid="classrr_1_1NLEQ2Solver_1a53f872e0ee1a0afeb4a81b433c5cb7fc">resetSettings</reimplementedby>
         <reimplementedby refid="classrr_1_1RK45Integrator_1a68cd9b39288762b25f1410aa743f703c">resetSettings</reimplementedby>
         <reimplementedby refid="classrr_1_1RK4Integrator_1ae7537cb767479cd0ab19dc405ed13376">resetSettings</reimplementedby>
+        <reimplementedby refid="classrr_1_1CVODEIntegrator_1ac18581f5c000940449032e166ef48e79">resetSettings</reimplementedby>
+        <reimplementedby refid="classrr_1_1FixedPointIteration_1ab7451909f822f8642b7555248493371d">resetSettings</reimplementedby>
+        <reimplementedby refid="classrr_1_1KinsolSteadyStateSolver_1ad6bb33d80ec7660150167cac4aefa2ae">resetSettings</reimplementedby>
+        <reimplementedby refid="classrr_1_1NewtonIteration_1aef52744c9ff9f21ad69a49b1fe8ef9c4">resetSettings</reimplementedby>
+        <reimplementedby refid="classrr_1_1NLEQSolver_1a73142505757b0b6363da15e2b937dd78">resetSettings</reimplementedby>
+        <reimplementedby refid="classrr_1_1SteadyStateSolver_1ac9652965eb0defa7c12af91110dd68fc">resetSettings</reimplementedby>
+        <reimplementedby refid="classrr_1_1SteadyStateSolverDecorator_1a6978cebc1cf1ac984be2051491170443">resetSettings</reimplementedby>
         <briefdescription>
 <para>Reset all settings to their respective default values. </para>
         </briefdescription>
         <detaileddescription>
-<para><simplesect kind="author"><para>JKM </para>
-</simplesect>
-</para>
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="Solver.h" line="70" column="22" bodyfile="Solver.cpp" bodystart="46" bodyend="52"/>
+        <location file="Solver.h" line="91" column="22" bodyfile="Solver.cpp" bodystart="65" bodyend="71"/>
       </memberdef>
-      <memberdef kind="function" id="classrr_1_1Solver_1a773a06f0d64c9d79423efcef1b381da1" prot="public" static="no" const="yes" explicit="no" inline="no" virt="virtual">
-        <type><ref refid="classrr_1_1Variant" kindref="compound">Variant</ref></type>
-        <definition>Variant rr::Solver::getValue</definition>
-        <argsstring>(std::string key) const</argsstring>
+      <memberdef kind="function" id="classrr_1_1Solver_1a87339915a211b22ecd63078bb1cb7ca9" prot="public" static="no" const="yes" explicit="no" inline="no" virt="virtual">
+        <type><ref refid="classrr_1_1Setting" kindref="compound">Setting</ref></type>
+        <definition>Setting rr::Solver::getValue</definition>
+        <argsstring>(const std::string &amp;key) const</argsstring>
         <name>getValue</name>
         <param>
-          <type>std::string</type>
+          <type>const std::string &amp;</type>
           <declname>key</declname>
         </param>
         <briefdescription>
@@ -281,21 +389,21 @@
         <detaileddescription>
 <para><simplesect kind="author"><para>JKM, WBC </para>
 </simplesect>
-<simplesect kind="note"><para>Use one of the type-concrete versions like <ref refid="classrr_1_1Solver_1a415242398d22d3145ff68afbb73d6b07" kindref="member">getValueAsInt</ref> to avoid type conversion gotchas </para>
+<simplesect kind="note"><para>Use one of the type-concrete versions like getValueAsInt to avoid type conversion gotchas </para>
 </simplesect>
 </para>
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="Solver.h" line="78" column="25" bodyfile="Solver.cpp" bodystart="83" bodyend="91"/>
+        <location file="Solver.h" line="99" column="25" bodyfile="Solver.cpp" bodystart="102" bodyend="110"/>
       </memberdef>
-      <memberdef kind="function" id="classrr_1_1Solver_1a104f619f19529d57869310cd67fcc6d1" prot="public" static="no" const="yes" explicit="no" inline="no" virt="virtual">
-        <type><ref refid="classrr_1_1Variant" kindref="compound">Variant</ref></type>
-        <definition>Variant rr::Solver::hasValue</definition>
-        <argsstring>(std::string key) const</argsstring>
+      <memberdef kind="function" id="classrr_1_1Solver_1afc1e25855220cbe469433c70f8c44ea5" prot="public" static="no" const="yes" explicit="no" inline="no" virt="virtual">
+        <type><ref refid="classrr_1_1Setting" kindref="compound">Setting</ref></type>
+        <definition>Setting rr::Solver::hasValue</definition>
+        <argsstring>(const std::string &amp;key) const</argsstring>
         <name>hasValue</name>
         <param>
-          <type>std::string</type>
+          <type>const std::string &amp;</type>
           <declname>key</declname>
         </param>
         <briefdescription>
@@ -308,7 +416,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="Solver.h" line="84" column="25" bodyfile="Solver.cpp" bodystart="93" bodyend="96"/>
+        <location file="Solver.h" line="105" column="25" bodyfile="Solver.cpp" bodystart="112" bodyend="115"/>
       </memberdef>
       <memberdef kind="function" id="classrr_1_1Solver_1abbefd0f38dfa2651c74f8abbd6d7b143" prot="public" static="no" const="yes" explicit="no" inline="no" virt="virtual">
         <type>size_t</type>
@@ -325,7 +433,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="Solver.h" line="90" column="24" bodyfile="Solver.cpp" bodystart="54" bodyend="59"/>
+        <location file="Solver.h" line="111" column="24" bodyfile="Solver.cpp" bodystart="73" bodyend="78"/>
       </memberdef>
       <memberdef kind="function" id="classrr_1_1Solver_1ae2bb88ffce40a0136c86a020b4c39037" prot="public" static="no" const="yes" explicit="no" inline="no" virt="virtual">
         <type>std::string</type>
@@ -346,7 +454,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="Solver.h" line="96" column="29" bodyfile="Solver.cpp" bodystart="61" bodyend="66"/>
+        <location file="Solver.h" line="117" column="29" bodyfile="Solver.cpp" bodystart="80" bodyend="85"/>
       </memberdef>
       <memberdef kind="function" id="classrr_1_1Solver_1afc0a667f204105aa133376144ce14c75" prot="public" static="no" const="yes" explicit="no" inline="no" virt="virtual">
         <type>std::string</type>
@@ -367,7 +475,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="Solver.h" line="102" column="29" bodyfile="Solver.cpp" bodystart="68" bodyend="71"/>
+        <location file="Solver.h" line="123" column="29" bodyfile="Solver.cpp" bodystart="87" bodyend="90"/>
       </memberdef>
       <memberdef kind="function" id="classrr_1_1Solver_1aa604b810ab3f1a2c8bc6dfa6fc731dc2" prot="public" static="no" const="yes" explicit="no" inline="no" virt="virtual">
         <type>std::string</type>
@@ -388,7 +496,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="Solver.h" line="108" column="29" bodyfile="Solver.cpp" bodystart="73" bodyend="76"/>
+        <location file="Solver.h" line="129" column="29" bodyfile="Solver.cpp" bodystart="92" bodyend="95"/>
       </memberdef>
       <memberdef kind="function" id="classrr_1_1Solver_1aa13e13a92531fde27fe5711790eee0f7" prot="public" static="no" const="yes" explicit="no" inline="no" virt="virtual">
         <type>std::string</type>
@@ -409,205 +517,19 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="Solver.h" line="114" column="29" bodyfile="Solver.cpp" bodystart="78" bodyend="81"/>
+        <location file="Solver.h" line="135" column="29" bodyfile="Solver.cpp" bodystart="97" bodyend="100"/>
       </memberdef>
-      <memberdef kind="function" id="classrr_1_1Solver_1a415242398d22d3145ff68afbb73d6b07" prot="public" static="no" const="no" explicit="no" inline="no" virt="virtual">
-        <type>int</type>
-        <definition>int rr::Solver::getValueAsInt</definition>
-        <argsstring>(std::string key)</argsstring>
-        <name>getValueAsInt</name>
-        <param>
-          <type>std::string</type>
-          <declname>key</declname>
-        </param>
-        <briefdescription>
-<para>Wrapper for <ref refid="classrr_1_1Solver_1a773a06f0d64c9d79423efcef1b381da1" kindref="member">getValue</ref> which converts output to a specific type. </para>
-        </briefdescription>
-        <detaileddescription>
-<para><simplesect kind="author"><para>WBC, JKM </para>
-</simplesect>
-</para>
-        </detaileddescription>
-        <inbodydescription>
-        </inbodydescription>
-        <location file="Solver.h" line="121" column="21" bodyfile="Solver.cpp" bodystart="98" bodyend="101"/>
-      </memberdef>
-      <memberdef kind="function" id="classrr_1_1Solver_1a293296661e45b8cb3a092cf8ed5a196b" prot="public" static="no" const="no" explicit="no" inline="no" virt="virtual">
-        <type>unsigned int</type>
-        <definition>unsigned int rr::Solver::getValueAsUInt</definition>
-        <argsstring>(std::string key)</argsstring>
-        <name>getValueAsUInt</name>
-        <param>
-          <type>std::string</type>
-          <declname>key</declname>
-        </param>
-        <briefdescription>
-<para>Wrapper for <ref refid="classrr_1_1Solver_1a773a06f0d64c9d79423efcef1b381da1" kindref="member">getValue</ref> which converts output to a specific type. </para>
-        </briefdescription>
-        <detaileddescription>
-<para><simplesect kind="author"><para>WBC, JKM </para>
-</simplesect>
-</para>
-        </detaileddescription>
-        <inbodydescription>
-        </inbodydescription>
-        <location file="Solver.h" line="127" column="30" bodyfile="Solver.cpp" bodystart="103" bodyend="106"/>
-      </memberdef>
-      <memberdef kind="function" id="classrr_1_1Solver_1a858ce4395c8005ddec5a3ee811eda33a" prot="public" static="no" const="no" explicit="no" inline="no" virt="virtual">
-        <type>long</type>
-        <definition>long rr::Solver::getValueAsLong</definition>
-        <argsstring>(std::string key)</argsstring>
-        <name>getValueAsLong</name>
-        <param>
-          <type>std::string</type>
-          <declname>key</declname>
-        </param>
-        <briefdescription>
-<para>Wrapper for <ref refid="classrr_1_1Solver_1a773a06f0d64c9d79423efcef1b381da1" kindref="member">getValue</ref> which converts output to a specific type. </para>
-        </briefdescription>
-        <detaileddescription>
-<para><simplesect kind="author"><para>WBC, JKM </para>
-</simplesect>
-</para>
-        </detaileddescription>
-        <inbodydescription>
-        </inbodydescription>
-        <location file="Solver.h" line="133" column="22" bodyfile="Solver.cpp" bodystart="108" bodyend="111"/>
-      </memberdef>
-      <memberdef kind="function" id="classrr_1_1Solver_1aafabb2cc0b41558dc3edae324977372c" prot="public" static="no" const="no" explicit="no" inline="no" virt="virtual">
-        <type>unsigned long</type>
-        <definition>unsigned long rr::Solver::getValueAsULong</definition>
-        <argsstring>(std::string key)</argsstring>
-        <name>getValueAsULong</name>
-        <param>
-          <type>std::string</type>
-          <declname>key</declname>
-        </param>
-        <briefdescription>
-<para>Wrapper for <ref refid="classrr_1_1Solver_1a773a06f0d64c9d79423efcef1b381da1" kindref="member">getValue</ref> which converts output to a specific type. </para>
-        </briefdescription>
-        <detaileddescription>
-<para><simplesect kind="author"><para>WBC, JKM </para>
-</simplesect>
-</para>
-        </detaileddescription>
-        <inbodydescription>
-        </inbodydescription>
-        <location file="Solver.h" line="139" column="31" bodyfile="Solver.cpp" bodystart="113" bodyend="116"/>
-      </memberdef>
-      <memberdef kind="function" id="classrr_1_1Solver_1ad30b0e354acd5025b3162db55f1baa93" prot="public" static="no" const="no" explicit="no" inline="no" virt="virtual">
-        <type>float</type>
-        <definition>float rr::Solver::getValueAsFloat</definition>
-        <argsstring>(std::string key)</argsstring>
-        <name>getValueAsFloat</name>
-        <param>
-          <type>std::string</type>
-          <declname>key</declname>
-        </param>
-        <briefdescription>
-<para>Wrapper for <ref refid="classrr_1_1Solver_1a773a06f0d64c9d79423efcef1b381da1" kindref="member">getValue</ref> which converts output to a specific type. </para>
-        </briefdescription>
-        <detaileddescription>
-<para><simplesect kind="author"><para>WBC, JKM </para>
-</simplesect>
-</para>
-        </detaileddescription>
-        <inbodydescription>
-        </inbodydescription>
-        <location file="Solver.h" line="145" column="23" bodyfile="Solver.cpp" bodystart="118" bodyend="121"/>
-      </memberdef>
-      <memberdef kind="function" id="classrr_1_1Solver_1a46987712b9dee2da90c7124761186eb1" prot="public" static="no" const="no" explicit="no" inline="no" virt="virtual">
-        <type>double</type>
-        <definition>double rr::Solver::getValueAsDouble</definition>
-        <argsstring>(std::string key)</argsstring>
-        <name>getValueAsDouble</name>
-        <param>
-          <type>std::string</type>
-          <declname>key</declname>
-        </param>
-        <briefdescription>
-<para>Wrapper for <ref refid="classrr_1_1Solver_1a773a06f0d64c9d79423efcef1b381da1" kindref="member">getValue</ref> which converts output to a specific type. </para>
-        </briefdescription>
-        <detaileddescription>
-<para><simplesect kind="author"><para>WBC, JKM </para>
-</simplesect>
-</para>
-        </detaileddescription>
-        <inbodydescription>
-        </inbodydescription>
-        <location file="Solver.h" line="151" column="24" bodyfile="Solver.cpp" bodystart="123" bodyend="126"/>
-      </memberdef>
-      <memberdef kind="function" id="classrr_1_1Solver_1a449a23882706072f4cfaa416887e42d3" prot="public" static="no" const="no" explicit="no" inline="no" virt="virtual">
-        <type>std::vector&lt; double &gt;</type>
-        <definition>vector&lt; double &gt; rr::Solver::getValueAsDoubleVector</definition>
-        <argsstring>(std::string key)</argsstring>
-        <name>getValueAsDoubleVector</name>
-        <param>
-          <type>std::string</type>
-          <declname>key</declname>
-        </param>
-        <briefdescription>
-<para>Wrapper for <ref refid="classrr_1_1Solver_1a773a06f0d64c9d79423efcef1b381da1" kindref="member">getValue</ref> which converts output to a specific type. </para>
-        </briefdescription>
-        <detaileddescription>
-        </detaileddescription>
-        <inbodydescription>
-        </inbodydescription>
-        <location file="Solver.h" line="157" column="21" bodyfile="Solver.cpp" bodystart="128" bodyend="131"/>
-      </memberdef>
-      <memberdef kind="function" id="classrr_1_1Solver_1a9bc55d0247a3aa629b0ab8f247ee009c" prot="public" static="no" const="no" explicit="no" inline="no" virt="virtual">
-        <type>char</type>
-        <definition>char rr::Solver::getValueAsChar</definition>
-        <argsstring>(std::string key)</argsstring>
-        <name>getValueAsChar</name>
-        <param>
-          <type>std::string</type>
-          <declname>key</declname>
-        </param>
-        <briefdescription>
-<para>Wrapper for <ref refid="classrr_1_1Solver_1a773a06f0d64c9d79423efcef1b381da1" kindref="member">getValue</ref> which converts output to a specific type. </para>
-        </briefdescription>
-        <detaileddescription>
-<para><simplesect kind="author"><para>WBC, JKM </para>
-</simplesect>
-</para>
-        </detaileddescription>
-        <inbodydescription>
-        </inbodydescription>
-        <location file="Solver.h" line="164" column="22" bodyfile="Solver.cpp" bodystart="133" bodyend="136"/>
-      </memberdef>
-      <memberdef kind="function" id="classrr_1_1Solver_1ae21e55aeea202e9151112fa00a4c0f82" prot="public" static="no" const="no" explicit="no" inline="no" virt="virtual">
-        <type>unsigned char</type>
-        <definition>unsigned char rr::Solver::getValueAsUChar</definition>
-        <argsstring>(std::string key)</argsstring>
-        <name>getValueAsUChar</name>
-        <param>
-          <type>std::string</type>
-          <declname>key</declname>
-        </param>
-        <briefdescription>
-<para>Wrapper for <ref refid="classrr_1_1Solver_1a773a06f0d64c9d79423efcef1b381da1" kindref="member">getValue</ref> which converts output to a specific type. </para>
-        </briefdescription>
-        <detaileddescription>
-<para><simplesect kind="author"><para>WBC, JKM </para>
-</simplesect>
-</para>
-        </detaileddescription>
-        <inbodydescription>
-        </inbodydescription>
-        <location file="Solver.h" line="170" column="31" bodyfile="Solver.cpp" bodystart="138" bodyend="141"/>
-      </memberdef>
-      <memberdef kind="function" id="classrr_1_1Solver_1a6960c38714621daab7e92eadede5f83c" prot="public" static="no" const="no" explicit="no" inline="no" virt="virtual">
+      <memberdef kind="function" id="classrr_1_1Solver_1a83b99af970b895d62998bf90ec619168" prot="public" static="no" const="no" explicit="no" inline="no" virt="virtual">
         <type>std::string</type>
         <definition>std::string rr::Solver::getValueAsString</definition>
-        <argsstring>(std::string key)</argsstring>
+        <argsstring>(const std::string &amp;key)</argsstring>
         <name>getValueAsString</name>
         <param>
-          <type>std::string</type>
+          <type>const std::string &amp;</type>
           <declname>key</declname>
         </param>
         <briefdescription>
-<para>Wrapper for <ref refid="classrr_1_1Solver_1a773a06f0d64c9d79423efcef1b381da1" kindref="member">getValue</ref> which converts output to a specific type. </para>
+<para>Wrapper for <ref refid="classrr_1_1Solver_1a87339915a211b22ecd63078bb1cb7ca9" kindref="member">getValue</ref> which converts output to a specific type. </para>
         </briefdescription>
         <detaileddescription>
 <para><simplesect kind="author"><para>WBC, JKM </para>
@@ -616,42 +538,21 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="Solver.h" line="176" column="29" bodyfile="Solver.cpp" bodystart="143" bodyend="146"/>
+        <location file="Solver.h" line="141" column="29" bodyfile="Solver.cpp" bodystart="118" bodyend="121"/>
       </memberdef>
-      <memberdef kind="function" id="classrr_1_1Solver_1a9f6e5069f1606a5f5e3d517ee01cfede" prot="public" static="no" const="no" explicit="no" inline="no" virt="virtual">
-        <type>bool</type>
-        <definition>bool rr::Solver::getValueAsBool</definition>
-        <argsstring>(std::string key)</argsstring>
-        <name>getValueAsBool</name>
-        <param>
-          <type>std::string</type>
-          <declname>key</declname>
-        </param>
-        <briefdescription>
-<para>Wrapper for <ref refid="classrr_1_1Solver_1a773a06f0d64c9d79423efcef1b381da1" kindref="member">getValue</ref> which converts output to a specific type. </para>
-        </briefdescription>
-        <detaileddescription>
-<para><simplesect kind="author"><para>WBC, JKM </para>
-</simplesect>
-</para>
-        </detaileddescription>
-        <inbodydescription>
-        </inbodydescription>
-        <location file="Solver.h" line="182" column="22" bodyfile="Solver.cpp" bodystart="148" bodyend="151"/>
-      </memberdef>
-      <memberdef kind="function" id="classrr_1_1Solver_1a45dd9257f0b87546e7bdd607f3857260" prot="public" static="no" const="no" explicit="no" inline="no" virt="virtual">
+      <memberdef kind="function" id="classrr_1_1Solver_1a18fa004a818506c15d47fa28015039c6" prot="public" static="no" const="no" explicit="no" inline="no" virt="virtual">
         <type>void</type>
         <definition>void rr::Solver::setValue</definition>
-        <argsstring>(std::string key, const Variant &amp;value)</argsstring>
+        <argsstring>(const std::string &amp;key, Setting value)</argsstring>
         <name>setValue</name>
-        <reimplementedby refid="classrr_1_1CVODEIntegrator_1acd45a44a9da5910aa9a02085372ace0e">setValue</reimplementedby>
-        <reimplementedby refid="classrr_1_1GillespieIntegrator_1a3b7430200b51e63f449704f0ee300b07">setValue</reimplementedby>
+        <reimplementedby refid="classrr_1_1GillespieIntegrator_1af80e362ba349ce060c926c8d840835df">setValue</reimplementedby>
+        <reimplementedby refid="classrr_1_1CVODEIntegrator_1a2ba8be5c51129d05dd8ab5315dc12edc">setValue</reimplementedby>
         <param>
-          <type>std::string</type>
+          <type>const std::string &amp;</type>
           <declname>key</declname>
         </param>
         <param>
-          <type>const <ref refid="classrr_1_1Variant" kindref="compound">Variant</ref> &amp;</type>
+          <type><ref refid="classrr_1_1Setting" kindref="compound">Setting</ref></type>
           <declname>value</declname>
         </param>
         <briefdescription>
@@ -660,15 +561,89 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="Solver.h" line="185" column="22" bodyfile="Solver.cpp" bodystart="153" bodyend="158"/>
+        <location file="Solver.h" line="143" column="22" bodyfile="Solver.cpp" bodystart="123" bodyend="128"/>
       </memberdef>
-      <memberdef kind="function" id="classrr_1_1Solver_1a1242e881aa76493f73c4e32784c1cec6" prot="public" static="no" const="yes" explicit="no" inline="no" virt="non-virtual">
+      <memberdef kind="function" id="classrr_1_1Solver_1a3f7a3671a4f2ee508fa015ed4b164213" prot="public" static="no" const="yes" explicit="no" inline="no" virt="virtual">
+        <type>std::string</type>
+        <definition>std::string rr::Solver::getSettingsRepr</definition>
+        <argsstring>() const</argsstring>
+        <name>getSettingsRepr</name>
+        <briefdescription>
+<para>Get the solver settings as a std::string. </para>
+        </briefdescription>
+        <detaileddescription>
+<para><simplesect kind="author"><para>JKM </para>
+</simplesect>
+</para>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="Solver.h" line="149" column="29" bodyfile="Solver.cpp" bodystart="166" bodyend="173"/>
+      </memberdef>
+      <memberdef kind="function" id="classrr_1_1Solver_1a37b032d8755eaccd3480531bdc2a4596" prot="public" static="no" const="yes" explicit="no" inline="no" virt="virtual">
+        <type>std::string</type>
+        <definition>std::string rr::Solver::settingsPyDictRepr</definition>
+        <argsstring>() const</argsstring>
+        <name>settingsPyDictRepr</name>
+        <briefdescription>
+<para>Python dictionary-style std::string representation of settings. </para>
+        </briefdescription>
+        <detaileddescription>
+<para><simplesect kind="author"><para>JKM </para>
+</simplesect>
+</para>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="Solver.h" line="155" column="29" bodyfile="Solver.cpp" bodystart="175" bodyend="181"/>
+      </memberdef>
+      <memberdef kind="function" id="classrr_1_1Solver_1af08f448f7eea26415a47caaae161de02" prot="public" static="no" const="yes" explicit="no" inline="no" virt="virtual">
+        <type>std::string</type>
+        <definition>std::string rr::Solver::toString</definition>
+        <argsstring>() const</argsstring>
+        <name>toString</name>
+        <reimplementedby refid="classrr_1_1EulerIntegrator_1aeafbbe730c71a4627fb79f21e0d839ad">toString</reimplementedby>
+        <reimplementedby refid="classrr_1_1Integrator_1adde5221e0d61f9f5398d69020e1a5a86">toString</reimplementedby>
+        <reimplementedby refid="classrr_1_1SteadyStateSolver_1aaf40e2ae58d2f4fef80a00f5bb7fd413">toString</reimplementedby>
+        <briefdescription>
+<para>Return a std::string representation of the solver. </para>
+        </briefdescription>
+        <detaileddescription>
+<para><simplesect kind="author"><para>JKM </para>
+</simplesect>
+</para>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="Solver.h" line="161" column="29" bodyfile="Solver.cpp" bodystart="183" bodyend="191"/>
+      </memberdef>
+      <memberdef kind="function" id="classrr_1_1Solver_1a2f2b574b220becfebd1be2d8cc34d550" prot="public" static="no" const="yes" explicit="no" inline="no" virt="virtual">
+        <type>std::string</type>
+        <definition>std::string rr::Solver::toRepr</definition>
+        <argsstring>() const</argsstring>
+        <name>toRepr</name>
+        <reimplementedby refid="classrr_1_1EulerIntegrator_1a4f484ed1c727f3f45f90586de64e329f">toRepr</reimplementedby>
+        <reimplementedby refid="classrr_1_1Integrator_1abb3c4ae3020a5df7abe40639037615cb">toRepr</reimplementedby>
+        <reimplementedby refid="classrr_1_1SteadyStateSolver_1a4307ed20fd04adf61cc8b4ef9a88f747">toRepr</reimplementedby>
+        <briefdescription>
+<para>Return std::string representation a la Python <bold>repr</bold> method. </para>
+        </briefdescription>
+        <detaileddescription>
+<para><simplesect kind="author"><para>JKM </para>
+</simplesect>
+</para>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="Solver.h" line="167" column="29" bodyfile="Solver.cpp" bodystart="193" bodyend="198"/>
+      </memberdef>
+      <memberdef kind="function" id="classrr_1_1Solver_1a1fce02df70c95855d9d3cd7e3d352c08" prot="public" static="no" const="yes" explicit="no" inline="no" virt="non-virtual">
         <type>const std::string &amp;</type>
         <definition>const std::string &amp; rr::Solver::getDisplayName</definition>
-        <argsstring>(std::string key) const</argsstring>
+        <argsstring>(const std::string &amp;key) const</argsstring>
         <name>getDisplayName</name>
         <param>
-          <type>std::string</type>
+          <type>const std::string &amp;</type>
           <declname>key</declname>
         </param>
         <briefdescription>
@@ -681,15 +656,15 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="Solver.h" line="191" column="27" bodyfile="Solver.cpp" bodystart="161" bodyend="169"/>
+        <location file="Solver.h" line="173" column="27" bodyfile="Solver.cpp" bodystart="131" bodyend="139"/>
       </memberdef>
-      <memberdef kind="function" id="classrr_1_1Solver_1a7cef64c1874bd5cb95ddff1399e04c45" prot="public" static="no" const="yes" explicit="no" inline="no" virt="non-virtual">
+      <memberdef kind="function" id="classrr_1_1Solver_1a4915611d49d03f0fe499bed99a05aae1" prot="public" static="no" const="yes" explicit="no" inline="no" virt="non-virtual">
         <type>const std::string &amp;</type>
         <definition>const std::string &amp; rr::Solver::getHint</definition>
-        <argsstring>(std::string key) const</argsstring>
+        <argsstring>(const std::string &amp;key) const</argsstring>
         <name>getHint</name>
         <param>
-          <type>std::string</type>
+          <type>const std::string &amp;</type>
           <declname>key</declname>
         </param>
         <briefdescription>
@@ -702,15 +677,15 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="Solver.h" line="197" column="27" bodyfile="Solver.cpp" bodystart="171" bodyend="179"/>
+        <location file="Solver.h" line="179" column="27" bodyfile="Solver.cpp" bodystart="141" bodyend="149"/>
       </memberdef>
-      <memberdef kind="function" id="classrr_1_1Solver_1a63d1ab12d862663336c74721f67354f3" prot="public" static="no" const="yes" explicit="no" inline="no" virt="non-virtual">
+      <memberdef kind="function" id="classrr_1_1Solver_1a522a881e88165986944db55a8f2da845" prot="public" static="no" const="yes" explicit="no" inline="no" virt="non-virtual">
         <type>const std::string &amp;</type>
         <definition>const std::string &amp; rr::Solver::getDescription</definition>
-        <argsstring>(std::string key) const</argsstring>
+        <argsstring>(const std::string &amp;key) const</argsstring>
         <name>getDescription</name>
         <param>
-          <type>std::string</type>
+          <type>const std::string &amp;</type>
           <declname>key</declname>
         </param>
         <briefdescription>
@@ -723,15 +698,15 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="Solver.h" line="203" column="27" bodyfile="Solver.cpp" bodystart="181" bodyend="189"/>
+        <location file="Solver.h" line="185" column="27" bodyfile="Solver.cpp" bodystart="151" bodyend="159"/>
       </memberdef>
-      <memberdef kind="function" id="classrr_1_1Solver_1a20add37bbd73f50d14047171f5f8e921" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
-        <type>const <ref refid="classrr_1_1Variant_1a64c7b2189f8d391527919e46a72402a8" kindref="member">Variant::TypeId</ref></type>
-        <definition>const Variant::TypeId rr::Solver::getType</definition>
-        <argsstring>(std::string key)</argsstring>
+      <memberdef kind="function" id="classrr_1_1Solver_1a0bd064d494a0701edffca5eb67b64b2a" prot="public" static="no" const="yes" explicit="no" inline="no" virt="non-virtual">
+        <type><ref refid="classrr_1_1Setting_1af49342a0fabdeeafe649246089a72b40" kindref="member">Setting::TypeId</ref></type>
+        <definition>Setting::TypeId rr::Solver::getType</definition>
+        <argsstring>(const std::string &amp;key) const</argsstring>
         <name>getType</name>
         <param>
-          <type>std::string</type>
+          <type>const std::string &amp;</type>
           <declname>key</declname>
         </param>
         <briefdescription>
@@ -744,99 +719,39 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="Solver.h" line="209" column="31" bodyfile="Solver.cpp" bodystart="191" bodyend="194"/>
+        <location file="Solver.h" line="191" column="25" bodyfile="Solver.cpp" bodystart="161" bodyend="164"/>
       </memberdef>
-      <memberdef kind="function" id="classrr_1_1Solver_1a3f7a3671a4f2ee508fa015ed4b164213" prot="public" static="no" const="yes" explicit="no" inline="no" virt="non-virtual">
-        <type>std::string</type>
-        <definition>std::string rr::Solver::getSettingsRepr</definition>
+      <memberdef kind="function" id="classrr_1_1Solver_1ac89194d54aaad3ecc71e1cfbbef83d15" prot="public" static="no" const="yes" explicit="no" inline="no" virt="virtual">
+        <type><ref refid="classrr_1_1ExecutableModel" kindref="compound">ExecutableModel</ref> *</type>
+        <definition>ExecutableModel * rr::Solver::getModel</definition>
         <argsstring>() const</argsstring>
-        <name>getSettingsRepr</name>
+        <name>getModel</name>
         <briefdescription>
-<para>Get the solver settings as a string. </para>
+<para>returns the pointer to the <ref refid="classrr_1_1ExecutableModel" kindref="compound">ExecutableModel</ref> </para>
         </briefdescription>
         <detaileddescription>
-<para><simplesect kind="author"><para>JKM </para>
-</simplesect>
-</para>
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="Solver.h" line="215" column="21" bodyfile="Solver.cpp" bodystart="196" bodyend="202"/>
-      </memberdef>
-      <memberdef kind="function" id="classrr_1_1Solver_1a37b032d8755eaccd3480531bdc2a4596" prot="public" static="no" const="yes" explicit="no" inline="no" virt="non-virtual">
-        <type>std::string</type>
-        <definition>std::string rr::Solver::settingsPyDictRepr</definition>
-        <argsstring>() const</argsstring>
-        <name>settingsPyDictRepr</name>
-        <briefdescription>
-<para>Python dictionary-style string representation of settings. </para>
-        </briefdescription>
-        <detaileddescription>
-<para><simplesect kind="author"><para>JKM </para>
-</simplesect>
-</para>
-        </detaileddescription>
-        <inbodydescription>
-        </inbodydescription>
-        <location file="Solver.h" line="221" column="21" bodyfile="Solver.cpp" bodystart="204" bodyend="210"/>
-      </memberdef>
-      <memberdef kind="function" id="classrr_1_1Solver_1af08f448f7eea26415a47caaae161de02" prot="public" static="no" const="yes" explicit="no" inline="no" virt="virtual">
-        <type>std::string</type>
-        <definition>std::string rr::Solver::toString</definition>
-        <argsstring>() const</argsstring>
-        <name>toString</name>
-        <reimplementedby refid="classrr_1_1EulerIntegrator_1aeafbbe730c71a4627fb79f21e0d839ad">toString</reimplementedby>
-        <reimplementedby refid="classrr_1_1Integrator_1adde5221e0d61f9f5398d69020e1a5a86">toString</reimplementedby>
-        <reimplementedby refid="classrr_1_1SteadyStateSolver_1afcc15369d04e99ad76cdb8390a94b103">toString</reimplementedby>
-        <briefdescription>
-<para>Return a string representation of the solver. </para>
-        </briefdescription>
-        <detaileddescription>
-<para><simplesect kind="author"><para>JKM </para>
-</simplesect>
-</para>
-        </detaileddescription>
-        <inbodydescription>
-        </inbodydescription>
-        <location file="Solver.h" line="227" column="29" bodyfile="Solver.cpp" bodystart="212" bodyend="220"/>
-      </memberdef>
-      <memberdef kind="function" id="classrr_1_1Solver_1a2f2b574b220becfebd1be2d8cc34d550" prot="public" static="no" const="yes" explicit="no" inline="no" virt="virtual">
-        <type>std::string</type>
-        <definition>std::string rr::Solver::toRepr</definition>
-        <argsstring>() const</argsstring>
-        <name>toRepr</name>
-        <reimplementedby refid="classrr_1_1EulerIntegrator_1a4f484ed1c727f3f45f90586de64e329f">toRepr</reimplementedby>
-        <reimplementedby refid="classrr_1_1Integrator_1abb3c4ae3020a5df7abe40639037615cb">toRepr</reimplementedby>
-        <reimplementedby refid="classrr_1_1SteadyStateSolver_1a1ce4941762d7605e03655432a0a38283">toRepr</reimplementedby>
-        <briefdescription>
-<para>Return string representation a la Python <bold>repr</bold> method. </para>
-        </briefdescription>
-        <detaileddescription>
-<para><simplesect kind="author"><para>JKM </para>
-</simplesect>
-</para>
-        </detaileddescription>
-        <inbodydescription>
-        </inbodydescription>
-        <location file="Solver.h" line="233" column="29" bodyfile="Solver.cpp" bodystart="222" bodyend="227"/>
+        <location file="Solver.h" line="196" column="33" bodyfile="Solver.cpp" bodystart="200" bodyend="205"/>
       </memberdef>
       </sectiondef>
       <sectiondef kind="protected-func">
-      <memberdef kind="function" id="classrr_1_1Solver_1aec6b159d96d73f2baafc74578b129ce8" prot="protected" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+      <memberdef kind="function" id="classrr_1_1Solver_1ad5b8ac1ef687d1a3c9f1f305cb73804d" prot="protected" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
         <type>void</type>
         <definition>void rr::Solver::addSetting</definition>
-        <argsstring>(std::string name, Variant val, string display_name, std::string hint, std::string description)</argsstring>
+        <argsstring>(const std::string &amp;name, Setting val, std::string display_name, std::string hint, std::string description)</argsstring>
         <name>addSetting</name>
         <param>
-          <type>std::string</type>
+          <type>const std::string &amp;</type>
           <declname>name</declname>
         </param>
         <param>
-          <type><ref refid="classrr_1_1Variant" kindref="compound">Variant</ref></type>
+          <type><ref refid="classrr_1_1Setting" kindref="compound">Setting</ref></type>
           <declname>val</declname>
         </param>
         <param>
-          <type>string</type>
+          <type>std::string</type>
           <declname>display_name</declname>
         </param>
         <param>
@@ -853,7 +768,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="Solver.h" line="248" column="14" bodyfile="Solver.cpp" bodystart="27" bodyend="34"/>
+        <location file="Solver.h" line="217" column="14" bodyfile="Solver.cpp" bodystart="29" bodyend="36"/>
       </memberdef>
       </sectiondef>
     <briefdescription>
@@ -871,10 +786,28 @@
         <childnode refid="2" relation="public-inheritance">
         </childnode>
       </node>
+      <node id="13">
+        <label>rr::LinesearchNewtonIteration</label>
+        <link refid="classrr_1_1LinesearchNewtonIteration"/>
+        <childnode refid="11" relation="public-inheritance">
+        </childnode>
+      </node>
       <node id="4">
         <label>rr::EulerIntegrator</label>
         <link refid="classrr_1_1EulerIntegrator"/>
         <childnode refid="2" relation="public-inheritance">
+        </childnode>
+      </node>
+      <node id="9">
+        <label>rr::KinsolSteadyStateSolver</label>
+        <link refid="classrr_1_1KinsolSteadyStateSolver"/>
+        <childnode refid="8" relation="public-inheritance">
+        </childnode>
+      </node>
+      <node id="19">
+        <label>rr::PresimulationDecorator</label>
+        <link refid="classrr_1_1PresimulationDecorator"/>
+        <childnode refid="17" relation="public-inheritance">
         </childnode>
       </node>
       <node id="2">
@@ -889,10 +822,22 @@
         <childnode refid="2" relation="public-inheritance">
         </childnode>
       </node>
-      <node id="10">
+      <node id="16">
         <label>rr::NLEQ2Solver</label>
         <link refid="classrr_1_1NLEQ2Solver"/>
+        <childnode refid="14" relation="public-inheritance">
+        </childnode>
+      </node>
+      <node id="17">
+        <label>rr::SteadyStateSolverDecorator</label>
+        <link refid="classrr_1_1SteadyStateSolverDecorator"/>
         <childnode refid="8" relation="public-inheritance">
+        </childnode>
+      </node>
+      <node id="18">
+        <label>rr::ApproxSteadyStateDecorator</label>
+        <link refid="classrr_1_1ApproxSteadyStateDecorator"/>
+        <childnode refid="17" relation="public-inheritance">
         </childnode>
       </node>
       <node id="3">
@@ -901,10 +846,22 @@
         <childnode refid="2" relation="public-inheritance">
         </childnode>
       </node>
+      <node id="14">
+        <label>rr::NLEQSolver</label>
+        <link refid="classrr_1_1NLEQSolver"/>
+        <childnode refid="8" relation="public-inheritance">
+        </childnode>
+      </node>
       <node id="8">
         <label>rr::SteadyStateSolver</label>
         <link refid="classrr_1_1SteadyStateSolver"/>
         <childnode refid="1" relation="public-inheritance">
+        </childnode>
+      </node>
+      <node id="11">
+        <label>rr::NewtonIteration</label>
+        <link refid="classrr_1_1NewtonIteration"/>
+        <childnode refid="9" relation="public-inheritance">
         </childnode>
       </node>
       <node id="7">
@@ -917,59 +874,86 @@
         <label>rr::Solver</label>
         <link refid="classrr_1_1Solver"/>
       </node>
-      <node id="9">
+      <node id="20">
+        <label>rr::PresimulationProgramDecorator</label>
+        <link refid="classrr_1_1PresimulationProgramDecorator"/>
+        <childnode refid="17" relation="public-inheritance">
+        </childnode>
+      </node>
+      <node id="12">
+        <label>rr::BasicNewtonIteration</label>
+        <link refid="classrr_1_1BasicNewtonIteration"/>
+        <childnode refid="11" relation="public-inheritance">
+        </childnode>
+      </node>
+      <node id="15">
         <label>rr::NLEQ1Solver</label>
         <link refid="classrr_1_1NLEQ1Solver"/>
-        <childnode refid="8" relation="public-inheritance">
+        <childnode refid="14" relation="public-inheritance">
+        </childnode>
+      </node>
+      <node id="10">
+        <label>rr::FixedPointIteration</label>
+        <link refid="classrr_1_1FixedPointIteration"/>
+        <childnode refid="9" relation="public-inheritance">
         </childnode>
       </node>
     </inheritancegraph>
-    <location file="Solver.h" line="36" column="5" bodyfile="Solver.h" bodystart="37" bodyend="249"/>
+    <collaborationgraph>
+      <node id="1">
+        <label>rr::Solver</label>
+        <link refid="classrr_1_1Solver"/>
+        <childnode refid="2" relation="usage">
+          <edgelabel>mModel</edgelabel>
+        </childnode>
+      </node>
+      <node id="2">
+        <label>rr::ExecutableModel</label>
+        <link refid="classrr_1_1ExecutableModel"/>
+      </node>
+    </collaborationgraph>
+    <location file="Solver.h" line="39" column="5" bodyfile="Solver.h" bodystart="40" bodyend="219"/>
     <listofallmembers>
-      <member refid="classrr_1_1Solver_1aec6b159d96d73f2baafc74578b129ce8" prot="protected" virt="non-virtual"><scope>rr::Solver</scope><name>addSetting</name></member>
-      <member refid="classrr_1_1Solver_1a897a8b06197a02d72931de637bc9ac89" prot="protected" virt="non-virtual"><scope>rr::Solver</scope><name>DescriptionMap</name></member>
+      <member refid="classrr_1_1Solver_1ad5b8ac1ef687d1a3c9f1f305cb73804d" prot="protected" virt="non-virtual"><scope>rr::Solver</scope><name>addSetting</name></member>
+      <member refid="classrr_1_1Solver_1a7d58e224664ab44e56f90802d9601f01" prot="protected" virt="non-virtual"><scope>rr::Solver</scope><name>DescriptionMap</name></member>
       <member refid="classrr_1_1Solver_1a7e07121f652db358045d6f7b95889ea3" prot="protected" virt="non-virtual"><scope>rr::Solver</scope><name>descriptions</name></member>
       <member refid="classrr_1_1Solver_1a199de66231b25fef30d8ef2bdff80db7" prot="protected" virt="non-virtual"><scope>rr::Solver</scope><name>display_names_</name></member>
-      <member refid="classrr_1_1Solver_1afa810f2707ef6160e05c92e5812a8c6a" prot="protected" virt="non-virtual"><scope>rr::Solver</scope><name>DisplayNameMap</name></member>
+      <member refid="classrr_1_1Solver_1a76b76c8ba3a31a2c6a600322c90a0452" prot="protected" virt="non-virtual"><scope>rr::Solver</scope><name>DisplayNameMap</name></member>
       <member refid="classrr_1_1Solver_1a86067147c7631ca80d51667322f1a8f5" prot="public" virt="pure-virtual"><scope>rr::Solver</scope><name>getDescription</name></member>
-      <member refid="classrr_1_1Solver_1a63d1ab12d862663336c74721f67354f3" prot="public" virt="non-virtual"><scope>rr::Solver</scope><name>getDescription</name></member>
-      <member refid="classrr_1_1Solver_1a1242e881aa76493f73c4e32784c1cec6" prot="public" virt="non-virtual"><scope>rr::Solver</scope><name>getDisplayName</name></member>
+      <member refid="classrr_1_1Solver_1a522a881e88165986944db55a8f2da845" prot="public" virt="non-virtual"><scope>rr::Solver</scope><name>getDescription</name></member>
+      <member refid="classrr_1_1Solver_1a1fce02df70c95855d9d3cd7e3d352c08" prot="public" virt="non-virtual"><scope>rr::Solver</scope><name>getDisplayName</name></member>
       <member refid="classrr_1_1Solver_1aff005f7e71bc73123ecbd511a77f71b6" prot="public" virt="pure-virtual"><scope>rr::Solver</scope><name>getHint</name></member>
-      <member refid="classrr_1_1Solver_1a7cef64c1874bd5cb95ddff1399e04c45" prot="public" virt="non-virtual"><scope>rr::Solver</scope><name>getHint</name></member>
+      <member refid="classrr_1_1Solver_1a4915611d49d03f0fe499bed99a05aae1" prot="public" virt="non-virtual"><scope>rr::Solver</scope><name>getHint</name></member>
+      <member refid="classrr_1_1Solver_1ac89194d54aaad3ecc71e1cfbbef83d15" prot="public" virt="virtual"><scope>rr::Solver</scope><name>getModel</name></member>
       <member refid="classrr_1_1Solver_1a417cca64a18c63535f2091584f8fed91" prot="public" virt="pure-virtual"><scope>rr::Solver</scope><name>getName</name></member>
       <member refid="classrr_1_1Solver_1abbefd0f38dfa2651c74f8abbd6d7b143" prot="public" virt="virtual"><scope>rr::Solver</scope><name>getNumParams</name></member>
       <member refid="classrr_1_1Solver_1aa13e13a92531fde27fe5711790eee0f7" prot="public" virt="virtual"><scope>rr::Solver</scope><name>getParamDesc</name></member>
       <member refid="classrr_1_1Solver_1afc0a667f204105aa133376144ce14c75" prot="public" virt="virtual"><scope>rr::Solver</scope><name>getParamDisplayName</name></member>
       <member refid="classrr_1_1Solver_1aa604b810ab3f1a2c8bc6dfa6fc731dc2" prot="public" virt="virtual"><scope>rr::Solver</scope><name>getParamHint</name></member>
       <member refid="classrr_1_1Solver_1ae2bb88ffce40a0136c86a020b4c39037" prot="public" virt="virtual"><scope>rr::Solver</scope><name>getParamName</name></member>
-      <member refid="classrr_1_1Solver_1ac12d82cf9d7f03ba39f82ae81ee0e168" prot="public" virt="non-virtual"><scope>rr::Solver</scope><name>getSettings</name></member>
-      <member refid="classrr_1_1Solver_1a3f7a3671a4f2ee508fa015ed4b164213" prot="public" virt="non-virtual"><scope>rr::Solver</scope><name>getSettingsRepr</name></member>
-      <member refid="classrr_1_1Solver_1a20add37bbd73f50d14047171f5f8e921" prot="public" virt="non-virtual"><scope>rr::Solver</scope><name>getType</name></member>
-      <member refid="classrr_1_1Solver_1a773a06f0d64c9d79423efcef1b381da1" prot="public" virt="virtual"><scope>rr::Solver</scope><name>getValue</name></member>
-      <member refid="classrr_1_1Solver_1a9f6e5069f1606a5f5e3d517ee01cfede" prot="public" virt="virtual"><scope>rr::Solver</scope><name>getValueAsBool</name></member>
-      <member refid="classrr_1_1Solver_1a9bc55d0247a3aa629b0ab8f247ee009c" prot="public" virt="virtual"><scope>rr::Solver</scope><name>getValueAsChar</name></member>
-      <member refid="classrr_1_1Solver_1a46987712b9dee2da90c7124761186eb1" prot="public" virt="virtual"><scope>rr::Solver</scope><name>getValueAsDouble</name></member>
-      <member refid="classrr_1_1Solver_1a449a23882706072f4cfaa416887e42d3" prot="public" virt="virtual"><scope>rr::Solver</scope><name>getValueAsDoubleVector</name></member>
-      <member refid="classrr_1_1Solver_1ad30b0e354acd5025b3162db55f1baa93" prot="public" virt="virtual"><scope>rr::Solver</scope><name>getValueAsFloat</name></member>
-      <member refid="classrr_1_1Solver_1a415242398d22d3145ff68afbb73d6b07" prot="public" virt="virtual"><scope>rr::Solver</scope><name>getValueAsInt</name></member>
-      <member refid="classrr_1_1Solver_1a858ce4395c8005ddec5a3ee811eda33a" prot="public" virt="virtual"><scope>rr::Solver</scope><name>getValueAsLong</name></member>
-      <member refid="classrr_1_1Solver_1a6960c38714621daab7e92eadede5f83c" prot="public" virt="virtual"><scope>rr::Solver</scope><name>getValueAsString</name></member>
-      <member refid="classrr_1_1Solver_1ae21e55aeea202e9151112fa00a4c0f82" prot="public" virt="virtual"><scope>rr::Solver</scope><name>getValueAsUChar</name></member>
-      <member refid="classrr_1_1Solver_1a293296661e45b8cb3a092cf8ed5a196b" prot="public" virt="virtual"><scope>rr::Solver</scope><name>getValueAsUInt</name></member>
-      <member refid="classrr_1_1Solver_1aafabb2cc0b41558dc3edae324977372c" prot="public" virt="virtual"><scope>rr::Solver</scope><name>getValueAsULong</name></member>
-      <member refid="classrr_1_1Solver_1a104f619f19529d57869310cd67fcc6d1" prot="public" virt="virtual"><scope>rr::Solver</scope><name>hasValue</name></member>
-      <member refid="classrr_1_1Solver_1ab7675259f65ff348aa430747e48f0f90" prot="protected" virt="non-virtual"><scope>rr::Solver</scope><name>HintMap</name></member>
+      <member refid="classrr_1_1Solver_1ae2b13c6ae06980b14a80e8a32766dcfa" prot="public" virt="non-virtual"><scope>rr::Solver</scope><name>getSettings</name></member>
+      <member refid="classrr_1_1Solver_1a925e4dae5c4e3e71a2983dc58af9e550" prot="public" virt="non-virtual"><scope>rr::Solver</scope><name>getSettingsMap</name></member>
+      <member refid="classrr_1_1Solver_1a3f7a3671a4f2ee508fa015ed4b164213" prot="public" virt="virtual"><scope>rr::Solver</scope><name>getSettingsRepr</name></member>
+      <member refid="classrr_1_1Solver_1a0bd064d494a0701edffca5eb67b64b2a" prot="public" virt="non-virtual"><scope>rr::Solver</scope><name>getType</name></member>
+      <member refid="classrr_1_1Solver_1a87339915a211b22ecd63078bb1cb7ca9" prot="public" virt="virtual"><scope>rr::Solver</scope><name>getValue</name></member>
+      <member refid="classrr_1_1Solver_1a83b99af970b895d62998bf90ec619168" prot="public" virt="virtual"><scope>rr::Solver</scope><name>getValueAsString</name></member>
+      <member refid="classrr_1_1Solver_1afc1e25855220cbe469433c70f8c44ea5" prot="public" virt="virtual"><scope>rr::Solver</scope><name>hasValue</name></member>
+      <member refid="classrr_1_1Solver_1ac39f2073d482cdf591d93415557c6751" prot="protected" virt="non-virtual"><scope>rr::Solver</scope><name>HintMap</name></member>
       <member refid="classrr_1_1Solver_1a39049af7a03fd00b1021c1ce9a9691fc" prot="protected" virt="non-virtual"><scope>rr::Solver</scope><name>hints</name></member>
+      <member refid="classrr_1_1Solver_1ab60e7640a8c959558a144d9d7ee45515" prot="protected" virt="non-virtual"><scope>rr::Solver</scope><name>mModel</name></member>
       <member refid="classrr_1_1Solver_1a71c8b404a40447f879b2253e7dcc3b85" prot="public" virt="virtual"><scope>rr::Solver</scope><name>resetSettings</name></member>
       <member refid="classrr_1_1Solver_1a44a22cf0edead17a9cc923d87dcc063e" prot="protected" virt="non-virtual"><scope>rr::Solver</scope><name>settings</name></member>
-      <member refid="classrr_1_1Solver_1a970d11482faab2f17428c760f3ec8240" prot="protected" virt="non-virtual"><scope>rr::Solver</scope><name>SettingsList</name></member>
-      <member refid="classrr_1_1Solver_1a84e22bdecb76b77ddfbc8efda8219401" prot="protected" virt="non-virtual"><scope>rr::Solver</scope><name>SettingsMap</name></member>
-      <member refid="classrr_1_1Solver_1a37b032d8755eaccd3480531bdc2a4596" prot="public" virt="non-virtual"><scope>rr::Solver</scope><name>settingsPyDictRepr</name></member>
-      <member refid="classrr_1_1Solver_1a45dd9257f0b87546e7bdd607f3857260" prot="public" virt="virtual"><scope>rr::Solver</scope><name>setValue</name></member>
+      <member refid="classrr_1_1Solver_1adcbacd57e2871a83bb9c4d7a4038a069" prot="protected" virt="non-virtual"><scope>rr::Solver</scope><name>SettingsList</name></member>
+      <member refid="classrr_1_1Solver_1a61c0fd04ad69fc173c51dac3bdde2431" prot="protected" virt="non-virtual"><scope>rr::Solver</scope><name>SettingsMap</name></member>
+      <member refid="classrr_1_1Solver_1a37b032d8755eaccd3480531bdc2a4596" prot="public" virt="virtual"><scope>rr::Solver</scope><name>settingsPyDictRepr</name></member>
+      <member refid="classrr_1_1Solver_1a18fa004a818506c15d47fa28015039c6" prot="public" virt="virtual"><scope>rr::Solver</scope><name>setValue</name></member>
+      <member refid="classrr_1_1Solver_1a04bba4a342cc7197750f080d41d439e5" prot="public" virt="non-virtual"><scope>rr::Solver</scope><name>Solver</name></member>
+      <member refid="classrr_1_1Solver_1aa0a07553e368f0be33b9bfc429782a97" prot="public" virt="non-virtual"><scope>rr::Solver</scope><name>Solver</name></member>
       <member refid="classrr_1_1Solver_1a99f48947491d7cd36c68cebba53915fe" prot="protected" virt="non-virtual"><scope>rr::Solver</scope><name>sorted_settings</name></member>
       <member refid="classrr_1_1Solver_1a2f2b574b220becfebd1be2d8cc34d550" prot="public" virt="virtual"><scope>rr::Solver</scope><name>toRepr</name></member>
       <member refid="classrr_1_1Solver_1af08f448f7eea26415a47caaae161de02" prot="public" virt="virtual"><scope>rr::Solver</scope><name>toString</name></member>
-      <member refid="classrr_1_1Solver_1a921e53563c59252d5180c2160e46986f" prot="public" virt="virtual"><scope>rr::Solver</scope><name>~Solver</name></member>
+      <member refid="classrr_1_1Solver_1a19315632eeab070bdbfe2fa4ae66ca6c" prot="public" virt="non-virtual"><scope>rr::Solver</scope><name>updateSettings</name></member>
+      <member refid="classrr_1_1Solver_1a0e6558e376aee7e4d3a9b69b8c3ae08b" prot="public" virt="virtual"><scope>rr::Solver</scope><name>~Solver</name></member>
     </listofallmembers>
   </compounddef>
 </doxygen>

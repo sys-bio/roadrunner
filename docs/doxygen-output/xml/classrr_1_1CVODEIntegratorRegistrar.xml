@@ -4,10 +4,10 @@
     <compoundname>rr::CVODEIntegratorRegistrar</compoundname>
     <basecompoundref refid="classrr_1_1IntegratorRegistrar" prot="public" virt="non-virtual">rr::IntegratorRegistrar</basecompoundref>
       <sectiondef kind="public-func">
-      <memberdef kind="function" id="classrr_1_1CVODEIntegratorRegistrar_1aae43ee9d70bb6853eb38bd13c204643f" prot="public" static="no" const="yes" explicit="no" inline="yes" virt="virtual">
+      <memberdef kind="function" id="classrr_1_1CVODEIntegratorRegistrar_1a1d546eb66882fb25d9a4e103f88f86f6" prot="public" static="no" const="yes" explicit="no" inline="yes" virt="virtual">
         <type>std::string</type>
-        <definition>virtual std::string rr::CVODEIntegratorRegistrar::getName</definition>
-        <argsstring>() const</argsstring>
+        <definition>std::string rr::CVODEIntegratorRegistrar::getName</definition>
+        <argsstring>() const override</argsstring>
         <name>getName</name>
         <reimplements refid="classrr_1_1IntegratorRegistrar_1a5d265f5314ede9037c5c6ca2131455af">getName</reimplements>
         <briefdescription>
@@ -20,12 +20,12 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="CVODEIntegrator.h" line="305" column="33" bodyfile="CVODEIntegrator.h" bodystart="305" bodyend="307"/>
+        <location file="CVODEIntegrator.h" line="344" column="25" bodyfile="CVODEIntegrator.h" bodystart="344" bodyend="346"/>
       </memberdef>
-      <memberdef kind="function" id="classrr_1_1CVODEIntegratorRegistrar_1a60c512a7f4d85a1416c8be05e024fccc" prot="public" static="no" const="yes" explicit="no" inline="yes" virt="virtual">
+      <memberdef kind="function" id="classrr_1_1CVODEIntegratorRegistrar_1af3dd7e4f8ffe4bbb702f9cd3d96a2bed" prot="public" static="no" const="yes" explicit="no" inline="yes" virt="virtual">
         <type>std::string</type>
-        <definition>virtual std::string rr::CVODEIntegratorRegistrar::getDescription</definition>
-        <argsstring>() const</argsstring>
+        <definition>std::string rr::CVODEIntegratorRegistrar::getDescription</definition>
+        <argsstring>() const override</argsstring>
         <name>getDescription</name>
         <reimplements refid="classrr_1_1IntegratorRegistrar_1a968cb1248f56b35e0a038f7b2aca140d">getDescription</reimplements>
         <briefdescription>
@@ -38,12 +38,12 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="CVODEIntegrator.h" line="313" column="33" bodyfile="CVODEIntegrator.h" bodystart="313" bodyend="315"/>
+        <location file="CVODEIntegrator.h" line="352" column="25" bodyfile="CVODEIntegrator.h" bodystart="352" bodyend="354"/>
       </memberdef>
-      <memberdef kind="function" id="classrr_1_1CVODEIntegratorRegistrar_1a1203a6651a94c44286196b899a311fe1" prot="public" static="no" const="yes" explicit="no" inline="yes" virt="virtual">
+      <memberdef kind="function" id="classrr_1_1CVODEIntegratorRegistrar_1a3f7a4bd2791d775b50098994f8d67988" prot="public" static="no" const="yes" explicit="no" inline="yes" virt="virtual">
         <type>std::string</type>
-        <definition>virtual std::string rr::CVODEIntegratorRegistrar::getHint</definition>
-        <argsstring>() const</argsstring>
+        <definition>std::string rr::CVODEIntegratorRegistrar::getHint</definition>
+        <argsstring>() const override</argsstring>
         <name>getHint</name>
         <reimplements refid="classrr_1_1IntegratorRegistrar_1a5ac1fb7c359fe983c3ba162c8b67682e">getHint</reimplements>
         <briefdescription>
@@ -56,12 +56,12 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="CVODEIntegrator.h" line="321" column="33" bodyfile="CVODEIntegrator.h" bodystart="321" bodyend="323"/>
+        <location file="CVODEIntegrator.h" line="360" column="25" bodyfile="CVODEIntegrator.h" bodystart="360" bodyend="362"/>
       </memberdef>
-      <memberdef kind="function" id="classrr_1_1CVODEIntegratorRegistrar_1af314b9da4ab24cf7e84a154351b18e22" prot="public" static="no" const="yes" explicit="no" inline="yes" virt="virtual">
+      <memberdef kind="function" id="classrr_1_1CVODEIntegratorRegistrar_1ae5834f7ae11ae4349ec19635372d6344" prot="public" static="no" const="yes" explicit="no" inline="yes" virt="virtual">
         <type><ref refid="classrr_1_1Integrator" kindref="compound">Integrator</ref> *</type>
-        <definition>virtual Integrator* rr::CVODEIntegratorRegistrar::construct</definition>
-        <argsstring>(ExecutableModel *model) const</argsstring>
+        <definition>Integrator* rr::CVODEIntegratorRegistrar::construct</definition>
+        <argsstring>(ExecutableModel *model) const override</argsstring>
         <name>construct</name>
         <reimplements refid="classrr_1_1IntegratorRegistrar_1a8d99dab8d5a8f52808176f7f7ea8ebf5">construct</reimplements>
         <param>
@@ -78,7 +78,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="CVODEIntegrator.h" line="329" column="32" bodyfile="CVODEIntegrator.h" bodystart="329" bodyend="331"/>
+        <location file="CVODEIntegrator.h" line="368" column="24" bodyfile="CVODEIntegrator.h" bodystart="368" bodyend="370"/>
       </memberdef>
       </sectiondef>
     <briefdescription>
@@ -109,12 +109,12 @@
         </childnode>
       </node>
     </collaborationgraph>
-    <location file="CVODEIntegrator.h" line="299" column="5" bodyfile="CVODEIntegrator.h" bodystart="299" bodyend="332"/>
+    <location file="CVODEIntegrator.h" line="338" column="5" bodyfile="CVODEIntegrator.h" bodystart="338" bodyend="371"/>
     <listofallmembers>
-      <member refid="classrr_1_1CVODEIntegratorRegistrar_1af314b9da4ab24cf7e84a154351b18e22" prot="public" virt="virtual"><scope>rr::CVODEIntegratorRegistrar</scope><name>construct</name></member>
-      <member refid="classrr_1_1CVODEIntegratorRegistrar_1a60c512a7f4d85a1416c8be05e024fccc" prot="public" virt="virtual"><scope>rr::CVODEIntegratorRegistrar</scope><name>getDescription</name></member>
-      <member refid="classrr_1_1CVODEIntegratorRegistrar_1a1203a6651a94c44286196b899a311fe1" prot="public" virt="virtual"><scope>rr::CVODEIntegratorRegistrar</scope><name>getHint</name></member>
-      <member refid="classrr_1_1CVODEIntegratorRegistrar_1aae43ee9d70bb6853eb38bd13c204643f" prot="public" virt="virtual"><scope>rr::CVODEIntegratorRegistrar</scope><name>getName</name></member>
+      <member refid="classrr_1_1CVODEIntegratorRegistrar_1ae5834f7ae11ae4349ec19635372d6344" prot="public" virt="virtual"><scope>rr::CVODEIntegratorRegistrar</scope><name>construct</name></member>
+      <member refid="classrr_1_1CVODEIntegratorRegistrar_1af3dd7e4f8ffe4bbb702f9cd3d96a2bed" prot="public" virt="virtual"><scope>rr::CVODEIntegratorRegistrar</scope><name>getDescription</name></member>
+      <member refid="classrr_1_1CVODEIntegratorRegistrar_1a3f7a4bd2791d775b50098994f8d67988" prot="public" virt="virtual"><scope>rr::CVODEIntegratorRegistrar</scope><name>getHint</name></member>
+      <member refid="classrr_1_1CVODEIntegratorRegistrar_1a1d546eb66882fb25d9a4e103f88f86f6" prot="public" virt="virtual"><scope>rr::CVODEIntegratorRegistrar</scope><name>getName</name></member>
       <member refid="classrr_1_1IntegratorRegistrar_1aabe5860832ac01e436c8b9100a31e911" prot="protected" virt="non-virtual"><scope>rr::CVODEIntegratorRegistrar</scope><name>IntegratorCtor</name></member>
       <member refid="classrr_1_1IntegratorRegistrar_1a63ab295f875600321345408e1819d03d" prot="public" virt="virtual"><scope>rr::CVODEIntegratorRegistrar</scope><name>~IntegratorRegistrar</name></member>
     </listofallmembers>

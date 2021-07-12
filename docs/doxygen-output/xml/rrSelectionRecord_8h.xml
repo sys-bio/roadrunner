@@ -13,12 +13,12 @@
     <includedby refid="rrCompiledExecutableModel_8cpp" local="yes">c/rrCompiledExecutableModel.cpp</includedby>
     <includedby refid="LLVMExecutableModel_8h" local="yes">llvm/LLVMExecutableModel.h</includedby>
     <incdepgraph>
+      <node id="4">
+        <label>string</label>
+      </node>
       <node id="2">
         <label>rrExporter.h</label>
         <link refid="rrExporter_8h_source"/>
-      </node>
-      <node id="4">
-        <label>string</label>
       </node>
       <node id="3">
         <label>ostream</label>
@@ -35,14 +35,6 @@
       </node>
     </incdepgraph>
     <invincdepgraph>
-      <node id="6">
-        <label>llvm/ModelResources.h</label>
-        <link refid="ModelResources_8h_source"/>
-      </node>
-      <node id="3">
-        <label>D:/roadrunner/roadrunner/wrappers/C/rrc_api.cpp</label>
-        <link refid="rrc__api_8cpp"/>
-      </node>
       <node id="4">
         <label>llvm/LLVMExecutableModel.h</label>
         <link refid="LLVMExecutableModel_8h"/>
@@ -50,6 +42,20 @@
         </childnode>
         <childnode refid="6" relation="include">
         </childnode>
+      </node>
+      <node id="2">
+        <label>rrRoadRunner.h</label>
+        <link refid="rrRoadRunner_8h_source"/>
+        <childnode refid="3" relation="include">
+        </childnode>
+      </node>
+      <node id="5">
+        <label>llvm/LLVMModelGenerator.h</label>
+        <link refid="LLVMModelGenerator_8h_source"/>
+      </node>
+      <node id="3">
+        <label>/Users/ciaranwelsh/Documents/roadrunner/wrappers/C/rrc_api.cpp</label>
+        <link refid="rrc__api_8cpp"/>
       </node>
       <node id="1">
         <label>rrSelectionRecord.h</label>
@@ -59,15 +65,9 @@
         <childnode refid="4" relation="include">
         </childnode>
       </node>
-      <node id="5">
-        <label>llvm/LLVMModelGenerator.h</label>
-        <link refid="LLVMModelGenerator_8h_source"/>
-      </node>
-      <node id="2">
-        <label>rrRoadRunner.h</label>
-        <link refid="rrRoadRunner_8h_source"/>
-        <childnode refid="3" relation="include">
-        </childnode>
+      <node id="6">
+        <label>llvm/ModelResources.h</label>
+        <link refid="ModelResources_8h_source"/>
       </node>
     </invincdepgraph>
     <innerclass refid="classrr_1_1SelectionRecord" prot="public">rr::SelectionRecord</innerclass>
@@ -83,163 +83,165 @@
 <codeline lineno="4"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&lt;ostream&gt;</highlight><highlight class="normal"></highlight></codeline>
 <codeline lineno="5"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&lt;string&gt;</highlight><highlight class="normal"></highlight></codeline>
 <codeline lineno="6"><highlight class="normal"></highlight></codeline>
-<codeline lineno="7"><highlight class="normal"></highlight><highlight class="keyword">namespace<sp/></highlight><highlight class="normal">rr</highlight></codeline>
-<codeline lineno="8"><highlight class="normal">{</highlight></codeline>
-<codeline lineno="9"><highlight class="normal"></highlight><highlight class="keyword">using</highlight><highlight class="normal"><sp/>std::string;</highlight></codeline>
-<codeline lineno="10"><highlight class="normal"></highlight><highlight class="keyword">using</highlight><highlight class="normal"><sp/>std::ostream;</highlight></codeline>
-<codeline lineno="11"><highlight class="normal"></highlight></codeline>
-<codeline lineno="15" refid="classrr_1_1SelectionRecord" refkind="compound"><highlight class="keyword">class<sp/></highlight><highlight class="normal">RR_DECLSPEC<sp/><ref refid="classrr_1_1SelectionRecord" kindref="compound">SelectionRecord</ref></highlight></codeline>
-<codeline lineno="16"><highlight class="normal">{</highlight></codeline>
-<codeline lineno="17"><highlight class="normal"></highlight><highlight class="keyword">public</highlight><highlight class="normal">:</highlight></codeline>
-<codeline lineno="18" refid="classrr_1_1SelectionRecord_1a898963ab24a6ba614913715c981d8394" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keyword">enum</highlight><highlight class="normal"><sp/><ref refid="classrr_1_1SelectionRecord_1a898963ab24a6ba614913715c981d8394" kindref="member">SelectionType</ref></highlight></codeline>
-<codeline lineno="19"><highlight class="normal"><sp/><sp/><sp/><sp/>{</highlight></codeline>
-<codeline lineno="23" refid="classrr_1_1SelectionRecord_1a898963ab24a6ba614913715c981d8394add36248cdf4b1f588dd6fdd11855b012" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>TIME<sp/>=<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(0x1<sp/>&lt;&lt;<sp/>0),<sp/><sp/></highlight><highlight class="comment">//<sp/>=&gt;<sp/>0x00000001,</highlight><highlight class="normal"></highlight></codeline>
-<codeline lineno="24"><highlight class="normal"></highlight></codeline>
-<codeline lineno="29" refid="classrr_1_1SelectionRecord_1a898963ab24a6ba614913715c981d8394ae72dbc661f328ef509b24a1d4b895672" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>CONCENTRATION<sp/>=<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(0x1<sp/>&lt;&lt;<sp/>1),</highlight></codeline>
-<codeline lineno="30"><highlight class="normal"></highlight></codeline>
-<codeline lineno="35" refid="classrr_1_1SelectionRecord_1a898963ab24a6ba614913715c981d8394aa8e1a28e890003044b5c4d71077862fe" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>AMOUNT<sp/>=<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(0x1<sp/>&lt;&lt;<sp/>2),</highlight></codeline>
-<codeline lineno="36"><highlight class="normal"></highlight></codeline>
-<codeline lineno="40" refid="classrr_1_1SelectionRecord_1a898963ab24a6ba614913715c981d8394a2235d37b12b17d658b8f33a87712c806" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>RATE<sp/>=<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(0x1<sp/>&lt;&lt;<sp/>3),</highlight></codeline>
-<codeline lineno="41"><highlight class="normal"></highlight></codeline>
-<codeline lineno="46" refid="classrr_1_1SelectionRecord_1a898963ab24a6ba614913715c981d8394a97983fd26f427d96e0a318d676b4c087" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>BOUNDARY<sp/>=<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(0x1<sp/>&lt;&lt;<sp/>4),</highlight></codeline>
-<codeline lineno="51" refid="classrr_1_1SelectionRecord_1a898963ab24a6ba614913715c981d8394a6782153cdd565a17aef949662aa11a4a" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>FLOATING<sp/>=<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(0x1<sp/>&lt;&lt;<sp/>5),</highlight></codeline>
-<codeline lineno="52"><highlight class="normal"></highlight></codeline>
-<codeline lineno="59" refid="classrr_1_1SelectionRecord_1a898963ab24a6ba614913715c981d8394a4cfafd7db04d37e6776a5305f3919a95" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>_COMPARTMENT<sp/>=<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(0x1<sp/>&lt;&lt;<sp/>6),</highlight></codeline>
-<codeline lineno="60"><highlight class="normal"></highlight></codeline>
-<codeline lineno="67" refid="classrr_1_1SelectionRecord_1a898963ab24a6ba614913715c981d8394aa5791049b0e78ca11971abb1d1f9636c" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>_GLOBAL_PARAMETER<sp/>=<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(0x1<sp/>&lt;&lt;<sp/>7),</highlight></codeline>
-<codeline lineno="68"><highlight class="normal"></highlight></codeline>
-<codeline lineno="72" refid="classrr_1_1SelectionRecord_1a898963ab24a6ba614913715c981d8394ab324bc886789f735bfb63ee1906606a7" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>REACTION<sp/>=<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(0x1<sp/>&lt;&lt;<sp/>8),</highlight></codeline>
-<codeline lineno="73"><highlight class="normal"></highlight></codeline>
-<codeline lineno="78" refid="classrr_1_1SelectionRecord_1a898963ab24a6ba614913715c981d8394af9b29d29725646241b8abc86f54fab83" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>INITIAL<sp/>=<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(0x1<sp/>&lt;&lt;<sp/>9),</highlight></codeline>
-<codeline lineno="79"><highlight class="normal"></highlight></codeline>
-<codeline lineno="84" refid="classrr_1_1SelectionRecord_1a898963ab24a6ba614913715c981d8394a7970cc9cb4171e0e6d4bbf27dbc03dac" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>CURRENT<sp/>=<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(0x1<sp/>&lt;&lt;<sp/>10),</highlight></codeline>
-<codeline lineno="85"><highlight class="normal"></highlight></codeline>
-<codeline lineno="89" refid="classrr_1_1SelectionRecord_1a898963ab24a6ba614913715c981d8394a01193eeb0025a4fb1aa45bfaf42745c4" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>UNSCALED<sp/>=<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(0x1<sp/>&lt;&lt;<sp/>11),</highlight></codeline>
-<codeline lineno="90"><highlight class="normal"></highlight></codeline>
-<codeline lineno="94" refid="classrr_1_1SelectionRecord_1a898963ab24a6ba614913715c981d8394a6132e0add959431deb8a3684a4a7f8a4" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>ELASTICITY<sp/>=<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(0x1<sp/>&lt;&lt;<sp/>12),</highlight></codeline>
-<codeline lineno="95"><highlight class="normal"></highlight></codeline>
-<codeline lineno="99" refid="classrr_1_1SelectionRecord_1a898963ab24a6ba614913715c981d8394a6a29116cc7216218cd1513bd029624cb" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>CONTROL<sp/>=<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(0x1<sp/>&lt;&lt;<sp/>13),</highlight></codeline>
-<codeline lineno="100"><highlight class="normal"></highlight></codeline>
-<codeline lineno="104" refid="classrr_1_1SelectionRecord_1a898963ab24a6ba614913715c981d8394aef9a8e9bf3eaae38c6a4bc366a81b290" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>EIGENVALUE_REAL<sp/>=<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(0x1<sp/>&lt;&lt;<sp/>14),</highlight></codeline>
-<codeline lineno="105"><highlight class="normal"></highlight></codeline>
-<codeline lineno="109" refid="classrr_1_1SelectionRecord_1a898963ab24a6ba614913715c981d8394acf9e2386b61e0601e991e6f9098b0a9e" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>ELEMENT<sp/>=<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(0x1<sp/>&lt;&lt;<sp/>15),</highlight></codeline>
-<codeline lineno="110"><highlight class="normal"></highlight></codeline>
-<codeline lineno="114" refid="classrr_1_1SelectionRecord_1a898963ab24a6ba614913715c981d8394ac9c744f62b4c2a7854162775973e07bf" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>STOICHIOMETRY<sp/>=<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(0x1<sp/>&lt;&lt;<sp/>16),</highlight></codeline>
-<codeline lineno="115"><highlight class="normal"></highlight></codeline>
-<codeline lineno="119" refid="classrr_1_1SelectionRecord_1a898963ab24a6ba614913715c981d8394ac49b992764e069258380f3effa097121" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>UNKNOWN<sp/>=<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(0x1<sp/>&lt;&lt;<sp/>17),</highlight></codeline>
-<codeline lineno="120"><highlight class="normal"></highlight></codeline>
-<codeline lineno="124" refid="classrr_1_1SelectionRecord_1a898963ab24a6ba614913715c981d8394a17cfd7af15fff7aaac2aa9f3a0127b2a" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>DEPENDENT<sp/>=<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(0x1<sp/>&lt;&lt;<sp/>18),</highlight></codeline>
-<codeline lineno="125"><highlight class="normal"></highlight></codeline>
-<codeline lineno="129" refid="classrr_1_1SelectionRecord_1a898963ab24a6ba614913715c981d8394ad2c8b91f1396688ab7945fd115ea821e" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>INDEPENDENT<sp/>=<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(0x1<sp/>&lt;&lt;<sp/>19),</highlight></codeline>
-<codeline lineno="130"><highlight class="normal"></highlight></codeline>
-<codeline lineno="134" refid="classrr_1_1SelectionRecord_1a898963ab24a6ba614913715c981d8394a0ddde2cdd2b9169b7cdd51082b4b3e45" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>CONSERVED_MOIETY<sp/>=<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(0x1<sp/>&lt;&lt;<sp/>20),</highlight></codeline>
-<codeline lineno="135"><highlight class="normal"></highlight></codeline>
-<codeline lineno="139" refid="classrr_1_1SelectionRecord_1a898963ab24a6ba614913715c981d8394affd2f3ff0ba9a13a69df1c6ad5d51e88" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>STATE_VECTOR<sp/>=<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(0x1<sp/>&lt;&lt;<sp/>21),</highlight></codeline>
-<codeline lineno="140"><highlight class="normal"></highlight></codeline>
-<codeline lineno="144" refid="classrr_1_1SelectionRecord_1a898963ab24a6ba614913715c981d8394a66324e5a359e47a28cc148b14cbfed32" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>EVENT<sp/>=<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(0x1<sp/>&lt;&lt;<sp/>22),</highlight></codeline>
-<codeline lineno="145"><highlight class="normal"></highlight></codeline>
-<codeline lineno="151" refid="classrr_1_1SelectionRecord_1a898963ab24a6ba614913715c981d8394aad1a91b29af006a8225fa97e2bc1ef72" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>EIGENVALUE_IMAG<sp/>=<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(0x1<sp/>&lt;&lt;<sp/>23),</highlight></codeline>
-<codeline lineno="152"><highlight class="normal"></highlight></codeline>
-<codeline lineno="156" refid="classrr_1_1SelectionRecord_1a898963ab24a6ba614913715c981d8394a3a2fe85e292d8ed2f4f80c55b6960a14" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>EIGENVALUE_COMPLEX<sp/>=<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>EIGENVALUE_REAL<sp/>|<sp/>EIGENVALUE_IMAG,</highlight></codeline>
-<codeline lineno="157"><highlight class="normal"></highlight></codeline>
-<codeline lineno="161" refid="classrr_1_1SelectionRecord_1a898963ab24a6ba614913715c981d8394a09e554a1b9dffe758c0f7104cd3acbea" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>UNKNOWN_CONCENTRATION<sp/>=<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>UNKNOWN<sp/>|<sp/>CONCENTRATION,</highlight></codeline>
-<codeline lineno="162"><highlight class="normal"></highlight></codeline>
-<codeline lineno="166" refid="classrr_1_1SelectionRecord_1a898963ab24a6ba614913715c981d8394ad85e8fa280643ea91b202647dc90058d" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>COMPARTMENT<sp/>=<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>_COMPARTMENT<sp/>|<sp/>INDEPENDENT<sp/>|<sp/>DEPENDENT<sp/>|<sp/>CURRENT,</highlight></codeline>
-<codeline lineno="167"><highlight class="normal"></highlight></codeline>
-<codeline lineno="171" refid="classrr_1_1SelectionRecord_1a898963ab24a6ba614913715c981d8394a928fc146c94a09862bd41bac7707c678" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>GLOBAL_PARAMETER<sp/>=<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>_GLOBAL_PARAMETER<sp/>|<sp/>INDEPENDENT<sp/>|<sp/>DEPENDENT<sp/>|<sp/>CURRENT,</highlight></codeline>
-<codeline lineno="172"><highlight class="normal"></highlight></codeline>
-<codeline lineno="176" refid="classrr_1_1SelectionRecord_1a898963ab24a6ba614913715c981d8394a97ca399197e5fd929907a0ed4d89376a" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>FLOATING_AMOUNT<sp/>=<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>FLOATING<sp/>|<sp/>AMOUNT<sp/>|<sp/>INDEPENDENT<sp/>|<sp/>DEPENDENT<sp/>|<sp/>CURRENT,</highlight></codeline>
-<codeline lineno="177"><highlight class="normal"></highlight></codeline>
-<codeline lineno="181" refid="classrr_1_1SelectionRecord_1a898963ab24a6ba614913715c981d8394a6f87b59e6fc23b804b1508b190b63c6b" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>INDEPENDENT_FLOATING_AMOUNT<sp/>=<sp/><sp/><sp/><sp/><sp/><sp/><sp/>FLOATING<sp/>|<sp/>AMOUNT<sp/>|<sp/>INDEPENDENT<sp/>|<sp/>CURRENT,</highlight></codeline>
-<codeline lineno="182"><highlight class="normal"></highlight></codeline>
-<codeline lineno="186" refid="classrr_1_1SelectionRecord_1a898963ab24a6ba614913715c981d8394aa08447b81625696af0c8f619d00652c9" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>DEPENDENT_FLOATING_AMOUNT<sp/>=<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>FLOATING<sp/>|<sp/>AMOUNT<sp/>|<sp/>DEPENDENT<sp/><sp/><sp/>|<sp/>CURRENT,</highlight></codeline>
-<codeline lineno="187"><highlight class="normal"></highlight></codeline>
-<codeline lineno="191" refid="classrr_1_1SelectionRecord_1a898963ab24a6ba614913715c981d8394aaa2ec44f8ba163da3928c57efd91a6fa" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>BOUNDARY_AMOUNT<sp/>=<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>BOUNDARY<sp/>|<sp/>AMOUNT<sp/>|<sp/>INDEPENDENT<sp/>|<sp/>DEPENDENT<sp/>|<sp/>CURRENT,</highlight></codeline>
-<codeline lineno="192"><highlight class="normal"></highlight></codeline>
-<codeline lineno="196" refid="classrr_1_1SelectionRecord_1a898963ab24a6ba614913715c981d8394ae02e022418ffd5b35b6f68bf46842d28" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>BOUNDARY_CONCENTRATION<sp/>=<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>BOUNDARY<sp/>|<sp/>CONCENTRATION<sp/>|<sp/>INDEPENDENT<sp/>|<sp/>DEPENDENT<sp/>|<sp/>CURRENT,</highlight></codeline>
-<codeline lineno="197"><highlight class="normal"></highlight></codeline>
-<codeline lineno="201" refid="classrr_1_1SelectionRecord_1a898963ab24a6ba614913715c981d8394a273f59f060edd0d4085773a15bc2e936" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>FLOATING_CONCENTRATION<sp/>=<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>FLOATING<sp/>|<sp/>CONCENTRATION<sp/>|<sp/>INDEPENDENT<sp/>|<sp/>DEPENDENT<sp/>|<sp/>CURRENT,</highlight></codeline>
-<codeline lineno="202"><highlight class="normal"></highlight></codeline>
-<codeline lineno="207" refid="classrr_1_1SelectionRecord_1a898963ab24a6ba614913715c981d8394ac8d68d5b70417c692c1a88fe9b2d16a6" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>FLOATING_AMOUNT_RATE<sp/>=<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>FLOATING<sp/>|<sp/>RATE<sp/>|<sp/>DEPENDENT,</highlight></codeline>
-<codeline lineno="208"><highlight class="normal"></highlight></codeline>
-<codeline lineno="213" refid="classrr_1_1SelectionRecord_1a898963ab24a6ba614913715c981d8394aea618f54792dbf90539f21ef7964073f" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>FLOATING_CONCENTRATION_RATE<sp/>=<sp/><sp/><sp/><sp/><sp/><sp/><sp/>FLOATING<sp/>|<sp/>CONCENTRATION<sp/>|<sp/>RATE<sp/>|<sp/>DEPENDENT,</highlight></codeline>
-<codeline lineno="214"><highlight class="normal"></highlight></codeline>
+<codeline lineno="7"><highlight class="normal"></highlight></codeline>
+<codeline lineno="8"><highlight class="normal"></highlight></codeline>
+<codeline lineno="9"><highlight class="normal"></highlight><highlight class="keyword">namespace<sp/></highlight><highlight class="normal">rr</highlight></codeline>
+<codeline lineno="10"><highlight class="normal">{</highlight></codeline>
+<codeline lineno="11"><highlight class="normal"></highlight><highlight class="keyword">using</highlight><highlight class="normal"><sp/>std::string;</highlight></codeline>
+<codeline lineno="12"><highlight class="normal"></highlight><highlight class="keyword">using</highlight><highlight class="normal"><sp/>std::ostream;</highlight></codeline>
+<codeline lineno="13"><highlight class="normal"></highlight></codeline>
+<codeline lineno="17" refid="classrr_1_1SelectionRecord" refkind="compound"><highlight class="keyword">class<sp/></highlight><highlight class="normal">RR_DECLSPEC<sp/><ref refid="classrr_1_1SelectionRecord" kindref="compound">SelectionRecord</ref></highlight></codeline>
+<codeline lineno="18"><highlight class="normal">{</highlight></codeline>
+<codeline lineno="19"><highlight class="normal"></highlight><highlight class="keyword">public</highlight><highlight class="normal">:</highlight></codeline>
+<codeline lineno="20" refid="classrr_1_1SelectionRecord_1a898963ab24a6ba614913715c981d8394" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keyword">enum</highlight><highlight class="normal"><sp/><ref refid="classrr_1_1SelectionRecord_1a898963ab24a6ba614913715c981d8394" kindref="member">SelectionType</ref></highlight></codeline>
+<codeline lineno="21"><highlight class="normal"><sp/><sp/><sp/><sp/>{</highlight></codeline>
+<codeline lineno="25" refid="classrr_1_1SelectionRecord_1a898963ab24a6ba614913715c981d8394add36248cdf4b1f588dd6fdd11855b012" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>TIME<sp/>=<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(0x1<sp/>&lt;&lt;<sp/>0),<sp/><sp/></highlight><highlight class="comment">//<sp/>=&gt;<sp/>0x00000001,</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="26"><highlight class="normal"></highlight></codeline>
+<codeline lineno="31" refid="classrr_1_1SelectionRecord_1a898963ab24a6ba614913715c981d8394ae72dbc661f328ef509b24a1d4b895672" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>CONCENTRATION<sp/>=<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(0x1<sp/>&lt;&lt;<sp/>1),</highlight></codeline>
+<codeline lineno="32"><highlight class="normal"></highlight></codeline>
+<codeline lineno="37" refid="classrr_1_1SelectionRecord_1a898963ab24a6ba614913715c981d8394aa8e1a28e890003044b5c4d71077862fe" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>AMOUNT<sp/>=<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(0x1<sp/>&lt;&lt;<sp/>2),</highlight></codeline>
+<codeline lineno="38"><highlight class="normal"></highlight></codeline>
+<codeline lineno="42" refid="classrr_1_1SelectionRecord_1a898963ab24a6ba614913715c981d8394a2235d37b12b17d658b8f33a87712c806" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>RATE<sp/>=<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(0x1<sp/>&lt;&lt;<sp/>3),</highlight></codeline>
+<codeline lineno="43"><highlight class="normal"></highlight></codeline>
+<codeline lineno="48" refid="classrr_1_1SelectionRecord_1a898963ab24a6ba614913715c981d8394a97983fd26f427d96e0a318d676b4c087" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>BOUNDARY<sp/>=<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(0x1<sp/>&lt;&lt;<sp/>4),</highlight></codeline>
+<codeline lineno="53" refid="classrr_1_1SelectionRecord_1a898963ab24a6ba614913715c981d8394a6782153cdd565a17aef949662aa11a4a" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>FLOATING<sp/>=<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(0x1<sp/>&lt;&lt;<sp/>5),</highlight></codeline>
+<codeline lineno="54"><highlight class="normal"></highlight></codeline>
+<codeline lineno="61" refid="classrr_1_1SelectionRecord_1a898963ab24a6ba614913715c981d8394a4cfafd7db04d37e6776a5305f3919a95" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>_COMPARTMENT<sp/>=<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(0x1<sp/>&lt;&lt;<sp/>6),</highlight></codeline>
+<codeline lineno="62"><highlight class="normal"></highlight></codeline>
+<codeline lineno="69" refid="classrr_1_1SelectionRecord_1a898963ab24a6ba614913715c981d8394aa5791049b0e78ca11971abb1d1f9636c" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>_GLOBAL_PARAMETER<sp/>=<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(0x1<sp/>&lt;&lt;<sp/>7),</highlight></codeline>
+<codeline lineno="70"><highlight class="normal"></highlight></codeline>
+<codeline lineno="74" refid="classrr_1_1SelectionRecord_1a898963ab24a6ba614913715c981d8394ab324bc886789f735bfb63ee1906606a7" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>REACTION<sp/>=<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(0x1<sp/>&lt;&lt;<sp/>8),</highlight></codeline>
+<codeline lineno="75"><highlight class="normal"></highlight></codeline>
+<codeline lineno="80" refid="classrr_1_1SelectionRecord_1a898963ab24a6ba614913715c981d8394af9b29d29725646241b8abc86f54fab83" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>INITIAL<sp/>=<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(0x1<sp/>&lt;&lt;<sp/>9),</highlight></codeline>
+<codeline lineno="81"><highlight class="normal"></highlight></codeline>
+<codeline lineno="86" refid="classrr_1_1SelectionRecord_1a898963ab24a6ba614913715c981d8394a7970cc9cb4171e0e6d4bbf27dbc03dac" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>CURRENT<sp/>=<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(0x1<sp/>&lt;&lt;<sp/>10),</highlight></codeline>
+<codeline lineno="87"><highlight class="normal"></highlight></codeline>
+<codeline lineno="91" refid="classrr_1_1SelectionRecord_1a898963ab24a6ba614913715c981d8394a01193eeb0025a4fb1aa45bfaf42745c4" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>UNSCALED<sp/>=<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(0x1<sp/>&lt;&lt;<sp/>11),</highlight></codeline>
+<codeline lineno="92"><highlight class="normal"></highlight></codeline>
+<codeline lineno="96" refid="classrr_1_1SelectionRecord_1a898963ab24a6ba614913715c981d8394a6132e0add959431deb8a3684a4a7f8a4" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>ELASTICITY<sp/>=<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(0x1<sp/>&lt;&lt;<sp/>12),</highlight></codeline>
+<codeline lineno="97"><highlight class="normal"></highlight></codeline>
+<codeline lineno="101" refid="classrr_1_1SelectionRecord_1a898963ab24a6ba614913715c981d8394a6a29116cc7216218cd1513bd029624cb" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>CONTROL<sp/>=<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(0x1<sp/>&lt;&lt;<sp/>13),</highlight></codeline>
+<codeline lineno="102"><highlight class="normal"></highlight></codeline>
+<codeline lineno="106" refid="classrr_1_1SelectionRecord_1a898963ab24a6ba614913715c981d8394aef9a8e9bf3eaae38c6a4bc366a81b290" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>EIGENVALUE_REAL<sp/>=<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(0x1<sp/>&lt;&lt;<sp/>14),</highlight></codeline>
+<codeline lineno="107"><highlight class="normal"></highlight></codeline>
+<codeline lineno="111" refid="classrr_1_1SelectionRecord_1a898963ab24a6ba614913715c981d8394acf9e2386b61e0601e991e6f9098b0a9e" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>ELEMENT<sp/>=<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(0x1<sp/>&lt;&lt;<sp/>15),</highlight></codeline>
+<codeline lineno="112"><highlight class="normal"></highlight></codeline>
+<codeline lineno="116" refid="classrr_1_1SelectionRecord_1a898963ab24a6ba614913715c981d8394ac9c744f62b4c2a7854162775973e07bf" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>STOICHIOMETRY<sp/>=<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(0x1<sp/>&lt;&lt;<sp/>16),</highlight></codeline>
+<codeline lineno="117"><highlight class="normal"></highlight></codeline>
+<codeline lineno="121" refid="classrr_1_1SelectionRecord_1a898963ab24a6ba614913715c981d8394ac49b992764e069258380f3effa097121" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>UNKNOWN<sp/>=<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(0x1<sp/>&lt;&lt;<sp/>17),</highlight></codeline>
+<codeline lineno="122"><highlight class="normal"></highlight></codeline>
+<codeline lineno="126" refid="classrr_1_1SelectionRecord_1a898963ab24a6ba614913715c981d8394a17cfd7af15fff7aaac2aa9f3a0127b2a" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>DEPENDENT<sp/>=<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(0x1<sp/>&lt;&lt;<sp/>18),</highlight></codeline>
+<codeline lineno="127"><highlight class="normal"></highlight></codeline>
+<codeline lineno="131" refid="classrr_1_1SelectionRecord_1a898963ab24a6ba614913715c981d8394ad2c8b91f1396688ab7945fd115ea821e" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>INDEPENDENT<sp/>=<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(0x1<sp/>&lt;&lt;<sp/>19),</highlight></codeline>
+<codeline lineno="132"><highlight class="normal"></highlight></codeline>
+<codeline lineno="136" refid="classrr_1_1SelectionRecord_1a898963ab24a6ba614913715c981d8394a0ddde2cdd2b9169b7cdd51082b4b3e45" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>CONSERVED_MOIETY<sp/>=<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(0x1<sp/>&lt;&lt;<sp/>20),</highlight></codeline>
+<codeline lineno="137"><highlight class="normal"></highlight></codeline>
+<codeline lineno="141" refid="classrr_1_1SelectionRecord_1a898963ab24a6ba614913715c981d8394affd2f3ff0ba9a13a69df1c6ad5d51e88" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>STATE_VECTOR<sp/>=<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(0x1<sp/>&lt;&lt;<sp/>21),</highlight></codeline>
+<codeline lineno="142"><highlight class="normal"></highlight></codeline>
+<codeline lineno="146" refid="classrr_1_1SelectionRecord_1a898963ab24a6ba614913715c981d8394a66324e5a359e47a28cc148b14cbfed32" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>EVENT<sp/>=<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(0x1<sp/>&lt;&lt;<sp/>22),</highlight></codeline>
+<codeline lineno="147"><highlight class="normal"></highlight></codeline>
+<codeline lineno="153" refid="classrr_1_1SelectionRecord_1a898963ab24a6ba614913715c981d8394aad1a91b29af006a8225fa97e2bc1ef72" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>EIGENVALUE_IMAG<sp/>=<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(0x1<sp/>&lt;&lt;<sp/>23),</highlight></codeline>
+<codeline lineno="154"><highlight class="normal"></highlight></codeline>
+<codeline lineno="158" refid="classrr_1_1SelectionRecord_1a898963ab24a6ba614913715c981d8394aa8a8dd7317ca1dcd33f7acb018dab6dc" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>ALL<sp/>=<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(0xffffffff),</highlight></codeline>
+<codeline lineno="159"><highlight class="normal"></highlight></codeline>
+<codeline lineno="163" refid="classrr_1_1SelectionRecord_1a898963ab24a6ba614913715c981d8394a3a2fe85e292d8ed2f4f80c55b6960a14" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>EIGENVALUE_COMPLEX<sp/>=<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>EIGENVALUE_REAL<sp/>|<sp/>EIGENVALUE_IMAG,</highlight></codeline>
+<codeline lineno="164"><highlight class="normal"></highlight></codeline>
+<codeline lineno="168" refid="classrr_1_1SelectionRecord_1a898963ab24a6ba614913715c981d8394a09e554a1b9dffe758c0f7104cd3acbea" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>UNKNOWN_CONCENTRATION<sp/>=<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>UNKNOWN<sp/>|<sp/>CONCENTRATION,</highlight></codeline>
+<codeline lineno="169"><highlight class="normal"></highlight></codeline>
+<codeline lineno="173" refid="classrr_1_1SelectionRecord_1a898963ab24a6ba614913715c981d8394ad85e8fa280643ea91b202647dc90058d" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>COMPARTMENT<sp/>=<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>_COMPARTMENT<sp/>|<sp/>INDEPENDENT<sp/>|<sp/>DEPENDENT<sp/>|<sp/>CURRENT,</highlight></codeline>
+<codeline lineno="174"><highlight class="normal"></highlight></codeline>
+<codeline lineno="178" refid="classrr_1_1SelectionRecord_1a898963ab24a6ba614913715c981d8394a928fc146c94a09862bd41bac7707c678" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>GLOBAL_PARAMETER<sp/>=<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>_GLOBAL_PARAMETER<sp/>|<sp/>INDEPENDENT<sp/>|<sp/>DEPENDENT<sp/>|<sp/>CURRENT,</highlight></codeline>
+<codeline lineno="179"><highlight class="normal"></highlight></codeline>
+<codeline lineno="183" refid="classrr_1_1SelectionRecord_1a898963ab24a6ba614913715c981d8394a97ca399197e5fd929907a0ed4d89376a" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>FLOATING_AMOUNT<sp/>=<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>FLOATING<sp/>|<sp/>AMOUNT<sp/>|<sp/>INDEPENDENT<sp/>|<sp/>DEPENDENT<sp/>|<sp/>CURRENT,</highlight></codeline>
+<codeline lineno="184"><highlight class="normal"></highlight></codeline>
+<codeline lineno="188" refid="classrr_1_1SelectionRecord_1a898963ab24a6ba614913715c981d8394a6f87b59e6fc23b804b1508b190b63c6b" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>INDEPENDENT_FLOATING_AMOUNT<sp/>=<sp/><sp/><sp/><sp/><sp/><sp/><sp/>FLOATING<sp/>|<sp/>AMOUNT<sp/>|<sp/>INDEPENDENT<sp/>|<sp/>CURRENT,</highlight></codeline>
+<codeline lineno="189"><highlight class="normal"></highlight></codeline>
+<codeline lineno="193" refid="classrr_1_1SelectionRecord_1a898963ab24a6ba614913715c981d8394aa08447b81625696af0c8f619d00652c9" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>DEPENDENT_FLOATING_AMOUNT<sp/>=<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>FLOATING<sp/>|<sp/>AMOUNT<sp/>|<sp/>DEPENDENT<sp/><sp/><sp/>|<sp/>CURRENT,</highlight></codeline>
+<codeline lineno="194"><highlight class="normal"></highlight></codeline>
+<codeline lineno="198" refid="classrr_1_1SelectionRecord_1a898963ab24a6ba614913715c981d8394aaa2ec44f8ba163da3928c57efd91a6fa" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>BOUNDARY_AMOUNT<sp/>=<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>BOUNDARY<sp/>|<sp/>AMOUNT<sp/>|<sp/>INDEPENDENT<sp/>|<sp/>DEPENDENT<sp/>|<sp/>CURRENT,</highlight></codeline>
+<codeline lineno="199"><highlight class="normal"></highlight></codeline>
+<codeline lineno="203" refid="classrr_1_1SelectionRecord_1a898963ab24a6ba614913715c981d8394ae02e022418ffd5b35b6f68bf46842d28" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>BOUNDARY_CONCENTRATION<sp/>=<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>BOUNDARY<sp/>|<sp/>CONCENTRATION<sp/>|<sp/>INDEPENDENT<sp/>|<sp/>DEPENDENT<sp/>|<sp/>CURRENT,</highlight></codeline>
+<codeline lineno="204"><highlight class="normal"></highlight></codeline>
+<codeline lineno="208" refid="classrr_1_1SelectionRecord_1a898963ab24a6ba614913715c981d8394a273f59f060edd0d4085773a15bc2e936" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>FLOATING_CONCENTRATION<sp/>=<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>FLOATING<sp/>|<sp/>CONCENTRATION<sp/>|<sp/>INDEPENDENT<sp/>|<sp/>DEPENDENT<sp/>|<sp/>CURRENT,</highlight></codeline>
+<codeline lineno="209"><highlight class="normal"></highlight></codeline>
+<codeline lineno="214" refid="classrr_1_1SelectionRecord_1a898963ab24a6ba614913715c981d8394ac8d68d5b70417c692c1a88fe9b2d16a6" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>FLOATING_AMOUNT_RATE<sp/>=<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>FLOATING<sp/>|<sp/>RATE<sp/>|<sp/>DEPENDENT,</highlight></codeline>
 <codeline lineno="215"><highlight class="normal"></highlight></codeline>
-<codeline lineno="219" refid="classrr_1_1SelectionRecord_1a898963ab24a6ba614913715c981d8394a9e87d4763af9a8774b31ad1f69d66e25" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>GLOBAL_PARAMETER_RATE<sp/>=<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>_GLOBAL_PARAMETER<sp/>|<sp/>RATE,</highlight></codeline>
-<codeline lineno="220"><highlight class="normal"></highlight></codeline>
-<codeline lineno="224" refid="classrr_1_1SelectionRecord_1a898963ab24a6ba614913715c981d8394a474f33e2264e1732ec7dd131f840083b" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>REACTION_RATE<sp/>=<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>REACTION<sp/>|<sp/>RATE<sp/>|<sp/>DEPENDENT,</highlight></codeline>
-<codeline lineno="225"><highlight class="normal"></highlight></codeline>
-<codeline lineno="229" refid="classrr_1_1SelectionRecord_1a898963ab24a6ba614913715c981d8394a75155196d55bd80b547835a668473e49" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>INITIAL_AMOUNT<sp/>=<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>INITIAL<sp/>|<sp/>AMOUNT<sp/>|<sp/>INDEPENDENT<sp/>|<sp/>DEPENDENT,</highlight></codeline>
-<codeline lineno="230"><highlight class="normal"></highlight></codeline>
-<codeline lineno="234" refid="classrr_1_1SelectionRecord_1a898963ab24a6ba614913715c981d8394a0a5b576c41331713c0cff67639e934dc" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>INITIAL_FLOATING_AMOUNT<sp/>=<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>INITIAL<sp/>|<sp/>FLOATING<sp/>|<sp/>AMOUNT<sp/>|<sp/>INDEPENDENT<sp/>|<sp/>DEPENDENT,</highlight></codeline>
-<codeline lineno="235"><highlight class="normal"></highlight></codeline>
-<codeline lineno="239" refid="classrr_1_1SelectionRecord_1a898963ab24a6ba614913715c981d8394a9b128c51cc095f71f839fcffb3e74bb3" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>INITIAL_CONCENTRATION<sp/>=<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>INITIAL<sp/>|<sp/>CONCENTRATION<sp/>|<sp/>INDEPENDENT<sp/>|<sp/>DEPENDENT,</highlight></codeline>
-<codeline lineno="240"><highlight class="normal"></highlight></codeline>
-<codeline lineno="244" refid="classrr_1_1SelectionRecord_1a898963ab24a6ba614913715c981d8394a731d1669fec8c53a6f783a0df0469002" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>INITIAL_FLOATING_CONCENTRATION<sp/>=<sp/><sp/><sp/><sp/>INITIAL<sp/>|<sp/>FLOATING<sp/>|<sp/>CONCENTRATION<sp/>|<sp/>INDEPENDENT<sp/>|<sp/>DEPENDENT,</highlight></codeline>
-<codeline lineno="245"><highlight class="normal"></highlight></codeline>
-<codeline lineno="249" refid="classrr_1_1SelectionRecord_1a898963ab24a6ba614913715c981d8394a4f5a65a461692bc847e9e8c6851bb951" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>INITIAL_COMPARTMENT<sp/>=<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>INITIAL<sp/>|<sp/>_COMPARTMENT<sp/>|<sp/>INDEPENDENT<sp/>|<sp/>DEPENDENT,</highlight></codeline>
-<codeline lineno="250"><highlight class="normal"></highlight></codeline>
-<codeline lineno="254" refid="classrr_1_1SelectionRecord_1a898963ab24a6ba614913715c981d8394ae4ecdedc44b9bae7bfe0cdf954e7c6fe" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>INITIAL_GLOBAL_PARAMETER<sp/>=<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>INITIAL<sp/>|<sp/>_GLOBAL_PARAMETER<sp/>|<sp/>INDEPENDENT<sp/>|<sp/>DEPENDENT,</highlight></codeline>
-<codeline lineno="255"><highlight class="normal"></highlight></codeline>
-<codeline lineno="256"><highlight class="normal"></highlight></codeline>
-<codeline lineno="260" refid="classrr_1_1SelectionRecord_1a898963ab24a6ba614913715c981d8394a6035b6215bcb10361a15b6279c7e38e4" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>DEPENDENT_INITIAL_GLOBAL_PARAMETER<sp/>=<sp/><sp/>INITIAL<sp/>|<sp/>_GLOBAL_PARAMETER<sp/>|<sp/>DEPENDENT,</highlight></codeline>
-<codeline lineno="261"><highlight class="normal"></highlight></codeline>
-<codeline lineno="265" refid="classrr_1_1SelectionRecord_1a898963ab24a6ba614913715c981d8394a7da913ccc0935bd57b4bd28479013d92" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>UNSCALED_ELASTICITY<sp/>=<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>UNSCALED<sp/>|<sp/>ELASTICITY,</highlight></codeline>
-<codeline lineno="266"><highlight class="normal"></highlight></codeline>
-<codeline lineno="270" refid="classrr_1_1SelectionRecord_1a898963ab24a6ba614913715c981d8394a4e2a1649b976611b8a1487a429a7ca33" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>UNSCALED_CONTROL<sp/>=<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>UNSCALED<sp/>|<sp/>CONTROL,</highlight></codeline>
-<codeline lineno="271"><highlight class="normal"></highlight></codeline>
-<codeline lineno="275" refid="classrr_1_1SelectionRecord_1a898963ab24a6ba614913715c981d8394ab8a2d26885cd338bfefca1a34e9631ea" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>UNKNOWN_ELEMENT<sp/>=<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>UNKNOWN<sp/>|<sp/>ELEMENT,</highlight></codeline>
-<codeline lineno="276"><highlight class="normal"></highlight></codeline>
-<codeline lineno="280" refid="classrr_1_1SelectionRecord_1a898963ab24a6ba614913715c981d8394aa8a8dd7317ca1dcd33f7acb018dab6dc" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>ALL<sp/>=<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(0xffffffff),</highlight></codeline>
-<codeline lineno="281"><highlight class="normal"></highlight></codeline>
-<codeline lineno="285" refid="classrr_1_1SelectionRecord_1a898963ab24a6ba614913715c981d8394a28cdf88cef2db8260a3617dc0d0d46fa" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>ALL_INDEPENDENT<sp/>=<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>~DEPENDENT,</highlight></codeline>
-<codeline lineno="286"><highlight class="normal"></highlight></codeline>
-<codeline lineno="290" refid="classrr_1_1SelectionRecord_1a898963ab24a6ba614913715c981d8394adf157f5fec6e3935763838b96025dae4" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>ALL_DEPENDENT<sp/>=<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>~INDEPENDENT,</highlight></codeline>
-<codeline lineno="291"><highlight class="normal"></highlight></codeline>
-<codeline lineno="295" refid="classrr_1_1SelectionRecord_1a898963ab24a6ba614913715c981d8394a44d0147a8879445f40232b4d0e02d405" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>ALL_INDEPENDENT_AMOUNT<sp/>=<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>~DEPENDENT<sp/>&amp;<sp/>~CONCENTRATION,</highlight></codeline>
-<codeline lineno="296"><highlight class="normal"></highlight></codeline>
-<codeline lineno="300" refid="classrr_1_1SelectionRecord_1a898963ab24a6ba614913715c981d8394a89e49a2dee1cc2f6af232c5a6d954400" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>ALL_DEPENDENT_AMOUNT<sp/>=<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>~INDEPENDENT<sp/>&amp;<sp/>~CONCENTRATION,</highlight></codeline>
-<codeline lineno="301"><highlight class="normal"></highlight></codeline>
-<codeline lineno="305" refid="classrr_1_1SelectionRecord_1a898963ab24a6ba614913715c981d8394acb7b2689c46383e5cfae9b456d4a03b9" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>ALL_INDEPENDENT_CONCENTRATION<sp/>=<sp/><sp/><sp/><sp/><sp/>~DEPENDENT<sp/>&amp;<sp/>~AMOUNT,</highlight></codeline>
-<codeline lineno="306"><highlight class="normal"></highlight></codeline>
-<codeline lineno="310" refid="classrr_1_1SelectionRecord_1a898963ab24a6ba614913715c981d8394ac9247d6b9b8d34655df993c2b9734e66" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>ALL_DEPENDENT_CONCENTRATION<sp/>=<sp/><sp/><sp/><sp/><sp/><sp/><sp/>~INDEPENDENT<sp/>&amp;<sp/>~AMOUNT,</highlight></codeline>
-<codeline lineno="311"><highlight class="normal"></highlight></codeline>
-<codeline lineno="312"><highlight class="normal"></highlight></codeline>
-<codeline lineno="322" refid="classrr_1_1SelectionRecord_1a898963ab24a6ba614913715c981d8394a042c7745287999549dfaba12fc66d110" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>MODEL_STATE<sp/>=<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>ALL_INDEPENDENT_AMOUNT<sp/>&amp;<sp/>~INITIAL,</highlight></codeline>
-<codeline lineno="323"><highlight class="normal"></highlight></codeline>
-<codeline lineno="324"><highlight class="normal"></highlight></codeline>
-<codeline lineno="331"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>SBML_INITIALIZE<sp/>=<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>STATE_VECTOR<sp/><sp/><sp/></highlight><highlight class="comment">//<sp/>the<sp/>STATE_VECTOR<sp/>options</highlight><highlight class="normal"></highlight></codeline>
-<codeline lineno="332"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">//<sp/>is<sp/>used<sp/>here<sp/>because<sp/>it<sp/>is</highlight><highlight class="normal"></highlight></codeline>
-<codeline lineno="333"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">//<sp/>not<sp/>used<sp/>anywhere<sp/>else<sp/>in</highlight><highlight class="normal"></highlight></codeline>
-<codeline lineno="334"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">//<sp/>the<sp/>reset<sp/>options,<sp/>and<sp/>gives</highlight><highlight class="normal"></highlight></codeline>
-<codeline lineno="335"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">//<sp/>the<sp/>indication<sp/>that<sp/>everything<sp/>is<sp/>set,</highlight><highlight class="normal"></highlight></codeline>
-<codeline lineno="336"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">//<sp/>mostly<sp/>it<sp/>saves<sp/>a<sp/>not<sp/>wasting<sp/>a<sp/>bit<sp/>value.</highlight><highlight class="normal"></highlight></codeline>
-<codeline lineno="337" refid="classrr_1_1SelectionRecord_1a898963ab24a6ba614913715c981d8394a8f3e6cd5beca2bc0b0c80d90d0010707" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/>};</highlight></codeline>
-<codeline lineno="338"><highlight class="normal"></highlight></codeline>
-<codeline lineno="343" refid="classrr_1_1SelectionRecord_1a82a0f91850fedab552cf932a1404b41b" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/><ref refid="classrr_1_1SelectionRecord_1a82a0f91850fedab552cf932a1404b41b" kindref="member">index</ref>;</highlight></codeline>
-<codeline lineno="344"><highlight class="normal"></highlight></codeline>
-<codeline lineno="349" refid="classrr_1_1SelectionRecord_1ad97672baac3b6608f10a253d8594d39b" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keywordtype">string</highlight><highlight class="normal"><sp/><ref refid="classrr_1_1SelectionRecord_1ad97672baac3b6608f10a253d8594d39b" kindref="member">p1</ref>;</highlight></codeline>
-<codeline lineno="350"><highlight class="normal"></highlight></codeline>
-<codeline lineno="354" refid="classrr_1_1SelectionRecord_1a541046e11c7748d5fe403cbb681629a5" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keywordtype">string</highlight><highlight class="normal"><sp/><ref refid="classrr_1_1SelectionRecord_1a541046e11c7748d5fe403cbb681629a5" kindref="member">p2</ref>;</highlight></codeline>
-<codeline lineno="355"><highlight class="normal"></highlight></codeline>
-<codeline lineno="359" refid="classrr_1_1SelectionRecord_1adae706f827ce8b7c3873b2fd77fa833c" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/><ref refid="classrr_1_1SelectionRecord_1a898963ab24a6ba614913715c981d8394" kindref="member">SelectionType</ref><sp/><ref refid="classrr_1_1SelectionRecord_1adae706f827ce8b7c3873b2fd77fa833c" kindref="member">selectionType</ref>;</highlight></codeline>
-<codeline lineno="360"><highlight class="normal"></highlight></codeline>
-<codeline lineno="367"><highlight class="normal"><sp/><sp/><sp/><sp/><ref refid="classrr_1_1SelectionRecord" kindref="compound">SelectionRecord</ref>(</highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/></highlight><highlight class="keywordtype">int</highlight><highlight class="normal">&amp;<sp/>index<sp/>=<sp/>0,</highlight></codeline>
-<codeline lineno="368"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/><ref refid="classrr_1_1SelectionRecord_1a898963ab24a6ba614913715c981d8394" kindref="member">SelectionType</ref><sp/>type<sp/>=<sp/>UNKNOWN,</highlight></codeline>
-<codeline lineno="369"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/></highlight><highlight class="keywordtype">string</highlight><highlight class="normal">&amp;<sp/>p1<sp/>=<sp/></highlight><highlight class="stringliteral">&quot;&quot;</highlight><highlight class="normal">,<sp/></highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/></highlight><highlight class="keywordtype">string</highlight><highlight class="normal">&amp;<sp/>p2<sp/>=<sp/></highlight><highlight class="stringliteral">&quot;&quot;</highlight><highlight class="normal">);</highlight></codeline>
-<codeline lineno="370"><highlight class="normal"></highlight></codeline>
-<codeline lineno="374"><highlight class="normal"><sp/><sp/><sp/><sp/><ref refid="classrr_1_1SelectionRecord" kindref="compound">SelectionRecord</ref>(</highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/>std::string<sp/>str);</highlight></codeline>
-<codeline lineno="375"><highlight class="normal"></highlight></codeline>
-<codeline lineno="380"><highlight class="normal"><sp/><sp/><sp/><sp/>std::string<sp/>to_string()<sp/></highlight><highlight class="keyword">const</highlight><highlight class="normal">;</highlight></codeline>
-<codeline lineno="381"><highlight class="normal"></highlight></codeline>
-<codeline lineno="386"><highlight class="normal"><sp/><sp/><sp/><sp/>std::string<sp/>to_repr()<sp/></highlight><highlight class="keyword">const</highlight><highlight class="normal">;</highlight></codeline>
-<codeline lineno="387"><highlight class="normal">};</highlight></codeline>
-<codeline lineno="388"><highlight class="normal"></highlight></codeline>
-<codeline lineno="389"><highlight class="normal">ostream&amp;<sp/>operator&lt;&lt;<sp/>(ostream&amp;<sp/>stream,<sp/></highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/><ref refid="classrr_1_1SelectionRecord" kindref="compound">SelectionRecord</ref>&amp;<sp/>rec);</highlight></codeline>
-<codeline lineno="390"><highlight class="normal">}</highlight></codeline>
-<codeline lineno="391"><highlight class="normal"></highlight></codeline>
-<codeline lineno="392"><highlight class="normal"></highlight></codeline>
-<codeline lineno="393"><highlight class="normal"></highlight><highlight class="preprocessor">#endif</highlight></codeline>
+<codeline lineno="220" refid="classrr_1_1SelectionRecord_1a898963ab24a6ba614913715c981d8394aea618f54792dbf90539f21ef7964073f" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>FLOATING_CONCENTRATION_RATE<sp/>=<sp/><sp/><sp/><sp/><sp/><sp/><sp/>FLOATING<sp/>|<sp/>CONCENTRATION<sp/>|<sp/>RATE<sp/>|<sp/>DEPENDENT,</highlight></codeline>
+<codeline lineno="221"><highlight class="normal"></highlight></codeline>
+<codeline lineno="222"><highlight class="normal"></highlight></codeline>
+<codeline lineno="226" refid="classrr_1_1SelectionRecord_1a898963ab24a6ba614913715c981d8394a9e87d4763af9a8774b31ad1f69d66e25" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>GLOBAL_PARAMETER_RATE<sp/>=<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>_GLOBAL_PARAMETER<sp/>|<sp/>RATE,</highlight></codeline>
+<codeline lineno="227"><highlight class="normal"></highlight></codeline>
+<codeline lineno="231" refid="classrr_1_1SelectionRecord_1a898963ab24a6ba614913715c981d8394a474f33e2264e1732ec7dd131f840083b" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>REACTION_RATE<sp/>=<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>REACTION<sp/>|<sp/>RATE<sp/>|<sp/>DEPENDENT,</highlight></codeline>
+<codeline lineno="232"><highlight class="normal"></highlight></codeline>
+<codeline lineno="236" refid="classrr_1_1SelectionRecord_1a898963ab24a6ba614913715c981d8394a75155196d55bd80b547835a668473e49" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>INITIAL_AMOUNT<sp/>=<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>INITIAL<sp/>|<sp/>AMOUNT<sp/>|<sp/>INDEPENDENT<sp/>|<sp/>DEPENDENT,</highlight></codeline>
+<codeline lineno="237"><highlight class="normal"></highlight></codeline>
+<codeline lineno="241" refid="classrr_1_1SelectionRecord_1a898963ab24a6ba614913715c981d8394a0a5b576c41331713c0cff67639e934dc" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>INITIAL_FLOATING_AMOUNT<sp/>=<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>INITIAL<sp/>|<sp/>FLOATING<sp/>|<sp/>AMOUNT<sp/>|<sp/>INDEPENDENT<sp/>|<sp/>DEPENDENT,</highlight></codeline>
+<codeline lineno="242"><highlight class="normal"></highlight></codeline>
+<codeline lineno="246" refid="classrr_1_1SelectionRecord_1a898963ab24a6ba614913715c981d8394a9b128c51cc095f71f839fcffb3e74bb3" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>INITIAL_CONCENTRATION<sp/>=<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>INITIAL<sp/>|<sp/>CONCENTRATION<sp/>|<sp/>INDEPENDENT<sp/>|<sp/>DEPENDENT,</highlight></codeline>
+<codeline lineno="247"><highlight class="normal"></highlight></codeline>
+<codeline lineno="251" refid="classrr_1_1SelectionRecord_1a898963ab24a6ba614913715c981d8394a731d1669fec8c53a6f783a0df0469002" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>INITIAL_FLOATING_CONCENTRATION<sp/>=<sp/><sp/><sp/><sp/>INITIAL<sp/>|<sp/>FLOATING<sp/>|<sp/>CONCENTRATION<sp/>|<sp/>INDEPENDENT<sp/>|<sp/>DEPENDENT,</highlight></codeline>
+<codeline lineno="252"><highlight class="normal"></highlight></codeline>
+<codeline lineno="256" refid="classrr_1_1SelectionRecord_1a898963ab24a6ba614913715c981d8394a4f5a65a461692bc847e9e8c6851bb951" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>INITIAL_COMPARTMENT<sp/>=<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>INITIAL<sp/>|<sp/>_COMPARTMENT<sp/>|<sp/>INDEPENDENT<sp/>|<sp/>DEPENDENT,</highlight></codeline>
+<codeline lineno="257"><highlight class="normal"></highlight></codeline>
+<codeline lineno="261" refid="classrr_1_1SelectionRecord_1a898963ab24a6ba614913715c981d8394ae4ecdedc44b9bae7bfe0cdf954e7c6fe" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>INITIAL_GLOBAL_PARAMETER<sp/>=<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>INITIAL<sp/>|<sp/>_GLOBAL_PARAMETER<sp/>|<sp/>INDEPENDENT<sp/>|<sp/>DEPENDENT,</highlight></codeline>
+<codeline lineno="262"><highlight class="normal"></highlight></codeline>
+<codeline lineno="263"><highlight class="normal"></highlight></codeline>
+<codeline lineno="267" refid="classrr_1_1SelectionRecord_1a898963ab24a6ba614913715c981d8394a6035b6215bcb10361a15b6279c7e38e4" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>DEPENDENT_INITIAL_GLOBAL_PARAMETER<sp/>=<sp/><sp/>INITIAL<sp/>|<sp/>_GLOBAL_PARAMETER<sp/>|<sp/>DEPENDENT,</highlight></codeline>
+<codeline lineno="268"><highlight class="normal"></highlight></codeline>
+<codeline lineno="272" refid="classrr_1_1SelectionRecord_1a898963ab24a6ba614913715c981d8394a7da913ccc0935bd57b4bd28479013d92" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>UNSCALED_ELASTICITY<sp/>=<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>UNSCALED<sp/>|<sp/>ELASTICITY,</highlight></codeline>
+<codeline lineno="273"><highlight class="normal"></highlight></codeline>
+<codeline lineno="277" refid="classrr_1_1SelectionRecord_1a898963ab24a6ba614913715c981d8394a4e2a1649b976611b8a1487a429a7ca33" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>UNSCALED_CONTROL<sp/>=<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>UNSCALED<sp/>|<sp/>CONTROL,</highlight></codeline>
+<codeline lineno="278"><highlight class="normal"></highlight></codeline>
+<codeline lineno="282" refid="classrr_1_1SelectionRecord_1a898963ab24a6ba614913715c981d8394ab8a2d26885cd338bfefca1a34e9631ea" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>UNKNOWN_ELEMENT<sp/>=<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>UNKNOWN<sp/>|<sp/>ELEMENT,</highlight></codeline>
+<codeline lineno="283"><highlight class="normal"></highlight></codeline>
+<codeline lineno="287" refid="classrr_1_1SelectionRecord_1a898963ab24a6ba614913715c981d8394a28cdf88cef2db8260a3617dc0d0d46fa" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>ALL_INDEPENDENT<sp/>=<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>~DEPENDENT,</highlight></codeline>
+<codeline lineno="288"><highlight class="normal"></highlight></codeline>
+<codeline lineno="292" refid="classrr_1_1SelectionRecord_1a898963ab24a6ba614913715c981d8394adf157f5fec6e3935763838b96025dae4" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>ALL_DEPENDENT<sp/>=<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>~INDEPENDENT,</highlight></codeline>
+<codeline lineno="293"><highlight class="normal"></highlight></codeline>
+<codeline lineno="297" refid="classrr_1_1SelectionRecord_1a898963ab24a6ba614913715c981d8394a44d0147a8879445f40232b4d0e02d405" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>ALL_INDEPENDENT_AMOUNT<sp/>=<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>~DEPENDENT<sp/>&amp;<sp/>~CONCENTRATION,</highlight></codeline>
+<codeline lineno="298"><highlight class="normal"></highlight></codeline>
+<codeline lineno="302" refid="classrr_1_1SelectionRecord_1a898963ab24a6ba614913715c981d8394a89e49a2dee1cc2f6af232c5a6d954400" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>ALL_DEPENDENT_AMOUNT<sp/>=<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>~INDEPENDENT<sp/>&amp;<sp/>~CONCENTRATION,</highlight></codeline>
+<codeline lineno="303"><highlight class="normal"></highlight></codeline>
+<codeline lineno="307" refid="classrr_1_1SelectionRecord_1a898963ab24a6ba614913715c981d8394acb7b2689c46383e5cfae9b456d4a03b9" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>ALL_INDEPENDENT_CONCENTRATION<sp/>=<sp/><sp/><sp/><sp/><sp/>~DEPENDENT<sp/>&amp;<sp/>~AMOUNT,</highlight></codeline>
+<codeline lineno="308"><highlight class="normal"></highlight></codeline>
+<codeline lineno="312" refid="classrr_1_1SelectionRecord_1a898963ab24a6ba614913715c981d8394ac9247d6b9b8d34655df993c2b9734e66" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>ALL_DEPENDENT_CONCENTRATION<sp/>=<sp/><sp/><sp/><sp/><sp/><sp/><sp/>~INDEPENDENT<sp/>&amp;<sp/>~AMOUNT,</highlight></codeline>
+<codeline lineno="313"><highlight class="normal"></highlight></codeline>
+<codeline lineno="314"><highlight class="normal"></highlight></codeline>
+<codeline lineno="324" refid="classrr_1_1SelectionRecord_1a898963ab24a6ba614913715c981d8394a042c7745287999549dfaba12fc66d110" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>MODEL_STATE<sp/>=<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>ALL_INDEPENDENT_AMOUNT<sp/>&amp;<sp/>~INITIAL,</highlight></codeline>
+<codeline lineno="325"><highlight class="normal"></highlight></codeline>
+<codeline lineno="326"><highlight class="normal"></highlight></codeline>
+<codeline lineno="333"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>SBML_INITIALIZE<sp/>=<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>STATE_VECTOR<sp/><sp/><sp/></highlight><highlight class="comment">//<sp/>the<sp/>STATE_VECTOR<sp/>options</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="334"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">//<sp/>is<sp/>used<sp/>here<sp/>because<sp/>it<sp/>is</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="335"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">//<sp/>not<sp/>used<sp/>anywhere<sp/>else<sp/>in</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="336"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">//<sp/>the<sp/>reset<sp/>options,<sp/>and<sp/>gives</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="337"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">//<sp/>the<sp/>indication<sp/>that<sp/>everything<sp/>is<sp/>set,</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="338"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">//<sp/>mostly<sp/>it<sp/>saves<sp/>a<sp/>not<sp/>wasting<sp/>a<sp/>bit<sp/>value.</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="339" refid="classrr_1_1SelectionRecord_1a898963ab24a6ba614913715c981d8394a8f3e6cd5beca2bc0b0c80d90d0010707" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/>};</highlight></codeline>
+<codeline lineno="340"><highlight class="normal"></highlight></codeline>
+<codeline lineno="345" refid="classrr_1_1SelectionRecord_1a82a0f91850fedab552cf932a1404b41b" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/><ref refid="classrr_1_1SelectionRecord_1a82a0f91850fedab552cf932a1404b41b" kindref="member">index</ref>;</highlight></codeline>
+<codeline lineno="346"><highlight class="normal"></highlight></codeline>
+<codeline lineno="351" refid="classrr_1_1SelectionRecord_1a273feac920f62ba42c477bb6443d086e" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/>std::string<sp/><ref refid="classrr_1_1SelectionRecord_1a273feac920f62ba42c477bb6443d086e" kindref="member">p1</ref>;</highlight></codeline>
+<codeline lineno="352"><highlight class="normal"></highlight></codeline>
+<codeline lineno="356" refid="classrr_1_1SelectionRecord_1aaccdf64460b76ee09eaca7e5090ec52e" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/>std::string<sp/><ref refid="classrr_1_1SelectionRecord_1aaccdf64460b76ee09eaca7e5090ec52e" kindref="member">p2</ref>;</highlight></codeline>
+<codeline lineno="357"><highlight class="normal"></highlight></codeline>
+<codeline lineno="361" refid="classrr_1_1SelectionRecord_1adae706f827ce8b7c3873b2fd77fa833c" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/><ref refid="classrr_1_1SelectionRecord_1a898963ab24a6ba614913715c981d8394" kindref="member">SelectionType</ref><sp/><ref refid="classrr_1_1SelectionRecord_1adae706f827ce8b7c3873b2fd77fa833c" kindref="member">selectionType</ref>;</highlight></codeline>
+<codeline lineno="362"><highlight class="normal"></highlight></codeline>
+<codeline lineno="369"><highlight class="normal"><sp/><sp/><sp/><sp/><ref refid="classrr_1_1SelectionRecord" kindref="compound">SelectionRecord</ref>(</highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/></highlight><highlight class="keywordtype">int</highlight><highlight class="normal">&amp;<sp/>index<sp/>=<sp/>0,</highlight></codeline>
+<codeline lineno="370"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/><ref refid="classrr_1_1SelectionRecord_1a898963ab24a6ba614913715c981d8394" kindref="member">SelectionType</ref><sp/>type<sp/>=<sp/>UNKNOWN,</highlight></codeline>
+<codeline lineno="371"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/>std::string&amp;<sp/>p1<sp/>=<sp/></highlight><highlight class="stringliteral">&quot;&quot;</highlight><highlight class="normal">,<sp/></highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/>std::string&amp;<sp/>p2<sp/>=<sp/></highlight><highlight class="stringliteral">&quot;&quot;</highlight><highlight class="normal">);</highlight></codeline>
+<codeline lineno="372"><highlight class="normal"></highlight></codeline>
+<codeline lineno="376"><highlight class="normal"><sp/><sp/><sp/><sp/><ref refid="classrr_1_1SelectionRecord" kindref="compound">SelectionRecord</ref>(</highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/>std::string<sp/>str);</highlight></codeline>
+<codeline lineno="377"><highlight class="normal"></highlight></codeline>
+<codeline lineno="382"><highlight class="normal"><sp/><sp/><sp/><sp/>std::string<sp/>to_string()<sp/></highlight><highlight class="keyword">const</highlight><highlight class="normal">;</highlight></codeline>
+<codeline lineno="383"><highlight class="normal"></highlight></codeline>
+<codeline lineno="388"><highlight class="normal"><sp/><sp/><sp/><sp/>std::string<sp/>to_repr()<sp/></highlight><highlight class="keyword">const</highlight><highlight class="normal">;</highlight></codeline>
+<codeline lineno="389"><highlight class="normal">};</highlight></codeline>
+<codeline lineno="390"><highlight class="normal"></highlight></codeline>
+<codeline lineno="391"><highlight class="normal">std::ostream&amp;<sp/>operator&lt;&lt;<sp/>(std::ostream&amp;<sp/>stream,<sp/></highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/><ref refid="classrr_1_1SelectionRecord" kindref="compound">SelectionRecord</ref>&amp;<sp/>rec);</highlight></codeline>
+<codeline lineno="392"><highlight class="normal">}</highlight></codeline>
+<codeline lineno="393"><highlight class="normal"></highlight></codeline>
+<codeline lineno="394"><highlight class="normal"></highlight></codeline>
+<codeline lineno="395"><highlight class="normal"></highlight><highlight class="preprocessor">#endif</highlight></codeline>
     </programlisting>
     <location file="rrSelectionRecord.h"/>
   </compounddef>

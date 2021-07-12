@@ -17,7 +17,7 @@ Poco Log\+Stream dumps to the log when a newline i.\+e.
 \item 
 \mbox{\Hypertarget{classrr_1_1LoggingBuffer_a604487b60a968da939c335195a9fba19}\label{classrr_1_1LoggingBuffer_a604487b60a968da939c335195a9fba19}} 
 \mbox{\hyperlink{classrr_1_1LoggingBuffer_a604487b60a968da939c335195a9fba19}{$\sim$\+Logging\+Buffer}} ()
-\begin{DoxyCompactList}\small\item\em dump the contents of the stringstream to the log. \end{DoxyCompactList}\item 
+\begin{DoxyCompactList}\small\item\em dump the contents of the std\+::stringstream to the log. \end{DoxyCompactList}\item 
 \mbox{\Hypertarget{classrr_1_1LoggingBuffer_a23c72224ad52f14bc2d52d1eb361d479}\label{classrr_1_1LoggingBuffer_a23c72224ad52f14bc2d52d1eb361d479}} 
 std\+::ostream \& \mbox{\hyperlink{classrr_1_1LoggingBuffer_a23c72224ad52f14bc2d52d1eb361d479}{stream}} ()
 \begin{DoxyCompactList}\small\item\em get the stream this buffer holds. \end{DoxyCompactList}\end{DoxyCompactItemize}
@@ -30,7 +30,19 @@ std\+::endl is encountered, howeve the old proprietary logging system dumps basi
 
 This object allows us to to use the new Poco logging system and maintain compatability with all existing code.
 
-This object is returne from the \mbox{\hyperlink{classrr_1_1Logger}{rr\+::\+Logger}}, exposes a ostream interface, and and dumps to the log when it goes out of scope. 
+This object is returne from the \mbox{\hyperlink{classrr_1_1Logger}{rr\+::\+Logger}}, exposes a std\+::ostream interface, and and dumps to the log when it goes out of scope.
+
+Levels are determined by Poco\+::\+Message\+::\+Priority\+:
+\begin{DoxyItemize}
+\item Poco\+::\+Message\+::\+Priority\+::\+P\+R\+I\+O\+\_\+\+F\+A\+T\+AL = 1
+\item Poco\+::\+Message\+::\+Priority\+::\+P\+R\+I\+O\+\_\+\+C\+R\+I\+T\+I\+C\+AL = 2
+\item Poco\+::\+Message\+::\+Priority\+::\+P\+R\+I\+O\+\_\+\+E\+R\+R\+OR = 3
+\item Poco\+::\+Message\+::\+Priority\+::\+P\+R\+I\+O\+\_\+\+W\+A\+R\+N\+I\+NG = 4
+\item Poco\+::\+Message\+::\+Priority\+::\+P\+R\+I\+O\+\_\+\+N\+O\+T\+I\+CE = 5
+\item Poco\+::\+Message\+::\+Priority\+::\+P\+R\+I\+O\+\_\+\+I\+N\+F\+O\+R\+M\+A\+T\+I\+ON = 6
+\item Poco\+::\+Message\+::\+Priority\+::\+P\+R\+I\+O\+\_\+\+D\+E\+B\+UG = 7
+\item Poco\+::\+Message\+::\+Priority\+::\+P\+R\+I\+O\+\_\+\+T\+R\+A\+CE = 8 
+\end{DoxyItemize}
 
 The documentation for this class was generated from the following files\+:\begin{DoxyCompactItemize}
 \item 

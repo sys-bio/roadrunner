@@ -5,9 +5,9 @@
     <basecompoundref refid="classrr_1_1Compiler" prot="public" virt="non-virtual">rr::Compiler</basecompoundref>
     <includes refid="rrCCompiler_8h" local="no">rrCCompiler.h</includes>
       <sectiondef kind="private-attrib">
-      <memberdef kind="variable" id="classrr_1_1CCompiler_1a2cfad20ebf33e28d9cd3f44ad16082d9" prot="private" static="no" mutable="no">
-        <type>string</type>
-        <definition>string rr::CCompiler::mDLLFileName</definition>
+      <memberdef kind="variable" id="classrr_1_1CCompiler_1aeedb12a1d5e331a96b01c71b6bba502d" prot="private" static="no" mutable="no">
+        <type>std::string</type>
+        <definition>std::string rr::CCompiler::mDLLFileName</definition>
         <argsstring></argsstring>
         <name>mDLLFileName</name>
         <briefdescription>
@@ -16,11 +16,11 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="c/rrCCompiler.h" line="52" column="33" bodyfile="c/rrCCompiler.h" bodystart="52" bodyend="-1"/>
+        <location file="c/rrCCompiler.h" line="52" column="38" bodyfile="c/rrCCompiler.h" bodystart="52" bodyend="-1"/>
       </memberdef>
-      <memberdef kind="variable" id="classrr_1_1CCompiler_1a41b54305e8314e356ba700284fb81e00" prot="private" static="no" mutable="no">
-        <type>string</type>
-        <definition>string rr::CCompiler::mSupportCodeFolder</definition>
+      <memberdef kind="variable" id="classrr_1_1CCompiler_1aebb15a0ad17a1cbfa270ab96c1888942" prot="private" static="no" mutable="no">
+        <type>std::string</type>
+        <definition>std::string rr::CCompiler::mSupportCodeFolder</definition>
         <argsstring></argsstring>
         <name>mSupportCodeFolder</name>
         <briefdescription>
@@ -29,11 +29,11 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="c/rrCCompiler.h" line="53" column="33" bodyfile="c/rrCCompiler.h" bodystart="53" bodyend="-1"/>
+        <location file="c/rrCCompiler.h" line="53" column="38" bodyfile="c/rrCCompiler.h" bodystart="53" bodyend="-1"/>
       </memberdef>
-      <memberdef kind="variable" id="classrr_1_1CCompiler_1a68e54eede312dd7eb89387e197c66e9e" prot="private" static="no" mutable="no">
-        <type>string</type>
-        <definition>string rr::CCompiler::mCompilerName</definition>
+      <memberdef kind="variable" id="classrr_1_1CCompiler_1a2b7932d55d090214543fc87b33746e20" prot="private" static="no" mutable="no">
+        <type>std::string</type>
+        <definition>std::string rr::CCompiler::mCompilerName</definition>
         <argsstring></argsstring>
         <name>mCompilerName</name>
         <briefdescription>
@@ -42,11 +42,11 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="c/rrCCompiler.h" line="54" column="33" bodyfile="c/rrCCompiler.h" bodystart="54" bodyend="-1"/>
+        <location file="c/rrCCompiler.h" line="54" column="38" bodyfile="c/rrCCompiler.h" bodystart="54" bodyend="-1"/>
       </memberdef>
-      <memberdef kind="variable" id="classrr_1_1CCompiler_1a299806ea502b9b78aace088fce1315fc" prot="private" static="no" mutable="no">
-        <type>string</type>
-        <definition>string rr::CCompiler::mCompilerLocation</definition>
+      <memberdef kind="variable" id="classrr_1_1CCompiler_1abc8511cc6142ca4a834360f8dce4630a" prot="private" static="no" mutable="no">
+        <type>std::string</type>
+        <definition>std::string rr::CCompiler::mCompilerLocation</definition>
         <argsstring></argsstring>
         <name>mCompilerLocation</name>
         <briefdescription>
@@ -55,11 +55,11 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="c/rrCCompiler.h" line="55" column="33" bodyfile="c/rrCCompiler.h" bodystart="55" bodyend="-1"/>
+        <location file="c/rrCCompiler.h" line="55" column="38" bodyfile="c/rrCCompiler.h" bodystart="55" bodyend="-1"/>
       </memberdef>
-      <memberdef kind="variable" id="classrr_1_1CCompiler_1a60374133936bbdfb1bbf87e4e5eac99c" prot="private" static="no" mutable="no">
-        <type>vector&lt; string &gt;</type>
-        <definition>vector&lt;string&gt; rr::CCompiler::mCompilerOutput</definition>
+      <memberdef kind="variable" id="classrr_1_1CCompiler_1af771396880c131f16f22859b2aec6f19" prot="private" static="no" mutable="no">
+        <type>std::vector&lt; std::string &gt;</type>
+        <definition>std::vector&lt;std::string&gt; rr::CCompiler::mCompilerOutput</definition>
         <argsstring></argsstring>
         <name>mCompilerOutput</name>
         <briefdescription>
@@ -68,11 +68,11 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="c/rrCCompiler.h" line="57" column="25" bodyfile="c/rrCCompiler.h" bodystart="57" bodyend="-1"/>
+        <location file="c/rrCCompiler.h" line="57" column="30" bodyfile="c/rrCCompiler.h" bodystart="57" bodyend="-1"/>
       </memberdef>
-      <memberdef kind="variable" id="classrr_1_1CCompiler_1a245f332e5529b0d9fb7c51a2968932e6" prot="private" static="no" mutable="no">
-        <type>vector&lt; string &gt;</type>
-        <definition>vector&lt;string&gt; rr::CCompiler::mIncludePaths</definition>
+      <memberdef kind="variable" id="classrr_1_1CCompiler_1aecceff2cd9c5bda78d1b04415d3465ad" prot="private" static="no" mutable="no">
+        <type>std::vector&lt; std::string &gt;</type>
+        <definition>std::vector&lt;std::string&gt; rr::CCompiler::mIncludePaths</definition>
         <argsstring></argsstring>
         <name>mIncludePaths</name>
         <briefdescription>
@@ -81,11 +81,11 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="c/rrCCompiler.h" line="58" column="25" bodyfile="c/rrCCompiler.h" bodystart="58" bodyend="-1"/>
+        <location file="c/rrCCompiler.h" line="58" column="30" bodyfile="c/rrCCompiler.h" bodystart="58" bodyend="-1"/>
       </memberdef>
-      <memberdef kind="variable" id="classrr_1_1CCompiler_1a22b9c25c529111b0eba1e0cc501abd7a" prot="private" static="no" mutable="no">
-        <type>vector&lt; string &gt;</type>
-        <definition>vector&lt;string&gt; rr::CCompiler::mLibraryPaths</definition>
+      <memberdef kind="variable" id="classrr_1_1CCompiler_1ad4c48488d820d79056b1b061079a151f" prot="private" static="no" mutable="no">
+        <type>std::vector&lt; std::string &gt;</type>
+        <definition>std::vector&lt;std::string&gt; rr::CCompiler::mLibraryPaths</definition>
         <argsstring></argsstring>
         <name>mLibraryPaths</name>
         <briefdescription>
@@ -94,11 +94,11 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="c/rrCCompiler.h" line="59" column="25" bodyfile="c/rrCCompiler.h" bodystart="59" bodyend="-1"/>
+        <location file="c/rrCCompiler.h" line="59" column="30" bodyfile="c/rrCCompiler.h" bodystart="59" bodyend="-1"/>
       </memberdef>
-      <memberdef kind="variable" id="classrr_1_1CCompiler_1a01209a7634c71c6988f4843d501e0095" prot="private" static="no" mutable="no">
-        <type>vector&lt; string &gt;</type>
-        <definition>vector&lt;string&gt; rr::CCompiler::mCompilerFlags</definition>
+      <memberdef kind="variable" id="classrr_1_1CCompiler_1af561a5edb29070d7a1d2e96707d9b592" prot="private" static="no" mutable="no">
+        <type>std::vector&lt; std::string &gt;</type>
+        <definition>std::vector&lt;std::string&gt; rr::CCompiler::mCompilerFlags</definition>
         <argsstring></argsstring>
         <name>mCompilerFlags</name>
         <briefdescription>
@@ -107,11 +107,11 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="c/rrCCompiler.h" line="60" column="25" bodyfile="c/rrCCompiler.h" bodystart="60" bodyend="-1"/>
+        <location file="c/rrCCompiler.h" line="60" column="30" bodyfile="c/rrCCompiler.h" bodystart="60" bodyend="-1"/>
       </memberdef>
-      <memberdef kind="variable" id="classrr_1_1CCompiler_1a25e9cc49d90bd94352db9b28b7b2cd49" prot="private" static="no" mutable="no">
-        <type>string</type>
-        <definition>string rr::CCompiler::mOutputPath</definition>
+      <memberdef kind="variable" id="classrr_1_1CCompiler_1a8bcfd56af0fa77338d37e02b9b0655aa" prot="private" static="no" mutable="no">
+        <type>std::string</type>
+        <definition>std::string rr::CCompiler::mOutputPath</definition>
         <argsstring></argsstring>
         <name>mOutputPath</name>
         <briefdescription>
@@ -120,21 +120,21 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="c/rrCCompiler.h" line="63" column="33" bodyfile="c/rrCCompiler.h" bodystart="63" bodyend="-1"/>
+        <location file="c/rrCCompiler.h" line="63" column="38" bodyfile="c/rrCCompiler.h" bodystart="63" bodyend="-1"/>
       </memberdef>
       </sectiondef>
       <sectiondef kind="public-func">
-      <memberdef kind="function" id="classrr_1_1CCompiler_1a75417b93bcaf69a8e07917f7bf6a85fc" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+      <memberdef kind="function" id="classrr_1_1CCompiler_1a3de02cfe8f2df08b3688185de1de0efd" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
         <type></type>
         <definition>rr::CCompiler::CCompiler</definition>
-        <argsstring>(const string &amp;supportCodeFolder, const string &amp;compiler)</argsstring>
+        <argsstring>(const std::string &amp;supportCodeFolder, const std::string &amp;compiler)</argsstring>
         <name>CCompiler</name>
         <param>
-          <type>const string &amp;</type>
+          <type>const std::string &amp;</type>
           <declname>supportCodeFolder</declname>
         </param>
         <param>
-          <type>const string &amp;</type>
+          <type>const std::string &amp;</type>
           <declname>compiler</declname>
         </param>
         <briefdescription>
@@ -158,9 +158,9 @@
         </inbodydescription>
         <location file="c/rrCCompiler.h" line="21" column="13" bodyfile="c/rrCCompiler.cpp" bodystart="40" bodyend="40"/>
       </memberdef>
-      <memberdef kind="function" id="classrr_1_1CCompiler_1a991ca70498a707b972ef9edd2fd9576b" prot="public" static="no" const="yes" explicit="no" inline="no" virt="virtual">
-        <type>string</type>
-        <definition>string rr::CCompiler::getCompiler</definition>
+      <memberdef kind="function" id="classrr_1_1CCompiler_1acc4b3aed4b1d75cb19b6ac5d48cb3331" prot="public" static="no" const="yes" explicit="no" inline="no" virt="virtual">
+        <type>std::string</type>
+        <definition>std::string rr::CCompiler::getCompiler</definition>
         <argsstring>() const</argsstring>
         <name>getCompiler</name>
         <reimplements refid="classrr_1_1Compiler_1a30d924b503ddddc0056108f6f08e86ee">getCompiler</reimplements>
@@ -170,15 +170,16 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="c/rrCCompiler.h" line="23" column="33" bodyfile="c/rrCCompiler.cpp" bodystart="99" bodyend="102"/>
+        <location file="c/rrCCompiler.h" line="23" column="38" bodyfile="c/rrCCompiler.cpp" bodystart="99" bodyend="102"/>
       </memberdef>
-      <memberdef kind="function" id="classrr_1_1CCompiler_1a4454fc51c60a7657de1c847d346798d6" prot="public" static="no" const="no" explicit="no" inline="no" virt="virtual">
+      <memberdef kind="function" id="classrr_1_1CCompiler_1a02c966c014a88888366c63b36b81208e" prot="public" static="no" const="no" explicit="no" inline="no" virt="virtual">
         <type>bool</type>
         <definition>bool rr::CCompiler::setCompiler</definition>
-        <argsstring>(const string &amp;compiler)</argsstring>
+        <argsstring>(const std::string &amp;compiler)</argsstring>
         <name>setCompiler</name>
+        <reimplements refid="classrr_1_1Compiler_1a0556fb1db12b7f693d37a6108068103d">setCompiler</reimplements>
         <param>
-          <type>const string &amp;</type>
+          <type>const std::string &amp;</type>
           <declname>compiler</declname>
         </param>
         <briefdescription>
@@ -189,13 +190,13 @@
         </inbodydescription>
         <location file="c/rrCCompiler.h" line="24" column="33" bodyfile="c/rrCCompiler.cpp" bodystart="92" bodyend="97"/>
       </memberdef>
-      <memberdef kind="function" id="classrr_1_1CCompiler_1a958850068162cda6ceb0d76af097b6b3" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+      <memberdef kind="function" id="classrr_1_1CCompiler_1a9e94b67dc354052b04712b0aaba887b0" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
         <type>bool</type>
         <definition>bool rr::CCompiler::setupCompiler</definition>
-        <argsstring>(const string &amp;supportCodeFolder)</argsstring>
+        <argsstring>(const std::string &amp;supportCodeFolder)</argsstring>
         <name>setupCompiler</name>
         <param>
-          <type>const string &amp;</type>
+          <type>const std::string &amp;</type>
           <declname>supportCodeFolder</declname>
         </param>
         <briefdescription>
@@ -206,13 +207,13 @@
         </inbodydescription>
         <location file="c/rrCCompiler.h" line="26" column="33" bodyfile="c/rrCCompiler.cpp" bodystart="42" bodyend="53"/>
       </memberdef>
-      <memberdef kind="function" id="classrr_1_1CCompiler_1a8001ada3923a3596667dac7989a46069" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+      <memberdef kind="function" id="classrr_1_1CCompiler_1a727c5b3b411164b38232da0a4f711654" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
         <type>bool</type>
         <definition>bool rr::CCompiler::compile</definition>
-        <argsstring>(const string &amp;cmdLine)</argsstring>
+        <argsstring>(const std::string &amp;cmdLine)</argsstring>
         <name>compile</name>
         <param>
-          <type>const string &amp;</type>
+          <type>const std::string &amp;</type>
           <declname>cmdLine</declname>
         </param>
         <briefdescription>
@@ -223,13 +224,14 @@
         </inbodydescription>
         <location file="c/rrCCompiler.h" line="27" column="33" bodyfile="c/rrCCompiler.cpp" bodystart="361" bodyend="382"/>
       </memberdef>
-      <memberdef kind="function" id="classrr_1_1CCompiler_1a7a83eca46757f9a38cb08da55c4f23ab" prot="public" static="no" const="no" explicit="no" inline="no" virt="virtual">
+      <memberdef kind="function" id="classrr_1_1CCompiler_1aa4813603ddea58db34bce8f29efbfc1f" prot="public" static="no" const="no" explicit="no" inline="no" virt="virtual">
         <type>bool</type>
         <definition>bool rr::CCompiler::setCompilerLocation</definition>
-        <argsstring>(const string &amp;path)</argsstring>
+        <argsstring>(const std::string &amp;path)</argsstring>
         <name>setCompilerLocation</name>
+        <reimplements refid="classrr_1_1Compiler_1a08a268ed8d239e64f7dca5ffe883e606">setCompilerLocation</reimplements>
         <param>
-          <type>const string &amp;</type>
+          <type>const std::string &amp;</type>
           <declname>path</declname>
         </param>
         <briefdescription>
@@ -240,9 +242,9 @@
         </inbodydescription>
         <location file="c/rrCCompiler.h" line="29" column="33" bodyfile="c/rrCCompiler.cpp" bodystart="104" bodyend="113"/>
       </memberdef>
-      <memberdef kind="function" id="classrr_1_1CCompiler_1a5681005b4ce9d9b969c7ff8bc5a4222e" prot="public" static="no" const="yes" explicit="no" inline="no" virt="virtual">
-        <type>string</type>
-        <definition>string rr::CCompiler::getCompilerLocation</definition>
+      <memberdef kind="function" id="classrr_1_1CCompiler_1a8678949cfc3cfeef38ea4f6580128de2" prot="public" static="no" const="yes" explicit="no" inline="no" virt="virtual">
+        <type>std::string</type>
+        <definition>std::string rr::CCompiler::getCompilerLocation</definition>
         <argsstring>() const</argsstring>
         <name>getCompilerLocation</name>
         <reimplements refid="classrr_1_1Compiler_1a2d39ffe37cd77cbbc802085197e7b3de">getCompilerLocation</reimplements>
@@ -252,15 +254,16 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="c/rrCCompiler.h" line="30" column="33" bodyfile="c/rrCCompiler.cpp" bodystart="115" bodyend="118"/>
+        <location file="c/rrCCompiler.h" line="30" column="38" bodyfile="c/rrCCompiler.cpp" bodystart="115" bodyend="118"/>
       </memberdef>
-      <memberdef kind="function" id="classrr_1_1CCompiler_1a07be583a4c6eddcf9f7fd8ff29a72889" prot="public" static="no" const="no" explicit="no" inline="no" virt="virtual">
+      <memberdef kind="function" id="classrr_1_1CCompiler_1a139cb4e7c5ec1ddf4ed92d3c9e2f17f9" prot="public" static="no" const="no" explicit="no" inline="no" virt="virtual">
         <type>bool</type>
         <definition>bool rr::CCompiler::setSupportCodeFolder</definition>
-        <argsstring>(const string &amp;path)</argsstring>
+        <argsstring>(const std::string &amp;path)</argsstring>
         <name>setSupportCodeFolder</name>
+        <reimplements refid="classrr_1_1Compiler_1a79c97dd74e6eea11b64c7469c55a6d89">setSupportCodeFolder</reimplements>
         <param>
-          <type>const string &amp;</type>
+          <type>const std::string &amp;</type>
           <declname>path</declname>
         </param>
         <briefdescription>
@@ -271,9 +274,9 @@
         </inbodydescription>
         <location file="c/rrCCompiler.h" line="32" column="33" bodyfile="c/rrCCompiler.cpp" bodystart="120" bodyend="129"/>
       </memberdef>
-      <memberdef kind="function" id="classrr_1_1CCompiler_1a67c74e412cb873d6558d47abf378bfd2" prot="public" static="no" const="yes" explicit="no" inline="no" virt="virtual">
-        <type>string</type>
-        <definition>string rr::CCompiler::getSupportCodeFolder</definition>
+      <memberdef kind="function" id="classrr_1_1CCompiler_1aaf1532e74657fb6285011f0752d087e4" prot="public" static="no" const="yes" explicit="no" inline="no" virt="virtual">
+        <type>std::string</type>
+        <definition>std::string rr::CCompiler::getSupportCodeFolder</definition>
         <argsstring>() const</argsstring>
         <name>getSupportCodeFolder</name>
         <reimplements refid="classrr_1_1Compiler_1ac9bcede80a7f19a2294e812f0f9f2208">getSupportCodeFolder</reimplements>
@@ -283,15 +286,15 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="c/rrCCompiler.h" line="33" column="33" bodyfile="c/rrCCompiler.cpp" bodystart="131" bodyend="134"/>
+        <location file="c/rrCCompiler.h" line="33" column="38" bodyfile="c/rrCCompiler.cpp" bodystart="131" bodyend="134"/>
       </memberdef>
-      <memberdef kind="function" id="classrr_1_1CCompiler_1a751db8b5b002f76f855cb1fd43b7c61f" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+      <memberdef kind="function" id="classrr_1_1CCompiler_1acb86caebea8c7c44fb67800b6db88197" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
         <type>bool</type>
         <definition>bool rr::CCompiler::setIncludePath</definition>
-        <argsstring>(const string &amp;path)</argsstring>
+        <argsstring>(const std::string &amp;path)</argsstring>
         <name>setIncludePath</name>
         <param>
-          <type>const string &amp;</type>
+          <type>const std::string &amp;</type>
           <declname>path</declname>
         </param>
         <briefdescription>
@@ -302,13 +305,13 @@
         </inbodydescription>
         <location file="c/rrCCompiler.h" line="35" column="33"/>
       </memberdef>
-      <memberdef kind="function" id="classrr_1_1CCompiler_1ab97651b5c454f2db70cd21e41f6acbad" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+      <memberdef kind="function" id="classrr_1_1CCompiler_1a3b798e06c1ac185a6fbcccdb6a86373f" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
         <type>bool</type>
         <definition>bool rr::CCompiler::setLibraryPath</definition>
-        <argsstring>(const string &amp;path)</argsstring>
+        <argsstring>(const std::string &amp;path)</argsstring>
         <name>setLibraryPath</name>
         <param>
-          <type>const string &amp;</type>
+          <type>const std::string &amp;</type>
           <declname>path</declname>
         </param>
         <briefdescription>
@@ -336,13 +339,13 @@
         </inbodydescription>
         <location file="c/rrCCompiler.h" line="37" column="33"/>
       </memberdef>
-      <memberdef kind="function" id="classrr_1_1CCompiler_1a894f7642351652434cb1f7b6e40a5f72" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+      <memberdef kind="function" id="classrr_1_1CCompiler_1a17e4f029d9509dba4a81edd7ff7682b0" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
         <type>bool</type>
         <definition>bool rr::CCompiler::compileSource</definition>
-        <argsstring>(const string &amp;cSource)</argsstring>
+        <argsstring>(const std::string &amp;cSource)</argsstring>
         <name>compileSource</name>
         <param>
-          <type>const string &amp;</type>
+          <type>const std::string &amp;</type>
           <declname>cSource</declname>
         </param>
         <briefdescription>
@@ -353,9 +356,9 @@
         </inbodydescription>
         <location file="c/rrCCompiler.h" line="38" column="33" bodyfile="c/rrCCompiler.cpp" bodystart="61" bodyend="90"/>
       </memberdef>
-      <memberdef kind="function" id="classrr_1_1CCompiler_1a9cc933df0aa98cd33d97e042ed4d873d" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
-        <type>string</type>
-        <definition>string rr::CCompiler::getCompilerMessages</definition>
+      <memberdef kind="function" id="classrr_1_1CCompiler_1a16f8fa8a4208c88b8b41b10db145de7b" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>std::string</type>
+        <definition>std::string rr::CCompiler::getCompilerMessages</definition>
         <argsstring>()</argsstring>
         <name>getCompilerMessages</name>
         <briefdescription>
@@ -364,15 +367,15 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="c/rrCCompiler.h" line="39" column="33"/>
+        <location file="c/rrCCompiler.h" line="39" column="38"/>
       </memberdef>
-      <memberdef kind="function" id="classrr_1_1CCompiler_1a304667938b1792db7638ef469e43e6b7" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+      <memberdef kind="function" id="classrr_1_1CCompiler_1a172bdac575d5deee3c6ac34507d12acc" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
         <type>bool</type>
         <definition>bool rr::CCompiler::setOutputPath</definition>
-        <argsstring>(const string &amp;path)</argsstring>
+        <argsstring>(const std::string &amp;path)</argsstring>
         <name>setOutputPath</name>
         <param>
-          <type>const string &amp;</type>
+          <type>const std::string &amp;</type>
           <declname>path</declname>
         </param>
         <briefdescription>
@@ -393,7 +396,7 @@
 <para><ref refid="classrr_1_1CCompiler_1a10a08dd7e7b60da34813b2abd75e2791" kindref="member">getDefaultTargetTriple()</ref> - Return the default target triple the compiler has been configured to produce code for. </para>
         </briefdescription>
         <detaileddescription>
-<para>The target triple is a string in the format of: CPU_TYPE-VENDOR-OPERATING_SYSTEM or CPU_TYPE-VENDOR-KERNEL-OPERATING_SYSTEM </para>
+<para>The target triple is a std::string in the format of: CPU_TYPE-VENDOR-OPERATING_SYSTEM or CPU_TYPE-VENDOR-KERNEL-OPERATING_SYSTEM </para>
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
@@ -451,13 +454,13 @@
       </memberdef>
       </sectiondef>
       <sectiondef kind="private-func">
-      <memberdef kind="function" id="classrr_1_1CCompiler_1ae239a745413b3a9bcbeacae751989949" prot="private" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
-        <type>string</type>
-        <definition>string rr::CCompiler::createCompilerCommand</definition>
-        <argsstring>(const string &amp;sourceFileName)</argsstring>
+      <memberdef kind="function" id="classrr_1_1CCompiler_1a3246be405eeaa84ba5b392bb20ee0a7f" prot="private" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>std::string</type>
+        <definition>std::string rr::CCompiler::createCompilerCommand</definition>
+        <argsstring>(const std::string &amp;sourceFileName)</argsstring>
         <name>createCompilerCommand</name>
         <param>
-          <type>const string &amp;</type>
+          <type>const std::string &amp;</type>
           <declname>sourceFileName</declname>
         </param>
         <briefdescription>
@@ -466,7 +469,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="c/rrCCompiler.h" line="61" column="33" bodyfile="c/rrCCompiler.cpp" bodystart="198" bodyend="232"/>
+        <location file="c/rrCCompiler.h" line="61" column="38" bodyfile="c/rrCCompiler.cpp" bodystart="198" bodyend="232"/>
       </memberdef>
       <memberdef kind="function" id="classrr_1_1CCompiler_1a5f1414f648add57c580bc0ddf0a52c61" prot="private" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
         <type>bool</type>
@@ -513,40 +516,37 @@
     </collaborationgraph>
     <location file="c/rrCCompiler.h" line="17" column="1" bodyfile="c/rrCCompiler.h" bodystart="18" bodyend="65"/>
     <listofallmembers>
-      <member refid="classrr_1_1CCompiler_1a75417b93bcaf69a8e07917f7bf6a85fc" prot="public" virt="non-virtual"><scope>rr::CCompiler</scope><name>CCompiler</name></member>
-      <member refid="classrr_1_1CCompiler_1a8001ada3923a3596667dac7989a46069" prot="public" virt="non-virtual"><scope>rr::CCompiler</scope><name>compile</name></member>
-      <member refid="classrr_1_1CCompiler_1a894f7642351652434cb1f7b6e40a5f72" prot="public" virt="non-virtual"><scope>rr::CCompiler</scope><name>compileSource</name></member>
-      <member refid="classrr_1_1CCompiler_1ae239a745413b3a9bcbeacae751989949" prot="private" virt="non-virtual"><scope>rr::CCompiler</scope><name>createCompilerCommand</name></member>
+      <member refid="classrr_1_1CCompiler_1a3de02cfe8f2df08b3688185de1de0efd" prot="public" virt="non-virtual"><scope>rr::CCompiler</scope><name>CCompiler</name></member>
+      <member refid="classrr_1_1CCompiler_1a727c5b3b411164b38232da0a4f711654" prot="public" virt="non-virtual"><scope>rr::CCompiler</scope><name>compile</name></member>
+      <member refid="classrr_1_1CCompiler_1a17e4f029d9509dba4a81edd7ff7682b0" prot="public" virt="non-virtual"><scope>rr::CCompiler</scope><name>compileSource</name></member>
+      <member refid="classrr_1_1CCompiler_1a3246be405eeaa84ba5b392bb20ee0a7f" prot="private" virt="non-virtual"><scope>rr::CCompiler</scope><name>createCompilerCommand</name></member>
       <member refid="classrr_1_1CCompiler_1a18f784c84dacac4fdb934a46e8fc6119" prot="public" virt="non-virtual"><scope>rr::CCompiler</scope><name>execute</name></member>
-      <member refid="classrr_1_1CCompiler_1a991ca70498a707b972ef9edd2fd9576b" prot="public" virt="virtual"><scope>rr::CCompiler</scope><name>getCompiler</name></member>
-      <member refid="classrr_1_1CCompiler_1a5681005b4ce9d9b969c7ff8bc5a4222e" prot="public" virt="virtual"><scope>rr::CCompiler</scope><name>getCompilerLocation</name></member>
-      <member refid="classrr_1_1CCompiler_1a9cc933df0aa98cd33d97e042ed4d873d" prot="public" virt="non-virtual"><scope>rr::CCompiler</scope><name>getCompilerMessages</name></member>
+      <member refid="classrr_1_1CCompiler_1acc4b3aed4b1d75cb19b6ac5d48cb3331" prot="public" virt="virtual"><scope>rr::CCompiler</scope><name>getCompiler</name></member>
+      <member refid="classrr_1_1CCompiler_1a8678949cfc3cfeef38ea4f6580128de2" prot="public" virt="virtual"><scope>rr::CCompiler</scope><name>getCompilerLocation</name></member>
+      <member refid="classrr_1_1CCompiler_1a16f8fa8a4208c88b8b41b10db145de7b" prot="public" virt="non-virtual"><scope>rr::CCompiler</scope><name>getCompilerMessages</name></member>
       <member refid="classrr_1_1Compiler_1a5144b370c3c98e8d4d3ae93a2e4bb57b" prot="public" virt="non-virtual"><scope>rr::CCompiler</scope><name>getDefaultCompiler</name></member>
       <member refid="classrr_1_1CCompiler_1a10a08dd7e7b60da34813b2abd75e2791" prot="public" virt="virtual"><scope>rr::CCompiler</scope><name>getDefaultTargetTriple</name></member>
       <member refid="classrr_1_1CCompiler_1a436bb213157ccc15d60cd0d64c584102" prot="public" virt="virtual"><scope>rr::CCompiler</scope><name>getHostCPUName</name></member>
       <member refid="classrr_1_1CCompiler_1aba426f3074705b9b76bed36be8646627" prot="public" virt="virtual"><scope>rr::CCompiler</scope><name>getProcessTriple</name></member>
-      <member refid="classrr_1_1CCompiler_1a67c74e412cb873d6558d47abf378bfd2" prot="public" virt="virtual"><scope>rr::CCompiler</scope><name>getSupportCodeFolder</name></member>
+      <member refid="classrr_1_1CCompiler_1aaf1532e74657fb6285011f0752d087e4" prot="public" virt="virtual"><scope>rr::CCompiler</scope><name>getSupportCodeFolder</name></member>
       <member refid="classrr_1_1CCompiler_1a1a5ee3dac691018a04f9fb166fd19246" prot="public" virt="virtual"><scope>rr::CCompiler</scope><name>getVersion</name></member>
-      <member refid="classrr_1_1CCompiler_1a01209a7634c71c6988f4843d501e0095" prot="private" virt="non-virtual"><scope>rr::CCompiler</scope><name>mCompilerFlags</name></member>
-      <member refid="classrr_1_1CCompiler_1a299806ea502b9b78aace088fce1315fc" prot="private" virt="non-virtual"><scope>rr::CCompiler</scope><name>mCompilerLocation</name></member>
-      <member refid="classrr_1_1CCompiler_1a68e54eede312dd7eb89387e197c66e9e" prot="private" virt="non-virtual"><scope>rr::CCompiler</scope><name>mCompilerName</name></member>
-      <member refid="classrr_1_1CCompiler_1a60374133936bbdfb1bbf87e4e5eac99c" prot="private" virt="non-virtual"><scope>rr::CCompiler</scope><name>mCompilerOutput</name></member>
-      <member refid="classrr_1_1CCompiler_1a2cfad20ebf33e28d9cd3f44ad16082d9" prot="private" virt="non-virtual"><scope>rr::CCompiler</scope><name>mDLLFileName</name></member>
-      <member refid="classrr_1_1CCompiler_1a245f332e5529b0d9fb7c51a2968932e6" prot="private" virt="non-virtual"><scope>rr::CCompiler</scope><name>mIncludePaths</name></member>
-      <member refid="classrr_1_1CCompiler_1a22b9c25c529111b0eba1e0cc501abd7a" prot="private" virt="non-virtual"><scope>rr::CCompiler</scope><name>mLibraryPaths</name></member>
-      <member refid="classrr_1_1CCompiler_1a25e9cc49d90bd94352db9b28b7b2cd49" prot="private" virt="non-virtual"><scope>rr::CCompiler</scope><name>mOutputPath</name></member>
-      <member refid="classrr_1_1CCompiler_1a41b54305e8314e356ba700284fb81e00" prot="private" virt="non-virtual"><scope>rr::CCompiler</scope><name>mSupportCodeFolder</name></member>
+      <member refid="classrr_1_1CCompiler_1af561a5edb29070d7a1d2e96707d9b592" prot="private" virt="non-virtual"><scope>rr::CCompiler</scope><name>mCompilerFlags</name></member>
+      <member refid="classrr_1_1CCompiler_1abc8511cc6142ca4a834360f8dce4630a" prot="private" virt="non-virtual"><scope>rr::CCompiler</scope><name>mCompilerLocation</name></member>
+      <member refid="classrr_1_1CCompiler_1a2b7932d55d090214543fc87b33746e20" prot="private" virt="non-virtual"><scope>rr::CCompiler</scope><name>mCompilerName</name></member>
+      <member refid="classrr_1_1CCompiler_1af771396880c131f16f22859b2aec6f19" prot="private" virt="non-virtual"><scope>rr::CCompiler</scope><name>mCompilerOutput</name></member>
+      <member refid="classrr_1_1CCompiler_1aeedb12a1d5e331a96b01c71b6bba502d" prot="private" virt="non-virtual"><scope>rr::CCompiler</scope><name>mDLLFileName</name></member>
+      <member refid="classrr_1_1CCompiler_1aecceff2cd9c5bda78d1b04415d3465ad" prot="private" virt="non-virtual"><scope>rr::CCompiler</scope><name>mIncludePaths</name></member>
+      <member refid="classrr_1_1CCompiler_1ad4c48488d820d79056b1b061079a151f" prot="private" virt="non-virtual"><scope>rr::CCompiler</scope><name>mLibraryPaths</name></member>
+      <member refid="classrr_1_1CCompiler_1a8bcfd56af0fa77338d37e02b9b0655aa" prot="private" virt="non-virtual"><scope>rr::CCompiler</scope><name>mOutputPath</name></member>
+      <member refid="classrr_1_1CCompiler_1aebb15a0ad17a1cbfa270ab96c1888942" prot="private" virt="non-virtual"><scope>rr::CCompiler</scope><name>mSupportCodeFolder</name></member>
       <member refid="classrr_1_1Compiler_1a09cf96dd0f59ca06473aba26f1e4702c" prot="public" virt="non-virtual"><scope>rr::CCompiler</scope><name>New</name></member>
-      <member refid="classrr_1_1CCompiler_1a4454fc51c60a7657de1c847d346798d6" prot="public" virt="virtual"><scope>rr::CCompiler</scope><name>setCompiler</name></member>
-      <member refid="classrr_1_1Compiler_1a0556fb1db12b7f693d37a6108068103d" prot="public" virt="pure-virtual" ambiguityscope="rr::Compiler::"><scope>rr::CCompiler</scope><name>setCompiler</name></member>
-      <member refid="classrr_1_1CCompiler_1a7a83eca46757f9a38cb08da55c4f23ab" prot="public" virt="virtual"><scope>rr::CCompiler</scope><name>setCompilerLocation</name></member>
-      <member refid="classrr_1_1Compiler_1a08a268ed8d239e64f7dca5ffe883e606" prot="public" virt="pure-virtual" ambiguityscope="rr::Compiler::"><scope>rr::CCompiler</scope><name>setCompilerLocation</name></member>
-      <member refid="classrr_1_1CCompiler_1a751db8b5b002f76f855cb1fd43b7c61f" prot="public" virt="non-virtual"><scope>rr::CCompiler</scope><name>setIncludePath</name></member>
-      <member refid="classrr_1_1CCompiler_1ab97651b5c454f2db70cd21e41f6acbad" prot="public" virt="non-virtual"><scope>rr::CCompiler</scope><name>setLibraryPath</name></member>
-      <member refid="classrr_1_1CCompiler_1a304667938b1792db7638ef469e43e6b7" prot="public" virt="non-virtual"><scope>rr::CCompiler</scope><name>setOutputPath</name></member>
-      <member refid="classrr_1_1CCompiler_1a07be583a4c6eddcf9f7fd8ff29a72889" prot="public" virt="virtual"><scope>rr::CCompiler</scope><name>setSupportCodeFolder</name></member>
-      <member refid="classrr_1_1Compiler_1a79c97dd74e6eea11b64c7469c55a6d89" prot="public" virt="pure-virtual" ambiguityscope="rr::Compiler::"><scope>rr::CCompiler</scope><name>setSupportCodeFolder</name></member>
-      <member refid="classrr_1_1CCompiler_1a958850068162cda6ceb0d76af097b6b3" prot="public" virt="non-virtual"><scope>rr::CCompiler</scope><name>setupCompiler</name></member>
+      <member refid="classrr_1_1CCompiler_1a02c966c014a88888366c63b36b81208e" prot="public" virt="virtual"><scope>rr::CCompiler</scope><name>setCompiler</name></member>
+      <member refid="classrr_1_1CCompiler_1aa4813603ddea58db34bce8f29efbfc1f" prot="public" virt="virtual"><scope>rr::CCompiler</scope><name>setCompilerLocation</name></member>
+      <member refid="classrr_1_1CCompiler_1acb86caebea8c7c44fb67800b6db88197" prot="public" virt="non-virtual"><scope>rr::CCompiler</scope><name>setIncludePath</name></member>
+      <member refid="classrr_1_1CCompiler_1a3b798e06c1ac185a6fbcccdb6a86373f" prot="public" virt="non-virtual"><scope>rr::CCompiler</scope><name>setLibraryPath</name></member>
+      <member refid="classrr_1_1CCompiler_1a172bdac575d5deee3c6ac34507d12acc" prot="public" virt="non-virtual"><scope>rr::CCompiler</scope><name>setOutputPath</name></member>
+      <member refid="classrr_1_1CCompiler_1a139cb4e7c5ec1ddf4ed92d3c9e2f17f9" prot="public" virt="virtual"><scope>rr::CCompiler</scope><name>setSupportCodeFolder</name></member>
+      <member refid="classrr_1_1CCompiler_1a9e94b67dc354052b04712b0aaba887b0" prot="public" virt="non-virtual"><scope>rr::CCompiler</scope><name>setupCompiler</name></member>
       <member refid="classrr_1_1CCompiler_1a5f1414f648add57c580bc0ddf0a52c61" prot="private" virt="non-virtual"><scope>rr::CCompiler</scope><name>setupCompilerEnvironment</name></member>
       <member refid="classrr_1_1CCompiler_1af7190b8b92f47f5654681ad5a94828a3" prot="public" virt="virtual"><scope>rr::CCompiler</scope><name>~CCompiler</name></member>
       <member refid="classrr_1_1Compiler_1a344fb49215070b32990da67cd59b28e9" prot="public" virt="virtual"><scope>rr::CCompiler</scope><name>~Compiler</name></member>

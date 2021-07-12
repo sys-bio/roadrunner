@@ -22,7 +22,7 @@
  <tr style="height: 56px;">
   <td id="projectalign" style="padding-left: 0.5em;">
    <div id="projectname">roadrunner
-   &#160;<span id="projectnumber">2.0.5</span>
+   &#160;<span id="projectnumber">2.0.8</span>
    </div>
    <div id="projectbrief">Fast simulator for SBML models</div>
   </td>
@@ -100,7 +100,7 @@ $(function() {
 <div class="line"><a name="l00031"></a><span class="lineno">   31</span>&#160; </div>
 <div class="line"><a name="l00032"></a><span class="lineno">   32</span>&#160;    <span class="keyword">virtual</span> ~<a class="code" href="classrr_1_1ModelSymbols.html">ModelSymbols</a>();</div>
 <div class="line"><a name="l00033"></a><span class="lineno">   33</span>&#160; </div>
-<div class="line"><a name="l00047"></a><span class="lineno"><a class="line" href="classrr_1_1ModelSymbols.html#a868750824ff39027f62a56d0e5ef1bd2">   47</a></span>&#160;    <span class="keyword">const</span> <span class="keywordtype">string</span> <a class="code" href="classrr_1_1ModelSymbols.html#a868750824ff39027f62a56d0e5ef1bd2">mModelName</a>;</div>
+<div class="line"><a name="l00047"></a><span class="lineno"><a class="line" href="classrr_1_1ModelSymbols.html#a564366e8536f82ce79d7a8c518247b7b">   47</a></span>&#160;    <span class="keyword">const</span> std::string <a class="code" href="classrr_1_1ModelSymbols.html#a564366e8536f82ce79d7a8c518247b7b">mModelName</a>;</div>
 <div class="line"><a name="l00048"></a><span class="lineno">   48</span>&#160; </div>
 <div class="line"><a name="l00049"></a><span class="lineno">   49</span>&#160;    <span class="keyword">const</span> <span class="keywordtype">int</span> mNumReactions;</div>
 <div class="line"><a name="l00050"></a><span class="lineno">   50</span>&#160; </div>
@@ -130,8 +130,8 @@ $(function() {
 <div class="line"><a name="l00084"></a><span class="lineno">   84</span>&#160; </div>
 <div class="line"><a name="l00085"></a><span class="lineno">   85</span>&#160;    <span class="keyword">const</span> <a class="code" href="classrr_1_1SymbolList.html">SymbolList</a> mReactionList;</div>
 <div class="line"><a name="l00086"></a><span class="lineno">   86</span>&#160; </div>
-<div class="line"><a name="l00087"></a><span class="lineno">   87</span>&#160;    <span class="keyword">const</span> vector&lt;int&gt; mLocalParameterDimensions;</div>
-<div class="line"><a name="l00088"></a><span class="lineno">   88</span>&#160;    <span class="keyword">const</span> vector&lt;SymbolList&gt; mLocalParameterList;</div>
+<div class="line"><a name="l00087"></a><span class="lineno">   87</span>&#160;    <span class="keyword">const</span> std::vector&lt;int&gt; mLocalParameterDimensions;</div>
+<div class="line"><a name="l00088"></a><span class="lineno">   88</span>&#160;    <span class="keyword">const</span> std::vector&lt;SymbolList&gt; mLocalParameterList;</div>
 <div class="line"><a name="l00089"></a><span class="lineno">   89</span>&#160; </div>
 <div class="line"><a name="l00090"></a><span class="lineno">   90</span>&#160;    <span class="keyword">const</span> <a class="code" href="classrr_1_1SymbolList.html">SymbolList</a> mConservationList;</div>
 <div class="line"><a name="l00091"></a><span class="lineno">   91</span>&#160; </div>
@@ -143,7 +143,7 @@ $(function() {
 <div class="line"><a name="l00097"></a><span class="lineno">   97</span>&#160; </div>
 <div class="line"><a name="l00098"></a><span class="lineno">   98</span>&#160;    <span class="keyword">const</span> <a class="code" href="classrr_1_1IntStringHashTable.html">IntStringHashTable</a> mRateRules;</div>
 <div class="line"><a name="l00099"></a><span class="lineno">   99</span>&#160; </div>
-<div class="line"><a name="l00100"></a><span class="lineno">  100</span>&#160;    <span class="keyword">static</span> <span class="keyword">const</span> <span class="keywordtype">string</span> mDoubleFormat;</div>
+<div class="line"><a name="l00100"></a><span class="lineno">  100</span>&#160;    <span class="keyword">static</span> <span class="keyword">const</span> std::string mDoubleFormat;</div>
 <div class="line"><a name="l00101"></a><span class="lineno">  101</span>&#160; </div>
 <div class="line"><a name="l00102"></a><span class="lineno">  102</span>&#160;    <span class="keyword">const</span> <span class="keywordtype">int</span> mNumRules;</div>
 <div class="line"><a name="l00103"></a><span class="lineno">  103</span>&#160;};</div>
@@ -153,12 +153,12 @@ $(function() {
 </div><!-- fragment --></div><!-- contents -->
 <div class="ttc" id="aclassrr_1_1IntStringHashTable_html"><div class="ttname"><a href="classrr_1_1IntStringHashTable.html">rr::IntStringHashTable</a></div><div class="ttdef"><b>Definition:</b> rrHashTable.h:28</div></div>
 <div class="ttc" id="aclassrr_1_1ModelSymbols_html_a215ce854979c423a02495fe856949e2b"><div class="ttname"><a href="classrr_1_1ModelSymbols.html#a215ce854979c423a02495fe856949e2b">rr::ModelSymbols::mIndependentSpeciesList</a></div><div class="ttdeci">const StringList mIndependentSpeciesList</div><div class="ttdoc">if we computeAndAssignConsevationLaws, this is the actual Independent species, otherwise,...</div><div class="ttdef"><b>Definition:</b> rrModelSymbols.h:60</div></div>
-<div class="ttc" id="aclassrr_1_1ModelSymbols_html_a868750824ff39027f62a56d0e5ef1bd2"><div class="ttname"><a href="classrr_1_1ModelSymbols.html#a868750824ff39027f62a56d0e5ef1bd2">rr::ModelSymbols::mModelName</a></div><div class="ttdeci">const string mModelName</div><div class="ttdoc">! CRITICALLY IMPORTANT ! THE ORDER OF THE MEMBER VARIABLE DEFINITIONS BELOW HAVE TO BE IN THIS ORDER.</div><div class="ttdef"><b>Definition:</b> rrModelSymbols.h:47</div></div>
 <div class="ttc" id="aclassrr_1_1ModelSymbols_html"><div class="ttname"><a href="classrr_1_1ModelSymbols.html">rr::ModelSymbols</a></div><div class="ttdef"><b>Definition:</b> rrModelSymbols.h:20</div></div>
 <div class="ttc" id="aclassrr_1_1SymbolList_html"><div class="ttname"><a href="classrr_1_1SymbolList.html">rr::SymbolList</a></div><div class="ttdef"><b>Definition:</b> rrSymbolList.h:13</div></div>
 <div class="ttc" id="aclassrr_1_1StringList_html"><div class="ttname"><a href="classrr_1_1StringList.html">rr::StringList</a></div><div class="ttdef"><b>Definition:</b> rrStringList.h:19</div></div>
 <div class="ttc" id="aclassrr_1_1NOMSupport_html"><div class="ttname"><a href="classrr_1_1NOMSupport.html">rr::NOMSupport</a></div><div class="ttdoc">Methods to query various information from an SBML document.</div><div class="ttdef"><b>Definition:</b> rrNOMSupport.h:41</div></div>
 <div class="ttc" id="aclassrr_1_1ModelSymbols_html_a3f353e7e5cd69f066fed17cef5cbc944"><div class="ttname"><a href="classrr_1_1ModelSymbols.html#a3f353e7e5cd69f066fed17cef5cbc944">rr::ModelSymbols::mDependentSpeciesList</a></div><div class="ttdeci">const StringList mDependentSpeciesList</div><div class="ttdoc">copied straight from the NOM</div><div class="ttdef"><b>Definition:</b> rrModelSymbols.h:66</div></div>
+<div class="ttc" id="aclassrr_1_1ModelSymbols_html_a564366e8536f82ce79d7a8c518247b7b"><div class="ttname"><a href="classrr_1_1ModelSymbols.html#a564366e8536f82ce79d7a8c518247b7b">rr::ModelSymbols::mModelName</a></div><div class="ttdeci">const std::string mModelName</div><div class="ttdoc">! CRITICALLY IMPORTANT ! THE ORDER OF THE MEMBER VARIABLE DEFINITIONS BELOW HAVE TO BE IN THIS ORDER.</div><div class="ttdef"><b>Definition:</b> rrModelSymbols.h:47</div></div>
 <!-- start footer part -->
 <hr class="footer"/><address class="footer"><small>
 Generated by&#160;<a href="http://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.8.20

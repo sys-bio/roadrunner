@@ -1,0 +1,123 @@
+\hypertarget{classrr_1_1SteadyStateSolverDecorator}{}\doxysection{rr\+::Steady\+State\+Solver\+Decorator Class Reference}
+\label{classrr_1_1SteadyStateSolverDecorator}\index{rr::SteadyStateSolverDecorator@{rr::SteadyStateSolverDecorator}}
+
+
+The base class Decorator follows the same interface as other Steady\+State\+Solvers.  
+
+
+
+
+{\ttfamily \#include $<$Steady\+State\+Solver\+Decorator.\+h$>$}
+
+Inheritance diagram for rr\+::Steady\+State\+Solver\+Decorator\+:\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[height=3.456790cm]{classrr_1_1SteadyStateSolverDecorator}
+\end{center}
+\end{figure}
+\doxysubsection*{Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\Hypertarget{classrr_1_1SteadyStateSolverDecorator_ae9a490c475a289808fe2caebea3fe55e}\label{classrr_1_1SteadyStateSolverDecorator_ae9a490c475a289808fe2caebea3fe55e}} 
+{\bfseries Steady\+State\+Solver\+Decorator} (\mbox{\hyperlink{classrr_1_1SteadyStateSolver}{Steady\+State\+Solver}} $\ast$solver)
+\item 
+void \mbox{\hyperlink{classrr_1_1SteadyStateSolverDecorator_a3d28cd898cf997dbc2243b0fc2ae3856}{sync\+With\+Model}} (\mbox{\hyperlink{classrr_1_1ExecutableModel}{Executable\+Model}} $\ast$m) override
+\begin{DoxyCompactList}\small\item\em Base decorator delegates all work to the wrapped steady state solver. \end{DoxyCompactList}\item 
+\mbox{\Hypertarget{classrr_1_1SteadyStateSolverDecorator_af8245130dad6e050fd0bacdddc6cbec6}\label{classrr_1_1SteadyStateSolverDecorator_af8245130dad6e050fd0bacdddc6cbec6}} 
+double {\bfseries solve} () override
+\item 
+std\+::string \mbox{\hyperlink{classrr_1_1SteadyStateSolverDecorator_ab40943abac1972772212fb7fad42afa3}{get\+Name}} () const override
+\begin{DoxyCompactList}\small\item\em Get the name of this solver. \end{DoxyCompactList}\item 
+std\+::string \mbox{\hyperlink{classrr_1_1SteadyStateSolverDecorator_aeee54937d2c9bc9959e7be1ed217831c}{get\+Description}} () const override
+\begin{DoxyCompactList}\small\item\em Get the description of this solver. \end{DoxyCompactList}\item 
+std\+::string \mbox{\hyperlink{classrr_1_1SteadyStateSolverDecorator_a010d1f84529bbcc1177f35ee646e8b6c}{get\+Hint}} () const override
+\begin{DoxyCompactList}\small\item\em Get a (user-\/readable) hint for this solver. \end{DoxyCompactList}\item 
+\mbox{\Hypertarget{classrr_1_1SteadyStateSolverDecorator_a6978cebc1cf1ac984be2051491170443}\label{classrr_1_1SteadyStateSolverDecorator_a6978cebc1cf1ac984be2051491170443}} 
+void \mbox{\hyperlink{classrr_1_1SteadyStateSolverDecorator_a6978cebc1cf1ac984be2051491170443}{reset\+Settings}} () override
+\begin{DoxyCompactList}\small\item\em Implements settings shared by all steady state solvers. \end{DoxyCompactList}\end{DoxyCompactItemize}
+\doxysubsection*{Protected Attributes}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\Hypertarget{classrr_1_1SteadyStateSolverDecorator_a03e7c058ba9134cb97366f34bade46f8}\label{classrr_1_1SteadyStateSolverDecorator_a03e7c058ba9134cb97366f34bade46f8}} 
+\mbox{\hyperlink{classrr_1_1SteadyStateSolver}{Steady\+State\+Solver}} $\ast$ {\bfseries solver\+\_\+}
+\end{DoxyCompactItemize}
+\doxysubsection*{Additional Inherited Members}
+
+
+\doxysubsection{Detailed Description}
+The base class Decorator follows the same interface as other Steady\+State\+Solvers. 
+
+The primary purpose of this class is the define the wrapping interface for all concrete decorators. The default implementation of the wrapping code might include a field for storing a wrapped component and a means to initialize it. 
+
+\doxysubsection{Member Function Documentation}
+\mbox{\Hypertarget{classrr_1_1SteadyStateSolverDecorator_aeee54937d2c9bc9959e7be1ed217831c}\label{classrr_1_1SteadyStateSolverDecorator_aeee54937d2c9bc9959e7be1ed217831c}} 
+\index{rr::SteadyStateSolverDecorator@{rr::SteadyStateSolverDecorator}!getDescription@{getDescription}}
+\index{getDescription@{getDescription}!rr::SteadyStateSolverDecorator@{rr::SteadyStateSolverDecorator}}
+\doxysubsubsection{\texorpdfstring{getDescription()}{getDescription()}}
+{\footnotesize\ttfamily std\+::string rr\+::\+Steady\+State\+Solver\+Decorator\+::get\+Description (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption}) const\hspace{0.3cm}{\ttfamily [override]}, {\ttfamily [virtual]}}
+
+
+
+Get the description of this solver. 
+
+\begin{DoxyAuthor}{Author}
+J\+KM 
+\end{DoxyAuthor}
+
+
+Implements \mbox{\hyperlink{classrr_1_1Solver_a86067147c7631ca80d51667322f1a8f5}{rr\+::\+Solver}}.
+
+\mbox{\Hypertarget{classrr_1_1SteadyStateSolverDecorator_a010d1f84529bbcc1177f35ee646e8b6c}\label{classrr_1_1SteadyStateSolverDecorator_a010d1f84529bbcc1177f35ee646e8b6c}} 
+\index{rr::SteadyStateSolverDecorator@{rr::SteadyStateSolverDecorator}!getHint@{getHint}}
+\index{getHint@{getHint}!rr::SteadyStateSolverDecorator@{rr::SteadyStateSolverDecorator}}
+\doxysubsubsection{\texorpdfstring{getHint()}{getHint()}}
+{\footnotesize\ttfamily std\+::string rr\+::\+Steady\+State\+Solver\+Decorator\+::get\+Hint (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption}) const\hspace{0.3cm}{\ttfamily [override]}, {\ttfamily [virtual]}}
+
+
+
+Get a (user-\/readable) hint for this solver. 
+
+\begin{DoxyAuthor}{Author}
+J\+KM 
+\end{DoxyAuthor}
+
+
+Implements \mbox{\hyperlink{classrr_1_1Solver_aff005f7e71bc73123ecbd511a77f71b6}{rr\+::\+Solver}}.
+
+\mbox{\Hypertarget{classrr_1_1SteadyStateSolverDecorator_ab40943abac1972772212fb7fad42afa3}\label{classrr_1_1SteadyStateSolverDecorator_ab40943abac1972772212fb7fad42afa3}} 
+\index{rr::SteadyStateSolverDecorator@{rr::SteadyStateSolverDecorator}!getName@{getName}}
+\index{getName@{getName}!rr::SteadyStateSolverDecorator@{rr::SteadyStateSolverDecorator}}
+\doxysubsubsection{\texorpdfstring{getName()}{getName()}}
+{\footnotesize\ttfamily std\+::string rr\+::\+Steady\+State\+Solver\+Decorator\+::get\+Name (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption}) const\hspace{0.3cm}{\ttfamily [override]}, {\ttfamily [virtual]}}
+
+
+
+Get the name of this solver. 
+
+\begin{DoxyAuthor}{Author}
+J\+KM 
+\end{DoxyAuthor}
+
+
+Implements \mbox{\hyperlink{classrr_1_1Solver_a417cca64a18c63535f2091584f8fed91}{rr\+::\+Solver}}.
+
+\mbox{\Hypertarget{classrr_1_1SteadyStateSolverDecorator_a3d28cd898cf997dbc2243b0fc2ae3856}\label{classrr_1_1SteadyStateSolverDecorator_a3d28cd898cf997dbc2243b0fc2ae3856}} 
+\index{rr::SteadyStateSolverDecorator@{rr::SteadyStateSolverDecorator}!syncWithModel@{syncWithModel}}
+\index{syncWithModel@{syncWithModel}!rr::SteadyStateSolverDecorator@{rr::SteadyStateSolverDecorator}}
+\doxysubsubsection{\texorpdfstring{syncWithModel()}{syncWithModel()}}
+{\footnotesize\ttfamily void rr\+::\+Steady\+State\+Solver\+Decorator\+::sync\+With\+Model (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{classrr_1_1ExecutableModel}{Executable\+Model}} $\ast$}]{m }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [override]}, {\ttfamily [virtual]}}
+
+
+
+Base decorator delegates all work to the wrapped steady state solver. 
+
+Subclass decorators may modify any or all of these operations. 
+
+Implements \mbox{\hyperlink{classrr_1_1SteadyStateSolver_ac69478bcf73ab02178b001250293c4c9}{rr\+::\+Steady\+State\+Solver}}.
+
+
+
+The documentation for this class was generated from the following files\+:\begin{DoxyCompactItemize}
+\item 
+Steady\+State\+Solver\+Decorator.\+h\item 
+Steady\+State\+Solver\+Decorator.\+cpp\end{DoxyCompactItemize}

@@ -4,18 +4,12 @@
     <compoundname>rrToken.cpp</compoundname>
     <includes refid="rrToken_8h" local="yes">rrToken.h</includes>
     <incdepgraph>
-      <node id="3">
-        <label>rrExporter.h</label>
-        <link refid="rrExporter_8h_source"/>
-      </node>
       <node id="5">
         <label>string</label>
       </node>
-      <node id="1">
-        <label>c/rrToken.cpp</label>
-        <link refid="rrToken_8cpp"/>
-        <childnode refid="2" relation="include">
-        </childnode>
+      <node id="3">
+        <label>rrExporter.h</label>
+        <link refid="rrExporter_8h_source"/>
       </node>
       <node id="4">
         <label>rrCodeTypes.h</label>
@@ -29,6 +23,12 @@
         <childnode refid="4" relation="include">
         </childnode>
         <childnode refid="5" relation="include">
+        </childnode>
+      </node>
+      <node id="1">
+        <label>c/rrToken.cpp</label>
+        <link refid="rrToken_8cpp"/>
+        <childnode refid="2" relation="include">
         </childnode>
       </node>
     </incdepgraph>

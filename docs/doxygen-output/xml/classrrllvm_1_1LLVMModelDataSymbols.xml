@@ -104,7 +104,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="llvm/LLVMModelDataSymbols.h" line="146" column="5" bodyfile="llvm/LLVMModelDataSymbols.h" bodystart="147" bodyend="149"/>
+        <location file="llvm/LLVMModelDataSymbols.h" line="146" column="5" bodyfile="llvm/LLVMModelDataSymbols.h" bodystart="147" bodyend="155"/>
       </memberdef>
       <memberdef kind="typedef" id="classrrllvm_1_1LLVMModelDataSymbols_1ab4534ab9e1b1dc198812208f11960702" prot="public" static="no">
         <type>std::map&lt; std::string, uint &gt;</type>
@@ -145,9 +145,9 @@
         </inbodydescription>
         <location file="llvm/LLVMModelDataSymbols.h" line="132" column="23" bodyfile="llvm/LLVMModelDataSymbols.h" bodystart="132" bodyend="-1"/>
       </memberdef>
-      <memberdef kind="typedef" id="classrrllvm_1_1LLVMModelDataSymbols_1abffc137dab59dc26f324c12537ea207c" prot="public" static="no">
-        <type>cxx11_ns::unordered_map&lt; uint, uint &gt;</type>
-        <definition>typedef cxx11_ns::unordered_map&lt;uint, uint&gt; rrllvm::LLVMModelDataSymbols::UIntUIntMap</definition>
+      <memberdef kind="typedef" id="classrrllvm_1_1LLVMModelDataSymbols_1a85c8a143119e26f1536a0c20d2925822" prot="public" static="no">
+        <type>std::unordered_map&lt; uint, uint &gt;</type>
+        <definition>typedef std::unordered_map&lt;uint, uint&gt; rrllvm::LLVMModelDataSymbols::UIntUIntMap</definition>
         <argsstring></argsstring>
         <name>UIntUIntMap</name>
         <briefdescription>
@@ -156,7 +156,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="llvm/LLVMModelDataSymbols.h" line="133" column="37" bodyfile="llvm/LLVMModelDataSymbols.h" bodystart="133" bodyend="-1"/>
+        <location file="llvm/LLVMModelDataSymbols.h" line="133" column="32" bodyfile="llvm/LLVMModelDataSymbols.h" bodystart="133" bodyend="-1"/>
       </memberdef>
       </sectiondef>
       <sectiondef kind="private-type">
@@ -166,13 +166,13 @@
         <argsstring></argsstring>
         <name>StringRefInfoMap</name>
         <briefdescription>
-<para>map of all identified species reference (species references with ids) to their indices in the stoichiometric matrix. </para>
+<para>std::map of all identified species reference (species references with ids) to their indices in the stoichiometric matrix. </para>
         </briefdescription>
         <detaileddescription>
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="llvm/LLVMModelDataSymbols.h" line="626" column="22" bodyfile="llvm/LLVMModelDataSymbols.h" bodystart="626" bodyend="-1"/>
+        <location file="llvm/LLVMModelDataSymbols.h" line="622" column="22" bodyfile="llvm/LLVMModelDataSymbols.h" bodystart="622" bodyend="-1"/>
       </memberdef>
       </sectiondef>
       <sectiondef kind="private-attrib">
@@ -188,7 +188,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="llvm/LLVMModelDataSymbols.h" line="411" column="14" bodyfile="llvm/LLVMModelDataSymbols.h" bodystart="411" bodyend="-1"/>
+        <location file="llvm/LLVMModelDataSymbols.h" line="413" column="14" bodyfile="llvm/LLVMModelDataSymbols.h" bodystart="413" bodyend="-1"/>
       </memberdef>
       <memberdef kind="variable" id="classrrllvm_1_1LLVMModelDataSymbols_1afac2c4cca4d957282d3d63e90b5af17e" prot="private" static="no" mutable="no">
         <type>std::vector&lt; bool &gt;</type>
@@ -202,7 +202,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="llvm/LLVMModelDataSymbols.h" line="416" column="17" bodyfile="llvm/LLVMModelDataSymbols.h" bodystart="416" bodyend="-1"/>
+        <location file="llvm/LLVMModelDataSymbols.h" line="418" column="17" bodyfile="llvm/LLVMModelDataSymbols.h" bodystart="418" bodyend="-1"/>
       </memberdef>
       <memberdef kind="variable" id="classrrllvm_1_1LLVMModelDataSymbols_1a9010dde62214df0daf909d136220cdeb" prot="private" static="no" mutable="no">
         <type>std::vector&lt; uint &gt;</type>
@@ -217,7 +217,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="llvm/LLVMModelDataSymbols.h" line="425" column="17" bodyfile="llvm/LLVMModelDataSymbols.h" bodystart="425" bodyend="-1"/>
+        <location file="llvm/LLVMModelDataSymbols.h" line="427" column="17" bodyfile="llvm/LLVMModelDataSymbols.h" bodystart="427" bodyend="-1"/>
       </memberdef>
       <memberdef kind="variable" id="classrrllvm_1_1LLVMModelDataSymbols_1ad97816e45bb3f490904ee731829067a2" prot="private" static="no" mutable="no">
         <type>UIntUIntMap</type>
@@ -225,14 +225,14 @@
         <argsstring></argsstring>
         <name>floatingSpeciesToConservedMoietyIdMap</name>
         <briefdescription>
-<para>map of floating species ids to conserved moiety ids. </para>
+<para>std::map of floating species ids to conserved moiety ids. </para>
         </briefdescription>
         <detaileddescription>
 <para>assume conserved moeity speces are stored in the sbml in the same order as the conserved moieties. </para>
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="llvm/LLVMModelDataSymbols.h" line="433" column="17" bodyfile="llvm/LLVMModelDataSymbols.h" bodystart="433" bodyend="-1"/>
+        <location file="llvm/LLVMModelDataSymbols.h" line="435" column="17" bodyfile="llvm/LLVMModelDataSymbols.h" bodystart="435" bodyend="-1"/>
       </memberdef>
       <memberdef kind="variable" id="classrrllvm_1_1LLVMModelDataSymbols_1ac4b7e8531062a9f27b3ae857d199faaa" prot="private" static="no" mutable="no">
         <type>StringUIntMap</type>
@@ -245,7 +245,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="llvm/LLVMModelDataSymbols.h" line="436" column="19" bodyfile="llvm/LLVMModelDataSymbols.h" bodystart="436" bodyend="-1"/>
+        <location file="llvm/LLVMModelDataSymbols.h" line="438" column="19" bodyfile="llvm/LLVMModelDataSymbols.h" bodystart="438" bodyend="-1"/>
       </memberdef>
       <memberdef kind="variable" id="classrrllvm_1_1LLVMModelDataSymbols_1a5955a9a767446f6813579a58894c35e4" prot="private" static="no" mutable="no">
         <type>StringUIntVectorMap</type>
@@ -258,7 +258,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="llvm/LLVMModelDataSymbols.h" line="439" column="25" bodyfile="llvm/LLVMModelDataSymbols.h" bodystart="439" bodyend="-1"/>
+        <location file="llvm/LLVMModelDataSymbols.h" line="441" column="25" bodyfile="llvm/LLVMModelDataSymbols.h" bodystart="441" bodyend="-1"/>
       </memberdef>
       <memberdef kind="variable" id="classrrllvm_1_1LLVMModelDataSymbols_1a2f1348459bfb2bfdd293c1dbceabd481" prot="private" static="no" mutable="no">
         <type>std::set&lt; std::string &gt;</type>
@@ -271,7 +271,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="llvm/LLVMModelDataSymbols.h" line="554" column="14" bodyfile="llvm/LLVMModelDataSymbols.h" bodystart="554" bodyend="-1"/>
+        <location file="llvm/LLVMModelDataSymbols.h" line="552" column="14" bodyfile="llvm/LLVMModelDataSymbols.h" bodystart="552" bodyend="-1"/>
       </memberdef>
       <memberdef kind="variable" id="classrrllvm_1_1LLVMModelDataSymbols_1aa61568481d95d1b470a92021329b50b7" prot="private" static="no" mutable="no">
         <type>StringUIntMap</type>
@@ -279,14 +279,14 @@
         <argsstring></argsstring>
         <name>initFloatingSpeciesMap</name>
         <briefdescription>
-<para>map of floating species init value symbols to thier index in the array. </para>
+<para>std::map of floating species init value symbols to thier index in the array. </para>
         </briefdescription>
         <detaileddescription>
-<para>All floating species are stored in this map, however they are reordered and only the ones with index &lt; independentInitFloatingSpeciesSize are allocated storage. </para>
+<para>All floating species are stored in this std::map, however they are reordered and only the ones with index &lt; independentInitFloatingSpeciesSize are allocated storage. </para>
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="llvm/LLVMModelDataSymbols.h" line="564" column="19" bodyfile="llvm/LLVMModelDataSymbols.h" bodystart="564" bodyend="-1"/>
+        <location file="llvm/LLVMModelDataSymbols.h" line="562" column="19" bodyfile="llvm/LLVMModelDataSymbols.h" bodystart="562" bodyend="-1"/>
       </memberdef>
       <memberdef kind="variable" id="classrrllvm_1_1LLVMModelDataSymbols_1ae185b55f6d198a1b93d02f639e6e65be" prot="private" static="no" mutable="no">
         <type>StringUIntMap</type>
@@ -299,7 +299,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="llvm/LLVMModelDataSymbols.h" line="565" column="19" bodyfile="llvm/LLVMModelDataSymbols.h" bodystart="565" bodyend="-1"/>
+        <location file="llvm/LLVMModelDataSymbols.h" line="563" column="19" bodyfile="llvm/LLVMModelDataSymbols.h" bodystart="563" bodyend="-1"/>
       </memberdef>
       <memberdef kind="variable" id="classrrllvm_1_1LLVMModelDataSymbols_1a05101d353db9fc29339b06a382905f71" prot="private" static="no" mutable="no">
         <type>StringUIntMap</type>
@@ -312,7 +312,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="llvm/LLVMModelDataSymbols.h" line="566" column="19" bodyfile="llvm/LLVMModelDataSymbols.h" bodystart="566" bodyend="-1"/>
+        <location file="llvm/LLVMModelDataSymbols.h" line="564" column="19" bodyfile="llvm/LLVMModelDataSymbols.h" bodystart="564" bodyend="-1"/>
       </memberdef>
       <memberdef kind="variable" id="classrrllvm_1_1LLVMModelDataSymbols_1af528abf5cfe89e34205d4f0c9a42a732" prot="private" static="no" mutable="no">
         <type>StringUIntMap</type>
@@ -325,7 +325,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="llvm/LLVMModelDataSymbols.h" line="567" column="19" bodyfile="llvm/LLVMModelDataSymbols.h" bodystart="567" bodyend="-1"/>
+        <location file="llvm/LLVMModelDataSymbols.h" line="565" column="19" bodyfile="llvm/LLVMModelDataSymbols.h" bodystart="565" bodyend="-1"/>
       </memberdef>
       <memberdef kind="variable" id="classrrllvm_1_1LLVMModelDataSymbols_1a8e56613d5cee0bd0578b5b1ade074355" prot="private" static="no" mutable="no">
         <type>uint</type>
@@ -341,7 +341,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="llvm/LLVMModelDataSymbols.h" line="585" column="10" bodyfile="llvm/LLVMModelDataSymbols.h" bodystart="585" bodyend="-1"/>
+        <location file="llvm/LLVMModelDataSymbols.h" line="583" column="10" bodyfile="llvm/LLVMModelDataSymbols.h" bodystart="583" bodyend="-1"/>
       </memberdef>
       <memberdef kind="variable" id="classrrllvm_1_1LLVMModelDataSymbols_1a3ad1d2334cafab5c366a10ab935a89f3" prot="private" static="no" mutable="no">
         <type>uint</type>
@@ -355,7 +355,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="llvm/LLVMModelDataSymbols.h" line="591" column="10" bodyfile="llvm/LLVMModelDataSymbols.h" bodystart="591" bodyend="-1"/>
+        <location file="llvm/LLVMModelDataSymbols.h" line="589" column="10" bodyfile="llvm/LLVMModelDataSymbols.h" bodystart="589" bodyend="-1"/>
       </memberdef>
       <memberdef kind="variable" id="classrrllvm_1_1LLVMModelDataSymbols_1ad915ae8529f5d1739724a138dd951f8b" prot="private" static="no" mutable="no">
         <type>uint</type>
@@ -369,7 +369,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="llvm/LLVMModelDataSymbols.h" line="596" column="10" bodyfile="llvm/LLVMModelDataSymbols.h" bodystart="596" bodyend="-1"/>
+        <location file="llvm/LLVMModelDataSymbols.h" line="594" column="10" bodyfile="llvm/LLVMModelDataSymbols.h" bodystart="594" bodyend="-1"/>
       </memberdef>
       <memberdef kind="variable" id="classrrllvm_1_1LLVMModelDataSymbols_1ace4e8ba519e7d52af3f50141136fe5d0" prot="private" static="no" mutable="no">
         <type>uint</type>
@@ -383,7 +383,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="llvm/LLVMModelDataSymbols.h" line="601" column="10" bodyfile="llvm/LLVMModelDataSymbols.h" bodystart="601" bodyend="-1"/>
+        <location file="llvm/LLVMModelDataSymbols.h" line="599" column="10" bodyfile="llvm/LLVMModelDataSymbols.h" bodystart="599" bodyend="-1"/>
       </memberdef>
       <memberdef kind="variable" id="classrrllvm_1_1LLVMModelDataSymbols_1a076f2928ad6aeb44694e90cd4c9a7239" prot="private" static="no" mutable="no">
         <type>std::vector&lt; uint &gt;</type>
@@ -397,7 +397,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="llvm/LLVMModelDataSymbols.h" line="606" column="17" bodyfile="llvm/LLVMModelDataSymbols.h" bodystart="606" bodyend="-1"/>
+        <location file="llvm/LLVMModelDataSymbols.h" line="604" column="17" bodyfile="llvm/LLVMModelDataSymbols.h" bodystart="604" bodyend="-1"/>
       </memberdef>
       <memberdef kind="variable" id="classrrllvm_1_1LLVMModelDataSymbols_1a15562ccc22c7074cfb6fa217caa8f7f7" prot="private" static="no" mutable="no">
         <type>std::string</type>
@@ -410,7 +410,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="llvm/LLVMModelDataSymbols.h" line="615" column="17" bodyfile="llvm/LLVMModelDataSymbols.h" bodystart="615" bodyend="-1"/>
+        <location file="llvm/LLVMModelDataSymbols.h" line="611" column="17" bodyfile="llvm/LLVMModelDataSymbols.h" bodystart="611" bodyend="-1"/>
       </memberdef>
       <memberdef kind="variable" id="classrrllvm_1_1LLVMModelDataSymbols_1af9bed36aa9c0087e58041dafe727ded7" prot="private" static="no" mutable="no">
         <type>StringUIntMap</type>
@@ -423,7 +423,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="llvm/LLVMModelDataSymbols.h" line="616" column="19" bodyfile="llvm/LLVMModelDataSymbols.h" bodystart="616" bodyend="-1"/>
+        <location file="llvm/LLVMModelDataSymbols.h" line="612" column="19" bodyfile="llvm/LLVMModelDataSymbols.h" bodystart="612" bodyend="-1"/>
       </memberdef>
       <memberdef kind="variable" id="classrrllvm_1_1LLVMModelDataSymbols_1a49aeda0eb1c41694f31f7d8a28ed7211" prot="private" static="no" mutable="no">
         <type>StringUIntMap</type>
@@ -436,7 +436,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="llvm/LLVMModelDataSymbols.h" line="617" column="19" bodyfile="llvm/LLVMModelDataSymbols.h" bodystart="617" bodyend="-1"/>
+        <location file="llvm/LLVMModelDataSymbols.h" line="613" column="19" bodyfile="llvm/LLVMModelDataSymbols.h" bodystart="613" bodyend="-1"/>
       </memberdef>
       <memberdef kind="variable" id="classrrllvm_1_1LLVMModelDataSymbols_1a4c528527bfa3aea016ce240c43e12012" prot="private" static="no" mutable="no">
         <type>StringUIntMap</type>
@@ -449,7 +449,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="llvm/LLVMModelDataSymbols.h" line="618" column="19" bodyfile="llvm/LLVMModelDataSymbols.h" bodystart="618" bodyend="-1"/>
+        <location file="llvm/LLVMModelDataSymbols.h" line="614" column="19" bodyfile="llvm/LLVMModelDataSymbols.h" bodystart="614" bodyend="-1"/>
       </memberdef>
       <memberdef kind="variable" id="classrrllvm_1_1LLVMModelDataSymbols_1a843e911720f97ebce2837a806bd5b662" prot="private" static="no" mutable="no">
         <type>StringUIntMap</type>
@@ -462,7 +462,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="llvm/LLVMModelDataSymbols.h" line="619" column="19" bodyfile="llvm/LLVMModelDataSymbols.h" bodystart="619" bodyend="-1"/>
+        <location file="llvm/LLVMModelDataSymbols.h" line="615" column="19" bodyfile="llvm/LLVMModelDataSymbols.h" bodystart="615" bodyend="-1"/>
       </memberdef>
       <memberdef kind="variable" id="classrrllvm_1_1LLVMModelDataSymbols_1aca9286b0dd1d69a946995f1e763092f5" prot="private" static="no" mutable="no">
         <type>StringRefInfoMap</type>
@@ -475,7 +475,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="llvm/LLVMModelDataSymbols.h" line="627" column="22" bodyfile="llvm/LLVMModelDataSymbols.h" bodystart="627" bodyend="-1"/>
+        <location file="llvm/LLVMModelDataSymbols.h" line="623" column="22" bodyfile="llvm/LLVMModelDataSymbols.h" bodystart="623" bodyend="-1"/>
       </memberdef>
       <memberdef kind="variable" id="classrrllvm_1_1LLVMModelDataSymbols_1aa6d3638ba24f564a0b17820754dba7d3" prot="private" static="no" mutable="no">
         <type>StringUIntMap</type>
@@ -489,7 +489,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="llvm/LLVMModelDataSymbols.h" line="632" column="19" bodyfile="llvm/LLVMModelDataSymbols.h" bodystart="632" bodyend="-1"/>
+        <location file="llvm/LLVMModelDataSymbols.h" line="628" column="19" bodyfile="llvm/LLVMModelDataSymbols.h" bodystart="628" bodyend="-1"/>
       </memberdef>
       <memberdef kind="variable" id="classrrllvm_1_1LLVMModelDataSymbols_1acd7cc0aa3dbe15c85ca27c01d6021cb4" prot="private" static="no" mutable="no">
         <type>std::vector&lt; uint &gt;</type>
@@ -504,7 +504,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="llvm/LLVMModelDataSymbols.h" line="639" column="17" bodyfile="llvm/LLVMModelDataSymbols.h" bodystart="639" bodyend="-1"/>
+        <location file="llvm/LLVMModelDataSymbols.h" line="635" column="17" bodyfile="llvm/LLVMModelDataSymbols.h" bodystart="635" bodyend="-1"/>
       </memberdef>
       <memberdef kind="variable" id="classrrllvm_1_1LLVMModelDataSymbols_1a6d642018d754d342f0fb1a5c7bfa2c52" prot="private" static="no" mutable="no">
         <type>std::vector&lt; uint &gt;</type>
@@ -518,7 +518,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="llvm/LLVMModelDataSymbols.h" line="644" column="17" bodyfile="llvm/LLVMModelDataSymbols.h" bodystart="644" bodyend="-1"/>
+        <location file="llvm/LLVMModelDataSymbols.h" line="640" column="17" bodyfile="llvm/LLVMModelDataSymbols.h" bodystart="640" bodyend="-1"/>
       </memberdef>
       <memberdef kind="variable" id="classrrllvm_1_1LLVMModelDataSymbols_1abbf81109d40cf140a6e8c6651ab2489a" prot="private" static="no" mutable="no">
         <type>std::vector&lt; std::string &gt;</type>
@@ -532,7 +532,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="llvm/LLVMModelDataSymbols.h" line="650" column="17" bodyfile="llvm/LLVMModelDataSymbols.h" bodystart="650" bodyend="-1"/>
+        <location file="llvm/LLVMModelDataSymbols.h" line="646" column="17" bodyfile="llvm/LLVMModelDataSymbols.h" bodystart="646" bodyend="-1"/>
       </memberdef>
       <memberdef kind="variable" id="classrrllvm_1_1LLVMModelDataSymbols_1a03a85ffdaed8ede2f57d8b235ddb21f6" prot="private" static="no" mutable="no">
         <type>std::vector&lt; SpeciesReferenceType &gt;</type>
@@ -545,7 +545,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="llvm/LLVMModelDataSymbols.h" line="652" column="17" bodyfile="llvm/LLVMModelDataSymbols.h" bodystart="652" bodyend="-1"/>
+        <location file="llvm/LLVMModelDataSymbols.h" line="648" column="17" bodyfile="llvm/LLVMModelDataSymbols.h" bodystart="648" bodyend="-1"/>
       </memberdef>
       <memberdef kind="variable" id="classrrllvm_1_1LLVMModelDataSymbols_1a33d7a4af64f56aa6d2a7a3bafba2903c" prot="private" static="no" mutable="no">
         <type>std::set&lt; std::string &gt;</type>
@@ -559,7 +559,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="llvm/LLVMModelDataSymbols.h" line="658" column="14" bodyfile="llvm/LLVMModelDataSymbols.h" bodystart="658" bodyend="-1"/>
+        <location file="llvm/LLVMModelDataSymbols.h" line="654" column="14" bodyfile="llvm/LLVMModelDataSymbols.h" bodystart="654" bodyend="-1"/>
       </memberdef>
       <memberdef kind="variable" id="classrrllvm_1_1LLVMModelDataSymbols_1aebf062f181b0248270975d64c260a2f3" prot="private" static="no" mutable="no">
         <type>StringUIntMap</type>
@@ -573,7 +573,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="llvm/LLVMModelDataSymbols.h" line="663" column="19" bodyfile="llvm/LLVMModelDataSymbols.h" bodystart="663" bodyend="-1"/>
+        <location file="llvm/LLVMModelDataSymbols.h" line="659" column="19" bodyfile="llvm/LLVMModelDataSymbols.h" bodystart="659" bodyend="-1"/>
       </memberdef>
       <memberdef kind="variable" id="classrrllvm_1_1LLVMModelDataSymbols_1af2174a52f790f539312c20b3ddd72de4" prot="private" static="no" mutable="no">
         <type>std::vector&lt; bool &gt;</type>
@@ -587,7 +587,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="llvm/LLVMModelDataSymbols.h" line="669" column="17" bodyfile="llvm/LLVMModelDataSymbols.h" bodystart="669" bodyend="-1"/>
+        <location file="llvm/LLVMModelDataSymbols.h" line="665" column="17" bodyfile="llvm/LLVMModelDataSymbols.h" bodystart="665" bodyend="-1"/>
       </memberdef>
       <memberdef kind="variable" id="classrrllvm_1_1LLVMModelDataSymbols_1aa567bc1eb6a3bec1fdd9c7b8d0dae69f" prot="private" static="no" mutable="no">
         <type>size_t</type>
@@ -600,7 +600,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="llvm/LLVMModelDataSymbols.h" line="671" column="13" bodyfile="llvm/LLVMModelDataSymbols.h" bodystart="671" bodyend="-1"/>
+        <location file="llvm/LLVMModelDataSymbols.h" line="667" column="13" bodyfile="llvm/LLVMModelDataSymbols.h" bodystart="667" bodyend="-1"/>
       </memberdef>
       <memberdef kind="variable" id="classrrllvm_1_1LLVMModelDataSymbols_1aa08fbea35330159bc2581bb4809ce1ee" prot="private" static="no" mutable="no">
         <type>size_t</type>
@@ -613,7 +613,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="llvm/LLVMModelDataSymbols.h" line="672" column="13" bodyfile="llvm/LLVMModelDataSymbols.h" bodystart="672" bodyend="-1"/>
+        <location file="llvm/LLVMModelDataSymbols.h" line="668" column="13" bodyfile="llvm/LLVMModelDataSymbols.h" bodystart="668" bodyend="-1"/>
       </memberdef>
       <memberdef kind="variable" id="classrrllvm_1_1LLVMModelDataSymbols_1ae7502ae1c957279c1b4aaaaac4eaa179" prot="private" static="no" mutable="no">
         <type>size_t</type>
@@ -626,7 +626,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="llvm/LLVMModelDataSymbols.h" line="673" column="13" bodyfile="llvm/LLVMModelDataSymbols.h" bodystart="673" bodyend="-1"/>
+        <location file="llvm/LLVMModelDataSymbols.h" line="669" column="13" bodyfile="llvm/LLVMModelDataSymbols.h" bodystart="669" bodyend="-1"/>
       </memberdef>
       <memberdef kind="variable" id="classrrllvm_1_1LLVMModelDataSymbols_1a930ade38f7437bf3c80ea3a6493a8376" prot="private" static="no" mutable="no">
         <type>size_t</type>
@@ -639,7 +639,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="llvm/LLVMModelDataSymbols.h" line="674" column="13" bodyfile="llvm/LLVMModelDataSymbols.h" bodystart="674" bodyend="-1"/>
+        <location file="llvm/LLVMModelDataSymbols.h" line="670" column="13" bodyfile="llvm/LLVMModelDataSymbols.h" bodystart="670" bodyend="-1"/>
       </memberdef>
       <memberdef kind="variable" id="classrrllvm_1_1LLVMModelDataSymbols_1a235a336f09f4b9e69b5653904702e2ef" prot="private" static="no" mutable="no">
         <type>std::vector&lt; size_t &gt;</type>
@@ -653,7 +653,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="llvm/LLVMModelDataSymbols.h" line="679" column="17" bodyfile="llvm/LLVMModelDataSymbols.h" bodystart="679" bodyend="-1"/>
+        <location file="llvm/LLVMModelDataSymbols.h" line="675" column="17" bodyfile="llvm/LLVMModelDataSymbols.h" bodystart="675" bodyend="-1"/>
       </memberdef>
       <memberdef kind="variable" id="classrrllvm_1_1LLVMModelDataSymbols_1ae9a94fc760f5e44ad5fafde4c572deda" prot="private" static="no" mutable="no">
         <type>std::vector&lt; unsigned char &gt;</type>
@@ -666,7 +666,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="llvm/LLVMModelDataSymbols.h" line="681" column="17" bodyfile="llvm/LLVMModelDataSymbols.h" bodystart="681" bodyend="-1"/>
+        <location file="llvm/LLVMModelDataSymbols.h" line="677" column="17" bodyfile="llvm/LLVMModelDataSymbols.h" bodystart="677" bodyend="-1"/>
       </memberdef>
       <memberdef kind="variable" id="classrrllvm_1_1LLVMModelDataSymbols_1a78411f48e153eeaa2a068f062f510ce6" prot="private" static="no" mutable="no">
         <type>StringUIntMap</type>
@@ -674,13 +674,13 @@
         <argsstring></argsstring>
         <name>eventIds</name>
         <briefdescription>
-<para>map of event ids </para>
+<para>std::map of event ids </para>
         </briefdescription>
         <detaileddescription>
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="llvm/LLVMModelDataSymbols.h" line="686" column="19" bodyfile="llvm/LLVMModelDataSymbols.h" bodystart="686" bodyend="-1"/>
+        <location file="llvm/LLVMModelDataSymbols.h" line="682" column="19" bodyfile="llvm/LLVMModelDataSymbols.h" bodystart="682" bodyend="-1"/>
       </memberdef>
       </sectiondef>
       <sectiondef kind="public-func">
@@ -695,7 +695,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="llvm/LLVMModelDataSymbols.h" line="164" column="5" bodyfile="llvm/LLVMModelDataSymbols.cpp" bodystart="107" bodyend="120"/>
+        <location file="llvm/LLVMModelDataSymbols.h" line="170" column="5" bodyfile="llvm/LLVMModelDataSymbols.cpp" bodystart="107" bodyend="120"/>
       </memberdef>
       <memberdef kind="function" id="classrrllvm_1_1LLVMModelDataSymbols_1a9e721ce6fe3fe2074a958948f30ed923" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
         <type></type>
@@ -716,7 +716,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="llvm/LLVMModelDataSymbols.h" line="166" column="5" bodyfile="llvm/LLVMModelDataSymbols.cpp" bodystart="122" bodyend="199"/>
+        <location file="llvm/LLVMModelDataSymbols.h" line="172" column="5" bodyfile="llvm/LLVMModelDataSymbols.cpp" bodystart="122" bodyend="203"/>
       </memberdef>
       <memberdef kind="function" id="classrrllvm_1_1LLVMModelDataSymbols_1ae1abf97dc1fed101bee0ee84eaec7765" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
         <type></type>
@@ -733,7 +733,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="llvm/LLVMModelDataSymbols.h" line="168" column="1" bodyfile="llvm/LLVMModelDataSymbols.cpp" bodystart="201" bodyend="204"/>
+        <location file="llvm/LLVMModelDataSymbols.h" line="174" column="1" bodyfile="llvm/LLVMModelDataSymbols.cpp" bodystart="205" bodyend="208"/>
       </memberdef>
       <memberdef kind="function" id="classrrllvm_1_1LLVMModelDataSymbols_1aa9b2c22cf23f626f87c7b07bfa4a76cb" prot="public" static="no" const="no" explicit="no" inline="no" virt="virtual">
         <type></type>
@@ -746,7 +746,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="llvm/LLVMModelDataSymbols.h" line="170" column="13" bodyfile="llvm/LLVMModelDataSymbols.cpp" bodystart="208" bodyend="210"/>
+        <location file="llvm/LLVMModelDataSymbols.h" line="176" column="13" bodyfile="llvm/LLVMModelDataSymbols.cpp" bodystart="212" bodyend="214"/>
       </memberdef>
       <memberdef kind="function" id="classrrllvm_1_1LLVMModelDataSymbols_1a80dfffdf5f2ee467df1a8597ce158ab1" prot="public" static="no" const="yes" explicit="no" inline="no" virt="non-virtual">
         <type>const std::string &amp;</type>
@@ -759,7 +759,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="llvm/LLVMModelDataSymbols.h" line="172" column="23" bodyfile="llvm/LLVMModelDataSymbols.cpp" bodystart="212" bodyend="215"/>
+        <location file="llvm/LLVMModelDataSymbols.h" line="178" column="23" bodyfile="llvm/LLVMModelDataSymbols.cpp" bodystart="216" bodyend="219"/>
       </memberdef>
       <memberdef kind="function" id="classrrllvm_1_1LLVMModelDataSymbols_1af7456581fbe3fad0360424520a1a2eb2" prot="public" static="no" const="yes" explicit="no" inline="no" virt="non-virtual">
         <type>int</type>
@@ -776,7 +776,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="llvm/LLVMModelDataSymbols.h" line="174" column="9" bodyfile="llvm/LLVMModelDataSymbols.cpp" bodystart="257" bodyend="266"/>
+        <location file="llvm/LLVMModelDataSymbols.h" line="180" column="9" bodyfile="llvm/LLVMModelDataSymbols.cpp" bodystart="261" bodyend="270"/>
       </memberdef>
       <memberdef kind="function" id="classrrllvm_1_1LLVMModelDataSymbols_1a2e17c59cadacce94bb68f93bcb7431bb" prot="public" static="no" const="yes" explicit="no" inline="no" virt="non-virtual">
         <type><ref refid="classrrllvm_1_1LLVMModelDataSymbols_1a9f08fb79670d8c19151880a628a63ced" kindref="member">SymbolIndexType</ref></type>
@@ -818,7 +818,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="llvm/LLVMModelDataSymbols.h" line="184" column="21" bodyfile="llvm/LLVMModelDataSymbols.cpp" bodystart="217" bodyend="255"/>
+        <location file="llvm/LLVMModelDataSymbols.h" line="190" column="21" bodyfile="llvm/LLVMModelDataSymbols.cpp" bodystart="221" bodyend="259"/>
       </memberdef>
       <memberdef kind="function" id="classrrllvm_1_1LLVMModelDataSymbols_1a4686047d567ae2d05491afc81514c4e1" prot="public" static="no" const="yes" explicit="no" inline="no" virt="non-virtual">
         <type>int</type>
@@ -851,7 +851,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="llvm/LLVMModelDataSymbols.h" line="192" column="9" bodyfile="llvm/LLVMModelDataSymbols.cpp" bodystart="268" bodyend="281"/>
+        <location file="llvm/LLVMModelDataSymbols.h" line="198" column="9" bodyfile="llvm/LLVMModelDataSymbols.cpp" bodystart="272" bodyend="285"/>
       </memberdef>
       <memberdef kind="function" id="classrrllvm_1_1LLVMModelDataSymbols_1aaa19ecfa680f9c6e0fd683bbfd3f8e03" prot="public" static="no" const="yes" explicit="no" inline="no" virt="non-virtual">
         <type>int</type>
@@ -868,7 +868,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="llvm/LLVMModelDataSymbols.h" line="194" column="9" bodyfile="llvm/LLVMModelDataSymbols.cpp" bodystart="283" bodyend="292"/>
+        <location file="llvm/LLVMModelDataSymbols.h" line="200" column="9" bodyfile="llvm/LLVMModelDataSymbols.cpp" bodystart="287" bodyend="296"/>
       </memberdef>
       <memberdef kind="function" id="classrrllvm_1_1LLVMModelDataSymbols_1abb28706ff4c68035973b79779cd932c2" prot="public" static="no" const="yes" explicit="no" inline="no" virt="non-virtual">
         <type>size_t</type>
@@ -882,7 +882,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="llvm/LLVMModelDataSymbols.h" line="199" column="12" bodyfile="llvm/LLVMModelDataSymbols.cpp" bodystart="551" bodyend="554"/>
+        <location file="llvm/LLVMModelDataSymbols.h" line="205" column="12" bodyfile="llvm/LLVMModelDataSymbols.cpp" bodystart="555" bodyend="558"/>
       </memberdef>
       <memberdef kind="function" id="classrrllvm_1_1LLVMModelDataSymbols_1a262c5cc26d6bd5fc7c3b4efdf49a76b9" prot="public" static="no" const="yes" explicit="no" inline="no" virt="non-virtual">
         <type>size_t</type>
@@ -897,7 +897,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="llvm/LLVMModelDataSymbols.h" line="209" column="12" bodyfile="llvm/LLVMModelDataSymbols.cpp" bodystart="486" bodyend="489"/>
+        <location file="llvm/LLVMModelDataSymbols.h" line="215" column="12" bodyfile="llvm/LLVMModelDataSymbols.cpp" bodystart="490" bodyend="493"/>
       </memberdef>
       <memberdef kind="function" id="classrrllvm_1_1LLVMModelDataSymbols_1a76465828770aec3ce22b2de0e7e569f2" prot="public" static="no" const="yes" explicit="no" inline="no" virt="non-virtual">
         <type>int</type>
@@ -925,7 +925,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="llvm/LLVMModelDataSymbols.h" line="215" column="9" bodyfile="llvm/LLVMModelDataSymbols.cpp" bodystart="299" bodyend="308"/>
+        <location file="llvm/LLVMModelDataSymbols.h" line="221" column="9" bodyfile="llvm/LLVMModelDataSymbols.cpp" bodystart="303" bodyend="312"/>
       </memberdef>
       <memberdef kind="function" id="classrrllvm_1_1LLVMModelDataSymbols_1a500d6e30fcb2a773c760b0951e627b02" prot="public" static="no" const="yes" explicit="no" inline="no" virt="non-virtual">
         <type>int</type>
@@ -942,7 +942,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="llvm/LLVMModelDataSymbols.h" line="217" column="9" bodyfile="llvm/LLVMModelDataSymbols.cpp" bodystart="556" bodyend="564"/>
+        <location file="llvm/LLVMModelDataSymbols.h" line="223" column="9" bodyfile="llvm/LLVMModelDataSymbols.cpp" bodystart="560" bodyend="568"/>
       </memberdef>
       <memberdef kind="function" id="classrrllvm_1_1LLVMModelDataSymbols_1a69e9b0306dfd2983d5454dc086bf91a2" prot="public" static="no" const="yes" explicit="no" inline="no" virt="non-virtual">
         <type>size_t</type>
@@ -955,7 +955,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="llvm/LLVMModelDataSymbols.h" line="219" column="12" bodyfile="llvm/LLVMModelDataSymbols.cpp" bodystart="566" bodyend="569"/>
+        <location file="llvm/LLVMModelDataSymbols.h" line="225" column="12" bodyfile="llvm/LLVMModelDataSymbols.cpp" bodystart="570" bodyend="573"/>
       </memberdef>
       <memberdef kind="function" id="classrrllvm_1_1LLVMModelDataSymbols_1ae1b9fb86d935f840f8ad9e60585ac8a4" prot="public" static="no" const="yes" explicit="no" inline="no" virt="non-virtual">
         <type>std::string</type>
@@ -973,7 +973,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="llvm/LLVMModelDataSymbols.h" line="224" column="17" bodyfile="llvm/LLVMModelDataSymbols.cpp" bodystart="571" bodyend="595"/>
+        <location file="llvm/LLVMModelDataSymbols.h" line="230" column="17" bodyfile="llvm/LLVMModelDataSymbols.cpp" bodystart="575" bodyend="599"/>
       </memberdef>
       <memberdef kind="function" id="classrrllvm_1_1LLVMModelDataSymbols_1aeace8ad2fe12479179b7b882270e92f5" prot="public" static="no" const="yes" explicit="no" inline="no" virt="non-virtual">
         <type>size_t</type>
@@ -987,7 +987,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="llvm/LLVMModelDataSymbols.h" line="229" column="12" bodyfile="llvm/LLVMModelDataSymbols.cpp" bodystart="541" bodyend="544"/>
+        <location file="llvm/LLVMModelDataSymbols.h" line="235" column="12" bodyfile="llvm/LLVMModelDataSymbols.cpp" bodystart="545" bodyend="548"/>
       </memberdef>
       <memberdef kind="function" id="classrrllvm_1_1LLVMModelDataSymbols_1ac46efa4d9e3dbc0aa6224a9324263b32" prot="public" static="no" const="yes" explicit="no" inline="no" virt="non-virtual">
         <type>int</type>
@@ -1004,7 +1004,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="llvm/LLVMModelDataSymbols.h" line="231" column="9" bodyfile="llvm/LLVMModelDataSymbols.cpp" bodystart="371" bodyend="379"/>
+        <location file="llvm/LLVMModelDataSymbols.h" line="237" column="9" bodyfile="llvm/LLVMModelDataSymbols.cpp" bodystart="375" bodyend="383"/>
       </memberdef>
       <memberdef kind="function" id="classrrllvm_1_1LLVMModelDataSymbols_1a7602edaf7eedfda3e0180fe40d0c4e8f" prot="public" static="no" const="yes" explicit="no" inline="no" virt="non-virtual">
         <type>std::vector&lt; std::string &gt;</type>
@@ -1017,7 +1017,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="llvm/LLVMModelDataSymbols.h" line="232" column="17" bodyfile="llvm/LLVMModelDataSymbols.cpp" bodystart="381" bodyend="384"/>
+        <location file="llvm/LLVMModelDataSymbols.h" line="238" column="17" bodyfile="llvm/LLVMModelDataSymbols.cpp" bodystart="385" bodyend="388"/>
       </memberdef>
       <memberdef kind="function" id="classrrllvm_1_1LLVMModelDataSymbols_1aa4b9afd9c0e75a2e8d4bbfea4811be0e" prot="public" static="no" const="yes" explicit="no" inline="no" virt="non-virtual">
         <type>size_t</type>
@@ -1030,7 +1030,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="llvm/LLVMModelDataSymbols.h" line="233" column="12" bodyfile="llvm/LLVMModelDataSymbols.cpp" bodystart="386" bodyend="389"/>
+        <location file="llvm/LLVMModelDataSymbols.h" line="239" column="12" bodyfile="llvm/LLVMModelDataSymbols.cpp" bodystart="390" bodyend="393"/>
       </memberdef>
       <memberdef kind="function" id="classrrllvm_1_1LLVMModelDataSymbols_1a4bef3053ddd428ae99f51d8260a5443f" prot="public" static="no" const="yes" explicit="no" inline="no" virt="non-virtual">
         <type>std::vector&lt; std::string &gt;</type>
@@ -1043,7 +1043,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="llvm/LLVMModelDataSymbols.h" line="236" column="17" bodyfile="llvm/LLVMModelDataSymbols.cpp" bodystart="449" bodyend="452"/>
+        <location file="llvm/LLVMModelDataSymbols.h" line="242" column="17" bodyfile="llvm/LLVMModelDataSymbols.cpp" bodystart="453" bodyend="456"/>
       </memberdef>
       <memberdef kind="function" id="classrrllvm_1_1LLVMModelDataSymbols_1a574e97b63fdb6098718d7f86bf0fab12" prot="public" static="no" const="yes" explicit="no" inline="no" virt="non-virtual">
         <type>bool</type>
@@ -1061,7 +1061,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="llvm/LLVMModelDataSymbols.h" line="241" column="10" bodyfile="llvm/LLVMModelDataSymbols.cpp" bodystart="1026" bodyend="1030"/>
+        <location file="llvm/LLVMModelDataSymbols.h" line="247" column="10" bodyfile="llvm/LLVMModelDataSymbols.cpp" bodystart="1027" bodyend="1031"/>
       </memberdef>
       <memberdef kind="function" id="classrrllvm_1_1LLVMModelDataSymbols_1a330dc333f5b9116091f8f79c10f4db46" prot="public" static="no" const="yes" explicit="no" inline="no" virt="non-virtual">
         <type>std::vector&lt; std::string &gt;</type>
@@ -1075,7 +1075,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="llvm/LLVMModelDataSymbols.h" line="247" column="17" bodyfile="llvm/LLVMModelDataSymbols.cpp" bodystart="454" bodyend="457"/>
+        <location file="llvm/LLVMModelDataSymbols.h" line="253" column="17" bodyfile="llvm/LLVMModelDataSymbols.cpp" bodystart="458" bodyend="461"/>
       </memberdef>
       <memberdef kind="function" id="classrrllvm_1_1LLVMModelDataSymbols_1a87b3733f8993e9654c1385256a370685" prot="public" static="no" const="yes" explicit="no" inline="no" virt="non-virtual">
         <type>std::string</type>
@@ -1093,7 +1093,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="llvm/LLVMModelDataSymbols.h" line="253" column="17" bodyfile="llvm/LLVMModelDataSymbols.cpp" bodystart="459" bodyend="483"/>
+        <location file="llvm/LLVMModelDataSymbols.h" line="259" column="17" bodyfile="llvm/LLVMModelDataSymbols.cpp" bodystart="463" bodyend="487"/>
       </memberdef>
       <memberdef kind="function" id="classrrllvm_1_1LLVMModelDataSymbols_1af4ff843ba9adeebe28e935a7a20e4c1c" prot="public" static="no" const="yes" explicit="no" inline="no" virt="non-virtual">
         <type>std::string</type>
@@ -1111,7 +1111,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="llvm/LLVMModelDataSymbols.h" line="259" column="17" bodyfile="llvm/LLVMModelDataSymbols.cpp" bodystart="1032" bodyend="1056"/>
+        <location file="llvm/LLVMModelDataSymbols.h" line="265" column="17" bodyfile="llvm/LLVMModelDataSymbols.cpp" bodystart="1033" bodyend="1057"/>
       </memberdef>
       <memberdef kind="function" id="classrrllvm_1_1LLVMModelDataSymbols_1af008f3b08eec501c2a338403cd33ef07" prot="public" static="no" const="yes" explicit="no" inline="no" virt="non-virtual">
         <type>size_t</type>
@@ -1125,7 +1125,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="llvm/LLVMModelDataSymbols.h" line="264" column="12" bodyfile="llvm/LLVMModelDataSymbols.cpp" bodystart="391" bodyend="394"/>
+        <location file="llvm/LLVMModelDataSymbols.h" line="270" column="12" bodyfile="llvm/LLVMModelDataSymbols.cpp" bodystart="395" bodyend="398"/>
       </memberdef>
       <memberdef kind="function" id="classrrllvm_1_1LLVMModelDataSymbols_1a141bc08ae5e8c6a2f27889179a8c05e8" prot="public" static="no" const="yes" explicit="no" inline="no" virt="non-virtual">
         <type>size_t</type>
@@ -1138,7 +1138,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="llvm/LLVMModelDataSymbols.h" line="266" column="12" bodyfile="llvm/LLVMModelDataSymbols.cpp" bodystart="294" bodyend="297"/>
+        <location file="llvm/LLVMModelDataSymbols.h" line="272" column="12" bodyfile="llvm/LLVMModelDataSymbols.cpp" bodystart="298" bodyend="301"/>
       </memberdef>
       <memberdef kind="function" id="classrrllvm_1_1LLVMModelDataSymbols_1aa1ff9230c47c62ac39139aa8a1a537b5" prot="public" static="no" const="yes" explicit="no" inline="no" virt="non-virtual">
         <type>size_t</type>
@@ -1151,7 +1151,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="llvm/LLVMModelDataSymbols.h" line="268" column="12" bodyfile="llvm/LLVMModelDataSymbols.cpp" bodystart="613" bodyend="616"/>
+        <location file="llvm/LLVMModelDataSymbols.h" line="274" column="12" bodyfile="llvm/LLVMModelDataSymbols.cpp" bodystart="617" bodyend="620"/>
       </memberdef>
       <memberdef kind="function" id="classrrllvm_1_1LLVMModelDataSymbols_1ac85f10c85db3ae8ac13e8cadd9e5847f" prot="public" static="no" const="yes" explicit="no" inline="no" virt="non-virtual">
         <type>size_t</type>
@@ -1164,7 +1164,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="llvm/LLVMModelDataSymbols.h" line="270" column="12" bodyfile="llvm/LLVMModelDataSymbols.cpp" bodystart="618" bodyend="621"/>
+        <location file="llvm/LLVMModelDataSymbols.h" line="276" column="12" bodyfile="llvm/LLVMModelDataSymbols.cpp" bodystart="622" bodyend="625"/>
       </memberdef>
       <memberdef kind="function" id="classrrllvm_1_1LLVMModelDataSymbols_1a9d22d5634a62074692775b8410ac2bfa" prot="public" static="no" const="yes" explicit="no" inline="no" virt="non-virtual">
         <type>std::vector&lt; std::string &gt;</type>
@@ -1177,7 +1177,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="llvm/LLVMModelDataSymbols.h" line="272" column="17" bodyfile="llvm/LLVMModelDataSymbols.cpp" bodystart="361" bodyend="364"/>
+        <location file="llvm/LLVMModelDataSymbols.h" line="278" column="17" bodyfile="llvm/LLVMModelDataSymbols.cpp" bodystart="365" bodyend="368"/>
       </memberdef>
       <memberdef kind="function" id="classrrllvm_1_1LLVMModelDataSymbols_1af15296d2d5be06122ee753e6d13f61e1" prot="public" static="no" const="yes" explicit="no" inline="no" virt="non-virtual">
         <type>size_t</type>
@@ -1191,7 +1191,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="llvm/LLVMModelDataSymbols.h" line="277" column="12" bodyfile="llvm/LLVMModelDataSymbols.cpp" bodystart="546" bodyend="549"/>
+        <location file="llvm/LLVMModelDataSymbols.h" line="283" column="12" bodyfile="llvm/LLVMModelDataSymbols.cpp" bodystart="550" bodyend="553"/>
       </memberdef>
       <memberdef kind="function" id="classrrllvm_1_1LLVMModelDataSymbols_1a293abc94dbd65d23e12295885c883bd6" prot="public" static="no" const="yes" explicit="no" inline="no" virt="non-virtual">
         <type>std::vector&lt; std::string &gt;</type>
@@ -1204,7 +1204,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="llvm/LLVMModelDataSymbols.h" line="280" column="17" bodyfile="llvm/LLVMModelDataSymbols.cpp" bodystart="366" bodyend="369"/>
+        <location file="llvm/LLVMModelDataSymbols.h" line="286" column="17" bodyfile="llvm/LLVMModelDataSymbols.cpp" bodystart="370" bodyend="373"/>
       </memberdef>
       <memberdef kind="function" id="classrrllvm_1_1LLVMModelDataSymbols_1ace13c6c788427ff65704820837096248" prot="public" static="no" const="yes" explicit="no" inline="no" virt="non-virtual">
         <type>std::list&lt; <ref refid="structrrllvm_1_1LLVMModelDataSymbols_1_1SpeciesReferenceInfo" kindref="compound">SpeciesReferenceInfo</ref> &gt;</type>
@@ -1219,7 +1219,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="llvm/LLVMModelDataSymbols.h" line="289" column="15" bodyfile="llvm/LLVMModelDataSymbols.cpp" bodystart="397" bodyend="409"/>
+        <location file="llvm/LLVMModelDataSymbols.h" line="295" column="15" bodyfile="llvm/LLVMModelDataSymbols.cpp" bodystart="401" bodyend="413"/>
       </memberdef>
       <memberdef kind="function" id="classrrllvm_1_1LLVMModelDataSymbols_1a10947a4f97f82f04320462c1508fdbb1" prot="public" static="no" const="yes" explicit="no" inline="no" virt="non-virtual">
         <type>void</type>
@@ -1233,7 +1233,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="llvm/LLVMModelDataSymbols.h" line="297" column="10" bodyfile="llvm/LLVMModelDataSymbols.cpp" bodystart="411" bodyend="447"/>
+        <location file="llvm/LLVMModelDataSymbols.h" line="303" column="10" bodyfile="llvm/LLVMModelDataSymbols.cpp" bodystart="415" bodyend="451"/>
       </memberdef>
       <memberdef kind="function" id="classrrllvm_1_1LLVMModelDataSymbols_1a704d4971c8a1d8f0a5021cacb6a1c4f3" prot="public" static="no" const="yes" explicit="no" inline="no" virt="non-virtual">
         <type>bool</type>
@@ -1253,7 +1253,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="llvm/LLVMModelDataSymbols.h" line="308" column="10" bodyfile="llvm/LLVMModelDataSymbols.cpp" bodystart="597" bodyend="601"/>
+        <location file="llvm/LLVMModelDataSymbols.h" line="314" column="10" bodyfile="llvm/LLVMModelDataSymbols.cpp" bodystart="601" bodyend="605"/>
       </memberdef>
       <memberdef kind="function" id="classrrllvm_1_1LLVMModelDataSymbols_1a506d1122968d4951673a4aec87c78ea0" prot="public" static="no" const="yes" explicit="no" inline="no" virt="non-virtual">
         <type>bool</type>
@@ -1270,7 +1270,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="llvm/LLVMModelDataSymbols.h" line="311" column="10" bodyfile="llvm/LLVMModelDataSymbols.cpp" bodystart="608" bodyend="611"/>
+        <location file="llvm/LLVMModelDataSymbols.h" line="317" column="10" bodyfile="llvm/LLVMModelDataSymbols.cpp" bodystart="612" bodyend="615"/>
       </memberdef>
       <memberdef kind="function" id="classrrllvm_1_1LLVMModelDataSymbols_1a740913ccaa569ba8da3489e386140f27" prot="public" static="no" const="yes" explicit="no" inline="no" virt="non-virtual">
         <type>bool</type>
@@ -1287,7 +1287,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="llvm/LLVMModelDataSymbols.h" line="313" column="10" bodyfile="llvm/LLVMModelDataSymbols.cpp" bodystart="603" bodyend="606"/>
+        <location file="llvm/LLVMModelDataSymbols.h" line="319" column="10" bodyfile="llvm/LLVMModelDataSymbols.cpp" bodystart="607" bodyend="610"/>
       </memberdef>
       <memberdef kind="function" id="classrrllvm_1_1LLVMModelDataSymbols_1ac948be567dc482a2236a6bf30b9224fd" prot="public" static="no" const="yes" explicit="no" inline="no" virt="non-virtual">
         <type>bool</type>
@@ -1304,7 +1304,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="llvm/LLVMModelDataSymbols.h" line="315" column="10" bodyfile="llvm/LLVMModelDataSymbols.cpp" bodystart="1493" bodyend="1496"/>
+        <location file="llvm/LLVMModelDataSymbols.h" line="321" column="10" bodyfile="llvm/LLVMModelDataSymbols.cpp" bodystart="1494" bodyend="1497"/>
       </memberdef>
       <memberdef kind="function" id="classrrllvm_1_1LLVMModelDataSymbols_1a1d115b42b3308eef6ec4366d7a572578" prot="public" static="no" const="yes" explicit="no" inline="no" virt="non-virtual">
         <type>bool</type>
@@ -1321,7 +1321,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="llvm/LLVMModelDataSymbols.h" line="317" column="10" bodyfile="llvm/LLVMModelDataSymbols.cpp" bodystart="491" bodyend="497"/>
+        <location file="llvm/LLVMModelDataSymbols.h" line="323" column="10" bodyfile="llvm/LLVMModelDataSymbols.cpp" bodystart="495" bodyend="501"/>
       </memberdef>
       <memberdef kind="function" id="classrrllvm_1_1LLVMModelDataSymbols_1a289116dff2ca1b0013e0615313fedee9" prot="public" static="no" const="yes" explicit="no" inline="no" virt="non-virtual">
         <type>bool</type>
@@ -1338,7 +1338,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="llvm/LLVMModelDataSymbols.h" line="319" column="10" bodyfile="llvm/LLVMModelDataSymbols.cpp" bodystart="499" bodyend="505"/>
+        <location file="llvm/LLVMModelDataSymbols.h" line="325" column="10" bodyfile="llvm/LLVMModelDataSymbols.cpp" bodystart="503" bodyend="509"/>
       </memberdef>
       <memberdef kind="function" id="classrrllvm_1_1LLVMModelDataSymbols_1a65eb83ec0a148efde52b6ab89da1534f" prot="public" static="no" const="yes" explicit="no" inline="no" virt="non-virtual">
         <type>bool</type>
@@ -1355,7 +1355,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="llvm/LLVMModelDataSymbols.h" line="321" column="10" bodyfile="llvm/LLVMModelDataSymbols.cpp" bodystart="507" bodyend="512"/>
+        <location file="llvm/LLVMModelDataSymbols.h" line="327" column="10" bodyfile="llvm/LLVMModelDataSymbols.cpp" bodystart="511" bodyend="516"/>
       </memberdef>
       <memberdef kind="function" id="classrrllvm_1_1LLVMModelDataSymbols_1abefe8482dd1cfde6a58b1c9e613809de" prot="public" static="no" const="yes" explicit="no" inline="no" virt="non-virtual">
         <type>bool</type>
@@ -1372,7 +1372,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="llvm/LLVMModelDataSymbols.h" line="323" column="10" bodyfile="llvm/LLVMModelDataSymbols.cpp" bodystart="514" bodyend="520"/>
+        <location file="llvm/LLVMModelDataSymbols.h" line="329" column="10" bodyfile="llvm/LLVMModelDataSymbols.cpp" bodystart="518" bodyend="524"/>
       </memberdef>
       <memberdef kind="function" id="classrrllvm_1_1LLVMModelDataSymbols_1aae3e5082c125a0d26a1fae4a426774bc" prot="public" static="no" const="yes" explicit="no" inline="no" virt="non-virtual">
         <type>bool</type>
@@ -1389,7 +1389,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="llvm/LLVMModelDataSymbols.h" line="325" column="10" bodyfile="llvm/LLVMModelDataSymbols.cpp" bodystart="522" bodyend="527"/>
+        <location file="llvm/LLVMModelDataSymbols.h" line="331" column="10" bodyfile="llvm/LLVMModelDataSymbols.cpp" bodystart="526" bodyend="531"/>
       </memberdef>
       <memberdef kind="function" id="classrrllvm_1_1LLVMModelDataSymbols_1a693082c5cd7013a90b6047c2a2cf37e0" prot="public" static="no" const="yes" explicit="no" inline="no" virt="non-virtual">
         <type>bool</type>
@@ -1406,7 +1406,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="llvm/LLVMModelDataSymbols.h" line="327" column="10" bodyfile="llvm/LLVMModelDataSymbols.cpp" bodystart="1395" bodyend="1398"/>
+        <location file="llvm/LLVMModelDataSymbols.h" line="333" column="10" bodyfile="llvm/LLVMModelDataSymbols.cpp" bodystart="1396" bodyend="1399"/>
       </memberdef>
       <memberdef kind="function" id="classrrllvm_1_1LLVMModelDataSymbols_1aa1caf7bc88917aa0719de4f738badb5d" prot="public" static="no" const="yes" explicit="no" inline="no" virt="non-virtual">
         <type>const <ref refid="structrrllvm_1_1LLVMModelDataSymbols_1_1SpeciesReferenceInfo" kindref="compound">SpeciesReferenceInfo</ref> &amp;</type>
@@ -1423,7 +1423,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="llvm/LLVMModelDataSymbols.h" line="329" column="32" bodyfile="llvm/LLVMModelDataSymbols.cpp" bodystart="1401" bodyend="1413"/>
+        <location file="llvm/LLVMModelDataSymbols.h" line="335" column="32" bodyfile="llvm/LLVMModelDataSymbols.cpp" bodystart="1402" bodyend="1414"/>
       </memberdef>
       <memberdef kind="function" id="classrrllvm_1_1LLVMModelDataSymbols_1a55a42e526c9ae39fe0a7a3c4befe7630" prot="public" static="no" const="yes" explicit="no" inline="no" virt="non-virtual">
         <type>bool</type>
@@ -1438,14 +1438,15 @@
 <para>checks if the given symbol is a init value for a conserved species. </para>
         </briefdescription>
         <detaileddescription>
-<para>Global parameters or floating species can be conservied moieties, a global parameter is a CM if it is defined by a inital assignment rules as a linear of one CM species and a set of indepdent floating species.</para>
+<para>Global parameters or floating species can be conservied moieties,</para>
+<para>a global parameter is a CM if it is defined by a inital assignment rules as a linear of one CM species and a set of indepdent floating species.</para>
 <para>A floating species may be a CM if it is defined by a rule as a linear combination of independent species.</para>
 <para>If a floating species is a CM, then it must by definition be a dependent floating species.</para>
 <para>It can however have independent initial conditions defined either by intial values or initial assignment rules. </para>
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="llvm/LLVMModelDataSymbols.h" line="357" column="10" bodyfile="llvm/LLVMModelDataSymbols.cpp" bodystart="1451" bodyend="1454"/>
+        <location file="llvm/LLVMModelDataSymbols.h" line="359" column="10" bodyfile="llvm/LLVMModelDataSymbols.cpp" bodystart="1452" bodyend="1455"/>
       </memberdef>
       <memberdef kind="function" id="classrrllvm_1_1LLVMModelDataSymbols_1ae43de59bdc21713da5ce118e627a3146" prot="public" static="no" const="yes" explicit="no" inline="no" virt="non-virtual">
         <type>bool</type>
@@ -1487,7 +1488,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="llvm/LLVMModelDataSymbols.h" line="368" column="10" bodyfile="llvm/LLVMModelDataSymbols.cpp" bodystart="1068" bodyend="1077"/>
+        <location file="llvm/LLVMModelDataSymbols.h" line="370" column="10" bodyfile="llvm/LLVMModelDataSymbols.cpp" bodystart="1069" bodyend="1078"/>
       </memberdef>
       <memberdef kind="function" id="classrrllvm_1_1LLVMModelDataSymbols_1a9e49129c6b005685104b5870624e9b42" prot="public" static="no" const="yes" explicit="no" inline="no" virt="non-virtual">
         <type>bool</type>
@@ -1505,7 +1506,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="llvm/LLVMModelDataSymbols.h" line="374" column="10" bodyfile="llvm/LLVMModelDataSymbols.cpp" bodystart="1020" bodyend="1024"/>
+        <location file="llvm/LLVMModelDataSymbols.h" line="376" column="10" bodyfile="llvm/LLVMModelDataSymbols.cpp" bodystart="1021" bodyend="1025"/>
       </memberdef>
       <memberdef kind="function" id="classrrllvm_1_1LLVMModelDataSymbols_1a9270500be0ded95f93647ae6ef84f16e" prot="public" static="no" const="yes" explicit="no" inline="no" virt="non-virtual">
         <type>size_t</type>
@@ -1519,7 +1520,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="llvm/LLVMModelDataSymbols.h" line="379" column="12" bodyfile="llvm/LLVMModelDataSymbols.cpp" bodystart="1559" bodyend="1562"/>
+        <location file="llvm/LLVMModelDataSymbols.h" line="381" column="12" bodyfile="llvm/LLVMModelDataSymbols.cpp" bodystart="1560" bodyend="1563"/>
       </memberdef>
       <memberdef kind="function" id="classrrllvm_1_1LLVMModelDataSymbols_1ad61a2037d76721bade273a24383870d2" prot="public" static="no" const="yes" explicit="no" inline="no" virt="non-virtual">
         <type>int</type>
@@ -1537,7 +1538,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="llvm/LLVMModelDataSymbols.h" line="384" column="9" bodyfile="llvm/LLVMModelDataSymbols.cpp" bodystart="1564" bodyend="1572"/>
+        <location file="llvm/LLVMModelDataSymbols.h" line="386" column="9" bodyfile="llvm/LLVMModelDataSymbols.cpp" bodystart="1565" bodyend="1573"/>
       </memberdef>
       <memberdef kind="function" id="classrrllvm_1_1LLVMModelDataSymbols_1a60afb2eed41a8fed24efdc44306bb23f" prot="public" static="no" const="yes" explicit="no" inline="no" virt="non-virtual">
         <type>const std::vector&lt; uint &gt; &amp;</type>
@@ -1555,7 +1556,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="llvm/LLVMModelDataSymbols.h" line="389" column="23" bodyfile="llvm/LLVMModelDataSymbols.cpp" bodystart="1574" bodyend="1585"/>
+        <location file="llvm/LLVMModelDataSymbols.h" line="391" column="23" bodyfile="llvm/LLVMModelDataSymbols.cpp" bodystart="1575" bodyend="1586"/>
       </memberdef>
       <memberdef kind="function" id="classrrllvm_1_1LLVMModelDataSymbols_1a4cb1789b52faa73f68f50cd1dd8d7705" prot="public" static="no" const="yes" explicit="no" inline="no" virt="non-virtual">
         <type>int</type>
@@ -1573,7 +1574,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="llvm/LLVMModelDataSymbols.h" line="394" column="9" bodyfile="llvm/LLVMModelDataSymbols.cpp" bodystart="1587" bodyend="1595"/>
+        <location file="llvm/LLVMModelDataSymbols.h" line="396" column="9" bodyfile="llvm/LLVMModelDataSymbols.cpp" bodystart="1588" bodyend="1596"/>
       </memberdef>
       <memberdef kind="function" id="classrrllvm_1_1LLVMModelDataSymbols_1adfa3954a853a482b31714be8d7e16280" prot="public" static="no" const="yes" explicit="no" inline="no" virt="non-virtual">
         <type>std::string</type>
@@ -1591,7 +1592,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="llvm/LLVMModelDataSymbols.h" line="399" column="17" bodyfile="llvm/LLVMModelDataSymbols.cpp" bodystart="1597" bodyend="1601"/>
+        <location file="llvm/LLVMModelDataSymbols.h" line="401" column="17" bodyfile="llvm/LLVMModelDataSymbols.cpp" bodystart="1598" bodyend="1602"/>
       </memberdef>
       <memberdef kind="function" id="classrrllvm_1_1LLVMModelDataSymbols_1a7236921758c3602ce5d77acd73aa61b2" prot="public" static="no" const="yes" explicit="no" inline="no" virt="non-virtual">
         <type>int</type>
@@ -1609,7 +1610,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="llvm/LLVMModelDataSymbols.h" line="404" column="9" bodyfile="llvm/LLVMModelDataSymbols.cpp" bodystart="1603" bodyend="1621"/>
+        <location file="llvm/LLVMModelDataSymbols.h" line="406" column="9" bodyfile="llvm/LLVMModelDataSymbols.cpp" bodystart="1604" bodyend="1622"/>
       </memberdef>
       <memberdef kind="function" id="classrrllvm_1_1LLVMModelDataSymbols_1a673f85f4bfe115781be2090428b800b3" prot="public" static="no" const="yes" explicit="no" inline="no" virt="non-virtual">
         <type>const std::vector&lt; unsigned char &gt; &amp;</type>
@@ -1622,7 +1623,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="llvm/LLVMModelDataSymbols.h" line="447" column="23" bodyfile="llvm/LLVMModelDataSymbols.cpp" bodystart="1384" bodyend="1387"/>
+        <location file="llvm/LLVMModelDataSymbols.h" line="447" column="23" bodyfile="llvm/LLVMModelDataSymbols.cpp" bodystart="1385" bodyend="1388"/>
       </memberdef>
       <memberdef kind="function" id="classrrllvm_1_1LLVMModelDataSymbols_1aaa8a9bca324a06ec19edbc2c50b3f262" prot="public" static="no" const="yes" explicit="no" inline="no" virt="non-virtual">
         <type>size_t</type>
@@ -1640,7 +1641,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="llvm/LLVMModelDataSymbols.h" line="458" column="12" bodyfile="llvm/LLVMModelDataSymbols.cpp" bodystart="1389" bodyend="1393"/>
+        <location file="llvm/LLVMModelDataSymbols.h" line="458" column="12" bodyfile="llvm/LLVMModelDataSymbols.cpp" bodystart="1390" bodyend="1394"/>
       </memberdef>
       <memberdef kind="function" id="classrrllvm_1_1LLVMModelDataSymbols_1a32e0b4d1aa32145bc261775d323e67b0" prot="public" static="no" const="yes" explicit="no" inline="no" virt="non-virtual">
         <type>const std::vector&lt; uint &gt; &amp;</type>
@@ -1654,7 +1655,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="llvm/LLVMModelDataSymbols.h" line="463" column="23" bodyfile="llvm/LLVMModelDataSymbols.cpp" bodystart="351" bodyend="354"/>
+        <location file="llvm/LLVMModelDataSymbols.h" line="463" column="23" bodyfile="llvm/LLVMModelDataSymbols.cpp" bodystart="355" bodyend="358"/>
       </memberdef>
       <memberdef kind="function" id="classrrllvm_1_1LLVMModelDataSymbols_1a2c749029ee8a4a5f3dcfa3e49ee54824" prot="public" static="no" const="yes" explicit="no" inline="no" virt="non-virtual">
         <type>const std::vector&lt; uint &gt; &amp;</type>
@@ -1668,7 +1669,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="llvm/LLVMModelDataSymbols.h" line="468" column="23" bodyfile="llvm/LLVMModelDataSymbols.cpp" bodystart="356" bodyend="359"/>
+        <location file="llvm/LLVMModelDataSymbols.h" line="468" column="23" bodyfile="llvm/LLVMModelDataSymbols.cpp" bodystart="360" bodyend="363"/>
       </memberdef>
       <memberdef kind="function" id="classrrllvm_1_1LLVMModelDataSymbols_1af242d61196597833aa9e1c5c1850910d" prot="public" static="no" const="yes" explicit="no" inline="no" virt="non-virtual">
         <type>bool</type>
@@ -1687,7 +1688,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="llvm/LLVMModelDataSymbols.h" line="483" column="10" bodyfile="llvm/LLVMModelDataSymbols.cpp" bodystart="1456" bodyend="1462"/>
+        <location file="llvm/LLVMModelDataSymbols.h" line="481" column="10" bodyfile="llvm/LLVMModelDataSymbols.cpp" bodystart="1457" bodyend="1463"/>
       </memberdef>
       <memberdef kind="function" id="classrrllvm_1_1LLVMModelDataSymbols_1a775dc49eff5e65aa7e7e88d3a7485976" prot="public" static="no" const="yes" explicit="no" inline="no" virt="non-virtual">
         <type>bool</type>
@@ -1707,7 +1708,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="llvm/LLVMModelDataSymbols.h" line="494" column="10" bodyfile="llvm/LLVMModelDataSymbols.cpp" bodystart="1485" bodyend="1491"/>
+        <location file="llvm/LLVMModelDataSymbols.h" line="492" column="10" bodyfile="llvm/LLVMModelDataSymbols.cpp" bodystart="1486" bodyend="1492"/>
       </memberdef>
       <memberdef kind="function" id="classrrllvm_1_1LLVMModelDataSymbols_1a8711b0a0c667e10454984b6589409514" prot="public" static="no" const="yes" explicit="no" inline="no" virt="non-virtual">
         <type>bool</type>
@@ -1724,7 +1725,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="llvm/LLVMModelDataSymbols.h" line="496" column="10" bodyfile="llvm/LLVMModelDataSymbols.cpp" bodystart="1464" bodyend="1470"/>
+        <location file="llvm/LLVMModelDataSymbols.h" line="494" column="10" bodyfile="llvm/LLVMModelDataSymbols.cpp" bodystart="1465" bodyend="1471"/>
       </memberdef>
       <memberdef kind="function" id="classrrllvm_1_1LLVMModelDataSymbols_1a9e69809c00382d494280b0124bae2e57" prot="public" static="no" const="yes" explicit="no" inline="no" virt="non-virtual">
         <type>bool</type>
@@ -1736,13 +1737,13 @@
           <declname>symbol</declname>
         </param>
         <briefdescription>
-<para>has this string been found to be an independent init global param<ndash/> is a global param and not having an assignment or init assignment rule. </para>
+<para>has this std::string been found to be an independent init global param<ndash/> is a global param and not having an assignment or init assignment rule. </para>
         </briefdescription>
         <detaileddescription>
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="llvm/LLVMModelDataSymbols.h" line="502" column="10" bodyfile="llvm/LLVMModelDataSymbols.cpp" bodystart="1472" bodyend="1478"/>
+        <location file="llvm/LLVMModelDataSymbols.h" line="500" column="10" bodyfile="llvm/LLVMModelDataSymbols.cpp" bodystart="1473" bodyend="1479"/>
       </memberdef>
       <memberdef kind="function" id="classrrllvm_1_1LLVMModelDataSymbols_1a4980057e894a24a75faad509c9ecc616" prot="public" static="no" const="yes" explicit="no" inline="no" virt="non-virtual">
         <type>bool</type>
@@ -1760,7 +1761,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="llvm/LLVMModelDataSymbols.h" line="509" column="10" bodyfile="llvm/LLVMModelDataSymbols.cpp" bodystart="1480" bodyend="1483"/>
+        <location file="llvm/LLVMModelDataSymbols.h" line="507" column="10" bodyfile="llvm/LLVMModelDataSymbols.cpp" bodystart="1481" bodyend="1484"/>
       </memberdef>
       <memberdef kind="function" id="classrrllvm_1_1LLVMModelDataSymbols_1ac7d78cdbadcc805571ab7ce9ff8870be" prot="public" static="no" const="yes" explicit="no" inline="no" virt="non-virtual">
         <type>int</type>
@@ -1779,7 +1780,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="llvm/LLVMModelDataSymbols.h" line="516" column="9" bodyfile="llvm/LLVMModelDataSymbols.cpp" bodystart="1416" bodyend="1425"/>
+        <location file="llvm/LLVMModelDataSymbols.h" line="514" column="9" bodyfile="llvm/LLVMModelDataSymbols.cpp" bodystart="1417" bodyend="1426"/>
       </memberdef>
       <memberdef kind="function" id="classrrllvm_1_1LLVMModelDataSymbols_1af08014c2f00c6f8721f5ec253e9af2a2" prot="public" static="no" const="yes" explicit="no" inline="no" virt="non-virtual">
         <type>int</type>
@@ -1798,7 +1799,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="llvm/LLVMModelDataSymbols.h" line="523" column="9" bodyfile="llvm/LLVMModelDataSymbols.cpp" bodystart="1427" bodyend="1436"/>
+        <location file="llvm/LLVMModelDataSymbols.h" line="521" column="9" bodyfile="llvm/LLVMModelDataSymbols.cpp" bodystart="1428" bodyend="1437"/>
       </memberdef>
       <memberdef kind="function" id="classrrllvm_1_1LLVMModelDataSymbols_1ac8c9d2e8c243bcbfc4b524dcee460be0" prot="public" static="no" const="yes" explicit="no" inline="no" virt="non-virtual">
         <type>int</type>
@@ -1816,7 +1817,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="llvm/LLVMModelDataSymbols.h" line="528" column="9" bodyfile="llvm/LLVMModelDataSymbols.cpp" bodystart="1058" bodyend="1066"/>
+        <location file="llvm/LLVMModelDataSymbols.h" line="526" column="9" bodyfile="llvm/LLVMModelDataSymbols.cpp" bodystart="1059" bodyend="1067"/>
       </memberdef>
       <memberdef kind="function" id="classrrllvm_1_1LLVMModelDataSymbols_1ade8b52affdb741d79c538f14c0813acf" prot="public" static="no" const="yes" explicit="no" inline="no" virt="non-virtual">
         <type>int</type>
@@ -1835,7 +1836,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="llvm/LLVMModelDataSymbols.h" line="535" column="9" bodyfile="llvm/LLVMModelDataSymbols.cpp" bodystart="1439" bodyend="1448"/>
+        <location file="llvm/LLVMModelDataSymbols.h" line="533" column="9" bodyfile="llvm/LLVMModelDataSymbols.cpp" bodystart="1440" bodyend="1449"/>
       </memberdef>
       <memberdef kind="function" id="classrrllvm_1_1LLVMModelDataSymbols_1a318fc67557734a7a50eab9e4a0def38d" prot="public" static="no" const="yes" explicit="no" inline="no" virt="non-virtual">
         <type>size_t</type>
@@ -1848,7 +1849,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="llvm/LLVMModelDataSymbols.h" line="537" column="12" bodyfile="llvm/LLVMModelDataSymbols.cpp" bodystart="1498" bodyend="1501"/>
+        <location file="llvm/LLVMModelDataSymbols.h" line="535" column="12" bodyfile="llvm/LLVMModelDataSymbols.cpp" bodystart="1499" bodyend="1502"/>
       </memberdef>
       <memberdef kind="function" id="classrrllvm_1_1LLVMModelDataSymbols_1ad5b54f92fccaa1fe92d8406e2f9bc14c" prot="public" static="no" const="yes" explicit="no" inline="no" virt="non-virtual">
         <type>size_t</type>
@@ -1861,7 +1862,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="llvm/LLVMModelDataSymbols.h" line="538" column="12" bodyfile="llvm/LLVMModelDataSymbols.cpp" bodystart="1503" bodyend="1506"/>
+        <location file="llvm/LLVMModelDataSymbols.h" line="536" column="12" bodyfile="llvm/LLVMModelDataSymbols.cpp" bodystart="1504" bodyend="1507"/>
       </memberdef>
       <memberdef kind="function" id="classrrllvm_1_1LLVMModelDataSymbols_1aeb1eadd29a31d11893946d97ab58800e" prot="public" static="no" const="yes" explicit="no" inline="no" virt="non-virtual">
         <type>size_t</type>
@@ -1874,7 +1875,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="llvm/LLVMModelDataSymbols.h" line="539" column="12" bodyfile="llvm/LLVMModelDataSymbols.cpp" bodystart="1508" bodyend="1511"/>
+        <location file="llvm/LLVMModelDataSymbols.h" line="537" column="12" bodyfile="llvm/LLVMModelDataSymbols.cpp" bodystart="1509" bodyend="1512"/>
       </memberdef>
       <memberdef kind="function" id="classrrllvm_1_1LLVMModelDataSymbols_1ae896dde301d464d645a8a477d8e21d81" prot="public" static="no" const="yes" explicit="no" inline="no" virt="non-virtual">
         <type>size_t</type>
@@ -1887,7 +1888,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="llvm/LLVMModelDataSymbols.h" line="540" column="12" bodyfile="llvm/LLVMModelDataSymbols.cpp" bodystart="1513" bodyend="1516"/>
+        <location file="llvm/LLVMModelDataSymbols.h" line="538" column="12" bodyfile="llvm/LLVMModelDataSymbols.cpp" bodystart="1514" bodyend="1517"/>
       </memberdef>
       <memberdef kind="function" id="classrrllvm_1_1LLVMModelDataSymbols_1abfcfe60fdf6c0792a2a9cb61132cdff2" prot="public" static="no" const="yes" explicit="no" inline="no" virt="non-virtual">
         <type>std::vector&lt; std::string &gt;</type>
@@ -1900,7 +1901,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="llvm/LLVMModelDataSymbols.h" line="542" column="17" bodyfile="llvm/LLVMModelDataSymbols.cpp" bodystart="1518" bodyend="1521"/>
+        <location file="llvm/LLVMModelDataSymbols.h" line="540" column="17" bodyfile="llvm/LLVMModelDataSymbols.cpp" bodystart="1519" bodyend="1522"/>
       </memberdef>
       <memberdef kind="function" id="classrrllvm_1_1LLVMModelDataSymbols_1ab3e8054b5ef8d3f6fe151f6f0b28b1c4" prot="public" static="no" const="yes" explicit="no" inline="no" virt="non-virtual">
         <type>std::string</type>
@@ -1917,7 +1918,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="llvm/LLVMModelDataSymbols.h" line="544" column="17" bodyfile="llvm/LLVMModelDataSymbols.cpp" bodystart="1523" bodyend="1547"/>
+        <location file="llvm/LLVMModelDataSymbols.h" line="542" column="17" bodyfile="llvm/LLVMModelDataSymbols.cpp" bodystart="1524" bodyend="1548"/>
       </memberdef>
       <memberdef kind="function" id="classrrllvm_1_1LLVMModelDataSymbols_1a080d4ea2f49acc229c3fd94dccbe1b43" prot="public" static="no" const="yes" explicit="no" inline="no" virt="non-virtual">
         <type>int</type>
@@ -1934,7 +1935,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="llvm/LLVMModelDataSymbols.h" line="546" column="9" bodyfile="llvm/LLVMModelDataSymbols.cpp" bodystart="1549" bodyend="1557"/>
+        <location file="llvm/LLVMModelDataSymbols.h" line="544" column="9" bodyfile="llvm/LLVMModelDataSymbols.cpp" bodystart="1550" bodyend="1558"/>
       </memberdef>
       <memberdef kind="function" id="classrrllvm_1_1LLVMModelDataSymbols_1adde4ee18438b1cca520afdd1c81c8781" prot="public" static="no" const="yes" explicit="no" inline="no" virt="non-virtual">
         <type>void</type>
@@ -1951,7 +1952,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="llvm/LLVMModelDataSymbols.h" line="548" column="6" bodyfile="llvm/LLVMModelDataSymbols.cpp" bodystart="1623" bodyend="1671"/>
+        <location file="llvm/LLVMModelDataSymbols.h" line="546" column="6" bodyfile="llvm/LLVMModelDataSymbols.cpp" bodystart="1624" bodyend="1672"/>
       </memberdef>
       <memberdef kind="function" id="classrrllvm_1_1LLVMModelDataSymbols_1a2c9adebe4b3d4deb48cf44ba14ec565b" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
         <type>void</type>
@@ -1968,7 +1969,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="llvm/LLVMModelDataSymbols.h" line="550" column="6" bodyfile="llvm/LLVMModelDataSymbols.cpp" bodystart="1673" bodyend="1721"/>
+        <location file="llvm/LLVMModelDataSymbols.h" line="548" column="6" bodyfile="llvm/LLVMModelDataSymbols.cpp" bodystart="1674" bodyend="1722"/>
       </memberdef>
       </sectiondef>
       <sectiondef kind="public-static-func">
@@ -1988,7 +1989,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="llvm/LLVMModelDataSymbols.h" line="452" column="23" bodyfile="llvm/LLVMModelDataSymbols.cpp" bodystart="529" bodyend="539"/>
+        <location file="llvm/LLVMModelDataSymbols.h" line="452" column="23" bodyfile="llvm/LLVMModelDataSymbols.cpp" bodystart="533" bodyend="543"/>
       </memberdef>
       </sectiondef>
       <sectiondef kind="private-func">
@@ -2007,7 +2008,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="llvm/LLVMModelDataSymbols.h" line="688" column="10" bodyfile="llvm/LLVMModelDataSymbols.cpp" bodystart="734" bodyend="791"/>
+        <location file="llvm/LLVMModelDataSymbols.h" line="684" column="10" bodyfile="llvm/LLVMModelDataSymbols.cpp" bodystart="738" bodyend="795"/>
       </memberdef>
       <memberdef kind="function" id="classrrllvm_1_1LLVMModelDataSymbols_1a77529f0aa2b1316c84e94b68d68fc0e4" prot="private" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
         <type>void</type>
@@ -2039,7 +2040,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="llvm/LLVMModelDataSymbols.h" line="695" column="10" bodyfile="llvm/LLVMModelDataSymbols.cpp" bodystart="793" bodyend="951"/>
+        <location file="llvm/LLVMModelDataSymbols.h" line="691" column="10" bodyfile="llvm/LLVMModelDataSymbols.cpp" bodystart="797" bodyend="952"/>
       </memberdef>
       <memberdef kind="function" id="classrrllvm_1_1LLVMModelDataSymbols_1a1473cbaf10feca1c969a98540718e580" prot="private" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
         <type>void</type>
@@ -2056,7 +2057,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="llvm/LLVMModelDataSymbols.h" line="701" column="10" bodyfile="llvm/LLVMModelDataSymbols.cpp" bodystart="953" bodyend="1018"/>
+        <location file="llvm/LLVMModelDataSymbols.h" line="697" column="10" bodyfile="llvm/LLVMModelDataSymbols.cpp" bodystart="954" bodyend="1019"/>
       </memberdef>
       <memberdef kind="function" id="classrrllvm_1_1LLVMModelDataSymbols_1aa051ce8fa18d9cb45009e548aa15b61f" prot="private" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
         <type>void</type>
@@ -2088,7 +2089,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="llvm/LLVMModelDataSymbols.h" line="709" column="10" bodyfile="llvm/LLVMModelDataSymbols.cpp" bodystart="623" bodyend="732"/>
+        <location file="llvm/LLVMModelDataSymbols.h" line="705" column="10" bodyfile="llvm/LLVMModelDataSymbols.cpp" bodystart="627" bodyend="736"/>
       </memberdef>
       <memberdef kind="function" id="classrrllvm_1_1LLVMModelDataSymbols_1af92df3745145e552b05e431101f223e8" prot="private" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
         <type>void</type>
@@ -2105,7 +2106,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="llvm/LLVMModelDataSymbols.h" line="712" column="10" bodyfile="llvm/LLVMModelDataSymbols.cpp" bodystart="1101" bodyend="1270"/>
+        <location file="llvm/LLVMModelDataSymbols.h" line="708" column="10" bodyfile="llvm/LLVMModelDataSymbols.cpp" bodystart="1102" bodyend="1271"/>
       </memberdef>
       <memberdef kind="function" id="classrrllvm_1_1LLVMModelDataSymbols_1abae27f91a9bed343c015e0f0fee9ca9d" prot="private" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
         <type>void</type>
@@ -2118,7 +2119,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="llvm/LLVMModelDataSymbols.h" line="714" column="10" bodyfile="llvm/LLVMModelDataSymbols.cpp" bodystart="1319" bodyend="1337"/>
+        <location file="llvm/LLVMModelDataSymbols.h" line="710" column="10" bodyfile="llvm/LLVMModelDataSymbols.cpp" bodystart="1320" bodyend="1338"/>
       </memberdef>
       <memberdef kind="function" id="classrrllvm_1_1LLVMModelDataSymbols_1a651426a37f368fd0bf1dbb24a6b51a1f" prot="private" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
         <type>void</type>
@@ -2135,7 +2136,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="llvm/LLVMModelDataSymbols.h" line="716" column="10" bodyfile="llvm/LLVMModelDataSymbols.cpp" bodystart="1339" bodyend="1382"/>
+        <location file="llvm/LLVMModelDataSymbols.h" line="712" column="10" bodyfile="llvm/LLVMModelDataSymbols.cpp" bodystart="1340" bodyend="1383"/>
       </memberdef>
       <memberdef kind="function" id="classrrllvm_1_1LLVMModelDataSymbols_1ab9d98368da2244c859e96c32f72b88f2" prot="private" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
         <type>bool</type>
@@ -2158,7 +2159,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="llvm/LLVMModelDataSymbols.h" line="727" column="10" bodyfile="llvm/LLVMModelDataSymbols.cpp" bodystart="1274" bodyend="1317"/>
+        <location file="llvm/LLVMModelDataSymbols.h" line="723" column="10" bodyfile="llvm/LLVMModelDataSymbols.cpp" bodystart="1275" bodyend="1318"/>
       </memberdef>
       <memberdef kind="function" id="classrrllvm_1_1LLVMModelDataSymbols_1a1b6cd9afb2cdc0cb5e5ba618bdf05f47" prot="private" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
         <type>void</type>
@@ -2185,7 +2186,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="llvm/LLVMModelDataSymbols.h" line="734" column="10" bodyfile="llvm/LLVMModelDataSymbols.cpp" bodystart="1082" bodyend="1094"/>
+        <location file="llvm/LLVMModelDataSymbols.h" line="730" column="10" bodyfile="llvm/LLVMModelDataSymbols.cpp" bodystart="1083" bodyend="1095"/>
       </memberdef>
       <memberdef kind="function" id="classrrllvm_1_1LLVMModelDataSymbols_1ac16cbe072b1acbec2742097346dd967d" prot="private" static="no" const="yes" explicit="no" inline="no" virt="non-virtual">
         <type>void</type>
@@ -2206,7 +2207,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="llvm/LLVMModelDataSymbols.h" line="737" column="6" bodyfile="llvm/LLVMModelDataSymbols.cpp" bodystart="1723" bodyend="1731"/>
+        <location file="llvm/LLVMModelDataSymbols.h" line="733" column="6" bodyfile="llvm/LLVMModelDataSymbols.cpp" bodystart="1724" bodyend="1732"/>
       </memberdef>
       <memberdef kind="function" id="classrrllvm_1_1LLVMModelDataSymbols_1a4f0a2de614e3188351fc22c48eee2c6a" prot="private" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
         <type>void</type>
@@ -2227,7 +2228,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="llvm/LLVMModelDataSymbols.h" line="739" column="6" bodyfile="llvm/LLVMModelDataSymbols.cpp" bodystart="1733" bodyend="1746"/>
+        <location file="llvm/LLVMModelDataSymbols.h" line="735" column="6" bodyfile="llvm/LLVMModelDataSymbols.cpp" bodystart="1734" bodyend="1747"/>
       </memberdef>
       <memberdef kind="function" id="classrrllvm_1_1LLVMModelDataSymbols_1a59bfe0b3c1b163610b3a97c7b51f0baa" prot="private" static="no" const="yes" explicit="no" inline="no" virt="non-virtual">
         <type>void</type>
@@ -2248,7 +2249,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="llvm/LLVMModelDataSymbols.h" line="741" column="6" bodyfile="llvm/LLVMModelDataSymbols.cpp" bodystart="1748" bodyend="1754"/>
+        <location file="llvm/LLVMModelDataSymbols.h" line="737" column="6" bodyfile="llvm/LLVMModelDataSymbols.cpp" bodystart="1749" bodyend="1755"/>
       </memberdef>
       <memberdef kind="function" id="classrrllvm_1_1LLVMModelDataSymbols_1a7ba4403878c784f52671d9902d644797" prot="private" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
         <type>void</type>
@@ -2269,7 +2270,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="llvm/LLVMModelDataSymbols.h" line="743" column="6" bodyfile="llvm/LLVMModelDataSymbols.cpp" bodystart="1756" bodyend="1762"/>
+        <location file="llvm/LLVMModelDataSymbols.h" line="739" column="6" bodyfile="llvm/LLVMModelDataSymbols.cpp" bodystart="1757" bodyend="1763"/>
       </memberdef>
       </sectiondef>
     <briefdescription>
@@ -2280,18 +2281,15 @@
 <para>The logic behind splitting up <ref refid="classrrllvm_1_1LLVMModelDataSymbols" kindref="compound">LLVMModelDataSymbols</ref> and <ref refid="classrrllvm_1_1LLVMModelSymbols" kindref="compound">LLVMModelSymbols</ref> is that <ref refid="classrrllvm_1_1LLVMModelSymbols" kindref="compound">LLVMModelSymbols</ref> contains all the ASTs from the model, and this contains only ModelData indices <ndash/> once the all the model functions are generated, there is no need to keep AST information around, but we still need to know what symbol is at what index for the various Model accessor functions.</para>
 <para><itemizedlist>
 <listitem><para>data storage: There can exist rules (assigment, rate, and eventually algebraic) rules that determine the value of a symbol.</para>
-</listitem></itemizedlist>
-</para>
-<para>All items for which a rate rule exists are stored in the modelData::rateRules array.</para>
-<para>No space is allocated for items determined by rate rules.</para>
-<para><itemizedlist>
-<listitem><para>All elements get an index value, even the dependent ones, this allows us uniquely indentify them in the generated accessor functions.</para>
+</listitem><listitem><para>All items for which a rate rule exists are stored in the modelData::rateRules array.</para>
+</listitem><listitem><para>No space is allocated for items determined by rate rules.</para>
+</listitem><listitem><para>All elements get an index value, even the dependent ones, this allows us uniquely identify them in the generated accessor functions.</para>
 </listitem><listitem><para>Most of the indexes used in this class are indexes into ModelData arrays, therefore we use unsigned integers <ndash/> these are less error prone and its easier to check if they are valid i.e. only check that they are less than the the array size and we do not have to check that it is positive.</para>
 </listitem><listitem><para>All symbols from the sbml are reordered such that the independent ones are first, followed by the dependent values. </para>
 </listitem></itemizedlist>
 </para>
     </detaileddescription>
-    <location file="llvm/LLVMModelDataSymbols.h" line="126" column="1" bodyfile="llvm/LLVMModelDataSymbols.h" bodystart="127" bodyend="744"/>
+    <location file="llvm/LLVMModelDataSymbols.h" line="126" column="1" bodyfile="llvm/LLVMModelDataSymbols.h" bodystart="127" bodyend="740"/>
     <listofallmembers>
       <member refid="classrrllvm_1_1LLVMModelDataSymbols_1a33d7a4af64f56aa6d2a7a3bafba2903c" prot="private" virt="non-virtual"><scope>rrllvm::LLVMModelDataSymbols</scope><name>assignmentRules</name></member>
       <member refid="classrrllvm_1_1LLVMModelDataSymbols_1a9f08fb79670d8c19151880a628a63cedaef286fe1fdc493e91e499d27808851b6" prot="public" virt="non-virtual"><scope>rrllvm::LLVMModelDataSymbols</scope><name>BOUNDARY_SPECIES</name></member>
@@ -2435,7 +2433,7 @@
       <member refid="classrrllvm_1_1LLVMModelDataSymbols_1a4bf890563731b1fe296dca200ce1ef98" prot="public" virt="non-virtual"><scope>rrllvm::LLVMModelDataSymbols</scope><name>StringUIntPair</name></member>
       <member refid="classrrllvm_1_1LLVMModelDataSymbols_1a2cbc1c062773ded9fabbd5e9bffdab0b" prot="public" virt="non-virtual"><scope>rrllvm::LLVMModelDataSymbols</scope><name>StringUIntVectorMap</name></member>
       <member refid="classrrllvm_1_1LLVMModelDataSymbols_1a9f08fb79670d8c19151880a628a63ced" prot="public" virt="non-virtual"><scope>rrllvm::LLVMModelDataSymbols</scope><name>SymbolIndexType</name></member>
-      <member refid="classrrllvm_1_1LLVMModelDataSymbols_1abffc137dab59dc26f324c12537ea207c" prot="public" virt="non-virtual"><scope>rrllvm::LLVMModelDataSymbols</scope><name>UIntUIntMap</name></member>
+      <member refid="classrrllvm_1_1LLVMModelDataSymbols_1a85c8a143119e26f1536a0c20d2925822" prot="public" virt="non-virtual"><scope>rrllvm::LLVMModelDataSymbols</scope><name>UIntUIntMap</name></member>
       <member refid="classrrllvm_1_1LLVMModelDataSymbols_1aa9b2c22cf23f626f87c7b07bfa4a76cb" prot="public" virt="virtual"><scope>rrllvm::LLVMModelDataSymbols</scope><name>~LLVMModelDataSymbols</name></member>
     </listofallmembers>
   </compounddef>

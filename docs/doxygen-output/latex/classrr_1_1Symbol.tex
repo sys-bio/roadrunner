@@ -12,17 +12,17 @@ An S\+B\+ML species definition.
 \doxysubsection*{Public Member Functions}
 \begin{DoxyCompactItemize}
 \item 
-\mbox{\Hypertarget{classrr_1_1Symbol_acc89566047d357736e2262591c41e7d4}\label{classrr_1_1Symbol_acc89566047d357736e2262591c41e7d4}} 
-{\bfseries Symbol} (const string \&\+\_\+name=\char`\"{}\char`\"{}, const double \&\+\_\+value=std\+::numeric\+\_\+limits$<$ double $>$\+::quiet\+\_\+\+NaN())
+\mbox{\Hypertarget{classrr_1_1Symbol_aff1ff4bb5de2978abe5d6e7a708b0d37}\label{classrr_1_1Symbol_aff1ff4bb5de2978abe5d6e7a708b0d37}} 
+{\bfseries Symbol} (const std\+::string \&\+\_\+name=\char`\"{}\char`\"{}, const double \&\+\_\+value=std\+::numeric\+\_\+limits$<$ double $>$\+::quiet\+\_\+\+NaN())
 \item 
-\mbox{\Hypertarget{classrr_1_1Symbol_a74c8e02611494b3d865d5e6e30e73294}\label{classrr_1_1Symbol_a74c8e02611494b3d865d5e6e30e73294}} 
-{\bfseries Symbol} (const string \&\+\_\+key\+Name, const string \&\+\_\+name, const double \&\+\_\+value=std\+::numeric\+\_\+limits$<$ double $>$\+::quiet\+\_\+\+NaN())
+\mbox{\Hypertarget{classrr_1_1Symbol_abcef683b47735ca564b54c015ea99140}\label{classrr_1_1Symbol_abcef683b47735ca564b54c015ea99140}} 
+{\bfseries Symbol} (const std\+::string \&\+\_\+key\+Name, const std\+::string \&\+\_\+name, const double \&\+\_\+value=std\+::numeric\+\_\+limits$<$ double $>$\+::quiet\+\_\+\+NaN())
 \item 
-\mbox{\Hypertarget{classrr_1_1Symbol_afe98ed2041f54ad01f65ac1ac871240d}\label{classrr_1_1Symbol_afe98ed2041f54ad01f65ac1ac871240d}} 
-{\bfseries Symbol} (const string \&\+\_\+name, const double \&\+\_\+value, const string \&\+\_\+compartment\+Name)
+\mbox{\Hypertarget{classrr_1_1Symbol_a457bba50cbbbe9f6ccc0dcc7e6498f4f}\label{classrr_1_1Symbol_a457bba50cbbbe9f6ccc0dcc7e6498f4f}} 
+{\bfseries Symbol} (const std\+::string \&\+\_\+name, const double \&\+\_\+value, const std\+::string \&\+\_\+compartment\+Name)
 \item 
-\mbox{\Hypertarget{classrr_1_1Symbol_a2ec9721a31e83f2ed26a35095d189fa4}\label{classrr_1_1Symbol_a2ec9721a31e83f2ed26a35095d189fa4}} 
-{\bfseries Symbol} (const string \&\+\_\+name, const double \&\+\_\+value, const string \&\+\_\+compartment\+Name, const string \&\+\_\+formula)
+\mbox{\Hypertarget{classrr_1_1Symbol_aba98ee15959c79524e2d31bf2d1a97d0}\label{classrr_1_1Symbol_aba98ee15959c79524e2d31bf2d1a97d0}} 
+{\bfseries Symbol} (const std\+::string \&\+\_\+name, const double \&\+\_\+value, const std\+::string \&\+\_\+compartment\+Name, const std\+::string \&\+\_\+formula)
 \end{DoxyCompactItemize}
 \doxysubsection*{Public Attributes}
 \begin{DoxyCompactItemize}
@@ -34,19 +34,19 @@ double \mbox{\hyperlink{classrr_1_1Symbol_a26a8cefd0db2d6038bde4a10ece1377c}{val
 \mbox{\Hypertarget{classrr_1_1Symbol_a3eea02180a917e9edec0a5db22422d78}\label{classrr_1_1Symbol_a3eea02180a917e9edec0a5db22422d78}} 
 bool {\bfseries constant}
 \item 
-\mbox{\Hypertarget{classrr_1_1Symbol_a473a1eeae3075d253cbf831976f90e11}\label{classrr_1_1Symbol_a473a1eeae3075d253cbf831976f90e11}} 
-string \mbox{\hyperlink{classrr_1_1Symbol_a473a1eeae3075d253cbf831976f90e11}{compartment\+Name}}
+\mbox{\Hypertarget{classrr_1_1Symbol_aa7c4ca162218cc6c0babcc0423c8a42a}\label{classrr_1_1Symbol_aa7c4ca162218cc6c0babcc0423c8a42a}} 
+std\+::string \mbox{\hyperlink{classrr_1_1Symbol_aa7c4ca162218cc6c0babcc0423c8a42a}{compartment\+Name}}
 \begin{DoxyCompactList}\small\item\em Used when symbol is a species. \end{DoxyCompactList}\item 
 \mbox{\Hypertarget{classrr_1_1Symbol_aa7cce3c13a89ffa8e3fcd49aca796138}\label{classrr_1_1Symbol_aa7cce3c13a89ffa8e3fcd49aca796138}} 
 bool \mbox{\hyperlink{classrr_1_1Symbol_aa7cce3c13a89ffa8e3fcd49aca796138}{has\+Only\+Substance}}
 \begin{DoxyCompactList}\small\item\em used when symbol is a species \end{DoxyCompactList}\item 
-string \mbox{\hyperlink{classrr_1_1Symbol_af566d56893099e936a83fd3bd645a8fe}{formula}}
-\begin{DoxyCompactList}\small\item\em There are only two places where formula was created, in rr\+Model\+Symbols.\+cpp, read\+Boundary\+Species and read\+Floating\+Species\+Concentration\+List In both cases, formula was formated as the exact same C language string of formula $<$ $<$to\+String(d\+Value, Model\+Symbols\+::m\+Double\+Format)$<$$<$ \char`\"{}/ md-\/$>$c\mbox{[}\char`\"{} $<$$<$ n\+Compartment\+Index $<$$<$ \char`\"{}\mbox{]}\char`\"{};,. \end{DoxyCompactList}\item 
-\mbox{\Hypertarget{classrr_1_1Symbol_a0339929a2864775ddcff335aa5f76fa1}\label{classrr_1_1Symbol_a0339929a2864775ddcff335aa5f76fa1}} 
-string \mbox{\hyperlink{classrr_1_1Symbol_a0339929a2864775ddcff335aa5f76fa1}{key\+Name}}
+std\+::string \mbox{\hyperlink{classrr_1_1Symbol_a5dc5b3521e79140743854d80f85e44be}{formula}}
+\begin{DoxyCompactList}\small\item\em There are only two places where formula was created, in rr\+Model\+Symbols.\+cpp, read\+Boundary\+Species and read\+Floating\+Species\+Concentration\+List In both cases, formula was formated as the exact same C language std\+::string of formula $<$ $<$to\+String(d\+Value, Model\+Symbols\+::m\+Double\+Format)$<$$<$ \char`\"{}/ md-\/$>$c\mbox{[}\char`\"{} $<$$<$ n\+Compartment\+Index $<$$<$ \char`\"{}\mbox{]}\char`\"{};,. \end{DoxyCompactList}\item 
+\mbox{\Hypertarget{classrr_1_1Symbol_afdc5578a850e3cecf38341c296aa33e8}\label{classrr_1_1Symbol_afdc5578a850e3cecf38341c296aa33e8}} 
+std\+::string \mbox{\hyperlink{classrr_1_1Symbol_afdc5578a850e3cecf38341c296aa33e8}{key\+Name}}
 \begin{DoxyCompactList}\small\item\em Used when storing local parameters, key\+Name is the reaction name. \end{DoxyCompactList}\item 
-\mbox{\Hypertarget{classrr_1_1Symbol_a5f7de6b7c858536fbbf7aed3b6ade86f}\label{classrr_1_1Symbol_a5f7de6b7c858536fbbf7aed3b6ade86f}} 
-string {\bfseries name}
+\mbox{\Hypertarget{classrr_1_1Symbol_a3b988646291193166719831de44927f0}\label{classrr_1_1Symbol_a3b988646291193166719831de44927f0}} 
+std\+::string {\bfseries name}
 \end{DoxyCompactItemize}
 
 
@@ -56,15 +56,15 @@ An S\+B\+ML species definition.
 T\+O\+DO\+: should this be named something better than \textquotesingle{}\mbox{\hyperlink{classrr_1_1Symbol}{Symbol}}\textquotesingle{}, say Species\+Definition or something??? T\+O\+DO\+: Why do we even have this? Shoud\textquotesingle{}nt this just be a sbml\+::\+Species ??? 
 
 \doxysubsection{Member Data Documentation}
-\mbox{\Hypertarget{classrr_1_1Symbol_af566d56893099e936a83fd3bd645a8fe}\label{classrr_1_1Symbol_af566d56893099e936a83fd3bd645a8fe}} 
+\mbox{\Hypertarget{classrr_1_1Symbol_a5dc5b3521e79140743854d80f85e44be}\label{classrr_1_1Symbol_a5dc5b3521e79140743854d80f85e44be}} 
 \index{rr::Symbol@{rr::Symbol}!formula@{formula}}
 \index{formula@{formula}!rr::Symbol@{rr::Symbol}}
 \doxysubsubsection{\texorpdfstring{formula}{formula}}
-{\footnotesize\ttfamily string rr\+::\+Symbol\+::formula}
+{\footnotesize\ttfamily std\+::string rr\+::\+Symbol\+::formula}
 
 
 
-There are only two places where formula was created, in rr\+Model\+Symbols.\+cpp, read\+Boundary\+Species and read\+Floating\+Species\+Concentration\+List In both cases, formula was formated as the exact same C language string of formula $<$ $<$to\+String(d\+Value, Model\+Symbols\+::m\+Double\+Format)$<$$<$ \char`\"{}/ md-\/$>$c\mbox{[}\char`\"{} $<$$<$ n\+Compartment\+Index $<$$<$ \char`\"{}\mbox{]}\char`\"{};,. 
+There are only two places where formula was created, in rr\+Model\+Symbols.\+cpp, read\+Boundary\+Species and read\+Floating\+Species\+Concentration\+List In both cases, formula was formated as the exact same C language std\+::string of formula $<$ $<$to\+String(d\+Value, Model\+Symbols\+::m\+Double\+Format)$<$$<$ \char`\"{}/ md-\/$>$c\mbox{[}\char`\"{} $<$$<$ n\+Compartment\+Index $<$$<$ \char`\"{}\mbox{]}\char`\"{};,. 
 
 where d\+Value was always the initial\+Ammount. So, ammount / volume = concentration.
 

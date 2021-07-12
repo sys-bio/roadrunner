@@ -49,8 +49,7 @@ llvm::Value* ModelDataLoadSymbolResolver::loadSymbolValue(
         const std::string& symbol,
         const llvm::ArrayRef<llvm::Value*>& args)
 {
-    ModelDataIRBuilder mdbuilder(modelData, modelDataSymbols,
-            builder);
+    ModelDataIRBuilder mdbuilder(modelData, modelDataSymbols,builder);
 
     /*************************************************************************/
     /* time */
@@ -66,8 +65,8 @@ llvm::Value* ModelDataLoadSymbolResolver::loadSymbolValue(
     /* Function */
     /*************************************************************************/
     {
-        Value *funcVal =
-            FunctionResolver(*this, modelData, modelGenContext).loadSymbolValue(symbol, args);
+        Value *funcVal = FunctionResolver(*this, modelData, modelGenContext)
+                .loadSymbolValue(symbol, args);
         if (funcVal)
         {
             return funcVal;

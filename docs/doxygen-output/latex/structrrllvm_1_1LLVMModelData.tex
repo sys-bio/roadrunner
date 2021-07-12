@@ -58,13 +58,13 @@ class \mbox{\hyperlink{classrr_1_1Random}{Random}} $\ast$ \mbox{\hyperlink{struc
 unsigned {\bfseries num\+Events}
 \item 
 unsigned \mbox{\hyperlink{structrrllvm_1_1LLVMModelData_a13d7b1094bd407bc0422943c196f4f09}{state\+Vector\+Size}}
-\begin{DoxyCompactList}\small\item\em number of items in the state vector. \end{DoxyCompactList}\item 
+\begin{DoxyCompactList}\small\item\em number of items in the state std\+::vector. \end{DoxyCompactList}\item 
 \mbox{\Hypertarget{structrrllvm_1_1LLVMModelData_a1d6d7fb287227490a08abd550f10074c}\label{structrrllvm_1_1LLVMModelData_a1d6d7fb287227490a08abd550f10074c}} 
 double $\ast$ \mbox{\hyperlink{structrrllvm_1_1LLVMModelData_a1d6d7fb287227490a08abd550f10074c}{state\+Vector}}
-\begin{DoxyCompactList}\small\item\em the state vector, this is usually a pointer to a block of data owned by the integrator. \end{DoxyCompactList}\item 
+\begin{DoxyCompactList}\small\item\em the state std\+::vector, this is usually a pointer to a block of data owned by the integrator. \end{DoxyCompactList}\item 
 \mbox{\Hypertarget{structrrllvm_1_1LLVMModelData_aab22d8a200ecb761c1255711401298dc}\label{structrrllvm_1_1LLVMModelData_aab22d8a200ecb761c1255711401298dc}} 
 double $\ast$ \mbox{\hyperlink{structrrllvm_1_1LLVMModelData_aab22d8a200ecb761c1255711401298dc}{state\+Vector\+Rate}}
-\begin{DoxyCompactList}\small\item\em the rate of change of the state vector, this is usually a pointer to a block of data owned by the integrator. \end{DoxyCompactList}\item 
+\begin{DoxyCompactList}\small\item\em the rate of change of the state std\+::vector, this is usually a pointer to a block of data owned by the integrator. \end{DoxyCompactList}\item 
 double $\ast$ \mbox{\hyperlink{structrrllvm_1_1LLVMModelData_a56b5c0718c3ada5dcbba2162778badcc}{rate\+Rule\+Rates}}
 \begin{DoxyCompactList}\small\item\em the rate of change of all elements who\textquotesingle{}s dynamics are determined by rate rules. \end{DoxyCompactList}\item 
 double $\ast$ \mbox{\hyperlink{structrrllvm_1_1LLVMModelData_a466783f9f4d8c673d400024969195874}{floating\+Species\+Amount\+Rates}}
@@ -160,7 +160,7 @@ This pointer is O\+N\+LY valid during an eval\+Model call, otherwise it is zero.
 
 has length num\+Ind\+Floating\+Species 
 
-This pointer is part of the state vector. When any function is called by C\+V\+O\+DE, this is actually a pointer to a C\+V\+O\+DE owned memory block. \mbox{\Hypertarget{structrrllvm_1_1LLVMModelData_a34634a6ccba0369823b9f085acfd2b76}\label{structrrllvm_1_1LLVMModelData_a34634a6ccba0369823b9f085acfd2b76}} 
+This pointer is part of the state std\+::vector. When any function is called by C\+V\+O\+DE, this is actually a pointer to a C\+V\+O\+DE owned memory block. \mbox{\Hypertarget{structrrllvm_1_1LLVMModelData_a34634a6ccba0369823b9f085acfd2b76}\label{structrrllvm_1_1LLVMModelData_a34634a6ccba0369823b9f085acfd2b76}} 
 \index{rrllvm::LLVMModelData@{rrllvm::LLVMModelData}!initFloatingSpeciesAmountsAlias@{initFloatingSpeciesAmountsAlias}}
 \index{initFloatingSpeciesAmountsAlias@{initFloatingSpeciesAmountsAlias}!rrllvm::LLVMModelData@{rrllvm::LLVMModelData}}
 \doxysubsubsection{\texorpdfstring{initFloatingSpeciesAmountsAlias}{initFloatingSpeciesAmountsAlias}}
@@ -226,9 +226,9 @@ Normally N\+U\+LL, only valid durring an eval\+Model call. \mbox{\Hypertarget{st
 
 All of the elelments which have a rate rule are stored here, including the dependent floating species, which will not be stored in the independent floating species block. 
 
-As the integrator runs, this pointer can simply point to an offset in the integrator\textquotesingle{}s state vector.
+As the integrator runs, this pointer can simply point to an offset in the integrator\textquotesingle{}s state std\+::vector.
 
-This pointer is part of the state vector. When any function is called by C\+V\+O\+DE, this is actually a pointer to a C\+V\+O\+DE owned memory block. Otherwise, this points to the alocated rate\+Rule\+Values block at the end of this struct. \mbox{\Hypertarget{structrrllvm_1_1LLVMModelData_a13d7b1094bd407bc0422943c196f4f09}\label{structrrllvm_1_1LLVMModelData_a13d7b1094bd407bc0422943c196f4f09}} 
+This pointer is part of the state std\+::vector. When any function is called by C\+V\+O\+DE, this is actually a pointer to a C\+V\+O\+DE owned memory block. Otherwise, this points to the alocated rate\+Rule\+Values block at the end of this struct. \mbox{\Hypertarget{structrrllvm_1_1LLVMModelData_a13d7b1094bd407bc0422943c196f4f09}\label{structrrllvm_1_1LLVMModelData_a13d7b1094bd407bc0422943c196f4f09}} 
 \index{rrllvm::LLVMModelData@{rrllvm::LLVMModelData}!stateVectorSize@{stateVectorSize}}
 \index{stateVectorSize@{stateVectorSize}!rrllvm::LLVMModelData@{rrllvm::LLVMModelData}}
 \doxysubsubsection{\texorpdfstring{stateVectorSize}{stateVectorSize}}
@@ -236,7 +236,7 @@ This pointer is part of the state vector. When any function is called by C\+V\+O
 
 
 
-number of items in the state vector. 
+number of items in the state std\+::vector. 
 
 should be num\+Ind\+Floating\+Species + num\+Rate\+Rules 
 

@@ -22,7 +22,7 @@
  <tr style="height: 56px;">
   <td id="projectalign" style="padding-left: 0.5em;">
    <div id="projectname">roadrunner
-   &#160;<span id="projectnumber">2.0.5</span>
+   &#160;<span id="projectnumber">2.0.8</span>
    </div>
    <div id="projectbrief">Fast simulator for SBML models</div>
   </td>
@@ -78,121 +78,116 @@ $(function() {
 <div class="line"><a name="l00016"></a><span class="lineno">   16</span>&#160; </div>
 <div class="line"><a name="l00017"></a><span class="lineno">   17</span>&#160;<span class="comment">// == INCLUDES ================================================</span></div>
 <div class="line"><a name="l00018"></a><span class="lineno">   18</span>&#160; </div>
-<div class="line"><a name="l00019"></a><span class="lineno">   19</span>&#160;<span class="preprocessor"># include &quot;rrLogger.h&quot;</span></div>
-<div class="line"><a name="l00020"></a><span class="lineno">   20</span>&#160;<span class="preprocessor"># include &quot;rrOSSpecifics.h&quot;</span></div>
-<div class="line"><a name="l00021"></a><span class="lineno">   21</span>&#160;<span class="preprocessor"># include &quot;Dictionary.h&quot;</span></div>
-<div class="line"><a name="l00022"></a><span class="lineno">   22</span>&#160;<span class="preprocessor"># include &quot;rrException.h&quot;</span></div>
+<div class="line"><a name="l00019"></a><span class="lineno">   19</span>&#160;<span class="preprocessor">#include &quot;rrLogger.h&quot;</span></div>
+<div class="line"><a name="l00020"></a><span class="lineno">   20</span>&#160;<span class="preprocessor">#include &quot;rrOSSpecifics.h&quot;</span></div>
+<div class="line"><a name="l00021"></a><span class="lineno">   21</span>&#160;<span class="preprocessor">#include &quot;Dictionary.h&quot;</span></div>
+<div class="line"><a name="l00022"></a><span class="lineno">   22</span>&#160;<span class="preprocessor">#include &quot;rrException.h&quot;</span></div>
 <div class="line"><a name="l00023"></a><span class="lineno">   23</span>&#160; </div>
-<div class="line"><a name="l00024"></a><span class="lineno">   24</span>&#160;<span class="preprocessor"># include &quot;tr1proxy/rr_memory.h&quot;</span></div>
-<div class="line"><a name="l00025"></a><span class="lineno">   25</span>&#160;<span class="preprocessor"># include &quot;tr1proxy/rr_unordered_map.h&quot;</span></div>
-<div class="line"><a name="l00026"></a><span class="lineno">   26</span>&#160;<span class="preprocessor"># include &lt;stdexcept&gt;</span></div>
+<div class="line"><a name="l00024"></a><span class="lineno">   24</span>&#160;<span class="preprocessor">#include &quot;tr1proxy/rr_memory.h&quot;</span></div>
+<div class="line"><a name="l00025"></a><span class="lineno">   25</span>&#160;<span class="preprocessor">#include &quot;tr1proxy/rr_unordered_map.h&quot;</span></div>
+<div class="line"><a name="l00026"></a><span class="lineno">   26</span>&#160;<span class="preprocessor">#include &lt;stdexcept&gt;</span></div>
 <div class="line"><a name="l00027"></a><span class="lineno">   27</span>&#160; </div>
 <div class="line"><a name="l00028"></a><span class="lineno">   28</span>&#160;<span class="comment">// == CODE ====================================================</span></div>
 <div class="line"><a name="l00029"></a><span class="lineno">   29</span>&#160; </div>
 <div class="line"><a name="l00030"></a><span class="lineno">   30</span>&#160;<span class="keyword">namespace </span>rr</div>
 <div class="line"><a name="l00031"></a><span class="lineno">   31</span>&#160;{</div>
-<div class="line"><a name="l00036"></a><span class="lineno"><a class="line" href="classrr_1_1Solver.html">   36</a></span>&#160;    <span class="keyword">class </span>RR_DECLSPEC <a class="code" href="classrr_1_1Solver.html">Solver</a></div>
-<div class="line"><a name="l00037"></a><span class="lineno">   37</span>&#160;    {</div>
-<div class="line"><a name="l00038"></a><span class="lineno">   38</span>&#160;    <span class="keyword">public</span>:</div>
-<div class="line"><a name="l00039"></a><span class="lineno">   39</span>&#160; </div>
-<div class="line"><a name="l00040"></a><span class="lineno">   40</span>&#160;        <span class="keyword">virtual</span> ~<a class="code" href="classrr_1_1Solver.html">Solver</a>() {};</div>
-<div class="line"><a name="l00041"></a><span class="lineno">   41</span>&#160; </div>
-<div class="line"><a name="l00046"></a><span class="lineno"><a class="line" href="classrr_1_1Solver.html#a417cca64a18c63535f2091584f8fed91">   46</a></span>&#160;        <span class="keyword">virtual</span> std::string <a class="code" href="classrr_1_1Solver.html#a417cca64a18c63535f2091584f8fed91">getName</a>() <span class="keyword">const</span> = 0;</div>
-<div class="line"><a name="l00047"></a><span class="lineno">   47</span>&#160; </div>
-<div class="line"><a name="l00052"></a><span class="lineno"><a class="line" href="classrr_1_1Solver.html#a86067147c7631ca80d51667322f1a8f5">   52</a></span>&#160;        <span class="keyword">virtual</span> std::string <a class="code" href="classrr_1_1Solver.html#a86067147c7631ca80d51667322f1a8f5">getDescription</a>() <span class="keyword">const</span> = 0;</div>
-<div class="line"><a name="l00053"></a><span class="lineno">   53</span>&#160; </div>
-<div class="line"><a name="l00058"></a><span class="lineno"><a class="line" href="classrr_1_1Solver.html#aff005f7e71bc73123ecbd511a77f71b6">   58</a></span>&#160;        <span class="keyword">virtual</span> std::string <a class="code" href="classrr_1_1Solver.html#aff005f7e71bc73123ecbd511a77f71b6">getHint</a>() <span class="keyword">const</span> = 0;</div>
-<div class="line"><a name="l00059"></a><span class="lineno">   59</span>&#160; </div>
-<div class="line"><a name="l00064"></a><span class="lineno">   64</span>&#160;        std::vector&lt;std::string&gt; getSettings() <span class="keyword">const</span>;</div>
-<div class="line"><a name="l00065"></a><span class="lineno">   65</span>&#160; </div>
-<div class="line"><a name="l00070"></a><span class="lineno">   70</span>&#160;        <span class="keyword">virtual</span> <span class="keywordtype">void</span> resetSettings();</div>
-<div class="line"><a name="l00071"></a><span class="lineno">   71</span>&#160; </div>
-<div class="line"><a name="l00078"></a><span class="lineno">   78</span>&#160;        <span class="keyword">virtual</span> <a class="code" href="classrr_1_1Variant.html">Variant</a> <a class="code" href="group__state.html#ga6ff35b4282c583424f4d5708330012b9">getValue</a>(std::string key) <span class="keyword">const</span>;</div>
+<div class="line"><a name="l00032"></a><span class="lineno">   32</span>&#160;    <span class="comment">// fwd decl</span></div>
+<div class="line"><a name="l00033"></a><span class="lineno">   33</span>&#160;    <span class="keyword">class </span>ExecutableModel;</div>
+<div class="line"><a name="l00034"></a><span class="lineno">   34</span>&#160; </div>
+<div class="line"><a name="l00039"></a><span class="lineno"><a class="line" href="classrr_1_1Solver.html">   39</a></span>&#160;    <span class="keyword">class </span>RR_DECLSPEC <a class="code" href="classrr_1_1Solver.html">Solver</a></div>
+<div class="line"><a name="l00040"></a><span class="lineno">   40</span>&#160;    {</div>
+<div class="line"><a name="l00041"></a><span class="lineno">   41</span>&#160;    <span class="keyword">public</span>:</div>
+<div class="line"><a name="l00042"></a><span class="lineno">   42</span>&#160; </div>
+<div class="line"><a name="l00043"></a><span class="lineno">   43</span>&#160;        <a class="code" href="classrr_1_1Solver.html">Solver</a>() = <span class="keywordflow">default</span>;</div>
+<div class="line"><a name="l00044"></a><span class="lineno">   44</span>&#160; </div>
+<div class="line"><a name="l00045"></a><span class="lineno">   45</span>&#160;        <span class="keyword">explicit</span> <a class="code" href="classrr_1_1Solver.html">Solver</a>(<a class="code" href="classrr_1_1ExecutableModel.html">ExecutableModel</a>* model);</div>
+<div class="line"><a name="l00046"></a><span class="lineno">   46</span>&#160; </div>
+<div class="line"><a name="l00047"></a><span class="lineno">   47</span>&#160;        <span class="keyword">virtual</span> ~<a class="code" href="classrr_1_1Solver.html">Solver</a>() = <span class="keywordflow">default</span>;</div>
+<div class="line"><a name="l00048"></a><span class="lineno">   48</span>&#160; </div>
+<div class="line"><a name="l00053"></a><span class="lineno"><a class="line" href="classrr_1_1Solver.html#a417cca64a18c63535f2091584f8fed91">   53</a></span>&#160;        <span class="keyword">virtual</span> std::string <a class="code" href="classrr_1_1Solver.html#a417cca64a18c63535f2091584f8fed91">getName</a>() <span class="keyword">const</span> = 0;</div>
+<div class="line"><a name="l00054"></a><span class="lineno">   54</span>&#160; </div>
+<div class="line"><a name="l00059"></a><span class="lineno"><a class="line" href="classrr_1_1Solver.html#a86067147c7631ca80d51667322f1a8f5">   59</a></span>&#160;        <span class="keyword">virtual</span> std::string <a class="code" href="classrr_1_1Solver.html#a86067147c7631ca80d51667322f1a8f5">getDescription</a>() <span class="keyword">const</span> = 0;</div>
+<div class="line"><a name="l00060"></a><span class="lineno">   60</span>&#160; </div>
+<div class="line"><a name="l00065"></a><span class="lineno"><a class="line" href="classrr_1_1Solver.html#aff005f7e71bc73123ecbd511a77f71b6">   65</a></span>&#160;        <span class="keyword">virtual</span> std::string <a class="code" href="classrr_1_1Solver.html#aff005f7e71bc73123ecbd511a77f71b6">getHint</a>() <span class="keyword">const</span> = 0;</div>
+<div class="line"><a name="l00066"></a><span class="lineno">   66</span>&#160; </div>
+<div class="line"><a name="l00072"></a><span class="lineno">   72</span>&#160;         <span class="keywordtype">void</span> updateSettings(<a class="code" href="classrr_1_1Dictionary.html">Dictionary</a> * inputSettings);</div>
+<div class="line"><a name="l00073"></a><span class="lineno">   73</span>&#160; </div>
+<div class="line"><a name="l00078"></a><span class="lineno">   78</span>&#160;        std::vector&lt;std::string&gt; getSettings() <span class="keyword">const</span>;</div>
 <div class="line"><a name="l00079"></a><span class="lineno">   79</span>&#160; </div>
-<div class="line"><a name="l00084"></a><span class="lineno">   84</span>&#160;        <span class="keyword">virtual</span> <a class="code" href="classrr_1_1Variant.html">Variant</a> hasValue(std::string key) <span class="keyword">const</span>;</div>
-<div class="line"><a name="l00085"></a><span class="lineno">   85</span>&#160; </div>
-<div class="line"><a name="l00090"></a><span class="lineno">   90</span>&#160;        <span class="keyword">virtual</span> <span class="keywordtype">size_t</span> getNumParams() <span class="keyword">const</span>;</div>
-<div class="line"><a name="l00091"></a><span class="lineno">   91</span>&#160; </div>
-<div class="line"><a name="l00096"></a><span class="lineno">   96</span>&#160;        <span class="keyword">virtual</span> std::string getParamName(<span class="keywordtype">size_t</span> n) <span class="keyword">const</span>;</div>
-<div class="line"><a name="l00097"></a><span class="lineno">   97</span>&#160; </div>
-<div class="line"><a name="l00102"></a><span class="lineno">  102</span>&#160;        <span class="keyword">virtual</span> std::string getParamDisplayName(<span class="keywordtype">int</span> n) <span class="keyword">const</span>;</div>
-<div class="line"><a name="l00103"></a><span class="lineno">  103</span>&#160; </div>
-<div class="line"><a name="l00108"></a><span class="lineno">  108</span>&#160;        <span class="keyword">virtual</span> std::string getParamHint(<span class="keywordtype">int</span> n) <span class="keyword">const</span>;</div>
-<div class="line"><a name="l00109"></a><span class="lineno">  109</span>&#160; </div>
-<div class="line"><a name="l00114"></a><span class="lineno">  114</span>&#160;        <span class="keyword">virtual</span> std::string getParamDesc(<span class="keywordtype">int</span> n) <span class="keyword">const</span>;</div>
-<div class="line"><a name="l00115"></a><span class="lineno">  115</span>&#160; </div>
-<div class="line"><a name="l00116"></a><span class="lineno">  116</span>&#160; </div>
-<div class="line"><a name="l00121"></a><span class="lineno">  121</span>&#160;        <span class="keyword">virtual</span> <span class="keywordtype">int</span> getValueAsInt(std::string key);</div>
-<div class="line"><a name="l00122"></a><span class="lineno">  122</span>&#160; </div>
-<div class="line"><a name="l00127"></a><span class="lineno">  127</span>&#160;        <span class="keyword">virtual</span> <span class="keywordtype">unsigned</span> <span class="keywordtype">int</span> getValueAsUInt(std::string key);</div>
-<div class="line"><a name="l00128"></a><span class="lineno">  128</span>&#160; </div>
-<div class="line"><a name="l00133"></a><span class="lineno">  133</span>&#160;        <span class="keyword">virtual</span> <span class="keywordtype">long</span> getValueAsLong(std::string key);</div>
-<div class="line"><a name="l00134"></a><span class="lineno">  134</span>&#160; </div>
-<div class="line"><a name="l00139"></a><span class="lineno">  139</span>&#160;        <span class="keyword">virtual</span> <span class="keywordtype">unsigned</span> <span class="keywordtype">long</span> getValueAsULong(std::string key);</div>
-<div class="line"><a name="l00140"></a><span class="lineno">  140</span>&#160; </div>
-<div class="line"><a name="l00145"></a><span class="lineno">  145</span>&#160;        <span class="keyword">virtual</span> <span class="keywordtype">float</span> getValueAsFloat(std::string key);</div>
-<div class="line"><a name="l00146"></a><span class="lineno">  146</span>&#160; </div>
-<div class="line"><a name="l00151"></a><span class="lineno">  151</span>&#160;        <span class="keyword">virtual</span> <span class="keywordtype">double</span> getValueAsDouble(std::string key);</div>
-<div class="line"><a name="l00152"></a><span class="lineno">  152</span>&#160; </div>
-<div class="line"><a name="l00153"></a><span class="lineno">  153</span>&#160; </div>
-<div class="line"><a name="l00157"></a><span class="lineno">  157</span>&#160;        <span class="keyword">virtual</span> std::vector&lt;double&gt; getValueAsDoubleVector(std::string key);</div>
-<div class="line"><a name="l00158"></a><span class="lineno">  158</span>&#160; </div>
-<div class="line"><a name="l00159"></a><span class="lineno">  159</span>&#160; </div>
-<div class="line"><a name="l00164"></a><span class="lineno">  164</span>&#160;        <span class="keyword">virtual</span> <span class="keywordtype">char</span> getValueAsChar(std::string key);</div>
-<div class="line"><a name="l00165"></a><span class="lineno">  165</span>&#160; </div>
-<div class="line"><a name="l00170"></a><span class="lineno">  170</span>&#160;        <span class="keyword">virtual</span> <span class="keywordtype">unsigned</span> <span class="keywordtype">char</span> getValueAsUChar(std::string key);</div>
-<div class="line"><a name="l00171"></a><span class="lineno">  171</span>&#160; </div>
-<div class="line"><a name="l00176"></a><span class="lineno">  176</span>&#160;        <span class="keyword">virtual</span> std::string getValueAsString(std::string key);</div>
-<div class="line"><a name="l00177"></a><span class="lineno">  177</span>&#160; </div>
-<div class="line"><a name="l00182"></a><span class="lineno">  182</span>&#160;        <span class="keyword">virtual</span> <span class="keywordtype">bool</span> getValueAsBool(std::string key);</div>
-<div class="line"><a name="l00183"></a><span class="lineno">  183</span>&#160; </div>
-<div class="line"><a name="l00184"></a><span class="lineno">  184</span>&#160; </div>
-<div class="line"><a name="l00185"></a><span class="lineno">  185</span>&#160;        <span class="keyword">virtual</span> <span class="keywordtype">void</span> <a class="code" href="group__state.html#gab8416894a99ef18924c1a719be4521f3">setValue</a>(std::string key, <span class="keyword">const</span> <a class="code" href="classrr_1_1Variant.html">Variant</a>&amp; value);</div>
+<div class="line"><a name="l00086"></a><span class="lineno">   86</span>&#160;        std::unordered_map&lt;std::string, Setting&gt;&amp; getSettingsMap();</div>
+<div class="line"><a name="l00087"></a><span class="lineno">   87</span>&#160; </div>
+<div class="line"><a name="l00091"></a><span class="lineno">   91</span>&#160;        <span class="keyword">virtual</span> <span class="keywordtype">void</span> resetSettings();</div>
+<div class="line"><a name="l00092"></a><span class="lineno">   92</span>&#160; </div>
+<div class="line"><a name="l00099"></a><span class="lineno">   99</span>&#160;        <span class="keyword">virtual</span> <a class="code" href="classrr_1_1Setting.html">Setting</a> <a class="code" href="group__state.html#ga6ff35b4282c583424f4d5708330012b9">getValue</a>(<span class="keyword">const</span> std::string&amp; key) <span class="keyword">const</span>;</div>
+<div class="line"><a name="l00100"></a><span class="lineno">  100</span>&#160; </div>
+<div class="line"><a name="l00105"></a><span class="lineno">  105</span>&#160;        <span class="keyword">virtual</span> <a class="code" href="classrr_1_1Setting.html">Setting</a> hasValue(<span class="keyword">const</span> std::string&amp; key) <span class="keyword">const</span>;</div>
+<div class="line"><a name="l00106"></a><span class="lineno">  106</span>&#160; </div>
+<div class="line"><a name="l00111"></a><span class="lineno">  111</span>&#160;        <span class="keyword">virtual</span> <span class="keywordtype">size_t</span> getNumParams() <span class="keyword">const</span>;</div>
+<div class="line"><a name="l00112"></a><span class="lineno">  112</span>&#160; </div>
+<div class="line"><a name="l00117"></a><span class="lineno">  117</span>&#160;        <span class="keyword">virtual</span> std::string getParamName(<span class="keywordtype">size_t</span> n) <span class="keyword">const</span>;</div>
+<div class="line"><a name="l00118"></a><span class="lineno">  118</span>&#160; </div>
+<div class="line"><a name="l00123"></a><span class="lineno">  123</span>&#160;        <span class="keyword">virtual</span> std::string getParamDisplayName(<span class="keywordtype">int</span> n) <span class="keyword">const</span>;</div>
+<div class="line"><a name="l00124"></a><span class="lineno">  124</span>&#160; </div>
+<div class="line"><a name="l00129"></a><span class="lineno">  129</span>&#160;        <span class="keyword">virtual</span> std::string getParamHint(<span class="keywordtype">int</span> n) <span class="keyword">const</span>;</div>
+<div class="line"><a name="l00130"></a><span class="lineno">  130</span>&#160; </div>
+<div class="line"><a name="l00135"></a><span class="lineno">  135</span>&#160;        <span class="keyword">virtual</span> std::string getParamDesc(<span class="keywordtype">int</span> n) <span class="keyword">const</span>;</div>
+<div class="line"><a name="l00136"></a><span class="lineno">  136</span>&#160; </div>
+<div class="line"><a name="l00141"></a><span class="lineno">  141</span>&#160;        <span class="keyword">virtual</span> std::string getValueAsString(<span class="keyword">const</span> std::string&amp; key);</div>
+<div class="line"><a name="l00142"></a><span class="lineno">  142</span>&#160; </div>
+<div class="line"><a name="l00143"></a><span class="lineno">  143</span>&#160;        <span class="keyword">virtual</span> <span class="keywordtype">void</span> <a class="code" href="group__state.html#gab8416894a99ef18924c1a719be4521f3">setValue</a>(<span class="keyword">const</span> std::string&amp; key, <a class="code" href="classrr_1_1Setting.html">Setting</a> value);</div>
+<div class="line"><a name="l00144"></a><span class="lineno">  144</span>&#160; </div>
+<div class="line"><a name="l00149"></a><span class="lineno">  149</span>&#160;        <span class="keyword">virtual</span> std::string getSettingsRepr() <span class="keyword">const</span>;</div>
+<div class="line"><a name="l00150"></a><span class="lineno">  150</span>&#160; </div>
+<div class="line"><a name="l00155"></a><span class="lineno">  155</span>&#160;        <span class="keyword">virtual</span> std::string settingsPyDictRepr() <span class="keyword">const</span>;</div>
+<div class="line"><a name="l00156"></a><span class="lineno">  156</span>&#160; </div>
+<div class="line"><a name="l00161"></a><span class="lineno">  161</span>&#160;        <span class="keyword">virtual</span> std::string toString() <span class="keyword">const</span>;</div>
+<div class="line"><a name="l00162"></a><span class="lineno">  162</span>&#160; </div>
+<div class="line"><a name="l00167"></a><span class="lineno">  167</span>&#160;        <span class="keyword">virtual</span> std::string toRepr() <span class="keyword">const</span>;</div>
+<div class="line"><a name="l00168"></a><span class="lineno">  168</span>&#160; </div>
+<div class="line"><a name="l00173"></a><span class="lineno">  173</span>&#160;        <span class="keyword">const</span> std::string&amp; getDisplayName(<span class="keyword">const</span> std::string&amp; key) <span class="keyword">const</span>;</div>
+<div class="line"><a name="l00174"></a><span class="lineno">  174</span>&#160; </div>
+<div class="line"><a name="l00179"></a><span class="lineno">  179</span>&#160;        <span class="keyword">const</span> std::string&amp; getHint(<span class="keyword">const</span> std::string&amp; key) <span class="keyword">const</span>;</div>
+<div class="line"><a name="l00180"></a><span class="lineno">  180</span>&#160; </div>
+<div class="line"><a name="l00185"></a><span class="lineno">  185</span>&#160;        <span class="keyword">const</span> std::string&amp; getDescription(<span class="keyword">const</span> std::string&amp; key) <span class="keyword">const</span>;</div>
 <div class="line"><a name="l00186"></a><span class="lineno">  186</span>&#160; </div>
-<div class="line"><a name="l00191"></a><span class="lineno">  191</span>&#160;        <span class="keyword">const</span> std::string&amp; getDisplayName(std::string key) <span class="keyword">const</span>;</div>
+<div class="line"><a name="l00191"></a><span class="lineno">  191</span>&#160;        <a class="code" href="classrr_1_1Setting.html#af49342a0fabdeeafe649246089a72b40">Setting::TypeId</a> getType(<span class="keyword">const</span> std::string&amp; key) <span class="keyword">const</span>;</div>
 <div class="line"><a name="l00192"></a><span class="lineno">  192</span>&#160; </div>
-<div class="line"><a name="l00197"></a><span class="lineno">  197</span>&#160;        <span class="keyword">const</span> std::string&amp; getHint(std::string key) <span class="keyword">const</span>;</div>
+<div class="line"><a name="l00196"></a><span class="lineno">  196</span>&#160;        <span class="keyword">virtual</span> <a class="code" href="classrr_1_1ExecutableModel.html">ExecutableModel</a> *getModel() <span class="keyword">const</span>;</div>
+<div class="line"><a name="l00197"></a><span class="lineno">  197</span>&#160; </div>
 <div class="line"><a name="l00198"></a><span class="lineno">  198</span>&#160; </div>
-<div class="line"><a name="l00203"></a><span class="lineno">  203</span>&#160;        <span class="keyword">const</span> std::string&amp; getDescription(std::string key) <span class="keyword">const</span>;</div>
-<div class="line"><a name="l00204"></a><span class="lineno">  204</span>&#160; </div>
-<div class="line"><a name="l00209"></a><span class="lineno">  209</span>&#160;        <span class="keyword">const</span> <a class="code" href="classrr_1_1Variant.html#a64c7b2189f8d391527919e46a72402a8">Variant::TypeId</a> getType(std::string key);</div>
-<div class="line"><a name="l00210"></a><span class="lineno">  210</span>&#160; </div>
-<div class="line"><a name="l00215"></a><span class="lineno">  215</span>&#160;        std::string getSettingsRepr() <span class="keyword">const</span>;</div>
+<div class="line"><a name="l00199"></a><span class="lineno">  199</span>&#160;    <span class="keyword">protected</span>:</div>
+<div class="line"><a name="l00200"></a><span class="lineno">  200</span>&#160;        <span class="keyword">using</span> SettingsList     =  std::vector&lt;std::string&gt; ;</div>
+<div class="line"><a name="l00201"></a><span class="lineno">  201</span>&#160;        <span class="keyword">using</span> SettingsMap      =  std::unordered_map&lt;std::string, Setting&gt; ;</div>
+<div class="line"><a name="l00202"></a><span class="lineno">  202</span>&#160;        <span class="keyword">using</span> DisplayNameMap   =  std::unordered_map&lt;std::string, std::string&gt; ;</div>
+<div class="line"><a name="l00203"></a><span class="lineno">  203</span>&#160;        <span class="keyword">using</span> HintMap          =  std::unordered_map&lt;std::string, std::string&gt; ;</div>
+<div class="line"><a name="l00204"></a><span class="lineno">  204</span>&#160;        <span class="keyword">using</span> DescriptionMap   =  std::unordered_map&lt;std::string, std::string&gt; ;</div>
+<div class="line"><a name="l00205"></a><span class="lineno">  205</span>&#160; </div>
+<div class="line"><a name="l00206"></a><span class="lineno">  206</span>&#160;        SettingsList sorted_settings;</div>
+<div class="line"><a name="l00207"></a><span class="lineno">  207</span>&#160;        SettingsMap settings;</div>
+<div class="line"><a name="l00208"></a><span class="lineno">  208</span>&#160;        DisplayNameMap display_names_;</div>
+<div class="line"><a name="l00209"></a><span class="lineno">  209</span>&#160;        HintMap hints;</div>
+<div class="line"><a name="l00210"></a><span class="lineno">  210</span>&#160;        DescriptionMap descriptions;</div>
+<div class="line"><a name="l00211"></a><span class="lineno">  211</span>&#160; </div>
+<div class="line"><a name="l00215"></a><span class="lineno"><a class="line" href="classrr_1_1Solver.html#ab60e7640a8c959558a144d9d7ee45515">  215</a></span>&#160;        <a class="code" href="classrr_1_1ExecutableModel.html">ExecutableModel</a>* mModel = <span class="keyword">nullptr</span>;</div>
 <div class="line"><a name="l00216"></a><span class="lineno">  216</span>&#160; </div>
-<div class="line"><a name="l00221"></a><span class="lineno">  221</span>&#160;        std::string settingsPyDictRepr() <span class="keyword">const</span>;</div>
+<div class="line"><a name="l00217"></a><span class="lineno">  217</span>&#160;        <span class="keywordtype">void</span> addSetting(<span class="keyword">const</span> std::string&amp; name, <a class="code" href="classrr_1_1Setting.html">Setting</a> val, std::string display_name, std::string hint, std::string description);</div>
+<div class="line"><a name="l00218"></a><span class="lineno">  218</span>&#160; </div>
+<div class="line"><a name="l00219"></a><span class="lineno">  219</span>&#160;    };</div>
+<div class="line"><a name="l00220"></a><span class="lineno">  220</span>&#160; </div>
+<div class="line"><a name="l00221"></a><span class="lineno">  221</span>&#160;}</div>
 <div class="line"><a name="l00222"></a><span class="lineno">  222</span>&#160; </div>
-<div class="line"><a name="l00227"></a><span class="lineno">  227</span>&#160;        <span class="keyword">virtual</span> std::string toString() <span class="keyword">const</span>;</div>
-<div class="line"><a name="l00228"></a><span class="lineno">  228</span>&#160; </div>
-<div class="line"><a name="l00233"></a><span class="lineno">  233</span>&#160;        <span class="keyword">virtual</span> std::string toRepr() <span class="keyword">const</span>;</div>
-<div class="line"><a name="l00234"></a><span class="lineno">  234</span>&#160; </div>
-<div class="line"><a name="l00235"></a><span class="lineno">  235</span>&#160;    <span class="keyword">protected</span>:</div>
-<div class="line"><a name="l00236"></a><span class="lineno">  236</span>&#160;        <span class="keyword">typedef</span> std::vector&lt;std::string&gt; SettingsList;</div>
-<div class="line"><a name="l00237"></a><span class="lineno">  237</span>&#160;        <span class="keyword">typedef</span> RR_UNORDERED_MAP &lt;std::string, Variant&gt; SettingsMap;</div>
-<div class="line"><a name="l00238"></a><span class="lineno">  238</span>&#160;        <span class="keyword">typedef</span> RR_UNORDERED_MAP &lt;std::string, std::string&gt; DisplayNameMap;</div>
-<div class="line"><a name="l00239"></a><span class="lineno">  239</span>&#160;        <span class="keyword">typedef</span> RR_UNORDERED_MAP &lt;std::string, std::string&gt; HintMap;</div>
-<div class="line"><a name="l00240"></a><span class="lineno">  240</span>&#160;        <span class="keyword">typedef</span> RR_UNORDERED_MAP &lt;std::string, std::string&gt; DescriptionMap;</div>
-<div class="line"><a name="l00241"></a><span class="lineno">  241</span>&#160; </div>
-<div class="line"><a name="l00242"></a><span class="lineno">  242</span>&#160;        SettingsList sorted_settings;</div>
-<div class="line"><a name="l00243"></a><span class="lineno">  243</span>&#160;        SettingsMap settings;</div>
-<div class="line"><a name="l00244"></a><span class="lineno">  244</span>&#160;        DisplayNameMap display_names_;</div>
-<div class="line"><a name="l00245"></a><span class="lineno">  245</span>&#160;        HintMap hints;</div>
-<div class="line"><a name="l00246"></a><span class="lineno">  246</span>&#160;        DescriptionMap descriptions;</div>
-<div class="line"><a name="l00247"></a><span class="lineno">  247</span>&#160; </div>
-<div class="line"><a name="l00248"></a><span class="lineno">  248</span>&#160;        <span class="keywordtype">void</span> addSetting(std::string name, <a class="code" href="classrr_1_1Variant.html">Variant</a> val, <span class="keywordtype">string</span> display_name, std::string hint, std::string description);</div>
-<div class="line"><a name="l00249"></a><span class="lineno">  249</span>&#160;    };</div>
-<div class="line"><a name="l00250"></a><span class="lineno">  250</span>&#160; </div>
-<div class="line"><a name="l00251"></a><span class="lineno">  251</span>&#160;}</div>
-<div class="line"><a name="l00252"></a><span class="lineno">  252</span>&#160; </div>
-<div class="line"><a name="l00253"></a><span class="lineno">  253</span>&#160;<span class="preprocessor"># endif </span><span class="comment">/* RR_INTEGRATOR_H_ */</span><span class="preprocessor"></span></div>
+<div class="line"><a name="l00223"></a><span class="lineno">  223</span>&#160;<span class="preprocessor"># endif </span><span class="comment">/* RR_INTEGRATOR_H_ */</span><span class="preprocessor"></span></div>
 </div><!-- fragment --></div><!-- contents -->
+<div class="ttc" id="aclassrr_1_1Setting_html_af49342a0fabdeeafe649246089a72b40"><div class="ttname"><a href="classrr_1_1Setting.html#af49342a0fabdeeafe649246089a72b40">rr::Setting::TypeId</a></div><div class="ttdeci">TypeId</div><div class="ttdoc">types that correspond to the index of the position of the type in the variant template.</div><div class="ttdef"><b>Definition:</b> Setting.h:132</div></div>
 <div class="ttc" id="aclassrr_1_1Solver_html_a86067147c7631ca80d51667322f1a8f5"><div class="ttname"><a href="classrr_1_1Solver.html#a86067147c7631ca80d51667322f1a8f5">rr::Solver::getDescription</a></div><div class="ttdeci">virtual std::string getDescription() const =0</div><div class="ttdoc">Get the description of this solver.</div></div>
-<div class="ttc" id="aclassrr_1_1Variant_html"><div class="ttname"><a href="classrr_1_1Variant.html">rr::Variant</a></div><div class="ttdoc">A basic type to hold a variety of data types.</div><div class="ttdef"><b>Definition:</b> Variant.h:75</div></div>
+<div class="ttc" id="aclassrr_1_1Dictionary_html"><div class="ttname"><a href="classrr_1_1Dictionary.html">rr::Dictionary</a></div><div class="ttdoc">This class is frozen, no new features A dictionary interface that objects can implement.</div><div class="ttdef"><b>Definition:</b> Dictionary.h:30</div></div>
+<div class="ttc" id="aclassrr_1_1ExecutableModel_html"><div class="ttname"><a href="classrr_1_1ExecutableModel.html">rr::ExecutableModel</a></div><div class="ttdoc">Base class for all code generation systems; allows compiling and evaluating the model.</div><div class="ttdef"><b>Definition:</b> rrExecutableModel.h:118</div></div>
 <div class="ttc" id="agroup__state_html_ga6ff35b4282c583424f4d5708330012b9"><div class="ttname"><a href="group__state.html#ga6ff35b4282c583424f4d5708330012b9">getValue</a></div><div class="ttdeci">C_DECL_SPEC bool rrcCallConv getValue(RRHandle handle, const char *symbolId, double *value)</div><div class="ttdoc">Get the value for a given symbol, use getAvailableTimeCourseSymbols(void) for a list of symbols.</div></div>
-<div class="ttc" id="aclassrr_1_1Variant_html_a64c7b2189f8d391527919e46a72402a8"><div class="ttname"><a href="classrr_1_1Variant.html#a64c7b2189f8d391527919e46a72402a8">rr::Variant::TypeId</a></div><div class="ttdeci">TypeId</div><div class="ttdoc">list of currently supported types that a Variant can hold.</div><div class="ttdef"><b>Definition:</b> Variant.h:82</div></div>
 <div class="ttc" id="aclassrr_1_1Solver_html_a417cca64a18c63535f2091584f8fed91"><div class="ttname"><a href="classrr_1_1Solver.html#a417cca64a18c63535f2091584f8fed91">rr::Solver::getName</a></div><div class="ttdeci">virtual std::string getName() const =0</div><div class="ttdoc">Get the name of this solver.</div></div>
 <div class="ttc" id="aclassrr_1_1Solver_html_aff005f7e71bc73123ecbd511a77f71b6"><div class="ttname"><a href="classrr_1_1Solver.html#aff005f7e71bc73123ecbd511a77f71b6">rr::Solver::getHint</a></div><div class="ttdeci">virtual std::string getHint() const =0</div><div class="ttdoc">Get a (user-readable) hint for this solver.</div></div>
-<div class="ttc" id="aclassrr_1_1Solver_html"><div class="ttname"><a href="classrr_1_1Solver.html">rr::Solver</a></div><div class="ttdoc">Base class for all integrators and steady state solvers.</div><div class="ttdef"><b>Definition:</b> Solver.h:37</div></div>
+<div class="ttc" id="aclassrr_1_1Solver_html"><div class="ttname"><a href="classrr_1_1Solver.html">rr::Solver</a></div><div class="ttdoc">Base class for all integrators and steady state solvers.</div><div class="ttdef"><b>Definition:</b> Solver.h:40</div></div>
 <div class="ttc" id="agroup__state_html_gab8416894a99ef18924c1a719be4521f3"><div class="ttname"><a href="group__state.html#gab8416894a99ef18924c1a719be4521f3">setValue</a></div><div class="ttdeci">C_DECL_SPEC bool rrcCallConv setValue(RRHandle handle, const char *symbolId, const double value)</div><div class="ttdoc">Set the value for a given symbol, use getAvailableTimeCourseSymbols(void) for a list of symbols.</div></div>
+<div class="ttc" id="aclassrr_1_1Setting_html"><div class="ttname"><a href="classrr_1_1Setting.html">rr::Setting</a></div><div class="ttdoc">Store a roadrunner option (or setting) as a Variant type.</div><div class="ttdef"><b>Definition:</b> Setting.h:78</div></div>
 <!-- start footer part -->
 <hr class="footer"/><address class="footer"><small>
 Generated by&#160;<a href="http://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.8.20

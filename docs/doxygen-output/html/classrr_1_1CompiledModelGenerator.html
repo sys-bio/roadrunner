@@ -22,7 +22,7 @@
  <tr style="height: 56px;">
   <td id="projectalign" style="padding-left: 0.5em;">
    <div id="projectname">roadrunner
-   &#160;<span id="projectnumber">2.0.5</span>
+   &#160;<span id="projectnumber">2.0.8</span>
    </div>
    <div id="projectbrief">Fast simulator for SBML models</div>
   </td>
@@ -93,27 +93,27 @@ Inheritance diagram for rr::CompiledModelGenerator:</div>
 <table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pro-methods"></a>
 Protected Member Functions</h2></td></tr>
-<tr class="memitem:abd98244a057a721ee0d800050fe57ba5"><td class="memItemLeft" align="right" valign="top"><a id="abd98244a057a721ee0d800050fe57ba5"></a>
-string&#160;</td><td class="memItemRight" valign="bottom"><b>substituteTerms</b> (const string &amp;reactionName, const string &amp;inputEquation, bool bFixAmounts)</td></tr>
-<tr class="separator:abd98244a057a721ee0d800050fe57ba5"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a3cc060e27371dc7835462c46e9c0ec15"><td class="memItemLeft" align="right" valign="top"><a id="a3cc060e27371dc7835462c46e9c0ec15"></a>
-string&#160;</td><td class="memItemRight" valign="bottom"><b>substituteTerms</b> (const int &amp;numReactions, const string &amp;reactionName, const string &amp;equation)</td></tr>
-<tr class="separator:a3cc060e27371dc7835462c46e9c0ec15"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a48ebead7875af1c44056dd7dc9d6bb8c"><td class="memItemLeft" align="right" valign="top"><a id="a48ebead7875af1c44056dd7dc9d6bb8c"></a>
-virtual string&#160;</td><td class="memItemRight" valign="bottom"><b>convertUserFunctionExpression</b> (const string &amp;equation)=0</td></tr>
-<tr class="separator:a48ebead7875af1c44056dd7dc9d6bb8c"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:acf7a75f136c8482de87126e404c08e5c"><td class="memItemLeft" align="right" valign="top"><a id="acf7a75f136c8482de87126e404c08e5c"></a>
-virtual void&#160;</td><td class="memItemRight" valign="bottom"><b>substituteEquation</b> (const string &amp;reactionName, <a class="el" href="classrr_1_1Scanner.html">Scanner</a> &amp;s, <a class="el" href="classrr_1_1CodeBuilder.html">CodeBuilder</a> &amp;sb)=0</td></tr>
-<tr class="separator:acf7a75f136c8482de87126e404c08e5c"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a6fdc514bfc3b382a7c022e65f82561cb"><td class="memItemLeft" align="right" valign="top"><a id="a6fdc514bfc3b382a7c022e65f82561cb"></a>
-virtual void&#160;</td><td class="memItemRight" valign="bottom"><b>substituteWords</b> (const string &amp;reactionName, bool bFixAmounts, <a class="el" href="classrr_1_1Scanner.html">Scanner</a> &amp;s, <a class="el" href="classrr_1_1CodeBuilder.html">CodeBuilder</a> &amp;sb)=0</td></tr>
-<tr class="separator:a6fdc514bfc3b382a7c022e65f82561cb"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ab130813db5c793df5d1f38f83a2b7b0f"><td class="memItemLeft" align="right" valign="top"><a id="ab130813db5c793df5d1f38f83a2b7b0f"></a>
-virtual void&#160;</td><td class="memItemRight" valign="bottom"><b>substituteToken</b> (const string &amp;reactionName, bool bFixAmounts, <a class="el" href="classrr_1_1Scanner.html">Scanner</a> &amp;s, <a class="el" href="classrr_1_1CodeBuilder.html">CodeBuilder</a> &amp;sb)=0</td></tr>
-<tr class="separator:ab130813db5c793df5d1f38f83a2b7b0f"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a05b33699c155d2001738bd0e10a34084"><td class="memItemLeft" align="right" valign="top"><a id="a05b33699c155d2001738bd0e10a34084"></a>
-virtual string&#160;</td><td class="memItemRight" valign="bottom"><b>findSymbol</b> (const string &amp;varName)=0</td></tr>
-<tr class="separator:a05b33699c155d2001738bd0e10a34084"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a34d0542e8749115eaaee8a025298810a"><td class="memItemLeft" align="right" valign="top"><a id="a34d0542e8749115eaaee8a025298810a"></a>
+std::string&#160;</td><td class="memItemRight" valign="bottom"><b>substituteTerms</b> (const std::string &amp;reactionName, const std::string &amp;inputEquation, bool bFixAmounts)</td></tr>
+<tr class="separator:a34d0542e8749115eaaee8a025298810a"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:aaa78179c47f6008d1a36e3a25f08c6da"><td class="memItemLeft" align="right" valign="top"><a id="aaa78179c47f6008d1a36e3a25f08c6da"></a>
+std::string&#160;</td><td class="memItemRight" valign="bottom"><b>substituteTerms</b> (const int &amp;numReactions, const std::string &amp;reactionName, const std::string &amp;equation)</td></tr>
+<tr class="separator:aaa78179c47f6008d1a36e3a25f08c6da"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:abe38da96f31ee9d3594f1e32916f4160"><td class="memItemLeft" align="right" valign="top"><a id="abe38da96f31ee9d3594f1e32916f4160"></a>
+virtual std::string&#160;</td><td class="memItemRight" valign="bottom"><b>convertUserFunctionExpression</b> (const std::string &amp;equation)=0</td></tr>
+<tr class="separator:abe38da96f31ee9d3594f1e32916f4160"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a556dd4d189a8a39680ccf2e20d2566b5"><td class="memItemLeft" align="right" valign="top"><a id="a556dd4d189a8a39680ccf2e20d2566b5"></a>
+virtual void&#160;</td><td class="memItemRight" valign="bottom"><b>substituteEquation</b> (const std::string &amp;reactionName, <a class="el" href="classrr_1_1Scanner.html">Scanner</a> &amp;s, <a class="el" href="classrr_1_1CodeBuilder.html">CodeBuilder</a> &amp;sb)=0</td></tr>
+<tr class="separator:a556dd4d189a8a39680ccf2e20d2566b5"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a0d0dc6ac5e8bf9acc1e72ca390e85bcc"><td class="memItemLeft" align="right" valign="top"><a id="a0d0dc6ac5e8bf9acc1e72ca390e85bcc"></a>
+virtual void&#160;</td><td class="memItemRight" valign="bottom"><b>substituteWords</b> (const std::string &amp;reactionName, bool bFixAmounts, <a class="el" href="classrr_1_1Scanner.html">Scanner</a> &amp;s, <a class="el" href="classrr_1_1CodeBuilder.html">CodeBuilder</a> &amp;sb)=0</td></tr>
+<tr class="separator:a0d0dc6ac5e8bf9acc1e72ca390e85bcc"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a4fbe7cb976783a65780066224a906caf"><td class="memItemLeft" align="right" valign="top"><a id="a4fbe7cb976783a65780066224a906caf"></a>
+virtual void&#160;</td><td class="memItemRight" valign="bottom"><b>substituteToken</b> (const std::string &amp;reactionName, bool bFixAmounts, <a class="el" href="classrr_1_1Scanner.html">Scanner</a> &amp;s, <a class="el" href="classrr_1_1CodeBuilder.html">CodeBuilder</a> &amp;sb)=0</td></tr>
+<tr class="separator:a4fbe7cb976783a65780066224a906caf"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a4374df5b0a1e78c83d0d05ef5a3a2044"><td class="memItemLeft" align="right" valign="top"><a id="a4374df5b0a1e78c83d0d05ef5a3a2044"></a>
+virtual std::string&#160;</td><td class="memItemRight" valign="bottom"><b>findSymbol</b> (const std::string &amp;varName)=0</td></tr>
+<tr class="separator:a4374df5b0a1e78c83d0d05ef5a3a2044"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a2be35b02336535290c544d76af317bcf"><td class="memItemLeft" align="right" valign="top"><a id="a2be35b02336535290c544d76af317bcf"></a>
 virtual void&#160;</td><td class="memItemRight" valign="bottom"><b>writeComputeAllRatesOfChange</b> (<a class="el" href="classrr_1_1CodeBuilder.html">CodeBuilder</a> &amp;sb, const int &amp;numIndependentSpecies, const int &amp;numDependentSpecies, ls::DoubleMatrix &amp;L0)=0</td></tr>
 <tr class="separator:a2be35b02336535290c544d76af317bcf"><td class="memSeparator" colspan="2">&#160;</td></tr>
@@ -186,55 +186,55 @@ virtual void&#160;</td><td class="memItemRight" valign="bottom"><b>writeSetBound
 <tr class="memitem:a6a80d2218a167797574086eba00bc52e"><td class="memItemLeft" align="right" valign="top"><a id="a6a80d2218a167797574086eba00bc52e"></a>
 virtual void&#160;</td><td class="memItemRight" valign="bottom"><b>writeSetInitialConditions</b> (<a class="el" href="classrr_1_1CodeBuilder.html">CodeBuilder</a> &amp;sb, const int &amp;numFloatingSpecies)=0</td></tr>
 <tr class="separator:a6a80d2218a167797574086eba00bc52e"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a41591dbc45c36f7857594be812370a8b"><td class="memItemLeft" align="right" valign="top"><a id="a41591dbc45c36f7857594be812370a8b"></a>
-virtual string&#160;</td><td class="memItemRight" valign="bottom"><b>convertCompartmentToC</b> (const string &amp;compartmentName)=0</td></tr>
-<tr class="separator:a41591dbc45c36f7857594be812370a8b"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:aa25ad9590f682f8a69e4b5ce901c412e"><td class="memItemLeft" align="right" valign="top"><a id="aa25ad9590f682f8a69e4b5ce901c412e"></a>
-virtual string&#160;</td><td class="memItemRight" valign="bottom"><b>convertSpeciesToBc</b> (const string &amp;speciesName)=0</td></tr>
-<tr class="separator:aa25ad9590f682f8a69e4b5ce901c412e"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a22632a8fab81181365100e062313af7f"><td class="memItemLeft" align="right" valign="top"><a id="a22632a8fab81181365100e062313af7f"></a>
-virtual string&#160;</td><td class="memItemRight" valign="bottom"><b>convertSpeciesToY</b> (const string &amp;speciesName)=0</td></tr>
-<tr class="separator:a22632a8fab81181365100e062313af7f"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a7f3f722869fbbdcd7363b4a1b1b700ae"><td class="memItemLeft" align="right" valign="top"><a id="a7f3f722869fbbdcd7363b4a1b1b700ae"></a>
-virtual string&#160;</td><td class="memItemRight" valign="bottom"><b>convertSymbolToC</b> (const string &amp;compartmentName)=0</td></tr>
-<tr class="separator:a7f3f722869fbbdcd7363b4a1b1b700ae"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a049917c1e071adb6f75cee81a0cc7722"><td class="memItemLeft" align="right" valign="top"><a id="a049917c1e071adb6f75cee81a0cc7722"></a>
-virtual string&#160;</td><td class="memItemRight" valign="bottom"><b>convertSymbolToGP</b> (const string &amp;parameterName)=0</td></tr>
-<tr class="separator:a049917c1e071adb6f75cee81a0cc7722"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a5bafcb3155807f633d448f0c134d1442"><td class="memItemLeft" align="right" valign="top"><a id="a5bafcb3155807f633d448f0c134d1442"></a>
+virtual std::string&#160;</td><td class="memItemRight" valign="bottom"><b>convertCompartmentToC</b> (const std::string &amp;compartmentName)=0</td></tr>
+<tr class="separator:a5bafcb3155807f633d448f0c134d1442"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a42b08d9482dfb052f77a73f16e8c91d6"><td class="memItemLeft" align="right" valign="top"><a id="a42b08d9482dfb052f77a73f16e8c91d6"></a>
+virtual std::string&#160;</td><td class="memItemRight" valign="bottom"><b>convertSpeciesToBc</b> (const std::string &amp;speciesName)=0</td></tr>
+<tr class="separator:a42b08d9482dfb052f77a73f16e8c91d6"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a619f06b6e5c8be37221f27e688e6c20d"><td class="memItemLeft" align="right" valign="top"><a id="a619f06b6e5c8be37221f27e688e6c20d"></a>
+virtual std::string&#160;</td><td class="memItemRight" valign="bottom"><b>convertSpeciesToY</b> (const std::string &amp;speciesName)=0</td></tr>
+<tr class="separator:a619f06b6e5c8be37221f27e688e6c20d"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a008143f8321b0b0e2228b34e60a1e142"><td class="memItemLeft" align="right" valign="top"><a id="a008143f8321b0b0e2228b34e60a1e142"></a>
+virtual std::string&#160;</td><td class="memItemRight" valign="bottom"><b>convertSymbolToC</b> (const std::string &amp;compartmentName)=0</td></tr>
+<tr class="separator:a008143f8321b0b0e2228b34e60a1e142"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ace3ad2cd8e7df05057559b2ef6f5f8d0"><td class="memItemLeft" align="right" valign="top"><a id="ace3ad2cd8e7df05057559b2ef6f5f8d0"></a>
+virtual std::string&#160;</td><td class="memItemRight" valign="bottom"><b>convertSymbolToGP</b> (const std::string &amp;parameterName)=0</td></tr>
+<tr class="separator:ace3ad2cd8e7df05057559b2ef6f5f8d0"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a23c60a02af3670309b5ec6e490014b08"><td class="memItemLeft" align="right" valign="top"><a id="a23c60a02af3670309b5ec6e490014b08"></a>
 void&#160;</td><td class="memItemRight" valign="bottom"><b>reset</b> ()</td></tr>
 <tr class="separator:a23c60a02af3670309b5ec6e490014b08"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:ace639f4abdb8f6eea7c0e945a678ea59"><td class="memItemLeft" align="right" valign="top"><a id="ace639f4abdb8f6eea7c0e945a678ea59"></a>
 int&#160;</td><td class="memItemRight" valign="bottom"><b>numAdditionalRates</b> ()</td></tr>
 <tr class="separator:ace639f4abdb8f6eea7c0e945a678ea59"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a881aba4028f09e3bf59be8c355cba632"><td class="memItemLeft" align="right" valign="top"><a id="a881aba4028f09e3bf59be8c355cba632"></a>
-virtual string&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classrr_1_1CompiledModelGenerator.html#a881aba4028f09e3bf59be8c355cba632">getInfo</a> ()</td></tr>
-<tr class="memdesc:a881aba4028f09e3bf59be8c355cba632"><td class="mdescLeft">&#160;</td><td class="mdescRight">get various information about the model in a user displayable format. <br /></td></tr>
-<tr class="separator:a881aba4028f09e3bf59be8c355cba632"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:af0ad2a8f4f40c26f9dc27eebecf04cc6"><td class="memItemLeft" align="right" valign="top"><a id="af0ad2a8f4f40c26f9dc27eebecf04cc6"></a>
+virtual std::string&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classrr_1_1CompiledModelGenerator.html#af0ad2a8f4f40c26f9dc27eebecf04cc6">getInfo</a> ()</td></tr>
+<tr class="memdesc:af0ad2a8f4f40c26f9dc27eebecf04cc6"><td class="mdescLeft">&#160;</td><td class="mdescRight">get various information about the model in a user displayable format. <br /></td></tr>
+<tr class="separator:af0ad2a8f4f40c26f9dc27eebecf04cc6"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a26729d1790a20eaae1d68e13849b1b67"><td class="memItemLeft" align="right" valign="top"><a id="a26729d1790a20eaae1d68e13849b1b67"></a>
 ls::DoubleMatrix *&#160;</td><td class="memItemRight" valign="bottom"><b>initializeL0</b> (int &amp;nrRows, int &amp;nrCols)</td></tr>
 <tr class="separator:a26729d1790a20eaae1d68e13849b1b67"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ab1f406a344204df66cd9b11ebfe456e5"><td class="memItemLeft" align="right" valign="top"><a id="ab1f406a344204df66cd9b11ebfe456e5"></a>
-bool&#160;</td><td class="memItemRight" valign="bottom"><b>expressionContainsSymbol</b> (ASTNode *ast, const string &amp;symbol)</td></tr>
-<tr class="separator:ab1f406a344204df66cd9b11ebfe456e5"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:aae54423f611bee69b327019ba7d343cb"><td class="memItemLeft" align="right" valign="top"><a id="aae54423f611bee69b327019ba7d343cb"></a>
-bool&#160;</td><td class="memItemRight" valign="bottom"><b>expressionContainsSymbol</b> (const string &amp;expression, const string &amp;symbol)</td></tr>
-<tr class="separator:aae54423f611bee69b327019ba7d343cb"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:af8f56c134cf542be869f28aee448e493"><td class="memItemLeft" align="right" valign="top"><a id="af8f56c134cf542be869f28aee448e493"></a>
-const <a class="el" href="classrr_1_1Symbol.html">Symbol</a> *&#160;</td><td class="memItemRight" valign="bottom"><b>getSpecies</b> (const string &amp;id)</td></tr>
-<tr class="separator:af8f56c134cf542be869f28aee448e493"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:af619413fab4ce497d39685c4b3935fe3"><td class="memItemLeft" align="right" valign="top"><a id="af619413fab4ce497d39685c4b3935fe3"></a>
+bool&#160;</td><td class="memItemRight" valign="bottom"><b>expressionContainsSymbol</b> (ASTNode *ast, const std::string &amp;symbol)</td></tr>
+<tr class="separator:af619413fab4ce497d39685c4b3935fe3"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ad6310d48d4bf51a6e8641b7eec0b171f"><td class="memItemLeft" align="right" valign="top"><a id="ad6310d48d4bf51a6e8641b7eec0b171f"></a>
+bool&#160;</td><td class="memItemRight" valign="bottom"><b>expressionContainsSymbol</b> (const std::string &amp;expression, const std::string &amp;symbol)</td></tr>
+<tr class="separator:ad6310d48d4bf51a6e8641b7eec0b171f"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a6491056f682cad572fc33dc8b5e5440d"><td class="memItemLeft" align="right" valign="top"><a id="a6491056f682cad572fc33dc8b5e5440d"></a>
+const <a class="el" href="classrr_1_1Symbol.html">Symbol</a> *&#160;</td><td class="memItemRight" valign="bottom"><b>getSpecies</b> (const std::string &amp;id)</td></tr>
+<tr class="separator:a6491056f682cad572fc33dc8b5e5440d"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:ad6a28a2aaa117e3597ff73c40e109aea"><td class="memItemLeft" align="right" valign="top"><a id="ad6a28a2aaa117e3597ff73c40e109aea"></a>
 int&#160;</td><td class="memItemRight" valign="bottom"><b>readGlobalParameters</b> ()</td></tr>
 <tr class="separator:ad6a28a2aaa117e3597ff73c40e109aea"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a0ecb08d85b193485adce0e4e3e0a1d9f"><td class="memItemLeft" align="right" valign="top"><a id="a0ecb08d85b193485adce0e4e3e0a1d9f"></a>
-void&#160;</td><td class="memItemRight" valign="bottom"><b>readLocalParameters</b> (const int &amp;numReactions, vector&lt; int &gt; &amp;localParameterDimensions, int &amp;totalLocalParmeters)</td></tr>
-<tr class="separator:a0ecb08d85b193485adce0e4e3e0a1d9f"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a585f70b2532b66fd5459b584b69e19cd"><td class="memItemLeft" align="right" valign="top"><a id="a585f70b2532b66fd5459b584b69e19cd"></a>
+void&#160;</td><td class="memItemRight" valign="bottom"><b>readLocalParameters</b> (const int &amp;numReactions, std::vector&lt; int &gt; &amp;localParameterDimensions, int &amp;totalLocalParmeters)</td></tr>
+<tr class="separator:a585f70b2532b66fd5459b584b69e19cd"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a4948f3ed624ae2ec84db980b8b309970"><td class="memItemLeft" align="right" valign="top"><a id="a4948f3ed624ae2ec84db980b8b309970"></a>
 int&#160;</td><td class="memItemRight" valign="bottom"><b>readCompartments</b> ()</td></tr>
 <tr class="separator:a4948f3ed624ae2ec84db980b8b309970"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a07ed5787c6566e411dae168b5a4b750d"><td class="memItemLeft" align="right" valign="top"><a id="a07ed5787c6566e411dae168b5a4b750d"></a>
-string&#160;</td><td class="memItemRight" valign="bottom"><b>writeDouble</b> (const double &amp;value, const string &amp;format=&quot;%G&quot;)</td></tr>
-<tr class="separator:a07ed5787c6566e411dae168b5a4b750d"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:afe1d03b2e1a6944e9cbd8f099213875f"><td class="memItemLeft" align="right" valign="top"><a id="afe1d03b2e1a6944e9cbd8f099213875f"></a>
+std::string&#160;</td><td class="memItemRight" valign="bottom"><b>writeDouble</b> (const double &amp;value, const std::string &amp;format=&quot;%G&quot;)</td></tr>
+<tr class="separator:afe1d03b2e1a6944e9cbd8f099213875f"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pro-static-methods"></a>
 Static Protected Member Functions</h2></td></tr>
@@ -242,9 +242,9 @@ Static Protected Member Functions</h2></td></tr>
 static ASTNode *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classrr_1_1CompiledModelGenerator.html#ab26b2d6a05b3432f1b07b8bcdd4aa791">cleanEquation</a> (ASTNode *ast)</td></tr>
 <tr class="memdesc:ab26b2d6a05b3432f1b07b8bcdd4aa791"><td class="mdescLeft">&#160;</td><td class="mdescRight">creates a new AST node <br /></td></tr>
 <tr class="separator:ab26b2d6a05b3432f1b07b8bcdd4aa791"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a18e8f63c338062e02f8eca01216a907c"><td class="memItemLeft" align="right" valign="top"><a id="a18e8f63c338062e02f8eca01216a907c"></a>
-static string&#160;</td><td class="memItemRight" valign="bottom"><b>cleanEquation</b> (const string &amp;equation)</td></tr>
-<tr class="separator:a18e8f63c338062e02f8eca01216a907c"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ab5464d101e4cecb3d1d9e91fe079d58b"><td class="memItemLeft" align="right" valign="top"><a id="ab5464d101e4cecb3d1d9e91fe079d58b"></a>
+static std::string&#160;</td><td class="memItemRight" valign="bottom"><b>cleanEquation</b> (const std::string &amp;equation)</td></tr>
+<tr class="separator:ab5464d101e4cecb3d1d9e91fe079d58b"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pro-attribs"></a>
 Protected Attributes</h2></td></tr>
@@ -258,9 +258,9 @@ ls::LibStructural *&#160;</td><td class="memItemRight" valign="bottom"><a class=
 <tr class="memitem:a2d7614c0af0bd2bc86487f828a98e7ac"><td class="memItemLeft" align="right" valign="top"><a id="a2d7614c0af0bd2bc86487f828a98e7ac"></a>
 bool&#160;</td><td class="memItemRight" valign="bottom"><b>mComputeAndAssignConsevationLaws</b></td></tr>
 <tr class="separator:a2d7614c0af0bd2bc86487f828a98e7ac"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a1abb35dc53e805a7faef2bfa90411a10"><td class="memItemLeft" align="right" valign="top"><a id="a1abb35dc53e805a7faef2bfa90411a10"></a>
-const string&#160;</td><td class="memItemRight" valign="bottom"><b>mFixAmountCompartments</b></td></tr>
-<tr class="separator:a1abb35dc53e805a7faef2bfa90411a10"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a00fca7f746c9beffb4cc47ae8e4d6ee2"><td class="memItemLeft" align="right" valign="top"><a id="a00fca7f746c9beffb4cc47ae8e4d6ee2"></a>
+const std::string&#160;</td><td class="memItemRight" valign="bottom"><b>mFixAmountCompartments</b></td></tr>
+<tr class="separator:a00fca7f746c9beffb4cc47ae8e4d6ee2"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:ad21d16a2d15000f8225e0f21477a22ec"><td class="memItemLeft" align="right" valign="top"><a id="ad21d16a2d15000f8225e0f21477a22ec"></a>
 <a class="el" href="classrr_1_1StringList.html">StringList</a>&#160;</td><td class="memItemRight" valign="bottom"><b>mWarnings</b></td></tr>
 <tr class="separator:ad21d16a2d15000f8225e0f21477a22ec"><td class="memSeparator" colspan="2">&#160;</td></tr>

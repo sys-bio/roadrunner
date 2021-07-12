@@ -5,52 +5,87 @@
     <includes refid="Dictionary_8h" local="yes">Dictionary.h</includes>
     <includes local="no">stdexcept</includes>
     <incdepgraph>
-      <node id="1">
-        <label>Dictionary.cpp</label>
-        <link refid="Dictionary_8cpp"/>
-        <childnode refid="2" relation="include">
-        </childnode>
-        <childnode refid="10" relation="include">
-        </childnode>
-      </node>
-      <node id="4">
-        <label>rrExporter.h</label>
-        <link refid="rrExporter_8h_source"/>
-      </node>
       <node id="10">
-        <label>stdexcept</label>
-      </node>
-      <node id="6">
-        <label>string</label>
-      </node>
-      <node id="9">
-        <label>tr1proxy/rr_unordered_map.h</label>
-      </node>
-      <node id="5">
-        <label>typeinfo</label>
-      </node>
-      <node id="7">
-        <label>vector</label>
-      </node>
-      <node id="3">
-        <label>Variant.h</label>
-        <link refid="Variant_8h_source"/>
-        <childnode refid="4" relation="include">
-        </childnode>
-        <childnode refid="5" relation="include">
-        </childnode>
-        <childnode refid="6" relation="include">
-        </childnode>
-        <childnode refid="7" relation="include">
-        </childnode>
+        <label>functional</label>
       </node>
       <node id="8">
-        <label>tr1proxy/rr_memory.h</label>
+        <label>limits</label>
+      </node>
+      <node id="4">
+        <label>variant</label>
       </node>
       <node id="2">
         <label>Dictionary.h</label>
         <link refid="Dictionary_8h_source"/>
         <childnode refid="3" relation="include">
+        </childnode>
+        <childnode refid="15" relation="include">
+        </childnode>
+        <childnode refid="6" relation="include">
+        </childnode>
+        <childnode refid="17" relation="include">
+        </childnode>
+        <childnode refid="16" relation="include">
+        </childnode>
+      </node>
+      <node id="18">
+        <label>stdexcept</label>
+      </node>
+      <node id="15">
+        <label>string</label>
+      </node>
+      <node id="16">
+        <label>rrExporter.h</label>
+        <link refid="rrExporter_8h_source"/>
+      </node>
+      <node id="12">
+        <label>setting_t.h</label>
+        <link refid="setting__t_8h_source"/>
+      </node>
+      <node id="14">
+        <label>exception</label>
+      </node>
+      <node id="11">
+        <label>typeinfo</label>
+      </node>
+      <node id="1">
+        <label>Dictionary.cpp</label>
+        <link refid="Dictionary_8cpp"/>
+        <childnode refid="2" relation="include">
+        </childnode>
+        <childnode refid="18" relation="include">
+        </childnode>
+      </node>
+      <node id="6">
+        <label>vector</label>
+      </node>
+      <node id="13">
+        <label>rrException.h</label>
+        <link refid="rrException_8h_source"/>
+        <childnode refid="14" relation="include">
+        </childnode>
+        <childnode refid="15" relation="include">
+        </childnode>
+        <childnode refid="4" relation="include">
+        </childnode>
+        <childnode refid="16" relation="include">
+        </childnode>
+      </node>
+      <node id="7">
+        <label>sstream</label>
+      </node>
+      <node id="5">
+        <label>iostream</label>
+      </node>
+      <node id="17">
+        <label>unordered_map</label>
+      </node>
+      <node id="3">
+        <label>Setting.h</label>
+        <link refid="Setting_8h_source"/>
+        <childnode refid="4" relation="include">
+        </childnode>
+        <childnode refid="5" relation="include">
         </childnode>
         <childnode refid="6" relation="include">
         </childnode>
@@ -60,6 +95,17 @@
         </childnode>
         <childnode refid="9" relation="include">
         </childnode>
+        <childnode refid="10" relation="include">
+        </childnode>
+        <childnode refid="11" relation="include">
+        </childnode>
+        <childnode refid="12" relation="include">
+        </childnode>
+        <childnode refid="13" relation="include">
+        </childnode>
+      </node>
+      <node id="9">
+        <label>type_traits</label>
       </node>
     </incdepgraph>
     <innernamespace refid="namespacerr">rr</innernamespace>
@@ -79,13 +125,13 @@
 <codeline lineno="9"><highlight class="normal"></highlight></codeline>
 <codeline lineno="10"><highlight class="normal"></highlight><highlight class="keyword">namespace<sp/></highlight><highlight class="normal">rr<sp/>{</highlight></codeline>
 <codeline lineno="11"><highlight class="normal"></highlight></codeline>
-<codeline lineno="12"><highlight class="normal"></highlight><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/><ref refid="classrr_1_1BasicDictionary_1ae7b6b6c90561295e2e07c45fe50358ce" kindref="member">BasicDictionary::setItem</ref>(</highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/>std::string&amp;<sp/>key,</highlight></codeline>
-<codeline lineno="13"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/><ref refid="classrr_1_1Variant" kindref="compound">rr::Variant</ref>&amp;<sp/>value)</highlight></codeline>
+<codeline lineno="12"><highlight class="normal"></highlight><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/><ref refid="classrr_1_1BasicDictionary_1ae3e2fc27e776cf5c791b4194534d3082" kindref="member">BasicDictionary::setItem</ref>(</highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/>std::string&amp;<sp/>key,</highlight></codeline>
+<codeline lineno="13"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/><ref refid="classrr_1_1Setting" kindref="compound">rr::Setting</ref>&amp;<sp/>value)</highlight></codeline>
 <codeline lineno="14"><highlight class="normal">{</highlight></codeline>
 <codeline lineno="15"><highlight class="normal"><sp/><sp/><sp/><sp/>items[key]<sp/>=<sp/>value;</highlight></codeline>
 <codeline lineno="16"><highlight class="normal">}</highlight></codeline>
 <codeline lineno="17"><highlight class="normal"></highlight></codeline>
-<codeline lineno="18"><highlight class="normal">Variant<sp/><ref refid="classrr_1_1BasicDictionary_1a3357b3d49d8353f19ec9aa83884f6ef1" kindref="member">BasicDictionary::getItem</ref>(</highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/>std::string&amp;<sp/>key)</highlight><highlight class="keyword"><sp/>const</highlight></codeline>
+<codeline lineno="18"><highlight class="normal">Setting<sp/><ref refid="classrr_1_1BasicDictionary_1afb43f812d4aaf7809c79d1300bc9fe8c" kindref="member">BasicDictionary::getItem</ref>(</highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/>std::string&amp;<sp/>key)</highlight><highlight class="keyword"><sp/>const</highlight></codeline>
 <codeline lineno="19"><highlight class="keyword"></highlight><highlight class="normal">{</highlight></codeline>
 <codeline lineno="20"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keyword">auto</highlight><highlight class="normal"><sp/>i<sp/>=<sp/>items.find(key);</highlight></codeline>
 <codeline lineno="21"><highlight class="normal"></highlight></codeline>

@@ -7,9 +7,6 @@
     <includes refid="Integrator_8h" local="yes">Integrator.h</includes>
     <includes local="no">string</includes>
     <includes local="no">vector</includes>
-    <includes local="yes">tr1proxy/rr_memory.h</includes>
-    <includes local="yes">tr1proxy/rr_unordered_map.h</includes>
-    <includes local="no">stdint.h</includes>
     <includedby refid="CVODEIntegrator_8h" local="yes">CVODEIntegrator.h</includedby>
     <includedby refid="EulerIntegrator_8h" local="yes">EulerIntegrator.h</includedby>
     <includedby refid="ExecutableModelFactory_8cpp" local="yes">ExecutableModelFactory.cpp</includedby>
@@ -27,182 +24,147 @@
     <includedby refid="LLVMModelGenerator_8h" local="yes">llvm/LLVMModelGenerator.h</includedby>
     <includedby refid="ModelGeneratorContext_8cpp" local="yes">llvm/ModelGeneratorContext.cpp</includedby>
     <includedby refid="ModelResources_8cpp" local="yes">llvm/ModelResources.cpp</includedby>
-    <includedby refid="rrc__api_8cpp" local="yes">D:/roadrunner/roadrunner/wrappers/C/rrc_api.cpp</includedby>
+    <includedby refid="rrc__api_8cpp" local="yes">/Users/ciaranwelsh/Documents/roadrunner/wrappers/C/rrc_api.cpp</includedby>
     <incdepgraph>
-      <node id="2">
-        <label>rrExporter.h</label>
-        <link refid="rrExporter_8h_source"/>
-      </node>
-      <node id="18">
-        <label>stdint.h</label>
-      </node>
-      <node id="10">
-        <label>Integrator.h</label>
-        <link refid="Integrator_8h"/>
-        <childnode refid="11" relation="include">
-        </childnode>
-        <childnode refid="13" relation="include">
-        </childnode>
-        <childnode refid="3" relation="include">
-        </childnode>
-        <childnode refid="14" relation="include">
-        </childnode>
-        <childnode refid="16" relation="include">
-        </childnode>
-        <childnode refid="8" relation="include">
-        </childnode>
-        <childnode refid="9" relation="include">
-        </childnode>
-        <childnode refid="17" relation="include">
-        </childnode>
-      </node>
-      <node id="17">
-        <label>stdexcept</label>
-      </node>
-      <node id="16">
-        <label>Solver.h</label>
-        <link refid="Solver_8h"/>
-        <childnode refid="11" relation="include">
-        </childnode>
-        <childnode refid="13" relation="include">
-        </childnode>
-        <childnode refid="3" relation="include">
-        </childnode>
-        <childnode refid="14" relation="include">
-        </childnode>
-        <childnode refid="8" relation="include">
-        </childnode>
-        <childnode refid="9" relation="include">
-        </childnode>
-        <childnode refid="17" relation="include">
-        </childnode>
-      </node>
       <node id="11">
-        <label>rrLogger.h</label>
-        <link refid="rrLogger_8h_source"/>
-        <childnode refid="12" relation="include">
-        </childnode>
-        <childnode refid="2" relation="include">
-        </childnode>
-      </node>
-      <node id="6">
-        <label>string</label>
+        <label>functional</label>
       </node>
       <node id="9">
-        <label>tr1proxy/rr_unordered_map.h</label>
+        <label>limits</label>
       </node>
-      <node id="15">
-        <label>exception</label>
-      </node>
-      <node id="14">
-        <label>rrException.h</label>
-        <link refid="rrException_8h_source"/>
-        <childnode refid="15" relation="include">
+      <node id="18">
+        <label>Integrator.h</label>
+        <link refid="Integrator_8h"/>
+        <childnode refid="19" relation="include">
         </childnode>
-        <childnode refid="6" relation="include">
+        <childnode refid="20" relation="include">
         </childnode>
-        <childnode refid="2" relation="include">
+        <childnode refid="3" relation="include">
+        </childnode>
+        <childnode refid="14" relation="include">
+        </childnode>
+        <childnode refid="21" relation="include">
+        </childnode>
+        <childnode refid="22" relation="include">
+        </childnode>
+        <childnode refid="23" relation="include">
+        </childnode>
+        <childnode refid="24" relation="include">
         </childnode>
       </node>
       <node id="5">
-        <label>typeinfo</label>
-      </node>
-      <node id="1">
-        <label>rrRoadRunnerOptions.h</label>
-        <link refid="rrRoadRunnerOptions_8h"/>
-        <childnode refid="2" relation="include">
-        </childnode>
-        <childnode refid="3" relation="include">
-        </childnode>
-        <childnode refid="10" relation="include">
-        </childnode>
-        <childnode refid="6" relation="include">
-        </childnode>
-        <childnode refid="7" relation="include">
-        </childnode>
-        <childnode refid="8" relation="include">
-        </childnode>
-        <childnode refid="9" relation="include">
-        </childnode>
-        <childnode refid="18" relation="include">
-        </childnode>
-      </node>
-      <node id="7">
-        <label>vector</label>
-      </node>
-      <node id="12">
-        <label>sstream</label>
-      </node>
-      <node id="4">
-        <label>Variant.h</label>
-        <link refid="Variant_8h_source"/>
-        <childnode refid="2" relation="include">
-        </childnode>
-        <childnode refid="5" relation="include">
-        </childnode>
-        <childnode refid="6" relation="include">
-        </childnode>
-        <childnode refid="7" relation="include">
-        </childnode>
-      </node>
-      <node id="8">
-        <label>tr1proxy/rr_memory.h</label>
+        <label>variant</label>
       </node>
       <node id="3">
         <label>Dictionary.h</label>
         <link refid="Dictionary_8h_source"/>
         <childnode refid="4" relation="include">
         </childnode>
-        <childnode refid="6" relation="include">
+        <childnode refid="16" relation="include">
         </childnode>
         <childnode refid="7" relation="include">
         </childnode>
-        <childnode refid="8" relation="include">
+        <childnode refid="17" relation="include">
         </childnode>
-        <childnode refid="9" relation="include">
+        <childnode refid="2" relation="include">
         </childnode>
       </node>
-      <node id="13">
+      <node id="20">
         <label>rrOSSpecifics.h</label>
         <link refid="rrOSSpecifics_8h_source"/>
         <childnode refid="2" relation="include">
         </childnode>
       </node>
-    </incdepgraph>
-    <invincdepgraph>
-      <node id="9">
-        <label>D:/roadrunner/roadrunner/wrappers/C/rrc_api.cpp</label>
-        <link refid="rrc__api_8cpp"/>
+      <node id="24">
+        <label>stdexcept</label>
       </node>
-      <node id="6">
-        <label>RK45Integrator.h</label>
-        <link refid="RK45Integrator_8h"/>
+      <node id="16">
+        <label>string</label>
+      </node>
+      <node id="2">
+        <label>rrExporter.h</label>
+        <link refid="rrExporter_8h_source"/>
+      </node>
+      <node id="23">
+        <label>tr1proxy/rr_unordered_map.h</label>
+      </node>
+      <node id="19">
+        <label>rrLogger.h</label>
+        <link refid="rrLogger_8h_source"/>
+        <childnode refid="8" relation="include">
+        </childnode>
+        <childnode refid="2" relation="include">
+        </childnode>
+      </node>
+      <node id="13">
+        <label>setting_t.h</label>
+        <link refid="setting__t_8h_source"/>
+      </node>
+      <node id="15">
+        <label>exception</label>
+      </node>
+      <node id="21">
+        <label>Solver.h</label>
+        <link refid="Solver_8h"/>
+        <childnode refid="19" relation="include">
+        </childnode>
+        <childnode refid="20" relation="include">
+        </childnode>
         <childnode refid="3" relation="include">
         </childnode>
+        <childnode refid="14" relation="include">
+        </childnode>
+        <childnode refid="22" relation="include">
+        </childnode>
+        <childnode refid="23" relation="include">
+        </childnode>
+        <childnode refid="24" relation="include">
+        </childnode>
+      </node>
+      <node id="12">
+        <label>typeinfo</label>
       </node>
       <node id="7">
-        <label>RK4Integrator.h</label>
-        <link refid="RK4Integrator_8h_source"/>
-        <childnode refid="3" relation="include">
+        <label>vector</label>
+      </node>
+      <node id="14">
+        <label>rrException.h</label>
+        <link refid="rrException_8h_source"/>
+        <childnode refid="15" relation="include">
+        </childnode>
+        <childnode refid="16" relation="include">
+        </childnode>
+        <childnode refid="5" relation="include">
+        </childnode>
+        <childnode refid="2" relation="include">
         </childnode>
       </node>
-      <node id="3">
-        <label>IntegratorRegistration.cpp</label>
-        <link refid="IntegratorRegistration_8cpp"/>
-      </node>
-      <node id="4">
-        <label>EulerIntegrator.h</label>
-        <link refid="EulerIntegrator_8h_source"/>
-        <childnode refid="3" relation="include">
-        </childnode>
+      <node id="8">
+        <label>sstream</label>
       </node>
       <node id="1">
         <label>rrRoadRunnerOptions.h</label>
         <link refid="rrRoadRunnerOptions_8h"/>
         <childnode refid="2" relation="include">
         </childnode>
-        <childnode refid="4" relation="include">
+        <childnode refid="3" relation="include">
         </childnode>
+        <childnode refid="18" relation="include">
+        </childnode>
+        <childnode refid="16" relation="include">
+        </childnode>
+        <childnode refid="7" relation="include">
+        </childnode>
+      </node>
+      <node id="6">
+        <label>iostream</label>
+      </node>
+      <node id="17">
+        <label>unordered_map</label>
+      </node>
+      <node id="4">
+        <label>Setting.h</label>
+        <link refid="Setting_8h_source"/>
         <childnode refid="5" relation="include">
         </childnode>
         <childnode refid="6" relation="include">
@@ -211,29 +173,47 @@
         </childnode>
         <childnode refid="8" relation="include">
         </childnode>
+        <childnode refid="9" relation="include">
+        </childnode>
         <childnode refid="10" relation="include">
         </childnode>
         <childnode refid="11" relation="include">
         </childnode>
         <childnode refid="12" relation="include">
         </childnode>
-        <childnode refid="9" relation="include">
+        <childnode refid="13" relation="include">
+        </childnode>
+        <childnode refid="14" relation="include">
         </childnode>
       </node>
+      <node id="22">
+        <label>tr1proxy/rr_memory.h</label>
+      </node>
       <node id="10">
-        <label>rrSBMLModelSimulation.h</label>
-        <link refid="rrSBMLModelSimulation_8h_source"/>
-        <childnode refid="11" relation="include">
+        <label>type_traits</label>
+      </node>
+    </incdepgraph>
+    <invincdepgraph>
+      <node id="5">
+        <label>GillespieIntegrator.h</label>
+        <link refid="GillespieIntegrator_8h_source"/>
+        <childnode refid="3" relation="include">
+        </childnode>
+      </node>
+      <node id="8">
+        <label>rrRoadRunner.h</label>
+        <link refid="rrRoadRunner_8h_source"/>
+        <childnode refid="9" relation="include">
         </childnode>
       </node>
       <node id="12">
         <label>llvm/LLVMModelGenerator.h</label>
         <link refid="LLVMModelGenerator_8h_source"/>
       </node>
-      <node id="8">
-        <label>rrRoadRunner.h</label>
-        <link refid="rrRoadRunner_8h_source"/>
-        <childnode refid="9" relation="include">
+      <node id="7">
+        <label>RK4Integrator.h</label>
+        <link refid="RK4Integrator_8h_source"/>
+        <childnode refid="3" relation="include">
         </childnode>
       </node>
       <node id="2">
@@ -242,14 +222,58 @@
         <childnode refid="3" relation="include">
         </childnode>
       </node>
+      <node id="1">
+        <label>rrRoadRunnerOptions.h</label>
+        <link refid="rrRoadRunnerOptions_8h"/>
+        <childnode refid="2" relation="include">
+        </childnode>
+        <childnode refid="4" relation="include">
+        </childnode>
+        <childnode refid="5" relation="include">
+        </childnode>
+        <childnode refid="6" relation="include">
+        </childnode>
+        <childnode refid="7" relation="include">
+        </childnode>
+        <childnode refid="8" relation="include">
+        </childnode>
+        <childnode refid="10" relation="include">
+        </childnode>
+        <childnode refid="11" relation="include">
+        </childnode>
+        <childnode refid="12" relation="include">
+        </childnode>
+        <childnode refid="9" relation="include">
+        </childnode>
+      </node>
+      <node id="3">
+        <label>IntegratorRegistration.cpp</label>
+        <link refid="IntegratorRegistration_8cpp"/>
+      </node>
       <node id="11">
         <label>rrTestSuiteModelSimulation.h</label>
         <link refid="rrTestSuiteModelSimulation_8h_source"/>
       </node>
-      <node id="5">
-        <label>GillespieIntegrator.h</label>
-        <link refid="GillespieIntegrator_8h_source"/>
+      <node id="6">
+        <label>RK45Integrator.h</label>
+        <link refid="RK45Integrator_8h"/>
         <childnode refid="3" relation="include">
+        </childnode>
+      </node>
+      <node id="9">
+        <label>/Users/ciaranwelsh/Documents/roadrunner/wrappers/C/rrc_api.cpp</label>
+        <link refid="rrc__api_8cpp"/>
+      </node>
+      <node id="4">
+        <label>EulerIntegrator.h</label>
+        <link refid="EulerIntegrator_8h_source"/>
+        <childnode refid="3" relation="include">
+        </childnode>
+      </node>
+      <node id="10">
+        <label>rrSBMLModelSimulation.h</label>
+        <link refid="rrSBMLModelSimulation_8h_source"/>
+        <childnode refid="11" relation="include">
         </childnode>
       </node>
     </invincdepgraph>
@@ -278,167 +302,161 @@
 <codeline lineno="14"><highlight class="normal"></highlight></codeline>
 <codeline lineno="15"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&lt;string&gt;</highlight><highlight class="normal"></highlight></codeline>
 <codeline lineno="16"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&lt;vector&gt;</highlight><highlight class="normal"></highlight></codeline>
-<codeline lineno="17"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&quot;tr1proxy/rr_memory.h&quot;</highlight><highlight class="normal"></highlight></codeline>
-<codeline lineno="18"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&quot;tr1proxy/rr_unordered_map.h&quot;</highlight><highlight class="normal"></highlight></codeline>
-<codeline lineno="19"><highlight class="normal"></highlight></codeline>
-<codeline lineno="20"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&lt;stdint.h&gt;</highlight><highlight class="normal"></highlight></codeline>
-<codeline lineno="21"><highlight class="normal"></highlight></codeline>
-<codeline lineno="22"><highlight class="normal"></highlight><highlight class="keyword">namespace<sp/></highlight><highlight class="normal">rr</highlight></codeline>
-<codeline lineno="23"><highlight class="normal">{</highlight></codeline>
-<codeline lineno="24"><highlight class="normal"></highlight></codeline>
-<codeline lineno="31" refid="classrr_1_1LoadSBMLOptions" refkind="compound"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keyword">class<sp/></highlight><highlight class="normal">RR_DECLSPEC<sp/><ref refid="classrr_1_1LoadSBMLOptions" kindref="compound">LoadSBMLOptions</ref><sp/>:<sp/></highlight><highlight class="keyword">public</highlight><highlight class="normal"><sp/><ref refid="classrr_1_1BasicDictionary" kindref="compound">BasicDictionary</ref></highlight></codeline>
-<codeline lineno="32"><highlight class="normal"><sp/><sp/><sp/><sp/>{</highlight></codeline>
-<codeline lineno="33"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keyword">public</highlight><highlight class="normal">:</highlight></codeline>
-<codeline lineno="34" refid="classrr_1_1LoadSBMLOptions_1a7b6ca6fc32892dbe782f3eb718762ad6" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keyword">enum</highlight><highlight class="normal"><sp/><ref refid="classrr_1_1LoadSBMLOptions_1a7b6ca6fc32892dbe782f3eb718762ad6" kindref="member">ModelGeneratorOpt</ref></highlight></codeline>
-<codeline lineno="35"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>{</highlight></codeline>
-<codeline lineno="45" refid="classrr_1_1LoadSBMLOptions_1a7b6ca6fc32892dbe782f3eb718762ad6ae77d97fa1a40a716d3e15f216965a26f" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>CONSERVED_MOIETIES<sp/>=<sp/>(0x1<sp/>&lt;&lt;<sp/>0),<sp/><sp/></highlight><highlight class="comment">//<sp/>=&gt;<sp/>0x00000001</highlight><highlight class="normal"></highlight></codeline>
-<codeline lineno="46"><highlight class="normal"></highlight></codeline>
-<codeline lineno="58" refid="classrr_1_1LoadSBMLOptions_1a7b6ca6fc32892dbe782f3eb718762ad6a9dcbd508a994cd5a803e231e0054ff3d" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>RECOMPILE<sp/>=<sp/>(0x1<sp/>&lt;&lt;<sp/>1),<sp/><sp/></highlight><highlight class="comment">//<sp/>=&gt;<sp/>0x00000010</highlight><highlight class="normal"></highlight></codeline>
-<codeline lineno="59"><highlight class="normal"></highlight></codeline>
-<codeline lineno="69" refid="classrr_1_1LoadSBMLOptions_1a7b6ca6fc32892dbe782f3eb718762ad6a8058d91b0aebc14e1045b721a5162d60" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>READ_ONLY<sp/>=<sp/>(0x1<sp/>&lt;&lt;<sp/>2),<sp/><sp/></highlight><highlight class="comment">//<sp/>=&gt;<sp/>0x00000100</highlight><highlight class="normal"></highlight></codeline>
-<codeline lineno="70"><highlight class="normal"></highlight></codeline>
-<codeline lineno="75" refid="classrr_1_1LoadSBMLOptions_1a7b6ca6fc32892dbe782f3eb718762ad6aac3f87fdc0fe128777ff39245e179386" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>MUTABLE_INITIAL_CONDITIONS<sp/>=<sp/>(0x1<sp/>&lt;&lt;<sp/>3),<sp/><sp/><sp/></highlight><highlight class="comment">//<sp/>=&gt;<sp/>0x00001000</highlight><highlight class="normal"></highlight></codeline>
-<codeline lineno="76"><highlight class="normal"></highlight></codeline>
-<codeline lineno="81" refid="classrr_1_1LoadSBMLOptions_1a7b6ca6fc32892dbe782f3eb718762ad6a394b597c8d7ad74dbeae9b1dbf5c506c" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>OPTIMIZE_GVN<sp/>=<sp/>(0x1<sp/>&lt;&lt;<sp/>4),</highlight></codeline>
-<codeline lineno="82"><highlight class="normal"></highlight></codeline>
-<codeline lineno="87" refid="classrr_1_1LoadSBMLOptions_1a7b6ca6fc32892dbe782f3eb718762ad6a835bf2f8dc46986611fb3964cba2e16c" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>OPTIMIZE_CFG_SIMPLIFICATION<sp/>=<sp/>(0x1<sp/>&lt;&lt;<sp/>5),</highlight></codeline>
-<codeline lineno="88"><highlight class="normal"></highlight></codeline>
-<codeline lineno="94" refid="classrr_1_1LoadSBMLOptions_1a7b6ca6fc32892dbe782f3eb718762ad6a79d5b76ab944a753edbe6f17afcba245" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>OPTIMIZE_INSTRUCTION_COMBINING<sp/>=<sp/>(0x1<sp/>&lt;&lt;<sp/>6),</highlight></codeline>
-<codeline lineno="95"><highlight class="normal"></highlight></codeline>
-<codeline lineno="101" refid="classrr_1_1LoadSBMLOptions_1a7b6ca6fc32892dbe782f3eb718762ad6aeb5debe90dbf97e493c575344d400f1d" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>OPTIMIZE_DEAD_INST_ELIMINATION<sp/>=<sp/>(0x1<sp/>&lt;&lt;<sp/>7),</highlight></codeline>
-<codeline lineno="102"><highlight class="normal"></highlight></codeline>
-<codeline lineno="109" refid="classrr_1_1LoadSBMLOptions_1a7b6ca6fc32892dbe782f3eb718762ad6ad2af9d75e3a874196cead78d2b77e4ef" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>OPTIMIZE_DEAD_CODE_ELIMINATION<sp/>=<sp/>(0x1<sp/>&lt;&lt;<sp/>8),</highlight></codeline>
-<codeline lineno="110"><highlight class="normal"></highlight></codeline>
-<codeline lineno="114" refid="classrr_1_1LoadSBMLOptions_1a7b6ca6fc32892dbe782f3eb718762ad6ad7277e17a05d1916c93fd12ba5ec7bf2" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>OPTIMIZE_INSTRUCTION_SIMPLIFIER<sp/>=<sp/>(0x1<sp/>&lt;&lt;<sp/>9),</highlight></codeline>
-<codeline lineno="115"><highlight class="normal"></highlight></codeline>
-<codeline lineno="120"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>OPTIMIZE<sp/>=<sp/>OPTIMIZE_GVN<sp/>|<sp/>OPTIMIZE_CFG_SIMPLIFICATION<sp/>|</highlight></codeline>
-<codeline lineno="121"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>OPTIMIZE_INSTRUCTION_COMBINING<sp/>|</highlight></codeline>
-<codeline lineno="122"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>OPTIMIZE_DEAD_INST_ELIMINATION<sp/>|<sp/>OPTIMIZE_DEAD_CODE_ELIMINATION<sp/>|</highlight></codeline>
-<codeline lineno="123" refid="classrr_1_1LoadSBMLOptions_1a7b6ca6fc32892dbe782f3eb718762ad6ad53a6cbbe3215d196e9727e153535ef7" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>OPTIMIZE_INSTRUCTION_SIMPLIFIER,</highlight></codeline>
-<codeline lineno="124"><highlight class="normal"></highlight></codeline>
-<codeline lineno="133" refid="classrr_1_1LoadSBMLOptions_1a7b6ca6fc32892dbe782f3eb718762ad6a9d06cd74f97fe87123e9fd1733438b87" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>USE_MCJIT<sp/>=<sp/>(0x1<sp/>&lt;&lt;<sp/>10),</highlight></codeline>
-<codeline lineno="134"><highlight class="normal"></highlight></codeline>
-<codeline lineno="135"><highlight class="normal"></highlight></codeline>
-<codeline lineno="136"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>LLVM_SYMBOL_CACHE<sp/>=<sp/>(0x1<sp/>&lt;&lt;<sp/>11),</highlight></codeline>
-<codeline lineno="137"><highlight class="normal"></highlight></codeline>
-<codeline lineno="141"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>TURN_ON_VALIDATION<sp/>=<sp/>(0x1<sp/>&lt;&lt;<sp/>12)</highlight></codeline>
-<codeline lineno="142" refid="classrr_1_1LoadSBMLOptions_1a7b6ca6fc32892dbe782f3eb718762ad6a02ec96c88cb0ed7374b72474bc4e5be0" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>};</highlight></codeline>
-<codeline lineno="143"><highlight class="normal"></highlight></codeline>
-<codeline lineno="144" refid="classrr_1_1LoadSBMLOptions_1a686f9d0515d333b1551f5afd2db39e2a" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keyword">enum</highlight><highlight class="normal"><sp/><ref refid="classrr_1_1LoadSBMLOptions_1a686f9d0515d333b1551f5afd2db39e2a" kindref="member">LoadOpt</ref></highlight></codeline>
-<codeline lineno="145"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>{</highlight></codeline>
-<codeline lineno="149"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>NO_DEFAULT_SELECTIONS<sp/>=<sp/>(0x1<sp/>&lt;&lt;<sp/>0)<sp/><sp/><sp/></highlight><highlight class="comment">//<sp/>=&gt;<sp/>0x00000001</highlight><highlight class="normal"></highlight></codeline>
-<codeline lineno="150" refid="classrr_1_1LoadSBMLOptions_1a686f9d0515d333b1551f5afd2db39e2aa8b896a0fb0b7b957c11d4624e96c728b" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>};</highlight></codeline>
-<codeline lineno="151"><highlight class="normal"></highlight></codeline>
-<codeline lineno="155"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="classrr_1_1LoadSBMLOptions" kindref="compound">LoadSBMLOptions</ref>();</highlight></codeline>
-<codeline lineno="156"><highlight class="normal"></highlight></codeline>
-<codeline lineno="160"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="classrr_1_1LoadSBMLOptions" kindref="compound">LoadSBMLOptions</ref>(</highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/><ref refid="classrr_1_1Dictionary" kindref="compound">Dictionary</ref>*<sp/>dict);</highlight></codeline>
-<codeline lineno="161"><highlight class="normal"></highlight></codeline>
-<codeline lineno="165" refid="classrr_1_1LoadSBMLOptions_1a131407b1f65a4bba3e7a4af04af5bfe6" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>uint16_t<sp/><ref refid="classrr_1_1LoadSBMLOptions_1a131407b1f65a4bba3e7a4af04af5bfe6" kindref="member">version</ref>;</highlight></codeline>
-<codeline lineno="166"><highlight class="normal"></highlight></codeline>
-<codeline lineno="170" refid="classrr_1_1LoadSBMLOptions_1aa73e004cfce50848e0ea5a9803800d3c" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>uint16_t<sp/><ref refid="classrr_1_1LoadSBMLOptions_1aa73e004cfce50848e0ea5a9803800d3c" kindref="member">size</ref>;</highlight></codeline>
+<codeline lineno="17"><highlight class="normal"></highlight></codeline>
+<codeline lineno="18"><highlight class="normal"></highlight><highlight class="keyword">namespace<sp/></highlight><highlight class="normal">rr</highlight></codeline>
+<codeline lineno="19"><highlight class="normal">{</highlight></codeline>
+<codeline lineno="20"><highlight class="normal"></highlight></codeline>
+<codeline lineno="27" refid="classrr_1_1LoadSBMLOptions" refkind="compound"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keyword">class<sp/></highlight><highlight class="normal">RR_DECLSPEC<sp/><ref refid="classrr_1_1LoadSBMLOptions" kindref="compound">LoadSBMLOptions</ref><sp/>:<sp/></highlight><highlight class="keyword">public</highlight><highlight class="normal"><sp/><ref refid="classrr_1_1BasicDictionary" kindref="compound">BasicDictionary</ref></highlight></codeline>
+<codeline lineno="28"><highlight class="normal"><sp/><sp/><sp/><sp/>{</highlight></codeline>
+<codeline lineno="29"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keyword">public</highlight><highlight class="normal">:</highlight></codeline>
+<codeline lineno="30" refid="classrr_1_1LoadSBMLOptions_1a7b6ca6fc32892dbe782f3eb718762ad6" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keyword">enum</highlight><highlight class="normal"><sp/><ref refid="classrr_1_1LoadSBMLOptions_1a7b6ca6fc32892dbe782f3eb718762ad6" kindref="member">ModelGeneratorOpt</ref></highlight></codeline>
+<codeline lineno="31"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>{</highlight></codeline>
+<codeline lineno="41" refid="classrr_1_1LoadSBMLOptions_1a7b6ca6fc32892dbe782f3eb718762ad6ae77d97fa1a40a716d3e15f216965a26f" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>CONSERVED_MOIETIES<sp/>=<sp/>(0x1<sp/>&lt;&lt;<sp/>0),<sp/><sp/></highlight><highlight class="comment">//<sp/>=&gt;<sp/>0x00000001</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="42"><highlight class="normal"></highlight></codeline>
+<codeline lineno="54" refid="classrr_1_1LoadSBMLOptions_1a7b6ca6fc32892dbe782f3eb718762ad6a9dcbd508a994cd5a803e231e0054ff3d" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>RECOMPILE<sp/>=<sp/>(0x1<sp/>&lt;&lt;<sp/>1),<sp/><sp/></highlight><highlight class="comment">//<sp/>=&gt;<sp/>0x00000010</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="55"><highlight class="normal"></highlight></codeline>
+<codeline lineno="65" refid="classrr_1_1LoadSBMLOptions_1a7b6ca6fc32892dbe782f3eb718762ad6a8058d91b0aebc14e1045b721a5162d60" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>READ_ONLY<sp/>=<sp/>(0x1<sp/>&lt;&lt;<sp/>2),<sp/><sp/></highlight><highlight class="comment">//<sp/>=&gt;<sp/>0x00000100</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="66"><highlight class="normal"></highlight></codeline>
+<codeline lineno="71" refid="classrr_1_1LoadSBMLOptions_1a7b6ca6fc32892dbe782f3eb718762ad6aac3f87fdc0fe128777ff39245e179386" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>MUTABLE_INITIAL_CONDITIONS<sp/>=<sp/>(0x1<sp/>&lt;&lt;<sp/>3),<sp/><sp/><sp/></highlight><highlight class="comment">//<sp/>=&gt;<sp/>0x00001000</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="72"><highlight class="normal"></highlight></codeline>
+<codeline lineno="77" refid="classrr_1_1LoadSBMLOptions_1a7b6ca6fc32892dbe782f3eb718762ad6a394b597c8d7ad74dbeae9b1dbf5c506c" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>OPTIMIZE_GVN<sp/>=<sp/>(0x1<sp/>&lt;&lt;<sp/>4),</highlight></codeline>
+<codeline lineno="78"><highlight class="normal"></highlight></codeline>
+<codeline lineno="83" refid="classrr_1_1LoadSBMLOptions_1a7b6ca6fc32892dbe782f3eb718762ad6a835bf2f8dc46986611fb3964cba2e16c" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>OPTIMIZE_CFG_SIMPLIFICATION<sp/>=<sp/>(0x1<sp/>&lt;&lt;<sp/>5),</highlight></codeline>
+<codeline lineno="84"><highlight class="normal"></highlight></codeline>
+<codeline lineno="90" refid="classrr_1_1LoadSBMLOptions_1a7b6ca6fc32892dbe782f3eb718762ad6a79d5b76ab944a753edbe6f17afcba245" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>OPTIMIZE_INSTRUCTION_COMBINING<sp/>=<sp/>(0x1<sp/>&lt;&lt;<sp/>6),</highlight></codeline>
+<codeline lineno="91"><highlight class="normal"></highlight></codeline>
+<codeline lineno="97" refid="classrr_1_1LoadSBMLOptions_1a7b6ca6fc32892dbe782f3eb718762ad6aeb5debe90dbf97e493c575344d400f1d" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>OPTIMIZE_DEAD_INST_ELIMINATION<sp/>=<sp/>(0x1<sp/>&lt;&lt;<sp/>7),</highlight></codeline>
+<codeline lineno="98"><highlight class="normal"></highlight></codeline>
+<codeline lineno="105" refid="classrr_1_1LoadSBMLOptions_1a7b6ca6fc32892dbe782f3eb718762ad6ad2af9d75e3a874196cead78d2b77e4ef" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>OPTIMIZE_DEAD_CODE_ELIMINATION<sp/>=<sp/>(0x1<sp/>&lt;&lt;<sp/>8),</highlight></codeline>
+<codeline lineno="106"><highlight class="normal"></highlight></codeline>
+<codeline lineno="110" refid="classrr_1_1LoadSBMLOptions_1a7b6ca6fc32892dbe782f3eb718762ad6ad7277e17a05d1916c93fd12ba5ec7bf2" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>OPTIMIZE_INSTRUCTION_SIMPLIFIER<sp/>=<sp/>(0x1<sp/>&lt;&lt;<sp/>9),</highlight></codeline>
+<codeline lineno="111"><highlight class="normal"></highlight></codeline>
+<codeline lineno="116"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>OPTIMIZE<sp/>=<sp/>OPTIMIZE_GVN<sp/>|<sp/>OPTIMIZE_CFG_SIMPLIFICATION<sp/>|</highlight></codeline>
+<codeline lineno="117"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>OPTIMIZE_INSTRUCTION_COMBINING<sp/>|</highlight></codeline>
+<codeline lineno="118"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>OPTIMIZE_DEAD_INST_ELIMINATION<sp/>|<sp/>OPTIMIZE_DEAD_CODE_ELIMINATION<sp/>|</highlight></codeline>
+<codeline lineno="119" refid="classrr_1_1LoadSBMLOptions_1a7b6ca6fc32892dbe782f3eb718762ad6ad53a6cbbe3215d196e9727e153535ef7" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>OPTIMIZE_INSTRUCTION_SIMPLIFIER,</highlight></codeline>
+<codeline lineno="120"><highlight class="normal"></highlight></codeline>
+<codeline lineno="129" refid="classrr_1_1LoadSBMLOptions_1a7b6ca6fc32892dbe782f3eb718762ad6a9d06cd74f97fe87123e9fd1733438b87" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>USE_MCJIT<sp/>=<sp/>(0x1<sp/>&lt;&lt;<sp/>10),</highlight></codeline>
+<codeline lineno="130"><highlight class="normal"></highlight></codeline>
+<codeline lineno="131"><highlight class="normal"></highlight></codeline>
+<codeline lineno="132"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>LLVM_SYMBOL_CACHE<sp/>=<sp/>(0x1<sp/>&lt;&lt;<sp/>11),</highlight></codeline>
+<codeline lineno="133"><highlight class="normal"></highlight></codeline>
+<codeline lineno="137"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>TURN_ON_VALIDATION<sp/>=<sp/>(0x1<sp/>&lt;&lt;<sp/>12)</highlight></codeline>
+<codeline lineno="138" refid="classrr_1_1LoadSBMLOptions_1a7b6ca6fc32892dbe782f3eb718762ad6a02ec96c88cb0ed7374b72474bc4e5be0" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>};</highlight></codeline>
+<codeline lineno="139"><highlight class="normal"></highlight></codeline>
+<codeline lineno="140" refid="classrr_1_1LoadSBMLOptions_1a686f9d0515d333b1551f5afd2db39e2a" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keyword">enum</highlight><highlight class="normal"><sp/><ref refid="classrr_1_1LoadSBMLOptions_1a686f9d0515d333b1551f5afd2db39e2a" kindref="member">LoadOpt</ref></highlight></codeline>
+<codeline lineno="141"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>{</highlight></codeline>
+<codeline lineno="145"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>NO_DEFAULT_SELECTIONS<sp/>=<sp/>(0x1<sp/>&lt;&lt;<sp/>0)<sp/><sp/><sp/></highlight><highlight class="comment">//<sp/>=&gt;<sp/>0x00000001</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="146" refid="classrr_1_1LoadSBMLOptions_1a686f9d0515d333b1551f5afd2db39e2aa8b896a0fb0b7b957c11d4624e96c728b" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>};</highlight></codeline>
+<codeline lineno="147"><highlight class="normal"></highlight></codeline>
+<codeline lineno="151"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="classrr_1_1LoadSBMLOptions" kindref="compound">LoadSBMLOptions</ref>();</highlight></codeline>
+<codeline lineno="152"><highlight class="normal"></highlight></codeline>
+<codeline lineno="156"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="classrr_1_1LoadSBMLOptions" kindref="compound">LoadSBMLOptions</ref>(</highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/><ref refid="classrr_1_1Dictionary" kindref="compound">Dictionary</ref>*<sp/>dict);</highlight></codeline>
+<codeline lineno="157"><highlight class="normal"></highlight></codeline>
+<codeline lineno="161" refid="classrr_1_1LoadSBMLOptions_1ae95402b02db628dc9b7c53b08de654c6" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>std::uint16_t<sp/><ref refid="classrr_1_1LoadSBMLOptions_1ae95402b02db628dc9b7c53b08de654c6" kindref="member">version</ref>;</highlight></codeline>
+<codeline lineno="162"><highlight class="normal"></highlight></codeline>
+<codeline lineno="166" refid="classrr_1_1LoadSBMLOptions_1a793ade36e4ae97eb6f8788d1470721ca" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>std::uint16_t<sp/><ref refid="classrr_1_1LoadSBMLOptions_1a793ade36e4ae97eb6f8788d1470721ca" kindref="member">size</ref>;</highlight></codeline>
+<codeline lineno="167"><highlight class="normal"></highlight></codeline>
+<codeline lineno="168"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>std::uint32_t<sp/>modelGeneratorOpt;</highlight></codeline>
+<codeline lineno="169"><highlight class="normal"></highlight></codeline>
+<codeline lineno="170"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>std::uint32_t<sp/>loadFlags;</highlight></codeline>
 <codeline lineno="171"><highlight class="normal"></highlight></codeline>
 <codeline lineno="172"><highlight class="normal"></highlight></codeline>
-<codeline lineno="173"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>uint32_t<sp/>modelGeneratorOpt;</highlight></codeline>
-<codeline lineno="174"><highlight class="normal"></highlight></codeline>
-<codeline lineno="175"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>uint32_t<sp/>loadFlags;</highlight></codeline>
-<codeline lineno="176"><highlight class="normal"></highlight></codeline>
+<codeline lineno="176"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/>setItem(</highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/>std::string&amp;<sp/>key,<sp/></highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/><ref refid="classrr_1_1Setting" kindref="compound">rr::Setting</ref>&amp;<sp/>value)<sp/></highlight><highlight class="keyword">override</highlight><highlight class="normal">;</highlight></codeline>
 <codeline lineno="177"><highlight class="normal"></highlight></codeline>
-<codeline lineno="181"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keyword">virtual</highlight><highlight class="normal"><sp/></highlight><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/>setItem(</highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/>std::string&amp;<sp/>key,<sp/></highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/><ref refid="classrr_1_1Variant" kindref="compound">rr::Variant</ref>&amp;<sp/>value);</highlight></codeline>
+<codeline lineno="181"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="classrr_1_1Setting" kindref="compound">Setting</ref><sp/>getItem(</highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/>std::string&amp;<sp/>key)<sp/></highlight><highlight class="keyword">const<sp/>override</highlight><highlight class="normal">;</highlight></codeline>
 <codeline lineno="182"><highlight class="normal"></highlight></codeline>
-<codeline lineno="186"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keyword">virtual</highlight><highlight class="normal"><sp/><ref refid="classrr_1_1Variant" kindref="compound">Variant</ref><sp/>getItem(</highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/>std::string&amp;<sp/>key)<sp/></highlight><highlight class="keyword">const</highlight><highlight class="normal">;</highlight></codeline>
-<codeline lineno="187"><highlight class="normal"></highlight></codeline>
-<codeline lineno="193"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keyword">virtual</highlight><highlight class="normal"><sp/></highlight><highlight class="keywordtype">bool</highlight><highlight class="normal"><sp/>hasKey(</highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/>std::string&amp;<sp/>key)<sp/></highlight><highlight class="keyword">const</highlight><highlight class="normal">;</highlight></codeline>
+<codeline lineno="188"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordtype">bool</highlight><highlight class="normal"><sp/>hasKey(</highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/>std::string&amp;<sp/>key)<sp/></highlight><highlight class="keyword">const<sp/>override</highlight><highlight class="normal">;</highlight></codeline>
+<codeline lineno="189"><highlight class="normal"></highlight></codeline>
+<codeline lineno="193"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordtype">size_t</highlight><highlight class="normal"><sp/>deleteItem(</highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/>std::string&amp;<sp/>key)<sp/></highlight><highlight class="keyword">override</highlight><highlight class="normal">;</highlight></codeline>
 <codeline lineno="194"><highlight class="normal"></highlight></codeline>
-<codeline lineno="198"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keyword">virtual</highlight><highlight class="normal"><sp/></highlight><highlight class="keywordtype">size_t</highlight><highlight class="normal"><sp/>deleteItem(</highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/>std::string&amp;<sp/>key);</highlight></codeline>
+<codeline lineno="198"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>std::vector&lt;std::string&gt;<sp/>getKeys()<sp/></highlight><highlight class="keyword">const<sp/>override</highlight><highlight class="normal">;</highlight></codeline>
 <codeline lineno="199"><highlight class="normal"></highlight></codeline>
-<codeline lineno="203"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keyword">virtual</highlight><highlight class="normal"><sp/>std::vector&lt;std::string&gt;<sp/>getKeys()<sp/></highlight><highlight class="keyword">const</highlight><highlight class="normal">;</highlight></codeline>
-<codeline lineno="204"><highlight class="normal"></highlight></codeline>
-<codeline lineno="205"><highlight class="normal"></highlight></codeline>
-<codeline lineno="206"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keyword">inline</highlight><highlight class="normal"><sp/></highlight><highlight class="keywordtype">bool</highlight><highlight class="normal"><sp/>getConservedMoietyConversion()</highlight><highlight class="keyword"><sp/>const<sp/></highlight><highlight class="normal">{</highlight></codeline>
-<codeline lineno="207"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal"><sp/>modelGeneratorOpt<sp/>&amp;<sp/>CONSERVED_MOIETIES;</highlight></codeline>
+<codeline lineno="200"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keyword">inline</highlight><highlight class="normal"><sp/></highlight><highlight class="keywordtype">bool</highlight><highlight class="normal"><sp/>getConservedMoietyConversion()</highlight><highlight class="keyword"><sp/>const<sp/></highlight><highlight class="normal">{</highlight></codeline>
+<codeline lineno="201"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal"><sp/>modelGeneratorOpt<sp/>&amp;<sp/>CONSERVED_MOIETIES;</highlight></codeline>
+<codeline lineno="202"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="203"><highlight class="normal"></highlight></codeline>
+<codeline lineno="204"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keyword">inline</highlight><highlight class="normal"><sp/></highlight><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/>setConservedMoietyConversion(</highlight><highlight class="keywordtype">bool</highlight><highlight class="normal"><sp/>val)<sp/>{</highlight></codeline>
+<codeline lineno="205"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>modelGeneratorOpt<sp/>=<sp/>val<sp/>?</highlight></codeline>
+<codeline lineno="206"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>modelGeneratorOpt<sp/>|<sp/>CONSERVED_MOIETIES<sp/>:</highlight></codeline>
+<codeline lineno="207"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>modelGeneratorOpt<sp/>&amp;<sp/>~CONSERVED_MOIETIES;</highlight></codeline>
 <codeline lineno="208"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>}</highlight></codeline>
 <codeline lineno="209"><highlight class="normal"></highlight></codeline>
-<codeline lineno="210"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keyword">inline</highlight><highlight class="normal"><sp/></highlight><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/>setConservedMoietyConversion(</highlight><highlight class="keywordtype">bool</highlight><highlight class="normal"><sp/>val)<sp/>{</highlight></codeline>
-<codeline lineno="211"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>modelGeneratorOpt<sp/>=<sp/>val<sp/>?</highlight></codeline>
-<codeline lineno="212"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>modelGeneratorOpt<sp/>|<sp/>CONSERVED_MOIETIES<sp/>:</highlight></codeline>
-<codeline lineno="213"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>modelGeneratorOpt<sp/>&amp;<sp/>~CONSERVED_MOIETIES;</highlight></codeline>
+<codeline lineno="210"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keyword">inline</highlight><highlight class="normal"><sp/></highlight><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/>setValidation(</highlight><highlight class="keywordtype">bool</highlight><highlight class="normal"><sp/>val)<sp/>{</highlight></codeline>
+<codeline lineno="211"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>loadFlags<sp/>=<sp/>val<sp/>?</highlight></codeline>
+<codeline lineno="212"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>loadFlags<sp/>|<sp/>TURN_ON_VALIDATION<sp/>:</highlight></codeline>
+<codeline lineno="213"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>loadFlags<sp/>&amp;<sp/>~TURN_ON_VALIDATION;</highlight></codeline>
 <codeline lineno="214"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>}</highlight></codeline>
 <codeline lineno="215"><highlight class="normal"></highlight></codeline>
-<codeline lineno="216"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keyword">inline</highlight><highlight class="normal"><sp/></highlight><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/>setValidation(</highlight><highlight class="keywordtype">bool</highlight><highlight class="normal"><sp/>val)<sp/>{</highlight></codeline>
-<codeline lineno="217"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>loadFlags<sp/>=<sp/>val<sp/>?</highlight></codeline>
-<codeline lineno="218"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>loadFlags<sp/>|<sp/>TURN_ON_VALIDATION<sp/>:</highlight></codeline>
-<codeline lineno="219"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>loadFlags<sp/>&amp;<sp/>~TURN_ON_VALIDATION;</highlight></codeline>
-<codeline lineno="220"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>}</highlight></codeline>
-<codeline lineno="221"><highlight class="normal"></highlight></codeline>
-<codeline lineno="222"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keyword">virtual</highlight><highlight class="normal"><sp/>~LoadSBMLOptions();</highlight></codeline>
+<codeline lineno="216"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keyword">virtual</highlight><highlight class="normal"><sp/>~LoadSBMLOptions();</highlight></codeline>
+<codeline lineno="217"><highlight class="normal"></highlight></codeline>
+<codeline lineno="218"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keyword">private</highlight><highlight class="normal">:</highlight></codeline>
+<codeline lineno="219"><highlight class="normal"></highlight></codeline>
+<codeline lineno="220"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">//<sp/>load<sp/>default<sp/>values;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="221"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/>defaultInit();</highlight></codeline>
+<codeline lineno="222"><highlight class="normal"><sp/><sp/><sp/><sp/>};</highlight></codeline>
 <codeline lineno="223"><highlight class="normal"></highlight></codeline>
-<codeline lineno="224"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keyword">private</highlight><highlight class="normal">:</highlight></codeline>
-<codeline lineno="225"><highlight class="normal"></highlight></codeline>
-<codeline lineno="226"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">//<sp/>load<sp/>default<sp/>values;</highlight><highlight class="normal"></highlight></codeline>
-<codeline lineno="227"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/>defaultInit();</highlight></codeline>
-<codeline lineno="228"><highlight class="normal"><sp/><sp/><sp/><sp/>};</highlight></codeline>
-<codeline lineno="229"><highlight class="normal"></highlight></codeline>
-<codeline lineno="241" refid="classrr_1_1SimulateOptions" refkind="compound"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keyword">class<sp/></highlight><highlight class="normal">RR_DECLSPEC<sp/><ref refid="classrr_1_1SimulateOptions" kindref="compound">SimulateOptions</ref><sp/>:<sp/></highlight><highlight class="keyword">public</highlight><highlight class="normal"><sp/><ref refid="classrr_1_1BasicDictionary" kindref="compound">BasicDictionary</ref></highlight></codeline>
-<codeline lineno="242"><highlight class="normal"><sp/><sp/><sp/><sp/>{</highlight></codeline>
-<codeline lineno="243"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keyword">public</highlight><highlight class="normal">:</highlight></codeline>
-<codeline lineno="244"><highlight class="normal"></highlight></codeline>
-<codeline lineno="248"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="classrr_1_1SimulateOptions" kindref="compound">SimulateOptions</ref>();</highlight></codeline>
-<codeline lineno="249"><highlight class="normal"></highlight></codeline>
-<codeline lineno="253" refid="classrr_1_1SimulateOptions_1a4fd459e58c6ad47dc8cd271591f28a3a" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordtype">bool</highlight><highlight class="normal"><sp/><ref refid="classrr_1_1SimulateOptions_1a4fd459e58c6ad47dc8cd271591f28a3a" kindref="member">reset_model</ref>;</highlight></codeline>
-<codeline lineno="258" refid="classrr_1_1SimulateOptions_1a9087842fab7661b93dbc103e02f8908d" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordtype">bool</highlight><highlight class="normal"><sp/><ref refid="classrr_1_1SimulateOptions_1a9087842fab7661b93dbc103e02f8908d" kindref="member">structured_result</ref>;</highlight></codeline>
-<codeline lineno="263" refid="classrr_1_1SimulateOptions_1a93e8b08b6e526f96226333f83a1ac049" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordtype">bool</highlight><highlight class="normal"><sp/><ref refid="classrr_1_1SimulateOptions_1a93e8b08b6e526f96226333f83a1ac049" kindref="member">copy_result</ref>;</highlight></codeline>
-<codeline lineno="264"><highlight class="normal"></highlight></codeline>
-<codeline lineno="271" refid="classrr_1_1SimulateOptions_1a20008b16d84ef52a564648671d0c544b" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/><ref refid="classrr_1_1SimulateOptions_1a20008b16d84ef52a564648671d0c544b" kindref="member">steps</ref>;</highlight></codeline>
+<codeline lineno="235" refid="classrr_1_1SimulateOptions" refkind="compound"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keyword">class<sp/></highlight><highlight class="normal">RR_DECLSPEC<sp/><ref refid="classrr_1_1SimulateOptions" kindref="compound">SimulateOptions</ref><sp/>:<sp/></highlight><highlight class="keyword">public</highlight><highlight class="normal"><sp/><ref refid="classrr_1_1BasicDictionary" kindref="compound">BasicDictionary</ref></highlight></codeline>
+<codeline lineno="236"><highlight class="normal"><sp/><sp/><sp/><sp/>{</highlight></codeline>
+<codeline lineno="237"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keyword">public</highlight><highlight class="normal">:</highlight></codeline>
+<codeline lineno="238"><highlight class="normal"></highlight></codeline>
+<codeline lineno="242"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="classrr_1_1SimulateOptions" kindref="compound">SimulateOptions</ref>();</highlight></codeline>
+<codeline lineno="243"><highlight class="normal"></highlight></codeline>
+<codeline lineno="247" refid="classrr_1_1SimulateOptions_1a4fd459e58c6ad47dc8cd271591f28a3a" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordtype">bool</highlight><highlight class="normal"><sp/><ref refid="classrr_1_1SimulateOptions_1a4fd459e58c6ad47dc8cd271591f28a3a" kindref="member">reset_model</ref>;</highlight></codeline>
+<codeline lineno="252" refid="classrr_1_1SimulateOptions_1a9087842fab7661b93dbc103e02f8908d" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordtype">bool</highlight><highlight class="normal"><sp/><ref refid="classrr_1_1SimulateOptions_1a9087842fab7661b93dbc103e02f8908d" kindref="member">structured_result</ref>;</highlight></codeline>
+<codeline lineno="257" refid="classrr_1_1SimulateOptions_1a93e8b08b6e526f96226333f83a1ac049" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordtype">bool</highlight><highlight class="normal"><sp/><ref refid="classrr_1_1SimulateOptions_1a93e8b08b6e526f96226333f83a1ac049" kindref="member">copy_result</ref>;</highlight></codeline>
+<codeline lineno="258"><highlight class="normal"></highlight></codeline>
+<codeline lineno="265" refid="classrr_1_1SimulateOptions_1a20008b16d84ef52a564648671d0c544b" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/><ref refid="classrr_1_1SimulateOptions_1a20008b16d84ef52a564648671d0c544b" kindref="member">steps</ref>;</highlight></codeline>
+<codeline lineno="266"><highlight class="normal"></highlight></codeline>
+<codeline lineno="271" refid="classrr_1_1SimulateOptions_1ae25c38171cedd08bf0cc43932c07822e" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordtype">double</highlight><highlight class="normal"><sp/><ref refid="classrr_1_1SimulateOptions_1ae25c38171cedd08bf0cc43932c07822e" kindref="member">start</ref>;</highlight></codeline>
 <codeline lineno="272"><highlight class="normal"></highlight></codeline>
-<codeline lineno="277" refid="classrr_1_1SimulateOptions_1ae25c38171cedd08bf0cc43932c07822e" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordtype">double</highlight><highlight class="normal"><sp/><ref refid="classrr_1_1SimulateOptions_1ae25c38171cedd08bf0cc43932c07822e" kindref="member">start</ref>;</highlight></codeline>
+<codeline lineno="276" refid="classrr_1_1SimulateOptions_1a6917a73a48307d38643923182b28b0c4" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordtype">double</highlight><highlight class="normal"><sp/><ref refid="classrr_1_1SimulateOptions_1a6917a73a48307d38643923182b28b0c4" kindref="member">duration</ref>;</highlight></codeline>
+<codeline lineno="277"><highlight class="normal"></highlight></codeline>
 <codeline lineno="278"><highlight class="normal"></highlight></codeline>
-<codeline lineno="282" refid="classrr_1_1SimulateOptions_1a6917a73a48307d38643923182b28b0c4" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordtype">double</highlight><highlight class="normal"><sp/><ref refid="classrr_1_1SimulateOptions_1a6917a73a48307d38643923182b28b0c4" kindref="member">duration</ref>;</highlight></codeline>
-<codeline lineno="283"><highlight class="normal"></highlight></codeline>
-<codeline lineno="284"><highlight class="normal"></highlight></codeline>
-<codeline lineno="291" refid="classrr_1_1SimulateOptions_1a09d7ee18803cb8ca6f96f71d60eeb78e" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>std::string<sp/><ref refid="classrr_1_1SimulateOptions_1a09d7ee18803cb8ca6f96f71d60eeb78e" kindref="member">output_file</ref>;</highlight></codeline>
-<codeline lineno="292"><highlight class="normal"></highlight></codeline>
-<codeline lineno="307" refid="classrr_1_1SimulateOptions_1a0953c07a719d03a4d558a9bf2ce16f83" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>std::vector&lt;std::string&gt;<sp/><ref refid="classrr_1_1SimulateOptions_1a0953c07a719d03a4d558a9bf2ce16f83" kindref="member">variables</ref>;</highlight></codeline>
-<codeline lineno="308"><highlight class="normal"></highlight></codeline>
-<codeline lineno="314" refid="classrr_1_1SimulateOptions_1a13c457ced6a6396d9cb8dcecf42f0dee" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>std::vector&lt;std::string&gt;<sp/><ref refid="classrr_1_1SimulateOptions_1a13c457ced6a6396d9cb8dcecf42f0dee" kindref="member">amounts</ref>;</highlight></codeline>
-<codeline lineno="315"><highlight class="normal"></highlight></codeline>
-<codeline lineno="321" refid="classrr_1_1SimulateOptions_1a3fb8836610f52922ee371fdf06331e97" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>std::vector&lt;std::string&gt;<sp/><ref refid="classrr_1_1SimulateOptions_1a3fb8836610f52922ee371fdf06331e97" kindref="member">concentrations</ref>;</highlight></codeline>
-<codeline lineno="322"><highlight class="normal"></highlight></codeline>
-<codeline lineno="326"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>std::string<sp/>toString()<sp/></highlight><highlight class="keyword">const</highlight><highlight class="normal">;</highlight></codeline>
-<codeline lineno="327"><highlight class="normal"></highlight></codeline>
-<codeline lineno="331"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>std::string<sp/>toRepr()<sp/></highlight><highlight class="keyword">const</highlight><highlight class="normal">;</highlight></codeline>
-<codeline lineno="332"><highlight class="normal"></highlight></codeline>
-<codeline lineno="333"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">/*<sp/><sp/>Use<sp/>this<sp/>method<sp/>to<sp/>load<sp/>SimulateOptions<sp/>from<sp/>an<sp/>SBML<sp/>file.<sp/>Previously<sp/>this<sp/>was<sp/>done<sp/>by</highlight></codeline>
-<codeline lineno="334"><highlight class="comment"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>*<sp/><sp/>passing<sp/>the<sp/>filepath<sp/>into<sp/>the<sp/>SimulateOptions<sp/>constructor.<sp/>However,<sp/>the<sp/>refactor<sp/>has</highlight></codeline>
-<codeline lineno="335"><highlight class="comment"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>*<sp/><sp/>removed<sp/>some<sp/>properties<sp/>from<sp/>SimulateOptions<sp/>and<sp/>placed<sp/>them<sp/>in<sp/>specific<sp/>integrators.<sp/>As</highlight></codeline>
-<codeline lineno="336"><highlight class="comment"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>*<sp/><sp/>a<sp/>result,<sp/>both<sp/>the<sp/>SimulateOptions<sp/>and<sp/>Integrator<sp/>classes<sp/>will<sp/>have<sp/>methods<sp/>that<sp/>allow</highlight></codeline>
-<codeline lineno="337"><highlight class="comment"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>*<sp/><sp/>users<sp/>to<sp/>read<sp/>an<sp/>SBML<sp/>settings<sp/>file.</highlight></codeline>
-<codeline lineno="338"><highlight class="comment"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>*/</highlight><highlight class="normal"></highlight></codeline>
-<codeline lineno="339"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/>loadSBMLSettings(</highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/>std::string&amp;<sp/>filename);</highlight></codeline>
+<codeline lineno="285" refid="classrr_1_1SimulateOptions_1a09d7ee18803cb8ca6f96f71d60eeb78e" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>std::string<sp/><ref refid="classrr_1_1SimulateOptions_1a09d7ee18803cb8ca6f96f71d60eeb78e" kindref="member">output_file</ref>;</highlight></codeline>
+<codeline lineno="286"><highlight class="normal"></highlight></codeline>
+<codeline lineno="301" refid="classrr_1_1SimulateOptions_1a0953c07a719d03a4d558a9bf2ce16f83" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>std::vector&lt;std::string&gt;<sp/><ref refid="classrr_1_1SimulateOptions_1a0953c07a719d03a4d558a9bf2ce16f83" kindref="member">variables</ref>;</highlight></codeline>
+<codeline lineno="302"><highlight class="normal"></highlight></codeline>
+<codeline lineno="308" refid="classrr_1_1SimulateOptions_1a13c457ced6a6396d9cb8dcecf42f0dee" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>std::vector&lt;std::string&gt;<sp/><ref refid="classrr_1_1SimulateOptions_1a13c457ced6a6396d9cb8dcecf42f0dee" kindref="member">amounts</ref>;</highlight></codeline>
+<codeline lineno="309"><highlight class="normal"></highlight></codeline>
+<codeline lineno="315" refid="classrr_1_1SimulateOptions_1a3fb8836610f52922ee371fdf06331e97" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>std::vector&lt;std::string&gt;<sp/><ref refid="classrr_1_1SimulateOptions_1a3fb8836610f52922ee371fdf06331e97" kindref="member">concentrations</ref>;</highlight></codeline>
+<codeline lineno="316"><highlight class="normal"></highlight></codeline>
+<codeline lineno="320"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>std::string<sp/>toString()<sp/></highlight><highlight class="keyword">const</highlight><highlight class="normal">;</highlight></codeline>
+<codeline lineno="321"><highlight class="normal"></highlight></codeline>
+<codeline lineno="325"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>std::string<sp/>toRepr()<sp/></highlight><highlight class="keyword">const</highlight><highlight class="normal">;</highlight></codeline>
+<codeline lineno="326"><highlight class="normal"></highlight></codeline>
+<codeline lineno="327"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">/*<sp/><sp/>Use<sp/>this<sp/>method<sp/>to<sp/>load<sp/>SimulateOptions<sp/>from<sp/>an<sp/>SBML<sp/>file.<sp/>Previously<sp/>this<sp/>was<sp/>done<sp/>by</highlight></codeline>
+<codeline lineno="328"><highlight class="comment"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>*<sp/><sp/>passing<sp/>the<sp/>filepath<sp/>into<sp/>the<sp/>SimulateOptions<sp/>constructor.<sp/>However,<sp/>the<sp/>refactor<sp/>has</highlight></codeline>
+<codeline lineno="329"><highlight class="comment"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>*<sp/><sp/>removed<sp/>some<sp/>properties<sp/>from<sp/>SimulateOptions<sp/>and<sp/>placed<sp/>them<sp/>in<sp/>specific<sp/>integrators.<sp/>As</highlight></codeline>
+<codeline lineno="330"><highlight class="comment"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>*<sp/><sp/>a<sp/>result,<sp/>both<sp/>the<sp/>SimulateOptions<sp/>and<sp/>Integrator<sp/>classes<sp/>will<sp/>have<sp/>methods<sp/>that<sp/>allow</highlight></codeline>
+<codeline lineno="331"><highlight class="comment"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>*<sp/><sp/>users<sp/>to<sp/>read<sp/>an<sp/>SBML<sp/>settings<sp/>file.</highlight></codeline>
+<codeline lineno="332"><highlight class="comment"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="333"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/>loadSBMLSettings(</highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/>std::string&amp;<sp/>filename);</highlight></codeline>
+<codeline lineno="334"><highlight class="normal"></highlight></codeline>
+<codeline lineno="335"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keyword">virtual</highlight><highlight class="normal"><sp/></highlight><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/>setItem(</highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/>std::string&amp;<sp/>key,<sp/></highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/><ref refid="classrr_1_1Setting" kindref="compound">rr::Setting</ref>&amp;<sp/>value);</highlight></codeline>
+<codeline lineno="336"><highlight class="normal"></highlight></codeline>
+<codeline lineno="337"><highlight class="normal"><sp/><sp/><sp/><sp/>};</highlight></codeline>
+<codeline lineno="338"><highlight class="normal"></highlight></codeline>
+<codeline lineno="339"><highlight class="normal"></highlight></codeline>
 <codeline lineno="340"><highlight class="normal"></highlight></codeline>
-<codeline lineno="341"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keyword">virtual</highlight><highlight class="normal"><sp/></highlight><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/>setItem(</highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/>std::string&amp;<sp/>key,<sp/></highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/><ref refid="classrr_1_1Variant" kindref="compound">rr::Variant</ref>&amp;<sp/>value);</highlight></codeline>
-<codeline lineno="342"><highlight class="normal"></highlight></codeline>
-<codeline lineno="343"><highlight class="normal"><sp/><sp/><sp/><sp/>};</highlight></codeline>
-<codeline lineno="344"><highlight class="normal"></highlight></codeline>
-<codeline lineno="345"><highlight class="normal"></highlight></codeline>
-<codeline lineno="346"><highlight class="normal"></highlight></codeline>
-<codeline lineno="351" refid="structrr_1_1RoadRunnerOptions" refkind="compound"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keyword">struct<sp/></highlight><highlight class="normal">RR_DECLSPEC<sp/><ref refid="structrr_1_1RoadRunnerOptions" kindref="compound">RoadRunnerOptions</ref></highlight></codeline>
-<codeline lineno="352"><highlight class="normal"><sp/><sp/><sp/><sp/>{</highlight></codeline>
-<codeline lineno="353" refid="structrr_1_1RoadRunnerOptions_1a835c7d4848b4611885e41029261ef2db" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keyword">enum</highlight><highlight class="normal"><sp/><ref refid="structrr_1_1RoadRunnerOptions_1a835c7d4848b4611885e41029261ef2db" kindref="member">Options</ref></highlight></codeline>
-<codeline lineno="354"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>{</highlight></codeline>
-<codeline lineno="362" refid="structrr_1_1RoadRunnerOptions_1a835c7d4848b4611885e41029261ef2dbaf22b160124e62a6fa93c6737e96bfcb8" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>DISABLE_PYTHON_DYNAMIC_PROPERTIES<sp/>=<sp/>(0x1<sp/>&lt;&lt;<sp/>0),<sp/></highlight><highlight class="comment">//<sp/>=&gt;<sp/>0x00000001</highlight><highlight class="normal"></highlight></codeline>
-<codeline lineno="363"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>};</highlight></codeline>
-<codeline lineno="364"><highlight class="normal"></highlight></codeline>
-<codeline lineno="368" refid="structrr_1_1RoadRunnerOptions_1a8ee2e8f6c5c3214f59de5cf773163702" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>uint32_t<sp/><ref refid="structrr_1_1RoadRunnerOptions_1a8ee2e8f6c5c3214f59de5cf773163702" kindref="member">flags</ref>;</highlight></codeline>
-<codeline lineno="369"><highlight class="normal"></highlight></codeline>
-<codeline lineno="373" refid="structrr_1_1RoadRunnerOptions_1a2d2fb9efd9f69c0ab754bba73e3f8a1c" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordtype">double</highlight><highlight class="normal"><sp/><ref refid="structrr_1_1RoadRunnerOptions_1a2d2fb9efd9f69c0ab754bba73e3f8a1c" kindref="member">jacobianStepSize</ref>;</highlight></codeline>
-<codeline lineno="374"><highlight class="normal"></highlight></codeline>
-<codeline lineno="378"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="structrr_1_1RoadRunnerOptions" kindref="compound">RoadRunnerOptions</ref>();</highlight></codeline>
-<codeline lineno="379"><highlight class="normal"></highlight></codeline>
-<codeline lineno="380"><highlight class="normal"><sp/><sp/><sp/><sp/>};</highlight></codeline>
-<codeline lineno="381"><highlight class="normal"></highlight></codeline>
-<codeline lineno="382"><highlight class="normal"></highlight></codeline>
-<codeline lineno="383"><highlight class="normal">}<sp/></highlight><highlight class="comment">/*<sp/>namespace<sp/>rr<sp/>*/</highlight><highlight class="normal"></highlight></codeline>
-<codeline lineno="384"><highlight class="normal"></highlight><highlight class="preprocessor">#endif<sp/></highlight><highlight class="comment">/*<sp/>RRROADRUNNEROPTIONS_H_<sp/>*/</highlight><highlight class="preprocessor"></highlight></codeline>
+<codeline lineno="345" refid="structrr_1_1RoadRunnerOptions" refkind="compound"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keyword">struct<sp/></highlight><highlight class="normal">RR_DECLSPEC<sp/><ref refid="structrr_1_1RoadRunnerOptions" kindref="compound">RoadRunnerOptions</ref></highlight></codeline>
+<codeline lineno="346"><highlight class="normal"><sp/><sp/><sp/><sp/>{</highlight></codeline>
+<codeline lineno="347" refid="structrr_1_1RoadRunnerOptions_1a835c7d4848b4611885e41029261ef2db" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keyword">enum</highlight><highlight class="normal"><sp/><ref refid="structrr_1_1RoadRunnerOptions_1a835c7d4848b4611885e41029261ef2db" kindref="member">Options</ref></highlight></codeline>
+<codeline lineno="348"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>{</highlight></codeline>
+<codeline lineno="356" refid="structrr_1_1RoadRunnerOptions_1a835c7d4848b4611885e41029261ef2dbaf22b160124e62a6fa93c6737e96bfcb8" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>DISABLE_PYTHON_DYNAMIC_PROPERTIES<sp/>=<sp/>(0x1<sp/>&lt;&lt;<sp/>0),<sp/></highlight><highlight class="comment">//<sp/>=&gt;<sp/>0x00000001</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="357"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>};</highlight></codeline>
+<codeline lineno="358"><highlight class="normal"></highlight></codeline>
+<codeline lineno="362" refid="structrr_1_1RoadRunnerOptions_1ab94c4174ca069bee6014b6bd909928d5" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>std::uint32_t<sp/><ref refid="structrr_1_1RoadRunnerOptions_1ab94c4174ca069bee6014b6bd909928d5" kindref="member">flags</ref>;</highlight></codeline>
+<codeline lineno="363"><highlight class="normal"></highlight></codeline>
+<codeline lineno="367" refid="structrr_1_1RoadRunnerOptions_1a2d2fb9efd9f69c0ab754bba73e3f8a1c" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordtype">double</highlight><highlight class="normal"><sp/><ref refid="structrr_1_1RoadRunnerOptions_1a2d2fb9efd9f69c0ab754bba73e3f8a1c" kindref="member">jacobianStepSize</ref>;</highlight></codeline>
+<codeline lineno="368"><highlight class="normal"></highlight></codeline>
+<codeline lineno="372"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="structrr_1_1RoadRunnerOptions" kindref="compound">RoadRunnerOptions</ref>();</highlight></codeline>
+<codeline lineno="373"><highlight class="normal"></highlight></codeline>
+<codeline lineno="374"><highlight class="normal"><sp/><sp/><sp/><sp/>};</highlight></codeline>
+<codeline lineno="375"><highlight class="normal"></highlight></codeline>
+<codeline lineno="376"><highlight class="normal"></highlight></codeline>
+<codeline lineno="377"><highlight class="normal">}<sp/></highlight><highlight class="comment">/*<sp/>namespace<sp/>rr<sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="378"><highlight class="normal"></highlight><highlight class="preprocessor">#endif<sp/></highlight><highlight class="comment">/*<sp/>RRROADRUNNEROPTIONS_H_<sp/>*/</highlight><highlight class="preprocessor"></highlight></codeline>
     </programlisting>
     <location file="rrRoadRunnerOptions.h"/>
   </compounddef>

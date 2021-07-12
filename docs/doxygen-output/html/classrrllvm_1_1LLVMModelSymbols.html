@@ -22,7 +22,7 @@
  <tr style="height: 56px;">
   <td id="projectalign" style="padding-left: 0.5em;">
    <div id="projectname">roadrunner
-   &#160;<span id="projectnumber">2.0.5</span>
+   &#160;<span id="projectnumber">2.0.8</span>
    </div>
    <div id="projectbrief">Fast simulator for SBML models</div>
   </td>
@@ -102,7 +102,7 @@ Public Member Functions</h2></td></tr>
 &#160;</td><td class="memItemRight" valign="bottom"><b>LLVMModelSymbols</b> (libsbml::Model const *m, <a class="el" href="classrrllvm_1_1LLVMModelDataSymbols.html">LLVMModelDataSymbols</a> const &amp;sym)</td></tr>
 <tr class="separator:a9fda0c55204e8ffde65564b535be7bbb"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a67637dde17c580f01ed1a54476e17e2b"><td class="memItemLeft" align="right" valign="top">libsbml::ASTNode *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classrrllvm_1_1LLVMModelSymbols.html#a67637dde17c580f01ed1a54476e17e2b">createStoichiometryNode</a> (int row, int col) const</td></tr>
-<tr class="memdesc:a67637dde17c580f01ed1a54476e17e2b"><td class="mdescLeft">&#160;</td><td class="mdescRight">create an ASTNode for the species id / reaction id pair.  <a href="classrrllvm_1_1LLVMModelSymbols.html#a67637dde17c580f01ed1a54476e17e2b">More...</a><br /></td></tr>
+<tr class="memdesc:a67637dde17c580f01ed1a54476e17e2b"><td class="mdescLeft">&#160;</td><td class="mdescRight">create an ASTNode for the species id / reaction id std::pair.  <a href="classrrllvm_1_1LLVMModelSymbols.html#a67637dde17c580f01ed1a54476e17e2b">More...</a><br /></td></tr>
 <tr class="separator:a67637dde17c580f01ed1a54476e17e2b"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:afaf501a34dd03317a49d5f3ba70839dd"><td class="memItemLeft" align="right" valign="top"><a id="afaf501a34dd03317a49d5f3ba70839dd"></a>
 const <a class="el" href="classrrllvm_1_1SymbolForest.html">SymbolForest</a> &amp;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classrrllvm_1_1LLVMModelSymbols.html#afaf501a34dd03317a49d5f3ba70839dd">getAssigmentRules</a> () const</td></tr>
@@ -151,7 +151,7 @@ virtual bool&#160;</td><td class="memItemRight" valign="bottom"><b>visit</b> (co
 <tr class="separator:ab49c19ac0832e343222276be67190bb4"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a62c37bbb6a3226e32748383962e58a4c"><td class="memItemLeft" align="right" valign="top"><a id="a62c37bbb6a3226e32748383962e58a4c"></a>
 virtual bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classrrllvm_1_1LLVMModelSymbols.html#a62c37bbb6a3226e32748383962e58a4c">visit</a> (const libsbml::Reaction &amp;x)</td></tr>
-<tr class="memdesc:a62c37bbb6a3226e32748383962e58a4c"><td class="mdescLeft">&#160;</td><td class="mdescRight">visit the reactions so we can get all the SpeciesReferences and stuff them in the initialConditions map. <br /></td></tr>
+<tr class="memdesc:a62c37bbb6a3226e32748383962e58a4c"><td class="mdescLeft">&#160;</td><td class="mdescRight">visit the reactions so we can get all the SpeciesReferences and stuff them in the initialConditions std::map. <br /></td></tr>
 <tr class="separator:a62c37bbb6a3226e32748383962e58a4c"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a7a829d1b0ddfb1618c4d1536fd841bf9"><td class="memItemLeft" align="right" valign="top">virtual bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classrrllvm_1_1LLVMModelSymbols.html#a7a829d1b0ddfb1618c4d1536fd841bf9">visit</a> (const libsbml::Rule &amp;x)</td></tr>
 <tr class="memdesc:a7a829d1b0ddfb1618c4d1536fd841bf9"><td class="mdescLeft">&#160;</td><td class="mdescRight">tell the acceptor to process all rules, even the ones we don't handle so the iteration continues over all rules.  <a href="classrrllvm_1_1LLVMModelSymbols.html#a7a829d1b0ddfb1618c4d1536fd841bf9">More...</a><br /></td></tr>
@@ -252,7 +252,7 @@ Protected Attributes</h2></td></tr>
       </table>
 </div><div class="memdoc">
 
-<p>create an ASTNode for the species id / reaction id pair. </p>
+<p>create an ASTNode for the species id / reaction id std::pair. </p>
 <p>This assembles the mess of items stored in the reactions array. </p>
 
 </div>
@@ -320,7 +320,7 @@ Protected Attributes</h2></td></tr>
 </div><div class="memdoc">
 
 <p>The only differences in how initialAssigments and assignmentRules are handled is whether they are stuffed in the initialAssigment or assignmentRules maps. </p>
-<p>This figures out what they refer to, and stuffs the AST in the appropriate map. </p>
+<p>This figures out what they refer to, and stuffs the AST in the appropriate std::map. </p>
 
 </div>
 </div>

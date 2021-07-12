@@ -22,7 +22,7 @@
  <tr style="height: 56px;">
   <td id="projectalign" style="padding-left: 0.5em;">
    <div id="projectname">roadrunner
-   &#160;<span id="projectnumber">2.0.5</span>
+   &#160;<span id="projectnumber">2.0.8</span>
    </div>
    <div id="projectbrief">Fast simulator for SBML models</div>
   </td>
@@ -101,7 +101,7 @@ $(function() {
 <div class="line"><a name="l00028"></a><span class="lineno">   28</span>&#160;    <a class="code" href="classrrllvm_1_1GetFloatingSpeciesInitConcentrationCodeGen.html">GetFloatingSpeciesInitConcentrationCodeGen</a>(<span class="keyword">const</span> <a class="code" href="classrrllvm_1_1ModelGeneratorContext.html">ModelGeneratorContext</a> &amp;mgc);</div>
 <div class="line"><a name="l00029"></a><span class="lineno">   29</span>&#160;    ~<a class="code" href="classrrllvm_1_1GetFloatingSpeciesInitConcentrationCodeGen.html">GetFloatingSpeciesInitConcentrationCodeGen</a>() {};</div>
 <div class="line"><a name="l00030"></a><span class="lineno">   30</span>&#160; </div>
-<div class="line"><a name="l00031"></a><span class="lineno">   31</span>&#160;    std::vector&lt;string&gt; getIds()</div>
+<div class="line"><a name="l00031"></a><span class="lineno">   31</span>&#160;    std::vector&lt;std::string&gt; getIds()</div>
 <div class="line"><a name="l00032"></a><span class="lineno">   32</span>&#160;    {</div>
 <div class="line"><a name="l00033"></a><span class="lineno">   33</span>&#160;        <span class="keywordflow">return</span> dataSymbols.<a class="code" href="classrrllvm_1_1LLVMModelDataSymbols.html#a330dc333f5b9116091f8f79c10f4db46">getFloatingSpeciesIds</a>();</div>
 <div class="line"><a name="l00034"></a><span class="lineno">   34</span>&#160;    }</div>
@@ -117,7 +117,7 @@ $(function() {
 <div class="line"><a name="l00044"></a><span class="lineno">   44</span>&#160;    <a class="code" href="classrrllvm_1_1GetFloatingSpeciesInitAmountCodeGen.html">GetFloatingSpeciesInitAmountCodeGen</a>(<span class="keyword">const</span> <a class="code" href="classrrllvm_1_1ModelGeneratorContext.html">ModelGeneratorContext</a> &amp;mgc);</div>
 <div class="line"><a name="l00045"></a><span class="lineno">   45</span>&#160;    ~<a class="code" href="classrrllvm_1_1GetFloatingSpeciesInitAmountCodeGen.html">GetFloatingSpeciesInitAmountCodeGen</a>() {};</div>
 <div class="line"><a name="l00046"></a><span class="lineno">   46</span>&#160; </div>
-<div class="line"><a name="l00047"></a><span class="lineno">   47</span>&#160;    std::vector&lt;string&gt; getIds()</div>
+<div class="line"><a name="l00047"></a><span class="lineno">   47</span>&#160;    std::vector&lt;std::string&gt; getIds()</div>
 <div class="line"><a name="l00048"></a><span class="lineno">   48</span>&#160;    {</div>
 <div class="line"><a name="l00049"></a><span class="lineno">   49</span>&#160;        <span class="keywordflow">return</span> dataSymbols.<a class="code" href="classrrllvm_1_1LLVMModelDataSymbols.html#a330dc333f5b9116091f8f79c10f4db46">getFloatingSpeciesIds</a>();</div>
 <div class="line"><a name="l00050"></a><span class="lineno">   50</span>&#160;    }</div>
@@ -133,7 +133,7 @@ $(function() {
 <div class="line"><a name="l00060"></a><span class="lineno">   60</span>&#160;    <a class="code" href="classrrllvm_1_1GetCompartmentInitVolumeCodeGen.html">GetCompartmentInitVolumeCodeGen</a>(<span class="keyword">const</span> <a class="code" href="classrrllvm_1_1ModelGeneratorContext.html">ModelGeneratorContext</a> &amp;mgc);</div>
 <div class="line"><a name="l00061"></a><span class="lineno">   61</span>&#160;    ~<a class="code" href="classrrllvm_1_1GetCompartmentInitVolumeCodeGen.html">GetCompartmentInitVolumeCodeGen</a>() {};</div>
 <div class="line"><a name="l00062"></a><span class="lineno">   62</span>&#160; </div>
-<div class="line"><a name="l00063"></a><span class="lineno">   63</span>&#160;    std::vector&lt;string&gt; getIds()</div>
+<div class="line"><a name="l00063"></a><span class="lineno">   63</span>&#160;    std::vector&lt;std::string&gt; getIds()</div>
 <div class="line"><a name="l00064"></a><span class="lineno">   64</span>&#160;    {</div>
 <div class="line"><a name="l00065"></a><span class="lineno">   65</span>&#160;        <span class="keywordflow">return</span> dataSymbols.getCompartmentIds();</div>
 <div class="line"><a name="l00066"></a><span class="lineno">   66</span>&#160;    }</div>
@@ -149,7 +149,7 @@ $(function() {
 <div class="line"><a name="l00076"></a><span class="lineno">   76</span>&#160;    <a class="code" href="classrrllvm_1_1GetGlobalParameterInitValueCodeGen.html">GetGlobalParameterInitValueCodeGen</a>(<span class="keyword">const</span> <a class="code" href="classrrllvm_1_1ModelGeneratorContext.html">ModelGeneratorContext</a> &amp;mgc);</div>
 <div class="line"><a name="l00077"></a><span class="lineno">   77</span>&#160;    ~<a class="code" href="classrrllvm_1_1GetGlobalParameterInitValueCodeGen.html">GetGlobalParameterInitValueCodeGen</a>() {};</div>
 <div class="line"><a name="l00078"></a><span class="lineno">   78</span>&#160; </div>
-<div class="line"><a name="l00079"></a><span class="lineno">   79</span>&#160;    std::vector&lt;string&gt; getIds()</div>
+<div class="line"><a name="l00079"></a><span class="lineno">   79</span>&#160;    std::vector&lt;std::string&gt; getIds()</div>
 <div class="line"><a name="l00080"></a><span class="lineno">   80</span>&#160;    {</div>
 <div class="line"><a name="l00081"></a><span class="lineno">   81</span>&#160;        <span class="keywordflow">return</span> dataSymbols.getGlobalParameterIds();</div>
 <div class="line"><a name="l00082"></a><span class="lineno">   82</span>&#160;    }</div>
@@ -168,7 +168,7 @@ $(function() {
 <div class="ttc" id="aclassrrllvm_1_1GetGlobalParameterInitValueCodeGen_html"><div class="ttname"><a href="classrrllvm_1_1GetGlobalParameterInitValueCodeGen.html">rrllvm::GetGlobalParameterInitValueCodeGen</a></div><div class="ttdef"><b>Definition:</b> GetInitialValuesCodeGen.h:74</div></div>
 <div class="ttc" id="aclassrrllvm_1_1GetInitialValueCodeGenBase_html"><div class="ttname"><a href="classrrllvm_1_1GetInitialValueCodeGenBase.html">rrllvm::GetInitialValueCodeGenBase</a></div><div class="ttdef"><b>Definition:</b> GetInitialValueCodeGenBase.h:30</div></div>
 <div class="ttc" id="aclassrrllvm_1_1GetFloatingSpeciesInitConcentrationCodeGen_html"><div class="ttname"><a href="classrrllvm_1_1GetFloatingSpeciesInitConcentrationCodeGen.html">rrllvm::GetFloatingSpeciesInitConcentrationCodeGen</a></div><div class="ttdef"><b>Definition:</b> GetInitialValuesCodeGen.h:26</div></div>
-<div class="ttc" id="aclassrrllvm_1_1LLVMModelDataSymbols_html_a330dc333f5b9116091f8f79c10f4db46"><div class="ttname"><a href="classrrllvm_1_1LLVMModelDataSymbols.html#a330dc333f5b9116091f8f79c10f4db46">rrllvm::LLVMModelDataSymbols::getFloatingSpeciesIds</a></div><div class="ttdeci">std::vector&lt; std::string &gt; getFloatingSpeciesIds() const</div><div class="ttdoc">the list that is returned by ExecutableModel, so order must remain constant.</div><div class="ttdef"><b>Definition:</b> LLVMModelDataSymbols.cpp:454</div></div>
+<div class="ttc" id="aclassrrllvm_1_1LLVMModelDataSymbols_html_a330dc333f5b9116091f8f79c10f4db46"><div class="ttname"><a href="classrrllvm_1_1LLVMModelDataSymbols.html#a330dc333f5b9116091f8f79c10f4db46">rrllvm::LLVMModelDataSymbols::getFloatingSpeciesIds</a></div><div class="ttdeci">std::vector&lt; std::string &gt; getFloatingSpeciesIds() const</div><div class="ttdoc">the list that is returned by ExecutableModel, so order must remain constant.</div><div class="ttdef"><b>Definition:</b> LLVMModelDataSymbols.cpp:458</div></div>
 <div class="ttc" id="aclassrrllvm_1_1GetCompartmentInitVolumeCodeGen_html"><div class="ttname"><a href="classrrllvm_1_1GetCompartmentInitVolumeCodeGen.html">rrllvm::GetCompartmentInitVolumeCodeGen</a></div><div class="ttdef"><b>Definition:</b> GetInitialValuesCodeGen.h:58</div></div>
 <!-- start footer part -->
 <hr class="footer"/><address class="footer"><small>

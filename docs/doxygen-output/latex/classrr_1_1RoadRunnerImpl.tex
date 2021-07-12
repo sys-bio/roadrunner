@@ -14,8 +14,8 @@ implemention class, hide all details here.
 \mbox{\Hypertarget{classrr_1_1RoadRunnerImpl_ad59de4dfb7d325b5148bcf17a41cb920}\label{classrr_1_1RoadRunnerImpl_ad59de4dfb7d325b5148bcf17a41cb920}} 
 {\bfseries Road\+Runner\+Impl} (const std\+::istream \&in)
 \item 
-\mbox{\Hypertarget{classrr_1_1RoadRunnerImpl_a616ad32a12e2fb1405c0efc3b21827b9}\label{classrr_1_1RoadRunnerImpl_a616ad32a12e2fb1405c0efc3b21827b9}} 
-{\bfseries Road\+Runner\+Impl} (const string \&\+\_\+compiler, const string \&\+\_\+temp\+Dir, const string \&\+\_\+support\+Code\+Dir)
+\mbox{\Hypertarget{classrr_1_1RoadRunnerImpl_ae70ba989534390c53ab2eafc75dd189f}\label{classrr_1_1RoadRunnerImpl_ae70ba989534390c53ab2eafc75dd189f}} 
+{\bfseries Road\+Runner\+Impl} (const std\+::string \&\+\_\+compiler, const std\+::string \&\+\_\+temp\+Dir, const std\+::string \&\+\_\+support\+Code\+Dir)
 \item 
 \mbox{\Hypertarget{classrr_1_1RoadRunnerImpl_a43e10c0ddfffa060a90217a7a311e6d4}\label{classrr_1_1RoadRunnerImpl_a43e10c0ddfffa060a90217a7a311e6d4}} 
 {\bfseries Road\+Runner\+Impl} (const \mbox{\hyperlink{classrr_1_1RoadRunnerImpl}{Road\+Runner\+Impl}} \&rri)
@@ -86,19 +86,13 @@ Lib\+Structural $\ast$ \mbox{\hyperlink{classrr_1_1RoadRunnerImpl_ab6af7c33cd8ad
 \mbox{\hyperlink{structrr_1_1RoadRunnerOptions}{Road\+Runner\+Options}} \mbox{\hyperlink{classrr_1_1RoadRunnerImpl_ab0d81fec655750d5e7a46be8be2d7aaa}{road\+Runner\+Options}}
 \begin{DoxyCompactList}\small\item\em various general options that can be modified by external callers. \end{DoxyCompactList}\item 
 std\+::string \mbox{\hyperlink{classrr_1_1RoadRunnerImpl_ae22f2a7f705354d374d27a7fb51ff275}{configuration\+X\+ML}}
-\begin{DoxyCompactList}\small\item\em the xml string that is given in set\+Configuration\+X\+ML. \end{DoxyCompactList}\item 
+\begin{DoxyCompactList}\small\item\em the xml std\+::string that is given in set\+Configuration\+X\+ML. \end{DoxyCompactList}\item 
 \mbox{\Hypertarget{classrr_1_1RoadRunnerImpl_a1ace36ac129fed50c43abf94c72fed9d}\label{classrr_1_1RoadRunnerImpl_a1ace36ac129fed50c43abf94c72fed9d}} 
 bool {\bfseries simulated\+Since\+Reset} = false
 \item 
-\mbox{\Hypertarget{classrr_1_1RoadRunnerImpl_ac82a29609a15ee6d9d0f3e55a62b30f8}\label{classrr_1_1RoadRunnerImpl_ac82a29609a15ee6d9d0f3e55a62b30f8}} 
-unique\+\_\+ptr$<$ libsbml\+::\+S\+B\+M\+L\+Document $>$ {\bfseries document}
+\mbox{\Hypertarget{classrr_1_1RoadRunnerImpl_a351eec90f0cb0348667df95ce9bd22e7}\label{classrr_1_1RoadRunnerImpl_a351eec90f0cb0348667df95ce9bd22e7}} 
+std\+::unique\+\_\+ptr$<$ libsbml\+::\+S\+B\+M\+L\+Document $>$ {\bfseries document}
 \end{DoxyCompactItemize}
-\doxysubsection*{Friends}
-\begin{DoxyCompactItemize}
-\item 
-\mbox{\Hypertarget{classrr_1_1RoadRunnerImpl_af9179bd50e73e67094252c47c026531b}\label{classrr_1_1RoadRunnerImpl_af9179bd50e73e67094252c47c026531b}} 
-class \mbox{\hyperlink{classrr_1_1RoadRunnerImpl_af9179bd50e73e67094252c47c026531b}{a\+Finalizer}}
-\begin{DoxyCompactList}\small\item\em T\+O\+DO get rid of this garbage. \end{DoxyCompactList}\end{DoxyCompactItemize}
 
 
 \doxysubsection{Detailed Description}
@@ -113,7 +107,7 @@ implemention class, hide all details here.
 
 
 
-the xml string that is given in set\+Configuration\+X\+ML. 
+the xml std\+::string that is given in set\+Configuration\+X\+ML. 
 
 Needed because the N\+L\+EQ is only created in the steady\+State method. \mbox{\Hypertarget{classrr_1_1RoadRunnerImpl_a399ac78c9504ddc6a30c516a987deba6}\label{classrr_1_1RoadRunnerImpl_a399ac78c9504ddc6a30c516a987deba6}} 
 \index{rr::RoadRunnerImpl@{rr::RoadRunnerImpl}!integrator@{integrator}}

@@ -22,7 +22,7 @@
  <tr style="height: 56px;">
   <td id="projectalign" style="padding-left: 0.5em;">
    <div id="projectname">roadrunner
-   &#160;<span id="projectnumber">2.0.5</span>
+   &#160;<span id="projectnumber">2.0.8</span>
    </div>
    <div id="projectbrief">Fast simulator for SBML models</div>
   </td>
@@ -137,15 +137,15 @@ class <a class="el" href="classrr_1_1Random.html">Random</a> *&#160;</td><td cla
 unsigned&#160;</td><td class="memItemRight" valign="bottom"><b>numEvents</b></td></tr>
 <tr class="separator:a4f16cba09056ef9ddbce8c46a46f70fc"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a13d7b1094bd407bc0422943c196f4f09"><td class="memItemLeft" align="right" valign="top">unsigned&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="structrrllvm_1_1LLVMModelData.html#a13d7b1094bd407bc0422943c196f4f09">stateVectorSize</a></td></tr>
-<tr class="memdesc:a13d7b1094bd407bc0422943c196f4f09"><td class="mdescLeft">&#160;</td><td class="mdescRight">number of items in the state vector.  <a href="structrrllvm_1_1LLVMModelData.html#a13d7b1094bd407bc0422943c196f4f09">More...</a><br /></td></tr>
+<tr class="memdesc:a13d7b1094bd407bc0422943c196f4f09"><td class="mdescLeft">&#160;</td><td class="mdescRight">number of items in the state std::vector.  <a href="structrrllvm_1_1LLVMModelData.html#a13d7b1094bd407bc0422943c196f4f09">More...</a><br /></td></tr>
 <tr class="separator:a13d7b1094bd407bc0422943c196f4f09"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a1d6d7fb287227490a08abd550f10074c"><td class="memItemLeft" align="right" valign="top"><a id="a1d6d7fb287227490a08abd550f10074c"></a>
 double *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="structrrllvm_1_1LLVMModelData.html#a1d6d7fb287227490a08abd550f10074c">stateVector</a></td></tr>
-<tr class="memdesc:a1d6d7fb287227490a08abd550f10074c"><td class="mdescLeft">&#160;</td><td class="mdescRight">the state vector, this is usually a pointer to a block of data owned by the integrator. <br /></td></tr>
+<tr class="memdesc:a1d6d7fb287227490a08abd550f10074c"><td class="mdescLeft">&#160;</td><td class="mdescRight">the state std::vector, this is usually a pointer to a block of data owned by the integrator. <br /></td></tr>
 <tr class="separator:a1d6d7fb287227490a08abd550f10074c"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:aab22d8a200ecb761c1255711401298dc"><td class="memItemLeft" align="right" valign="top"><a id="aab22d8a200ecb761c1255711401298dc"></a>
 double *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="structrrllvm_1_1LLVMModelData.html#aab22d8a200ecb761c1255711401298dc">stateVectorRate</a></td></tr>
-<tr class="memdesc:aab22d8a200ecb761c1255711401298dc"><td class="mdescLeft">&#160;</td><td class="mdescRight">the rate of change of the state vector, this is usually a pointer to a block of data owned by the integrator. <br /></td></tr>
+<tr class="memdesc:aab22d8a200ecb761c1255711401298dc"><td class="mdescLeft">&#160;</td><td class="mdescRight">the rate of change of the state std::vector, this is usually a pointer to a block of data owned by the integrator. <br /></td></tr>
 <tr class="separator:aab22d8a200ecb761c1255711401298dc"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a56b5c0718c3ada5dcbba2162778badcc"><td class="memItemLeft" align="right" valign="top">double *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="structrrllvm_1_1LLVMModelData.html#a56b5c0718c3ada5dcbba2162778badcc">rateRuleRates</a></td></tr>
 <tr class="memdesc:a56b5c0718c3ada5dcbba2162778badcc"><td class="mdescLeft">&#160;</td><td class="mdescRight">the rate of change of all elements who's dynamics are determined by rate rules.  <a href="structrrllvm_1_1LLVMModelData.html#a56b5c0718c3ada5dcbba2162778badcc">More...</a><br /></td></tr>
@@ -261,7 +261,7 @@ double *&#160;</td><td class="memItemRight" valign="bottom"><b>reactionRatesAlia
 </div><div class="memdoc">
 
 <p>has length numIndFloatingSpecies </p>
-<p>This pointer is part of the state vector. When any function is called by CVODE, this is actually a pointer to a CVODE owned memory block. </p>
+<p>This pointer is part of the state std::vector. When any function is called by CVODE, this is actually a pointer to a CVODE owned memory block. </p>
 
 </div>
 </div>
@@ -366,8 +366,8 @@ double *&#160;</td><td class="memItemRight" valign="bottom"><b>reactionRatesAlia
 </div><div class="memdoc">
 
 <p>All of the elelments which have a rate rule are stored here, including the dependent floating species, which will not be stored in the independent floating species block. </p>
-<p>As the integrator runs, this pointer can simply point to an offset in the integrator's state vector.</p>
-<p>This pointer is part of the state vector. When any function is called by CVODE, this is actually a pointer to a CVODE owned memory block. Otherwise, this points to the alocated rateRuleValues block at the end of this struct. </p>
+<p>As the integrator runs, this pointer can simply point to an offset in the integrator's state std::vector.</p>
+<p>This pointer is part of the state std::vector. When any function is called by CVODE, this is actually a pointer to a CVODE owned memory block. Otherwise, this points to the alocated rateRuleValues block at the end of this struct. </p>
 
 </div>
 </div>
@@ -383,7 +383,7 @@ double *&#160;</td><td class="memItemRight" valign="bottom"><b>reactionRatesAlia
       </table>
 </div><div class="memdoc">
 
-<p>number of items in the state vector. </p>
+<p>number of items in the state std::vector. </p>
 <p>should be numIndFloatingSpecies + numRateRules </p>
 
 </div>

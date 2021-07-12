@@ -22,7 +22,7 @@
  <tr style="height: 56px;">
   <td id="projectalign" style="padding-left: 0.5em;">
    <div id="projectname">roadrunner
-   &#160;<span id="projectnumber">2.0.5</span>
+   &#160;<span id="projectnumber">2.0.8</span>
    </div>
    <div id="projectbrief">Fast simulator for SBML models</div>
   </td>
@@ -96,51 +96,50 @@ $(function() {
 <div class="line"><a name="l00023"></a><span class="lineno">   23</span>&#160; </div>
 <div class="line"><a name="l00024"></a><span class="lineno">   24</span>&#160;<span class="keyword">typedef</span> void (*EvalInitialConditions_FunctionPtr)(LLVMModelData*, size_t);</div>
 <div class="line"><a name="l00025"></a><span class="lineno">   25</span>&#160; </div>
-<div class="line"><a name="l00035"></a><span class="lineno"><a class="line" href="classrrllvm_1_1EvalInitialConditionsCodeGen.html">   35</a></span>&#160;<span class="keyword">class </span><a class="code" href="classrrllvm_1_1EvalInitialConditionsCodeGen.html">EvalInitialConditionsCodeGen</a>:</div>
-<div class="line"><a name="l00036"></a><span class="lineno">   36</span>&#160;    <span class="keyword">public</span>  <a class="code" href="classrrllvm_1_1CodeGenBase.html">CodeGenBase</a>&lt;EvalInitialConditions_FunctionPtr&gt;</div>
-<div class="line"><a name="l00037"></a><span class="lineno">   37</span>&#160;{</div>
-<div class="line"><a name="l00038"></a><span class="lineno">   38</span>&#160;<span class="keyword">public</span>:</div>
-<div class="line"><a name="l00039"></a><span class="lineno">   39</span>&#160;    <a class="code" href="classrrllvm_1_1EvalInitialConditionsCodeGen.html">EvalInitialConditionsCodeGen</a>(<span class="keyword">const</span> <a class="code" href="classrrllvm_1_1ModelGeneratorContext.html">ModelGeneratorContext</a> &amp;mgc);</div>
-<div class="line"><a name="l00040"></a><span class="lineno">   40</span>&#160;    <span class="keyword">virtual</span> ~<a class="code" href="classrrllvm_1_1EvalInitialConditionsCodeGen.html">EvalInitialConditionsCodeGen</a>();</div>
-<div class="line"><a name="l00041"></a><span class="lineno">   41</span>&#160; </div>
-<div class="line"><a name="l00042"></a><span class="lineno">   42</span>&#160;    llvm::Value *codeGen();</div>
-<div class="line"><a name="l00043"></a><span class="lineno">   43</span>&#160; </div>
-<div class="line"><a name="l00044"></a><span class="lineno">   44</span>&#160;    <span class="keyword">static</span> <span class="keyword">const</span> <span class="keywordtype">char</span>* FunctionName;</div>
-<div class="line"><a name="l00045"></a><span class="lineno">   45</span>&#160;    <span class="keyword">typedef</span> EvalInitialConditions_FunctionPtr FunctionPtr;</div>
-<div class="line"><a name="l00046"></a><span class="lineno">   46</span>&#160; </div>
-<div class="line"><a name="l00047"></a><span class="lineno">   47</span>&#160;<span class="keyword">private</span>:</div>
-<div class="line"><a name="l00048"></a><span class="lineno">   48</span>&#160; </div>
-<div class="line"><a name="l00049"></a><span class="lineno">   49</span>&#160;    <span class="keywordtype">void</span> codeGenSpecies(<a class="code" href="classrrllvm_1_1StoreSymbolResolver.html">StoreSymbolResolver</a>&amp; modelDataResolver,</div>
-<div class="line"><a name="l00050"></a><span class="lineno">   50</span>&#160;            <a class="code" href="classrrllvm_1_1LoadSymbolResolver.html">LoadSymbolResolver</a>&amp; loadResolver);</div>
-<div class="line"><a name="l00051"></a><span class="lineno">   51</span>&#160; </div>
-<div class="line"><a name="l00052"></a><span class="lineno">   52</span>&#160;    <span class="keywordtype">void</span> codeGenStoichiometry(llvm::Value *modelData,</div>
-<div class="line"><a name="l00053"></a><span class="lineno">   53</span>&#160;            <a class="code" href="classrrllvm_1_1ModelDataStoreSymbolResolver.html">ModelDataStoreSymbolResolver</a>&amp; modelDataResolver,</div>
-<div class="line"><a name="l00054"></a><span class="lineno">   54</span>&#160;            <a class="code" href="classrrllvm_1_1LoadSymbolResolver.html">LoadSymbolResolver</a>&amp; initialValueResolver);</div>
-<div class="line"><a name="l00055"></a><span class="lineno">   55</span>&#160; </div>
-<div class="line"><a name="l00056"></a><span class="lineno">   56</span>&#160;    <span class="keywordtype">void</span> codeGenCompartments(<a class="code" href="classrrllvm_1_1StoreSymbolResolver.html">StoreSymbolResolver</a>&amp; modelDataResolver,</div>
-<div class="line"><a name="l00057"></a><span class="lineno">   57</span>&#160;            <a class="code" href="classrrllvm_1_1LoadSymbolResolver.html">LoadSymbolResolver</a>&amp; loadResolver);</div>
-<div class="line"><a name="l00058"></a><span class="lineno">   58</span>&#160; </div>
-<div class="line"><a name="l00059"></a><span class="lineno">   59</span>&#160;    <span class="keywordtype">void</span> codeGenGlobalParameters(<a class="code" href="classrrllvm_1_1StoreSymbolResolver.html">StoreSymbolResolver</a>&amp; modelDataResolver,</div>
-<div class="line"><a name="l00060"></a><span class="lineno">   60</span>&#160;            <a class="code" href="classrrllvm_1_1LoadSymbolResolver.html">LoadSymbolResolver</a>&amp; loadResolver);</div>
-<div class="line"><a name="l00061"></a><span class="lineno">   61</span>&#160; </div>
-<div class="line"><a name="l00062"></a><span class="lineno">   62</span>&#160;    <span class="keywordtype">void</span> codeGenInitSpecies(<a class="code" href="classrrllvm_1_1StoreSymbolResolver.html">StoreSymbolResolver</a>&amp; modelDataResolver,</div>
-<div class="line"><a name="l00063"></a><span class="lineno">   63</span>&#160;            <a class="code" href="classrrllvm_1_1LoadSymbolResolver.html">LoadSymbolResolver</a>&amp; loadResolver);</div>
-<div class="line"><a name="l00064"></a><span class="lineno">   64</span>&#160; </div>
-<div class="line"><a name="l00065"></a><span class="lineno">   65</span>&#160;    <span class="keywordtype">void</span> codeGenInitCompartments(<a class="code" href="classrrllvm_1_1StoreSymbolResolver.html">StoreSymbolResolver</a>&amp; modelDataResolver,</div>
-<div class="line"><a name="l00066"></a><span class="lineno">   66</span>&#160;            <a class="code" href="classrrllvm_1_1LoadSymbolResolver.html">LoadSymbolResolver</a>&amp; loadResolver);</div>
-<div class="line"><a name="l00067"></a><span class="lineno">   67</span>&#160; </div>
-<div class="line"><a name="l00068"></a><span class="lineno">   68</span>&#160;    <span class="keywordtype">void</span> codeGenInitGlobalParameters(<a class="code" href="classrrllvm_1_1StoreSymbolResolver.html">StoreSymbolResolver</a>&amp; modelDataResolver,</div>
-<div class="line"><a name="l00069"></a><span class="lineno">   69</span>&#160;            <a class="code" href="classrrllvm_1_1LoadSymbolResolver.html">LoadSymbolResolver</a>&amp; loadResolver);</div>
-<div class="line"><a name="l00070"></a><span class="lineno">   70</span>&#160;};</div>
-<div class="line"><a name="l00071"></a><span class="lineno">   71</span>&#160; </div>
-<div class="line"><a name="l00072"></a><span class="lineno">   72</span>&#160;} <span class="comment">/* namespace rr */</span></div>
-<div class="line"><a name="l00073"></a><span class="lineno">   73</span>&#160;<span class="preprocessor">#endif </span><span class="comment">/* EvalInitialValueCodeGenH */</span><span class="preprocessor"></span></div>
+<div class="line"><a name="l00035"></a><span class="lineno"><a class="line" href="classrrllvm_1_1EvalInitialConditionsCodeGen.html">   35</a></span>&#160;<span class="keyword">class </span><a class="code" href="classrrllvm_1_1EvalInitialConditionsCodeGen.html">EvalInitialConditionsCodeGen</a>: <span class="keyword">public</span>  <a class="code" href="classrrllvm_1_1CodeGenBase.html">CodeGenBase</a>&lt;EvalInitialConditions_FunctionPtr&gt;</div>
+<div class="line"><a name="l00036"></a><span class="lineno">   36</span>&#160;{</div>
+<div class="line"><a name="l00037"></a><span class="lineno">   37</span>&#160;<span class="keyword">public</span>:</div>
+<div class="line"><a name="l00038"></a><span class="lineno">   38</span>&#160;    <a class="code" href="classrrllvm_1_1EvalInitialConditionsCodeGen.html">EvalInitialConditionsCodeGen</a>(<span class="keyword">const</span> <a class="code" href="classrrllvm_1_1ModelGeneratorContext.html">ModelGeneratorContext</a> &amp;mgc);</div>
+<div class="line"><a name="l00039"></a><span class="lineno">   39</span>&#160;    <span class="keyword">virtual</span> ~<a class="code" href="classrrllvm_1_1EvalInitialConditionsCodeGen.html">EvalInitialConditionsCodeGen</a>();</div>
+<div class="line"><a name="l00040"></a><span class="lineno">   40</span>&#160; </div>
+<div class="line"><a name="l00041"></a><span class="lineno">   41</span>&#160;    llvm::Value *codeGen();</div>
+<div class="line"><a name="l00042"></a><span class="lineno">   42</span>&#160; </div>
+<div class="line"><a name="l00043"></a><span class="lineno">   43</span>&#160;    <span class="keyword">static</span> <span class="keyword">const</span> <span class="keywordtype">char</span>* FunctionName;</div>
+<div class="line"><a name="l00044"></a><span class="lineno">   44</span>&#160;    <span class="keyword">typedef</span> EvalInitialConditions_FunctionPtr FunctionPtr;</div>
+<div class="line"><a name="l00045"></a><span class="lineno">   45</span>&#160; </div>
+<div class="line"><a name="l00046"></a><span class="lineno">   46</span>&#160;<span class="keyword">private</span>:</div>
+<div class="line"><a name="l00047"></a><span class="lineno">   47</span>&#160; </div>
+<div class="line"><a name="l00048"></a><span class="lineno">   48</span>&#160;    <span class="keywordtype">void</span> codeGenSpecies(<a class="code" href="classrrllvm_1_1StoreSymbolResolver.html">StoreSymbolResolver</a>&amp; modelDataResolver,</div>
+<div class="line"><a name="l00049"></a><span class="lineno">   49</span>&#160;            <a class="code" href="classrrllvm_1_1LoadSymbolResolver.html">LoadSymbolResolver</a>&amp; loadResolver);</div>
+<div class="line"><a name="l00050"></a><span class="lineno">   50</span>&#160; </div>
+<div class="line"><a name="l00051"></a><span class="lineno">   51</span>&#160;    <span class="keywordtype">void</span> codeGenStoichiometry(llvm::Value *modelData,</div>
+<div class="line"><a name="l00052"></a><span class="lineno">   52</span>&#160;            <a class="code" href="classrrllvm_1_1ModelDataStoreSymbolResolver.html">ModelDataStoreSymbolResolver</a>&amp; modelDataResolver,</div>
+<div class="line"><a name="l00053"></a><span class="lineno">   53</span>&#160;            <a class="code" href="classrrllvm_1_1LoadSymbolResolver.html">LoadSymbolResolver</a>&amp; initialValueResolver);</div>
+<div class="line"><a name="l00054"></a><span class="lineno">   54</span>&#160; </div>
+<div class="line"><a name="l00055"></a><span class="lineno">   55</span>&#160;    <span class="keywordtype">void</span> codeGenCompartments(<a class="code" href="classrrllvm_1_1StoreSymbolResolver.html">StoreSymbolResolver</a>&amp; modelDataResolver,</div>
+<div class="line"><a name="l00056"></a><span class="lineno">   56</span>&#160;            <a class="code" href="classrrllvm_1_1LoadSymbolResolver.html">LoadSymbolResolver</a>&amp; loadResolver);</div>
+<div class="line"><a name="l00057"></a><span class="lineno">   57</span>&#160; </div>
+<div class="line"><a name="l00058"></a><span class="lineno">   58</span>&#160;    <span class="keywordtype">void</span> codeGenGlobalParameters(<a class="code" href="classrrllvm_1_1StoreSymbolResolver.html">StoreSymbolResolver</a>&amp; modelDataResolver,</div>
+<div class="line"><a name="l00059"></a><span class="lineno">   59</span>&#160;            <a class="code" href="classrrllvm_1_1LoadSymbolResolver.html">LoadSymbolResolver</a>&amp; loadResolver);</div>
+<div class="line"><a name="l00060"></a><span class="lineno">   60</span>&#160; </div>
+<div class="line"><a name="l00061"></a><span class="lineno">   61</span>&#160;    <span class="keywordtype">void</span> codeGenInitSpecies(<a class="code" href="classrrllvm_1_1StoreSymbolResolver.html">StoreSymbolResolver</a>&amp; modelDataResolver,</div>
+<div class="line"><a name="l00062"></a><span class="lineno">   62</span>&#160;            <a class="code" href="classrrllvm_1_1LoadSymbolResolver.html">LoadSymbolResolver</a>&amp; loadResolver);</div>
+<div class="line"><a name="l00063"></a><span class="lineno">   63</span>&#160; </div>
+<div class="line"><a name="l00064"></a><span class="lineno">   64</span>&#160;    <span class="keywordtype">void</span> codeGenInitCompartments(<a class="code" href="classrrllvm_1_1StoreSymbolResolver.html">StoreSymbolResolver</a>&amp; modelDataResolver,</div>
+<div class="line"><a name="l00065"></a><span class="lineno">   65</span>&#160;            <a class="code" href="classrrllvm_1_1LoadSymbolResolver.html">LoadSymbolResolver</a>&amp; loadResolver);</div>
+<div class="line"><a name="l00066"></a><span class="lineno">   66</span>&#160; </div>
+<div class="line"><a name="l00067"></a><span class="lineno">   67</span>&#160;    <span class="keywordtype">void</span> codeGenInitGlobalParameters(<a class="code" href="classrrllvm_1_1StoreSymbolResolver.html">StoreSymbolResolver</a>&amp; modelDataResolver,</div>
+<div class="line"><a name="l00068"></a><span class="lineno">   68</span>&#160;            <a class="code" href="classrrllvm_1_1LoadSymbolResolver.html">LoadSymbolResolver</a>&amp; loadResolver);</div>
+<div class="line"><a name="l00069"></a><span class="lineno">   69</span>&#160;};</div>
+<div class="line"><a name="l00070"></a><span class="lineno">   70</span>&#160; </div>
+<div class="line"><a name="l00071"></a><span class="lineno">   71</span>&#160;} <span class="comment">/* namespace rr */</span></div>
+<div class="line"><a name="l00072"></a><span class="lineno">   72</span>&#160;<span class="preprocessor">#endif </span><span class="comment">/* EvalInitialValueCodeGenH */</span><span class="preprocessor"></span></div>
 </div><!-- fragment --></div><!-- contents -->
 <div class="ttc" id="aclassrrllvm_1_1ModelGeneratorContext_html"><div class="ttname"><a href="classrrllvm_1_1ModelGeneratorContext.html">rrllvm::ModelGeneratorContext</a></div><div class="ttdoc">All LLVM code generating objects basically need at a minimum three things to operate:</div><div class="ttdef"><b>Definition:</b> ModelGeneratorContext.h:90</div></div>
-<div class="ttc" id="aclassrrllvm_1_1ModelDataStoreSymbolResolver_html"><div class="ttname"><a href="classrrllvm_1_1ModelDataStoreSymbolResolver.html">rrllvm::ModelDataStoreSymbolResolver</a></div><div class="ttdef"><b>Definition:</b> ModelDataSymbolResolver.h:43</div></div>
+<div class="ttc" id="aclassrrllvm_1_1ModelDataStoreSymbolResolver_html"><div class="ttname"><a href="classrrllvm_1_1ModelDataStoreSymbolResolver.html">rrllvm::ModelDataStoreSymbolResolver</a></div><div class="ttdef"><b>Definition:</b> ModelDataSymbolResolver.h:42</div></div>
 <div class="ttc" id="aclassrrllvm_1_1StoreSymbolResolver_html"><div class="ttname"><a href="classrrllvm_1_1StoreSymbolResolver.html">rrllvm::StoreSymbolResolver</a></div><div class="ttdef"><b>Definition:</b> CodeGen.h:68</div></div>
 <div class="ttc" id="aclassrrllvm_1_1LoadSymbolResolver_html"><div class="ttname"><a href="classrrllvm_1_1LoadSymbolResolver.html">rrllvm::LoadSymbolResolver</a></div><div class="ttdef"><b>Definition:</b> CodeGen.h:31</div></div>
-<div class="ttc" id="aclassrrllvm_1_1EvalInitialConditionsCodeGen_html"><div class="ttname"><a href="classrrllvm_1_1EvalInitialConditionsCodeGen.html">rrllvm::EvalInitialConditionsCodeGen</a></div><div class="ttdoc">Generates a function called 'modeldata_initialvalues_set', which evaluates all of the initial conditi...</div><div class="ttdef"><b>Definition:</b> EvalInitialConditionsCodeGen.h:37</div></div>
+<div class="ttc" id="aclassrrllvm_1_1EvalInitialConditionsCodeGen_html"><div class="ttname"><a href="classrrllvm_1_1EvalInitialConditionsCodeGen.html">rrllvm::EvalInitialConditionsCodeGen</a></div><div class="ttdoc">Generates a function called 'modeldata_initialvalues_set', which evaluates all of the initial conditi...</div><div class="ttdef"><b>Definition:</b> EvalInitialConditionsCodeGen.h:36</div></div>
 <div class="ttc" id="aclassrrllvm_1_1CodeGenBase_html"><div class="ttname"><a href="classrrllvm_1_1CodeGenBase.html">rrllvm::CodeGenBase</a></div><div class="ttdoc">a convenience class to pull the vars out of a context, and store them as ivars.</div><div class="ttdef"><b>Definition:</b> CodeGenBase.h:35</div></div>
 <!-- start footer part -->
 <hr class="footer"/><address class="footer"><small>

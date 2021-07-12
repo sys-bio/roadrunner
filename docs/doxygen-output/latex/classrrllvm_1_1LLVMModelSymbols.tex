@@ -27,7 +27,7 @@ struct \mbox{\hyperlink{structrrllvm_1_1LLVMModelSymbols_1_1ReactionSymbols}{Rea
 {\bfseries L\+L\+V\+M\+Model\+Symbols} (libsbml\+::\+Model const $\ast$m, \mbox{\hyperlink{classrrllvm_1_1LLVMModelDataSymbols}{L\+L\+V\+M\+Model\+Data\+Symbols}} const \&sym)
 \item 
 libsbml\+::\+A\+S\+T\+Node $\ast$ \mbox{\hyperlink{classrrllvm_1_1LLVMModelSymbols_a67637dde17c580f01ed1a54476e17e2b}{create\+Stoichiometry\+Node}} (int row, int col) const
-\begin{DoxyCompactList}\small\item\em create an A\+S\+T\+Node for the species id / reaction id pair. \end{DoxyCompactList}\item 
+\begin{DoxyCompactList}\small\item\em create an A\+S\+T\+Node for the species id / reaction id std\+::pair. \end{DoxyCompactList}\item 
 \mbox{\Hypertarget{classrrllvm_1_1LLVMModelSymbols_afaf501a34dd03317a49d5f3ba70839dd}\label{classrrllvm_1_1LLVMModelSymbols_afaf501a34dd03317a49d5f3ba70839dd}} 
 const \mbox{\hyperlink{classrrllvm_1_1SymbolForest}{Symbol\+Forest}} \& \mbox{\hyperlink{classrrllvm_1_1LLVMModelSymbols_afaf501a34dd03317a49d5f3ba70839dd}{get\+Assigment\+Rules}} () const
 \begin{DoxyCompactList}\small\item\em assignment rules are always active \end{DoxyCompactList}\item 
@@ -70,7 +70,7 @@ virtual bool \mbox{\hyperlink{classrrllvm_1_1LLVMModelSymbols_ab49c19ac0832e3432
 \item 
 \mbox{\Hypertarget{classrrllvm_1_1LLVMModelSymbols_a62c37bbb6a3226e32748383962e58a4c}\label{classrrllvm_1_1LLVMModelSymbols_a62c37bbb6a3226e32748383962e58a4c}} 
 virtual bool \mbox{\hyperlink{classrrllvm_1_1LLVMModelSymbols_a62c37bbb6a3226e32748383962e58a4c}{visit}} (const libsbml\+::\+Reaction \&x)
-\begin{DoxyCompactList}\small\item\em visit the reactions so we can get all the Species\+References and stuff them in the initial\+Conditions map. \end{DoxyCompactList}\item 
+\begin{DoxyCompactList}\small\item\em visit the reactions so we can get all the Species\+References and stuff them in the initial\+Conditions std\+::map. \end{DoxyCompactList}\item 
 virtual bool \mbox{\hyperlink{classrrllvm_1_1LLVMModelSymbols_a7a829d1b0ddfb1618c4d1536fd841bf9}{visit}} (const libsbml\+::\+Rule \&x)
 \begin{DoxyCompactList}\small\item\em tell the acceptor to process all rules, even the ones we don\textquotesingle{}t handle so the iteration continues over all rules. \end{DoxyCompactList}\item 
 \mbox{\Hypertarget{classrrllvm_1_1LLVMModelSymbols_a9c6fb0b90d1ccd464919ac47031ebee8}\label{classrrllvm_1_1LLVMModelSymbols_a9c6fb0b90d1ccd464919ac47031ebee8}} 
@@ -137,7 +137,7 @@ Stochiometries can however change, so we have to delay evaluation of them -- if 
 
 
 
-create an A\+S\+T\+Node for the species id / reaction id pair. 
+create an A\+S\+T\+Node for the species id / reaction id std\+::pair. 
 
 This assembles the mess of items stored in the reactions array. \mbox{\Hypertarget{classrrllvm_1_1LLVMModelSymbols_ad7d0e9e5abc92d6295a5f520436f54e6}\label{classrrllvm_1_1LLVMModelSymbols_ad7d0e9e5abc92d6295a5f520436f54e6}} 
 \index{rrllvm::LLVMModelSymbols@{rrllvm::LLVMModelSymbols}!getInitialAssignmentRules@{getInitialAssignmentRules}}
@@ -163,7 +163,7 @@ So, at run time, the assignment rule is active, however before run time, the ini
 
 The only differences in how initial\+Assigments and assignment\+Rules are handled is whether they are stuffed in the initial\+Assigment or assignment\+Rules maps. 
 
-This figures out what they refer to, and stuffs the A\+ST in the appropriate map. \mbox{\Hypertarget{classrrllvm_1_1LLVMModelSymbols_a11942961af6c34d90fd7aa33ea2bc8e9}\label{classrrllvm_1_1LLVMModelSymbols_a11942961af6c34d90fd7aa33ea2bc8e9}} 
+This figures out what they refer to, and stuffs the A\+ST in the appropriate std\+::map. \mbox{\Hypertarget{classrrllvm_1_1LLVMModelSymbols_a11942961af6c34d90fd7aa33ea2bc8e9}\label{classrrllvm_1_1LLVMModelSymbols_a11942961af6c34d90fd7aa33ea2bc8e9}} 
 \index{rrllvm::LLVMModelSymbols@{rrllvm::LLVMModelSymbols}!visit@{visit}}
 \index{visit@{visit}!rrllvm::LLVMModelSymbols@{rrllvm::LLVMModelSymbols}}
 \doxysubsubsection{\texorpdfstring{visit()}{visit()}\hspace{0.1cm}{\footnotesize\ttfamily [1/3]}}

@@ -7,9 +7,11 @@
     <includedby refid="rrEvent_8h" local="yes">c/rrEvent.h</includedby>
     <includedby refid="rrRandom_8cpp" local="yes">c/rrRandom.cpp</includedby>
     <incdepgraph>
-      <node id="3">
-        <label>rrExporter.h</label>
-        <link refid="rrExporter_8h_source"/>
+      <node id="2">
+        <label>mtrand.h</label>
+        <link refid="mtrand_8h_source"/>
+        <childnode refid="3" relation="include">
+        </childnode>
       </node>
       <node id="1">
         <label>c/rrRandom.h</label>
@@ -17,11 +19,9 @@
         <childnode refid="2" relation="include">
         </childnode>
       </node>
-      <node id="2">
-        <label>mtrand.h</label>
-        <link refid="mtrand_8h_source"/>
-        <childnode refid="3" relation="include">
-        </childnode>
+      <node id="3">
+        <label>rrExporter.h</label>
+        <link refid="rrExporter_8h_source"/>
       </node>
     </incdepgraph>
     <invincdepgraph>

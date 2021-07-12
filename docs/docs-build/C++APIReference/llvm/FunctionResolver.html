@@ -13,6 +13,8 @@
   
   <link rel="stylesheet" href="../../_static/css/theme.css" type="text/css" />
   <link rel="stylesheet" href="../../_static/pygments.css" type="text/css" />
+  <link rel="stylesheet" href="../../_static/pygments.css" type="text/css" />
+  <link rel="stylesheet" href="../../_static/css/theme.css" type="text/css" />
   <link rel="stylesheet" href="../../_static/tabs.css" type="text/css" />
 
   
@@ -30,10 +32,10 @@
   
     
       <script type="text/javascript" id="documentation_options" data-url_root="../../" src="../../_static/documentation_options.js"></script>
+        <script data-url_root="../../" id="documentation_options" src="../../_static/documentation_options.js"></script>
         <script src="../../_static/jquery.js"></script>
         <script src="../../_static/underscore.js"></script>
         <script src="../../_static/doctools.js"></script>
-        <script src="../../_static/language_data.js"></script>
     
     <script type="text/javascript" src="../../_static/js/theme.js"></script>
 
@@ -185,6 +187,7 @@
 <li class="toctree-l2"><a class="reference internal" href="../index.html#a-complete-example-of-creating-an-integrator">A complete example of creating an integrator</a></li>
 </ul>
 </li>
+<li class="toctree-l1"><a class="reference internal" href="../../developers_docs/index.html">Developers Documentation</a></li>
 </ul>
 
             
@@ -259,76 +262,76 @@
   <div class="section" id="functionresolver">
 <h1>FunctionResolver<a class="headerlink" href="#functionresolver" title="Permalink to this headline">¶</a></h1>
 <dl class="cpp class">
-<dt id="_CPPv4N6rrllvm16FunctionResolverE">
-<span id="_CPPv3N6rrllvm16FunctionResolverE"></span><span id="_CPPv2N6rrllvm16FunctionResolverE"></span><span id="rrllvm::FunctionResolver"></span><span class="target" id="classrrllvm_1_1FunctionResolver"></span><em class="property">class </em><code class="sig-prename descclassname">rrllvm<code class="sig-prename descclassname">::</code></code><code class="sig-name descname">FunctionResolver</code> : <em class="property">public</em> rrllvm::LoadSymbolResolver<a class="headerlink" href="#_CPPv4N6rrllvm16FunctionResolverE" title="Permalink to this definition">¶</a><br /></dt>
+<dt class="sig sig-object cpp" id="_CPPv4N6rrllvm16FunctionResolverE">
+<span id="_CPPv3N6rrllvm16FunctionResolverE"></span><span id="_CPPv2N6rrllvm16FunctionResolverE"></span><span id="rrllvm::FunctionResolver"></span><span class="target" id="classrrllvm_1_1FunctionResolver"></span><span class="k"><span class="pre">class</span></span><span class="w"> </span><span class="sig-prename descclassname"><span class="n"><span class="pre">rrllvm</span></span><span class="p"><span class="pre">::</span></span></span><span class="sig-name descname"><span class="n"><span class="pre">FunctionResolver</span></span></span><span class="w"> </span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="k"><span class="pre">public</span></span><span class="w"> </span><span class="n"><span class="pre">rrllvm</span></span><span class="p"><span class="pre">::</span></span><span class="n"><span class="pre">LoadSymbolResolver</span></span><a class="headerlink" href="#_CPPv4N6rrllvm16FunctionResolverE" title="Permalink to this definition">¶</a><br /></dt>
 <dd><p>Not thread safe  but perfectly fine if stack allocated. </p>
 <div class="breathe-sectiondef docutils container">
-<p class="breathe-sectiondef-title rubric">Public Functions</p>
+<p class="breathe-sectiondef-title rubric" id="breathe-section-title-public-functions">Public Functions</p>
 <dl class="cpp function">
-<dt id="_CPPv4N6rrllvm16FunctionResolver16FunctionResolverER18LoadSymbolResolverPN4llvm5ValueERK21ModelGeneratorContext">
-<span id="_CPPv3N6rrllvm16FunctionResolver16FunctionResolverER18LoadSymbolResolverPN4llvm5ValueERK21ModelGeneratorContext"></span><span id="_CPPv2N6rrllvm16FunctionResolver16FunctionResolverER18LoadSymbolResolverPN4llvm5ValueERK21ModelGeneratorContext"></span><span id="rrllvm::FunctionResolver::FunctionResolver__LoadSymbolResolverR.llvm::ValueP.ModelGeneratorContextCR"></span><span class="target" id="classrrllvm_1_1FunctionResolver_1a5043727f8b6c2b5f9215b5e76f41dc5b"></span><code class="sig-name descname">FunctionResolver</code><span class="sig-paren">(</span>LoadSymbolResolver &amp;<em>parentResolver</em>, llvm::Value *<em>modelData</em>, <em class="property">const</em> <a class="reference internal" href="ModelGeneratorContext.html#_CPPv4N6rrllvm21ModelGeneratorContextE" title="rrllvm::ModelGeneratorContext">ModelGeneratorContext</a> &amp;<em>ctx</em><span class="sig-paren">)</span><a class="headerlink" href="#_CPPv4N6rrllvm16FunctionResolver16FunctionResolverER18LoadSymbolResolverPN4llvm5ValueERK21ModelGeneratorContext" title="Permalink to this definition">¶</a><br /></dt>
+<dt class="sig sig-object cpp" id="_CPPv4N6rrllvm16FunctionResolver16FunctionResolverER18LoadSymbolResolverPN4llvm5ValueERK21ModelGeneratorContext">
+<span id="_CPPv3N6rrllvm16FunctionResolver16FunctionResolverER18LoadSymbolResolverPN4llvm5ValueERK21ModelGeneratorContext"></span><span id="_CPPv2N6rrllvm16FunctionResolver16FunctionResolverER18LoadSymbolResolverPN4llvm5ValueERK21ModelGeneratorContext"></span><span id="rrllvm::FunctionResolver::FunctionResolver__LoadSymbolResolverR.llvm::ValueP.ModelGeneratorContextCR"></span><span class="target" id="classrrllvm_1_1FunctionResolver_1a5043727f8b6c2b5f9215b5e76f41dc5b"></span><span class="sig-name descname"><span class="n"><span class="pre">FunctionResolver</span></span></span><span class="sig-paren">(</span><span class="n"><span class="pre">LoadSymbolResolver</span></span><span class="w"> </span><span class="p"><span class="pre">&amp;</span></span><span class="n sig-param"><span class="pre">parentResolver</span></span>, <span class="n"><span class="pre">llvm</span></span><span class="p"><span class="pre">::</span></span><span class="n"><span class="pre">Value</span></span><span class="w"> </span><span class="p"><span class="pre">*</span></span><span class="n sig-param"><span class="pre">modelData</span></span>, <span class="k"><span class="pre">const</span></span><span class="w"> </span><a class="reference internal" href="ModelGeneratorContext.html#_CPPv4N6rrllvm21ModelGeneratorContextE" title="rrllvm::ModelGeneratorContext"><span class="n"><span class="pre">ModelGeneratorContext</span></span></a><span class="w"> </span><span class="p"><span class="pre">&amp;</span></span><span class="n sig-param"><span class="pre">ctx</span></span><span class="sig-paren">)</span><a class="headerlink" href="#_CPPv4N6rrllvm16FunctionResolver16FunctionResolverER18LoadSymbolResolverPN4llvm5ValueERK21ModelGeneratorContext" title="Permalink to this definition">¶</a><br /></dt>
 <dd></dd></dl>
 
 <dl class="cpp function">
-<dt id="_CPPv4N6rrllvm16FunctionResolverD0Ev">
-<span id="_CPPv3N6rrllvm16FunctionResolverD0Ev"></span><span id="_CPPv2N6rrllvm16FunctionResolverD0Ev"></span><span id="rrllvm::FunctionResolver::~FunctionResolver"></span><span class="target" id="classrrllvm_1_1FunctionResolver_1a877d5dd81128c8208d64acf593a406a0"></span><em class="property">inline</em> <em class="property">virtual</em> <code class="sig-name descname">~FunctionResolver</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#_CPPv4N6rrllvm16FunctionResolverD0Ev" title="Permalink to this definition">¶</a><br /></dt>
+<dt class="sig sig-object cpp" id="_CPPv4N6rrllvm16FunctionResolverD0Ev">
+<span id="_CPPv3N6rrllvm16FunctionResolverD0Ev"></span><span id="_CPPv2N6rrllvm16FunctionResolverD0Ev"></span><span id="rrllvm::FunctionResolver::~FunctionResolver"></span><span class="target" id="classrrllvm_1_1FunctionResolver_1a877d5dd81128c8208d64acf593a406a0"></span><span class="k"><span class="pre">inline</span></span><span class="w"> </span><span class="k"><span class="pre">virtual</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">~FunctionResolver</span></span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#_CPPv4N6rrllvm16FunctionResolverD0Ev" title="Permalink to this definition">¶</a><br /></dt>
 <dd></dd></dl>
 
 <dl class="cpp function">
-<dt id="_CPPv4N6rrllvm16FunctionResolver15loadSymbolValueERKNSt6stringERKN4llvm8ArrayRefIPN4llvm5ValueEEE">
-<span id="_CPPv3N6rrllvm16FunctionResolver15loadSymbolValueERKNSt6stringERKN4llvm8ArrayRefIPN4llvm5ValueEEE"></span><span id="_CPPv2N6rrllvm16FunctionResolver15loadSymbolValueERKNSt6stringERKN4llvm8ArrayRefIPN4llvm5ValueEEE"></span><span id="rrllvm::FunctionResolver::loadSymbolValue__ssCR.llvm::ArrayRef:llvm::ValueP:CR"></span><span class="target" id="classrrllvm_1_1FunctionResolver_1a3cb392b698b4a6bcfca2bb56312d3809"></span><em class="property">virtual</em> llvm::Value *<code class="sig-name descname">loadSymbolValue</code><span class="sig-paren">(</span><em class="property">const</em> std::string &amp;<em>symbol</em>, <em class="property">const</em> llvm::ArrayRef&lt;llvm::Value*&gt; &amp;<em>args</em> = llvm::ArrayRef&lt;llvm::Value*&gt;()<span class="sig-paren">)</span><a class="headerlink" href="#_CPPv4N6rrllvm16FunctionResolver15loadSymbolValueERKNSt6stringERKN4llvm8ArrayRefIPN4llvm5ValueEEE" title="Permalink to this definition">¶</a><br /></dt>
+<dt class="sig sig-object cpp" id="_CPPv4N6rrllvm16FunctionResolver15loadSymbolValueERKNSt6stringERKN4llvm8ArrayRefIPN4llvm5ValueEEE">
+<span id="_CPPv3N6rrllvm16FunctionResolver15loadSymbolValueERKNSt6stringERKN4llvm8ArrayRefIPN4llvm5ValueEEE"></span><span id="_CPPv2N6rrllvm16FunctionResolver15loadSymbolValueERKNSt6stringERKN4llvm8ArrayRefIPN4llvm5ValueEEE"></span><span id="rrllvm::FunctionResolver::loadSymbolValue__ssCR.llvm::ArrayRef:llvm::ValueP:CR"></span><span class="target" id="classrrllvm_1_1FunctionResolver_1a3cb392b698b4a6bcfca2bb56312d3809"></span><span class="k"><span class="pre">virtual</span></span><span class="w"> </span><span class="n"><span class="pre">llvm</span></span><span class="p"><span class="pre">::</span></span><span class="n"><span class="pre">Value</span></span><span class="w"> </span><span class="p"><span class="pre">*</span></span><span class="sig-name descname"><span class="n"><span class="pre">loadSymbolValue</span></span></span><span class="sig-paren">(</span><span class="k"><span class="pre">const</span></span><span class="w"> </span><span class="n"><span class="pre">std</span></span><span class="p"><span class="pre">::</span></span><span class="n"><span class="pre">string</span></span><span class="w"> </span><span class="p"><span class="pre">&amp;</span></span><span class="n sig-param"><span class="pre">symbol</span></span>, <span class="k"><span class="pre">const</span></span><span class="w"> </span><span class="n"><span class="pre">llvm</span></span><span class="p"><span class="pre">::</span></span><span class="n"><span class="pre">ArrayRef</span></span><span class="p"><span class="pre">&lt;</span></span><span class="n"><span class="pre">llvm</span></span><span class="p"><span class="pre">::</span></span><span class="n"><span class="pre">Value</span></span><span class="p"><span class="pre">*</span></span><span class="p"><span class="pre">&gt;</span></span><span class="w"> </span><span class="p"><span class="pre">&amp;</span></span><span class="n sig-param"><span class="pre">args</span></span><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="n"><span class="pre">llvm</span></span><span class="p"><span class="pre">::</span></span><span class="n"><span class="pre">ArrayRef</span></span><span class="p"><span class="pre">&lt;</span></span><span class="n"><span class="pre">llvm</span></span><span class="p"><span class="pre">::</span></span><span class="n"><span class="pre">Value</span></span><span class="p"><span class="pre">*</span></span><span class="p"><span class="pre">&gt;</span></span><span class="p"><span class="pre">(</span></span><span class="p"><span class="pre">)</span></span><span class="sig-paren">)</span><a class="headerlink" href="#_CPPv4N6rrllvm16FunctionResolver15loadSymbolValueERKNSt6stringERKN4llvm8ArrayRefIPN4llvm5ValueEEE" title="Permalink to this definition">¶</a><br /></dt>
 <dd><p>generate an LLVM load instruction. </p>
-<p><dl class="simple">
-<dt><strong>Parameters</strong></dt><dd><ul class="breatheparameterlist simple">
-<li><p><code class="docutils literal notranslate"><span class="pre">symbol</span></code>: the symbol name to resolve </p></li>
-<li><p><code class="docutils literal notranslate"><span class="pre">args</span></code>: function argument list </p></li>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>symbol</strong> – the symbol name to resolve </p></li>
+<li><p><strong>args</strong> – function argument list </p></li>
 </ul>
 </dd>
 </dl>
-</p>
 </dd></dl>
 
 <dl class="cpp function">
-<dt id="_CPPv4N6rrllvm16FunctionResolver19recursiveSymbolPushERKNSt6stringE">
-<span id="_CPPv3N6rrllvm16FunctionResolver19recursiveSymbolPushERKNSt6stringE"></span><span id="_CPPv2N6rrllvm16FunctionResolver19recursiveSymbolPushERKNSt6stringE"></span><span id="rrllvm::FunctionResolver::recursiveSymbolPush__ssCR"></span><span class="target" id="classrrllvm_1_1FunctionResolver_1aac4263c431a3bd9df828802906896833"></span><em class="property">virtual</em> void <code class="sig-name descname">recursiveSymbolPush</code><span class="sig-paren">(</span><em class="property">const</em> std::string &amp;<em>symbol</em><span class="sig-paren">)</span><a class="headerlink" href="#_CPPv4N6rrllvm16FunctionResolver19recursiveSymbolPushERKNSt6stringE" title="Permalink to this definition">¶</a><br /></dt>
+<dt class="sig sig-object cpp" id="_CPPv4N6rrllvm16FunctionResolver19recursiveSymbolPushERKNSt6stringE">
+<span id="_CPPv3N6rrllvm16FunctionResolver19recursiveSymbolPushERKNSt6stringE"></span><span id="_CPPv2N6rrllvm16FunctionResolver19recursiveSymbolPushERKNSt6stringE"></span><span id="rrllvm::FunctionResolver::recursiveSymbolPush__ssCR"></span><span class="target" id="classrrllvm_1_1FunctionResolver_1aac4263c431a3bd9df828802906896833"></span><span class="k"><span class="pre">virtual</span></span><span class="w"> </span><span class="kt"><span class="pre">void</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">recursiveSymbolPush</span></span></span><span class="sig-paren">(</span><span class="k"><span class="pre">const</span></span><span class="w"> </span><span class="n"><span class="pre">std</span></span><span class="p"><span class="pre">::</span></span><span class="n"><span class="pre">string</span></span><span class="w"> </span><span class="p"><span class="pre">&amp;</span></span><span class="n sig-param"><span class="pre">symbol</span></span><span class="sig-paren">)</span><a class="headerlink" href="#_CPPv4N6rrllvm16FunctionResolver19recursiveSymbolPushERKNSt6stringE" title="Permalink to this definition">¶</a><br /></dt>
 <dd></dd></dl>
 
 <dl class="cpp function">
-<dt id="_CPPv4N6rrllvm16FunctionResolver18recursiveSymbolPopEv">
-<span id="_CPPv3N6rrllvm16FunctionResolver18recursiveSymbolPopEv"></span><span id="_CPPv2N6rrllvm16FunctionResolver18recursiveSymbolPopEv"></span><span id="rrllvm::FunctionResolver::recursiveSymbolPop"></span><span class="target" id="classrrllvm_1_1FunctionResolver_1a6503ab9a9628fb08b38ac6b1401c17bd"></span><em class="property">virtual</em> void <code class="sig-name descname">recursiveSymbolPop</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#_CPPv4N6rrllvm16FunctionResolver18recursiveSymbolPopEv" title="Permalink to this definition">¶</a><br /></dt>
+<dt class="sig sig-object cpp" id="_CPPv4N6rrllvm16FunctionResolver18recursiveSymbolPopEv">
+<span id="_CPPv3N6rrllvm16FunctionResolver18recursiveSymbolPopEv"></span><span id="_CPPv2N6rrllvm16FunctionResolver18recursiveSymbolPopEv"></span><span id="rrllvm::FunctionResolver::recursiveSymbolPop"></span><span class="target" id="classrrllvm_1_1FunctionResolver_1a6503ab9a9628fb08b38ac6b1401c17bd"></span><span class="k"><span class="pre">virtual</span></span><span class="w"> </span><span class="kt"><span class="pre">void</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">recursiveSymbolPop</span></span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#_CPPv4N6rrllvm16FunctionResolver18recursiveSymbolPopEv" title="Permalink to this definition">¶</a><br /></dt>
 <dd></dd></dl>
 
 </div>
 <div class="breathe-sectiondef docutils container">
-<p class="breathe-sectiondef-title rubric">Private Members</p>
+<p class="breathe-sectiondef-title rubric" id="breathe-section-title-private-members">Private Members</p>
 <dl class="cpp var">
-<dt id="_CPPv4N6rrllvm16FunctionResolver14parentResolverE">
-<span id="_CPPv3N6rrllvm16FunctionResolver14parentResolverE"></span><span id="_CPPv2N6rrllvm16FunctionResolver14parentResolverE"></span><span id="rrllvm::FunctionResolver::parentResolver__LoadSymbolResolverR"></span><span class="target" id="classrrllvm_1_1FunctionResolver_1a0d6ebaabf7f2e85140ea16923d2f0231"></span>LoadSymbolResolver &amp;<code class="sig-name descname">parentResolver</code><a class="headerlink" href="#_CPPv4N6rrllvm16FunctionResolver14parentResolverE" title="Permalink to this definition">¶</a><br /></dt>
+<dt class="sig sig-object cpp" id="_CPPv4N6rrllvm16FunctionResolver14parentResolverE">
+<span id="_CPPv3N6rrllvm16FunctionResolver14parentResolverE"></span><span id="_CPPv2N6rrllvm16FunctionResolver14parentResolverE"></span><span id="rrllvm::FunctionResolver::parentResolver__LoadSymbolResolverR"></span><span class="target" id="classrrllvm_1_1FunctionResolver_1a0d6ebaabf7f2e85140ea16923d2f0231"></span><span class="n"><span class="pre">LoadSymbolResolver</span></span><span class="w"> </span><span class="p"><span class="pre">&amp;</span></span><span class="sig-name descname"><span class="n"><span class="pre">parentResolver</span></span></span><a class="headerlink" href="#_CPPv4N6rrllvm16FunctionResolver14parentResolverE" title="Permalink to this definition">¶</a><br /></dt>
 <dd></dd></dl>
 
 <dl class="cpp var">
-<dt id="_CPPv4N6rrllvm16FunctionResolver15modelGenContextE">
-<span id="_CPPv3N6rrllvm16FunctionResolver15modelGenContextE"></span><span id="_CPPv2N6rrllvm16FunctionResolver15modelGenContextE"></span><span id="rrllvm::FunctionResolver::modelGenContext__ModelGeneratorContextCR"></span><span class="target" id="classrrllvm_1_1FunctionResolver_1af5d7e38294f79598ebc17ff40ae6f04d"></span><em class="property">const</em> <a class="reference internal" href="ModelGeneratorContext.html#_CPPv4N6rrllvm21ModelGeneratorContextE" title="rrllvm::ModelGeneratorContext">ModelGeneratorContext</a> &amp;<code class="sig-name descname">modelGenContext</code><a class="headerlink" href="#_CPPv4N6rrllvm16FunctionResolver15modelGenContextE" title="Permalink to this definition">¶</a><br /></dt>
+<dt class="sig sig-object cpp" id="_CPPv4N6rrllvm16FunctionResolver15modelGenContextE">
+<span id="_CPPv3N6rrllvm16FunctionResolver15modelGenContextE"></span><span id="_CPPv2N6rrllvm16FunctionResolver15modelGenContextE"></span><span id="rrllvm::FunctionResolver::modelGenContext__ModelGeneratorContextCR"></span><span class="target" id="classrrllvm_1_1FunctionResolver_1af5d7e38294f79598ebc17ff40ae6f04d"></span><span class="k"><span class="pre">const</span></span><span class="w"> </span><a class="reference internal" href="ModelGeneratorContext.html#_CPPv4N6rrllvm21ModelGeneratorContextE" title="rrllvm::ModelGeneratorContext"><span class="n"><span class="pre">ModelGeneratorContext</span></span></a><span class="w"> </span><span class="p"><span class="pre">&amp;</span></span><span class="sig-name descname"><span class="n"><span class="pre">modelGenContext</span></span></span><a class="headerlink" href="#_CPPv4N6rrllvm16FunctionResolver15modelGenContextE" title="Permalink to this definition">¶</a><br /></dt>
 <dd></dd></dl>
 
 <dl class="cpp var">
-<dt id="_CPPv4N6rrllvm16FunctionResolver5modelE">
-<span id="_CPPv3N6rrllvm16FunctionResolver5modelE"></span><span id="_CPPv2N6rrllvm16FunctionResolver5modelE"></span><span id="rrllvm::FunctionResolver::model__libsbml::ModelCP"></span><span class="target" id="classrrllvm_1_1FunctionResolver_1a6a708645f880de3d3b014d8cbcd6afb8"></span><em class="property">const</em> libsbml::Model *<code class="sig-name descname">model</code><a class="headerlink" href="#_CPPv4N6rrllvm16FunctionResolver5modelE" title="Permalink to this definition">¶</a><br /></dt>
+<dt class="sig sig-object cpp" id="_CPPv4N6rrllvm16FunctionResolver5modelE">
+<span id="_CPPv3N6rrllvm16FunctionResolver5modelE"></span><span id="_CPPv2N6rrllvm16FunctionResolver5modelE"></span><span id="rrllvm::FunctionResolver::model__libsbml::ModelCP"></span><span class="target" id="classrrllvm_1_1FunctionResolver_1a6a708645f880de3d3b014d8cbcd6afb8"></span><span class="k"><span class="pre">const</span></span><span class="w"> </span><span class="n"><span class="pre">libsbml</span></span><span class="p"><span class="pre">::</span></span><span class="n"><span class="pre">Model</span></span><span class="w"> </span><span class="p"><span class="pre">*</span></span><span class="sig-name descname"><span class="n"><span class="pre">model</span></span></span><a class="headerlink" href="#_CPPv4N6rrllvm16FunctionResolver5modelE" title="Permalink to this definition">¶</a><br /></dt>
 <dd></dd></dl>
 
 <dl class="cpp var">
-<dt id="_CPPv4N6rrllvm16FunctionResolver7builderE">
-<span id="_CPPv3N6rrllvm16FunctionResolver7builderE"></span><span id="_CPPv2N6rrllvm16FunctionResolver7builderE"></span><span id="rrllvm::FunctionResolver::builder__llvm::IRBuilderR"></span><span class="target" id="classrrllvm_1_1FunctionResolver_1ac020caef76621c6c777eeefb2d0ec472"></span>llvm::IRBuilder &amp;<code class="sig-name descname">builder</code><a class="headerlink" href="#_CPPv4N6rrllvm16FunctionResolver7builderE" title="Permalink to this definition">¶</a><br /></dt>
+<dt class="sig sig-object cpp" id="_CPPv4N6rrllvm16FunctionResolver7builderE">
+<span id="_CPPv3N6rrllvm16FunctionResolver7builderE"></span><span id="_CPPv2N6rrllvm16FunctionResolver7builderE"></span><span id="rrllvm::FunctionResolver::builder__llvm::IRBuilderR"></span><span class="target" id="classrrllvm_1_1FunctionResolver_1ac020caef76621c6c777eeefb2d0ec472"></span><span class="n"><span class="pre">llvm</span></span><span class="p"><span class="pre">::</span></span><span class="n"><span class="pre">IRBuilder</span></span><span class="w"> </span><span class="p"><span class="pre">&amp;</span></span><span class="sig-name descname"><span class="n"><span class="pre">builder</span></span></span><a class="headerlink" href="#_CPPv4N6rrllvm16FunctionResolver7builderE" title="Permalink to this definition">¶</a><br /></dt>
 <dd></dd></dl>
 
 <dl class="cpp var">
-<dt id="_CPPv4N6rrllvm16FunctionResolver9modelDataE">
-<span id="_CPPv3N6rrllvm16FunctionResolver9modelDataE"></span><span id="_CPPv2N6rrllvm16FunctionResolver9modelDataE"></span><span id="rrllvm::FunctionResolver::modelData__llvm::ValueP"></span><span class="target" id="classrrllvm_1_1FunctionResolver_1ad966fcb21e91782b106b3731c9143209"></span>llvm::Value *<code class="sig-name descname">modelData</code><a class="headerlink" href="#_CPPv4N6rrllvm16FunctionResolver9modelDataE" title="Permalink to this definition">¶</a><br /></dt>
+<dt class="sig sig-object cpp" id="_CPPv4N6rrllvm16FunctionResolver9modelDataE">
+<span id="_CPPv3N6rrllvm16FunctionResolver9modelDataE"></span><span id="_CPPv2N6rrllvm16FunctionResolver9modelDataE"></span><span id="rrllvm::FunctionResolver::modelData__llvm::ValueP"></span><span class="target" id="classrrllvm_1_1FunctionResolver_1ad966fcb21e91782b106b3731c9143209"></span><span class="n"><span class="pre">llvm</span></span><span class="p"><span class="pre">::</span></span><span class="n"><span class="pre">Value</span></span><span class="w"> </span><span class="p"><span class="pre">*</span></span><span class="sig-name descname"><span class="n"><span class="pre">modelData</span></span></span><a class="headerlink" href="#_CPPv4N6rrllvm16FunctionResolver9modelDataE" title="Permalink to this definition">¶</a><br /></dt>
 <dd></dd></dl>
 
 <dl class="cpp var">
-<dt id="_CPPv4N6rrllvm16FunctionResolver7symbolsE">
-<span id="_CPPv3N6rrllvm16FunctionResolver7symbolsE"></span><span id="_CPPv2N6rrllvm16FunctionResolver7symbolsE"></span><span id="rrllvm::FunctionResolver::symbols__std::map:ss.llvm::ValueP:P"></span><span class="target" id="classrrllvm_1_1FunctionResolver_1ab98b26606e595d688f18a520663f3d0f"></span>std::map&lt;std::string, llvm::Value*&gt; *<code class="sig-name descname">symbols</code><a class="headerlink" href="#_CPPv4N6rrllvm16FunctionResolver7symbolsE" title="Permalink to this definition">¶</a><br /></dt>
+<dt class="sig sig-object cpp" id="_CPPv4N6rrllvm16FunctionResolver7symbolsE">
+<span id="_CPPv3N6rrllvm16FunctionResolver7symbolsE"></span><span id="_CPPv2N6rrllvm16FunctionResolver7symbolsE"></span><span id="rrllvm::FunctionResolver::symbols__std::map:ss.llvm::ValueP:P"></span><span class="target" id="classrrllvm_1_1FunctionResolver_1ab98b26606e595d688f18a520663f3d0f"></span><span class="n"><span class="pre">std</span></span><span class="p"><span class="pre">::</span></span><span class="n"><span class="pre">map</span></span><span class="p"><span class="pre">&lt;</span></span><span class="n"><span class="pre">std</span></span><span class="p"><span class="pre">::</span></span><span class="n"><span class="pre">string</span></span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="n"><span class="pre">llvm</span></span><span class="p"><span class="pre">::</span></span><span class="n"><span class="pre">Value</span></span><span class="p"><span class="pre">*</span></span><span class="p"><span class="pre">&gt;</span></span><span class="w"> </span><span class="p"><span class="pre">*</span></span><span class="sig-name descname"><span class="n"><span class="pre">symbols</span></span></span><a class="headerlink" href="#_CPPv4N6rrllvm16FunctionResolver7symbolsE" title="Permalink to this definition">¶</a><br /></dt>
 <dd><p>only valid during an outer call to loadSymbolValue, otherwise is null. </p>
 </dd></dl>
 

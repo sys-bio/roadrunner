@@ -5,23 +5,32 @@
     <includes local="no">sstream</includes>
     <includes refid="rrStringListContainer_8h" local="yes">rrStringListContainer.h</includes>
     <incdepgraph>
-      <node id="8">
-        <label>rrConstants.h</label>
-        <link refid="rrConstants_8h_source"/>
-        <childnode refid="9" relation="include">
-        </childnode>
-        <childnode refid="5" relation="include">
-        </childnode>
-        <childnode refid="10" relation="include">
-        </childnode>
-        <childnode refid="6" relation="include">
-        </childnode>
-      </node>
       <node id="9">
         <label>limits</label>
       </node>
       <node id="11">
         <label>../wrappers/C/rrc_types.h</label>
+      </node>
+      <node id="5">
+        <label>string</label>
+      </node>
+      <node id="6">
+        <label>rrExporter.h</label>
+        <link refid="rrExporter_8h_source"/>
+      </node>
+      <node id="4">
+        <label>vector</label>
+      </node>
+      <node id="1">
+        <label>c/rrStringListContainer.cpp</label>
+        <link refid="rrStringListContainer_8cpp"/>
+        <childnode refid="2" relation="include">
+        </childnode>
+        <childnode refid="3" relation="include">
+        </childnode>
+      </node>
+      <node id="2">
+        <label>sstream</label>
       </node>
       <node id="7">
         <label>rrStringList.h</label>
@@ -34,27 +43,6 @@
         </childnode>
         <childnode refid="11" relation="include">
         </childnode>
-      </node>
-      <node id="6">
-        <label>rrExporter.h</label>
-        <link refid="rrExporter_8h_source"/>
-      </node>
-      <node id="1">
-        <label>c/rrStringListContainer.cpp</label>
-        <link refid="rrStringListContainer_8cpp"/>
-        <childnode refid="2" relation="include">
-        </childnode>
-        <childnode refid="3" relation="include">
-        </childnode>
-      </node>
-      <node id="5">
-        <label>string</label>
-      </node>
-      <node id="4">
-        <label>vector</label>
-      </node>
-      <node id="2">
-        <label>sstream</label>
       </node>
       <node id="10">
         <label>cstdlib</label>
@@ -71,6 +59,18 @@
         <childnode refid="7" relation="include">
         </childnode>
       </node>
+      <node id="8">
+        <label>rrConstants.h</label>
+        <link refid="rrConstants_8h_source"/>
+        <childnode refid="9" relation="include">
+        </childnode>
+        <childnode refid="5" relation="include">
+        </childnode>
+        <childnode refid="10" relation="include">
+        </childnode>
+        <childnode refid="6" relation="include">
+        </childnode>
+      </node>
     </incdepgraph>
     <innernamespace refid="namespacerr">rr</innernamespace>
     <briefdescription>
@@ -82,7 +82,7 @@
 <codeline lineno="2"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&lt;sstream&gt;</highlight><highlight class="normal"></highlight></codeline>
 <codeline lineno="3"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&quot;rrStringListContainer.h&quot;</highlight><highlight class="normal"></highlight></codeline>
 <codeline lineno="4"><highlight class="normal"></highlight></codeline>
-<codeline lineno="5"><highlight class="normal"></highlight><highlight class="keyword">using<sp/>namespace<sp/></highlight><highlight class="normal">std;</highlight></codeline>
+<codeline lineno="5"><highlight class="normal"></highlight></codeline>
 <codeline lineno="6"><highlight class="normal"></highlight></codeline>
 <codeline lineno="7"><highlight class="normal"></highlight><highlight class="keyword">namespace<sp/></highlight><highlight class="normal">rr</highlight></codeline>
 <codeline lineno="8"><highlight class="normal">{</highlight></codeline>
@@ -96,7 +96,7 @@
 <codeline lineno="16"><highlight class="normal">mContainer(cp.mContainer)</highlight></codeline>
 <codeline lineno="17"><highlight class="normal">{}</highlight></codeline>
 <codeline lineno="18"><highlight class="normal"></highlight></codeline>
-<codeline lineno="19"><highlight class="normal"></highlight><highlight class="comment">//StringListContainer::StringListContainer(const<sp/>string&amp;<sp/>lbl,<sp/>const<sp/>StringListContainer&amp;<sp/>cp)</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="19"><highlight class="normal"></highlight><highlight class="comment">//StringListContainer::StringListContainer(const<sp/>std::string&amp;<sp/>lbl,<sp/>const<sp/>StringListContainer&amp;<sp/>cp)</highlight><highlight class="normal"></highlight></codeline>
 <codeline lineno="20"><highlight class="normal"></highlight><highlight class="comment">//:</highlight><highlight class="normal"></highlight></codeline>
 <codeline lineno="21"><highlight class="normal"></highlight><highlight class="comment">//mLabel(lbl),</highlight><highlight class="normal"></highlight></codeline>
 <codeline lineno="22"><highlight class="normal"></highlight><highlight class="comment">//mContainer(cp.mContainer)</highlight><highlight class="normal"></highlight></codeline>
@@ -138,17 +138,17 @@
 <codeline lineno="58"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal"><sp/>mContainer[index];</highlight></codeline>
 <codeline lineno="59"><highlight class="normal">}</highlight></codeline>
 <codeline lineno="60"><highlight class="normal"></highlight></codeline>
-<codeline lineno="61"><highlight class="normal">vector&lt;StringList&gt;::iterator<sp/>StringListContainer::begin()</highlight></codeline>
+<codeline lineno="61"><highlight class="normal">std::vector&lt;StringList&gt;::iterator<sp/>StringListContainer::begin()</highlight></codeline>
 <codeline lineno="62"><highlight class="normal">{</highlight></codeline>
 <codeline lineno="63"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal"><sp/>mContainer.begin();</highlight></codeline>
 <codeline lineno="64"><highlight class="normal">}</highlight></codeline>
 <codeline lineno="65"><highlight class="normal"></highlight></codeline>
-<codeline lineno="66"><highlight class="normal">vector&lt;StringList&gt;::iterator<sp/>StringListContainer::end()</highlight></codeline>
+<codeline lineno="66"><highlight class="normal">std::vector&lt;StringList&gt;::iterator<sp/>StringListContainer::end()</highlight></codeline>
 <codeline lineno="67"><highlight class="normal">{</highlight></codeline>
 <codeline lineno="68"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal"><sp/>mContainer.end();</highlight></codeline>
 <codeline lineno="69"><highlight class="normal">}</highlight></codeline>
 <codeline lineno="70"><highlight class="normal"></highlight></codeline>
-<codeline lineno="71"><highlight class="normal"></highlight><highlight class="comment">//void<sp/>StringListContainer::Add(const<sp/>string&amp;<sp/>lbl,<sp/>const<sp/>StringListContainer&amp;<sp/>lists)</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="71"><highlight class="normal"></highlight><highlight class="comment">//void<sp/>StringListContainer::Add(const<sp/>std::string&amp;<sp/>lbl,<sp/>const<sp/>StringListContainer&amp;<sp/>lists)</highlight><highlight class="normal"></highlight></codeline>
 <codeline lineno="72"><highlight class="normal"></highlight><highlight class="comment">//{</highlight><highlight class="normal"></highlight></codeline>
 <codeline lineno="73"><highlight class="normal"></highlight><highlight class="comment">//<sp/><sp/><sp/><sp/>mLabel<sp/>=<sp/>lbl;</highlight><highlight class="normal"></highlight></codeline>
 <codeline lineno="74"><highlight class="normal"></highlight><highlight class="comment">//<sp/><sp/><sp/><sp/>Add(lists);</highlight><highlight class="normal"></highlight></codeline>
@@ -169,14 +169,14 @@
 <codeline lineno="89"><highlight class="normal"><sp/><sp/><sp/><sp/>mContainer.push_back(list);</highlight></codeline>
 <codeline lineno="90"><highlight class="normal">}</highlight></codeline>
 <codeline lineno="91"><highlight class="normal"></highlight></codeline>
-<codeline lineno="92"><highlight class="normal"></highlight><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/>StringListContainer::Add(</highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/></highlight><highlight class="keywordtype">string</highlight><highlight class="normal">&amp;<sp/>listName,<sp/></highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/>StringList&amp;<sp/>aList)</highlight></codeline>
+<codeline lineno="92"><highlight class="normal"></highlight><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/>StringListContainer::Add(</highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/>std::string&amp;<sp/>listName,<sp/></highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/>StringList&amp;<sp/>aList)</highlight></codeline>
 <codeline lineno="93"><highlight class="normal">{</highlight></codeline>
 <codeline lineno="94"><highlight class="normal"><sp/><sp/><sp/><sp/>StringList<sp/>list(aList);</highlight></codeline>
 <codeline lineno="95"><highlight class="normal"></highlight><highlight class="comment">//<sp/><sp/><sp/><sp/>list.Label(listName);</highlight><highlight class="normal"></highlight></codeline>
 <codeline lineno="96"><highlight class="normal"><sp/><sp/><sp/><sp/>mContainer.push_back(list);</highlight></codeline>
 <codeline lineno="97"><highlight class="normal">}</highlight></codeline>
 <codeline lineno="98"><highlight class="normal"></highlight></codeline>
-<codeline lineno="99"><highlight class="normal"></highlight><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/>StringListContainer::Add(</highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/></highlight><highlight class="keywordtype">string</highlight><highlight class="normal">&amp;<sp/>item)</highlight></codeline>
+<codeline lineno="99"><highlight class="normal"></highlight><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/>StringListContainer::Add(</highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/>std::string&amp;<sp/>item)</highlight></codeline>
 <codeline lineno="100"><highlight class="normal">{</highlight></codeline>
 <codeline lineno="101"><highlight class="normal"><sp/><sp/><sp/><sp/>StringList<sp/>list;</highlight></codeline>
 <codeline lineno="102"><highlight class="normal"><sp/><sp/><sp/><sp/>list.add(item);</highlight></codeline>
@@ -189,13 +189,13 @@
 <codeline lineno="109"><highlight class="normal"></highlight></codeline>
 <codeline lineno="110"><highlight class="normal">}</highlight></codeline>
 <codeline lineno="111"><highlight class="normal"></highlight></codeline>
-<codeline lineno="112"><highlight class="normal">ostream&amp;<sp/>operator&lt;&lt;(ostream&amp;<sp/>stream,<sp/></highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/>StringListContainer&amp;<sp/>list)</highlight></codeline>
+<codeline lineno="112"><highlight class="normal">std::ostream&amp;<sp/>operator&lt;&lt;(std::ostream&amp;<sp/>stream,<sp/></highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/>StringListContainer&amp;<sp/>list)</highlight></codeline>
 <codeline lineno="113"><highlight class="normal">{</highlight></codeline>
-<codeline lineno="114"><highlight class="normal"><sp/><sp/><sp/><sp/>vector&lt;StringList&gt;::iterator<sp/>iter;</highlight></codeline>
+<codeline lineno="114"><highlight class="normal"><sp/><sp/><sp/><sp/>std::vector&lt;StringList&gt;::iterator<sp/>iter;</highlight></codeline>
 <codeline lineno="115"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">for</highlight><highlight class="normal">(</highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/><sp/>i<sp/>=<sp/>0;<sp/>i<sp/>&lt;<sp/>list.Count();<sp/>i++)</highlight></codeline>
 <codeline lineno="116"><highlight class="normal"><sp/><sp/><sp/><sp/>{</highlight></codeline>
-<codeline lineno="117"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordtype">string</highlight><highlight class="normal"><sp/>item<sp/>=<sp/>list[i].AsString();</highlight></codeline>
-<codeline lineno="118"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>stream&lt;&lt;</highlight><highlight class="stringliteral">&quot;List<sp/>Item<sp/>&quot;</highlight><highlight class="normal">&lt;&lt;i+1&lt;&lt;</highlight><highlight class="stringliteral">&quot;<sp/>:<sp/>&quot;</highlight><highlight class="normal">&lt;&lt;item&lt;&lt;endl;</highlight></codeline>
+<codeline lineno="117"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>std::string<sp/>item<sp/>=<sp/>list[i].AsString();</highlight></codeline>
+<codeline lineno="118"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>stream&lt;&lt;</highlight><highlight class="stringliteral">&quot;List<sp/>Item<sp/>&quot;</highlight><highlight class="normal">&lt;&lt;i+1&lt;&lt;</highlight><highlight class="stringliteral">&quot;<sp/>:<sp/>&quot;</highlight><highlight class="normal">&lt;&lt;item&lt;&lt;std::endl;</highlight></codeline>
 <codeline lineno="119"><highlight class="normal"><sp/><sp/><sp/><sp/>}</highlight></codeline>
 <codeline lineno="120"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal"><sp/>stream;</highlight></codeline>
 <codeline lineno="121"><highlight class="normal">}</highlight></codeline>

@@ -6,7 +6,7 @@
 #include "gtest/gtest.h"
 
 // todo move test model factor up one directory
-#include "../sundials-tests/TestModelFactory.h"
+#include "TestModelFactory.h"
 
 #include "GillespieIntegrator.h"
 #include "rrConfig.h"

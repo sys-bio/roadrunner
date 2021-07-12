@@ -91,8 +91,7 @@ namespace rrllvm {
                     reaction->getListOfReactants();
 
             for (uint j = 0; j < reactants->size(); ++j) {
-                const SpeciesReference *r =
-                        (const SpeciesReference *) reactants->get(j);
+                const SpeciesReference *r = (const SpeciesReference *) reactants->get(j);
 
                 if (r->isSetId() && r->getId().length() > 0
                     && !isConstantSpeciesReference(r)) {
@@ -101,7 +100,14 @@ namespace rrllvm {
                                                  "reference reactant " << r->getId();
 
                     const StoichiometryMath *sm = r->getStoichiometryMath();
-                    assert(sm);
+                    if (!sm){
+                        rrLog(Logger::LOG_WARNING) << "No stoichiometry found for "
+                                                      "species \"" << r->getId() << "\""
+                                                      " in reaction \"" << reaction->getName() << "\"" << std::endl;
+                        continue;
+                    }
+
+//                    assert(sm && "SmoichiometryMath variable sm is nullptr");
 
                     Value *value = astCodeGen.codeGen(sm->getMath());
 

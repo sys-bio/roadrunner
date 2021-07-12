@@ -216,7 +216,9 @@ namespace rr {
         if (getIntegrationMethod() == Integrator::Deterministic) {
             bVal = Config::getBool(Config::SIMULATEOPTIONS_DETERMINISTIC_VARIABLE_STEP);
             Integrator::setValue("variable_step_size", Setting(bVal));
-        } else if (getIntegrationMethod() == Integrator::Stochastic) {
+        }
+        // Why is this here? This is CVODE, a *deterministic* integrator.
+        else if (getIntegrationMethod() == Integrator::Stochastic) {
             bVal = Config::getBool(Config::SIMULATEOPTIONS_STOCHASTIC_VARIABLE_STEP);
             Integrator::setValue("variable_step_size", Setting(bVal));
         }
@@ -352,7 +354,6 @@ namespace rr {
                 double abstol =(double) CVODEIntegrator::getValue("absolute_tolerance");
                 for (int i = 0; i < mModel->getNumFloatingSpecies(); i++)
                     v.push_back(i == index ? value : abstol);
-                break;
             }
 
             case Setting::DOUBLEVECTOR: {
@@ -378,7 +379,6 @@ namespace rr {
 
 
     void CVODEIntegrator::setConcentrationTolerance(Setting value) {
-        std::cout << "CVODEIntegrator::setConcentrationTolerance: " << value.toString() << std::endl;
         uint ncomp = mModel->getNumCompartments();
 
         double *volumes = (double *) calloc(ncomp, sizeof(double));
@@ -413,7 +413,6 @@ namespace rr {
                         v.push_back(std::min(abstol, abstol * volumes[index]));
                     }
                 }
-
 
                 std::vector<std::string> symbols = mModel->getRateRuleSymbols();
                 for (int i = 0; i < mModel->getNumRateRules(); i++) {
@@ -1018,7 +1017,7 @@ namespace rr {
 
     void CVODEIntegrator::assignResultsToModel() const {
         if (mStateVector) {
-            mModel->setStateVector(NV_DATA_S(mStateVector));
+            mModel->setStateVector(mStateVector->ops->nvgetarraypointer(mStateVector));
         }
     }
 

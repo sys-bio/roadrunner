@@ -35,6 +35,7 @@
 #endif
 
 #include <sbml/SBMLReader.h>
+#include <memory>
 #include <string>
 #include <vector>
 #include <math.h>
@@ -95,8 +96,8 @@ double atanh(double value)
 
 #endif
 
-ModelGeneratorContext::ModelGeneratorContext(std::string const &sbml,
-    unsigned options) :
+ModelGeneratorContext::ModelGeneratorContext(std::string const &sbml, unsigned options)
+    :
         ownedDoc(0),
         doc(0),
         symbols(0),
@@ -174,10 +175,10 @@ ModelGeneratorContext::ModelGeneratorContext(std::string const &sbml,
 		InitializeNativeTargetAsmPrinter();
 		InitializeNativeTargetAsmParser();
 
-
         context = new LLVMContext();
+
         // Make the module, which holds all the code.
-        module_uniq = std::unique_ptr<Module>(new Module("LLVM Module", *context));
+        module_uniq = std::make_unique<Module>("LLVM Module", *context);
 		module = module_uniq.get();
 
 		// These were moved up here because they require the module ptr. May need to further edit these functions
@@ -190,7 +191,7 @@ ModelGeneratorContext::ModelGeneratorContext(std::string const &sbml,
         EngineBuilder engineBuilder(std::move(module_uniq));
 		
 		engineBuilder.setErrorStr(errString)
-			.setMCJITMemoryManager(std::unique_ptr<SectionMemoryManager>(new SectionMemoryManager()));
+			.setMCJITMemoryManager(std::make_unique<SectionMemoryManager>());
 
         executionEngine = engineBuilder.create();
 
@@ -436,15 +437,15 @@ llvm::IRBuilder<> &ModelGeneratorContext::getBuilder() const
 void ModelGeneratorContext::transferObjectsToResources(std::shared_ptr<rrllvm::ModelResources> rc)
 {
     rc->symbols = symbols;
-    symbols = 0;
+    symbols = nullptr;
     rc->context = context;
-    context = 0;
+    context = nullptr;
     rc->executionEngine = executionEngine;
-    executionEngine = 0;
+    executionEngine = nullptr;
     rc->random = random;
-    random = 0;
+    random = nullptr;
 	rc->errStr = errString;
-    errString = 0;
+    errString = nullptr;
 }
 
 const LLVMModelSymbols& ModelGeneratorContext::getModelSymbols() const

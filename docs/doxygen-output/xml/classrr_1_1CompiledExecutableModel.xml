@@ -523,9 +523,9 @@
         </inbodydescription>
         <location file="c/rrCompiledExecutableModel.h" line="449" column="39" bodyfile="c/rrCompiledExecutableModel.h" bodystart="449" bodyend="-1"/>
       </memberdef>
-      <memberdef kind="variable" id="classrr_1_1CompiledExecutableModel_1acc6473f2c519da834be96e88163b36be" prot="public" static="no" mutable="no">
-        <type>vector&lt; <ref refid="classrr_1_1PendingAssignment" kindref="compound">PendingAssignment</ref> &gt;</type>
-        <definition>vector&lt;PendingAssignment&gt; rr::CompiledExecutableModel::mAssignments</definition>
+      <memberdef kind="variable" id="classrr_1_1CompiledExecutableModel_1a410819286030c7ec1c6ecc16292292b8" prot="public" static="no" mutable="no">
+        <type>std::vector&lt; <ref refid="classrr_1_1PendingAssignment" kindref="compound">PendingAssignment</ref> &gt;</type>
+        <definition>std::vector&lt;PendingAssignment&gt; rr::CompiledExecutableModel::mAssignments</definition>
         <argsstring></argsstring>
         <name>mAssignments</name>
         <briefdescription>
@@ -534,11 +534,11 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="c/rrCompiledExecutableModel.h" line="451" column="14" bodyfile="c/rrCompiledExecutableModel.h" bodystart="451" bodyend="-1"/>
+        <location file="c/rrCompiledExecutableModel.h" line="451" column="19" bodyfile="c/rrCompiledExecutableModel.h" bodystart="451" bodyend="-1"/>
       </memberdef>
-      <memberdef kind="variable" id="classrr_1_1CompiledExecutableModel_1a6d57d88b43c4742931fb5ca18f038e71" prot="public" static="no" mutable="no">
-        <type>vector&lt; double &gt;</type>
-        <definition>vector&lt;double&gt; rr::CompiledExecutableModel::mAssignmentTimes</definition>
+      <memberdef kind="variable" id="classrr_1_1CompiledExecutableModel_1ad871d89e7c91ca265f259aa6e53bc11d" prot="public" static="no" mutable="no">
+        <type>std::vector&lt; double &gt;</type>
+        <definition>std::vector&lt;double&gt; rr::CompiledExecutableModel::mAssignmentTimes</definition>
         <argsstring></argsstring>
         <name>mAssignmentTimes</name>
         <briefdescription>
@@ -547,7 +547,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="c/rrCompiledExecutableModel.h" line="453" column="25" bodyfile="c/rrCompiledExecutableModel.h" bodystart="453" bodyend="-1"/>
+        <location file="c/rrCompiledExecutableModel.h" line="453" column="30" bodyfile="c/rrCompiledExecutableModel.h" bodystart="453" bodyend="-1"/>
       </memberdef>
       <memberdef kind="variable" id="classrr_1_1CompiledExecutableModel_1a74c9fa0353bea3e576414eafe78759cc" prot="public" static="no" mutable="no">
         <type>DoubleMatrix</type>
@@ -665,9 +665,9 @@
         </inbodydescription>
         <location file="c/rrCompiledExecutableModel.h" line="65" column="18" bodyfile="c/rrCompiledExecutableModel.cpp" bodystart="259" bodyend="262"/>
       </memberdef>
-      <memberdef kind="function" id="classrr_1_1CompiledExecutableModel_1a4fa5acc0a12a75fe89579acdd6c1e62a" prot="public" static="no" const="no" explicit="no" inline="no" virt="virtual">
-        <type>string</type>
-        <definition>string rr::CompiledExecutableModel::getModelName</definition>
+      <memberdef kind="function" id="classrr_1_1CompiledExecutableModel_1a7a35baccccf36442c3e38770587db25c" prot="public" static="no" const="no" explicit="no" inline="no" virt="virtual">
+        <type>std::string</type>
+        <definition>std::string rr::CompiledExecutableModel::getModelName</definition>
         <argsstring>()</argsstring>
         <name>getModelName</name>
         <reimplements refid="classrr_1_1ExecutableModel_1a6ad7fd317a2335c337d7c8a3aeb8e044">getModelName</reimplements>
@@ -678,7 +678,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="c/rrCompiledExecutableModel.h" line="67" column="20" bodyfile="c/rrCompiledExecutableModel.cpp" bodystart="88" bodyend="91"/>
+        <location file="c/rrCompiledExecutableModel.h" line="67" column="25" bodyfile="c/rrCompiledExecutableModel.cpp" bodystart="88" bodyend="91"/>
       </memberdef>
       <memberdef kind="function" id="classrr_1_1CompiledExecutableModel_1a324c8df0ec3e73850ca0ac48d2770594" prot="public" static="no" const="no" explicit="no" inline="no" virt="virtual">
         <type>void</type>
@@ -848,13 +848,14 @@
         </inbodydescription>
         <location file="c/rrCompiledExecutableModel.h" line="118" column="17" bodyfile="c/rrCompiledExecutableModel.cpp" bodystart="114" bodyend="117"/>
       </memberdef>
-      <memberdef kind="function" id="classrr_1_1CompiledExecutableModel_1ae7c7afda2940ccb9a925129c19019743" prot="public" static="no" const="no" explicit="no" inline="no" virt="virtual">
+      <memberdef kind="function" id="classrr_1_1CompiledExecutableModel_1a95e8e93fd51bb84a89ca45a22e3ace60" prot="public" static="no" const="no" explicit="no" inline="no" virt="virtual">
         <type>int</type>
         <definition>int rr::CompiledExecutableModel::getFloatingSpeciesIndex</definition>
-        <argsstring>(const string &amp;name)</argsstring>
+        <argsstring>(const std::string &amp;name)</argsstring>
         <name>getFloatingSpeciesIndex</name>
+        <reimplements refid="classrr_1_1ExecutableModel_1a390a1905aabac6056f6dceff11833c43">getFloatingSpeciesIndex</reimplements>
         <param>
-          <type>const string &amp;</type>
+          <type>const std::string &amp;</type>
           <declname>name</declname>
         </param>
         <briefdescription>
@@ -865,9 +866,9 @@
         </inbodydescription>
         <location file="c/rrCompiledExecutableModel.h" line="119" column="17" bodyfile="c/rrCompiledExecutableModel.cpp" bodystart="201" bodyend="205"/>
       </memberdef>
-      <memberdef kind="function" id="classrr_1_1CompiledExecutableModel_1ae923abbc93203d9fcd58dd40745724e8" prot="public" static="no" const="no" explicit="no" inline="no" virt="virtual">
-        <type>string</type>
-        <definition>string rr::CompiledExecutableModel::getFloatingSpeciesId</definition>
+      <memberdef kind="function" id="classrr_1_1CompiledExecutableModel_1a3dab9587b521885924032e40cb6c1ea2" prot="public" static="no" const="no" explicit="no" inline="no" virt="virtual">
+        <type>std::string</type>
+        <definition>std::string rr::CompiledExecutableModel::getFloatingSpeciesId</definition>
         <argsstring>(int index)</argsstring>
         <name>getFloatingSpeciesId</name>
         <param>
@@ -880,7 +881,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="c/rrCompiledExecutableModel.h" line="120" column="20" bodyfile="c/rrCompiledExecutableModel.cpp" bodystart="207" bodyend="210"/>
+        <location file="c/rrCompiledExecutableModel.h" line="120" column="25" bodyfile="c/rrCompiledExecutableModel.cpp" bodystart="207" bodyend="210"/>
       </memberdef>
       <memberdef kind="function" id="classrr_1_1CompiledExecutableModel_1a1c5cb4c75584906946d426d1193da39e" prot="public" static="no" const="no" explicit="no" inline="no" virt="virtual">
         <type>int</type>
@@ -897,13 +898,14 @@
         </inbodydescription>
         <location file="c/rrCompiledExecutableModel.h" line="122" column="17" bodyfile="c/rrCompiledExecutableModel.cpp" bodystart="119" bodyend="122"/>
       </memberdef>
-      <memberdef kind="function" id="classrr_1_1CompiledExecutableModel_1a100cc257ed0dac18b87f6b686cf8be77" prot="public" static="no" const="no" explicit="no" inline="no" virt="virtual">
+      <memberdef kind="function" id="classrr_1_1CompiledExecutableModel_1adf4ab509d93bab14f0b1e34b85ad704a" prot="public" static="no" const="no" explicit="no" inline="no" virt="virtual">
         <type>int</type>
         <definition>int rr::CompiledExecutableModel::getBoundarySpeciesIndex</definition>
-        <argsstring>(const string &amp;name)</argsstring>
+        <argsstring>(const std::string &amp;name)</argsstring>
         <name>getBoundarySpeciesIndex</name>
+        <reimplements refid="classrr_1_1ExecutableModel_1a28488139fa975776eded9e8c899c307d">getBoundarySpeciesIndex</reimplements>
         <param>
-          <type>const string &amp;</type>
+          <type>const std::string &amp;</type>
           <declname>name</declname>
         </param>
         <briefdescription>
@@ -914,9 +916,9 @@
         </inbodydescription>
         <location file="c/rrCompiledExecutableModel.h" line="123" column="17" bodyfile="c/rrCompiledExecutableModel.cpp" bodystart="171" bodyend="175"/>
       </memberdef>
-      <memberdef kind="function" id="classrr_1_1CompiledExecutableModel_1a03645654e28f193786b280435b4d3316" prot="public" static="no" const="no" explicit="no" inline="no" virt="virtual">
-        <type>string</type>
-        <definition>string rr::CompiledExecutableModel::getBoundarySpeciesId</definition>
+      <memberdef kind="function" id="classrr_1_1CompiledExecutableModel_1a3c99a105961f6fd7c69a2b7c1fb60032" prot="public" static="no" const="no" explicit="no" inline="no" virt="virtual">
+        <type>std::string</type>
+        <definition>std::string rr::CompiledExecutableModel::getBoundarySpeciesId</definition>
         <argsstring>(int index)</argsstring>
         <name>getBoundarySpeciesId</name>
         <param>
@@ -929,7 +931,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="c/rrCompiledExecutableModel.h" line="124" column="20" bodyfile="c/rrCompiledExecutableModel.cpp" bodystart="177" bodyend="180"/>
+        <location file="c/rrCompiledExecutableModel.h" line="124" column="25" bodyfile="c/rrCompiledExecutableModel.cpp" bodystart="177" bodyend="180"/>
       </memberdef>
       <memberdef kind="function" id="classrr_1_1CompiledExecutableModel_1a66747b5067ff6a1799bf3f49ff9d6493" prot="public" static="no" const="no" explicit="no" inline="no" virt="virtual">
         <type>int</type>
@@ -1369,9 +1371,9 @@
         </inbodydescription>
         <location file="c/rrCompiledExecutableModel.h" line="204" column="17" bodyfile="c/rrCompiledExecutableModel.cpp" bodystart="160" bodyend="164"/>
       </memberdef>
-      <memberdef kind="function" id="classrr_1_1CompiledExecutableModel_1af6380dec38745ec177c3c5c4f003065b" prot="public" static="no" const="no" explicit="no" inline="no" virt="virtual">
-        <type>string</type>
-        <definition>string rr::CompiledExecutableModel::getGlobalParameterId</definition>
+      <memberdef kind="function" id="classrr_1_1CompiledExecutableModel_1a7a55623288bf239c2486b48060160cd6" prot="public" static="no" const="no" explicit="no" inline="no" virt="virtual">
+        <type>std::string</type>
+        <definition>std::string rr::CompiledExecutableModel::getGlobalParameterId</definition>
         <argsstring>(int index)</argsstring>
         <name>getGlobalParameterId</name>
         <param>
@@ -1384,7 +1386,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="c/rrCompiledExecutableModel.h" line="205" column="20" bodyfile="c/rrCompiledExecutableModel.cpp" bodystart="166" bodyend="169"/>
+        <location file="c/rrCompiledExecutableModel.h" line="205" column="25" bodyfile="c/rrCompiledExecutableModel.cpp" bodystart="166" bodyend="169"/>
       </memberdef>
       <memberdef kind="function" id="classrr_1_1CompiledExecutableModel_1a84cf75aaef544e60e2a786bbaec39392" prot="public" static="no" const="no" explicit="no" inline="no" virt="virtual">
         <type>int</type>
@@ -1477,13 +1479,14 @@
         </inbodydescription>
         <location file="c/rrCompiledExecutableModel.h" line="221" column="17" bodyfile="c/rrCompiledExecutableModel.cpp" bodystart="129" bodyend="132"/>
       </memberdef>
-      <memberdef kind="function" id="classrr_1_1CompiledExecutableModel_1a3e7774149f655490e73251660864ce9e" prot="public" static="no" const="no" explicit="no" inline="no" virt="virtual">
+      <memberdef kind="function" id="classrr_1_1CompiledExecutableModel_1ac086fec83ad0f77876aface9965f6e38" prot="public" static="no" const="no" explicit="no" inline="no" virt="virtual">
         <type>int</type>
         <definition>int rr::CompiledExecutableModel::getCompartmentIndex</definition>
-        <argsstring>(const string &amp;name)</argsstring>
+        <argsstring>(const std::string &amp;name)</argsstring>
         <name>getCompartmentIndex</name>
+        <reimplements refid="classrr_1_1ExecutableModel_1a366727be244766db2ff917b64949858c">getCompartmentIndex</reimplements>
         <param>
-          <type>const string &amp;</type>
+          <type>const std::string &amp;</type>
           <declname>name</declname>
         </param>
         <briefdescription>
@@ -1494,9 +1497,9 @@
         </inbodydescription>
         <location file="c/rrCompiledExecutableModel.h" line="222" column="17" bodyfile="c/rrCompiledExecutableModel.cpp" bodystart="190" bodyend="194"/>
       </memberdef>
-      <memberdef kind="function" id="classrr_1_1CompiledExecutableModel_1aceda7408185f0f393baddbbc084d919e" prot="public" static="no" const="no" explicit="no" inline="no" virt="virtual">
-        <type>string</type>
-        <definition>string rr::CompiledExecutableModel::getCompartmentId</definition>
+      <memberdef kind="function" id="classrr_1_1CompiledExecutableModel_1a9176b67fd6f37a242323fdd58f402a59" prot="public" static="no" const="no" explicit="no" inline="no" virt="virtual">
+        <type>std::string</type>
+        <definition>std::string rr::CompiledExecutableModel::getCompartmentId</definition>
         <argsstring>(int index)</argsstring>
         <name>getCompartmentId</name>
         <param>
@@ -1509,7 +1512,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="c/rrCompiledExecutableModel.h" line="223" column="20" bodyfile="c/rrCompiledExecutableModel.cpp" bodystart="196" bodyend="199"/>
+        <location file="c/rrCompiledExecutableModel.h" line="223" column="25" bodyfile="c/rrCompiledExecutableModel.cpp" bodystart="196" bodyend="199"/>
       </memberdef>
       <memberdef kind="function" id="classrr_1_1CompiledExecutableModel_1a17ab2cef550fed61c4e2162ade95c62c" prot="public" static="no" const="no" explicit="no" inline="no" virt="virtual">
         <type>int</type>
@@ -1640,7 +1643,7 @@
         <location file="c/rrCompiledExecutableModel.h" line="249" column="17" bodyfile="c/rrCompiledExecutableModel.cpp" bodystart="149" bodyend="153"/>
       </memberdef>
       <memberdef kind="function" id="classrr_1_1CompiledExecutableModel_1a448c9bcff065fbb2e0c12015beea16c2" prot="public" static="no" const="no" explicit="no" inline="no" virt="virtual">
-        <type>string</type>
+        <type>std::string</type>
         <definition>std::string rr::CompiledExecutableModel::getReactionId</definition>
         <argsstring>(int index)</argsstring>
         <name>getReactionId</name>
@@ -1655,7 +1658,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="c/rrCompiledExecutableModel.h" line="254" column="20" bodyfile="c/rrCompiledExecutableModel.cpp" bodystart="155" bodyend="158"/>
+        <location file="c/rrCompiledExecutableModel.h" line="254" column="25" bodyfile="c/rrCompiledExecutableModel.cpp" bodystart="155" bodyend="158"/>
       </memberdef>
       <memberdef kind="function" id="classrr_1_1CompiledExecutableModel_1a5780766e212b015f2ce946b97dac6299" prot="public" static="no" const="no" explicit="no" inline="no" virt="virtual">
         <type>int</type>
@@ -1948,7 +1951,7 @@
           <declname>stateVector</declname>
         </param>
         <briefdescription>
-<para>copies the internal model state vector into the provided buffer. </para>
+<para>copies the internal model state std::vector into the provided buffer. </para>
         </briefdescription>
         <detaileddescription>
 <para><parameterlist kind="param"><parameteritem>
@@ -1956,11 +1959,11 @@
 <parametername direction="out">stateVector</parametername>
 </parameternamelist>
 <parameterdescription>
-<para>a buffer to copy the state vector into, if NULL, return the size required.</para>
+<para>a buffer to copy the state std::vector into, if NULL, return the size required.</para>
 </parameterdescription>
 </parameteritem>
 </parameterlist>
-<simplesect kind="return"><para>the number of items coppied into the provided buffer, if stateVector is NULL, returns the length of the state vector. </para>
+<simplesect kind="return"><para>the number of items coppied into the provided buffer, if stateVector is NULL, returns the length of the state std::vector. </para>
 </simplesect>
 </para>
         </detaileddescription>
@@ -1979,7 +1982,7 @@
           <declname>stateVector</declname>
         </param>
         <briefdescription>
-<para>sets the internal model state to the provided packed state vector. </para>
+<para>sets the internal model state to the provided packed state std::vector. </para>
         </briefdescription>
         <detaileddescription>
 <para><parameterlist kind="param"><parameteritem>
@@ -1987,11 +1990,11 @@
 <parametername direction="in">an</parametername>
 </parameternamelist>
 <parameterdescription>
-<para>array which holds the packed state vector, must be at least the size returned by getStateVector.</para>
+<para>array which holds the packed state std::vector, must be at least the size returned by getStateVector.</para>
 </parameterdescription>
 </parameteritem>
 </parameterlist>
-<simplesect kind="return"><para>the number of items copied from the state vector, negative on failure. </para>
+<simplesect kind="return"><para>the number of items copied from the state std::vector, negative on failure. </para>
 </simplesect>
 </para>
         </detaileddescription>
@@ -2058,11 +2061,11 @@
           <defval>0</defval>
         </param>
         <briefdescription>
-<para>the state vector y is the rate rule values and floating species concentrations concatenated. </para>
+<para>the state std::vector y is the rate rule values and floating species concentrations concatenated. </para>
         </briefdescription>
         <detaileddescription>
 <para>y is of length numFloatingSpecies + numRateRules.</para>
-<para>The state vector is packed such that the first n raterule elements are the values of the rate rules, and the last n floatingspecies are the floating species values.</para>
+<para>The state std::vector is packed such that the first n raterule elements are the values of the rate rules, and the last n floatingspecies are the floating species values.</para>
 <para><parameterlist kind="param"><parameteritem>
 <parameternamelist>
 <parametername direction="in">time</parametername>
@@ -2076,7 +2079,7 @@
 <parametername direction="in">y</parametername>
 </parameternamelist>
 <parameterdescription>
-<para>state vector, must be of size returned by getStateVector </para>
+<para>state std::vector, must be of size returned by getStateVector </para>
 </parameterdescription>
 </parameteritem>
 <parameteritem>
@@ -2084,7 +2087,7 @@
 <parametername direction="out">dydt</parametername>
 </parameternamelist>
 <parameterdescription>
-<para>calculated rate of change of the state vector, if null, it is ignored. </para>
+<para>calculated rate of change of the state std::vector, if null, it is ignored. </para>
 </parameterdescription>
 </parameteritem>
 </parameterlist>
@@ -2156,9 +2159,9 @@
         </inbodydescription>
         <location file="c/rrCompiledExecutableModel.h" line="330" column="18" bodyfile="c/rrCompiledExecutableModel.cpp" bodystart="687" bodyend="696"/>
       </memberdef>
-      <memberdef kind="function" id="classrr_1_1CompiledExecutableModel_1addbf0634246cecfda033cf6402c4d303" prot="public" static="no" const="no" explicit="no" inline="no" virt="virtual">
-        <type>string</type>
-        <definition>string rr::CompiledExecutableModel::getInfo</definition>
+      <memberdef kind="function" id="classrr_1_1CompiledExecutableModel_1a7cf0832caf732cda5e42967c922c1539" prot="public" static="no" const="no" explicit="no" inline="no" virt="virtual">
+        <type>std::string</type>
+        <definition>std::string rr::CompiledExecutableModel::getInfo</definition>
         <argsstring>()</argsstring>
         <name>getInfo</name>
         <reimplements refid="classrr_1_1ExecutableModel_1ab8073e0f3e57cb6f0d807bdf60d1d2a1">getInfo</reimplements>
@@ -2168,7 +2171,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="c/rrCompiledExecutableModel.h" line="331" column="20" bodyfile="c/rrCompiledExecutableModel.cpp" bodystart="698" bodyend="706"/>
+        <location file="c/rrCompiledExecutableModel.h" line="331" column="25" bodyfile="c/rrCompiledExecutableModel.cpp" bodystart="698" bodyend="706"/>
       </memberdef>
       <memberdef kind="function" id="classrr_1_1CompiledExecutableModel_1abb50d6fbc8cbd14a155989f76430d967" prot="public" static="no" const="no" explicit="no" inline="no" virt="virtual">
         <type>void</type>
@@ -2255,10 +2258,10 @@
           <declname>id</declname>
         </param>
         <briefdescription>
-<para>gets the value for the given id string. </para>
+<para>gets the value for the given id std::string. </para>
         </briefdescription>
         <detaileddescription>
-<para>The string must be a <ref refid="classrr_1_1SelectionRecord" kindref="compound">SelectionRecord</ref> string that is accepted by this class. </para>
+<para>The std::string must be a <ref refid="classrr_1_1SelectionRecord" kindref="compound">SelectionRecord</ref> std::string that is accepted by this class. </para>
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
@@ -2431,13 +2434,14 @@
         </inbodydescription>
         <location file="c/rrCompiledExecutableModel.h" line="355" column="17" bodyfile="c/rrCompiledExecutableModel.cpp" bodystart="1308" bodyend="1311"/>
       </memberdef>
-      <memberdef kind="function" id="classrr_1_1CompiledExecutableModel_1a6816608655a4d7589fa3158340033fd8" prot="public" static="no" const="no" explicit="no" inline="no" virt="virtual">
+      <memberdef kind="function" id="classrr_1_1CompiledExecutableModel_1a3e5addab5a5bf57e487874703fdbd244" prot="public" static="no" const="no" explicit="no" inline="no" virt="virtual">
         <type>int</type>
         <definition>int rr::CompiledExecutableModel::getConservedMoietyIndex</definition>
-        <argsstring>(const string &amp;name)</argsstring>
+        <argsstring>(const std::string &amp;name)</argsstring>
         <name>getConservedMoietyIndex</name>
+        <reimplements refid="classrr_1_1ExecutableModel_1afb584e140ba5ef19865d0256d275e538">getConservedMoietyIndex</reimplements>
         <param>
-          <type>const string &amp;</type>
+          <type>const std::string &amp;</type>
           <declname>name</declname>
         </param>
         <briefdescription>
@@ -2448,9 +2452,9 @@
         </inbodydescription>
         <location file="c/rrCompiledExecutableModel.h" line="356" column="17" bodyfile="c/rrCompiledExecutableModel.cpp" bodystart="1313" bodyend="1317"/>
       </memberdef>
-      <memberdef kind="function" id="classrr_1_1CompiledExecutableModel_1a1d45035c9d9c6482938319619ad590e7" prot="public" static="no" const="no" explicit="no" inline="no" virt="virtual">
-        <type>string</type>
-        <definition>string rr::CompiledExecutableModel::getConservedMoietyId</definition>
+      <memberdef kind="function" id="classrr_1_1CompiledExecutableModel_1aa7189b1968bfd7ca94f82219ba5b55d7" prot="public" static="no" const="no" explicit="no" inline="no" virt="virtual">
+        <type>std::string</type>
+        <definition>std::string rr::CompiledExecutableModel::getConservedMoietyId</definition>
         <argsstring>(int index)</argsstring>
         <name>getConservedMoietyId</name>
         <param>
@@ -2463,7 +2467,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="c/rrCompiledExecutableModel.h" line="357" column="20" bodyfile="c/rrCompiledExecutableModel.cpp" bodystart="1319" bodyend="1322"/>
+        <location file="c/rrCompiledExecutableModel.h" line="357" column="25" bodyfile="c/rrCompiledExecutableModel.cpp" bodystart="1319" bodyend="1322"/>
       </memberdef>
       <memberdef kind="function" id="classrr_1_1CompiledExecutableModel_1a392d479dc9b6bb427e525e8b546af61d" prot="public" static="no" const="no" explicit="no" inline="no" virt="virtual">
         <type>int</type>
@@ -2713,21 +2717,21 @@
         </inbodydescription>
         <location file="c/rrCompiledExecutableModel.h" line="397" column="18" bodyfile="c/rrCompiledExecutableModel.cpp" bodystart="307" bodyend="346"/>
       </memberdef>
-      <memberdef kind="function" id="classrr_1_1CompiledExecutableModel_1a26d20106886af0b6b0ad3ea7e4963773" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
-        <type>vector&lt; int &gt;</type>
-        <definition>vector&lt; int &gt; rr::CompiledExecutableModel::retestEvents</definition>
-        <argsstring>(const double &amp;timeEnd, const vector&lt; int &gt; &amp;handledEvents, vector&lt; int &gt; &amp;removeEvents)</argsstring>
+      <memberdef kind="function" id="classrr_1_1CompiledExecutableModel_1a2dc1e802226e9a7278503bb0e5348351" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>std::vector&lt; int &gt;</type>
+        <definition>std::vector&lt; int &gt; rr::CompiledExecutableModel::retestEvents</definition>
+        <argsstring>(const double &amp;timeEnd, const std::vector&lt; int &gt; &amp;handledEvents, std::vector&lt; int &gt; &amp;removeEvents)</argsstring>
         <name>retestEvents</name>
         <param>
           <type>const double &amp;</type>
           <declname>timeEnd</declname>
         </param>
         <param>
-          <type>const vector&lt; int &gt; &amp;</type>
+          <type>const std::vector&lt; int &gt; &amp;</type>
           <declname>handledEvents</declname>
         </param>
         <param>
-          <type>vector&lt; int &gt; &amp;</type>
+          <type>std::vector&lt; int &gt; &amp;</type>
           <declname>removeEvents</declname>
         </param>
         <briefdescription>
@@ -2736,19 +2740,19 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="c/rrCompiledExecutableModel.h" line="457" column="12" bodyfile="c/rrCompiledExecutableModel.cpp" bodystart="972" bodyend="975"/>
+        <location file="c/rrCompiledExecutableModel.h" line="457" column="17" bodyfile="c/rrCompiledExecutableModel.cpp" bodystart="972" bodyend="975"/>
       </memberdef>
-      <memberdef kind="function" id="classrr_1_1CompiledExecutableModel_1aa11f449c91c030f1fad5fb5c5847008b" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
-        <type>vector&lt; int &gt;</type>
-        <definition>vector&lt; int &gt; rr::CompiledExecutableModel::retestEvents</definition>
-        <argsstring>(const double &amp;timeEnd, vector&lt; int &gt; &amp;handledEvents, const bool &amp;assignOldState)</argsstring>
+      <memberdef kind="function" id="classrr_1_1CompiledExecutableModel_1a146acfa8e42182a11e3d10dfa3a77521" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>std::vector&lt; int &gt;</type>
+        <definition>std::vector&lt; int &gt; rr::CompiledExecutableModel::retestEvents</definition>
+        <argsstring>(const double &amp;timeEnd, std::vector&lt; int &gt; &amp;handledEvents, const bool &amp;assignOldState)</argsstring>
         <name>retestEvents</name>
         <param>
           <type>const double &amp;</type>
           <declname>timeEnd</declname>
         </param>
         <param>
-          <type>vector&lt; int &gt; &amp;</type>
+          <type>std::vector&lt; int &gt; &amp;</type>
           <declname>handledEvents</declname>
         </param>
         <param>
@@ -2761,19 +2765,19 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="c/rrCompiledExecutableModel.h" line="460" column="12" bodyfile="c/rrCompiledExecutableModel.cpp" bodystart="977" bodyend="981"/>
+        <location file="c/rrCompiledExecutableModel.h" line="460" column="17" bodyfile="c/rrCompiledExecutableModel.cpp" bodystart="977" bodyend="981"/>
       </memberdef>
-      <memberdef kind="function" id="classrr_1_1CompiledExecutableModel_1a899addc367f3d7a75e27033214fcdd76" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
-        <type>vector&lt; int &gt;</type>
-        <definition>vector&lt; int &gt; rr::CompiledExecutableModel::retestEvents</definition>
-        <argsstring>(const double &amp;timeEnd, const vector&lt; int &gt; &amp;handledEvents, const bool &amp;assignOldState, vector&lt; int &gt; &amp;removeEvents)</argsstring>
+      <memberdef kind="function" id="classrr_1_1CompiledExecutableModel_1ac2c5e8d6f0e487d12743d624a505173f" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>std::vector&lt; int &gt;</type>
+        <definition>std::vector&lt; int &gt; rr::CompiledExecutableModel::retestEvents</definition>
+        <argsstring>(const double &amp;timeEnd, const std::vector&lt; int &gt; &amp;handledEvents, const bool &amp;assignOldState, std::vector&lt; int &gt; &amp;removeEvents)</argsstring>
         <name>retestEvents</name>
         <param>
           <type>const double &amp;</type>
           <declname>timeEnd</declname>
         </param>
         <param>
-          <type>const vector&lt; int &gt; &amp;</type>
+          <type>const std::vector&lt; int &gt; &amp;</type>
           <declname>handledEvents</declname>
         </param>
         <param>
@@ -2781,7 +2785,7 @@
           <declname>assignOldState</declname>
         </param>
         <param>
-          <type>vector&lt; int &gt; &amp;</type>
+          <type>std::vector&lt; int &gt; &amp;</type>
           <declname>removeEvents</declname>
         </param>
         <briefdescription>
@@ -2790,7 +2794,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="c/rrCompiledExecutableModel.h" line="463" column="12" bodyfile="c/rrCompiledExecutableModel.cpp" bodystart="983" bodyend="1024"/>
+        <location file="c/rrCompiledExecutableModel.h" line="463" column="17" bodyfile="c/rrCompiledExecutableModel.cpp" bodystart="983" bodyend="1024"/>
       </memberdef>
       <memberdef kind="function" id="classrr_1_1CompiledExecutableModel_1ae0c386b45724d6ee0d09aa6c92d51c60" prot="public" static="no" const="no" explicit="no" inline="no" virt="virtual">
         <type>int</type>
@@ -2857,7 +2861,7 @@
 <parametername>initialState</parametername>
 </parameternamelist>
 <parameterdescription>
-<para>(optional): initial state vector, may be NULL, in which the current state is used. </para>
+<para>(optional): initial state std::vector, may be NULL, in which the current state is used. </para>
 </parameterdescription>
 </parameteritem>
 <parameteritem>
@@ -2865,7 +2869,7 @@
 <parametername>finalState</parametername>
 </parameternamelist>
 <parameterdescription>
-<para>(optional): final state vector, where the final state is coppied to. May be NULL, in which case, ignored. </para>
+<para>(optional): final state std::vector, where the final state is coppied to. May be NULL, in which case, ignored. </para>
 </parameterdescription>
 </parameteritem>
 </parameterlist>
@@ -2911,7 +2915,7 @@
 <parametername>y[in]</parametername>
 </parameternamelist>
 <parameterdescription>
-<para>the state vector </para>
+<para>the state std::vector </para>
 </parameterdescription>
 </parameteritem>
 <parameteritem>
@@ -2978,13 +2982,13 @@
         </inbodydescription>
         <location file="c/rrCompiledExecutableModel.h" line="478" column="10" bodyfile="c/rrCompiledExecutableModel.cpp" bodystart="1191" bodyend="1200"/>
       </memberdef>
-      <memberdef kind="function" id="classrr_1_1CompiledExecutableModel_1aaeceddef4ab4f46bd9c1fc374723c728" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+      <memberdef kind="function" id="classrr_1_1CompiledExecutableModel_1afa911d07605712c1f1eca8df729e1233" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
         <type>void</type>
         <definition>void rr::CompiledExecutableModel::sortEventsByPriority</definition>
-        <argsstring>(vector&lt; Event &gt; &amp;firedEvents)</argsstring>
+        <argsstring>(std::vector&lt; Event &gt; &amp;firedEvents)</argsstring>
         <name>sortEventsByPriority</name>
         <param>
-          <type>vector&lt; <ref refid="classrr_1_1Event" kindref="compound">Event</ref> &gt; &amp;</type>
+          <type>std::vector&lt; <ref refid="classrr_1_1Event" kindref="compound">Event</ref> &gt; &amp;</type>
           <declname>firedEvents</declname>
         </param>
         <briefdescription>
@@ -2995,13 +2999,13 @@
         </inbodydescription>
         <location file="c/rrCompiledExecutableModel.h" line="480" column="10" bodyfile="c/rrCompiledExecutableModel.cpp" bodystart="1202" bodyend="1220"/>
       </memberdef>
-      <memberdef kind="function" id="classrr_1_1CompiledExecutableModel_1a1e7455d84aa8b194c42ff05954536cd0" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+      <memberdef kind="function" id="classrr_1_1CompiledExecutableModel_1abc440ef2f6e7543a51c0255ae8384246" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
         <type>void</type>
         <definition>void rr::CompiledExecutableModel::sortEventsByPriority</definition>
-        <argsstring>(vector&lt; int &gt; &amp;firedEvents)</argsstring>
+        <argsstring>(std::vector&lt; int &gt; &amp;firedEvents)</argsstring>
         <name>sortEventsByPriority</name>
         <param>
-          <type>vector&lt; int &gt; &amp;</type>
+          <type>std::vector&lt; int &gt; &amp;</type>
           <declname>firedEvents</declname>
         </param>
         <briefdescription>
@@ -3307,10 +3311,10 @@
       </node>
     </inheritancegraph>
     <collaborationgraph>
-      <node id="13">
+      <node id="10">
         <label>rr::SymbolList</label>
         <link refid="classrr_1_1SymbolList"/>
-        <childnode refid="14" relation="public-inheritance">
+        <childnode refid="11" relation="public-inheritance">
         </childnode>
       </node>
       <node id="1">
@@ -3322,15 +3326,9 @@
           <edgelabel>mDLL</edgelabel>
         </childnode>
         <childnode refid="6" relation="usage">
-          <edgelabel>mAssignments</edgelabel>
-        </childnode>
-        <childnode refid="7" relation="usage">
           <edgelabel>ms</edgelabel>
         </childnode>
-        <childnode refid="16" relation="usage">
-          <edgelabel>mAssignmentTimes</edgelabel>
-        </childnode>
-        <childnode refid="17" relation="usage">
+        <childnode refid="12" relation="usage">
           <edgelabel>cAssignRates_b</edgelabel>
           <edgelabel>cGetCurrentValues</edgelabel>
           <edgelabel>cInitModel</edgelabel>
@@ -3344,25 +3342,19 @@
           <edgelabel>...</edgelabel>
         </childnode>
       </node>
-      <node id="10">
-        <label>vector&lt; string &gt;</label>
-      </node>
-      <node id="7">
+      <node id="6">
         <label>rr::ModelSymbols</label>
         <link refid="classrr_1_1ModelSymbols"/>
-        <childnode refid="8" relation="usage">
-          <edgelabel>mLocalParameterList</edgelabel>
-        </childnode>
-        <childnode refid="9" relation="usage">
+        <childnode refid="7" relation="usage">
           <edgelabel>mDependentSpeciesList</edgelabel>
           <edgelabel>mFunctionNames</edgelabel>
           <edgelabel>mFunctionParameters</edgelabel>
           <edgelabel>mIndependentSpeciesList</edgelabel>
         </childnode>
-        <childnode refid="11" relation="usage">
+        <childnode refid="8" relation="usage">
           <edgelabel>mRateRules</edgelabel>
         </childnode>
-        <childnode refid="13" relation="usage">
+        <childnode refid="10" relation="usage">
           <edgelabel>mBoundarySpeciesList</edgelabel>
           <edgelabel>mCompartmentList</edgelabel>
           <edgelabel>mConservationList</edgelabel>
@@ -3371,40 +3363,27 @@
           <edgelabel>mModifiableSpeciesReferenceList</edgelabel>
           <edgelabel>mReactionList</edgelabel>
         </childnode>
-        <childnode refid="4" relation="usage">
-          <edgelabel>mDoubleFormat</edgelabel>
-          <edgelabel>mModelName</edgelabel>
-        </childnode>
-        <childnode refid="15" relation="usage">
-          <edgelabel>mLocalParameterDimensions</edgelabel>
-        </childnode>
-      </node>
-      <node id="8">
-        <label>vector&lt; rr::SymbolList &gt;</label>
       </node>
       <node id="4">
         <label>string</label>
       </node>
+      <node id="9">
+        <label>std::map&lt; int, std::string &gt;</label>
+      </node>
       <node id="5">
         <label>SharedLibrary</label>
       </node>
-      <node id="16">
-        <label>vector&lt; double &gt;</label>
-      </node>
-      <node id="11">
+      <node id="8">
         <label>rr::IntStringHashTable</label>
         <link refid="classrr_1_1IntStringHashTable"/>
-        <childnode refid="12" relation="public-inheritance">
+        <childnode refid="9" relation="public-inheritance">
         </childnode>
       </node>
-      <node id="17">
+      <node id="12">
         <label>SModelData</label>
         <link refid="structSModelData"/>
       </node>
-      <node id="15">
-        <label>vector&lt; int &gt;</label>
-      </node>
-      <node id="14">
+      <node id="11">
         <label>std::vector&lt; Symbol &gt;</label>
       </node>
       <node id="3">
@@ -3418,19 +3397,9 @@
           <edgelabel>mTheLib</edgelabel>
         </childnode>
       </node>
-      <node id="12">
-        <label>std::map&lt; int, string &gt;</label>
-      </node>
-      <node id="9">
+      <node id="7">
         <label>rr::StringList</label>
         <link refid="classrr_1_1StringList"/>
-        <childnode refid="10" relation="usage">
-          <edgelabel>mLI</edgelabel>
-          <edgelabel>mStrings</edgelabel>
-        </childnode>
-      </node>
-      <node id="6">
-        <label>vector&lt; rr::PendingAssignment &gt;</label>
       </node>
       <node id="2">
         <label>rr::ExecutableModel</label>
@@ -3492,23 +3461,20 @@
       <member refid="classrr_1_1CompiledExecutableModel_1a66747b5067ff6a1799bf3f49ff9d6493" prot="public" virt="virtual"><scope>rr::CompiledExecutableModel</scope><name>getBoundarySpeciesCompartmentIndex</name></member>
       <member refid="classrr_1_1CompiledExecutableModel_1a050290614fc5e788ec8d839909cb362e" prot="public" virt="virtual"><scope>rr::CompiledExecutableModel</scope><name>getBoundarySpeciesConcentrations</name></member>
       <member refid="classrr_1_1ExecutableModel_1a17dbc546d79fe987ff625e0c387f5cbd" prot="public" virt="pure-virtual" ambiguityscope="rr::ExecutableModel::"><scope>rr::CompiledExecutableModel</scope><name>getBoundarySpeciesConcentrations</name></member>
-      <member refid="classrr_1_1CompiledExecutableModel_1a03645654e28f193786b280435b4d3316" prot="public" virt="virtual"><scope>rr::CompiledExecutableModel</scope><name>getBoundarySpeciesId</name></member>
+      <member refid="classrr_1_1CompiledExecutableModel_1a3c99a105961f6fd7c69a2b7c1fb60032" prot="public" virt="virtual"><scope>rr::CompiledExecutableModel</scope><name>getBoundarySpeciesId</name></member>
       <member refid="classrr_1_1ExecutableModel_1a1eda6c6d5e9db5d9057510dbd9bbbef5" prot="public" virt="pure-virtual" ambiguityscope="rr::ExecutableModel::"><scope>rr::CompiledExecutableModel</scope><name>getBoundarySpeciesId</name></member>
-      <member refid="classrr_1_1CompiledExecutableModel_1a100cc257ed0dac18b87f6b686cf8be77" prot="public" virt="virtual"><scope>rr::CompiledExecutableModel</scope><name>getBoundarySpeciesIndex</name></member>
-      <member refid="classrr_1_1ExecutableModel_1a28488139fa975776eded9e8c899c307d" prot="public" virt="pure-virtual" ambiguityscope="rr::ExecutableModel::"><scope>rr::CompiledExecutableModel</scope><name>getBoundarySpeciesIndex</name></member>
-      <member refid="classrr_1_1CompiledExecutableModel_1aceda7408185f0f393baddbbc084d919e" prot="public" virt="virtual"><scope>rr::CompiledExecutableModel</scope><name>getCompartmentId</name></member>
+      <member refid="classrr_1_1CompiledExecutableModel_1adf4ab509d93bab14f0b1e34b85ad704a" prot="public" virt="virtual"><scope>rr::CompiledExecutableModel</scope><name>getBoundarySpeciesIndex</name></member>
+      <member refid="classrr_1_1CompiledExecutableModel_1a9176b67fd6f37a242323fdd58f402a59" prot="public" virt="virtual"><scope>rr::CompiledExecutableModel</scope><name>getCompartmentId</name></member>
       <member refid="classrr_1_1ExecutableModel_1a8edf24e2351bc5796ddfa0901dcbaee5" prot="public" virt="pure-virtual" ambiguityscope="rr::ExecutableModel::"><scope>rr::CompiledExecutableModel</scope><name>getCompartmentId</name></member>
-      <member refid="classrr_1_1CompiledExecutableModel_1a3e7774149f655490e73251660864ce9e" prot="public" virt="virtual"><scope>rr::CompiledExecutableModel</scope><name>getCompartmentIndex</name></member>
-      <member refid="classrr_1_1ExecutableModel_1a366727be244766db2ff917b64949858c" prot="public" virt="pure-virtual" ambiguityscope="rr::ExecutableModel::"><scope>rr::CompiledExecutableModel</scope><name>getCompartmentIndex</name></member>
+      <member refid="classrr_1_1CompiledExecutableModel_1ac086fec83ad0f77876aface9965f6e38" prot="public" virt="virtual"><scope>rr::CompiledExecutableModel</scope><name>getCompartmentIndex</name></member>
       <member refid="classrr_1_1ExecutableModel_1aa19f2c21557264ce883bd24c3b8f647a" prot="public" virt="pure-virtual"><scope>rr::CompiledExecutableModel</scope><name>getCompartmentIndexForFloatingSpecies</name></member>
       <member refid="classrr_1_1CompiledExecutableModel_1a445ab5652c7349bcbcb3469d5a94311e" prot="public" virt="virtual"><scope>rr::CompiledExecutableModel</scope><name>getCompartmentInitVolumes</name></member>
       <member refid="classrr_1_1ExecutableModel_1afbc91472ec905f668e0cc5714fdc30db" prot="public" virt="pure-virtual" ambiguityscope="rr::ExecutableModel::"><scope>rr::CompiledExecutableModel</scope><name>getCompartmentInitVolumes</name></member>
       <member refid="classrr_1_1CompiledExecutableModel_1a17ab2cef550fed61c4e2162ade95c62c" prot="public" virt="virtual"><scope>rr::CompiledExecutableModel</scope><name>getCompartmentVolumes</name></member>
       <member refid="classrr_1_1ExecutableModel_1a977a5a3a7ed0fcfa04fe74369a4526ae" prot="public" virt="pure-virtual" ambiguityscope="rr::ExecutableModel::"><scope>rr::CompiledExecutableModel</scope><name>getCompartmentVolumes</name></member>
-      <member refid="classrr_1_1CompiledExecutableModel_1a1d45035c9d9c6482938319619ad590e7" prot="public" virt="virtual"><scope>rr::CompiledExecutableModel</scope><name>getConservedMoietyId</name></member>
+      <member refid="classrr_1_1CompiledExecutableModel_1aa7189b1968bfd7ca94f82219ba5b55d7" prot="public" virt="virtual"><scope>rr::CompiledExecutableModel</scope><name>getConservedMoietyId</name></member>
       <member refid="classrr_1_1ExecutableModel_1a0fac30c0c3cab7e52e7f305be6a453fb" prot="public" virt="pure-virtual" ambiguityscope="rr::ExecutableModel::"><scope>rr::CompiledExecutableModel</scope><name>getConservedMoietyId</name></member>
-      <member refid="classrr_1_1CompiledExecutableModel_1a6816608655a4d7589fa3158340033fd8" prot="public" virt="virtual"><scope>rr::CompiledExecutableModel</scope><name>getConservedMoietyIndex</name></member>
-      <member refid="classrr_1_1ExecutableModel_1afb584e140ba5ef19865d0256d275e538" prot="public" virt="pure-virtual" ambiguityscope="rr::ExecutableModel::"><scope>rr::CompiledExecutableModel</scope><name>getConservedMoietyIndex</name></member>
+      <member refid="classrr_1_1CompiledExecutableModel_1a3e5addab5a5bf57e487874703fdbd244" prot="public" virt="virtual"><scope>rr::CompiledExecutableModel</scope><name>getConservedMoietyIndex</name></member>
       <member refid="classrr_1_1CompiledExecutableModel_1a392d479dc9b6bb427e525e8b546af61d" prot="public" virt="virtual"><scope>rr::CompiledExecutableModel</scope><name>getConservedMoietyValues</name></member>
       <member refid="classrr_1_1ExecutableModel_1a8a155a08e3a7f015ebbe54e6dded9cfb" prot="public" virt="pure-virtual" ambiguityscope="rr::ExecutableModel::"><scope>rr::CompiledExecutableModel</scope><name>getConservedMoietyValues</name></member>
       <member refid="classrr_1_1CompiledExecutableModel_1a358042c7806b3ab4572e9ace4afe2e7c" prot="public" virt="virtual"><scope>rr::CompiledExecutableModel</scope><name>getConservedSumChanged</name></member>
@@ -3536,23 +3502,22 @@
       <member refid="classrr_1_1ExecutableModel_1aae51da13c4dbe4e0ae21f12f3a23cdb8" prot="public" virt="pure-virtual" ambiguityscope="rr::ExecutableModel::"><scope>rr::CompiledExecutableModel</scope><name>getFloatingSpeciesConcentrationRates</name></member>
       <member refid="classrr_1_1CompiledExecutableModel_1aadcc3bd8f08ff2e62efe7c7a0c484f79" prot="public" virt="virtual"><scope>rr::CompiledExecutableModel</scope><name>getFloatingSpeciesConcentrations</name></member>
       <member refid="classrr_1_1ExecutableModel_1afdb9b1204d85b4baf496e685e16c0479" prot="public" virt="pure-virtual" ambiguityscope="rr::ExecutableModel::"><scope>rr::CompiledExecutableModel</scope><name>getFloatingSpeciesConcentrations</name></member>
-      <member refid="classrr_1_1CompiledExecutableModel_1ae923abbc93203d9fcd58dd40745724e8" prot="public" virt="virtual"><scope>rr::CompiledExecutableModel</scope><name>getFloatingSpeciesId</name></member>
+      <member refid="classrr_1_1CompiledExecutableModel_1a3dab9587b521885924032e40cb6c1ea2" prot="public" virt="virtual"><scope>rr::CompiledExecutableModel</scope><name>getFloatingSpeciesId</name></member>
       <member refid="classrr_1_1ExecutableModel_1a50dfa7535bec552fbc8396bd1ce99155" prot="public" virt="pure-virtual" ambiguityscope="rr::ExecutableModel::"><scope>rr::CompiledExecutableModel</scope><name>getFloatingSpeciesId</name></member>
-      <member refid="classrr_1_1CompiledExecutableModel_1ae7c7afda2940ccb9a925129c19019743" prot="public" virt="virtual"><scope>rr::CompiledExecutableModel</scope><name>getFloatingSpeciesIndex</name></member>
-      <member refid="classrr_1_1ExecutableModel_1a390a1905aabac6056f6dceff11833c43" prot="public" virt="pure-virtual" ambiguityscope="rr::ExecutableModel::"><scope>rr::CompiledExecutableModel</scope><name>getFloatingSpeciesIndex</name></member>
+      <member refid="classrr_1_1CompiledExecutableModel_1a95e8e93fd51bb84a89ca45a22e3ace60" prot="public" virt="virtual"><scope>rr::CompiledExecutableModel</scope><name>getFloatingSpeciesIndex</name></member>
       <member refid="classrr_1_1CompiledExecutableModel_1a422740e3b4057098746f5039d0ea31b3" prot="public" virt="virtual"><scope>rr::CompiledExecutableModel</scope><name>getFloatingSpeciesInitAmounts</name></member>
       <member refid="classrr_1_1ExecutableModel_1a21232f10be3c16a112ddd93170d9caa8" prot="public" virt="pure-virtual" ambiguityscope="rr::ExecutableModel::"><scope>rr::CompiledExecutableModel</scope><name>getFloatingSpeciesInitAmounts</name></member>
       <member refid="classrr_1_1CompiledExecutableModel_1a5911a6126a583c8258b32e9753397296" prot="public" virt="virtual"><scope>rr::CompiledExecutableModel</scope><name>getFloatingSpeciesInitConcentrations</name></member>
       <member refid="classrr_1_1ExecutableModel_1a6545a8afda7e5a52d9fb0ae945990d80" prot="public" virt="pure-virtual" ambiguityscope="rr::ExecutableModel::"><scope>rr::CompiledExecutableModel</scope><name>getFloatingSpeciesInitConcentrations</name></member>
-      <member refid="classrr_1_1CompiledExecutableModel_1af6380dec38745ec177c3c5c4f003065b" prot="public" virt="virtual"><scope>rr::CompiledExecutableModel</scope><name>getGlobalParameterId</name></member>
+      <member refid="classrr_1_1CompiledExecutableModel_1a7a55623288bf239c2486b48060160cd6" prot="public" virt="virtual"><scope>rr::CompiledExecutableModel</scope><name>getGlobalParameterId</name></member>
       <member refid="classrr_1_1ExecutableModel_1a741aa1e4a24bca93c8eb12019a33cd81" prot="public" virt="pure-virtual" ambiguityscope="rr::ExecutableModel::"><scope>rr::CompiledExecutableModel</scope><name>getGlobalParameterId</name></member>
       <member refid="classrr_1_1CompiledExecutableModel_1a8b0dec616b4154c8a56c68cc3265d502" prot="public" virt="virtual"><scope>rr::CompiledExecutableModel</scope><name>getGlobalParameterIndex</name></member>
       <member refid="classrr_1_1ExecutableModel_1a8a1693fc65e2e34772ca5acecad1e90b" prot="public" virt="pure-virtual"><scope>rr::CompiledExecutableModel</scope><name>getGlobalParameterInitValues</name></member>
       <member refid="classrr_1_1CompiledExecutableModel_1a84cf75aaef544e60e2a786bbaec39392" prot="public" virt="virtual"><scope>rr::CompiledExecutableModel</scope><name>getGlobalParameterValues</name></member>
       <member refid="classrr_1_1ExecutableModel_1af598ac63c984d7101b0d026dd217a822" prot="public" virt="pure-virtual" ambiguityscope="rr::ExecutableModel::"><scope>rr::CompiledExecutableModel</scope><name>getGlobalParameterValues</name></member>
       <member refid="classrr_1_1CompiledExecutableModel_1a9c5f0f3045d073ae63d4f1e2b3cb232a" prot="public" virt="virtual"><scope>rr::CompiledExecutableModel</scope><name>getIds</name></member>
-      <member refid="classrr_1_1CompiledExecutableModel_1addbf0634246cecfda033cf6402c4d303" prot="public" virt="virtual"><scope>rr::CompiledExecutableModel</scope><name>getInfo</name></member>
-      <member refid="classrr_1_1CompiledExecutableModel_1a4fa5acc0a12a75fe89579acdd6c1e62a" prot="public" virt="virtual"><scope>rr::CompiledExecutableModel</scope><name>getModelName</name></member>
+      <member refid="classrr_1_1CompiledExecutableModel_1a7cf0832caf732cda5e42967c922c1539" prot="public" virt="virtual"><scope>rr::CompiledExecutableModel</scope><name>getInfo</name></member>
+      <member refid="classrr_1_1CompiledExecutableModel_1a7a35baccccf36442c3e38770587db25c" prot="public" virt="virtual"><scope>rr::CompiledExecutableModel</scope><name>getModelName</name></member>
       <member refid="classrr_1_1CompiledExecutableModel_1a61a5e57762fd8a4a87ac5843f2314347" prot="public" virt="virtual"><scope>rr::CompiledExecutableModel</scope><name>getNextPendingEventTime</name></member>
       <member refid="classrr_1_1CompiledExecutableModel_1a1c5cb4c75584906946d426d1193da39e" prot="public" virt="virtual"><scope>rr::CompiledExecutableModel</scope><name>getNumBoundarySpecies</name></member>
       <member refid="classrr_1_1CompiledExecutableModel_1aafd3cf14394ab83920eac901df0a5c87" prot="public" virt="virtual"><scope>rr::CompiledExecutableModel</scope><name>getNumCompartments</name></member>
@@ -3568,7 +3533,7 @@
       <member refid="classrr_1_1CompiledExecutableModel_1a637150c6f6ca6bede8cbdd7e0405ce12" prot="public" virt="virtual"><scope>rr::CompiledExecutableModel</scope><name>getPendingEventSize</name></member>
       <member refid="classrr_1_1CompiledExecutableModel_1a02b3938fd3ad7d20d33ed3e0b42da21a" prot="public" virt="virtual"><scope>rr::CompiledExecutableModel</scope><name>getRandom</name></member>
       <member refid="classrr_1_1CompiledExecutableModel_1a728ba55db8c4d193990452c9303ea133" prot="public" virt="virtual"><scope>rr::CompiledExecutableModel</scope><name>getRandomSeed</name></member>
-      <member refid="classrr_1_1ExecutableModel_1ab045cbd84ce98fb9dff8ff250fdb131c" prot="public" virt="virtual"><scope>rr::CompiledExecutableModel</scope><name>getRateRuleSymbols</name></member>
+      <member refid="classrr_1_1ExecutableModel_1aa1d89fd7d5690de7add613f5ce75b631" prot="public" virt="pure-virtual"><scope>rr::CompiledExecutableModel</scope><name>getRateRuleSymbols</name></member>
       <member refid="classrr_1_1CompiledExecutableModel_1a2a820ae64f278087b85f836aef5afb32" prot="public" virt="virtual"><scope>rr::CompiledExecutableModel</scope><name>getRateRuleValues</name></member>
       <member refid="classrr_1_1CompiledExecutableModel_1a448c9bcff065fbb2e0c12015beea16c2" prot="public" virt="virtual"><scope>rr::CompiledExecutableModel</scope><name>getReactionId</name></member>
       <member refid="classrr_1_1ExecutableModel_1aeb911dc90408981370c78149680d9027" prot="public" virt="pure-virtual" ambiguityscope="rr::ExecutableModel::"><scope>rr::CompiledExecutableModel</scope><name>getReactionId</name></member>
@@ -3588,8 +3553,8 @@
       <member refid="classrr_1_1CompiledExecutableModel_1ab4bceb8fee39aca02e6d5d627efeb215" prot="public" virt="virtual"><scope>rr::CompiledExecutableModel</scope><name>initializeRateRuleSymbols</name></member>
       <member refid="classrr_1_1CompiledExecutableModel_1ad7946e8df6ef7202138f86e356a57135" prot="public" virt="virtual"><scope>rr::CompiledExecutableModel</scope><name>initializeRates</name></member>
       <member refid="classrr_1_1ExecutableModel_1a0503ffbf5c6c971cf545d7570ec0404ca389fbe7a44e9cb64d2e16415cd08554f" prot="public" virt="non-virtual"><scope>rr::CompiledExecutableModel</scope><name>INTEGRATION</name></member>
-      <member refid="classrr_1_1CompiledExecutableModel_1acc6473f2c519da834be96e88163b36be" prot="public" virt="non-virtual"><scope>rr::CompiledExecutableModel</scope><name>mAssignments</name></member>
-      <member refid="classrr_1_1CompiledExecutableModel_1a6d57d88b43c4742931fb5ca18f038e71" prot="public" virt="non-virtual"><scope>rr::CompiledExecutableModel</scope><name>mAssignmentTimes</name></member>
+      <member refid="classrr_1_1CompiledExecutableModel_1a410819286030c7ec1c6ecc16292292b8" prot="public" virt="non-virtual"><scope>rr::CompiledExecutableModel</scope><name>mAssignments</name></member>
+      <member refid="classrr_1_1CompiledExecutableModel_1ad871d89e7c91ca265f259aa6e53bc11d" prot="public" virt="non-virtual"><scope>rr::CompiledExecutableModel</scope><name>mAssignmentTimes</name></member>
       <member refid="classrr_1_1CompiledExecutableModel_1a9bc0bceca0e20f1824b8eabf7353759c" prot="public" virt="non-virtual"><scope>rr::CompiledExecutableModel</scope><name>mConservedSumChanged</name></member>
       <member refid="classrr_1_1CompiledExecutableModel_1a0e9f631e3808545a6e9c19c64b7ce089" prot="public" virt="non-virtual"><scope>rr::CompiledExecutableModel</scope><name>mData</name></member>
       <member refid="classrr_1_1CompiledExecutableModel_1ab74cb32586c9b684c42d82c2eb0970e6" prot="public" virt="non-virtual"><scope>rr::CompiledExecutableModel</scope><name>mDLL</name></member>
@@ -3608,9 +3573,9 @@
       <member refid="classrr_1_1CompiledExecutableModel_1ad919983c3e2f1fe9b1d86d80ae8a938f" prot="public" virt="virtual"><scope>rr::CompiledExecutableModel</scope><name>reset</name></member>
       <member refid="classrr_1_1CompiledExecutableModel_1a2308bfaa84c422add0119fde85ba6026" prot="public" virt="virtual"><scope>rr::CompiledExecutableModel</scope><name>reset</name></member>
       <member refid="classrr_1_1CompiledExecutableModel_1a039ad6b5ffedd9d560fa1f270dbfa210" prot="public" virt="virtual"><scope>rr::CompiledExecutableModel</scope><name>resetEvents</name></member>
-      <member refid="classrr_1_1CompiledExecutableModel_1a26d20106886af0b6b0ad3ea7e4963773" prot="public" virt="non-virtual"><scope>rr::CompiledExecutableModel</scope><name>retestEvents</name></member>
-      <member refid="classrr_1_1CompiledExecutableModel_1aa11f449c91c030f1fad5fb5c5847008b" prot="public" virt="non-virtual"><scope>rr::CompiledExecutableModel</scope><name>retestEvents</name></member>
-      <member refid="classrr_1_1CompiledExecutableModel_1a899addc367f3d7a75e27033214fcdd76" prot="public" virt="non-virtual"><scope>rr::CompiledExecutableModel</scope><name>retestEvents</name></member>
+      <member refid="classrr_1_1CompiledExecutableModel_1a2dc1e802226e9a7278503bb0e5348351" prot="public" virt="non-virtual"><scope>rr::CompiledExecutableModel</scope><name>retestEvents</name></member>
+      <member refid="classrr_1_1CompiledExecutableModel_1a146acfa8e42182a11e3d10dfa3a77521" prot="public" virt="non-virtual"><scope>rr::CompiledExecutableModel</scope><name>retestEvents</name></member>
+      <member refid="classrr_1_1CompiledExecutableModel_1ac2c5e8d6f0e487d12743d624a505173f" prot="public" virt="non-virtual"><scope>rr::CompiledExecutableModel</scope><name>retestEvents</name></member>
       <member refid="classrr_1_1ExecutableModel_1a8db1a8a035e0b226b16ae10b18caaf1e" prot="public" virt="virtual"><scope>rr::CompiledExecutableModel</scope><name>saveState</name></member>
       <member refid="classrr_1_1CompiledExecutableModel_1a2fc66633049fbc25d3838795ebf22684" prot="public" virt="virtual"><scope>rr::CompiledExecutableModel</scope><name>setBoundaryConditions</name></member>
       <member refid="classrr_1_1CompiledExecutableModel_1a98f019d5e748b28c6dd6e7273873a761" prot="public" virt="virtual"><scope>rr::CompiledExecutableModel</scope><name>setBoundarySpeciesConcentrations</name></member>
@@ -3648,8 +3613,8 @@
       <member refid="classrr_1_1CompiledExecutableModel_1a6ed828bd7380883f7d70eab3b11cb47c" prot="public" virt="virtual"><scope>rr::CompiledExecutableModel</scope><name>setupDLLFunctions</name></member>
       <member refid="classrr_1_1CompiledExecutableModel_1a53a996bfec50781d72b01ef4ed50d15f" prot="public" virt="non-virtual"><scope>rr::CompiledExecutableModel</scope><name>setupModelData</name></member>
       <member refid="classrr_1_1CompiledExecutableModel_1a6c3c63fd848f8ffae1c7125fe79f2ad7" prot="public" virt="virtual"><scope>rr::CompiledExecutableModel</scope><name>setValue</name></member>
-      <member refid="classrr_1_1CompiledExecutableModel_1aaeceddef4ab4f46bd9c1fc374723c728" prot="public" virt="non-virtual"><scope>rr::CompiledExecutableModel</scope><name>sortEventsByPriority</name></member>
-      <member refid="classrr_1_1CompiledExecutableModel_1a1e7455d84aa8b194c42ff05954536cd0" prot="public" virt="non-virtual"><scope>rr::CompiledExecutableModel</scope><name>sortEventsByPriority</name></member>
+      <member refid="classrr_1_1CompiledExecutableModel_1afa911d07605712c1f1eca8df729e1233" prot="public" virt="non-virtual"><scope>rr::CompiledExecutableModel</scope><name>sortEventsByPriority</name></member>
+      <member refid="classrr_1_1CompiledExecutableModel_1abc440ef2f6e7543a51c0255ae8384246" prot="public" virt="non-virtual"><scope>rr::CompiledExecutableModel</scope><name>sortEventsByPriority</name></member>
       <member refid="classrr_1_1CompiledExecutableModel_1ad6a1d9558dfadffa255bad46d3593efa" prot="public" virt="non-virtual"><scope>rr::CompiledExecutableModel</scope><name>StateStackOptions</name></member>
       <member refid="classrr_1_1CompiledExecutableModel_1a74c9fa0353bea3e576414eafe78759cc" prot="public" virt="non-virtual"><scope>rr::CompiledExecutableModel</scope><name>stoichiometryMatrix</name></member>
       <member refid="classrr_1_1CompiledExecutableModel_1aa5ccbd3d20bf857d8361c2bc4d7130c6" prot="public" virt="virtual"><scope>rr::CompiledExecutableModel</scope><name>testConstraints</name></member>

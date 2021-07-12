@@ -47,9 +47,9 @@
       </memberdef>
       </sectiondef>
       <sectiondef kind="private-static-attrib">
-      <memberdef kind="variable" id="classrr_1_1NOMSupport_1abb99d0bd620e9acd6ebe8a3ef7ff3402" prot="private" static="yes" mutable="no">
-        <type>const string</type>
-        <definition>const string rr::NOMSupport::STR_DoubleFormat</definition>
+      <memberdef kind="variable" id="classrr_1_1NOMSupport_1abe39a79edf472558412ff182bd3719ed" prot="private" static="yes" mutable="no">
+        <type>const std::string</type>
+        <definition>const std::string rr::NOMSupport::STR_DoubleFormat</definition>
         <argsstring></argsstring>
         <name>STR_DoubleFormat</name>
         <briefdescription>
@@ -59,7 +59,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="c/rrNOMSupport.h" line="324" column="29" bodyfile="c/rrNOMSupport.h" bodystart="324" bodyend="-1"/>
+        <location file="c/rrNOMSupport.h" line="324" column="34" bodyfile="c/rrNOMSupport.h" bodystart="324" bodyend="-1"/>
       </memberdef>
       </sectiondef>
       <sectiondef kind="public-func">
@@ -115,13 +115,13 @@
         </inbodydescription>
         <location file="c/rrNOMSupport.h" line="46" column="28" bodyfile="c/rrNOMSupport.cpp" bodystart="78" bodyend="81"/>
       </memberdef>
-      <memberdef kind="function" id="classrr_1_1NOMSupport_1a180f7a3faeb0faddd312bf0d54eccaef" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+      <memberdef kind="function" id="classrr_1_1NOMSupport_1a9cb13fa46956d4d9eb4f757033162fa8" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
         <type><ref refid="classrr_1_1StringListContainer" kindref="compound">StringListContainer</ref></type>
         <definition>StringListContainer rr::NOMSupport::getDerivedUnitDefinition</definition>
-        <argsstring>(const string &amp;sId)</argsstring>
+        <argsstring>(const std::string &amp;sId)</argsstring>
         <name>getDerivedUnitDefinition</name>
         <param>
-          <type>const string &amp;</type>
+          <type>const std::string &amp;</type>
           <declname>sId</declname>
         </param>
         <briefdescription>
@@ -299,21 +299,21 @@
         </inbodydescription>
         <location file="c/rrNOMSupport.h" line="60" column="29"/>
       </memberdef>
-      <memberdef kind="function" id="classrr_1_1NOMSupport_1a7396c059a055c231946161d47842ee89" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+      <memberdef kind="function" id="classrr_1_1NOMSupport_1a52282ac0b9ce27938a9af0b2a5d6e0d7" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
         <type>ASTNode</type>
         <definition>ASTNode rr::NOMSupport::replaceSymbol</definition>
-        <argsstring>(ASTNode *node, const string &amp;oldId, const string &amp;newId)</argsstring>
+        <argsstring>(ASTNode *node, const std::string &amp;oldId, const std::string &amp;newId)</argsstring>
         <name>replaceSymbol</name>
         <param>
           <type>ASTNode *</type>
           <declname>node</declname>
         </param>
         <param>
-          <type>const string &amp;</type>
+          <type>const std::string &amp;</type>
           <declname>oldId</declname>
         </param>
         <param>
-          <type>const string &amp;</type>
+          <type>const std::string &amp;</type>
           <declname>newId</declname>
         </param>
         <briefdescription>
@@ -324,13 +324,13 @@
         </inbodydescription>
         <location file="c/rrNOMSupport.h" line="61" column="29"/>
       </memberdef>
-      <memberdef kind="function" id="classrr_1_1NOMSupport_1a37410cbe2215f8565fb7faea7f506800" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+      <memberdef kind="function" id="classrr_1_1NOMSupport_1a3339854f8e9610c4c74892364fdc9b23" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
         <type>bool</type>
         <definition>bool rr::NOMSupport::exists</definition>
-        <argsstring>(const string &amp;sId)</argsstring>
+        <argsstring>(const std::string &amp;sId)</argsstring>
         <name>exists</name>
         <param>
-          <type>const string &amp;</type>
+          <type>const std::string &amp;</type>
           <declname>sId</declname>
         </param>
         <briefdescription>
@@ -379,13 +379,13 @@
         </inbodydescription>
         <location file="c/rrNOMSupport.h" line="64" column="29" bodyfile="c/rrNOMSupport.cpp" bodystart="557" bodyend="571"/>
       </memberdef>
-      <memberdef kind="function" id="classrr_1_1NOMSupport_1ac620ae5875e404d90d1e3b55660a1eb1" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+      <memberdef kind="function" id="classrr_1_1NOMSupport_1a2fb79268956c5ae47e0c80f7aafafee0" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
         <type>bool</type>
         <definition>bool rr::NOMSupport::hasInitialAmount</definition>
-        <argsstring>(const string &amp;sId)</argsstring>
+        <argsstring>(const std::string &amp;sId)</argsstring>
         <name>hasInitialAmount</name>
         <param>
-          <type>const string &amp;</type>
+          <type>const std::string &amp;</type>
           <declname>sId</declname>
         </param>
         <briefdescription>
@@ -396,13 +396,13 @@
         </inbodydescription>
         <location file="c/rrNOMSupport.h" line="65" column="29"/>
       </memberdef>
-      <memberdef kind="function" id="classrr_1_1NOMSupport_1a919fc12a34460afdb43800d22e8f418a" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+      <memberdef kind="function" id="classrr_1_1NOMSupport_1a4fa65cb5e4832b3cc41d6438439a2cab" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
         <type>bool</type>
         <definition>bool rr::NOMSupport::hasInitialConcentration</definition>
-        <argsstring>(const string &amp;sId)</argsstring>
+        <argsstring>(const std::string &amp;sId)</argsstring>
         <name>hasInitialConcentration</name>
         <param>
-          <type>const string &amp;</type>
+          <type>const std::string &amp;</type>
           <declname>sId</declname>
         </param>
         <briefdescription>
@@ -413,13 +413,13 @@
         </inbodydescription>
         <location file="c/rrNOMSupport.h" line="66" column="29"/>
       </memberdef>
-      <memberdef kind="function" id="classrr_1_1NOMSupport_1a1bbef6f876410a3dccdebb7241459aaa" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+      <memberdef kind="function" id="classrr_1_1NOMSupport_1aa62a91c7b7c6853ea773bef184d5c1a6" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
         <type>bool</type>
         <definition>bool rr::NOMSupport::hasSBOTerm</definition>
-        <argsstring>(const string &amp;sId)</argsstring>
+        <argsstring>(const std::string &amp;sId)</argsstring>
         <name>hasSBOTerm</name>
         <param>
-          <type>const string &amp;</type>
+          <type>const std::string &amp;</type>
           <declname>sId</declname>
         </param>
         <briefdescription>
@@ -430,13 +430,13 @@
         </inbodydescription>
         <location file="c/rrNOMSupport.h" line="67" column="29"/>
       </memberdef>
-      <memberdef kind="function" id="classrr_1_1NOMSupport_1ab81b25ef4c1df53e0ae86f92e74ccccd" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+      <memberdef kind="function" id="classrr_1_1NOMSupport_1ae3a81d64f472b6976fce809e11ceeadf" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
         <type>bool</type>
         <definition>bool rr::NOMSupport::hasValue</definition>
-        <argsstring>(const string &amp;sId)</argsstring>
+        <argsstring>(const std::string &amp;sId)</argsstring>
         <name>hasValue</name>
         <param>
-          <type>const string &amp;</type>
+          <type>const std::string &amp;</type>
           <declname>sId</declname>
         </param>
         <briefdescription>
@@ -447,13 +447,13 @@
         </inbodydescription>
         <location file="c/rrNOMSupport.h" line="68" column="29"/>
       </memberdef>
-      <memberdef kind="function" id="classrr_1_1NOMSupport_1ae42e30ff87b66509ba251897e3367d8d" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+      <memberdef kind="function" id="classrr_1_1NOMSupport_1a3c820dd2dddc2159ce3059a49e1742ea" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
         <type>bool</type>
         <definition>bool rr::NOMSupport::isBoundary</definition>
-        <argsstring>(const string &amp;sId)</argsstring>
+        <argsstring>(const std::string &amp;sId)</argsstring>
         <name>isBoundary</name>
         <param>
-          <type>const string &amp;</type>
+          <type>const std::string &amp;</type>
           <declname>sId</declname>
         </param>
         <briefdescription>
@@ -466,13 +466,13 @@
         </inbodydescription>
         <location file="c/rrNOMSupport.h" line="75" column="29"/>
       </memberdef>
-      <memberdef kind="function" id="classrr_1_1NOMSupport_1ace5b83418616dacc7992858a55e5422f" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+      <memberdef kind="function" id="classrr_1_1NOMSupport_1a38d543c385dea96edf0fd0f7fd183a74" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
         <type>bool</type>
         <definition>bool rr::NOMSupport::isCompartment</definition>
-        <argsstring>(const string &amp;sId)</argsstring>
+        <argsstring>(const std::string &amp;sId)</argsstring>
         <name>isCompartment</name>
         <param>
-          <type>const string &amp;</type>
+          <type>const std::string &amp;</type>
           <declname>sId</declname>
         </param>
         <briefdescription>
@@ -496,13 +496,13 @@
         </inbodydescription>
         <location file="c/rrNOMSupport.h" line="83" column="29" bodyfile="c/rrNOMSupport.cpp" bodystart="1794" bodyend="1808"/>
       </memberdef>
-      <memberdef kind="function" id="classrr_1_1NOMSupport_1afd48f1daddd9436ad4e82fd718dee072" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+      <memberdef kind="function" id="classrr_1_1NOMSupport_1a2ace14d965d6a0e6f55a7748daee0022" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
         <type>bool</type>
         <definition>bool rr::NOMSupport::isConstantImpl</definition>
-        <argsstring>(const string &amp;sId)</argsstring>
+        <argsstring>(const std::string &amp;sId)</argsstring>
         <name>isConstantImpl</name>
         <param>
-          <type>const string &amp;</type>
+          <type>const std::string &amp;</type>
           <declname>sId</declname>
         </param>
         <briefdescription>
@@ -513,13 +513,13 @@
         </inbodydescription>
         <location file="c/rrNOMSupport.h" line="84" column="29"/>
       </memberdef>
-      <memberdef kind="function" id="classrr_1_1NOMSupport_1a91edd713ffa08b72d7428a842ee657f6" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+      <memberdef kind="function" id="classrr_1_1NOMSupport_1a09cfdc036cc6776ca882228ca216ab91" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
         <type>bool</type>
         <definition>bool rr::NOMSupport::isFloating</definition>
-        <argsstring>(const string &amp;sId)</argsstring>
+        <argsstring>(const std::string &amp;sId)</argsstring>
         <name>isFloating</name>
         <param>
-          <type>const string &amp;</type>
+          <type>const std::string &amp;</type>
           <declname>sId</declname>
         </param>
         <briefdescription>
@@ -547,13 +547,13 @@
         </inbodydescription>
         <location file="c/rrNOMSupport.h" line="86" column="29"/>
       </memberdef>
-      <memberdef kind="function" id="classrr_1_1NOMSupport_1af38c0fc04aa88ffeb3e905ebf47e7464" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+      <memberdef kind="function" id="classrr_1_1NOMSupport_1a573884e9348c990c2a553734dec34cf0" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
         <type>bool</type>
         <definition>bool rr::NOMSupport::isSpecies</definition>
-        <argsstring>(const string &amp;sId)</argsstring>
+        <argsstring>(const std::string &amp;sId)</argsstring>
         <name>isSpecies</name>
         <param>
-          <type>const string &amp;</type>
+          <type>const std::string &amp;</type>
           <declname>sId</declname>
         </param>
         <briefdescription>
@@ -564,17 +564,17 @@
         </inbodydescription>
         <location file="c/rrNOMSupport.h" line="87" column="29"/>
       </memberdef>
-      <memberdef kind="function" id="classrr_1_1NOMSupport_1a6ee87440fec56269276bef85e0ef026d" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+      <memberdef kind="function" id="classrr_1_1NOMSupport_1aec892727d490603fe4019a31baf77bd0" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
         <type>bool</type>
         <definition>bool rr::NOMSupport::multiplyCompartment</definition>
-        <argsstring>(const string &amp;sbmlId, string &amp;compartmentId)</argsstring>
+        <argsstring>(const std::string &amp;sbmlId, std::string &amp;compartmentId)</argsstring>
         <name>multiplyCompartment</name>
         <param>
-          <type>const string &amp;</type>
+          <type>const std::string &amp;</type>
           <declname>sbmlId</declname>
         </param>
         <param>
-          <type>string &amp;</type>
+          <type>std::string &amp;</type>
           <declname>compartmentId</declname>
         </param>
         <briefdescription>
@@ -699,13 +699,13 @@
         </inbodydescription>
         <location file="c/rrNOMSupport.h" line="94" column="29"/>
       </memberdef>
-      <memberdef kind="function" id="classrr_1_1NOMSupport_1a700eccfe79857dd2ff57b6fcd20d38b9" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+      <memberdef kind="function" id="classrr_1_1NOMSupport_1ab469c3fc22f71f727d8293b2c9863a38" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
         <type>double</type>
         <definition>double rr::NOMSupport::getValue</definition>
-        <argsstring>(const string &amp;sId)</argsstring>
+        <argsstring>(const std::string &amp;sId)</argsstring>
         <name>getValue</name>
         <param>
-          <type>const string &amp;</type>
+          <type>const std::string &amp;</type>
           <declname>sId</declname>
         </param>
         <briefdescription>
@@ -971,13 +971,13 @@
         </inbodydescription>
         <location file="c/rrNOMSupport.h" line="123" column="29" bodyfile="c/rrNOMSupport.cpp" bodystart="1049" bodyend="1056"/>
       </memberdef>
-      <memberdef kind="function" id="classrr_1_1NOMSupport_1aecd709702cc326f5d2d13f0ae241a774" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+      <memberdef kind="function" id="classrr_1_1NOMSupport_1aefdda4804b2afd2edf9d422e051929ef" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
         <type>int</type>
         <definition>int rr::NOMSupport::getSBOTerm</definition>
-        <argsstring>(const string &amp;sId)</argsstring>
+        <argsstring>(const std::string &amp;sId)</argsstring>
         <name>getSBOTerm</name>
         <param>
-          <type>const string &amp;</type>
+          <type>const std::string &amp;</type>
           <declname>sId</declname>
         </param>
         <briefdescription>
@@ -988,9 +988,9 @@
         </inbodydescription>
         <location file="c/rrNOMSupport.h" line="124" column="29"/>
       </memberdef>
-      <memberdef kind="function" id="classrr_1_1NOMSupport_1a0408e66596087b579633a30925543f7b" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
-        <type>pair&lt; string, string &gt;</type>
-        <definition>pair&lt; string, string &gt; rr::NOMSupport::getNthInitialAssignmentPair</definition>
+      <memberdef kind="function" id="classrr_1_1NOMSupport_1ac71223c1746d7324a443cb2f0a0eef62" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>std::pair&lt; std::string, std::string &gt;</type>
+        <definition>std::pair&lt; std::string, std::string &gt; rr::NOMSupport::getNthInitialAssignmentPair</definition>
         <argsstring>(const int &amp;nIndex)</argsstring>
         <name>getNthInitialAssignmentPair</name>
         <param>
@@ -1003,15 +1003,15 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="c/rrNOMSupport.h" line="125" column="13" bodyfile="c/rrNOMSupport.cpp" bodystart="776" bodyend="796"/>
+        <location file="c/rrNOMSupport.h" line="125" column="18" bodyfile="c/rrNOMSupport.cpp" bodystart="776" bodyend="796"/>
       </memberdef>
-      <memberdef kind="function" id="classrr_1_1NOMSupport_1a234be380c2036a268eda6058bfe0171b" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+      <memberdef kind="function" id="classrr_1_1NOMSupport_1ab5567726fad741afe90970199323c16e" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
         <type>SBase *</type>
         <definition>SBase* rr::NOMSupport::getElement</definition>
-        <argsstring>(const string &amp;sId)</argsstring>
+        <argsstring>(const std::string &amp;sId)</argsstring>
         <name>getElement</name>
         <param>
-          <type>const string &amp;</type>
+          <type>const std::string &amp;</type>
           <declname>sId</declname>
         </param>
         <briefdescription>
@@ -1022,13 +1022,13 @@
         </inbodydescription>
         <location file="c/rrNOMSupport.h" line="126" column="28"/>
       </memberdef>
-      <memberdef kind="function" id="classrr_1_1NOMSupport_1a056b634541b058ebf8aaa5c7cb7f4ebc" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
-        <type>string</type>
-        <definition>string rr::NOMSupport::addEmptySetNode</definition>
-        <argsstring>(const string &amp;sbml)</argsstring>
+      <memberdef kind="function" id="classrr_1_1NOMSupport_1a77806368c8fb2e39faa8eaec26c1b1cd" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>std::string</type>
+        <definition>std::string rr::NOMSupport::addEmptySetNode</definition>
+        <argsstring>(const std::string &amp;sbml)</argsstring>
         <name>addEmptySetNode</name>
         <param>
-          <type>const string &amp;</type>
+          <type>const std::string &amp;</type>
           <declname>sbml</declname>
         </param>
         <briefdescription>
@@ -1037,15 +1037,15 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="c/rrNOMSupport.h" line="128" column="29"/>
+        <location file="c/rrNOMSupport.h" line="128" column="34"/>
       </memberdef>
-      <memberdef kind="function" id="classrr_1_1NOMSupport_1a02bbff499d9d30504b78be8067f00884" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
-        <type>string</type>
-        <definition>string rr::NOMSupport::addEmptySetNodes</definition>
-        <argsstring>(const string &amp;sbml)</argsstring>
+      <memberdef kind="function" id="classrr_1_1NOMSupport_1a4e290f6af94196bc756ad9b7ef3b2edb" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>std::string</type>
+        <definition>std::string rr::NOMSupport::addEmptySetNodes</definition>
+        <argsstring>(const std::string &amp;sbml)</argsstring>
         <name>addEmptySetNodes</name>
         <param>
-          <type>const string &amp;</type>
+          <type>const std::string &amp;</type>
           <declname>sbml</declname>
         </param>
         <briefdescription>
@@ -1054,15 +1054,15 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="c/rrNOMSupport.h" line="129" column="29"/>
+        <location file="c/rrNOMSupport.h" line="129" column="34"/>
       </memberdef>
-      <memberdef kind="function" id="classrr_1_1NOMSupport_1aee5a291a4278e5f754aee42503f07636" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
-        <type>string</type>
-        <definition>string rr::NOMSupport::addMissingModifiers</definition>
-        <argsstring>(const string &amp;sModel)</argsstring>
+      <memberdef kind="function" id="classrr_1_1NOMSupport_1a90b08bb7b957ea970a5383e7f08bf811" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>std::string</type>
+        <definition>std::string rr::NOMSupport::addMissingModifiers</definition>
+        <argsstring>(const std::string &amp;sModel)</argsstring>
         <name>addMissingModifiers</name>
         <param>
-          <type>const string &amp;</type>
+          <type>const std::string &amp;</type>
           <declname>sModel</declname>
         </param>
         <briefdescription>
@@ -1071,15 +1071,15 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="c/rrNOMSupport.h" line="130" column="29"/>
+        <location file="c/rrNOMSupport.h" line="130" column="34"/>
       </memberdef>
-      <memberdef kind="function" id="classrr_1_1NOMSupport_1ae1eb06169efe2ca612ad615dab652b3a" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
-        <type>string</type>
-        <definition>string rr::NOMSupport::addSourceSinkNodes</definition>
-        <argsstring>(const string &amp;sbml)</argsstring>
+      <memberdef kind="function" id="classrr_1_1NOMSupport_1a1a038ac9fc76537f45e53bd1fc3ecf9d" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>std::string</type>
+        <definition>std::string rr::NOMSupport::addSourceSinkNodes</definition>
+        <argsstring>(const std::string &amp;sbml)</argsstring>
         <name>addSourceSinkNodes</name>
         <param>
-          <type>const string &amp;</type>
+          <type>const std::string &amp;</type>
           <declname>sbml</declname>
         </param>
         <briefdescription>
@@ -1088,15 +1088,15 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="c/rrNOMSupport.h" line="131" column="29"/>
+        <location file="c/rrNOMSupport.h" line="131" column="34"/>
       </memberdef>
-      <memberdef kind="function" id="classrr_1_1NOMSupport_1aeb4225faca7db8b214480360af8bc3e6" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
-        <type>string</type>
-        <definition>string rr::NOMSupport::convertLevel1ToLevel2Impl</definition>
-        <argsstring>(const string &amp;sSBML)</argsstring>
+      <memberdef kind="function" id="classrr_1_1NOMSupport_1a80ab85e86a866b6bc74d926b4bbbe832" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>std::string</type>
+        <definition>std::string rr::NOMSupport::convertLevel1ToLevel2Impl</definition>
+        <argsstring>(const std::string &amp;sSBML)</argsstring>
         <name>convertLevel1ToLevel2Impl</name>
         <param>
-          <type>const string &amp;</type>
+          <type>const std::string &amp;</type>
           <declname>sSBML</declname>
         </param>
         <briefdescription>
@@ -1105,15 +1105,15 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="c/rrNOMSupport.h" line="132" column="29"/>
+        <location file="c/rrNOMSupport.h" line="132" column="34"/>
       </memberdef>
-      <memberdef kind="function" id="classrr_1_1NOMSupport_1aefebd104abc7f8fcdbd51e15bde31190" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
-        <type>string</type>
-        <definition>string rr::NOMSupport::convertLevel2ToLevel1Impl</definition>
-        <argsstring>(const string &amp;sSBML)</argsstring>
+      <memberdef kind="function" id="classrr_1_1NOMSupport_1adc4736f2235a3574134d6d331e783a3e" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>std::string</type>
+        <definition>std::string rr::NOMSupport::convertLevel2ToLevel1Impl</definition>
+        <argsstring>(const std::string &amp;sSBML)</argsstring>
         <name>convertLevel2ToLevel1Impl</name>
         <param>
-          <type>const string &amp;</type>
+          <type>const std::string &amp;</type>
           <declname>sSBML</declname>
         </param>
         <briefdescription>
@@ -1122,15 +1122,15 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="c/rrNOMSupport.h" line="133" column="29"/>
+        <location file="c/rrNOMSupport.h" line="133" column="34"/>
       </memberdef>
-      <memberdef kind="function" id="classrr_1_1NOMSupport_1a5a7e499b1b184d3b0cd64d5d8a9ff9e9" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
-        <type>string</type>
-        <definition>string rr::NOMSupport::convertPowImpl</definition>
-        <argsstring>(const string &amp;sSBML)</argsstring>
+      <memberdef kind="function" id="classrr_1_1NOMSupport_1a346152a907f276dd38e36a9d5143a693" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>std::string</type>
+        <definition>std::string rr::NOMSupport::convertPowImpl</definition>
+        <argsstring>(const std::string &amp;sSBML)</argsstring>
         <name>convertPowImpl</name>
         <param>
-          <type>const string &amp;</type>
+          <type>const std::string &amp;</type>
           <declname>sSBML</declname>
         </param>
         <briefdescription>
@@ -1139,15 +1139,15 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="c/rrNOMSupport.h" line="135" column="29"/>
+        <location file="c/rrNOMSupport.h" line="135" column="34"/>
       </memberdef>
-      <memberdef kind="function" id="classrr_1_1NOMSupport_1ab75572f214f2e6154cb036d7e78191ce" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
-        <type>string</type>
-        <definition>string rr::NOMSupport::convertSBML</definition>
-        <argsstring>(const string &amp;sModel, const int &amp;nLevel, const int &amp;nVersion)</argsstring>
+      <memberdef kind="function" id="classrr_1_1NOMSupport_1af9c9e31d3594550dff33b9e894424759" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>std::string</type>
+        <definition>std::string rr::NOMSupport::convertSBML</definition>
+        <argsstring>(const std::string &amp;sModel, const int &amp;nLevel, const int &amp;nVersion)</argsstring>
         <name>convertSBML</name>
         <param>
-          <type>const string &amp;</type>
+          <type>const std::string &amp;</type>
           <declname>sModel</declname>
         </param>
         <param>
@@ -1164,15 +1164,15 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="c/rrNOMSupport.h" line="136" column="29"/>
+        <location file="c/rrNOMSupport.h" line="136" column="34"/>
       </memberdef>
-      <memberdef kind="function" id="classrr_1_1NOMSupport_1a4341c6760450553a5d29191b1b3605d1" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
-        <type>string</type>
-        <definition>string rr::NOMSupport::convertSBML</definition>
-        <argsstring>(const string &amp;sModel, const int &amp;nLevel, const int &amp;nVersion, bool throwError)</argsstring>
+      <memberdef kind="function" id="classrr_1_1NOMSupport_1a19bc67b559feb217207e1f4acaaee13f" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>std::string</type>
+        <definition>std::string rr::NOMSupport::convertSBML</definition>
+        <argsstring>(const std::string &amp;sModel, const int &amp;nLevel, const int &amp;nVersion, bool throwError)</argsstring>
         <name>convertSBML</name>
         <param>
-          <type>const string &amp;</type>
+          <type>const std::string &amp;</type>
           <declname>sModel</declname>
         </param>
         <param>
@@ -1193,19 +1193,19 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="c/rrNOMSupport.h" line="137" column="29"/>
+        <location file="c/rrNOMSupport.h" line="137" column="34"/>
       </memberdef>
-      <memberdef kind="function" id="classrr_1_1NOMSupport_1a0c5835ed8d2a2511e9212c53654918a4" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
-        <type>string</type>
-        <definition>string rr::NOMSupport::convertTimeToCSymbol</definition>
-        <argsstring>(const string &amp;sArg, const string &amp;sTimeSymbol)</argsstring>
+      <memberdef kind="function" id="classrr_1_1NOMSupport_1ad15f2c6518e78cb9b3323445496c08d4" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>std::string</type>
+        <definition>std::string rr::NOMSupport::convertTimeToCSymbol</definition>
+        <argsstring>(const std::string &amp;sArg, const std::string &amp;sTimeSymbol)</argsstring>
         <name>convertTimeToCSymbol</name>
         <param>
-          <type>const string &amp;</type>
+          <type>const std::string &amp;</type>
           <declname>sArg</declname>
         </param>
         <param>
-          <type>const string &amp;</type>
+          <type>const std::string &amp;</type>
           <declname>sTimeSymbol</declname>
         </param>
         <briefdescription>
@@ -1214,15 +1214,15 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="c/rrNOMSupport.h" line="138" column="29"/>
+        <location file="c/rrNOMSupport.h" line="138" column="34"/>
       </memberdef>
-      <memberdef kind="function" id="classrr_1_1NOMSupport_1ac77d1507a4ec3b064bb70c6f9d868d87" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
-        <type>string</type>
-        <definition>string rr::NOMSupport::fixCommonIssues</definition>
-        <argsstring>(const string &amp;sbml)</argsstring>
+      <memberdef kind="function" id="classrr_1_1NOMSupport_1a3f94ac2f8e49f16d4349be914b856ed1" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>std::string</type>
+        <definition>std::string rr::NOMSupport::fixCommonIssues</definition>
+        <argsstring>(const std::string &amp;sbml)</argsstring>
         <name>fixCommonIssues</name>
         <param>
-          <type>const string &amp;</type>
+          <type>const std::string &amp;</type>
           <declname>sbml</declname>
         </param>
         <briefdescription>
@@ -1231,23 +1231,23 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="c/rrNOMSupport.h" line="139" column="29"/>
+        <location file="c/rrNOMSupport.h" line="139" column="34"/>
       </memberdef>
-      <memberdef kind="function" id="classrr_1_1NOMSupport_1a3622ba30b732d3a29cebea1f3e92f8a2" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
-        <type>string</type>
-        <definition>string rr::NOMSupport::fixCommonIssues</definition>
-        <argsstring>(const string &amp;sbml, const string &amp;programName, const string &amp;programVersion)</argsstring>
+      <memberdef kind="function" id="classrr_1_1NOMSupport_1af46f78c89394134e9c8d3cd5af6eaada" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>std::string</type>
+        <definition>std::string rr::NOMSupport::fixCommonIssues</definition>
+        <argsstring>(const std::string &amp;sbml, const std::string &amp;programName, const std::string &amp;programVersion)</argsstring>
         <name>fixCommonIssues</name>
         <param>
-          <type>const string &amp;</type>
+          <type>const std::string &amp;</type>
           <declname>sbml</declname>
         </param>
         <param>
-          <type>const string &amp;</type>
+          <type>const std::string &amp;</type>
           <declname>programName</declname>
         </param>
         <param>
-          <type>const string &amp;</type>
+          <type>const std::string &amp;</type>
           <declname>programVersion</declname>
         </param>
         <briefdescription>
@@ -1256,19 +1256,19 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="c/rrNOMSupport.h" line="140" column="29"/>
+        <location file="c/rrNOMSupport.h" line="140" column="34"/>
       </memberdef>
-      <memberdef kind="function" id="classrr_1_1NOMSupport_1a5496d97b7a09308ef9e92723b54c524c" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
-        <type>string</type>
-        <definition>string rr::NOMSupport::fetAnnotatedModel</definition>
-        <argsstring>(const string &amp;targetSBML, const string &amp;sourceSBML, bool checkModelId)</argsstring>
+      <memberdef kind="function" id="classrr_1_1NOMSupport_1a09fd81548bda69ec8174d165ca4e0f67" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>std::string</type>
+        <definition>std::string rr::NOMSupport::fetAnnotatedModel</definition>
+        <argsstring>(const std::string &amp;targetSBML, const std::string &amp;sourceSBML, bool checkModelId)</argsstring>
         <name>fetAnnotatedModel</name>
         <param>
-          <type>const string &amp;</type>
+          <type>const std::string &amp;</type>
           <declname>targetSBML</declname>
         </param>
         <param>
-          <type>const string &amp;</type>
+          <type>const std::string &amp;</type>
           <declname>sourceSBML</declname>
         </param>
         <param>
@@ -1281,15 +1281,15 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="c/rrNOMSupport.h" line="141" column="29"/>
+        <location file="c/rrNOMSupport.h" line="141" column="34"/>
       </memberdef>
-      <memberdef kind="function" id="classrr_1_1NOMSupport_1a6bb83db820572932f7480d99ce45f8eb" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
-        <type>string</type>
-        <definition>string rr::NOMSupport::getAnnotation</definition>
-        <argsstring>(const string &amp;sId)</argsstring>
+      <memberdef kind="function" id="classrr_1_1NOMSupport_1ab286ef74860b4b85f2d3e18a07ea053d" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>std::string</type>
+        <definition>std::string rr::NOMSupport::getAnnotation</definition>
+        <argsstring>(const std::string &amp;sId)</argsstring>
         <name>getAnnotation</name>
         <param>
-          <type>const string &amp;</type>
+          <type>const std::string &amp;</type>
           <declname>sId</declname>
         </param>
         <briefdescription>
@@ -1298,15 +1298,15 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="c/rrNOMSupport.h" line="143" column="29"/>
+        <location file="c/rrNOMSupport.h" line="143" column="34"/>
       </memberdef>
-      <memberdef kind="function" id="classrr_1_1NOMSupport_1ac1b3a989810909d4aa04c76b5d453332" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
-        <type>string</type>
-        <definition>string rr::NOMSupport::getCompartmentIdBySpeciesId</definition>
-        <argsstring>(const string &amp;sId)</argsstring>
+      <memberdef kind="function" id="classrr_1_1NOMSupport_1a8c5ba507029eeac5929e98dafb91193a" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>std::string</type>
+        <definition>std::string rr::NOMSupport::getCompartmentIdBySpeciesId</definition>
+        <argsstring>(const std::string &amp;sId)</argsstring>
         <name>getCompartmentIdBySpeciesId</name>
         <param>
-          <type>const string &amp;</type>
+          <type>const std::string &amp;</type>
           <declname>sId</declname>
         </param>
         <briefdescription>
@@ -1315,11 +1315,11 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="c/rrNOMSupport.h" line="144" column="29"/>
+        <location file="c/rrNOMSupport.h" line="144" column="34"/>
       </memberdef>
-      <memberdef kind="function" id="classrr_1_1NOMSupport_1a9397f260f931befe29ed252770f18195" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
-        <type>string</type>
-        <definition>string rr::NOMSupport::getKineticLaw</definition>
+      <memberdef kind="function" id="classrr_1_1NOMSupport_1a16d422f74f452590dda119bb215d01ce" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>std::string</type>
+        <definition>std::string rr::NOMSupport::getKineticLaw</definition>
         <argsstring>(const int &amp;index)</argsstring>
         <name>getKineticLaw</name>
         <param>
@@ -1334,15 +1334,15 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="c/rrNOMSupport.h" line="149" column="29" bodyfile="c/rrNOMSupport.cpp" bodystart="358" bodyend="384"/>
+        <location file="c/rrNOMSupport.h" line="149" column="34" bodyfile="c/rrNOMSupport.cpp" bodystart="358" bodyend="384"/>
       </memberdef>
-      <memberdef kind="function" id="classrr_1_1NOMSupport_1ab097ea41773bb832feeb5ce34175a97e" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
-        <type>string</type>
-        <definition>string rr::NOMSupport::getMetaId</definition>
-        <argsstring>(const string &amp;sId)</argsstring>
+      <memberdef kind="function" id="classrr_1_1NOMSupport_1a56def69a581e3c091b42b59159fa41de" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>std::string</type>
+        <definition>std::string rr::NOMSupport::getMetaId</definition>
+        <argsstring>(const std::string &amp;sId)</argsstring>
         <name>getMetaId</name>
         <param>
-          <type>const string &amp;</type>
+          <type>const std::string &amp;</type>
           <declname>sId</declname>
         </param>
         <briefdescription>
@@ -1351,11 +1351,11 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="c/rrNOMSupport.h" line="150" column="29"/>
+        <location file="c/rrNOMSupport.h" line="150" column="34"/>
       </memberdef>
-      <memberdef kind="function" id="classrr_1_1NOMSupport_1a02d198cdaae316cd18c16c4d48dd7982" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
-        <type>string</type>
-        <definition>string rr::NOMSupport::getModelId</definition>
+      <memberdef kind="function" id="classrr_1_1NOMSupport_1a9b398a9eac8c94956ccc98eaed4edbc3" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>std::string</type>
+        <definition>std::string rr::NOMSupport::getModelId</definition>
         <argsstring>()</argsstring>
         <name>getModelId</name>
         <briefdescription>
@@ -1364,11 +1364,11 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="c/rrNOMSupport.h" line="151" column="29"/>
+        <location file="c/rrNOMSupport.h" line="151" column="34"/>
       </memberdef>
-      <memberdef kind="function" id="classrr_1_1NOMSupport_1aeea2cf6649a82d0e0d5e5d625a94033f" prot="public" static="no" const="yes" explicit="no" inline="no" virt="non-virtual">
-        <type>string</type>
-        <definition>string rr::NOMSupport::getModelName</definition>
+      <memberdef kind="function" id="classrr_1_1NOMSupport_1a12308f3e693a321e29b706a7a0bee7db" prot="public" static="no" const="yes" explicit="no" inline="no" virt="non-virtual">
+        <type>std::string</type>
+        <definition>std::string rr::NOMSupport::getModelName</definition>
         <argsstring>() const</argsstring>
         <name>getModelName</name>
         <briefdescription>
@@ -1377,15 +1377,15 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="c/rrNOMSupport.h" line="152" column="29" bodyfile="c/rrNOMSupport.cpp" bodystart="487" bodyend="494"/>
+        <location file="c/rrNOMSupport.h" line="152" column="34" bodyfile="c/rrNOMSupport.cpp" bodystart="487" bodyend="494"/>
       </memberdef>
-      <memberdef kind="function" id="classrr_1_1NOMSupport_1a2c9e123c78973ff5f4d2e33e75dc9b8b" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
-        <type>string</type>
-        <definition>string rr::NOMSupport::getNotes</definition>
-        <argsstring>(const string &amp;sId)</argsstring>
+      <memberdef kind="function" id="classrr_1_1NOMSupport_1a4458a0346b381e5790512e16d0e9a3fd" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>std::string</type>
+        <definition>std::string rr::NOMSupport::getNotes</definition>
+        <argsstring>(const std::string &amp;sId)</argsstring>
         <name>getNotes</name>
         <param>
-          <type>const string &amp;</type>
+          <type>const std::string &amp;</type>
           <declname>sId</declname>
         </param>
         <briefdescription>
@@ -1394,11 +1394,11 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="c/rrNOMSupport.h" line="153" column="29"/>
+        <location file="c/rrNOMSupport.h" line="153" column="34"/>
       </memberdef>
-      <memberdef kind="function" id="classrr_1_1NOMSupport_1a96ac47d86df7272e17af4d010ea4aaa6" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
-        <type>string</type>
-        <definition>string rr::NOMSupport::getNthBoundarySpeciesId</definition>
+      <memberdef kind="function" id="classrr_1_1NOMSupport_1acf3b8e2af558600684e3a5898166b8a3" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>std::string</type>
+        <definition>std::string rr::NOMSupport::getNthBoundarySpeciesId</definition>
         <argsstring>(const int &amp;nIndex)</argsstring>
         <name>getNthBoundarySpeciesId</name>
         <param>
@@ -1411,11 +1411,11 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="c/rrNOMSupport.h" line="154" column="29"/>
+        <location file="c/rrNOMSupport.h" line="154" column="34"/>
       </memberdef>
-      <memberdef kind="function" id="classrr_1_1NOMSupport_1af03fcb60c6b8c34eb1827e15aea8da87" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
-        <type>string</type>
-        <definition>string rr::NOMSupport::getNthBoundarySpeciesName</definition>
+      <memberdef kind="function" id="classrr_1_1NOMSupport_1abd7395ef48ac675489f89077c9c7c740" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>std::string</type>
+        <definition>std::string rr::NOMSupport::getNthBoundarySpeciesName</definition>
         <argsstring>(const int &amp;nIndex)</argsstring>
         <name>getNthBoundarySpeciesName</name>
         <param>
@@ -1428,11 +1428,11 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="c/rrNOMSupport.h" line="155" column="29"/>
+        <location file="c/rrNOMSupport.h" line="155" column="34"/>
       </memberdef>
-      <memberdef kind="function" id="classrr_1_1NOMSupport_1a317d12bc18986905727c6b783d57324a" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
-        <type>string</type>
-        <definition>string rr::NOMSupport::getNthCompartmentId</definition>
+      <memberdef kind="function" id="classrr_1_1NOMSupport_1a9504d72a9d563d0b34aa16fd170e96b6" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>std::string</type>
+        <definition>std::string rr::NOMSupport::getNthCompartmentId</definition>
         <argsstring>(const int &amp;nIndex)</argsstring>
         <name>getNthCompartmentId</name>
         <param>
@@ -1445,11 +1445,11 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="c/rrNOMSupport.h" line="156" column="29" bodyfile="c/rrNOMSupport.cpp" bodystart="92" bodyend="106"/>
+        <location file="c/rrNOMSupport.h" line="156" column="34" bodyfile="c/rrNOMSupport.cpp" bodystart="92" bodyend="106"/>
       </memberdef>
-      <memberdef kind="function" id="classrr_1_1NOMSupport_1ac61d61d70c91c0acc5adb96d051e2b01" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
-        <type>string</type>
-        <definition>string rr::NOMSupport::getNthCompartmentName</definition>
+      <memberdef kind="function" id="classrr_1_1NOMSupport_1a3c05f22c3620c18c28ecf02001eec656" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>std::string</type>
+        <definition>std::string rr::NOMSupport::getNthCompartmentName</definition>
         <argsstring>(const int &amp;nIndex)</argsstring>
         <name>getNthCompartmentName</name>
         <param>
@@ -1462,19 +1462,19 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="c/rrNOMSupport.h" line="157" column="29"/>
+        <location file="c/rrNOMSupport.h" line="157" column="34"/>
       </memberdef>
-      <memberdef kind="function" id="classrr_1_1NOMSupport_1a1414b113b085dde3d2229e978ad52987" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
-        <type>string</type>
-        <definition>string rr::NOMSupport::getNthConstraint</definition>
-        <argsstring>(const int &amp;nIndex, string &amp;sMessage)</argsstring>
+      <memberdef kind="function" id="classrr_1_1NOMSupport_1a586781add72e78d208ca4ab3c7b7074a" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>std::string</type>
+        <definition>std::string rr::NOMSupport::getNthConstraint</definition>
+        <argsstring>(const int &amp;nIndex, std::string &amp;sMessage)</argsstring>
         <name>getNthConstraint</name>
         <param>
           <type>const int &amp;</type>
           <declname>nIndex</declname>
         </param>
         <param>
-          <type>string &amp;</type>
+          <type>std::string &amp;</type>
           <declname>sMessage</declname>
         </param>
         <briefdescription>
@@ -1483,11 +1483,11 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="c/rrNOMSupport.h" line="158" column="29" bodyfile="c/rrNOMSupport.cpp" bodystart="820" bodyend="850"/>
+        <location file="c/rrNOMSupport.h" line="158" column="34" bodyfile="c/rrNOMSupport.cpp" bodystart="820" bodyend="850"/>
       </memberdef>
-      <memberdef kind="function" id="classrr_1_1NOMSupport_1a62cba3d72512c6b2656c7e271b413e3d" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
-        <type>string</type>
-        <definition>string rr::NOMSupport::getNthFloatingSpeciesId</definition>
+      <memberdef kind="function" id="classrr_1_1NOMSupport_1a844c2a0531b1fb526834f03f9a829bc9" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>std::string</type>
+        <definition>std::string rr::NOMSupport::getNthFloatingSpeciesId</definition>
         <argsstring>(const int &amp;nIndex)</argsstring>
         <name>getNthFloatingSpeciesId</name>
         <param>
@@ -1500,11 +1500,11 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="c/rrNOMSupport.h" line="159" column="29"/>
+        <location file="c/rrNOMSupport.h" line="159" column="34"/>
       </memberdef>
-      <memberdef kind="function" id="classrr_1_1NOMSupport_1affac6c694f8f704c8631e42371e2c2fa" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
-        <type>string</type>
-        <definition>string rr::NOMSupport::getNthFloatingSpeciesName</definition>
+      <memberdef kind="function" id="classrr_1_1NOMSupport_1ac2adbcaf4b53f24e9fc3a2a2dab49c16" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>std::string</type>
+        <definition>std::string rr::NOMSupport::getNthFloatingSpeciesName</definition>
         <argsstring>(const int &amp;nIndex)</argsstring>
         <name>getNthFloatingSpeciesName</name>
         <param>
@@ -1517,11 +1517,11 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="c/rrNOMSupport.h" line="160" column="29"/>
+        <location file="c/rrNOMSupport.h" line="160" column="34"/>
       </memberdef>
-      <memberdef kind="function" id="classrr_1_1NOMSupport_1a82d6be7c7fab953f7f6b53bb8809292d" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
-        <type>string</type>
-        <definition>string rr::NOMSupport::getNthGlobalParameterId</definition>
+      <memberdef kind="function" id="classrr_1_1NOMSupport_1ae732b166a077b379dabcce6d55c50264" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>std::string</type>
+        <definition>std::string rr::NOMSupport::getNthGlobalParameterId</definition>
         <argsstring>(const int &amp;nIndex)</argsstring>
         <name>getNthGlobalParameterId</name>
         <param>
@@ -1534,11 +1534,11 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="c/rrNOMSupport.h" line="161" column="29"/>
+        <location file="c/rrNOMSupport.h" line="161" column="34"/>
       </memberdef>
-      <memberdef kind="function" id="classrr_1_1NOMSupport_1a247b74ebfeb02805c7950f1e89fe84a0" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
-        <type>string</type>
-        <definition>string rr::NOMSupport::getNthGlobalParameterName</definition>
+      <memberdef kind="function" id="classrr_1_1NOMSupport_1a8da686e784f97c064cfacff266282c6d" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>std::string</type>
+        <definition>std::string rr::NOMSupport::getNthGlobalParameterName</definition>
         <argsstring>(const int &amp;nIndex)</argsstring>
         <name>getNthGlobalParameterName</name>
         <param>
@@ -1551,11 +1551,11 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="c/rrNOMSupport.h" line="162" column="29"/>
+        <location file="c/rrNOMSupport.h" line="162" column="34"/>
       </memberdef>
-      <memberdef kind="function" id="classrr_1_1NOMSupport_1aeba32779d922ca8c9b3e696f72e40a09" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
-        <type>string</type>
-        <definition>string rr::NOMSupport::getNthInitialAssignment</definition>
+      <memberdef kind="function" id="classrr_1_1NOMSupport_1a5eccdcc3bf676f6f92eb3678e2375d9e" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>std::string</type>
+        <definition>std::string rr::NOMSupport::getNthInitialAssignment</definition>
         <argsstring>(const int &amp;nIndex)</argsstring>
         <name>getNthInitialAssignment</name>
         <param>
@@ -1568,11 +1568,11 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="c/rrNOMSupport.h" line="163" column="29" bodyfile="c/rrNOMSupport.cpp" bodystart="798" bodyend="818"/>
+        <location file="c/rrNOMSupport.h" line="163" column="34" bodyfile="c/rrNOMSupport.cpp" bodystart="798" bodyend="818"/>
       </memberdef>
-      <memberdef kind="function" id="classrr_1_1NOMSupport_1aa84e9cdce61c5aaa50dcfb31b611ba33" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
-        <type>string</type>
-        <definition>string rr::NOMSupport::getNthParameterId</definition>
+      <memberdef kind="function" id="classrr_1_1NOMSupport_1a2f8c19c7c602099283f64a0b83a511a3" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>std::string</type>
+        <definition>std::string rr::NOMSupport::getNthParameterId</definition>
         <argsstring>(const int &amp;nReactionIndex, const int &amp;nParameterIndex)</argsstring>
         <name>getNthParameterId</name>
         <param>
@@ -1589,11 +1589,11 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="c/rrNOMSupport.h" line="164" column="29" bodyfile="c/rrNOMSupport.cpp" bodystart="695" bodyend="716"/>
+        <location file="c/rrNOMSupport.h" line="164" column="34" bodyfile="c/rrNOMSupport.cpp" bodystart="695" bodyend="716"/>
       </memberdef>
-      <memberdef kind="function" id="classrr_1_1NOMSupport_1a3fea9e3fd1cde7e093ec3ff1d7f60a25" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
-        <type>string</type>
-        <definition>string rr::NOMSupport::getNthParameterName</definition>
+      <memberdef kind="function" id="classrr_1_1NOMSupport_1a6116a8e857e035b8ce680eceecbdbe2d" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>std::string</type>
+        <definition>std::string rr::NOMSupport::getNthParameterName</definition>
         <argsstring>(const int &amp;nReactionIndex, const int &amp;nParameterIndex)</argsstring>
         <name>getNthParameterName</name>
         <param>
@@ -1610,11 +1610,11 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="c/rrNOMSupport.h" line="165" column="29"/>
+        <location file="c/rrNOMSupport.h" line="165" column="34"/>
       </memberdef>
-      <memberdef kind="function" id="classrr_1_1NOMSupport_1ad565032c940f2098824cd06ef1712c22" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
-        <type>string</type>
-        <definition>string rr::NOMSupport::getNthProductName</definition>
+      <memberdef kind="function" id="classrr_1_1NOMSupport_1a5fd70e51aeef697d73081cf9d941fa72" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>std::string</type>
+        <definition>std::string rr::NOMSupport::getNthProductName</definition>
         <argsstring>(const int &amp;nIndex, const int &amp;nProduct)</argsstring>
         <name>getNthProductName</name>
         <param>
@@ -1631,11 +1631,11 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="c/rrNOMSupport.h" line="166" column="29"/>
+        <location file="c/rrNOMSupport.h" line="166" column="34"/>
       </memberdef>
-      <memberdef kind="function" id="classrr_1_1NOMSupport_1a1c32acad015d94ebe96a05a328e34633" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
-        <type>string</type>
-        <definition>string rr::NOMSupport::getNthReactantName</definition>
+      <memberdef kind="function" id="classrr_1_1NOMSupport_1aecfdb020cc028061d92c96846b0d6dbf" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>std::string</type>
+        <definition>std::string rr::NOMSupport::getNthReactantName</definition>
         <argsstring>(const int &amp;nIndex, const int &amp;nReactant)</argsstring>
         <name>getNthReactantName</name>
         <param>
@@ -1652,11 +1652,11 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="c/rrNOMSupport.h" line="167" column="29"/>
+        <location file="c/rrNOMSupport.h" line="167" column="34"/>
       </memberdef>
-      <memberdef kind="function" id="classrr_1_1NOMSupport_1a10b79942200d7c6054469ee087519470" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
-        <type>string</type>
-        <definition>string rr::NOMSupport::getNthReactionId</definition>
+      <memberdef kind="function" id="classrr_1_1NOMSupport_1a78c31a155af23d39db98054d286c10a1" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>std::string</type>
+        <definition>std::string rr::NOMSupport::getNthReactionId</definition>
         <argsstring>(const int &amp;nIndex)</argsstring>
         <name>getNthReactionId</name>
         <param>
@@ -1669,11 +1669,11 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="c/rrNOMSupport.h" line="168" column="29" bodyfile="c/rrNOMSupport.cpp" bodystart="744" bodyend="758"/>
+        <location file="c/rrNOMSupport.h" line="168" column="34" bodyfile="c/rrNOMSupport.cpp" bodystart="744" bodyend="758"/>
       </memberdef>
-      <memberdef kind="function" id="classrr_1_1NOMSupport_1a4618450f8819275f5cd0839a0700b9e5" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
-        <type>string</type>
-        <definition>string rr::NOMSupport::getNthReactionName</definition>
+      <memberdef kind="function" id="classrr_1_1NOMSupport_1a2e3d01871f6e6044b762070ce2f85a06" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>std::string</type>
+        <definition>std::string rr::NOMSupport::getNthReactionName</definition>
         <argsstring>(const int &amp;nIndex)</argsstring>
         <name>getNthReactionName</name>
         <param>
@@ -1686,11 +1686,11 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="c/rrNOMSupport.h" line="169" column="29" bodyfile="c/rrNOMSupport.cpp" bodystart="760" bodyend="774"/>
+        <location file="c/rrNOMSupport.h" line="169" column="34" bodyfile="c/rrNOMSupport.cpp" bodystart="760" bodyend="774"/>
       </memberdef>
-      <memberdef kind="function" id="classrr_1_1NOMSupport_1a8f1d030d6b4abf66b6fad650fa3c2f6e" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
-        <type>string</type>
-        <definition>string rr::NOMSupport::getNthRule</definition>
+      <memberdef kind="function" id="classrr_1_1NOMSupport_1af73c28b1b46090fa053055a6a1b62cad" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>std::string</type>
+        <definition>std::string rr::NOMSupport::getNthRule</definition>
         <argsstring>(const int &amp;nIndex)</argsstring>
         <name>getNthRule</name>
         <param>
@@ -1703,11 +1703,11 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="c/rrNOMSupport.h" line="170" column="29" bodyfile="c/rrNOMSupport.cpp" bodystart="852" bodyend="893"/>
+        <location file="c/rrNOMSupport.h" line="170" column="34" bodyfile="c/rrNOMSupport.cpp" bodystart="852" bodyend="893"/>
       </memberdef>
-      <memberdef kind="function" id="classrr_1_1NOMSupport_1acb3ec671db583935d9a87f4028a3c34d" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
-        <type>string</type>
-        <definition>string rr::NOMSupport::getNthRuleType</definition>
+      <memberdef kind="function" id="classrr_1_1NOMSupport_1a68c26a79c82defefaaf2785c9394e245" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>std::string</type>
+        <definition>std::string rr::NOMSupport::getNthRuleType</definition>
         <argsstring>(const int &amp;arg)</argsstring>
         <name>getNthRuleType</name>
         <param>
@@ -1720,15 +1720,15 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="c/rrNOMSupport.h" line="171" column="29" bodyfile="c/rrNOMSupport.cpp" bodystart="895" bodyend="943"/>
+        <location file="c/rrNOMSupport.h" line="171" column="34" bodyfile="c/rrNOMSupport.cpp" bodystart="895" bodyend="943"/>
       </memberdef>
-      <memberdef kind="function" id="classrr_1_1NOMSupport_1a5822b7280de41cbdeb70880cbf58ef4b" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
-        <type>string</type>
-        <definition>string rr::NOMSupport::getOutsideCompartment</definition>
-        <argsstring>(const string &amp;var0)</argsstring>
+      <memberdef kind="function" id="classrr_1_1NOMSupport_1a561e4d41b89786c496e6dd6a806df6db" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>std::string</type>
+        <definition>std::string rr::NOMSupport::getOutsideCompartment</definition>
+        <argsstring>(const std::string &amp;var0)</argsstring>
         <name>getOutsideCompartment</name>
         <param>
-          <type>const string &amp;</type>
+          <type>const std::string &amp;</type>
           <declname>var0</declname>
         </param>
         <briefdescription>
@@ -1737,11 +1737,11 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="c/rrNOMSupport.h" line="172" column="29"/>
+        <location file="c/rrNOMSupport.h" line="172" column="34"/>
       </memberdef>
-      <memberdef kind="function" id="classrr_1_1NOMSupport_1aef59258be504d21115395cd159653a6e" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
-        <type>string</type>
-        <definition>string rr::NOMSupport::getSBML</definition>
+      <memberdef kind="function" id="classrr_1_1NOMSupport_1a5f6bba068472f44f601c793ecc0bfc07" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>std::string</type>
+        <definition>std::string rr::NOMSupport::getSBML</definition>
         <argsstring>()</argsstring>
         <name>getSBML</name>
         <briefdescription>
@@ -1750,15 +1750,15 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="c/rrNOMSupport.h" line="174" column="29" bodyfile="c/rrNOMSupport.cpp" bodystart="1237" bodyend="1251"/>
+        <location file="c/rrNOMSupport.h" line="174" column="34" bodyfile="c/rrNOMSupport.cpp" bodystart="1237" bodyend="1251"/>
       </memberdef>
-      <memberdef kind="function" id="classrr_1_1NOMSupport_1a084f163f31b7f71f5c67d1113f76d4d4" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
-        <type>string</type>
-        <definition>string rr::NOMSupport::getSBOCapableSBML</definition>
-        <argsstring>(const string &amp;sModel)</argsstring>
+      <memberdef kind="function" id="classrr_1_1NOMSupport_1a9f934e606b170c5cb19e7a8688003e51" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>std::string</type>
+        <definition>std::string rr::NOMSupport::getSBOCapableSBML</definition>
+        <argsstring>(const std::string &amp;sModel)</argsstring>
         <name>getSBOCapableSBML</name>
         <param>
-          <type>const string &amp;</type>
+          <type>const std::string &amp;</type>
           <declname>sModel</declname>
         </param>
         <briefdescription>
@@ -1767,15 +1767,15 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="c/rrNOMSupport.h" line="175" column="29"/>
+        <location file="c/rrNOMSupport.h" line="175" column="34"/>
       </memberdef>
-      <memberdef kind="function" id="classrr_1_1NOMSupport_1acfacb45e57121f5a48cb2dd5b4a12143" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
-        <type>string</type>
-        <definition>string rr::NOMSupport::removeJD1Layout</definition>
-        <argsstring>(const string &amp;sSBML)</argsstring>
+      <memberdef kind="function" id="classrr_1_1NOMSupport_1a918b6d7bb00360b650713da570d063bb" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>std::string</type>
+        <definition>std::string rr::NOMSupport::removeJD1Layout</definition>
+        <argsstring>(const std::string &amp;sSBML)</argsstring>
         <name>removeJD1Layout</name>
         <param>
-          <type>const string &amp;</type>
+          <type>const std::string &amp;</type>
           <declname>sSBML</declname>
         </param>
         <briefdescription>
@@ -1784,15 +1784,15 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="c/rrNOMSupport.h" line="176" column="29"/>
+        <location file="c/rrNOMSupport.h" line="176" column="34"/>
       </memberdef>
-      <memberdef kind="function" id="classrr_1_1NOMSupport_1a0613b39e4ba9f9e1b6a1853662d47972" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
-        <type>string</type>
-        <definition>string rr::NOMSupport::removeJD2Layout</definition>
-        <argsstring>(const string &amp;sSBML)</argsstring>
+      <memberdef kind="function" id="classrr_1_1NOMSupport_1ae1e748490c2fe4ad72c825e0b4e3aa77" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>std::string</type>
+        <definition>std::string rr::NOMSupport::removeJD2Layout</definition>
+        <argsstring>(const std::string &amp;sSBML)</argsstring>
         <name>removeJD2Layout</name>
         <param>
-          <type>const string &amp;</type>
+          <type>const std::string &amp;</type>
           <declname>sSBML</declname>
         </param>
         <briefdescription>
@@ -1801,15 +1801,15 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="c/rrNOMSupport.h" line="177" column="29"/>
+        <location file="c/rrNOMSupport.h" line="177" column="34"/>
       </memberdef>
-      <memberdef kind="function" id="classrr_1_1NOMSupport_1a3c824046e66fb3a1ad8b25a072e5a14a" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
-        <type>string</type>
-        <definition>string rr::NOMSupport::removeLayoutInformation</definition>
-        <argsstring>(const string &amp;sSBML)</argsstring>
+      <memberdef kind="function" id="classrr_1_1NOMSupport_1acb3669d728f0f541e14d8bd3ba26b222" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>std::string</type>
+        <definition>std::string rr::NOMSupport::removeLayoutInformation</definition>
+        <argsstring>(const std::string &amp;sSBML)</argsstring>
         <name>removeLayoutInformation</name>
         <param>
-          <type>const string &amp;</type>
+          <type>const std::string &amp;</type>
           <declname>sSBML</declname>
         </param>
         <briefdescription>
@@ -1818,15 +1818,15 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="c/rrNOMSupport.h" line="178" column="29"/>
+        <location file="c/rrNOMSupport.h" line="178" column="34"/>
       </memberdef>
-      <memberdef kind="function" id="classrr_1_1NOMSupport_1a85df8e110113897f33dab71358a510e1" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
-        <type>string</type>
-        <definition>string rr::NOMSupport::validateSBML</definition>
-        <argsstring>(const string &amp;sModel)</argsstring>
+      <memberdef kind="function" id="classrr_1_1NOMSupport_1afbdcedb58c48276fb376712442855642" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>std::string</type>
+        <definition>std::string rr::NOMSupport::validateSBML</definition>
+        <argsstring>(const std::string &amp;sModel)</argsstring>
         <name>validateSBML</name>
         <param>
-          <type>const string &amp;</type>
+          <type>const std::string &amp;</type>
           <declname>sModel</declname>
         </param>
         <briefdescription>
@@ -1835,15 +1835,15 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="c/rrNOMSupport.h" line="179" column="29" bodyfile="c/rrNOMSupport.cpp" bodystart="1776" bodyend="1791"/>
+        <location file="c/rrNOMSupport.h" line="179" column="34" bodyfile="c/rrNOMSupport.cpp" bodystart="1776" bodyend="1791"/>
       </memberdef>
-      <memberdef kind="function" id="classrr_1_1NOMSupport_1ac0dea2970bcd49e828078c653e07ef42" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
-        <type>string</type>
-        <definition>string rr::NOMSupport::validateWithConsistency</definition>
-        <argsstring>(const string &amp;sModel)</argsstring>
+      <memberdef kind="function" id="classrr_1_1NOMSupport_1acd1171573afbdf8efab3a53dd925c212" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>std::string</type>
+        <definition>std::string rr::NOMSupport::validateWithConsistency</definition>
+        <argsstring>(const std::string &amp;sModel)</argsstring>
         <name>validateWithConsistency</name>
         <param>
-          <type>const string &amp;</type>
+          <type>const std::string &amp;</type>
           <declname>sModel</declname>
         </param>
         <briefdescription>
@@ -1852,15 +1852,15 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="c/rrNOMSupport.h" line="180" column="29"/>
+        <location file="c/rrNOMSupport.h" line="180" column="34"/>
       </memberdef>
-      <memberdef kind="function" id="classrr_1_1NOMSupport_1a92c946298ad5a848f15948a8e521a24f" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
-        <type>vector&lt; string &gt;</type>
-        <definition>vector&lt;string&gt; rr::NOMSupport::getBuiltinFunctionInfo</definition>
-        <argsstring>(const string &amp;var0)</argsstring>
+      <memberdef kind="function" id="classrr_1_1NOMSupport_1ac5a942f1286ec7f51610ecccfe310e98" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>std::vector&lt; std::string &gt;</type>
+        <definition>std::vector&lt;std::string&gt; rr::NOMSupport::getBuiltinFunctionInfo</definition>
+        <argsstring>(const std::string &amp;var0)</argsstring>
         <name>getBuiltinFunctionInfo</name>
         <param>
-          <type>const string &amp;</type>
+          <type>const std::string &amp;</type>
           <declname>var0</declname>
         </param>
         <briefdescription>
@@ -1869,11 +1869,11 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="c/rrNOMSupport.h" line="181" column="21"/>
+        <location file="c/rrNOMSupport.h" line="181" column="26"/>
       </memberdef>
-      <memberdef kind="function" id="classrr_1_1NOMSupport_1a7c34f07f58f5bc273ffc2051f21a6d36" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
-        <type>vector&lt; string &gt;</type>
-        <definition>vector&lt;string&gt; rr::NOMSupport::getBuiltinFunctions</definition>
+      <memberdef kind="function" id="classrr_1_1NOMSupport_1a698b9203a22ba91b1e3e040128c94b76" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>std::vector&lt; std::string &gt;</type>
+        <definition>std::vector&lt;std::string&gt; rr::NOMSupport::getBuiltinFunctions</definition>
         <argsstring>()</argsstring>
         <name>getBuiltinFunctions</name>
         <briefdescription>
@@ -1882,7 +1882,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="c/rrNOMSupport.h" line="182" column="21"/>
+        <location file="c/rrNOMSupport.h" line="182" column="26"/>
       </memberdef>
       <memberdef kind="function" id="classrr_1_1NOMSupport_1aeb7a75da0bc53c9cf3c479247523dfcc" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
         <type>void</type>
@@ -1901,13 +1901,13 @@
         </inbodydescription>
         <location file="c/rrNOMSupport.h" line="183" column="29"/>
       </memberdef>
-      <memberdef kind="function" id="classrr_1_1NOMSupport_1a204c7b71a7f483491e722c7ae32e9162" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+      <memberdef kind="function" id="classrr_1_1NOMSupport_1a99c6ca0cff913e7d84afe18162206c8d" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
         <type>void</type>
         <definition>void rr::NOMSupport::loadFromFile</definition>
-        <argsstring>(const string &amp;fileName)</argsstring>
+        <argsstring>(const std::string &amp;fileName)</argsstring>
         <name>loadFromFile</name>
         <param>
-          <type>const string &amp;</type>
+          <type>const std::string &amp;</type>
           <declname>fileName</declname>
         </param>
         <briefdescription>
@@ -1918,17 +1918,17 @@
         </inbodydescription>
         <location file="c/rrNOMSupport.h" line="185" column="29"/>
       </memberdef>
-      <memberdef kind="function" id="classrr_1_1NOMSupport_1a88ecf0047f6a53d836c0a502c5505b39" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+      <memberdef kind="function" id="classrr_1_1NOMSupport_1a40e2adec0fc4df5bfb277f1e7bca23a5" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
         <type>void</type>
         <definition>void rr::NOMSupport::loadParameterPromotedSBML</definition>
-        <argsstring>(const string &amp;var0, const string &amp;sTimeSymbol)</argsstring>
+        <argsstring>(const std::string &amp;var0, const std::string &amp;sTimeSymbol)</argsstring>
         <name>loadParameterPromotedSBML</name>
         <param>
-          <type>const string &amp;</type>
+          <type>const std::string &amp;</type>
           <declname>var0</declname>
         </param>
         <param>
-          <type>const string &amp;</type>
+          <type>const std::string &amp;</type>
           <declname>sTimeSymbol</declname>
         </param>
         <briefdescription>
@@ -1939,13 +1939,13 @@
         </inbodydescription>
         <location file="c/rrNOMSupport.h" line="186" column="29"/>
       </memberdef>
-      <memberdef kind="function" id="classrr_1_1NOMSupport_1ac9e7025dd3b91a146cd039355f33a794" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+      <memberdef kind="function" id="classrr_1_1NOMSupport_1abb5326dbaf4f84567e6ea005d02de211" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
         <type>void</type>
         <definition>void rr::NOMSupport::loadSBML</definition>
-        <argsstring>(const string &amp;var0)</argsstring>
+        <argsstring>(const std::string &amp;var0)</argsstring>
         <name>loadSBML</name>
         <param>
-          <type>const string &amp;</type>
+          <type>const std::string &amp;</type>
           <declname>var0</declname>
         </param>
         <briefdescription>
@@ -1956,17 +1956,17 @@
         </inbodydescription>
         <location file="c/rrNOMSupport.h" line="187" column="29" bodyfile="c/rrNOMSupport.cpp" bodystart="1696" bodyend="1709"/>
       </memberdef>
-      <memberdef kind="function" id="classrr_1_1NOMSupport_1ab53793e9f6c1041031258f00ced6fe56" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+      <memberdef kind="function" id="classrr_1_1NOMSupport_1a370fa81709c4140a65701965a74ecb53" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
         <type>void</type>
         <definition>void rr::NOMSupport::loadSBML</definition>
-        <argsstring>(const string &amp;var0, const string &amp;sTimeSymbol)</argsstring>
+        <argsstring>(const std::string &amp;var0, const std::string &amp;sTimeSymbol)</argsstring>
         <name>loadSBML</name>
         <param>
-          <type>const string &amp;</type>
+          <type>const std::string &amp;</type>
           <declname>var0</declname>
         </param>
         <param>
-          <type>const string &amp;</type>
+          <type>const std::string &amp;</type>
           <declname>sTimeSymbol</declname>
         </param>
         <briefdescription>
@@ -1977,17 +1977,17 @@
         </inbodydescription>
         <location file="c/rrNOMSupport.h" line="188" column="29" bodyfile="c/rrNOMSupport.cpp" bodystart="1460" bodyend="1475"/>
       </memberdef>
-      <memberdef kind="function" id="classrr_1_1NOMSupport_1a92478afb3eb0d2acafb2daa42ada429a" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+      <memberdef kind="function" id="classrr_1_1NOMSupport_1a4a9071e9661c63082b0115e43bbf903f" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
         <type>void</type>
         <definition>void rr::NOMSupport::setAnnotation</definition>
-        <argsstring>(const string &amp;sId, const string &amp;sAnnotation)</argsstring>
+        <argsstring>(const std::string &amp;sId, const std::string &amp;sAnnotation)</argsstring>
         <name>setAnnotation</name>
         <param>
-          <type>const string &amp;</type>
+          <type>const std::string &amp;</type>
           <declname>sId</declname>
         </param>
         <param>
-          <type>const string &amp;</type>
+          <type>const std::string &amp;</type>
           <declname>sAnnotation</declname>
         </param>
         <briefdescription>
@@ -1998,13 +1998,13 @@
         </inbodydescription>
         <location file="c/rrNOMSupport.h" line="190" column="29"/>
       </memberdef>
-      <memberdef kind="function" id="classrr_1_1NOMSupport_1afee1232a274923abb9c5541d66a015ea" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+      <memberdef kind="function" id="classrr_1_1NOMSupport_1ae78710d1cb74bf1b20c983b941dd23a2" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
         <type>void</type>
         <definition>void rr::NOMSupport::setModelId</definition>
-        <argsstring>(const string &amp;sId)</argsstring>
+        <argsstring>(const std::string &amp;sId)</argsstring>
         <name>setModelId</name>
         <param>
-          <type>const string &amp;</type>
+          <type>const std::string &amp;</type>
           <declname>sId</declname>
         </param>
         <briefdescription>
@@ -2015,17 +2015,17 @@
         </inbodydescription>
         <location file="c/rrNOMSupport.h" line="191" column="29"/>
       </memberdef>
-      <memberdef kind="function" id="classrr_1_1NOMSupport_1a015c9ce85c4d1adca1ab6687eaf742a7" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+      <memberdef kind="function" id="classrr_1_1NOMSupport_1ae71388cb5fb6ac2438fd7b74fcfeeeee" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
         <type>void</type>
         <definition>void rr::NOMSupport::setNotes</definition>
-        <argsstring>(const string &amp;sId, const string &amp;sNotes)</argsstring>
+        <argsstring>(const std::string &amp;sId, const std::string &amp;sNotes)</argsstring>
         <name>setNotes</name>
         <param>
-          <type>const string &amp;</type>
+          <type>const std::string &amp;</type>
           <declname>sId</declname>
         </param>
         <param>
-          <type>const string &amp;</type>
+          <type>const std::string &amp;</type>
           <declname>sNotes</declname>
         </param>
         <briefdescription>
@@ -2036,13 +2036,13 @@
         </inbodydescription>
         <location file="c/rrNOMSupport.h" line="192" column="29"/>
       </memberdef>
-      <memberdef kind="function" id="classrr_1_1NOMSupport_1a7ef28c0b73add464aac47bf8de450823" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+      <memberdef kind="function" id="classrr_1_1NOMSupport_1a321b88e58783f3f7624bd393d6b13363" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
         <type>void</type>
         <definition>void rr::NOMSupport::setSBOTerm</definition>
-        <argsstring>(const string &amp;sId, const int &amp;nSBOTerm)</argsstring>
+        <argsstring>(const std::string &amp;sId, const int &amp;nSBOTerm)</argsstring>
         <name>setSBOTerm</name>
         <param>
-          <type>const string &amp;</type>
+          <type>const std::string &amp;</type>
           <declname>sId</declname>
         </param>
         <param>
@@ -2057,13 +2057,13 @@
         </inbodydescription>
         <location file="c/rrNOMSupport.h" line="193" column="29"/>
       </memberdef>
-      <memberdef kind="function" id="classrr_1_1NOMSupport_1a0fc94189c9015eec8365224cda170aa8" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+      <memberdef kind="function" id="classrr_1_1NOMSupport_1a258c21942cbbd02b0422021a8a59e409" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
         <type>void</type>
         <definition>void rr::NOMSupport::setValue</definition>
-        <argsstring>(const string &amp;sId, const double &amp;dValue)</argsstring>
+        <argsstring>(const std::string &amp;sId, const double &amp;dValue)</argsstring>
         <name>setValue</name>
         <param>
-          <type>const string &amp;</type>
+          <type>const std::string &amp;</type>
           <declname>sId</declname>
         </param>
         <param>
@@ -2078,17 +2078,17 @@
         </inbodydescription>
         <location file="c/rrNOMSupport.h" line="194" column="29" bodyfile="c/rrNOMSupport.cpp" bodystart="1771" bodyend="1774"/>
       </memberdef>
-      <memberdef kind="function" id="classrr_1_1NOMSupport_1a4c625f83c3d132cdfd188d865b9aeb9a" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+      <memberdef kind="function" id="classrr_1_1NOMSupport_1af6296d4883eca4e5600ca39b27d75908" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
         <type>void</type>
         <definition>void rr::NOMSupport::setValue</definition>
-        <argsstring>(Model *model, const string &amp;id, const double &amp;value, const bool &amp;throwIfNotFound)</argsstring>
+        <argsstring>(Model *model, const std::string &amp;id, const double &amp;value, const bool &amp;throwIfNotFound)</argsstring>
         <name>setValue</name>
         <param>
           <type>Model *</type>
           <declname>model</declname>
         </param>
         <param>
-          <type>const string &amp;</type>
+          <type>const std::string &amp;</type>
           <declname>id</declname>
         </param>
         <param>
@@ -2120,9 +2120,9 @@
         </inbodydescription>
         <location file="c/rrNOMSupport.h" line="196" column="29"/>
       </memberdef>
-      <memberdef kind="function" id="classrr_1_1NOMSupport_1a7e92ea7bcba209c770b29d14d7071cfe" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
-        <type>string</type>
-        <definition>string rr::NOMSupport::getNthBoundarySpeciesCompartmentName</definition>
+      <memberdef kind="function" id="classrr_1_1NOMSupport_1a213257b944b8c9eb2b806d82186a6f44" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>std::string</type>
+        <definition>std::string rr::NOMSupport::getNthBoundarySpeciesCompartmentName</definition>
         <argsstring>(const int &amp;nIndex)</argsstring>
         <name>getNthBoundarySpeciesCompartmentName</name>
         <param>
@@ -2135,11 +2135,11 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="c/rrNOMSupport.h" line="198" column="29" bodyfile="c/rrNOMSupport.cpp" bodystart="497" bodyend="521"/>
+        <location file="c/rrNOMSupport.h" line="198" column="34" bodyfile="c/rrNOMSupport.cpp" bodystart="497" bodyend="521"/>
       </memberdef>
-      <memberdef kind="function" id="classrr_1_1NOMSupport_1a82d3449a09bcbbc2992c6ca048d2ce7b" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
-        <type>string</type>
-        <definition>string rr::NOMSupport::getNthFloatingSpeciesCompartmentName</definition>
+      <memberdef kind="function" id="classrr_1_1NOMSupport_1af4a3ab21cb823459ea86eb96b00c8499" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>std::string</type>
+        <definition>std::string rr::NOMSupport::getNthFloatingSpeciesCompartmentName</definition>
         <argsstring>(int index)</argsstring>
         <name>getNthFloatingSpeciesCompartmentName</name>
         <param>
@@ -2154,7 +2154,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="c/rrNOMSupport.h" line="215" column="29" bodyfile="c/rrNOMSupport.cpp" bodystart="628" bodyend="652"/>
+        <location file="c/rrNOMSupport.h" line="215" column="34" bodyfile="c/rrNOMSupport.cpp" bodystart="628" bodyend="652"/>
       </memberdef>
       <memberdef kind="function" id="classrr_1_1NOMSupport_1afc89ae3f8b0494177341c9b63fcff6f1" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
         <type><ref refid="classrr_1_1StringListContainer" kindref="compound">StringListContainer</ref></type>
@@ -2169,13 +2169,13 @@
         </inbodydescription>
         <location file="c/rrNOMSupport.h" line="216" column="29" bodyfile="c/rrNOMSupport.cpp" bodystart="180" bodyend="205"/>
       </memberdef>
-      <memberdef kind="function" id="classrr_1_1NOMSupport_1a5c2d33909c7b791a421cccc393c0e6be" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
-        <type>stack&lt; string &gt;</type>
-        <definition>stack&lt; string &gt; rr::NOMSupport::getMatchForSymbol</definition>
-        <argsstring>(const string &amp;sbmlId)</argsstring>
+      <memberdef kind="function" id="classrr_1_1NOMSupport_1ac2c0def46c9097eb80982c3b15517f1e" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>stack&lt; std::string &gt;</type>
+        <definition>stack&lt; std::string &gt; rr::NOMSupport::getMatchForSymbol</definition>
+        <argsstring>(const std::string &amp;sbmlId)</argsstring>
         <name>getMatchForSymbol</name>
         <param>
-          <type>const string &amp;</type>
+          <type>const std::string &amp;</type>
           <declname>sbmlId</declname>
         </param>
         <briefdescription>
@@ -2189,9 +2189,9 @@
       </memberdef>
       </sectiondef>
       <sectiondef kind="public-static-func">
-      <memberdef kind="function" id="classrr_1_1NOMSupport_1a4ed0ca1004cf832a06d36b580079dfe3" prot="public" static="yes" const="no" explicit="no" inline="no" virt="non-virtual">
-        <type>string</type>
-        <definition>string rr::NOMSupport::getlibSBMLVersion</definition>
+      <memberdef kind="function" id="classrr_1_1NOMSupport_1abfc6a3d95e648477a618e45adba76bd4" prot="public" static="yes" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>std::string</type>
+        <definition>std::string rr::NOMSupport::getlibSBMLVersion</definition>
         <argsstring>()</argsstring>
         <name>getlibSBMLVersion</name>
         <briefdescription>
@@ -2200,19 +2200,19 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="c/rrNOMSupport.h" line="47" column="29" bodyfile="c/rrNOMSupport.cpp" bodystart="68" bodyend="71"/>
+        <location file="c/rrNOMSupport.h" line="47" column="34" bodyfile="c/rrNOMSupport.cpp" bodystart="68" bodyend="71"/>
       </memberdef>
-      <memberdef kind="function" id="classrr_1_1NOMSupport_1a752003b1f847b099d759afdab0b2ddfb" prot="public" static="yes" const="no" explicit="no" inline="no" virt="non-virtual">
-        <type>string</type>
-        <definition>string rr::NOMSupport::convertTime</definition>
-        <argsstring>(const string &amp;sArg, const string &amp;sTimeSymbol)</argsstring>
+      <memberdef kind="function" id="classrr_1_1NOMSupport_1af5c047495e2476c0f33964f93ccae4c1" prot="public" static="yes" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>std::string</type>
+        <definition>std::string rr::NOMSupport::convertTime</definition>
+        <argsstring>(const std::string &amp;sArg, const std::string &amp;sTimeSymbol)</argsstring>
         <name>convertTime</name>
         <param>
-          <type>const string &amp;</type>
+          <type>const std::string &amp;</type>
           <declname>sArg</declname>
         </param>
         <param>
-          <type>const string &amp;</type>
+          <type>const std::string &amp;</type>
           <declname>sTimeSymbol</declname>
         </param>
         <briefdescription>
@@ -2222,7 +2222,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="c/rrNOMSupport.h" line="222" column="29" bodyfile="c/rrNOMSupport.cpp" bodystart="250" bodyend="287"/>
+        <location file="c/rrNOMSupport.h" line="222" column="34" bodyfile="c/rrNOMSupport.cpp" bodystart="250" bodyend="287"/>
       </memberdef>
       <memberdef kind="function" id="classrr_1_1NOMSupport_1a88fb6cac272bc681f168299168df9721" prot="public" static="yes" const="no" explicit="no" inline="no" virt="non-virtual">
         <type><ref refid="classrr_1_1StringList" kindref="compound">StringList</ref></type>
@@ -2285,13 +2285,13 @@
         </inbodydescription>
         <location file="c/rrNOMSupport.h" line="246" column="22" bodyfile="c/rrNOMSupport.cpp" bodystart="1293" bodyend="1391"/>
       </memberdef>
-      <memberdef kind="function" id="classrr_1_1NOMSupport_1afb111b89f355f5872fb9d278ed9431ed" prot="public" static="yes" const="no" explicit="no" inline="no" virt="non-virtual">
+      <memberdef kind="function" id="classrr_1_1NOMSupport_1a43eefc5fcb055fc01b6a8d06ab96e4c1" prot="public" static="yes" const="no" explicit="no" inline="no" virt="non-virtual">
         <type>void</type>
         <definition>void rr::NOMSupport::fillStack</definition>
-        <argsstring>(stack&lt; string &gt; &amp;stack, SBMLSymbol &amp;symbol)</argsstring>
+        <argsstring>(stack&lt; std::string &gt; &amp;stack, SBMLSymbol &amp;symbol)</argsstring>
         <name>fillStack</name>
         <param>
-          <type>stack&lt; string &gt; &amp;</type>
+          <type>stack&lt; std::string &gt; &amp;</type>
           <declname>stack</declname>
         </param>
         <param>
@@ -2346,13 +2346,13 @@
         </inbodydescription>
         <location file="c/rrNOMSupport.h" line="257" column="29" bodyfile="c/rrNOMSupport.cpp" bodystart="1394" bodyend="1458"/>
       </memberdef>
-      <memberdef kind="function" id="classrr_1_1NOMSupport_1a3394af399f60bfd598e5b032a9e57398" prot="public" static="yes" const="no" explicit="no" inline="no" virt="non-virtual">
-        <type>string</type>
-        <definition>string rr::NOMSupport::getParamPromotedSBML</definition>
-        <argsstring>(const string &amp;sArg)</argsstring>
+      <memberdef kind="function" id="classrr_1_1NOMSupport_1a978bc9d8042583bc384f5e12d506b05b" prot="public" static="yes" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>std::string</type>
+        <definition>std::string rr::NOMSupport::getParamPromotedSBML</definition>
+        <argsstring>(const std::string &amp;sArg)</argsstring>
         <name>getParamPromotedSBML</name>
         <param>
-          <type>const string &amp;</type>
+          <type>const std::string &amp;</type>
           <declname>sArg</declname>
         </param>
         <briefdescription>
@@ -2361,11 +2361,11 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="c/rrNOMSupport.h" line="259" column="29" bodyfile="c/rrNOMSupport.cpp" bodystart="1059" bodyend="1083"/>
+        <location file="c/rrNOMSupport.h" line="259" column="34" bodyfile="c/rrNOMSupport.cpp" bodystart="1059" bodyend="1083"/>
       </memberdef>
-      <memberdef kind="function" id="classrr_1_1NOMSupport_1acbc42b270fb76b72ddd47ceaff7d2aeb" prot="public" static="yes" const="no" explicit="no" inline="no" virt="non-virtual">
-        <type>string</type>
-        <definition>string rr::NOMSupport::getId</definition>
+      <memberdef kind="function" id="classrr_1_1NOMSupport_1ad343b1729d3d8ad64187c278f91ac17d" prot="public" static="yes" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>std::string</type>
+        <definition>std::string rr::NOMSupport::getId</definition>
         <argsstring>(SBase &amp;element)</argsstring>
         <name>getId</name>
         <param>
@@ -2378,15 +2378,15 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="c/rrNOMSupport.h" line="261" column="29" bodyfile="c/rrNOMSupport.cpp" bodystart="207" bodyend="212"/>
+        <location file="c/rrNOMSupport.h" line="261" column="34" bodyfile="c/rrNOMSupport.cpp" bodystart="207" bodyend="212"/>
       </memberdef>
-      <memberdef kind="function" id="classrr_1_1NOMSupport_1a603728388058be0099a1c1db8afb0783" prot="public" static="yes" const="no" explicit="no" inline="no" virt="non-virtual">
-        <type>string</type>
-        <definition>string rr::NOMSupport::convertMathMLToString</definition>
-        <argsstring>(const string &amp;sMathML)</argsstring>
+      <memberdef kind="function" id="classrr_1_1NOMSupport_1ad0e1c892882efaa6a16bc17e0378404f" prot="public" static="yes" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>std::string</type>
+        <definition>std::string rr::NOMSupport::convertMathMLToString</definition>
+        <argsstring>(const std::string &amp;sMathML)</argsstring>
         <name>convertMathMLToString</name>
         <param>
-          <type>const string &amp;</type>
+          <type>const std::string &amp;</type>
           <declname>sMathML</declname>
         </param>
         <briefdescription>
@@ -2395,15 +2395,15 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="c/rrNOMSupport.h" line="262" column="29" bodyfile="c/rrNOMSupport.cpp" bodystart="228" bodyend="234"/>
+        <location file="c/rrNOMSupport.h" line="262" column="34" bodyfile="c/rrNOMSupport.cpp" bodystart="228" bodyend="234"/>
       </memberdef>
-      <memberdef kind="function" id="classrr_1_1NOMSupport_1af51f7cc54ef8cd5f33b45943073d80ee" prot="public" static="yes" const="no" explicit="no" inline="no" virt="non-virtual">
-        <type>string</type>
-        <definition>string rr::NOMSupport::convertStringToMathML</definition>
-        <argsstring>(const string &amp;var0)</argsstring>
+      <memberdef kind="function" id="classrr_1_1NOMSupport_1a47d8ee3fdee452957c85ea68e2b25482" prot="public" static="yes" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>std::string</type>
+        <definition>std::string rr::NOMSupport::convertStringToMathML</definition>
+        <argsstring>(const std::string &amp;var0)</argsstring>
         <name>convertStringToMathML</name>
         <param>
-          <type>const string &amp;</type>
+          <type>const std::string &amp;</type>
           <declname>var0</declname>
         </param>
         <briefdescription>
@@ -2412,7 +2412,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="c/rrNOMSupport.h" line="264" column="29" bodyfile="c/rrNOMSupport.cpp" bodystart="236" bodyend="248"/>
+        <location file="c/rrNOMSupport.h" line="264" column="34" bodyfile="c/rrNOMSupport.cpp" bodystart="236" bodyend="248"/>
       </memberdef>
       </sectiondef>
       <sectiondef kind="private-func">
@@ -2433,17 +2433,17 @@
         </inbodydescription>
         <location file="c/rrNOMSupport.h" line="281" column="29"/>
       </memberdef>
-      <memberdef kind="function" id="classrr_1_1NOMSupport_1a276d4695bef5c4477764821732cc2848" prot="private" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+      <memberdef kind="function" id="classrr_1_1NOMSupport_1adce5457722b610385db5504620e40771" prot="private" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
         <type>ASTNode</type>
         <definition>ASTNode rr::NOMSupport::changeTimeToCSymbol</definition>
-        <argsstring>(ASTNode *node, const string &amp;name, const int &amp;type)</argsstring>
+        <argsstring>(ASTNode *node, const std::string &amp;name, const int &amp;type)</argsstring>
         <name>changeTimeToCSymbol</name>
         <param>
           <type>ASTNode *</type>
           <declname>node</declname>
         </param>
         <param>
-          <type>const string &amp;</type>
+          <type>const std::string &amp;</type>
           <declname>name</declname>
         </param>
         <param>
@@ -2475,13 +2475,13 @@
         </inbodydescription>
         <location file="c/rrNOMSupport.h" line="284" column="29"/>
       </memberdef>
-      <memberdef kind="function" id="classrr_1_1NOMSupport_1a4fdae92d991f1b94bea390827b0294d7" prot="private" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+      <memberdef kind="function" id="classrr_1_1NOMSupport_1aa23a26b709cd844093a2446820417998" prot="private" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
         <type><ref refid="classrr_1_1StringList" kindref="compound">StringList</ref></type>
         <definition>StringList rr::NOMSupport::getSymbols</definition>
-        <argsstring>(const string &amp;formula)</argsstring>
+        <argsstring>(const std::string &amp;formula)</argsstring>
         <name>getSymbols</name>
         <param>
-          <type>const string &amp;</type>
+          <type>const std::string &amp;</type>
           <declname>formula</declname>
         </param>
         <briefdescription>
@@ -2492,13 +2492,13 @@
         </inbodydescription>
         <location file="c/rrNOMSupport.h" line="285" column="29" bodyfile="c/rrNOMSupport.cpp" bodystart="1618" bodyend="1633"/>
       </memberdef>
-      <memberdef kind="function" id="classrr_1_1NOMSupport_1aac718025bfedf432f07778bea2e36de3" prot="private" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
-        <type>string</type>
-        <definition>string rr::NOMSupport::getInitialAssignmentFor</definition>
-        <argsstring>(const string &amp;sbmlId)</argsstring>
+      <memberdef kind="function" id="classrr_1_1NOMSupport_1ab8ddfa4b0e345e628a92f8660813a56d" prot="private" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>std::string</type>
+        <definition>std::string rr::NOMSupport::getInitialAssignmentFor</definition>
+        <argsstring>(const std::string &amp;sbmlId)</argsstring>
         <name>getInitialAssignmentFor</name>
         <param>
-          <type>const string &amp;</type>
+          <type>const std::string &amp;</type>
           <declname>sbmlId</declname>
         </param>
         <briefdescription>
@@ -2507,15 +2507,15 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="c/rrNOMSupport.h" line="287" column="29" bodyfile="c/rrNOMSupport.cpp" bodystart="1680" bodyend="1694"/>
+        <location file="c/rrNOMSupport.h" line="287" column="34" bodyfile="c/rrNOMSupport.cpp" bodystart="1680" bodyend="1694"/>
       </memberdef>
-      <memberdef kind="function" id="classrr_1_1NOMSupport_1a7ddaacb7c94f20da0497d6df2b8290a5" prot="private" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
-        <type>string</type>
-        <definition>string rr::NOMSupport::getRuleFor</definition>
-        <argsstring>(const string &amp;sbmlId)</argsstring>
+      <memberdef kind="function" id="classrr_1_1NOMSupport_1a7752402e1541be3112033306f2706009" prot="private" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>std::string</type>
+        <definition>std::string rr::NOMSupport::getRuleFor</definition>
+        <argsstring>(const std::string &amp;sbmlId)</argsstring>
         <name>getRuleFor</name>
         <param>
-          <type>const string &amp;</type>
+          <type>const std::string &amp;</type>
           <declname>sbmlId</declname>
         </param>
         <briefdescription>
@@ -2524,7 +2524,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="c/rrNOMSupport.h" line="289" column="29" bodyfile="c/rrNOMSupport.cpp" bodystart="1648" bodyend="1678"/>
+        <location file="c/rrNOMSupport.h" line="289" column="34" bodyfile="c/rrNOMSupport.cpp" bodystart="1648" bodyend="1678"/>
       </memberdef>
       <memberdef kind="function" id="classrr_1_1NOMSupport_1a3fd264b8e7c1b68d50f7a04ab4e9138e" prot="private" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
         <type>void</type>
@@ -2547,13 +2547,13 @@
         </inbodydescription>
         <location file="c/rrNOMSupport.h" line="290" column="29" bodyfile="c/rrNOMSupport.cpp" bodystart="1635" bodyend="1646"/>
       </memberdef>
-      <memberdef kind="function" id="classrr_1_1NOMSupport_1a7ec7bcfdc83cc28d29a5610de56f7dde" prot="private" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+      <memberdef kind="function" id="classrr_1_1NOMSupport_1a657356d1bcc07c78bb44d5857176c3c2" prot="private" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
         <type>void</type>
         <definition>void rr::NOMSupport::addMissingParameter</definition>
-        <argsstring>(const string &amp;parameterId, SBMLDocument *doc)</argsstring>
+        <argsstring>(const std::string &amp;parameterId, SBMLDocument *doc)</argsstring>
         <name>addMissingParameter</name>
         <param>
-          <type>const string &amp;</type>
+          <type>const std::string &amp;</type>
           <declname>parameterId</declname>
         </param>
         <param>
@@ -2581,17 +2581,17 @@
         </inbodydescription>
         <location file="c/rrNOMSupport.h" line="292" column="29" bodyfile="c/rrNOMSupport.cpp" bodystart="1483" bodyend="1558"/>
       </memberdef>
-      <memberdef kind="function" id="classrr_1_1NOMSupport_1aa351fcbdbad04b0d7ac1df3b55e114a4" prot="private" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+      <memberdef kind="function" id="classrr_1_1NOMSupport_1a5d0fee979e7f572361abba1b9ebad64b" prot="private" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
         <type>void</type>
         <definition>void rr::NOMSupport::changeNameToCSymbol</definition>
-        <argsstring>(Model *model, const string &amp;name, const int &amp;type)</argsstring>
+        <argsstring>(Model *model, const std::string &amp;name, const int &amp;type)</argsstring>
         <name>changeNameToCSymbol</name>
         <param>
           <type>Model *</type>
           <declname>model</declname>
         </param>
         <param>
-          <type>const string &amp;</type>
+          <type>const std::string &amp;</type>
           <declname>name</declname>
         </param>
         <param>
@@ -2712,13 +2712,13 @@
         </inbodydescription>
         <location file="c/rrNOMSupport.h" line="299" column="29"/>
       </memberdef>
-      <memberdef kind="function" id="classrr_1_1NOMSupport_1a3dde33a21cf2f77ba4b70abb353330b0" prot="private" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+      <memberdef kind="function" id="classrr_1_1NOMSupport_1a37ea65d01d70d03ca5638db300c265eb" prot="private" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
         <type>void</type>
         <definition>void rr::NOMSupport::updateDependencies</definition>
-        <argsstring>(const string &amp;sbmlId)</argsstring>
+        <argsstring>(const std::string &amp;sbmlId)</argsstring>
         <name>updateDependencies</name>
         <param>
-          <type>const string &amp;</type>
+          <type>const std::string &amp;</type>
           <declname>sbmlId</declname>
         </param>
         <briefdescription>
@@ -2762,9 +2762,9 @@
       </memberdef>
       </sectiondef>
       <sectiondef kind="private-static-func">
-      <memberdef kind="function" id="classrr_1_1NOMSupport_1a1053abefe01adfee2d801f33e1d527c5" prot="private" static="yes" const="no" explicit="no" inline="no" virt="non-virtual">
-        <type>string</type>
-        <definition>string rr::NOMSupport::getName</definition>
+      <memberdef kind="function" id="classrr_1_1NOMSupport_1aa94638e2cb0f85c84ac4c22422c8b321" prot="private" static="yes" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>std::string</type>
+        <definition>std::string rr::NOMSupport::getName</definition>
         <argsstring>(const SBase *element)</argsstring>
         <name>getName</name>
         <param>
@@ -2772,13 +2772,13 @@
           <declname>element</declname>
         </param>
         <briefdescription>
-<para>returns empty string if element is null, otherwise gets the element&apos;s name if its set, otherwise gets the element&apos;s id. </para>
+<para>returns empty std::string if element is null, otherwise gets the element&apos;s name if its set, otherwise gets the element&apos;s id. </para>
         </briefdescription>
         <detaileddescription>
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="c/rrNOMSupport.h" line="311" column="29" bodyfile="c/rrNOMSupport.cpp" bodystart="216" bodyend="226"/>
+        <location file="c/rrNOMSupport.h" line="311" column="34" bodyfile="c/rrNOMSupport.cpp" bodystart="216" bodyend="226"/>
       </memberdef>
       <memberdef kind="function" id="classrr_1_1NOMSupport_1ae751150c32c2c77be978981a3b44a867" prot="private" static="yes" const="no" explicit="no" inline="no" virt="non-virtual">
         <type>void</type>
@@ -2801,17 +2801,17 @@
         </inbodydescription>
         <location file="c/rrNOMSupport.h" line="312" column="29" bodyfile="c/rrNOMSupport.cpp" bodystart="1187" bodyend="1220"/>
       </memberdef>
-      <memberdef kind="function" id="classrr_1_1NOMSupport_1a1995585b2669430b54af53f79132b9d7" prot="private" static="yes" const="no" explicit="no" inline="no" virt="non-virtual">
+      <memberdef kind="function" id="classrr_1_1NOMSupport_1a81442c4b4435bbb98a7f25e0f9e26ef7" prot="private" static="yes" const="no" explicit="no" inline="no" virt="non-virtual">
         <type>void</type>
         <definition>void rr::NOMSupport::modifyKineticLawsForLocalParameters</definition>
-        <argsstring>(KineticLaw &amp;oLaw, const string &amp;reactionId, Model &amp;oModel)</argsstring>
+        <argsstring>(KineticLaw &amp;oLaw, const std::string &amp;reactionId, Model &amp;oModel)</argsstring>
         <name>modifyKineticLawsForLocalParameters</name>
         <param>
           <type>KineticLaw &amp;</type>
           <declname>oLaw</declname>
         </param>
         <param>
-          <type>const string &amp;</type>
+          <type>const std::string &amp;</type>
           <declname>reactionId</declname>
         </param>
         <param>
@@ -2826,17 +2826,17 @@
         </inbodydescription>
         <location file="c/rrNOMSupport.h" line="313" column="29" bodyfile="c/rrNOMSupport.cpp" bodystart="1085" bodyend="1134"/>
       </memberdef>
-      <memberdef kind="function" id="classrr_1_1NOMSupport_1acb137beee20edf512a61f3834dcee7e5" prot="private" static="yes" const="no" explicit="no" inline="no" virt="non-virtual">
+      <memberdef kind="function" id="classrr_1_1NOMSupport_1a5c8b13f1f2ef592d24d239590c90314e" prot="private" static="yes" const="no" explicit="no" inline="no" virt="non-virtual">
         <type>void</type>
         <definition>void rr::NOMSupport::modifyKineticLawsForReaction</definition>
-        <argsstring>(KineticLaw &amp;oLaw, const string &amp;reactionId, Model &amp;oModel)</argsstring>
+        <argsstring>(KineticLaw &amp;oLaw, const std::string &amp;reactionId, Model &amp;oModel)</argsstring>
         <name>modifyKineticLawsForReaction</name>
         <param>
           <type>KineticLaw &amp;</type>
           <declname>oLaw</declname>
         </param>
         <param>
-          <type>const string &amp;</type>
+          <type>const std::string &amp;</type>
           <declname>reactionId</declname>
         </param>
         <param>
@@ -2851,17 +2851,17 @@
         </inbodydescription>
         <location file="c/rrNOMSupport.h" line="314" column="29" bodyfile="c/rrNOMSupport.cpp" bodystart="1137" bodyend="1185"/>
       </memberdef>
-      <memberdef kind="function" id="classrr_1_1NOMSupport_1a9645cc349bc164ec104d00a1c1bc42a1" prot="private" static="yes" const="no" explicit="no" inline="no" virt="non-virtual">
+      <memberdef kind="function" id="classrr_1_1NOMSupport_1a1bc6ebccd55db7b81165792fe6984116" prot="private" static="yes" const="no" explicit="no" inline="no" virt="non-virtual">
         <type>void</type>
         <definition>void rr::NOMSupport::changeSymbol</definition>
-        <argsstring>(Model &amp;oModel, const string &amp;sTimeSymbol, const int &amp;targetType)</argsstring>
+        <argsstring>(Model &amp;oModel, const std::string &amp;sTimeSymbol, const int &amp;targetType)</argsstring>
         <name>changeSymbol</name>
         <param>
           <type>Model &amp;</type>
           <declname>oModel</declname>
         </param>
         <param>
-          <type>const string &amp;</type>
+          <type>const std::string &amp;</type>
           <declname>sTimeSymbol</declname>
         </param>
         <param>
@@ -2876,17 +2876,17 @@
         </inbodydescription>
         <location file="c/rrNOMSupport.h" line="315" column="29" bodyfile="c/rrNOMSupport.cpp" bodystart="293" bodyend="332"/>
       </memberdef>
-      <memberdef kind="function" id="classrr_1_1NOMSupport_1a457d06a4325f9f87fdb50151ff8531de" prot="private" static="yes" const="no" explicit="no" inline="no" virt="non-virtual">
+      <memberdef kind="function" id="classrr_1_1NOMSupport_1a31918db090ca06d5b9bff032fd3efbf7" prot="private" static="yes" const="no" explicit="no" inline="no" virt="non-virtual">
         <type>void</type>
         <definition>void rr::NOMSupport::changeTimeSymbol</definition>
-        <argsstring>(Model &amp;model, const string &amp;timeSymbol)</argsstring>
+        <argsstring>(Model &amp;model, const std::string &amp;timeSymbol)</argsstring>
         <name>changeTimeSymbol</name>
         <param>
           <type>Model &amp;</type>
           <declname>model</declname>
         </param>
         <param>
-          <type>const string &amp;</type>
+          <type>const std::string &amp;</type>
           <declname>timeSymbol</declname>
         </param>
         <briefdescription>
@@ -2897,21 +2897,21 @@
         </inbodydescription>
         <location file="c/rrNOMSupport.h" line="316" column="29" bodyfile="c/rrNOMSupport.cpp" bodystart="1477" bodyend="1480"/>
       </memberdef>
-      <memberdef kind="function" id="classrr_1_1NOMSupport_1a7947638e1e2740a15eebcec602786661" prot="private" static="yes" const="no" explicit="no" inline="no" virt="non-virtual">
+      <memberdef kind="function" id="classrr_1_1NOMSupport_1a3bb7981fcac07e360703ca17fe2f3a9d" prot="private" static="yes" const="no" explicit="no" inline="no" virt="non-virtual">
         <type>void</type>
         <definition>void rr::NOMSupport::changeParameterName</definition>
-        <argsstring>(ASTNode &amp;node, const string &amp;sParameterName, const string &amp;sPrefix)</argsstring>
+        <argsstring>(ASTNode &amp;node, const std::string &amp;sParameterName, const std::string &amp;sPrefix)</argsstring>
         <name>changeParameterName</name>
         <param>
           <type>ASTNode &amp;</type>
           <declname>node</declname>
         </param>
         <param>
-          <type>const string &amp;</type>
+          <type>const std::string &amp;</type>
           <declname>sParameterName</declname>
         </param>
         <param>
-          <type>const string &amp;</type>
+          <type>const std::string &amp;</type>
           <declname>sPrefix</declname>
         </param>
         <briefdescription>
@@ -2953,92 +2953,92 @@
     <location file="c/rrNOMSupport.h" line="40" column="1" bodyfile="c/rrNOMSupport.h" bodystart="41" bodyend="325"/>
     <listofallmembers>
       <member refid="classrr_1_1NOMSupport_1a3fd264b8e7c1b68d50f7a04ab4e9138e" prot="private" virt="non-virtual"><scope>rr::NOMSupport</scope><name>addDependenciesToList</name></member>
-      <member refid="classrr_1_1NOMSupport_1a056b634541b058ebf8aaa5c7cb7f4ebc" prot="public" virt="non-virtual"><scope>rr::NOMSupport</scope><name>addEmptySetNode</name></member>
-      <member refid="classrr_1_1NOMSupport_1a02bbff499d9d30504b78be8067f00884" prot="public" virt="non-virtual"><scope>rr::NOMSupport</scope><name>addEmptySetNodes</name></member>
-      <member refid="classrr_1_1NOMSupport_1aee5a291a4278e5f754aee42503f07636" prot="public" virt="non-virtual"><scope>rr::NOMSupport</scope><name>addMissingModifiers</name></member>
+      <member refid="classrr_1_1NOMSupport_1a77806368c8fb2e39faa8eaec26c1b1cd" prot="public" virt="non-virtual"><scope>rr::NOMSupport</scope><name>addEmptySetNode</name></member>
+      <member refid="classrr_1_1NOMSupport_1a4e290f6af94196bc756ad9b7ef3b2edb" prot="public" virt="non-virtual"><scope>rr::NOMSupport</scope><name>addEmptySetNodes</name></member>
+      <member refid="classrr_1_1NOMSupport_1a90b08bb7b957ea970a5383e7f08bf811" prot="public" virt="non-virtual"><scope>rr::NOMSupport</scope><name>addMissingModifiers</name></member>
       <member refid="classrr_1_1NOMSupport_1a494272fe0c739c4c4be5d2d8b2b4b0b3" prot="private" virt="non-virtual"><scope>rr::NOMSupport</scope><name>addMissingModifiers</name></member>
-      <member refid="classrr_1_1NOMSupport_1a7ec7bcfdc83cc28d29a5610de56f7dde" prot="private" virt="non-virtual"><scope>rr::NOMSupport</scope><name>addMissingParameter</name></member>
-      <member refid="classrr_1_1NOMSupport_1ae1eb06169efe2ca612ad615dab652b3a" prot="public" virt="non-virtual"><scope>rr::NOMSupport</scope><name>addSourceSinkNodes</name></member>
+      <member refid="classrr_1_1NOMSupport_1a657356d1bcc07c78bb44d5857176c3c2" prot="private" virt="non-virtual"><scope>rr::NOMSupport</scope><name>addMissingParameter</name></member>
+      <member refid="classrr_1_1NOMSupport_1a1a038ac9fc76537f45e53bd1fc3ecf9d" prot="public" virt="non-virtual"><scope>rr::NOMSupport</scope><name>addSourceSinkNodes</name></member>
       <member refid="classrr_1_1NOMSupport_1a611bce00c4fc623518dd16e23c3a342c" prot="private" virt="non-virtual"><scope>rr::NOMSupport</scope><name>buildSymbolTable</name></member>
       <member refid="classrr_1_1NOMSupport_1aeb7a75da0bc53c9cf3c479247523dfcc" prot="public" virt="non-virtual"><scope>rr::NOMSupport</scope><name>changeConstantForRules</name></member>
-      <member refid="classrr_1_1NOMSupport_1aa351fcbdbad04b0d7ac1df3b55e114a4" prot="private" virt="non-virtual"><scope>rr::NOMSupport</scope><name>changeNameToCSymbol</name></member>
-      <member refid="classrr_1_1NOMSupport_1a7947638e1e2740a15eebcec602786661" prot="private" virt="non-virtual"><scope>rr::NOMSupport</scope><name>changeParameterName</name></member>
+      <member refid="classrr_1_1NOMSupport_1a5d0fee979e7f572361abba1b9ebad64b" prot="private" virt="non-virtual"><scope>rr::NOMSupport</scope><name>changeNameToCSymbol</name></member>
+      <member refid="classrr_1_1NOMSupport_1a3bb7981fcac07e360703ca17fe2f3a9d" prot="private" virt="non-virtual"><scope>rr::NOMSupport</scope><name>changeParameterName</name></member>
       <member refid="classrr_1_1NOMSupport_1a23e84b19985415a52e2d3bc77403e89a" prot="private" virt="non-virtual"><scope>rr::NOMSupport</scope><name>changePow</name></member>
-      <member refid="classrr_1_1NOMSupport_1a9645cc349bc164ec104d00a1c1bc42a1" prot="private" virt="non-virtual"><scope>rr::NOMSupport</scope><name>changeSymbol</name></member>
-      <member refid="classrr_1_1NOMSupport_1a457d06a4325f9f87fdb50151ff8531de" prot="private" virt="non-virtual"><scope>rr::NOMSupport</scope><name>changeTimeSymbol</name></member>
-      <member refid="classrr_1_1NOMSupport_1a276d4695bef5c4477764821732cc2848" prot="private" virt="non-virtual"><scope>rr::NOMSupport</scope><name>changeTimeToCSymbol</name></member>
+      <member refid="classrr_1_1NOMSupport_1a1bc6ebccd55db7b81165792fe6984116" prot="private" virt="non-virtual"><scope>rr::NOMSupport</scope><name>changeSymbol</name></member>
+      <member refid="classrr_1_1NOMSupport_1a31918db090ca06d5b9bff032fd3efbf7" prot="private" virt="non-virtual"><scope>rr::NOMSupport</scope><name>changeTimeSymbol</name></member>
+      <member refid="classrr_1_1NOMSupport_1adce5457722b610385db5504620e40771" prot="private" virt="non-virtual"><scope>rr::NOMSupport</scope><name>changeTimeToCSymbol</name></member>
       <member refid="classrr_1_1NOMSupport_1a7248f6fce76c08b4942fb4092056ab39" prot="public" virt="non-virtual"><scope>rr::NOMSupport</scope><name>checkConsistency</name></member>
       <member refid="classrr_1_1NOMSupport_1a74cf9a9b780edcb9962fc9a6c1d38819" prot="private" virt="non-virtual"><scope>rr::NOMSupport</scope><name>checkForMissingNames</name></member>
-      <member refid="classrr_1_1NOMSupport_1aeb4225faca7db8b214480360af8bc3e6" prot="public" virt="non-virtual"><scope>rr::NOMSupport</scope><name>convertLevel1ToLevel2Impl</name></member>
-      <member refid="classrr_1_1NOMSupport_1aefebd104abc7f8fcdbd51e15bde31190" prot="public" virt="non-virtual"><scope>rr::NOMSupport</scope><name>convertLevel2ToLevel1Impl</name></member>
-      <member refid="classrr_1_1NOMSupport_1a603728388058be0099a1c1db8afb0783" prot="public" virt="non-virtual"><scope>rr::NOMSupport</scope><name>convertMathMLToString</name></member>
-      <member refid="classrr_1_1NOMSupport_1a5a7e499b1b184d3b0cd64d5d8a9ff9e9" prot="public" virt="non-virtual"><scope>rr::NOMSupport</scope><name>convertPowImpl</name></member>
-      <member refid="classrr_1_1NOMSupport_1ab75572f214f2e6154cb036d7e78191ce" prot="public" virt="non-virtual"><scope>rr::NOMSupport</scope><name>convertSBML</name></member>
-      <member refid="classrr_1_1NOMSupport_1a4341c6760450553a5d29191b1b3605d1" prot="public" virt="non-virtual"><scope>rr::NOMSupport</scope><name>convertSBML</name></member>
-      <member refid="classrr_1_1NOMSupport_1af51f7cc54ef8cd5f33b45943073d80ee" prot="public" virt="non-virtual"><scope>rr::NOMSupport</scope><name>convertStringToMathML</name></member>
-      <member refid="classrr_1_1NOMSupport_1a752003b1f847b099d759afdab0b2ddfb" prot="public" virt="non-virtual"><scope>rr::NOMSupport</scope><name>convertTime</name></member>
-      <member refid="classrr_1_1NOMSupport_1a0c5835ed8d2a2511e9212c53654918a4" prot="public" virt="non-virtual"><scope>rr::NOMSupport</scope><name>convertTimeToCSymbol</name></member>
-      <member refid="classrr_1_1NOMSupport_1a37410cbe2215f8565fb7faea7f506800" prot="public" virt="non-virtual"><scope>rr::NOMSupport</scope><name>exists</name></member>
-      <member refid="classrr_1_1NOMSupport_1a5496d97b7a09308ef9e92723b54c524c" prot="public" virt="non-virtual"><scope>rr::NOMSupport</scope><name>fetAnnotatedModel</name></member>
-      <member refid="classrr_1_1NOMSupport_1afb111b89f355f5872fb9d278ed9431ed" prot="public" virt="non-virtual"><scope>rr::NOMSupport</scope><name>fillStack</name></member>
-      <member refid="classrr_1_1NOMSupport_1ac77d1507a4ec3b064bb70c6f9d868d87" prot="public" virt="non-virtual"><scope>rr::NOMSupport</scope><name>fixCommonIssues</name></member>
-      <member refid="classrr_1_1NOMSupport_1a3622ba30b732d3a29cebea1f3e92f8a2" prot="public" virt="non-virtual"><scope>rr::NOMSupport</scope><name>fixCommonIssues</name></member>
-      <member refid="classrr_1_1NOMSupport_1a6bb83db820572932f7480d99ce45f8eb" prot="public" virt="non-virtual"><scope>rr::NOMSupport</scope><name>getAnnotation</name></member>
-      <member refid="classrr_1_1NOMSupport_1a92c946298ad5a848f15948a8e521a24f" prot="public" virt="non-virtual"><scope>rr::NOMSupport</scope><name>getBuiltinFunctionInfo</name></member>
-      <member refid="classrr_1_1NOMSupport_1a7c34f07f58f5bc273ffc2051f21a6d36" prot="public" virt="non-virtual"><scope>rr::NOMSupport</scope><name>getBuiltinFunctions</name></member>
-      <member refid="classrr_1_1NOMSupport_1ac1b3a989810909d4aa04c76b5d453332" prot="public" virt="non-virtual"><scope>rr::NOMSupport</scope><name>getCompartmentIdBySpeciesId</name></member>
-      <member refid="classrr_1_1NOMSupport_1a180f7a3faeb0faddd312bf0d54eccaef" prot="public" virt="non-virtual"><scope>rr::NOMSupport</scope><name>getDerivedUnitDefinition</name></member>
-      <member refid="classrr_1_1NOMSupport_1a234be380c2036a268eda6058bfe0171b" prot="public" virt="non-virtual"><scope>rr::NOMSupport</scope><name>getElement</name></member>
-      <member refid="classrr_1_1NOMSupport_1acbc42b270fb76b72ddd47ceaff7d2aeb" prot="public" virt="non-virtual"><scope>rr::NOMSupport</scope><name>getId</name></member>
-      <member refid="classrr_1_1NOMSupport_1aac718025bfedf432f07778bea2e36de3" prot="private" virt="non-virtual"><scope>rr::NOMSupport</scope><name>getInitialAssignmentFor</name></member>
-      <member refid="classrr_1_1NOMSupport_1a9397f260f931befe29ed252770f18195" prot="public" virt="non-virtual"><scope>rr::NOMSupport</scope><name>getKineticLaw</name></member>
-      <member refid="classrr_1_1NOMSupport_1a4ed0ca1004cf832a06d36b580079dfe3" prot="public" virt="non-virtual"><scope>rr::NOMSupport</scope><name>getlibSBMLVersion</name></member>
+      <member refid="classrr_1_1NOMSupport_1a80ab85e86a866b6bc74d926b4bbbe832" prot="public" virt="non-virtual"><scope>rr::NOMSupport</scope><name>convertLevel1ToLevel2Impl</name></member>
+      <member refid="classrr_1_1NOMSupport_1adc4736f2235a3574134d6d331e783a3e" prot="public" virt="non-virtual"><scope>rr::NOMSupport</scope><name>convertLevel2ToLevel1Impl</name></member>
+      <member refid="classrr_1_1NOMSupport_1ad0e1c892882efaa6a16bc17e0378404f" prot="public" virt="non-virtual"><scope>rr::NOMSupport</scope><name>convertMathMLToString</name></member>
+      <member refid="classrr_1_1NOMSupport_1a346152a907f276dd38e36a9d5143a693" prot="public" virt="non-virtual"><scope>rr::NOMSupport</scope><name>convertPowImpl</name></member>
+      <member refid="classrr_1_1NOMSupport_1af9c9e31d3594550dff33b9e894424759" prot="public" virt="non-virtual"><scope>rr::NOMSupport</scope><name>convertSBML</name></member>
+      <member refid="classrr_1_1NOMSupport_1a19bc67b559feb217207e1f4acaaee13f" prot="public" virt="non-virtual"><scope>rr::NOMSupport</scope><name>convertSBML</name></member>
+      <member refid="classrr_1_1NOMSupport_1a47d8ee3fdee452957c85ea68e2b25482" prot="public" virt="non-virtual"><scope>rr::NOMSupport</scope><name>convertStringToMathML</name></member>
+      <member refid="classrr_1_1NOMSupport_1af5c047495e2476c0f33964f93ccae4c1" prot="public" virt="non-virtual"><scope>rr::NOMSupport</scope><name>convertTime</name></member>
+      <member refid="classrr_1_1NOMSupport_1ad15f2c6518e78cb9b3323445496c08d4" prot="public" virt="non-virtual"><scope>rr::NOMSupport</scope><name>convertTimeToCSymbol</name></member>
+      <member refid="classrr_1_1NOMSupport_1a3339854f8e9610c4c74892364fdc9b23" prot="public" virt="non-virtual"><scope>rr::NOMSupport</scope><name>exists</name></member>
+      <member refid="classrr_1_1NOMSupport_1a09fd81548bda69ec8174d165ca4e0f67" prot="public" virt="non-virtual"><scope>rr::NOMSupport</scope><name>fetAnnotatedModel</name></member>
+      <member refid="classrr_1_1NOMSupport_1a43eefc5fcb055fc01b6a8d06ab96e4c1" prot="public" virt="non-virtual"><scope>rr::NOMSupport</scope><name>fillStack</name></member>
+      <member refid="classrr_1_1NOMSupport_1a3f94ac2f8e49f16d4349be914b856ed1" prot="public" virt="non-virtual"><scope>rr::NOMSupport</scope><name>fixCommonIssues</name></member>
+      <member refid="classrr_1_1NOMSupport_1af46f78c89394134e9c8d3cd5af6eaada" prot="public" virt="non-virtual"><scope>rr::NOMSupport</scope><name>fixCommonIssues</name></member>
+      <member refid="classrr_1_1NOMSupport_1ab286ef74860b4b85f2d3e18a07ea053d" prot="public" virt="non-virtual"><scope>rr::NOMSupport</scope><name>getAnnotation</name></member>
+      <member refid="classrr_1_1NOMSupport_1ac5a942f1286ec7f51610ecccfe310e98" prot="public" virt="non-virtual"><scope>rr::NOMSupport</scope><name>getBuiltinFunctionInfo</name></member>
+      <member refid="classrr_1_1NOMSupport_1a698b9203a22ba91b1e3e040128c94b76" prot="public" virt="non-virtual"><scope>rr::NOMSupport</scope><name>getBuiltinFunctions</name></member>
+      <member refid="classrr_1_1NOMSupport_1a8c5ba507029eeac5929e98dafb91193a" prot="public" virt="non-virtual"><scope>rr::NOMSupport</scope><name>getCompartmentIdBySpeciesId</name></member>
+      <member refid="classrr_1_1NOMSupport_1a9cb13fa46956d4d9eb4f757033162fa8" prot="public" virt="non-virtual"><scope>rr::NOMSupport</scope><name>getDerivedUnitDefinition</name></member>
+      <member refid="classrr_1_1NOMSupport_1ab5567726fad741afe90970199323c16e" prot="public" virt="non-virtual"><scope>rr::NOMSupport</scope><name>getElement</name></member>
+      <member refid="classrr_1_1NOMSupport_1ad343b1729d3d8ad64187c278f91ac17d" prot="public" virt="non-virtual"><scope>rr::NOMSupport</scope><name>getId</name></member>
+      <member refid="classrr_1_1NOMSupport_1ab8ddfa4b0e345e628a92f8660813a56d" prot="private" virt="non-virtual"><scope>rr::NOMSupport</scope><name>getInitialAssignmentFor</name></member>
+      <member refid="classrr_1_1NOMSupport_1a16d422f74f452590dda119bb215d01ce" prot="public" virt="non-virtual"><scope>rr::NOMSupport</scope><name>getKineticLaw</name></member>
+      <member refid="classrr_1_1NOMSupport_1abfc6a3d95e648477a618e45adba76bd4" prot="public" virt="non-virtual"><scope>rr::NOMSupport</scope><name>getlibSBMLVersion</name></member>
       <member refid="classrr_1_1NOMSupport_1afc89ae3f8b0494177341c9b63fcff6f1" prot="public" virt="non-virtual"><scope>rr::NOMSupport</scope><name>getListOfBoundarySpecies</name></member>
       <member refid="classrr_1_1NOMSupport_1a60275e071595d272c1eb68bbe05a0dea" prot="public" virt="non-virtual"><scope>rr::NOMSupport</scope><name>getListOfBoundarySpeciesIds</name></member>
       <member refid="classrr_1_1NOMSupport_1aa48de871ac4097b24fb1e0e511146ad3" prot="public" virt="non-virtual"><scope>rr::NOMSupport</scope><name>getListOfErrors</name></member>
       <member refid="classrr_1_1NOMSupport_1a815a040b3e8655b33abc059e1ffe8545" prot="public" virt="non-virtual"><scope>rr::NOMSupport</scope><name>getListOfFloatingSpecies</name></member>
       <member refid="classrr_1_1NOMSupport_1a40fc14a326f91a0351c4a2772b2c86f7" prot="public" virt="non-virtual"><scope>rr::NOMSupport</scope><name>getListOfFloatingSpeciesIds</name></member>
       <member refid="classrr_1_1NOMSupport_1af1762c6a9bc860bdfd82214a0f9c68dc" prot="public" virt="non-virtual"><scope>rr::NOMSupport</scope><name>getListOfParameters</name></member>
-      <member refid="classrr_1_1NOMSupport_1a5c2d33909c7b791a421cccc393c0e6be" prot="public" virt="non-virtual"><scope>rr::NOMSupport</scope><name>getMatchForSymbol</name></member>
-      <member refid="classrr_1_1NOMSupport_1ab097ea41773bb832feeb5ce34175a97e" prot="public" virt="non-virtual"><scope>rr::NOMSupport</scope><name>getMetaId</name></member>
+      <member refid="classrr_1_1NOMSupport_1ac2c0def46c9097eb80982c3b15517f1e" prot="public" virt="non-virtual"><scope>rr::NOMSupport</scope><name>getMatchForSymbol</name></member>
+      <member refid="classrr_1_1NOMSupport_1a56def69a581e3c091b42b59159fa41de" prot="public" virt="non-virtual"><scope>rr::NOMSupport</scope><name>getMetaId</name></member>
       <member refid="classrr_1_1NOMSupport_1a49d7b2b3856bd3bda51e9bece64f835b" prot="public" virt="non-virtual"><scope>rr::NOMSupport</scope><name>getModel</name></member>
-      <member refid="classrr_1_1NOMSupport_1a02d198cdaae316cd18c16c4d48dd7982" prot="public" virt="non-virtual"><scope>rr::NOMSupport</scope><name>getModelId</name></member>
-      <member refid="classrr_1_1NOMSupport_1aeea2cf6649a82d0e0d5e5d625a94033f" prot="public" virt="non-virtual"><scope>rr::NOMSupport</scope><name>getModelName</name></member>
-      <member refid="classrr_1_1NOMSupport_1a1053abefe01adfee2d801f33e1d527c5" prot="private" virt="non-virtual"><scope>rr::NOMSupport</scope><name>getName</name></member>
-      <member refid="classrr_1_1NOMSupport_1a2c9e123c78973ff5f4d2e33e75dc9b8b" prot="public" virt="non-virtual"><scope>rr::NOMSupport</scope><name>getNotes</name></member>
-      <member refid="classrr_1_1NOMSupport_1a7e92ea7bcba209c770b29d14d7071cfe" prot="public" virt="non-virtual"><scope>rr::NOMSupport</scope><name>getNthBoundarySpeciesCompartmentName</name></member>
-      <member refid="classrr_1_1NOMSupport_1a96ac47d86df7272e17af4d010ea4aaa6" prot="public" virt="non-virtual"><scope>rr::NOMSupport</scope><name>getNthBoundarySpeciesId</name></member>
-      <member refid="classrr_1_1NOMSupport_1af03fcb60c6b8c34eb1827e15aea8da87" prot="public" virt="non-virtual"><scope>rr::NOMSupport</scope><name>getNthBoundarySpeciesName</name></member>
-      <member refid="classrr_1_1NOMSupport_1a317d12bc18986905727c6b783d57324a" prot="public" virt="non-virtual"><scope>rr::NOMSupport</scope><name>getNthCompartmentId</name></member>
-      <member refid="classrr_1_1NOMSupport_1ac61d61d70c91c0acc5adb96d051e2b01" prot="public" virt="non-virtual"><scope>rr::NOMSupport</scope><name>getNthCompartmentName</name></member>
-      <member refid="classrr_1_1NOMSupport_1a1414b113b085dde3d2229e978ad52987" prot="public" virt="non-virtual"><scope>rr::NOMSupport</scope><name>getNthConstraint</name></member>
+      <member refid="classrr_1_1NOMSupport_1a9b398a9eac8c94956ccc98eaed4edbc3" prot="public" virt="non-virtual"><scope>rr::NOMSupport</scope><name>getModelId</name></member>
+      <member refid="classrr_1_1NOMSupport_1a12308f3e693a321e29b706a7a0bee7db" prot="public" virt="non-virtual"><scope>rr::NOMSupport</scope><name>getModelName</name></member>
+      <member refid="classrr_1_1NOMSupport_1aa94638e2cb0f85c84ac4c22422c8b321" prot="private" virt="non-virtual"><scope>rr::NOMSupport</scope><name>getName</name></member>
+      <member refid="classrr_1_1NOMSupport_1a4458a0346b381e5790512e16d0e9a3fd" prot="public" virt="non-virtual"><scope>rr::NOMSupport</scope><name>getNotes</name></member>
+      <member refid="classrr_1_1NOMSupport_1a213257b944b8c9eb2b806d82186a6f44" prot="public" virt="non-virtual"><scope>rr::NOMSupport</scope><name>getNthBoundarySpeciesCompartmentName</name></member>
+      <member refid="classrr_1_1NOMSupport_1acf3b8e2af558600684e3a5898166b8a3" prot="public" virt="non-virtual"><scope>rr::NOMSupport</scope><name>getNthBoundarySpeciesId</name></member>
+      <member refid="classrr_1_1NOMSupport_1abd7395ef48ac675489f89077c9c7c740" prot="public" virt="non-virtual"><scope>rr::NOMSupport</scope><name>getNthBoundarySpeciesName</name></member>
+      <member refid="classrr_1_1NOMSupport_1a9504d72a9d563d0b34aa16fd170e96b6" prot="public" virt="non-virtual"><scope>rr::NOMSupport</scope><name>getNthCompartmentId</name></member>
+      <member refid="classrr_1_1NOMSupport_1a3c05f22c3620c18c28ecf02001eec656" prot="public" virt="non-virtual"><scope>rr::NOMSupport</scope><name>getNthCompartmentName</name></member>
+      <member refid="classrr_1_1NOMSupport_1a586781add72e78d208ca4ab3c7b7074a" prot="public" virt="non-virtual"><scope>rr::NOMSupport</scope><name>getNthConstraint</name></member>
       <member refid="classrr_1_1NOMSupport_1a4ef8c2bfb5c08c246376d7ad27e832ba" prot="public" virt="non-virtual"><scope>rr::NOMSupport</scope><name>getNthError</name></member>
       <member refid="classrr_1_1NOMSupport_1afa8b02e0463e5cb300ee8cf13eed8dd0" prot="public" virt="non-virtual"><scope>rr::NOMSupport</scope><name>getNthEvent</name></member>
-      <member refid="classrr_1_1NOMSupport_1a82d3449a09bcbbc2992c6ca048d2ce7b" prot="public" virt="non-virtual"><scope>rr::NOMSupport</scope><name>getNthFloatingSpeciesCompartmentName</name></member>
-      <member refid="classrr_1_1NOMSupport_1a62cba3d72512c6b2656c7e271b413e3d" prot="public" virt="non-virtual"><scope>rr::NOMSupport</scope><name>getNthFloatingSpeciesId</name></member>
-      <member refid="classrr_1_1NOMSupport_1affac6c694f8f704c8631e42371e2c2fa" prot="public" virt="non-virtual"><scope>rr::NOMSupport</scope><name>getNthFloatingSpeciesName</name></member>
+      <member refid="classrr_1_1NOMSupport_1af4a3ab21cb823459ea86eb96b00c8499" prot="public" virt="non-virtual"><scope>rr::NOMSupport</scope><name>getNthFloatingSpeciesCompartmentName</name></member>
+      <member refid="classrr_1_1NOMSupport_1a844c2a0531b1fb526834f03f9a829bc9" prot="public" virt="non-virtual"><scope>rr::NOMSupport</scope><name>getNthFloatingSpeciesId</name></member>
+      <member refid="classrr_1_1NOMSupport_1ac2adbcaf4b53f24e9fc3a2a2dab49c16" prot="public" virt="non-virtual"><scope>rr::NOMSupport</scope><name>getNthFloatingSpeciesName</name></member>
       <member refid="classrr_1_1NOMSupport_1ae7cb7e2a438075854cd55d80f80d40bf" prot="public" virt="non-virtual"><scope>rr::NOMSupport</scope><name>getNthFunctionDefinition</name></member>
-      <member refid="classrr_1_1NOMSupport_1a82d6be7c7fab953f7f6b53bb8809292d" prot="public" virt="non-virtual"><scope>rr::NOMSupport</scope><name>getNthGlobalParameterId</name></member>
-      <member refid="classrr_1_1NOMSupport_1a247b74ebfeb02805c7950f1e89fe84a0" prot="public" virt="non-virtual"><scope>rr::NOMSupport</scope><name>getNthGlobalParameterName</name></member>
-      <member refid="classrr_1_1NOMSupport_1aeba32779d922ca8c9b3e696f72e40a09" prot="public" virt="non-virtual"><scope>rr::NOMSupport</scope><name>getNthInitialAssignment</name></member>
-      <member refid="classrr_1_1NOMSupport_1a0408e66596087b579633a30925543f7b" prot="public" virt="non-virtual"><scope>rr::NOMSupport</scope><name>getNthInitialAssignmentPair</name></member>
+      <member refid="classrr_1_1NOMSupport_1ae732b166a077b379dabcce6d55c50264" prot="public" virt="non-virtual"><scope>rr::NOMSupport</scope><name>getNthGlobalParameterId</name></member>
+      <member refid="classrr_1_1NOMSupport_1a8da686e784f97c064cfacff266282c6d" prot="public" virt="non-virtual"><scope>rr::NOMSupport</scope><name>getNthGlobalParameterName</name></member>
+      <member refid="classrr_1_1NOMSupport_1a5eccdcc3bf676f6f92eb3678e2375d9e" prot="public" virt="non-virtual"><scope>rr::NOMSupport</scope><name>getNthInitialAssignment</name></member>
+      <member refid="classrr_1_1NOMSupport_1ac71223c1746d7324a443cb2f0a0eef62" prot="public" virt="non-virtual"><scope>rr::NOMSupport</scope><name>getNthInitialAssignmentPair</name></member>
       <member refid="classrr_1_1NOMSupport_1af86514dbc6a2460ddee3716e1f5a68c9" prot="public" virt="non-virtual"><scope>rr::NOMSupport</scope><name>getNthListOfModifiers</name></member>
       <member refid="classrr_1_1NOMSupport_1ad4366abc26095ae270c96fd3b194ef3d" prot="public" virt="non-virtual"><scope>rr::NOMSupport</scope><name>getNthListOfProducts</name></member>
       <member refid="classrr_1_1NOMSupport_1a665946828707e5d590d9ea2f27d762db" prot="public" virt="non-virtual"><scope>rr::NOMSupport</scope><name>getNthListOfReactants</name></member>
       <member refid="classrr_1_1NOMSupport_1a01d08fa2e3514a7195a6042a96a3c8b7" prot="public" virt="non-virtual"><scope>rr::NOMSupport</scope><name>getNthParameterHasValue</name></member>
-      <member refid="classrr_1_1NOMSupport_1aa84e9cdce61c5aaa50dcfb31b611ba33" prot="public" virt="non-virtual"><scope>rr::NOMSupport</scope><name>getNthParameterId</name></member>
-      <member refid="classrr_1_1NOMSupport_1a3fea9e3fd1cde7e093ec3ff1d7f60a25" prot="public" virt="non-virtual"><scope>rr::NOMSupport</scope><name>getNthParameterName</name></member>
+      <member refid="classrr_1_1NOMSupport_1a2f8c19c7c602099283f64a0b83a511a3" prot="public" virt="non-virtual"><scope>rr::NOMSupport</scope><name>getNthParameterId</name></member>
+      <member refid="classrr_1_1NOMSupport_1a6116a8e857e035b8ce680eceecbdbe2d" prot="public" virt="non-virtual"><scope>rr::NOMSupport</scope><name>getNthParameterName</name></member>
       <member refid="classrr_1_1NOMSupport_1a5e684245f67b782f9b3a09c78e118ed5" prot="public" virt="non-virtual"><scope>rr::NOMSupport</scope><name>getNthParameterValue</name></member>
-      <member refid="classrr_1_1NOMSupport_1ad565032c940f2098824cd06ef1712c22" prot="public" virt="non-virtual"><scope>rr::NOMSupport</scope><name>getNthProductName</name></member>
+      <member refid="classrr_1_1NOMSupport_1a5fd70e51aeef697d73081cf9d941fa72" prot="public" virt="non-virtual"><scope>rr::NOMSupport</scope><name>getNthProductName</name></member>
       <member refid="classrr_1_1NOMSupport_1aa3322a1d8a52118fcc3643f098583339" prot="public" virt="non-virtual"><scope>rr::NOMSupport</scope><name>getNthProductStoichiometry</name></member>
       <member refid="classrr_1_1NOMSupport_1afad05dd23720f511e13194e6743d2f1a" prot="public" virt="non-virtual"><scope>rr::NOMSupport</scope><name>getNthProductStoichiometryDouble</name></member>
-      <member refid="classrr_1_1NOMSupport_1a1c32acad015d94ebe96a05a328e34633" prot="public" virt="non-virtual"><scope>rr::NOMSupport</scope><name>getNthReactantName</name></member>
+      <member refid="classrr_1_1NOMSupport_1aecfdb020cc028061d92c96846b0d6dbf" prot="public" virt="non-virtual"><scope>rr::NOMSupport</scope><name>getNthReactantName</name></member>
       <member refid="classrr_1_1NOMSupport_1aef4b814dc68e36b68008331c794912a1" prot="public" virt="non-virtual"><scope>rr::NOMSupport</scope><name>getNthReactantStoichiometry</name></member>
       <member refid="classrr_1_1NOMSupport_1a73c8bcdb6a5db6a1d962e7974bf3d9a1" prot="public" virt="non-virtual"><scope>rr::NOMSupport</scope><name>getNthReactantStoichiometryDouble</name></member>
-      <member refid="classrr_1_1NOMSupport_1a10b79942200d7c6054469ee087519470" prot="public" virt="non-virtual"><scope>rr::NOMSupport</scope><name>getNthReactionId</name></member>
-      <member refid="classrr_1_1NOMSupport_1a4618450f8819275f5cd0839a0700b9e5" prot="public" virt="non-virtual"><scope>rr::NOMSupport</scope><name>getNthReactionName</name></member>
-      <member refid="classrr_1_1NOMSupport_1a8f1d030d6b4abf66b6fad650fa3c2f6e" prot="public" virt="non-virtual"><scope>rr::NOMSupport</scope><name>getNthRule</name></member>
-      <member refid="classrr_1_1NOMSupport_1acb3ec671db583935d9a87f4028a3c34d" prot="public" virt="non-virtual"><scope>rr::NOMSupport</scope><name>getNthRuleType</name></member>
+      <member refid="classrr_1_1NOMSupport_1a78c31a155af23d39db98054d286c10a1" prot="public" virt="non-virtual"><scope>rr::NOMSupport</scope><name>getNthReactionId</name></member>
+      <member refid="classrr_1_1NOMSupport_1a2e3d01871f6e6044b762070ce2f85a06" prot="public" virt="non-virtual"><scope>rr::NOMSupport</scope><name>getNthReactionName</name></member>
+      <member refid="classrr_1_1NOMSupport_1af73c28b1b46090fa053055a6a1b62cad" prot="public" virt="non-virtual"><scope>rr::NOMSupport</scope><name>getNthRule</name></member>
+      <member refid="classrr_1_1NOMSupport_1a68c26a79c82defefaaf2785c9394e245" prot="public" virt="non-virtual"><scope>rr::NOMSupport</scope><name>getNthRuleType</name></member>
       <member refid="classrr_1_1NOMSupport_1aeca2ae65eeb3e062422f55173e4b69af" prot="public" virt="non-virtual"><scope>rr::NOMSupport</scope><name>getNthUseValuesFromTriggerTime</name></member>
       <member refid="classrr_1_1NOMSupport_1aee1f9b7517d932eb0a3dfcc9da57611e" prot="public" virt="non-virtual"><scope>rr::NOMSupport</scope><name>getNumBoundarySpecies</name></member>
       <member refid="classrr_1_1NOMSupport_1a74cc57642eb8efc400cd9e995afd4d20" prot="public" virt="non-virtual"><scope>rr::NOMSupport</scope><name>getNumCompartments</name></member>
@@ -3054,66 +3054,66 @@
       <member refid="classrr_1_1NOMSupport_1af24130c537f81ba82ad7cdb2deafab3b" prot="public" virt="non-virtual"><scope>rr::NOMSupport</scope><name>getNumReactants</name></member>
       <member refid="classrr_1_1NOMSupport_1ae37000c3877a19cb3792ba6b249411fd" prot="public" virt="non-virtual"><scope>rr::NOMSupport</scope><name>getNumReactions</name></member>
       <member refid="classrr_1_1NOMSupport_1a73a7559b81c68b7851b69c9414c34496" prot="public" virt="non-virtual"><scope>rr::NOMSupport</scope><name>getNumRules</name></member>
-      <member refid="classrr_1_1NOMSupport_1a5822b7280de41cbdeb70880cbf58ef4b" prot="public" virt="non-virtual"><scope>rr::NOMSupport</scope><name>getOutsideCompartment</name></member>
-      <member refid="classrr_1_1NOMSupport_1a3394af399f60bfd598e5b032a9e57398" prot="public" virt="non-virtual"><scope>rr::NOMSupport</scope><name>getParamPromotedSBML</name></member>
-      <member refid="classrr_1_1NOMSupport_1a7ddaacb7c94f20da0497d6df2b8290a5" prot="private" virt="non-virtual"><scope>rr::NOMSupport</scope><name>getRuleFor</name></member>
-      <member refid="classrr_1_1NOMSupport_1aef59258be504d21115395cd159653a6e" prot="public" virt="non-virtual"><scope>rr::NOMSupport</scope><name>getSBML</name></member>
+      <member refid="classrr_1_1NOMSupport_1a561e4d41b89786c496e6dd6a806df6db" prot="public" virt="non-virtual"><scope>rr::NOMSupport</scope><name>getOutsideCompartment</name></member>
+      <member refid="classrr_1_1NOMSupport_1a978bc9d8042583bc384f5e12d506b05b" prot="public" virt="non-virtual"><scope>rr::NOMSupport</scope><name>getParamPromotedSBML</name></member>
+      <member refid="classrr_1_1NOMSupport_1a7752402e1541be3112033306f2706009" prot="private" virt="non-virtual"><scope>rr::NOMSupport</scope><name>getRuleFor</name></member>
+      <member refid="classrr_1_1NOMSupport_1a5f6bba068472f44f601c793ecc0bfc07" prot="public" virt="non-virtual"><scope>rr::NOMSupport</scope><name>getSBML</name></member>
       <member refid="classrr_1_1NOMSupport_1a042ec03b76a52bbc23f1b45d6ddb7d97" prot="public" virt="non-virtual"><scope>rr::NOMSupport</scope><name>getSBMLDocument</name></member>
-      <member refid="classrr_1_1NOMSupport_1a084f163f31b7f71f5c67d1113f76d4d4" prot="public" virt="non-virtual"><scope>rr::NOMSupport</scope><name>getSBOCapableSBML</name></member>
-      <member refid="classrr_1_1NOMSupport_1aecd709702cc326f5d2d13f0ae241a774" prot="public" virt="non-virtual"><scope>rr::NOMSupport</scope><name>getSBOTerm</name></member>
+      <member refid="classrr_1_1NOMSupport_1a9f934e606b170c5cb19e7a8688003e51" prot="public" virt="non-virtual"><scope>rr::NOMSupport</scope><name>getSBOCapableSBML</name></member>
+      <member refid="classrr_1_1NOMSupport_1aefdda4804b2afd2edf9d422e051929ef" prot="public" virt="non-virtual"><scope>rr::NOMSupport</scope><name>getSBOTerm</name></member>
       <member refid="classrr_1_1NOMSupport_1a88fb6cac272bc681f168299168df9721" prot="public" virt="non-virtual"><scope>rr::NOMSupport</scope><name>getSymbols</name></member>
-      <member refid="classrr_1_1NOMSupport_1a4fdae92d991f1b94bea390827b0294d7" prot="private" virt="non-virtual"><scope>rr::NOMSupport</scope><name>getSymbols</name></member>
+      <member refid="classrr_1_1NOMSupport_1aa23a26b709cd844093a2446820417998" prot="private" virt="non-virtual"><scope>rr::NOMSupport</scope><name>getSymbols</name></member>
       <member refid="classrr_1_1NOMSupport_1ace306bb76e38ddbac3432183a0e8be1a" prot="private" virt="non-virtual"><scope>rr::NOMSupport</scope><name>getSymbols</name></member>
-      <member refid="classrr_1_1NOMSupport_1a700eccfe79857dd2ff57b6fcd20d38b9" prot="public" virt="non-virtual"><scope>rr::NOMSupport</scope><name>getValue</name></member>
-      <member refid="classrr_1_1NOMSupport_1ac620ae5875e404d90d1e3b55660a1eb1" prot="public" virt="non-virtual"><scope>rr::NOMSupport</scope><name>hasInitialAmount</name></member>
-      <member refid="classrr_1_1NOMSupport_1a919fc12a34460afdb43800d22e8f418a" prot="public" virt="non-virtual"><scope>rr::NOMSupport</scope><name>hasInitialConcentration</name></member>
-      <member refid="classrr_1_1NOMSupport_1a1bbef6f876410a3dccdebb7241459aaa" prot="public" virt="non-virtual"><scope>rr::NOMSupport</scope><name>hasSBOTerm</name></member>
-      <member refid="classrr_1_1NOMSupport_1ab81b25ef4c1df53e0ae86f92e74ccccd" prot="public" virt="non-virtual"><scope>rr::NOMSupport</scope><name>hasValue</name></member>
-      <member refid="classrr_1_1NOMSupport_1ae42e30ff87b66509ba251897e3367d8d" prot="public" virt="non-virtual"><scope>rr::NOMSupport</scope><name>isBoundary</name></member>
-      <member refid="classrr_1_1NOMSupport_1ace5b83418616dacc7992858a55e5422f" prot="public" virt="non-virtual"><scope>rr::NOMSupport</scope><name>isCompartment</name></member>
-      <member refid="classrr_1_1NOMSupport_1afd48f1daddd9436ad4e82fd718dee072" prot="public" virt="non-virtual"><scope>rr::NOMSupport</scope><name>isConstantImpl</name></member>
-      <member refid="classrr_1_1NOMSupport_1a91edd713ffa08b72d7428a842ee657f6" prot="public" virt="non-virtual"><scope>rr::NOMSupport</scope><name>isFloating</name></member>
+      <member refid="classrr_1_1NOMSupport_1ab469c3fc22f71f727d8293b2c9863a38" prot="public" virt="non-virtual"><scope>rr::NOMSupport</scope><name>getValue</name></member>
+      <member refid="classrr_1_1NOMSupport_1a2fb79268956c5ae47e0c80f7aafafee0" prot="public" virt="non-virtual"><scope>rr::NOMSupport</scope><name>hasInitialAmount</name></member>
+      <member refid="classrr_1_1NOMSupport_1a4fa65cb5e4832b3cc41d6438439a2cab" prot="public" virt="non-virtual"><scope>rr::NOMSupport</scope><name>hasInitialConcentration</name></member>
+      <member refid="classrr_1_1NOMSupport_1aa62a91c7b7c6853ea773bef184d5c1a6" prot="public" virt="non-virtual"><scope>rr::NOMSupport</scope><name>hasSBOTerm</name></member>
+      <member refid="classrr_1_1NOMSupport_1ae3a81d64f472b6976fce809e11ceeadf" prot="public" virt="non-virtual"><scope>rr::NOMSupport</scope><name>hasValue</name></member>
+      <member refid="classrr_1_1NOMSupport_1a3c820dd2dddc2159ce3059a49e1742ea" prot="public" virt="non-virtual"><scope>rr::NOMSupport</scope><name>isBoundary</name></member>
+      <member refid="classrr_1_1NOMSupport_1a38d543c385dea96edf0fd0f7fd183a74" prot="public" virt="non-virtual"><scope>rr::NOMSupport</scope><name>isCompartment</name></member>
+      <member refid="classrr_1_1NOMSupport_1a2ace14d965d6a0e6f55a7748daee0022" prot="public" virt="non-virtual"><scope>rr::NOMSupport</scope><name>isConstantImpl</name></member>
+      <member refid="classrr_1_1NOMSupport_1a09cfdc036cc6776ca882228ca216ab91" prot="public" virt="non-virtual"><scope>rr::NOMSupport</scope><name>isFloating</name></member>
       <member refid="classrr_1_1NOMSupport_1af6f36983262b2d58a8ccafcd32da3ed2" prot="public" virt="non-virtual"><scope>rr::NOMSupport</scope><name>isReactionReversible</name></member>
-      <member refid="classrr_1_1NOMSupport_1af38c0fc04aa88ffeb3e905ebf47e7464" prot="public" virt="non-virtual"><scope>rr::NOMSupport</scope><name>isSpecies</name></member>
-      <member refid="classrr_1_1NOMSupport_1a204c7b71a7f483491e722c7ae32e9162" prot="public" virt="non-virtual"><scope>rr::NOMSupport</scope><name>loadFromFile</name></member>
-      <member refid="classrr_1_1NOMSupport_1a88ecf0047f6a53d836c0a502c5505b39" prot="public" virt="non-virtual"><scope>rr::NOMSupport</scope><name>loadParameterPromotedSBML</name></member>
-      <member refid="classrr_1_1NOMSupport_1ac9e7025dd3b91a146cd039355f33a794" prot="public" virt="non-virtual"><scope>rr::NOMSupport</scope><name>loadSBML</name></member>
-      <member refid="classrr_1_1NOMSupport_1ab53793e9f6c1041031258f00ced6fe56" prot="public" virt="non-virtual"><scope>rr::NOMSupport</scope><name>loadSBML</name></member>
+      <member refid="classrr_1_1NOMSupport_1a573884e9348c990c2a553734dec34cf0" prot="public" virt="non-virtual"><scope>rr::NOMSupport</scope><name>isSpecies</name></member>
+      <member refid="classrr_1_1NOMSupport_1a99c6ca0cff913e7d84afe18162206c8d" prot="public" virt="non-virtual"><scope>rr::NOMSupport</scope><name>loadFromFile</name></member>
+      <member refid="classrr_1_1NOMSupport_1a40e2adec0fc4df5bfb277f1e7bca23a5" prot="public" virt="non-virtual"><scope>rr::NOMSupport</scope><name>loadParameterPromotedSBML</name></member>
+      <member refid="classrr_1_1NOMSupport_1abb5326dbaf4f84567e6ea005d02de211" prot="public" virt="non-virtual"><scope>rr::NOMSupport</scope><name>loadSBML</name></member>
+      <member refid="classrr_1_1NOMSupport_1a370fa81709c4140a65701965a74ecb53" prot="public" virt="non-virtual"><scope>rr::NOMSupport</scope><name>loadSBML</name></member>
       <member refid="classrr_1_1NOMSupport_1abcefc11cfed589d500f85c64921f7799" prot="private" virt="non-virtual"><scope>rr::NOMSupport</scope><name>lookForDependencies</name></member>
       <member refid="classrr_1_1NOMSupport_1a8434da03ff8f5f304a276350fb04724d" prot="private" virt="non-virtual"><scope>rr::NOMSupport</scope><name>mModel</name></member>
       <member refid="classrr_1_1NOMSupport_1ae751150c32c2c77be978981a3b44a867" prot="private" virt="non-virtual"><scope>rr::NOMSupport</scope><name>modifyKineticLaws</name></member>
-      <member refid="classrr_1_1NOMSupport_1a1995585b2669430b54af53f79132b9d7" prot="private" virt="non-virtual"><scope>rr::NOMSupport</scope><name>modifyKineticLawsForLocalParameters</name></member>
-      <member refid="classrr_1_1NOMSupport_1acb137beee20edf512a61f3834dcee7e5" prot="private" virt="non-virtual"><scope>rr::NOMSupport</scope><name>modifyKineticLawsForReaction</name></member>
+      <member refid="classrr_1_1NOMSupport_1a81442c4b4435bbb98a7f25e0f9e26ef7" prot="private" virt="non-virtual"><scope>rr::NOMSupport</scope><name>modifyKineticLawsForLocalParameters</name></member>
+      <member refid="classrr_1_1NOMSupport_1a5c8b13f1f2ef592d24d239590c90314e" prot="private" virt="non-virtual"><scope>rr::NOMSupport</scope><name>modifyKineticLawsForReaction</name></member>
       <member refid="classrr_1_1NOMSupport_1aecff4b1a496a630c0fcf6b1ca5ec0482" prot="private" virt="non-virtual"><scope>rr::NOMSupport</scope><name>mSBMLDoc</name></member>
       <member refid="classrr_1_1NOMSupport_1aafdab6083f03467216d9a4cc9778abc1" prot="private" virt="non-virtual"><scope>rr::NOMSupport</scope><name>mSymbolTable</name></member>
-      <member refid="classrr_1_1NOMSupport_1a6ee87440fec56269276bef85e0ef026d" prot="public" virt="non-virtual"><scope>rr::NOMSupport</scope><name>multiplyCompartment</name></member>
+      <member refid="classrr_1_1NOMSupport_1aec892727d490603fe4019a31baf77bd0" prot="public" virt="non-virtual"><scope>rr::NOMSupport</scope><name>multiplyCompartment</name></member>
       <member refid="classrr_1_1NOMSupport_1a78608a02faeead34e31ff544e0e84cc6" prot="public" virt="non-virtual"><scope>rr::NOMSupport</scope><name>needEmptySetNode</name></member>
       <member refid="classrr_1_1NOMSupport_1aecfd5b3ba46166b4a1c010eea2005358" prot="public" virt="non-virtual"><scope>rr::NOMSupport</scope><name>needSinkNode</name></member>
       <member refid="classrr_1_1NOMSupport_1a9a1683edb7dde7aff4c65ebbc35082f9" prot="public" virt="non-virtual"><scope>rr::NOMSupport</scope><name>needSourceNode</name></member>
       <member refid="classrr_1_1NOMSupport_1a52a9c04b43e91bcaf5ef0411c60abc66" prot="public" virt="non-virtual"><scope>rr::NOMSupport</scope><name>NOMSupport</name></member>
-      <member refid="classrr_1_1NOMSupport_1acfacb45e57121f5a48cb2dd5b4a12143" prot="public" virt="non-virtual"><scope>rr::NOMSupport</scope><name>removeJD1Layout</name></member>
-      <member refid="classrr_1_1NOMSupport_1a0613b39e4ba9f9e1b6a1853662d47972" prot="public" virt="non-virtual"><scope>rr::NOMSupport</scope><name>removeJD2Layout</name></member>
-      <member refid="classrr_1_1NOMSupport_1a3c824046e66fb3a1ad8b25a072e5a14a" prot="public" virt="non-virtual"><scope>rr::NOMSupport</scope><name>removeLayoutInformation</name></member>
+      <member refid="classrr_1_1NOMSupport_1a918b6d7bb00360b650713da570d063bb" prot="public" virt="non-virtual"><scope>rr::NOMSupport</scope><name>removeJD1Layout</name></member>
+      <member refid="classrr_1_1NOMSupport_1ae1e748490c2fe4ad72c825e0b4e3aa77" prot="public" virt="non-virtual"><scope>rr::NOMSupport</scope><name>removeJD2Layout</name></member>
+      <member refid="classrr_1_1NOMSupport_1acb3669d728f0f541e14d8bd3ba26b222" prot="public" virt="non-virtual"><scope>rr::NOMSupport</scope><name>removeLayoutInformation</name></member>
       <member refid="classrr_1_1NOMSupport_1afebb2033bf8c16e669cb4466e4d070bc" prot="private" virt="non-virtual"><scope>rr::NOMSupport</scope><name>removeSpatialSizeUnitsFromSpecies</name></member>
       <member refid="classrr_1_1NOMSupport_1aeb45a40bbfd8f6d5dd20896f561023b3" prot="private" virt="non-virtual"><scope>rr::NOMSupport</scope><name>removeSubstanceUnitsFromKineticLaws</name></member>
       <member refid="classrr_1_1NOMSupport_1a890214e1ff0dc1efe876d6fae1bc5304" prot="private" virt="non-virtual"><scope>rr::NOMSupport</scope><name>removeTimeUnitsFromKineticLaws</name></member>
       <member refid="classrr_1_1NOMSupport_1a7a0445e0662e5e98289861125be45cf1" prot="public" virt="non-virtual"><scope>rr::NOMSupport</scope><name>reorderAssignmentRules</name></member>
       <member refid="classrr_1_1NOMSupport_1a860034fb4e70cb79da25fb2ec824df5e" prot="public" virt="non-virtual"><scope>rr::NOMSupport</scope><name>reorderRules</name></member>
-      <member refid="classrr_1_1NOMSupport_1a7396c059a055c231946161d47842ee89" prot="public" virt="non-virtual"><scope>rr::NOMSupport</scope><name>replaceSymbol</name></member>
+      <member refid="classrr_1_1NOMSupport_1a52282ac0b9ce27938a9af0b2a5d6e0d7" prot="public" virt="non-virtual"><scope>rr::NOMSupport</scope><name>replaceSymbol</name></member>
       <member refid="classrr_1_1NOMSupport_1ad04e762fa22017bf1defffefd2209ea3" prot="private" virt="non-virtual"><scope>rr::NOMSupport</scope><name>reset</name></member>
       <member refid="classrr_1_1NOMSupport_1ae5696f500446b0cae7320b0c06a701d6" prot="private" virt="non-virtual"><scope>rr::NOMSupport</scope><name>returnUnitDefinition</name></member>
-      <member refid="classrr_1_1NOMSupport_1a92478afb3eb0d2acafb2daa42ada429a" prot="public" virt="non-virtual"><scope>rr::NOMSupport</scope><name>setAnnotation</name></member>
-      <member refid="classrr_1_1NOMSupport_1afee1232a274923abb9c5541d66a015ea" prot="public" virt="non-virtual"><scope>rr::NOMSupport</scope><name>setModelId</name></member>
-      <member refid="classrr_1_1NOMSupport_1a015c9ce85c4d1adca1ab6687eaf742a7" prot="public" virt="non-virtual"><scope>rr::NOMSupport</scope><name>setNotes</name></member>
-      <member refid="classrr_1_1NOMSupport_1a7ef28c0b73add464aac47bf8de450823" prot="public" virt="non-virtual"><scope>rr::NOMSupport</scope><name>setSBOTerm</name></member>
-      <member refid="classrr_1_1NOMSupport_1a0fc94189c9015eec8365224cda170aa8" prot="public" virt="non-virtual"><scope>rr::NOMSupport</scope><name>setValue</name></member>
-      <member refid="classrr_1_1NOMSupport_1a4c625f83c3d132cdfd188d865b9aeb9a" prot="public" virt="non-virtual"><scope>rr::NOMSupport</scope><name>setValue</name></member>
-      <member refid="classrr_1_1NOMSupport_1abb99d0bd620e9acd6ebe8a3ef7ff3402" prot="private" virt="non-virtual"><scope>rr::NOMSupport</scope><name>STR_DoubleFormat</name></member>
+      <member refid="classrr_1_1NOMSupport_1a4a9071e9661c63082b0115e43bbf903f" prot="public" virt="non-virtual"><scope>rr::NOMSupport</scope><name>setAnnotation</name></member>
+      <member refid="classrr_1_1NOMSupport_1ae78710d1cb74bf1b20c983b941dd23a2" prot="public" virt="non-virtual"><scope>rr::NOMSupport</scope><name>setModelId</name></member>
+      <member refid="classrr_1_1NOMSupport_1ae71388cb5fb6ac2438fd7b74fcfeeeee" prot="public" virt="non-virtual"><scope>rr::NOMSupport</scope><name>setNotes</name></member>
+      <member refid="classrr_1_1NOMSupport_1a321b88e58783f3f7624bd393d6b13363" prot="public" virt="non-virtual"><scope>rr::NOMSupport</scope><name>setSBOTerm</name></member>
+      <member refid="classrr_1_1NOMSupport_1a258c21942cbbd02b0422021a8a59e409" prot="public" virt="non-virtual"><scope>rr::NOMSupport</scope><name>setValue</name></member>
+      <member refid="classrr_1_1NOMSupport_1af6296d4883eca4e5600ca39b27d75908" prot="public" virt="non-virtual"><scope>rr::NOMSupport</scope><name>setValue</name></member>
+      <member refid="classrr_1_1NOMSupport_1abe39a79edf472558412ff182bd3719ed" prot="private" virt="non-virtual"><scope>rr::NOMSupport</scope><name>STR_DoubleFormat</name></member>
       <member refid="classrr_1_1NOMSupport_1ac50df28f1f1f5dd8484dcc8540b3a499" prot="public" virt="non-virtual"><scope>rr::NOMSupport</scope><name>testASTTime</name></member>
-      <member refid="classrr_1_1NOMSupport_1a3dde33a21cf2f77ba4b70abb353330b0" prot="private" virt="non-virtual"><scope>rr::NOMSupport</scope><name>updateDependencies</name></member>
+      <member refid="classrr_1_1NOMSupport_1a37ea65d01d70d03ca5638db300c265eb" prot="private" virt="non-virtual"><scope>rr::NOMSupport</scope><name>updateDependencies</name></member>
       <member refid="classrr_1_1NOMSupport_1ae58022fcfcb924b2997d89c81cc3f26a" prot="private" virt="non-virtual"><scope>rr::NOMSupport</scope><name>upgradeToL2V4IfNecessary</name></member>
-      <member refid="classrr_1_1NOMSupport_1a85df8e110113897f33dab71358a510e1" prot="public" virt="non-virtual"><scope>rr::NOMSupport</scope><name>validateSBML</name></member>
-      <member refid="classrr_1_1NOMSupport_1ac0dea2970bcd49e828078c653e07ef42" prot="public" virt="non-virtual"><scope>rr::NOMSupport</scope><name>validateWithConsistency</name></member>
+      <member refid="classrr_1_1NOMSupport_1afbdcedb58c48276fb376712442855642" prot="public" virt="non-virtual"><scope>rr::NOMSupport</scope><name>validateSBML</name></member>
+      <member refid="classrr_1_1NOMSupport_1acd1171573afbdf8efab3a53dd925c212" prot="public" virt="non-virtual"><scope>rr::NOMSupport</scope><name>validateWithConsistency</name></member>
       <member refid="classrr_1_1NOMSupport_1af902133ef99e3e75dbec72e06f3c4d00" prot="public" virt="non-virtual"><scope>rr::NOMSupport</scope><name>~NOMSupport</name></member>
     </listofallmembers>
   </compounddef>

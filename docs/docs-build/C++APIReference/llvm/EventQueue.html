@@ -13,6 +13,8 @@
   
   <link rel="stylesheet" href="../../_static/css/theme.css" type="text/css" />
   <link rel="stylesheet" href="../../_static/pygments.css" type="text/css" />
+  <link rel="stylesheet" href="../../_static/pygments.css" type="text/css" />
+  <link rel="stylesheet" href="../../_static/css/theme.css" type="text/css" />
   <link rel="stylesheet" href="../../_static/tabs.css" type="text/css" />
 
   
@@ -30,10 +32,10 @@
   
     
       <script type="text/javascript" id="documentation_options" data-url_root="../../" src="../../_static/documentation_options.js"></script>
+        <script data-url_root="../../" id="documentation_options" src="../../_static/documentation_options.js"></script>
         <script src="../../_static/jquery.js"></script>
         <script src="../../_static/underscore.js"></script>
         <script src="../../_static/doctools.js"></script>
-        <script src="../../_static/language_data.js"></script>
     
     <script type="text/javascript" src="../../_static/js/theme.js"></script>
 
@@ -185,6 +187,7 @@
 <li class="toctree-l2"><a class="reference internal" href="../index.html#a-complete-example-of-creating-an-integrator">A complete example of creating an integrator</a></li>
 </ul>
 </li>
+<li class="toctree-l1"><a class="reference internal" href="../../developers_docs/index.html">Developers Documentation</a></li>
 </ul>
 
             
@@ -259,117 +262,117 @@
   <div class="section" id="eventqueue">
 <h1>EventQueue<a class="headerlink" href="#eventqueue" title="Permalink to this headline">¶</a></h1>
 <dl class="cpp class">
-<dt id="_CPPv4N6rrllvm10EventQueueE">
-<span id="_CPPv3N6rrllvm10EventQueueE"></span><span id="_CPPv2N6rrllvm10EventQueueE"></span><span id="rrllvm::EventQueue"></span><span class="target" id="classrrllvm_1_1EventQueue"></span><em class="property">class </em><code class="sig-prename descclassname">rrllvm<code class="sig-prename descclassname">::</code></code><code class="sig-name descname">EventQueue</code><a class="headerlink" href="#_CPPv4N6rrllvm10EventQueueE" title="Permalink to this definition">¶</a><br /></dt>
+<dt class="sig sig-object cpp" id="_CPPv4N6rrllvm10EventQueueE">
+<span id="_CPPv3N6rrllvm10EventQueueE"></span><span id="_CPPv2N6rrllvm10EventQueueE"></span><span id="rrllvm::EventQueue"></span><span class="target" id="classrrllvm_1_1EventQueue"></span><span class="k"><span class="pre">class</span></span><span class="w"> </span><span class="sig-prename descclassname"><span class="n"><span class="pre">rrllvm</span></span><span class="p"><span class="pre">::</span></span></span><span class="sig-name descname"><span class="n"><span class="pre">EventQueue</span></span></span><a class="headerlink" href="#_CPPv4N6rrllvm10EventQueueE" title="Permalink to this definition">¶</a><br /></dt>
 <dd><div class="breathe-sectiondef docutils container">
-<p class="breathe-sectiondef-title rubric">Public Types</p>
+<p class="breathe-sectiondef-title rubric" id="breathe-section-title-public-types">Public Types</p>
 <dl class="cpp type">
-<dt id="_CPPv4N6rrllvm10EventQueue9_SequenceE">
-<span id="_CPPv3N6rrllvm10EventQueue9_SequenceE"></span><span id="_CPPv2N6rrllvm10EventQueue9_SequenceE"></span><span id="rrllvm::EventQueue::_Sequence"></span><span class="target" id="classrrllvm_1_1EventQueue_1af956fd60f123a8927ba01486c2975aaa"></span><em class="property">typedef </em>std::list&lt;rrllvm::Event&gt; <code class="sig-name descname">_Sequence</code><a class="headerlink" href="#_CPPv4N6rrllvm10EventQueue9_SequenceE" title="Permalink to this definition">¶</a><br /></dt>
+<dt class="sig sig-object cpp" id="_CPPv4N6rrllvm10EventQueue9_SequenceE">
+<span id="_CPPv3N6rrllvm10EventQueue9_SequenceE"></span><span id="_CPPv2N6rrllvm10EventQueue9_SequenceE"></span><span id="rrllvm::EventQueue::_Sequence"></span><span class="target" id="classrrllvm_1_1EventQueue_1af956fd60f123a8927ba01486c2975aaa"></span><span class="k"><span class="pre">typedef</span></span><span class="w"> </span><span class="n"><span class="pre">std</span></span><span class="p"><span class="pre">::</span></span><span class="n"><span class="pre">list</span></span><span class="p"><span class="pre">&lt;</span></span><span class="n"><span class="pre">rrllvm</span></span><span class="p"><span class="pre">::</span></span><span class="n"><span class="pre">Event</span></span><span class="p"><span class="pre">&gt;</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">_Sequence</span></span></span><a class="headerlink" href="#_CPPv4N6rrllvm10EventQueue9_SequenceE" title="Permalink to this definition">¶</a><br /></dt>
 <dd></dd></dl>
 
 <dl class="cpp type">
-<dt id="_CPPv4N6rrllvm10EventQueue8_CompareE">
-<span id="_CPPv3N6rrllvm10EventQueue8_CompareE"></span><span id="_CPPv2N6rrllvm10EventQueue8_CompareE"></span><span id="rrllvm::EventQueue::_Compare"></span><span class="target" id="classrrllvm_1_1EventQueue_1a3250b0bafd512a313894998fc88fc10e"></span><em class="property">typedef </em>std::less&lt;<a class="reference internal" href="#_CPPv4N6rrllvm10EventQueue9_SequenceE" title="rrllvm::EventQueue::_Sequence">_Sequence</a>::value_type&gt; <code class="sig-name descname">_Compare</code><a class="headerlink" href="#_CPPv4N6rrllvm10EventQueue8_CompareE" title="Permalink to this definition">¶</a><br /></dt>
+<dt class="sig sig-object cpp" id="_CPPv4N6rrllvm10EventQueue8_CompareE">
+<span id="_CPPv3N6rrllvm10EventQueue8_CompareE"></span><span id="_CPPv2N6rrllvm10EventQueue8_CompareE"></span><span id="rrllvm::EventQueue::_Compare"></span><span class="target" id="classrrllvm_1_1EventQueue_1a3250b0bafd512a313894998fc88fc10e"></span><span class="k"><span class="pre">typedef</span></span><span class="w"> </span><span class="n"><span class="pre">std</span></span><span class="p"><span class="pre">::</span></span><span class="n"><span class="pre">less</span></span><span class="p"><span class="pre">&lt;</span></span><a class="reference internal" href="#_CPPv4N6rrllvm10EventQueue9_SequenceE" title="rrllvm::EventQueue::_Sequence"><span class="n"><span class="pre">_Sequence</span></span></a><span class="p"><span class="pre">::</span></span><span class="n"><span class="pre">value_type</span></span><span class="p"><span class="pre">&gt;</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">_Compare</span></span></span><a class="headerlink" href="#_CPPv4N6rrllvm10EventQueue8_CompareE" title="Permalink to this definition">¶</a><br /></dt>
 <dd></dd></dl>
 
 <dl class="cpp type">
-<dt id="_CPPv4N6rrllvm10EventQueue14const_iteratorE">
-<span id="_CPPv3N6rrllvm10EventQueue14const_iteratorE"></span><span id="_CPPv2N6rrllvm10EventQueue14const_iteratorE"></span><span id="rrllvm::EventQueue::const_iterator"></span><span class="target" id="classrrllvm_1_1EventQueue_1aca34836bb40fcd9dfbf11ddc7d91ffa9"></span><em class="property">typedef </em><a class="reference internal" href="#_CPPv4N6rrllvm10EventQueue9_SequenceE" title="rrllvm::EventQueue::_Sequence">_Sequence</a>::const_iterator <code class="sig-name descname">const_iterator</code><a class="headerlink" href="#_CPPv4N6rrllvm10EventQueue14const_iteratorE" title="Permalink to this definition">¶</a><br /></dt>
+<dt class="sig sig-object cpp" id="_CPPv4N6rrllvm10EventQueue14const_iteratorE">
+<span id="_CPPv3N6rrllvm10EventQueue14const_iteratorE"></span><span id="_CPPv2N6rrllvm10EventQueue14const_iteratorE"></span><span id="rrllvm::EventQueue::const_iterator"></span><span class="target" id="classrrllvm_1_1EventQueue_1aca34836bb40fcd9dfbf11ddc7d91ffa9"></span><span class="k"><span class="pre">typedef</span></span><span class="w"> </span><a class="reference internal" href="#_CPPv4N6rrllvm10EventQueue9_SequenceE" title="rrllvm::EventQueue::_Sequence"><span class="n"><span class="pre">_Sequence</span></span></a><span class="p"><span class="pre">::</span></span><span class="n"><span class="pre">const_iterator</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">const_iterator</span></span></span><a class="headerlink" href="#_CPPv4N6rrllvm10EventQueue14const_iteratorE" title="Permalink to this definition">¶</a><br /></dt>
 <dd></dd></dl>
 
 <dl class="cpp type">
-<dt id="_CPPv4N6rrllvm10EventQueue8iteratorE">
-<span id="_CPPv3N6rrllvm10EventQueue8iteratorE"></span><span id="_CPPv2N6rrllvm10EventQueue8iteratorE"></span><span id="rrllvm::EventQueue::iterator"></span><span class="target" id="classrrllvm_1_1EventQueue_1a871f1bdb96ef94fc30b8ab84546f98f5"></span><em class="property">typedef </em><a class="reference internal" href="#_CPPv4N6rrllvm10EventQueue9_SequenceE" title="rrllvm::EventQueue::_Sequence">_Sequence</a>::iterator <code class="sig-name descname">iterator</code><a class="headerlink" href="#_CPPv4N6rrllvm10EventQueue8iteratorE" title="Permalink to this definition">¶</a><br /></dt>
+<dt class="sig sig-object cpp" id="_CPPv4N6rrllvm10EventQueue8iteratorE">
+<span id="_CPPv3N6rrllvm10EventQueue8iteratorE"></span><span id="_CPPv2N6rrllvm10EventQueue8iteratorE"></span><span id="rrllvm::EventQueue::iterator"></span><span class="target" id="classrrllvm_1_1EventQueue_1a871f1bdb96ef94fc30b8ab84546f98f5"></span><span class="k"><span class="pre">typedef</span></span><span class="w"> </span><a class="reference internal" href="#_CPPv4N6rrllvm10EventQueue9_SequenceE" title="rrllvm::EventQueue::_Sequence"><span class="n"><span class="pre">_Sequence</span></span></a><span class="p"><span class="pre">::</span></span><span class="n"><span class="pre">iterator</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">iterator</span></span></span><a class="headerlink" href="#_CPPv4N6rrllvm10EventQueue8iteratorE" title="Permalink to this definition">¶</a><br /></dt>
 <dd></dd></dl>
 
 <dl class="cpp type">
-<dt id="_CPPv4N6rrllvm10EventQueue15const_referenceE">
-<span id="_CPPv3N6rrllvm10EventQueue15const_referenceE"></span><span id="_CPPv2N6rrllvm10EventQueue15const_referenceE"></span><span id="rrllvm::EventQueue::const_reference"></span><span class="target" id="classrrllvm_1_1EventQueue_1a65478c55d7526355828df40d751bb706"></span><em class="property">typedef </em><a class="reference internal" href="#_CPPv4N6rrllvm10EventQueue9_SequenceE" title="rrllvm::EventQueue::_Sequence">_Sequence</a>::const_reference <code class="sig-name descname">const_reference</code><a class="headerlink" href="#_CPPv4N6rrllvm10EventQueue15const_referenceE" title="Permalink to this definition">¶</a><br /></dt>
+<dt class="sig sig-object cpp" id="_CPPv4N6rrllvm10EventQueue15const_referenceE">
+<span id="_CPPv3N6rrllvm10EventQueue15const_referenceE"></span><span id="_CPPv2N6rrllvm10EventQueue15const_referenceE"></span><span id="rrllvm::EventQueue::const_reference"></span><span class="target" id="classrrllvm_1_1EventQueue_1a65478c55d7526355828df40d751bb706"></span><span class="k"><span class="pre">typedef</span></span><span class="w"> </span><a class="reference internal" href="#_CPPv4N6rrllvm10EventQueue9_SequenceE" title="rrllvm::EventQueue::_Sequence"><span class="n"><span class="pre">_Sequence</span></span></a><span class="p"><span class="pre">::</span></span><span class="n"><span class="pre">const_reference</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">const_reference</span></span></span><a class="headerlink" href="#_CPPv4N6rrllvm10EventQueue15const_referenceE" title="Permalink to this definition">¶</a><br /></dt>
 <dd></dd></dl>
 
 </div>
 <div class="breathe-sectiondef docutils container">
-<p class="breathe-sectiondef-title rubric">Public Functions</p>
+<p class="breathe-sectiondef-title rubric" id="breathe-section-title-public-functions">Public Functions</p>
 <dl class="cpp function">
-<dt id="_CPPv4N6rrllvm10EventQueue18eraseExpiredEventsEv">
-<span id="_CPPv3N6rrllvm10EventQueue18eraseExpiredEventsEv"></span><span id="_CPPv2N6rrllvm10EventQueue18eraseExpiredEventsEv"></span><span id="rrllvm::EventQueue::eraseExpiredEvents"></span><span class="target" id="classrrllvm_1_1EventQueue_1ae8910363f048acba859cdff811a5cbdb"></span>bool <code class="sig-name descname">eraseExpiredEvents</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#_CPPv4N6rrllvm10EventQueue18eraseExpiredEventsEv" title="Permalink to this definition">¶</a><br /></dt>
+<dt class="sig sig-object cpp" id="_CPPv4N6rrllvm10EventQueue18eraseExpiredEventsEv">
+<span id="_CPPv3N6rrllvm10EventQueue18eraseExpiredEventsEv"></span><span id="_CPPv2N6rrllvm10EventQueue18eraseExpiredEventsEv"></span><span id="rrllvm::EventQueue::eraseExpiredEvents"></span><span class="target" id="classrrllvm_1_1EventQueue_1ae8910363f048acba859cdff811a5cbdb"></span><span class="kt"><span class="pre">bool</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">eraseExpiredEvents</span></span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#_CPPv4N6rrllvm10EventQueue18eraseExpiredEventsEv" title="Permalink to this definition">¶</a><br /></dt>
 <dd><p>remove expired events from the queue. </p>
 </dd></dl>
 
 <dl class="cpp function">
-<dt id="_CPPv4N6rrllvm10EventQueue16hasCurrentEventsEv">
-<span id="_CPPv3N6rrllvm10EventQueue16hasCurrentEventsEv"></span><span id="_CPPv2N6rrllvm10EventQueue16hasCurrentEventsEv"></span><span id="rrllvm::EventQueue::hasCurrentEvents"></span><span class="target" id="classrrllvm_1_1EventQueue_1a274f786186af2ad05569802de810a120"></span>bool <code class="sig-name descname">hasCurrentEvents</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#_CPPv4N6rrllvm10EventQueue16hasCurrentEventsEv" title="Permalink to this definition">¶</a><br /></dt>
+<dt class="sig sig-object cpp" id="_CPPv4N6rrllvm10EventQueue16hasCurrentEventsEv">
+<span id="_CPPv3N6rrllvm10EventQueue16hasCurrentEventsEv"></span><span id="_CPPv2N6rrllvm10EventQueue16hasCurrentEventsEv"></span><span id="rrllvm::EventQueue::hasCurrentEvents"></span><span class="target" id="classrrllvm_1_1EventQueue_1a274f786186af2ad05569802de810a120"></span><span class="kt"><span class="pre">bool</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">hasCurrentEvents</span></span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#_CPPv4N6rrllvm10EventQueue16hasCurrentEventsEv" title="Permalink to this definition">¶</a><br /></dt>
 <dd><p>are any events current (delay == 0 and triggered or persistant) </p>
 </dd></dl>
 
 <dl class="cpp function">
-<dt id="_CPPv4N6rrllvm10EventQueue11applyEventsEv">
-<span id="_CPPv3N6rrllvm10EventQueue11applyEventsEv"></span><span id="_CPPv2N6rrllvm10EventQueue11applyEventsEv"></span><span id="rrllvm::EventQueue::applyEvents"></span><span class="target" id="classrrllvm_1_1EventQueue_1aba1c38087a2d466d482c5d9f6a01ca01"></span>bool <code class="sig-name descname">applyEvents</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#_CPPv4N6rrllvm10EventQueue11applyEventsEv" title="Permalink to this definition">¶</a><br /></dt>
+<dt class="sig sig-object cpp" id="_CPPv4N6rrllvm10EventQueue11applyEventsEv">
+<span id="_CPPv3N6rrllvm10EventQueue11applyEventsEv"></span><span id="_CPPv2N6rrllvm10EventQueue11applyEventsEv"></span><span id="rrllvm::EventQueue::applyEvents"></span><span class="target" id="classrrllvm_1_1EventQueue_1aba1c38087a2d466d482c5d9f6a01ca01"></span><span class="kt"><span class="pre">bool</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">applyEvents</span></span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#_CPPv4N6rrllvm10EventQueue11applyEventsEv" title="Permalink to this definition">¶</a><br /></dt>
 <dd><p>assign all of the top most events with the same priority and remove them from the queue. </p>
-<p><dl class="simple">
-<dt><strong>Return</strong></dt><dd><p>true if any events were assigned, false otherwise. </p>
+<dl class="field-list simple">
+<dt class="field-odd">Returns</dt>
+<dd class="field-odd"><p>true if any events were assigned, false otherwise. </p>
 </dd>
 </dl>
-</p>
 </dd></dl>
 
 <dl class="cpp function">
-<dt id="_CPPv4NK6rrllvm10EventQueue4sizeEv">
-<span id="_CPPv3NK6rrllvm10EventQueue4sizeEv"></span><span id="_CPPv2NK6rrllvm10EventQueue4sizeEv"></span><span id="rrllvm::EventQueue::sizeC"></span><span class="target" id="classrrllvm_1_1EventQueue_1a639037276939cc81ad348fcc71ee1738"></span>uint <code class="sig-name descname">size</code><span class="sig-paren">(</span><span class="sig-paren">)</span> <em class="property">const</em><a class="headerlink" href="#_CPPv4NK6rrllvm10EventQueue4sizeEv" title="Permalink to this definition">¶</a><br /></dt>
+<dt class="sig sig-object cpp" id="_CPPv4NK6rrllvm10EventQueue4sizeEv">
+<span id="_CPPv3NK6rrllvm10EventQueue4sizeEv"></span><span id="_CPPv2NK6rrllvm10EventQueue4sizeEv"></span><span id="rrllvm::EventQueue::sizeC"></span><span class="target" id="classrrllvm_1_1EventQueue_1a639037276939cc81ad348fcc71ee1738"></span><span class="n"><span class="pre">uint</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">size</span></span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><span class="w"> </span><span class="k"><span class="pre">const</span></span><a class="headerlink" href="#_CPPv4NK6rrllvm10EventQueue4sizeEv" title="Permalink to this definition">¶</a><br /></dt>
 <dd><p>number of events in the queue </p>
 </dd></dl>
 
 <dl class="cpp function">
-<dt id="_CPPv4N6rrllvm10EventQueue3topEv">
-<span id="_CPPv3N6rrllvm10EventQueue3topEv"></span><span id="_CPPv2N6rrllvm10EventQueue3topEv"></span><span id="rrllvm::EventQueue::top"></span><span class="target" id="classrrllvm_1_1EventQueue_1a67e5ac59c13761bc1e27dcb8a34bd2b6"></span><a class="reference internal" href="#_CPPv4N6rrllvm10EventQueue15const_referenceE" title="rrllvm::EventQueue::const_reference">const_reference</a> <code class="sig-name descname">top</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#_CPPv4N6rrllvm10EventQueue3topEv" title="Permalink to this definition">¶</a><br /></dt>
+<dt class="sig sig-object cpp" id="_CPPv4N6rrllvm10EventQueue3topEv">
+<span id="_CPPv3N6rrllvm10EventQueue3topEv"></span><span id="_CPPv2N6rrllvm10EventQueue3topEv"></span><span id="rrllvm::EventQueue::top"></span><span class="target" id="classrrllvm_1_1EventQueue_1a67e5ac59c13761bc1e27dcb8a34bd2b6"></span><a class="reference internal" href="#_CPPv4N6rrllvm10EventQueue15const_referenceE" title="rrllvm::EventQueue::const_reference"><span class="n"><span class="pre">const_reference</span></span></a><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">top</span></span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#_CPPv4N6rrllvm10EventQueue3topEv" title="Permalink to this definition">¶</a><br /></dt>
 <dd><p>event with lowest time to assignment and highest priority. </p>
 </dd></dl>
 
 <dl class="cpp function">
-<dt id="_CPPv4N6rrllvm10EventQueue4pushERK5Event">
-<span id="_CPPv3N6rrllvm10EventQueue4pushERK5Event"></span><span id="_CPPv2N6rrllvm10EventQueue4pushERK5Event"></span><span id="rrllvm::EventQueue::push__EventCR"></span><span class="target" id="classrrllvm_1_1EventQueue_1a3b2a8094722201ba8afdb49924790dea"></span>void <code class="sig-name descname">push</code><span class="sig-paren">(</span><em class="property">const</em> Event &amp;<em>e</em><span class="sig-paren">)</span><a class="headerlink" href="#_CPPv4N6rrllvm10EventQueue4pushERK5Event" title="Permalink to this definition">¶</a><br /></dt>
+<dt class="sig sig-object cpp" id="_CPPv4N6rrllvm10EventQueue4pushERK5Event">
+<span id="_CPPv3N6rrllvm10EventQueue4pushERK5Event"></span><span id="_CPPv2N6rrllvm10EventQueue4pushERK5Event"></span><span id="rrllvm::EventQueue::push__EventCR"></span><span class="target" id="classrrllvm_1_1EventQueue_1a3b2a8094722201ba8afdb49924790dea"></span><span class="kt"><span class="pre">void</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">push</span></span></span><span class="sig-paren">(</span><span class="k"><span class="pre">const</span></span><span class="w"> </span><span class="n"><span class="pre">Event</span></span><span class="w"> </span><span class="p"><span class="pre">&amp;</span></span><span class="n sig-param"><span class="pre">e</span></span><span class="sig-paren">)</span><a class="headerlink" href="#_CPPv4N6rrllvm10EventQueue4pushERK5Event" title="Permalink to this definition">¶</a><br /></dt>
 <dd><p>insert a new event into the queue. </p>
 <p>The queue is re-sorted. </p>
 </dd></dl>
 
 <dl class="cpp function">
-<dt id="_CPPv4N6rrllvm10EventQueue23getNextPendingEventTimeEv">
-<span id="_CPPv3N6rrllvm10EventQueue23getNextPendingEventTimeEv"></span><span id="_CPPv2N6rrllvm10EventQueue23getNextPendingEventTimeEv"></span><span id="rrllvm::EventQueue::getNextPendingEventTime"></span><span class="target" id="classrrllvm_1_1EventQueue_1ae48e013f7f46e5affcb6d23ab5e9b261"></span>double <code class="sig-name descname">getNextPendingEventTime</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#_CPPv4N6rrllvm10EventQueue23getNextPendingEventTimeEv" title="Permalink to this definition">¶</a><br /></dt>
+<dt class="sig sig-object cpp" id="_CPPv4N6rrllvm10EventQueue23getNextPendingEventTimeEv">
+<span id="_CPPv3N6rrllvm10EventQueue23getNextPendingEventTimeEv"></span><span id="_CPPv2N6rrllvm10EventQueue23getNextPendingEventTimeEv"></span><span id="rrllvm::EventQueue::getNextPendingEventTime"></span><span class="target" id="classrrllvm_1_1EventQueue_1ae48e013f7f46e5affcb6d23ab5e9b261"></span><span class="kt"><span class="pre">double</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">getNextPendingEventTime</span></span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#_CPPv4N6rrllvm10EventQueue23getNextPendingEventTimeEv" title="Permalink to this definition">¶</a><br /></dt>
 <dd><p>the time the next event is sceduled to be assigned. </p>
 </dd></dl>
 
 <dl class="cpp function">
-<dt id="_CPPv4N6rrllvm10EventQueue9saveStateERNSt7ostreamE">
-<span id="_CPPv3N6rrllvm10EventQueue9saveStateERNSt7ostreamE"></span><span id="_CPPv2N6rrllvm10EventQueue9saveStateERNSt7ostreamE"></span><span id="rrllvm::EventQueue::saveState__osR"></span><span class="target" id="classrrllvm_1_1EventQueue_1aaf915d38184861eaae2c7401f0bac298"></span>void <code class="sig-name descname">saveState</code><span class="sig-paren">(</span>std::ostream &amp;<em>out</em><span class="sig-paren">)</span><a class="headerlink" href="#_CPPv4N6rrllvm10EventQueue9saveStateERNSt7ostreamE" title="Permalink to this definition">¶</a><br /></dt>
+<dt class="sig sig-object cpp" id="_CPPv4N6rrllvm10EventQueue9saveStateERNSt7ostreamE">
+<span id="_CPPv3N6rrllvm10EventQueue9saveStateERNSt7ostreamE"></span><span id="_CPPv2N6rrllvm10EventQueue9saveStateERNSt7ostreamE"></span><span id="rrllvm::EventQueue::saveState__osR"></span><span class="target" id="classrrllvm_1_1EventQueue_1aaf915d38184861eaae2c7401f0bac298"></span><span class="kt"><span class="pre">void</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">saveState</span></span></span><span class="sig-paren">(</span><span class="n"><span class="pre">std</span></span><span class="p"><span class="pre">::</span></span><span class="n"><span class="pre">ostream</span></span><span class="w"> </span><span class="p"><span class="pre">&amp;</span></span><span class="n sig-param"><span class="pre">out</span></span><span class="sig-paren">)</span><a class="headerlink" href="#_CPPv4N6rrllvm10EventQueue9saveStateERNSt7ostreamE" title="Permalink to this definition">¶</a><br /></dt>
 <dd></dd></dl>
 
 <dl class="cpp function">
-<dt id="_CPPv4N6rrllvm10EventQueue9loadStateERNSt7istreamER19LLVMExecutableModel">
-<span id="_CPPv3N6rrllvm10EventQueue9loadStateERNSt7istreamER19LLVMExecutableModel"></span><span id="_CPPv2N6rrllvm10EventQueue9loadStateERNSt7istreamER19LLVMExecutableModel"></span><span id="rrllvm::EventQueue::loadState__isR.LLVMExecutableModelR"></span><span class="target" id="classrrllvm_1_1EventQueue_1a0ae274da53a26ae056663c3937761ce9"></span>void <code class="sig-name descname">loadState</code><span class="sig-paren">(</span>std::istream &amp;<em>in</em>, <a class="reference internal" href="LLVMExecutableModel.html#_CPPv4N6rrllvm19LLVMExecutableModelE" title="rrllvm::LLVMExecutableModel">LLVMExecutableModel</a> &amp;<em>model</em><span class="sig-paren">)</span><a class="headerlink" href="#_CPPv4N6rrllvm10EventQueue9loadStateERNSt7istreamER19LLVMExecutableModel" title="Permalink to this definition">¶</a><br /></dt>
+<dt class="sig sig-object cpp" id="_CPPv4N6rrllvm10EventQueue9loadStateERNSt7istreamER19LLVMExecutableModel">
+<span id="_CPPv3N6rrllvm10EventQueue9loadStateERNSt7istreamER19LLVMExecutableModel"></span><span id="_CPPv2N6rrllvm10EventQueue9loadStateERNSt7istreamER19LLVMExecutableModel"></span><span id="rrllvm::EventQueue::loadState__isR.LLVMExecutableModelR"></span><span class="target" id="classrrllvm_1_1EventQueue_1a0ae274da53a26ae056663c3937761ce9"></span><span class="kt"><span class="pre">void</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">loadState</span></span></span><span class="sig-paren">(</span><span class="n"><span class="pre">std</span></span><span class="p"><span class="pre">::</span></span><span class="n"><span class="pre">istream</span></span><span class="w"> </span><span class="p"><span class="pre">&amp;</span></span><span class="n sig-param"><span class="pre">in</span></span>, <a class="reference internal" href="LLVMExecutableModel.html#_CPPv4N6rrllvm19LLVMExecutableModelE" title="rrllvm::LLVMExecutableModel"><span class="n"><span class="pre">LLVMExecutableModel</span></span></a><span class="w"> </span><span class="p"><span class="pre">&amp;</span></span><span class="n sig-param"><span class="pre">model</span></span><span class="sig-paren">)</span><a class="headerlink" href="#_CPPv4N6rrllvm10EventQueue9loadStateERNSt7istreamER19LLVMExecutableModel" title="Permalink to this definition">¶</a><br /></dt>
 <dd></dd></dl>
 
 </div>
 <div class="breathe-sectiondef docutils container">
-<p class="breathe-sectiondef-title rubric">Private Members</p>
+<p class="breathe-sectiondef-title rubric" id="breathe-section-title-private-members">Private Members</p>
 <dl class="cpp var">
-<dt id="_CPPv4N6rrllvm10EventQueue8sequenceE">
-<span id="_CPPv3N6rrllvm10EventQueue8sequenceE"></span><span id="_CPPv2N6rrllvm10EventQueue8sequenceE"></span><span id="rrllvm::EventQueue::sequence___Sequence"></span><span class="target" id="classrrllvm_1_1EventQueue_1a5f40e76b5c67cc5ea329d91b02275e38"></span><a class="reference internal" href="#_CPPv4N6rrllvm10EventQueue9_SequenceE" title="rrllvm::EventQueue::_Sequence">_Sequence</a> <code class="sig-name descname">sequence</code><a class="headerlink" href="#_CPPv4N6rrllvm10EventQueue8sequenceE" title="Permalink to this definition">¶</a><br /></dt>
+<dt class="sig sig-object cpp" id="_CPPv4N6rrllvm10EventQueue8sequenceE">
+<span id="_CPPv3N6rrllvm10EventQueue8sequenceE"></span><span id="_CPPv2N6rrllvm10EventQueue8sequenceE"></span><span id="rrllvm::EventQueue::sequence___Sequence"></span><span class="target" id="classrrllvm_1_1EventQueue_1a5f40e76b5c67cc5ea329d91b02275e38"></span><a class="reference internal" href="#_CPPv4N6rrllvm10EventQueue9_SequenceE" title="rrllvm::EventQueue::_Sequence"><span class="n"><span class="pre">_Sequence</span></span></a><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">sequence</span></span></span><a class="headerlink" href="#_CPPv4N6rrllvm10EventQueue8sequenceE" title="Permalink to this definition">¶</a><br /></dt>
 <dd><p>the data structure that holds the collection of events. </p>
 <p>Currently use a list, sortable and constant time insertion. </p>
 </dd></dl>
 
 <dl class="cpp var">
-<dt id="_CPPv4N6rrllvm10EventQueue4compE">
-<span id="_CPPv3N6rrllvm10EventQueue4compE"></span><span id="_CPPv2N6rrllvm10EventQueue4compE"></span><span id="rrllvm::EventQueue::comp___Compare"></span><span class="target" id="classrrllvm_1_1EventQueue_1a7ab87bc5ab57d1867d83680fe943fc87"></span><a class="reference internal" href="#_CPPv4N6rrllvm10EventQueue8_CompareE" title="rrllvm::EventQueue::_Compare">_Compare</a> <code class="sig-name descname">comp</code><a class="headerlink" href="#_CPPv4N6rrllvm10EventQueue4compE" title="Permalink to this definition">¶</a><br /></dt>
+<dt class="sig sig-object cpp" id="_CPPv4N6rrllvm10EventQueue4compE">
+<span id="_CPPv3N6rrllvm10EventQueue4compE"></span><span id="_CPPv2N6rrllvm10EventQueue4compE"></span><span id="rrllvm::EventQueue::comp___Compare"></span><span class="target" id="classrrllvm_1_1EventQueue_1a7ab87bc5ab57d1867d83680fe943fc87"></span><a class="reference internal" href="#_CPPv4N6rrllvm10EventQueue8_CompareE" title="rrllvm::EventQueue::_Compare"><span class="n"><span class="pre">_Compare</span></span></a><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">comp</span></span></span><a class="headerlink" href="#_CPPv4N6rrllvm10EventQueue4compE" title="Permalink to this definition">¶</a><br /></dt>
 <dd></dd></dl>
 
 </div>
 <div class="breathe-sectiondef docutils container">
-<p class="breathe-sectiondef-title rubric">Friends</p>
+<p class="breathe-sectiondef-title rubric" id="breathe-section-title-friends">Friends</p>
 <dl class="cpp function">
-<dt>
-<span class="target" id="classrrllvm_1_1EventQueue_1a843845d2c309fb550991f2548ddc8703"></span><code class="sig-name descname">friend friend std::ostream &amp; operator&lt;&lt; (std::ostream &amp;stream, const EventQueue &amp;queue)</code></dt>
+<dt class="sig sig-object cpp">
+<span class="target" id="classrrllvm_1_1EventQueue_1a843845d2c309fb550991f2548ddc8703"></span><span class="sig-name descname"><span class="pre">friend</span> <span class="pre">friend</span> <span class="pre">std::ostream</span> <span class="pre">&amp;</span> <span class="pre">operator&lt;&lt;</span> <span class="pre">(std::ostream</span> <span class="pre">&amp;stream,</span> <span class="pre">const</span> <span class="pre">EventQueue</span> <span class="pre">&amp;queue)</span></span></dt>
 <dd></dd></dl>
 
 </div>

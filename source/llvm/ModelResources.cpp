@@ -44,7 +44,7 @@ namespace rrllvm
 {
 
 ModelResources::ModelResources() :
-        symbols(0), executionEngine(0), context(0), random(0), errStr(0)
+        symbols(nullptr), executionEngine(nullptr), context(nullptr), random(nullptr), errStr(nullptr)
 {
     // the reset of the ivars are assigned by the generator,
     // and in an exception they are not, does not matter as
@@ -55,7 +55,7 @@ ModelResources::~ModelResources()
 {
     rrLog(Logger::LOG_DEBUG) << __FUNC__;
 
-    if (errStr && errStr->size() > 0)
+    if (errStr && !errStr->empty())
     {
         rrLog(Logger::LOG_WARNING) << "Non-empty LLVM ExecutionEngine error std::string: " << *errStr;
     }

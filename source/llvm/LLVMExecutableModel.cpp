@@ -210,7 +210,7 @@ LLVMExecutableModel::LLVMExecutableModel() :
 }
 
 LLVMExecutableModel::LLVMExecutableModel(
-    const cxx11_ns::shared_ptr<ModelResources>& rc, LLVMModelData* modelData) :
+    const std::shared_ptr<ModelResources>& rc, LLVMModelData* modelData) :
     resources(rc),
     symbols(rc->symbols),
     modelData(modelData),

@@ -1,0 +1,320 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.20" xml:lang="en-US">
+  <compounddef id="classrr_1_1LinesearchNewtonIteration" kind="class" language="C++" prot="public">
+    <compoundname>rr::LinesearchNewtonIteration</compoundname>
+    <basecompoundref refid="classrr_1_1NewtonIteration" prot="public" virt="non-virtual">rr::NewtonIteration</basecompoundref>
+    <includes refid="LinesearchNewtonIteration_8h" local="no">LinesearchNewtonIteration.h</includes>
+      <sectiondef kind="public-func">
+      <memberdef kind="function" id="classrr_1_1LinesearchNewtonIteration_1a89c7c707dc9404d3ddc9df58492c54c8" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type></type>
+        <definition>rr::LinesearchNewtonIteration::~LinesearchNewtonIteration</definition>
+        <argsstring>() override=default</argsstring>
+        <name>~LinesearchNewtonIteration</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="LinesearchNewtonIteration.h" line="26" column="9"/>
+      </memberdef>
+      <memberdef kind="function" id="classrr_1_1LinesearchNewtonIteration_1ae0b74f23771dac1de3aa9decb03dfd14" prot="public" static="no" const="no" explicit="yes" inline="no" virt="non-virtual">
+        <type></type>
+        <definition>rr::LinesearchNewtonIteration::LinesearchNewtonIteration</definition>
+        <argsstring>(ExecutableModel *executableModel)</argsstring>
+        <name>LinesearchNewtonIteration</name>
+        <param>
+          <type><ref refid="classrr_1_1ExecutableModel" kindref="compound">ExecutableModel</ref> *</type>
+          <declname>executableModel</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="LinesearchNewtonIteration.h" line="28" column="18" bodyfile="LinesearchNewtonIteration.cpp" bodystart="9" bodyend="10"/>
+      </memberdef>
+      <memberdef kind="function" id="classrr_1_1LinesearchNewtonIteration_1a62113dcfc8a9d93fd419f025bc202563" prot="public" static="no" const="yes" explicit="no" inline="no" virt="virtual">
+        <type>std::string</type>
+        <definition>std::string rr::LinesearchNewtonIteration::getName</definition>
+        <argsstring>() const override</argsstring>
+        <name>getName</name>
+        <reimplements refid="classrr_1_1Solver_1a417cca64a18c63535f2091584f8fed91">getName</reimplements>
+        <briefdescription>
+<para>Get the name of this solver. </para>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="LinesearchNewtonIteration.h" line="33" column="21" bodyfile="LinesearchNewtonIteration.cpp" bodystart="12" bodyend="14"/>
+      </memberdef>
+      <memberdef kind="function" id="classrr_1_1LinesearchNewtonIteration_1a31c7aeb461a19411e3b48336d16401f6" prot="public" static="no" const="yes" explicit="no" inline="no" virt="virtual">
+        <type>std::string</type>
+        <definition>std::string rr::LinesearchNewtonIteration::getDescription</definition>
+        <argsstring>() const override</argsstring>
+        <name>getDescription</name>
+        <reimplements refid="classrr_1_1Solver_1a86067147c7631ca80d51667322f1a8f5">getDescription</reimplements>
+        <briefdescription>
+<para>Get the description of this solver. </para>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="LinesearchNewtonIteration.h" line="38" column="21" bodyfile="LinesearchNewtonIteration.cpp" bodystart="16" bodyend="18"/>
+      </memberdef>
+      <memberdef kind="function" id="classrr_1_1LinesearchNewtonIteration_1a39c0f6a3a82a515f4d71fdfdb4b25fc3" prot="public" static="no" const="yes" explicit="no" inline="no" virt="virtual">
+        <type>std::string</type>
+        <definition>std::string rr::LinesearchNewtonIteration::getHint</definition>
+        <argsstring>() const override</argsstring>
+        <name>getHint</name>
+        <reimplements refid="classrr_1_1Solver_1aff005f7e71bc73123ecbd511a77f71b6">getHint</reimplements>
+        <briefdescription>
+<para>Get a (user-readable) hint for this solver. </para>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="LinesearchNewtonIteration.h" line="43" column="21" bodyfile="LinesearchNewtonIteration.cpp" bodystart="20" bodyend="22"/>
+      </memberdef>
+      <memberdef kind="function" id="classrr_1_1LinesearchNewtonIteration_1a52557518fc8043c5fe7847019a05c604" prot="public" static="no" const="no" explicit="no" inline="no" virt="virtual">
+        <type>double</type>
+        <definition>double rr::LinesearchNewtonIteration::solve</definition>
+        <argsstring>() override</argsstring>
+        <name>solve</name>
+        <reimplements refid="classrr_1_1SteadyStateSolver_1ae7ef6c028ac70664cb37c2cb69e546a2">solve</reimplements>
+        <briefdescription>
+<para>solve the currently defined problem </para>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="LinesearchNewtonIteration.h" line="63" column="16" bodyfile="LinesearchNewtonIteration.cpp" bodystart="37" bodyend="39"/>
+      </memberdef>
+      </sectiondef>
+      <sectiondef kind="public-static-func">
+      <memberdef kind="function" id="classrr_1_1LinesearchNewtonIteration_1ac9142d083012819a968220c894734a8f" prot="public" static="yes" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>std::string</type>
+        <definition>std::string rr::LinesearchNewtonIteration::getLinesearchNewtonIterationName</definition>
+        <argsstring>()</argsstring>
+        <name>getLinesearchNewtonIterationName</name>
+        <briefdescription>
+<para>static version of getName </para>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="LinesearchNewtonIteration.h" line="48" column="28" bodyfile="LinesearchNewtonIteration.cpp" bodystart="24" bodyend="26"/>
+      </memberdef>
+      <memberdef kind="function" id="classrr_1_1LinesearchNewtonIteration_1affe185cbf7f83358e21290934f377823" prot="public" static="yes" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>std::string</type>
+        <definition>std::string rr::LinesearchNewtonIteration::getLinesearchNewtonIterationDescription</definition>
+        <argsstring>()</argsstring>
+        <name>getLinesearchNewtonIterationDescription</name>
+        <briefdescription>
+<para>static version of getDescription </para>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="LinesearchNewtonIteration.h" line="53" column="28" bodyfile="LinesearchNewtonIteration.cpp" bodystart="28" bodyend="31"/>
+      </memberdef>
+      <memberdef kind="function" id="classrr_1_1LinesearchNewtonIteration_1a905e1245d1e73a790f2006aed72a8a27" prot="public" static="yes" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>std::string</type>
+        <definition>std::string rr::LinesearchNewtonIteration::getLinesearchNewtonIterationHint</definition>
+        <argsstring>()</argsstring>
+        <name>getLinesearchNewtonIterationHint</name>
+        <briefdescription>
+<para>static version of getHint </para>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="LinesearchNewtonIteration.h" line="58" column="28" bodyfile="LinesearchNewtonIteration.cpp" bodystart="33" bodyend="35"/>
+      </memberdef>
+      </sectiondef>
+    <briefdescription>
+<para>Solve for steady state using Kinsol&apos;s implementation of Newton Iteration with linesearch globalization. </para>
+    </briefdescription>
+    <detaileddescription>
+<para><simplesect kind="see"><para><ref refid="classrr_1_1BasicNewtonIteration" kindref="compound">BasicNewtonIteration</ref> <programlisting><codeline><highlight class="normal">RoadRunner<sp/>rr(sbml);</highlight></codeline>
+<codeline><highlight class="normal">rr.setSteadyStateSolver(&quot;newton_linesearch&quot;);</highlight></codeline>
+<codeline><highlight class="normal">rr.solve();</highlight></codeline>
+</programlisting> </para>
+</simplesect>
+</para>
+    </detaileddescription>
+    <inheritancegraph>
+      <node id="1">
+        <label>rr::LinesearchNewtonIteration</label>
+        <link refid="classrr_1_1LinesearchNewtonIteration"/>
+        <childnode refid="2" relation="public-inheritance">
+        </childnode>
+      </node>
+      <node id="3">
+        <label>rr::KinsolSteadyStateSolver</label>
+        <link refid="classrr_1_1KinsolSteadyStateSolver"/>
+        <childnode refid="4" relation="public-inheritance">
+        </childnode>
+      </node>
+      <node id="4">
+        <label>rr::SteadyStateSolver</label>
+        <link refid="classrr_1_1SteadyStateSolver"/>
+        <childnode refid="5" relation="public-inheritance">
+        </childnode>
+      </node>
+      <node id="2">
+        <label>rr::NewtonIteration</label>
+        <link refid="classrr_1_1NewtonIteration"/>
+        <childnode refid="3" relation="public-inheritance">
+        </childnode>
+      </node>
+      <node id="5">
+        <label>rr::Solver</label>
+        <link refid="classrr_1_1Solver"/>
+      </node>
+    </inheritancegraph>
+    <collaborationgraph>
+      <node id="1">
+        <label>rr::LinesearchNewtonIteration</label>
+        <link refid="classrr_1_1LinesearchNewtonIteration"/>
+        <childnode refid="2" relation="public-inheritance">
+        </childnode>
+      </node>
+      <node id="3">
+        <label>rr::KinsolSteadyStateSolver</label>
+        <link refid="classrr_1_1KinsolSteadyStateSolver"/>
+        <childnode refid="4" relation="public-inheritance">
+        </childnode>
+      </node>
+      <node id="4">
+        <label>rr::SteadyStateSolver</label>
+        <link refid="classrr_1_1SteadyStateSolver"/>
+        <childnode refid="5" relation="public-inheritance">
+        </childnode>
+      </node>
+      <node id="2">
+        <label>rr::NewtonIteration</label>
+        <link refid="classrr_1_1NewtonIteration"/>
+        <childnode refid="3" relation="public-inheritance">
+        </childnode>
+      </node>
+      <node id="5">
+        <label>rr::Solver</label>
+        <link refid="classrr_1_1Solver"/>
+        <childnode refid="6" relation="usage">
+          <edgelabel>mModel</edgelabel>
+        </childnode>
+      </node>
+      <node id="6">
+        <label>rr::ExecutableModel</label>
+        <link refid="classrr_1_1ExecutableModel"/>
+      </node>
+    </collaborationgraph>
+    <location file="LinesearchNewtonIteration.h" line="22" column="5" bodyfile="LinesearchNewtonIteration.h" bodystart="22" bodyend="65"/>
+    <listofallmembers>
+      <member refid="classrr_1_1Solver_1ad5b8ac1ef687d1a3c9f1f305cb73804d" prot="protected" virt="non-virtual"><scope>rr::LinesearchNewtonIteration</scope><name>addSetting</name></member>
+      <member refid="classrr_1_1KinsolSteadyStateSolver_1a80807be1f440f524769e55568a3abcf2" prot="protected" virt="non-virtual"><scope>rr::LinesearchNewtonIteration</scope><name>constraints</name></member>
+      <member refid="classrr_1_1NewtonIteration_1a17436ae1ae76642be8f525addd8e2834" prot="protected" virt="virtual"><scope>rr::LinesearchNewtonIteration</scope><name>createKinsol</name></member>
+      <member refid="classrr_1_1Solver_1a7d58e224664ab44e56f90802d9601f01" prot="protected" virt="non-virtual"><scope>rr::LinesearchNewtonIteration</scope><name>DescriptionMap</name></member>
+      <member refid="classrr_1_1Solver_1a7e07121f652db358045d6f7b95889ea3" prot="protected" virt="non-virtual"><scope>rr::LinesearchNewtonIteration</scope><name>descriptions</name></member>
+      <member refid="classrr_1_1Solver_1a199de66231b25fef30d8ef2bdff80db7" prot="protected" virt="non-virtual"><scope>rr::LinesearchNewtonIteration</scope><name>display_names_</name></member>
+      <member refid="classrr_1_1Solver_1a76b76c8ba3a31a2c6a600322c90a0452" prot="protected" virt="non-virtual"><scope>rr::LinesearchNewtonIteration</scope><name>DisplayNameMap</name></member>
+      <member refid="classrr_1_1NewtonIteration_1ae27ea4ad5e78a6fb781bb1d8272f0756" prot="protected" virt="virtual"><scope>rr::LinesearchNewtonIteration</scope><name>freeKinsol</name></member>
+      <member refid="classrr_1_1KinsolSteadyStateSolver_1ad3bc465ff768913724631e8d4daf62c1" prot="protected" virt="non-virtual"><scope>rr::LinesearchNewtonIteration</scope><name>fscale</name></member>
+      <member refid="classrr_1_1KinsolSteadyStateSolver_1a6152af9e64fe79d7af756df58dcd0e5e" prot="protected" virt="non-virtual"><scope>rr::LinesearchNewtonIteration</scope><name>funcNorm</name></member>
+      <member refid="classrr_1_1LinesearchNewtonIteration_1a31c7aeb461a19411e3b48336d16401f6" prot="public" virt="virtual"><scope>rr::LinesearchNewtonIteration</scope><name>getDescription</name></member>
+      <member refid="classrr_1_1Solver_1a522a881e88165986944db55a8f2da845" prot="public" virt="non-virtual" ambiguityscope="rr::KinsolSteadyStateSolver::"><scope>rr::LinesearchNewtonIteration</scope><name>getDescription</name></member>
+      <member refid="classrr_1_1Solver_1a1fce02df70c95855d9d3cd7e3d352c08" prot="public" virt="non-virtual"><scope>rr::LinesearchNewtonIteration</scope><name>getDisplayName</name></member>
+      <member refid="classrr_1_1LinesearchNewtonIteration_1a39c0f6a3a82a515f4d71fdfdb4b25fc3" prot="public" virt="virtual"><scope>rr::LinesearchNewtonIteration</scope><name>getHint</name></member>
+      <member refid="classrr_1_1Solver_1a4915611d49d03f0fe499bed99a05aae1" prot="public" virt="non-virtual" ambiguityscope="rr::KinsolSteadyStateSolver::"><scope>rr::LinesearchNewtonIteration</scope><name>getHint</name></member>
+      <member refid="classrr_1_1KinsolSteadyStateSolver_1a5ebba0ecca346216d982d9533d32d811" prot="public" virt="non-virtual"><scope>rr::LinesearchNewtonIteration</scope><name>getKinsolMemory</name></member>
+      <member refid="classrr_1_1LinesearchNewtonIteration_1affe185cbf7f83358e21290934f377823" prot="public" virt="non-virtual"><scope>rr::LinesearchNewtonIteration</scope><name>getLinesearchNewtonIterationDescription</name></member>
+      <member refid="classrr_1_1LinesearchNewtonIteration_1a905e1245d1e73a790f2006aed72a8a27" prot="public" virt="non-virtual"><scope>rr::LinesearchNewtonIteration</scope><name>getLinesearchNewtonIterationHint</name></member>
+      <member refid="classrr_1_1LinesearchNewtonIteration_1ac9142d083012819a968220c894734a8f" prot="public" virt="non-virtual"><scope>rr::LinesearchNewtonIteration</scope><name>getLinesearchNewtonIterationName</name></member>
+      <member refid="classrr_1_1Solver_1ac89194d54aaad3ecc71e1cfbbef83d15" prot="public" virt="virtual"><scope>rr::LinesearchNewtonIteration</scope><name>getModel</name></member>
+      <member refid="classrr_1_1LinesearchNewtonIteration_1a62113dcfc8a9d93fd419f025bc202563" prot="public" virt="virtual"><scope>rr::LinesearchNewtonIteration</scope><name>getName</name></member>
+      <member refid="classrr_1_1NewtonIteration_1acfa3b9dcb97628591e853629c2e40b4b" prot="public" virt="non-virtual"><scope>rr::LinesearchNewtonIteration</scope><name>getNewtonIterationDescription</name></member>
+      <member refid="classrr_1_1NewtonIteration_1a107c604fb367c5ca927fc02e31cf5016" prot="public" virt="non-virtual"><scope>rr::LinesearchNewtonIteration</scope><name>getNewtonIterationHint</name></member>
+      <member refid="classrr_1_1NewtonIteration_1a8f887dc497c97796c527f78c9c8edc02" prot="public" virt="non-virtual"><scope>rr::LinesearchNewtonIteration</scope><name>getNewtonIterationName</name></member>
+      <member refid="classrr_1_1Solver_1abbefd0f38dfa2651c74f8abbd6d7b143" prot="public" virt="virtual"><scope>rr::LinesearchNewtonIteration</scope><name>getNumParams</name></member>
+      <member refid="classrr_1_1Solver_1aa13e13a92531fde27fe5711790eee0f7" prot="public" virt="virtual"><scope>rr::LinesearchNewtonIteration</scope><name>getParamDesc</name></member>
+      <member refid="classrr_1_1Solver_1afc0a667f204105aa133376144ce14c75" prot="public" virt="virtual"><scope>rr::LinesearchNewtonIteration</scope><name>getParamDisplayName</name></member>
+      <member refid="classrr_1_1Solver_1aa604b810ab3f1a2c8bc6dfa6fc731dc2" prot="public" virt="virtual"><scope>rr::LinesearchNewtonIteration</scope><name>getParamHint</name></member>
+      <member refid="classrr_1_1Solver_1ae2bb88ffce40a0136c86a020b4c39037" prot="public" virt="virtual"><scope>rr::LinesearchNewtonIteration</scope><name>getParamName</name></member>
+      <member refid="classrr_1_1Solver_1ae2b13c6ae06980b14a80e8a32766dcfa" prot="public" virt="non-virtual"><scope>rr::LinesearchNewtonIteration</scope><name>getSettings</name></member>
+      <member refid="classrr_1_1Solver_1a925e4dae5c4e3e71a2983dc58af9e550" prot="public" virt="non-virtual"><scope>rr::LinesearchNewtonIteration</scope><name>getSettingsMap</name></member>
+      <member refid="classrr_1_1Solver_1a3f7a3671a4f2ee508fa015ed4b164213" prot="public" virt="virtual"><scope>rr::LinesearchNewtonIteration</scope><name>getSettingsRepr</name></member>
+      <member refid="classrr_1_1KinsolSteadyStateSolver_1a953b279ea00b86a0fbd2a1e82d52d331" prot="public" virt="non-virtual"><scope>rr::LinesearchNewtonIteration</scope><name>getSolverStats</name></member>
+      <member refid="classrr_1_1NewtonIteration_1a46d2940bc5e23fa377be239f5cc21e4a" prot="public" virt="virtual"><scope>rr::LinesearchNewtonIteration</scope><name>getSolverStatsFromKinsol</name></member>
+      <member refid="classrr_1_1Solver_1a0bd064d494a0701edffca5eb67b64b2a" prot="public" virt="non-virtual"><scope>rr::LinesearchNewtonIteration</scope><name>getType</name></member>
+      <member refid="classrr_1_1Solver_1a87339915a211b22ecd63078bb1cb7ca9" prot="public" virt="virtual"><scope>rr::LinesearchNewtonIteration</scope><name>getValue</name></member>
+      <member refid="classrr_1_1Solver_1a83b99af970b895d62998bf90ec619168" prot="public" virt="virtual"><scope>rr::LinesearchNewtonIteration</scope><name>getValueAsString</name></member>
+      <member refid="classrr_1_1Solver_1afc1e25855220cbe469433c70f8c44ea5" prot="public" virt="virtual"><scope>rr::LinesearchNewtonIteration</scope><name>hasValue</name></member>
+      <member refid="classrr_1_1Solver_1ac39f2073d482cdf591d93415557c6751" prot="protected" virt="non-virtual"><scope>rr::LinesearchNewtonIteration</scope><name>HintMap</name></member>
+      <member refid="classrr_1_1Solver_1a39049af7a03fd00b1021c1ce9a9691fc" prot="protected" virt="non-virtual"><scope>rr::LinesearchNewtonIteration</scope><name>hints</name></member>
+      <member refid="classrr_1_1NewtonIteration_1ad891d4df2058bfc69c879ba46d84e71b" prot="protected" virt="non-virtual"><scope>rr::LinesearchNewtonIteration</scope><name>jac</name></member>
+      <member refid="classrr_1_1KinsolSteadyStateSolver_1aa9d3cb9634ec030d4755c863145a6e5e" prot="public" virt="non-virtual"><scope>rr::LinesearchNewtonIteration</scope><name>kinsolDyDtFcn</name></member>
+      <member refid="classrr_1_1KinsolSteadyStateSolver_1a493e4b60babe10d121bd4d960cede006" prot="public" virt="non-virtual"><scope>rr::LinesearchNewtonIteration</scope><name>KinsolSteadyStateSolver</name></member>
+      <member refid="classrr_1_1KinsolSteadyStateSolver_1a7cc99b1d285e7e1afae54f217135d0b5" prot="public" virt="non-virtual"><scope>rr::LinesearchNewtonIteration</scope><name>KinsolSteadyStateSolver</name></member>
+      <member refid="classrr_1_1NewtonIteration_1afbdfd60977ad079dc27cdd282fdfc201" prot="protected" virt="non-virtual"><scope>rr::LinesearchNewtonIteration</scope><name>linearSolver</name></member>
+      <member refid="classrr_1_1LinesearchNewtonIteration_1ae0b74f23771dac1de3aa9decb03dfd14" prot="public" virt="non-virtual"><scope>rr::LinesearchNewtonIteration</scope><name>LinesearchNewtonIteration</name></member>
+      <member refid="classrr_1_1SteadyStateSolver_1a613605d22b7da35a526473d107ca65bd" prot="public" virt="virtual"><scope>rr::LinesearchNewtonIteration</scope><name>loadConfigSettings</name></member>
+      <member refid="classrr_1_1KinsolSteadyStateSolver_1a64033039dc53f114855985463ad108f6" prot="protected" virt="non-virtual"><scope>rr::LinesearchNewtonIteration</scope><name>mKinsol_Memory</name></member>
+      <member refid="classrr_1_1Solver_1ab60e7640a8c959558a144d9d7ee45515" prot="protected" virt="non-virtual"><scope>rr::LinesearchNewtonIteration</scope><name>mModel</name></member>
+      <member refid="classrr_1_1KinsolSteadyStateSolver_1a5f5802fe0c668fe5569bfb163748a621" prot="protected" virt="non-virtual"><scope>rr::LinesearchNewtonIteration</scope><name>mStateVector</name></member>
+      <member refid="classrr_1_1NewtonIteration_1aa25a2b5395b7b5e174d9d08092c1ecdd" prot="public" virt="non-virtual"><scope>rr::LinesearchNewtonIteration</scope><name>NewtonIteration</name></member>
+      <member refid="classrr_1_1KinsolSteadyStateSolver_1a5587c29038218f7e3d8f83b32a3eaf80" prot="protected" virt="non-virtual"><scope>rr::LinesearchNewtonIteration</scope><name>nSolverIterations</name></member>
+      <member refid="classrr_1_1KinsolSteadyStateSolver_1a0d20709e7f23755cc14443671be182ec" prot="protected" virt="non-virtual"><scope>rr::LinesearchNewtonIteration</scope><name>numBacktrackOps</name></member>
+      <member refid="classrr_1_1KinsolSteadyStateSolver_1a7d293e46d24822ab546b43b747ffae26" prot="protected" virt="non-virtual"><scope>rr::LinesearchNewtonIteration</scope><name>numBetaCondFails</name></member>
+      <member refid="classrr_1_1KinsolSteadyStateSolver_1a94eae6c3534054b7fff476be111133ca" prot="protected" virt="non-virtual"><scope>rr::LinesearchNewtonIteration</scope><name>numFuncEvals</name></member>
+      <member refid="classrr_1_1KinsolSteadyStateSolver_1a2c01c0251e55420afb73d327be298f5e" prot="protected" virt="non-virtual"><scope>rr::LinesearchNewtonIteration</scope><name>numJacEvals</name></member>
+      <member refid="classrr_1_1KinsolSteadyStateSolver_1a21927581610717145d906b309d5c8c1c" prot="protected" virt="non-virtual"><scope>rr::LinesearchNewtonIteration</scope><name>numJtimesEvals</name></member>
+      <member refid="classrr_1_1KinsolSteadyStateSolver_1a2b804980c88ea178c357dcbc36083d0a" prot="protected" virt="non-virtual"><scope>rr::LinesearchNewtonIteration</scope><name>numLinConvFails</name></member>
+      <member refid="classrr_1_1KinsolSteadyStateSolver_1a8db0a7fb478dac8c9f7609660bb8b383" prot="protected" virt="non-virtual"><scope>rr::LinesearchNewtonIteration</scope><name>numLinFuncEvals</name></member>
+      <member refid="classrr_1_1KinsolSteadyStateSolver_1a84e0685146b9494801ac7eb410e80b79" prot="protected" virt="non-virtual"><scope>rr::LinesearchNewtonIteration</scope><name>numLinIters</name></member>
+      <member refid="classrr_1_1KinsolSteadyStateSolver_1aba0fbf91989bf1c45393e685480d9e2e" prot="protected" virt="non-virtual"><scope>rr::LinesearchNewtonIteration</scope><name>numNolinSolvIters</name></member>
+      <member refid="classrr_1_1KinsolSteadyStateSolver_1a2155651618977ffc99020b2c6a6459a0" prot="protected" virt="non-virtual"><scope>rr::LinesearchNewtonIteration</scope><name>numNonlinSolvIters</name></member>
+      <member refid="classrr_1_1KinsolSteadyStateSolver_1a06d1f105ae874107693221ec90b50bce" prot="protected" virt="non-virtual"><scope>rr::LinesearchNewtonIteration</scope><name>numPrecEvals</name></member>
+      <member refid="classrr_1_1KinsolSteadyStateSolver_1a879e57a3ff26a4769d399933c47cfeb4" prot="protected" virt="non-virtual"><scope>rr::LinesearchNewtonIteration</scope><name>numPrecSolves</name></member>
+      <member refid="classrr_1_1KinsolSteadyStateSolver_1a4588d8d7266adc7df1f7ed6cacac84d7" prot="public" virt="non-virtual"><scope>rr::LinesearchNewtonIteration</scope><name>printSolverStats</name></member>
+      <member refid="classrr_1_1NewtonIteration_1aef52744c9ff9f21ad69a49b1fe8ef9c4" prot="public" virt="virtual"><scope>rr::LinesearchNewtonIteration</scope><name>resetSettings</name></member>
+      <member refid="classrr_1_1KinsolSteadyStateSolver_1af702594542f53277aa41afcea984e287" prot="public" virt="non-virtual"><scope>rr::LinesearchNewtonIteration</scope><name>setFScale</name></member>
+      <member refid="classrr_1_1KinsolSteadyStateSolver_1a42a0f373ffcc60e88cd56f023aa0b481" prot="public" virt="non-virtual"><scope>rr::LinesearchNewtonIteration</scope><name>setFScale</name></member>
+      <member refid="classrr_1_1Solver_1a44a22cf0edead17a9cc923d87dcc063e" prot="protected" virt="non-virtual"><scope>rr::LinesearchNewtonIteration</scope><name>settings</name></member>
+      <member refid="classrr_1_1Solver_1adcbacd57e2871a83bb9c4d7a4038a069" prot="protected" virt="non-virtual"><scope>rr::LinesearchNewtonIteration</scope><name>SettingsList</name></member>
+      <member refid="classrr_1_1Solver_1a61c0fd04ad69fc173c51dac3bdde2431" prot="protected" virt="non-virtual"><scope>rr::LinesearchNewtonIteration</scope><name>SettingsMap</name></member>
+      <member refid="classrr_1_1Solver_1a37b032d8755eaccd3480531bdc2a4596" prot="public" virt="virtual"><scope>rr::LinesearchNewtonIteration</scope><name>settingsPyDictRepr</name></member>
+      <member refid="classrr_1_1KinsolSteadyStateSolver_1a6b80db848ae533f85d9696ac82c0f07d" prot="public" virt="non-virtual"><scope>rr::LinesearchNewtonIteration</scope><name>setUScale</name></member>
+      <member refid="classrr_1_1KinsolSteadyStateSolver_1af82dcd66c4a8143f8bcc2ff765d74e07" prot="public" virt="non-virtual"><scope>rr::LinesearchNewtonIteration</scope><name>setUScale</name></member>
+      <member refid="classrr_1_1Solver_1a18fa004a818506c15d47fa28015039c6" prot="public" virt="virtual"><scope>rr::LinesearchNewtonIteration</scope><name>setValue</name></member>
+      <member refid="classrr_1_1LinesearchNewtonIteration_1a52557518fc8043c5fe7847019a05c604" prot="public" virt="virtual"><scope>rr::LinesearchNewtonIteration</scope><name>solve</name></member>
+      <member refid="classrr_1_1KinsolSteadyStateSolver_1a7523fec309a03e68bd30d2cf604510f3" prot="public" virt="non-virtual"><scope>rr::LinesearchNewtonIteration</scope><name>solveForSteadyState</name></member>
+      <member refid="classrr_1_1NewtonIteration_1aa4600fcd777890b6afc99694bd306a50" prot="protected" virt="non-virtual"><scope>rr::LinesearchNewtonIteration</scope><name>solveNewtonIteration</name></member>
+      <member refid="classrr_1_1SteadyStateSolver_1a04bba4a342cc7197750f080d41d439e5" prot="public" virt="non-virtual"><scope>rr::LinesearchNewtonIteration</scope><name>Solver</name></member>
+      <member refid="classrr_1_1SteadyStateSolver_1aa0a07553e368f0be33b9bfc429782a97" prot="public" virt="non-virtual"><scope>rr::LinesearchNewtonIteration</scope><name>Solver</name></member>
+      <member refid="classrr_1_1Solver_1aa0a07553e368f0be33b9bfc429782a97" prot="public" virt="non-virtual" ambiguityscope="rr::Solver::"><scope>rr::LinesearchNewtonIteration</scope><name>Solver</name></member>
+      <member refid="classrr_1_1KinsolSteadyStateSolver_1a1a51e6de634532f7e73051a6129940ae" prot="protected" virt="non-virtual"><scope>rr::LinesearchNewtonIteration</scope><name>solverStats</name></member>
+      <member refid="classrr_1_1Solver_1a99f48947491d7cd36c68cebba53915fe" prot="protected" virt="non-virtual"><scope>rr::LinesearchNewtonIteration</scope><name>sorted_settings</name></member>
+      <member refid="classrr_1_1KinsolSteadyStateSolver_1aed41325ac8469d5b24fcd55df1eeb52f" prot="protected" virt="non-virtual"><scope>rr::LinesearchNewtonIteration</scope><name>stepLength</name></member>
+      <member refid="classrr_1_1KinsolSteadyStateSolver_1a49ceabb3db818eabcf56d77d28d60d6d" prot="public" virt="virtual"><scope>rr::LinesearchNewtonIteration</scope><name>syncWithModel</name></member>
+      <member refid="classrr_1_1SteadyStateSolver_1a4307ed20fd04adf61cc8b4ef9a88f747" prot="public" virt="virtual"><scope>rr::LinesearchNewtonIteration</scope><name>toRepr</name></member>
+      <member refid="classrr_1_1SteadyStateSolver_1aaf40e2ae58d2f4fef80a00f5bb7fd413" prot="public" virt="virtual"><scope>rr::LinesearchNewtonIteration</scope><name>toString</name></member>
+      <member refid="classrr_1_1NewtonIteration_1a6d10c08312d90016647826dd1c824ad2" prot="protected" virt="virtual"><scope>rr::LinesearchNewtonIteration</scope><name>updateKinsol</name></member>
+      <member refid="classrr_1_1Solver_1a19315632eeab070bdbfe2fa4ae66ca6c" prot="public" virt="non-virtual"><scope>rr::LinesearchNewtonIteration</scope><name>updateSettings</name></member>
+      <member refid="classrr_1_1KinsolSteadyStateSolver_1ab0bf299b6530378feb374d92a58a959e" prot="protected" virt="non-virtual"><scope>rr::LinesearchNewtonIteration</scope><name>uscale</name></member>
+      <member refid="classrr_1_1KinsolSteadyStateSolver_1ab8569c93c7aa13a0656919d692bc08fe" prot="public" virt="non-virtual"><scope>rr::LinesearchNewtonIteration</scope><name>~KinsolSteadyStateSolver</name></member>
+      <member refid="classrr_1_1LinesearchNewtonIteration_1a89c7c707dc9404d3ddc9df58492c54c8" prot="public" virt="non-virtual"><scope>rr::LinesearchNewtonIteration</scope><name>~LinesearchNewtonIteration</name></member>
+      <member refid="classrr_1_1NewtonIteration_1a4a4f9c84383efe7af2e6804ca88915d4" prot="public" virt="non-virtual"><scope>rr::LinesearchNewtonIteration</scope><name>~NewtonIteration</name></member>
+      <member refid="classrr_1_1Solver_1a0e6558e376aee7e4d3a9b69b8c3ae08b" prot="public" virt="virtual"><scope>rr::LinesearchNewtonIteration</scope><name>~Solver</name></member>
+      <member refid="classrr_1_1SteadyStateSolver_1aaa617ea8e7cbbd464dd9ff44220c65d7" prot="public" virt="non-virtual"><scope>rr::LinesearchNewtonIteration</scope><name>~SteadyStateSolver</name></member>
+    </listofallmembers>
+  </compounddef>
+</doxygen>

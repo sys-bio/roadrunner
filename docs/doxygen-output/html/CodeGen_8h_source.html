@@ -22,7 +22,7 @@
  <tr style="height: 56px;">
   <td id="projectalign" style="padding-left: 0.5em;">
    <div id="projectname">roadrunner
-   &#160;<span id="projectnumber">2.0.5</span>
+   &#160;<span id="projectnumber">2.0.8</span>
    </div>
    <div id="projectbrief">Fast simulator for SBML models</div>
   </td>
@@ -100,9 +100,9 @@ $(function() {
 <div class="line"><a name="l00030"></a><span class="lineno"><a class="line" href="classrrllvm_1_1LoadSymbolResolver.html">   30</a></span>&#160;<span class="keyword">class </span><a class="code" href="classrrllvm_1_1LoadSymbolResolver.html">LoadSymbolResolver</a></div>
 <div class="line"><a name="l00031"></a><span class="lineno">   31</span>&#160;{</div>
 <div class="line"><a name="l00032"></a><span class="lineno">   32</span>&#160;<span class="keyword">public</span>:</div>
-<div class="line"><a name="l00039"></a><span class="lineno"><a class="line" href="classrrllvm_1_1LoadSymbolResolver.html#af0c62fdd0c913e2410596d3f785f21db">   39</a></span>&#160;    <span class="keyword">virtual</span> llvm::Value *<a class="code" href="classrrllvm_1_1LoadSymbolResolver.html#af0c62fdd0c913e2410596d3f785f21db">loadSymbolValue</a>(<span class="keyword">const</span> std::string&amp; symbol,</div>
-<div class="line"><a name="l00040"></a><span class="lineno">   40</span>&#160;            <span class="keyword">const</span> llvm::ArrayRef&lt;llvm::Value*&gt;&amp; args =</div>
-<div class="line"><a name="l00041"></a><span class="lineno">   41</span>&#160;                    llvm::ArrayRef&lt;llvm::Value*&gt;()) = 0;</div>
+<div class="line"><a name="l00039"></a><span class="lineno"><a class="line" href="classrrllvm_1_1LoadSymbolResolver.html#af0c62fdd0c913e2410596d3f785f21db">   39</a></span>&#160;    <span class="keyword">virtual</span> llvm::Value *<a class="code" href="classrrllvm_1_1LoadSymbolResolver.html#af0c62fdd0c913e2410596d3f785f21db">loadSymbolValue</a>(</div>
+<div class="line"><a name="l00040"></a><span class="lineno">   40</span>&#160;            <span class="keyword">const</span> std::string&amp; symbol,</div>
+<div class="line"><a name="l00041"></a><span class="lineno">   41</span>&#160;            <span class="keyword">const</span> llvm::ArrayRef&lt;llvm::Value*&gt;&amp; args = llvm::ArrayRef&lt;llvm::Value*&gt;()) = 0;</div>
 <div class="line"><a name="l00042"></a><span class="lineno">   42</span>&#160; </div>
 <div class="line"><a name="l00043"></a><span class="lineno">   43</span>&#160;    <span class="keyword">virtual</span> <span class="keywordtype">void</span> recursiveSymbolPush(<span class="keyword">const</span> std::string&amp; symbol) = 0;</div>
 <div class="line"><a name="l00044"></a><span class="lineno">   44</span>&#160; </div>

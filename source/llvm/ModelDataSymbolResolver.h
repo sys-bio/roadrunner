@@ -25,15 +25,14 @@ namespace rrllvm
 class ModelDataLoadSymbolResolver: public LoadSymbolResolverBase
 {
 public:
-    ModelDataLoadSymbolResolver(llvm::Value *modelData,
-            const ModelGeneratorContext& ctx);
+    ModelDataLoadSymbolResolver(llvm::Value *modelData, const ModelGeneratorContext& ctx);
 
-    virtual ~ModelDataLoadSymbolResolver() {};
+    ~ModelDataLoadSymbolResolver() override {};
 
-
-    virtual llvm::Value *loadSymbolValue(const std::string& symbol,
-            const llvm::ArrayRef<llvm::Value*>& args =
-                    llvm::ArrayRef<llvm::Value*>());
+    /**
+     * todo default arguments on virtual methods are prohibited.
+     */
+    virtual llvm::Value *loadSymbolValue(const std::string& symbol, const llvm::ArrayRef<llvm::Value*>& args = llvm::ArrayRef<llvm::Value*>());
 
 private:
     llvm::Value *modelData;

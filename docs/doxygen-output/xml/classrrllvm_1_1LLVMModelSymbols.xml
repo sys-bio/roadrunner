@@ -223,7 +223,7 @@
           <declname>col</declname>
         </param>
         <briefdescription>
-<para>create an ASTNode for the species id / reaction id pair. </para>
+<para>create an ASTNode for the species id / reaction id std::pair. </para>
         </briefdescription>
         <detaileddescription>
 <para>This assembles the mess of items stored in the reactions array. </para>
@@ -404,7 +404,7 @@
           <declname>x</declname>
         </param>
         <briefdescription>
-<para>visit the reactions so we can get all the SpeciesReferences and stuff them in the initialConditions map. </para>
+<para>visit the reactions so we can get all the SpeciesReferences and stuff them in the initialConditions std::map. </para>
         </briefdescription>
         <detaileddescription>
         </detaileddescription>
@@ -470,7 +470,7 @@
 <para>The only differences in how initialAssigments and assignmentRules are handled is whether they are stuffed in the initialAssigment or assignmentRules maps. </para>
         </briefdescription>
         <detaileddescription>
-<para>This figures out what they refer to, and stuffs the AST in the appropriate map. </para>
+<para>This figures out what they refer to, and stuffs the AST in the appropriate std::map. </para>
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
@@ -535,7 +535,7 @@
         </childnode>
       </node>
       <node id="2">
-        <label>SBMLVisitor</label>
+        <label>libsbml::SBMLVisitor</label>
       </node>
     </inheritancegraph>
     <collaborationgraph>
@@ -558,22 +558,12 @@
           <edgelabel>rateRules</edgelabel>
         </childnode>
       </node>
-      <node id="2">
-        <label>SBMLVisitor</label>
-      </node>
       <node id="4">
         <label>rrllvm::SymbolForest</label>
         <link refid="classrrllvm_1_1SymbolForest"/>
-        <childnode refid="5" relation="usage">
-          <edgelabel>boundarySpecies</edgelabel>
-          <edgelabel>compartments</edgelabel>
-          <edgelabel>floatingSpecies</edgelabel>
-          <edgelabel>globalParameters</edgelabel>
-          <edgelabel>speciesReferences</edgelabel>
-        </childnode>
       </node>
-      <node id="5">
-        <label>map&lt; string, const libsbml::ASTNode * &gt;</label>
+      <node id="2">
+        <label>libsbml::SBMLVisitor</label>
       </node>
     </collaborationgraph>
     <location file="llvm/LLVMModelSymbols.h" line="25" column="1" bodyfile="llvm/LLVMModelSymbols.h" bodystart="26" bodyend="254"/>

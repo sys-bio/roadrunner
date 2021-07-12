@@ -1,5 +1,5 @@
-\hypertarget{rrc__api_8h}{}\doxysection{D\+:/roadrunner/roadrunner/wrappers/\+C/rrc\+\_\+api.h File Reference}
-\label{rrc__api_8h}\index{D:/roadrunner/roadrunner/wrappers/C/rrc\_api.h@{D:/roadrunner/roadrunner/wrappers/C/rrc\_api.h}}
+\hypertarget{rrc__api_8h}{}\doxysection{/\+Users/ciaranwelsh/\+Documents/roadrunner/wrappers/\+C/rrc\+\_\+api.h File Reference}
+\label{rrc__api_8h}\index{/Users/ciaranwelsh/Documents/roadrunner/wrappers/C/rrc\_api.h@{/Users/ciaranwelsh/Documents/roadrunner/wrappers/C/rrc\_api.h}}
 
 
 lib\+Road\+Runner C wrappers 2012-\/2013  
@@ -100,9 +100,13 @@ C\+\_\+\+D\+E\+C\+L\+\_\+\+S\+P\+EC char $\ast$rrc\+Call\+Conv \mbox{\hyperlink{
 \begin{DoxyCompactList}\small\item\em Retrieve the {\bfseries{current state}} of the model in the form of an S\+B\+ML string. \end{DoxyCompactList}\item 
 C\+\_\+\+D\+E\+C\+L\+\_\+\+S\+P\+EC char $\ast$rrc\+Call\+Conv \mbox{\hyperlink{group__loadsave_ga583d80e8a54f0d41b8600bb4ece0e552}{get\+S\+B\+ML}} (\mbox{\hyperlink{rrc__types_8h_a1d68f0592372208fa5a5f2799ea4b3ae}{R\+R\+Handle}} handle)
 \begin{DoxyCompactList}\small\item\em Retrieve the S\+B\+ML model that was last loaded into road\+Runner. \end{DoxyCompactList}\item 
-C\+\_\+\+D\+E\+C\+L\+\_\+\+S\+P\+EC bool rrc\+Call\+Conv \mbox{\hyperlink{group__edit_ga8046c3bfa3d0c126ff1a64dc875e914e}{add\+Species}} (\mbox{\hyperlink{rrc__types_8h_a1d68f0592372208fa5a5f2799ea4b3ae}{R\+R\+Handle}} handle, const char $\ast$sid, const char $\ast$compartment, double initial\+Amount, bool has\+Only\+Substance\+Units, bool boundary\+Condition)
+C\+\_\+\+D\+E\+C\+L\+\_\+\+S\+P\+EC bool rrc\+Call\+Conv \mbox{\hyperlink{group__edit_gaef2fc31f4dbe5b5d7bd0d76ce6a296ff}{add\+Species\+Amount}} (\mbox{\hyperlink{rrc__types_8h_a1d68f0592372208fa5a5f2799ea4b3ae}{R\+R\+Handle}} handle, const char $\ast$sid, const char $\ast$compartment, double initial\+Amount, bool has\+Only\+Substance\+Units, bool boundary\+Condition)
 \begin{DoxyCompactList}\small\item\em Add a species to the current model. \end{DoxyCompactList}\item 
-C\+\_\+\+D\+E\+C\+L\+\_\+\+S\+P\+EC bool rrc\+Call\+Conv \mbox{\hyperlink{group__edit_ga32500bd1249d5d5fc380d489154e4c85}{add\+Species\+No\+Regen}} (\mbox{\hyperlink{rrc__types_8h_a1d68f0592372208fa5a5f2799ea4b3ae}{R\+R\+Handle}} handle, const char $\ast$sid, const char $\ast$compartment, double initial\+Amount, bool has\+Only\+Substance\+Units, bool boundary\+Condition)
+C\+\_\+\+D\+E\+C\+L\+\_\+\+S\+P\+EC bool rrc\+Call\+Conv \mbox{\hyperlink{group__edit_ga213287c567b88a4f3619fdf379f67ac5}{add\+Species\+Concentration}} (\mbox{\hyperlink{rrc__types_8h_a1d68f0592372208fa5a5f2799ea4b3ae}{R\+R\+Handle}} handle, const char $\ast$sid, const char $\ast$compartment, double initial\+Concentration, bool has\+Only\+Substance\+Units, bool boundary\+Condition)
+\begin{DoxyCompactList}\small\item\em Add a species to the current model. \end{DoxyCompactList}\item 
+C\+\_\+\+D\+E\+C\+L\+\_\+\+S\+P\+EC bool rrc\+Call\+Conv \mbox{\hyperlink{group__edit_ga48236ef5d127c7b685fd774d879c028a}{add\+Species\+Concentration\+No\+Regen}} (\mbox{\hyperlink{rrc__types_8h_a1d68f0592372208fa5a5f2799ea4b3ae}{R\+R\+Handle}} handle, const char $\ast$sid, const char $\ast$compartment, double initial\+Concentration, bool has\+Only\+Substance\+Units, bool boundary\+Condition)
+\begin{DoxyCompactList}\small\item\em Add a species to the current model, without regenerating it The last modification must regenerate for the modifications to take effect. \end{DoxyCompactList}\item 
+C\+\_\+\+D\+E\+C\+L\+\_\+\+S\+P\+EC bool rrc\+Call\+Conv \mbox{\hyperlink{group__edit_ga6eb04c102f6da7d25d84bd39894d5697}{add\+Species\+Amount\+No\+Regen}} (\mbox{\hyperlink{rrc__types_8h_a1d68f0592372208fa5a5f2799ea4b3ae}{R\+R\+Handle}} handle, const char $\ast$sid, const char $\ast$compartment, double initial\+Amount, bool has\+Only\+Substance\+Units, bool boundary\+Condition)
 \begin{DoxyCompactList}\small\item\em Add a species to the current model, without regenerating it The last modification must regenerate for the modifications to take effect. \end{DoxyCompactList}\item 
 C\+\_\+\+D\+E\+C\+L\+\_\+\+S\+P\+EC bool rrc\+Call\+Conv \mbox{\hyperlink{group__edit_gaf5ebfc87d97383ffb003897259a21b6b}{remove\+Species}} (\mbox{\hyperlink{rrc__types_8h_a1d68f0592372208fa5a5f2799ea4b3ae}{R\+R\+Handle}} handle, const char $\ast$sid)
 \begin{DoxyCompactList}\small\item\em Remove a species from the current model. \end{DoxyCompactList}\item 
@@ -166,6 +170,8 @@ C\+\_\+\+D\+E\+C\+L\+\_\+\+S\+P\+EC bool rrc\+Call\+Conv \mbox{\hyperlink{group_
 \begin{DoxyCompactList}\small\item\em Remove a compartment from the current model. \end{DoxyCompactList}\item 
 C\+\_\+\+D\+E\+C\+L\+\_\+\+S\+P\+EC bool rrc\+Call\+Conv \mbox{\hyperlink{group__edit_gafaed1396ad11b33059bb3ce43d366437}{remove\+Compartment\+No\+Regen}} (\mbox{\hyperlink{rrc__types_8h_a1d68f0592372208fa5a5f2799ea4b3ae}{R\+R\+Handle}} handle, const char $\ast$cid)
 \begin{DoxyCompactList}\small\item\em Remove a compartment from the current model, without regenerating it The last modification must regenerate for the modifications to take effect. \end{DoxyCompactList}\item 
+C\+\_\+\+D\+E\+C\+L\+\_\+\+S\+P\+EC bool rrc\+Call\+Conv \mbox{\hyperlink{rrc__api_8h_a649d4e43b58d3e63d57721df2aa80966}{add\+Initial\+Assignment}} (\mbox{\hyperlink{rrc__types_8h_a1d68f0592372208fa5a5f2799ea4b3ae}{R\+R\+Handle}} handle, char $\ast$vid, char $\ast$formula, bool force\+Regenerate)
+\begin{DoxyCompactList}\small\item\em Add an initial assignment to an exsiting symbol of the current model. \end{DoxyCompactList}\item 
 C\+\_\+\+D\+E\+C\+L\+\_\+\+S\+P\+EC bool rrc\+Call\+Conv \mbox{\hyperlink{group__edit_gabbe9164c7a231ec1897b499fde57c575}{add\+Assignment\+Rule}} (\mbox{\hyperlink{rrc__types_8h_a1d68f0592372208fa5a5f2799ea4b3ae}{R\+R\+Handle}} handle, const char $\ast$vid, const char $\ast$formula)
 \begin{DoxyCompactList}\small\item\em Add an assignment rule to the current model. \end{DoxyCompactList}\item 
 C\+\_\+\+D\+E\+C\+L\+\_\+\+S\+P\+EC bool rrc\+Call\+Conv \mbox{\hyperlink{group__edit_ga1587edf0539fbe8e8c1eeab7649817fc}{add\+Assignment\+Rule\+No\+Regen}} (\mbox{\hyperlink{rrc__types_8h_a1d68f0592372208fa5a5f2799ea4b3ae}{R\+R\+Handle}} handle, const char $\ast$vid, const char $\ast$formula)
@@ -214,6 +220,8 @@ C\+\_\+\+D\+E\+C\+L\+\_\+\+S\+P\+EC bool rrc\+Call\+Conv \mbox{\hyperlink{group_
 \begin{DoxyCompactList}\small\item\em Remove an event from the current model. \end{DoxyCompactList}\item 
 C\+\_\+\+D\+E\+C\+L\+\_\+\+S\+P\+EC bool rrc\+Call\+Conv \mbox{\hyperlink{group__edit_ga322382e2cb2e35312cd4a88ceee906a5}{remove\+Events\+No\+Regen}} (\mbox{\hyperlink{rrc__types_8h_a1d68f0592372208fa5a5f2799ea4b3ae}{R\+R\+Handle}} handle, const char $\ast$eid)
 \begin{DoxyCompactList}\small\item\em Remove an event from the current model, without regenerating it The last modification must regenerate for the modifications to take effect. \end{DoxyCompactList}\item 
+C\+\_\+\+D\+E\+C\+L\+\_\+\+S\+P\+EC bool rrc\+Call\+Conv \mbox{\hyperlink{group__edit_gae8d120bbf287b0879707510d1df86328}{regenerate}} (\mbox{\hyperlink{rrc__types_8h_a1d68f0592372208fa5a5f2799ea4b3ae}{R\+R\+Handle}} handle)
+\begin{DoxyCompactList}\small\item\em After a model has been edited, it needs to be compiled. Call regenerate to recompile a model so that it is ready for use. \end{DoxyCompactList}\item 
 C\+\_\+\+D\+E\+C\+L\+\_\+\+S\+P\+EC bool rrc\+Call\+Conv \mbox{\hyperlink{group__edit_ga63e642abda6ec0756781e159be5d3010}{validate\+Current\+S\+B\+ML}} (\mbox{\hyperlink{rrc__types_8h_a1d68f0592372208fa5a5f2799ea4b3ae}{R\+R\+Handle}} handle)
 \begin{DoxyCompactList}\small\item\em Validate the current S\+B\+ML file. \end{DoxyCompactList}\item 
 C\+\_\+\+D\+E\+C\+L\+\_\+\+S\+P\+EC char $\ast$rrc\+Call\+Conv \mbox{\hyperlink{rrc__api_8h_a1e12a65f50c3138f73628d090bda918a}{get\+Param\+Promoted\+S\+B\+ML}} (\mbox{\hyperlink{rrc__types_8h_a1d68f0592372208fa5a5f2799ea4b3ae}{R\+R\+Handle}} handle, const char $\ast$s\+Arg)
@@ -661,6 +669,25 @@ getsteadyvectorrate
 \begin{DoxyReturn}{Returns}
 the time for getsteadyvectorrate 
 \end{DoxyReturn}
+\mbox{\Hypertarget{rrc__api_8h_a649d4e43b58d3e63d57721df2aa80966}\label{rrc__api_8h_a649d4e43b58d3e63d57721df2aa80966}} 
+\index{rrc\_api.h@{rrc\_api.h}!addInitialAssignment@{addInitialAssignment}}
+\index{addInitialAssignment@{addInitialAssignment}!rrc\_api.h@{rrc\_api.h}}
+\doxysubsubsection{\texorpdfstring{addInitialAssignment()}{addInitialAssignment()}}
+{\footnotesize\ttfamily C\+\_\+\+D\+E\+C\+L\+\_\+\+S\+P\+EC bool rrc\+Call\+Conv add\+Initial\+Assignment (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{rrc__types_8h_a1d68f0592372208fa5a5f2799ea4b3ae}{R\+R\+Handle}}}]{handle,  }\item[{char $\ast$}]{vid,  }\item[{char $\ast$}]{formula,  }\item[{bool}]{force\+Regenerate }\end{DoxyParamCaption})}
+
+
+
+Add an initial assignment to an exsiting symbol of the current model. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em vid} & \+: ID of symbol \\
+\hline
+{\em formula} & \+: the math formula of the initial assignment \\
+\hline
+{\em force\+Regenerate} & \+: a boolean value to indicate if the model is regenerated after this function call default value is true to regenerate model after each call of editing function to save time for editing for multiple times, one could set this flag to true only in the last call of editing \\
+\hline
+\end{DoxyParams}
 \mbox{\Hypertarget{rrc__api_8h_a1e12a65f50c3138f73628d090bda918a}\label{rrc__api_8h_a1e12a65f50c3138f73628d090bda918a}} 
 \index{rrc\_api.h@{rrc\_api.h}!getParamPromotedSBML@{getParamPromotedSBML}}
 \index{getParamPromotedSBML@{getParamPromotedSBML}!rrc\_api.h@{rrc\_api.h}}

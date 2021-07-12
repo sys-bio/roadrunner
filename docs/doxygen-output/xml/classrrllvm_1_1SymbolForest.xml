@@ -5,9 +5,9 @@
     <includes refid="SymbolForest_8h" local="no">SymbolForest.h</includes>
     <innerclass refid="classrrllvm_1_1SymbolForest_1_1ConstIterator" prot="public">rrllvm::SymbolForest::ConstIterator</innerclass>
       <sectiondef kind="public-type">
-      <memberdef kind="typedef" id="classrrllvm_1_1SymbolForest_1ada02ea32d0ce9580e3ff194ac92c258f" prot="public" static="no">
-        <type>map&lt; string, const libsbml::ASTNode * &gt;</type>
-        <definition>typedef map&lt;string, const libsbml::ASTNode*&gt; rrllvm::SymbolForest::Map</definition>
+      <memberdef kind="typedef" id="classrrllvm_1_1SymbolForest_1aaedbda7bf450a9d891e86c0a8537b411" prot="public" static="no">
+        <type>std::map&lt; std::string, const libsbml::ASTNode * &gt;</type>
+        <definition>typedef std::map&lt;std::string, const libsbml::ASTNode*&gt; rrllvm::SymbolForest::Map</definition>
         <argsstring></argsstring>
         <name>Map</name>
         <briefdescription>
@@ -16,11 +16,11 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="llvm/SymbolForest.h" line="39" column="17" bodyfile="llvm/SymbolForest.h" bodystart="39" bodyend="-1"/>
+        <location file="llvm/SymbolForest.h" line="39" column="22" bodyfile="llvm/SymbolForest.h" bodystart="39" bodyend="-1"/>
       </memberdef>
-      <memberdef kind="typedef" id="classrrllvm_1_1SymbolForest_1a2c46c0b61569bf6ba75fc037ed9055cb" prot="public" static="no">
-        <type>map&lt; string, const libsbml::ASTNode * &gt;::const_iterator</type>
-        <definition>typedef map&lt;string, const libsbml::ASTNode*&gt;::const_iterator rrllvm::SymbolForest::_const_iterator</definition>
+      <memberdef kind="typedef" id="classrrllvm_1_1SymbolForest_1a38f08b182471f4a2b2d58929685f5180" prot="public" static="no">
+        <type>std::map&lt; std::string, const libsbml::ASTNode * &gt;::const_iterator</type>
+        <definition>typedef std::map&lt;std::string, const libsbml::ASTNode*&gt;::const_iterator rrllvm::SymbolForest::_const_iterator</definition>
         <argsstring></argsstring>
         <name>_const_iterator</name>
         <briefdescription>
@@ -29,13 +29,13 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="llvm/SymbolForest.h" line="40" column="34" bodyfile="llvm/SymbolForest.h" bodystart="40" bodyend="-1"/>
+        <location file="llvm/SymbolForest.h" line="40" column="39" bodyfile="llvm/SymbolForest.h" bodystart="40" bodyend="-1"/>
       </memberdef>
       </sectiondef>
       <sectiondef kind="public-attrib">
-      <memberdef kind="variable" id="classrrllvm_1_1SymbolForest_1a31fdeb0224e61fe5cce3fce49ac29f46" prot="public" static="no" mutable="no">
-        <type>map&lt; string, const libsbml::ASTNode * &gt;</type>
-        <definition>map&lt;string, const libsbml::ASTNode*&gt; rrllvm::SymbolForest::floatingSpecies</definition>
+      <memberdef kind="variable" id="classrrllvm_1_1SymbolForest_1a0ffc0753cae0d119ba9e2a785957c6af" prot="public" static="no" mutable="no">
+        <type>std::map&lt; std::string, const libsbml::ASTNode * &gt;</type>
+        <definition>std::map&lt;std::string, const libsbml::ASTNode*&gt; rrllvm::SymbolForest::floatingSpecies</definition>
         <argsstring></argsstring>
         <name>floatingSpecies</name>
         <briefdescription>
@@ -44,11 +44,11 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="llvm/SymbolForest.h" line="102" column="9" bodyfile="llvm/SymbolForest.h" bodystart="102" bodyend="-1"/>
+        <location file="llvm/SymbolForest.h" line="102" column="14" bodyfile="llvm/SymbolForest.h" bodystart="102" bodyend="-1"/>
       </memberdef>
-      <memberdef kind="variable" id="classrrllvm_1_1SymbolForest_1a5b0c2cd90c7bf7e75e8bf23add170709" prot="public" static="no" mutable="no">
-        <type>map&lt; string, const libsbml::ASTNode * &gt;</type>
-        <definition>map&lt;string, const libsbml::ASTNode*&gt; rrllvm::SymbolForest::boundarySpecies</definition>
+      <memberdef kind="variable" id="classrrllvm_1_1SymbolForest_1a0aac11af419eb861cdb198437fc0a521" prot="public" static="no" mutable="no">
+        <type>std::map&lt; std::string, const libsbml::ASTNode * &gt;</type>
+        <definition>std::map&lt;std::string, const libsbml::ASTNode*&gt; rrllvm::SymbolForest::boundarySpecies</definition>
         <argsstring></argsstring>
         <name>boundarySpecies</name>
         <briefdescription>
@@ -57,11 +57,11 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="llvm/SymbolForest.h" line="103" column="9" bodyfile="llvm/SymbolForest.h" bodystart="103" bodyend="-1"/>
+        <location file="llvm/SymbolForest.h" line="103" column="14" bodyfile="llvm/SymbolForest.h" bodystart="103" bodyend="-1"/>
       </memberdef>
-      <memberdef kind="variable" id="classrrllvm_1_1SymbolForest_1a3c76f5a9a1fa48d6e7710924026b8f4b" prot="public" static="no" mutable="no">
-        <type>map&lt; string, const libsbml::ASTNode * &gt;</type>
-        <definition>map&lt;string, const libsbml::ASTNode*&gt; rrllvm::SymbolForest::compartments</definition>
+      <memberdef kind="variable" id="classrrllvm_1_1SymbolForest_1a4b928ea68f80e6363e55ee7910c43a5d" prot="public" static="no" mutable="no">
+        <type>std::map&lt; std::string, const libsbml::ASTNode * &gt;</type>
+        <definition>std::map&lt;std::string, const libsbml::ASTNode*&gt; rrllvm::SymbolForest::compartments</definition>
         <argsstring></argsstring>
         <name>compartments</name>
         <briefdescription>
@@ -70,11 +70,11 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="llvm/SymbolForest.h" line="104" column="9" bodyfile="llvm/SymbolForest.h" bodystart="104" bodyend="-1"/>
+        <location file="llvm/SymbolForest.h" line="104" column="14" bodyfile="llvm/SymbolForest.h" bodystart="104" bodyend="-1"/>
       </memberdef>
-      <memberdef kind="variable" id="classrrllvm_1_1SymbolForest_1a468d0ff0c6fd48de10ad277579559c5e" prot="public" static="no" mutable="no">
-        <type>map&lt; string, const libsbml::ASTNode * &gt;</type>
-        <definition>map&lt;string, const libsbml::ASTNode*&gt; rrllvm::SymbolForest::globalParameters</definition>
+      <memberdef kind="variable" id="classrrllvm_1_1SymbolForest_1aff350a13c202ca5133292e6e0c503491" prot="public" static="no" mutable="no">
+        <type>std::map&lt; std::string, const libsbml::ASTNode * &gt;</type>
+        <definition>std::map&lt;std::string, const libsbml::ASTNode*&gt; rrllvm::SymbolForest::globalParameters</definition>
         <argsstring></argsstring>
         <name>globalParameters</name>
         <briefdescription>
@@ -83,11 +83,11 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="llvm/SymbolForest.h" line="105" column="9" bodyfile="llvm/SymbolForest.h" bodystart="105" bodyend="-1"/>
+        <location file="llvm/SymbolForest.h" line="105" column="14" bodyfile="llvm/SymbolForest.h" bodystart="105" bodyend="-1"/>
       </memberdef>
-      <memberdef kind="variable" id="classrrllvm_1_1SymbolForest_1aecbc92625c316ca716063dc09c74ee23" prot="public" static="no" mutable="no">
-        <type>map&lt; string, const libsbml::ASTNode * &gt;</type>
-        <definition>map&lt;string, const libsbml::ASTNode*&gt; rrllvm::SymbolForest::speciesReferences</definition>
+      <memberdef kind="variable" id="classrrllvm_1_1SymbolForest_1ab8bf5cd765af1482339a0f1e3aba4d39" prot="public" static="no" mutable="no">
+        <type>std::map&lt; std::string, const libsbml::ASTNode * &gt;</type>
+        <definition>std::map&lt;std::string, const libsbml::ASTNode*&gt; rrllvm::SymbolForest::speciesReferences</definition>
         <argsstring></argsstring>
         <name>speciesReferences</name>
         <briefdescription>
@@ -96,7 +96,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="llvm/SymbolForest.h" line="106" column="9" bodyfile="llvm/SymbolForest.h" bodystart="106" bodyend="-1"/>
+        <location file="llvm/SymbolForest.h" line="106" column="14" bodyfile="llvm/SymbolForest.h" bodystart="106" bodyend="-1"/>
       </memberdef>
       </sectiondef>
       <sectiondef kind="private-attrib">
@@ -115,17 +115,17 @@
       </memberdef>
       </sectiondef>
       <sectiondef kind="public-func">
-      <memberdef kind="function" id="classrrllvm_1_1SymbolForest_1a161758d6dca0d3f1a9ec96b8ffa3a139" prot="public" static="no" const="yes" explicit="no" inline="yes" virt="non-virtual">
+      <memberdef kind="function" id="classrrllvm_1_1SymbolForest_1a4b99a270969d9dfc5051ab0291e5724b" prot="public" static="no" const="yes" explicit="no" inline="yes" virt="non-virtual">
         <type>const <ref refid="classrrllvm_1_1SymbolForest_1_1ConstIterator" kindref="compound">ConstIterator</ref></type>
         <definition>const ConstIterator rrllvm::SymbolForest::find</definition>
-        <argsstring>(const map&lt; string, const libsbml::ASTNode * &gt;::key_type &amp;x) const</argsstring>
+        <argsstring>(const std::map&lt; std::string, const libsbml::ASTNode * &gt;::key_type &amp;x) const</argsstring>
         <name>find</name>
         <param>
-          <type>const map&lt; string, const libsbml::ASTNode * &gt;::key_type &amp;</type>
+          <type>const std::map&lt; std::string, const libsbml::ASTNode * &gt;::key_type &amp;</type>
           <declname>x</declname>
         </param>
         <briefdescription>
-<para>find and end are designed to work identically to the map::find. </para>
+<para>find and end are designed to work identically to the std::map::find. </para>
         </briefdescription>
         <detaileddescription>
 <para>Note that the resulting iterator is not iteratable, it is only suitable for comparing with end() and getting the value out of it. </para>
@@ -156,34 +156,18 @@
 <para>This class does not own anything, it just has const pointers to a set of ASTNodes which are owned either by the sbml model, or some containing class.</para>
 <para>This class basically stores the name / value of all the re-write rules (assigment or initial assigment). </para>
     </detaileddescription>
-    <collaborationgraph>
-      <node id="1">
-        <label>rrllvm::SymbolForest</label>
-        <link refid="classrrllvm_1_1SymbolForest"/>
-        <childnode refid="2" relation="usage">
-          <edgelabel>boundarySpecies</edgelabel>
-          <edgelabel>compartments</edgelabel>
-          <edgelabel>floatingSpecies</edgelabel>
-          <edgelabel>globalParameters</edgelabel>
-          <edgelabel>speciesReferences</edgelabel>
-        </childnode>
-      </node>
-      <node id="2">
-        <label>map&lt; string, const libsbml::ASTNode * &gt;</label>
-      </node>
-    </collaborationgraph>
     <location file="llvm/SymbolForest.h" line="36" column="1" bodyfile="llvm/SymbolForest.h" bodystart="37" bodyend="152"/>
     <listofallmembers>
-      <member refid="classrrllvm_1_1SymbolForest_1a2c46c0b61569bf6ba75fc037ed9055cb" prot="public" virt="non-virtual"><scope>rrllvm::SymbolForest</scope><name>_const_iterator</name></member>
+      <member refid="classrrllvm_1_1SymbolForest_1a38f08b182471f4a2b2d58929685f5180" prot="public" virt="non-virtual"><scope>rrllvm::SymbolForest</scope><name>_const_iterator</name></member>
       <member refid="classrrllvm_1_1SymbolForest_1a8bec91650e6f31dc40df092b7dee91d6" prot="private" virt="non-virtual"><scope>rrllvm::SymbolForest</scope><name>_end</name></member>
-      <member refid="classrrllvm_1_1SymbolForest_1a5b0c2cd90c7bf7e75e8bf23add170709" prot="public" virt="non-virtual"><scope>rrllvm::SymbolForest</scope><name>boundarySpecies</name></member>
-      <member refid="classrrllvm_1_1SymbolForest_1a3c76f5a9a1fa48d6e7710924026b8f4b" prot="public" virt="non-virtual"><scope>rrllvm::SymbolForest</scope><name>compartments</name></member>
+      <member refid="classrrllvm_1_1SymbolForest_1a0aac11af419eb861cdb198437fc0a521" prot="public" virt="non-virtual"><scope>rrllvm::SymbolForest</scope><name>boundarySpecies</name></member>
+      <member refid="classrrllvm_1_1SymbolForest_1a4b928ea68f80e6363e55ee7910c43a5d" prot="public" virt="non-virtual"><scope>rrllvm::SymbolForest</scope><name>compartments</name></member>
       <member refid="classrrllvm_1_1SymbolForest_1abef6ac740ea1dcd64dd5f0fb8cc3b023" prot="public" virt="non-virtual"><scope>rrllvm::SymbolForest</scope><name>end</name></member>
-      <member refid="classrrllvm_1_1SymbolForest_1a161758d6dca0d3f1a9ec96b8ffa3a139" prot="public" virt="non-virtual"><scope>rrllvm::SymbolForest</scope><name>find</name></member>
-      <member refid="classrrllvm_1_1SymbolForest_1a31fdeb0224e61fe5cce3fce49ac29f46" prot="public" virt="non-virtual"><scope>rrllvm::SymbolForest</scope><name>floatingSpecies</name></member>
-      <member refid="classrrllvm_1_1SymbolForest_1a468d0ff0c6fd48de10ad277579559c5e" prot="public" virt="non-virtual"><scope>rrllvm::SymbolForest</scope><name>globalParameters</name></member>
-      <member refid="classrrllvm_1_1SymbolForest_1ada02ea32d0ce9580e3ff194ac92c258f" prot="public" virt="non-virtual"><scope>rrllvm::SymbolForest</scope><name>Map</name></member>
-      <member refid="classrrllvm_1_1SymbolForest_1aecbc92625c316ca716063dc09c74ee23" prot="public" virt="non-virtual"><scope>rrllvm::SymbolForest</scope><name>speciesReferences</name></member>
+      <member refid="classrrllvm_1_1SymbolForest_1a4b99a270969d9dfc5051ab0291e5724b" prot="public" virt="non-virtual"><scope>rrllvm::SymbolForest</scope><name>find</name></member>
+      <member refid="classrrllvm_1_1SymbolForest_1a0ffc0753cae0d119ba9e2a785957c6af" prot="public" virt="non-virtual"><scope>rrllvm::SymbolForest</scope><name>floatingSpecies</name></member>
+      <member refid="classrrllvm_1_1SymbolForest_1aff350a13c202ca5133292e6e0c503491" prot="public" virt="non-virtual"><scope>rrllvm::SymbolForest</scope><name>globalParameters</name></member>
+      <member refid="classrrllvm_1_1SymbolForest_1aaedbda7bf450a9d891e86c0a8537b411" prot="public" virt="non-virtual"><scope>rrllvm::SymbolForest</scope><name>Map</name></member>
+      <member refid="classrrllvm_1_1SymbolForest_1ab8bf5cd765af1482339a0f1e3aba4d39" prot="public" virt="non-virtual"><scope>rrllvm::SymbolForest</scope><name>speciesReferences</name></member>
     </listofallmembers>
   </compounddef>
 </doxygen>

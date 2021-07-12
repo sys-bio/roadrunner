@@ -39,9 +39,9 @@ public:
      */
     llvm::Value* loadReactionRate(const libsbml::Reaction*);
 
-    virtual void recursiveSymbolPush(const std::string& symbol);
+    void recursiveSymbolPush(const std::string& symbol) override;
 
-    virtual void recursiveSymbolPop();
+    void recursiveSymbolPop() override;
 
     /**
      * Flush the symbol cache. This is required in branches and switch blocks as
@@ -54,7 +54,7 @@ public:
      * symbols would be chached. These need to be popped as these symbols are
      * not valid outside of the local conditional or scope block.
      */
-    virtual size_t pushCacheBlock();
+    size_t pushCacheBlock() override;
 
     /**
      * Pop a scoped cache block, this clears these values, and any subsequent reads
@@ -62,14 +62,14 @@ public:
      *
      * Will throw an exception if an empty stack pop is attempted.
      */
-    virtual size_t popCacheBlock();
+    size_t popCacheBlock() override;
 
 
 protected:
     LoadSymbolResolverBase(const ModelGeneratorContext &ctx, llvm::Value *modelData);
 
     typedef std::list<std::string> StringStack;
-    typedef cxx11_ns::unordered_map<std::string, llvm::Value*> ValueMap;
+    typedef std::unordered_map<std::string, llvm::Value*> ValueMap;
     typedef std::deque<ValueMap> ValueMapStack;
 
     const ModelGeneratorContext &modelGenContext;
@@ -94,7 +94,7 @@ protected:
      */
     llvm::Value* cacheValue(const std::string& symbol,
             const llvm::ArrayRef<llvm::Value*>& args,
-            llvm::Value* value = NULL);
+            llvm::Value* value = nullptr);
 };
 
 

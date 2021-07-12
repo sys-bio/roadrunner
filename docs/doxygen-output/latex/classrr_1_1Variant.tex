@@ -7,7 +7,7 @@ A basic type to hold a variety of data types.
 
 
 
-{\ttfamily \#include $<$Variant.\+h$>$}
+{\ttfamily \#include $<$\+\_\+\+Variant.\+h$>$}
 
 \doxysubsection*{Public Types}
 \begin{DoxyCompactItemize}
@@ -94,12 +94,12 @@ const std\+::type\+\_\+info \& \mbox{\hyperlink{classrr_1_1Variant_ab221d80ddd0d
 \item 
 \mbox{\Hypertarget{classrr_1_1Variant_ab1e6879f232971ab8fa285cf50139f8a}\label{classrr_1_1Variant_ab1e6879f232971ab8fa285cf50139f8a}} 
 std\+::string \mbox{\hyperlink{classrr_1_1Variant_ab1e6879f232971ab8fa285cf50139f8a}{to\+String}} () const
-\begin{DoxyCompactList}\small\item\em Converts the \mbox{\hyperlink{classrr_1_1Variant}{Variant}} to a string in J\+S\+ON format. \end{DoxyCompactList}\item 
+\begin{DoxyCompactList}\small\item\em Converts the \mbox{\hyperlink{classrr_1_1Variant}{Variant}} to a std\+::string in J\+S\+ON format. \end{DoxyCompactList}\item 
 std\+::string \mbox{\hyperlink{classrr_1_1Variant_aae71df98365e03148ca33a3d3f354115}{python\+Repr}} () const
 \begin{DoxyCompactList}\small\item\em Convert to Python-\/compatible representation. \end{DoxyCompactList}\item 
 \mbox{\Hypertarget{classrr_1_1Variant_a287a173e395dafe75f1631c69f00551a}\label{classrr_1_1Variant_a287a173e395dafe75f1631c69f00551a}} 
 bool \mbox{\hyperlink{classrr_1_1Variant_a287a173e395dafe75f1631c69f00551a}{is\+String}} () const
-\begin{DoxyCompactList}\small\item\em is this variant a string. \end{DoxyCompactList}\item 
+\begin{DoxyCompactList}\small\item\em is this variant a std\+::string. \end{DoxyCompactList}\item 
 \mbox{\Hypertarget{classrr_1_1Variant_ac6e06d899cd97644275c585e22673163}\label{classrr_1_1Variant_ac6e06d899cd97644275c585e22673163}} 
 bool \mbox{\hyperlink{classrr_1_1Variant_ac6e06d899cd97644275c585e22673163}{is\+Integer}} () const
 \begin{DoxyCompactList}\small\item\em was an integer stored here. \end{DoxyCompactList}\item 
@@ -122,7 +122,7 @@ bool {\bfseries is\+Double\+Vector} () const
 \begin{DoxyCompactItemize}
 \item 
 static \mbox{\hyperlink{classrr_1_1Variant}{Variant}} \mbox{\hyperlink{classrr_1_1Variant_abe42f3be24595157e92e255ddf5ef082}{parse}} (const std\+::string \&val)
-\begin{DoxyCompactList}\small\item\em Parses the string which must be in J\+S\+ON format. \end{DoxyCompactList}\end{DoxyCompactItemize}
+\begin{DoxyCompactList}\small\item\em Parses the std\+::string which must be in J\+S\+ON format. \end{DoxyCompactList}\end{DoxyCompactItemize}
 
 
 \doxysubsection{Detailed Description}
@@ -130,7 +130,7 @@ A basic type to hold a variety of data types.
 
 Unfourtunatly C++ does not have a standard variant type so we have to create one here.
 
-This is a fairly low performance class and is intended soley for infrequent operations such as setting configuration parameters.
+This is a fairly low performance class and is intended soley for infrequent operations such as \mbox{\hyperlink{classrr_1_1Variant}{Variant}} configuration parameters.
 
 If Python support is enabled, this class can convert to and from a Python object.
 
@@ -156,7 +156,7 @@ Extraction\+: To retrieve the stored data, uses the convert function, this is te
 \DoxyCodeLine{\textcolor{comment}{// to convert to integer:}}
 \DoxyCodeLine{\textcolor{keywordtype}{int} i = v.convert<\textcolor{keywordtype}{int}>();}
 \DoxyCodeLine{}
-\DoxyCodeLine{\textcolor{comment}{// to convert to string:}}
+\DoxyCodeLine{\textcolor{comment}{// to convert to std::string:}}
 \DoxyCodeLine{std::string s = v.convert<std::string>();}
 \end{DoxyCode}
 
@@ -182,7 +182,7 @@ create a new variant from an existing supported data type.
 This templated constructor can assign any primitive type\+: 
 \begin{DoxyCode}{0}
 \DoxyCodeLine{\mbox{\hyperlink{classrr_1_1Variant_a48f0736e18b6463303047b46cccca550}{Variant}} v = (int)1;}
-\DoxyCodeLine{\mbox{\hyperlink{classrr_1_1Variant_a48f0736e18b6463303047b46cccca550}{Variant}} v = std::string(\textcolor{stringliteral}{"{}a string"{}});}
+\DoxyCodeLine{\mbox{\hyperlink{classrr_1_1Variant_a48f0736e18b6463303047b46cccca550}{Variant}} v = std::string(\textcolor{stringliteral}{"{}a std::string"{}});}
 \end{DoxyCode}
  
 
@@ -198,7 +198,7 @@ T rr\+::\+Variant\+::convert (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})
 
 Convert this variant to a supported data type. 
 
-This method will try to perform type coercion, i.\+e. if this variant contains a string, and it is asked to convert to a int, the string will be parsed as an int. Similary, doubles will be rounded to int, so forth.
+This method will try to perform type coercion, i.\+e. if this variant contains a std\+::string, and it is asked to convert to a int, the std\+::string will be parsed as an int. Similary, doubles will be rounded to int, so forth.
 
 
 \begin{DoxyCode}{0}
@@ -223,9 +223,9 @@ Assign one variant to another. \mbox{\Hypertarget{classrr_1_1Variant_abe42f3be24
 
 
 
-Parses the string which must be in J\+S\+ON format. 
+Parses the std\+::string which must be in J\+S\+ON format. 
 
-This is a common way to read a \mbox{\hyperlink{classrr_1_1Variant}{Variant}} from a file or create a new one from a string\+: 
+This is a common way to read a \mbox{\hyperlink{classrr_1_1Variant}{Variant}} from a file or create a new one from a std\+::string\+: 
 \begin{DoxyCode}{0}
 \DoxyCodeLine{\mbox{\hyperlink{classrr_1_1Variant_a48f0736e18b6463303047b46cccca550}{Variant}} v = \mbox{\hyperlink{classrr_1_1Variant_abe42f3be24595157e92e255ddf5ef082}{Variant::parse}}(\textcolor{stringliteral}{"{}0.123"{}});}
 \end{DoxyCode}
@@ -259,15 +259,15 @@ This will let you check what kind of data is strored in this variant.
 \DoxyCodeLine{\textcolor{comment}{// to check if this is an integer:}}
 \DoxyCodeLine{\mbox{\hyperlink{classrr_1_1Variant_a48f0736e18b6463303047b46cccca550}{Variant}} v = ...}
 \DoxyCodeLine{if (v.type() == \textcolor{keyword}{typeid}(\textcolor{keywordtype}{int}))}
-\DoxyCodeLine{    cout << \textcolor{stringliteral}{"{}its an int"{}};}
+\DoxyCodeLine{    std::cout << \textcolor{stringliteral}{"{}its an int"{}};}
 \DoxyCodeLine{}
-\DoxyCodeLine{\textcolor{comment}{// to check if its a string:}}
+\DoxyCodeLine{\textcolor{comment}{// to check if its a std::string:}}
 \DoxyCodeLine{\textcolor{keywordflow}{if} (v.type() == \textcolor{keyword}{typeid}(std::string))}
-\DoxyCodeLine{    cout << \textcolor{stringliteral}{"{}ints a string"{}};}
+\DoxyCodeLine{    std::cout << \textcolor{stringliteral}{"{}ints a std::string"{}};}
 \end{DoxyCode}
  
 
 The documentation for this class was generated from the following files\+:\begin{DoxyCompactItemize}
 \item 
-Variant.\+h\item 
-Variant.\+cpp\end{DoxyCompactItemize}
+\+\_\+\+Variant.\+h\item 
+\+\_\+\+Variant.\+cpp\end{DoxyCompactItemize}

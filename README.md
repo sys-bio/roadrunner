@@ -2,6 +2,16 @@
 [![GitHub version](https://badge.fury.io/gh/sys-bio%2Froadrunner.svg)](http://badge.fury.io/gh/sys-bio%2Froadrunner)
 [![Build Status](https://dev.azure.com/TheRoadrunnerProject/roadrunner/_apis/build/status/sys-bio.roadrunner?branchName=develop)](https://dev.azure.com/TheRoadrunnerProject/roadrunner/_build/latest?definitionId=8&branchName=develop)
 
+# Installation
+Python front end (stable):
+`pip install libroadrunner`
+
+Binaries:
+Head over to the [Releases](https://github.com/sys-bio/roadrunner/releases) page to download binaries. 
+
+Experimental front end: 
+`pip install libroadrunner-experimental`
+
 # [Click here to get Documentation](http://sys-bio.github.io/roadrunner/)
 
 Copyright 2013-2021
@@ -55,11 +65,11 @@ image.
 
 To get the base image: 
 
-  docker pull ciaranwelsh/roadrunner-manylinux2014-base:latest
+`docker pull ciaranwelsh/roadrunner-manylinux2014-base:latest`
 
 and the build image:
 
-  docker pull ciaranwelsh/roadrunner-manylinux2014-build:latest
+`docker pull ciaranwelsh/roadrunner-manylinux2014-build:latest`
 
 Docker build scripts can be found under the `docker` directory from the roadrunner
 root directory. 

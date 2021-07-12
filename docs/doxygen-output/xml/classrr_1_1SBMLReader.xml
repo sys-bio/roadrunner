@@ -14,11 +14,11 @@
           <declname>sbml_or_uri</declname>
         </param>
         <briefdescription>
-<para>read an SBML document from a local file path, a remote URI, or directlly from a sbml string. </para>
+<para>read an SBML document from a local file path, a remote URI, or directlly from a sbml std::string. </para>
         </briefdescription>
         <detaileddescription>
 <para>If the document is a local file, and has the comp extension, it is automatically flattened before begin returned.</para>
-<para>If the string is already a SBML string, it is passed through. If the string is a local file or URI, the document is read from the source and the contents returned (and flattened if comp). </para>
+<para>If the std::string is already a SBML std::string, it is passed through. If the std::string is a local file or URI, the document is read from the source and the contents returned (and flattened if comp). </para>
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
@@ -34,10 +34,10 @@
           <declname>str</declname>
         </param>
         <briefdescription>
-<para>performs some basic checks to see if the string is an sbml string. </para>
+<para>performs some basic checks to see if the std::string is an sbml std::string. </para>
         </briefdescription>
         <detaileddescription>
-<para>This just checks the basic format and checks on characters that are not valid file path characters. So if this string matches this function, there should basically be no way that this is a valid path or uri. </para>
+<para>This just checks the basic format and checks on characters that are not valid file path characters. So if this std::string matches this function, there should basically be no way that this is a valid path or uri. </para>
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
@@ -45,10 +45,10 @@
       </memberdef>
       </sectiondef>
     <briefdescription>
-<para>Read an sbml document from either disk, a remote url, or as a string. </para>
+<para>Read an sbml document from either disk, a remote url, or as a std::string. </para>
     </briefdescription>
     <detaileddescription>
-<para>This function will first try to iterperet the string as uri, if that fails, it will try as a local file path, and finally if that fails, it will treat the string as whole sbml document and return the string.</para>
+<para>This function will first try to iterperet the std::string as uri, if that fails, it will try as a local file path, and finally if that fails, it will treat the std::string as whole sbml document and return the std::string.</para>
 <para>This is simple enough that it should belong in <ref refid="classrr_1_1RoadRunner" kindref="compound">RoadRunner</ref> proper, however we currently use Poco for reading http streams, and it seems to compilation issues if &quot;windows.h&quot; is included before, an evidently some other roadrunner file includes windows.h, so we put all of this here by itself we we can make sure that there is no nasty windows files included.</para>
 <para>also, we put it as a static class method because libSBML already uses &apos;readSBML&apos; and we want to avoid namespace collisions. </para>
     </detaileddescription>

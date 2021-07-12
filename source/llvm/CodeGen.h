@@ -36,9 +36,9 @@ public:
      * @param symbol: the symbol name to resolve
      * @param args: function argument list
      */
-    virtual llvm::Value *loadSymbolValue(const std::string& symbol,
-            const llvm::ArrayRef<llvm::Value*>& args =
-                    llvm::ArrayRef<llvm::Value*>()) = 0;
+    virtual llvm::Value *loadSymbolValue(
+            const std::string& symbol,
+            const llvm::ArrayRef<llvm::Value*>& args = llvm::ArrayRef<llvm::Value*>()) = 0;
 
     virtual void recursiveSymbolPush(const std::string& symbol) = 0;
 

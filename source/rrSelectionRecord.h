@@ -4,6 +4,8 @@
 #include <ostream>
 #include <string>
 
+
+
 namespace rr
 {
 using std::string;
@@ -151,6 +153,11 @@ public:
         EIGENVALUE_IMAG =                    (0x1 << 23),
 
         /**
+        * SelectionType for everything.
+        */
+        ALL =                               (0xffffffff),
+
+        /**
          * SelectionType for complex eigenvalues.
          */
         EIGENVALUE_COMPLEX =                EIGENVALUE_REAL | EIGENVALUE_IMAG,
@@ -273,11 +280,6 @@ public:
         * SelectionType for unscaled control coefficient.
         */
         UNKNOWN_ELEMENT =                   UNKNOWN | ELEMENT,
-
-        /**
-        * SelectionType for everything.
-        */
-        ALL =                               (0xffffffff),
 
         /**
         * SelectionType for all values related to independent species. (Unused)

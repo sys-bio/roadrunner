@@ -231,7 +231,7 @@
         <argsstring></argsstring>
         <name>stateVectorSize</name>
         <briefdescription>
-<para>number of items in the state vector. </para>
+<para>number of items in the state std::vector. </para>
         </briefdescription>
         <detaileddescription>
 <para>should be numIndFloatingSpecies + numRateRules </para>
@@ -246,7 +246,7 @@
         <argsstring></argsstring>
         <name>stateVector</name>
         <briefdescription>
-<para>the state vector, this is usually a pointer to a block of data owned by the integrator. </para>
+<para>the state std::vector, this is usually a pointer to a block of data owned by the integrator. </para>
         </briefdescription>
         <detaileddescription>
         </detaileddescription>
@@ -260,7 +260,7 @@
         <argsstring></argsstring>
         <name>stateVectorRate</name>
         <briefdescription>
-<para>the rate of change of the state vector, this is usually a pointer to a block of data owned by the integrator. </para>
+<para>the rate of change of the state std::vector, this is usually a pointer to a block of data owned by the integrator. </para>
         </briefdescription>
         <detaileddescription>
         </detaileddescription>
@@ -417,8 +417,8 @@
 <para>All of the elelments which have a rate rule are stored here, including the dependent floating species, which will not be stored in the independent floating species block. </para>
         </briefdescription>
         <detaileddescription>
-<para>As the integrator runs, this pointer can simply point to an offset in the integrator&apos;s state vector.</para>
-<para>This pointer is part of the state vector. When any function is called by CVODE, this is actually a pointer to a CVODE owned memory block. Otherwise, this points to the alocated rateRuleValues block at the end of this struct. </para>
+<para>As the integrator runs, this pointer can simply point to an offset in the integrator&apos;s state std::vector.</para>
+<para>This pointer is part of the state std::vector. When any function is called by CVODE, this is actually a pointer to a CVODE owned memory block. Otherwise, this points to the alocated rateRuleValues block at the end of this struct. </para>
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
@@ -433,7 +433,7 @@
 <para>has length numIndFloatingSpecies </para>
         </briefdescription>
         <detaileddescription>
-<para>This pointer is part of the state vector. When any function is called by CVODE, this is actually a pointer to a CVODE owned memory block. </para>
+<para>This pointer is part of the state std::vector. When any function is called by CVODE, this is actually a pointer to a CVODE owned memory block. </para>
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>

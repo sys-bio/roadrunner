@@ -13,6 +13,8 @@
   
   <link rel="stylesheet" href="../_static/css/theme.css" type="text/css" />
   <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
+  <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
+  <link rel="stylesheet" href="../_static/css/theme.css" type="text/css" />
   <link rel="stylesheet" href="../_static/tabs.css" type="text/css" />
 
   
@@ -30,10 +32,10 @@
   
     
       <script type="text/javascript" id="documentation_options" data-url_root="../" src="../_static/documentation_options.js"></script>
+        <script data-url_root="../" id="documentation_options" src="../_static/documentation_options.js"></script>
         <script src="../_static/jquery.js"></script>
         <script src="../_static/underscore.js"></script>
         <script src="../_static/doctools.js"></script>
-        <script src="../_static/language_data.js"></script>
     
     <script type="text/javascript" src="../_static/js/theme.js"></script>
 
@@ -147,6 +149,7 @@
 <li class="toctree-l2"><a class="reference internal" href="index.html#a-complete-example-of-creating-an-integrator">A complete example of creating an integrator</a></li>
 </ul>
 </li>
+<li class="toctree-l1"><a class="reference internal" href="../developers_docs/index.html">Developers Documentation</a></li>
 </ul>
 
             
@@ -219,283 +222,278 @@
   <div class="section" id="rrnleq2interface">
 <h1>rrNLEQ2Interface<a class="headerlink" href="#rrnleq2interface" title="Permalink to this headline">¶</a></h1>
 <dl class="cpp class">
-<dt id="_CPPv4N2rr14NLEQ2InterfaceE">
-<span id="_CPPv3N2rr14NLEQ2InterfaceE"></span><span id="_CPPv2N2rr14NLEQ2InterfaceE"></span><span id="rr::NLEQ2Interface"></span><span class="target" id="classrr_1_1NLEQ2Interface"></span><em class="property">class </em><code class="sig-prename descclassname">rr<code class="sig-prename descclassname">::</code></code><code class="sig-name descname">NLEQ2Interface</code> : <em class="property">public</em> rr::<a class="reference internal" href="rrSteadyStateSolver.html#_CPPv4N2rr19rrSteadyStateSolverE" title="rr::rrSteadyStateSolver">rrSteadyStateSolver</a><a class="headerlink" href="#_CPPv4N2rr14NLEQ2InterfaceE" title="Permalink to this definition">¶</a><br /></dt>
+<dt class="sig sig-object cpp" id="_CPPv4N2rr14NLEQ2InterfaceE">
+<span id="_CPPv3N2rr14NLEQ2InterfaceE"></span><span id="_CPPv2N2rr14NLEQ2InterfaceE"></span><span id="rr::NLEQ2Interface"></span><span class="target" id="classrr_1_1NLEQ2Interface"></span><span class="k"><span class="pre">class</span></span><span class="w"> </span><span class="sig-prename descclassname"><span class="n"><span class="pre">rr</span></span><span class="p"><span class="pre">::</span></span></span><span class="sig-name descname"><span class="n"><span class="pre">NLEQ2Interface</span></span></span><span class="w"> </span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="k"><span class="pre">public</span></span><span class="w"> </span><span class="n"><span class="pre">rr</span></span><span class="p"><span class="pre">::</span></span><a class="reference internal" href="Dictionary.html#_CPPv4N2rr10DictionaryE" title="rr::Dictionary"><span class="n"><span class="pre">Dictionary</span></span></a><a class="headerlink" href="#_CPPv4N2rr14NLEQ2InterfaceE" title="Permalink to this definition">¶</a><br /></dt>
 <dd><div class="breathe-sectiondef docutils container">
-<p class="breathe-sectiondef-title rubric">Public Functions</p>
+<p class="breathe-sectiondef-title rubric" id="breathe-section-title-public-functions">Public Functions</p>
 <dl class="cpp function">
-<dt id="_CPPv4N2rr14NLEQ2Interface14NLEQ2InterfaceEP15ExecutableModel">
-<span id="_CPPv3N2rr14NLEQ2Interface14NLEQ2InterfaceEP15ExecutableModel"></span><span id="_CPPv2N2rr14NLEQ2Interface14NLEQ2InterfaceEP15ExecutableModel"></span><span id="rr::NLEQ2Interface::NLEQ2Interface__ExecutableModelP"></span><span class="target" id="classrr_1_1NLEQ2Interface_1a8a81435af883b0dfcdc367b02ead6e60"></span><code class="sig-name descname">NLEQ2Interface</code><span class="sig-paren">(</span><a class="reference internal" href="rrExecutableModel.html#_CPPv4N2rr15ExecutableModelE" title="rr::ExecutableModel">ExecutableModel</a> *<em>_model</em> = NULL<span class="sig-paren">)</span><a class="headerlink" href="#_CPPv4N2rr14NLEQ2Interface14NLEQ2InterfaceEP15ExecutableModel" title="Permalink to this definition">¶</a><br /></dt>
+<dt class="sig sig-object cpp" id="_CPPv4N2rr14NLEQ2Interface14NLEQ2InterfaceEP15ExecutableModel">
+<span id="_CPPv3N2rr14NLEQ2Interface14NLEQ2InterfaceEP15ExecutableModel"></span><span id="_CPPv2N2rr14NLEQ2Interface14NLEQ2InterfaceEP15ExecutableModel"></span><span id="rr::NLEQ2Interface::NLEQ2Interface__ExecutableModelP"></span><span class="target" id="classrr_1_1NLEQ2Interface_1a8a81435af883b0dfcdc367b02ead6e60"></span><span class="sig-name descname"><span class="n"><span class="pre">NLEQ2Interface</span></span></span><span class="sig-paren">(</span><a class="reference internal" href="rrExecutableModel.html#_CPPv4N2rr15ExecutableModelE" title="rr::ExecutableModel"><span class="n"><span class="pre">ExecutableModel</span></span></a><span class="w"> </span><span class="p"><span class="pre">*</span></span><span class="n sig-param"><span class="pre">_model</span></span><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="n"><span class="pre">NULL</span></span><span class="sig-paren">)</span><a class="headerlink" href="#_CPPv4N2rr14NLEQ2Interface14NLEQ2InterfaceEP15ExecutableModel" title="Permalink to this definition">¶</a><br /></dt>
 <dd><p>Creates a new Instance of NLEQ for the given Model. </p>
 </dd></dl>
 
 <dl class="cpp function">
-<dt id="_CPPv4N2rr14NLEQ2InterfaceD0Ev">
-<span id="_CPPv3N2rr14NLEQ2InterfaceD0Ev"></span><span id="_CPPv2N2rr14NLEQ2InterfaceD0Ev"></span><span id="rr::NLEQ2Interface::~NLEQ2Interface"></span><span class="target" id="classrr_1_1NLEQ2Interface_1a42b8fe7ec75247997c6623b435b9a333"></span><code class="sig-name descname">~NLEQ2Interface</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#_CPPv4N2rr14NLEQ2InterfaceD0Ev" title="Permalink to this definition">¶</a><br /></dt>
+<dt class="sig sig-object cpp" id="_CPPv4N2rr14NLEQ2InterfaceD0Ev">
+<span id="_CPPv3N2rr14NLEQ2InterfaceD0Ev"></span><span id="_CPPv2N2rr14NLEQ2InterfaceD0Ev"></span><span id="rr::NLEQ2Interface::~NLEQ2Interface"></span><span class="target" id="classrr_1_1NLEQ2Interface_1a42b8fe7ec75247997c6623b435b9a333"></span><span class="sig-name descname"><span class="n"><span class="pre">~NLEQ2Interface</span></span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#_CPPv4N2rr14NLEQ2InterfaceD0Ev" title="Permalink to this definition">¶</a><br /></dt>
 <dd></dd></dl>
 
 <dl class="cpp function">
-<dt id="_CPPv4N2rr14NLEQ2Interface5solveEv">
-<span id="_CPPv3N2rr14NLEQ2Interface5solveEv"></span><span id="_CPPv2N2rr14NLEQ2Interface5solveEv"></span><span id="rr::NLEQ2Interface::solve"></span><span class="target" id="classrr_1_1NLEQ2Interface_1a0f1535692fbe346c98f1aa3090d00e82"></span><em class="property">virtual</em> double <code class="sig-name descname">solve</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#_CPPv4N2rr14NLEQ2Interface5solveEv" title="Permalink to this definition">¶</a><br /></dt>
+<dt class="sig sig-object cpp" id="_CPPv4N2rr14NLEQ2Interface5solveEv">
+<span id="_CPPv3N2rr14NLEQ2Interface5solveEv"></span><span id="_CPPv2N2rr14NLEQ2Interface5solveEv"></span><span id="rr::NLEQ2Interface::solve"></span><span class="target" id="classrr_1_1NLEQ2Interface_1a0f1535692fbe346c98f1aa3090d00e82"></span><span class="kt"><span class="pre">double</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">solve</span></span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#_CPPv4N2rr14NLEQ2Interface5solveEv" title="Permalink to this definition">¶</a><br /></dt>
 <dd><p>Thea actual solver routine making the call to NLEQ2. </p>
-<p><dl class="simple">
-<dt><strong>Return</strong></dt><dd><p>sums of squares </p>
+<dl class="field-list simple">
+<dt class="field-odd">Returns</dt>
+<dd class="field-odd"><p>sums of squares </p>
 </dd>
 </dl>
-</p>
 </dd></dl>
 
 <dl class="cpp function">
-<dt id="_CPPv4N2rr14NLEQ2Interface7setItemERKNSt6stringERKN2rr7VariantE">
-<span id="_CPPv3N2rr14NLEQ2Interface7setItemERKNSt6stringERKN2rr7VariantE"></span><span id="_CPPv2N2rr14NLEQ2Interface7setItemERKNSt6stringERKN2rr7VariantE"></span><span id="rr::NLEQ2Interface::setItem__ssCR.rr::VariantCR"></span><span class="target" id="classrr_1_1NLEQ2Interface_1a9495cf109b4ec802e3e8532099c73f5e"></span><em class="property">virtual</em> void <code class="sig-name descname">setItem</code><span class="sig-paren">(</span><em class="property">const</em> std::string &amp;<em>key</em>, <em class="property">const</em> rr::<a class="reference internal" href="Variant.html#_CPPv4N2rr7VariantE" title="rr::Variant">Variant</a> &amp;<em>value</em><span class="sig-paren">)</span><a class="headerlink" href="#_CPPv4N2rr14NLEQ2Interface7setItemERKNSt6stringERKN2rr7VariantE" title="Permalink to this definition">¶</a><br /></dt>
+<dt class="sig sig-object cpp" id="_CPPv4N2rr14NLEQ2Interface7setItemERKNSt6stringERKN2rr7SettingE">
+<span id="_CPPv3N2rr14NLEQ2Interface7setItemERKNSt6stringERKN2rr7SettingE"></span><span id="_CPPv2N2rr14NLEQ2Interface7setItemERKNSt6stringERKN2rr7SettingE"></span><span id="rr::NLEQ2Interface::setItem__ssCR.rr::SettingCR"></span><span class="target" id="classrr_1_1NLEQ2Interface_1aaaece125dad7d037daa8e14e296cf127"></span><span class="k"><span class="pre">virtual</span></span><span class="w"> </span><span class="kt"><span class="pre">void</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">setItem</span></span></span><span class="sig-paren">(</span><span class="k"><span class="pre">const</span></span><span class="w"> </span><span class="n"><span class="pre">std</span></span><span class="p"><span class="pre">::</span></span><span class="n"><span class="pre">string</span></span><span class="w"> </span><span class="p"><span class="pre">&amp;</span></span><span class="n sig-param"><span class="pre">key</span></span>, <span class="k"><span class="pre">const</span></span><span class="w"> </span><span class="n"><span class="pre">rr</span></span><span class="p"><span class="pre">::</span></span><span class="n"><span class="pre">Setting</span></span><span class="w"> </span><span class="p"><span class="pre">&amp;</span></span><span class="n sig-param"><span class="pre">value</span></span><span class="sig-paren">)</span><a class="headerlink" href="#_CPPv4N2rr14NLEQ2Interface7setItemERKNSt6stringERKN2rr7SettingE" title="Permalink to this definition">¶</a><br /></dt>
 <dd><p>Implement <a class="reference internal" href="Dictionary.html#classrr_1_1Dictionary"><span class="std std-ref">Dictionary</span></a> Interface. </p>
 <p>set an arbitrary key </p>
 </dd></dl>
 
 <dl class="cpp function">
-<dt id="_CPPv4NK2rr14NLEQ2Interface7getItemERKNSt6stringE">
-<span id="_CPPv3NK2rr14NLEQ2Interface7getItemERKNSt6stringE"></span><span id="_CPPv2NK2rr14NLEQ2Interface7getItemERKNSt6stringE"></span><span id="rr::NLEQ2Interface::getItem__ssCRC"></span><span class="target" id="classrr_1_1NLEQ2Interface_1a4ef5104c0c2bb69c42add51d3c6cb0d4"></span><em class="property">virtual</em> <a class="reference internal" href="Variant.html#_CPPv4N2rr7VariantE" title="rr::Variant">Variant</a> <code class="sig-name descname">getItem</code><span class="sig-paren">(</span><em class="property">const</em> std::string &amp;<em>key</em><span class="sig-paren">)</span> <em class="property">const</em><a class="headerlink" href="#_CPPv4NK2rr14NLEQ2Interface7getItemERKNSt6stringE" title="Permalink to this definition">¶</a><br /></dt>
+<dt class="sig sig-object cpp" id="_CPPv4NK2rr14NLEQ2Interface7getItemERKNSt6stringE">
+<span id="_CPPv3NK2rr14NLEQ2Interface7getItemERKNSt6stringE"></span><span id="_CPPv2NK2rr14NLEQ2Interface7getItemERKNSt6stringE"></span><span id="rr::NLEQ2Interface::getItem__ssCRC"></span><span class="target" id="classrr_1_1NLEQ2Interface_1abb1a5d9b9039568fbf6f7c34ab91f670"></span><span class="k"><span class="pre">virtual</span></span><span class="w"> </span><span class="n"><span class="pre">Setting</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">getItem</span></span></span><span class="sig-paren">(</span><span class="k"><span class="pre">const</span></span><span class="w"> </span><span class="n"><span class="pre">std</span></span><span class="p"><span class="pre">::</span></span><span class="n"><span class="pre">string</span></span><span class="w"> </span><span class="p"><span class="pre">&amp;</span></span><span class="n sig-param"><span class="pre">key</span></span><span class="sig-paren">)</span><span class="w"> </span><span class="k"><span class="pre">const</span></span><a class="headerlink" href="#_CPPv4NK2rr14NLEQ2Interface7getItemERKNSt6stringE" title="Permalink to this definition">¶</a><br /></dt>
 <dd><p>get a value. </p>
 <p>Variants are POD. </p>
 </dd></dl>
 
 <dl class="cpp function">
-<dt id="_CPPv4NK2rr14NLEQ2Interface6hasKeyERKNSt6stringE">
-<span id="_CPPv3NK2rr14NLEQ2Interface6hasKeyERKNSt6stringE"></span><span id="_CPPv2NK2rr14NLEQ2Interface6hasKeyERKNSt6stringE"></span><span id="rr::NLEQ2Interface::hasKey__ssCRC"></span><span class="target" id="classrr_1_1NLEQ2Interface_1a544143f7d7780b7ae8a142ed9f352667"></span><em class="property">virtual</em> bool <code class="sig-name descname">hasKey</code><span class="sig-paren">(</span><em class="property">const</em> std::string &amp;<em>key</em><span class="sig-paren">)</span> <em class="property">const</em><a class="headerlink" href="#_CPPv4NK2rr14NLEQ2Interface6hasKeyERKNSt6stringE" title="Permalink to this definition">¶</a><br /></dt>
+<dt class="sig sig-object cpp" id="_CPPv4NK2rr14NLEQ2Interface6hasKeyERKNSt6stringE">
+<span id="_CPPv3NK2rr14NLEQ2Interface6hasKeyERKNSt6stringE"></span><span id="_CPPv2NK2rr14NLEQ2Interface6hasKeyERKNSt6stringE"></span><span id="rr::NLEQ2Interface::hasKey__ssCRC"></span><span class="target" id="classrr_1_1NLEQ2Interface_1a544143f7d7780b7ae8a142ed9f352667"></span><span class="k"><span class="pre">virtual</span></span><span class="w"> </span><span class="kt"><span class="pre">bool</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">hasKey</span></span></span><span class="sig-paren">(</span><span class="k"><span class="pre">const</span></span><span class="w"> </span><span class="n"><span class="pre">std</span></span><span class="p"><span class="pre">::</span></span><span class="n"><span class="pre">string</span></span><span class="w"> </span><span class="p"><span class="pre">&amp;</span></span><span class="n sig-param"><span class="pre">key</span></span><span class="sig-paren">)</span><span class="w"> </span><span class="k"><span class="pre">const</span></span><a class="headerlink" href="#_CPPv4NK2rr14NLEQ2Interface6hasKeyERKNSt6stringE" title="Permalink to this definition">¶</a><br /></dt>
 <dd><p>is there a key matching this name. </p>
 </dd></dl>
 
 <dl class="cpp function">
-<dt id="_CPPv4N2rr14NLEQ2Interface10deleteItemERKNSt6stringE">
-<span id="_CPPv3N2rr14NLEQ2Interface10deleteItemERKNSt6stringE"></span><span id="_CPPv2N2rr14NLEQ2Interface10deleteItemERKNSt6stringE"></span><span id="rr::NLEQ2Interface::deleteItem__ssCR"></span><span class="target" id="classrr_1_1NLEQ2Interface_1a923f768a00e878aed2fd762fec66479a"></span><em class="property">virtual</em> size_t <code class="sig-name descname">deleteItem</code><span class="sig-paren">(</span><em class="property">const</em> std::string &amp;<em>key</em><span class="sig-paren">)</span><a class="headerlink" href="#_CPPv4N2rr14NLEQ2Interface10deleteItemERKNSt6stringE" title="Permalink to this definition">¶</a><br /></dt>
+<dt class="sig sig-object cpp" id="_CPPv4N2rr14NLEQ2Interface10deleteItemERKNSt6stringE">
+<span id="_CPPv3N2rr14NLEQ2Interface10deleteItemERKNSt6stringE"></span><span id="_CPPv2N2rr14NLEQ2Interface10deleteItemERKNSt6stringE"></span><span id="rr::NLEQ2Interface::deleteItem__ssCR"></span><span class="target" id="classrr_1_1NLEQ2Interface_1a923f768a00e878aed2fd762fec66479a"></span><span class="k"><span class="pre">virtual</span></span><span class="w"> </span><span class="n"><span class="pre">size_t</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">deleteItem</span></span></span><span class="sig-paren">(</span><span class="k"><span class="pre">const</span></span><span class="w"> </span><span class="n"><span class="pre">std</span></span><span class="p"><span class="pre">::</span></span><span class="n"><span class="pre">string</span></span><span class="w"> </span><span class="p"><span class="pre">&amp;</span></span><span class="n sig-param"><span class="pre">key</span></span><span class="sig-paren">)</span><a class="headerlink" href="#_CPPv4N2rr14NLEQ2Interface10deleteItemERKNSt6stringE" title="Permalink to this definition">¶</a><br /></dt>
 <dd><p>remove a value </p>
 </dd></dl>
 
 <dl class="cpp function">
-<dt id="_CPPv4NK2rr14NLEQ2Interface7getKeysEv">
-<span id="_CPPv3NK2rr14NLEQ2Interface7getKeysEv"></span><span id="_CPPv2NK2rr14NLEQ2Interface7getKeysEv"></span><span id="rr::NLEQ2Interface::getKeysC"></span><span class="target" id="classrr_1_1NLEQ2Interface_1afad85315aa2373f52cbfb12262df8c3f"></span><em class="property">virtual</em> std::vector&lt;std::string&gt; <code class="sig-name descname">getKeys</code><span class="sig-paren">(</span><span class="sig-paren">)</span> <em class="property">const</em><a class="headerlink" href="#_CPPv4NK2rr14NLEQ2Interface7getKeysEv" title="Permalink to this definition">¶</a><br /></dt>
+<dt class="sig sig-object cpp" id="_CPPv4NK2rr14NLEQ2Interface7getKeysEv">
+<span id="_CPPv3NK2rr14NLEQ2Interface7getKeysEv"></span><span id="_CPPv2NK2rr14NLEQ2Interface7getKeysEv"></span><span id="rr::NLEQ2Interface::getKeysC"></span><span class="target" id="classrr_1_1NLEQ2Interface_1afad85315aa2373f52cbfb12262df8c3f"></span><span class="k"><span class="pre">virtual</span></span><span class="w"> </span><span class="n"><span class="pre">std</span></span><span class="p"><span class="pre">::</span></span><span class="n"><span class="pre">vector</span></span><span class="p"><span class="pre">&lt;</span></span><span class="n"><span class="pre">std</span></span><span class="p"><span class="pre">::</span></span><span class="n"><span class="pre">string</span></span><span class="p"><span class="pre">&gt;</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">getKeys</span></span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><span class="w"> </span><span class="k"><span class="pre">const</span></span><a class="headerlink" href="#_CPPv4NK2rr14NLEQ2Interface7getKeysEv" title="Permalink to this definition">¶</a><br /></dt>
 <dd><p>list of keys in this object. </p>
 </dd></dl>
 
+<dl class="cpp function">
+<dt class="sig sig-object cpp" id="_CPPv4N2rr14NLEQ2Interface5setupEv">
+<span id="_CPPv3N2rr14NLEQ2Interface5setupEv"></span><span id="_CPPv2N2rr14NLEQ2Interface5setupEv"></span><span id="rr::NLEQ2Interface::setup"></span><span class="target" id="classrr_1_1NLEQ2Interface_1a94845cb60c384bd01adcba0171f539ec"></span><span class="kt"><span class="pre">void</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">setup</span></span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#_CPPv4N2rr14NLEQ2Interface5setupEv" title="Permalink to this definition">¶</a><br /></dt>
+<dd></dd></dl>
+
+<dl class="cpp function">
+<dt class="sig sig-object cpp" id="_CPPv4N2rr14NLEQ2Interface11isAvailableEv">
+<span id="_CPPv3N2rr14NLEQ2Interface11isAvailableEv"></span><span id="_CPPv2N2rr14NLEQ2Interface11isAvailableEv"></span><span id="rr::NLEQ2Interface::isAvailable"></span><span class="target" id="classrr_1_1NLEQ2Interface_1a540ce543e1484f9327dbf2cc83785d36"></span><span class="kt"><span class="pre">bool</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">isAvailable</span></span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#_CPPv4N2rr14NLEQ2Interface11isAvailableEv" title="Permalink to this definition">¶</a><br /></dt>
+<dd></dd></dl>
+
+<dl class="cpp function">
+<dt class="sig sig-object cpp" id="_CPPv4N2rr14NLEQ2Interface17setScalingFactorsERKNSt6vectorIdEE">
+<span id="_CPPv3N2rr14NLEQ2Interface17setScalingFactorsERKNSt6vectorIdEE"></span><span id="_CPPv2N2rr14NLEQ2Interface17setScalingFactorsERKNSt6vectorIdEE"></span><span id="rr::NLEQ2Interface::setScalingFactors__std::vector:double:CR"></span><span class="target" id="classrr_1_1NLEQ2Interface_1ab0154efb08d830638127ef6330dea090"></span><span class="kt"><span class="pre">void</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">setScalingFactors</span></span></span><span class="sig-paren">(</span><span class="k"><span class="pre">const</span></span><span class="w"> </span><span class="n"><span class="pre">std</span></span><span class="p"><span class="pre">::</span></span><span class="n"><span class="pre">vector</span></span><span class="p"><span class="pre">&lt;</span></span><span class="kt"><span class="pre">double</span></span><span class="p"><span class="pre">&gt;</span></span><span class="w"> </span><span class="p"><span class="pre">&amp;</span></span><span class="n sig-param"><span class="pre">sx</span></span><span class="sig-paren">)</span><a class="headerlink" href="#_CPPv4N2rr14NLEQ2Interface17setScalingFactorsERKNSt6vectorIdEE" title="Permalink to this definition">¶</a><br /></dt>
+<dd><p>Sets the Scaling Factors </p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>sx</strong> – Array of Scaling factors</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="cpp function">
+<dt class="sig sig-object cpp" id="_CPPv4N2rr14NLEQ2Interface27getNumberOfNewtonIterationsEv">
+<span id="_CPPv3N2rr14NLEQ2Interface27getNumberOfNewtonIterationsEv"></span><span id="_CPPv2N2rr14NLEQ2Interface27getNumberOfNewtonIterationsEv"></span><span id="rr::NLEQ2Interface::getNumberOfNewtonIterations"></span><span class="target" id="classrr_1_1NLEQ2Interface_1acf39786fb327066323f7595b9322ebb2"></span><span class="kt"><span class="pre">int</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">getNumberOfNewtonIterations</span></span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#_CPPv4N2rr14NLEQ2Interface27getNumberOfNewtonIterationsEv" title="Permalink to this definition">¶</a><br /></dt>
+<dd><p>Returns the Number of Newton Iterations </p>
+<dl class="field-list simple">
+<dt class="field-odd">Returns</dt>
+<dd class="field-odd"><p>the Number of Newton Iterations</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="cpp function">
+<dt class="sig sig-object cpp" id="_CPPv4N2rr14NLEQ2Interface25getNumberOfCorrectorStepsEv">
+<span id="_CPPv3N2rr14NLEQ2Interface25getNumberOfCorrectorStepsEv"></span><span id="_CPPv2N2rr14NLEQ2Interface25getNumberOfCorrectorStepsEv"></span><span id="rr::NLEQ2Interface::getNumberOfCorrectorSteps"></span><span class="target" id="classrr_1_1NLEQ2Interface_1ada93b787ae85fb08b27a06845ac2dcb9"></span><span class="kt"><span class="pre">int</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">getNumberOfCorrectorSteps</span></span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#_CPPv4N2rr14NLEQ2Interface25getNumberOfCorrectorStepsEv" title="Permalink to this definition">¶</a><br /></dt>
+<dd><p>Returns the Number of Corrector steps </p>
+<dl class="field-list simple">
+<dt class="field-odd">Returns</dt>
+<dd class="field-odd"><p>Returns the Number of Corrector steps</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="cpp function">
+<dt class="sig sig-object cpp" id="_CPPv4N2rr14NLEQ2Interface27getNumberOfModelEvaluationsEv">
+<span id="_CPPv3N2rr14NLEQ2Interface27getNumberOfModelEvaluationsEv"></span><span id="_CPPv2N2rr14NLEQ2Interface27getNumberOfModelEvaluationsEv"></span><span id="rr::NLEQ2Interface::getNumberOfModelEvaluations"></span><span class="target" id="classrr_1_1NLEQ2Interface_1a0e4c3f11cec0169916977d58f50bf7e7"></span><span class="kt"><span class="pre">int</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">getNumberOfModelEvaluations</span></span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#_CPPv4N2rr14NLEQ2Interface27getNumberOfModelEvaluationsEv" title="Permalink to this definition">¶</a><br /></dt>
+<dd><p>Returns the Number of Model Evaluations </p>
+<dl class="field-list simple">
+<dt class="field-odd">Returns</dt>
+<dd class="field-odd"><p>the Number of Model Evaluations</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="cpp function">
+<dt class="sig sig-object cpp" id="_CPPv4N2rr14NLEQ2Interface30getNumberOfJacobianEvaluationsEv">
+<span id="_CPPv3N2rr14NLEQ2Interface30getNumberOfJacobianEvaluationsEv"></span><span id="_CPPv2N2rr14NLEQ2Interface30getNumberOfJacobianEvaluationsEv"></span><span id="rr::NLEQ2Interface::getNumberOfJacobianEvaluations"></span><span class="target" id="classrr_1_1NLEQ2Interface_1aa772170399ac79ec2d99ec075f340392"></span><span class="kt"><span class="pre">int</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">getNumberOfJacobianEvaluations</span></span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#_CPPv4N2rr14NLEQ2Interface30getNumberOfJacobianEvaluationsEv" title="Permalink to this definition">¶</a><br /></dt>
+<dd><p>Returns the Number Of Jacobian Evaluations </p>
+<dl class="field-list simple">
+<dt class="field-odd">Returns</dt>
+<dd class="field-odd"><p>the Number Of Jacobian Evaluations</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="cpp function">
+<dt class="sig sig-object cpp" id="_CPPv4N2rr14NLEQ2Interface38getNumberOfModelEvaluationsForJacobianEv">
+<span id="_CPPv3N2rr14NLEQ2Interface38getNumberOfModelEvaluationsForJacobianEv"></span><span id="_CPPv2N2rr14NLEQ2Interface38getNumberOfModelEvaluationsForJacobianEv"></span><span id="rr::NLEQ2Interface::getNumberOfModelEvaluationsForJacobian"></span><span class="target" id="classrr_1_1NLEQ2Interface_1aa17e3a331d3c7179b099bcabf30d09ce"></span><span class="kt"><span class="pre">int</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">getNumberOfModelEvaluationsForJacobian</span></span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#_CPPv4N2rr14NLEQ2Interface38getNumberOfModelEvaluationsForJacobianEv" title="Permalink to this definition">¶</a><br /></dt>
+<dd><p>Returns the Number of Model Evaluations For Jacobian </p>
+<dl class="field-list simple">
+<dt class="field-odd">Returns</dt>
+<dd class="field-odd"><p>the Number of Model Evaluations For Jacobian</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="cpp function">
+<dt class="sig sig-object cpp" id="_CPPv4N2rr14NLEQ2Interface20computeSumsOfSquaresEv">
+<span id="_CPPv3N2rr14NLEQ2Interface20computeSumsOfSquaresEv"></span><span id="_CPPv2N2rr14NLEQ2Interface20computeSumsOfSquaresEv"></span><span id="rr::NLEQ2Interface::computeSumsOfSquares"></span><span class="target" id="classrr_1_1NLEQ2Interface_1a1aed4d16f028b121ec2a6f831a49153b"></span><span class="kt"><span class="pre">double</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">computeSumsOfSquares</span></span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#_CPPv4N2rr14NLEQ2Interface20computeSumsOfSquaresEv" title="Permalink to this definition">¶</a><br /></dt>
+<dd></dd></dl>
+
 </div>
 <div class="breathe-sectiondef docutils container">
-<p class="breathe-sectiondef-title rubric">Public Static Functions</p>
+<p class="breathe-sectiondef-title rubric" id="breathe-section-title-public-members">Public Members</p>
+<dl class="cpp var">
+<dt class="sig sig-object cpp" id="_CPPv4N2rr14NLEQ2Interface5nOptsE">
+<span id="_CPPv3N2rr14NLEQ2Interface5nOptsE"></span><span id="_CPPv2N2rr14NLEQ2Interface5nOptsE"></span><span id="rr::NLEQ2Interface::nOpts__i"></span><span class="target" id="classrr_1_1NLEQ2Interface_1a5dbc5fed40e9ca0bee0faece07d75e12"></span><span class="kt"><span class="pre">int</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">nOpts</span></span></span><a class="headerlink" href="#_CPPv4N2rr14NLEQ2Interface5nOptsE" title="Permalink to this definition">¶</a><br /></dt>
+<dd></dd></dl>
+
+<dl class="cpp var">
+<dt class="sig sig-object cpp" id="_CPPv4N2rr14NLEQ2Interface3IWKE">
+<span id="_CPPv3N2rr14NLEQ2Interface3IWKE"></span><span id="_CPPv2N2rr14NLEQ2Interface3IWKE"></span><span id="rr::NLEQ2Interface::IWK__lP"></span><span class="target" id="classrr_1_1NLEQ2Interface_1acd89bf009bb80a689c48891fb0fb3399"></span><span class="kt"><span class="pre">long</span></span><span class="w"> </span><span class="p"><span class="pre">*</span></span><span class="sig-name descname"><span class="n"><span class="pre">IWK</span></span></span><a class="headerlink" href="#_CPPv4N2rr14NLEQ2Interface3IWKE" title="Permalink to this definition">¶</a><br /></dt>
+<dd></dd></dl>
+
+<dl class="cpp var">
+<dt class="sig sig-object cpp" id="_CPPv4N2rr14NLEQ2Interface4LIWKE">
+<span id="_CPPv3N2rr14NLEQ2Interface4LIWKE"></span><span id="_CPPv2N2rr14NLEQ2Interface4LIWKE"></span><span id="rr::NLEQ2Interface::LIWK__l"></span><span class="target" id="classrr_1_1NLEQ2Interface_1a9dd6e6977d76875d49fa8778271306cb"></span><span class="kt"><span class="pre">long</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">LIWK</span></span></span><a class="headerlink" href="#_CPPv4N2rr14NLEQ2Interface4LIWKE" title="Permalink to this definition">¶</a><br /></dt>
+<dd></dd></dl>
+
+<dl class="cpp var">
+<dt class="sig sig-object cpp" id="_CPPv4N2rr14NLEQ2Interface4LRWKE">
+<span id="_CPPv3N2rr14NLEQ2Interface4LRWKE"></span><span id="_CPPv2N2rr14NLEQ2Interface4LRWKE"></span><span id="rr::NLEQ2Interface::LRWK__l"></span><span class="target" id="classrr_1_1NLEQ2Interface_1a0a9b50e59397be473430ec1b5c1f35cc"></span><span class="kt"><span class="pre">long</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">LRWK</span></span></span><a class="headerlink" href="#_CPPv4N2rr14NLEQ2Interface4LRWKE" title="Permalink to this definition">¶</a><br /></dt>
+<dd></dd></dl>
+
+<dl class="cpp var">
+<dt class="sig sig-object cpp" id="_CPPv4N2rr14NLEQ2Interface3RWKE">
+<span id="_CPPv3N2rr14NLEQ2Interface3RWKE"></span><span id="_CPPv2N2rr14NLEQ2Interface3RWKE"></span><span id="rr::NLEQ2Interface::RWK__doubleP"></span><span class="target" id="classrr_1_1NLEQ2Interface_1a3734db9c01aca28e216341d61027116d"></span><span class="kt"><span class="pre">double</span></span><span class="w"> </span><span class="p"><span class="pre">*</span></span><span class="sig-name descname"><span class="n"><span class="pre">RWK</span></span></span><a class="headerlink" href="#_CPPv4N2rr14NLEQ2Interface3RWKE" title="Permalink to this definition">¶</a><br /></dt>
+<dd></dd></dl>
+
+<dl class="cpp var">
+<dt class="sig sig-object cpp" id="_CPPv4N2rr14NLEQ2Interface5XScalE">
+<span id="_CPPv3N2rr14NLEQ2Interface5XScalE"></span><span id="_CPPv2N2rr14NLEQ2Interface5XScalE"></span><span id="rr::NLEQ2Interface::XScal__doubleP"></span><span class="target" id="classrr_1_1NLEQ2Interface_1afc70ac9b4476d579fd493239a0a48bd2"></span><span class="kt"><span class="pre">double</span></span><span class="w"> </span><span class="p"><span class="pre">*</span></span><span class="sig-name descname"><span class="n"><span class="pre">XScal</span></span></span><a class="headerlink" href="#_CPPv4N2rr14NLEQ2Interface5XScalE" title="Permalink to this definition">¶</a><br /></dt>
+<dd></dd></dl>
+
+<dl class="cpp var">
+<dt class="sig sig-object cpp" id="_CPPv4N2rr14NLEQ2Interface4ierrE">
+<span id="_CPPv3N2rr14NLEQ2Interface4ierrE"></span><span id="_CPPv2N2rr14NLEQ2Interface4ierrE"></span><span id="rr::NLEQ2Interface::ierr__l"></span><span class="target" id="classrr_1_1NLEQ2Interface_1aa9ef4f1fc1a1c83d9ac0deff31d30334"></span><span class="kt"><span class="pre">long</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">ierr</span></span></span><a class="headerlink" href="#_CPPv4N2rr14NLEQ2Interface4ierrE" title="Permalink to this definition">¶</a><br /></dt>
+<dd></dd></dl>
+
+<dl class="cpp var">
+<dt class="sig sig-object cpp" id="_CPPv4N2rr14NLEQ2Interface4ioptE">
+<span id="_CPPv3N2rr14NLEQ2Interface4ioptE"></span><span id="_CPPv2N2rr14NLEQ2Interface4ioptE"></span><span id="rr::NLEQ2Interface::iopt__lP"></span><span class="target" id="classrr_1_1NLEQ2Interface_1ac130efff07be74c40d5014490005e28d"></span><span class="kt"><span class="pre">long</span></span><span class="w"> </span><span class="p"><span class="pre">*</span></span><span class="sig-name descname"><span class="n"><span class="pre">iopt</span></span></span><a class="headerlink" href="#_CPPv4N2rr14NLEQ2Interface4ioptE" title="Permalink to this definition">¶</a><br /></dt>
+<dd></dd></dl>
+
+<dl class="cpp var">
+<dt class="sig sig-object cpp" id="_CPPv4N2rr14NLEQ2Interface5modelE">
+<span id="_CPPv3N2rr14NLEQ2Interface5modelE"></span><span id="_CPPv2N2rr14NLEQ2Interface5modelE"></span><span id="rr::NLEQ2Interface::model__ExecutableModelP"></span><span class="target" id="classrr_1_1NLEQ2Interface_1a8a8520655138625c5b1fa8eb102bd816"></span><a class="reference internal" href="rrExecutableModel.html#_CPPv4N2rr15ExecutableModelE" title="rr::ExecutableModel"><span class="n"><span class="pre">ExecutableModel</span></span></a><span class="w"> </span><span class="p"><span class="pre">*</span></span><span class="sig-name descname"><span class="n"><span class="pre">model</span></span></span><a class="headerlink" href="#_CPPv4N2rr14NLEQ2Interface5modelE" title="Permalink to this definition">¶</a><br /></dt>
+<dd></dd></dl>
+
+<dl class="cpp var">
+<dt class="sig sig-object cpp" id="_CPPv4N2rr14NLEQ2Interface1nE">
+<span id="_CPPv3N2rr14NLEQ2Interface1nE"></span><span id="_CPPv2N2rr14NLEQ2Interface1nE"></span><span id="rr::NLEQ2Interface::n__l"></span><span class="target" id="classrr_1_1NLEQ2Interface_1adf3536cb1a66462bca8c2b4fe25549f9"></span><span class="kt"><span class="pre">long</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">n</span></span></span><a class="headerlink" href="#_CPPv4N2rr14NLEQ2Interface1nE" title="Permalink to this definition">¶</a><br /></dt>
+<dd></dd></dl>
+
+<dl class="cpp var">
+<dt class="sig sig-object cpp" id="_CPPv4N2rr14NLEQ2Interface11allowPreSimE">
+<span id="_CPPv3N2rr14NLEQ2Interface11allowPreSimE"></span><span id="_CPPv2N2rr14NLEQ2Interface11allowPreSimE"></span><span id="rr::NLEQ2Interface::allowPreSim__b"></span><span class="target" id="classrr_1_1NLEQ2Interface_1af1c1581edc36bce5e664a662425e9ad4"></span><span class="kt"><span class="pre">bool</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">allowPreSim</span></span></span><a class="headerlink" href="#_CPPv4N2rr14NLEQ2Interface11allowPreSimE" title="Permalink to this definition">¶</a><br /></dt>
+<dd></dd></dl>
+
+<dl class="cpp var">
+<dt class="sig sig-object cpp" id="_CPPv4N2rr14NLEQ2Interface15preSimToleranceE">
+<span id="_CPPv3N2rr14NLEQ2Interface15preSimToleranceE"></span><span id="_CPPv2N2rr14NLEQ2Interface15preSimToleranceE"></span><span id="rr::NLEQ2Interface::preSimTolerance__double"></span><span class="target" id="classrr_1_1NLEQ2Interface_1ac035c5f8a9bc6aba24f3f880f4226610"></span><span class="kt"><span class="pre">double</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">preSimTolerance</span></span></span><a class="headerlink" href="#_CPPv4N2rr14NLEQ2Interface15preSimToleranceE" title="Permalink to this definition">¶</a><br /></dt>
+<dd></dd></dl>
+
+<dl class="cpp var">
+<dt class="sig sig-object cpp" id="_CPPv4N2rr14NLEQ2Interface18preSimMaximumStepsE">
+<span id="_CPPv3N2rr14NLEQ2Interface18preSimMaximumStepsE"></span><span id="_CPPv2N2rr14NLEQ2Interface18preSimMaximumStepsE"></span><span id="rr::NLEQ2Interface::preSimMaximumSteps__i"></span><span class="target" id="classrr_1_1NLEQ2Interface_1aacdeb312ffdcb64fe4ccb8e98327db65"></span><span class="kt"><span class="pre">int</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">preSimMaximumSteps</span></span></span><a class="headerlink" href="#_CPPv4N2rr14NLEQ2Interface18preSimMaximumStepsE" title="Permalink to this definition">¶</a><br /></dt>
+<dd></dd></dl>
+
+<dl class="cpp var">
+<dt class="sig sig-object cpp" id="_CPPv4N2rr14NLEQ2Interface10preSimTimeE">
+<span id="_CPPv3N2rr14NLEQ2Interface10preSimTimeE"></span><span id="_CPPv2N2rr14NLEQ2Interface10preSimTimeE"></span><span id="rr::NLEQ2Interface::preSimTime__double"></span><span class="target" id="classrr_1_1NLEQ2Interface_1ae1a89f19512b74df2194e3e503749bd4"></span><span class="kt"><span class="pre">double</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">preSimTime</span></span></span><a class="headerlink" href="#_CPPv4N2rr14NLEQ2Interface10preSimTimeE" title="Permalink to this definition">¶</a><br /></dt>
+<dd></dd></dl>
+
+<dl class="cpp var">
+<dt class="sig sig-object cpp" id="_CPPv4N2rr14NLEQ2Interface11allowApproxE">
+<span id="_CPPv3N2rr14NLEQ2Interface11allowApproxE"></span><span id="_CPPv2N2rr14NLEQ2Interface11allowApproxE"></span><span id="rr::NLEQ2Interface::allowApprox__b"></span><span class="target" id="classrr_1_1NLEQ2Interface_1aeb8ffcfc86bb39f178ff70d59e5be346"></span><span class="kt"><span class="pre">bool</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">allowApprox</span></span></span><a class="headerlink" href="#_CPPv4N2rr14NLEQ2Interface11allowApproxE" title="Permalink to this definition">¶</a><br /></dt>
+<dd></dd></dl>
+
+<dl class="cpp var">
+<dt class="sig sig-object cpp" id="_CPPv4N2rr14NLEQ2Interface15approxToleranceE">
+<span id="_CPPv3N2rr14NLEQ2Interface15approxToleranceE"></span><span id="_CPPv2N2rr14NLEQ2Interface15approxToleranceE"></span><span id="rr::NLEQ2Interface::approxTolerance__double"></span><span class="target" id="classrr_1_1NLEQ2Interface_1a9cf5c34c30965b8094724ce86543bc44"></span><span class="kt"><span class="pre">double</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">approxTolerance</span></span></span><a class="headerlink" href="#_CPPv4N2rr14NLEQ2Interface15approxToleranceE" title="Permalink to this definition">¶</a><br /></dt>
+<dd></dd></dl>
+
+<dl class="cpp var">
+<dt class="sig sig-object cpp" id="_CPPv4N2rr14NLEQ2Interface18approxMaximumStepsE">
+<span id="_CPPv3N2rr14NLEQ2Interface18approxMaximumStepsE"></span><span id="_CPPv2N2rr14NLEQ2Interface18approxMaximumStepsE"></span><span id="rr::NLEQ2Interface::approxMaximumSteps__i"></span><span class="target" id="classrr_1_1NLEQ2Interface_1a34031ac1e4a525f17b51f58fc315e8ab"></span><span class="kt"><span class="pre">int</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">approxMaximumSteps</span></span></span><a class="headerlink" href="#_CPPv4N2rr14NLEQ2Interface18approxMaximumStepsE" title="Permalink to this definition">¶</a><br /></dt>
+<dd></dd></dl>
+
+<dl class="cpp var">
+<dt class="sig sig-object cpp" id="_CPPv4N2rr14NLEQ2Interface10approxTimeE">
+<span id="_CPPv3N2rr14NLEQ2Interface10approxTimeE"></span><span id="_CPPv2N2rr14NLEQ2Interface10approxTimeE"></span><span id="rr::NLEQ2Interface::approxTime__double"></span><span class="target" id="classrr_1_1NLEQ2Interface_1a50eb0dea27685f1c31e7e7d1c8c37519"></span><span class="kt"><span class="pre">double</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">approxTime</span></span></span><a class="headerlink" href="#_CPPv4N2rr14NLEQ2Interface10approxTimeE" title="Permalink to this definition">¶</a><br /></dt>
+<dd></dd></dl>
+
+<dl class="cpp var">
+<dt class="sig sig-object cpp" id="_CPPv4N2rr14NLEQ2Interface17relativeToleranceE">
+<span id="_CPPv3N2rr14NLEQ2Interface17relativeToleranceE"></span><span id="_CPPv2N2rr14NLEQ2Interface17relativeToleranceE"></span><span id="rr::NLEQ2Interface::relativeTolerance__double"></span><span class="target" id="classrr_1_1NLEQ2Interface_1a539a956fac57bc81488c7cb91a0843ed"></span><span class="kt"><span class="pre">double</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">relativeTolerance</span></span></span><a class="headerlink" href="#_CPPv4N2rr14NLEQ2Interface17relativeToleranceE" title="Permalink to this definition">¶</a><br /></dt>
+<dd></dd></dl>
+
+<dl class="cpp var">
+<dt class="sig sig-object cpp" id="_CPPv4N2rr14NLEQ2Interface13maxIterationsE">
+<span id="_CPPv3N2rr14NLEQ2Interface13maxIterationsE"></span><span id="_CPPv2N2rr14NLEQ2Interface13maxIterationsE"></span><span id="rr::NLEQ2Interface::maxIterations__i"></span><span class="target" id="classrr_1_1NLEQ2Interface_1a10268a4a5c4f620bc827638eeff9f508"></span><span class="kt"><span class="pre">int</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">maxIterations</span></span></span><a class="headerlink" href="#_CPPv4N2rr14NLEQ2Interface13maxIterationsE" title="Permalink to this definition">¶</a><br /></dt>
+<dd></dd></dl>
+
+<dl class="cpp var">
+<dt class="sig sig-object cpp" id="_CPPv4N2rr14NLEQ2Interface10minDampingE">
+<span id="_CPPv3N2rr14NLEQ2Interface10minDampingE"></span><span id="_CPPv2N2rr14NLEQ2Interface10minDampingE"></span><span id="rr::NLEQ2Interface::minDamping__double"></span><span class="target" id="classrr_1_1NLEQ2Interface_1ac6ff62a7c23060ae816dd4d0355d457f"></span><span class="kt"><span class="pre">double</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">minDamping</span></span></span><a class="headerlink" href="#_CPPv4N2rr14NLEQ2Interface10minDampingE" title="Permalink to this definition">¶</a><br /></dt>
+<dd></dd></dl>
+
+<dl class="cpp var">
+<dt class="sig sig-object cpp" id="_CPPv4N2rr14NLEQ2Interface7broydenE">
+<span id="_CPPv3N2rr14NLEQ2Interface7broydenE"></span><span id="_CPPv2N2rr14NLEQ2Interface7broydenE"></span><span id="rr::NLEQ2Interface::broyden__i"></span><span class="target" id="classrr_1_1NLEQ2Interface_1a00437c5bd4647aa079e40bb1d6ed209e"></span><span class="kt"><span class="pre">int</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">broyden</span></span></span><a class="headerlink" href="#_CPPv4N2rr14NLEQ2Interface7broydenE" title="Permalink to this definition">¶</a><br /></dt>
+<dd></dd></dl>
+
+<dl class="cpp var">
+<dt class="sig sig-object cpp" id="_CPPv4N2rr14NLEQ2Interface9linearityE">
+<span id="_CPPv3N2rr14NLEQ2Interface9linearityE"></span><span id="_CPPv2N2rr14NLEQ2Interface9linearityE"></span><span id="rr::NLEQ2Interface::linearity__i"></span><span class="target" id="classrr_1_1NLEQ2Interface_1ac96a82e8aebc4e72efbcbe8700217969"></span><span class="kt"><span class="pre">int</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">linearity</span></span></span><a class="headerlink" href="#_CPPv4N2rr14NLEQ2Interface9linearityE" title="Permalink to this definition">¶</a><br /></dt>
+<dd></dd></dl>
+
+</div>
+<div class="breathe-sectiondef docutils container">
+<p class="breathe-sectiondef-title rubric" id="breathe-section-title-public-static-functions">Public Static Functions</p>
 <dl class="cpp function">
-<dt id="_CPPv4N2rr14NLEQ2Interface21getSteadyStateOptionsEv">
-<span id="_CPPv3N2rr14NLEQ2Interface21getSteadyStateOptionsEv"></span><span id="_CPPv2N2rr14NLEQ2Interface21getSteadyStateOptionsEv"></span><span id="rr::NLEQ2Interface::getSteadyStateOptions"></span><span class="target" id="classrr_1_1NLEQ2Interface_1a80d203c777e3d3f6cc3959a4a1dc2de5"></span><em class="property">static</em> <em class="property">const</em> <a class="reference internal" href="Dictionary.html#_CPPv4N2rr10DictionaryE" title="rr::Dictionary">Dictionary</a> *<code class="sig-name descname">getSteadyStateOptions</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#_CPPv4N2rr14NLEQ2Interface21getSteadyStateOptionsEv" title="Permalink to this definition">¶</a><br /></dt>
+<dt class="sig sig-object cpp" id="_CPPv4N2rr14NLEQ2Interface21getSteadyStateOptionsEv">
+<span id="_CPPv3N2rr14NLEQ2Interface21getSteadyStateOptionsEv"></span><span id="_CPPv2N2rr14NLEQ2Interface21getSteadyStateOptionsEv"></span><span id="rr::NLEQ2Interface::getSteadyStateOptions"></span><span class="target" id="classrr_1_1NLEQ2Interface_1a80d203c777e3d3f6cc3959a4a1dc2de5"></span><span class="k"><span class="pre">static</span></span><span class="w"> </span><span class="k"><span class="pre">const</span></span><span class="w"> </span><a class="reference internal" href="Dictionary.html#_CPPv4N2rr10DictionaryE" title="rr::Dictionary"><span class="n"><span class="pre">Dictionary</span></span></a><span class="w"> </span><span class="p"><span class="pre">*</span></span><span class="sig-name descname"><span class="n"><span class="pre">getSteadyStateOptions</span></span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#_CPPv4N2rr14NLEQ2Interface21getSteadyStateOptionsEv" title="Permalink to this definition">¶</a><br /></dt>
 <dd><p>list of keys that this integrator supports. </p>
 </dd></dl>
 
 </div>
 <div class="breathe-sectiondef docutils container">
-<p class="breathe-sectiondef-title rubric">Private Functions</p>
-<dl class="cpp function">
-<dt id="_CPPv4N2rr14NLEQ2Interface5setupEv">
-<span id="_CPPv3N2rr14NLEQ2Interface5setupEv"></span><span id="_CPPv2N2rr14NLEQ2Interface5setupEv"></span><span id="rr::NLEQ2Interface::setup"></span><span class="target" id="classrr_1_1NLEQ2Interface_1a94845cb60c384bd01adcba0171f539ec"></span>void <code class="sig-name descname">setup</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#_CPPv4N2rr14NLEQ2Interface5setupEv" title="Permalink to this definition">¶</a><br /></dt>
-<dd></dd></dl>
-
-<dl class="cpp function">
-<dt id="_CPPv4N2rr14NLEQ2Interface11isAvailableEv">
-<span id="_CPPv3N2rr14NLEQ2Interface11isAvailableEv"></span><span id="_CPPv2N2rr14NLEQ2Interface11isAvailableEv"></span><span id="rr::NLEQ2Interface::isAvailable"></span><span class="target" id="classrr_1_1NLEQ2Interface_1a540ce543e1484f9327dbf2cc83785d36"></span>bool <code class="sig-name descname">isAvailable</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#_CPPv4N2rr14NLEQ2Interface11isAvailableEv" title="Permalink to this definition">¶</a><br /></dt>
-<dd></dd></dl>
-
-<dl class="cpp function">
-<dt id="_CPPv4N2rr14NLEQ2Interface17setScalingFactorsERK6vectorIdE">
-<span id="_CPPv3N2rr14NLEQ2Interface17setScalingFactorsERK6vectorIdE"></span><span id="_CPPv2N2rr14NLEQ2Interface17setScalingFactorsERK6vectorIdE"></span><span id="rr::NLEQ2Interface::setScalingFactors__vector:double:CR"></span><span class="target" id="classrr_1_1NLEQ2Interface_1a3ab48af2661c42a2e00c20da9ae99f9f"></span>void <code class="sig-name descname">setScalingFactors</code><span class="sig-paren">(</span><em class="property">const</em> vector&lt;double&gt; &amp;<em>sx</em><span class="sig-paren">)</span><a class="headerlink" href="#_CPPv4N2rr14NLEQ2Interface17setScalingFactorsERK6vectorIdE" title="Permalink to this definition">¶</a><br /></dt>
-<dd><p>Sets the Scaling Factors </p>
-<p><dl class="simple">
-<dt><strong>Parameters</strong></dt><dd><ul class="breatheparameterlist simple">
-<li><p><code class="docutils literal notranslate"><span class="pre">sx</span></code>: Array of Scaling factors</p></li>
-</ul>
-</dd>
-</dl>
-</p>
-</dd></dl>
-
-<dl class="cpp function">
-<dt id="_CPPv4N2rr14NLEQ2Interface27getNumberOfNewtonIterationsEv">
-<span id="_CPPv3N2rr14NLEQ2Interface27getNumberOfNewtonIterationsEv"></span><span id="_CPPv2N2rr14NLEQ2Interface27getNumberOfNewtonIterationsEv"></span><span id="rr::NLEQ2Interface::getNumberOfNewtonIterations"></span><span class="target" id="classrr_1_1NLEQ2Interface_1acf39786fb327066323f7595b9322ebb2"></span>int <code class="sig-name descname">getNumberOfNewtonIterations</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#_CPPv4N2rr14NLEQ2Interface27getNumberOfNewtonIterationsEv" title="Permalink to this definition">¶</a><br /></dt>
-<dd><p>Returns the Number of Newton Iterations </p>
-<p><dl class="simple">
-<dt><strong>Return</strong></dt><dd><p>the Number of Newton Iterations</p>
-</dd>
-</dl>
-</p>
-</dd></dl>
-
-<dl class="cpp function">
-<dt id="_CPPv4N2rr14NLEQ2Interface25getNumberOfCorrectorStepsEv">
-<span id="_CPPv3N2rr14NLEQ2Interface25getNumberOfCorrectorStepsEv"></span><span id="_CPPv2N2rr14NLEQ2Interface25getNumberOfCorrectorStepsEv"></span><span id="rr::NLEQ2Interface::getNumberOfCorrectorSteps"></span><span class="target" id="classrr_1_1NLEQ2Interface_1ada93b787ae85fb08b27a06845ac2dcb9"></span>int <code class="sig-name descname">getNumberOfCorrectorSteps</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#_CPPv4N2rr14NLEQ2Interface25getNumberOfCorrectorStepsEv" title="Permalink to this definition">¶</a><br /></dt>
-<dd><p>Returns the Number of Corrector steps </p>
-<p><dl class="simple">
-<dt><strong>Return</strong></dt><dd><p>Returns the Number of Corrector steps</p>
-</dd>
-</dl>
-</p>
-</dd></dl>
-
-<dl class="cpp function">
-<dt id="_CPPv4N2rr14NLEQ2Interface27getNumberOfModelEvaluationsEv">
-<span id="_CPPv3N2rr14NLEQ2Interface27getNumberOfModelEvaluationsEv"></span><span id="_CPPv2N2rr14NLEQ2Interface27getNumberOfModelEvaluationsEv"></span><span id="rr::NLEQ2Interface::getNumberOfModelEvaluations"></span><span class="target" id="classrr_1_1NLEQ2Interface_1a0e4c3f11cec0169916977d58f50bf7e7"></span>int <code class="sig-name descname">getNumberOfModelEvaluations</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#_CPPv4N2rr14NLEQ2Interface27getNumberOfModelEvaluationsEv" title="Permalink to this definition">¶</a><br /></dt>
-<dd><p>Returns the Number of Model Evaluations </p>
-<p><dl class="simple">
-<dt><strong>Return</strong></dt><dd><p>the Number of Model Evaluations</p>
-</dd>
-</dl>
-</p>
-</dd></dl>
-
-<dl class="cpp function">
-<dt id="_CPPv4N2rr14NLEQ2Interface30getNumberOfJacobianEvaluationsEv">
-<span id="_CPPv3N2rr14NLEQ2Interface30getNumberOfJacobianEvaluationsEv"></span><span id="_CPPv2N2rr14NLEQ2Interface30getNumberOfJacobianEvaluationsEv"></span><span id="rr::NLEQ2Interface::getNumberOfJacobianEvaluations"></span><span class="target" id="classrr_1_1NLEQ2Interface_1aa772170399ac79ec2d99ec075f340392"></span>int <code class="sig-name descname">getNumberOfJacobianEvaluations</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#_CPPv4N2rr14NLEQ2Interface30getNumberOfJacobianEvaluationsEv" title="Permalink to this definition">¶</a><br /></dt>
-<dd><p>Returns the Number Of Jacobian Evaluations </p>
-<p><dl class="simple">
-<dt><strong>Return</strong></dt><dd><p>the Number Of Jacobian Evaluations</p>
-</dd>
-</dl>
-</p>
-</dd></dl>
-
-<dl class="cpp function">
-<dt id="_CPPv4N2rr14NLEQ2Interface38getNumberOfModelEvaluationsForJacobianEv">
-<span id="_CPPv3N2rr14NLEQ2Interface38getNumberOfModelEvaluationsForJacobianEv"></span><span id="_CPPv2N2rr14NLEQ2Interface38getNumberOfModelEvaluationsForJacobianEv"></span><span id="rr::NLEQ2Interface::getNumberOfModelEvaluationsForJacobian"></span><span class="target" id="classrr_1_1NLEQ2Interface_1aa17e3a331d3c7179b099bcabf30d09ce"></span>int <code class="sig-name descname">getNumberOfModelEvaluationsForJacobian</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#_CPPv4N2rr14NLEQ2Interface38getNumberOfModelEvaluationsForJacobianEv" title="Permalink to this definition">¶</a><br /></dt>
-<dd><p>Returns the Number of Model Evaluations For Jacobian </p>
-<p><dl class="simple">
-<dt><strong>Return</strong></dt><dd><p>the Number of Model Evaluations For Jacobian</p>
-</dd>
-</dl>
-</p>
-</dd></dl>
-
-<dl class="cpp function">
-<dt id="_CPPv4N2rr14NLEQ2Interface20computeSumsOfSquaresEv">
-<span id="_CPPv3N2rr14NLEQ2Interface20computeSumsOfSquaresEv"></span><span id="_CPPv2N2rr14NLEQ2Interface20computeSumsOfSquaresEv"></span><span id="rr::NLEQ2Interface::computeSumsOfSquares"></span><span class="target" id="classrr_1_1NLEQ2Interface_1a1aed4d16f028b121ec2a6f831a49153b"></span>double <code class="sig-name descname">computeSumsOfSquares</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#_CPPv4N2rr14NLEQ2Interface20computeSumsOfSquaresEv" title="Permalink to this definition">¶</a><br /></dt>
-<dd></dd></dl>
-
-</div>
-<div class="breathe-sectiondef docutils container">
-<p class="breathe-sectiondef-title rubric">Private Members</p>
-<dl class="cpp var">
-<dt id="_CPPv4N2rr14NLEQ2Interface5nOptsE">
-<span id="_CPPv3N2rr14NLEQ2Interface5nOptsE"></span><span id="_CPPv2N2rr14NLEQ2Interface5nOptsE"></span><span id="rr::NLEQ2Interface::nOpts__i"></span><span class="target" id="classrr_1_1NLEQ2Interface_1a5dbc5fed40e9ca0bee0faece07d75e12"></span>int <code class="sig-name descname">nOpts</code><a class="headerlink" href="#_CPPv4N2rr14NLEQ2Interface5nOptsE" title="Permalink to this definition">¶</a><br /></dt>
-<dd></dd></dl>
-
-<dl class="cpp var">
-<dt id="_CPPv4N2rr14NLEQ2Interface3IWKE">
-<span id="_CPPv3N2rr14NLEQ2Interface3IWKE"></span><span id="_CPPv2N2rr14NLEQ2Interface3IWKE"></span><span id="rr::NLEQ2Interface::IWK__lP"></span><span class="target" id="classrr_1_1NLEQ2Interface_1acd89bf009bb80a689c48891fb0fb3399"></span>long *<code class="sig-name descname">IWK</code><a class="headerlink" href="#_CPPv4N2rr14NLEQ2Interface3IWKE" title="Permalink to this definition">¶</a><br /></dt>
-<dd></dd></dl>
-
-<dl class="cpp var">
-<dt id="_CPPv4N2rr14NLEQ2Interface4LIWKE">
-<span id="_CPPv3N2rr14NLEQ2Interface4LIWKE"></span><span id="_CPPv2N2rr14NLEQ2Interface4LIWKE"></span><span id="rr::NLEQ2Interface::LIWK__l"></span><span class="target" id="classrr_1_1NLEQ2Interface_1a9dd6e6977d76875d49fa8778271306cb"></span>long <code class="sig-name descname">LIWK</code><a class="headerlink" href="#_CPPv4N2rr14NLEQ2Interface4LIWKE" title="Permalink to this definition">¶</a><br /></dt>
-<dd></dd></dl>
-
-<dl class="cpp var">
-<dt id="_CPPv4N2rr14NLEQ2Interface4LRWKE">
-<span id="_CPPv3N2rr14NLEQ2Interface4LRWKE"></span><span id="_CPPv2N2rr14NLEQ2Interface4LRWKE"></span><span id="rr::NLEQ2Interface::LRWK__l"></span><span class="target" id="classrr_1_1NLEQ2Interface_1a0a9b50e59397be473430ec1b5c1f35cc"></span>long <code class="sig-name descname">LRWK</code><a class="headerlink" href="#_CPPv4N2rr14NLEQ2Interface4LRWKE" title="Permalink to this definition">¶</a><br /></dt>
-<dd></dd></dl>
-
-<dl class="cpp var">
-<dt id="_CPPv4N2rr14NLEQ2Interface3RWKE">
-<span id="_CPPv3N2rr14NLEQ2Interface3RWKE"></span><span id="_CPPv2N2rr14NLEQ2Interface3RWKE"></span><span id="rr::NLEQ2Interface::RWK__doubleP"></span><span class="target" id="classrr_1_1NLEQ2Interface_1a3734db9c01aca28e216341d61027116d"></span>double *<code class="sig-name descname">RWK</code><a class="headerlink" href="#_CPPv4N2rr14NLEQ2Interface3RWKE" title="Permalink to this definition">¶</a><br /></dt>
-<dd></dd></dl>
-
-<dl class="cpp var">
-<dt id="_CPPv4N2rr14NLEQ2Interface5XScalE">
-<span id="_CPPv3N2rr14NLEQ2Interface5XScalE"></span><span id="_CPPv2N2rr14NLEQ2Interface5XScalE"></span><span id="rr::NLEQ2Interface::XScal__doubleP"></span><span class="target" id="classrr_1_1NLEQ2Interface_1afc70ac9b4476d579fd493239a0a48bd2"></span>double *<code class="sig-name descname">XScal</code><a class="headerlink" href="#_CPPv4N2rr14NLEQ2Interface5XScalE" title="Permalink to this definition">¶</a><br /></dt>
-<dd></dd></dl>
-
-<dl class="cpp var">
-<dt id="_CPPv4N2rr14NLEQ2Interface4ierrE">
-<span id="_CPPv3N2rr14NLEQ2Interface4ierrE"></span><span id="_CPPv2N2rr14NLEQ2Interface4ierrE"></span><span id="rr::NLEQ2Interface::ierr__l"></span><span class="target" id="classrr_1_1NLEQ2Interface_1aa9ef4f1fc1a1c83d9ac0deff31d30334"></span>long <code class="sig-name descname">ierr</code><a class="headerlink" href="#_CPPv4N2rr14NLEQ2Interface4ierrE" title="Permalink to this definition">¶</a><br /></dt>
-<dd></dd></dl>
-
-<dl class="cpp var">
-<dt id="_CPPv4N2rr14NLEQ2Interface4ioptE">
-<span id="_CPPv3N2rr14NLEQ2Interface4ioptE"></span><span id="_CPPv2N2rr14NLEQ2Interface4ioptE"></span><span id="rr::NLEQ2Interface::iopt__lP"></span><span class="target" id="classrr_1_1NLEQ2Interface_1ac130efff07be74c40d5014490005e28d"></span>long *<code class="sig-name descname">iopt</code><a class="headerlink" href="#_CPPv4N2rr14NLEQ2Interface4ioptE" title="Permalink to this definition">¶</a><br /></dt>
-<dd></dd></dl>
-
-<dl class="cpp var">
-<dt id="_CPPv4N2rr14NLEQ2Interface5modelE">
-<span id="_CPPv3N2rr14NLEQ2Interface5modelE"></span><span id="_CPPv2N2rr14NLEQ2Interface5modelE"></span><span id="rr::NLEQ2Interface::model__ExecutableModelP"></span><span class="target" id="classrr_1_1NLEQ2Interface_1a8a8520655138625c5b1fa8eb102bd816"></span><a class="reference internal" href="rrExecutableModel.html#_CPPv4N2rr15ExecutableModelE" title="rr::ExecutableModel">ExecutableModel</a> *<code class="sig-name descname">model</code><a class="headerlink" href="#_CPPv4N2rr14NLEQ2Interface5modelE" title="Permalink to this definition">¶</a><br /></dt>
-<dd></dd></dl>
-
-<dl class="cpp var">
-<dt id="_CPPv4N2rr14NLEQ2Interface1nE">
-<span id="_CPPv3N2rr14NLEQ2Interface1nE"></span><span id="_CPPv2N2rr14NLEQ2Interface1nE"></span><span id="rr::NLEQ2Interface::n__l"></span><span class="target" id="classrr_1_1NLEQ2Interface_1adf3536cb1a66462bca8c2b4fe25549f9"></span>long <code class="sig-name descname">n</code><a class="headerlink" href="#_CPPv4N2rr14NLEQ2Interface1nE" title="Permalink to this definition">¶</a><br /></dt>
-<dd></dd></dl>
-
-<dl class="cpp var">
-<dt id="_CPPv4N2rr14NLEQ2Interface11allowPreSimE">
-<span id="_CPPv3N2rr14NLEQ2Interface11allowPreSimE"></span><span id="_CPPv2N2rr14NLEQ2Interface11allowPreSimE"></span><span id="rr::NLEQ2Interface::allowPreSim__b"></span><span class="target" id="classrr_1_1NLEQ2Interface_1af1c1581edc36bce5e664a662425e9ad4"></span>bool <code class="sig-name descname">allowPreSim</code><a class="headerlink" href="#_CPPv4N2rr14NLEQ2Interface11allowPreSimE" title="Permalink to this definition">¶</a><br /></dt>
-<dd></dd></dl>
-
-<dl class="cpp var">
-<dt id="_CPPv4N2rr14NLEQ2Interface15preSimToleranceE">
-<span id="_CPPv3N2rr14NLEQ2Interface15preSimToleranceE"></span><span id="_CPPv2N2rr14NLEQ2Interface15preSimToleranceE"></span><span id="rr::NLEQ2Interface::preSimTolerance__double"></span><span class="target" id="classrr_1_1NLEQ2Interface_1ac035c5f8a9bc6aba24f3f880f4226610"></span>double <code class="sig-name descname">preSimTolerance</code><a class="headerlink" href="#_CPPv4N2rr14NLEQ2Interface15preSimToleranceE" title="Permalink to this definition">¶</a><br /></dt>
-<dd></dd></dl>
-
-<dl class="cpp var">
-<dt id="_CPPv4N2rr14NLEQ2Interface18preSimMaximumStepsE">
-<span id="_CPPv3N2rr14NLEQ2Interface18preSimMaximumStepsE"></span><span id="_CPPv2N2rr14NLEQ2Interface18preSimMaximumStepsE"></span><span id="rr::NLEQ2Interface::preSimMaximumSteps__i"></span><span class="target" id="classrr_1_1NLEQ2Interface_1aacdeb312ffdcb64fe4ccb8e98327db65"></span>int <code class="sig-name descname">preSimMaximumSteps</code><a class="headerlink" href="#_CPPv4N2rr14NLEQ2Interface18preSimMaximumStepsE" title="Permalink to this definition">¶</a><br /></dt>
-<dd></dd></dl>
-
-<dl class="cpp var">
-<dt id="_CPPv4N2rr14NLEQ2Interface10preSimTimeE">
-<span id="_CPPv3N2rr14NLEQ2Interface10preSimTimeE"></span><span id="_CPPv2N2rr14NLEQ2Interface10preSimTimeE"></span><span id="rr::NLEQ2Interface::preSimTime__double"></span><span class="target" id="classrr_1_1NLEQ2Interface_1ae1a89f19512b74df2194e3e503749bd4"></span>double <code class="sig-name descname">preSimTime</code><a class="headerlink" href="#_CPPv4N2rr14NLEQ2Interface10preSimTimeE" title="Permalink to this definition">¶</a><br /></dt>
-<dd></dd></dl>
-
-<dl class="cpp var">
-<dt id="_CPPv4N2rr14NLEQ2Interface11allowApproxE">
-<span id="_CPPv3N2rr14NLEQ2Interface11allowApproxE"></span><span id="_CPPv2N2rr14NLEQ2Interface11allowApproxE"></span><span id="rr::NLEQ2Interface::allowApprox__b"></span><span class="target" id="classrr_1_1NLEQ2Interface_1aeb8ffcfc86bb39f178ff70d59e5be346"></span>bool <code class="sig-name descname">allowApprox</code><a class="headerlink" href="#_CPPv4N2rr14NLEQ2Interface11allowApproxE" title="Permalink to this definition">¶</a><br /></dt>
-<dd></dd></dl>
-
-<dl class="cpp var">
-<dt id="_CPPv4N2rr14NLEQ2Interface15approxToleranceE">
-<span id="_CPPv3N2rr14NLEQ2Interface15approxToleranceE"></span><span id="_CPPv2N2rr14NLEQ2Interface15approxToleranceE"></span><span id="rr::NLEQ2Interface::approxTolerance__double"></span><span class="target" id="classrr_1_1NLEQ2Interface_1a9cf5c34c30965b8094724ce86543bc44"></span>double <code class="sig-name descname">approxTolerance</code><a class="headerlink" href="#_CPPv4N2rr14NLEQ2Interface15approxToleranceE" title="Permalink to this definition">¶</a><br /></dt>
-<dd></dd></dl>
-
-<dl class="cpp var">
-<dt id="_CPPv4N2rr14NLEQ2Interface18approxMaximumStepsE">
-<span id="_CPPv3N2rr14NLEQ2Interface18approxMaximumStepsE"></span><span id="_CPPv2N2rr14NLEQ2Interface18approxMaximumStepsE"></span><span id="rr::NLEQ2Interface::approxMaximumSteps__i"></span><span class="target" id="classrr_1_1NLEQ2Interface_1a34031ac1e4a525f17b51f58fc315e8ab"></span>int <code class="sig-name descname">approxMaximumSteps</code><a class="headerlink" href="#_CPPv4N2rr14NLEQ2Interface18approxMaximumStepsE" title="Permalink to this definition">¶</a><br /></dt>
-<dd></dd></dl>
-
-<dl class="cpp var">
-<dt id="_CPPv4N2rr14NLEQ2Interface10approxTimeE">
-<span id="_CPPv3N2rr14NLEQ2Interface10approxTimeE"></span><span id="_CPPv2N2rr14NLEQ2Interface10approxTimeE"></span><span id="rr::NLEQ2Interface::approxTime__double"></span><span class="target" id="classrr_1_1NLEQ2Interface_1a50eb0dea27685f1c31e7e7d1c8c37519"></span>double <code class="sig-name descname">approxTime</code><a class="headerlink" href="#_CPPv4N2rr14NLEQ2Interface10approxTimeE" title="Permalink to this definition">¶</a><br /></dt>
-<dd></dd></dl>
-
-<dl class="cpp var">
-<dt id="_CPPv4N2rr14NLEQ2Interface17relativeToleranceE">
-<span id="_CPPv3N2rr14NLEQ2Interface17relativeToleranceE"></span><span id="_CPPv2N2rr14NLEQ2Interface17relativeToleranceE"></span><span id="rr::NLEQ2Interface::relativeTolerance__double"></span><span class="target" id="classrr_1_1NLEQ2Interface_1a539a956fac57bc81488c7cb91a0843ed"></span>double <code class="sig-name descname">relativeTolerance</code><a class="headerlink" href="#_CPPv4N2rr14NLEQ2Interface17relativeToleranceE" title="Permalink to this definition">¶</a><br /></dt>
-<dd></dd></dl>
-
-<dl class="cpp var">
-<dt id="_CPPv4N2rr14NLEQ2Interface13maxIterationsE">
-<span id="_CPPv3N2rr14NLEQ2Interface13maxIterationsE"></span><span id="_CPPv2N2rr14NLEQ2Interface13maxIterationsE"></span><span id="rr::NLEQ2Interface::maxIterations__i"></span><span class="target" id="classrr_1_1NLEQ2Interface_1a10268a4a5c4f620bc827638eeff9f508"></span>int <code class="sig-name descname">maxIterations</code><a class="headerlink" href="#_CPPv4N2rr14NLEQ2Interface13maxIterationsE" title="Permalink to this definition">¶</a><br /></dt>
-<dd></dd></dl>
-
-<dl class="cpp var">
-<dt id="_CPPv4N2rr14NLEQ2Interface10minDampingE">
-<span id="_CPPv3N2rr14NLEQ2Interface10minDampingE"></span><span id="_CPPv2N2rr14NLEQ2Interface10minDampingE"></span><span id="rr::NLEQ2Interface::minDamping__double"></span><span class="target" id="classrr_1_1NLEQ2Interface_1ac6ff62a7c23060ae816dd4d0355d457f"></span>double <code class="sig-name descname">minDamping</code><a class="headerlink" href="#_CPPv4N2rr14NLEQ2Interface10minDampingE" title="Permalink to this definition">¶</a><br /></dt>
-<dd></dd></dl>
-
-<dl class="cpp var">
-<dt id="_CPPv4N2rr14NLEQ2Interface7broydenE">
-<span id="_CPPv3N2rr14NLEQ2Interface7broydenE"></span><span id="_CPPv2N2rr14NLEQ2Interface7broydenE"></span><span id="rr::NLEQ2Interface::broyden__i"></span><span class="target" id="classrr_1_1NLEQ2Interface_1a00437c5bd4647aa079e40bb1d6ed209e"></span>int <code class="sig-name descname">broyden</code><a class="headerlink" href="#_CPPv4N2rr14NLEQ2Interface7broydenE" title="Permalink to this definition">¶</a><br /></dt>
-<dd></dd></dl>
-
-<dl class="cpp var">
-<dt id="_CPPv4N2rr14NLEQ2Interface9linearityE">
-<span id="_CPPv3N2rr14NLEQ2Interface9linearityE"></span><span id="_CPPv2N2rr14NLEQ2Interface9linearityE"></span><span id="rr::NLEQ2Interface::linearity__i"></span><span class="target" id="classrr_1_1NLEQ2Interface_1ac96a82e8aebc4e72efbcbe8700217969"></span>int <code class="sig-name descname">linearity</code><a class="headerlink" href="#_CPPv4N2rr14NLEQ2Interface9linearityE" title="Permalink to this definition">¶</a><br /></dt>
-<dd></dd></dl>
-
-</div>
-<div class="breathe-sectiondef docutils container">
-<p class="breathe-sectiondef-title rubric">Friends</p>
-<dl class="friendclass">
-<dt>
-<em class="property">friend class</em> NLEQ2Solver</dt>
+<p class="breathe-sectiondef-title rubric" id="breathe-section-title-friends">Friends</p>
+<dl>
+<dt class="sig sig-object cpp">
+<em class="property"><span class="pre">friend</span> <span class="pre">class</span></em> <span class="pre">NLEQ2Solver</span></dt>
 </dl>
 
 </div>

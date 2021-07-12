@@ -21,7 +21,7 @@
 // localefwd.h error: too many arguments provided to function-like macro invocation
 #include <sstream>
 #include <vector>
-#include <PyUtils.h>
+#include "PyUtils.h"
 #include <rrLogger.h>
 #include <Dictionary.h>
 #include "rrConfig.h"
@@ -303,9 +303,7 @@ Setting Variant_from_py(PyObject* py)
 
 	else if (PyFloat_Check(py))
 	{
-	    std::cout << "is a PyFloat" << std::endl;
 		var = PyFloat_AsDouble(py);
-		std::cout << "the string << " << var.toString() << std::endl;
 		return var;
 	}
 

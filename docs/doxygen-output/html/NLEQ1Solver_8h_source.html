@@ -22,7 +22,7 @@
  <tr style="height: 56px;">
   <td id="projectalign" style="padding-left: 0.5em;">
    <div id="projectname">roadrunner
-   &#160;<span id="projectnumber">2.0.5</span>
+   &#160;<span id="projectnumber">2.0.8</span>
    </div>
    <div id="projectbrief">Fast simulator for SBML models</div>
   </td>
@@ -75,85 +75,77 @@ $(function() {
 <div class="line"><a name="l00006"></a><span class="lineno">    6</span>&#160; </div>
 <div class="line"><a name="l00014"></a><span class="lineno">   14</span>&#160;<span class="preprocessor">#ifndef rrNLEQ1SolverH</span></div>
 <div class="line"><a name="l00015"></a><span class="lineno">   15</span>&#160;<span class="preprocessor">#define rrNLEQ1SolverH</span></div>
-<div class="line"><a name="l00016"></a><span class="lineno">   16</span>&#160;<span class="preprocessor">#include &lt;vector&gt;</span></div>
-<div class="line"><a name="l00017"></a><span class="lineno">   17</span>&#160;<span class="preprocessor">#include &quot;<a class="code" href="SteadyStateSolver_8h.html">SteadyStateSolver.h</a>&quot;</span></div>
-<div class="line"><a name="l00018"></a><span class="lineno">   18</span>&#160;<span class="preprocessor">#include &quot;<a class="code" href="rrExecutableModel_8h.html">rrExecutableModel.h</a>&quot;</span></div>
-<div class="line"><a name="l00019"></a><span class="lineno">   19</span>&#160;<span class="keyword">using</span> std::vector;</div>
+<div class="line"><a name="l00016"></a><span class="lineno">   16</span>&#160; </div>
+<div class="line"><a name="l00017"></a><span class="lineno">   17</span>&#160;<span class="preprocessor">#include &lt;vector&gt;</span></div>
+<div class="line"><a name="l00018"></a><span class="lineno">   18</span>&#160;<span class="preprocessor">#include &quot;NLEQSolver.h&quot;</span></div>
+<div class="line"><a name="l00019"></a><span class="lineno">   19</span>&#160;<span class="preprocessor">#include &quot;<a class="code" href="rrExecutableModel_8h.html">rrExecutableModel.h</a>&quot;</span></div>
 <div class="line"><a name="l00020"></a><span class="lineno">   20</span>&#160; </div>
-<div class="line"><a name="l00021"></a><span class="lineno">   21</span>&#160;<span class="keyword">namespace </span>rr</div>
-<div class="line"><a name="l00022"></a><span class="lineno">   22</span>&#160;{</div>
-<div class="line"><a name="l00023"></a><span class="lineno">   23</span>&#160; </div>
-<div class="line"><a name="l00027"></a><span class="lineno"><a class="line" href="classrr_1_1NLEQ1Solver.html">   27</a></span>&#160;<span class="keyword">class </span>RR_DECLSPEC <a class="code" href="classrr_1_1NLEQ1Solver.html">NLEQ1Solver</a> : <span class="keyword">public</span> <a class="code" href="classrr_1_1SteadyStateSolver.html">SteadyStateSolver</a></div>
-<div class="line"><a name="l00028"></a><span class="lineno">   28</span>&#160;{</div>
-<div class="line"><a name="l00029"></a><span class="lineno">   29</span>&#160;    <span class="keyword">public</span>:</div>
-<div class="line"><a name="l00033"></a><span class="lineno">   33</span>&#160;        <a class="code" href="classrr_1_1NLEQ1Solver.html">NLEQ1Solver</a>(<a class="code" href="classrr_1_1ExecutableModel.html">ExecutableModel</a> *_model = NULL);</div>
-<div class="line"><a name="l00034"></a><span class="lineno">   34</span>&#160;        ~<a class="code" href="classrr_1_1NLEQ1Solver.html">NLEQ1Solver</a>();</div>
-<div class="line"><a name="l00035"></a><span class="lineno">   35</span>&#160; </div>
-<div class="line"><a name="l00041"></a><span class="lineno">   41</span>&#160;        <span class="keyword">virtual</span> <span class="keywordtype">void</span> syncWithModel(<a class="code" href="classrr_1_1ExecutableModel.html">ExecutableModel</a>* m);</div>
-<div class="line"><a name="l00042"></a><span class="lineno">   42</span>&#160; </div>
-<div class="line"><a name="l00043"></a><span class="lineno">   43</span>&#160;        <span class="keywordtype">void</span> loadConfigSettings();</div>
-<div class="line"><a name="l00044"></a><span class="lineno">   44</span>&#160; </div>
-<div class="line"><a name="l00049"></a><span class="lineno">   49</span>&#160;        <span class="keywordtype">void</span> resetSettings();</div>
-<div class="line"><a name="l00050"></a><span class="lineno">   50</span>&#160; </div>
-<div class="line"><a name="l00056"></a><span class="lineno">   56</span>&#160;        std::string getName() <span class="keyword">const</span>;</div>
-<div class="line"><a name="l00057"></a><span class="lineno">   57</span>&#160; </div>
-<div class="line"><a name="l00062"></a><span class="lineno">   62</span>&#160;        <span class="keyword">static</span> std::string getNLEQName();</div>
-<div class="line"><a name="l00063"></a><span class="lineno">   63</span>&#160; </div>
-<div class="line"><a name="l00069"></a><span class="lineno">   69</span>&#160;        std::string getDescription() <span class="keyword">const</span>;</div>
-<div class="line"><a name="l00070"></a><span class="lineno">   70</span>&#160; </div>
-<div class="line"><a name="l00075"></a><span class="lineno">   75</span>&#160;        <span class="keyword">static</span> std::string getNLEQDescription();</div>
+<div class="line"><a name="l00021"></a><span class="lineno">   21</span>&#160;<span class="keyword">using</span> std::vector;</div>
+<div class="line"><a name="l00022"></a><span class="lineno">   22</span>&#160; </div>
+<div class="line"><a name="l00023"></a><span class="lineno">   23</span>&#160;<span class="keyword">namespace </span>rr</div>
+<div class="line"><a name="l00024"></a><span class="lineno">   24</span>&#160;{</div>
+<div class="line"><a name="l00025"></a><span class="lineno">   25</span>&#160; </div>
+<div class="line"><a name="l00029"></a><span class="lineno"><a class="line" href="classrr_1_1NLEQ1Solver.html">   29</a></span>&#160;<span class="keyword">class </span>RR_DECLSPEC <a class="code" href="classrr_1_1NLEQ1Solver.html">NLEQ1Solver</a> : <span class="keyword">public</span> <a class="code" href="classrr_1_1NLEQSolver.html">NLEQSolver</a></div>
+<div class="line"><a name="l00030"></a><span class="lineno">   30</span>&#160;{</div>
+<div class="line"><a name="l00031"></a><span class="lineno">   31</span>&#160;    <span class="keyword">public</span>:</div>
+<div class="line"><a name="l00032"></a><span class="lineno">   32</span>&#160;        <span class="keyword">explicit</span> <a class="code" href="classrr_1_1NLEQ1Solver.html">NLEQ1Solver</a>(<a class="code" href="classrr_1_1ExecutableModel.html">ExecutableModel</a> *_model);</div>
+<div class="line"><a name="l00033"></a><span class="lineno">   33</span>&#160; </div>
+<div class="line"><a name="l00039"></a><span class="lineno">   39</span>&#160;        std::string getName() <span class="keyword">const override</span>;</div>
+<div class="line"><a name="l00040"></a><span class="lineno">   40</span>&#160; </div>
+<div class="line"><a name="l00045"></a><span class="lineno">   45</span>&#160;        <span class="keyword">static</span> std::string getNLEQName();</div>
+<div class="line"><a name="l00046"></a><span class="lineno">   46</span>&#160; </div>
+<div class="line"><a name="l00052"></a><span class="lineno">   52</span>&#160;        std::string getDescription() <span class="keyword">const override</span>;</div>
+<div class="line"><a name="l00053"></a><span class="lineno">   53</span>&#160; </div>
+<div class="line"><a name="l00058"></a><span class="lineno">   58</span>&#160;        <span class="keyword">static</span> std::string getNLEQDescription();</div>
+<div class="line"><a name="l00059"></a><span class="lineno">   59</span>&#160; </div>
+<div class="line"><a name="l00065"></a><span class="lineno">   65</span>&#160;        std::string getHint() <span class="keyword">const override</span>;</div>
+<div class="line"><a name="l00066"></a><span class="lineno">   66</span>&#160; </div>
+<div class="line"><a name="l00071"></a><span class="lineno">   71</span>&#160;        <span class="keyword">static</span> std::string getNLEQHint();</div>
+<div class="line"><a name="l00072"></a><span class="lineno">   72</span>&#160; </div>
+<div class="line"><a name="l00073"></a><span class="lineno">   73</span>&#160;        <span class="comment">// ** Solver routines</span></div>
+<div class="line"><a name="l00074"></a><span class="lineno">   74</span>&#160;        <span class="keywordtype">double</span> solve() <span class="keyword">override</span>;</div>
+<div class="line"><a name="l00075"></a><span class="lineno">   75</span>&#160;};</div>
 <div class="line"><a name="l00076"></a><span class="lineno">   76</span>&#160; </div>
-<div class="line"><a name="l00082"></a><span class="lineno">   82</span>&#160;        std::string getHint() <span class="keyword">const</span>;</div>
-<div class="line"><a name="l00083"></a><span class="lineno">   83</span>&#160; </div>
-<div class="line"><a name="l00088"></a><span class="lineno">   88</span>&#160;        <span class="keyword">static</span> std::string getNLEQHint();</div>
-<div class="line"><a name="l00089"></a><span class="lineno">   89</span>&#160; </div>
-<div class="line"><a name="l00090"></a><span class="lineno">   90</span>&#160;        <span class="comment">// ** Solver routines</span></div>
-<div class="line"><a name="l00091"></a><span class="lineno">   91</span>&#160;        <span class="keywordtype">double</span> solve();</div>
-<div class="line"><a name="l00092"></a><span class="lineno">   92</span>&#160; </div>
-<div class="line"><a name="l00093"></a><span class="lineno">   93</span>&#160;    <span class="keyword">private</span>:</div>
-<div class="line"><a name="l00094"></a><span class="lineno">   94</span>&#160;        <a class="code" href="classrr_1_1ExecutableModel.html">ExecutableModel</a> *model; <span class="comment">// Model generated from the SBML. Static so we can access it from standalone function</span></div>
-<div class="line"><a name="l00095"></a><span class="lineno">   95</span>&#160;};</div>
-<div class="line"><a name="l00096"></a><span class="lineno">   96</span>&#160; </div>
-<div class="line"><a name="l00097"></a><span class="lineno">   97</span>&#160; </div>
-<div class="line"><a name="l00098"></a><span class="lineno">   98</span>&#160;    <span class="comment">// ** Registration *********************************************************</span></div>
-<div class="line"><a name="l00099"></a><span class="lineno">   99</span>&#160; </div>
-<div class="line"><a name="l00100"></a><span class="lineno">  100</span>&#160; </div>
-<div class="line"><a name="l00101"></a><span class="lineno"><a class="line" href="classrr_1_1NLEQ1SolverRegistrar.html">  101</a></span>&#160;    <span class="keyword">class </span><a class="code" href="classrr_1_1NLEQ1SolverRegistrar.html">NLEQ1SolverRegistrar</a> : <span class="keyword">public</span> <a class="code" href="classrr_1_1SteadyStateSolverRegistrar.html">SteadyStateSolverRegistrar</a> {</div>
-<div class="line"><a name="l00102"></a><span class="lineno">  102</span>&#160;        <span class="keyword">public</span>:</div>
-<div class="line"><a name="l00107"></a><span class="lineno"><a class="line" href="classrr_1_1NLEQ1SolverRegistrar.html#a7f83e11e81d93d165534351e10aa02ed">  107</a></span>&#160;            <span class="keyword">virtual</span> std::string <a class="code" href="classrr_1_1NLEQ1SolverRegistrar.html#a7f83e11e81d93d165534351e10aa02ed">getName</a>()<span class="keyword"> const </span>{</div>
-<div class="line"><a name="l00108"></a><span class="lineno">  108</span>&#160;                <span class="keywordflow">return</span> <a class="code" href="classrr_1_1NLEQ1Solver.html#aae1f007468323d8fd2e83ebd88118145">NLEQ1Solver::getNLEQName</a>();</div>
-<div class="line"><a name="l00109"></a><span class="lineno">  109</span>&#160;            }</div>
-<div class="line"><a name="l00110"></a><span class="lineno">  110</span>&#160; </div>
-<div class="line"><a name="l00115"></a><span class="lineno"><a class="line" href="classrr_1_1NLEQ1SolverRegistrar.html#a20685e66dfe3a028e4c493d8af53e743">  115</a></span>&#160;            <span class="keyword">virtual</span> std::string <a class="code" href="classrr_1_1NLEQ1SolverRegistrar.html#a20685e66dfe3a028e4c493d8af53e743">getDescription</a>()<span class="keyword"> const </span>{</div>
-<div class="line"><a name="l00116"></a><span class="lineno">  116</span>&#160;                <span class="keywordflow">return</span> <a class="code" href="classrr_1_1NLEQ1Solver.html#a1a4630dc439bbe7a9662aa0c824246f5">NLEQ1Solver::getNLEQDescription</a>();</div>
-<div class="line"><a name="l00117"></a><span class="lineno">  117</span>&#160;            }</div>
-<div class="line"><a name="l00118"></a><span class="lineno">  118</span>&#160; </div>
-<div class="line"><a name="l00123"></a><span class="lineno"><a class="line" href="classrr_1_1NLEQ1SolverRegistrar.html#ab2ee3d7f162ccee398badecf0f390d6a">  123</a></span>&#160;            <span class="keyword">virtual</span> std::string <a class="code" href="classrr_1_1NLEQ1SolverRegistrar.html#ab2ee3d7f162ccee398badecf0f390d6a">getHint</a>()<span class="keyword"> const </span>{</div>
-<div class="line"><a name="l00124"></a><span class="lineno">  124</span>&#160;                <span class="keywordflow">return</span> <a class="code" href="classrr_1_1NLEQ1Solver.html#add507b9e399ec4abc2eee354d1281353">NLEQ1Solver::getNLEQHint</a>();</div>
-<div class="line"><a name="l00125"></a><span class="lineno">  125</span>&#160;            }</div>
-<div class="line"><a name="l00126"></a><span class="lineno">  126</span>&#160; </div>
-<div class="line"><a name="l00131"></a><span class="lineno"><a class="line" href="classrr_1_1NLEQ1SolverRegistrar.html#a20bd0b80b4623615381dfbb7d4e589ad">  131</a></span>&#160;            <span class="keyword">virtual</span> <a class="code" href="classrr_1_1SteadyStateSolver.html">SteadyStateSolver</a>* <a class="code" href="classrr_1_1NLEQ1SolverRegistrar.html#a20bd0b80b4623615381dfbb7d4e589ad">construct</a>(<a class="code" href="classrr_1_1ExecutableModel.html">ExecutableModel</a> *model)<span class="keyword"> const </span>{</div>
-<div class="line"><a name="l00132"></a><span class="lineno">  132</span>&#160;                <span class="keywordflow">return</span> <span class="keyword">new</span> <a class="code" href="classrr_1_1NLEQ1Solver.html">NLEQ1Solver</a>(model);</div>
-<div class="line"><a name="l00133"></a><span class="lineno">  133</span>&#160;            }</div>
-<div class="line"><a name="l00134"></a><span class="lineno">  134</span>&#160;    };</div>
-<div class="line"><a name="l00135"></a><span class="lineno">  135</span>&#160;}</div>
-<div class="line"><a name="l00136"></a><span class="lineno">  136</span>&#160; </div>
-<div class="line"><a name="l00137"></a><span class="lineno">  137</span>&#160;<span class="preprocessor">#endif</span></div>
+<div class="line"><a name="l00077"></a><span class="lineno">   77</span>&#160; </div>
+<div class="line"><a name="l00078"></a><span class="lineno">   78</span>&#160;    <span class="comment">// ** Registration *********************************************************</span></div>
+<div class="line"><a name="l00079"></a><span class="lineno">   79</span>&#160; </div>
+<div class="line"><a name="l00080"></a><span class="lineno">   80</span>&#160; </div>
+<div class="line"><a name="l00081"></a><span class="lineno"><a class="line" href="classrr_1_1NLEQ1SolverRegistrar.html">   81</a></span>&#160;    <span class="keyword">class </span><a class="code" href="classrr_1_1NLEQ1SolverRegistrar.html">NLEQ1SolverRegistrar</a> : <span class="keyword">public</span> <a class="code" href="classrr_1_1SteadyStateSolverRegistrar.html">SteadyStateSolverRegistrar</a> {</div>
+<div class="line"><a name="l00082"></a><span class="lineno">   82</span>&#160;        <span class="keyword">public</span>:</div>
+<div class="line"><a name="l00087"></a><span class="lineno"><a class="line" href="classrr_1_1NLEQ1SolverRegistrar.html#a7f83e11e81d93d165534351e10aa02ed">   87</a></span>&#160;            <span class="keyword">virtual</span> std::string <a class="code" href="classrr_1_1NLEQ1SolverRegistrar.html#a7f83e11e81d93d165534351e10aa02ed">getName</a>()<span class="keyword"> const </span>{</div>
+<div class="line"><a name="l00088"></a><span class="lineno">   88</span>&#160;                <span class="keywordflow">return</span> <a class="code" href="classrr_1_1NLEQ1Solver.html#aae1f007468323d8fd2e83ebd88118145">NLEQ1Solver::getNLEQName</a>();</div>
+<div class="line"><a name="l00089"></a><span class="lineno">   89</span>&#160;            }</div>
+<div class="line"><a name="l00090"></a><span class="lineno">   90</span>&#160; </div>
+<div class="line"><a name="l00095"></a><span class="lineno"><a class="line" href="classrr_1_1NLEQ1SolverRegistrar.html#a20685e66dfe3a028e4c493d8af53e743">   95</a></span>&#160;            <span class="keyword">virtual</span> std::string <a class="code" href="classrr_1_1NLEQ1SolverRegistrar.html#a20685e66dfe3a028e4c493d8af53e743">getDescription</a>()<span class="keyword"> const </span>{</div>
+<div class="line"><a name="l00096"></a><span class="lineno">   96</span>&#160;                <span class="keywordflow">return</span> <a class="code" href="classrr_1_1NLEQ1Solver.html#a1a4630dc439bbe7a9662aa0c824246f5">NLEQ1Solver::getNLEQDescription</a>();</div>
+<div class="line"><a name="l00097"></a><span class="lineno">   97</span>&#160;            }</div>
+<div class="line"><a name="l00098"></a><span class="lineno">   98</span>&#160; </div>
+<div class="line"><a name="l00103"></a><span class="lineno"><a class="line" href="classrr_1_1NLEQ1SolverRegistrar.html#ab2ee3d7f162ccee398badecf0f390d6a">  103</a></span>&#160;            <span class="keyword">virtual</span> std::string <a class="code" href="classrr_1_1NLEQ1SolverRegistrar.html#ab2ee3d7f162ccee398badecf0f390d6a">getHint</a>()<span class="keyword"> const </span>{</div>
+<div class="line"><a name="l00104"></a><span class="lineno">  104</span>&#160;                <span class="keywordflow">return</span> <a class="code" href="classrr_1_1NLEQ1Solver.html#add507b9e399ec4abc2eee354d1281353">NLEQ1Solver::getNLEQHint</a>();</div>
+<div class="line"><a name="l00105"></a><span class="lineno">  105</span>&#160;            }</div>
+<div class="line"><a name="l00106"></a><span class="lineno">  106</span>&#160; </div>
+<div class="line"><a name="l00111"></a><span class="lineno"><a class="line" href="classrr_1_1NLEQ1SolverRegistrar.html#a20bd0b80b4623615381dfbb7d4e589ad">  111</a></span>&#160;            <span class="keyword">virtual</span> <a class="code" href="classrr_1_1SteadyStateSolver.html">SteadyStateSolver</a>* <a class="code" href="classrr_1_1NLEQ1SolverRegistrar.html#a20bd0b80b4623615381dfbb7d4e589ad">construct</a>(<a class="code" href="classrr_1_1ExecutableModel.html">ExecutableModel</a> *model)<span class="keyword"> const </span>{</div>
+<div class="line"><a name="l00112"></a><span class="lineno">  112</span>&#160;                <span class="keywordflow">return</span> <span class="keyword">new</span> <a class="code" href="classrr_1_1NLEQ1Solver.html">NLEQ1Solver</a>(model);</div>
+<div class="line"><a name="l00113"></a><span class="lineno">  113</span>&#160;            }</div>
+<div class="line"><a name="l00114"></a><span class="lineno">  114</span>&#160;    };</div>
+<div class="line"><a name="l00115"></a><span class="lineno">  115</span>&#160;}</div>
+<div class="line"><a name="l00116"></a><span class="lineno">  116</span>&#160; </div>
+<div class="line"><a name="l00117"></a><span class="lineno">  117</span>&#160;<span class="preprocessor">#endif</span></div>
 </div><!-- fragment --></div><!-- contents -->
 <div class="ttc" id="arrExecutableModel_8h_html"><div class="ttname"><a href="rrExecutableModel_8h.html">rrExecutableModel.h</a></div><div class="ttdoc">Base class for all code generators in RoadRunner.</div></div>
-<div class="ttc" id="aclassrr_1_1SteadyStateSolverRegistrar_html"><div class="ttname"><a href="classrr_1_1SteadyStateSolverRegistrar.html">rr::SteadyStateSolverRegistrar</a></div><div class="ttdoc">Handles constructing a solver and contains meta information about it.</div><div class="ttdef"><b>Definition:</b> SteadyStateSolver.h:88</div></div>
-<div class="ttc" id="aclassrr_1_1NLEQ1SolverRegistrar_html_a20685e66dfe3a028e4c493d8af53e743"><div class="ttname"><a href="classrr_1_1NLEQ1SolverRegistrar.html#a20685e66dfe3a028e4c493d8af53e743">rr::NLEQ1SolverRegistrar::getDescription</a></div><div class="ttdeci">virtual std::string getDescription() const</div><div class="ttdoc">Gets the description associated with this integrator type.</div><div class="ttdef"><b>Definition:</b> NLEQ1Solver.h:115</div></div>
-<div class="ttc" id="aclassrr_1_1NLEQ1SolverRegistrar_html_a7f83e11e81d93d165534351e10aa02ed"><div class="ttname"><a href="classrr_1_1NLEQ1SolverRegistrar.html#a7f83e11e81d93d165534351e10aa02ed">rr::NLEQ1SolverRegistrar::getName</a></div><div class="ttdeci">virtual std::string getName() const</div><div class="ttdoc">Gets the name associated with this integrator type.</div><div class="ttdef"><b>Definition:</b> NLEQ1Solver.h:107</div></div>
+<div class="ttc" id="aclassrr_1_1SteadyStateSolverRegistrar_html"><div class="ttname"><a href="classrr_1_1SteadyStateSolverRegistrar.html">rr::SteadyStateSolverRegistrar</a></div><div class="ttdoc">Handles constructing a solver and contains meta information about it.</div><div class="ttdef"><b>Definition:</b> SteadyStateSolver.h:85</div></div>
+<div class="ttc" id="aclassrr_1_1NLEQ1SolverRegistrar_html_a20685e66dfe3a028e4c493d8af53e743"><div class="ttname"><a href="classrr_1_1NLEQ1SolverRegistrar.html#a20685e66dfe3a028e4c493d8af53e743">rr::NLEQ1SolverRegistrar::getDescription</a></div><div class="ttdeci">virtual std::string getDescription() const</div><div class="ttdoc">Gets the description associated with this integrator type.</div><div class="ttdef"><b>Definition:</b> NLEQ1Solver.h:95</div></div>
+<div class="ttc" id="aclassrr_1_1NLEQ1SolverRegistrar_html_a7f83e11e81d93d165534351e10aa02ed"><div class="ttname"><a href="classrr_1_1NLEQ1SolverRegistrar.html#a7f83e11e81d93d165534351e10aa02ed">rr::NLEQ1SolverRegistrar::getName</a></div><div class="ttdeci">virtual std::string getName() const</div><div class="ttdoc">Gets the name associated with this integrator type.</div><div class="ttdef"><b>Definition:</b> NLEQ1Solver.h:87</div></div>
 <div class="ttc" id="aclassrr_1_1ExecutableModel_html"><div class="ttname"><a href="classrr_1_1ExecutableModel.html">rr::ExecutableModel</a></div><div class="ttdoc">Base class for all code generation systems; allows compiling and evaluating the model.</div><div class="ttdef"><b>Definition:</b> rrExecutableModel.h:118</div></div>
-<div class="ttc" id="aclassrr_1_1NLEQ1SolverRegistrar_html_ab2ee3d7f162ccee398badecf0f390d6a"><div class="ttname"><a href="classrr_1_1NLEQ1SolverRegistrar.html#ab2ee3d7f162ccee398badecf0f390d6a">rr::NLEQ1SolverRegistrar::getHint</a></div><div class="ttdeci">virtual std::string getHint() const</div><div class="ttdoc">Gets the hint associated with this integrator type.</div><div class="ttdef"><b>Definition:</b> NLEQ1Solver.h:123</div></div>
-<div class="ttc" id="aclassrr_1_1NLEQ1SolverRegistrar_html_a20bd0b80b4623615381dfbb7d4e589ad"><div class="ttname"><a href="classrr_1_1NLEQ1SolverRegistrar.html#a20bd0b80b4623615381dfbb7d4e589ad">rr::NLEQ1SolverRegistrar::construct</a></div><div class="ttdeci">virtual SteadyStateSolver * construct(ExecutableModel *model) const</div><div class="ttdoc">Constructs a new integrator of a given type.</div><div class="ttdef"><b>Definition:</b> NLEQ1Solver.h:131</div></div>
-<div class="ttc" id="aclassrr_1_1NLEQ1SolverRegistrar_html"><div class="ttname"><a href="classrr_1_1NLEQ1SolverRegistrar.html">rr::NLEQ1SolverRegistrar</a></div><div class="ttdef"><b>Definition:</b> NLEQ1Solver.h:101</div></div>
-<div class="ttc" id="aSteadyStateSolver_8h_html"><div class="ttname"><a href="SteadyStateSolver_8h.html">SteadyStateSolver.h</a></div><div class="ttdoc">Contains the base class for RoadRunner solvers.</div></div>
-<div class="ttc" id="aclassrr_1_1NLEQ1Solver_html_a1a4630dc439bbe7a9662aa0c824246f5"><div class="ttname"><a href="classrr_1_1NLEQ1Solver.html#a1a4630dc439bbe7a9662aa0c824246f5">rr::NLEQ1Solver::getNLEQDescription</a></div><div class="ttdeci">static std::string getNLEQDescription()</div><div class="ttdoc">Get the description for this Solver.</div><div class="ttdef"><b>Definition:</b> NLEQ1Solver.cpp:88</div></div>
-<div class="ttc" id="aclassrr_1_1NLEQ1Solver_html"><div class="ttname"><a href="classrr_1_1NLEQ1Solver.html">rr::NLEQ1Solver</a></div><div class="ttdef"><b>Definition:</b> NLEQ1Solver.h:28</div></div>
+<div class="ttc" id="aclassrr_1_1NLEQ1SolverRegistrar_html_ab2ee3d7f162ccee398badecf0f390d6a"><div class="ttname"><a href="classrr_1_1NLEQ1SolverRegistrar.html#ab2ee3d7f162ccee398badecf0f390d6a">rr::NLEQ1SolverRegistrar::getHint</a></div><div class="ttdeci">virtual std::string getHint() const</div><div class="ttdoc">Gets the hint associated with this integrator type.</div><div class="ttdef"><b>Definition:</b> NLEQ1Solver.h:103</div></div>
+<div class="ttc" id="aclassrr_1_1NLEQ1SolverRegistrar_html_a20bd0b80b4623615381dfbb7d4e589ad"><div class="ttname"><a href="classrr_1_1NLEQ1SolverRegistrar.html#a20bd0b80b4623615381dfbb7d4e589ad">rr::NLEQ1SolverRegistrar::construct</a></div><div class="ttdeci">virtual SteadyStateSolver * construct(ExecutableModel *model) const</div><div class="ttdoc">Constructs a new integrator of a given type.</div><div class="ttdef"><b>Definition:</b> NLEQ1Solver.h:111</div></div>
+<div class="ttc" id="aclassrr_1_1NLEQSolver_html"><div class="ttname"><a href="classrr_1_1NLEQSolver.html">rr::NLEQSolver</a></div><div class="ttdoc">Base class for NLEQ type steady state solvers.</div><div class="ttdef"><b>Definition:</b> NLEQSolver.h:16</div></div>
+<div class="ttc" id="aclassrr_1_1NLEQ1SolverRegistrar_html"><div class="ttname"><a href="classrr_1_1NLEQ1SolverRegistrar.html">rr::NLEQ1SolverRegistrar</a></div><div class="ttdef"><b>Definition:</b> NLEQ1Solver.h:81</div></div>
+<div class="ttc" id="aclassrr_1_1NLEQ1Solver_html_a1a4630dc439bbe7a9662aa0c824246f5"><div class="ttname"><a href="classrr_1_1NLEQ1Solver.html#a1a4630dc439bbe7a9662aa0c824246f5">rr::NLEQ1Solver::getNLEQDescription</a></div><div class="ttdeci">static std::string getNLEQDescription()</div><div class="ttdoc">Get the description for this Solver.</div><div class="ttdef"><b>Definition:</b> NLEQ1Solver.cpp:27</div></div>
+<div class="ttc" id="aclassrr_1_1NLEQ1Solver_html"><div class="ttname"><a href="classrr_1_1NLEQ1Solver.html">rr::NLEQ1Solver</a></div><div class="ttdef"><b>Definition:</b> NLEQ1Solver.h:30</div></div>
 <div class="ttc" id="aclassrr_1_1SteadyStateSolver_html"><div class="ttname"><a href="classrr_1_1SteadyStateSolver.html">rr::SteadyStateSolver</a></div><div class="ttdef"><b>Definition:</b> SteadyStateSolver.h:41</div></div>
-<div class="ttc" id="aclassrr_1_1NLEQ1Solver_html_aae1f007468323d8fd2e83ebd88118145"><div class="ttname"><a href="classrr_1_1NLEQ1Solver.html#aae1f007468323d8fd2e83ebd88118145">rr::NLEQ1Solver::getNLEQName</a></div><div class="ttdeci">static std::string getNLEQName()</div><div class="ttdoc">Get the name for this Solver.</div><div class="ttdef"><b>Definition:</b> NLEQ1Solver.cpp:80</div></div>
-<div class="ttc" id="aclassrr_1_1NLEQ1Solver_html_add507b9e399ec4abc2eee354d1281353"><div class="ttname"><a href="classrr_1_1NLEQ1Solver.html#add507b9e399ec4abc2eee354d1281353">rr::NLEQ1Solver::getNLEQHint</a></div><div class="ttdeci">static std::string getNLEQHint()</div><div class="ttdoc">Get the hint for this Solver.</div><div class="ttdef"><b>Definition:</b> NLEQ1Solver.cpp:97</div></div>
+<div class="ttc" id="aclassrr_1_1NLEQ1Solver_html_aae1f007468323d8fd2e83ebd88118145"><div class="ttname"><a href="classrr_1_1NLEQ1Solver.html#aae1f007468323d8fd2e83ebd88118145">rr::NLEQ1Solver::getNLEQName</a></div><div class="ttdeci">static std::string getNLEQName()</div><div class="ttdoc">Get the name for this Solver.</div><div class="ttdef"><b>Definition:</b> NLEQ1Solver.cpp:19</div></div>
+<div class="ttc" id="aclassrr_1_1NLEQ1Solver_html_add507b9e399ec4abc2eee354d1281353"><div class="ttname"><a href="classrr_1_1NLEQ1Solver.html#add507b9e399ec4abc2eee354d1281353">rr::NLEQ1Solver::getNLEQHint</a></div><div class="ttdeci">static std::string getNLEQHint()</div><div class="ttdoc">Get the hint for this Solver.</div><div class="ttdef"><b>Definition:</b> NLEQ1Solver.cpp:36</div></div>
 <!-- start footer part -->
 <hr class="footer"/><address class="footer"><small>
 Generated by&#160;<a href="http://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.8.20

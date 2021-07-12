@@ -13,6 +13,8 @@
   
   <link rel="stylesheet" href="_static/css/theme.css" type="text/css" />
   <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
+  <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
+  <link rel="stylesheet" href="_static/css/theme.css" type="text/css" />
   <link rel="stylesheet" href="_static/tabs.css" type="text/css" />
 
   
@@ -30,10 +32,10 @@
   
     
       <script type="text/javascript" id="documentation_options" data-url_root="./" src="_static/documentation_options.js"></script>
+        <script data-url_root="./" id="documentation_options" src="_static/documentation_options.js"></script>
         <script src="_static/jquery.js"></script>
         <script src="_static/underscore.js"></script>
         <script src="_static/doctools.js"></script>
-        <script src="_static/language_data.js"></script>
         <script src="_static/tabs.js"></script>
     
     <script type="text/javascript" src="_static/js/theme.js"></script>
@@ -103,6 +105,7 @@
 <li class="toctree-l1"><a class="reference internal" href="rrplugins/rrplugins_documentation.html">rrPlugins Documentation</a></li>
 <li class="toctree-l1"><a class="reference internal" href="PythonAPIReference/api_reference.html">Python RoadRunner API Reference</a></li>
 <li class="toctree-l1"><a class="reference internal" href="C%2B%2BAPIReference/index.html">The LibRoadRunner C++ Library</a></li>
+<li class="toctree-l1"><a class="reference internal" href="developers_docs/index.html">Developers Documentation</a></li>
 </ul>
 
             
@@ -235,7 +238,7 @@
 </li>
       <li><a href="PythonAPIReference/cls_RoadRunner.html#RoadRunner.RoadRunner.addReaction">addReaction() (RoadRunner.RoadRunner method)</a>, <a href="PythonAPIReference/cls_RoadRunner.html#id0">[1]</a>
 </li>
-      <li><a href="PythonAPIReference/cls_RoadRunner.html#RoadRunner.RoadRunner.addSpecies">addSpecies() (RoadRunner.RoadRunner method)</a>
+      <li><a href="PythonAPIReference/cls_RoadRunner.html#RoadRunner.RoadRunner.addSpeciesConcentration">addSpeciesConcentration() (RoadRunner.RoadRunner method)</a>
 </li>
       <li><a href="PythonAPIReference/cls_RoadRunner.html#RoadRunner.RoadRunner.addTrigger">addTrigger() (RoadRunner.RoadRunner method)</a>
 </li>
@@ -858,6 +861,8 @@
 </li>
       <li><a href="PythonAPIReference/cls_LoadSBMLOptions.html#RoadRunner.LoadSBMLOptions.recompile">recompile (RoadRunner.LoadSBMLOptions attribute)</a>
 </li>
+      <li><a href="PythonAPIReference/cls_RoadRunner.html#RoadRunner.RoadrUNNER.regenerateModel">regenerateModel() (RoadRunner.RoadrUNNER method)</a>
+</li>
       <li><a href="PythonAPIReference/cls_Integrator.html#Integrator.relative_tolerance">relative_tolerance (Integrator attribute)</a>
 
       <ul>
@@ -866,7 +871,7 @@
       </ul></li>
       <li><a href="PythonAPIReference/cls_RoadRunner.html#RoadRunner.RoadRunner.removeCompartment">removeCompartment() (RoadRunner.RoadRunner method)</a>
 </li>
-      <li><a href="PythonAPIReference/cls_RoadRunner.html#RoadRunner.RoadRunner.removeEvent">removeEvent() (RoadRunner.RoadRunner method)</a>
+      <li><a href="PythonAPIReference/cls_RoadRunner.html#RoadRunner.removeEvent">removeEvent() (RoadRunner method)</a>
 </li>
       <li><a href="PythonAPIReference/cls_RoadRunner.html#RoadRunner.RoadRunner.removeEventAssignment">removeEventAssignment() (RoadRunner.RoadRunner method)</a>
 </li>
@@ -1109,7 +1114,7 @@
 </li>
       <li><a href="C%2B%2BAPIReference/rrConfig.html#_CPPv4N2rr6Config31ROADRUNNER_JACOBIAN_MODE_VALUES39ROADRUNNER_JACOBIAN_MODE_CONCENTRATIONSE">rr::Config::ROADRUNNER_JACOBIAN_MODE_VALUES::ROADRUNNER_JACOBIAN_MODE_CONCENTRATIONS (C++ enumerator)</a>
 </li>
-      <li><a href="C%2B%2BAPIReference/rrConfig.html#_CPPv4N2rr6Config8setValueE4KeysRK7Variant">rr::Config::setValue (C++ function)</a>
+      <li><a href="C%2B%2BAPIReference/rrConfig.html#_CPPv4N2rr6Config8setValueE4Keys7Setting">rr::Config::setValue (C++ function)</a>
 </li>
       <li><a href="C%2B%2BAPIReference/rrConfig.html#_CPPv4N2rr6Config11stringToKeyERKNSt6stringE">rr::Config::stringToKey (C++ function)</a>
 </li>
@@ -1137,7 +1142,7 @@
 </li>
       <li><a href="C%2B%2BAPIReference/CVODEIntegrator.html#_CPPv4N2rr15CVODEIntegrator30applyVariableStepPendingEventsEv">rr::CVODEIntegrator::applyVariableStepPendingEvents (C++ function)</a>
 </li>
-      <li><a href="C%2B%2BAPIReference/CVODEIntegrator.html#_CPPv4N2rr15CVODEIntegrator20assignResultsToModelEv">rr::CVODEIntegrator::assignResultsToModel (C++ function)</a>
+      <li><a href="C%2B%2BAPIReference/CVODEIntegrator.html#_CPPv4NK2rr15CVODEIntegrator20assignResultsToModelEv">rr::CVODEIntegrator::assignResultsToModel (C++ function)</a>
 </li>
       <li><a href="C%2B%2BAPIReference/CVODEIntegrator.html#_CPPv4NK2rr15CVODEIntegrator10checkIndexEii">rr::CVODEIntegrator::checkIndex (C++ function)</a>
 </li>
@@ -1163,6 +1168,8 @@
 </li>
       <li><a href="C%2B%2BAPIReference/CVODEIntegrator.html#_CPPv4N2rr15CVODEIntegrator22getCVODEIntegratorNameEv">rr::CVODEIntegrator::getCVODEIntegratorName (C++ function)</a>
 </li>
+      <li><a href="C%2B%2BAPIReference/CVODEIntegrator.html#_CPPv4NK2rr15CVODEIntegrator14getCvodeMemoryEv">rr::CVODEIntegrator::getCvodeMemory (C++ function)</a>
+</li>
       <li><a href="C%2B%2BAPIReference/CVODEIntegrator.html#_CPPv4NK2rr15CVODEIntegrator14getDescriptionEv">rr::CVODEIntegrator::getDescription (C++ function)</a>
 </li>
       <li><a href="C%2B%2BAPIReference/CVODEIntegrator.html#_CPPv4NK2rr15CVODEIntegrator7getHintEv">rr::CVODEIntegrator::getHint (C++ function)</a>
@@ -1173,11 +1180,19 @@
 </li>
       <li><a href="C%2B%2BAPIReference/CVODEIntegrator.html#_CPPv4NK2rr15CVODEIntegrator7getNameEv">rr::CVODEIntegrator::getName (C++ function)</a>
 </li>
-      <li><a href="C%2B%2BAPIReference/CVODEIntegrator.html#_CPPv4N2rr15CVODEIntegrator13haveVariablesEv">rr::CVODEIntegrator::haveVariables (C++ function)</a>
+      <li><a href="C%2B%2BAPIReference/CVODEIntegrator.html#_CPPv4NK2rr15CVODEIntegrator9getSolverEv">rr::CVODEIntegrator::getSolver (C++ function)</a>
+</li>
+      <li><a href="C%2B%2BAPIReference/CVODEIntegrator.html#_CPPv4NK2rr15CVODEIntegrator14getStateVectorEv">rr::CVODEIntegrator::getStateVector (C++ function)</a>
+</li>
+      <li><a href="C%2B%2BAPIReference/CVODEIntegrator.html#_CPPv4NK2rr15CVODEIntegrator13haveVariablesEv">rr::CVODEIntegrator::haveVariables (C++ function)</a>
 </li>
       <li><a href="C%2B%2BAPIReference/CVODEIntegrator.html#_CPPv4N2rr15CVODEIntegrator9integrateEdd">rr::CVODEIntegrator::integrate (C++ function)</a>
 </li>
+      <li><a href="C%2B%2BAPIReference/CVODEIntegrator.html#_CPPv4N2rr15CVODEIntegrator3jacE">rr::CVODEIntegrator::jac (C++ member)</a>
+</li>
       <li><a href="C%2B%2BAPIReference/CVODEIntegrator.html#_CPPv4N2rr15CVODEIntegrator13lastEventTimeE">rr::CVODEIntegrator::lastEventTime (C++ member)</a>
+</li>
+      <li><a href="C%2B%2BAPIReference/CVODEIntegrator.html#_CPPv4N2rr15CVODEIntegrator9linSolverE">rr::CVODEIntegrator::linSolver (C++ member)</a>
 </li>
       <li><a href="C%2B%2BAPIReference/CVODEIntegrator.html#_CPPv4N2rr15CVODEIntegrator8listenerE">rr::CVODEIntegrator::listener (C++ member)</a>
 </li>
@@ -1193,9 +1208,9 @@
 </li>
       <li><a href="C%2B%2BAPIReference/CVODEIntegrator.html#_CPPv4N2rr15CVODEIntegrator19mDefaultMaxNumStepsE">rr::CVODEIntegrator::mDefaultMaxNumSteps (C++ member)</a>
 </li>
-      <li><a href="C%2B%2BAPIReference/CVODEIntegrator.html#_CPPv4N2rr15CVODEIntegrator6mModelE">rr::CVODEIntegrator::mModel (C++ member)</a>
-</li>
       <li><a href="C%2B%2BAPIReference/CVODEIntegrator.html#_CPPv4N2rr15CVODEIntegrator12mStateVectorE">rr::CVODEIntegrator::mStateVector (C++ member)</a>
+</li>
+      <li><a href="C%2B%2BAPIReference/CVODEIntegrator.html#_CPPv4N2rr15CVODEIntegrator12nonLinSolverE">rr::CVODEIntegrator::nonLinSolver (C++ member)</a>
 </li>
       <li><a href="C%2B%2BAPIReference/CVODEIntegrator.html#_CPPv4N2rr15CVODEIntegrator6reInitEd">rr::CVODEIntegrator::reInit (C++ function)</a>
 </li>
@@ -1203,15 +1218,15 @@
 </li>
       <li><a href="C%2B%2BAPIReference/CVODEIntegrator.html#_CPPv4N2rr15CVODEIntegrator7restartEd">rr::CVODEIntegrator::restart (C++ function)</a>
 </li>
-      <li><a href="C%2B%2BAPIReference/CVODEIntegrator.html#_CPPv4N2rr15CVODEIntegrator25setConcentrationToleranceERK7Variant">rr::CVODEIntegrator::setConcentrationTolerance (C++ function)</a>
+      <li><a href="C%2B%2BAPIReference/CVODEIntegrator.html#_CPPv4N2rr15CVODEIntegrator25setConcentrationToleranceE7Setting">rr::CVODEIntegrator::setConcentrationTolerance (C++ function)</a>
 </li>
       <li><a href="C%2B%2BAPIReference/CVODEIntegrator.html#_CPPv4N2rr15CVODEIntegrator18setCVODETolerancesEv">rr::CVODEIntegrator::setCVODETolerances (C++ function)</a>
 </li>
-      <li><a href="C%2B%2BAPIReference/CVODEIntegrator.html#_CPPv4N2rr15CVODEIntegrator22setIndividualToleranceE6stringd">rr::CVODEIntegrator::setIndividualTolerance (C++ function)</a>
+      <li><a href="C%2B%2BAPIReference/CVODEIntegrator.html#_CPPv4N2rr15CVODEIntegrator22setIndividualToleranceENSt6stringEd">rr::CVODEIntegrator::setIndividualTolerance (C++ function)</a>
 </li>
       <li><a href="C%2B%2BAPIReference/CVODEIntegrator.html#_CPPv4N2rr15CVODEIntegrator11setListenerE21IntegratorListenerPtr">rr::CVODEIntegrator::setListener (C++ function)</a>
 </li>
-      <li><a href="C%2B%2BAPIReference/CVODEIntegrator.html#_CPPv4N2rr15CVODEIntegrator8setValueENSt6stringERK7Variant">rr::CVODEIntegrator::setValue (C++ function)</a>
+      <li><a href="C%2B%2BAPIReference/CVODEIntegrator.html#_CPPv4N2rr15CVODEIntegrator8setValueERKNSt6stringE7Setting">rr::CVODEIntegrator::setValue (C++ function)</a>
 </li>
       <li><a href="C%2B%2BAPIReference/CVODEIntegrator.html#_CPPv4N2rr15CVODEIntegrator20stateVectorVariablesE">rr::CVODEIntegrator::stateVectorVariables (C++ member)</a>
 </li>
@@ -1245,7 +1260,7 @@
 </li>
       <li><a href="C%2B%2BAPIReference/Dictionary.html#_CPPv4NK2rr10Dictionary6hasKeyERKNSt6stringE">rr::Dictionary::hasKey (C++ function)</a>
 </li>
-      <li><a href="C%2B%2BAPIReference/Dictionary.html#_CPPv4N2rr10Dictionary7setItemERKNSt6stringERKN2rr7VariantE">rr::Dictionary::setItem (C++ function)</a>
+      <li><a href="C%2B%2BAPIReference/Dictionary.html#_CPPv4N2rr10Dictionary7setItemERKNSt6stringERKN2rr7SettingE">rr::Dictionary::setItem (C++ function)</a>
 </li>
       <li><a href="C%2B%2BAPIReference/Dictionary.html#_CPPv4N2rr10DictionaryD0Ev">rr::Dictionary::~Dictionary (C++ function)</a>
 </li>
@@ -1289,8 +1304,6 @@
 </li>
       <li><a href="C%2B%2BAPIReference/EulerIntegrator.html#_CPPv4N2rr15EulerIntegrator8listenerE">rr::EulerIntegrator::listener (C++ member)</a>
 </li>
-      <li><a href="C%2B%2BAPIReference/EulerIntegrator.html#_CPPv4N2rr15EulerIntegrator5modelE">rr::EulerIntegrator::model (C++ member)</a>
-</li>
       <li><a href="C%2B%2BAPIReference/EulerIntegrator.html#_CPPv4N2rr15EulerIntegrator19previousEventStatusE">rr::EulerIntegrator::previousEventStatus (C++ member)</a>
 </li>
       <li><a href="C%2B%2BAPIReference/EulerIntegrator.html#_CPPv4N2rr15EulerIntegrator10rateBufferE">rr::EulerIntegrator::rateBuffer (C++ member)</a>
@@ -1299,7 +1312,7 @@
 </li>
       <li><a href="C%2B%2BAPIReference/EulerIntegrator.html#_CPPv4N2rr15EulerIntegrator7restartEd">rr::EulerIntegrator::restart (C++ function)</a>
 </li>
-      <li><a href="C%2B%2BAPIReference/EulerIntegrator.html#_CPPv4N2rr15EulerIntegrator7setItemERKNSt6stringERKN2rr7VariantE">rr::EulerIntegrator::setItem (C++ function)</a>
+      <li><a href="C%2B%2BAPIReference/EulerIntegrator.html#_CPPv4N2rr15EulerIntegrator7setItemERKNSt6stringERKN2rr7SettingE">rr::EulerIntegrator::setItem (C++ function)</a>
 </li>
       <li><a href="C%2B%2BAPIReference/EulerIntegrator.html#_CPPv4N2rr15EulerIntegrator11setListenerE21IntegratorListenerPtr">rr::EulerIntegrator::setListener (C++ function)</a>
 </li>
@@ -1317,7 +1330,7 @@
 </li>
       <li><a href="C%2B%2BAPIReference/rrException.html#_CPPv4N2rr9ExceptionE">rr::Exception (C++ class)</a>
 </li>
-      <li><a href="C%2B%2BAPIReference/rrException.html#_CPPv4N2rr9Exception9ExceptionERK6string">rr::Exception::Exception (C++ function)</a>
+      <li><a href="C%2B%2BAPIReference/rrException.html#_CPPv4N2rr9Exception9ExceptionERKNSt6stringE">rr::Exception::Exception (C++ function)</a>
 </li>
       <li><a href="C%2B%2BAPIReference/rrException.html#_CPPv4NK2rr9Exception10getMessageEv">rr::Exception::getMessage (C++ function)</a>
 </li>
@@ -1521,7 +1534,7 @@
 </li>
       <li><a href="C%2B%2BAPIReference/rrFileName.html#_CPPv4N2rr8FileNameE">rr::FileName (C++ class)</a>
 </li>
-      <li><a href="C%2B%2BAPIReference/rrFileName.html#_CPPv4N2rr8FileName8FileNameERK6stringRK6string">rr::FileName::FileName (C++ function)</a>, <a href="C%2B%2BAPIReference/rrFileName.html#_CPPv4N2rr8FileName8FileNameERK8FileName">[1]</a>
+      <li><a href="C%2B%2BAPIReference/rrFileName.html#_CPPv4N2rr8FileName8FileNameERK8FileName">rr::FileName::FileName (C++ function)</a>, <a href="C%2B%2BAPIReference/rrFileName.html#_CPPv4N2rr8FileName8FileNameERKNSt6stringERKNSt6stringE">[1]</a>
 </li>
       <li><a href="C%2B%2BAPIReference/rrFileName.html#_CPPv4N2rr8FileName3GetEv">rr::FileName::Get (C++ function)</a>
 </li>
@@ -1541,19 +1554,19 @@
 </li>
       <li><a href="C%2B%2BAPIReference/rrFileName.html#_CPPv4N2rr8FileName12mPathAndNameE">rr::FileName::mPathAndName (C++ member)</a>
 </li>
-      <li><a href="C%2B%2BAPIReference/rrFileName.html#_CPPv4N2rr8FileNamecv6stringEv">rr::FileName::operator string (C++ function)</a>
+      <li><a href="C%2B%2BAPIReference/rrFileName.html#_CPPv4N2rr8FileNamecvNSt6stringEEv">rr::FileName::operator std::string (C++ function)</a>
 </li>
       <li><a href="C%2B%2BAPIReference/rrFileName.html#_CPPv4N2rr8FileNameneEPKc">rr::FileName::operator!= (C++ function)</a>
 </li>
-      <li><a href="C%2B%2BAPIReference/rrFileName.html#_CPPv4N2rr8FileNameaSEPKc">rr::FileName::operator= (C++ function)</a>, <a href="C%2B%2BAPIReference/rrFileName.html#_CPPv4N2rr8FileNameaSERK6string">[1]</a>, <a href="C%2B%2BAPIReference/rrFileName.html#_CPPv4N2rr8FileNameaSERK8FileName">[2]</a>
+      <li><a href="C%2B%2BAPIReference/rrFileName.html#_CPPv4N2rr8FileNameaSEPKc">rr::FileName::operator= (C++ function)</a>, <a href="C%2B%2BAPIReference/rrFileName.html#_CPPv4N2rr8FileNameaSERK8FileName">[1]</a>, <a href="C%2B%2BAPIReference/rrFileName.html#_CPPv4N2rr8FileNameaSERKNSt6stringE">[2]</a>
 </li>
-      <li><a href="C%2B%2BAPIReference/rrFileName.html#_CPPv4N2rr8FileName11SetFileNameERK6string">rr::FileName::SetFileName (C++ function)</a>
+      <li><a href="C%2B%2BAPIReference/rrFileName.html#_CPPv4N2rr8FileName11SetFileNameERKNSt6stringE">rr::FileName::SetFileName (C++ function)</a>
 </li>
-      <li><a href="C%2B%2BAPIReference/rrFileName.html#_CPPv4N2rr8FileName18SetFileNameAndPathERK6string">rr::FileName::SetFileNameAndPath (C++ function)</a>
+      <li><a href="C%2B%2BAPIReference/rrFileName.html#_CPPv4N2rr8FileName18SetFileNameAndPathERKNSt6stringE">rr::FileName::SetFileNameAndPath (C++ function)</a>
 </li>
-      <li><a href="C%2B%2BAPIReference/rrFileName.html#_CPPv4N2rr8FileName14SetNameAndPathERK6stringRK6string">rr::FileName::SetNameAndPath (C++ function)</a>
+      <li><a href="C%2B%2BAPIReference/rrFileName.html#_CPPv4N2rr8FileName14SetNameAndPathERKNSt6stringERKNSt6stringE">rr::FileName::SetNameAndPath (C++ function)</a>
 </li>
-      <li><a href="C%2B%2BAPIReference/rrFileName.html#_CPPv4N2rr8FileName7SetPathERK6string">rr::FileName::SetPath (C++ function)</a>
+      <li><a href="C%2B%2BAPIReference/rrFileName.html#_CPPv4N2rr8FileName7SetPathERKNSt6stringE">rr::FileName::SetPath (C++ function)</a>
 </li>
       <li><a href="C%2B%2BAPIReference/rrFileName.html#_CPPv4N2rr8FileName4sizeEv">rr::FileName::size (C++ function)</a>
 </li>
@@ -1595,8 +1608,6 @@
 </li>
       <li><a href="C%2B%2BAPIReference/GillespieIntegrator.html#_CPPv4N2rr19GillespieIntegrator9integrateEdd">rr::GillespieIntegrator::integrate (C++ function)</a>
 </li>
-      <li><a href="C%2B%2BAPIReference/GillespieIntegrator.html#_CPPv4N2rr19GillespieIntegrator5modelE">rr::GillespieIntegrator::model (C++ member)</a>
-</li>
       <li><a href="C%2B%2BAPIReference/GillespieIntegrator.html#_CPPv4N2rr19GillespieIntegrator10nReactionsE">rr::GillespieIntegrator::nReactions (C++ member)</a>
 </li>
       <li><a href="C%2B%2BAPIReference/GillespieIntegrator.html#_CPPv4N2rr19GillespieIntegrator19previousEventStatusE">rr::GillespieIntegrator::previousEventStatus (C++ member)</a>
@@ -1613,7 +1624,7 @@
 </li>
       <li><a href="C%2B%2BAPIReference/GillespieIntegrator.html#_CPPv4N2rr19GillespieIntegrator11setListenerE21IntegratorListenerPtr">rr::GillespieIntegrator::setListener (C++ function)</a>
 </li>
-      <li><a href="C%2B%2BAPIReference/GillespieIntegrator.html#_CPPv4N2rr19GillespieIntegrator8setValueENSt6stringERK7Variant">rr::GillespieIntegrator::setValue (C++ function)</a>
+      <li><a href="C%2B%2BAPIReference/GillespieIntegrator.html#_CPPv4N2rr19GillespieIntegrator8setValueERKNSt6stringE7Setting">rr::GillespieIntegrator::setValue (C++ function)</a>
 </li>
       <li><a href="C%2B%2BAPIReference/GillespieIntegrator.html#_CPPv4N2rr19GillespieIntegrator11stateVectorE">rr::GillespieIntegrator::stateVector (C++ member)</a>
 </li>
@@ -1643,19 +1654,19 @@
 </li>
       <li><a href="C%2B%2BAPIReference/rrIniFile.html#_CPPv4N2rr7IniFile5ClearEv">rr::IniFile::Clear (C++ function)</a>
 </li>
-      <li><a href="C%2B%2BAPIReference/rrIniFile.html#_CPPv4N2rr7IniFile12ClearSectionERK6string">rr::IniFile::ClearSection (C++ function)</a>
+      <li><a href="C%2B%2BAPIReference/rrIniFile.html#_CPPv4N2rr7IniFile12ClearSectionERKNSt6stringE">rr::IniFile::ClearSection (C++ function)</a>
 </li>
-      <li><a href="C%2B%2BAPIReference/rrIniFile.html#_CPPv4N2rr7IniFile10CommentStrER6string">rr::IniFile::CommentStr (C++ function)</a>
+      <li><a href="C%2B%2BAPIReference/rrIniFile.html#_CPPv4N2rr7IniFile10CommentStrERNSt6stringE">rr::IniFile::CommentStr (C++ function)</a>
 </li>
-      <li><a href="C%2B%2BAPIReference/rrIniFile.html#_CPPv4N2rr7IniFile9CreateKeyERK6stringRK6stringRK6stringRK6string">rr::IniFile::CreateKey (C++ function)</a>
+      <li><a href="C%2B%2BAPIReference/rrIniFile.html#_CPPv4N2rr7IniFile9CreateKeyERKNSt6stringERKNSt6stringERKNSt6stringERKNSt6stringE">rr::IniFile::CreateKey (C++ function)</a>
 </li>
-      <li><a href="C%2B%2BAPIReference/rrIniFile.html#_CPPv4N2rr7IniFile13CreateSectionERK6stringRK6string">rr::IniFile::CreateSection (C++ function)</a>, <a href="C%2B%2BAPIReference/rrIniFile.html#_CPPv4N2rr7IniFile13CreateSectionERK6stringRK6string7KeyList">[1]</a>
+      <li><a href="C%2B%2BAPIReference/rrIniFile.html#_CPPv4N2rr7IniFile13CreateSectionERKNSt6stringERKNSt6stringE">rr::IniFile::CreateSection (C++ function)</a>, <a href="C%2B%2BAPIReference/rrIniFile.html#_CPPv4N2rr7IniFile13CreateSectionERKNSt6stringERKNSt6stringE7KeyList">[1]</a>
 </li>
-      <li><a href="C%2B%2BAPIReference/rrIniFile.html#_CPPv4N2rr7IniFile9DeleteKeyERK6stringRK6string">rr::IniFile::DeleteKey (C++ function)</a>
+      <li><a href="C%2B%2BAPIReference/rrIniFile.html#_CPPv4N2rr7IniFile9DeleteKeyERKNSt6stringERKNSt6stringE">rr::IniFile::DeleteKey (C++ function)</a>
 </li>
-      <li><a href="C%2B%2BAPIReference/rrIniFile.html#_CPPv4N2rr7IniFile13DeleteSectionERK6string">rr::IniFile::DeleteSection (C++ function)</a>
+      <li><a href="C%2B%2BAPIReference/rrIniFile.html#_CPPv4N2rr7IniFile13DeleteSectionERKNSt6stringE">rr::IniFile::DeleteSection (C++ function)</a>
 </li>
-      <li><a href="C%2B%2BAPIReference/rrIniFile.html#_CPPv4N2rr7IniFile26DeleteSectionsWithKeyValueERK6stringRK6string">rr::IniFile::DeleteSectionsWithKeyValue (C++ function)</a>
+      <li><a href="C%2B%2BAPIReference/rrIniFile.html#_CPPv4N2rr7IniFile26DeleteSectionsWithKeyValueERKNSt6stringERKNSt6stringE">rr::IniFile::DeleteSectionsWithKeyValue (C++ function)</a>
 </li>
       <li><a href="C%2B%2BAPIReference/rrIniFile.html#_CPPv4N2rr7IniFile11GetFileNameEv">rr::IniFile::GetFileName (C++ function)</a>
 </li>
@@ -1663,23 +1674,23 @@
 </li>
       <li><a href="C%2B%2BAPIReference/rrIniFile.html#_CPPv4N2rr7IniFile15GetFullFileNameEv">rr::IniFile::GetFullFileName (C++ function)</a>
 </li>
-      <li><a href="C%2B%2BAPIReference/rrIniFile.html#_CPPv4N2rr7IniFile6GetKeyERK6stringRK6string">rr::IniFile::GetKey (C++ function)</a>
+      <li><a href="C%2B%2BAPIReference/rrIniFile.html#_CPPv4N2rr7IniFile6GetKeyERKNSt6stringERKNSt6stringE">rr::IniFile::GetKey (C++ function)</a>
 </li>
-      <li><a href="C%2B%2BAPIReference/rrIniFile.html#_CPPv4N2rr7IniFile11GetNextWordER6string">rr::IniFile::GetNextWord (C++ function)</a>
+      <li><a href="C%2B%2BAPIReference/rrIniFile.html#_CPPv4N2rr7IniFile11GetNextWordERNSt6stringE">rr::IniFile::GetNextWord (C++ function)</a>
 </li>
       <li><a href="C%2B%2BAPIReference/rrIniFile.html#_CPPv4N2rr7IniFile19GetNumberOfSectionsEv">rr::IniFile::GetNumberOfSections (C++ function)</a>
 </li>
-      <li><a href="C%2B%2BAPIReference/rrIniFile.html#_CPPv4N2rr7IniFile10GetSectionE6size_t">rr::IniFile::GetSection (C++ function)</a>, <a href="C%2B%2BAPIReference/rrIniFile.html#_CPPv4N2rr7IniFile10GetSectionEKj">[1]</a>, <a href="C%2B%2BAPIReference/rrIniFile.html#_CPPv4N2rr7IniFile10GetSectionERK6stringb">[2]</a>, <a href="C%2B%2BAPIReference/rrIniFile.html#_CPPv4N2rr7IniFile10GetSectionEi">[3]</a>
+      <li><a href="C%2B%2BAPIReference/rrIniFile.html#_CPPv4N2rr7IniFile10GetSectionE6size_t">rr::IniFile::GetSection (C++ function)</a>, <a href="C%2B%2BAPIReference/rrIniFile.html#_CPPv4N2rr7IniFile10GetSectionEKj">[1]</a>, <a href="C%2B%2BAPIReference/rrIniFile.html#_CPPv4N2rr7IniFile10GetSectionERKNSt6stringEb">[2]</a>, <a href="C%2B%2BAPIReference/rrIniFile.html#_CPPv4N2rr7IniFile10GetSectionEi">[3]</a>
 </li>
-      <li><a href="C%2B%2BAPIReference/rrIniFile.html#_CPPv4N2rr7IniFile7IniFileERK6stringbb">rr::IniFile::IniFile (C++ function)</a>
+      <li><a href="C%2B%2BAPIReference/rrIniFile.html#_CPPv4N2rr7IniFile7IniFileERKNSt6stringEbb">rr::IniFile::IniFile (C++ function)</a>
 </li>
       <li><a href="C%2B%2BAPIReference/rrIniFile.html#_CPPv4N2rr7IniFile10IsModifiedEv">rr::IniFile::IsModified (C++ function)</a>
 </li>
-      <li><a href="C%2B%2BAPIReference/rrIniFile.html#_CPPv4N2rr7IniFile8KeyCountERK6string">rr::IniFile::KeyCount (C++ function)</a>, <a href="C%2B%2BAPIReference/rrIniFile.html#_CPPv4N2rr7IniFile8KeyCountEv">[1]</a>
+      <li><a href="C%2B%2BAPIReference/rrIniFile.html#_CPPv4N2rr7IniFile8KeyCountERKNSt6stringE">rr::IniFile::KeyCount (C++ function)</a>, <a href="C%2B%2BAPIReference/rrIniFile.html#_CPPv4N2rr7IniFile8KeyCountEv">[1]</a>
 </li>
-      <li><a href="C%2B%2BAPIReference/rrIniFile.html#_CPPv4N2rr7IniFile4LoadERK6string">rr::IniFile::Load (C++ function)</a>
+      <li><a href="C%2B%2BAPIReference/rrIniFile.html#_CPPv4N2rr7IniFile4LoadERKNSt6stringE">rr::IniFile::Load (C++ function)</a>
 </li>
-      <li><a href="C%2B%2BAPIReference/rrIniFile.html#_CPPv4N2rr7IniFile11LoadSectionERK6string">rr::IniFile::LoadSection (C++ function)</a>
+      <li><a href="C%2B%2BAPIReference/rrIniFile.html#_CPPv4N2rr7IniFile11LoadSectionERKNSt6stringE">rr::IniFile::LoadSection (C++ function)</a>
 </li>
       <li><a href="C%2B%2BAPIReference/rrIniFile.html#_CPPv4N2rr7IniFile15mAutoCreateKeysE">rr::IniFile::mAutoCreateKeys (C++ member)</a>
 </li>
@@ -1703,51 +1714,51 @@
 </li>
       <li><a href="C%2B%2BAPIReference/rrIniFile.html#_CPPv4N2rr7IniFile11mWhiteSpaceE">rr::IniFile::mWhiteSpace (C++ member)</a>
 </li>
-      <li><a href="C%2B%2BAPIReference/rrIniFile.html#_CPPv4N2rr7IniFile8ReadBoolERK6stringRK6stringb">rr::IniFile::ReadBool (C++ function)</a>
+      <li><a href="C%2B%2BAPIReference/rrIniFile.html#_CPPv4N2rr7IniFile8ReadBoolERKNSt6stringERKNSt6stringEb">rr::IniFile::ReadBool (C++ function)</a>
 </li>
-      <li><a href="C%2B%2BAPIReference/rrIniFile.html#_CPPv4N2rr7IniFile10ReadDoubleERK6stringRK6stringd">rr::IniFile::ReadDouble (C++ function)</a>
+      <li><a href="C%2B%2BAPIReference/rrIniFile.html#_CPPv4N2rr7IniFile10ReadDoubleERKNSt6stringERKNSt6stringEd">rr::IniFile::ReadDouble (C++ function)</a>
 </li>
-      <li><a href="C%2B%2BAPIReference/rrIniFile.html#_CPPv4N2rr7IniFile9ReadFloatERK6stringRK6stringd">rr::IniFile::ReadFloat (C++ function)</a>
+      <li><a href="C%2B%2BAPIReference/rrIniFile.html#_CPPv4N2rr7IniFile9ReadFloatERKNSt6stringERKNSt6stringEd">rr::IniFile::ReadFloat (C++ function)</a>
 </li>
-      <li><a href="C%2B%2BAPIReference/rrIniFile.html#_CPPv4N2rr7IniFile11ReadIntegerERK6stringRK6stringi">rr::IniFile::ReadInteger (C++ function)</a>
+      <li><a href="C%2B%2BAPIReference/rrIniFile.html#_CPPv4N2rr7IniFile11ReadIntegerERKNSt6stringERKNSt6stringEi">rr::IniFile::ReadInteger (C++ function)</a>
 </li>
-      <li><a href="C%2B%2BAPIReference/rrIniFile.html#_CPPv4N2rr7IniFile10ReadStringERK6stringRK6stringRK6string">rr::IniFile::ReadString (C++ function)</a>
+      <li><a href="C%2B%2BAPIReference/rrIniFile.html#_CPPv4N2rr7IniFile10ReadStringERKNSt6stringERKNSt6stringERKNSt6stringE">rr::IniFile::ReadString (C++ function)</a>
 </li>
-      <li><a href="C%2B%2BAPIReference/rrIniFile.html#_CPPv4N2rr7IniFile9ReadValueERK6stringRK6string">rr::IniFile::ReadValue (C++ function)</a>
+      <li><a href="C%2B%2BAPIReference/rrIniFile.html#_CPPv4N2rr7IniFile9ReadValueERKNSt6stringERKNSt6stringE">rr::IniFile::ReadValue (C++ function)</a>
 </li>
       <li><a href="C%2B%2BAPIReference/rrIniFile.html#_CPPv4N2rr7IniFile4SaveEN8ios_base8openmodeE">rr::IniFile::Save (C++ function)</a>
 </li>
       <li><a href="C%2B%2BAPIReference/rrIniFile.html#_CPPv4N2rr7IniFile12SectionCountEv">rr::IniFile::SectionCount (C++ function)</a>
 </li>
-      <li><a href="C%2B%2BAPIReference/rrIniFile.html#_CPPv4N2rr7IniFile13SectionExistsERK6string">rr::IniFile::SectionExists (C++ function)</a>
+      <li><a href="C%2B%2BAPIReference/rrIniFile.html#_CPPv4N2rr7IniFile13SectionExistsERKNSt6stringE">rr::IniFile::SectionExists (C++ function)</a>
 </li>
-      <li><a href="C%2B%2BAPIReference/rrIniFile.html#_CPPv4N2rr7IniFile11SetFileNameERK6string">rr::IniFile::SetFileName (C++ function)</a>
+      <li><a href="C%2B%2BAPIReference/rrIniFile.html#_CPPv4N2rr7IniFile11SetFileNameERKNSt6stringE">rr::IniFile::SetFileName (C++ function)</a>
 </li>
-      <li><a href="C%2B%2BAPIReference/rrIniFile.html#_CPPv4N2rr7IniFile11SetFilePathERK6string">rr::IniFile::SetFilePath (C++ function)</a>
+      <li><a href="C%2B%2BAPIReference/rrIniFile.html#_CPPv4N2rr7IniFile11SetFilePathERKNSt6stringE">rr::IniFile::SetFilePath (C++ function)</a>
 </li>
-      <li><a href="C%2B%2BAPIReference/rrIniFile.html#_CPPv4N2rr7IniFile13SetKeyCommentERK6stringRK6stringRK6string">rr::IniFile::SetKeyComment (C++ function)</a>
+      <li><a href="C%2B%2BAPIReference/rrIniFile.html#_CPPv4N2rr7IniFile13SetKeyCommentERKNSt6stringERKNSt6stringERKNSt6stringE">rr::IniFile::SetKeyComment (C++ function)</a>
 </li>
-      <li><a href="C%2B%2BAPIReference/rrIniFile.html#_CPPv4N2rr7IniFile17SetSectionCommentERK6stringRK6string">rr::IniFile::SetSectionComment (C++ function)</a>
+      <li><a href="C%2B%2BAPIReference/rrIniFile.html#_CPPv4N2rr7IniFile17SetSectionCommentERKNSt6stringERKNSt6stringE">rr::IniFile::SetSectionComment (C++ function)</a>
 </li>
-      <li><a href="C%2B%2BAPIReference/rrIniFile.html#_CPPv4N2rr7IniFile4TrimER6string">rr::IniFile::Trim (C++ function)</a>
+      <li><a href="C%2B%2BAPIReference/rrIniFile.html#_CPPv4N2rr7IniFile4TrimERNSt6stringE">rr::IniFile::Trim (C++ function)</a>
 </li>
       <li><a href="C%2B%2BAPIReference/rrIniFile.html#_CPPv4N2rr7IniFile6UnLoadEv">rr::IniFile::UnLoad (C++ function)</a>
 </li>
       <li><a href="C%2B%2BAPIReference/rrIniFile.html#_CPPv4N2rr7IniFile10WasItFoundEv">rr::IniFile::WasItFound (C++ function)</a>
 </li>
-      <li><a href="C%2B%2BAPIReference/rrIniFile.html#_CPPv4N2rr7IniFile9WriteBoolERK6stringbRK6stringRK6string">rr::IniFile::WriteBool (C++ function)</a>
+      <li><a href="C%2B%2BAPIReference/rrIniFile.html#_CPPv4N2rr7IniFile9WriteBoolERKNSt6stringEbRKNSt6stringERKNSt6stringE">rr::IniFile::WriteBool (C++ function)</a>
 </li>
-      <li><a href="C%2B%2BAPIReference/rrIniFile.html#_CPPv4N2rr7IniFile10WriteFloatERK6stringdRK6stringRK6string">rr::IniFile::WriteFloat (C++ function)</a>
+      <li><a href="C%2B%2BAPIReference/rrIniFile.html#_CPPv4N2rr7IniFile10WriteFloatERKNSt6stringEdRKNSt6stringERKNSt6stringE">rr::IniFile::WriteFloat (C++ function)</a>
 </li>
-      <li><a href="C%2B%2BAPIReference/rrIniFile.html#_CPPv4N2rr7IniFile12WriteIntegerERK6stringiRK6stringRK6string">rr::IniFile::WriteInteger (C++ function)</a>
+      <li><a href="C%2B%2BAPIReference/rrIniFile.html#_CPPv4N2rr7IniFile12WriteIntegerERKNSt6stringEiRKNSt6stringERKNSt6stringE">rr::IniFile::WriteInteger (C++ function)</a>
 </li>
-      <li><a href="C%2B%2BAPIReference/rrIniFile.html#_CPPv4N2rr7IniFile9WriteLineER7fstreamPKcz">rr::IniFile::WriteLine (C++ function)</a>
+      <li><a href="C%2B%2BAPIReference/rrIniFile.html#_CPPv4N2rr7IniFile9WriteLineERNSt7fstreamEPKcz">rr::IniFile::WriteLine (C++ function)</a>
 </li>
-      <li><a href="C%2B%2BAPIReference/rrIniFile.html#_CPPv4N2rr7IniFile11WriteNonKeyERK6stringRK6string">rr::IniFile::WriteNonKey (C++ function)</a>
+      <li><a href="C%2B%2BAPIReference/rrIniFile.html#_CPPv4N2rr7IniFile11WriteNonKeyERKNSt6stringERKNSt6stringE">rr::IniFile::WriteNonKey (C++ function)</a>
 </li>
-      <li><a href="C%2B%2BAPIReference/rrIniFile.html#_CPPv4N2rr7IniFile11WriteStringERK6stringRK6stringRK6stringRK6string">rr::IniFile::WriteString (C++ function)</a>
+      <li><a href="C%2B%2BAPIReference/rrIniFile.html#_CPPv4N2rr7IniFile11WriteStringERKNSt6stringERKNSt6stringERKNSt6stringERKNSt6stringE">rr::IniFile::WriteString (C++ function)</a>
 </li>
-      <li><a href="C%2B%2BAPIReference/rrIniFile.html#_CPPv4N2rr7IniFile10WriteValueERK6stringRK6stringRK6stringRK6string">rr::IniFile::WriteValue (C++ function)</a>
+      <li><a href="C%2B%2BAPIReference/rrIniFile.html#_CPPv4N2rr7IniFile10WriteValueERKNSt6stringERKNSt6stringERKNSt6stringERKNSt6stringE">rr::IniFile::WriteValue (C++ function)</a>
 </li>
       <li><a href="C%2B%2BAPIReference/rrIniFile.html#_CPPv4N2rr7IniFileD0Ev">rr::IniFile::~IniFile (C++ function)</a>
 </li>
@@ -1783,9 +1794,9 @@
 </li>
       <li><a href="C%2B%2BAPIReference/rrIniSection.html#_CPPv4N2rr10IniSection5ClearEv">rr::IniSection::Clear (C++ function)</a>
 </li>
-      <li><a href="C%2B%2BAPIReference/rrIniSection.html#_CPPv4N2rr10IniSection9CreateKeyERK6stringRK6stringRK6string">rr::IniSection::CreateKey (C++ function)</a>
+      <li><a href="C%2B%2BAPIReference/rrIniSection.html#_CPPv4N2rr10IniSection9CreateKeyERKNSt6stringERKNSt6stringERKNSt6stringE">rr::IniSection::CreateKey (C++ function)</a>
 </li>
-      <li><a href="C%2B%2BAPIReference/rrIniSection.html#_CPPv4N2rr10IniSection6GetKeyERK6stringb">rr::IniSection::GetKey (C++ function)</a>, <a href="C%2B%2BAPIReference/rrIniSection.html#_CPPv4N2rr10IniSection6GetKeyERKi">[1]</a>
+      <li><a href="C%2B%2BAPIReference/rrIniSection.html#_CPPv4N2rr10IniSection6GetKeyERKNSt6stringEb">rr::IniSection::GetKey (C++ function)</a>, <a href="C%2B%2BAPIReference/rrIniSection.html#_CPPv4N2rr10IniSection6GetKeyERKi">[1]</a>
 </li>
       <li><a href="C%2B%2BAPIReference/rrIniSection.html#_CPPv4N2rr10IniSection18GetNonKeysAsStringEv">rr::IniSection::GetNonKeysAsString (C++ function)</a>
 </li>
@@ -1829,17 +1840,21 @@
 </li>
       <li><a href="C%2B%2BAPIReference/Integrator.html#_CPPv4N2rr10Integrator17IntegrationMethod10StochasticE">rr::Integrator::IntegrationMethod::Stochastic (C++ enumerator)</a>
 </li>
+      <li><a href="C%2B%2BAPIReference/Integrator.html#_CPPv4N2rr10Integrator10IntegratorEP15ExecutableModel">rr::Integrator::Integrator (C++ function)</a>
+</li>
       <li><a href="C%2B%2BAPIReference/Integrator.html#_CPPv4N2rr10Integrator18loadConfigSettingsEv">rr::Integrator::loadConfigSettings (C++ function)</a>
 </li>
       <li><a href="C%2B%2BAPIReference/Integrator.html#_CPPv4N2rr10Integrator16loadSBMLSettingsERKNSt6stringE">rr::Integrator::loadSBMLSettings (C++ function)</a>
 </li>
       <li><a href="C%2B%2BAPIReference/Integrator.html#_CPPv4N2rr10Integrator7restartEd">rr::Integrator::restart (C++ function)</a>
 </li>
-      <li><a href="C%2B%2BAPIReference/Integrator.html#_CPPv4N2rr10Integrator25setConcentrationToleranceERK7Variant">rr::Integrator::setConcentrationTolerance (C++ function)</a>
+      <li><a href="C%2B%2BAPIReference/Integrator.html#_CPPv4N2rr10Integrator25setConcentrationToleranceE7Setting">rr::Integrator::setConcentrationTolerance (C++ function)</a>
 </li>
-      <li><a href="C%2B%2BAPIReference/Integrator.html#_CPPv4N2rr10Integrator22setIndividualToleranceE6stringd">rr::Integrator::setIndividualTolerance (C++ function)</a>
+      <li><a href="C%2B%2BAPIReference/Integrator.html#_CPPv4N2rr10Integrator22setIndividualToleranceENSt6stringEd">rr::Integrator::setIndividualTolerance (C++ function)</a>
 </li>
       <li><a href="C%2B%2BAPIReference/Integrator.html#_CPPv4N2rr10Integrator11setListenerE21IntegratorListenerPtr">rr::Integrator::setListener (C++ function)</a>
+</li>
+      <li><a href="C%2B%2BAPIReference/Integrator.html#_CPPv4N2rr10Integrator8setValueERKNSt6stringE7Setting">rr::Integrator::setValue (C++ function)</a>
 </li>
       <li><a href="C%2B%2BAPIReference/Integrator.html#_CPPv4N2rr10Integrator13syncWithModelEP15ExecutableModel">rr::Integrator::syncWithModel (C++ function)</a>
 </li>
@@ -1911,7 +1926,7 @@
 </li>
       <li><a href="C%2B%2BAPIReference/rrRoadRunnerOptions.html#_CPPv4N2rr15LoadSBMLOptions28setConservedMoietyConversionEb">rr::LoadSBMLOptions::setConservedMoietyConversion (C++ function)</a>
 </li>
-      <li><a href="C%2B%2BAPIReference/rrRoadRunnerOptions.html#_CPPv4N2rr15LoadSBMLOptions7setItemERKNSt6stringERKN2rr7VariantE">rr::LoadSBMLOptions::setItem (C++ function)</a>
+      <li><a href="C%2B%2BAPIReference/rrRoadRunnerOptions.html#_CPPv4N2rr15LoadSBMLOptions7setItemERKNSt6stringERKN2rr7SettingE">rr::LoadSBMLOptions::setItem (C++ function)</a>
 </li>
       <li><a href="C%2B%2BAPIReference/rrRoadRunnerOptions.html#_CPPv4N2rr15LoadSBMLOptions13setValidationEb">rr::LoadSBMLOptions::setValidation (C++ function)</a>
 </li>
@@ -2051,9 +2066,9 @@
 </li>
       <li><a href="C%2B%2BAPIReference/rrNLEQ1Interface.html#_CPPv4N2rr14NLEQ1Interface3RWKE">rr::NLEQ1Interface::RWK (C++ member)</a>
 </li>
-      <li><a href="C%2B%2BAPIReference/rrNLEQ1Interface.html#_CPPv4N2rr14NLEQ1Interface7setItemERKNSt6stringERKN2rr7VariantE">rr::NLEQ1Interface::setItem (C++ function)</a>
+      <li><a href="C%2B%2BAPIReference/rrNLEQ1Interface.html#_CPPv4N2rr14NLEQ1Interface7setItemERKNSt6stringERKN2rr7SettingE">rr::NLEQ1Interface::setItem (C++ function)</a>
 </li>
-      <li><a href="C%2B%2BAPIReference/rrNLEQ1Interface.html#_CPPv4N2rr14NLEQ1Interface17setScalingFactorsERK6vectorIdE">rr::NLEQ1Interface::setScalingFactors (C++ function)</a>
+      <li><a href="C%2B%2BAPIReference/rrNLEQ1Interface.html#_CPPv4N2rr14NLEQ1Interface17setScalingFactorsERKNSt6vectorIdEE">rr::NLEQ1Interface::setScalingFactors (C++ function)</a>
 </li>
       <li><a href="C%2B%2BAPIReference/rrNLEQ1Interface.html#_CPPv4N2rr14NLEQ1Interface5setupEv">rr::NLEQ1Interface::setup (C++ function)</a>
 </li>
@@ -2077,19 +2092,9 @@
 </li>
       <li><a href="C%2B%2BAPIReference/NLEQ1Solver.html#_CPPv4N2rr11NLEQ1Solver11getNLEQNameEv">rr::NLEQ1Solver::getNLEQName (C++ function)</a>
 </li>
-      <li><a href="C%2B%2BAPIReference/NLEQ1Solver.html#_CPPv4N2rr11NLEQ1Solver18loadConfigSettingsEv">rr::NLEQ1Solver::loadConfigSettings (C++ function)</a>
-</li>
-      <li><a href="C%2B%2BAPIReference/NLEQ1Solver.html#_CPPv4N2rr11NLEQ1Solver5modelE">rr::NLEQ1Solver::model (C++ member)</a>
-</li>
       <li><a href="C%2B%2BAPIReference/NLEQ1Solver.html#_CPPv4N2rr11NLEQ1Solver11NLEQ1SolverEP15ExecutableModel">rr::NLEQ1Solver::NLEQ1Solver (C++ function)</a>
 </li>
-      <li><a href="C%2B%2BAPIReference/NLEQ1Solver.html#_CPPv4N2rr11NLEQ1Solver13resetSettingsEv">rr::NLEQ1Solver::resetSettings (C++ function)</a>
-</li>
       <li><a href="C%2B%2BAPIReference/NLEQ1Solver.html#_CPPv4N2rr11NLEQ1Solver5solveEv">rr::NLEQ1Solver::solve (C++ function)</a>
-</li>
-      <li><a href="C%2B%2BAPIReference/NLEQ1Solver.html#_CPPv4N2rr11NLEQ1Solver13syncWithModelEP15ExecutableModel">rr::NLEQ1Solver::syncWithModel (C++ function)</a>
-</li>
-      <li><a href="C%2B%2BAPIReference/NLEQ1Solver.html#_CPPv4N2rr11NLEQ1SolverD0Ev">rr::NLEQ1Solver::~NLEQ1Solver (C++ function)</a>
 </li>
       <li><a href="C%2B%2BAPIReference/rrNLEQ2Interface.html#_CPPv4N2rr14NLEQ2InterfaceE">rr::NLEQ2Interface (C++ class)</a>
 </li>
@@ -2163,9 +2168,9 @@
 </li>
       <li><a href="C%2B%2BAPIReference/rrNLEQ2Interface.html#_CPPv4N2rr14NLEQ2Interface3RWKE">rr::NLEQ2Interface::RWK (C++ member)</a>
 </li>
-      <li><a href="C%2B%2BAPIReference/rrNLEQ2Interface.html#_CPPv4N2rr14NLEQ2Interface7setItemERKNSt6stringERKN2rr7VariantE">rr::NLEQ2Interface::setItem (C++ function)</a>
+      <li><a href="C%2B%2BAPIReference/rrNLEQ2Interface.html#_CPPv4N2rr14NLEQ2Interface7setItemERKNSt6stringERKN2rr7SettingE">rr::NLEQ2Interface::setItem (C++ function)</a>
 </li>
-      <li><a href="C%2B%2BAPIReference/rrNLEQ2Interface.html#_CPPv4N2rr14NLEQ2Interface17setScalingFactorsERK6vectorIdE">rr::NLEQ2Interface::setScalingFactors (C++ function)</a>
+      <li><a href="C%2B%2BAPIReference/rrNLEQ2Interface.html#_CPPv4N2rr14NLEQ2Interface17setScalingFactorsERKNSt6vectorIdEE">rr::NLEQ2Interface::setScalingFactors (C++ function)</a>
 </li>
       <li><a href="C%2B%2BAPIReference/rrNLEQ2Interface.html#_CPPv4N2rr14NLEQ2Interface5setupEv">rr::NLEQ2Interface::setup (C++ function)</a>
 </li>
@@ -2189,19 +2194,9 @@
 </li>
       <li><a href="C%2B%2BAPIReference/NLEQ2Solver.html#_CPPv4N2rr11NLEQ2Solver11getNLEQNameEv">rr::NLEQ2Solver::getNLEQName (C++ function)</a>
 </li>
-      <li><a href="C%2B%2BAPIReference/NLEQ2Solver.html#_CPPv4N2rr11NLEQ2Solver18loadConfigSettingsEv">rr::NLEQ2Solver::loadConfigSettings (C++ function)</a>
-</li>
-      <li><a href="C%2B%2BAPIReference/NLEQ2Solver.html#_CPPv4N2rr11NLEQ2Solver5modelE">rr::NLEQ2Solver::model (C++ member)</a>
-</li>
-      <li><a href="C%2B%2BAPIReference/NLEQ2Solver.html#_CPPv4N2rr11NLEQ2Solver11NLEQ2SolverEP15ExecutableModel">rr::NLEQ2Solver::NLEQ2Solver (C++ function)</a>
-</li>
-      <li><a href="C%2B%2BAPIReference/NLEQ2Solver.html#_CPPv4N2rr11NLEQ2Solver13resetSettingsEv">rr::NLEQ2Solver::resetSettings (C++ function)</a>
+      <li><a href="C%2B%2BAPIReference/NLEQ2Solver.html#_CPPv4N2rr11NLEQ2Solver10NLEQSolverEP15ExecutableModel">rr::NLEQ2Solver::NLEQSolver (C++ function)</a>
 </li>
       <li><a href="C%2B%2BAPIReference/NLEQ2Solver.html#_CPPv4N2rr11NLEQ2Solver5solveEv">rr::NLEQ2Solver::solve (C++ function)</a>
-</li>
-      <li><a href="C%2B%2BAPIReference/NLEQ2Solver.html#_CPPv4N2rr11NLEQ2Solver13syncWithModelEP15ExecutableModel">rr::NLEQ2Solver::syncWithModel (C++ function)</a>
-</li>
-      <li><a href="C%2B%2BAPIReference/NLEQ2Solver.html#_CPPv4N2rr11NLEQ2SolverD0Ev">rr::NLEQ2Solver::~NLEQ2Solver (C++ function)</a>
 </li>
       <li><a href="C%2B%2BAPIReference/RK45Integrator.html#_CPPv4N2rr14RK45IntegratorE">rr::RK45Integrator (C++ class)</a>
 </li>
@@ -2246,8 +2241,6 @@
       <li><a href="C%2B%2BAPIReference/RK45Integrator.html#_CPPv4N2rr14RK45Integrator2k5E">rr::RK45Integrator::k5 (C++ member)</a>
 </li>
       <li><a href="C%2B%2BAPIReference/RK45Integrator.html#_CPPv4N2rr14RK45Integrator2k6E">rr::RK45Integrator::k6 (C++ member)</a>
-</li>
-      <li><a href="C%2B%2BAPIReference/RK45Integrator.html#_CPPv4N2rr14RK45Integrator5modelE">rr::RK45Integrator::model (C++ member)</a>
 </li>
       <li><a href="C%2B%2BAPIReference/RK45Integrator.html#_CPPv4N2rr14RK45Integrator13resetSettingsEv">rr::RK45Integrator::resetSettings (C++ function)</a>
 </li>
@@ -2301,8 +2294,6 @@
 </li>
       <li><a href="C%2B%2BAPIReference/RK4Integrator.html#_CPPv4N2rr13RK4Integrator2k4E">rr::RK4Integrator::k4 (C++ member)</a>
 </li>
-      <li><a href="C%2B%2BAPIReference/RK4Integrator.html#_CPPv4N2rr13RK4Integrator5modelE">rr::RK4Integrator::model (C++ member)</a>
-</li>
       <li><a href="C%2B%2BAPIReference/RK4Integrator.html#_CPPv4N2rr13RK4Integrator13resetSettingsEv">rr::RK4Integrator::resetSettings (C++ function)</a>
 </li>
       <li><a href="C%2B%2BAPIReference/RK4Integrator.html#_CPPv4N2rr13RK4Integrator7restartEd">rr::RK4Integrator::restart (C++ function)</a>
@@ -2343,9 +2334,11 @@
 </li>
       <li><a href="C%2B%2BAPIReference/rrRoadRunner.html#_CPPv4N2rr10RoadRunner11addRateRuleERKNSt6stringERKNSt6stringEb">rr::RoadRunner::addRateRule (C++ function)</a>
 </li>
-      <li><a href="C%2B%2BAPIReference/rrRoadRunner.html#_CPPv4N2rr10RoadRunner11addReactionERKNSt6stringENSt6vectorI6stringEENSt6vectorI6stringEERKNSt6stringEb">rr::RoadRunner::addReaction (C++ function)</a>, <a href="C%2B%2BAPIReference/rrRoadRunner.html#_CPPv4N2rr10RoadRunner11addReactionERKNSt6stringEb">[1]</a>
+      <li><a href="C%2B%2BAPIReference/rrRoadRunner.html#_CPPv4N2rr10RoadRunner11addReactionERKNSt6stringENSt6vectorINSt6stringEEENSt6vectorINSt6stringEEERKNSt6stringEb">rr::RoadRunner::addReaction (C++ function)</a>, <a href="C%2B%2BAPIReference/rrRoadRunner.html#_CPPv4N2rr10RoadRunner11addReactionERKNSt6stringEb">[1]</a>
 </li>
-      <li><a href="C%2B%2BAPIReference/rrRoadRunner.html#_CPPv4N2rr10RoadRunner10addSpeciesERKNSt6stringERKNSt6stringEdbbRKNSt6stringEb">rr::RoadRunner::addSpecies (C++ function)</a>
+      <li><a href="C%2B%2BAPIReference/rrRoadRunner.html#_CPPv4N2rr10RoadRunner16addSpeciesAmountERKNSt6stringERKNSt6stringEdbbRKNSt6stringEb">rr::RoadRunner::addSpeciesAmount (C++ function)</a>
+</li>
+      <li><a href="C%2B%2BAPIReference/rrRoadRunner.html#_CPPv4N2rr10RoadRunner23addSpeciesConcentrationERKNSt6stringERKNSt6stringEdbbRKNSt6stringEb">rr::RoadRunner::addSpeciesConcentration (C++ function)</a>
 </li>
       <li><a href="C%2B%2BAPIReference/rrRoadRunner.html#_CPPv4N2rr10RoadRunner10addTriggerERKNSt6stringERKNSt6stringEb">rr::RoadRunner::addTrigger (C++ function)</a>
 </li>
@@ -2525,7 +2518,7 @@
 </li>
       <li><a href="C%2B%2BAPIReference/rrRoadRunner.html#_CPPv4NK2rr10RoadRunner17getSimulationDataEv">rr::RoadRunner::getSimulationData (C++ function)</a>
 </li>
-      <li><a href="C%2B%2BAPIReference/rrRoadRunner.html#_CPPv4N2rr10RoadRunner20getSpeciesIdsFromASTEPKN7libsbml7ASTNodeERNSt6vectorI6stringEE">rr::RoadRunner::getSpeciesIdsFromAST (C++ function)</a>, <a href="C%2B%2BAPIReference/rrRoadRunner.html#_CPPv4N2rr10RoadRunner20getSpeciesIdsFromASTEPKN7libsbml7ASTNodeERNSt6vectorI6stringEERNSt6vectorI6stringEE">[1]</a>
+      <li><a href="C%2B%2BAPIReference/rrRoadRunner.html#_CPPv4N2rr10RoadRunner20getSpeciesIdsFromASTEPKN7libsbml7ASTNodeERNSt6vectorINSt6stringEEE">rr::RoadRunner::getSpeciesIdsFromAST (C++ function)</a>, <a href="C%2B%2BAPIReference/rrRoadRunner.html#_CPPv4N2rr10RoadRunner20getSpeciesIdsFromASTEPKN7libsbml7ASTNodeERNSt6vectorINSt6stringEEERNSt6vectorINSt6stringEEE">[1]</a>
 </li>
       <li><a href="C%2B%2BAPIReference/rrRoadRunner.html#_CPPv4N2rr10RoadRunner24getSteadyStateSelectionsEv">rr::RoadRunner::getSteadyStateSelections (C++ function)</a>
 </li>
@@ -2555,7 +2548,7 @@
 </li>
       <li><a href="C%2B%2BAPIReference/rrRoadRunner.html#_CPPv4N2rr10RoadRunner39getUnscaledFluxControlCoefficientMatrixEv">rr::RoadRunner::getUnscaledFluxControlCoefficientMatrix (C++ function)</a>
 </li>
-      <li><a href="C%2B%2BAPIReference/rrRoadRunner.html#_CPPv4N2rr10RoadRunner30getUnscaledParameterElasticityERK6stringRK6string">rr::RoadRunner::getUnscaledParameterElasticity (C++ function)</a>
+      <li><a href="C%2B%2BAPIReference/rrRoadRunner.html#_CPPv4N2rr10RoadRunner30getUnscaledParameterElasticityERKNSt6stringERKNSt6stringE">rr::RoadRunner::getUnscaledParameterElasticity (C++ function)</a>
 </li>
       <li><a href="C%2B%2BAPIReference/rrRoadRunner.html#_CPPv4N2rr10RoadRunner28getUnscaledSpeciesElasticityEii">rr::RoadRunner::getUnscaledSpeciesElasticity (C++ function)</a>
 </li>
@@ -2563,7 +2556,7 @@
 </li>
       <li><a href="C%2B%2BAPIReference/rrRoadRunner.html#_CPPv4N2rr10RoadRunner16getVariableValueEK12VariableTypeKi">rr::RoadRunner::getVariableValue (C++ function)</a>
 </li>
-      <li><a href="C%2B%2BAPIReference/rrRoadRunner.html#_CPPv4N2rr10RoadRunner11hasVariableEPKN7libsbml7ASTNodeERK6string">rr::RoadRunner::hasVariable (C++ function)</a>
+      <li><a href="C%2B%2BAPIReference/rrRoadRunner.html#_CPPv4N2rr10RoadRunner11hasVariableEPKN7libsbml7ASTNodeERKNSt6stringE">rr::RoadRunner::hasVariable (C++ function)</a>
 </li>
       <li><a href="C%2B%2BAPIReference/rrRoadRunner.html#_CPPv4N2rr10RoadRunner4implE">rr::RoadRunner::impl (C++ member)</a>
 </li>
@@ -2593,11 +2586,11 @@
 </li>
       <li><a href="C%2B%2BAPIReference/rrRoadRunner.html#_CPPv4N2rr10RoadRunner7oneStepEddb">rr::RoadRunner::oneStep (C++ function)</a>
 </li>
-      <li><a href="C%2B%2BAPIReference/rrRoadRunner.html#_CPPv4N2rr10RoadRunner12parseSpeciesERK6stringPdPPc">rr::RoadRunner::parseSpecies (C++ function)</a>
+      <li><a href="C%2B%2BAPIReference/rrRoadRunner.html#_CPPv4N2rr10RoadRunner12parseSpeciesERKNSt6stringEPdPPc">rr::RoadRunner::parseSpecies (C++ function)</a>
 </li>
       <li><a href="C%2B%2BAPIReference/rrRoadRunner.html#_CPPv4N2rr10RoadRunner14populateResultEv">rr::RoadRunner::populateResult (C++ function)</a>
 </li>
-      <li><a href="C%2B%2BAPIReference/rrRoadRunner.html#_CPPv4N2rr10RoadRunner10regenerateEbb">rr::RoadRunner::regenerate (C++ function)</a>
+      <li><a href="C%2B%2BAPIReference/rrRoadRunner.html#_CPPv4N2rr10RoadRunner15regenerateModelEbb">rr::RoadRunner::regenerateModel (C++ function)</a>
 </li>
       <li><a href="C%2B%2BAPIReference/rrRoadRunner.html#_CPPv4N2rr10RoadRunner17removeCompartmentERKNSt6stringEb">rr::RoadRunner::removeCompartment (C++ function)</a>
 </li>
@@ -2615,7 +2608,7 @@
 </li>
       <li><a href="C%2B%2BAPIReference/rrRoadRunner.html#_CPPv4N2rr10RoadRunner13removeSpeciesERKNSt6stringEb">rr::RoadRunner::removeSpecies (C++ function)</a>
 </li>
-      <li><a href="C%2B%2BAPIReference/rrRoadRunner.html#_CPPv4N2rr10RoadRunner14removeVariableERK6string">rr::RoadRunner::removeVariable (C++ function)</a>
+      <li><a href="C%2B%2BAPIReference/rrRoadRunner.html#_CPPv4N2rr10RoadRunner14removeVariableERKNSt6stringE">rr::RoadRunner::removeVariable (C++ function)</a>
 </li>
       <li><a href="C%2B%2BAPIReference/rrRoadRunner.html#_CPPv4N2rr10RoadRunner5resetEi">rr::RoadRunner::reset (C++ function)</a>, <a href="C%2B%2BAPIReference/rrRoadRunner.html#_CPPv4N2rr10RoadRunner5resetEv">[1]</a>
 </li>
@@ -2675,11 +2668,9 @@
 </li>
       <li><a href="C%2B%2BAPIReference/rrRoadRunner.html#_CPPv4N2rr10RoadRunner8setValueERKNSt6stringEd">rr::RoadRunner::setValue (C++ function)</a>
 </li>
-      <li><a href="C%2B%2BAPIReference/rrRoadRunner.html#_CPPv4N2rr10RoadRunner8simulateEPK10Dictionary">rr::RoadRunner::simulate (C++ function)</a>
+      <li><a href="C%2B%2BAPIReference/rrRoadRunner.html#_CPPv4N2rr10RoadRunner8simulateEPK10Dictionary">rr::RoadRunner::simulate (C++ function)</a>, <a href="C%2B%2BAPIReference/rrRoadRunner.html#_CPPv4N2rr10RoadRunner8simulateEddi">[1]</a>
 </li>
-      <li><a href="C%2B%2BAPIReference/rrRoadRunner.html#_CPPv4N2rr10RoadRunner11steadyStateEPK10Dictionary">rr::RoadRunner::steadyState (C++ function)</a>
-</li>
-      <li><a href="C%2B%2BAPIReference/rrRoadRunner.html#_CPPv4N2rr10RoadRunner22steadyStateApproximateEPK10Dictionary">rr::RoadRunner::steadyStateApproximate (C++ function)</a>
+      <li><a href="C%2B%2BAPIReference/rrRoadRunner.html#_CPPv4N2rr10RoadRunner11steadyStateEP10Dictionary">rr::RoadRunner::steadyState (C++ function)</a>
 </li>
       <li><a href="C%2B%2BAPIReference/rrRoadRunner.html#_CPPv4N2rr10RoadRunner21steadyStateNamedArrayEPK10Dictionary">rr::RoadRunner::steadyStateNamedArray (C++ function)</a>
 </li>
@@ -2781,12 +2772,6 @@
 </li>
       <li><a href="C%2B%2BAPIReference/rrRoadRunnerData.html#_CPPv4N2rr14RoadRunnerDataD0Ev">rr::RoadRunnerData::~RoadRunnerData (C++ function)</a>
 </li>
-      <li><a href="C%2B%2BAPIReference/rrSteadyStateSolver.html#_CPPv4N2rr19rrSteadyStateSolverE">rr::rrSteadyStateSolver (C++ class)</a>
-</li>
-      <li><a href="C%2B%2BAPIReference/rrSteadyStateSolver.html#_CPPv4N2rr19rrSteadyStateSolver5solveEv">rr::rrSteadyStateSolver::solve (C++ function)</a>
-</li>
-      <li><a href="C%2B%2BAPIReference/rrSteadyStateSolver.html#_CPPv4N2rr19rrSteadyStateSolverD0Ev">rr::rrSteadyStateSolver::~rrSteadyStateSolver (C++ function)</a>
-</li>
       <li><a href="C%2B%2BAPIReference/rrSBMLModelSimulation.html#_CPPv4N2rr19SBMLModelSimulationE">rr::SBMLModelSimulation (C++ class)</a>
 </li>
       <li><a href="C%2B%2BAPIReference/rrSBMLModelSimulation.html#_CPPv4N2rr19SBMLModelSimulation12CompileModelEv">rr::SBMLModelSimulation::CompileModel (C++ function)</a>
@@ -2801,19 +2786,19 @@
 </li>
       <li><a href="C%2B%2BAPIReference/rrSBMLModelSimulation.html#_CPPv4N2rr19SBMLModelSimulation19GetDataOutputFolderEv">rr::SBMLModelSimulation::GetDataOutputFolder (C++ function)</a>
 </li>
-  </ul></td>
-  <td style="width: 33%; vertical-align: top;"><ul>
       <li><a href="C%2B%2BAPIReference/rrSBMLModelSimulation.html#_CPPv4N2rr19SBMLModelSimulation21GetModelsFullFilePathEv">rr::SBMLModelSimulation::GetModelsFullFilePath (C++ function)</a>
 </li>
       <li><a href="C%2B%2BAPIReference/rrSBMLModelSimulation.html#_CPPv4N2rr19SBMLModelSimulation9GetResultEv">rr::SBMLModelSimulation::GetResult (C++ function)</a>
 </li>
+  </ul></td>
+  <td style="width: 33%; vertical-align: top;"><ul>
       <li><a href="C%2B%2BAPIReference/rrSBMLModelSimulation.html#_CPPv4N2rr19SBMLModelSimulation17GetTempDataFolderEv">rr::SBMLModelSimulation::GetTempDataFolder (C++ function)</a>
 </li>
       <li><a href="C%2B%2BAPIReference/rrSBMLModelSimulation.html#_CPPv4N2rr19SBMLModelSimulation16LoadSBMLFromFileEv">rr::SBMLModelSimulation::LoadSBMLFromFile (C++ function)</a>
 </li>
-      <li><a href="C%2B%2BAPIReference/rrSBMLModelSimulation.html#_CPPv4N2rr19SBMLModelSimulation18loadSBMLTolerancesERKNSt6stringE">rr::SBMLModelSimulation::loadSBMLTolerances (C++ function)</a>
+      <li><a href="C%2B%2BAPIReference/rrSBMLModelSimulation.html#_CPPv4N2rr19SBMLModelSimulation18loadSBMLTolerancesERKNSt10filesystem4pathE">rr::SBMLModelSimulation::loadSBMLTolerances (C++ function)</a>
 </li>
-      <li><a href="C%2B%2BAPIReference/rrSBMLModelSimulation.html#_CPPv4N2rr19SBMLModelSimulation12LoadSettingsERK6string">rr::SBMLModelSimulation::LoadSettings (C++ function)</a>
+      <li><a href="C%2B%2BAPIReference/rrSBMLModelSimulation.html#_CPPv4N2rr19SBMLModelSimulation12LoadSettingsERKNSt10filesystem4pathE">rr::SBMLModelSimulation::LoadSettings (C++ function)</a>
 </li>
       <li><a href="C%2B%2BAPIReference/rrSBMLModelSimulation.html#_CPPv4N2rr19SBMLModelSimulation9mAbsoluteE">rr::SBMLModelSimulation::mAbsolute (C++ member)</a>
 </li>
@@ -2839,21 +2824,21 @@
 </li>
       <li><a href="C%2B%2BAPIReference/rrSBMLModelSimulation.html#_CPPv4N2rr19SBMLModelSimulation20ReCompileIfDllExistsERKb">rr::SBMLModelSimulation::ReCompileIfDllExists (C++ function)</a>
 </li>
-      <li><a href="C%2B%2BAPIReference/rrSBMLModelSimulation.html#_CPPv4N2rr19SBMLModelSimulation14SaveModelAsXMLERK6string">rr::SBMLModelSimulation::SaveModelAsXML (C++ function)</a>
+      <li><a href="C%2B%2BAPIReference/rrSBMLModelSimulation.html#_CPPv4N2rr19SBMLModelSimulation14SaveModelAsXMLERNSt10filesystem4pathE">rr::SBMLModelSimulation::SaveModelAsXML (C++ function)</a>
 </li>
       <li><a href="C%2B%2BAPIReference/rrSBMLModelSimulation.html#_CPPv4N2rr19SBMLModelSimulation10SaveResultEv">rr::SBMLModelSimulation::SaveResult (C++ function)</a>
 </li>
-      <li><a href="C%2B%2BAPIReference/rrSBMLModelSimulation.html#_CPPv4N2rr19SBMLModelSimulation19SBMLModelSimulationERK6stringRK6string">rr::SBMLModelSimulation::SBMLModelSimulation (C++ function)</a>
+      <li><a href="C%2B%2BAPIReference/rrSBMLModelSimulation.html#_CPPv4N2rr19SBMLModelSimulation19SBMLModelSimulationENSt10filesystem4pathENSt10filesystem4pathE">rr::SBMLModelSimulation::SBMLModelSimulation (C++ function)</a>
 </li>
-      <li><a href="C%2B%2BAPIReference/rrSBMLModelSimulation.html#_CPPv4N2rr19SBMLModelSimulation19SetDataOutputFolderERK6string">rr::SBMLModelSimulation::SetDataOutputFolder (C++ function)</a>
+      <li><a href="C%2B%2BAPIReference/rrSBMLModelSimulation.html#_CPPv4N2rr19SBMLModelSimulation19SetDataOutputFolderERKNSt10filesystem4pathE">rr::SBMLModelSimulation::SetDataOutputFolder (C++ function)</a>
 </li>
-      <li><a href="C%2B%2BAPIReference/rrSBMLModelSimulation.html#_CPPv4N2rr19SBMLModelSimulation16SetModelFileNameERK6string">rr::SBMLModelSimulation::SetModelFileName (C++ function)</a>
+      <li><a href="C%2B%2BAPIReference/rrSBMLModelSimulation.html#_CPPv4N2rr19SBMLModelSimulation16SetModelFileNameERKNSt6stringE">rr::SBMLModelSimulation::SetModelFileName (C++ function)</a>
 </li>
-      <li><a href="C%2B%2BAPIReference/rrSBMLModelSimulation.html#_CPPv4N2rr19SBMLModelSimulation16SetModelFilePathERK6string">rr::SBMLModelSimulation::SetModelFilePath (C++ function)</a>
+      <li><a href="C%2B%2BAPIReference/rrSBMLModelSimulation.html#_CPPv4N2rr19SBMLModelSimulation16SetModelFilePathERKNSt10filesystem4pathE">rr::SBMLModelSimulation::SetModelFilePath (C++ function)</a>
 </li>
       <li><a href="C%2B%2BAPIReference/rrSBMLModelSimulation.html#_CPPv4N2rr19SBMLModelSimulation17SetNumberOfPointsERKi">rr::SBMLModelSimulation::SetNumberOfPoints (C++ function)</a>
 </li>
-      <li><a href="C%2B%2BAPIReference/rrSBMLModelSimulation.html#_CPPv4N2rr19SBMLModelSimulation16SetSelectionListERK6string">rr::SBMLModelSimulation::SetSelectionList (C++ function)</a>
+      <li><a href="C%2B%2BAPIReference/rrSBMLModelSimulation.html#_CPPv4N2rr19SBMLModelSimulation16SetSelectionListERKNSt6stringE">rr::SBMLModelSimulation::SetSelectionList (C++ function)</a>
 </li>
       <li><a href="C%2B%2BAPIReference/rrSBMLModelSimulation.html#_CPPv4N2rr19SBMLModelSimulation10SetTimeEndERKd">rr::SBMLModelSimulation::SetTimeEnd (C++ function)</a>
 </li>
@@ -2879,7 +2864,7 @@
 </li>
       <li><a href="C%2B%2BAPIReference/rrSelectionRecord.html#_CPPv4N2rr15SelectionRecord2p2E">rr::SelectionRecord::p2 (C++ member)</a>
 </li>
-      <li><a href="C%2B%2BAPIReference/rrSelectionRecord.html#_CPPv4N2rr15SelectionRecord15SelectionRecordEKNSt6stringE">rr::SelectionRecord::SelectionRecord (C++ function)</a>, <a href="C%2B%2BAPIReference/rrSelectionRecord.html#_CPPv4N2rr15SelectionRecord15SelectionRecordERKiK13SelectionTypeRK6stringRK6string">[1]</a>
+      <li><a href="C%2B%2BAPIReference/rrSelectionRecord.html#_CPPv4N2rr15SelectionRecord15SelectionRecordEKNSt6stringE">rr::SelectionRecord::SelectionRecord (C++ function)</a>, <a href="C%2B%2BAPIReference/rrSelectionRecord.html#_CPPv4N2rr15SelectionRecord15SelectionRecordERKiK13SelectionTypeRKNSt6stringERKNSt6stringE">[1]</a>
 </li>
       <li><a href="C%2B%2BAPIReference/rrSelectionRecord.html#_CPPv4N2rr15SelectionRecord13SelectionTypeE">rr::SelectionRecord::SelectionType (C++ enum)</a>
 </li>
@@ -3005,7 +2990,7 @@
 </li>
       <li><a href="C%2B%2BAPIReference/Solver.html#_CPPv4N2rr6SolverE">rr::Solver (C++ class)</a>
 </li>
-      <li><a href="C%2B%2BAPIReference/Solver.html#_CPPv4N2rr6Solver10addSettingENSt6stringE7Variant6stringNSt6stringENSt6stringE">rr::Solver::addSetting (C++ function)</a>
+      <li><a href="C%2B%2BAPIReference/Solver.html#_CPPv4N2rr6Solver10addSettingERKNSt6stringE7SettingNSt6stringENSt6stringENSt6stringE">rr::Solver::addSetting (C++ function)</a>
 </li>
       <li><a href="C%2B%2BAPIReference/Solver.html#_CPPv4N2rr6Solver14DescriptionMapE">rr::Solver::DescriptionMap (C++ type)</a>
 </li>
@@ -3015,11 +3000,13 @@
 </li>
       <li><a href="C%2B%2BAPIReference/Solver.html#_CPPv4N2rr6Solver14DisplayNameMapE">rr::Solver::DisplayNameMap (C++ type)</a>
 </li>
-      <li><a href="C%2B%2BAPIReference/Solver.html#_CPPv4NK2rr6Solver14getDescriptionENSt6stringE">rr::Solver::getDescription (C++ function)</a>, <a href="C%2B%2BAPIReference/Solver.html#_CPPv4NK2rr6Solver14getDescriptionEv">[1]</a>
+      <li><a href="C%2B%2BAPIReference/Solver.html#_CPPv4NK2rr6Solver14getDescriptionERKNSt6stringE">rr::Solver::getDescription (C++ function)</a>, <a href="C%2B%2BAPIReference/Solver.html#_CPPv4NK2rr6Solver14getDescriptionEv">[1]</a>
 </li>
-      <li><a href="C%2B%2BAPIReference/Solver.html#_CPPv4NK2rr6Solver14getDisplayNameENSt6stringE">rr::Solver::getDisplayName (C++ function)</a>
+      <li><a href="C%2B%2BAPIReference/Solver.html#_CPPv4NK2rr6Solver14getDisplayNameERKNSt6stringE">rr::Solver::getDisplayName (C++ function)</a>
 </li>
-      <li><a href="C%2B%2BAPIReference/Solver.html#_CPPv4NK2rr6Solver7getHintENSt6stringE">rr::Solver::getHint (C++ function)</a>, <a href="C%2B%2BAPIReference/Solver.html#_CPPv4NK2rr6Solver7getHintEv">[1]</a>
+      <li><a href="C%2B%2BAPIReference/Solver.html#_CPPv4NK2rr6Solver7getHintERKNSt6stringE">rr::Solver::getHint (C++ function)</a>, <a href="C%2B%2BAPIReference/Solver.html#_CPPv4NK2rr6Solver7getHintEv">[1]</a>
+</li>
+      <li><a href="C%2B%2BAPIReference/Solver.html#_CPPv4NK2rr6Solver8getModelEv">rr::Solver::getModel (C++ function)</a>
 </li>
       <li><a href="C%2B%2BAPIReference/Solver.html#_CPPv4NK2rr6Solver7getNameEv">rr::Solver::getName (C++ function)</a>
 </li>
@@ -3035,39 +3022,23 @@
 </li>
       <li><a href="C%2B%2BAPIReference/Solver.html#_CPPv4NK2rr6Solver11getSettingsEv">rr::Solver::getSettings (C++ function)</a>
 </li>
+      <li><a href="C%2B%2BAPIReference/Solver.html#_CPPv4N2rr6Solver14getSettingsMapEv">rr::Solver::getSettingsMap (C++ function)</a>
+</li>
       <li><a href="C%2B%2BAPIReference/Solver.html#_CPPv4NK2rr6Solver15getSettingsReprEv">rr::Solver::getSettingsRepr (C++ function)</a>
 </li>
-      <li><a href="C%2B%2BAPIReference/Solver.html#_CPPv4N2rr6Solver7getTypeENSt6stringE">rr::Solver::getType (C++ function)</a>
+      <li><a href="C%2B%2BAPIReference/Solver.html#_CPPv4NK2rr6Solver7getTypeERKNSt6stringE">rr::Solver::getType (C++ function)</a>
 </li>
-      <li><a href="C%2B%2BAPIReference/Solver.html#_CPPv4NK2rr6Solver8getValueENSt6stringE">rr::Solver::getValue (C++ function)</a>
+      <li><a href="C%2B%2BAPIReference/Solver.html#_CPPv4NK2rr6Solver8getValueERKNSt6stringE">rr::Solver::getValue (C++ function)</a>
 </li>
-      <li><a href="C%2B%2BAPIReference/Solver.html#_CPPv4N2rr6Solver14getValueAsBoolENSt6stringE">rr::Solver::getValueAsBool (C++ function)</a>
+      <li><a href="C%2B%2BAPIReference/Solver.html#_CPPv4N2rr6Solver16getValueAsStringERKNSt6stringE">rr::Solver::getValueAsString (C++ function)</a>
 </li>
-      <li><a href="C%2B%2BAPIReference/Solver.html#_CPPv4N2rr6Solver14getValueAsCharENSt6stringE">rr::Solver::getValueAsChar (C++ function)</a>
-</li>
-      <li><a href="C%2B%2BAPIReference/Solver.html#_CPPv4N2rr6Solver16getValueAsDoubleENSt6stringE">rr::Solver::getValueAsDouble (C++ function)</a>
-</li>
-      <li><a href="C%2B%2BAPIReference/Solver.html#_CPPv4N2rr6Solver22getValueAsDoubleVectorENSt6stringE">rr::Solver::getValueAsDoubleVector (C++ function)</a>
-</li>
-      <li><a href="C%2B%2BAPIReference/Solver.html#_CPPv4N2rr6Solver15getValueAsFloatENSt6stringE">rr::Solver::getValueAsFloat (C++ function)</a>
-</li>
-      <li><a href="C%2B%2BAPIReference/Solver.html#_CPPv4N2rr6Solver13getValueAsIntENSt6stringE">rr::Solver::getValueAsInt (C++ function)</a>
-</li>
-      <li><a href="C%2B%2BAPIReference/Solver.html#_CPPv4N2rr6Solver14getValueAsLongENSt6stringE">rr::Solver::getValueAsLong (C++ function)</a>
-</li>
-      <li><a href="C%2B%2BAPIReference/Solver.html#_CPPv4N2rr6Solver16getValueAsStringENSt6stringE">rr::Solver::getValueAsString (C++ function)</a>
-</li>
-      <li><a href="C%2B%2BAPIReference/Solver.html#_CPPv4N2rr6Solver15getValueAsUCharENSt6stringE">rr::Solver::getValueAsUChar (C++ function)</a>
-</li>
-      <li><a href="C%2B%2BAPIReference/Solver.html#_CPPv4N2rr6Solver14getValueAsUIntENSt6stringE">rr::Solver::getValueAsUInt (C++ function)</a>
-</li>
-      <li><a href="C%2B%2BAPIReference/Solver.html#_CPPv4N2rr6Solver15getValueAsULongENSt6stringE">rr::Solver::getValueAsULong (C++ function)</a>
-</li>
-      <li><a href="C%2B%2BAPIReference/Solver.html#_CPPv4NK2rr6Solver8hasValueENSt6stringE">rr::Solver::hasValue (C++ function)</a>
+      <li><a href="C%2B%2BAPIReference/Solver.html#_CPPv4NK2rr6Solver8hasValueERKNSt6stringE">rr::Solver::hasValue (C++ function)</a>
 </li>
       <li><a href="C%2B%2BAPIReference/Solver.html#_CPPv4N2rr6Solver7HintMapE">rr::Solver::HintMap (C++ type)</a>
 </li>
       <li><a href="C%2B%2BAPIReference/Solver.html#_CPPv4N2rr6Solver5hintsE">rr::Solver::hints (C++ member)</a>
+</li>
+      <li><a href="C%2B%2BAPIReference/Solver.html#_CPPv4N2rr6Solver6mModelE">rr::Solver::mModel (C++ member)</a>
 </li>
       <li><a href="C%2B%2BAPIReference/Solver.html#_CPPv4N2rr6Solver13resetSettingsEv">rr::Solver::resetSettings (C++ function)</a>
 </li>
@@ -3079,13 +3050,17 @@
 </li>
       <li><a href="C%2B%2BAPIReference/Solver.html#_CPPv4NK2rr6Solver18settingsPyDictReprEv">rr::Solver::settingsPyDictRepr (C++ function)</a>
 </li>
-      <li><a href="C%2B%2BAPIReference/Solver.html#_CPPv4N2rr6Solver8setValueENSt6stringERK7Variant">rr::Solver::setValue (C++ function)</a>
+      <li><a href="C%2B%2BAPIReference/Solver.html#_CPPv4N2rr6Solver8setValueERKNSt6stringE7Setting">rr::Solver::setValue (C++ function)</a>
+</li>
+      <li><a href="C%2B%2BAPIReference/Solver.html#_CPPv4N2rr6Solver6SolverEP15ExecutableModel">rr::Solver::Solver (C++ function)</a>, <a href="C%2B%2BAPIReference/Solver.html#_CPPv4N2rr6Solver6SolverEv">[1]</a>
 </li>
       <li><a href="C%2B%2BAPIReference/Solver.html#_CPPv4N2rr6Solver15sorted_settingsE">rr::Solver::sorted_settings (C++ member)</a>
 </li>
       <li><a href="C%2B%2BAPIReference/Solver.html#_CPPv4NK2rr6Solver6toReprEv">rr::Solver::toRepr (C++ function)</a>
 </li>
       <li><a href="C%2B%2BAPIReference/Solver.html#_CPPv4NK2rr6Solver8toStringEv">rr::Solver::toString (C++ function)</a>
+</li>
+      <li><a href="C%2B%2BAPIReference/Solver.html#_CPPv4N2rr6Solver14updateSettingsEP10Dictionary">rr::Solver::updateSettings (C++ function)</a>
 </li>
       <li><a href="C%2B%2BAPIReference/Solver.html#_CPPv4N2rr6SolverD0Ev">rr::Solver::~Solver (C++ function)</a>
 </li>
@@ -3095,13 +3070,13 @@
 </li>
       <li><a href="C%2B%2BAPIReference/SteadyStateSolver.html#_CPPv4N2rr17SteadyStateSolverE">rr::SteadyStateSolver (C++ class)</a>
 </li>
-      <li><a href="C%2B%2BAPIReference/SteadyStateSolver.html#_CPPv4NK2rr17SteadyStateSolver15getSettingsReprEv">rr::SteadyStateSolver::getSettingsRepr (C++ function)</a>
-</li>
       <li><a href="C%2B%2BAPIReference/SteadyStateSolver.html#_CPPv4N2rr17SteadyStateSolver18loadConfigSettingsEv">rr::SteadyStateSolver::loadConfigSettings (C++ function)</a>
 </li>
-      <li><a href="C%2B%2BAPIReference/SteadyStateSolver.html#_CPPv4NK2rr17SteadyStateSolver18settingsPyDictReprEv">rr::SteadyStateSolver::settingsPyDictRepr (C++ function)</a>
+      <li><a href="C%2B%2BAPIReference/SteadyStateSolver.html#_CPPv4N2rr17SteadyStateSolver13resetSettingsEv">rr::SteadyStateSolver::resetSettings (C++ function)</a>
 </li>
       <li><a href="C%2B%2BAPIReference/SteadyStateSolver.html#_CPPv4N2rr17SteadyStateSolver5solveEv">rr::SteadyStateSolver::solve (C++ function)</a>
+</li>
+      <li><a href="C%2B%2BAPIReference/SteadyStateSolver.html#_CPPv4N2rr17SteadyStateSolver6SolverEP15ExecutableModel">rr::SteadyStateSolver::Solver (C++ function)</a>, <a href="C%2B%2BAPIReference/SteadyStateSolver.html#_CPPv4N2rr17SteadyStateSolver6SolverEv">[1]</a>
 </li>
       <li><a href="C%2B%2BAPIReference/SteadyStateSolver.html#_CPPv4N2rr17SteadyStateSolver13syncWithModelEP15ExecutableModel">rr::SteadyStateSolver::syncWithModel (C++ function)</a>
 </li>
@@ -3585,11 +3560,11 @@
 </li>
       <li><a href="C%2B%2BAPIReference/llvm/LLVMExecutableModel.html#_CPPv4N6rrllvm19LLVMExecutableModel20getBoundarySpeciesIdE6size_t">rrllvm::LLVMExecutableModel::getBoundarySpeciesId (C++ function)</a>
 </li>
-      <li><a href="C%2B%2BAPIReference/llvm/LLVMExecutableModel.html#_CPPv4N6rrllvm19LLVMExecutableModel23getBoundarySpeciesIndexERK6string">rrllvm::LLVMExecutableModel::getBoundarySpeciesIndex (C++ function)</a>
+      <li><a href="C%2B%2BAPIReference/llvm/LLVMExecutableModel.html#_CPPv4N6rrllvm19LLVMExecutableModel23getBoundarySpeciesIndexERKNSt6stringE">rrllvm::LLVMExecutableModel::getBoundarySpeciesIndex (C++ function)</a>
 </li>
       <li><a href="C%2B%2BAPIReference/llvm/LLVMExecutableModel.html#_CPPv4N6rrllvm19LLVMExecutableModel16getCompartmentIdE6size_t">rrllvm::LLVMExecutableModel::getCompartmentId (C++ function)</a>
 </li>
-      <li><a href="C%2B%2BAPIReference/llvm/LLVMExecutableModel.html#_CPPv4N6rrllvm19LLVMExecutableModel19getCompartmentIndexERK6string">rrllvm::LLVMExecutableModel::getCompartmentIndex (C++ function)</a>
+      <li><a href="C%2B%2BAPIReference/llvm/LLVMExecutableModel.html#_CPPv4N6rrllvm19LLVMExecutableModel19getCompartmentIndexERKNSt6stringE">rrllvm::LLVMExecutableModel::getCompartmentIndex (C++ function)</a>
 </li>
       <li><a href="C%2B%2BAPIReference/llvm/LLVMExecutableModel.html#_CPPv4N6rrllvm19LLVMExecutableModel37getCompartmentIndexForFloatingSpeciesE6size_t">rrllvm::LLVMExecutableModel::getCompartmentIndexForFloatingSpecies (C++ function)</a>
 </li>
@@ -3603,7 +3578,7 @@
 </li>
       <li><a href="C%2B%2BAPIReference/llvm/LLVMExecutableModel.html#_CPPv4N6rrllvm19LLVMExecutableModel20getConservedMoietyIdE6size_t">rrllvm::LLVMExecutableModel::getConservedMoietyId (C++ function)</a>
 </li>
-      <li><a href="C%2B%2BAPIReference/llvm/LLVMExecutableModel.html#_CPPv4N6rrllvm19LLVMExecutableModel23getConservedMoietyIndexERK6string">rrllvm::LLVMExecutableModel::getConservedMoietyIndex (C++ function)</a>
+      <li><a href="C%2B%2BAPIReference/llvm/LLVMExecutableModel.html#_CPPv4N6rrllvm19LLVMExecutableModel23getConservedMoietyIndexERKNSt6stringE">rrllvm::LLVMExecutableModel::getConservedMoietyIndex (C++ function)</a>
 </li>
       <li><a href="C%2B%2BAPIReference/llvm/LLVMExecutableModel.html#_CPPv4N6rrllvm19LLVMExecutableModel24getConservedMoietyValuesE6size_tPKiPd">rrllvm::LLVMExecutableModel::getConservedMoietyValues (C++ function)</a>
 </li>
@@ -3663,7 +3638,7 @@
 </li>
       <li><a href="C%2B%2BAPIReference/llvm/LLVMExecutableModel.html#_CPPv4N6rrllvm19LLVMExecutableModel20getFloatingSpeciesIdE6size_t">rrllvm::LLVMExecutableModel::getFloatingSpeciesId (C++ function)</a>
 </li>
-      <li><a href="C%2B%2BAPIReference/llvm/LLVMExecutableModel.html#_CPPv4N6rrllvm19LLVMExecutableModel23getFloatingSpeciesIndexERK6string">rrllvm::LLVMExecutableModel::getFloatingSpeciesIndex (C++ function)</a>
+      <li><a href="C%2B%2BAPIReference/llvm/LLVMExecutableModel.html#_CPPv4N6rrllvm19LLVMExecutableModel23getFloatingSpeciesIndexERKNSt6stringE">rrllvm::LLVMExecutableModel::getFloatingSpeciesIndex (C++ function)</a>
 </li>
       <li><a href="C%2B%2BAPIReference/llvm/LLVMExecutableModel.html#_CPPv4N6rrllvm19LLVMExecutableModel29getFloatingSpeciesInitAmountsE6size_tPKiPd">rrllvm::LLVMExecutableModel::getFloatingSpeciesInitAmounts (C++ function)</a>
 </li>
@@ -3675,7 +3650,7 @@
 </li>
       <li><a href="C%2B%2BAPIReference/llvm/LLVMExecutableModel.html#_CPPv4N6rrllvm19LLVMExecutableModel20getGlobalParameterIdE6size_t">rrllvm::LLVMExecutableModel::getGlobalParameterId (C++ function)</a>
 </li>
-      <li><a href="C%2B%2BAPIReference/llvm/LLVMExecutableModel.html#_CPPv4N6rrllvm19LLVMExecutableModel23getGlobalParameterIndexERK6string">rrllvm::LLVMExecutableModel::getGlobalParameterIndex (C++ function)</a>
+      <li><a href="C%2B%2BAPIReference/llvm/LLVMExecutableModel.html#_CPPv4N6rrllvm19LLVMExecutableModel23getGlobalParameterIndexERKNSt6stringE">rrllvm::LLVMExecutableModel::getGlobalParameterIndex (C++ function)</a>
 </li>
       <li><a href="C%2B%2BAPIReference/llvm/LLVMExecutableModel.html#_CPPv4N6rrllvm19LLVMExecutableModel30getGlobalParameterInitValuePtrE">rrllvm::LLVMExecutableModel::getGlobalParameterInitValuePtr (C++ member)</a>
 </li>
@@ -3729,7 +3704,7 @@
 </li>
       <li><a href="C%2B%2BAPIReference/llvm/LLVMExecutableModel.html#_CPPv4N6rrllvm19LLVMExecutableModel13getReactionIdE6size_t">rrllvm::LLVMExecutableModel::getReactionId (C++ function)</a>
 </li>
-      <li><a href="C%2B%2BAPIReference/llvm/LLVMExecutableModel.html#_CPPv4N6rrllvm19LLVMExecutableModel16getReactionIndexERK6string">rrllvm::LLVMExecutableModel::getReactionIndex (C++ function)</a>
+      <li><a href="C%2B%2BAPIReference/llvm/LLVMExecutableModel.html#_CPPv4N6rrllvm19LLVMExecutableModel16getReactionIndexERKNSt6stringE">rrllvm::LLVMExecutableModel::getReactionIndex (C++ function)</a>
 </li>
       <li><a href="C%2B%2BAPIReference/llvm/LLVMExecutableModel.html#_CPPv4N6rrllvm19LLVMExecutableModel16getReactionRatesE6size_tPKiPd">rrllvm::LLVMExecutableModel::getReactionRates (C++ function)</a>
 </li>
@@ -3753,7 +3728,7 @@
 </li>
       <li><a href="C%2B%2BAPIReference/llvm/LLVMExecutableModel.html#_CPPv4N6rrllvm19LLVMExecutableModel9getValuesEPFdP13LLVMModelData6size_tE6size_tPKiPd">rrllvm::LLVMExecutableModel::getValues (C++ function)</a>
 </li>
-      <li><a href="C%2B%2BAPIReference/llvm/LLVMExecutableModel.html#_CPPv4N6rrllvm19LLVMExecutableModel19LLVMExecutableModelERKN8cxx11_ns10shared_ptrI14ModelResourcesEEP13LLVMModelData">rrllvm::LLVMExecutableModel::LLVMExecutableModel (C++ function)</a>, <a href="C%2B%2BAPIReference/llvm/LLVMExecutableModel.html#_CPPv4N6rrllvm19LLVMExecutableModel19LLVMExecutableModelERNSt7istreamE4uint">[1]</a>, <a href="C%2B%2BAPIReference/llvm/LLVMExecutableModel.html#_CPPv4N6rrllvm19LLVMExecutableModel19LLVMExecutableModelEv">[2]</a>
+      <li><a href="C%2B%2BAPIReference/llvm/LLVMExecutableModel.html#_CPPv4N6rrllvm19LLVMExecutableModel19LLVMExecutableModelERKNSt10shared_ptrI14ModelResourcesEEP13LLVMModelData">rrllvm::LLVMExecutableModel::LLVMExecutableModel (C++ function)</a>, <a href="C%2B%2BAPIReference/llvm/LLVMExecutableModel.html#_CPPv4N6rrllvm19LLVMExecutableModel19LLVMExecutableModelERNSt7istreamE4uint">[1]</a>, <a href="C%2B%2BAPIReference/llvm/LLVMExecutableModel.html#_CPPv4N6rrllvm19LLVMExecutableModel19LLVMExecutableModelEv">[2]</a>
 </li>
       <li><a href="C%2B%2BAPIReference/llvm/LLVMExecutableModel.html#_CPPv4N6rrllvm19LLVMExecutableModel9modelDataE">rrllvm::LLVMExecutableModel::modelData (C++ member)</a>
 </li>
@@ -4137,7 +4112,7 @@
 </li>
       <li><a href="C%2B%2BAPIReference/llvm/LLVMModelGenerator.html#_CPPv4N6rrllvm18LLVMModelGeneratorE">rrllvm::LLVMModelGenerator (C++ class)</a>
 </li>
-      <li><a href="C%2B%2BAPIReference/llvm/LLVMModelGenerator.html#_CPPv4N6rrllvm18LLVMModelGenerator11createModelERKNSt6stringE4uint">rrllvm::LLVMModelGenerator::createModel (C++ function)</a>
+      <li><a href="C%2B%2BAPIReference/llvm/LLVMModelGenerator.html#_CPPv4N6rrllvm18LLVMModelGenerator11createModelERKNSt6stringENSt8uint32_tE">rrllvm::LLVMModelGenerator::createModel (C++ function)</a>
 </li>
       <li><a href="C%2B%2BAPIReference/llvm/LLVMModelGenerator.html#_CPPv4N6rrllvm18LLVMModelGenerator15regenerateModelEPN2rr15ExecutableModelEPN7libsbml12SBMLDocumentE4uint">rrllvm::LLVMModelGenerator::regenerateModel (C++ function)</a>
 </li>
@@ -4737,7 +4712,7 @@
 </li>
       <li><a href="C%2B%2BAPIReference/llvm/SymbolForest.html#_CPPv4NK6rrllvm12SymbolForest3endEv">rrllvm::SymbolForest::end (C++ function)</a>
 </li>
-      <li><a href="C%2B%2BAPIReference/llvm/SymbolForest.html#_CPPv4NK6rrllvm12SymbolForest4findERKN3mapI6stringPKN7libsbml7ASTNodeEE8key_typeE">rrllvm::SymbolForest::find (C++ function)</a>
+      <li><a href="C%2B%2BAPIReference/llvm/SymbolForest.html#_CPPv4NK6rrllvm12SymbolForest4findERKNSt3mapINSt6stringEPKN7libsbml7ASTNodeEE8key_typeE">rrllvm::SymbolForest::find (C++ function)</a>
 </li>
       <li><a href="C%2B%2BAPIReference/llvm/SymbolForest.html#_CPPv4N6rrllvm12SymbolForest15floatingSpeciesE">rrllvm::SymbolForest::floatingSpecies (C++ member)</a>
 </li>

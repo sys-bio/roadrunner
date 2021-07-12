@@ -1,4 +1,4 @@
-set(CMAKE_SWIG_FLAGS "")
+set(CMAKE_SWIG_FLAGS "") # todo why is this here? Comment out and see if anything breaks.
 
 if (SWIG_FOUND)
     add_subdirectory(roadrunner)

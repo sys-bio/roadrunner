@@ -59,6 +59,7 @@ For instructions on how to install roadrunner please see the :ref:`installation 
     rrplugins/rrplugins_documentation
     PythonAPIReference/api_reference
     C++APIReference/index
+    developers_docs/index
 
 
 Indices and tables

@@ -13,6 +13,8 @@
   
   <link rel="stylesheet" href="../_static/css/theme.css" type="text/css" />
   <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
+  <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
+  <link rel="stylesheet" href="../_static/css/theme.css" type="text/css" />
   <link rel="stylesheet" href="../_static/tabs.css" type="text/css" />
 
   
@@ -30,10 +32,10 @@
   
     
       <script type="text/javascript" id="documentation_options" data-url_root="../" src="../_static/documentation_options.js"></script>
+        <script data-url_root="../" id="documentation_options" src="../_static/documentation_options.js"></script>
         <script src="../_static/jquery.js"></script>
         <script src="../_static/underscore.js"></script>
         <script src="../_static/doctools.js"></script>
-        <script src="../_static/language_data.js"></script>
     
     <script type="text/javascript" src="../_static/js/theme.js"></script>
 
@@ -122,6 +124,7 @@
 </ul>
 </li>
 <li class="toctree-l1"><a class="reference internal" href="../C%2B%2BAPIReference/index.html">The LibRoadRunner C++ Library</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../developers_docs/index.html">Developers Documentation</a></li>
 </ul>
 
             
@@ -230,56 +233,56 @@ displayed, one would run:</p>
 <h2>Logging Levels<a class="headerlink" href="#logging-levels" title="Permalink to this headline">¶</a></h2>
 <p>The Logger has the following logging levels:</p>
 <dl class="py attribute">
-<dt id="RoadRunner.Logger.LOG_CURRENT">
-<code class="sig-prename descclassname">Logger.</code><code class="sig-name descname">LOG_CURRENT</code><a class="headerlink" href="#RoadRunner.Logger.LOG_CURRENT" title="Permalink to this definition">¶</a></dt>
+<dt class="sig sig-object py" id="RoadRunner.Logger.LOG_CURRENT">
+<span class="sig-prename descclassname"><span class="pre">Logger.</span></span><span class="sig-name descname"><span class="pre">LOG_CURRENT</span></span><a class="headerlink" href="#RoadRunner.Logger.LOG_CURRENT" title="Permalink to this definition">¶</a></dt>
 <dd><p>Use the current level – don’t change the level from what it is.</p>
 </dd></dl>
 
 <dl class="py attribute">
-<dt id="RoadRunner.Logger.LOG_FATAL">
-<code class="sig-prename descclassname">Logger.</code><code class="sig-name descname">LOG_FATAL</code><a class="headerlink" href="#RoadRunner.Logger.LOG_FATAL" title="Permalink to this definition">¶</a></dt>
+<dt class="sig sig-object py" id="RoadRunner.Logger.LOG_FATAL">
+<span class="sig-prename descclassname"><span class="pre">Logger.</span></span><span class="sig-name descname"><span class="pre">LOG_FATAL</span></span><a class="headerlink" href="#RoadRunner.Logger.LOG_FATAL" title="Permalink to this definition">¶</a></dt>
 <dd><p>A fatal error. The application will most likely terminate. This is the highest priority.</p>
 </dd></dl>
 
 <dl class="py attribute">
-<dt id="RoadRunner.Logger.LOG_CRITICAL">
-<code class="sig-prename descclassname">Logger.</code><code class="sig-name descname">LOG_CRITICAL</code><a class="headerlink" href="#RoadRunner.Logger.LOG_CRITICAL" title="Permalink to this definition">¶</a></dt>
+<dt class="sig sig-object py" id="RoadRunner.Logger.LOG_CRITICAL">
+<span class="sig-prename descclassname"><span class="pre">Logger.</span></span><span class="sig-name descname"><span class="pre">LOG_CRITICAL</span></span><a class="headerlink" href="#RoadRunner.Logger.LOG_CRITICAL" title="Permalink to this definition">¶</a></dt>
 <dd><p>A critical error. The application might not be able to continue running successfully.</p>
 </dd></dl>
 
 <dl class="py attribute">
-<dt id="RoadRunner.Logger.LOG_ERROR">
-<code class="sig-prename descclassname">Logger.</code><code class="sig-name descname">LOG_ERROR</code><a class="headerlink" href="#RoadRunner.Logger.LOG_ERROR" title="Permalink to this definition">¶</a></dt>
+<dt class="sig sig-object py" id="RoadRunner.Logger.LOG_ERROR">
+<span class="sig-prename descclassname"><span class="pre">Logger.</span></span><span class="sig-name descname"><span class="pre">LOG_ERROR</span></span><a class="headerlink" href="#RoadRunner.Logger.LOG_ERROR" title="Permalink to this definition">¶</a></dt>
 <dd><p>An error. An operation did not complete successfully, but the application as a whole is not affected.</p>
 </dd></dl>
 
 <dl class="py attribute">
-<dt id="RoadRunner.Logger.LOG_WARNING">
-<code class="sig-prename descclassname">Logger.</code><code class="sig-name descname">LOG_WARNING</code><a class="headerlink" href="#RoadRunner.Logger.LOG_WARNING" title="Permalink to this definition">¶</a></dt>
+<dt class="sig sig-object py" id="RoadRunner.Logger.LOG_WARNING">
+<span class="sig-prename descclassname"><span class="pre">Logger.</span></span><span class="sig-name descname"><span class="pre">LOG_WARNING</span></span><a class="headerlink" href="#RoadRunner.Logger.LOG_WARNING" title="Permalink to this definition">¶</a></dt>
 <dd><p>A warning. An operation completed with an unexpected result.</p>
 </dd></dl>
 
 <dl class="py attribute">
-<dt id="RoadRunner.Logger.LOG_NOTICE">
-<code class="sig-prename descclassname">Logger.</code><code class="sig-name descname">LOG_NOTICE</code><a class="headerlink" href="#RoadRunner.Logger.LOG_NOTICE" title="Permalink to this definition">¶</a></dt>
+<dt class="sig sig-object py" id="RoadRunner.Logger.LOG_NOTICE">
+<span class="sig-prename descclassname"><span class="pre">Logger.</span></span><span class="sig-name descname"><span class="pre">LOG_NOTICE</span></span><a class="headerlink" href="#RoadRunner.Logger.LOG_NOTICE" title="Permalink to this definition">¶</a></dt>
 <dd><p>A notice, which is an information with just a higher priority.</p>
 </dd></dl>
 
 <dl class="py attribute">
-<dt id="RoadRunner.Logger.LOG_INFORMATION">
-<code class="sig-prename descclassname">Logger.</code><code class="sig-name descname">LOG_INFORMATION</code><a class="headerlink" href="#RoadRunner.Logger.LOG_INFORMATION" title="Permalink to this definition">¶</a></dt>
+<dt class="sig sig-object py" id="RoadRunner.Logger.LOG_INFORMATION">
+<span class="sig-prename descclassname"><span class="pre">Logger.</span></span><span class="sig-name descname"><span class="pre">LOG_INFORMATION</span></span><a class="headerlink" href="#RoadRunner.Logger.LOG_INFORMATION" title="Permalink to this definition">¶</a></dt>
 <dd><p>An informational message, usually denoting the successful completion of an operation.</p>
 </dd></dl>
 
 <dl class="py attribute">
-<dt id="RoadRunner.Logger.LOG_DEBUG">
-<code class="sig-prename descclassname">Logger.</code><code class="sig-name descname">LOG_DEBUG</code><a class="headerlink" href="#RoadRunner.Logger.LOG_DEBUG" title="Permalink to this definition">¶</a></dt>
+<dt class="sig sig-object py" id="RoadRunner.Logger.LOG_DEBUG">
+<span class="sig-prename descclassname"><span class="pre">Logger.</span></span><span class="sig-name descname"><span class="pre">LOG_DEBUG</span></span><a class="headerlink" href="#RoadRunner.Logger.LOG_DEBUG" title="Permalink to this definition">¶</a></dt>
 <dd><p>A debugging message.</p>
 </dd></dl>
 
 <dl class="py attribute">
-<dt id="RoadRunner.Logger.LOG_TRACE">
-<code class="sig-prename descclassname">Logger.</code><code class="sig-name descname">LOG_TRACE</code><a class="headerlink" href="#RoadRunner.Logger.LOG_TRACE" title="Permalink to this definition">¶</a></dt>
+<dt class="sig sig-object py" id="RoadRunner.Logger.LOG_TRACE">
+<span class="sig-prename descclassname"><span class="pre">Logger.</span></span><span class="sig-name descname"><span class="pre">LOG_TRACE</span></span><a class="headerlink" href="#RoadRunner.Logger.LOG_TRACE" title="Permalink to this definition">¶</a></dt>
 <dd><p>A tracing message. This is the lowest priority.</p>
 </dd></dl>
 
@@ -287,8 +290,8 @@ displayed, one would run:</p>
 <div class="section" id="logging-methods">
 <h2>Logging Methods<a class="headerlink" href="#logging-methods" title="Permalink to this headline">¶</a></h2>
 <dl class="py method">
-<dt id="RoadRunner.Logger.setLevel">
-<em class="property">static </em><code class="sig-prename descclassname">Logger.</code><code class="sig-name descname">setLevel</code><span class="sig-paren">(</span><span class="optional">[</span><em class="sig-param">level</em><span class="optional">]</span><span class="sig-paren">)</span><a class="headerlink" href="#RoadRunner.Logger.setLevel" title="Permalink to this definition">¶</a></dt>
+<dt class="sig sig-object py" id="RoadRunner.Logger.setLevel">
+<em class="property"><span class="pre">static</span> </em><span class="sig-prename descclassname"><span class="pre">Logger.</span></span><span class="sig-name descname"><span class="pre">setLevel</span></span><span class="sig-paren">(</span><span class="optional">[</span><em class="sig-param"><span class="pre">level</span></em><span class="optional">]</span><span class="sig-paren">)</span><a class="headerlink" href="#RoadRunner.Logger.setLevel" title="Permalink to this definition">¶</a></dt>
 <dd><p>sets the logging level to one a value from Logger::Level</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
@@ -298,26 +301,26 @@ displayed, one would run:</p>
 </dd></dl>
 
 <dl class="py method">
-<dt id="RoadRunner.Logger.getLevel">
-<em class="property">static </em><code class="sig-prename descclassname">Logger.</code><code class="sig-name descname">getLevel</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#RoadRunner.Logger.getLevel" title="Permalink to this definition">¶</a></dt>
+<dt class="sig sig-object py" id="RoadRunner.Logger.getLevel">
+<em class="property"><span class="pre">static</span> </em><span class="sig-prename descclassname"><span class="pre">Logger.</span></span><span class="sig-name descname"><span class="pre">getLevel</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#RoadRunner.Logger.getLevel" title="Permalink to this definition">¶</a></dt>
 <dd><p>get the current logging level.</p>
 </dd></dl>
 
 <dl class="py method">
-<dt id="RoadRunner.Logger.disableLogging">
-<em class="property">static </em><code class="sig-prename descclassname">Logger.</code><code class="sig-name descname">disableLogging</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#RoadRunner.Logger.disableLogging" title="Permalink to this definition">¶</a></dt>
+<dt class="sig sig-object py" id="RoadRunner.Logger.disableLogging">
+<em class="property"><span class="pre">static</span> </em><span class="sig-prename descclassname"><span class="pre">Logger.</span></span><span class="sig-name descname"><span class="pre">disableLogging</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#RoadRunner.Logger.disableLogging" title="Permalink to this definition">¶</a></dt>
 <dd><p>Suppresses all logging output</p>
 </dd></dl>
 
 <dl class="py method">
-<dt id="RoadRunner.Logger.disableConsoleLogging">
-<em class="property">static </em><code class="sig-prename descclassname">Logger.</code><code class="sig-name descname">disableConsoleLogging</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#RoadRunner.Logger.disableConsoleLogging" title="Permalink to this definition">¶</a></dt>
+<dt class="sig sig-object py" id="RoadRunner.Logger.disableConsoleLogging">
+<em class="property"><span class="pre">static</span> </em><span class="sig-prename descclassname"><span class="pre">Logger.</span></span><span class="sig-name descname"><span class="pre">disableConsoleLogging</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#RoadRunner.Logger.disableConsoleLogging" title="Permalink to this definition">¶</a></dt>
 <dd><p>stops logging to the console, but file logging may continue.</p>
 </dd></dl>
 
 <dl class="py method">
-<dt id="RoadRunner.Logger.enableConsoleLogging">
-<em class="property">static </em><code class="sig-prename descclassname">Logger.</code><code class="sig-name descname">enableConsoleLogging</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">level</span></em><span class="sig-paren">)</span><a class="headerlink" href="#RoadRunner.Logger.enableConsoleLogging" title="Permalink to this definition">¶</a></dt>
+<dt class="sig sig-object py" id="RoadRunner.Logger.enableConsoleLogging">
+<em class="property"><span class="pre">static</span> </em><span class="sig-prename descclassname"><span class="pre">Logger.</span></span><span class="sig-name descname"><span class="pre">enableConsoleLogging</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">level</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#RoadRunner.Logger.enableConsoleLogging" title="Permalink to this definition">¶</a></dt>
 <dd><p>turns on console logging (stderr) at the given level.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
@@ -327,8 +330,8 @@ displayed, one would run:</p>
 </dd></dl>
 
 <dl class="py method">
-<dt id="RoadRunner.Logger.enableFileLogging">
-<em class="property">static </em><code class="sig-prename descclassname">Logger.</code><code class="sig-name descname">enableFileLogging</code><span class="sig-paren">(</span><em class="sig-param">fileName</em><span class="optional">[</span>, <em class="sig-param">level</em><span class="optional">]</span><span class="sig-paren">)</span><a class="headerlink" href="#RoadRunner.Logger.enableFileLogging" title="Permalink to this definition">¶</a></dt>
+<dt class="sig sig-object py" id="RoadRunner.Logger.enableFileLogging">
+<em class="property"><span class="pre">static</span> </em><span class="sig-prename descclassname"><span class="pre">Logger.</span></span><span class="sig-name descname"><span class="pre">enableFileLogging</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="pre">fileName</span></em><span class="optional">[</span>, <em class="sig-param"><span class="pre">level</span></em><span class="optional">]</span><span class="sig-paren">)</span><a class="headerlink" href="#RoadRunner.Logger.enableFileLogging" title="Permalink to this definition">¶</a></dt>
 <dd><p>turns on file logging to the given file as the given level.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
@@ -341,26 +344,26 @@ displayed, one would run:</p>
 </dd></dl>
 
 <dl class="py method">
-<dt id="RoadRunner.Logger.disableFileLogging">
-<em class="property">static </em><code class="sig-prename descclassname">Logger.</code><code class="sig-name descname">disableFileLogging</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#RoadRunner.Logger.disableFileLogging" title="Permalink to this definition">¶</a></dt>
+<dt class="sig sig-object py" id="RoadRunner.Logger.disableFileLogging">
+<em class="property"><span class="pre">static</span> </em><span class="sig-prename descclassname"><span class="pre">Logger.</span></span><span class="sig-name descname"><span class="pre">disableFileLogging</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#RoadRunner.Logger.disableFileLogging" title="Permalink to this definition">¶</a></dt>
 <dd><p>turns off file logging, but has no effect on console logging.</p>
 </dd></dl>
 
 <dl class="py method">
-<dt id="RoadRunner.Logger.getCurrentLevelAsString">
-<em class="property">static </em><code class="sig-prename descclassname">Logger.</code><code class="sig-name descname">getCurrentLevelAsString</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#RoadRunner.Logger.getCurrentLevelAsString" title="Permalink to this definition">¶</a></dt>
+<dt class="sig sig-object py" id="RoadRunner.Logger.getCurrentLevelAsString">
+<em class="property"><span class="pre">static</span> </em><span class="sig-prename descclassname"><span class="pre">Logger.</span></span><span class="sig-name descname"><span class="pre">getCurrentLevelAsString</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#RoadRunner.Logger.getCurrentLevelAsString" title="Permalink to this definition">¶</a></dt>
 <dd><p>get the textural form of the current logging level.</p>
 </dd></dl>
 
 <dl class="py method">
-<dt id="RoadRunner.Logger.getFileName">
-<em class="property">static </em><code class="sig-prename descclassname">Logger.</code><code class="sig-name descname">getFileName</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#RoadRunner.Logger.getFileName" title="Permalink to this definition">¶</a></dt>
+<dt class="sig sig-object py" id="RoadRunner.Logger.getFileName">
+<em class="property"><span class="pre">static</span> </em><span class="sig-prename descclassname"><span class="pre">Logger.</span></span><span class="sig-name descname"><span class="pre">getFileName</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#RoadRunner.Logger.getFileName" title="Permalink to this definition">¶</a></dt>
 <dd><p>get the name of the currently used log file.</p>
 </dd></dl>
 
 <dl class="py method">
-<dt id="RoadRunner.Logger.setFormattingPattern">
-<em class="property">static </em><code class="sig-prename descclassname">Logger.</code><code class="sig-name descname">setFormattingPattern</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">format</span></em><span class="sig-paren">)</span><a class="headerlink" href="#RoadRunner.Logger.setFormattingPattern" title="Permalink to this definition">¶</a></dt>
+<dt class="sig sig-object py" id="RoadRunner.Logger.setFormattingPattern">
+<em class="property"><span class="pre">static</span> </em><span class="sig-prename descclassname"><span class="pre">Logger.</span></span><span class="sig-name descname"><span class="pre">setFormattingPattern</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">format</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#RoadRunner.Logger.setFormattingPattern" title="Permalink to this definition">¶</a></dt>
 <dd><p>Internally, RoadRunner uses the Poco logging framework, so we
 can custom format logging output based on a formatting pattern
 string.</p>
@@ -424,14 +427,14 @@ which are replaced by the corresponding value.</p>
 </dd></dl>
 
 <dl class="py method">
-<dt id="RoadRunner.Logger.getFormattingPattern">
-<em class="property">static </em><code class="sig-prename descclassname">Logger.</code><code class="sig-name descname">getFormattingPattern</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#RoadRunner.Logger.getFormattingPattern" title="Permalink to this definition">¶</a></dt>
+<dt class="sig sig-object py" id="RoadRunner.Logger.getFormattingPattern">
+<em class="property"><span class="pre">static</span> </em><span class="sig-prename descclassname"><span class="pre">Logger.</span></span><span class="sig-name descname"><span class="pre">getFormattingPattern</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#RoadRunner.Logger.getFormattingPattern" title="Permalink to this definition">¶</a></dt>
 <dd><p>get the currently set formatting pattern.</p>
 </dd></dl>
 
 <dl class="py method">
-<dt id="RoadRunner.Logger.levelToString">
-<em class="property">static </em><code class="sig-prename descclassname">Logger.</code><code class="sig-name descname">levelToString</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">level</span></em><span class="sig-paren">)</span><a class="headerlink" href="#RoadRunner.Logger.levelToString" title="Permalink to this definition">¶</a></dt>
+<dt class="sig sig-object py" id="RoadRunner.Logger.levelToString">
+<em class="property"><span class="pre">static</span> </em><span class="sig-prename descclassname"><span class="pre">Logger.</span></span><span class="sig-name descname"><span class="pre">levelToString</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">level</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#RoadRunner.Logger.levelToString" title="Permalink to this definition">¶</a></dt>
 <dd><p>gets the textual form of a logging level Enum for a given value.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
@@ -441,8 +444,8 @@ which are replaced by the corresponding value.</p>
 </dd></dl>
 
 <dl class="py method">
-<dt id="RoadRunner.Logger.stringToLevel">
-<em class="property">static </em><code class="sig-prename descclassname">Logger.</code><code class="sig-name descname">stringToLevel</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">s</span></em><span class="sig-paren">)</span><a class="headerlink" href="#RoadRunner.Logger.stringToLevel" title="Permalink to this definition">¶</a></dt>
+<dt class="sig sig-object py" id="RoadRunner.Logger.stringToLevel">
+<em class="property"><span class="pre">static</span> </em><span class="sig-prename descclassname"><span class="pre">Logger.</span></span><span class="sig-name descname"><span class="pre">stringToLevel</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">s</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#RoadRunner.Logger.stringToLevel" title="Permalink to this definition">¶</a></dt>
 <dd><p>parses a string and returns a Logger::Level</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
@@ -452,14 +455,14 @@ which are replaced by the corresponding value.</p>
 </dd></dl>
 
 <dl class="py method">
-<dt id="RoadRunner.Logger.getColoredOutput">
-<em class="property">static </em><code class="sig-prename descclassname">Logger.</code><code class="sig-name descname">getColoredOutput</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#RoadRunner.Logger.getColoredOutput" title="Permalink to this definition">¶</a></dt>
+<dt class="sig sig-object py" id="RoadRunner.Logger.getColoredOutput">
+<em class="property"><span class="pre">static</span> </em><span class="sig-prename descclassname"><span class="pre">Logger.</span></span><span class="sig-name descname"><span class="pre">getColoredOutput</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#RoadRunner.Logger.getColoredOutput" title="Permalink to this definition">¶</a></dt>
 <dd><p>check if we have colored logging enabled.</p>
 </dd></dl>
 
 <dl class="py method">
-<dt id="RoadRunner.Logger.setColoredOutput">
-<em class="property">static </em><code class="sig-prename descclassname">Logger.</code><code class="sig-name descname">setColoredOutput</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">b</span></em><span class="sig-paren">)</span><a class="headerlink" href="#RoadRunner.Logger.setColoredOutput" title="Permalink to this definition">¶</a></dt>
+<dt class="sig sig-object py" id="RoadRunner.Logger.setColoredOutput">
+<em class="property"><span class="pre">static</span> </em><span class="sig-prename descclassname"><span class="pre">Logger.</span></span><span class="sig-name descname"><span class="pre">setColoredOutput</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">b</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#RoadRunner.Logger.setColoredOutput" title="Permalink to this definition">¶</a></dt>
 <dd><p>enable / disable colored output</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
@@ -469,8 +472,8 @@ which are replaced by the corresponding value.</p>
 </dd></dl>
 
 <dl class="py method">
-<dt id="RoadRunner.Logger.setProperty">
-<em class="property">static </em><code class="sig-prename descclassname">Logger.</code><code class="sig-name descname">setProperty</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">name</span></em>, <em class="sig-param"><span class="n">value</span></em><span class="sig-paren">)</span><a class="headerlink" href="#RoadRunner.Logger.setProperty" title="Permalink to this definition">¶</a></dt>
+<dt class="sig sig-object py" id="RoadRunner.Logger.setProperty">
+<em class="property"><span class="pre">static</span> </em><span class="sig-prename descclassname"><span class="pre">Logger.</span></span><span class="sig-name descname"><span class="pre">setProperty</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">name</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">value</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#RoadRunner.Logger.setProperty" title="Permalink to this definition">¶</a></dt>
 <dd><p>Set the color of the output logging messages.</p>
 <p>In the future, we may add additional properties here.</p>
 <p>The following properties are supported:</p>
@@ -516,8 +519,8 @@ which are replaced by the corresponding value.</p>
 </dd></dl>
 
 <dl class="py method">
-<dt id="RoadRunner.Logger.log">
-<em class="property">static </em><code class="sig-prename descclassname">Logger.</code><code class="sig-name descname">log</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">level</span></em>, <em class="sig-param"><span class="n">msg</span></em><span class="sig-paren">)</span><a class="headerlink" href="#RoadRunner.Logger.log" title="Permalink to this definition">¶</a></dt>
+<dt class="sig sig-object py" id="RoadRunner.Logger.log">
+<em class="property"><span class="pre">static</span> </em><span class="sig-prename descclassname"><span class="pre">Logger.</span></span><span class="sig-name descname"><span class="pre">log</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">level</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">msg</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#RoadRunner.Logger.log" title="Permalink to this definition">¶</a></dt>
 <dd><p>logs a message to the log.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>

@@ -122,7 +122,10 @@ class RoadRunnerTests(unittest.TestCase):
         self.assertEqual(self.rr.__getattr__("S1"), 10)
 
     def test___dict__(self):
-        self.assertEqual(["this"], list(self.rr.__dict__.keys()))
+        self.assertEqual(
+            ["this"],
+            list(self.rr.__dict__.keys())
+        )
 
     @unittest.skip("__eq__ may be implemented, may not. If not we should do")
     def test___eq__(self):
@@ -138,11 +141,11 @@ class RoadRunnerTests(unittest.TestCase):
         l = repr([self.rr])
         self.assertIn("roadrunner.RoadRunner()", l)
 
-    def test___setitem__failes_when_key_not_exist(self):
+    def test___setitem__fails_when_key_not_exist(self):
         with self.assertRaises(RuntimeError):
             self.rr.__setitem__("five", 5)
 
-    def test___setitem__failes_when_key_exists(self):
+    def test___setitem__when_key_exists(self):
         self.rr.__setitem__("S1", 12)
         self.assertEqual(self.rr.__getitem__("S1"), 12)
 
@@ -801,11 +804,11 @@ class RoadRunnerTests(unittest.TestCase):
         )
 
     def test_resetParameter(self):
-        self.rr.k1 = 15
+        self.assertEqual(self.rr.k1, 0.1) # starting value
+        self.rr.k1 = 15 # uses setattr
+        self.assertEqual(self.rr.k1, 15) # starting value
         self.rr.resetParameter()
-        self.assertEqual(
-            self.rr.k1, 0.1
-        )
+        self.assertEqual(self.rr.k1, 0.1)
 
     def test_resetSelectionLists(self):
         self.rr.selections = ["[S2]"]
@@ -820,7 +823,6 @@ class RoadRunnerTests(unittest.TestCase):
         self.rr.resetToOrigin()
         self.assertEqual(
             self.rr.k1, 0.1
-
         )
 
     def test_selections(self):
@@ -983,11 +985,55 @@ class RoadRunnerTests(unittest.TestCase):
         self.assertTrue(self.rr.validateCurrentSBML())
 
 
+    def test_load_model_with_large_recursion_limit(self):
+        """
+        This was a fun one. Tellurium crashed with version roadrunner 2.0.6
+        because it imports plotly. Plotly imports Ipython.display, which
+        imports jedi which changes the recursion depth with sys.setrecursionlimit.
+        This caused roadrunner to crash. Here we write a test to resolve this problem.
+        :return:
+        """
 
+        """
+        Okay, so we can't call getIds() inside __getattr__. Why not? 
+        No, actually - we can't call *anything. infinite recursion
+        """
+        import sys
+        sys.setrecursionlimit(3000)
+        m = RoadRunner(sbml)
+        self.assertIsInstance(m, RoadRunner)
+
+    def test_getitem_when_exists(self):
+        import sys
+        sys.setrecursionlimit(3000)
+        m = RoadRunner(sbml)
+        self.assertEqual(10.0, m["S1"])
+
+    def test_getitem_when_not_exists(self):
+        import sys
+        sys.setrecursionlimit(3000)
+        m = RoadRunner(sbml)
+        with self.assertRaises(RuntimeError):
+            s = m["S100"]
+
+    def test_getitem_when_created_after_instantiation(self):
+        import sys
+        sys.setrecursionlimit(3000)
+        m = RoadRunner(sbml)
+        m.addSpeciesConcentration("S100", "default_compartment", 123.3, False, False, "", True)
+        val = m["S100"]
+        self.assertAlmostEqual(val, 123.3)
+
+    def test_getitem_when_created_after_instantiation_dot_notation(self):
+        import sys
+        sys.setrecursionlimit(3000)
+        m = RoadRunner(sbml)
+        m.addSpeciesConcentration("S100", "default_compartment", 123.3, False, False, "", True)
+        m._makeProperties()
+        self.assertAlmostEqual(m.S100, 123.3)
 
 
 class CVODEIntegratorTests(unittest.TestCase):
-
     maxDiff = None
 
     def setUp(self) -> None:
@@ -1039,7 +1085,7 @@ class CVODEIntegratorTests(unittest.TestCase):
 
     def test_set_variable_step_size(self):
         self.integrator.setValue("variable_step_size", True)
-        self.assertTrue( self.integrator.getValue("variable_step_size"))
+        self.assertTrue(self.integrator.getValue("variable_step_size"))
 
     def test_set_max_output_rows(self):
         self.integrator.setValue("max_output_rows", 50)
@@ -1047,16 +1093,3 @@ class CVODEIntegratorTests(unittest.TestCase):
 
     def test_set_concentration_tolerance(self):
         self.integrator.setConcentrationTolerance(1e-8)
-
-
-
-
-
-
-
-
-
-
-
-
-

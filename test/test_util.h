@@ -3,6 +3,8 @@
 #include <string>
 #include "rr-libstruct/lsMatrix.h"
 
+// todo contents of test_util belong in RoadRunnerTest
+
 bool testValidateSBML(std::string sbml);
 ls::DoubleMatrix ParseMatrixFromText(const std::string& textMatrix);
 void expectArrayClose(const ls::DoubleMatrix& jRef, const ls::DoubleMatrix& fullJacobian, double epsilon);

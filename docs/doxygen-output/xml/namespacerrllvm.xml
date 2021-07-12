@@ -601,7 +601,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="llvm/LLVMModelDataSymbols.cpp" line="1096" column="33" bodyfile="llvm/LLVMModelDataSymbols.cpp" bodystart="1096" bodyend="-1"/>
+        <location file="llvm/LLVMModelDataSymbols.cpp" line="1097" column="33" bodyfile="llvm/LLVMModelDataSymbols.cpp" bodystart="1097" bodyend="-1"/>
       </memberdef>
       <memberdef kind="typedef" id="LLVMModelDataSymbols_8cpp_1ab7d0be483572f07194fad16c6237afb2" prot="public" static="no">
         <type>cxx11_ns::unordered_map&lt; uint, ssize_type &gt;</type>
@@ -614,46 +614,46 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="llvm/LLVMModelDataSymbols.cpp" line="1097" column="33" bodyfile="llvm/LLVMModelDataSymbols.cpp" bodystart="1097" bodyend="-1"/>
+        <location file="llvm/LLVMModelDataSymbols.cpp" line="1098" column="33" bodyfile="llvm/LLVMModelDataSymbols.cpp" bodystart="1098" bodyend="-1"/>
       </memberdef>
-      <memberdef kind="typedef" id="LLVMModelGenerator_8cpp_1afa02a92dfc5753a48702b91e35bfe61f" prot="public" static="no">
-        <type>cxx11_ns::weak_ptr&lt; <ref refid="classrrllvm_1_1ModelResources" kindref="compound">ModelResources</ref> &gt;</type>
-        <definition>typedef cxx11_ns::weak_ptr&lt;ModelResources&gt; rrllvm::WeakModelPtr</definition>
+      <memberdef kind="typedef" id="LLVMModelGenerator_8cpp_1a623fb2eecf135c54d2c8ab4ae7dbadd5" prot="public" static="no">
+        <type>std::weak_ptr&lt; <ref refid="classrrllvm_1_1ModelResources" kindref="compound">ModelResources</ref> &gt;</type>
+        <definition>typedef std::weak_ptr&lt;ModelResources&gt; rrllvm::WeakModelResourcesPtr</definition>
         <argsstring></argsstring>
-        <name>WeakModelPtr</name>
+        <name>WeakModelResourcesPtr</name>
         <briefdescription>
         </briefdescription>
         <detaileddescription>
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="llvm/LLVMModelGenerator.cpp" line="46" column="28" bodyfile="llvm/LLVMModelGenerator.cpp" bodystart="46" bodyend="-1"/>
+        <location file="llvm/LLVMModelGenerator.cpp" line="46" column="23" bodyfile="llvm/LLVMModelGenerator.cpp" bodystart="46" bodyend="-1"/>
       </memberdef>
-      <memberdef kind="typedef" id="LLVMModelGenerator_8cpp_1a7f2349504c6b2a2898af95dffd5e3fc6" prot="public" static="no">
-        <type>cxx11_ns::shared_ptr&lt; <ref refid="classrrllvm_1_1ModelResources" kindref="compound">ModelResources</ref> &gt;</type>
-        <definition>typedef cxx11_ns::shared_ptr&lt;ModelResources&gt; rrllvm::SharedModelPtr</definition>
+      <memberdef kind="typedef" id="LLVMModelGenerator_8cpp_1a8e58eda562f81894c9ae00fff44005aa" prot="public" static="no">
+        <type>std::shared_ptr&lt; <ref refid="classrrllvm_1_1ModelResources" kindref="compound">ModelResources</ref> &gt;</type>
+        <definition>typedef std::shared_ptr&lt;ModelResources&gt; rrllvm::SharedModelResourcesPtr</definition>
         <argsstring></argsstring>
-        <name>SharedModelPtr</name>
+        <name>SharedModelResourcesPtr</name>
         <briefdescription>
         </briefdescription>
         <detaileddescription>
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="llvm/LLVMModelGenerator.cpp" line="47" column="30" bodyfile="llvm/LLVMModelGenerator.cpp" bodystart="47" bodyend="-1"/>
+        <location file="llvm/LLVMModelGenerator.cpp" line="47" column="25" bodyfile="llvm/LLVMModelGenerator.cpp" bodystart="47" bodyend="-1"/>
       </memberdef>
-      <memberdef kind="typedef" id="LLVMModelGenerator_8cpp_1a7953b9369602fbfd0636455f987cc44b" prot="public" static="no">
-        <type>cxx11_ns::unordered_map&lt; std::string, WeakModelPtr &gt;</type>
-        <definition>typedef cxx11_ns::unordered_map&lt;std::string, WeakModelPtr&gt; rrllvm::ModelPtrMap</definition>
+      <memberdef kind="typedef" id="LLVMModelGenerator_8cpp_1af8cd7f7430e87f2105dec172fde4b336" prot="public" static="no">
+        <type>std::unordered_map&lt; std::string, WeakModelResourcesPtr &gt;</type>
+        <definition>typedef std::unordered_map&lt;std::string, WeakModelResourcesPtr&gt; rrllvm::ModelResourcesPtrMap</definition>
         <argsstring></argsstring>
-        <name>ModelPtrMap</name>
+        <name>ModelResourcesPtrMap</name>
         <briefdescription>
         </briefdescription>
         <detaileddescription>
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="llvm/LLVMModelGenerator.cpp" line="48" column="33" bodyfile="llvm/LLVMModelGenerator.cpp" bodystart="48" bodyend="-1"/>
+        <location file="llvm/LLVMModelGenerator.cpp" line="48" column="28" bodyfile="llvm/LLVMModelGenerator.cpp" bodystart="48" bodyend="-1"/>
       </memberdef>
       <memberdef kind="typedef" id="Random_8cpp_1a1fb7918e1d72e84f4ea2dc3641d4f709" prot="public" static="no">
         <type>cxx11_ns::normal_distribution&lt; double &gt;</type>
@@ -813,18 +813,18 @@
         </inbodydescription>
         <location file="llvm/LLVMModelGenerator.cpp" line="50" column="20" bodyfile="llvm/LLVMModelGenerator.cpp" bodystart="50" bodyend="-1"/>
       </memberdef>
-      <memberdef kind="variable" id="LLVMModelGenerator_8cpp_1a2c5eeb8cdcacf269d156fc62aa052190" prot="public" static="yes" mutable="no">
-        <type>ModelPtrMap</type>
-        <definition>ModelPtrMap rrllvm::cachedModels</definition>
+      <memberdef kind="variable" id="LLVMModelGenerator_8cpp_1aa811cbc9b9dd348db436cd79ba1bca4d" prot="public" static="yes" mutable="no">
+        <type>ModelResourcesPtrMap</type>
+        <definition>ModelResourcesPtrMap rrllvm::cachedModelResources</definition>
         <argsstring></argsstring>
-        <name>cachedModels</name>
+        <name>cachedModelResources</name>
         <briefdescription>
         </briefdescription>
         <detaileddescription>
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="llvm/LLVMModelGenerator.cpp" line="51" column="20" bodyfile="llvm/LLVMModelGenerator.cpp" bodystart="51" bodyend="-1"/>
+        <location file="llvm/LLVMModelGenerator.cpp" line="51" column="29" bodyfile="llvm/LLVMModelGenerator.cpp" bodystart="51" bodyend="-1"/>
       </memberdef>
       <memberdef kind="variable" id="Random_8cpp_1aee0ae1e7f101ae888b8489d09db259b0" prot="public" static="yes" mutable="no">
         <type>int</type>
@@ -859,7 +859,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="llvm/ASTNodeCodeGen.cpp" line="1387" column="13" bodyfile="llvm/ASTNodeCodeGen.cpp" bodystart="1387" bodyend="1398" declfile="llvm/ASTNodeCodeGen.cpp" declline="39" declcolumn="13"/>
+        <location file="llvm/ASTNodeCodeGen.cpp" line="1386" column="13" bodyfile="llvm/ASTNodeCodeGen.cpp" bodystart="1386" bodyend="1397" declfile="llvm/ASTNodeCodeGen.cpp" declline="39" declcolumn="13"/>
       </memberdef>
       <memberdef kind="function" id="ASTNodeCodeGen_8cpp_1ab6e2d1a7bcbe21244fe9d59cd807bcd2" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
         <type>std::string</type>
@@ -876,7 +876,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="llvm/ASTNodeCodeGen.cpp" line="41" column="13" bodyfile="llvm/ASTNodeCodeGen.cpp" bodystart="41" bodyend="47" declfile="llvm/ASTNodeCodeGen.h" declline="131" declcolumn="13"/>
+        <location file="llvm/ASTNodeCodeGen.cpp" line="41" column="13" bodyfile="llvm/ASTNodeCodeGen.cpp" bodystart="41" bodyend="47" declfile="llvm/ASTNodeCodeGen.h" declline="130" declcolumn="13"/>
       </memberdef>
       <memberdef kind="function" id="CodeGenBase_8cpp_1a4c8acfc52121bbe411d488f4d69b82dd" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
         <type>void</type>
@@ -915,7 +915,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="llvm/EvalVolatileStoichCodeGen.cpp" line="148" column="17" bodyfile="llvm/EvalVolatileStoichCodeGen.cpp" bodystart="148" bodyend="181"/>
+        <location file="llvm/EvalVolatileStoichCodeGen.cpp" line="154" column="17" bodyfile="llvm/EvalVolatileStoichCodeGen.cpp" bodystart="154" bodyend="187"/>
       </memberdef>
       <memberdef kind="function" id="EventQueue_8cpp_1a0d825ecc4e905532347cd0e52be7c363" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
         <type>bool</type>
@@ -996,7 +996,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="llvm/LLVMModelGenerator.cpp" line="1017" column="13" bodyfile="llvm/LLVMModelGenerator.cpp" bodystart="1017" bodyend="1023" declfile="llvm/LLVMIncludes.h" declline="101" declcolumn="13"/>
+        <location file="llvm/LLVMModelGenerator.cpp" line="1013" column="13" bodyfile="llvm/LLVMModelGenerator.cpp" bodystart="1013" bodyend="1019" declfile="llvm/LLVMIncludes.h" declline="101" declcolumn="13"/>
       </memberdef>
       <memberdef kind="function" id="LLVMModelData_8cpp_1a2c8ed62c3575769c8bc81ed568811e81" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
         <type>std::ostream &amp;</type>
@@ -1124,7 +1124,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="llvm/LLVMModelGenerator.cpp" line="1025" column="15" bodyfile="llvm/LLVMModelGenerator.cpp" bodystart="1025" bodyend="1124" declfile="llvm/ModelGeneratorContext.h" declline="258" declcolumn="15"/>
+        <location file="llvm/LLVMModelGenerator.cpp" line="1021" column="15" bodyfile="llvm/LLVMModelGenerator.cpp" bodystart="1021" bodyend="1120" declfile="llvm/ModelGeneratorContext.h" declline="257" declcolumn="15"/>
       </memberdef>
       <memberdef kind="function" id="ModelDataIRBuilder_8cpp_1a9b6f0b05d36838414d31ff2f17f932eb" prot="public" static="yes" const="no" explicit="no" inline="no" virt="non-virtual">
         <type>bool</type>
@@ -1209,7 +1209,7 @@
 <para>double tanh(double x);</para>
 <para>double fmod(double x, double y);</para>
         </inbodydescription>
-        <location file="llvm/ModelGeneratorContext.cpp" line="719" column="13" bodyfile="llvm/ModelGeneratorContext.cpp" bodystart="719" bodyend="793" declfile="llvm/ModelGeneratorContext.cpp" declline="60" declcolumn="13"/>
+        <location file="llvm/ModelGeneratorContext.cpp" line="720" column="13" bodyfile="llvm/ModelGeneratorContext.cpp" bodystart="720" bodyend="794" declfile="llvm/ModelGeneratorContext.cpp" declline="61" declcolumn="13"/>
       </memberdef>
       <memberdef kind="function" id="ModelGeneratorContext_8cpp_1a07d4e1e7ae3f299766166158377bad9b" prot="public" static="yes" const="no" explicit="no" inline="no" virt="non-virtual">
         <type>void</type>
@@ -1234,7 +1234,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="llvm/ModelGeneratorContext.cpp" line="795" column="13" bodyfile="llvm/ModelGeneratorContext.cpp" bodystart="795" bodyend="815" declfile="llvm/ModelGeneratorContext.cpp" declline="62" declcolumn="13"/>
+        <location file="llvm/ModelGeneratorContext.cpp" line="796" column="13" bodyfile="llvm/ModelGeneratorContext.cpp" bodystart="796" bodyend="816" declfile="llvm/ModelGeneratorContext.cpp" declline="63" declcolumn="13"/>
       </memberdef>
       <memberdef kind="function" id="ModelGeneratorContext_8cpp_1a44448dfc35c6279a87fc131a2b54a545" prot="public" static="yes" const="no" explicit="no" inline="no" virt="non-virtual">
         <type>Function *</type>
@@ -1259,7 +1259,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="llvm/ModelGeneratorContext.cpp" line="817" column="17" bodyfile="llvm/ModelGeneratorContext.cpp" bodystart="817" bodyend="822" declfile="llvm/ModelGeneratorContext.cpp" declline="65" declcolumn="17"/>
+        <location file="llvm/ModelGeneratorContext.cpp" line="818" column="17" bodyfile="llvm/ModelGeneratorContext.cpp" bodystart="818" bodyend="823" declfile="llvm/ModelGeneratorContext.cpp" declline="66" declcolumn="17"/>
       </memberdef>
       <memberdef kind="function" id="ModelGeneratorContext_8cpp_1a05192d98317f5b565127f4d58d164e9e" prot="public" static="yes" const="no" explicit="no" inline="no" virt="non-virtual">
         <type>SBMLDocument *</type>
@@ -1277,7 +1277,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="llvm/ModelGeneratorContext.cpp" line="824" column="21" bodyfile="llvm/ModelGeneratorContext.cpp" bodystart="824" bodyend="851" declfile="llvm/ModelGeneratorContext.cpp" declline="73" declcolumn="21"/>
+        <location file="llvm/ModelGeneratorContext.cpp" line="825" column="21" bodyfile="llvm/ModelGeneratorContext.cpp" bodystart="825" bodyend="852" declfile="llvm/ModelGeneratorContext.cpp" declline="74" declcolumn="21"/>
       </memberdef>
       <memberdef kind="function" id="ModelGeneratorContext_8cpp_1ae8356aaa4689b5a491b99a5bab173123" prot="public" static="yes" const="no" explicit="no" inline="no" virt="non-virtual">
         <type>SBMLDocument *</type>
@@ -1290,7 +1290,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="llvm/ModelGeneratorContext.cpp" line="337" column="21" bodyfile="llvm/ModelGeneratorContext.cpp" bodystart="337" bodyend="342"/>
+        <location file="llvm/ModelGeneratorContext.cpp" line="338" column="21" bodyfile="llvm/ModelGeneratorContext.cpp" bodystart="338" bodyend="343"/>
       </memberdef>
       <memberdef kind="function" id="ModelGeneratorContext_8cpp_1a37d587e9ace901251f594c1f8286fc77" prot="public" static="yes" const="no" explicit="no" inline="no" virt="non-virtual">
         <type>void</type>
@@ -1307,7 +1307,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="llvm/ModelGeneratorContext.cpp" line="543" column="13" bodyfile="llvm/ModelGeneratorContext.cpp" bodystart="543" bodyend="545"/>
+        <location file="llvm/ModelGeneratorContext.cpp" line="544" column="13" bodyfile="llvm/ModelGeneratorContext.cpp" bodystart="544" bodyend="546"/>
       </memberdef>
       <memberdef kind="function" id="ModelGeneratorContext_8cpp_1a1ac4ed1aee9978fb7de428f358de275a" prot="public" static="yes" const="no" explicit="no" inline="no" virt="non-virtual">
         <type>void</type>
@@ -1324,7 +1324,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="llvm/ModelGeneratorContext.cpp" line="547" column="13" bodyfile="llvm/ModelGeneratorContext.cpp" bodystart="547" bodyend="549"/>
+        <location file="llvm/ModelGeneratorContext.cpp" line="548" column="13" bodyfile="llvm/ModelGeneratorContext.cpp" bodystart="548" bodyend="550"/>
       </memberdef>
       <memberdef kind="function" id="ModelGeneratorContext_8cpp_1a71bc897a02d49161ad22213ebb03204d" prot="public" static="yes" const="no" explicit="no" inline="no" virt="non-virtual">
         <type>void</type>
@@ -1341,7 +1341,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="llvm/ModelGeneratorContext.cpp" line="551" column="13" bodyfile="llvm/ModelGeneratorContext.cpp" bodystart="551" bodyend="553"/>
+        <location file="llvm/ModelGeneratorContext.cpp" line="552" column="13" bodyfile="llvm/ModelGeneratorContext.cpp" bodystart="552" bodyend="554"/>
       </memberdef>
       <memberdef kind="function" id="Random_8cpp_1a0cdef3eb466def7934ab3a8a4f023447" prot="public" static="yes" const="no" explicit="no" inline="no" virt="non-virtual">
         <type>double</type>
@@ -2035,17 +2035,17 @@
         </inbodydescription>
         <location file="llvm/Random.cpp" line="111" column="16" bodyfile="llvm/Random.cpp" bodystart="111" bodyend="120"/>
       </memberdef>
-      <memberdef kind="function" id="SetValuesCodeGen_8cpp_1a29066db7d121346ba326d82b1db58af6" prot="public" static="yes" const="no" explicit="no" inline="no" virt="non-virtual">
+      <memberdef kind="function" id="SetValuesCodeGen_8cpp_1a26767d0ec3dd81bc707dcdfdc03989c4" prot="public" static="yes" const="no" explicit="no" inline="no" virt="non-virtual">
         <type>StringIntVector</type>
         <definition>static StringIntVector rrllvm::independentElements</definition>
-        <argsstring>(const LLVMModelDataSymbols &amp;dataSymbols, const std::vector&lt; string &gt; elements)</argsstring>
+        <argsstring>(const LLVMModelDataSymbols &amp;dataSymbols, const std::vector&lt; std::string &gt; elements)</argsstring>
         <name>independentElements</name>
         <param>
           <type>const <ref refid="classrrllvm_1_1LLVMModelDataSymbols" kindref="compound">LLVMModelDataSymbols</ref> &amp;</type>
           <declname>dataSymbols</declname>
         </param>
         <param>
-          <type>const std::vector&lt; string &gt;</type>
+          <type>const std::vector&lt; std::string &gt;</type>
           <declname>elements</declname>
         </param>
         <briefdescription>

@@ -1,0 +1,1644 @@
+@startuml
+
+
+
+
+
+/' Objects '/
+
+namespace rrllvm {
+	class ASTNodeCodeGen {
+		+ASTNodeCodeGen(llvm::IRBuilder<>& builder, LoadSymbolResolver& resolver, const ModelGeneratorContext& ctx, llvm::Value* modelData)
+		+~ASTNodeCodeGen()
+		-resolver : LoadSymbolResolver&
+		-scalar_mode_ : bool
+		-ctx : const ModelGeneratorContext&
+		-builder : llvm::IRBuilder<>&
+		-getModule() : llvm::Module*
+		-applyArithmeticCodeGen(const libsbml::ASTNode* ast) : llvm::Value*
+		-applyBinaryRelationalCodeGen(const libsbml::ASTNode* ast, llvm::Value* left, llvm::Value* right) : llvm::Value*
+		-applyLogicalCodeGen(const libsbml::ASTNode* ast) : llvm::Value*
+		-applyRelationalCodeGen(const libsbml::ASTNode* ast) : llvm::Value*
+		-applyScalarRelationalCodeGen(const libsbml::ASTNode* ast) : llvm::Value*
+		-binaryExprCodeGen(const libsbml::ASTNode* ast) : llvm::Value*
+		+codeGen(const libsbml::ASTNode* ast) : llvm::Value*
+		-delayExprCodeGen(const libsbml::ASTNode* ast) : llvm::Value*
+		-distribCodeGen(const libsbml::ASTNode* ast) : llvm::Value*
+		-functionCallCodeGen(const libsbml::ASTNode* ast) : llvm::Value*
+		-integerCodeGen(const libsbml::ASTNode* ast) : llvm::Value*
+		-intrinsicCallCodeGen(const libsbml::ASTNode* ast) : llvm::Value*
+		-minmaxCodeGen(const libsbml::ASTNode* ast) : llvm::Value*
+		-modelData : llvm::Value*
+		-nameExprCodeGen(const libsbml::ASTNode* ast) : llvm::Value*
+		-notImplemented(const libsbml::ASTNode* ast) : llvm::Value*
+		-piecewiseCodeGen(const libsbml::ASTNode* ast) : llvm::Value*
+		-realExprCodeGen(const libsbml::ASTNode* ast) : llvm::Value*
+		-toBoolean(llvm::Value* value) : llvm::Value*
+		-toDouble(llvm::Value* value) : llvm::Value*
+	}
+
+	class ASTNodeCodeGenScalarTicket {
+		+ASTNodeCodeGenScalarTicket(ASTNodeCodeGen& gen, bool val, std::string n)
+		+~ASTNodeCodeGenScalarTicket()
+		-z_ : ASTNodeCodeGen&
+		-v_ : bool
+		-n_ : std::string
+	}
+
+	class ASTNodeFactory {
+		-ASTNodeFactory(const ASTNodeFactory &)
+		+ASTNodeFactory()
+		+~ASTNodeFactory()
+		-operator=(const ASTNodeFactory& rhs) : ASTNodeFactory&
+		+create(libsbml::ASTNodeType_t type) : libsbml::ASTNode*
+		+create(libsbml::Token_t* token) : libsbml::ASTNode*
+		+create(const libsbml::ASTNode& orig) : libsbml::ASTNode*
+		-nodes : std::list<libsbml::ASTNode*>
+	}
+
+	class AssignmentRuleEvaluator {
+		+AssignmentRuleEvaluator(SymbolForest& symbols)
+		#symbols : SymbolForest&
+		+visit(const libsbml::AssignmentRule& x) : bool
+		+evaluate(const libsbml::Model& model) : void
+	}
+
+	abstract class CodeGen {
+		#~CodeGen()
+		+{abstract} codeGen() : llvm::Value*
+	}
+
+	abstract class CodeGenBase <template<typename FunctionPtrType>> {
+		#CodeGenBase(const ModelGeneratorContext& mgc)
+		#~CodeGenBase()
+		#dataSymbols : const LLVMModelDataSymbols&
+		#modelSymbols : const LLVMModelSymbols&
+		#modelGenContext : const ModelGeneratorContext&
+		#model : const libsbml::Model*
+		#options : const unsigned
+		#codeGenHeader(const char* functionName, llvm::Type* retType, llvm::Type* (& argTypes ), const char* (& argNames ), llvm::Value* (& args )) : llvm::BasicBlock*
+		#codeGenVoidModelDataHeader(const char* functionName, llvm::Value*& modelData) : llvm::BasicBlock*
+		#engine : llvm::ExecutionEngine&
+		+createFunction() : llvm::Function*
+		#function : llvm::Function*
+		#verifyFunction() : llvm::Function*
+		#builder : llvm::IRBuilder<>&
+		#context : llvm::LLVMContext&
+		#module : llvm::Module*
+		#{abstract} codeGen() : llvm::Value*
+		#functionPassManager : llvm::legacy::FunctionPassManager*
+	}
+
+	class EvalConversionFactorCodeGen {
+		+EvalConversionFactorCodeGen(const ModelGeneratorContext& mgc)
+		+~EvalConversionFactorCodeGen()
+		+codeGen() : llvm::Value*
+		+{static} FunctionName : static const char*
+	}
+
+	class EvalInitialConditionsCodeGen {
+		+EvalInitialConditionsCodeGen(const ModelGeneratorContext& mgc)
+		+~EvalInitialConditionsCodeGen()
+		+codeGen() : llvm::Value*
+		+{static} FunctionName : static const char*
+		-codeGenCompartments(StoreSymbolResolver& modelDataResolver, LoadSymbolResolver& loadResolver) : void
+		-codeGenGlobalParameters(StoreSymbolResolver& modelDataResolver, LoadSymbolResolver& loadResolver) : void
+		-codeGenInitCompartments(StoreSymbolResolver& modelDataResolver, LoadSymbolResolver& loadResolver) : void
+		-codeGenInitGlobalParameters(StoreSymbolResolver& modelDataResolver, LoadSymbolResolver& loadResolver) : void
+		-codeGenInitSpecies(StoreSymbolResolver& modelDataResolver, LoadSymbolResolver& loadResolver) : void
+		-codeGenSpecies(StoreSymbolResolver& modelDataResolver, LoadSymbolResolver& loadResolver) : void
+		-codeGenStoichiometry(llvm::Value* modelData, ModelDataStoreSymbolResolver& modelDataResolver, LoadSymbolResolver& initialValueResolver) : void
+	}
+
+	class EvalRateRuleRatesCodeGen {
+		+EvalRateRuleRatesCodeGen(const ModelGeneratorContext& mgc)
+		+~EvalRateRuleRatesCodeGen()
+		+codeGen() : llvm::Value*
+		+{static} FunctionName : static const char*
+	}
+
+	class EvalReactionRatesCodeGen {
+		+EvalReactionRatesCodeGen(const ModelGeneratorContext& mgc)
+		+~EvalReactionRatesCodeGen()
+		+codeGen() : llvm::Value*
+		+{static} FunctionName : static const char*
+	}
+
+	class EvalVolatileStoichCodeGen {
+		+EvalVolatileStoichCodeGen(const ModelGeneratorContext& mgc)
+		+~EvalVolatileStoichCodeGen()
+		-isConstantASTNode(const libsbml::ASTNode* ast) : bool {query}
+		-isConstantSpeciesReference(const libsbml::SimpleSpeciesReference* ref) : bool {query}
+		+codeGen() : llvm::Value*
+		+{static} FunctionName : static const char*
+	}
+
+	class Event {
+		+Event(LLVMExecutableModel &, unsigned int id)
+		+Event(const Event& other)
+		+~Event()
+		+operator=(const Event& rhs) : Event&
+		+model : LLVMExecutableModel&
+		+isCurrent() : bool {query}
+		+isExpired() : bool {query}
+		+isPersistent() : bool {query}
+		+isRipe() : bool {query}
+		+isTriggered() : bool {query}
+		+operator<(const Event& a, const Event& b) : bool
+		+useValuesFromTriggerTime() : bool {query}
+		+assignTime : double
+		+delay : double
+		+getPriority() : double {query}
+		+data : double*
+		+dataSize : unsigned int
+		+id : unsigned int
+		+assign() : void {query}
+	}
+
+	class EventAssignCodeGen {
+		+EventAssignCodeGen(const ModelGeneratorContext& mgc)
+		+~EventAssignCodeGen()
+		+eventCodeGen(llvm::Value* modelData, llvm::Value* data, const libsbml::Event* event) : bool
+		+{static} FunctionName : static const char*
+	}
+
+	class EventCodeGenBase <template<typename Derived>> {
+		+EventCodeGenBase(const ModelGeneratorContext& mgc)
+		+~EventCodeGenBase()
+		+eventCodeGen(llvm::Value* modelData, llvm::Value* data, const libsbml::Event* event) : bool
+		+codeGen() : llvm::Value*
+	}
+
+	class EventQueue {
+		-comp : _Compare
+		-sequence : _Sequence
+		+applyEvents() : bool
+		+eraseExpiredEvents() : bool
+		+hasCurrentEvents() : bool
+		+top() : const_reference
+		+getNextPendingEventTime() : double
+		+operator<<(std::ostream& stream, const EventQueue& queue) : std :: ostream&
+		+size() : unsigned int {query}
+		+loadState(std::istream& in, LLVMExecutableModel& model) : void
+		+push(const Event& e) : void
+		+saveState(std::ostream& out) : void
+	}
+
+	class EventTriggerCodeGen {
+		+EventTriggerCodeGen(const ModelGeneratorContext& mgc)
+		+~EventTriggerCodeGen()
+		+eventCodeGen(llvm::Value* modelData, llvm::Value* data, const libsbml::Event* event) : bool
+		+{static} FunctionName : static const char*
+	}
+
+	class FunctionResolver {
+		+FunctionResolver(LoadSymbolResolver& parentResolver, llvm::Value* modelData, const ModelGeneratorContext& ctx)
+		+~FunctionResolver()
+		-parentResolver : LoadSymbolResolver&
+		-modelGenContext : const ModelGeneratorContext&
+		-model : const libsbml::Model*
+		-builder : llvm::IRBuilder<>&
+		+loadSymbolValue(const std::string& symbol, const llvm::ArrayRef<llvm::Value*>& args) : llvm::Value*
+		-modelData : llvm::Value*
+		-symbols : std::map<std::string, llvm::Value*>*
+		+recursiveSymbolPop() : void
+		+recursiveSymbolPush(const std::string& symbol) : void
+	}
+
+	class GetBoundarySpeciesAmountCodeGen {
+		+GetBoundarySpeciesAmountCodeGen(const ModelGeneratorContext& mgc)
+		+~GetBoundarySpeciesAmountCodeGen()
+		+{static} FunctionName : static const char*
+		+{static} IndexArgName : static const char*
+		+getIds() : std::vector<std::string>
+	}
+
+	class GetBoundarySpeciesConcentrationCodeGen {
+		+GetBoundarySpeciesConcentrationCodeGen(const ModelGeneratorContext& mgc)
+		+~GetBoundarySpeciesConcentrationCodeGen()
+		+{static} FunctionName : static const char*
+		+{static} IndexArgName : static const char*
+		+getIds() : std::vector<std::string>
+	}
+
+	class GetCompartmentInitVolumeCodeGen {
+		+GetCompartmentInitVolumeCodeGen(const ModelGeneratorContext& mgc)
+		+~GetCompartmentInitVolumeCodeGen()
+		+{static} FunctionName : static const char*
+		+{static} IndexArgName : static const char*
+		+getIds() : std::vector<std::string>
+	}
+
+	class GetCompartmentVolumeCodeGen {
+		+GetCompartmentVolumeCodeGen(const ModelGeneratorContext& mgc)
+		+~GetCompartmentVolumeCodeGen()
+		+{static} FunctionName : static const char*
+		+{static} IndexArgName : static const char*
+		+getIds() : std::vector<std::string>
+	}
+
+	class GetEventDelayCodeGen {
+		+GetEventDelayCodeGen(const ModelGeneratorContext& mgc)
+		+~GetEventDelayCodeGen()
+		+getMath(const libsbml::Event*) : libsbml::ASTNode*
+		-node : libsbml::ASTNode*
+		+createRet(llvm::Value* value) : llvm::Value*
+		+{static} FunctionName : static const char*
+		+{static} IndexArgName : static const char*
+	}
+
+	class GetEventPriorityCodeGen {
+		+GetEventPriorityCodeGen(const ModelGeneratorContext& mgc)
+		+~GetEventPriorityCodeGen()
+		+getMath(const libsbml::Event*) : libsbml::ASTNode*
+		-node : libsbml::ASTNode*
+		+{static} FunctionName : static const char*
+		+{static} IndexArgName : static const char*
+	}
+
+	class GetEventTriggerCodeGen {
+		+GetEventTriggerCodeGen(const ModelGeneratorContext& mgc)
+		+~GetEventTriggerCodeGen()
+		+getMath(const libsbml::Event*) : libsbml::ASTNode*
+		+getRetType() : llvm::Type*
+		+createRet(llvm::Value*) : llvm::Value*
+		+{static} FunctionName : static const char*
+		+{static} IndexArgName : static const char*
+	}
+
+	class GetEventValueCodeGenBase <template<typename Derived, typename FunctionPtrType=GetEventValueCodeGenBase_FunctionPtr>> {
+		+GetEventValueCodeGenBase(const ModelGeneratorContext& mgc)
+		+~GetEventValueCodeGenBase()
+		+getRetType() : llvm::Type*
+		+codeGen() : llvm::Value*
+		+createRet(llvm::Value* value) : llvm::Value*
+	}
+
+	class GetFloatingSpeciesAmountCodeGen {
+		+GetFloatingSpeciesAmountCodeGen(const ModelGeneratorContext& mgc)
+		+~GetFloatingSpeciesAmountCodeGen()
+		+{static} FunctionName : static const char*
+		+{static} IndexArgName : static const char*
+		+getIds() : std::vector<std::string>
+	}
+
+	class GetFloatingSpeciesConcentrationCodeGen {
+		+GetFloatingSpeciesConcentrationCodeGen(const ModelGeneratorContext& mgc)
+		+~GetFloatingSpeciesConcentrationCodeGen()
+		+{static} FunctionName : static const char*
+		+{static} IndexArgName : static const char*
+		+getIds() : std::vector<std::string>
+	}
+
+	class GetFloatingSpeciesInitAmountCodeGen {
+		+GetFloatingSpeciesInitAmountCodeGen(const ModelGeneratorContext& mgc)
+		+~GetFloatingSpeciesInitAmountCodeGen()
+		+{static} FunctionName : static const char*
+		+{static} IndexArgName : static const char*
+		+getIds() : std::vector<std::string>
+	}
+
+	class GetFloatingSpeciesInitConcentrationCodeGen {
+		+GetFloatingSpeciesInitConcentrationCodeGen(const ModelGeneratorContext& mgc)
+		+~GetFloatingSpeciesInitConcentrationCodeGen()
+		+{static} FunctionName : static const char*
+		+{static} IndexArgName : static const char*
+		+getIds() : std::vector<std::string>
+	}
+
+	class GetGlobalParameterCodeGen {
+		+GetGlobalParameterCodeGen(const ModelGeneratorContext& mgc)
+		+~GetGlobalParameterCodeGen()
+		+{static} FunctionName : static const char*
+		+{static} IndexArgName : static const char*
+		+getIds() : std::vector<std::string>
+	}
+
+	class GetGlobalParameterInitValueCodeGen {
+		+GetGlobalParameterInitValueCodeGen(const ModelGeneratorContext& mgc)
+		+~GetGlobalParameterInitValueCodeGen()
+		+{static} FunctionName : static const char*
+		+{static} IndexArgName : static const char*
+		+getIds() : std::vector<std::string>
+	}
+
+	class GetInitialValueCodeGenBase <template<typename Derived, bool substanceUnits>> {
+		+GetInitialValueCodeGenBase(const ModelGeneratorContext& mgc)
+		+~GetInitialValueCodeGenBase()
+		+codeGen() : llvm::Value*
+	}
+
+	class GetValueCodeGenBase <template<typename Derived, bool substanceUnits>> {
+		+GetValueCodeGenBase(const ModelGeneratorContext& mgc)
+		+~GetValueCodeGenBase()
+		+codeGen() : llvm::Value*
+	}
+
+	class KineticLawParameterResolver {
+		+KineticLawParameterResolver(LoadSymbolResolver& parentResolver, const libsbml::KineticLaw& kineticLaw, llvm::IRBuilder<>& builder)
+		+~KineticLawParameterResolver()
+		-parentResolver : LoadSymbolResolver&
+		-kineticLaw : const libsbml::KineticLaw&
+		-builder : llvm::IRBuilder<>&
+		+loadSymbolValue(const std::string& symbol, const llvm::ArrayRef<llvm::Value*>& args) : llvm::Value*
+		+recursiveSymbolPop() : void
+		+recursiveSymbolPush(const std::string& symbol) : void
+	}
+
+	class LLVMException {
+		+LLVMException(const std::string& what)
+		+LLVMException(const std::string& what, const std::string& where)
+	}
+
+	class LLVMModelDataIRBuilderTesting {
+		+LLVMModelDataIRBuilderTesting(LLVMModelDataSymbols const &, llvm::IRBuilder<> &)
+		+symbols : LLVMModelDataSymbols const&
+		+createDispChar(llvm::Value* doubleVal) : llvm::CallInst*
+		+createDispDouble(llvm::Value* doubleVal) : llvm::CallInst*
+		+createDispInt(llvm::Value* intVal) : llvm::CallInst*
+		+{static} getDispCharDecl(llvm::Module* module) : llvm::Function*
+		+{static} getDispDoubleDecl(llvm::Module* module) : llvm::Function*
+		+{static} getDispIntDecl(llvm::Module* module) : llvm::Function*
+		+builder : llvm::IRBuilder<>&
+		+createFloatingSpeciesAccessors(llvm::Module* module, const std::string id) : std::pair<llvm::Function* , llvm::Function*>
+		+createAccessors(llvm::Module* module) : void
+		+test(llvm::Module* module, llvm::IRBuilder<>* build, llvm::ExecutionEngine* engine) : void
+	}
+
+	class LLVMModelDataSymbols {
+		+LLVMModelDataSymbols()
+		+LLVMModelDataSymbols(libsbml::Model const* model, unsigned options)
+		+LLVMModelDataSymbols(std::istream& in)
+		+~LLVMModelDataSymbols()
+		+getNamedSpeciesReferenceInfo(const std::string& id) : SpeciesReferenceInfo& {query}
+		-namedSpeciesReferenceInfo : StringRefInfoMap
+		-boundarySpeciesMap : StringUIntMap
+		-compartmentsMap : StringUIntMap
+		-conservedMoietyDepSpecies : StringUIntMap
+		-eventIds : StringUIntMap
+		-floatingSpeciesMap : StringUIntMap
+		-globalParametersMap : StringUIntMap
+		-initBoundarySpeciesMap : StringUIntMap
+		-initCompartmentsMap : StringUIntMap
+		-initFloatingSpeciesMap : StringUIntMap
+		-initGlobalParametersMap : StringUIntMap
+		-rateRules : StringUIntMap
+		-reactionsMap : StringUIntMap
+		-conservedMoietyIndSpecies : StringUIntVectorMap
+		-floatingSpeciesToConservedMoietyIdMap : UIntUIntMap
+		+hasAssignmentRule(const std::string& id) : bool {query}
+		+hasInitialAssignmentRule(const std::string& id) : bool {query}
+		+hasRateRule(const std::string& id) : bool {query}
+		+isBoundarySpecies(const std::string& id) : bool {query}
+		+isConservedMoietyParameter(unsigned int id) : bool {query}
+		+isConservedMoietySpecies(const std::string& symbol) : bool {query}
+		+isConservedMoietySpecies(unsigned int id, unsigned int result) : bool {query}
+		+isIndependentBoundarySpecies(const std::string& id) : bool {query}
+		+isIndependentCompartment(const std::string& id) : bool {query}
+		+isIndependentElement(const std::string& id) : bool {query}
+		+isIndependentFloatingSpecies(const std::string& id) : bool {query}
+		+isIndependentGlobalParameter(const std::string& id) : bool {query}
+		+isIndependentInitCompartment(const std::string& symbol) : bool {query}
+		+isIndependentInitElement(const std::string& symbol) : bool {query}
+		+isIndependentInitFloatingSpecies(const std::string& symbol) : bool {query}
+		+isIndependentInitGlobalParameter(const std::string& symbol) : bool {query}
+		+isIndependentInitGlobalParameter(size_t id) : bool {query}
+		+isNamedSpeciesReference(const std::string& id) : bool {query}
+		+isRateRuleGlobalParameter(unsigned int gid) : bool {query}
+		-isValidFloatingSpeciesReference(const libsbml::SimpleSpeciesReference*, const std::string& reacOrProd) : bool
+		+{static} getFieldName(ModelDataFields field) : char*
+		+getBoundarySpeciesIndex(std::string const &) : int {query}
+		+getCompartmentIndex(std::string const &) : int {query}
+		+getCompartmentIndexForFloatingSpecies(size_t floatIndex) : int {query}
+		+getCompartmentInitIndex(const std::string& symbol) : int {query}
+		+getConservedMoietyGlobalParameterIndex(unsigned int cmIndex) : int {query}
+		+getConservedMoietyIndex(const std::string& name) : int {query}
+		+getDepSpeciesIndexForConservedMoietyId(std::string id) : int {query}
+		+getEventIndex(const std::string& id) : int {query}
+		+getFloatingSpeciesIndex(std::string const &, bool requireIndependent) : int {query}
+		+getFloatingSpeciesInitIndex(const std::string& symbol) : int {query}
+		+getGlobalParameterIndex(std::string const &) : int {query}
+		+getGlobalParameterInitIndex(const std::string& symbol) : int {query}
+		+getRateRuleIndex(std::string const &) : int {query}
+		+getReactionIndex(std::string const &) : int {query}
+		+getSymbolIndex(const std::string& name, int& result) : int {query}
+		+getBoundarySpeciesSize() : size_t {query}
+		+getCompartmentsSize() : size_t {query}
+		+getConservedMoietySize() : size_t {query}
+		+getEventBufferSize(size_t eventId) : size_t {query}
+		+getFloatingSpeciesSize() : size_t {query}
+		+getGlobalParametersSize() : size_t {query}
+		+getIndependentBoundarySpeciesSize() : size_t {query}
+		+getIndependentCompartmentSize() : size_t {query}
+		+getIndependentFloatingSpeciesSize() : size_t {query}
+		+getIndependentGlobalParameterSize() : size_t {query}
+		+getInitBoundarySpeciesSize() : size_t {query}
+		+getInitCompartmentSize() : size_t {query}
+		+getInitFloatingSpeciesSize() : size_t {query}
+		+getInitGlobalParameterSize() : size_t {query}
+		+getRateRuleSize() : size_t {query}
+		+getReactionSize() : size_t {query}
+		-independentBoundarySpeciesSize : size_t
+		-independentCompartmentSize : size_t
+		-independentFloatingSpeciesSize : size_t
+		-independentGlobalParameterSize : size_t
+		+getStoichiometryIndx() : std::list<SpeciesReferenceInfo> {query}
+		-assignmentRules : std::set<std::string>
+		-conservedMoietySpeciesSet : std::set<std::string>
+		-initAssignmentRules : std::set<std::string>
+		+getConservedMoietyId(size_t indx) : std::string {query}
+		+getEventId(size_t indx) : std::string {query}
+		+getFloatingSpeciesId(size_t indx) : std::string {query}
+		+getGlobalParameterId(size_t indx) : std::string {query}
+		+getRateRuleId(size_t indx) : std::string {query}
+		-modelName : std::string
+		+getModelName() : std::string& {query}
+		-stoichTypes : std::vector<SpeciesReferenceType>
+		-conservedMoietyGlobalParameter : std::vector<bool>
+		-globalParameterRateRules : std::vector<bool>
+		-eventAssignmentsSize : std::vector<size_t>
+		+getBoundarySpeciesIds() : std::vector<std::string> {query}
+		+getCompartmentIds() : std::vector<std::string> {query}
+		+getEventIds() : std::vector<std::string> {query}
+		+getFloatingSpeciesIds() : std::vector<std::string> {query}
+		+getGlobalParameterIds() : std::vector<std::string> {query}
+		+getReactionIds() : std::vector<std::string> {query}
+		-stoichIds : std::vector<std::string>
+		-conservedMoietyGlobalParameterIndex : std::vector<uint>
+		-floatingSpeciesCompartmentIndices : std::vector<uint>
+		-stoichColIndx : std::vector<uint>
+		-stoichRowIndx : std::vector<uint>
+		+getIndSpeciesIndexForConservedMoietyId(std::string id) : std::vector<uint>& {query}
+		+getStoichColIndx() : std::vector<uint>& {query}
+		+getStoichRowIndx() : std::vector<uint>& {query}
+		-eventAttributes : std::vector<unsigned char>
+		+getEventAttributes() : std::vector<unsigned char>& {query}
+		-independentInitBoundarySpeciesSize : unsigned int
+		-independentInitCompartmentSize : unsigned int
+		-independentInitFloatingSpeciesSize : unsigned int
+		-independentInitGlobalParameterSize : unsigned int
+		-displayCompartmentInfo() : void
+		-initBoundarySpecies(const libsbml::Model*) : void
+		-initCompartments(const libsbml::Model*) : void
+		-initEvents(const libsbml::Model* model) : void
+		-initFloatingSpecies(const libsbml::Model*, bool conservedMoieties) : void
+		-initGlobalParameters(const libsbml::Model* model, bool conservedMoieties) : void
+		-initReactions(const libsbml::Model* model) : void
+		-loadBinarySpeciesReferenceInfo(std::istream &, SpeciesReferenceInfo &) : void
+		+loadState(std::istream &) : void
+		-loadStringRefInfoMap(std::istream &, StringRefInfoMap &) : void
+		+print() : void {query}
+		-saveBinarySpeciesReferenceInfo(std::ostream &, SpeciesReferenceInfo sri) : void {query}
+		+saveState(std::ostream &) : void {query}
+		-saveStringRefInfoMap(std::ostream &, const StringRefInfoMap &) : void {query}
+		-setNamedSpeciesReferenceInfo(unsigned int row, unsigned int column, SpeciesReferenceType type) : void
+	}
+
+	class LLVMModelSymbols {
+		+LLVMModelSymbols(libsbml::Model const* m, LLVMModelDataSymbols const& sym)
+		+~LLVMModelSymbols()
+		#nodes : ASTNodeFactory
+		#assignmentRules : SymbolForest
+		#initialAssignmentRules : SymbolForest
+		#initialValues : SymbolForest
+		#rateRules : SymbolForest
+		+getAssigmentRules() : SymbolForest& {query}
+		+getInitialAssignmentRules() : SymbolForest& {query}
+		+getInitialValues() : SymbolForest& {query}
+		+getRateRules() : SymbolForest& {query}
+		#visit(const libsbml::Compartment& x) : bool
+		#visit(const libsbml::Species& x) : bool
+		#visit(const libsbml::AssignmentRule& x) : bool
+		#visit(const libsbml::InitialAssignment& x) : bool
+		#visit(const libsbml::RateRule& rule) : bool
+		#visit(const libsbml::Reaction& x) : bool
+		#visit(const libsbml::Rule& x) : bool
+		#visit(const libsbml::Event& event) : bool
+		-symbols : const LLVMModelDataSymbols&
+		+createStoichiometryNode(int row, int col) : libsbml::ASTNode* {query}
+		#getSpeciesReferenceStoichMath(const libsbml::SpeciesReference* reference) : libsbml::ASTNode*
+		-model : libsbml::Model const*
+		#reactions : std::vector<ReactionSymbols>
+		#processElement(SymbolForest& currentSymbols, const libsbml::SBase* element, const libsbml::ASTNode* math) : void
+		#processSpecies(SymbolForest& currentSymbols, const libsbml::Species* element, const libsbml::ASTNode* math) : void
+	}
+
+	abstract class LoadSymbolResolver {
+		#~LoadSymbolResolver()
+		+{abstract} loadSymbolValue(const std::string& symbol, const llvm::ArrayRef<llvm::Value*>& args) : llvm::Value*
+		+popCacheBlock() : size_t
+		+pushCacheBlock() : size_t
+		+{abstract} recursiveSymbolPop() : void
+		+{abstract} recursiveSymbolPush(const std::string& symbol) : void
+	}
+
+	class LoadSymbolResolverBase {
+		#LoadSymbolResolverBase(const ModelGeneratorContext& ctx, llvm::Value* modelData)
+		#symbolStack : StringStack
+		#symbolCache : ValueMapStack
+		#modelDataSymbols : const LLVMModelDataSymbols&
+		#modelSymbols : const LLVMModelSymbols&
+		#modelGenContext : const ModelGeneratorContext&
+		#model : const libsbml::Model*
+		#builder : llvm::IRBuilder<>&
+		#cacheValue(const std::string& symbol, const llvm::ArrayRef<llvm::Value*>& args, llvm::Value* value) : llvm::Value*
+		+loadReactionRate(const libsbml::Reaction*) : llvm::Value*
+		#modelData : llvm::Value*
+		+popCacheBlock() : size_t
+		+pushCacheBlock() : size_t
+		+flushCache() : void
+		+recursiveSymbolPop() : void
+		+recursiveSymbolPush(const std::string& symbol) : void
+	}
+
+	class ModelDataIRBuilder {
+		+ModelDataIRBuilder(llvm::Value* modelData, LLVMModelDataSymbols const &, llvm::IRBuilder<> &)
+		-symbols : LLVMModelDataSymbols const&
+		+{static} createCSRMatrixGetNZ(llvm::IRBuilder<> &, llvm::Value* csrPtr, llvm::Value* row, llvm::Value* col, const llvm::Twine& name) : llvm::CallInst*
+		+{static} createCSRMatrixSetNZ(llvm::IRBuilder<> &, llvm::Value* csrPtr, llvm::Value* row, llvm::Value* col, llvm::Value* value, const llvm::Twine& name) : llvm::CallInst*
+		+{static} getCSRMatrixGetNZDecl(llvm::Module* module) : llvm::Function*
+		+{static} getCSRMatrixSetNZDecl(llvm::Module* module) : llvm::Function*
+		-builder : llvm::IRBuilder<>&
+		-{static} getModule(llvm::IRBuilder<> &, const char* func) : llvm::Module*
+		+{static} createModelDataStructType(llvm::Module* module, llvm::ExecutionEngine* engine, LLVMModelDataSymbols const& symbols) : llvm::StructType*
+		+{static} getCSRSparseStructType(llvm::Module* module, llvm::ExecutionEngine* engine) : llvm::StructType*
+		+{static} getStructType(llvm::Module* module) : llvm::StructType*
+		+createBoundSpeciesAmtGEP(const std::string& id, const llvm::Twine& name) : llvm::Value*
+		+createBoundSpeciesAmtLoad(const std::string& id, const llvm::Twine& name) : llvm::Value*
+		+createBoundSpeciesAmtStore(const std::string& id, llvm::Value* value) : llvm::Value*
+		+createCompGEP(const std::string& id) : llvm::Value*
+		+createCompLoad(const std::string& id, const llvm::Twine& name) : llvm::Value*
+		+createCompStore(const std::string& id, llvm::Value* value) : llvm::Value*
+		+createFloatSpeciesAmtGEP(const std::string& id, const llvm::Twine& name) : llvm::Value*
+		+createFloatSpeciesAmtLoad(const std::string& id, const llvm::Twine& name) : llvm::Value*
+		+createFloatSpeciesAmtRateGEP(const std::string& id, const llvm::Twine& name) : llvm::Value*
+		+createFloatSpeciesAmtRateLoad(const std::string& id, const llvm::Twine& name) : llvm::Value*
+		+createFloatSpeciesAmtRateStore(const std::string& id, llvm::Value* value) : llvm::Value*
+		+createFloatSpeciesAmtStore(const std::string& id, llvm::Value* value) : llvm::Value*
+		+createGEP(ModelDataFields field, const llvm::Twine& name) : llvm::Value*
+		+createGEP(ModelDataFields field, unsigned index, const llvm::Twine& name) : llvm::Value*
+		+createGlobalParamGEP(const std::string& id) : llvm::Value*
+		+createGlobalParamLoad(const std::string& id, const llvm::Twine& name) : llvm::Value*
+		+createGlobalParamStore(const std::string& id, llvm::Value* value) : llvm::Value*
+		+createInitCompGEP(const std::string& id, const llvm::Twine& name) : llvm::Value*
+		+createInitCompLoad(const std::string& id, const llvm::Twine& name) : llvm::Value*
+		+createInitCompStore(const std::string& id, llvm::Value* value) : llvm::Value*
+		+createInitFloatSpeciesAmtGEP(const std::string& id, const llvm::Twine& name) : llvm::Value*
+		+createInitFloatSpeciesAmtLoad(const std::string& id, const llvm::Twine& name) : llvm::Value*
+		+createInitFloatSpeciesAmtStore(const std::string& id, llvm::Value* value) : llvm::Value*
+		+createInitGlobalParamGEP(const std::string& id, const llvm::Twine& name) : llvm::Value*
+		+createInitGlobalParamLoad(const std::string& id, const llvm::Twine& name) : llvm::Value*
+		+createInitGlobalParamStore(const std::string& id, llvm::Value* value) : llvm::Value*
+		+createLoad(ModelDataFields field, unsigned index, const llvm::Twine& name) : llvm::Value*
+		+createRandomLoad() : llvm::Value*
+		+createRateRuleRateGEP(const std::string& id, const llvm::Twine& name) : llvm::Value*
+		+createRateRuleRateLoad(const std::string& id, const llvm::Twine& name) : llvm::Value*
+		+createRateRuleRateStore(const std::string& id, llvm::Value* value) : llvm::Value*
+		+createRateRuleValueGEP(const std::string& id, const llvm::Twine& name) : llvm::Value*
+		+createRateRuleValueLoad(const std::string& id, const llvm::Twine& name) : llvm::Value*
+		+createRateRuleValueStore(const std::string& id, llvm::Value* value) : llvm::Value*
+		+createReactionRateLoad(const std::string& id, const llvm::Twine& name) : llvm::Value*
+		+createReactionRateStore(const std::string& id, llvm::Value* value) : llvm::Value*
+		+createStoichiometryLoad(unsigned int row, unsigned int col, const llvm::Twine& name) : llvm::Value*
+		+createStoichiometryStore(unsigned int row, unsigned int col, llvm::Value* value, const llvm::Twine& name) : llvm::Value*
+		+createStore(ModelDataFields field, unsigned index, llvm::Value* value, const llvm::Twine& name) : llvm::Value*
+		-modelData : llvm::Value*
+		+{static} LLVMModelDataName : static const char*
+		+{static} csr_matrixName : static const char*
+		+{static} csr_matrix_get_nzName : static const char*
+		+{static} csr_matrix_set_nzName : static const char*
+		+{static} getModelDataSize(llvm::Module* module, llvm::ExecutionEngine* engine) : unsigned
+		-validateStruct(llvm::Value* s, const char* funcName) : void
+	}
+
+	class ModelDataLoadSymbolResolver {
+		+ModelDataLoadSymbolResolver(llvm::Value* modelData, const ModelGeneratorContext& ctx)
+		+~ModelDataLoadSymbolResolver()
+		+loadSymbolValue(const std::string& symbol, const llvm::ArrayRef<llvm::Value*>& args) : llvm::Value*
+		-modelData : llvm::Value*
+	}
+
+	class ModelDataStoreSymbolResolver {
+		+ModelDataStoreSymbolResolver(llvm::Value* modelData, const libsbml::Model* model, const LLVMModelSymbols& modelSymbols, const LLVMModelDataSymbols& modelDataSymbols, llvm::IRBuilder<>& builder, LoadSymbolResolver& resolver)
+		+~ModelDataStoreSymbolResolver()
+		-resolver : LoadSymbolResolver&
+		-modelDataSymbols : const LLVMModelDataSymbols&
+		-modelSymbols : const LLVMModelSymbols&
+		-model : const libsbml::Model*
+		-builder : llvm::IRBuilder<>&
+		-modelData : llvm::Value*
+		+storeSymbolValue(const std::string& symbol, llvm::Value* value) : llvm::Value*
+	}
+
+	class ModelGeneratorContext {
+		+ModelGeneratorContext(std::string const& sbml, unsigned loadSBMLOptions)
+		+ModelGeneratorContext(libsbml::SBMLDocument const* doc, unsigned loadSBMLOptions)
+		+ModelGeneratorContext()
+		+~ModelGeneratorContext()
+		+getModelDataSymbols() : LLVMModelDataSymbols& {query}
+		+getModelSymbols() : LLVMModelSymbols& {query}
+		-modelSymbols : LLVMModelSymbols*
+		+getRandom() : Random* {query}
+		-random : Random*
+		+getConservedMoietyAnalysis() : bool {query}
+		+useSymbolCache() : bool {query}
+		-symbols : const LLVMModelDataSymbols*
+		-model : const libsbml::Model*
+		-doc : const libsbml::SBMLDocument*
+		+getModel() : libsbml::Model* {query}
+		+getDocument() : libsbml::SBMLDocument* {query}
+		-ownedDoc : libsbml::SBMLDocument*
+		+getExecutionEngine() : llvm::ExecutionEngine& {query}
+		-executionEngine : llvm::ExecutionEngine*
+		+getBuilder() : llvm::IRBuilder<>& {query}
+		-builder : llvm::IRBuilder<>*
+		+getContext() : llvm::LLVMContext& {query}
+		-context : llvm::LLVMContext*
+		+getModule() : llvm::Module* {query}
+		-module : llvm::Module*
+		-functionPassManager : llvm::legacy::FunctionPassManager*
+		+getFunctionPassManager() : llvm::legacy::FunctionPassManager* {query}
+		-moietyConverter : rr::conservation::ConservedMoietyConverter*
+		-errString : std::string*
+		-module_uniq : std::unique_ptr<llvm::Module>
+		+getOptions() : unsigned {query}
+		-options : unsigned
+		-addGlobalMapping(const llvm::GlobalValue* gv, void* addr) : void
+		-addGlobalMappings() : void
+		-cleanup() : void
+		-initFunctionPassManager() : void
+		+transferObjectsToResources(std::shared_ptr<rrllvm::ModelResources> rc) : void
+	}
+
+	class ModelInitialValueStoreSymbolResolver {
+		+ModelInitialValueStoreSymbolResolver(llvm::Value* modelData, const libsbml::Model* model, const LLVMModelSymbols& modelSymbols, const LLVMModelDataSymbols& modelDataSymbols, llvm::IRBuilder<>& builder, LoadSymbolResolver& resolver)
+		+~ModelInitialValueStoreSymbolResolver()
+		-resolver : LoadSymbolResolver&
+		-modelDataSymbols : const LLVMModelDataSymbols&
+		-modelSymbols : const LLVMModelSymbols&
+		-model : const libsbml::Model*
+		-builder : llvm::IRBuilder<>&
+		-modelData : llvm::Value*
+		+storeSymbolValue(const std::string& symbol, llvm::Value* value) : llvm::Value*
+	}
+
+	class ModelInitialValueSymbolResolver {
+		+ModelInitialValueSymbolResolver(llvm::Value* modelData, const ModelGeneratorContext& ctx)
+		+~ModelInitialValueSymbolResolver()
+		+loadSymbolValue(const std::string& symbol, const llvm::ArrayRef<llvm::Value*>& args) : llvm::Value*
+		-modelData : llvm::Value*
+	}
+
+	class ModelResources {
+		+ModelResources()
+		+~ModelResources()
+		+evalConversionFactorPtr : EvalConversionFactorCodeGen::FunctionPtr
+		+evalInitialConditionsPtr : EvalInitialConditionsCodeGen::FunctionPtr
+		+evalRateRuleRatesPtr : EvalRateRuleRatesCodeGen::FunctionPtr
+		+evalReactionRatesPtr : EvalReactionRatesCodeGen::FunctionPtr
+		+evalVolatileStoichPtr : EvalVolatileStoichCodeGen::FunctionPtr
+		+eventAssignPtr : EventAssignCodeGen::FunctionPtr
+		+eventTriggerPtr : EventTriggerCodeGen::FunctionPtr
+		+getBoundarySpeciesAmountPtr : GetBoundarySpeciesAmountCodeGen::FunctionPtr
+		+getBoundarySpeciesConcentrationPtr : GetBoundarySpeciesConcentrationCodeGen::FunctionPtr
+		+getCompartmentInitVolumesPtr : GetCompartmentInitVolumeCodeGen::FunctionPtr
+		+getCompartmentVolumePtr : GetCompartmentVolumeCodeGen::FunctionPtr
+		+getEventDelayPtr : GetEventDelayCodeGen::FunctionPtr
+		+getEventPriorityPtr : GetEventPriorityCodeGen::FunctionPtr
+		+getEventTriggerPtr : GetEventTriggerCodeGen::FunctionPtr
+		+getFloatingSpeciesAmountPtr : GetFloatingSpeciesAmountCodeGen::FunctionPtr
+		+getFloatingSpeciesConcentrationPtr : GetFloatingSpeciesConcentrationCodeGen::FunctionPtr
+		+getFloatingSpeciesInitAmountsPtr : GetFloatingSpeciesInitAmountCodeGen::FunctionPtr
+		+getFloatingSpeciesInitConcentrationsPtr : GetFloatingSpeciesInitConcentrationCodeGen::FunctionPtr
+		+getGlobalParameterPtr : GetGlobalParameterCodeGen::FunctionPtr
+		+getGlobalParameterInitValuePtr : GetGlobalParameterInitValueCodeGen::FunctionPtr
+		+setBoundarySpeciesAmountPtr : SetBoundarySpeciesAmountCodeGen::FunctionPtr
+		+setBoundarySpeciesConcentrationPtr : SetBoundarySpeciesConcentrationCodeGen::FunctionPtr
+		+setCompartmentInitVolumesPtr : SetCompartmentInitVolumeCodeGen::FunctionPtr
+		+setCompartmentVolumePtr : SetCompartmentVolumeCodeGen::FunctionPtr
+		+setFloatingSpeciesAmountPtr : SetFloatingSpeciesAmountCodeGen::FunctionPtr
+		+setFloatingSpeciesConcentrationPtr : SetFloatingSpeciesConcentrationCodeGen::FunctionPtr
+		+setFloatingSpeciesInitAmountsPtr : SetFloatingSpeciesInitAmountCodeGen::FunctionPtr
+		+setFloatingSpeciesInitConcentrationsPtr : SetFloatingSpeciesInitConcentrationCodeGen::FunctionPtr
+		+setGlobalParameterPtr : SetGlobalParameterCodeGen::FunctionPtr
+		+setGlobalParameterInitValuePtr : SetGlobalParameterInitValueCodeGen::FunctionPtr
+		+symbols : const LLVMModelDataSymbols*
+		+random : const class Random*
+		+errStr : const std::string*
+		+executionEngine : llvm::ExecutionEngine*
+		-{static} createGlobalMappingFunction(const char* funcName, llvm::FunctionType* funcType, llvm::Module*) : llvm::Function*
+		+context : llvm::LLVMContext*
+		+module : llvm::Module*
+		+moduleStr : std::string
+		-addGlobalMapping(std::string name, void*) : void
+		-addGlobalMappings() : void
+		+loadState(std::istream& in, unsigned int loadOpt) : void
+		+saveState(std::ostream& out) : void {query}
+	}
+
+	class RR_DECLSPECLLVMCompiler {
+		+LLVMCompiler()
+		+~LLVMCompiler()
+		+setCompiler(const std::string& compiler) : bool
+		+setCompilerLocation(const std::string& path) : bool
+		+setSupportCodeFolder(const std::string& path) : bool
+		+getCompiler() : std::string {query}
+		+getCompilerLocation() : std::string {query}
+		+getDefaultTargetTriple() : std::string
+		+getHostCPUName() : std::string
+		+getProcessTriple() : std::string
+		+getSupportCodeFolder() : std::string {query}
+		+getVersion() : std::string
+	}
+
+	class RR_DECLSPECLLVMExecutableModel {
+		+LLVMExecutableModel()
+		+LLVMExecutableModel(const std::shared_ptr<ModelResources>& resources, LLVMModelData* modelData)
+		+LLVMExecutableModel(std::istream& in, unsigned int modelGeneratorOpt)
+		+~LLVMExecutableModel()
+		-evalConversionFactorPtr : EvalConversionFactorCodeGen::FunctionPtr
+		-evalInitialConditionsPtr : EvalInitialConditionsCodeGen::FunctionPtr
+		-evalRateRuleRatesPtr : EvalRateRuleRatesCodeGen::FunctionPtr
+		-evalReactionRatesPtr : EvalReactionRatesCodeGen::FunctionPtr
+		-evalVolatileStoichPtr : EvalVolatileStoichCodeGen::FunctionPtr
+		-eventAssignPtr : EventAssignCodeGen::FunctionPtr
+		-eventTriggerPtr : EventTriggerCodeGen::FunctionPtr
+		-getBoundarySpeciesAmountPtr : GetBoundarySpeciesAmountCodeGen::FunctionPtr
+		-getBoundarySpeciesConcentrationPtr : GetBoundarySpeciesConcentrationCodeGen::FunctionPtr
+		-getCompartmentInitVolumesPtr : GetCompartmentInitVolumeCodeGen::FunctionPtr
+		-getCompartmentVolumePtr : GetCompartmentVolumeCodeGen::FunctionPtr
+		-getEventDelayPtr : GetEventDelayCodeGen::FunctionPtr
+		-getEventPriorityPtr : GetEventPriorityCodeGen::FunctionPtr
+		-getEventTriggerPtr : GetEventTriggerCodeGen::FunctionPtr
+		-getFloatingSpeciesAmountPtr : GetFloatingSpeciesAmountCodeGen::FunctionPtr
+		-getFloatingSpeciesConcentrationPtr : GetFloatingSpeciesConcentrationCodeGen::FunctionPtr
+		-getFloatingSpeciesInitAmountsPtr : GetFloatingSpeciesInitAmountCodeGen::FunctionPtr
+		-getFloatingSpeciesInitConcentrationsPtr : GetFloatingSpeciesInitConcentrationCodeGen::FunctionPtr
+		-getGlobalParameterPtr : GetGlobalParameterCodeGen::FunctionPtr
+		-getGlobalParameterInitValuePtr : GetGlobalParameterInitValueCodeGen::FunctionPtr
+		-{static} dummy() : LLVMExecutableModel*
+		-modelData : LLVMModelData*
+		-selectionRecordCache : SelectionMap
+		-setBoundarySpeciesAmountPtr : SetBoundarySpeciesAmountCodeGen::FunctionPtr
+		-setBoundarySpeciesConcentrationPtr : SetBoundarySpeciesConcentrationCodeGen::FunctionPtr
+		-setCompartmentInitVolumesPtr : SetCompartmentInitVolumeCodeGen::FunctionPtr
+		-setCompartmentVolumePtr : SetCompartmentVolumeCodeGen::FunctionPtr
+		-setFloatingSpeciesAmountPtr : SetFloatingSpeciesAmountCodeGen::FunctionPtr
+		-setFloatingSpeciesConcentrationPtr : SetFloatingSpeciesConcentrationCodeGen::FunctionPtr
+		-setFloatingSpeciesInitAmountsPtr : SetFloatingSpeciesInitAmountCodeGen::FunctionPtr
+		-setFloatingSpeciesInitConcentrationsPtr : SetFloatingSpeciesInitConcentrationCodeGen::FunctionPtr
+		-setGlobalParameterPtr : SetGlobalParameterCodeGen::FunctionPtr
+		-setGlobalParameterInitValuePtr : SetGlobalParameterInitValueCodeGen::FunctionPtr
+		-tieBreakMap : TieBreakMap
+		-applyEvents(unsigned char* prevEventState, unsigned char* currEventState) : bool
+		+getEventInitialValue(size_t event) : bool
+		+getEventPersistent(size_t event) : bool
+		+getEventTieBreak(size_t eventA, size_t eventB) : bool
+		+getEventTrigger(size_t event) : bool
+		+getEventUseValuesFromTriggerTime(size_t event) : bool
+		-symbols : const LLVMModelDataSymbols*
+		-resources : cxx11_ns::shared_ptr<ModelResources>
+		-conversionFactor : double
+		+getEventDelay(size_t event) : double
+		+getEventPriority(size_t event) : double
+		+getFloatingSpeciesAmountRate(size_t index, const double* reactionRates) : double
+		+getNextPendingEventTime(bool pop) : double
+		+getRandom() : double
+		+getStoichiometry(int speciesIndex, int reactionIndex) : double
+		+getTime() : double
+		+getValue(const std::string& id) : double
+		+applyEvents(double timeEnd, const unsigned char* previousEventState, const double* initialState, double* finalState) : int
+		+getBoundarySpeciesAmounts(size_t len, int const* indx, double* values) : int
+		+getBoundarySpeciesConcentrations(size_t len, int const* indx, double* values) : int
+		+getBoundarySpeciesIndex(const std::string &) : int
+		+getCompartmentIndex(const std::string &) : int
+		+getCompartmentIndexForFloatingSpecies(size_t index) : int
+		+getCompartmentInitVolumes(size_t len, const int* indx, double* values) : int
+		+getCompartmentVolumes(size_t len, int const* indx, double* values) : int
+		+getConservedMoietyIndex(const std::string& name) : int
+		+getConservedMoietyValues(size_t len, int const* indx, double* values) : int
+		+getEventIndex(const std::string& eid) : int
+		+getEventTriggers(size_t len, const int* indx, unsigned char* eventState) : int
+		+getFloatingSpeciesAmountRates(size_t len, int const* indx, double* values) : int
+		+getFloatingSpeciesAmounts(size_t len, int const* indx, double* values) : int
+		+getFloatingSpeciesConcentrationRates(size_t len, int const* indx, double* values) : int
+		+getFloatingSpeciesConcentrations(size_t len, int const* indx, double* values) : int
+		+getFloatingSpeciesIndex(const std::string &) : int
+		+getFloatingSpeciesInitAmounts(size_t size_t, const int* indx, double* values) : int
+		+getFloatingSpeciesInitConcentrations(size_t len, const int* indx, double* values) : int
+		+getGlobalParameterIndex(const std::string &) : int
+		+getGlobalParameterInitValues(size_t len, const int* indx, double* values) : int
+		+getGlobalParameterValues(size_t len, int const* indx, double* values) : int
+		+getNumBoundarySpecies() : int
+		+getNumCompartments() : int
+		+getNumConservedMoieties() : int
+		+getNumDepFloatingSpecies() : int
+		+getNumEvents() : int
+		+getNumFloatingSpecies() : int
+		+getNumGlobalParameters() : int
+		+getNumIndFloatingSpecies() : int
+		+getNumRateRules() : int
+		+getNumReactions() : int
+		+getPendingEventSize() : int
+		+getRateRueRates(size_t len, int const* indx, double* values) : int
+		+getReactionIndex(const std::string &) : int
+		+getReactionRates(size_t len, int const* indx, double* values) : int
+		+getStateVector(double* stateVector) : int
+		+getStoichiometryMatrix(int* rows, int* cols, double** data) : int
+		+getSupportedIdTypes() : int
+		-getValues(double (* ) ( LLVMModelData*, size_t ) funcPtr, size_t len, const int* indx, double* values) : int
+		+setBoundarySpeciesAmounts(size_t len, int const* indx, double const* values) : int
+		+setBoundarySpeciesConcentrations(size_t len, int const* indx, double const* values) : int
+		+setCompartmentInitVolumes(size_t len, const int* indx, double const* values) : int
+		+setCompartmentVolumes(size_t len, int const* indx, const double* values) : int
+		+setConservedMoietyValues(size_t len, int const* indx, const double* values) : int
+		+setFloatingSpeciesAmounts(size_t len, int const* indx, const double* values) : int
+		+setFloatingSpeciesConcentrations(size_t len, int const* indx, double const* values) : int
+		+setFloatingSpeciesInitAmounts(size_t len, const int* indx, double const* values) : int
+		+setFloatingSpeciesInitConcentrations(size_t len, const int* indx, double const* values) : int
+		+setGlobalParameterInitValues(size_t len, const int* indx, double const* values) : int
+		+setGlobalParameterValues(size_t len, int const* indx, const double* values) : int
+		+setStateVector(const double* stateVector) : int
+		-setValues(bool (* ) ( LLVMModelData*, int, double ) funcPtr, GetNameFuncPtr, size_t len, const int* indx, const double* values) : int
+		+getRandomSeed() : int64_t
+		+getEventListener(size_t index) : rr::EventListenerPtr
+		-getSelection(const std::string& sel) : rr::SelectionRecord&
+		-pendingEvents : rrllvm::EventQueue
+		+getEventBufferSize(size_t event) : size_t
+		+getBoundarySpeciesId(size_t index) : std::string
+		+getCompartmentId(size_t) : std::string
+		+getConservedMoietyId(size_t index) : std::string
+		+getEventId(size_t index) : std::string
+		+getExecutableModelDesc() : std::string {query}
+		+getFloatingSpeciesId(size_t index) : std::string
+		+getGlobalParameterId(size_t) : std::string
+		+getInfo() : std::string
+		+getModelName() : std::string
+		+getReactionId(size_t) : std::string
+		+getStateVectorId(size_t index) : std::string
+		-eventAssignTimes : std::vector<double>
+		-eventListeners : std::vector<rr::EventListenerPtr>
+		+getRateRuleSymbols() : std::vector<std::string> {query}
+		-dirty : uint32_t
+		-flags : uint32_t
+		+getFlags() : uint32_t {query}
+		+assignEvent(size_t eventId, double* data) : void
+		-copyCachedModel(a_type* src, b_type* dst) : void
+		+evalInitialConditions(uint32_t flags) : void
+		+getEventData(size_t eventId, double* data) : void
+		+getEventIds(std::list<std::string>& out) : void
+		+getEventRoots(double time, const double* y, double* gdot) : void
+		+getIds(int types, std::list<std::string>& ids) : void
+		+getRateRuleValues(double* rateRuleValues) : void
+		+getStateVectorRate(double time, const double* y, double* dydt) : void
+		+print(std::ostream& stream) : void
+		+reset() : void
+		+reset(int options) : void
+		+resetEvents() : void
+		+saveState(std::ostream& out) : void
+		+setEventListener(size_t index, rr::EventListenerPtr eventHandler) : void
+		+setFlags(uint32_t val) : void
+		+setRandomSeed(int64_t) : void
+		+setTime(double _time) : void
+		+setValue(const std::string& id, double value) : void
+		+testConstraints() : void
+	}
+
+	class RR_DECLSPECLLVMModelGenerator {
+		+{static} createModel(const std::string& sbml, std::uint32_t options) : rr::ExecutableModel*
+		+{static} regenerateModel(rr::ExecutableModel* oldModel, libsbml::SBMLDocument* doc, unsigned int options) : rr::ExecutableModel*
+	}
+
+	class Random {
+		+Random(class ModelGeneratorContext& ctx)
+		+Random(const Random& other)
+		+Random()
+		+~Random()
+		+operator=(const Random& rhs) : Random&
+		+{static} max() : constexpr unsigned long long
+		+{static} min() : constexpr unsigned long long
+		+engine : cxx11_ns::mt19937
+		-normalized_uniform_dist : cxx11_ns::uniform_real<double>
+		-normalized_uniform_dist : cxx11_ns::uniform_real_distribution<double>
+		+max() : double
+		+min() : double
+		+operator()() : double
+		+getMaxTries() : int {query}
+		-mMaxTries : int
+		+getRandomSeed() : int64_t
+		-randomSeed : int64_t
+		+setMaxTries(int maxTries) : void
+		+setRandomSeed(int64_t) : void
+	}
+
+	class SBMLInitialValueSymbolResolver {
+		+SBMLInitialValueSymbolResolver(llvm::Value* modelData, const ModelGeneratorContext& ctx)
+		+~SBMLInitialValueSymbolResolver()
+		+loadSymbolValue(const std::string& symbol, const llvm::ArrayRef<llvm::Value*>& args) : llvm::Value*
+		-modelData : llvm::Value*
+	}
+
+	class SetBoundarySpeciesAmountCodeGen {
+		+SetBoundarySpeciesAmountCodeGen(const ModelGeneratorContext& mgc)
+		+~SetBoundarySpeciesAmountCodeGen()
+		+getIds() : StringIntVector
+		+{static} FunctionName : static const char*
+		+{static} IndexArgName : static const char*
+	}
+
+	class SetBoundarySpeciesConcentrationCodeGen {
+		+SetBoundarySpeciesConcentrationCodeGen(const ModelGeneratorContext& mgc)
+		+~SetBoundarySpeciesConcentrationCodeGen()
+		+getIds() : StringIntVector
+		+{static} FunctionName : static const char*
+		+{static} IndexArgName : static const char*
+	}
+
+	class SetCompartmentInitVolumeCodeGen {
+		+SetCompartmentInitVolumeCodeGen(const ModelGeneratorContext& mgc)
+		+~SetCompartmentInitVolumeCodeGen()
+		+getIds() : StringIntVector
+		+isInitialValue() : bool
+		+{static} FunctionName : static const char*
+		+{static} IndexArgName : static const char*
+	}
+
+	class SetCompartmentVolumeCodeGen {
+		+SetCompartmentVolumeCodeGen(const ModelGeneratorContext& mgc)
+		+~SetCompartmentVolumeCodeGen()
+		+getIds() : StringIntVector
+		+{static} FunctionName : static const char*
+		+{static} IndexArgName : static const char*
+	}
+
+	class SetFloatingSpeciesAmountCodeGen {
+		+SetFloatingSpeciesAmountCodeGen(const ModelGeneratorContext& mgc)
+		+~SetFloatingSpeciesAmountCodeGen()
+		+getIds() : StringIntVector
+		+{static} FunctionName : static const char*
+		+{static} IndexArgName : static const char*
+	}
+
+	class SetFloatingSpeciesConcentrationCodeGen {
+		+SetFloatingSpeciesConcentrationCodeGen(const ModelGeneratorContext& mgc)
+		+~SetFloatingSpeciesConcentrationCodeGen()
+		+getIds() : StringIntVector
+		+{static} FunctionName : static const char*
+		+{static} IndexArgName : static const char*
+	}
+
+	class SetFloatingSpeciesInitAmountCodeGen {
+		+SetFloatingSpeciesInitAmountCodeGen(const ModelGeneratorContext& mgc)
+		+~SetFloatingSpeciesInitAmountCodeGen()
+		+getIds() : StringIntVector
+		+isInitialValue() : bool
+		+{static} FunctionName : static const char*
+		+{static} IndexArgName : static const char*
+	}
+
+	class SetFloatingSpeciesInitConcentrationCodeGen {
+		+SetFloatingSpeciesInitConcentrationCodeGen(const ModelGeneratorContext& mgc)
+		+~SetFloatingSpeciesInitConcentrationCodeGen()
+		+getIds() : StringIntVector
+		+isInitialValue() : bool
+		+{static} FunctionName : static const char*
+		+{static} IndexArgName : static const char*
+	}
+
+	class SetGlobalParameterCodeGen {
+		+SetGlobalParameterCodeGen(const ModelGeneratorContext& mgc)
+		+~SetGlobalParameterCodeGen()
+		+getIds() : StringIntVector
+		+{static} FunctionName : static const char*
+		+{static} IndexArgName : static const char*
+	}
+
+	class SetGlobalParameterInitValueCodeGen {
+		+SetGlobalParameterInitValueCodeGen(const ModelGeneratorContext& mgc)
+		+~SetGlobalParameterInitValueCodeGen()
+		+getIds() : StringIntVector
+		+isInitialValue() : bool
+		+{static} FunctionName : static const char*
+		+{static} IndexArgName : static const char*
+	}
+
+	class SetInitialValueCodeGenBase <template<typename Derived, bool substanceUnits>> {
+		+SetInitialValueCodeGenBase(const ModelGeneratorContext& mgc)
+		+~SetInitialValueCodeGenBase()
+		+codeGen() : llvm::Value*
+	}
+
+	class SetValueCodeGenBase <template<typename Derived, bool substanceUnits>> {
+		+SetValueCodeGenBase(const ModelGeneratorContext& mgc)
+		+~SetValueCodeGenBase()
+		+codeGen() : llvm::Value*
+	}
+
+	abstract class StoreSymbolResolver {
+		#~StoreSymbolResolver()
+		+{abstract} storeSymbolValue(const std::string& symbol, llvm::Value* value) : llvm::Value*
+	}
+
+	class SymbolForest {
+		-_end : ConstIterator
+		+find(const std::map<std::string, const libsbml::ASTNode*>::key_type& x) : ConstIterator {query}
+		+end() : ConstIterator& {query}
+		+boundarySpecies : std::map<std::string, const libsbml::ASTNode*>
+		+compartments : std::map<std::string, const libsbml::ASTNode*>
+		+floatingSpecies : std::map<std::string, const libsbml::ASTNode*>
+		+globalParameters : std::map<std::string, const libsbml::ASTNode*>
+		+speciesReferences : std::map<std::string, const libsbml::ASTNode*>
+	}
+
+	class SymbolForest::ConstIterator {
+		-ConstIterator(_const_iterator i)
+		-ConstIterator()
+		+ConstIterator(ConstIterator o)
+		+operator=(ConstIterator o) : ConstIterator&
+		+operator->() : ConstIterator* {query}
+		-end : bool
+		+operator!=(ConstIterator other) : bool {query}
+		+second : const libsbml::ASTNode*
+	}
+
+	enum EventAtributes {
+		EventInitialValue
+		EventPersistent
+		EventUseValuesFromTriggerTime
+	}
+
+	enum LLVMModelDataSymbols::SpeciesReferenceType {
+		Modifier
+		MultiReactantProduct
+		Product
+		Reactant
+	}
+
+	enum LLVMModelDataSymbols::SymbolIndexType {
+		BOUNDARY_SPECIES
+		COMPARTMENT
+		EVENT
+		FLOATING_SPECIES
+		GLOBAL_PARAMETER
+		INVALID_SYMBOL
+		REACTION
+	}
+
+	enum LLVMModelSymbols::SpeciesReferenceType {
+		Product
+		Reactant
+	}
+
+	enum ModelDataFields {
+		BoundarySpeciesAmounts
+		BoundarySpeciesAmountsAlias
+		CompartmentVolumes
+		CompartmentVolumesAlias
+		Flags
+		FloatingSpeciesAmountRates
+		FloatingSpeciesAmountsAlias
+		GlobalParameters
+		GlobalParametersAlias
+		InitBoundarySpeciesAmounts
+		InitBoundarySpeciesAmountsAlias
+		InitCompartmentVolumes
+		InitCompartmentVolumesAlias
+		InitFloatingSpeciesAmounts
+		InitFloatingSpeciesAmountsAlias
+		InitGlobalParameters
+		InitGlobalParametersAlias
+		NotSafe_FloatingSpeciesAmounts
+		NotSafe_RateRuleValues
+		NumEvents
+		NumIndBoundarySpecies
+		NumIndCompartments
+		NumIndFloatingSpecies
+		NumIndGlobalParameters
+		NumInitBoundarySpecies
+		NumInitCompartments
+		NumInitFloatingSpecies
+		NumInitGlobalParameters
+		NumRateRules
+		NumReactions
+		RandomPtr
+		RateRuleRates
+		RateRuleValuesAlias
+		ReactionRates
+		ReactionRatesAlias
+		Size
+		StateVector
+		StateVectorRate
+		StateVectorSize
+		Stoichiometry
+		Time
+	}
+
+	enum RR_DECLSPECLLVMExecutableModel::empty {
+		DIRTY_CONSERVED_MOIETIES
+		DIRTY_INIT_SPECIES
+		DIRTY_REACTION_RATES
+	}
+
+	class LLVMModelData {
+		+random : class Random*
+		+data : double
+		+time : double
+		+boundarySpeciesAmountsAlias : double*
+		+compartmentVolumesAlias : double*
+		+floatingSpeciesAmountRates : double*
+		+floatingSpeciesAmountsAlias : double*
+		+globalParametersAlias : double*
+		+initBoundarySpeciesAmountsAlias : double*
+		+initCompartmentVolumesAlias : double*
+		+initFloatingSpeciesAmountsAlias : double*
+		+initGlobalParametersAlias : double*
+		+rateRuleRates : double*
+		+rateRuleValuesAlias : double*
+		+reactionRatesAlias : double*
+		+stateVector : double*
+		+stateVectorRate : double*
+		+stoichiometry : rr::csr_matrix*
+		+flags : unsigned
+		+numEvents : unsigned
+		+numIndBoundarySpecies : unsigned
+		+numIndCompartments : unsigned
+		+numIndFloatingSpecies : unsigned
+		+numIndGlobalParameters : unsigned
+		+numInitBoundarySpecies : unsigned
+		+numInitCompartments : unsigned
+		+numInitFloatingSpecies : unsigned
+		+numInitGlobalParameters : unsigned
+		+numRateRules : unsigned
+		+numReactions : unsigned
+		+size : unsigned
+		+stateVectorSize : unsigned
+	}
+
+	class LLVMModelDataSymbols::SpeciesReferenceInfo {
+		+type : SpeciesReferenceType
+		+id : std::string
+		+column : unsigned int
+		+row : unsigned int
+	}
+
+	class LLVMModelSymbols::ReactionSymbols {
+		+products : IntASTNodeListMap
+		+reactants : IntASTNodeListMap
+	}
+}
+
+
+
+
+
+/' Inheritance relationships '/
+
+rrllvm.CodeGenBase <|-- rrllvm.EvalConversionFactorCodeGen
+
+
+rrllvm.CodeGenBase <|-- rrllvm.EvalInitialConditionsCodeGen
+
+
+rrllvm.CodeGenBase <|-- rrllvm.EvalRateRuleRatesCodeGen
+
+
+rrllvm.CodeGenBase <|-- rrllvm.EvalReactionRatesCodeGen
+
+
+rrllvm.CodeGenBase <|-- rrllvm.EvalVolatileStoichCodeGen
+
+
+rrllvm.CodeGenBase <|-- rrllvm.EventCodeGenBase
+
+
+rrllvm.CodeGenBase <|-- rrllvm.GetEventValueCodeGenBase
+
+
+rrllvm.CodeGenBase <|-- rrllvm.GetInitialValueCodeGenBase
+
+
+rrllvm.CodeGenBase <|-- rrllvm.GetValueCodeGenBase
+
+
+rrllvm.CodeGenBase <|-- rrllvm.SetInitialValueCodeGenBase
+
+
+rrllvm.CodeGenBase <|-- rrllvm.SetValueCodeGenBase
+
+
+rrllvm.EventCodeGenBase <|-- rrllvm.EventAssignCodeGen
+
+
+rrllvm.EventCodeGenBase <|-- rrllvm.EventTriggerCodeGen
+
+
+rrllvm.GetEventValueCodeGenBase <|-- rrllvm.GetEventDelayCodeGen
+
+
+rrllvm.GetEventValueCodeGenBase <|-- rrllvm.GetEventPriorityCodeGen
+
+
+rrllvm.GetEventValueCodeGenBase <|-- rrllvm.GetEventTriggerCodeGen
+
+
+rrllvm.GetInitialValueCodeGenBase <|-- rrllvm.GetCompartmentInitVolumeCodeGen
+
+
+rrllvm.GetInitialValueCodeGenBase <|-- rrllvm.GetFloatingSpeciesInitAmountCodeGen
+
+
+rrllvm.GetInitialValueCodeGenBase <|-- rrllvm.GetFloatingSpeciesInitConcentrationCodeGen
+
+
+rrllvm.GetInitialValueCodeGenBase <|-- rrllvm.GetGlobalParameterInitValueCodeGen
+
+
+rrllvm.GetValueCodeGenBase <|-- rrllvm.GetBoundarySpeciesAmountCodeGen
+
+
+rrllvm.GetValueCodeGenBase <|-- rrllvm.GetBoundarySpeciesConcentrationCodeGen
+
+
+rrllvm.GetValueCodeGenBase <|-- rrllvm.GetCompartmentVolumeCodeGen
+
+
+rrllvm.GetValueCodeGenBase <|-- rrllvm.GetFloatingSpeciesAmountCodeGen
+
+
+rrllvm.GetValueCodeGenBase <|-- rrllvm.GetFloatingSpeciesConcentrationCodeGen
+
+
+rrllvm.GetValueCodeGenBase <|-- rrllvm.GetGlobalParameterCodeGen
+
+
+rrllvm.LoadSymbolResolver <|-- rrllvm.FunctionResolver
+
+
+rrllvm.LoadSymbolResolver <|-- rrllvm.KineticLawParameterResolver
+
+
+rrllvm.LoadSymbolResolver <|-- rrllvm.LoadSymbolResolverBase
+
+
+rrllvm.LoadSymbolResolverBase <|-- rrllvm.ModelDataLoadSymbolResolver
+
+
+rrllvm.LoadSymbolResolverBase <|-- rrllvm.ModelInitialValueSymbolResolver
+
+
+rrllvm.LoadSymbolResolverBase <|-- rrllvm.SBMLInitialValueSymbolResolver
+
+
+rrllvm.SetInitialValueCodeGenBase <|-- rrllvm.SetCompartmentInitVolumeCodeGen
+
+
+rrllvm.SetInitialValueCodeGenBase <|-- rrllvm.SetFloatingSpeciesInitAmountCodeGen
+
+
+rrllvm.SetInitialValueCodeGenBase <|-- rrllvm.SetFloatingSpeciesInitConcentrationCodeGen
+
+
+rrllvm.SetInitialValueCodeGenBase <|-- rrllvm.SetGlobalParameterInitValueCodeGen
+
+
+rrllvm.SetValueCodeGenBase <|-- rrllvm.SetBoundarySpeciesAmountCodeGen
+
+
+rrllvm.SetValueCodeGenBase <|-- rrllvm.SetBoundarySpeciesConcentrationCodeGen
+
+
+rrllvm.SetValueCodeGenBase <|-- rrllvm.SetCompartmentVolumeCodeGen
+
+
+rrllvm.SetValueCodeGenBase <|-- rrllvm.SetFloatingSpeciesAmountCodeGen
+
+
+rrllvm.SetValueCodeGenBase <|-- rrllvm.SetFloatingSpeciesConcentrationCodeGen
+
+
+rrllvm.SetValueCodeGenBase <|-- rrllvm.SetGlobalParameterCodeGen
+
+
+rrllvm.StoreSymbolResolver <|-- rrllvm.ModelDataStoreSymbolResolver
+
+
+rrllvm.StoreSymbolResolver <|-- rrllvm.ModelInitialValueStoreSymbolResolver
+
+
+
+
+
+/' Aggregation relationships '/
+
+rrllvm.ASTNodeCodeGen *-- rrllvm.LoadSymbolResolver
+
+
+rrllvm.ASTNodeCodeGen *-- rrllvm.ModelGeneratorContext
+
+
+rrllvm.ASTNodeCodeGenScalarTicket *-- rrllvm.ASTNodeCodeGen
+
+
+rrllvm.AssignmentRuleEvaluator *-- rrllvm.SymbolForest
+
+
+rrllvm.CodeGenBase *-- rrllvm.LLVMModelDataSymbols
+
+
+rrllvm.CodeGenBase *-- rrllvm.LLVMModelSymbols
+
+
+rrllvm.CodeGenBase *-- rrllvm.ModelGeneratorContext
+
+
+rrllvm.FunctionResolver *-- rrllvm.LoadSymbolResolver
+
+
+rrllvm.FunctionResolver *-- rrllvm.ModelGeneratorContext
+
+
+rrllvm.KineticLawParameterResolver *-- rrllvm.LoadSymbolResolver
+
+
+rrllvm.LLVMModelData o-- rrllvm.Random
+
+
+rrllvm.LLVMModelDataIRBuilderTesting *-- rrllvm.LLVMModelDataSymbols
+
+
+rrllvm.LLVMModelSymbols *-- rrllvm.ASTNodeFactory
+
+
+rrllvm.LLVMModelSymbols *-- rrllvm.LLVMModelDataSymbols
+
+
+rrllvm.LLVMModelSymbols "4" *-- rrllvm.SymbolForest
+
+
+rrllvm.LoadSymbolResolverBase *-- rrllvm.LLVMModelDataSymbols
+
+
+rrllvm.LoadSymbolResolverBase *-- rrllvm.LLVMModelSymbols
+
+
+rrllvm.LoadSymbolResolverBase *-- rrllvm.ModelGeneratorContext
+
+
+rrllvm.ModelDataIRBuilder *-- rrllvm.LLVMModelDataSymbols
+
+
+rrllvm.ModelDataStoreSymbolResolver *-- rrllvm.LLVMModelDataSymbols
+
+
+rrllvm.ModelDataStoreSymbolResolver *-- rrllvm.LLVMModelSymbols
+
+
+rrllvm.ModelDataStoreSymbolResolver *-- rrllvm.LoadSymbolResolver
+
+
+rrllvm.ModelGeneratorContext o-- rrllvm.LLVMModelDataSymbols
+
+
+rrllvm.ModelGeneratorContext o-- rrllvm.LLVMModelSymbols
+
+
+rrllvm.ModelGeneratorContext o-- rrllvm.Random
+
+
+rrllvm.ModelInitialValueStoreSymbolResolver *-- rrllvm.LLVMModelDataSymbols
+
+
+rrllvm.ModelInitialValueStoreSymbolResolver *-- rrllvm.LLVMModelSymbols
+
+
+rrllvm.ModelInitialValueStoreSymbolResolver *-- rrllvm.LoadSymbolResolver
+
+
+rrllvm.ModelResources *-- rrllvm.EvalConversionFactorCodeGen
+
+
+rrllvm.ModelResources *-- rrllvm.EvalInitialConditionsCodeGen
+
+
+rrllvm.ModelResources *-- rrllvm.EvalRateRuleRatesCodeGen
+
+
+rrllvm.ModelResources *-- rrllvm.EvalReactionRatesCodeGen
+
+
+rrllvm.ModelResources *-- rrllvm.EvalVolatileStoichCodeGen
+
+
+rrllvm.ModelResources *-- rrllvm.EventAssignCodeGen
+
+
+rrllvm.ModelResources *-- rrllvm.EventTriggerCodeGen
+
+
+rrllvm.ModelResources *-- rrllvm.GetBoundarySpeciesAmountCodeGen
+
+
+rrllvm.ModelResources *-- rrllvm.GetBoundarySpeciesConcentrationCodeGen
+
+
+rrllvm.ModelResources *-- rrllvm.GetCompartmentInitVolumeCodeGen
+
+
+rrllvm.ModelResources *-- rrllvm.GetCompartmentVolumeCodeGen
+
+
+rrllvm.ModelResources *-- rrllvm.GetEventDelayCodeGen
+
+
+rrllvm.ModelResources *-- rrllvm.GetEventPriorityCodeGen
+
+
+rrllvm.ModelResources *-- rrllvm.GetEventTriggerCodeGen
+
+
+rrllvm.ModelResources *-- rrllvm.GetFloatingSpeciesAmountCodeGen
+
+
+rrllvm.ModelResources *-- rrllvm.GetFloatingSpeciesConcentrationCodeGen
+
+
+rrllvm.ModelResources *-- rrllvm.GetFloatingSpeciesInitAmountCodeGen
+
+
+rrllvm.ModelResources *-- rrllvm.GetFloatingSpeciesInitConcentrationCodeGen
+
+
+rrllvm.ModelResources *-- rrllvm.GetGlobalParameterCodeGen
+
+
+rrllvm.ModelResources *-- rrllvm.GetGlobalParameterInitValueCodeGen
+
+
+rrllvm.ModelResources o-- rrllvm.LLVMModelDataSymbols
+
+
+rrllvm.ModelResources o-- rrllvm.Random
+
+
+rrllvm.ModelResources *-- rrllvm.SetBoundarySpeciesAmountCodeGen
+
+
+rrllvm.ModelResources *-- rrllvm.SetBoundarySpeciesConcentrationCodeGen
+
+
+rrllvm.ModelResources *-- rrllvm.SetCompartmentInitVolumeCodeGen
+
+
+rrllvm.ModelResources *-- rrllvm.SetCompartmentVolumeCodeGen
+
+
+rrllvm.ModelResources *-- rrllvm.SetFloatingSpeciesAmountCodeGen
+
+
+rrllvm.ModelResources *-- rrllvm.SetFloatingSpeciesConcentrationCodeGen
+
+
+rrllvm.ModelResources *-- rrllvm.SetFloatingSpeciesInitAmountCodeGen
+
+
+rrllvm.ModelResources *-- rrllvm.SetFloatingSpeciesInitConcentrationCodeGen
+
+
+rrllvm.ModelResources *-- rrllvm.SetGlobalParameterCodeGen
+
+
+rrllvm.ModelResources *-- rrllvm.SetGlobalParameterInitValueCodeGen
+
+
+rrllvm.RR_DECLSPECLLVMExecutableModel *-- rrllvm.EvalConversionFactorCodeGen
+
+
+rrllvm.RR_DECLSPECLLVMExecutableModel *-- rrllvm.EvalInitialConditionsCodeGen
+
+
+rrllvm.RR_DECLSPECLLVMExecutableModel *-- rrllvm.EvalRateRuleRatesCodeGen
+
+
+rrllvm.RR_DECLSPECLLVMExecutableModel *-- rrllvm.EvalReactionRatesCodeGen
+
+
+rrllvm.RR_DECLSPECLLVMExecutableModel *-- rrllvm.EvalVolatileStoichCodeGen
+
+
+rrllvm.RR_DECLSPECLLVMExecutableModel *-- rrllvm.EventAssignCodeGen
+
+
+rrllvm.RR_DECLSPECLLVMExecutableModel *-- rrllvm.EventQueue
+
+
+rrllvm.RR_DECLSPECLLVMExecutableModel *-- rrllvm.EventTriggerCodeGen
+
+
+rrllvm.RR_DECLSPECLLVMExecutableModel *-- rrllvm.GetBoundarySpeciesAmountCodeGen
+
+
+rrllvm.RR_DECLSPECLLVMExecutableModel *-- rrllvm.GetBoundarySpeciesConcentrationCodeGen
+
+
+rrllvm.RR_DECLSPECLLVMExecutableModel *-- rrllvm.GetCompartmentInitVolumeCodeGen
+
+
+rrllvm.RR_DECLSPECLLVMExecutableModel *-- rrllvm.GetCompartmentVolumeCodeGen
+
+
+rrllvm.RR_DECLSPECLLVMExecutableModel *-- rrllvm.GetEventDelayCodeGen
+
+
+rrllvm.RR_DECLSPECLLVMExecutableModel *-- rrllvm.GetEventPriorityCodeGen
+
+
+rrllvm.RR_DECLSPECLLVMExecutableModel *-- rrllvm.GetEventTriggerCodeGen
+
+
+rrllvm.RR_DECLSPECLLVMExecutableModel *-- rrllvm.GetFloatingSpeciesAmountCodeGen
+
+
+rrllvm.RR_DECLSPECLLVMExecutableModel *-- rrllvm.GetFloatingSpeciesConcentrationCodeGen
+
+
+rrllvm.RR_DECLSPECLLVMExecutableModel *-- rrllvm.GetFloatingSpeciesInitAmountCodeGen
+
+
+rrllvm.RR_DECLSPECLLVMExecutableModel *-- rrllvm.GetFloatingSpeciesInitConcentrationCodeGen
+
+
+rrllvm.RR_DECLSPECLLVMExecutableModel *-- rrllvm.GetGlobalParameterCodeGen
+
+
+rrllvm.RR_DECLSPECLLVMExecutableModel *-- rrllvm.GetGlobalParameterInitValueCodeGen
+
+
+rrllvm.RR_DECLSPECLLVMExecutableModel o-- rrllvm.LLVMModelData
+
+
+rrllvm.RR_DECLSPECLLVMExecutableModel o-- rrllvm.LLVMModelDataSymbols
+
+
+rrllvm.RR_DECLSPECLLVMExecutableModel *-- rrllvm.ModelResources
+
+
+rrllvm.RR_DECLSPECLLVMExecutableModel *-- rrllvm.SetBoundarySpeciesAmountCodeGen
+
+
+rrllvm.RR_DECLSPECLLVMExecutableModel *-- rrllvm.SetBoundarySpeciesConcentrationCodeGen
+
+
+rrllvm.RR_DECLSPECLLVMExecutableModel *-- rrllvm.SetCompartmentInitVolumeCodeGen
+
+
+rrllvm.RR_DECLSPECLLVMExecutableModel *-- rrllvm.SetCompartmentVolumeCodeGen
+
+
+rrllvm.RR_DECLSPECLLVMExecutableModel *-- rrllvm.SetFloatingSpeciesAmountCodeGen
+
+
+rrllvm.RR_DECLSPECLLVMExecutableModel *-- rrllvm.SetFloatingSpeciesConcentrationCodeGen
+
+
+rrllvm.RR_DECLSPECLLVMExecutableModel *-- rrllvm.SetFloatingSpeciesInitAmountCodeGen
+
+
+rrllvm.RR_DECLSPECLLVMExecutableModel *-- rrllvm.SetFloatingSpeciesInitConcentrationCodeGen
+
+
+rrllvm.RR_DECLSPECLLVMExecutableModel *-- rrllvm.SetGlobalParameterCodeGen
+
+
+rrllvm.RR_DECLSPECLLVMExecutableModel *-- rrllvm.SetGlobalParameterInitValueCodeGen
+
+
+
+
+
+
+/' Nested objects '/
+
+rrllvm.LLVMModelDataSymbols +-- rrllvm.LLVMModelDataSymbols::SpeciesReferenceInfo
+
+
+rrllvm.LLVMModelDataSymbols +-- rrllvm.LLVMModelDataSymbols::SpeciesReferenceType
+
+
+rrllvm.LLVMModelDataSymbols +-- rrllvm.LLVMModelDataSymbols::SymbolIndexType
+
+
+rrllvm.LLVMModelSymbols +-- rrllvm.LLVMModelSymbols::ReactionSymbols
+
+
+rrllvm.LLVMModelSymbols +-- rrllvm.LLVMModelSymbols::SpeciesReferenceType
+
+
+rrllvm.RR_DECLSPECLLVMExecutableModel +-- rrllvm.RR_DECLSPECLLVMExecutableModel::empty
+
+
+rrllvm.SymbolForest +-- rrllvm.SymbolForest::ConstIterator
+
+
+
+
+@enduml

@@ -1,0 +1,691 @@
+@startuml
+
+
+
+
+
+/' Objects '/
+
+namespace rrllvm {
+	class ASTNodeCodeGen {}
+
+	class ASTNodeCodeGenScalarTicket {
+	}
+
+	class ASTNodeFactory {
+	}
+
+	class AssignmentRuleEvaluator {
+	}
+
+	abstract class CodeGen {
+	}
+
+	abstract class CodeGenBase <template<typename FunctionPtrType>> {
+	}
+
+	class EvalConversionFactorCodeGen {
+	}
+
+	class EvalInitialConditionsCodeGen {
+	}
+
+	class EvalRateRuleRatesCodeGen {
+	}
+
+	class EvalReactionRatesCodeGen {
+	}
+
+	class EvalVolatileStoichCodeGen {
+	}
+
+	class Event {
+	}
+
+	class EventAssignCodeGen {
+	}
+
+	class EventCodeGenBase <template<typename Derived>> {
+	}
+
+	class EventQueue {
+	}
+
+	class EventTriggerCodeGen {
+	}
+
+	class FunctionResolver {
+	}
+
+	class GetBoundarySpeciesAmountCodeGen {
+	}
+
+	class GetBoundarySpeciesConcentrationCodeGen {
+	}
+
+	class GetCompartmentInitVolumeCodeGen {
+	}
+
+	class GetCompartmentVolumeCodeGen {
+	}
+
+	class GetEventDelayCodeGen {
+	}
+
+	class GetEventPriorityCodeGen {
+	}
+
+	class GetEventTriggerCodeGen {
+	}
+
+	class GetEventValueCodeGenBase <template<typename Derived, typename FunctionPtrType=GetEventValueCodeGenBase_FunctionPtr>> {
+	}
+
+	class GetFloatingSpeciesAmountCodeGen {
+	}
+
+	class GetFloatingSpeciesConcentrationCodeGen {
+	}
+
+	class GetFloatingSpeciesInitAmountCodeGen {
+	}
+
+	class GetFloatingSpeciesInitConcentrationCodeGen {
+	}
+
+	class GetGlobalParameterCodeGen {
+	}
+
+	class GetGlobalParameterInitValueCodeGen {
+	}
+
+	class GetInitialValueCodeGenBase <template<typename Derived, bool substanceUnits>> {
+	}
+
+	class GetValueCodeGenBase <template<typename Derived, bool substanceUnits>> {
+	}
+
+	class KineticLawParameterResolver {
+	}
+
+	class LLVMException {
+	}
+
+	class LLVMModelDataIRBuilderTesting {
+	}
+
+	class LLVMModelDataSymbols {
+	}
+
+	class LLVMModelSymbols {
+	}
+
+	abstract class LoadSymbolResolver {
+	}
+
+	class LoadSymbolResolverBase {
+	}
+
+	class ModelDataIRBuilder {
+	}
+
+	class ModelDataLoadSymbolResolver {
+	}
+
+	class ModelDataStoreSymbolResolver {
+	}
+
+	class ModelGeneratorContext {
+	}
+
+	class ModelInitialValueStoreSymbolResolver {
+	}
+
+	class ModelInitialValueSymbolResolver {
+	}
+
+	class ModelResources {
+	}
+
+	class RR_DECLSPECLLVMCompiler {}
+
+	class RR_DECLSPECLLVMExecutableModel {
+	}
+
+	class RR_DECLSPECLLVMModelGenerator {
+	}
+
+	class Random {
+	}
+
+	class SBMLInitialValueSymbolResolver {
+	}
+
+	class SetBoundarySpeciesAmountCodeGen {
+	}
+
+	class SetBoundarySpeciesConcentrationCodeGen {
+	}
+
+	class SetCompartmentInitVolumeCodeGen {
+	}
+
+	class SetCompartmentVolumeCodeGen {
+	}
+
+	class SetFloatingSpeciesAmountCodeGen {
+	}
+
+	class SetFloatingSpeciesConcentrationCodeGen {
+	}
+
+	class SetFloatingSpeciesInitAmountCodeGen {
+	}
+
+	class SetFloatingSpeciesInitConcentrationCodeGen {
+	}
+
+	class SetGlobalParameterCodeGen {
+	}
+
+	class SetGlobalParameterInitValueCodeGen {
+	}
+
+	class SetInitialValueCodeGenBase <template<typename Derived, bool substanceUnits>> {
+	}
+
+	class SetValueCodeGenBase <template<typename Derived, bool substanceUnits>> {
+	}
+
+	abstract class StoreSymbolResolver {
+	}
+
+	class SymbolForest {
+	}
+
+	class SymbolForest::ConstIterator {
+	}
+
+	enum EventAtributes {
+	}
+
+	enum LLVMModelDataSymbols::SpeciesReferenceType {
+	}
+
+	enum LLVMModelDataSymbols::SymbolIndexType {
+	}
+
+	enum LLVMModelSymbols::SpeciesReferenceType {
+	}
+
+	enum ModelDataFields {
+	}
+
+	enum RR_DECLSPECLLVMExecutableModel::empty {
+	}
+
+	class LLVMModelData {
+	}
+
+	class LLVMModelDataSymbols::SpeciesReferenceInfo {
+	}
+
+	class LLVMModelSymbols::ReactionSymbols {
+	}
+}
+
+
+
+
+
+/' Inheritance relationships '/
+
+rrllvm.CodeGenBase <|-- rrllvm.EvalConversionFactorCodeGen
+
+
+rrllvm.CodeGenBase <|-- rrllvm.EvalInitialConditionsCodeGen
+
+
+rrllvm.CodeGenBase <|-- rrllvm.EvalRateRuleRatesCodeGen
+
+
+rrllvm.CodeGenBase <|-- rrllvm.EvalReactionRatesCodeGen
+
+
+rrllvm.CodeGenBase <|-- rrllvm.EvalVolatileStoichCodeGen
+
+
+rrllvm.CodeGenBase <|-- rrllvm.EventCodeGenBase
+
+
+rrllvm.CodeGenBase <|-- rrllvm.GetEventValueCodeGenBase
+
+
+rrllvm.CodeGenBase <|-- rrllvm.GetInitialValueCodeGenBase
+
+
+rrllvm.CodeGenBase <|-- rrllvm.GetValueCodeGenBase
+
+
+rrllvm.CodeGenBase <|-- rrllvm.SetInitialValueCodeGenBase
+
+
+rrllvm.CodeGenBase <|-- rrllvm.SetValueCodeGenBase
+
+
+rrllvm.EventCodeGenBase <|-- rrllvm.EventAssignCodeGen
+
+
+rrllvm.EventCodeGenBase <|-- rrllvm.EventTriggerCodeGen
+
+
+rrllvm.GetEventValueCodeGenBase <|-- rrllvm.GetEventDelayCodeGen
+
+
+rrllvm.GetEventValueCodeGenBase <|-- rrllvm.GetEventPriorityCodeGen
+
+
+rrllvm.GetEventValueCodeGenBase <|-- rrllvm.GetEventTriggerCodeGen
+
+
+rrllvm.GetInitialValueCodeGenBase <|-- rrllvm.GetCompartmentInitVolumeCodeGen
+
+
+rrllvm.GetInitialValueCodeGenBase <|-- rrllvm.GetFloatingSpeciesInitAmountCodeGen
+
+
+rrllvm.GetInitialValueCodeGenBase <|-- rrllvm.GetFloatingSpeciesInitConcentrationCodeGen
+
+
+rrllvm.GetInitialValueCodeGenBase <|-- rrllvm.GetGlobalParameterInitValueCodeGen
+
+
+rrllvm.GetValueCodeGenBase <|-- rrllvm.GetBoundarySpeciesAmountCodeGen
+
+
+rrllvm.GetValueCodeGenBase <|-- rrllvm.GetBoundarySpeciesConcentrationCodeGen
+
+
+rrllvm.GetValueCodeGenBase <|-- rrllvm.GetCompartmentVolumeCodeGen
+
+
+rrllvm.GetValueCodeGenBase <|-- rrllvm.GetFloatingSpeciesAmountCodeGen
+
+
+rrllvm.GetValueCodeGenBase <|-- rrllvm.GetFloatingSpeciesConcentrationCodeGen
+
+
+rrllvm.GetValueCodeGenBase <|-- rrllvm.GetGlobalParameterCodeGen
+
+
+rrllvm.LoadSymbolResolver <|-- rrllvm.FunctionResolver
+
+
+rrllvm.LoadSymbolResolver <|-- rrllvm.KineticLawParameterResolver
+
+
+rrllvm.LoadSymbolResolver <|-- rrllvm.LoadSymbolResolverBase
+
+
+rrllvm.LoadSymbolResolverBase <|-- rrllvm.ModelDataLoadSymbolResolver
+
+
+rrllvm.LoadSymbolResolverBase <|-- rrllvm.ModelInitialValueSymbolResolver
+
+
+rrllvm.LoadSymbolResolverBase <|-- rrllvm.SBMLInitialValueSymbolResolver
+
+
+rrllvm.SetInitialValueCodeGenBase <|-- rrllvm.SetCompartmentInitVolumeCodeGen
+
+
+rrllvm.SetInitialValueCodeGenBase <|-- rrllvm.SetFloatingSpeciesInitAmountCodeGen
+
+
+rrllvm.SetInitialValueCodeGenBase <|-- rrllvm.SetFloatingSpeciesInitConcentrationCodeGen
+
+
+rrllvm.SetInitialValueCodeGenBase <|-- rrllvm.SetGlobalParameterInitValueCodeGen
+
+
+rrllvm.SetValueCodeGenBase <|-- rrllvm.SetBoundarySpeciesAmountCodeGen
+
+
+rrllvm.SetValueCodeGenBase <|-- rrllvm.SetBoundarySpeciesConcentrationCodeGen
+
+
+rrllvm.SetValueCodeGenBase <|-- rrllvm.SetCompartmentVolumeCodeGen
+
+
+rrllvm.SetValueCodeGenBase <|-- rrllvm.SetFloatingSpeciesAmountCodeGen
+
+
+rrllvm.SetValueCodeGenBase <|-- rrllvm.SetFloatingSpeciesConcentrationCodeGen
+
+
+rrllvm.SetValueCodeGenBase <|-- rrllvm.SetGlobalParameterCodeGen
+
+
+rrllvm.StoreSymbolResolver <|-- rrllvm.ModelDataStoreSymbolResolver
+
+
+rrllvm.StoreSymbolResolver <|-- rrllvm.ModelInitialValueStoreSymbolResolver
+
+
+
+
+
+/' Aggregation relationships '/
+
+rrllvm.ASTNodeCodeGen *-- rrllvm.LoadSymbolResolver
+
+
+rrllvm.ASTNodeCodeGen *-- rrllvm.ModelGeneratorContext
+
+
+rrllvm.ASTNodeCodeGenScalarTicket *-- rrllvm.ASTNodeCodeGen
+
+
+rrllvm.AssignmentRuleEvaluator *-- rrllvm.SymbolForest
+
+
+rrllvm.CodeGenBase *-- rrllvm.LLVMModelDataSymbols
+
+
+rrllvm.CodeGenBase *-- rrllvm.LLVMModelSymbols
+
+
+rrllvm.CodeGenBase *-- rrllvm.ModelGeneratorContext
+
+
+rrllvm.FunctionResolver *-- rrllvm.LoadSymbolResolver
+
+
+rrllvm.FunctionResolver *-- rrllvm.ModelGeneratorContext
+
+
+rrllvm.KineticLawParameterResolver *-- rrllvm.LoadSymbolResolver
+
+
+rrllvm.LLVMModelData o-- rrllvm.Random
+
+
+rrllvm.LLVMModelDataIRBuilderTesting *-- rrllvm.LLVMModelDataSymbols
+
+
+rrllvm.LLVMModelSymbols *-- rrllvm.ASTNodeFactory
+
+
+rrllvm.LLVMModelSymbols *-- rrllvm.LLVMModelDataSymbols
+
+
+rrllvm.LLVMModelSymbols "4" *-- rrllvm.SymbolForest
+
+
+rrllvm.LoadSymbolResolverBase *-- rrllvm.LLVMModelDataSymbols
+
+
+rrllvm.LoadSymbolResolverBase *-- rrllvm.LLVMModelSymbols
+
+
+rrllvm.LoadSymbolResolverBase *-- rrllvm.ModelGeneratorContext
+
+
+rrllvm.ModelDataIRBuilder *-- rrllvm.LLVMModelDataSymbols
+
+
+rrllvm.ModelDataStoreSymbolResolver *-- rrllvm.LLVMModelDataSymbols
+
+
+rrllvm.ModelDataStoreSymbolResolver *-- rrllvm.LLVMModelSymbols
+
+
+rrllvm.ModelDataStoreSymbolResolver *-- rrllvm.LoadSymbolResolver
+
+
+rrllvm.ModelGeneratorContext o-- rrllvm.LLVMModelDataSymbols
+
+
+rrllvm.ModelGeneratorContext o-- rrllvm.LLVMModelSymbols
+
+
+rrllvm.ModelGeneratorContext o-- rrllvm.Random
+
+
+rrllvm.ModelInitialValueStoreSymbolResolver *-- rrllvm.LLVMModelDataSymbols
+
+
+rrllvm.ModelInitialValueStoreSymbolResolver *-- rrllvm.LLVMModelSymbols
+
+
+rrllvm.ModelInitialValueStoreSymbolResolver *-- rrllvm.LoadSymbolResolver
+
+
+rrllvm.ModelResources *-- rrllvm.EvalConversionFactorCodeGen
+
+
+rrllvm.ModelResources *-- rrllvm.EvalInitialConditionsCodeGen
+
+
+rrllvm.ModelResources *-- rrllvm.EvalRateRuleRatesCodeGen
+
+
+rrllvm.ModelResources *-- rrllvm.EvalReactionRatesCodeGen
+
+
+rrllvm.ModelResources *-- rrllvm.EvalVolatileStoichCodeGen
+
+
+rrllvm.ModelResources *-- rrllvm.EventAssignCodeGen
+
+
+rrllvm.ModelResources *-- rrllvm.EventTriggerCodeGen
+
+
+rrllvm.ModelResources *-- rrllvm.GetBoundarySpeciesAmountCodeGen
+
+
+rrllvm.ModelResources *-- rrllvm.GetBoundarySpeciesConcentrationCodeGen
+
+
+rrllvm.ModelResources *-- rrllvm.GetCompartmentInitVolumeCodeGen
+
+
+rrllvm.ModelResources *-- rrllvm.GetCompartmentVolumeCodeGen
+
+
+rrllvm.ModelResources *-- rrllvm.GetEventDelayCodeGen
+
+
+rrllvm.ModelResources *-- rrllvm.GetEventPriorityCodeGen
+
+
+rrllvm.ModelResources *-- rrllvm.GetEventTriggerCodeGen
+
+
+rrllvm.ModelResources *-- rrllvm.GetFloatingSpeciesAmountCodeGen
+
+
+rrllvm.ModelResources *-- rrllvm.GetFloatingSpeciesConcentrationCodeGen
+
+
+rrllvm.ModelResources *-- rrllvm.GetFloatingSpeciesInitAmountCodeGen
+
+
+rrllvm.ModelResources *-- rrllvm.GetFloatingSpeciesInitConcentrationCodeGen
+
+
+rrllvm.ModelResources *-- rrllvm.GetGlobalParameterCodeGen
+
+
+rrllvm.ModelResources *-- rrllvm.GetGlobalParameterInitValueCodeGen
+
+
+rrllvm.ModelResources o-- rrllvm.LLVMModelDataSymbols
+
+
+rrllvm.ModelResources o-- rrllvm.Random
+
+
+rrllvm.ModelResources *-- rrllvm.SetBoundarySpeciesAmountCodeGen
+
+
+rrllvm.ModelResources *-- rrllvm.SetBoundarySpeciesConcentrationCodeGen
+
+
+rrllvm.ModelResources *-- rrllvm.SetCompartmentInitVolumeCodeGen
+
+
+rrllvm.ModelResources *-- rrllvm.SetCompartmentVolumeCodeGen
+
+
+rrllvm.ModelResources *-- rrllvm.SetFloatingSpeciesAmountCodeGen
+
+
+rrllvm.ModelResources *-- rrllvm.SetFloatingSpeciesConcentrationCodeGen
+
+
+rrllvm.ModelResources *-- rrllvm.SetFloatingSpeciesInitAmountCodeGen
+
+
+rrllvm.ModelResources *-- rrllvm.SetFloatingSpeciesInitConcentrationCodeGen
+
+
+rrllvm.ModelResources *-- rrllvm.SetGlobalParameterCodeGen
+
+
+rrllvm.ModelResources *-- rrllvm.SetGlobalParameterInitValueCodeGen
+
+
+rrllvm.RR_DECLSPECLLVMExecutableModel *-- rrllvm.EvalConversionFactorCodeGen
+
+
+rrllvm.RR_DECLSPECLLVMExecutableModel *-- rrllvm.EvalInitialConditionsCodeGen
+
+
+rrllvm.RR_DECLSPECLLVMExecutableModel *-- rrllvm.EvalRateRuleRatesCodeGen
+
+
+rrllvm.RR_DECLSPECLLVMExecutableModel *-- rrllvm.EvalReactionRatesCodeGen
+
+
+rrllvm.RR_DECLSPECLLVMExecutableModel *-- rrllvm.EvalVolatileStoichCodeGen
+
+
+rrllvm.RR_DECLSPECLLVMExecutableModel *-- rrllvm.EventAssignCodeGen
+
+
+rrllvm.RR_DECLSPECLLVMExecutableModel *-- rrllvm.EventQueue
+
+
+rrllvm.RR_DECLSPECLLVMExecutableModel *-- rrllvm.EventTriggerCodeGen
+
+
+rrllvm.RR_DECLSPECLLVMExecutableModel *-- rrllvm.GetBoundarySpeciesAmountCodeGen
+
+
+rrllvm.RR_DECLSPECLLVMExecutableModel *-- rrllvm.GetBoundarySpeciesConcentrationCodeGen
+
+
+rrllvm.RR_DECLSPECLLVMExecutableModel *-- rrllvm.GetCompartmentInitVolumeCodeGen
+
+
+rrllvm.RR_DECLSPECLLVMExecutableModel *-- rrllvm.GetCompartmentVolumeCodeGen
+
+
+rrllvm.RR_DECLSPECLLVMExecutableModel *-- rrllvm.GetEventDelayCodeGen
+
+
+rrllvm.RR_DECLSPECLLVMExecutableModel *-- rrllvm.GetEventPriorityCodeGen
+
+
+rrllvm.RR_DECLSPECLLVMExecutableModel *-- rrllvm.GetEventTriggerCodeGen
+
+
+rrllvm.RR_DECLSPECLLVMExecutableModel *-- rrllvm.GetFloatingSpeciesAmountCodeGen
+
+
+rrllvm.RR_DECLSPECLLVMExecutableModel *-- rrllvm.GetFloatingSpeciesConcentrationCodeGen
+
+
+rrllvm.RR_DECLSPECLLVMExecutableModel *-- rrllvm.GetFloatingSpeciesInitAmountCodeGen
+
+
+rrllvm.RR_DECLSPECLLVMExecutableModel *-- rrllvm.GetFloatingSpeciesInitConcentrationCodeGen
+
+
+rrllvm.RR_DECLSPECLLVMExecutableModel *-- rrllvm.GetGlobalParameterCodeGen
+
+
+rrllvm.RR_DECLSPECLLVMExecutableModel *-- rrllvm.GetGlobalParameterInitValueCodeGen
+
+
+rrllvm.RR_DECLSPECLLVMExecutableModel o-- rrllvm.LLVMModelData
+
+
+rrllvm.RR_DECLSPECLLVMExecutableModel o-- rrllvm.LLVMModelDataSymbols
+
+
+rrllvm.RR_DECLSPECLLVMExecutableModel *-- rrllvm.ModelResources
+
+
+rrllvm.RR_DECLSPECLLVMExecutableModel *-- rrllvm.SetBoundarySpeciesAmountCodeGen
+
+
+rrllvm.RR_DECLSPECLLVMExecutableModel *-- rrllvm.SetBoundarySpeciesConcentrationCodeGen
+
+
+rrllvm.RR_DECLSPECLLVMExecutableModel *-- rrllvm.SetCompartmentInitVolumeCodeGen
+
+
+rrllvm.RR_DECLSPECLLVMExecutableModel *-- rrllvm.SetCompartmentVolumeCodeGen
+
+
+rrllvm.RR_DECLSPECLLVMExecutableModel *-- rrllvm.SetFloatingSpeciesAmountCodeGen
+
+
+rrllvm.RR_DECLSPECLLVMExecutableModel *-- rrllvm.SetFloatingSpeciesConcentrationCodeGen
+
+
+rrllvm.RR_DECLSPECLLVMExecutableModel *-- rrllvm.SetFloatingSpeciesInitAmountCodeGen
+
+
+rrllvm.RR_DECLSPECLLVMExecutableModel *-- rrllvm.SetFloatingSpeciesInitConcentrationCodeGen
+
+
+rrllvm.RR_DECLSPECLLVMExecutableModel *-- rrllvm.SetGlobalParameterCodeGen
+
+
+rrllvm.RR_DECLSPECLLVMExecutableModel *-- rrllvm.SetGlobalParameterInitValueCodeGen
+
+
+
+
+
+
+/' Nested objects '/
+
+rrllvm.LLVMModelDataSymbols +-- rrllvm.LLVMModelDataSymbols::SpeciesReferenceInfo
+
+
+rrllvm.LLVMModelDataSymbols +-- rrllvm.LLVMModelDataSymbols::SpeciesReferenceType
+
+
+rrllvm.LLVMModelDataSymbols +-- rrllvm.LLVMModelDataSymbols::SymbolIndexType
+
+
+rrllvm.LLVMModelSymbols +-- rrllvm.LLVMModelSymbols::ReactionSymbols
+
+
+rrllvm.LLVMModelSymbols +-- rrllvm.LLVMModelSymbols::SpeciesReferenceType
+
+
+rrllvm.RR_DECLSPECLLVMExecutableModel +-- rrllvm.RR_DECLSPECLLVMExecutableModel::empty
+
+
+rrllvm.SymbolForest +-- rrllvm.SymbolForest::ConstIterator
+
+
+
+
+@enduml

@@ -39,7 +39,7 @@ EvalConversionFactorCodeGen::~EvalConversionFactorCodeGen()
 
 Value* EvalConversionFactorCodeGen::codeGen()
 {
-    Value *modelData = 0;
+    Value *modelData = nullptr;
 
     codeGenVoidModelDataHeader(FunctionName, modelData);
 

@@ -22,7 +22,7 @@
  <tr style="height: 56px;">
   <td id="projectalign" style="padding-left: 0.5em;">
    <div id="projectname">roadrunner
-   &#160;<span id="projectnumber">2.0.5</span>
+   &#160;<span id="projectnumber">2.0.8</span>
    </div>
    <div id="projectbrief">Fast simulator for SBML models</div>
   </td>
@@ -104,21 +104,21 @@ Public Member Functions</h2></td></tr>
 llvm::Value *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classrrllvm_1_1LoadSymbolResolverBase.html#af30e82d88abca4047e01c3cb032b16a3">loadReactionRate</a> (const libsbml::Reaction *)</td></tr>
 <tr class="memdesc:af30e82d88abca4047e01c3cb032b16a3 inherit pub_methods_classrrllvm_1_1LoadSymbolResolverBase"><td class="mdescLeft">&#160;</td><td class="mdescRight">shortcut to get a reaction rate, performance wise, quicker than going through all the loadSymbolValue types. <br /></td></tr>
 <tr class="separator:af30e82d88abca4047e01c3cb032b16a3 inherit pub_methods_classrrllvm_1_1LoadSymbolResolverBase"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a774ff517a485e464ad00de533461f2b1 inherit pub_methods_classrrllvm_1_1LoadSymbolResolverBase"><td class="memItemLeft" align="right" valign="top"><a id="a774ff517a485e464ad00de533461f2b1"></a>
-virtual void&#160;</td><td class="memItemRight" valign="bottom"><b>recursiveSymbolPush</b> (const std::string &amp;symbol)</td></tr>
-<tr class="separator:a774ff517a485e464ad00de533461f2b1 inherit pub_methods_classrrllvm_1_1LoadSymbolResolverBase"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ade0623a0a82d7594aaa50d28e95eec6b inherit pub_methods_classrrllvm_1_1LoadSymbolResolverBase"><td class="memItemLeft" align="right" valign="top"><a id="ade0623a0a82d7594aaa50d28e95eec6b"></a>
-virtual void&#160;</td><td class="memItemRight" valign="bottom"><b>recursiveSymbolPop</b> ()</td></tr>
-<tr class="separator:ade0623a0a82d7594aaa50d28e95eec6b inherit pub_methods_classrrllvm_1_1LoadSymbolResolverBase"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ac57b0b51ada7500192177fe56f783c66 inherit pub_methods_classrrllvm_1_1LoadSymbolResolverBase"><td class="memItemLeft" align="right" valign="top"><a id="ac57b0b51ada7500192177fe56f783c66"></a>
+void&#160;</td><td class="memItemRight" valign="bottom"><b>recursiveSymbolPush</b> (const std::string &amp;symbol) override</td></tr>
+<tr class="separator:ac57b0b51ada7500192177fe56f783c66 inherit pub_methods_classrrllvm_1_1LoadSymbolResolverBase"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:aa0fc1373dd80036307a6da734c44639a inherit pub_methods_classrrllvm_1_1LoadSymbolResolverBase"><td class="memItemLeft" align="right" valign="top"><a id="aa0fc1373dd80036307a6da734c44639a"></a>
+void&#160;</td><td class="memItemRight" valign="bottom"><b>recursiveSymbolPop</b> () override</td></tr>
+<tr class="separator:aa0fc1373dd80036307a6da734c44639a inherit pub_methods_classrrllvm_1_1LoadSymbolResolverBase"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:ae380d0e0ba65b430e3ce7c23be4b7829 inherit pub_methods_classrrllvm_1_1LoadSymbolResolverBase"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classrrllvm_1_1LoadSymbolResolverBase.html#ae380d0e0ba65b430e3ce7c23be4b7829">flushCache</a> ()</td></tr>
 <tr class="memdesc:ae380d0e0ba65b430e3ce7c23be4b7829 inherit pub_methods_classrrllvm_1_1LoadSymbolResolverBase"><td class="mdescLeft">&#160;</td><td class="mdescRight">Flush the symbol cache.  <a href="classrrllvm_1_1LoadSymbolResolverBase.html#ae380d0e0ba65b430e3ce7c23be4b7829">More...</a><br /></td></tr>
 <tr class="separator:ae380d0e0ba65b430e3ce7c23be4b7829 inherit pub_methods_classrrllvm_1_1LoadSymbolResolverBase"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a1c2f43e60c68b47222758a9ed2dc0bb1 inherit pub_methods_classrrllvm_1_1LoadSymbolResolverBase"><td class="memItemLeft" align="right" valign="top">virtual size_t&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classrrllvm_1_1LoadSymbolResolverBase.html#a1c2f43e60c68b47222758a9ed2dc0bb1">pushCacheBlock</a> ()</td></tr>
-<tr class="memdesc:a1c2f43e60c68b47222758a9ed2dc0bb1 inherit pub_methods_classrrllvm_1_1LoadSymbolResolverBase"><td class="mdescLeft">&#160;</td><td class="mdescRight">nested conditionals (or functions?) can push a local cache block, where symbols would be chached.  <a href="classrrllvm_1_1LoadSymbolResolverBase.html#a1c2f43e60c68b47222758a9ed2dc0bb1">More...</a><br /></td></tr>
-<tr class="separator:a1c2f43e60c68b47222758a9ed2dc0bb1 inherit pub_methods_classrrllvm_1_1LoadSymbolResolverBase"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ada819479484b73cc11daa4a22beb0406 inherit pub_methods_classrrllvm_1_1LoadSymbolResolverBase"><td class="memItemLeft" align="right" valign="top">virtual size_t&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classrrllvm_1_1LoadSymbolResolverBase.html#ada819479484b73cc11daa4a22beb0406">popCacheBlock</a> ()</td></tr>
-<tr class="memdesc:ada819479484b73cc11daa4a22beb0406 inherit pub_methods_classrrllvm_1_1LoadSymbolResolverBase"><td class="mdescLeft">&#160;</td><td class="mdescRight">Pop a scoped cache block, this clears these values, and any subsequent reads re-evaluate the requested symbol.  <a href="classrrllvm_1_1LoadSymbolResolverBase.html#ada819479484b73cc11daa4a22beb0406">More...</a><br /></td></tr>
-<tr class="separator:ada819479484b73cc11daa4a22beb0406 inherit pub_methods_classrrllvm_1_1LoadSymbolResolverBase"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a7e60c19319e7c69ce40893709590c5b6 inherit pub_methods_classrrllvm_1_1LoadSymbolResolverBase"><td class="memItemLeft" align="right" valign="top">size_t&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classrrllvm_1_1LoadSymbolResolverBase.html#a7e60c19319e7c69ce40893709590c5b6">pushCacheBlock</a> () override</td></tr>
+<tr class="memdesc:a7e60c19319e7c69ce40893709590c5b6 inherit pub_methods_classrrllvm_1_1LoadSymbolResolverBase"><td class="mdescLeft">&#160;</td><td class="mdescRight">nested conditionals (or functions?) can push a local cache block, where symbols would be chached.  <a href="classrrllvm_1_1LoadSymbolResolverBase.html#a7e60c19319e7c69ce40893709590c5b6">More...</a><br /></td></tr>
+<tr class="separator:a7e60c19319e7c69ce40893709590c5b6 inherit pub_methods_classrrllvm_1_1LoadSymbolResolverBase"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:af789e2e8265aa79b6452f521df9f234e inherit pub_methods_classrrllvm_1_1LoadSymbolResolverBase"><td class="memItemLeft" align="right" valign="top">size_t&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classrrllvm_1_1LoadSymbolResolverBase.html#af789e2e8265aa79b6452f521df9f234e">popCacheBlock</a> () override</td></tr>
+<tr class="memdesc:af789e2e8265aa79b6452f521df9f234e inherit pub_methods_classrrllvm_1_1LoadSymbolResolverBase"><td class="mdescLeft">&#160;</td><td class="mdescRight">Pop a scoped cache block, this clears these values, and any subsequent reads re-evaluate the requested symbol.  <a href="classrrllvm_1_1LoadSymbolResolverBase.html#af789e2e8265aa79b6452f521df9f234e">More...</a><br /></td></tr>
+<tr class="separator:af789e2e8265aa79b6452f521df9f234e inherit pub_methods_classrrllvm_1_1LoadSymbolResolverBase"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="inherited"></a>
 Additional Inherited Members</h2></td></tr>
@@ -126,9 +126,9 @@ Additional Inherited Members</h2></td></tr>
 <tr class="memitem:ab53501070e5a3b0e35a00f3ab7a63f28 inherit pro_types_classrrllvm_1_1LoadSymbolResolverBase"><td class="memItemLeft" align="right" valign="top"><a id="ab53501070e5a3b0e35a00f3ab7a63f28"></a>
 typedef std::list&lt; std::string &gt;&#160;</td><td class="memItemRight" valign="bottom"><b>StringStack</b></td></tr>
 <tr class="separator:ab53501070e5a3b0e35a00f3ab7a63f28 inherit pro_types_classrrllvm_1_1LoadSymbolResolverBase"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a52e2ad673c48da0d98cc5e9715d62161 inherit pro_types_classrrllvm_1_1LoadSymbolResolverBase"><td class="memItemLeft" align="right" valign="top"><a id="a52e2ad673c48da0d98cc5e9715d62161"></a>
-typedef cxx11_ns::unordered_map&lt; std::string, llvm::Value * &gt;&#160;</td><td class="memItemRight" valign="bottom"><b>ValueMap</b></td></tr>
-<tr class="separator:a52e2ad673c48da0d98cc5e9715d62161 inherit pro_types_classrrllvm_1_1LoadSymbolResolverBase"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a169ccff7cb957415eac9221690bc026f inherit pro_types_classrrllvm_1_1LoadSymbolResolverBase"><td class="memItemLeft" align="right" valign="top"><a id="a169ccff7cb957415eac9221690bc026f"></a>
+typedef std::unordered_map&lt; std::string, llvm::Value * &gt;&#160;</td><td class="memItemRight" valign="bottom"><b>ValueMap</b></td></tr>
+<tr class="separator:a169ccff7cb957415eac9221690bc026f inherit pro_types_classrrllvm_1_1LoadSymbolResolverBase"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:aefd7a10503a570504ee99aba37875b36 inherit pro_types_classrrllvm_1_1LoadSymbolResolverBase"><td class="memItemLeft" align="right" valign="top"><a id="aefd7a10503a570504ee99aba37875b36"></a>
 typedef std::deque&lt; ValueMap &gt;&#160;</td><td class="memItemRight" valign="bottom"><b>ValueMapStack</b></td></tr>
 <tr class="separator:aefd7a10503a570504ee99aba37875b36 inherit pro_types_classrrllvm_1_1LoadSymbolResolverBase"><td class="memSeparator" colspan="2">&#160;</td></tr>
@@ -136,9 +136,9 @@ typedef std::deque&lt; ValueMap &gt;&#160;</td><td class="memItemRight" valign="
 <tr class="memitem:a74b4695465d18b3f22597055b8a55ad0 inherit pro_methods_classrrllvm_1_1LoadSymbolResolverBase"><td class="memItemLeft" align="right" valign="top"><a id="a74b4695465d18b3f22597055b8a55ad0"></a>
 &#160;</td><td class="memItemRight" valign="bottom"><b>LoadSymbolResolverBase</b> (const <a class="el" href="classrrllvm_1_1ModelGeneratorContext.html">ModelGeneratorContext</a> &amp;ctx, llvm::Value *modelData)</td></tr>
 <tr class="separator:a74b4695465d18b3f22597055b8a55ad0 inherit pro_methods_classrrllvm_1_1LoadSymbolResolverBase"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:afbdc447a23b2902815eb8e9afb497658 inherit pro_methods_classrrllvm_1_1LoadSymbolResolverBase"><td class="memItemLeft" align="right" valign="top">llvm::Value *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classrrllvm_1_1LoadSymbolResolverBase.html#afbdc447a23b2902815eb8e9afb497658">cacheValue</a> (const std::string &amp;symbol, const llvm::ArrayRef&lt; llvm::Value * &gt; &amp;args, llvm::Value *value=NULL)</td></tr>
-<tr class="memdesc:afbdc447a23b2902815eb8e9afb497658 inherit pro_methods_classrrllvm_1_1LoadSymbolResolverBase"><td class="mdescLeft">&#160;</td><td class="mdescRight">check in the symbol cache if the symbol exists, if so return it.  <a href="classrrllvm_1_1LoadSymbolResolverBase.html#afbdc447a23b2902815eb8e9afb497658">More...</a><br /></td></tr>
-<tr class="separator:afbdc447a23b2902815eb8e9afb497658 inherit pro_methods_classrrllvm_1_1LoadSymbolResolverBase"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a12fc46aecb84cdf679fbeeac7da5e3f5 inherit pro_methods_classrrllvm_1_1LoadSymbolResolverBase"><td class="memItemLeft" align="right" valign="top">llvm::Value *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classrrllvm_1_1LoadSymbolResolverBase.html#a12fc46aecb84cdf679fbeeac7da5e3f5">cacheValue</a> (const std::string &amp;symbol, const llvm::ArrayRef&lt; llvm::Value * &gt; &amp;args, llvm::Value *value=nullptr)</td></tr>
+<tr class="memdesc:a12fc46aecb84cdf679fbeeac7da5e3f5 inherit pro_methods_classrrllvm_1_1LoadSymbolResolverBase"><td class="mdescLeft">&#160;</td><td class="mdescRight">check in the symbol cache if the symbol exists, if so return it.  <a href="classrrllvm_1_1LoadSymbolResolverBase.html#a12fc46aecb84cdf679fbeeac7da5e3f5">More...</a><br /></td></tr>
+<tr class="separator:a12fc46aecb84cdf679fbeeac7da5e3f5 inherit pro_methods_classrrllvm_1_1LoadSymbolResolverBase"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="inherit_header pro_attribs_classrrllvm_1_1LoadSymbolResolverBase"><td colspan="2" onclick="javascript:toggleInherit('pro_attribs_classrrllvm_1_1LoadSymbolResolverBase')"><img src="closed.png" alt="-"/>&#160;Protected Attributes inherited from <a class="el" href="classrrllvm_1_1LoadSymbolResolverBase.html">rrllvm::LoadSymbolResolverBase</a></td></tr>
 <tr class="memitem:ae13b023d912ca6f0d282a89a10ce3f44 inherit pro_attribs_classrrllvm_1_1LoadSymbolResolverBase"><td class="memItemLeft" align="right" valign="top"><a id="ae13b023d912ca6f0d282a89a10ce3f44"></a>
 const <a class="el" href="classrrllvm_1_1ModelGeneratorContext.html">ModelGeneratorContext</a> &amp;&#160;</td><td class="memItemRight" valign="bottom"><b>modelGenContext</b></td></tr>

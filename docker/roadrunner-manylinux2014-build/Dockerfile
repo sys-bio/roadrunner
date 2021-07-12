@@ -5,6 +5,16 @@
 #
 # This dockerfile installs roadrunner dependencies and llvm package
 # But does not build roadrunner, which is the subject of another dockerfile
+#
+# When looking for bugs in the many linux build:
+#   1) Ensure you have the docker dependencies image:
+#       - docker pull ciaranwelsh/roadrunner-manylinux2014-base:latest
+#   2) Change git branch to the one you want to build (the one where your tests are failing):
+#       - RUN cd $roadrunnerSource && git pull && git checkout expand-unittests
+#   3) Run docker build . inside the "docker/roadrunner-manylinux2014-build" folder
+#
+
+
 
 FROM ciaranwelsh/roadrunner-manylinux2014-base
 
@@ -36,7 +46,7 @@ RUN yum install -y ncurses-devel
 RUN pwd
 RUN git clone https://github.com/sys-bio/roadrunner.git $roadrunnerSource
 
-RUN cd $roadrunnerSource && git pull && git checkout set-cxx17-default
+RUN cd $roadrunnerSource && git pull && git checkout expand-unittests
 
 ## build against python 3.7
 RUN $conda init && . $bashrc && conda activate py37 && cd $roadrunnerSource \

@@ -22,7 +22,7 @@
  <tr style="height: 56px;">
   <td id="projectalign" style="padding-left: 0.5em;">
    <div id="projectname">roadrunner
-   &#160;<span id="projectnumber">2.0.5</span>
+   &#160;<span id="projectnumber">2.0.8</span>
    </div>
    <div id="projectbrief">Fast simulator for SBML models</div>
   </td>
@@ -172,7 +172,7 @@ Public Types</h2></td></tr>
 Static Public Member Functions</h2></td></tr>
 <tr class="memitem:a0370467d1593491eac5e443ce0c03224"><td class="memItemLeft" align="right" valign="top"><a id="a0370467d1593491eac5e443ce0c03224"></a>
 static std::string&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classrr_1_1Config.html#a0370467d1593491eac5e443ce0c03224">getString</a> (<a class="el" href="classrr_1_1Config.html#aed7c550b9e34222675cd152c9154d053">Keys</a>)</td></tr>
-<tr class="memdesc:a0370467d1593491eac5e443ce0c03224"><td class="mdescLeft">&#160;</td><td class="mdescRight">read the config value as a string. <br /></td></tr>
+<tr class="memdesc:a0370467d1593491eac5e443ce0c03224"><td class="mdescLeft">&#160;</td><td class="mdescRight">read the config value as a std::string. <br /></td></tr>
 <tr class="separator:a0370467d1593491eac5e443ce0c03224"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a66454fca7b7357d5b3180d8589bacebf"><td class="memItemLeft" align="right" valign="top"><a id="a66454fca7b7357d5b3180d8589bacebf"></a>
 static int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classrr_1_1Config.html#a66454fca7b7357d5b3180d8589bacebf">getInt</a> (<a class="el" href="classrr_1_1Config.html#aed7c550b9e34222675cd152c9154d053">Keys</a>)</td></tr>
@@ -188,12 +188,12 @@ static double&#160;</td><td class="memItemRight" valign="bottom"><a class="el" h
 <tr class="memitem:a4ee7359b58047946520f3f3a9c6de04c"><td class="memItemLeft" align="right" valign="top">static std::string&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classrr_1_1Config.html#a4ee7359b58047946520f3f3a9c6de04c">getConfigFilePath</a> ()</td></tr>
 <tr class="memdesc:a4ee7359b58047946520f3f3a9c6de04c"><td class="mdescLeft">&#160;</td><td class="mdescRight">If a config file was found in one of the above locations, its full path is returned here.  <a href="classrr_1_1Config.html#a4ee7359b58047946520f3f3a9c6de04c">More...</a><br /></td></tr>
 <tr class="separator:a4ee7359b58047946520f3f3a9c6de04c"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a3d5bdb8ee4fad8a88bac365328f510fc"><td class="memItemLeft" align="right" valign="top">static void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classrr_1_1Config.html#a3d5bdb8ee4fad8a88bac365328f510fc">setValue</a> (<a class="el" href="classrr_1_1Config.html#aed7c550b9e34222675cd152c9154d053">Keys</a>, const <a class="el" href="classrr_1_1Variant.html">Variant</a> &amp;value)</td></tr>
-<tr class="memdesc:a3d5bdb8ee4fad8a88bac365328f510fc"><td class="mdescLeft">&#160;</td><td class="mdescRight">set the value of a config key.  <a href="classrr_1_1Config.html#a3d5bdb8ee4fad8a88bac365328f510fc">More...</a><br /></td></tr>
-<tr class="separator:a3d5bdb8ee4fad8a88bac365328f510fc"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:aa31df27110cab08f134c8e7570d90746"><td class="memItemLeft" align="right" valign="top"><a id="aa31df27110cab08f134c8e7570d90746"></a>
-static const <a class="el" href="classrr_1_1Variant.html">Variant</a> &amp;&#160;</td><td class="memItemRight" valign="bottom"><b>getValue</b> (<a class="el" href="classrr_1_1Config.html#aed7c550b9e34222675cd152c9154d053">Keys</a>)</td></tr>
-<tr class="separator:aa31df27110cab08f134c8e7570d90746"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:af31cc9c1ef79cd00c6099930bd2aae9c"><td class="memItemLeft" align="right" valign="top">static void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classrr_1_1Config.html#af31cc9c1ef79cd00c6099930bd2aae9c">setValue</a> (<a class="el" href="classrr_1_1Config.html#aed7c550b9e34222675cd152c9154d053">Keys</a>, <a class="el" href="classrr_1_1Setting.html">Setting</a> value)</td></tr>
+<tr class="memdesc:af31cc9c1ef79cd00c6099930bd2aae9c"><td class="mdescLeft">&#160;</td><td class="mdescRight">set the value of a config key.  <a href="classrr_1_1Config.html#af31cc9c1ef79cd00c6099930bd2aae9c">More...</a><br /></td></tr>
+<tr class="separator:af31cc9c1ef79cd00c6099930bd2aae9c"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a1acfbc8a6af061e54e4c6b2890ce4a88"><td class="memItemLeft" align="right" valign="top"><a id="a1acfbc8a6af061e54e4c6b2890ce4a88"></a>
+static <a class="el" href="classrr_1_1Setting.html">Setting</a>&#160;</td><td class="memItemRight" valign="bottom"><b>getValue</b> (<a class="el" href="classrr_1_1Config.html#aed7c550b9e34222675cd152c9154d053">Keys</a>)</td></tr>
+<tr class="separator:a1acfbc8a6af061e54e4c6b2890ce4a88"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:ab5bc77a68b26edb749fb2a14336f4fd5"><td class="memItemLeft" align="right" valign="top"><a id="ab5bc77a68b26edb749fb2a14336f4fd5"></a>
 static void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classrr_1_1Config.html#ab5bc77a68b26edb749fb2a14336f4fd5">readConfigFile</a> (const std::string &amp;path)</td></tr>
 <tr class="memdesc:ab5bc77a68b26edb749fb2a14336f4fd5"><td class="mdescLeft">&#160;</td><td class="mdescRight">Read all of the values stored in a configuration file and set all the keys to these values. <br /></td></tr>
@@ -204,13 +204,13 @@ static void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" hre
 <tr class="memitem:a947d20afae74fba1c1725c8fb2c71eba"><td class="memItemLeft" align="right" valign="top"><a id="a947d20afae74fba1c1725c8fb2c71eba"></a>
 static <a class="el" href="classrr_1_1Config.html#aed7c550b9e34222675cd152c9154d053">Keys</a>&#160;</td><td class="memItemRight" valign="bottom"><b>stringToKey</b> (const std::string &amp;key)</td></tr>
 <tr class="separator:a947d20afae74fba1c1725c8fb2c71eba"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:abc159273f423c010242f1cf07f588f78"><td class="memItemLeft" align="right" valign="top"><a id="abc159273f423c010242f1cf07f588f78"></a>
+<tr class="memitem:a20e11f7bdb81efbd1e84011801b4a526"><td class="memItemLeft" align="right" valign="top"><a id="a20e11f7bdb81efbd1e84011801b4a526"></a>
 static std::vector&lt; std::string &gt;&#160;</td><td class="memItemRight" valign="bottom"><b>getKeyList</b> ()</td></tr>
-<tr class="separator:abc159273f423c010242f1cf07f588f78"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="separator:a20e11f7bdb81efbd1e84011801b4a526"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
 <div class="textblock"><p>read or store default values. </p>
-<p>Many of <a class="el" href="classrr_1_1RoadRunner.html" title="The main RoadRunner class.">RoadRunner</a> classes use a number of configration parameters. Most of these can be set using the <a class="el" href="classrr_1_1Config.html" title="read or store default values.">Config</a> class. The values stored in the <a class="el" href="classrr_1_1Config.html" title="read or store default values.">Config</a> class only determine the defaut values of parameters.</p>
+<p>Many of <a class="el" href="classrr_1_1RoadRunner.html" title="The main RoadRunner class.">RoadRunner</a> classes use a number of configuration parameters. Most of these can be set using the <a class="el" href="classrr_1_1Config.html" title="read or store default values.">Config</a> class. The values stored in the <a class="el" href="classrr_1_1Config.html" title="read or store default values.">Config</a> class only determine the default values of parameters.</p>
 <p>The <a class="el" href="classrr_1_1Config.html" title="read or store default values.">Config</a> class will look in the following locations for the config file, and will load the values from the first config file it finds. If it does not find a config file in one of the following locations, a default set of configuration parameters are used. The search locations of the config file are:</p>
 <p>#1: the ROADRUNNER_CONFIG environment variable</p>
 <p>#2: try the user's home directory for roadrunner.conf, i.e.:</p>
@@ -221,7 +221,7 @@ static std::vector&lt; std::string &gt;&#160;</td><td class="memItemRight" valig
 <p>/Users/andy/local/lib/roadrunner.conf</p>
 <p>#5: try one directory up from the where the shared library or program is at, i.e.:</p>
 <p>/Users/andy/local/roadrunner.conf</p>
-<p>The conf file is just a plain text file of where each line may be key / value pair separated by a :", i.e.</p>
+<p>The conf file is just a plain text file of where each line may be key / value std::pair separated by a :", i.e.</p>
 <p>KEY_NAME : Value Any line that does not match this format is ignored, and keys that are not found are also ignored. Therefore, any line that does not start w* ith a word character is considered a comment.</p>
 <p>All of the configuration managment functions are static method of the <a class="el" href="classrr_1_1Config.html" title="read or store default values.">Config</a> class, and all of the configuration keys are static attributes * of the <a class="el" href="classrr_1_1Config.html" title="read or store default values.">Config</a> class, these are documented in the Configuration Functions section.</p>
 <p>As all of the <a class="el" href="classrr_1_1Config.html" title="read or store default values.">Config</a> class methods are static, one never instantiates the <a class="el" href="classrr_1_1Config.html" title="read or store default values.">Config</a> class. </p>
@@ -292,7 +292,7 @@ static std::vector&lt; std::string &gt;&#160;</td><td class="memItemRight" valig
 </td></tr>
 <tr><td class="fieldname"><a id="aed7c550b9e34222675cd152c9154d053a50309d6c373f32953b6956760f800e23"></a>SIMULATEOPTIONS_STOCHASTIC_VARIABLE_STEP&#160;</td><td class="fielddoc"><p>Do variable time step integration when using stochastic integrators. </p>
 </td></tr>
-<tr><td class="fieldname"><a id="aed7c550b9e34222675cd152c9154d053af04f063962a4036311b2e11f07519c7c"></a>SIMULATEOPTIONS_INTEGRATOR&#160;</td><td class="fielddoc"><p>Default integrator to use, currently supports a string of "CVODE" or "Gillespie", default is "CVODE". </p>
+<tr><td class="fieldname"><a id="aed7c550b9e34222675cd152c9154d053af04f063962a4036311b2e11f07519c7c"></a>SIMULATEOPTIONS_INTEGRATOR&#160;</td><td class="fielddoc"><p>Default integrator to use, currently supports a std::string of "CVODE" or "Gillespie", default is "CVODE". </p>
 </td></tr>
 <tr><td class="fieldname"><a id="aed7c550b9e34222675cd152c9154d053a0d32622a3edeabd8cb3b36a310a073e7"></a>SIMULATEOPTIONS_INITIAL_TIMESTEP&#160;</td><td class="fielddoc"><p>A user specified initial time step. </p>
 <p>If this is &lt;= 0, the integrator will attempt to determine a safe initial time stpe.</p>
@@ -309,7 +309,7 @@ static std::vector&lt; std::string &gt;&#160;</td><td class="memItemRight" valig
 </td></tr>
 <tr><td class="fieldname"><a id="aed7c550b9e34222675cd152c9154d053a2ac32a86236319b70d5078dddd44f23b"></a>ROADRUNNER_DISABLE_WARNINGS&#160;</td><td class="fielddoc"><p>Disable SBML conserved moiety warnings. </p>
 <p>this disables warnings based on the following bitfields:</p>
-<p>ROADRUNNER_DISABLE_WARNINGS_STEADYSTATE: disable the warning in <a class="el" href="classrr_1_1RoadRunner.html#a6dca346fbb6e59eb73b0a16212df8165" title="Compute the steady state of the model, returns the sum of squares of the solution.">RoadRunner::steadyState</a> about possible singular jacobian.</p>
+<p>ROADRUNNER_DISABLE_WARNINGS_STEADYSTATE: disable the warning in <a class="el" href="classrr_1_1RoadRunner.html#af310e01ec241bc2b19a46629087024d0" title="Compute the steady state of the model, returns the sum of squares of the solution.">RoadRunner::steadyState</a> about possible singular jacobian.</p>
 <p>ROADRUNNER_DISABLE_WARNINGS_CONSERVED_MOIETY: disable the conserved moieties warning if enabled when loading a sbml document. </p>
 </td></tr>
 <tr><td class="fieldname"><a id="aed7c550b9e34222675cd152c9154d053ae4eee9ff55c8ff33111fd63dd4427d18"></a>ROADRUNNER_DISABLE_PYTHON_DYNAMIC_PROPERTIES&#160;</td><td class="fielddoc"><p><a class="el" href="classrr_1_1RoadRunner.html" title="The main RoadRunner class.">RoadRunner</a> by default dynamically generates accessor properties for all sbml symbol names on the model object when it is retrieved in Python. </p>
@@ -423,12 +423,12 @@ static std::vector&lt; std::string &gt;&#160;</td><td class="memItemRight" valig
 </div><div class="memdoc">
 
 <p>If a config file was found in one of the above locations, its full path is returned here. </p>
-<p>Otherwise, if no file was found, an empty string is returned. </p>
+<p>Otherwise, if no file was found, an empty std::string is returned. </p>
 
 </div>
 </div>
-<a id="a3d5bdb8ee4fad8a88bac365328f510fc"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a3d5bdb8ee4fad8a88bac365328f510fc">&#9670;&nbsp;</a></span>setValue()</h2>
+<a id="af31cc9c1ef79cd00c6099930bd2aae9c"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#af31cc9c1ef79cd00c6099930bd2aae9c">&#9670;&nbsp;</a></span>setValue()</h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -445,7 +445,7 @@ static std::vector&lt; std::string &gt;&#160;</td><td class="memItemRight" valig
         <tr>
           <td class="paramkey"></td>
           <td></td>
-          <td class="paramtype">const <a class="el" href="classrr_1_1Variant.html">Variant</a> &amp;&#160;</td>
+          <td class="paramtype"><a class="el" href="classrr_1_1Setting.html">Setting</a>&#160;</td>
           <td class="paramname"><em>value</em>&#160;</td>
         </tr>
         <tr>

@@ -140,7 +140,7 @@ virtual void \mbox{\hyperlink{classrr_1_1ExecutableModel_a172aeacd0685bcce8153ae
 virtual int \mbox{\hyperlink{classrr_1_1ExecutableModel_a200b81cd9a7f1f9a6b3af6a35fcc4c63}{get\+Supported\+Id\+Types}} ()=0
 \begin{DoxyCompactList}\small\item\em returns a bit field of the ids that this class supports. \end{DoxyCompactList}\item 
 virtual double \mbox{\hyperlink{classrr_1_1ExecutableModel_aebaced13ef2afd070d7a1c35eec8d9f2}{get\+Value}} (const std\+::string \&id)=0
-\begin{DoxyCompactList}\small\item\em gets the value for the given id string. \end{DoxyCompactList}\item 
+\begin{DoxyCompactList}\small\item\em gets the value for the given id std\+::string. \end{DoxyCompactList}\item 
 \mbox{\Hypertarget{classrr_1_1ExecutableModel_ac98de72b8f4f43bc6b93b191852702b5}\label{classrr_1_1ExecutableModel_ac98de72b8f4f43bc6b93b191852702b5}} 
 virtual void \mbox{\hyperlink{classrr_1_1ExecutableModel_ac98de72b8f4f43bc6b93b191852702b5}{set\+Value}} (const std\+::string \&id, double value)=0
 \begin{DoxyCompactList}\small\item\em sets the value coresponding to the given selection stringl \end{DoxyCompactList}\item 
@@ -166,7 +166,7 @@ virtual int {\bfseries set\+Conserved\+Moiety\+Values} (size\+\_\+t len, int con
 \mbox{\Hypertarget{classrr_1_1ExecutableModel_aa6ccf1c5b3b8817c7ce291a933bcaab7}\label{classrr_1_1ExecutableModel_aa6ccf1c5b3b8817c7ce291a933bcaab7}} 
 virtual int {\bfseries get\+Num\+Rate\+Rules} ()=0
 \item 
-virtual std\+::vector$<$ std\+::string $>$ \mbox{\hyperlink{classrr_1_1ExecutableModel_ab045cbd84ce98fb9dff8ff250fdb131c}{get\+Rate\+Rule\+Symbols}} () const
+virtual std\+::vector$<$ std\+::string $>$ \mbox{\hyperlink{classrr_1_1ExecutableModel_aa1d89fd7d5690de7add613f5ce75b631}{get\+Rate\+Rule\+Symbols}} () const =0
 \begin{DoxyCompactList}\small\item\em Gets the symbols defined by rate rules, i.\+e. returns all x such that x\textquotesingle{} = f(x) is a rule which defines parameter x. \end{DoxyCompactList}\item 
 \mbox{\Hypertarget{classrr_1_1ExecutableModel_acb056a72125190c2abe39dba9c3600f1}\label{classrr_1_1ExecutableModel_acb056a72125190c2abe39dba9c3600f1}} 
 virtual int \mbox{\hyperlink{classrr_1_1ExecutableModel_acb056a72125190c2abe39dba9c3600f1}{get\+Num\+Reactions}} ()=0
@@ -177,18 +177,18 @@ virtual int \mbox{\hyperlink{classrr_1_1ExecutableModel_a86fe96598b06cee5ca9a28d
 virtual std\+::string \mbox{\hyperlink{classrr_1_1ExecutableModel_aeb911dc90408981370c78149680d9027}{get\+Reaction\+Id}} (size\+\_\+t index)=0
 \begin{DoxyCompactList}\small\item\em get the name of the specified reaction \end{DoxyCompactList}\item 
 virtual int \mbox{\hyperlink{classrr_1_1ExecutableModel_a37c53cc370ff236657272f5596fd27ff}{get\+Reaction\+Rates}} (size\+\_\+t len, int const $\ast$indx, double $\ast$values)=0
-\begin{DoxyCompactList}\small\item\em get the vector of reaction rates. \end{DoxyCompactList}\item 
+\begin{DoxyCompactList}\small\item\em get the std\+::vector of reaction rates. \end{DoxyCompactList}\item 
 virtual void \mbox{\hyperlink{classrr_1_1ExecutableModel_a8372872ec5858e91adc81080ad763c84}{get\+Rate\+Rule\+Values}} (double $\ast$rate\+Rule\+Values)=0
 \begin{DoxyCompactList}\small\item\em get the \textquotesingle{}values\textquotesingle{} i.\+e. \end{DoxyCompactList}\item 
 \mbox{\Hypertarget{classrr_1_1ExecutableModel_ac6c245edd9ecea5feea84cff15db7b26}\label{classrr_1_1ExecutableModel_ac6c245edd9ecea5feea84cff15db7b26}} 
 virtual std\+::string \mbox{\hyperlink{classrr_1_1ExecutableModel_ac6c245edd9ecea5feea84cff15db7b26}{get\+State\+Vector\+Id}} (size\+\_\+t index)=0
-\begin{DoxyCompactList}\small\item\em get the id of an element of the state vector. \end{DoxyCompactList}\item 
+\begin{DoxyCompactList}\small\item\em get the id of an element of the state std\+::vector. \end{DoxyCompactList}\item 
 virtual int \mbox{\hyperlink{classrr_1_1ExecutableModel_a75b6f37ac538d2d2a0709fe4080b0570}{get\+State\+Vector}} (double $\ast$state\+Vector)=0
-\begin{DoxyCompactList}\small\item\em The state vector is a vector of elements that are defined by differential equations (rate rules) or independent floating species are defined by reactions. \end{DoxyCompactList}\item 
+\begin{DoxyCompactList}\small\item\em The state std\+::vector is a std\+::vector of elements that are defined by differential equations (rate rules) or independent floating species are defined by reactions. \end{DoxyCompactList}\item 
 virtual int \mbox{\hyperlink{classrr_1_1ExecutableModel_a57a67063c957714b916d4a3d4277c3b9}{set\+State\+Vector}} (const double $\ast$state\+Vector)=0
-\begin{DoxyCompactList}\small\item\em sets the internal model state to the provided packed state vector. \end{DoxyCompactList}\item 
+\begin{DoxyCompactList}\small\item\em sets the internal model state to the provided packed state std\+::vector. \end{DoxyCompactList}\item 
 virtual void \mbox{\hyperlink{classrr_1_1ExecutableModel_a0495c2ece9edad29d61849b2443d4274}{get\+State\+Vector\+Rate}} (double time, const double $\ast$y, double $\ast$dydt=0)=0
-\begin{DoxyCompactList}\small\item\em the state vector y is the rate rule values and floating species concentrations concatenated. \end{DoxyCompactList}\item 
+\begin{DoxyCompactList}\small\item\em the state std\+::vector y is the rate rule values and floating species concentrations concatenated. \end{DoxyCompactList}\item 
 \mbox{\Hypertarget{classrr_1_1ExecutableModel_abe4be4ec2e96aaf0a256776dff3cc9a9}\label{classrr_1_1ExecutableModel_abe4be4ec2e96aaf0a256776dff3cc9a9}} 
 virtual void {\bfseries test\+Constraints} ()=0
 \item 
@@ -233,7 +233,7 @@ virtual void {\bfseries set\+Event\+Listener} (size\+\_\+t index, \mbox{\hyperli
 virtual \mbox{\hyperlink{rrExecutableModel_8h_af42654ad469e89c71909fbbff90b3c07}{Event\+Listener\+Ptr}} {\bfseries get\+Event\+Listener} (size\+\_\+t index)=0
 \item 
 virtual double \mbox{\hyperlink{classrr_1_1ExecutableModel_a460387891972dfb029d5fdd6134c10eb}{get\+Floating\+Species\+Amount\+Rate}} (size\+\_\+t index, const double $\ast$reaction\+Rates)=0
-\begin{DoxyCompactList}\small\item\em Get the amount rate of change for the i\textquotesingle{}th floating species given a reaction rates vector. \end{DoxyCompactList}\item 
+\begin{DoxyCompactList}\small\item\em Get the amount rate of change for the i\textquotesingle{}th floating species given a reaction rates std\+::vector. \end{DoxyCompactList}\item 
 \mbox{\Hypertarget{classrr_1_1ExecutableModel_ac87e7f485678d07d7567398dea63c512}\label{classrr_1_1ExecutableModel_ac87e7f485678d07d7567398dea63c512}} 
 virtual void \mbox{\hyperlink{classrr_1_1ExecutableModel_ac87e7f485678d07d7567398dea63c512}{reset}} (int options)=0
 \begin{DoxyCompactList}\small\item\em reset the model accordign to a bitfield specified by the \mbox{\hyperlink{classrr_1_1SelectionRecord_a898963ab24a6ba614913715c981d8394}{Selection\+Record\+::\+Selection\+Type}} values. \end{DoxyCompactList}\item 
@@ -277,7 +277,7 @@ The \mbox{\hyperlink{classrr_1_1ExecutableModel}{Executable\+Model}} interface p
 
 An \mbox{\hyperlink{classrr_1_1ExecutableModel}{Executable\+Model}} holds a Model\+Data structure, all the simulation values are stored in the Model\+Data struct, i.\+e. the dynamic state of the model is fully contained in the Model\+Data structure.
 
-An \mbox{\hyperlink{classrr_1_1ExecutableModel}{Executable\+Model}} shoud also contain all of the initial condisions, rules, functions and whatever other semantic information that was specified in the sbml model. 
+An \mbox{\hyperlink{classrr_1_1ExecutableModel}{Executable\+Model}} should also contain all of the initial conditions, rules, functions and whatever other semantic information that was specified in the sbml model. 
 
 \doxysubsection{Member Enumeration Documentation}
 \mbox{\Hypertarget{classrr_1_1ExecutableModel_a0503ffbf5c6c971cf545d7570ec0404c}\label{classrr_1_1ExecutableModel_a0503ffbf5c6c971cf545d7570ec0404c}} 
@@ -288,7 +288,7 @@ An \mbox{\hyperlink{classrr_1_1ExecutableModel}{Executable\+Model}} shoud also c
 
 \begin{DoxyEnumFields}{Enumerator}
 \raisebox{\heightof{T}}[0pt][0pt]{\index{INTEGRATION@{INTEGRATION}!rr::ExecutableModel@{rr::ExecutableModel}}\index{rr::ExecutableModel@{rr::ExecutableModel}!INTEGRATION@{INTEGRATION}}}\mbox{\Hypertarget{classrr_1_1ExecutableModel_a0503ffbf5c6c971cf545d7570ec0404ca389fbe7a44e9cb64d2e16415cd08554f}\label{classrr_1_1ExecutableModel_a0503ffbf5c6c971cf545d7570ec0404ca389fbe7a44e9cb64d2e16415cd08554f}} 
-I\+N\+T\+E\+G\+R\+A\+T\+I\+ON&A simulation is currently running. This means that the model should not have to re-\/calculate the reaction rate vector as it was calculated in the previous integration step. \\
+I\+N\+T\+E\+G\+R\+A\+T\+I\+ON&A simulation is currently running. This means that the model should not have to re-\/calculate the reaction rate std\+::vector as it was calculated in the previous integration step. \\
 \hline
 
 \raisebox{\heightof{T}}[0pt][0pt]{\index{OPTIMIZE\_REACTION\_RATE\_SELECTION@{OPTIMIZE\_REACTION\_RATE\_SELECTION}!rr::ExecutableModel@{rr::ExecutableModel}}\index{rr::ExecutableModel@{rr::ExecutableModel}!OPTIMIZE\_REACTION\_RATE\_SELECTION@{OPTIMIZE\_REACTION\_RATE\_SELECTION}}}\mbox{\Hypertarget{classrr_1_1ExecutableModel_a0503ffbf5c6c971cf545d7570ec0404ca3a399e67ea485968593a0c692643e107}\label{classrr_1_1ExecutableModel_a0503ffbf5c6c971cf545d7570ec0404ca3a399e67ea485968593a0c692643e107}} 
@@ -330,9 +330,9 @@ If any events trigger a state change which triggers any additional events, these
 \hline
 {\em previous\+Event\+Status} & array of previous event triggered states. \\
 \hline
-{\em initial\+State} & (optional)\+: initial state vector, may be N\+U\+LL, in which the current state is used. \\
+{\em initial\+State} & (optional)\+: initial state std\+::vector, may be N\+U\+LL, in which the current state is used. \\
 \hline
-{\em final\+State} & (optional)\+: final state vector, where the final state is coppied to. May be N\+U\+LL, in which case, ignored. \\
+{\em final\+State} & (optional)\+: final state std\+::vector, where the final state is coppied to. May be N\+U\+LL, in which case, ignored. \\
 \hline
 \end{DoxyParams}
 
@@ -438,7 +438,7 @@ Simplest method is to return 1 for triggered, -\/1 for not-\/triggered, so long 
 \begin{DoxyParams}{Parameters}
 {\em time\mbox{[}in\mbox{]}} & current time \\
 \hline
-{\em y\mbox{[}in\mbox{]}} & the state vector \\
+{\em y\mbox{[}in\mbox{]}} & the state std\+::vector \\
 \hline
 {\em gdot\mbox{[}out\mbox{]}} & result event roots, this is of length num\+Events. \\
 \hline
@@ -491,11 +491,11 @@ Implemented in \mbox{\hyperlink{classrrllvm_1_1LLVMExecutableModel_a2fa49b7f906b
 
 
 
-Get the amount rate of change for the i\textquotesingle{}th floating species given a reaction rates vector. 
+Get the amount rate of change for the i\textquotesingle{}th floating species given a reaction rates std\+::vector. 
 
 T\+O\+DO\+: This should be merged with get\+Floating\+Species\+Amount\+Rates, but that will break inteface, will do in next point release.
 
-T\+O\+DO\+: If the conversion factor changes in between getting the reaction rates vector via get\+Reaction\+Rates
+T\+O\+DO\+: If the conversion factor changes in between getting the reaction rates std\+::vector via get\+Reaction\+Rates
 
 
 \begin{DoxyParams}{Parameters}
@@ -612,11 +612,11 @@ The type of R\+NG can be specified in the config file with the R\+A\+N\+D\+O\+M\
 
 Implemented in \mbox{\hyperlink{classrrllvm_1_1LLVMExecutableModel_a99ee742fbcd0a2fab7957f319991a234}{rrllvm\+::\+L\+L\+V\+M\+Executable\+Model}}, and \mbox{\hyperlink{classrr_1_1CompiledExecutableModel_a02b3938fd3ad7d20d33ed3e0b42da21a}{rr\+::\+Compiled\+Executable\+Model}}.
 
-\mbox{\Hypertarget{classrr_1_1ExecutableModel_ab045cbd84ce98fb9dff8ff250fdb131c}\label{classrr_1_1ExecutableModel_ab045cbd84ce98fb9dff8ff250fdb131c}} 
+\mbox{\Hypertarget{classrr_1_1ExecutableModel_aa1d89fd7d5690de7add613f5ce75b631}\label{classrr_1_1ExecutableModel_aa1d89fd7d5690de7add613f5ce75b631}} 
 \index{rr::ExecutableModel@{rr::ExecutableModel}!getRateRuleSymbols@{getRateRuleSymbols}}
 \index{getRateRuleSymbols@{getRateRuleSymbols}!rr::ExecutableModel@{rr::ExecutableModel}}
 \doxysubsubsection{\texorpdfstring{getRateRuleSymbols()}{getRateRuleSymbols()}}
-{\footnotesize\ttfamily virtual std\+::vector$<$std\+::string$>$ rr\+::\+Executable\+Model\+::get\+Rate\+Rule\+Symbols (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption}) const\hspace{0.3cm}{\ttfamily [inline]}, {\ttfamily [virtual]}}
+{\footnotesize\ttfamily virtual std\+::vector$<$std\+::string$>$ rr\+::\+Executable\+Model\+::get\+Rate\+Rule\+Symbols (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption}) const\hspace{0.3cm}{\ttfamily [pure virtual]}}
 
 
 
@@ -630,7 +630,7 @@ J\+KM
 \end{DoxyDate}
 
 
-Reimplemented in \mbox{\hyperlink{classrrllvm_1_1LLVMExecutableModel_a1b73548f88c353066c8758ac671e29f9}{rrllvm\+::\+L\+L\+V\+M\+Executable\+Model}}.
+Implemented in \mbox{\hyperlink{classrrllvm_1_1LLVMExecutableModel_a1b73548f88c353066c8758ac671e29f9}{rrllvm\+::\+L\+L\+V\+M\+Executable\+Model}}.
 
 \mbox{\Hypertarget{classrr_1_1ExecutableModel_a8372872ec5858e91adc81080ad763c84}\label{classrr_1_1ExecutableModel_a8372872ec5858e91adc81080ad763c84}} 
 \index{rr::ExecutableModel@{rr::ExecutableModel}!getRateRuleValues@{getRateRuleValues}}
@@ -663,7 +663,7 @@ $>$= 0 on success, $<$ 0 on failure.
 \end{DoxyReturn}
 
 
-Implemented in \mbox{\hyperlink{classrr_1_1CompiledExecutableModel_a9a2275b0715bc7461c8f402492462b05}{rr\+::\+Compiled\+Executable\+Model}}.
+Implemented in \mbox{\hyperlink{classrr_1_1CompiledExecutableModel_a9a2275b0715bc7461c8f402492462b05}{rr\+::\+Compiled\+Executable\+Model}}, and \mbox{\hyperlink{classrrllvm_1_1LLVMExecutableModel_a979920ccd4f05575fe872a50dc4b368c}{rrllvm\+::\+L\+L\+V\+M\+Executable\+Model}}.
 
 \mbox{\Hypertarget{classrr_1_1ExecutableModel_a37c53cc370ff236657272f5596fd27ff}\label{classrr_1_1ExecutableModel_a37c53cc370ff236657272f5596fd27ff}} 
 \index{rr::ExecutableModel@{rr::ExecutableModel}!getReactionRates@{getReactionRates}}
@@ -673,7 +673,7 @@ Implemented in \mbox{\hyperlink{classrr_1_1CompiledExecutableModel_a9a2275b0715b
 
 
 
-get the vector of reaction rates. 
+get the std\+::vector of reaction rates. 
 
 
 \begin{DoxyParams}{Parameters}
@@ -696,19 +696,19 @@ Implemented in \mbox{\hyperlink{classrrllvm_1_1LLVMExecutableModel_abdd14f103eb2
 
 
 
-The state vector is a vector of elements that are defined by differential equations (rate rules) or independent floating species are defined by reactions. 
+The state std\+::vector is a std\+::vector of elements that are defined by differential equations (rate rules) or independent floating species are defined by reactions. 
 
-To get the ids of the state vector elements, use get\+State\+Vector\+Id.
+To get the ids of the state std\+::vector elements, use get\+State\+Vector\+Id.
 
-copies the internal model state vector into the provided buffer.
+copies the internal model state std\+::vector into the provided buffer.
 
 
 \begin{DoxyParams}[1]{Parameters}
-\mbox{\texttt{ out}}  & {\em state\+Vector} & a buffer to copy the state vector into, if N\+U\+LL, return the size required.\\
+\mbox{\texttt{ out}}  & {\em state\+Vector} & a buffer to copy the state std\+::vector into, if N\+U\+LL, return the size required.\\
 \hline
 \end{DoxyParams}
 \begin{DoxyReturn}{Returns}
-the number of items coppied into the provided buffer, if state\+Vector is N\+U\+LL, returns the length of the state vector. 
+the number of items coppied into the provided buffer, if state\+Vector is N\+U\+LL, returns the length of the state std\+::vector. 
 \end{DoxyReturn}
 
 
@@ -722,19 +722,19 @@ Implemented in \mbox{\hyperlink{classrrllvm_1_1LLVMExecutableModel_a1bab14a8a11c
 
 
 
-the state vector y is the rate rule values and floating species concentrations concatenated. 
+the state std\+::vector y is the rate rule values and floating species concentrations concatenated. 
 
 y is of length num\+Floating\+Species + num\+Rate\+Rules.
 
-The state vector is packed such that the first n raterule elements are the values of the rate rules, and the last n floatingspecies are the floating species values.
+The state std\+::vector is packed such that the first n raterule elements are the values of the rate rules, and the last n floatingspecies are the floating species values.
 
 
 \begin{DoxyParams}[1]{Parameters}
 \mbox{\texttt{ in}}  & {\em time} & current simulator time \\
 \hline
-\mbox{\texttt{ in}}  & {\em y} & state vector, must be either null, or have a size of that speciefied by get\+State\+Vector. If y is null, then the model is evaluated using its current state. If y is not null, then the y is considered the state vector. \\
+\mbox{\texttt{ in}}  & {\em y} & state std\+::vector, must be either null, or have a size of that speciefied by get\+State\+Vector. If y is null, then the model is evaluated using its current state. If y is not null, then the y is considered the state std\+::vector. \\
 \hline
-\mbox{\texttt{ out}}  & {\em dydt} & calculated rate of change of the state vector, if null, it is ignored. \\
+\mbox{\texttt{ out}}  & {\em dydt} & calculated rate of change of the state std\+::vector, if null, it is ignored. \\
 \hline
 \end{DoxyParams}
 
@@ -788,9 +788,9 @@ Implemented in \mbox{\hyperlink{classrrllvm_1_1LLVMExecutableModel_a1475e0cd372f
 
 
 
-gets the value for the given id string. 
+gets the value for the given id std\+::string. 
 
-The string must be a \mbox{\hyperlink{classrr_1_1SelectionRecord}{Selection\+Record}} string that is accepted by this class. 
+The std\+::string must be a \mbox{\hyperlink{classrr_1_1SelectionRecord}{Selection\+Record}} std\+::string that is accepted by this class. 
 
 Implemented in \mbox{\hyperlink{classrrllvm_1_1LLVMExecutableModel_ac4f4fe1667dcf4f0f848e3569e8bbe2b}{rrllvm\+::\+L\+L\+V\+M\+Executable\+Model}}, and \mbox{\hyperlink{classrr_1_1CompiledExecutableModel_ab7bc9e9b4426d9d22080bb64bd900cab}{rr\+::\+Compiled\+Executable\+Model}}.
 
@@ -861,7 +861,7 @@ set the floating species concentrations
 \begin{DoxyParams}[1]{Parameters}
 \mbox{\texttt{ in}}  & {\em len} & the length of the indx and values arrays. \\
 \hline
-\mbox{\texttt{ in}}  & {\em indx} & an array of length len of boundary species to return. \\
+\mbox{\texttt{ in}}  & {\em indx} & an array of length len of floating species to return. \\
 \hline
 \mbox{\texttt{ in}}  & {\em values} & an array of at least length len which will store the returned boundary species amounts. \\
 \hline
@@ -938,15 +938,15 @@ Implemented in \mbox{\hyperlink{classrrllvm_1_1LLVMExecutableModel_a458c2d669647
 
 
 
-sets the internal model state to the provided packed state vector. 
+sets the internal model state to the provided packed state std\+::vector. 
 
 
 \begin{DoxyParams}[1]{Parameters}
-\mbox{\texttt{ in}}  & {\em an} & array which holds the packed state vector, must be at least the size returned by get\+State\+Vector.\\
+\mbox{\texttt{ in}}  & {\em an} & array which holds the packed state std\+::vector, must be at least the size returned by get\+State\+Vector.\\
 \hline
 \end{DoxyParams}
 \begin{DoxyReturn}{Returns}
-the number of items copied from the state vector, negative on failure. 
+the number of items copied from the state std\+::vector, negative on failure. 
 \end{DoxyReturn}
 
 

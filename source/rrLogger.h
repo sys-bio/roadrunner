@@ -69,15 +69,26 @@ public:
      */
     enum Level
     {
-        LOG_CURRENT = 0, /// Use the current level -- don't change the level from what it is.
-        LOG_FATAL = 1,   /// A fatal error. The application will most likely terminate. This is the highest priority.
-        LOG_CRITICAL = 2,    /// A critical error. The application might not be able to continue running successfully.
-        LOG_ERROR = 3,       /// An error. An operation did not complete successfully, but the application as a whole is not affected.
-        LOG_WARNING = 4,     /// A warning. An operation completed with an unexpected result.
-        LOG_NOTICE = 5,      /// A notice, which is an information with just a higher priority.
-        LOG_INFORMATION = 6, /// An informational message, usually denoting the successful completion of an operation.
-        LOG_DEBUG = 7,       /// A debugging message.
-        LOG_TRACE =8       /// A tracing message. This is the lowest priority.
+        /**
+         *  LOG_CURRENT: Use the current level -- don't change the level from what it is.
+         *  LOG_FATAL: A fatal error. The application will most likely terminate. This is the highest priority.
+         *  LOG_CRITICAL: A critical error. The application might not be able to continue running successfully.
+         *  LOG_ERROR: An error. An operation did not complete successfully, but the application as a whole is not affected.
+         *  LOG_WARNING: A warning. An operation completed with an unexpected result.
+         *  LOG_NOTICE: A notice, which is an information with just a higher priority.
+         *  LOG_INFORMATION: An informational message, usually denoting the successful completion of an operation.
+         *  LOG_DEBUG: A debugging message.
+         *  LOG_TRACE: A tracing message. This is the lowest priority.
+         */
+        LOG_CURRENT = 0,
+        LOG_FATAL = 1,
+        LOG_CRITICAL = 2,
+        LOG_ERROR = 3,
+        LOG_WARNING = 4,
+        LOG_NOTICE = 5,
+        LOG_INFORMATION = 6,
+        LOG_DEBUG = 7,
+        LOG_TRACE =8
     };
 
     /**

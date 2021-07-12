@@ -22,7 +22,7 @@
  <tr style="height: 56px;">
   <td id="projectalign" style="padding-left: 0.5em;">
    <div id="projectname">roadrunner
-   &#160;<span id="projectnumber">2.0.5</span>
+   &#160;<span id="projectnumber">2.0.8</span>
    </div>
    <div id="projectbrief">Fast simulator for SBML models</div>
   </td>
@@ -75,6 +75,9 @@ $(function() {
 <li>RANDOM_SEED
 : <a class="el" href="classrr_1_1Config.html#aed7c550b9e34222675cd152c9154d053a0777390cc6ead1e5864aa0e319fc4159">rr::Config</a>
 </li>
+<li>rank()
+: <a class="el" href="classrr_1_1SVD.html#af8f8852be210b950e1d0c4d5f5c1254f">rr::SVD</a>
+</li>
 <li>RATE
 : <a class="el" href="classrr_1_1SelectionRecord.html#a898963ab24a6ba614913715c981d8394a2235d37b12b17d658b8f33a87712c806">rr::SelectionRecord</a>
 </li>
@@ -116,10 +119,8 @@ $(function() {
 : <a class="el" href="classrr_1_1LoadSBMLOptions.html#a7b6ca6fc32892dbe782f3eb718762ad6a9dcbd508a994cd5a803e231e0054ff3d">rr::LoadSBMLOptions</a>
 </li>
 <li>regenerateModel()
-: <a class="el" href="classrr_1_1RoadRunner.html#a98ea6d84450e10e723fbcabddae2e3c8">rr::RoadRunner</a>
-</li>
-<li>regenerateModel()
-: <a class="el" href="classrrllvm_1_1LLVMModelGenerator.html#acca1a198b41b71a1abfc28f45422b861">rrllvm::LLVMModelGenerator</a>
+: <a class="el" href="classrr_1_1RoadRunner.html#a0e944d337b8d9204092df7056e1d2b83">rr::RoadRunner</a>
+, <a class="el" href="classrrllvm_1_1LLVMModelGenerator.html#acca1a198b41b71a1abfc28f45422b861">rrllvm::LLVMModelGenerator</a>
 </li>
 <li>Register()
 : <a class="el" href="classrr_1_1IntegratorRegistrationMgr.html#ac32acef6425954a61f242ed99199cdf3">rr::IntegratorRegistrationMgr</a>
@@ -171,17 +172,21 @@ $(function() {
 : <a class="el" href="classrr_1_1RoadRunner.html#a5d1d6591131764e8e7a6cdd6a9ae6ae8">rr::RoadRunner</a>
 </li>
 <li>resetSettings()
-: <a class="el" href="classrr_1_1CVODEIntegrator.html#a455f08dc01b03a527482edc3d2db95b1">rr::CVODEIntegrator</a>
+: <a class="el" href="classrr_1_1CVODEIntegrator.html#ac18581f5c000940449032e166ef48e79">rr::CVODEIntegrator</a>
 , <a class="el" href="classrr_1_1EulerIntegrator.html#ade4200288b7b99ec7eee7cde2d9729b6">rr::EulerIntegrator</a>
+, <a class="el" href="classrr_1_1FixedPointIteration.html#ab7451909f822f8642b7555248493371d">rr::FixedPointIteration</a>
 , <a class="el" href="classrr_1_1GillespieIntegrator.html#a2dcbd5a36b094a9b14d1e8e423204c7b">rr::GillespieIntegrator</a>
-, <a class="el" href="classrr_1_1NLEQ1Solver.html#acff80edbc665b7489be400e174a0dc6c">rr::NLEQ1Solver</a>
-, <a class="el" href="classrr_1_1NLEQ2Solver.html#a53f872e0ee1a0afeb4a81b433c5cb7fc">rr::NLEQ2Solver</a>
+, <a class="el" href="classrr_1_1KinsolSteadyStateSolver.html#ad6bb33d80ec7660150167cac4aefa2ae">rr::KinsolSteadyStateSolver</a>
+, <a class="el" href="classrr_1_1NewtonIteration.html#aef52744c9ff9f21ad69a49b1fe8ef9c4">rr::NewtonIteration</a>
+, <a class="el" href="classrr_1_1NLEQSolver.html#a73142505757b0b6363da15e2b937dd78">rr::NLEQSolver</a>
 , <a class="el" href="classrr_1_1RK45Integrator.html#a68cd9b39288762b25f1410aa743f703c">rr::RK45Integrator</a>
 , <a class="el" href="classrr_1_1RK4Integrator.html#ae7537cb767479cd0ab19dc405ed13376">rr::RK4Integrator</a>
 , <a class="el" href="classrr_1_1Solver.html#a71c8b404a40447f879b2253e7dcc3b85">rr::Solver</a>
+, <a class="el" href="classrr_1_1SteadyStateSolver.html#ac9652965eb0defa7c12af91110dd68fc">rr::SteadyStateSolver</a>
+, <a class="el" href="classrr_1_1SteadyStateSolverDecorator.html#a6978cebc1cf1ac984be2051491170443">rr::SteadyStateSolverDecorator</a>
 </li>
 <li>restart()
-: <a class="el" href="classrr_1_1CVODEIntegrator.html#ad845bc1acfbeef03f374413928eaa3ee">rr::CVODEIntegrator</a>
+: <a class="el" href="classrr_1_1CVODEIntegrator.html#acde5e92ec049c105b7d22b0f125d94a9">rr::CVODEIntegrator</a>
 , <a class="el" href="classrr_1_1EulerIntegrator.html#a08903e998cf527552442f8fa930772c8">rr::EulerIntegrator</a>
 , <a class="el" href="classrr_1_1GillespieIntegrator.html#a85af2d5361d972ddb222f53ca2675f8d">rr::GillespieIntegrator</a>
 , <a class="el" href="classrr_1_1RK45Integrator.html#abde959ca72506e25e6c1187a4fa15b2b">rr::RK45Integrator</a>
@@ -194,7 +199,7 @@ $(function() {
 : <a class="el" href="classrr_1_1RK4Integrator.html#ac7059cef88e3a80e415855ec5fb2d2ef">rr::RK4Integrator</a>
 </li>
 <li>RoadRunner()
-: <a class="el" href="classrr_1_1RoadRunner.html#ad66240360fee4ccad50097e4b4c8460b">rr::RoadRunner</a>
+: <a class="el" href="classrr_1_1RoadRunner.html#aa6518611d8ac7cd908dbf5704d129020">rr::RoadRunner</a>
 </li>
 <li>ROADRUNNER_DISABLE_PYTHON_DYNAMIC_PROPERTIES
 : <a class="el" href="classrr_1_1Config.html#aed7c550b9e34222675cd152c9154d053ae4eee9ff55c8ff33111fd63dd4427d18">rr::Config</a>

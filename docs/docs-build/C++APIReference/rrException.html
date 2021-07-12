@@ -13,6 +13,8 @@
   
   <link rel="stylesheet" href="../_static/css/theme.css" type="text/css" />
   <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
+  <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
+  <link rel="stylesheet" href="../_static/css/theme.css" type="text/css" />
   <link rel="stylesheet" href="../_static/tabs.css" type="text/css" />
 
   
@@ -30,10 +32,10 @@
   
     
       <script type="text/javascript" id="documentation_options" data-url_root="../" src="../_static/documentation_options.js"></script>
+        <script data-url_root="../" id="documentation_options" src="../_static/documentation_options.js"></script>
         <script src="../_static/jquery.js"></script>
         <script src="../_static/underscore.js"></script>
         <script src="../_static/doctools.js"></script>
-        <script src="../_static/language_data.js"></script>
     
     <script type="text/javascript" src="../_static/js/theme.js"></script>
 
@@ -147,6 +149,7 @@
 <li class="toctree-l2"><a class="reference internal" href="index.html#a-complete-example-of-creating-an-integrator">A complete example of creating an integrator</a></li>
 </ul>
 </li>
+<li class="toctree-l1"><a class="reference internal" href="../developers_docs/index.html">Developers Documentation</a></li>
 </ul>
 
             
@@ -219,42 +222,42 @@
   <div class="section" id="rrexception">
 <h1>rrException<a class="headerlink" href="#rrexception" title="Permalink to this headline">¶</a></h1>
 <dl class="cpp class">
-<dt id="_CPPv4N2rr9ExceptionE">
-<span id="_CPPv3N2rr9ExceptionE"></span><span id="_CPPv2N2rr9ExceptionE"></span><span id="rr::Exception"></span><span class="target" id="classrr_1_1Exception"></span><em class="property">class </em><code class="sig-prename descclassname">rr<code class="sig-prename descclassname">::</code></code><code class="sig-name descname">Exception</code> : <em class="property">public</em> exception<a class="headerlink" href="#_CPPv4N2rr9ExceptionE" title="Permalink to this definition">¶</a><br /></dt>
-<dd><p>Subclassed by rr::CoreException, rr::CVODEException, rr::InvalidKeyException, rr::NLEQException, rr::NOMException, rr::NotImplementedException, rr::ScannerException, rr::UninitializedValueException</p>
+<dt class="sig sig-object cpp" id="_CPPv4N2rr9ExceptionE">
+<span id="_CPPv3N2rr9ExceptionE"></span><span id="_CPPv2N2rr9ExceptionE"></span><span id="rr::Exception"></span><span class="target" id="classrr_1_1Exception"></span><span class="k"><span class="pre">class</span></span><span class="w"> </span><span class="sig-prename descclassname"><span class="n"><span class="pre">rr</span></span><span class="p"><span class="pre">::</span></span></span><span class="sig-name descname"><span class="n"><span class="pre">Exception</span></span></span><span class="w"> </span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="k"><span class="pre">public</span></span><span class="w"> </span><span class="n"><span class="pre">exception</span></span><a class="headerlink" href="#_CPPv4N2rr9ExceptionE" title="Permalink to this definition">¶</a><br /></dt>
+<dd><p>Subclassed by rr::CoreException, rr::CVODEException, rr::DidNotConvergeException, rr::InvalidKeyException, rr::KinsolException, rr::NLEQException, rr::NOMException, rr::NotImplementedException, rr::NullPointerException, rr::ScannerException, rr::UninitializedValueException</p>
 <div class="breathe-sectiondef docutils container">
-<p class="breathe-sectiondef-title rubric">Public Functions</p>
+<p class="breathe-sectiondef-title rubric" id="breathe-section-title-public-functions">Public Functions</p>
 <dl class="cpp function">
-<dt id="_CPPv4N2rr9Exception9ExceptionERK6string">
-<span id="_CPPv3N2rr9Exception9ExceptionERK6string"></span><span id="_CPPv2N2rr9Exception9ExceptionERK6string"></span><span id="rr::Exception::Exception__stringCR"></span><span class="target" id="classrr_1_1Exception_1a1eedd425af5fe42da04a373eaba4f63c"></span><code class="sig-name descname">Exception</code><span class="sig-paren">(</span><em class="property">const</em> string &amp;<em>desc</em><span class="sig-paren">)</span><a class="headerlink" href="#_CPPv4N2rr9Exception9ExceptionERK6string" title="Permalink to this definition">¶</a><br /></dt>
+<dt class="sig sig-object cpp" id="_CPPv4N2rr9Exception9ExceptionERKNSt6stringE">
+<span id="_CPPv3N2rr9Exception9ExceptionERKNSt6stringE"></span><span id="_CPPv2N2rr9Exception9ExceptionERKNSt6stringE"></span><span id="rr::Exception::Exception__ssCR"></span><span class="target" id="classrr_1_1Exception_1aa5af7cd8ffbbdf0fe4ec4116ea441d1c"></span><span class="sig-name descname"><span class="n"><span class="pre">Exception</span></span></span><span class="sig-paren">(</span><span class="k"><span class="pre">const</span></span><span class="w"> </span><span class="n"><span class="pre">std</span></span><span class="p"><span class="pre">::</span></span><span class="n"><span class="pre">string</span></span><span class="w"> </span><span class="p"><span class="pre">&amp;</span></span><span class="n sig-param"><span class="pre">desc</span></span><span class="sig-paren">)</span><a class="headerlink" href="#_CPPv4N2rr9Exception9ExceptionERKNSt6stringE" title="Permalink to this definition">¶</a><br /></dt>
 <dd></dd></dl>
 
 <dl class="cpp function">
-<dt id="_CPPv4N2rr9ExceptionD0Ev">
-<span id="_CPPv3N2rr9ExceptionD0Ev"></span><span id="_CPPv2N2rr9ExceptionD0Ev"></span><span id="rr::Exception::~Exception"></span><span class="target" id="classrr_1_1Exception_1a73f2d73dc12d195e61fc1f427b1cd2a4"></span><em class="property">virtual</em> <code class="sig-name descname">~Exception</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#_CPPv4N2rr9ExceptionD0Ev" title="Permalink to this definition">¶</a><br /></dt>
+<dt class="sig sig-object cpp" id="_CPPv4N2rr9ExceptionD0Ev">
+<span id="_CPPv3N2rr9ExceptionD0Ev"></span><span id="_CPPv2N2rr9ExceptionD0Ev"></span><span id="rr::Exception::~Exception"></span><span class="target" id="classrr_1_1Exception_1a73f2d73dc12d195e61fc1f427b1cd2a4"></span><span class="k"><span class="pre">virtual</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">~Exception</span></span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#_CPPv4N2rr9ExceptionD0Ev" title="Permalink to this definition">¶</a><br /></dt>
 <dd></dd></dl>
 
 <dl class="cpp function">
-<dt id="_CPPv4NK2rr9Exception4whatEv">
-<span id="_CPPv3NK2rr9Exception4whatEv"></span><span id="_CPPv2NK2rr9Exception4whatEv"></span><span id="rr::Exception::whatC"></span><span class="target" id="classrr_1_1Exception_1a597e6b53a80305816d9ebc8dfef64871"></span><em class="property">virtual</em> <em class="property">const</em> char *<code class="sig-name descname">what</code><span class="sig-paren">(</span><span class="sig-paren">)</span> <em class="property">const</em><a class="headerlink" href="#_CPPv4NK2rr9Exception4whatEv" title="Permalink to this definition">¶</a><br /></dt>
+<dt class="sig sig-object cpp" id="_CPPv4NK2rr9Exception4whatEv">
+<span id="_CPPv3NK2rr9Exception4whatEv"></span><span id="_CPPv2NK2rr9Exception4whatEv"></span><span id="rr::Exception::whatC"></span><span class="target" id="classrr_1_1Exception_1a597e6b53a80305816d9ebc8dfef64871"></span><span class="k"><span class="pre">virtual</span></span><span class="w"> </span><span class="k"><span class="pre">const</span></span><span class="w"> </span><span class="kt"><span class="pre">char</span></span><span class="w"> </span><span class="p"><span class="pre">*</span></span><span class="sig-name descname"><span class="n"><span class="pre">what</span></span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><span class="w"> </span><span class="k"><span class="pre">const</span></span><a class="headerlink" href="#_CPPv4NK2rr9Exception4whatEv" title="Permalink to this definition">¶</a><br /></dt>
 <dd></dd></dl>
 
 <dl class="cpp function">
-<dt id="_CPPv4NK2rr9Exception7MessageEv">
-<span id="_CPPv3NK2rr9Exception7MessageEv"></span><span id="_CPPv2NK2rr9Exception7MessageEv"></span><span id="rr::Exception::MessageC"></span><span class="target" id="classrr_1_1Exception_1a7c8cbc34ae41d4225c6dbc5f98867c40"></span>string <code class="sig-name descname">Message</code><span class="sig-paren">(</span><span class="sig-paren">)</span> <em class="property">const</em><a class="headerlink" href="#_CPPv4NK2rr9Exception7MessageEv" title="Permalink to this definition">¶</a><br /></dt>
+<dt class="sig sig-object cpp" id="_CPPv4NK2rr9Exception7MessageEv">
+<span id="_CPPv3NK2rr9Exception7MessageEv"></span><span id="_CPPv2NK2rr9Exception7MessageEv"></span><span id="rr::Exception::MessageC"></span><span class="target" id="classrr_1_1Exception_1ad38a4fa9c10fca6782acaf6e5d1dcb8e"></span><span class="n"><span class="pre">std</span></span><span class="p"><span class="pre">::</span></span><span class="n"><span class="pre">string</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">Message</span></span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><span class="w"> </span><span class="k"><span class="pre">const</span></span><a class="headerlink" href="#_CPPv4NK2rr9Exception7MessageEv" title="Permalink to this definition">¶</a><br /></dt>
 <dd></dd></dl>
 
 <dl class="cpp function">
-<dt id="_CPPv4NK2rr9Exception10getMessageEv">
-<span id="_CPPv3NK2rr9Exception10getMessageEv"></span><span id="_CPPv2NK2rr9Exception10getMessageEv"></span><span id="rr::Exception::getMessageC"></span><span class="target" id="classrr_1_1Exception_1ad413ee4754699c6eb57c317d6afb7f20"></span>string <code class="sig-name descname">getMessage</code><span class="sig-paren">(</span><span class="sig-paren">)</span> <em class="property">const</em><a class="headerlink" href="#_CPPv4NK2rr9Exception10getMessageEv" title="Permalink to this definition">¶</a><br /></dt>
+<dt class="sig sig-object cpp" id="_CPPv4NK2rr9Exception10getMessageEv">
+<span id="_CPPv3NK2rr9Exception10getMessageEv"></span><span id="_CPPv2NK2rr9Exception10getMessageEv"></span><span id="rr::Exception::getMessageC"></span><span class="target" id="classrr_1_1Exception_1af25f4a1de9257c44a032ee96651955de"></span><span class="n"><span class="pre">std</span></span><span class="p"><span class="pre">::</span></span><span class="n"><span class="pre">string</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">getMessage</span></span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><span class="w"> </span><span class="k"><span class="pre">const</span></span><a class="headerlink" href="#_CPPv4NK2rr9Exception10getMessageEv" title="Permalink to this definition">¶</a><br /></dt>
 <dd></dd></dl>
 
 </div>
 <div class="breathe-sectiondef docutils container">
-<p class="breathe-sectiondef-title rubric">Protected Attributes</p>
+<p class="breathe-sectiondef-title rubric" id="breathe-section-title-protected-attributes">Protected Attributes</p>
 <dl class="cpp var">
-<dt id="_CPPv4N2rr9Exception8mMessageE">
-<span id="_CPPv3N2rr9Exception8mMessageE"></span><span id="_CPPv2N2rr9Exception8mMessageE"></span><span id="rr::Exception::mMessage__string"></span><span class="target" id="classrr_1_1Exception_1a6201902a23b56dab5704a726049a7908"></span>string <code class="sig-name descname">mMessage</code><a class="headerlink" href="#_CPPv4N2rr9Exception8mMessageE" title="Permalink to this definition">¶</a><br /></dt>
+<dt class="sig sig-object cpp" id="_CPPv4N2rr9Exception8mMessageE">
+<span id="_CPPv3N2rr9Exception8mMessageE"></span><span id="_CPPv2N2rr9Exception8mMessageE"></span><span id="rr::Exception::mMessage__ss"></span><span class="target" id="classrr_1_1Exception_1a7377d63d5b4122e0532d1605cc071f4d"></span><span class="n"><span class="pre">std</span></span><span class="p"><span class="pre">::</span></span><span class="n"><span class="pre">string</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">mMessage</span></span></span><a class="headerlink" href="#_CPPv4N2rr9Exception8mMessageE" title="Permalink to this definition">¶</a><br /></dt>
 <dd></dd></dl>
 
 </div>

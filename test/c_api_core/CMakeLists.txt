@@ -1,4 +1,3 @@
-
 add_test_executable(test_c_api_core test_targets
         rrSBMLTestSuiteSimulation_CAPI
         ${SharedTestFiles}

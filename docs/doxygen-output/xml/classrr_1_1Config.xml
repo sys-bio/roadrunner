@@ -185,7 +185,7 @@
         <enumvalue id="classrr_1_1Config_1aed7c550b9e34222675cd152c9154d053af04f063962a4036311b2e11f07519c7c" prot="public">
           <name>SIMULATEOPTIONS_INTEGRATOR</name>
           <briefdescription>
-<para>Default integrator to use, currently supports a string of &quot;CVODE&quot; or &quot;Gillespie&quot;, default is &quot;CVODE&quot;. </para>
+<para>Default integrator to use, currently supports a std::string of &quot;CVODE&quot; or &quot;Gillespie&quot;, default is &quot;CVODE&quot;. </para>
           </briefdescription>
           <detaileddescription>
           </detaileddescription>
@@ -234,7 +234,7 @@
           </briefdescription>
           <detaileddescription>
 <para>this disables warnings based on the following bitfields:</para>
-<para>ROADRUNNER_DISABLE_WARNINGS_STEADYSTATE: disable the warning in <ref refid="classrr_1_1RoadRunner_1a6dca346fbb6e59eb73b0a16212df8165" kindref="member">RoadRunner::steadyState</ref> about possible singular jacobian.</para>
+<para>ROADRUNNER_DISABLE_WARNINGS_STEADYSTATE: disable the warning in <ref refid="classrr_1_1RoadRunner_1af310e01ec241bc2b19a46629087024d0" kindref="member">RoadRunner::steadyState</ref> about possible singular jacobian.</para>
 <para>ROADRUNNER_DISABLE_WARNINGS_CONSERVED_MOIETY: disable the conserved moieties warning if enabled when loading a sbml document. </para>
           </detaileddescription>
         </enumvalue>
@@ -520,7 +520,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="rrConfig.h" line="67" column="5" bodyfile="rrConfig.h" bodystart="67" bodyend="570"/>
+        <location file="rrConfig.h" line="67" column="5" bodyfile="rrConfig.h" bodystart="67" bodyend="543"/>
       </memberdef>
       <memberdef kind="enum" id="classrr_1_1Config_1a0e5ea8f108b8737a8d202e5fb4cb71ae" prot="public" static="no" strong="no">
         <type></type>
@@ -547,7 +547,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="rrConfig.h" line="572" column="5" bodyfile="rrConfig.h" bodystart="573" bodyend="576"/>
+        <location file="rrConfig.h" line="545" column="5" bodyfile="rrConfig.h" bodystart="546" bodyend="549"/>
       </memberdef>
       <memberdef kind="enum" id="classrr_1_1Config_1a4809c71e5ad3b128af6dbb0a4093c938" prot="public" static="no" strong="no">
         <type></type>
@@ -573,7 +573,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="rrConfig.h" line="579" column="5" bodyfile="rrConfig.h" bodystart="580" bodyend="583"/>
+        <location file="rrConfig.h" line="552" column="5" bodyfile="rrConfig.h" bodystart="553" bodyend="556"/>
       </memberdef>
       </sectiondef>
       <sectiondef kind="public-static-func">
@@ -587,13 +587,13 @@
           <defname>key</defname>
         </param>
         <briefdescription>
-<para>read the config value as a string. </para>
+<para>read the config value as a std::string. </para>
         </briefdescription>
         <detaileddescription>
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="rrConfig.h" line="588" column="24" bodyfile="rrConfig.cpp" bodystart="288" bodyend="292"/>
+        <location file="rrConfig.h" line="561" column="24" bodyfile="rrConfig.cpp" bodystart="285" bodyend="289"/>
       </memberdef>
       <memberdef kind="function" id="classrr_1_1Config_1a66454fca7b7357d5b3180d8589bacebf" prot="public" static="yes" const="no" explicit="no" inline="no" virt="non-virtual">
         <type>int</type>
@@ -611,7 +611,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="rrConfig.h" line="593" column="16" bodyfile="rrConfig.cpp" bodystart="294" bodyend="298"/>
+        <location file="rrConfig.h" line="566" column="16" bodyfile="rrConfig.cpp" bodystart="291" bodyend="295"/>
       </memberdef>
       <memberdef kind="function" id="classrr_1_1Config_1afab929414e069aada94a305c3ca425ce" prot="public" static="yes" const="no" explicit="no" inline="no" virt="non-virtual">
         <type>bool</type>
@@ -628,7 +628,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="rrConfig.h" line="595" column="17" bodyfile="rrConfig.cpp" bodystart="427" bodyend="431"/>
+        <location file="rrConfig.h" line="568" column="17" bodyfile="rrConfig.cpp" bodystart="424" bodyend="428"/>
       </memberdef>
       <memberdef kind="function" id="classrr_1_1Config_1a6cf432148717f8bbadc861481340f3bd" prot="public" static="yes" const="no" explicit="no" inline="no" virt="non-virtual">
         <type>double</type>
@@ -646,7 +646,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="rrConfig.h" line="600" column="19" bodyfile="rrConfig.cpp" bodystart="300" bodyend="304"/>
+        <location file="rrConfig.h" line="573" column="19" bodyfile="rrConfig.cpp" bodystart="297" bodyend="301"/>
       </memberdef>
       <memberdef kind="function" id="classrr_1_1Config_1a4ee7359b58047946520f3f3a9c6de04c" prot="public" static="yes" const="no" explicit="no" inline="no" virt="non-virtual">
         <type>std::string</type>
@@ -657,23 +657,23 @@
 <para>If a config file was found in one of the above locations, its full path is returned here. </para>
         </briefdescription>
         <detaileddescription>
-<para>Otherwise, if no file was found, an empty string is returned. </para>
+<para>Otherwise, if no file was found, an empty std::string is returned. </para>
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="rrConfig.h" line="606" column="24" bodyfile="rrConfig.cpp" bodystart="306" bodyend="365"/>
+        <location file="rrConfig.h" line="579" column="24" bodyfile="rrConfig.cpp" bodystart="303" bodyend="362"/>
       </memberdef>
-      <memberdef kind="function" id="classrr_1_1Config_1a3d5bdb8ee4fad8a88bac365328f510fc" prot="public" static="yes" const="no" explicit="no" inline="no" virt="non-virtual">
+      <memberdef kind="function" id="classrr_1_1Config_1af31cc9c1ef79cd00c6099930bd2aae9c" prot="public" static="yes" const="no" explicit="no" inline="no" virt="non-virtual">
         <type>void</type>
         <definition>void rr::Config::setValue</definition>
-        <argsstring>(Keys, const Variant &amp;value)</argsstring>
+        <argsstring>(Keys, Setting value)</argsstring>
         <name>setValue</name>
         <param>
           <type><ref refid="classrr_1_1Config_1aed7c550b9e34222675cd152c9154d053" kindref="member">Keys</ref></type>
           <defname>key</defname>
         </param>
         <param>
-          <type>const <ref refid="classrr_1_1Variant" kindref="compound">Variant</ref> &amp;</type>
+          <type><ref refid="classrr_1_1Setting" kindref="compound">Setting</ref></type>
           <declname>value</declname>
         </param>
         <briefdescription>
@@ -684,11 +684,11 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="rrConfig.h" line="613" column="17" bodyfile="rrConfig.cpp" bodystart="367" bodyend="371"/>
+        <location file="rrConfig.h" line="586" column="17" bodyfile="rrConfig.cpp" bodystart="364" bodyend="368"/>
       </memberdef>
-      <memberdef kind="function" id="classrr_1_1Config_1aa31df27110cab08f134c8e7570d90746" prot="public" static="yes" const="no" explicit="no" inline="no" virt="non-virtual">
-        <type>const <ref refid="classrr_1_1Variant" kindref="compound">Variant</ref> &amp;</type>
-        <definition>const Variant &amp; rr::Config::getValue</definition>
+      <memberdef kind="function" id="classrr_1_1Config_1a1acfbc8a6af061e54e4c6b2890ce4a88" prot="public" static="yes" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type><ref refid="classrr_1_1Setting" kindref="compound">Setting</ref></type>
+        <definition>Setting rr::Config::getValue</definition>
         <argsstring>(Keys)</argsstring>
         <name>getValue</name>
         <param>
@@ -701,7 +701,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="rrConfig.h" line="617" column="26" bodyfile="rrConfig.cpp" bodystart="421" bodyend="425"/>
+        <location file="rrConfig.h" line="590" column="20" bodyfile="rrConfig.cpp" bodystart="418" bodyend="422"/>
       </memberdef>
       <memberdef kind="function" id="classrr_1_1Config_1ab5bc77a68b26edb749fb2a14336f4fd5" prot="public" static="yes" const="no" explicit="no" inline="no" virt="non-virtual">
         <type>void</type>
@@ -719,7 +719,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="rrConfig.h" line="623" column="17" bodyfile="rrConfig.cpp" bodystart="383" bodyend="419"/>
+        <location file="rrConfig.h" line="596" column="17" bodyfile="rrConfig.cpp" bodystart="380" bodyend="416"/>
       </memberdef>
       <memberdef kind="function" id="classrr_1_1Config_1aacae3161033c6c178aac93f7467afa3a" prot="public" static="yes" const="no" explicit="no" inline="no" virt="non-virtual">
         <type>void</type>
@@ -738,7 +738,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="rrConfig.h" line="629" column="17" bodyfile="rrConfig.cpp" bodystart="433" bodyend="450"/>
+        <location file="rrConfig.h" line="602" column="17" bodyfile="rrConfig.cpp" bodystart="430" bodyend="447"/>
       </memberdef>
       <memberdef kind="function" id="classrr_1_1Config_1a947d20afae74fba1c1725c8fb2c71eba" prot="public" static="yes" const="no" explicit="no" inline="no" virt="non-virtual">
         <type><ref refid="classrr_1_1Config_1aed7c550b9e34222675cd152c9154d053" kindref="member">Keys</ref></type>
@@ -755,11 +755,11 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="rrConfig.h" line="631" column="17" bodyfile="rrConfig.cpp" bodystart="452" bodyend="567"/>
+        <location file="rrConfig.h" line="604" column="17" bodyfile="rrConfig.cpp" bodystart="449" bodyend="564"/>
       </memberdef>
-      <memberdef kind="function" id="classrr_1_1Config_1abc159273f423c010242f1cf07f588f78" prot="public" static="yes" const="no" explicit="no" inline="no" virt="non-virtual">
+      <memberdef kind="function" id="classrr_1_1Config_1a20e11f7bdb81efbd1e84011801b4a526" prot="public" static="yes" const="no" explicit="no" inline="no" virt="non-virtual">
         <type>std::vector&lt; std::string &gt;</type>
-        <definition>std::vector&lt; string &gt; rr::Config::getKeyList</definition>
+        <definition>std::vector&lt; std::string &gt; rr::Config::getKeyList</definition>
         <argsstring>()</argsstring>
         <name>getKeyList</name>
         <briefdescription>
@@ -768,14 +768,14 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="rrConfig.h" line="633" column="24" bodyfile="rrConfig.cpp" bodystart="271" bodyend="286"/>
+        <location file="rrConfig.h" line="606" column="24" bodyfile="rrConfig.cpp" bodystart="267" bodyend="283"/>
       </memberdef>
       </sectiondef>
     <briefdescription>
 <para>read or store default values. </para>
     </briefdescription>
     <detaileddescription>
-<para>Many of <ref refid="classrr_1_1RoadRunner" kindref="compound">RoadRunner</ref> classes use a number of configration parameters. Most of these can be set using the <ref refid="classrr_1_1Config" kindref="compound">Config</ref> class. The values stored in the <ref refid="classrr_1_1Config" kindref="compound">Config</ref> class only determine the defaut values of parameters.</para>
+<para>Many of <ref refid="classrr_1_1RoadRunner" kindref="compound">RoadRunner</ref> classes use a number of configuration parameters. Most of these can be set using the <ref refid="classrr_1_1Config" kindref="compound">Config</ref> class. The values stored in the <ref refid="classrr_1_1Config" kindref="compound">Config</ref> class only determine the default values of parameters.</para>
 <para>The <ref refid="classrr_1_1Config" kindref="compound">Config</ref> class will look in the following locations for the config file, and will load the values from the first config file it finds. If it does not find a config file in one of the following locations, a default set of configuration parameters are used. The search locations of the config file are:</para>
 <para>#1: the ROADRUNNER_CONFIG environment variable</para>
 <para>#2: try the user&apos;s home directory for roadrunner.conf, i.e.:</para>
@@ -786,12 +786,12 @@
 <para>/Users/andy/local/lib/roadrunner.conf</para>
 <para>#5: try one directory up from the where the shared library or program is at, i.e.:</para>
 <para>/Users/andy/local/roadrunner.conf</para>
-<para>The conf file is just a plain text file of where each line may be key / value pair separated by a :", i.e.</para>
+<para>The conf file is just a plain text file of where each line may be key / value std::pair separated by a :", i.e.</para>
 <para>KEY_NAME : Value Any line that does not match this format is ignored, and keys that are not found are also ignored. Therefore, any line that does not start w* ith a word character is considered a comment.</para>
 <para>All of the configuration managment functions are static method of the <ref refid="classrr_1_1Config" kindref="compound">Config</ref> class, and all of the configuration keys are static attributes * of the <ref refid="classrr_1_1Config" kindref="compound">Config</ref> class, these are documented in the Configuration Functions section.</para>
 <para>As all of the <ref refid="classrr_1_1Config" kindref="compound">Config</ref> class methods are static, one never instantiates the <ref refid="classrr_1_1Config" kindref="compound">Config</ref> class. </para>
     </detaileddescription>
-    <location file="rrConfig.h" line="63" column="1" bodyfile="rrConfig.h" bodystart="64" bodyend="634"/>
+    <location file="rrConfig.h" line="63" column="1" bodyfile="rrConfig.h" bodystart="64" bodyend="607"/>
     <listofallmembers>
       <member refid="classrr_1_1Config_1aed7c550b9e34222675cd152c9154d053ae344943000e085c6891d49ccd8286fa4" prot="public" virt="non-virtual"><scope>rr::Config</scope><name>ALLOW_EVENTS_IN_STEADY_STATE_CALCULATIONS</name></member>
       <member refid="classrr_1_1Config_1aed7c550b9e34222675cd152c9154d053ae173224855af72a1643cb740c724f377" prot="public" virt="non-virtual"><scope>rr::Config</scope><name>CONFIG_END</name></member>
@@ -801,9 +801,9 @@
       <member refid="classrr_1_1Config_1a4ee7359b58047946520f3f3a9c6de04c" prot="public" virt="non-virtual"><scope>rr::Config</scope><name>getConfigFilePath</name></member>
       <member refid="classrr_1_1Config_1a6cf432148717f8bbadc861481340f3bd" prot="public" virt="non-virtual"><scope>rr::Config</scope><name>getDouble</name></member>
       <member refid="classrr_1_1Config_1a66454fca7b7357d5b3180d8589bacebf" prot="public" virt="non-virtual"><scope>rr::Config</scope><name>getInt</name></member>
-      <member refid="classrr_1_1Config_1abc159273f423c010242f1cf07f588f78" prot="public" virt="non-virtual"><scope>rr::Config</scope><name>getKeyList</name></member>
+      <member refid="classrr_1_1Config_1a20e11f7bdb81efbd1e84011801b4a526" prot="public" virt="non-virtual"><scope>rr::Config</scope><name>getKeyList</name></member>
       <member refid="classrr_1_1Config_1a0370467d1593491eac5e443ce0c03224" prot="public" virt="non-virtual"><scope>rr::Config</scope><name>getString</name></member>
-      <member refid="classrr_1_1Config_1aa31df27110cab08f134c8e7570d90746" prot="public" virt="non-virtual"><scope>rr::Config</scope><name>getValue</name></member>
+      <member refid="classrr_1_1Config_1a1acfbc8a6af061e54e4c6b2890ce4a88" prot="public" virt="non-virtual"><scope>rr::Config</scope><name>getValue</name></member>
       <member refid="classrr_1_1Config_1aed7c550b9e34222675cd152c9154d053ada4ec1b0d4d8d54e580eddccc1f33efb" prot="public" virt="non-virtual"><scope>rr::Config</scope><name>K_ROWS_PER_WRITE</name></member>
       <member refid="classrr_1_1Config_1aed7c550b9e34222675cd152c9154d053" prot="public" virt="non-virtual"><scope>rr::Config</scope><name>Keys</name></member>
       <member refid="classrr_1_1Config_1aed7c550b9e34222675cd152c9154d053a0f7d62516a750c56eddc353e14c5e421" prot="public" virt="non-virtual"><scope>rr::Config</scope><name>LLVM_SYMBOL_CACHE</name></member>
@@ -837,7 +837,7 @@
       <member refid="classrr_1_1Config_1a4809c71e5ad3b128af6dbb0a4093c938" prot="public" virt="non-virtual"><scope>rr::Config</scope><name>ROADRUNNER_JACOBIAN_MODE_VALUES</name></member>
       <member refid="classrr_1_1Config_1aed7c550b9e34222675cd152c9154d053ae778bfdbfb15c7391f52a3363c01c41c" prot="public" virt="non-virtual"><scope>rr::Config</scope><name>ROADRUNNER_JACOBIAN_STEP_SIZE</name></member>
       <member refid="classrr_1_1Config_1aed7c550b9e34222675cd152c9154d053a043cd743124d745fe19797e0992d4078" prot="public" virt="non-virtual"><scope>rr::Config</scope><name>SBML_APPLICABLEVALIDATORS</name></member>
-      <member refid="classrr_1_1Config_1a3d5bdb8ee4fad8a88bac365328f510fc" prot="public" virt="non-virtual"><scope>rr::Config</scope><name>setValue</name></member>
+      <member refid="classrr_1_1Config_1af31cc9c1ef79cd00c6099930bd2aae9c" prot="public" virt="non-virtual"><scope>rr::Config</scope><name>setValue</name></member>
       <member refid="classrr_1_1Config_1aed7c550b9e34222675cd152c9154d053a7c765d39c39d0550c170fce10099664f" prot="public" virt="non-virtual"><scope>rr::Config</scope><name>SIMULATEOPTIONS_ABSOLUTE</name></member>
       <member refid="classrr_1_1Config_1aed7c550b9e34222675cd152c9154d053a2380bee401835d67027fcf0b6fca3c20" prot="public" virt="non-virtual"><scope>rr::Config</scope><name>SIMULATEOPTIONS_COPY_RESULT</name></member>
       <member refid="classrr_1_1Config_1aed7c550b9e34222675cd152c9154d053a68f2e9ea81eb79e0d138a3834ab2b33b" prot="public" virt="non-virtual"><scope>rr::Config</scope><name>SIMULATEOPTIONS_DETERMINISTIC_VARIABLE_STEP</name></member>

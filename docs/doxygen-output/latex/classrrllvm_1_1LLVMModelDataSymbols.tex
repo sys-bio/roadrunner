@@ -44,8 +44,8 @@ typedef std\+::map$<$ std\+::string, std\+::vector$<$ uint $>$ $>$ {\bfseries St
 \mbox{\Hypertarget{classrrllvm_1_1LLVMModelDataSymbols_a4bf890563731b1fe296dca200ce1ef98}\label{classrrllvm_1_1LLVMModelDataSymbols_a4bf890563731b1fe296dca200ce1ef98}} 
 typedef std\+::pair$<$ std\+::string, uint $>$ {\bfseries String\+U\+Int\+Pair}
 \item 
-\mbox{\Hypertarget{classrrllvm_1_1LLVMModelDataSymbols_abffc137dab59dc26f324c12537ea207c}\label{classrrllvm_1_1LLVMModelDataSymbols_abffc137dab59dc26f324c12537ea207c}} 
-typedef cxx11\+\_\+ns\+::unordered\+\_\+map$<$ uint, uint $>$ {\bfseries U\+Int\+U\+Int\+Map}
+\mbox{\Hypertarget{classrrllvm_1_1LLVMModelDataSymbols_a85c8a143119e26f1536a0c20d2925822}\label{classrrllvm_1_1LLVMModelDataSymbols_a85c8a143119e26f1536a0c20d2925822}} 
+typedef std\+::unordered\+\_\+map$<$ uint, uint $>$ {\bfseries U\+Int\+U\+Int\+Map}
 \end{DoxyCompactItemize}
 \doxysubsection*{Public Member Functions}
 \begin{DoxyCompactItemize}
@@ -216,7 +216,7 @@ bool {\bfseries is\+Independent\+Init\+Compartment} (const std\+::string \&symbo
 \item 
 \mbox{\Hypertarget{classrrllvm_1_1LLVMModelDataSymbols_a9e69809c00382d494280b0124bae2e57}\label{classrrllvm_1_1LLVMModelDataSymbols_a9e69809c00382d494280b0124bae2e57}} 
 bool \mbox{\hyperlink{classrrllvm_1_1LLVMModelDataSymbols_a9e69809c00382d494280b0124bae2e57}{is\+Independent\+Init\+Global\+Parameter}} (const std\+::string \&symbol) const
-\begin{DoxyCompactList}\small\item\em has this string been found to be an independent init global param-- is a global param and not having an assignment or init assignment rule. \end{DoxyCompactList}\item 
+\begin{DoxyCompactList}\small\item\em has this std\+::string been found to be an independent init global param-- is a global param and not having an assignment or init assignment rule. \end{DoxyCompactList}\item 
 \mbox{\Hypertarget{classrrllvm_1_1LLVMModelDataSymbols_a4980057e894a24a75faad509c9ecc616}\label{classrrllvm_1_1LLVMModelDataSymbols_a4980057e894a24a75faad509c9ecc616}} 
 bool \mbox{\hyperlink{classrrllvm_1_1LLVMModelDataSymbols_a4980057e894a24a75faad509c9ecc616}{is\+Independent\+Init\+Global\+Parameter}} (size\+\_\+t id) const
 \begin{DoxyCompactList}\small\item\em is this global parameter id an independent init param -- a global param without an init assignment rule. \end{DoxyCompactList}\item 
@@ -274,15 +274,9 @@ The logic behind splitting up \mbox{\hyperlink{classrrllvm_1_1LLVMModelDataSymbo
 
 \begin{DoxyItemize}
 \item data storage\+: There can exist rules (assigment, rate, and eventually algebraic) rules that determine the value of a symbol.
-\end{DoxyItemize}
-
-All items for which a rate rule exists are stored in the model\+Data\+::rate\+Rules array.
-
-No space is allocated for items determined by rate rules.
-
-
-\begin{DoxyItemize}
-\item All elements get an index value, even the dependent ones, this allows us uniquely indentify them in the generated accessor functions.
+\item All items for which a rate rule exists are stored in the model\+Data\+::rate\+Rules array.
+\item No space is allocated for items determined by rate rules.
+\item All elements get an index value, even the dependent ones, this allows us uniquely identify them in the generated accessor functions.
 \item Most of the indexes used in this class are indexes into Model\+Data arrays, therefore we use unsigned integers -- these are less error prone and its easier to check if they are valid i.\+e. only check that they are less than the the array size and we do not have to check that it is positive.
 \item All symbols from the sbml are reordered such that the independent ones are first, followed by the dependent values. 
 \end{DoxyItemize}
@@ -411,7 +405,9 @@ the type of symbol, if no symbol is found, then I\+N\+V\+A\+L\+I\+D\+\_\+\+S\+Y\
 
 checks if the given symbol is a init value for a conserved species. 
 
-Global parameters or floating species can be conservied moieties, a global parameter is a CM if it is defined by a inital assignment rules as a linear of one CM species and a set of indepdent floating species.
+Global parameters or floating species can be conservied moieties,
+
+a global parameter is a CM if it is defined by a inital assignment rules as a linear of one CM species and a set of indepdent floating species.
 
 A floating species may be a CM if it is defined by a rule as a linear combination of independent species.
 

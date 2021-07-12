@@ -13,6 +13,8 @@
   
   <link rel="stylesheet" href="../_static/css/theme.css" type="text/css" />
   <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
+  <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
+  <link rel="stylesheet" href="../_static/css/theme.css" type="text/css" />
   <link rel="stylesheet" href="../_static/tabs.css" type="text/css" />
 
   
@@ -30,10 +32,10 @@
   
     
       <script type="text/javascript" id="documentation_options" data-url_root="../" src="../_static/documentation_options.js"></script>
+        <script data-url_root="../" id="documentation_options" src="../_static/documentation_options.js"></script>
         <script src="../_static/jquery.js"></script>
         <script src="../_static/underscore.js"></script>
         <script src="../_static/doctools.js"></script>
-        <script src="../_static/language_data.js"></script>
     
     <script type="text/javascript" src="../_static/js/theme.js"></script>
 
@@ -118,6 +120,7 @@
 </ul>
 </li>
 <li class="toctree-l1"><a class="reference internal" href="../C%2B%2BAPIReference/index.html">The LibRoadRunner C++ Library</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../developers_docs/index.html">Developers Documentation</a></li>
 </ul>
 
             
@@ -190,26 +193,26 @@
   <div class="section" id="miscellaneous-functions">
 <h1>Miscellaneous Functions<a class="headerlink" href="#miscellaneous-functions" title="Permalink to this headline">¶</a></h1>
 <dl class="py function">
-<dt id="roadrunner.getCopyrightStr">
-<code class="sig-prename descclassname">roadrunner.</code><code class="sig-name descname">getCopyrightStr</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#roadrunner.getCopyrightStr" title="Permalink to this definition">¶</a></dt>
+<dt class="sig sig-object py" id="roadrunner.getCopyrightStr">
+<span class="sig-prename descclassname"><span class="pre">roadrunner.</span></span><span class="sig-name descname"><span class="pre">getCopyrightStr</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#roadrunner.getCopyrightStr" title="Permalink to this definition">¶</a></dt>
 <dd><p>Returns the copyright string</p>
 </dd></dl>
 
 <dl class="py function">
-<dt id="roadrunner.getVersionStr">
-<code class="sig-prename descclassname">roadrunner.</code><code class="sig-name descname">getVersionStr</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#roadrunner.getVersionStr" title="Permalink to this definition">¶</a></dt>
+<dt class="sig sig-object py" id="roadrunner.getVersionStr">
+<span class="sig-prename descclassname"><span class="pre">roadrunner.</span></span><span class="sig-name descname"><span class="pre">getVersionStr</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#roadrunner.getVersionStr" title="Permalink to this definition">¶</a></dt>
 <dd><p>Returns the version string</p>
 </dd></dl>
 
 <dl class="py method">
-<dt id="roadrunner.RoadRunner_getExtendedVersionInfo">
-<em class="property">static </em><code class="sig-prename descclassname">roadrunner.</code><code class="sig-name descname">RoadRunner_getExtendedVersionInfo</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#roadrunner.RoadRunner_getExtendedVersionInfo" title="Permalink to this definition">¶</a></dt>
+<dt class="sig sig-object py" id="roadrunner.RoadRunner_getExtendedVersionInfo">
+<em class="property"><span class="pre">static</span> </em><span class="sig-prename descclassname"><span class="pre">roadrunner.</span></span><span class="sig-name descname"><span class="pre">RoadRunner_getExtendedVersionInfo</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#roadrunner.RoadRunner_getExtendedVersionInfo" title="Permalink to this definition">¶</a></dt>
 <dd><p><a class="reference internal" href="#roadrunner.getVersionStr" title="roadrunner.getVersionStr"><code class="xref py py-func docutils literal notranslate"><span class="pre">getVersionStr()</span></code></a> with infomation about dependent libs versions.</p>
 </dd></dl>
 
 <dl class="py method">
-<dt id="roadrunner.RoadRunner_getParamPromotedSBML">
-<em class="property">static </em><code class="sig-prename descclassname">roadrunner.</code><code class="sig-name descname">RoadRunner_getParamPromotedSBML</code><span class="sig-paren">(</span><em class="sig-param"><span class="o">*</span><span class="n">args</span></em><span class="sig-paren">)</span><a class="headerlink" href="#roadrunner.RoadRunner_getParamPromotedSBML" title="Permalink to this definition">¶</a></dt>
+<dt class="sig sig-object py" id="roadrunner.RoadRunner_getParamPromotedSBML">
+<em class="property"><span class="pre">static</span> </em><span class="sig-prename descclassname"><span class="pre">roadrunner.</span></span><span class="sig-name descname"><span class="pre">RoadRunner_getParamPromotedSBML</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">*</span></span><span class="n"><span class="pre">args</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#roadrunner.RoadRunner_getParamPromotedSBML" title="Permalink to this definition">¶</a></dt>
 <dd><p>Takes an SBML document (in textual form) and changes all of the local parameters
 to be global parameters.</p>
 <dl class="field-list simple">
@@ -223,8 +226,8 @@ to be global parameters.</p>
 </dd></dl>
 
 <dl class="py function">
-<dt id="roadrunner.validateSBML">
-<code class="sig-prename descclassname">roadrunner.</code><code class="sig-name descname">validateSBML</code><span class="sig-paren">(</span><em class="sig-param"><span class="o">*</span><span class="n">args</span></em><span class="sig-paren">)</span><a class="headerlink" href="#roadrunner.validateSBML" title="Permalink to this definition">¶</a></dt>
+<dt class="sig sig-object py" id="roadrunner.validateSBML">
+<span class="sig-prename descclassname"><span class="pre">roadrunner.</span></span><span class="sig-name descname"><span class="pre">validateSBML</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">*</span></span><span class="n"><span class="pre">args</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#roadrunner.validateSBML" title="Permalink to this definition">¶</a></dt>
 <dd><p>Given a string, check whether the string is a valid SBML string.
 Raises exception if the string is not a valid SBML string.</p>
 <dl class="field-list simple">
@@ -235,14 +238,14 @@ Raises exception if the string is not a valid SBML string.</p>
 </dd></dl>
 
 <dl class="py function">
-<dt id="roadrunner.listTestModels">
-<code class="sig-prename descclassname">roadrunner.</code><code class="sig-name descname">listTestModels</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#roadrunner.listTestModels" title="Permalink to this definition">¶</a></dt>
+<dt class="sig sig-object py" id="roadrunner.listTestModels">
+<span class="sig-prename descclassname"><span class="pre">roadrunner.</span></span><span class="sig-name descname"><span class="pre">listTestModels</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#roadrunner.listTestModels" title="Permalink to this definition">¶</a></dt>
 <dd><p>Lists all the test models.</p>
 </dd></dl>
 
 <dl class="py function">
-<dt id="roadrunner.loadTestModel">
-<code class="sig-prename descclassname">roadrunner.</code><code class="sig-name descname">loadTestModel</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">name</span></em><span class="sig-paren">)</span><a class="headerlink" href="#roadrunner.loadTestModel" title="Permalink to this definition">¶</a></dt>
+<dt class="sig sig-object py" id="roadrunner.loadTestModel">
+<span class="sig-prename descclassname"><span class="pre">roadrunner.</span></span><span class="sig-name descname"><span class="pre">loadTestModel</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">name</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#roadrunner.loadTestModel" title="Permalink to this definition">¶</a></dt>
 <dd><p>Load a test model given a name.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>

@@ -64,9 +64,9 @@
         </inbodydescription>
         <location file="llvm/GetValuesCodeGen.h" line="59" column="5" bodyfile="llvm/GetValuesCodeGen.h" bodystart="59" bodyend="59"/>
       </memberdef>
-      <memberdef kind="function" id="classrrllvm_1_1GetBoundarySpeciesConcentrationCodeGen_1ab34a3a9d0c7f0f5d5f8311eea7149b0f" prot="public" static="no" const="no" explicit="no" inline="yes" virt="non-virtual">
-        <type>std::vector&lt; string &gt;</type>
-        <definition>std::vector&lt;string&gt; rrllvm::GetBoundarySpeciesConcentrationCodeGen::getIds</definition>
+      <memberdef kind="function" id="classrrllvm_1_1GetBoundarySpeciesConcentrationCodeGen_1a119a826899e18f7830f82fab43dab3db" prot="public" static="no" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <type>std::vector&lt; std::string &gt;</type>
+        <definition>std::vector&lt;std::string&gt; rrllvm::GetBoundarySpeciesConcentrationCodeGen::getIds</definition>
         <argsstring>()</argsstring>
         <name>getIds</name>
         <briefdescription>
@@ -138,37 +138,27 @@
         <childnode refid="4" relation="usage">
           <edgelabel>modelSymbols</edgelabel>
         </childnode>
-        <childnode refid="9" relation="usage">
+        <childnode refid="8" relation="usage">
           <edgelabel>dataSymbols</edgelabel>
         </childnode>
-        <childnode refid="10" relation="usage">
+        <childnode refid="9" relation="usage">
           <edgelabel>modelGenContext</edgelabel>
         </childnode>
       </node>
-      <node id="10">
+      <node id="9">
         <label>rrllvm::ModelGeneratorContext</label>
         <link refid="classrrllvm_1_1ModelGeneratorContext"/>
       </node>
-      <node id="9">
+      <node id="8">
         <label>rrllvm::LLVMModelDataSymbols</label>
         <link refid="classrrllvm_1_1LLVMModelDataSymbols"/>
-      </node>
-      <node id="5">
-        <label>SBMLVisitor</label>
       </node>
       <node id="7">
         <label>rrllvm::SymbolForest</label>
         <link refid="classrrllvm_1_1SymbolForest"/>
-        <childnode refid="8" relation="usage">
-          <edgelabel>boundarySpecies</edgelabel>
-          <edgelabel>compartments</edgelabel>
-          <edgelabel>floatingSpecies</edgelabel>
-          <edgelabel>globalParameters</edgelabel>
-          <edgelabel>speciesReferences</edgelabel>
-        </childnode>
       </node>
-      <node id="8">
-        <label>map&lt; string, const libsbml::ASTNode * &gt;</label>
+      <node id="5">
+        <label>libsbml::SBMLVisitor</label>
       </node>
     </collaborationgraph>
     <location file="llvm/GetValuesCodeGen.h" line="54" column="1" bodyfile="llvm/GetValuesCodeGen.h" bodystart="56" bodyend="68"/>
@@ -187,7 +177,7 @@
       <member refid="classrrllvm_1_1CodeGenBase_1addedde72248fde005bff3060843de531" prot="protected" virt="non-virtual"><scope>rrllvm::GetBoundarySpeciesConcentrationCodeGen</scope><name>functionPassManager</name></member>
       <member refid="classrrllvm_1_1GetValueCodeGenBase_1a198aef7eea324b26f9ce2328f0c50d94" prot="public" virt="non-virtual"><scope>rrllvm::GetBoundarySpeciesConcentrationCodeGen</scope><name>FunctionPtr</name></member>
       <member refid="classrrllvm_1_1GetBoundarySpeciesConcentrationCodeGen_1aa238a6801eea1817084d901b6a63bcd3" prot="public" virt="non-virtual"><scope>rrllvm::GetBoundarySpeciesConcentrationCodeGen</scope><name>GetBoundarySpeciesConcentrationCodeGen</name></member>
-      <member refid="classrrllvm_1_1GetBoundarySpeciesConcentrationCodeGen_1ab34a3a9d0c7f0f5d5f8311eea7149b0f" prot="public" virt="non-virtual"><scope>rrllvm::GetBoundarySpeciesConcentrationCodeGen</scope><name>getIds</name></member>
+      <member refid="classrrllvm_1_1GetBoundarySpeciesConcentrationCodeGen_1a119a826899e18f7830f82fab43dab3db" prot="public" virt="non-virtual"><scope>rrllvm::GetBoundarySpeciesConcentrationCodeGen</scope><name>getIds</name></member>
       <member refid="classrrllvm_1_1GetValueCodeGenBase_1a0e71d10a41673d1c5264682a0b23f931" prot="public" virt="non-virtual"><scope>rrllvm::GetBoundarySpeciesConcentrationCodeGen</scope><name>GetValueCodeGenBase</name></member>
       <member refid="classrrllvm_1_1GetBoundarySpeciesConcentrationCodeGen_1a7cc7e661535532c075449f6d760d0ad2" prot="public" virt="non-virtual"><scope>rrllvm::GetBoundarySpeciesConcentrationCodeGen</scope><name>IndexArgName</name></member>
       <member refid="classrrllvm_1_1CodeGenBase_1afb6ef03ee896534cde79895141a8a666" prot="protected" virt="non-virtual"><scope>rrllvm::GetBoundarySpeciesConcentrationCodeGen</scope><name>model</name></member>

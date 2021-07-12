@@ -1,0 +1,63 @@
+\hypertarget{classrr_1_1NLEQSolver}{}\doxysection{rr\+::N\+L\+E\+Q\+Solver Class Reference}
+\label{classrr_1_1NLEQSolver}\index{rr::NLEQSolver@{rr::NLEQSolver}}
+
+
+Base class for N\+L\+EQ type steady state solvers.  
+
+
+
+
+{\ttfamily \#include $<$N\+L\+E\+Q\+Solver.\+h$>$}
+
+Inheritance diagram for rr\+::N\+L\+E\+Q\+Solver\+:\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[height=4.000000cm]{classrr_1_1NLEQSolver}
+\end{center}
+\end{figure}
+\doxysubsection*{Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\Hypertarget{classrr_1_1NLEQSolver_a285280e71f68f3bebf39eca43e4b16c5}\label{classrr_1_1NLEQSolver_a285280e71f68f3bebf39eca43e4b16c5}} 
+\mbox{\hyperlink{classrr_1_1NLEQSolver_a285280e71f68f3bebf39eca43e4b16c5}{N\+L\+E\+Q\+Solver}} (\mbox{\hyperlink{classrr_1_1ExecutableModel}{Executable\+Model}} $\ast$model)
+\begin{DoxyCompactList}\small\item\em Creates a new Instance of N\+L\+EQ for the given Model. \end{DoxyCompactList}\item 
+\mbox{\Hypertarget{classrr_1_1NLEQSolver_a02142cf0c637815a33c754e8637fdb3f}\label{classrr_1_1NLEQSolver_a02142cf0c637815a33c754e8637fdb3f}} 
+void \mbox{\hyperlink{classrr_1_1NLEQSolver_a02142cf0c637815a33c754e8637fdb3f}{sync\+With\+Model}} (\mbox{\hyperlink{classrr_1_1ExecutableModel}{Executable\+Model}} $\ast$m) override
+\begin{DoxyCompactList}\small\item\em Called whenever a new model is loaded to allow integrator to reset internal state. \end{DoxyCompactList}\item 
+\mbox{\Hypertarget{classrr_1_1NLEQSolver_af791dc24c5517ddd9c0684dbc17c43d2}\label{classrr_1_1NLEQSolver_af791dc24c5517ddd9c0684dbc17c43d2}} 
+void {\bfseries load\+Config\+Settings} () override
+\item 
+\mbox{\Hypertarget{classrr_1_1NLEQSolver_a73142505757b0b6363da15e2b937dd78}\label{classrr_1_1NLEQSolver_a73142505757b0b6363da15e2b937dd78}} 
+void \mbox{\hyperlink{classrr_1_1NLEQSolver_a73142505757b0b6363da15e2b937dd78}{reset\+Settings}} () override
+\begin{DoxyCompactList}\small\item\em Reset all integrator settings to their respective default values. \end{DoxyCompactList}\item 
+{\footnotesize template$<$class N\+L\+E\+Q\+Solver\+Type $>$ }\\double \mbox{\hyperlink{classrr_1_1NLEQSolver_ae8deaaf0ce433690e1facc32d00b6e91}{solve\+N\+L\+EQ}} ()
+\begin{DoxyCompactList}\small\item\em main solver method. \end{DoxyCompactList}\end{DoxyCompactItemize}
+\doxysubsection*{Additional Inherited Members}
+
+
+\doxysubsection{Detailed Description}
+Base class for N\+L\+EQ type steady state solvers. 
+
+\doxysubsection{Member Function Documentation}
+\mbox{\Hypertarget{classrr_1_1NLEQSolver_ae8deaaf0ce433690e1facc32d00b6e91}\label{classrr_1_1NLEQSolver_ae8deaaf0ce433690e1facc32d00b6e91}} 
+\index{rr::NLEQSolver@{rr::NLEQSolver}!solveNLEQ@{solveNLEQ}}
+\index{solveNLEQ@{solveNLEQ}!rr::NLEQSolver@{rr::NLEQSolver}}
+\doxysubsubsection{\texorpdfstring{solveNLEQ()}{solveNLEQ()}}
+{\footnotesize\ttfamily template$<$class N\+L\+E\+Q\+Solver\+Type $>$ \\
+double rr\+::\+N\+L\+E\+Q\+Solver\+::solve\+N\+L\+EQ (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}}
+
+
+
+main solver method. 
+
+N\+L\+E\+Q1 and N\+L\+E\+Q2 have the same interface, which means we only need 1 method for both. 
+\begin{DoxyParams}{Parameters}
+{\em which} & either \char`\"{}nleq1\char`\"{} or \char`\"{}nleq2\char`\"{} \\
+\hline
+\end{DoxyParams}
+
+
+The documentation for this class was generated from the following files\+:\begin{DoxyCompactItemize}
+\item 
+N\+L\+E\+Q\+Solver.\+h\item 
+N\+L\+E\+Q\+Solver.\+cpp\end{DoxyCompactItemize}

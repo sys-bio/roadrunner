@@ -13,6 +13,8 @@
   
   <link rel="stylesheet" href="../_static/css/theme.css" type="text/css" />
   <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
+  <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
+  <link rel="stylesheet" href="../_static/css/theme.css" type="text/css" />
   <link rel="stylesheet" href="../_static/tabs.css" type="text/css" />
 
   
@@ -30,10 +32,10 @@
   
     
       <script type="text/javascript" id="documentation_options" data-url_root="../" src="../_static/documentation_options.js"></script>
+        <script data-url_root="../" id="documentation_options" src="../_static/documentation_options.js"></script>
         <script src="../_static/jquery.js"></script>
         <script src="../_static/underscore.js"></script>
         <script src="../_static/doctools.js"></script>
-        <script src="../_static/language_data.js"></script>
     
     <script type="text/javascript" src="../_static/js/theme.js"></script>
 
@@ -118,6 +120,7 @@
 </ul>
 </li>
 <li class="toctree-l1"><a class="reference internal" href="../C%2B%2BAPIReference/index.html">The LibRoadRunner C++ Library</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../developers_docs/index.html">Developers Documentation</a></li>
 </ul>
 
             
@@ -190,14 +193,14 @@
   <div class="section" id="solver-class">
 <h1>Solver Class<a class="headerlink" href="#solver-class" title="Permalink to this headline">¶</a></h1>
 <dl class="py class">
-<dt id="roadrunner.Solver">
-<em class="property">class </em><code class="sig-prename descclassname">roadrunner.</code><code class="sig-name descname">Solver</code><a class="headerlink" href="#roadrunner.Solver" title="Permalink to this definition">¶</a></dt>
+<dt class="sig sig-object py" id="roadrunner.Solver">
+<em class="property"><span class="pre">class</span> </em><span class="sig-prename descclassname"><span class="pre">roadrunner.</span></span><span class="sig-name descname"><span class="pre">Solver</span></span><a class="headerlink" href="#roadrunner.Solver" title="Permalink to this definition">¶</a></dt>
 <dd><p>Following functions are supported for a given solver instance which can be obtained by calling RoadRunner.getIntegrator() or RoadRunner.getSteadyStateSolver() methods. There are two types of solvers: Integrators(cvode, gillespie, rk4, rk45) - RoadRunner.Integrator() and Steady State Solvers(nleq2) - RoadRunner.SteadyStateSolver()</p>
 </dd></dl>
 
 <dl class="py method">
-<dt id="Solver.getDescription">
-<code class="sig-prename descclassname">Solver.</code><code class="sig-name descname">getDescription</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">key</span></em><span class="sig-paren">)</span><a class="headerlink" href="#Solver.getDescription" title="Permalink to this definition">¶</a></dt>
+<dt class="sig sig-object py" id="Solver.getDescription">
+<span class="sig-prename descclassname"><span class="pre">Solver.</span></span><span class="sig-name descname"><span class="pre">getDescription</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">key</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#Solver.getDescription" title="Permalink to this definition">¶</a></dt>
 <dd><p>If key = None,  returns description of this solver.
 Else, returns the description associated with a given key.</p>
 <dl class="field-list simple">
@@ -208,8 +211,8 @@ Else, returns the description associated with a given key.</p>
 </dd></dl>
 
 <dl class="py method">
-<dt id="Solver.getDisplayName">
-<code class="sig-prename descclassname">Solver.</code><code class="sig-name descname">getDisplayName</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">key</span></em><span class="sig-paren">)</span><a class="headerlink" href="#Solver.getDisplayName" title="Permalink to this definition">¶</a></dt>
+<dt class="sig sig-object py" id="Solver.getDisplayName">
+<span class="sig-prename descclassname"><span class="pre">Solver.</span></span><span class="sig-name descname"><span class="pre">getDisplayName</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">key</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#Solver.getDisplayName" title="Permalink to this definition">¶</a></dt>
 <dd><p>Returns display name of given key.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
@@ -219,8 +222,8 @@ Else, returns the description associated with a given key.</p>
 </dd></dl>
 
 <dl class="py method">
-<dt id="Solver.getHint">
-<code class="sig-prename descclassname">Solver.</code><code class="sig-name descname">getHint</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">key</span></em><span class="sig-paren">)</span><a class="headerlink" href="#Solver.getHint" title="Permalink to this definition">¶</a></dt>
+<dt class="sig sig-object py" id="Solver.getHint">
+<span class="sig-prename descclassname"><span class="pre">Solver.</span></span><span class="sig-name descname"><span class="pre">getHint</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">key</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#Solver.getHint" title="Permalink to this definition">¶</a></dt>
 <dd><p>If key = None,  returns a (user-readable) hint for this solver.
 Else, Returns the hint associated with a given key.</p>
 <dl class="field-list simple">
@@ -231,20 +234,20 @@ Else, Returns the hint associated with a given key.</p>
 </dd></dl>
 
 <dl class="py method">
-<dt id="Solver.getName">
-<code class="sig-prename descclassname">Solver.</code><code class="sig-name descname">getName</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#Solver.getName" title="Permalink to this definition">¶</a></dt>
+<dt class="sig sig-object py" id="Solver.getName">
+<span class="sig-prename descclassname"><span class="pre">Solver.</span></span><span class="sig-name descname"><span class="pre">getName</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#Solver.getName" title="Permalink to this definition">¶</a></dt>
 <dd><p>Returns the name of this solver</p>
 </dd></dl>
 
 <dl class="py method">
-<dt id="Solver.getNumParams">
-<code class="sig-prename descclassname">Solver.</code><code class="sig-name descname">getNumParams</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#Solver.getNumParams" title="Permalink to this definition">¶</a></dt>
+<dt class="sig sig-object py" id="Solver.getNumParams">
+<span class="sig-prename descclassname"><span class="pre">Solver.</span></span><span class="sig-name descname"><span class="pre">getNumParams</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#Solver.getNumParams" title="Permalink to this definition">¶</a></dt>
 <dd><p>Get the number of parameters.</p>
 </dd></dl>
 
 <dl class="py method">
-<dt id="Solver.getParamDesc">
-<code class="sig-prename descclassname">Solver.</code><code class="sig-name descname">getParamDesc</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">n</span></em><span class="sig-paren">)</span><a class="headerlink" href="#Solver.getParamDesc" title="Permalink to this definition">¶</a></dt>
+<dt class="sig sig-object py" id="Solver.getParamDesc">
+<span class="sig-prename descclassname"><span class="pre">Solver.</span></span><span class="sig-name descname"><span class="pre">getParamDesc</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">n</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#Solver.getParamDesc" title="Permalink to this definition">¶</a></dt>
 <dd><p>Get the description of the parameter at index n</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
@@ -254,8 +257,8 @@ Else, Returns the hint associated with a given key.</p>
 </dd></dl>
 
 <dl class="py method">
-<dt id="Solver.getParamDisplayName">
-<code class="sig-prename descclassname">Solver.</code><code class="sig-name descname">getParamDisplayName</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">n</span></em><span class="sig-paren">)</span><a class="headerlink" href="#Solver.getParamDisplayName" title="Permalink to this definition">¶</a></dt>
+<dt class="sig sig-object py" id="Solver.getParamDisplayName">
+<span class="sig-prename descclassname"><span class="pre">Solver.</span></span><span class="sig-name descname"><span class="pre">getParamDisplayName</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">n</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#Solver.getParamDisplayName" title="Permalink to this definition">¶</a></dt>
 <dd><p>Get the display name of the parameter at index n</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
@@ -265,8 +268,8 @@ Else, Returns the hint associated with a given key.</p>
 </dd></dl>
 
 <dl class="py method">
-<dt id="Solver.getParamHint">
-<code class="sig-prename descclassname">Solver.</code><code class="sig-name descname">getParamHint</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">n</span></em><span class="sig-paren">)</span><a class="headerlink" href="#Solver.getParamHint" title="Permalink to this definition">¶</a></dt>
+<dt class="sig sig-object py" id="Solver.getParamHint">
+<span class="sig-prename descclassname"><span class="pre">Solver.</span></span><span class="sig-name descname"><span class="pre">getParamHint</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">n</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#Solver.getParamHint" title="Permalink to this definition">¶</a></dt>
 <dd><p>Get the hint of the parameter at index n.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
@@ -276,8 +279,8 @@ Else, Returns the hint associated with a given key.</p>
 </dd></dl>
 
 <dl class="py method">
-<dt id="Solver.getParamName">
-<code class="sig-prename descclassname">Solver.</code><code class="sig-name descname">getParamName</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">n</span></em><span class="sig-paren">)</span><a class="headerlink" href="#Solver.getParamName" title="Permalink to this definition">¶</a></dt>
+<dt class="sig sig-object py" id="Solver.getParamName">
+<span class="sig-prename descclassname"><span class="pre">Solver.</span></span><span class="sig-name descname"><span class="pre">getParamName</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">n</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#Solver.getParamName" title="Permalink to this definition">¶</a></dt>
 <dd><p>Get the display name of the parameter at index n.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
@@ -287,8 +290,8 @@ Else, Returns the hint associated with a given key.</p>
 </dd></dl>
 
 <dl class="py method">
-<dt id="Solver.getSetting">
-<code class="sig-prename descclassname">Solver.</code><code class="sig-name descname">getSetting</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">k</span></em><span class="sig-paren">)</span><a class="headerlink" href="#Solver.getSetting" title="Permalink to this definition">¶</a></dt>
+<dt class="sig sig-object py" id="Solver.getSetting">
+<span class="sig-prename descclassname"><span class="pre">Solver.</span></span><span class="sig-name descname"><span class="pre">getSetting</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">k</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#Solver.getSetting" title="Permalink to this definition">¶</a></dt>
 <dd><p>Get value of a solver setting</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
@@ -298,20 +301,20 @@ Else, Returns the hint associated with a given key.</p>
 </dd></dl>
 
 <dl class="py method">
-<dt id="Solver.getSettings">
-<code class="sig-prename descclassname">Solver.</code><code class="sig-name descname">getSettings</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#Solver.getSettings" title="Permalink to this definition">¶</a></dt>
+<dt class="sig sig-object py" id="Solver.getSettings">
+<span class="sig-prename descclassname"><span class="pre">Solver.</span></span><span class="sig-name descname"><span class="pre">getSettings</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#Solver.getSettings" title="Permalink to this definition">¶</a></dt>
 <dd><p>Returns a list of all settings for this solver.</p>
 </dd></dl>
 
 <dl class="py method">
-<dt id="Solver.getSettingsRepr">
-<code class="sig-prename descclassname">Solver.</code><code class="sig-name descname">getSettingsRepr</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#Solver.getSettingsRepr" title="Permalink to this definition">¶</a></dt>
+<dt class="sig sig-object py" id="Solver.getSettingsRepr">
+<span class="sig-prename descclassname"><span class="pre">Solver.</span></span><span class="sig-name descname"><span class="pre">getSettingsRepr</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#Solver.getSettingsRepr" title="Permalink to this definition">¶</a></dt>
 <dd><p>Returns the solver settings as a string.</p>
 </dd></dl>
 
 <dl class="py method">
-<dt id="Solver.getType">
-<code class="sig-prename descclassname">Solver.</code><code class="sig-name descname">getType</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">key</span></em><span class="sig-paren">)</span><a class="headerlink" href="#Solver.getType" title="Permalink to this definition">¶</a></dt>
+<dt class="sig sig-object py" id="Solver.getType">
+<span class="sig-prename descclassname"><span class="pre">Solver.</span></span><span class="sig-name descname"><span class="pre">getType</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">key</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#Solver.getType" title="Permalink to this definition">¶</a></dt>
 <dd><p>Returns the type associated with a given key.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
@@ -321,8 +324,8 @@ Else, Returns the hint associated with a given key.</p>
 </dd></dl>
 
 <dl class="py method">
-<dt id="Solver.getValue">
-<code class="sig-prename descclassname">Solver.</code><code class="sig-name descname">getValue</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">key</span></em><span class="sig-paren">)</span><a class="headerlink" href="#Solver.getValue" title="Permalink to this definition">¶</a></dt>
+<dt class="sig sig-object py" id="Solver.getValue">
+<span class="sig-prename descclassname"><span class="pre">Solver.</span></span><span class="sig-name descname"><span class="pre">getValue</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">key</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#Solver.getValue" title="Permalink to this definition">¶</a></dt>
 <dd><p>Get the value of an integrator setting.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
@@ -332,8 +335,8 @@ Else, Returns the hint associated with a given key.</p>
 </dd></dl>
 
 <dl class="py method">
-<dt id="Solver.getValueAsBool">
-<code class="sig-prename descclassname">Solver.</code><code class="sig-name descname">getValueAsBool</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">key</span></em><span class="sig-paren">)</span><a class="headerlink" href="#Solver.getValueAsBool" title="Permalink to this definition">¶</a></dt>
+<dt class="sig sig-object py" id="Solver.getValueAsBool">
+<span class="sig-prename descclassname"><span class="pre">Solver.</span></span><span class="sig-name descname"><span class="pre">getValueAsBool</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">key</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#Solver.getValueAsBool" title="Permalink to this definition">¶</a></dt>
 <dd><p>Wrapper for <a class="reference internal" href="#Solver.getValue" title="Solver.getValue"><code class="xref py py-meth docutils literal notranslate"><span class="pre">Solver.getValue()</span></code></a> which converts output to a specific type</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
@@ -343,8 +346,8 @@ Else, Returns the hint associated with a given key.</p>
 </dd></dl>
 
 <dl class="py method">
-<dt id="Solver.getValueAsChar">
-<code class="sig-prename descclassname">Solver.</code><code class="sig-name descname">getValueAsChar</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">key</span></em><span class="sig-paren">)</span><a class="headerlink" href="#Solver.getValueAsChar" title="Permalink to this definition">¶</a></dt>
+<dt class="sig sig-object py" id="Solver.getValueAsChar">
+<span class="sig-prename descclassname"><span class="pre">Solver.</span></span><span class="sig-name descname"><span class="pre">getValueAsChar</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">key</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#Solver.getValueAsChar" title="Permalink to this definition">¶</a></dt>
 <dd><p>Wrapper for <a class="reference internal" href="#Solver.getValue" title="Solver.getValue"><code class="xref py py-meth docutils literal notranslate"><span class="pre">Solver.getValue()</span></code></a> which converts output to a specific type</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
@@ -354,8 +357,8 @@ Else, Returns the hint associated with a given key.</p>
 </dd></dl>
 
 <dl class="py method">
-<dt id="Solver.getValueAsDouble">
-<code class="sig-prename descclassname">Solver.</code><code class="sig-name descname">getValueAsDouble</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">key</span></em><span class="sig-paren">)</span><a class="headerlink" href="#Solver.getValueAsDouble" title="Permalink to this definition">¶</a></dt>
+<dt class="sig sig-object py" id="Solver.getValueAsDouble">
+<span class="sig-prename descclassname"><span class="pre">Solver.</span></span><span class="sig-name descname"><span class="pre">getValueAsDouble</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">key</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#Solver.getValueAsDouble" title="Permalink to this definition">¶</a></dt>
 <dd><p>Wrapper for <a class="reference internal" href="#Solver.getValue" title="Solver.getValue"><code class="xref py py-meth docutils literal notranslate"><span class="pre">Solver.getValue()</span></code></a> which converts output to a specific type</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
@@ -365,8 +368,8 @@ Else, Returns the hint associated with a given key.</p>
 </dd></dl>
 
 <dl class="py method">
-<dt id="Solver.getValueAsFloat">
-<code class="sig-prename descclassname">Solver.</code><code class="sig-name descname">getValueAsFloat</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">key</span></em><span class="sig-paren">)</span><a class="headerlink" href="#Solver.getValueAsFloat" title="Permalink to this definition">¶</a></dt>
+<dt class="sig sig-object py" id="Solver.getValueAsFloat">
+<span class="sig-prename descclassname"><span class="pre">Solver.</span></span><span class="sig-name descname"><span class="pre">getValueAsFloat</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">key</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#Solver.getValueAsFloat" title="Permalink to this definition">¶</a></dt>
 <dd><p>Wrapper for <a class="reference internal" href="#Solver.getValue" title="Solver.getValue"><code class="xref py py-meth docutils literal notranslate"><span class="pre">Solver.getValue()</span></code></a> which converts output to a specific type</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
@@ -376,8 +379,8 @@ Else, Returns the hint associated with a given key.</p>
 </dd></dl>
 
 <dl class="py method">
-<dt id="Solver.getValueAsInt">
-<code class="sig-prename descclassname">Solver.</code><code class="sig-name descname">getValueAsInt</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">key</span></em><span class="sig-paren">)</span><a class="headerlink" href="#Solver.getValueAsInt" title="Permalink to this definition">¶</a></dt>
+<dt class="sig sig-object py" id="Solver.getValueAsInt">
+<span class="sig-prename descclassname"><span class="pre">Solver.</span></span><span class="sig-name descname"><span class="pre">getValueAsInt</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">key</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#Solver.getValueAsInt" title="Permalink to this definition">¶</a></dt>
 <dd><p>Wrapper for <a class="reference internal" href="#Solver.getValue" title="Solver.getValue"><code class="xref py py-meth docutils literal notranslate"><span class="pre">Solver.getValue()</span></code></a> which converts output to a specific type</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
@@ -387,8 +390,8 @@ Else, Returns the hint associated with a given key.</p>
 </dd></dl>
 
 <dl class="py method">
-<dt id="Solver.getValueAsLong">
-<code class="sig-prename descclassname">Solver.</code><code class="sig-name descname">getValueAsLong</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">key</span></em><span class="sig-paren">)</span><a class="headerlink" href="#Solver.getValueAsLong" title="Permalink to this definition">¶</a></dt>
+<dt class="sig sig-object py" id="Solver.getValueAsLong">
+<span class="sig-prename descclassname"><span class="pre">Solver.</span></span><span class="sig-name descname"><span class="pre">getValueAsLong</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">key</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#Solver.getValueAsLong" title="Permalink to this definition">¶</a></dt>
 <dd><p>Wrapper for <a class="reference internal" href="#Solver.getValue" title="Solver.getValue"><code class="xref py py-meth docutils literal notranslate"><span class="pre">Solver.getValue()</span></code></a> which converts output to a specific type</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
@@ -398,8 +401,8 @@ Else, Returns the hint associated with a given key.</p>
 </dd></dl>
 
 <dl class="py method">
-<dt id="Solver.getValueAsString">
-<code class="sig-prename descclassname">Solver.</code><code class="sig-name descname">getValueAsString</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">key</span></em><span class="sig-paren">)</span><a class="headerlink" href="#Solver.getValueAsString" title="Permalink to this definition">¶</a></dt>
+<dt class="sig sig-object py" id="Solver.getValueAsString">
+<span class="sig-prename descclassname"><span class="pre">Solver.</span></span><span class="sig-name descname"><span class="pre">getValueAsString</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">key</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#Solver.getValueAsString" title="Permalink to this definition">¶</a></dt>
 <dd><p>Wrapper for <a class="reference internal" href="#Solver.getValue" title="Solver.getValue"><code class="xref py py-meth docutils literal notranslate"><span class="pre">Solver.getValue()</span></code></a> which converts output to a specific type</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
@@ -409,8 +412,8 @@ Else, Returns the hint associated with a given key.</p>
 </dd></dl>
 
 <dl class="py method">
-<dt id="Solver.getValueAsUChar">
-<code class="sig-prename descclassname">Solver.</code><code class="sig-name descname">getValueAsUChar</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">key</span></em><span class="sig-paren">)</span><a class="headerlink" href="#Solver.getValueAsUChar" title="Permalink to this definition">¶</a></dt>
+<dt class="sig sig-object py" id="Solver.getValueAsUChar">
+<span class="sig-prename descclassname"><span class="pre">Solver.</span></span><span class="sig-name descname"><span class="pre">getValueAsUChar</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">key</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#Solver.getValueAsUChar" title="Permalink to this definition">¶</a></dt>
 <dd><p>Wrapper for <a class="reference internal" href="#Solver.getValue" title="Solver.getValue"><code class="xref py py-meth docutils literal notranslate"><span class="pre">Solver.getValue()</span></code></a> which converts output to a specific type</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
@@ -420,8 +423,8 @@ Else, Returns the hint associated with a given key.</p>
 </dd></dl>
 
 <dl class="py method">
-<dt id="Solver.getValueAsUInt">
-<code class="sig-prename descclassname">Solver.</code><code class="sig-name descname">getValueAsUInt</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">key</span></em><span class="sig-paren">)</span><a class="headerlink" href="#Solver.getValueAsUInt" title="Permalink to this definition">¶</a></dt>
+<dt class="sig sig-object py" id="Solver.getValueAsUInt">
+<span class="sig-prename descclassname"><span class="pre">Solver.</span></span><span class="sig-name descname"><span class="pre">getValueAsUInt</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">key</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#Solver.getValueAsUInt" title="Permalink to this definition">¶</a></dt>
 <dd><p>Wrapper for <a class="reference internal" href="#Solver.getValue" title="Solver.getValue"><code class="xref py py-meth docutils literal notranslate"><span class="pre">Solver.getValue()</span></code></a> which converts output to a specific type</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
@@ -431,8 +434,8 @@ Else, Returns the hint associated with a given key.</p>
 </dd></dl>
 
 <dl class="py method">
-<dt id="Solver.getValueAsULong">
-<code class="sig-prename descclassname">Solver.</code><code class="sig-name descname">getValueAsULong</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">key</span></em><span class="sig-paren">)</span><a class="headerlink" href="#Solver.getValueAsULong" title="Permalink to this definition">¶</a></dt>
+<dt class="sig sig-object py" id="Solver.getValueAsULong">
+<span class="sig-prename descclassname"><span class="pre">Solver.</span></span><span class="sig-name descname"><span class="pre">getValueAsULong</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">key</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#Solver.getValueAsULong" title="Permalink to this definition">¶</a></dt>
 <dd><p>Wrapper for <a class="reference internal" href="#Solver.getValue" title="Solver.getValue"><code class="xref py py-meth docutils literal notranslate"><span class="pre">Solver.getValue()</span></code></a> which converts output to a specific type</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
@@ -442,8 +445,8 @@ Else, Returns the hint associated with a given key.</p>
 </dd></dl>
 
 <dl class="py method">
-<dt id="Solver.hasValue">
-<code class="sig-prename descclassname">Solver.</code><code class="sig-name descname">hasValue</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">key</span></em><span class="sig-paren">)</span><a class="headerlink" href="#Solver.hasValue" title="Permalink to this definition">¶</a></dt>
+<dt class="sig sig-object py" id="Solver.hasValue">
+<span class="sig-prename descclassname"><span class="pre">Solver.</span></span><span class="sig-name descname"><span class="pre">hasValue</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">key</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#Solver.hasValue" title="Permalink to this definition">¶</a></dt>
 <dd><p>Return true if this setting is supported by the integrator.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
@@ -453,14 +456,14 @@ Else, Returns the hint associated with a given key.</p>
 </dd></dl>
 
 <dl class="py method">
-<dt id="Solver.resetSettings">
-<code class="sig-prename descclassname">Solver.</code><code class="sig-name descname">resetSettings</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#Solver.resetSettings" title="Permalink to this definition">¶</a></dt>
+<dt class="sig sig-object py" id="Solver.resetSettings">
+<span class="sig-prename descclassname"><span class="pre">Solver.</span></span><span class="sig-name descname"><span class="pre">resetSettings</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#Solver.resetSettings" title="Permalink to this definition">¶</a></dt>
 <dd><p>Reset all settings to their respective default values.</p>
 </dd></dl>
 
 <dl class="py method">
-<dt id="Solver.setSetting">
-<code class="sig-prename descclassname">Solver.</code><code class="sig-name descname">setSetting</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">k</span></em>, <em class="sig-param"><span class="n">v</span></em><span class="sig-paren">)</span><a class="headerlink" href="#Solver.setSetting" title="Permalink to this definition">¶</a></dt>
+<dt class="sig sig-object py" id="Solver.setSetting">
+<span class="sig-prename descclassname"><span class="pre">Solver.</span></span><span class="sig-name descname"><span class="pre">setSetting</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">k</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">v</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#Solver.setSetting" title="Permalink to this definition">¶</a></dt>
 <dd><p>Set value of a solver setting</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
@@ -473,8 +476,8 @@ Else, Returns the hint associated with a given key.</p>
 </dd></dl>
 
 <dl class="py method">
-<dt id="Solver.setValue">
-<code class="sig-prename descclassname">Solver.</code><code class="sig-name descname">setValue</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">key</span></em>, <em class="sig-param"><span class="n">value</span></em><span class="sig-paren">)</span><a class="headerlink" href="#Solver.setValue" title="Permalink to this definition">¶</a></dt>
+<dt class="sig sig-object py" id="Solver.setValue">
+<span class="sig-prename descclassname"><span class="pre">Solver.</span></span><span class="sig-name descname"><span class="pre">setValue</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">key</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">value</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#Solver.setValue" title="Permalink to this definition">¶</a></dt>
 <dd><p>Sets value of a specific setting.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
@@ -487,14 +490,14 @@ Else, Returns the hint associated with a given key.</p>
 </dd></dl>
 
 <dl class="py method">
-<dt id="Solver.settingsPyDictRepr">
-<code class="sig-prename descclassname">Solver.</code><code class="sig-name descname">settingsPyDictRepr</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#Solver.settingsPyDictRepr" title="Permalink to this definition">¶</a></dt>
+<dt class="sig sig-object py" id="Solver.settingsPyDictRepr">
+<span class="sig-prename descclassname"><span class="pre">Solver.</span></span><span class="sig-name descname"><span class="pre">settingsPyDictRepr</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#Solver.settingsPyDictRepr" title="Permalink to this definition">¶</a></dt>
 <dd><p>Returns Python dictionary-style string representation of settings.</p>
 </dd></dl>
 
 <dl class="py method">
-<dt id="Solver.syncWithModel">
-<code class="sig-prename descclassname">Solver.</code><code class="sig-name descname">syncWithModel</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">m</span></em><span class="sig-paren">)</span><a class="headerlink" href="#Solver.syncWithModel" title="Permalink to this definition">¶</a></dt>
+<dt class="sig sig-object py" id="Solver.syncWithModel">
+<span class="sig-prename descclassname"><span class="pre">Solver.</span></span><span class="sig-name descname"><span class="pre">syncWithModel</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">m</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#Solver.syncWithModel" title="Permalink to this definition">¶</a></dt>
 <dd><p>Called whenever a new model is loaded to allow integrator to reset internal state</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
@@ -504,14 +507,14 @@ Else, Returns the hint associated with a given key.</p>
 </dd></dl>
 
 <dl class="py method">
-<dt id="Solver.toRepr">
-<code class="sig-prename descclassname">Solver.</code><code class="sig-name descname">toRepr</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#Solver.toRepr" title="Permalink to this definition">¶</a></dt>
+<dt class="sig sig-object py" id="Solver.toRepr">
+<span class="sig-prename descclassname"><span class="pre">Solver.</span></span><span class="sig-name descname"><span class="pre">toRepr</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#Solver.toRepr" title="Permalink to this definition">¶</a></dt>
 <dd><p>Return string representation a la Python __repr__ method.</p>
 </dd></dl>
 
 <dl class="py method">
-<dt id="Solver.toString">
-<code class="sig-prename descclassname">Solver.</code><code class="sig-name descname">toString</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#Solver.toString" title="Permalink to this definition">¶</a></dt>
+<dt class="sig sig-object py" id="Solver.toString">
+<span class="sig-prename descclassname"><span class="pre">Solver.</span></span><span class="sig-name descname"><span class="pre">toString</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#Solver.toString" title="Permalink to this definition">¶</a></dt>
 <dd><p>Return a string representation of the solver.</p>
 </dd></dl>
 

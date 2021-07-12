@@ -150,7 +150,7 @@ The other key thing that an <ref refid="classrr_1_1Integrator" kindref="compound
 </sect2>
 <sect2 id="index_1sec_euler">
 <title>A complete example of creating an integrator.</title>
-<para>This section includes the complete Euler integrator implemented in <ref refid="EulerIntegrator_8h_source" kindref="compound">EulerIntegrator.h</ref> as an example of creating a new integrator. This class has two demo paramters which may be set via the keyword arguments to <ref refid="classrr_1_1RoadRunner_1a0843eb317d47d28a27929d326d4f1f88" kindref="member">RoadRunner.simulate</ref> in Python, or set via the <ref refid="classrr_1_1Dictionary_1a6bb53c3bfeee7e3ee2bfcf9da8212949" kindref="member">Dictionary::setItem</ref> method on the dictionary that is given to the <ref refid="classrr_1_1RoadRunner_1a0843eb317d47d28a27929d326d4f1f88" kindref="member">RoadRunner::simulate</ref> method in C++. In Python, this would be:</para>
+<para>This section includes the complete Euler integrator implemented in <ref refid="EulerIntegrator_8h_source" kindref="compound">EulerIntegrator.h</ref> as an example of creating a new integrator. This class has two demo paramters which may be set via the keyword arguments to <ref refid="classrr_1_1RoadRunner_1a0843eb317d47d28a27929d326d4f1f88" kindref="member">RoadRunner.simulate</ref> in Python, or set via the <ref refid="classrr_1_1Dictionary_1a4708fee12ec4cd5e879df9bf5570c02a" kindref="member">Dictionary::setItem</ref> method on the dictionary that is given to the <ref refid="classrr_1_1RoadRunner_1a0843eb317d47d28a27929d326d4f1f88" kindref="member">RoadRunner::simulate</ref> method in C++. In Python, this would be:</para>
 <para><programlisting><codeline><highlight class="normal">r.simulate(integrator=&apos;euler&apos;,<sp/>exampleParameter1=123456,<sp/>exampleParameter2=&apos;some<sp/>value&apos;);</highlight></codeline>
 <codeline><highlight class="normal">print(r.integrator)</highlight></codeline>
 <codeline></codeline>
@@ -166,7 +166,7 @@ The other key thing that an <ref refid="classrr_1_1Integrator" kindref="compound
 <codeline><highlight class="normal">opt.setItem(&quot;exampleParameter2&quot;,<sp/>&quot;some<sp/>value&quot;);</highlight></codeline>
 <codeline><highlight class="normal">r.simulate();</highlight></codeline>
 <codeline></codeline>
-<codeline><highlight class="normal">cout<sp/>&lt;&lt;<sp/>r.getIntegrator()-&gt;toString()<sp/>&lt;&lt;<sp/>endl;</highlight></codeline>
+<codeline><highlight class="normal">std::cout<sp/>&lt;&lt;<sp/>r.getIntegrator()-&gt;toString()<sp/>&lt;&lt;<sp/>std::endl;</highlight></codeline>
 </programlisting></para>
 <para>The <ref refid="EulerIntegrator_8h_source" kindref="compound">EulerIntegrator.h</ref> file serves as a complete example of creating an new integrator. This example was written entierly in the header file for clarity, but a real integrator should separate the code and header files. </para>
 </sect2>

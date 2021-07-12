@@ -4,9 +4,9 @@
     <compoundname>rr::ModelSharedLibrary</compoundname>
     <includes refid="rrModelSharedLibrary_8h" local="no">rrModelSharedLibrary.h</includes>
       <sectiondef kind="protected-attrib">
-      <memberdef kind="variable" id="classrr_1_1ModelSharedLibrary_1a264f4136ad2ac9854560d029a7eb3a18" prot="protected" static="no" mutable="no">
-        <type>string</type>
-        <definition>string rr::ModelSharedLibrary::mLibName</definition>
+      <memberdef kind="variable" id="classrr_1_1ModelSharedLibrary_1acd23693dce182223842b82c4ff028721" prot="protected" static="no" mutable="no">
+        <type>std::string</type>
+        <definition>std::string rr::ModelSharedLibrary::mLibName</definition>
         <argsstring></argsstring>
         <name>mLibName</name>
         <briefdescription>
@@ -15,11 +15,11 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="c/rrModelSharedLibrary.h" line="24" column="44" bodyfile="c/rrModelSharedLibrary.h" bodystart="24" bodyend="-1"/>
+        <location file="c/rrModelSharedLibrary.h" line="24" column="49" bodyfile="c/rrModelSharedLibrary.h" bodystart="24" bodyend="-1"/>
       </memberdef>
-      <memberdef kind="variable" id="classrr_1_1ModelSharedLibrary_1acfa0d4bf64721eda2fdb64a95e37937b" prot="protected" static="no" mutable="no">
-        <type>string</type>
-        <definition>string rr::ModelSharedLibrary::mPathToLib</definition>
+      <memberdef kind="variable" id="classrr_1_1ModelSharedLibrary_1a1b95cb678dce8e916916f2a53dd03349" prot="protected" static="no" mutable="no">
+        <type>std::string</type>
+        <definition>std::string rr::ModelSharedLibrary::mPathToLib</definition>
         <argsstring></argsstring>
         <name>mPathToLib</name>
         <briefdescription>
@@ -28,7 +28,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="c/rrModelSharedLibrary.h" line="25" column="43" bodyfile="c/rrModelSharedLibrary.h" bodystart="25" bodyend="-1"/>
+        <location file="c/rrModelSharedLibrary.h" line="25" column="48" bodyfile="c/rrModelSharedLibrary.h" bodystart="25" bodyend="-1"/>
       </memberdef>
       <memberdef kind="variable" id="classrr_1_1ModelSharedLibrary_1a57b44f1f9e069887ac7ee281bac5e1cd" prot="protected" static="no" mutable="no">
         <type>SharedLibrary</type>
@@ -45,13 +45,13 @@
       </memberdef>
       </sectiondef>
       <sectiondef kind="public-func">
-      <memberdef kind="function" id="classrr_1_1ModelSharedLibrary_1a73503994d77e6385b646e229bb056a5c" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+      <memberdef kind="function" id="classrr_1_1ModelSharedLibrary_1af25400cddabf788ecd8d398c61c01246" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
         <type></type>
         <definition>rr::ModelSharedLibrary::ModelSharedLibrary</definition>
-        <argsstring>(const string &amp;pathToLib=&quot;&quot;)</argsstring>
+        <argsstring>(const std::string &amp;pathToLib=&quot;&quot;)</argsstring>
         <name>ModelSharedLibrary</name>
         <param>
-          <type>const string &amp;</type>
+          <type>const std::string &amp;</type>
           <declname>pathToLib</declname>
           <defval>&quot;&quot;</defval>
         </param>
@@ -76,13 +76,13 @@
         </inbodydescription>
         <location file="c/rrModelSharedLibrary.h" line="30" column="40" bodyfile="c/rrModelSharedLibrary.cpp" bodystart="23" bodyend="24"/>
       </memberdef>
-      <memberdef kind="function" id="classrr_1_1ModelSharedLibrary_1afdc992348894f0774affbe564eea460c" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+      <memberdef kind="function" id="classrr_1_1ModelSharedLibrary_1a76c9c1de8c92b171684193114c1302e8" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
         <type>bool</type>
         <definition>bool rr::ModelSharedLibrary::setPath</definition>
-        <argsstring>(const string &amp;pathTo)</argsstring>
+        <argsstring>(const std::string &amp;pathTo)</argsstring>
         <name>setPath</name>
         <param>
-          <type>const string &amp;</type>
+          <type>const std::string &amp;</type>
           <declname>pathTo</declname>
         </param>
         <briefdescription>
@@ -93,13 +93,13 @@
         </inbodydescription>
         <location file="c/rrModelSharedLibrary.h" line="32" column="41" bodyfile="c/rrModelSharedLibrary.cpp" bodystart="40" bodyend="44"/>
       </memberdef>
-      <memberdef kind="function" id="classrr_1_1ModelSharedLibrary_1a04f1ca54f116057204b0a485a33c8fa8" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
-        <type>string</type>
-        <definition>string rr::ModelSharedLibrary::createName</definition>
-        <argsstring>(const string &amp;name=&quot;&quot;)</argsstring>
+      <memberdef kind="function" id="classrr_1_1ModelSharedLibrary_1ae3a1ae8a1f1e703a402f5c041fb50bcd" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>std::string</type>
+        <definition>std::string rr::ModelSharedLibrary::createName</definition>
+        <argsstring>(const std::string &amp;name=&quot;&quot;)</argsstring>
         <name>createName</name>
         <param>
-          <type>const string &amp;</type>
+          <type>const std::string &amp;</type>
           <declname>name</declname>
           <defval>&quot;&quot;</defval>
         </param>
@@ -109,11 +109,11 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="c/rrModelSharedLibrary.h" line="33" column="43" bodyfile="c/rrModelSharedLibrary.cpp" bodystart="83" bodyend="110"/>
+        <location file="c/rrModelSharedLibrary.h" line="33" column="48" bodyfile="c/rrModelSharedLibrary.cpp" bodystart="83" bodyend="110"/>
       </memberdef>
-      <memberdef kind="function" id="classrr_1_1ModelSharedLibrary_1a9d429fed93da3f76c360453b5f731fa2" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
-        <type>string</type>
-        <definition>string rr::ModelSharedLibrary::getName</definition>
+      <memberdef kind="function" id="classrr_1_1ModelSharedLibrary_1a5fb4bb7597696c92aa67bd940ed8ee69" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>std::string</type>
+        <definition>std::string rr::ModelSharedLibrary::getName</definition>
         <argsstring>()</argsstring>
         <name>getName</name>
         <briefdescription>
@@ -122,11 +122,11 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="c/rrModelSharedLibrary.h" line="34" column="43" bodyfile="c/rrModelSharedLibrary.cpp" bodystart="73" bodyend="76"/>
+        <location file="c/rrModelSharedLibrary.h" line="34" column="48" bodyfile="c/rrModelSharedLibrary.cpp" bodystart="73" bodyend="76"/>
       </memberdef>
-      <memberdef kind="function" id="classrr_1_1ModelSharedLibrary_1a388ab9b330fc53157d5df139a59bd3da" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
-        <type>string</type>
-        <definition>string rr::ModelSharedLibrary::getFullFileName</definition>
+      <memberdef kind="function" id="classrr_1_1ModelSharedLibrary_1a4d459f7b958263b63f46c03e880ad5f5" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>std::string</type>
+        <definition>std::string rr::ModelSharedLibrary::getFullFileName</definition>
         <argsstring>()</argsstring>
         <name>getFullFileName</name>
         <briefdescription>
@@ -135,7 +135,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="c/rrModelSharedLibrary.h" line="35" column="43" bodyfile="c/rrModelSharedLibrary.cpp" bodystart="78" bodyend="81"/>
+        <location file="c/rrModelSharedLibrary.h" line="35" column="48" bodyfile="c/rrModelSharedLibrary.cpp" bodystart="78" bodyend="81"/>
       </memberdef>
       <memberdef kind="function" id="classrr_1_1ModelSharedLibrary_1a5102cb535999e45df70e600cf3367390" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
         <type>bool</type>
@@ -150,13 +150,13 @@
         </inbodydescription>
         <location file="c/rrModelSharedLibrary.h" line="37" column="41" bodyfile="c/rrModelSharedLibrary.cpp" bodystart="46" bodyend="49"/>
       </memberdef>
-      <memberdef kind="function" id="classrr_1_1ModelSharedLibrary_1afec2118dda27b921dd1d78c448cdbc69" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+      <memberdef kind="function" id="classrr_1_1ModelSharedLibrary_1a1d1625577fcdbe4658a7785c45f985f7" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
         <type>bool</type>
         <definition>bool rr::ModelSharedLibrary::load</definition>
-        <argsstring>(const string &amp;name)</argsstring>
+        <argsstring>(const std::string &amp;name)</argsstring>
         <name>load</name>
         <param>
-          <type>const string &amp;</type>
+          <type>const std::string &amp;</type>
           <declname>name</declname>
         </param>
         <briefdescription>
@@ -193,13 +193,13 @@
         </inbodydescription>
         <location file="c/rrModelSharedLibrary.h" line="40" column="41" bodyfile="c/rrModelSharedLibrary.cpp" bodystart="26" bodyend="29"/>
       </memberdef>
-      <memberdef kind="function" id="classrr_1_1ModelSharedLibrary_1afc659e16f62d12b825eba94c4151c4b0" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+      <memberdef kind="function" id="classrr_1_1ModelSharedLibrary_1a4e4797ecfb4b57eb5f2c3aa423d04cee" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
         <type>void *</type>
         <definition>void * rr::ModelSharedLibrary::getSymbol</definition>
-        <argsstring>(const string &amp;name)</argsstring>
+        <argsstring>(const std::string &amp;name)</argsstring>
         <name>getSymbol</name>
         <param>
-          <type>const string &amp;</type>
+          <type>const std::string &amp;</type>
           <declname>name</declname>
         </param>
         <briefdescription>
@@ -210,13 +210,13 @@
         </inbodydescription>
         <location file="c/rrModelSharedLibrary.h" line="41" column="41" bodyfile="c/rrModelSharedLibrary.cpp" bodystart="31" bodyend="34"/>
       </memberdef>
-      <memberdef kind="function" id="classrr_1_1ModelSharedLibrary_1a71fb90aa7fc5f47a7312a4addd4ff1a8" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+      <memberdef kind="function" id="classrr_1_1ModelSharedLibrary_1a46883c130d1830e2c1b63aaa4791aac8" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
         <type>bool</type>
         <definition>bool rr::ModelSharedLibrary::hasSymbol</definition>
-        <argsstring>(const string &amp;name)</argsstring>
+        <argsstring>(const std::string &amp;name)</argsstring>
         <name>hasSymbol</name>
         <param>
-          <type>const string &amp;</type>
+          <type>const std::string &amp;</type>
           <declname>name</declname>
         </param>
         <briefdescription>
@@ -254,19 +254,19 @@
     </collaborationgraph>
     <location file="c/rrModelSharedLibrary.h" line="21" column="1" bodyfile="c/rrModelSharedLibrary.h" bodystart="22" bodyend="44"/>
     <listofallmembers>
-      <member refid="classrr_1_1ModelSharedLibrary_1a04f1ca54f116057204b0a485a33c8fa8" prot="public" virt="non-virtual"><scope>rr::ModelSharedLibrary</scope><name>createName</name></member>
-      <member refid="classrr_1_1ModelSharedLibrary_1a388ab9b330fc53157d5df139a59bd3da" prot="public" virt="non-virtual"><scope>rr::ModelSharedLibrary</scope><name>getFullFileName</name></member>
-      <member refid="classrr_1_1ModelSharedLibrary_1a9d429fed93da3f76c360453b5f731fa2" prot="public" virt="non-virtual"><scope>rr::ModelSharedLibrary</scope><name>getName</name></member>
-      <member refid="classrr_1_1ModelSharedLibrary_1afc659e16f62d12b825eba94c4151c4b0" prot="public" virt="non-virtual"><scope>rr::ModelSharedLibrary</scope><name>getSymbol</name></member>
-      <member refid="classrr_1_1ModelSharedLibrary_1a71fb90aa7fc5f47a7312a4addd4ff1a8" prot="public" virt="non-virtual"><scope>rr::ModelSharedLibrary</scope><name>hasSymbol</name></member>
+      <member refid="classrr_1_1ModelSharedLibrary_1ae3a1ae8a1f1e703a402f5c041fb50bcd" prot="public" virt="non-virtual"><scope>rr::ModelSharedLibrary</scope><name>createName</name></member>
+      <member refid="classrr_1_1ModelSharedLibrary_1a4d459f7b958263b63f46c03e880ad5f5" prot="public" virt="non-virtual"><scope>rr::ModelSharedLibrary</scope><name>getFullFileName</name></member>
+      <member refid="classrr_1_1ModelSharedLibrary_1a5fb4bb7597696c92aa67bd940ed8ee69" prot="public" virt="non-virtual"><scope>rr::ModelSharedLibrary</scope><name>getName</name></member>
+      <member refid="classrr_1_1ModelSharedLibrary_1a4e4797ecfb4b57eb5f2c3aa423d04cee" prot="public" virt="non-virtual"><scope>rr::ModelSharedLibrary</scope><name>getSymbol</name></member>
+      <member refid="classrr_1_1ModelSharedLibrary_1a46883c130d1830e2c1b63aaa4791aac8" prot="public" virt="non-virtual"><scope>rr::ModelSharedLibrary</scope><name>hasSymbol</name></member>
       <member refid="classrr_1_1ModelSharedLibrary_1aba2d1377fbd8ed6329980e8ec7c9fbef" prot="public" virt="non-virtual"><scope>rr::ModelSharedLibrary</scope><name>isLoaded</name></member>
       <member refid="classrr_1_1ModelSharedLibrary_1a5102cb535999e45df70e600cf3367390" prot="public" virt="non-virtual"><scope>rr::ModelSharedLibrary</scope><name>load</name></member>
-      <member refid="classrr_1_1ModelSharedLibrary_1afec2118dda27b921dd1d78c448cdbc69" prot="public" virt="non-virtual"><scope>rr::ModelSharedLibrary</scope><name>load</name></member>
-      <member refid="classrr_1_1ModelSharedLibrary_1a264f4136ad2ac9854560d029a7eb3a18" prot="protected" virt="non-virtual"><scope>rr::ModelSharedLibrary</scope><name>mLibName</name></member>
-      <member refid="classrr_1_1ModelSharedLibrary_1a73503994d77e6385b646e229bb056a5c" prot="public" virt="non-virtual"><scope>rr::ModelSharedLibrary</scope><name>ModelSharedLibrary</name></member>
-      <member refid="classrr_1_1ModelSharedLibrary_1acfa0d4bf64721eda2fdb64a95e37937b" prot="protected" virt="non-virtual"><scope>rr::ModelSharedLibrary</scope><name>mPathToLib</name></member>
+      <member refid="classrr_1_1ModelSharedLibrary_1a1d1625577fcdbe4658a7785c45f985f7" prot="public" virt="non-virtual"><scope>rr::ModelSharedLibrary</scope><name>load</name></member>
+      <member refid="classrr_1_1ModelSharedLibrary_1acd23693dce182223842b82c4ff028721" prot="protected" virt="non-virtual"><scope>rr::ModelSharedLibrary</scope><name>mLibName</name></member>
+      <member refid="classrr_1_1ModelSharedLibrary_1af25400cddabf788ecd8d398c61c01246" prot="public" virt="non-virtual"><scope>rr::ModelSharedLibrary</scope><name>ModelSharedLibrary</name></member>
+      <member refid="classrr_1_1ModelSharedLibrary_1a1b95cb678dce8e916916f2a53dd03349" prot="protected" virt="non-virtual"><scope>rr::ModelSharedLibrary</scope><name>mPathToLib</name></member>
       <member refid="classrr_1_1ModelSharedLibrary_1a57b44f1f9e069887ac7ee281bac5e1cd" prot="protected" virt="non-virtual"><scope>rr::ModelSharedLibrary</scope><name>mTheLib</name></member>
-      <member refid="classrr_1_1ModelSharedLibrary_1afdc992348894f0774affbe564eea460c" prot="public" virt="non-virtual"><scope>rr::ModelSharedLibrary</scope><name>setPath</name></member>
+      <member refid="classrr_1_1ModelSharedLibrary_1a76c9c1de8c92b171684193114c1302e8" prot="public" virt="non-virtual"><scope>rr::ModelSharedLibrary</scope><name>setPath</name></member>
       <member refid="classrr_1_1ModelSharedLibrary_1a000fd7c278abffbb4b6e000890d7e6a3" prot="public" virt="non-virtual"><scope>rr::ModelSharedLibrary</scope><name>unload</name></member>
       <member refid="classrr_1_1ModelSharedLibrary_1acacc0698068f71c80882097b1f0a00db" prot="public" virt="non-virtual"><scope>rr::ModelSharedLibrary</scope><name>~ModelSharedLibrary</name></member>
     </listofallmembers>

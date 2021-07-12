@@ -265,8 +265,7 @@ public:
 
 	std::unique_ptr<libsbml::SBMLDocument> document;
 
-    RoadRunnerImpl(const std::string& uriOrSBML,
-            const Dictionary* dict) :
+    RoadRunnerImpl(const std::string& uriOrSBML, const Dictionary* dict) :
                 mDiffStepSize(0.05),
                 mSteadyStateThreshold(1.E-2),
                 simulationResult(),
@@ -527,8 +526,24 @@ RoadRunner::RoadRunner(const std::string& uriOrSBML,
         const Dictionary* options) :
             impl(new RoadRunnerImpl(uriOrSBML, options))
 {
-	llvm::InitializeNativeTarget();
+    /**
+     * The main program should call this function to
+     * initialize the native target corresponding to the host.  This is useful
+     * for JIT applications to ensure that the target gets linked in correctly.
+     * It is legal for a client to make multiple calls to this function.
+     */
+	llvm::InitializeNativeTarget(); // looks like this has been renamed to LLVMInitializeNativeTarget: https://stackoverflow.com/a/21149010/3059024
+
+	/**
+	 * The main program should call
+     * this function to initialize the native target asm printer.
+	 */
 	llvm::InitializeNativeTargetAsmPrinter();
+
+	/**
+	 * The main program should call
+     *  this function to initialize the native target asm parser.
+	 */
 	llvm::InitializeNativeTargetAsmParser();
     // must be run to register integrators at startup
     IntegratorRegistrationMgr::Register();
@@ -590,7 +605,8 @@ RoadRunner::RoadRunner(const RoadRunner& rr)
         setIntegrator(rr.impl->integrators[in]->getName());
         for (std::string k : rr.impl->integrators[in]->getSettings())
         {
-            impl->integrator->setValue(k, rr.impl->integrators[in]->getValue(k));
+            auto x = rr.impl->integrators[in]->getValue(k);
+            impl->integrator->setValue(k, x);
         }
     }
     //Set the current integrator to the correct one.
@@ -1082,10 +1098,11 @@ void RoadRunner::load(const std::string& uriOrSbml, const Dictionary *dict)
 {
     Mutex::ScopedLock lock(roadRunnerMutex);
 
-    //get_self();
-
-    //self.mCurrentSBML = SBMLReader::read(uriOrSbml);
 	std::string mCurrentSBML = SBMLReader::read(uriOrSbml);
+
+	// chomp any leading or trailing whitespace
+	mCurrentSBML = trim(mCurrentSBML);
+
     impl->model = nullptr;
 
     delete impl->mLS;
@@ -1191,7 +1208,7 @@ void RoadRunner::reset()
 
     //reset(opt1);
     uint opt2 = rr::SelectionRecord::DEPENDENT_INITIAL_GLOBAL_PARAMETER;
-    reset(opt2 | opt1);
+    reset((int)opt2 | opt1);
 }
 
 void RoadRunner::reset(int options)
@@ -1931,6 +1948,15 @@ const DoubleMatrix* RoadRunner::simulate(const Dictionary* dict)
     return &self.simulationResult;
 }
 
+const DoubleMatrix* RoadRunner::simulate(double start, double stop, int num){
+    SimulateOptions opt;
+    opt.start = start;
+    opt.duration = stop;
+    // substract 1 so that start, stop, num has the same meaning as it does in numpy functions
+    // i.e. see https://numpy.org/doc/stable/reference/generated/numpy.linspace.html
+    opt.steps = num - 1;
+    return simulate(&opt);
+}
 
 double RoadRunner::oneStep(const double currentTime, const double stepSize, const bool reset)
 {
@@ -4883,7 +4909,7 @@ double getAdjustment(Complex& z)
 
 
 /************************ Selection Ids Species Section ***********************/
-#if (1) /**********************************************************************/
+/******************************************************************************/
 /******************************************************************************/
 
 void RoadRunner::getIds(int types, std::list<std::string>& ids)
@@ -4892,6 +4918,9 @@ void RoadRunner::getIds(int types, std::list<std::string>& ids)
     {
         impl->model->getIds(types, ids);
 
+        /**
+         * types is -1 when SelectionRecord is set to ALL.
+         */
         if (types & SelectionRecord::EIGENVALUE_REAL)
         {
             std::list<std::string> eigen;
@@ -5056,7 +5085,7 @@ std::vector<std::string> RoadRunner::getEigenValueIds()
 
 
 /************************ End Selection Ids Species Section *******************/
-#endif /***********************************************************************/
+/******************************************************************************/
 /******************************************************************************/
 
 RoadRunnerOptions& RoadRunner::getOptions()

@@ -15,7 +15,7 @@ Constructs new integrators.
 \mbox{\Hypertarget{classrr_1_1SteadyStateSolverFactory_a1e466d7333677c52f6d28399e693e877}\label{classrr_1_1SteadyStateSolverFactory_a1e466d7333677c52f6d28399e693e877}} 
 virtual \mbox{\hyperlink{classrr_1_1SteadyStateSolverFactory_a1e466d7333677c52f6d28399e693e877}{$\sim$\+Steady\+State\+Solver\+Factory}} ()
 \begin{DoxyCompactList}\small\item\em \mbox{\hyperlink{classrr_1_1SteadyStateSolver}{Steady\+State\+Solver}} F\+A\+C\+T\+O\+RY. \end{DoxyCompactList}\item 
-\mbox{\hyperlink{classrr_1_1SteadyStateSolver}{Steady\+State\+Solver}} $\ast$ \mbox{\hyperlink{classrr_1_1SteadyStateSolverFactory_a2f6ae03a7d0ac0486bc8618b78cf7834}{New}} (std\+::string name, \mbox{\hyperlink{classrr_1_1ExecutableModel}{Executable\+Model}} $\ast$m) const
+\mbox{\hyperlink{classrr_1_1SteadyStateSolver}{Steady\+State\+Solver}} $\ast$ \mbox{\hyperlink{classrr_1_1SteadyStateSolverFactory_a8dce6840368c148235f0e896318e1b2b}{New}} (const std\+::string \&name, \mbox{\hyperlink{classrr_1_1ExecutableModel}{Executable\+Model}} $\ast$m) const
 \begin{DoxyCompactList}\small\item\em Constructs a new solver given the name (e.\+g. cvode, gillespie) \end{DoxyCompactList}\item 
 void \mbox{\hyperlink{classrr_1_1SteadyStateSolverFactory_a72ca5c71f45c89304c40c5f880c84547}{register\+Steady\+State\+Solver}} (\mbox{\hyperlink{classrr_1_1SteadyStateSolverRegistrar}{Steady\+State\+Solver\+Registrar}} $\ast$i)
 \begin{DoxyCompactList}\small\item\em Registers a new solver with the factory so that it can be constructed. \end{DoxyCompactList}\item 
@@ -63,11 +63,11 @@ Returns the singleton instance of the solver factory.
 \begin{DoxyAuthor}{Author}
 J\+KM, W\+BC 
 \end{DoxyAuthor}
-\mbox{\Hypertarget{classrr_1_1SteadyStateSolverFactory_a2f6ae03a7d0ac0486bc8618b78cf7834}\label{classrr_1_1SteadyStateSolverFactory_a2f6ae03a7d0ac0486bc8618b78cf7834}} 
+\mbox{\Hypertarget{classrr_1_1SteadyStateSolverFactory_a8dce6840368c148235f0e896318e1b2b}\label{classrr_1_1SteadyStateSolverFactory_a8dce6840368c148235f0e896318e1b2b}} 
 \index{rr::SteadyStateSolverFactory@{rr::SteadyStateSolverFactory}!New@{New}}
 \index{New@{New}!rr::SteadyStateSolverFactory@{rr::SteadyStateSolverFactory}}
 \doxysubsubsection{\texorpdfstring{New()}{New()}}
-{\footnotesize\ttfamily \mbox{\hyperlink{classrr_1_1SteadyStateSolver}{Steady\+State\+Solver}} $\ast$ rr\+::\+Steady\+State\+Solver\+Factory\+::\+New (\begin{DoxyParamCaption}\item[{std\+::string}]{name,  }\item[{\mbox{\hyperlink{classrr_1_1ExecutableModel}{Executable\+Model}} $\ast$}]{m }\end{DoxyParamCaption}) const}
+{\footnotesize\ttfamily \mbox{\hyperlink{classrr_1_1SteadyStateSolver}{Steady\+State\+Solver}} $\ast$ rr\+::\+Steady\+State\+Solver\+Factory\+::\+New (\begin{DoxyParamCaption}\item[{const std\+::string \&}]{name,  }\item[{\mbox{\hyperlink{classrr_1_1ExecutableModel}{Executable\+Model}} $\ast$}]{m }\end{DoxyParamCaption}) const}
 
 
 

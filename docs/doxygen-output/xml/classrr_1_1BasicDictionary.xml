@@ -7,9 +7,9 @@
     <derivedcompoundref refid="classrr_1_1SimulateOptions" prot="public" virt="non-virtual">rr::SimulateOptions</derivedcompoundref>
     <includes refid="Dictionary_8h" local="no">Dictionary.h</includes>
       <sectiondef kind="protected-type">
-      <memberdef kind="typedef" id="classrr_1_1BasicDictionary_1aedf8f5947090adb89828e602181a0a2f" prot="protected" static="no">
-        <type>cxx11_ns::unordered_map&lt; std::string, <ref refid="classrr_1_1Variant" kindref="compound">Variant</ref> &gt;</type>
-        <definition>typedef cxx11_ns::unordered_map&lt;std::string, Variant&gt; rr::BasicDictionary::VariantMap</definition>
+      <memberdef kind="typedef" id="classrr_1_1BasicDictionary_1a3903012a5ae2c390b4cb2d8fd8b775c9" prot="protected" static="no">
+        <type>std::unordered_map&lt; std::string, <ref refid="classrr_1_1Setting" kindref="compound">Setting</ref> &gt;</type>
+        <definition>typedef std::unordered_map&lt;std::string, Setting&gt; rr::BasicDictionary::VariantMap</definition>
         <argsstring></argsstring>
         <name>VariantMap</name>
         <briefdescription>
@@ -18,7 +18,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="Dictionary.h" line="179" column="37" bodyfile="Dictionary.h" bodystart="179" bodyend="-1"/>
+        <location file="Dictionary.h" line="178" column="32" bodyfile="Dictionary.h" bodystart="178" bodyend="-1"/>
       </memberdef>
       </sectiondef>
       <sectiondef kind="protected-attrib">
@@ -33,7 +33,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="Dictionary.h" line="180" column="16" bodyfile="Dictionary.h" bodystart="180" bodyend="-1"/>
+        <location file="Dictionary.h" line="179" column="16" bodyfile="Dictionary.h" bodystart="179" bodyend="-1"/>
       </memberdef>
       </sectiondef>
       <sectiondef kind="public-func">
@@ -48,52 +48,52 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="Dictionary.h" line="143" column="5"/>
+        <location file="Dictionary.h" line="142" column="5"/>
       </memberdef>
-      <memberdef kind="function" id="classrr_1_1BasicDictionary_1ae7b6b6c90561295e2e07c45fe50358ce" prot="public" static="no" const="no" explicit="no" inline="no" virt="virtual">
+      <memberdef kind="function" id="classrr_1_1BasicDictionary_1ae3e2fc27e776cf5c791b4194534d3082" prot="public" static="no" const="no" explicit="no" inline="no" virt="virtual">
         <type>void</type>
         <definition>void rr::BasicDictionary::setItem</definition>
-        <argsstring>(const std::string &amp;key, const rr::Variant &amp;value) override</argsstring>
+        <argsstring>(const std::string &amp;key, const rr::Setting &amp;value) override</argsstring>
         <name>setItem</name>
-        <reimplements refid="classrr_1_1Dictionary_1a6bb53c3bfeee7e3ee2bfcf9da8212949">setItem</reimplements>
-        <reimplementedby refid="classrr_1_1LoadSBMLOptions_1a0ea929664c0ac7b28120ad131ae08ae9">setItem</reimplementedby>
-        <reimplementedby refid="classrr_1_1SimulateOptions_1ae864e702c9a40669ac9088731ff49884">setItem</reimplementedby>
+        <reimplements refid="classrr_1_1Dictionary_1a4708fee12ec4cd5e879df9bf5570c02a">setItem</reimplements>
+        <reimplementedby refid="classrr_1_1SimulateOptions_1ac37d1c469b5ca3f1a259b49f0c3b041a">setItem</reimplementedby>
+        <reimplementedby refid="classrr_1_1LoadSBMLOptions_1a5c681de2711ebbc2591d11a280b9db94">setItem</reimplementedby>
         <param>
           <type>const std::string &amp;</type>
           <declname>key</declname>
         </param>
         <param>
-          <type>const <ref refid="classrr_1_1Variant" kindref="compound">rr::Variant</ref> &amp;</type>
+          <type>const <ref refid="classrr_1_1Setting" kindref="compound">rr::Setting</ref> &amp;</type>
           <declname>value</declname>
         </param>
         <briefdescription>
-<para>sets an item in the internal unordered map. </para>
+<para>sets an item in the internal unordered std::map. </para>
         </briefdescription>
         <detaileddescription>
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="Dictionary.h" line="148" column="10" bodyfile="Dictionary.cpp" bodystart="12" bodyend="16"/>
+        <location file="Dictionary.h" line="147" column="10" bodyfile="Dictionary.cpp" bodystart="12" bodyend="16"/>
       </memberdef>
-      <memberdef kind="function" id="classrr_1_1BasicDictionary_1a3357b3d49d8353f19ec9aa83884f6ef1" prot="public" static="no" const="yes" explicit="no" inline="no" virt="virtual">
-        <type><ref refid="classrr_1_1Variant" kindref="compound">Variant</ref></type>
-        <definition>Variant rr::BasicDictionary::getItem</definition>
+      <memberdef kind="function" id="classrr_1_1BasicDictionary_1afb43f812d4aaf7809c79d1300bc9fe8c" prot="public" static="no" const="yes" explicit="no" inline="no" virt="virtual">
+        <type><ref refid="classrr_1_1Setting" kindref="compound">Setting</ref></type>
+        <definition>Setting rr::BasicDictionary::getItem</definition>
         <argsstring>(const std::string &amp;key) const override</argsstring>
         <name>getItem</name>
-        <reimplements refid="classrr_1_1Dictionary_1a53cb5eee283727168630f6b1b918bdb0">getItem</reimplements>
-        <reimplementedby refid="classrr_1_1LoadSBMLOptions_1a42644c69463fd75bafb1ead69b9681e6">getItem</reimplementedby>
+        <reimplements refid="classrr_1_1Dictionary_1a0fcdd3d9089af14e49e8713c254c9b67">getItem</reimplements>
+        <reimplementedby refid="classrr_1_1LoadSBMLOptions_1ae4dd5db25b55f9561e231c23c53ae941">getItem</reimplementedby>
         <param>
           <type>const std::string &amp;</type>
           <declname>key</declname>
         </param>
         <briefdescription>
-<para>gets an item from the internal unordered map. </para>
+<para>gets an item from the internal unordered std::map. </para>
         </briefdescription>
         <detaileddescription>
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="Dictionary.h" line="153" column="13" bodyfile="Dictionary.cpp" bodystart="18" bodyend="26"/>
+        <location file="Dictionary.h" line="152" column="13" bodyfile="Dictionary.cpp" bodystart="18" bodyend="26"/>
       </memberdef>
       <memberdef kind="function" id="classrr_1_1BasicDictionary_1ab78190d645a8eb84bb3494453a6f6ea8" prot="public" static="no" const="yes" explicit="no" inline="no" virt="virtual">
         <type>bool</type>
@@ -101,7 +101,7 @@
         <argsstring>(const std::string &amp;key) const override</argsstring>
         <name>hasKey</name>
         <reimplements refid="classrr_1_1Dictionary_1a7ec0accc7149a403ee5eeeb9457059ed">hasKey</reimplements>
-        <reimplementedby refid="classrr_1_1LoadSBMLOptions_1a5fd757435841abdb20215d65af77bd84">hasKey</reimplementedby>
+        <reimplementedby refid="classrr_1_1LoadSBMLOptions_1a117c4f6440ac36541ec57ceae06d4770">hasKey</reimplementedby>
         <param>
           <type>const std::string &amp;</type>
           <declname>key</declname>
@@ -114,7 +114,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="Dictionary.h" line="160" column="10" bodyfile="Dictionary.cpp" bodystart="28" bodyend="31"/>
+        <location file="Dictionary.h" line="159" column="10" bodyfile="Dictionary.cpp" bodystart="28" bodyend="31"/>
       </memberdef>
       <memberdef kind="function" id="classrr_1_1BasicDictionary_1af80331f200f57eaa1d22c85104731dda" prot="public" static="no" const="no" explicit="no" inline="no" virt="virtual">
         <type>size_t</type>
@@ -122,7 +122,7 @@
         <argsstring>(const std::string &amp;key) override</argsstring>
         <name>deleteItem</name>
         <reimplements refid="classrr_1_1Dictionary_1aafd395297acc9cb73ea1e244b3f02d5c">deleteItem</reimplements>
-        <reimplementedby refid="classrr_1_1LoadSBMLOptions_1ab1cf127ce1f97bab98be173fd1f48e80">deleteItem</reimplementedby>
+        <reimplementedby refid="classrr_1_1LoadSBMLOptions_1a23be92b85c9e3eb38805fa63cf112085">deleteItem</reimplementedby>
         <param>
           <type>const std::string &amp;</type>
           <declname>key</declname>
@@ -134,7 +134,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="Dictionary.h" line="165" column="12" bodyfile="Dictionary.cpp" bodystart="33" bodyend="36"/>
+        <location file="Dictionary.h" line="164" column="12" bodyfile="Dictionary.cpp" bodystart="33" bodyend="36"/>
       </memberdef>
       <memberdef kind="function" id="classrr_1_1BasicDictionary_1a4e87ed4bed586a041a2c51249448d2fa" prot="public" static="no" const="yes" explicit="no" inline="no" virt="virtual">
         <type>std::vector&lt; std::string &gt;</type>
@@ -142,7 +142,7 @@
         <argsstring>() const override</argsstring>
         <name>getKeys</name>
         <reimplements refid="classrr_1_1Dictionary_1ae8e4240deda5ee2dc7d472476bd92b47">getKeys</reimplements>
-        <reimplementedby refid="classrr_1_1LoadSBMLOptions_1ae7eb8e9235b38ece702c662b04da3734">getKeys</reimplementedby>
+        <reimplementedby refid="classrr_1_1LoadSBMLOptions_1a793d753189e642242ff31e0897124c85">getKeys</reimplementedby>
         <briefdescription>
 <para>list of keys in this object. </para>
         </briefdescription>
@@ -150,7 +150,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="Dictionary.h" line="170" column="17" bodyfile="Dictionary.cpp" bodystart="38" bodyend="46"/>
+        <location file="Dictionary.h" line="169" column="17" bodyfile="Dictionary.cpp" bodystart="38" bodyend="46"/>
       </memberdef>
       <memberdef kind="function" id="classrr_1_1BasicDictionary_1ad76c8129a4634d039f320659dfe28e0a" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
         <type></type>
@@ -164,11 +164,11 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="Dictionary.h" line="176" column="5"/>
+        <location file="Dictionary.h" line="175" column="5"/>
       </memberdef>
       </sectiondef>
     <briefdescription>
-<para>This class is frozen, no new features Basic implementation of the <ref refid="classrr_1_1Dictionary" kindref="compound">Dictionary</ref> interface which uses a std unordered map to store the values. </para>
+<para>This class is frozen, no new features Basic implementation of the <ref refid="classrr_1_1Dictionary" kindref="compound">Dictionary</ref> interface which uses a std unordered std::map to store the values. </para>
     </briefdescription>
     <detaileddescription>
     </detaileddescription>
@@ -208,16 +208,16 @@
         <link refid="classrr_1_1Dictionary"/>
       </node>
     </collaborationgraph>
-    <location file="Dictionary.h" line="140" column="1" bodyfile="Dictionary.h" bodystart="141" bodyend="181"/>
+    <location file="Dictionary.h" line="139" column="1" bodyfile="Dictionary.h" bodystart="140" bodyend="180"/>
     <listofallmembers>
       <member refid="classrr_1_1BasicDictionary_1ac10aa5eba2ee4ba618cfc959db7dffc6" prot="public" virt="non-virtual"><scope>rr::BasicDictionary</scope><name>BasicDictionary</name></member>
       <member refid="classrr_1_1BasicDictionary_1af80331f200f57eaa1d22c85104731dda" prot="public" virt="virtual"><scope>rr::BasicDictionary</scope><name>deleteItem</name></member>
-      <member refid="classrr_1_1BasicDictionary_1a3357b3d49d8353f19ec9aa83884f6ef1" prot="public" virt="virtual"><scope>rr::BasicDictionary</scope><name>getItem</name></member>
+      <member refid="classrr_1_1BasicDictionary_1afb43f812d4aaf7809c79d1300bc9fe8c" prot="public" virt="virtual"><scope>rr::BasicDictionary</scope><name>getItem</name></member>
       <member refid="classrr_1_1BasicDictionary_1a4e87ed4bed586a041a2c51249448d2fa" prot="public" virt="virtual"><scope>rr::BasicDictionary</scope><name>getKeys</name></member>
       <member refid="classrr_1_1BasicDictionary_1ab78190d645a8eb84bb3494453a6f6ea8" prot="public" virt="virtual"><scope>rr::BasicDictionary</scope><name>hasKey</name></member>
       <member refid="classrr_1_1BasicDictionary_1aeecca9d2b0b63711fc5e70e428e4f94d" prot="protected" virt="non-virtual"><scope>rr::BasicDictionary</scope><name>items</name></member>
-      <member refid="classrr_1_1BasicDictionary_1ae7b6b6c90561295e2e07c45fe50358ce" prot="public" virt="virtual"><scope>rr::BasicDictionary</scope><name>setItem</name></member>
-      <member refid="classrr_1_1BasicDictionary_1aedf8f5947090adb89828e602181a0a2f" prot="protected" virt="non-virtual"><scope>rr::BasicDictionary</scope><name>VariantMap</name></member>
+      <member refid="classrr_1_1BasicDictionary_1ae3e2fc27e776cf5c791b4194534d3082" prot="public" virt="virtual"><scope>rr::BasicDictionary</scope><name>setItem</name></member>
+      <member refid="classrr_1_1BasicDictionary_1a3903012a5ae2c390b4cb2d8fd8b775c9" prot="protected" virt="non-virtual"><scope>rr::BasicDictionary</scope><name>VariantMap</name></member>
       <member refid="classrr_1_1BasicDictionary_1ad76c8129a4634d039f320659dfe28e0a" prot="public" virt="non-virtual"><scope>rr::BasicDictionary</scope><name>~BasicDictionary</name></member>
       <member refid="classrr_1_1Dictionary_1ada6593bddd5fd2f3f75374863191f419" prot="public" virt="virtual"><scope>rr::BasicDictionary</scope><name>~Dictionary</name></member>
     </listofallmembers>

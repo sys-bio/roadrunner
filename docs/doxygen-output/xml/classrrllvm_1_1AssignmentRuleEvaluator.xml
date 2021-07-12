@@ -85,7 +85,7 @@
         </childnode>
       </node>
       <node id="2">
-        <label>libsbml::SBMLVisitor</label>
+        <label>SBMLVisitor</label>
       </node>
     </inheritancegraph>
     <collaborationgraph>
@@ -98,22 +98,12 @@
           <edgelabel>symbols</edgelabel>
         </childnode>
       </node>
+      <node id="2">
+        <label>SBMLVisitor</label>
+      </node>
       <node id="3">
         <label>rrllvm::SymbolForest</label>
         <link refid="classrrllvm_1_1SymbolForest"/>
-        <childnode refid="4" relation="usage">
-          <edgelabel>boundarySpecies</edgelabel>
-          <edgelabel>compartments</edgelabel>
-          <edgelabel>floatingSpecies</edgelabel>
-          <edgelabel>globalParameters</edgelabel>
-          <edgelabel>speciesReferences</edgelabel>
-        </childnode>
-      </node>
-      <node id="2">
-        <label>libsbml::SBMLVisitor</label>
-      </node>
-      <node id="4">
-        <label>map&lt; string, const libsbml::ASTNode * &gt;</label>
       </node>
     </collaborationgraph>
     <location file="llvm/AssignmentRuleEvaluator.h" line="25" column="1" bodyfile="llvm/AssignmentRuleEvaluator.h" bodystart="26" bodyend="38"/>

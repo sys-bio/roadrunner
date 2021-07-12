@@ -22,7 +22,7 @@
  <tr style="height: 56px;">
   <td id="projectalign" style="padding-left: 0.5em;">
    <div id="projectname">roadrunner
-   &#160;<span id="projectnumber">2.0.5</span>
+   &#160;<span id="projectnumber">2.0.8</span>
    </div>
    <div id="projectbrief">Fast simulator for SBML models</div>
   </td>
@@ -70,6 +70,7 @@ $(function() {
   <div class="summary">
 <a href="#pub-methods">Public Member Functions</a> &#124;
 <a href="#pub-static-methods">Static Public Member Functions</a> &#124;
+<a href="#pub-attribs">Public Attributes</a> &#124;
 <a href="#friends">Friends</a> &#124;
 <a href="classrr_1_1NLEQ2Interface-members.html">List of all members</a>  </div>
   <div class="headertitle">
@@ -82,8 +83,7 @@ Inheritance diagram for rr::NLEQ2Interface:</div>
  <div class="center">
   <img src="classrr_1_1NLEQ2Interface.png" usemap="#rr::NLEQ2Interface_map" alt=""/>
   <map id="rr::NLEQ2Interface_map" name="rr::NLEQ2Interface_map">
-<area href="classrr_1_1rrSteadyStateSolver.html" title="Interface that all steady state solvers must implement." alt="rr::rrSteadyStateSolver" shape="rect" coords="0,56,142,80"/>
-<area href="classrr_1_1Dictionary.html" title="This class is frozen, no new features A dictionary interface that objects can implement." alt="rr::Dictionary" shape="rect" coords="0,0,142,24"/>
+<area href="classrr_1_1Dictionary.html" title="This class is frozen, no new features A dictionary interface that objects can implement." alt="rr::Dictionary" shape="rect" coords="0,0,119,24"/>
   </map>
 </div></div>
 <table class="memberdecls">
@@ -96,12 +96,12 @@ Public Member Functions</h2></td></tr>
 <tr class="memitem:a0f1535692fbe346c98f1aa3090d00e82"><td class="memItemLeft" align="right" valign="top">double&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classrr_1_1NLEQ2Interface.html#a0f1535692fbe346c98f1aa3090d00e82">solve</a> ()</td></tr>
 <tr class="memdesc:a0f1535692fbe346c98f1aa3090d00e82"><td class="mdescLeft">&#160;</td><td class="mdescRight">Thea actual solver routine making the call to NLEQ2.  <a href="classrr_1_1NLEQ2Interface.html#a0f1535692fbe346c98f1aa3090d00e82">More...</a><br /></td></tr>
 <tr class="separator:a0f1535692fbe346c98f1aa3090d00e82"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a9495cf109b4ec802e3e8532099c73f5e"><td class="memItemLeft" align="right" valign="top">virtual void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classrr_1_1NLEQ2Interface.html#a9495cf109b4ec802e3e8532099c73f5e">setItem</a> (const std::string &amp;key, const <a class="el" href="classrr_1_1Variant.html">rr::Variant</a> &amp;value)</td></tr>
-<tr class="memdesc:a9495cf109b4ec802e3e8532099c73f5e"><td class="mdescLeft">&#160;</td><td class="mdescRight">Implement <a class="el" href="classrr_1_1Dictionary.html" title="This class is frozen, no new features A dictionary interface that objects can implement.">Dictionary</a> Interface.  <a href="classrr_1_1NLEQ2Interface.html#a9495cf109b4ec802e3e8532099c73f5e">More...</a><br /></td></tr>
-<tr class="separator:a9495cf109b4ec802e3e8532099c73f5e"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a4ef5104c0c2bb69c42add51d3c6cb0d4"><td class="memItemLeft" align="right" valign="top">virtual <a class="el" href="classrr_1_1Variant.html">Variant</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classrr_1_1NLEQ2Interface.html#a4ef5104c0c2bb69c42add51d3c6cb0d4">getItem</a> (const std::string &amp;key) const</td></tr>
-<tr class="memdesc:a4ef5104c0c2bb69c42add51d3c6cb0d4"><td class="mdescLeft">&#160;</td><td class="mdescRight">get a value.  <a href="classrr_1_1NLEQ2Interface.html#a4ef5104c0c2bb69c42add51d3c6cb0d4">More...</a><br /></td></tr>
-<tr class="separator:a4ef5104c0c2bb69c42add51d3c6cb0d4"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:aaaece125dad7d037daa8e14e296cf127"><td class="memItemLeft" align="right" valign="top">virtual void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classrr_1_1NLEQ2Interface.html#aaaece125dad7d037daa8e14e296cf127">setItem</a> (const std::string &amp;key, const <a class="el" href="classrr_1_1Setting.html">rr::Setting</a> &amp;value)</td></tr>
+<tr class="memdesc:aaaece125dad7d037daa8e14e296cf127"><td class="mdescLeft">&#160;</td><td class="mdescRight">Implement <a class="el" href="classrr_1_1Dictionary.html" title="This class is frozen, no new features A dictionary interface that objects can implement.">Dictionary</a> Interface.  <a href="classrr_1_1NLEQ2Interface.html#aaaece125dad7d037daa8e14e296cf127">More...</a><br /></td></tr>
+<tr class="separator:aaaece125dad7d037daa8e14e296cf127"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:abb1a5d9b9039568fbf6f7c34ab91f670"><td class="memItemLeft" align="right" valign="top">virtual <a class="el" href="classrr_1_1Setting.html">Setting</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classrr_1_1NLEQ2Interface.html#abb1a5d9b9039568fbf6f7c34ab91f670">getItem</a> (const std::string &amp;key) const</td></tr>
+<tr class="memdesc:abb1a5d9b9039568fbf6f7c34ab91f670"><td class="mdescLeft">&#160;</td><td class="mdescRight">get a value.  <a href="classrr_1_1NLEQ2Interface.html#abb1a5d9b9039568fbf6f7c34ab91f670">More...</a><br /></td></tr>
+<tr class="separator:abb1a5d9b9039568fbf6f7c34ab91f670"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a544143f7d7780b7ae8a142ed9f352667"><td class="memItemLeft" align="right" valign="top"><a id="a544143f7d7780b7ae8a142ed9f352667"></a>
 virtual bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classrr_1_1NLEQ2Interface.html#a544143f7d7780b7ae8a142ed9f352667">hasKey</a> (const std::string &amp;key) const</td></tr>
 <tr class="memdesc:a544143f7d7780b7ae8a142ed9f352667"><td class="mdescLeft">&#160;</td><td class="mdescRight">is there a key matching this name. <br /></td></tr>
@@ -114,6 +114,33 @@ virtual size_t&#160;</td><td class="memItemRight" valign="bottom"><a class="el" 
 virtual std::vector&lt; std::string &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classrr_1_1NLEQ2Interface.html#afad85315aa2373f52cbfb12262df8c3f">getKeys</a> () const</td></tr>
 <tr class="memdesc:afad85315aa2373f52cbfb12262df8c3f"><td class="mdescLeft">&#160;</td><td class="mdescRight">list of keys in this object. <br /></td></tr>
 <tr class="separator:afad85315aa2373f52cbfb12262df8c3f"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a94845cb60c384bd01adcba0171f539ec"><td class="memItemLeft" align="right" valign="top"><a id="a94845cb60c384bd01adcba0171f539ec"></a>
+void&#160;</td><td class="memItemRight" valign="bottom"><b>setup</b> ()</td></tr>
+<tr class="separator:a94845cb60c384bd01adcba0171f539ec"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a540ce543e1484f9327dbf2cc83785d36"><td class="memItemLeft" align="right" valign="top"><a id="a540ce543e1484f9327dbf2cc83785d36"></a>
+bool&#160;</td><td class="memItemRight" valign="bottom"><b>isAvailable</b> ()</td></tr>
+<tr class="separator:a540ce543e1484f9327dbf2cc83785d36"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ab0154efb08d830638127ef6330dea090"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classrr_1_1NLEQ2Interface.html#ab0154efb08d830638127ef6330dea090">setScalingFactors</a> (const std::vector&lt; double &gt; &amp;sx)</td></tr>
+<tr class="memdesc:ab0154efb08d830638127ef6330dea090"><td class="mdescLeft">&#160;</td><td class="mdescRight">Sets the Scaling Factors  <a href="classrr_1_1NLEQ2Interface.html#ab0154efb08d830638127ef6330dea090">More...</a><br /></td></tr>
+<tr class="separator:ab0154efb08d830638127ef6330dea090"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:acf39786fb327066323f7595b9322ebb2"><td class="memItemLeft" align="right" valign="top">int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classrr_1_1NLEQ2Interface.html#acf39786fb327066323f7595b9322ebb2">getNumberOfNewtonIterations</a> ()</td></tr>
+<tr class="memdesc:acf39786fb327066323f7595b9322ebb2"><td class="mdescLeft">&#160;</td><td class="mdescRight">Returns the Number of Newton Iterations  <a href="classrr_1_1NLEQ2Interface.html#acf39786fb327066323f7595b9322ebb2">More...</a><br /></td></tr>
+<tr class="separator:acf39786fb327066323f7595b9322ebb2"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ada93b787ae85fb08b27a06845ac2dcb9"><td class="memItemLeft" align="right" valign="top">int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classrr_1_1NLEQ2Interface.html#ada93b787ae85fb08b27a06845ac2dcb9">getNumberOfCorrectorSteps</a> ()</td></tr>
+<tr class="memdesc:ada93b787ae85fb08b27a06845ac2dcb9"><td class="mdescLeft">&#160;</td><td class="mdescRight">Returns the Number of Corrector steps  <a href="classrr_1_1NLEQ2Interface.html#ada93b787ae85fb08b27a06845ac2dcb9">More...</a><br /></td></tr>
+<tr class="separator:ada93b787ae85fb08b27a06845ac2dcb9"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a0e4c3f11cec0169916977d58f50bf7e7"><td class="memItemLeft" align="right" valign="top">int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classrr_1_1NLEQ2Interface.html#a0e4c3f11cec0169916977d58f50bf7e7">getNumberOfModelEvaluations</a> ()</td></tr>
+<tr class="memdesc:a0e4c3f11cec0169916977d58f50bf7e7"><td class="mdescLeft">&#160;</td><td class="mdescRight">Returns the Number of Model Evaluations  <a href="classrr_1_1NLEQ2Interface.html#a0e4c3f11cec0169916977d58f50bf7e7">More...</a><br /></td></tr>
+<tr class="separator:a0e4c3f11cec0169916977d58f50bf7e7"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:aa772170399ac79ec2d99ec075f340392"><td class="memItemLeft" align="right" valign="top">int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classrr_1_1NLEQ2Interface.html#aa772170399ac79ec2d99ec075f340392">getNumberOfJacobianEvaluations</a> ()</td></tr>
+<tr class="memdesc:aa772170399ac79ec2d99ec075f340392"><td class="mdescLeft">&#160;</td><td class="mdescRight">Returns the Number Of Jacobian Evaluations  <a href="classrr_1_1NLEQ2Interface.html#aa772170399ac79ec2d99ec075f340392">More...</a><br /></td></tr>
+<tr class="separator:aa772170399ac79ec2d99ec075f340392"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:aa17e3a331d3c7179b099bcabf30d09ce"><td class="memItemLeft" align="right" valign="top">int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classrr_1_1NLEQ2Interface.html#aa17e3a331d3c7179b099bcabf30d09ce">getNumberOfModelEvaluationsForJacobian</a> ()</td></tr>
+<tr class="memdesc:aa17e3a331d3c7179b099bcabf30d09ce"><td class="mdescLeft">&#160;</td><td class="mdescRight">Returns the Number of Model Evaluations For Jacobian  <a href="classrr_1_1NLEQ2Interface.html#aa17e3a331d3c7179b099bcabf30d09ce">More...</a><br /></td></tr>
+<tr class="separator:aa17e3a331d3c7179b099bcabf30d09ce"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a1aed4d16f028b121ec2a6f831a49153b"><td class="memItemLeft" align="right" valign="top"><a id="a1aed4d16f028b121ec2a6f831a49153b"></a>
+double&#160;</td><td class="memItemRight" valign="bottom"><b>computeSumsOfSquares</b> ()</td></tr>
+<tr class="separator:a1aed4d16f028b121ec2a6f831a49153b"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="inherit_header pub_methods_classrr_1_1Dictionary"><td colspan="2" onclick="javascript:toggleInherit('pub_methods_classrr_1_1Dictionary')"><img src="closed.png" alt="-"/>&#160;Public Member Functions inherited from <a class="el" href="classrr_1_1Dictionary.html">rr::Dictionary</a></td></tr>
 <tr class="memitem:ada6593bddd5fd2f3f75374863191f419 inherit pub_methods_classrr_1_1Dictionary"><td class="memItemLeft" align="right" valign="top"><a id="ada6593bddd5fd2f3f75374863191f419"></a>
 virtual&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classrr_1_1Dictionary.html#ada6593bddd5fd2f3f75374863191f419">~Dictionary</a> ()</td></tr>
@@ -127,6 +154,78 @@ static const <a class="el" href="classrr_1_1Dictionary.html">Dictionary</a> *&#1
 <tr class="memdesc:a80d203c777e3d3f6cc3959a4a1dc2de5"><td class="mdescLeft">&#160;</td><td class="mdescRight">list of keys that this integrator supports. <br /></td></tr>
 <tr class="separator:a80d203c777e3d3f6cc3959a4a1dc2de5"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table><table class="memberdecls">
+<tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pub-attribs"></a>
+Public Attributes</h2></td></tr>
+<tr class="memitem:a5dbc5fed40e9ca0bee0faece07d75e12"><td class="memItemLeft" align="right" valign="top"><a id="a5dbc5fed40e9ca0bee0faece07d75e12"></a>
+int&#160;</td><td class="memItemRight" valign="bottom"><b>nOpts</b></td></tr>
+<tr class="separator:a5dbc5fed40e9ca0bee0faece07d75e12"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:acd89bf009bb80a689c48891fb0fb3399"><td class="memItemLeft" align="right" valign="top"><a id="acd89bf009bb80a689c48891fb0fb3399"></a>
+long *&#160;</td><td class="memItemRight" valign="bottom"><b>IWK</b></td></tr>
+<tr class="separator:acd89bf009bb80a689c48891fb0fb3399"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a9dd6e6977d76875d49fa8778271306cb"><td class="memItemLeft" align="right" valign="top"><a id="a9dd6e6977d76875d49fa8778271306cb"></a>
+long&#160;</td><td class="memItemRight" valign="bottom"><b>LIWK</b></td></tr>
+<tr class="separator:a9dd6e6977d76875d49fa8778271306cb"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a0a9b50e59397be473430ec1b5c1f35cc"><td class="memItemLeft" align="right" valign="top"><a id="a0a9b50e59397be473430ec1b5c1f35cc"></a>
+long&#160;</td><td class="memItemRight" valign="bottom"><b>LRWK</b></td></tr>
+<tr class="separator:a0a9b50e59397be473430ec1b5c1f35cc"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a3734db9c01aca28e216341d61027116d"><td class="memItemLeft" align="right" valign="top"><a id="a3734db9c01aca28e216341d61027116d"></a>
+double *&#160;</td><td class="memItemRight" valign="bottom"><b>RWK</b></td></tr>
+<tr class="separator:a3734db9c01aca28e216341d61027116d"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:afc70ac9b4476d579fd493239a0a48bd2"><td class="memItemLeft" align="right" valign="top"><a id="afc70ac9b4476d579fd493239a0a48bd2"></a>
+double *&#160;</td><td class="memItemRight" valign="bottom"><b>XScal</b></td></tr>
+<tr class="separator:afc70ac9b4476d579fd493239a0a48bd2"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:aa9ef4f1fc1a1c83d9ac0deff31d30334"><td class="memItemLeft" align="right" valign="top"><a id="aa9ef4f1fc1a1c83d9ac0deff31d30334"></a>
+long&#160;</td><td class="memItemRight" valign="bottom"><b>ierr</b></td></tr>
+<tr class="separator:aa9ef4f1fc1a1c83d9ac0deff31d30334"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ac130efff07be74c40d5014490005e28d"><td class="memItemLeft" align="right" valign="top"><a id="ac130efff07be74c40d5014490005e28d"></a>
+long *&#160;</td><td class="memItemRight" valign="bottom"><b>iopt</b></td></tr>
+<tr class="separator:ac130efff07be74c40d5014490005e28d"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a8a8520655138625c5b1fa8eb102bd816"><td class="memItemLeft" align="right" valign="top"><a id="a8a8520655138625c5b1fa8eb102bd816"></a>
+<a class="el" href="classrr_1_1ExecutableModel.html">ExecutableModel</a> *&#160;</td><td class="memItemRight" valign="bottom"><b>model</b></td></tr>
+<tr class="separator:a8a8520655138625c5b1fa8eb102bd816"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:adf3536cb1a66462bca8c2b4fe25549f9"><td class="memItemLeft" align="right" valign="top"><a id="adf3536cb1a66462bca8c2b4fe25549f9"></a>
+long&#160;</td><td class="memItemRight" valign="bottom"><b>n</b></td></tr>
+<tr class="separator:adf3536cb1a66462bca8c2b4fe25549f9"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:af1c1581edc36bce5e664a662425e9ad4"><td class="memItemLeft" align="right" valign="top"><a id="af1c1581edc36bce5e664a662425e9ad4"></a>
+bool&#160;</td><td class="memItemRight" valign="bottom"><b>allowPreSim</b></td></tr>
+<tr class="separator:af1c1581edc36bce5e664a662425e9ad4"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ac035c5f8a9bc6aba24f3f880f4226610"><td class="memItemLeft" align="right" valign="top"><a id="ac035c5f8a9bc6aba24f3f880f4226610"></a>
+double&#160;</td><td class="memItemRight" valign="bottom"><b>preSimTolerance</b></td></tr>
+<tr class="separator:ac035c5f8a9bc6aba24f3f880f4226610"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:aacdeb312ffdcb64fe4ccb8e98327db65"><td class="memItemLeft" align="right" valign="top"><a id="aacdeb312ffdcb64fe4ccb8e98327db65"></a>
+int&#160;</td><td class="memItemRight" valign="bottom"><b>preSimMaximumSteps</b></td></tr>
+<tr class="separator:aacdeb312ffdcb64fe4ccb8e98327db65"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ae1a89f19512b74df2194e3e503749bd4"><td class="memItemLeft" align="right" valign="top"><a id="ae1a89f19512b74df2194e3e503749bd4"></a>
+double&#160;</td><td class="memItemRight" valign="bottom"><b>preSimTime</b></td></tr>
+<tr class="separator:ae1a89f19512b74df2194e3e503749bd4"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:aeb8ffcfc86bb39f178ff70d59e5be346"><td class="memItemLeft" align="right" valign="top"><a id="aeb8ffcfc86bb39f178ff70d59e5be346"></a>
+bool&#160;</td><td class="memItemRight" valign="bottom"><b>allowApprox</b></td></tr>
+<tr class="separator:aeb8ffcfc86bb39f178ff70d59e5be346"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a9cf5c34c30965b8094724ce86543bc44"><td class="memItemLeft" align="right" valign="top"><a id="a9cf5c34c30965b8094724ce86543bc44"></a>
+double&#160;</td><td class="memItemRight" valign="bottom"><b>approxTolerance</b></td></tr>
+<tr class="separator:a9cf5c34c30965b8094724ce86543bc44"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a34031ac1e4a525f17b51f58fc315e8ab"><td class="memItemLeft" align="right" valign="top"><a id="a34031ac1e4a525f17b51f58fc315e8ab"></a>
+int&#160;</td><td class="memItemRight" valign="bottom"><b>approxMaximumSteps</b></td></tr>
+<tr class="separator:a34031ac1e4a525f17b51f58fc315e8ab"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a50eb0dea27685f1c31e7e7d1c8c37519"><td class="memItemLeft" align="right" valign="top"><a id="a50eb0dea27685f1c31e7e7d1c8c37519"></a>
+double&#160;</td><td class="memItemRight" valign="bottom"><b>approxTime</b></td></tr>
+<tr class="separator:a50eb0dea27685f1c31e7e7d1c8c37519"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a539a956fac57bc81488c7cb91a0843ed"><td class="memItemLeft" align="right" valign="top"><a id="a539a956fac57bc81488c7cb91a0843ed"></a>
+double&#160;</td><td class="memItemRight" valign="bottom"><b>relativeTolerance</b></td></tr>
+<tr class="separator:a539a956fac57bc81488c7cb91a0843ed"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a10268a4a5c4f620bc827638eeff9f508"><td class="memItemLeft" align="right" valign="top"><a id="a10268a4a5c4f620bc827638eeff9f508"></a>
+int&#160;</td><td class="memItemRight" valign="bottom"><b>maxIterations</b></td></tr>
+<tr class="separator:a10268a4a5c4f620bc827638eeff9f508"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ac6ff62a7c23060ae816dd4d0355d457f"><td class="memItemLeft" align="right" valign="top"><a id="ac6ff62a7c23060ae816dd4d0355d457f"></a>
+double&#160;</td><td class="memItemRight" valign="bottom"><b>minDamping</b></td></tr>
+<tr class="separator:ac6ff62a7c23060ae816dd4d0355d457f"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a00437c5bd4647aa079e40bb1d6ed209e"><td class="memItemLeft" align="right" valign="top"><a id="a00437c5bd4647aa079e40bb1d6ed209e"></a>
+int&#160;</td><td class="memItemRight" valign="bottom"><b>broyden</b></td></tr>
+<tr class="separator:a00437c5bd4647aa079e40bb1d6ed209e"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ac96a82e8aebc4e72efbcbe8700217969"><td class="memItemLeft" align="right" valign="top"><a id="ac96a82e8aebc4e72efbcbe8700217969"></a>
+int&#160;</td><td class="memItemRight" valign="bottom"><b>linearity</b></td></tr>
+<tr class="separator:ac96a82e8aebc4e72efbcbe8700217969"><td class="memSeparator" colspan="2">&#160;</td></tr>
+</table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="friends"></a>
 Friends</h2></td></tr>
 <tr class="memitem:a69a00c6c3952a0634d7ed2ab8d729caa"><td class="memItemLeft" align="right" valign="top"><a id="a69a00c6c3952a0634d7ed2ab8d729caa"></a>
@@ -134,8 +233,8 @@ class&#160;</td><td class="memItemRight" valign="bottom"><b>NLEQ2Solver</b></td>
 <tr class="separator:a69a00c6c3952a0634d7ed2ab8d729caa"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <h2 class="groupheader">Member Function Documentation</h2>
-<a id="a4ef5104c0c2bb69c42add51d3c6cb0d4"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a4ef5104c0c2bb69c42add51d3c6cb0d4">&#9670;&nbsp;</a></span>getItem()</h2>
+<a id="abb1a5d9b9039568fbf6f7c34ab91f670"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#abb1a5d9b9039568fbf6f7c34ab91f670">&#9670;&nbsp;</a></span>getItem()</h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -144,7 +243,7 @@ class&#160;</td><td class="memItemRight" valign="bottom"><b>NLEQ2Solver</b></td>
   <td class="mlabels-left">
       <table class="memname">
         <tr>
-          <td class="memname"><a class="el" href="classrr_1_1Variant.html">Variant</a> rr::NLEQ2Interface::getItem </td>
+          <td class="memname"><a class="el" href="classrr_1_1Setting.html">Setting</a> rr::NLEQ2Interface::getItem </td>
           <td>(</td>
           <td class="paramtype">const std::string &amp;&#160;</td>
           <td class="paramname"><em>key</em></td><td>)</td>
@@ -161,12 +260,112 @@ class&#160;</td><td class="memItemRight" valign="bottom"><b>NLEQ2Solver</b></td>
 <p>get a value. </p>
 <p>Variants are POD. </p>
 
-<p>Implements <a class="el" href="classrr_1_1Dictionary.html#a53cb5eee283727168630f6b1b918bdb0">rr::Dictionary</a>.</p>
+<p>Implements <a class="el" href="classrr_1_1Dictionary.html#a0fcdd3d9089af14e49e8713c254c9b67">rr::Dictionary</a>.</p>
 
 </div>
 </div>
-<a id="a9495cf109b4ec802e3e8532099c73f5e"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a9495cf109b4ec802e3e8532099c73f5e">&#9670;&nbsp;</a></span>setItem()</h2>
+<a id="ada93b787ae85fb08b27a06845ac2dcb9"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ada93b787ae85fb08b27a06845ac2dcb9">&#9670;&nbsp;</a></span>getNumberOfCorrectorSteps()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">int rr::NLEQ2Interface::getNumberOfCorrectorSteps </td>
+          <td>(</td>
+          <td class="paramname"></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Returns the Number of Corrector steps </p>
+<dl class="section return"><dt>Returns</dt><dd>Returns the Number of Corrector steps</dd></dl>
+
+</div>
+</div>
+<a id="aa772170399ac79ec2d99ec075f340392"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#aa772170399ac79ec2d99ec075f340392">&#9670;&nbsp;</a></span>getNumberOfJacobianEvaluations()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">int rr::NLEQ2Interface::getNumberOfJacobianEvaluations </td>
+          <td>(</td>
+          <td class="paramname"></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Returns the Number Of Jacobian Evaluations </p>
+<dl class="section return"><dt>Returns</dt><dd>the Number Of Jacobian Evaluations</dd></dl>
+
+</div>
+</div>
+<a id="a0e4c3f11cec0169916977d58f50bf7e7"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a0e4c3f11cec0169916977d58f50bf7e7">&#9670;&nbsp;</a></span>getNumberOfModelEvaluations()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">int rr::NLEQ2Interface::getNumberOfModelEvaluations </td>
+          <td>(</td>
+          <td class="paramname"></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Returns the Number of Model Evaluations </p>
+<dl class="section return"><dt>Returns</dt><dd>the Number of Model Evaluations</dd></dl>
+
+</div>
+</div>
+<a id="aa17e3a331d3c7179b099bcabf30d09ce"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#aa17e3a331d3c7179b099bcabf30d09ce">&#9670;&nbsp;</a></span>getNumberOfModelEvaluationsForJacobian()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">int rr::NLEQ2Interface::getNumberOfModelEvaluationsForJacobian </td>
+          <td>(</td>
+          <td class="paramname"></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Returns the Number of Model Evaluations For Jacobian </p>
+<dl class="section return"><dt>Returns</dt><dd>the Number of Model Evaluations For Jacobian</dd></dl>
+
+</div>
+</div>
+<a id="acf39786fb327066323f7595b9322ebb2"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#acf39786fb327066323f7595b9322ebb2">&#9670;&nbsp;</a></span>getNumberOfNewtonIterations()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">int rr::NLEQ2Interface::getNumberOfNewtonIterations </td>
+          <td>(</td>
+          <td class="paramname"></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Returns the Number of Newton Iterations </p>
+<dl class="section return"><dt>Returns</dt><dd>the Number of Newton Iterations</dd></dl>
+
+</div>
+</div>
+<a id="aaaece125dad7d037daa8e14e296cf127"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#aaaece125dad7d037daa8e14e296cf127">&#9670;&nbsp;</a></span>setItem()</h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -183,7 +382,7 @@ class&#160;</td><td class="memItemRight" valign="bottom"><b>NLEQ2Solver</b></td>
         <tr>
           <td class="paramkey"></td>
           <td></td>
-          <td class="paramtype">const <a class="el" href="classrr_1_1Variant.html">rr::Variant</a> &amp;&#160;</td>
+          <td class="paramtype">const <a class="el" href="classrr_1_1Setting.html">rr::Setting</a> &amp;&#160;</td>
           <td class="paramname"><em>value</em>&#160;</td>
         </tr>
         <tr>
@@ -202,7 +401,33 @@ class&#160;</td><td class="memItemRight" valign="bottom"><b>NLEQ2Solver</b></td>
 <p>Implement <a class="el" href="classrr_1_1Dictionary.html" title="This class is frozen, no new features A dictionary interface that objects can implement.">Dictionary</a> Interface. </p>
 <p>set an arbitrary key </p>
 
-<p>Implements <a class="el" href="classrr_1_1Dictionary.html#a6bb53c3bfeee7e3ee2bfcf9da8212949">rr::Dictionary</a>.</p>
+<p>Implements <a class="el" href="classrr_1_1Dictionary.html#a4708fee12ec4cd5e879df9bf5570c02a">rr::Dictionary</a>.</p>
+
+</div>
+</div>
+<a id="ab0154efb08d830638127ef6330dea090"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ab0154efb08d830638127ef6330dea090">&#9670;&nbsp;</a></span>setScalingFactors()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">void rr::NLEQ2Interface::setScalingFactors </td>
+          <td>(</td>
+          <td class="paramtype">const std::vector&lt; double &gt; &amp;&#160;</td>
+          <td class="paramname"><em>sx</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Sets the Scaling Factors </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">sx</td><td>Array of Scaling factors</td></tr>
+  </table>
+  </dd>
+</dl>
 
 </div>
 </div>
@@ -211,9 +436,6 @@ class&#160;</td><td class="memItemRight" valign="bottom"><b>NLEQ2Solver</b></td>
 
 <div class="memitem">
 <div class="memproto">
-<table class="mlabels">
-  <tr>
-  <td class="mlabels-left">
       <table class="memname">
         <tr>
           <td class="memname">double rr::NLEQ2Interface::solve </td>
@@ -222,17 +444,10 @@ class&#160;</td><td class="memItemRight" valign="bottom"><b>NLEQ2Solver</b></td>
           <td></td>
         </tr>
       </table>
-  </td>
-  <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">virtual</span></span>  </td>
-  </tr>
-</table>
 </div><div class="memdoc">
 
 <p>Thea actual solver routine making the call to NLEQ2. </p>
 <dl class="section return"><dt>Returns</dt><dd>sums of squares </dd></dl>
-
-<p>Implements <a class="el" href="classrr_1_1rrSteadyStateSolver.html">rr::rrSteadyStateSolver</a>.</p>
 
 </div>
 </div>

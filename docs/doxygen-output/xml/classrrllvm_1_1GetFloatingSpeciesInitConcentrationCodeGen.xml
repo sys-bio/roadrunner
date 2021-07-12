@@ -64,9 +64,9 @@
         </inbodydescription>
         <location file="llvm/GetInitialValuesCodeGen.h" line="29" column="5" bodyfile="llvm/GetInitialValuesCodeGen.h" bodystart="29" bodyend="29"/>
       </memberdef>
-      <memberdef kind="function" id="classrrllvm_1_1GetFloatingSpeciesInitConcentrationCodeGen_1a6068715cf4ad9c32f5a56f2981d61afb" prot="public" static="no" const="no" explicit="no" inline="yes" virt="non-virtual">
-        <type>std::vector&lt; string &gt;</type>
-        <definition>std::vector&lt;string&gt; rrllvm::GetFloatingSpeciesInitConcentrationCodeGen::getIds</definition>
+      <memberdef kind="function" id="classrrllvm_1_1GetFloatingSpeciesInitConcentrationCodeGen_1a36a3213ef5b72b4ffc08919c013a46e9" prot="public" static="no" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <type>std::vector&lt; std::string &gt;</type>
+        <definition>std::vector&lt;std::string&gt; rrllvm::GetFloatingSpeciesInitConcentrationCodeGen::getIds</definition>
         <argsstring>()</argsstring>
         <name>getIds</name>
         <briefdescription>
@@ -126,16 +126,13 @@
         <childnode refid="3" relation="public-inheritance">
         </childnode>
       </node>
-      <node id="10">
+      <node id="9">
         <label>rrllvm::ModelGeneratorContext</label>
         <link refid="classrrllvm_1_1ModelGeneratorContext"/>
       </node>
-      <node id="9">
+      <node id="8">
         <label>rrllvm::LLVMModelDataSymbols</label>
         <link refid="classrrllvm_1_1LLVMModelDataSymbols"/>
-      </node>
-      <node id="5">
-        <label>SBMLVisitor</label>
       </node>
       <node id="1">
         <label>rrllvm::GetFloatingSpeciesInitConcentrationCodeGen</label>
@@ -149,26 +146,19 @@
         <childnode refid="4" relation="usage">
           <edgelabel>modelSymbols</edgelabel>
         </childnode>
-        <childnode refid="9" relation="usage">
+        <childnode refid="8" relation="usage">
           <edgelabel>dataSymbols</edgelabel>
         </childnode>
-        <childnode refid="10" relation="usage">
+        <childnode refid="9" relation="usage">
           <edgelabel>modelGenContext</edgelabel>
         </childnode>
       </node>
       <node id="7">
         <label>rrllvm::SymbolForest</label>
         <link refid="classrrllvm_1_1SymbolForest"/>
-        <childnode refid="8" relation="usage">
-          <edgelabel>boundarySpecies</edgelabel>
-          <edgelabel>compartments</edgelabel>
-          <edgelabel>floatingSpecies</edgelabel>
-          <edgelabel>globalParameters</edgelabel>
-          <edgelabel>speciesReferences</edgelabel>
-        </childnode>
       </node>
-      <node id="8">
-        <label>map&lt; string, const libsbml::ASTNode * &gt;</label>
+      <node id="5">
+        <label>libsbml::SBMLVisitor</label>
       </node>
     </collaborationgraph>
     <location file="llvm/GetInitialValuesCodeGen.h" line="24" column="1" bodyfile="llvm/GetInitialValuesCodeGen.h" bodystart="26" bodyend="38"/>
@@ -187,7 +177,7 @@
       <member refid="classrrllvm_1_1CodeGenBase_1addedde72248fde005bff3060843de531" prot="protected" virt="non-virtual"><scope>rrllvm::GetFloatingSpeciesInitConcentrationCodeGen</scope><name>functionPassManager</name></member>
       <member refid="classrrllvm_1_1GetInitialValueCodeGenBase_1ace6db1aa4a75d1fe842ade68cb572c42" prot="public" virt="non-virtual"><scope>rrllvm::GetFloatingSpeciesInitConcentrationCodeGen</scope><name>FunctionPtr</name></member>
       <member refid="classrrllvm_1_1GetFloatingSpeciesInitConcentrationCodeGen_1abc73e0245108f3f9d9d12a7cfeac2223" prot="public" virt="non-virtual"><scope>rrllvm::GetFloatingSpeciesInitConcentrationCodeGen</scope><name>GetFloatingSpeciesInitConcentrationCodeGen</name></member>
-      <member refid="classrrllvm_1_1GetFloatingSpeciesInitConcentrationCodeGen_1a6068715cf4ad9c32f5a56f2981d61afb" prot="public" virt="non-virtual"><scope>rrllvm::GetFloatingSpeciesInitConcentrationCodeGen</scope><name>getIds</name></member>
+      <member refid="classrrllvm_1_1GetFloatingSpeciesInitConcentrationCodeGen_1a36a3213ef5b72b4ffc08919c013a46e9" prot="public" virt="non-virtual"><scope>rrllvm::GetFloatingSpeciesInitConcentrationCodeGen</scope><name>getIds</name></member>
       <member refid="classrrllvm_1_1GetInitialValueCodeGenBase_1a2d5d8552d3d4bb6e8e8560e35d74192a" prot="public" virt="non-virtual"><scope>rrllvm::GetFloatingSpeciesInitConcentrationCodeGen</scope><name>GetInitialValueCodeGenBase</name></member>
       <member refid="classrrllvm_1_1GetFloatingSpeciesInitConcentrationCodeGen_1ae9579e8d4451df6cbd40bb7ef68b7318" prot="public" virt="non-virtual"><scope>rrllvm::GetFloatingSpeciesInitConcentrationCodeGen</scope><name>IndexArgName</name></member>
       <member refid="classrrllvm_1_1CodeGenBase_1afb6ef03ee896534cde79895141a8a666" prot="protected" virt="non-virtual"><scope>rrllvm::GetFloatingSpeciesInitConcentrationCodeGen</scope><name>model</name></member>

@@ -18,7 +18,7 @@ The main \mbox{\hyperlink{classrr_1_1RoadRunner}{Road\+Runner}} class.
 \mbox{\hyperlink{classrr_1_1RoadRunner_ad66240360fee4ccad50097e4b4c8460b}{Road\+Runner}} (const std\+::string \&uri\+Or\+S\+B\+ML, const \mbox{\hyperlink{classrr_1_1Dictionary}{Dictionary}} $\ast$options=0)
 \begin{DoxyCompactList}\small\item\em load an sbml document from anywhere. \end{DoxyCompactList}\item 
 \mbox{\hyperlink{classrr_1_1RoadRunner_a3e326546550b3f4533dd7d6b3f2f4250}{Road\+Runner}} (const std\+::string \&compiler, const std\+::string \&temp\+Dir, const std\+::string \&support\+Code\+Dir)
-\begin{DoxyCompactList}\small\item\em All three of the \mbox{\hyperlink{classrr_1_1RoadRunner}{Road\+Runner}} options default to the empty string, in this case, the default values are used. \end{DoxyCompactList}\item 
+\begin{DoxyCompactList}\small\item\em All three of the \mbox{\hyperlink{classrr_1_1RoadRunner}{Road\+Runner}} options default to the empty std\+::string, in this case, the default values are used. \end{DoxyCompactList}\item 
 \mbox{\Hypertarget{classrr_1_1RoadRunner_aa6518611d8ac7cd908dbf5704d129020}\label{classrr_1_1RoadRunner_aa6518611d8ac7cd908dbf5704d129020}} 
 \mbox{\hyperlink{classrr_1_1RoadRunner_aa6518611d8ac7cd908dbf5704d129020}{Road\+Runner}} (const \mbox{\hyperlink{classrr_1_1RoadRunner}{Road\+Runner}} \&rr)
 \begin{DoxyCompactList}\small\item\em \mbox{\hyperlink{classrr_1_1RoadRunner}{Road\+Runner}} copy constructor Explicitly defined because of Python. \end{DoxyCompactList}\item 
@@ -31,8 +31,8 @@ int \mbox{\hyperlink{classrr_1_1RoadRunner_a6cc53f3668f94b3d88764e14b24bc87e}{ge
 \mbox{\Hypertarget{classrr_1_1RoadRunner_a4860f41d8552118f3c8c5d5fb6d999f6}\label{classrr_1_1RoadRunner_a4860f41d8552118f3c8c5d5fb6d999f6}} 
 int \mbox{\hyperlink{classrr_1_1RoadRunner_a4860f41d8552118f3c8c5d5fb6d999f6}{get\+Instance\+Count}} ()
 \begin{DoxyCompactList}\small\item\em Number of currently running \mbox{\hyperlink{classrr_1_1RoadRunner}{Road\+Runner}} instances. \end{DoxyCompactList}\item 
-\mbox{\Hypertarget{classrr_1_1RoadRunner_a2b7022cadd857fa4fb3cb24703da608a}\label{classrr_1_1RoadRunner_a2b7022cadd857fa4fb3cb24703da608a}} 
-std\+::string \mbox{\hyperlink{classrr_1_1RoadRunner_a2b7022cadd857fa4fb3cb24703da608a}{get\+Info}} ()
+\mbox{\Hypertarget{classrr_1_1RoadRunner_a3280d3b45ff394b0f507fb0a5983d582}\label{classrr_1_1RoadRunner_a3280d3b45ff394b0f507fb0a5983d582}} 
+std\+::string \mbox{\hyperlink{classrr_1_1RoadRunner_a3280d3b45ff394b0f507fb0a5983d582}{get\+Info}} ()
 \begin{DoxyCompactList}\small\item\em information about the current state of this object. \end{DoxyCompactList}\item 
 \mbox{\Hypertarget{classrr_1_1RoadRunner_a329f2009c2688bbedc906c21c4b8b3ef}\label{classrr_1_1RoadRunner_a329f2009c2688bbedc906c21c4b8b3ef}} 
 class \mbox{\hyperlink{classrr_1_1Compiler}{Compiler}} $\ast$ \mbox{\hyperlink{classrr_1_1RoadRunner_a329f2009c2688bbedc906c21c4b8b3ef}{get\+Compiler}} ()
@@ -69,9 +69,9 @@ bool {\bfseries steady\+State\+Solver\+Exists} (std\+::string name)
 \mbox{\Hypertarget{classrr_1_1RoadRunner_aecea2dbffc17d0322b00e18f126058b5}\label{classrr_1_1RoadRunner_aecea2dbffc17d0322b00e18f126058b5}} 
 bool {\bfseries is\+Model\+Loaded} ()
 \item 
-\mbox{\Hypertarget{classrr_1_1RoadRunner_a9519f489ada956e35bd0b65e44e96cdd}\label{classrr_1_1RoadRunner_a9519f489ada956e35bd0b65e44e96cdd}} 
-std\+::string \mbox{\hyperlink{classrr_1_1RoadRunner_a9519f489ada956e35bd0b65e44e96cdd}{get\+Model\+Name}} ()
-\begin{DoxyCompactList}\small\item\em returns the model name if a model is loaded, empty string otherwise. \end{DoxyCompactList}\item 
+\mbox{\Hypertarget{classrr_1_1RoadRunner_ac03b62cc39f62a61a556fe393e859e36}\label{classrr_1_1RoadRunner_ac03b62cc39f62a61a556fe393e859e36}} 
+std\+::string \mbox{\hyperlink{classrr_1_1RoadRunner_ac03b62cc39f62a61a556fe393e859e36}{get\+Model\+Name}} ()
+\begin{DoxyCompactList}\small\item\em returns the model name if a model is loaded, empty std\+::string otherwise. \end{DoxyCompactList}\item 
 bool \mbox{\hyperlink{classrr_1_1RoadRunner_a6486934df5e346da4209a578f4eaea2b}{clear\+Model}} ()
 \begin{DoxyCompactList}\small\item\em Clears the currently loaded model and all associated memory. \end{DoxyCompactList}\item 
 double \mbox{\hyperlink{classrr_1_1RoadRunner_a27aedd28b2a2d5453200ca4a4a2bf4c0}{one\+Step}} (double current\+Time, double step\+Size, bool \mbox{\hyperlink{classrr_1_1RoadRunner_ae4b0eaa39fd37737e5f5fd7f7741e06c}{reset}}=true)
@@ -80,6 +80,8 @@ double \mbox{\hyperlink{classrr_1_1RoadRunner_a2d4f3df674f8f6500d87a584b4f365cd}
 \begin{DoxyCompactList}\small\item\em Carry out a single internal solver integration step. \end{DoxyCompactList}\item 
 const ls\+::\+Double\+Matrix $\ast$ \mbox{\hyperlink{classrr_1_1RoadRunner_a0843eb317d47d28a27929d326d4f1f88}{simulate}} (const \mbox{\hyperlink{classrr_1_1Dictionary}{Dictionary}} $\ast$options=0)
 \begin{DoxyCompactList}\small\item\em Simulate the current S\+B\+ML model. \end{DoxyCompactList}\item 
+const ls\+::\+Double\+Matrix $\ast$ \mbox{\hyperlink{classrr_1_1RoadRunner_aed6e64be9ee8f7c6111f9ddcfbe54921}{simulate}} (double start, double stop, int num)
+\begin{DoxyCompactList}\small\item\em simulate the model using currently set integrator \end{DoxyCompactList}\item 
 \mbox{\Hypertarget{classrr_1_1RoadRunner_ac982f0742233d5ad487064734c3b793c}\label{classrr_1_1RoadRunner_ac982f0742233d5ad487064734c3b793c}} 
 void {\bfseries save\+State} (std\+::string filename, char opt=\textquotesingle{}b\textquotesingle{})
 \item 
@@ -99,9 +101,9 @@ void {\bfseries set\+Simulate\+Options} (const \mbox{\hyperlink{classrr_1_1Simul
 \mbox{\Hypertarget{classrr_1_1RoadRunner_a5e00a39a88bf7d36c165f4ca9fbb3674}\label{classrr_1_1RoadRunner_a5e00a39a88bf7d36c165f4ca9fbb3674}} 
 void {\bfseries set\+Options} (const \mbox{\hyperlink{structrr_1_1RoadRunnerOptions}{Road\+Runner\+Options}} \&)
 \item 
-std\+::string \mbox{\hyperlink{classrr_1_1RoadRunner_ae422b8ad65ca1cabcb7bd88b8c1f7264}{get\+S\+B\+ML}} (int level=0, int version=0)
-\begin{DoxyCompactList}\small\item\em get the originally loaded sbml document as a string. \end{DoxyCompactList}\item 
-std\+::string \mbox{\hyperlink{classrr_1_1RoadRunner_aee591c512811f899a6d41799728173c5}{get\+Current\+S\+B\+ML}} (int level=0, int version=0)
+std\+::string \mbox{\hyperlink{classrr_1_1RoadRunner_ae154e3cc9560f4a5725f03cbe9bb3aa5}{get\+S\+B\+ML}} (int level=0, int version=0)
+\begin{DoxyCompactList}\small\item\em get the originally loaded sbml document as a std\+::string. \end{DoxyCompactList}\item 
+std\+::string \mbox{\hyperlink{classrr_1_1RoadRunner_abd7ed519514ee77cfe64c5d4cab6fc3f}{get\+Current\+S\+B\+ML}} (int level=0, int version=0)
 \begin{DoxyCompactList}\small\item\em Returns the S\+B\+ML with the current model parameters. \end{DoxyCompactList}\item 
 void \mbox{\hyperlink{classrr_1_1RoadRunner_ae4b0eaa39fd37737e5f5fd7f7741e06c}{reset}} ()
 \begin{DoxyCompactList}\small\item\em Picks up default options from config. \end{DoxyCompactList}\item 
@@ -125,7 +127,7 @@ std\+::vector$<$ \mbox{\hyperlink{classrr_1_1SelectionRecord}{rr\+::\+Selection\
 \begin{DoxyCompactList}\small\item\em Returns the currently selected columns that will be returned by calls to \mbox{\hyperlink{classrr_1_1RoadRunner_a0843eb317d47d28a27929d326d4f1f88}{simulate()}} or simulate\+Ex(,,). \end{DoxyCompactList}\item 
 \mbox{\Hypertarget{classrr_1_1RoadRunner_aa030bd78fd18af9737b6798e246dd4cb}\label{classrr_1_1RoadRunner_aa030bd78fd18af9737b6798e246dd4cb}} 
 double \mbox{\hyperlink{classrr_1_1RoadRunner_aa030bd78fd18af9737b6798e246dd4cb}{get\+Value}} (const std\+::string \&sel)
-\begin{DoxyCompactList}\small\item\em Creates a new selection based on the selection string, and returns the value it queries. \end{DoxyCompactList}\item 
+\begin{DoxyCompactList}\small\item\em Creates a new selection based on the selection std\+::string, and returns the value it queries. \end{DoxyCompactList}\item 
 \mbox{\Hypertarget{classrr_1_1RoadRunner_a1ffdbba3a4b35b4092bc743aad78ccdd}\label{classrr_1_1RoadRunner_a1ffdbba3a4b35b4092bc743aad78ccdd}} 
 double {\bfseries get\+Value} (const \mbox{\hyperlink{classrr_1_1SelectionRecord}{Selection\+Record}} \&record)
 \item 
@@ -135,25 +137,24 @@ void {\bfseries set\+Selections} (const std\+::vector$<$ std\+::string $>$ \&sel
 \mbox{\Hypertarget{classrr_1_1RoadRunner_a152430ddf10b8270698519bd4d1d0738}\label{classrr_1_1RoadRunner_a152430ddf10b8270698519bd4d1d0738}} 
 void {\bfseries set\+Selections} (const std\+::vector$<$ \mbox{\hyperlink{classrr_1_1SelectionRecord}{rr\+::\+Selection\+Record}} $>$ \&selections)
 \item 
-\mbox{\Hypertarget{classrr_1_1RoadRunner_a9c98b4f3d57c4935b744d8cd831d4a61}\label{classrr_1_1RoadRunner_a9c98b4f3d57c4935b744d8cd831d4a61}} 
-std\+::vector$<$ double $>$ \mbox{\hyperlink{classrr_1_1RoadRunner_a9c98b4f3d57c4935b744d8cd831d4a61}{get\+Selected\+Values}} ()
+\mbox{\Hypertarget{classrr_1_1RoadRunner_ab5c1eda6c4babfbe69d46eaaa00e4b55}\label{classrr_1_1RoadRunner_ab5c1eda6c4babfbe69d46eaaa00e4b55}} 
+std\+::vector$<$ double $>$ \mbox{\hyperlink{classrr_1_1RoadRunner_ab5c1eda6c4babfbe69d46eaaa00e4b55}{get\+Selected\+Values}} ()
 \begin{DoxyCompactList}\small\item\em returns the values selected with \mbox{\hyperlink{classrr_1_1SimulateOptions}{Simulate\+Options}} for the current model time / timestep"{}) \end{DoxyCompactList}\item 
-\mbox{\Hypertarget{classrr_1_1RoadRunner_a8891806bc553fef5898f9e81751a9899}\label{classrr_1_1RoadRunner_a8891806bc553fef5898f9e81751a9899}} 
 void \mbox{\hyperlink{classrr_1_1RoadRunner_a8891806bc553fef5898f9e81751a9899}{get\+Ids}} (int types, std\+::list$<$ std\+::string $>$ \&ids)
 \begin{DoxyCompactList}\small\item\em populates a given list with all the ids that this class can accept. \end{DoxyCompactList}\item 
-std\+::vector$<$ std\+::string $>$ \mbox{\hyperlink{classrr_1_1RoadRunner_ac713974ee639f493d9d8cdb1577233fe}{get\+Independent\+Floating\+Species\+Ids}} ()
+std\+::vector$<$ std\+::string $>$ \mbox{\hyperlink{classrr_1_1RoadRunner_a5008edbb3df7cd74abb87414638dea55}{get\+Independent\+Floating\+Species\+Ids}} ()
 \begin{DoxyCompactList}\small\item\em Gets the ids for all independent floating species. \end{DoxyCompactList}\item 
-std\+::vector$<$ std\+::string $>$ \mbox{\hyperlink{classrr_1_1RoadRunner_a0b2d1c7cbaa21d37347dbdca33f4d479}{get\+Dependent\+Floating\+Species\+Ids}} ()
+std\+::vector$<$ std\+::string $>$ \mbox{\hyperlink{classrr_1_1RoadRunner_ae1510bf8ed8a09c375605346c21eaefc}{get\+Dependent\+Floating\+Species\+Ids}} ()
 \begin{DoxyCompactList}\small\item\em Gets the ids for all dependent floating species. \end{DoxyCompactList}\item 
-std\+::vector$<$ std\+::string $>$ \mbox{\hyperlink{classrr_1_1RoadRunner_a13abd6f7d1bf72686f8637c154a73a58}{get\+Floating\+Species\+Concentration\+Ids}} ()
+std\+::vector$<$ std\+::string $>$ \mbox{\hyperlink{classrr_1_1RoadRunner_a2282dace1e13af6f074819684536c2d9}{get\+Floating\+Species\+Concentration\+Ids}} ()
 \begin{DoxyCompactList}\small\item\em Gets the ids for all floating species concentrations. \end{DoxyCompactList}\item 
-std\+::vector$<$ std\+::string $>$ \mbox{\hyperlink{classrr_1_1RoadRunner_a22758ccedea064c87ccc5fd0c533b32f}{get\+Floating\+Species\+Initial\+Concentration\+Ids}} ()
+std\+::vector$<$ std\+::string $>$ \mbox{\hyperlink{classrr_1_1RoadRunner_a0bf792116912df16a5bffd637eb241c1}{get\+Floating\+Species\+Initial\+Concentration\+Ids}} ()
 \begin{DoxyCompactList}\small\item\em Gets the ids for all initial floating species concentrations. \end{DoxyCompactList}\item 
 \mbox{\Hypertarget{classrr_1_1RoadRunner_a64fd889ed2292a496bc06739e8fa206e}\label{classrr_1_1RoadRunner_a64fd889ed2292a496bc06739e8fa206e}} 
 int \mbox{\hyperlink{classrr_1_1RoadRunner_a64fd889ed2292a496bc06739e8fa206e}{get\+Supported\+Id\+Types}} ()
 \begin{DoxyCompactList}\small\item\em returns a bit field of the ids that this class supports. \end{DoxyCompactList}\item 
 void \mbox{\hyperlink{classrr_1_1RoadRunner_a2aeb31b55a8f049c27910cd00f90c868}{set\+Value}} (const std\+::string \&id, double value)
-\begin{DoxyCompactList}\small\item\em sets the value coresponding to the given selection string \end{DoxyCompactList}\item 
+\begin{DoxyCompactList}\small\item\em sets the value coresponding to the given selection std\+::string \end{DoxyCompactList}\item 
 ls\+::\+Double\+Matrix \mbox{\hyperlink{classrr_1_1RoadRunner_a8ce13b054d539a8d086d03bd7d16b1df}{get\+Floating\+Species\+Amounts\+Named\+Array}} ()
 \begin{DoxyCompactList}\small\item\em Returns the floating species amounts as a named array. \end{DoxyCompactList}\item 
 ls\+::\+Double\+Matrix \mbox{\hyperlink{classrr_1_1RoadRunner_ab5172224c3a2be50cabb013d343d8234}{get\+Floating\+Species\+Concentrations\+Named\+Array}} ()
@@ -220,11 +221,11 @@ ls\+::\+Double\+Matrix {\bfseries get\+Unscaled\+Flux\+Control\+Coefficient\+Mat
 \mbox{\Hypertarget{classrr_1_1RoadRunner_abe4dde40c03d296f2ed45db095779c28}\label{classrr_1_1RoadRunner_abe4dde40c03d296f2ed45db095779c28}} 
 ls\+::\+Double\+Matrix {\bfseries get\+Scaled\+Flux\+Control\+Coefficient\+Matrix} ()
 \item 
-\mbox{\Hypertarget{classrr_1_1RoadRunner_ab0dde69c8f297c32c1ac8e622ece4781}\label{classrr_1_1RoadRunner_ab0dde69c8f297c32c1ac8e622ece4781}} 
-std\+::vector$<$ std\+::string $>$ \mbox{\hyperlink{classrr_1_1RoadRunner_ab0dde69c8f297c32c1ac8e622ece4781}{get\+Eigen\+Value\+Ids}} ()
-\begin{DoxyCompactList}\small\item\em returns the list of floating species, but with a \char`\"{}eigen(...)\char`\"{} string wrapped around them. \end{DoxyCompactList}\item 
-\mbox{\Hypertarget{classrr_1_1RoadRunner_ac755535bf3a1aedfbe9714bcacccc2e3}\label{classrr_1_1RoadRunner_ac755535bf3a1aedfbe9714bcacccc2e3}} 
-double \mbox{\hyperlink{classrr_1_1RoadRunner_ac755535bf3a1aedfbe9714bcacccc2e3}{get\+Unscaled\+Parameter\+Elasticity}} (const string \&reaction\+Name, const string \&parameter\+Name)
+\mbox{\Hypertarget{classrr_1_1RoadRunner_aea6a2de3cb5502f2924f6c874b848758}\label{classrr_1_1RoadRunner_aea6a2de3cb5502f2924f6c874b848758}} 
+std\+::vector$<$ std\+::string $>$ \mbox{\hyperlink{classrr_1_1RoadRunner_aea6a2de3cb5502f2924f6c874b848758}{get\+Eigen\+Value\+Ids}} ()
+\begin{DoxyCompactList}\small\item\em returns the list of floating species, but with a \char`\"{}eigen(...)\char`\"{} std\+::string wrapped around them. \end{DoxyCompactList}\item 
+\mbox{\Hypertarget{classrr_1_1RoadRunner_a5fb2c2cc40a2badce7c4803917cba029}\label{classrr_1_1RoadRunner_a5fb2c2cc40a2badce7c4803917cba029}} 
+double \mbox{\hyperlink{classrr_1_1RoadRunner_a5fb2c2cc40a2badce7c4803917cba029}{get\+Unscaled\+Parameter\+Elasticity}} (const std\+::string \&reaction\+Name, const std\+::string \&parameter\+Name)
 \begin{DoxyCompactList}\small\item\em Returns the unscaled elasticity for a named reaction with respect to a named parameter. \end{DoxyCompactList}\item 
 \mbox{\Hypertarget{classrr_1_1RoadRunner_a90917baf18e5449f3ac093a58f504d00}\label{classrr_1_1RoadRunner_a90917baf18e5449f3ac093a58f504d00}} 
 ls\+::\+Double\+Matrix {\bfseries get\+Frequency\+Response} (double start\+Frequency, int number\+Of\+Decades, int number\+Of\+Points, const std\+::string \&parameter\+Name, const std\+::string \&variable\+Name, bool use\+DB, bool use\+Hz)
@@ -268,7 +269,9 @@ double \mbox{\hyperlink{classrr_1_1RoadRunner_a6a388eb7c0f64e215490fa606f458770}
 \mbox{\Hypertarget{classrr_1_1RoadRunner_a5856b94d04fadfb190b407b126382503}\label{classrr_1_1RoadRunner_a5856b94d04fadfb190b407b126382503}} 
 double \mbox{\hyperlink{classrr_1_1RoadRunner_a5856b94d04fadfb190b407b126382503}{get\+Unscaled\+Species\+Elasticity}} (int reaction\+Id, int species\+Index)
 \begin{DoxyCompactList}\small\item\em Get a single species elasticity value I\+M\+P\+O\+R\+T\+A\+NT\+: Assumes that the reaction rates have been precomputed at the operating point !! \end{DoxyCompactList}\item 
-void \mbox{\hyperlink{classrr_1_1RoadRunner_ac4b283ab73c62c17ad2b241f9389f868}{add\+Species}} (const std\+::string \&sid, const std\+::string \&compartment, double init\+Amount=0, bool has\+Only\+Substance\+Units=false, bool boundary\+Condition=false, const std\+::string \&substance\+Units=\char`\"{}\char`\"{}, bool force\+Regenerate=true)
+void \mbox{\hyperlink{classrr_1_1RoadRunner_a6930962f454f983b35c2a147c1092347}{add\+Species\+Concentration}} (const std\+::string \&sid, const std\+::string \&compartment, double init\+Concentration, bool has\+Only\+Substance\+Units=false, bool boundary\+Condition=false, const std\+::string \&substance\+Units=\char`\"{}\char`\"{}, bool force\+Regenerate=true)
+\begin{DoxyCompactList}\small\item\em Add a species to the current model and set its concentration. \end{DoxyCompactList}\item 
+void \mbox{\hyperlink{classrr_1_1RoadRunner_a3af3fb5238087c26851a244ee0dcff8f}{add\+Species\+Amount}} (const std\+::string \&sid, const std\+::string \&compartment, double init\+Amount=0, bool has\+Only\+Substance\+Units=false, bool boundary\+Condition=false, const std\+::string \&substance\+Units=\char`\"{}\char`\"{}, bool force\+Regenerate=true)
 \begin{DoxyCompactList}\small\item\em Add a species to the current model. \end{DoxyCompactList}\item 
 \mbox{\Hypertarget{classrr_1_1RoadRunner_a2d24e223ee2a7b1c44a7b9d6db0d4b93}\label{classrr_1_1RoadRunner_a2d24e223ee2a7b1c44a7b9d6db0d4b93}} 
 void {\bfseries remove\+Species} (const std\+::string \&sid, bool force\+Regenerate=true)
@@ -286,8 +289,8 @@ void \mbox{\hyperlink{classrr_1_1RoadRunner_aa4eff2424c186a5ba3a3d35cf91dce2f}{s
 \mbox{\Hypertarget{classrr_1_1RoadRunner_aa2247347171d5d46c270e18bbeaac4b0}\label{classrr_1_1RoadRunner_aa2247347171d5d46c270e18bbeaac4b0}} 
 void {\bfseries add\+Reaction} (const std\+::string \&sbml\+Rep, bool force\+Regenerate=true)
 \item 
-\mbox{\Hypertarget{classrr_1_1RoadRunner_aa9931b87b88224e2fa86cf298b79647e}\label{classrr_1_1RoadRunner_aa9931b87b88224e2fa86cf298b79647e}} 
-void {\bfseries add\+Reaction} (const std\+::string \&rid, std\+::vector$<$ string $>$ reactants, std\+::vector$<$ string $>$ products, const std\+::string \&kinetic\+Law, bool force\+Regenerate=true)
+\mbox{\Hypertarget{classrr_1_1RoadRunner_a651d468cbbc04ad129e3fd8b94f71307}\label{classrr_1_1RoadRunner_a651d468cbbc04ad129e3fd8b94f71307}} 
+void {\bfseries add\+Reaction} (const std\+::string \&rid, std\+::vector$<$ std\+::string $>$ reactants, std\+::vector$<$ std\+::string $>$ products, const std\+::string \&kinetic\+Law, bool force\+Regenerate=true)
 \item 
 void \mbox{\hyperlink{classrr_1_1RoadRunner_a0d0a6d74578a9017244bae5a74b253e9}{remove\+Reaction}} (const std\+::string \&rid, bool delete\+Unused\+Parameters=false, bool force\+Regenerate=true)
 \begin{DoxyCompactList}\small\item\em Remove a reaction from the current model. \end{DoxyCompactList}\item 
@@ -351,46 +354,43 @@ void \mbox{\hyperlink{classrr_1_1RoadRunner_a4e75cb4bdcd03300133aef022f53b34c}{v
 \mbox{\Hypertarget{classrr_1_1RoadRunner_a018f17c09b36e42f052989a57fc5b2a4}\label{classrr_1_1RoadRunner_a018f17c09b36e42f052989a57fc5b2a4}} 
 double {\bfseries mca\+Steady\+State} ()
 \item 
-double \mbox{\hyperlink{classrr_1_1RoadRunner_a6dca346fbb6e59eb73b0a16212df8165}{steady\+State}} (const \mbox{\hyperlink{classrr_1_1Dictionary}{Dictionary}} $\ast$dict=0)
+double \mbox{\hyperlink{classrr_1_1RoadRunner_af310e01ec241bc2b19a46629087024d0}{steady\+State}} (\mbox{\hyperlink{classrr_1_1Dictionary}{Dictionary}} $\ast$dict=0)
 \begin{DoxyCompactList}\small\item\em Compute the steady state of the model, returns the sum of squares of the solution. \end{DoxyCompactList}\item 
-double \mbox{\hyperlink{classrr_1_1RoadRunner_ab5066eec084b15094027ec73861a2811}{steady\+State\+Approximate}} (const \mbox{\hyperlink{classrr_1_1Dictionary}{Dictionary}} $\ast$dict=0)
-\begin{DoxyCompactList}\small\item\em Appoximate the steady state of the model by checking the changes in time course simulation. \end{DoxyCompactList}\item 
 \mbox{\Hypertarget{classrr_1_1RoadRunner_ae5600ee783e171506e2dc896d7732f40}\label{classrr_1_1RoadRunner_ae5600ee783e171506e2dc896d7732f40}} 
 ls\+::\+Double\+Matrix \mbox{\hyperlink{classrr_1_1RoadRunner_ae5600ee783e171506e2dc896d7732f40}{steady\+State\+Named\+Array}} (const \mbox{\hyperlink{classrr_1_1Dictionary}{Dictionary}} $\ast$dict=0)
-\begin{DoxyCompactList}\small\item\em Like \mbox{\hyperlink{classrr_1_1RoadRunner_a6dca346fbb6e59eb73b0a16212df8165}{steady\+State}} but returns a named array of the steady state values. \end{DoxyCompactList}\item 
-\mbox{\Hypertarget{classrr_1_1RoadRunner_adcebd8c406eaaf6ea065828830afd454}\label{classrr_1_1RoadRunner_adcebd8c406eaaf6ea065828830afd454}} 
-std\+::vector$<$ \mbox{\hyperlink{classrr_1_1SelectionRecord}{rr\+::\+Selection\+Record}} $>$ \& \mbox{\hyperlink{classrr_1_1RoadRunner_adcebd8c406eaaf6ea065828830afd454}{get\+Steady\+State\+Selections}} ()
+\begin{DoxyCompactList}\small\item\em Like \mbox{\hyperlink{classrr_1_1RoadRunner_af310e01ec241bc2b19a46629087024d0}{steady\+State}} but returns a named array of the steady state values. \end{DoxyCompactList}\item 
+\mbox{\Hypertarget{classrr_1_1RoadRunner_af51f2c52092490f993e790ae4ece8fff}\label{classrr_1_1RoadRunner_af51f2c52092490f993e790ae4ece8fff}} 
+std\+::vector$<$ \mbox{\hyperlink{classrr_1_1SelectionRecord}{rr\+::\+Selection\+Record}} $>$ \& \mbox{\hyperlink{classrr_1_1RoadRunner_af51f2c52092490f993e790ae4ece8fff}{get\+Steady\+State\+Selections}} ()
 \begin{DoxyCompactList}\small\item\em returns the current set of steady state selections. \end{DoxyCompactList}\item 
 \mbox{\Hypertarget{classrr_1_1RoadRunner_a166d905000777fc76767f6625df12bcd}\label{classrr_1_1RoadRunner_a166d905000777fc76767f6625df12bcd}} 
 void \mbox{\hyperlink{classrr_1_1RoadRunner_a166d905000777fc76767f6625df12bcd}{set\+Steady\+State\+Selections}} (const std\+::vector$<$ std\+::string $>$ \&steady\+State\+Selections)
 \begin{DoxyCompactList}\small\item\em parses the given list of strings and generates selections records which will be used for the steady state selections. \end{DoxyCompactList}\item 
 void \mbox{\hyperlink{classrr_1_1RoadRunner_a5113f4906344694a60663dc57531bf30}{set\+Steady\+State\+Selections}} (const std\+::vector$<$ \mbox{\hyperlink{classrr_1_1SelectionRecord}{rr\+::\+Selection\+Record}} $>$ \&steady\+State\+Selections)
 \begin{DoxyCompactList}\small\item\em makes a copy of an existing list of selection records. \end{DoxyCompactList}\item 
-\mbox{\Hypertarget{classrr_1_1RoadRunner_aeffa5361c54d45cf24ce21b2cb0e2f29}\label{classrr_1_1RoadRunner_aeffa5361c54d45cf24ce21b2cb0e2f29}} 
-std\+::vector$<$ double $>$ \mbox{\hyperlink{classrr_1_1RoadRunner_aeffa5361c54d45cf24ce21b2cb0e2f29}{get\+Steady\+State\+Values}} ()
+\mbox{\Hypertarget{classrr_1_1RoadRunner_ab365ab17ad44a2e96e215e76d440f779}\label{classrr_1_1RoadRunner_ab365ab17ad44a2e96e215e76d440f779}} 
+std\+::vector$<$ double $>$ \mbox{\hyperlink{classrr_1_1RoadRunner_ab365ab17ad44a2e96e215e76d440f779}{get\+Steady\+State\+Values}} ()
 \begin{DoxyCompactList}\small\item\em Performs a steady state calculation (evolves the system to a steady state), then calculates and returns the set of values specifed by the steady state selections. \end{DoxyCompactList}\item 
 \mbox{\Hypertarget{classrr_1_1RoadRunner_a1062bc78d3b41301fa97dc5f2167baa2}\label{classrr_1_1RoadRunner_a1062bc78d3b41301fa97dc5f2167baa2}} 
 std\+::vector$<$ std\+::string $>$ \mbox{\hyperlink{classrr_1_1RoadRunner_a1062bc78d3b41301fa97dc5f2167baa2}{get\+Steady\+State\+Selection\+Strings}} () const
-\begin{DoxyCompactList}\small\item\em Returns a vector of the steady state selection strings. \end{DoxyCompactList}\item 
+\begin{DoxyCompactList}\small\item\em Returns a std\+::vector of the steady state selection strings. \end{DoxyCompactList}\item 
 \mbox{\Hypertarget{classrr_1_1RoadRunner_a57d1eee2df9f8b9542a0c450be6097a4}\label{classrr_1_1RoadRunner_a57d1eee2df9f8b9542a0c450be6097a4}} 
 ls\+::\+Double\+Matrix \mbox{\hyperlink{classrr_1_1RoadRunner_a57d1eee2df9f8b9542a0c450be6097a4}{get\+Steady\+State\+Values\+Named\+Array}} ()
-\begin{DoxyCompactList}\small\item\em Like \mbox{\hyperlink{classrr_1_1RoadRunner_aeffa5361c54d45cf24ce21b2cb0e2f29}{get\+Steady\+State\+Values}} but returns a named array. \end{DoxyCompactList}\item 
-\mbox{\Hypertarget{classrr_1_1RoadRunner_a98ea6d84450e10e723fbcabddae2e3c8}\label{classrr_1_1RoadRunner_a98ea6d84450e10e723fbcabddae2e3c8}} 
-void \mbox{\hyperlink{classrr_1_1RoadRunner_a98ea6d84450e10e723fbcabddae2e3c8}{regenerate}} (bool force\+Regenerate=true, bool \mbox{\hyperlink{classrr_1_1RoadRunner_ae4b0eaa39fd37737e5f5fd7f7741e06c}{reset}}=false)
-\begin{DoxyCompactList}\small\item\em Regenerate this \mbox{\hyperlink{classrr_1_1RoadRunner}{Road\+Runner}} instance\textquotesingle{}s \mbox{\hyperlink{classrr_1_1ExecutableModel}{Executable\+Model}} based on the model in its S\+B\+M\+L\+Document. \end{DoxyCompactList}\item 
+\begin{DoxyCompactList}\small\item\em Like \mbox{\hyperlink{classrr_1_1RoadRunner_ab365ab17ad44a2e96e215e76d440f779}{get\+Steady\+State\+Values}} but returns a named array. \end{DoxyCompactList}\item 
+void \mbox{\hyperlink{classrr_1_1RoadRunner_a0e944d337b8d9204092df7056e1d2b83}{regenerate\+Model}} (bool force\+Regenerate=true, bool \mbox{\hyperlink{classrr_1_1RoadRunner_ae4b0eaa39fd37737e5f5fd7f7741e06c}{reset}}=false)
+\begin{DoxyCompactList}\small\item\em regenerate a model, this recompiles the internal runtime model. \end{DoxyCompactList}\item 
 \mbox{\Hypertarget{classrr_1_1RoadRunner_af8d2ff8ebf2c85f918cc2888ac68f479}\label{classrr_1_1RoadRunner_af8d2ff8ebf2c85f918cc2888ac68f479}} 
 void {\bfseries set\+Boundary\+Species\+By\+Index} (const int \&index, const double \&value)
 \item 
 \mbox{\Hypertarget{classrr_1_1RoadRunner_a0cbcdf248d716058325e50adf9239d4d}\label{classrr_1_1RoadRunner_a0cbcdf248d716058325e50adf9239d4d}} 
 int {\bfseries get\+Number\+Of\+Independent\+Species} ()
 \item 
-\mbox{\Hypertarget{classrr_1_1RoadRunner_a5344345156070f4bab82d9b81b7050de}\label{classrr_1_1RoadRunner_a5344345156070f4bab82d9b81b7050de}} 
+\mbox{\Hypertarget{classrr_1_1RoadRunner_a744ddb0d6ee6b750e11d752685a29797}\label{classrr_1_1RoadRunner_a744ddb0d6ee6b750e11d752685a29797}} 
 std\+::vector$<$ std\+::string $>$ {\bfseries get\+Global\+Parameter\+Ids} ()
 \item 
-\mbox{\Hypertarget{classrr_1_1RoadRunner_afb363e6354cc06772219f3f59b591320}\label{classrr_1_1RoadRunner_afb363e6354cc06772219f3f59b591320}} 
+\mbox{\Hypertarget{classrr_1_1RoadRunner_a4d2c6e653ebbfdebfe9708ee6b99eacc}\label{classrr_1_1RoadRunner_a4d2c6e653ebbfdebfe9708ee6b99eacc}} 
 std\+::vector$<$ std\+::string $>$ {\bfseries get\+Boundary\+Species\+Ids} ()
 \item 
-std\+::vector$<$ std\+::string $>$ \mbox{\hyperlink{classrr_1_1RoadRunner_a5acce894eb75998ed93daf3c71c2d4dc}{get\+Boundary\+Species\+Concentration\+Ids}} ()
+std\+::vector$<$ std\+::string $>$ \mbox{\hyperlink{classrr_1_1RoadRunner_a6d3c6c4f7d7e1a318ccda22b8c4dc540}{get\+Boundary\+Species\+Concentration\+Ids}} ()
 \begin{DoxyCompactList}\small\item\em Gets the ids for all boundary species concentrations. \end{DoxyCompactList}\item 
 \mbox{\Hypertarget{classrr_1_1RoadRunner_afc7498e1fe7098233c87f4427e74509b}\label{classrr_1_1RoadRunner_afc7498e1fe7098233c87f4427e74509b}} 
 double {\bfseries get\+Boundary\+Species\+By\+Index} (const int \&index)
@@ -402,9 +402,9 @@ void \mbox{\hyperlink{classrr_1_1RoadRunner_a1b5525fc1a0ada03bb75f78f77c9bbbc}{s
 \begin{DoxyCompactList}\small\item\em set the parameter with id \end{DoxyCompactList}\item 
 double \mbox{\hyperlink{classrr_1_1RoadRunner_af376e9fce37cc7b50cea8e8642eafb00}{get\+Global\+Parameter\+By\+Name}} (const std\+::string \&param)
 \begin{DoxyCompactList}\small\item\em get the \end{DoxyCompactList}\item 
-std\+::vector$<$ double $>$ \mbox{\hyperlink{classrr_1_1RoadRunner_a5df415a59e1d2ee85d252d3ed1dea700}{get\+Conserved\+Moiety\+Values}} ()
+std\+::vector$<$ double $>$ \mbox{\hyperlink{classrr_1_1RoadRunner_abdb0de6271ba9e054316d739cb9da1e9}{get\+Conserved\+Moiety\+Values}} ()
 \begin{DoxyCompactList}\small\item\em Returns the sum of each conserved cycle. \end{DoxyCompactList}\item 
-\mbox{\Hypertarget{classrr_1_1RoadRunner_a62d2ea867de2953d33298fe9d133e1ae}\label{classrr_1_1RoadRunner_a62d2ea867de2953d33298fe9d133e1ae}} 
+\mbox{\Hypertarget{classrr_1_1RoadRunner_ad352e9290b7827a2d780a3cc33be194d}\label{classrr_1_1RoadRunner_ad352e9290b7827a2d780a3cc33be194d}} 
 std\+::vector$<$ std\+::string $>$ {\bfseries get\+Conserved\+Moiety\+Ids} ()
 \item 
 \mbox{\Hypertarget{classrr_1_1RoadRunner_ae505b07023b0c397922690e3cba1c0e9}\label{classrr_1_1RoadRunner_ae505b07023b0c397922690e3cba1c0e9}} 
@@ -503,25 +503,25 @@ void {\bfseries eval\+Model} ()
 \mbox{\Hypertarget{classrr_1_1RoadRunner_a03d8db00d714b31251af8427e4bbac55}\label{classrr_1_1RoadRunner_a03d8db00d714b31251af8427e4bbac55}} 
 void {\bfseries set\+Temp\+Dir} (const std\+::string \&folder)
 \item 
-\mbox{\Hypertarget{classrr_1_1RoadRunner_a94654f4838ab67a3d167c63e6b592a6d}\label{classrr_1_1RoadRunner_a94654f4838ab67a3d167c63e6b592a6d}} 
+\mbox{\Hypertarget{classrr_1_1RoadRunner_a0fde5be334c5dfd9cc8738210839978d}\label{classrr_1_1RoadRunner_a0fde5be334c5dfd9cc8738210839978d}} 
 std\+::string {\bfseries get\+Temp\+Dir} ()
 \end{DoxyCompactItemize}
 \doxysubsection*{Static Public Member Functions}
 \begin{DoxyCompactItemize}
 \item 
-\mbox{\Hypertarget{classrr_1_1RoadRunner_ab04e0b440a74f7d49f55751b346f4212}\label{classrr_1_1RoadRunner_ab04e0b440a74f7d49f55751b346f4212}} 
-static std\+::string \mbox{\hyperlink{classrr_1_1RoadRunner_ab04e0b440a74f7d49f55751b346f4212}{get\+Param\+Promoted\+S\+B\+ML}} (const std\+::string \&s\+Arg)
+\mbox{\Hypertarget{classrr_1_1RoadRunner_a22136f7f0ea6f72e6c8fce6de2dc93e2}\label{classrr_1_1RoadRunner_a22136f7f0ea6f72e6c8fce6de2dc93e2}} 
+static std\+::string \mbox{\hyperlink{classrr_1_1RoadRunner_a22136f7f0ea6f72e6c8fce6de2dc93e2}{get\+Param\+Promoted\+S\+B\+ML}} (const std\+::string \&s\+Arg)
 \begin{DoxyCompactList}\small\item\em Given an sbml document or path to an sbml document, this method moves all the local parameters to global parameters. \end{DoxyCompactList}\item 
 \mbox{\Hypertarget{classrr_1_1RoadRunner_a862621117012d7e294d7628fed11f82b}\label{classrr_1_1RoadRunner_a862621117012d7e294d7628fed11f82b}} 
 static std\+::vector$<$ std\+::string $>$ \mbox{\hyperlink{classrr_1_1RoadRunner_a862621117012d7e294d7628fed11f82b}{get\+Registered\+Integrator\+Names}} ()
-\begin{DoxyCompactList}\small\item\em Return a vector of the names of all registered integrators. \end{DoxyCompactList}\item 
+\begin{DoxyCompactList}\small\item\em Return a std\+::vector of the names of all registered integrators. \end{DoxyCompactList}\item 
 \mbox{\Hypertarget{classrr_1_1RoadRunner_a4064f1dba1c7342c6e81987bfc61d2f7}\label{classrr_1_1RoadRunner_a4064f1dba1c7342c6e81987bfc61d2f7}} 
 static std\+::vector$<$ std\+::string $>$ \mbox{\hyperlink{classrr_1_1RoadRunner_a4064f1dba1c7342c6e81987bfc61d2f7}{get\+Registered\+Steady\+State\+Solver\+Names}} ()
-\begin{DoxyCompactList}\small\item\em Return a vector of the names of all registered integrators. \end{DoxyCompactList}\item 
+\begin{DoxyCompactList}\small\item\em Return a std\+::vector of the names of all registered integrators. \end{DoxyCompactList}\item 
 \mbox{\Hypertarget{classrr_1_1RoadRunner_a6bc7b431bfe8c1ba10560357ddd72d61}\label{classrr_1_1RoadRunner_a6bc7b431bfe8c1ba10560357ddd72d61}} 
 static void \mbox{\hyperlink{classrr_1_1RoadRunner_a6bc7b431bfe8c1ba10560357ddd72d61}{ensure\+Solvers\+Registered}} ()
 \begin{DoxyCompactList}\small\item\em Ensures all integrators and steady state solvers are registered. \end{DoxyCompactList}\item 
-static std\+::string \mbox{\hyperlink{classrr_1_1RoadRunner_afdb1fa322ff0f3d53e33e30558bbe478}{get\+Extended\+Version\+Info}} ()
+static std\+::string \mbox{\hyperlink{classrr_1_1RoadRunner_a99dbe4b81831a8b7d5b53077027f465a}{get\+Extended\+Version\+Info}} ()
 \begin{DoxyCompactList}\small\item\em get\+Version plus info about dependent libs versions. \end{DoxyCompactList}\end{DoxyCompactItemize}
 
 
@@ -554,7 +554,11 @@ If options is not null, then the Road\+Runner\+::compute\+And\+Assign\+Conservat
 {\em options} & an options struct, if null, default values are used. \\
 \hline
 \end{DoxyParams}
-\mbox{\Hypertarget{classrr_1_1RoadRunner_a3e326546550b3f4533dd7d6b3f2f4250}\label{classrr_1_1RoadRunner_a3e326546550b3f4533dd7d6b3f2f4250}} 
+The main program should call this function to initialize the native target corresponding to the host. This is useful for J\+IT applications to ensure that the target gets linked in correctly. It is legal for a client to make multiple calls to this function.
+
+The main program should call this function to initialize the native target asm printer.
+
+The main program should call this function to initialize the native target asm parser.\mbox{\Hypertarget{classrr_1_1RoadRunner_a3e326546550b3f4533dd7d6b3f2f4250}\label{classrr_1_1RoadRunner_a3e326546550b3f4533dd7d6b3f2f4250}} 
 \index{rr::RoadRunner@{rr::RoadRunner}!RoadRunner@{RoadRunner}}
 \index{RoadRunner@{RoadRunner}!rr::RoadRunner@{rr::RoadRunner}}
 \doxysubsubsection{\texorpdfstring{RoadRunner()}{RoadRunner()}\hspace{0.1cm}{\footnotesize\ttfamily [2/2]}}
@@ -562,7 +566,7 @@ If options is not null, then the Road\+Runner\+::compute\+And\+Assign\+Conservat
 
 
 
-All three of the \mbox{\hyperlink{classrr_1_1RoadRunner}{Road\+Runner}} options default to the empty string, in this case, the default values are used. 
+All three of the \mbox{\hyperlink{classrr_1_1RoadRunner}{Road\+Runner}} options default to the empty std\+::string, in this case, the default values are used. 
 
 
 \begin{DoxyParams}{Parameters}
@@ -614,11 +618,11 @@ Add a parameter to the current model.
 {\em force\+Regenerate} & a boolean value to indicate if the model is regenerated after this function call default value is true to regenerate model after each call of editing function to save time for editing for multiple times, one could set this flag to true only in the last call of editing \\
 \hline
 \end{DoxyParams}
-\mbox{\Hypertarget{classrr_1_1RoadRunner_ac4b283ab73c62c17ad2b241f9389f868}\label{classrr_1_1RoadRunner_ac4b283ab73c62c17ad2b241f9389f868}} 
-\index{rr::RoadRunner@{rr::RoadRunner}!addSpecies@{addSpecies}}
-\index{addSpecies@{addSpecies}!rr::RoadRunner@{rr::RoadRunner}}
-\doxysubsubsection{\texorpdfstring{addSpecies()}{addSpecies()}}
-{\footnotesize\ttfamily void rr\+::\+Road\+Runner\+::add\+Species (\begin{DoxyParamCaption}\item[{const std\+::string \&}]{sid,  }\item[{const std\+::string \&}]{compartment,  }\item[{double}]{init\+Amount = {\ttfamily 0},  }\item[{bool}]{has\+Only\+Substance\+Units = {\ttfamily false},  }\item[{bool}]{boundary\+Condition = {\ttfamily false},  }\item[{const std\+::string \&}]{substance\+Units = {\ttfamily \char`\"{}\char`\"{}},  }\item[{bool}]{force\+Regenerate = {\ttfamily true} }\end{DoxyParamCaption})}
+\mbox{\Hypertarget{classrr_1_1RoadRunner_a3af3fb5238087c26851a244ee0dcff8f}\label{classrr_1_1RoadRunner_a3af3fb5238087c26851a244ee0dcff8f}} 
+\index{rr::RoadRunner@{rr::RoadRunner}!addSpeciesAmount@{addSpeciesAmount}}
+\index{addSpeciesAmount@{addSpeciesAmount}!rr::RoadRunner@{rr::RoadRunner}}
+\doxysubsubsection{\texorpdfstring{addSpeciesAmount()}{addSpeciesAmount()}}
+{\footnotesize\ttfamily void rr\+::\+Road\+Runner\+::add\+Species\+Amount (\begin{DoxyParamCaption}\item[{const std\+::string \&}]{sid,  }\item[{const std\+::string \&}]{compartment,  }\item[{double}]{init\+Amount = {\ttfamily 0},  }\item[{bool}]{has\+Only\+Substance\+Units = {\ttfamily false},  }\item[{bool}]{boundary\+Condition = {\ttfamily false},  }\item[{const std\+::string \&}]{substance\+Units = {\ttfamily \char`\"{}\char`\"{}},  }\item[{bool}]{force\+Regenerate = {\ttfamily true} }\end{DoxyParamCaption})}
 
 
 
@@ -631,6 +635,29 @@ Add a species to the current model.
 {\em compartment} & the compartment of the species to be added \\
 \hline
 {\em init\+Amount} & the initial amount of the species to be added \\
+\hline
+{\em substance\+Units} & the substance unit of the species to be added \\
+\hline
+{\em force\+Regenerate} & a boolean value to indicate if the model is regenerated after this function call default value is true to regenerate model after each call of editing function to save time for editing for multiple times, one could set this flag to true only in the last call of editing \\
+\hline
+\end{DoxyParams}
+\mbox{\Hypertarget{classrr_1_1RoadRunner_a6930962f454f983b35c2a147c1092347}\label{classrr_1_1RoadRunner_a6930962f454f983b35c2a147c1092347}} 
+\index{rr::RoadRunner@{rr::RoadRunner}!addSpeciesConcentration@{addSpeciesConcentration}}
+\index{addSpeciesConcentration@{addSpeciesConcentration}!rr::RoadRunner@{rr::RoadRunner}}
+\doxysubsubsection{\texorpdfstring{addSpeciesConcentration()}{addSpeciesConcentration()}}
+{\footnotesize\ttfamily void rr\+::\+Road\+Runner\+::add\+Species\+Concentration (\begin{DoxyParamCaption}\item[{const std\+::string \&}]{sid,  }\item[{const std\+::string \&}]{compartment,  }\item[{double}]{init\+Concentration,  }\item[{bool}]{has\+Only\+Substance\+Units = {\ttfamily false},  }\item[{bool}]{boundary\+Condition = {\ttfamily false},  }\item[{const std\+::string \&}]{substance\+Units = {\ttfamily \char`\"{}\char`\"{}},  }\item[{bool}]{force\+Regenerate = {\ttfamily true} }\end{DoxyParamCaption})}
+
+
+
+Add a species to the current model and set its concentration. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em sid} & the ID of the species to be added \\
+\hline
+{\em compartment} & the compartment of the species to be added \\
+\hline
+{\em init\+Concentration} & the initial concentration of the species to be added \\
 \hline
 {\em substance\+Units} & the substance unit of the species to be added \\
 \hline
@@ -673,11 +700,11 @@ Returns the boundary species amounts as a named array.
 \begin{DoxyAuthor}{Author}
 KC 
 \end{DoxyAuthor}
-\mbox{\Hypertarget{classrr_1_1RoadRunner_a5acce894eb75998ed93daf3c71c2d4dc}\label{classrr_1_1RoadRunner_a5acce894eb75998ed93daf3c71c2d4dc}} 
+\mbox{\Hypertarget{classrr_1_1RoadRunner_a6d3c6c4f7d7e1a318ccda22b8c4dc540}\label{classrr_1_1RoadRunner_a6d3c6c4f7d7e1a318ccda22b8c4dc540}} 
 \index{rr::RoadRunner@{rr::RoadRunner}!getBoundarySpeciesConcentrationIds@{getBoundarySpeciesConcentrationIds}}
 \index{getBoundarySpeciesConcentrationIds@{getBoundarySpeciesConcentrationIds}!rr::RoadRunner@{rr::RoadRunner}}
 \doxysubsubsection{\texorpdfstring{getBoundarySpeciesConcentrationIds()}{getBoundarySpeciesConcentrationIds()}}
-{\footnotesize\ttfamily vector$<$ string $>$ rr\+::\+Road\+Runner\+::get\+Boundary\+Species\+Concentration\+Ids (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})}
+{\footnotesize\ttfamily std\+::vector$<$ std\+::string $>$ rr\+::\+Road\+Runner\+::get\+Boundary\+Species\+Concentration\+Ids (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})}
 
 
 
@@ -721,11 +748,11 @@ The parameter\+Name must be either a global parameter, boundary species, or cons
 
 is conservation analysis enabled. 
 
-This is set \mbox{\Hypertarget{classrr_1_1RoadRunner_a5df415a59e1d2ee85d252d3ed1dea700}\label{classrr_1_1RoadRunner_a5df415a59e1d2ee85d252d3ed1dea700}} 
+This is set \mbox{\Hypertarget{classrr_1_1RoadRunner_abdb0de6271ba9e054316d739cb9da1e9}\label{classrr_1_1RoadRunner_abdb0de6271ba9e054316d739cb9da1e9}} 
 \index{rr::RoadRunner@{rr::RoadRunner}!getConservedMoietyValues@{getConservedMoietyValues}}
 \index{getConservedMoietyValues@{getConservedMoietyValues}!rr::RoadRunner@{rr::RoadRunner}}
 \doxysubsubsection{\texorpdfstring{getConservedMoietyValues()}{getConservedMoietyValues()}}
-{\footnotesize\ttfamily vector$<$ double $>$ rr\+::\+Road\+Runner\+::get\+Conserved\+Moiety\+Values (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})}
+{\footnotesize\ttfamily std\+::vector$<$ double $>$ rr\+::\+Road\+Runner\+::get\+Conserved\+Moiety\+Values (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})}
 
 
 
@@ -734,11 +761,11 @@ Returns the sum of each conserved cycle.
 \begin{DoxyAuthor}{Author}
 M\+TK, J\+KM 
 \end{DoxyAuthor}
-\mbox{\Hypertarget{classrr_1_1RoadRunner_aee591c512811f899a6d41799728173c5}\label{classrr_1_1RoadRunner_aee591c512811f899a6d41799728173c5}} 
+\mbox{\Hypertarget{classrr_1_1RoadRunner_abd7ed519514ee77cfe64c5d4cab6fc3f}\label{classrr_1_1RoadRunner_abd7ed519514ee77cfe64c5d4cab6fc3f}} 
 \index{rr::RoadRunner@{rr::RoadRunner}!getCurrentSBML@{getCurrentSBML}}
 \index{getCurrentSBML@{getCurrentSBML}!rr::RoadRunner@{rr::RoadRunner}}
 \doxysubsubsection{\texorpdfstring{getCurrentSBML()}{getCurrentSBML()}}
-{\footnotesize\ttfamily string rr\+::\+Road\+Runner\+::get\+Current\+S\+B\+ML (\begin{DoxyParamCaption}\item[{int}]{level = {\ttfamily 0},  }\item[{int}]{version = {\ttfamily 0} }\end{DoxyParamCaption})}
+{\footnotesize\ttfamily std\+::string rr\+::\+Road\+Runner\+::get\+Current\+S\+B\+ML (\begin{DoxyParamCaption}\item[{int}]{level = {\ttfamily 0},  }\item[{int}]{version = {\ttfamily 0} }\end{DoxyParamCaption})}
 
 
 
@@ -748,18 +775,18 @@ This is different than get\+S\+B\+ML which returns the orginal S\+B\+ML.
 
 This may optionally up or downconvert the document to a different version, if the level and version arguments are non-\/zero.
 
-If both arguments are zero, then the document is left alone and the original version is returned. \mbox{\Hypertarget{classrr_1_1RoadRunner_a0b2d1c7cbaa21d37347dbdca33f4d479}\label{classrr_1_1RoadRunner_a0b2d1c7cbaa21d37347dbdca33f4d479}} 
+If both arguments are zero, then the document is left alone and the original version is returned. \mbox{\Hypertarget{classrr_1_1RoadRunner_ae1510bf8ed8a09c375605346c21eaefc}\label{classrr_1_1RoadRunner_ae1510bf8ed8a09c375605346c21eaefc}} 
 \index{rr::RoadRunner@{rr::RoadRunner}!getDependentFloatingSpeciesIds@{getDependentFloatingSpeciesIds}}
 \index{getDependentFloatingSpeciesIds@{getDependentFloatingSpeciesIds}!rr::RoadRunner@{rr::RoadRunner}}
 \doxysubsubsection{\texorpdfstring{getDependentFloatingSpeciesIds()}{getDependentFloatingSpeciesIds()}}
-{\footnotesize\ttfamily vector$<$ string $>$ rr\+::\+Road\+Runner\+::get\+Dependent\+Floating\+Species\+Ids (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})}
+{\footnotesize\ttfamily std\+::vector$<$ std\+::string $>$ rr\+::\+Road\+Runner\+::get\+Dependent\+Floating\+Species\+Ids (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})}
 
 
 
 Gets the ids for all dependent floating species. 
 
 \begin{DoxyAuthor}{Author}
-J\+KM  See \mbox{\hyperlink{classrr_1_1RoadRunner_ac713974ee639f493d9d8cdb1577233fe}{get\+Independent\+Floating\+Species\+Ids}} for an explanation of independent vs. dependent. 
+J\+KM  See \mbox{\hyperlink{classrr_1_1RoadRunner_a5008edbb3df7cd74abb87414638dea55}{get\+Independent\+Floating\+Species\+Ids}} for an explanation of independent vs. dependent. 
 \end{DoxyAuthor}
 \mbox{\Hypertarget{classrr_1_1RoadRunner_a8ab4bc9fd188058f67e84ac291d7eacd}\label{classrr_1_1RoadRunner_a8ab4bc9fd188058f67e84ac291d7eacd}} 
 \index{rr::RoadRunner@{rr::RoadRunner}!getDependentRatesOfChange@{getDependentRatesOfChange}}
@@ -810,11 +837,11 @@ J\+KM
 
 Get scaled elasticity coefficient with respect to a global parameter or species. 
 
-Optionally the model is brought to steady state after the computation. \mbox{\Hypertarget{classrr_1_1RoadRunner_afdb1fa322ff0f3d53e33e30558bbe478}\label{classrr_1_1RoadRunner_afdb1fa322ff0f3d53e33e30558bbe478}} 
+Optionally the model is brought to steady state after the computation. \mbox{\Hypertarget{classrr_1_1RoadRunner_a99dbe4b81831a8b7d5b53077027f465a}\label{classrr_1_1RoadRunner_a99dbe4b81831a8b7d5b53077027f465a}} 
 \index{rr::RoadRunner@{rr::RoadRunner}!getExtendedVersionInfo@{getExtendedVersionInfo}}
 \index{getExtendedVersionInfo@{getExtendedVersionInfo}!rr::RoadRunner@{rr::RoadRunner}}
 \doxysubsubsection{\texorpdfstring{getExtendedVersionInfo()}{getExtendedVersionInfo()}}
-{\footnotesize\ttfamily string rr\+::\+Road\+Runner\+::get\+Extended\+Version\+Info (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [static]}}
+{\footnotesize\ttfamily std\+::string rr\+::\+Road\+Runner\+::get\+Extended\+Version\+Info (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [static]}}
 
 
 
@@ -833,11 +860,11 @@ Returns the floating species amounts as a named array.
 \begin{DoxyAuthor}{Author}
 KC 
 \end{DoxyAuthor}
-\mbox{\Hypertarget{classrr_1_1RoadRunner_a13abd6f7d1bf72686f8637c154a73a58}\label{classrr_1_1RoadRunner_a13abd6f7d1bf72686f8637c154a73a58}} 
+\mbox{\Hypertarget{classrr_1_1RoadRunner_a2282dace1e13af6f074819684536c2d9}\label{classrr_1_1RoadRunner_a2282dace1e13af6f074819684536c2d9}} 
 \index{rr::RoadRunner@{rr::RoadRunner}!getFloatingSpeciesConcentrationIds@{getFloatingSpeciesConcentrationIds}}
 \index{getFloatingSpeciesConcentrationIds@{getFloatingSpeciesConcentrationIds}!rr::RoadRunner@{rr::RoadRunner}}
 \doxysubsubsection{\texorpdfstring{getFloatingSpeciesConcentrationIds()}{getFloatingSpeciesConcentrationIds()}}
-{\footnotesize\ttfamily vector$<$ string $>$ rr\+::\+Road\+Runner\+::get\+Floating\+Species\+Concentration\+Ids (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})}
+{\footnotesize\ttfamily std\+::vector$<$ std\+::string $>$ rr\+::\+Road\+Runner\+::get\+Floating\+Species\+Concentration\+Ids (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})}
 
 
 
@@ -859,17 +886,17 @@ Returns the floating species concentrations as a named array.
 \begin{DoxyAuthor}{Author}
 KC 
 \end{DoxyAuthor}
-\mbox{\Hypertarget{classrr_1_1RoadRunner_a22758ccedea064c87ccc5fd0c533b32f}\label{classrr_1_1RoadRunner_a22758ccedea064c87ccc5fd0c533b32f}} 
+\mbox{\Hypertarget{classrr_1_1RoadRunner_a0bf792116912df16a5bffd637eb241c1}\label{classrr_1_1RoadRunner_a0bf792116912df16a5bffd637eb241c1}} 
 \index{rr::RoadRunner@{rr::RoadRunner}!getFloatingSpeciesInitialConcentrationIds@{getFloatingSpeciesInitialConcentrationIds}}
 \index{getFloatingSpeciesInitialConcentrationIds@{getFloatingSpeciesInitialConcentrationIds}!rr::RoadRunner@{rr::RoadRunner}}
 \doxysubsubsection{\texorpdfstring{getFloatingSpeciesInitialConcentrationIds()}{getFloatingSpeciesInitialConcentrationIds()}}
-{\footnotesize\ttfamily vector$<$ string $>$ rr\+::\+Road\+Runner\+::get\+Floating\+Species\+Initial\+Concentration\+Ids (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})}
+{\footnotesize\ttfamily std\+::vector$<$ std\+::string $>$ rr\+::\+Road\+Runner\+::get\+Floating\+Species\+Initial\+Concentration\+Ids (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})}
 
 
 
 Gets the ids for all initial floating species concentrations. 
 
-See \mbox{\hyperlink{classrr_1_1RoadRunner_ac713974ee639f493d9d8cdb1577233fe}{get\+Independent\+Floating\+Species\+Ids}} for an explanation of independent vs. dependent. \mbox{\Hypertarget{classrr_1_1RoadRunner_ab341242b18378b234c07e314d84af2e2}\label{classrr_1_1RoadRunner_ab341242b18378b234c07e314d84af2e2}} 
+See \mbox{\hyperlink{classrr_1_1RoadRunner_a5008edbb3df7cd74abb87414638dea55}{get\+Independent\+Floating\+Species\+Ids}} for an explanation of independent vs. dependent. \mbox{\Hypertarget{classrr_1_1RoadRunner_ab341242b18378b234c07e314d84af2e2}\label{classrr_1_1RoadRunner_ab341242b18378b234c07e314d84af2e2}} 
 \index{rr::RoadRunner@{rr::RoadRunner}!getFullEigenValues@{getFullEigenValues}}
 \index{getFullEigenValues@{getFullEigenValues}!rr::RoadRunner@{rr::RoadRunner}}
 \doxysubsubsection{\texorpdfstring{getFullEigenValues()}{getFullEigenValues()}}
@@ -899,11 +926,21 @@ ciaran welsh
 {\em param} & \\
 \hline
 \end{DoxyParams}
-\mbox{\Hypertarget{classrr_1_1RoadRunner_ac713974ee639f493d9d8cdb1577233fe}\label{classrr_1_1RoadRunner_ac713974ee639f493d9d8cdb1577233fe}} 
+\mbox{\Hypertarget{classrr_1_1RoadRunner_a8891806bc553fef5898f9e81751a9899}\label{classrr_1_1RoadRunner_a8891806bc553fef5898f9e81751a9899}} 
+\index{rr::RoadRunner@{rr::RoadRunner}!getIds@{getIds}}
+\index{getIds@{getIds}!rr::RoadRunner@{rr::RoadRunner}}
+\doxysubsubsection{\texorpdfstring{getIds()}{getIds()}}
+{\footnotesize\ttfamily void rr\+::\+Road\+Runner\+::get\+Ids (\begin{DoxyParamCaption}\item[{int}]{types,  }\item[{std\+::list$<$ std\+::string $>$ \&}]{ids }\end{DoxyParamCaption})}
+
+
+
+populates a given list with all the ids that this class can accept. 
+
+types is -\/1 when \mbox{\hyperlink{classrr_1_1SelectionRecord}{Selection\+Record}} is set to A\+LL.\mbox{\Hypertarget{classrr_1_1RoadRunner_a5008edbb3df7cd74abb87414638dea55}\label{classrr_1_1RoadRunner_a5008edbb3df7cd74abb87414638dea55}} 
 \index{rr::RoadRunner@{rr::RoadRunner}!getIndependentFloatingSpeciesIds@{getIndependentFloatingSpeciesIds}}
 \index{getIndependentFloatingSpeciesIds@{getIndependentFloatingSpeciesIds}!rr::RoadRunner@{rr::RoadRunner}}
 \doxysubsubsection{\texorpdfstring{getIndependentFloatingSpeciesIds()}{getIndependentFloatingSpeciesIds()}}
-{\footnotesize\ttfamily vector$<$ string $>$ rr\+::\+Road\+Runner\+::get\+Independent\+Floating\+Species\+Ids (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})}
+{\footnotesize\ttfamily std\+::vector$<$ std\+::string $>$ rr\+::\+Road\+Runner\+::get\+Independent\+Floating\+Species\+Ids (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})}
 
 
 
@@ -1041,15 +1078,15 @@ get the reduced stochiometry matrix.
 
 If conservation conversion is enabled, this is the matrix that coresponds to the independent species.
 
-A synonym for \mbox{\hyperlink{classrr_1_1RoadRunner_a764d53843d94cc402479515ebce056ac}{get\+Nr\+Matrix()}}. \mbox{\Hypertarget{classrr_1_1RoadRunner_ae422b8ad65ca1cabcb7bd88b8c1f7264}\label{classrr_1_1RoadRunner_ae422b8ad65ca1cabcb7bd88b8c1f7264}} 
+A synonym for \mbox{\hyperlink{classrr_1_1RoadRunner_a764d53843d94cc402479515ebce056ac}{get\+Nr\+Matrix()}}. \mbox{\Hypertarget{classrr_1_1RoadRunner_ae154e3cc9560f4a5725f03cbe9bb3aa5}\label{classrr_1_1RoadRunner_ae154e3cc9560f4a5725f03cbe9bb3aa5}} 
 \index{rr::RoadRunner@{rr::RoadRunner}!getSBML@{getSBML}}
 \index{getSBML@{getSBML}!rr::RoadRunner@{rr::RoadRunner}}
 \doxysubsubsection{\texorpdfstring{getSBML()}{getSBML()}}
-{\footnotesize\ttfamily string rr\+::\+Road\+Runner\+::get\+S\+B\+ML (\begin{DoxyParamCaption}\item[{int}]{level = {\ttfamily 0},  }\item[{int}]{version = {\ttfamily 0} }\end{DoxyParamCaption})}
+{\footnotesize\ttfamily std\+::string rr\+::\+Road\+Runner\+::get\+S\+B\+ML (\begin{DoxyParamCaption}\item[{int}]{level = {\ttfamily 0},  }\item[{int}]{version = {\ttfamily 0} }\end{DoxyParamCaption})}
 
 
 
-get the originally loaded sbml document as a string. 
+get the originally loaded sbml document as a std\+::string. 
 
 This may optionally up or downconvert the document to a different version, if the level and version arguments are non-\/zero.
 
@@ -1157,7 +1194,17 @@ Carry out a single integration step using a stepsize as indicated in the method 
 {\em options} & override current options. \\
 \hline
 \end{DoxyParams}
-\mbox{\Hypertarget{classrr_1_1RoadRunner_ad3f2043bc6e645f5319119df37a9eadb}\label{classrr_1_1RoadRunner_ad3f2043bc6e645f5319119df37a9eadb}} 
+\mbox{\Hypertarget{classrr_1_1RoadRunner_a0e944d337b8d9204092df7056e1d2b83}\label{classrr_1_1RoadRunner_a0e944d337b8d9204092df7056e1d2b83}} 
+\index{rr::RoadRunner@{rr::RoadRunner}!regenerateModel@{regenerateModel}}
+\index{regenerateModel@{regenerateModel}!rr::RoadRunner@{rr::RoadRunner}}
+\doxysubsubsection{\texorpdfstring{regenerateModel()}{regenerateModel()}}
+{\footnotesize\ttfamily void rr\+::\+Road\+Runner\+::regenerate\+Model (\begin{DoxyParamCaption}\item[{bool}]{force\+Regenerate = {\ttfamily true},  }\item[{bool}]{reset = {\ttfamily false} }\end{DoxyParamCaption})}
+
+
+
+regenerate a model, this recompiles the internal runtime model. 
+
+This would be used after a series of add\+Species, add\+Reaction calls and the model is then ready to be compiled into executable form. \mbox{\Hypertarget{classrr_1_1RoadRunner_ad3f2043bc6e645f5319119df37a9eadb}\label{classrr_1_1RoadRunner_ad3f2043bc6e645f5319119df37a9eadb}} 
 \index{rr::RoadRunner@{rr::RoadRunner}!removeCompartment@{removeCompartment}}
 \index{removeCompartment@{removeCompartment}!rr::RoadRunner@{rr::RoadRunner}}
 \doxysubsubsection{\texorpdfstring{removeCompartment()}{removeCompartment()}}
@@ -1300,7 +1347,7 @@ The current default is \mbox{\hyperlink{classrr_1_1SelectionRecord_a898963ab24a6
 
 reset the model accordign to a bitfield specified by the \mbox{\hyperlink{classrr_1_1SelectionRecord_a898963ab24a6ba614913715c981d8394}{Selection\+Record\+::\+Selection\+Type}} values. 
 
-Note, this would make more sense as an unsigned, however S\+W\+IG has issues mapping an enum to an unsigned, but seems to map enums just fine to an int.
+Note, this would make more sense as an unsigned, however S\+W\+IG has issues mapping an enum to an unsigned, but seems to std\+::map enums just fine to an int.
 
 For example, to reset the floating species, time and rate rule values\+: 
 \begin{DoxyCode}{0}
@@ -1344,7 +1391,7 @@ Set the name of the externa compiler to use.
 
 Some Model\+Generators may have no use for this value.
 
-An exception is raised if the string is invalid. \mbox{\Hypertarget{classrr_1_1RoadRunner_aa4eff2424c186a5ba3a3d35cf91dce2f}\label{classrr_1_1RoadRunner_aa4eff2424c186a5ba3a3d35cf91dce2f}} 
+An exception is raised if the std\+::string is invalid. \mbox{\Hypertarget{classrr_1_1RoadRunner_aa4eff2424c186a5ba3a3d35cf91dce2f}\label{classrr_1_1RoadRunner_aa4eff2424c186a5ba3a3d35cf91dce2f}} 
 \index{rr::RoadRunner@{rr::RoadRunner}!setConstant@{setConstant}}
 \index{setConstant@{setConstant}!rr::RoadRunner@{rr::RoadRunner}}
 \doxysubsubsection{\texorpdfstring{setConstant()}{setConstant()}}
@@ -1463,7 +1510,7 @@ Initial amount/concentration set before will be unset.
 
 makes a copy of an existing list of selection records. 
 
-These will be saved and used for selection values in \mbox{\hyperlink{classrr_1_1RoadRunner_aeffa5361c54d45cf24ce21b2cb0e2f29}{get\+Steady\+State\+Values()}}. \mbox{\Hypertarget{classrr_1_1RoadRunner_a64b81cdc2b84a6f28affd212ef474392}\label{classrr_1_1RoadRunner_a64b81cdc2b84a6f28affd212ef474392}} 
+These will be saved and used for selection values in \mbox{\hyperlink{classrr_1_1RoadRunner_ab365ab17ad44a2e96e215e76d440f779}{get\+Steady\+State\+Values()}}. \mbox{\Hypertarget{classrr_1_1RoadRunner_a64b81cdc2b84a6f28affd212ef474392}\label{classrr_1_1RoadRunner_a64b81cdc2b84a6f28affd212ef474392}} 
 \index{rr::RoadRunner@{rr::RoadRunner}!setSteadyStateThreshold@{setSteadyStateThreshold}}
 \index{setSteadyStateThreshold@{setSteadyStateThreshold}!rr::RoadRunner@{rr::RoadRunner}}
 \doxysubsubsection{\texorpdfstring{setSteadyStateThreshold()}{setSteadyStateThreshold()}}
@@ -1484,12 +1531,12 @@ J\+KM  In the M\+CA routines, \mbox{\hyperlink{classrr_1_1RoadRunner}{Road\+Runn
 
 
 
-sets the value coresponding to the given selection string 
+sets the value coresponding to the given selection std\+::string 
 
-raises an exception in the selection string is invalid. \mbox{\Hypertarget{classrr_1_1RoadRunner_a0843eb317d47d28a27929d326d4f1f88}\label{classrr_1_1RoadRunner_a0843eb317d47d28a27929d326d4f1f88}} 
+raises an exception in the selection std\+::string is invalid. \mbox{\Hypertarget{classrr_1_1RoadRunner_a0843eb317d47d28a27929d326d4f1f88}\label{classrr_1_1RoadRunner_a0843eb317d47d28a27929d326d4f1f88}} 
 \index{rr::RoadRunner@{rr::RoadRunner}!simulate@{simulate}}
 \index{simulate@{simulate}!rr::RoadRunner@{rr::RoadRunner}}
-\doxysubsubsection{\texorpdfstring{simulate()}{simulate()}}
+\doxysubsubsection{\texorpdfstring{simulate()}{simulate()}\hspace{0.1cm}{\footnotesize\ttfamily [1/2]}}
 {\footnotesize\ttfamily const Double\+Matrix $\ast$ rr\+::\+Road\+Runner\+::simulate (\begin{DoxyParamCaption}\item[{const \mbox{\hyperlink{classrr_1_1Dictionary}{Dictionary}} $\ast$}]{options = {\ttfamily 0} }\end{DoxyParamCaption})}
 
 
@@ -1542,11 +1589,30 @@ Integrator\+Factory\+::get\+Integrator\+Options"{}.
 \begin{DoxyReturn}{Returns}
 a borrowed reference to a Double\+Matrix object if successful. The matrix will be empty if output\+\_\+file is specified and nonempty. 
 \end{DoxyReturn}
-\mbox{\Hypertarget{classrr_1_1RoadRunner_a6dca346fbb6e59eb73b0a16212df8165}\label{classrr_1_1RoadRunner_a6dca346fbb6e59eb73b0a16212df8165}} 
+\mbox{\Hypertarget{classrr_1_1RoadRunner_aed6e64be9ee8f7c6111f9ddcfbe54921}\label{classrr_1_1RoadRunner_aed6e64be9ee8f7c6111f9ddcfbe54921}} 
+\index{rr::RoadRunner@{rr::RoadRunner}!simulate@{simulate}}
+\index{simulate@{simulate}!rr::RoadRunner@{rr::RoadRunner}}
+\doxysubsubsection{\texorpdfstring{simulate()}{simulate()}\hspace{0.1cm}{\footnotesize\ttfamily [2/2]}}
+{\footnotesize\ttfamily const Double\+Matrix $\ast$ rr\+::\+Road\+Runner\+::simulate (\begin{DoxyParamCaption}\item[{double}]{start,  }\item[{double}]{stop,  }\item[{int}]{num }\end{DoxyParamCaption})}
+
+
+
+simulate the model using currently set integrator 
+
+
+\begin{DoxyParams}{Parameters}
+{\em start} & starting time to simulate \\
+\hline
+{\em stop} & what time point does the simulation end? \\
+\hline
+{\em num} & how many steps to simulate \\
+\hline
+\end{DoxyParams}
+\mbox{\Hypertarget{classrr_1_1RoadRunner_af310e01ec241bc2b19a46629087024d0}\label{classrr_1_1RoadRunner_af310e01ec241bc2b19a46629087024d0}} 
 \index{rr::RoadRunner@{rr::RoadRunner}!steadyState@{steadyState}}
 \index{steadyState@{steadyState}!rr::RoadRunner@{rr::RoadRunner}}
 \doxysubsubsection{\texorpdfstring{steadyState()}{steadyState()}}
-{\footnotesize\ttfamily double rr\+::\+Road\+Runner\+::steady\+State (\begin{DoxyParamCaption}\item[{const \mbox{\hyperlink{classrr_1_1Dictionary}{Dictionary}} $\ast$}]{dict = {\ttfamily 0} }\end{DoxyParamCaption})}
+{\footnotesize\ttfamily double rr\+::\+Road\+Runner\+::steady\+State (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{classrr_1_1Dictionary}{Dictionary}} $\ast$}]{dict = {\ttfamily 0} }\end{DoxyParamCaption})}
 
 
 
@@ -1555,25 +1621,6 @@ Compute the steady state of the model, returns the sum of squares of the solutio
 The steady state solver and whatever options it needs may be specified via the given dictionary. For a list of all available steady state solvers, \begin{DoxySeeAlso}{See also}
 \mbox{\hyperlink{classrr_1_1SteadyStateSolverFactory}{Steady\+State\+Solver\+Factory}}.
 \end{DoxySeeAlso}
-
-\begin{DoxyParams}{Parameters}
-{\em dict} & a pointer to a dictionary which has the steady state options. May be N\+U\+LL, in this case the existing options are used. \\
-\hline
-\end{DoxyParams}
-\mbox{\Hypertarget{classrr_1_1RoadRunner_ab5066eec084b15094027ec73861a2811}\label{classrr_1_1RoadRunner_ab5066eec084b15094027ec73861a2811}} 
-\index{rr::RoadRunner@{rr::RoadRunner}!steadyStateApproximate@{steadyStateApproximate}}
-\index{steadyStateApproximate@{steadyStateApproximate}!rr::RoadRunner@{rr::RoadRunner}}
-\doxysubsubsection{\texorpdfstring{steadyStateApproximate()}{steadyStateApproximate()}}
-{\footnotesize\ttfamily double rr\+::\+Road\+Runner\+::steady\+State\+Approximate (\begin{DoxyParamCaption}\item[{const \mbox{\hyperlink{classrr_1_1Dictionary}{Dictionary}} $\ast$}]{dict = {\ttfamily 0} }\end{DoxyParamCaption})}
-
-
-
-Appoximate the steady state of the model by checking the changes in time course simulation. 
-
-Returns the sum of squares of the solution
-
-Appoximation will use C\+V\+O\+DE with variable step sizes.
-
 
 \begin{DoxyParams}{Parameters}
 {\em dict} & a pointer to a dictionary which has the steady state options. May be N\+U\+LL, in this case the existing options are used. \\

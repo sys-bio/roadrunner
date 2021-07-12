@@ -5,9 +5,11 @@
     <includes refid="mtrand_8h" local="yes">mtrand.h</includes>
     <includes local="no">cstdio</includes>
     <incdepgraph>
-      <node id="3">
-        <label>rrExporter.h</label>
-        <link refid="rrExporter_8h_source"/>
+      <node id="2">
+        <label>mtrand.h</label>
+        <link refid="mtrand_8h_source"/>
+        <childnode refid="3" relation="include">
+        </childnode>
       </node>
       <node id="1">
         <label>c/mttest.cpp</label>
@@ -17,14 +19,12 @@
         <childnode refid="4" relation="include">
         </childnode>
       </node>
+      <node id="3">
+        <label>rrExporter.h</label>
+        <link refid="rrExporter_8h_source"/>
+      </node>
       <node id="4">
         <label>cstdio</label>
-      </node>
-      <node id="2">
-        <label>mtrand.h</label>
-        <link refid="mtrand_8h_source"/>
-        <childnode refid="3" relation="include">
-        </childnode>
       </node>
     </incdepgraph>
       <sectiondef kind="func">

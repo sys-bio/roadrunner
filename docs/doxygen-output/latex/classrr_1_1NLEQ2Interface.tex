@@ -3,7 +3,7 @@
 Inheritance diagram for rr\+::N\+L\+E\+Q2\+Interface\+:\begin{figure}[H]
 \begin{center}
 \leavevmode
-\includegraphics[height=3.000000cm]{classrr_1_1NLEQ2Interface}
+\includegraphics[height=2.000000cm]{classrr_1_1NLEQ2Interface}
 \end{center}
 \end{figure}
 \doxysubsection*{Public Member Functions}
@@ -14,9 +14,9 @@ Inheritance diagram for rr\+::N\+L\+E\+Q2\+Interface\+:\begin{figure}[H]
 \begin{DoxyCompactList}\small\item\em Creates a new Instance of N\+L\+EQ for the given Model. \end{DoxyCompactList}\item 
 double \mbox{\hyperlink{classrr_1_1NLEQ2Interface_a0f1535692fbe346c98f1aa3090d00e82}{solve}} ()
 \begin{DoxyCompactList}\small\item\em Thea actual solver routine making the call to N\+L\+E\+Q2. \end{DoxyCompactList}\item 
-virtual void \mbox{\hyperlink{classrr_1_1NLEQ2Interface_a9495cf109b4ec802e3e8532099c73f5e}{set\+Item}} (const std\+::string \&key, const \mbox{\hyperlink{classrr_1_1Variant}{rr\+::\+Variant}} \&value)
+virtual void \mbox{\hyperlink{classrr_1_1NLEQ2Interface_aaaece125dad7d037daa8e14e296cf127}{set\+Item}} (const std\+::string \&key, const \mbox{\hyperlink{classrr_1_1Setting}{rr\+::\+Setting}} \&value)
 \begin{DoxyCompactList}\small\item\em Implement \mbox{\hyperlink{classrr_1_1Dictionary}{Dictionary}} Interface. \end{DoxyCompactList}\item 
-virtual \mbox{\hyperlink{classrr_1_1Variant}{Variant}} \mbox{\hyperlink{classrr_1_1NLEQ2Interface_a4ef5104c0c2bb69c42add51d3c6cb0d4}{get\+Item}} (const std\+::string \&key) const
+virtual \mbox{\hyperlink{classrr_1_1Setting}{Setting}} \mbox{\hyperlink{classrr_1_1NLEQ2Interface_abb1a5d9b9039568fbf6f7c34ab91f670}{get\+Item}} (const std\+::string \&key) const
 \begin{DoxyCompactList}\small\item\em get a value. \end{DoxyCompactList}\item 
 \mbox{\Hypertarget{classrr_1_1NLEQ2Interface_a544143f7d7780b7ae8a142ed9f352667}\label{classrr_1_1NLEQ2Interface_a544143f7d7780b7ae8a142ed9f352667}} 
 virtual bool \mbox{\hyperlink{classrr_1_1NLEQ2Interface_a544143f7d7780b7ae8a142ed9f352667}{has\+Key}} (const std\+::string \&key) const
@@ -26,13 +26,106 @@ virtual size\+\_\+t \mbox{\hyperlink{classrr_1_1NLEQ2Interface_a923f768a00e878ae
 \begin{DoxyCompactList}\small\item\em remove a value \end{DoxyCompactList}\item 
 \mbox{\Hypertarget{classrr_1_1NLEQ2Interface_afad85315aa2373f52cbfb12262df8c3f}\label{classrr_1_1NLEQ2Interface_afad85315aa2373f52cbfb12262df8c3f}} 
 virtual std\+::vector$<$ std\+::string $>$ \mbox{\hyperlink{classrr_1_1NLEQ2Interface_afad85315aa2373f52cbfb12262df8c3f}{get\+Keys}} () const
-\begin{DoxyCompactList}\small\item\em list of keys in this object. \end{DoxyCompactList}\end{DoxyCompactItemize}
+\begin{DoxyCompactList}\small\item\em list of keys in this object. \end{DoxyCompactList}\item 
+\mbox{\Hypertarget{classrr_1_1NLEQ2Interface_a94845cb60c384bd01adcba0171f539ec}\label{classrr_1_1NLEQ2Interface_a94845cb60c384bd01adcba0171f539ec}} 
+void {\bfseries setup} ()
+\item 
+\mbox{\Hypertarget{classrr_1_1NLEQ2Interface_a540ce543e1484f9327dbf2cc83785d36}\label{classrr_1_1NLEQ2Interface_a540ce543e1484f9327dbf2cc83785d36}} 
+bool {\bfseries is\+Available} ()
+\item 
+void \mbox{\hyperlink{classrr_1_1NLEQ2Interface_ab0154efb08d830638127ef6330dea090}{set\+Scaling\+Factors}} (const std\+::vector$<$ double $>$ \&sx)
+\begin{DoxyCompactList}\small\item\em Sets the Scaling Factors \end{DoxyCompactList}\item 
+int \mbox{\hyperlink{classrr_1_1NLEQ2Interface_acf39786fb327066323f7595b9322ebb2}{get\+Number\+Of\+Newton\+Iterations}} ()
+\begin{DoxyCompactList}\small\item\em Returns the Number of Newton Iterations \end{DoxyCompactList}\item 
+int \mbox{\hyperlink{classrr_1_1NLEQ2Interface_ada93b787ae85fb08b27a06845ac2dcb9}{get\+Number\+Of\+Corrector\+Steps}} ()
+\begin{DoxyCompactList}\small\item\em Returns the Number of Corrector steps \end{DoxyCompactList}\item 
+int \mbox{\hyperlink{classrr_1_1NLEQ2Interface_a0e4c3f11cec0169916977d58f50bf7e7}{get\+Number\+Of\+Model\+Evaluations}} ()
+\begin{DoxyCompactList}\small\item\em Returns the Number of Model Evaluations \end{DoxyCompactList}\item 
+int \mbox{\hyperlink{classrr_1_1NLEQ2Interface_aa772170399ac79ec2d99ec075f340392}{get\+Number\+Of\+Jacobian\+Evaluations}} ()
+\begin{DoxyCompactList}\small\item\em Returns the Number Of Jacobian Evaluations \end{DoxyCompactList}\item 
+int \mbox{\hyperlink{classrr_1_1NLEQ2Interface_aa17e3a331d3c7179b099bcabf30d09ce}{get\+Number\+Of\+Model\+Evaluations\+For\+Jacobian}} ()
+\begin{DoxyCompactList}\small\item\em Returns the Number of Model Evaluations For Jacobian \end{DoxyCompactList}\item 
+\mbox{\Hypertarget{classrr_1_1NLEQ2Interface_a1aed4d16f028b121ec2a6f831a49153b}\label{classrr_1_1NLEQ2Interface_a1aed4d16f028b121ec2a6f831a49153b}} 
+double {\bfseries compute\+Sums\+Of\+Squares} ()
+\end{DoxyCompactItemize}
 \doxysubsection*{Static Public Member Functions}
 \begin{DoxyCompactItemize}
 \item 
 \mbox{\Hypertarget{classrr_1_1NLEQ2Interface_a80d203c777e3d3f6cc3959a4a1dc2de5}\label{classrr_1_1NLEQ2Interface_a80d203c777e3d3f6cc3959a4a1dc2de5}} 
 static const \mbox{\hyperlink{classrr_1_1Dictionary}{Dictionary}} $\ast$ \mbox{\hyperlink{classrr_1_1NLEQ2Interface_a80d203c777e3d3f6cc3959a4a1dc2de5}{get\+Steady\+State\+Options}} ()
 \begin{DoxyCompactList}\small\item\em list of keys that this integrator supports. \end{DoxyCompactList}\end{DoxyCompactItemize}
+\doxysubsection*{Public Attributes}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\Hypertarget{classrr_1_1NLEQ2Interface_a5dbc5fed40e9ca0bee0faece07d75e12}\label{classrr_1_1NLEQ2Interface_a5dbc5fed40e9ca0bee0faece07d75e12}} 
+int {\bfseries n\+Opts}
+\item 
+\mbox{\Hypertarget{classrr_1_1NLEQ2Interface_acd89bf009bb80a689c48891fb0fb3399}\label{classrr_1_1NLEQ2Interface_acd89bf009bb80a689c48891fb0fb3399}} 
+long $\ast$ {\bfseries I\+WK}
+\item 
+\mbox{\Hypertarget{classrr_1_1NLEQ2Interface_a9dd6e6977d76875d49fa8778271306cb}\label{classrr_1_1NLEQ2Interface_a9dd6e6977d76875d49fa8778271306cb}} 
+long {\bfseries L\+I\+WK}
+\item 
+\mbox{\Hypertarget{classrr_1_1NLEQ2Interface_a0a9b50e59397be473430ec1b5c1f35cc}\label{classrr_1_1NLEQ2Interface_a0a9b50e59397be473430ec1b5c1f35cc}} 
+long {\bfseries L\+R\+WK}
+\item 
+\mbox{\Hypertarget{classrr_1_1NLEQ2Interface_a3734db9c01aca28e216341d61027116d}\label{classrr_1_1NLEQ2Interface_a3734db9c01aca28e216341d61027116d}} 
+double $\ast$ {\bfseries R\+WK}
+\item 
+\mbox{\Hypertarget{classrr_1_1NLEQ2Interface_afc70ac9b4476d579fd493239a0a48bd2}\label{classrr_1_1NLEQ2Interface_afc70ac9b4476d579fd493239a0a48bd2}} 
+double $\ast$ {\bfseries X\+Scal}
+\item 
+\mbox{\Hypertarget{classrr_1_1NLEQ2Interface_aa9ef4f1fc1a1c83d9ac0deff31d30334}\label{classrr_1_1NLEQ2Interface_aa9ef4f1fc1a1c83d9ac0deff31d30334}} 
+long {\bfseries ierr}
+\item 
+\mbox{\Hypertarget{classrr_1_1NLEQ2Interface_ac130efff07be74c40d5014490005e28d}\label{classrr_1_1NLEQ2Interface_ac130efff07be74c40d5014490005e28d}} 
+long $\ast$ {\bfseries iopt}
+\item 
+\mbox{\Hypertarget{classrr_1_1NLEQ2Interface_a8a8520655138625c5b1fa8eb102bd816}\label{classrr_1_1NLEQ2Interface_a8a8520655138625c5b1fa8eb102bd816}} 
+\mbox{\hyperlink{classrr_1_1ExecutableModel}{Executable\+Model}} $\ast$ {\bfseries model}
+\item 
+\mbox{\Hypertarget{classrr_1_1NLEQ2Interface_adf3536cb1a66462bca8c2b4fe25549f9}\label{classrr_1_1NLEQ2Interface_adf3536cb1a66462bca8c2b4fe25549f9}} 
+long {\bfseries n}
+\item 
+\mbox{\Hypertarget{classrr_1_1NLEQ2Interface_af1c1581edc36bce5e664a662425e9ad4}\label{classrr_1_1NLEQ2Interface_af1c1581edc36bce5e664a662425e9ad4}} 
+bool {\bfseries allow\+Pre\+Sim}
+\item 
+\mbox{\Hypertarget{classrr_1_1NLEQ2Interface_ac035c5f8a9bc6aba24f3f880f4226610}\label{classrr_1_1NLEQ2Interface_ac035c5f8a9bc6aba24f3f880f4226610}} 
+double {\bfseries pre\+Sim\+Tolerance}
+\item 
+\mbox{\Hypertarget{classrr_1_1NLEQ2Interface_aacdeb312ffdcb64fe4ccb8e98327db65}\label{classrr_1_1NLEQ2Interface_aacdeb312ffdcb64fe4ccb8e98327db65}} 
+int {\bfseries pre\+Sim\+Maximum\+Steps}
+\item 
+\mbox{\Hypertarget{classrr_1_1NLEQ2Interface_ae1a89f19512b74df2194e3e503749bd4}\label{classrr_1_1NLEQ2Interface_ae1a89f19512b74df2194e3e503749bd4}} 
+double {\bfseries pre\+Sim\+Time}
+\item 
+\mbox{\Hypertarget{classrr_1_1NLEQ2Interface_aeb8ffcfc86bb39f178ff70d59e5be346}\label{classrr_1_1NLEQ2Interface_aeb8ffcfc86bb39f178ff70d59e5be346}} 
+bool {\bfseries allow\+Approx}
+\item 
+\mbox{\Hypertarget{classrr_1_1NLEQ2Interface_a9cf5c34c30965b8094724ce86543bc44}\label{classrr_1_1NLEQ2Interface_a9cf5c34c30965b8094724ce86543bc44}} 
+double {\bfseries approx\+Tolerance}
+\item 
+\mbox{\Hypertarget{classrr_1_1NLEQ2Interface_a34031ac1e4a525f17b51f58fc315e8ab}\label{classrr_1_1NLEQ2Interface_a34031ac1e4a525f17b51f58fc315e8ab}} 
+int {\bfseries approx\+Maximum\+Steps}
+\item 
+\mbox{\Hypertarget{classrr_1_1NLEQ2Interface_a50eb0dea27685f1c31e7e7d1c8c37519}\label{classrr_1_1NLEQ2Interface_a50eb0dea27685f1c31e7e7d1c8c37519}} 
+double {\bfseries approx\+Time}
+\item 
+\mbox{\Hypertarget{classrr_1_1NLEQ2Interface_a539a956fac57bc81488c7cb91a0843ed}\label{classrr_1_1NLEQ2Interface_a539a956fac57bc81488c7cb91a0843ed}} 
+double {\bfseries relative\+Tolerance}
+\item 
+\mbox{\Hypertarget{classrr_1_1NLEQ2Interface_a10268a4a5c4f620bc827638eeff9f508}\label{classrr_1_1NLEQ2Interface_a10268a4a5c4f620bc827638eeff9f508}} 
+int {\bfseries max\+Iterations}
+\item 
+\mbox{\Hypertarget{classrr_1_1NLEQ2Interface_ac6ff62a7c23060ae816dd4d0355d457f}\label{classrr_1_1NLEQ2Interface_ac6ff62a7c23060ae816dd4d0355d457f}} 
+double {\bfseries min\+Damping}
+\item 
+\mbox{\Hypertarget{classrr_1_1NLEQ2Interface_a00437c5bd4647aa079e40bb1d6ed209e}\label{classrr_1_1NLEQ2Interface_a00437c5bd4647aa079e40bb1d6ed209e}} 
+int {\bfseries broyden}
+\item 
+\mbox{\Hypertarget{classrr_1_1NLEQ2Interface_ac96a82e8aebc4e72efbcbe8700217969}\label{classrr_1_1NLEQ2Interface_ac96a82e8aebc4e72efbcbe8700217969}} 
+int {\bfseries linearity}
+\end{DoxyCompactItemize}
 \doxysubsection*{Friends}
 \begin{DoxyCompactItemize}
 \item 
@@ -42,11 +135,11 @@ class {\bfseries N\+L\+E\+Q2\+Solver}
 
 
 \doxysubsection{Member Function Documentation}
-\mbox{\Hypertarget{classrr_1_1NLEQ2Interface_a4ef5104c0c2bb69c42add51d3c6cb0d4}\label{classrr_1_1NLEQ2Interface_a4ef5104c0c2bb69c42add51d3c6cb0d4}} 
+\mbox{\Hypertarget{classrr_1_1NLEQ2Interface_abb1a5d9b9039568fbf6f7c34ab91f670}\label{classrr_1_1NLEQ2Interface_abb1a5d9b9039568fbf6f7c34ab91f670}} 
 \index{rr::NLEQ2Interface@{rr::NLEQ2Interface}!getItem@{getItem}}
 \index{getItem@{getItem}!rr::NLEQ2Interface@{rr::NLEQ2Interface}}
 \doxysubsubsection{\texorpdfstring{getItem()}{getItem()}}
-{\footnotesize\ttfamily \mbox{\hyperlink{classrr_1_1Variant}{Variant}} rr\+::\+N\+L\+E\+Q2\+Interface\+::get\+Item (\begin{DoxyParamCaption}\item[{const std\+::string \&}]{key }\end{DoxyParamCaption}) const\hspace{0.3cm}{\ttfamily [virtual]}}
+{\footnotesize\ttfamily \mbox{\hyperlink{classrr_1_1Setting}{Setting}} rr\+::\+N\+L\+E\+Q2\+Interface\+::get\+Item (\begin{DoxyParamCaption}\item[{const std\+::string \&}]{key }\end{DoxyParamCaption}) const\hspace{0.3cm}{\ttfamily [virtual]}}
 
 
 
@@ -54,13 +147,78 @@ get a value.
 
 Variants are P\+OD. 
 
-Implements \mbox{\hyperlink{classrr_1_1Dictionary_a53cb5eee283727168630f6b1b918bdb0}{rr\+::\+Dictionary}}.
+Implements \mbox{\hyperlink{classrr_1_1Dictionary_a0fcdd3d9089af14e49e8713c254c9b67}{rr\+::\+Dictionary}}.
 
-\mbox{\Hypertarget{classrr_1_1NLEQ2Interface_a9495cf109b4ec802e3e8532099c73f5e}\label{classrr_1_1NLEQ2Interface_a9495cf109b4ec802e3e8532099c73f5e}} 
+\mbox{\Hypertarget{classrr_1_1NLEQ2Interface_ada93b787ae85fb08b27a06845ac2dcb9}\label{classrr_1_1NLEQ2Interface_ada93b787ae85fb08b27a06845ac2dcb9}} 
+\index{rr::NLEQ2Interface@{rr::NLEQ2Interface}!getNumberOfCorrectorSteps@{getNumberOfCorrectorSteps}}
+\index{getNumberOfCorrectorSteps@{getNumberOfCorrectorSteps}!rr::NLEQ2Interface@{rr::NLEQ2Interface}}
+\doxysubsubsection{\texorpdfstring{getNumberOfCorrectorSteps()}{getNumberOfCorrectorSteps()}}
+{\footnotesize\ttfamily int rr\+::\+N\+L\+E\+Q2\+Interface\+::get\+Number\+Of\+Corrector\+Steps (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})}
+
+
+
+Returns the Number of Corrector steps 
+
+\begin{DoxyReturn}{Returns}
+Returns the Number of Corrector steps
+\end{DoxyReturn}
+\mbox{\Hypertarget{classrr_1_1NLEQ2Interface_aa772170399ac79ec2d99ec075f340392}\label{classrr_1_1NLEQ2Interface_aa772170399ac79ec2d99ec075f340392}} 
+\index{rr::NLEQ2Interface@{rr::NLEQ2Interface}!getNumberOfJacobianEvaluations@{getNumberOfJacobianEvaluations}}
+\index{getNumberOfJacobianEvaluations@{getNumberOfJacobianEvaluations}!rr::NLEQ2Interface@{rr::NLEQ2Interface}}
+\doxysubsubsection{\texorpdfstring{getNumberOfJacobianEvaluations()}{getNumberOfJacobianEvaluations()}}
+{\footnotesize\ttfamily int rr\+::\+N\+L\+E\+Q2\+Interface\+::get\+Number\+Of\+Jacobian\+Evaluations (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})}
+
+
+
+Returns the Number Of Jacobian Evaluations 
+
+\begin{DoxyReturn}{Returns}
+the Number Of Jacobian Evaluations
+\end{DoxyReturn}
+\mbox{\Hypertarget{classrr_1_1NLEQ2Interface_a0e4c3f11cec0169916977d58f50bf7e7}\label{classrr_1_1NLEQ2Interface_a0e4c3f11cec0169916977d58f50bf7e7}} 
+\index{rr::NLEQ2Interface@{rr::NLEQ2Interface}!getNumberOfModelEvaluations@{getNumberOfModelEvaluations}}
+\index{getNumberOfModelEvaluations@{getNumberOfModelEvaluations}!rr::NLEQ2Interface@{rr::NLEQ2Interface}}
+\doxysubsubsection{\texorpdfstring{getNumberOfModelEvaluations()}{getNumberOfModelEvaluations()}}
+{\footnotesize\ttfamily int rr\+::\+N\+L\+E\+Q2\+Interface\+::get\+Number\+Of\+Model\+Evaluations (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})}
+
+
+
+Returns the Number of Model Evaluations 
+
+\begin{DoxyReturn}{Returns}
+the Number of Model Evaluations
+\end{DoxyReturn}
+\mbox{\Hypertarget{classrr_1_1NLEQ2Interface_aa17e3a331d3c7179b099bcabf30d09ce}\label{classrr_1_1NLEQ2Interface_aa17e3a331d3c7179b099bcabf30d09ce}} 
+\index{rr::NLEQ2Interface@{rr::NLEQ2Interface}!getNumberOfModelEvaluationsForJacobian@{getNumberOfModelEvaluationsForJacobian}}
+\index{getNumberOfModelEvaluationsForJacobian@{getNumberOfModelEvaluationsForJacobian}!rr::NLEQ2Interface@{rr::NLEQ2Interface}}
+\doxysubsubsection{\texorpdfstring{getNumberOfModelEvaluationsForJacobian()}{getNumberOfModelEvaluationsForJacobian()}}
+{\footnotesize\ttfamily int rr\+::\+N\+L\+E\+Q2\+Interface\+::get\+Number\+Of\+Model\+Evaluations\+For\+Jacobian (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})}
+
+
+
+Returns the Number of Model Evaluations For Jacobian 
+
+\begin{DoxyReturn}{Returns}
+the Number of Model Evaluations For Jacobian
+\end{DoxyReturn}
+\mbox{\Hypertarget{classrr_1_1NLEQ2Interface_acf39786fb327066323f7595b9322ebb2}\label{classrr_1_1NLEQ2Interface_acf39786fb327066323f7595b9322ebb2}} 
+\index{rr::NLEQ2Interface@{rr::NLEQ2Interface}!getNumberOfNewtonIterations@{getNumberOfNewtonIterations}}
+\index{getNumberOfNewtonIterations@{getNumberOfNewtonIterations}!rr::NLEQ2Interface@{rr::NLEQ2Interface}}
+\doxysubsubsection{\texorpdfstring{getNumberOfNewtonIterations()}{getNumberOfNewtonIterations()}}
+{\footnotesize\ttfamily int rr\+::\+N\+L\+E\+Q2\+Interface\+::get\+Number\+Of\+Newton\+Iterations (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})}
+
+
+
+Returns the Number of Newton Iterations 
+
+\begin{DoxyReturn}{Returns}
+the Number of Newton Iterations
+\end{DoxyReturn}
+\mbox{\Hypertarget{classrr_1_1NLEQ2Interface_aaaece125dad7d037daa8e14e296cf127}\label{classrr_1_1NLEQ2Interface_aaaece125dad7d037daa8e14e296cf127}} 
 \index{rr::NLEQ2Interface@{rr::NLEQ2Interface}!setItem@{setItem}}
 \index{setItem@{setItem}!rr::NLEQ2Interface@{rr::NLEQ2Interface}}
 \doxysubsubsection{\texorpdfstring{setItem()}{setItem()}}
-{\footnotesize\ttfamily void rr\+::\+N\+L\+E\+Q2\+Interface\+::set\+Item (\begin{DoxyParamCaption}\item[{const std\+::string \&}]{key,  }\item[{const \mbox{\hyperlink{classrr_1_1Variant}{rr\+::\+Variant}} \&}]{value }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [virtual]}}
+{\footnotesize\ttfamily void rr\+::\+N\+L\+E\+Q2\+Interface\+::set\+Item (\begin{DoxyParamCaption}\item[{const std\+::string \&}]{key,  }\item[{const \mbox{\hyperlink{classrr_1_1Setting}{rr\+::\+Setting}} \&}]{value }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [virtual]}}
 
 
 
@@ -68,13 +226,28 @@ Implement \mbox{\hyperlink{classrr_1_1Dictionary}{Dictionary}} Interface.
 
 set an arbitrary key 
 
-Implements \mbox{\hyperlink{classrr_1_1Dictionary_a6bb53c3bfeee7e3ee2bfcf9da8212949}{rr\+::\+Dictionary}}.
+Implements \mbox{\hyperlink{classrr_1_1Dictionary_a4708fee12ec4cd5e879df9bf5570c02a}{rr\+::\+Dictionary}}.
 
+\mbox{\Hypertarget{classrr_1_1NLEQ2Interface_ab0154efb08d830638127ef6330dea090}\label{classrr_1_1NLEQ2Interface_ab0154efb08d830638127ef6330dea090}} 
+\index{rr::NLEQ2Interface@{rr::NLEQ2Interface}!setScalingFactors@{setScalingFactors}}
+\index{setScalingFactors@{setScalingFactors}!rr::NLEQ2Interface@{rr::NLEQ2Interface}}
+\doxysubsubsection{\texorpdfstring{setScalingFactors()}{setScalingFactors()}}
+{\footnotesize\ttfamily void rr\+::\+N\+L\+E\+Q2\+Interface\+::set\+Scaling\+Factors (\begin{DoxyParamCaption}\item[{const std\+::vector$<$ double $>$ \&}]{sx }\end{DoxyParamCaption})}
+
+
+
+Sets the Scaling Factors 
+
+
+\begin{DoxyParams}{Parameters}
+{\em sx} & Array of Scaling factors\\
+\hline
+\end{DoxyParams}
 \mbox{\Hypertarget{classrr_1_1NLEQ2Interface_a0f1535692fbe346c98f1aa3090d00e82}\label{classrr_1_1NLEQ2Interface_a0f1535692fbe346c98f1aa3090d00e82}} 
 \index{rr::NLEQ2Interface@{rr::NLEQ2Interface}!solve@{solve}}
 \index{solve@{solve}!rr::NLEQ2Interface@{rr::NLEQ2Interface}}
 \doxysubsubsection{\texorpdfstring{solve()}{solve()}}
-{\footnotesize\ttfamily double rr\+::\+N\+L\+E\+Q2\+Interface\+::solve (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [virtual]}}
+{\footnotesize\ttfamily double rr\+::\+N\+L\+E\+Q2\+Interface\+::solve (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})}
 
 
 
@@ -83,10 +256,6 @@ Thea actual solver routine making the call to N\+L\+E\+Q2.
 \begin{DoxyReturn}{Returns}
 sums of squares 
 \end{DoxyReturn}
-
-
-Implements \mbox{\hyperlink{classrr_1_1rrSteadyStateSolver}{rr\+::rr\+Steady\+State\+Solver}}.
-
 
 
 The documentation for this class was generated from the following files\+:\begin{DoxyCompactItemize}

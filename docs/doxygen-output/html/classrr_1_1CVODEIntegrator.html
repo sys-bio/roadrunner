@@ -22,7 +22,7 @@
  <tr style="height: 56px;">
   <td id="projectalign" style="padding-left: 0.5em;">
    <div id="projectname">roadrunner
-   &#160;<span id="projectnumber">2.0.5</span>
+   &#160;<span id="projectnumber">2.0.8</span>
    </div>
    <div id="projectbrief">Fast simulator for SBML models</div>
   </td>
@@ -97,60 +97,61 @@ Public Member Functions</h2></td></tr>
 <tr class="memitem:ad83f14144a59c66b5feac18d37a22060"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classrr_1_1CVODEIntegrator.html#ad83f14144a59c66b5feac18d37a22060">CVODEIntegrator</a> (<a class="el" href="classrr_1_1ExecutableModel.html">ExecutableModel</a> *oModel)</td></tr>
 <tr class="memdesc:ad83f14144a59c66b5feac18d37a22060"><td class="mdescLeft">&#160;</td><td class="mdescRight">Constructor: takes an executable model, does not own the pointer.  <a href="classrr_1_1CVODEIntegrator.html#ad83f14144a59c66b5feac18d37a22060">More...</a><br /></td></tr>
 <tr class="separator:ad83f14144a59c66b5feac18d37a22060"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:aa2297bb73f99304ea620312f53bc2eb7"><td class="memItemLeft" align="right" valign="top">virtual&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classrr_1_1CVODEIntegrator.html#aa2297bb73f99304ea620312f53bc2eb7">~CVODEIntegrator</a> ()</td></tr>
-<tr class="memdesc:aa2297bb73f99304ea620312f53bc2eb7"><td class="mdescLeft">&#160;</td><td class="mdescRight">Destructor.  <a href="classrr_1_1CVODEIntegrator.html#aa2297bb73f99304ea620312f53bc2eb7">More...</a><br /></td></tr>
-<tr class="separator:aa2297bb73f99304ea620312f53bc2eb7"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ae099098e43b2219fbc4e29af10d22c84"><td class="memItemLeft" align="right" valign="top">virtual void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classrr_1_1CVODEIntegrator.html#ae099098e43b2219fbc4e29af10d22c84">syncWithModel</a> (<a class="el" href="classrr_1_1ExecutableModel.html">ExecutableModel</a> *m)</td></tr>
-<tr class="memdesc:ae099098e43b2219fbc4e29af10d22c84"><td class="mdescLeft">&#160;</td><td class="mdescRight">Called whenever a new model is loaded to allow integrator to reset internal state.  <a href="classrr_1_1CVODEIntegrator.html#ae099098e43b2219fbc4e29af10d22c84">More...</a><br /></td></tr>
-<tr class="separator:ae099098e43b2219fbc4e29af10d22c84"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a182d96d39d04ef49f3fa085ade88bdd9"><td class="memItemLeft" align="right" valign="top"><a id="a182d96d39d04ef49f3fa085ade88bdd9"></a>
-void&#160;</td><td class="memItemRight" valign="bottom"><b>loadConfigSettings</b> ()</td></tr>
-<tr class="separator:a182d96d39d04ef49f3fa085ade88bdd9"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ad5f73de9630fda4eac2816c49319662a"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classrr_1_1CVODEIntegrator.html#ad5f73de9630fda4eac2816c49319662a">loadSBMLSettings</a> (const std::string &amp;filename)</td></tr>
-<tr class="memdesc:ad5f73de9630fda4eac2816c49319662a"><td class="mdescLeft">&#160;</td><td class="mdescRight">Load an SBML settings file and apply the configuration options.  <a href="classrr_1_1CVODEIntegrator.html#ad5f73de9630fda4eac2816c49319662a">More...</a><br /></td></tr>
-<tr class="separator:ad5f73de9630fda4eac2816c49319662a"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a8cf0e265974ca6cfba2b22d98c77801a"><td class="memItemLeft" align="right" valign="top">std::string&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classrr_1_1CVODEIntegrator.html#a8cf0e265974ca6cfba2b22d98c77801a">getName</a> () const</td></tr>
-<tr class="memdesc:a8cf0e265974ca6cfba2b22d98c77801a"><td class="mdescLeft">&#160;</td><td class="mdescRight">Get the name for this integrator.  <a href="classrr_1_1CVODEIntegrator.html#a8cf0e265974ca6cfba2b22d98c77801a">More...</a><br /></td></tr>
-<tr class="separator:a8cf0e265974ca6cfba2b22d98c77801a"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a41af2579ae0fbca95fdf2eb36990e3ae"><td class="memItemLeft" align="right" valign="top">std::string&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classrr_1_1CVODEIntegrator.html#a41af2579ae0fbca95fdf2eb36990e3ae">getDescription</a> () const</td></tr>
-<tr class="memdesc:a41af2579ae0fbca95fdf2eb36990e3ae"><td class="mdescLeft">&#160;</td><td class="mdescRight">Get the description for this integrator.  <a href="classrr_1_1CVODEIntegrator.html#a41af2579ae0fbca95fdf2eb36990e3ae">More...</a><br /></td></tr>
-<tr class="separator:a41af2579ae0fbca95fdf2eb36990e3ae"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a89b7e1161329480ae2fe84e7f2a8ca1e"><td class="memItemLeft" align="right" valign="top">std::string&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classrr_1_1CVODEIntegrator.html#a89b7e1161329480ae2fe84e7f2a8ca1e">getHint</a> () const</td></tr>
-<tr class="memdesc:a89b7e1161329480ae2fe84e7f2a8ca1e"><td class="mdescLeft">&#160;</td><td class="mdescRight">Get the hint for this integrator.  <a href="classrr_1_1CVODEIntegrator.html#a89b7e1161329480ae2fe84e7f2a8ca1e">More...</a><br /></td></tr>
-<tr class="separator:a89b7e1161329480ae2fe84e7f2a8ca1e"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a0f96e9ef8da207e68b4389631ce2eb26"><td class="memItemLeft" align="right" valign="top">IntegrationMethod&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classrr_1_1CVODEIntegrator.html#a0f96e9ef8da207e68b4389631ce2eb26">getIntegrationMethod</a> () const</td></tr>
-<tr class="memdesc:a0f96e9ef8da207e68b4389631ce2eb26"><td class="mdescLeft">&#160;</td><td class="mdescRight">Always deterministic for CVODE.  <a href="classrr_1_1CVODEIntegrator.html#a0f96e9ef8da207e68b4389631ce2eb26">More...</a><br /></td></tr>
-<tr class="separator:a0f96e9ef8da207e68b4389631ce2eb26"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:acd45a44a9da5910aa9a02085372ace0e"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classrr_1_1CVODEIntegrator.html#acd45a44a9da5910aa9a02085372ace0e">setValue</a> (std::string setting, const <a class="el" href="classrr_1_1Variant.html">Variant</a> &amp;value)</td></tr>
-<tr class="memdesc:acd45a44a9da5910aa9a02085372ace0e"><td class="mdescLeft">&#160;</td><td class="mdescRight">Sets the value of an integrator setting (e.g. absolute_tolerance)  <a href="classrr_1_1CVODEIntegrator.html#acd45a44a9da5910aa9a02085372ace0e">More...</a><br /></td></tr>
-<tr class="separator:acd45a44a9da5910aa9a02085372ace0e"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a8d0e25e6170b3f017ada84f4bdf148ab"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classrr_1_1CVODEIntegrator.html#a8d0e25e6170b3f017ada84f4bdf148ab">setIndividualTolerance</a> (string sid, double value)</td></tr>
-<tr class="memdesc:a8d0e25e6170b3f017ada84f4bdf148ab"><td class="mdescLeft">&#160;</td><td class="mdescRight">Sets tolerance for individual species.  <a href="classrr_1_1CVODEIntegrator.html#a8d0e25e6170b3f017ada84f4bdf148ab">More...</a><br /></td></tr>
-<tr class="separator:a8d0e25e6170b3f017ada84f4bdf148ab"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a6b4a601f240b60e29cccc73eddb837c0"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classrr_1_1CVODEIntegrator.html#a6b4a601f240b60e29cccc73eddb837c0">setConcentrationTolerance</a> (const <a class="el" href="classrr_1_1Variant.html">Variant</a> &amp;value)</td></tr>
-<tr class="memdesc:a6b4a601f240b60e29cccc73eddb837c0"><td class="mdescLeft">&#160;</td><td class="mdescRight">Sets tolerance based on concentration of species.  <a href="classrr_1_1CVODEIntegrator.html#a6b4a601f240b60e29cccc73eddb837c0">More...</a><br /></td></tr>
-<tr class="separator:a6b4a601f240b60e29cccc73eddb837c0"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ab4c042d6db38872117a3c0196c3af9cf"><td class="memItemLeft" align="right" valign="top">std::vector&lt; double &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classrr_1_1CVODEIntegrator.html#ab4c042d6db38872117a3c0196c3af9cf">getConcentrationTolerance</a> ()</td></tr>
-<tr class="memdesc:ab4c042d6db38872117a3c0196c3af9cf"><td class="mdescLeft">&#160;</td><td class="mdescRight">Gets tolerance based on concentration of species.  <a href="classrr_1_1CVODEIntegrator.html#ab4c042d6db38872117a3c0196c3af9cf">More...</a><br /></td></tr>
-<tr class="separator:ab4c042d6db38872117a3c0196c3af9cf"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a455f08dc01b03a527482edc3d2db95b1"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classrr_1_1CVODEIntegrator.html#a455f08dc01b03a527482edc3d2db95b1">resetSettings</a> ()</td></tr>
-<tr class="memdesc:a455f08dc01b03a527482edc3d2db95b1"><td class="mdescLeft">&#160;</td><td class="mdescRight">Reset all integrator settings to their respective default values.  <a href="classrr_1_1CVODEIntegrator.html#a455f08dc01b03a527482edc3d2db95b1">More...</a><br /></td></tr>
-<tr class="separator:a455f08dc01b03a527482edc3d2db95b1"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:afec3efa20453cabe7fd826a1a27fd920"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classrr_1_1CVODEIntegrator.html#afec3efa20453cabe7fd826a1a27fd920">tweakTolerances</a> ()</td></tr>
-<tr class="memdesc:afec3efa20453cabe7fd826a1a27fd920"><td class="mdescLeft">&#160;</td><td class="mdescRight">Fix tolerances for SBML tests.  <a href="classrr_1_1CVODEIntegrator.html#afec3efa20453cabe7fd826a1a27fd920">More...</a><br /></td></tr>
-<tr class="separator:afec3efa20453cabe7fd826a1a27fd920"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:acab8c62349294152e2b331bea7585166"><td class="memItemLeft" align="right" valign="top">double&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classrr_1_1CVODEIntegrator.html#acab8c62349294152e2b331bea7585166">integrate</a> (double t0, double tf)</td></tr>
-<tr class="memdesc:acab8c62349294152e2b331bea7585166"><td class="mdescLeft">&#160;</td><td class="mdescRight">Main integration routine.  <a href="classrr_1_1CVODEIntegrator.html#acab8c62349294152e2b331bea7585166">More...</a><br /></td></tr>
-<tr class="separator:acab8c62349294152e2b331bea7585166"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ad845bc1acfbeef03f374413928eaa3ee"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classrr_1_1CVODEIntegrator.html#ad845bc1acfbeef03f374413928eaa3ee">restart</a> (double timeStart)</td></tr>
-<tr class="memdesc:ad845bc1acfbeef03f374413928eaa3ee"><td class="mdescLeft">&#160;</td><td class="mdescRight">Reset time to zero and reinitialize model.  <a href="classrr_1_1CVODEIntegrator.html#ad845bc1acfbeef03f374413928eaa3ee">More...</a><br /></td></tr>
-<tr class="separator:ad845bc1acfbeef03f374413928eaa3ee"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ad1c04bdb1c00267d1a0f6b2cc5143b73"><td class="memItemLeft" align="right" valign="top">IntegratorListenerPtr&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classrr_1_1CVODEIntegrator.html#ad1c04bdb1c00267d1a0f6b2cc5143b73">getListener</a> ()</td></tr>
-<tr class="memdesc:ad1c04bdb1c00267d1a0f6b2cc5143b73"><td class="mdescLeft">&#160;</td><td class="mdescRight">Gets the integrator listener.  <a href="classrr_1_1CVODEIntegrator.html#ad1c04bdb1c00267d1a0f6b2cc5143b73">More...</a><br /></td></tr>
-<tr class="separator:ad1c04bdb1c00267d1a0f6b2cc5143b73"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a4dc5fe6ecf244b0a0cac214db29d4914"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classrr_1_1CVODEIntegrator.html#a4dc5fe6ecf244b0a0cac214db29d4914">setListener</a> (IntegratorListenerPtr)</td></tr>
-<tr class="memdesc:a4dc5fe6ecf244b0a0cac214db29d4914"><td class="mdescLeft">&#160;</td><td class="mdescRight">Sets the integrator listener.  <a href="classrr_1_1CVODEIntegrator.html#a4dc5fe6ecf244b0a0cac214db29d4914">More...</a><br /></td></tr>
-<tr class="separator:a4dc5fe6ecf244b0a0cac214db29d4914"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ad60746a373a8de7a5163d56475bfd55c"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classrr_1_1CVODEIntegrator.html#ad60746a373a8de7a5163d56475bfd55c">~CVODEIntegrator</a> () override</td></tr>
+<tr class="memdesc:ad60746a373a8de7a5163d56475bfd55c"><td class="mdescLeft">&#160;</td><td class="mdescRight">Destructor.  <a href="classrr_1_1CVODEIntegrator.html#ad60746a373a8de7a5163d56475bfd55c">More...</a><br /></td></tr>
+<tr class="separator:ad60746a373a8de7a5163d56475bfd55c"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a6ffad2eceae5fda58900a1bbaa738eff"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classrr_1_1CVODEIntegrator.html#a6ffad2eceae5fda58900a1bbaa738eff">syncWithModel</a> (<a class="el" href="classrr_1_1ExecutableModel.html">ExecutableModel</a> *m) override</td></tr>
+<tr class="memdesc:a6ffad2eceae5fda58900a1bbaa738eff"><td class="mdescLeft">&#160;</td><td class="mdescRight">Called whenever a new model is loaded to allow integrator to reset internal state.  <a href="classrr_1_1CVODEIntegrator.html#a6ffad2eceae5fda58900a1bbaa738eff">More...</a><br /></td></tr>
+<tr class="separator:a6ffad2eceae5fda58900a1bbaa738eff"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ac43da51656919e15d30f450e81b3887b"><td class="memItemLeft" align="right" valign="top"><a id="ac43da51656919e15d30f450e81b3887b"></a>
+void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classrr_1_1CVODEIntegrator.html#ac43da51656919e15d30f450e81b3887b">loadConfigSettings</a> () override</td></tr>
+<tr class="memdesc:ac43da51656919e15d30f450e81b3887b"><td class="mdescLeft">&#160;</td><td class="mdescRight">It looks like this method only get used inside resetSettings. <br /></td></tr>
+<tr class="separator:ac43da51656919e15d30f450e81b3887b"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:acaa6878fb0d972aa96dba554a7bc65a4"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classrr_1_1CVODEIntegrator.html#acaa6878fb0d972aa96dba554a7bc65a4">loadSBMLSettings</a> (const std::string &amp;filename) override</td></tr>
+<tr class="memdesc:acaa6878fb0d972aa96dba554a7bc65a4"><td class="mdescLeft">&#160;</td><td class="mdescRight">Load an SBML settings file and apply the configuration options.  <a href="classrr_1_1CVODEIntegrator.html#acaa6878fb0d972aa96dba554a7bc65a4">More...</a><br /></td></tr>
+<tr class="separator:acaa6878fb0d972aa96dba554a7bc65a4"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:aa889b08549036792918c41e88e2097f4"><td class="memItemLeft" align="right" valign="top">std::string&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classrr_1_1CVODEIntegrator.html#aa889b08549036792918c41e88e2097f4">getName</a> () const override</td></tr>
+<tr class="memdesc:aa889b08549036792918c41e88e2097f4"><td class="mdescLeft">&#160;</td><td class="mdescRight">Get the name for this integrator.  <a href="classrr_1_1CVODEIntegrator.html#aa889b08549036792918c41e88e2097f4">More...</a><br /></td></tr>
+<tr class="separator:aa889b08549036792918c41e88e2097f4"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a1c6a393504cc85f2dc236abd0cb5577a"><td class="memItemLeft" align="right" valign="top">std::string&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classrr_1_1CVODEIntegrator.html#a1c6a393504cc85f2dc236abd0cb5577a">getDescription</a> () const override</td></tr>
+<tr class="memdesc:a1c6a393504cc85f2dc236abd0cb5577a"><td class="mdescLeft">&#160;</td><td class="mdescRight">Get the description for this integrator.  <a href="classrr_1_1CVODEIntegrator.html#a1c6a393504cc85f2dc236abd0cb5577a">More...</a><br /></td></tr>
+<tr class="separator:a1c6a393504cc85f2dc236abd0cb5577a"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:addde67b3639fe1347efc2a37bbfdd60e"><td class="memItemLeft" align="right" valign="top">std::string&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classrr_1_1CVODEIntegrator.html#addde67b3639fe1347efc2a37bbfdd60e">getHint</a> () const override</td></tr>
+<tr class="memdesc:addde67b3639fe1347efc2a37bbfdd60e"><td class="mdescLeft">&#160;</td><td class="mdescRight">Get the hint for this integrator.  <a href="classrr_1_1CVODEIntegrator.html#addde67b3639fe1347efc2a37bbfdd60e">More...</a><br /></td></tr>
+<tr class="separator:addde67b3639fe1347efc2a37bbfdd60e"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a7cc1f774e58f179fb2e69c515c9f2a1f"><td class="memItemLeft" align="right" valign="top">IntegrationMethod&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classrr_1_1CVODEIntegrator.html#a7cc1f774e58f179fb2e69c515c9f2a1f">getIntegrationMethod</a> () const override</td></tr>
+<tr class="memdesc:a7cc1f774e58f179fb2e69c515c9f2a1f"><td class="mdescLeft">&#160;</td><td class="mdescRight">Always deterministic for CVODE.  <a href="classrr_1_1CVODEIntegrator.html#a7cc1f774e58f179fb2e69c515c9f2a1f">More...</a><br /></td></tr>
+<tr class="separator:a7cc1f774e58f179fb2e69c515c9f2a1f"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a2ba8be5c51129d05dd8ab5315dc12edc"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classrr_1_1CVODEIntegrator.html#a2ba8be5c51129d05dd8ab5315dc12edc">setValue</a> (const std::string &amp;setting, <a class="el" href="classrr_1_1Setting.html">Setting</a> value) override</td></tr>
+<tr class="memdesc:a2ba8be5c51129d05dd8ab5315dc12edc"><td class="mdescLeft">&#160;</td><td class="mdescRight">Sets the value of an integrator setting (e.g. absolute_tolerance)  <a href="classrr_1_1CVODEIntegrator.html#a2ba8be5c51129d05dd8ab5315dc12edc">More...</a><br /></td></tr>
+<tr class="separator:a2ba8be5c51129d05dd8ab5315dc12edc"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a57e9e604b2c2ba388a3fe219e87c326c"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classrr_1_1CVODEIntegrator.html#a57e9e604b2c2ba388a3fe219e87c326c">setIndividualTolerance</a> (std::string sid, double value) override</td></tr>
+<tr class="memdesc:a57e9e604b2c2ba388a3fe219e87c326c"><td class="mdescLeft">&#160;</td><td class="mdescRight">Sets tolerance for individual species.  <a href="classrr_1_1CVODEIntegrator.html#a57e9e604b2c2ba388a3fe219e87c326c">More...</a><br /></td></tr>
+<tr class="separator:a57e9e604b2c2ba388a3fe219e87c326c"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a386a755bab0c72a5d93a7e09ba95fafe"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classrr_1_1CVODEIntegrator.html#a386a755bab0c72a5d93a7e09ba95fafe">setConcentrationTolerance</a> (<a class="el" href="classrr_1_1Setting.html">Setting</a> value) override</td></tr>
+<tr class="memdesc:a386a755bab0c72a5d93a7e09ba95fafe"><td class="mdescLeft">&#160;</td><td class="mdescRight">Sets tolerance based on concentration of species.  <a href="classrr_1_1CVODEIntegrator.html#a386a755bab0c72a5d93a7e09ba95fafe">More...</a><br /></td></tr>
+<tr class="separator:a386a755bab0c72a5d93a7e09ba95fafe"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a7f68228148cf04688881f636a34deb48"><td class="memItemLeft" align="right" valign="top">std::vector&lt; double &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classrr_1_1CVODEIntegrator.html#a7f68228148cf04688881f636a34deb48">getConcentrationTolerance</a> () override</td></tr>
+<tr class="memdesc:a7f68228148cf04688881f636a34deb48"><td class="mdescLeft">&#160;</td><td class="mdescRight">Gets tolerance based on concentration of species.  <a href="classrr_1_1CVODEIntegrator.html#a7f68228148cf04688881f636a34deb48">More...</a><br /></td></tr>
+<tr class="separator:a7f68228148cf04688881f636a34deb48"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ac18581f5c000940449032e166ef48e79"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classrr_1_1CVODEIntegrator.html#ac18581f5c000940449032e166ef48e79">resetSettings</a> () override</td></tr>
+<tr class="memdesc:ac18581f5c000940449032e166ef48e79"><td class="mdescLeft">&#160;</td><td class="mdescRight">Reset all integrator settings to their respective default values.  <a href="classrr_1_1CVODEIntegrator.html#ac18581f5c000940449032e166ef48e79">More...</a><br /></td></tr>
+<tr class="separator:ac18581f5c000940449032e166ef48e79"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a137ada502a737819ca3ad78d0573c35d"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classrr_1_1CVODEIntegrator.html#a137ada502a737819ca3ad78d0573c35d">tweakTolerances</a> () override</td></tr>
+<tr class="memdesc:a137ada502a737819ca3ad78d0573c35d"><td class="mdescLeft">&#160;</td><td class="mdescRight">Fix tolerances for SBML tests.  <a href="classrr_1_1CVODEIntegrator.html#a137ada502a737819ca3ad78d0573c35d">More...</a><br /></td></tr>
+<tr class="separator:a137ada502a737819ca3ad78d0573c35d"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a1e29429af0ec90aa2f47be15bbe8856c"><td class="memItemLeft" align="right" valign="top">double&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classrr_1_1CVODEIntegrator.html#a1e29429af0ec90aa2f47be15bbe8856c">integrate</a> (double t0, double hstep) override</td></tr>
+<tr class="memdesc:a1e29429af0ec90aa2f47be15bbe8856c"><td class="mdescLeft">&#160;</td><td class="mdescRight">Main integration routine.  <a href="classrr_1_1CVODEIntegrator.html#a1e29429af0ec90aa2f47be15bbe8856c">More...</a><br /></td></tr>
+<tr class="separator:a1e29429af0ec90aa2f47be15bbe8856c"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:acde5e92ec049c105b7d22b0f125d94a9"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classrr_1_1CVODEIntegrator.html#acde5e92ec049c105b7d22b0f125d94a9">restart</a> (double timeStart) override</td></tr>
+<tr class="memdesc:acde5e92ec049c105b7d22b0f125d94a9"><td class="mdescLeft">&#160;</td><td class="mdescRight">Reset time to zero and reinitialize model.  <a href="classrr_1_1CVODEIntegrator.html#acde5e92ec049c105b7d22b0f125d94a9">More...</a><br /></td></tr>
+<tr class="separator:acde5e92ec049c105b7d22b0f125d94a9"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a480b8dad2e4dabcdb8fec1439ab7c5f7"><td class="memItemLeft" align="right" valign="top">IntegratorListenerPtr&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classrr_1_1CVODEIntegrator.html#a480b8dad2e4dabcdb8fec1439ab7c5f7">getListener</a> () override</td></tr>
+<tr class="memdesc:a480b8dad2e4dabcdb8fec1439ab7c5f7"><td class="mdescLeft">&#160;</td><td class="mdescRight">Gets the integrator listener.  <a href="classrr_1_1CVODEIntegrator.html#a480b8dad2e4dabcdb8fec1439ab7c5f7">More...</a><br /></td></tr>
+<tr class="separator:a480b8dad2e4dabcdb8fec1439ab7c5f7"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:aca2901ed7b5a503e054fd18e8f0392ad"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classrr_1_1CVODEIntegrator.html#aca2901ed7b5a503e054fd18e8f0392ad">setListener</a> (IntegratorListenerPtr) override</td></tr>
+<tr class="memdesc:aca2901ed7b5a503e054fd18e8f0392ad"><td class="mdescLeft">&#160;</td><td class="mdescRight">Sets the integrator listener.  <a href="classrr_1_1CVODEIntegrator.html#aca2901ed7b5a503e054fd18e8f0392ad">More...</a><br /></td></tr>
+<tr class="separator:aca2901ed7b5a503e054fd18e8f0392ad"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a7f67f51344e7a63ac6a84f67046dfbc5"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classrr_1_1CVODEIntegrator.html#a7f67f51344e7a63ac6a84f67046dfbc5">checkType</a> () const</td></tr>
 <tr class="memdesc:a7f67f51344e7a63ac6a84f67046dfbc5"><td class="mdescLeft">&#160;</td><td class="mdescRight">Does a RT type check which throws if it fails, EVEN IF RTTI IS DISABLED.  <a href="classrr_1_1CVODEIntegrator.html#a7f67f51344e7a63ac6a84f67046dfbc5">More...</a><br /></td></tr>
 <tr class="separator:a7f67f51344e7a63ac6a84f67046dfbc5"><td class="memSeparator" colspan="2">&#160;</td></tr>
@@ -161,32 +162,59 @@ void&#160;</td><td class="memItemRight" valign="bottom"><b>loadConfigSettings</b
 <tr class="memdesc:a8f2a01ce70a6aa67e652b9d9dde9be08"><td class="mdescLeft">&#160;</td><td class="mdescRight">Does a index check which throws if it is out of bound.  <a href="classrr_1_1CVODEIntegrator.html#a8f2a01ce70a6aa67e652b9d9dde9be08">More...</a><br /></td></tr>
 <tr class="separator:a8f2a01ce70a6aa67e652b9d9dde9be08"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a38290b6c0c66556fed4a9e673c6ddd69"><td class="memItemLeft" align="right" valign="top">std::string&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classrr_1_1CVODEIntegrator.html#a38290b6c0c66556fed4a9e673c6ddd69">ToString</a> (int val) const</td></tr>
-<tr class="memdesc:a38290b6c0c66556fed4a9e673c6ddd69"><td class="mdescLeft">&#160;</td><td class="mdescRight">Converts integer to string for error print.  <a href="classrr_1_1CVODEIntegrator.html#a38290b6c0c66556fed4a9e673c6ddd69">More...</a><br /></td></tr>
+<tr class="memdesc:a38290b6c0c66556fed4a9e673c6ddd69"><td class="mdescLeft">&#160;</td><td class="mdescRight">Converts integer to std::string for error print.  <a href="classrr_1_1CVODEIntegrator.html#a38290b6c0c66556fed4a9e673c6ddd69">More...</a><br /></td></tr>
 <tr class="separator:a38290b6c0c66556fed4a9e673c6ddd69"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a5f7253ee990e699dbc5affe54097fe5a"><td class="memItemLeft" align="right" valign="top">std::string&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classrr_1_1CVODEIntegrator.html#a5f7253ee990e699dbc5affe54097fe5a">ToString</a> (size_t val) const</td></tr>
-<tr class="memdesc:a5f7253ee990e699dbc5affe54097fe5a"><td class="mdescLeft">&#160;</td><td class="mdescRight">Converts size_t to string for error print.  <a href="classrr_1_1CVODEIntegrator.html#a5f7253ee990e699dbc5affe54097fe5a">More...</a><br /></td></tr>
+<tr class="memdesc:a5f7253ee990e699dbc5affe54097fe5a"><td class="mdescLeft">&#160;</td><td class="mdescRight">Converts size_t to std::string for error print.  <a href="classrr_1_1CVODEIntegrator.html#a5f7253ee990e699dbc5affe54097fe5a">More...</a><br /></td></tr>
 <tr class="separator:a5f7253ee990e699dbc5affe54097fe5a"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:aaaec91efc64a4d2e422276daaba29f96"><td class="memItemLeft" align="right" valign="top"><a id="aaaec91efc64a4d2e422276daaba29f96"></a>
 std::string&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classrr_1_1CVODEIntegrator.html#aaaec91efc64a4d2e422276daaba29f96">cvodeDecodeError</a> (int cvodeError, bool exInfo=true)</td></tr>
-<tr class="memdesc:aaaec91efc64a4d2e422276daaba29f96"><td class="mdescLeft">&#160;</td><td class="mdescRight">decode the cvode error code to a string <br /></td></tr>
+<tr class="memdesc:aaaec91efc64a4d2e422276daaba29f96"><td class="mdescLeft">&#160;</td><td class="mdescRight">decode the cvode error code to a std::string <br /></td></tr>
 <tr class="separator:aaaec91efc64a4d2e422276daaba29f96"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a20f0ef30d096122a556f8690b81d7ef0"><td class="memItemLeft" align="right" valign="top"><a id="a20f0ef30d096122a556f8690b81d7ef0"></a>
+<a class="el" href="CVODEIntegrator_8h.html#a8a91260811ab3718acff6bc5bd55d374">N_Vector</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classrr_1_1CVODEIntegrator.html#a20f0ef30d096122a556f8690b81d7ef0">getStateVector</a> () const</td></tr>
+<tr class="memdesc:a20f0ef30d096122a556f8690b81d7ef0"><td class="mdescLeft">&#160;</td><td class="mdescRight">getter for the internal state std::vector <br /></td></tr>
+<tr class="separator:a20f0ef30d096122a556f8690b81d7ef0"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a72452ef342616919777874ba32dcd1c3"><td class="memItemLeft" align="right" valign="top"><a id="a72452ef342616919777874ba32dcd1c3"></a>
+SUNNonlinearSolver&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classrr_1_1CVODEIntegrator.html#a72452ef342616919777874ba32dcd1c3">getSolver</a> () const</td></tr>
+<tr class="memdesc:a72452ef342616919777874ba32dcd1c3"><td class="mdescLeft">&#160;</td><td class="mdescRight">getter for the internal Sundials linear solver object <br /></td></tr>
+<tr class="separator:a72452ef342616919777874ba32dcd1c3"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ad3ad4d2d9d49bce33f8d34d177ff703a"><td class="memItemLeft" align="right" valign="top"><a id="ad3ad4d2d9d49bce33f8d34d177ff703a"></a>
+void *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classrr_1_1CVODEIntegrator.html#ad3ad4d2d9d49bce33f8d34d177ff703a">getCvodeMemory</a> () const</td></tr>
+<tr class="memdesc:ad3ad4d2d9d49bce33f8d34d177ff703a"><td class="mdescLeft">&#160;</td><td class="mdescRight">getter for the internal CVode memory buffer <br /></td></tr>
+<tr class="separator:ad3ad4d2d9d49bce33f8d34d177ff703a"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="inherit_header pub_methods_classrr_1_1Integrator"><td colspan="2" onclick="javascript:toggleInherit('pub_methods_classrr_1_1Integrator')"><img src="closed.png" alt="-"/>&#160;Public Member Functions inherited from <a class="el" href="classrr_1_1Integrator.html">rr::Integrator</a></td></tr>
+<tr class="memitem:a8a79e9633a25767a1683a0334fd1d917 inherit pub_methods_classrr_1_1Integrator"><td class="memItemLeft" align="right" valign="top"><a id="a8a79e9633a25767a1683a0334fd1d917"></a>
+&#160;</td><td class="memItemRight" valign="bottom"><b>Integrator</b> (<a class="el" href="classrr_1_1ExecutableModel.html">ExecutableModel</a> *model)</td></tr>
+<tr class="separator:a8a79e9633a25767a1683a0334fd1d917 inherit pub_methods_classrr_1_1Integrator"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:adde5221e0d61f9f5398d69020e1a5a86 inherit pub_methods_classrr_1_1Integrator"><td class="memItemLeft" align="right" valign="top">std::string&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classrr_1_1Integrator.html#adde5221e0d61f9f5398d69020e1a5a86">toString</a> () const</td></tr>
-<tr class="memdesc:adde5221e0d61f9f5398d69020e1a5a86 inherit pub_methods_classrr_1_1Integrator"><td class="mdescLeft">&#160;</td><td class="mdescRight">Return a string representation of the solver.  <a href="classrr_1_1Integrator.html#adde5221e0d61f9f5398d69020e1a5a86">More...</a><br /></td></tr>
+<tr class="memdesc:adde5221e0d61f9f5398d69020e1a5a86 inherit pub_methods_classrr_1_1Integrator"><td class="mdescLeft">&#160;</td><td class="mdescRight">Return a std::string representation of the solver.  <a href="classrr_1_1Integrator.html#adde5221e0d61f9f5398d69020e1a5a86">More...</a><br /></td></tr>
 <tr class="separator:adde5221e0d61f9f5398d69020e1a5a86 inherit pub_methods_classrr_1_1Integrator"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:abb3c4ae3020a5df7abe40639037615cb inherit pub_methods_classrr_1_1Integrator"><td class="memItemLeft" align="right" valign="top">virtual std::string&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classrr_1_1Integrator.html#abb3c4ae3020a5df7abe40639037615cb">toRepr</a> () const</td></tr>
-<tr class="memdesc:abb3c4ae3020a5df7abe40639037615cb inherit pub_methods_classrr_1_1Integrator"><td class="mdescLeft">&#160;</td><td class="mdescRight">Return string representation a la Python <b>repr</b> method.  <a href="classrr_1_1Integrator.html#abb3c4ae3020a5df7abe40639037615cb">More...</a><br /></td></tr>
+<tr class="memdesc:abb3c4ae3020a5df7abe40639037615cb inherit pub_methods_classrr_1_1Integrator"><td class="mdescLeft">&#160;</td><td class="mdescRight">Return std::string representation a la Python <b>repr</b> method.  <a href="classrr_1_1Integrator.html#abb3c4ae3020a5df7abe40639037615cb">More...</a><br /></td></tr>
 <tr class="separator:abb3c4ae3020a5df7abe40639037615cb inherit pub_methods_classrr_1_1Integrator"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a18fa004a818506c15d47fa28015039c6 inherit pub_methods_classrr_1_1Integrator"><td class="memItemLeft" align="right" valign="top">virtual void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classrr_1_1Integrator.html#a18fa004a818506c15d47fa28015039c6">setValue</a> (const std::string &amp;key, <a class="el" href="classrr_1_1Setting.html">Setting</a> value)</td></tr>
+<tr class="memdesc:a18fa004a818506c15d47fa28015039c6 inherit pub_methods_classrr_1_1Integrator"><td class="mdescLeft">&#160;</td><td class="mdescRight">Pull down the setValue from superclass.  <a href="classrr_1_1Integrator.html#a18fa004a818506c15d47fa28015039c6">More...</a><br /></td></tr>
+<tr class="separator:a18fa004a818506c15d47fa28015039c6 inherit pub_methods_classrr_1_1Integrator"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="inherit_header pub_methods_classrr_1_1Solver"><td colspan="2" onclick="javascript:toggleInherit('pub_methods_classrr_1_1Solver')"><img src="closed.png" alt="-"/>&#160;Public Member Functions inherited from <a class="el" href="classrr_1_1Solver.html">rr::Solver</a></td></tr>
-<tr class="memitem:ac12d82cf9d7f03ba39f82ae81ee0e168 inherit pub_methods_classrr_1_1Solver"><td class="memItemLeft" align="right" valign="top">std::vector&lt; std::string &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classrr_1_1Solver.html#ac12d82cf9d7f03ba39f82ae81ee0e168">getSettings</a> () const</td></tr>
-<tr class="memdesc:ac12d82cf9d7f03ba39f82ae81ee0e168 inherit pub_methods_classrr_1_1Solver"><td class="mdescLeft">&#160;</td><td class="mdescRight">Get a list of all settings for this solver.  <a href="classrr_1_1Solver.html#ac12d82cf9d7f03ba39f82ae81ee0e168">More...</a><br /></td></tr>
-<tr class="separator:ac12d82cf9d7f03ba39f82ae81ee0e168 inherit pub_methods_classrr_1_1Solver"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a773a06f0d64c9d79423efcef1b381da1 inherit pub_methods_classrr_1_1Solver"><td class="memItemLeft" align="right" valign="top">virtual <a class="el" href="classrr_1_1Variant.html">Variant</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classrr_1_1Solver.html#a773a06f0d64c9d79423efcef1b381da1">getValue</a> (std::string key) const</td></tr>
-<tr class="memdesc:a773a06f0d64c9d79423efcef1b381da1 inherit pub_methods_classrr_1_1Solver"><td class="mdescLeft">&#160;</td><td class="mdescRight">Get the value of an integrator setting.  <a href="classrr_1_1Solver.html#a773a06f0d64c9d79423efcef1b381da1">More...</a><br /></td></tr>
-<tr class="separator:a773a06f0d64c9d79423efcef1b381da1 inherit pub_methods_classrr_1_1Solver"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a104f619f19529d57869310cd67fcc6d1 inherit pub_methods_classrr_1_1Solver"><td class="memItemLeft" align="right" valign="top">virtual <a class="el" href="classrr_1_1Variant.html">Variant</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classrr_1_1Solver.html#a104f619f19529d57869310cd67fcc6d1">hasValue</a> (std::string key) const</td></tr>
-<tr class="memdesc:a104f619f19529d57869310cd67fcc6d1 inherit pub_methods_classrr_1_1Solver"><td class="mdescLeft">&#160;</td><td class="mdescRight">Return true if this setting is supported by the integrator.  <a href="classrr_1_1Solver.html#a104f619f19529d57869310cd67fcc6d1">More...</a><br /></td></tr>
-<tr class="separator:a104f619f19529d57869310cd67fcc6d1 inherit pub_methods_classrr_1_1Solver"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:aa0a07553e368f0be33b9bfc429782a97 inherit pub_methods_classrr_1_1Solver"><td class="memItemLeft" align="right" valign="top"><a id="aa0a07553e368f0be33b9bfc429782a97"></a>
+&#160;</td><td class="memItemRight" valign="bottom"><b>Solver</b> (<a class="el" href="classrr_1_1ExecutableModel.html">ExecutableModel</a> *model)</td></tr>
+<tr class="separator:aa0a07553e368f0be33b9bfc429782a97 inherit pub_methods_classrr_1_1Solver"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a19315632eeab070bdbfe2fa4ae66ca6c inherit pub_methods_classrr_1_1Solver"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classrr_1_1Solver.html#a19315632eeab070bdbfe2fa4ae66ca6c">updateSettings</a> (<a class="el" href="classrr_1_1Dictionary.html">Dictionary</a> *inputSettings)</td></tr>
+<tr class="memdesc:a19315632eeab070bdbfe2fa4ae66ca6c inherit pub_methods_classrr_1_1Solver"><td class="mdescLeft">&#160;</td><td class="mdescRight">Update settings values.  <a href="classrr_1_1Solver.html#a19315632eeab070bdbfe2fa4ae66ca6c">More...</a><br /></td></tr>
+<tr class="separator:a19315632eeab070bdbfe2fa4ae66ca6c inherit pub_methods_classrr_1_1Solver"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ae2b13c6ae06980b14a80e8a32766dcfa inherit pub_methods_classrr_1_1Solver"><td class="memItemLeft" align="right" valign="top">std::vector&lt; std::string &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classrr_1_1Solver.html#ae2b13c6ae06980b14a80e8a32766dcfa">getSettings</a> () const</td></tr>
+<tr class="memdesc:ae2b13c6ae06980b14a80e8a32766dcfa inherit pub_methods_classrr_1_1Solver"><td class="mdescLeft">&#160;</td><td class="mdescRight">Get a list of all settings for this solver.  <a href="classrr_1_1Solver.html#ae2b13c6ae06980b14a80e8a32766dcfa">More...</a><br /></td></tr>
+<tr class="separator:ae2b13c6ae06980b14a80e8a32766dcfa inherit pub_methods_classrr_1_1Solver"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a925e4dae5c4e3e71a2983dc58af9e550 inherit pub_methods_classrr_1_1Solver"><td class="memItemLeft" align="right" valign="top">std::unordered_map&lt; std::string, <a class="el" href="classrr_1_1Setting.html">Setting</a> &gt; &amp;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classrr_1_1Solver.html#a925e4dae5c4e3e71a2983dc58af9e550">getSettingsMap</a> ()</td></tr>
+<tr class="memdesc:a925e4dae5c4e3e71a2983dc58af9e550 inherit pub_methods_classrr_1_1Solver"><td class="mdescLeft">&#160;</td><td class="mdescRight">get settings for this solver  <a href="classrr_1_1Solver.html#a925e4dae5c4e3e71a2983dc58af9e550">More...</a><br /></td></tr>
+<tr class="separator:a925e4dae5c4e3e71a2983dc58af9e550 inherit pub_methods_classrr_1_1Solver"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a87339915a211b22ecd63078bb1cb7ca9 inherit pub_methods_classrr_1_1Solver"><td class="memItemLeft" align="right" valign="top">virtual <a class="el" href="classrr_1_1Setting.html">Setting</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classrr_1_1Solver.html#a87339915a211b22ecd63078bb1cb7ca9">getValue</a> (const std::string &amp;key) const</td></tr>
+<tr class="memdesc:a87339915a211b22ecd63078bb1cb7ca9 inherit pub_methods_classrr_1_1Solver"><td class="mdescLeft">&#160;</td><td class="mdescRight">Get the value of an integrator setting.  <a href="classrr_1_1Solver.html#a87339915a211b22ecd63078bb1cb7ca9">More...</a><br /></td></tr>
+<tr class="separator:a87339915a211b22ecd63078bb1cb7ca9 inherit pub_methods_classrr_1_1Solver"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:afc1e25855220cbe469433c70f8c44ea5 inherit pub_methods_classrr_1_1Solver"><td class="memItemLeft" align="right" valign="top">virtual <a class="el" href="classrr_1_1Setting.html">Setting</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classrr_1_1Solver.html#afc1e25855220cbe469433c70f8c44ea5">hasValue</a> (const std::string &amp;key) const</td></tr>
+<tr class="memdesc:afc1e25855220cbe469433c70f8c44ea5 inherit pub_methods_classrr_1_1Solver"><td class="mdescLeft">&#160;</td><td class="mdescRight">Return true if this setting is supported by the integrator.  <a href="classrr_1_1Solver.html#afc1e25855220cbe469433c70f8c44ea5">More...</a><br /></td></tr>
+<tr class="separator:afc1e25855220cbe469433c70f8c44ea5 inherit pub_methods_classrr_1_1Solver"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:abbefd0f38dfa2651c74f8abbd6d7b143 inherit pub_methods_classrr_1_1Solver"><td class="memItemLeft" align="right" valign="top">virtual size_t&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classrr_1_1Solver.html#abbefd0f38dfa2651c74f8abbd6d7b143">getNumParams</a> () const</td></tr>
 <tr class="memdesc:abbefd0f38dfa2651c74f8abbd6d7b143 inherit pub_methods_classrr_1_1Solver"><td class="mdescLeft">&#160;</td><td class="mdescRight">Get the number of parameters.  <a href="classrr_1_1Solver.html#abbefd0f38dfa2651c74f8abbd6d7b143">More...</a><br /></td></tr>
 <tr class="separator:abbefd0f38dfa2651c74f8abbd6d7b143 inherit pub_methods_classrr_1_1Solver"><td class="memSeparator" colspan="2">&#160;</td></tr>
@@ -202,58 +230,31 @@ std::string&#160;</td><td class="memItemRight" valign="bottom"><a class="el" hre
 <tr class="memitem:aa13e13a92531fde27fe5711790eee0f7 inherit pub_methods_classrr_1_1Solver"><td class="memItemLeft" align="right" valign="top">virtual std::string&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classrr_1_1Solver.html#aa13e13a92531fde27fe5711790eee0f7">getParamDesc</a> (int n) const</td></tr>
 <tr class="memdesc:aa13e13a92531fde27fe5711790eee0f7 inherit pub_methods_classrr_1_1Solver"><td class="mdescLeft">&#160;</td><td class="mdescRight">Get the description of the parameter at index n.  <a href="classrr_1_1Solver.html#aa13e13a92531fde27fe5711790eee0f7">More...</a><br /></td></tr>
 <tr class="separator:aa13e13a92531fde27fe5711790eee0f7 inherit pub_methods_classrr_1_1Solver"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a415242398d22d3145ff68afbb73d6b07 inherit pub_methods_classrr_1_1Solver"><td class="memItemLeft" align="right" valign="top">virtual int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classrr_1_1Solver.html#a415242398d22d3145ff68afbb73d6b07">getValueAsInt</a> (std::string key)</td></tr>
-<tr class="memdesc:a415242398d22d3145ff68afbb73d6b07 inherit pub_methods_classrr_1_1Solver"><td class="mdescLeft">&#160;</td><td class="mdescRight">Wrapper for <a class="el" href="classrr_1_1Solver.html#a773a06f0d64c9d79423efcef1b381da1">getValue</a> which converts output to a specific type.  <a href="classrr_1_1Solver.html#a415242398d22d3145ff68afbb73d6b07">More...</a><br /></td></tr>
-<tr class="separator:a415242398d22d3145ff68afbb73d6b07 inherit pub_methods_classrr_1_1Solver"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a293296661e45b8cb3a092cf8ed5a196b inherit pub_methods_classrr_1_1Solver"><td class="memItemLeft" align="right" valign="top">virtual unsigned int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classrr_1_1Solver.html#a293296661e45b8cb3a092cf8ed5a196b">getValueAsUInt</a> (std::string key)</td></tr>
-<tr class="memdesc:a293296661e45b8cb3a092cf8ed5a196b inherit pub_methods_classrr_1_1Solver"><td class="mdescLeft">&#160;</td><td class="mdescRight">Wrapper for <a class="el" href="classrr_1_1Solver.html#a773a06f0d64c9d79423efcef1b381da1">getValue</a> which converts output to a specific type.  <a href="classrr_1_1Solver.html#a293296661e45b8cb3a092cf8ed5a196b">More...</a><br /></td></tr>
-<tr class="separator:a293296661e45b8cb3a092cf8ed5a196b inherit pub_methods_classrr_1_1Solver"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a858ce4395c8005ddec5a3ee811eda33a inherit pub_methods_classrr_1_1Solver"><td class="memItemLeft" align="right" valign="top">virtual long&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classrr_1_1Solver.html#a858ce4395c8005ddec5a3ee811eda33a">getValueAsLong</a> (std::string key)</td></tr>
-<tr class="memdesc:a858ce4395c8005ddec5a3ee811eda33a inherit pub_methods_classrr_1_1Solver"><td class="mdescLeft">&#160;</td><td class="mdescRight">Wrapper for <a class="el" href="classrr_1_1Solver.html#a773a06f0d64c9d79423efcef1b381da1">getValue</a> which converts output to a specific type.  <a href="classrr_1_1Solver.html#a858ce4395c8005ddec5a3ee811eda33a">More...</a><br /></td></tr>
-<tr class="separator:a858ce4395c8005ddec5a3ee811eda33a inherit pub_methods_classrr_1_1Solver"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:aafabb2cc0b41558dc3edae324977372c inherit pub_methods_classrr_1_1Solver"><td class="memItemLeft" align="right" valign="top">virtual unsigned long&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classrr_1_1Solver.html#aafabb2cc0b41558dc3edae324977372c">getValueAsULong</a> (std::string key)</td></tr>
-<tr class="memdesc:aafabb2cc0b41558dc3edae324977372c inherit pub_methods_classrr_1_1Solver"><td class="mdescLeft">&#160;</td><td class="mdescRight">Wrapper for <a class="el" href="classrr_1_1Solver.html#a773a06f0d64c9d79423efcef1b381da1">getValue</a> which converts output to a specific type.  <a href="classrr_1_1Solver.html#aafabb2cc0b41558dc3edae324977372c">More...</a><br /></td></tr>
-<tr class="separator:aafabb2cc0b41558dc3edae324977372c inherit pub_methods_classrr_1_1Solver"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ad30b0e354acd5025b3162db55f1baa93 inherit pub_methods_classrr_1_1Solver"><td class="memItemLeft" align="right" valign="top">virtual float&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classrr_1_1Solver.html#ad30b0e354acd5025b3162db55f1baa93">getValueAsFloat</a> (std::string key)</td></tr>
-<tr class="memdesc:ad30b0e354acd5025b3162db55f1baa93 inherit pub_methods_classrr_1_1Solver"><td class="mdescLeft">&#160;</td><td class="mdescRight">Wrapper for <a class="el" href="classrr_1_1Solver.html#a773a06f0d64c9d79423efcef1b381da1">getValue</a> which converts output to a specific type.  <a href="classrr_1_1Solver.html#ad30b0e354acd5025b3162db55f1baa93">More...</a><br /></td></tr>
-<tr class="separator:ad30b0e354acd5025b3162db55f1baa93 inherit pub_methods_classrr_1_1Solver"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a46987712b9dee2da90c7124761186eb1 inherit pub_methods_classrr_1_1Solver"><td class="memItemLeft" align="right" valign="top">virtual double&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classrr_1_1Solver.html#a46987712b9dee2da90c7124761186eb1">getValueAsDouble</a> (std::string key)</td></tr>
-<tr class="memdesc:a46987712b9dee2da90c7124761186eb1 inherit pub_methods_classrr_1_1Solver"><td class="mdescLeft">&#160;</td><td class="mdescRight">Wrapper for <a class="el" href="classrr_1_1Solver.html#a773a06f0d64c9d79423efcef1b381da1">getValue</a> which converts output to a specific type.  <a href="classrr_1_1Solver.html#a46987712b9dee2da90c7124761186eb1">More...</a><br /></td></tr>
-<tr class="separator:a46987712b9dee2da90c7124761186eb1 inherit pub_methods_classrr_1_1Solver"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a449a23882706072f4cfaa416887e42d3 inherit pub_methods_classrr_1_1Solver"><td class="memItemLeft" align="right" valign="top"><a id="a449a23882706072f4cfaa416887e42d3"></a>
-virtual std::vector&lt; double &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classrr_1_1Solver.html#a449a23882706072f4cfaa416887e42d3">getValueAsDoubleVector</a> (std::string key)</td></tr>
-<tr class="memdesc:a449a23882706072f4cfaa416887e42d3 inherit pub_methods_classrr_1_1Solver"><td class="mdescLeft">&#160;</td><td class="mdescRight">Wrapper for <a class="el" href="classrr_1_1Solver.html#a773a06f0d64c9d79423efcef1b381da1">getValue</a> which converts output to a specific type. <br /></td></tr>
-<tr class="separator:a449a23882706072f4cfaa416887e42d3 inherit pub_methods_classrr_1_1Solver"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a9bc55d0247a3aa629b0ab8f247ee009c inherit pub_methods_classrr_1_1Solver"><td class="memItemLeft" align="right" valign="top">virtual char&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classrr_1_1Solver.html#a9bc55d0247a3aa629b0ab8f247ee009c">getValueAsChar</a> (std::string key)</td></tr>
-<tr class="memdesc:a9bc55d0247a3aa629b0ab8f247ee009c inherit pub_methods_classrr_1_1Solver"><td class="mdescLeft">&#160;</td><td class="mdescRight">Wrapper for <a class="el" href="classrr_1_1Solver.html#a773a06f0d64c9d79423efcef1b381da1">getValue</a> which converts output to a specific type.  <a href="classrr_1_1Solver.html#a9bc55d0247a3aa629b0ab8f247ee009c">More...</a><br /></td></tr>
-<tr class="separator:a9bc55d0247a3aa629b0ab8f247ee009c inherit pub_methods_classrr_1_1Solver"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ae21e55aeea202e9151112fa00a4c0f82 inherit pub_methods_classrr_1_1Solver"><td class="memItemLeft" align="right" valign="top">virtual unsigned char&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classrr_1_1Solver.html#ae21e55aeea202e9151112fa00a4c0f82">getValueAsUChar</a> (std::string key)</td></tr>
-<tr class="memdesc:ae21e55aeea202e9151112fa00a4c0f82 inherit pub_methods_classrr_1_1Solver"><td class="mdescLeft">&#160;</td><td class="mdescRight">Wrapper for <a class="el" href="classrr_1_1Solver.html#a773a06f0d64c9d79423efcef1b381da1">getValue</a> which converts output to a specific type.  <a href="classrr_1_1Solver.html#ae21e55aeea202e9151112fa00a4c0f82">More...</a><br /></td></tr>
-<tr class="separator:ae21e55aeea202e9151112fa00a4c0f82 inherit pub_methods_classrr_1_1Solver"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a6960c38714621daab7e92eadede5f83c inherit pub_methods_classrr_1_1Solver"><td class="memItemLeft" align="right" valign="top">virtual std::string&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classrr_1_1Solver.html#a6960c38714621daab7e92eadede5f83c">getValueAsString</a> (std::string key)</td></tr>
-<tr class="memdesc:a6960c38714621daab7e92eadede5f83c inherit pub_methods_classrr_1_1Solver"><td class="mdescLeft">&#160;</td><td class="mdescRight">Wrapper for <a class="el" href="classrr_1_1Solver.html#a773a06f0d64c9d79423efcef1b381da1">getValue</a> which converts output to a specific type.  <a href="classrr_1_1Solver.html#a6960c38714621daab7e92eadede5f83c">More...</a><br /></td></tr>
-<tr class="separator:a6960c38714621daab7e92eadede5f83c inherit pub_methods_classrr_1_1Solver"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a9f6e5069f1606a5f5e3d517ee01cfede inherit pub_methods_classrr_1_1Solver"><td class="memItemLeft" align="right" valign="top">virtual bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classrr_1_1Solver.html#a9f6e5069f1606a5f5e3d517ee01cfede">getValueAsBool</a> (std::string key)</td></tr>
-<tr class="memdesc:a9f6e5069f1606a5f5e3d517ee01cfede inherit pub_methods_classrr_1_1Solver"><td class="mdescLeft">&#160;</td><td class="mdescRight">Wrapper for <a class="el" href="classrr_1_1Solver.html#a773a06f0d64c9d79423efcef1b381da1">getValue</a> which converts output to a specific type.  <a href="classrr_1_1Solver.html#a9f6e5069f1606a5f5e3d517ee01cfede">More...</a><br /></td></tr>
-<tr class="separator:a9f6e5069f1606a5f5e3d517ee01cfede inherit pub_methods_classrr_1_1Solver"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a1242e881aa76493f73c4e32784c1cec6 inherit pub_methods_classrr_1_1Solver"><td class="memItemLeft" align="right" valign="top">const std::string &amp;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classrr_1_1Solver.html#a1242e881aa76493f73c4e32784c1cec6">getDisplayName</a> (std::string key) const</td></tr>
-<tr class="memdesc:a1242e881aa76493f73c4e32784c1cec6 inherit pub_methods_classrr_1_1Solver"><td class="mdescLeft">&#160;</td><td class="mdescRight">Gets the hint associated with a given key.  <a href="classrr_1_1Solver.html#a1242e881aa76493f73c4e32784c1cec6">More...</a><br /></td></tr>
-<tr class="separator:a1242e881aa76493f73c4e32784c1cec6 inherit pub_methods_classrr_1_1Solver"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a7cef64c1874bd5cb95ddff1399e04c45 inherit pub_methods_classrr_1_1Solver"><td class="memItemLeft" align="right" valign="top">const std::string &amp;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classrr_1_1Solver.html#a7cef64c1874bd5cb95ddff1399e04c45">getHint</a> (std::string key) const</td></tr>
-<tr class="memdesc:a7cef64c1874bd5cb95ddff1399e04c45 inherit pub_methods_classrr_1_1Solver"><td class="mdescLeft">&#160;</td><td class="mdescRight">Gets the hint associated with a given key.  <a href="classrr_1_1Solver.html#a7cef64c1874bd5cb95ddff1399e04c45">More...</a><br /></td></tr>
-<tr class="separator:a7cef64c1874bd5cb95ddff1399e04c45 inherit pub_methods_classrr_1_1Solver"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a63d1ab12d862663336c74721f67354f3 inherit pub_methods_classrr_1_1Solver"><td class="memItemLeft" align="right" valign="top">const std::string &amp;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classrr_1_1Solver.html#a63d1ab12d862663336c74721f67354f3">getDescription</a> (std::string key) const</td></tr>
-<tr class="memdesc:a63d1ab12d862663336c74721f67354f3 inherit pub_methods_classrr_1_1Solver"><td class="mdescLeft">&#160;</td><td class="mdescRight">Gets the description associated with a given key.  <a href="classrr_1_1Solver.html#a63d1ab12d862663336c74721f67354f3">More...</a><br /></td></tr>
-<tr class="separator:a63d1ab12d862663336c74721f67354f3 inherit pub_methods_classrr_1_1Solver"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a20add37bbd73f50d14047171f5f8e921 inherit pub_methods_classrr_1_1Solver"><td class="memItemLeft" align="right" valign="top">const <a class="el" href="classrr_1_1Variant.html#a64c7b2189f8d391527919e46a72402a8">Variant::TypeId</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classrr_1_1Solver.html#a20add37bbd73f50d14047171f5f8e921">getType</a> (std::string key)</td></tr>
-<tr class="memdesc:a20add37bbd73f50d14047171f5f8e921 inherit pub_methods_classrr_1_1Solver"><td class="mdescLeft">&#160;</td><td class="mdescRight">Gets the type associated with a given key.  <a href="classrr_1_1Solver.html#a20add37bbd73f50d14047171f5f8e921">More...</a><br /></td></tr>
-<tr class="separator:a20add37bbd73f50d14047171f5f8e921 inherit pub_methods_classrr_1_1Solver"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a3f7a3671a4f2ee508fa015ed4b164213 inherit pub_methods_classrr_1_1Solver"><td class="memItemLeft" align="right" valign="top">std::string&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classrr_1_1Solver.html#a3f7a3671a4f2ee508fa015ed4b164213">getSettingsRepr</a> () const</td></tr>
-<tr class="memdesc:a3f7a3671a4f2ee508fa015ed4b164213 inherit pub_methods_classrr_1_1Solver"><td class="mdescLeft">&#160;</td><td class="mdescRight">Get the solver settings as a string.  <a href="classrr_1_1Solver.html#a3f7a3671a4f2ee508fa015ed4b164213">More...</a><br /></td></tr>
+<tr class="memitem:a83b99af970b895d62998bf90ec619168 inherit pub_methods_classrr_1_1Solver"><td class="memItemLeft" align="right" valign="top">virtual std::string&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classrr_1_1Solver.html#a83b99af970b895d62998bf90ec619168">getValueAsString</a> (const std::string &amp;key)</td></tr>
+<tr class="memdesc:a83b99af970b895d62998bf90ec619168 inherit pub_methods_classrr_1_1Solver"><td class="mdescLeft">&#160;</td><td class="mdescRight">Wrapper for <a class="el" href="classrr_1_1Solver.html#a87339915a211b22ecd63078bb1cb7ca9">getValue</a> which converts output to a specific type.  <a href="classrr_1_1Solver.html#a83b99af970b895d62998bf90ec619168">More...</a><br /></td></tr>
+<tr class="separator:a83b99af970b895d62998bf90ec619168 inherit pub_methods_classrr_1_1Solver"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a3f7a3671a4f2ee508fa015ed4b164213 inherit pub_methods_classrr_1_1Solver"><td class="memItemLeft" align="right" valign="top">virtual std::string&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classrr_1_1Solver.html#a3f7a3671a4f2ee508fa015ed4b164213">getSettingsRepr</a> () const</td></tr>
+<tr class="memdesc:a3f7a3671a4f2ee508fa015ed4b164213 inherit pub_methods_classrr_1_1Solver"><td class="mdescLeft">&#160;</td><td class="mdescRight">Get the solver settings as a std::string.  <a href="classrr_1_1Solver.html#a3f7a3671a4f2ee508fa015ed4b164213">More...</a><br /></td></tr>
 <tr class="separator:a3f7a3671a4f2ee508fa015ed4b164213 inherit pub_methods_classrr_1_1Solver"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a37b032d8755eaccd3480531bdc2a4596 inherit pub_methods_classrr_1_1Solver"><td class="memItemLeft" align="right" valign="top">std::string&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classrr_1_1Solver.html#a37b032d8755eaccd3480531bdc2a4596">settingsPyDictRepr</a> () const</td></tr>
-<tr class="memdesc:a37b032d8755eaccd3480531bdc2a4596 inherit pub_methods_classrr_1_1Solver"><td class="mdescLeft">&#160;</td><td class="mdescRight">Python dictionary-style string representation of settings.  <a href="classrr_1_1Solver.html#a37b032d8755eaccd3480531bdc2a4596">More...</a><br /></td></tr>
+<tr class="memitem:a37b032d8755eaccd3480531bdc2a4596 inherit pub_methods_classrr_1_1Solver"><td class="memItemLeft" align="right" valign="top">virtual std::string&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classrr_1_1Solver.html#a37b032d8755eaccd3480531bdc2a4596">settingsPyDictRepr</a> () const</td></tr>
+<tr class="memdesc:a37b032d8755eaccd3480531bdc2a4596 inherit pub_methods_classrr_1_1Solver"><td class="mdescLeft">&#160;</td><td class="mdescRight">Python dictionary-style std::string representation of settings.  <a href="classrr_1_1Solver.html#a37b032d8755eaccd3480531bdc2a4596">More...</a><br /></td></tr>
 <tr class="separator:a37b032d8755eaccd3480531bdc2a4596 inherit pub_methods_classrr_1_1Solver"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a1fce02df70c95855d9d3cd7e3d352c08 inherit pub_methods_classrr_1_1Solver"><td class="memItemLeft" align="right" valign="top">const std::string &amp;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classrr_1_1Solver.html#a1fce02df70c95855d9d3cd7e3d352c08">getDisplayName</a> (const std::string &amp;key) const</td></tr>
+<tr class="memdesc:a1fce02df70c95855d9d3cd7e3d352c08 inherit pub_methods_classrr_1_1Solver"><td class="mdescLeft">&#160;</td><td class="mdescRight">Gets the hint associated with a given key.  <a href="classrr_1_1Solver.html#a1fce02df70c95855d9d3cd7e3d352c08">More...</a><br /></td></tr>
+<tr class="separator:a1fce02df70c95855d9d3cd7e3d352c08 inherit pub_methods_classrr_1_1Solver"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a4915611d49d03f0fe499bed99a05aae1 inherit pub_methods_classrr_1_1Solver"><td class="memItemLeft" align="right" valign="top">const std::string &amp;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classrr_1_1Solver.html#a4915611d49d03f0fe499bed99a05aae1">getHint</a> (const std::string &amp;key) const</td></tr>
+<tr class="memdesc:a4915611d49d03f0fe499bed99a05aae1 inherit pub_methods_classrr_1_1Solver"><td class="mdescLeft">&#160;</td><td class="mdescRight">Gets the hint associated with a given key.  <a href="classrr_1_1Solver.html#a4915611d49d03f0fe499bed99a05aae1">More...</a><br /></td></tr>
+<tr class="separator:a4915611d49d03f0fe499bed99a05aae1 inherit pub_methods_classrr_1_1Solver"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a522a881e88165986944db55a8f2da845 inherit pub_methods_classrr_1_1Solver"><td class="memItemLeft" align="right" valign="top">const std::string &amp;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classrr_1_1Solver.html#a522a881e88165986944db55a8f2da845">getDescription</a> (const std::string &amp;key) const</td></tr>
+<tr class="memdesc:a522a881e88165986944db55a8f2da845 inherit pub_methods_classrr_1_1Solver"><td class="mdescLeft">&#160;</td><td class="mdescRight">Gets the description associated with a given key.  <a href="classrr_1_1Solver.html#a522a881e88165986944db55a8f2da845">More...</a><br /></td></tr>
+<tr class="separator:a522a881e88165986944db55a8f2da845 inherit pub_methods_classrr_1_1Solver"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a0bd064d494a0701edffca5eb67b64b2a inherit pub_methods_classrr_1_1Solver"><td class="memItemLeft" align="right" valign="top"><a class="el" href="classrr_1_1Setting.html#af49342a0fabdeeafe649246089a72b40">Setting::TypeId</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classrr_1_1Solver.html#a0bd064d494a0701edffca5eb67b64b2a">getType</a> (const std::string &amp;key) const</td></tr>
+<tr class="memdesc:a0bd064d494a0701edffca5eb67b64b2a inherit pub_methods_classrr_1_1Solver"><td class="mdescLeft">&#160;</td><td class="mdescRight">Gets the type associated with a given key.  <a href="classrr_1_1Solver.html#a0bd064d494a0701edffca5eb67b64b2a">More...</a><br /></td></tr>
+<tr class="separator:a0bd064d494a0701edffca5eb67b64b2a inherit pub_methods_classrr_1_1Solver"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ac89194d54aaad3ecc71e1cfbbef83d15 inherit pub_methods_classrr_1_1Solver"><td class="memItemLeft" align="right" valign="top"><a id="ac89194d54aaad3ecc71e1cfbbef83d15"></a>
+virtual <a class="el" href="classrr_1_1ExecutableModel.html">ExecutableModel</a> *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classrr_1_1Solver.html#ac89194d54aaad3ecc71e1cfbbef83d15">getModel</a> () const</td></tr>
+<tr class="memdesc:ac89194d54aaad3ecc71e1cfbbef83d15 inherit pub_methods_classrr_1_1Solver"><td class="mdescLeft">&#160;</td><td class="mdescRight">returns the pointer to the <a class="el" href="classrr_1_1ExecutableModel.html" title="Base class for all code generation systems; allows compiling and evaluating the model.">ExecutableModel</a> <br /></td></tr>
+<tr class="separator:ac89194d54aaad3ecc71e1cfbbef83d15 inherit pub_methods_classrr_1_1Solver"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pub-static-methods"></a>
 Static Public Member Functions</h2></td></tr>
@@ -286,25 +287,25 @@ Additional Inherited Members</h2></td></tr>
  }</td></tr>
 <tr class="separator:a0912499450e66cb4301263362d64a0d0 inherit pub_types_classrr_1_1Integrator"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="inherit_header pro_types_classrr_1_1Solver"><td colspan="2" onclick="javascript:toggleInherit('pro_types_classrr_1_1Solver')"><img src="closed.png" alt="-"/>&#160;Protected Types inherited from <a class="el" href="classrr_1_1Solver.html">rr::Solver</a></td></tr>
-<tr class="memitem:a970d11482faab2f17428c760f3ec8240 inherit pro_types_classrr_1_1Solver"><td class="memItemLeft" align="right" valign="top"><a id="a970d11482faab2f17428c760f3ec8240"></a>
-typedef std::vector&lt; std::string &gt;&#160;</td><td class="memItemRight" valign="bottom"><b>SettingsList</b></td></tr>
-<tr class="separator:a970d11482faab2f17428c760f3ec8240 inherit pro_types_classrr_1_1Solver"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a84e22bdecb76b77ddfbc8efda8219401 inherit pro_types_classrr_1_1Solver"><td class="memItemLeft" align="right" valign="top"><a id="a84e22bdecb76b77ddfbc8efda8219401"></a>
-typedef RR_UNORDERED_MAP&lt; std::string, <a class="el" href="classrr_1_1Variant.html">Variant</a> &gt;&#160;</td><td class="memItemRight" valign="bottom"><b>SettingsMap</b></td></tr>
-<tr class="separator:a84e22bdecb76b77ddfbc8efda8219401 inherit pro_types_classrr_1_1Solver"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:afa810f2707ef6160e05c92e5812a8c6a inherit pro_types_classrr_1_1Solver"><td class="memItemLeft" align="right" valign="top"><a id="afa810f2707ef6160e05c92e5812a8c6a"></a>
-typedef RR_UNORDERED_MAP&lt; std::string, std::string &gt;&#160;</td><td class="memItemRight" valign="bottom"><b>DisplayNameMap</b></td></tr>
-<tr class="separator:afa810f2707ef6160e05c92e5812a8c6a inherit pro_types_classrr_1_1Solver"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ab7675259f65ff348aa430747e48f0f90 inherit pro_types_classrr_1_1Solver"><td class="memItemLeft" align="right" valign="top"><a id="ab7675259f65ff348aa430747e48f0f90"></a>
-typedef RR_UNORDERED_MAP&lt; std::string, std::string &gt;&#160;</td><td class="memItemRight" valign="bottom"><b>HintMap</b></td></tr>
-<tr class="separator:ab7675259f65ff348aa430747e48f0f90 inherit pro_types_classrr_1_1Solver"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a897a8b06197a02d72931de637bc9ac89 inherit pro_types_classrr_1_1Solver"><td class="memItemLeft" align="right" valign="top"><a id="a897a8b06197a02d72931de637bc9ac89"></a>
-typedef RR_UNORDERED_MAP&lt; std::string, std::string &gt;&#160;</td><td class="memItemRight" valign="bottom"><b>DescriptionMap</b></td></tr>
-<tr class="separator:a897a8b06197a02d72931de637bc9ac89 inherit pro_types_classrr_1_1Solver"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:adcbacd57e2871a83bb9c4d7a4038a069 inherit pro_types_classrr_1_1Solver"><td class="memItemLeft" align="right" valign="top"><a id="adcbacd57e2871a83bb9c4d7a4038a069"></a>
+using&#160;</td><td class="memItemRight" valign="bottom"><b>SettingsList</b> = std::vector&lt; std::string &gt;</td></tr>
+<tr class="separator:adcbacd57e2871a83bb9c4d7a4038a069 inherit pro_types_classrr_1_1Solver"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a61c0fd04ad69fc173c51dac3bdde2431 inherit pro_types_classrr_1_1Solver"><td class="memItemLeft" align="right" valign="top"><a id="a61c0fd04ad69fc173c51dac3bdde2431"></a>
+using&#160;</td><td class="memItemRight" valign="bottom"><b>SettingsMap</b> = std::unordered_map&lt; std::string, <a class="el" href="classrr_1_1Setting.html">Setting</a> &gt;</td></tr>
+<tr class="separator:a61c0fd04ad69fc173c51dac3bdde2431 inherit pro_types_classrr_1_1Solver"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a76b76c8ba3a31a2c6a600322c90a0452 inherit pro_types_classrr_1_1Solver"><td class="memItemLeft" align="right" valign="top"><a id="a76b76c8ba3a31a2c6a600322c90a0452"></a>
+using&#160;</td><td class="memItemRight" valign="bottom"><b>DisplayNameMap</b> = std::unordered_map&lt; std::string, std::string &gt;</td></tr>
+<tr class="separator:a76b76c8ba3a31a2c6a600322c90a0452 inherit pro_types_classrr_1_1Solver"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ac39f2073d482cdf591d93415557c6751 inherit pro_types_classrr_1_1Solver"><td class="memItemLeft" align="right" valign="top"><a id="ac39f2073d482cdf591d93415557c6751"></a>
+using&#160;</td><td class="memItemRight" valign="bottom"><b>HintMap</b> = std::unordered_map&lt; std::string, std::string &gt;</td></tr>
+<tr class="separator:ac39f2073d482cdf591d93415557c6751 inherit pro_types_classrr_1_1Solver"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a7d58e224664ab44e56f90802d9601f01 inherit pro_types_classrr_1_1Solver"><td class="memItemLeft" align="right" valign="top"><a id="a7d58e224664ab44e56f90802d9601f01"></a>
+using&#160;</td><td class="memItemRight" valign="bottom"><b>DescriptionMap</b> = std::unordered_map&lt; std::string, std::string &gt;</td></tr>
+<tr class="separator:a7d58e224664ab44e56f90802d9601f01 inherit pro_types_classrr_1_1Solver"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="inherit_header pro_methods_classrr_1_1Solver"><td colspan="2" onclick="javascript:toggleInherit('pro_methods_classrr_1_1Solver')"><img src="closed.png" alt="-"/>&#160;Protected Member Functions inherited from <a class="el" href="classrr_1_1Solver.html">rr::Solver</a></td></tr>
-<tr class="memitem:aec6b159d96d73f2baafc74578b129ce8 inherit pro_methods_classrr_1_1Solver"><td class="memItemLeft" align="right" valign="top"><a id="aec6b159d96d73f2baafc74578b129ce8"></a>
-void&#160;</td><td class="memItemRight" valign="bottom"><b>addSetting</b> (std::string name, <a class="el" href="classrr_1_1Variant.html">Variant</a> val, string display_name, std::string hint, std::string description)</td></tr>
-<tr class="separator:aec6b159d96d73f2baafc74578b129ce8 inherit pro_methods_classrr_1_1Solver"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ad5b8ac1ef687d1a3c9f1f305cb73804d inherit pro_methods_classrr_1_1Solver"><td class="memItemLeft" align="right" valign="top"><a id="ad5b8ac1ef687d1a3c9f1f305cb73804d"></a>
+void&#160;</td><td class="memItemRight" valign="bottom"><b>addSetting</b> (const std::string &amp;name, <a class="el" href="classrr_1_1Setting.html">Setting</a> val, std::string display_name, std::string hint, std::string description)</td></tr>
+<tr class="separator:ad5b8ac1ef687d1a3c9f1f305cb73804d inherit pro_methods_classrr_1_1Solver"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="inherit_header pro_attribs_classrr_1_1Solver"><td colspan="2" onclick="javascript:toggleInherit('pro_attribs_classrr_1_1Solver')"><img src="closed.png" alt="-"/>&#160;Protected Attributes inherited from <a class="el" href="classrr_1_1Solver.html">rr::Solver</a></td></tr>
 <tr class="memitem:a99f48947491d7cd36c68cebba53915fe inherit pro_attribs_classrr_1_1Solver"><td class="memItemLeft" align="right" valign="top"><a id="a99f48947491d7cd36c68cebba53915fe"></a>
 SettingsList&#160;</td><td class="memItemRight" valign="bottom"><b>sorted_settings</b></td></tr>
@@ -321,6 +322,10 @@ HintMap&#160;</td><td class="memItemRight" valign="bottom"><b>hints</b></td></tr
 <tr class="memitem:a7e07121f652db358045d6f7b95889ea3 inherit pro_attribs_classrr_1_1Solver"><td class="memItemLeft" align="right" valign="top"><a id="a7e07121f652db358045d6f7b95889ea3"></a>
 DescriptionMap&#160;</td><td class="memItemRight" valign="bottom"><b>descriptions</b></td></tr>
 <tr class="separator:a7e07121f652db358045d6f7b95889ea3 inherit pro_attribs_classrr_1_1Solver"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ab60e7640a8c959558a144d9d7ee45515 inherit pro_attribs_classrr_1_1Solver"><td class="memItemLeft" align="right" valign="top"><a id="ab60e7640a8c959558a144d9d7ee45515"></a>
+<a class="el" href="classrr_1_1ExecutableModel.html">ExecutableModel</a> *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classrr_1_1Solver.html#ab60e7640a8c959558a144d9d7ee45515">mModel</a> = nullptr</td></tr>
+<tr class="memdesc:ab60e7640a8c959558a144d9d7ee45515 inherit pro_attribs_classrr_1_1Solver"><td class="mdescLeft">&#160;</td><td class="mdescRight">non-owning pointer to model <br /></td></tr>
+<tr class="separator:ab60e7640a8c959558a144d9d7ee45515 inherit pro_attribs_classrr_1_1Solver"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
 <div class="textblock"><p>A <a class="el" href="classrr_1_1RoadRunner.html" title="The main RoadRunner class.">RoadRunner</a> integrator based on CVODE; serves as <a class="el" href="classrr_1_1RoadRunner.html" title="The main RoadRunner class.">RoadRunner</a>'s main integrator for ODEs. </p>
@@ -331,6 +336,9 @@ DescriptionMap&#160;</td><td class="memItemRight" valign="bottom"><b>description
 
 <div class="memitem">
 <div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
       <table class="memname">
         <tr>
           <td class="memname">rr::CVODEIntegrator::CVODEIntegrator </td>
@@ -340,6 +348,11 @@ DescriptionMap&#160;</td><td class="memItemRight" valign="bottom"><b>description
           <td></td>
         </tr>
       </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">explicit</span></span>  </td>
+  </tr>
+</table>
 </div><div class="memdoc">
 
 <p>Constructor: takes an executable model, does not own the pointer. </p>
@@ -347,8 +360,8 @@ DescriptionMap&#160;</td><td class="memItemRight" valign="bottom"><b>description
 
 </div>
 </div>
-<a id="aa2297bb73f99304ea620312f53bc2eb7"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#aa2297bb73f99304ea620312f53bc2eb7">&#9670;&nbsp;</a></span>~CVODEIntegrator()</h2>
+<a id="ad60746a373a8de7a5163d56475bfd55c"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ad60746a373a8de7a5163d56475bfd55c">&#9670;&nbsp;</a></span>~CVODEIntegrator()</h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -365,7 +378,7 @@ DescriptionMap&#160;</td><td class="memItemRight" valign="bottom"><b>description
       </table>
   </td>
   <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">virtual</span></span>  </td>
+<span class="mlabels"><span class="mlabel">override</span></span>  </td>
   </tr>
 </table>
 </div><div class="memdoc">
@@ -458,8 +471,8 @@ DescriptionMap&#160;</td><td class="memItemRight" valign="bottom"><b>description
 
 </div>
 </div>
-<a id="ab4c042d6db38872117a3c0196c3af9cf"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#ab4c042d6db38872117a3c0196c3af9cf">&#9670;&nbsp;</a></span>getConcentrationTolerance()</h2>
+<a id="a7f68228148cf04688881f636a34deb48"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a7f68228148cf04688881f636a34deb48">&#9670;&nbsp;</a></span>getConcentrationTolerance()</h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -468,7 +481,7 @@ DescriptionMap&#160;</td><td class="memItemRight" valign="bottom"><b>description
   <td class="mlabels-left">
       <table class="memname">
         <tr>
-          <td class="memname">vector&lt; double &gt; rr::CVODEIntegrator::getConcentrationTolerance </td>
+          <td class="memname">std::vector&lt; double &gt; rr::CVODEIntegrator::getConcentrationTolerance </td>
           <td>(</td>
           <td class="paramname"></td><td>)</td>
           <td></td>
@@ -476,7 +489,7 @@ DescriptionMap&#160;</td><td class="memItemRight" valign="bottom"><b>description
       </table>
   </td>
   <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">virtual</span></span>  </td>
+<span class="mlabels"><span class="mlabel">override</span><span class="mlabel">virtual</span></span>  </td>
   </tr>
 </table>
 </div><div class="memdoc">
@@ -572,8 +585,8 @@ DescriptionMap&#160;</td><td class="memItemRight" valign="bottom"><b>description
 
 </div>
 </div>
-<a id="a41af2579ae0fbca95fdf2eb36990e3ae"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a41af2579ae0fbca95fdf2eb36990e3ae">&#9670;&nbsp;</a></span>getDescription()</h2>
+<a id="a1c6a393504cc85f2dc236abd0cb5577a"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a1c6a393504cc85f2dc236abd0cb5577a">&#9670;&nbsp;</a></span>getDescription()</h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -590,21 +603,21 @@ DescriptionMap&#160;</td><td class="memItemRight" valign="bottom"><b>description
       </table>
   </td>
   <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">virtual</span></span>  </td>
+<span class="mlabels"><span class="mlabel">override</span><span class="mlabel">virtual</span></span>  </td>
   </tr>
 </table>
 </div><div class="memdoc">
 
 <p>Get the description for this integrator. </p>
 <dl class="section author"><dt>Author</dt><dd>WBC </dd></dl>
-<dl class="section note"><dt>Note</dt><dd>Delegates to <a class="el" href="classrr_1_1CVODEIntegrator.html#a41af2579ae0fbca95fdf2eb36990e3ae">getDescription</a> </dd></dl>
+<dl class="section note"><dt>Note</dt><dd>Delegates to <a class="el" href="classrr_1_1CVODEIntegrator.html#a1c6a393504cc85f2dc236abd0cb5577a">getDescription</a> </dd></dl>
 
 <p>Implements <a class="el" href="classrr_1_1Solver.html#a86067147c7631ca80d51667322f1a8f5">rr::Solver</a>.</p>
 
 </div>
 </div>
-<a id="a89b7e1161329480ae2fe84e7f2a8ca1e"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a89b7e1161329480ae2fe84e7f2a8ca1e">&#9670;&nbsp;</a></span>getHint()</h2>
+<a id="addde67b3639fe1347efc2a37bbfdd60e"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#addde67b3639fe1347efc2a37bbfdd60e">&#9670;&nbsp;</a></span>getHint()</h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -621,21 +634,21 @@ DescriptionMap&#160;</td><td class="memItemRight" valign="bottom"><b>description
       </table>
   </td>
   <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">virtual</span></span>  </td>
+<span class="mlabels"><span class="mlabel">override</span><span class="mlabel">virtual</span></span>  </td>
   </tr>
 </table>
 </div><div class="memdoc">
 
 <p>Get the hint for this integrator. </p>
 <dl class="section author"><dt>Author</dt><dd>WBC </dd></dl>
-<dl class="section note"><dt>Note</dt><dd>Delegates to <a class="el" href="classrr_1_1CVODEIntegrator.html#a89b7e1161329480ae2fe84e7f2a8ca1e">getHint</a> </dd></dl>
+<dl class="section note"><dt>Note</dt><dd>Delegates to <a class="el" href="classrr_1_1CVODEIntegrator.html#addde67b3639fe1347efc2a37bbfdd60e">getHint</a> </dd></dl>
 
 <p>Implements <a class="el" href="classrr_1_1Solver.html#aff005f7e71bc73123ecbd511a77f71b6">rr::Solver</a>.</p>
 
 </div>
 </div>
-<a id="a0f96e9ef8da207e68b4389631ce2eb26"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a0f96e9ef8da207e68b4389631ce2eb26">&#9670;&nbsp;</a></span>getIntegrationMethod()</h2>
+<a id="a7cc1f774e58f179fb2e69c515c9f2a1f"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a7cc1f774e58f179fb2e69c515c9f2a1f">&#9670;&nbsp;</a></span>getIntegrationMethod()</h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -652,7 +665,7 @@ DescriptionMap&#160;</td><td class="memItemRight" valign="bottom"><b>description
       </table>
   </td>
   <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">virtual</span></span>  </td>
+<span class="mlabels"><span class="mlabel">override</span><span class="mlabel">virtual</span></span>  </td>
   </tr>
 </table>
 </div><div class="memdoc">
@@ -664,8 +677,8 @@ DescriptionMap&#160;</td><td class="memItemRight" valign="bottom"><b>description
 
 </div>
 </div>
-<a id="ad1c04bdb1c00267d1a0f6b2cc5143b73"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#ad1c04bdb1c00267d1a0f6b2cc5143b73">&#9670;&nbsp;</a></span>getListener()</h2>
+<a id="a480b8dad2e4dabcdb8fec1439ab7c5f7"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a480b8dad2e4dabcdb8fec1439ab7c5f7">&#9670;&nbsp;</a></span>getListener()</h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -682,7 +695,7 @@ DescriptionMap&#160;</td><td class="memItemRight" valign="bottom"><b>description
       </table>
   </td>
   <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">virtual</span></span>  </td>
+<span class="mlabels"><span class="mlabel">override</span><span class="mlabel">virtual</span></span>  </td>
   </tr>
 </table>
 </div><div class="memdoc">
@@ -694,8 +707,8 @@ DescriptionMap&#160;</td><td class="memItemRight" valign="bottom"><b>description
 
 </div>
 </div>
-<a id="a8cf0e265974ca6cfba2b22d98c77801a"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a8cf0e265974ca6cfba2b22d98c77801a">&#9670;&nbsp;</a></span>getName()</h2>
+<a id="aa889b08549036792918c41e88e2097f4"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#aa889b08549036792918c41e88e2097f4">&#9670;&nbsp;</a></span>getName()</h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -712,21 +725,21 @@ DescriptionMap&#160;</td><td class="memItemRight" valign="bottom"><b>description
       </table>
   </td>
   <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">virtual</span></span>  </td>
+<span class="mlabels"><span class="mlabel">override</span><span class="mlabel">virtual</span></span>  </td>
   </tr>
 </table>
 </div><div class="memdoc">
 
 <p>Get the name for this integrator. </p>
 <dl class="section author"><dt>Author</dt><dd>WBC </dd></dl>
-<dl class="section note"><dt>Note</dt><dd>Delegates to <a class="el" href="classrr_1_1CVODEIntegrator.html#a8cf0e265974ca6cfba2b22d98c77801a">getName</a> </dd></dl>
+<dl class="section note"><dt>Note</dt><dd>Delegates to <a class="el" href="classrr_1_1CVODEIntegrator.html#aa889b08549036792918c41e88e2097f4">getName</a> </dd></dl>
 
 <p>Implements <a class="el" href="classrr_1_1Solver.html#a417cca64a18c63535f2091584f8fed91">rr::Solver</a>.</p>
 
 </div>
 </div>
-<a id="acab8c62349294152e2b331bea7585166"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#acab8c62349294152e2b331bea7585166">&#9670;&nbsp;</a></span>integrate()</h2>
+<a id="a1e29429af0ec90aa2f47be15bbe8856c"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a1e29429af0ec90aa2f47be15bbe8856c">&#9670;&nbsp;</a></span>integrate()</h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -744,7 +757,7 @@ DescriptionMap&#160;</td><td class="memItemRight" valign="bottom"><b>description
           <td class="paramkey"></td>
           <td></td>
           <td class="paramtype">double&#160;</td>
-          <td class="paramname"><em>tf</em>&#160;</td>
+          <td class="paramname"><em>hstep</em>&#160;</td>
         </tr>
         <tr>
           <td></td>
@@ -754,7 +767,7 @@ DescriptionMap&#160;</td><td class="memItemRight" valign="bottom"><b>description
       </table>
   </td>
   <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">virtual</span></span>  </td>
+<span class="mlabels"><span class="mlabel">override</span><span class="mlabel">virtual</span></span>  </td>
   </tr>
 </table>
 </div><div class="memdoc">
@@ -766,8 +779,8 @@ DescriptionMap&#160;</td><td class="memItemRight" valign="bottom"><b>description
 
 </div>
 </div>
-<a id="ad5f73de9630fda4eac2816c49319662a"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#ad5f73de9630fda4eac2816c49319662a">&#9670;&nbsp;</a></span>loadSBMLSettings()</h2>
+<a id="acaa6878fb0d972aa96dba554a7bc65a4"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#acaa6878fb0d972aa96dba554a7bc65a4">&#9670;&nbsp;</a></span>loadSBMLSettings()</h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -785,7 +798,7 @@ DescriptionMap&#160;</td><td class="memItemRight" valign="bottom"><b>description
       </table>
   </td>
   <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">virtual</span></span>  </td>
+<span class="mlabels"><span class="mlabel">override</span><span class="mlabel">virtual</span></span>  </td>
   </tr>
 </table>
 </div><div class="memdoc">
@@ -798,8 +811,8 @@ DescriptionMap&#160;</td><td class="memItemRight" valign="bottom"><b>description
 
 </div>
 </div>
-<a id="a455f08dc01b03a527482edc3d2db95b1"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a455f08dc01b03a527482edc3d2db95b1">&#9670;&nbsp;</a></span>resetSettings()</h2>
+<a id="ac18581f5c000940449032e166ef48e79"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ac18581f5c000940449032e166ef48e79">&#9670;&nbsp;</a></span>resetSettings()</h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -816,7 +829,7 @@ DescriptionMap&#160;</td><td class="memItemRight" valign="bottom"><b>description
       </table>
   </td>
   <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">virtual</span></span>  </td>
+<span class="mlabels"><span class="mlabel">override</span><span class="mlabel">virtual</span></span>  </td>
   </tr>
 </table>
 </div><div class="memdoc">
@@ -828,8 +841,8 @@ DescriptionMap&#160;</td><td class="memItemRight" valign="bottom"><b>description
 
 </div>
 </div>
-<a id="ad845bc1acfbeef03f374413928eaa3ee"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#ad845bc1acfbeef03f374413928eaa3ee">&#9670;&nbsp;</a></span>restart()</h2>
+<a id="acde5e92ec049c105b7d22b0f125d94a9"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#acde5e92ec049c105b7d22b0f125d94a9">&#9670;&nbsp;</a></span>restart()</h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -847,7 +860,7 @@ DescriptionMap&#160;</td><td class="memItemRight" valign="bottom"><b>description
       </table>
   </td>
   <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">virtual</span></span>  </td>
+<span class="mlabels"><span class="mlabel">override</span><span class="mlabel">virtual</span></span>  </td>
   </tr>
 </table>
 </div><div class="memdoc">
@@ -859,8 +872,8 @@ DescriptionMap&#160;</td><td class="memItemRight" valign="bottom"><b>description
 
 </div>
 </div>
-<a id="a6b4a601f240b60e29cccc73eddb837c0"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a6b4a601f240b60e29cccc73eddb837c0">&#9670;&nbsp;</a></span>setConcentrationTolerance()</h2>
+<a id="a386a755bab0c72a5d93a7e09ba95fafe"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a386a755bab0c72a5d93a7e09ba95fafe">&#9670;&nbsp;</a></span>setConcentrationTolerance()</h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -871,14 +884,14 @@ DescriptionMap&#160;</td><td class="memItemRight" valign="bottom"><b>description
         <tr>
           <td class="memname">void rr::CVODEIntegrator::setConcentrationTolerance </td>
           <td>(</td>
-          <td class="paramtype">const <a class="el" href="classrr_1_1Variant.html">Variant</a> &amp;&#160;</td>
+          <td class="paramtype"><a class="el" href="classrr_1_1Setting.html">Setting</a>&#160;</td>
           <td class="paramname"><em>value</em></td><td>)</td>
           <td></td>
         </tr>
       </table>
   </td>
   <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">virtual</span></span>  </td>
+<span class="mlabels"><span class="mlabel">override</span><span class="mlabel">virtual</span></span>  </td>
   </tr>
 </table>
 </div><div class="memdoc">
@@ -886,12 +899,12 @@ DescriptionMap&#160;</td><td class="memItemRight" valign="bottom"><b>description
 <p>Sets tolerance based on concentration of species. </p>
 <dl class="section author"><dt>Author</dt><dd>FY  First converts the concentration tolerances to amount tolerances by multiplying the compartment volume of species. Whichever is smaller will be stored as absolute_tolerance and used in the integration process. </dd></dl>
 
-<p>Reimplemented from <a class="el" href="classrr_1_1Integrator.html#a1413e566ca980e08e2799777ad41a2ad">rr::Integrator</a>.</p>
+<p>Reimplemented from <a class="el" href="classrr_1_1Integrator.html#a21645210737f35264504c3125c4679fe">rr::Integrator</a>.</p>
 
 </div>
 </div>
-<a id="a8d0e25e6170b3f017ada84f4bdf148ab"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a8d0e25e6170b3f017ada84f4bdf148ab">&#9670;&nbsp;</a></span>setIndividualTolerance()</h2>
+<a id="a57e9e604b2c2ba388a3fe219e87c326c"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a57e9e604b2c2ba388a3fe219e87c326c">&#9670;&nbsp;</a></span>setIndividualTolerance()</h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -902,7 +915,7 @@ DescriptionMap&#160;</td><td class="memItemRight" valign="bottom"><b>description
         <tr>
           <td class="memname">void rr::CVODEIntegrator::setIndividualTolerance </td>
           <td>(</td>
-          <td class="paramtype">string&#160;</td>
+          <td class="paramtype">std::string&#160;</td>
           <td class="paramname"><em>sid</em>, </td>
         </tr>
         <tr>
@@ -919,7 +932,7 @@ DescriptionMap&#160;</td><td class="memItemRight" valign="bottom"><b>description
       </table>
   </td>
   <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">virtual</span></span>  </td>
+<span class="mlabels"><span class="mlabel">override</span><span class="mlabel">virtual</span></span>  </td>
   </tr>
 </table>
 </div><div class="memdoc">
@@ -927,12 +940,12 @@ DescriptionMap&#160;</td><td class="memItemRight" valign="bottom"><b>description
 <p>Sets tolerance for individual species. </p>
 <dl class="section author"><dt>Author</dt><dd>FY </dd></dl>
 
-<p>Reimplemented from <a class="el" href="classrr_1_1Integrator.html#ac64b02928caaa4fe411754815c98b4f7">rr::Integrator</a>.</p>
+<p>Reimplemented from <a class="el" href="classrr_1_1Integrator.html#a53099879e74aa5bea1139453db9b5732">rr::Integrator</a>.</p>
 
 </div>
 </div>
-<a id="a4dc5fe6ecf244b0a0cac214db29d4914"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a4dc5fe6ecf244b0a0cac214db29d4914">&#9670;&nbsp;</a></span>setListener()</h2>
+<a id="aca2901ed7b5a503e054fd18e8f0392ad"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#aca2901ed7b5a503e054fd18e8f0392ad">&#9670;&nbsp;</a></span>setListener()</h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -950,7 +963,7 @@ DescriptionMap&#160;</td><td class="memItemRight" valign="bottom"><b>description
       </table>
   </td>
   <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">virtual</span></span>  </td>
+<span class="mlabels"><span class="mlabel">override</span><span class="mlabel">virtual</span></span>  </td>
   </tr>
 </table>
 </div><div class="memdoc">
@@ -962,8 +975,8 @@ DescriptionMap&#160;</td><td class="memItemRight" valign="bottom"><b>description
 
 </div>
 </div>
-<a id="acd45a44a9da5910aa9a02085372ace0e"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#acd45a44a9da5910aa9a02085372ace0e">&#9670;&nbsp;</a></span>setValue()</h2>
+<a id="a2ba8be5c51129d05dd8ab5315dc12edc"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a2ba8be5c51129d05dd8ab5315dc12edc">&#9670;&nbsp;</a></span>setValue()</h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -974,13 +987,13 @@ DescriptionMap&#160;</td><td class="memItemRight" valign="bottom"><b>description
         <tr>
           <td class="memname">void rr::CVODEIntegrator::setValue </td>
           <td>(</td>
-          <td class="paramtype">std::string&#160;</td>
+          <td class="paramtype">const std::string &amp;&#160;</td>
           <td class="paramname"><em>setting</em>, </td>
         </tr>
         <tr>
           <td class="paramkey"></td>
           <td></td>
-          <td class="paramtype">const <a class="el" href="classrr_1_1Variant.html">Variant</a> &amp;&#160;</td>
+          <td class="paramtype"><a class="el" href="classrr_1_1Setting.html">Setting</a>&#160;</td>
           <td class="paramname"><em>value</em>&#160;</td>
         </tr>
         <tr>
@@ -991,21 +1004,21 @@ DescriptionMap&#160;</td><td class="memItemRight" valign="bottom"><b>description
       </table>
   </td>
   <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">virtual</span></span>  </td>
+<span class="mlabels"><span class="mlabel">override</span><span class="mlabel">virtual</span></span>  </td>
   </tr>
 </table>
 </div><div class="memdoc">
 
 <p>Sets the value of an integrator setting (e.g. absolute_tolerance) </p>
 <dl class="section author"><dt>Author</dt><dd>WBC, ETS, MTK </dd></dl>
-<p>Values and keys are stored in the settings map, which is updated in every call to <a class="el" href="classrr_1_1CVODEIntegrator.html#acd45a44a9da5910aa9a02085372ace0e">setValue</a>. In addition, changing CVODE-specific parameters requires a call into the CVODE library to synchronize CVODE's internal memory with the settings map.</p>
+<p>Values and keys are stored in the settings std::map, which is updated in every call to <a class="el" href="classrr_1_1CVODEIntegrator.html#a2ba8be5c51129d05dd8ab5315dc12edc">setValue</a>. In addition, changing CVODE-specific parameters requires a call into the CVODE library to synchronize CVODE's internal memory with the settings std::map.</p>
 
 <p>Reimplemented from <a class="el" href="classrr_1_1Solver.html">rr::Solver</a>.</p>
 
 </div>
 </div>
-<a id="ae099098e43b2219fbc4e29af10d22c84"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#ae099098e43b2219fbc4e29af10d22c84">&#9670;&nbsp;</a></span>syncWithModel()</h2>
+<a id="a6ffad2eceae5fda58900a1bbaa738eff"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a6ffad2eceae5fda58900a1bbaa738eff">&#9670;&nbsp;</a></span>syncWithModel()</h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -1023,7 +1036,7 @@ DescriptionMap&#160;</td><td class="memItemRight" valign="bottom"><b>description
       </table>
   </td>
   <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">virtual</span></span>  </td>
+<span class="mlabels"><span class="mlabel">override</span><span class="mlabel">virtual</span></span>  </td>
   </tr>
 </table>
 </div><div class="memdoc">
@@ -1051,7 +1064,7 @@ DescriptionMap&#160;</td><td class="memItemRight" valign="bottom"><b>description
       </table>
 </div><div class="memdoc">
 
-<p>Converts integer to string for error print. </p>
+<p>Converts integer to std::string for error print. </p>
 <dl class="section author"><dt>Author</dt><dd>FY </dd></dl>
 
 </div>
@@ -1072,13 +1085,13 @@ DescriptionMap&#160;</td><td class="memItemRight" valign="bottom"><b>description
       </table>
 </div><div class="memdoc">
 
-<p>Converts size_t to string for error print. </p>
+<p>Converts size_t to std::string for error print. </p>
 <dl class="section author"><dt>Author</dt><dd>LPS </dd></dl>
 
 </div>
 </div>
-<a id="afec3efa20453cabe7fd826a1a27fd920"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#afec3efa20453cabe7fd826a1a27fd920">&#9670;&nbsp;</a></span>tweakTolerances()</h2>
+<a id="a137ada502a737819ca3ad78d0573c35d"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a137ada502a737819ca3ad78d0573c35d">&#9670;&nbsp;</a></span>tweakTolerances()</h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -1095,7 +1108,7 @@ DescriptionMap&#160;</td><td class="memItemRight" valign="bottom"><b>description
       </table>
   </td>
   <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">virtual</span></span>  </td>
+<span class="mlabels"><span class="mlabel">override</span><span class="mlabel">virtual</span></span>  </td>
   </tr>
 </table>
 </div><div class="memdoc">

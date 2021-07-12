@@ -265,6 +265,14 @@ namespace rr
          */
         const ls::DoubleMatrix *simulate(const Dictionary* options = 0);
 
+        /**
+         * @brief simulate the model using currently set integrator
+         * @param start starting time to simulate
+         * @param stop what time point does the simulation end?
+         * @param num how many steps to simulate
+         */
+        const ls::DoubleMatrix* simulate(double start, double stop, int num);
+
         /*
         *  Saves this roadrunner instance to a file so it can be reloaded later
         * If opt == 'b' (the default value), this function will output a platform-specific
@@ -283,10 +291,6 @@ namespace rr
          * next call to simulate. This matrix can be obtained here.
          */
         const ls::DoubleMatrix* getSimulationData() const;
-
-#ifndef SWIG // deprecated methods not SWIG'ed
-
-#endif
 
         void setSimulateOptions(const SimulateOptions& settings);
 
@@ -316,7 +320,6 @@ namespace rr
          * If both arguments are zero, then the document is left alone and the
          */
         std::string getSBML(int level = 0, int version = 0);
-
 
         /**
          * Returns the SBML with the current model parameters. This is different than
@@ -390,9 +393,7 @@ namespace rr
                   const Dictionary* options = 0);
 
 
-/************************ Selection Ids Species Section ***********************/
-#if (1) /**********************************************************************/
-/******************************************************************************/
+        /************************ Selection Ids Species Section ***********************/
 
         /**
          * create a selection record. This record can be used to select values.
@@ -473,8 +474,6 @@ namespace rr
         void setValue(const std::string& id, double value);
 
 /************************ End Selection Ids Species Section *******************/
-#endif /***********************************************************************/
-/******************************************************************************/
 
         /**
         * @author KC
@@ -1194,8 +1193,6 @@ namespace rr
 
 
         /******************************* Steady State Section *************************/
-#if (1) /**********************************************************************/
-        /******************************************************************************/
 
         double mcaSteadyState();
 
@@ -1263,8 +1260,6 @@ namespace rr
 
 
         /******************************* End Steady State Section *********************/
-#endif /***********************************************************************/
-        /******************************************************************************/
 
         /*********              Used by rrplugins             *************************/
 
@@ -1327,8 +1322,6 @@ namespace rr
 
 
         /******** !!! DEPRECATED INTERNAL METHODS * THESE WILL BE REMOVED!!! **********/
-#if (1) /**********************************************************************/
-        /******************************************************************************/
 
         /**
          * @author MTK, JKM
@@ -1557,11 +1550,6 @@ namespace rr
 
 #endif // #ifndef SWIG
 
-
-        /******** !!! DEPRECATED INTERNAL METHODS * THESE WILL BE REMOVED!!! **********/
-#endif  /**********************************************************************/
-        /******************************************************************************/
-
     private:
 
         void fixDependentSpeciesValues(int except, double* ref);
@@ -1681,4 +1669,4 @@ namespace rr
 
 }
 
-#endif
+#endif // rrRoadRunnerH

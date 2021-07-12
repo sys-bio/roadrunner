@@ -22,7 +22,7 @@
  <tr style="height: 56px;">
   <td id="projectalign" style="padding-left: 0.5em;">
    <div id="projectname">roadrunner
-   &#160;<span id="projectnumber">2.0.5</span>
+   &#160;<span id="projectnumber">2.0.8</span>
    </div>
    <div id="projectbrief">Fast simulator for SBML models</div>
   </td>
@@ -119,9 +119,9 @@ typedef std::map&lt; std::string, std::vector&lt; uint &gt; &gt;&#160;</td><td c
 <tr class="memitem:a4bf890563731b1fe296dca200ce1ef98"><td class="memItemLeft" align="right" valign="top"><a id="a4bf890563731b1fe296dca200ce1ef98"></a>
 typedef std::pair&lt; std::string, uint &gt;&#160;</td><td class="memItemRight" valign="bottom"><b>StringUIntPair</b></td></tr>
 <tr class="separator:a4bf890563731b1fe296dca200ce1ef98"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:abffc137dab59dc26f324c12537ea207c"><td class="memItemLeft" align="right" valign="top"><a id="abffc137dab59dc26f324c12537ea207c"></a>
-typedef cxx11_ns::unordered_map&lt; uint, uint &gt;&#160;</td><td class="memItemRight" valign="bottom"><b>UIntUIntMap</b></td></tr>
-<tr class="separator:abffc137dab59dc26f324c12537ea207c"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a85c8a143119e26f1536a0c20d2925822"><td class="memItemLeft" align="right" valign="top"><a id="a85c8a143119e26f1536a0c20d2925822"></a>
+typedef std::unordered_map&lt; uint, uint &gt;&#160;</td><td class="memItemRight" valign="bottom"><b>UIntUIntMap</b></td></tr>
+<tr class="separator:a85c8a143119e26f1536a0c20d2925822"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pub-methods"></a>
 Public Member Functions</h2></td></tr>
@@ -321,7 +321,7 @@ bool&#160;</td><td class="memItemRight" valign="bottom"><b>isIndependentInitComp
 <tr class="separator:a8711b0a0c667e10454984b6589409514"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a9e69809c00382d494280b0124bae2e57"><td class="memItemLeft" align="right" valign="top"><a id="a9e69809c00382d494280b0124bae2e57"></a>
 bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classrrllvm_1_1LLVMModelDataSymbols.html#a9e69809c00382d494280b0124bae2e57">isIndependentInitGlobalParameter</a> (const std::string &amp;symbol) const</td></tr>
-<tr class="memdesc:a9e69809c00382d494280b0124bae2e57"><td class="mdescLeft">&#160;</td><td class="mdescRight">has this string been found to be an independent init global param&ndash; is a global param and not having an assignment or init assignment rule. <br /></td></tr>
+<tr class="memdesc:a9e69809c00382d494280b0124bae2e57"><td class="mdescLeft">&#160;</td><td class="mdescRight">has this std::string been found to be an independent init global param&ndash; is a global param and not having an assignment or init assignment rule. <br /></td></tr>
 <tr class="separator:a9e69809c00382d494280b0124bae2e57"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a4980057e894a24a75faad509c9ecc616"><td class="memItemLeft" align="right" valign="top"><a id="a4980057e894a24a75faad509c9ecc616"></a>
 bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classrrllvm_1_1LLVMModelDataSymbols.html#a4980057e894a24a75faad509c9ecc616">isIndependentInitGlobalParameter</a> (size_t id) const</td></tr>
@@ -381,11 +381,9 @@ static const char *&#160;</td><td class="memItemRight" valign="bottom"><a class=
 <p>The logic behind splitting up <a class="el" href="classrrllvm_1_1LLVMModelDataSymbols.html" title="stores the names of all the symbols in the sbml model and thier indexes in the ModelData arrays.">LLVMModelDataSymbols</a> and <a class="el" href="classrrllvm_1_1LLVMModelSymbols.html" title="Hold all the un-evaluated symbolic inforamtion in the model.">LLVMModelSymbols</a> is that <a class="el" href="classrrllvm_1_1LLVMModelSymbols.html" title="Hold all the un-evaluated symbolic inforamtion in the model.">LLVMModelSymbols</a> contains all the ASTs from the model, and this contains only ModelData indices &ndash; once the all the model functions are generated, there is no need to keep AST information around, but we still need to know what symbol is at what index for the various Model accessor functions.</p>
 <ul>
 <li>data storage: There can exist rules (assigment, rate, and eventually algebraic) rules that determine the value of a symbol.</li>
-</ul>
-<p>All items for which a rate rule exists are stored in the modelData::rateRules array.</p>
-<p>No space is allocated for items determined by rate rules.</p>
-<ul>
-<li>All elements get an index value, even the dependent ones, this allows us uniquely indentify them in the generated accessor functions.</li>
+<li>All items for which a rate rule exists are stored in the modelData::rateRules array.</li>
+<li>No space is allocated for items determined by rate rules.</li>
+<li>All elements get an index value, even the dependent ones, this allows us uniquely identify them in the generated accessor functions.</li>
 <li>Most of the indexes used in this class are indexes into ModelData arrays, therefore we use unsigned integers &ndash; these are less error prone and its easier to check if they are valid i.e. only check that they are less than the the array size and we do not have to check that it is positive.</li>
 <li>All symbols from the sbml are reordered such that the independent ones are first, followed by the dependent values. </li>
 </ul>
@@ -628,7 +626,8 @@ static const char *&#160;</td><td class="memItemRight" valign="bottom"><a class=
 </div><div class="memdoc">
 
 <p>checks if the given symbol is a init value for a conserved species. </p>
-<p>Global parameters or floating species can be conservied moieties, a global parameter is a CM if it is defined by a inital assignment rules as a linear of one CM species and a set of indepdent floating species.</p>
+<p>Global parameters or floating species can be conservied moieties,</p>
+<p>a global parameter is a CM if it is defined by a inital assignment rules as a linear of one CM species and a set of indepdent floating species.</p>
 <p>A floating species may be a CM if it is defined by a rule as a linear combination of independent species.</p>
 <p>If a floating species is a CM, then it must by definition be a dependent floating species.</p>
 <p>It can however have independent initial conditions defined either by intial values or initial assignment rules. </p>

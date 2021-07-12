@@ -43,9 +43,9 @@
         </inbodydescription>
         <location file="c/rrCodeBuilder.h" line="13" column="33" bodyfile="c/rrCodeBuilder.h" bodystart="13" bodyend="-1"/>
       </memberdef>
-      <memberdef kind="variable" id="classrr_1_1CodeBuilder_1a20a6a6bf231de607e1a84583294cbdff" prot="protected" static="no" mutable="no">
-        <type>string</type>
-        <definition>string rr::CodeBuilder::mDeclSpec</definition>
+      <memberdef kind="variable" id="classrr_1_1CodeBuilder_1ac26019fd32c4d7f72d327f84538fd295" prot="protected" static="no" mutable="no">
+        <type>std::string</type>
+        <definition>std::string rr::CodeBuilder::mDeclSpec</definition>
         <argsstring></argsstring>
         <name>mDeclSpec</name>
         <briefdescription>
@@ -54,11 +54,11 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="c/rrCodeBuilder.h" line="14" column="33" bodyfile="c/rrCodeBuilder.h" bodystart="14" bodyend="-1"/>
+        <location file="c/rrCodeBuilder.h" line="14" column="38" bodyfile="c/rrCodeBuilder.h" bodystart="14" bodyend="-1"/>
       </memberdef>
-      <memberdef kind="variable" id="classrr_1_1CodeBuilder_1ad9a1edafac5badb9f82dd0efa1f57bba" prot="protected" static="no" mutable="no">
-        <type>string</type>
-        <definition>string rr::CodeBuilder::mCallingConvention</definition>
+      <memberdef kind="variable" id="classrr_1_1CodeBuilder_1ac6331001d1d632b49c89f2f9aacba036" prot="protected" static="no" mutable="no">
+        <type>std::string</type>
+        <definition>std::string rr::CodeBuilder::mCallingConvention</definition>
         <argsstring></argsstring>
         <name>mCallingConvention</name>
         <briefdescription>
@@ -67,27 +67,27 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="c/rrCodeBuilder.h" line="15" column="33" bodyfile="c/rrCodeBuilder.h" bodystart="15" bodyend="-1"/>
+        <location file="c/rrCodeBuilder.h" line="15" column="38" bodyfile="c/rrCodeBuilder.h" bodystart="15" bodyend="-1"/>
       </memberdef>
       </sectiondef>
       <sectiondef kind="public-func">
-      <memberdef kind="function" id="classrr_1_1CodeBuilder_1ae3c155cf3b3b845130eecf9d591b32c2" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+      <memberdef kind="function" id="classrr_1_1CodeBuilder_1a6afeee8deb9fbdc8d76fb87baba21fd8" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
         <type></type>
         <definition>rr::CodeBuilder::CodeBuilder</definition>
-        <argsstring>(const string &amp;aStr=&quot;&quot;, const string &amp;decl_spec=&quot;D_S&quot;, const string &amp;call_conv=&quot;__cdecl&quot;)</argsstring>
+        <argsstring>(const std::string &amp;aStr=&quot;&quot;, const std::string &amp;decl_spec=&quot;D_S&quot;, const std::string &amp;call_conv=&quot;__cdecl&quot;)</argsstring>
         <name>CodeBuilder</name>
         <param>
-          <type>const string &amp;</type>
+          <type>const std::string &amp;</type>
           <declname>aStr</declname>
           <defval>&quot;&quot;</defval>
         </param>
         <param>
-          <type>const string &amp;</type>
+          <type>const std::string &amp;</type>
           <declname>decl_spec</declname>
           <defval>&quot;D_S&quot;</defval>
         </param>
         <param>
-          <type>const string &amp;</type>
+          <type>const std::string &amp;</type>
           <declname>call_conv</declname>
           <defval>&quot;__cdecl&quot;</defval>
         </param>
@@ -99,21 +99,21 @@
         </inbodydescription>
         <location file="c/rrCodeBuilder.h" line="18" column="33" bodyfile="c/rrCodeBuilder.cpp" bodystart="10" bodyend="19"/>
       </memberdef>
-      <memberdef kind="function" id="classrr_1_1CodeBuilder_1a8e2845cc9b019c5991317cef016d4a89" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+      <memberdef kind="function" id="classrr_1_1CodeBuilder_1a86b328b1096311781208b77a7e9222bc" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
         <type>void</type>
         <definition>void rr::CodeBuilder::FormatVariable</definition>
-        <argsstring>(const string &amp;type, const string &amp;varName, const string &amp;comment=&quot;&quot;)</argsstring>
+        <argsstring>(const std::string &amp;type, const std::string &amp;varName, const std::string &amp;comment=&quot;&quot;)</argsstring>
         <name>FormatVariable</name>
         <param>
-          <type>const string &amp;</type>
+          <type>const std::string &amp;</type>
           <declname>type</declname>
         </param>
         <param>
-          <type>const string &amp;</type>
+          <type>const std::string &amp;</type>
           <declname>varName</declname>
         </param>
         <param>
-          <type>const string &amp;</type>
+          <type>const std::string &amp;</type>
           <declname>comment</declname>
           <defval>&quot;&quot;</defval>
         </param>
@@ -125,17 +125,17 @@
         </inbodydescription>
         <location file="c/rrCodeBuilder.h" line="19" column="33" bodyfile="c/rrCodeBuilder.cpp" bodystart="21" bodyend="31"/>
       </memberdef>
-      <memberdef kind="function" id="classrr_1_1CodeBuilder_1a32e654c9f7b604738cd0b50e49b6e9f6" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+      <memberdef kind="function" id="classrr_1_1CodeBuilder_1a67aefa71e70157028fcd8e145bcba874" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
         <type>void</type>
         <definition>void rr::CodeBuilder::AddFunctionExport</definition>
-        <argsstring>(const string &amp;retValue, const string &amp;funcProto)</argsstring>
+        <argsstring>(const std::string &amp;retValue, const std::string &amp;funcProto)</argsstring>
         <name>AddFunctionExport</name>
         <param>
-          <type>const string &amp;</type>
+          <type>const std::string &amp;</type>
           <declname>retValue</declname>
         </param>
         <param>
-          <type>const string &amp;</type>
+          <type>const std::string &amp;</type>
           <declname>funcProto</declname>
         </param>
         <briefdescription>
@@ -146,17 +146,17 @@
         </inbodydescription>
         <location file="c/rrCodeBuilder.h" line="20" column="33" bodyfile="c/rrCodeBuilder.cpp" bodystart="33" bodyend="37"/>
       </memberdef>
-      <memberdef kind="function" id="classrr_1_1CodeBuilder_1afea965cb51ea4a0e587d55d6f605d612" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+      <memberdef kind="function" id="classrr_1_1CodeBuilder_1a24cd135b043b79fd3e35df6a59a13b61" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
         <type>void</type>
         <definition>void rr::CodeBuilder::AddFunctionProto</definition>
-        <argsstring>(const string &amp;retValue, const string &amp;funcProto)</argsstring>
+        <argsstring>(const std::string &amp;retValue, const std::string &amp;funcProto)</argsstring>
         <name>AddFunctionProto</name>
         <param>
-          <type>const string &amp;</type>
+          <type>const std::string &amp;</type>
           <declname>retValue</declname>
         </param>
         <param>
-          <type>const string &amp;</type>
+          <type>const std::string &amp;</type>
           <declname>funcProto</declname>
         </param>
         <briefdescription>
@@ -167,17 +167,17 @@
         </inbodydescription>
         <location file="c/rrCodeBuilder.h" line="21" column="33" bodyfile="c/rrCodeBuilder.cpp" bodystart="39" bodyend="42"/>
       </memberdef>
-      <memberdef kind="function" id="classrr_1_1CodeBuilder_1a049b9a239b9da26a2a0c110bdae033ee" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+      <memberdef kind="function" id="classrr_1_1CodeBuilder_1a5bfbf99a143dd8a81f2bef95fceee538" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
         <type>void</type>
         <definition>void rr::CodeBuilder::FormatArray</definition>
-        <argsstring>(const string &amp;type, const string &amp;varName, const int &amp;arraySize, const string &amp;comment=&quot;&quot;)</argsstring>
+        <argsstring>(const std::string &amp;type, const std::string &amp;varName, const int &amp;arraySize, const std::string &amp;comment=&quot;&quot;)</argsstring>
         <name>FormatArray</name>
         <param>
-          <type>const string &amp;</type>
+          <type>const std::string &amp;</type>
           <declname>type</declname>
         </param>
         <param>
-          <type>const string &amp;</type>
+          <type>const std::string &amp;</type>
           <declname>varName</declname>
         </param>
         <param>
@@ -185,7 +185,7 @@
           <declname>arraySize</declname>
         </param>
         <param>
-          <type>const string &amp;</type>
+          <type>const std::string &amp;</type>
           <declname>comment</declname>
           <defval>&quot;&quot;</defval>
         </param>
@@ -241,25 +241,25 @@
     </collaborationgraph>
     <location file="c/rrCodeBuilder.h" line="8" column="1" bodyfile="c/rrCodeBuilder.h" bodystart="9" bodyend="23"/>
     <listofallmembers>
-      <member refid="classrr_1_1CodeBuilder_1a32e654c9f7b604738cd0b50e49b6e9f6" prot="public" virt="non-virtual"><scope>rr::CodeBuilder</scope><name>AddFunctionExport</name></member>
-      <member refid="classrr_1_1CodeBuilder_1afea965cb51ea4a0e587d55d6f605d612" prot="public" virt="non-virtual"><scope>rr::CodeBuilder</scope><name>AddFunctionProto</name></member>
+      <member refid="classrr_1_1CodeBuilder_1a67aefa71e70157028fcd8e145bcba874" prot="public" virt="non-virtual"><scope>rr::CodeBuilder</scope><name>AddFunctionExport</name></member>
+      <member refid="classrr_1_1CodeBuilder_1a24cd135b043b79fd3e35df6a59a13b61" prot="public" virt="non-virtual"><scope>rr::CodeBuilder</scope><name>AddFunctionProto</name></member>
       <member refid="classrr_1_1StringBuilder_1a3a466c3f18ad159fa14d41e7c842c59d" prot="public" virt="non-virtual"><scope>rr::CodeBuilder</scope><name>Clear</name></member>
-      <member refid="classrr_1_1CodeBuilder_1ae3c155cf3b3b845130eecf9d591b32c2" prot="public" virt="non-virtual"><scope>rr::CodeBuilder</scope><name>CodeBuilder</name></member>
-      <member refid="classrr_1_1CodeBuilder_1a049b9a239b9da26a2a0c110bdae033ee" prot="public" virt="non-virtual"><scope>rr::CodeBuilder</scope><name>FormatArray</name></member>
-      <member refid="classrr_1_1CodeBuilder_1a8e2845cc9b019c5991317cef016d4a89" prot="public" virt="non-virtual"><scope>rr::CodeBuilder</scope><name>FormatVariable</name></member>
-      <member refid="classrr_1_1StringBuilder_1a9b9af43f8958012b55538082ab667301" prot="public" virt="non-virtual"><scope>rr::CodeBuilder</scope><name>Line</name></member>
-      <member refid="classrr_1_1CodeBuilder_1ad9a1edafac5badb9f82dd0efa1f57bba" prot="protected" virt="non-virtual"><scope>rr::CodeBuilder</scope><name>mCallingConvention</name></member>
-      <member refid="classrr_1_1CodeBuilder_1a20a6a6bf231de607e1a84583294cbdff" prot="protected" virt="non-virtual"><scope>rr::CodeBuilder</scope><name>mDeclSpec</name></member>
+      <member refid="classrr_1_1CodeBuilder_1a6afeee8deb9fbdc8d76fb87baba21fd8" prot="public" virt="non-virtual"><scope>rr::CodeBuilder</scope><name>CodeBuilder</name></member>
+      <member refid="classrr_1_1CodeBuilder_1a5bfbf99a143dd8a81f2bef95fceee538" prot="public" virt="non-virtual"><scope>rr::CodeBuilder</scope><name>FormatArray</name></member>
+      <member refid="classrr_1_1CodeBuilder_1a86b328b1096311781208b77a7e9222bc" prot="public" virt="non-virtual"><scope>rr::CodeBuilder</scope><name>FormatVariable</name></member>
+      <member refid="classrr_1_1StringBuilder_1a28f654fa1abac5d97077ca70068230fe" prot="public" virt="non-virtual"><scope>rr::CodeBuilder</scope><name>Line</name></member>
+      <member refid="classrr_1_1CodeBuilder_1ac6331001d1d632b49c89f2f9aacba036" prot="protected" virt="non-virtual"><scope>rr::CodeBuilder</scope><name>mCallingConvention</name></member>
+      <member refid="classrr_1_1CodeBuilder_1ac26019fd32c4d7f72d327f84538fd295" prot="protected" virt="non-virtual"><scope>rr::CodeBuilder</scope><name>mDeclSpec</name></member>
       <member refid="classrr_1_1CodeBuilder_1a6e5418172e85de4973acb02c18f5210e" prot="protected" virt="non-virtual"><scope>rr::CodeBuilder</scope><name>mSizeOfVarField1</name></member>
       <member refid="classrr_1_1CodeBuilder_1a6af5b51e3bd2b6632c2960d75c1f5675" prot="protected" virt="non-virtual"><scope>rr::CodeBuilder</scope><name>mSizeOfVarField2</name></member>
       <member refid="classrr_1_1CodeBuilder_1a73d1b42f7d8aa5b23ac2dd3e4a27c952" prot="protected" virt="non-virtual"><scope>rr::CodeBuilder</scope><name>mSizeOfVarField3</name></member>
-      <member refid="classrr_1_1StringBuilder_1a2e6e3fc9b0cd309a83bea1b29797491e" prot="protected" virt="non-virtual"><scope>rr::CodeBuilder</scope><name>mStringing</name></member>
-      <member refid="classrr_1_1StringBuilder_1a66247413c4f61c7e56103c63af32f6f7" prot="public" virt="non-virtual"><scope>rr::CodeBuilder</scope><name>NewLine</name></member>
-      <member refid="classrr_1_1StringBuilder_1a70119feb4beaa821983a7f3ffee33075" prot="public" virt="non-virtual"><scope>rr::CodeBuilder</scope><name>operator&lt;&lt;</name></member>
-      <member refid="classrr_1_1StringBuilder_1a225e4af9726b19c0466f275702d6bdb5" prot="public" virt="non-virtual"><scope>rr::CodeBuilder</scope><name>operator&lt;&lt;</name></member>
-      <member refid="classrr_1_1StringBuilder_1a9865e870221e232becaf532ffcc918fa" prot="public" virt="non-virtual"><scope>rr::CodeBuilder</scope><name>StringBuilder</name></member>
-      <member refid="classrr_1_1StringBuilder_1abde5739b8994e6eb1bb53bdea217ac3c" prot="public" virt="non-virtual"><scope>rr::CodeBuilder</scope><name>TLine</name></member>
-      <member refid="classrr_1_1StringBuilder_1a22c778a02f315058633da32250c25bfd" prot="public" virt="non-virtual"><scope>rr::CodeBuilder</scope><name>ToString</name></member>
+      <member refid="classrr_1_1StringBuilder_1adf338b1c1d81ee81366dc02c7071789e" prot="protected" virt="non-virtual"><scope>rr::CodeBuilder</scope><name>mStringing</name></member>
+      <member refid="classrr_1_1StringBuilder_1a03c48321820c8fbd35e1cb7bd6bb3e40" prot="public" virt="non-virtual"><scope>rr::CodeBuilder</scope><name>NewLine</name></member>
+      <member refid="classrr_1_1StringBuilder_1a97c86b97558c79342460d97c5e73bc77" prot="public" virt="non-virtual"><scope>rr::CodeBuilder</scope><name>operator&lt;&lt;</name></member>
+      <member refid="classrr_1_1StringBuilder_1aa8e8bc64240d04ac1452e1a4f7aef79b" prot="public" virt="non-virtual"><scope>rr::CodeBuilder</scope><name>operator&lt;&lt;</name></member>
+      <member refid="classrr_1_1StringBuilder_1aeddd1b87b9c0a92361e7927787d2e5bc" prot="public" virt="non-virtual"><scope>rr::CodeBuilder</scope><name>StringBuilder</name></member>
+      <member refid="classrr_1_1StringBuilder_1aadcbfc333331bf56522890f50dc654f0" prot="public" virt="non-virtual"><scope>rr::CodeBuilder</scope><name>TLine</name></member>
+      <member refid="classrr_1_1StringBuilder_1a97c1a13695e00a115209509a5ed5c19e" prot="public" virt="non-virtual"><scope>rr::CodeBuilder</scope><name>ToString</name></member>
     </listofallmembers>
   </compounddef>
 </doxygen>

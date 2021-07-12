@@ -207,6 +207,7 @@ namespace rr {
          *  ASSERT_EQ(setting.get<int>(), 5); // fails if setting is not int
          *  ASSERT_THROW(setting.get<unsigned int>();, std::bad_variant_access); // bad, setting contains an int
          *  ASSERT_EQ(setting.getAs<unsigned int>(), 5); // Okay, we can convert from int to unsigned (when int > 0)
+         * @endcode
          */
         template<class As>
         As getAs() const{
@@ -252,10 +253,11 @@ namespace rr {
                     return As(val);
                 } else {
                     std::ostringstream os;
-                    os << "Setting::getAs: TypeError. You have requested the conversion "
+                    os << "Setting::getAs:TypeError. You have requested the conversion "
                           "of a \"" << typeid(decltype(val)).name() << "\" to a ";
                     os << "\"" << typeid(As).name() << "\" but this Setting contains ";
-                    os << "a \"" << inf.name() << "\"" << std::endl;
+                    os << "a \"" << inf.name() << "\". Note, see Setting::toString() "
+                                                  "for string representation." << std::endl;
                     // would prefer to throw std::bad_variant_access, but it seems
                     // it does not have the appropriate constructor (?)
                     throw std::invalid_argument(os.str());

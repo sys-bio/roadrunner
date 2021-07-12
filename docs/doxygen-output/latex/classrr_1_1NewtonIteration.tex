@@ -1,0 +1,118 @@
+\hypertarget{classrr_1_1NewtonIteration}{}\doxysection{rr\+::Newton\+Iteration Class Reference}
+\label{classrr_1_1NewtonIteration}\index{rr::NewtonIteration@{rr::NewtonIteration}}
+Inheritance diagram for rr\+::Newton\+Iteration\+:\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[height=5.000000cm]{classrr_1_1NewtonIteration}
+\end{center}
+\end{figure}
+\doxysubsection*{Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\Hypertarget{classrr_1_1NewtonIteration_aa25a2b5395b7b5e174d9d08092c1ecdd}\label{classrr_1_1NewtonIteration_aa25a2b5395b7b5e174d9d08092c1ecdd}} 
+{\bfseries Newton\+Iteration} (\mbox{\hyperlink{classrr_1_1ExecutableModel}{Executable\+Model}} $\ast$executable\+Model)
+\item 
+\mbox{\Hypertarget{classrr_1_1NewtonIteration_a5a77fd21be6a9af126872232998bfeb2}\label{classrr_1_1NewtonIteration_a5a77fd21be6a9af126872232998bfeb2}} 
+std\+::string \mbox{\hyperlink{classrr_1_1NewtonIteration_a5a77fd21be6a9af126872232998bfeb2}{get\+Name}} () const override
+\begin{DoxyCompactList}\small\item\em Get the name of this solver. \end{DoxyCompactList}\item 
+\mbox{\Hypertarget{classrr_1_1NewtonIteration_ae1119d11821a6b1fb52fc84186d91b1e}\label{classrr_1_1NewtonIteration_ae1119d11821a6b1fb52fc84186d91b1e}} 
+std\+::string \mbox{\hyperlink{classrr_1_1NewtonIteration_ae1119d11821a6b1fb52fc84186d91b1e}{get\+Description}} () const override
+\begin{DoxyCompactList}\small\item\em Get the description of this solver. \end{DoxyCompactList}\item 
+\mbox{\Hypertarget{classrr_1_1NewtonIteration_ac346fbad167b7d4f1bcadb6ad9049ac2}\label{classrr_1_1NewtonIteration_ac346fbad167b7d4f1bcadb6ad9049ac2}} 
+std\+::string \mbox{\hyperlink{classrr_1_1NewtonIteration_ac346fbad167b7d4f1bcadb6ad9049ac2}{get\+Hint}} () const override
+\begin{DoxyCompactList}\small\item\em Get a (user-\/readable) hint for this solver. \end{DoxyCompactList}\item 
+\mbox{\Hypertarget{classrr_1_1NewtonIteration_aef52744c9ff9f21ad69a49b1fe8ef9c4}\label{classrr_1_1NewtonIteration_aef52744c9ff9f21ad69a49b1fe8ef9c4}} 
+void \mbox{\hyperlink{classrr_1_1NewtonIteration_aef52744c9ff9f21ad69a49b1fe8ef9c4}{reset\+Settings}} () override
+\begin{DoxyCompactList}\small\item\em reset settings back to default. \end{DoxyCompactList}\item 
+\mbox{\Hypertarget{classrr_1_1NewtonIteration_a46d2940bc5e23fa377be239f5cc21e4a}\label{classrr_1_1NewtonIteration_a46d2940bc5e23fa377be239f5cc21e4a}} 
+void \mbox{\hyperlink{classrr_1_1NewtonIteration_a46d2940bc5e23fa377be239f5cc21e4a}{get\+Solver\+Stats\+From\+Kinsol}} () override
+\begin{DoxyCompactList}\small\item\em after solve() has been called, this method collects some details such as number of function evals \end{DoxyCompactList}\end{DoxyCompactItemize}
+\doxysubsection*{Static Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\Hypertarget{classrr_1_1NewtonIteration_a8f887dc497c97796c527f78c9c8edc02}\label{classrr_1_1NewtonIteration_a8f887dc497c97796c527f78c9c8edc02}} 
+static std\+::string \mbox{\hyperlink{classrr_1_1NewtonIteration_a8f887dc497c97796c527f78c9c8edc02}{get\+Newton\+Iteration\+Name}} ()
+\begin{DoxyCompactList}\small\item\em static version of get\+Name \end{DoxyCompactList}\item 
+\mbox{\Hypertarget{classrr_1_1NewtonIteration_acfa3b9dcb97628591e853629c2e40b4b}\label{classrr_1_1NewtonIteration_acfa3b9dcb97628591e853629c2e40b4b}} 
+static std\+::string \mbox{\hyperlink{classrr_1_1NewtonIteration_acfa3b9dcb97628591e853629c2e40b4b}{get\+Newton\+Iteration\+Description}} ()
+\begin{DoxyCompactList}\small\item\em static version of get\+Description \end{DoxyCompactList}\item 
+\mbox{\Hypertarget{classrr_1_1NewtonIteration_a107c604fb367c5ca927fc02e31cf5016}\label{classrr_1_1NewtonIteration_a107c604fb367c5ca927fc02e31cf5016}} 
+static std\+::string \mbox{\hyperlink{classrr_1_1NewtonIteration_a107c604fb367c5ca927fc02e31cf5016}{get\+Newton\+Iteration\+Hint}} ()
+\begin{DoxyCompactList}\small\item\em static version of get\+Hint \end{DoxyCompactList}\end{DoxyCompactItemize}
+\doxysubsection*{Protected Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\Hypertarget{classrr_1_1NewtonIteration_aa4600fcd777890b6afc99694bd306a50}\label{classrr_1_1NewtonIteration_aa4600fcd777890b6afc99694bd306a50}} 
+double \mbox{\hyperlink{classrr_1_1NewtonIteration_aa4600fcd777890b6afc99694bd306a50}{solve\+Newton\+Iteration}} (const std\+::string \&strategy)
+\begin{DoxyCompactList}\small\item\em solve the currently defined problem \end{DoxyCompactList}\item 
+void \mbox{\hyperlink{classrr_1_1NewtonIteration_a17436ae1ae76642be8f525addd8e2834}{create\+Kinsol}} () override
+\begin{DoxyCompactList}\small\item\em Initialize kinsol objects. \end{DoxyCompactList}\item 
+void \mbox{\hyperlink{classrr_1_1NewtonIteration_ae27ea4ad5e78a6fb781bb1d8272f0756}{free\+Kinsol}} () override
+\begin{DoxyCompactList}\small\item\em Destory kinsol objects. \end{DoxyCompactList}\item 
+void \mbox{\hyperlink{classrr_1_1NewtonIteration_a6d10c08312d90016647826dd1c824ad2}{update\+Kinsol}} () override
+\begin{DoxyCompactList}\small\item\em Calls methods for updating options in kinsol. \end{DoxyCompactList}\end{DoxyCompactItemize}
+\doxysubsection*{Protected Attributes}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\Hypertarget{classrr_1_1NewtonIteration_ad891d4df2058bfc69c879ba46d84e71b}\label{classrr_1_1NewtonIteration_ad891d4df2058bfc69c879ba46d84e71b}} 
+S\+U\+N\+Matrix \mbox{\hyperlink{classrr_1_1NewtonIteration_ad891d4df2058bfc69c879ba46d84e71b}{jac}} = nullptr
+\begin{DoxyCompactList}\small\item\em matrix for jacobian \end{DoxyCompactList}\item 
+\mbox{\Hypertarget{classrr_1_1NewtonIteration_afbdfd60977ad079dc27cdd282fdfc201}\label{classrr_1_1NewtonIteration_afbdfd60977ad079dc27cdd282fdfc201}} 
+S\+U\+N\+Linear\+Solver \mbox{\hyperlink{classrr_1_1NewtonIteration_afbdfd60977ad079dc27cdd282fdfc201}{linear\+Solver}} = nullptr
+\begin{DoxyCompactList}\small\item\em linear solver for newton methods \end{DoxyCompactList}\end{DoxyCompactItemize}
+\doxysubsection*{Additional Inherited Members}
+
+
+\doxysubsection{Member Function Documentation}
+\mbox{\Hypertarget{classrr_1_1NewtonIteration_a17436ae1ae76642be8f525addd8e2834}\label{classrr_1_1NewtonIteration_a17436ae1ae76642be8f525addd8e2834}} 
+\index{rr::NewtonIteration@{rr::NewtonIteration}!createKinsol@{createKinsol}}
+\index{createKinsol@{createKinsol}!rr::NewtonIteration@{rr::NewtonIteration}}
+\doxysubsubsection{\texorpdfstring{createKinsol()}{createKinsol()}}
+{\footnotesize\ttfamily void rr\+::\+Newton\+Iteration\+::create\+Kinsol (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [override]}, {\ttfamily [protected]}, {\ttfamily [virtual]}}
+
+
+
+Initialize kinsol objects. 
+
+All subclasses require some of the same initial calls (such as N\+\_\+\+V\+New\+\_\+\+Serial and K\+I\+N\+Create). 
+
+Reimplemented from \mbox{\hyperlink{classrr_1_1KinsolSteadyStateSolver_a7c7a941fbf27c7a3a5326b254ee2f1b1}{rr\+::\+Kinsol\+Steady\+State\+Solver}}.
+
+\mbox{\Hypertarget{classrr_1_1NewtonIteration_ae27ea4ad5e78a6fb781bb1d8272f0756}\label{classrr_1_1NewtonIteration_ae27ea4ad5e78a6fb781bb1d8272f0756}} 
+\index{rr::NewtonIteration@{rr::NewtonIteration}!freeKinsol@{freeKinsol}}
+\index{freeKinsol@{freeKinsol}!rr::NewtonIteration@{rr::NewtonIteration}}
+\doxysubsubsection{\texorpdfstring{freeKinsol()}{freeKinsol()}}
+{\footnotesize\ttfamily void rr\+::\+Newton\+Iteration\+::free\+Kinsol (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [override]}, {\ttfamily [protected]}, {\ttfamily [virtual]}}
+
+
+
+Destory kinsol objects. 
+
+Destroys the kinsol objects that are shared among Kinsol\+Steady\+State\+Solvers 
+
+Reimplemented from \mbox{\hyperlink{classrr_1_1KinsolSteadyStateSolver_a9ddc7acd14dad905333c11667363de66}{rr\+::\+Kinsol\+Steady\+State\+Solver}}.
+
+\mbox{\Hypertarget{classrr_1_1NewtonIteration_a6d10c08312d90016647826dd1c824ad2}\label{classrr_1_1NewtonIteration_a6d10c08312d90016647826dd1c824ad2}} 
+\index{rr::NewtonIteration@{rr::NewtonIteration}!updateKinsol@{updateKinsol}}
+\index{updateKinsol@{updateKinsol}!rr::NewtonIteration@{rr::NewtonIteration}}
+\doxysubsubsection{\texorpdfstring{updateKinsol()}{updateKinsol()}}
+{\footnotesize\ttfamily void rr\+::\+Newton\+Iteration\+::update\+Kinsol (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [override]}, {\ttfamily [protected]}, {\ttfamily [virtual]}}
+
+
+
+Calls methods for updating options in kinsol. 
+
+The settings configuration system in roadrunner make this particular aspect of interacting with sundials libraries a little akward.
+
+User passes in arguments like u\+Scale and they are stored at the class level. This method passed them on to kinsol.
+
+When a user updates a setting with set\+Value, they are only updating the value in roadrunner. The change doesn\textquotesingle{}t occur in sundials until we call the corresponding sundials function with the new value. We cannot use regular \char`\"{}setters\char`\"{} because they won\textquotesingle{}t get called when a user changes a value. Instead, here we update all kinsol options at once, and this method is called before we call K\+I\+N\+\_\+\+Solve. 
+
+Reimplemented from \mbox{\hyperlink{classrr_1_1KinsolSteadyStateSolver_a46e1ca358f9d1a8bbfe1150a1f6cf8ed}{rr\+::\+Kinsol\+Steady\+State\+Solver}}.
+
+
+
+The documentation for this class was generated from the following files\+:\begin{DoxyCompactItemize}
+\item 
+Newton\+Iteration.\+h\item 
+Newton\+Iteration.\+cpp\end{DoxyCompactItemize}

@@ -18,7 +18,7 @@
 #include <sstream>
 #include <algorithm>
 #include <assert.h>
-
+#include <bitset>
 
 namespace rr {
 
@@ -122,7 +122,6 @@ namespace rr {
         }
     }
 
-
     RoadRunnerOptions::RoadRunnerOptions() :
             flags(0) {
         if (Config::getBool(Config::ROADRUNNER_DISABLE_PYTHON_DYNAMIC_PROPERTIES)) {
@@ -131,9 +130,6 @@ namespace rr {
 
         jacobianStepSize = Config::getDouble(Config::ROADRUNNER_JACOBIAN_STEP_SIZE);
     }
-
-
-#define BITFIELD2STR(bf) rr::toString((bool)((bf) ? true : false))
 
 
     std::string SimulateOptions::toString() const {

@@ -22,7 +22,7 @@
  <tr style="height: 56px;">
   <td id="projectalign" style="padding-left: 0.5em;">
    <div id="projectname">roadrunner
-   &#160;<span id="projectnumber">2.0.5</span>
+   &#160;<span id="projectnumber">2.0.8</span>
    </div>
    <div id="projectbrief">Fast simulator for SBML models</div>
   </td>
@@ -77,7 +77,7 @@ $(function() {
 </div><!--header-->
 <div class="contents">
 
-<p>This class is frozen, no new features Basic implementation of the <a class="el" href="classrr_1_1Dictionary.html" title="This class is frozen, no new features A dictionary interface that objects can implement.">Dictionary</a> interface which uses a std unordered map to store the values.  
+<p>This class is frozen, no new features Basic implementation of the <a class="el" href="classrr_1_1Dictionary.html" title="This class is frozen, no new features A dictionary interface that objects can implement.">Dictionary</a> interface which uses a std unordered std::map to store the values.  
  <a href="classrr_1_1BasicDictionary.html#details">More...</a></p>
 
 <p><code>#include &lt;<a class="el" href="Dictionary_8h_source.html">Dictionary.h</a>&gt;</code></p>
@@ -95,14 +95,14 @@ Inheritance diagram for rr::BasicDictionary:</div>
 <table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pub-methods"></a>
 Public Member Functions</h2></td></tr>
-<tr class="memitem:ae7b6b6c90561295e2e07c45fe50358ce"><td class="memItemLeft" align="right" valign="top"><a id="ae7b6b6c90561295e2e07c45fe50358ce"></a>
-void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classrr_1_1BasicDictionary.html#ae7b6b6c90561295e2e07c45fe50358ce">setItem</a> (const std::string &amp;key, const <a class="el" href="classrr_1_1Variant.html">rr::Variant</a> &amp;value) override</td></tr>
-<tr class="memdesc:ae7b6b6c90561295e2e07c45fe50358ce"><td class="mdescLeft">&#160;</td><td class="mdescRight">sets an item in the internal unordered map. <br /></td></tr>
-<tr class="separator:ae7b6b6c90561295e2e07c45fe50358ce"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a3357b3d49d8353f19ec9aa83884f6ef1"><td class="memItemLeft" align="right" valign="top"><a id="a3357b3d49d8353f19ec9aa83884f6ef1"></a>
-<a class="el" href="classrr_1_1Variant.html">Variant</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classrr_1_1BasicDictionary.html#a3357b3d49d8353f19ec9aa83884f6ef1">getItem</a> (const std::string &amp;key) const override</td></tr>
-<tr class="memdesc:a3357b3d49d8353f19ec9aa83884f6ef1"><td class="mdescLeft">&#160;</td><td class="mdescRight">gets an item from the internal unordered map. <br /></td></tr>
-<tr class="separator:a3357b3d49d8353f19ec9aa83884f6ef1"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ae3e2fc27e776cf5c791b4194534d3082"><td class="memItemLeft" align="right" valign="top"><a id="ae3e2fc27e776cf5c791b4194534d3082"></a>
+void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classrr_1_1BasicDictionary.html#ae3e2fc27e776cf5c791b4194534d3082">setItem</a> (const std::string &amp;key, const <a class="el" href="classrr_1_1Setting.html">rr::Setting</a> &amp;value) override</td></tr>
+<tr class="memdesc:ae3e2fc27e776cf5c791b4194534d3082"><td class="mdescLeft">&#160;</td><td class="mdescRight">sets an item in the internal unordered std::map. <br /></td></tr>
+<tr class="separator:ae3e2fc27e776cf5c791b4194534d3082"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:afb43f812d4aaf7809c79d1300bc9fe8c"><td class="memItemLeft" align="right" valign="top"><a id="afb43f812d4aaf7809c79d1300bc9fe8c"></a>
+<a class="el" href="classrr_1_1Setting.html">Setting</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classrr_1_1BasicDictionary.html#afb43f812d4aaf7809c79d1300bc9fe8c">getItem</a> (const std::string &amp;key) const override</td></tr>
+<tr class="memdesc:afb43f812d4aaf7809c79d1300bc9fe8c"><td class="mdescLeft">&#160;</td><td class="mdescRight">gets an item from the internal unordered std::map. <br /></td></tr>
+<tr class="separator:afb43f812d4aaf7809c79d1300bc9fe8c"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:ab78190d645a8eb84bb3494453a6f6ea8"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classrr_1_1BasicDictionary.html#ab78190d645a8eb84bb3494453a6f6ea8">hasKey</a> (const std::string &amp;key) const override</td></tr>
 <tr class="memdesc:ab78190d645a8eb84bb3494453a6f6ea8"><td class="mdescLeft">&#160;</td><td class="mdescRight">is there a key matching this name.  <a href="classrr_1_1BasicDictionary.html#ab78190d645a8eb84bb3494453a6f6ea8">More...</a><br /></td></tr>
 <tr class="separator:ab78190d645a8eb84bb3494453a6f6ea8"><td class="memSeparator" colspan="2">&#160;</td></tr>
@@ -126,9 +126,9 @@ virtual&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="c
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pro-types"></a>
 Protected Types</h2></td></tr>
-<tr class="memitem:aedf8f5947090adb89828e602181a0a2f"><td class="memItemLeft" align="right" valign="top"><a id="aedf8f5947090adb89828e602181a0a2f"></a>
-typedef cxx11_ns::unordered_map&lt; std::string, <a class="el" href="classrr_1_1Variant.html">Variant</a> &gt;&#160;</td><td class="memItemRight" valign="bottom"><b>VariantMap</b></td></tr>
-<tr class="separator:aedf8f5947090adb89828e602181a0a2f"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a3903012a5ae2c390b4cb2d8fd8b775c9"><td class="memItemLeft" align="right" valign="top"><a id="a3903012a5ae2c390b4cb2d8fd8b775c9"></a>
+typedef std::unordered_map&lt; std::string, <a class="el" href="classrr_1_1Setting.html">Setting</a> &gt;&#160;</td><td class="memItemRight" valign="bottom"><b>VariantMap</b></td></tr>
+<tr class="separator:a3903012a5ae2c390b4cb2d8fd8b775c9"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pro-attribs"></a>
 Protected Attributes</h2></td></tr>
@@ -137,7 +137,7 @@ VariantMap&#160;</td><td class="memItemRight" valign="bottom"><b>items</b></td><
 <tr class="separator:aeecca9d2b0b63711fc5e70e428e4f94d"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
-<div class="textblock"><p>This class is frozen, no new features Basic implementation of the <a class="el" href="classrr_1_1Dictionary.html" title="This class is frozen, no new features A dictionary interface that objects can implement.">Dictionary</a> interface which uses a std unordered map to store the values. </p>
+<div class="textblock"><p>This class is frozen, no new features Basic implementation of the <a class="el" href="classrr_1_1Dictionary.html" title="This class is frozen, no new features A dictionary interface that objects can implement.">Dictionary</a> interface which uses a std unordered std::map to store the values. </p>
 </div><h2 class="groupheader">Member Function Documentation</h2>
 <a id="ab78190d645a8eb84bb3494453a6f6ea8"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#ab78190d645a8eb84bb3494453a6f6ea8">&#9670;&nbsp;</a></span>hasKey()</h2>
@@ -168,7 +168,7 @@ VariantMap&#160;</td><td class="memItemRight" valign="bottom"><b>items</b></td><
 
 <p>Implements <a class="el" href="classrr_1_1Dictionary.html#a7ec0accc7149a403ee5eeeb9457059ed">rr::Dictionary</a>.</p>
 
-<p>Reimplemented in <a class="el" href="classrr_1_1LoadSBMLOptions.html#a5fd757435841abdb20215d65af77bd84">rr::LoadSBMLOptions</a>.</p>
+<p>Reimplemented in <a class="el" href="classrr_1_1LoadSBMLOptions.html#a117c4f6440ac36541ec57ceae06d4770">rr::LoadSBMLOptions</a>.</p>
 
 </div>
 </div>
