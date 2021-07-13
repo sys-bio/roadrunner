@@ -8,15 +8,22 @@ cmake_minimum_required(VERSION 3.16)
 
 set(ROADRUNNER_VERSION_MAJOR 2)
 set(ROADRUNNER_VERSION_MINOR 0)
-set(ROADRUNNER_VERSION_PATCH 5)
+set(ROADRUNNER_VERSION_PATCH 8)
 
 set(ROADRUNNER_VERSION "${ROADRUNNER_VERSION_MAJOR}.${ROADRUNNER_VERSION_MINOR}.${ROADRUNNER_VERSION_PATCH}")
 project(
         roadrunner
         DESCRIPTION "roadrunner project"
         VERSION ${ROADRUNNER_VERSION}
-        LANGUAGES CXX
+        LANGUAGES CXX C
 )
+
+if (${CMAKE_VERSION} VERSION_GREATER_EQUAL "3.20")
+    # Source file extensions (.h/.cpp) do not need to be explicitly
+    #   specified if CMP0115 set to OLD.
+    #   New behavior requires all extensions be explicit
+    cmake_policy(SET CMP0115 OLD)
+endif ()
 
 
 if ("${CMAKE_SIZEOF_VOID_P}" STREQUAL "4")
@@ -111,11 +118,24 @@ if (BUILD_PYTHON)
     #set_property(CACHE Python_LIBRARY)
     #set_property(CACHE Python_INCLUDE_DIR)
 
-    set(PYTHON_PACKAGE_SITE_DIR ${CMAKE_INSTALL_PREFIX}/site-packages CACHE PATH "Path to Python site packages directory")
-    set(PYTHON_PACKAGE_INSTALL_PREFIX ${PYTHON_PACKAGE_SITE_DIR}/roadrunner)#CACHE PATH "Destination for roadrunner python bindings.")
-    set(RR_PLUGINS_PYTHON_INSTALL_PREFIX ${PYTHON_PACKAGE_SITE_DIR}/rrplugins)#CACHE PATH "Destination for rrplugins python bindings.")
-    set(RR_PLUGINS_PYLIB_INSTALL_PREFIX ${PYTHON_PACKAGE_SITE_DIR}/rrplugins/libs)#CACHE PATH "Destination for rrplugins python binding libraries.")
-    #cmake_dependent_option(RR_PLUGINS_BUILD_PYTHON_API "Build the RR plugin PYTHON API" ON "BUILD_PYTHON AND BUILD_RR_PLUGINS" OFF)
+
+    # build directories
+    set(PYTHON_PACKAGE_SITE_DIR_BUILD_TREE "${CMAKE_BINARY_DIR}/lib/site-packages" CACHE PATH "Path to Python site packages directory in the build tree")
+    set(PYTHON_PACKAGE_BUILD_PREFIX "${PYTHON_PACKAGE_SITE_DIR_BUILD_TREE}/roadrunner")
+    set(RR_PYTHON_TESTING_BUILD_PREFIX "${PYTHON_PACKAGE_BUILD_PREFIX}/testing")
+
+    # install directories
+    set(PYTHON_PACKAGE_SITE_DIR "${CMAKE_INSTALL_PREFIX}/site-packages" CACHE PATH "Path to Python site packages directory in the install tree")
+    set(PYTHON_PACKAGE_INSTALL_PREFIX "${PYTHON_PACKAGE_SITE_DIR}/roadrunner")#CACHE PATH "Destination for roadrunner python bindings.")
+    set(RR_PYTHON_TESTING_INSTALL_PREFIX "${PYTHON_PACKAGE_INSTALL_PREFIX}/testing")
+
+
+    # plugin directories
+    set(RR_PLUGINS_PYTHON_INSTALL_PREFIX "${PYTHON_PACKAGE_SITE_DIR}/rrplugins")#CACHE PATH "Destination for rrplugins python bindings.")
+    set(RR_PLUGINS_PYLIB_INSTALL_PREFIX "${PYTHON_PACKAGE_SITE_DIR}/rrplugins/libs")#CACHE PATH "Destination for rrplugins python binding libraries.")
+
+    cmake_dependent_option(RR_PLUGINS_BUILD_PYTHON_API "Build the RR plugin PYTHON API" ON "BUILD_RR_PLUGINS" OFF)
+
     #	cmake_dependent_option(BUILD_PYTHON_CTYPES_API "Build the ctypes python API for roadrunner" ON
     #	        "BUILD_PYTHON" OFF)
     #	cmake_dependent_option(WITH_CONDA_BUILDER "Include files required to build the conda package" OFF
@@ -158,25 +178,21 @@ cmake_dependent_option(RR_PLUGINS_BUILD_ADD_NOISE_PLUGIN "Build the Add Noise Pl
 cmake_dependent_option(RR_PLUGINS_BUILD_CHISQUARE_PLUGIN "Build the ChiSquare Plugin" ON "BUILD_RR_PLUGINS" OFF)
 cmake_dependent_option(RR_PLUGINS_BUILD_AUTO2000_PLUGIN "Build the Auto 2000 Plugin" ON "BUILD_RR_PLUGINS" OFF)
 cmake_dependent_option(RR_PLUGINS_BUILD_HELLO_PLUGIN "Build the Demo Plugin" ON "BUILD_RR_PLUGINS" OFF)
-cmake_dependent_option(RR_PLUGINS_BUILD_LEVENBERG_MARQUARDT_PLUGIN "Build the Levenberg-Marquardt Plugin (beta)" ON "BUILD_RR_PLUGINS" OFF)
-cmake_dependent_option(RR_PLUGINS_BUILD_NELDER_MEAD_PLUGIN "Build the Nelder-Mead Plugin (beta)" ON "BUILD_RR_PLUGINS" OFF)
-cmake_dependent_option(RR_PLUGINS_BUILD_MONTE_CARLO_PLUGIN "Build the Monte Carlo Plugin (beta)" ON "BUILD_RR_PLUGINS" OFF)
 
 # Plugin selection: Unreleased
-# (none; all are currently released)
+cmake_dependent_option(RR_PLUGINS_BUILD_LEVENBERG_MARQUARDT_PLUGIN "Build the Levenberg-Marquardt Plugin (beta)" OFF "BUILD_RR_PLUGINS" OFF)
+cmake_dependent_option(RR_PLUGINS_BUILD_NELDER_MEAD_PLUGIN "Build the Nelder-Mead Plugin (beta)" OFF "BUILD_RR_PLUGINS" OFF)
+cmake_dependent_option(RR_PLUGINS_BUILD_MONTE_CARLO_PLUGIN "Build the Monte Carlo Plugin (beta)" OFF "BUILD_RR_PLUGINS" OFF)
 
-mark_as_advanced(RR_PLUGINS_unreleased_PLUGIN)
+mark_as_advanced(RR_PLUGINS_BUILD_LEVENBERG_MARQUARDT_PLUGIN)
+mark_as_advanced(RR_PLUGINS_BUILD_NELDER_MEAD_PLUGIN)
+mark_as_advanced(RR_PLUGINS_BUILD_MONTE_CARLO_PLUGIN)
 
-set(CXX_STANDARD 14 CACHE STRING "set the cmake standard to use")
+set(CXX_STANDARD 17 CACHE STRING "set the cmake standard to use")
 
 ##################################################
 #   Settings
 #
-
-# Would be nice to set these options but I tried it and we cannot without
-# breaking the build (cw)
-#set(CMAKE_CXX_VISIBILITY_PRESET hidden)
-#set(CMAKE_VISIBILITY_INLINES_HIDDEN YES)
 
 #handle rpath
 set(CMAKE_MACOSX_RPATH TRUE)
@@ -196,9 +212,7 @@ if (BUILD_TESTS OR BUILD_JAVA)
     enable_testing()
 endif ()
 
-# TODO: add some logic to automatically set based on compiler version
-# todo: turn on C++17 and see if it errors.
-#   - it does. Therefore todo: fix errors with c++17
+
 set(RR_USE_CXX14 TRUE CACHE BOOL "Set to TRUE to enable C++14 features")
 
 # new clang on OSX and msvc use std namespace.
@@ -237,9 +251,6 @@ else ()
     message(STATUS "not building legacy C backend")
 endif (BUILD_LEGACY_C)
 
-
-# Set C++14 flags
-set(CMAKE_CXX_STANDARD ${CXX_STANDARD})
 
 # Enable cmake printing out commands
 set(CMAKE_VERBOSE_MAKEFILE TRUE)
@@ -305,10 +316,15 @@ exists and is the full path to the installed dependency tree.")
 endif ()
 
 set(RR_ROOT "${CMAKE_CURRENT_SOURCE_DIR}")
-set(DEPENDENCY_CMAKE_CONFIG_PATHS "${RR_DEPENDENCIES_INSTALL_PREFIX}/lib/cmake")
+set(DEPENDENCY_CMAKE_CONFIG_PATHS
+        "${RR_DEPENDENCIES_INSTALL_PREFIX}/lib/cmake"
+        "${RR_DEPENDENCIES_INSTALL_PREFIX}/lib64/cmake"
+        "${RR_DEPENDENCIES_INSTALL_PREFIX}/cmake"
+        "${RR_DEPENDENCIES_INSTALL_PREFIX}/lib/cmake/Poco"
+        )
 set(CMAKE_PREFIX_PATH ${CMAKE_PREFIX_PATH} "${DEPENDENCY_CMAKE_CONFIG_PATHS}")
 set(CMAKE_MODULE_PATH ${CMAKE_MODULE_PATH} "${DEPENDENCY_CMAKE_CONFIG_PATHS}")
-
+message(STATUS "CMAKE_PREFIX_PATH ${CMAKE_PREFIX_PATH}")
 if (WIN32)
     set(SBML_TARGET_NAME "libsbml-static")
 else ()
@@ -330,12 +346,19 @@ find_package(nleq2 CONFIG REQUIRED)
 find_package(PocoFoundation CONFIG REQUIRED)
 find_package(PocoNet CONFIG REQUIRED)
 find_package(PocoXML CONFIG REQUIRED)
-#find_package(Sundials CONFIG REQUIRED)
 find_package(LLVM REQUIRED)
-
-
 find_package(SUNDIALS CONFIG REQUIRED)
 
+# not for windows. So not required, but we throw error if not win and not found.
+find_package(Curses)
+
+if (NOT WIN32 AND NOT ${CURSES_FOUND})
+    message(FATAL_ERROR "ncurses library not found. Please install it with your native package manager")
+endif ()
+
+
+set(BUILD_SHARED_LIBS OFF)
+set(BUILD_STATIC_LIBS ON)
 
 # install dependencies so clients can use roadrunner from c++/cmake
 message(STATUS "CMAKE_INSTALL_LIBDIR ${CMAKE_INSTALL_LIBDIR}")
@@ -366,6 +389,14 @@ endif ()
 # Building
 #
 
+
+# Set standard
+set(CMAKE_CXX_STANDARD 17)
+if (NOT WIN32)
+    # some cmake (or gcc) bug means that we also need to set -std=c++17
+    set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -std=c++17")
+endif ()
+
 # We always have to build the roadrunner core, everything depends on this
 add_subdirectory(source)
 
@@ -392,7 +423,6 @@ endif ()
 #
 
 if (${BUILD_PACKAGING})
-    #todo raise question of deleting the "installer" folder (cw)
     # it doesn't look that useful and we now have the contents of
     # packaging that will automate production of binary releases.
     add_subdirectory(packaging)
@@ -409,6 +439,16 @@ if (BUILD_TESTS)
     # to add_test.
     enable_testing()
     include(GoogleTest)
+
+    # defined here, passed on to running the Python tests via CTest
+    set(PYTHON_API_IN_BINARY_TREE "${CMAKE_CURRENT_BINARY_DIR}/wrappers/Python")
+
+    # these sources are needed in some tests
+    set(
+            RR_PYTHON_PYUTILS_SRC
+            "${CMAKE_CURRENT_SOURCE_DIR}/wrappers/Python/roadrunner/PyUtils.cpp"
+            "${CMAKE_CURRENT_SOURCE_DIR}/wrappers/Python/roadrunner/PyUtils.h"
+    )
 
     add_subdirectory(test)
 
@@ -474,8 +514,17 @@ if (${BORLAND})
 endif ()
 
 configure_file(
-        ${CMAKE_CURRENT_SOURCE_DIR}/VERSION.txt.in
-        ${CMAKE_CURRENT_BINARY_DIR}/VERSION.txt @ONLY
+        "${CMAKE_CURRENT_SOURCE_DIR}/VERSION.txt.in"
+        "${CMAKE_CURRENT_BINARY_DIR}/VERSION.txt" @ONLY
+)
+
+configure_file(
+        "${CMAKE_CURRENT_SOURCE_DIR}/requirements.txt"
+        "${CMAKE_BINARY_DIR}/requirements.txt" @ONLY
+)
+install(
+        FILES "${CMAKE_CURRENT_SOURCE_DIR}/requirements.txt"
+        DESTINATION .
 )
 
 install(
