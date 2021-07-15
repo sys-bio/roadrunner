@@ -66,7 +66,7 @@ double beta,
 double gamma
 )
 {
-    NelderMead&         plugin      = *((NelderMead*) userData);
+    nmfit::NelderMead&         plugin      = *((nmfit::NelderMead*) userData);
 
 	int vs;         /* vertex with smallest value */
 	int vh;         /* vertex with next smallest value */
@@ -382,6 +382,7 @@ double gamma
 
 		if (s < epsilon)
         {
+			plugin.setPropertyByString("StatusMessage", "converged");
             break;
         }
 	}

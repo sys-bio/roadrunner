@@ -5692,6 +5692,19 @@ void RoadRunner::setHasOnlySubstanceUnits(const std::string& sid, bool hasOnlySu
 	regenerateModel(forceRegenerate);
 }
 
+bool RoadRunner::getHasOnlySubstanceUnits(const std::string& sid)
+{
+    using namespace libsbml;
+    Model* sbmlModel = impl->document->getModel();
+    Species* species = sbmlModel->getSpecies(sid);
+
+    if (species == NULL)
+    {
+        throw std::invalid_argument("Roadrunner::getHasOnlySubstanceUnits failed, no species with ID " + sid + " existed in the model");
+    }
+    return species->getHasOnlySubstanceUnits();
+}
+
 void RoadRunner::setInitAmount(const std::string& sid, double initAmount, bool forceRegenerate)
 {
 	using namespace libsbml;

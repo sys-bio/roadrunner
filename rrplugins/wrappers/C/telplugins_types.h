@@ -44,45 +44,49 @@
 #include "telplugins_settings.h"
 
 #if defined(__cplusplus)
-namespace tlpc { extern "C"  {
+namespace tlpc 
+{
+    extern "C"
+    {
 #endif
 
-/*!@brief Void pointer to a RoadRunner instance */
-typedef void* TELHandle; /*! Void pointer to a Tellurium object*/
+        /*!@brief Void pointer to a plugin object */
+        typedef void* TELHandle; /*! Void pointer to a Tellurium object*/
 
-/*!
- \brief Typedef for plugin event function
- \ingroup pluginRoutines
-*/
-typedef void (event_cc *PluginEvent)(void*, void*);
+        /*!
+         \brief Typedef for plugin event function
+         \ingroup pluginRoutines
+        */
+        typedef void (event_cc* PluginEvent)(void*, void*);
 
-/*!@brief Enum distinguishing job types */
-typedef enum {jtLoadModel, jtSimulate}  RRJobType;
+        /*!@brief Enum distinguishing job types */
+        typedef enum { jtLoadModel, jtSimulate }  RRJobType;
 
 
-/*!@struct*/
-/*!@brief Structure for a set of RoadRunner handles */
-typedef struct RRInstanceList
-{
-    int             Count;                  /*!< The number of elements in the list */
-    TELHandle*       Handle;                   /*!< Pointer to a RoadRunner instance */
-    void*           RRList;                 /*!< Pointer to a RoadRunnerList instance */
-} *RRInstanceListPtr;                      /*!< Pointer to RRInstanceList */
+        /*!@struct*/
+        /*!@brief Structure for a set of RoadRunner handles */
+        typedef struct RRInstanceList
+        {
+            int             Count;                  /*!< The number of elements in the list */
+            TELHandle* Handle;                   /*!< Pointer to a RoadRunner instance */
+            void* RRList;                 /*!< Pointer to a RoadRunnerList instance */
+        } *RRInstanceListPtr;                      /*!< Pointer to RRInstanceList */
 
-/*!@struct*/
-/*!@brief Convenient structure for storing the header and main body source for the generate simulation C code */
-typedef struct RRCCode
-{
-    char*   Header;  /*!< Header file *.h */
-    char*   Source;  /*!< Main source code, *.c */
+        /*!@struct*/
+        /*!@brief Convenient structure for storing the header and main body source for the generate simulation C code */
+        typedef struct RRCCode
+        {
+            char* Header;  /*!< Header file *.h */
+            char* Source;  /*!< Main source code, *.c */
 
-} *RRCCodePtr;    /*!< Pointer to RRCCodePtr struct */
+        } *RRCCodePtr;    /*!< Pointer to RRCCodePtr struct */
 
 
 
 
 #if defined( __cplusplus)
-} }//Namespace
+    }
+}//Namespace
 #endif
 
 #endif

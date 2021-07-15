@@ -61,7 +61,7 @@ string CPlugin::getLastError()
 
         return msgStr;
     }
-    return "No error";
+    return "";
 }
 
 }

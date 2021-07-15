@@ -19,7 +19,7 @@ if (RR_PLUGINS_BUILD_SHARED_LIB)
 
     target_link_libraries(${target} PUBLIC
             telplugins_common-static
-            ${RRPLUGINS_COMMON_SHARED_LIBS})
+            )
     target_include_directories(${target} PUBLIC ${CMAKE_CURRENT_SOURCE_DIR})
 
     if (UNIX)
@@ -46,8 +46,8 @@ if (RR_PLUGINS_BUILD_STATIC_LIB)
     target_compile_definitions(${target}-static PRIVATE STATIC_PLUGIN_API)
 
     target_link_libraries(${target}-static PUBLIC
-            telplugins_common-static 
-            ${RRPLUGINS_COMMON_STATIC_LIBS})
+            telplugins_common-static
+            )
 
     target_include_directories(${target}-static PUBLIC ${CMAKE_CURRENT_SOURCE_DIR})
 

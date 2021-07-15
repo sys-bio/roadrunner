@@ -57,35 +57,35 @@
 namespace tlp
 {
 
-using std::stringstream;
-using std::string;
-using std::vector;
-using std::pair;
-using std::ostream;
-using tlp::gEmptyString;
+    using std::stringstream;
+    using std::string;
+    using std::vector;
+    using std::pair;
+    using std::ostream;
+    using tlp::gEmptyString;
 
-//using tlp::StringList;
-using Poco::SharedLibrary;
+    //using tlp::StringList;
+    using Poco::SharedLibrary;
 
-class Plugin;
+    class Plugin;
 
-/**
-Typedef for a plugins record in the plugins container
-*/
-typedef pair< Poco::SharedLibrary*, Plugin* > telPlugin;
+    /**
+    Typedef for a plugins record in the plugins container
+    */
+    typedef pair< Poco::SharedLibrary*, Plugin* > telPlugin;
 
-/**
- * The PluginManager class is responsible for loading and unloading plugins.
- * Each plugin is validated and categorized during the load process. A plugin that don't pass validation
- * will not be loaded.
- *
- * The plugin manager provide various functions to assist a client in
- * retrieving plugins from the manager, e.g.  getFirstPlugin, getNextPlugin, getPreviousPlugin or getPlugin(name).
- *
- * Plugins are by default placed in a Plugins folder, found in RoadRunners install folder.
- */
-class CORE_DECLSPEC PluginManager
-{
+    /**
+     * The PluginManager class is responsible for loading and unloading plugins.
+     * Each plugin is validated and categorized during the load process. A plugin that don't pass validation
+     * will not be loaded.
+     *
+     * The plugin manager provide various functions to assist a client in
+     * retrieving plugins from the manager, e.g.  getFirstPlugin, getNextPlugin, getPreviousPlugin or getPlugin(name).
+     *
+     * Plugins are by default placed in a Plugins folder, found in RoadRunners install folder.
+     */
+    class CORE_DECLSPEC PluginManager
+    {
     public:
         /**
          * The constructor of a Plugin manager creates a Plugin manager instance.
@@ -93,7 +93,7 @@ class CORE_DECLSPEC PluginManager
          * @param pluginFolder Folder where the plugin manager is looking for plugins. If argument
             is not supplied, the manager will use the default folder, which is "plugins" located in RoadRunners install folder.
          */
-                                            PluginManager(const string& pluginFolder = gEmptyString);
+        PluginManager(const string& pluginFolder = gEmptyString);
         /**
          * The destructor of a Plugin manager will free any memory allocated and also unload any plugins that it loaded.
          */
@@ -148,34 +148,34 @@ class CORE_DECLSPEC PluginManager
             \note This function resets the managers internal plugin iterator to point
             at the "first" plugin.
         */
-        Plugin*                             getFirstPlugin() const;
+        Plugin* getFirstPlugin() const;
 
         /**
             Retrieves the "next" plugin in the managers internal plugin container.
             \return Pointer to a Plugin, or NULL.
             \note This function advances the managers internal plugin iterator one step forward.
         */
-        Plugin*                             getNextPlugin() const;
+        Plugin* getNextPlugin() const;
 
         /**
             Retrieves the "previous" plugin in the managers internal plugin container.
             \return Pointer to a Plugin, or NULL.
             \note This function decerements the managers internal plugin iterator one step back.
         */
-        Plugin*                             getPreviousPlugin() const;
+        Plugin* getPreviousPlugin() const;
 
         /**
             Retrieves the "current" plugin in the managers internal plugin container.
             \return Pointer to a Plugin, or NULL.
         */
-        Plugin*                             getCurrentPlugin() const;
+        Plugin* getCurrentPlugin() const;
 
         /**
             Retrieves a plugin with name as supplied in the argument.
             \arg name Name of the plugin.
             \return Pointer to a Plugin, or NULL.
         */
-        Plugin*                             getPlugin(const string& name) const;
+        Plugin* getPlugin(const string& name) const;
 
         /**
             Retrieves the names of all loaded plugins as a list of strings.
@@ -193,12 +193,12 @@ class CORE_DECLSPEC PluginManager
             Output plugin information to a std ostream
         */
         CORE_DECLSPEC
-        friend ostream&                     operator<<(ostream& os, PluginManager& pm);
+            friend ostream& operator<<(ostream& os, PluginManager& pm);
 
         /**
             Access a plugin using the [] operator.
         */
-        Plugin*                             operator[](const int& i);
+        Plugin* operator[](const int& i);
 
         bool                                hasLoadErrors() const;
         string                              getLoadErrors() const;
@@ -213,15 +213,15 @@ class CORE_DECLSPEC PluginManager
 
         bool                                loadPlugin(const string& sharedLib);
         bool                                checkImplementationLanguage(SharedLibrary* plugin);
-        const char*                         getImplementationLanguage(SharedLibrary* plugin);
-        Plugin*                             createCPlugin(SharedLibrary *libHandle);
-        Plugin*                             getPlugin(const int& i);
+        const char* getImplementationLanguage(SharedLibrary* plugin);
+        Plugin* createCPlugin(SharedLibrary* libHandle);
+        Plugin* getPlugin(const int& i);
         bool                                unloadAll();
         void                                clearLoadErrors();
-    
+
     public:
         rrc::THostInterface* hostInterface;
-};
+    };
 
 }
 #endif
@@ -229,17 +229,17 @@ class CORE_DECLSPEC PluginManager
 /*! \mainpage A Plugin Framework for libRoadRunner
 
  \par
- This document describes libRoadRunners Plugins API. 
+ This document describes libRoadRunners Plugins API.
  \par
- The Plugins API is centered around the \a PluginManager, \a Plugin, and the \a Property classes. The Plugin manager is 
+ The Plugins API is centered around the \a PluginManager, \a Plugin, and the \a Property classes. The Plugin manager is
  responsible for validating, loading and unloading plugins at runtime.
 
  \par
  The Plugins themselves are self contained shared libraries that may be designed to extend the functionality of the main libRoadRunners core API.
- 
+
  \par
- The capabilities of a Plugin is communicated to a client by the use of \a PluginProperties. A Plugin property is an object 
- able to communicate various types of data betwen the Plugin and the client, such as an int, double or a string. In addition to its value, plugin 
+ The capabilities of a Plugin is communicated to a client by the use of \a PluginProperties. A Plugin property is an object
+ able to communicate various types of data betwen the Plugin and the client, such as an int, double or a string. In addition to its value, plugin
  properties have a name, hint and description field, assisting in communicating the purpose of the property.
 
  \par
@@ -255,7 +255,7 @@ class CORE_DECLSPEC PluginManager
  \author Herbert M. Sauro  (hsauro@u.washington.edu)
 
  \par
- Redistribution and use in source and binary forms, with or without modification, 
+ Redistribution and use in source and binary forms, with or without modification,
  are permitted provided that the following conditions are met:
 
  \li Redistributions of source code must retain the above copyright notice, this list of conditions and the following disclaimer.

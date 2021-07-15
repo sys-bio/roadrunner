@@ -1836,6 +1836,18 @@ C_DECL_SPEC RRStringArrayPtr rrcCallConv getTimeCourseSelectionList(RRHandle han
 C_DECL_SPEC RRCDataPtr rrcCallConv simulate(RRHandle handle);
 
 /*!
+ \brief Carry out a time-course simulation. setTimeStart, setTimeEnd,
+ setNumPoints, etc are used to set the simulation characteristics.
+
+ \param[in] handle Handle to a RoadRunner instance
+ \return Returns an array (RRCDataPtr) of columns containing the results of the
+ simulation including string labels for the individual columns. The client is
+ responsible for freeing the resulting RRCDataPtr structure.
+ \ingroup simulation
+*/
+C_DECL_SPEC bool rrcCallConv simulateNoReturn(RRHandle handle);
+
+/*!
  \brief Retrieve the result of the last simulation.
  \param[in] handle Handle to a RoadRunner instance
  \return Returns an array (RRCDataPtr) of columns containing the results of the
@@ -1844,6 +1856,16 @@ C_DECL_SPEC RRCDataPtr rrcCallConv simulate(RRHandle handle);
  \ingroup simulation
 */
 C_DECL_SPEC RRCDataPtr rrcCallConv getSimulationResult(RRHandle handle);
+
+
+/*!
+ \brief Retrieve the result of the last simulation as a DoubleMatrix
+ \param[in] handle Handle to a RoadRunner instance
+ \return Returns a pointer (RRHandle) containing the results of the
+ simulation.  The pointer is *not* owned by the caller.
+ \ingroup simulation
+*/
+C_DECL_SPEC RRHandle rrcCallConv getSimulationResultAsDoubleMatrix(RRHandle handle);
 
 
 /*!
@@ -1871,6 +1893,32 @@ C_DECL_SPEC RRCDataPtr rrcCallConv getSimulationResult(RRHandle handle);
  \ingroup simulation
 */
 C_DECL_SPEC RRCDataPtr rrcCallConv simulateEx(RRHandle handle, const double timeStart, const double timeEnd, const int numberOfPoints);
+
+/*!
+ \brief Carry out a time-course simulation based on the given arguments, time start,
+ time end and number of points, but do not return results.
+
+ Example:
+ \code
+    RRCDataPtr m;
+
+    double timeStart = 0.0;
+    double timeEnd = 25;
+    int numberOfPoints = 200;
+
+    m = simulateEx (rrHandle, timeStart, timeEnd, numberOfPoints);
+    \endcode
+
+ \param[in] handle Handle to a RoadRunner instance
+ \param[in] timeStart Time start
+ \param[in] timeEnd Time end
+ \param[in] numberOfPoints Number of points to generate
+ \return Returns an array (RRCDataPtr) of columns containing the results of the
+ simulation including string labels for the individual columns. The client is
+ responsible for freeing the resulting RRCDataPtr structure.
+ \ingroup simulation
+*/
+C_DECL_SPEC bool rrcCallConv simulateExNoReturn(RRHandle handle, const double timeStart, const double timeEnd, const int numberOfPoints);
 
 /*!
  \brief Carry out a one step integration of the model

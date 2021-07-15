@@ -1,22 +1,21 @@
 #ifndef lmH
 #define lmH
 #include <vector>
-#include "telProperty.h"
 #include "telCPPPlugin.h"
-#include "rr-libstruct/lsMatrix.h"
 #include "lmWorker.h"
 #include "lib/lmmin.h"
+#include "telplugins_types.h"
 //---------------------------------------------------------------------------
 
 namespace lmfit
 {
-using namespace tlp;
-using rr::RoadRunner;
-using std::string;
+    using namespace tlp;
+    using rr::RoadRunner;
+    using std::string;
 
-class LM : public CPPPlugin
-{
-    friend class lmWorker;
+    class LM : public CPPPlugin
+    {
+        friend class lmWorker;
 
     public:
         Property<string>                        mSBML;                          //This is the model
@@ -43,7 +42,7 @@ class LM : public CPPPlugin
         Property<string>                        mStatusMessage;                 //Message regarding the status of the fit
         Property<double>                        mNorm;                          //Part of minimization result
         Property<TelluriumData>                 mNorms;                         //Norm values from the fitting
-        TelluriumData&                          rNormsData;                     //Setup a reference to Norms Data
+        TelluriumData& rNormsData;                     //Setup a reference to Norms Data
 
         Property<TelluriumData>			        mResidualsData;                 //Residuals from the fitting
         Property<TelluriumData>			        mStandardizedResiduals;         //Standardized Residuals from the fitting
@@ -51,14 +50,13 @@ class LM : public CPPPlugin
         Property<double>			            mChiSquare;                     //Chi square for the fitting
         Property<double>			            mReducedChiSquare;              //Reduced Chi Square
 
-        Property< ls::Matrix<double> >          mHessian;                       //Hessian
-        Property< ls::Matrix<double> >          mCovarianceMatrix;              //Covariance Matrix
+        Property<TelluriumData>                 mHessian;                       //Hessian
+        Property<TelluriumData>                 mCovarianceMatrix;              //Covariance Matrix
 
-		//Utility functions for the thread
-        string                                  getTempFolder();
+        //Utility functions for the thread
         string                                  getSBML();
 
-		lmDataStructure							&mLMData;        //LevenbergMarq.. data structure
+        lmDataStructure&                        mLMData;        //LevenbergMarq.. data structure
 
     protected:
         //The worker is doing the work
@@ -66,8 +64,8 @@ class LM : public CPPPlugin
         lm_status_struct                        mLMStatus;      //Check afterwards.
 
     public:
-                                                LM(PluginManager* manager);
-                                               ~LM();
+        LM();
+        ~LM();
 
         bool                                    execute(bool inThread = false);
         string                                  getResult();
@@ -76,30 +74,20 @@ class LM : public CPPPlugin
         string                                  getStatus();
         bool                                    isWorking() const;
 
-        unsigned char*                          getManualAsPDF() const;
+        unsigned char* getManualAsPDF() const;
         size_t                                  getPDFManualByteSize();
         tlp::StringList                         getExperimentalDataSelectionList();
         void                                    assignPropertyDescriptions();
-};
+    };
 
-extern "C"
-{
-TLP_DS LM*         plugins_cc       createPlugin(void* manager);
-TLP_DS const char* plugins_cc       getImplementationLanguage();
-}
-
-}
-
-namespace tlp
-{
-
-//template<>
-//inline string Property< ls::Matrix<double> >::getValueAsString() const
-//{
-//    stringstream ss;
-//    ss << mValue;
-//    return ss.str();
-//}
+    extern "C"
+    {
+        TLP_DS LM* plugins_cc createPlugin();
+        TLP_DS const char* plugins_cc getImplementationLanguage();
+        TLP_DS void plugins_cc setHostInterface(rrc::THostInterface* _hostInterface);
+        TLP_DS void plugins_cc setPluginManager(TELHandle manager);
+    }
 
 }
+
 #endif

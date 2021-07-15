@@ -814,6 +814,8 @@ namespace rr
          */
         void setHasOnlySubstanceUnits(const std::string& sid, bool hasOnlySubstanceUnits, bool forceRegenerate = true);
 
+        bool getHasOnlySubstanceUnits(const std::string& sid);
+
 
         /**
          * Set initial amount for an existing species. Initial amount/concentration set before will be unset.

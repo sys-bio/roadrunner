@@ -305,6 +305,8 @@ class Plugin
         */
         virtual bool                    execute(bool inAThread = false) = 0;
 
+        rrc::RRHandle                   rrHandle;
+
 
     protected:                          //! Name of Plugin
         string                          mName;
@@ -339,8 +341,6 @@ class Plugin
                                         //! Boolean flag indicating if the plugin is working
         bool                            mIsWorking;
         
-        rrc::RRHandle                   rrHandle;
-
         /**
          * Set the name of the shared library
          */

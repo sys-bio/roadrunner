@@ -36,15 +36,21 @@ function(add_test_executable TEST_TARGET OUT_VARIABLE)
     #message(STATUS "Adding test ${TEST_TARGET} as part of ${OUT_VARIABLE}. Source Files: ARGN: ${ARGN}" )
     add_executable(${TEST_TARGET} ${ARGN} $<TARGET_OBJECTS:rr-mockups>)
 
+    if (TEST_TARGET MATCHES ".*plugin.*")
+       set(TEST_PLUGIN_INCLUDE "$<TARGET_PROPERTY:telplugins_c_api,INCLUDE_DIRECTORIES>")
+       set(TEST_PLUGIN_LIB "telplugins_c_api")
+    endif()
+
     target_include_directories(
             ${TEST_TARGET} PRIVATE
             "${ThisSourceDirectory}"
             "${ThisBinaryDirectory}"
             "${MOCKUPS_DIRECTORY}"
+            "${TEST_PLUGIN_INCLUDE}"
     )
 
     target_link_libraries(${TEST_TARGET} PRIVATE
-            roadrunner_c_api roadrunner-static rr-mockups gtest gtest_main gmock gmock_main
+            roadrunner_c_api roadrunner-static rr-mockups ${TEST_PLUGIN_LIB} gtest gtest_main gmock gmock_main
             )
     # This causes a weird build error whereby it is no longer possible
     # to name a class the name as the binary filename. However, since w
@@ -207,6 +213,22 @@ add_subdirectory(state_saving)
 add_subdirectory(sundials-tests)
 add_subdirectory(python)
 add_subdirectory(cxx_api_tests)
+
+if (BUILD_RR_PLUGINS)
+   set(
+        SharedPluginTestFiles
+        # path *must* be absolute to work in cmake functions/macros
+        "${CMAKE_CURRENT_BINARY_DIR}/RoadRunnerPluginDirectory.h"
+        "${CMAKE_CURRENT_BINARY_DIR}/RoadRunnerPluginDirectory.cpp"
+   )
+
+   add_subdirectory(plugin_api)
+   add_subdirectory(plugin_auto2000)
+   add_subdirectory(plugin_levenberg_marquardt)
+   add_subdirectory(plugin_monte_carlo_bs)
+   add_subdirectory(plugin_nelder_mead)
+   add_subdirectory(plugin_test_model)
+endif() #BUILD_RR_PLUGINS
 
 #List the semantic_STS last, since it takes much longer to run than the others.
 # (fyi, build the run-ctest-exclude-sbml-test-suite target - see below)

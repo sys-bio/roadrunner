@@ -2,7 +2,8 @@ from rrplugins import *
 auto = Plugin("tel_auto2000")
 
 
-sbmlModel = "path to any model. Eg. some models are provided in source code, like, BIOMD0000000203.xml"
+# path to any model. Eg. some models are provided in source code, like BIOMD0000000203.xml
+sbmlModel = "BIOMD0000000203.xml"
 
 auto.setProperty("SBML", readAllText(sbmlModel))
 

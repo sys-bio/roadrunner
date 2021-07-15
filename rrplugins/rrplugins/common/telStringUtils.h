@@ -62,6 +62,7 @@ COMMON_DECLSPEC double              strToDbl(const string& nt);
 COMMON_DECLSPEC vector<string>      splitString(const string &text, const string &separators);
 COMMON_DECLSPEC vector<string>      splitString(const string& input, const char& delimiters);
 COMMON_DECLSPEC int                 toInt(const string& str);
+COMMON_DECLSPEC unsigned int        toUnsignedInt(const string& str);
 COMMON_DECLSPEC bool                toBool(const string& str);
 COMMON_DECLSPEC double              toDouble(const string& str);
 COMMON_DECLSPEC complex<double>     toComplex(const string& str);

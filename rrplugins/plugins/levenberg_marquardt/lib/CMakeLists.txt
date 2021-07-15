@@ -14,5 +14,11 @@ add_library(lmfit-static STATIC
 ${sources}
 )
 
-set_target_properties( lmfit-static PROPERTIES POSITION_INDEPENDENT_CODE True )
+set_target_properties(lmfit-static PROPERTIES PREFIX "")
+
+if (WIN32)
+    target_compile_definitions(lmfit-static PUBLIC STATIC_RR)
+endif ()
+
+set_target_properties(lmfit-static PROPERTIES POSITION_INDEPENDENT_CODE True )
 

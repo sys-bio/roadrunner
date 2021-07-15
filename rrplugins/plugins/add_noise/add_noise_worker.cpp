@@ -40,6 +40,11 @@ bool AddNoiseWorker::isRunning() const
     return mThread.isRunning();
 }
 
+void AddNoiseWorker::setSeed(unsigned long val)
+{
+    mNoise.setSeed(val);
+}
+
 void AddNoiseWorker::run()
 {
     if(mTheHost.mWorkStartedEvent)
@@ -53,7 +58,7 @@ void AddNoiseWorker::run()
     double sigma = mTheHost.mSigma.getValue();
 
     //Don't add noise to a column that has name 'time'
-    bool ignoreFirstColumn = data.isFirstColumnTime();
+    bool ignoreFirstColumn = mTheHost.mAssumeTime.getValue() || data.isFirstColumnTime();
     for(int row = 0; row < data.rSize(); row++)
     {
         for(int col = 0; col < data.cSize(); col++)
@@ -73,7 +78,7 @@ void AddNoiseWorker::run()
 
             if(mTheHost.mWorkProgressEvent)
             {
-                //The progress is communicated to the client trough the mProgress property
+                //The progress is communicated to the client through the mProgress property
                 double progress = (row * 100.0) /(data.rSize() -1.0);
                 mTheHost.mProgress.setValue( progress );
                 mTheHost.mWorkProgressEvent(mTheHost.mWorkProgressData1,  mTheHost.mWorkProgressData2);

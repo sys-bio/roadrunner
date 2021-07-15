@@ -125,6 +125,14 @@ TLP_C_DS bool tlp_cc tpSetBoolProperty(TELHandle handle, bool value);
 TLP_C_DS bool tlp_cc tpSetIntProperty(TELHandle handle, int value);
 
 /*!
+ \brief Set an unsigned long property
+ \param handle to a Property instance
+ \param value to assign to the property.
+ \return Returns true if sucessful, false otherwise
+*/
+TLP_C_DS bool tlp_cc tpSetUnsignedLongProperty(TELHandle handle, unsigned long value);
+
+/*!
  \brief Get the value of an int property
  \param handle to a Property instance
  \param value to assign to the property.

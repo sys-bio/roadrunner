@@ -113,11 +113,6 @@ c_int_p    = POINTER(c_int)
 NotifyEvent  = CFUNCTYPE(None, c_void_p, c_void_p)
 NotifyEventEx  = CFUNCTYPE(None, c_void_p, c_void_p)
 
-rrpLib.tpFreeText.restype = c_bool
-rrpLib.tpFreeText.argtypes = [c_void_p]
-def freeText(text):
-    rrpLib.tpFreeText(text)
-
 ## \brief Get Tellurium Plugins copyright.
 ## \return Returns a string if successful, None otherwise
 ## \ingroup utilities
@@ -125,7 +120,6 @@ rrpLib.tpGetCopyright.restype = c_char_p
 def getCopyright():
     data =  rrpLib.tpGetCopyright()
     res = data
-    freeText(data)
     return decodeIfBytes(res)
 
 ## \brief Get Tellurium plugin API version.
@@ -135,7 +129,6 @@ rrpLib.tpGetVersion.restype = c_char_p
 def getVersion():
     data =  rrpLib.tpGetVersion()
     res = data
-    freeText(data)
     return decodeIfBytes(res)
 
 ## \brief Create a new instance of a plugin manager.
@@ -267,7 +260,6 @@ rrpLib.tpGetPluginNames.argtypes = [c_void_p]
 def getPluginNames(pm):
     names = rrpLib.tpGetPluginNames(pm)
     res = decodeIfBytes(ctypes.cast(names, ctypes.c_char_p).value)
-    freeText(names)
     if not res:
         return list()
     return res.split(",")
@@ -374,7 +366,6 @@ rrpLib.tpGetPluginCategory.argtypes = [c_void_p]
 def getPluginCategory(pluginHandle):
     data =  rrpLib.tpGetPluginCategory(pluginHandle)
     res = decodeIfBytes(ctypes.cast(data, ctypes.c_char_p).value)
-    freeText(data)
     return res
 
 ## \brief Get the author of a Plugin. This is assigned by the pluging developer
@@ -386,7 +377,6 @@ rrpLib.tpGetPluginAuthor.argtypes = [c_void_p]
 def getPluginAuthor(pluginHandle):
     data =  rrpLib.tpGetPluginAuthor(pluginHandle)
     res = decodeIfBytes(ctypes.cast(data, ctypes.c_char_p).value)
-    freeText(data)
     return res
 
 ## \brief Get the plugin copyright.
@@ -398,7 +388,6 @@ rrpLib.tpGetPluginCopyright.argtypes = [c_void_p]
 def getPluginCopyright(pluginHandle):
     data =  rrpLib.tpGetPluginCopyright(pluginHandle)
     res = decodeIfBytes(ctypes.cast(data, ctypes.c_char_p).value)
-    freeText(data)
     return res
 
 ## \brief Get the plugin version.
@@ -410,7 +399,6 @@ rrpLib.tpGetPluginVersion.argtypes = [c_void_p]
 def getPluginVersion(pluginHandle):
     ptr = rrpLib.tpGetPluginVersion(pluginHandle)
     res = decodeIfBytes(ctypes.cast(ptr, ctypes.c_char_p).value)
-    freeText(ptr)
     return res
 
 ## \brief Get the Description of a Plugin. This is assigned by the pluging developer
@@ -428,7 +416,6 @@ rrpLib.tpGetPluginDescription.argtypes = [c_void_p]
 def getPluginDescription(pluginHandle):
     data =  rrpLib.tpGetPluginDescription(pluginHandle)
     res = decodeIfBytes(ctypes.cast(data, ctypes.c_char_p).value)
-    freeText(data)
     return res
 
 ## \brief Get a plugins Hint. A plugins hint is a short description on what the plugin is doing.This is assigned by the pluging developer
@@ -446,7 +433,6 @@ rrpLib.tpGetPluginHint.argtypes = [c_void_p]
 def getPluginHint(pluginHandle):
     data =  rrpLib.tpGetPluginHint(pluginHandle)
     res = decodeIfBytes(ctypes.cast(data, ctypes.c_char_p).value)
-    freeText(data)
     return res
 
 ## \brief Returns information about a Plugin.
@@ -458,7 +444,6 @@ rrpLib.tpGetPluginInfo.argtypes = [c_void_p]
 def getPluginInfo(pluginHandle):
     data =  rrpLib.tpGetPluginInfo(pluginHandle)
     res = decodeIfBytes(ctypes.cast(data, ctypes.c_char_p).value)
-    freeText(data)
     return res
 
 ## \brief Get Plugin manual as PDF. A plugin may embedd a help manual as a PDF.
@@ -765,6 +750,8 @@ def setPluginProperty(pluginHandle, propertyName, propertyValue):
             return setBoolProperty(propertyHandle, propertyValue)
         if paraType == 'int':
             return setIntProperty(propertyHandle, propertyValue)
+        if paraType == 'unsigned long':
+            return setUnsignedLongProperty(propertyHandle, propertyValue)
         if paraType == 'double':
             return setDoubleProperty(propertyHandle, propertyValue)
         if paraType == 'string':
@@ -836,7 +823,6 @@ def getPropertyDescription(propertyHandle):
         return None
 
     val = decodeIfBytes(ctypes.cast(descr, ctypes.c_char_p).value)
-    freeText(descr)
     return val
 
 ## \brief Set the hint property of a Property
@@ -876,7 +862,7 @@ def createProperty(name, the_type, hint="", value=None):
     else:
         if the_type == 'string':    #Otherwise underlying string type will be char*, don't
             the_type = 'std::string'
-        ptr = rrpLib.tpCreateProperty(name, the_type, hint, None)
+        ptr = rrpLib.tpCreateProperty(name.encode('utf-8'), the_type.encode('utf-8'), hint.encode('utf-8'), None)
         if not ptr:
             raise TypeError('Unable to create property {}'.format(name))
         if the_type == "bool":
@@ -1035,7 +1021,7 @@ def setBoolProperty(propertyHandle, value):
 ## \param propertyHandle to a property instance
 ## \return Returns an integer value. Throws an exception if the property type is not an integer
 ## \ingroup plugin_properties
-rrpLib.tpGetIntProperty.restype = c_int
+rrpLib.tpGetIntProperty.restype = c_bool
 rrpLib.tpGetIntProperty.argtypes = [c_void_p, c_int_p]
 def getIntProperty (propertyHandle):
     if getPropertyType (propertyHandle) == "int":
@@ -1057,11 +1043,21 @@ rrpLib.tpSetIntProperty.argtypes = [c_void_p, c_int]
 def setIntProperty(propertyHandle, value):
     return rrpLib.tpSetIntProperty(propertyHandle, c_int(value))
 
+## \brief Set an unsigned long property
+## \param propertyHandle to a property instance
+## \param value to assign to the property.
+## \return Returns true if successful, false otherwise
+## \ingroup plugin_properties
+rrpLib.tpSetUnsignedLongProperty.restype = c_bool
+rrpLib.tpSetUnsignedLongProperty.argtypes = [c_void_p, c_uint]
+def setUnsignedLongProperty(propertyHandle, value):
+    return rrpLib.tpSetUnsignedLongProperty(propertyHandle, c_uint(value))
+
 ## \brief Get the double value for a property
 ## \param propertyHandle to a property instance
 ## \return Returns a double value. Throws an exception if the property type is not a double
 ## \ingroup plugin_properties
-rrpLib.tpGetDoubleProperty.restype = c_double
+rrpLib.tpGetDoubleProperty.restype = c_bool
 rrpLib.tpGetDoubleProperty.argtypes = [c_void_p, c_double_p]
 def getDoubleProperty (propertyHandle):
     if getPropertyType (propertyHandle) == "double":
@@ -1392,7 +1388,6 @@ def getTelluriumDataColumnHeader(telDataHandle):
 
     if hdr:
         res = decodeIfBytes(ctypes.cast(hdr, ctypes.c_char_p).value)
-        freeText(hdr)
         return res.split(',')
     else:
         return None

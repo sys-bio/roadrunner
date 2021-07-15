@@ -25,6 +25,9 @@ namespace testModel {
         Property<TelluriumData>     mTestData;
         Property<TelluriumData>     mTestDataWithNoise;
         Property<double>            mSigma;
+        Property<double>            mNumPoints;
+        Property<double>            mTimeEnd;
+        Property<unsigned long>     mSeed;
         void                        addWeights();
         void                        assignPropertyDescriptions();
     };
@@ -32,11 +35,12 @@ namespace testModel {
     #ifdef EXPORT_TEST_MODEL
     extern "C"
     {
-        TLP_DS Plugin* plugins_cc createPlugin();
+        TLP_DS TestModel*  plugins_cc createPlugin();
         TLP_DS const char* plugins_cc getImplementationLanguage();
-        TLP_DS void plugins_cc setHostInterface(rrc::THostInterface* _hostInterface);
+        TLP_DS void        plugins_cc setHostInterface(rrc::THostInterface* _hostInterface);
+        TLP_DS void        plugins_cc setPluginManager(tlpc::TELHandle manager);
     }
-    #endif
+#endif
 }
 
 #endif

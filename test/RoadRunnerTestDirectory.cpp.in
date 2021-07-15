@@ -7,3 +7,17 @@ std::filesystem::path getRoadRunnerTestDirectory(){
     auto rrTestDir = "@RR_TEST_DIR@";
     return std::filesystem::absolute(rrTestDir);
 }
+
+std::filesystem::path getRoadRunnerPluginBuildDirectory(){
+    //Try as I might, I could find no variable that contained 'where the library files actually reside' for all systems.  The following is mostly a hack, but works.  (The basic problem is that VS will append 'Debug/' or 'Release/' depending on what the user set in the application itself, but this doesn't happen on mac/linux.)
+    path rrpluginsBuildDir = "@CMAKE_LIBRARY_OUTPUT_DIRECTORY@";
+    if(std::filesystem::exists(rrpluginsBuildDir / "Debug"))
+    {
+        return std::filesystem::absolute(rrpluginsBuildDir / "Debug");
+    }
+    if(std::filesystem::exists(rrpluginsBuildDir / "Release"))
+    {
+        return std::filesystem::absolute(rrpluginsBuildDir / "Release");
+    }
+    return std::filesystem::absolute(rrpluginsBuildDir);
+}

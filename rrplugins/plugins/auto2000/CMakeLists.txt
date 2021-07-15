@@ -38,7 +38,6 @@ target_include_directories(${target}
 target_link_libraries(${target} PRIVATE
         telplugins_c_api
         libTelluriumAutoInterface-static
-        ${RRPLUGINS_COMMON_SHARED_LIBS}
         )
 
 add_dependencies(${target} libTelluriumAutoInterface-static libAuto-static)

@@ -124,6 +124,7 @@ TELHandle tlp_cc tpCreateProperty(const char* label, const char* type, const cha
 
             Property<Properties> *para = new Property<Properties>(iniVal, label, hint);
             gHM.registerHandle(para, typeid(static_cast<PropertyBase*>(para)).name());
+            gHM.registerHandle(para->getValueHandle(), typeid(&iniVal).name());
             return para;
         }
 
@@ -266,6 +267,15 @@ bool tlp_cc tpSetIntProperty(TELHandle handle, int value)
         Property<int>* para = castHandle< Property<int> >(handle,__FUNC__);
         para->setValue(value);
         return true;
+    tel_catch_bool_macro
+}
+
+bool tlp_cc tpSetUnsignedLongProperty(TELHandle handle, unsigned long value)
+{
+    start_try
+        Property<unsigned long>* para = castHandle< Property<unsigned long> >(handle, __FUNC__);
+    para->setValue(value);
+    return true;
     tel_catch_bool_macro
 }
 

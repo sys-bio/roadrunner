@@ -10,7 +10,8 @@
 
 extern string theModel;
 namespace testModel {
-    rrc::THostInterface* mhostInterface;
+    rrc::THostInterface* gHostInterface = NULL;
+    tlpc::TELHandle gPluginManager = NULL;
     //---------------------------------------------------------------------------
     TestModel::TestModel() :
         CPPPlugin("TestModel", "Examples"),//Construct Base
@@ -18,13 +19,20 @@ namespace testModel {
         mModel("", "Model", "A SBML model"),
         mTestData(TelluriumData(), "TestData", "Simulated Data"),
         mTestDataWithNoise(TelluriumData(), "TestDataWithNoise", "Simulated Data With Noise"),
-        mSigma(3.e-6, "Sigma", "Sigma (<=> size of applied noise)")
+        mSigma(3.e-6, "Sigma", "Sigma (<=> size of applied noise)"),
+        mNumPoints(14, "NumPoints", "Number of points in the simulation."),
+        mTimeEnd(10, "TimeEnd", "End time of the simulation."),
+        mSeed(0, "Seed", "Random number seed for applying noise to data (0 to ignore)")
     {
         mVersion = "1.0.0";
         //Setup the plugins properties
         mProperties.add(&mModel);
         mProperties.add(&mTestData);
         mProperties.add(&mTestDataWithNoise);
+        mProperties.add(&mSigma);
+        mProperties.add(&mNumPoints);
+        mProperties.add(&mTimeEnd);
+        mProperties.add(&mSeed);
 
         mHint = "Get access to a SBML model, and simulated data using the model.";
         mDescription = "The TestModel plugin exposes properties representing a simple SBML model and simulated data using the model. The purpose of this plugin is to give a client easy access to a test model \
@@ -57,15 +65,15 @@ The TestModel plugin was developed at the University of Washington by Totte Karl
 
     bool TestModel::execute(bool inThread)
     {
-        tlp::Logger::setLevel(tlp::Logger::LOG_DEBUG);
+        //tlp::Logger::setLevel(tlp::Logger::LOG_DEBUG);
         RRPLOG(lInfo) << "Executing the TestModel plugin by J Kyle Medley and Totte Karlsson";
         RRPLOG(lInfo) << "Using SBML model: \n" << mModel.getValue();
 
-        rrc::RRHandle rrHandle = mhostInterface->createRRInstance();        //start
+        rrc::RRHandle rrHandle = gHostInterface->createRRInstance();        //start
         rrc::RRCDataPtr result = NULL;
-        mhostInterface->loadSBML(rrHandle, (mModel.getValue()).c_str());
+        gHostInterface->loadSBML(rrHandle, (mModel.getValue()).c_str());
 
-        result = mhostInterface->simulateEx(rrHandle, 0, 10, 14);
+        result = gHostInterface->simulateEx(rrHandle, 0, mTimeEnd.getValue(), mNumPoints.getValue());
 
         //convert rrcptr to matrix <double> 
         Matrix <double> output(result->RSize, result->CSize);
@@ -90,13 +98,14 @@ The TestModel plugin was developed at the University of Washington by Totte Karl
 
         mTestDataWithNoise.setValue(mTestData.getValue());
 
-        addNoise::AddNoise noise;           //replace this
-        noise.setPropertyValue("Sigma", mSigma.getValueHandle());
-        noise.setPropertyValue("InputData", mTestDataWithNoise.getValueHandle());
-        noise.execute();        
+        Plugin* noise = (Plugin*)gHostInterface->getPlugin(gPluginManager, "tel_add_noise");
+        noise->setPropertyValue("Sigma", mSigma.getValueHandle());
+        noise->setPropertyValue("InputData", mTestDataWithNoise.getValueHandle());
+        noise->setPropertyValue("Seed", mSeed.getValueHandle());
+        noise->execute();
 
 
-        mTestDataWithNoise.setValue(noise.getPropertyValueHandle("InputData"));
+        mTestDataWithNoise.setValue(noise->getPropertyValueHandle("InputData"));
 
         //Add weights
         addWeights();
@@ -154,7 +163,7 @@ The TestModel plugin was developed at the University of Washington by Totte Karl
 
     #ifdef EXPORT_TEST_MODEL
     // Plugin factory function
-    Plugin* plugins_cc createPlugin()
+    TestModel* plugins_cc createPlugin()
     {
         //allocate a new object and return it
         return new TestModel;
@@ -166,7 +175,11 @@ The TestModel plugin was developed at the University of Washington by Totte Karl
     }
 
     void plugins_cc setHostInterface(rrc::THostInterface* _hostInterface) {
-        mhostInterface = _hostInterface;
+        gHostInterface = _hostInterface;
+    }
+
+    void plugins_cc setPluginManager(tlpc::TELHandle manager) {
+        gPluginManager = manager;
     }
     #endif 
 

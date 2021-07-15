@@ -26,8 +26,7 @@ class AutoWorker : public Poco::Runnable
         bool                                        start(bool runInThread = false);
         void                                        run();
         bool                                        isRunning() const;
-        void                                        assignRoadRunner(rrc::RRHandle _rrHandle,rrc::THostInterface* tHostInterface);
-        rrc::THostInterface*                        mhostInterface;
+        void                                        assignRoadRunner(rrc::RRHandle _rrHandle);
     protected:
         Poco::Thread                                mThread;
         AutoPlugin&                                 mTheHost;

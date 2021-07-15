@@ -178,15 +178,13 @@ cmake_dependent_option(RR_PLUGINS_BUILD_ADD_NOISE_PLUGIN "Build the Add Noise Pl
 cmake_dependent_option(RR_PLUGINS_BUILD_CHISQUARE_PLUGIN "Build the ChiSquare Plugin" ON "BUILD_RR_PLUGINS" OFF)
 cmake_dependent_option(RR_PLUGINS_BUILD_AUTO2000_PLUGIN "Build the Auto 2000 Plugin" ON "BUILD_RR_PLUGINS" OFF)
 cmake_dependent_option(RR_PLUGINS_BUILD_HELLO_PLUGIN "Build the Demo Plugin" ON "BUILD_RR_PLUGINS" OFF)
+cmake_dependent_option(RR_PLUGINS_BUILD_LEVENBERG_MARQUARDT_PLUGIN "Build the Levenberg-Marquardt Plugin" ON "BUILD_RR_PLUGINS" OFF)
+cmake_dependent_option(RR_PLUGINS_BUILD_NELDER_MEAD_PLUGIN "Build the Nelder-Mead Plugin" ON "BUILD_RR_PLUGINS" OFF)
+cmake_dependent_option(RR_PLUGINS_BUILD_MONTE_CARLO_PLUGIN "Build the Monte Carlo Plugin" ON "BUILD_RR_PLUGINS" OFF)
 
-# Plugin selection: Unreleased
-cmake_dependent_option(RR_PLUGINS_BUILD_LEVENBERG_MARQUARDT_PLUGIN "Build the Levenberg-Marquardt Plugin (beta)" OFF "BUILD_RR_PLUGINS" OFF)
-cmake_dependent_option(RR_PLUGINS_BUILD_NELDER_MEAD_PLUGIN "Build the Nelder-Mead Plugin (beta)" OFF "BUILD_RR_PLUGINS" OFF)
-cmake_dependent_option(RR_PLUGINS_BUILD_MONTE_CARLO_PLUGIN "Build the Monte Carlo Plugin (beta)" OFF "BUILD_RR_PLUGINS" OFF)
-
-mark_as_advanced(RR_PLUGINS_BUILD_LEVENBERG_MARQUARDT_PLUGIN)
-mark_as_advanced(RR_PLUGINS_BUILD_NELDER_MEAD_PLUGIN)
-mark_as_advanced(RR_PLUGINS_BUILD_MONTE_CARLO_PLUGIN)
+#mark_as_advanced(RR_PLUGINS_BUILD_LEVENBERG_MARQUARDT_PLUGIN)
+#mark_as_advanced(RR_PLUGINS_BUILD_NELDER_MEAD_PLUGIN)
+#mark_as_advanced(RR_PLUGINS_BUILD_MONTE_CARLO_PLUGIN)
 
 set(CXX_STANDARD 17 CACHE STRING "set the cmake standard to use")
 

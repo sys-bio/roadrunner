@@ -1,0 +1,72 @@
+cmake_minimum_required(VERSION 2.8)
+project(tel_c_plugin_demo C)
+ENABLE_LANGUAGE (C)
+set(target tel_example_c_plugin_demo)
+
+include_directories(
+${RR_PLUGINS_ROOT}/rrplugins/core
+${RR_PLUGINS_ROOT}/rrplugins/common
+${RR_PLUGINS_ROOT}/wrappers/C
+${THIRD_PARTY_INSTALL_FOLDER}/include
+${THIRD_PARTY_INSTALL_FOLDER}/include/c_api
+)
+
+SET_SOURCE_FILES_PROPERTIES( c_plugin_demo.c PROPERTIES LANGUAGE C)
+set(sources
+c_plugin_demo.c
+c_plugin_demo.h
+)
+
+target_link_libraries (${target}
+    roadrunner-static
+    telplugins_c_api
+    roadrunner_c_api
+)
+
+if(UNIX)
+    if(APPLE)
+        set(CMAKE_SHARED_LINKER_FLAGS "${CMAKE_SHARED_LINKER_FLAGS} -Wl,-no_implicit_dylibs -undefined error")
+    else()
+        set(CMAKE_SHARED_LINKER_FLAGS "-Wl,--no-undefined")
+    endif()
+
+    set_property(TARGET ${target}
+        PROPERTY  COMPILE_DEFINITIONS
+        LIBSBML_STATIC
+        LIBLAX_STATIC
+        STATIC_PUGI
+        STATIC_LIBSTRUCT
+        )
+endif()
+
+
+#Also build the main executable
+set(target c_plugin_demo)
+
+set(main_sources
+)
+
+add_executable(${target} ${main_sources})
+
+add_definitions(
+    -DPOCO_STATIC
+)
+
+
+target_link_libraries (${target}
+    roadrunner_c_api
+    telplugins_c_api
+)
+
+if(INSTALL_C_EXAMPLES)
+    install (TARGETS ${target}
+        DESTINATION plugins
+        COMPONENT examples
+    )
+
+    install (TARGETS ${target}
+             DESTINATION bin
+             COMPONENT examples
+    )
+endif()
+

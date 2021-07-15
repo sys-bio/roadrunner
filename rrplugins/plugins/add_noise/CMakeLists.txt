@@ -20,7 +20,6 @@ target_link_libraries(${target} PRIVATE
         telpluginsBaseClass-static
         telplugins_math-static
         telplugins_common-static
-        ${RRPLUGINS_COMMON_SHARED_LIBS}
         )
 
 target_compile_definitions(${target} PRIVATE

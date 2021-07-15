@@ -5,7 +5,9 @@
 #include "RoadRunnerTest.h"
 
 RoadRunnerTest::RoadRunnerTest()
-        : rrTestDir_(fs::path(getRoadRunnerTestDirectory())) {
+    : rrTestDir_(getRoadRunnerTestDirectory())
+    , rrPluginsBuildDir_(getRoadRunnerPluginBuildDirectory())
+{
     RoadRunnerTest::validateRoadRunnerTestDir();
     rrTestModelsDir_ = rrTestDir_ / "models";
     if (!fs::exists(rrTestModelsDir_)) {
@@ -20,7 +22,8 @@ RoadRunnerTest::RoadRunnerTest()
 
 }
 
-void RoadRunnerTest::validateRoadRunnerTestDir() {
+void RoadRunnerTest::validateRoadRunnerTestDir()
+{
     // if we can locate <test dir>/RoadRunnerTest.h, then we know where
     // we are and can derive other directories from here.
 
@@ -52,7 +55,8 @@ void RoadRunnerTest::validateRoadRunnerTestDir() {
     }
 }
 
-void RoadRunnerTest::checkMatrixEqual(ls::DoubleMatrix expectedMatrix, ls::DoubleMatrix actualMatrix, double absError) {
+void RoadRunnerTest::checkMatrixEqual(ls::DoubleMatrix expectedMatrix, ls::DoubleMatrix actualMatrix, double absError)
+{
     if (expectedMatrix.numRows() != actualMatrix.numRows()) {
         std::cerr << "number of rows in expected Vs actual are not equal" << std::endl;
         ASSERT_EQ(expectedMatrix.numRows(), actualMatrix.numRows());

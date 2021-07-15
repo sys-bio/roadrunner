@@ -11,19 +11,16 @@
 
 namespace lmfit
 {
+    using std::vector;
+    class LM;
+    using tlp::TelluriumData;
+    using tlp::Properties;
 
-using std::vector;
-class LM;
-using tlp::TelluriumData;
-using tlp::Properties;
-
-class lmWorker : public Poco::Runnable
-{
-    friend class LM;
+    class lmWorker : public Poco::Runnable
+    {
+        friend class LM;
 
     protected:
-        rr::RoadRunner             *mRRI;
-
         lmDataStructure             mLMData;        //LevenbergMarq.. data structure
         Poco::Thread                mThread;
 
@@ -46,7 +43,7 @@ class lmWorker : public Poco::Runnable
         void                        start(bool runInThread = true);
         void                        run();
         bool                        isRunning() const;
-};
+    };
 
 }
 #endif
